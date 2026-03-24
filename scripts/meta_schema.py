@@ -63,16 +63,6 @@ META_SCHEMA = {
     "previewLaTeX": "",  # [推荐] 卡片预览公式
     "summary": "",  # [推荐] 简短摘要（搜索结果页）
     "preview": "",  # [可选] 富文本预览
-    "contentBlocks": [  # ⭐⭐⭐ [核心新增] 结构化内容块
-        {
-            "type": "",  # [必须] statement / proof / example / trap / summary
-            "title": "",  # [可选] 小标题
-            "content": "",  # [推荐] HTML / Markdown
-            "latex": "",  # [可选] 原始LaTeX
-            "order": 0,  # [必须] 排序
-            "foldable": True,  # [推荐] 是否默认折叠（性能关键）
-        }
-    ],
     # ==================== 6. 高级能力 ====================
     "derivationSteps": [  # [可选] 推导步骤（结构化）
         {"stepTitle": "", "content": "", "latex": ""}
@@ -82,6 +72,16 @@ META_SCHEMA = {
         "type": "",  # geogebra / desmos / custom
         "params": {},
     },
+    "contentBlocks": [  # ⭐⭐⭐ [核心新增] 结构化内容块
+        {
+            "type": "statement",  # [必须] statement / proof / example / trap / summary
+            "title": "",  # [可选] 小标题
+            "content": "",  # [推荐] HTML / Markdown
+            "latex": "",  # [可选] 原始LaTeX
+            "order": 0,  # [必须] 排序
+            "foldable": True,  # [推荐] 是否默认折叠（性能关键）
+        }
+    ],
     "demoType": "",  # [可选] interactive / static / animation
     "graph": {  # ⭐ [新增] 知识图谱结构
         "prerequisites": [],  # 前置知识

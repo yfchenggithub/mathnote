@@ -1,150 +1,288 @@
+# -*- coding: utf-8 -*-
 """
-===============================================================
-Script Name : check_meta.py
-Project     : 高中数学二级结论知识库 (Mathnote)
+=============================================================
+File: check_meta_json.py
+用途：校验所有 meta.json 是否符合 META_SCHEMA 规范（只检查，不修改）
 
-功能说明
----------------------------------------------------------------
-检查整个项目中的 meta.json 文件是否存在结构或数据问题。
+【核心目标】
+-------------------------------------------------------------
+1. 校验 meta.json 结构是否完整（字段缺失 / 类型错误）
+2. 校验 module / id 是否正确（防止路径篡改）
+3. 校验 contentBlocks 结构是否合法（核心渲染数据）
+4. 校验是否存在非法字段（schema 之外）
+5. 提供清晰日志，便于修复
 
-该脚本只进行检查，不会修改任何文件。
+⚠️ 注意：
+- 本脚本只做“检查”，不做修改
+- 自动修复请使用：meta_schema_sync.py
 
-主要检查内容：
-
-1. meta.json 是否为空文件
-2. JSON 格式是否正确
-3. 是否缺少 id 字段
-4. 是否存在重复 id
-5. 是否缺少 title
-6. 是否缺少 keywords
-
-使用方法
----------------------------------------------------------------
-在项目根目录运行：
-
-    check_meta.bat
-
-或手动执行：
-
-    py scripts/check_meta.py
-
-脚本会扫描整个项目并输出检查结果。
-
-设计思路
----------------------------------------------------------------
-随着结论数量增加（目标 500+），meta.json 文件会越来越多。
-
-常见问题：
-
-    忘记填写 id
-    title 为空
-    keywords 未填写
-    JSON 格式错误
-    不小心复制导致 id 重复
-
-这些问题如果不及时发现，会导致：
-
-    搜索索引生成失败
-    小程序搜索异常
-    数据结构混乱
-
-因此需要一个自动检测工具。
-
-处理逻辑
----------------------------------------------------------------
-1. 扫描整个项目目录
-2. 查找所有 meta.json
-3. 对每个文件执行：
-
-   - 判断是否为空文件
-   - 尝试解析 JSON
-   - 检查 id 是否存在
-   - 检查 id 是否重复
-   - 检查 title
-   - 检查 keywords
-
-4. 输出问题报告
-
-作者
----------------------------------------------------------------
-Author : 程远锋
-Role   : 程序员 / 高中数学教师
-
-创建时间
----------------------------------------------------------------
-Created : 2026
-===============================================================
+=============================================================
 """
-import json
+
 import os
+import json
+import re
+import datetime
+from typing import Dict, Any
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
-PROJECT_ROOT = os.path.abspath(os.path.join(SCRIPT_DIR, ".."))
+from meta_schema import META_SCHEMA
 
-ids = set()
-duplicate_ids = set()
+# ==================== 项目路径 ====================
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
-total_files = 0
+# ==================== contentBlocks 校验规则 ====================
+VALID_BLOCK_TYPES = {
+    "statement",
+    "explanation",
+    "proof",
+    "example",
+    "trap",
+    "summary",
+}
+
+REPORT = {
+    "summary": {
+        "totalFiles": 0,
+        "errorFiles": 0,
+        "totalErrors": 0,
+        "status": "",
+        "generatedAt": "",
+    },
+    "files": [],
+}
+# ==================== 目录规则 ====================
+import re
 
 
-def check_meta(path):
+def is_module_dir(name: str) -> bool:
+    """
+    判断是否为模块目录，如 03-conic
+    """
+    return re.match(r"^\d{2}-[a-z]+$", name) is not None
 
-    global total_files
 
-    total_files += 1
+def is_conclusion_dir(name: str) -> bool:
+    """
+    判断是否为二级结论目录，如 C001_xxx
+    """
+    return re.match(r"^[A-Z]\d{3}_", name) is not None
 
-    # 空文件
-    if os.path.getsize(path) == 0:
-        print("ERROR (empty meta):", path)
-        return
 
+# 自动生成白名单（推荐）
+ALLOWED_MODULES = {d for d in os.listdir(PROJECT_ROOT) if is_module_dir(d)}
+
+
+def is_module_dir(name: str) -> bool:
+    return re.match(r"^\d{2}-[a-z]+$", name) is not None
+
+
+def is_conclusion_dir(name: str) -> bool:
+    return re.match(r"^[A-Z]\d{3}_", name) is not None
+
+
+# ==================== 工具函数 ====================
+
+
+def extract_module_and_id(dir_path: str):
+    """
+    从目录路径提取 module 和 id
+
+    示例：
+    03-inequality/C001_xxx → module=inequality, id=C001
+    """
+    module_dir = os.path.basename(os.path.dirname(dir_path))
+    module = module_dir.split("-")[-1]
+
+    name = os.path.basename(dir_path)
+    id_ = name.split("_")[0]
+
+    return module, id_
+
+
+# ==================== 核心校验 ====================
+
+
+def check_schema(meta: Dict, schema: Dict, path="") -> list:
+    """
+    递归检查 schema 结构
+
+    返回：
+    - errors: 所有错误列表
+    """
+    errors = []
+
+    # 1️⃣ 检查缺失字段
+    for key in schema:
+        full_key = f"{path}.{key}" if path else key
+
+        if key not in meta:
+            errors.append(f"[MISSING] {full_key}")
+        else:
+            # 如果是 dict，递归检查
+            if isinstance(schema[key], dict) and isinstance(meta[key], dict):
+                errors.extend(check_schema(meta[key], schema[key], full_key))
+
+    # 2️⃣ 检查多余字段
+    for key in meta:
+        full_key = f"{path}.{key}" if path else key
+
+        if key not in schema:
+            errors.append(f"[EXTRA] {full_key}")
+
+    return errors
+
+
+def check_content_blocks(meta: Dict) -> list:
+    """
+    校验 contentBlocks（核心结构）
+
+    检查：
+    - 是否为 list
+    - 每个 block 是否为 dict
+    - type 是否合法
+    """
+    errors = []
+
+    blocks = meta.get("contentBlocks", [])
+
+    if not isinstance(blocks, list):
+        return ["[ERROR] contentBlocks 不是数组"]
+
+    for i, block in enumerate(blocks):
+        path = f"contentBlocks[{i}]"
+
+        if not isinstance(block, dict):
+            errors.append(f"[ERROR] {path} 不是对象")
+            continue
+
+        # type 校验
+        if block.get("type") not in VALID_BLOCK_TYPES:
+            errors.append(f"[ERROR] {path}.type 非法: {block.get('type')}")
+
+    return errors
+
+
+# ==================== 单文件处理 ====================
+
+
+def check_meta_file(path: str):
+    """
+    校验单个 meta.json
+    """
+    global REPORT
     try:
         with open(path, "r", encoding="utf8") as f:
             meta = json.load(f)
-
-    except json.JSONDecodeError:
-        print("ERROR (invalid json):", path)
+    except Exception:
+        print(f"[ERROR] 无法解析 JSON: {path}")
         return
 
-    # ID检查
-    if "id" not in meta or not meta["id"]:
-        print("ERROR (missing id):", path)
-    else:
+    errors = []
 
-        id_value = meta["id"]
+    # ==================== 路径校验 ====================
+    module, id_ = extract_module_and_id(os.path.dirname(path))
 
-        if id_value in ids:
-            duplicate_ids.add(id_value)
-            print("ERROR (duplicate id):", id_value, path)
+    if meta.get("module") != module:
+        errors.append(f"[ERROR] module 不匹配: {meta.get('module')} != {module}")
 
-        ids.add(id_value)
+    if meta.get("id") != id_:
+        errors.append(f"[ERROR] id 不匹配: {meta.get('id')} != {id_}")
 
-    # title
-    if "title" not in meta or meta["title"] == "":
-        print("WARNING (missing title):", path)
+    # ==================== schema 校验 ====================
+    errors.extend(check_schema(meta, META_SCHEMA))
 
-    # keywords
-    if "keywords" not in meta or len(meta["keywords"]) == 0:
-        print("WARNING (missing keywords):", path)
+    # ==================== contentBlocks 校验 ====================
+    errors.extend(check_content_blocks(meta))
+
+    # ==================== 输出 ====================
+    if errors:
+        # ===== 收集 JSON 报告 =====
+        REPORT["summary"]["errorFiles"] += 1
+        REPORT["summary"]["totalErrors"] += len(errors)
+
+        REPORT["files"].append(
+            {
+                "path": path.replace(PROJECT_ROOT + os.sep, ""),
+                "module": module,
+                "id": id_,
+                "errors": errors,
+            }
+        )
+        # 控制台输出（保留）
+        print(f"\n[{path}]")
+        for e in errors:
+            print(" ", e)
+
+
+# ==================== 扫描 ====================
+
+
+def scan_all():
+    """
+    扫描所有模块 & 结论
+    """
+    for module_dir in os.listdir(PROJECT_ROOT):
+        # ✅ 只处理白名单模块（核心）
+        if module_dir not in ALLOWED_MODULES:
+            continue
+
+        module_path = os.path.join(PROJECT_ROOT, module_dir)
+
+        for sub_dir in os.listdir(module_path):
+            if not is_conclusion_dir(sub_dir):
+                continue
+
+            conclusion_path = os.path.join(module_path, sub_dir)
+            meta_path = os.path.join(conclusion_path, "meta.json")
+
+            if os.path.exists(meta_path):
+                REPORT["summary"]["totalFiles"] += 1
+                check_meta_file(meta_path)
+            else:
+                REPORT["summary"]["totalFiles"] += 1
+
+                REPORT["summary"]["errorFiles"] += 1
+                REPORT["summary"]["totalErrors"] += 1
+
+                REPORT["files"].append(
+                    {
+                        "path": meta_path.replace(PROJECT_ROOT + os.sep, ""),
+                        "module": module_dir,
+                        "id": sub_dir,
+                        "errors": ["[MISSING FILE] meta.json 不存在"],
+                    }
+                )
+                print(f"[MISSING FILE] {meta_path}")
+
+
+# ==================== 主入口 ====================
 
 
 def main():
+    print("=" * 50)
+    print("META JSON CHECK TOOL")
+    print("=" * 50)
 
-    print("Checking project:", PROJECT_ROOT)
-    print()
+    scan_all()
+    # ===== 输出 JSON 报告 =====
+    report_path = os.path.join(PROJECT_ROOT, "meta_check_report.json")
+    if REPORT["summary"]["errorFiles"] > 0:
+        REPORT["summary"]["status"] = "FAIL"
+    else:
+        REPORT["summary"]["status"] = "PASS"
+    REPORT["summary"]["generatedAt"] = datetime.datetime.now().isoformat()
+    with open(report_path, "w", encoding="utf8") as f:
+        json.dump(REPORT, f, indent=2, ensure_ascii=False)
 
-    for root, dirs, files in os.walk(PROJECT_ROOT):
+    print("\n===== SUMMARY =====")
+    print("Total Files:", REPORT["summary"]["totalFiles"])
+    print("Error Files:", REPORT["summary"]["errorFiles"])
+    print("Total Errors:", REPORT["summary"]["totalErrors"])
+    print("status:", REPORT["summary"]["status"])
+    print("generatedAt:", REPORT["summary"]["generatedAt"])
 
-        if "meta.json" in files:
-
-            path = os.path.join(root, "meta.json")
-            check_meta(path)
-
-    print()
-    print("Total meta files:", total_files)
-
-    if duplicate_ids:
-        print("Duplicate IDs:", duplicate_ids)
+    print(f"\nJSON Report: {report_path}")
+    print("\nDONE")
 
 
 if __name__ == "__main__":
