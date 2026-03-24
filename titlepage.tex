@@ -1,0 +1,94 @@
+% --- titlepage.tex ---
+\begin{titlepage}
+    \thispagestyle{empty}
+    % 1. 强制单页控制，防止内容溢出到第二页
+    \enlargethispage{3cm} 
+    
+    % 顶部装饰条与视觉中心
+    \begin{tikzpicture}[remember picture, overlay]
+        % 深蓝色背景高度微调
+        \fill[CStatement] (current page.north west) rectangle ([yshift=-12.5cm]current page.north east);
+        
+        % 主标题 [cite: 35]
+        \node[white, anchor=north west] at ([xshift=2cm, yshift=-2.2cm]current page.north west) {
+            \fontsize{42}{42}\selectfont\bfseries 高中数学二级结论(不等式)
+        };
+        
+        % 副标题 [cite: 36, 37]
+        \node[white, anchor=north west] at ([xshift=2cm, yshift=-4.5cm]current page.north west) {
+            \fontsize{24}{24}\selectfont 逻辑拆解、快速验证与秒杀实战
+        };
+        \node[white, anchor=north west] at ([xshift=2cm, yshift=-6.2cm]current page.north west) {
+            \fontsize{20}{20}\selectfont 500+ 高中数学核心结论 · 高考解题加速体系
+        };
+
+        % 适用对象 [cite: 38]
+        \node[white, anchor=north west] at ([xshift=2cm, yshift=-7.8cm]current page.north west) {
+            \fontsize{18}{18}\selectfont \faUsers \ \textbf{适用对象：}高中生 / 高考复习 / 强基计划
+        };
+
+        % 核心公式展示 [cite: 39]
+        \node[white, anchor=north west] at ([xshift=2cm, yshift=-9.2cm]current page.north west) {
+            \fontsize{22}{22}\selectfont 
+            $\displaystyle \left( \sum_{i=1}^n a_i^2 \right) \left( \sum_{i=1}^n b_i^2 \right) \ge \left( \sum_{i=1}^n a_i b_i \right)^2$
+        };
+    \end{tikzpicture}
+
+    % 2. 这里的间隔确保中间盒子离开蓝色背景边缘 [cite: 40]
+    \vspace{12.2cm}
+
+    % 核心价值区 [cite: 41, 42]
+    \begin{center}
+        \begin{tcolorbox}[
+            colback=BGExample, 
+            colframe=CExample, 
+            width=0.94\textwidth,
+            arc=6pt,
+            boxrule=1.2pt,
+            title={\large \bfseries \faRocket \ 为什么这本手册是考场提分利器？},
+            center title,
+            fonttitle=\bfseries,
+            top=2.5mm, bottom=2.5mm 
+        ]
+            \begin{itemize}[label=\textcolor{CExample}{\small\faCheckCircle}, leftmargin=1.5em, itemsep=0.2em]
+                \item \textbf{结果快速验证}：为复杂题目提供"第二核对点"，确保逻辑闭环。
+                \item \textbf{计算路径压缩}：绕过繁琐步骤，利用成熟模型直接锁定答案。
+                \item \textbf{解题逻辑回检}：当常规方法卡壳时，提供高维视角的备用方案。
+                \item \textbf{程序员式逻辑重构}：基于严谨逻辑推导，重塑数学底层思维。
+            \end{itemize}
+        \end{tcolorbox}
+    \end{center}
+
+    \vfill
+
+    % 3. 底部身份标识：修正并列布局 [cite: 43-46]
+   \begin{center}
+        \color{darkgray}
+        \rule{0.85\textwidth}{0.5pt} \\ % 增加分割线长度提升视觉平衡
+        \vspace{0.4cm}
+        
+        % 1. 调整并列比例：左侧二维码 0.2 | 中间空隙 \hfill | 右侧文字 0.72
+        % 使用 [c] 确保图片和多行文字垂直居中对齐
+        \begin{minipage}[c]{0.20\textwidth}
+            \centering
+            % 缩小图片占比从 0.95 到 0.85，控制视觉大小
+            \href{https://mp.weixin.qq.com/s/VhXATNYuYp_-qpOsnnOmFQ}{%
+                \includegraphics[width=0.85\linewidth]{qr}%
+            }
+        \end{minipage}
+        \hfill 
+        \begin{minipage}[c]{0.72\textwidth}
+            {\large \bfseries \color{wechatred} 高考数学教研组·内部讲义} \\
+            \vspace{0.12cm}
+            {\small 编著：\WX 985教学团队 \quad | \quad \href{https://mp.weixin.qq.com/s/VhXATNYuYp_-qpOsnnOmFQ}{\color{blue}\underline{点击关注公众号: \WX}}} \\
+            \vspace{0.12cm}
+            {\footnotesize \copyright 2026 \mbox{南京市江宁区极坐标软件开发工作室}} \\ 
+            {\scriptsize \color{gray} 更新日期：\today \quad | \quad 版本号：V2.1.0} 
+        \end{minipage}
+        
+        % 2. 核心：在底部强行加入一个固定高度的间距，将整体内容往上"顶"
+        \vspace*{1.2cm} 
+    \end{center}
+
+\end{titlepage}
+\clearpage

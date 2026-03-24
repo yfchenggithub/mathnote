@@ -1,0 +1,96 @@
+\begin{tikzpicture}[scale=1.05, line cap=round, line join=round]
+
+% =========================
+% 参数
+% =========================
+\def\a{4.8}
+\def\b{3.0}
+\pgfmathsetmacro{\c}{sqrt(\a*\a-\b*\b)}
+
+% 椭圆上一点 P (参数角 t)
+\def\t{55}
+\pgfmathsetmacro{\Px}{\a*cos(\t)}
+\pgfmathsetmacro{\Py}{\b*sin(\t)}
+
+% =========================
+% 样式
+% =========================
+\tikzset{
+  axis/.style={->, line width=0.9pt},
+  curve/.style={line width=1.05pt},
+  seg/.style={line width=0.95pt},
+  focus/.style={circle, fill=black, inner sep=1.6pt},
+  pt/.style={circle, fill=black, inner sep=1.6pt},
+  lab/.style={font=\small},
+  redhi/.style={red!75!black, line width=1.1pt},
+  redfill/.style={red!75!black, fill=red!10, line width=1.0pt},
+  dashhi/.style={red!65!black, dashed, line width=1.05pt}
+}
+
+% =========================
+% 坐标轴
+% =========================
+\draw[axis] (-6.2,0) -- (6.2,0) node[right, lab] {$x$};
+\draw[axis] (0,-4.3) -- (0,4.3) node[above, lab] {$y$};
+
+% =========================
+% 椭圆
+% =========================
+\draw[curve] (0,0) ellipse [x radius=\a, y radius=\b];
+
+% =========================
+% 焦点
+% =========================
+\coordinate (F1) at (-\c,0);
+\coordinate (F2) at (\c,0);
+
+\node[focus, label={[lab, yshift=-2pt]below left:$F_1$}] at (F1) {};
+\node[focus, label={[lab, yshift=-2pt]below right:$F_2$}] at (F2) {};
+
+% =========================
+% 点 P
+% =========================
+\coordinate (P) at (\Px,\Py);
+\node[pt, label={[lab]above:$P$}] at (P) {};
+
+% =========================
+% 线段
+% =========================
+\draw[seg] (P) -- (F1);
+\draw[seg] (P) -- (F2);
+\draw[seg] (F1) -- (F2);
+
+% =========================
+% 角度高亮
+% =========================
+\draw pic[
+  draw=red!75!black,
+  fill=red!10,
+  angle radius=10mm,
+  angle eccentricity=1.18,
+  "$\alpha$"{font=\small, red!75!black}
+] {angle = P--F1--F2};
+
+\draw pic[
+  draw=red!75!black,
+  fill=red!10,
+  angle radius=10mm,
+  angle eccentricity=1.18,
+  "$\beta$"{font=\small, red!75!black}
+] {angle = P--F2--F1};
+
+% =========================
+% 轻辅助线: 显示 c
+% =========================
+\draw[dashhi] (0,0) -- (F2)
+node[midway, above, lab, red!65!black] {$c$};
+
+% =========================
+% 图中信息标签
+% =========================
+\node[lab] at (0,-3.55) {$\displaystyle \frac{x^2}{a^2}+\frac{y^2}{b^2}=1$};
+
+\node[lab, align=center] at (0,3.55)
+{$\displaystyle e=\frac{\sin(\alpha+\beta)}{\sin\alpha+\sin\beta}$};
+
+\end{tikzpicture}

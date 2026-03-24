@@ -1,0 +1,43 @@
+\begin{tikzpicture}[scale=1.0,>=Stealth]
+
+% ===== Parameters (SAFE) =====
+\pgfmathsetmacro{\A}{4.5} % a
+\pgfmathsetmacro{\B}{2.7} % b
+
+% ===== Axes =====
+\draw[->,line width=0.4pt] (-5.2,0) -- (5.2,0) node[right] {$x$};
+\draw[->,line width=0.4pt] (0,-3.3) -- (0,3.3) node[above] {$y$};
+
+% ===== Ellipse =====
+\draw[line width=1.0pt] (0,0) ellipse [x radius=\A, y radius=\B];
+
+% ===== Points =====
+\coordinate (A) at (-\A,0);
+\coordinate (B) at (\A,0);
+\coordinate (P) at (0,\B);
+
+% ===== Segment AB =====
+\draw[line width=0.8pt] (A) -- (B);
+
+% ===== Rays PA, PB =====
+\draw[line width=1.2pt] (P) -- (A);
+\draw[line width=1.2pt] (P) -- (B);
+
+% ===== Angle mark =====
+\draw pic[
+  draw,
+  line width=0.9pt,
+  angle radius=0.55cm,
+  angle eccentricity=1.25,
+  color=CStatement
+] {angle = A--P--B};
+
+% ===== Labels =====
+\fill (A) circle (2pt) node[below left] {$A(-a,0)$};
+\fill (B) circle (2pt) node[below right] {$B(a,0)$};
+\fill (P) circle (2pt) node[above] {$P(0,b)$};
+
+% ===== Caption =====
+\node at (0,-2.9) {\small 当 $P$ 为上下顶点时, $\angle APB$ 最大};
+
+\end{tikzpicture}

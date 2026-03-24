@@ -1,0 +1,49 @@
+% P01-distance-extreme-from-external-point-max.tikz
+% 最远距离：AQ_max（红色）
+% 稳定版：不使用 intersections
+
+\begin{tikzpicture}[scale=1.0,>=Stealth]
+
+% ===== 参数 =====
+\def\R{2.2} % 半径
+\coordinate (O) at (0,0);
+\coordinate (A) at (4.2,1.4);
+
+% ===== 计算：OA方向单位向量 =====
+\pgfmathsetmacro{\ax}{4.2}
+\pgfmathsetmacro{\ay}{1.4}
+\pgfmathsetmacro{\lenOA}{sqrt(\ax*\ax+\ay*\ay)}
+\pgfmathsetmacro{\ux}{\ax/\lenOA}
+\pgfmathsetmacro{\uy}{\ay/\lenOA}
+
+% 最远点 Q = O - R * u
+\coordinate (Q) at ({-\R*\ux},{-\R*\uy});
+
+% ===== 圆 =====
+\draw[line width=1.0pt] (O) circle (\R);
+
+% ===== OA虚线 =====
+\draw[dashed, line width=0.9pt] (O) -- (A);
+
+% ===== 半径 OQ =====
+\draw[line width=0.9pt] (O) -- (Q);
+\node[fill=white, inner sep=1pt] at ($(O)!0.55!(Q)$) {$R$};
+
+% ===== 最远距离 AQ_max =====
+\draw[line width=1.8pt, red!75!black] (A) -- (Q);
+\node[red!75!black, fill=white, inner sep=1pt]
+  at ($(A)!0.55!(Q) + (0.25,-0.15)$) {$AQ_{\max}$};
+
+% ===== 点 =====
+\fill (O) circle (1.6pt);
+\fill (A) circle (1.8pt);
+\fill (Q) circle (1.6pt);
+
+\node[below left] at (O) {$O$};
+\node[above right] at (A) {$A$};
+\node[below left] at (Q) {$Q$};
+
+% ===== 标题 =====
+\node[font=\small] at (0,-3.0) {Farthest distance (最远距离)};
+
+\end{tikzpicture}

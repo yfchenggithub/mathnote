@@ -1,0 +1,85 @@
+% fig-APB-max-bottom-with-generalP.tikz.tex
+\begin{tikzpicture}[scale=1.0, line cap=round, line join=round]
+
+% =========================
+% Parameters (ellipse)
+% =========================
+\def\a{4.6}   % semi-major axis a
+\def\b{2.7}   % semi-minor axis b
+
+% =========================
+% Key points
+% =========================
+\coordinate (O) at (0,0);
+\coordinate (A) at (-\a,0);
+\coordinate (B) at (\a,0);
+
+% 任意点 P（取右上方一个典型点）
+\def\t{35} % 可自行调
+\coordinate (P) at ({\a*cos(\t)},{-\b*sin(\t)});
+
+% 最大值点：下顶点
+\coordinate (Pmax) at (0,-\b);
+
+% =========================
+% Styles
+% =========================
+\tikzset{
+  axis/.style={->, line width=1.0pt},
+  ellipse/.style={line width=1.0pt},
+  tri/.style={line width=1.2pt},
+  highlight/.style={dashed, line width=1.4pt, red},
+  pt/.style={circle, inner sep=1.7pt, fill=black},
+  ptmax/.style={circle, inner sep=2.0pt, fill=red},
+  label/.style={font=\normalsize},
+  labbg/.style={fill=white, inner sep=1.5pt}
+}
+
+% =========================
+% Axes
+% =========================
+\draw[axis] (-6.0,0) -- (6.0,0) node[right] {$x$};
+\draw[axis] (0,-3.9) -- (0,3.9) node[above] {$y$};
+
+% =========================
+% Ellipse
+% =========================
+\draw[ellipse] (0,0) ellipse [x radius=\a, y radius=\b];
+
+% =========================
+% Solid: general P
+% =========================
+\draw[tri] (A) -- (P) -- (B);
+
+% =========================
+% Highlight dashed: maximum case at Pmax
+% =========================
+\draw[highlight] (A) -- (Pmax) -- (B);
+
+% =========================
+% Points
+% =========================
+\node[pt] at (A) {};
+\node[pt] at (B) {};
+\node[pt] at (P) {};
+\node[ptmax] at (Pmax) {};
+
+% =========================
+% Labels
+% =========================
+\node[label, labbg, left=4pt]  at (A) {$A(-a,0)$};
+\node[label, labbg, right=4pt] at (B) {$B(a,0)$};
+
+\node[label, labbg, above right=2pt] at (O) {$O$};
+
+\node[label, labbg, right=3pt] at (P) {$P$};
+
+\node[label, labbg, below=3pt] at (Pmax) {$P_{\max}(0,-b)$};
+
+% =========================
+% Conclusion text (bottom)
+% =========================
+\node[label] at (0,-3.55)
+{$\displaystyle (\angle APB)_{\max}=2\arctan\frac{b}{a}$};
+
+\end{tikzpicture}

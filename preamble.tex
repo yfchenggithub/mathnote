@@ -1,0 +1,274 @@
+% 宏包、环境、自定义命令
+% ========= 基础 =========
+\usepackage[a4paper,margin=2.5cm]{geometry} 
+%设置纸张为 A4，边距为 2.5cm
+\usepackage{lastpage}  % <--- 添加这一行，用于获取总页数
+
+\usepackage{fontspec}
+\setmainfont{Times New Roman} 
+%用于设置西文字体为 Times New Roman
+
+% ========= 中文 =========
+\usepackage{xeCJK}
+\setCJKmainfont[
+  ItalicFont=KaiTi,
+  BoldFont=SimHei
+]{SimSun}
+%核心宏包。它让 LaTeX 能够识别中文字符。SimSun 指定了全局中文字体为宋体
+
+% （强烈建议）把三种常用中文字体族声明出来
+\setCJKfamilyfont{song}{SimSun}
+\setCJKfamilyfont{hei}{SimHei}
+\setCJKfamilyfont{kai}{KaiTi}
+
+% 禁止数学模式自动调用中文字体（你原本的意图是对的）
+\xeCJKsetup{
+  CJKmath = false
+}
+% ========= 数学 =========
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{mathtools}
+% 数学全家桶。提供了复杂的公式对齐、数学符号（如 $\mathbb{R}$）以及定义定理环境的功能
+
+% ========= 图形 =========
+\usepackage{graphicx}
+\usepackage{float}
+% 添加这一行，告诉 LaTeX 图片存放在 assets/figures 文件夹中
+% 注意：路径后的斜杠 / 不能少，且外层需要双大括号
+\graphicspath{{assets/figures/}}
+% 处理图片插入。float 提供的 [H] 参数可以让图片乖乖待在代码位置，不乱跑
+
+% ========= 图形增强 (TikZ) =========
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usetikzlibrary{arrows.meta, intersections, calc, quotes, angles}
+
+% 定义常用的 TikZ 样式，方便在讲义中统一风格
+\tikzset{
+    coordinate_axis/.style={-Stealth, thick}, % 坐标轴样式
+    curve_line/.style={blue, very thick},     % 曲线样式
+    dot/.style={fill=black, circle, inner sep=1pt} % 点样式
+}
+
+% ========= 链接 =========
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+% 给目录、公式、链接加上超链接。colorlinks=true 会让链接变成蓝色而不是红框
+
+% ========= 列表 =========
+\usepackage{enumitem}
+% 列表增强。让你可以自定义序号，比如把 1. 2. 3. 改成 (i), (ii), (iii)
+
+% ===== 盒子与颜色 =====
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{fontawesome5} % 必须添加此行以支持 \faCheckCircle 图标
+\tcbuselibrary{breakable, skins}
+
+\xeCJKsetup{
+  CJKmath = false
+}
+%这是一个很聪明的设置。它禁止在数学公式里自动调用中文字体，保证公式里的符号（如 $x, y$）依然使用专业的数学字体，而不是被强行改成宋体。 
+\usepackage{tabularx} % 自动调整列宽的表格
+
+
+% ===== 六类内容配色 =====
+\definecolor{CStatement}{HTML}{1F4E79}   % 深蓝
+\definecolor{CExplanation}{HTML}{355C7D} % 蓝灰
+\definecolor{CProof}{HTML}{6C5B7B}       % 紫灰
+\definecolor{CExample}{HTML}{2E7D32}     % 深绿
+\definecolor{CTrap}{HTML}{8E2424}        % 深红
+\definecolor{CSummary}{HTML}{5D4037}     % 棕色
+
+% ===== Others: Dark Gold Style =====
+\definecolor{GoldMain}{HTML}{8D6E63}   % 暗金棕
+\definecolor{GoldLight}{HTML}{F6EFEA}  % 米金底
+
+
+\definecolor{BGStatement}{HTML}{EAF2F8}
+\definecolor{BGExplanation}{HTML}{F2F5F7}
+\definecolor{BGProof}{HTML}{F3F0F7}
+\definecolor{BGExample}{HTML}{EDF7ED}
+\definecolor{BGTrap}{HTML}{FBEAEA}
+\definecolor{BGSummary}{HTML}{F5F0EB}
+
+% ===== Statement =====
+% 二级结论	深蓝色	圆角，标准边框
+\newtcolorbox{statementbox}{
+  breakable,
+  colback=BGStatement,
+  colframe=CStatement,
+  boxrule=0.8pt,
+  arc=4pt,
+  title=二级结论,
+  fonttitle=\bfseries
+}
+
+% ===== Explanation =====
+% 理解说明	蓝灰色	左侧有加粗垂直线条
+\newtcolorbox{explanationbox}{
+  breakable,
+  colback=BGExplanation,
+  colframe=CExplanation,
+  borderline west={2pt}{0pt}{CExplanation},
+  title=理解说明,
+  fonttitle=\bfseries
+}
+
+% ===== Proof =====
+% 证明	紫灰色	标准方框
+\newtcolorbox{proofbox}{
+  breakable,
+  colback=BGProof,
+  colframe=CProof,
+  title=证明,
+  fonttitle=\bfseries
+}
+
+% ===== Examples =====
+% 典型例题	深绿色	标准方框
+\newtcolorbox{examplebox}{
+  breakable,
+  colback=BGExample,
+  colframe=CExample,
+  title=典型例题,
+  fonttitle=\bfseries
+}
+
+% ===== Traps =====
+% 易错提醒	深红色	左侧红色警示条
+\newtcolorbox{trapbox}{
+  breakable,
+  colback=BGTrap,
+  colframe=CTrap,
+  borderline west={2pt}{0pt}{CTrap},
+  title=易错提醒,
+  fonttitle=\bfseries
+}
+
+% ===== Summary =====
+% 结论小结	棕色	标准方框
+% \newtcolorbox{summarybox}{
+%   breakable,
+%   colback=BGSummary,
+%   colframe=CSummary,
+%   title=结论小结,
+%   fonttitle=\bfseries
+% }
+
+% ===== Summary Box 优化版 =====
+\newtcolorbox{summarybox}{
+  breakable,
+  enhanced,                % 启用增强模式以支持更多样式控制
+  colback=BGSummary,
+  colframe=CSummary,
+  title=结论小结,
+  fonttitle=\bfseries\large,
+  % --- 核心：解决拥挤感的参数 ---
+  before upper={\setlength{\parskip}{0.8ex}}, % 增加段落间距
+  left=4mm,               % 增加左内边距
+  right=4mm,              % 增加右内边距
+  top=3mm,                % 增加顶部内边距
+  bottom=3mm,             % 增加底部内边距
+  middle=2mm,             % 如果有分割线，增加间距
+  boxsep=2pt,             % 文字与边框的额外微调间距
+  % --- 列表样式自动化 (如果内容里用了 enumerate/itemize) ---
+  before upper*={
+    \setlist[enumerate]{itemsep=1.5ex, topsep=1ex, leftmargin=1.8em}
+    \setlist[itemize]{itemsep=1.5ex, topsep=1ex, leftmargin=1.8em}
+  },
+  % --- 装饰性设计 ---
+  borderline west={2pt}{0pt}{CSummary}, % 左侧加粗边框线，增加层级感
+  sharp corners=northwest,              % 只有左上角变尖，增加设计感
+}
+
+% ===== other =====
+% 压轴思想	暗金棕	加粗边框，圆角
+\newtcolorbox{ideaBox}{
+  breakable, % 所有盒子都加了 breakable 属性，这意味着如果你的内容太长，盒子可以自动跨页断行，不会溢出页面
+  colback=GoldLight,
+  colframe=GoldMain,
+  boxrule=1pt,
+  arc=5pt,
+  fonttitle=\bfseries,
+  title=压轴思想
+}
+
+% =========================
+% 数学符号"安全替代"
+% =========================
+\DeclareMathOperator{\diff}{d}
+% 定义了直立的微分符号 $\diff$（即 $dy/dx$ 中的 d），符合中国学术规范
+
+% 绝对值 / 范数（强烈建议）
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+
+% ========= 链接（hyperref 必须最后加载） =========
+\usepackage[colorlinks=true,linkcolor=blue]{hyperref}
+
+\usepackage{newunicodechar}
+\newunicodechar{①}{\textcircled{\scriptsize 1}}
+\newunicodechar{②}{\textcircled{\scriptsize 2}}
+
+
+% =========================
+% 🚀 强化防删除水印系统（核心升级）
+% =========================
+
+\usepackage{eso-pic}
+
+% ===== 主水印内容（你只需要改这里）=====
+\newcommand{\WatermarkText}{
+  \textbf{公众号：\WX \quad 作者：Math \& Code Lab}
+}
+
+% ===== 全页水印（抗截图 / 抗删除）=====
+\AddToShipoutPicture{
+\begin{tikzpicture}[remember picture, overlay]
+\node[
+    rotate=45,
+    scale=3,
+    color=lightgray,
+    opacity=0.05
+] at (current page.center)
+{\WatermarkText};
+\end{tikzpicture}
+}
+
+% ===== 左侧防裁剪标识（关键）=====
+\AddToShipoutPicture{
+\begin{tikzpicture}[remember picture, overlay]
+\node[
+    rotate=90,
+    color=gray,
+    opacity=0.05
+] at ($(current page.west)+(0.5cm,0)$)
+{\small Math \& Code Lab \& \WX};
+\end{tikzpicture}
+}
+
+% =========================
+% 🚀 图形水印（不可替换核心）
+% =========================
+
+\usepackage{eso-pic}
+\usepackage{tikz}
+
+\AddToShipoutPicture{
+\begin{tikzpicture}[remember picture, overlay]
+
+% ===== 中心大水印（不是文本层）=====
+\node[
+    rotate=45,
+    scale=6,
+    color=lightgray,
+    opacity=0.05
+] at (current page.center)
+{
+    \fontsize{40}{40}\selectfont
+    \textbf{\WX}
+};
+
+\end{tikzpicture}
+}

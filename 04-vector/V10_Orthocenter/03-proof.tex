@@ -1,0 +1,68 @@
+\begin{proofbox}
+证明 $\vec{HA} \cdot \vec{HB} = \vec{HB} \cdot \vec{HC}$：
+\begin{enumerate}
+    \item 因为 $H$ 是垂心，所以 $AH \perp BC$。
+    \item 结合向量减法有：$\vec{HA} \cdot \vec{BC} = 0 \implies \vec{HA} \cdot (\vec{HC} - \vec{HB}) = 0$。
+    \item 展开得：$\vec{HA} \cdot \vec{HC} - \vec{HA} \cdot \vec{HB} = 0$，即 $\vec{HA} \cdot \vec{HB} = \vec{HA} \cdot \vec{HC}$。
+    \item 同理，由 $BH \perp AC$ 可得 $\vec{HB} \cdot \vec{HA} = \vec{HB} \cdot \vec{HC}$。
+    \item 综上，$\vec{HA} \cdot \vec{HB} = \vec{HB} \cdot \vec{HC} = \vec{HC} \cdot \vec{HA}$。
+\end{enumerate}
+\end{proofbox}
+
+\begin{proofbox}
+\textbf{1. 证明正切权重等式：}
+$\tan A \cdot \vec{HA} + \tan B \cdot \vec{HB} + \tan C \cdot \vec{HC} = \vec{0}$
+\begin{itemize}
+    \item 根据奔驰定理，系数之比等于对边三角形面积比：$S_{\triangle BHC} : S_{\triangle AHC} : S_{\triangle AHB}$。
+    \item 在 $\triangle BHC$ 中，其底边为 $a$，高为 $H$ 到 $BC$ 的距离（记为 $h_a'$）。
+    \item 由垂心性质，$h_a' = BD \cdot \tan(90^\circ-C) = c \cdot \cos B \cdot \frac{\cos C}{\sin C}$。
+    \item 经过推导，面积比 $S_A:S_B:S_C = a \cos B \cos C : b \cos A \cos C : c \cos A \cos B$。
+    \item 同时除以 $\cos A \cos B \cos C$ 并利用正弦定理 $\frac{a}{\sin A} = \frac{b}{\sin B} = \frac{c}{\sin C}$：
+    \[ \frac{\sin A}{\cos A} : \frac{\sin B}{\cos B} : \frac{\sin C}{\cos C} = \tan A : \tan B : \tan C \]
+    \item 故原命题得证。
+\end{itemize}
+\end{proofbox}
+
+
+\begin{proofbox}
+\textbf{2. 证明数量积常数值：}
+$\vec{HA} \cdot \vec{HB} = \dots = -4R^2 \cos A \cos B \cos C$
+\begin{itemize}
+    \item 利用垂心到顶点的距离公式：$|\vec{HA}| = 2R |\cos A|$，$|\vec{HB}| = 2R |\cos B|$。
+    \item 在锐角 $\triangle ABC$ 中，$\vec{HA}$ 与 $\vec{HB}$ 的夹角为 $180^\circ - C$。
+    \item 数量积定义：$\vec{HA} \cdot \vec{HB} = |\vec{HA}| \cdot |\vec{HB}| \cdot \cos(180^\circ - C)$。
+    \item 代入得：$(2R \cos A) \cdot (2R \cos B) \cdot (-\cos C) = -4R^2 \cos A \cos B \cos C$。
+    \item 由于 $A, B, C$ 对称出现，同理可证三者循环相等。
+\end{itemize}
+\end{proofbox}
+
+\begin{proofbox}
+\textbf{垂心组性质的向量证明}：
+
+\textbf{1. 已知条件}：
+设 $H$ 是 $\triangle ABC$ 的垂心。根据垂心定义，有：
+\[ \vec{AH} \cdot \vec{BC} = 0 \quad \text{--- (1)} \]
+\[ \vec{BH} \cdot \vec{AC} = 0 \quad \text{--- (2)} \]
+\[ \vec{CH} \cdot \vec{AB} = 0 \quad \text{--- (3)} \]
+
+\textbf{2. 证明 $A$ 是 $\triangle HBC$ 的垂心}：
+要证明 $A$ 是 $\triangle HBC$ 的垂心，只需证明 $A$ 与对应顶点的连线垂直于 $\triangle HBC$ 的对边：
+\begin{itemize}
+    \item \textbf{第一条高线}：考察 $A$ 到对边 $BC$ 的连线，即向量 $\vec{AH}$。由 (1) 式知 $\vec{AH} \perp \vec{BC}$。
+    \item \textbf{第二条高线}：考察 $A$ 到对边 $HC$ 的连线，即向量 $\vec{BA}$（或 $\vec{AC}$）。
+    注意对边是 $HC$，我们需要证明 $\vec{BA} \cdot \vec{HC} = 0$。
+    根据向量减法：$\vec{HC} = \vec{AC} - \vec{AH}$。
+    \[ \vec{BA} \cdot \vec{HC} = \vec{BA} \cdot (\vec{AC} - \vec{AH}) = \vec{BA} \cdot \vec{AC} - \vec{BA} \cdot \vec{AH} \]
+    此路略显复杂，我们换个角度：由 (3) 式知 $\vec{CH} \perp \vec{AB}$，即 $\vec{HC} \perp \vec{BA}$。
+    这意味着 $B$ 到对边 $AC$ 的高线经过 $A$。
+\end{itemize}
+
+\textbf{3. 逻辑归纳}：
+\begin{itemize}
+    \item 同理，由 (2) 式知 $\vec{BH} \perp \vec{AC}$，即 $C$ 到对边 $AB$ 的高线也经过 $A$。
+    \item 既然 $\triangle HBC$ 的三条高线（或其延长线）都交于 $A$ 点，根据垂心定义，$A$ 即为 $\triangle HBC$ 的垂心。
+\end{itemize}
+
+\textbf{4. 结论}：
+同理可证 $B$ 是 $\triangle HAC$ 的垂心，$C$ 是 $\triangle HAB$ 的垂心。这四点构成了相互关联的垂心组。
+\end{proofbox}

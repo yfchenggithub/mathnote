@@ -1,0 +1,72 @@
+% assets/tikz/E07-angle-f1pf2-maximum.tikz
+% E07: Angle F1PF2 maximum at the vertical vertex
+
+\begin{center}
+\begin{tikzpicture}[scale=1.15,>=Stealth]
+
+% =========================
+% Parameters (adjustable)
+% =========================
+\def\a{4.2}   % semi-major axis
+\def\b{2.6}   % semi-minor axis
+\pgfmathsetmacro{\c}{sqrt(\a*\a-\b*\b)} % focal distance
+
+% A sample point P on ellipse (near upper-right arc)
+\def\tP{28} % degrees
+
+% =========================
+% Key points
+% =========================
+\coordinate (O)  at (0,0);
+\coordinate (F1) at (-\c,0);
+\coordinate (F2) at (\c,0);
+
+\coordinate (V) at (0,\b);
+\coordinate (P) at ({\a*cos(\tP)},{\b*sin(\tP)});
+
+% =========================
+% Draw ellipse
+% =========================
+\draw[line width=1.2pt] (0,0) ellipse [x radius=\a, y radius=\b];
+
+% =========================
+% Axes (with arrows)
+% =========================
+\draw[->, line width=1.0pt] (-5.2,0) -- (5.2,0) node[right] {$x$};
+\draw[->, line width=1.0pt] (0,-3.3) -- (0,3.3) node[above] {$y$};
+
+% =========================
+% Focus points + labels
+% =========================
+\fill (F1) circle (1.7pt);
+\fill (F2) circle (1.7pt);
+
+\node[below] at (F1) {$F_1$};
+\node[below] at (F2) {$F_2$};
+
+% Origin label
+\node[below right] at (O) {$O$};
+
+% =========================
+% Upper vertex mark (red point)
+% =========================
+\fill[red!80!black] (V) circle (2.2pt);
+
+% =========================
+% Dashed lines from V to foci
+% =========================
+\draw[dashed, line width=1.0pt] (V) -- (F1);
+\draw[dashed, line width=1.0pt] (V) -- (F2);
+
+% =========================
+% Solid lines from P to foci
+% =========================
+\draw[line width=1.2pt] (P) -- (F1);
+\draw[line width=1.2pt] (P) -- (F2);
+
+% Point P mark + label
+\fill (P) circle (1.7pt);
+\node[above right] at (P) {$P$};
+
+\end{tikzpicture}
+\end{center}

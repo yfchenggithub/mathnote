@@ -1,0 +1,49 @@
+% P01-distance-extreme-from-external-point-min.tikz
+% 最近距离：AP_min（蓝色）
+% 稳定版：不使用 intersections
+
+\begin{tikzpicture}[scale=1.0,>=Stealth]
+
+% ===== 参数 =====
+\def\R{2.2} % 半径
+\coordinate (O) at (0,0);
+\coordinate (A) at (4.2,1.4);
+
+% ===== 计算：OA方向单位向量 =====
+\pgfmathsetmacro{\ax}{4.2}
+\pgfmathsetmacro{\ay}{1.4}
+\pgfmathsetmacro{\lenOA}{sqrt(\ax*\ax+\ay*\ay)}
+\pgfmathsetmacro{\ux}{\ax/\lenOA}
+\pgfmathsetmacro{\uy}{\ay/\lenOA}
+
+% 最近点 P = O + R * u
+\coordinate (P) at ({\R*\ux},{\R*\uy});
+
+% ===== 圆 =====
+\draw[line width=1.0pt] (O) circle (\R);
+
+% ===== OA虚线 =====
+\draw[dashed, line width=0.9pt] (O) -- (A);
+
+% ===== 半径 OP =====
+\draw[line width=0.9pt] (O) -- (P);
+\node[fill=white, inner sep=1pt] at ($(O)!0.55!(P)$) {$R$};
+
+% ===== 最近距离 AP_min =====
+\draw[line width=1.8pt, blue!75!black] (A) -- (P);
+\node[blue!75!black, fill=white, inner sep=1pt]
+  at ($(A)!0.55!(P) + (0.25,0.15)$) {$AP_{\min}$};
+
+% ===== 点 =====
+\fill (O) circle (1.6pt);
+\fill (A) circle (1.8pt);
+\fill (P) circle (1.6pt);
+
+\node[below left] at (O) {$O$};
+\node[above right] at (A) {$A$};
+\node[above left] at (P) {$P$};
+
+% ===== 标题 =====
+\node[font=\small] at (0,-3.0) {Nearest distance (最近距离)};
+
+\end{tikzpicture}

@@ -1,0 +1,79 @@
+\begin{proofbox}
+证明 $a\vec{IA} + b\vec{IB} + c\vec{IC} = \vec{0}$：
+\begin{enumerate}
+    \item 设 $AD$ 为 $\angle A$ 的内角平分线交 $BC$ 于 $D$。由角平分线定理知 $BD:DC = c:b$。
+    \item 由分点公式得：$\vec{ID} = \frac{b\vec{IB} + c\vec{IC}}{b+c}$。
+    \item 在 $\triangle ABD$ 中，$BI$ 是 $\angle B$ 的平分线，由角平分线定理知 $AI:ID = AB:BD = c:\frac{ac}{b+c} = (b+c):a$。
+    \item 故 $\vec{IA} = -\frac{b+c}{a}\vec{ID} = -\frac{b+c}{a} \cdot \frac{b\vec{IB} + c\vec{IC}}{b+c} = -\frac{b\vec{IB} + c\vec{IC}}{a}$。
+    \item 整理得 $a\vec{IA} + b\vec{IB} + c\vec{IC} = \vec{0}$。
+\end{enumerate}
+\end{proofbox}
+
+\begin{proofbox}
+\textbf{角平分线向量公式的证明：}
+\begin{enumerate}
+    \item \textbf{利用角平分线定理}：
+    在 $\triangle ABC$ 中，若 $AD$ 平分 $\angle BAC$，根据角平分线定理可知，对边 $BC$ 被分成两段的比等于相邻两边的比：
+    \[ \frac{BD}{DC} = \frac{AB}{AC} = \frac{c}{b} \]
+    
+    \item \textbf{转化为共线向量}：
+    由于点 $D$ 在线段 $BC$ 上，由此可知：
+    \[ \vec{BD} = \frac{c}{b+c} \vec{BC} \]
+    
+    \item \textbf{利用向量加法线性运算}：
+    根据三角形法则，$\vec{AD} = \vec{AB} + \vec{BD}$。代入上式得：
+    \[ \vec{AD} = \vec{AB} + \frac{c}{b+c} \vec{BC} \]
+    
+    \item \textbf{展开对边向量}：
+    利用 $\vec{BC} = \vec{AC} - \vec{AB}$ 进行代换：
+    \[ \vec{AD} = \vec{AB} + \frac{c}{b+c} (\vec{AC} - \vec{AB}) \]
+    
+    \item \textbf{合并同类项}：
+    整理系数：
+    \[ \vec{AD} = \left( 1 - \frac{c}{b+c} \right) \vec{AB} + \frac{c}{b+c} \vec{AC} \]
+    \[ \vec{AD} = \frac{b}{b+c} \vec{AB} + \frac{c}{b+c} \vec{AC} \]
+    
+    \item \textbf{结论}：命题得证。该公式展示了角平分线向量是两侧边向量关于边长的加权平均。
+\end{enumerate}
+\end{proofbox}
+
+\begin{proofbox}
+\textbf{单位向量构造角平分线的证明：}
+\begin{enumerate}
+    \item \textbf{构造单位向量}：
+    设 $\vec{e_1} = \frac{\vec{AB}}{|\vec{AB}|}$，$\vec{e_2} = \frac{\vec{AC}}{|\vec{AC}|}$。
+    则 $\vec{e_1}$ 和 $\vec{e_2}$ 分别是沿 $AB$ 和 $AC$ 方向的单位向量，即 $|\vec{e_1}| = |\vec{e_2}| = 1$。
+    
+    \item \textbf{菱形几何性质}：
+    以 $\vec{e_1}$ 和 $\vec{e_2}$ 为邻边构造一个四边形。由于两邻边长度相等（均为 1），该四边形是一个\textbf{菱形}。
+    
+    \item \textbf{对角线平分内角}：
+    根据向量加法的平行四边形法则，向量 $\vec{w} = \vec{e_1} + \vec{e_2}$ 是该菱形的对角线。
+    在菱形中，对角线平分其顶点所夹的内角，故 $\vec{w}$ 平分 $\angle BAC$。
+    
+    \item \textbf{直线的性质}：
+    向量 $\vec{v} = \lambda \vec{w} = \lambda \left( \frac{\vec{AB}}{|\vec{AB}|} + \frac{\vec{AC}}{|\vec{AC}|} \right)$ 与 $\vec{w}$ 共线。
+    因此，由顶点 $A$ 出发，以 $\vec{v}$ 为方向向量的直线即为 $\angle BAC$ 的角平分线所在的直线。
+    
+    \item \textbf{与内心的联系}：
+    内心 $I$ 是三角形三个内角平分线的交点。既然该直线是 $\angle A$ 的平分线，根据内心的定义，内心 $I$ 必然落在该直线上。
+    
+    \item \textbf{结论}：命题得证。
+\end{enumerate}
+\end{proofbox}
+
+\begin{proofbox}
+\textbf{内心坐标公式的证明：}
+\begin{enumerate}
+    \item \textbf{向量表示基础}：由前述结论可知，对于平面内任意一点 $O$，有 $\vec{OI} = \frac{a\vec{OA} + b\vec{OB} + c\vec{OC}}{a+b+c}$。
+    \item \textbf{坐标化处理}：将点 $O$ 设为坐标原点 $(0,0)$。此时向量 $\vec{OA}, \vec{OB}, \vec{OC}$ 的坐标即为点 $A, B, C$ 的坐标。
+    \item \textbf{分量展开}：
+    设 $\vec{OI} = (x_I, y_I)$，$\vec{OA} = (x_1, y_1)$，$\vec{OB} = (x_2, y_2)$，$\vec{OC} = (x_3, y_3)$。
+    代入向量等式得：
+    \[ (x_I, y_I) = \frac{a(x_1, y_1) + b(x_2, y_2) + c(x_3, y_3)}{a+b+c} \]
+    \item \textbf{分量合并}：
+    根据向量的数乘与加法运算法则：
+    \[ x_I = \frac{ax_1 + bx_2 + cx_3}{a+b+c}, \quad y_I = \frac{ay_1 + by_2 + cy_3}{a+b+c} \]
+    \item \textbf{结论}：该坐标形式实际上是三角形三个顶点关于其对边边长的“加权平均数”。 
+\end{enumerate}
+\end{proofbox}

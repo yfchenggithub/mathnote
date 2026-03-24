@@ -1,0 +1,55 @@
+\begin{proofbox}
+\textbf{两个集合的容斥原理证明}：
+\begin{enumerate}
+    \item 将 $A \cup B$ 划分为三部分：$A \setminus B$，$B \setminus A$，$A \cap B$。
+    \item 这三部分互不相交，且 $A = (A \setminus B) \cup (A \cap B)$，$B = (B \setminus A) \cup (A \cap B)$。
+    \item 因此
+    \begin{align*}
+    |A \cup B| &= |A \setminus B| + |B \setminus A| + |A \cap B| \\
+    &= (|A| - |A \cap B|) + (|B| - |A \cap B|) + |A \cap B| \\
+    &= |A| + |B| - |A \cap B|.
+    \end{align*}
+\end{enumerate}
+\end{proofbox}
+
+\begin{proofbox}
+\textbf{三个集合的容斥原理证明}：
+\begin{enumerate}
+    \item 将 $A \cup B \cup C$ 表示为 $(A \cup B) \cup C$，利用两个集合的容斥原理：
+    \[
+    |A \cup B \cup C| = |A \cup B| + |C| - |(A \cup B) \cap C|.
+    \]
+    \item 计算 $|(A \cup B) \cap C| = |(A \cap C) \cup (B \cap C)|$，再次应用两个集合的容斥原理：
+    \begin{align*}
+    |(A \cap C) \cup (B \cap C)| &= |A \cap C| + |B \cap C| - |(A \cap C) \cap (B \cap C)| \\
+    &= |A \cap C| + |B \cap C| - |A \cap B \cap C|.
+    \end{align*}
+    \item 代入第一步，得
+    \begin{align*}
+    |A \cup B \cup C| &= |A| + |B| - |A \cap B| + |C| - \bigl(|A \cap C| + |B \cap C| - |A \cap B \cap C|\bigr) \\
+    &= |A| + |B| + |C| - |A \cap B| - |A \cap C| - |B \cap C| + |A \cap B \cap C|.
+    \end{align*}
+\end{enumerate}
+\end{proofbox}
+
+\begin{proofbox}
+\textbf{一般形式的证明（数学归纳法）}：
+\begin{enumerate}
+    \item 基础：$n=1$ 时，$|A_1| = |A_1|$ 成立。
+    \item 假设对 $n-1$ 个集合成立。考虑 $n$ 个集合 $A_1, \dots, A_n$。
+    令 $B = A_1 \cup \dots \cup A_{n-1}$，则 $A_1 \cup \dots \cup A_n = B \cup A_n$。
+    由两个集合容斥原理：
+    \[
+    |B \cup A_n| = |B| + |A_n| - |B \cap A_n|.
+    \]
+    由归纳假设，
+    \begin{align*}
+    |B| = \sum_{k=1}^{n-1} (-1)^{k-1} \sum_{1\le i_1 < \dots < i_k \le n-1} |A_{i_1} \cap \dots \cap A_{i_k}|.
+    \end{align*}
+    而 $B \cap A_n = \bigcup_{i=1}^{n-1} (A_i \cap A_n)$，再次应用归纳假设（注意这里是 $n-1$ 个集合 $A_i \cap A_n$）：
+    \begin{align*}
+    |B \cap A_n| = \sum_{k=1}^{n-1} (-1)^{k-1} \sum_{1\le i_1 < \dots < i_k \le n-1} |A_{i_1} \cap \dots \cap A_{i_k} \cap A_n|.
+    \end{align*}
+    \item 代入并合并同类项，即可得到 $n$ 个集合的容斥公式。具体地，$|B|$ 中每一项对应不含 $A_n$ 的交集，$|B \cap A_n|$ 中每一项对应包含 $A_n$ 的交集，合并后正是所有 $k$ 元交集的交错和。
+\end{enumerate}
+\end{proofbox}

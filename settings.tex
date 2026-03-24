@@ -1,0 +1,239 @@
+% 版式、页眉页脚、定理编号 
+% 行距、段距、标题字号、页面风格
+% ===== 定理环境 =====
+\theoremstyle{definition}
+\newtheorem{theorem}{定理}[section]
+\newtheorem{definition}{定义}[section]
+\newtheorem{example}{例}[section]
+
+% ===== 段落样式 =====
+% \setlength{\parindent}{2em}
+% \setlength{\parskip}{0.5em}
+
+% ===== 行距 =====
+\linespread{1.3}
+
+% ===== 段落间距 =====
+\setlength{\parskip}{0.6em}
+
+% ===== 段首不缩进（讲义必选）=====
+\setlength{\parindent}{0pt}
+% =========================
+% 颜色定义（仅 ASCII）
+% =========================
+\usepackage{xcolor}
+
+% \definecolor{CStatement}{RGB}{52, 152, 219}   % 蓝
+% \definecolor{CExplain}{RGB}{46, 204, 113}     % 绿
+% \definecolor{CProof}{RGB}{155, 89, 182}       % 紫
+% \definecolor{CExample}{RGB}{241, 196, 15}     % 黄
+% \definecolor{CTrap}{RGB}{231, 76, 60}         % 红
+% \definecolor{CSummary}{RGB}{127, 140, 141}    % 灰
+
+% ========= 数学安全宏 =========
+\newcommand{\dd}{\,\mathrm{d}}
+\newcommand{\leqsl}{\leqslant}
+\newcommand{\geqsl}{\geqslant}
+
+\usepackage{etoolbox}
+\pretocmd{\subsubsection}{\clearpage\phantomsection}{}{}
+
+% =========================
+% Conclusion page break helper
+% - No sectioning inside
+% - Only: new page + correct hyperlink anchor
+% =========================
+\newcommand{\Conclusion}{%
+  \clearpage
+  \phantomsection
+}
+
+% =========================
+% Header / Footer (公众号)
+% =========================
+\usepackage{fancyhdr}
+
+% 公众号样式颜色（推荐：暗红）
+\definecolor{wechatred}{RGB}{140,20,20}
+\definecolor{brandblue}{RGB}{0, 75, 150}
+\definecolor{darkgray}{RGB}{80, 80, 80}
+
+\pagestyle{fancy}
+\fancyhf{} % 清空默认
+
+\setlength{\headheight}{14pt} %增大：给页眉留足空间，不再报警
+\addtolength{\topmargin}{-2pt} %往上挪一点：避免正文被挤下去导致版心变差
+
+
+% 页眉：左边显示章节名，右边显示小节名
+% \fancyhead[L]{\small\bfseries\leftmark}
+% \fancyhead[C]{\small 加V: \WX 免费领取配套例题与更新 |本文档免费}
+% \fancyhead[R]{\small\rightmark}
+
+\fancyhead[L]{\small\bfseries\color{gray} 高中数学 · 提分利器 \big| \color{black} 必修系列}
+\fancyhead[R]{\small \rightmark}
+\renewcommand{\headrulewidth}{0.5pt} % 增加一条细线提升质感
+
+% 页脚：左边公众号提示，右边页码
+% \fancyfoot[L]{\small\color{wechatred}{\textbf{关注公众号:}\,\WX 打造最全数学二级结论库 |加V: \WX 免费领取配套例题与更新 |本文档免费}}
+% \fancyfoot[R]{\small\thepage}
+
+% 页脚设置
+\fancyfoot[L]{
+    \small\color{darkgray} 
+    \textbf{高中数学·秒杀系列} | 内部教研资料 \hfill \\
+    \scriptsize \textit{注：由 \WX 整理分享，旨在助力学子高效提分}
+}
+
+\fancyfoot[C]{} % 中间留空
+
+\fancyfoot[R]{
+    \small 
+    \color{wechatred}\textbf{获取完整版/配套例题：} 加V \textbf{\WX} \\
+    \color{black}\footnotesize 第 \thepage \ 页 \ / \ 共 \pageref{LastPage} 页
+}
+
+% 调整页脚横线（可选）
+\renewcommand{\footrulewidth}{0.4pt}
+
+% 页眉页脚分隔线
+% \renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% 让章节标题正确写入页眉
+\renewcommand{\sectionmark}[1]{\markboth{#1}{}}
+\renewcommand{\subsectionmark}[1]{\markright{#1}}
+
+%==============================
+% Watermark (讲义水印设置)
+%==============================
+% \usepackage{draftwatermark}
+% \SetWatermarkText{远锋数学讲义 · 禁止转载}
+% \SetWatermarkScale{3.6}
+% \SetWatermarkAngle{45}
+% \SetWatermarkLightness{0.93} % 越接近1越淡, 0.90~0.95最好
+
+
+%================================================
+% Watermark (no header/footer modification)
+%================================================
+
+\usepackage{tikz}
+\usepackage{eso-pic}
+
+% 你只需要改这2行
+\newcommand{\WMHiddenID}{ID: 2026E03-001}
+
+
+%--- 隐藏ID（右上角极淡）
+\newcommand{\LectureHiddenID}{%
+  \AddToShipoutPictureFG*{%
+    \begin{tikzpicture}[remember picture,overlay]
+      \node[
+        anchor=north east,
+        text=black,
+        opacity=0.12,
+        scale=0.85
+      ] at ([xshift=-8mm,yshift=-6mm]current page.north east)
+      {\WMHiddenID};
+    \end{tikzpicture}%
+  }%
+}
+
+%--- 自动启用（不影响你的页眉页脚）
+\AtBeginDocument{%
+  \LectureHiddenID
+}
+
+
+% =========================
+% 🚀 不可裁剪底边标识（关键增强）
+% =========================
+\usepackage{eso-pic}
+
+\AddToShipoutPicture{
+\begin{tikzpicture}[remember picture, overlay]
+
+% 底部贴边（几乎贴到物理边界）
+\node[
+    anchor=south,
+    yshift=2pt, % 非常贴边
+    opacity=0.9
+] at (current page.south)
+{
+    \scriptsize
+    © Math \& Code Lab ｜公众号：\WX ｜内部教研资料
+};
+
+\end{tikzpicture}
+}
+
+% =========================
+% 🚀 左右边界锁定（防横向裁剪）
+% =========================
+\AddToShipoutPicture{
+\begin{tikzpicture}[remember picture, overlay]
+
+% 左边
+\node[
+    rotate=90,
+    anchor=south,
+    xshift=3pt,
+    opacity=0.15
+] at (current page.west)
+{\tiny Math \& Code Lab};
+
+% 右边
+\node[
+    rotate=-90,
+    anchor=south,
+    xshift=-3pt,
+    opacity=0.15
+] at (current page.east)
+{\tiny \WX};
+
+\end{tikzpicture}
+}
+
+% =========================
+% 🚀 顶部补刀（防极端裁剪）
+% =========================
+\AddToShipoutPicture{
+\begin{tikzpicture}[remember picture, overlay]
+
+\node[
+    anchor=north,
+    yshift=-2pt,
+    opacity=0.2
+] at (current page.north)
+{
+    \scriptsize 关注公众号 \WX, 免费领取更多资料
+};
+
+\end{tikzpicture}
+}
+
+% =========================
+% 🚀 真·防搜索版本（宏拆分 + 断字符）
+% =========================
+
+\newcommand{\wxA}{ok}
+\newcommand{\wxB}{-}
+\newcommand{\wxC}{shuxue}
+
+% =========================
+% 🚀 真·防搜索（Unicode级）
+% =========================
+
+\newcommand{\zwsp}{\char"200B} % zero width space
+
+\newcommand{\WX}{
+o\zwsp k\zwsp-\zwsp s\zwsp h\zwsp u\zwsp x\zwsp u\zwsp e
+}
+
+% 定义带圈数字命令 \circled{1}
+\newcommand{\circled}[1]{%
+  \begin{tikzpicture}[baseline=(char.base)]
+    \node[shape=circle,draw,inner sep=1pt, minimum size=1.2em] (char) {\small #1};
+  \end{tikzpicture}%
+}

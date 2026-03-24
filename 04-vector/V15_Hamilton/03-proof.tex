@@ -1,0 +1,62 @@
+\begin{proofbox}
+\textbf{哈密顿公式（Hamilton's Formula）的详细分步证明}：
+
+\textbf{1. 构造辅助点与向量}
+设 $\triangle ABC$ 的外心为 $O$。我们并不直接找垂心，而是先通过向量加法构造出一个"候选点" $H'$，令其满足：
+\[ \vec{OH'} = \vec{OA} + \vec{OB} + \vec{OC} \quad \text{--- (式1)} \]
+我们的目标是证明：这个构造出来的 $H'$ 点，由于其满足垂心的所有几何特征，故它就是垂心 $H$。
+
+\textbf{2. 证明 $AH' \perp BC$ (即 $H'$ 在 $A$ 边的高线上)}
+\begin{itemize}
+    \item 考察从顶点 $A$ 指向 $H'$ 的向量：$\vec{AH'} = \vec{OH'} - \vec{OA}$。
+    \item 代入 (式1) 得：$\vec{AH'} = (\vec{OA} + \vec{OB} + \vec{OC}) - \vec{OA} = \vec{OB} + \vec{OC}$。
+    \item 取 $BC$ 边的中点为 $M$，则由中点向量公式知：$\vec{OB} + \vec{OC} = 2\vec{OM}$。
+    \item 故 $\vec{AH'} = 2\vec{OM}$。
+    \item 因为 $O$ 是外心，$M$ 是 $BC$ 中点，所以 $OM$ 是 $BC$ 的中垂线，即 $OM \perp BC$。
+    \item 由向量平行与垂直的传递性：因为 $\vec{AH'} \parallel \vec{OM}$ 且 $\vec{OM} \perp \vec{BC}$，所以 $\vec{AH'} \perp \vec{BC}$。
+\end{itemize}
+
+
+
+\textbf{3. 证明 $BH' \perp AC$ (即 $H'$ 在 $B$ 边的高线上)}
+\begin{itemize}
+    \item 同理，考察向量 $\vec{BH'} = \vec{OH'} - \vec{OB} = \vec{OA} + \vec{OC}$。
+    \item 取 $AC$ 边的中点为 $N$，则 $\vec{BH'} = 2\vec{ON}$。
+    \item 因为 $ON \perp AC$ (中垂线性质)，故 $\vec{BH'} \perp \vec{AC}$。
+\end{itemize}
+
+\textbf{4. 归纳与结论}
+\begin{itemize}
+    \item 既然点 $H'$ 既在过 $A$ 垂直于 $BC$ 的直线上，又在过 $B$ 垂直于 $AC$ 的直线上，根据三角形垂心的定义（三条高的交点且交点唯一），点 $H'$ 必然就是该三角形的垂心 $H$。
+    \item 因此，结论成立：$\vec{OH} = \vec{OA} + \vec{OB} + \vec{OC}$。
+\end{itemize}
+\end{proofbox}
+
+
+\begin{proofbox}
+\begin{enumerate}
+    \item \textbf{核心等式证明}：
+    设 $\vec{m} = \vec{OA} + \vec{OB} + \vec{OC}$。
+    考察 $\vec{m} - \vec{OA} = \vec{OB} + \vec{OC}$。取 $BC$ 中点 $M$，则 $\vec{OB} + \vec{OC} = 2\vec{OM}$。
+    因 $OM \perp BC$，故 $(\vec{m} - \vec{OA}) \perp \vec{BC}$。同理可证该点满足垂心定义，故 $\vec{OH} = \vec{OA} + \vec{OB} + \vec{OC}$。
+
+    \item \textbf{距离关系证明 ($|\vec{AH}|^2 = 4R^2 - a^2$)}：
+    \begin{itemize}
+        \item 由核心等式移项得：$\vec{AH} = \vec{OH} - \vec{OA} = \vec{OB} + \vec{OC}$。
+        \item 对等式两边同时平方：
+        \[ |\vec{AH}|^2 = |\vec{OB} + \vec{OC}|^2 \]
+        \[ |\vec{AH}|^2 = |\vec{OB}|^2 + |\vec{OC}|^2 + 2\vec{OB} \cdot \vec{OC} \]
+        \item 注意 $O$ 为外心，则 $|\vec{OB}| = |\vec{OC}| = R$。
+        \item 根据数量积边长公式，在 $\triangle OBC$ 中，$\vec{OB} \cdot \vec{OC} = \frac{R^2 + R^2 - a^2}{2} = R^2 - \frac{a^2}{2}$。
+        \item 代入上式整理：
+        \[ |\vec{AH}|^2 = R^2 + R^2 + 2(R^2 - \frac{a^2}{2}) \]
+        \[ |\vec{AH}|^2 = 2R^2 + 2R^2 - a^2 = 4R^2 - a^2 \]
+    \end{itemize}
+
+    \item \textbf{模长平方推导 ($|\vec{OH}|^2$)}：
+    \[ |\vec{OH}|^2 = |\vec{OA} + (\vec{OB} + \vec{OC})|^2 = |\vec{OA} + \vec{AH}|^2 \]
+    \[ |\vec{OH}|^2 = |\vec{OA}|^2 + |\vec{AH}|^2 + 2\vec{OA} \cdot \vec{AH} \]
+    代入前步结论及 $\vec{OA} \cdot (\vec{OB} + \vec{OC})$，展开化简得：
+    \[ |\vec{OH}|^2 = 9R^2 - (a^2 + b^2 + c^2) \]
+\end{enumerate}
+\end{proofbox}

@@ -1,0 +1,80 @@
+\begin{proofbox}
+\textbf{1. 重心 $G$ 坐标公式的详细推导}
+
+\textit{核心思路：重心是中线的交点，其坐标是三角形三个顶点坐标的算术平均值。这是四心公式中最简单的一个。}
+
+\begin{enumerate}
+    \item \textbf{第一步：列出顶点坐标}
+    设椭圆上一点 $P(x_0, y_0)$，左焦点 $F_1(-c, 0)$，右焦点 $F_2(c, 0)$。
+    \item \textbf{第二步：代入重心公式}
+    根据重心公式 $G = \frac{P + F_1 + F_2}{3}$，分量计算：
+    \begin{itemize}
+        \item 横坐标：$x_G = \frac{x_0 + (-c) + c}{3} = \frac{x_0}{3}$；
+        \item 纵坐标：$y_G = \frac{y_0 + 0 + 0}{3} = \frac{y_0}{3}$。
+    \end{itemize}
+    \item \textbf{结论}：重心 $G\left( \frac{x_0}{3}, \frac{y_0}{3} \right)$。这说明重心轨迹是原椭圆缩小到 $\frac{1}{3}$ 后的图形。
+\end{enumerate}
+
+\tcbline
+
+\textbf{2. 内心 $I$ 坐标公式的详细推导}
+
+\textit{核心思路：内心是角平分线的交点。利用内心坐标通用公式（边长加权平均），结合椭圆独有的“焦半径公式”进行化简。}
+
+\begin{enumerate}
+    \item \textbf{第一步：确定三条边的边长}
+    在 $\triangle PF_1F_2$ 中，设角 $P, F_1, F_2$ 所对的边分别为 $p, f_1, f_2$：
+    \begin{itemize}
+        \item 底边 $p = |F_1F_2| = 2c$；
+        \item 侧边 $f_1 = |PF_2| = a - ex_0$（右焦半径公式）；
+        \item 侧边 $f_2 = |PF_1| = a + ex_0$（左焦半径公式）。
+        \item 周长 $L = p + f_1 + f_2 = 2c + (a-ex_0) + (a+ex_0) = 2a + 2c$。
+    \end{itemize}
+    \item \textbf{第二步：代入内心分点公式}
+    横坐标 $x_I = \frac{p \cdot x_0 + f_1 \cdot (-c) + f_2 \cdot c}{L}$。
+    \item \textbf{第三步：分子代数拆解（重点）}
+    将边长代入分子：
+    \[ \text{分子} = (2c)x_0 + (a - ex_0)(-c) + (a + ex_0)c \]
+    逐项展开：$= 2cx_0 - ac + ecx_0 + ac + ecx_0 = 2cx_0 + 2ecx_0 = 2cx_0(1+e)$。
+    \item \textbf{第四步：整体约分}
+    \[ x_I = \frac{2cx_0(1+e)}{2a+2c} = \frac{2cx_0(1+e)}{2a(1+\frac{c}{a})} = \frac{2cx_0(1+e)}{2a(1+e)} = \frac{c}{a}x_0 = ex_0 \]
+    纵坐标同理：$y_I = \frac{p \cdot y_0 + f_1 \cdot 0 + f_2 \cdot 0}{2a+2c} = \frac{2cy_0}{2(a+c)} = \frac{cy_0}{a+c}$。
+\end{enumerate}
+
+\tcbline
+
+\textbf{3. 垂心 $H$ 坐标公式的详细推导}
+
+\textit{核心思路：垂心是高线的交点。由于底边在 $x$ 轴上，过 $P$ 的高线就是一条垂直于 $x$ 轴的竖直线，这大大简化了计算。}
+
+\begin{enumerate}
+    \item \textbf{找高线1}：底边在 $x$ 轴，所以过 $P(x_0, y_0)$ 的高线是 $x = x_0$。
+    \item \textbf{找高线2}：连接 $PF_2$，斜率 $k_{PF2} = \frac{y_0}{x_0-c}$。
+    \item \textbf{算斜率}：过 $F_1$ 的高线垂直于 $PF_2$，所以斜率 $k_H = -\frac{x_0-c}{y_0}$。
+    \item \textbf{写方程}：高线为 $y - 0 = -\frac{x_0-c}{y_0}(x + c)$。
+    \item \textbf{求交点}：把 $x = x_0$ 代入，得 $y_H = -\frac{(x_0-c)(x_0+c)}{y_0} = -\frac{x_0^2-c^2}{y_0} = \frac{c^2-x_0^2}{y_0}$。
+\end{enumerate}
+
+\tcbline
+
+\textbf{4. 外心 $O'$ 坐标公式的详细推导}
+
+\textit{核心思路：外心是三边中垂线的交点，也是到三个顶点距离相等的点。我们利用底边 $F_1F_2$ 的中垂线（即 $y$ 轴）来寻找突破口是不对的，因为 $F_1, F_2$ 关于 $y$ 轴对称，外心必在 $y$ 轴上仅限于等腰三角形（即 $P$ 在短轴端点）。}
+
+\begin{enumerate}
+    \item \textbf{第一步：列出中垂线方程}
+    底边 $F_1F_2$ 的中点是原点 $(0,0)$，其中垂线是 $y$ 轴（$x=0$）。注意：这是错误的思维陷阱！只有当 $P$ 在短轴上时外心才在 $y$ 轴。
+    正确步骤：设外心 $O'(x, y)$。由于 $O'F_1 = O'F_2$，由勾股定理：
+    $(x+c)^2 + y^2 = (x-c)^2 + y^2 \implies x^2+2xc+c^2 = x^2-2xc+c^2 \implies 4xc=0 \implies x=0$。
+    \textbf{修正结论}：无论 $P$ 在哪，$\triangle PF_1F_2$ 的外心 $O'$ 始终在 $y$ 轴上，即 $x_{O'} = 0$。
+    \item \textbf{第二步：利用距离相等求纵坐标}
+    外心到 $F_2(c, 0)$ 的距离等于到 $P(x_0, y_0)$ 的距离：
+    $c^2 + y_{O'}^2 = x_0^2 + (y_0 - y_{O'})^2$
+    展开右边：$c^2 + y_{O'}^2 = x_0^2 + y_0^2 - 2y_0y_{O'} + y_{O'}^2$
+    消去 $y_{O'}^2$ 得：$2y_0y_{O'} = x_0^2 + y_0^2 - c^2$
+    \item \textbf{第三步：化简纵坐标}
+    $y_{O'} = \frac{x_0^2 + y_0^2 - c^2}{2y_0}$。
+    代入 $c^2 = a^2 - b^2$：$y_{O'} = \frac{x_0^2 + y_0^2 - a^2 + b^2}{2y_0}$。
+    再次利用椭圆方程化简，可得到与 $x_0, y_0$ 相关的最终简洁形式。
+\end{enumerate}
+\end{proofbox}

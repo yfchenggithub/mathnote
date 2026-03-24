@@ -1,0 +1,88 @@
+\begin{tikzpicture}[scale=1.05, line cap=round, line join=round]
+  % ===== Libraries (safe) =====
+  \usetikzlibrary{angles,quotes,calc}
+
+  % ===== Parameters =====
+  % Ellipse: x^2/a^2 + y^2/b^2 = 1 (a>b>0)
+  \def\a{4.6}
+  \def\b{2.8}
+  \pgfmathsetmacro{\c}{sqrt(\a*\a-\b*\b)} % focus distance
+
+  % ===== Styles =====
+  \tikzset{
+    ell/.style={black, line width=1.2pt},
+    axis/.style={black, line width=1.0pt, ->},
+    thinaxis/.style={black, line width=0.9pt},
+    seg/.style={black, line width=1.05pt},
+    segmax/.style={red!85!black, line width=1.35pt, dashed},
+    helper/.style={black, line width=0.9pt, dashed},
+    pnt/.style={circle, fill=black, inner sep=1.5pt},
+    pmax/.style={circle, fill=red!85!black, inner sep=1.7pt},
+    lab/.style={font=\small},
+  }
+
+  % ===== Coordinates =====
+  \coordinate (O) at (0,0);
+  \coordinate (F1) at (-\c,0);
+  \coordinate (F2) at (\c,0);
+
+  % Maximum point (top vertex)
+  \coordinate (Pmax) at (0,\b);
+
+  % A sample point P on ellipse (not at vertex)
+  % (choose x0 in (0,a), then y = b*sqrt(1-x^2/a^2))
+  \def\xP{2.7}
+  \pgfmathsetmacro{\yP}{\b*sqrt(1-(\xP*\xP)/(\a*\a))}
+  \coordinate (P) at (\xP,\yP);
+
+  % ===== Ellipse =====
+  \draw[ell] (0,0) ellipse [x radius=\a, y radius=\b];
+
+  % ===== Axes =====
+  \draw[axis] (-5.6,0) -- (5.6,0) node[right] {$x$};
+  \draw[axis] (0,-3.6) -- (0,3.6) node[above] {$y$};
+
+  % ===== Foci and origin =====
+  \node[pnt] at (F1) {};
+  \node[pnt] at (F2) {};
+  \node[lab, below=2pt] at (O) {$O$};
+
+  \node[lab, below left=2pt] at (F1) {$F_1$};
+  \node[lab, below right=2pt] at (F2) {$F_2$};
+
+  % ===== Solid: angle at a general point P =====
+  \draw[seg] (P) -- (F1);
+  \draw[seg] (P) -- (F2);
+  \node[pnt] at (P) {};
+  \node[lab, above right=1pt] at (P) {$P$};
+
+  % Draw small angle at P (black)
+  \pic[
+    draw=black,
+    line width=0.95pt,
+    angle radius=7mm,
+    angle eccentricity=1.25
+  ] {angle = F1--P--F2};
+
+  % ===== Dashed red: maximum angle at Pmax =====
+  \draw[segmax] (Pmax) -- (F1);
+  \draw[segmax] (Pmax) -- (F2);
+  \node[pmax] at (Pmax) {};
+  \node[lab, above=2pt] at (Pmax) {$P_{\max}(0,b)$};
+
+  % Draw big angle at Pmax (red highlighted)
+  \pic[
+    draw=red!85!black,
+    fill=red!18,
+    line width=1.15pt,
+    angle radius=12mm,
+    angle eccentricity=1.18
+  ] {angle = F1--Pmax--F2};
+
+  % ===== Bottom statement (clean, no overlap) =====
+  \node[lab] at (0,-3.15)
+  {$\displaystyle \theta=\angle F_1PF_2\le \theta_{\max},\quad
+  \theta_{\max}\text{ 取于 }P=(0,\pm b),\quad
+  \sin\frac{\theta_{\max}}{2}=e=\frac{c}{a}.$};
+
+\end{tikzpicture}
