@@ -84,10 +84,15 @@ from meta_schema import META_SCHEMA
 # ==================== 全局配置 ====================
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.abspath(os.path.join(SCRIPT_DIR, ".."))
-id_map = {}
+from collections import defaultdict
+
+id_map = defaultdict(list)  # 防止二级结论ID重复
+module_stats = defaultdict(int)  # 已处理数量
+module_total = defaultdict(int)  # 总数量
 # ==================== 子结构 Schema（核心新增） ====================
 VALID_BLOCK_TYPES = {
     "statement",
+    "explanation",
     "proof",
     "example",
     "trap",
@@ -102,6 +107,28 @@ CONTENT_BLOCK_SCHEMA = {
     "order": 0,
     "foldable": True,
 }
+
+# ==================== 模块白名单（核心新增） ====================
+import re
+
+
+def is_module_dir(name: str) -> bool:
+    """
+    判断是否为模块目录，如 03-conic
+    """
+    return re.match(r"^\d{2}-[a-z]+$", name) is not None
+
+
+def is_conclusion_dir(name: str) -> bool:
+    """
+    判断是否为二级结论目录，如 C001_xxx
+    """
+    return re.match(r"^[A-Z]\d{3}_", name) is not None
+
+
+# 自动生成白名单（推荐）
+ALLOWED_MODULES = {d for d in os.listdir(PROJECT_ROOT) if is_module_dir(d)}
+
 # ==================== 运行参数解析 ====================
 
 
@@ -196,7 +223,12 @@ def remove_extra_fields(
     return changed
 
 
-def upgrade_version(meta: Dict, schema: Dict, logs: list) -> bool:
+def upgrade_version(
+    meta: Dict,
+    schema: Dict,
+    logs: list,
+    stats: dict,
+) -> bool:
     """
     自动版本升级
     """
@@ -245,34 +277,48 @@ def fix_content_blocks(meta: Dict, logs: list, stats: dict):
     return changed
 
 
+def render_progress(module):
+    current = module_stats[module]
+    total = module_total[module]
+
+    if total == 0:
+        return
+
+    percent = int(current / total * 100)
+    bar_len = 20
+    filled = int(bar_len * current / total)
+
+    bar = "█" * filled + "░" * (bar_len - filled)
+
+    print(f"\r[{module}] {current}/{total}  {bar} {percent}% ", end="")
+
+
 # ==================== 单文件处理 ====================
 
 
 def process_meta(path: str, config: dict, global_stats):
+    module_dir = os.path.basename(os.path.dirname(os.path.dirname(path)))
+    module_stats[module_dir] += 1
     if os.path.getsize(path) == 0:
         print("SKIP empty:", path)
-        return
 
     try:
         with open(path, "r", encoding="utf8") as f:
             meta = json.load(f)
-    except Exception:
+    except Exception as e:
         print("SKIP invalid json:", path)
+        print(e)
         return
 
-    # 模块精确过滤（核心新增）
-    if config["module"]:
-        if meta.get("module") != config["module"]:
-            return
     logs = []
+    changed = False
     # ==================== 强制修正 module / id ====================
     module, id_ = extract_module_and_id(os.path.dirname(path))
     if not id_:
-        logs.append("[ERROR] 无法解析 id")
-    elif id_ not in id_map:
-        id_map[id_] = []
+        logs.append(f"[ERROR] {path} 无法解析 id")
     else:
         id_map[id_].append(path)
+
     if meta.get("module") != module:
         meta["module"] = module
         logs.append(f"[FIX] module -> {module}")
@@ -283,6 +329,11 @@ def process_meta(path: str, config: dict, global_stats):
         logs.append(f"[FIX] id -> {id_}")
         changed = True
 
+    # 模块精确过滤（核心新增）
+    if config["module"]:
+        if meta.get("module") != config["module"]:
+            return
+
     stats = {
         "added": 0,
         "removed": 0,
@@ -291,7 +342,6 @@ def process_meta(path: str, config: dict, global_stats):
         "empty": 0,
         "upgraded": 0,
     }
-    changed = False
 
     # 版本升级
     if upgrade_version(meta, META_SCHEMA, logs, stats):
@@ -322,22 +372,9 @@ def process_meta(path: str, config: dict, global_stats):
         with open(path, "w", encoding="utf8") as f:
             json.dump(meta, f, indent=2, ensure_ascii=False)
 
-
-import re
-
-
-def is_module_dir(name: str) -> bool:
-    """
-    判断是否为模块目录，如 03-conic
-    """
-    return re.match(r"^\d{2}-[a-z]+$", name) is not None
-
-
-def is_conclusion_dir(name: str) -> bool:
-    """
-    判断是否为二级结论目录，如 C001_xxx
-    """
-    return re.match(r"^[A-Z]\d{3}_", name) is not None
+    render_progress(module_dir)
+    if module_stats[module_dir] == module_total[module_dir]:
+        print(" ✔")
 
 
 def extract_module_and_id(dir_path):
@@ -382,13 +419,14 @@ def ensure_meta_exists(dir_path, config):
 
 
 def scan_files(config):
+    # 如果指定了单文件，就只处理这个文件，不再扫描目录
     if config["file"]:
         yield config["file"]
         return
 
     for module_dir in os.listdir(PROJECT_ROOT):
-
-        if not is_module_dir(module_dir):
+        # ✅ 只处理白名单模块（核心）
+        if module_dir not in ALLOWED_MODULES:
             continue
 
         module_path = os.path.join(PROJECT_ROOT, module_dir)
@@ -412,10 +450,33 @@ def scan_files(config):
             yield meta_path
 
 
+def collect_module_totals():
+    for module_dir in os.listdir(PROJECT_ROOT):
+
+        if module_dir not in ALLOWED_MODULES:
+            continue
+
+        module_path = os.path.join(PROJECT_ROOT, module_dir)
+
+        if not os.path.isdir(module_path):
+            continue
+
+        for sub_dir in os.listdir(module_path):
+
+            if is_conclusion_dir(sub_dir):
+                module_total[module_dir] += 1
+
+
 # ==================== 主函数 ====================
 
 
 def main():
+    collect_module_totals()
+    # 检查模块目录是否存在
+    for m in ALLOWED_MODULES:
+        full_path = os.path.join(PROJECT_ROOT, m)
+        if not os.path.exists(full_path):
+            print(f"[WARN] 模块目录不存在: {m}")
     config = parse_args()
 
     print("=" * 60)
@@ -461,6 +522,9 @@ def main():
 
     if not duplicate_found:
         print("No duplicate IDs ✅")
+    print("\n===== MODULE SUMMARY =====")
+    for module in sorted(module_total.keys()):
+        print(f"{module:<20} : {module_total[module]} files")
     print("DONE")
 
 
