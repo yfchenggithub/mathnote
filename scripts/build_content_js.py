@@ -1,18 +1,29 @@
 # ============================================
-# build_core_index.py
+# build_content_js.py
 # --------------------------------------------
 # 功能：
-# 1. 扫描 D:\mathnote 所有模块
-# 2. 提取二级结论（tex + meta.json）
-# 3. 构建内容数据
-# 4. 输出 JS 模块（适配小程序 require）
+# 1. 扫描 BASE_DIR 下所有模块目录
+# 2. 读取每个结论的 meta.json + LaTeX 文件
+# 3. 构建结构化内容数据（包含原始 LaTeX + 搜索文本）
+# 4. 批量调用 Node（KaTeX）渲染为 HTML
+# 5. 输出 JS 文件（module.exports），供小程序直接 require
 #
-# 设计动机：
-# - 小程序不稳定支持 JSON require
-# - JS module.exports 100%兼容
-# - 构建阶段完成数据整合 → 运行时极快
+# 核心设计：
+# - 构建阶段完成所有计算（渲染 / 清洗 / 聚合）
+# - 小程序运行时只做展示（零计算 → 极致性能）
 #
-# 作者：为“极致搜索体验”设计
+# 为什么不用 JSON：
+# - 小程序 require JSON 不稳定（历史问题）
+# - JS module.exports 兼容性最好
+#
+# 数据结构：
+# 每个 item 包含：
+# - 原始 LaTeX（用于复制 / 未来扩展）
+# - clean 文本（用于搜索）
+# - HTML（用于展示）
+#
+# 作者目标：
+# 👉 构建“内容驱动”的高性能数学知识系统
 # ============================================
 
 import os
@@ -60,7 +71,7 @@ def clean_tex(text: str) -> str:
     1. 保留数学结构（尤其是分式、绝对值、不等式）
     2. 去除排版噪音（环境、样式命令）
     3. 输出适合：
-       - 小程序展示
+       - 用于搜索索引 / 文本摘要（非展示）
        - 搜索索引构建
 
     【核心原则】
@@ -345,7 +356,8 @@ def batch_render_latex(text_map: dict) -> dict:
     ==========================================
     批量 LaTeX → HTML 渲染（核心优化）
     ==========================================
-
+    # 优势：
+    # - 避免多次 Node 调用（性能提升数量级）
     参数：
         text_map: {id: latex_text}
 
@@ -440,12 +452,21 @@ def smart_truncate(text, length=80):
 # 核心处理
 # ==============================
 
-TOTAL_COUNT = 0
-
 
 def process_module(module_path):
     """
-    处理单个模块（如 07-inequality）
+    处理单个模块
+
+    流程：
+    1. 遍历每个结论目录
+    2. 读取 meta + LaTeX 文件
+    3. 构建数据结构（raw + clean）
+    4. 收集所有渲染任务
+    5. 批量调用 Node 渲染
+    6. 回填 HTML
+
+    输出：
+    { item_id: item_data }
     """
     module_name = os.path.basename(module_path)
     print(f"\n处理模块: {module_name}")
