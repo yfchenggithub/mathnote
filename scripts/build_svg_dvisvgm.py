@@ -31,6 +31,7 @@ import sys
 import io
 import shutil
 from typing import Optional
+import re
 
 # 解决 Windows 中文输出
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
@@ -41,8 +42,6 @@ sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8")
 # 配置区
 # ==============================
 CONFIG = {
-    # PDF 编译
-    "latex_cmd": "latexmk -xelatex -interaction=nonstopmode -halt-on-error 61.tex",
     # PDF 裁剪
     "use_pdfcrop": True,
     # SVG 转换
@@ -58,6 +57,45 @@ CONFIG = {
     # 可选：自定义 config 文件名（增强扩展性）
     "svgo_config_name": "svgo.config.js",
 }
+
+# ==============================
+# 命名系统（核心）
+# ==============================
+
+# ==============================
+# 从完整路径解析 topic（工业级稳健版）
+# ==============================
+
+
+def get_topic(target_dir: Path) -> str:
+    """
+    从 target_dir 的最后一级目录名中提取 topic
+
+    示例：
+    D:/mathnote/03-conic/C016_Hyperbola_Focus_Triangle_Centers
+    → C016
+    """
+
+    # 1️⃣ 取最后一级目录名（关键点）
+    last_dir = target_dir.name
+
+    # 2️⃣ 按 "_" 分割
+    parts = last_dir.split("_")
+
+    # 3️⃣ 取前缀
+    topic = parts[0]
+
+    # 4️⃣ 安全校验（工业级必须）
+    # ✅ 强校验：必须类似 C016 / I01
+    if not re.match(r"^[A-Z]\d{3}$", topic):
+        raise ValueError(f"[命名系统] 非法 topic 格式: {topic} (路径: {target_dir})")
+
+    return topic
+
+
+def fname(target_dir: Path, stage: str, state: str, ext: str):
+    topic = get_topic(target_dir)
+    return f"{topic}.{stage}.{state}.{ext}"
 
 
 # ==============================
@@ -112,12 +150,37 @@ def generate_main_tex(target_dir: Path):
 
     content += "\\end{document}"
 
-    (target_dir / "61.tex").write_text(content, encoding="utf-8")
-    print("[生成] 61.tex 完成")
+    tex_path = target_dir / fname(target_dir, "source", "raw", "tex")
+    tex_path.write_text(content, encoding="utf-8")
+    print(f"[生成] {tex_path.name}")
 
 
 def compile_pdf(target_dir: Path):
-    run_command(CONFIG["latex_cmd"], cwd=target_dir)
+    tex_name = fname(target_dir, "source", "raw", "tex")
+    pdf_name = fname(target_dir, "build", "raw", "pdf")
+
+    cmd = f"latexmk -xelatex -interaction=nonstopmode -halt-on-error {tex_name}"
+    run_command(cmd, cwd=target_dir)
+
+    # latexmk 默认输出同名 PDF → 重命名
+    original_pdf = target_dir / tex_name.replace(".tex", ".pdf")
+    target_pdf = target_dir / pdf_name
+
+    if original_pdf.exists():
+        # 如果目标已存在则先删除，防止 Windows 下 rename 失败
+        if target_pdf.exists():
+            target_pdf.unlink()
+        original_pdf.rename(target_pdf)
+    else:
+        raise FileNotFoundError(f"编译失败，未找到 PDF: {original_pdf}")
+
+    print(f"[PDF] {target_pdf.name}")
+
+    # 3. 执行清理（仅清理中间文件，保留 PDF）
+    # -c 表示清理中间文件；-silent 减少清理时的日志输出
+    clean_cmd = f"latexmk -c {tex_name}"
+    run_command(clean_cmd, cwd=target_dir, allow_fail=True)
+    print(f"[Clean] 中间文件已清理")
 
 
 # ==============================
@@ -131,23 +194,25 @@ def crop_pdf(target_dir: Path):
     """
 
     if not CONFIG["use_pdfcrop"]:
-        return
+        return fname(target_dir, "build", "raw", "pdf")
 
     print("\n[步骤] PDF 裁剪（pdfcrop）")
 
+    input_pdf = fname(target_dir, "build", "raw", "pdf")
+    output_pdf = fname(target_dir, "crop", "cropped", "pdf")
+
     # ⚠️ 允许失败（防止环境没装 pdfcrop）
-    run_command("pdfcrop 61.pdf output.pdf", cwd=target_dir, allow_fail=True)
+    run_command(f"pdfcrop {input_pdf} {output_pdf}", cwd=target_dir, allow_fail=True)
 
     # 如果裁剪成功，用 output.pdf，否则 fallback
-    cropped = target_dir / "output.pdf"
-    original = target_dir / "61.pdf"
+    cropped = target_dir / output_pdf
 
     if cropped.exists():
         print("✔ 使用裁剪后的 PDF")
-        return "output.pdf"
+        return output_pdf
     else:
         print("⚠️ 使用原始 PDF（未裁剪）")
-        return "61.pdf"
+        return input_pdf
 
 
 # ==============================
@@ -169,19 +234,24 @@ def convert_pdf_to_svg(target_dir: Path, pdf_name: str):
 
     options_str = " ".join(options)
 
-    cmd = f'dvisvgm --pdf "{pdf_name}" ' f'-o "output.svg" ' f"{options_str}"
+    svg_name = fname(target_dir, "vector", "dvisvgm", "svg")
+    cmd = f'dvisvgm --pdf "{pdf_name}" ' f'-o "{svg_name}" ' f"{options_str}"
 
     run_command(cmd, cwd=target_dir)
+    print(f"[SVG] {svg_name}")
+    return svg_name
 
 
-def optimize_svg(target_dir: Path):
+def optimize_svg(target_dir: Path, input_svg: str):
     if not CONFIG.get("use_svgo", False):
         return
 
-    svg_file = target_dir / "output.svg"
+    input_path = target_dir / input_svg
+    output_svg = fname(target_dir, "optimize", "svgo", "svg")
+    output_path = target_dir / output_svg
 
-    if not svg_file.exists():
-        raise FileNotFoundError(f"[SVGO] SVG not found: {svg_file}")
+    if not input_path.exists():
+        raise FileNotFoundError(f"[SVGO] SVG not found: {input_path}")
 
     # 1️⃣ 查找 svgo 可执行文件（跨平台）
     svgo_bin = shutil.which("svgo") or shutil.which("svgo.cmd")
@@ -196,7 +266,7 @@ def optimize_svg(target_dir: Path):
     mode = CONFIG.get("svgo_mode", "config")
 
     # 2️⃣ 构建命令
-    cmd = [svgo_bin, "output.svg"]
+    cmd = [svgo_bin, input_svg, "-o", output_svg]
 
     if mode == "config":
         config_path = _find_svgo_config(
@@ -216,8 +286,10 @@ def optimize_svg(target_dir: Path):
         raise ValueError(f"[SVGO] Unknown mode: {mode}")
     # 4️⃣ 执行
     run_command(cmd, cwd=target_dir)
-
-    print(f"[SVGO] Optimized: {svg_file.name}")
+    print(f"[SVGO] {output_svg}")
+    # 👉 生成 final（软标准）
+    final_svg = target_dir / fname(target_dir, "final", "clean", "svg")
+    shutil.copy(output_path, final_svg)
 
 
 def _find_svgo_config(start_dir: Path, config_name: str) -> Optional[Path]:
@@ -293,14 +365,15 @@ def build_one(base_dir: Path, module: str, topic: str):
     # ⭐ 关键：获取实际使用的 PDF
     pdf_name = crop_pdf(target_dir)
 
-    convert_pdf_to_svg(target_dir, pdf_name)
+    svg_name = convert_pdf_to_svg(target_dir, pdf_name)
     # svg_path = target_dir / "output.svg"
     # lighten_watermark_svg(
     #     svg_path, opacity=0.02, watermark_text="OK-SHUXUE"  # ⭐ 推荐更浅一点
     # )
-    optimize_svg(target_dir)
+    optimize_svg(target_dir, svg_name)
 
-    print("\n✅ 完成！输出: output.svg")
+    final_name = fname(target_dir, "final", "clean", "svg")
+    print(f"\n✅ 完成！最终输出: {final_name}")
 
 
 # ==============================
