@@ -29,6 +29,8 @@ import subprocess
 from pathlib import Path
 import sys
 import io
+import shutil
+from typing import Optional
 
 # 解决 Windows 中文输出
 sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8")
@@ -49,6 +51,12 @@ CONFIG = {
     "bbox": "min",
     # SVG 压缩
     "use_svgo": True,
+    # 模式：
+    # "default" → 使用 svgo 内置优化
+    # "config"  → 使用 svgo.config.js
+    "svgo_mode": "config",
+    # 可选：自定义 config 文件名（增强扩展性）
+    "svgo_config_name": "svgo.config.js",
 }
 
 
@@ -167,10 +175,75 @@ def convert_pdf_to_svg(target_dir: Path, pdf_name: str):
 
 
 def optimize_svg(target_dir: Path):
-    if not CONFIG["use_svgo"]:
+    if not CONFIG.get("use_svgo", False):
         return
 
-    run_command('svgo.cmd "output.svg"', cwd=target_dir)
+    svg_file = target_dir / "output.svg"
+
+    if not svg_file.exists():
+        raise FileNotFoundError(f"[SVGO] SVG not found: {svg_file}")
+
+    # 1️⃣ 查找 svgo 可执行文件（跨平台）
+    svgo_bin = shutil.which("svgo") or shutil.which("svgo.cmd")
+
+    if not svgo_bin:
+        raise RuntimeError(
+            "[SVGO] svgo not found. Please install via `npm i -g svgo` "
+            "or add it to PATH."
+        )
+
+    # 3️⃣ 构建命令（关键点：--config）
+    mode = CONFIG.get("svgo_mode", "config")
+
+    # 2️⃣ 构建命令
+    cmd = [svgo_bin, "output.svg"]
+
+    if mode == "config":
+        config_path = _find_svgo_config(
+            target_dir,
+            CONFIG.get("svgo_config_name", "svgo.config.js"),
+        )
+        if config_path:
+            cmd.extend(["--config", str(config_path)])
+        else:
+            print(f"[SVGO] not found svgo.config.js, use default svgo")
+
+    elif mode == "default":
+        # 👉 什么都不加，走 svgo 默认 preset
+        pass
+
+    else:
+        raise ValueError(f"[SVGO] Unknown mode: {mode}")
+    # 4️⃣ 执行
+    run_command(cmd, cwd=target_dir)
+
+    print(f"[SVGO] Optimized: {svg_file.name}")
+
+
+def _find_svgo_config(start_dir: Path, config_name: str) -> Optional[Path]:
+    """
+    向上查找 svgo 配置文件（支持自定义名称）
+
+    行为：
+    - 找到：返回 Path
+    - 未找到：返回 None（不抛异常）
+
+    参数：
+    - start_dir: 起始目录
+    - config_name: 配置文件名（如 svgo.config.js）
+
+    返回：
+    - Optional[Path]
+    """
+
+    current = start_dir.resolve()
+
+    for parent in [current] + list(current.parents):
+        candidate = parent / config_name
+        if candidate.exists():
+            return candidate
+
+    return None
 
 
 def lighten_watermark_svg(svg_path: Path, opacity=0.03, watermark_text="MATHNOTE"):
@@ -237,7 +310,7 @@ def build_one(base_dir: Path, module: str, topic: str):
 
 def main():
     if len(sys.argv) != 3:
-        print("用法：python build_svg_dvisvgm.py <模块> <结论>")
+        print("usage：python build_svg_dvisvgm.py <module> <conclusion>")
         return
 
     base_dir = Path("D:/mathnote")
