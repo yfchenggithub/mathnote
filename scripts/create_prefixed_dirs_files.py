@@ -7,7 +7,7 @@ Default behavior:
 - Subdirectory match:
   1) CLI --pattern (highest priority)
   2) config.module_patterns[module_path] (if provided)
-  3) inferred from module name, e.g. 01-function -> ^F\\d{2}
+  3) inferred from module name, e.g. 01_function -> ^F\\d{2}
 - Dry-run only (no write) unless --apply is given
 - Existing files are kept unless --overwrite is given
 
@@ -325,7 +325,9 @@ def create_files_under_dir(
         if resolved.exists():
             if resolved.is_dir():
                 failed += 1
-                print(f"[ERROR] target path is a directory: {resolved}", file=sys.stderr)
+                print(
+                    f"[ERROR] target path is a directory: {resolved}", file=sys.stderr
+                )
                 continue
             if not overwrite:
                 skipped_existing += 1
@@ -408,4 +410,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

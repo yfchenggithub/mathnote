@@ -7,7 +7,7 @@ Default behavior:
 - Subdirectory match:
   1) CLI --pattern (highest priority)
   2) config.module_patterns[module_path] (if provided)
-  3) inferred from module name, e.g. 01-function -> ^F\\d{2}
+  3) inferred from module name, e.g. 01_function -> ^F\\d{2}
 - Dry-run only (no delete) unless --apply is given
 
 Examples:
@@ -107,7 +107,7 @@ def normalize_module_key(module_path: str) -> str:
 def infer_pattern_from_module(module_path: str) -> str:
     """
     Infer pattern from module basename.
-    Example: 01-function -> ^F\\d{2}, 02-sequence -> ^S\\d{2}
+    Example: 01_function -> ^F\\d{2}, 02_sequence -> ^S\\d{2}
     """
     base = Path(module_path).name
     if "-" in base:
