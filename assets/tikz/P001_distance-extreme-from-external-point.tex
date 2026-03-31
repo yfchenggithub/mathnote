@@ -1,0 +1,68 @@
+% assets/tikz/P001_distance-extreme-from-external-point.tex
+% P01: Distance extremum from an external point to a circle
+% Usage: \input{assets/tikz/P001_distance-extreme-from-external-point.tex}
+
+\begin{center}
+\begin{tikzpicture}[scale=1.05, >=Stealth]
+
+  % ===== Circle parameters =====
+  \coordinate (O) at (0,0);
+  \def\R{2.2}
+
+  % External point A (make it clearly outside)
+  \coordinate (A) at (4.8,1.3);
+
+  % ===== Unit direction from O to A =====
+  \path let
+    \p1 = (A),
+    \p2 = (O),
+    \n1 = {veclen(\x1-\x2,\y1-\y2)}
+  in
+    coordinate (U) at ({(\x1-\x2)/\n1},{(\y1-\y2)/\n1});
+
+  % ===== Nearest / farthest points on circle along AO =====
+  \coordinate (P) at ($(O) + \R*(U)$);  % nearest point
+  \coordinate (Q) at ($(O) - \R*(U)$);  % farthest point
+
+  % ===== Draw circle =====
+  \draw[thick] (O) circle (\R);
+
+  % ===== Draw AO line =====
+  \draw[dashed] (A) -- (O);
+
+  % ===== Draw distance segments =====
+  \draw[very thick] (A) -- (P);
+  \draw[very thick] (A) -- (Q);
+
+  % ===== Draw radii =====
+  \draw[thin] (O) -- (P);
+  \draw[thin] (O) -- (Q);
+
+  % ===== Mark points =====
+  \fill (O) circle (1.7pt);
+  \fill (A) circle (1.7pt);
+  \fill (P) circle (1.7pt);
+  \fill (Q) circle (1.7pt);
+
+  % ===== Labels (manually offset to avoid overlap) =====
+  \node[below left] at (O) {$O$};
+  \node[above right] at (A) {$A$};
+
+  % Put P label above, Q label below to avoid "shadow"
+  \node[above right] at (P) {$P$};
+  \node[below left]  at (Q) {$Q$};
+
+  % ===== Annotate R =====
+  \node[midway, above] at ($(O)!0.55!(P)$) {$R$};
+
+  % ===== Distance text (offset so they do not overlap) =====
+  \node[midway, above=6pt] at ($(A)!0.52!(P)$) {\small $AP_{\min}$};
+  \node[midway, below=7pt] at ($(A)!0.52!(Q)$) {\small $AQ_{\max}$};
+
+  % ===== Extra note (clean) =====
+  \node[align=center] at (0,-3.15) {\small
+    最近点 $P$ 与最远点 $Q$ \,均在直线 $AO$ 上
+  };
+
+\end{tikzpicture}
+\end{center}

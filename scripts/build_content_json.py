@@ -52,6 +52,7 @@ OUTPUT_DIR = os.path.join(ROOT_DIR, "data", "content")
 # 工具函数
 # ======================================================
 
+
 def read_tex(path):
     try:
         with open(path, "r", encoding="utf-8") as f:
@@ -72,6 +73,7 @@ def read_json(path):
 # 处理单个结论
 # ======================================================
 
+
 def process_conclusion(conclusion_path):
 
     meta_path = os.path.join(conclusion_path, "meta.json")
@@ -87,14 +89,13 @@ def process_conclusion(conclusion_path):
         "title": meta.get("title", ""),
         "tags": meta.get("tags", []),
         "score": meta.get("score", 0),
-
         # 内容
-        "statement": read_tex(os.path.join(conclusion_path, "01-statement.tex")),
-        "explanation": read_tex(os.path.join(conclusion_path, "02-explanation.tex")),
-        "proof": read_tex(os.path.join(conclusion_path, "03-proof.tex")),
-        "examples": read_tex(os.path.join(conclusion_path, "04-examples.tex")),
-        "traps": read_tex(os.path.join(conclusion_path, "05-traps.tex")),
-        "summary": read_tex(os.path.join(conclusion_path, "06-summary.tex")),
+        "statement": read_tex(os.path.join(conclusion_path, "01_statement.tex")),
+        "explanation": read_tex(os.path.join(conclusion_path, "02_explanation.tex")),
+        "proof": read_tex(os.path.join(conclusion_path, "03_proof.tex")),
+        "examples": read_tex(os.path.join(conclusion_path, "04_examples.tex")),
+        "traps": read_tex(os.path.join(conclusion_path, "05_traps.tex")),
+        "summary": read_tex(os.path.join(conclusion_path, "06_summary.tex")),
     }
 
     return cid, data
@@ -103,6 +104,7 @@ def process_conclusion(conclusion_path):
 # ======================================================
 # 处理模块
 # ======================================================
+
 
 def process_module(module_name):
 
@@ -142,6 +144,7 @@ def process_module(module_name):
 # ======================================================
 # 主程序
 # ======================================================
+
 
 def main():
 

@@ -126,12 +126,12 @@ def check_file_exists(path: Path):
 
 def generate_main_tex(target_dir: Path):
     tex_files = [
-        "01-statement.tex",
-        "02-explanation.tex",
-        "03-proof.tex",
-        "04-examples.tex",
-        "05-traps.tex",
-        "06-summary.tex",
+        "01_statement.tex",
+        "02_explanation.tex",
+        "03_proof.tex",
+        "04_examples.tex",
+        "05_traps.tex",
+        "06_summary.tex",
     ]
 
     for f in tex_files:

@@ -8,12 +8,12 @@ LaTeX → PDF → WebP 图片自动生成脚本（支持模块 & 二级结论定
 【功能介绍】
 本脚本用于将指定模块下的某个“二级结论”的 01~06.tex 文件：
 
-    01-statement.tex
-    02-explanation.tex
-    03-proof.tex
-    04-examples.tex
-    05-traps.tex
-    06-summary.tex
+    01_statement.tex
+    02_explanation.tex
+    03_proof.tex
+    04_examples.tex
+    05_traps.tex
+    06_summary.tex
 
 自动完成以下流程：
 
@@ -31,12 +31,12 @@ LaTeX → PDF → WebP 图片自动生成脚本（支持模块 & 二级结论定
 D:\mathnote\
     └── 07-inequality\
         └── I01_Compound_Inequality_Transformation\
-            ├── 01-statement.tex
-            ├── 02-explanation.tex
-            ├── 03-proof.tex
-            ├── 04-examples.tex
-            ├── 05-traps.tex
-            ├── 06-summary.tex
+            ├── 01_statement.tex
+            ├── 02_explanation.tex
+            ├── 03_proof.tex
+            ├── 04_examples.tex
+            ├── 05_traps.tex
+            ├── 06_summary.tex
 
 【输出】
 在当前二级结论目录下生成：
@@ -99,12 +99,12 @@ def generate_main_tex(target_dir: Path):
     """
 
     tex_files = [
-        "01-statement.tex",
-        "02-explanation.tex",
-        "03-proof.tex",
-        "04-examples.tex",
-        "05-traps.tex",
-        "06-summary.tex",
+        "01_statement.tex",
+        "02_explanation.tex",
+        "03_proof.tex",
+        "04_examples.tex",
+        "05_traps.tex",
+        "06_summary.tex",
     ]
     # 检查文件
     for f in tex_files:

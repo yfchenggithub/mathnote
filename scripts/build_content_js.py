@@ -494,12 +494,12 @@ def process_module(module_path):
             # ==========================
 
             # 原始 LaTeX（绝对不能 clean，用于渲染）
-            statement_latex = read_file(os.path.join(item_path, "01-statement.tex"))
-            explanation_latex = read_file(os.path.join(item_path, "02-explanation.tex"))
-            proof_latex = read_file(os.path.join(item_path, "03-proof.tex"))
-            examples_latex = read_file(os.path.join(item_path, "04-examples.tex"))
-            traps_latex = read_file(os.path.join(item_path, "05-traps.tex"))
-            summary_latex = read_file(os.path.join(item_path, "06-summary.tex"))
+            statement_latex = read_file(os.path.join(item_path, "01_statement.tex"))
+            explanation_latex = read_file(os.path.join(item_path, "02_explanation.tex"))
+            proof_latex = read_file(os.path.join(item_path, "03_proof.tex"))
+            examples_latex = read_file(os.path.join(item_path, "04_examples.tex"))
+            traps_latex = read_file(os.path.join(item_path, "05_traps.tex"))
+            summary_latex = read_file(os.path.join(item_path, "06_summary.tex"))
 
             # 清洗版（用于搜索 / summary）
             statement_clean = clean_tex(statement_latex)
