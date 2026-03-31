@@ -103,7 +103,8 @@ MODEL_MAP = {
     "l1": "default",
     "l2": "reasoning",
     "l3": "default",
-    "l4": "reasoning",
+    # L4 生成内容较长，优先使用 chat 模型以降低延迟。
+    "l4": "default",
     "l5": "default",
 }
 
@@ -592,7 +593,8 @@ def step_lecture_generate(l2_json: dict[str, Any]) -> dict[str, Any]:
     Returns:
         dict[str, Any]: L4 输出。
     """
-    prompt = render_prompt("l4", l2_json)
+    payload = build_l4_payload(l2_json)
+    prompt = render_prompt("l4", payload)
     result = call_llm(prompt, step="l4")
     return safe_json_parse(result)
 
@@ -692,6 +694,26 @@ def build_l5_payload(
         "meta": l2.get("meta", {}),
         "evaluation": evaluation,
         "files": files,
+    }
+
+
+def build_l4_payload(l2: dict[str, Any]) -> dict[str, Any]:
+    """
+    构建 L4 输入的精简载荷。
+
+    L4 只依赖结论本身，传入过多附加字段会增加 prompt token，
+    对结果帮助有限但会拉高时延。
+
+    Args:
+        l2: L2 输出。
+
+    Returns:
+        dict[str, Any]: L4 需要的最小输入。
+    """
+    return {
+        "statement": clip_text(l2.get("statement", ""), 1600),
+        "latex": clip_text(l2.get("latex", ""), 2200),
+        "meta": l2.get("meta", {}),
     }
 
 
