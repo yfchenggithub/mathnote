@@ -115,6 +115,15 @@ META_DEFAULT_SEARCHMETA = {
     "formulaWeight": 7,
 }
 
+LECTURE_TEX_FILE_MAP = {
+    "01_statement": "01_statement.tex",
+    "02_explanation": "02_explanation.tex",
+    "03_proof": "03_proof.tex",
+    "04_examples": "04_examples.tex",
+    "05_traps": "05_traps.tex",
+    "06_summary": "06_summary.tex",
+}
+
 
 def parse_args() -> argparse.Namespace:
     """
@@ -819,6 +828,44 @@ def save_parse_debug(
         f.write(raw if isinstance(raw, str) else json.dumps(raw, ensure_ascii=False, indent=2))
 
 
+def export_lecture_tex_snippets(
+    lecture_json: dict[str, Any], filename: str, output_dir: str
+) -> None:
+    """
+    将 L4 的 JSON 字段导出为可直接使用的 .tex 片段文件。
+
+    说明：
+    - `lecture/*.json` 中是 JSON 字符串，展示时会出现 `\\` 与 `\\n` 转义。
+    - 本函数会把“解码后的真实 LaTeX 内容”写入单独 `.tex` 文件，
+      避免手工复制时带入 JSON 转义字符。
+
+    Args:
+        lecture_json: L4 输出 JSON。
+        filename: 输入文件名（无扩展名）。
+        output_dir: 输出根目录。
+    """
+    if not isinstance(lecture_json, dict):
+        return
+
+    target_dir = os.path.join(output_dir, "lecture_tex", filename)
+    os.makedirs(target_dir, exist_ok=True)
+
+    exported = 0
+    for key, tex_name in LECTURE_TEX_FILE_MAP.items():
+        content = lecture_json.get(key)
+        if not isinstance(content, str) or not content.strip():
+            continue
+
+        tex_path = os.path.join(target_dir, tex_name)
+        with open(tex_path, "w", encoding="utf-8", newline="\n") as f:
+            f.write(content.strip())
+            f.write("\n")
+        exported += 1
+
+    if exported:
+        logging.info(f"{filename} L4 导出 tex 片段: {exported} 个")
+
+
 def is_step_success(result: dict[str, Any]) -> bool:
     """
     判断阶段返回是否为成功状态。
@@ -934,6 +981,9 @@ def process_file(input_path: str, output_dir: str) -> str:
             if l4 is None:
                 with open(paths_map["l4"], "r", encoding="utf-8") as f:
                     l4 = json.load(f)
+
+        # 无论 L4 是新生成还是缓存复用，都导出一份真实 tex 片段文件。
+        export_lecture_tex_snippets(l4, filename, output_dir)
 
         # ========= L5 =========
         if file_exists(paths_map["l5"]):
