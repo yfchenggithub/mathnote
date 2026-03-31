@@ -37,6 +37,7 @@ import random
 import re
 import time
 from concurrent.futures import ThreadPoolExecutor, TimeoutError, as_completed
+from datetime import date
 from threading import Semaphore
 from typing import Any, Callable
 
@@ -88,6 +89,7 @@ OUTPUT_DIR = os.path.join(BASE_DIR, paths["output_dir"])
 
 DEFAULT_TIMEOUT_SECONDS = 60
 DEFAULT_INPUT_EXTENSIONS = (".tex", ".txt", ".md", ".latex", ".json")
+L5_MAX_TEXT_CHARS = 2400
 
 STEP_SUCCESS_STATUS = ("success", None)
 NON_RETRY_ERROR_CODES = {
@@ -103,6 +105,13 @@ MODEL_MAP = {
     "l3": "default",
     "l4": "reasoning",
     "l5": "default",
+}
+
+META_DEFAULT_SEARCHMETA = {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7,
 }
 
 
@@ -314,15 +323,173 @@ def safe_json_parse(text: str | None) -> dict[str, Any]:
         return {"status": "empty_response"}
 
     clean_text = text.replace("```json", "").replace("```", "").strip()
+    json_candidate = extract_first_json_object(clean_text) or clean_text
 
     try:
-        match = re.search(r"\{.*\}", clean_text, re.S)
-        if match:
-            return json.loads(match.group())
-        return json.loads(clean_text)
+        parsed = json.loads(json_candidate)
+        return normalize_control_chars(parsed)
     except Exception as e:
-        logging.warning(f"JSON 解析失败，返回原始文本。Error: {e}")
-        return {"status": "parse_error", "raw": text}
+        # 常见失败场景：LaTeX 反斜杠未转义，导致 Invalid \escape
+        repaired = repair_invalid_json_escapes(json_candidate)
+        repaired = remove_trailing_commas(repaired)
+        try:
+            parsed = json.loads(repaired)
+            return normalize_control_chars(parsed)
+        except Exception as e2:
+            logging.warning(f"JSON 解析失败，返回原始文本。Error: {e2}")
+            return {"status": "parse_error", "raw": text, "error": str(e2)}
+
+
+def extract_first_json_object(text: str) -> str | None:
+    """
+    从文本中提取第一个“括号平衡”的 JSON 对象字符串。
+
+    Args:
+        text: 包含 JSON 的原始文本。
+
+    Returns:
+        str | None: JSON 对象文本；找不到则返回 None。
+    """
+    start = text.find("{")
+    if start < 0:
+        return None
+
+    depth = 0
+    in_string = False
+    escape = False
+
+    for i in range(start, len(text)):
+        ch = text[i]
+
+        if in_string:
+            if escape:
+                escape = False
+            elif ch == "\\":
+                escape = True
+            elif ch == '"':
+                in_string = False
+            continue
+
+        if ch == '"':
+            in_string = True
+        elif ch == "{":
+            depth += 1
+        elif ch == "}":
+            depth -= 1
+            if depth == 0:
+                return text[start : i + 1]
+
+    return None
+
+
+def repair_invalid_json_escapes(text: str) -> str:
+    """
+    修复 JSON 字符串内部无效反斜杠转义。
+
+    例如将 `\\begin`（在 JSON 中是无效转义 `\\b`?）之外的非法 `\\x` 修复为 `\\\\x`。
+
+    Args:
+        text: 可能包含无效转义的 JSON 文本。
+
+    Returns:
+        str: 修复后的 JSON 文本。
+    """
+    # 对本项目而言，\b \f \n \r \t 大多来自 LaTeX 命令的误转义，统一转为字面量更安全。
+    valid_escapes = {'"', "\\", "/", "u"}
+    out: list[str] = []
+    in_string = False
+    i = 0
+
+    while i < len(text):
+        ch = text[i]
+
+        if not in_string:
+            out.append(ch)
+            if ch == '"':
+                in_string = True
+            i += 1
+            continue
+
+        # in_string == True
+        if ch == '"':
+            out.append(ch)
+            in_string = False
+            i += 1
+            continue
+
+        if ch != "\\":
+            out.append(ch)
+            i += 1
+            continue
+
+        # ch == "\" inside string
+        if i + 1 >= len(text):
+            out.append("\\\\")
+            i += 1
+            continue
+
+        nxt = text[i + 1]
+        if nxt in valid_escapes:
+            if nxt == "u":
+                # \u 后需 4 位十六进制，否则当作非法转义修复
+                hex_part = text[i + 2 : i + 6]
+                if len(hex_part) == 4 and all(c in "0123456789abcdefABCDEF" for c in hex_part):
+                    out.append("\\")
+                    out.append("u")
+                    out.append(hex_part)
+                    i += 6
+                    continue
+                out.append("\\\\")
+                i += 1
+                continue
+
+            out.append("\\")
+            out.append(nxt)
+            i += 2
+            continue
+
+        # 非法转义：补一个反斜杠变成字面量
+        out.append("\\\\")
+        i += 1
+
+    return "".join(out)
+
+
+def remove_trailing_commas(text: str) -> str:
+    """
+    删除 JSON 对象/数组在闭括号前的尾逗号。
+
+    Args:
+        text: JSON 文本。
+
+    Returns:
+        str: 去除尾逗号后的 JSON 文本。
+    """
+    return re.sub(r",\s*([}\]])", r"\1", text)
+
+
+def normalize_control_chars(value: Any) -> Any:
+    """
+    递归修复字符串中的控制字符，避免 `\\begin` 被解析成退格字符等问题。
+
+    Args:
+        value: 任意 JSON 值。
+
+    Returns:
+        Any: 修复后的值。
+    """
+    if isinstance(value, dict):
+        return {k: normalize_control_chars(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [normalize_control_chars(v) for v in value]
+    if isinstance(value, str):
+        return (
+            value.replace("\x08", "\\b")
+            .replace("\x0c", "\\f")
+            .replace("\r", "\\r")
+            .replace("\t", "\\t")
+        )
+    return value
 
 
 def read_input_text(input_path: str) -> str | None:
@@ -473,6 +640,115 @@ def get_step_error(result: dict[str, Any] | Any) -> str:
     return result.get("error") or result.get("reason") or str(result.get("status"))
 
 
+def clip_text(value: Any, max_chars: int = L5_MAX_TEXT_CHARS) -> Any:
+    """
+    裁剪超长文本，降低 L5 输入 token 体积。
+
+    Args:
+        value: 待裁剪内容。
+        max_chars: 最大字符数。
+
+    Returns:
+        Any: 若为字符串则返回裁剪后文本，否则原样返回。
+    """
+    if not isinstance(value, str):
+        return value
+    if len(value) <= max_chars:
+        return value
+    return value[:max_chars]
+
+
+def build_l5_payload(
+    l2: dict[str, Any], l3: dict[str, Any], l4: dict[str, Any]
+) -> dict[str, Any]:
+    """
+    构建 L5 输入的精简载荷，减少冗余长文本。
+
+    Args:
+        l2: 结论重构结果。
+        l3: 评估结果。
+        l4: 讲义结果。
+
+    Returns:
+        dict[str, Any]: 传给 L5 的精简输入。
+    """
+    files = {
+        "01_statement": clip_text(l4.get("01_statement", "")),
+        "04_examples": clip_text(l4.get("04_examples", "")),
+        "06_summary": clip_text(l4.get("06_summary", "")),
+    }
+
+    evaluation = {
+        "scores": l3.get("scores", {}),
+        "final_score": l3.get("final_score"),
+        "decision": l3.get("decision"),
+        "tags": l3.get("tags", []),
+        "analysis": clip_text(l3.get("analysis", ""), 600),
+    }
+
+    return {
+        "statement": clip_text(l2.get("statement", "")),
+        "latex": clip_text(l2.get("latex", "")),
+        "meta": l2.get("meta", {}),
+        "evaluation": evaluation,
+        "files": files,
+    }
+
+
+def apply_meta_defaults(meta_json: dict[str, Any], fallback_id: str) -> dict[str, Any]:
+    """
+    对 L5 结果做默认字段补全，减少 prompt 对固定字段生成的负担。
+
+    Args:
+        meta_json: L5 输出 JSON。
+        fallback_id: 回退 id（通常为文件名）。
+
+    Returns:
+        dict[str, Any]: 补全后的 meta JSON。
+    """
+    if not isinstance(meta_json, dict):
+        return {"status": "invalid_output", "raw": meta_json}
+
+    meta_json.setdefault("id", fallback_id)
+    meta_json.setdefault("module", "")
+    meta_json.setdefault("core", {})
+    meta_json.setdefault("search", {})
+    meta_json.setdefault("searchmeta", META_DEFAULT_SEARCHMETA.copy())
+    meta_json.setdefault("ranking", {})
+    meta_json.setdefault("math", {})
+    meta_json.setdefault("content", {})
+    meta_json.setdefault("usage", {})
+    meta_json.setdefault("interactive", {"has_diagram": False, "geogebra_id": "", "param_demo": {}})
+    meta_json.setdefault("assets", {})
+    meta_json.setdefault("shareConfig", {})
+    meta_json.setdefault("relations", {})
+    meta_json.setdefault("meta", {})
+    meta_json.setdefault("isPro", 0)
+    meta_json.setdefault("remarks", "")
+    meta_json.setdefault("knowledgeNode", "")
+    meta_json.setdefault("altNodes", "")
+
+    if isinstance(meta_json["searchmeta"], dict):
+        for key, value in META_DEFAULT_SEARCHMETA.items():
+            meta_json["searchmeta"].setdefault(key, value)
+
+    if isinstance(meta_json["ranking"], dict):
+        meta_json["ranking"].setdefault("search_boost", 0)
+        meta_json["ranking"].setdefault("hot_score", 50)
+        meta_json["ranking"].setdefault("click_rate", 0)
+        meta_json["ranking"].setdefault("success_rate", 0)
+
+    if isinstance(meta_json["assets"], dict):
+        meta_json["assets"].setdefault("svg", f"{meta_json['id']}.svg")
+
+    if isinstance(meta_json["meta"], dict):
+        meta_json["meta"].setdefault("version", 1)
+        meta_json["meta"].setdefault("source", "AI生成")
+        meta_json["meta"]["created_at"] = date.today().isoformat()
+
+    return meta_json
+
+
 def build_output_paths(filename: str, output_dir: str) -> dict[str, str]:
     """
     构建单文件各阶段输出路径。
@@ -491,6 +767,34 @@ def build_output_paths(filename: str, output_dir: str) -> dict[str, str]:
         "l4": os.path.join(output_dir, "lecture", f"{filename}.json"),
         "l5": os.path.join(output_dir, "meta", f"{filename}.json"),
     }
+
+
+def save_parse_debug(
+    output_dir: str,
+    filename: str,
+    step_name: str,
+    result: dict[str, Any],
+) -> None:
+    """
+    记录 parse_error 原始文本，便于回溯模型输出问题。
+
+    Args:
+        output_dir: 输出根目录。
+        filename: 输入文件名（无扩展名）。
+        step_name: 阶段名（l1/l2/l3/l4/l5）。
+        result: 当前阶段返回 JSON。
+    """
+    if result.get("status") != "parse_error":
+        return
+
+    debug_dir = os.path.join(output_dir, "debug")
+    os.makedirs(debug_dir, exist_ok=True)
+    debug_path = os.path.join(debug_dir, f"{filename}_{step_name}_parse_error.txt")
+    raw = result.get("raw", "")
+    err = result.get("error", "")
+    with open(debug_path, "w", encoding="utf-8") as f:
+        f.write(f"[{step_name}] parse_error: {err}\n\n")
+        f.write(raw if isinstance(raw, str) else json.dumps(raw, ensure_ascii=False, indent=2))
 
 
 def is_step_success(result: dict[str, Any]) -> bool:
@@ -535,8 +839,11 @@ def process_file(input_path: str, output_dir: str) -> str:
             if not raw_text:
                 logging.error(f"{filename} 输入为空或读取失败")
                 return "error"
+            t0 = time.perf_counter()
             l1 = step_latex_extract(raw_text)
+            logging.info(f"{filename} L1 耗时: {time.perf_counter() - t0:.2f}s")
             if not is_step_success(l1):
+                save_parse_debug(output_dir, filename, "l1", l1)
                 logging.error(f"{filename} L1 失败: {get_step_error(l1)}")
                 return "error"
             save_json(l1, paths_map["l1"])
@@ -546,45 +853,80 @@ def process_file(input_path: str, output_dir: str) -> str:
             with open(paths_map["l2"], "r", encoding="utf-8") as f:
                 l2 = json.load(f)
         else:
+            t0 = time.perf_counter()
             l2 = step_statement_rewrite(l1)
+            logging.info(f"{filename} L2 耗时: {time.perf_counter() - t0:.2f}s")
             if not is_step_success(l2):
+                save_parse_debug(output_dir, filename, "l2", l2)
                 logging.error(f"{filename} L2 失败: {get_step_error(l2)}")
                 return "error"
             save_json(l2, paths_map["l2"])
 
-        # ========= L3 =========
+        # ========= L3/L4（并行） =========
+        l3 = None
+        l4 = None
+
         if file_exists(paths_map["l3"]):
             with open(paths_map["l3"], "r", encoding="utf-8") as f:
                 l3 = json.load(f)
-        else:
-            l3 = step_quality_eval(l2)
-            if not is_step_success(l3):
-                logging.error(f"{filename} L3 失败: {get_step_error(l3)}")
-                return "error"
-            save_json(l3, paths_map["l3"])
-
-        # ========= L4 =========
         if file_exists(paths_map["l4"]):
             with open(paths_map["l4"], "r", encoding="utf-8") as f:
                 l4 = json.load(f)
+
+        future_map: dict[str, Any] = {}
+        if l3 is None or l4 is None:
+            with ThreadPoolExecutor(max_workers=2) as local_executor:
+                if l3 is None:
+                    future_map["l3"] = local_executor.submit(step_quality_eval, l2)
+                if l4 is None:
+                    future_map["l4"] = local_executor.submit(step_lecture_generate, l2)
+
+                step_start = {
+                    "l3": time.perf_counter() if "l3" in future_map else None,
+                    "l4": time.perf_counter() if "l4" in future_map else None,
+                }
+
+                for step_name, future in future_map.items():
+                    result = future.result()
+                    elapsed = time.perf_counter() - step_start[step_name]
+                    logging.info(f"{filename} {step_name.upper()} 耗时: {elapsed:.2f}s")
+
+                    if not is_step_success(result):
+                        save_parse_debug(output_dir, filename, step_name, result)
+                        logging.error(
+                            f"{filename} {step_name.upper()} 失败: {get_step_error(result)}"
+                        )
+                        return "error"
+
+                    if step_name == "l3":
+                        l3 = result
+                        save_json(l3, paths_map["l3"])
+                    else:
+                        l4 = result
+                        save_json(l4, paths_map["l4"])
         else:
-            l4 = step_lecture_generate(l2)
-            if not is_step_success(l4):
-                logging.error(f"{filename} L4 失败: {get_step_error(l4)}")
-                return "error"
-            save_json(l4, paths_map["l4"])
+            # 双缓存命中时，确保变量存在
+            if l3 is None:
+                with open(paths_map["l3"], "r", encoding="utf-8") as f:
+                    l3 = json.load(f)
+            if l4 is None:
+                with open(paths_map["l4"], "r", encoding="utf-8") as f:
+                    l4 = json.load(f)
 
         # ========= L5 =========
         if file_exists(paths_map["l5"]):
             logging.info(f"{filename} 已处理，跳过 L5")
             return "skipped"
 
-        merged = {"l2": l2, "l3": l3, "l4": l4}
+        merged = build_l5_payload(l2, l3, l4)
+        t0 = time.perf_counter()
         l5 = step_meta_generate(merged)
+        logging.info(f"{filename} L5 耗时: {time.perf_counter() - t0:.2f}s")
         if not is_step_success(l5):
+            save_parse_debug(output_dir, filename, "l5", l5)
             logging.error(f"{filename} L5 失败: {get_step_error(l5)}")
             return "error"
-        save_json(l5, paths_map["l5"])
+        save_json(apply_meta_defaults(l5, filename), paths_map["l5"])
 
         return "success"
 
