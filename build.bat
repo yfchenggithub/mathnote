@@ -14,21 +14,12 @@ mkdir build
 mkdir build\encrypted
 
 REM =========================
-REM Get timestamp (YYYY-MM-DD_HH-MM-SS)
+REM Get timestamp (周X-YYYY-MM_DD-MM-SS)
+REM Use PowerShell to avoid locale-dependent %date% parsing issues.
 REM =========================
-for /f "tokens=1-4 delims=/ " %%a in ("%date%") do (
-    set yyyy=%%a
-    set mm=%%b
-    set dd=%%c
+for /f "usebackq delims=" %%i in (`powershell -NoProfile -Command "[System.Threading.Thread]::CurrentThread.CurrentCulture='zh-CN'; Get-Date -Format 'ddd-yyyy-MM_dd-mm-ss'"`) do (
+    set "timestamp=%%i"
 )
-
-for /f "tokens=1-3 delims=:." %%a in ("%time%") do (
-    set hh=%%a
-    set min=%%b
-    set sec=%%c
-)
-
-set timestamp=%yyyy%-%mm%-%dd%_!hh!-!min!-!sec!
 
 REM =========================
 REM Create build timestamp file
@@ -43,7 +34,6 @@ latexmk -xelatex -interaction=nonstopmode -halt-on-error -outdir=build main.tex
 
 IF ERRORLEVEL 1 (
     echo LaTeX 编译失败！
-    pause
     exit /b
 )
 
