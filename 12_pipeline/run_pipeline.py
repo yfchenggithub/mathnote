@@ -4,11 +4,12 @@
 功能介绍
 --------
 该脚本负责把 `input/` 目录中的 LaTeX 文本输入批量加工为 5 个阶段的结构化结果：
-- L1: raw 文本清洗与结构提取 -> output/raw/*.json
-- L2: 结论重构 -> output/statement/*.json
-- L3: 教学价值评估 -> output/eval/*.json
-- L4: 讲义模块生成 -> output/lecture/*.json
-- L5: 检索与推荐 meta 生成 -> output/meta/*.json
+- L1: raw 文本清洗与结构提取 -> output/<ID>/raw_l1.json
+- L2: 结论重构 -> output/<ID>/statement_l2.json
+- L3: 教学价值评估 -> output/<ID>/eval_l3.json
+- L4: 讲义模块生成 -> output/<ID>/lecture_l4.json
+- L5: 检索与推荐 meta 生成 -> output/<ID>/meta_l5.json
+- 讲义片段导出 -> output/<ID>/01_statement.tex ~ 06_summary.tex
 
 流程介绍
 --------
@@ -312,6 +313,33 @@ def save_json(data: dict[str, Any], path: str) -> None:
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
+
+
+def load_json_file(path: str) -> dict[str, Any]:
+    """
+    读取 JSON 文件，自动兼容 UTF-8 BOM。
+
+    Args:
+        path: JSON 文件路径。
+
+    Returns:
+        dict[str, Any]: 解析后的对象。
+
+    Raises:
+        ValueError: 内容不是 JSON 对象。
+        Exception: 文件读取/解析失败时抛出最后一次异常。
+    """
+    last_error: Exception | None = None
+    for encoding in ("utf-8", "utf-8-sig", "gb18030"):
+        try:
+            with open(path, "r", encoding=encoding) as f:
+                data = json.load(f)
+            if not isinstance(data, dict):
+                raise ValueError(f"{path} 不是 JSON 对象")
+            return data
+        except Exception as e:
+            last_error = e
+    raise last_error if last_error else ValueError(f"读取 JSON 失败: {path}")
 
 
 def safe_json_parse(text: str | None) -> dict[str, Any]:
@@ -782,7 +810,7 @@ def apply_meta_defaults(meta_json: dict[str, Any], fallback_id: str) -> dict[str
 
 def build_output_paths(filename: str, output_dir: str) -> dict[str, str]:
     """
-    构建单文件各阶段输出路径。
+    构建单文件各阶段输出路径（按题目聚合到 output/<filename>/）。
 
     Args:
         filename: 不含扩展名的文件名。
@@ -791,12 +819,13 @@ def build_output_paths(filename: str, output_dir: str) -> dict[str, str]:
     Returns:
         dict[str, str]: l1~l5 到目标文件路径的映射。
     """
+    item_dir = os.path.join(output_dir, filename)
     return {
-        "l1": os.path.join(output_dir, "raw", f"{filename}.json"),
-        "l2": os.path.join(output_dir, "statement", f"{filename}.json"),
-        "l3": os.path.join(output_dir, "eval", f"{filename}.json"),
-        "l4": os.path.join(output_dir, "lecture", f"{filename}.json"),
-        "l5": os.path.join(output_dir, "meta", f"{filename}.json"),
+        "l1": os.path.join(item_dir, "l1_raw.json"),
+        "l2": os.path.join(item_dir, "l2_statement.json"),
+        "l3": os.path.join(item_dir, "l3_eval.json"),
+        "l4": os.path.join(item_dir, "l4_lecture.json"),
+        "l5": os.path.join(item_dir, "l5_meta.json"),
     }
 
 
@@ -818,9 +847,9 @@ def save_parse_debug(
     if result.get("status") != "parse_error":
         return
 
-    debug_dir = os.path.join(output_dir, "debug")
+    debug_dir = os.path.join(output_dir, filename, "debug")
     os.makedirs(debug_dir, exist_ok=True)
-    debug_path = os.path.join(debug_dir, f"{filename}_{step_name}_parse_error.txt")
+    debug_path = os.path.join(debug_dir, f"{step_name}_parse_error.txt")
     raw = result.get("raw", "")
     err = result.get("error", "")
     with open(debug_path, "w", encoding="utf-8") as f:
@@ -847,7 +876,7 @@ def export_lecture_tex_snippets(
     if not isinstance(lecture_json, dict):
         return
 
-    target_dir = os.path.join(output_dir, "lecture_tex", filename)
+    target_dir = os.path.join(output_dir, filename)
     os.makedirs(target_dir, exist_ok=True)
 
     exported = 0
@@ -901,8 +930,7 @@ def process_file(input_path: str, output_dir: str) -> str:
 
         # ========= L1 =========
         if file_exists(paths_map["l1"]):
-            with open(paths_map["l1"], "r", encoding="utf-8") as f:
-                l1 = json.load(f)
+            l1 = load_json_file(paths_map["l1"])
         else:
             raw_text = read_input_text(input_path)
             if not raw_text:
@@ -919,8 +947,7 @@ def process_file(input_path: str, output_dir: str) -> str:
 
         # ========= L2 =========
         if file_exists(paths_map["l2"]):
-            with open(paths_map["l2"], "r", encoding="utf-8") as f:
-                l2 = json.load(f)
+            l2 = load_json_file(paths_map["l2"])
         else:
             t0 = time.perf_counter()
             l2 = step_statement_rewrite(l1)
@@ -936,11 +963,9 @@ def process_file(input_path: str, output_dir: str) -> str:
         l4 = None
 
         if file_exists(paths_map["l3"]):
-            with open(paths_map["l3"], "r", encoding="utf-8") as f:
-                l3 = json.load(f)
+            l3 = load_json_file(paths_map["l3"])
         if file_exists(paths_map["l4"]):
-            with open(paths_map["l4"], "r", encoding="utf-8") as f:
-                l4 = json.load(f)
+            l4 = load_json_file(paths_map["l4"])
 
         future_map: dict[str, Any] = {}
         if l3 is None or l4 is None:
@@ -976,11 +1001,9 @@ def process_file(input_path: str, output_dir: str) -> str:
         else:
             # 双缓存命中时，确保变量存在
             if l3 is None:
-                with open(paths_map["l3"], "r", encoding="utf-8") as f:
-                    l3 = json.load(f)
+                l3 = load_json_file(paths_map["l3"])
             if l4 is None:
-                with open(paths_map["l4"], "r", encoding="utf-8") as f:
-                    l4 = json.load(f)
+                l4 = load_json_file(paths_map["l4"])
 
         # 无论 L4 是新生成还是缓存复用，都导出一份真实 tex 片段文件。
         export_lecture_tex_snippets(l4, filename, output_dir)
@@ -1045,6 +1068,7 @@ def run_batch(
 
     files.sort()
     logging.info(f"开始批处理，共 {len(files)} 个文件，并发数 {max_workers}")
+    batch_start = time.perf_counter()
 
     stats = {"success": 0, "error": 0, "skipped": 0}
 
@@ -1070,7 +1094,9 @@ def run_batch(
                 pbar.set_postfix(stats)
                 pbar.update(1)
 
+    total_elapsed = time.perf_counter() - batch_start
     logging.info(f"\n✅ 任务结束: {stats}")
+    logging.info(f"⏱ 总耗时: {total_elapsed:.2f}s")
     return stats
 
 
