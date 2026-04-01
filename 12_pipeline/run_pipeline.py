@@ -4,11 +4,11 @@
 功能介绍
 --------
 该脚本负责把 `input/` 目录中的 LaTeX 文本输入批量加工为 5 个阶段的结构化结果：
-- L1: raw 文本清洗与结构提取 -> output/<ID>/raw_l1.json
-- L2: 结论重构 -> output/<ID>/statement_l2.json
-- L3: 教学价值评估 -> output/<ID>/eval_l3.json
-- L4: 讲义模块生成 -> output/<ID>/lecture_l4.json
-- L5: 检索与推荐 meta 生成 -> output/<ID>/meta_l5.json
+- L1: raw 文本清洗与结构提取 -> output/<ID>/l1_raw.json
+- L2: 结论重构 -> output/<ID>/l2_statement.json
+- L3: 教学价值评估 -> output/<ID>/l3_eval.json
+- L4: 讲义模块生成 -> output/<ID>/l4_lecture.json
+- L5: 检索与推荐 meta 生成 -> output/<ID>/l5_meta.json
 - 讲义片段导出 -> output/<ID>/01_statement.tex ~ 06_summary.tex
 
 流程介绍
