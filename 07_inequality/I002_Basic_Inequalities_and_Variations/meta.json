@@ -1,0 +1,178 @@
+{
+  "id": "I001",
+  "module": "inequality",
+  "core": {
+    "title": "基本不等式（算术-几何平均不等式与平方和不等式）",
+    "alias": [
+      "均值不等式",
+      "基本不等式",
+      "和积不等式",
+      "平方和不等式"
+    ],
+    "summary": "两个正数的和至少是它们积的平方根的两倍，平方和至少是它们积的两倍。",
+    "difficulty": 2,
+    "category": "不等式",
+    "tags": [
+      "基本不等式",
+      "均值不等式",
+      "最值问题",
+      "代数变形",
+      "等号成立条件"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "基本不等式",
+      "均值不等式",
+      "算术几何平均不等式",
+      "平方和不等式",
+      "a+b≥2√ab",
+      "a²+b²≥2ab",
+      "ab≤((a+b)/2)²",
+      "最值",
+      "等号成立条件",
+      "一正二定三相等",
+      "正实数",
+      "不等式变形",
+      "求最小值",
+      "求最大值"
+    ],
+    "synonyms": [
+      "平均不等式",
+      "和积关系",
+      "基本不等试",
+      "均值不等试",
+      "平方和不等于",
+      "a加b大于等于2根号ab"
+    ],
+    "intents": [
+      "求最值",
+      "证明不等式",
+      "比较大小",
+      "判断取值范围",
+      "求等号成立条件"
+    ],
+    "query_templates": [
+      "已知x>0，求x+4/x的最小值",
+      "怎么用基本不等式求最值",
+      "a+b≥2√ab成立的条件是什么",
+      "证明a²+b²≥2ab",
+      "已知a+b=1，求ab的最大值"
+    ],
+    "ocrKeywords": [
+      "正实数",
+      "≥",
+      "√",
+      "最小值",
+      "最大值",
+      "当且仅当",
+      "a=b"
+    ],
+    "latex_patterns": [
+      "a + b \\geq 2\\sqrt{ab}",
+      "a^2 + b^2 \\geq 2ab",
+      "ab \\leq \\left(\\frac{a+b}{2}\\right)^2",
+      "a^2 + b^2 \\geq \\frac{(a+b)^2}{2}"
+    ],
+    "formulaTokens": [
+      "a+b",
+      "2√(ab)",
+      "a²+b²",
+      "2ab",
+      "((a+b)/2)²",
+      "(a+b)²/2"
+    ],
+    "pinyin": "jibenbudengshi junzhibudengshi suanshujihepingjunbudengshi pingfanghebudengshi",
+    "pinyinAbbr": "jbbds jzbds ssjhpjbbds pfhbds"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.95,
+    "hot_score": 85,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "a + b \\geq 2\\sqrt{ab}",
+    "related_formulas": [
+      "a^2 + b^2 \\geq 2ab",
+      "ab \\leq \\left(\\frac{a+b}{2}\\right)^2",
+      "a^2 + b^2 \\geq \\frac{(a+b)^2}{2}"
+    ],
+    "variables": [
+      "a",
+      "b"
+    ],
+    "conditions": "a, b 为正实数（对于算术-几何平均不等式）；a, b 为任意实数（对于平方和不等式）。",
+    "conclusions": "1. 给定和求积的最大值，或给定积求和的最小值。2. 平方和与积的关系。3. 等号成立当且仅当 a = b。"
+  },
+  "content": {
+    "statement": "设 $a, b$ 为正实数，则下列不等式成立：\\begin{enumerate}\\item 算术-几何平均不等式：$a + b \\geq 2\\sqrt{ab}$\\item 平方和不等式：$a^2 + b^2 \\geq 2ab$\\item 常用等价变形：$ab \\leq \\left(\\frac{a+b}{2}\\right)^2$，$a^2 + b^2 \\geq \\frac{(a+b)^2}{2}$\\end{enumerate}以上各不等式等号成立当且仅当 $a = b$。",
+    "derivation": [
+      "1. 平方和不等式：$(a-b)^2 \\ge 0$ 展开即得 $a^2+b^2 \\ge 2ab$。",
+      "2. 算术-几何平均不等式：在平方和不等式中，令 $a=\\sqrt{x}, b=\\sqrt{y}$ 即得 $x+y \\ge 2\\sqrt{xy}$。",
+      "3. 变形形式：由 $a+b \\ge 2\\sqrt{ab}$ 两边平方整理得 $ab \\le ((a+b)/2)^2$；由 $(a+b)^2 = a^2+b^2+2ab$ 结合 $a^2+b^2 \\ge 2ab$ 可得 $a^2+b^2 \\ge (a+b)^2/2$。"
+    ],
+    "intuition": "一个数的平方非负，$(a-b)^2 \\ge 0$ 是所有这些不等式的共同根源，它反映了“偏离”会产生“多余”的量。",
+    "common_tricks": [
+      "1. 凑定值：应用前常需通过配凑使和为定值或积为定值。",
+      "2. 验证条件：用不等式求最值后，必须检查等号成立条件（a=b）是否在定义域内。",
+      "3. 连续使用：有时需要对多个式子分别使用基本不等式再组合。",
+      "4. 升次与降次：利用变形形式在平方和、和、积之间转换。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "求函数最值",
+      "证明简单不等式",
+      "求解代数式取值范围",
+      "作为复杂不等式证明的基石"
+    ],
+    "problem_types": [
+      "直接应用求最值",
+      "条件最值（如已知和求积最大）",
+      "不等式证明",
+      "选择题判断大小"
+    ],
+    "exam_frequency": 1,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "I001.svg",
+    "png": "",
+    "mp4": "",
+    "geogebra": ""
+  },
+  "shareConfig": {
+    "title": "基本不等式核心变形：最值问题与等号条件速查",
+    "shareDesc": "适合课后复盘与刷题前速查，集中解决利用和积关系求最值的核心步骤，避免忽略等号成立条件这一常见失分点。"
+  },
+  "relations": {
+    "prerequisites": [
+      "实数比较大小",
+      "完全平方公式 $(a±b)^2$",
+      "非负数的概念"
+    ],
+    "related_ids": [],
+    "similar": "柯西不等式、排序不等式（均为更高级的不等式，基本不等式是它们的特例或基础）"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-04-01"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "不等式-经典不等式-均值不等式",
+  "altNodes": "不等式-基本性质-比较性质, 不等式-等价变形-平方与开方, 函数-综合-函数与不等式"
+}
