@@ -384,6 +384,82 @@ def publish_main(meta, module_dir, target_dir, dry_run):
 
 
 # =========================================================
+# 常量定义（新增）
+# =========================================================
+INDEX_FILENAME = "index.tex"  # 模块汇总文件名
+
+
+# =========================================================
+# 新增函数：更新模块的 index.tex
+# =========================================================
+import re  # 确保已导入（脚本开头已有）
+
+# 新增常量（放在全局配置区域）
+INDEX_FILENAME = "index.tex"  # 模块汇总文件名
+
+
+def update_module_index(module_dir: Path, target_dir: Path, dry_run: bool):
+    """
+    在模块的 index.tex 中追加当前二级结论的 input 行（如果尚未存在未注释的引用）。
+
+    参数：
+        module_dir  : 模块根目录（如 07_inequality）
+        target_dir  : 二级结论子目录（如 I002_Basic_Inequalities_and_Variations）
+        dry_run     : 若为 True，仅模拟操作，不实际写入文件
+    """
+    index_file = module_dir / INDEX_FILENAME
+    # 构造待插入的 LaTeX 行
+    input_line = f"\\input{{{module_dir.name}/{target_dir.name}/main.tex}}"
+
+    # 情况1：文件不存在 -> 直接创建并写入
+    if not index_file.exists():
+        if dry_run:
+            logger.info(f"CREATE {index_file} (dry-run)")
+        else:
+            index_file.write_text(input_line + "\n", encoding="utf-8")
+            logger.info(f"CREATE {index_file} with {input_line}")
+        return
+
+    # 情况2：文件存在 -> 检查是否已存在活跃的引用
+    try:
+        with index_file.open("r", encoding="utf-8") as f:
+            lines = f.readlines()
+    except Exception as e:
+        logger.error(f"Failed to read {index_file}: {e}")
+        return
+
+    # 正则表达式：匹配以 \input{...} 开头的行（忽略前导空格，但行首不能是 %）
+    # 注意：模块名和目录名可能包含特殊字符，需转义
+    pattern = rf"^\s*\\input\{{{re.escape(module_dir.name)}/{re.escape(target_dir.name)}/main\.tex\}}"
+
+    active_found = False
+    for line in lines:
+        stripped = line.lstrip()
+        # 跳过注释行
+        if stripped.startswith("%"):
+            continue
+        if re.search(pattern, line):
+            active_found = True
+            break
+
+    if active_found:
+        logger.info(f"SKIP {index_file}: active input line already exists")
+        return
+
+    # 未找到活跃引用，追加新行
+    if dry_run:
+        logger.info(f"UPDATE {index_file}: would add {input_line} (dry-run)")
+        return
+
+    # 确保文件末尾有换行，避免与已有内容粘连
+    with index_file.open("a", encoding="utf-8") as f:
+        if lines and not lines[-1].endswith("\n"):
+            f.write("\n")
+        f.write(input_line + "\n")
+    logger.info(f"UPDATE {index_file}: added {input_line}")
+
+
+# =========================================================
 # 主流程（调度器）
 # =========================================================
 
@@ -424,6 +500,8 @@ def publish_one(item_id, args, module_dirs, alias_map):
         args.input_root, item_id, target_dir, args.dry_run, args.skip == "source"
     )
     publish_main(meta, module_dir, target_dir, args.dry_run)
+    # 新增：更新模块的 index.tex
+    update_module_index(module_dir, target_dir, args.dry_run)
 
 
 def detect_ids(output_root, ids):
