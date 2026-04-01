@@ -340,14 +340,20 @@ def sync_source(input_root, item_id, target_dir, dry_run, skip):
         logger.info("SKIP source.tex")
         return
 
-    dst = target_dir / "source.tex"
-    if dst.exists():
+    src = input_root / item_id / "source.tex"
+    if not src.exists():
+        logger.info(f"SKIP source.tex: missing {src}")
         return
 
-    src = input_root / item_id / "source.tex"
-    if src.exists():
-        logger.info(f"COPY {src} -> {dst}")
-        copy_file(src, dst, dry_run)
+    dst = target_dir / "source.tex"
+    if dst.exists():
+        if dst.stat().st_size > 0:
+            logger.info(f"SKIP source.tex: already exists at {dst}")
+            return
+        logger.info(f"REPLACE empty source.tex: {dst}")
+
+    logger.info(f"COPY {src} -> {dst}")
+    copy_file(src, dst, dry_run)
 
 
 def build_main(module_name, dir_name, title):
