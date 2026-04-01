@@ -13,8 +13,8 @@
 
 流程介绍
 --------
-1. 扫描输入目录，读取 .tex/.txt/.md/.latex/.json 文件。
-2. 每个文件按 L1 -> L5 依次执行；若某阶段输出已存在则自动复用。
+1. 扫描输入目录中的 ID 子目录（如 `I001/`），读取其中 `source.*` 或首个可识别文件。
+2. 每个 ID 按 L1 -> L5 依次执行；若某阶段输出已存在则自动复用。
 3. 所有阶段调用统一的 LLM 接口，并带有重试与并发控制。
 4. 批处理结束后输出 success/error/skipped 统计。
 
@@ -125,6 +125,8 @@ LECTURE_TEX_FILE_MAP = {
     "06_summary": "06_summary.tex",
 }
 
+ID_DIR_PATTERN = re.compile(r"^[A-Za-z]\d{3}$")
+
 
 def parse_args() -> argparse.Namespace:
     """
@@ -134,7 +136,10 @@ def parse_args() -> argparse.Namespace:
         argparse.Namespace: 运行参数集合。
     """
     parser = argparse.ArgumentParser(
-        description="批量运行 LaTeX -> statement/eval/lecture/meta 的五阶段流水线。",
+        description=(
+            "批量运行 LaTeX -> statement/eval/lecture/meta 的五阶段流水线。"
+            " 输入目录需包含 ID 子目录（如 input/I001/source.tex）。"
+        ),
         formatter_class=argparse.RawTextHelpFormatter,
     )
     parser.add_argument(
@@ -193,6 +198,76 @@ def normalize_extensions(extensions: list[str]) -> tuple[str, ...]:
     # 去重并保持顺序
     unique = list(dict.fromkeys(normalized))
     return tuple(unique)
+
+
+def find_source_file_in_id_dir(id_dir: str, input_extensions: tuple[str, ...]) -> str | None:
+    """
+    在单个 ID 子目录中定位输入源文件。
+
+    优先级：
+    1) `source.<ext>`（按扩展名顺序）
+    2) 目录中首个匹配扩展名的文件（按文件名字典序）
+
+    Args:
+        id_dir: ID 子目录绝对路径（例如 input/I001）。
+        input_extensions: 支持的扩展名。
+
+    Returns:
+        str | None: 命中的文件绝对路径；找不到返回 None。
+    """
+    for ext in input_extensions:
+        candidate = os.path.join(id_dir, f"source{ext}")
+        if os.path.isfile(candidate):
+            return candidate
+
+    files = []
+    for name in os.listdir(id_dir):
+        full_path = os.path.join(id_dir, name)
+        if os.path.isfile(full_path) and name.lower().endswith(input_extensions):
+            files.append(full_path)
+
+    if not files:
+        return None
+
+    files.sort()
+    return files[0]
+
+
+def discover_input_items(
+    input_dir: str, input_extensions: tuple[str, ...]
+) -> list[tuple[str, str]]:
+    """
+    扫描输入目录并发现待处理 ID 项。
+
+    约定：
+    - 输入目录下每个一级子目录名是 ID（如 I001）。
+    - 每个 ID 子目录内放源文件（推荐 `source.tex` / `source.txt`）。
+
+    Args:
+        input_dir: 输入根目录。
+        input_extensions: 支持扩展名。
+
+    Returns:
+        list[tuple[str, str]]: [(item_id, source_file_path), ...]
+    """
+    items: list[tuple[str, str]] = []
+
+    for name in sorted(os.listdir(input_dir)):
+        id_dir = os.path.join(input_dir, name)
+        if not os.path.isdir(id_dir):
+            continue
+        if not ID_DIR_PATTERN.match(name):
+            continue
+
+        source_path = find_source_file_in_id_dir(id_dir, input_extensions)
+        if not source_path:
+            logging.warning(
+                f"{name} 未找到可用源文件（支持: {', '.join(input_extensions)}），已跳过"
+            )
+            continue
+        items.append((name, source_path))
+
+    return items
 
 
 def retry_call(
@@ -908,7 +983,7 @@ def is_step_success(result: dict[str, Any]) -> bool:
     return result.get("status") in STEP_SUCCESS_STATUS
 
 
-def process_file(input_path: str, output_dir: str) -> str:
+def process_file(item_id: str, input_path: str, output_dir: str) -> str:
     """
     处理单个输入文件。
 
@@ -917,13 +992,14 @@ def process_file(input_path: str, output_dir: str) -> str:
     - 若最终 L5 已存在，直接返回 skipped。
 
     Args:
-        input_path: 输入文件绝对路径。
+        item_id: ID（如 I001）。
+        input_path: 输入源文件绝对路径。
         output_dir: 输出根目录。
 
     Returns:
         str: success / error / skipped
     """
-    filename = os.path.splitext(os.path.basename(input_path))[0]
+    filename = item_id
 
     try:
         paths_map = build_output_paths(filename, output_dir)
@@ -1038,10 +1114,10 @@ def run_batch(
     input_extensions: tuple[str, ...] = DEFAULT_INPUT_EXTENSIONS,
 ) -> dict[str, int]:
     """
-    批量处理输入目录中的文本文件。
+    批量处理输入目录中的 ID 子目录。
 
     Args:
-        input_dir: 输入目录。
+        input_dir: 输入目录（例如包含 I001/I002 子目录）。
         output_dir: 输出目录。
         max_workers: 线程池并发数。
         timeout_seconds: 单文件 future 结果等待超时。
@@ -1054,41 +1130,42 @@ def run_batch(
         logging.error(f"输入目录不存在: {input_dir}")
         return {"success": 0, "error": 1, "skipped": 0}
 
-    files = [
-        os.path.join(input_dir, f)
-        for f in os.listdir(input_dir)
-        if f.lower().endswith(input_extensions)
-    ]
+    items = discover_input_items(input_dir, input_extensions)
 
-    if not files:
+    if not items:
         logging.warning(
-            f"未找到待处理文本文件，支持扩展名: {', '.join(input_extensions)}"
+            "未找到待处理 ID 子目录或源文件。"
+            f" 支持扩展名: {', '.join(input_extensions)}"
         )
         return {"success": 0, "error": 0, "skipped": 0}
 
-    files.sort()
-    logging.info(f"开始批处理，共 {len(files)} 个文件，并发数 {max_workers}")
+    logging.info(f"开始批处理，共 {len(items)} 个条目，并发数 {max_workers}")
     batch_start = time.perf_counter()
 
     stats = {"success": 0, "error": 0, "skipped": 0}
 
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
-        future_to_file = {
-            executor.submit(process_file, file_path, output_dir): file_path
-            for file_path in files
+        future_to_item = {
+            executor.submit(process_file, item_id, source_path, output_dir): (
+                item_id,
+                source_path,
+            )
+            for item_id, source_path in items
         }
 
-        with tqdm(total=len(files), desc="Processing Pipeline") as pbar:
-            for future in as_completed(future_to_file):
-                file_path = future_to_file[future]
+        with tqdm(total=len(items), desc="Processing Pipeline") as pbar:
+            for future in as_completed(future_to_item):
+                item_id, source_path = future_to_item[future]
                 try:
                     result = future.result(timeout=timeout_seconds)
                     stats[result] += 1
                 except TimeoutError:
-                    logging.error(f"{file_path} 超时（>{timeout_seconds}s）")
+                    logging.error(
+                        f"{item_id} 超时（>{timeout_seconds}s），源文件: {source_path}"
+                    )
                     stats["error"] += 1
                 except Exception as e:
-                    logging.error(f"{file_path} 任务异常: {e}")
+                    logging.error(f"{item_id} 任务异常: {e}")
                     stats["error"] += 1
 
                 pbar.set_postfix(stats)
