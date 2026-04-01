@@ -1,28 +1,27 @@
 \begin{proofbox}
-【思路提示】
-👉 核心思路：利用不等式的基本性质和代数变形，从原始形式 $N < f(x) < M$ 出发，推导出其他形式。
+证明思路：通过循环推导证明五个命题等价，即 (1) $\Rightarrow$ (2) $\Rightarrow$ (3) $\Rightarrow$ (4) $\Rightarrow$ (5) $\Rightarrow$ (1)。
 
-【正式推导】
-已知 $M > N$，且 $N < f(x) < M$。
+\medskip
+\textbf{正式推导：}
 
-1. \textbf{乘积形式：}
-因为 $f(x) < M$，所以 $f(x)-M < 0$。
-因为 $f(x) > N$，所以 $f(x)-N > 0$。
-一正一负相乘，得 $[f(x)-M][f(x)-N] < 0$。
+(1) $\Rightarrow$ (2)：由 $N < f(x) < M$ 知 $f(x)-N > 0$ 且 $f(x)-M < 0$，两式相乘得 $[f(x)-M][f(x)-N] < 0$。
 
-2. \textbf{绝对值形式：}
-将 $N < f(x) < M$ 同时减去中点 $\frac{M+N}{2}$：
+(2) $\Rightarrow$ (3)：由 $[f(x)-M][f(x)-N] < 0$ 知 $f(x)$ 在 $N$ 与 $M$ 之间，且 $M>N$。考虑平方差公式：
 \[
-N - \frac{M+N}{2} < f(x) - \frac{M+N}{2} < M - \frac{M+N}{2}
+\begin{aligned}
+\left[ f(x) - \frac{M+N}{2} \right]^2 &- \left( \frac{M-N}{2} \right)^2 \\
+&= [f(x)]^2 - (M+N)f(x) + \frac{(M+N)^2}{4} - \frac{(M-N)^2}{4} \\
+&= [f(x)]^2 - (M+N)f(x) + MN \\
+&= [f(x)-M][f(x)-N] < 0.
+\end{aligned}
 \]
-计算得 $ -\frac{M-N}{2} < f(x) - \frac{M+N}{2} < \frac{M-N}{2}$。
-这正是绝对值不等式 $\left| f(x) - \frac{M+N}{2} \right| < \frac{M-N}{2}$。
+因此 $\left[ f(x) - \frac{M+N}{2} \right]^2 < \left( \frac{M-N}{2} \right)^2$，开方即得 $\left| f(x) - \frac{M+N}{2} \right| < \frac{M-N}{2}$。
 
-3. \textbf{分式形式：}
-由 $N < f(x) < M$ 知，分子 $f(x)-N > 0$，分母 $M-f(x) > 0$。
-正数除以正数，故 $\frac{f(x)-N}{M-f(x)} > 0$。
+(3) $\Rightarrow$ (4)：绝对值不等式 $\left| f(x) - \frac{M+N}{2} \right| < \frac{M-N}{2}$ 等价于 $N < f(x) < M$。在此条件下，$f(x)-N > 0$ 且 $M-f(x) > 0$，故其比 $\frac{f(x)-N}{M-f(x)} > 0$。
 
-4. \textbf{倒数形式：}
-由 $N < f(x) < M$ 知，$0 < f(x)-N < M-N$。
-对于正数，倒数大小关系反转，所以 $\frac{1}{f(x)-N} > \frac{1}{M-N}$。
+(4) $\Rightarrow$ (5)：由 $\frac{f(x)-N}{M-f(x)} > 0$ 知分子分母同号。若同为负，则 $f(x)-N<0$ 且 $M-f(x)<0$，推出 $f(x)<N$ 且 $f(x)>M$，与 $M>N$ 矛盾。故必有 $f(x)-N > 0$ 且 $M-f(x) > 0$，即 $N < f(x) < M$。在此条件下，因为 $M-N > 0$，比较 $\frac{1}{f(x)-N}$ 与 $\frac{1}{M-N}$，由 $f(x) < M$ 得 $f(x)-N < M-N$，取倒数（正数倒数函数递减）即得 $\frac{1}{f(x)-N} > \frac{1}{M-N}$。
+
+(5) $\Rightarrow$ (1)：由 $\frac{1}{f(x)-N} > \frac{1}{M-N}$ 及 $M>N$ 知 $M-N>0$。若 $f(x)-N \le 0$，则左边无意义或非正，与大于正数 $\frac{1}{M-N}$ 矛盾。故 $f(x)-N > 0$。又由不等式两边取倒数（正数）并注意不等号方向，得 $f(x)-N < M-N$，即 $f(x) < M$。综上，$N < f(x) < M$。
+
+循环完成，五个命题等价。
 \end{proofbox}

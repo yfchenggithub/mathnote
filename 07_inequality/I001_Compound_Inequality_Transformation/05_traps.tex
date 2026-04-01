@@ -1,13 +1,22 @@
 \begin{trapbox}
-❌ \textbf{错误想法：} 认为倒数形式 $\frac{1}{f(x)-N} > \frac{1}{M-N}$ 在任何 $M>N$ 下都成立。
-✔ \textbf{正确理解：} 必须先有 $N < f(x) < M$ 确保 $f(x)-N$ 是正数，倒数不等式才成立。
-⚠️ \textbf{本质原因：} 倒数不等号方向反转的前提是两边都是正数。如果 $f(x)-N$ 不是正数，结论不成立。
-
-❌ \textbf{错误想法：} 在分式形式 $\frac{f(x)-N}{M-f(x)} > 0$ 中，只关心分子大于0。
-✔ \textbf{正确理解：} 必须同时保证分子 $f(x)-N > 0$ \textbf{且} 分母 $M-f(x) > 0$。
-⚠️ \textbf{本质原因：} 分式大于0要求分子分母同号。由原不等式可知它们同为正，不能只检查一个。
-
-❌ \textbf{错误想法：} 绝对值形式 $\left| f(x) - \frac{M+N}{2} \right| < \frac{M-N}{2}$ 中的 $\frac{M-N}{2}$ 可以写成 $M-N$。
-✔ \textbf{正确理解：} 右边必须是 $\frac{M-N}{2}$，这是由“区间半径”决定的，不能随意加倍。
-⚠️ \textbf{本质原因：} 绝对值不等式表示“到中点的距离小于半径”，半径是区间长度 $(M-N)$ 的一半。
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=1.0em, topsep=0.5em]
+    \item[\textbf{易错点 1}]
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+        \item[\textbf{错误想法：}] 认为 (结论 5) 中 $\frac{1}{f(x)-N} > \frac{1}{M-N}$ 可以直接推出 $f(x)-N < M-N$。
+        \item[\textbf{正确理解：}] 必须先确定 $f(x)-N$ 与 $M-N$ 的符号。仅当两者均为正时，倒数不等式才保号反向。
+        \item[\textbf{错因分析：}] 忽略了倒数函数单调性的前提条件。如果 $f(x)-N$ 为负，倒数不等式方向会相反。定理证明中已排除了这种情况，但单独使用该结论时必须先验证 $f(x)-N > 0$。
+    \end{description}
+    \item[\textbf{易错点 2}]
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+        \item[\textbf{错误想法：}] 在 (结论 4) $\frac{f(x)-N}{M-f(x)} > 0$ 中，认为只需分子大于零即可。
+        \item[\textbf{正确理解：}] 分式大于零要求分子分母\textbf{同号}，既可能同为正，也可能同为负。必须考虑两种可能性并结合 $M>N$ 进行检验。
+        \item[\textbf{错因分析：}] 思维定式，将“分式大于0”自动等同于“分子分母均大于0”，忽略了同为负的可能。实际上，若同为负会推出 $f(x)<N$ 且 $f(x)>M$，矛盾，故最终等价于两者同为正。
+    \end{description}
+    \item[\textbf{易错点 3}]
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+        \item[\textbf{错误想法：}] 在应用 (结论 3) 的绝对值形式时，误将中点 $\frac{M+N}{2}$ 或半径 $\frac{M-N}{2}$ 写错符号。
+        \item[\textbf{正确理解：}] 中点必须是两端点的算术平均数，半径必须是正数 $\frac{M-N}{2}$，顺序必须与 $M>N$ 一致。
+        \item[\textbf{错因分析：}] 记忆模糊或机械套用，未理解 $\left| f(x) - \text{中心} \right| < \text{半径}$ 的几何意义是 $f(x)$ 在以中心为心、半径为长的开区间内。
+    \end{description}
+\end{description}
 \end{trapbox}
