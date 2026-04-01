@@ -3,7 +3,7 @@
 
 功能介绍
 --------
-该脚本负责把 `input/` 目录中的 LaTeX 文本输入批量加工为 5 个阶段的结构化结果：
+该脚本用于将 `input/<ID>/source.*` 里的 LaTeX/文本输入，批量加工为 5 个阶段的结构化结果：
 - L1: raw 文本清洗与结构提取 -> output/<ID>/l1_raw.json
 - L2: 结论重构 -> output/<ID>/l2_statement.json
 - L3: 教学价值评估 -> output/<ID>/l3_eval.json
@@ -11,23 +11,41 @@
 - L5: 检索与推荐 meta 生成 -> output/<ID>/l5_meta.json
 - 讲义片段导出 -> output/<ID>/01_statement.tex ~ 06_summary.tex
 
-流程介绍
+新增能力
+--------
+1. `--ids`: 仅处理指定 ID（支持一个或多个，如 `--ids I001 I002`）。
+2. `--force`: 强制全量重跑，忽略并覆盖所有阶段缓存（默认关闭）。
+
+缓存策略
+--------
+1. 默认模式（不传 `--force`）:
+   - 若阶段输出文件已存在，则直接复用缓存；
+   - 仅补齐缺失阶段。
+2. 强制模式（传 `--force`）:
+   - L1~L5 全部重新生成；
+   - 已有输出会被新结果覆盖。
+
+处理流程
 --------
 1. 扫描输入目录中的 ID 子目录（如 `I001/`），读取其中 `source.*` 或首个可识别文件。
-2. 每个 ID 按 L1 -> L5 依次执行；若某阶段输出已存在则自动复用。
-3. 所有阶段调用统一的 LLM 接口，并带有重试与并发控制。
-4. 批处理结束后输出 success/error/skipped 统计。
+2. 若传入 `--ids`，先按 ID 过滤待处理项。
+3. 每个 ID 执行 L1 -> L5；L3 与 L4 会并行执行以降低耗时。
+4. 每个阶段统一走 LLM 调用封装，带有重试和并发闸门控制。
+5. 批处理结束后输出 success/error/skipped 统计。
 
 脚本用法
 --------
-1) 默认使用配置文件中的路径与并发:
+1) 默认批量处理全部 ID（优先复用缓存）
    python run_pipeline.py
 
-2) 指定输入/输出目录与并发:
-   python run_pipeline.py --input-dir ./input --output-dir ./output --max-workers 3
+2) 仅处理指定 ID
+   python run_pipeline.py --ids I001
 
-3) 指定扩展名与单文件超时:
-   python run_pipeline.py --extensions .txt .tex .json --timeout 120
+3) 处理多个 ID，并强制全量重跑
+   python run_pipeline.py --ids I001 I002 --force
+
+4) 自定义输入输出目录、并发、扩展名与单文件超时
+   python run_pipeline.py --input-dir ./input --output-dir ./output --max-workers 3 --extensions .txt .tex --timeout 120
 """
 
 import argparse
@@ -105,7 +123,7 @@ MODEL_MAP = {
     "l2": "reasoning",
     "l3": "default",
     # L4 生成内容较长，优先使用 chat 模型以降低延迟。
-    "l4": "default",
+    "l4": "reasoning",
     "l5": "default",
 }
 
@@ -169,9 +187,22 @@ def parse_args() -> argparse.Namespace:
         nargs="+",
         default=list(DEFAULT_INPUT_EXTENSIONS),
         help=(
-            "输入文件扩展名列表（空格分隔）。\n"
-            "示例: --extensions .txt .tex .json"
+            "输入文件扩展名列表（空格分隔）。\n" "示例: --extensions .txt .tex .json"
         ),
+    )
+    parser.add_argument(
+        "--ids",
+        nargs="+",
+        default=None,
+        help=(
+            "仅处理指定 ID（支持空格或逗号分隔，大小写不敏感）。\n"
+            "示例: --ids I001 I002 或 --ids i001,i002"
+        ),
+    )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="强制全量重跑并覆盖缓存（默认: 关闭，优先复用缓存）",
     )
     return parser.parse_args()
 
@@ -200,7 +231,44 @@ def normalize_extensions(extensions: list[str]) -> tuple[str, ...]:
     return tuple(unique)
 
 
-def find_source_file_in_id_dir(id_dir: str, input_extensions: tuple[str, ...]) -> str | None:
+def normalize_ids(ids: list[str] | None) -> list[str]:
+    """
+    标准化并校验 `--ids` 参数。
+
+    支持两种输入形式：
+    1) 空格分隔：`--ids I001 I002`
+    2) 逗号分隔：`--ids I001,I002`
+
+    Args:
+        ids: 命令行读取到的原始 ID 列表。
+
+    Returns:
+        list[str]: 去重后的规范化 ID 列表（统一为大写）。
+
+    Raises:
+        ValueError: 出现非法 ID（非 `字母 + 3 位数字`）时抛出。
+    """
+    if not ids:
+        return []
+
+    normalized: list[str] = []
+    for raw in ids:
+        for piece in raw.replace("，", ",").split(","):
+            item_id = piece.strip().upper()
+            if not item_id:
+                continue
+            if not ID_DIR_PATTERN.match(item_id):
+                raise ValueError(
+                    f"--ids 包含非法 ID: {piece!r}（期望格式如 I001）"
+                )
+            normalized.append(item_id)
+
+    return list(dict.fromkeys(normalized))
+
+
+def find_source_file_in_id_dir(
+    id_dir: str, input_extensions: tuple[str, ...]
+) -> str | None:
     """
     在单个 ID 子目录中定位输入源文件。
 
@@ -546,7 +614,9 @@ def repair_invalid_json_escapes(text: str) -> str:
             if nxt == "u":
                 # \u 后需 4 位十六进制，否则当作非法转义修复
                 hex_part = text[i + 2 : i + 6]
-                if len(hex_part) == 4 and all(c in "0123456789abcdefABCDEF" for c in hex_part):
+                if len(hex_part) == 4 and all(
+                    c in "0123456789abcdefABCDEF" for c in hex_part
+                ):
                     out.append("\\")
                     out.append("u")
                     out.append(hex_part)
@@ -852,7 +922,9 @@ def apply_meta_defaults(meta_json: dict[str, Any], fallback_id: str) -> dict[str
     meta_json.setdefault("math", {})
     meta_json.setdefault("content", {})
     meta_json.setdefault("usage", {})
-    meta_json.setdefault("interactive", {"has_diagram": False, "geogebra_id": "", "param_demo": {}})
+    meta_json.setdefault(
+        "interactive", {"has_diagram": False, "geogebra_id": "", "param_demo": {}}
+    )
     meta_json.setdefault("assets", {})
     meta_json.setdefault("shareConfig", {})
     meta_json.setdefault("relations", {})
@@ -929,7 +1001,11 @@ def save_parse_debug(
     err = result.get("error", "")
     with open(debug_path, "w", encoding="utf-8") as f:
         f.write(f"[{step_name}] parse_error: {err}\n\n")
-        f.write(raw if isinstance(raw, str) else json.dumps(raw, ensure_ascii=False, indent=2))
+        f.write(
+            raw
+            if isinstance(raw, str)
+            else json.dumps(raw, ensure_ascii=False, indent=2)
+        )
 
 
 def export_lecture_tex_snippets(
@@ -983,18 +1059,25 @@ def is_step_success(result: dict[str, Any]) -> bool:
     return result.get("status") in STEP_SUCCESS_STATUS
 
 
-def process_file(item_id: str, input_path: str, output_dir: str) -> str:
+def process_file(
+    item_id: str,
+    input_path: str,
+    output_dir: str,
+    force: bool = False,
+) -> str:
     """
     处理单个输入文件。
 
     规则:
-    - 若某阶段输出已存在，则跳过该阶段并复用缓存。
-    - 若最终 L5 已存在，直接返回 skipped。
+    - 默认模式（force=False）：若某阶段输出已存在，则跳过并复用缓存。
+    - 强制模式（force=True）：忽略所有缓存，L1~L5 全量重跑并覆盖输出。
+    - 默认模式下若最终 L5 已存在，直接返回 skipped。
 
     Args:
         item_id: ID（如 I001）。
         input_path: 输入源文件绝对路径。
         output_dir: 输出根目录。
+        force: 是否强制全量重跑。
 
     Returns:
         str: success / error / skipped
@@ -1003,9 +1086,11 @@ def process_file(item_id: str, input_path: str, output_dir: str) -> str:
 
     try:
         paths_map = build_output_paths(filename, output_dir)
+        if force:
+            logging.info(f"{filename} 启用 --force，忽略缓存并全量重跑")
 
         # ========= L1 =========
-        if file_exists(paths_map["l1"]):
+        if not force and file_exists(paths_map["l1"]):
             l1 = load_json_file(paths_map["l1"])
         else:
             raw_text = read_input_text(input_path)
@@ -1022,7 +1107,7 @@ def process_file(item_id: str, input_path: str, output_dir: str) -> str:
             save_json(l1, paths_map["l1"])
 
         # ========= L2 =========
-        if file_exists(paths_map["l2"]):
+        if not force and file_exists(paths_map["l2"]):
             l2 = load_json_file(paths_map["l2"])
         else:
             t0 = time.perf_counter()
@@ -1038,9 +1123,9 @@ def process_file(item_id: str, input_path: str, output_dir: str) -> str:
         l3 = None
         l4 = None
 
-        if file_exists(paths_map["l3"]):
+        if not force and file_exists(paths_map["l3"]):
             l3 = load_json_file(paths_map["l3"])
-        if file_exists(paths_map["l4"]):
+        if not force and file_exists(paths_map["l4"]):
             l4 = load_json_file(paths_map["l4"])
 
         future_map: dict[str, Any] = {}
@@ -1085,7 +1170,7 @@ def process_file(item_id: str, input_path: str, output_dir: str) -> str:
         export_lecture_tex_snippets(l4, filename, output_dir)
 
         # ========= L5 =========
-        if file_exists(paths_map["l5"]):
+        if not force and file_exists(paths_map["l5"]):
             logging.info(f"{filename} 已处理，跳过 L5")
             return "skipped"
 
@@ -1112,6 +1197,8 @@ def run_batch(
     max_workers: int = MAX_WORKERS,
     timeout_seconds: int = DEFAULT_TIMEOUT_SECONDS,
     input_extensions: tuple[str, ...] = DEFAULT_INPUT_EXTENSIONS,
+    target_ids: list[str] | None = None,
+    force: bool = False,
 ) -> dict[str, int]:
     """
     批量处理输入目录中的 ID 子目录。
@@ -1122,6 +1209,8 @@ def run_batch(
         max_workers: 线程池并发数。
         timeout_seconds: 单文件 future 结果等待超时。
         input_extensions: 支持的输入扩展名元组。
+        target_ids: 可选；仅处理这些 ID。
+        force: 是否强制全量重跑并覆盖缓存。
 
     Returns:
         dict[str, int]: 处理统计（success/error/skipped）。
@@ -1131,22 +1220,41 @@ def run_batch(
         return {"success": 0, "error": 1, "skipped": 0}
 
     items = discover_input_items(input_dir, input_extensions)
+    requested_ids = target_ids or []
+    requested_id_set = set(requested_ids)
+
+    # 若指定了 --ids，仅保留命中的 ID 项，并提示未命中的 ID。
+    if requested_id_set:
+        items = [item for item in items if item[0] in requested_id_set]
+        found_id_set = {item[0] for item in items}
+        missing_ids = sorted(requested_id_set - found_id_set)
+        if missing_ids:
+            logging.warning(
+                "--ids 中以下 ID 未找到可用输入源文件，已跳过: "
+                + ", ".join(missing_ids)
+            )
 
     if not items:
-        logging.warning(
-            "未找到待处理 ID 子目录或源文件。"
-            f" 支持扩展名: {', '.join(input_extensions)}"
-        )
+        if requested_id_set:
+            logging.warning("按 --ids 过滤后没有可处理项。")
+        else:
+            logging.warning(
+                "未找到待处理 ID 子目录或源文件。"
+                f" 支持扩展名: {', '.join(input_extensions)}"
+            )
         return {"success": 0, "error": 0, "skipped": 0}
 
-    logging.info(f"开始批处理，共 {len(items)} 个条目，并发数 {max_workers}")
+    mode = "force（全量重跑）" if force else "cache（优先复用）"
+    logging.info(f"开始批处理，共 {len(items)} 个条目，并发数 {max_workers}，模式: {mode}")
+    if requested_ids:
+        logging.info(f"指定 ID: {', '.join(requested_ids)}")
     batch_start = time.perf_counter()
 
     stats = {"success": 0, "error": 0, "skipped": 0}
 
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
         future_to_item = {
-            executor.submit(process_file, item_id, source_path, output_dir): (
+            executor.submit(process_file, item_id, source_path, output_dir, force): (
                 item_id,
                 source_path,
             )
@@ -1190,12 +1298,18 @@ def main() -> None:
     if not extensions:
         raise ValueError("--extensions 不能为空")
 
+    target_ids = normalize_ids(args.ids)
+    if args.ids is not None and not target_ids:
+        raise ValueError("--ids 不能为空")
+
     run_batch(
         input_dir=args.input_dir,
         output_dir=args.output_dir,
         max_workers=args.max_workers,
         timeout_seconds=args.timeout,
         input_extensions=extensions,
+        target_ids=target_ids,
+        force=args.force,
     )
 
 
