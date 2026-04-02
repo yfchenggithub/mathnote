@@ -913,7 +913,13 @@ def apply_meta_defaults(meta_json: dict[str, Any], fallback_id: str) -> dict[str
     if not isinstance(meta_json, dict):
         return {"status": "invalid_output", "raw": meta_json}
 
-    meta_json.setdefault("id", fallback_id)
+    # 关键约束：meta.id 必须与当前处理的题目 ID 一致，避免模型幻觉写错 ID。
+    original_id = meta_json.get("id")
+    if isinstance(original_id, str) and original_id and original_id != fallback_id:
+        logging.warning(
+            f"{fallback_id} L5 id 已纠正: {original_id!r} -> {fallback_id!r}"
+        )
+    meta_json["id"] = fallback_id
     meta_json.setdefault("module", "")
     meta_json.setdefault("core", {})
     meta_json.setdefault("search", {})
@@ -945,7 +951,15 @@ def apply_meta_defaults(meta_json: dict[str, Any], fallback_id: str) -> dict[str
         meta_json["ranking"].setdefault("success_rate", 0)
 
     if isinstance(meta_json["assets"], dict):
-        meta_json["assets"].setdefault("svg", f"{meta_json['id']}.svg")
+        # 若 svg 正好是“旧 id 命名”，同步修正，避免出现 id 与 svg 文件名不一致。
+        if (
+            isinstance(original_id, str)
+            and original_id
+            and meta_json["assets"].get("svg") == f"{original_id}.svg"
+        ):
+            meta_json["assets"]["svg"] = f"{meta_json['id']}.svg"
+        else:
+            meta_json["assets"].setdefault("svg", f"{meta_json['id']}.svg")
 
     if isinstance(meta_json["meta"], dict):
         meta_json["meta"].setdefault("version", 1)
@@ -1171,6 +1185,28 @@ def process_file(
 
         # ========= L5 =========
         if not force and file_exists(paths_map["l5"]):
+            # 缓存命中时也做一次轻量自修复，确保历史错误 ID 能被纠正。
+            try:
+                l5_cached = load_json_file(paths_map["l5"])
+                cached_id = l5_cached.get("id")
+                patched = False
+                if cached_id != filename:
+                    l5_cached["id"] = filename
+                    patched = True
+                    if (
+                        isinstance(cached_id, str)
+                        and isinstance(l5_cached.get("assets"), dict)
+                        and l5_cached["assets"].get("svg") == f"{cached_id}.svg"
+                    ):
+                        l5_cached["assets"]["svg"] = f"{filename}.svg"
+                if patched:
+                    save_json(l5_cached, paths_map["l5"])
+                    logging.warning(
+                        f"{filename} 检测到历史 L5 id 异常，已自动修正: "
+                        f"{cached_id!r} -> {filename!r}"
+                    )
+            except Exception as e:
+                logging.warning(f"{filename} L5 缓存校正失败，继续按缓存跳过: {e}")
             logging.info(f"{filename} 已处理，跳过 L5")
             return "skipped"
 
