@@ -1,38 +1,39 @@
 \begin{proofbox}
 \textbf{思路提示}
 
-通过因式分解将 $a^3+b^3+c^3-3abc$ 转化为平方和形式，利用非负性完成证明。
+通过因式分解，将 $a^3+b^3+c^3-3abc$ 转化为一个完全平方和的形式与一个非负因子的乘积，从而判断其非负性。
 
 \medskip
 \textbf{正式推导}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-    \item[\textbf{步骤一：}] 考虑差式 $a^3+b^3+c^3-3abc$。
+    \item[\textbf{步骤一：}] 考虑差式 $a^3+b^3+c^3-3abc$。利用立方和公式进行因式分解。
     \[
-    a^3+b^3+c^3-3abc
+    \begin{aligned}
+        a^3 + b^3 + c^3 - 3abc &= (a+b)^3 + c^3 - 3ab(a+b) - 3abc \\
+        &= (a+b+c)[(a+b)^2 - (a+b)c + c^2] - 3ab(a+b+c) \\
+        &= (a+b+c)(a^2+b^2+c^2 - ab - bc - ca)
+    \end{aligned}
     \]
-    \textbf{理由：} 将不等式变形为比较差值与零的大小。
+    \par\textbf{理由：}
+    第一步将 $a^3+b^3$ 合并为 $(a+b)^3 - 3ab(a+b)$，再与 $c^3$ 组合；第二步对 $(a+b)^3+c^3$ 应用立方和公式；第三步提取公因式 $(a+b+c)$ 并化简。
 
-    \item[\textbf{步骤二：}] 利用因式分解公式。
+    \item[\textbf{步骤二：}] 分析因式 $(a+b+c)$ 与 $(a^2+b^2+c^2 - ab - bc - ca)$ 的符号。
     \[
-    a^3+b^3+c^3-3abc = \frac{1}{2}(a+b+c)\left[(a-b)^2+(b-c)^2+(c-a)^2\right]
+    a^2+b^2+c^2 - ab - bc - ca = \frac{1}{2}[(a-b)^2 + (b-c)^2 + (c-a)^2]
     \]
-    \textbf{理由：} 这是已知的代数恒等式，可直接验证或通过对称多项式展开得到。
+    \par\textbf{理由：}
+    通过配方，将 $a^2+b^2+c^2-ab-bc-ca$ 转化为完全平方和的一半，这是一个标准的恒等变形。
 
-    \item[\textbf{步骤三：}] 分析因式符号。
+    \item[\textbf{步骤三：}] 综合判断差式的符号。
     \[
-    \frac{1}{2}(a+b+c)\left[(a-b)^2+(b-c)^2+(c-a)^2\right] \geq 0
+    a^3+b^3+c^3 - 3abc = (a+b+c) \cdot \frac{1}{2}[(a-b)^2 + (b-c)^2 + (c-a)^2]
     \]
-    \textbf{理由：} 由于 $a, b, c$ 为非负实数，$a+b+c \geq 0$；且平方项 $(a-b)^2, (b-c)^2, (c-a)^2$ 均非负。因此整个表达式非负。
-
-    \item[\textbf{步骤四：}] 确定等号成立条件。
-    \[
-    a^3+b^3+c^3-3abc = 0 \quad \text{当且仅当} \quad a=b=c
-    \]
-    \textbf{理由：} 等号成立要求 $(a-b)^2=(b-c)^2=(c-a)^2=0$，即 $a=b=c$；同时 $a+b+c > 0$ 除非全为零，但非负条件下不影响。
+    \par\textbf{理由：}
+    由于 $a, b, c \geq 0$，故 $a+b+c \geq 0$。配方后的平方和 $\frac{1}{2}[(a-b)^2+(b-c)^2+(c-a)^2] \geq 0$。因此整个差式 $\geq 0$，即原不等式成立。
 \end{description}
 
 \medskip
 \textbf{结论回扣}
 
-\textbf{因此，对于任意非负实数 $a, b, c$，有 $a^3+b^3+c^3 \geq 3abc$，等号成立当且仅当 $a=b=c$。}
+\textbf{因此，$a^3+b^3+c^3 \geq 3abc$ 对所有非负实数 $a,b,c$ 成立。等号成立当且仅当 $a=b=c$（此时平方和为零）且 $a+b+c \geq 0$（自动满足）。}
 \end{proofbox}

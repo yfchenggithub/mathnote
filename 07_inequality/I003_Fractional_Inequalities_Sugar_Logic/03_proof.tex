@@ -1,35 +1,37 @@
 \begin{proofbox}
 \textbf{思路提示}
 
-通过作差比较法，证明三个结论。核心是将分式差通分后化简，利用已知条件判断符号。
+通过计算 $\frac{a+m}{b+m} - \frac{a}{b}$ 的差，并利用条件判断其符号，从而证明不等式。
 
 \medskip
 \textbf{正式推导}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-    \item[\textbf{步骤一：}]
-    证明结论1：比较 $\frac{a}{b}$ 与 $\frac{a+m}{b+m}$（$m>0$）。
+    \item[\textbf{步骤一：}] 计算加糖情形的差：
     \[
     \frac{a+m}{b+m} - \frac{a}{b} = \frac{b(a+m) - a(b+m)}{b(b+m)} = \frac{ab + bm - ab - am}{b(b+m)} = \frac{m(b-a)}{b(b+m)}.
     \]
-    \textbf{理由：} 由于 $a,b,m>0$ 且 $a<b$，所以 $b-a>0$，分子 $m(b-a)>0$，分母 $b(b+m)>0$，因此差大于0，即 $\frac{a+m}{b+m} > \frac{a}{b}$。
+    \par\textbf{理由：}
+    通分后化简分子。
 
-    \item[\textbf{步骤二：}]
-    证明结论2：比较 $\frac{a}{b}$ 与 $\frac{a-m}{b-m}$（$0<m<a$）。
+    \item[\textbf{步骤二：}] 判断差的符号：
+    由于 $a,b,m > 0$ 且 $a < b$，所以 $b-a > 0$，因此 $\frac{m(b-a)}{b(b+m)} > 0$。
+    \par\textbf{理由：}
+    分子为正，分母为正，故整个分式为正。
+
+    \item[\textbf{步骤三：}] 同理，对于减糖情形，计算 $\frac{a}{b} - \frac{a-m}{b-m}$：
     \[
     \frac{a}{b} - \frac{a-m}{b-m} = \frac{a(b-m) - b(a-m)}{b(b-m)} = \frac{ab - am - ab + bm}{b(b-m)} = \frac{m(b-a)}{b(b-m)}.
     \]
-    \textbf{理由：} 由条件 $0<m<a<b$，可知 $b-a>0$，且 $b-m>0$，所以分子 $m(b-a)>0$，分母 $b(b-m)>0$，因此差大于0，即 $\frac{a}{b} > \frac{a-m}{b-m}$。
+    \par\textbf{理由：}
+    通分化简，注意 $0 < m < a$ 确保 $a-m > 0$ 和 $b-m > 0$。
 
-    \item[\textbf{步骤三：}]
-    证明结论3：比较 $\frac{b}{a}$ 与 $\frac{b+m}{a+m}$（$m>0$）。
-    \[
-    \frac{b}{a} - \frac{b+m}{a+m} = \frac{b(a+m) - a(b+m)}{a(a+m)} = \frac{ab + bm - ab - am}{a(a+m)} = \frac{m(b-a)}{a(a+m)}.
-    \]
-    \textbf{理由：} 由于 $a,b,m>0$ 且 $a<b$，所以 $b-a>0$，分子 $m(b-a)>0$，分母 $a(a+m)>0$，因此差大于0，即 $\frac{b}{a} > \frac{b+m}{a+m}$。
+    \item[\textbf{步骤四：}] 判断符号：由 $a < b$ 和 $0 < m < a$，得 $b-a > 0$ 且 $b-m > 0$，所以 $\frac{m(b-a)}{b(b-m)} > 0$。
+    \par\textbf{理由：}
+    分子分母均为正，故差为正。
 \end{description}
 
 \medskip
 \textbf{结论回扣}
 
-\textbf{以上推导验证了糖水不等式的三条结论，它们本质上都是由于分子分母同加减一个正数后，分式值的改变方向由原分数相对于1的大小决定。}
+\textbf{因此，加糖变甜不等式 $\frac{a}{b} < \frac{a+m}{b+m}$ 和减糖变淡不等式 $\frac{a}{b} > \frac{a-m}{b-m}$ 均成立。}
 \end{proofbox}

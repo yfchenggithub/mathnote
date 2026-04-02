@@ -1,0 +1,52 @@
+\begin{proofbox}
+\textbf{思路提示}
+
+构造一个关于 $t$ 的二次函数 $f(t) = \sum (a_i t - b_i)^2$，利用其非负性及判别式直接推出结论。这是最经典且简洁的证明方法。
+
+\medskip
+\textbf{正式推导}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一：}] 构造平方和函数。
+    \[
+    f(t) = \sum_{i=1}^{n} (a_i t - b_i)^2 \geq 0, \quad \forall t \in \mathbb{R}.
+    \]
+    \par\textbf{理由：}
+    每个平方项 $(a_i t - b_i)^2$ 非负，故其和 $f(t)$ 也对所有实数 $t$ 非负。
+    
+    \item[\textbf{步骤二：}] 将 $f(t)$ 展开为关于 $t$ 的二次函数。
+    \[
+    \begin{aligned}
+    f(t) &= \sum_{i=1}^{n} (a_i^2 t^2 - 2 a_i b_i t + b_i^2) \\
+         &= \left(\sum_{i=1}^{n} a_i^2\right) t^2 - 2\left(\sum_{i=1}^{n} a_i b_i\right) t + \left(\sum_{i=1}^{n} b_i^2\right).
+    \end{aligned}
+    \]
+    \par\textbf{理由：}
+    按完全平方公式展开，并利用求和的线性性质合并同类项。
+    
+    \item[\textbf{步骤三：}] 利用二次函数恒非负的条件，得到判别式不等式。
+    \[
+    \Delta = \left[-2\sum_{i=1}^{n} a_i b_i\right]^2 - 4\left(\sum_{i=1}^{n} a_i^2\right)\left(\sum_{i=1}^{n} b_i^2\right) \leq 0.
+    \]
+    \par\textbf{理由：}
+    因为 $f(t) \geq 0$ 对一切 $t$ 成立，且二次项系数 $\sum a_i^2 \geq 0$，所以其判别式必须非正。
+    
+    \item[\textbf{步骤四：}] 化简判别式不等式，得到柯西不等式。
+    \[
+    4\left(\sum_{i=1}^{n} a_i b_i\right)^2 - 4\left(\sum_{i=1}^{n} a_i^2\right)\left(\sum_{i=1}^{n} b_i^2\right) \leq 0 \quad \Rightarrow \quad \left(\sum_{i=1}^{n} a_i b_i\right)^2 \leq \left(\sum_{i=1}^{n} a_i^2\right)\left(\sum_{i=1}^{n} b_i^2\right).
+    \]
+    \par\textbf{理由：}
+    两边同时除以正数 $4$ 即得结论。
+    
+    \item[\textbf{步骤五：}] 分析等号成立条件。
+    \[
+    \text{等号成立} \quad \Leftrightarrow \quad \Delta = 0 \quad \Leftrightarrow \quad \text{方程 } f(t)=0 \text{ 有实根}.
+    \]
+    \par\textbf{理由：}
+    判别式为零时，二次函数 $f(t)$ 有重根 $t_0$，即 $f(t_0)=0$。由于 $f(t)$ 是平方和，这等价于每一项 $a_i t_0 - b_i = 0$ 对所有 $i$ 成立，即 $a_i = t_0 b_i$（若所有 $b_i=0$ 则显然成立）。
+\end{description}
+
+\medskip
+\textbf{结论回扣}
+
+\textbf{以上推导表明，对于任意实数序列，柯西不等式恒成立，且等号成立的充要条件是两序列对应项成比例。向量形式 $|\vec{a}|^2|\vec{b}|^2 \geq (\vec{a}\cdot\vec{b})^2$ 是完全等价的表达。}
+\end{proofbox}

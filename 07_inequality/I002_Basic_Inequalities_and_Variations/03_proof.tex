@@ -1,62 +1,42 @@
 \begin{proofbox}
 \textbf{思路提示}
 
-从显然的非负性出发：一个实数的平方总非负。考虑 $(\sqrt{a}-\sqrt{b})^2 \geq 0$ 或 $(a-b)^2 \geq 0$，展开整理即得目标不等式。
+利用非负数的平方总是非负这一基本事实，通过展开和代数变形推导出各个不等式。
 
 \medskip
 \textbf{正式推导}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-    \item[\textbf{步骤一：}] 证明平方和形式。
+    \item[\textbf{步骤一：}] 证明重要不等式 $a^2+b^2 \ge 2ab$。
     \[
-    (a-b)^2 \geq 0
+    (a-b)^2 \ge 0 \Rightarrow a^2 - 2ab + b^2 \ge 0 \Rightarrow a^2 + b^2 \ge 2ab
     \]
-    \textbf{理由：} 任意实数的平方非负。
-    展开左边：
-    \[
-    a^2 - 2ab + b^2 \geq 0
-    \]
-    移项即得：
-    \[
-    a^2 + b^2 \geq 2ab
-    \]
-    等号成立当且仅当 $a=b$。
+    \par\textbf{理由：}
+    任意实数的平方非负，展开后移项即得。
 
-    \item[\textbf{步骤二：}] 证明算术-几何平均形式。
-    令 $x = \sqrt{a}$, $y = \sqrt{b}$，则 $x, y > 0$。对 $x, y$ 应用步骤一的不等式：
+    \item[\textbf{步骤二：}] 证明基本不等式 $a+b \ge 2\sqrt{ab}$（$a,b>0$）。
     \[
-    x^2 + y^2 \geq 2xy
+    (\sqrt{a} - \sqrt{b})^2 \ge 0 \Rightarrow a - 2\sqrt{ab} + b \ge 0 \Rightarrow a + b \ge 2\sqrt{ab}
     \]
-    即
-    \[
-    a + b \geq 2\sqrt{ab}
-    \]
-    \textbf{理由：} 代换 $a=x^2$, $b=y^2$，且 $\sqrt{ab}=xy$。
-    等号成立当且仅当 $x=y$，即 $a=b$。
+    \par\textbf{理由：}
+    正实数的平方根是实数，应用平方非负性直接导出。
 
-    \item[\textbf{步骤三：}] 推导常用变形。
-    由 $a+b \geq 2\sqrt{ab}$，两边平方（注意两边非负）得：
+    \item[\textbf{步骤三：}] 推导常用变形 $ab \le \left(\frac{a+b}{2}\right)^2$。
     \[
-    (a+b)^2 \geq 4ab
+    \text{由基本不等式 } \sqrt{ab} \le \frac{a+b}{2} \text{，两边平方得 } ab \le \left(\frac{a+b}{2}\right)^2
     \]
-    整理得：
+    \par\textbf{理由：}
+    基本不等式两边平方，由于两边非负，不等号方向不变。
+
+    \item[\textbf{步骤四：}] 推导常用变形 $a^2+b^2 \ge \frac{(a+b)^2}{2}$。
     \[
-    ab \leq \left(\frac{a+b}{2}\right)^2
+    a^2+b^2 \ge 2ab \Rightarrow 2(a^2+b^2) \ge a^2+b^2+2ab = (a+b)^2 \Rightarrow a^2+b^2 \ge \frac{(a+b)^2}{2}
     \]
-    \textbf{理由：} 不等式两边同除以4。
-    另一方面，由 $a^2+b^2 \geq 2ab$，两边同时加上 $a^2+b^2$ 得：
-    \[
-    2(a^2+b^2) \geq a^2+2ab+b^2 = (a+b)^2
-    \]
-    整理得：
-    \[
-    a^2+b^2 \geq \frac{(a+b)^2}{2}
-    \]
-    \textbf{理由：} 不等式两边同除以2。
-    等号成立条件均为 $a=b$。
+    \par\textbf{理由：}
+    将重要不等式乘以 2 后与平方和展开结合，再除以 2。
 \end{description}
 
 \medskip
 \textbf{结论回扣}
 
-以上推导表明，所有不等式都源于平方的非负性，并通过代数变形相互关联。等号成立条件一致，均为两数相等。
+\textbf{所有不等式均源于平方非负性，等号成立当且仅当 $a=b$，验证了结论的一致性。}
 \end{proofbox}

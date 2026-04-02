@@ -1,58 +1,48 @@
 \begin{proofbox}
 \textbf{思路提示}
 
-从 $N < f(x) < M$ 出发，通过移项、配方、取倒数等基本代数操作，可系统地导出四种等价形式。关键点是保持等价变形，注意不等号方向。
+从 $N < f(x) < M$ 出发，通过代数变形逐一导出四种形式，注意每一步的等价性。
 
 \medskip
 \textbf{正式推导}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-    \item[\textbf{步骤一：}] 推导乘积形式。
+    \item[\textbf{步骤一：}] 证明与乘积形式等价。
     \[
-    N < f(x) < M \iff f(x) - N > 0 \text{ 且 } M - f(x) > 0
+    N < f(x) < M \Leftrightarrow f(x)-N > 0 \ \text{且} \ M-f(x) > 0.
     \]
-    \textbf{理由：} 将连不等式拆为两个独立不等式。
+    \par\textbf{理由：} 将原不等式拆为两个独立不等式，移项后可知 $f(x)-N$ 与 $M-f(x)$ 同为正。
     \[
-    \iff \bigl(f(x) - N\bigr)\bigl(M - f(x)\bigr) > 0
+    \text{两正数相乘为正，故 } [f(x)-M][f(x)-N] = -[f(x)-N][M-f(x)] < 0.
     \]
-    \textbf{理由：} 两正数乘积为正。注意 $M - f(x) = -\bigl(f(x) - M\bigr)$，所以
+    \par\textbf{理由：} 利用 $f(x)-M = -(M-f(x))$，乘积为负等价于 $f(x)-N$ 与 $M-f(x)$ 同号。
+    
+    \item[\textbf{步骤二：}] 证明与绝对值形式等价。
     \[
-    \iff \bigl[f(x) - M\bigr]\bigl[f(x) - N\bigr] < 0
+    \begin{aligned}
+    N < f(x) < M &\Leftrightarrow -\frac{M-N}{2} < f(x)-\frac{M+N}{2} < \frac{M-N}{2} \\
+    &\Leftrightarrow \left| f(x)-\frac{M+N}{2} \right| < \frac{M-N}{2}.
+    \end{aligned}
     \]
-    \textbf{理由：} 提取负号，不等号反向。
-
-    \item[\textbf{步骤二：}] 推导绝对值形式。
+    \par\textbf{理由：} 将原不等式各项减去 $\frac{M+N}{2}$，得到关于中点的对称区间，再改写为绝对值不等式。
+    
+    \item[\textbf{步骤三：}] 证明与分式形式等价。
     \[
-    N < f(x) < M \iff f(x) - \frac{M+N}{2} \text{ 的绝对值小于 } \frac{M-N}{2}
+    N < f(x) < M \Leftrightarrow f(x)-N > 0 \ \text{且} \ M-f(x) > 0 \Leftrightarrow \frac{f(x)-N}{M-f(x)} > 0.
     \]
-    \textbf{理由：} 区间中点与半径的几何表示。具体地：
+    \par\textbf{理由：} 两正数之比为正，且分母 $M-f(x)$ 为正，故比值大于零。
+    
+    \item[\textbf{步骤四：}] 证明与倒数形式等价。
     \[
-    \left|\, f(x) - \frac{M+N}{2} \,\right| < \frac{M-N}{2}
+    \begin{aligned}
+    N < f(x) < M &\Rightarrow f(x)-N > 0 \ \text{且} \ M-N > 0. \\
+    \text{由 } f(x) < M &\Rightarrow f(x)-N < M-N \Rightarrow \frac{1}{f(x)-N} > \frac{1}{M-N}.
+    \end{aligned}
     \]
-    \textbf{理由：} 直接由 $N < f(x) < M$ 通过移项和绝对值定义可得。
-
-    \item[\textbf{步骤三：}] 推导分式形式。
-    \[
-    N < f(x) < M \iff f(x)-N > 0 \text{ 且 } M-f(x) > 0
-    \]
-    \textbf{理由：} 同步骤一。
-    \[
-    \iff \frac{f(x)-N}{M-f(x)} > 0
-    \]
-    \textbf{理由：} 两正数之比为正。
-
-    \item[\textbf{步骤四：}] 推导倒数形式。
-    \[
-    N < f(x) < M \iff f(x)-N > 0 \text{ 且 } M-N > 0
-    \]
-    \textbf{理由：} $M>N$ 所以 $M-N>0$。由于 $f(x)-N < M-N$，且均为正，取倒数得：
-    \[
-    \frac{1}{f(x)-N} > \frac{1}{M-N}
-    \]
-    \textbf{理由：} 正数范围内，倒数函数单调递减，所以较大的原数对应较小的倒数。
+    \par\textbf{理由：} 在 $f(x)-N$ 与 $M-N$ 均为正的条件下，函数 $\frac{1}{t}$ 单调递减，故较小自变量对应较大函数值。
 \end{description}
 
 \medskip
 \textbf{结论回扣}
 
-\textbf{以上推导表明，连不等式 $N < f(x) < M$ 与所列四种形式完全等价，可根据解题需要灵活选用。}
+\textbf{以上推导每一步均可逆，因此四种形式均与 $N < f(x) < M$ 等价。}
 \end{proofbox}
