@@ -1,22 +1,22 @@
 \begin{trapbox}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=1.0em, topsep=0.5em]
-    \item[\textbf{易错点 1}]
+    \item[\textbf{易错点1}]
     \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-        \item[\textbf{错误想法：}] 认为 $a + b \ge 2\sqrt{ab}$ 对任意实数 $a, b$ 都成立。
-        \item[\textbf{正确理解：}] 该不等式成立的前提是 $a \ge 0$ 且 $b \ge 0$，因为 $\sqrt{ab}$ 要求 $ab \ge 0$，且不等式推导中利用了 $a, b$ 的算术平方根。
-        \item[\textbf{错因分析：}] 忽视了根号运算对定义域的要求，以及从 $a^2+b^2\ge 2ab$ 推导 $a+b\ge 2\sqrt{ab}$ 时所作的变量代换 $x=\sqrt{a}$ 本身要求 $a,b$ 非负。
+        \item[\textbf{错误想法：}] 认为基本不等式 $a+b \geq 2\sqrt{ab}$ 对所有实数都成立。
+        \item[\textbf{正确理解：}] 该不等式要求 $a, b$ 均为正实数。若 $a,b$ 为负，根式 $\sqrt{ab}$ 可能无意义；若一正一负，不等式方向可能改变。
+        \item[\textbf{错因分析：}] 忽视了算术平方根的定义域和不等式成立的前提条件。必须确保 $a,b$ 非负，才能应用。
     \end{description}
-    \item[\textbf{易错点 2}]
+    \item[\textbf{易错点2}]
     \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-        \item[\textbf{错误想法：}] 在使用 $a + b \ge 2\sqrt{ab}$ 求最值时，只算出 $2\sqrt{ab}$ 的值就认为是最值，而忽略检查等号成立条件是否在允许范围内。
-        \item[\textbf{正确理解：}] 必须验证等号成立条件 $a=b$ 能否取到，以及取到时对应的变量值是否符合题目所有限制条件（如定义域、其他约束）。
-        \item[\textbf{错因分析：}] 将“不等式成立”与“等号可以取到”混为一谈。不等式只是给出了一个下界，这个下界能否成为实际的最小值，取决于等号是否成立。
+        \item[\textbf{错误想法：}] 利用不等式求最值时，仅得出最值表达式，未检查等号能否成立。
+        \item[\textbf{正确理解：}] 不等式给出的界不一定能取到。必须验证等号成立的条件是否在题目允许范围内。
+        \item[\textbf{错因分析：}] 混淆了“上界”与“最大值”。只有当等号能取到时，这个界才是真正的最值。
     \end{description}
-    \item[\textbf{易错点 3}]
+    \item[\textbf{易错点3}]
     \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-        \item[\textbf{错误想法：}] 在应用 $ab \le \left(\frac{a+b}{2}\right)^2$ 时，认为只要 $a+b$ 是定值，$ab$ 就有最大值，而忽略 $a, b$ 非负的前提。
-        \item[\textbf{正确理解：}] $ab \le \left(\frac{a+b}{2}\right)^2$ 成立的前提同样是 $a \ge 0, b \ge 0$。如果 $a, b$ 为负，此不等式可能不成立（例如 $a=b=-1$，左边 $ab=1$，右边 $((-1-1)/2)^2=1$，相等；但 $a=-1, b=-2$，左边 $2$，右边 $((-3)/2)^2=2.25$，不等式 $2 \le 2.25$ 仍成立？这里说明需要小心）。实际上，由 $(a-b)^2 \ge 0$ 推导 $a^2+b^2 \ge 2ab$ 对任意实数成立，进而推导 $ab \le (a^2+b^2)/2$，但 $ab \le ((a+b)/2)^2$ 需要 $a,b$ 非负？严格推导：$((a+b)/2)^2 \ge ab$ 等价于 $(a+b)^2 \ge 4ab$，即 $(a-b)^2 \ge 0$，这确实对任意实数成立。但问题在于，当 $a,b$ 为负时，$ab$ 为正，而 $(a+b)/2$ 为负，其平方为正，这个关系依然成立。所以前提 $a,b \ge 0$ 对于这个变形似乎不是必须的？然而常见教材中强调 $a,b \ge 0$ 是为了与几何意义挂钩，并且在求最值时，如果 $a,b$ 不限定非负，即使 $a+b$ 固定，$ab$ 也可能无限大（例如一正一负）。因此，为了用这个不等式求 $ab$ 的最大值，必须附加 $a,b \ge 0$ 的条件以确保最值存在。
-        \item[\textbf{错因分析：}] 混淆了“不等式成立的条件”和“用不等式求最值时变量应满足的条件”。不等式 $ab \le ((a+b)/2)^2$ 本身对任意实数成立，但若想利用“$a+b$ 为定值”推出“$ab$ 有最大值”，必须保证 $a,b$ 非负，否则 $ab$ 可能无上界。
+        \item[\textbf{错误想法：}] 将变形 $ab \leq \left(\frac{a+b}{2}\right)^2$ 中的 $\frac{a+b}{2}$ 误认为是算术平均数，而忽略该不等式本身也是基本不等式的直接推论。
+        \item[\textbf{正确理解：}] 该变形是 $a+b \geq 2\sqrt{ab}$ 两边平方并整理得到的，其取等条件依然是 $a=b$。
+        \item[\textbf{错因分析：}] 对公式的来源理解不透，机械记忆，导致在复杂变形中无法灵活运用或错误放缩。
     \end{description}
 \end{description}
 \end{trapbox}

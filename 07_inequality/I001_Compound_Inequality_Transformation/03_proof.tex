@@ -1,27 +1,58 @@
 \begin{proofbox}
-证明思路：通过循环推导证明五个命题等价，即 (1) $\Rightarrow$ (2) $\Rightarrow$ (3) $\Rightarrow$ (4) $\Rightarrow$ (5) $\Rightarrow$ (1)。
+\textbf{思路提示}
+
+从 $N < f(x) < M$ 出发，通过移项、配方、取倒数等基本代数操作，可系统地导出四种等价形式。关键点是保持等价变形，注意不等号方向。
 
 \medskip
-\textbf{正式推导：}
+\textbf{正式推导}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一：}] 推导乘积形式。
+    \[
+    N < f(x) < M \iff f(x) - N > 0 \text{ 且 } M - f(x) > 0
+    \]
+    \textbf{理由：} 将连不等式拆为两个独立不等式。
+    \[
+    \iff \bigl(f(x) - N\bigr)\bigl(M - f(x)\bigr) > 0
+    \]
+    \textbf{理由：} 两正数乘积为正。注意 $M - f(x) = -\bigl(f(x) - M\bigr)$，所以
+    \[
+    \iff \bigl[f(x) - M\bigr]\bigl[f(x) - N\bigr] < 0
+    \]
+    \textbf{理由：} 提取负号，不等号反向。
 
-(1) $\Rightarrow$ (2)：由 $N < f(x) < M$ 知 $f(x)-N > 0$ 且 $f(x)-M < 0$，两式相乘得 $[f(x)-M][f(x)-N] < 0$。
+    \item[\textbf{步骤二：}] 推导绝对值形式。
+    \[
+    N < f(x) < M \iff f(x) - \frac{M+N}{2} \text{ 的绝对值小于 } \frac{M-N}{2}
+    \]
+    \textbf{理由：} 区间中点与半径的几何表示。具体地：
+    \[
+    \left|\, f(x) - \frac{M+N}{2} \,\right| < \frac{M-N}{2}
+    \]
+    \textbf{理由：} 直接由 $N < f(x) < M$ 通过移项和绝对值定义可得。
 
-(2) $\Rightarrow$ (3)：由 $[f(x)-M][f(x)-N] < 0$ 知 $f(x)$ 在 $N$ 与 $M$ 之间，且 $M>N$。考虑平方差公式：
-\[
-\begin{aligned}
-\left[ f(x) - \frac{M+N}{2} \right]^2 &- \left( \frac{M-N}{2} \right)^2 \\
-&= [f(x)]^2 - (M+N)f(x) + \frac{(M+N)^2}{4} - \frac{(M-N)^2}{4} \\
-&= [f(x)]^2 - (M+N)f(x) + MN \\
-&= [f(x)-M][f(x)-N] < 0.
-\end{aligned}
-\]
-因此 $\left[ f(x) - \frac{M+N}{2} \right]^2 < \left( \frac{M-N}{2} \right)^2$，开方即得 $\left| f(x) - \frac{M+N}{2} \right| < \frac{M-N}{2}$。
+    \item[\textbf{步骤三：}] 推导分式形式。
+    \[
+    N < f(x) < M \iff f(x)-N > 0 \text{ 且 } M-f(x) > 0
+    \]
+    \textbf{理由：} 同步骤一。
+    \[
+    \iff \frac{f(x)-N}{M-f(x)} > 0
+    \]
+    \textbf{理由：} 两正数之比为正。
 
-(3) $\Rightarrow$ (4)：绝对值不等式 $\left| f(x) - \frac{M+N}{2} \right| < \frac{M-N}{2}$ 等价于 $N < f(x) < M$。在此条件下，$f(x)-N > 0$ 且 $M-f(x) > 0$，故其比 $\frac{f(x)-N}{M-f(x)} > 0$。
+    \item[\textbf{步骤四：}] 推导倒数形式。
+    \[
+    N < f(x) < M \iff f(x)-N > 0 \text{ 且 } M-N > 0
+    \]
+    \textbf{理由：} $M>N$ 所以 $M-N>0$。由于 $f(x)-N < M-N$，且均为正，取倒数得：
+    \[
+    \frac{1}{f(x)-N} > \frac{1}{M-N}
+    \]
+    \textbf{理由：} 正数范围内，倒数函数单调递减，所以较大的原数对应较小的倒数。
+\end{description}
 
-(4) $\Rightarrow$ (5)：由 $\frac{f(x)-N}{M-f(x)} > 0$ 知分子分母同号。若同为负，则 $f(x)-N<0$ 且 $M-f(x)<0$，推出 $f(x)<N$ 且 $f(x)>M$，与 $M>N$ 矛盾。故必有 $f(x)-N > 0$ 且 $M-f(x) > 0$，即 $N < f(x) < M$。在此条件下，因为 $M-N > 0$，比较 $\frac{1}{f(x)-N}$ 与 $\frac{1}{M-N}$，由 $f(x) < M$ 得 $f(x)-N < M-N$，取倒数（正数倒数函数递减）即得 $\frac{1}{f(x)-N} > \frac{1}{M-N}$。
+\medskip
+\textbf{结论回扣}
 
-(5) $\Rightarrow$ (1)：由 $\frac{1}{f(x)-N} > \frac{1}{M-N}$ 及 $M>N$ 知 $M-N>0$。若 $f(x)-N \le 0$，则左边无意义或非正，与大于正数 $\frac{1}{M-N}$ 矛盾。故 $f(x)-N > 0$。又由不等式两边取倒数（正数）并注意不等号方向，得 $f(x)-N < M-N$，即 $f(x) < M$。综上，$N < f(x) < M$。
-
-循环完成，五个命题等价。
+\textbf{以上推导表明，连不等式 $N < f(x) < M$ 与所列四种形式完全等价，可根据解题需要灵活选用。}
 \end{proofbox}

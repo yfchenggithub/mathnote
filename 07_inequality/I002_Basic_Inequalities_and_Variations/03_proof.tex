@@ -1,58 +1,62 @@
 \begin{proofbox}
-\textbf{思路提示：} 核心思想是利用完全平方的非负性，从 $(a-b)^2 \ge 0$ 出发推导所有形式。
+\textbf{思路提示}
+
+从显然的非负性出发：一个实数的平方总非负。考虑 $(\sqrt{a}-\sqrt{b})^2 \geq 0$ 或 $(a-b)^2 \geq 0$，展开整理即得目标不等式。
 
 \medskip
-\textbf{正式推导：}
+\textbf{正式推导}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一：}] 证明平方和形式。
+    \[
+    (a-b)^2 \geq 0
+    \]
+    \textbf{理由：} 任意实数的平方非负。
+    展开左边：
+    \[
+    a^2 - 2ab + b^2 \geq 0
+    \]
+    移项即得：
+    \[
+    a^2 + b^2 \geq 2ab
+    \]
+    等号成立当且仅当 $a=b$。
 
-\textbf{1. 证明 $a^2 + b^2 \ge 2ab$：}
-对于任意实数 $a, b$，恒有
-\[
-(a-b)^2 \ge 0.
-\]
-展开左边，得到
-\[
-a^2 - 2ab + b^2 \ge 0.
-\]
-将 $-2ab$ 移到右边，即得
-\[
-a^2 + b^2 \ge 2ab.
-\]
-等号成立当且仅当 $(a-b)^2 = 0$，即 $a = b$。
+    \item[\textbf{步骤二：}] 证明算术-几何平均形式。
+    令 $x = \sqrt{a}$, $y = \sqrt{b}$，则 $x, y > 0$。对 $x, y$ 应用步骤一的不等式：
+    \[
+    x^2 + y^2 \geq 2xy
+    \]
+    即
+    \[
+    a + b \geq 2\sqrt{ab}
+    \]
+    \textbf{理由：} 代换 $a=x^2$, $b=y^2$，且 $\sqrt{ab}=xy$。
+    等号成立当且仅当 $x=y$，即 $a=b$。
+
+    \item[\textbf{步骤三：}] 推导常用变形。
+    由 $a+b \geq 2\sqrt{ab}$，两边平方（注意两边非负）得：
+    \[
+    (a+b)^2 \geq 4ab
+    \]
+    整理得：
+    \[
+    ab \leq \left(\frac{a+b}{2}\right)^2
+    \]
+    \textbf{理由：} 不等式两边同除以4。
+    另一方面，由 $a^2+b^2 \geq 2ab$，两边同时加上 $a^2+b^2$ 得：
+    \[
+    2(a^2+b^2) \geq a^2+2ab+b^2 = (a+b)^2
+    \]
+    整理得：
+    \[
+    a^2+b^2 \geq \frac{(a+b)^2}{2}
+    \]
+    \textbf{理由：} 不等式两边同除以2。
+    等号成立条件均为 $a=b$。
+\end{description}
 
 \medskip
-\textbf{2. 证明 $a+b \ge 2\sqrt{ab}$ （$a, b \ge 0$）：}
-在 $a^2 + b^2 \ge 2ab$ 中，令 $x = \sqrt{a}, \, y = \sqrt{b}$（这里 $a, b \ge 0$ 保证了根号有意义），则 $x^2 = a, \, y^2 = b$。
-代入得
-\[
-x^2 + y^2 \ge 2xy.
-\]
-注意到 $xy = \sqrt{a}\sqrt{b} = \sqrt{ab}$，于是有
-\[
-a + b \ge 2\sqrt{ab}.
-\]
-等号成立条件同样是 $x=y$，即 $\sqrt{a} = \sqrt{b}$，亦即 $a=b$。
+\textbf{结论回扣}
 
-\medskip
-\textbf{3. 证明 $ab \le \left(\frac{a+b}{2}\right)^2$ （$a, b \ge 0$）：}
-由 $a+b \ge 2\sqrt{ab}$ 出发，两边同时平方（因为非负，平方保序）：
-\[
-(a+b)^2 \ge (2\sqrt{ab})^2 = 4ab.
-\]
-两边同除以 $4$，即得
-\[
-\left(\frac{a+b}{2}\right)^2 \ge ab.
-\]
-等号成立条件依然是 $a=b$。
-
-\medskip
-\textbf{4. 证明 $a^2 + b^2 \ge \frac{(a+b)^2}{2}$：}
-从 $a^2 + b^2 \ge 2ab$ 出发，两边同时加上 $a^2 + b^2$：
-\[
-2(a^2 + b^2) \ge a^2 + 2ab + b^2 = (a+b)^2.
-\]
-两边同除以 $2$，即得
-\[
-a^2 + b^2 \ge \frac{(a+b)^2}{2}.
-\]
-等号成立条件依然是 $a=b$。
+以上推导表明，所有不等式都源于平方的非负性，并通过代数变形相互关联。等号成立条件一致，均为两数相等。
 \end{proofbox}
