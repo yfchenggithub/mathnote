@@ -26,7 +26,7 @@
 全局硬约束（必须全部满足）：
 1. 输出必须是合法、可编译的 LaTeX 内容。
 2. 严禁输出任何 emoji、图标符号、带圈数字或装饰性 Unicode 符号。
-3. 仅使用普通文本标签，例如“条件：”“结论：”“错误想法：”。
+3. 仅使用普通文本标签，例如“条件：”“结论：”“易错点：”。
 4. 行内公式只用 `$...$`。
 5. 块级公式只用 `\[ ... \]`。
 6. 严禁把裸 `[` `]` 当作数学环境定界符。
@@ -38,6 +38,7 @@
 12. 禁止输出英文标题或英文讲解句（例如 `Conditions`、`Conclusion`、`Proof sketch`、`Key reminders`、`Wrong belief` 等）。
 13. 若输入材料含英文，先理解其含义，再用中文改写后输出；不得直接复制英文句子。
 14. 生成后必须自检：若出现英文自然语言片段，先整体改写为中文再输出最终 JSON。
+15. 所有带序号标签（如“条件 1”“结论一”“要点一”“场景一”“步骤一”“易错点一”）后必须紧跟小括号极简提炼，括号内使用数学专业用语，2 到 7 个汉字。
 
 长公式排版规范（全局，适用于 01_statement ~ 06_summary）：
 1. 若公式明显过长（预计会挤占一整行、影响 A4 打印阅读），必须改为“分行展示”，不要硬塞一行。
@@ -55,9 +56,9 @@
 长度建议（为提速与稳定）：
 - 01_statement：6 到 12 行（每条结论配一句直观描述）
 - 02_explanation：12 到 20 行（优先分块清晰，不要压缩）
-- 03_proof：12 到 20 行（步骤分层，公式与理由分开）
-- 04_examples：2 题，每题 10 到 16 行（步骤展开，留白充分）
-- 05_traps：固定 3 条，每条含 3 个标签段（错误想法/正确理解/错因分析）
+- 03_proof：16 到 28 行（细步骤、零跳步、通俗解释）
+- 04_examples：2 题，每题 14 到 24 行（细写中间过程，不省略关键步）
+- 05_traps：固定 3 条，每条含 3 个标签段（易错点/正确理解/错因分析）
 - 06_summary：10 到 14 行（分块呈现，便于速读与批注）
 
 写作原则：
@@ -65,17 +66,22 @@
 - 先讲“是什么”，再讲“为什么”，再讲“怎么用”。
 - 避免空话，避免冗长，避免重复。
 - 内容围绕输入结论，不得偏离。
+- 讲解对象按“高中 60 分水平”设定：语言通俗，术语可懂，节奏慢一点。
+- 推导过程默认“零跳步”：若从 A 到 C，必须补写关键中间步骤 B。
 
 01_statement（结论）要求：
 1. 目标：生成“可扫读、可复习、可讲评”的结论卡片，只陈述，不解释。
 2. 固定骨架（必须遵守）：
 \begin{statementbox}
 
-\textbf{条件：} ...
+\textbf{条件：}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+    \item[\textbf{条件 1（7字内术语）：}] ...
+\end{description}
 
 \textbf{结论：}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{结论 1：}]
+    \item[\textbf{结论一（7字内术语）：}]
     \textbf{直观描述：} ...
     \[
     ...
@@ -88,11 +94,12 @@
 3. 排版硬约束：
 - “条件 / 结论 / 取等条件”三段之间必须留空行。
 - 只有 1 条结论时，直接给出单个公式块，不要再包额外列表。
-- 若结论有多条，使用 `description` 按“结论 1 / 结论 2 ...”分条；每条只写一个核心关系。
-- 严禁双重编号：不要同时出现“自动编号 + 结论 1”。
+- 若结论有多条，使用 `description` 按“结论一 / 结论二 ...”分条；每条只写一个核心关系。
+- 严禁双重编号：不要同时出现“自动编号 + 结论一”。
 - 严禁在同一条目中用“且/并且”塞入多个核心公式。
 - 每个 `\[ ... \]` 内只放一条核心公式，不要把多个命题压在同一公式块。
 - 非推导场景默认不使用 `aligned`/`align`；但若单条公式过长，为保证打印美观，可在 `\[ ... \]` 内使用 `aligned` 分行。
+- “条件 1 / 结论一”等标签后必须紧跟“（7字内术语）”。
 - 每条“结论 X”后必须补一行 `\textbf{直观描述：}`，用简短形象中文解释（建议 10~24 字）。
 4. 内容约束：
 - 尽量沿用输入 latex 的符号与记号，不随意改变量名。
@@ -116,8 +123,8 @@
 \medskip
 \textbf{核心拆解}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{要点一：}] ...
-    \item[\textbf{要点二：}] ...
+    \item[\textbf{要点一（7字内术语）：}] ...
+    \item[\textbf{要点二（7字内术语）：}] ...
 \end{description}
 
 \medskip
@@ -128,14 +135,15 @@
 \medskip
 \textbf{使用场景}
 \begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-    \item \textbf{场景 A：} ...
-    \item \textbf{场景 B：} ...
+    \item \textbf{场景一（7字内术语）：} ...
+    \item \textbf{场景二（7字内术语）：} ...
 \end{itemize}
 \end{explanationbox}
 3. 排版硬约束：
 - 四个模块必须纵向分开，模块之间必须有空行或 `\medskip`。
 - “核心拆解”必须使用 2 到 4 条列表，严禁写成一整段。
 - 关键术语、关键关系、结论句必须 `\textbf{}` 加粗。
+- “要点一/要点二/场景一/场景二”后必须带“（7字内术语）”。
 - 句子保持短句，单行信息密度适中，避免横向拥挤。
 4. 内容要求：表达口语化但保持严谨，不抄原结论。
 
@@ -150,21 +158,21 @@
 \medskip
 \textbf{正式推导}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-    \item[\textbf{步骤一：}] ...
+    \item[\textbf{步骤一（7字内术语）：}] ...
     \[
     ...
     \]
     \par\textbf{理由：}
     ...
 
-    \item[\textbf{步骤二：}] ...
+    \item[\textbf{步骤二（7字内术语）：}] ...
     \[
     ...
     \]
     \par\textbf{理由：}
     ...
 
-    \item[\textbf{步骤三：}] ...
+    \item[\textbf{步骤三（7字内术语）：}] ...
     \[
     ...
     \]
@@ -183,10 +191,12 @@
 - 每步优先使用“公式块 + 理由”结构，避免只堆公式不解释。
 - “理由”必须换行单独成段显示，不得与步骤陈述写在同一行。
 - 关键变形、判号依据、取等条件必须 `\textbf{}` 加粗提示。
-- 步骤建议 3 到 6 步，短句表达，便于打印后做批注。
+- 步骤建议 4 到 8 步，短句表达，便于打印后做批注。
 - 禁止双重编号：不要出现“1. 步骤一”。
 - 若步骤中出现多行变形，必须在同一个 `aligned` 中按关系符对齐。
 4. 内容要求：
+- 从 A 到 C 必须写出关键中间步骤 B，避免跨步推导。
+- 分式通分、移项、约分、开方、判号等关键操作必须明写，不得省略。
 - 关键变形给出简短原因，避免跳步和无解释长推导。
 - 不做与主结论无关的冗长展开。
 
@@ -203,13 +213,13 @@
 
 \textbf{解题步骤：}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{第一步：}] ...
+    \item[\textbf{第一步（7字内术语）：}] ...
     \par\textbf{理由：}
     ...
-    \item[\textbf{第二步：}] ...
+    \item[\textbf{第二步（7字内术语）：}] ...
     \par\textbf{理由：}
     ...
-    \item[\textbf{第三步：}] ...
+    \item[\textbf{第三步（7字内术语）：}] ...
     \par\textbf{理由：}
     ...
 \end{description}
@@ -223,13 +233,13 @@
 
 \textbf{解题步骤：}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{第一步：}] ...
+    \item[\textbf{第一步（7字内术语）：}] ...
     \par\textbf{理由：}
     ...
-    \item[\textbf{第二步：}] ...
+    \item[\textbf{第二步（7字内术语）：}] ...
     \par\textbf{理由：}
     ...
-    \item[\textbf{第三步：}] ...
+    \item[\textbf{第三步（7字内术语）：}] ...
     \par\textbf{理由：}
     ...
 \end{description}
@@ -240,7 +250,9 @@
 - 每个例题必须出现“题目 / 解题步骤 / 关键结论”三个独立块。
 - 步骤必须拆成“第一步、第二步、第三步”纵向列表，严禁并排或连写。
 - 步骤区禁止双重编号：不要出现“1. 第一步”。
+- 每个步骤标签后必须带“（7字内术语）”。
 - “理由”必须换行单独成段，禁止写成“第一步 ...（理由：...）”同一行结构。
+- 若从一个式子直接跳到结论，必须补写中间式，保证 60 分水平学生可跟上。
 - 例 1 与例 2 之间必须留出明显间距（至少 `\medskip`）。
 - 关键公式、关键比较关系、最终答案必须 `\textbf{}` 加粗突出。
 - 面向打印做笔记：每步尽量短，避免超长句挤在同一行。
@@ -250,34 +262,29 @@
 2. 固定 3 条（不多不少）。
 3. 版式模板（强制执行）：
 \begin{trapbox}
-\textbf{易错点一}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-    \item[\textbf{错误想法：}] ...
-    \item[\textbf{正确理解：}] ...
-    \item[\textbf{错因分析：}] ...
+    \item[\textbf{易错点一（7字内术语）}] ...
+    \item[\textbf{正确理解（7字内术语）：}] ...
+    \item[\textbf{错因分析（7字内术语）：}] ...
 \end{description}
 
 \medskip
-\textbf{易错点二}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-    \item[\textbf{错误想法：}] ...
-    \item[\textbf{正确理解：}] ...
-    \item[\textbf{错因分析：}] ...
+    \item[\textbf{易错点二（7字内术语）}] ...
+    \item[\textbf{正确理解（7字内术语）：}] ...
+    \item[\textbf{错因分析（7字内术语）：}] ...
 \end{description}
 
 \medskip
-\textbf{易错点三}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-    \item[\textbf{错误想法：}] ...
-    \item[\textbf{正确理解：}] ...
-    \item[\textbf{错因分析：}] ...
+    \item[\textbf{易错点三（7字内术语）}] ...
+    \item[\textbf{正确理解（7字内术语）：}] ...
+    \item[\textbf{错因分析（7字内术语）：}] ...
 \end{description}
 \end{trapbox}
 4. 排版硬约束：
-- “错误想法 / 正确理解 / 错因分析”必须为三个独立条目，严禁同段连写。
+- “易错点 / 正确理解 / 错因分析”必须为三个独立条目，严禁同段连写。
 - 三条 trap 之间必须有明显留白，禁止连续大段文本。
-- `易错点一/二/三` 标题必须独占一行，下一行才开始“错误想法”。
-- 若需精简，可将“错误想法”统一替换为“误区描述”，但三条内部标签必须保持一致。
 - 每个标签内容建议 1 到 2 句，句子短，避免横向过长导致阅读拥挤。
 - 不添加任何 emoji、图标或符号前缀。
 5. 内容要求：必须具体，禁止“注意细节”这类空泛提醒。
@@ -293,15 +300,15 @@
 \medskip
 \textbf{使用条件}
 \begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-    \item \textbf{条件 1：} ...
-    \item \textbf{条件 2：} ...
+    \item \textbf{条件 1（7字内术语）：} ...
+    \item \textbf{条件 2（7字内术语）：} ...
 \end{itemize}
 
 \medskip
 \textbf{关键提醒}
 \begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-    \item \textbf{易错点：} ...
-    \item \textbf{检查项：} ...
+    \item \textbf{易错点（7字内术语）：} ...
+    \item \textbf{检查项（7字内术语）：} ...
 \end{itemize}
 \end{summarybox}
 3. 排版硬约束：
@@ -309,6 +316,7 @@
 - “使用条件”与“关键提醒”必须用列表展开，不写成连续段落。
 - 每段之间保留呼吸空间（空行或 `\medskip`）。
 - 核心词、条件触发词、警示词必须 `\textbf{}` 加粗。
+- “条件 1 / 条件 2 / 易错点 / 检查项”标签后必须带“（7字内术语）”。
 4. 风格要求：像“考前速记卡”，30 秒可复习，打印后便于做边注。
 
 输出格式约束：
