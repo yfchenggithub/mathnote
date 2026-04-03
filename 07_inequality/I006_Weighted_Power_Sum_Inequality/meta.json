@@ -1,0 +1,194 @@
+{
+  "id": "I006",
+  "module": "inequality",
+  "core": {
+    "title": "权方和不等式",
+    "alias": [
+      "加权幂和不等式",
+      "幂平均商不等式",
+      "广义柯西不等式"
+    ],
+    "summary": "对于一组带权重的分式，其加权幂和的最小值可以用整体和的幂简洁表示，是处理含比值结构最值问题的利器。",
+    "difficulty": 3,
+    "category": "不等式",
+    "tags": [
+      "不等式",
+      "权方和不等式",
+      "最值问题",
+      "比值结构",
+      "柯西推广",
+      "放缩技巧"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "权方和不等式",
+      "加权幂和不等式",
+      "柯西不等式推广",
+      "分式最值",
+      "比值不等式",
+      "平方和除以和",
+      "a^2/b不等式",
+      "a^3/b^2不等式",
+      "取等条件",
+      "分子分母指数差1",
+      "加权平均不等式",
+      "幂平均不等式",
+      "赫尔德不等式特例",
+      "最值问题",
+      "放缩法"
+    ],
+    "synonyms": [
+      "全方和不等式",
+      "全方合不等式",
+      "权方合不等式",
+      "平方除以和",
+      "三次除以平方",
+      "分式放缩",
+      "比值放缩"
+    ],
+    "intents": [
+      "求最值",
+      "证明不等式",
+      "放缩变形",
+      "处理分式结构",
+      "判断取等条件",
+      "构造变量"
+    ],
+    "query_templates": [
+      "怎么用权方和不等式求最值？",
+      "权方和不等式取等条件是什么？",
+      "a^2/b + b^2/c + c^2/a最小值怎么求？",
+      "权方和不等式和柯西不等式区别",
+      "分式不等式证明技巧"
+    ],
+    "ocrKeywords": [
+      "权方和",
+      "∑a_i^m/b_i^{m-1}",
+      "≥",
+      "(∑a_i)^m/(∑b_i)^{m-1}",
+      "取等当且仅当",
+      "a_i/b_i相等",
+      "m=2特例",
+      "平方除以一次"
+    ],
+    "latex_patterns": [
+      "\\sum_{i=1}^{n} \\frac{a_i^m}{b_i^{m-1}} \\geq \\frac{(\\sum a_i)^m}{(\\sum b_i)^{m-1}}",
+      "\\sum \\frac{a_i^2}{b_i} \\geq \\frac{(\\sum a_i)^2}{\\sum b_i}",
+      "\\frac{a_1}{b_1} = \\frac{a_2}{b_2} = \\dots = \\frac{a_n}{b_n}"
+    ],
+    "formulaTokens": [
+      "∑a_i^m/b_i^{m-1}",
+      "(∑a_i)^m/(∑b_i)^{m-1}",
+      "∑a_i^2/b_i",
+      "(∑a_i)^2/∑b_i",
+      "a_i/b_i",
+      "m≥1",
+      "b_i>0"
+    ],
+    "pinyin": "quanfanghebudengshi",
+    "pinyinAbbr": "qfh"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.83,
+    "hot_score": 78,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\sum_{i=1}^{n} \\frac{a_i^m}{b_i^{m-1}} \\geq \\frac{\\bigl(\\sum_{i=1}^{n} a_i\\bigr)^m}{\\bigl(\\sum_{i=1}^{n} b_i\\bigr)^{m-1}}",
+    "related_formulas": [
+      "\\sum_{i=1}^{n} \\frac{a_i^2}{b_i} \\geq \\frac{\\bigl(\\sum_{i=1}^{n} a_i\\bigr)^2}{\\sum_{i=1}^{n} b_i}",
+      "\\frac{a_1}{b_1} = \\frac{a_2}{b_2} = \\dots = \\frac{a_n}{b_n}"
+    ],
+    "variables": [
+      "a_i (实数)",
+      "b_i (正数)",
+      "m (≥1的实数)",
+      "n (正整数)"
+    ],
+    "conditions": [
+      "b_i > 0 (i=1,...,n)",
+      "m ≥ 1"
+    ],
+    "conclusions": [
+      "不等式恒成立",
+      "等号成立当且仅当所有比值 a_i/b_i 相等",
+      "是柯西不等式的推广（当m=2时）"
+    ]
+  },
+  "content": {
+    "statement": "设 $a_i \\in \\mathbb{R}$, $b_i > 0$ ($i=1,2,\\dots,n$)，且 $m \\geq 1$，则权方和不等式成立：\\[\\sum_{i=1}^{n} \\frac{a_i^m}{b_i^{m-1}} \\geq \\frac{\\bigl(\\sum_{i=1}^{n} a_i\\bigr)^m}{\\bigl(\\sum_{i=1}^{n} b_i\\bigr)^{m-1}},\\] 等号成立当且仅当 $\\frac{a_1}{b_1} = \\frac{a_2}{b_2} = \\dots = \\frac{a_n}{b_n}$。特别地，当 $m=2$ 时，有 \\[\\sum_{i=1}^{n} \\frac{a_i^2}{b_i} \\geq \\frac{\\bigl(\\sum_{i=1}^{n} a_i\\bigr)^2}{\\sum_{i=1}^{n} b_i}.\\]",
+    "derivation": [
+      "1. 核心思想：通过构造合适的权重，将分式和的放缩转化为整体和的幂运算。",
+      "2. 常用证明方法：利用赫尔德不等式或数学归纳法，通过调整指数进行放缩。",
+      "3. 关键步骤：验证取等条件，确保放缩的紧致性。"
+    ],
+    "intuition": "当分子是分母的固定倍数时，加权分式和取到最小值；任何偏离这个比例都会使和增大。不等式量化了这种“比例一致时最经济”的直觉。",
+    "common_tricks": [
+      "识别“分子分母指数差1”的标准形式",
+      "当表达式不标准时，通过代数变形（如配凑平方）构造标准形",
+      "最值问题必须同步考虑并说明取等条件",
+      "与柯西不等式结合使用，处理复杂混合结构"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "高考压轴题中的不等式证明",
+      "竞赛中的最值求解问题",
+      "含多个变量比值结构的优化问题",
+      "作为柯西不等式的强化工具"
+    ],
+    "problem_types": [
+      "分式型不等式证明",
+      "条件最值问题",
+      "多元函数极值",
+      "不等式放缩中的桥梁"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 8
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "I006.svg",
+    "png": "",
+    "mp4": "",
+    "pdf": ""
+  },
+  "shareConfig": {
+    "title": "权方和不等式：处理分式最值问题的通用框架",
+    "shareDesc": "适合课后复盘和刷题前速查，集中解决‘分子分母指数差1’型分式的最值与证明，能直接给出最小值表达式，减少构造性放缩的试错步骤。"
+  },
+  "relations": {
+    "prerequisites": [
+      "柯西不等式",
+      "均值不等式",
+      "赫尔德不等式（了解）"
+    ],
+    "related_ids": [],
+    "similar": [
+      "柯西不等式（m=2时的特例）",
+      "切比雪夫不等式（排序结构）",
+      "幂平均不等式（均值推广）"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-04-04"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "不等式-经典不等式-柯西不等式（选修）",
+  "altNodes": "不等式-经典不等式-均值不等式, 不等式-解法-函数法, 函数-综合-函数与不等式"
+}

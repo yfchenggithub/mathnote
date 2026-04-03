@@ -1,0 +1,47 @@
+\begin{proofbox}
+\textbf{思路提示}
+
+通过平方比较法证明基本不等式，然后利用已证结论推导其他部分，最后归纳推广。
+
+\medskip
+\textbf{正式推导}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（平方比较）：}] 证明 $|a+b| \le |a|+|b|$。
+    \[
+    (|a|+|b|)^2 - |a+b|^2 = a^2 + 2|ab| + b^2 - (a^2 + 2ab + b^2) = 2(|ab| - ab).
+    \]
+    \par\textbf{理由：}
+    由于 $|ab| \ge ab$，所以 $2(|ab| - ab) \ge 0$，因此 $(|a|+|b|)^2 \ge |a+b|^2$，开方得 $|a+b| \le |a|+|b|$。
+
+    \item[\textbf{步骤二（推导下界）：}] 证明 $|a|-|b| \le |a+b|$。
+    \[
+    |a| = |(a+b) - b| \le |a+b| + |b|,
+    \]
+    所以 $|a| - |b| \le |a+b|$。
+    \par\textbf{理由：}
+    利用步骤一的不等式，将 $a$ 写成 $(a+b) - b$ 并应用三角不等式。
+
+    \item[\textbf{步骤三（对称得链）：}] 类似地， $|b|-|a| \le |a+b|$，所以 $\bigl||a|-|b|\bigr| \le |a+b|$。
+    \[
+    \bigl||a|-|b|\bigr| = \max\{|a|-|b|, |b|-|a|\} \le |a+b|.
+    \]
+    \par\textbf{理由：}
+    由步骤二及对称性，绝对值之差的最大值不超过 $|a+b|$。
+
+    \item[\textbf{步骤四（取等分析）：}] 分析取等条件。
+    \par\textbf{理由：}
+    对于 $|a+b| \le |a|+|b|$，取等当且仅当 $ab \ge 0$，因为 $|ab| - ab = 0$ 等价于 $ab \ge 0$。对于 $|a+b| \ge |a|-|b|$，取等当且仅当 $ab \le 0$ 且 $|a| \ge |b|$，这从推导中可得。
+
+    \item[\textbf{步骤五（推广证明）：}] 证明推广形式 $|a_1+\cdots+a_n| \le |a_1|+\cdots+|a_n|$。
+    \[
+    |a_1+\cdots+a_n| \le |a_1| + |a_2+\cdots+a_n| \le |a_1| + |a_2| + \cdots + |a_n|.
+    \]
+    \par\textbf{理由：}
+    使用数学归纳法，基例 $n=2$ 已证，归纳步骤重复应用基本不等式。
+\end{description}
+
+\medskip
+\textbf{结论回扣}
+
+\textbf{因此，对于任意实数 $a,b$，绝对值三角不等式成立，并可推广到有限个实数。}
+\end{proofbox}
