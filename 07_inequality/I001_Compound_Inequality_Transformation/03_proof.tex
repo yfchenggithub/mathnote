@@ -1,48 +1,58 @@
 \begin{proofbox}
 \textbf{思路提示}
 
-从 $N < f(x) < M$ 出发，通过代数变形逐一导出四种形式，注意每一步的等价性。
+从 $N < f(x) < M$ 出发，通过代数变形（如移项、乘除、绝对值）得到其他形式。注意变形过程中的符号保持。
 
 \medskip
 \textbf{正式推导}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-    \item[\textbf{步骤一：}] 证明与乘积形式等价。
+    \item[\textbf{步骤一（乘积形式推导）：}] 
+    由 $N < f(x) < M$，可得 $f(x)-N > 0$ 且 $f(x)-M < 0$。
     \[
-    N < f(x) < M \Leftrightarrow f(x)-N > 0 \ \text{且} \ M-f(x) > 0.
+    (f(x)-M)(f(x)-N) < 0
     \]
-    \par\textbf{理由：} 将原不等式拆为两个独立不等式，移项后可知 $f(x)-N$ 与 $M-f(x)$ 同为正。
-    \[
-    \text{两正数相乘为正，故 } [f(x)-M][f(x)-N] = -[f(x)-N][M-f(x)] < 0.
-    \]
-    \par\textbf{理由：} 利用 $f(x)-M = -(M-f(x))$，乘积为负等价于 $f(x)-N$ 与 $M-f(x)$ 同号。
-    
-    \item[\textbf{步骤二：}] 证明与绝对值形式等价。
-    \[
-    \begin{aligned}
-    N < f(x) < M &\Leftrightarrow -\frac{M-N}{2} < f(x)-\frac{M+N}{2} < \frac{M-N}{2} \\
-    &\Leftrightarrow \left| f(x)-\frac{M+N}{2} \right| < \frac{M-N}{2}.
-    \end{aligned}
-    \]
-    \par\textbf{理由：} 将原不等式各项减去 $\frac{M+N}{2}$，得到关于中点的对称区间，再改写为绝对值不等式。
-    
-    \item[\textbf{步骤三：}] 证明与分式形式等价。
-    \[
-    N < f(x) < M \Leftrightarrow f(x)-N > 0 \ \text{且} \ M-f(x) > 0 \Leftrightarrow \frac{f(x)-N}{M-f(x)} > 0.
-    \]
-    \par\textbf{理由：} 两正数之比为正，且分母 $M-f(x)$ 为正，故比值大于零。
-    
-    \item[\textbf{步骤四：}] 证明与倒数形式等价。
+    \par\textbf{理由：}
+    正数与负数相乘得负数。
+
+    \item[\textbf{步骤二（绝对值形式推导）：}]
+    将 $N < f(x) < M$ 改写为关于中点的形式。
     \[
     \begin{aligned}
-    N < f(x) < M &\Rightarrow f(x)-N > 0 \ \text{且} \ M-N > 0. \\
-    \text{由 } f(x) < M &\Rightarrow f(x)-N < M-N \Rightarrow \frac{1}{f(x)-N} > \frac{1}{M-N}.
+    N &< f(x) < M \\
+    \Rightarrow f(x) - \frac{M+N}{2} &> N - \frac{M+N}{2} = -\frac{M-N}{2}, \\
+    f(x) - \frac{M+N}{2} &< M - \frac{M+N}{2} = \frac{M-N}{2}.
     \end{aligned}
     \]
-    \par\textbf{理由：} 在 $f(x)-N$ 与 $M-N$ 均为正的条件下，函数 $\frac{1}{t}$ 单调递减，故较小自变量对应较大函数值。
+    因此，
+    \[
+    \left| f(x) - \frac{M+N}{2} \right| < \frac{M-N}{2}.
+    \]
+    \par\textbf{理由：}
+    将不等式平移至中点，然后取绝对值。
+
+    \item[\textbf{步骤三（比值形式推导）：}]
+    由 $N < f(x) < M$，有 $f(x)-N > 0$ 且 $M-f(x) > 0$。
+    \[
+    \frac{f(x)-N}{M-f(x)} > 0
+    \]
+    \par\textbf{理由：}
+    正数除以正数得正数。
+
+    \item[\textbf{步骤四（倒数形式推导）：}]
+    由 $N < f(x) < M$，且 $f(x) \neq N, M$（自动满足），则 $f(x)-N > 0$ 且 $M-N > 0$。
+    由于 $f(x) < M$，有 $f(x)-N < M-N$。取倒数并注意正数倒数递减：
+    \[
+    \frac{1}{f(x)-N} > \frac{1}{M-N}
+    \]
+    \par\textbf{理由：}
+    对于正数，若 $a < b$，则 $\frac{1}{a} > \frac{1}{b}$。
+
+    \item[\textbf{步骤五（等价循环）：}]
+    类似地，可以从其他形式推回(1)，从而所有陈述等价。
 \end{description}
 
 \medskip
 \textbf{结论回扣}
 
-\textbf{以上推导每一步均可逆，因此四种形式均与 $N < f(x) < M$ 等价。}
+\textbf{因此，五个陈述彼此等价，都表示 $f(x)$ 在开区间 $(N, M)$ 内。}
 \end{proofbox}

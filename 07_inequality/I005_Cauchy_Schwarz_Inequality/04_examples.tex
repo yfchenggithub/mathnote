@@ -1,87 +1,76 @@
 \begin{examplebox}
 \textbf{例 1（基础）}
 
-\textbf{题目：} 已知 $x, y \in \mathbb{R}$，且 $x^2 + y^2 = 1$，求 $2x + 3y$ 的最大值。
+\textbf{题目：} 已知 $x,y,z$ 为正实数，且 $x+2y+3z=6$，求 $x^2+y^2+z^2$ 的最小值。
 
 \textbf{解题步骤：}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{第一步：}] 将目标式 $2x+3y$ 与条件 $x^2+y^2=1$ 关联，考虑柯西不等式。
+    \item[\textbf{第一步（构造序列）：}] 取柯西不等式中的两组数为 $(x,y,z)$ 和 $(1,2,3)$，则
     \[
-    (2x + 3y)^2 \leq (2^2 + 3^2)(x^2 + y^2).
+    (x^2+y^2+z^2)(1^2+2^2+3^2) \ge (x\cdot1 + y\cdot2 + z\cdot3)^2.
     \]
     \par\textbf{理由：}
-    取 $a_1=2, a_2=3$， $b_1=x, b_2=y$，直接应用柯西不等式的二维形式。
-    
-    \item[\textbf{第二步：}] 代入已知条件 $x^2+y^2=1$ 进行计算。
+    柯西不等式要求两组实数，这样选择可使乘积和正好为条件中的线性式。
+
+    \item[\textbf{第二步（代入计算）：}] 代入已知 $x+2y+3z=6$ 和 $1^2+2^2+3^2=14$，得
     \[
-    (2x+3y)^2 \leq (4+9) \times 1 = 13.
+    (x^2+y^2+z^2) \cdot 14 \ge 6^2 = 36.
     \]
     \par\textbf{理由：}
-    将平方和的值代入不等式右边。
-    
-    \item[\textbf{第三步：}] 开方得到目标式的范围，并确定最大值及取等条件。
+    将数值代入不等式。
+
+    \item[\textbf{第三步（解得最值）：}] 于是
     \[
-    -\sqrt{13} \leq 2x+3y \leq \sqrt{13}.
+    x^2+y^2+z^2 \ge \frac{36}{14} = \frac{18}{7}.
     \]
     \par\textbf{理由：}
-    由平方的不等式开方即得。最大值是 $\sqrt{13}$，等号成立当且仅当 $\frac{2}{x} = \frac{3}{y}$ 且 $x^2+y^2=1$，解得 $x = \frac{2}{\sqrt{13}}, y = \frac{3}{\sqrt{13}}$（取最大值时同号）。
+    将 $14$ 除到右边，得到最小值。
+
+    \item[\textbf{第四步（取等条件）：}] 等号成立当且仅当 $\frac{x}{1}=\frac{y}{2}=\frac{z}{3}$，设比值为 $k$，则 $x=k, y=2k, z=3k$，代入 $x+2y+3z=6$ 得 $14k=6$，解得 $k=\frac{3}{7}$，所以 $x=\frac{3}{7}, y=\frac{6}{7}, z=\frac{9}{7}$。
+    \par\textbf{理由：}
+    柯西不等式等号成立条件是两个序列成比例。
 \end{description}
 
-\textbf{关键结论：} \textbf{当 $(x, y)$ 与 $(2, 3)$ 成比例且满足模长为 $1$ 时，$2x+3y$ 取得最大值 $\sqrt{13}$。}
+\textbf{关键结论：} \textbf{当 $x,y,z$ 满足 $x+2y+3z=6$ 时，$x^2+y^2+z^2$ 的最小值为 $\dfrac{18}{7}$，在 $x:y:z=1:2:3$ 且具体取值为 $\left(\frac{3}{7}, \frac{6}{7}, \frac{9}{7}\right)$ 时取得。}
 
 \medskip
 \textbf{例 2（稍变形）}
 
-\textbf{题目：} 设 $a, b, c > 0$，求证：$\frac{a}{b+c} + \frac{b}{c+a} + \frac{c}{a+b} \geq \frac{3}{2}$。
+\textbf{题目：} 已知 $a,b,c>0$，且 $a+b+c=1$，求证：$\sqrt{a+1} + \sqrt{b+1} + \sqrt{c+1} \le \sqrt{12}$。
 
 \textbf{解题步骤：}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{第一步：}] 观察分母，尝试利用柯西不等式将分子与分母建立联系。考虑对左边每个分式应用“分子分母同乘”技巧。
+    \item[\textbf{第一步（平方和处理）：}] 考虑 $\left( \sum \sqrt{a+1} \right)^2$ 与 $12$ 的大小关系。
+    \par\textbf{理由：}
+    根号不易直接处理，平方后可以转化为平方和的形式，便于应用柯西不等式。
+
+    \item[\textbf{第二步（应用柯西）：}] 由柯西不等式，
     \[
-    \begin{aligned}
-    \frac{a}{b+c} &= \frac{a^2}{a(b+c)} ,\\
-    \frac{b}{c+a} &= \frac{b^2}{b(c+a)} ,\\
-    \frac{c}{a+b} &= \frac{c^2}{c(a+b)} .
-    \end{aligned}
+    \left( \sqrt{a+1} + \sqrt{b+1} + \sqrt{c+1} \right)^2 \le \left(1^2+1^2+1^2\right)\left( (a+1)+(b+1)+(c+1) \right).
     \]
     \par\textbf{理由：}
-    将原式改写为平方除以乘积的形式，为使用柯西不等式（分式形式）做准备。
-    
-    \item[\textbf{第二步：}] 对分子序列 $(a, b, c)$ 和分母序列 $(\sqrt{a(b+c)}, \sqrt{b(c+a)}, \sqrt{c(a+b)})$ 应用柯西不等式。
+    取两组数：$(\sqrt{a+1}, \sqrt{b+1}, \sqrt{c+1})$ 和 $(1,1,1)$，柯西不等式给出左边平方不超过右边两组平方和的乘积。
+
+    \item[\textbf{第三步（计算右边）：}] 计算得
     \[
-    \begin{aligned}
-    &\left(\frac{a^2}{a(b+c)} + \frac{b^2}{b(c+a)} + \frac{c^2}{c(a+b)}\right) \big[ a(b+c) + b(c+a) + c(a+b) \big] \\
-    &\geq (a + b + c)^2 .
-    \end{aligned}
+    \left(1^2+1^2+1^2\right) = 3, \quad (a+1)+(b+1)+(c+1) = a+b+c+3 = 1+3=4,
     \]
+    所以右边乘积为 $3 \times 4 = 12$。
     \par\textbf{理由：}
-    这是柯西不等式在分式形式下的常见应用：$(\sum \frac{x_i^2}{y_i}) (\sum y_i) \geq (\sum x_i)^2$，其中 $y_i > 0$。此处 $x_i = a, b, c$， $y_i = a(b+c), b(c+a), c(a+b)$。
-    
-    \item[\textbf{第三步：}] 计算 $\sum a(b+c)$ 并代入化简。
+    代入已知条件 $a+b+c=1$。
+
+    \item[\textbf{第四步（开方得证）：}] 因此
     \[
-    a(b+c) + b(c+a) + c(a+b) = 2(ab+bc+ca).
+    \left( \sqrt{a+1} + \sqrt{b+1} + \sqrt{c+1} \right)^2 \le 12,
     \]
-    于是有
-    \[
-    \left(\frac{a}{b+c} + \frac{b}{c+a} + \frac{c}{a+b}\right) \cdot 2(ab+bc+ca) \geq (a+b+c)^2.
-    \]
+    开方即得 $\sqrt{a+1} + \sqrt{b+1} + \sqrt{c+1} \le \sqrt{12}$。
     \par\textbf{理由：}
-    展开并合并同类项得到分母和。
-    
-    \item[\textbf{第四步：}] 利用已知不等式 $(a+b+c)^2 \geq 3(ab+bc+ca)$ 进行放缩。
-    \[
-    \left(\frac{a}{b+c} + \frac{b}{c+a} + \frac{c}{a+b}\right) \cdot 2(ab+bc+ca) \geq 3(ab+bc+ca).
-    \]
+    平方非负，开方保序。
+
+    \item[\textbf{第五步（取等条件）：}] 等号成立当且仅当 $\frac{\sqrt{a+1}}{1} = \frac{\sqrt{b+1}}{1} = \frac{\sqrt{c+1}}{1}$，即 $a+1=b+1=c+1$，所以 $a=b=c$，结合 $a+b+c=1$ 得 $a=b=c=\frac{1}{3}$。
     \par\textbf{理由：}
-    因为 $(a+b+c)^2 \geq 3(ab+bc+ca)$ 对于正数 $a, b, c$ 恒成立（等价于 $\frac{1}{2}\sum (a-b)^2 \geq 0$）。
-    
-    \item[\textbf{第五步：}] 由于 $ab+bc+ca > 0$，两边同时除以 $2(ab+bc+ca)$ 即得结论。
-    \[
-    \frac{a}{b+c} + \frac{b}{c+a} + \frac{c}{a+b} \geq \frac{3}{2}.
-    \]
-    \par\textbf{理由：}
-    整理不等式，完成证明。
+    柯西不等式等号成立条件。
 \end{description}
 
-\textbf{关键结论：} \textbf{通过柯西不等式将分式和转化为平方和与乘积和的关系，再结合基本不等式 $(a+b+c)^2 \geq 3(ab+bc+ca)$ 完成证明。}
+\textbf{关键结论：} \textbf{在 $a+b+c=1$ 且 $a,b,c>0$ 的条件下，$\sqrt{a+1}+\sqrt{b+1}+\sqrt{c+1}$ 的最大值为 $\sqrt{12}$，当 $a=b=c=\frac{1}{3}$ 时取得。}
 \end{examplebox}

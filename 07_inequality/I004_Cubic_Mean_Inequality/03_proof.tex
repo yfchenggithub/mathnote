@@ -1,39 +1,48 @@
 \begin{proofbox}
 \textbf{思路提示}
 
-通过因式分解，将 $a^3+b^3+c^3-3abc$ 转化为一个完全平方和的形式与一个非负因子的乘积，从而判断其非负性。
+通过移项和因式分解，将不等式转化为一个平方和乘以非负因子的形式，从而证明其非负。
 
 \medskip
 \textbf{正式推导}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-    \item[\textbf{步骤一：}] 考虑差式 $a^3+b^3+c^3-3abc$。利用立方和公式进行因式分解。
+    \item[\textbf{步骤一（移项构造）：}] 考虑差值 $a^3 + b^3 + c^3 - 3abc$。
+    \[
+    D = a^3 + b^3 + c^3 - 3abc
+    \]
+    \par\textbf{理由：}
+    要证明 $a^3 + b^3 + c^3 \geq 3abc$，只需证明 $D \geq 0$。
+
+    \item[\textbf{步骤二（因式分解）：}] 对 $D$ 进行因式分解。
     \[
     \begin{aligned}
-        a^3 + b^3 + c^3 - 3abc &= (a+b)^3 + c^3 - 3ab(a+b) - 3abc \\
-        &= (a+b+c)[(a+b)^2 - (a+b)c + c^2] - 3ab(a+b+c) \\
-        &= (a+b+c)(a^2+b^2+c^2 - ab - bc - ca)
+    D &= a^3 + b^3 + c^3 - 3abc \\
+      &= (a+b+c)(a^2+b^2+c^2 - ab - bc - ca)
     \end{aligned}
     \]
     \par\textbf{理由：}
-    第一步将 $a^3+b^3$ 合并为 $(a+b)^3 - 3ab(a+b)$，再与 $c^3$ 组合；第二步对 $(a+b)^3+c^3$ 应用立方和公式；第三步提取公因式 $(a+b+c)$ 并化简。
+    利用立方和公式或直接验证，此因式分解是恒等式。
 
-    \item[\textbf{步骤二：}] 分析因式 $(a+b+c)$ 与 $(a^2+b^2+c^2 - ab - bc - ca)$ 的符号。
+    \item[\textbf{步骤三（判断非负）：}] 分析因子的符号。
     \[
-    a^2+b^2+c^2 - ab - bc - ca = \frac{1}{2}[(a-b)^2 + (b-c)^2 + (c-a)^2]
+    \begin{aligned}
+    &a+b+c \geq 0 \quad \text{（因为 } a,b,c \geq 0\text{）}, \\
+    &a^2+b^2+c^2 - ab - bc - ca = \frac{1}{2}\big[(a-b)^2+(b-c)^2+(c-a)^2\big] \geq 0.
+    \end{aligned}
     \]
     \par\textbf{理由：}
-    通过配方，将 $a^2+b^2+c^2-ab-bc-ca$ 转化为完全平方和的一半，这是一个标准的恒等变形。
+    第一个因子非负由于变量非负；第二个因子是平方和的一半，恒非负。
 
-    \item[\textbf{步骤三：}] 综合判断差式的符号。
+    \item[\textbf{步骤四（得出结论）：}] 因此 $D \geq 0$。
     \[
-    a^3+b^3+c^3 - 3abc = (a+b+c) \cdot \frac{1}{2}[(a-b)^2 + (b-c)^2 + (c-a)^2]
+    D = (a+b+c)(a^2+b^2+c^2 - ab - bc - ca) \geq 0
     \]
     \par\textbf{理由：}
-    由于 $a, b, c \geq 0$，故 $a+b+c \geq 0$。配方后的平方和 $\frac{1}{2}[(a-b)^2+(b-c)^2+(c-a)^2] \geq 0$。因此整个差式 $\geq 0$，即原不等式成立。
+    两个非负因子的乘积非负。
 \end{description}
 
 \medskip
 \textbf{结论回扣}
 
-\textbf{因此，$a^3+b^3+c^3 \geq 3abc$ 对所有非负实数 $a,b,c$ 成立。等号成立当且仅当 $a=b=c$（此时平方和为零）且 $a+b+c \geq 0$（自动满足）。}
+由于 $D \geq 0$，即 $a^3 + b^3 + c^3 - 3abc \geq 0$，所以原不等式 $a^3 + b^3 + c^3 \geq 3abc$ 成立，且等号当且仅当 $a=b=c$ 时成立。
 \end{proofbox}

@@ -1,37 +1,71 @@
 \begin{proofbox}
 \textbf{思路提示}
 
-通过计算 $\frac{a+m}{b+m} - \frac{a}{b}$ 的差，并利用条件判断其符号，从而证明不等式。
+通过作差法比较 $\frac{a}{b}$ 与 $\frac{a+m}{b+m}$ 的大小，化简后判断符号。
 
 \medskip
 \textbf{正式推导}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-    \item[\textbf{步骤一：}] 计算加糖情形的差：
+    \item[\textbf{步骤一（作差计算）：}]
     \[
-    \frac{a+m}{b+m} - \frac{a}{b} = \frac{b(a+m) - a(b+m)}{b(b+m)} = \frac{ab + bm - ab - am}{b(b+m)} = \frac{m(b-a)}{b(b+m)}.
+    \frac{a+m}{b+m} - \frac{a}{b}
     \]
     \par\textbf{理由：}
-    通分后化简分子。
+    比较两数大小，常用作差法。
 
-    \item[\textbf{步骤二：}] 判断差的符号：
-    由于 $a,b,m > 0$ 且 $a < b$，所以 $b-a > 0$，因此 $\frac{m(b-a)}{b(b+m)} > 0$。
-    \par\textbf{理由：}
-    分子为正，分母为正，故整个分式为正。
-
-    \item[\textbf{步骤三：}] 同理，对于减糖情形，计算 $\frac{a}{b} - \frac{a-m}{b-m}$：
+    \item[\textbf{步骤二（通分化简）：}]
     \[
-    \frac{a}{b} - \frac{a-m}{b-m} = \frac{a(b-m) - b(a-m)}{b(b-m)} = \frac{ab - am - ab + bm}{b(b-m)} = \frac{m(b-a)}{b(b-m)}.
+    \begin{aligned}
+    \frac{a+m}{b+m} - \frac{a}{b} &= \frac{b(a+m) - a(b+m)}{b(b+m)} \\
+    &= \frac{ab + bm - ab - am}{b(b+m)} \\
+    &= \frac{m(b-a)}{b(b+m)}
+    \end{aligned}
     \]
     \par\textbf{理由：}
-    通分化简，注意 $0 < m < a$ 确保 $a-m > 0$ 和 $b-m > 0$。
+    通分后合并分子，注意分配律。
 
-    \item[\textbf{步骤四：}] 判断符号：由 $a < b$ 和 $0 < m < a$，得 $b-a > 0$ 且 $b-m > 0$，所以 $\frac{m(b-a)}{b(b-m)} > 0$。
+    \item[\textbf{步骤三（判断符号）：}]
+    由于 $a, b, m > 0$ 且 $a < b$，所以
+    \[
+    m > 0, \quad b - a > 0, \quad b > 0, \quad b+m > 0.
+    \]
+    \[
+    \therefore \frac{m(b-a)}{b(b+m)} > 0.
+    \]
     \par\textbf{理由：}
-    分子分母均为正，故差为正。
+    正数相乘除仍为正数。
+
+    \item[\textbf{步骤四（得证第一条）：}]
+    \[
+    \frac{a+m}{b+m} - \frac{a}{b} > 0 \quad \Rightarrow \quad \frac{a}{b} < \frac{a+m}{b+m}.
+    \]
+    \par\textbf{理由：}
+    差值为正，故前者小于后者。
+
+    \item[\textbf{步骤五（减糖情形）：}]
+    对于减糖，设 $b > m > 0$，考虑 $\frac{a}{b}$ 与 $\frac{a-m}{b-m}$。
+    作差：
+    \[
+    \begin{aligned}
+    \frac{a}{b} - \frac{a-m}{b-m} &= \frac{a(b-m) - b(a-m)}{b(b-m)} \\
+    &= \frac{ab - am - ab + bm}{b(b-m)} \\
+    &= \frac{m(b-a)}{b(b-m)} > 0.
+    \end{aligned}
+    \]
+    \par\textbf{理由：}
+    类似加糖，分母 $b-m > 0$，故差值仍为正。
+
+    \item[\textbf{步骤六（推广形式）：}]
+    由第一条，$\frac{a}{b} < \frac{a+m}{b+m}$，取倒数（注意正数）：
+    \[
+    \frac{b}{a} > \frac{b+m}{a+m}.
+    \]
+    \par\textbf{理由：}
+    正数不等式取倒数，不等号反向。
 \end{description}
 
 \medskip
 \textbf{结论回扣}
 
-\textbf{因此，加糖变甜不等式 $\frac{a}{b} < \frac{a+m}{b+m}$ 和减糖变淡不等式 $\frac{a}{b} > \frac{a-m}{b-m}$ 均成立。}
+\textbf{以上推导严格证明了糖水不等式的三条结论，每一步均基于正实数条件和作差法。}
 \end{proofbox}
