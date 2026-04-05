@@ -1,0 +1,54 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+通过构造函数差，利用导数分析单调性和极值，证明不等式成立。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（构造函数）：}] 对于 $e^x \geq x+1$，令 $f(x)=e^x - x - 1$。
+    \[
+    f(x) = e^x - x - 1
+    \]
+    \par\textbf{理由：}
+    将不等式转化为函数值非负的问题。
+
+    \item[\textbf{步骤二（求导分析）：}] 求导得 $f'(x)=e^x - 1$。
+    \[
+    f'(x) = e^x - 1
+    \]
+    \par\textbf{理由：}
+    导数用于判断函数单调性。当 $f'(x) > 0$ 时 $f(x)$ 递增，当 $f'(x) < 0$ 时递减。
+
+    \item[\textbf{步骤三（确定极值点）：}] 令 $f'(x)=0$，解得 $x=0$。
+    \[
+    f'(x)=0 \Rightarrow e^x - 1 = 0 \Rightarrow x=0
+    \]
+    \par\textbf{理由：}
+    驻点可能是极值点。分析 $f'(x)$ 符号：当 $x<0$ 时 $f'(x)<0$，$f(x)$ 递减；当 $x>0$ 时 $f'(x)>0$，$f(x)$ 递增。
+
+    \item[\textbf{步骤四（求最小值）：}] 在 $x=0$ 处，$f(0)=e^0 - 0 - 1 = 0$。
+    \[
+    f(0) = 1 - 0 - 1 = 0
+    \]
+    \par\textbf{理由：}
+    由于 $f(x)$ 在 $x=0$ 处取得极小值，且为全局最小值，所以 $f(x) \ge 0$，即 $e^x \ge x+1$。
+
+    \item[\textbf{步骤五（证明第二式）：}] 对于 $e^x \ge ex$，令 $g(x)=e^x - ex$，求导得 $g'(x)=e^x - e$，驻点 $x=1$，$g(1)=0$。
+    \[
+    g(x) = e^x - ex,\quad g'(x)=e^x - e,\quad g(1)=0
+    \]
+    \par\textbf{理由：}
+    类似地，$g(x)$ 在 $x=1$ 处取最小值 $0$，故 $e^x \ge ex$。等价变形 $e^{x-1} \ge x$ 由 $e^x \ge ex$ 除以 $e$ 得到。
+
+    \item[\textbf{步骤六（证明第三式）：}] 对于 $x \ge 0$，令 $h(x)=e^x - 1 - x - \frac{x^2}{2}$，求导得 $h'(x)=e^x - 1 - x$，$h''(x)=e^x - 1 \ge 0$，故 $h'(x)$ 递增，$h'(0)=0$，所以 $h(x) \ge h(0)=0$。
+    \[
+    h(x) = e^x - 1 - x - \frac{x^2}{2},\quad h'(x)=e^x - 1 - x,\quad h''(x)=e^x - 1
+    \]
+    \par\textbf{理由：}
+    二阶导数非负保证一阶导数单调增，结合 $h'(0)=0$，得 $h(x)$ 在 $x\ge 0$ 上递增，最小值为 $0$。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+\textbf{通过导数证明，所有不等式都在特定点取等，且函数值始终非负，故不等式成立。}
+\end{proofbox}

@@ -1,0 +1,190 @@
+{
+  "id": "I033",
+  "module": "inequality",
+  "core": {
+    "title": "对数平均值不等式",
+    "alias": [
+      "对数平均不等式",
+      "G<L<A",
+      "均值不等式链",
+      "对数均值不等式"
+    ],
+    "summary": "两个不相等的正数的对数平均值，严格介于它们的几何平均值和算术平均值之间。",
+    "difficulty": 4,
+    "category": "不等式",
+    "tags": [
+      "对数平均值",
+      "均值不等式",
+      "极值点偏移",
+      "导数",
+      "不等式证明"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "对数平均值",
+      "G<L<A",
+      "几何平均",
+      "算术平均",
+      "极值点偏移",
+      "导数不等式",
+      "对数平均",
+      "均值不等式链",
+      "对数不等式",
+      "ln(x1/x2)",
+      "a-b/ln a - ln b",
+      "不等式证明",
+      "高考压轴题",
+      "函数与导数"
+    ],
+    "synonyms": [
+      "对数均值",
+      "对数中值",
+      "对数不等式",
+      "均值链",
+      "对数差不等式",
+      "对数平均公式"
+    ],
+    "intents": [
+      "证明不等式",
+      "比较大小",
+      "求取值范围",
+      "解决极值点偏移",
+      "放缩变形",
+      "函数估值"
+    ],
+    "query_templates": [
+      "对数平均值不等式怎么用？",
+      "G<L<A是什么意思？",
+      "如何证明对数平均值不等式？",
+      "极值点偏移题对数平均法",
+      "比较几何平均、对数平均、算术平均的大小",
+      "lnx > 2(x-1)/(x+1)怎么证明？"
+    ],
+    "ocrKeywords": [
+      "对数平均值",
+      "L(x1,x2)",
+      "G<L<A",
+      "几何平均",
+      "算术平均",
+      "ln(x1/x2)",
+      "极值点偏移"
+    ],
+    "latex_patterns": [
+      "\\frac{x_1 - x_2}{\\ln x_1 - \\ln x_2}",
+      "\\sqrt{x_1 x_2} < L < \\frac{x_1 + x_2}{2}",
+      "\\ln\\frac{x_1}{x_2} > \\frac{2(x_1 - x_2)}{x_1 + x_2}",
+      "\\ln\\frac{x_1}{x_2} < \\frac{x_1 - x_2}{\\sqrt{x_1 x_2}}"
+    ],
+    "formulaTokens": [
+      "L(x_1, x_2)",
+      "(x_1 - x_2)/(\\ln x_1 - \\ln x_2)",
+      "\\sqrt{x_1 x_2}",
+      "(x_1 + x_2)/2",
+      "\\ln(x_1/x_2)",
+      "2(x_1 - x_2)/(x_1 + x_2)",
+      "(x_1 - x_2)/\\sqrt{x_1 x_2}",
+      "G < L < A"
+    ],
+    "pinyin": [
+      "duishupingjunzhibudengshi",
+      "GLA",
+      "jizhibudengshilian"
+    ],
+    "pinyinAbbr": [
+      "dspjzbds",
+      "GLA",
+      "jzbdsl"
+    ]
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.98,
+    "hot_score": 85,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\sqrt{x_1 x_2} < \\frac{x_1 - x_2}{\\ln x_1 - \\ln x_2} < \\frac{x_1 + x_2}{2}",
+    "related_formulas": [
+      "\\ln\\frac{x_1}{x_2} > \\frac{2(x_1 - x_2)}{x_1 + x_2}",
+      "\\ln\\frac{x_1}{x_2} < \\frac{x_1 - x_2}{\\sqrt{x_1 x_2}}"
+    ],
+    "variables": [
+      "x_1",
+      "x_2"
+    ],
+    "conditions": "x_1 > 0, x_2 > 0, x_1 \\neq x_2",
+    "conclusions": [
+      "几何平均(G) < 对数平均(L) < 算术平均(A)",
+      "提供了对数差\\ln(x_1/x_2)的上下界代数估计",
+      "是连接代数平均与对数运算的重要桥梁"
+    ]
+  },
+  "content": {
+    "statement": "设 $x_1, x_2$ 为两个不相等的正实数，定义对数平均值 $L(x_1, x_2) = \\dfrac{x_1 - x_2}{\\ln x_1 - \\ln x_2}$，则有 $\\sqrt{x_1 x_2} < L(x_1, x_2) < \\dfrac{x_1 + x_2}{2}$，简记为 $G < L < A$。等价地，有 $\\ln\\dfrac{x_1}{x_2} > \\dfrac{2(x_1 - x_2)}{x_1 + x_2}$ 和 $\\ln\\dfrac{x_1}{x_2} < \\dfrac{x_1 - x_2}{\\sqrt{x_1 x_2}}$。",
+    "derivation": [
+      "1. 构造函数 $f(t) = \\ln t$，在区间 $[x_1, x_2]$（或 $[x_2, x_1]$）上应用拉格朗日中值定理。",
+      "2. 得到存在 $\\xi$ 介于 $x_1, x_2$ 之间，使得 $f'(\\xi) = \\frac{\\ln x_1 - \\ln x_2}{x_1 - x_2} = \\frac{1}{\\xi}$。",
+      "3. 利用 $\\xi$ 介于 $x_1, x_2$ 之间，结合均值不等式 $\\sqrt{x_1 x_2} < \\xi < \\frac{x_1+x_2}{2}$，代入并整理即得结论。"
+    ],
+    "intuition": "因为对数函数 $\\ln x$ 是上凸函数，其割线的斜率（即对数平均的倒数）比左端点切线斜率大，比右端点切线斜率小，这正好对应了几何平均和算术平均的倒数关系。",
+    "common_tricks": [
+      "看到 $\\frac{a-b}{\\ln a - \\ln b}$ 结构，立即联想 G<L<A。",
+      "证明极值点偏移问题时，常用其等价形式建立关于 $\\ln(x_1/x_2)$ 的不等式。",
+      "作差或作商比较大小困难时，可尝试转化为对数平均与其它平均的比较。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "高考导数压轴题（特别是极值点偏移类）",
+      "不等式证明与大小比较",
+      "函数估值与放缩"
+    ],
+    "problem_types": [
+      "证明题",
+      "比较大小题",
+      "求参数范围题"
+    ],
+    "exam_frequency": 1,
+    "exam_score": 8
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "I033.svg",
+    "png": "",
+    "mp4": "",
+    "pdf": ""
+  },
+  "shareConfig": {
+    "title": "对数平均值不等式：极值点偏移与不等式放缩核心工具",
+    "shareDesc": "适合导数压轴题和不等式专题复盘，集中解决极值点偏移证明中的关键放缩步骤，看到(a-b)/(ln a - ln b)结构能快速建立不等式链。"
+  },
+  "relations": {
+    "prerequisites": [
+      "均值不等式",
+      "对数函数性质",
+      "拉格朗日中值定理（或函数凹凸性）"
+    ],
+    "related_ids": [],
+    "similar": "算术-几何-调和均值不等式链、琴生不等式"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-04-04"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "不等式-经典不等式-均值不等式",
+  "altNodes": "函数-性质-单调性,函数-综合-函数与不等式,不等式-解法-函数法"
+}

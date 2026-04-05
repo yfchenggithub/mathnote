@@ -1,44 +1,47 @@
 \begin{examplebox}
-\textbf{例 1（基础）}
+\textbf{\textcolor{CExample}{例 1（基础）}}
 
-\textbf{题目：} 设 $|x| \le 2$, $|y| \le 3$，求 $|x+y|$ 的最大值。
+\textbf{\textcolor{CExample}{题目：}} 已知 $|x| \leq 2$，$|y| \leq 3$，求 $|x+y|$ 的最大值。
 
-\textbf{解题步骤：}
+\textbf{\textcolor{CExample}{解题步骤：}}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{第一步（应用不等式）：}] 由绝对值三角不等式，$|x+y| \le |x|+|y|$。
-    \par\textbf{理由：}
-    直接使用右侧不等式 $|a+b| \le |a|+|b|$。
+    \item[\textbf{第一步（应用不等式）：}] 由绝对值三角不等式，有 $|x+y| \leq |x| + |y|$。
+    \par\textbf{理由：} 直接使用右边不等式。
 
-    \item[\textbf{第二步（代入范围）：}] 已知 $|x| \le 2$, $|y| \le 3$，所以 $|x|+|y| \le 2+3 = 5$。
-    \par\textbf{理由：}
-    将已知条件代入不等式。
+    \item[\textbf{第二步（代入范围）：}] 因为 $|x| \leq 2$，$|y| \leq 3$，所以 $|x| + |y| \leq 2 + 3 = 5$。
+    \[
+    |x+y| \leq |x| + |y| \leq 5.
+    \]
+    \par\textbf{理由：} 利用已知条件进行放缩。
 
-    \item[\textbf{第三步（得最大值）：}] 因此 $|x+y| \le 5$，当 $xy \ge 0$ 且 $|x|=2, |y|=3$ 时取等，故最大值为 $5$。
-    \par\textbf{理由：}
-    结合不等式和取等条件得出结论。
+    \item[\textbf{第三步（取等检查）：}] 当 $x$ 与 $y$ 同号且 $|x|=2, |y|=3$ 时，等号成立，例如 $x=2, y=3$。
+    \par\textbf{理由：} 右边等号成立条件是 $xy \geq 0$，且绝对值取到上界。
 \end{description}
 
-\textbf{关键结论：} \textbf{使用绝对值三角不等式可以求出含有绝对值的表达式的最值。}
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{$|x+y|$ 的最大值为 $5$，当 $x$ 与 $y$ 同号且分别取 $2$ 和 $3$ 时达到。}
 
 \medskip
-\textbf{例 2（稍变形）}
+\textbf{\textcolor{CExample}{例 2（稍变形）}}
 
-\textbf{题目：} 证明对于任意实数 $x$，有 $|x-2| + |x+3| \ge 5$。
+\textbf{\textcolor{CExample}{题目：}} 证明对于任意实数 $a, b$，有 $|a-b| \geq \bigl|\,|a| - |b|\,\bigr|$。
 
-\textbf{解题步骤：}
+\textbf{\textcolor{CExample}{解题步骤：}}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{第一步（变形应用）：}] 将表达式视为两个绝对值的和，应用绝对值三角不等式的推广形式。
-    \par\textbf{理由：}
-    注意 $|x-2| + |x+3| = |2-x| + |x+3|$，但直接使用不等式链。
+    \item[\textbf{第一步（变量替换）：}] 在绝对值三角不等式中，令 $b$ 替换为 $-b$。
+    \[
+    \bigl|\,|a| - |{-b}|\,\bigr| \leq |a + (-b)| \leq |a| + |{-b}|.
+    \]
+    \par\textbf{理由：} $|{-b}| = |b|$，且 $a + (-b) = a - b$。
 
-    \item[\textbf{第二步（利用下界）：}] 由不等式链，$|a|+|b| \ge |a-b|$，这里取 $a=x-2$, $b=x+3$，则 $|x-2| + |x+3| \ge |(x-2) - (x+3)| = | -5| = 5$。
-    \par\textbf{理由：}
-    使用左侧不等式或类似形式，实际上从 $|a|+|b| \ge |a-b|$ 可得。
+    \item[\textbf{第二步（简化）：}] 由于 $|{-b}| = |b|$，左边不等式变为 $\bigl|\,|a| - |b|\,\bigr| \leq |a - b|$。
+    \[
+    \bigl|\,|a| - |b|\,\bigr| \leq |a - b|.
+    \]
+    \par\textbf{理由：} 直接代入化简。
 
-    \item[\textbf{第三步（完成证明）：}] 因此，对于任意实数 $x$，$|x-2| + |x+3| \ge 5$ 恒成立。
-    \par\textbf{理由：}
-    不等式成立，且等号当 $x-2$ 与 $x+3$ 异号且满足条件时取到，例如 $x$ 在 $[-3,2]$ 之间。
+    \item[\textbf{第三步（得出结论）：}] 因此，$|a-b| \geq \bigl|\,|a| - |b|\,\bigr|$ 成立。
+    \par\textbf{理由：} 不等式方向不变。
 \end{description}
 
-\textbf{关键结论：} \textbf{绝对值三角不等式可用于证明含有多个绝对值的不等式。}
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{对于任意实数 $a, b$，有 $|a-b| \geq \bigl|\,|a| - |b|\,\bigr|$，这是绝对值三角不等式的直接推论。}
 \end{examplebox}

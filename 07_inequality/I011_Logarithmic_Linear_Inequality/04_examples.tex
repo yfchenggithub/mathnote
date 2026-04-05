@@ -1,0 +1,72 @@
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 1（基础）}}
+
+\textbf{\textcolor{CExample}{题目：}} 已知 $x>1$，证明：$\ln x < \sqrt{x} - \frac{1}{\sqrt{x}}$。
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第一步（观察结构）：}] 注意到 $\sqrt{x} - \frac{1}{\sqrt{x}} = \frac{x-1}{\sqrt{x}}$，目标化为 $\ln x < \frac{x-1}{\sqrt{x}}$。
+    \par\textbf{理由：}
+    将右边通分，建立与切线不等式 $\ln x \leq x-1$ 的联系。
+
+    \item[\textbf{第二步（应用变式）：}] 利用结论中的变式三：$\ln x \leq \frac{x^{2}-1}{2x}$。但此处形式不同，考虑直接构造函数。
+    设 $h(x) = \ln x - \frac{x-1}{\sqrt{x}}$，对 $x>1$ 证明 $h(x)<0$。
+    \par\textbf{理由：}
+    切线不等式是工具，但有时需直接作差求导。
+
+    \item[\textbf{第三步（求导判断）：}] 计算导数：
+    \[
+    h'(x) = \frac{1}{x} - \frac{\sqrt{x} - \frac{x-1}{2\sqrt{x}}}{x} = \frac{1}{x} - \frac{2x - (x-1)}{2x\sqrt{x}} = \frac{2\sqrt{x} - (x+1)}{2x\sqrt{x}}
+    \]
+    令 $t=\sqrt{x}>1$，则分子 $2t - (t^2+1) = -(t-1)^2 \leq 0$，且当 $t\neq1$ 时取负号。
+    \par\textbf{理由：}
+    通过求导判断函数单调性。
+
+    \item[\textbf{第四步（得出单调性）：}] 当 $x>1$ 时，$h'(x)<0$，故 $h(x)$ 单调递减。
+    \[
+    h(x) < h(1) = \ln 1 - \frac{1-1}{\sqrt{1}} = 0
+    \]
+    \par\textbf{理由：}
+    利用端点值 $x=1$（虽然不在定义域内，但可取极限）及单调性。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{当 $x>1$ 时，$\ln x < \sqrt{x} - \frac{1}{\sqrt{x}}$ 成立。}
+
+\medskip
+\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+\textbf{\textcolor{CExample}{题目：}} 设 $a>b>0$，比较 $\frac{\ln a - \ln b}{a-b}$ 与 $\frac{2}{a+b}$ 的大小。
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第一步（转化结构）：}] 令 $x = \frac{a}{b} > 1$，则 $\frac{\ln a - \ln b}{a-b} = \frac{\ln x}{b(x-1)}$，$\frac{2}{a+b} = \frac{2}{b(x+1)}$。
+    比较两式等价于比较 $\frac{\ln x}{x-1}$ 与 $\frac{2}{x+1}$。
+    \par\textbf{理由：}
+    提取公因子 $b$，将双变量化为单变量 $x$。
+
+    \item[\textbf{第二步（作差构造函数）：}] 设 $F(x) = \frac{\ln x}{x-1} - \frac{2}{x+1}$，$x>1$。
+    目标为判断 $F(x)$ 的符号。
+    \par\textbf{理由：}
+    将比较大小问题转化为函数符号问题。
+
+    \item[\textbf{第三步（利用切线不等式）：}] 由 $\ln x \leq x-1$（$x>0$）得 $\frac{\ln x}{x-1} \leq 1$（$x\neq1$）。
+    但需更精确比较。考虑不等式 $\ln x \leq \frac{2(x-1)}{x+1}$（$x\geq1$），这是均值形式的切线放缩。
+    \par\textbf{理由：}
+    猜想 $\frac{\ln x}{x-1} \leq \frac{2}{x+1}$。
+
+    \item[\textbf{第四步（证明猜想）：}] 即证 $\ln x \leq \frac{2(x-1)}{x+1}$（$x>1$）。
+    构造函数 $G(x) = \ln x - \frac{2(x-1)}{x+1}$，求导得：
+    \[
+    G'(x) = \frac{1}{x} - \frac{4}{(x+1)^2} = \frac{(x+1)^2 - 4x}{x(x+1)^2} = \frac{(x-1)^2}{x(x+1)^2} \geq 0
+    \]
+    故 $G(x)$ 在 $x>1$ 上单调递增，$G(x) > G(1)=0$？计算 $G(1)=\ln 1 - 0=0$，因此 $G(x) \geq 0$，即 $\ln x \geq \frac{2(x-1)}{x+1}$，符号与猜想相反。
+    \par\textbf{理由：}
+    实际推导发现原猜想方向反了。
+
+    \item[\textbf{第五步（调整方向）：}] 由 $G(x) \geq 0$ 得 $\ln x \geq \frac{2(x-1)}{x+1}$，即 $\frac{\ln x}{x-1} \geq \frac{2}{x+1}$（$x>1$）。
+    \par\textbf{理由：}
+    因此，$\frac{\ln a - \ln b}{a-b} \geq \frac{2}{a+b}$。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{对任意 $a>b>0$，有 $\frac{\ln a - \ln b}{a-b} \geq \frac{2}{a+b}$。}
+\end{examplebox}

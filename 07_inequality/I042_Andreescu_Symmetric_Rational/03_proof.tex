@@ -1,0 +1,42 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+利用基本不等式 $a^2+b^2 \geq 2ab$，对左边的每一项进行“配凑”，使之与右边的 $x, y, z$ 产生联系。具体来说，为 $\frac{x^2}{y}$ 配上一个 $y$，就能运用均值不等式。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（单项配凑）：}] 对第一个分式应用二元均值不等式。
+    \[
+        \frac{x^2}{y} + y \geq 2\sqrt{\frac{x^2}{y} \cdot y} = 2x.
+    \]
+    \par\textbf{理由：} 这里 $a=\frac{x}{\sqrt{y}}, b=\sqrt{y}$，满足 $a^2+b^2 \geq 2ab$。此步将分式与一个变量配对。
+
+    \item[\textbf{步骤二（循环类推）：}] 同理，写出另外两个循环配对的不等式。
+    \[
+        \begin{aligned}
+            \frac{y^2}{z} + z &\geq 2y, \\
+            \frac{z^2}{x} + x &\geq 2z.
+        \end{aligned}
+    \]
+    \par\textbf{理由：} 完全仿照步骤一，只是将变量按 $x\to y\to z\to x$ 的顺序轮换。
+
+    \item[\textbf{步骤三（叠加求和）：}] 将上面得到的三式左边与右边分别相加。
+    \[
+        \left(\frac{x^2}{y} + \frac{y^2}{z} + \frac{z^2}{x}\right) + (y + z + x) \geq 2x + 2y + 2z.
+    \]
+    \par\textbf{理由：} 不等式两边分别相加，不等号方向不变。
+
+    \item[\textbf{步骤四（移项化简）：}] 将不等式右边的 $2(x+y+z)$ 拆开，并将一部分移到左边。
+    \[
+        \begin{aligned}
+        \left(\frac{x^2}{y} + \frac{y^2}{z} + \frac{z^2}{x}\right) + (x+y+z) &\geq 2(x+y+z) \\
+        \Rightarrow \quad \frac{x^2}{y} + \frac{y^2}{z} + \frac{z^2}{x} &\geq (x+y+z).
+        \end{aligned}
+    \]
+    \par\textbf{理由：} 从叠加后的不等式两边同时减去 $(x+y+z)$，即得所要证明的结论。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+\textbf{以上每一步均可逆，且均值不等式取等条件为 $\frac{x^2}{y}=y, \frac{y^2}{z}=z, \frac{z^2}{x}=x$，即 $x^2=y^2, y^2=z^2, z^2=x^2$。结合 $x,y,z>0$，推出当且仅当 $x=y=z$ 时原不等式取等号。} 证明完毕。
+\end{proofbox}

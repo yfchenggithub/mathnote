@@ -1,0 +1,175 @@
+{
+  "id": "I040",
+  "module": "inequality",
+  "core": {
+    "title": "三元权方和不等式",
+    "alias": [
+      "权方和不等式",
+      "平方和除以两数和不等式",
+      "三元对称不等式",
+      "平方除以和的不等式"
+    ],
+    "summary": "对于三个正数，平方项除以另外两数和的和小下界为三数和的一半。",
+    "difficulty": 4,
+    "category": "不等式",
+    "tags": [
+      "不等式",
+      "三元对称",
+      "权方和不等式",
+      "条件极值",
+      "对称性",
+      "柯西不等式"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "权方和不等式",
+      "三元不等式",
+      "平方除以和",
+      "a^2/(b+c)",
+      "对称不等式",
+      "最值问题",
+      "柯西不等式",
+      "均值不等式",
+      "正实数",
+      "取等条件",
+      "竞赛不等式",
+      "放缩技巧",
+      "条件极值",
+      "三元对称"
+    ],
+    "synonyms": [
+      "全方和不等式",
+      "平方和不等式",
+      "三元分式不等式",
+      "对称分式不等式",
+      "平方除两数和"
+    ],
+    "intents": [
+      "求最值",
+      "证明不等式",
+      "判断下界",
+      "应用放缩",
+      "处理对称分式"
+    ],
+    "query_templates": [
+      "a^2/(b+c)+b^2/(c+a)+c^2/(a+b)的最小值",
+      "三元权方和不等式怎么用",
+      "证明平方除以两数和不小于半和",
+      "对称不等式取等条件是什么",
+      "权方和不等式例题"
+    ],
+    "ocrKeywords": [
+      "a^2/(b+c)",
+      "b^2/(c+a)",
+      "c^2/(a+b)",
+      "≥(a+b+c)/2",
+      "正实数",
+      "当且仅当a=b=c"
+    ],
+    "latex_patterns": [
+      "\\frac{a^{2}}{b+c} + \\frac{b^{2}}{c+a} + \\frac{c^{2}}{a+b} \\geq \\frac{a+b+c}{2}",
+      "\\sum_{i=1}^{n} \\frac{a_i^{2}}{\\sum_{j\\neq i} a_j} \\geq \\frac{\\sum_{i=1}^{n} a_i}{n-1}"
+    ],
+    "formulaTokens": [
+      "\\frac{a^{2}}{b+c}",
+      "\\frac{b^{2}}{c+a}",
+      "\\frac{c^{2}}{a+b}",
+      "\\frac{a+b+c}{2}",
+      "a=b=c",
+      "\\sum_{i=1}^{n} \\frac{a_i^{2}}{\\sum_{j\\neq i} a_j}",
+      "\\frac{\\sum_{i=1}^{n} a_i}{n-1}"
+    ],
+    "pinyin": "sanyuanquanfanghebudengshi",
+    "pinyinAbbr": "syqfhbd"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.83,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\frac{a^{2}}{b+c} + \\frac{b^{2}}{c+a} + \\frac{c^{2}}{a+b} \\geq \\frac{a+b+c}{2}",
+    "related_formulas": [
+      "\\sum_{i=1}^{n} \\frac{a_i^{2}}{\\sum_{j\\neq i} a_j} \\geq \\frac{\\sum_{i=1}^{n} a_i}{n-1}",
+      "(a+b+c)^2 \\geq 3(ab+bc+ca)"
+    ],
+    "variables": [
+      "a",
+      "b",
+      "c"
+    ],
+    "conditions": "a > 0, b > 0, c > 0",
+    "conclusions": "最小值为 (a+b+c)/2，当且仅当 a=b=c 时取得"
+  },
+  "content": {
+    "statement": "设 a, b, c 为正实数，则 \\frac{a^{2}}{b+c} + \\frac{b^{2}}{c+a} + \\frac{c^{2}}{a+b} \\geq \\frac{a+b+c}{2}，当且仅当 a = b = c 时等号成立。",
+    "derivation": [
+      "由柯西不等式：(a^2/(b+c) + b^2/(c+a) + c^2/(a+b))((b+c)+(c+a)+(a+b)) ≥ (a+b+c)^2。",
+      "计算分母和：(b+c)+(c+a)+(a+b) = 2(a+b+c)。",
+      "代入得：原式 ≥ (a+b+c)^2 / (2(a+b+c)) = (a+b+c)/2。"
+    ],
+    "intuition": "利用柯西不等式将分式和的乘积与总和的平方联系起来，通过对称性化简得到简洁下界。",
+    "common_tricks": [
+      "看到平方除以两数和的结构，优先考虑权方和不等式。",
+      "常与均值不等式结合使用，先放缩分母或整体。",
+      "取等条件固定为 a=b=c，可用于检验或求最值。",
+      "推广到n元时，分母为其余所有项的和，下界为总和除以(n-1)。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "高考压轴题（不等式证明）",
+      "数学竞赛（对称不等式）",
+      "最值问题（条件极值）",
+      "模拟题（分式放缩）"
+    ],
+    "problem_types": [
+      "证明题",
+      "求最值题",
+      "条件不等式题"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 8
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "I040.svg",
+    "png": "",
+    "mp4": "",
+    "pdf": ""
+  },
+  "shareConfig": {
+    "title": "三元权方和不等式：对称分式最值速解",
+    "shareDesc": "适合课后复盘和刷题前速查，集中解决平方除以两数和的结构，做对称不等式和最值题时能直接套用下界，减少放缩试错。"
+  },
+  "relations": {
+    "prerequisites": [
+      "柯西不等式",
+      "均值不等式",
+      "对称式处理"
+    ],
+    "related_ids": [],
+    "similar": "切比雪夫不等式、排序不等式、幂平均不等式"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-04-04"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "不等式-经典不等式-柯西不等式（选修）",
+  "altNodes": "不等式-经典不等式-均值不等式"
+}

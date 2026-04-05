@@ -1,0 +1,66 @@
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 1（基础）}}
+
+\textbf{\textcolor{CExample}{题目：}} 证明对于任意实数 $x$，有 $e^x + e^{-x} \geq 2$。
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第一步（应用放缩）：}] 由 $e^x \geq x+1$，将 $x$ 替换为 $-x$ 得 $e^{-x} \geq -x+1$。
+    \par\textbf{理由：}
+    不等式 $e^x \geq x+1$ 对任意实数 $x$ 成立，所以以 $-x$ 代入也成立。
+
+    \item[\textbf{第二步（相加组合）：}] 将两个不等式相加。
+    \[
+    e^x + e^{-x} \geq (x+1) + (-x+1)
+    \]
+    \par\textbf{理由：}
+    同向不等式可以相加。
+
+    \item[\textbf{第三步（化简得证）：}] 右边化简为 $2$。
+    \[
+    e^x + e^{-x} \geq 2
+    \]
+    \par\textbf{理由：}
+    $(x+1) + (-x+1) = 2$，因此原不等式成立。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{对于任意实数 $x$，$e^x + e^{-x} \geq 2$，等号当且仅当 $x=0$ 时成立。}
+
+\medskip
+\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+\textbf{\textcolor{CExample}{题目：}} 证明当 $x \geq 0$ 时，有 $e^x \geq 1 + x + \dfrac{x^{2}}{2}$。
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第一步（构造函数）：}] 令 $h(x) = e^x - 1 - x - \dfrac{x^{2}}{2}$。
+    \[
+    h(x) = e^x - 1 - x - \frac{x^{2}}{2}
+    \]
+    \par\textbf{理由：}
+    将不等式转化为函数 $h(x) \geq 0$ 的问题。
+
+    \item[\textbf{第二步（求导分析）：}] 求导得 $h'(x) = e^x - 1 - x$，再次求导 $h''(x) = e^x - 1$。
+    \[
+    h'(x) = e^x - 1 - x,\quad h''(x) = e^x - 1
+    \]
+    \par\textbf{理由：}
+    通过二阶导数判断一阶导数的单调性。对于 $x \geq 0$，$h''(x) \geq 0$，所以 $h'(x)$ 递增。
+
+    \item[\textbf{第三步（确定最小值）：}] 当 $x=0$ 时，$h'(0)=0$，且 $h'(x) \geq 0$ 对于 $x \geq 0$，所以 $h(x)$ 在 $[0,+\infty)$ 上递增。
+    \[
+    h'(0) = e^0 - 1 - 0 = 0,\quad \text{且 } h'(x) \geq 0 \text{ 当 } x \geq 0
+    \]
+    \par\textbf{理由：}
+    由于 $h'(x)$ 递增且 $h'(0)=0$，所以对于 $x \geq 0$，$h'(x) \geq 0$，$h(x)$ 最小值为 $h(0)$。
+
+    \item[\textbf{第四步（计算最小值）：}] $h(0) = e^0 - 1 - 0 - 0 = 0$。
+    \[
+    h(0) = 1 - 1 - 0 - 0 = 0
+    \]
+    \par\textbf{理由：}
+    因此 $h(x) \geq 0$ 对于所有 $x \geq 0$，即原不等式成立。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{当 $x \geq 0$ 时，$e^x \geq 1 + x + \dfrac{x^{2}}{2}$，等号当且仅当 $x=0$ 时成立。}
+\end{examplebox}

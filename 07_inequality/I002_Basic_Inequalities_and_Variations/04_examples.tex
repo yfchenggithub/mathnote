@@ -1,46 +1,47 @@
 \begin{examplebox}
-\textbf{例 1（基础）}
+\textbf{\textcolor{CExample}{例 1（基础）}}
 
-\textbf{题目：} 已知 $x>0$，求函数 $f(x)=x+\dfrac{1}{x}$ 的最小值。
+\textbf{\textcolor{CExample}{题目：}} 已知 $x > 0$，求函数 $y = x + \dfrac{9}{x}$ 的最小值。
 
-\textbf{解题步骤：}
+\textbf{\textcolor{CExample}{解题步骤：}}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{第一步（正数确认）：}] 因为 $x>0$，所以 $x$ 和 $\dfrac{1}{x}$ 都是正实数。
-    \par\textbf{理由：} 基本不等式要求两个数均为正数。
-    \item[\textbf{第二步（应用不等式）：}] 由基本不等式 $a+b \geq 2\sqrt{ab}$，取 $a=x$，$b=\dfrac{1}{x}$，得
+    \item[\textbf{第一步（判断正数）：}] 由于 $x > 0$，则 $\dfrac{9}{x} > 0$，满足“一正”。
+    \par\textbf{理由：} 基本不等式 $a + b \ge 2\sqrt{ab}$ 要求 $a, b$ 均为正数。
+
+    \item[\textbf{第二步（套用公式）：}] 直接应用算术-几何平均不等式：
     \[
-    x+\frac{1}{x} \geq 2\sqrt{x \cdot \frac{1}{x}} = 2.
+    y = x + \frac{9}{x} \ge 2\sqrt{x \cdot \frac{9}{x}} = 2\sqrt{9} = 6.
     \]
-    \par\textbf{理由：} 直接代入基本不等式，并计算几何平均。
-    \item[\textbf{第三步（取等条件）：}] 等号成立当且仅当 $x = \dfrac{1}{x}$，即 $x^2=1$，结合 $x>0$ 得 $x=1$。
-    \par\textbf{理由：} 检查等号成立条件，确保最小值可以取到。
+    \par\textbf{理由：} 这里 $a = x$， $b = \frac{9}{x}$，且 $ab = x \cdot \frac{9}{x} = 9$ 为定值，满足“二定”。
+
+    \item[\textbf{第三步（验证取等）：}] 等号成立当 $x = \dfrac{9}{x}$，即 $x^2 = 9$，解得 $x = 3$（舍去负值）。
+    \par\textbf{理由：} 检查“三相等”，确保最小值可以取到。
 \end{description}
 
-\textbf{关键结论：} \textbf{函数 $f(x)=x+\frac{1}{x}$ 的最小值为 $2$，当 $x=1$ 时取得。}
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{当 $x = 3$ 时，$y_{\min} = 6$。}
 
 \medskip
-\textbf{例 2（稍变形）}
+\textbf{\textcolor{CExample}{例 2（稍变形）}}
 
-\textbf{题目：} 已知 $a,b>0$，且 $a^2+b^2=2$，求证：$a+b \leq 2$。
+\textbf{\textcolor{CExample}{题目：}} 已知 $a, b > 0$ 且 $a+b=1$，求证：$\left(a+\dfrac{1}{a}\right)\left(b+\dfrac{1}{b}\right) \ge \dfrac{25}{4}$。
 
-\textbf{解题步骤：}
+\textbf{\textcolor{CExample}{解题步骤：}}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{第一步（选择变形）：}] 由常用变形 $a^2+b^2 \geq \dfrac{(a+b)^2}{2}$ 可得
+    \item[\textbf{第一步（展开化简）：}] 左边展开：
     \[
-    (a+b)^2 \leq 2(a^2+b^2).
+    \left(a+\frac{1}{a}\right)\left(b+\frac{1}{b}\right) = ab + \frac{a}{b} + \frac{b}{a} + \frac{1}{ab}.
     \]
-    \par\textbf{理由：} 将不等式 $a^2+b^2 \geq \frac{(a+b)^2}{2}$ 两边乘以 $2$ 并移项。
-    \item[\textbf{第二步（代入条件）：}] 代入已知条件 $a^2+b^2=2$，得
+    \par\textbf{理由：} 多项式乘法。
+
+    \item[\textbf{第二步（利用条件放缩）：}] 由 $a+b=1$ 和 $a,b>0$，根据 $ab \le \left(\frac{a+b}{2}\right)^2 = \frac{1}{4}$，得 $\frac{1}{ab} \ge 4$。又由 $\frac{a}{b} + \frac{b}{a} \ge 2\sqrt{\frac{a}{b} \cdot \frac{b}{a}} = 2$（应用 $a^2+b^2 \ge 2ab$ 的变形）。
+    \par\textbf{理由：} 分别对乘积项 $ab$ 和倒数项 $\frac{a}{b}+\frac{b}{a}$ 应用基本不等式或其变形。
+
+    \item[\textbf{第三步（代入求下界）：}] 将 $ab \le \frac{1}{4}$ 代入 $ab + \frac{1}{ab}$，但注意 $ab + \frac{1}{ab}$ 在 $(0, \frac{1}{4}]$ 上单调递减，故当 $ab=\frac{1}{4}$ 时取得最小值。同时 $\frac{a}{b}+\frac{b}{a} \ge 2$。因此
     \[
-    (a+b)^2 \leq 2 \times 2 = 4.
+    \text{原式} \ge \left(\frac{1}{4} + 4\right) + 2 = \frac{1}{4} + 4 + 2 = \frac{25}{4}.
     \]
-    \par\textbf{理由：} 利用条件进行具体计算。
-    \item[\textbf{第三步（开方得证）：}] 由于 $a+b>0$，对不等式两边开方得
-    \[
-    a+b \leq 2.
-    \]
-    \par\textbf{理由：} 正数开方保持不等号方向。
+    \par\textbf{理由：} 将各部分的极小值组合，得到整体的下界。
 \end{description}
 
-\textbf{关键结论：} \textbf{在条件 $a,b>0$ 且 $a^2+b^2=2$ 下，有 $a+b \leq 2$，等号当 $a=b=1$ 时成立。}
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{不等式得证，且等号当 $a=b=\frac{1}{2}$ 时成立。}
 \end{examplebox}

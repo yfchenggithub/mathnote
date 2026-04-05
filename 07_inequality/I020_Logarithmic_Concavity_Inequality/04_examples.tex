@@ -1,0 +1,61 @@
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 1（基础）}}
+
+\textbf{\textcolor{CExample}{题目：}} 已知 $a, b > 0$，比较 $\frac{\ln a + \ln b}{2}$ 与 $\ln\!\left( \frac{a+b}{2} \right)$ 的大小。
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第一步（识别条件）：}] 由题，$a, b$ 为正实数，满足对数平均不等式的条件。
+    \par\textbf{理由：}
+    不等式要求 $x, y > 0$，此处 $x=a, y=b$。
+
+    \item[\textbf{第二步（应用结论）：}] 直接使用对数平均不等式。
+    \[
+    \frac{\ln a + \ln b}{2} \leq \ln\!\left( \frac{a+b}{2} \right).
+    \]
+    \par\textbf{理由：}
+    这是结论一的直接代入。
+
+    \item[\textbf{第三步（判断取等）：}] 等号成立当且仅当 $a = b$。
+    \par\textbf{理由：}
+    根据取等条件，当两数相等时取等。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{$\frac{\ln a + \ln b}{2} \leq \ln\!\left( \frac{a+b}{2} \right)$，等号当 $a=b$ 时成立。}
+
+\medskip
+\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+\textbf{\textcolor{CExample}{题目：}} 设 $x, y > 0$ 且 $x \neq y$，证明：$\frac{\ln x - \ln y}{x - y} < \frac{1}{\sqrt{xy}}$。
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第一步（变形目标）：}] 将目标不等式改写为更熟悉的形式。注意到 $\frac{\ln x - \ln y}{x - y} = \frac{\ln\frac{x}{y}}{x-y}$，但不如直接利用对数平均不等式。
+    \par\textbf{理由：}
+    观察发现，对数平均不等式涉及 $\frac{\ln x + \ln y}{2}$ 和 $\ln\!\left( \frac{x+y}{2} \right)$，但目标有差分。考虑对称化处理。
+
+    \item[\textbf{第二步（应用对称形式）：}] 由对数平均不等式，对于 $x, y > 0$，有
+    \[
+    \ln\!\left( \frac{x+y}{2} \right) - \frac{\ln x + \ln y}{2} \geq 0.
+    \]
+    整理得
+    \[
+    \ln\!\left( \frac{x+y}{2} \right) \geq \frac{\ln x + \ln y}{2} = \ln\sqrt{xy}.
+    \]
+    \par\textbf{理由：}
+    利用 $\frac{\ln x + \ln y}{2} = \ln\sqrt{xy}$。
+
+    \item[\textbf{第三步（推导目标）：}] 由于 $x \neq y$，不等式严格成立。取指数得 $\frac{x+y}{2} > \sqrt{xy}$。但目标不等式是 $\frac{\ln x - \ln y}{x - y} < \frac{1}{\sqrt{xy}}$，需另寻方法。考虑函数 $f(t)=\ln t$ 的凹性：差商小于中点的导数值。即
+    \[
+    \frac{\ln x - \ln y}{x - y} < f'\!\left( \frac{x+y}{2} \right) = \frac{2}{x+y}.
+    \]
+    又由算术-几何平均不等式，$\frac{2}{x+y} \leq \frac{1}{\sqrt{xy}}$，且当 $x \neq y$ 时严格小于。因此
+    \[
+    \frac{\ln x - \ln y}{x - y} < \frac{2}{x+y} \leq \frac{1}{\sqrt{xy}}.
+    \]
+    \par\textbf{理由：}
+    凹函数性质结合基本不等式，逐步推导目标。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{对于 $x, y > 0$ 且 $x \neq y$，有 $\frac{\ln x - \ln y}{x - y} < \frac{1}{\sqrt{xy}}$。}
+\end{examplebox}

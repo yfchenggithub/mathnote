@@ -1,0 +1,216 @@
+{
+  "id": "I016",
+  "module": "function",
+  "core": {
+    "title": "指数函数凸性不等式：算术平均≥几何平均",
+    "alias": [
+      "指数函数凸性",
+      "指数函数Jensen不等式",
+      "a^x的凸性",
+      "指数函数均值不等式"
+    ],
+    "summary": "指数函数图像是下凸的，所以两端点函数值的算术平均不小于中点函数值。",
+    "difficulty": 2,
+    "category": "函数与不等式",
+    "tags": [
+      "指数函数",
+      "凸函数",
+      "Jensen不等式",
+      "算术-几何平均",
+      "函数不等式"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "指数函数凸性",
+      "a^x不等式",
+      "算术平均几何平均",
+      "Jensen不等式指数",
+      "a^x+a^y≥2a^{(x+y)/2}",
+      "指数函数图像下凸",
+      "凸函数性质",
+      "函数不等式证明",
+      "比较大小",
+      "指数函数最值",
+      "a>0 a≠1",
+      "等号成立条件",
+      "x=y",
+      "加权形式",
+      "λa^x+(1-λ)a^y"
+    ],
+    "synonyms": [
+      "指数函数突性",
+      "指数函数下突",
+      "a的x次方凸性",
+      "指数均值不等式",
+      "a^x凸函数",
+      "指数函数图像形状",
+      "指数函数凹凸性"
+    ],
+    "intents": [
+      "比较大小",
+      "证明不等式",
+      "判断函数凸性",
+      "求最值",
+      "推导等号条件",
+      "应用均值不等式"
+    ],
+    "query_templates": [
+      "怎么证明a^x+a^y≥2a^{(x+y)/2}？",
+      "指数函数凸性是什么意思？",
+      "比较a^3+a^5和2a^4的大小",
+      "a^x是凸函数吗？有什么性质？",
+      "指数函数的Jensen不等式怎么用？"
+    ],
+    "ocrKeywords": [
+      "a^x+a^y",
+      "2a^{(x+y)/2}",
+      "≥",
+      "a>0",
+      "a≠1",
+      "等号成立",
+      "x=y",
+      "凸函数",
+      "下凸"
+    ],
+    "latex_patterns": [
+      "\\frac{a^{x}+a^{y}}{2} \\geq a^{\\frac{x+y}{2}}",
+      "a^{x}+a^{y} \\geq 2a^{\\frac{x+y}{2}}",
+      "\\lambda a^{x} + (1-\\lambda) a^{y} \\geq a^{\\lambda x + (1-\\lambda)y}",
+      "a^{2x}+a^{2y} \\geq 2a^{x+y}"
+    ],
+    "formulaTokens": [
+      "a^{x}+a^{y}",
+      "2a^{\\frac{x+y}{2}}",
+      "\\frac{a^{x}+a^{y}}{2}",
+      "a^{\\frac{x+y}{2}}",
+      "\\lambda a^{x} + (1-\\lambda) a^{y}",
+      "a^{\\lambda x + (1-\\lambda)y}",
+      "a^{2x}+a^{2y}",
+      "2a^{x+y}"
+    ],
+    "pinyin": "zhishuhanshutuxingbudengshi suanshupingjun dayudengjihepingjun",
+    "pinyinAbbr": "zshstxbdssspjdyjhpj"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.83,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\frac{a^{x}+a^{y}}{2} \\geq a^{\\frac{x+y}{2}}",
+    "related_formulas": [
+      "a^{x}+a^{y} \\geq 2a^{\\frac{x+y}{2}}",
+      "\\lambda a^{x} + (1-\\lambda) a^{y} \\geq a^{\\lambda x + (1-\\lambda)y}, \\quad \\lambda \\in (0,1)"
+    ],
+    "variables": [
+      {
+        "name": "a",
+        "description": "指数函数的底数",
+        "domain": "a>0, a≠1"
+      },
+      {
+        "name": "x, y",
+        "description": "自变量，任意实数",
+        "domain": "x, y ∈ ℝ"
+      },
+      {
+        "name": "λ",
+        "description": "权重系数",
+        "domain": "λ ∈ (0,1)"
+      }
+    ],
+    "conditions": "a>0 且 a≠1；x, y 为任意实数。",
+    "conclusions": "1. 不等式恒成立；2. 等号成立当且仅当 x=y；3. 可推广至加权平均形式。"
+  },
+  "content": {
+    "statement": "设 a>0 且 a≠1，则指数函数 f(x)=a^x 在 ℝ 上是严格下凸函数。因此，对任意实数 x, y，有 \\frac{a^{x}+a^{y}}{2} \\geq a^{\\frac{x+y}{2}}，等号成立当且仅当 x=y。进一步可推广至加权形式：对任意 λ∈(0,1)，有 λa^x + (1-λ)a^y ≥ a^{λx+(1-λ)y}。",
+    "derivation": [
+      "第一步：确认指数函数 f(x)=a^x 的二阶导数 f''(x)=a^x (ln a)^2 > 0（因 a>0, a≠1），故函数严格下凸。",
+      "第二步：根据凸函数定义（Jensen不等式），对任意两点 x, y 及其算术平均 (x+y)/2，有 f(x) 与 f(y) 的算术平均不小于 f((x+y)/2)。",
+      "第三步：代入 f(x)=a^x，即得 \\frac{a^{x}+a^{y}}{2} \\geq a^{\\frac{x+y}{2}}。等号成立当且仅当 x=y（凸函数严格性）。"
+    ],
+    "intuition": "因为指数函数图像是向下凸的（像碗口向上），所以连接图像上两点的线段，其中点的纵坐标（算术平均）不会低于图像在该横坐标处的实际函数值（几何平均）。",
+    "common_tricks": [
+      "识别结构：看到 a^m + a^n 与 2a^{(m+n)/2} 的比较，直接套用结论。",
+      "变量替换：若出现 a^{2x}+a^{2y} 等形式，可令 u=2x, v=2y 化为标准型。",
+      "等号验证：使用结论后务必检查 x=y 是否成立，以确定是“≥”还是“>”。",
+      "逆向构造：证明某些不等式时，可尝试将其变形为此结论的标准形式。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "比较两个指数式的大小",
+      "证明含指数函数的不等式",
+      "求解或证明与指数函数最值相关的问题",
+      "作为凸函数性质的具体例题"
+    ],
+    "problem_types": [
+      "比较大小题",
+      "不等式证明题",
+      "函数性质探究题",
+      "选择题或填空题"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {
+      "a": {
+        "min": 0.1,
+        "max": 5,
+        "step": 0.1,
+        "default": 2
+      },
+      "x": {
+        "min": -5,
+        "max": 5,
+        "step": 0.5,
+        "default": 1
+      },
+      "y": {
+        "min": -5,
+        "max": 5,
+        "step": 0.5,
+        "default": 3
+      }
+    }
+  },
+  "assets": {
+    "svg": "I016.svg",
+    "png": "",
+    "mp4": "",
+    "pdf": ""
+  },
+  "shareConfig": {
+    "title": "指数函数凸性：快速比较两指数式大小",
+    "shareDesc": "适合课后复盘和刷题前速查，直接套用结论比较 a^m+a^n 与 2a^{(m+n)/2} 的大小，解决比较大小和简单不等式证明题时能节省推导步骤。"
+  },
+  "relations": {
+    "prerequisites": [
+      "指数函数的定义与基本性质",
+      "凸函数的定义与判定（二阶导数）",
+      "算术平均与几何平均的概念"
+    ],
+    "related_ids": [],
+    "similar": "对数函数的凸性（当底数大于1时上凸）、幂函数的凸性（与指数有关）。"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-04-04"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "函数-特殊函数-指数函数",
+  "altNodes": "不等式-经典不等式-均值不等式"
+}

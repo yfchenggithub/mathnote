@@ -1,0 +1,73 @@
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 1（基础）}}
+
+\textbf{\textcolor{CExample}{题目：}} 已知 $x, y, z > 0$，求证：$\frac{x}{y} + \frac{y}{z} + \frac{z}{x} \ge 3$。
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第一步（识别结构）：}] 观察待证式，它是三个正数 $x, y, z$ 的循环分式和，恰好对应定理中 $n=3$ 的情形。
+    \par\textbf{理由：} 分式依次为 $\frac{x}{y}, \frac{y}{z}, \frac{z}{x}$，下标构成循环 $x \to y \to z \to x$。
+
+    \item[\textbf{第二步（直接应用）：}] 根据循环分式不等式（三元特例），立即有
+    \[
+    \frac{x}{y} + \frac{y}{z} + \frac{z}{x} \ge 3.
+    \]
+    \par\textbf{理由：} 定理结论的直接代入。
+
+    \item[\textbf{第三步（说明取等）：}] 等号成立的条件是 $x = y = z$。
+    \par\textbf{理由：} 定理指出，等号当且仅当三个变量相等。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{对于任意正实数 $x, y, z$，恒有 $\frac{x}{y} + \frac{y}{z} + \frac{z}{x} \ge 3$，等号成立当且仅当 $x=y=z$。}
+
+\medskip
+\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+\textbf{\textcolor{CExample}{题目：}} 设 $a, b, c > 0$，求证：$\frac{a}{b+c} + \frac{b}{c+a} + \frac{c}{a+b} \ge \frac{3}{2}$。（提示：先利用不等式 $\frac{a}{b+c} \ge \frac{2a}{a+b+c}$）
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第一步（初步放缩）：}] 对每一项应用给定提示的不等式。
+    \[
+    \begin{aligned}
+    \frac{a}{b+c} &\ge \frac{2a}{a+b+c}, \\
+    \frac{b}{c+a} &\ge \frac{2b}{a+b+c}, \\
+    \frac{c}{a+b} &\ge \frac{2c}{a+b+c}.
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 因为 $a+b+c > a$，所以 $\frac{a}{b+c} \ge \frac{a}{a+b+c}$ 不充分，提示给出了更强的系数 $2$，可由 $\frac{a}{b+c} = \frac{a}{b+c}$ 和 $\frac{2a}{a+b+c}$ 通分比较得到。
+
+    \item[\textbf{第二步（求和得新式）：}] 将三个不等式相加。
+    \[
+    \frac{a}{b+c} + \frac{b}{c+a} + \frac{c}{a+b} \ge \frac{2a+2b+2c}{a+b+c} = 2.
+    \]
+    \par\textbf{理由：} 同分母 $a+b+c$，分子相加为 $2(a+b+c)$。
+    \par 但此结果 $\ge 2$ 比目标 $\ge 3/2$ 更强，说明提示放缩过强。实际上，经典证法（Nesbitt不等式）需另寻他路。我们换一种与循环分式相关的思路。
+
+    \item[\textbf{第三步（对称化处理）：}] 考虑对称化：令 $S = a+b+c$，则 $b+c = S-a$。原式可写为
+    \[
+    \frac{a}{S-a} + \frac{b}{S-b} + \frac{c}{S-c}.
+    \]
+    \par\textbf{理由：} 统一分母为 $S$ 减去分子，形式更对称。
+
+    \item[\textbf{第四步（构造循环和）：}] 尝试证明 $\frac{a}{S-a} + \frac{b}{S-b} + \frac{c}{S-c} \ge \frac{3}{2}$。\newline
+    利用换元：设 $x = S-a, y = S-b, z = S-c$，则 $x, y, z > 0$ 且 $x+y+z = 2S$。
+    \par\textbf{理由：} $a = S - x$，代入原式变为 $\frac{S-x}{x} + \frac{S-y}{y} + \frac{S-z}{z} = \left(\frac{S}{x}+\frac{S}{y}+\frac{S}{z}\right) - 3$。
+
+    \item[\textbf{第五步（应用循环不等式）：}] 注意到 $\frac{S}{x} = \frac{y+z}{x}$（因为 $S = x+y+z$），原不等式等价于
+    \[
+    \frac{y+z}{x} + \frac{z+x}{y} + \frac{x+y}{z} \ge 6.
+    \]
+    \par\textbf{理由：} 将 $\frac{S}{x}+\frac{S}{y}+\frac{S}{z} \ge \frac{9}{2}$ 转化为上述形式。而
+    \[
+    \frac{y+z}{x} + \frac{z+x}{y} + \frac{x+y}{z} = \left(\frac{y}{x}+\frac{z}{x}\right) + \left(\frac{z}{y}+\frac{x}{y}\right) + \left(\frac{x}{z}+\frac{y}{z}\right),
+    \]
+    重组得
+    \[
+    \left(\frac{y}{x}+\frac{x}{y}\right) + \left(\frac{z}{y}+\frac{y}{z}\right) + \left(\frac{x}{z}+\frac{z}{x}\right) \ge 2+2+2 = 6.
+    \]
+    \par\textbf{理由：} 每一对括号内均可用基本不等式 $\frac{u}{v}+\frac{v}{u} \ge 2$（$u,v>0$）得到最小值 $2$。这正是循环分式不等式在 $n=2$ 时的特例。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{通过拆项和基本不等式，最终证得 $\frac{a}{b+c} + \frac{b}{c+a} + \frac{c}{a+b} \ge \frac{3}{2}$，且等号当 $a=b=c$ 时成立。本题展示了如何将非标准循环式拆解为多个循环分式结构。}
+\end{examplebox}

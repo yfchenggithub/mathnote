@@ -1,0 +1,40 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+通过构造辅助函数，利用导数研究函数单调性，从而证明不等式。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（构造函数上界）：}] 定义 $f(x) = x - \ln(1+x)$，其中 $x > -1$。
+    \[
+    f'(x) = 1 - \frac{1}{1+x} = \frac{x}{1+x}.
+    \]
+    \par\textbf{理由：}
+    求导后分析符号：当 $x > 0$ 时 $f'(x) > 0$，$f(x)$ 单调增；当 $-1 < x < 0$ 时 $f'(x) < 0$，$f(x)$ 单调减。
+
+    \item[\textbf{步骤二（判断极值点）：}] 在 $x=0$ 处 $f'(x)=0$，且 $f(0)=0$。
+    \[
+    f(0) = 0 - \ln(1) = 0.
+    \]
+    \par\textbf{理由：}
+    由于 $f(x)$ 在 $x=0$ 处取得极小值，且为唯一驻点，故 $f(x) \ge f(0) = 0$，即 $x \ge \ln(1+x)$。
+
+    \item[\textbf{步骤三（构造函数下界）：}] 定义 $g(x) = \ln(1+x) - \frac{x}{1+x}$，其中 $x > -1$。
+    \[
+    g'(x) = \frac{1}{1+x} - \frac{1}{(1+x)^2} = \frac{x}{(1+x)^2}.
+    \]
+    \par\textbf{理由：}
+    求导后分析符号：当 $x > 0$ 时 $g'(x) > 0$，$g(x)$ 单调增；当 $-1 < x < 0$ 时 $g'(x) < 0$，$g(x)$ 单调减。
+
+    \item[\textbf{步骤四（判断极值点）：}] 在 $x=0$ 处 $g'(x)=0$，且 $g(0)=0$。
+    \[
+    g(0) = \ln(1) - 0 = 0.
+    \]
+    \par\textbf{理由：}
+    类似地，$g(x) \ge g(0) = 0$，即 $\ln(1+x) \ge \frac{x}{1+x}$。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+综合步骤二和步骤四，得到 $\frac{x}{1+x} \le \ln(1+x) \le x$，且等号成立当且仅当 $x=0$。换元 $t=1+x$ 即得等价形式 $\ln t \ge 1 - \frac{1}{t}$。
+\end{proofbox}

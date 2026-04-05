@@ -1,24 +1,41 @@
 \begin{explanationbox}
-\textbf{一句话直觉}
+\textbf{\textcolor{CExplanation}{一句话直觉}}
 
-柯西不等式是向量内积与模长不等式的离散形式，它保证了两组实数对应分量乘积之和的平方不超过各自平方和的乘积。
+两个序列对应项乘积之和的平方，不会超过各自平方和之积。
 
 \medskip
-\textbf{核心拆解}
+\textbf{\textcolor{CExplanation}{核心拆解}}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{要点一（结构对称）：}] 不等式两边关于序列 $a_i$ 和 $b_i$ 对称，左边是平方和的乘积，右边是乘积之和的平方。
-    \item[\textbf{要点二（非负保证）：}] 证明基于平方非负思想，构造关于 $t$ 的二次函数恒非负，从而判别式非正。
+    \item[\textbf{要点一（平方和乘积）：}] 左边是两序列平方和的乘积，体现整体“能量”。
+    \item[\textbf{要点二（乘积和平方）：}] 右边是两序列对应项乘积之和的平方，体现“协同”效应。
 \end{description}
 
 \medskip
-\textbf{顿悟点}
+\textbf{\textcolor{CExplanation}{几何本质（向量夹角）}}
 
-\textbf{柯西不等式的本质是“平方和”相对于“混合积”的优势。} 通过将混合积（交叉项）控制在平方和之间，它提供了一种将乘积和放大为平方和乘积的方法，常用于放缩证明。
+若将序列视为向量 $\vec{a}=(a_1,\dots,a_n)$, $\vec{b}=(b_1,\dots,b_n)$，则不等式等价于 $(\vec{a}\cdot\vec{b})^2 \le |\vec{a}|^2|\vec{b}|^2$，即 $|\cos\theta| \le 1$，其中 $\theta$ 为两向量夹角。
 
 \medskip
-\textbf{使用场景}
+\textbf{\textcolor{CExplanation}{代数意义（判别式非负）}}
+
+考虑关于 $t$ 的二次函数 $f(t)=\sum (a_i t + b_i)^2$，展开后判别式 $\Delta \le 0$，即得不等式。
+
+\medskip
+\textbf{\textcolor{CExplanation}{考点价值（证明与求最值）}}
 \begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-    \item \textbf{场景一（证明不等式）：} 当待证不等式含有平方和与乘积和的混合形式时，可尝试直接应用柯西不等式进行放缩。
-    \item \textbf{场景二（求最值）：} 在给定平方和为定值的条件下，可求乘积和的最大值；或给定乘积和为定值，求平方和的最小值。
+    \item \textbf{考法一（证明不等式）：} 直接用于证明平方和类不等式。
+    \item \textbf{考法二（求解极值）：} 通过配凑构造，求含有平方和与乘积和的式子的最值。
+\end{itemize}
+
+\medskip
+\textbf{\textcolor{CExplanation}{顿悟点}}
+
+\textbf{柯西不等式本质上是“算术-几何”关系的高维推广：它限制了“混合积”与“纯量积”之间的比例范围。}
+
+\medskip
+\textbf{\textcolor{CExplanation}{使用场景}}
+\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+    \item \textbf{场景一（证明平方和不等式）：} 当待证不等式可化为两序列平方和乘积与乘积和平方的形式时。
+    \item \textbf{场景二（条件极值问题）：} 在给定线性约束下，求平方和的最值。
 \end{itemize}
 \end{explanationbox}

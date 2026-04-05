@@ -1,0 +1,50 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+
+利用余弦函数在 $(0,\frac{\pi}{2})$ 上的凹性，对于两个角直接应用凹函数定义；对于三角形，应用 Jensen 不等式。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（验证凹性）：}] 余弦函数 $f(t)=\cos t$ 在 $(0,\frac{\pi}{2})$ 上二阶导数 $f''(t)=-\cos t<0$，因此是凹函数。
+    \par\textbf{理由：}
+    凹函数的二阶导数非正。
+
+    \item[\textbf{步骤二（应用凹性）：}] 对于凹函数，取 $t=\frac{1}{2}$，有 $f\left(\frac{x+y}{2}\right) \geq \frac{f(x)+f(y)}{2}$。
+    \[
+    \cos\left( \frac{x+y}{2} \right) \geq \frac{\cos x + \cos y}{2}
+    \]
+    \par\textbf{理由：}
+    凹函数定义。
+
+    \item[\textbf{步骤三（得不等式）：}] 整理即得两个角的不等式。
+    \[
+    \frac{\cos x + \cos y}{2} \leq \cos\left( \frac{x+y}{2} \right)
+    \]
+    \par\textbf{理由：}
+    不等号方向不变。
+
+    \item[\textbf{步骤四（三角形设置）：}] 设 $A, B, C$ 是锐角三角形的内角，则 $A, B, C \in (0,\frac{\pi}{2})$ 且 $A+B+C=\pi$。
+    \par\textbf{理由：}
+    锐角三角形定义和内角和定理。
+
+    \item[\textbf{步骤五（应用Jensen不等式）：}] 由于余弦函数在 $(0,\frac{\pi}{2})$ 上凹，由 Jensen 不等式（等权重）：
+    \[
+    \frac{\cos A + \cos B + \cos C}{3} \leq \cos\left( \frac{A+B+C}{3} \right)
+    \]
+    \par\textbf{理由：}
+    凹函数对三点平均成立。
+
+    \item[\textbf{步骤六（代入求和）：}] 代入 $A+B+C=\pi$，计算 $\cos\frac{\pi}{3} = \frac{1}{2}$，两边乘以 3 得：
+    \[
+    \cos A + \cos B + \cos C \leq \frac{3}{2}
+    \]
+    \par\textbf{理由：}
+    简单代数运算。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+
+因此，对于两个锐角，余弦值的平均不超过半角的余弦；对于锐角三角形，余弦和不超过 $\frac{3}{2}$，等号在 $x=y$ 或 $A=B=C=\frac{\pi}{3}$ 时成立。
+\end{proofbox}

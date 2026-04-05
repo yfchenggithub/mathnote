@@ -1,47 +1,53 @@
 \begin{proofbox}
-\textbf{思路提示}
+\textbf{\textcolor{CProof}{思路提示}}
 
-通过平方比较法证明基本不等式，然后利用已证结论推导其他部分，最后归纳推广。
+通过平方去掉绝对值，将不等式转化为平方的非负性证明，然后讨论等号成立条件。
 
 \medskip
-\textbf{正式推导}
+\textbf{\textcolor{CProof}{正式推导}}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-    \item[\textbf{步骤一（平方比较）：}] 证明 $|a+b| \le |a|+|b|$。
+    \item[\textbf{步骤一（平方变形）：}] 考虑 $|a+b|^2$ 与 $(|a|+|b|)^2$ 的比较。
     \[
-    (|a|+|b|)^2 - |a+b|^2 = a^2 + 2|ab| + b^2 - (a^2 + 2ab + b^2) = 2(|ab| - ab).
+    |a+b|^2 = (a+b)^2 = a^2 + 2ab + b^2.
     \]
-    \par\textbf{理由：}
-    由于 $|ab| \ge ab$，所以 $2(|ab| - ab) \ge 0$，因此 $(|a|+|b|)^2 \ge |a+b|^2$，开方得 $|a+b| \le |a|+|b|$。
+    \par\textbf{理由：} 绝对值的平方等于原数的平方。
 
-    \item[\textbf{步骤二（推导下界）：}] 证明 $|a|-|b| \le |a+b|$。
+    \item[\textbf{步骤二（展开右边）：}] 计算 $(|a|+|b|)^2$。
     \[
-    |a| = |(a+b) - b| \le |a+b| + |b|,
+    (|a|+|b|)^2 = |a|^2 + 2|a||b| + |b|^2 = a^2 + 2|ab| + b^2.
     \]
-    所以 $|a| - |b| \le |a+b|$。
-    \par\textbf{理由：}
-    利用步骤一的不等式，将 $a$ 写成 $(a+b) - b$ 并应用三角不等式。
+    \par\textbf{理由：} $|a|^2 = a^2$，且 $|a||b| = |ab|$。
 
-    \item[\textbf{步骤三（对称得链）：}] 类似地， $|b|-|a| \le |a+b|$，所以 $\bigl||a|-|b|\bigr| \le |a+b|$。
+    \item[\textbf{步骤三（比较差值）：}] 比较两者之差。
     \[
-    \bigl||a|-|b|\bigr| = \max\{|a|-|b|, |b|-|a|\} \le |a+b|.
+    (|a|+|b|)^2 - |a+b|^2 = (a^2 + 2|ab| + b^2) - (a^2 + 2ab + b^2) = 2(|ab| - ab).
     \]
-    \par\textbf{理由：}
-    由步骤二及对称性，绝对值之差的最大值不超过 $|a+b|$。
+    \par\textbf{理由：} 相减后化简。
 
-    \item[\textbf{步骤四（取等分析）：}] 分析取等条件。
-    \par\textbf{理由：}
-    对于 $|a+b| \le |a|+|b|$，取等当且仅当 $ab \ge 0$，因为 $|ab| - ab = 0$ 等价于 $ab \ge 0$。对于 $|a+b| \ge |a|-|b|$，取等当且仅当 $ab \le 0$ 且 $|a| \ge |b|$，这从推导中可得。
-
-    \item[\textbf{步骤五（推广证明）：}] 证明推广形式 $|a_1+\cdots+a_n| \le |a_1|+\cdots+|a_n|$。
+    \item[\textbf{步骤四（判断非负）：}] 由于 $|ab| \geq ab$ 恒成立，因此 $|ab| - ab \geq 0$。
     \[
-    |a_1+\cdots+a_n| \le |a_1| + |a_2+\cdots+a_n| \le |a_1| + |a_2| + \cdots + |a_n|.
+    (|a|+|b|)^2 - |a+b|^2 = 2(|ab| - ab) \geq 0.
     \]
-    \par\textbf{理由：}
-    使用数学归纳法，基例 $n=2$ 已证，归纳步骤重复应用基本不等式。
+    \par\textbf{理由：} 绝对值的定义保证了 $|x| \geq x$ 对所有实数 $x$ 成立。
+
+    \item[\textbf{步骤五（得出右边不等式）：}] 由平方非负，得 $|a+b|^2 \leq (|a|+|b|)^2$，开方后得到 $|a+b| \leq |a|+|b|$。
+    \[
+    |a+b| \leq |a| + |b|.
+    \]
+    \par\textbf{理由：} 平方函数在非负数上单调递增。
+
+    \item[\textbf{步骤六（左边不等式证明）：}] 利用右边不等式，将 $a$ 替换为 $a-b$，可得 $|a| \leq |a-b| + |b|$，从而 $|a| - |b| \leq |a-b|$。同理 $|b| - |a| \leq |a-b|$，所以 $\bigl|\,|a| - |b|\,\bigr| \leq |a-b|$。再令 $b$ 为 $-b$，即得 $\bigl|\,|a| - |b|\,\bigr| \leq |a+b|$。
+    \[
+    \bigl|\,|a| - |b|\,\bigr| \leq |a+b|.
+    \]
+    \par\textbf{理由：} 通过变量替换和对称性推导。
+
+    \item[\textbf{步骤七（等号条件）：}] 右边等号成立当 $|ab| = ab$，即 $ab \geq 0$；左边等号成立需在推导中取等，即 $ab \leq 0$。
+    \par\textbf{理由：} 从差值 $2(|ab|-ab)$ 为零可得 $ab \geq 0$；左边等号当 $a$ 与 $b$ 异号时成立。
 \end{description}
 
 \medskip
-\textbf{结论回扣}
+\textbf{\textcolor{CProof}{结论回扣}}
 
-\textbf{因此，对于任意实数 $a,b$，绝对值三角不等式成立，并可推广到有限个实数。}
+综上所述，我们证明了对于任意实数 $a, b$，有 $\bigl|\,|a| - |b|\,\bigr| \leq |a+b| \leq |a| + |b|$，并明确了等号成立的条件。
 \end{proofbox}

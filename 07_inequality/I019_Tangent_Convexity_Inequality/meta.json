@@ -1,0 +1,193 @@
+{
+  "id": "I019",
+  "module": "trigonometry",
+  "core": {
+    "title": "正切凸性不等式与锐角三角形正切和",
+    "alias": [
+      "正切凸性",
+      "正切Jensen不等式",
+      "三角形正切和最小值",
+      "正切均值不等式"
+    ],
+    "summary": "正切函数在(0,π/2)内是凸函数，导致两个角的正切算术平均不小于这两角平均的正切；推广到锐角三角形，三个内角正切之和不小于3√3。",
+    "difficulty": 3,
+    "category": "三角函数",
+    "tags": [
+      "三角函数",
+      "凸函数不等式",
+      "Jensen不等式",
+      "锐角三角形",
+      "正切和",
+      "最值问题"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "正切凸性",
+      "正切不等式",
+      "Jensen不等式",
+      "锐角三角形",
+      "正切和",
+      "3√3",
+      "等边三角形",
+      "凸函数",
+      "算术平均",
+      "正切值",
+      "最小值",
+      "取等条件",
+      "开区间(0,π/2)",
+      "三角形内角"
+    ],
+    "synonyms": [
+      "正切凸性不等式",
+      "正切均值不等式",
+      "正切Jensen",
+      "三角形正切和",
+      "正切和最小值",
+      "正切凸函数",
+      "正切算术平均"
+    ],
+    "intents": [
+      "证明不等式",
+      "求最值",
+      "判断三角形形状",
+      "应用凸函数性质",
+      "解决三角函数最值问题"
+    ],
+    "query_templates": [
+      "正切函数凸性怎么证明？",
+      "锐角三角形正切和最小值是多少？",
+      "如何用Jensen不等式证明正切不等式？",
+      "三角形正切和不小于3√3怎么证？",
+      "正切算术平均大于平均正切的条件"
+    ],
+    "ocrKeywords": [
+      "tan x + tan y",
+      "tan A + tan B + tan C",
+      "3√3",
+      "等边三角形",
+      "锐角三角形",
+      "开区间(0,π/2)",
+      "算术平均"
+    ],
+    "latex_patterns": [
+      "\\frac{\\tan x + \\tan y}{2} \\geq \\tan\\left(\\frac{x+y}{2}\\right)",
+      "\\tan A + \\tan B + \\tan C \\geq 3\\sqrt{3}",
+      "x, y \\in (0, \\pi/2)",
+      "A = B = C = \\pi/3"
+    ],
+    "formulaTokens": [
+      "\\frac{\\tan x + \\tan y}{2}",
+      "\\tan\\left(\\frac{x+y}{2}\\right)",
+      "\\tan x + \\tan y",
+      "\\tan A + \\tan B + \\tan C",
+      "3\\sqrt{3}",
+      "\\frac{x+y}{2}",
+      "x = y",
+      "A = B = C = \\pi/3"
+    ],
+    "pinyin": "zhengqietuxingbudengshiyuruijiaosanjiaoxingzhengqiehe",
+    "pinyinAbbr": "zqtxbdsyrjsjxzqqh"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.71,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\frac{\\tan x + \\tan y}{2} \\geq \\tan\\left(\\frac{x+y}{2}\\right)",
+    "related_formulas": [
+      "\\tan A + \\tan B + \\tan C \\geq 3\\sqrt{3}",
+      "\\tan(\\pi/3) = \\sqrt{3}"
+    ],
+    "variables": [
+      "x",
+      "y",
+      "A",
+      "B",
+      "C"
+    ],
+    "conditions": [
+      "x, y ∈ (0, π/2)",
+      "△ABC为锐角三角形，即A, B, C ∈ (0, π/2)且A+B+C=π"
+    ],
+    "conclusions": [
+      "对于x, y ∈ (0, π/2)，有( tan x + tan y )/2 ≥ tan((x+y)/2)，等号当且仅当x=y",
+      "对于锐角三角形ABC，有tan A + tan B + tan C ≥ 3√3，等号当且仅当A=B=C=π/3（等边三角形）"
+    ]
+  },
+  "content": {
+    "statement": "设 x, y ∈ (0, π/2)，则 (tan x + tan y)/2 ≥ tan((x+y)/2)，等号成立当且仅当 x = y。推广：设△ABC为锐角三角形，则 tan A + tan B + tan C ≥ 3√3，等号成立当且仅当 A = B = C = π/3（即三角形为等边三角形）。",
+    "derivation": [
+      "第一步：正切函数在(0, π/2)内二阶导数为正，是凸函数。",
+      "第二步：根据凸函数的Jensen不等式，对于凸函数f，有f((x+y)/2) ≤ (f(x)+f(y))/2。取f(x)=tan x即得。",
+      "第三步：在锐角三角形中，A, B, C ∈ (0, π/2)且A+B+C=π。应用Jensen不等式于三变量形式，或利用两变量结论进行组合推导，可得和的下界3√3。"
+    ],
+    "intuition": "因为正切函数在(0,π/2)内图像是向下凸的（开口向上），所以连接曲线上两点的弦的中点，总在对应点的函数图像上方，导致算术平均不小于平均值的函数值。",
+    "common_tricks": [
+      "遇到“正切和”与“角和”的关系，优先考虑凸性不等式。",
+      "证明三角形内正切和最值时，需先验证三角形为锐角三角形，确保角在定义域内。",
+      "取等条件（两角相等或三角形等边）是证明最值可达的关键，必须说明。",
+      "可将此结论作为已知引理，简化涉及正切和最小值证明的题目。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "三角函数与不等式综合题",
+      "求三角形内角正切和的最值",
+      "证明涉及正切函数的不等式",
+      "判断满足特定正切和条件的三角形形状"
+    ],
+    "problem_types": [
+      "证明题",
+      "最值问题",
+      "探索性问题"
+    ],
+    "exam_frequency": 0.6,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "I019.svg",
+    "png": "",
+    "mp4": "",
+    "pdf": ""
+  },
+  "shareConfig": {
+    "title": "正切凸性不等式：速解三角形正切和最值问题",
+    "shareDesc": "适合课后复盘与刷题前速查，集中处理锐角三角形中正切和的最小值证明，遇到此类最值问题时能直接引用结论，节省推导步骤。"
+  },
+  "relations": {
+    "prerequisites": [
+      "正切函数的定义与图像",
+      "凸函数的定义与Jensen不等式",
+      "三角形内角和定理"
+    ],
+    "related_ids": [],
+    "similar": [
+      "正弦、余弦函数的凸凹性不等式",
+      "均值不等式在三角函数中的应用",
+      "三角形内正弦、余弦和的相关不等式"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-04-04"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "三角函数-恒等变换-和差化积",
+  "altNodes": "三角函数-解法-三角不等式,不等式-经典不等式-均值不等式"
+}

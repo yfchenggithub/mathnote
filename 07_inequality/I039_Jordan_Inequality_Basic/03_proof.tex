@@ -1,0 +1,48 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+利用均值不等式，将乘积展开为交叉项之和，然后配对给出下界。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（乘积展开）：}] 将乘积展开为双重求和：
+    \[
+    \left( \sum_{i=1}^n a_i \right) \left( \sum_{i=1}^n \frac{1}{a_i} \right) = \sum_{i=1}^n \sum_{j=1}^n \frac{a_i}{a_j}.
+    \]
+    \par\textbf{理由：}
+    根据分配律，每个 $a_i$ 与每个 $1/a_j$ 相乘得到 $a_i/a_j$。
+
+    \item[\textbf{步骤二（项分类）：}] 将求和分为对角项 ($i=j$) 与交叉项 ($i\neq j$)：
+    \[
+    = \sum_{i=1}^n \frac{a_i}{a_i} + \sum_{i\neq j} \frac{a_i}{a_j} = n + \sum_{i\neq j} \frac{a_i}{a_j}.
+    \]
+    \par\textbf{理由：}
+    当 $i=j$ 时，$a_i/a_i = 1$，共有 $n$ 项；其余 $n^2 - n$ 项为交叉项。
+
+    \item[\textbf{步骤三（交叉项下界）：}] 对任意 $i\neq j$，由均值不等式：
+    \[
+    \frac{a_i}{a_j} + \frac{a_j}{a_i} \geq 2 \sqrt{ \frac{a_i}{a_j} \cdot \frac{a_j}{a_i} } = 2.
+    \]
+    \par\textbf{理由：}
+    对于正实数 $x$ 和 $y$，有 $x+y \geq 2\sqrt{xy}$，这里取 $x = a_i/a_j$, $y = a_j/a_i$。
+
+    \item[\textbf{步骤四（总和估计）：}] 将交叉项配对求和，每对 $(i,j)$ 和 $(j,i)$ 一起考虑：
+    \[
+    \sum_{i\neq j} \frac{a_i}{a_j} = \sum_{i<j} \left( \frac{a_i}{a_j} + \frac{a_j}{a_i} \right) \geq \sum_{i<j} 2 = 2 \cdot \frac{n(n-1)}{2} = n(n-1).
+    \]
+    \par\textbf{理由：}
+    共有 $\binom{n}{2}$ 对不同的 $(i,j)$ 满足 $i<j$，每对的下界为 $2$。
+
+    \item[\textbf{步骤五（合并得结论）：}] 代入步骤二的结果：
+    \[
+    n + n(n-1) = n^2.
+    \]
+    因此原不等式成立。
+    \par\textbf{理由：}
+    对角项之和为 $n$，交叉项之和不小于 $n(n-1)$，总和不小于 $n^2$。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+\textbf{综上，对任意 $n$ 个正实数，有 $(\sum a_i)(\sum 1/a_i) \geq n^2$，等号成立当且仅当所有 $a_i$ 相等。}
+\end{proofbox}

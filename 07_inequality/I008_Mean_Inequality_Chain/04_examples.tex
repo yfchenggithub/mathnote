@@ -1,38 +1,61 @@
 \begin{examplebox}
-\textbf{例 1（基础）}
+\textbf{\textcolor{CExample}{例 1（基础）}}
 
-\textbf{题目：} 设 $a, b$ 为正实数，求证 $\dfrac{2ab}{a+b} \leq \dfrac{a+b}{2}$。
+\textbf{\textcolor{CExample}{题目：}} 已知 $x>0, y>0$，且 $x+y=6$，求 $\frac{1}{x}+\frac{1}{y}$ 的最小值。
 
-\textbf{解题步骤：}
+\textbf{\textcolor{CExample}{解题步骤：}}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{第一步（识别平均数）：}] 左边 $\dfrac{2ab}{a+b} = H(a,b)$，右边 $\dfrac{a+b}{2} = A(a,b)$。
-    \par\textbf{理由：} 调和平均数 $H(a,b) = \dfrac{2}{\frac{1}{a}+\frac{1}{b}} = \dfrac{2ab}{a+b}$，算术平均数 $A(a,b) = \frac{a+b}{2}$。
-
-    \item[\textbf{第二步（应用不等式）：}] 由均值不等式链，$H(a,b) \leq A(a,b)$。
-    \par\textbf{理由：} 因为 $H \leq G \leq A$，所以 $H \leq A$。
-
-    \item[\textbf{第三步（得出结论）：}] 因此，$\dfrac{2ab}{a+b} \leq \dfrac{a+b}{2}$。
-    \par\textbf{理由：} 直接代入即得不等式。
+    \item[\textbf{第一步（联系调和平均）：}] 识别所求为两数倒数和，与调和平均数 $HM = \frac{2}{\frac{1}{x}+\frac{1}{y}}$ 有关。
+    \par\textbf{理由：} 由 $HM$ 定义直接可得 $\frac{1}{x}+\frac{1}{y} = \frac{2}{HM}$。
+    \item[\textbf{第二步（利用不等式链）：}] 由 $HM \le AM$ 建立关系。
+    \[
+    \begin{aligned}
+    HM &\le AM \\
+    \frac{2}{\frac{1}{x}+\frac{1}{y}} &\le \frac{x+y}{2}.
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 已知 $x+y=6$，代入上式。
+    \item[\textbf{第三步（求解最小值）：}] 代入已知条件并变形。
+    \[
+    \begin{aligned}
+    \frac{2}{\frac{1}{x}+\frac{1}{y}} &\le \frac{6}{2} = 3 \\
+    \frac{1}{x}+\frac{1}{y} &\ge \frac{2}{3}.
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 不等式两边均为正，取倒数时不等号方向改变。
 \end{description}
 
-\textbf{关键结论：} \textbf{对于正实数 $a,b$，调和平均不超过算术平均，即 $\frac{2ab}{a+b} \leq \frac{a+b}{2}$，等号当 $a=b$ 时成立。}
+\textbf{\textcolor{CExample}{关键结论：}} 当且仅当 $x=y=3$ 时等号成立，故 $\frac{1}{x}+\frac{1}{y}$ 的最小值为 $\frac{2}{3}$。
 
 \medskip
-\textbf{例 2（稍变形）}
+\textbf{\textcolor{CExample}{例 2（稍变形）}}
 
-\textbf{题目：} 设 $a, b$ 为正实数，且 $a+b=2$。求 $G(a,b)$ 的最大值，并证明 $Q(a,b) \geq 1$。
+\textbf{\textcolor{CExample}{题目：}} 设 $a>0, b>0$，证明：$\sqrt{ab} \cdot \sqrt{\frac{a^2+b^2}{2}} \ge \frac{a+b}{2} \cdot \frac{2}{\frac{1}{a}+\frac{1}{b}}$。
 
-\textbf{解题步骤：}
+\textbf{\textcolor{CExample}{解题步骤：}}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{第一步（求 $G$ 最大值）：}] 由 $a+b=2$ 得 $A(a,b) = \frac{a+b}{2} = 1$。根据 $G(a,b) \leq A(a,b)$，有 $G(a,b) \leq 1$。
-    \par\textbf{理由：} 算术平均数为定值，几何平均数不超过算术平均数。
-
-    \item[\textbf{第二步（取等条件）：}] 等号成立当且仅当 $a=b$，此时 $a=b=1$，$G(1,1)=1$。所以 $G(a,b)$ 的最大值为 $1$。
-    \par\textbf{理由：} 当 $a=b$ 时 $G=A$，且 $a+b=2$ 推出 $a=b=1$。
-
-    \item[\textbf{第三步（证 $Q \geq 1$）：}] 由 $A(a,b)=1$ 和 $A(a,b) \leq Q(a,b)$，得 $Q(a,b) \geq 1$。
-    \par\textbf{理由：} 算术平均数不超过平方平均数，且此处算术平均数为 $1$。
+    \item[\textbf{第一步（识别平均数）：}] 将不等式各因子用四种平均数表示。
+    \[
+    \text{左端} = GM \cdot QM, \quad \text{右端} = AM \cdot HM.
+    \]
+    \par\textbf{理由：} 根据定义直接写出。
+    \item[\textbf{第二步（应用不等式链）：}] 由 $HM \le GM \le AM \le QM$，尝试比较 $GM \cdot QM$ 与 $AM \cdot HM$。
+    \[
+    \begin{aligned}
+    GM &\ge HM \\
+    QM &\ge AM \\
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 由已知不等式链直接得出这两个单独的不等式。
+    \item[\textbf{第三步（相乘并判断方向）：}] 将上一步两个同向不等式相乘。
+    \[
+    \begin{aligned}
+    (GM) \cdot (QM) &\ge (HM) \cdot (AM) \\
+    \sqrt{ab} \cdot \sqrt{\frac{a^2+b^2}{2}} &\ge \frac{a+b}{2} \cdot \frac{2}{\frac{1}{a}+\frac{1}{b}}.
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 因为两边各项均为正数，同向不等式可以相乘，不等号方向不变。
 \end{description}
 
-\textbf{关键结论：} \textbf{当 $a+b=2$ 时，$G(a,b)$ 的最大值为 $1$，且 $Q(a,b) \geq 1$，等号成立当 $a=b=1$。}
+\textbf{\textcolor{CExample}{关键结论：}} 原不等式得证，等号成立当且仅当 $a=b$。
 \end{examplebox}

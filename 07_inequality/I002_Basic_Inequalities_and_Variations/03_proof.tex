@@ -1,50 +1,44 @@
 \begin{proofbox}
-\textbf{思路提示}
-
-从最简单的平方非负性 $(a-b)^2 \geq 0$ 出发，展开即可得到平方和与积的不等式。通过变量代换（用 $\sqrt{a}$、$\sqrt{b}$ 代替 $a,b$）得到算术-几何平均不等式，再通过代数变形得到其他常用形式。
+\textbf{\textcolor{CProof}{思路提示}}
+所有证明的起点都是“实数的平方非负”这一基本事实，即 $(a-b)^2 \ge 0$。由此出发，通过简单的代数变形（如开方、配方、替换）即可得到各种形式。关键是在变形过程中保持等价性，并指明每一步的依据。
 
 \medskip
-\textbf{正式推导}
+\textbf{\textcolor{CProof}{正式推导}}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-    \item[\textbf{步骤一（平方非负）：}] 由实数平方的非负性，有
+    \item[\textbf{步骤一（平方差非负）：}]
     \[
-    (a-b)^2 \geq 0
+    (a-b)^2 \ge 0
     \]
-    \par\textbf{理由：} 任何实数的平方都大于或等于零。
-    
-    \item[\textbf{步骤二（展开得平方和与积）：}] 将左边展开：
+    \par\textbf{理由：} 任何实数的平方都非负。这是整个不等式体系的基石。
+
+    \item[\textbf{步骤二（展开得基础式）：}]
     \[
-    a^2 - 2ab + b^2 \geq 0
+    a^2 - 2ab + b^2 \ge 0
     \]
-    \par\textbf{理由：} 完全平方公式 $(a-b)^2 = a^2 - 2ab + b^2$。
-    
-    \item[\textbf{步骤三（移项得重要不等式）：}] 将 $-2ab$ 移到右边：
+    \par\textbf{理由：} 将平方项展开。然后移项得到 $a^2 + b^2 \ge 2ab$，这是对任意实数 $a, b$ 都成立的原始不等式。
+
+    \item[\textbf{步骤三（特化到正实数）：}] 当 $a, b > 0$ 时，令 $x = \sqrt{a}, y = \sqrt{b}$，则 $x, y$ 也为正实数。将 $x, y$ 代入 $a^2 + b^2 \ge 2ab$ 得
     \[
-    a^2 + b^2 \geq 2ab
+    (\sqrt{a})^2 + (\sqrt{b})^2 \ge 2(\sqrt{a})(\sqrt{b}) \quad \Rightarrow \quad a + b \ge 2\sqrt{ab}.
     \]
-    \par\textbf{理由：} 不等式两边同时加上 $2ab$。
-    
-    \item[\textbf{步骤四（代换得基本不等式）：}] 在 $a^2+b^2 \geq 2ab$ 中，用 $\sqrt{a}$ 替换 $a$，$\sqrt{b}$ 替换 $b$（因为 $a,b>0$，所以 $\sqrt{a},\sqrt{b}>0$），得到
+    \par\textbf{理由：} 通过代换，将平方和与积的关系转化为算术平均数与几何平均数的关系。
+
+    \item[\textbf{步骤四（变形得其他形式）：}] 由 $a + b \ge 2\sqrt{ab}$，两边平方（注意正数条件保证不等号方向不变）得
     \[
-    a+b \geq 2\sqrt{ab}
+    (a+b)^2 \ge 4ab \quad \Rightarrow \quad ab \le \left( \frac{a+b}{2} \right)^2.
     \]
-    \par\textbf{理由：} 正实数的平方根仍为正实数，代入后即得算术-几何平均不等式。
-    
-    \item[\textbf{步骤五（变形得乘积上界）：}] 由 $a+b \geq 2\sqrt{ab}$，两边同除以 $2$ 得 $\frac{a+b}{2} \geq \sqrt{ab}$，再平方即得：
+    另外，由 $a^2 + b^2 \ge 2ab$，将 $2ab$ 移至左边并配方，有
     \[
-    ab \leq \left(\frac{a+b}{2}\right)^2
+    a^2 + b^2 \ge \frac{(a+b)^2}{2}.
     \]
-    \par\textbf{理由：} 不等式两边同时除以正数 $2$ 不改变方向，再平方（因为两边均为正，平方保序）。
-    
-    \item[\textbf{步骤六（变形得平方和下界）：}] 由 $a^2+b^2 \geq 2ab$，两边同时加上 $a^2+b^2$ 得 $2(a^2+b^2) \geq a^2+b^2+2ab = (a+b)^2$，从而：
+    具体过程：因为 $(a+b)^2 = a^2 + b^2 + 2ab$，结合 $a^2 + b^2 \ge 2ab$，可得
     \[
-    a^2+b^2 \geq \frac{(a+b)^2}{2}
+    a^2 + b^2 \ge \frac{(a+b)^2}{2}.
     \]
-    \par\textbf{理由：} 将 $a^2+b^2 \geq 2ab$ 两边加上 $a^2+b^2$，合并后除以 $2$。
+    \par\textbf{理由：} 这些都是等价的代数变形，注意平方操作要求两边非负。
 \end{description}
 
 \medskip
-\textbf{结论回扣}
-
-\textbf{以上推导从平方非负出发，逐步得到了四个常用不等式。每个不等式等号成立的条件都是 $a=b$，这可以从 $(a-b)^2=0$ 推出。}
+\textbf{\textcolor{CProof}{结论回扣}}
+\textbf{综上，所有不等式都源于 $(a-b)^2 \ge 0$，并通过合法代数变形得到。等号成立当且仅当 $a=b$，此时平方差为零，各不等式同时取到等号。}
 \end{proofbox}

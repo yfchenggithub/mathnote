@@ -1,0 +1,71 @@
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 1（基础）}}
+
+\textbf{\textcolor{CExample}{题目：}} 已知 $a>0, b>0$，且 $a+b=2$。求证：$a\ln a + b\ln b \ge 0$。
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第一步（识别结构）：}] 不等式左边是 $a\ln a + b\ln b$，右边是 $0$。注意到 $a+b=2$，可尝试使用 $n=2$ 时的 Jensen 不等式。
+    \par\textbf{理由：}
+    目标形式与 $\frac{a\ln a + b\ln b}{2}$ 只差系数 $2$，且已知 $a+b=2$，即 $\frac{a+b}{2}=1$。
+
+    \item[\textbf{第二步（应用不等式）：}] 由二元形式 Jensen 不等式：
+    \[
+    \frac{a\ln a + b\ln b}{2} \ge \frac{a+b}{2} \ln\!\left(\frac{a+b}{2}\right).
+    \]
+    \par\textbf{理由：}
+    直接套用结论，函数 $f(x)=x\ln x$ 是凸函数。
+
+    \item[\textbf{第三步（代入已知条件）：}] 将 $a+b=2$ 代入，得 $\frac{a+b}{2}=1$，于是：
+    \[
+    \frac{a\ln a + b\ln b}{2} \ge 1 \cdot \ln 1 = 0.
+    \]
+    \par\textbf{理由：}
+    $\ln 1 = 0$。
+
+    \item[\textbf{第四步（整理结论）：}] 将不等式两边同乘以 $2$，即得：
+    \[
+    a\ln a + b\ln b \ge 0.
+    \]
+    \par\textbf{理由：}
+    乘以正数 $2$ 不等号方向不变。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{通过 Jensen 不等式将 $a\ln a+b\ln b$ 与 $a+b$ 的固定值关联，并利用 $\ln1=0$ 得到下界。}
+
+\medskip
+\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+\textbf{\textcolor{CExample}{题目：}} 设 $x_1, x_2, x_3$ 均为正实数，且 $x_1+x_2+x_3=3$。求 $x_1\ln x_1 + x_2\ln x_2 + x_3\ln x_3$ 的最小值，并说明取到最小值时的条件。
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第一步（转化目标）：}] 记 $S = x_1\ln x_1 + x_2\ln x_2 + x_3\ln x_3$。我们要求 $S$ 的最小值。
+    \par\textbf{理由：}
+    直接求多元函数最值，考虑使用约束条件和凸性不等式。
+
+    \item[\textbf{第二步（应用多元形式）：}] 对 $n=3$ 应用 Jensen 不等式：
+    \[
+    \frac{1}{3}(x_1\ln x_1 + x_2\ln x_2 + x_3\ln x_3) \ge \left(\frac{x_1+x_2+x_3}{3}\right) \ln\!\left(\frac{x_1+x_2+x_3}{3}\right).
+    \]
+    \par\textbf{理由：}
+    函数 $f(x)=x\ln x$ 是凸函数，三个点权重相等。
+
+    \item[\textbf{第三步（代入约束化简）：}] 由 $x_1+x_2+x_3=3$，得 $\frac{x_1+x_2+x_3}{3}=1$，代入上式：
+    \[
+    \frac{1}{3}S \ge 1 \cdot \ln 1 = 0.
+    \]
+    \par\textbf{理由：}
+    算术平均为 $1$，$\ln 1 = 0$。
+
+    \item[\textbf{第四步（得到最小值）：}] 将上述不等式两边乘以 $3$，得到 $S \ge 0$。因此 $S$ 的最小值为 $0$。
+    \par\textbf{理由：}
+    乘以正数 $3$ 不等号方向不变。
+
+    \item[\textbf{第五步（取等条件）：}] 根据 Jensen 不等式等号成立的条件，当且仅当 $x_1 = x_2 = x_3$。结合 $x_1+x_2+x_3=3$，可得 $x_1=x_2=x_3=1$。
+    \par\textbf{理由：}
+    严格凸函数等号成立要求所有点相等，再由总和为 $3$ 确定具体值。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{在约束 $\sum x_i = 3$ 下，$\sum x_i\ln x_i$ 的最小值为 $0$，当且仅当 $x_1=x_2=x_3=1$ 时取得。}
+\end{examplebox}

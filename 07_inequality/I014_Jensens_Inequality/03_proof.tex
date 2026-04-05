@@ -1,0 +1,46 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+以凸函数 $f''(x)>0$ 为例。核心是利用导数的性质：一阶导单调递增。可考虑对两点连线中点的函数值进行泰勒展开，或者利用拉格朗日中值定理。这里我们采用中值定理的经典证法，逐步推导。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（构造中点差值）：}] 
+    设 $x_1 < x_2$，记 $x_0 = \frac{x_1+x_2}{2}$。考虑差
+    \[
+    \Delta = \frac{f(x_1)+f(x_2)}{2} - f(x_0)
+    \]
+    目标证明 $\Delta \ge 0$。
+    \par\textbf{理由：} 将不等式转化为一个非负性的证明。
+
+    \item[\textbf{步骤二（应用中值定理）：}] 
+    分别在 $[x_1, x_0]$ 和 $[x_0, x_2]$ 上对 $f(x)$ 使用拉格朗日中值定理，存在 $\xi_1 \in (x_1, x_0)$，$\xi_2 \in (x_0, x_2)$，使得
+    \[
+    f(x_0)-f(x_1) = f'(\xi_1)(x_0-x_1), \quad f(x_2)-f(x_0) = f'(\xi_2)(x_2-x_0)
+    \]
+    \par\textbf{理由：} 拉格朗日中值定理将函数差值转化为导数与自变量差的乘积。
+
+    \item[\textbf{步骤三（利用凸性单调性）：}] 
+    由于 $f''(x)>0$，$f'(x)$ 单调递增。又 $\xi_1 < x_0 < \xi_2$，所以 $f'(\xi_1) < f'(\xi_2)$。
+    \par\textbf{理由：} 二阶导大于零意味一阶导单调递增，这是凸函数的等价刻画之一。
+
+    \item[\textbf{步骤四（重组并判断符号）：}] 
+    将步骤二的等式改写并代入 $\Delta$：
+    \[
+    \begin{aligned}
+    \Delta &= \frac{1}{2}\big[(f(x_1)-f(x_0)) + (f(x_2)-f(x_0))\big] \\
+           &= \frac{1}{2}\big[-f'(\xi_1)(x_0-x_1) + f'(\xi_2)(x_2-x_0)\big]
+    \end{aligned}
+    \]
+    注意到 $x_0-x_1 = x_2-x_0 = \frac{x_2-x_1}{2} > 0$，因此
+    \[
+    \Delta = \frac{x_2-x_1}{4} \big( f'(\xi_2) - f'(\xi_1) \big)
+    \]
+    由 $f'(\xi_2) > f'(\xi_1)$，得 $\Delta > 0$，除非 $x_1=x_2$ 时 $\Delta=0$。
+    \par\textbf{理由：} 提公因式后，差的符号由导数差决定，利用单调性得证。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+\textbf{以上证明了凸函数情形 $f\left(\frac{x_1+x_2}{2}\right) \le \frac{f(x_1)+f(x_2)}{2}$，等号当 $x_1=x_2$ 成立。} 凹函数情形证明类似，仅不等号方向相反。加权推广可通过数学归纳法或利用凸函数定义证得，此处从略。
+\end{proofbox}

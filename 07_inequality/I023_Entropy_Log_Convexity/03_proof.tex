@@ -1,0 +1,57 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+证明分为两步：首先通过求二阶导证明 $f(x)=x\ln x$ 的凸性；然后将 Jensen 不等式直接应用于此凸函数，得到目标不等式。凸性是桥梁，Jensen 是工具。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（求一阶导）：}]
+    \[
+    f'(x) = \ln x + 1, \quad x>0
+    \]
+    \par\textbf{理由：}
+    利用乘积求导法则 $(uv)'=u'v+uv'$，其中 $u=x$，$v=\ln x$。
+
+    \item[\textbf{步骤二（求二阶导）：}]
+    \[
+    f''(x) = \frac{1}{x}, \quad x>0
+    \]
+    \par\textbf{理由：}
+    对 $f'(x)=\ln x+1$ 再次求导，$(\ln x)'=1/x$，常数导数为 $0$。
+
+    \item[\textbf{步骤三（判定凸性）：}]
+    \[
+    \text{当 } x>0 \text{ 时，有 } f''(x)=\frac{1}{x}>0.
+    \]
+    \par\textbf{理由：}
+    根据凸函数判定定理：若函数在区间 $I$ 上二阶可导且 $f''(x) \ge 0$（恒大于 $0$ 则为严格凸），则 $f(x)$ 在 $I$ 上是凸函数。此处 $f''(x)>0$ 对任意 $x>0$ 成立，故 $f(x)$ 在 $(0,+\infty)$ 上是严格凸函数。
+
+    \item[\textbf{步骤四（应用Jensen）：}]
+    对任意 $n$ 个正实数 $x_1, x_2, \dots, x_n$，取权重 $\lambda_i = 1/n$（满足 $\sum \lambda_i =1$ 且 $\lambda_i >0$）。由 Jensen 不等式，对于凸函数 $f$ 有：
+    \[
+    f\!\left(\sum_{i=1}^{n} \lambda_i x_i\right) \le \sum_{i=1}^{n} \lambda_i f(x_i).
+    \]
+    \par\textbf{理由：}
+    Jensen 不等式是凸函数的定义在有限点加权平均下的推广。此处权重相等，即为算术平均。
+
+    \item[\textbf{步骤五（代入具体形式）：}]
+    将 $f(x)=x\ln x$，$\lambda_i=1/n$ 代入上式：
+    \[
+    \begin{aligned}
+    f\!\left(\frac{1}{n}\sum_{i=1}^{n} x_i\right) &\le \frac{1}{n}\sum_{i=1}^{n} f(x_i) \\
+    \left(\frac{1}{n}\sum_{i=1}^{n} x_i\right)\ln\!\left(\frac{1}{n}\sum_{i=1}^{n} x_i\right) &\le \frac{1}{n}\sum_{i=1}^{n} x_i\ln x_i.
+    \end{aligned}
+    \]
+    \par\textbf{理由：}
+    直接代入计算，注意左边是函数在平均值的取值，右边是函数值的平均。
+
+    \item[\textbf{步骤六（确定取等）：}]
+    由于 $f(x)$ 是严格凸函数，Jensen 不等式等号成立当且仅当 $x_1 = x_2 = \cdots = x_n$。
+    \par\textbf{理由：}
+    严格凸函数中等号成立的条件是所有点重合，即所有 $x_i$ 相等。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+\textbf{我们证明了 $f(x)=x\ln x$ 在 $(0,+\infty)$ 上二阶导恒正，故为严格凸函数；进而由 Jensen 不等式直接得到目标不等式，等号当且仅当所有变量相等时成立。}
+\end{proofbox}

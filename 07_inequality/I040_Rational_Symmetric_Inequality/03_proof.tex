@@ -1,0 +1,42 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+
+使用柯西-施瓦茨不等式，将分子平方与分母乘积关联，然后利用分母和的对称性简化。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（柯西-施瓦茨形式）：}] 柯西-施瓦茨不等式说：对于实数序列 $x_i, y_i$，有
+    \[
+    \left( \sum_{i=1}^{n} x_i^2 \right) \left( \sum_{i=1}^{n} y_i^2 \right) \ge \left( \sum_{i=1}^{n} x_i y_i \right)^2.
+    \]
+    \par\textbf{理由：}
+    这是柯西-施瓦茨不等式的标准形式。
+
+    \item[\textbf{步骤二（应用序列）：}] 令 $x_1 = \frac{a}{\sqrt{b+c}}$, $x_2 = \frac{b}{\sqrt{c+a}}$, $x_3 = \frac{c}{\sqrt{a+b}}$，$y_1 = \sqrt{b+c}$, $y_2 = \sqrt{c+a}$, $y_3 = \sqrt{a+b}$。则
+    \[
+    \left( \frac{a^2}{b+c} + \frac{b^2}{c+a} + \frac{c^2}{a+b} \right) \left( (b+c) + (c+a) + (a+b) \right) \ge (a+b+c)^2.
+    \]
+    \par\textbf{理由：}
+    代入柯西-施瓦茨不等式，注意 $x_i y_i = a, b, c$。
+
+    \item[\textbf{步骤三（计算分母和）：}] 计算分母和：$(b+c)+(c+a)+(a+b) = 2(a+b+c)$。
+    \[
+    \left( \frac{a^2}{b+c} + \frac{b^2}{c+a} + \frac{c^2}{a+b} \right) \cdot 2(a+b+c) \ge (a+b+c)^2.
+    \]
+    \par\textbf{理由：}
+    直接相加得到。
+
+    \item[\textbf{步骤四（整理不等式）：}] 由于 $a+b+c > 0$，两边除以 $2(a+b+c)$ 得
+    \[
+    \frac{a^2}{b+c} + \frac{b^2}{c+a} + \frac{c^2}{a+b} \ge \frac{a+b+c}{2}.
+    \]
+    \par\textbf{理由：}
+    不等式两边同除以正数，不等号方向不变。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+
+因此，原不等式成立，且当且仅当柯西-施瓦茨取等时等号成立，即 $\frac{a}{\sqrt{b+c}} \propto \sqrt{b+c}$ 等，这推出 $a=b=c$。
+\end{proofbox}

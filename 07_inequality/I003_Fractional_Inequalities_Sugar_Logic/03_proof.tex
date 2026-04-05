@@ -1,71 +1,52 @@
 \begin{proofbox}
-\textbf{思路提示}
-
-通过作差法比较 $\frac{a}{b}$ 与 $\frac{a+m}{b+m}$ 的大小，化简后判断符号。
+\textbf{\textcolor{CProof}{思路提示}}
+通过作差法比较两个分式的大小，利用条件 $a<b$ 和 $m>0$ 判断差值的正负。
 
 \medskip
-\textbf{正式推导}
+\textbf{\textcolor{CProof}{正式推导}}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-    \item[\textbf{步骤一（作差计算）：}]
+    \item[\textbf{步骤一（写出差值）：}] 计算加糖前后分式的差值。
     \[
-    \frac{a+m}{b+m} - \frac{a}{b}
+    \Delta = \frac{a+m}{b+m} - \frac{a}{b}
     \]
-    \par\textbf{理由：}
-    比较两数大小，常用作差法。
+    \par\textbf{理由：} 要证明 $\frac{a}{b} < \frac{a+m}{b+m}$，只需证 $\Delta > 0$。
 
-    \item[\textbf{步骤二（通分化简）：}]
+    \item[\textbf{步骤二（通分合并）：}] 将差值通分为一个分式。
     \[
     \begin{aligned}
-    \frac{a+m}{b+m} - \frac{a}{b} &= \frac{b(a+m) - a(b+m)}{b(b+m)} \\
-    &= \frac{ab + bm - ab - am}{b(b+m)} \\
-    &= \frac{m(b-a)}{b(b+m)}
+    \Delta &= \frac{(a+m)b - a(b+m)}{b(b+m)} \\
+           &= \frac{ab + bm - ab - am}{b(b+m)} \\
+           &= \frac{m(b-a)}{b(b+m)}
     \end{aligned}
     \]
-    \par\textbf{理由：}
-    通分后合并分子，注意分配律。
+    \par\textbf{理由：} 通分后合并同类项，简化分子。
 
-    \item[\textbf{步骤三（判断符号）：}]
-    由于 $a, b, m > 0$ 且 $a < b$，所以
+    \item[\textbf{步骤三（判断符号）：}] 分析分子分母的符号。
     \[
-    m > 0, \quad b - a > 0, \quad b > 0, \quad b+m > 0.
+    \text{由于 } a, b, m > 0 \text{ 且 } a < b, \text{ 有 } b-a > 0.
     \]
-    \[
-    \therefore \frac{m(b-a)}{b(b+m)} > 0.
-    \]
-    \par\textbf{理由：}
-    正数相乘除仍为正数。
+    \par\textbf{理由：} 因此分子 $m(b-a) > 0$，分母 $b(b+m) > 0$，所以 $\Delta > 0$。
 
-    \item[\textbf{步骤四（得证第一条）：}]
+    \item[\textbf{步骤四（得证加糖）：}] 由 $\Delta > 0$ 推出原不等式。
     \[
-    \frac{a+m}{b+m} - \frac{a}{b} > 0 \quad \Rightarrow \quad \frac{a}{b} < \frac{a+m}{b+m}.
+    \frac{a+m}{b+m} - \frac{a}{b} > 0 \quad \Rightarrow \quad \frac{a}{b} < \frac{a+m}{b+m}
     \]
-    \par\textbf{理由：}
-    差值为正，故前者小于后者。
+    \par\textbf{理由：} 差值正意味着加糖后分式更大。
 
-    \item[\textbf{步骤五（减糖情形）：}]
-    对于减糖，设 $b > m > 0$，考虑 $\frac{a}{b}$ 与 $\frac{a-m}{b-m}$。
-    作差：
+    \item[\textbf{步骤五（减糖原理）：}] 类似地，考虑减糖情形。
     \[
-    \begin{aligned}
-    \frac{a}{b} - \frac{a-m}{b-m} &= \frac{a(b-m) - b(a-m)}{b(b-m)} \\
-    &= \frac{ab - am - ab + bm}{b(b-m)} \\
-    &= \frac{m(b-a)}{b(b-m)} > 0.
-    \end{aligned}
+    \Delta' = \frac{a}{b} - \frac{a-m}{b-m} = \frac{m(b-a)}{b(b-m)}
     \]
-    \par\textbf{理由：}
-    类似加糖，分母 $b-m > 0$，故差值仍为正。
+    \par\textbf{理由：} 此时需 $b > m > 0$ 保证分母为正，且 $b-a > 0$，故 $\Delta' > 0$，即 $\frac{a}{b} > \frac{a-m}{b-m}$。
 
-    \item[\textbf{步骤六（推广形式）：}]
-    由第一条，$\frac{a}{b} < \frac{a+m}{b+m}$，取倒数（注意正数）：
+    \item[\textbf{步骤六（倒数形式）：}] 由加糖原理直接推导倒数形式。
     \[
-    \frac{b}{a} > \frac{b+m}{a+m}.
+    \frac{a}{b} < \frac{a+m}{b+m} \quad \Rightarrow \quad \frac{b}{a} > \frac{b+m}{a+m}
     \]
-    \par\textbf{理由：}
-    正数不等式取倒数，不等号反向。
+    \par\textbf{理由：} 不等式两边取倒数，不等号反向，因为所有数为正。
 \end{description}
 
 \medskip
-\textbf{结论回扣}
-
-\textbf{以上推导严格证明了糖水不等式的三条结论，每一步均基于正实数条件和作差法。}
+\textbf{\textcolor{CProof}{结论回扣}}
+\textbf{因此，在给定条件下，糖水不等式的三个结论均成立。} 证明过程突出了作差法和符号分析，确保每一步都可追溯。
 \end{proofbox}

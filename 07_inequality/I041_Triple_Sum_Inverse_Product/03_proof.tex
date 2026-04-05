@@ -1,0 +1,55 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+利用算术-几何平均不等式（AM-GM），对 $n$ 个正数 $\frac{a_1}{a_2}, \frac{a_2}{a_3}, \dots, \frac{a_n}{a_1}$ 直接应用。因为它们的乘积为 $1$，由均值不等式可得它们的和至少为 $n$。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（构造序列）：}] 记 $b_i = \frac{a_i}{a_{i+1}}$，其中 $i=1,2,\dots,n$，且 $a_{n+1}=a_1$。则 $b_1, b_2, \dots, b_n$ 均为正实数。
+    \[
+    b_i > 0 \quad (i=1,\dots,n).
+    \]
+    \par\textbf{理由：} 由条件 $a_i > 0$ 可知分式值 $b_i > 0$。
+
+    \item[\textbf{步骤二（计算乘积）：}] 计算这 $n$ 个数的乘积。
+    \[
+    \begin{aligned}
+    b_1 b_2 \cdots b_n &= \left(\frac{a_1}{a_2}\right) \cdot \left(\frac{a_2}{a_3}\right) \cdots \left(\frac{a_n}{a_1}\right) \\
+    &= \frac{a_1 a_2 \cdots a_n}{a_2 a_3 \cdots a_n a_1} \\
+    &= 1.
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 分子分母中的 $a_1, a_2, \dots, a_n$ 各出现一次，全部约去。
+
+    \item[\textbf{步骤三（应用均值）：}] 对 $b_1, b_2, \dots, b_n$ 应用算术-几何平均不等式（AM-GM）。
+    \[
+    \frac{b_1 + b_2 + \dots + b_n}{n} \ge \sqrt[n]{b_1 b_2 \cdots b_n}.
+    \]
+    \par\textbf{理由：} AM-GM 不等式要求所有数为正实数，此处满足。
+
+    \item[\textbf{步骤四（代入化简）：}] 将乘积 $b_1 b_2 \cdots b_n = 1$ 代入右边，并两边乘以 $n$。
+    \[
+    \begin{aligned}
+    \frac{b_1 + b_2 + \dots + b_n}{n} &\ge \sqrt[n]{1} = 1, \\
+    \therefore \quad b_1 + b_2 + \dots + b_n &\ge n.
+    \end{aligned}
+    \]
+    \par\textbf{理由：} $1$ 的 $n$ 次方根仍为 $1$，不等式方向不变。
+
+    \item[\textbf{步骤五（还原变量）：}] 将 $b_i$ 代回原分式形式。
+    \[
+    \sum_{i=1}^{n} \frac{a_i}{a_{i+1}} = b_1 + b_2 + \dots + b_n \ge n.
+    \]
+    \par\textbf{理由：} 这是 $b_i$ 的定义。
+
+    \item[\textbf{步骤六（分析取等）：}] 在 AM-GM 不等式中，等号成立当且仅当 $b_1 = b_2 = \dots = b_n$。
+    \[
+    \frac{a_1}{a_2} = \frac{a_2}{a_3} = \dots = \frac{a_n}{a_1}.
+    \]
+    \par\textbf{理由：} 均值不等式取等条件要求所有数相等。由这些等式可递推得 $a_1 = a_2 = \dots = a_n$。反之，若所有 $a_i$ 相等，显然等号成立。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+\textbf{因此，对于任意 $n$ 个正实数 $a_1, a_2, \dots, a_n$，在约定 $a_{n+1}=a_1$ 下，必有 $\sum_{i=1}^{n} \frac{a_i}{a_{i+1}} \ge n$，且等号当且仅当所有变量相等时成立。特例 $n=3$ 即得 $\frac{a}{b}+\frac{b}{c}+\frac{c}{a} \ge 3$，等号当且仅当 $a=b=c$。}
+\end{proofbox}

@@ -1,0 +1,198 @@
+{
+  "id": "I015",
+  "module": "inequality",
+  "core": {
+    "title": "指数凸性不等式（Jensen不等式应用）",
+    "alias": [
+      "指数平均不等式",
+      "e的x次方平均不等式",
+      "指数函数凸性",
+      "Jensen不等式指数形式"
+    ],
+    "summary": "指数函数是凸函数，所以指数平均不小于平均的指数。",
+    "difficulty": 2,
+    "category": "不等式",
+    "tags": [
+      "指数函数",
+      "Jensen不等式",
+      "凸函数",
+      "均值不等式",
+      "函数不等式",
+      "加权形式"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "指数凸性不等式",
+      "e的x次方平均",
+      "Jensen不等式指数函数",
+      "指数平均不等式",
+      "凸函数不等式",
+      "加权指数平均",
+      "指数函数凸性证明",
+      "算术平均指数",
+      "取等条件",
+      "a+b+c=0",
+      "e^a+e^b+e^c>=3",
+      "换元法",
+      "指数不等式",
+      "函数不等式应用",
+      "最值问题"
+    ],
+    "synonyms": [
+      "指数平均",
+      "e的x次方不等式",
+      "指数函数不等式",
+      "Jensen不等式",
+      "凸性不等式",
+      "指数均值不等式",
+      "e^x平均",
+      "指数凸性"
+    ],
+    "intents": [
+      "证明不等式",
+      "求最值",
+      "判断不等式方向",
+      "应用凸函数性质",
+      "处理指数和条件",
+      "利用取等条件"
+    ],
+    "query_templates": [
+      "已知a+b+c=0，求证e^a+e^b+e^c>=3",
+      "指数平均不等式怎么用",
+      "Jensen不等式在指数函数上的应用",
+      "证明(e^x1+...+e^xn)/n >= e^((x1+...+xn)/n)",
+      "指数函数凸性导致的不等式"
+    ],
+    "ocrKeywords": [
+      "e^{x1}+e^{x2}",
+      "e^{\\frac{x1+x2}{n}}",
+      "\\geq",
+      "等号成立",
+      "x1=x2",
+      "加权",
+      "lambda_i",
+      "凸函数"
+    ],
+    "latex_patterns": [
+      "\\frac{e^{x_1}+e^{x_2}+\\cdots+e^{x_n}}{n} \\geq e^{\\frac{x_1+x_2+\\cdots+x_n}{n}}",
+      "\\sum_{i=1}^n \\lambda_i e^{x_i} \\geq e^{\\sum_{i=1}^n \\lambda_i x_i}",
+      "e^a+e^b+e^c \\geq 3",
+      "e^{x-1}+e^{y-1}+e^{z-1} \\geq 3"
+    ],
+    "formulaTokens": [
+      "e^{x_1}",
+      "e^{x_2}",
+      "e^{x_n}",
+      "e^{\\frac{x_1+x_2+\\cdots+x_n}{n}}",
+      "\\frac{e^{x_1}+e^{x_2}+\\cdots+e^{x_n}}{n}",
+      "\\sum_{i=1}^n \\lambda_i e^{x_i}",
+      "e^{\\sum_{i=1}^n \\lambda_i x_i}",
+      "e^a+e^b+e^c",
+      "e^{x-1}+e^{y-1}+e^{z-1}"
+    ],
+    "pinyin": "zhishutuxingbudengshi",
+    "pinyinAbbr": "zstxbds"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.87,
+    "hot_score": 78,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\frac{e^{x_1}+e^{x_2}+\\cdots+e^{x_n}}{n} \\geq e^{\\frac{x_1+x_2+\\cdots+x_n}{n}}",
+    "related_formulas": [
+      "\\sum_{i=1}^n \\lambda_i e^{x_i} \\geq e^{\\sum_{i=1}^n \\lambda_i x_i}, \\quad \\lambda_i \\geq 0, \\sum_{i=1}^n \\lambda_i = 1",
+      "e^a+e^b+e^c \\geq 3 \\quad (a+b+c=0)",
+      "e^{x-1}+e^{y-1}+e^{z-1} \\geq 3 \\quad (x+y+z=3)"
+    ],
+    "variables": [
+      "x_1, x_2, ..., x_n",
+      "\\lambda_1, \\lambda_2, ..., \\lambda_n"
+    ],
+    "conditions": [
+      "x_1, x_2, ..., x_n 为任意实数",
+      "加权形式：\\lambda_i \\geq 0, \\sum_{i=1}^n \\lambda_i = 1"
+    ],
+    "conclusions": [
+      "指数平均不小于算术平均的指数",
+      "等号成立当且仅当所有变量相等：x_1 = x_2 = ... = x_n",
+      "可推导特定条件和下的最值，如 a+b+c=0 时 e^a+e^b+e^c 最小值为3"
+    ]
+  },
+  "content": {
+    "statement": "设 $x_1, x_2, \\dots, x_n \\in \\mathbb{R}$，则 $\\frac{e^{x_1}+e^{x_2}+\\cdots+e^{x_n}}{n} \\geq e^{\\frac{x_1+x_2+\\cdots+x_n}{n}}$，等号成立当且仅当 $x_1 = x_2 = \\cdots = x_n$。加权形式：$\\sum_{i=1}^n \\lambda_i e^{x_i} \\geq e^{\\sum_{i=1}^n \\lambda_i x_i}$，其中 $\\lambda_i \\geq 0$，$\\sum_{i=1}^n \\lambda_i = 1$。",
+    "derivation": [
+      "第一步：确认指数函数 $f(x)=e^x$ 是凸函数，因为其二阶导数 $f''(x)=e^x > 0$。",
+      "第二步：应用 Jensen 不等式于凸函数 $f(x)=e^x$：对于任意实数 $x_i$ 和权重 $\\lambda_i \\geq 0$ 且 $\\sum \\lambda_i = 1$，有 $f(\\sum \\lambda_i x_i) \\leq \\sum \\lambda_i f(x_i)$。",
+      "第三步：代入 $f(x)=e^x$，得到 $e^{\\sum \\lambda_i x_i} \\leq \\sum \\lambda_i e^{x_i}$。当所有权重相等 $\\lambda_i = 1/n$ 时，即得主结论。"
+    ],
+    "intuition": "因为指数函数图像是向下凸的（像碗口朝上），所以函数值的平均（指数平均）总会大于或等于平均自变量对应的函数值（平均的指数）。",
+    "common_tricks": [
+      "遇到条件和为零（如 a+b+c=0）时，常直接应用此不等式得到 e^a+e^b+e^c ≥ 3。",
+      "通过换元（如令 a=x-1）将条件转化为和为零的形式，再应用不等式。",
+      "牢记不等式方向：凸函数导致 ≥，切勿记反。",
+      "检查取等条件：所有变量相等时等号成立，用于求最值或验证。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "证明涉及指数和的不等式",
+      "求指数表达式在特定线性约束下的最值",
+      "作为 Jensen 不等式或凸函数性质的例题",
+      "连接函数性质与均值不等式的桥梁题"
+    ],
+    "problem_types": [
+      "不等式证明题",
+      "条件最值问题",
+      "函数性质应用题",
+      "经典不等式变形题"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "I015.svg",
+    "png": "",
+    "mp4": "",
+    "geogebra": ""
+  },
+  "shareConfig": {
+    "title": "指数凸性不等式：处理指数和条件最值",
+    "shareDesc": "适合课后复盘与讲评课，集中解决“指数和”在特定线性约束下的最值证明，能直接套用结论减少构造步骤，提升不等式题的稳定性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "Jensen不等式",
+      "凸函数定义与判定",
+      "指数函数基本性质"
+    ],
+    "related_ids": [],
+    "similar": [
+      "算术-几何平均不等式（AM-GM）",
+      "幂平均不等式",
+      "对数凸性不等式（Jensen不等式在对数函数上的应用）"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-04-04"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "不等式-经典不等式-均值不等式",
+  "altNodes": "函数-特殊函数-指数函数, 函数-性质-单调性, 不等式-等价变形-移项与同乘"
+}

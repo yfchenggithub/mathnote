@@ -1,0 +1,71 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+两个不等式都可以通过“配方”来证明，即将其差化为完全平方的和，利用实数平方非负的性质。我们将分别证明链的左半部分和右半部分。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（证明右半部分）：}] 我们证明 $\frac{(a+b+c)^2}{3} \leq a^2 + b^2 + c^2$。
+    \[
+    \begin{aligned}
+    a^2 + b^2 + c^2 - \frac{(a+b+c)^2}{3}
+    &= \frac{3(a^2+b^2+c^2) - (a^2+b^2+c^2+2ab+2bc+2ca)}{3} \\
+    &= \frac{2a^2+2b^2+2c^2 - 2ab - 2bc - 2ca}{3} \\
+    &= \frac{(a^2-2ab+b^2) + (b^2-2bc+c^2) + (c^2-2ca+a^2)}{3} \\
+    &= \frac{(a-b)^2 + (b-c)^2 + (c-a)^2}{3}
+    \end{aligned}
+    \]
+    \par\textbf{理由：}
+    通分合并后，将分子重新分组，得到三个完全平方式的和。
+
+    \item[\textbf{步骤二（判断右半符号）：}] 由于 $(a-b)^2 \ge 0$，$(b-c)^2 \ge 0$，$(c-a)^2 \ge 0$，所以它们的和也非负。
+    \[
+    \frac{(a-b)^2 + (b-c)^2 + (c-a)^2}{3} \ge 0
+    \]
+    \par\textbf{理由：}
+    实数的平方总是大于等于零，非负数之和仍是非负数。
+
+    \item[\textbf{步骤三（得出右不等式）：}] 由步骤一和步骤二，可得
+    \[
+    a^2 + b^2 + c^2 - \frac{(a+b+c)^2}{3} \ge 0 \quad \Rightarrow \quad \frac{(a+b+c)^2}{3} \leq a^2 + b^2 + c^2
+    \]
+    \par\textbf{理由：}
+    移项即得到要证的不等式。
+
+    \item[\textbf{步骤四（证明左半部分）：}] 我们证明 $ab + bc + ca \leq \frac{(a+b+c)^2}{3}$。
+    \[
+    \begin{aligned}
+    \frac{(a+b+c)^2}{3} - (ab + bc + ca)
+    &= \frac{a^2+b^2+c^2+2ab+2bc+2ca - 3ab - 3bc - 3ca}{3} \\
+    &= \frac{a^2+b^2+c^2 - ab - bc - ca}{3}
+    \end{aligned}
+    \]
+    \par\textbf{理由：}
+    直接作差并展开 $(a+b+c)^2$，然后合并同类项。
+
+    \item[\textbf{步骤五（联系已证结论）：}] 观察步骤四的结果，我们发现它正好是步骤一中推导出的式子的一半（准确说是 $1/6$ 乘以平方和）。由步骤一的变形可知：
+    \[
+    a^2+b^2+c^2 - ab - bc - ca = \frac{(a-b)^2 + (b-c)^2 + (c-a)^2}{2}
+    \]
+    \par\textbf{理由：}
+    这是一个常用的恒等式，可直接验证。
+
+    \item[\textbf{步骤六（判断左半符号）：}] 将步骤五的恒等式代入步骤四的结果：
+    \[
+    \frac{(a+b+c)^2}{3} - (ab + bc + ca) = \frac{(a-b)^2 + (b-c)^2 + (c-a)^2}{6} \ge 0
+    \]
+    \par\textbf{理由：}
+    同样因为平方项非负，所以整个式子大于等于零。
+
+    \item[\textbf{步骤七（得出左不等式）：}] 由步骤六，可得
+    \[
+    \frac{(a+b+c)^2}{3} - (ab + bc + ca) \ge 0 \quad \Rightarrow \quad ab + bc + ca \leq \frac{(a+b+c)^2}{3}
+    \]
+    \par\textbf{理由：}
+    移项得到左半部分不等式。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+\textbf{综合步骤三和步骤七，我们证明了 $ab + bc + ca \leq \frac{(a+b+c)^2}{3} \leq a^2 + b^2 + c^2$。} 观察取等条件，两个不等式同时成立等号，均要求 $(a-b)^2=(b-c)^2=(c-a)^2=0$，即 $a=b=c$。
+\end{proofbox}

@@ -1,0 +1,36 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+
+通过构造函数并求导，利用单调性证明不等式。核心是验证差值函数在 $x\geq0$ 上的符号。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（证下界 $\frac{2x}{x+2}\leq\ln(1+x)$）：}] 令 $f(x)=\ln(1+x)-\frac{2x}{x+2}$，则 $f(0)=0$。
+    \[
+    f'(x)=\frac{1}{1+x}-\frac{4}{(x+2)^2}=\frac{(x+2)^2-4(1+x)}{(1+x)(x+2)^2}=\frac{x^2}{(1+x)(x+2)^2}\geq 0.
+    \]
+    \par\textbf{理由：}
+    导数分子 $x^2\geq0$，分母为正，故 $f'(x)\geq0$，$f(x)$ 在 $[0,+\infty)$ 单调递增。结合 $f(0)=0$，得 $f(x)\geq0$，即原下界成立。
+
+    \item[\textbf{步骤二（证上界 $\ln(1+x)\leq\frac{x(x+2)}{2(x+1)}$）：}] 令 $g(x)=\frac{x(x+2)}{2(x+1)}-\ln(1+x)$，则 $g(0)=0$。
+    \[
+    g'(x)=\frac{(2x+2)(x+1)-x(x+2)}{2(x+1)^2}-\frac{1}{1+x}=\frac{x^2}{2(x+1)^2}\geq 0.
+    \]
+    \par\textbf{理由：}
+    计算通分后导数分子为 $x^2\geq0$，分母为正，故 $g'(x)\geq0$，$g(x)$ 单调递增。结合 $g(0)=0$，得 $g(x)\geq0$，即原上界成立。
+
+    \item[\textbf{步骤三（证标准下界 $\ln(1+x)\geq x-\frac{x^2}{2(1+x)}$）：}] 令 $h(x)=\ln(1+x)-\left[x-\frac{x^2}{2(1+x)}\right]$，则 $h(0)=0$。
+    \[
+    h'(x)=\frac{1}{1+x}-1+\frac{x(2+x)}{2(1+x)^2}=\frac{x^2}{2(1+x)^2}\geq 0.
+    \]
+    \par\textbf{理由：}
+    导数分子 $x^2\geq0$，分母为正，故 $h'(x)\geq0$，$h(x)$ 单调递增。结合 $h(0)=0$，得 $h(x)\geq0$，即标准下界成立。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+
+\textbf{以上三步证明了在 $x\geq0$ 时，三个不等式均成立，且每一步的导数非负保证了函数单调不减，结合零点 $x=0$ 处的函数值，即得不等式成立，等号均在 $x=0$ 时取得。}
+
+\end{proofbox}

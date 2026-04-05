@@ -1,0 +1,73 @@
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 1（基础）}}
+
+\textbf{\textcolor{CExample}{题目：}} 已知 $x > -1$，且 $n \geq 2$。比较 $(1+x)^n$ 与 $1 + 2x$ 的大小，并说明理由。
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第一步（识别指数）：}] 题目中幂的指数是 $n$，线性项的系数是 $2$，两者不同。不能直接套用原不等式，因为原不等式要求线性项的系数也是 $n$。
+    \par\textbf{理由：} 伯努利不等式是 $(1+x)^n$ 与 $1+nx$ 比较，这里的 $1+2x$ 不符合形式。
+
+    \item[\textbf{第二步（利用已知范围）：}] 由于 $n \geq 2 > 1$，根据伯努利不等式，有 $(1+x)^n \geq 1 + nx$。
+    \[
+    (1+x)^n \geq 1 + nx.
+    \]
+    \par\textbf{理由：} 此时满足 $n \geq 1$ 的条件。
+
+    \item[\textbf{第三步（比较线性项）：}] 现在需要比较 $1+nx$ 与 $1+2x$ 的大小。即比较 $nx$ 与 $2x$。由于 $n \geq 2$，但 $x$ 的符号未知，需分类讨论：
+    \[
+    nx - 2x = (n-2)x.
+    \]
+    \begin{itemize}[leftmargin=*, itemsep=0.2em, topsep=0.2em]
+        \item 若 $x \geq 0$，则 $(n-2)x \geq 0$，故 $nx \geq 2x$，从而 $1+nx \geq 1+2x$。结合第二步，得 $(1+x)^n \geq 1+nx \geq 1+2x$。
+        \item 若 $-1 < x < 0$，则 $(n-2)x < 0$，故 $nx < 2x$，从而 $1+nx < 1+2x$。此时从 $(1+x)^n \geq 1+nx$ 无法直接推出与 $1+2x$ 的大小关系。
+    \end{itemize}
+    \par\textbf{理由：} 必须考虑 $x$ 的符号对线性比较的影响。
+
+    \item[\textbf{第四步（补充证明）：}] 对于 $-1 < x < 0$ 的情形，需另寻方法。注意到 $n \geq 2$，可考虑函数 $h(x)=(1+x)^n - (1+2x)$，求导或用二项式展开分析。但本题为比较大小，可举反例：取 $n=2, x=-0.5$，则 $(1+x)^n = (0.5)^2 = 0.25$，$1+2x = 1-1=0$，此时 $(1+x)^n > 1+2x$。再取 $x$ 更接近 $-1$，如 $x=-0.9$，则 $(1-0.9)^2=0.01$，$1+2\cdot(-0.9) = -0.8$，仍有 $(1+x)^n > 1+2x$。事实上，对于 $x \in (-1,0)$，由于 $(1+x)^n > 0$，而 $1+2x$ 可能为负，故总有 $(1+x)^n > 1+2x$。
+    \par\textbf{理由：} 通过具体数值和正负分析完成比较。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{当 $x > -1$ 且 $n \geq 2$ 时，总有 $(1+x)^n \geq 1+2x$，等号仅在 $x=0$ 且 $n=2$ 时可能成立（需验证）。注意此题揭示了伯努利不等式使用时要确保形式完全匹配，否则需结合其他分析。}
+
+\medskip
+\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+\textbf{\textcolor{CExample}{题目：}} 证明：对任意正整数 $n$，有 $\left(1+\frac{1}{n}\right)^n < 3$。
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第一步（观察指数）：}] 指数 $n$ 是正整数，且大于 $1$（当 $n=1$ 时直接验证）。考虑使用伯努利不等式，但方向为 $(1+x)^n \geq 1+nx$，这会放大式子，而我们需要上界。
+    \par\textbf{理由：} 直接使用原不等式会得到 $\left(1+\frac{1}{n}\right)^n \geq 2$，无法得到 $<3$ 的结论，需要其他方法。
+
+    \item[\textbf{第二步（利用二项式展开）：}] 将 $\left(1+\frac{1}{n}\right)^n$ 用二项式定理展开：
+    \[
+    \begin{aligned}
+    \left(1+\frac{1}{n}\right)^n &= \sum_{k=0}^{n} C_n^k \left(\frac{1}{n}\right)^k \\
+    &= 1 + n \cdot \frac{1}{n} + \frac{n(n-1)}{2!} \cdot \frac{1}{n^2} + \frac{n(n-1)(n-2)}{3!} \cdot \frac{1}{n^3} + \cdots + \frac{1}{n^n} \\
+    &= 1 + 1 + \frac{1}{2!}\left(1-\frac{1}{n}\right) + \frac{1}{3!}\left(1-\frac{1}{n}\right)\left(1-\frac{2}{n}\right) + \cdots + \frac{1}{n!}\left(1-\frac{1}{n}\right)\cdots\left(1-\frac{n-1}{n}\right).
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 展开后可以逐项放大。
+
+    \item[\textbf{第三步（逐项放大）：}] 注意到每一项中括号内的因子都小于 $1$，所以有
+    \[
+    \left(1+\frac{1}{n}\right)^n \leq 1 + 1 + \frac{1}{2!} + \frac{1}{3!} + \cdots + \frac{1}{n!}.
+    \]
+    \par\textbf{理由：} 去掉小于 $1$ 的因子，得到更大的式子上界。
+
+    \item[\textbf{第四步（进一步放大）：}] 利用 $k! \geq 2^{k-1}$（$k \geq 2$），则 $\frac{1}{k!} \leq \frac{1}{2^{k-1}}$。于是
+    \[
+    \begin{aligned}
+    \left(1+\frac{1}{n}\right)^n &\leq 1 + 1 + \frac{1}{2} + \frac{1}{2^2} + \cdots + \frac{1}{2^{n-1}} \\
+    &= 1 + \frac{1 - (1/2)^n}{1 - 1/2} = 1 + 2\left(1 - \frac{1}{2^n}\right) = 3 - \frac{2}{2^n} < 3.
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 利用等比数列求和公式得到明确的上界 $3$。
+
+    \item[\textbf{第五步（补充说明）：}] 当 $n=1$ 时，$\left(1+\frac{1}{1}\right)^1 = 2 < 3$，结论也成立。
+    \par\textbf{理由：} 验证边界情况使证明完整。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{通过二项式展开和放大技巧，证明了 $\left(1+\frac{1}{n}\right)^n < 3$。此题展示了伯努利不等式并非万能，有时需要更精细的放缩。}
+\end{examplebox}

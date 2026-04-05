@@ -1,0 +1,181 @@
+{
+  "id": "I034",
+  "module": "function",
+  "core": {
+    "title": "指数函数泰勒展开下界不等式",
+    "alias": [
+      "e^x大于等于泰勒多项式",
+      "指数函数放缩",
+      "e^x下界",
+      "泰勒不等式"
+    ],
+    "summary": "当x≥0时，指数函数e^x总是不低于其泰勒展开的前n项和，常用二次下界e^x≥1+x+x²/2进行放缩。",
+    "difficulty": 2,
+    "category": "函数与导数",
+    "tags": [
+      "指数函数",
+      "泰勒展开",
+      "不等式",
+      "函数放缩",
+      "导数应用"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "e^x大于等于1+x+x²/2",
+      "指数函数下界",
+      "泰勒不等式",
+      "函数放缩",
+      "e^x放缩",
+      "非负实数指数不等式",
+      "泰勒展开余项",
+      "指数函数估值",
+      "最值问题",
+      "证明不等式",
+      "导数应用",
+      "高考压轴题",
+      "数学工具"
+    ],
+    "synonyms": [
+      "e的x次方大于等于",
+      "指数大于等于多项式",
+      "泰勒公式下界",
+      "放缩法",
+      "指数放缩",
+      "e^x大于1+x"
+    ],
+    "intents": [
+      "证明不等式",
+      "求函数最值",
+      "比较大小",
+      "函数估值",
+      "放缩化简"
+    ],
+    "query_templates": [
+      "e^x和1+x+x²/2谁大",
+      "怎么用泰勒不等式放缩指数函数",
+      "证明e^x≥1+x+x²/2",
+      "x≥0时e^x的最小多项式下界"
+    ],
+    "ocrKeywords": [
+      "e^x≥",
+      "1+x+x²/2",
+      "x≥0",
+      "泰勒展开",
+      "放缩",
+      "下界"
+    ],
+    "latex_patterns": [
+      "e^x \\geq 1 + x + \\frac{x^2}{2}",
+      "e^x \\geq \\sum_{i=0}^{n} \\frac{x^i}{i!}",
+      "x \\geq 0"
+    ],
+    "formulaTokens": [
+      "e^x",
+      "1+x+\\frac{x^2}{2}",
+      "\\sum_{i=0}^{n} \\frac{x^i}{i!}",
+      "x\\geq0",
+      "e^x-\\left(1+x+\\frac{x^2}{2}\\right)",
+      "e^x-\\sum_{i=0}^{n} \\frac{x^i}{i!}"
+    ],
+    "pinyin": "zhishuhanshutailazhankaixiajiebudengshi",
+    "pinyinAbbr": "zshstlzkxjbd"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.83,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "e^x \\geq 1 + x + \\frac{x^2}{2}",
+    "related_formulas": [
+      "e^x \\geq \\sum_{i=0}^{n} \\frac{x^i}{i!}",
+      "e^x = \\sum_{i=0}^{\\infty} \\frac{x^i}{i!}"
+    ],
+    "variables": [
+      {
+        "name": "x",
+        "type": "实数",
+        "domain": "x ≥ 0"
+      },
+      {
+        "name": "n",
+        "type": "正整数",
+        "domain": "n ∈ ℕ⁺"
+      }
+    ],
+    "conditions": "自变量 x 必须满足 x ≥ 0。",
+    "conclusions": "1. 当 x ≥ 0 时，e^x 有明确的多项式下界。\n2. 可用于对 e^x 进行估值或放缩。\n3. 等号仅在 x=0 时成立，可用于求解最值问题。"
+  },
+  "content": {
+    "statement": "设 x ≥ 0，则对任意正整数 n，有 e^x ≥ Σ_{i=0}^{n} xⁱ/i!。特别地，当 n=2 时，有 e^x ≥ 1 + x + x²/2。等号成立当且仅当 x=0。",
+    "derivation": [
+      "考虑函数 f(x) = e^x - (1 + x + x²/2)。",
+      "求导得 f'(x) = e^x - (1 + x)，再求导得 f''(x) = e^x - 1。",
+      "当 x≥0 时，f''(x)≥0，故 f'(x) 单调增，且 f'(0)=0，所以 f'(x)≥0，进而 f(x) 单调增，且 f(0)=0，因此 f(x)≥0。"
+    ],
+    "intuition": "因为 e^x 的泰勒展开余项（拉格朗日型）在 x≥0 时非负，所以部分和总是不超过函数值本身。",
+    "common_tricks": [
+      "证明含 e^x 的不等式时，常移项构造差函数，利用导数判断单调性。",
+      "求 e^x - 多项式 的最值时，直接应用此下界放缩，常能快速得到结果。",
+      "注意验证定义域 x≥0，这是不等式成立的关键前提。",
+      "取等条件 x=0 在求解最值问题时必须检查。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "高考压轴题中的不等式证明",
+      "函数最值问题（尤其是含指数函数）",
+      "数值估算与比较大小",
+      "作为更复杂放缩的起点"
+    ],
+    "problem_types": [
+      "证明题",
+      "最值问题",
+      "比较大小题",
+      "函数性质探究题"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "I034.svg",
+    "png": "",
+    "mp4": "",
+    "geogebra": ""
+  },
+  "shareConfig": {
+    "title": "指数函数泰勒下界：不等式证明与最值问题速解",
+    "shareDesc": "适合课后复盘与刷题前速查，集中掌握e^x≥1+x+x²/2这一核心放缩工具，解决含指数函数的不等式证明和最值问题时，能直接套用下界，减少构造函数求导的步骤。"
+  },
+  "relations": {
+    "prerequisites": [
+      "指数函数的基本性质",
+      "导数与函数单调性",
+      "泰勒公式（拉格朗日余项）"
+    ],
+    "related_ids": [],
+    "similar": "伯努利不等式 (1+x)^n ≥ 1+nx（x≥-1），也是多项式下界的一种形式。"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-04-04"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "函数-特殊函数-指数函数",
+  "altNodes": "不等式-经典不等式-均值不等式,函数-综合-函数与不等式,不等式-解法-函数法"
+}

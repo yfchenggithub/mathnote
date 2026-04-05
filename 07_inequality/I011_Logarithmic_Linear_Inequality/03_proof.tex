@@ -1,0 +1,51 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+构造函数差 $f(x)=\ln x - (x-1)$，利用导数判断其单调性，从而证明不等式。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（构造函数）：}] 设 $f(x) = \ln x - (x-1)$，定义域为 $x>0$。
+    \[
+    f(x) = \ln x - x + 1
+    \]
+    \par\textbf{理由：}
+    将不等式 $\ln x \leq x-1$ 移项，转化为比较函数值与 $0$ 的大小。
+
+    \item[\textbf{步骤二（求导判号）：}] 求导并分析单调性。
+    \[
+    f'(x) = \frac{1}{x} - 1 = \frac{1-x}{x}
+    \]
+    \par\textbf{理由：}
+    对 $f(x)$ 求导，导函数符号决定原函数增减。
+
+    \item[\textbf{步骤三（确定极值）：}] 由 $f'(x)=0$ 得 $x=1$，分析单调区间。
+    \begin{itemize}[leftmargin=*, itemsep=0.3em, topsep=0.2em]
+        \item 当 $0<x<1$ 时，$f'(x)>0$，$f(x)$ 单调递增。
+        \item 当 $x>1$ 时，$f'(x)<0$，$f(x)$ 单调递减。
+    \end{itemize}
+    \par\textbf{理由：}
+    分子 $1-x$ 决定符号，分母 $x>0$ 恒正。
+
+    \item[\textbf{步骤四（得出最值）：}] 在 $x=1$ 处 $f(x)$ 取得最大值。
+    \[
+    f(1) = \ln 1 - 1 + 1 = 0
+    \]
+    故对任意 $x>0$，有 $f(x) \leq f(1)=0$。
+    \par\textbf{理由：}
+    先增后减，极大值即为最大值。
+
+    \item[\textbf{步骤五（变形验证）：}] 验证常用变式。
+    \begin{itemize}[leftmargin=*, itemsep=0.3em, topsep=0.2em]
+        \item \textbf{变式1：} 令 $t=x+1$（$t>0$），则 $\ln t \leq t-1$ 即为 $\ln(x+1) \leq x$。
+        \item \textbf{变式2：} 将 $\ln x \leq x-1$ 两边同乘以 $x$（$x>0$），得 $x\ln x \leq x(x-1)$。但更常用的是移项得 $x\ln x \geq x-1$，这等价于 $\ln x \geq 1-\frac{1}{x}$，是另一个切线不等式。
+        \item \textbf{变式3：} 构造函数 $g(x)=\ln x - \frac{x^2-1}{2x}$ 求导可证，或由更强的切线不等式 $\ln x \leq \frac{x-1}{\sqrt{x}}$ 推出。
+    \end{itemize}
+    \par\textbf{理由：}
+    换元或简单代数变形即可得到。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+\textbf{因此，对任意 $x>0$ 恒有 $\ln x \leq x-1$，且等号仅当 $x=1$ 时成立。其常用变式在相应定义域内同样成立。}
+\end{proofbox}

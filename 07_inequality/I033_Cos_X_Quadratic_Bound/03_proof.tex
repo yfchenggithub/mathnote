@@ -1,0 +1,60 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+为了证明 $\sqrt{x_1 x_2} < L < \dfrac{x_1+x_2}{2}$，我们设 $t = \dfrac{x_1}{x_2} > 0$ 且 $t \neq 1$，将双变量问题化为单变量函数问题。分别证明左右两个不等式，通过构造函数并利用导数研究其单调性。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（换元简化）：}] 令 $t = \dfrac{x_1}{x_2} > 0,\; t \neq 1$，则 $x_1 = t x_2$。代入对数平均值公式并化简：
+    \[
+    L = \frac{x_1 - x_2}{\ln x_1 - \ln x_2}
+    = \frac{t x_2 - x_2}{\ln(t x_2) - \ln x_2}
+    = \frac{x_2(t-1)}{\ln t}
+    = x_2 \cdot \frac{t-1}{\ln t}.
+    \]
+    此时几何平均 $G = \sqrt{x_1 x_2} = x_2 \sqrt{t}$，算术平均 $A = \dfrac{x_1+x_2}{2} = x_2 \cdot \dfrac{t+1}{2}$。由于 $x_2>0$，要证的不等式等价于证明（两边同除以 $x_2$）：
+    \[
+    \sqrt{t} < \frac{t-1}{\ln t} < \frac{t+1}{2},\quad (t>0,\; t\neq 1).
+    \]
+    \par\textbf{理由：} 换元消去一个变量，将问题转化为关于单变量 $t$ 的不等式。
+
+    \item[\textbf{步骤二（证左半部）：}] 先证 $\sqrt{t} < \dfrac{t-1}{\ln t}$，即证 $\ln t < \dfrac{t-1}{\sqrt{t}}$。构造函数 $f(t) = \ln t - \dfrac{t-1}{\sqrt{t}}$，求导判断符号。
+    \[
+    \begin{aligned}
+    f'(t) &= \frac{1}{t} - \frac{1\cdot\sqrt{t} - (t-1)\cdot\frac{1}{2\sqrt{t}}}{t} \\
+          &= \frac{1}{t} - \frac{\frac{2t - (t-1)}{2\sqrt{t}}}{t}
+          = \frac{1}{t} - \frac{t+1}{2t\sqrt{t}}
+          = \frac{2\sqrt{t} - (t+1)}{2t\sqrt{t}} \\
+          &= -\frac{(\sqrt{t}-1)^2}{2t\sqrt{t}} \le 0,
+    \end{aligned}
+    \]
+    等号仅在 $t=1$ 时成立。故 $f(t)$ 在 $(0,1)$ 和 $(1,+\infty)$ 上严格单调递减。又 $f(1)=0$，所以当 $t>0,\; t\neq 1$ 时，$f(t)<0$，即 $\ln t < \dfrac{t-1}{\sqrt{t}}$，从而 $\sqrt{t} < \dfrac{t-1}{\ln t}$。
+    \par\textbf{理由：} 利用导数研究函数单调性，得到不等式成立。
+
+    \item[\textbf{步骤三（证右半部）：}] 再证 $\dfrac{t-1}{\ln t} < \dfrac{t+1}{2}$，即证 $\ln t > \dfrac{2(t-1)}{t+1}$。构造函数 $g(t) = \ln t - \dfrac{2(t-1)}{t+1}$，求导判断符号。
+    \[
+    \begin{aligned}
+    g'(t) &= \frac{1}{t} - \frac{2(t+1) - 2(t-1)}{(t+1)^2}
+          = \frac{1}{t} - \frac{4}{(t+1)^2} \\
+          &= \frac{(t+1)^2 - 4t}{t(t+1)^2}
+          = \frac{(t-1)^2}{t(t+1)^2} \ge 0,
+    \end{aligned}
+    \]
+    等号仅在 $t=1$ 时成立。故 $g(t)$ 在 $(0,1)$ 和 $(1,+\infty)$ 上严格单调递增。又 $g(1)=0$，所以当 $t>0,\; t\neq 1$ 时，$g(t)>0$，即 $\ln t > \dfrac{2(t-1)}{t+1}$，从而 $\dfrac{t-1}{\ln t} < \dfrac{t+1}{2}$。
+    \par\textbf{理由：} 同样利用导数研究函数单调性，得到不等式成立。
+
+    \item[\textbf{步骤四（合并结论）：}] 由步骤二和步骤三，我们得到
+    \[
+    \sqrt{t} < \frac{t-1}{\ln t} < \frac{t+1}{2},\quad (t>0,\; t\neq 1).
+    \]
+    两边同乘以 $x_2>0$，即得
+    \[
+    \sqrt{x_1 x_2} < \frac{x_1 - x_2}{\ln x_1 - \ln x_2} < \frac{x_1 + x_2}{2}.
+    \]
+    \par\textbf{理由：} 将单变量结论代回原变量，完成证明。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+\textbf{因此，对于任意两个不相等的正实数 $x_1, x_2$，其对数平均值 $L(x_1, x_2)$ 严格介于几何平均值 $\sqrt{x_1 x_2}$ 与算术平均值 $\dfrac{x_1+x_2}{2}$ 之间，即 $G < L < A$ 恒成立。}
+\end{proofbox}

@@ -1,0 +1,70 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+
+通过构造函数，利用导数研究单调性，从而比较 $\tan x$、$x$、$\sin x$ 的大小。关键点是利用基本求导公式和函数奇偶性。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（构造正切差）：}] 考虑函数 $f(x) = \tan x - x$，定义域为 $x \in [0, \frac{\pi}{2})$。
+    \[
+    f(x) = \tan x - x
+    \]
+    \par\textbf{理由：}
+    目标是证明 $\tan x \geq x$，即 $f(x) \geq 0$。
+
+    \item[\textbf{步骤二（求导判号）：}] 对 $f(x)$ 求导：
+    \[
+    f'(x) = \sec^2 x - 1 = \tan^2 x
+    \]
+    \par\textbf{理由：}
+    导数公式 $(\tan x)' = \sec^2 x$，常数导数为 $0$。由于 $\tan^2 x \geq 0$，等号仅当 $x=0$ 时成立（在定义域内）。
+
+    \item[\textbf{步骤三（单调性得证）：}] 由 $f'(x) \geq 0$ 知 $f(x)$ 在 $[0, \frac{\pi}{2})$ 上单调不减。又 $f(0) = \tan 0 - 0 = 0$，故对任意 $x \in [0, \frac{\pi}{2})$，有 $f(x) \geq f(0) = 0$。
+    \[
+    \tan x - x \geq 0 \quad \Rightarrow \quad \tan x \geq x
+    \]
+    \par\textbf{理由：}
+    单调不减函数在起点取最小值，因此 $f(x)$ 的最小值为 $f(0)=0$。
+
+    \item[\textbf{步骤四（负区间推广）：}] 对于 $x \in (-\frac{\pi}{2}, 0]$，令 $t = -x \in [0, \frac{\pi}{2})$，则 $\tan x = \tan(-t) = -\tan t$。由步骤三，$\tan t \geq t$，故 $\tan x = -\tan t \leq -t = x$。
+    \[
+    \tan x \leq x
+    \]
+    \par\textbf{理由：}
+    利用 $\tan x$ 的奇函数性质和已证的非负区间结论，通过变量替换得到负区间结论。
+
+    \item[\textbf{步骤五（正弦比较）：}] 考虑函数 $g(x) = x - \sin x$，定义域为 $x \in [0, \frac{\pi}{2})$。
+    \[
+    g(x) = x - \sin x
+    \]
+    \par\textbf{理由：}
+    目标是证明 $x > \sin x$，即 $g(x) > 0$。
+
+    \item[\textbf{步骤六（求导判号）：}] 对 $g(x)$ 求导：
+    \[
+    g'(x) = 1 - \cos x
+    \]
+    \par\textbf{理由：}
+    导数公式 $(\sin x)' = \cos x$。由于 $\cos x \leq 1$，等号仅当 $x=0$ 时成立，故 $g'(x) \geq 0$，且当 $x>0$ 时 $g'(x) > 0$。
+
+    \item[\textbf{步骤七（单调严格增）：}] 由 $g'(x) \geq 0$ 知 $g(x)$ 单调不减，且当 $x>0$ 时严格单调增。又 $g(0) = 0 - \sin 0 = 0$，故对任意 $x \in (0, \frac{\pi}{2})$，有 $g(x) > g(0) = 0$。
+    \[
+    x - \sin x > 0 \quad \Rightarrow \quad \sin x < x
+    \]
+    \par\textbf{理由：}
+    严格单调增函数在正区间内取值大于起点值。
+
+    \item[\textbf{步骤八（结合得链）：}] 由步骤三和步骤七，当 $x \in (0, \frac{\pi}{2})$ 时，有 $\sin x < x$ 且 $x < \tan x$（因 $\tan x \geq x$ 且等号仅当 $x=0$，故 $x>0$ 时 $\tan x > x$）。
+    \[
+    \sin x < x < \tan x
+    \]
+    \par\textbf{理由：}
+    将两个不等式合并，得到完整的不等式链。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+
+\textbf{综上，我们严格证明了：当 $x \in [0, \frac{\pi}{2})$ 时 $\tan x \geq x$，当 $x \in (-\frac{\pi}{2}, 0]$ 时 $\tan x \leq x$，且当 $x \in (0, \frac{\pi}{2})$ 时 $\sin x < x < \tan x$，等号仅当 $x=0$ 时成立。}
+\end{proofbox}

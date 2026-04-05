@@ -1,0 +1,191 @@
+{
+  "id": "I021",
+  "module": "inequality",
+  "core": {
+    "title": "幂函数凸性不等式",
+    "alias": [
+      "幂平均与算术平均不等式",
+      "幂函数Jensen不等式",
+      "幂函数凹凸性",
+      "幂平均不等式"
+    ],
+    "summary": "指数范围决定幂平均与算术平均的大小关系，是判断幂函数凹凸性的核心工具。",
+    "difficulty": 3,
+    "category": "不等式",
+    "tags": [
+      "幂函数凸性",
+      "Jensen不等式",
+      "加权平均",
+      "函数性质",
+      "最值问题"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "幂函数凸性",
+      "幂平均不等式",
+      "Jensen不等式特例",
+      "x^n+y^n",
+      "(x+y)/2",
+      "指数范围",
+      "凹凸性判断",
+      "算术平均",
+      "幂平均",
+      "等号成立条件",
+      "x=y",
+      "最值应用",
+      "二元不等式",
+      "凸函数"
+    ],
+    "synonyms": [
+      "幂平均",
+      "幂函数凹凸",
+      "指数不等式",
+      "平均不等式",
+      "凸性不等式",
+      "jenson不等式"
+    ],
+    "intents": [
+      "比较大小",
+      "求最值",
+      "证明不等式",
+      "判断函数凹凸性",
+      "应用Jensen不等式"
+    ],
+    "query_templates": [
+      "x^n+y^n和((x+y)/2)^n怎么比大小？",
+      "幂平均和算术平均的不等式是什么？",
+      "怎么用幂函数的凹凸性证明不等式？",
+      "a^2+b^2的最小值怎么求？已知a+b=1",
+      "指数n在什么范围时，不等式方向会变？"
+    ],
+    "ocrKeywords": [
+      "x^n+y^n",
+      "(x+y)/2",
+      "比较大小",
+      "证明",
+      "当且仅当",
+      "x=y",
+      "n>1",
+      "0<n<1",
+      "n<0"
+    ],
+    "latex_patterns": [
+      "\\frac{x^{n}+y^{n}}{2}",
+      "\\left(\\frac{x+y}{2}\\right)^{n}",
+      "x^{n}+y^{n}",
+      "(x+y)/2"
+    ],
+    "formulaTokens": [
+      "\\frac{x^{n}+y^{n}}{2}",
+      "\\left(\\frac{x+y}{2}\\right)^{n}",
+      "x^{n}",
+      "y^{n}",
+      "x+y",
+      "x=y"
+    ],
+    "pinyin": "mihanshutuxingbudengshi",
+    "pinyinAbbr": "mhstxbds"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.83,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\frac{x^{n} + y^{n}}{2} \\geq \\text{或} \\leq \\left(\\frac{x+y}{2}\\right)^{n}",
+    "related_formulas": [
+      "f(\\frac{x+y}{2}) \\le \\frac{f(x)+f(y)}{2} \\quad (f \\text{为凸函数})",
+      "a^2+b^2 \\ge \\frac{(a+b)^2}{2}"
+    ],
+    "variables": [
+      {
+        "name": "x",
+        "description": "正实数",
+        "domain": "x>0"
+      },
+      {
+        "name": "y",
+        "description": "正实数",
+        "domain": "y>0"
+      },
+      {
+        "name": "n",
+        "description": "实数指数",
+        "domain": "n \\in \\mathbb{R}"
+      }
+    ],
+    "conditions": "x>0, y>0, n \\in \\mathbb{R}。不等式方向由n的范围决定：\n1. 若 n>1 或 n<0，则左边 ≥ 右边（函数外凸）。\n2. 若 0<n<1，则左边 ≤ 右边（函数内凹）。",
+    "conclusions": "等号成立当且仅当 x=y。该结论是Jensen不等式在幂函数 f(t)=t^n 上的二元特例，可用于快速比较幂平均与算术平均的大小，或求含幂次表达式的最值。"
+  },
+  "content": {
+    "statement": "设 $x, y > 0$，$n \\in \\mathbb{R}$。\n- 若 $n > 1$ 或 $n < 0$，则 $\\frac{x^n + y^n}{2} \\geq \\left(\\frac{x+y}{2}\\right)^n$；\n- 若 $0 < n < 1$，则 $\\frac{x^n + y^n}{2} \\leq \\left(\\frac{x+y}{2}\\right)^n$；\n- 等号成立当且仅当 $x = y$。",
+    "derivation": [
+      "核心思想：利用幂函数 $f(t)=t^n$ 在 $(0, +\\infty)$ 上的凹凸性。",
+      "当 $n>1$ 或 $n<0$ 时，$f''(t)=n(n-1)t^{n-2} \\ge 0$，函数为凸函数，由Jensen不等式得 $f(\\frac{x+y}{2}) \\le \\frac{f(x)+f(y)}{2}$，即结论一。",
+      "当 $0<n<1$ 时，$f''(t) \\le 0$，函数为凹函数，Jensen不等式方向反转，即结论二。等号成立当且仅当 $x=y$。"
+    ],
+    "intuition": "指数n决定了幂函数图像的“弯曲方向”：向外弯（凸）时，弦在图像上方，所以平均的函数值大于函数值的平均；向内弯（凹）时则相反。",
+    "common_tricks": [
+      "使用前必须先判断指数n的范围，这是决定不等式方向的唯一依据。",
+      "遇到求 $a^n+b^n$ 形式的最值问题时，常利用此不等式将其与 $(a+b)^n$ 建立联系。",
+      "等号条件 $x=y$ 在求最值时至关重要，用于验证最值能否取到。",
+      "可视为Jensen不等式的特例，理解其凸函数背景有助于记忆和推广。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "不等式证明题（比较大小）",
+      "代数式最值问题（尤其条件为和定）",
+      "函数性质探究（凹凸性判断与应用）",
+      "连接具体函数与抽象凸函数理论的桥梁"
+    ],
+    "problem_types": [
+      "比较 $\\frac{x^n+y^n}{2}$ 与 $\\left(\\frac{x+y}{2}\\right)^n$ 的大小",
+      "已知 $x+y$ 为定值，求 $x^n+y^n$ 的最值",
+      "证明与幂函数凹凸性相关的不等式"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "I021.svg",
+    "png": "",
+    "mp4": "",
+    "pdf": ""
+  },
+  "shareConfig": {
+    "title": "幂函数凸性不等式：快速判断幂平均与算术平均大小",
+    "shareDesc": "适合课后复盘与刷题前速查，集中解决由指数范围决定的不等式方向问题，在做比较大小和求最值题时能节省判断凹凸性的推导步骤。"
+  },
+  "relations": {
+    "prerequisites": [
+      "幂函数的图像与性质",
+      "Jensen不等式（凸函数定义）",
+      "算术平均与几何平均不等式"
+    ],
+    "related_ids": [],
+    "similar": "均值不等式（AM-GM）、柯西不等式、琴生（Jensen）不等式"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-04-04"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "不等式-经典不等式-均值不等式",
+  "altNodes": "函数-特殊函数-幂函数, 函数-性质-单调性"
+}

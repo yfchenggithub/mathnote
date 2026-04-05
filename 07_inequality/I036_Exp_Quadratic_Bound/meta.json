@@ -1,0 +1,197 @@
+{
+  "id": "I036",
+  "module": "function",
+  "core": {
+    "title": "ln(1+x)的经典不等式链",
+    "alias": [
+      "对数不等式链",
+      "ln(1+x)放缩",
+      "对数函数上下界",
+      "对数夹逼不等式"
+    ],
+    "summary": "当x>-1时，ln(1+x)被一次函数x和分式函数x/(1+x)夹在中间，是导数证明和放缩的常用工具。",
+    "difficulty": 2,
+    "category": "函数与导数",
+    "tags": [
+      "对数不等式",
+      "函数放缩",
+      "导数应用",
+      "不等式证明",
+      "恒成立问题"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "ln(1+x)不等式",
+      "对数不等式链",
+      "x/(1+x)≤ln(1+x)≤x",
+      "ln(1+x)放缩",
+      "对数函数上下界",
+      "导数证明不等式",
+      "函数夹逼",
+      "恒成立问题",
+      "换元t=1+x",
+      "lnt≥1-1/t",
+      "等号成立条件",
+      "经典不等式",
+      "函数与导数",
+      "不等式证明题"
+    ],
+    "synonyms": [
+      "ln(1+x)的不等式",
+      "对数不等式",
+      "ln(1+x)大于小于",
+      "对数函数不等式",
+      "ln(1+x)范围",
+      "对数夹逼",
+      "ln(1+x)上下限"
+    ],
+    "intents": [
+      "证明不等式",
+      "函数放缩",
+      "求参数范围",
+      "比较大小",
+      "判断恒成立",
+      "导数应用"
+    ],
+    "query_templates": [
+      "怎么证明ln(1+x)≤x？",
+      "ln(1+x)和x/(1+x)哪个大？",
+      "对数不等式链的证明方法",
+      "导数证明ln(1+x)的不等式",
+      "ln(1+x)放缩技巧"
+    ],
+    "ocrKeywords": [
+      "ln(1+x)",
+      "x/(1+x)",
+      "x",
+      "不等式链",
+      "等号成立",
+      "x=0",
+      "t=1+x",
+      "lnt≥1-1/t"
+    ],
+    "latex_patterns": [
+      "\\frac{x}{1+x}\\le \\ln(1+x)\\le x",
+      "\\ln(1+x)\\le x",
+      "\\frac{x}{1+x}\\le \\ln(1+x)",
+      "\\ln t\\ge 1-\\frac{1}{t}",
+      "x>-1",
+      "t>0"
+    ],
+    "formulaTokens": [
+      "\\frac{x}{1+x}",
+      "\\ln(1+x)",
+      "x",
+      "\\ln t",
+      "1-\\frac{1}{t}",
+      "x>-1",
+      "t>0",
+      "x=0",
+      "t=1"
+    ],
+    "pinyin": "ln1xdejingdianbudengshilian",
+    "pinyinAbbr": "ln1xjdbsl"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.96,
+    "hot_score": 85,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\frac{x}{1+x}\\le \\ln(1+x)\\le x",
+    "related_formulas": [
+      "\\ln t\\ge 1-\\frac{1}{t},\\quad t>0"
+    ],
+    "variables": [
+      {
+        "name": "x",
+        "description": "实数变量",
+        "domain": "x>-1"
+      },
+      {
+        "name": "t",
+        "description": "换元变量，t=1+x",
+        "domain": "t>0"
+      }
+    ],
+    "conditions": "实数x满足x>-1（或等价地t=1+x>0）",
+    "conclusions": [
+      "ln(1+x)有明确的上界x和下界x/(1+x)",
+      "等号成立当且仅当x=0（即t=1）",
+      "可用于证明其他对数不等式",
+      "是函数放缩的基准工具之一"
+    ]
+  },
+  "content": {
+    "statement": "设实数x满足x>-1，则成立不等式链：$\\frac{x}{1+x}\\le \\ln(1+x)\\le x$，等号成立当且仅当x=0。等价地，令t=1+x>0，有$\\ln t\\ge 1-\\frac{1}{t}$。",
+    "derivation": [
+      "构造函数f(x)=x-ln(1+x)，求导得f'(x)=x/(1+x)，分析单调性得f(x)≥f(0)=0，即ln(1+x)≤x。",
+      "构造函数g(x)=ln(1+x)-x/(1+x)，求导得g'(x)=x/(1+x)^2，分析单调性得g(x)≥g(0)=0，即ln(1+x)≥x/(1+x)。",
+      "综合两式即得不等式链，等号仅在x=0时同时成立。"
+    ],
+    "intuition": "在x=0处，ln(1+x)及其上下界函数值相等且切线相同（斜率均为1），当x偏离0时，一次函数x是切线方向的上界，分式函数x/(1+x)是凹性方向的下界。",
+    "common_tricks": [
+      "证明时通常拆成两个不等式分别构造函数求导",
+      "换元t=1+x可将形式转化为lnt≥1-1/t，更简洁",
+      "应用时注意放缩方向，上界用于放大ln(1+x)，下界用于缩小ln(1+x)",
+      "等号条件x=0是检验放缩是否过紧的关键"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "导数大题中的不等式证明",
+      "函数放缩求参数范围",
+      "比较对数式与多项式的大小",
+      "数列不等式证明中的对数放缩"
+    ],
+    "problem_types": [
+      "证明题",
+      "恒成立问题",
+      "参数取值范围问题",
+      "比较大小题"
+    ],
+    "exam_frequency": 1,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "I036.svg",
+    "png": "",
+    "mp4": "",
+    "pdf": ""
+  },
+  "shareConfig": {
+    "title": "对数不等式链：函数放缩与导数证明的核心工具",
+    "shareDesc": "适合课后复盘和刷题前速查，集中解决ln(1+x)的上下界估计问题，在证明题和参数范围题中能直接套用，减少构造函数求导的重复推导。"
+  },
+  "relations": {
+    "prerequisites": [
+      "导数判断函数单调性",
+      "对数函数基本性质",
+      "不等式基本性质"
+    ],
+    "related_ids": [],
+    "similar": "均值不等式、柯西不等式等其他经典不等式，但此不等式链专门针对对数函数的线性与分式逼近。"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-04-04"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "函数-特殊函数-对数函数",
+  "altNodes": "不等式-经典不等式-均值不等式, 函数-综合-函数与不等式, 不等式-解法-函数法"
+}

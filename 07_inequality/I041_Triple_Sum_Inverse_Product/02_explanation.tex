@@ -1,0 +1,41 @@
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{一句话直觉}}
+一个“分数”形式的循环求和，其最小值恰好等于循环的“圈数”，本质是均值不等式在对称循环结构中的体现。
+
+\medskip
+\textbf{\textcolor{CExplanation}{核心拆解}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{要点一（结构循环）：}] 下标构成闭环（$a_{n+1}=a_1$），每个分式是“前一项除以后一项”。
+    \item[\textbf{要点二（目标定值）：}] 不等式右端是常数 $n$，即循环的项数，与变量具体大小无关。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CExplanation}{几何本质（轮换对称）}}
+所有变量地位平等，表达式在变量的轮换置换下保持不变（$a_1 \to a_2, a_2 \to a_3, \dots, a_n \to a_1$）。这种高度对称性导致最小值在完全对称（所有变量相等）时取得。
+
+\medskip
+\textbf{\textcolor{CExplanation}{代数意义（均值放缩）}}
+利用算术-几何平均不等式（AM-GM）对 $n$ 个分式的乘积进行放缩：
+\[
+\frac{a_1}{a_2} \cdot \frac{a_2}{a_3} \cdots \frac{a_n}{a_1} = 1 \le \left(\frac{\frac{a_1}{a_2} + \frac{a_2}{a_3} + \dots + \frac{a_n}{a_1}}{n}\right)^n.
+\]
+开 $n$ 次方后即得结论。
+
+\medskip
+\textbf{\textcolor{CExplanation}{考点价值（不等式工具）}}
+\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+    \item \textbf{考法一（直接应用）：} 题目条件或待证式恰好是循环分式和，直接套用结论。
+    \item \textbf{考法二（变形构造）：} 将非齐次式或复杂分式通过配凑、代换转化为循环分式和结构。
+\end{itemize}
+
+\medskip
+\textbf{\textcolor{CExplanation}{顿悟点}}
+\textbf{观察式子中所有分子和分母：} 若将所有分式相乘，分子分母会完全约去，结果为 $1$。这个“乘积为 $1$”的特性是连接均值不等式的关键桥梁。
+
+\medskip
+\textbf{\textcolor{CExplanation}{使用场景}}
+\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+    \item \textbf{场景一（证明最值）：} 证明形如“$\frac{x}{y}+\frac{y}{z}+\frac{z}{x} \ge 3$”的循环分式最小值问题。
+    \item \textbf{场景二（简化复杂式）：} 在复杂的多元不等式证明中，识别出局部循环结构并应用此结论进行放缩。
+\end{itemize}
+\end{explanationbox}

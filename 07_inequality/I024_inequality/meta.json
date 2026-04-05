@@ -1,0 +1,187 @@
+{
+  "id": "I024",
+  "module": "inequality",
+  "core": {
+    "title": "三元对称不等式链",
+    "alias": [
+      "三元二次对称不等式",
+      "平方和与乘积和不等式",
+      "a方加b方加c方大于等于ab加bc加ca",
+      "三元均值不等式链"
+    ],
+    "summary": "三个实数的两两乘积和，不超过它们和的平方除以3，也不超过它们的平方和。",
+    "difficulty": 3,
+    "category": "不等式",
+    "tags": [
+      "不等式",
+      "对称性",
+      "三元二次型",
+      "均值不等式",
+      "代数变形",
+      "最值"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "三元不等式",
+      "ab+bc+ca",
+      "a^2+b^2+c^2",
+      "(a+b+c)^2/3",
+      "对称不等式",
+      "平方和",
+      "乘积和",
+      "实数不等式",
+      "取等条件",
+      "最值问题",
+      "代数证明",
+      "放缩",
+      "均值不等式",
+      "柯西不等式特例"
+    ],
+    "synonyms": [
+      "三元二次不等式",
+      "abc不等式",
+      "平方和大于等于乘积和",
+      "a方b方c方大于ab bc ca",
+      "三项基本不等式",
+      "三元对称式大小关系"
+    ],
+    "intents": [
+      "求最值",
+      "证明不等式",
+      "比较大小",
+      "代数放缩",
+      "判断取值范围"
+    ],
+    "query_templates": [
+      "已知x+y+z=常数，求xy+yz+zx的最大值",
+      "证明a^2+b^2+c^2≥ab+bc+ca",
+      "ab+bc+ca和(a+b+c)^2/3哪个大",
+      "三元对称不等式怎么用",
+      "a,b,c满足某个条件，求a+b+c的范围"
+    ],
+    "ocrKeywords": [
+      "ab+bc+ca",
+      "a^2+b^2+c^2",
+      "(a+b+c)^2",
+      "实数a,b,c",
+      "当且仅当a=b=c",
+      "最大值",
+      "最小值",
+      "证明",
+      "求证"
+    ],
+    "latex_patterns": [
+      "ab+bc+ca",
+      "\\frac{(a+b+c)^2}{3}",
+      "a^2+b^2+c^2",
+      "a=b=c"
+    ],
+    "formulaTokens": [
+      "ab+bc+ca",
+      "(a+b+c)^2",
+      "(a+b+c)^2/3",
+      "a^2+b^2+c^2",
+      "a=b=c",
+      "a^2+b^2+c^2-(ab+bc+ca)",
+      "(a+b+c)^2-3(ab+bc+ca)"
+    ],
+    "pinyin": "sanyanduichengbudengshilian",
+    "pinyinAbbr": "sydcbsdl"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.85,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "ab + bc + ca \\leq \\frac{(a+b+c)^2}{3} \\leq a^2 + b^2 + c^2",
+    "related_formulas": [
+      "a^2+b^2+c^2 \\ge ab+bc+ca",
+      "(a+b+c)^2 = a^2+b^2+c^2+2(ab+bc+ca)",
+      "\\frac{a^2+b^2+c^2}{3} \\ge \\left(\\frac{a+b+c}{3}\\right)^2"
+    ],
+    "variables": [
+      "a",
+      "b",
+      "c"
+    ],
+    "conditions": "a, b, c 为任意实数。",
+    "conclusions": [
+      "由左半部分可求 ab+bc+ca 的最大值（当 a+b+c 为定值时）。",
+      "由右半部分可求 a+b+c 的最大值（当 a^2+b^2+c^2 为定值时）。",
+      "等号成立当且仅当 a = b = c。"
+    ]
+  },
+  "content": {
+    "statement": "对于任意实数 \\( a, b, c \\)，有 \\( ab + bc + ca \\leq \\frac{(a+b+c)^2}{3} \\leq a^2 + b^2 + c^2 \\)，等号成立当且仅当 \\( a = b = c \\)。",
+    "derivation": [
+      "右半部分证明：\\( a^2+b^2+c^2 - \\frac{(a+b+c)^2}{3} = \\frac{1}{3}[(a-b)^2+(b-c)^2+(c-a)^2] \\ge 0 \\)。",
+      "左半部分证明：\\( \\frac{(a+b+c)^2}{3} - (ab+bc+ca) = \\frac{1}{6}[(a-b)^2+(b-c)^2+(c-a)^2] \\ge 0 \\)。",
+      "等号成立条件：当且仅当 \\( a=b=c \\) 时，上述平方和为零，等号成立。"
+    ],
+    "intuition": "平方运算会放大差异，所以平方和最大；两两乘积混合了不同变量，所以乘积和最小；和的平方除以3是介于两者之间的一个平均尺度。",
+    "common_tricks": [
+      "求最值时，先看条件和所求是否与不等式中的某一项匹配。",
+      "证明复杂不等式时，常将目标式变形，尝试与链中的某项比较。",
+      "遇到对称式求范围，优先考虑此不等式链进行放缩。",
+      "验证取等条件是否满足题目所有约束，是确认最值能否取到的关键。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "代数最值问题",
+      "不等式证明与放缩",
+      "参数范围求解",
+      "对称式化简与比较"
+    ],
+    "problem_types": [
+      "求多元对称式的最值",
+      "证明三元对称不等式",
+      "已知平方和，求和的范围",
+      "已知和，求乘积和的范围"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "I024.svg",
+    "png": "",
+    "mp4": "",
+    "pdf": ""
+  },
+  "shareConfig": {
+    "title": "三元对称不等式链：解决对称式最值与放缩",
+    "shareDesc": "适合课后复盘与刷题前速查，集中处理三元对称代数式的大小比较与最值问题，能快速建立ab+bc+ca、平方和与和的平方之间的联系，减少盲目变形。"
+  },
+  "relations": {
+    "prerequisites": [
+      "完全平方公式",
+      "均值不等式（二元）",
+      "代数恒等变形"
+    ],
+    "related_ids": [],
+    "similar": "柯西不等式、排序不等式、均值不等式的一般形式。"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-04-04"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "不等式-经典不等式-均值不等式",
+  "altNodes": "不等式-等价变形-平方与开方, 代数-式的变形-恒等变形, 函数-综合-函数与不等式"
+}

@@ -1,0 +1,168 @@
+{
+  "id": "I042",
+  "module": "inequality",
+  "core": {
+    "title": "三元循环平方分式不等式",
+    "alias": [
+      "循环平方分式不等式",
+      "x方比y加y方比z加z方比x",
+      "三元分式平方和不等式"
+    ],
+    "summary": "三个正实数的循环平方分式之和，不小于这三个数本身的和。",
+    "difficulty": 3,
+    "category": "不等式",
+    "tags": [
+      "三元循环不等式",
+      "柯西不等式应用",
+      "分式不等式",
+      "对称结构",
+      "齐次不等式"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "三元循环不等式",
+      "分式不等式",
+      "x^2/y + y^2/z + z^2/x",
+      "柯西不等式",
+      "对称不等式",
+      "齐次不等式",
+      "正实数不等式",
+      "取等条件",
+      "最值问题",
+      "证明题",
+      "轮换对称",
+      "平方分式和",
+      "条件xyz=1"
+    ],
+    "synonyms": [
+      "循环分式不等式",
+      "平方分式不等式",
+      "x方除以y",
+      "三元轮换不等式",
+      "三元对称分式"
+    ],
+    "intents": [
+      "证明不等式",
+      "求最小值",
+      "判断不等式成立",
+      "应用不等式解题",
+      "验证取等条件"
+    ],
+    "query_templates": [
+      "怎么证明x方比y加y方比z加z方比x大于等于x+y+z",
+      "已知xyz=1，求x^2/y + y^2/z + z^2/x的最小值",
+      "三元循环平方分式不等式取等条件是什么"
+    ],
+    "ocrKeywords": [
+      "x^2/y",
+      "y^2/z",
+      "z^2/x",
+      "x+y+z",
+      "正实数",
+      "当且仅当",
+      "x=y=z"
+    ],
+    "latex_patterns": [
+      "\\frac{x^{2}}{y} + \\frac{y^{2}}{z} + \\frac{z^{2}}{x} \\geq x + y + z",
+      "\\frac{a^2}{b} + \\frac{b^2}{c} + \\frac{c^2}{a} \\geq a+b+c"
+    ],
+    "formulaTokens": [
+      "\\frac{x^{2}}{y}",
+      "\\frac{y^{2}}{z}",
+      "\\frac{z^{2}}{x}",
+      "x+y+z",
+      "x=y=z",
+      "\\frac{x^{2}}{y}+\\frac{y^{2}}{z}+\\frac{z^{2}}{x}",
+      "\\frac{a^2}{b}+\\frac{b^2}{c}+\\frac{c^2}{a}"
+    ],
+    "pinyin": "sanyuanxunhuanpingfangfenshibudengshi",
+    "pinyinAbbr": "yxhpfcsbds"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.73,
+    "hot_score": 72,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\frac{x^{2}}{y} + \\frac{y^{2}}{z} + \\frac{z^{2}}{x} \\geq x + y + z",
+    "related_formulas": [
+      "\\frac{x^{2}}{y} + \\frac{y^{2}}{z} + \\frac{z^{2}}{x} \\geq \\frac{(x+y+z)^{2}}{x+y+z}",
+      "x + y + z \\geq 3 \\sqrt[3]{xyz} (当 xyz=1 时，\\geq 3)"
+    ],
+    "variables": [
+      "x",
+      "y",
+      "z"
+    ],
+    "conditions": "x > 0, y > 0, z > 0 (均为正实数)",
+    "conclusions": "不等式恒成立，且当且仅当 x = y = z 时取等号。在附加条件（如 xyz=1）下，可进一步用于求最值。"
+  },
+  "content": {
+    "statement": "对于任意正实数 $x, y, z$，恒有 $\\frac{x^{2}}{y} + \\frac{y^{2}}{z} + \\frac{z^{2}}{x} \\geq x + y + z$，当且仅当 $x = y = z$ 时取等。",
+    "derivation": [
+      "方法一（柯西不等式）：$(\\frac{x^{2}}{y} + \\frac{y^{2}}{z} + \\frac{z^{2}}{x})(y+z+x) \\geq (x+y+z)^2$，整理即得。",
+      "方法二（均值不等式）：$\\frac{x^{2}}{y}+y \\geq 2x$，轮换相加并整理可得。"
+    ],
+    "intuition": "每个分式项 $\\frac{x^2}{y}$ 在 $x=y$ 时取到最小值 $x$，但循环结构使得它们无法同时取到各自的最小值，整体的最小值在完全对称时取得，即 $x=y=z$。",
+    "common_tricks": [
+      "识别循环对称结构是应用前提。",
+      "证明时常用柯西不等式或均值不等式进行“配对”放缩。",
+      "求最值问题时，先应用此不等式得到下界 $x+y+z$，再结合其他条件（如乘积定值）进一步放缩。",
+      "务必验证取等条件 $x=y=z$ 是否在题目约束下可实现。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "不等式证明题（中等难度）",
+      "条件最值问题（常与 $xyz=1$ 等条件结合）",
+      "训练对称结构处理能力"
+    ],
+    "problem_types": [
+      "不等式证明",
+      "条件最值求解"
+    ],
+    "exam_frequency": 0.6,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "I042.svg",
+    "png": "",
+    "mp4": "",
+    "geogebra": ""
+  },
+  "shareConfig": {
+    "title": "三元循环平方分式不等式：对称结构最值题速解",
+    "shareDesc": "适合课后复盘和讲评课，集中训练处理循环对称分式结构，解决一类条件最值问题时能快速建立下界，减少盲目尝试。"
+  },
+  "relations": {
+    "prerequisites": [
+      "柯西不等式（或均值不等式）",
+      "不等式的基本性质与变形",
+      "对称式的概念"
+    ],
+    "related_ids": [],
+    "similar": "舒尔不等式、三元均值不等式等也是处理三元对称式的常用工具。"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-04-04"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "不等式-经典不等式-柯西不等式（选修）",
+  "altNodes": "不等式-经典不等式-均值不等式"
+}

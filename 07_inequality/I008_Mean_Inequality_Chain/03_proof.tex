@@ -1,38 +1,50 @@
 \begin{proofbox}
-\textbf{思路提示}
-
-从基本不等式出发，先证 $G \leq A$，再通过倒数关系证 $H \leq G$，最后用平方差证 $A \leq Q$，全程注意取等条件。
+\textbf{\textcolor{CProof}{思路提示}}
+先独立证明核心部分 $GM \le AM$（基本不等式），再利用倒数关系和平方关系，依次向两端（HM 和 QM）延伸，最终串联成链。
 
 \medskip
-\textbf{正式推导}
+\textbf{\textcolor{CProof}{正式推导}}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-    \item[\textbf{步骤一（证 $G \leq A$）：}] 
+    \item[\textbf{步骤一（证明 GM≤AM）：}] 由基本不等式 $(\sqrt{a} - \sqrt{b})^2 \ge 0$ 展开可得。
     \[
-    (\sqrt{a} - \sqrt{b})^2 \geq 0 \;\Rightarrow\; a - 2\sqrt{ab} + b \geq 0 \;\Rightarrow\; \sqrt{ab} \leq \frac{a+b}{2}.
+    \begin{aligned}
+    (\sqrt{a} - \sqrt{b})^2 &\ge 0 \\
+    a - 2\sqrt{ab} + b &\ge 0 \\
+    a + b &\ge 2\sqrt{ab} \\
+    \frac{a+b}{2} &\ge \sqrt{ab}.
+    \end{aligned}
     \]
-    \par\textbf{理由：} 平方非负，展开后移项即得 $G(a,b) \leq A(a,b)$。
+    \par\textbf{理由：}完全平方的非负性是基本不等式的来源。等号成立当且仅当 $\sqrt{a} = \sqrt{b}$，即 $a=b$。
 
-    \item[\textbf{步骤二（证 $H \leq G$）：}] 
-    将 $G \leq A$ 应用于 $\frac{1}{a}, \frac{1}{b}$，得 $\sqrt{\frac{1}{a}\cdot\frac{1}{b}} \leq \frac{\frac{1}{a}+\frac{1}{b}}{2}$，即 $\frac{1}{\sqrt{ab}} \leq \frac{1}{2}\bigl(\frac{1}{a}+\frac{1}{b}\bigr)$。
+    \item[\textbf{步骤二（证明 HM≤GM）：}] 对上一步结论 $\frac{a+b}{2} \ge \sqrt{ab}$ 中的 $a, b$ 同时取倒数，并利用不等式方向不变的性质。
     \[
-    \text{取倒数得 } \sqrt{ab} \geq \frac{2}{\frac{1}{a}+\frac{1}{b}} \;\Rightarrow\; G(a,b) \geq H(a,b).
+    \begin{aligned}
+    \text{令 } a' = \frac{1}{a},\; b' = \frac{1}{b} &\quad (a', b' > 0) \\
+    \frac{a'+b'}{2} &\ge \sqrt{a'b'} \\
+    \frac{\frac{1}{a}+\frac{1}{b}}{2} &\ge \sqrt{\frac{1}{ab}} = \frac{1}{\sqrt{ab}} \\
+    \frac{1}{a}+\frac{1}{b} &\ge \frac{2}{\sqrt{ab}} \\
+    \frac{2}{\frac{1}{a}+\frac{1}{b}} &\le \sqrt{ab}.
+    \end{aligned}
     \]
-    \par\textbf{理由：} 倒数运算反转不等号方向，故 $H \leq G$。
+    \par\textbf{理由：}正实数的倒数仍是正实数，不等式两边同时取倒数（并注意不等号方向因正数而反向）。
 
-    \item[\textbf{步骤三（证 $A \leq Q$）：}] 
-    由 $(a-b)^2 \geq 0$ 得 $a^2+b^2 \geq 2ab$，两边加 $a^2+b^2$ 得 $2(a^2+b^2) \geq (a+b)^2$，即 $\frac{a^2+b^2}{2} \geq \bigl(\frac{a+b}{2}\bigr)^2$。
+    \item[\textbf{步骤三（证明 AM≤QM）：}] 再次利用平方非负性 $(a-b)^2 \ge 0$ 的变形。
     \[
-    \text{开方得 } \sqrt{\frac{a^2+b^2}{2}} \geq \frac{a+b}{2} \;\Rightarrow\; Q(a,b) \geq A(a,b).
+    \begin{aligned}
+    (a-b)^2 &\ge 0 \\
+    a^2 - 2ab + b^2 &\ge 0 \\
+    a^2 + b^2 &\ge 2ab \\
+    2(a^2 + b^2) &\ge a^2 + 2ab + b^2 \\
+    2(a^2 + b^2) &\ge (a+b)^2 \\
+    \frac{(a+b)^2}{4} &\le \frac{a^2+b^2}{2} \\
+    \frac{a+b}{2} &\le \sqrt{\frac{a^2+b^2}{2}}.
+    \end{aligned}
     \]
-    \par\textbf{理由：} 平方差非负推导出平方和与和的关系，开方保持不等号。
-
-    \item[\textbf{步骤四（取等条件）：}] 
-    步骤一等号成立当且仅当 $\sqrt{a}=\sqrt{b}$ 即 $a=b$；步骤二等号成立当且仅当 $\frac{1}{a}=\frac{1}{b}$ 即 $a=b$；步骤三等号成立当且仅当 $a=b$。因此整个链等号成立当且仅当 $a=b$。
-    \par\textbf{理由：} 各步等号条件一致，传递后整体取等条件相同。
+    \par\textbf{理由：}从 $(a-b)^2 \ge 0$ 出发，逐步配凑出 $(a+b)^2$ 与 $a^2+b^2$ 的关系，最后开方（注意两边均为正，开方保序）。
 \end{description}
 
 \medskip
-\textbf{结论回扣}
-
-\textbf{综上，严格证明了对于任意正实数 $a,b$，有 $H(a,b) \leq G(a,b) \leq A(a,b) \leq Q(a,b)$，且等号成立当且仅当 $a=b$。}
+\textbf{\textcolor{CProof}{结论回扣}}
+\textbf{综合步骤一、二、三，我们得到了完整的不等式链：}
+$\frac{2}{\frac{1}{a}+\frac{1}{b}} \le \sqrt{ab} \le \frac{a+b}{2} \le \sqrt{\frac{a^{2}+b^{2}}{2}}$。\textbf{每一步的取等条件均为 $a=b$，故整个不等式链等号成立当且仅当 $a=b$。}
 \end{proofbox}

@@ -1,0 +1,216 @@
+{
+  "id": "I039",
+  "module": "inequality",
+  "core": {
+    "title": "倒数和不等式",
+    "alias": [
+      "倒数和乘积不等式",
+      "和与倒数和之积不等式",
+      "三元倒数和不等式",
+      "n元倒数和不等式"
+    ],
+    "summary": "几个正实数的和乘以它们的倒数和，结果不小于这些数个数的平方。",
+    "difficulty": 2,
+    "category": "不等式",
+    "tags": [
+      "不等式",
+      "倒数和不等式",
+      "柯西不等式",
+      "对称性",
+      "最值问题",
+      "正实数"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "倒数和不等式",
+      "和与倒数和之积",
+      "n个正实数",
+      "n的平方",
+      "三元不等式",
+      "a+b+c",
+      "1/a+1/b+1/c",
+      "不小于9",
+      "取等条件",
+      "柯西不等式推论",
+      "对称不等式",
+      "最值",
+      "正实数条件",
+      "证明不等式",
+      "求最小值"
+    ],
+    "synonyms": [
+      "倒数和公式",
+      "倒数和定理",
+      "倒数和的不等式",
+      "倒数和大于等于n方",
+      "倒数和乘起来",
+      "倒数和相乘",
+      "倒数和乘积",
+      "倒数和不等式n=3",
+      "三元倒数和",
+      "倒数和大于等于9",
+      "倒数和最小",
+      "倒数和最值"
+    ],
+    "intents": [
+      "证明不等式",
+      "求最小值",
+      "判断不等式成立",
+      "寻找取等条件",
+      "应用不等式解题",
+      "推导相关结论"
+    ],
+    "query_templates": [
+      "证明(a+b+c)(1/a+1/b+1/c)≥9",
+      "倒数和不等式怎么用",
+      "倒数和不等式取等条件是什么",
+      "倒数和不等式n=2的情形",
+      "倒数和不等式是柯西不等式的推论吗",
+      "正实数倒数和乘积最小值"
+    ],
+    "ocrKeywords": [
+      "正实数",
+      "和",
+      "倒数和",
+      "乘积",
+      "不小于",
+      "n^2",
+      "9",
+      "等号成立",
+      "所有数相等",
+      "a=b=c"
+    ],
+    "latex_patterns": [
+      "\\left( \\sum_{i=1}^n a_i \\right) \\left( \\sum_{i=1}^n \\frac{1}{a_i} \\right) \\geq n^2",
+      "(a+b+c)\\left(\\frac{1}{a}+\\frac{1}{b}+\\frac{1}{c}\\right) \\geq 9",
+      "(x+y)\\left(\\frac{1}{x}+\\frac{1}{y}\\right) \\geq 4"
+    ],
+    "formulaTokens": [
+      "\\sum_{i=1}^n a_i",
+      "\\sum_{i=1}^n \\frac{1}{a_i}",
+      "\\left( \\sum_{i=1}^n a_i \\right) \\left( \\sum_{i=1}^n \\frac{1}{a_i} \\right)",
+      "n^2",
+      "a+b+c",
+      "\\frac{1}{a}+\\frac{1}{b}+\\frac{1}{c}",
+      "(a+b+c)\\left(\\frac{1}{a}+\\frac{1}{b}+\\frac{1}{c}\\right)",
+      "9",
+      "x+y",
+      "\\frac{1}{x}+\\frac{1}{y}",
+      "(x+y)\\left(\\frac{1}{x}+\\frac{1}{y}\\right)",
+      "4"
+    ],
+    "pinyin": [
+      "dao shu he bu deng shi",
+      "he yu dao shu he zhi ji bu deng shi"
+    ],
+    "pinyinAbbr": [
+      "dshbds",
+      "hydshzbds"
+    ]
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.85,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\left( \\sum_{i=1}^n a_i \\right) \\left( \\sum_{i=1}^n \\frac{1}{a_i} \\right) \\geq n^2",
+    "related_formulas": [
+      "(a+b+c)\\left(\\frac{1}{a}+\\frac{1}{b}+\\frac{1}{c}\\right) \\geq 9",
+      "(x+y)\\left(\\frac{1}{x}+\\frac{1}{y}\\right) \\geq 4"
+    ],
+    "variables": [
+      "a_i",
+      "n",
+      "a",
+      "b",
+      "c",
+      "x",
+      "y"
+    ],
+    "conditions": [
+      "所有 a_i > 0 (i=1,2,...,n)",
+      "n 为正整数"
+    ],
+    "conclusions": [
+      "不等式恒成立，下界为 n^2。",
+      "等号成立当且仅当 a_1 = a_2 = ... = a_n。",
+      "特别地，n=3时，乘积不小于9；n=2时，乘积不小于4。"
+    ]
+  },
+  "content": {
+    "statement": "设 a_1, a_2, ..., a_n 均为正实数，则它们的和与它们的倒数和之积不小于 n 的平方，即 \\left( \\sum_{i=1}^n a_i \\right) \\left( \\sum_{i=1}^n \\frac{1}{a_i} \\right) \\geq n^2。等号成立当且仅当所有 a_i 相等。特别地，当 n=3 时，有 (a+b+c)(1/a+1/b+1/c) ≥ 9，等号成立当且仅当 a=b=c。",
+    "derivation": [
+      "1. 由柯西不等式：(∑ a_i)(∑ 1/a_i) ≥ (∑ √(a_i * 1/a_i))^2。",
+      "2. 化简右边： (∑ 1)^2 = n^2。",
+      "3. 因此原不等式成立，等号成立条件由柯西不等式等号成立条件（对应分量成比例）推出，即所有 a_i 相等。"
+    ],
+    "intuition": "因为正数的倒数和反映了这些数之间的“均匀程度”。当所有数相等时，和与倒数和都取到相对平衡的值，乘积达到最小下界 n^2；若有数偏大或偏小，倒数和会变大，导致乘积超过下界。",
+    "common_tricks": [
+      "直接套用公式，注意变量必须是正实数。",
+      "常用于证明含倒数和的不等式，或求此类表达式的最小值。",
+      "等号条件“所有数相等”是检验解题合理性的关键。",
+      "n=2或3是高考常见情形，需熟记特例。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "不等式证明题",
+      "求多元表达式最值",
+      "对称式化简与放缩",
+      "高考选择题或填空题"
+    ],
+    "problem_types": [
+      "证明不等式",
+      "求最小值",
+      "条件最值问题"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "I039.svg",
+    "png": "",
+    "mp4": "",
+    "geogebra": ""
+  },
+  "shareConfig": {
+    "title": "倒数和不等式：对称式最值与证明速查",
+    "shareDesc": "适合课后复盘与刷题前速查，集中解决含倒数和对称式的最小值问题，证明时能直接套用结论，节省构造柯西不等式的时间。"
+  },
+  "relations": {
+    "prerequisites": [
+      "柯西不等式",
+      "不等式基本性质",
+      "求和符号"
+    ],
+    "related_ids": [],
+    "similar": [
+      "均值不等式",
+      "柯西不等式",
+      "排序不等式"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-04-04"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "不等式-经典不等式-柯西不等式（选修）",
+  "altNodes": "不等式-经典不等式-均值不等式"
+}

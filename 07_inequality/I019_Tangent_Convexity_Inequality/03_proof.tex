@@ -1,0 +1,74 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+利用正切函数的凸性，或通过构造差函数并利用三角恒等式证明其非负；对于推论，结合主定理和三角形内角和性质，利用 Jensen 不等式或对称性推导。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（设差函数）：}] 定义差函数 $D(x,y) = \frac{\tan x + \tan y}{2} - \tan\left(\frac{x+y}{2}\right)$，目标证明 $D(x,y) \geq 0$。
+    \[
+    D(x,y) = \frac{\tan x + \tan y}{2} - \tan\left(\frac{x+y}{2}\right)
+    \]
+    \par\textbf{理由：}
+    将不等式转化为函数非负性问题，便于分析。
+
+    \item[\textbf{步骤二（三角恒等式）：}] 利用正切和公式：$\tan x + \tan y = \frac{\sin(x+y)}{\cos x \cos y}$，以及 $\tan\left(\frac{x+y}{2}\right) = \frac{\sin(x+y)}{1+\cos(x+y)}$。
+    \[
+    \begin{aligned}
+    D(x,y) &= \frac{1}{2} \cdot \frac{\sin(x+y)}{\cos x \cos y} - \frac{\sin(x+y)}{1+\cos(x+y)} \\
+    &= \sin(x+y) \left( \frac{1}{2\cos x \cos y} - \frac{1}{1+\cos(x+y)} \right)
+    \end{aligned}
+    \]
+    \par\textbf{理由：}
+    通过恒等式化简，将差函数表示为公共因子乘以一个表达式。
+
+    \item[\textbf{步骤三（判别符号）：}] 由于 $x,y \in (0, \pi/2)$，有 $\sin(x+y) > 0$，因此只需证明括号内表达式非负。即证明：
+    \[
+    \frac{1}{2\cos x \cos y} \geq \frac{1}{1+\cos(x+y)}
+    \]
+    这等价于 $1+\cos(x+y) \geq 2\cos x \cos y$。
+    \par\textbf{理由：}
+    $\sin(x+y)$ 为正，不影响不等号方向；比较分母大小即可。
+
+    \item[\textbf{步骤四（化简不等式）：}] 利用余弦和公式 $\cos(x+y) = \cos x \cos y - \sin x \sin y$，代入得：
+    \[
+    \begin{aligned}
+    1 + \cos(x+y) &\geq 2\cos x \cos y \\
+    1 + \cos x \cos y - \sin x \sin y &\geq 2\cos x \cos y \\
+    1 - \cos x \cos y - \sin x \sin y &\geq 0 \\
+    1 - (\cos x \cos y + \sin x \sin y) &\geq 0 \\
+    1 - \cos(x-y) &\geq 0
+    \end{aligned}
+    \]
+    \par\textbf{理由：}
+    将不等式逐步化简，最终得到 $\cos(x-y) \leq 1$，这显然成立。
+
+    \item[\textbf{步骤五（取等条件）：}] 等号成立当且仅当 $\cos(x-y) = 1$，即 $x-y = 2k\pi$，但由于 $x,y \in (0, \pi/2)$，所以 $x=y$。
+    \[
+    D(x,y) = 0 \iff \cos(x-y)=1 \iff x=y
+    \]
+    \par\textbf{理由：}
+    $\cos(x-y)=1$ 时，差函数为零；结合角范围得 $x=y$。
+
+    \item[\textbf{步骤六（推广到三角形）：}] 对于锐角三角形 $\triangle ABC$，有 $A,B,C \in (0, \pi/2)$ 且 $A+B+C=\pi$。应用主定理于三组角对，或直接使用 Jensen 不等式。
+    \[
+    \begin{aligned}
+    \tan A + \tan B + \tan C &\geq 3 \tan\left(\frac{A+B+C}{3}\right) \\
+    &= 3 \tan\left(\frac{\pi}{3}\right) = 3 \sqrt{3}
+    \end{aligned}
+    \]
+    \par\textbf{理由：}
+    正切函数在 $(0, \pi/2)$ 是凸函数，由 Jensen 不等式，对于凸函数 $f$，有 $\frac{f(A)+f(B)+f(C)}{3} \geq f\left(\frac{A+B+C}{3}\right)$，这里 $f(x)=\tan x$。
+
+    \item[\textbf{步骤七（三角形取等）：}] 等号成立当且仅当 $A=B=C$，即三角形为等边三角形。
+    \[
+    \tan A + \tan B + \tan C = 3\sqrt{3} \iff A=B=C=\frac{\pi}{3}
+    \]
+    \par\textbf{理由：}
+    Jensen 不等式等号成立当且仅当所有变量相等。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+\textbf{因此，主定理和推论得证：在 $(0, \pi/2)$ 内，正切函数满足凸性不等式；在锐角三角形中，正切和的最小值为 $3\sqrt{3}$，当且仅当三角形等边时取得。}
+\end{proofbox}

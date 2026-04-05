@@ -1,0 +1,40 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+基本形式和乘积形式等价，可由均值不等式或柯西不等式直接证明。
+权方和形式是柯西不等式的二维特例，证明采用“平方和配凑”或柯西直接展开。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（均值证明）：}] 由 $x,y>0$，根据算术-几何均值不等式，
+    \[
+    \frac{x+y}{2} \ge \sqrt{xy} \quad \Rightarrow \quad (x+y)^2 \ge 4xy.
+    \]
+    \par\textbf{理由：} 对正数 $x,y$ 应用基本均值不等式。
+    \item[\textbf{步骤二（倒数和形式）：}] 由 $(x+y)^2 \ge 4xy$，两边同除以正数 $xy(x+y)$，得
+    \[
+    \frac{x+y}{xy} \ge \frac{4}{x+y} \quad \Rightarrow \quad \frac{1}{y} + \frac{1}{x} \ge \frac{4}{x+y}.
+    \]
+    \par\textbf{理由：} $xy(x+y)>0$，不等式方向不变，通分即得倒数和形式。
+    \item[\textbf{步骤三（乘积形式）：}] 将倒数和形式两边同乘以 $(x+y)$，得
+    \[
+    (x+y)\left(\frac{1}{x}+\frac{1}{y}\right) \ge 4.
+    \]
+    \par\textbf{理由：} $(x+y)>0$，不等式方向不变，直接相乘即可。
+    \item[\textbf{步骤四（权方和证明）：}] 由柯西不等式 $(a_1^2+a_2^2)(b_1^2+b_2^2) \ge (a_1b_1+a_2b_2)^2$，取
+    \[
+    a_1 = \frac{a}{\sqrt{x}},\; a_2 = \frac{b}{\sqrt{y}},\; b_1 = \sqrt{x},\; b_2 = \sqrt{y}.
+    \]
+    则左边为 $\left(\frac{a^2}{x}+\frac{b^2}{y}\right)(x+y)$，右边为 $(a+b)^2$。
+    \par\textbf{理由：} 这是柯西不等式的标准构造，注意平方根与分母匹配。
+    \item[\textbf{步骤五（整理得结论）：}] 由于 $x+y>0$，将上步两边同除以 $(x+y)$ 即得
+    \[
+    \frac{a^2}{x} + \frac{b^2}{y} \ge \frac{(a+b)^2}{x+y}.
+    \]
+    \par\textbf{理由：} 除以正数不改变不等号方向。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+\textbf{以上推导严格证明了三个不等式形式。} 取等条件分别对应均值等号成立（$x=y$）以及柯西等号成立（$a/\sqrt{x}:\sqrt{x} = b/\sqrt{y}:\sqrt{y}$，即 $a/x = b/y$）。
+\end{proofbox}

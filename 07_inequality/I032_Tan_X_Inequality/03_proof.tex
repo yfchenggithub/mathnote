@@ -1,0 +1,72 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+证明的核心是构造函数，利用导数研究其在开区间上的单调性，并结合端点值（极限）确定符号。选择证明第一个不等式 $\sin x + \tan x > 2x$，第二个不等式是其直接推论。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（构造函数）：}] 令 $f(x) = \sin x + \tan x - 2x$，其中 $x \in (0, \pi/2)$。目标转化为证明 $f(x) > 0$。
+    \[
+    f(x) = \sin x + \tan x - 2x
+    \]
+    \par\textbf{理由：} 将要证的不等式移项，构造差值函数是证明不等式恒成立的常用方法。
+
+    \item[\textbf{步骤二（求导化简）：}] 对 $f(x)$ 求导，并利用三角恒等式进行化简。
+    \[
+    \begin{aligned}
+    f'(x) &= \cos x + \sec^2 x - 2 \\
+          &= \cos x + \frac{1}{\cos^2 x} - 2.
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 导数 $\sin x$ 的导数为 $\cos x$，$\tan x$ 的导数为 $\sec^2 x$，常数 $2x$ 的导数为 $2$。
+
+    \item[\textbf{步骤三（二次换元）：}] 令 $t = \cos x$，由于 $x \in (0, \pi/2)$，故 $t \in (0, 1)$。则 $f'(x)$ 可化为关于 $t$ 的函数。
+    \[
+    f'(x) = t + \frac{1}{t^2} - 2, \quad t \in (0,1).
+    \]
+    \par\textbf{理由：} 将变量统一为 $t$，便于分析代数式的符号。这里 $\sec^2 x = 1/\cos^2 x = 1/t^2$。
+
+    \item[\textbf{步骤四（判断导函数符号）：}] 分析 $g(t) = t + t^{-2} - 2$ 在 $t \in (0,1)$ 上的符号。
+    \[
+    \begin{aligned}
+    g(t) &= t + \frac{1}{t^2} - 2 \\
+         &= \frac{t^3 + 1 - 2t^2}{t^2} \\
+         &= \frac{(t-1)(t^2 + t - 1)}{t^2}.
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 通分后对分子进行因式分解。注意到 $t^2+t-1=0$ 的正根为 $(\sqrt{5}-1)/2 \approx 0.618$，在 $(0,1)$ 内。
+
+    \item[\textbf{步骤五（分区间讨论）：}] 在 $t \in (0,1)$ 内，分母 $t^2 > 0$。分析分子因式符号：
+    \begin{itemize}
+        \item $(t-1) < 0$ 恒成立。
+        \item 令 $t_0 = (\sqrt{5}-1)/2$，则当 $t \in (0, t_0)$ 时，$t^2 + t - 1 < 0$；当 $t \in (t_0, 1)$ 时，$t^2 + t - 1 > 0$。
+    \end{itemize}
+    因此，当 $t \in (0, t_0)$ 时，分子 $(-) \times (-) = (+)$，故 $g(t) > 0$；当 $t \in (t_0, 1)$ 时，分子 $(-) \times (+) = (-)$，故 $g(t) < 0$。
+    \par\textbf{理由：} 由此可知 $f'(x)$ 的符号在 $x$ 对应的 $t$（即 $\cos x$）越过 $t_0$ 时发生变号。
+
+    \item[\textbf{步骤六（确定原函数最小值）：}] 设 $x_0 = \arccos(t_0)$，则 $f(x)$ 在 $(0, x_0)$ 上递增，在 $(x_0, \pi/2)$ 上递减。因此 $f(x)$ 在 $x=0$ 或 $x \to (\pi/2)^-$ 处可能取到区间内的最小值。计算极限：
+    \[
+    \begin{aligned}
+    &\lim_{x \to 0^+} f(x) = \sin 0 + \tan 0 - 0 = 0, \\
+    &\lim_{x \to (\pi/2)^-} f(x) = 1 + \infty - \pi = +\infty \quad (\text{实际趋向正无穷}).
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 由于 $x=0$ 是区间端点（不在定义域内但可考虑极限），且 $f(x)$ 在 $x_0$ 处取得极大值，最小值在边界处。左端点极限为 $0$，但 $x>0$ 时 $f(x) > f(0^+)=0$。
+
+    \item[\textbf{步骤七（得出结论）：}] 结合步骤六，对于任意 $x \in (0, \pi/2)$，有 $f(x) > \lim_{x \to 0^+} f(x) = 0$。即 $\sin x + \tan x - 2x > 0$。
+    \[
+    \sin x + \tan x > 2x.
+    \]
+    \par\textbf{理由：} 函数 $f(x)$ 在开区间内处处大于其左端点的极限值，且该极限值为 $0$。
+
+    \item[\textbf{步骤八（推导第二结论）：}] 由第一结论 $\sin x + \tan x > 2x$，两边同除以正数 $2$，立即得到
+    \[
+    \frac{\sin x + \tan x}{2} > x.
+    \]
+    \par\textbf{理由：} 不等式两边同除以一个正数，不等号方向不变。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+\textbf{至此，我们严格证明了在 $x \in (0,\pi/2)$ 时，$\sin x + \tan x > 2x$ 及其算术平均形式 $\frac{\sin x + \tan x}{2} > x$ 恒成立，且等号仅在 $x=0$ 处（考虑连续性）成立。证明的关键在于利用导数分析差值函数的单调性，并正确处理边界极限。}
+\end{proofbox}

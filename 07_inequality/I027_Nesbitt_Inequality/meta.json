@@ -1,0 +1,182 @@
+{
+  "id": "I027",
+  "module": "inequality",
+  "core": {
+    "title": "互为倒数和不等式",
+    "alias": [
+      "倒数不等式",
+      "x+1/x不等式",
+      "同号倒数和不小于2",
+      "异号倒数和不大于-2"
+    ],
+    "summary": "两个非零实数互为倒数的和，同号时不小于2，异号时不大于-2。",
+    "difficulty": 1,
+    "category": "不等式",
+    "tags": [
+      "基本不等式",
+      "倒数结构",
+      "代数变形",
+      "最值问题",
+      "等号成立条件"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "互为倒数和",
+      "x+1/x",
+      "a/b+b/a",
+      "倒数不等式",
+      "同号倒数",
+      "异号倒数",
+      "最小值2",
+      "最大值-2",
+      "基本不等式推论",
+      "代数最值",
+      "分式不等式",
+      "符号判断",
+      "等号成立条件",
+      "a=b"
+    ],
+    "synonyms": [
+      "倒数相加",
+      "倒数和",
+      "x加x分之一",
+      "a分之b加b分之a",
+      "互为倒数相加",
+      "倒过来相加"
+    ],
+    "intents": [
+      "求最值",
+      "证明不等式",
+      "判断取值范围",
+      "确定符号条件",
+      "验证等号成立"
+    ],
+    "query_templates": [
+      "x+1/x的最小值怎么求？",
+      "a/b+b/a的取值范围是什么？",
+      "互为倒数的两个数相加有什么性质？",
+      "证明x+1/x≥2",
+      "什么时候a/b+b/a≤-2？"
+    ],
+    "ocrKeywords": [
+      "非零实数",
+      "ab>0",
+      "ab<0",
+      "≥2",
+      "≤-2",
+      "a=b",
+      "等号成立"
+    ],
+    "latex_patterns": [
+      "\\frac{a}{b}+\\frac{b}{a}",
+      "x+\\frac{1}{x}",
+      "\\geq 2",
+      "\\leq -2",
+      "ab>0",
+      "ab<0"
+    ],
+    "formulaTokens": [
+      "\\frac{a}{b}+\\frac{b}{a}",
+      "x+\\frac{1}{x}",
+      "\\frac{a}{b}",
+      "\\frac{b}{a}",
+      "ab>0",
+      "ab<0",
+      "a=b",
+      "x=1"
+    ],
+    "pinyin": "huweidaoshuhebudengshi",
+    "pinyinAbbr": "hwdsbhds"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.77,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\text{若 } ab > 0,\\quad \\frac{a}{b} + \\frac{b}{a} \\geq 2;\\quad \\text{若 } ab < 0,\\quad \\frac{a}{b} + \\frac{b}{a} \\leq -2.",
+    "related_formulas": [
+      "x+\\frac{1}{x} \\geq 2 \\quad (x>0)",
+      "(\\sqrt{x}-\\frac{1}{\\sqrt{x}})^2 \\geq 0"
+    ],
+    "variables": [
+      "a",
+      "b",
+      "x"
+    ],
+    "conditions": "a, b 为非零实数；必须明确 ab 的符号（>0 或 <0）。",
+    "conclusions": "同号时和为下界2；异号时和为上界-2；等号成立当且仅当 a=b（或 x=1），但异号时等号实际不可取。"
+  },
+  "content": {
+    "statement": "设 a, b 为非零实数。\n1. 若 ab > 0，则 \\frac{a}{b} + \\frac{b}{a} \\geq 2；\n2. 若 ab < 0，则 \\frac{a}{b} + \\frac{b}{a} \\leq -2。\n等号成立当且仅当 a = b。特别地，当 ab > 0 时，令 x = \\frac{a}{b} > 0，则 x + \\frac{1}{x} \\geq 2。",
+    "derivation": [
+      "核心：利用完全平方的非负性。",
+      "步骤1：考虑 (\\sqrt{\\frac{a}{b}} - \\sqrt{\\frac{b}{a}})^2 \\geq 0。",
+      "步骤2：展开得 \\frac{a}{b} + \\frac{b}{a} - 2 \\geq 0，即 \\frac{a}{b} + \\frac{b}{a} \\geq 2（当 ab>0）。",
+      "步骤3：若 ab<0，令 a' = -a，则 a'b>0，应用上述结论并调整符号可得 \\frac{a}{b} + \\frac{b}{a} \\leq -2。"
+    ],
+    "intuition": "正数与其倒数的和，在‘自己’和‘自己的倒数’相等（即都为1）时取得最小和2；若一正一负，则和为负，且当它们互为相反数时（绝对值相等），和的绝对值最小为2，但本身是负数，所以是不大于-2。",
+    "common_tricks": [
+      "看到 x+1/x 或 a/b+b/a 结构，优先考虑此不等式。",
+      "使用前务必先判断变量符号，否则可能用错方向。",
+      "异号情况下，等号条件 a=b 与前提矛盾，实际取不到，范围是开区间。",
+      "可令 t = a/b 或 x = a/b 进行换元，化为单变量问题。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "求分式表达式的最值",
+      "证明简单不等式",
+      "代数式取值范围判断",
+      "符号讨论类问题"
+    ],
+    "problem_types": [
+      "最值问题",
+      "不等式证明",
+      "取值范围求解",
+      "条件判断"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "I027.svg",
+    "png": "",
+    "mp4": "",
+    "geogebra": ""
+  },
+  "shareConfig": {
+    "title": "互为倒数和不等式：分式最值与符号判断速查",
+    "shareDesc": "适合课后复盘和刷题前速查，集中解决形如x+1/x或a/b+b/a的最值问题，避免符号判断错误，提升代数变形题的稳定性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "完全平方公式",
+      "实数大小比较与符号判断"
+    ],
+    "related_ids": [],
+    "similar": "均值不等式（特例）、平方非负性"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-04-04"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "不等式-经典不等式-均值不等式",
+  "altNodes": "不等式-基本性质-比较性质, 代数-式的变形-恒等变形"
+}

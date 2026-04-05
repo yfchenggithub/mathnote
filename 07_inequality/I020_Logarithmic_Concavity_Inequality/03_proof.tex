@@ -1,0 +1,47 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+
+利用函数 $f(t) = \ln t$ 的凹性，通过导数或定义证明不等式。这里采用导数法证明凹性，再应用凹函数性质。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（函数凹性）：}] 考虑 $f(t) = \ln t$，计算其二阶导数。
+    \[
+    f'(t) = \frac{1}{t}, \quad f''(t) = -\frac{1}{t^2}.
+    \]
+    \par\textbf{理由：}
+    由于 $t > 0$，$f''(t) < 0$，故 $f(t)$ 在 $(0, +\infty)$ 上是凹函数。
+
+    \item[\textbf{步骤二（凹函数性质）：}] 对于凹函数，有 Jensen 不等式：对任意 $x, y > 0$ 和 $\lambda \in [0,1]$，
+    \[
+    \lambda f(x) + (1-\lambda) f(y) \leq f(\lambda x + (1-\lambda) y).
+    \]
+    取 $\lambda = \frac{1}{2}$，即得
+    \[
+    \frac{f(x) + f(y)}{2} \leq f\!\left( \frac{x+y}{2} \right).
+    \]
+    \par\textbf{理由：}
+    Jensen 不等式是凹函数的直接性质，当权重相等时简化。
+
+    \item[\textbf{步骤三（代入函数）：}] 将 $f(t) = \ln t$ 代入上式。
+    \[
+    \frac{\ln x + \ln y}{2} \leq \ln\!\left( \frac{x+y}{2} \right).
+    \]
+    \par\textbf{理由：}
+    直接替换 $f$ 的定义即得主结论。
+
+    \item[\textbf{步骤四（推广证明）：}] 对于 $n$ 个正实数 $x_1, x_2, \dots, x_n$，同样由 $f$ 的凹性和 Jensen 不等式，
+    \[
+    \frac{1}{n} \sum_{i=1}^{n} f(x_i) \leq f\!\left( \frac{1}{n} \sum_{i=1}^{n} x_i \right).
+    \]
+    代入 $f(t) = \ln t$ 即得推广结论。
+    \par\textbf{理由：}
+    Jensen 不等式对有限个点成立，权重为 $\frac{1}{n}$。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+
+\textbf{因此，对数函数 $f(t)=\ln t$ 的凹性保证了所述不等式成立，且等号仅在所有变量相等时取得。}
+\end{proofbox}

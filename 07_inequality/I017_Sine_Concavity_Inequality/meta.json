@@ -1,0 +1,192 @@
+{
+  "id": "I017",
+  "module": "trigonometry",
+  "core": {
+    "title": "正弦函数凹性不等式",
+    "alias": [
+      "正弦凹性放缩",
+      "三角形正弦和最大值",
+      "Jensen不等式正弦应用",
+      "正弦函数中点不等式"
+    ],
+    "summary": "正弦函数在(0,π)上是凹函数，所以函数值的平均小于等于中点处的函数值。",
+    "difficulty": 3,
+    "category": "三角函数",
+    "tags": [
+      "凹凸性",
+      "Jensen不等式",
+      "三角形不等式",
+      "放缩技巧",
+      "最值问题"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "正弦函数凹性",
+      "sinx+siny放缩",
+      "三角形正弦和最大值",
+      "Jensen不等式正弦",
+      "凹函数不等式",
+      "sinA+sinB+sinC",
+      "正弦中点不等式",
+      "三角函数放缩",
+      "三角形内角正弦",
+      "正弦函数凹凸性",
+      "不等式证明",
+      "最值问题",
+      "取等条件",
+      "正三角形"
+    ],
+    "synonyms": [
+      "正弦凹性",
+      "sinx加siny",
+      "三角形sin和",
+      "正弦不等式",
+      "凹性放缩",
+      "正弦函数凸凹性",
+      "sin函数凹凸"
+    ],
+    "intents": [
+      "证明不等式",
+      "求最值",
+      "判断函数凹凸性",
+      "三角形内角放缩",
+      "应用Jensen不等式"
+    ],
+    "query_templates": [
+      "sinx+siny小于等于什么",
+      "三角形中sinA+sinB+sinC最大值",
+      "怎么证明正弦函数是凹函数",
+      "正弦函数凹性怎么用",
+      "sinA+sinB小于等于2cosC/2怎么证"
+    ],
+    "ocrKeywords": [
+      "sinx+siny",
+      "sinA+sinB+sinC",
+      "凹函数",
+      "取等条件",
+      "正三角形",
+      "最大值"
+    ],
+    "latex_patterns": [
+      "\\frac{\\sin x + \\sin y}{2} \\leq \\sin\\left(\\frac{x+y}{2}\\right)",
+      "\\frac{\\sin A + \\sin B + \\sin C}{3} \\leq \\frac{\\sqrt{3}}{2}",
+      "\\sin A + \\sin B \\leq 2 \\cos\\frac{C}{2}"
+    ],
+    "formulaTokens": [
+      "\\frac{\\sin x + \\sin y}{2}",
+      "\\sin\\left(\\frac{x+y}{2}\\right)",
+      "\\frac{\\sin A + \\sin B + \\sin C}{3}",
+      "\\frac{\\sqrt{3}}{2}",
+      "\\sin A + \\sin B",
+      "2 \\cos\\frac{C}{2}",
+      "x+y",
+      "A+B+C",
+      "\\pi"
+    ],
+    "pinyin": "zheng xian han shu ao xing bu deng shi",
+    "pinyinAbbr": "zxhsaxbds"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.83,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\frac{\\sin x + \\sin y}{2} \\leq \\sin\\!\\left(\\frac{x+y}{2}\\right)",
+    "related_formulas": [
+      "\\frac{\\sin A + \\sin B + \\sin C}{3} \\leq \\sin\\frac{\\pi}{3} = \\frac{\\sqrt{3}}{2}",
+      "\\sin A + \\sin B \\leq 2 \\cos\\frac{C}{2}"
+    ],
+    "variables": [
+      "x",
+      "y",
+      "A",
+      "B",
+      "C"
+    ],
+    "conditions": [
+      "x, y ∈ (0, π)",
+      "A, B, C 为三角形内角 (即 A, B, C ∈ (0, π) 且 A+B+C=π)"
+    ],
+    "conclusions": [
+      "sinx+siny ≤ 2sin((x+y)/2)",
+      "sinA+sinB+sinC ≤ (3√3)/2",
+      "等号成立条件：x=y 或 A=B=C=π/3 (正三角形)"
+    ]
+  },
+  "content": {
+    "statement": "设 x, y ∈ (0, π)，则 (sin x + sin y)/2 ≤ sin((x+y)/2)。特别地，若 A, B, C 为三角形内角，则 (sin A + sin B + sin C)/3 ≤ sin(π/3) = √3/2。等号成立当且仅当 x=y，或 △ABC 为正三角形。",
+    "derivation": [
+      "第一步：确认正弦函数 f(t)=sin t 在 (0,π) 上二阶导 f''(t) = -sin t < 0，故为凹函数。",
+      "第二步：应用凹函数的 Jensen 不等式：对于凹函数，函数值的算术平均不大于自变量中点处的函数值。",
+      "第三步：在三角形中，A+B+C=π，故 (A+B+C)/3 = π/3，代入中点公式即得推广形式。"
+    ],
+    "intuition": "因为正弦函数在(0,π)上图像是向上凸的（凹函数），所以连接曲线上两点的弦在中点处位于曲线下方。",
+    "common_tricks": [
+      "遇到三角形内角正弦和的最值问题，直接套用结论。",
+      "证明含 sinx+siny 的不等式时，优先考虑凹性放缩。",
+      "取等条件常与对称性（x=y 或 A=B=C）相关，可用于检验。",
+      "与诱导公式结合，可推导出如 sinA+sinB ≤ 2cos(C/2) 等变形。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "解三角形中的最值问题",
+      "证明三角函数不等式",
+      "压轴题中的放缩步骤",
+      "几何不等式与函数性质综合题"
+    ],
+    "problem_types": [
+      "证明题",
+      "最值问题",
+      "解三角形综合题"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "I017.svg",
+    "png": "",
+    "mp4": "",
+    "pdf": ""
+  },
+  "shareConfig": {
+    "title": "正弦函数凹性放缩：三角形最值与不等式证明",
+    "shareDesc": "适合解三角形和不等式证明题复盘，直接给出 sinA+sinB+sinC 的最大值，解决最值问题时能节省放缩构造步骤，提升证明题的书写效率。"
+  },
+  "relations": {
+    "prerequisites": [
+      "函数凹凸性的定义与判定",
+      "Jensen不等式",
+      "三角形内角和定理"
+    ],
+    "related_ids": [],
+    "similar": [
+      "余弦函数的凸性（在(0,π)上为凸函数）",
+      "对数函数的凹凸性应用",
+      "幂平均不等式"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-04-04"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "三角函数-性质-单调性",
+  "altNodes": "不等式-经典不等式-均值不等式, 函数-性质-单调性"
+}

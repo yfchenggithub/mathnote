@@ -1,0 +1,179 @@
+{
+  "id": "I020",
+  "module": "function",
+  "core": {
+    "title": "对数平均不等式",
+    "alias": [
+      "对数均值不等式",
+      "对数函数的凸性不等式",
+      "ln的凹性不等式",
+      "对数函数Jensen不等式"
+    ],
+    "summary": "对数函数是凹函数，所以对数的算术平均不超过算术平均的对数。",
+    "difficulty": 2,
+    "category": "函数",
+    "tags": [
+      "对数函数",
+      "凸性/凹性",
+      "Jensen不等式",
+      "均值不等式",
+      "函数性质"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "对数平均不等式",
+      "对数均值不等式",
+      "ln(x+y)/2",
+      "(lnx+lny)/2",
+      "对数函数凸性",
+      "对数函数凹性",
+      "Jensen不等式对数",
+      "算术平均对数",
+      "对数算术平均",
+      "正实数对数不等式",
+      "取等条件",
+      "推广n个正实数",
+      "比较大小",
+      "证明不等式"
+    ],
+    "synonyms": [
+      "对数平均",
+      "对数均值",
+      "ln平均",
+      "对数凹凸性",
+      "严家谢不等式（错）",
+      "对数中值（口语）"
+    ],
+    "intents": [
+      "比较大小",
+      "证明不等式",
+      "判断函数凹凸性",
+      "求取等条件",
+      "推广到多个数"
+    ],
+    "query_templates": [
+      "比较(ln a + ln b)/2和ln((a+b)/2)的大小",
+      "证明对数平均不等式",
+      "对数函数是凸函数还是凹函数？有什么不等式？",
+      "x,y>0时，(lnx+lny)/2和ln((x+y)/2)哪个大？"
+    ],
+    "ocrKeywords": [
+      "lnx+lny",
+      "x+y/2",
+      "正实数",
+      "当且仅当",
+      "取等",
+      "推广",
+      "Jensen"
+    ],
+    "latex_patterns": [
+      "\\frac{\\ln x + \\ln y}{2} \\leq \\ln\\!\\left( \\frac{x+y}{2} \\right)",
+      "\\frac{1}{n} \\sum_{i=1}^{n} \\ln x_i \\leq \\ln\\!\\left( \\frac{1}{n} \\sum_{i=1}^{n} x_i \\right)",
+      "\\ln\\!\\left( \\frac{x+y}{2} \\right) - \\frac{\\ln x + \\ln y}{2} \\geq 0"
+    ],
+    "formulaTokens": [
+      "(\\ln x + \\ln y)/2",
+      "\\ln((x+y)/2)",
+      "(\\ln x + \\ln y)/2 \\leq \\ln((x+y)/2)",
+      "\\sum \\ln x_i",
+      "\\ln(\\sum x_i / n)",
+      "(1/n)\\sum \\ln x_i \\leq \\ln((1/n)\\sum x_i)",
+      "\\ln\\sqrt{xy}",
+      "(x+y)/2",
+      "\\sqrt{xy}"
+    ],
+    "pinyin": "duishupingjunbudengshi",
+    "pinyinAbbr": "dspjbds"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.85,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\frac{\\ln x + \\ln y}{2} \\leq \\ln\\!\\left( \\frac{x+y}{2} \\right)",
+    "related_formulas": [
+      "\\frac{1}{n} \\sum_{i=1}^{n} \\ln x_i \\leq \\ln\\!\\left( \\frac{1}{n} \\sum_{i=1}^{n} x_i \\right)",
+      "\\ln\\!\\left( \\frac{x+y}{2} \\right) \\geq \\ln\\sqrt{xy}"
+    ],
+    "variables": [
+      "x",
+      "y",
+      "x_i",
+      "n"
+    ],
+    "conditions": "x, y, x_i ∈ (0, +∞)；n为正整数。",
+    "conclusions": "1. 等号成立当且仅当 x = y（二元）或所有 x_i 相等（多元）。\n2. 可推导出 (x+y)/2 ≥ √(xy)（取指数）。\n3. 是函数 f(t)=ln t 凹性的直接体现。"
+  },
+  "content": {
+    "statement": "设 x, y 为任意正实数，则有不等式：对数的算术平均不超过算术平均的对数，即 (ln x + ln y)/2 ≤ ln((x+y)/2)。等号成立当且仅当 x = y。此结论可推广至任意有限个正实数。",
+    "derivation": [
+      "第一步：确认函数 f(t) = ln t 在 (0, +∞) 上二阶导数 f''(t) = -1/t² < 0，故为凹函数。",
+      "第二步：由凹函数的 Jensen 不等式，对于两点 x, y 及权重均为 1/2，有 f((x+y)/2) ≥ (f(x)+f(y))/2。",
+      "第三步：代入 f(t)=ln t，即得 (ln x + ln y)/2 ≤ ln((x+y)/2)。"
+    ],
+    "intuition": "因为对数函数图像是向上凸的（凹函数），所以连接图像上两点的弦的中点，位于函数图像对应点的下方。",
+    "common_tricks": [
+      "比较大小题直接套用结论。",
+      "证明题常作为中间步骤，联系算术平均与几何平均。",
+      "遇到多个正实数对数求和时，考虑推广形式。",
+      "取等条件务必检查变量是否相等。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "函数性质综合题",
+      "不等式证明题（作为引理）",
+      "比较大小题（含对数与线性运算）",
+      "理解函数凹凸性的具体例子"
+    ],
+    "problem_types": [
+      "比较大小",
+      "证明题",
+      "填空题"
+    ],
+    "exam_frequency": 0.3,
+    "exam_score": 4
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "I020.svg",
+    "png": "",
+    "mp4": "",
+    "pdf": ""
+  },
+  "shareConfig": {
+    "title": "对数平均不等式：比较大小与凹凸性判断",
+    "shareDesc": "适合课后复盘与讲评课，集中解决含对数的比较大小题，直接套用结论可节省变形步骤，并加深对函数凹凸性的理解。"
+  },
+  "relations": {
+    "prerequisites": [
+      "对数函数的定义与基本性质",
+      "函数的凹凸性定义",
+      "算术平均与几何平均不等式"
+    ],
+    "related_ids": [],
+    "similar": "算术-几何-调和均值不等式链；其他凹函数（如根号函数）的类似不等式。"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-04-04"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "函数-特殊函数-对数函数",
+  "altNodes": "不等式-经典不等式-均值不等式, 函数-性质-单调性"
+}

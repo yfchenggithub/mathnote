@@ -1,0 +1,48 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+考虑构造辅助函数 $f(x) = \cos x - \left(1 - \frac{x^2}{2}\right)$，利用导数研究其单调性与最值，证明 $f(x) \ge 0$。这是处理函数不等式的通用方法。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（构造函数）：}] 令 $f(x) = \cos x - 1 + \frac{x^2}{2}$。则原不等式等价于证明 $f(x) \ge 0$ 对任意 $x \in \mathbb{R}$ 成立。
+    \[
+    f(x) = \cos x + \frac{x^{2}}{2} - 1
+    \]
+    \par\textbf{理由：}
+    将原不等式 $\cos x \geq 1 - \frac{x^2}{2}$ 移项，使右边为零，便于分析。
+
+    \item[\textbf{步骤二（求导判单调）：}] 求 $f(x)$ 的一阶导数和二阶导数。
+    \[
+    \begin{aligned}
+        f'(x) &= -\sin x + x, \\
+        f''(x) &= -\cos x + 1.
+    \end{aligned}
+    \]
+    \par\textbf{理由：}
+    导数是研究函数单调性的工具。特别地，二阶导数 $f''(x) = 1 - \cos x \ge 0$，因为 $\cos x \le 1$。
+
+    \item[\textbf{步骤三（分析一阶导）：}] 由于 $f''(x) \ge 0$ 恒成立，所以一阶导数 $f'(x)$ 在 $\mathbb{R}$ 上单调不减。
+    \par\textbf{理由：}
+    二阶导数非负意味着一阶导数单调不减。计算 $f'(0) = -\sin 0 + 0 = 0$。因此，当 $x < 0$ 时，$f'(x) \le f'(0) = 0$；当 $x > 0$ 时，$f'(x) \ge f'(0) = 0$。
+
+    \item[\textbf{步骤四（确定原函数最值）：}] 由 $f'(x)$ 的符号变化可知，$f(x)$ 在 $(-\infty, 0]$ 上单调递减，在 $[0, +\infty)$ 上单调递增。
+    \[
+    \text{故 } x=0 \text{ 是 } f(x) \text{ 的唯一极小值点，也是最小值点。}
+    \]
+    \par\textbf{理由：}
+    单调性分析表明，$f(x)$ 在 $x=0$ 处取得全局最小值。
+
+    \item[\textbf{步骤五（计算最小值）：}] 计算 $f(0)$ 的值。
+    \[
+    f(0) = \cos 0 + \frac{0^{2}}{2} - 1 = 1 + 0 - 1 = 0.
+    \]
+    \par\textbf{理由：}
+    因此，对任意实数 $x$，有 $f(x) \ge f(0) = 0$。
+
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+\textbf{由此证明了 $f(x) \ge 0$ 恒成立，即 $\cos x \geq 1 - \frac{x^2}{2}$ 对任意 $x \in \mathbb{R}$ 成立。且等号成立当且仅当 $x=0$，此时 $f(x)$ 取到最小值 $0$。}
+\end{proofbox}

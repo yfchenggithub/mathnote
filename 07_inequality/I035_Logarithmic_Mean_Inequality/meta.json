@@ -1,0 +1,186 @@
+{
+  "id": "I035",
+  "module": "function",
+  "core": {
+    "title": "ln(1+x)在x≥0时的二阶不等式估计",
+    "alias": [
+      "对数函数放缩",
+      "ln(1+x)不等式",
+      "对数有理分式夹逼",
+      "对数函数上下界"
+    ],
+    "summary": "当x≥0时，ln(1+x)可以用两个有理分式上下夹逼，并有更紧的下界和可选的高阶上界。",
+    "difficulty": 3,
+    "category": "函数与导数",
+    "tags": [
+      "对数函数放缩",
+      "不等式估计",
+      "泰勒展开应用",
+      "函数逼近",
+      "导数工具"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "ln(1+x)不等式",
+      "对数函数放缩",
+      "二阶不等式",
+      "有理分式夹逼",
+      "x≥0",
+      "对数函数上下界",
+      "稳健双边估计",
+      "标准下界",
+      "三阶上界",
+      "泰勒展开",
+      "函数逼近",
+      "导数证明",
+      "估值问题",
+      "取等条件"
+    ],
+    "synonyms": [
+      "ln(1加x)不等式",
+      "对数1加x放缩",
+      "对数函数不等式",
+      "对数夹逼公式",
+      "对数上下限",
+      "ln不等式",
+      "对数有理函数估计"
+    ],
+    "intents": [
+      "证明不等式",
+      "估计函数值",
+      "比较大小",
+      "求上下界",
+      "放缩化简",
+      "导数应用"
+    ],
+    "query_templates": [
+      "ln(1+x)的不等式有哪些",
+      "怎么证明ln(1+x)大于某个式子",
+      "x≥0时ln(1+x)的范围怎么求",
+      "对数函数放缩常用公式",
+      "ln(1+x)的上下界怎么找"
+    ],
+    "ocrKeywords": [
+      "ln(1+x)",
+      "不等式",
+      "x≥0",
+      "上下界",
+      "夹逼",
+      "有理分式",
+      "等号成立"
+    ],
+    "latex_patterns": [
+      "\\ln(1+x)",
+      "\\frac{2x}{x+2}",
+      "\\frac{x(x+2)}{2(x+1)}",
+      "x-\\frac{x^{2}}{2(1+x)}",
+      "x-\\frac{x^{2}}{2}+\\frac{x^{3}}{3}"
+    ],
+    "formulaTokens": [
+      "\\ln(1+x)",
+      "\\frac{2x}{x+2}",
+      "\\frac{x(x+2)}{2(x+1)}",
+      "x-\\frac{x^{2}}{2(1+x)}",
+      "x-\\frac{x^{2}}{2}+\\frac{x^{3}}{3}",
+      "\\frac{\\ln(1+x)}{x}",
+      "\\frac{2}{x+2}",
+      "\\frac{x+2}{2(x+1)}"
+    ],
+    "pinyin": "duishuhanshufangsuo ln1jiaxdiersanbudengshiguji",
+    "pinyinAbbr": "dshfs ln1x desbdgsgj"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.81,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\frac{2x}{x+2} \\leq \\ln(1+x) \\leq \\frac{x(x+2)}{2(x+1)}",
+    "related_formulas": [
+      "\\ln(1+x) \\geq x - \\frac{x^{2}}{2(1+x)}",
+      "\\ln(1+x) \\leq x - \\frac{x^{2}}{2} + \\frac{x^{3}}{3}"
+    ],
+    "variables": [
+      "x"
+    ],
+    "conditions": "x ≥ 0",
+    "conclusions": [
+      "当x>0时，有严格不等式成立",
+      "等号当且仅当x=0时成立",
+      "可用于估计ln(1+x)的值域范围",
+      "可推导出关于ln(1+x)/x的不等式"
+    ]
+  },
+  "content": {
+    "statement": "当 $x \\geq 0$ 时，对数函数 $\\ln(1+x)$ 满足以下不等式（等号当且仅当 $x=0$ 时成立）：\n1. 稳健的双边估计：$\\frac{2x}{x+2} \\leq \\ln(1+x) \\leq \\frac{x(x+2)}{2(x+1)}$。\n2. 标准下界：$\\ln(1+x) \\geq x - \\frac{x^{2}}{2(1+x)}$。\n3. 可选的三阶上界：$\\ln(1+x) \\leq x - \\frac{x^{2}}{2} + \\frac{x^{3}}{3}$（需验证范围）。",
+    "derivation": [
+      "第一步：构造函数差，利用导数判断单调性",
+      "第二步：在端点x=0处验证等号成立",
+      "第三步：通过泰勒展开理解不等式的逼近阶数"
+    ],
+    "intuition": "用有理分式逼近对数函数，在x=0处有相同的函数值和一阶导数值，从而在x≥0时保持大小关系。",
+    "common_tricks": [
+      "遇到ln(1+x)的证明题，优先考虑这些现成不等式进行放缩",
+      "比较不同下界时，注意分母(1+x)的影响",
+      "当x>0时，不等式可同时除以x得到关于ln(1+x)/x的估计",
+      "取等条件仅在x=0，实际应用中多为严格不等式"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "导数证明题中的函数放缩",
+      "不等式证明中的中间步骤",
+      "函数值估计与比较大小",
+      "压轴题中的化简工具"
+    ],
+    "problem_types": [
+      "证明不等式",
+      "函数最值问题",
+      "数列放缩",
+      "参数范围问题"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "I035.svg",
+    "png": "",
+    "mp4": "",
+    "pdf": ""
+  },
+  "shareConfig": {
+    "title": "对数函数二阶不等式：导数证明与估值速查",
+    "shareDesc": "适合课后复盘和刷题前速查，集中解决ln(1+x)的放缩问题，做导数证明和函数估值题时能直接调用现成不等式，减少构造函数的步骤。"
+  },
+  "relations": {
+    "prerequisites": [
+      "对数函数的导数",
+      "泰勒展开的基本概念",
+      "利用导数证明不等式"
+    ],
+    "related_ids": [],
+    "similar": "类似的有指数函数不等式ex≥x+1，三角函数不等式sinx≤x≤tanx等"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-04-04"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "函数-特殊函数-对数函数",
+  "altNodes": "不等式-经典不等式-均值不等式,函数-综合-函数与不等式,不等式-解法-函数法"
+}

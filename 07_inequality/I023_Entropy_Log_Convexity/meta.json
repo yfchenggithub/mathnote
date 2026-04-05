@@ -1,0 +1,193 @@
+{
+  "id": "I023",
+  "module": "inequality",
+  "core": {
+    "title": "xlnx的凸性与Jensen不等式",
+    "alias": [
+      "xlnx凸函数不等式",
+      "xlnx的Jensen不等式",
+      "对数平均不等式特例",
+      "凸函数均值不等式"
+    ],
+    "summary": "正实数函数f(x)=xlnx是凸函数，利用Jensen不等式可以得到多个正实数xlnx之和与它们算术平均的xlnx之间的大小关系。",
+    "difficulty": 3,
+    "category": "不等式",
+    "tags": [
+      "凸函数",
+      "Jensen不等式",
+      "xlnx函数",
+      "对数平均",
+      "函数不等式"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "xlnx凸函数",
+      "Jensen不等式",
+      "凸性不等式",
+      "xlnx不等式",
+      "对数平均不等式",
+      "凸函数证明",
+      "正实数不等式",
+      "均值不等式",
+      "函数凸性",
+      "等号成立条件",
+      "二元形式",
+      "多元形式",
+      "最值问题",
+      "约束优化"
+    ],
+    "synonyms": [
+      "x乘以lnx",
+      "x乘lnx",
+      "xlnx的jensen",
+      "凸函数jensen",
+      "xlnx凸性",
+      "xlnx的凸性",
+      "对数平均"
+    ],
+    "intents": [
+      "证明不等式",
+      "求最值",
+      "判断凸性",
+      "应用Jensen不等式",
+      "解决约束优化"
+    ],
+    "query_templates": [
+      "已知a+b=2，证明alna+blnb≥0",
+      "xlnx是凸函数怎么证明",
+      "Jensen不等式在xlnx上的应用",
+      "多个正实数xlnx之和的不等式",
+      "求x1lnx1+x2lnx2+x3lnx3的最小值"
+    ],
+    "ocrKeywords": [
+      "xlnx",
+      "凸函数",
+      "Jensen不等式",
+      "等号成立",
+      "正实数",
+      "算术平均"
+    ],
+    "latex_patterns": [
+      "f(x)=x\\ln x",
+      "\\frac{1}{n}\\sum_{i=1}^{n} x_i\\ln x_i",
+      "\\left(\\frac{1}{n}\\sum_{i=1}^{n} x_i\\right)\\ln\\!\\left(\\frac{1}{n}\\sum_{i=1}^{n} x_i\\right)",
+      "\\frac{x\\ln x+y\\ln y}{2} \\geq \\frac{x+y}{2}\\,\\ln\\!\\left(\\frac{x+y}{2}\\right)"
+    ],
+    "formulaTokens": [
+      "x\\ln x",
+      "\\frac{x\\ln x+y\\ln y}{2}",
+      "\\frac{x+y}{2}",
+      "\\ln\\!\\left(\\frac{x+y}{2}\\right)",
+      "\\frac{1}{n}\\sum_{i=1}^{n} x_i\\ln x_i",
+      "\\left(\\frac{1}{n}\\sum_{i=1}^{n} x_i\\right)\\ln\\!\\left(\\frac{1}{n}\\sum_{i=1}^{n} x_i\\right)",
+      "f''(x)=\\frac{1}{x}"
+    ],
+    "pinyin": "xlnxdetuxingyujensenbudengshi",
+    "pinyinAbbr": "xlndxysjnsbds"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.83,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\frac{1}{n}\\sum_{i=1}^{n} x_i\\ln x_i \\geq \\left(\\frac{1}{n}\\sum_{i=1}^{n} x_i\\right)\\ln\\!\\left(\\frac{1}{n}\\sum_{i=1}^{n} x_i\\right)",
+    "related_formulas": [
+      "f(x)=x\\ln x\\,(x>0)",
+      "\\frac{x\\ln x+y\\ln y}{2} \\geq \\frac{x+y}{2}\\,\\ln\\!\\left(\\frac{x+y}{2}\\right)",
+      "f''(x)=\\frac{1}{x}>0\\quad(x>0)"
+    ],
+    "variables": [
+      "x",
+      "x_i",
+      "n"
+    ],
+    "conditions": [
+      "所有变量x_i > 0",
+      "函数f(x)=xlnx在(0,+∞)上二阶可导且f''(x)=1/x>0",
+      "n为正整数"
+    ],
+    "conclusions": [
+      "f(x)=xlnx是(0,+∞)上的凸函数",
+      "对任意n个正实数，Jensen不等式成立",
+      "等号成立当且仅当所有变量相等x_1=x_2=...=x_n",
+      "特别地，n=2时为二元形式不等式"
+    ]
+  },
+  "content": {
+    "statement": "设函数f(x)=xlnx (x>0)，则f(x)在(0,+∞)上是凸函数。对任意n个正实数x_1,x_2,...,x_n，有Jensen不等式：\\frac{1}{n}\\sum_{i=1}^{n} x_i\\ln x_i \\geq \\left(\\frac{1}{n}\\sum_{i=1}^{n} x_i\\right)\\ln\\!\\left(\\frac{1}{n}\\sum_{i=1}^{n} x_i\\right)。等号成立当且仅当x_1=x_2=...=x_n。当n=2时，即为二元形式：\\frac{x\\ln x+y\\ln y}{2} \\geq \\frac{x+y}{2}\\,\\ln\\!\\left(\\frac{x+y}{2}\\right)。",
+    "derivation": [
+      "第一步：验证凸性。计算f(x)=xlnx的二阶导数：f'(x)=lnx+1，f''(x)=1/x。由于x>0，故f''(x)>0，函数在(0,+∞)上是凸函数。",
+      "第二步：应用Jensen不等式。对于凸函数f，对任意n个点x_i和权重1/n，有f(\\frac{1}{n}\\sum x_i) \\leq \\frac{1}{n}\\sum f(x_i)。代入f(x)=xlnx即得结论。",
+      "第三步：确定等号条件。由于f''(x)>0，f是严格凸函数，等号成立当且仅当所有x_i相等。"
+    ],
+    "intuition": "因为xlnx的图像是向上弯曲的（凸函数），所以连接图像上任意两点的弦都在图像上方，推广到多个点就是函数在均值点的值不超过函数值的均值。",
+    "common_tricks": [
+      "遇到多个xlnx求和求最值，且已知x_i和为定值时，优先考虑Jensen不等式。",
+      "证明时先验证定义域x>0，再计算二阶导数确认凸性。",
+      "取等条件必须检查：所有变量相等，常与约束条件联立求解具体值。",
+      "二元形式可直接记忆，用于快速解决两变量问题。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "含xlnx求和的不等式证明",
+      "约束条件下求xlnx之和的最值",
+      "凸函数性质的应用题",
+      "连接导数、凸性与不等式的综合题"
+    ],
+    "problem_types": [
+      "不等式证明题",
+      "条件最值问题",
+      "函数性质判断题",
+      "综合应用题"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "I023.svg",
+    "png": "",
+    "mp4": "",
+    "pdf": ""
+  },
+  "shareConfig": {
+    "title": "xlnx凸性与Jensen不等式：约束最值题速解",
+    "shareDesc": "适合课后复盘和刷题前速查，集中解决含xlnx求和的不等式证明与最值问题，遇到变量和为定值的条件时能直接套用结论，节省构造函数和求导的步骤。"
+  },
+  "relations": {
+    "prerequisites": [
+      "凸函数定义与判定",
+      "Jensen不等式一般形式",
+      "导数与函数单调性、凹凸性"
+    ],
+    "related_ids": [],
+    "similar": [
+      "一般凸函数的Jensen不等式",
+      "指数函数、幂函数的凸性不等式",
+      "对数平均不等式"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-04-04"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "不等式-经典不等式-均值不等式",
+  "altNodes": "函数-性质-单调性,函数-综合-函数与不等式"
+}

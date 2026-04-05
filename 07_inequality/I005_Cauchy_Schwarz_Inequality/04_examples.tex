@@ -1,76 +1,52 @@
 \begin{examplebox}
-\textbf{例 1（基础）}
+\textbf{\textcolor{CExample}{例 1（基础）}}
 
-\textbf{题目：} 已知 $x,y,z$ 为正实数，且 $x+2y+3z=6$，求 $x^2+y^2+z^2$ 的最小值。
+\textbf{\textcolor{CExample}{题目：}} 已知实数 $a,b,c,d$，求证：$(a^2+b^2)(c^2+d^2) \ge (ac+bd)^2$。
 
-\textbf{解题步骤：}
+\textbf{\textcolor{CExample}{解题步骤：}}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{第一步（构造序列）：}] 取柯西不等式中的两组数为 $(x,y,z)$ 和 $(1,2,3)$，则
+    \item[\textbf{第一步（识别序列）：}] 将不等式左边视为两个序列的平方和乘积：序列一为 $(a,b)$，序列二为 $(c,d)$。
+    \par\textbf{理由：}
+    柯西不等式要求两个序列，这里恰好对应。
+    \item[\textbf{第二步（直接应用）：}] 由柯西不等式（$n=2$ 情形）：
     \[
-    (x^2+y^2+z^2)(1^2+2^2+3^2) \ge (x\cdot1 + y\cdot2 + z\cdot3)^2.
+    (a^2+b^2)(c^2+d^2) \ge (ac+bd)^2.
     \]
     \par\textbf{理由：}
-    柯西不等式要求两组实数，这样选择可使乘积和正好为条件中的线性式。
-
-    \item[\textbf{第二步（代入计算）：}] 代入已知 $x+2y+3z=6$ 和 $1^2+2^2+3^2=14$，得
-    \[
-    (x^2+y^2+z^2) \cdot 14 \ge 6^2 = 36.
-    \]
+    直接代入，左边平方和乘积，右边对应项乘积和的平方。
+    \item[\textbf{第三步（取等条件）：}] 等号成立当且仅当 $\frac{a}{c} = \frac{b}{d}$（当 $c,d$ 不全为零时），即 $ad=bc$。
     \par\textbf{理由：}
-    将数值代入不等式。
-
-    \item[\textbf{第三步（解得最值）：}] 于是
-    \[
-    x^2+y^2+z^2 \ge \frac{36}{14} = \frac{18}{7}.
-    \]
-    \par\textbf{理由：}
-    将 $14$ 除到右边，得到最小值。
-
-    \item[\textbf{第四步（取等条件）：}] 等号成立当且仅当 $\frac{x}{1}=\frac{y}{2}=\frac{z}{3}$，设比值为 $k$，则 $x=k, y=2k, z=3k$，代入 $x+2y+3z=6$ 得 $14k=6$，解得 $k=\frac{3}{7}$，所以 $x=\frac{3}{7}, y=\frac{6}{7}, z=\frac{9}{7}$。
-    \par\textbf{理由：}
-    柯西不等式等号成立条件是两个序列成比例。
+    两序列成比例，即存在 $\lambda$ 使 $(a,b)=\lambda(c,d)$。
 \end{description}
 
-\textbf{关键结论：} \textbf{当 $x,y,z$ 满足 $x+2y+3z=6$ 时，$x^2+y^2+z^2$ 的最小值为 $\dfrac{18}{7}$，在 $x:y:z=1:2:3$ 且具体取值为 $\left(\frac{3}{7}, \frac{6}{7}, \frac{9}{7}\right)$ 时取得。}
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{二维形式的柯西不等式直接得证，无需额外计算。}
 
 \medskip
-\textbf{例 2（稍变形）}
+\textbf{\textcolor{CExample}{例 2（稍变形）}}
 
-\textbf{题目：} 已知 $a,b,c>0$，且 $a+b+c=1$，求证：$\sqrt{a+1} + \sqrt{b+1} + \sqrt{c+1} \le \sqrt{12}$。
+\textbf{\textcolor{CExample}{题目：}} 已知正实数 $x,y,z$ 满足 $x+y+z=1$，求 $x^2+y^2+z^2$ 的最小值。
 
-\textbf{解题步骤：}
+\textbf{\textcolor{CExample}{解题步骤：}}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{第一步（平方和处理）：}] 考虑 $\left( \sum \sqrt{a+1} \right)^2$ 与 $12$ 的大小关系。
+    \item[\textbf{第一步（构造序列）：}] 考虑两个序列：$(x,y,z)$ 和 $(1,1,1)$。
     \par\textbf{理由：}
-    根号不易直接处理，平方后可以转化为平方和的形式，便于应用柯西不等式。
-
-    \item[\textbf{第二步（应用柯西）：}] 由柯西不等式，
+    欲求 $x^2+y^2+z^2$，而条件为 $x+y+z=1$，联想到柯西不等式左边为平方和与另一序列平方和的乘积。
+    \item[\textbf{第二步（应用柯西）：}] 由柯西不等式：
     \[
-    \left( \sqrt{a+1} + \sqrt{b+1} + \sqrt{c+1} \right)^2 \le \left(1^2+1^2+1^2\right)\left( (a+1)+(b+1)+(c+1) \right).
+    (x^2+y^2+z^2)(1^2+1^2+1^2) \ge (x\cdot 1 + y\cdot 1 + z\cdot 1)^2 = (x+y+z)^2 = 1^2 = 1.
     \]
     \par\textbf{理由：}
-    取两组数：$(\sqrt{a+1}, \sqrt{b+1}, \sqrt{c+1})$ 和 $(1,1,1)$，柯西不等式给出左边平方不超过右边两组平方和的乘积。
-
-    \item[\textbf{第三步（计算右边）：}] 计算得
+    将不等式写成柯西形式：左边为 $\sum a_i^2 \cdot \sum b_i^2$，右边为 $(\sum a_i b_i)^2$。
+    \item[\textbf{第三步（解出最值）：}] 由上式得
     \[
-    \left(1^2+1^2+1^2\right) = 3, \quad (a+1)+(b+1)+(c+1) = a+b+c+3 = 1+3=4,
+    3(x^2+y^2+z^2) \ge 1 \quad \Rightarrow \quad x^2+y^2+z^2 \ge \frac{1}{3}.
     \]
-    所以右边乘积为 $3 \times 4 = 12$。
     \par\textbf{理由：}
-    代入已知条件 $a+b+c=1$。
-
-    \item[\textbf{第四步（开方得证）：}] 因此
-    \[
-    \left( \sqrt{a+1} + \sqrt{b+1} + \sqrt{c+1} \right)^2 \le 12,
-    \]
-    开方即得 $\sqrt{a+1} + \sqrt{b+1} + \sqrt{c+1} \le \sqrt{12}$。
+    移项即可得到平方和的下界。
+    \item[\textbf{第四步（验证取等）：}] 等号成立当且仅当 $\frac{x}{1}=\frac{y}{1}=\frac{z}{1}$，即 $x=y=z$，结合 $x+y+z=1$ 得 $x=y=z=\frac{1}{3}$。
     \par\textbf{理由：}
-    平方非负，开方保序。
-
-    \item[\textbf{第五步（取等条件）：}] 等号成立当且仅当 $\frac{\sqrt{a+1}}{1} = \frac{\sqrt{b+1}}{1} = \frac{\sqrt{c+1}}{1}$，即 $a+1=b+1=c+1$，所以 $a=b=c$，结合 $a+b+c=1$ 得 $a=b=c=\frac{1}{3}$。
-    \par\textbf{理由：}
-    柯西不等式等号成立条件。
+    序列成比例，且满足条件，故最小值可达。
 \end{description}
 
-\textbf{关键结论：} \textbf{在 $a+b+c=1$ 且 $a,b,c>0$ 的条件下，$\sqrt{a+1}+\sqrt{b+1}+\sqrt{c+1}$ 的最大值为 $\sqrt{12}$，当 $a=b=c=\frac{1}{3}$ 时取得。}
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{当 $x=y=z=\frac{1}{3}$ 时，$x^2+y^2+z^2$ 取得最小值 $\frac{1}{3}$。}
 \end{examplebox}

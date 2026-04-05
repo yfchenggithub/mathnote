@@ -1,0 +1,40 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+利用均值不等式（AM-GM），通过添加辅助项构造出所需的不等式形式。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（应用 AM-GM）：}] 对第一项 $\frac{a^n}{b^{n-1}}$ 应用 AM-GM 不等式。
+    \[
+    \frac{a^n}{b^{n-1}} + (n-1)b \geq n \sqrt[n]{\frac{a^n}{b^{n-1}} \cdot b^{n-1}} = n a
+    \]
+    \par\textbf{理由：}
+    AM-GM 不等式要求非负实数，这里 $a,b>0$，且等号成立当 $\frac{a^n}{b^{n-1}} = b$。
+
+    \item[\textbf{步骤二（对称应用）：}] 对第二项 $\frac{b^n}{a^{n-1}}$ 类似应用 AM-GM。
+    \[
+    \frac{b^n}{a^{n-1}} + (n-1)a \geq n \sqrt[n]{\frac{b^n}{a^{n-1}} \cdot a^{n-1}} = n b
+    \]
+    \par\textbf{理由：}
+    对称性使得同理可得，等号成立当 $\frac{b^n}{a^{n-1}} = a$。
+
+    \item[\textbf{步骤三（相加化简）：}] 将两个不等式相加并整理。
+    \[
+    \left( \frac{a^n}{b^{n-1}} + \frac{b^n}{a^{n-1}} \right) + (n-1)(a+b) \geq n(a+b)
+    \]
+    \par\textbf{理由：}
+    不等式两边分别相加，保持不等号方向。
+
+    \item[\textbf{步骤四（移项得证）：}] 移项得到目标不等式。
+    \[
+    \frac{a^n}{b^{n-1}} + \frac{b^n}{a^{n-1}} \geq a+b
+    \]
+    \par\textbf{理由：}
+    将 $(n-1)(a+b)$ 移到右边，即 $n(a+b) - (n-1)(a+b) = a+b$。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+\textbf{因此，原不等式成立，且等号当且仅当 $a=b$ 时取得，因为步骤一和步骤二等号条件同时满足需 $a=b$。}
+\end{proofbox}

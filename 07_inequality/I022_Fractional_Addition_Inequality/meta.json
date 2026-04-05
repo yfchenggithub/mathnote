@@ -1,0 +1,186 @@
+{
+  "id": "I022",
+  "module": "inequality",
+  "core": {
+    "title": "二元分式和不等式（倒数和≥4/(和)）",
+    "alias": [
+      "倒数和不等式",
+      "和与倒数和之积≥4",
+      "权方和不等式（二元）",
+      "柯西不等式特例（分式）"
+    ],
+    "summary": "两个正数的倒数和，不小于它们和的倒数的四倍；其推广形式是带权平方和的权方和不等式。",
+    "difficulty": 1,
+    "category": "不等式",
+    "tags": [
+      "不等式",
+      "分式不等式",
+      "权方和不等式",
+      "柯西不等式",
+      "最值问题",
+      "等号成立条件"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "倒数和不等式",
+      "1/x+1/y≥4/(x+y)",
+      "权方和不等式",
+      "分式不等式",
+      "二元不等式",
+      "正实数",
+      "等号成立条件",
+      "x=y",
+      "a/x=b/y",
+      "柯西不等式",
+      "求最值",
+      "证明不等式",
+      "基本不等式",
+      "调和平均"
+    ],
+    "synonyms": [
+      "倒数和",
+      "倒数和大于等于",
+      "两数倒数和",
+      "分式相加",
+      "平方和除以",
+      "柯西分式",
+      "权方和"
+    ],
+    "intents": [
+      "求分式和最值",
+      "证明分式不等式",
+      "应用权方和不等式",
+      "判断不等式成立条件",
+      "找等号成立条件"
+    ],
+    "query_templates": [
+      "已知x+y=1，求1/x+1/y最小值",
+      "证明a²/b + b²/a ≥ a+b",
+      "权方和不等式怎么用",
+      "倒数和不等式取等条件是什么",
+      "分式不等式1/x+1/y≥4/(x+y)证明"
+    ],
+    "ocrKeywords": [
+      "正实数",
+      "x>0,y>0",
+      "最小值",
+      "证明",
+      "当且仅当",
+      "成立"
+    ],
+    "latex_patterns": [
+      "\\frac{1}{x}+\\frac{1}{y} \\geq \\frac{4}{x+y}",
+      "(x+y)\\left(\\frac{1}{x}+\\frac{1}{y}\\right) \\geq 4",
+      "\\frac{a^2}{x}+\\frac{b^2}{y} \\geq \\frac{(a+b)^2}{x+y}"
+    ],
+    "formulaTokens": [
+      "1/x+1/y",
+      "4/(x+y)",
+      "(x+y)(1/x+1/y)",
+      "a^2/x",
+      "b^2/y",
+      "(a+b)^2/(x+y)",
+      "a/x",
+      "b/y",
+      "x=y",
+      "ay=bx"
+    ],
+    "pinyin": "eryuanfenshihebudengshi",
+    "pinyinAbbr": "eyfshbds"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.89,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\frac{1}{x}+\\frac{1}{y} \\geq \\frac{4}{x+y}",
+    "related_formulas": [
+      "(x+y)\\left(\\frac{1}{x}+\\frac{1}{y}\\right) \\geq 4",
+      "\\frac{a^2}{x}+\\frac{b^2}{y} \\geq \\frac{(a+b)^2}{x+y}"
+    ],
+    "variables": [
+      "x",
+      "y",
+      "a",
+      "b"
+    ],
+    "conditions": "x > 0, y > 0",
+    "conclusions": [
+      "倒数和有下界4/(x+y)",
+      "和与倒数和之积有下界4",
+      "权方和形式是柯西不等式的特例，可推广至多元"
+    ]
+  },
+  "content": {
+    "statement": "设 $x, y$ 为正实数，则：1. $\\frac{1}{x} + \\frac{1}{y} \\geq \\frac{4}{x+y}$；2. $(x+y)\\left(\\frac{1}{x}+\\frac{1}{y}\\right) \\geq 4$；3. 对任意实数 $a, b$，有 $\\frac{a^2}{x} + \\frac{b^2}{y} \\geq \\frac{(a+b)^2}{x+y}$。等号成立条件：对于(1)(2)当且仅当 $x=y$；对于(3)当且仅当 $\\frac{a}{x} = \\frac{b}{y}$（即 $ay=bx$）。",
+    "derivation": [
+      "基本形式可由 $(\\sqrt{x/y} - \\sqrt{y/x})^2 \\ge 0$ 展开得到，或由 $(x+y)(1/x+1/y) = 2 + x/y + y/x \\ge 4$ 推出。",
+      "乘积形式是基本形式两边同乘 $(x+y)$ 的直接结果。",
+      "权方和形式是柯西不等式 $(a^2/x + b^2/y)(x+y) \\ge (a+b)^2$ 的变形。"
+    ],
+    "intuition": "两个正数越接近，它们的倒数和就越小（有下界）；给分子加上平方权重后，不等式依然保持类似结构，体现了“平方和除以和”的平衡关系。",
+    "common_tricks": [
+      "遇到“倒数和”求最值，优先匹配基本形式，常与“和为定值”条件结合。",
+      "证明形如 $\\frac{a^2}{b}+\\frac{b^2}{a} \\ge a+b$ 的不等式，可令权方和形式中的 $x=b, y=a$ 直接得证。",
+      "取等条件不同：基本形式要求两分母相等，权方和形式要求“分子与分母比例相等”。",
+      "权方和形式可视为柯西不等式的分式特例，记忆为“平方和除以和≥和的平方除以和”。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "条件最值问题（已知和求倒数和最值）",
+      "分式不等式证明",
+      "竞赛或高考中作为中间步骤放缩",
+      "函数或数列不等式中的分式项处理"
+    ],
+    "problem_types": [
+      "求最值",
+      "证明题",
+      "选择题（判断成立条件）"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "I022.svg",
+    "png": "",
+    "mp4": "",
+    "geogebra": ""
+  },
+  "shareConfig": {
+    "title": "二元分式和不等式：解决倒数和最值与权方和证明",
+    "shareDesc": "适合课后复盘与刷题前速查，集中掌握倒数和≥4/(和)及其权方和推广，解决一类分式最值题时可直接套用，节省变形时间，同时明确两种取等条件避免混淆。"
+  },
+  "relations": {
+    "prerequisites": [
+      "基本不等式（均值不等式）",
+      "柯西不等式（了解其形式）",
+      "分式运算与变形"
+    ],
+    "related_ids": [],
+    "similar": "均值不等式、柯西不等式、赫尔德不等式（更一般形式）"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-04-04"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "不等式-经典不等式-均值不等式",
+  "altNodes": "不等式-经典不等式-柯西不等式（选修）"
+}

@@ -1,0 +1,56 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+
+证明的关键是将绝对值不等式转化为非负情形，通过构造函数差并利用导数研究单调性。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（非负化归）：}] 由于 $|\sin x|$ 和 $|x|$ 均为偶函数，只需证明当 $x\ge 0$ 时有 $\sin x \le x$。
+    \[
+    \text{原不等式等价于：对 } x\ge 0,\ \sin x \le x.
+    \]
+    \par\textbf{理由：}
+    绝对值不等式 $|\sin x|\le |x|$ 中，若 $x\ge 0$ 则 $|x|=x$，且 $\sin x\le |\sin x|$，但需证 $\sin x\le x$。实际上，当 $x\ge 0$ 时，若 $\sin x\ge 0$，则 $|\sin x|=\sin x$；若 $\sin x<0$，则 $\sin x<0\le x$，故只需证 $\sin x\le x$。更直接地，考虑 $x\ge 0$ 时，证明 $x-\sin x\ge 0$。
+
+    \item[\textbf{步骤二（构造函数）：}] 定义 $f(x)=x-\sin x$，其中 $x\ge 0$。
+    \[
+    f(x)=x-\sin x,\quad x\ge 0.
+    \]
+    \par\textbf{理由：}
+    通过研究 $f(x)$ 的符号来证明 $\sin x\le x$。
+
+    \item[\textbf{步骤三（求导分析）：}] 计算导数 $f'(x)=1-\cos x$。
+    \[
+    f'(x)=1-\cos x.
+    \]
+    \par\textbf{理由：}
+    由于 $\cos x\le 1$，故 $f'(x)\ge 0$，等号仅在 $\cos x=1$ 即 $x=2k\pi$ 时成立。因此 $f(x)$ 在 $[0,+\infty)$ 上单调不减。
+
+    \item[\textbf{步骤四（端点值）：}] 计算 $f(0)=0-\sin 0=0$。
+    \[
+    f(0)=0.
+    \]
+    \par\textbf{理由：}
+    由于 $f(x)$ 单调不减且 $f(0)=0$，故对任意 $x\ge 0$，有 $f(x)\ge 0$，即 $x-\sin x\ge 0$。
+
+    \item[\textbf{步骤五（推广到全体实数）：}] 对于 $x<0$，令 $t=-x>0$，则 $|\sin x|=|\sin(-t)|=|\sin t|\le t=|x|$。
+    \[
+    \text{当 } x<0 \text{ 时， } |\sin x| = |\sin(-x)| \le | -x | = |x|.
+    \]
+    \par\textbf{理由：}
+    利用 $\sin$ 为奇函数和已证的非负情形。
+
+    \item[\textbf{步骤六（取等条件）：}] 等号成立当且仅当 $x=0$。
+    \[
+    f(x)=0 \text{ 仅当 } x=0.
+    \]
+    \par\textbf{理由：}
+    当 $x>0$ 时，若 $x=2k\pi$，$f'(x)=0$，但 $f(x)=2k\pi-\sin(2k\pi)=2k\pi>0$，故严格大于；当 $x<0$ 时，由对称性也严格大于。仅 $x=0$ 时 $f(0)=0$。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+
+\textbf{综上所述，对任意实数 $x$ 有 $|\sin x|\le |x|$，且等号仅当 $x=0$ 时成立。}
+\end{proofbox}

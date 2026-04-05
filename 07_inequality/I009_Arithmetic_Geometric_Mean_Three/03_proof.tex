@@ -1,0 +1,52 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+采用分析法，从要证的结论 $\frac{a+b+c}{3} \ge \sqrt[3]{abc}$ 出发，通过两边同时立方去根号，进行代数变形，最终化为一个显然成立的非负表达式 $(p^2+q^2+r^2) \ge 0$ 的形式，从而倒推证明原不等式成立。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（去根号立方）：}] 要证 $\frac{a+b+c}{3} \ge \sqrt[3]{abc}$，由于两边非负，等价于证明两边同时立方后不等式方向不变。
+    \[
+    \left(\frac{a+b+c}{3}\right)^3 \ge abc
+    \]
+    \par\textbf{理由：} 立方运算在非负实数范围内是保序的（单调递增）。
+
+    \item[\textbf{步骤二（通分移项）：}] 将上一步的式子两边乘以 $27$ 以消去分母，并将所有项移到同一边。
+    \[
+    (a+b+c)^3 \ge 27abc
+    \]
+    \[
+    \begin{aligned}
+    &(a+b+c)^3 - 27abc \ge 0
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 这是一个等价变形，目的是得到一个便于分解因式的多项式。
+
+    \item[\textbf{步骤三（展开并配方）：}] 展开 $(a+b+c)^3$ 并尝试分组配成完全平方。这是一个关键配方技巧。
+    \[
+    \begin{aligned}
+    & a^3 + b^3 + c^3 + 3a^2b + 3ab^2 + 3a^2c + 3ac^2 + 3b^2c + 3bc^2 + 6abc - 27abc \ge 0 \\
+    & a^3 + b^3 + c^3 + 3a^2b + 3ab^2 + 3a^2c + 3ac^2 + 3b^2c + 3bc^2 - 21abc \ge 0
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 展开立方公式 $(x+y+z)^3 = x^3+y^3+z^3+3x^2y+3xy^2+3x^2z+3xz^2+3y^2z+3yz^2+6xyz$，然后合并 $-27abc$ 与 $+6abc$。
+
+    \item[\textbf{步骤四（巧用因式分解）：}] 利用已知的因式分解公式 $a^3+b^3+c^3-3abc = \frac{1}{2}(a+b+c)[(a-b)^2+(b-c)^2+(c-a)^2]$。对上一步的式子进行拆分重组。
+    \[
+    \begin{aligned}
+    &(a^3+b^3+c^3 - 3abc) + 3(a^2b+ab^2+a^2c+ac^2+b^2c+bc^2 - 6abc) \ge 0 \\
+    & \frac{1}{2}(a+b+c)[(a-b)^2+(b-c)^2+(c-a)^2] \\
+    & \quad +\, 3[ab(a+b-2c)+ac(a+c-2b)+bc(b+c-2a)] \ge 0
+    \end{aligned}
+    \]
+    进一步处理括号内的项，例如 $a+b-2c = (a-c)+(b-c)$，可以重新配成完全平方。最终可以证得整个表达式能写为若干个完全平方和的非负组合。\textbf{另一种更简洁的经典证法}是令 $x=\sqrt[3]{a}, y=\sqrt[3]{b}, z=\sqrt[3]{c}$，则原不等式化为 $x^3+y^3+z^3 \ge 3xyz$，而这由步骤四的分解公式直接可得。
+    \[
+    x^3+y^3+z^3 - 3xyz = \frac{1}{2}(x+y+z)[(x-y)^2+(y-z)^2+(z-x)^2] \ge 0
+    \]
+    \par\textbf{理由：} 由于 $a,b,c \ge 0$，故 $x,y,z \ge 0$，从而 $x+y+z \ge 0$，且平方项 $(x-y)^2$ 等均非负，故整个式子非负，原不等式得证。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+\textbf{我们证明了 $(x^3+y^3+z^3 - 3xyz) \ge 0$，即 $\frac{x^3+y^3+z^3}{3} \ge xyz$，代回 $x^3=a, y^3=b, z^3=c$，恰好就是 $\frac{a+b+c}{3} \ge \sqrt[3]{abc}$。} 并且，从分解式 $\frac{1}{2}(x+y+z)[(x-y)^2+(y-z)^2+(z-x)^2] \ge 0$ 可以看出，等号成立当且仅当 $x=y=z$，即 $a=b=c$。
+\end{proofbox}

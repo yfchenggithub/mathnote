@@ -1,55 +1,50 @@
 \begin{proofbox}
-\textbf{思路提示}
+\textbf{\textcolor{CProof}{思路提示}}
 
-考虑关于 $t$ 的二次函数 $f(t) = \sum_{i=1}^n (a_i t + b_i)^2$，由于每个平方项非负，所以 $f(t) \ge 0$ 对一切实数 $t$ 成立。利用二次函数判别式即可导出不等式。
+构造一个关于 $t$ 的二次函数 $f(t)=\sum_{i=1}^n (a_i t + b_i)^2$，由于平方和非负，故判别式 $\Delta \le 0$，由此推出不等式。
 
 \medskip
-\textbf{正式推导}
+\textbf{\textcolor{CProof}{正式推导}}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-    \item[\textbf{步骤一（构造函数）：}] 令 
+    \item[\textbf{步骤一（构造函数）：}] 令
     \[
-    f(t) = \sum_{i=1}^n (a_i t + b_i)^2,
+    f(t) = \sum_{i=1}^n (a_i t + b_i)^2 \ge 0 \quad (\text{对所有实数 }t)。
     \]
-    其中 $t$ 是任意实数。
     \par\textbf{理由：}
-    每个 $(a_i t + b_i)^2 \ge 0$，因此 $f(t)$ 是平方和，恒非负。
+    每个 $(a_i t + b_i)^2 \ge 0$，故和也非负。
 
     \item[\textbf{步骤二（展开整理）：}] 将 $f(t)$ 展开：
     \[
-    f(t) = \sum_{i=1}^n (a_i^2 t^2 + 2 a_i b_i t + b_i^2) = \left( \sum_{i=1}^n a_i^2 \right) t^2 + 2 \left( \sum_{i=1}^n a_i b_i \right) t + \left( \sum_{i=1}^n b_i^2 \right).
+    f(t) = \sum_{i=1}^n (a_i^2 t^2 + 2 a_i b_i t + b_i^2) = \left(\sum_{i=1}^n a_i^2\right) t^2 + 2\left(\sum_{i=1}^n a_i b_i\right) t + \left(\sum_{i=1}^n b_i^2\right).
     \]
     \par\textbf{理由：}
-    按照完全平方公式展开，并利用求和线性性合并同类项。
+    按完全平方公式展开，并利用求和线性性质。
 
-    \item[\textbf{步骤三（非负条件）：}] 由于对任意实数 $t$，$f(t) \ge 0$，所以二次函数（若 $\sum a_i^2 > 0$）的判别式 $\Delta \le 0$；若 $\sum a_i^2 = 0$，则 $a_i$ 全为零，不等式自然成立。
-    \par\textbf{理由：}
-    二次函数 $At^2 + Bt + C \ge 0$ 恒成立（$A \ge 0$）的条件是判别式 $B^2 - 4AC \le 0$。
-
-    \item[\textbf{步骤四（写出判别式）：}] 计算判别式：
+    \item[\textbf{步骤三（判别式非负）：}] 因为 $f(t)\ge 0$ 对所有 $t$ 成立，所以二次方程 $f(t)=0$ 的判别式 $\Delta \le 0$：
     \[
-    \Delta = \left( 2 \sum_{i=1}^n a_i b_i \right)^2 - 4 \left( \sum_{i=1}^n a_i^2 \right) \left( \sum_{i=1}^n b_i^2 \right) \le 0.
+    \Delta = \left[2\sum_{i=1}^n a_i b_i\right]^2 - 4\left(\sum_{i=1}^n a_i^2\right)\left(\sum_{i=1}^n b_i^2\right) \le 0.
     \]
     \par\textbf{理由：}
-    这里 $A = \sum a_i^2$，$B = 2 \sum a_i b_i$，$C = \sum b_i^2$，判别式为 $B^2 - 4AC$。
+    二次函数 $At^2+Bt+C \ge 0$ 恒成立，则 $A>0$ 且 $\Delta \le 0$。这里 $A=\sum a_i^2 \ge 0$，若 $A=0$ 则不等式显然成立，故不妨设 $A>0$。
 
-    \item[\textbf{步骤五（化简得不等式）：}] 由 $\Delta \le 0$ 得
+    \item[\textbf{步骤四（导出不等式）：}] 由 $\Delta \le 0$ 直接得到
     \[
-    4 \left( \sum_{i=1}^n a_i b_i \right)^2 - 4 \left( \sum_{i=1}^n a_i^2 \right) \left( \sum_{i=1}^n b_i^2 \right) \le 0,
+    4\left(\sum_{i=1}^n a_i b_i\right)^2 - 4\left(\sum_{i=1}^n a_i^2\right)\left(\sum_{i=1}^n b_i^2\right) \le 0,
     \]
-    两边除以 $4$ 即得
+    即
     \[
-    \left( \sum_{i=1}^n a_i b_i \right)^2 \le \left( \sum_{i=1}^n a_i^2 \right) \left( \sum_{i=1}^n b_i^2 \right).
+    \left(\sum_{i=1}^n a_i b_i\right)^2 \le \left(\sum_{i=1}^n a_i^2\right)\left(\sum_{i=1}^n b_i^2\right).
     \]
     \par\textbf{理由：}
-    简单代数变形。
+    移项并除以正数4即得。
 
-    \item[\textbf{步骤六（取等条件）：}] 等号成立当且仅当 $f(t) = 0$ 有重根，即存在 $t_0$ 使得 $a_i t_0 + b_i = 0$ 对所有 $i$ 成立，这意味着 $a_i$ 与 $b_i$ 成比例（若 $b_i$ 不全为零，则 $t_0 = -\lambda$；若所有 $b_i=0$，则不等式等号成立要求 $\sum a_i b_i = 0$，即 $a_i$ 任意但 $a_i b_i = 0$，通常取 $a_i=0$）。
+    \item[\textbf{步骤五（取等条件）：}] 等号成立当且仅当 $f(t)=0$ 有唯一实根，即存在 $t_0$ 使 $a_i t_0 + b_i = 0$ 对所有 $i$ 成立，亦即序列 $(a_i)$ 与 $(b_i)$ 成比例。
     \par\textbf{理由：}
-    判别式为零时二次函数有重根，即存在 $t_0$ 使得 $f(t_0)=0$，从而每个平方项为零。
+    $\Delta=0$ 时方程有重根 $t_0$，此时 $a_i t_0 + b_i = 0$，即 $a_i$ 与 $b_i$ 成比例。
 \end{description}
 
 \medskip
-\textbf{结论回扣}
+\textbf{\textcolor{CProof}{结论回扣}}
 
-\textbf{因此，柯西不等式成立，并且我们明确了等号成立的条件。}
+\textbf{因此，柯西不等式得证，且等号成立当且仅当两序列成比例。}
 \end{proofbox}

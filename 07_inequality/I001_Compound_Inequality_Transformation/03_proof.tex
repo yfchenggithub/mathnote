@@ -1,58 +1,62 @@
 \begin{proofbox}
-\textbf{思路提示}
+\textbf{\textcolor{CProof}{思路提示}}
 
-从 $N < f(x) < M$ 出发，通过代数变形（如移项、乘除、绝对值）得到其他形式。注意变形过程中的符号保持。
+从几何意义入手：$f(x)$ 在数轴上介于 $N$ 和 $M$ 之间。代数上，通过移项、乘除、配方等基本操作，可导出各种等价形式。注意每一步的可逆性。
 
 \medskip
-\textbf{正式推导}
+\textbf{\textcolor{CProof}{正式推导}}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-    \item[\textbf{步骤一（乘积形式推导）：}] 
-    由 $N < f(x) < M$，可得 $f(x)-N > 0$ 且 $f(x)-M < 0$。
+    \item[\textbf{步骤一（乘积形式）：}] 由 $N < f(x) < M$ 出发。
+    \[
+    N < f(x) < M \quad \Rightarrow \quad f(x)-N > 0 \ \text{且} \ f(x)-M < 0
+    \]
+    \par\textbf{理由：}
+    将不等式拆分为两个部分，分别移项。由于 $f(x)-N > 0$ 和 $f(x)-M < 0$，两者异号，乘积为负。
     \[
     (f(x)-M)(f(x)-N) < 0
     \]
-    \par\textbf{理由：}
-    正数与负数相乘得负数。
+    反之，若 $(f(x)-M)(f(x)-N) < 0$，则 $f(x)-M$ 与 $f(x)-N$ 异号。结合 $M > N$，可推出 $f(x)-M < 0$ 且 $f(x)-N > 0$，即 $N < f(x) < M$。故等价。
 
-    \item[\textbf{步骤二（绝对值形式推导）：}]
-    将 $N < f(x) < M$ 改写为关于中点的形式。
+    \item[\textbf{步骤二（绝对值形式）：}] 从乘积形式配方。
     \[
-    \begin{aligned}
-    N &< f(x) < M \\
-    \Rightarrow f(x) - \frac{M+N}{2} &> N - \frac{M+N}{2} = -\frac{M-N}{2}, \\
-    f(x) - \frac{M+N}{2} &< M - \frac{M+N}{2} = \frac{M-N}{2}.
-    \end{aligned}
-    \]
-    因此，
-    \[
-    \left| f(x) - \frac{M+N}{2} \right| < \frac{M-N}{2}.
+    (f(x)-M)(f(x)-N) = \left( f(x) - \frac{M+N}{2} \right)^2 - \left( \frac{M-N}{2} \right)^2
     \]
     \par\textbf{理由：}
-    将不等式平移至中点，然后取绝对值。
+    直接展开并配方。由于 $(f(x)-M)(f(x)-N) < 0$，代入得
+    \[
+    \left( f(x) - \frac{M+N}{2} \right)^2 - \left( \frac{M-N}{2} \right)^2 < 0
+    \]
+    移项后即
+    \[
+    \left| f(x) - \frac{M+N}{2} \right| < \frac{M-N}{2}
+    \]
+    反之，从绝对值形式可反向推导至乘积形式，故等价。
 
-    \item[\textbf{步骤三（比值形式推导）：}]
-    由 $N < f(x) < M$，有 $f(x)-N > 0$ 且 $M-f(x) > 0$。
+    \item[\textbf{步骤三（分式形式）：}] 由 $N < f(x) < M$ 直接构造。
+    \[
+    N < f(x) < M \quad \Rightarrow \quad f(x)-N > 0 \ \text{且} \ M-f(x) > 0
+    \]
+    \par\textbf{理由：}
+    由于 $f(x)-N > 0$ 和 $M-f(x) > 0$，两者均为正，比值大于零。
     \[
     \frac{f(x)-N}{M-f(x)} > 0
     \]
-    \par\textbf{理由：}
-    正数除以正数得正数。
+    反之，若 $\frac{f(x)-N}{M-f(x)} > 0$，则分子分母同号。但 $M-f(x) > 0$ 必成立（否则分母非正时不等式可能不成立），故 $f(x)-N > 0$，结合 $M-f(x) > 0$ 得 $N < f(x) < M$。故等价。
 
-    \item[\textbf{步骤四（倒数形式推导）：}]
-    由 $N < f(x) < M$，且 $f(x) \neq N, M$（自动满足），则 $f(x)-N > 0$ 且 $M-N > 0$。
-    由于 $f(x) < M$，有 $f(x)-N < M-N$。取倒数并注意正数倒数递减：
+    \item[\textbf{步骤四（倒数形式）：}] 在 $f(x)-N > 0$ 条件下，从分式形式变形。
+    \[
+    \frac{f(x)-N}{M-f(x)} > 0 \quad \text{且} \quad f(x)-N > 0
+    \]
+    \par\textbf{理由：}
+    由分式形式，分子分母同正，故 $M-f(x) > 0$。取倒数，注意正数倒数保持不等号方向。但更直接地，从 $N < f(x) < M$ 有 $0 < f(x)-N < M-N$。由于函数 $\frac{1}{t}$ 在 $t>0$ 时递减，所以
     \[
     \frac{1}{f(x)-N} > \frac{1}{M-N}
     \]
-    \par\textbf{理由：}
-    对于正数，若 $a < b$，则 $\frac{1}{a} > \frac{1}{b}$。
-
-    \item[\textbf{步骤五（等价循环）：}]
-    类似地，可以从其他形式推回(1)，从而所有陈述等价。
+    反之，若 $\frac{1}{f(x)-N} > \frac{1}{M-N}$ 且 $f(x)-N > 0$，则由于 $\frac{1}{t}$ 递减，有 $f(x)-N < M-N$，即 $f(x) < M$。结合 $f(x)-N > 0$ 得 $N < f(x) < M$。故在条件下等价。
 \end{description}
 
 \medskip
-\textbf{结论回扣}
+\textbf{\textcolor{CProof}{结论回扣}}
 
-\textbf{因此，五个陈述彼此等价，都表示 $f(x)$ 在开区间 $(N, M)$ 内。}
+\textbf{综上所述，在条件 $M > N$ 下，五个命题彼此等价。在实际应用中，可根据问题特点选择最方便的形式进行推导或求解。}
 \end{proofbox}

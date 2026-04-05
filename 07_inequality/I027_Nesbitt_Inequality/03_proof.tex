@@ -1,0 +1,42 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+
+利用完全平方公式，构造平方项，展开后得到不等式。注意符号对平方根的影响，当 $ab<0$ 时，可通过变量代换化为正数情形。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（同号证明）：}] 若 $ab > 0$，则 $\frac{a}{b} > 0$，令 $x = \frac{a}{b} > 0$。考虑完全平方式：
+    \[
+    \left( \sqrt{x} - \frac{1}{\sqrt{x}} \right)^2 \geq 0.
+    \]
+    \par\textbf{理由：} 任何实数的平方非负。
+    展开得：
+    \[
+    x - 2 + \frac{1}{x} \geq 0 \quad \Rightarrow \quad x + \frac{1}{x} \geq 2.
+    \]
+    即 $\frac{a}{b} + \frac{b}{a} \geq 2$。
+
+    \item[\textbf{步骤二（同号取等）：}] 在步骤一中，等号成立当且仅当 $\sqrt{x} = \frac{1}{\sqrt{x}}$，即 $x = 1$，亦即 $a = b$。
+    \par\textbf{理由：} 平方为零时内部相等。
+
+    \item[\textbf{步骤三（异号证明）：}] 若 $ab < 0$，则 $\frac{a}{b} < 0$。令 $y = -\frac{a}{b} > 0$，于是 $\frac{a}{b} = -y$，$\frac{b}{a} = -\frac{1}{y}$。从而
+    \[
+    \frac{a}{b} + \frac{b}{a} = -y - \frac{1}{y} = -\left( y + \frac{1}{y} \right).
+    \]
+    \par\textbf{理由：} 通过代换将负数转化为正数，以便应用步骤一的结论。
+    由步骤一，$y + \frac{1}{y} \geq 2$，所以
+    \[
+    -\left( y + \frac{1}{y} \right) \leq -2.
+    \]
+    即 $\frac{a}{b} + \frac{b}{a} \leq -2$。
+
+    \item[\textbf{步骤四（异号取等）：}] 等号成立当且仅当 $y = 1$，即 $-\frac{a}{b} = 1$，得 $a = -b$。但命题中声明的取等条件为 $a = b$，此时 $ab < 0$ 不可能成立，故在 $ab<0$ 时等号实际上无法取得。
+    \par\textbf{理由：} 等号条件与前提矛盾，不等式严格成立。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+
+\textbf{因此，原命题得证：当 $ab>0$ 时，$\frac{a}{b}+\frac{b}{a} \geq 2$，等号成立当 $a=b$；当 $ab<0$ 时，$\frac{a}{b}+\frac{b}{a} \leq -2$，等号在命题形式上规定为 $a=b$，但实际取不到。}
+\end{proofbox}

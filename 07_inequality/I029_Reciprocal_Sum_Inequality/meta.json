@@ -1,0 +1,182 @@
+{
+  "id": "I029",
+  "module": "trigonometry",
+  "core": {
+    "title": "正弦绝对值不等式 |sin x| ≤ |x|",
+    "alias": [
+      "正弦绝对值放缩",
+      "sin x 绝对值小于等于 x 绝对值",
+      "正弦函数绝对值不等式",
+      "|sinx| ≤ |x|"
+    ],
+    "summary": "对于任意实数x，正弦函数的绝对值总是不超过自变量x的绝对值，且等号只在x=0时成立。",
+    "difficulty": 2,
+    "category": "三角函数",
+    "tags": [
+      "三角函数",
+      "不等式放缩",
+      "绝对值不等式",
+      "函数性质",
+      "基础工具"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "|sin x| ≤ |x|",
+      "正弦绝对值不等式",
+      "sin x 绝对值",
+      "三角函数放缩",
+      "绝对值放缩",
+      "正弦函数性质",
+      "不等式证明",
+      "|sinx| ≤ |x|",
+      "sinx/x 绝对值",
+      "|sinx/x| ≤ 1",
+      "sin x - sin y 不等式",
+      "三角函数绝对值",
+      "基础不等式",
+      "实数范围",
+      "取等条件"
+    ],
+    "synonyms": [
+      "正弦绝对值小于等于x绝对值",
+      "sinx绝对值小于x绝对值",
+      "sinx的绝对值小于等于x",
+      "正弦函数绝对值小于自变量",
+      "sinx比x的绝对值小于1"
+    ],
+    "intents": [
+      "证明不等式",
+      "进行放缩",
+      "求范围",
+      "比较大小",
+      "判断函数性质"
+    ],
+    "query_templates": [
+      "怎么证明|sin x| ≤ |x|？",
+      "sin x 的绝对值为什么小于等于 x？",
+      "|sinx/x| ≤ 1 怎么来的？",
+      "三角函数绝对值不等式有哪些？",
+      "证明|sin x - sin y| ≤ |x - y|"
+    ],
+    "ocrKeywords": [
+      "|sin x| ≤ |x|",
+      "|sinx| ≤ |x|",
+      "|sinx/x| ≤ 1",
+      "|sin x - sin y| ≤ |x - y|",
+      "当且仅当 x=0"
+    ],
+    "latex_patterns": [
+      "|\\\\sin x| \\\\leq |x|",
+      "|\\\\sin x| \\\\le |x|",
+      "\\\\left|\\\\frac{\\\\sin x}{x}\\\\right| \\\\le 1",
+      "|\\\\sin x - \\\\sin y| \\\\le |x-y|",
+      "\\\\sin^2 x \\\\le x^2"
+    ],
+    "formulaTokens": [
+      "|\\sin x| \\leq |x|",
+      "\\sin^2 x \\leq x^2",
+      "\\left| \\frac{\\sin x}{x} \\right| \\le 1",
+      "|\\sin x - \\sin y| \\le |x-y|",
+      "\\sin \\frac{x-y}{2}",
+      "\\frac{x-y}{2}",
+      "2 \\cos \\frac{x+y}{2} \\sin \\frac{x-y}{2}"
+    ],
+    "pinyin": "zheng xian jue dui zhi bu deng shi",
+    "pinyinAbbr": "zxjdzbds"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.89,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "|\\sin x| \\leq |x|",
+    "related_formulas": [
+      "\\sin^2 x \\leq x^2",
+      "\\left| \\frac{\\sin x}{x} \\right| \\le 1",
+      "|\\sin x - \\sin y| \\le |x-y|"
+    ],
+    "variables": [
+      "x",
+      "y"
+    ],
+    "conditions": "x ∈ ℝ (x为任意实数)",
+    "conclusions": [
+      "当 x ≠ 0 时，|sin x| < |x|",
+      "|sin x / x| ≤ 1 (x ≠ 0)",
+      "sin x 是 Lipschitz 连续函数，Lipschitz 常数为1"
+    ]
+  },
+  "content": {
+    "statement": "对于任意实数 x，有 |sin x| ≤ |x|，且等号成立当且仅当 x = 0。",
+    "derivation": [
+      "考虑函数 f(x) = x - sin x 在 x ≥ 0 时的性质。",
+      "求导得 f'(x) = 1 - cos x ≥ 0，故 f(x) 在 [0, +∞) 单调不减。",
+      "由 f(0)=0 得 f(x) ≥ 0，即 x ≥ sin x ≥ 0。结合奇函数性质推广到全体实数。"
+    ],
+    "intuition": "从单位圆上看，|sin x| 是纵坐标长度，|x| 是圆弧长度（弧度制），弦长不超过弧长。",
+    "common_tricks": [
+      "处理含 sin x 的绝对值不等式时，直接使用此结论进行放缩。",
+      "证明 |sin x / x| ≤ 1 时，两边同除以 |x|（x ≠ 0）。",
+      "处理 sin x - sin y 时，和差化积后利用 |cos θ| ≤ 1 和本结论。",
+      "注意等号仅在 x=0 时成立，使用时需验证取等情况。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "不等式证明题",
+      "函数性质分析",
+      "极限与连续性问题",
+      "放缩法解题"
+    ],
+    "problem_types": [
+      "证明题",
+      "比较大小题",
+      "求取值范围",
+      "函数性质判断题"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "I029.svg",
+    "png": "",
+    "mp4": "",
+    "pdf": ""
+  },
+  "shareConfig": {
+    "title": "正弦绝对值不等式：三角函数放缩与范围判断",
+    "shareDesc": "适合课后复盘与刷题前速查，直接用于含 sin x 的绝对值不等式证明和放缩，减少构造函数求导的步骤，提升放缩类题目的解题稳定性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "弧度制定义",
+      "绝对值性质",
+      "三角函数基本定义"
+    ],
+    "related_ids": [],
+    "similar": "余弦函数类似性质 |cos x - 1| ≤ |x|，但形式不同。"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-04-04"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "三角函数-解法-三角不等式",
+  "altNodes": "不等式-等价变形-绝对值转化, 函数-性质-有界性"
+}
