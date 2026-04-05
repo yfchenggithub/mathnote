@@ -50,7 +50,7 @@ core_index:
 ========================================================
 """
 
-from build_core_index_js import main as _bundle_main
+from build_search_bundle_js import main as _bundle_main
 
 if __name__ == "__main__":
     raise SystemExit(_bundle_main())
