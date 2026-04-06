@@ -1,3 +1,9 @@
+from build_detail_page_js import main as _detail_main
+
+
+if __name__ == "__main__":
+    raise SystemExit(_detail_main())
+
 """
 ===============================================================================
 build_content_js.py
@@ -63,7 +69,7 @@ Last Updated: 2026-04-05
 ===============================================================================
 """
 
-from __future__ import annotations
+# Legacy implementation kept below for reference only.
 
 import argparse
 import json

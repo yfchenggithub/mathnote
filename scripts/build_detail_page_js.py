@@ -1,0 +1,1229 @@
+from __future__ import annotations
+
+"""
+===============================================================================
+build_detail_page_js.py
+===============================================================================
+
+Purpose
+-------
+Build one JS data file per module for the WeChat mini-program detail page.
+
+This script is intentionally different from `build_search_bundle_js.py`:
+- `build_search_bundle_js.py` prepares aggressively indexed search data.
+- `build_detail_page_js.py` prepares display-oriented detail data.
+
+Why this script exists
+----------------------
+The detail page has different needs from search:
+1. It needs stable, readable, display-ready fields.
+2. It should keep only detail-page metadata, not search-only metadata.
+3. It benefits from a config-driven schema so future fields can be added
+   without rewriting the whole pipeline.
+4. It should be easy to debug when a single item or a single module fails.
+
+Included fields
+---------------
+This builder keeps only detail-page data such as:
+- identity and display fields (`id`, `title`, `alias`, `difficulty`, `tags`)
+- math explanation fields (`core_formula`, `conditions`, `conclusions`)
+- cleaned long-form text (`statement`, `explanation`, `proof`, `examples`,
+  `traps`, `summary`)
+- page configuration (`shareConfig`, `assets`, `interactive`, `relations`)
+
+Excluded fields
+---------------
+Search-only metadata is intentionally excluded from this output:
+- `search`
+- `searchmeta`
+- `ranking`
+- search-specific values like `pinyin` and `pinyinAbbr`
+
+Output shape
+------------
+Each generated file exports:
+
+module.exports = {
+  "I001": {
+    "id": "I001",
+    "title": "...",
+    "core_formula": "...",
+    "statement": "...",
+    "explanation": "...",
+    "proof": "...",
+    "examples": "...",
+    "traps": "...",
+    "summary": "...",
+    "shareConfig": {}
+  }
+}
+
+Common usage
+------------
+1. Build all discoverable modules:
+   `python scripts/build_detail_page_js.py`
+2. Build one module:
+   `python scripts/build_detail_page_js.py --module 07_inequality`
+3. Build one item and inspect logs without writing files:
+   `python scripts/build_detail_page_js.py --module 07_inequality --item I001 --debug --dry-run`
+4. Fail immediately on missing required fields:
+   `python scripts/build_detail_page_js.py --strict`
+
+Maintenance guidance
+--------------------
+When you need to extend the detail page schema, start here:
+- `DETAIL_META_FIELD_SPECS`
+- `DETAIL_TEXT_FIELD_SPECS`
+
+When you need to adjust how TeX is converted into display-friendly plain text,
+start here:
+- `clean_tex`
+
+Last Updated: 2026-04-06
+===============================================================================
+"""
+
+import argparse
+import copy
+import json
+import logging
+import re
+import sys
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any, Callable
+
+
+SCRIPT_DIR = Path(__file__).resolve().parent
+PROJECT_ROOT = SCRIPT_DIR.parent
+DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "data" / "content"
+META_FILENAME = "meta.json"
+
+DEFAULT_TARGET_MODULES: tuple[str, ...] = ()
+IGNORED_TOP_LEVEL_DIRS = {
+    ".git",
+    ".github",
+    ".vscode",
+    "__pycache__",
+    "assets",
+    "data",
+    "misc",
+    "node_modules",
+    "scripts",
+    "search_engine",
+    "templates",
+}
+
+LOGGER = logging.getLogger("build_detail_page_js")
+MISSING = object()
+
+
+class BuildError(RuntimeError):
+    """A readable build-stage error that should be shown to the user."""
+
+
+def default_none() -> None:
+    """Return `None` for config-driven default values."""
+
+    return None
+
+
+@dataclass(frozen=True)
+class TextFieldSpec:
+    """Describe one cleaned text field in the detail-page output."""
+
+    output_name: str
+    source_filename: str
+    description: str
+    purpose: str
+    required: bool = False
+    fallback_paths: tuple[tuple[str, ...], ...] = ()
+    transform: Callable[[str], str] | None = None
+
+
+@dataclass(frozen=True)
+class MetaFieldSpec:
+    """Describe one metadata field that should survive into the detail page."""
+
+    output_name: str
+    source_paths: tuple[tuple[str, ...], ...]
+    description: str
+    purpose: str
+    required: bool = False
+    default_factory: Callable[[], Any] = default_none
+
+
+@dataclass(frozen=True)
+class BuildConfig:
+    """Immutable runtime configuration for one build run."""
+
+    project_root: Path
+    output_dir: Path
+    target_modules: tuple[str, ...]
+    target_items: tuple[str, ...]
+    dry_run: bool
+    debug: bool
+    strict: bool
+
+
+@dataclass
+class ModuleStats:
+    """Collect module-level counters for logs and verification."""
+
+    module_name: str
+    scanned_items: int = 0
+    built_items: int = 0
+    filtered_items: int = 0
+    skipped_items: int = 0
+
+
+def configure_console_encoding() -> None:
+    """Best-effort UTF-8 stdout/stderr configuration for Windows terminals."""
+
+    for stream_name in ("stdout", "stderr"):
+        stream = getattr(sys, stream_name, None)
+        if stream is None or not hasattr(stream, "reconfigure"):
+            continue
+        try:
+            stream.reconfigure(encoding="utf-8")
+        except Exception:
+            pass
+
+
+def configure_logging(debug: bool) -> None:
+    """Initialize logging."""
+
+    level = logging.DEBUG if debug else logging.INFO
+    logging.basicConfig(level=level, format="[%(levelname)s] %(message)s")
+
+
+def parse_args() -> argparse.Namespace:
+    """Parse CLI arguments with detail-page oriented examples."""
+
+    parser = argparse.ArgumentParser(
+        description="Build display-oriented JS data files for detail pages.",
+        epilog=(
+            "Examples:\n"
+            "  python scripts/build_detail_page_js.py\n"
+            "  python scripts/build_detail_page_js.py --module 07_inequality\n"
+            "  python scripts/build_detail_page_js.py --module 07_inequality "
+            "--item I001 --debug --dry-run\n"
+        ),
+        formatter_class=argparse.RawTextHelpFormatter,
+    )
+    parser.add_argument(
+        "--base-dir",
+        default=str(PROJECT_ROOT),
+        help=(
+            "Project root. Module discovery and relative content paths are "
+            "resolved from here."
+        ),
+    )
+    parser.add_argument(
+        "--output-dir",
+        default=str(DEFAULT_OUTPUT_DIR),
+        help=(
+            "Directory where module detail files are written. "
+            "Default: data/content"
+        ),
+    )
+    parser.add_argument(
+        "--module",
+        dest="modules",
+        action="append",
+        help=(
+            "Only build the given module directory. Can be repeated. "
+            "Example: --module 07_inequality"
+        ),
+    )
+    parser.add_argument(
+        "--item",
+        dest="items",
+        action="append",
+        help=(
+            "Only build the given item directory name or content id. "
+            "Can be repeated. Example: --item I001 or "
+            "--item I001_Compound_Inequality_Transformation"
+        ),
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Build everything in memory and print logs, but do not write files.",
+    )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="Print verbose logs, including per-field previews and fallbacks.",
+    )
+    parser.add_argument(
+        "--strict",
+        action="store_true",
+        help=(
+            "Fail the whole command when required fields are missing, JSON is "
+            "invalid, or duplicate ids are found."
+        ),
+    )
+    return parser.parse_args()
+
+
+def build_config_from_args(args: argparse.Namespace) -> BuildConfig:
+    """Convert raw argparse output into one typed config object."""
+
+    return BuildConfig(
+        project_root=Path(args.base_dir).resolve(),
+        output_dir=Path(args.output_dir).resolve(),
+        target_modules=tuple(args.modules or DEFAULT_TARGET_MODULES),
+        target_items=tuple(args.items or ()),
+        dry_run=bool(args.dry_run),
+        debug=bool(args.debug),
+        strict=bool(args.strict),
+    )
+
+
+def preview_text(text: str, limit: int = 96) -> str:
+    """Return a one-line preview used in debug logs."""
+
+    compact = re.sub(r"\s+", " ", text or "").strip()
+    if len(compact) <= limit:
+        return compact
+    return compact[: limit - 3] + "..."
+
+
+def read_text_file(path: Path, *, strict: bool, required: bool) -> str:
+    """Read a text file with controlled logging."""
+
+    if not path.exists():
+        message = f"Text file not found: {path}"
+        if required:
+            if strict:
+                raise BuildError(message)
+            LOGGER.warning(message)
+        else:
+            LOGGER.debug(message)
+        return ""
+
+    try:
+        return path.read_text(encoding="utf-8")
+    except Exception as exc:
+        message = f"Failed to read text file: {path}"
+        if strict:
+            raise BuildError(message) from exc
+        LOGGER.warning(message)
+        return ""
+
+
+def read_json_file(path: Path, *, strict: bool) -> dict[str, Any]:
+    """Read `meta.json` and validate that its root is an object."""
+
+    if not path.exists():
+        message = f"JSON file not found: {path}"
+        if strict:
+            raise BuildError(message)
+        LOGGER.warning(message)
+        return {}
+
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as exc:
+        message = f"Failed to parse JSON file: {path}"
+        if strict:
+            raise BuildError(message) from exc
+        LOGGER.warning(message)
+        return {}
+
+    if not isinstance(data, dict):
+        message = f"JSON root must be an object: {path}"
+        if strict:
+            raise BuildError(message)
+        LOGGER.warning(message)
+        return {}
+
+    return data
+
+
+def get_nested_value(data: Any, path: tuple[str, ...]) -> Any:
+    """Return a nested value from a dict-like tree, or `MISSING` if absent."""
+
+    current = data
+    for segment in path:
+        if not isinstance(current, dict) or segment not in current:
+            return MISSING
+        current = current[segment]
+    return current
+
+
+def resolve_first_value(
+    data: dict[str, Any],
+    candidate_paths: tuple[tuple[str, ...], ...],
+) -> tuple[Any, tuple[str, ...] | None]:
+    """Pick the first existing value from a list of candidate nested paths."""
+
+    for path in candidate_paths:
+        value = get_nested_value(data, path)
+        if value is not MISSING:
+            return value, path
+    return MISSING, None
+
+
+def clone_json_value(value: Any) -> Any:
+    """Defensively copy JSON-compatible values before placing them in output."""
+
+    return copy.deepcopy(value)
+
+
+def stringify_text_value(value: Any) -> str:
+    """Convert fallback metadata into plain text before `clean_tex`."""
+
+    if value is MISSING or value is None:
+        return ""
+
+    if isinstance(value, str):
+        return value
+
+    if isinstance(value, dict):
+        lines: list[str] = []
+        for key, nested_value in value.items():
+            nested_text = stringify_text_value(nested_value).strip()
+            if nested_text:
+                lines.append(f"{key}: {nested_text}")
+        return "\n".join(lines)
+
+    if isinstance(value, (list, tuple)):
+        parts = [stringify_text_value(item).strip() for item in value]
+        return "\n".join(part for part in parts if part)
+
+    return str(value)
+
+
+# =============================================================================
+# TeX cleaning helpers
+# =============================================================================
+
+# This script does not try to be a full LaTeX parser.
+# Its goal is narrower and more practical:
+# - keep the mathematical meaning readable
+# - remove layout noise
+# - emit stable plain text for the detail page
+
+_NESTED_BRACE_CONTENT = r"(?:[^{}]|\{[^{}]*\})*"
+
+_FRACTION_PATTERN = re.compile(
+    rf"\\frac\{{({_NESTED_BRACE_CONTENT})\}}\{{({_NESTED_BRACE_CONTENT})\}}"
+)
+_SQRT_PATTERN = re.compile(rf"\\sqrt\{{({_NESTED_BRACE_CONTENT})\}}")
+_WRAPPED_COMMAND_PATTERN = re.compile(
+    rf"\\(?!frac\b)[a-zA-Z]+\{{({_NESTED_BRACE_CONTENT})\}}"
+)
+_TWO_ARGUMENT_COMMAND_PATTERN = re.compile(
+    rf"\\(?!frac\b)[a-zA-Z]+\{{({_NESTED_BRACE_CONTENT})\}}\{{({_NESTED_BRACE_CONTENT})\}}"
+)
+
+_SYMBOL_REPLACEMENTS: tuple[tuple[str, str], ...] = (
+    (r"\\iff", " <=> "),
+    (r"\\implies", " => "),
+    (r"\\Rightarrow", " => "),
+    (r"\\geqslant", " >= "),
+    (r"\\geq", " >= "),
+    (r"\\leqslant", " <= "),
+    (r"\\leq", " <= "),
+    (r"\\neq", " != "),
+    (r"\\to", " -> "),
+    (r"\\cdot", " * "),
+    (r"\\times", " * "),
+    (r"\\infty", " infinity "),
+    (r"\\in", " in "),
+)
+
+
+def _repeat_substitution(
+    pattern: re.Pattern[str],
+    replacer: Callable[[re.Match[str]], str],
+    text: str,
+) -> str:
+    """Apply a substitution until the text stops changing."""
+
+    previous = None
+    current = text
+    while previous != current:
+        previous = current
+        current = pattern.sub(replacer, current)
+    return current
+
+
+def strip_latex_comments(text: str) -> str:
+    """Remove LaTeX line comments while preserving escaped percent signs."""
+
+    return re.sub(r"(?<!\\)%.*$", "", text, flags=re.MULTILINE)
+
+
+def strip_environment_markers(text: str) -> str:
+    """Remove `\\begin{...}` and `\\end{...}` container markers."""
+
+    return re.sub(r"\\(begin|end)\{[^{}]+\}", "", text)
+
+
+def remove_standalone_option_lines(text: str) -> str:
+    """Drop layout-only lines like `[style=nextline, ...]`."""
+
+    return re.sub(r"^\s*\[[^\]]+\]\s*$", "", text, flags=re.MULTILINE)
+
+
+def convert_list_items(text: str) -> str:
+    """Turn `\\item` into readable bullet-like plain text."""
+
+    return re.sub(r"\\item", "\n- ", text)
+
+
+def unwrap_item_label_brackets(text: str) -> str:
+    """Convert list labels like `- [Label]` into `- Label`."""
+
+    return re.sub(r"(^\s*-\s*)\[([^\]]+)\]", r"\1\2", text, flags=re.MULTILINE)
+
+
+def replace_fractions(text: str) -> str:
+    """Convert `\\frac{a}{b}` into `(a) / (b)` before other cleanup runs."""
+
+    def replacer(match: re.Match[str]) -> str:
+        """Preserve numerator and denominator as readable grouped text."""
+
+        return f"({match.group(1)}) / ({match.group(2)})"
+
+    return _repeat_substitution(_FRACTION_PATTERN, replacer, text)
+
+
+def replace_square_roots(text: str) -> str:
+    """Convert `\\sqrt{a}` into `sqrt(a)`."""
+
+    return _SQRT_PATTERN.sub(lambda match: f"sqrt({match.group(1)})", text)
+
+
+def normalize_absolute_value_and_scalers(text: str) -> str:
+    """Remove `\\left` and `\\right` while preserving `|...|`."""
+
+    text = text.replace(r"\left|", "|").replace(r"\right|", "|")
+    return text.replace(r"\left", "").replace(r"\right", "")
+
+
+def unwrap_simple_commands(text: str) -> str:
+    """Remove wrapper commands like `\\textbf{...}` while keeping inner text."""
+
+    return _repeat_substitution(
+        _WRAPPED_COMMAND_PATTERN,
+        lambda match: match.group(1),
+        text,
+    )
+
+
+def unwrap_two_argument_commands(text: str) -> str:
+    """Keep the content argument of commands like `\\textcolor{red}{text}`."""
+
+    return _repeat_substitution(
+        _TWO_ARGUMENT_COMMAND_PATTERN,
+        lambda match: match.group(2),
+        text,
+    )
+
+
+def replace_symbol_commands(text: str) -> str:
+    """Replace common no-argument math commands with ASCII-friendly symbols."""
+
+    for pattern, replacement in _SYMBOL_REPLACEMENTS:
+        text = re.sub(pattern, replacement, text)
+    return text
+
+
+def remove_math_mode_markers(text: str) -> str:
+    """Remove math-mode boundaries such as `$`, `\\[`, and `\\(`."""
+
+    return (
+        text.replace("$", "")
+        .replace(r"\[", "\n")
+        .replace(r"\]", "\n")
+        .replace(r"\(", "")
+        .replace(r"\)", "")
+    )
+
+
+def remove_remaining_commands(text: str) -> str:
+    """Conservatively remove remaining LaTeX command names."""
+
+    return re.sub(r"\\[a-zA-Z]+(?:\[[^\]]*\])?", " ", text)
+
+
+def remove_curly_braces(text: str) -> str:
+    """Drop leftover curly braces after other cleanup steps."""
+
+    return text.replace("{", "").replace("}", "")
+
+
+def normalize_whitespace(text: str) -> str:
+    """Normalize line content while preserving line breaks for readability."""
+
+    normalized_lines: list[str] = []
+    for raw_line in text.splitlines():
+        line = re.sub(r"\s+", " ", raw_line).strip()
+        if line:
+            normalized_lines.append(line)
+    return "\n".join(normalized_lines)
+
+
+def clean_tex(text: str) -> str:
+    """Convert TeX-like content into stable plain text for detail-page display."""
+
+    if not text:
+        return ""
+
+    cleaned = text
+    cleaned = strip_latex_comments(cleaned)
+    cleaned = strip_environment_markers(cleaned)
+    cleaned = remove_standalone_option_lines(cleaned)
+    cleaned = convert_list_items(cleaned)
+    cleaned = unwrap_item_label_brackets(cleaned)
+    cleaned = replace_fractions(cleaned)
+    cleaned = replace_square_roots(cleaned)
+    cleaned = normalize_absolute_value_and_scalers(cleaned)
+    cleaned = unwrap_two_argument_commands(cleaned)
+    cleaned = unwrap_simple_commands(cleaned)
+    cleaned = replace_symbol_commands(cleaned)
+    cleaned = remove_math_mode_markers(cleaned)
+    cleaned = remove_remaining_commands(cleaned)
+    cleaned = remove_curly_braces(cleaned)
+    cleaned = normalize_whitespace(cleaned)
+    return cleaned
+
+
+DETAIL_META_FIELD_SPECS: tuple[MetaFieldSpec, ...] = (
+    MetaFieldSpec(
+        output_name="module",
+        source_paths=(("module",),),
+        description="Logical module name from meta.json",
+        purpose="Lets the detail page know the business module without using the directory name.",
+        default_factory=str,
+    ),
+    MetaFieldSpec(
+        output_name="alias",
+        source_paths=(("core", "alias"),),
+        description="Alternative titles or aliases",
+        purpose="Useful for secondary display, FAQ labels, or future content hints.",
+        default_factory=list,
+    ),
+    MetaFieldSpec(
+        output_name="difficulty",
+        source_paths=(("core", "difficulty"),),
+        description="Difficulty level",
+        purpose="Supports badges, filtering, or display of expected problem difficulty.",
+        default_factory=default_none,
+    ),
+    MetaFieldSpec(
+        output_name="category",
+        source_paths=(("core", "category"),),
+        description="Primary topic category",
+        purpose="Supports detail-page labeling and page-level context.",
+        default_factory=str,
+    ),
+    MetaFieldSpec(
+        output_name="tags",
+        source_paths=(("core", "tags"),),
+        description="Topic tags",
+        purpose="Useful for related content chips and page-level navigation.",
+        default_factory=list,
+    ),
+    MetaFieldSpec(
+        output_name="core_summary",
+        source_paths=(("core", "summary"),),
+        description="Short summary from core metadata",
+        purpose="Keeps a compact summary separate from the long cleaned `summary` field.",
+        default_factory=str,
+    ),
+    MetaFieldSpec(
+        output_name="core_formula",
+        source_paths=(("math", "core_formula"),),
+        description="Primary formula or theorem statement",
+        purpose="Usually the first math block the detail page wants to highlight.",
+        default_factory=str,
+    ),
+    MetaFieldSpec(
+        output_name="related_formulas",
+        source_paths=(("math", "related_formulas"),),
+        description="Closely related formulas",
+        purpose="Supports extended reading and future expandable formula panels.",
+        default_factory=list,
+    ),
+    MetaFieldSpec(
+        output_name="variables",
+        source_paths=(("math", "variables"),),
+        description="Variables used by the formula",
+        purpose="Helps the detail page explain notation without re-parsing the formula text.",
+        default_factory=list,
+    ),
+    MetaFieldSpec(
+        output_name="conditions",
+        source_paths=(("math", "conditions"),),
+        description="Conditions under which the statement holds",
+        purpose="Important guardrails for the detail page so conditions are easy to show.",
+        default_factory=str,
+    ),
+    MetaFieldSpec(
+        output_name="conclusions",
+        source_paths=(("math", "conclusions"),),
+        description="Main conclusion or equality case",
+        purpose="Lets the page show the takeaway without re-reading the full proof.",
+        default_factory=str,
+    ),
+    MetaFieldSpec(
+        output_name="usage",
+        source_paths=(("usage",),),
+        description="Usage scenarios and problem types",
+        purpose="Supports 'when to use this' sections on the detail page.",
+        default_factory=dict,
+    ),
+    MetaFieldSpec(
+        output_name="interactive",
+        source_paths=(("interactive",),),
+        description="Interactive page configuration",
+        purpose="Keeps detail-page interactive affordances close to the content record.",
+        default_factory=dict,
+    ),
+    MetaFieldSpec(
+        output_name="assets",
+        source_paths=(("assets",),),
+        description="Static asset references",
+        purpose="The detail page can directly load svg, png, mp4, or other resources.",
+        default_factory=dict,
+    ),
+    MetaFieldSpec(
+        output_name="shareConfig",
+        source_paths=(("shareConfig",),),
+        description="Share card title and description",
+        purpose="Used directly by the mini-program sharing entry points.",
+        default_factory=dict,
+    ),
+    MetaFieldSpec(
+        output_name="relations",
+        source_paths=(("relations",),),
+        description="Prerequisites and related content",
+        purpose="Supports related-content blocks and learning-path navigation.",
+        default_factory=dict,
+    ),
+    MetaFieldSpec(
+        output_name="isPro",
+        source_paths=(("isPro",),),
+        description="Premium or gated flag",
+        purpose="Allows the page to show lock states or access messaging.",
+        default_factory=default_none,
+    ),
+    MetaFieldSpec(
+        output_name="remarks",
+        source_paths=(("remarks",),),
+        description="Free-form remarks",
+        purpose="Keeps room for editorial notes without changing the schema.",
+        default_factory=str,
+    ),
+    MetaFieldSpec(
+        output_name="knowledgeNode",
+        source_paths=(("knowledgeNode",),),
+        description="Primary knowledge-tree node",
+        purpose="Useful for breadcrumb-like display or curriculum linking.",
+        default_factory=str,
+    ),
+    MetaFieldSpec(
+        output_name="altNodes",
+        source_paths=(("altNodes",),),
+        description="Alternative knowledge-tree nodes",
+        purpose="Supports cross-linking when one topic belongs to multiple paths.",
+        default_factory=str,
+    ),
+)
+
+
+DETAIL_TEXT_FIELD_SPECS: tuple[TextFieldSpec, ...] = (
+    TextFieldSpec(
+        output_name="statement",
+        source_filename="01_statement.tex",
+        description="Main cleaned theorem/problem statement",
+        purpose="This is the primary content block shown at the top of the detail page.",
+        required=True,
+        fallback_paths=(("content", "statement"),),
+        transform=clean_tex,
+    ),
+    TextFieldSpec(
+        output_name="explanation",
+        source_filename="02_explanation.tex",
+        description="Cleaned explanatory text",
+        purpose="Used for intuition, decomposition, and interpretation under the statement.",
+        transform=clean_tex,
+    ),
+    TextFieldSpec(
+        output_name="proof",
+        source_filename="03_proof.tex",
+        description="Cleaned proof text",
+        purpose="Keeps the formal derivation in display-ready plain text.",
+        transform=clean_tex,
+    ),
+    TextFieldSpec(
+        output_name="examples",
+        source_filename="04_examples.tex",
+        description="Cleaned examples text",
+        purpose="Supports worked examples or application snippets on the detail page.",
+        transform=clean_tex,
+    ),
+    TextFieldSpec(
+        output_name="traps",
+        source_filename="05_traps.tex",
+        description="Cleaned common pitfalls text",
+        purpose="Useful for mistake reminders and learning notes.",
+        fallback_paths=(("content", "common_tricks"),),
+        transform=clean_tex,
+    ),
+    TextFieldSpec(
+        output_name="summary",
+        source_filename="06_summary.tex",
+        description="Cleaned summary text",
+        purpose="Provides a concise end-of-page takeaway for quick review.",
+        fallback_paths=(("core", "summary"),),
+        transform=clean_tex,
+    ),
+)
+
+
+def module_contains_content(module_dir: Path) -> bool:
+    """Return whether a top-level directory looks like a content module."""
+
+    try:
+        for child in module_dir.iterdir():
+            if not child.is_dir():
+                continue
+            if (child / META_FILENAME).exists() or (child / "01_statement.tex").exists():
+                return True
+    except OSError:
+        return False
+    return False
+
+
+def discover_all_module_directories(project_root: Path) -> list[Path]:
+    """Auto-discover buildable module directories under the project root."""
+
+    module_dirs: list[Path] = []
+    for path in sorted(project_root.iterdir()):
+        if not path.is_dir():
+            continue
+        if path.name in IGNORED_TOP_LEVEL_DIRS:
+            continue
+        if module_contains_content(path):
+            module_dirs.append(path)
+    return module_dirs
+
+
+def resolve_target_module_directories(config: BuildConfig) -> list[Path]:
+    """Resolve the final module directory list from CLI settings."""
+
+    if not config.target_modules:
+        return discover_all_module_directories(config.project_root)
+
+    module_dirs: list[Path] = []
+    missing_modules: list[str] = []
+    for module_name in config.target_modules:
+        module_dir = config.project_root / module_name
+        if module_dir.is_dir():
+            module_dirs.append(module_dir)
+        else:
+            missing_modules.append(module_name)
+
+    if missing_modules:
+        message = "Module directory not found: " + ", ".join(missing_modules)
+        if config.strict:
+            raise BuildError(message)
+        LOGGER.warning(message)
+
+    return module_dirs
+
+
+def iter_item_directories(module_dir: Path) -> list[Path]:
+    """Return immediate child item directories in stable sorted order."""
+
+    return sorted(path for path in module_dir.iterdir() if path.is_dir())
+
+
+def resolve_item_identity(meta: dict[str, Any], item_dir: Path) -> tuple[str, str]:
+    """Resolve the stable detail record id and title."""
+
+    item_id = str(meta.get("id") or item_dir.name)
+    title_value, _ = resolve_first_value(
+        meta,
+        (
+            ("core", "title"),
+            ("title",),
+        ),
+    )
+    title = (
+        str(title_value)
+        if title_value is not MISSING and title_value is not None
+        else item_dir.name
+    )
+    return item_id, title
+
+
+def matches_item_filter(
+    item_dir: Path,
+    item_id: str,
+    target_items: tuple[str, ...],
+) -> bool:
+    """Return whether the current item matches the optional `--item` filter."""
+
+    if not target_items:
+        return True
+    targets = set(target_items)
+    return item_dir.name in targets or item_id in targets
+
+
+def build_meta_fields(
+    meta: dict[str, Any],
+    item_id: str,
+    title: str,
+) -> dict[str, Any]:
+    """Build detail-page metadata fields from the whitelist configuration."""
+
+    record: dict[str, Any] = {
+        "id": item_id,
+        "title": title,
+    }
+
+    for field_spec in DETAIL_META_FIELD_SPECS:
+        value, source_path = resolve_first_value(meta, field_spec.source_paths)
+        if value is MISSING:
+            value = field_spec.default_factory()
+        else:
+            value = clone_json_value(value)
+
+        if field_spec.required and value in (None, "", [], {}):
+            source_description = ", ".join(
+                ".".join(path) for path in field_spec.source_paths
+            )
+            raise BuildError(
+                f"Required meta field '{field_spec.output_name}' is empty "
+                f"(expected from {source_description})"
+            )
+
+        record[field_spec.output_name] = value
+
+        if source_path is None:
+            LOGGER.debug(
+                "Meta field defaulted | field=%s | value=%r",
+                field_spec.output_name,
+                value,
+            )
+        else:
+            LOGGER.debug(
+                "Meta field built | field=%s | source=%s | value=%s",
+                field_spec.output_name,
+                ".".join(source_path),
+                preview_text(stringify_text_value(value)),
+            )
+
+    return record
+
+
+def build_text_field(
+    item_dir: Path,
+    meta: dict[str, Any],
+    item_id: str,
+    field_spec: TextFieldSpec,
+    config: BuildConfig,
+) -> str:
+    """Build one cleaned detail text field."""
+
+    source_path = item_dir / field_spec.source_filename
+    raw_text = read_text_file(
+        source_path,
+        strict=config.strict,
+        required=field_spec.required,
+    )
+
+    source_used = source_path.name if raw_text.strip() else ""
+    if not raw_text.strip() and field_spec.fallback_paths:
+        fallback_value, fallback_path = resolve_first_value(meta, field_spec.fallback_paths)
+        if fallback_value is not MISSING:
+            raw_text = stringify_text_value(fallback_value)
+            source_used = ".".join(fallback_path or ())
+
+    transform = field_spec.transform or (lambda text: text)
+    cleaned_text = transform(raw_text)
+
+    if field_spec.required and not cleaned_text:
+        raise BuildError(
+            f"Required detail text field '{field_spec.output_name}' is empty: {item_dir}"
+        )
+
+    LOGGER.debug(
+        "Text field built | item=%s | field=%s | source=%s | preview=%s",
+        item_id,
+        field_spec.output_name,
+        source_used or "<empty>",
+        preview_text(cleaned_text),
+    )
+
+    return cleaned_text
+
+
+def build_detail_record(
+    item_dir: Path,
+    meta: dict[str, Any],
+    item_id: str,
+    title: str,
+    config: BuildConfig,
+) -> dict[str, Any]:
+    """Build the full detail-page record for one item."""
+
+    record = build_meta_fields(meta, item_id, title)
+    for field_spec in DETAIL_TEXT_FIELD_SPECS:
+        record[field_spec.output_name] = build_text_field(
+            item_dir=item_dir,
+            meta=meta,
+            item_id=item_id,
+            field_spec=field_spec,
+            config=config,
+        )
+    return record
+
+
+def process_module(
+    module_dir: Path,
+    config: BuildConfig,
+) -> tuple[str, dict[str, dict[str, Any]], ModuleStats]:
+    """Process one module directory into `{item_id: detail_record}` output."""
+
+    module_name = module_dir.name
+    stats = ModuleStats(module_name=module_name)
+    result: dict[str, dict[str, Any]] = {}
+
+    LOGGER.info("Module start | %s", module_name)
+
+    for item_dir in iter_item_directories(module_dir):
+        stats.scanned_items += 1
+
+        try:
+            meta = read_json_file(item_dir / META_FILENAME, strict=config.strict)
+            item_id, title = resolve_item_identity(meta, item_dir)
+
+            if not matches_item_filter(item_dir, item_id, config.target_items):
+                stats.filtered_items += 1
+                LOGGER.debug(
+                    "Item filtered | module=%s | item_dir=%s | item_id=%s",
+                    module_name,
+                    item_dir.name,
+                    item_id,
+                )
+                continue
+
+            if item_id in result:
+                raise BuildError(
+                    f"Duplicate item id '{item_id}' found in module '{module_name}'."
+                )
+
+            result[item_id] = build_detail_record(
+                item_dir=item_dir,
+                meta=meta,
+                item_id=item_id,
+                title=title,
+                config=config,
+            )
+            stats.built_items += 1
+
+        except Exception as exc:
+            stats.skipped_items += 1
+            if config.strict:
+                raise
+            LOGGER.warning(
+                "Skip item | module=%s | item=%s | reason=%s",
+                module_name,
+                item_dir.name,
+                exc,
+            )
+
+    LOGGER.info(
+        "Module summary | module=%s | scanned=%d | built=%d | filtered=%d | skipped=%d",
+        module_name,
+        stats.scanned_items,
+        stats.built_items,
+        stats.filtered_items,
+        stats.skipped_items,
+    )
+
+    return module_name, result, stats
+
+
+def build_schema_comment() -> str:
+    """Generate an output-file header that documents schema and intent."""
+
+    lines: list[str] = [
+        "/**",
+        " * Auto-generated by scripts/build_detail_page_js.py.",
+        " *",
+        " * This file is for the mini-program detail page only.",
+        " * It intentionally excludes search-only metadata such as:",
+        " *   - search",
+        " *   - searchmeta",
+        " *   - ranking",
+        " *   - pinyin / pinyinAbbr and other search keys under search.*",
+        " *",
+        " * Top-level export:",
+        " *   module.exports = { [id]: DetailRecord }",
+        " *",
+        " * DetailRecord core fields:",
+        " *   - id: stable content id from meta.json:id",
+        " *   - title: display title from meta.json:core.title",
+        " *",
+        " * DetailRecord metadata fields:",
+    ]
+
+    for field_spec in DETAIL_META_FIELD_SPECS:
+        source_text = " | ".join(".".join(path) for path in field_spec.source_paths)
+        lines.append(
+            f" *   - {field_spec.output_name}: {field_spec.description}; "
+            f"source={source_text}; why={field_spec.purpose}"
+        )
+
+    lines.append(" *")
+    lines.append(" * DetailRecord cleaned text fields:")
+    for field_spec in DETAIL_TEXT_FIELD_SPECS:
+        fallback_text = (
+            " | ".join(".".join(path) for path in field_spec.fallback_paths)
+            if field_spec.fallback_paths
+            else "none"
+        )
+        lines.append(
+            f" *   - {field_spec.output_name}: {field_spec.description}; "
+            f"source={field_spec.source_filename}; fallback={fallback_text}; "
+            f"why={field_spec.purpose}"
+        )
+
+    lines.extend(
+        [
+            " */",
+            "",
+        ]
+    )
+    return "\n".join(lines)
+
+
+def write_module_js(
+    module_name: str,
+    data: dict[str, dict[str, Any]],
+    output_dir: Path,
+) -> Path:
+    """Write one module output file in a debug-friendly JS format."""
+
+    output_dir.mkdir(parents=True, exist_ok=True)
+    output_path = output_dir / f"{module_name}.js"
+    js_content = build_schema_comment() + "module.exports = " + json.dumps(
+        data,
+        ensure_ascii=False,
+        indent=2,
+        sort_keys=False,
+    ) + "\n"
+    output_path.write_text(js_content, encoding="utf-8")
+    return output_path
+
+
+def run_build(config: BuildConfig) -> None:
+    """Run the full detail-page build workflow with clear stage logs."""
+
+    LOGGER.info("Step 1/5 | Resolve target modules")
+    module_dirs = resolve_target_module_directories(config)
+    if not module_dirs:
+        message = "No module directories matched the current configuration."
+        if config.strict:
+            raise BuildError(message)
+        LOGGER.warning(message)
+        return
+
+    LOGGER.info("Project root: %s", config.project_root)
+    LOGGER.info("Output dir: %s", config.output_dir)
+    LOGGER.info(
+        "Target modules: %s",
+        ", ".join(config.target_modules) if config.target_modules else "auto discover",
+    )
+    if config.target_items:
+        LOGGER.info("Target items: %s", ", ".join(config.target_items))
+
+    LOGGER.info("Step 2/5 | Build detail-page records")
+
+    total_modules = 0
+    total_items = 0
+    total_filtered = 0
+    total_skipped = 0
+
+    pending_outputs: list[tuple[str, dict[str, dict[str, Any]]]] = []
+    for module_index, module_dir in enumerate(module_dirs, start=1):
+        LOGGER.info(
+            "Module progress | %d/%d | %s",
+            module_index,
+            len(module_dirs),
+            module_dir.name,
+        )
+        module_name, data, stats = process_module(module_dir, config)
+        pending_outputs.append((module_name, data))
+        total_modules += 1
+        total_items += stats.built_items
+        total_filtered += stats.filtered_items
+        total_skipped += stats.skipped_items
+
+    LOGGER.info("Step 3/5 | Validate build results")
+    LOGGER.info(
+        "Build stats | modules=%d | items=%d | filtered=%d | skipped=%d",
+        total_modules,
+        total_items,
+        total_filtered,
+        total_skipped,
+    )
+
+    LOGGER.info("Step 4/5 | Write JS files")
+    written_files: list[Path] = []
+    for module_name, data in pending_outputs:
+        if config.dry_run:
+            LOGGER.info(
+                "[dry-run] Skip write | module=%s | items=%d",
+                module_name,
+                len(data),
+            )
+            continue
+
+        output_path = write_module_js(module_name, data, config.output_dir)
+        written_files.append(output_path)
+        LOGGER.info(
+            "Wrote detail file | module=%s | path=%s | items=%d",
+            module_name,
+            output_path,
+            len(data),
+        )
+
+    LOGGER.info("Step 5/5 | Finished")
+    if written_files:
+        for path in written_files:
+            LOGGER.info("Output ready | %s | bytes=%d", path, path.stat().st_size)
+    elif config.dry_run:
+        LOGGER.info("Dry-run finished without writing output files.")
+
+
+def main() -> int:
+    """CLI entry point."""
+
+    configure_console_encoding()
+    args = parse_args()
+    configure_logging(args.debug)
+    config = build_config_from_args(args)
+
+    try:
+        run_build(config)
+        return 0
+    except BuildError as exc:
+        LOGGER.error("%s", exc)
+        return 1
+    except Exception:
+        LOGGER.exception("Unexpected build failure")
+        return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
