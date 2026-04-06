@@ -566,6 +566,7 @@ def dedupe(values: Sequence[str]) -> list[str]:
         result.append(value)
     return result
 
+
 def get_strings(data: Mapping[str, object], *paths: str) -> list[str]:
     """从多个候选路径读取文本并做递归拍平与去重。
 
@@ -645,7 +646,9 @@ def normalize_formula(text: str) -> str:
     return text.replace(" ", "")
 
 
-def split_fragments(text: str, max_fragments: int = 8, max_length: int = 28) -> list[str]:
+def split_fragments(
+    text: str, max_fragments: int = 8, max_length: int = 28
+) -> list[str]:
     """把长句拆成适合索引的短片段。
 
     需要它，是因为定理陈述和说明文字通常很长，整句建索引噪声太高；拆成短片段后，
@@ -723,7 +726,7 @@ def cjk_ngrams(text: str, min_n: int = 2, max_n: int = 6) -> list[str]:
             continue
         for size in range(min_n, min(max_n, len(segment)) + 1):
             for start in range(0, len(segment) - size + 1):
-                result.append(segment[start:start + size])
+                result.append(segment[start : start + size])
     return dedupe(result)
 
 
@@ -740,7 +743,11 @@ def informative_exact(term: str) -> bool:
     """
 
     bad = {"+", "-", "*", "/", "=", "<", ">", "<=", ">=", "!="}
-    return bool(term and term not in bad and (len(term) > 1 or contains_cjk(term) or is_formula_like(term)))
+    return bool(
+        term
+        and term not in bad
+        and (len(term) > 1 or contains_cjk(term) or is_formula_like(term))
+    )
 
 
 def informative_prefix(term: str) -> bool:
@@ -848,13 +855,22 @@ def extract_formula_token(meta: Mapping[str, object]) -> list[str]:
     它和完整公式的区别在于：这里偏向人工挑选的“最值得搜的符号串”，适合提升公式搜索精度。
     """
 
-    return get_strings(meta, "search.formulaTokens", "search.formula_tokens", "formulaTokens")
+    return get_strings(
+        meta, "search.formulaTokens", "search.formula_tokens", "formulaTokens"
+    )
 
 
 def extract_formula(meta: Mapping[str, object]) -> list[str]:
     """提取完整或半完整公式表达。"""
 
-    return get_strings(meta, "search.latex_patterns", "search.latexPatterns", "math.core_formula", "math.related_formulas", "formulas")
+    return get_strings(
+        meta,
+        "math.core_formula",
+        "search.latex_patterns",
+        "search.latexPatterns",
+        "math.related_formulas",
+        "formulas",
+    )
 
 
 def extract_summary(meta: Mapping[str, object]) -> list[str]:
@@ -895,7 +911,9 @@ def extract_node(meta: Mapping[str, object]) -> list[str]:
 
     result = get_strings(meta, "knowledgeNode")
     for text in get_strings(meta, "altNodes"):
-        result.extend([part.strip() for part in ALT_NODE_SPLIT_RE.split(text) if part.strip()])
+        result.extend(
+            [part.strip() for part in ALT_NODE_SPLIT_RE.split(text) if part.strip()]
+        )
     return dedupe(result)
 
 
@@ -941,13 +959,27 @@ FIELD_SPECS = (
     # 标签：短而稳，适合做补充召回和建议词。
     FieldSpec("tag", extract_tag, 44, None, True, True, True, True),
     # 公式 token：人工挑选过的关键符号表达，精度高于完整公式。
-    FieldSpec("formula_token", extract_formula_token, 78, "formulaWeight", True, False, False, False, True),
+    FieldSpec(
+        "formula_token",
+        extract_formula_token,
+        78,
+        "formulaWeight",
+        True,
+        False,
+        False,
+        False,
+        True,
+    ),
     # 完整公式：扩大公式检索覆盖面，但展示价值一般，不做 suggestion。
-    FieldSpec("formula", extract_formula, 66, "formulaWeight", True, False, False, False, True),
+    FieldSpec(
+        "formula", extract_formula, 66, "formulaWeight", True, False, False, False, True
+    ),
     # 摘要：补充召回覆盖率，同时也会写入 docs 作为结果摘要。
     FieldSpec("summary", extract_summary, 30, None, False, False, True, False),
     # 陈述片段：让用户输入定理中的局部短句时仍可命中。
-    FieldSpec("statement_fragment", extract_statement, 18, None, False, False, False, False),
+    FieldSpec(
+        "statement_fragment", extract_statement, 18, None, False, False, False, False
+    ),
     # 使用场景：服务“解某类题该用什么”这一类意图搜索。
     FieldSpec("usage", extract_usage, 28, None, True, False, True, False),
     # 知识节点：兼容知识图谱、目录系统中的节点命名。
@@ -955,11 +987,14 @@ FIELD_SPECS = (
     # 手工全拼：优先级高于自动拼音派生，因为可控性更强。
     FieldSpec("pinyin", extract_pinyin_field, 72, None, True, False, False, False),
     # 手工拼音缩写：服务首字母搜索。
-    FieldSpec("pinyin_abbr", extract_pinyin_abbr_field, 64, None, True, False, False, False),
+    FieldSpec(
+        "pinyin_abbr", extract_pinyin_abbr_field, 64, None, True, False, False, False
+    ),
 )
 # posting 里只存一个整数位图，而不重复存字段字符串。
 # 需要这个映射，是因为它在体积和可调试性之间做了比较好的平衡。
 FIELD_MASK_LEGEND = {spec.name: 1 << index for index, spec in enumerate(FIELD_SPECS)}
+
 
 def searchmeta_dict(meta: Mapping[str, object]) -> Mapping[str, object]:
     """提取 `searchmeta/searchMeta` 配置块。
@@ -1012,16 +1047,30 @@ def compute_rank_score(meta: Mapping[str, object]) -> int:
     一个 `rank` 字段，是为了把“能不能召回”和“排在前还是后”拆开处理。
     """
 
-    ranking = get_path(meta, "ranking") if isinstance(get_path(meta, "ranking"), Mapping) else {}
-    usage = get_path(meta, "usage") if isinstance(get_path(meta, "usage"), Mapping) else {}
+    ranking = (
+        get_path(meta, "ranking")
+        if isinstance(get_path(meta, "ranking"), Mapping)
+        else {}
+    )
+    usage = (
+        get_path(meta, "usage") if isinstance(get_path(meta, "usage"), Mapping) else {}
+    )
     core = get_path(meta, "core") if isinstance(get_path(meta, "core"), Mapping) else {}
     score = (
         to_float(ranking.get("search_boost", ranking.get("searchBoost")), 0.0) * 100
         + to_float(ranking.get("hot_score", ranking.get("hotScore")), 0.0)
         + to_float(ranking.get("click_rate", ranking.get("clickRate")), 0.0) * 30
         + to_float(ranking.get("success_rate", ranking.get("successRate")), 0.0) * 40
-        + to_float(usage.get("exam_frequency", usage.get("examFrequency")), to_float(meta.get("examFrequency"), 0.0)) * 20
-        + to_float(usage.get("exam_score", usage.get("examScore")), to_float(meta.get("examScore"), 0.0)) * 5
+        + to_float(
+            usage.get("exam_frequency", usage.get("examFrequency")),
+            to_float(meta.get("examFrequency"), 0.0),
+        )
+        * 20
+        + to_float(
+            usage.get("exam_score", usage.get("examScore")),
+            to_float(meta.get("examScore"), 0.0),
+        )
+        * 5
         + to_float(core.get("difficulty", meta.get("difficulty")), 0.0) * 2
     )
     return int(round(score))
@@ -1079,7 +1128,9 @@ def resolve_module_dirs(config: BuildConfig) -> list[Path]:
     return result
 
 
-def resolve_item_identity(meta: Mapping[str, object], item_dir: Path) -> tuple[str, str]:
+def resolve_item_identity(
+    meta: Mapping[str, object], item_dir: Path
+) -> tuple[str, str]:
     """解析文档 id 和标题。
 
     需要这个函数，是为了把“文档身份”提取逻辑集中起来，避免后续多处重复 fallback。
@@ -1090,7 +1141,9 @@ def resolve_item_identity(meta: Mapping[str, object], item_dir: Path) -> tuple[s
     return doc_id, title
 
 
-def matches_item_filter(item_dir: Path, doc_id: str, target_items: Sequence[str]) -> bool:
+def matches_item_filter(
+    item_dir: Path, doc_id: str, target_items: Sequence[str]
+) -> bool:
     """判断某条内容是否满足 `--item` 过滤条件。"""
 
     if not target_items:
@@ -1099,7 +1152,9 @@ def matches_item_filter(item_dir: Path, doc_id: str, target_items: Sequence[str]
     return item_dir.name in targets or doc_id in targets
 
 
-def build_doc_record(meta: Mapping[str, object], doc_id: str, module_dir_name: str, source_path: Path) -> dict[str, object]:
+def build_doc_record(
+    meta: Mapping[str, object], doc_id: str, module_dir_name: str, source_path: Path
+) -> dict[str, object]:
     """构建写入 `docs` 的轻量文档记录。
 
     `docs` 不是原始 meta 的镜像，而是端上搜索结果真正需要的最小展示/排序信息。
@@ -1127,8 +1182,14 @@ def build_doc_record(meta: Mapping[str, object], doc_id: str, module_dir_name: s
         这些值既能帮助调试排序，也为未来端上二次排序预留空间。
     """
 
-    ranking = get_path(meta, "ranking") if isinstance(get_path(meta, "ranking"), Mapping) else {}
-    usage = get_path(meta, "usage") if isinstance(get_path(meta, "usage"), Mapping) else {}
+    ranking = (
+        get_path(meta, "ranking")
+        if isinstance(get_path(meta, "ranking"), Mapping)
+        else {}
+    )
+    usage = (
+        get_path(meta, "usage") if isinstance(get_path(meta, "usage"), Mapping) else {}
+    )
     core = get_path(meta, "core") if isinstance(get_path(meta, "core"), Mapping) else {}
     summary_candidates = extract_summary(meta) or extract_statement(meta)
     formula_candidates = extract_formula(meta)
@@ -1152,10 +1213,18 @@ def build_doc_record(meta: Mapping[str, object], doc_id: str, module_dir_name: s
         # 预先计算静态排序分，端上不用重复做同样的聚合。
         "rank": compute_rank_score(meta),
         "difficulty": to_float(core.get("difficulty", meta.get("difficulty")), 0.0),
-        "searchBoost": to_float(ranking.get("search_boost", ranking.get("searchBoost")), 0.0),
+        "searchBoost": to_float(
+            ranking.get("search_boost", ranking.get("searchBoost")), 0.0
+        ),
         "hotScore": to_float(ranking.get("hot_score", ranking.get("hotScore")), 0.0),
-        "examFrequency": to_float(usage.get("exam_frequency", usage.get("examFrequency")), to_float(meta.get("examFrequency"), 0.0)),
-        "examScore": to_float(usage.get("exam_score", usage.get("examScore")), to_float(meta.get("examScore"), 0.0)),
+        "examFrequency": to_float(
+            usage.get("exam_frequency", usage.get("examFrequency")),
+            to_float(meta.get("examFrequency"), 0.0),
+        ),
+        "examScore": to_float(
+            usage.get("exam_score", usage.get("examScore")),
+            to_float(meta.get("examScore"), 0.0),
+        ),
     }
 
 
@@ -1180,7 +1249,11 @@ def build_feature_variants(text: str, spec: FieldSpec) -> dict[str, object]:
     display_text = normalize_display(text)
     if not display_text:
         return {"source": "", "exact": [], "prefix": [], "suggest": []}
-    base = normalize_formula(display_text) if spec.treat_as_formula else normalize_text(display_text)
+    base = (
+        normalize_formula(display_text)
+        if spec.treat_as_formula
+        else normalize_text(display_text)
+    )
     exact: list[tuple[str, float, str]] = []
     prefix: list[tuple[str, float, str]] = []
     seen_exact: set[str] = set()
@@ -1227,11 +1300,28 @@ def build_feature_variants(text: str, spec: FieldSpec) -> dict[str, object]:
             if spec.include_prefix:
                 add_prefix(abbr, 0.62, "pinyin_abbr")
 
-    suggest = [display_text] if spec.include_suggest and 2 <= len(display_text) <= 32 and not is_formula_like(display_text) else []
-    return {"source": display_text, "exact": exact, "prefix": prefix, "suggest": suggest}
+    suggest = (
+        [display_text]
+        if spec.include_suggest
+        and 2 <= len(display_text) <= 32
+        and not is_formula_like(display_text)
+        else []
+    )
+    return {
+        "source": display_text,
+        "exact": exact,
+        "prefix": prefix,
+        "suggest": suggest,
+    }
 
 
-def add_exact_posting(index_map: DefaultDict[str, dict[str, PostingAccumulator]], term: str, doc_id: str, score: int, field_mask: int) -> None:
+def add_exact_posting(
+    index_map: DefaultDict[str, dict[str, PostingAccumulator]],
+    term: str,
+    doc_id: str,
+    score: int,
+    field_mask: int,
+) -> None:
     """把一条 exact 倒排命中累加到内存索引中。
 
     exact posting 采用“分数累加”策略，因为同一文档同一词可能从多个字段重复命中，
@@ -1247,7 +1337,13 @@ def add_exact_posting(index_map: DefaultDict[str, dict[str, PostingAccumulator]]
     posting.field_mask |= field_mask
 
 
-def add_prefix_posting(index_map: DefaultDict[str, dict[str, PostingAccumulator]], term: str, doc_id: str, score: int, field_mask: int) -> None:
+def add_prefix_posting(
+    index_map: DefaultDict[str, dict[str, PostingAccumulator]],
+    term: str,
+    doc_id: str,
+    score: int,
+    field_mask: int,
+) -> None:
     """把一条 prefix 倒排命中展开并写入内存索引。
 
     prefix posting 采用“同词取最大分”而不是累加，目的是抑制前缀索引过度放大带来的噪声。
@@ -1263,7 +1359,11 @@ def add_prefix_posting(index_map: DefaultDict[str, dict[str, PostingAccumulator]
         posting.field_mask |= field_mask
 
 
-def serialize_postings(postings: dict[str, PostingAccumulator], docs: Mapping[str, Mapping[str, object]], limit: int | None = None) -> list[list[int | str]]:
+def serialize_postings(
+    postings: dict[str, PostingAccumulator],
+    docs: Mapping[str, Mapping[str, object]],
+    limit: int | None = None,
+) -> list[list[int | str]]:
     """把 posting 映射压缩成最终写入 JS 的数组结构。
 
     输出格式为 `[docId, score, fieldMask]`。之所以不用对象，是为了显著减小产物体积。
@@ -1272,7 +1372,11 @@ def serialize_postings(postings: dict[str, PostingAccumulator], docs: Mapping[st
 
     items = sorted(
         postings.items(),
-        key=lambda item: (-item[1].score, -int(docs.get(item[0], {}).get("rank", 0)), item[0]),
+        key=lambda item: (
+            -item[1].score,
+            -int(docs.get(item[0], {}).get("rank", 0)),
+            item[0],
+        ),
     )
     if limit is not None:
         items = items[:limit]
@@ -1287,11 +1391,18 @@ def build_debug_term_candidates(raw_term: str) -> list[str]:
     """
 
     display = normalize_display(raw_term)
-    return dedupe([
-        candidate
-        for candidate in (normalize_text(display), normalize_compact(normalize_text(display)), normalize_formula(display))
-        if candidate
-    ])
+    return dedupe(
+        [
+            candidate
+            for candidate in (
+                normalize_text(display),
+                normalize_compact(normalize_text(display)),
+                normalize_formula(display),
+            )
+            if candidate
+        ]
+    )
+
 
 def write_bundle(bundle: Mapping[str, object], config: BuildConfig) -> None:
     """把 bundle 写成 JS 模块文件。
@@ -1338,7 +1449,12 @@ def write_bundle(bundle: Mapping[str, object], config: BuildConfig) -> None:
         "// - suggestion score mixes field weight and docs[docId].rank (higher first)",
         "",
     ]
-    content = "\n".join(header) + "const searchBundle = " + payload + "\n\nmodule.exports = searchBundle;\n"
+    content = (
+        "\n".join(header)
+        + "const searchBundle = "
+        + payload
+        + "\n\nmodule.exports = searchBundle;\n"
+    )
     config.output_file.write_text(content, encoding="utf-8")
     LOGGER.info("Search bundle written: %s", config.output_file)
 
@@ -1355,9 +1471,13 @@ def run_build(config: BuildConfig) -> dict[str, object]:
     """
 
     if lazy_pinyin is None:
-        LOGGER.warning("Dependency status | pypinyin is not installed, so dynamic pinyin expansion will be skipped.")
+        LOGGER.warning(
+            "Dependency status | pypinyin is not installed, so dynamic pinyin expansion will be skipped."
+        )
     else:
-        LOGGER.info("Dependency status | pypinyin is available, dynamic pinyin expansion is enabled.")
+        LOGGER.info(
+            "Dependency status | pypinyin is available, dynamic pinyin expansion is enabled."
+        )
 
     LOGGER.info("Step 1/5 | Resolve build scope")
     module_dirs = resolve_module_dirs(config)
@@ -1377,16 +1497,27 @@ def run_build(config: BuildConfig) -> dict[str, object]:
 
     LOGGER.info("Build target | project_root=%s", config.project_root)
     LOGGER.info("Build target | output_file=%s", config.output_file)
-    LOGGER.info("Build target | target_modules=%s", ", ".join(config.target_modules) if config.target_modules else "auto discover")
+    LOGGER.info(
+        "Build target | target_modules=%s",
+        ", ".join(config.target_modules) if config.target_modules else "auto discover",
+    )
     if config.target_items:
         LOGGER.info("Build target | target_items=%s", ", ".join(config.target_items))
-    LOGGER.info("Step 1/5 done | matched_modules=%d | modules=%s", len(module_dirs), ", ".join(path.name for path in module_dirs))
+    LOGGER.info(
+        "Step 1/5 done | matched_modules=%d | modules=%s",
+        len(module_dirs),
+        ", ".join(path.name for path in module_dirs),
+    )
 
     LOGGER.info("Step 2/5 | Scan modules and collect searchable records")
     for module_dir in module_dirs:
         stats = ModuleStats(module_name=module_dir.name)
         item_dirs = sorted(path for path in module_dir.iterdir() if path.is_dir())
-        LOGGER.info("Module start | module=%s | candidate_items=%d", module_dir.name, len(item_dirs))
+        LOGGER.info(
+            "Module start | module=%s | candidate_items=%d",
+            module_dir.name,
+            len(item_dirs),
+        )
 
         for item_dir in item_dirs:
             stats.scanned_items += 1
@@ -1395,20 +1526,30 @@ def run_build(config: BuildConfig) -> dict[str, object]:
                 stats.skipped_items += 1
                 if config.strict:
                     raise BuildError(f"Missing meta.json: {meta_path}")
-                LOGGER.warning("Item skipped | reason=missing_meta | item_dir=%s", item_dir)
+                LOGGER.warning(
+                    "Item skipped | reason=missing_meta | item_dir=%s", item_dir
+                )
                 continue
 
             try:
                 meta = read_json_file(meta_path, config.strict)
                 if not meta:
                     stats.skipped_items += 1
-                    LOGGER.warning("Item skipped | reason=invalid_or_empty_json | meta_path=%s", meta_path)
+                    LOGGER.warning(
+                        "Item skipped | reason=invalid_or_empty_json | meta_path=%s",
+                        meta_path,
+                    )
                     continue
 
                 doc_id, _ = resolve_item_identity(meta, item_dir)
                 if not matches_item_filter(item_dir, doc_id, config.target_items):
                     stats.filtered_items += 1
-                    LOGGER.debug("Item filtered | module=%s | item=%s | doc_id=%s", module_dir.name, item_dir.name, doc_id)
+                    LOGGER.debug(
+                        "Item filtered | module=%s | item=%s | doc_id=%s",
+                        module_dir.name,
+                        item_dir.name,
+                        doc_id,
+                    )
                     continue
                 if doc_id in docs:
                     raise BuildError(f"Duplicate document id detected: {doc_id}")
@@ -1417,7 +1558,11 @@ def run_build(config: BuildConfig) -> dict[str, object]:
                 docs[doc_id] = doc_record
                 capture_debug = config.embed_debug or doc_id in set(config.debug_docs)
                 if capture_debug:
-                    debug_docs[doc_id] = {"source": str(meta_path), "record": doc_record, "features": []}
+                    debug_docs[doc_id] = {
+                        "source": str(meta_path),
+                        "record": doc_record,
+                        "features": [],
+                    }
 
                 field_feature_count = 0
                 exact_term_count = 0
@@ -1437,8 +1582,33 @@ def run_build(config: BuildConfig) -> dict[str, object]:
                                     "field": spec.name,
                                     "sourceText": feature["source"],
                                     "weight": field_weight,
-                                    "exact": [{"term": term, "kind": kind, "score": max(1, int(round(field_weight * mult)))} for term, mult, kind in feature["exact"]],
-                                    "prefix": [{"term": term, "kind": kind, "score": max(1, int(round(field_weight * spec.prefix_ratio * mult)))} for term, mult, kind in feature["prefix"]],
+                                    "exact": [
+                                        {
+                                            "term": term,
+                                            "kind": kind,
+                                            "score": max(
+                                                1, int(round(field_weight * mult))
+                                            ),
+                                        }
+                                        for term, mult, kind in feature["exact"]
+                                    ],
+                                    "prefix": [
+                                        {
+                                            "term": term,
+                                            "kind": kind,
+                                            "score": max(
+                                                1,
+                                                int(
+                                                    round(
+                                                        field_weight
+                                                        * spec.prefix_ratio
+                                                        * mult
+                                                    )
+                                                ),
+                                            ),
+                                        }
+                                        for term, mult, kind in feature["prefix"]
+                                    ],
                                     "suggest": feature["suggest"],
                                 }
                             )
@@ -1447,15 +1617,34 @@ def run_build(config: BuildConfig) -> dict[str, object]:
                         prefix_term_count += len(feature["prefix"])
                         suggestion_count += len(feature["suggest"])
                         for term, mult, _kind in feature["exact"]:
-                            add_exact_posting(term_index, term, doc_id, max(1, int(round(field_weight * mult))), field_mask)
+                            add_exact_posting(
+                                term_index,
+                                term,
+                                doc_id,
+                                max(1, int(round(field_weight * mult))),
+                                field_mask,
+                            )
                         for term, mult, _kind in feature["prefix"]:
-                            add_prefix_posting(prefix_index, term, doc_id, max(1, int(round(field_weight * spec.prefix_ratio * mult))), field_mask)
+                            add_prefix_posting(
+                                prefix_index,
+                                term,
+                                doc_id,
+                                max(
+                                    1,
+                                    int(round(field_weight * spec.prefix_ratio * mult)),
+                                ),
+                                field_mask,
+                            )
                         for display_text in feature["suggest"]:
                             key = normalize_text(display_text)
                             score = field_weight + int(doc_record["rank"])
                             current = suggestions.get(key)
                             if current is None or score > current["score"]:
-                                suggestions[key] = {"display": display_text, "docId": doc_id, "score": score}
+                                suggestions[key] = {
+                                    "display": display_text,
+                                    "docId": doc_id,
+                                    "score": score,
+                                }
 
                 stats.built_items += 1
                 LOGGER.debug(
@@ -1473,7 +1662,12 @@ def run_build(config: BuildConfig) -> dict[str, object]:
                 stats.skipped_items += 1
                 if config.strict:
                     raise
-                LOGGER.warning("Item skipped | module=%s | item=%s | reason=%s", module_dir.name, item_dir.name, exc)
+                LOGGER.warning(
+                    "Item skipped | module=%s | item=%s | reason=%s",
+                    module_dir.name,
+                    item_dir.name,
+                    exc,
+                )
 
         module_stats.append(stats)
         LOGGER.info(
@@ -1526,13 +1720,22 @@ def run_build(config: BuildConfig) -> dict[str, object]:
         # 文档主表：倒排只存 docId，真实展示信息在这里补齐。
         "docs": {doc_id: docs[doc_id] for doc_id in sorted(docs)},
         # 精确倒排：高精度召回主入口。
-        "termIndex": {term: serialize_postings(postings, docs) for term, postings in sorted(term_index.items())},
+        "termIndex": {
+            term: serialize_postings(postings, docs)
+            for term, postings in sorted(term_index.items())
+        },
         # 前缀倒排：服务增量输入和半截输入。
-        "prefixIndex": {term: serialize_postings(postings, docs, config.prefix_doc_limit) for term, postings in sorted(prefix_index.items())},
+        "prefixIndex": {
+            term: serialize_postings(postings, docs, config.prefix_doc_limit)
+            for term, postings in sorted(prefix_index.items())
+        },
         # 联想建议，结构为 [display, docId, score]。
         "suggestions": [
             [item["display"], item["docId"], item["score"]]
-            for item in sorted(suggestions.values(), key=lambda item: (-item["score"], item["display"], item["docId"]))[: config.suggestion_limit]
+            for item in sorted(
+                suggestions.values(),
+                key=lambda item: (-item["score"], item["display"], item["docId"]),
+            )[: config.suggestion_limit]
         ],
     }
     if config.embed_debug:
@@ -1552,7 +1755,11 @@ def run_build(config: BuildConfig) -> dict[str, object]:
             if payload is None:
                 LOGGER.warning("No debug payload found for doc: %s", doc_id)
                 continue
-            LOGGER.info("Debug doc report | doc=%s\n%s", doc_id, json.dumps(payload, ensure_ascii=False, indent=2))
+            LOGGER.info(
+                "Debug doc report | doc=%s\n%s",
+                doc_id,
+                json.dumps(payload, ensure_ascii=False, indent=2),
+            )
 
     if config.debug_terms:
         for raw_term in config.debug_terms:
@@ -1561,11 +1768,20 @@ def run_build(config: BuildConfig) -> dict[str, object]:
                 report["candidates"].append(
                     {
                         "candidate": candidate,
-                        "termIndex": serialize_postings(term_index.get(candidate, {}), docs),
-                        "prefixIndex": serialize_postings(prefix_index.get(candidate, {}), docs, config.prefix_doc_limit),
+                        "termIndex": serialize_postings(
+                            term_index.get(candidate, {}), docs
+                        ),
+                        "prefixIndex": serialize_postings(
+                            prefix_index.get(candidate, {}),
+                            docs,
+                            config.prefix_doc_limit,
+                        ),
                     }
                 )
-            LOGGER.info("Debug term report\n%s", json.dumps(report, ensure_ascii=False, indent=2))
+            LOGGER.info(
+                "Debug term report\n%s",
+                json.dumps(report, ensure_ascii=False, indent=2),
+            )
     LOGGER.info("Step 4/5 done")
 
     LOGGER.info("Step 5/5 | Finalize output")
