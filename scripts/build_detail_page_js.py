@@ -877,6 +877,544 @@ def matches_item_filter(
     return item_dir.name in targets or item_id in targets
 
 
+DISPLAY_VERSION = 2
+MATH_TOKEN_PATTERN = re.compile(r"@@M\d+@@")
+CJK_CHAR_RE = re.compile(r"[\u3400-\u4DBF\u4E00-\u9FFF]")
+SIMPLE_SQRT_PATTERN = re.compile(r"\bsqrt\(\s*([^)]+?)\s*\)")
+
+SECTION_DEFINITIONS: dict[str, tuple[str, str]] = {
+    "core_formula": ("核心公式", "text"),
+    "variables": ("涉及变量", "text"),
+    "conditions": ("适用条件", "text"),
+    "statement": ("命题表述", "theorem-list"),
+    "explanation": ("理解与直觉", "text"),
+    "proof": ("证明过程", "text"),
+    "examples": ("例题应用", "text"),
+    "traps": ("易错提醒", "text"),
+    "summary": ("复盘总结", "text"),
+}
+
+
+def normalize_latex_for_display(latex: str) -> str:
+    """Normalize latex conservatively for front-end math rendering.
+
+    The goal is not to rewrite expressions aggressively.
+    It only fixes a few common plain-text operator forms and preserves the
+    mathematical structure expected by the mini-program renderer.
+    """
+
+    if not latex:
+        return ""
+
+    normalized = latex.strip()
+    if normalized.startswith("$") and normalized.endswith("$") and len(normalized) >= 2:
+        normalized = normalized[1:-1]
+
+    normalized = normalized.replace("\r\n", "\n").replace("\r", "\n")
+    normalized = normalized.replace(r"\dfrac", r"\frac").replace(r"\tfrac", r"\frac")
+    normalized = normalized.replace("!=", r"\neq")
+    normalized = normalized.replace(">=", r"\geq")
+    normalized = normalized.replace("<=", r"\leq")
+    normalized = normalized.replace("≠", r"\neq")
+    normalized = normalized.replace("≥", r"\geq")
+    normalized = normalized.replace("≤", r"\leq")
+    normalized = SIMPLE_SQRT_PATTERN.sub(
+        lambda match: rf"\sqrt{{{match.group(1).strip()}}}",
+        normalized,
+    )
+    normalized = re.sub(r"[ \t]+", " ", normalized)
+    normalized = re.sub(r"\n[ \t]+", "\n", normalized)
+    return normalized.strip()
+
+
+def looks_like_mathish(text: str) -> bool:
+    """Return whether a plain string is likely intended as math content."""
+
+    candidate = text.strip()
+    if not candidate:
+        return False
+    if CJK_CHAR_RE.search(candidate):
+        return False
+    if any(token in candidate for token in ("\\", "_", "^", "=", ">", "<")):
+        return True
+    return bool(re.fullmatch(r"[A-Za-z0-9\s,.;:(){}\[\]+\-*/|]+", candidate))
+
+
+def read_balanced_span(
+    text: str,
+    start_index: int,
+    open_char: str,
+    close_char: str,
+) -> tuple[str, int]:
+    """Read one balanced bracket span and return its content and end index."""
+
+    if start_index >= len(text) or text[start_index] != open_char:
+        return "", start_index
+
+    depth = 0
+    index = start_index
+    while index < len(text):
+        char = text[index]
+        if char == open_char:
+            depth += 1
+        elif char == close_char:
+            depth -= 1
+            if depth == 0:
+                return text[start_index + 1 : index], index + 1
+        index += 1
+
+    return text[start_index + 1 :], len(text)
+
+
+def protect_math_segments(text: str) -> tuple[str, dict[str, str]]:
+    """Replace inline/display math with placeholders while keeping latex intact."""
+
+    result: list[str] = []
+    math_map: dict[str, str] = {}
+    index = 0
+    token_index = 0
+
+    while index < len(text):
+        if text.startswith("$$", index):
+            end = text.find("$$", index + 2)
+            if end != -1:
+                token = f"@@M{token_index}@@"
+                math_map[token] = normalize_latex_for_display(text[index + 2 : end])
+                result.append(token)
+                token_index += 1
+                index = end + 2
+                continue
+
+        if text.startswith(r"\[", index):
+            end = text.find(r"\]", index + 2)
+            if end != -1:
+                token = f"@@M{token_index}@@"
+                math_map[token] = normalize_latex_for_display(text[index + 2 : end])
+                result.append(token)
+                token_index += 1
+                index = end + 2
+                continue
+
+        if text.startswith(r"\(", index):
+            end = text.find(r"\)", index + 2)
+            if end != -1:
+                token = f"@@M{token_index}@@"
+                math_map[token] = normalize_latex_for_display(text[index + 2 : end])
+                result.append(token)
+                token_index += 1
+                index = end + 2
+                continue
+
+        if text[index] == "$":
+            end = index + 1
+            while end < len(text):
+                if text[end] == "$" and text[end - 1] != "\\":
+                    break
+                end += 1
+            if end < len(text):
+                token = f"@@M{token_index}@@"
+                math_map[token] = normalize_latex_for_display(text[index + 1 : end])
+                result.append(token)
+                token_index += 1
+                index = end + 1
+                continue
+
+        result.append(text[index])
+        index += 1
+
+    return "".join(result), math_map
+
+
+def normalize_rich_text_markup(text: str) -> str:
+    """Normalize text-only TeX markup while preserving math placeholders."""
+
+    normalized = strip_latex_comments(text)
+    normalized = normalized.replace(r"\medskip", "\n\n")
+    normalized = normalized.replace(r"\smallskip", "\n\n")
+    normalized = normalized.replace(r"\bigskip", "\n\n")
+    normalized = normalized.replace(r"\par", "\n")
+    normalized = normalized.replace(r"\\", "\n")
+    normalized = strip_environment_markers(normalized)
+    normalized = remove_standalone_option_lines(normalized)
+    normalized = unwrap_two_argument_commands(normalized)
+    normalized = unwrap_simple_commands(normalized)
+    normalized = re.sub(
+        r"\\(?:quad|qquad|noindent|hfill|vspace\*?|hspace\*?)",
+        " ",
+        normalized,
+    )
+    normalized = remove_remaining_commands(normalized)
+    normalized = remove_curly_braces(normalized)
+    normalized = re.sub(r"[ \t]+", " ", normalized)
+    normalized = re.sub(r" *\n *", "\n", normalized)
+    normalized = re.sub(r"\n{3,}", "\n\n", normalized)
+    return normalized.strip()
+
+
+def normalize_text_segment(text: str) -> str:
+    """Normalize a plain-text segment without touching embedded math tokens."""
+
+    lines = [re.sub(r"[ \t]+", " ", line).strip() for line in text.splitlines()]
+    lines = [line for line in lines if line]
+    return "\n".join(lines).strip()
+
+
+def protected_text_to_segments(
+    protected_text: str,
+    math_map: dict[str, str],
+) -> list[dict[str, str]]:
+    """Convert placeholder-protected mixed content into text/math segments."""
+
+    parts = re.split(r"(@@M\d+@@)", protected_text)
+    segments: list[dict[str, str]] = []
+
+    for part in parts:
+        if not part:
+            continue
+        if part in math_map:
+            latex = normalize_latex_for_display(math_map[part])
+            if latex:
+                segments.append({"type": "math", "latex": latex})
+            continue
+
+        text = normalize_text_segment(part)
+        if not text:
+            continue
+
+        if segments and segments[-1].get("type") == "text":
+            segments[-1]["text"] = f"{segments[-1]['text']}\n{text}"
+        else:
+            segments.append({"type": "text", "text": text})
+
+    return segments
+
+
+def build_item_from_segments(segments: list[dict[str, str]]) -> dict[str, Any] | None:
+    """Collapse a segment list into one of the supported item shapes."""
+
+    if not segments:
+        return None
+
+    if len(segments) == 1:
+        segment = segments[0]
+        if segment["type"] == "text":
+            return {"text": segment["text"]}
+        if segment["type"] == "math":
+            return {"latex": segment["latex"]}
+
+    return {"segments": segments}
+
+
+def build_rich_item_from_protected_text(
+    protected_text: str,
+    math_map: dict[str, str],
+    *,
+    label_text: str = "",
+) -> dict[str, Any] | None:
+    """Build one rich item from protected content, optionally with a text label."""
+
+    normalized = normalize_rich_text_markup(protected_text)
+    label = normalize_text_segment(label_text)
+
+    if label:
+        normalized = f"{label}\n{normalized}" if normalized else label
+
+    segments = protected_text_to_segments(normalized, math_map)
+    return build_item_from_segments(segments)
+
+
+def extract_list_items_from_protected(
+    protected_text: str,
+) -> list[tuple[str, str]]:
+    """Extract `\\item[...] body` or `\\item body` entries from protected text."""
+
+    items: list[tuple[str, str]] = []
+    index = 0
+
+    while True:
+        item_index = protected_text.find(r"\item", index)
+        if item_index == -1:
+            break
+
+        cursor = item_index + len(r"\item")
+        while cursor < len(protected_text) and protected_text[cursor].isspace():
+            cursor += 1
+
+        label = ""
+        if cursor < len(protected_text) and protected_text[cursor] == "[":
+            label, cursor = read_balanced_span(protected_text, cursor, "[", "]")
+
+        next_item_index = protected_text.find(r"\item", cursor)
+        body = protected_text[cursor:] if next_item_index == -1 else protected_text[cursor:next_item_index]
+        items.append((label, body))
+
+        if next_item_index == -1:
+            break
+        index = next_item_index
+
+    return items
+
+
+def strip_math_tokens(text: str) -> str:
+    """Remove math placeholders from a text fragment before plain-text use."""
+
+    return MATH_TOKEN_PATTERN.sub(" ", text)
+
+
+def build_loose_rich_item(text: str) -> dict[str, Any] | None:
+    """Build a rich item from metadata text that may contain math-like content."""
+
+    raw_text = text.strip()
+    if not raw_text:
+        return None
+
+    protected_text, math_map = protect_math_segments(raw_text)
+    if math_map:
+        return build_rich_item_from_protected_text(protected_text, math_map)
+
+    math_note_match = re.match(
+        r"^\s*([^()（）]+?)\s*([（(].*[）)])\s*$",
+        raw_text,
+    )
+    if math_note_match:
+        math_part = math_note_match.group(1).strip()
+        note_part = math_note_match.group(2).strip()
+        if looks_like_mathish(math_part):
+            return {
+                "segments": [
+                    {"type": "math", "latex": normalize_latex_for_display(math_part)},
+                    {"type": "text", "text": note_part},
+                ]
+            }
+
+    if looks_like_mathish(raw_text):
+        return {"latex": normalize_latex_for_display(raw_text)}
+
+    normalized_text = normalize_text_segment(normalize_rich_text_markup(raw_text))
+    return {"text": normalized_text} if normalized_text else None
+
+
+def parse_generic_rich_items(raw_text: str) -> list[dict[str, Any]]:
+    """Parse one raw tex field into rich items while preserving latex segments."""
+
+    if not raw_text.strip():
+        return []
+
+    protected_text, math_map = protect_math_segments(raw_text)
+    chunks = [
+        chunk.strip()
+        for chunk in re.split(r"\\(?:medskip|smallskip|bigskip)\s*", protected_text)
+        if chunk.strip()
+    ]
+
+    items: list[dict[str, Any]] = []
+
+    for chunk in chunks:
+        first_item_index = chunk.find(r"\item")
+        if first_item_index == -1:
+            item = build_rich_item_from_protected_text(chunk, math_map)
+            if item:
+                items.append(item)
+            continue
+
+        prefix = chunk[:first_item_index]
+        prefix_item = build_rich_item_from_protected_text(prefix, math_map)
+        if prefix_item:
+            items.append(prefix_item)
+
+        list_text = chunk[first_item_index:]
+        for label, body in extract_list_items_from_protected(list_text):
+            label_text = normalize_text_segment(
+                normalize_rich_text_markup(strip_math_tokens(label))
+            )
+            item = build_rich_item_from_protected_text(
+                body,
+                math_map,
+                label_text=label_text,
+            )
+            if item:
+                items.append(item)
+
+    return items
+
+
+def build_variable_entries(raw_variables: Any) -> list[dict[str, Any]]:
+    """Convert meta math variables into math-aware descriptors for the front end."""
+
+    if not isinstance(raw_variables, list):
+        return []
+
+    entries: list[dict[str, Any]] = []
+    for value in raw_variables:
+        if isinstance(value, str):
+            latex = normalize_latex_for_display(value)
+            if latex:
+                entries.append({"latex": latex})
+            continue
+
+        if isinstance(value, dict):
+            latex = normalize_latex_for_display(str(value.get("name", "")).strip())
+            description = str(value.get("description", "")).strip()
+            entry: dict[str, Any] = {}
+            if latex:
+                entry["latex"] = latex
+            if description:
+                entry["description"] = description
+            if entry:
+                entries.append(entry)
+            continue
+
+        text_value = str(value).strip()
+        if text_value:
+            entries.append({"text": text_value})
+
+    return entries
+
+
+def build_variables_section(variable_entries: list[dict[str, Any]]) -> dict[str, Any] | None:
+    """Build the structured `variables` section from normalized variable entries."""
+
+    items: list[dict[str, Any]] = []
+    for entry in variable_entries:
+        latex = str(entry.get("latex", "")).strip()
+        description = str(entry.get("description", "")).strip()
+        text_value = str(entry.get("text", "")).strip()
+
+        if latex and description:
+            items.append(
+                {
+                    "segments": [
+                        {"type": "math", "latex": latex},
+                        {"type": "text", "text": f"：{description}"},
+                    ]
+                }
+            )
+        elif latex:
+            items.append({"latex": latex})
+        elif text_value:
+            items.append({"text": text_value})
+
+    if not items:
+        return None
+
+    title, layout = SECTION_DEFINITIONS["variables"]
+    return {"key": "variables", "title": title, "layout": layout, "items": items}
+
+
+def build_conditions_section(meta: dict[str, Any]) -> dict[str, Any] | None:
+    """Build the structured conditions section from metadata first."""
+
+    math_section = meta.get("math")
+    if not isinstance(math_section, dict):
+        return None
+
+    conditions_value = math_section.get("conditions")
+    if not isinstance(conditions_value, str):
+        return None
+
+    item = build_loose_rich_item(conditions_value)
+    if not item:
+        return None
+
+    title, layout = SECTION_DEFINITIONS["conditions"]
+    return {"key": "conditions", "title": title, "layout": layout, "items": [item]}
+
+
+def build_core_formula_section(record: dict[str, Any]) -> dict[str, Any] | None:
+    """Build a dedicated core-formula section for front-end math rendering."""
+
+    core_formula = str(record.get("core_formula") or "").strip()
+    if not core_formula:
+        return None
+
+    title, layout = SECTION_DEFINITIONS["core_formula"]
+    return {
+        "key": "core_formula",
+        "title": title,
+        "layout": layout,
+        "items": [{"latex": normalize_latex_for_display(core_formula)}],
+    }
+
+
+def build_statement_theorem_items(
+    raw_text: str,
+    meta: dict[str, Any],
+) -> list[dict[str, Any]]:
+    """Parse theorem-list style items from `01_statement.tex`."""
+
+    protected_text, math_map = protect_math_segments(raw_text)
+    theorem_items: list[dict[str, Any]] = []
+
+    for label, body in extract_list_items_from_protected(protected_text):
+        title = normalize_text_segment(normalize_rich_text_markup(strip_math_tokens(label)))
+        if not title or "条件" in title:
+            continue
+
+        formula_tokens = MATH_TOKEN_PATTERN.findall(body)
+        formulas: list[str] = []
+        for token in formula_tokens:
+            latex = normalize_latex_for_display(math_map.get(token, ""))
+            if latex and latex not in formulas:
+                formulas.append(latex)
+
+        first_formula_match = MATH_TOKEN_PATTERN.search(body)
+        desc_source = body if first_formula_match is None else body[: first_formula_match.start()]
+        desc_text = normalize_text_segment(
+            normalize_rich_text_markup(strip_math_tokens(desc_source))
+        )
+        desc_text = re.sub(r"^(直观描述|说明|描述)\s*[：:]\s*", "", desc_text)
+
+        theorem_item: dict[str, Any] = {"title": title}
+        if desc_text:
+            theorem_item["desc"] = desc_text
+        if formulas:
+            theorem_item["latex"] = r" \qquad ".join(formulas)
+        theorem_items.append(theorem_item)
+
+    if theorem_items:
+        return theorem_items
+
+    core_formula = str(get_nested_value(meta, ("math", "core_formula")) or "").strip()
+    if not core_formula:
+        return []
+
+    return [
+        {
+            "title": "核心结论",
+            "desc": "由元数据回退生成的核心不等式。",
+            "latex": normalize_latex_for_display(core_formula),
+        }
+    ]
+
+
+def build_statement_section(
+    raw_text: str,
+    meta: dict[str, Any],
+) -> dict[str, Any] | None:
+    """Build the theorem-list statement section from raw statement tex."""
+
+    items = build_statement_theorem_items(raw_text, meta)
+    if not items:
+        return None
+
+    title, layout = SECTION_DEFINITIONS["statement"]
+    return {"key": "statement", "title": title, "layout": layout, "items": items}
+
+
+def build_generic_section(
+    key: str,
+    raw_text: str,
+) -> dict[str, Any] | None:
+    """Build a generic rich section from raw tex content."""
+
+    items = parse_generic_rich_items(raw_text)
+    if not items:
+        return None
+
+    title, layout = SECTION_DEFINITIONS[key]
+    return {"key": key, "title": title, "layout": layout, "items": items}
+
+
 def build_meta_fields(
     meta: dict[str, Any],
     item_id: str,
@@ -895,6 +1433,9 @@ def build_meta_fields(
             value = field_spec.default_factory()
         else:
             value = clone_json_value(value)
+
+        if field_spec.output_name == "variables":
+            value = build_variable_entries(value)
 
         if field_spec.required and value in (None, "", [], {}):
             source_description = ", ".join(
@@ -925,13 +1466,42 @@ def build_meta_fields(
 
 
 def build_text_field(
-    item_dir: Path,
-    meta: dict[str, Any],
+    raw_text: str,
     item_id: str,
     field_spec: TextFieldSpec,
-    config: BuildConfig,
 ) -> str:
-    """Build one cleaned detail text field."""
+    """Build one cleaned legacy detail text field from already loaded raw text."""
+
+    transform = field_spec.transform or (lambda text: text)
+    cleaned_text = transform(raw_text)
+
+    if field_spec.required and not cleaned_text:
+        raise BuildError(
+            f"Required detail text field '{field_spec.output_name}' is empty"
+        )
+
+    LOGGER.debug(
+        "Legacy text field built | item=%s | field=%s | preview=%s",
+        item_id,
+        field_spec.output_name,
+        preview_text(cleaned_text),
+    )
+
+    return cleaned_text
+
+
+def resolve_raw_text_field(
+    item_dir: Path,
+    meta: dict[str, Any],
+    field_spec: TextFieldSpec,
+    config: BuildConfig,
+) -> tuple[str, str]:
+    """Resolve raw content for one text field before legacy/rich branching.
+
+    This helper exists so both pipelines read from the same upstream source:
+    - legacy plain-text fields use `clean_tex(raw_text)`
+    - rich sections parse directly from `raw_text`
+    """
 
     source_path = item_dir / field_spec.source_filename
     raw_text = read_text_file(
@@ -947,23 +1517,72 @@ def build_text_field(
             raw_text = stringify_text_value(fallback_value)
             source_used = ".".join(fallback_path or ())
 
-    transform = field_spec.transform or (lambda text: text)
-    cleaned_text = transform(raw_text)
-
-    if field_spec.required and not cleaned_text:
+    if field_spec.required and not raw_text.strip():
         raise BuildError(
             f"Required detail text field '{field_spec.output_name}' is empty: {item_dir}"
         )
 
     LOGGER.debug(
-        "Text field built | item=%s | field=%s | source=%s | preview=%s",
-        item_id,
+        "Raw text field resolved | field=%s | source=%s | preview=%s",
         field_spec.output_name,
         source_used or "<empty>",
-        preview_text(cleaned_text),
+        preview_text(raw_text),
     )
+    return raw_text, source_used or "<empty>"
 
-    return cleaned_text
+
+def collect_raw_text_fields(
+    item_dir: Path,
+    meta: dict[str, Any],
+    config: BuildConfig,
+) -> dict[str, str]:
+    """Load all raw text field inputs once for both legacy and rich pipelines."""
+
+    raw_fields: dict[str, str] = {}
+    for field_spec in DETAIL_TEXT_FIELD_SPECS:
+        raw_text, _source_used = resolve_raw_text_field(
+            item_dir=item_dir,
+            meta=meta,
+            field_spec=field_spec,
+            config=config,
+        )
+        raw_fields[field_spec.output_name] = raw_text
+    return raw_fields
+
+
+def build_structured_sections(
+    meta: dict[str, Any],
+    record: dict[str, Any],
+    raw_fields: dict[str, str],
+) -> list[dict[str, Any]]:
+    """Build latex-first sections from raw tex and structured metadata."""
+
+    sections: list[dict[str, Any]] = []
+
+    core_formula_section = build_core_formula_section(record)
+    if core_formula_section:
+        sections.append(core_formula_section)
+
+    variables_section = build_variables_section(
+        record.get("variables", []) if isinstance(record.get("variables"), list) else []
+    )
+    if variables_section:
+        sections.append(variables_section)
+
+    conditions_section = build_conditions_section(meta)
+    if conditions_section:
+        sections.append(conditions_section)
+
+    statement_section = build_statement_section(raw_fields.get("statement", ""), meta)
+    if statement_section:
+        sections.append(statement_section)
+
+    for key in ("explanation", "proof", "examples", "traps", "summary"):
+        section = build_generic_section(key, raw_fields.get(key, ""))
+        if section:
+            sections.append(section)
+
+    return sections
 
 
 def build_detail_record(
@@ -975,15 +1594,17 @@ def build_detail_record(
 ) -> dict[str, Any]:
     """Build the full detail-page record for one item."""
 
+    raw_fields = collect_raw_text_fields(item_dir, meta, config)
     record = build_meta_fields(meta, item_id, title)
     for field_spec in DETAIL_TEXT_FIELD_SPECS:
         record[field_spec.output_name] = build_text_field(
-            item_dir=item_dir,
-            meta=meta,
+            raw_text=raw_fields.get(field_spec.output_name, ""),
             item_id=item_id,
             field_spec=field_spec,
-            config=config,
         )
+
+    record["display_version"] = DISPLAY_VERSION
+    record["sections"] = build_structured_sections(meta, record, raw_fields)
     return record
 
 
@@ -1073,6 +1694,8 @@ def build_schema_comment() -> str:
         " * DetailRecord core fields:",
         " *   - id: stable content id from meta.json:id",
         " *   - title: display title from meta.json:core.title",
+        " *   - display_version: currently 2, meaning structured latex-first sections are available",
+        " *   - sections: structured display sections built from raw tex before clean_tex",
         " *",
         " * DetailRecord metadata fields:",
     ]
@@ -1083,6 +1706,10 @@ def build_schema_comment() -> str:
             f" *   - {field_spec.output_name}: {field_spec.description}; "
             f"source={source_text}; why={field_spec.purpose}"
         )
+        if field_spec.output_name == "variables":
+            lines.append(
+                " *     variables shape: [{ latex, description? }] so the front end can render variables as math."
+            )
 
     lines.append(" *")
     lines.append(" * DetailRecord cleaned text fields:")
@@ -1097,6 +1724,23 @@ def build_schema_comment() -> str:
             f"source={field_spec.source_filename}; fallback={fallback_text}; "
             f"why={field_spec.purpose}"
         )
+
+    lines.extend(
+        [
+            " *",
+            " * Structured sections schema:",
+            " *   - Section = { key, title, layout, items }",
+            " *   - Supported item forms:",
+            " *     1. { text: string }",
+            " *     2. { latex: string }",
+            " *     3. { segments: [{ type: 'text', text } | { type: 'math', latex }] }",
+            " *     4. theorem-list item: { title, desc?, latex }",
+            " *   - Important layouts used by this builder:",
+            " *     - text",
+            " *     - theorem-list",
+            " *   - Legacy plain-text fields remain in the record for compatibility and debugging.",
+        ]
+    )
 
     lines.extend(
         [

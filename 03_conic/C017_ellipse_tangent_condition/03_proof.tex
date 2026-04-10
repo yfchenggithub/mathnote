@@ -1,0 +1,49 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+将直线方程代入椭圆方程，得到关于 $x$ 的二次方程；相切意味着该方程有唯一解，即判别式为零，由此推导 $m$ 与 $k$ 的关系。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（代入消元）：}] 将 $y=kx+m$ 代入椭圆 $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1$。
+    \[
+    \frac{x^2}{a^2} + \frac{(kx+m)^2}{b^2} = 1
+    \]
+    \par\textbf{理由：} 联立直线与椭圆方程，消去 $y$，得到只含 $x$ 的方程。
+
+    \item[\textbf{步骤二（整理二次）：}] 两边乘以 $a^2b^2$ 并展开整理。
+    \[
+    \begin{aligned}
+    b^2 x^2 + a^2 (k^2 x^2 + 2km x + m^2) &= a^2 b^2 \\
+    (b^2 + a^2 k^2) x^2 + 2a^2 km \, x + (a^2 m^2 - a^2 b^2) &= 0
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 通分后合并同类项，化为关于 $x$ 的标准二次方程 $Ax^2+Bx+C=0$。
+
+    \item[\textbf{步骤三（令判别式零）：}] 相切时方程有重根，故判别式 $\Delta = B^2 - 4AC = 0$。
+    \[
+    (2a^2 km)^2 - 4(b^2 + a^2 k^2)(a^2 m^2 - a^2 b^2) = 0
+    \]
+    \par\textbf{理由：} 二次方程有唯一解当且仅当 $\Delta=0$，这是相切的代数等价条件。
+
+    \item[\textbf{步骤四（化简求解）：}] 展开判别式并化简。
+    \[
+    \begin{aligned}
+    4a^4 k^2 m^2 - 4a^2 (b^2 + a^2 k^2)(m^2 - b^2) &= 0 \\
+    a^2 k^2 m^2 - (b^2 + a^2 k^2)(m^2 - b^2) &= 0 \\
+    a^2 k^2 m^2 - (b^2 m^2 - b^4 + a^2 k^2 m^2 - a^2 k^2 b^2) &= 0 \\
+    -b^2 m^2 + b^4 + a^2 k^2 b^2 &= 0
+    \end{aligned}
+    \]
+    整理得：
+    \[
+    b^2 m^2 = b^4 + a^2 k^2 b^2
+    \]
+    因为 $b>0$，两边除以 $b^2$ 得到最终条件。
+    \par\textbf{理由：} 逐步展开、合并同类项，注意消去公共因子，保留 $m^2$ 项。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+\textbf{化简后即得 $m^2 = a^2 k^2 + b^2$，这正是直线与椭圆相切的充要条件。}
+\end{proofbox}
