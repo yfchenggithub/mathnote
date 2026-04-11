@@ -36,6 +36,7 @@
 from __future__ import annotations
 
 import argparse
+import difflib
 import hashlib
 import json
 import logging
@@ -294,6 +295,119 @@ def compare_strict_value(path: str, source: Any, backend: Any, diffs: DiffCollec
         diffs.add("value_mismatch", path, "值不一致", source, backend)
 
 
+def _encode_typed_value(value: Any) -> Any:
+    """将值编码为“带类型信息”的结构，用于严格序列对齐。
+
+    说明:
+    - Python `==` 会把 `2 == 2.0` 视为 True，但本脚本要求严格类型一致。
+    - 该编码用于生成稳定 token，确保 `int` 与 `float` 可区分。
+    """
+
+    if value is None:
+        return {"t": "none"}
+    if isinstance(value, bool):
+        return {"t": "bool", "v": value}
+    if isinstance(value, int):
+        return {"t": "int", "v": value}
+    if isinstance(value, float):
+        return {"t": "float", "v": value}
+    if isinstance(value, str):
+        return {"t": "str", "v": value}
+    if isinstance(value, list):
+        return {"t": "list", "v": [_encode_typed_value(item) for item in value]}
+    if isinstance(value, dict):
+        return {
+            "t": "dict",
+            "v": {key: _encode_typed_value(value[key]) for key in sorted(value.keys())},
+        }
+    return {"t": type(value).__name__, "v": repr(value)}
+
+
+def _strict_token(value: Any) -> str:
+    """把任意值转成稳定 token（包含类型语义）。"""
+
+    return json.dumps(
+        _encode_typed_value(value),
+        ensure_ascii=False,
+        sort_keys=True,
+        separators=(",", ":"),
+    )
+
+
+def _report_aligned_list_differences(
+    *,
+    source_list: list[Any],
+    backend_list: list[Any],
+    root_path: str,
+    category_prefix: str,
+    item_label: str,
+    diffs: DiffCollector,
+) -> None:
+    """对列表做序列对齐差异报告，避免“删一条导致后续全错位”。
+
+    做什么:
+    - 使用 SequenceMatcher 基于严格 token 对齐；
+    - 优先产出 `missing/extra`；
+    - replace 段落报告为“变更项”，并补足多余 missing/extra。
+    """
+
+    source_tokens = [_strict_token(item) for item in source_list]
+    backend_tokens = [_strict_token(item) for item in backend_list]
+    matcher = difflib.SequenceMatcher(a=source_tokens, b=backend_tokens, autojunk=False)
+
+    for tag, i1, i2, j1, j2 in matcher.get_opcodes():
+        if tag == "equal":
+            continue
+
+        if tag == "delete":
+            for i in range(i1, i2):
+                diffs.add(
+                    f"{category_prefix}_missing_item",
+                    f"{root_path}[{i}]",
+                    f"backend 缺少 1 条 {item_label}",
+                    source_value=source_list[i],
+                )
+            continue
+
+        if tag == "insert":
+            for j in range(j1, j2):
+                diffs.add(
+                    f"{category_prefix}_extra_item",
+                    f"{root_path}[{j}]",
+                    f"backend 多出 1 条 {item_label}",
+                    backend_value=backend_list[j],
+                )
+            continue
+
+        # replace: 两边区间都有内容，按最短区间配对报告变更，再补充多余项
+        overlap = min(i2 - i1, j2 - j1)
+        for offset in range(overlap):
+            si = i1 + offset
+            bj = j1 + offset
+            diffs.add(
+                f"{category_prefix}_item_changed",
+                f"{root_path}[{si}]",
+                f"{item_label} 内容变更（序列对齐后）",
+                source_value=source_list[si],
+                backend_value=backend_list[bj],
+            )
+
+        for si in range(i1 + overlap, i2):
+            diffs.add(
+                f"{category_prefix}_missing_item",
+                f"{root_path}[{si}]",
+                f"backend 缺少 1 条 {item_label}",
+                source_value=source_list[si],
+            )
+        for bj in range(j1 + overlap, j2):
+            diffs.add(
+                f"{category_prefix}_extra_item",
+                f"{root_path}[{bj}]",
+                f"backend 多出 1 条 {item_label}",
+                backend_value=backend_list[bj],
+            )
+
+
 def compare_top_level_structure(
     source_payload: dict[str, Any],
     backend_payload: dict[str, Any],
@@ -461,15 +575,18 @@ def compare_postings_index(
             continue
 
         if len(source_postings) != len(backend_postings):
-            diffs.add(
-                f"{index_name}_posting_list_length_mismatch",
-                term_path,
-                "posting 列表长度不一致",
-                len(source_postings),
-                len(backend_postings),
+            # 关键修复: 长度不一致时采用序列对齐，避免后续全量错位误报。
+            _report_aligned_list_differences(
+                source_list=source_postings,
+                backend_list=backend_postings,
+                root_path=term_path,
+                category_prefix=f"{index_name}_posting",
+                item_label="posting 记录",
+                diffs=diffs,
             )
+            continue
 
-        for idx in range(min(len(source_postings), len(backend_postings))):
+        for idx in range(len(source_postings)):
             source_posting = source_postings[idx]
             backend_posting = backend_postings[idx]
             posting_path = f"{term_path}[{idx}]"
@@ -532,16 +649,18 @@ def compare_suggestions(source_suggestions: Any, backend_suggestions: Any, diffs
         return
 
     if len(source_suggestions) != len(backend_suggestions):
-        diffs.add(
-            "suggestions_length_mismatch",
-            root,
-            "suggestions 长度不一致",
-            len(source_suggestions),
-            len(backend_suggestions),
+        _report_aligned_list_differences(
+            source_list=source_suggestions,
+            backend_list=backend_suggestions,
+            root_path=root,
+            category_prefix="suggestions",
+            item_label="suggestion 记录",
+            diffs=diffs,
         )
+        return
 
     labels = ("displayText", "docId", "score")
-    for idx in range(min(len(source_suggestions), len(backend_suggestions))):
+    for idx in range(len(source_suggestions)):
         source_item = source_suggestions[idx]
         backend_item = backend_suggestions[idx]
         item_path = f"{root}[{idx}]"
@@ -738,7 +857,7 @@ def verify_payloads(
     LOGGER.info("步骤 8/8: 指纹校验")
     _, source_hash = canonical_sha256(source_payload, ignore_meta=ignore_meta)
     _, backend_hash = canonical_sha256(backend_payload, ignore_meta=ignore_meta)
-    if source_hash != backend_hash:
+    if source_hash != backend_hash and diffs.mismatch_count == 0:
         diffs.add(
             "hash_mismatch",
             "$.payload_sha256",
