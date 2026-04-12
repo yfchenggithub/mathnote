@@ -31,7 +31,7 @@
     09-geometry-plane → 09_geometry-plane（仅改第一个 -）
 
 2️⃣ 二级结论目录
-    S01-arithmetic-seq → S001_arithmetic-seq
+    S01-arithmetic-seq → L001_arithmetic-seq
     F01-monotonicity → F001_monotonicity
 
     规则：
@@ -78,7 +78,7 @@
 
     ↓↓↓
 
-    S001_arithmetic-seq/
+    L001_arithmetic-seq/
         01_statement.tex
 
 ----------------------------------------
