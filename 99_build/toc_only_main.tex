@@ -1,0 +1,34 @@
+\documentclass[12pt]{article}
+
+\input{preamble}
+\input{settings}
+\graphicspath{{assets/figures/}{./}}
+
+\title{Math Notes TOC Build}
+\author{Math & Code Lab}
+\date{\today}
+\hypersetup{
+    pdfauthor={Math & Code Lab},
+    pdftitle={Math Notes TOC Build},
+    pdfsubject={TOC only build},
+    pdfkeywords={math, toc, build},
+}
+
+\begin{document}
+\input{titlepage}
+\pagenumbering{Roman}
+\tableofcontents
+
+\newcounter{tocseedsection}
+\newcounter{tocseedsubsection}[tocseedsection]
+\newcommand{\SeedSection}[1]{
+  \refstepcounter{tocseedsection}
+  \setcounter{tocseedsubsection}{0}
+  \addcontentsline{toc}{section}{\protect\numberline{\arabic{tocseedsection}}#1}
+}
+\newcommand{\SeedSubsection}[1]{
+  \refstepcounter{tocseedsubsection}
+  \addcontentsline{toc}{subsection}{\protect\numberline{\arabic{tocseedsection}.\arabic{tocseedsubsection}}#1}
+}
+\input{99_build/toc_seed.tex}
+\end{document}
