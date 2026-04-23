@@ -3,9 +3,16 @@ import requests
 import time
 import openai
 import os
+import sys
+
 from config.config_loader import (
     get_api_config,
 )
+
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+if hasattr(sys.stderr, "reconfigure"):
+    sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
 api_config = get_api_config()
 api_key = api_config["api_key"]

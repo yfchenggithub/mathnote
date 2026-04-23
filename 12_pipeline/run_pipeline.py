@@ -27,6 +27,7 @@
 
 处理流程
 --------
+0. 截图在deepseek中进行识别成latex文本后，放在 `input/<ID>/source.*` 中，支持多种扩展名（如 .tex/.txt/.json），这一步是手工完成的，脚本不涉及 OCR 识别。因为脚本不识别图片，所以输入必须是文本格式，推荐使用 `.tex` 或 `.txt`，也支持 `.json`（会优先从 `raw_latex_text` 等字段提取文本），目前只支持letex格式的文本输入，后续可根据需求增加对纯文本的支持。
 1. 扫描输入目录中的 ID 子目录（如 `I001/`），读取其中 `source.*` 或首个可识别文件。
 2. 若传入 `--ids`，先按 ID 过滤待处理项。
 3. 每个 ID 执行 L1 -> L5；L3 与 L4 会并行执行以降低耗时。
@@ -102,6 +103,13 @@ perf = get_performance()
 TEMPERATURE = perf["temperature"]
 MAX_WORKERS = perf["max_workers"]
 RETRY_TIMES = perf["retry_times"]
+API_TIMEOUT_SECONDS = int(perf.get("api_timeout_seconds", 180))
+L4_RETRY_TIMES = int(perf.get("l4_retry_times", 1))
+PROGRESS_LOG_START_SECONDS = max(1, int(perf.get("progress_log_start_seconds", 120)))
+PROGRESS_LOG_INTERVAL_SECONDS = max(
+    1, int(perf.get("progress_log_interval_seconds", 30))
+)
+PROGRESS_POLL_SECONDS = max(1, int(perf.get("progress_poll_seconds", 5)))
 
 INPUT_DIR = os.path.join(BASE_DIR, paths["input_dir"])
 OUTPUT_DIR = os.path.join(BASE_DIR, paths["output_dir"])
@@ -125,6 +133,7 @@ MODEL_MAP = {
     # L4 生成内容较长，优先使用 chat 模型以降低延迟。
     "l4": "reasoning",
     "l5": "default",
+    "l6": "default",
 }
 
 META_DEFAULT_SEARCHMETA = {
@@ -144,6 +153,8 @@ LECTURE_TEX_FILE_MAP = {
 }
 
 ID_DIR_PATTERN = re.compile(r"^[A-Za-z]\d{3}$")
+L6_DIRNAME_FILE_PATTERN_TEMPLATE = r"^{item_id}_[a-z0-9]+(?:_[a-z0-9]+)*$"
+L6_FALLBACK_SLUG = "generated_conclusion"
 
 
 def parse_args() -> argparse.Namespace:
@@ -155,7 +166,7 @@ def parse_args() -> argparse.Namespace:
     """
     parser = argparse.ArgumentParser(
         description=(
-            "批量运行 LaTeX -> statement/eval/lecture/meta 的五阶段流水线。"
+            "批量运行 LaTeX -> statement/eval/lecture/meta/dirname 的六阶段流水线。"
             " 输入目录需包含 ID 子目录（如 input/I001/source.tex）。"
         ),
         formatter_class=argparse.RawTextHelpFormatter,
@@ -197,6 +208,14 @@ def parse_args() -> argparse.Namespace:
         help=(
             "仅处理指定 ID（支持空格或逗号分隔，大小写不敏感）。\n"
             "示例: --ids I001 I002 或 --ids i001,i002"
+        ),
+    )
+    parser.add_argument(
+        "positional_ids",
+        nargs="*",
+        help=(
+            "位置参数 ID，等价于 --ids，支持空格或逗号分隔。\n"
+            "示例: I001 I002 或 i001,i002"
         ),
     )
     parser.add_argument(
@@ -258,9 +277,7 @@ def normalize_ids(ids: list[str] | None) -> list[str]:
             if not item_id:
                 continue
             if not ID_DIR_PATTERN.match(item_id):
-                raise ValueError(
-                    f"--ids 包含非法 ID: {piece!r}（期望格式如 I001）"
-                )
+                raise ValueError(f"ID 参数包含非法值: {piece!r}（期望格式如 I001）")
             normalized.append(item_id)
 
     return list(dict.fromkeys(normalized))
@@ -376,6 +393,46 @@ def retry_call(
             time.sleep(sleep_time)
 
 
+def wait_future_with_progress(
+    future: Any,
+    step_label: str,
+    *,
+    start_time: float | None = None,
+    log_start_seconds: int = PROGRESS_LOG_START_SECONDS,
+    log_interval_seconds: int = PROGRESS_LOG_INTERVAL_SECONDS,
+    poll_seconds: int = PROGRESS_POLL_SECONDS,
+) -> Any:
+    """
+    等待 future 结果，并在长耗时场景周期打印“仍在执行”日志。
+    """
+    t0 = start_time if start_time is not None else time.perf_counter()
+    next_log_at = float(log_start_seconds)
+
+    while True:
+        try:
+            return future.result(timeout=poll_seconds)
+        except TimeoutError:
+            elapsed = time.perf_counter() - t0
+            if elapsed >= next_log_at:
+                logging.info(f"{step_label} 仍在执行，已耗时: {elapsed:.2f}s")
+                next_log_at += float(log_interval_seconds)
+
+
+def run_step_with_progress(
+    step_label: str,
+    func: Callable[..., Any],
+    *args: Any,
+    **kwargs: Any,
+) -> Any:
+    """
+    在线程中执行单步任务，并输出长耗时心跳日志。
+    """
+    t0 = time.perf_counter()
+    with ThreadPoolExecutor(max_workers=1) as local_executor:
+        future = local_executor.submit(func, *args, **kwargs)
+        return wait_future_with_progress(future, step_label, start_time=t0)
+
+
 def get_model(step: str = "default") -> str:
     """
     根据阶段名返回模型名。
@@ -404,6 +461,7 @@ def call_llm(prompt: str, step: str = "default") -> str:
     with semaphore:
         model = get_model(step)
         messages = [{"role": "user", "content": prompt}]
+        retries = L4_RETRY_TIMES if step == "l4" else RETRY_TIMES
 
         def _request() -> Any:
             local_client = OpenAI(
@@ -414,9 +472,10 @@ def call_llm(prompt: str, step: str = "default") -> str:
                 model=model,
                 messages=messages,
                 temperature=TEMPERATURE,
+                timeout=API_TIMEOUT_SECONDS,
             )
 
-        response = retry_call(_request, retries=RETRY_TIMES)
+        response = retry_call(_request, retries=retries)
         return response.choices[0].message.content
 
 
@@ -427,7 +486,7 @@ def render_prompt(step: str, input_data: Any) -> str:
     优先替换 `{{input}}` 占位符；若模板未使用占位符，则在末尾附加输入数据。
 
     Args:
-        step: 阶段名（l1~l5）。
+        step: 阶段名（l1~l6）。
         input_data: 注入数据（字符串或可 JSON 序列化对象）。
 
     Returns:
@@ -796,6 +855,21 @@ def step_meta_generate(all_data: dict[str, Any]) -> dict[str, Any]:
     return safe_json_parse(result)
 
 
+def step_dirname_generate(all_data: dict[str, Any]) -> str:
+    """
+    L6: 生成目录名（文件名格式）字符串。
+
+    Args:
+        all_data: 提供给 L6 的输入载荷。
+
+    Returns:
+        str: LLM 原始文本输出。
+    """
+    prompt = render_prompt("l6", all_data)
+    result = call_llm(prompt, step="l6")
+    return result if isinstance(result, str) else str(result)
+
+
 def file_exists(path: str) -> bool:
     """
     判断文件是否存在且非空。
@@ -899,6 +973,140 @@ def build_l4_payload(l2: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def build_l6_payload(
+    item_id: str,
+    l2: dict[str, Any],
+    l5: dict[str, Any],
+) -> dict[str, Any]:
+    """
+    构建 L6 输入载荷。
+
+    Args:
+        item_id: 当前条目 ID（如 C017）。
+        l2: L2 输出。
+        l5: L5 输出。
+
+    Returns:
+        dict[str, Any]: 供 L6 使用的精简字段。
+    """
+    l5_core = l5.get("core", {}) if isinstance(l5.get("core"), dict) else {}
+    l5_search = l5.get("search", {}) if isinstance(l5.get("search"), dict) else {}
+    l2_meta = l2.get("meta", {}) if isinstance(l2.get("meta"), dict) else {}
+    keywords = l5_search.get("keywords", [])
+    if not isinstance(keywords, list):
+        keywords = []
+
+    return {
+        "id": item_id,
+        "module": l5.get("module", ""),
+        "title": l5_core.get("title") or l2_meta.get("title", ""),
+        "summary": l5_core.get("summary", ""),
+        "statement": clip_text(l2.get("statement", ""), 900),
+        "latex": clip_text(l2.get("latex", ""), 1200),
+        "keywords": keywords[:8],
+    }
+
+
+def pick_first_nonempty_line(text: str) -> str:
+    """
+    从文本中提取首个非空行，并清理常见包裹符号。
+    """
+    clean = text.replace("```", "").strip()
+    for line in clean.splitlines():
+        candidate = line.strip().strip("`").strip('"').strip("'")
+        if candidate:
+            return candidate
+    return ""
+
+
+def normalize_l6_dirname(item_id: str, raw_output: str) -> str:
+    """
+    将 L6 原始输出标准化为 `<ID>_<snake_case_slug>`。
+    """
+    canonical_id = item_id.upper()
+    line = pick_first_nonempty_line(raw_output)
+    line = line.replace("\\", "/").split("/")[-1].strip()
+
+    if not line:
+        return f"{canonical_id}_{L6_FALLBACK_SLUG}"
+
+    full_pattern = re.compile(r"^[A-Za-z]\d{3}_(.+)$")
+    match = full_pattern.match(line)
+    slug_source = match.group(1) if match else line
+
+    slug = re.sub(r"[^A-Za-z0-9]+", "_", slug_source).strip("_").lower()
+    slug = re.sub(r"_+", "_", slug)
+    if len(slug) > 64:
+        slug = slug[:64].rstrip("_")
+    if not slug:
+        slug = L6_FALLBACK_SLUG
+
+    return f"{canonical_id}_{slug}"
+
+
+def list_l6_dirname_files(item_dir: str, item_id: str) -> list[str]:
+    """
+    列出 output/<ID>/ 下所有形如 `<ID>_<slug>` 的文件（L6 产物）。
+    """
+    if not os.path.isdir(item_dir):
+        return []
+
+    pattern = re.compile(
+        L6_DIRNAME_FILE_PATTERN_TEMPLATE.format(item_id=re.escape(item_id)),
+        re.IGNORECASE,
+    )
+
+    result: list[str] = []
+    for name in os.listdir(item_dir):
+        full_path = os.path.join(item_dir, name)
+        if os.path.isfile(full_path) and pattern.match(name):
+            result.append(full_path)
+
+    result.sort()
+    return result
+
+
+def get_cached_l6_dirname(item_dir: str, item_id: str) -> str | None:
+    """
+    返回已缓存的 L6 文件名；若存在多个，返回字典序第一个并记录告警。
+    """
+    files = list_l6_dirname_files(item_dir, item_id)
+    if not files:
+        return None
+    if len(files) > 1:
+        names = ", ".join(os.path.basename(path) for path in files)
+        logging.warning(f"{item_id} 检测到多个 L6 文件名缓存，将使用第一个: {names}")
+    return os.path.basename(files[0])
+
+
+def save_l6_dirname_file(item_dir: str, item_id: str, dirname_file: str) -> str:
+    """
+    保存 L6 产物：创建一个“文件名即目录名”的空文件，并清理旧缓存。
+
+    Returns:
+        str: 实际保存的绝对路径。
+    """
+    os.makedirs(item_dir, exist_ok=True)
+
+    pattern = re.compile(
+        L6_DIRNAME_FILE_PATTERN_TEMPLATE.format(item_id=re.escape(item_id)),
+        re.IGNORECASE,
+    )
+    if not pattern.match(dirname_file):
+        raise ValueError(f"无效 L6 文件名格式: {dirname_file}")
+
+    for path in list_l6_dirname_files(item_dir, item_id):
+        if os.path.basename(path) != dirname_file:
+            os.remove(path)
+
+    target_path = os.path.join(item_dir, dirname_file)
+    with open(target_path, "w", encoding="utf-8", newline="\n") as f:
+        # 文件内容不参与业务，仅使用文件名作为目录名载体。
+        f.write("")
+
+    return target_path
+
+
 def apply_meta_defaults(meta_json: dict[str, Any], fallback_id: str) -> dict[str, Any]:
     """
     对 L5 结果做默认字段补全，减少 prompt 对固定字段生成的负担。
@@ -978,7 +1186,7 @@ def build_output_paths(filename: str, output_dir: str) -> dict[str, str]:
         output_dir: 输出根目录。
 
     Returns:
-        dict[str, str]: l1~l5 到目标文件路径的映射。
+        dict[str, str]: l1~l5 到目标文件路径的映射（L6 为动态文件名，不在此映射中）。
     """
     item_dir = os.path.join(output_dir, filename)
     return {
@@ -1080,18 +1288,7 @@ def process_file(
     force: bool = False,
 ) -> str:
     """
-    处理单个输入文件。
-
-    规则:
-    - 默认模式（force=False）：若某阶段输出已存在，则跳过并复用缓存。
-    - 强制模式（force=True）：忽略所有缓存，L1~L5 全量重跑并覆盖输出。
-    - 默认模式下若最终 L5 已存在，直接返回 skipped。
-
-    Args:
-        item_id: ID（如 I001）。
-        input_path: 输入源文件绝对路径。
-        output_dir: 输出根目录。
-        force: 是否强制全量重跑。
+    Process one input item through L1~L6.
 
     Returns:
         str: success / error / skipped
@@ -1100,6 +1297,7 @@ def process_file(
 
     try:
         paths_map = build_output_paths(filename, output_dir)
+        item_output_dir = os.path.join(output_dir, filename)
         if force:
             logging.info(f"{filename} 启用 --force，忽略缓存并全量重跑")
 
@@ -1112,7 +1310,7 @@ def process_file(
                 logging.error(f"{filename} 输入为空或读取失败")
                 return "error"
             t0 = time.perf_counter()
-            l1 = step_latex_extract(raw_text)
+            l1 = run_step_with_progress(f"{filename} L1", step_latex_extract, raw_text)
             logging.info(f"{filename} L1 耗时: {time.perf_counter() - t0:.2f}s")
             if not is_step_success(l1):
                 save_parse_debug(output_dir, filename, "l1", l1)
@@ -1125,7 +1323,7 @@ def process_file(
             l2 = load_json_file(paths_map["l2"])
         else:
             t0 = time.perf_counter()
-            l2 = step_statement_rewrite(l1)
+            l2 = run_step_with_progress(f"{filename} L2", step_statement_rewrite, l1)
             logging.info(f"{filename} L2 耗时: {time.perf_counter() - t0:.2f}s")
             if not is_step_success(l2):
                 save_parse_debug(output_dir, filename, "l2", l2)
@@ -1133,7 +1331,7 @@ def process_file(
                 return "error"
             save_json(l2, paths_map["l2"])
 
-        # ========= L3/L4（并行） =========
+        # ========= L3/L4 (parallel) =========
         l3 = None
         l4 = None
 
@@ -1156,7 +1354,11 @@ def process_file(
                 }
 
                 for step_name, future in future_map.items():
-                    result = future.result()
+                    result = wait_future_with_progress(
+                        future,
+                        f"{filename} {step_name.upper()}",
+                        start_time=step_start[step_name],
+                    )
                     elapsed = time.perf_counter() - step_start[step_name]
                     logging.info(f"{filename} {step_name.upper()} 耗时: {elapsed:.2f}s")
 
@@ -1174,18 +1376,18 @@ def process_file(
                         l4 = result
                         save_json(l4, paths_map["l4"])
         else:
-            # 双缓存命中时，确保变量存在
             if l3 is None:
                 l3 = load_json_file(paths_map["l3"])
             if l4 is None:
                 l4 = load_json_file(paths_map["l4"])
 
-        # 无论 L4 是新生成还是缓存复用，都导出一份真实 tex 片段文件。
+        # Always export tex snippets from L4
         export_lecture_tex_snippets(l4, filename, output_dir)
 
         # ========= L5 =========
+        l5: dict[str, Any] | None = None
+        l5_from_cache = False
         if not force and file_exists(paths_map["l5"]):
-            # 缓存命中时也做一次轻量自修复，确保历史错误 ID 能被纠正。
             try:
                 l5_cached = load_json_file(paths_map["l5"])
                 cached_id = l5_cached.get("id")
@@ -1205,27 +1407,47 @@ def process_file(
                         f"{filename} 检测到历史 L5 id 异常，已自动修正: "
                         f"{cached_id!r} -> {filename!r}"
                     )
+                l5 = l5_cached
+                l5_from_cache = True
             except Exception as e:
-                logging.warning(f"{filename} L5 缓存校正失败，继续按缓存跳过: {e}")
+                logging.warning(f"{filename} L5 缓存校正失败，转为重跑 L5: {e}")
+
+        if l5 is None:
+            merged = build_l5_payload(l2, l3, l4)
+            t0 = time.perf_counter()
+            l5 = run_step_with_progress(f"{filename} L5", step_meta_generate, merged)
+            logging.info(f"{filename} L5 耗时: {time.perf_counter() - t0:.2f}s")
+            if not is_step_success(l5):
+                save_parse_debug(output_dir, filename, "l5", l5)
+                logging.error(f"{filename} L5 失败: {get_step_error(l5)}")
+                return "error"
+            l5 = apply_meta_defaults(l5, filename)
+            save_json(l5, paths_map["l5"])
+        else:
             logging.info(f"{filename} 已处理，跳过 L5")
+
+        # ========= L6 =========
+        cached_l6 = None if force else get_cached_l6_dirname(item_output_dir, filename)
+        if cached_l6 and l5_from_cache:
+            logging.info(f"{filename} 已处理，跳过 L6")
             return "skipped"
 
-        merged = build_l5_payload(l2, l3, l4)
+        if cached_l6:
+            logging.info(f"{filename} L6 将更新缓存: {cached_l6}")
+
+        l6_payload = build_l6_payload(filename, l2, l5)
         t0 = time.perf_counter()
-        l5 = step_meta_generate(merged)
-        logging.info(f"{filename} L5 耗时: {time.perf_counter() - t0:.2f}s")
-        if not is_step_success(l5):
-            save_parse_debug(output_dir, filename, "l5", l5)
-            logging.error(f"{filename} L5 失败: {get_step_error(l5)}")
-            return "error"
-        save_json(apply_meta_defaults(l5, filename), paths_map["l5"])
+        l6_raw = run_step_with_progress(f"{filename} L6", step_dirname_generate, l6_payload)
+        l6_dirname = normalize_l6_dirname(filename, l6_raw)
+        l6_path = save_l6_dirname_file(item_output_dir, filename, l6_dirname)
+        logging.info(f"{filename} L6 耗时: {time.perf_counter() - t0:.2f}s")
+        logging.info(f"{filename} L6 目录名: {os.path.basename(l6_path)}")
 
         return "success"
 
     except Exception as e:
-        logging.error(f"❌ Error processing {filename}: {e}")
+        logging.error(f"Error processing {filename}: {e}")
         return "error"
-
 
 def run_batch(
     input_dir: str = INPUT_DIR,
@@ -1281,7 +1503,9 @@ def run_batch(
         return {"success": 0, "error": 0, "skipped": 0}
 
     mode = "force（全量重跑）" if force else "cache（优先复用）"
-    logging.info(f"开始批处理，共 {len(items)} 个条目，并发数 {max_workers}，模式: {mode}")
+    logging.info(
+        f"开始批处理，共 {len(items)} 个条目，并发数 {max_workers}，模式: {mode}"
+    )
     if requested_ids:
         logging.info(f"指定 ID: {', '.join(requested_ids)}")
     batch_start = time.perf_counter()
@@ -1334,9 +1558,15 @@ def main() -> None:
     if not extensions:
         raise ValueError("--extensions 不能为空")
 
-    target_ids = normalize_ids(args.ids)
-    if args.ids is not None and not target_ids:
-        raise ValueError("--ids 不能为空")
+    raw_ids: list[str] = []
+    if args.ids:
+        raw_ids.extend(args.ids)
+    if args.positional_ids:
+        raw_ids.extend(args.positional_ids)
+
+    target_ids = normalize_ids(raw_ids)
+    if (args.ids is not None or args.positional_ids) and not target_ids:
+        raise ValueError("ID 参数不能为空")
 
     run_batch(
         input_dir=args.input_dir,
@@ -1351,3 +1581,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+

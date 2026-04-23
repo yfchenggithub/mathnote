@@ -4,6 +4,7 @@ Build one PDF per conclusion directory and emit an ID->PDF-name JSON map.
 
 Examples:
   python scripts/build_conclusion_pdfs.py --dry-run
+  python scripts/build_conclusion_pdfs.py S001 I001
   python scripts/build_conclusion_pdfs.py --modules 00_set 07_inequality --ids S001 I001
   python scripts/build_conclusion_pdfs.py --modules 00_set --conclusions S001_Subset_Count --pdf-name-mode id
 """
@@ -36,6 +37,7 @@ DEFAULT_MODULES = [
 
 DEFAULT_OUTPUT_DIR = Path("build/conclusion_pdfs")
 DEFAULT_MAP_JSON = Path("build/conclusion_pdf_map.json")
+MODULE_PREFIX_MAP_JSON = Path("12_pipeline/config/module_prefix_map.json")
 ID_PATTERN = re.compile(r"^([A-Za-z]\d{3})")
 
 
@@ -83,6 +85,15 @@ def parse_args() -> argparse.Namespace:
         nargs="*",
         default=None,
         help="Conclusion IDs to include (e.g. I001 S001). Supports comma and/or space separation.",
+    )
+    parser.add_argument(
+        "positional_ids",
+        nargs="*",
+        help=(
+            "Shorthand IDs, equivalent to --ids (e.g. I001 S001). "
+            "If --modules is omitted, modules are auto-derived from "
+            "12_pipeline/config/module_prefix_map.json."
+        ),
     )
     parser.add_argument(
         "--conclusions",
@@ -173,6 +184,86 @@ def normalize_ids(raw_ids: list[str] | None) -> list[str]:
 
 def normalize_conclusions(raw_conclusions: list[str] | None) -> list[str]:
     return dedupe_keep_order(split_csv_tokens(raw_conclusions))
+
+
+def load_module_prefix_map(repo_root: Path) -> dict[str, str]:
+    map_path = repo_root / MODULE_PREFIX_MAP_JSON
+    if not map_path.is_file():
+        raise FileNotFoundError(f"Module-prefix map not found: {map_path}")
+
+    try:
+        raw = json.loads(map_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"Invalid JSON in {map_path}: {exc}") from exc
+
+    if not isinstance(raw, dict):
+        raise ValueError(f"Invalid map structure in {map_path}: expected JSON object.")
+
+    cleaned: dict[str, str] = {}
+    for module, prefix in raw.items():
+        if not isinstance(module, str) or not module.strip():
+            raise ValueError(f"Invalid module key in {map_path}: {module!r}")
+        if not isinstance(prefix, str):
+            raise ValueError(f"Invalid prefix type for module {module!r}: {type(prefix).__name__}")
+
+        normalized_prefix = prefix.strip().upper()
+        if not re.fullmatch(r"[A-Z]", normalized_prefix):
+            raise ValueError(
+                f"Invalid prefix for module {module!r}: {prefix!r}. Expected one letter."
+            )
+        cleaned[module.strip()] = normalized_prefix
+
+    return cleaned
+
+
+def build_prefix_to_module_map(module_prefix_map: dict[str, str]) -> dict[str, str]:
+    prefix_to_module: dict[str, str] = {}
+    conflicts: dict[str, list[str]] = {}
+
+    for module, prefix in module_prefix_map.items():
+        existing = prefix_to_module.get(prefix)
+        if existing is None:
+            prefix_to_module[prefix] = module
+            continue
+
+        conflicts.setdefault(prefix, [existing]).append(module)
+
+    if conflicts:
+        lines = [
+            "Duplicate prefix mappings detected in module_prefix_map.json "
+            "(cannot auto-resolve IDs):"
+        ]
+        for prefix, modules in sorted(conflicts.items()):
+            lines.append(f"  - {prefix}: {', '.join(sorted(set(modules)))}")
+        raise ValueError("\n".join(lines))
+
+    return prefix_to_module
+
+
+def resolve_modules(
+    raw_modules: list[str] | None,
+    ids: list[str],
+    repo_root: Path,
+) -> tuple[list[str], str]:
+    if raw_modules is not None:
+        return normalize_modules(raw_modules), "explicit (--modules)"
+
+    if not ids:
+        return list(DEFAULT_MODULES), "default (all)"
+
+    module_prefix_map = load_module_prefix_map(repo_root)
+    prefix_to_module = build_prefix_to_module_map(module_prefix_map)
+
+    prefixes = dedupe_keep_order(item[0].upper() for item in ids)
+    missing = [prefix for prefix in prefixes if prefix not in prefix_to_module]
+    if missing:
+        raise ValueError(
+            "Missing module mapping for ID prefix(es): "
+            f"{', '.join(missing)}. Please update {MODULE_PREFIX_MAP_JSON.as_posix()}."
+        )
+
+    modules = dedupe_keep_order(prefix_to_module[prefix] for prefix in prefixes)
+    return modules, f"derived from ID prefix map ({MODULE_PREFIX_MAP_JSON.as_posix()})"
 
 
 def discover_conclusions(repo_root: Path, modules: list[str]) -> list[ConclusionItem]:
@@ -393,10 +484,11 @@ def main() -> int:
     repo_root = Path(__file__).resolve().parent.parent
 
     try:
-        modules = normalize_modules(args.modules)
-        ids = normalize_ids(args.ids)
+        raw_ids = split_csv_tokens(args.ids) + split_csv_tokens(args.positional_ids)
+        ids = normalize_ids(raw_ids)
         conclusions = normalize_conclusions(args.conclusions)
-    except ValueError as exc:
+        modules, module_source = resolve_modules(args.modules, ids, repo_root)
+    except (ValueError, FileNotFoundError) as exc:
         print(f"[error] {exc}")
         return 2
 
@@ -419,7 +511,7 @@ def main() -> int:
     map_json_path = (repo_root / Path(args.map_json)).resolve()
 
     print(f"[info] Repo root: {repo_root}")
-    print(f"[info] Modules: {', '.join(modules)}")
+    print(f"[info] Modules ({module_source}): {', '.join(modules)}")
     print(f"[info] Selected conclusions: {len(selected)}")
     print(f"[info] PDF output dir: {output_dir}")
     print(f"[info] Map JSON path: {map_json_path}")
@@ -487,4 +579,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

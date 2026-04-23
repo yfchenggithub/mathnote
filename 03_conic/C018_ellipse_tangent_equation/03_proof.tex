@@ -1,0 +1,84 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+
+通过设切线方程，联立椭圆方程，利用相切时判别式为零，推导切线方程。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（设直线方程）：}] 设切线方程为 $y - y_0 = k(x - x_0)$，其中 $k$ 为待求斜率。
+    \[
+    y = y_0 + k(x - x_0)
+    \]
+    \par\textbf{理由：} 点斜式是直线方程的常见形式。
+
+    \item[\textbf{步骤二（联立椭圆）：}] 将直线方程代入椭圆方程 $\dfrac{x^2}{a^2} + \dfrac{y^2}{b^2} = 1$。
+    \[
+    \frac{x^2}{a^2} + \frac{[y_0 + k(x - x_0)]^2}{b^2} = 1
+    \]
+    \par\textbf{理由：} 联立直线与椭圆方程，求交点。
+
+    \item[\textbf{步骤三（整理方程）：}] 展开并整理成关于 $x$ 的二次方程。
+    \[
+    \begin{aligned}
+    &\frac{x^2}{a^2} + \frac{y_0^2 + 2k y_0 (x - x_0) + k^2 (x - x_0)^2}{b^2} = 1 \\
+    &\Rightarrow \frac{x^2}{a^2} + \frac{y_0^2}{b^2} + \frac{2k y_0 (x - x_0)}{b^2} + \frac{k^2 (x - x_0)^2}{b^2} = 1
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 展开平方项，为化简做准备。
+
+    \item[\textbf{步骤四（利用点P）：}] 由于点 $P(x_0, y_0)$ 在椭圆上，有 $\dfrac{x_0^2}{a^2} + \dfrac{y_0^2}{b^2} = 1$，代入上式。
+    \[
+    \frac{x^2}{a^2} + 1 - \frac{x_0^2}{a^2} + \frac{2k y_0 (x - x_0)}{b^2} + \frac{k^2 (x - x_0)^2}{b^2} = 1
+    \]
+    \par\textbf{理由：} 替换 $\dfrac{y_0^2}{b^2} = 1 - \dfrac{x_0^2}{a^2}$，简化常数项。
+
+    \item[\textbf{步骤五（化简）：}] 整理得关于 $x$ 的二次方程。
+    \[
+    \begin{aligned}
+    &\frac{x^2 - x_0^2}{a^2} + \frac{2k y_0 (x - x_0)}{b^2} + \frac{k^2 (x - x_0)^2}{b^2} = 0 \\
+    &\Rightarrow (x - x_0) \left[ \frac{x + x_0}{a^2} + \frac{2k y_0}{b^2} + \frac{k^2 (x - x_0)}{b^2} \right] = 0
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 因式分解，注意到 $x^2 - x_0^2 = (x - x_0)(x + x_0)$。
+
+    \item[\textbf{步骤六（判别式为零）：}] 由于相切，直线与椭圆只有一个交点，所以关于 $x$ 的方程有重根，即 $x - x_0$ 是重因子，因此括号内项在 $x = x_0$ 时也为零。
+    \[
+    \left. \frac{x + x_0}{a^2} + \frac{2k y_0}{b^2} + \frac{k^2 (x - x_0)}{b^2} \right|_{x = x_0} = 0
+    \]
+    \par\textbf{理由：} 重根条件意味着 $x = x_0$ 是方程的解，且导数条件满足。
+
+    \item[\textbf{步骤七（解斜率）：}] 代入 $x = x_0$，得 $\dfrac{2x_0}{a^2} + \dfrac{2k y_0}{b^2} = 0$，解得 $k = -\dfrac{b^2 x_0}{a^2 y_0}$（当 $y_0 \neq 0$）。
+    \[
+    k = -\frac{b^2 x_0}{a^2 y_0}
+    \]
+    \par\textbf{理由：} 直接解出斜率表达式。
+
+    \item[\textbf{步骤八（得切线方程）：}] 将 $k$ 代入点斜式，并化简。
+    \[
+    \begin{aligned}
+    y - y_0 &= -\frac{b^2 x_0}{a^2 y_0} (x - x_0) \\
+    \Rightarrow a^2 y_0 (y - y_0) &= -b^2 x_0 (x - x_0) \\
+    \Rightarrow b^2 x_0 x + a^2 y_0 y &= b^2 x_0^2 + a^2 y_0^2
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 代入斜率，整理方程。
+
+    \item[\textbf{步骤九（利用椭圆方程）：}] 由于 $\dfrac{x_0^2}{a^2} + \dfrac{y_0^2}{b^2} = 1$，有 $b^2 x_0^2 + a^2 y_0^2 = a^2 b^2$，代入上式。
+    \[
+    b^2 x_0 x + a^2 y_0 y = a^2 b^2
+    \]
+    \par\textbf{理由：} 将常数项用椭圆方程化简。
+
+    \item[\textbf{步骤十（标准化）：}] 两边除以 $a^2 b^2$，得到标准形式。
+    \[
+    \frac{x_0 x}{a^2} + \frac{y_0 y}{b^2} = 1
+    \]
+    \par\textbf{理由：} 除以 $a^2 b^2$ 得到最终切线方程。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+
+\textbf{因此，椭圆 $\dfrac{x^2}{a^2} + \dfrac{y^2}{b^2} = 1$ 在点 $P(x_0, y_0)$ 处的切线方程为 $\dfrac{x_0 x}{a^2} + \dfrac{y_0 y}{b^2} = 1$。}
+\end{proofbox}

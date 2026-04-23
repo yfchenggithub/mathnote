@@ -88,6 +88,7 @@ LECTURE_FILES = (
 
 ID_PATTERN = re.compile(r"^[A-Za-z]\d{3}$")
 INDEX_FILENAME = "index.tex"
+L6_DIRNAME_FILE_PATTERN_TEMPLATE = r"^{item_id}_[a-z0-9]+(?:_[a-z0-9]+)*$"
 
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 logger = logging.getLogger(__name__)
@@ -131,6 +132,11 @@ def parse_args() -> argparse.Namespace:
     )
 
     parser.add_argument("--ids", nargs="*", help="指定要发布的 ID")
+    parser.add_argument(
+        "positional_ids",
+        nargs="*",
+        help="位置参数 ID，等价于 --ids（示例：I004 I005）",
+    )
     parser.add_argument("--module-dir", help="强制指定模块目录")
 
     parser.add_argument("--dry-run", action="store_true", help="只演示，不落盘")
@@ -287,6 +293,46 @@ def format_id_preview(ids, limit=10) -> str:
     return f"{head}, ... (+{len(ids) - limit})"
 
 
+def split_csv_tokens(values: list[str] | None) -> list[str]:
+    """
+    将命令行参数按逗号与空格规则拆分为扁平 token 列表。
+    """
+    if not values:
+        return []
+    tokens: list[str] = []
+    for raw in values:
+        for token in raw.split(","):
+            piece = token.strip()
+            if piece:
+                tokens.append(piece)
+    return tokens
+
+
+def normalize_ids(raw_ids: list[str] | None) -> list[str]:
+    """
+    标准化并校验 ID，输出去重后的大写 ID 列表。
+    """
+    if not raw_ids:
+        return []
+
+    normalized: list[str] = []
+    invalid: list[str] = []
+    for raw in raw_ids:
+        item_id = raw.strip().upper()
+        if not item_id:
+            continue
+        if not ID_PATTERN.fullmatch(item_id):
+            invalid.append(raw)
+            continue
+        normalized.append(item_id)
+
+    if invalid:
+        bad = ", ".join(invalid)
+        raise ValueError(f"ID 格式非法: {bad}（期望格式如 I004）")
+
+    return list(dict.fromkeys(normalized))
+
+
 # =========================================================
 # 模块解析
 # =========================================================
@@ -337,6 +383,38 @@ def build_module_alias_map(module_dirs):
             mapping[normalize_key(m.group(1))] = module_dir
 
     return mapping
+
+
+def list_l6_dirname_files(output_dir: Path, item_id: str) -> list[Path]:
+    """
+    列出 output/<ID>/ 下所有符合 L6 命名规则的文件。
+    """
+    if not output_dir.exists() or not output_dir.is_dir():
+        return []
+
+    pattern = re.compile(
+        L6_DIRNAME_FILE_PATTERN_TEMPLATE.format(item_id=re.escape(item_id)),
+        re.IGNORECASE,
+    )
+    files = [p for p in output_dir.iterdir() if p.is_file() and pattern.match(p.name)]
+    files.sort(key=lambda p: p.name.lower())
+    return files
+
+
+def pick_l6_dirname(output_dir: Path, item_id: str) -> tuple[str | None, list[str]]:
+    """
+    选择 L6 命名文件，返回 (目录名候选, warnings)。
+    """
+    warnings: list[str] = []
+    files = list_l6_dirname_files(output_dir, item_id)
+    if not files:
+        return None, warnings
+
+    if len(files) > 1:
+        names = ", ".join(p.name for p in files)
+        warnings.append(f"L6 命名文件存在多个，已按字典序使用第一个: {names}")
+
+    return files[0].name, warnings
 
 
 def choose_module(item_id, meta, module_dirs, alias_map, forced):
@@ -406,7 +484,7 @@ def choose_module(item_id, meta, module_dirs, alias_map, forced):
     raise ValueError(f"{item_id} 无法推断模块")
 
 
-def choose_conclusion_dir(module_dir, item_id, meta):
+def choose_conclusion_dir(module_dir, item_id, meta, output_dir):
     """
     决策二级结论目录路径。
 
@@ -421,25 +499,37 @@ def choose_conclusion_dir(module_dir, item_id, meta):
         meta (dict): 元数据字典，用于生成默认 slug。
 
     Returns:
-        Path: 目标二级结论目录路径（可能已存在，也可能是待创建）。
+        tuple[Path, list[str]]: (目标二级结论目录路径, warnings)。
     """
+    warnings: list[str] = []
+
+    # 优先使用 L6 产物（文件名即目录名）。
+    l6_dirname, l6_warnings = pick_l6_dirname(output_dir, item_id)
+    warnings.extend(l6_warnings)
+    if l6_dirname:
+        candidate = module_dir / l6_dirname
+        if candidate.exists() and not candidate.is_dir():
+            raise ValueError(f"L6 目标已存在但不是目录: {candidate}")
+        return candidate, warnings
+
+    # 回退到历史逻辑：先复用已有同 ID 目录，再按 module slug 生成。
     hits = [
         p for p in module_dir.iterdir() if p.is_dir() and p.name.upper().startswith(item_id)
     ]
     if len(hits) == 1:
-        return hits[0]
+        return hits[0], warnings
 
     slug = normalize_key(meta.get("module", "")).replace("-", "_") or "generated"
     base = module_dir / f"{item_id}_{slug}"
 
     if not base.exists():
-        return base
+        return base, warnings
 
     i = 2
     while True:
         p = module_dir / f"{base.name}_{i}"
         if not p.exists():
-            return p
+            return p, warnings
         i += 1
 
 
@@ -708,7 +798,9 @@ def publish_one(item_id, args, module_dirs, alias_map):
     meta = load_json(meta_src)
 
     module_dir = choose_module(item_id, meta, module_dirs, alias_map, args.module_dir)
-    target_dir = choose_conclusion_dir(module_dir, item_id, meta)
+    target_dir, naming_warnings = choose_conclusion_dir(
+        module_dir, item_id, meta, output_dir
+    )
 
     ensure_dir(target_dir, args.dry_run)
 
@@ -716,8 +808,15 @@ def publish_one(item_id, args, module_dirs, alias_map):
         "item_id": item_id,
         "target": rel_path(target_dir, args.project_root),
         "steps": [],
-        "warnings": [],
+        "warnings": list(naming_warnings),
     }
+
+    if naming_warnings:
+        result["steps"].append("目录命名: 使用 L6 产物（检测到多个候选，已按字典序选取）")
+    elif target_dir.name.upper().startswith(item_id):
+        l6_name, _ = pick_l6_dirname(output_dir, item_id)
+        if l6_name and target_dir.name == l6_name:
+            result["steps"].append("目录命名: 使用 L6 产物")
 
     if args.only == "main":
         publish_main(meta, module_dir, target_dir, args.dry_run)
@@ -823,7 +922,12 @@ def main():
 
     module_dirs = list_module_dirs(args.project_root)
     alias_map = build_module_alias_map(module_dirs)
-    ids = detect_ids(args.output_root, args.ids)
+    raw_ids = split_csv_tokens(args.ids) + split_csv_tokens(args.positional_ids)
+    try:
+        requested_ids = normalize_ids(raw_ids)
+    except ValueError as exc:
+        raise SystemExit(f"[error] {exc}") from exc
+    ids = detect_ids(args.output_root, requested_ids)
 
     logger.info("========== Pipeline 发布 ==========")
     logger.info(f"模式: {mode_text(args)}")
