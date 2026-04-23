@@ -1,0 +1,70 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+
+设 $P(x_0,y_0)$ 为椭圆上任意一点，写出过 $P$ 的切线方程，求出与直线 $x=-a$ 和 $x=a$ 的交点 $P_1$、$P_2$，计算 $|P_1A_1|$ 和 $|P_2A_2|$ 的乘积，并推导四边形面积表达式，利用椭圆方程化简求最值。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（设点与切线方程）：}] 设 $P(x_0,y_0)$ 在椭圆 $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$ 上，则过 $P$ 的切线方程为
+    \[
+    \frac{x_0 x}{a^2} + \frac{y_0 y}{b^2} = 1.
+    \]
+    \par\textbf{理由：} 椭圆 $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$ 在点 $(x_0,y_0)$ 处的切线公式。
+
+    \item[\textbf{步骤二（求交点坐标）：}] 切线交直线 $x=-a$ 于点 $P_1$，交 $x=a$ 于点 $P_2$。联立方程：
+    \[
+    \begin{cases}
+    x = -a, \\
+    \frac{x_0 x}{a^2} + \frac{y_0 y}{b^2} = 1,
+    \end{cases}
+    \quad\text{解得}\quad
+    P_1\left(-a,\ \frac{b^2}{y_0}\left(1+\frac{x_0}{a}\right)\right).
+    \]
+    类似地，
+    \[
+    P_2\left(a,\ \frac{b^2}{y_0}\left(1-\frac{x_0}{a}\right)\right).
+    \]
+    \par\textbf{理由：} 将 $x=\pm a$ 代入切线方程解出 $y$ 坐标。
+
+    \item[\textbf{步骤三（计算距离）：}] $A_1(-a,0)$，$A_2(a,0)$，故
+    \[
+    |P_1A_1| = \left| \frac{b^2}{y_0}\left(1+\frac{x_0}{a}\right) \right|,\quad
+    |P_2A_2| = \left| \frac{b^2}{y_0}\left(1-\frac{x_0}{a}\right) \right|.
+    \]
+    由于 $P$ 在椭圆上，$x_0\in[-a,a]$，所以 $1+\frac{x_0}{a}\ge 0$，$1-\frac{x_0}{a}\ge 0$，且 $y_0\neq 0$，故绝对值可去掉：
+    \[
+    |P_1A_1| = \frac{b^2}{y_0}\left(1+\frac{x_0}{a}\right),\quad
+    |P_2A_2| = \frac{b^2}{y_0}\left(1-\frac{x_0}{a}\right).
+    \]
+    \par\textbf{理由：} 距离为纵坐标差的绝对值，由椭圆范围知表达式非负。
+
+    \item[\textbf{步骤四（乘积化简）：}] 计算乘积：
+    \[
+    |P_1A_1|\cdot|P_2A_2| = \frac{b^2}{y_0}\left(1+\frac{x_0}{a}\right) \cdot \frac{b^2}{y_0}\left(1-\frac{x_0}{a}\right) = \frac{b^4}{y_0^2}\left(1-\frac{x_0^2}{a^2}\right).
+    \]
+    利用椭圆方程 $\frac{x_0^2}{a^2}+\frac{y_0^2}{b^2}=1$，得 $1-\frac{x_0^2}{a^2} = \frac{y_0^2}{b^2}$，代入：
+    \[
+    |P_1A_1|\cdot|P_2A_2| = \frac{b^4}{y_0^2} \cdot \frac{y_0^2}{b^2} = b^2.
+    \]
+    \par\textbf{理由：} 代入椭圆方程消去 $x_0$，得到定值。
+
+    \item[\textbf{步骤五（面积表达式）：}] 四边形 $A_1P_1P_2A_2$ 是梯形，上下底平行于 $x$ 轴，高为 $2a$，面积
+    \[
+    S = \frac{1}{2}(|P_1A_1|+|P_2A_2|) \cdot 2a = a\left(|P_1A_1|+|P_2A_2|\right).
+    \]
+    代入距离表达式：
+    \[
+    S = a\left[ \frac{b^2}{y_0}\left(1+\frac{x_0}{a}\right) + \frac{b^2}{y_0}\left(1-\frac{x_0}{a}\right) \right] = a \cdot \frac{b^2}{y_0} \cdot 2 = \frac{2ab^2}{y_0}.
+    \]
+    \par\textbf{理由：} 梯形面积公式，并化简。注意 $y_0$ 可正可负，实际面积 $S = \frac{2ab^2}{|y_0|}$。
+
+    \item[\textbf{步骤六（求最小值）：}] 由椭圆方程，$y_0^2 \le b^2$，故 $|y_0| \le b$，且 $y_0 \neq 0$。所以 $S = \frac{2ab^2}{|y_0|} \ge \frac{2ab^2}{b} = 2ab$，等号当 $|y_0| = b$ 即 $y_0 = \pm b$ 时成立，此时 $x_0=0$。
+    \par\textbf{理由：} 利用 $|y_0|$ 的范围求 $S$ 的最小值。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+
+\textbf{由此证明了 $|P_1A_1|\cdot|P_2A_2|=b^2$ 恒成立，且四边形 $A_1P_1P_2A_2$ 的面积 $S \ge 2ab$，最小值 $2ab$ 在 $P(0,\pm b)$ 时取得。}
+\end{proofbox}

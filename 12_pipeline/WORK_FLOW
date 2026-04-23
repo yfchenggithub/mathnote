@@ -1,0 +1,20 @@
+/*
+1) 先用ds或者gpt对二级结论的图片识别成可编译的latex，保存在当前12_pipeline\source.tex里面
+2) python.exe ..\12_pipeline\create_next_input_case.py 03
+    [INFO] Created directory: D:\mathnote\12_pipeline\input\C020
+    [INFO] Copied source: D:\mathnote\12_pipeline\source.tex -> D:\mathnote\12_pipeline\input\C020\source.tex
+    NEW_ID=C020
+    TARGET_DIR=D:\mathnote\12_pipeline\input\C020
+这个可以在模块内找到一个可用的序号，相当于点位, 创建D:\mathnote\12_pipeline\input\C020文件夹，并把source.tex复制到这个文件夹里
+3)  python.exe ..\12_pipeline\run_pipeline.py C020
+这个用来运行整个pipeline，输入参数是上一步D:\mathnote\12_pipeline\input\C020\source.tex的路径，运行后会在D:\mathnote\12_pipeline\output\C020文件夹里生成01_statement.txt（结论的文本描述），02_proof.txt（证明的文本描述），03_latex.tex（证明的latex代码） 04_proof.png（证明的图片）等文件
+4) D:\mathnote\12_pipeline\publish_pipeline_output.py  
+这个脚本把第三步生成的文件发布到真正的模块的子目录里面，子目录的也是第三步生成的,
+
+5) scripts\fix_math_punctuation.py  C020
+这个脚本解决乱码问题
+
+6) scripts\build_conclusion_pdfs.py C020
+这个脚本把第四步发布的文件生成pdf，并且放在模块的子目录里面，命名为C020.pdf
+
+*/

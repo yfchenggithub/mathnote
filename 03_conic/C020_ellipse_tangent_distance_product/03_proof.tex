@@ -1,0 +1,95 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+
+从点 $P$ 坐标出发，先写出椭圆在 $P$ 处的切线方程，再计算原点到切线的距离 $d$，同时表达 $r_1$ 和 $r_2$，最后计算乘积 $\sqrt{r_1 r_2} \cdot d$ 并利用椭圆方程化简。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（设点与切线）：}] 设椭圆上点 $P(x_0,y_0)$，则椭圆在 $P$ 处的切线 $l$ 方程为 $\dfrac{x_0 x}{a^2} + \dfrac{y_0 y}{b^2} = 1$。
+    \[
+    \dfrac{x_0 x}{a^2} + \dfrac{y_0 y}{b^2} = 1.
+    \]
+    \par\textbf{理由：} 椭圆 $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1$ 在点 $P(x_0,y_0)$ 处的切线公式可直接记忆或由隐函数求导得到。
+
+    \item[\textbf{步骤二（计算距离 $d$）：}] 原点到直线 $l$ 的距离 $d$ 为
+    \[
+    d = \frac{1}{\sqrt{\dfrac{x_0^2}{a^4} + \dfrac{y_0^2}{b^4}}}.
+    \]
+    \par\textbf{理由：} 将切线方程化为一般式 $\dfrac{x_0}{a^2}x + \dfrac{y_0}{b^2}y - 1 = 0$，代入点到直线距离公式 $d = \dfrac{|Ax_0+By_0+C|}{\sqrt{A^2+B^2}}$，注意此处原点 $(0,0)$ 代入得 $|C|=1$，且 $A=\dfrac{x_0}{a^2}, B=\dfrac{y_0}{b^2}$，故分母为 $\sqrt{\left(\dfrac{x_0}{a^2}\right)^2 + \left(\dfrac{y_0}{b^2}\right)^2}$。
+
+    \item[\textbf{步骤三（表达 $r_1 r_2$）：}] 计算 $r_1 r_2$ 的乘积。焦点为 $F_1(-c,0), F_2(c,0)$，其中 $c^2=a^2-b^2$，则
+    \[
+    r_1 r_2 = \sqrt{(x_0+c)^2+y_0^2} \cdot \sqrt{(x_0-c)^2+y_0^2}.
+    \]
+    直接计算平方得
+    \[
+    r_1^2 r_2^2 = \big[(x_0+c)^2+y_0^2\big]\big[(x_0-c)^2+y_0^2\big].
+    \]
+    \par\textbf{理由：} 利用平方差公式和椭圆方程 $\dfrac{x_0^2}{a^2}+\dfrac{y_0^2}{b^2}=1$ 化简。展开后：
+    \[
+    \begin{aligned}
+    r_1^2 r_2^2 &= \big[(x_0^2+y_0^2+c^2)+2cx_0\big]\big[(x_0^2+y_0^2+c^2)-2cx_0\big] \\
+    &= (x_0^2+y_0^2+c^2)^2 - (2cx_0)^2.
+    \end{aligned}
+    \]
+
+    \item[\textbf{步骤四（代入椭圆方程）：}] 由椭圆方程 $\dfrac{x_0^2}{a^2}+\dfrac{y_0^2}{b^2}=1$，可得 $y_0^2 = b^2\left(1-\dfrac{x_0^2}{a^2}\right)$。代入上式并化简：
+    \[
+    \begin{aligned}
+    r_1^2 r_2^2 &= \left(x_0^2 + b^2\left(1-\frac{x_0^2}{a^2}\right) + c^2\right)^2 - 4c^2 x_0^2 \\
+    &= \left(x_0^2\left(1-\frac{b^2}{a^2}\right) + b^2 + c^2\right)^2 - 4c^2 x_0^2.
+    \end{aligned}
+    \]
+    注意到 $1-\dfrac{b^2}{a^2} = \dfrac{c^2}{a^2}$，且 $b^2+c^2=a^2$，所以
+    \[
+    r_1^2 r_2^2 = \left(\frac{c^2}{a^2}x_0^2 + a^2\right)^2 - 4c^2 x_0^2.
+    \]
+    \par\textbf{理由：} 逐步代换以消去 $y_0$，并利用椭圆参数关系。
+
+    \item[\textbf{步骤五（化简乘积）：}] 进一步展开并整理：
+    \[
+    \begin{aligned}
+    r_1^2 r_2^2 &= \frac{c^4}{a^4}x_0^4 + 2c^2 x_0^2 + a^4 - 4c^2 x_0^2 \\
+    &= \frac{c^4}{a^4}x_0^4 - 2c^2 x_0^2 + a^4 \\
+    &= \left(\frac{c^2}{a^2}x_0^2 - a^2\right)^2.
+    \end{aligned}
+    \]
+    因此 $r_1 r_2 = \left|\frac{c^2}{a^2}x_0^2 - a^2\right|$。由于椭圆上 $x_0^2 \le a^2$，且 $c^2=a^2-b^2 < a^2$，可判断符号，但最终乘积为正，故取绝对值不影响。为简化，直接取平方根：
+    \[
+    r_1 r_2 = a^2 - \frac{c^2}{a^2}x_0^2.
+    \]
+    \par\textbf{理由：} 完全平方公式化简，并利用椭圆范围确定符号。
+
+    \item[\textbf{步骤六（计算 $\sqrt{r_1 r_2} \cdot d$）：}] 将 $d$ 和 $r_1 r_2$ 代入：
+    \[
+    \begin{aligned}
+    \sqrt{r_1 r_2} \cdot d &= \sqrt{a^2 - \frac{c^2}{a^2}x_0^2} \cdot \frac{1}{\sqrt{\dfrac{x_0^2}{a^4} + \dfrac{y_0^2}{b^4}}} \\
+    &= \sqrt{a^2 - \frac{c^2}{a^2}x_0^2} \cdot \frac{1}{\sqrt{\dfrac{x_0^2}{a^4} + \dfrac{b^2\left(1-\dfrac{x_0^2}{a^2}\right)}{b^4}}}.
+    \end{aligned}
+    \]
+    化简分母：
+    \[
+    \dfrac{x_0^2}{a^4} + \dfrac{1}{b^2} - \dfrac{x_0^2}{a^2 b^2} = \dfrac{x_0^2}{a^4} - \dfrac{x_0^2}{a^2 b^2} + \dfrac{1}{b^2} = \dfrac{x_0^2(b^2 - a^2)}{a^4 b^2} + \dfrac{1}{b^2}.
+    \]
+    由于 $b^2 - a^2 = -c^2$，代入得
+    \[
+    \frac{1}{b^2} - \frac{c^2 x_0^2}{a^4 b^2} = \frac{1}{b^2}\left(1 - \frac{c^2 x_0^2}{a^4}\right).
+    \]
+    因此
+    \[
+    d = \frac{1}{\sqrt{\dfrac{1}{b^2}\left(1 - \dfrac{c^2 x_0^2}{a^4}\right)}} = \frac{b}{\sqrt{1 - \dfrac{c^2 x_0^2}{a^4}}}.
+    \]
+    同时 $\sqrt{r_1 r_2} = \sqrt{a^2 - \dfrac{c^2}{a^2}x_0^2} = \sqrt{\dfrac{a^4 - c^2 x_0^2}{a^2}}$。
+    故乘积为
+    \[
+    \sqrt{r_1 r_2} \cdot d = \sqrt{\dfrac{a^4 - c^2 x_0^2}{a^2}} \cdot \frac{b}{\sqrt{1 - \dfrac{c^2 x_0^2}{a^4}}} = b \sqrt{\dfrac{a^4 - c^2 x_0^2}{a^2} \cdot \dfrac{a^4}{a^4 - c^2 x_0^2}} = ab.
+    \]
+    \par\textbf{理由：} 代数通分和约分，关键步骤是分子分母同时出现 $a^4 - c^2 x_0^2$ 而抵消。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+
+\textbf{经过上述逐步推导，我们验证了对于椭圆上任意点 $P$，恒有 $\sqrt{r_1 r_2} \cdot d = ab$，结论成立。}
+\end{proofbox}
