@@ -103,29 +103,11 @@ def test_api_key():
 
 
 def check_model_status():
-    """检查模型可用性"""
-    models = [
-        "deepseek-chat",
-        "deepseek-reasoner",
-        "deepseek-coder",
-        "deepseek-v2",
-        "deepseek-yfcheng",
-        "invalid_model",
-    ]
-    # deepseek-yfcheng 日志显示可用，明显是错的
-    client = openai.OpenAI(
-        api_key=os.getenv("DEEPSEEK_API_KEY"), base_url="http://ai.sankotrade.com"
+    # for backward compatibility, you can still use `https://api.deepseek.com/v1` as `base_url`.
+    client = OpenAI(
+        api_key=os.getenv("DEEPSEEK_API_KEY"), base_url="https://api.deepseek.com"
     )
-    for model in models:
-        try:
-            response = client.chat.completions.create(
-                model=model,
-                messages=[{"role": "user", "content": "test"}],
-                max_tokens=1,
-            )
-            print(f"✅ {model}: 可用")
-        except Exception as e:
-            print(f"❌ {model}: 不可用 - {e}")
+    print(client.models.list())
 
 
 if __name__ == "__main__":
