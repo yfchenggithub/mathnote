@@ -1,0 +1,64 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+利用降次公式将余弦平方转化为倍角余弦之和，再利用和差化积与内角和条件化简$\cos 2A+\cos 2B+\cos 2C$，最终整理即得结论。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（降次展开）：}] 
+    \[
+    \begin{aligned}
+    \cos^2 A+\cos^2 B+\cos^2 C 
+    &= \frac{1+\cos 2A}{2} + \frac{1+\cos 2B}{2} + \frac{1+\cos 2C}{2}\\
+    &= \frac{3}{2} + \frac{1}{2}(\cos 2A+\cos 2B+\cos 2C).
+    \end{aligned}
+    \]
+    \par\textbf{理由：}应用降次公式 $\cos^2 x = \frac{1+\cos 2x}{2}$。
+
+    \item[\textbf{步骤二（和差化积）：}] 
+    \[
+    \begin{aligned}
+    \cos 2A+\cos 2B &= 2\cos(A+B)\cos(A-B)\\
+    &= -2\cos C\cos(A-B),\\
+    \cos 2C &= 2\cos^2 C - 1.
+    \end{aligned}
+    \]
+    所以
+    \[
+    \cos 2A+\cos 2B+\cos 2C = -2\cos C\cos(A-B) + 2\cos^2 C - 1.
+    \]
+    \par\textbf{理由：}对 $\cos 2A+\cos 2B$ 用和差化积；$\cos(A+B)=-\cos C$；$\cos 2C$ 用倍角公式。
+
+    \item[\textbf{步骤三（合并化简）：}] 
+    \[
+    \begin{aligned}
+    &\; -2\cos C\cos(A-B) + 2\cos^2 C\\ 
+    &= 2\cos C\bigl[\cos C - \cos(A-B)\bigr]\\
+    &= 2\cos C\bigl[-\cos(A+B) - \cos(A-B)\bigr] \quad (\text{因 }\cos C = -\cos(A+B))\\
+    &= -2\cos C\bigl[\cos(A+B)+\cos(A-B)\bigr]\\
+    &= -2\cos C\cdot 2\cos A\cos B\\
+    &= -4\cos A\cos B\cos C.
+    \end{aligned}
+    \]
+    因此
+    \[
+    \cos 2A+\cos 2B+\cos 2C = -1 - 4\cos A\cos B\cos C.
+    \]
+    \par\textbf{理由：}提取公因式，利用诱导公式改写$\cos C$，再对和差进行和差化积：$\cos(A+B)+\cos(A-B)=2\cos A\cos B$。
+
+    \item[\textbf{步骤四（回代得结论）：}] 
+    \[
+    \begin{aligned}
+    \cos^2 A+\cos^2 B+\cos^2 C 
+    &= \frac{3}{2} + \frac{1}{2}\bigl(-1 - 4\cos A\cos B\cos C\bigr)\\
+    &= \frac{3}{2} - \frac{1}{2} - 2\cos A\cos B\cos C\\
+    &= 1 - 2\cos A\cos B\cos C.
+    \end{aligned}
+    \]
+    \par\textbf{理由：}将步骤三的结果代入步骤一的表达式，合并常数项即得。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+\textbf{原恒等式成立，}推导的关键是降次之后利用内角和将倍角余弦之和转化为余弦乘积，每一步均严格依赖 $A+B+C=\pi$。
+\end{proofbox}
