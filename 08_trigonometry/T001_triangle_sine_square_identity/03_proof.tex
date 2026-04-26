@@ -1,0 +1,64 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}} 用倍角公式将正弦平方降次，转化为余弦倍角求和，再利用三角形内角和的条件对 $\cos 2A+\cos 2B+\cos 2C$ 进行和差化积，最终整理出 $\cos A\cos B\cos C$ 的形式。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（降次倍角）：}] 利用 $\sin^2 x = \frac{1-\cos 2x}{2}$，对左边进行变形。
+    \[
+    \begin{aligned}
+    \sin^2 A+\sin^2 B+\sin^2 C &= \frac{1-\cos 2A}{2} + \frac{1-\cos 2B}{2} + \frac{1-\cos 2C}{2} \\
+    &= \frac{3}{2} - \frac{1}{2}(\cos 2A+\cos 2B+\cos 2C).
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 将平方项转化为一次倍角，便于利用和差化积。
+
+    \item[\textbf{步骤二（和差化积）：}] 计算 $\cos 2A+\cos 2B$，并利用 $A+B=\pi-C$。
+    \[
+    \begin{aligned}
+    \cos 2A + \cos 2B &= 2\cos(A+B)\cos(A-B) \\
+    &= 2\cos(\pi-C)\cos(A-B) \\
+    &= -2\cos C \cos(A-B).
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 和差化积公式 $\cos x+\cos y = 2\cos\frac{x+y}{2}\cos\frac{x-y}{2}$，再用 $A+B=\pi-C$ 及 $\cos(\pi-C)=-\cos C$。
+
+    \item[\textbf{步骤三（加入第三项）：}] 将 $\cos 2C = 2\cos^2 C - 1$ 与上一步结果合并。
+    \[
+    \begin{aligned}
+    \cos 2A+\cos 2B+\cos 2C &= -2\cos C\cos(A-B) + 2\cos^2 C - 1 \\
+    &= -1 + 2\cos C\bigl(\cos C - \cos(A-B)\bigr).
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 用倍角公式 $\cos 2C = 2\cos^2 C -1$，提公因式 $2\cos C$。
+
+    \item[\textbf{步骤四（再化和差）：}] 利用 $\cos C = -\cos(A+B)$，以及 $\cos(A+B) - \cos(A-B) = -2\sin A\sin B$，化简括号内式子。
+    \[
+    \begin{aligned}
+    \cos C - \cos(A-B) &= -\cos(A+B) - \cos(A-B) \\
+    &= -\bigl[\cos(A+B)+\cos(A-B)\bigr] \\
+    &= -2\cos A\cos B.
+    \end{aligned}
+    \]
+    \par\textbf{理由：} $\cos(A+B)+\cos(A-B)=2\cos A\cos B$，于是括号内化为 $-2\cos A\cos B$。
+
+    \item[\textbf{步骤五（合并结果）：}] 代入上一步得到总和。
+    \[
+    \cos 2A+\cos 2B+\cos 2C = -1 + 2\cos C \cdot (-2\cos A\cos B) = -1 - 4\cos A\cos B\cos C.
+    \]
+    \par\textbf{理由：} 乘积产生了目标项 $-4\cos A\cos B\cos C$。
+
+    \item[\textbf{步骤六（回代原式）：}] 将此和代入第一步表达式中。
+    \[
+    \begin{aligned}
+    \sin^2 A+\sin^2 B+\sin^2 C &= \frac{3}{2} - \frac{1}{2}\bigl(-1 - 4\cos A\cos B\cos C\bigr) \\
+    &= \frac{3}{2} + \frac{1}{2} + 2\cos A\cos B\cos C \\
+    &= 2 + 2\cos A\cos B\cos C.
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 约分后即得所证恒等式。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}  由倍角公式出发，经和差化积及内角和代换，零跳步地证明了正弦平方和与余弦积的恒等关系，过程揭示了该恒等式本质上是余弦倍角和的三角形特例。
+\end{proofbox}
