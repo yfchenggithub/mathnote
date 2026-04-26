@@ -1,0 +1,66 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+
+将正弦平方降次为余弦倍角，利用余弦差化积，再回到正弦乘积.
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（降幂公式）：}] 使用 $\sin^2\theta = \frac{1-\cos 2\theta}{2}$.
+    \[
+    \sin^2\alpha = \frac{1-\cos 2\alpha}{2},\quad
+    \sin^2\beta = \frac{1-\cos 2\beta}{2}.
+    \]
+    \par\textbf{理由：}
+    降幂消除平方，统一为倍角余弦.
+
+    \item[\textbf{步骤二（作差通分）：}] 计算 $\sin^2\alpha - \sin^2\beta$.
+    \[
+    \begin{aligned}
+    \sin^2\alpha - \sin^2\beta
+    &= \frac{1-\cos 2\alpha}{2} - \frac{1-\cos 2\beta}{2} \\
+    &= \frac{\cos 2\beta - \cos 2\alpha}{2}.
+    \end{aligned}
+    \]
+    \par\textbf{理由：}
+    分式相减，分子合并得 $\cos 2\beta - \cos 2\alpha$.
+
+    \item[\textbf{步骤三（余弦差化积）：}] 利用 $\cos x - \cos y = -2\sin\frac{x+y}{2}\sin\frac{x-y}{2}$.
+    \[
+    \begin{aligned}
+    \cos 2\beta - \cos 2\alpha
+    &= -2\sin\frac{2\beta+2\alpha}{2}\sin\frac{2\beta-2\alpha}{2} \\
+    &= -2\sin(\alpha+\beta)\sin(\beta-\alpha).
+    \end{aligned}
+    \]
+    \par\textbf{理由：}
+    和差化积将余弦差转为正弦乘积.
+
+    \item[\textbf{步骤四（符号调整）：}] 利用 $\sin(\beta-\alpha) = -\sin(\alpha-\beta)$.
+    \[
+    \begin{aligned}
+    \cos 2\beta - \cos 2\alpha
+    &= -2\sin(\alpha+\beta)\cdot\bigl(-\sin(\alpha-\beta)\bigr) \\
+    &= 2\sin(\alpha+\beta)\sin(\alpha-\beta).
+    \end{aligned}
+    \]
+    \par\textbf{理由：}
+    奇函数性质翻转符号，使差角变为 $\alpha-\beta$.
+
+    \item[\textbf{步骤五（回代约分）：}] 代入步骤二的表达式.
+    \[
+    \begin{aligned}
+    \sin^2\alpha - \sin^2\beta
+    &= \frac{2\sin(\alpha+\beta)\sin(\alpha-\beta)}{2} \\
+    &= \sin(\alpha-\beta)\sin(\alpha+\beta).
+    \end{aligned}
+    \]
+    \par\textbf{理由：}
+    约去 $2$，即得目标恒等式.
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+
+\textbf{正弦平方差公式对任意角 $\alpha,\beta$ 恒成立，推导过程零跳步.}
+\end{proofbox}

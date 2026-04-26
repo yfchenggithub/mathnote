@@ -1,0 +1,65 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+\\
+从 $A+B+C=\pi$ 出发，把 $C$ 换为 $\pi-(A+B)$，利用诱导公式与正切和角公式导出 $\tan A+\tan B+\tan C$ 的表达式，再与 $\tan A\tan B\tan C$ 比较。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（内角代换）：}] 由 $A+B+C=\pi$ 得 $C=\pi-(A+B)$，于是
+    \[
+    \tan C = \tan(\pi-(A+B)) = -\tan(A+B).
+    \]
+    \par\textbf{理由：}
+    正切函数周期为 $\pi$，且 $\tan(\pi-\theta) = -\tan\theta$。
+
+    \item[\textbf{步骤二（和角展开）：}] 代入正切和角公式
+    \[
+    \tan(A+B) = \frac{\tan A + \tan B}{1 - \tan A \tan B},
+    \]
+    从而
+    \[
+    \tan C = -\frac{\tan A + \tan B}{1 - \tan A \tan B}.
+    \]
+    \par\textbf{理由：}
+    这是两个角正切和角的标准公式，分母非零由非直角三角形保证。
+
+    \item[\textbf{步骤三（求和通分）：}] 计算 $\tan A+\tan B+\tan C$：
+    \[
+    \begin{aligned}
+    \tan A+\tan B+\tan C
+    &= \tan A+\tan B - \frac{\tan A+\tan B}{1-\tan A\tan B} \\
+    &= (\tan A+\tan B)\left(1 - \frac{1}{1-\tan A\tan B}\right) \\
+    &= (\tan A+\tan B)\cdot\frac{(1-\tan A\tan B)-1}{1-\tan A\tan B} \\
+    &= (\tan A+\tan B)\cdot\frac{-\tan A\tan B}{1-\tan A\tan B} \\
+    &= -\frac{\tan A\tan B(\tan A+\tan B)}{1-\tan A\tan B}.
+    \end{aligned}
+    \]
+    \par\textbf{理由：}
+    通分后分子中的 $1$ 被消去，留下 $-\tan A\tan B$，完成了核心合并。
+
+    \item[\textbf{步骤四（乘积验证）：}] 再计算 $\tan A\tan B\tan C$：
+    \[
+    \begin{aligned}
+    \tan A\tan B\tan C
+    &= \tan A\tan B\cdot\left(-\frac{\tan A+\tan B}{1-\tan A\tan B}\right) \\
+    &= -\frac{\tan A\tan B(\tan A+\tan B)}{1-\tan A\tan B}.
+    \end{aligned}
+    \]
+    与步骤三结果完全相同，故
+    \[
+    \tan A+\tan B+\tan C = \tan A\cdot\tan B\cdot\tan C.
+    \]
+    \par\textbf{理由：}
+    两边表达式一致，恒等式得证。
+
+    \item[\textbf{步骤五（钝角判定）：}] 若 $\tan A+\tan B+\tan C<0$，则由恒等式知 $\tan A\tan B\tan C<0$。三角形中至多一个钝角，而钝角的正切为负，锐角的正切为正。若没有钝角，则三个正切皆正，乘积为正，与负乘积矛盾。故必有一个钝角，即 $\triangle ABC$ 为钝角三角形。
+    \par\textbf{理由：}
+    正切的符号完全由角的类型决定，乘积为负迫使至少一个 $\tan$ 为负，对应于钝角。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+\\
+\textbf{该恒等式揭示了非直角三角形中正切之间的必然联系，且提供了仅凭符号判定钝角的简便方法。}
+\end{proofbox}
