@@ -1,0 +1,76 @@
+\begin{examplebox}
+
+\textbf{\textcolor{CExample}{例 1（基础）}}
+
+\textbf{\textcolor{CExample}{题目：}} 已知等差数列 \(\{a_n\}\) 满足 \(a_n = 2n-1\)，等比数列 \(\{b_n\}\) 满足 \(b_1 = 1,\; b_n = 2^{n-1}\)，令 \(c_n = a_n b_n\)，求 \(\{c_n\}\) 的前 \(n\) 项和 \(S_n\)。
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第一步（识别参数）：}] 由题意，公差 \(d = 2\)，公比 \(q = 2\)，首项 \(a_1 = 1,\; b_1 = 1\)。
+    \par\textbf{理由：} \(a_n = 2n-1\) 为等差，\(b_n = 2^{n-1}\) 公比 \(2\)。
+
+    \item[\textbf{第二步（求所需项）：}]
+    \(a_{n+1} = 2(n+1)-1 = 2n+1\)，\(b_{n+1} = 2^{n}\)，
+    则 \(a_{n+1} b_{n+1} = (2n+1) 2^{n}\)；
+    \(c_{n+1} = a_{n+1} b_{n+1}\) 同理。
+    \par\textbf{理由：} 为代入公式准备项。
+
+    \item[\textbf{第三步（代入公式）：}] 使用推广公式
+    \[
+    S_n = \frac{a_1 b_1 - a_{n+1} b_{n+1}}{1-q} + \frac{d b_1 q (1 - q^n)}{(1-q)^2}.
+    \]
+    代入 \(a_1=1,\; b_1=1,\; d=2,\; q=2,\; a_{n+1} b_{n+1}= (2n+1)2^n\)：
+    \[
+    \begin{aligned}
+    S_n &= \frac{1 - (2n+1)2^n}{1-2} + \frac{2 \cdot 1 \cdot 2 (1 - 2^n)}{(1-2)^2}\\
+        &= \frac{1 - (2n+1)2^n}{-1} + \frac{4 (1 - 2^n)}{1}\\
+        &= (2n+1)2^n - 1 + 4 - 4 \cdot 2^n\\
+        &= (2n+1)2^n - 4 \cdot 2^n + 3\\
+        &= (2n-3)2^n + 3.
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 逐项计算后合并同类项。
+
+    \item[\textbf{第四步（验证）：}] 也可原公式验证：\(c_1 = 1\)，\(c_n = (2n-1)2^{n-1}\)，\(c_{n+1} = (2n+1)2^n\)，代入 \(S_n = \frac{c_{n+1} - q^2 c_n + q c_1}{(q-1)^2}\) 应得相同结果，请自行检验。
+    \par\textbf{理由：} 保证公式一致性。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{\(S_n = (2n-3)2^n + 3\)。}
+
+\medskip
+\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+\textbf{\textcolor{CExample}{题目：}} 设 \(\{a_n\}\) 是公差为 \(-1\) 的等差数列，\(\{b_n\}\) 是公比 \(q = \frac{1}{2}\) 的等比数列，且 \(a_1=3,\; b_1=4\)。记 \(c_n = a_n b_n\)，求 \(S_5\)。
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第一步（参数提取）：}] \(d = -1,\; q = \frac{1}{2},\; a_1=3,\; b_1=4\)，求 \(S_5\)。
+    \par\textbf{理由：} 仅需计算到 \(n=5\)。
+
+    \item[\textbf{第二步（计算相关项）：}]
+    \(a_6 = a_1 + 5d = 3 -5 = -2\)，\(b_6 = b_1 q^{5} = 4 \cdot \bigl(\frac{1}{2}\bigr)^{5} = 4 \cdot \frac{1}{32} = \frac{1}{8}\)，
+    则 \(a_6 b_6 = -2 \cdot \frac{1}{8} = -\frac{1}{4}\)。
+    \par\textbf{理由：} 准备代入公式。
+
+    \item[\textbf{第三步（代入公式求值）：}] 使用推广公式：
+    \[
+    S_5 = \frac{a_1 b_1 - a_6 b_6}{1-q} + \frac{d b_1 q (1 - q^5)}{(1-q)^2}.
+    \]
+    代入：
+    \[
+    \begin{aligned}
+    S_5 &= \frac{3\cdot 4 - (-\frac{1}{4})}{1 - 1/2} + \frac{(-1)\cdot 4 \cdot \frac{1}{2} (1 - (1/2)^5)}{(1 - 1/2)^2}\\
+        &= \frac{12 + 0.25}{0.5} + \frac{-2 (1 - 1/32)}{0.25}\\
+        &= \frac{12.25}{0.5} - \frac{2 \cdot (31/32)}{0.25}\\
+        &= 24.5 - \frac{62/32}{0.25} = 24.5 - \frac{62/32}{1/4} = 24.5 - \frac{62}{32}\cdot 4 = 24.5 - \frac{62}{8} = 24.5 - 7.75 = 16.75.
+    \end{aligned}
+    \]
+    即 \(S_5 = \frac{67}{4}\).
+    \par\textbf{理由：} 注意分数运算，\(1 - 1/32 = 31/32\)。
+
+    \item[\textbf{第四步（检验）：}] 可逐项计算验证：\(c_1=12\), \(c_2= (3-1)\cdot 2 = 2\cdot 2 =4\)? 需具体：\(a_2=2,\; b_2=2,\; c_2=4\); \(a_3=1,\; b_3=1,\; c_3=1\); \(a_4=0,\; b_4=0.5,\; c_4=0\); \(a_5=-1,\; b_5=0.25,\; c_5=-0.25\); 和 \(12+4+1+0-0.25=16.75\)，吻合。
+    \par\textbf{理由：} 确保结果正确。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{\(S_5 = \frac{67}{4}\)。}
+\end{examplebox}

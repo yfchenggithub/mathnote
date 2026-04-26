@@ -1,0 +1,53 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+采用倒序相加法，将 $S_n$ 正写与反写相加，利用等差数列中距首末等远的两项和相等，直接导出求和公式。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（写出正序和）：}] 
+    \[ S_n = a_1 + a_2 + a_3 + \dots + a_{n-2} + a_{n-1} + a_n. \]
+    \par\textbf{理由：}
+    按定义写出前 $n$ 项的和，为后续配对做准备。
+
+    \item[\textbf{步骤二（写出倒序和）：}] 
+    \[ S_n = a_n + a_{n-1} + a_{n-2} + \dots + a_3 + a_2 + a_1. \]
+    \par\textbf{理由：}
+    将上式各项倒序排列，保持总和不变。
+
+    \item[\textbf{步骤三（两式相加）：}] 
+    \[
+    \begin{aligned}
+    2S_n &= (a_1+a_n) + (a_2+a_{n-1}) + (a_3+a_{n-2}) + \dots + (a_n+a_1).
+    \end{aligned}
+    \]
+    \par\textbf{理由：}
+    等号左边相加得 $2S_n$，右边对应项分组相加。
+
+    \item[\textbf{步骤四（利用等差性质配对）：}] 
+    对任意 $k$，有 $a_k + a_{n-k+1} = a_1 + a_n$，因为 $a_k = a_1+(k-1)d$，$a_{n-k+1} = a_1+(n-k)d$，相加得 $2a_1+(n-1)d = a_1 + a_n$。
+    \par\textbf{理由：}
+    等差数列中与首末等距离的两项和恒等于首项加末项。
+
+    \item[\textbf{步骤五（得到初步求和公式）：}] 
+    共 $n$ 对，因此
+    \[ 2S_n = n(a_1+a_n) \quad\Rightarrow\quad S_n = \frac{n(a_1+a_n)}{2}. \]
+    \par\textbf{理由：}
+    所有对的和相等，共 $n$ 个，直接解出 $S_n$。
+
+    \item[\textbf{步骤六（化为首项公差形式）：}] 
+    将通项 $a_n = a_1 + (n-1)d$ 代入，得
+    \[
+    \begin{aligned}
+    S_n &= \frac{n\bigl(2a_1+(n-1)d\bigr)}{2} \\
+        &= na_1 + \frac{n(n-1)}{2}d .
+    \end{aligned}
+    \]
+    \par\textbf{理由：}
+    通过消去 $a_n$，得到仅由 $a_1,d,n$ 表示的常用形式。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+\textbf{利用倒序相加思想，将等差数列求和转化为常数乘积，公式对任意等差数列成立，且形式简洁，易于记忆。}
+\end{proofbox}

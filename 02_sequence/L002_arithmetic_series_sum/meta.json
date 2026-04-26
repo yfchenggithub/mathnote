@@ -1,0 +1,187 @@
+{
+  "id": "L002",
+  "module": "sequence",
+  "core": {
+    "title": "等差数列前n项和公式",
+    "alias": [
+      "求和公式",
+      "首尾相加公式",
+      "等差求和",
+      "Sn公式"
+    ],
+    "summary": "等差数列的和等于首项与末项的平均乘以项数，本质是倒序相加构造常数对。",
+    "difficulty": 1,
+    "category": "数列",
+    "tags": [
+      "等差数列",
+      "前n项和",
+      "求和公式",
+      "基础公式",
+      "倒序相加"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "等差数列",
+      "前n项和",
+      "求和公式",
+      "首项",
+      "末项",
+      "公差",
+      "Sn",
+      "n(a1+an)/2",
+      "na1+n(n-1)d/2",
+      "倒序相加",
+      "首尾配对"
+    ],
+    "synonyms": [
+      "等差求和",
+      "等差数列和公式",
+      "前n项和公式",
+      "Sn公式",
+      "等差求和公式"
+    ],
+    "intents": [
+      "求前n项和",
+      "求首项",
+      "求公差",
+      "列方程",
+      "倒序相加",
+      "已知Sn反求参数"
+    ],
+    "query_templates": [
+      "等差数列前n项和怎么求",
+      "已知a1和an求Sn",
+      "等差数列Sn公式推导",
+      "已知Sn和n求a1",
+      "等差数列公差怎么求",
+      "Sn=na1+n(n-1)d/2例题"
+    ],
+    "ocrKeywords": [
+      "等差数列",
+      "首项",
+      "公差",
+      "前n项和",
+      "Sn",
+      "a1",
+      "an",
+      "n",
+      "S_n",
+      "求和"
+    ],
+    "latex_patterns": [
+      "S_n = \\\\frac{n(a_1+a_n)}{2}",
+      "S_n = na_1 + \\\\frac{n(n-1)}{2}d",
+      "S_n = \\\\frac{n}{2}(a_1 + a_n)"
+    ],
+    "formulaTokens": [
+      "n(a_1+a_n)/2",
+      "na_1 + n(n-1)d/2",
+      "n(a_1+a_n)",
+      "n(n-1)d",
+      "2S_n",
+      "(a_1+a_n)",
+      "a_1+ (n-1)d"
+    ],
+    "pinyin": "dengchashulieqiannxianghegongshi",
+    "pinyinAbbr": "dcslqnxhgs"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 1.0,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "S_n = \\frac{n(a_1+a_n)}{2} = na_1 + \\frac{n(n-1)}{2}d",
+    "related_formulas": [
+      "S_n = \\frac{n}{2}(a_1 + a_n)",
+      "S_n = na_1 + \\frac{n(n-1)}{2}d"
+    ],
+    "variables": {
+      "a1": "首项",
+      "d": "公差",
+      "n": "项数",
+      "Sn": "前n项和",
+      "an": "第n项"
+    },
+    "conditions": [
+      "数列{an}为等差数列，即对任意n∈N*有a_{n+1}-a_n=d（常数）",
+      "n为正整数"
+    ],
+    "conclusions": [
+      "S_n = n(a_1+a_n)/2",
+      "S_n = na_1 + n(n-1)d/2"
+    ]
+  },
+  "content": {
+    "statement": "若数列 {a_n} 是等差数列，首项为 a_1，公差为 d，则其前 n 项和 S_n 满足 S_n = n(a_1+a_n)/2 = na_1 + n(n-1)d/2。",
+    "derivation": [
+      "写出 S_n = a_1 + a_2 + ... + a_n",
+      "倒序 S_n = a_n + a_{n-1} + ... + a_1",
+      "两式相加得 2S_n = n(a_1+a_n)，故 S_n = n(a_1+a_n)/2；代入 a_n = a_1+(n-1)d 得另一形式。"
+    ],
+    "intuition": "将数列首尾配对，每对和相等，所有对的和等于 n 倍首尾平均。",
+    "common_tricks": [
+      "已知首末项时直接使用 S_n = n(a_1+a_n)/2，无需先求公差",
+      "已知首项和公差时使用 S_n = na_1 + n(n-1)d/2，便于列方程",
+      "通过 S_n 求 a_1 和 d 时，常列二元一次方程组",
+      "注意下标一致性：S_n 对应 n 项，不要与 a_n 混淆"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "基础计算：直接求给定等差数列的和",
+      "列方程问题：已知 S_n 和 n 求待定参数",
+      "倒序相加法的示范应用"
+    ],
+    "problem_types": [
+      "填空题",
+      "选择题",
+      "解答题第一问"
+    ],
+    "exam_frequency": 1.0,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "L002.svg",
+    "image": "",
+    "video": "",
+    "audio": ""
+  },
+  "shareConfig": {
+    "title": "等差数列前n项和公式：快速求和与方程列解",
+    "shareDesc": "适合基础练习和考前回顾，掌握首末项公式和含公差公式，能高效解决求和与待定系数问题，减少计算失误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "数列概念",
+      "等差数列定义"
+    ],
+    "related_ids": [],
+    "similar": [
+      "等比数列求和公式",
+      "倒序相加法"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-04-26"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "数列-等差数列-求和公式",
+  "altNodes": "数列-等差数列-通项公式|数列-求和技巧-倒序相加"
+}

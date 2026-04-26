@@ -1,0 +1,188 @@
+{
+  "id": "L001",
+  "module": "sequence",
+  "core": {
+    "title": "等差乘等比数列求和公式",
+    "alias": [
+      "差比数列求和",
+      "错位相减公式",
+      "乘积数列求和"
+    ],
+    "summary": "等差×等比数列的前n项和可以用一个公式直接计算，避免错位相减。",
+    "difficulty": 3,
+    "category": "数列",
+    "tags": [
+      "等差数列",
+      "等比数列",
+      "数列求和",
+      "错位相减法",
+      "乘积数列",
+      "公式"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "等差数列",
+      "等比数列",
+      "乘积数列",
+      "前n项和",
+      "求和公式",
+      "错位相减",
+      "差比数列",
+      "显式公式",
+      "S_n",
+      "c_n",
+      "a_n b_n",
+      "公比",
+      "公差",
+      "首项"
+    ],
+    "synonyms": [
+      "等差乘等比求和",
+      "差比数列前n项和",
+      "乘积数列求和",
+      "公式法求差比数列"
+    ],
+    "intents": [
+      "求和",
+      "求前n项和",
+      "计算",
+      "证明"
+    ],
+    "query_templates": [
+      "等差乘等比数列求和公式",
+      "差比数列前n项和怎么求",
+      "用公式求乘积数列的和"
+    ],
+    "ocrKeywords": [
+      "等差数列",
+      "等比数列",
+      "公差",
+      "公比",
+      "乘积",
+      "前n项和",
+      "S_n"
+    ],
+    "latex_patterns": [
+      "S_n = \\\\frac{c_{n+1} - q^{2} c_n + q c_1}{(q-1)^{2}}",
+      "\\\\frac{c_{n+1} - q^{2} c_n + q c_1}{(q-1)^{2}}"
+    ],
+    "formulaTokens": [
+      "c_{n+1}",
+      "c_n",
+      "c_1",
+      "q^2",
+      "q",
+      "c_{n+1} - q^2 c_n + q c_1",
+      "(q-1)^2",
+      "S_n"
+    ],
+    "pinyin": "cha bi shu lie qiu he gong shi",
+    "pinyinAbbr": "cbsl"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.72,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "S_n = \\frac{c_{n+1} - q^{2} c_{n} + q c_{1}}{(q-1)^{2}}",
+    "related_formulas": [
+      "S_n = \\frac{a_1 b_1 - a_{n+1} b_{n+1}}{1-q} + \\frac{d b_1 q (1 - q^{n})}{(1-q)^{2}}"
+    ],
+    "variables": {
+      "a_n": "等差数列通项",
+      "b_n": "等比数列通项",
+      "c_n": "乘积项",
+      "d": "公差",
+      "q": "公比",
+      "n": "项数",
+      "S_n": "前n项和",
+      "a_1": "等差数列首项",
+      "b_1": "等比数列首项"
+    },
+    "conditions": {
+      "q != 1": "公比不为1",
+      "d is constant": "公差为常数",
+      "q is constant": "公比为常数"
+    },
+    "conclusions": [
+      "可直接计算等差数列与等比数列乘积的前n项和",
+      "避免重复进行错位相减的推导"
+    ]
+  },
+  "content": {
+    "statement": "设 {a_n} 为公差 d 的等差数列，{b_n} 为公比 q（q≠1）的等比数列，记 c_n = a_n b_n，则 {c_n} 的前 n 项和 S_n = (c_{n+1} - q^2 c_n + q c_1)/(q-1)^2。",
+    "derivation": [
+      "写出 S_n = c_1 + c_2 + ... + c_n",
+      "两边乘以 q 得到 qS_n = q c_1 + q c_2 + ... + q c_n",
+      "利用 c_{k+1} = a_{k+1} b_{k+1} = (a_k+d) b_k q = q c_k + d b_k q，错位相减后整理即得"
+    ],
+    "intuition": "将错位相减的过程固化，消去中间项后得到简洁的显式公式。",
+    "common_tricks": [
+      "注意 q=1 时公式不适用，需单独处理",
+      "计算时可先求出 c_1, c_n, c_{n+1} 再代入公式",
+      "对于复杂问题，使用推广公式避免分步计算"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "数列求和大题",
+      "快速求解差比数列"
+    ],
+    "problem_types": [
+      "数列求和",
+      "错位相减"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 8
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "L001.svg",
+    "png": "",
+    "webp": "",
+    "video": "",
+    "audio": ""
+  },
+  "shareConfig": {
+    "title": "差比数列求和公式：一步到位免错位相减",
+    "shareDesc": "在数列求和大题中，用此公式可直接求等差×等比乘积数列前n项和，避免错位相减时符号错误，适合考前回顾和讲评课总结。"
+  },
+  "relations": {
+    "prerequisites": [
+      "等差数列求和",
+      "等比数列求和",
+      "错位相减法"
+    ],
+    "related_ids": [],
+    "similar": [
+      "裂项相消求和",
+      "分组求和"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-04-26"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "数列-求和技巧-错位相减",
+  "altNodes": [
+    "数列-等差数列-求和公式",
+    "数列-等比数列-求和公式",
+    "数列-求和技巧-裂项相消"
+  ]
+}

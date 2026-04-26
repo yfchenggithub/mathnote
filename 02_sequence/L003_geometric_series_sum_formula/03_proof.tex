@@ -1,0 +1,60 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+
+利用等比数列通项写出 $S_n$，再乘以 $q$，错位相减消去中间项；$q=1$ 时单独计算。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（写和式）：}] 
+    \[
+    S_n = a_1 + a_1 q + a_1 q^2 + \cdots + a_1 q^{n-1}.
+    \]
+    \par\textbf{理由：} 等比数列第 $k$ 项为 $a_1 q^{k-1}$，逐项写出。
+
+    \item[\textbf{步骤二（乘公比）：}] 
+    \[
+    q S_n = a_1 q + a_1 q^2 + \cdots + a_1 q^{n-1} + a_1 q^n.
+    \]
+    \par\textbf{理由：} 对 $S_n$ 每一项乘以 $q$，指数均增加 $1$，多出末项 $a_1 q^n$。
+
+    \item[\textbf{步骤三（错位相减）：}] 
+    \[
+    \begin{aligned}
+    S_n - q S_n &= (a_1 + a_1 q + \cdots + a_1 q^{n-1}) - (a_1 q + \cdots + a_1 q^{n-1} + a_1 q^n) \\
+    &= a_1 - a_1 q^n.
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 对齐作差后，中间所有项成对抵消，仅剩首项 $a_1$ 与末项 $-a_1 q^n$。
+
+    \item[\textbf{步骤四（解基本式）：}] 
+    \[
+    (1-q)S_n = a_1(1-q^n),
+    \]
+    \[
+    S_n = \frac{a_1(1-q^n)}{1-q},\qquad q\neq 1.
+    \]
+    \par\textbf{理由：} 提取公因式，当 $1-q\neq 0$ 时两边同除，得到显式表达式。
+
+    \item[\textbf{步骤五（末项替换）：}] 
+    \[
+    \begin{aligned}
+    S_n &= \frac{a_1 - a_1 q^n}{1-q} \\
+    &= \frac{a_1 - (a_1 q^{n-1}) q}{1-q} \\
+    &= \frac{a_1 - a_n q}{1-q}.
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 利用通项 $a_n = a_1 q^{n-1}$ 将 $a_1 q^n$ 改写为 $a_n q$，得到另一种常用形式。
+
+    \item[\textbf{步骤六（特例处理）：}] 
+    \[
+    q=1 \text{ 时,各项均为 } a_1, \quad S_n = a_1 + a_1 + \cdots + a_1 = n a_1.
+    \]
+    \par\textbf{理由：} 此时数列退化为常数列，直接累加即可。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+
+\textbf{综合以上，等比数列前 $n$ 项和公式为分段形式：$q=1$ 时 $S_n=na_1$；$q\neq1$ 时 $S_n=\frac{a_1(1-q^n)}{1-q}=\frac{a_1-a_n q}{1-q}$。}
+\end{proofbox}

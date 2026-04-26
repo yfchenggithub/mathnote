@@ -1,0 +1,66 @@
+\begin{proofbox}
+
+\textbf{\textcolor{CProof}{思路提示}}
+
+使用错位相减法：写出 \(S_n\) 与 \(qS_n\)，相减后中间项变为公差 \(d\) 乘以等比数列，求和后整理。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（写出和式）：}]
+    \[
+    S_n = a_1 b_1 + a_2 b_2 + \cdots + a_n b_n.
+    \]
+    \par\textbf{理由：} 直接由定义 \(c_k = a_k b_k\) 求和。
+
+    \item[\textbf{步骤二（构造错位）：}]
+    \[
+    q S_n = a_1 b_2 + a_2 b_3 + \cdots + a_{n-1} b_n + a_n b_{n+1}.
+    \]
+    \par\textbf{理由：} 因 \(b_{k+1} = q b_k\)，将 \(S_n\) 每项乘 \(q\) 得到错开一位的和式。
+
+    \item[\textbf{步骤三（相减消元）：}]
+    \[
+    \begin{aligned}
+    S_n - q S_n &= a_1 b_1 + (a_2 - a_1) b_2 + (a_3 - a_2) b_3 + \cdots \\
+    &\quad + (a_n - a_{n-1}) b_n - a_n b_{n+1}.
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 上下对应项相减，第二项起系数差为 \(d\)，末项 \(a_n b_{n+1}\) 未抵消。
+
+    \item[\textbf{步骤四（代入公差）：}]
+    \[
+    (1-q) S_n = a_1 b_1 + d (b_2 + b_3 + \cdots + b_n) - a_n b_{n+1}.
+    \]
+    \par\textbf{理由：} \(a_k - a_{k-1} = d\)，并将 \(c_1 = a_1 b_1\) 保留。
+
+    \item[\textbf{步骤五（等比部分求和）：}]
+    \[
+    b_2 + b_3 + \cdots + b_n = b_2 \cdot \frac{1 - q^{n-1}}{1-q}
+    = b_1 q \cdot \frac{1 - q^{n-1}}{1-q}.
+    \]
+    \par\textbf{理由：} 等比数列求和公式，首项 \(b_2 = b_1 q\)，项数 \(n-1\)。
+
+    \item[\textbf{步骤六（整理出 \(S_n\)）：}]
+    \[
+    \begin{aligned}
+    (1-q) S_n &= a_1 b_1 + d b_1 q \cdot \frac{1 - q^{n-1}}{1-q} - a_n b_{n+1}\\
+    \Rightarrow\quad S_n &= \frac{a_1 b_1 - a_n b_{n+1}}{1-q} + \frac{d b_1 q (1 - q^{n-1})}{(1-q)^2}.
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 两边同除以 \(1-q\)，将 \(d\) 项放分母 \((1-q)^2\)。
+
+    \item[\textbf{步骤七（化为目标形式）：}]
+    利用 \(a_n b_{n+1} = q a_n b_n = q c_n\) 以及 \(a_{n+1} b_{n+1} = c_{n+1}\)，
+    \(d b_1 q^{n} = c_{n+1} - q c_n\)，代入上式并通分整理可得
+    \[
+    S_n = \frac{c_{n+1} - q^2 c_n + q c_1}{(q-1)^2}.
+    \]
+    \par\textbf{理由：} 将 \(d, a_n b_{n+1}\) 等用 \(c_1, c_n, c_{n+1}\) 替换，并注意 \((1-q)^2 = (q-1)^2\)。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+
+\textbf{该公式是错位相减法的代数凝练，使用时可直接代入项的值，避免重复推导。}
+\end{proofbox}
