@@ -57,7 +57,7 @@ import os
 import random
 import re
 import time
-from datetime import date
+from datetime import date, datetime
 from threading import Semaphore
 from typing import Any, Callable
 
@@ -149,13 +149,6 @@ if isinstance(raw_step_max_tokens, dict):
         if isinstance(step_name, str) and isinstance(value, int) and value > 0:
             STEP_MAX_TOKENS[step_name] = value
 
-raw_step_model_overrides = perf.get("step_model_overrides", {})
-STEP_MODEL_OVERRIDES: dict[str, str] = {}
-if isinstance(raw_step_model_overrides, dict):
-    for step_name, model_type in raw_step_model_overrides.items():
-        if isinstance(step_name, str) and isinstance(model_type, str):
-            STEP_MODEL_OVERRIDES[step_name] = model_type
-
 LOG_PROMPT_STATS = bool(perf.get("log_prompt_stats", False))
 
 INPUT_DIR = os.path.join(BASE_DIR, paths["input_dir"])
@@ -171,18 +164,8 @@ NON_RETRY_ERROR_CODES = {
     "insufficient_quota",
 }
 
-# 质量优先硬约束：
-# - L2/L4 使用 pro（deepseek-v4-pro）
-# - L1/L3/L5/L6 使用 flash（deepseek-v4-flash）
-QUALITY_FIRST_MODEL_MAP = {
-    "l1": "flash",
-    "l2": "pro",
-    "l3": "flash",
-    "l4": "pro",
-    "l4_check": "pro",
-    "l5": "flash",
-    "l6": "flash",
-}
+# pipeline 各阶段模型映射由配置文件统一控制。
+PIPELINE_MODEL_STEPS = ("l1", "l2", "l3", "l4", "l4_check", "l5", "l6")
 
 # 模型类型名到 app_config.model 键名的映射（兼容旧命名）
 MODEL_CONFIG_KEY_BY_TYPE = {
@@ -210,30 +193,61 @@ def resolve_model_config_key(model_type: str) -> str | None:
     return MODEL_CONFIG_KEY_BY_TYPE.get(model_type)
 
 
-# 非核心阶段仍可通过配置覆盖；核心阶段覆盖将被忽略
-MODEL_MAP = QUALITY_FIRST_MODEL_MAP.copy()
+def build_step_model_map() -> dict[str, str]:
+    """
+    从 pipeline.step_models 构建阶段模型映射。
 
-for step_name, model_type in STEP_MODEL_OVERRIDES.items():
-    if step_name in QUALITY_FIRST_MODEL_MAP:
-        logging.info(
-            f"step_model_overrides[{step_name!r}] 被忽略：该阶段由质量优先策略强制指定模型"
+    约束：
+    - 每个阶段必须显式配置；
+    - 每个阶段的值必须是 flash/pro（兼容 default/reasoning）；
+    - 映射到 app_config.model 后必须存在。
+    """
+    raw_step_models = pipeline_config.get("step_models")
+    if not isinstance(raw_step_models, dict):
+        raise ValueError(
+            "配置错误: pipeline.step_models 必须是对象，且需覆盖阶段: "
+            + ", ".join(PIPELINE_MODEL_STEPS)
         )
-        continue
-    if step_name not in MODEL_MAP:
-        continue
-    normalized_model_type = normalize_model_type_name(model_type)
-    if normalized_model_type is None:
-        logging.warning(
-            f"step_model_overrides[{step_name!r}]={model_type!r} 非法，支持值: flash/pro"
+
+    extra_steps = sorted(
+        step_name for step_name in raw_step_models if step_name not in PIPELINE_MODEL_STEPS
+    )
+    if extra_steps:
+        logging.warning(f"pipeline.step_models 存在未知阶段，将忽略: {extra_steps}")
+
+    resolved_map: dict[str, str] = {}
+    missing_steps: list[str] = []
+
+    for step_name in PIPELINE_MODEL_STEPS:
+        raw_model_type = raw_step_models.get(step_name)
+        if not isinstance(raw_model_type, str):
+            missing_steps.append(step_name)
+            continue
+
+        normalized_model_type = normalize_model_type_name(raw_model_type.strip().lower())
+        if normalized_model_type is None:
+            raise ValueError(
+                f"配置错误: pipeline.step_models[{step_name!r}]={raw_model_type!r} 非法，支持值: flash/pro"
+            )
+
+        config_key = resolve_model_config_key(normalized_model_type)
+        if config_key is None or config_key not in model_config:
+            raise ValueError(
+                f"配置错误: pipeline.step_models[{step_name!r}]={raw_model_type!r} 未命中 model 配置"
+            )
+        resolved_map[step_name] = normalized_model_type
+
+    if missing_steps:
+        raise ValueError(
+            "配置错误: pipeline.step_models 缺少阶段配置: "
+            + ", ".join(missing_steps)
         )
-        continue
-    resolved_key = resolve_model_config_key(normalized_model_type)
-    if resolved_key is None or resolved_key not in model_config:
-        logging.warning(
-            f"step_model_overrides[{step_name!r}]={model_type!r} 未命中 model 配置，已忽略"
-        )
-        continue
-    MODEL_MAP[step_name] = normalized_model_type
+
+    return resolved_map
+
+
+MODEL_MAP = build_step_model_map()
+logging.info(f"阶段模型映射已生效: {MODEL_MAP}")
 
 client = OpenAI(
     api_key=api_config["api_key"],
@@ -455,6 +469,7 @@ def retry_call(
     *args: Any,
     retries: int = 3,
     delay: float = 1,
+    retry_meta: dict[str, Any] | None = None,
     **kwargs: Any,
 ) -> Any:
     """
@@ -474,13 +489,30 @@ def retry_call(
         Exception: 达到最大重试次数后，抛出最后一次异常。
     """
     for attempt in range(retries):
+        attempts_used = attempt + 1
         try:
-            return func(*args, **kwargs)
+            result = func(*args, **kwargs)
+            if retry_meta is not None:
+                retry_meta["attempts"] = attempts_used
+                retry_meta["retry_count"] = max(0, attempts_used - 1)
+                retry_meta["retries_limit"] = retries
+                retry_meta["succeeded"] = True
+            return result
         except Exception as e:
             error_code = getattr(e, "code", None)
             if error_code in NON_RETRY_ERROR_CODES:
+                if retry_meta is not None:
+                    retry_meta["attempts"] = attempts_used
+                    retry_meta["retry_count"] = max(0, attempts_used - 1)
+                    retry_meta["retries_limit"] = retries
+                    retry_meta["succeeded"] = False
                 raise
             if attempt == retries - 1:
+                if retry_meta is not None:
+                    retry_meta["attempts"] = attempts_used
+                    retry_meta["retry_count"] = max(0, attempts_used - 1)
+                    retry_meta["retries_limit"] = retries
+                    retry_meta["succeeded"] = False
                 raise
 
             sleep_time = delay * (2**attempt) + random.random()
@@ -498,7 +530,11 @@ def get_model(step: str = "default") -> str:
     Returns:
         str: 模型名称。
     """
-    model_type = MODEL_MAP.get(step, "flash")
+    model_type = MODEL_MAP.get(step)
+    if model_type is None:
+        raise KeyError(
+            f"未找到阶段模型配置: step={step!r}，请在 pipeline.step_models 中显式配置"
+        )
     config_key = resolve_model_config_key(model_type)
     if config_key is None or config_key not in model_config:
         raise KeyError(
@@ -550,7 +586,88 @@ def extract_llm_text(response: Any) -> str:
     return ""
 
 
-def call_llm(prompt: str, step: str = "default") -> str:
+def now_iso_millis() -> str:
+    """
+    返回本地时间毫秒级 ISO 时间戳，用于请求链路打点。
+    """
+    return datetime.now().isoformat(timespec="milliseconds")
+
+
+def serialize_prompt_payload(input_data: Any) -> str:
+    """
+    将 prompt 输入统一序列化为字符串。
+    """
+    if isinstance(input_data, str):
+        return input_data
+    return json.dumps(input_data, ensure_ascii=False, indent=2)
+
+
+def get_payload_chars(input_data: Any) -> int:
+    """
+    统计输入负载字符数（非 token），用于阶段间相对对比。
+    """
+    return len(serialize_prompt_payload(input_data))
+
+
+def log_perf_trace(step: str, metrics: dict[str, Any]) -> None:
+    """
+    输出统一性能追踪日志，便于后续聚合分析。
+    """
+    record = {
+        "event": "perf_trace",
+        "step": step,
+        "model": metrics.get("model"),
+        "prompt_chars": metrics.get("prompt_chars"),
+        "payload_chars": metrics.get("payload_chars"),
+        "response_chars": metrics.get("response_chars"),
+        "request_start_ts": metrics.get("request_start_ts"),
+        "request_end_ts": metrics.get("request_end_ts"),
+        # 新主字段：LLM 往返总耗时（包含服务端推理时间）。
+        "llm_roundtrip_ms": metrics.get("llm_roundtrip_ms"),
+        # 兼容旧字段，避免历史分析脚本失效。
+        "network_wait_ms": metrics.get("network_wait_ms"),
+        "prompt_tokens": metrics.get("prompt_tokens"),
+        "completion_tokens": metrics.get("completion_tokens"),
+        "total_tokens": metrics.get("total_tokens"),
+        "json_parse_ms": metrics.get("json_parse_ms"),
+        "validate_ms": metrics.get("validate_ms"),
+        "retry_count": metrics.get("retry_count"),
+        "timeout_value": metrics.get("timeout_value"),
+    }
+    logging.info("[PERF_TRACE] %s", json.dumps(record, ensure_ascii=False))
+
+
+def extract_usage_tokens(response: Any) -> dict[str, int | None]:
+    """
+    从响应中提取 token 使用量；SDK 对象/字典两种结构都兼容。
+    """
+    usage = getattr(response, "usage", None)
+    if usage is None and isinstance(response, dict):
+        usage = response.get("usage")
+
+    def _pick_int(name: str) -> int | None:
+        value = None
+        if usage is None:
+            return None
+        if isinstance(usage, dict):
+            value = usage.get(name)
+        else:
+            value = getattr(usage, name, None)
+        return value if isinstance(value, int) else None
+
+    return {
+        "prompt_tokens": _pick_int("prompt_tokens"),
+        "completion_tokens": _pick_int("completion_tokens"),
+        "total_tokens": _pick_int("total_tokens"),
+    }
+
+
+def call_llm(
+    prompt: str,
+    step: str = "default",
+    payload_chars: int | None = None,
+    metrics: dict[str, Any] | None = None,
+) -> str:
     """
     调用 LLM，返回纯文本响应。
 
@@ -583,7 +700,57 @@ def call_llm(prompt: str, step: str = "default") -> str:
                 request_kwargs["max_tokens"] = request_max_tokens
             return client.chat.completions.create(**request_kwargs)
 
-        response = retry_call(_request, model, max_tokens, retries=retries)
+        total_llm_roundtrip_ms = 0.0
+        total_retry_count = 0
+        request_start_ts: str | None = None
+        request_end_ts: str | None = None
+        effective_model = model
+        total_prompt_tokens = 0
+        total_completion_tokens = 0
+        total_tokens = 0
+        has_usage = False
+
+        def _run_request(
+            request_model: str,
+            request_max_tokens: int | None,
+            request_retries: int,
+        ) -> Any:
+            nonlocal total_llm_roundtrip_ms, total_retry_count
+            nonlocal request_start_ts, request_end_ts, effective_model
+            nonlocal total_prompt_tokens, total_completion_tokens, total_tokens, has_usage
+
+            retry_meta: dict[str, Any] = {}
+            started_iso = now_iso_millis()
+            started = time.perf_counter()
+            response_obj = retry_call(
+                _request,
+                request_model,
+                request_max_tokens,
+                retries=request_retries,
+                retry_meta=retry_meta,
+            )
+            elapsed_ms = (time.perf_counter() - started) * 1000
+            ended_iso = now_iso_millis()
+
+            total_llm_roundtrip_ms += elapsed_ms
+            total_retry_count += int(retry_meta.get("retry_count", 0))
+            if request_start_ts is None:
+                request_start_ts = started_iso
+            request_end_ts = ended_iso
+            effective_model = request_model
+            usage_tokens = extract_usage_tokens(response_obj)
+            if usage_tokens["prompt_tokens"] is not None:
+                has_usage = True
+                total_prompt_tokens += usage_tokens["prompt_tokens"] or 0
+            if usage_tokens["completion_tokens"] is not None:
+                has_usage = True
+                total_completion_tokens += usage_tokens["completion_tokens"] or 0
+            if usage_tokens["total_tokens"] is not None:
+                has_usage = True
+                total_tokens += usage_tokens["total_tokens"] or 0
+            return response_obj
+
+        response = _run_request(model, max_tokens, retries)
         text = extract_llm_text(response)
 
         # 部分模型在 max_tokens 偏小时可能先输出 reasoning 后无正文，补一次不带 max_tokens 的重试
@@ -591,7 +758,7 @@ def call_llm(prompt: str, step: str = "default") -> str:
             logging.warning(
                 f"{step.upper()} empty response with max_tokens={max_tokens}, retry without max_tokens"
             )
-            response = retry_call(_request, model, None, retries=max(1, retries))
+            response = _run_request(model, None, max(1, retries))
             text = extract_llm_text(response)
 
         # L4 使用快模型时，少量场景可能返回空内容，自动回退 reasoning
@@ -601,10 +768,28 @@ def call_llm(prompt: str, step: str = "default") -> str:
                 logging.warning(
                     f"{step.upper()} empty response with {model}, fallback to {fallback_model}"
                 )
-                response = retry_call(
-                    _request, fallback_model, None, retries=max(1, L4_RETRY_TIMES)
-                )
+                response = _run_request(fallback_model, None, max(1, L4_RETRY_TIMES))
                 text = extract_llm_text(response)
+
+        if metrics is not None:
+            metrics.update(
+                {
+                    "step": step,
+                    "model": effective_model,
+                    "prompt_chars": len(prompt),
+                    "payload_chars": payload_chars,
+                    "response_chars": len(text),
+                    "request_start_ts": request_start_ts or now_iso_millis(),
+                    "request_end_ts": request_end_ts or now_iso_millis(),
+                    "llm_roundtrip_ms": round(total_llm_roundtrip_ms, 2),
+                    "network_wait_ms": round(total_llm_roundtrip_ms, 2),
+                    "prompt_tokens": total_prompt_tokens if has_usage else None,
+                    "completion_tokens": total_completion_tokens if has_usage else None,
+                    "total_tokens": total_tokens if has_usage else None,
+                    "retry_count": total_retry_count,
+                    "timeout_value": API_TIMEOUT_SECONDS,
+                }
+            )
 
         return text
 
@@ -624,10 +809,7 @@ def render_prompt(step: str, input_data: Any) -> str:
     """
     template = load_prompt(step)
 
-    if isinstance(input_data, str):
-        payload = input_data
-    else:
-        payload = json.dumps(input_data, ensure_ascii=False, indent=2)
+    payload = serialize_prompt_payload(input_data)
 
     if "{{input}}" in template:
         return template.replace("{{input}}", payload)
@@ -674,7 +856,9 @@ def load_json_file(path: str) -> dict[str, Any]:
     raise last_error if last_error else ValueError(f"读取 JSON 失败: {path}")
 
 
-def safe_json_parse(text: str | None) -> dict[str, Any]:
+def safe_json_parse(
+    text: str | None, parse_metrics: dict[str, Any] | None = None
+) -> dict[str, Any]:
     """
     尽量从 LLM 文本中提取 JSON。
 
@@ -689,25 +873,36 @@ def safe_json_parse(text: str | None) -> dict[str, Any]:
     Returns:
         dict[str, Any]: 解析后的 JSON；失败时返回 parse_error 结构。
     """
+    started = time.perf_counter()
+
+    def _finalize(result: dict[str, Any], parse_status: str) -> dict[str, Any]:
+        if parse_metrics is not None:
+            parse_metrics["json_parse_ms"] = round((time.perf_counter() - started) * 1000, 2)
+            parse_metrics["parse_status"] = parse_status
+        return result
+
     if not text:
-        return {"status": "empty_response"}
+        return _finalize({"status": "empty_response"}, "empty_response")
 
     clean_text = text.replace("```json", "").replace("```", "").strip()
     json_candidate = extract_first_json_object(clean_text) or clean_text
 
     try:
         parsed = json.loads(json_candidate)
-        return normalize_control_chars(parsed)
+        return _finalize(normalize_control_chars(parsed), "parsed")
     except Exception as e:
         # 常见失败场景：LaTeX 反斜杠未转义，导致 Invalid \escape
         repaired = repair_invalid_json_escapes(json_candidate)
         repaired = remove_trailing_commas(repaired)
         try:
             parsed = json.loads(repaired)
-            return normalize_control_chars(parsed)
+            return _finalize(normalize_control_chars(parsed), "parsed_repaired")
         except Exception as e2:
             logging.warning(f"JSON 解析失败，返回原始文本。Error: {e2}")
-            return {"status": "parse_error", "raw": text, "error": str(e2)}
+            return _finalize(
+                {"status": "parse_error", "raw": text, "error": str(e2)},
+                "parse_error",
+            )
 
 
 def extract_first_json_object(text: str) -> str | None:
@@ -934,9 +1129,14 @@ def step_statement_rewrite(raw_json: dict[str, Any]) -> dict[str, Any]:
     Returns:
         dict[str, Any]: L2 输出。
     """
+    payload_chars = get_payload_chars(raw_json)
     prompt = render_prompt("l2", raw_json)
-    result = call_llm(prompt, step="l2")
-    return safe_json_parse(result)
+    perf_metrics: dict[str, Any] = {}
+    result = call_llm(prompt, step="l2", payload_chars=payload_chars, metrics=perf_metrics)
+    parsed = safe_json_parse(result, parse_metrics=perf_metrics)
+    perf_metrics["validate_ms"] = None
+    log_perf_trace("l2", perf_metrics)
+    return parsed
 
 
 def step_quality_eval(l2_json: dict[str, Any]) -> dict[str, Any]:
@@ -965,10 +1165,16 @@ def step_lecture_generate(l2_json: dict[str, Any]) -> dict[str, Any]:
         dict[str, Any]: L4 输出。
     """
     payload = build_l4_payload(l2_json)
+    payload_chars = get_payload_chars(payload)
     prompt = render_prompt("l4", payload)
-    result = call_llm(prompt, step="l4")
-    parsed = safe_json_parse(result)
-    return validate_l4_lecture_result(parsed, "l4")
+    perf_metrics: dict[str, Any] = {}
+    result = call_llm(prompt, step="l4", payload_chars=payload_chars, metrics=perf_metrics)
+    parsed = safe_json_parse(result, parse_metrics=perf_metrics)
+    validate_started = time.perf_counter()
+    validated = validate_l4_lecture_result(parsed, "l4")
+    perf_metrics["validate_ms"] = round((time.perf_counter() - validate_started) * 1000, 2)
+    log_perf_trace("l4", perf_metrics)
+    return validated
 
 
 def validate_l4_lecture_result(
@@ -1028,10 +1234,21 @@ def step_lecture_repair(
         dict[str, Any]: L4_check 修复后的六段讲义 JSON。
     """
     payload = build_l4_check_payload(l2_json, l3_json, l4_json)
+    payload_chars = get_payload_chars(payload)
     prompt = render_prompt("l4_check", payload)
-    result = call_llm(prompt, step="l4_check")
-    parsed = safe_json_parse(result)
-    return validate_l4_lecture_result(parsed, "l4_check")
+    perf_metrics: dict[str, Any] = {}
+    result = call_llm(
+        prompt,
+        step="l4_check",
+        payload_chars=payload_chars,
+        metrics=perf_metrics,
+    )
+    parsed = safe_json_parse(result, parse_metrics=perf_metrics)
+    validate_started = time.perf_counter()
+    validated = validate_l4_lecture_result(parsed, "l4_check")
+    perf_metrics["validate_ms"] = round((time.perf_counter() - validate_started) * 1000, 2)
+    log_perf_trace("l4_check", perf_metrics)
+    return validated
 
 
 def step_meta_generate(all_data: dict[str, Any]) -> dict[str, Any]:
