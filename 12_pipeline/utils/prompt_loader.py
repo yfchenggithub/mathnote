@@ -1,4 +1,5 @@
 import os
+from functools import lru_cache
 from config.config_loader import get_paths, get_prompts_config
 
 paths = get_paths()
@@ -8,6 +9,7 @@ PROMPT_DIR = paths["prompt_dir"]
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
+@lru_cache(maxsize=16)
 def load_prompt(step):
     """
     根据 step 自动加载 prompt

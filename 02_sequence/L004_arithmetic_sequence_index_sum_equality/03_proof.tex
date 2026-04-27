@@ -1,0 +1,53 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+
+将每一项写成首项与公差的形式，求和后整理成只含下标和的表达式，直接比较。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（设通项）：}] 设等差数列 $\{a_n\}$ 的首项为 $a_1$，公差为 $d$，则通项公式为
+    \[
+    a_n = a_1 + (n-1)d .
+    \]
+    \par\textbf{理由：} 等差数列定义。
+
+    \item[\textbf{步骤二（写四项通式）：}] 写出 $a_m, a_n, a_p, a_q$ 的表达式：
+    \[
+    \begin{aligned}
+    a_m &= a_1 + (m-1)d, \\
+    a_n &= a_1 + (n-1)d, \\
+    a_p &= a_1 + (p-1)d, \\
+    a_q &= a_1 + (q-1)d.
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 代入通项。
+
+    \item[\textbf{步骤三（求左右和）：}] 计算两组和：
+    \[
+    \begin{aligned}
+    a_m + a_n &= [a_1 + (m-1)d] + [a_1 + (n-1)d] \\
+              &= 2a_1 + (m+n-2)d, \\
+    a_p + a_q &= 2a_1 + (p+q-2)d.
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 合并同类项，保留 $m+n$ 和 $p+q$。
+
+    \item[\textbf{步骤四（利用下标条件）：}] 已知 $m+n = p+q$，代入后
+    \[
+    a_m + a_n = 2a_1 + (m+n-2)d = 2a_1 + (p+q-2)d = a_p + a_q.
+    \]
+    \par\textbf{理由：} 两式右边完全相同，因此左边相等。
+
+    \item[\textbf{步骤五（推广中项）：}] 若 $m+n = 2k$，取 $p=q=k$，则 $p+q=2k=m+n$，由上述结论得
+    \[
+    a_m + a_n = a_k + a_k = 2a_k.
+    \]
+    \par\textbf{理由：} 当 $p=q$ 时，$a_p+a_q = 2a_k$，直接代入。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+
+\textbf{本质是等差数列通项线性求和的结果只依赖下标和，无关具体下标。} 因此，只要两对下标之和相等，项和必然相等。
+\end{proofbox}

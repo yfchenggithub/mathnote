@@ -5,8 +5,8 @@
     "base_url": "https://api.deepseek.com"
   },
   "model": {
-    "default": "deepseek-v4-flash",
-    "reasoning": "deepseek-v4-pro"
+    "flash": "deepseek-v4-flash",
+    "pro": "deepseek-v4-pro"
   },
   "paths": {
     "input_dir": "input",
@@ -19,12 +19,14 @@
     "l2": "P02_ConclusionRefiner.pt",
     "l3": "P03_ConclusionEvaluator.pt",
     "l4": "P04_LectureNoteGenerator.pt",
+    "l4_check": "P04_LectureNoteChecker.pt",
     "l5": "P05_SearchMetaBuilder.pt",
     "l6": "P06_ConclusionDirNameBuilder.pt"
   },
   "pipeline": {
     "enable_l3": true,
     "enable_l4": true,
+    "enable_l4_check": true,
     "enable_l5": true
   },
   "performance": {
@@ -35,6 +37,12 @@
     "l4_retry_times": 1,
     "progress_log_start_seconds": 120,
     "progress_log_interval_seconds": 30,
-    "progress_poll_seconds": 5
+    "progress_poll_seconds": 5,
+    "api_concurrency": 3,
+    "step_model_overrides": {
+      "l4": "flash"
+    },
+    "step_max_tokens": {},
+    "log_prompt_stats": false
   }
 }

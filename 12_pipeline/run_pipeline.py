@@ -8,6 +8,7 @@
 - L2: 结论重构 -> output/<ID>/l2_statement.json
 - L3: 教学价值评估 -> output/<ID>/l3_eval.json
 - L4: 讲义模块生成 -> output/<ID>/l4_lecture.json
+- L4_check: 讲义终审修复 -> output/<ID>/l4_lecture_checked.json
 - L5: 检索与推荐 meta 生成 -> output/<ID>/l5_meta.json
 - 讲义片段导出 -> output/<ID>/01_statement.tex ~ 06_summary.tex
 
@@ -30,7 +31,7 @@
 0. 截图在deepseek中进行识别成latex文本后，放在 `input/<ID>/source.*` 中，支持多种扩展名（如 .tex/.txt/.json），这一步是手工完成的，脚本不涉及 OCR 识别。因为脚本不识别图片，所以输入必须是文本格式，推荐使用 `.tex` 或 `.txt`，也支持 `.json`（会优先从 `raw_latex_text` 等字段提取文本），目前只支持letex格式的文本输入，后续可根据需求增加对纯文本的支持。
 1. 扫描输入目录中的 ID 子目录（如 `I001/`），读取其中 `source.*` 或首个可识别文件。
 2. 若传入 `--ids`，先按 ID 过滤待处理项。
-3. 每个 ID 执行 L1 -> L5；L3 与 L4 会并行执行以降低耗时。
+3. 每个 ID 串行执行 L1 -> L6。
 4. 每个阶段统一走 LLM 调用封装，带有重试和并发闸门控制。
 5. 批处理结束后输出 success/error/skipped 统计。
 
@@ -45,8 +46,8 @@
 3) 处理多个 ID，并强制全量重跑
    python run_pipeline.py --ids I001 I002 --force
 
-4) 自定义输入输出目录、并发、扩展名与单文件超时
-   python run_pipeline.py --input-dir ./input --output-dir ./output --max-workers 3 --extensions .txt .tex --timeout 120
+4) 自定义输入输出目录与扩展名
+   python run_pipeline.py --input-dir ./input --output-dir ./output --extensions .txt .tex
 """
 
 import argparse
@@ -56,7 +57,6 @@ import os
 import random
 import re
 import time
-from concurrent.futures import ThreadPoolExecutor, TimeoutError, as_completed
 from datetime import date
 from threading import Semaphore
 from typing import Any, Callable
@@ -67,6 +67,7 @@ from tqdm import tqdm
 from config.config_loader import (
     get_api_config,
     get_model_config,
+    get_pipeline_config,
     get_paths,
     get_performance,
 )
@@ -89,7 +90,7 @@ logging.basicConfig(
 )
 
 # 额外 API 并发闸门，防止瞬时请求过高造成限流。
-semaphore = Semaphore(3)
+semaphore: Semaphore
 
 # =========================
 # 配置加载
@@ -97,24 +98,69 @@ semaphore = Semaphore(3)
 
 api_config = get_api_config()
 model_config = get_model_config()
+pipeline_config = get_pipeline_config()
 paths = get_paths()
 perf = get_performance()
 
+
+def coerce_bool_config(value: Any, default: bool) -> bool:
+    """
+    将配置值稳健转换为布尔值；非法值回退默认值。
+
+    支持:
+    - bool
+    - "true"/"false" 等常见字符串
+    - 0/1
+    """
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, (int, float)):
+        return bool(value)
+    if isinstance(value, str):
+        token = value.strip().lower()
+        if token in {"1", "true", "yes", "on"}:
+            return True
+        if token in {"0", "false", "no", "off"}:
+            return False
+    return default
+
+
+ENABLE_L3 = coerce_bool_config(pipeline_config.get("enable_l3", True), True)
+ENABLE_L4 = coerce_bool_config(pipeline_config.get("enable_l4", True), True)
+ENABLE_L4_CHECK = coerce_bool_config(
+    pipeline_config.get("enable_l4_check", True), True
+)
+ENABLE_L5 = coerce_bool_config(pipeline_config.get("enable_l5", True), True)
+
+if not ENABLE_L4 and ENABLE_L4_CHECK:
+    logging.warning("配置冲突: enable_l4=false 时将自动忽略 enable_l4_check。")
+    ENABLE_L4_CHECK = False
+
 TEMPERATURE = perf["temperature"]
-MAX_WORKERS = perf["max_workers"]
 RETRY_TIMES = perf["retry_times"]
 API_TIMEOUT_SECONDS = int(perf.get("api_timeout_seconds", 180))
 L4_RETRY_TIMES = int(perf.get("l4_retry_times", 1))
-PROGRESS_LOG_START_SECONDS = max(1, int(perf.get("progress_log_start_seconds", 120)))
-PROGRESS_LOG_INTERVAL_SECONDS = max(
-    1, int(perf.get("progress_log_interval_seconds", 30))
-)
-PROGRESS_POLL_SECONDS = max(1, int(perf.get("progress_poll_seconds", 5)))
+API_CONCURRENCY = max(1, int(perf.get("api_concurrency", 3)))
+
+raw_step_max_tokens = perf.get("step_max_tokens", {})
+STEP_MAX_TOKENS: dict[str, int] = {}
+if isinstance(raw_step_max_tokens, dict):
+    for step_name, value in raw_step_max_tokens.items():
+        if isinstance(step_name, str) and isinstance(value, int) and value > 0:
+            STEP_MAX_TOKENS[step_name] = value
+
+raw_step_model_overrides = perf.get("step_model_overrides", {})
+STEP_MODEL_OVERRIDES: dict[str, str] = {}
+if isinstance(raw_step_model_overrides, dict):
+    for step_name, model_type in raw_step_model_overrides.items():
+        if isinstance(step_name, str) and isinstance(model_type, str):
+            STEP_MODEL_OVERRIDES[step_name] = model_type
+
+LOG_PROMPT_STATS = bool(perf.get("log_prompt_stats", False))
 
 INPUT_DIR = os.path.join(BASE_DIR, paths["input_dir"])
 OUTPUT_DIR = os.path.join(BASE_DIR, paths["output_dir"])
 
-DEFAULT_TIMEOUT_SECONDS = 60
 DEFAULT_INPUT_EXTENSIONS = (".tex", ".txt", ".md", ".latex", ".json")
 L5_MAX_TEXT_CHARS = 2400
 
@@ -125,16 +171,75 @@ NON_RETRY_ERROR_CODES = {
     "insufficient_quota",
 }
 
-# Pipeline 阶段到模型类型的映射（具体模型名在 app_config.json 中配置）。
-MODEL_MAP = {
-    "l1": "default",
-    "l2": "reasoning",
-    "l3": "default",
-    # L4 生成内容较长，优先使用 chat 模型以降低延迟。
-    "l4": "reasoning",
-    "l5": "default",
-    "l6": "default",
+# 质量优先硬约束：
+# - L2/L4 使用 pro（deepseek-v4-pro）
+# - L1/L3/L5/L6 使用 flash（deepseek-v4-flash）
+QUALITY_FIRST_MODEL_MAP = {
+    "l1": "flash",
+    "l2": "pro",
+    "l3": "flash",
+    "l4": "pro",
+    "l4_check": "pro",
+    "l5": "flash",
+    "l6": "flash",
 }
+
+# 模型类型名到 app_config.model 键名的映射（兼容旧命名）
+MODEL_CONFIG_KEY_BY_TYPE = {
+    "flash": "flash",
+    "pro": "pro",
+    "default": "flash",
+    "reasoning": "pro",
+}
+
+
+def normalize_model_type_name(model_type: str) -> str | None:
+    """
+    统一模型类型命名为 flash/pro；无法识别时返回 None。
+    """
+    mapped = MODEL_CONFIG_KEY_BY_TYPE.get(model_type)
+    if mapped is None:
+        return None
+    return "flash" if mapped == "flash" else "pro"
+
+
+def resolve_model_config_key(model_type: str) -> str | None:
+    """
+    将模型类型名解析为 app_config.model 的键名。
+    """
+    return MODEL_CONFIG_KEY_BY_TYPE.get(model_type)
+
+
+# 非核心阶段仍可通过配置覆盖；核心阶段覆盖将被忽略
+MODEL_MAP = QUALITY_FIRST_MODEL_MAP.copy()
+
+for step_name, model_type in STEP_MODEL_OVERRIDES.items():
+    if step_name in QUALITY_FIRST_MODEL_MAP:
+        logging.info(
+            f"step_model_overrides[{step_name!r}] 被忽略：该阶段由质量优先策略强制指定模型"
+        )
+        continue
+    if step_name not in MODEL_MAP:
+        continue
+    normalized_model_type = normalize_model_type_name(model_type)
+    if normalized_model_type is None:
+        logging.warning(
+            f"step_model_overrides[{step_name!r}]={model_type!r} 非法，支持值: flash/pro"
+        )
+        continue
+    resolved_key = resolve_model_config_key(normalized_model_type)
+    if resolved_key is None or resolved_key not in model_config:
+        logging.warning(
+            f"step_model_overrides[{step_name!r}]={model_type!r} 未命中 model 配置，已忽略"
+        )
+        continue
+    MODEL_MAP[step_name] = normalized_model_type
+
+client = OpenAI(
+    api_key=api_config["api_key"],
+    base_url=api_config["base_url"],
+)
+semaphore = Semaphore(API_CONCURRENCY)
 
 META_DEFAULT_SEARCHMETA = {
     "titleWeight": 10,
@@ -151,6 +256,8 @@ LECTURE_TEX_FILE_MAP = {
     "05_traps": "05_traps.tex",
     "06_summary": "06_summary.tex",
 }
+
+L4_REQUIRED_KEYS = tuple(LECTURE_TEX_FILE_MAP.keys())
 
 ID_DIR_PATTERN = re.compile(r"^[A-Za-z]\d{3}$")
 L6_DIRNAME_FILE_PATTERN_TEMPLATE = r"^{item_id}_[a-z0-9]+(?:_[a-z0-9]+)*$"
@@ -180,18 +287,6 @@ def parse_args() -> argparse.Namespace:
         "--output-dir",
         default=OUTPUT_DIR,
         help=f"输出目录（默认: {OUTPUT_DIR}）",
-    )
-    parser.add_argument(
-        "--max-workers",
-        type=int,
-        default=MAX_WORKERS,
-        help=f"批处理并发数（默认: {MAX_WORKERS}）",
-    )
-    parser.add_argument(
-        "--timeout",
-        type=int,
-        default=DEFAULT_TIMEOUT_SECONDS,
-        help=f"单文件 future.result 超时秒数（默认: {DEFAULT_TIMEOUT_SECONDS}）",
     )
     parser.add_argument(
         "--extensions",
@@ -393,58 +488,66 @@ def retry_call(
             time.sleep(sleep_time)
 
 
-def wait_future_with_progress(
-    future: Any,
-    step_label: str,
-    *,
-    start_time: float | None = None,
-    log_start_seconds: int = PROGRESS_LOG_START_SECONDS,
-    log_interval_seconds: int = PROGRESS_LOG_INTERVAL_SECONDS,
-    poll_seconds: int = PROGRESS_POLL_SECONDS,
-) -> Any:
-    """
-    等待 future 结果，并在长耗时场景周期打印“仍在执行”日志。
-    """
-    t0 = start_time if start_time is not None else time.perf_counter()
-    next_log_at = float(log_start_seconds)
-
-    while True:
-        try:
-            return future.result(timeout=poll_seconds)
-        except TimeoutError:
-            elapsed = time.perf_counter() - t0
-            if elapsed >= next_log_at:
-                logging.info(f"{step_label} 仍在执行，已耗时: {elapsed:.2f}s")
-                next_log_at += float(log_interval_seconds)
-
-
-def run_step_with_progress(
-    step_label: str,
-    func: Callable[..., Any],
-    *args: Any,
-    **kwargs: Any,
-) -> Any:
-    """
-    在线程中执行单步任务，并输出长耗时心跳日志。
-    """
-    t0 = time.perf_counter()
-    with ThreadPoolExecutor(max_workers=1) as local_executor:
-        future = local_executor.submit(func, *args, **kwargs)
-        return wait_future_with_progress(future, step_label, start_time=t0)
-
-
 def get_model(step: str = "default") -> str:
     """
     根据阶段名返回模型名。
 
     Args:
-        step: pipeline 阶段（l1/l2/l3/l4/l5）。
+        step: pipeline 阶段（l1/l2/l3/l4/l4_check/l5/l6）。
 
     Returns:
         str: 模型名称。
     """
-    model_type = MODEL_MAP.get(step, "default")
-    return model_config[model_type]
+    model_type = MODEL_MAP.get(step, "flash")
+    config_key = resolve_model_config_key(model_type)
+    if config_key is None or config_key not in model_config:
+        raise KeyError(
+            f"未找到可用模型映射: step={step!r}, model_type={model_type!r}, config_key={config_key!r}"
+        )
+    return model_config[config_key]
+
+
+
+def get_step_max_tokens(step: str) -> int | None:
+    """
+    返回阶段专用 max_tokens（未配置时返回 None）。
+    """
+    value = STEP_MAX_TOKENS.get(step)
+    if isinstance(value, int) and value > 0:
+        return value
+    return None
+
+
+def extract_llm_text(response: Any) -> str:
+    """
+    兼容不同 SDK 返回结构，提取文本内容。
+    """
+    choices = getattr(response, "choices", None)
+    if not choices:
+        return ""
+
+    first = choices[0]
+    message = getattr(first, "message", None)
+    if message is None:
+        return ""
+
+    content = getattr(message, "content", None)
+    if isinstance(content, str):
+        return content
+
+    if isinstance(content, list):
+        parts: list[str] = []
+        for chunk in content:
+            if isinstance(chunk, dict):
+                text_part = chunk.get("text")
+            else:
+                text_part = getattr(chunk, "text", None)
+            if isinstance(text_part, str) and text_part:
+                parts.append(text_part)
+        if parts:
+            return "".join(parts)
+
+    return ""
 
 
 def call_llm(prompt: str, step: str = "default") -> str:
@@ -462,21 +565,48 @@ def call_llm(prompt: str, step: str = "default") -> str:
         model = get_model(step)
         messages = [{"role": "user", "content": prompt}]
         retries = L4_RETRY_TIMES if step == "l4" else RETRY_TIMES
+        max_tokens = get_step_max_tokens(step)
 
-        def _request() -> Any:
-            local_client = OpenAI(
-                api_key=api_config["api_key"],
-                base_url=api_config["base_url"],
-            )
-            return local_client.chat.completions.create(
-                model=model,
-                messages=messages,
-                temperature=TEMPERATURE,
-                timeout=API_TIMEOUT_SECONDS,
+        if LOG_PROMPT_STATS:
+            logging.info(
+                f"{step.upper()} request: model={model}, prompt_chars={len(prompt)}, max_tokens={max_tokens}"
             )
 
-        response = retry_call(_request, retries=retries)
-        return response.choices[0].message.content
+        def _request(request_model: str, request_max_tokens: int | None) -> Any:
+            request_kwargs: dict[str, Any] = {
+                "model": request_model,
+                "messages": messages,
+                "temperature": TEMPERATURE,
+                "timeout": API_TIMEOUT_SECONDS,
+            }
+            if request_max_tokens is not None:
+                request_kwargs["max_tokens"] = request_max_tokens
+            return client.chat.completions.create(**request_kwargs)
+
+        response = retry_call(_request, model, max_tokens, retries=retries)
+        text = extract_llm_text(response)
+
+        # 部分模型在 max_tokens 偏小时可能先输出 reasoning 后无正文，补一次不带 max_tokens 的重试
+        if not text.strip() and max_tokens is not None:
+            logging.warning(
+                f"{step.upper()} empty response with max_tokens={max_tokens}, retry without max_tokens"
+            )
+            response = retry_call(_request, model, None, retries=max(1, retries))
+            text = extract_llm_text(response)
+
+        # L4 使用快模型时，少量场景可能返回空内容，自动回退 reasoning
+        if step == "l4" and not text.strip():
+            fallback_model = model_config.get("pro") or model_config.get("reasoning")
+            if isinstance(fallback_model, str) and fallback_model and fallback_model != model:
+                logging.warning(
+                    f"{step.upper()} empty response with {model}, fallback to {fallback_model}"
+                )
+                response = retry_call(
+                    _request, fallback_model, None, retries=max(1, L4_RETRY_TIMES)
+                )
+                text = extract_llm_text(response)
+
+        return text
 
 
 def render_prompt(step: str, input_data: Any) -> str:
@@ -837,7 +967,71 @@ def step_lecture_generate(l2_json: dict[str, Any]) -> dict[str, Any]:
     payload = build_l4_payload(l2_json)
     prompt = render_prompt("l4", payload)
     result = call_llm(prompt, step="l4")
-    return safe_json_parse(result)
+    parsed = safe_json_parse(result)
+    return validate_l4_lecture_result(parsed, "l4")
+
+
+def validate_l4_lecture_result(
+    result: dict[str, Any], step_name: str
+) -> dict[str, Any]:
+    """
+    校验 L4/L4_check 产物是否具备完整六段结构。
+
+    Args:
+        result: 当前阶段解析后的 JSON 结果。
+        step_name: 阶段名（用于日志与错误定位）。
+
+    Returns:
+        dict[str, Any]:
+            - 合法时原样返回；
+            - 不合法时返回 invalid_output 结构。
+    """
+    if not isinstance(result, dict):
+        return {
+            "status": "invalid_output",
+            "error": f"{step_name} output is not a JSON object",
+            "raw": result,
+        }
+
+    missing_keys = [key for key in L4_REQUIRED_KEYS if key not in result]
+    invalid_type_keys = [
+        key for key in L4_REQUIRED_KEYS if key in result and not isinstance(result[key], str)
+    ]
+
+    if missing_keys or invalid_type_keys:
+        details = {
+            "missing_keys": missing_keys,
+            "non_string_keys": invalid_type_keys,
+        }
+        return {
+            "status": "invalid_output",
+            "error": f"{step_name} output schema invalid",
+            "details": details,
+            "raw": result,
+        }
+
+    return result
+
+
+def step_lecture_repair(
+    l2_json: dict[str, Any], l3_json: dict[str, Any], l4_json: dict[str, Any]
+) -> dict[str, Any]:
+    """
+    L4_check: 在 L4 基础上做最小修改修复。
+
+    Args:
+        l2_json: L2 输出（结论核心）。
+        l3_json: L3 输出（教学评估）。
+        l4_json: L4 输出（六段讲义）。
+
+    Returns:
+        dict[str, Any]: L4_check 修复后的六段讲义 JSON。
+    """
+    payload = build_l4_check_payload(l2_json, l3_json, l4_json)
+    prompt = render_prompt("l4_check", payload)
+    result = call_llm(prompt, step="l4_check")
+    parsed = safe_json_parse(result)
+    return validate_l4_lecture_result(parsed, "l4_check")
 
 
 def step_meta_generate(all_data: dict[str, Any]) -> dict[str, Any]:
@@ -970,6 +1164,44 @@ def build_l4_payload(l2: dict[str, Any]) -> dict[str, Any]:
         "statement": clip_text(l2.get("statement", ""), 1600),
         "latex": clip_text(l2.get("latex", ""), 2200),
         "meta": l2.get("meta", {}),
+    }
+
+
+def build_l4_check_payload(
+    l2: dict[str, Any], l3: dict[str, Any], l4: dict[str, Any]
+) -> dict[str, Any]:
+    """
+    构建 L4_check 输入载荷。
+
+    L4_check 只做“终审修复”，因此输入聚焦在：
+    - L2: 原始结论与条件
+    - L3: 教学价值评估
+    - L4: 已生成讲义六段内容
+
+    Args:
+        l2: L2 输出。
+        l3: L3 输出。
+        l4: L4 输出。
+
+    Returns:
+        dict[str, Any]: 传给 L4_check 的结构化输入。
+    """
+    l4_blocks = {key: clip_text(l4.get(key, ""), 6000) for key in L4_REQUIRED_KEYS}
+
+    return {
+        "l2": {
+            "statement": clip_text(l2.get("statement", ""), 2000),
+            "latex": clip_text(l2.get("latex", ""), 3000),
+            "meta": l2.get("meta", {}),
+        },
+        "l3": {
+            "scores": l3.get("scores", {}),
+            "final_score": l3.get("final_score"),
+            "decision": l3.get("decision"),
+            "tags": l3.get("tags", []),
+            "analysis": clip_text(l3.get("analysis", ""), 1200),
+        },
+        "l4": l4_blocks,
     }
 
 
@@ -1186,7 +1418,7 @@ def build_output_paths(filename: str, output_dir: str) -> dict[str, str]:
         output_dir: 输出根目录。
 
     Returns:
-        dict[str, str]: l1~l5 到目标文件路径的映射（L6 为动态文件名，不在此映射中）。
+        dict[str, str]: l1~l5/l4_check 到目标文件路径的映射（L6 为动态文件名，不在此映射中）。
     """
     item_dir = os.path.join(output_dir, filename)
     return {
@@ -1194,6 +1426,7 @@ def build_output_paths(filename: str, output_dir: str) -> dict[str, str]:
         "l2": os.path.join(item_dir, "l2_statement.json"),
         "l3": os.path.join(item_dir, "l3_eval.json"),
         "l4": os.path.join(item_dir, "l4_lecture.json"),
+        "l4_check": os.path.join(item_dir, "l4_lecture_checked.json"),
         "l5": os.path.join(item_dir, "l5_meta.json"),
     }
 
@@ -1205,24 +1438,30 @@ def save_parse_debug(
     result: dict[str, Any],
 ) -> None:
     """
-    记录 parse_error 原始文本，便于回溯模型输出问题。
+    记录阶段异常原始内容，便于回溯模型输出问题。
 
     Args:
         output_dir: 输出根目录。
         filename: 输入文件名（无扩展名）。
-        step_name: 阶段名（l1/l2/l3/l4/l5）。
+        step_name: 阶段名（l1/l2/l3/l4/l4_check/l5）。
         result: 当前阶段返回 JSON。
     """
-    if result.get("status") != "parse_error":
+    status = result.get("status")
+    if status not in {"parse_error", "invalid_output"}:
         return
 
     debug_dir = os.path.join(output_dir, filename, "debug")
     os.makedirs(debug_dir, exist_ok=True)
-    debug_path = os.path.join(debug_dir, f"{step_name}_parse_error.txt")
+    debug_path = os.path.join(debug_dir, f"{step_name}_{status}.txt")
     raw = result.get("raw", "")
     err = result.get("error", "")
+    details = result.get("details")
     with open(debug_path, "w", encoding="utf-8") as f:
-        f.write(f"[{step_name}] parse_error: {err}\n\n")
+        f.write(f"[{step_name}] {status}: {err}\n\n")
+        if details is not None:
+            f.write("[details]\n")
+            f.write(json.dumps(details, ensure_ascii=False, indent=2))
+            f.write("\n\n")
         f.write(
             raw
             if isinstance(raw, str)
@@ -1281,6 +1520,43 @@ def is_step_success(result: dict[str, Any]) -> bool:
     return result.get("status") in STEP_SUCCESS_STATUS
 
 
+def build_disabled_l3_result() -> dict[str, Any]:
+    """
+    当 L3 被配置关闭时，提供一个稳定的占位结果，供下游流程读取。
+    """
+    return {
+        "status": "success",
+        "scores": {},
+        "final_score": None,
+        "decision": "disabled",
+        "tags": [],
+        "analysis": "L3 disabled by pipeline config",
+        "confidence_score": 0.0,
+    }
+
+
+def build_l5_fallback_for_l6(l2: dict[str, Any], item_id: str) -> dict[str, Any]:
+    """
+    当 L5 被配置关闭时，为 L6 提供最小可用输入。
+    """
+    l2_meta = l2.get("meta", {}) if isinstance(l2.get("meta"), dict) else {}
+    title = l2_meta.get("title", "")
+    if not isinstance(title, str):
+        title = ""
+    summary = l2.get("statement", "")
+    if not isinstance(summary, str):
+        summary = ""
+    return {
+        "id": item_id,
+        "module": "",
+        "core": {
+            "title": title,
+            "summary": clip_text(summary, 160),
+        },
+        "search": {"keywords": []},
+    }
+
+
 def process_file(
     item_id: str,
     input_path: str,
@@ -1310,7 +1586,7 @@ def process_file(
                 logging.error(f"{filename} 输入为空或读取失败")
                 return "error"
             t0 = time.perf_counter()
-            l1 = run_step_with_progress(f"{filename} L1", step_latex_extract, raw_text)
+            l1 = step_latex_extract(raw_text)
             logging.info(f"{filename} L1 耗时: {time.perf_counter() - t0:.2f}s")
             if not is_step_success(l1):
                 save_parse_debug(output_dir, filename, "l1", l1)
@@ -1323,7 +1599,7 @@ def process_file(
             l2 = load_json_file(paths_map["l2"])
         else:
             t0 = time.perf_counter()
-            l2 = run_step_with_progress(f"{filename} L2", step_statement_rewrite, l1)
+            l2 = step_statement_rewrite(l1)
             logging.info(f"{filename} L2 耗时: {time.perf_counter() - t0:.2f}s")
             if not is_step_success(l2):
                 save_parse_debug(output_dir, filename, "l2", l2)
@@ -1331,104 +1607,155 @@ def process_file(
                 return "error"
             save_json(l2, paths_map["l2"])
 
-        # ========= L3/L4 (parallel) =========
-        l3 = None
-        l4 = None
+        # ========= L3 / L4 =========
+        l3: dict[str, Any] | None = None
+        l4_raw: dict[str, Any] | None = None
+        l4_from_cache = False
 
-        if not force and file_exists(paths_map["l3"]):
+        if ENABLE_L3 and not force and file_exists(paths_map["l3"]):
             l3 = load_json_file(paths_map["l3"])
-        if not force and file_exists(paths_map["l4"]):
-            l4 = load_json_file(paths_map["l4"])
+        if ENABLE_L4 and not force and file_exists(paths_map["l4"]):
+            l4_raw_cached = load_json_file(paths_map["l4"])
+            l4_raw_checked = validate_l4_lecture_result(l4_raw_cached, "l4_cache")
+            if is_step_success(l4_raw_checked):
+                l4_raw = l4_raw_checked
+                l4_from_cache = True
+            else:
+                logging.warning(
+                    f"{filename} 检测到历史 L4 缓存结构异常，将重跑 L4: "
+                    f"{get_step_error(l4_raw_checked)}"
+                )
 
-        future_map: dict[str, Any] = {}
-        if l3 is None or l4 is None:
-            with ThreadPoolExecutor(max_workers=2) as local_executor:
-                if l3 is None:
-                    future_map["l3"] = local_executor.submit(step_quality_eval, l2)
-                if l4 is None:
-                    future_map["l4"] = local_executor.submit(step_lecture_generate, l2)
+        # 串行补齐缺失阶段：先 L3，后 L4。
+        if ENABLE_L3 and l3 is None:
+            t0 = time.perf_counter()
+            l3 = step_quality_eval(l2)
+            logging.info(f"{filename} L3 耗时: {time.perf_counter() - t0:.2f}s")
+            if not is_step_success(l3):
+                save_parse_debug(output_dir, filename, "l3", l3)
+                logging.error(f"{filename} L3 失败: {get_step_error(l3)}")
+                return "error"
+            save_json(l3, paths_map["l3"])
 
-                step_start = {
-                    "l3": time.perf_counter() if "l3" in future_map else None,
-                    "l4": time.perf_counter() if "l4" in future_map else None,
-                }
+        if ENABLE_L4 and l4_raw is None:
+            t0 = time.perf_counter()
+            l4_raw = step_lecture_generate(l2)
+            logging.info(f"{filename} L4 耗时: {time.perf_counter() - t0:.2f}s")
+            if not is_step_success(l4_raw):
+                save_parse_debug(output_dir, filename, "l4", l4_raw)
+                logging.error(f"{filename} L4 失败: {get_step_error(l4_raw)}")
+                return "error"
+            l4_from_cache = False
+            save_json(l4_raw, paths_map["l4"])
 
-                for step_name, future in future_map.items():
-                    result = wait_future_with_progress(
-                        future,
-                        f"{filename} {step_name.upper()}",
-                        start_time=step_start[step_name],
+        if not ENABLE_L3:
+            l3 = build_disabled_l3_result()
+            logging.info(f"{filename} 配置关闭 L3，已跳过 L3。")
+        elif l3 is None:
+            l3 = load_json_file(paths_map["l3"])
+
+        if ENABLE_L4 and l4_raw is None:
+            l4_raw_loaded = load_json_file(paths_map["l4"])
+            l4_raw = validate_l4_lecture_result(l4_raw_loaded, "l4")
+            if not is_step_success(l4_raw):
+                save_parse_debug(output_dir, filename, "l4", l4_raw)
+                logging.error(f"{filename} L4 失败: {get_step_error(l4_raw)}")
+                return "error"
+
+        # ========= L4_check =========
+        l4: dict[str, Any] | None = None
+        l4_check_from_cache = False
+        if ENABLE_L4:
+            if ENABLE_L4_CHECK:
+                if not force and file_exists(paths_map["l4_check"]):
+                    l4_cached = load_json_file(paths_map["l4_check"])
+                    l4_cached_checked = validate_l4_lecture_result(
+                        l4_cached, "l4_check_cache"
                     )
-                    elapsed = time.perf_counter() - step_start[step_name]
-                    logging.info(f"{filename} {step_name.upper()} 耗时: {elapsed:.2f}s")
-
-                    if not is_step_success(result):
-                        save_parse_debug(output_dir, filename, step_name, result)
-                        logging.error(
-                            f"{filename} {step_name.upper()} 失败: {get_step_error(result)}"
-                        )
-                        return "error"
-
-                    if step_name == "l3":
-                        l3 = result
-                        save_json(l3, paths_map["l3"])
+                    if is_step_success(l4_cached_checked):
+                        l4 = l4_cached_checked
+                        l4_check_from_cache = True
+                        logging.info(f"{filename} 已处理，跳过 L4_CHECK")
                     else:
-                        l4 = result
-                        save_json(l4, paths_map["l4"])
-        else:
-            if l3 is None:
-                l3 = load_json_file(paths_map["l3"])
-            if l4 is None:
-                l4 = load_json_file(paths_map["l4"])
+                        logging.warning(
+                            f"{filename} 检测到历史 L4_CHECK 缓存结构异常，将重跑 L4_CHECK: "
+                            f"{get_step_error(l4_cached_checked)}"
+                        )
 
-        # Always export tex snippets from L4
-        export_lecture_tex_snippets(l4, filename, output_dir)
+                if l4 is None:
+                    t0 = time.perf_counter()
+                    l4 = step_lecture_repair(l2, l3, l4_raw)
+                    logging.info(f"{filename} L4_CHECK 耗时: {time.perf_counter() - t0:.2f}s")
+                    if not is_step_success(l4):
+                        save_parse_debug(output_dir, filename, "l4_check", l4)
+                        logging.error(f"{filename} L4_CHECK 失败: {get_step_error(l4)}")
+                        return "error"
+                    save_json(l4, paths_map["l4_check"])
+            else:
+                l4 = l4_raw
+                l4_check_from_cache = l4_from_cache
+                logging.info(f"{filename} 配置关闭 L4_CHECK，直接使用 L4 输出。")
+
+            if l4 is None:
+                logging.error(f"{filename} L4 结果缺失，无法导出讲义。")
+                return "error"
+            export_lecture_tex_snippets(l4, filename, output_dir)
+        else:
+            l4 = {}
+            logging.info(f"{filename} 配置关闭 L4，已跳过 L4/L4_CHECK 与讲义导出。")
 
         # ========= L5 =========
         l5: dict[str, Any] | None = None
         l5_from_cache = False
-        if not force and file_exists(paths_map["l5"]):
-            try:
-                l5_cached = load_json_file(paths_map["l5"])
-                cached_id = l5_cached.get("id")
-                patched = False
-                if cached_id != filename:
-                    l5_cached["id"] = filename
-                    patched = True
-                    if (
-                        isinstance(cached_id, str)
-                        and isinstance(l5_cached.get("assets"), dict)
-                        and l5_cached["assets"].get("svg") == f"{cached_id}.svg"
-                    ):
-                        l5_cached["assets"]["svg"] = f"{filename}.svg"
-                if patched:
-                    save_json(l5_cached, paths_map["l5"])
-                    logging.warning(
-                        f"{filename} 检测到历史 L5 id 异常，已自动修正: "
-                        f"{cached_id!r} -> {filename!r}"
-                    )
-                l5 = l5_cached
-                l5_from_cache = True
-            except Exception as e:
-                logging.warning(f"{filename} L5 缓存校正失败，转为重跑 L5: {e}")
+        if ENABLE_L5:
+            l5_cache_reusable = l4_check_from_cache or (not ENABLE_L4)
+            if not force and file_exists(paths_map["l5"]) and l5_cache_reusable:
+                try:
+                    l5_cached = load_json_file(paths_map["l5"])
+                    cached_id = l5_cached.get("id")
+                    patched = False
+                    if cached_id != filename:
+                        l5_cached["id"] = filename
+                        patched = True
+                        if (
+                            isinstance(cached_id, str)
+                            and isinstance(l5_cached.get("assets"), dict)
+                            and l5_cached["assets"].get("svg") == f"{cached_id}.svg"
+                        ):
+                            l5_cached["assets"]["svg"] = f"{filename}.svg"
+                    if patched:
+                        save_json(l5_cached, paths_map["l5"])
+                        logging.warning(
+                            f"{filename} 检测到历史 L5 id 异常，已自动修正: "
+                            f"{cached_id!r} -> {filename!r}"
+                        )
+                    l5 = l5_cached
+                    l5_from_cache = True
+                except Exception as e:
+                    logging.warning(f"{filename} L5 缓存校正失败，转为重跑 L5: {e}")
+            elif not force and file_exists(paths_map["l5"]) and not l5_cache_reusable:
+                logging.info(f"{filename} 检测到上游变更，L5 缓存失效，转为重跑 L5")
 
-        if l5 is None:
-            merged = build_l5_payload(l2, l3, l4)
-            t0 = time.perf_counter()
-            l5 = run_step_with_progress(f"{filename} L5", step_meta_generate, merged)
-            logging.info(f"{filename} L5 耗时: {time.perf_counter() - t0:.2f}s")
-            if not is_step_success(l5):
-                save_parse_debug(output_dir, filename, "l5", l5)
-                logging.error(f"{filename} L5 失败: {get_step_error(l5)}")
-                return "error"
-            l5 = apply_meta_defaults(l5, filename)
-            save_json(l5, paths_map["l5"])
+            if l5 is None:
+                merged = build_l5_payload(l2, l3, l4)
+                t0 = time.perf_counter()
+                l5 = step_meta_generate(merged)
+                logging.info(f"{filename} L5 耗时: {time.perf_counter() - t0:.2f}s")
+                if not is_step_success(l5):
+                    save_parse_debug(output_dir, filename, "l5", l5)
+                    logging.error(f"{filename} L5 失败: {get_step_error(l5)}")
+                    return "error"
+                l5 = apply_meta_defaults(l5, filename)
+                save_json(l5, paths_map["l5"])
+            else:
+                logging.info(f"{filename} 已处理，跳过 L5")
         else:
-            logging.info(f"{filename} 已处理，跳过 L5")
+            l5 = build_l5_fallback_for_l6(l2, filename)
+            logging.info(f"{filename} 配置关闭 L5，已跳过 L5。")
 
         # ========= L6 =========
         cached_l6 = None if force else get_cached_l6_dirname(item_output_dir, filename)
-        if cached_l6 and l5_from_cache:
+        if cached_l6 and (l5_from_cache or not ENABLE_L5):
             logging.info(f"{filename} 已处理，跳过 L6")
             return "skipped"
 
@@ -1437,7 +1764,7 @@ def process_file(
 
         l6_payload = build_l6_payload(filename, l2, l5)
         t0 = time.perf_counter()
-        l6_raw = run_step_with_progress(f"{filename} L6", step_dirname_generate, l6_payload)
+        l6_raw = step_dirname_generate(l6_payload)
         l6_dirname = normalize_l6_dirname(filename, l6_raw)
         l6_path = save_l6_dirname_file(item_output_dir, filename, l6_dirname)
         logging.info(f"{filename} L6 耗时: {time.perf_counter() - t0:.2f}s")
@@ -1452,8 +1779,6 @@ def process_file(
 def run_batch(
     input_dir: str = INPUT_DIR,
     output_dir: str = OUTPUT_DIR,
-    max_workers: int = MAX_WORKERS,
-    timeout_seconds: int = DEFAULT_TIMEOUT_SECONDS,
     input_extensions: tuple[str, ...] = DEFAULT_INPUT_EXTENSIONS,
     target_ids: list[str] | None = None,
     force: bool = False,
@@ -1464,8 +1789,6 @@ def run_batch(
     Args:
         input_dir: 输入目录（例如包含 I001/I002 子目录）。
         output_dir: 输出目录。
-        max_workers: 线程池并发数。
-        timeout_seconds: 单文件 future 结果等待超时。
         input_extensions: 支持的输入扩展名元组。
         target_ids: 可选；仅处理这些 ID。
         force: 是否强制全量重跑并覆盖缓存。
@@ -1503,41 +1826,24 @@ def run_batch(
         return {"success": 0, "error": 0, "skipped": 0}
 
     mode = "force（全量重跑）" if force else "cache（优先复用）"
-    logging.info(
-        f"开始批处理，共 {len(items)} 个条目，并发数 {max_workers}，模式: {mode}"
-    )
+    logging.info(f"开始批处理，共 {len(items)} 个条目，模式: {mode}")
     if requested_ids:
         logging.info(f"指定 ID: {', '.join(requested_ids)}")
     batch_start = time.perf_counter()
 
     stats = {"success": 0, "error": 0, "skipped": 0}
 
-    with ThreadPoolExecutor(max_workers=max_workers) as executor:
-        future_to_item = {
-            executor.submit(process_file, item_id, source_path, output_dir, force): (
-                item_id,
-                source_path,
-            )
-            for item_id, source_path in items
-        }
+    with tqdm(total=len(items), desc="Processing Pipeline") as pbar:
+        for item_id, source_path in items:
+            try:
+                result = process_file(item_id, source_path, output_dir, force)
+                stats[result] += 1
+            except Exception as e:
+                logging.error(f"{item_id} 任务异常: {e}")
+                stats["error"] += 1
 
-        with tqdm(total=len(items), desc="Processing Pipeline") as pbar:
-            for future in as_completed(future_to_item):
-                item_id, source_path = future_to_item[future]
-                try:
-                    result = future.result(timeout=timeout_seconds)
-                    stats[result] += 1
-                except TimeoutError:
-                    logging.error(
-                        f"{item_id} 超时（>{timeout_seconds}s），源文件: {source_path}"
-                    )
-                    stats["error"] += 1
-                except Exception as e:
-                    logging.error(f"{item_id} 任务异常: {e}")
-                    stats["error"] += 1
-
-                pbar.set_postfix(stats)
-                pbar.update(1)
+            pbar.set_postfix(stats)
+            pbar.update(1)
 
     total_elapsed = time.perf_counter() - batch_start
     logging.info(f"\n✅ 任务结束: {stats}")
@@ -1548,11 +1854,6 @@ def run_batch(
 def main() -> None:
     """脚本入口：解析参数并启动批处理。"""
     args = parse_args()
-
-    if args.max_workers <= 0:
-        raise ValueError("--max-workers 必须是正整数")
-    if args.timeout <= 0:
-        raise ValueError("--timeout 必须是正整数")
 
     extensions = normalize_extensions(args.extensions)
     if not extensions:
@@ -1568,11 +1869,17 @@ def main() -> None:
     if (args.ids is not None or args.positional_ids) and not target_ids:
         raise ValueError("ID 参数不能为空")
 
+    logging.info(
+        "Pipeline 开关: enable_l3=%s, enable_l4=%s, enable_l4_check=%s, enable_l5=%s",
+        ENABLE_L3,
+        ENABLE_L4,
+        ENABLE_L4_CHECK,
+        ENABLE_L5,
+    )
+
     run_batch(
         input_dir=args.input_dir,
         output_dir=args.output_dir,
-        max_workers=args.max_workers,
-        timeout_seconds=args.timeout,
         input_extensions=extensions,
         target_ids=target_ids,
         force=args.force,

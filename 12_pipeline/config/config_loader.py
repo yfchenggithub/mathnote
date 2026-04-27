@@ -40,3 +40,7 @@ def get_performance():
 
 def get_prompts_config():
     return APP_CONFIG["prompts"]
+
+
+def get_pipeline_config():
+    return APP_CONFIG.get("pipeline", {})
