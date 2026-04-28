@@ -212,7 +212,25 @@ set / function / sequence / conic / vector / geometry-solid / probability-stat /
 api_config = get_api_config()
 model_config = get_model_config()
 perf_config = get_performance()
-ROUTER_MODEL = model_config.get("default")
+
+
+def resolve_router_model(config: dict[str, Any]) -> str | None:
+    """
+    Resolve module-router model with backward-compatible keys.
+    Priority:
+    1) model.default (legacy)
+    2) model.flash
+    3) model.pro
+    4) model.reasoning (legacy)
+    """
+    for key in ("default", "flash", "pro", "reasoning"):
+        value = config.get(key)
+        if isinstance(value, str) and value.strip():
+            return value.strip()
+    return None
+
+
+ROUTER_MODEL = resolve_router_model(model_config)
 ROUTER_TEMPERATURE = float(perf_config.get("temperature", 0.2))
 ROUTER_TIMEOUT_SECONDS = int(perf_config.get("api_timeout_seconds", 180))
 ROUTER_RETRY_TIMES = max(1, int(perf_config.get("retry_times", 3)))
@@ -231,7 +249,8 @@ def parse_args() -> argparse.Namespace:
         default=None,
         help=(
             "Module selector for create_next_input_case.py, e.g. 03 / conic / 03_conic. "
-            "If omitted, module is auto-detected from source.tex via API."
+            "If omitted, module is auto-detected from source.tex via API. "
+            "If API fails, the script exits and requires a manual selector."
         ),
     )
     parser.add_argument(
@@ -282,7 +301,10 @@ def render_prompt(step: str, input_data: Any) -> str:
 
 def call_router_llm(prompt: str) -> str:
     if not ROUTER_MODEL:
-        raise ValueError("Missing model.default in app_config.json")
+        raise ValueError(
+            "Missing router model in app_config.json. "
+            "Configure one of model.default/model.flash/model.pro."
+        )
 
     last_error: Exception | None = None
     for attempt in range(ROUTER_RETRY_TIMES):
@@ -311,6 +333,16 @@ def call_router_llm(prompt: str) -> str:
             time.sleep(sleep_s)
 
     raise RuntimeError(f"module-router api failed: {last_error}")
+
+
+def build_manual_selector_hint() -> str:
+    allowed = ", ".join(ALLOWED_MODULES)
+    return (
+        "Please rerun with a manual module selector, e.g. "
+        "'python .\\run_source_to_pdf.py trigonometry' "
+        "or 'python .\\run_source_to_pdf.py 08_trigonometry'. "
+        f"Allowed modules: {allowed}."
+    )
 
 
 def extract_first_json_object(text: str) -> str | None:
@@ -410,25 +442,6 @@ def extract_module_candidate(raw_output: str | None) -> str | None:
     return None
 
 
-def detect_module_by_keywords(source_text: str) -> tuple[str, int]:
-    text = source_text.lower()
-    scores = {module: 0 for module in ALLOWED_MODULES}
-
-    for module, rules in MODULE_KEYWORDS.items():
-        for token, weight in rules:
-            if token.lower() in text:
-                scores[module] += weight
-
-    best_module = max(
-        ALLOWED_MODULES,
-        key=lambda module: (scores[module], -MODULE_ORDER[module]),
-    )
-    best_score = scores[best_module]
-    if best_score <= 0:
-        return "function", 0
-    return best_module, best_score
-
-
 def auto_detect_module_selector(source_tex: Path) -> tuple[str, str]:
     source_text = read_text_file(source_tex)
 
@@ -442,12 +455,11 @@ def auto_detect_module_selector(source_tex: Path) -> tuple[str, str]:
     try:
         primary_output = call_router_llm(primary_prompt)
     except Exception as exc:  # pragma: no cover - network/API runtime
-        fallback_module, score = detect_module_by_keywords(source_text)
-        print(
-            f"[warn] module-router api unavailable; fallback=keyword, "
-            f"module={fallback_module}, score={score}, error={exc}"
+        raise RuntimeError(
+            "module-router API error; auto-detect stopped. "
+            f"{build_manual_selector_hint()} "
+            f"detail={exc}"
         )
-        return fallback_module, "keyword-fallback(api-error)"
 
     primary_module = extract_module_candidate(primary_output)
     if primary_module:
@@ -465,23 +477,24 @@ def auto_detect_module_selector(source_tex: Path) -> tuple[str, str]:
     try:
         repair_output = call_router_llm(repair_prompt)
     except Exception as exc:  # pragma: no cover - network/API runtime
-        fallback_module, score = detect_module_by_keywords(source_text)
-        print(
-            f"[warn] module-repair api unavailable; fallback=keyword, "
-            f"module={fallback_module}, score={score}, error={exc}"
+        raise RuntimeError(
+            "module-router repair API error; auto-detect stopped. "
+            f"{build_manual_selector_hint()} "
+            f"detail={exc}"
         )
-        return fallback_module, "keyword-fallback(repair-api-error)"
 
     repair_module = extract_module_candidate(repair_output)
     if repair_module:
         return repair_module, "llm-repair"
 
-    fallback_module, score = detect_module_by_keywords(source_text)
-    print(
-        f"[warn] module-repair still invalid; fallback=keyword, "
-        f"module={fallback_module}, score={score}"
+    repair_preview = re.sub(r"\s+", " ", repair_output).strip()
+    if len(repair_preview) > 160:
+        repair_preview = repair_preview[:160] + "..."
+    raise ValueError(
+        "module-router output invalid after repair; auto-detect stopped. "
+        f"{build_manual_selector_hint()} "
+        f"primary_raw={preview!r}, repair_raw={repair_preview!r}"
     )
-    return fallback_module, "keyword-fallback(parse-error)"
 
 
 def _relay_stream(
