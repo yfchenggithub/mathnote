@@ -1,50 +1,88 @@
 \begin{proofbox}
 \textbf{\textcolor{CProof}{思路提示}}
 
-体积公式可用祖暅原理（卡瓦列里原理）证明，将半球转化为圆柱挖圆锥；表面积公式可利用体积的微分关系得到。
+体积公式可用祖暅原理（卡瓦列里原理）证明：把半球与“圆柱挖圆锥”的组合体比较截面面积；表面积公式可由体积公式的变化率作直观说明。
 
 \medskip
 \textbf{\textcolor{CProof}{正式推导}}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-\item[\textbf{步骤一（建立半球模型）：}] 考虑半径为 $R$ 的半球（朝上）。另取一个底面半径 $R$、高 $R$ 的圆柱，从圆柱中挖去一个底面半径 $R$、高 $R$ 的圆锥（顶点在圆柱底面圆心）。
-\[
-\text{半球};\quad \text{圆柱-圆锥组合}.
-\]
-\par\textbf{理由：} 构造一个与半球等高等底面的几何体，利用祖暅原理比较截面面积。
+\item[\textbf{步骤一（建立半球模型）：}] 考虑半径为 $R$ 的上半球。以半球底面所在平面为高度起点，向上量得高度 $h$，其中 $0\le h\le R$。
 
-\item[\textbf{步骤二（比较截面面积）：}] 在高度 $h$ 处（$0 \le h \le R$），半球截面半径为 $\sqrt{R^2 - h^2}$，面积为 $\pi (R^2 - h^2)$；圆柱-圆锥组合中，圆锥在该高度的截面半径为 $h$（相似比），挖去后剩下圆环面积为 $\pi R^2 - \pi h^2 = \pi (R^2 - h^2)$，两者相等。
-\[
-\text{半球截面面积} = \pi(R^2 - h^2) = \text{组合体截面面积}.
-\]
-\par\textbf{理由：} 祖暅原理：如果两个几何体在任意等高处的截面面积相等，则它们体积相等。
+另取一个底面半径为 $R$、高为 $R$ 的圆柱，并从中挖去一个与圆柱同轴的圆锥。该圆锥的顶点在圆柱下底面圆心，底面与圆柱上底面重合。
 
-\item[\textbf{步骤三（求组合体体积）：}] 组合体体积 = 圆柱体积 $-$ 圆锥体积 = $\pi R^2 \cdot R - \frac13 \pi R^2 \cdot R = \pi R^3 - \frac13 \pi R^3 = \frac23 \pi R^3$。
-\[
-V_{\text{组合}} = \pi R^3 - \frac13 \pi R^3 = \frac23 \pi R^3 .
-\]
-\par\textbf{理由：} 圆柱体积公式 $V_{\text{柱}} = \pi R^2 h$，圆锥体积公式 $V_{\text{锥}} = \frac13 \pi R^2 h$，这里 $h = R$。
 
-\item[\textbf{步骤四（得到半球体积与球体积）：}] 由祖暅原理，半球体积等于组合体体积，所以 $V_{\text{半球}} = \frac23 \pi R^3$，从而球体积 $V = 2 \cdot \frac23 \pi R^3 = \frac43 \pi R^3$。
-\[
-V = 2 \times \frac23 \pi R^3 = \frac43 \pi R^3 .
-\]
-\par\textbf{理由：} 两个半球组成一个完整球。
+\input{assets/tikz/G001_01_fig_sphere_cavalieri.tex}
 
-\item[\textbf{步骤五（表面积公式推导）：}] 考虑球半径增加一个微小量 $\mathrm{d}R$，得到一个厚度为 $\mathrm{d}R$ 的球壳，其体积增量 $\mathrm{d}V \approx S \cdot \mathrm{d}R$（球壳体积近似为表面积乘以厚度）。
-\[
-\mathrm{d}V = S \, \mathrm{d}R .
-\]
-\par\textbf{理由：} 当厚度极小时，球壳可视为表面积 $S$ 乘以厚度 $\mathrm{d}R$。
+\par\textbf{理由：} 这样构造后，半球与“圆柱减圆锥”的组合体具有相同的高度范围，方便在同一高度 $h$ 处比较截面面积。
 
-\item[\textbf{步骤六（求导得表面积）：}] 对体积公式 $V = \frac43 \pi R^3$ 两边求微分：$\mathrm{d}V = 4\pi R^2 \, \mathrm{d}R$。对比得到 $S = 4\pi R^2$。
+\item[\textbf{步骤二（比较截面面积）：}] 在距离底面高度为 $h$ 的水平截面处，半球截面半径为
 \[
-\frac{\mathrm{d}V}{\mathrm{d}R} = 4\pi R^2 \quad\Rightarrow\quad S = 4\pi R^2 .
+\sqrt{R^{2}-h^{2}},
 \]
-\par\textbf{理由：} 由 $\mathrm{d}V = S \, \mathrm{d}R$ 与 $\mathrm{d}V = 4\pi R^2 \, \mathrm{d}R$ 可得。
+所以半球截面面积为
+\[
+\pi\left(R^{2}-h^{2}\right).
+\]
+
+对圆柱减圆锥的组合体，在同一高度 $h$ 处，圆柱截面面积为 $\pi R^{2}$。由于圆锥顶点在下底面圆心、底面在上底面，按相似比可知圆锥在高度 $h$ 处的截面半径为 $h$，其截面面积为 $\pi h^{2}$。因此挖去圆锥后剩下的圆环面积为
+\[
+\pi R^{2}-\pi h^{2}=\pi\left(R^{2}-h^{2}\right).
+\]
+
+于是
+\[
+\text{半球截面面积}=\pi\left(R^{2}-h^{2}\right)=\text{组合体截面面积}.
+\]
+\par\textbf{理由：} 两个几何体在每一个相同高度处的水平截面面积都相等，根据祖暅原理，它们体积相等。
+
+\item[\textbf{步骤三（求组合体体积）：}] 组合体体积等于圆柱体积减去圆锥体积：
+\[
+V_{\text{组合}}
+=\pi R^{2}\cdot R-\frac{1}{3}\pi R^{2}\cdot R
+=\pi R^{3}-\frac{1}{3}\pi R^{3}
+=\frac{2}{3}\pi R^{3}.
+\]
+\par\textbf{理由：} 圆柱体积公式为 $V_{\text{柱}}=\pi R^{2}h$，圆锥体积公式为 $V_{\text{锥}}=\frac{1}{3}\pi R^{2}h$，这里高度均为 $R$。
+
+\item[\textbf{步骤四（得到半球体积与球体积）：}] 由祖暅原理，半球体积等于组合体体积，所以
+\[
+V_{\text{半球}}=\frac{2}{3}\pi R^{3}.
+\]
+完整球由两个半球组成，因此
+\[
+V=2V_{\text{半球}}
+=2\times \frac{2}{3}\pi R^{3}
+=\frac{4}{3}\pi R^{3}.
+\]
+\par\textbf{理由：} 两个完全相同的半球拼成一个完整的球。
+
+\item[\textbf{步骤五（表面积公式的变化率理解）：}] 设球半径从 $R$ 增加到 $R+\Delta R$，体积增量为
+\[
+\Delta V=V(R+\Delta R)-V(R).
+\]
+当 $\Delta R$ 很小时，这一薄球壳的体积可以近似看成“球的表面积 $S$ 乘以厚度 $\Delta R$”，即
+\[
+\Delta V \approx S\,\Delta R.
+\]
+更准确地说，球的表面积可理解为体积对半径的变化率：
+\[
+S=\lim_{\Delta R\to 0}\frac{V(R+\Delta R)-V(R)}{\Delta R}.
+\]
+\par\textbf{理由：} 薄球壳越来越薄时，其曲面厚度造成的高阶误差趋于 $0$，于是体积变化率给出球面面积。
+
+\item[\textbf{步骤六（由体积公式推出表面积）：}] 将体积公式
+\[
+V(R)=\frac{4}{3}\pi R^{3}
+\]
+代入变化率公式，得到
+\[
+S=\frac{\mathrm{d}V}{\mathrm{d}R}=4\pi R^{2}.
+\]
+\par\textbf{理由：} 对 $\frac{4}{3}\pi R^{3}$ 关于 $R$ 求导，结果为 $4\pi R^{2}$。这一部分使用了微积分思想，可作为表面积公式的直观解释或拓展理解。
 \end{description}
 
 \medskip
 \textbf{\textcolor{CProof}{结论回扣}}
 
-\textbf{通过祖暅原理得到球体积 $V = \frac43 \pi R^3$，再由体积的微分关系得到表面积 $S = 4\pi R^2$，二者互相验证。}
+\textbf{通过祖暅原理可得到球体积 $V=\frac{4}{3}\pi R^{3}$；再从体积关于半径的变化率角度，可理解球的表面积公式 $S=4\pi R^{2}$。}
 \end{proofbox}

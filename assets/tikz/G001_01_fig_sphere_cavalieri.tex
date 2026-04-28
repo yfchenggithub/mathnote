@@ -1,0 +1,127 @@
+% figures/fig_sphere_cavalieri.tex
+% 需要在主文件导言区加载：
+% \usepackage{tikz}
+% \usetikzlibrary{arrows.meta,calc}
+%
+% 用途：球体积公式的祖暅原理示意图。
+% 左图：上半球；右图：圆柱减同轴圆锥。
+% 关键：在同一高度 h 处，两个截面面积相等。
+
+\begin{center}
+\begin{tikzpicture}[
+  scale=0.96,
+  line cap=round,
+  line join=round,
+  >=Latex,
+  font=\small
+]
+\definecolor{TikZSphereBlue}{RGB}{64,112,176}
+\definecolor{TikZSliceOrange}{RGB}{218,126,30}
+\definecolor{TikZSolidGray}{RGB}{100,100,100}
+\definecolor{TikZConeRed}{RGB}{178,70,64}
+
+% ---------------- 基本参数 ----------------
+\pgfmathsetmacro{\R}{1.82}        % 半径 R，同时也是右侧圆柱高度
+\pgfmathsetmacro{\hh}{1.03}       % 截面高度 h
+\pgfmathsetmacro{\rs}{sqrt(\R*\R-\hh*\hh)} % 半球同高截面半径 sqrt(R^2-h^2)
+\pgfmathsetmacro{\ex}{0.18}       % 椭圆纵向压缩量
+\pgfmathsetmacro{\Xright}{6.75}   % 右图整体平移，留出中间说明空间
+
+% =========================================================
+% 左图：上半球
+% =========================================================
+\begin{scope}
+  % 半球本体
+  \fill[TikZSphereBlue!7] (-\R,0) arc[start angle=180,end angle=0,radius=\R] -- cycle;
+  \draw[TikZSphereBlue!85!black, very thick] (-\R,0) arc[start angle=180,end angle=0,radius=\R];
+  \draw[TikZSolidGray, dashed] (-\R,0) arc[start angle=180,end angle=0,x radius=\R,y radius=\ex];
+  \draw[TikZSolidGray] (-\R,0) arc[start angle=180,end angle=360,x radius=\R,y radius=\ex];
+
+  % 中轴、球心、半径 R 标注
+  \fill[TikZSolidGray] (0,0) circle (1.0pt);
+  \draw[TikZSolidGray!70, dashed] (0,0) -- (0,\R);
+  \node[TikZSolidGray, below=2pt] at (0,0) {$O$};
+  \node[TikZSolidGray, right=2pt] at (0,{0.58*\R}) {$R$};
+
+  % 高度 h 的截面
+  \filldraw[fill=TikZSliceOrange!18, draw=TikZSliceOrange!90!black, thick]
+    (0,\hh) ellipse [x radius=\rs, y radius=0.15];
+  \draw[TikZSliceOrange!90!black, thick] (0,\hh) -- (\rs,\hh);
+  \node[above=4pt, TikZSliceOrange!85!black] at ({0.56*\rs},\hh)
+    {$\sqrt{R^{2}-h^{2}}$};
+
+  % 高度 h 标注
+  \draw[TikZSolidGray!60, dashed] (-\R,0) -- (-\R-0.42,0);
+  \draw[TikZSolidGray!60, dashed] (-\rs,\hh) -- (-\R-0.42,\hh);
+  \draw[<->, TikZSolidGray, thick] (-\R-0.42,0) -- (-\R-0.42,\hh)
+    node[midway,left] {$h$};
+
+  % 标题与公式：公式下移，避免压住图形
+  \node[font=\bfseries] at (0,-0.78) {上半球};
+  \node[align=center, TikZSliceOrange!85!black] at (0,-1.22)
+    {$A_1=\pi\left(R^{2}-h^{2}\right)$};
+\end{scope}
+
+% =========================================================
+% 中间说明：用 A_1=A_2 代替文字说明，减少拥挤
+% =========================================================
+\draw[<->, very thick, TikZSolidGray!75] (2.72,1.02) -- (4.02,1.02);
+\node[font=\bfseries, TikZSolidGray!95] at (3.37,1.38) {$A_1=A_2$};
+\node[font=\scriptsize, TikZSolidGray!95] at (3.37,0.72) {同高截面};
+
+% =========================================================
+% 右图：圆柱 - 同轴圆锥
+% =========================================================
+\begin{scope}[shift={(\Xright,0)}]
+  % 圆柱本体
+  \fill[TikZSphereBlue!5] (-\R,0) -- (-\R,\R)
+    arc[start angle=180,end angle=0,x radius=\R,y radius=\ex]
+    -- (\R,0)
+    arc[start angle=0,end angle=180,x radius=\R,y radius=\ex]
+    -- cycle;
+  \draw[TikZSolidGray, very thick] (-\R,0) -- (-\R,\R);
+  \draw[TikZSolidGray, very thick] (\R,0) -- (\R,\R);
+  \draw[TikZSolidGray, dashed] (-\R,0) arc[start angle=180,end angle=0,x radius=\R,y radius=\ex];
+  \draw[TikZSolidGray] (-\R,0) arc[start angle=180,end angle=360,x radius=\R,y radius=\ex];
+  \draw[TikZSolidGray, very thick] (0,\R) ellipse [x radius=\R, y radius=\ex];
+
+  % 被挖去的同轴圆锥
+  \fill[TikZConeRed!7, opacity=0.8] (0,0) -- (-\R,\R)
+    arc[start angle=180,end angle=360,x radius=\R,y radius=\ex]
+    -- cycle;
+  \draw[TikZConeRed!85!black, dashed, thick] (0,0) -- (-\R,\R);
+  \draw[TikZConeRed!85!black, dashed, thick] (0,0) -- (\R,\R);
+  \fill[TikZConeRed!85!black] (0,0) circle (1.0pt);
+  \draw[->, TikZConeRed!85!black, thin] (0.62,0.20) -- (0.08,0.03);
+  \node[TikZConeRed!85!black, font=\scriptsize] at (0.82,0.24) {锥顶};
+
+  % 同高截面：外圆为圆柱截面，内圆为圆锥截面，剩下圆环
+  \filldraw[fill=TikZSliceOrange!18, draw=TikZSliceOrange!90!black, thick]
+    (0,\hh) ellipse [x radius=\R, y radius=0.15];
+  \filldraw[fill=white, draw=TikZConeRed!85!black, dashed, thick]
+    (0,\hh) ellipse [x radius=\hh, y radius=0.09];
+  \draw[TikZConeRed!85!black, thick] (0,\hh) -- (\hh,\hh);
+  \node[above=2pt, TikZConeRed!85!black] at ({0.54*\hh},\hh) {$r=h$};
+
+  % 高度 h 标注
+  \draw[TikZSolidGray!60, dashed] (-\R,0) -- (-\R-0.42,0);
+  \draw[TikZSolidGray!60, dashed] (-\R,\hh) -- (-\R-0.42,\hh);
+  \draw[<->, TikZSolidGray, thick] (-\R-0.42,0) -- (-\R-0.42,\hh)
+    node[midway,left] {$h$};
+
+  % 高度 R 标注
+  \draw[<->, TikZSolidGray, thick] (\R+0.34,0) -- (\R+0.34,\R)
+    node[midway,right] {$R$};
+
+  % 标题与公式：公式移出圆柱内部，避免压住截面和虚线
+  \node[font=\bfseries] at (0,-0.78) {圆柱 $-$ 同轴圆锥};
+  \node[align=center, TikZSliceOrange!85!black] at (0,-1.22)
+    {$A_2=\pi R^{2}-\pi h^{2}=\pi\left(R^{2}-h^{2}\right)$};
+\end{scope}
+
+% 统一结论：放在图下方，强化祖暅原理的核心
+\node[align=center, font=\scriptsize, TikZSolidGray!95] at (3.37,-1.66)
+  {同一高度处：$A_1=A_2=\pi\left(R^{2}-h^{2}\right)$};
+
+\end{tikzpicture}
+\end{center}
