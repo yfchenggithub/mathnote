@@ -1,0 +1,186 @@
+{
+  "id": "P007",
+  "module": "geometry-plane",
+  "core": {
+    "title": "三角形面积对称公式：利用PQR表达",
+    "alias": [
+      "三角形面积PQR公式",
+      "海伦公式代数变形",
+      "面积对称式"
+    ],
+    "summary": "将三角形三边长平方转化为三个辅助量P,Q,R，则面积平方的四倍等于这三数两两乘积之和。",
+    "difficulty": 3,
+    "category": "解三角形",
+    "tags": [
+      "对称性",
+      "面积公式",
+      "代数变换",
+      "海伦公式变形"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "三角形面积",
+      "PQR公式",
+      "面积对称式",
+      "海伦公式变形",
+      "根式边长",
+      "三角形面积计算",
+      "P+Q=x^2",
+      "2S=sqrt(PQ+QR+RP)",
+      "避免开方",
+      "三边平方"
+    ],
+    "synonyms": [
+      "三角形面积新公式",
+      "海伦公式的变形",
+      "PQR方法求面积"
+    ],
+    "intents": [
+      "求面积",
+      "计算三角形面积",
+      "用PQR求面积",
+      "根式边长求面积"
+    ],
+    "query_templates": [
+      "三角形面积对称公式",
+      "海伦公式变形PQR",
+      "三角形面积公式PQR",
+      "已知三边根号求面积",
+      "三角形面积怎么用PQR求"
+    ],
+    "ocrKeywords": [
+      "三边长",
+      "面积",
+      "P+Q",
+      "Q+R",
+      "R+P",
+      "x^2",
+      "y^2",
+      "z^2",
+      "2S",
+      "sqrt{PQ+QR+RP}"
+    ],
+    "latex_patterns": [
+      "2S = \\\\sqrt{PQ+QR+RP}",
+      "P+Q = x^2",
+      "Q+R = y^2",
+      "R+P = z^2",
+      "P = \\\\frac{x^2+z^2-y^2}{2}"
+    ],
+    "formulaTokens": [
+      "P+Q",
+      "Q+R",
+      "R+P",
+      "x^2",
+      "y^2",
+      "z^2",
+      "PQ+QR+RP",
+      "\\\\sqrt{PQ+QR+RP}",
+      "2S"
+    ],
+    "pinyin": "sanjiaoxingmianjiduichengongshi",
+    "pinyinAbbr": "sjxmj"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.52,
+    "hot_score": 60,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "2S = \\sqrt{PQ+QR+RP}",
+    "related_formulas": [
+      "P = \\frac{x^2+z^2-y^2}{2}",
+      "Q = \\frac{x^2+y^2-z^2}{2}",
+      "R = \\frac{y^2+z^2-x^2}{2}"
+    ],
+    "variables": {
+      "x": "三角形边长",
+      "y": "三角形边长",
+      "z": "三角形边长",
+      "P": "辅助量（由边长平方差定义）",
+      "Q": "辅助量",
+      "R": "辅助量",
+      "S": "三角形面积"
+    },
+    "conditions": [
+      "x,y,z满足三角形不等式（两边之和大于第三边）",
+      "定义P+Q=x^2, Q+R=y^2, R+P=z^2，则P,Q,R均为正数"
+    ],
+    "conclusions": [
+      "三角形面积 S = \\frac{1}{2}\\sqrt{PQ+QR+RP}"
+    ]
+  },
+  "content": {
+    "statement": "设三角形三边长分别为x,y,z。定义数P,Q,R满足P+Q=x^2, Q+R=y^2, R+P=z^2，则三角形面积S满足2S=√(PQ+QR+RP)。其中P,Q,R可显式表示为P=(x^2+z^2-y^2)/2，Q=(x^2+y^2-z^2)/2，R=(y^2+z^2-x^2)/2。",
+    "derivation": [
+      "由海伦公式S=√[p(p-x)(p-y)(p-z)]，其中p=(x+y+z)/2，将p代入并展开可得对称形式。",
+      "利用余弦定理，x^2=y^2+z^2-2yz cosA，可构造P,Q,R为余弦相关项。",
+      "直接计算PQ+QR+RP可化为(16S^2)的表达式，从而得到2S=√(PQ+QR+RP)。"
+    ],
+    "intuition": "该公式是海伦公式的代数重排，通过引入三个对称的辅助量，将面积表达为平方和的开方，特别适合三边为根式的情况。",
+    "common_tricks": [
+      "当三边为√a, √b, √c时，直接令x²=a, y²=b, z²=c，避免开方嵌套。",
+      "解P,Q,R时用对称公式P=(x²+z²-y²)/2，计算效率高。",
+      "注意2S=√...，不要漏掉因子2。",
+      "可用来验证海伦公式计算结果的正确性。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "三边含有根号的三角形面积计算",
+      "避免半周长中根式嵌套的题目",
+      "作为海伦公式的替代检验方法"
+    ],
+    "problem_types": [
+      "计算题",
+      "选择题",
+      "填空题"
+    ],
+    "exam_frequency": 0.6,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "P007.svg",
+    "png": "",
+    "gif": "",
+    "3d": ""
+  },
+  "shareConfig": {
+    "title": "三角形面积对称公式：避免根式嵌套",
+    "shareDesc": "适合三边含根式的面积计算，直接利用平方和代入PQR，减少开方和半周长运算，提高计算稳定性。常用于课后复盘或刷题速查。"
+  },
+  "relations": {
+    "prerequisites": [
+      "海伦公式",
+      "解三角形基本知识",
+      "代数方程组求解"
+    ],
+    "related_ids": [],
+    "similar": [
+      "海伦公式 S = √[p(p-x)(p-y)(p-z)]",
+      "秦九韶公式（三斜求积）"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-04-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "其他-未分类-待定",
+  "altNodes": ""
+}

@@ -1,0 +1,50 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+
+体积公式可用祖暅原理（卡瓦列里原理）证明，将半球转化为圆柱挖圆锥；表面积公式可利用体积的微分关系得到。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+\item[\textbf{步骤一（建立半球模型）：}] 考虑半径为 $R$ 的半球（朝上）。另取一个底面半径 $R$、高 $R$ 的圆柱，从圆柱中挖去一个底面半径 $R$、高 $R$ 的圆锥（顶点在圆柱底面圆心）。
+\[
+\text{半球};\quad \text{圆柱-圆锥组合}.
+\]
+\par\textbf{理由：} 构造一个与半球等高等底面的几何体，利用祖暅原理比较截面面积。
+
+\item[\textbf{步骤二（比较截面面积）：}] 在高度 $h$ 处（$0 \le h \le R$），半球截面半径为 $\sqrt{R^2 - h^2}$，面积为 $\pi (R^2 - h^2)$；圆柱-圆锥组合中，圆锥在该高度的截面半径为 $h$（相似比），挖去后剩下圆环面积为 $\pi R^2 - \pi h^2 = \pi (R^2 - h^2)$，两者相等。
+\[
+\text{半球截面面积} = \pi(R^2 - h^2) = \text{组合体截面面积}.
+\]
+\par\textbf{理由：} 祖暅原理：如果两个几何体在任意等高处的截面面积相等，则它们体积相等。
+
+\item[\textbf{步骤三（求组合体体积）：}] 组合体体积 = 圆柱体积 $-$ 圆锥体积 = $\pi R^2 \cdot R - \frac13 \pi R^2 \cdot R = \pi R^3 - \frac13 \pi R^3 = \frac23 \pi R^3$。
+\[
+V_{\text{组合}} = \pi R^3 - \frac13 \pi R^3 = \frac23 \pi R^3 .
+\]
+\par\textbf{理由：} 圆柱体积公式 $V_{\text{柱}} = \pi R^2 h$，圆锥体积公式 $V_{\text{锥}} = \frac13 \pi R^2 h$，这里 $h = R$。
+
+\item[\textbf{步骤四（得到半球体积与球体积）：}] 由祖暅原理，半球体积等于组合体体积，所以 $V_{\text{半球}} = \frac23 \pi R^3$，从而球体积 $V = 2 \cdot \frac23 \pi R^3 = \frac43 \pi R^3$。
+\[
+V = 2 \times \frac23 \pi R^3 = \frac43 \pi R^3 .
+\]
+\par\textbf{理由：} 两个半球组成一个完整球。
+
+\item[\textbf{步骤五（表面积公式推导）：}] 考虑球半径增加一个微小量 $\mathrm{d}R$，得到一个厚度为 $\mathrm{d}R$ 的球壳，其体积增量 $\mathrm{d}V \approx S \cdot \mathrm{d}R$（球壳体积近似为表面积乘以厚度）。
+\[
+\mathrm{d}V = S \, \mathrm{d}R .
+\]
+\par\textbf{理由：} 当厚度极小时，球壳可视为表面积 $S$ 乘以厚度 $\mathrm{d}R$。
+
+\item[\textbf{步骤六（求导得表面积）：}] 对体积公式 $V = \frac43 \pi R^3$ 两边求微分：$\mathrm{d}V = 4\pi R^2 \, \mathrm{d}R$。对比得到 $S = 4\pi R^2$。
+\[
+\frac{\mathrm{d}V}{\mathrm{d}R} = 4\pi R^2 \quad\Rightarrow\quad S = 4\pi R^2 .
+\]
+\par\textbf{理由：} 由 $\mathrm{d}V = S \, \mathrm{d}R$ 与 $\mathrm{d}V = 4\pi R^2 \, \mathrm{d}R$ 可得。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+
+\textbf{通过祖暅原理得到球体积 $V = \frac43 \pi R^3$，再由体积的微分关系得到表面积 $S = 4\pi R^2$，二者互相验证。}
+\end{proofbox}
