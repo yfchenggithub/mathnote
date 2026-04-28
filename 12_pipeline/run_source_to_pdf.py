@@ -22,6 +22,7 @@ import subprocess
 import sys
 import time
 from pathlib import Path
+from threading import Thread
 from typing import Any
 
 from openai import OpenAI
@@ -483,28 +484,91 @@ def auto_detect_module_selector(source_tex: Path) -> tuple[str, str]:
     return fallback_module, "keyword-fallback(parse-error)"
 
 
-def run_command(label: str, cmd: list[str], cwd: Path) -> subprocess.CompletedProcess[str]:
+def _relay_stream(
+    stream: Any,
+    sink: Any,
+    capture_buffer: list[str] | None,
+) -> None:
+    if stream is None:
+        return
+    try:
+        for line in iter(stream.readline, ""):
+            sink.write(line)
+            sink.flush()
+            if capture_buffer is not None:
+                capture_buffer.append(line)
+    finally:
+        stream.close()
+
+
+def run_command(
+    label: str,
+    cmd: list[str],
+    cwd: Path,
+    *,
+    stream_output: bool = False,
+    capture_output: bool = True,
+) -> subprocess.CompletedProcess[str]:
     print(f"[start] {label}")
     print(f"[cmd] {quoted_command(cmd)}")
     t0 = time.perf_counter()
-    completed = subprocess.run(
-        cmd,
-        cwd=str(cwd),
-        capture_output=True,
-        text=True,
-        errors="replace",
-        check=False,
-    )
+
+    if stream_output:
+        stdout_buffer: list[str] | None = [] if capture_output else None
+        stderr_buffer: list[str] | None = [] if capture_output else None
+        process = subprocess.Popen(
+            cmd,
+            cwd=str(cwd),
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            errors="replace",
+            bufsize=1,
+        )
+        stdout_thread = Thread(
+            target=_relay_stream,
+            args=(process.stdout, sys.stdout, stdout_buffer),
+            daemon=True,
+        )
+        stderr_thread = Thread(
+            target=_relay_stream,
+            args=(process.stderr, sys.stderr, stderr_buffer),
+            daemon=True,
+        )
+        stdout_thread.start()
+        stderr_thread.start()
+        returncode = process.wait()
+        stdout_thread.join()
+        stderr_thread.join()
+
+        completed = subprocess.CompletedProcess(
+            cmd,
+            returncode,
+            "".join(stdout_buffer) if stdout_buffer is not None else "",
+            "".join(stderr_buffer) if stderr_buffer is not None else "",
+        )
+    else:
+        completed = subprocess.run(
+            cmd,
+            cwd=str(cwd),
+            capture_output=capture_output,
+            text=True,
+            errors="replace",
+            check=False,
+        )
+
     elapsed = time.perf_counter() - t0
+    stdout_text = completed.stdout if isinstance(completed.stdout, str) else ""
+    stderr_text = completed.stderr if isinstance(completed.stderr, str) else ""
 
     if completed.returncode != 0:
         print(f"[fail] {label} ({elapsed:.2f}s)")
-        if completed.stdout.strip():
+        if stdout_text.strip():
             print("[stdout]")
-            print(completed.stdout.rstrip())
-        if completed.stderr.strip():
+            print(stdout_text.rstrip())
+        if stderr_text.strip():
             print("[stderr]")
-            print(completed.stderr.rstrip())
+            print(stderr_text.rstrip())
         raise RuntimeError(f"{label} failed with exit code {completed.returncode}")
 
     print(f"[ok]   {label} ({elapsed:.2f}s)")
@@ -571,10 +635,13 @@ def run_flow(args: argparse.Namespace) -> int:
     print("[info] Mode: execute")
 
     create_cmd = [python_exe, str(create_script), module_selector]
-    create_result = run_command("Step 1/5 create next input case", create_cmd, project_root)
-    if create_result.stdout.strip():
-        print("[stdout]")
-        print(create_result.stdout.rstrip())
+    create_result = run_command(
+        "Step 1/5 create next input case",
+        create_cmd,
+        project_root,
+        stream_output=True,
+        capture_output=True,
+    )
 
     new_id = parse_new_id(create_result.stdout)
     print(f"[info] Parsed NEW_ID={new_id}")
@@ -583,21 +650,29 @@ def run_flow(args: argparse.Namespace) -> int:
         "Step 2/5 run pipeline",
         [python_exe, str(run_script), new_id],
         project_root,
+        stream_output=True,
+        capture_output=False,
     )
     run_command(
         "Step 3/5 publish output",
         [python_exe, str(publish_script), new_id],
         project_root,
+        stream_output=True,
+        capture_output=False,
     )
     run_command(
         "Step 4/5 fix math punctuation",
         [python_exe, str(fix_script), new_id],
         project_root,
+        stream_output=True,
+        capture_output=False,
     )
     run_command(
         "Step 5/5 build PDF",
         [python_exe, str(build_pdf_script), new_id, "--pdf-name-mode", "id"],
         project_root,
+        stream_output=True,
+        capture_output=False,
     )
 
     pdf_path = project_root / "build" / "conclusion_pdfs" / f"{new_id}.pdf"

@@ -51,6 +51,7 @@
 """
 
 import argparse
+from contextvars import ContextVar
 import json
 import logging
 import os
@@ -58,7 +59,7 @@ import random
 import re
 import time
 from datetime import date, datetime
-from threading import Semaphore
+from threading import Semaphore, Thread
 from typing import Any, Callable
 
 from openai import OpenAI
@@ -125,6 +126,17 @@ def coerce_bool_config(value: Any, default: bool) -> bool:
     return default
 
 
+def coerce_int_config(value: Any, default: int, *, minimum: int = 0) -> int:
+    """
+    Coerce int-like configuration values with a lower bound.
+    """
+    try:
+        parsed = int(value)
+    except (TypeError, ValueError):
+        parsed = default
+    return max(minimum, parsed)
+
+
 ENABLE_L3 = coerce_bool_config(pipeline_config.get("enable_l3", True), True)
 ENABLE_L4 = coerce_bool_config(pipeline_config.get("enable_l4", True), True)
 ENABLE_L4_CHECK = coerce_bool_config(
@@ -150,6 +162,21 @@ if isinstance(raw_step_max_tokens, dict):
             STEP_MAX_TOKENS[step_name] = value
 
 LOG_PROMPT_STATS = bool(perf.get("log_prompt_stats", False))
+PROGRESS_LOG_START_SECONDS = coerce_int_config(
+    perf.get("progress_log_start_seconds", 120), 120, minimum=0
+)
+PROGRESS_LOG_INTERVAL_SECONDS = coerce_int_config(
+    perf.get("progress_log_interval_seconds", 30), 30, minimum=1
+)
+PROGRESS_POLL_SECONDS = coerce_int_config(
+    perf.get("progress_poll_seconds", 5), 5, minimum=1
+)
+# Keep first heartbeat responsive even when configured start is very large.
+FIRST_PROGRESS_LOG_SECONDS = (
+    PROGRESS_LOG_INTERVAL_SECONDS
+    if PROGRESS_LOG_START_SECONDS <= 0
+    else min(PROGRESS_LOG_START_SECONDS, PROGRESS_LOG_INTERVAL_SECONDS)
+)
 
 INPUT_DIR = os.path.join(BASE_DIR, paths["input_dir"])
 OUTPUT_DIR = os.path.join(BASE_DIR, paths["output_dir"])
@@ -276,6 +303,77 @@ L4_REQUIRED_KEYS = tuple(LECTURE_TEX_FILE_MAP.keys())
 ID_DIR_PATTERN = re.compile(r"^[A-Za-z]\d{3}$")
 L6_DIRNAME_FILE_PATTERN_TEMPLATE = r"^{item_id}_[a-z0-9]+(?:_[a-z0-9]+)*$"
 L6_FALLBACK_SLUG = "generated_conclusion"
+CURRENT_ITEM_ID: ContextVar[str] = ContextVar("CURRENT_ITEM_ID", default="-")
+
+
+def normalize_reason_text(reason: Any) -> str:
+    """
+    Normalize error text for concise one-line logs.
+    """
+    text = str(reason) if reason is not None else "unknown"
+    text = re.sub(r"\s+", " ", text).strip()
+    if len(text) > 240:
+        return f"{text[:237]}..."
+    return text
+
+
+def log_stage_start(item_id: str, stage: str, mode: str) -> float:
+    """
+    Emit standardized stage start log and return a timer anchor.
+    """
+    logging.info("[stage/start] item=%s stage=%s mode=%s", item_id, stage, mode)
+    return time.perf_counter()
+
+
+def log_stage_done(
+    item_id: str,
+    stage: str,
+    mode: str,
+    started_at: float,
+    note: str | None = None,
+) -> None:
+    """
+    Emit standardized stage completion log with elapsed time.
+    """
+    elapsed = time.perf_counter() - started_at
+    if note:
+        logging.info(
+            "[stage/done] item=%s stage=%s mode=%s elapsed=%.2fs note=%s",
+            item_id,
+            stage,
+            mode,
+            elapsed,
+            note,
+        )
+        return
+    logging.info(
+        "[stage/done] item=%s stage=%s mode=%s elapsed=%.2fs",
+        item_id,
+        stage,
+        mode,
+        elapsed,
+    )
+
+
+def log_stage_fail(
+    item_id: str,
+    stage: str,
+    mode: str,
+    started_at: float,
+    reason: Any,
+) -> None:
+    """
+    Emit standardized stage failure log with elapsed time and reason.
+    """
+    elapsed = time.perf_counter() - started_at
+    logging.error(
+        "[stage/fail] item=%s stage=%s mode=%s elapsed=%.2fs reason=%s",
+        item_id,
+        stage,
+        mode,
+        elapsed,
+        normalize_reason_text(reason),
+    )
 
 
 def parse_args() -> argparse.Namespace:
@@ -470,6 +568,7 @@ def retry_call(
     retries: int = 3,
     delay: float = 1,
     retry_meta: dict[str, Any] | None = None,
+    on_attempt_start: Callable[[int, int], None] | None = None,
     **kwargs: Any,
 ) -> Any:
     """
@@ -490,6 +589,8 @@ def retry_call(
     """
     for attempt in range(retries):
         attempts_used = attempt + 1
+        if on_attempt_start is not None:
+            on_attempt_start(attempts_used, retries)
         try:
             result = func(*args, **kwargs)
             if retry_meta is not None:
@@ -662,6 +763,65 @@ def extract_usage_tokens(response: Any) -> dict[str, int | None]:
     }
 
 
+def request_llm_with_progress(
+    request_kwargs: dict[str, Any],
+    *,
+    step: str,
+    model_name: str,
+    attempt: int,
+    retries: int,
+) -> Any:
+    """
+    Execute one LLM request with heartbeat progress logs while waiting.
+    """
+    response_holder: dict[str, Any] = {}
+    error_holder: dict[str, Exception] = {}
+
+    def _request_worker() -> None:
+        try:
+            response_holder["response"] = client.chat.completions.create(**request_kwargs)
+        except Exception as exc:
+            error_holder["error"] = exc
+
+    worker = Thread(target=_request_worker, daemon=True)
+    worker.start()
+
+    started = time.perf_counter()
+    next_log_at = FIRST_PROGRESS_LOG_SECONDS
+    while worker.is_alive():
+        worker.join(timeout=PROGRESS_POLL_SECONDS)
+        if not worker.is_alive():
+            break
+
+        elapsed = time.perf_counter() - started
+        if elapsed < next_log_at:
+            continue
+
+        logging.info(
+            (
+                "[progress] item=%s stage=%s model=%s attempt=%d/%d "
+                "retry_count=%d waited=%.1fs timeout=%ss"
+            ),
+            CURRENT_ITEM_ID.get(),
+            step.upper(),
+            model_name,
+            attempt,
+            retries,
+            max(0, attempt - 1),
+            elapsed,
+            API_TIMEOUT_SECONDS,
+        )
+        next_log_at += PROGRESS_LOG_INTERVAL_SECONDS
+
+    if "error" in error_holder:
+        raise error_holder["error"]
+    if "response" not in response_holder:
+        raise RuntimeError(
+            f"LLM request returned without response (step={step}, model={model_name})"
+        )
+    return response_holder["response"]
+
+
 def call_llm(
     prompt: str,
     step: str = "default",
@@ -689,17 +849,6 @@ def call_llm(
                 f"{step.upper()} request: model={model}, prompt_chars={len(prompt)}, max_tokens={max_tokens}"
             )
 
-        def _request(request_model: str, request_max_tokens: int | None) -> Any:
-            request_kwargs: dict[str, Any] = {
-                "model": request_model,
-                "messages": messages,
-                "temperature": TEMPERATURE,
-                "timeout": API_TIMEOUT_SECONDS,
-            }
-            if request_max_tokens is not None:
-                request_kwargs["max_tokens"] = request_max_tokens
-            return client.chat.completions.create(**request_kwargs)
-
         total_llm_roundtrip_ms = 0.0
         total_retry_count = 0
         request_start_ts: str | None = None
@@ -720,6 +869,38 @@ def call_llm(
             nonlocal total_prompt_tokens, total_completion_tokens, total_tokens, has_usage
 
             retry_meta: dict[str, Any] = {}
+            current_attempt = 1
+
+            def _on_attempt_start(attempt_used: int, retries_limit: int) -> None:
+                nonlocal current_attempt
+                current_attempt = attempt_used
+                if attempt_used > 1:
+                    logging.info(
+                        "[llm/retry] item=%s stage=%s model=%s attempt=%d/%d",
+                        CURRENT_ITEM_ID.get(),
+                        step.upper(),
+                        request_model,
+                        attempt_used,
+                        retries_limit,
+                    )
+
+            def _request(request_model_name: str, request_max_tokens_inner: int | None) -> Any:
+                request_kwargs: dict[str, Any] = {
+                    "model": request_model_name,
+                    "messages": messages,
+                    "temperature": TEMPERATURE,
+                    "timeout": API_TIMEOUT_SECONDS,
+                }
+                if request_max_tokens_inner is not None:
+                    request_kwargs["max_tokens"] = request_max_tokens_inner
+                return request_llm_with_progress(
+                    request_kwargs,
+                    step=step,
+                    model_name=request_model_name,
+                    attempt=current_attempt,
+                    retries=request_retries,
+                )
+
             started_iso = now_iso_millis()
             started = time.perf_counter()
             response_obj = retry_call(
@@ -728,6 +909,7 @@ def call_llm(
                 request_max_tokens,
                 retries=request_retries,
                 retry_meta=retry_meta,
+                on_attempt_start=_on_attempt_start,
             )
             elapsed_ms = (time.perf_counter() - started) * 1000
             ended_iso = now_iso_millis()
@@ -1787,6 +1969,7 @@ def process_file(
         str: success / error / skipped
     """
     filename = item_id
+    item_token = CURRENT_ITEM_ID.set(filename)
 
     try:
         paths_map = build_output_paths(filename, output_dir)
@@ -1795,89 +1978,132 @@ def process_file(
             logging.info(f"{filename} 启用 --force，忽略缓存并全量重跑")
 
         # ========= L1 =========
-        if not force and file_exists(paths_map["l1"]):
+        l1_mode = "cache" if not force and file_exists(paths_map["l1"]) else "run"
+        l1_started = log_stage_start(filename, "L1", l1_mode)
+        if l1_mode == "cache":
             l1 = load_json_file(paths_map["l1"])
+            log_stage_done(filename, "L1", l1_mode, l1_started)
         else:
             raw_text = read_input_text(input_path)
             if not raw_text:
-                logging.error(f"{filename} 输入为空或读取失败")
+                log_stage_fail(
+                    filename,
+                    "L1",
+                    l1_mode,
+                    l1_started,
+                    "input is empty or cannot be read",
+                )
                 return "error"
-            t0 = time.perf_counter()
             l1 = step_latex_extract(raw_text)
-            logging.info(f"{filename} L1 耗时: {time.perf_counter() - t0:.2f}s")
             if not is_step_success(l1):
                 save_parse_debug(output_dir, filename, "l1", l1)
-                logging.error(f"{filename} L1 失败: {get_step_error(l1)}")
+                log_stage_fail(filename, "L1", l1_mode, l1_started, get_step_error(l1))
                 return "error"
             save_json(l1, paths_map["l1"])
+            log_stage_done(filename, "L1", l1_mode, l1_started)
 
         # ========= L2 =========
-        if not force and file_exists(paths_map["l2"]):
+        l2_mode = "cache" if not force and file_exists(paths_map["l2"]) else "run"
+        l2_started = log_stage_start(filename, "L2", l2_mode)
+        if l2_mode == "cache":
             l2 = load_json_file(paths_map["l2"])
+            log_stage_done(filename, "L2", l2_mode, l2_started)
         else:
-            t0 = time.perf_counter()
             l2 = step_statement_rewrite(l1)
-            logging.info(f"{filename} L2 耗时: {time.perf_counter() - t0:.2f}s")
             if not is_step_success(l2):
                 save_parse_debug(output_dir, filename, "l2", l2)
-                logging.error(f"{filename} L2 失败: {get_step_error(l2)}")
+                log_stage_fail(filename, "L2", l2_mode, l2_started, get_step_error(l2))
                 return "error"
             save_json(l2, paths_map["l2"])
+            log_stage_done(filename, "L2", l2_mode, l2_started)
 
         # ========= L3 / L4 =========
         l3: dict[str, Any] | None = None
         l4_raw: dict[str, Any] | None = None
         l4_from_cache = False
 
-        if ENABLE_L3 and not force and file_exists(paths_map["l3"]):
-            l3 = load_json_file(paths_map["l3"])
-        if ENABLE_L4 and not force and file_exists(paths_map["l4"]):
-            l4_raw_cached = load_json_file(paths_map["l4"])
-            l4_raw_checked = validate_l4_lecture_result(l4_raw_cached, "l4_cache")
-            if is_step_success(l4_raw_checked):
-                l4_raw = l4_raw_checked
-                l4_from_cache = True
+        if ENABLE_L3:
+            l3_mode = "cache" if not force and file_exists(paths_map["l3"]) else "run"
+            l3_started = log_stage_start(filename, "L3", l3_mode)
+            if l3_mode == "cache":
+                l3 = load_json_file(paths_map["l3"])
+                log_stage_done(filename, "L3", l3_mode, l3_started)
             else:
-                logging.warning(
-                    f"{filename} 检测到历史 L4 缓存结构异常，将重跑 L4: "
-                    f"{get_step_error(l4_raw_checked)}"
-                )
-
-        # 串行补齐缺失阶段：先 L3，后 L4。
-        if ENABLE_L3 and l3 is None:
-            t0 = time.perf_counter()
-            l3 = step_quality_eval(l2)
-            logging.info(f"{filename} L3 耗时: {time.perf_counter() - t0:.2f}s")
-            if not is_step_success(l3):
-                save_parse_debug(output_dir, filename, "l3", l3)
-                logging.error(f"{filename} L3 失败: {get_step_error(l3)}")
-                return "error"
-            save_json(l3, paths_map["l3"])
-
-        if ENABLE_L4 and l4_raw is None:
-            t0 = time.perf_counter()
-            l4_raw = step_lecture_generate(l2)
-            logging.info(f"{filename} L4 耗时: {time.perf_counter() - t0:.2f}s")
-            if not is_step_success(l4_raw):
-                save_parse_debug(output_dir, filename, "l4", l4_raw)
-                logging.error(f"{filename} L4 失败: {get_step_error(l4_raw)}")
-                return "error"
-            l4_from_cache = False
-            save_json(l4_raw, paths_map["l4"])
-
-        if not ENABLE_L3:
+                l3 = step_quality_eval(l2)
+                if not is_step_success(l3):
+                    save_parse_debug(output_dir, filename, "l3", l3)
+                    log_stage_fail(
+                        filename,
+                        "L3",
+                        l3_mode,
+                        l3_started,
+                        get_step_error(l3),
+                    )
+                    return "error"
+                save_json(l3, paths_map["l3"])
+                log_stage_done(filename, "L3", l3_mode, l3_started)
+        else:
+            l3_disabled_started = log_stage_start(filename, "L3", "disabled")
             l3 = build_disabled_l3_result()
-            logging.info(f"{filename} 配置关闭 L3，已跳过 L3。")
-        elif l3 is None:
-            l3 = load_json_file(paths_map["l3"])
+            log_stage_done(filename, "L3", "disabled", l3_disabled_started)
+
+        if ENABLE_L4:
+            if not force and file_exists(paths_map["l4"]):
+                l4_cache_started = log_stage_start(filename, "L4", "cache")
+                l4_raw_cached = load_json_file(paths_map["l4"])
+                l4_raw_checked = validate_l4_lecture_result(l4_raw_cached, "l4_cache")
+                if is_step_success(l4_raw_checked):
+                    l4_raw = l4_raw_checked
+                    l4_from_cache = True
+                    log_stage_done(filename, "L4", "cache", l4_cache_started)
+                else:
+                    log_stage_done(
+                        filename,
+                        "L4",
+                        "cache",
+                        l4_cache_started,
+                        note=f"invalid_cache={get_step_error(l4_raw_checked)}",
+                    )
+                    logging.warning(
+                        f"{filename} 检测到历史 L4 缓存结构异常，将重跑 L4: "
+                        f"{get_step_error(l4_raw_checked)}"
+                    )
+
+            if l4_raw is None:
+                l4_run_started = log_stage_start(filename, "L4", "run")
+                l4_raw = step_lecture_generate(l2)
+                if not is_step_success(l4_raw):
+                    save_parse_debug(output_dir, filename, "l4", l4_raw)
+                    log_stage_fail(
+                        filename,
+                        "L4",
+                        "run",
+                        l4_run_started,
+                        get_step_error(l4_raw),
+                    )
+                    return "error"
+                l4_from_cache = False
+                save_json(l4_raw, paths_map["l4"])
+                log_stage_done(filename, "L4", "run", l4_run_started)
+        else:
+            l4_disabled_started = log_stage_start(filename, "L4", "disabled")
+            log_stage_done(filename, "L4", "disabled", l4_disabled_started)
 
         if ENABLE_L4 and l4_raw is None:
+            l4_fallback_started = log_stage_start(filename, "L4", "cache-fallback")
             l4_raw_loaded = load_json_file(paths_map["l4"])
             l4_raw = validate_l4_lecture_result(l4_raw_loaded, "l4")
             if not is_step_success(l4_raw):
                 save_parse_debug(output_dir, filename, "l4", l4_raw)
-                logging.error(f"{filename} L4 失败: {get_step_error(l4_raw)}")
+                log_stage_fail(
+                    filename,
+                    "L4",
+                    "cache-fallback",
+                    l4_fallback_started,
+                    get_step_error(l4_raw),
+                )
                 return "error"
+            log_stage_done(filename, "L4", "cache-fallback", l4_fallback_started)
 
         # ========= L4_check =========
         l4: dict[str, Any] | None = None
@@ -1885,6 +2111,7 @@ def process_file(
         if ENABLE_L4:
             if ENABLE_L4_CHECK:
                 if not force and file_exists(paths_map["l4_check"]):
+                    l4_check_cache_started = log_stage_start(filename, "L4_CHECK", "cache")
                     l4_cached = load_json_file(paths_map["l4_check"])
                     l4_cached_checked = validate_l4_lecture_result(
                         l4_cached, "l4_check_cache"
@@ -1892,34 +2119,73 @@ def process_file(
                     if is_step_success(l4_cached_checked):
                         l4 = l4_cached_checked
                         l4_check_from_cache = True
-                        logging.info(f"{filename} 已处理，跳过 L4_CHECK")
+                        log_stage_done(
+                            filename,
+                            "L4_CHECK",
+                            "cache",
+                            l4_check_cache_started,
+                        )
                     else:
+                        log_stage_done(
+                            filename,
+                            "L4_CHECK",
+                            "cache",
+                            l4_check_cache_started,
+                            note=f"invalid_cache={get_step_error(l4_cached_checked)}",
+                        )
                         logging.warning(
                             f"{filename} 检测到历史 L4_CHECK 缓存结构异常，将重跑 L4_CHECK: "
                             f"{get_step_error(l4_cached_checked)}"
                         )
 
                 if l4 is None:
-                    t0 = time.perf_counter()
+                    l4_check_run_started = log_stage_start(filename, "L4_CHECK", "run")
                     l4 = step_lecture_repair(l2, l3, l4_raw)
-                    logging.info(f"{filename} L4_CHECK 耗时: {time.perf_counter() - t0:.2f}s")
                     if not is_step_success(l4):
                         save_parse_debug(output_dir, filename, "l4_check", l4)
-                        logging.error(f"{filename} L4_CHECK 失败: {get_step_error(l4)}")
+                        log_stage_fail(
+                            filename,
+                            "L4_CHECK",
+                            "run",
+                            l4_check_run_started,
+                            get_step_error(l4),
+                        )
                         return "error"
                     save_json(l4, paths_map["l4_check"])
+                    log_stage_done(filename, "L4_CHECK", "run", l4_check_run_started)
             else:
+                l4_check_disabled_started = log_stage_start(
+                    filename,
+                    "L4_CHECK",
+                    "disabled-use-l4",
+                )
                 l4 = l4_raw
                 l4_check_from_cache = l4_from_cache
-                logging.info(f"{filename} 配置关闭 L4_CHECK，直接使用 L4 输出。")
+                log_stage_done(
+                    filename,
+                    "L4_CHECK",
+                    "disabled-use-l4",
+                    l4_check_disabled_started,
+                )
 
             if l4 is None:
-                logging.error(f"{filename} L4 结果缺失，无法导出讲义。")
+                l4_guard_started = log_stage_start(filename, "L4_CHECK", "guard")
+                log_stage_fail(
+                    filename,
+                    "L4_CHECK",
+                    "guard",
+                    l4_guard_started,
+                    "L4 result missing, cannot export lecture snippets",
+                )
                 return "error"
+
+            l4_export_started = log_stage_start(filename, "L4_EXPORT", "run")
             export_lecture_tex_snippets(l4, filename, output_dir)
+            log_stage_done(filename, "L4_EXPORT", "run", l4_export_started)
         else:
+            l4_check_disabled_started = log_stage_start(filename, "L4_CHECK", "disabled")
             l4 = {}
-            logging.info(f"{filename} 配置关闭 L4，已跳过 L4/L4_CHECK 与讲义导出。")
+            log_stage_done(filename, "L4_CHECK", "disabled", l4_check_disabled_started)
 
         # ========= L5 =========
         l5: dict[str, Any] | None = None
@@ -1927,6 +2193,7 @@ def process_file(
         if ENABLE_L5:
             l5_cache_reusable = l4_check_from_cache or (not ENABLE_L4)
             if not force and file_exists(paths_map["l5"]) and l5_cache_reusable:
+                l5_cache_started = log_stage_start(filename, "L5", "cache")
                 try:
                     l5_cached = load_json_file(paths_map["l5"])
                     cached_id = l5_cached.get("id")
@@ -1948,50 +2215,81 @@ def process_file(
                         )
                     l5 = l5_cached
                     l5_from_cache = True
+                    log_stage_done(filename, "L5", "cache", l5_cache_started)
                 except Exception as e:
+                    log_stage_done(
+                        filename,
+                        "L5",
+                        "cache",
+                        l5_cache_started,
+                        note=f"cache_repair_failed={normalize_reason_text(e)}",
+                    )
                     logging.warning(f"{filename} L5 缓存校正失败，转为重跑 L5: {e}")
             elif not force and file_exists(paths_map["l5"]) and not l5_cache_reusable:
                 logging.info(f"{filename} 检测到上游变更，L5 缓存失效，转为重跑 L5")
 
             if l5 is None:
+                l5_run_started = log_stage_start(filename, "L5", "run")
                 merged = build_l5_payload(l2, l3, l4)
-                t0 = time.perf_counter()
                 l5 = step_meta_generate(merged)
-                logging.info(f"{filename} L5 耗时: {time.perf_counter() - t0:.2f}s")
                 if not is_step_success(l5):
                     save_parse_debug(output_dir, filename, "l5", l5)
-                    logging.error(f"{filename} L5 失败: {get_step_error(l5)}")
+                    log_stage_fail(
+                        filename,
+                        "L5",
+                        "run",
+                        l5_run_started,
+                        get_step_error(l5),
+                    )
                     return "error"
                 l5 = apply_meta_defaults(l5, filename)
                 save_json(l5, paths_map["l5"])
-            else:
-                logging.info(f"{filename} 已处理，跳过 L5")
+                log_stage_done(filename, "L5", "run", l5_run_started)
         else:
+            l5_disabled_started = log_stage_start(filename, "L5", "disabled")
             l5 = build_l5_fallback_for_l6(l2, filename)
-            logging.info(f"{filename} 配置关闭 L5，已跳过 L5。")
+            log_stage_done(filename, "L5", "disabled", l5_disabled_started)
 
         # ========= L6 =========
         cached_l6 = None if force else get_cached_l6_dirname(item_output_dir, filename)
         if cached_l6 and (l5_from_cache or not ENABLE_L5):
-            logging.info(f"{filename} 已处理，跳过 L6")
+            l6_cache_skip_started = log_stage_start(filename, "L6", "cache-skip")
+            log_stage_done(
+                filename,
+                "L6",
+                "cache-skip",
+                l6_cache_skip_started,
+                note=f"cached={cached_l6}",
+            )
             return "skipped"
 
         if cached_l6:
             logging.info(f"{filename} L6 将更新缓存: {cached_l6}")
 
+        l6_started = log_stage_start(filename, "L6", "run")
         l6_payload = build_l6_payload(filename, l2, l5)
-        t0 = time.perf_counter()
-        l6_raw = step_dirname_generate(l6_payload)
-        l6_dirname = normalize_l6_dirname(filename, l6_raw)
-        l6_path = save_l6_dirname_file(item_output_dir, filename, l6_dirname)
-        logging.info(f"{filename} L6 耗时: {time.perf_counter() - t0:.2f}s")
-        logging.info(f"{filename} L6 目录名: {os.path.basename(l6_path)}")
+        try:
+            l6_raw = step_dirname_generate(l6_payload)
+            l6_dirname = normalize_l6_dirname(filename, l6_raw)
+            l6_path = save_l6_dirname_file(item_output_dir, filename, l6_dirname)
+        except Exception as exc:
+            log_stage_fail(filename, "L6", "run", l6_started, exc)
+            raise
+        log_stage_done(
+            filename,
+            "L6",
+            "run",
+            l6_started,
+            note=f"dirname={os.path.basename(l6_path)}",
+        )
 
         return "success"
 
     except Exception as e:
         logging.error(f"Error processing {filename}: {e}")
         return "error"
+    finally:
+        CURRENT_ITEM_ID.reset(item_token)
 
 def run_batch(
     input_dir: str = INPUT_DIR,
@@ -2092,6 +2390,17 @@ def main() -> None:
         ENABLE_L4,
         ENABLE_L4_CHECK,
         ENABLE_L5,
+    )
+    logging.info(
+        (
+            "Pipeline 心跳: progress_log_start_seconds=%s, "
+            "progress_log_interval_seconds=%s, progress_poll_seconds=%s, "
+            "effective_first_heartbeat_seconds=%s"
+        ),
+        PROGRESS_LOG_START_SECONDS,
+        PROGRESS_LOG_INTERVAL_SECONDS,
+        PROGRESS_POLL_SECONDS,
+        FIRST_PROGRESS_LOG_SECONDS,
     )
 
     run_batch(

@@ -2586,3 +2586,51 @@
 2026-04-27 20:34:16,745 - INFO - 
 ✅ 任务结束: {'success': 1, 'error': 0, 'skipped': 0}
 2026-04-27 20:34:16,745 - INFO - ⏱ 总耗时: 391.84s
+2026-04-27 20:57:53,219 - INFO - 阶段模型映射已生效: {'l1': 'flash', 'l2': 'pro', 'l3': 'flash', 'l4': 'flash', 'l4_check': 'pro', 'l5': 'flash', 'l6': 'flash'}
+2026-04-27 20:57:54,768 - INFO - Pipeline 开关: enable_l3=True, enable_l4=True, enable_l4_check=True, enable_l5=True
+2026-04-27 20:57:54,768 - INFO - Pipeline 心跳: progress_log_start_seconds=120, progress_log_interval_seconds=30, progress_poll_seconds=5, effective_first_heartbeat_seconds=30
+2026-04-27 20:57:54,779 - INFO - 开始批处理，共 1 个条目，模式: cache（优先复用）
+2026-04-27 20:57:54,779 - INFO - 指定 ID: C021
+2026-04-27 20:57:54,793 - INFO - [stage/start] item=C021 stage=L1 mode=cache
+2026-04-27 20:57:54,793 - INFO - [stage/done] item=C021 stage=L1 mode=cache elapsed=0.00s
+2026-04-27 20:57:54,793 - INFO - [stage/start] item=C021 stage=L2 mode=cache
+2026-04-27 20:57:54,794 - INFO - [stage/done] item=C021 stage=L2 mode=cache elapsed=0.00s
+2026-04-27 20:57:54,794 - INFO - [stage/start] item=C021 stage=L3 mode=cache
+2026-04-27 20:57:54,794 - INFO - [stage/done] item=C021 stage=L3 mode=cache elapsed=0.00s
+2026-04-27 20:57:54,795 - INFO - [stage/start] item=C021 stage=L4 mode=cache
+2026-04-27 20:57:54,795 - INFO - [stage/done] item=C021 stage=L4 mode=cache elapsed=0.00s
+2026-04-27 20:57:54,795 - INFO - [stage/start] item=C021 stage=L4_CHECK mode=run
+2026-04-27 20:57:56,691 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-04-27 20:58:24,831 - INFO - [progress] item=C021 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=30.0s timeout=180s
+2026-04-27 20:58:54,873 - INFO - [progress] item=C021 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=60.1s timeout=180s
+2026-04-27 20:59:24,916 - INFO - [progress] item=C021 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=90.1s timeout=180s
+2026-04-27 20:59:54,951 - INFO - [progress] item=C021 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=120.2s timeout=180s
+2026-04-27 21:00:25,008 - INFO - [progress] item=C021 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=150.2s timeout=180s
+2026-04-27 21:00:55,050 - INFO - [progress] item=C021 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=180.3s timeout=180s
+2026-04-27 21:01:25,077 - INFO - [progress] item=C021 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=210.3s timeout=180s
+2026-04-27 21:01:55,123 - INFO - [progress] item=C021 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=240.3s timeout=180s
+2026-04-27 21:02:25,154 - INFO - [progress] item=C021 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=270.4s timeout=180s
+2026-04-27 21:02:55,205 - INFO - [progress] item=C021 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=300.4s timeout=180s
+2026-04-27 21:03:25,252 - INFO - [progress] item=C021 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=330.5s timeout=180s
+2026-04-27 21:03:55,282 - INFO - [progress] item=C021 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=360.5s timeout=180s
+2026-04-27 21:04:25,324 - INFO - [progress] item=C021 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=390.5s timeout=180s
+2026-04-27 21:04:55,361 - INFO - [progress] item=C021 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=420.6s timeout=180s
+2026-04-27 21:05:21,274 - INFO - [PERF_TRACE] {"event": "perf_trace", "step": "l4_check", "model": "deepseek-v4-pro", "prompt_chars": 14381, "payload_chars": 11678, "response_chars": 10205, "request_start_ts": "2026-04-27T20:57:54.796", "request_end_ts": "2026-04-27T21:05:21.273", "llm_roundtrip_ms": 446477.19, "network_wait_ms": 446477.19, "prompt_tokens": 7052, "completion_tokens": 15554, "total_tokens": 22606, "json_parse_ms": 0.53, "validate_ms": 0.0, "retry_count": 0, "timeout_value": 180}
+2026-04-27 21:05:21,276 - INFO - [stage/done] item=C021 stage=L4_CHECK mode=run elapsed=446.48s
+2026-04-27 21:05:21,276 - INFO - [stage/start] item=C021 stage=L4_EXPORT mode=run
+2026-04-27 21:05:21,282 - INFO - C021 L4 导出 tex 片段: 6 个
+2026-04-27 21:05:21,282 - INFO - [stage/done] item=C021 stage=L4_EXPORT mode=run elapsed=0.01s
+2026-04-27 21:05:21,282 - INFO - C021 检测到上游变更，L5 缓存失效，转为重跑 L5
+2026-04-27 21:05:21,282 - INFO - [stage/start] item=C021 stage=L5 mode=run
+2026-04-27 21:05:21,404 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-04-27 21:05:51,323 - INFO - [progress] item=C021 stage=L5 model=deepseek-v4-flash attempt=1/3 retry_count=0 waited=30.0s timeout=180s
+2026-04-27 21:06:08,402 - WARNING - C021 L5 id 已纠正: 'C001' -> 'C021'
+2026-04-27 21:06:08,405 - INFO - [stage/done] item=C021 stage=L5 mode=run elapsed=47.12s
+2026-04-27 21:06:08,407 - INFO - C021 L6 将更新缓存: C021_ellipse_tangent_distance_focal_radius_product
+2026-04-27 21:06:08,407 - INFO - [stage/start] item=C021 stage=L6 mode=run
+2026-04-27 21:06:08,506 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-04-27 21:06:12,825 - ERROR - [stage/fail] item=C021 stage=L6 mode=run elapsed=4.42s reason=[WinError 5] 拒绝访问。: 'D:\\mathnote\\12_pipeline\\output\\C021\\C021_ellipse_tangent_distance_focal_radius_product'
+2026-04-27 21:06:12,825 - ERROR - Error processing C021: [WinError 5] 拒绝访问。: 'D:\\mathnote\\12_pipeline\\output\\C021\\C021_ellipse_tangent_distance_focal_radius_product'
+2026-04-27 21:06:12,825 - INFO - 
+✅ 任务结束: {'success': 0, 'error': 1, 'skipped': 0}
+2026-04-27 21:06:12,825 - INFO - ⏱ 总耗时: 498.05s
