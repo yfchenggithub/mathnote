@@ -21,6 +21,8 @@
 --------
 1. 默认模式（不传 `--force`）:
    - 若阶段输出文件已存在，则直接复用缓存；
+   - 若对应阶段 prompt 指纹发生变化，则该阶段缓存自动失效并重跑（与 `--force` 无关）；
+   - 若任一 prompt 变化导致“全局 prompt 快照”不一致，则该条目所有阶段缓存本轮全部失效；
    - 仅补齐缺失阶段。
 2. 强制模式（传 `--force`）:
    - L1~L5 全部重新生成；
@@ -52,6 +54,7 @@
 
 import argparse
 from contextvars import ContextVar
+import hashlib
 import json
 import logging
 import os
@@ -299,6 +302,8 @@ LECTURE_TEX_FILE_MAP = {
 }
 
 L4_REQUIRED_KEYS = tuple(LECTURE_TEX_FILE_MAP.keys())
+CACHE_STATE_FILENAME = "_pipeline_cache_state.json"
+PROMPT_MANAGED_STEPS = ("l1", "l2", "l3", "l4", "l4_check", "l5", "l6")
 
 ID_DIR_PATTERN = re.compile(r"^[A-Za-z]\d{3}$")
 L6_DIRNAME_FILE_PATTERN_TEMPLATE = r"^{item_id}_[a-z0-9]+(?:_[a-z0-9]+)*$"
@@ -374,6 +379,48 @@ def log_stage_fail(
         elapsed,
         normalize_reason_text(reason),
     )
+
+
+def compute_prompt_hash(text: str) -> str:
+    """
+    计算 prompt 文本指纹（SHA1）。
+    """
+    return hashlib.sha1(text.encode("utf-8")).hexdigest()
+
+
+def build_prompt_hash_snapshot() -> dict[str, str]:
+    """
+    构建当前进程的 prompt 指纹快照。
+
+    说明：
+    - 每次 pipeline 启动时计算一次；
+    - 任一受管阶段 prompt 变更，会导致对应缓存失效；
+    - 与 --force 无关：即使不传 --force，指纹不一致也必须重跑。
+    """
+    snapshot: dict[str, str] = {}
+    for step in PROMPT_MANAGED_STEPS:
+        # 统一复用 load_prompt，避免路径解析逻辑分叉。
+        text = load_prompt(step)
+        snapshot[step] = compute_prompt_hash(text)
+    return snapshot
+
+
+PROMPT_HASH_SNAPSHOT = build_prompt_hash_snapshot()
+
+
+def compute_prompt_snapshot_hash(snapshot: dict[str, str]) -> str:
+    """
+    计算“全量 prompt 快照”的稳定指纹。
+
+    作用：
+    - 任一阶段 prompt 发生变化时，快照指纹都会变化；
+    - 可用于整条目缓存的总开关失效判定，防止下游继续复用旧结果。
+    """
+    payload = json.dumps(snapshot, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+    return compute_prompt_hash(payload)
+
+
+PROMPT_SNAPSHOT_HASH = compute_prompt_snapshot_hash(PROMPT_HASH_SNAPSHOT)
 
 
 def parse_args() -> argparse.Namespace:
@@ -1036,6 +1083,177 @@ def load_json_file(path: str) -> dict[str, Any]:
         except Exception as e:
             last_error = e
     raise last_error if last_error else ValueError(f"读取 JSON 失败: {path}")
+
+
+def load_item_cache_state(state_path: str) -> dict[str, Any]:
+    """
+    读取单条目缓存状态文件。
+
+    状态文件用于记录“每个阶段最后一次成功产出对应的 prompt 指纹”，
+    以便在 prompt 变更后自动使缓存失效。
+
+    Args:
+        state_path: `output/<ID>/_pipeline_cache_state.json` 绝对路径。
+
+    Returns:
+        dict[str, Any]: 标准化缓存状态。
+    """
+    default_state = {"version": 2, "prompt_hashes": {}, "prompt_snapshot_hash": ""}
+    if not os.path.isfile(state_path):
+        return default_state
+    try:
+        with open(state_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        if not isinstance(data, dict):
+            return default_state
+        prompt_hashes = data.get("prompt_hashes")
+        if not isinstance(prompt_hashes, dict):
+            prompt_hashes = {}
+        clean_hashes = {
+            str(k): str(v)
+            for k, v in prompt_hashes.items()
+            if isinstance(k, str) and isinstance(v, str)
+        }
+        return {
+            "version": int(data.get("version", 2)),
+            "prompt_hashes": clean_hashes,
+            "prompt_snapshot_hash": (
+                str(data.get("prompt_snapshot_hash"))
+                if isinstance(data.get("prompt_snapshot_hash"), str)
+                else ""
+            ),
+        }
+    except Exception as exc:
+        logging.warning(f"缓存状态文件读取失败，将忽略并重建: {state_path}, error={exc}")
+        return default_state
+
+
+def save_item_cache_state(state_path: str, state: dict[str, Any]) -> None:
+    """
+    持久化单条目缓存状态文件。
+    """
+    os.makedirs(os.path.dirname(state_path), exist_ok=True)
+    with open(state_path, "w", encoding="utf-8") as f:
+        json.dump(state, f, ensure_ascii=False, indent=2)
+
+
+def mark_step_prompt_hash(
+    cache_state: dict[str, Any],
+    step: str,
+) -> bool:
+    """
+    将当前阶段 prompt 指纹写入缓存状态。
+
+    Returns:
+        bool: 状态是否发生变化（用于决定是否落盘）。
+    """
+    expected = PROMPT_HASH_SNAPSHOT.get(step)
+    if not expected:
+        return False
+    prompt_hashes = cache_state.setdefault("prompt_hashes", {})
+    if not isinstance(prompt_hashes, dict):
+        cache_state["prompt_hashes"] = {}
+        prompt_hashes = cache_state["prompt_hashes"]
+    current = prompt_hashes.get(step)
+    if current == expected:
+        return False
+    prompt_hashes[step] = expected
+    return True
+
+
+def is_prompt_snapshot_fresh(
+    *,
+    item_id: str,
+    cache_state: dict[str, Any],
+) -> bool:
+    """
+    检查条目级 prompt 快照是否与当前运行一致。
+
+    规则：
+    - 缺失快照记录 => 视为过期（保守重跑）；
+    - 快照不一致 => 视为过期（任一 prompt 已变更）；
+    - 一致 => 允许按阶段级策略复用缓存。
+    """
+    cached = cache_state.get("prompt_snapshot_hash", "")
+    if not isinstance(cached, str) or not cached:
+        logging.info("%s 检测到缺失 prompt 快照记录，判定全部阶段缓存失效。", item_id)
+        return False
+
+    if cached != PROMPT_SNAPSHOT_HASH:
+        logging.info(
+            (
+                "%s 检测到 prompt 快照变更，判定全部阶段缓存失效。"
+                " cached=%s current=%s"
+            ),
+            item_id,
+            cached[:12],
+            PROMPT_SNAPSHOT_HASH[:12],
+        )
+        return False
+
+    return True
+
+
+def mark_prompt_snapshot_hash(cache_state: dict[str, Any]) -> bool:
+    """
+    将当前全量 prompt 快照指纹写入缓存状态。
+
+    Returns:
+        bool: 状态是否发生变化。
+    """
+    current = cache_state.get("prompt_snapshot_hash")
+    if current == PROMPT_SNAPSHOT_HASH:
+        return False
+    cache_state["prompt_snapshot_hash"] = PROMPT_SNAPSHOT_HASH
+    return True
+
+
+def is_step_cache_prompt_fresh(
+    *,
+    item_id: str,
+    step: str,
+    cache_state: dict[str, Any],
+) -> bool:
+    """
+    检查阶段缓存是否与当前 prompt 指纹一致。
+
+    规则：
+    - 无状态记录 => 视为过期（保守重跑）；
+    - 指纹不一致 => 视为过期（prompt 已变更）；
+    - 一致 => 允许复用缓存。
+    """
+    expected = PROMPT_HASH_SNAPSHOT.get(step)
+    if not expected:
+        # 非 prompt 管理阶段，默认视为新鲜。
+        return True
+
+    prompt_hashes = cache_state.get("prompt_hashes", {})
+    if not isinstance(prompt_hashes, dict):
+        prompt_hashes = {}
+    cached = prompt_hashes.get(step)
+
+    if not cached:
+        logging.info(
+            "%s %s 缓存无 prompt 指纹记录，判定缓存失效并重跑。",
+            item_id,
+            step.upper(),
+        )
+        return False
+
+    if cached != expected:
+        logging.info(
+            (
+                "%s %s prompt 已变更，缓存失效并重跑。"
+                " cached=%s current=%s"
+            ),
+            item_id,
+            step.upper(),
+            cached[:12],
+            expected[:12],
+        )
+        return False
+
+    return True
 
 
 def safe_json_parse(
@@ -1817,10 +2035,14 @@ def build_output_paths(filename: str, output_dir: str) -> dict[str, str]:
         output_dir: 输出根目录。
 
     Returns:
-        dict[str, str]: l1~l5/l4_check 到目标文件路径的映射（L6 为动态文件名，不在此映射中）。
+        dict[str, str]:
+            - `cache_state`: prompt 指纹缓存状态文件；
+            - `l1`~`l5`/`l4_check`: 各阶段结果文件路径。
+            （L6 为动态文件名，不在此映射中）
     """
     item_dir = os.path.join(output_dir, filename)
     return {
+        "cache_state": os.path.join(item_dir, CACHE_STATE_FILENAME),
         "l1": os.path.join(item_dir, "l1_raw.json"),
         "l2": os.path.join(item_dir, "l2_statement.json"),
         "l3": os.path.join(item_dir, "l3_eval.json"),
@@ -1974,11 +2196,39 @@ def process_file(
     try:
         paths_map = build_output_paths(filename, output_dir)
         item_output_dir = os.path.join(output_dir, filename)
+        cache_state_path = paths_map["cache_state"]
+        cache_state = load_item_cache_state(cache_state_path)
+        prompt_snapshot_fresh = is_prompt_snapshot_fresh(
+            item_id=filename,
+            cache_state=cache_state,
+        )
+
+        def persist_step_prompt_hash(step: str) -> None:
+            if mark_step_prompt_hash(cache_state, step):
+                save_item_cache_state(cache_state_path, cache_state)
+
+        def persist_prompt_snapshot_hash() -> None:
+            if mark_prompt_snapshot_hash(cache_state):
+                save_item_cache_state(cache_state_path, cache_state)
+
+        def can_use_step_cache(step: str, cache_path: str) -> bool:
+            if force:
+                return False
+            if not prompt_snapshot_fresh:
+                return False
+            if not file_exists(cache_path):
+                return False
+            return is_step_cache_prompt_fresh(
+                item_id=filename,
+                step=step,
+                cache_state=cache_state,
+            )
+
         if force:
             logging.info(f"{filename} 启用 --force，忽略缓存并全量重跑")
 
         # ========= L1 =========
-        l1_mode = "cache" if not force and file_exists(paths_map["l1"]) else "run"
+        l1_mode = "cache" if can_use_step_cache("l1", paths_map["l1"]) else "run"
         l1_started = log_stage_start(filename, "L1", l1_mode)
         if l1_mode == "cache":
             l1 = load_json_file(paths_map["l1"])
@@ -2000,10 +2250,11 @@ def process_file(
                 log_stage_fail(filename, "L1", l1_mode, l1_started, get_step_error(l1))
                 return "error"
             save_json(l1, paths_map["l1"])
+            persist_step_prompt_hash("l1")
             log_stage_done(filename, "L1", l1_mode, l1_started)
 
         # ========= L2 =========
-        l2_mode = "cache" if not force and file_exists(paths_map["l2"]) else "run"
+        l2_mode = "cache" if can_use_step_cache("l2", paths_map["l2"]) else "run"
         l2_started = log_stage_start(filename, "L2", l2_mode)
         if l2_mode == "cache":
             l2 = load_json_file(paths_map["l2"])
@@ -2015,6 +2266,7 @@ def process_file(
                 log_stage_fail(filename, "L2", l2_mode, l2_started, get_step_error(l2))
                 return "error"
             save_json(l2, paths_map["l2"])
+            persist_step_prompt_hash("l2")
             log_stage_done(filename, "L2", l2_mode, l2_started)
 
         # ========= L3 / L4 =========
@@ -2023,7 +2275,7 @@ def process_file(
         l4_from_cache = False
 
         if ENABLE_L3:
-            l3_mode = "cache" if not force and file_exists(paths_map["l3"]) else "run"
+            l3_mode = "cache" if can_use_step_cache("l3", paths_map["l3"]) else "run"
             l3_started = log_stage_start(filename, "L3", l3_mode)
             if l3_mode == "cache":
                 l3 = load_json_file(paths_map["l3"])
@@ -2041,6 +2293,7 @@ def process_file(
                     )
                     return "error"
                 save_json(l3, paths_map["l3"])
+                persist_step_prompt_hash("l3")
                 log_stage_done(filename, "L3", l3_mode, l3_started)
         else:
             l3_disabled_started = log_stage_start(filename, "L3", "disabled")
@@ -2048,7 +2301,7 @@ def process_file(
             log_stage_done(filename, "L3", "disabled", l3_disabled_started)
 
         if ENABLE_L4:
-            if not force and file_exists(paths_map["l4"]):
+            if can_use_step_cache("l4", paths_map["l4"]):
                 l4_cache_started = log_stage_start(filename, "L4", "cache")
                 l4_raw_cached = load_json_file(paths_map["l4"])
                 l4_raw_checked = validate_l4_lecture_result(l4_raw_cached, "l4_cache")
@@ -2084,6 +2337,7 @@ def process_file(
                     return "error"
                 l4_from_cache = False
                 save_json(l4_raw, paths_map["l4"])
+                persist_step_prompt_hash("l4")
                 log_stage_done(filename, "L4", "run", l4_run_started)
         else:
             l4_disabled_started = log_stage_start(filename, "L4", "disabled")
@@ -2110,7 +2364,7 @@ def process_file(
         l4_check_from_cache = False
         if ENABLE_L4:
             if ENABLE_L4_CHECK:
-                if not force and file_exists(paths_map["l4_check"]):
+                if can_use_step_cache("l4_check", paths_map["l4_check"]):
                     l4_check_cache_started = log_stage_start(filename, "L4_CHECK", "cache")
                     l4_cached = load_json_file(paths_map["l4_check"])
                     l4_cached_checked = validate_l4_lecture_result(
@@ -2152,6 +2406,7 @@ def process_file(
                         )
                         return "error"
                     save_json(l4, paths_map["l4_check"])
+                    persist_step_prompt_hash("l4_check")
                     log_stage_done(filename, "L4_CHECK", "run", l4_check_run_started)
             else:
                 l4_check_disabled_started = log_stage_start(
@@ -2192,7 +2447,7 @@ def process_file(
         l5_from_cache = False
         if ENABLE_L5:
             l5_cache_reusable = l4_check_from_cache or (not ENABLE_L4)
-            if not force and file_exists(paths_map["l5"]) and l5_cache_reusable:
+            if can_use_step_cache("l5", paths_map["l5"]) and l5_cache_reusable:
                 l5_cache_started = log_stage_start(filename, "L5", "cache")
                 try:
                     l5_cached = load_json_file(paths_map["l5"])
@@ -2244,6 +2499,7 @@ def process_file(
                     return "error"
                 l5 = apply_meta_defaults(l5, filename)
                 save_json(l5, paths_map["l5"])
+                persist_step_prompt_hash("l5")
                 log_stage_done(filename, "L5", "run", l5_run_started)
         else:
             l5_disabled_started = log_stage_start(filename, "L5", "disabled")
@@ -2252,7 +2508,17 @@ def process_file(
 
         # ========= L6 =========
         cached_l6 = None if force else get_cached_l6_dirname(item_output_dir, filename)
-        if cached_l6 and (l5_from_cache or not ENABLE_L5):
+        l6_prompt_fresh = is_step_cache_prompt_fresh(
+            item_id=filename,
+            step="l6",
+            cache_state=cache_state,
+        )
+        if (
+            cached_l6
+            and (l5_from_cache or not ENABLE_L5)
+            and prompt_snapshot_fresh
+            and l6_prompt_fresh
+        ):
             l6_cache_skip_started = log_stage_start(filename, "L6", "cache-skip")
             log_stage_done(
                 filename,
@@ -2261,6 +2527,7 @@ def process_file(
                 l6_cache_skip_started,
                 note=f"cached={cached_l6}",
             )
+            persist_prompt_snapshot_hash()
             return "skipped"
 
         if cached_l6:
@@ -2272,6 +2539,7 @@ def process_file(
             l6_raw = step_dirname_generate(l6_payload)
             l6_dirname = normalize_l6_dirname(filename, l6_raw)
             l6_path = save_l6_dirname_file(item_output_dir, filename, l6_dirname)
+            persist_step_prompt_hash("l6")
         except Exception as exc:
             log_stage_fail(filename, "L6", "run", l6_started, exc)
             raise
@@ -2283,6 +2551,7 @@ def process_file(
             note=f"dirname={os.path.basename(l6_path)}",
         )
 
+        persist_prompt_snapshot_hash()
         return "success"
 
     except Exception as e:
@@ -2391,6 +2660,14 @@ def main() -> None:
         ENABLE_L4_CHECK,
         ENABLE_L5,
     )
+    prompt_hash_preview = {
+        step: digest[:12] for step, digest in PROMPT_HASH_SNAPSHOT.items()
+    }
+    logging.info(
+        "Prompt 指纹快照(前12位): %s",
+        json.dumps(prompt_hash_preview, ensure_ascii=False, sort_keys=True),
+    )
+    logging.info("Prompt 全局快照(前12位): %s", PROMPT_SNAPSHOT_HASH[:12])
     logging.info(
         (
             "Pipeline 心跳: progress_log_start_seconds=%s, "
