@@ -1,0 +1,68 @@
+% C001_01_xiangli_minmax.tikz
+% 场景：相离（椭圆与圆外离，不相交）
+% 需要：\usepackage{tikz}; \usetikzlibrary{calc,decorations.pathreplacing}
+\begin{tikzpicture}[
+  scale=0.92,
+  every node/.style={font=\small},
+  title/.style={font=\bfseries\Large, align=center},
+  shapeE/.style={draw=blue!70!black, line width=1.1pt},
+  shapeG/.style={draw=orange!90!black, line width=1.1pt},
+  aux/.style={gray!70!black, densely dashed, line width=0.7pt},
+  dist/.style={red!75!black, line width=1.35pt},
+  ptdot/.style={circle, fill=black, inner sep=1.65pt},
+  formula/.style={draw=red!65!black, rounded corners=2pt, inner xsep=10pt, inner ysep=5pt, font=\Large}
+]
+% ---------- 左：最小距离 ----------
+\begin{scope}[xshift=0cm]
+  \node[title] at (0,3.35) {相离：最小距离};
+  \coordinate (Oe) at (-2.15,0);
+  \coordinate (Pmin) at (-0.85,0);
+  \coordinate (M) at (2.15,0);
+  \coordinate (Qmin) at (1.20,0);
+  \draw[shapeE] (Oe) ellipse [x radius=1.30, y radius=2.05];
+  \draw[shapeG] (M) circle [radius=0.95];
+  \node[blue!70!black, font=\Large\itshape] at (-3.45,2.05) {$E$};
+  \node[orange!90!black, font=\Large] at (2.95,1.08) {$\Gamma$};
+  \draw[aux] (Pmin) -- (M);
+  \draw[dist] (Pmin) -- (Qmin);
+  \draw[dist, decorate, decoration={brace, amplitude=4pt}] ($(Pmin)+(0,0.17)$) -- ($(Qmin)+(0,0.17)$)
+    node[midway, above=4pt, red!75!black, font=\small] {$D_{\min}$};
+  \fill[ptdot] (Pmin) node[above left=1pt] {$P_{\min}$};
+  \fill[ptdot] (Qmin) node[above right=1pt] {$Q_{\min}$};
+  \fill[ptdot] (M) node[below right=1pt] {$M(x_0,y_0)$};
+  \node at (0.05,-0.42) {$d_{\min}$};
+  \node at (1.70,-0.42) {$r$};
+  \node[formula] at (0,-2.78) {$\color{red!75!black}{D_{\min}}=d_{\min}-r$};
+\end{scope}
+
+% 分隔线
+\draw[gray!55] (4.25,-3.20) -- (4.25,3.45);
+
+% ---------- 右：最大距离 ----------
+\begin{scope}[xshift=8.50cm]
+  \node[title] at (0,3.35) {相离：最大距离};
+  \coordinate (Oe) at (-2.15,0);
+  \coordinate (Pmax) at (-3.45,0);
+  \coordinate (M) at (2.15,0);
+  \coordinate (Qmax) at (3.10,0);
+  \draw[shapeE] (Oe) ellipse [x radius=1.30, y radius=2.05];
+  \draw[shapeG] (M) circle [radius=0.95];
+  \node[blue!70!black, font=\Large\itshape] at (-3.45,2.05) {$E$};
+  \node[orange!90!black, font=\Large] at (2.95,1.08) {$\Gamma$};
+  \draw[aux] (Pmax) -- (Qmax);
+  \draw[blue!70!black, line width=1pt] (Pmax) -- (M);
+  \draw[orange!90!black, line width=1pt] (M) -- (Qmax);
+  \draw[dist] ($(Pmax)+(0,-1.55)$) -- ($(Qmax)+(0,-1.55)$)
+    node[midway, below=4pt, red!75!black] {$D_{\max}$};
+  \draw[dist] ($(Pmax)+(0,-1.42)$) -- ($(Pmax)+(0,-1.68)$);
+  \draw[dist] ($(Qmax)+(0,-1.42)$) -- ($(Qmax)+(0,-1.68)$);
+  \draw[aux] (Pmax) -- ($(Pmax)+(0,-1.55)$);
+  \draw[aux] (Qmax) -- ($(Qmax)+(0,-1.55)$);
+  \fill[ptdot] (Pmax) node[left=2pt] {$P_{\max}$};
+  \fill[ptdot] (M) node[below=3pt] {$M(x_0,y_0)$};
+  \fill[ptdot] (Qmax) node[right=2pt] {$Q_{\max}$};
+  \node[blue!70!black] at (-0.70,-0.35) {$d_{\max}$};
+  \node[orange!90!black] at (2.62,0.32) {$r$};
+  \node[formula] at (0,-2.78) {$\color{red!75!black}{D_{\max}}=d_{\max}+r$};
+\end{scope}
+\end{tikzpicture}

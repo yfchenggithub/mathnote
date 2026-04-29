@@ -1,0 +1,66 @@
+% C001_02_xiangqie_minmax.tikz
+% 场景：相切（这里画外切；若内切，同样有 D_min=0）
+% 需要：\usepackage{tikz}; \usetikzlibrary{calc}
+\begin{tikzpicture}[
+  scale=0.92,
+  every node/.style={font=\small},
+  title/.style={font=\bfseries\Large, align=center},
+  shapeE/.style={draw=blue!70!black, line width=1.1pt},
+  shapeG/.style={draw=orange!90!black, line width=1.1pt},
+  aux/.style={gray!70!black, densely dashed, line width=0.7pt},
+  dist/.style={red!75!black, line width=1.35pt},
+  ptdot/.style={circle, fill=black, inner sep=1.65pt},
+  formula/.style={draw=red!65!black, rounded corners=2pt, inner xsep=10pt, inner ysep=5pt, font=\Large}
+]
+% ---------- 左：最小距离 ----------
+\begin{scope}[xshift=0cm]
+  \node[title] at (0,3.35) {相切：最小距离};
+  \coordinate (Oe) at (-1.25,0);
+  \coordinate (M) at (1.55,0);
+  \coordinate (A) at (0.35,0);
+  \draw[shapeE] (Oe) ellipse [x radius=1.60, y radius=1.25];
+  \draw[shapeG] (M) circle [radius=1.20];
+  \draw[aux] (-3.10,0) -- (3.05,0);
+  \draw[aux] (Oe) -- ++(0,1.45);
+  \draw[aux] (Oe) -- ++(0,-1.45);
+  \node[blue!70!black, font=\Large\itshape] at (-3.15,1.55) {$E$};
+  \node[orange!90!black, font=\Large] at (2.35,1.15) {$\Gamma$};
+  \fill[ptdot] (Oe);
+  \fill[ptdot] (M) node[below right=1pt] {$M(x_0,y_0)$};
+  \fill[ptdot] (A) node[above=3pt] {$A$};
+  \node[red!75!black, font=\Large] at (0,-2.35) {$D_{\min}=0$};
+\end{scope}
+
+\draw[gray!55] (4.25,-3.20) -- (4.25,3.45);
+
+% ---------- 右：最大距离 ----------
+\begin{scope}[xshift=8.50cm]
+  \node[title] at (0,3.35) {相切：最大距离};
+  \coordinate (Oe) at (-1.25,0);
+  \coordinate (M) at (1.55,0);
+  \coordinate (A) at (0.35,0);
+  \coordinate (Pmax) at (-2.85,0);
+  \coordinate (Qmax) at (2.75,0);
+  \draw[shapeE] (Oe) ellipse [x radius=1.60, y radius=1.25];
+  \draw[shapeG] (M) circle [radius=1.20];
+  \draw[aux] (Pmax) -- (Qmax);
+  \draw[blue!70!black, line width=1pt] (Pmax) -- (M);
+  \draw[orange!90!black, line width=1pt] (M) -- (Qmax);
+  \draw[dist] ($(Pmax)+(0,-1.65)$) -- ($(Qmax)+(0,-1.65)$)
+    node[midway, below=4pt, red!75!black] {$D_{\max}$};
+  \draw[dist] ($(Pmax)+(0,-1.52)$) -- ($(Pmax)+(0,-1.78)$);
+  \draw[dist] ($(Qmax)+(0,-1.52)$) -- ($(Qmax)+(0,-1.78)$);
+  \draw[aux] (Pmax) -- ($(Pmax)+(0,-1.65)$);
+  \draw[aux] (Qmax) -- ($(Qmax)+(0,-1.65)$);
+  \node[blue!70!black, font=\Large\itshape] at (-3.15,1.55) {$E$};
+  \node[orange!90!black, font=\Large] at (2.35,1.15) {$\Gamma$};
+  \fill[ptdot] (Pmax) node[left=2pt] {$P_{\max}$};
+  \fill[ptdot] (Oe);
+  \fill[ptdot] (A) node[above=3pt] {$A$};
+  \fill[ptdot] (M) node[below=3pt] {$M(x_0,y_0)$};
+  \fill[ptdot] (Qmax) node[right=2pt] {$Q_{\max}$};
+  \node[blue!70!black] at (-1.40,-0.35) {$d_{\max}$};
+  \node[orange!90!black] at (2.10,0.35) {$r$};
+  \node[red!75!black, font=\Large] at (0,-2.55) {$D_{\max}=d_{\max}+r$};
+\end{scope}
+\end{tikzpicture}

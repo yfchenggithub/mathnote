@@ -1,10 +1,72 @@
 \begin{proofbox}
-\textbf{圆心在 $x$ 轴上的通用推导：}
-\begin{enumerate}
-    \item 设椭圆点 $P(x, y)$，圆心 $M(x_0, 0)$。则距离平方 $d^2 = (x-x_0)^2 + y^2$。
-    \item 代入椭圆方程 $y^2 = b^2(1 - \frac{x^2}{a^2})$，得：
-    $d^2 = x^2 - 2x_0x + x_0^2 + b^2 - \frac{b^2}{a^2}x^2$。
-    \item 整理得二次函数 $g(x) = \frac{c^2}{a^2}x^2 - 2x_0x + x_0^2 + b^2$，其中 $x \in [-a, a]$。
-    \item \textbf{结论}：通过对称轴 $x = \frac{a^2x_0}{c^2}$ 与区间 $[-a, a]$ 的位置关系，结合二次函数单调性即可确定 $d^2$ 的最值。
-\end{enumerate}
+\textbf{第一步：固定点到圆的距离。}
+
+设 $P$ 是平面上一点，圆心为 $M$，半径为 $r$。当 $P\ne M$ 时，圆上离 $P$ 最近和最远的点都在直线 $PM$ 上，故
+\[
+\ell_{\min}(P)=|PM-r|,
+\qquad
+\ell_{\max}(P)=PM+r.
+\]
+当 $P=M$ 时，圆上所有点到 $P$ 的距离都等于 $r$，上述公式仍成立。
+
+因此椭圆到圆的最小距离为
+\[
+D_{\min}=\min_{P\in E}|PM-r|,
+\]
+最大距离为
+\[
+D_{\max}=\max_{P\in E}(PM+r)=d_{\max}+r.
+\]
+若圆与椭圆不相交，则 $r$ 不落在区间 $[d_{\min},d_{\max}]$ 内，于是分为两种情况：
+\[
+D_{\min}=d_{\min}-r\quad (r<d_{\min}),
+\]
+或
+\[
+D_{\min}=r-d_{\max}\quad (r>d_{\max}).
+\]
+
+\textbf{第二步：圆心在 $x$ 轴上的距离函数。}
+
+设圆心 $M(x_0,0)$，椭圆点 $P(x,y)$，则
+\[
+d^2=(x-x_0)^2+y^2.
+\]
+由椭圆方程
+\[
+\frac{x^2}{a^2}+\frac{y^2}{b^2}=1
+\]
+得
+\[
+y^2=b^2\left(1-\frac{x^2}{a^2}\right).
+\]
+代入距离平方：
+\[
+\begin{aligned}
+d^2
+&=(x-x_0)^2+b^2\left(1-\frac{x^2}{a^2}\right)\\
+&=x^2-2x_0x+x_0^2+b^2-\frac{b^2}{a^2}x^2\\
+&=\left(1-\frac{b^2}{a^2}\right)x^2-2x_0x+x_0^2+b^2.
+\end{aligned}
+\]
+令 $c^2=a^2-b^2$，则
+\[
+d^2=\frac{c^2}{a^2}x^2-2x_0x+x_0^2+b^2,
+\qquad x\in[-a,a].
+\]
+所以只要在闭区间 $[-a,a]$ 上求这个二次函数的最值，再开方，即得 $d_{\min}$ 与 $d_{\max}$。
+
+\textbf{第三步：原点情形。}
+
+若 $M(0,0)$，则
+\[
+d^2=x^2+y^2.
+\]
+椭圆的长半轴为 $a$，短半轴为 $b$，所以椭圆上到原点的最远距离为 $a$，最近距离为 $b$，即
+\[
+d_{\max}=a,
+\qquad
+ d_{\min}=b.
+\]
+证毕。
 \end{proofbox}

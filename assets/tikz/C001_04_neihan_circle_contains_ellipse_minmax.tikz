@@ -1,0 +1,68 @@
+% C001_04_neihan_circle_contains_ellipse_minmax.tikz
+% 场景：内含（圆包住椭圆），即 r > d_max
+% 需要：\usepackage{tikz}; \usetikzlibrary{calc}
+\begin{tikzpicture}[
+  scale=0.90,
+  every node/.style={font=\small},
+  title/.style={font=\bfseries\large, align=center},
+  shapeE/.style={draw=blue!70!black, line width=1.1pt},
+  shapeG/.style={draw=orange!90!black, line width=1.1pt},
+  aux/.style={gray!70!black, densely dashed, line width=0.7pt},
+  dist/.style={red!75!black, line width=1.35pt},
+  ptdot/.style={circle, fill=black, inner sep=1.65pt},
+  formula/.style={draw=red!65!black, rounded corners=2pt, inner xsep=10pt, inner ysep=5pt, font=\Large}
+]
+% ---------- 左：最小距离 ----------
+\begin{scope}[xshift=0cm]
+  \node[title] at (0,3.35) {内含（圆包住椭圆）：最小距离};
+  \coordinate (M) at (0,0);
+  \coordinate (Oe) at (0.20,0);
+  \coordinate (Pmax) at (1.50,0);
+  \coordinate (Qmin) at (2.30,0);
+  \draw[shapeG] (M) circle [radius=2.30];
+  \draw[shapeE] (Oe) ellipse [x radius=1.30, y radius=0.78];
+  \node[orange!90!black, font=\Large] at (-2.05,1.65) {$\Gamma$};
+  \node[blue!70!black, font=\Large\itshape] at (-1.10,0.95) {$E$};
+  \draw[aux] (M) -- (Qmin);
+  \draw[blue!70!black, line width=1pt] (M) -- (Pmax);
+  \draw[orange!90!black, line width=1pt] (M) -- (Qmin);
+  \draw[dist] (Pmax) -- (Qmin);
+  \node[red!75!black] at (1.88,0.34) {$D_{\min}$};
+  \fill[ptdot] (M) node[below left=3pt] {$M(x_0,y_0)$};
+  \fill[ptdot] (Pmax) node[above left=3pt] {$P_{\max}$};
+  \fill[ptdot] (Qmin) node[above right=2pt] {$Q_{\min}$};
+  \node[blue!70!black] at (0.72,-0.32) {$d_{\max}$};
+  \node[orange!90!black] at (1.95,-0.32) {$r$};
+  \node[formula] at (0,-2.78) {$\color{red!75!black}{D_{\min}}=r-d_{\max}$};
+\end{scope}
+
+\draw[gray!55] (4.25,-3.20) -- (4.25,3.45);
+
+% ---------- 右：最大距离 ----------
+\begin{scope}[xshift=8.50cm]
+  \node[title] at (0,3.35) {内含（圆包住椭圆）：最大距离};
+  \coordinate (M) at (0,0);
+  \coordinate (Oe) at (0.20,0);
+  \coordinate (Pmax) at (1.50,0);
+  \coordinate (Qmax) at (-2.30,0);
+  \draw[shapeG] (M) circle [radius=2.30];
+  \draw[shapeE] (Oe) ellipse [x radius=1.30, y radius=0.78];
+  \node[orange!90!black, font=\Large] at (-2.05,1.65) {$\Gamma$};
+  \node[blue!70!black, font=\Large\itshape] at (-1.10,0.95) {$E$};
+  \draw[aux] (Qmax) -- (Pmax);
+  \draw[blue!70!black, line width=1pt] (M) -- (Pmax);
+  \draw[orange!90!black, line width=1pt] (M) -- (Qmax);
+  \draw[dist] ($(Qmax)+(0,-1.55)$) -- ($(Pmax)+(0,-1.55)$)
+    node[midway, below=4pt, red!75!black] {$D_{\max}$};
+  \draw[dist] ($(Qmax)+(0,-1.42)$) -- ($(Qmax)+(0,-1.68)$);
+  \draw[dist] ($(Pmax)+(0,-1.42)$) -- ($(Pmax)+(0,-1.68)$);
+  \draw[aux] (Qmax) -- ($(Qmax)+(0,-1.55)$);
+  \draw[aux] (Pmax) -- ($(Pmax)+(0,-1.55)$);
+  \fill[ptdot] (M) node[below=3pt] {$M(x_0,y_0)$};
+  \fill[ptdot] (Pmax) node[above right=2pt] {$P_{\max}$};
+  \fill[ptdot] (Qmax) node[left=2pt] {$Q_{\max}$};
+  \node[blue!70!black] at (0.72,0.33) {$d_{\max}$};
+  \node[orange!90!black] at (-1.15,0.33) {$r$};
+  \node[formula] at (0,-2.78) {$\color{red!75!black}{D_{\max}}=d_{\max}+r$};
+\end{scope}
+\end{tikzpicture}

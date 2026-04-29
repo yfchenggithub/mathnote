@@ -1,11 +1,62 @@
 \begin{statementbox}
-对于椭圆 $C: \frac{x^2}{a^2} + \frac{y^2}{b^2} = 1$ ($a>b>0$) 与圆 $O: (x-x_0)^2 + (y-y_0)^2 = r^2$。若圆与椭圆不相交，则椭圆上的点 $P(x, y)$ 到圆心 $M(x_0, y_0)$ 的距离 $d$ 与到圆上点 $Q$ 的距离 $L$ 满足以下关系：
-\begin{enumerate}
-    \item \textbf{距离转化}：$L_{max} = d_{max} + r$, $L_{min} = d_{min} - r$（若圆在椭圆外）或 $L_{min} = r - d_{max}$（若圆在椭圆内）；
-    \item \textbf{圆心在坐标轴上的极值}：
-    \begin{itemize}
-        \item 若圆心为原点 $(0,0)$，则 $d_{max} = a$, $d_{min} = b$；
-        \item 若圆心在 $x$ 轴上 $(x_0, 0)$，设 $f(x) = (1-\frac{b^2}{a^2})x^2 - 2x_0x + x_0^2 + b^2$，通过求其在 $[-a, a]$ 上的最值确定 $d$。
-    \end{itemize}
-\end{enumerate}
+设椭圆
+\[
+E:\frac{x^2}{a^2}+\frac{y^2}{b^2}=1\quad (a>b>0)
+\]
+与圆
+\[
+\Gamma:(x-x_0)^2+(y-y_0)^2=r^2\quad (r>0),
+\]
+圆心为 $M(x_0,y_0)$。对椭圆上一点 $P$，记
+\[
+d(P)=PM,
+\qquad
+ d_{\min}=\min_{P\in E} PM,
+\qquad
+ d_{\max}=\max_{P\in E} PM.
+\]
+
+\textbf{结论一（点到圆的距离转化）：}
+对固定点 $P$，它到圆 $\Gamma$ 上点的最短距离与最长距离分别为
+\[
+\ell_{\min}(P)=|PM-r|,
+\qquad
+\ell_{\max}(P)=PM+r.
+\]
+因此椭圆 $E$ 到圆 $\Gamma$ 的最小距离为
+\[
+D_{\min}=\min_{P\in E}|PM-r|.
+\]
+若椭圆与圆不相交，则通常只需比较 $r$ 与 $d_{\min},d_{\max}$：
+\[
+D_{\min}= 
+\begin{cases}
+ d_{\min}-r, & r<d_{\min},\\[2mm]
+ r-d_{\max}, & r>d_{\max}.
+\end{cases}
+\]
+其中 $r<d_{\min}$ 表示圆没有碰到椭圆且未包住椭圆；$r>d_{\max}$ 表示圆包住整个椭圆。最大距离恒为
+\[
+D_{\max}=d_{\max}+r.
+\]
+\input{assets/tikz/C001_01_xiangli_minmax.tikz}
+\input{assets/tikz/C001_02_xiangqie_minmax.tikz}
+\input{assets/tikz/C001_03_xiangjiao_minmax.tikz}
+\input{assets/tikz/C001_04_neihan_circle_contains_ellipse_minmax.tikz}
+\input{assets/tikz/C001_05_waihan_ellipse_contains_circle_minmax.tikz}
+\textbf{结论二（圆心在 $x$ 轴上的求法）：}
+若圆心 $M(x_0,0)$ 在 $x$ 轴上，令 $c^2=a^2-b^2$。椭圆上一点 $P(x,y)$ 到圆心的距离平方满足
+\[
+d^2=(x-x_0)^2+y^2
+=\frac{c^2}{a^2}x^2-2x_0x+x_0^2+b^2,
+\qquad x\in[-a,a].
+\]
+所以求 $d_{\min},d_{\max}$，本质上就是求这个二次函数在闭区间 $[-a,a]$ 上的最值，再开方。
+
+特别地，若圆心为原点 $M(0,0)$，则
+\[
+d_{\min}=b,
+\qquad
+ d_{\max}=a.
+\]
 \end{statementbox}

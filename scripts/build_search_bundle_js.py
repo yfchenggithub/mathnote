@@ -235,9 +235,17 @@ WHITESPACE_RE = re.compile(r"\s+")
 FRAGMENT_SPLIT_RE = re.compile(r"[，。；;、,:：!?！？\n\r\t]+")
 ALT_NODE_SPLIT_RE = re.compile(r"[,，;；、/|]+")
 FORMULA_PREFIX_START_CHARS = set("$\\|([{<>=+-*/")
-MAX_PINYIN_EXACT_LENGTH = 24
-MAX_PINYIN_ABBR_EXACT_LENGTH = 24
+MAX_PINYIN_EXACT_LENGTH = 16
+MAX_PINYIN_ABBR_EXACT_LENGTH = 6
+MAX_LOW_VALUE_NATURAL_EXACT_LENGTH = 20
+MAX_LOW_VALUE_NATURAL_TOKEN_LENGTH = 8
 MAX_AUDIT_SAMPLES_PER_REASON = 8
+LOW_VALUE_NATURAL_EXACT_FIELDS = {
+    "query_template",
+    "summary",
+    "statement_fragment",
+    "usage",
+}
 FORMULA_REPLACEMENTS = (
     (r"\geqslant", ">="),
     (r"\geq", ">="),
@@ -393,12 +401,16 @@ class IndexAudit:
     def drop_exact(
         self, reason: str, spec: "FieldSpec", kind: str, term: str, source: str
     ) -> None:
-        self._drop(self.dropped_exact, self.exact_samples, reason, spec, kind, term, source)
+        self._drop(
+            self.dropped_exact, self.exact_samples, reason, spec, kind, term, source
+        )
 
     def drop_prefix(
         self, reason: str, spec: "FieldSpec", kind: str, term: str, source: str
     ) -> None:
-        self._drop(self.dropped_prefix, self.prefix_samples, reason, spec, kind, term, source)
+        self._drop(
+            self.dropped_prefix, self.prefix_samples, reason, spec, kind, term, source
+        )
 
     @staticmethod
     def _drop(
@@ -431,6 +443,9 @@ class IndexAudit:
             "rules": {
                 "maxPinyinExactLength": MAX_PINYIN_EXACT_LENGTH,
                 "maxPinyinAbbrExactLength": MAX_PINYIN_ABBR_EXACT_LENGTH,
+                "maxLowValueNaturalExactLength": MAX_LOW_VALUE_NATURAL_EXACT_LENGTH,
+                "maxLowValueNaturalTokenLength": MAX_LOW_VALUE_NATURAL_TOKEN_LENGTH,
+                "lowValueNaturalExactFields": sorted(LOW_VALUE_NATURAL_EXACT_FIELDS),
                 "formulaPrefix": "disabled",
                 "formulaAutoTokenization": "disabled",
                 "spacedLatinPrefix": "disabled",
@@ -603,9 +618,9 @@ def build_config(args: argparse.Namespace) -> BuildConfig:
     return BuildConfig(
         project_root=Path(args.base_dir).resolve(),
         output_file=Path(args.output_file).resolve(),
-        audit_report_file=Path(args.audit_report).resolve()
-        if args.audit_report
-        else None,
+        audit_report_file=(
+            Path(args.audit_report).resolve() if args.audit_report else None
+        ),
         target_modules=tuple(args.modules or DEFAULT_TARGET_MODULES),
         target_items=tuple(args.items or ()),
         dry_run=bool(args.dry_run),
@@ -870,6 +885,39 @@ def starts_with_formula_prefix_noise(term: str) -> bool:
     return bool(term) and term[0] in FORMULA_PREFIX_START_CHARS
 
 
+def is_low_value_long_natural_exact(term: str, spec: FieldSpec, kind: str) -> bool:
+    """判断低价值文本字段的 full/compact 整句是否过长。"""
+
+    return bool(
+        spec.name in LOW_VALUE_NATURAL_EXACT_FIELDS
+        and kind in {"full", "compact"}
+        and contains_cjk(term)
+        and len(term) > MAX_LOW_VALUE_NATURAL_EXACT_LENGTH
+    )
+
+
+def is_low_value_long_natural_token(term: str, spec: FieldSpec, kind: str) -> bool:
+    """判断低价值文本字段拆出的 token 是否仍然太像长句。"""
+
+    return bool(
+        spec.name in LOW_VALUE_NATURAL_EXACT_FIELDS
+        and kind == "token"
+        and contains_cjk(term)
+        and len(term) > MAX_LOW_VALUE_NATURAL_TOKEN_LENGTH
+    )
+
+
+def is_low_value_long_natural_prefix(term: str, spec: FieldSpec, kind: str) -> bool:
+    """判断低价值文本字段是否不适合继续展开前缀。"""
+
+    return bool(
+        spec.name in LOW_VALUE_NATURAL_EXACT_FIELDS
+        and kind in {"full", "compact", "token"}
+        and contains_cjk(term)
+        and len(term) > MAX_LOW_VALUE_NATURAL_TOKEN_LENGTH
+    )
+
+
 def informative_exact(term: str) -> bool:
     """判断一个词是否值得进入精确倒排。
 
@@ -900,11 +948,23 @@ def exact_drop_reason(term: str, spec: FieldSpec, kind: str) -> str | None:
         return "uninformative_exact"
     if spec.treat_as_formula and kind == "token":
         return "formula_auto_token"
-    if not spec.treat_as_formula and kind == "token" and is_formula_fragment_token(term):
+    if (
+        not spec.treat_as_formula
+        and kind == "token"
+        and is_formula_fragment_token(term)
+    ):
         return "formula_fragment_from_text"
+    if is_low_value_long_natural_exact(term, spec, kind):
+        return "long_low_value_natural_exact"
+    if is_low_value_long_natural_token(term, spec, kind):
+        return "long_low_value_natural_token"
     if spec.name == "pinyin" and kind == "full" and WHITESPACE_RE.search(term):
         return "spaced_pinyin_full"
-    if kind == "pinyin" and is_compact_latin(term) and len(term) > MAX_PINYIN_EXACT_LENGTH:
+    if (
+        kind == "pinyin"
+        and is_compact_latin(term)
+        and len(term) > MAX_PINYIN_EXACT_LENGTH
+    ):
         return "long_pinyin_exact"
     if (
         kind == "pinyin_abbr"
@@ -933,9 +993,15 @@ def prefix_drop_reason(term: str, spec: FieldSpec, kind: str) -> str | None:
         return "formula_prefix"
     if starts_with_formula_prefix_noise(term):
         return "symbol_prefix"
+    if is_low_value_long_natural_prefix(term, spec, kind):
+        return "long_low_value_natural_prefix"
     if not contains_cjk(term) and WHITESPACE_RE.search(term):
         return "spaced_latin_prefix"
-    if not spec.treat_as_formula and kind == "token" and is_formula_fragment_token(term):
+    if (
+        not spec.treat_as_formula
+        and kind == "token"
+        and is_formula_fragment_token(term)
+    ):
         return "formula_fragment_prefix_from_text"
     return None
 
