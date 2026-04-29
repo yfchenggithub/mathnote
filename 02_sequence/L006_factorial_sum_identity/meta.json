@@ -1,0 +1,161 @@
+{
+  "id": "L006",
+  "module": "sequence",
+  "core": {
+    "title": "阶乘裂项求和公式",
+    "alias": [
+      "阶乘求和恒等式",
+      "阶乘累加公式",
+      "k·k!裂项求和",
+      "阶乘求和等于下一阶乘减一",
+      "sum k k factorial"
+    ],
+    "summary": "把 k·k! 改写成 (k+1)!-k!，求和后中间阶乘相消，得到 1!+2·2!+...+n·n!=(n+1)!-1。",
+    "difficulty": 2,
+    "category": "数列求和",
+    "tags": ["阶乘", "数列求和", "裂项相消", "恒等式", "差分求和"]
+  },
+  "search": {
+    "keywords": [
+      "阶乘求和",
+      "阶乘裂项",
+      "k·k!",
+      "k*k!",
+      "n·n!",
+      "n*n!",
+      "1!+2·2!+...+n·n!",
+      "sum k k!",
+      "(n+1)!-1",
+      "下一阶乘减一",
+      "裂项相消",
+      "差分求和",
+      "阶乘累加",
+      "从2开始阶乘求和",
+      "反求n"
+    ],
+    "synonyms": [
+      "阶乘相加",
+      "连续阶乘和",
+      "阶乘减一公式",
+      "k乘k的阶乘",
+      "阶乘裂项求和",
+      "阶乘差分求和"
+    ],
+    "intents": [
+      "计算阶乘和",
+      "证明阶乘恒等式",
+      "使用裂项求和",
+      "求值",
+      "反求n",
+      "处理下限不是1的阶乘和"
+    ],
+    "query_templates": [
+      "阶乘裂项求和公式是什么",
+      "如何证明1!+2*2!+...+n*n!=(n+1)!-1",
+      "计算1!+2*2!+3*3!+4*4!+5*5!",
+      "计算2*2!+3*3!+...+n*n!",
+      "已知阶乘和等于5039求n",
+      "k*k!怎么裂项"
+    ],
+    "ocrKeywords": [
+      "1! + 2·2! + 3·3! + … + n·n!",
+      "(n+1)! - 1",
+      "正整数n",
+      "k·k!",
+      "裂项相消"
+    ],
+    "latex_patterns": [
+      "1! + 2 \\cdot 2! + 3 \\cdot 3! + \\cdots + n \\cdot n! = (n+1)! - 1",
+      "\\sum_{k=1}^{n} k \\cdot k! = (n+1)! - 1",
+      "k \\cdot k! = (k+1)! - k!",
+      "\\sum_{k=r}^{n} k \\cdot k! = (n+1)! - r!"
+    ],
+    "formulaTokens": [
+      "1!",
+      "2\\cdot2!",
+      "n\\cdot n!",
+      "k\\cdot k!",
+      "(k+1)!-k!",
+      "(n+1)!-1",
+      "(n+1)!-r!"
+    ],
+    "pinyin": "jie cheng lie xiang qiu he gong shi",
+    "pinyinAbbr": "jclxqhgs"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 8
+  },
+  "ranking": {
+    "search_boost": 0.72,
+    "hot_score": 72,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\sum_{k=1}^{n} k \\cdot k! = (n+1)! - 1",
+    "related_formulas": [
+      "k \\cdot k! = (k+1)! - k!",
+      "1! + 2 \\cdot 2! + 3 \\cdot 3! + \\cdots + n \\cdot n! = (n+1)! - 1",
+      "\\sum_{k=r}^{n} k \\cdot k! = (n+1)! - r!"
+    ],
+    "variables": {
+      "n": "正整数",
+      "k": "求和下标，1≤k≤n",
+      "r": "变式下限，1≤r≤n"
+    },
+    "conditions": "主公式要求 n∈ℕ⁺；若使用从 r 开始的变式，要求 1≤r≤n。",
+    "conclusions": "阶乘型通项 k·k! 可裂项为相邻阶乘之差，从而快速求和。"
+  },
+  "content": {
+    "statement": "对于任意正整数 n，有 1!+2·2!+3·3!+…+n·n!=(n+1)!-1。",
+    "derivation": [
+      "对每一项裂项：k·k!=(k+1)!-k!。",
+      "求和：∑_{k=1}^n [(k+1)!-k!] = (n+1)!-1!。",
+      "因为 1!=1，所以结果为 (n+1)!-1。"
+    ],
+    "intuition": "把 k·k! 看成阶乘序列的相邻差，累加时中间阶乘全部抵消，只剩末项减首项。",
+    "common_tricks": [
+      "从 1 开始求和时直接得到 (n+1)!-1。",
+      "从 r 开始求和时使用 (n+1)!-r!，不要误减 1。",
+      "反求 n 时先把和加 1，再匹配常见阶乘值。",
+      "遇到 k·k! 先验算裂项 k·k!=(k+1)!-k!。"
+    ]
+  },
+  "usage": {
+    "scenarios": ["数列求和计算", "裂项相消", "恒等式证明", "阶乘方程反求项数"],
+    "problem_types": ["求和计算", "反求项数", "证明恒等式", "选择题速算"],
+    "exam_frequency": 0.6,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "L006.svg",
+    "png": "",
+    "gif": ""
+  },
+  "shareConfig": {
+    "title": "阶乘裂项求和：下一阶乘减一",
+    "shareDesc": "遇到 k·k! 先裂项成 (k+1)!-k!，中间项相消后只剩首尾，适合数列求和与反求项数。"
+  },
+  "relations": {
+    "prerequisites": ["阶乘定义", "裂项求和思想", "数列求和基本方法"],
+    "related_ids": [],
+    "similar": "与 ∑1/[k(k+1)] 的裂项相消思想类似，都是把通项改写为相邻两项之差。"
+  },
+  "meta": {
+    "version": 2,
+    "source": "AI修订",
+    "created_at": "2026-04-29"
+  },
+  "isPro": 0,
+  "remarks": "标题从“阶乘求和恒等式”优化为“阶乘裂项求和公式”，更突出搜索意图和解题方法。",
+  "knowledgeNode": "数列-求和技巧-裂项相消",
+  "altNodes": ["代数-式的变形-恒等变形"]
+}

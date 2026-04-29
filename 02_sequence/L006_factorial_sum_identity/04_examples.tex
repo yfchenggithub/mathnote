@@ -1,0 +1,87 @@
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 1（基础）}}
+
+\textbf{\textcolor{CExample}{题目：}} 计算 $1!+2\cdot2!+3\cdot3!+4\cdot4!+5\cdot5!$ 的值。
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第一步（识别公式）：}] 原式正是 $1!+2\cdot2!+\cdots+n\cdot n!$ 的形式，其中 $n=5$。
+    \par\textbf{理由：} 系数与阶乘下标一致，符合阶乘裂项求和公式。
+
+    \item[\textbf{第二步（套用公式）：}] 
+    \[
+    1!+2\cdot2!+3\cdot3!+4\cdot4!+5\cdot5!=(5+1)!-1.
+    \]
+    \par\textbf{理由：} 直接使用 $\sum_{k=1}^{n}k\cdot k!=(n+1)!-1$。
+
+    \item[\textbf{第三步（计算结果）：}] 
+    \[
+    (5+1)!-1=6!-1=720-1=719.
+    \]
+    \par\textbf{理由：} $6!=720$。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{$\boxed{719}$}
+
+\medskip
+\textbf{\textcolor{CExample}{例 2（下限变式）}}
+
+\textbf{\textcolor{CExample}{题目：}} 求 $2\cdot2!+3\cdot3!+4\cdot4!+5\cdot5!$ 的值。
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第一步（判断下限）：}] 这个和式从 $k=2$ 开始，不是从 $k=1$ 开始。
+    \par\textbf{理由：} 不能直接套成 $(5+1)!-1$，否则会多算 $1!$。
+
+    \item[\textbf{第二步（使用变形）：}] 由
+    \[
+    \sum_{k=r}^{n}k\cdot k!=(n+1)!-r!,
+    \]
+    取 $r=2,n=5$，得
+    \[
+    2\cdot2!+3\cdot3!+4\cdot4!+5\cdot5!=6!-2!.
+    \]
+    \par\textbf{理由：} 裂项后保留末项 $(5+1)!$ 和首项 $2!$。
+
+    \item[\textbf{第三步（计算结果）：}] 
+    \[
+    6!-2!=720-2=718.
+    \]
+    \par\textbf{理由：} $6!=720,\ 2!=2$。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{$\boxed{718}$}
+
+\medskip
+\textbf{\textcolor{CExample}{例 3（反求项数）}}
+
+\textbf{\textcolor{CExample}{题目：}} 已知
+\[
+1!+2\cdot2!+3\cdot3!+\cdots+n\cdot n!=5039,
+\]
+求正整数 $n$。
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第一步（建立方程）：}] 由公式得
+    \[
+    (n+1)!-1=5039.
+    \]
+    \par\textbf{理由：} 原和式正是 $\sum_{k=1}^{n}k\cdot k!$。
+
+    \item[\textbf{第二步（移项）：}] 
+    \[
+    (n+1)!=5040.
+    \]
+    \par\textbf{理由：} 两边同时加 $1$。
+
+    \item[\textbf{第三步（匹配阶乘）：}] 因为
+    \[
+    7!=5040,
+    \]
+    所以 $n+1=7$，即 $n=6$。
+    \par\textbf{理由：} 常见阶乘值：$6!=720,\ 7!=5040$。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{$\boxed{6}$}
+\end{examplebox}

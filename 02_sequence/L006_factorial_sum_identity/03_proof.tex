@@ -1,0 +1,56 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+
+先证明核心裂项
+\[
+k\cdot k!=(k+1)!-k!,
+\]
+再把 $k=1,2,\dots,n$ 的等式逐项相加，利用中间项抵消得到结论。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（验证裂项）：}] 对任意正整数 $k$，有
+    \[
+    (k+1)!-k!=(k+1)k!-k!=[(k+1)-1]k!=k\cdot k!.
+    \]
+    \par\textbf{理由：} 利用阶乘定义 $(k+1)!=(k+1)k!$，再提取公因式 $k!$。
+
+    \item[\textbf{步骤二（代入求和）：}] 因此
+    \[
+    \sum_{k=1}^{n}k\cdot k!=\sum_{k=1}^{n}\bigl[(k+1)!-k!\bigr].
+    \]
+    \par\textbf{理由：} 将每一项 $k\cdot k!$ 都替换为相邻阶乘之差。
+
+    \item[\textbf{步骤三（展开观察）：}] 展开右端：
+    \[
+    \begin{aligned}
+    \sum_{k=1}^{n}\bigl[(k+1)!-k!\bigr]
+    &=(2!-1!)+(3!-2!)+(4!-3!)+\cdots+\bigl((n+1)!-n!\bigr)\\
+    &=-1!+(2!-2!)+(3!-3!)+\cdots+(n!-n!)+(n+1)!.
+    \end{aligned}
+    \]
+    \par\textbf{理由：} $2!,3!,\dots,n!$ 都一正一负成对出现。
+
+    \item[\textbf{步骤四（裂项相消）：}] 中间项全部抵消，只剩
+    \[
+    \sum_{k=1}^{n}k\cdot k!=(n+1)!-1!.
+    \]
+    \par\textbf{理由：} 裂项求和只保留最后一项与最前一项。
+
+    \item[\textbf{步骤五（代入 $1!=1$）：}] 由于 $1!=1$，所以
+    \[
+    \sum_{k=1}^{n}k\cdot k!=(n+1)!-1.
+    \]
+    \par\textbf{理由：} 将 $1!$ 化为具体数值 $1$。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+
+因此
+\[
+1!+2\cdot2!+3\cdot3!+\cdots+n\cdot n!=(n+1)!-1.
+\]
+证明的核心不是硬算，而是先裂项，再相消。
+\end{proofbox}

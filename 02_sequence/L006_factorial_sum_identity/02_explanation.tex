@@ -1,0 +1,51 @@
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+看到 $k\cdot k!$，要立刻想到把它改写成相邻阶乘之差 $(k+1)!-k!$；一求和，中间阶乘全部抵消，只剩首尾。
+
+\medskip
+\textbf{\textcolor{CExplanation}{核心拆解}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{要点一（识别通项）：}] 通项形如 $k\cdot k!$，系数 $k$ 正好等于阶乘的下标。
+    \item[\textbf{要点二（裂项公式）：}] 由 $(k+1)!=(k+1)k!$ 得
+    \[
+    (k+1)!-k!=[(k+1)-1]k!=k\cdot k!.
+    \]
+    \item[\textbf{要点三（首尾保留）：}] 从 $k=1$ 累加到 $n$ 时，$2!,3!,\dots,n!$ 全部成对抵消，只剩 $(n+1)!-1!$。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CExplanation}{本质（裂项相消）}}
+
+本结论不是“矩形面积”问题，核心是\textbf{裂项相消}：把一个不容易直接求和的阶乘通项，转化成相邻两项之差，使求和过程自动抵消。
+
+\medskip
+\textbf{\textcolor{CExplanation}{代数意义（阶乘差分）}}
+
+$k\cdot k!$ 可以看成阶乘序列 $k!$ 的“相邻差”：
+\[
+(k+1)!-k!=k\cdot k!.
+\]
+所以它的求和，本质上就是阶乘序列的差分求和。
+
+\medskip
+\textbf{\textcolor{CExplanation}{考点价值（数列求和）}}
+\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+    \item \textbf{考法一（直接求值）：} 给出 $n$，快速计算 $1!+2\cdot2!+\cdots+n\cdot n!$。
+    \item \textbf{考法二（变式求和）：} 求 $r\cdot r!+(r+1)\cdot(r+1)!+\cdots+n\cdot n!$。
+    \item \textbf{考法三（反求项数）：} 已知和的值，通过 $(n+1)!-1$ 反求 $n$。
+\end{itemize}
+
+\medskip
+\textbf{\textcolor{CExplanation}{顿悟点}}
+
+不要硬算阶乘和。只要通项是 $k\cdot k!$，就把它看成“下一阶乘减当前阶乘”。
+
+\medskip
+\textbf{\textcolor{CExplanation}{使用场景}}
+\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+    \item \textbf{场景一（阶乘类求和）：} 遇到形如 $\sum k\cdot k!$ 的数列求和。
+    \item \textbf{场景二（错项纠偏）：} 下限不是 $1$ 时，先写成 $(n+1)!-r!$，避免漏减首项。
+    \item \textbf{场景三（恒等式证明）：} 用裂项相消证明阶乘相关恒等式。
+\end{itemize}
+\end{explanationbox}
