@@ -1,21 +1,21 @@
 \begin{trapbox}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-    \item[\textbf{\textcolor{CTrap}{易错点一（忘记范围）}}] 当 $m=1$ 时，认为 $A_n^1 = (n-1+1)A_n^0$，但 $A_n^0$ 未定义，导致错误。
-    \item[\textbf{\textcolor{CTrap}{正确理解（范围限制）：}}] 递推公式仅适用于 $2\le m\le n$；$m=1$ 时 $A_n^1 = n$ 为已知。
-    \item[\textbf{\textcolor{CTrap}{错因分析（定义缺失）：}}] 未注意到 $A_n^{m-1}$ 当 $m-1=0$ 时没有排列意义。
+    \item[\textbf{\textcolor{CTrap}{易错点一（忽略适用范围）}}] 看到 $A_n^1$ 就机械套用 $A_n^m=(n-m+1)A_n^{m-1}$，写成 $A_n^1=nA_n^0$。
+    \item[\textbf{\textcolor{CTrap}{正确理解（按讲义范围使用）：}}] 本讲义把递推公式限定在 $2\le m\le n$，此时 $A_n^{m-1}$ 至少是 $A_n^1$，不需要讨论 $A_n^0$。
+    \item[\textbf{\textcolor{CTrap}{错因分析（教材约定差异）：}}] 有些教材或资料会约定 $A_n^0=1$，此时公式在 $m=1$ 时也形式成立；但高中题目若未明确引入 $A_n^0$，建议直接用 $A_n^1=n$，不要强行递推。
 \end{description}
 
 \medskip
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-    \item[\textbf{\textcolor{CTrap}{易错点二（因子错误）}}] 误写为 $A_n^m = (n-m)A_n^{m-1}$，漏掉 $+1$。
-    \item[\textbf{\textcolor{CTrap}{正确理解（因子正确）：}}] 正确因子是 $n-m+1$，可通过定义验证：$A_n^m = (n-m+1)A_n^{m-1}$。
-    \item[\textbf{\textcolor{CTrap}{错因分析（记忆混淆）：}}] 与组合数递推 $C_n^m = \frac{n-m+1}{m}C_n^{m-1}$ 混淆，或误以为最后一位有 $n-m$ 种选择。
+    \item[\textbf{\textcolor{CTrap}{易错点二（因子错误）}}] 误写为 $A_n^m=(n-m)A_n^{m-1}$，漏掉 $+1$。
+    \item[\textbf{\textcolor{CTrap}{正确理解（因子正确）：}}] 正确因子是 $n-m+1$，因为前 $m-1$ 个位置排好后，只用了 $m-1$ 个元素，还剩 $n-(m-1)=n-m+1$ 个。
+    \item[\textbf{\textcolor{CTrap}{错因分析（记忆混淆）：}}] 容易把“第 $m$ 个位置之前已经用了 $m-1$ 个”误记成“已经用了 $m$ 个”，于是把剩余个数错写成 $n-m$。
 \end{description}
 
 \medskip
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-    \item[\textbf{\textcolor{CTrap}{易错点三（参数对应错误）}}] 在使用递推时，将 $n$ 与 $m$ 位置搞反，例如写成 $A_n^m = (n-m+1)A_{n-1}^{m}$。
-    \item[\textbf{\textcolor{CTrap}{正确理解（参数对应）：}}] 递推公式中下标 $n$ 不变，上标减小 $1$，系数为 $n-m+1$，即 $A_n^m = (n-m+1)A_n^{m-1}$。
-    \item[\textbf{\textcolor{CTrap}{错因分析（结构误解）：}}] 误以为递推是降低 $n$ 而非降低 $m$，或不理解系数与剩余元素个数的关系。
+    \item[\textbf{\textcolor{CTrap}{易错点三（参数对应错误）}}] 在使用递推时，将 $n$ 与 $m$ 的变化方向搞反，例如写成 $A_n^m=(n-m+1)A_{n-1}^{m}$。
+    \item[\textbf{\textcolor{CTrap}{正确理解（参数对应）：}}] 公式 $A_n^m=(n-m+1)A_n^{m-1}$ 中，下标 $n$ 不变，上标由 $m-1$ 变为 $m$。
+    \item[\textbf{\textcolor{CTrap}{错因分析（结构误解）：}}] 这个递推是在“多排一个位置”，不是在“减少元素总数”。如果要减少下标，应使用另一变形 $A_n^m=nA_{n-1}^{m-1}$。
 \end{description}
 \end{trapbox}

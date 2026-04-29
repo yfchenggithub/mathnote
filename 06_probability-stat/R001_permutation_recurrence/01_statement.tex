@@ -1,19 +1,20 @@
 \begin{statementbox}
 \textbf{\textcolor{CStatement}{条件}}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-    \item[\textbf{\textcolor{CStatement}{条件1（正整数范围）：}}] 给定正整数 $n, m$，满足 $2 \le m \le n$。
+    \item[\textbf{\textcolor{CStatement}{条件1（正整数范围）：}}] 给定正整数 $n,m$，满足 $2 \le m \le n$。
+    \item[\textbf{\textcolor{CStatement}{条件2（符号约定）：}}] 本讲义采用高中常用记法 $A_n^m$，表示从 $n$ 个不同元素中取出 $m$ 个并按顺序排列的总数。
 \end{description}
 
 \textbf{\textcolor{CStatement}{结论}}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{\textcolor{CStatement}{结论一（递推公式）：}}]
-    \textbf{\textcolor{CStatement}{直观描述：}} 排列数 $A_n^m$ 可从前一个排列数 $A_n^{m-1}$ 乘以一个因子得到。
+    \item[\textbf{\textcolor{CStatement}{结论一（按取出个数递推）：}}]
+    \textbf{\textcolor{CStatement}{直观描述：}} 从 $A_n^{m-1}$ 走到 $A_n^m$，只需要再补上第 $m$ 个位置；此时还有 $n-m+1$ 个元素可选。
     \[
-    A_n^m = (n - m + 1) A_n^{m-1}.
+    A_n^m = (n-m+1)A_n^{m-1}.
     \]
 
-    \item[\textbf{\textcolor{CStatement}{常见变形（另一递推）：}}]
-    \textbf{\textcolor{CStatement}{直观描述：}} 也可从 $A_{n-1}^{m-1}$ 乘以 $n$ 得到。
+    \item[\textbf{\textcolor{CStatement}{常见变形（先固定首位）：}}]
+    \textbf{\textcolor{CStatement}{直观描述：}} 也可以先确定一个位置上的元素，再从剩下 $n-1$ 个元素中取 $m-1$ 个排列。
     \[
     A_n^m = n \cdot A_{n-1}^{m-1}.
     \]

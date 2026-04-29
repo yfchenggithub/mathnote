@@ -1,41 +1,55 @@
 \begin{explanationbox}
 \textbf{\textcolor{CExplanation}{一句话直觉}}
 
-排列数的递推公式体现了“位置填充”思想：先排好前 $m-1$ 个元素，最后一位有 $n-(m-1)=n-m+1$ 种选择。
+排列数递推的核心是“先排 $m-1$ 个，再补第 $m$ 个”：前 $m-1$ 个位置排好以后，已经用掉 $m-1$ 个不同元素，还剩
+\[
+    n-(m-1)=n-m+1
+\]
+个元素可放在第 $m$ 个位置。
 
 \medskip
 \textbf{\textcolor{CExplanation}{核心拆解}}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{要点一（符号含义）：}] $A_n^m$ 表示从 $n$ 个不同元素中取出 $m$ 个按顺序排列的总数。
-    \item[\textbf{要点二（因子含义）：}] $(n-m+1)$ 表示选定前 $m-1$ 个后，剩余可选元素的个数。
+    \item[\textbf{要点一（符号含义）：}] $A_n^m$ 表示从 $n$ 个不同元素中取出 $m$ 个并按顺序排列的总数。
+    \item[\textbf{要点二（递推方向）：}] 公式 $A_n^m=(n-m+1)A_n^{m-1}$ 中，下标 $n$ 不变，上标从 $m-1$ 增加到 $m$。
+    \item[\textbf{要点三（因子含义）：}] 系数 $n-m+1$ 表示补第 $m$ 个位置时剩余可选元素的个数。
 \end{description}
 
 \medskip
-\textbf{\textcolor{CExplanation}{几何本质（分支结构）}}
+\textbf{\textcolor{CExplanation}{计数本质（分支结构）}}
 
-排列过程对应一棵多叉树：第一层有 $n$ 个分支，第二层每个节点有 $n-1$ 个分支，以此类推。第 $m$ 层每个节点有 $n-m+1$ 个分支。
+排列过程可以看成逐层分支：第 $1$ 个位置有 $n$ 种选法，第 $2$ 个位置有 $n-1$ 种选法，依次类推。若前 $m-1$ 个位置已经排好，那么第 $m$ 个位置正好有 $n-m+1$ 种选法。
 
 \medskip
 \textbf{\textcolor{CExplanation}{代数意义（阶乘比值）}}
 
-$A_n^m = \frac{n!}{(n-m)!}$，而 $A_n^{m-1} = \frac{n!}{(n-m+1)!}$，两者相差因子 $(n-m+1)$。
+\[
+A_n^m=\frac{n!}{(n-m)!},\qquad
+A_n^{m-1}=\frac{n!}{(n-m+1)!}.
+\]
+因此
+\[
+\frac{A_n^m}{A_n^{m-1}}
+=\frac{\dfrac{n!}{(n-m)!}}{\dfrac{n!}{(n-m+1)!}}
+=n-m+1.
+\]
 
 \medskip
 \textbf{\textcolor{CExplanation}{考点价值（化简与证明）}}
 \begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-    \item \textbf{考法一（化简计算）：} 已知 $A_n^{m-1}$ 时快速计算 $A_n^m$，避免重新计算。
-    \item \textbf{考法二（证明恒等式）：} 在排列恒等式推导中作为核心变形工具。
+    \item \textbf{考法一（化简计算）：} 已知 $A_n^{m-1}$ 时快速计算 $A_n^m$，避免从定义重新展开。
+    \item \textbf{考法二（证明恒等式）：} 将相邻排列数统一成同一个 $A_n^m$ 或 $A_n^{m-1}$，方便合并同类项。
 \end{itemize}
 
 \medskip
 \textbf{\textcolor{CExplanation}{顿悟点}}
 
-递推公式反映了“逐步安排位置”的计数原理：最后一位的选择不影响前面位置的结果，因此可以分离出因子。
+这个公式不是死记硬背，而是在数“最后补上的那个位置有几种选法”。只要记住“已用 $m-1$ 个，还剩 $n-m+1$ 个”，系数就不会漏掉 $+1$。
 
 \medskip
 \textbf{\textcolor{CExplanation}{使用场景}}
 \begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-    \item \textbf{场景一（递推求值）：} 从 $A_n^1$ 逐步递推到 $A_n^m$。
-    \item \textbf{场景二（证明等式）：} 用于化简含有 $A_n^m$ 和 $A_n^{m-1}$ 的代数式。
+    \item \textbf{场景一（递推求值）：} 从一个已知的相邻排列数出发，快速求另一个排列数。
+    \item \textbf{场景二（证明等式）：} 用于化简含有 $A_n^m$、$A_n^{m-1}$、$A_{n+1}^{m+1}$ 等相邻结构的代数式。
 \end{itemize}
 \end{explanationbox}

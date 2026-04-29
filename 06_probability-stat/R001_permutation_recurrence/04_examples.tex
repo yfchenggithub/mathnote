@@ -1,44 +1,56 @@
 \begin{examplebox}
 \textbf{\textcolor{CExample}{例1（基础）}}
 
-\textbf{\textcolor{CExample}{题目：}} 已知 $A_5^3 = 60$，利用递推公式求 $A_5^4$。
+\textbf{\textcolor{CExample}{题目：}} 已知 $A_5^3=60$，利用递推公式求 $A_5^4$。
 
 \textbf{\textcolor{CExample}{解题步骤：}}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{第一步（识别变量）：}] 题目中 $n=5$, $m=4$，满足 $2\le m\le n$。
-    \par\textbf{理由：} 递推公式要求 $m\ge2$。
+    \item[\textbf{第一步（识别变量）：}] 题目中 $n=5$，要求的是 $m=4$，满足 $2\le m\le n$。
+    \par\textbf{理由：} 可以使用 $A_n^m=(n-m+1)A_n^{m-1}$。
 
-    \item[\textbf{第二步（套用公式）：}] 代入公式 $A_n^m = (n-m+1)A_n^{m-1}$。
+    \item[\textbf{第二步（套用公式）：}] 代入递推公式。
     \[
-    A_5^4 = (5-4+1) \cdot A_5^3.
+    A_5^4=(5-4+1)A_5^3.
     \]
-    \par\textbf{理由：} 直接使用结论。
+    \par\textbf{理由：} 从 $A_5^3$ 到 $A_5^4$，只需再补第 $4$ 个位置。
 
     \item[\textbf{第三步（计算结果）：}] 计算数值。
     \[
-    A_5^4 = (2) \cdot 60 = 120.
+    A_5^4=2\times60=120.
     \]
-    \par\textbf{理由：} 代入已知值 $A_5^3=60$。
+    \par\textbf{理由：} 已知 $A_5^3=60$，且此时剩余可选元素数为 $2$。
 \end{description}
 
-\textbf{\textcolor{CExample}{关键结论：}} \textbf{$A_5^4 = 120$，与直接计算 $5\times4\times3\times2=120$ 一致。}
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{$A_5^4=120$，与直接计算 $5\times4\times3\times2=120$ 一致。}
 
 \medskip
 \textbf{\textcolor{CExample}{例2（稍变形）}}
 
-\textbf{\textcolor{CExample}{题目：}} 已知 $A_n^3 = 120$，求正整数 $n$。
+\textbf{\textcolor{CExample}{题目：}} 已知 $A_n^3=120$，求正整数 $n$。
 
 \textbf{\textcolor{CExample}{解题步骤：}}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{第一步（递推转化）：}] 利用递推公式 $A_n^3 = (n-2)A_n^2$。
-    \par\textbf{理由：} 令 $m=3$，得 $n-m+1=n-2$。
+    \item[\textbf{第一步（递推转化）：}] 利用递推公式
+    \[
+    A_n^3=(n-2)A_n^2.
+    \]
+    \par\textbf{理由：} 令 $m=3$，则 $n-m+1=n-2$。
 
-    \item[\textbf{第二步（表示 $A_n^2$）：}] $A_n^2 = n(n-1)$。
-    \par\textbf{理由：} 排列数定义。
+    \item[\textbf{第二步（表示 $A_n^2$）：}] 由定义得
+    \[
+    A_n^2=n(n-1).
+    \]
+    \par\textbf{理由：} 从 $n$ 个元素中依次取 $2$ 个，分别有 $n$ 种和 $n-1$ 种选法。
 
-    \item[\textbf{第三步（建立方程）：}] 代入得 $120 = (n-2) \cdot n(n-1)$，即 $n(n-1)(n-2)=120$。
-    \par\textbf{理由：} 解三次方程。
-    解得 $n=6$（因为 $6\cdot5\cdot4=120$）。
+    \item[\textbf{第三步（建立方程）：}] 代入 $A_n^3=120$，得
+    \[
+    n(n-1)(n-2)=120.
+    \]
+    \par\textbf{理由：} 因为 $A_n^3$ 有意义，所以 $n\ge3$。在正整数范围内试验相邻三数乘积：
+    \[
+    6\times5\times4=120,
+    \]
+    所以 $n=6$。
 \end{description}
 
 \textbf{\textcolor{CExample}{关键结论：}} \textbf{$n=6$。}
@@ -46,21 +58,38 @@
 \medskip
 \textbf{\textcolor{CExample}{例3（综合应用）}}
 
-\textbf{\textcolor{CExample}{题目：}} 证明恒等式 $A_{n+1}^{m+1} = A_n^{m+1} + (m+1)A_n^m$。
+\textbf{\textcolor{CExample}{题目：}} 设 $n,m$ 为正整数，且 $1\le m\le n-1$，证明恒等式
+\[
+A_{n+1}^{m+1}=A_n^{m+1}+(m+1)A_n^m.
+\]
 
 \textbf{\textcolor{CExample}{解题步骤：}}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{第一步（应用另一递推）：}] 对 $A_{n+1}^{m+1}$ 使用常见变形 $A_{n+1}^{m+1} = (n+1) A_n^m$。
-    \par\textbf{理由：} 由 $A_N^M = N \cdot A_{N-1}^{M-1}$（令 $N=n+1, M=m+1$）。
-
-    \item[\textbf{第二步（应用原递推）：}] 对 $A_n^{m+1}$ 使用原公式 $A_n^{m+1} = (n-m) A_n^m$。
-    \par\textbf{理由：} 原公式 $A_n^m = (n-m+1)A_n^{m-1}$，将 $m$ 替换为 $m+1$ 得 $A_n^{m+1} = (n-(m+1)+1)A_n^m = (n-m)A_n^m$。
-
-    \item[\textbf{第三步（合并相等）：}] 将两式相加：
+    \item[\textbf{第一步（转化左边）：}] 对 $A_{n+1}^{m+1}$ 使用变形公式。
     \[
-    A_n^{m+1} + (m+1)A_n^m = (n-m)A_n^m + (m+1)A_n^m = (n+1)A_n^m = A_{n+1}^{m+1}.
+    A_{n+1}^{m+1}=(n+1)A_n^m.
     \]
-    \par\textbf{理由：} 代数恒等式。
+    \par\textbf{理由：} 由 $A_N^M=N\cdot A_{N-1}^{M-1}$，令 $N=n+1$，$M=m+1$。
+
+    \item[\textbf{第二步（转化右边第一项）：}] 对 $A_n^{m+1}$ 使用递推公式。
+    \[
+    A_n^{m+1}=(n-m)A_n^m.
+    \]
+    \par\textbf{理由：} 将 $A_n^m=(n-m+1)A_n^{m-1}$ 中的 $m$ 替换为 $m+1$，得
+    \[
+    A_n^{m+1}=\bigl(n-(m+1)+1\bigr)A_n^m=(n-m)A_n^m.
+    \]
+
+    \item[\textbf{第三步（合并右边）：}] 将右边统一成 $A_n^m$。
+    \[
+    \begin{aligned}
+    A_n^{m+1}+(m+1)A_n^m
+    &=(n-m)A_n^m+(m+1)A_n^m\\
+    &=(n+1)A_n^m\\
+    &=A_{n+1}^{m+1}.
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 两项合并后，系数正好变成 $n+1$。
 \end{description}
 
 \textbf{\textcolor{CExample}{关键结论：}} \textbf{恒等式成立。}
