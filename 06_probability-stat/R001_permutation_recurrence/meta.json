@@ -1,0 +1,151 @@
+{
+  "id": "R001",
+  "module": "probability-stat",
+  "core": {
+    "title": "排列数递推公式",
+    "alias": [
+      "排列递推",
+      "排列数步进公式"
+    ],
+    "summary": "通过乘法因子 (n-m+1) 实现排列数从 m-1 到 m 的递推。",
+    "difficulty": 2,
+    "category": "排列组合",
+    "tags": [
+      "排列组合",
+      "排列数",
+      "递推公式",
+      "计数原理",
+      "排列数递推"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "排列数",
+      "递推公式",
+      "A_n^m",
+      "正整数",
+      "n-m+1",
+      "排列数公式",
+      "步进",
+      "计数原理",
+      "排列递推",
+      "A_n^{m-1}",
+      "恒等式",
+      "排列计算"
+    ],
+    "synonyms": [
+      "排列递推式",
+      "排列公式递推",
+      "排列数递推关系"
+    ],
+    "intents": [
+      "求排列数",
+      "计算排列",
+      "递推排列",
+      "证明恒等式"
+    ],
+    "query_templates": [
+      "排列数递推公式",
+      "A_n^m 等于什么",
+      "怎么递推排列数",
+      "排列数步进公式"
+    ],
+    "ocrKeywords": [
+      "排列数",
+      "正整数",
+      "m≤n",
+      "A_n^m",
+      "n-m+1",
+      "递推"
+    ],
+    "latex_patterns": [
+      "A_n^m = (n-m+1) A_n^{m-1}"
+    ],
+    "formulaTokens": [
+      "A_n^m",
+      "n-m+1",
+      "A_n^{m-1}",
+      "(n-m+1)A_n^{m-1}"
+    ],
+    "pinyin": "pai lie shu di tui gong shi",
+    "pinyinAbbr": "plsdtgs"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.58,
+    "hot_score": 60,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "A_n^m = (n - m + 1) A_n^{m-1}",
+    "related_formulas": [
+      "A_n^m = n \\cdot A_{n-1}^{m-1}"
+    ],
+    "variables": "n, m",
+    "conditions": "n, m \\in \\mathbb{N}^+, 2 \\le m \\le n",
+    "conclusions": "排列数可以按 m 递增递推；可用于证明恒等式 A_{n+1}^{m+1} = A_n^{m+1} + (m+1)A_n^m"
+  },
+  "content": {
+    "statement": "设正整数 n, m 满足 2 \\le m \\le n，则有 A_n^m = (n - m + 1) A_n^{m-1}。",
+    "derivation": [
+      "由排列数定义：A_n^m = n(n-1)\\cdots(n-m+1) = (n-m+1) \\cdot n(n-1)\\cdots(n-m+2)",
+      "而 n(n-1)\\cdots(n-m+2) = A_n^{m-1}，因此成立。"
+    ],
+    "intuition": "从 n 个元素中选 m 个排列，可以先选出 m-1 个元素排列（A_n^{m-1}），再从未选的 n-(m-1) 个元素中选一个放在第 m 个位置，共 n-m+1 种可能。",
+    "common_tricks": [
+      "注意因子是 n-m+1 而非 n-m，容易出错",
+      "可用于将高次排列数逐步降低阶数计算",
+      "常与另一递推 A_n^m = n \\cdot A_{n-1}^{m-1} 联合使用证明恒等式",
+      "已知某个排列数时，可快速求出相邻排列数"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "排列数计算",
+      "恒等式证明",
+      "递推关系推导"
+    ],
+    "problem_types": [
+      "计算题",
+      "证明题",
+      "综合应用题"
+    ],
+    "exam_frequency": 0.6,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "R001.svg"
+  },
+  "shareConfig": {
+    "title": "排列数递推公式：快速计算与恒等证明",
+    "shareDesc": "适合课后复习和刷题前速查，用已知排列数一步求出更大值，减少定义展开步骤。"
+  },
+  "relations": {
+    "prerequisites": [
+      "排列数定义",
+      "阶乘运算"
+    ],
+    "related_ids": [],
+    "similar": "组合数递推公式 C_n^m = C_n^{m-1} \\cdot (n-m+1)/m"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-04-29"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "概率-古典概型-排列组合",
+  "altNodes": ""
+}

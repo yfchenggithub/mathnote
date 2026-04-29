@@ -1,0 +1,32 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+
+利用排列数的定义表达式，提取公因子即可得到递推关系。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（定义展开）：}] 写出 $A_n^m$ 的定义。
+    \[
+    A_n^m = n(n-1)(n-2)\cdots(n-m+1).
+    \]
+    \par\textbf{理由：} 从 $n$ 个元素中选 $m$ 个排列，依次有 $n, n-1, \dots, n-m+1$ 种选择。
+
+    \item[\textbf{步骤二（写出 $A_n^{m-1}$）：}] 写出 $A_n^{m-1}$ 的定义。
+    \[
+    A_n^{m-1} = n(n-1)(n-2)\cdots(n-m+2).
+    \]
+    \par\textbf{理由：} 同理，从 $n$ 个元素中选 $m-1$ 个排列。
+
+    \item[\textbf{步骤三（提取公因子）：}] 比较两式，发现 $A_n^m$ 比 $A_n^{m-1}$ 多出最后一个因子 $(n-m+1)$。
+    \[
+    A_n^m = (n-m+1) \cdot \bigl[ n(n-1)\cdots(n-m+2) \bigr] = (n-m+1) A_n^{m-1}.
+    \]
+    \par\textbf{理由：} 根据乘法分配律提取公因子。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+
+由定义直接导出递推公式 $A_n^m = (n-m+1) A_n^{m-1}$，证明完毕。
+\end{proofbox}
