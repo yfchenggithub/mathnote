@@ -1,0 +1,68 @@
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{一句话直觉}}\par
+固定取出个数 $m$，当可选元素总数从 $n-1$ 增加到 $n$ 时，排列数会乘上一个比例因子 $\frac{n}{n-m}$.
+
+\medskip
+\textbf{\textcolor{CExplanation}{核心拆解}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+  \item[\textbf{要点一（递推方向）：}]
+  本公式是“按 $n$ 递推”：上标 $m$ 不变，下标从 $n-1$ 变为 $n$.
+
+  \item[\textbf{要点二（因子来源）：}]
+  系数 $\frac{n}{n-m}$ 来自两个阶乘表达式的比值：
+  \[
+    \frac{A_n^m}{A_{n-1}^m}
+    =\frac{\frac{n!}{(n-m)!}}{\frac{(n-1)!}{(n-1-m)!}}
+    =\frac{n}{n-m}.
+  \]
+
+  \item[\textbf{要点三（计数本质）：}]
+  从 $n-1$ 个元素增加到 $n$ 个元素时，新增加的元素会带来一部分新排列；这个增量最终表现为总数按比例 $\frac{n}{n-m}$ 放大.
+\end{description}
+
+\medskip
+\textbf{\textcolor{CExplanation}{计数本质（增量视角）}}\par
+把第 $n$ 个元素看成“新加入的元素”. 所有 $A_n^m$ 个排列可分成两类：
+\begin{itemize}[leftmargin=*, itemsep=0.35em, topsep=0.35em]
+  \item 不含新元素：共有 $A_{n-1}^m$ 个；
+  \item 含新元素：先确定新元素所在位置，有 $m$ 种选择；其余 $m-1$ 个位置从原来的 $n-1$ 个元素中排列，共 $A_{n-1}^{m-1}$ 种.
+\end{itemize}
+因此
+\[
+  A_n^m=A_{n-1}^m+mA_{n-1}^{m-1}.
+\]
+又因为
+\[
+  A_{n-1}^m=(n-m)A_{n-1}^{m-1},
+\]
+所以
+\[
+  A_n^m=(n-m)A_{n-1}^{m-1}+mA_{n-1}^{m-1}=nA_{n-1}^{m-1}
+  =\frac{n}{n-m}A_{n-1}^m.
+\]
+这说明 $\frac{n}{n-m}$ 不是硬记出来的，而是“原有排列 + 新元素贡献”的结果.
+
+\medskip
+\textbf{\textcolor{CExplanation}{代数意义（阶乘桥梁）}}\par
+该递推把 $A_n^m$ 与 $A_{n-1}^m$ 联系起来，适合处理相邻下标排列数的比值、递推求值和参数方程.
+
+\medskip
+\textbf{\textcolor{CExplanation}{考点价值（考向分析）}}
+\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+  \item \textbf{考法一（直接求值）：} 已知 $A_{n-1}^m$ 和 $n,m$，快速计算 $A_n^m$.
+  \item \textbf{考法二（比值判断）：} 遇到 $\frac{A_n^m}{A_{n-1}^m}$，直接化为 $\frac{n}{n-m}$.
+  \item \textbf{考法三（逆向求参）：} 已知两个相邻排列数的比值，反求 $n$ 或 $m$.
+\end{itemize}
+
+\medskip
+\textbf{\textcolor{CExplanation}{顿悟点}}\par
+本公式的关键不是“把新元素插入旧排列”这么简单，而是固定 $m$，比较 $A_n^m$ 与 $A_{n-1}^m$ 的整体比例.
+
+\medskip
+\textbf{\textcolor{CExplanation}{使用场景}}
+\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+  \item \textbf{场景一（相邻求值）：} 已知 $A_{n-1}^m$，一步求 $A_n^m$.
+  \item \textbf{场景二（比值化简）：} 化简含有 $A_n^m$ 与 $A_{n-1}^m$ 的式子.
+  \item \textbf{场景三（参数求解）：} 根据相邻排列数的比例建立方程.
+\end{itemize}
+\end{explanationbox}

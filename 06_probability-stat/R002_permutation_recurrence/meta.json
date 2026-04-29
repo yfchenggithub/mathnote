@@ -1,0 +1,180 @@
+{
+  "id": "R002",
+  "module": "probability-stat",
+  "core": {
+    "title": "排列数按 n 递推公式",
+    "alias": [
+      "排列数下标递推",
+      "排列数按总数递推",
+      "排列数相邻下标比值",
+      "排列递推公式"
+    ],
+    "summary": "固定取出个数 m 时，排列数 A_n^m 与 A_{n-1}^m 的比值为 n/(n-m)，可由较小总数的排列数快速推到较大总数的排列数。",
+    "difficulty": 3,
+    "category": "排列组合",
+    "tags": [
+      "排列数",
+      "递推关系",
+      "按n递推",
+      "下标递推",
+      "相邻排列数",
+      "排列组合"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "排列数",
+      "排列数递推",
+      "按n递推",
+      "下标递推",
+      "固定m",
+      "相邻排列数",
+      "A_n^m",
+      "A_{n-1}^m",
+      "A_n^m 和 A_{n-1}^m 的关系",
+      "A_n^m / A_{n-1}^m",
+      "n/(n-m)",
+      "A_n^m = n/(n-m) A_{n-1}^m",
+      "排列数比值",
+      "排列组合计算",
+      "阶乘化简"
+    ],
+    "synonyms": [
+      "排列数的递推",
+      "排列数下标递推公式",
+      "排列数按总数递推",
+      "排列递推式",
+      "相邻排列数比值公式"
+    ],
+    "intents": [
+      "求排列数",
+      "由A_{n-1}^m求A_n^m",
+      "计算排列数比值",
+      "证明递推公式",
+      "用已知排列数求n",
+      "区分两种排列数递推"
+    ],
+    "query_templates": [
+      "排列数按n递推公式",
+      "A_n^m和A_{n-1}^m的关系",
+      "A_n^m除以A_{n-1}^m等于什么",
+      "已知A_5^2求A_6^2",
+      "排列数相邻下标比值"
+    ],
+    "ocrKeywords": [
+      "排列数",
+      "递推",
+      "A_n^m",
+      "A_{n-1}^m",
+      "n/(n-m)",
+      "1≤m<n"
+    ],
+    "latex_patterns": [
+      "A_n^m = \\frac{n}{n-m} A_{n-1}^m",
+      "\\frac{A_n^m}{A_{n-1}^m}=\\frac{n}{n-m}"
+    ],
+    "formulaTokens": [
+      "A_n^m",
+      "A_{n-1}^m",
+      "\\frac{n}{n-m}",
+      "n-m",
+      "\\frac{A_n^m}{A_{n-1}^m}"
+    ],
+    "pinyin": "pai lie shu an n di tui gong shi",
+    "pinyinAbbr": "plsandgs"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.62,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "A_n^m = \\frac{n}{n-m} A_{n-1}^m",
+    "related_formulas": [
+      "\\frac{A_n^m}{A_{n-1}^m}=\\frac{n}{n-m}",
+      "A_n^m = \\frac{n!}{(n-m)!}",
+      "A_n^m = (n-m+1)A_n^{m-1}"
+    ],
+    "variables": [
+      "n",
+      "m"
+    ],
+    "conditions": "n,m \\in \\mathbb{N}^+, 1 \\le m < n",
+    "conclusions": "固定 m 时，排列数可按 n 递推；可用于相邻下标排列数比值化简、递推求值和参数求解。"
+  },
+  "content": {
+    "statement": "设 n,m 为正整数，且 1 ≤ m < n，则 A_n^m = \\frac{n}{n-m}A_{n-1}^m。",
+    "derivation": [
+      "由定义 A_n^m = \\frac{n!}{(n-m)!}，A_{n-1}^m = \\frac{(n-1)!}{(n-1-m)!}",
+      "计算比值：\\frac{A_n^m}{A_{n-1}^m}=\\frac{n!}{(n-m)!}\\cdot\\frac{(n-1-m)!}{(n-1)!}=\\frac{n}{n-m}",
+      "因此 A_n^m = \\frac{n}{n-m}A_{n-1}^m。"
+    ],
+    "intuition": "固定 m，把可选元素总数从 n-1 增加到 n，排列数会按比例 n/(n-m) 放大。",
+    "common_tricks": [
+      "已知 A_{n-1}^m 时，直接乘以 n/(n-m) 得到 A_n^m。",
+      "遇到 A_n^m/A_{n-1}^m，可直接化为 n/(n-m)。",
+      "注意本公式是下标 n 递推，不要和 A_n^m=(n-m+1)A_n^{m-1} 混淆。",
+      "使用前必须检查 1≤m<n，尤其不能把 m=n 代入。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "排列组合计算",
+      "相邻排列数比值化简",
+      "递推关系题",
+      "参数求解"
+    ],
+    "problem_types": [
+      "填空题",
+      "选择题",
+      "解答题"
+    ],
+    "exam_frequency": 0.6,
+    "exam_score": 4
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "",
+    "png": "",
+    "video": ""
+  },
+  "shareConfig": {
+    "title": "排列数按n递推：由A_{n-1}^m快速推A_n^m",
+    "shareDesc": "固定m，从较小总数的排列数一步推出较大总数的排列数，特别适合相邻排列数比值和参数求解。"
+  },
+  "relations": {
+    "prerequisites": [
+      "排列数定义",
+      "阶乘运算",
+      "分式化简"
+    ],
+    "related_ids": [
+      "R001"
+    ],
+    "similar": [
+      "R001：排列数按m递推公式 A_n^m=(n-m+1)A_n^{m-1}",
+      "组合数递推公式 C_n^m=C_{n-1}^m+C_{n-1}^{m-1}"
+    ]
+  },
+  "meta": {
+    "version": 2,
+    "source": "AI修订",
+    "created_at": "2026-04-29",
+    "updated_at": "2026-04-29"
+  },
+  "isPro": 0,
+  "remarks": "为避免与R001重名，本结论标题建议固定为“排列数按 n 递推公式”。",
+  "knowledgeNode": "概率-古典概型-排列组合",
+  "altNodes": ""
+}

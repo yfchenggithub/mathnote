@@ -1,0 +1,57 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}\par
+利用排列数的阶乘公式，把 $A_n^m$ 与 $A_{n-1}^m$ 都写出来，再求二者的比值.
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+  \item[\textbf{步骤一（写出阶乘形式）：}]
+  由排列数定义，
+  \[
+    A_n^m=\frac{n!}{(n-m)!},\qquad
+    A_{n-1}^m=\frac{(n-1)!}{(n-1-m)!}.
+  \]
+  \par\textbf{理由：} 因为 $1\le m<n$，所以上面两个排列数都有定义，且 $n-m\ge1$.
+
+  \item[\textbf{步骤二（计算比值）：}]
+  \[
+    \frac{A_n^m}{A_{n-1}^m}
+    =\frac{\frac{n!}{(n-m)!}}{\frac{(n-1)!}{(n-1-m)!}}
+    =\frac{n!}{(n-m)!}\cdot\frac{(n-1-m)!}{(n-1)!}.
+  \]
+  \par\textbf{理由：} 除以一个分式，等于乘以它的倒数.
+
+  \item[\textbf{步骤三（化简阶乘）：}]
+  将 $n!$ 与 $(n-m)!$ 展开一层：
+  \[
+    n!=n(n-1)!,\qquad
+    (n-m)!=(n-m)(n-1-m)!.
+  \]
+  因此
+  \[
+    \frac{A_n^m}{A_{n-1}^m}
+    =\frac{n(n-1)!}{(n-m)(n-1-m)!}\cdot\frac{(n-1-m)!}{(n-1)!}
+    =\frac{n}{n-m}.
+  \]
+  \par\textbf{理由：} 消去相同因子 $(n-1)!$ 与 $(n-1-m)!$.
+
+  \item[\textbf{步骤四（回代得递推）：}]
+  由
+  \[
+    \frac{A_n^m}{A_{n-1}^m}=\frac{n}{n-m}
+  \]
+  得
+  \[
+    A_n^m=\frac{n}{n-m}\,A_{n-1}^m.
+  \]
+  \par\textbf{理由：} 两边同乘 $A_{n-1}^m$.
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}\par
+在 $n,m$ 为正整数且 $1\le m<n$ 的条件下，排列数按 $n$ 递推公式
+\[
+  A_n^m=\frac{n}{n-m}\,A_{n-1}^m
+\]
+成立.
+\end{proofbox}

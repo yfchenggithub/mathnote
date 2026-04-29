@@ -1,0 +1,84 @@
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例1（基础）}}\par
+\textbf{\textcolor{CExample}{题目：}} 已知 $A_5^2=20$，利用递推公式求 $A_6^2$.
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+  \item[\textbf{第一步（识别参数）：}]
+  这里要从 $A_5^2$ 推到 $A_6^2$，所以 $n=6,m=2$.
+  \par\textbf{理由：} 递推公式 $A_n^m=\frac{n}{n-m}A_{n-1}^m$ 中，下标从 $n-1$ 变为 $n$.
+
+  \item[\textbf{第二步（代入公式）：}]
+  \[
+    A_6^2=\frac{6}{6-2}A_5^2=\frac{6}{4}\times20.
+  \]
+  \par\textbf{理由：} 固定 $m=2$，把 $n=6$ 代入.
+
+  \item[\textbf{第三步（计算结果）：}]
+  \[
+    A_6^2=\frac{3}{2}\times20=30.
+  \]
+  \par\textbf{理由：} 保留分数计算，比写成小数更稳.
+\end{description}
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{$A_6^2=30$}. 也可用定义验证：$A_6^2=6\times5=30$.
+
+\medskip
+\textbf{\textcolor{CExample}{例2（比值化简）}}\par
+\textbf{\textcolor{CExample}{题目：}} 化简 $\displaystyle \frac{A_8^3}{A_7^3}$.
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+  \item[\textbf{第一步（识别结构）：}]
+  分子分母是 $A_n^m$ 与 $A_{n-1}^m$ 的形式，其中 $n=8,m=3$.
+  \par\textbf{理由：} 上标 $m=3$ 不变，下标相差 $1$.
+
+  \item[\textbf{第二步（套用比值公式）：}]
+  \[
+    \frac{A_8^3}{A_7^3}=\frac{8}{8-3}=\frac{8}{5}.
+  \]
+  \par\textbf{理由：} 由 $\frac{A_n^m}{A_{n-1}^m}=\frac{n}{n-m}$.
+\end{description}
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{$\displaystyle \frac{A_8^3}{A_7^3}=\frac{8}{5}$}.
+
+\medskip
+\textbf{\textcolor{CExample}{例3（综合应用）}}\par
+\textbf{\textcolor{CExample}{题目：}} 已知 $A_n^2=20$，$A_{n-1}^2=12$，求正整数 $n$.
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+  \item[\textbf{第一步（建立方程）：}]
+  由递推公式
+  \[
+    A_n^2=\frac{n}{n-2}A_{n-1}^2,
+  \]
+  代入已知，得
+  \[
+    20=\frac{n}{n-2}\times12.
+  \]
+  \par\textbf{理由：} 此处 $m=2$，且需要 $n>2$.
+
+  \item[\textbf{第二步（解方程）：}]
+  \[
+    \frac{20}{12}=\frac{n}{n-2}
+    \quad\Rightarrow\quad
+    \frac{5}{3}=\frac{n}{n-2}.
+  \]
+  交叉相乘：
+  \[
+    5(n-2)=3n,
+  \]
+  故 $5n-10=3n$，解得 $n=5$.
+  \par\textbf{理由：} 按分式方程正常求解.
+
+  \item[\textbf{第三步（检验）：}]
+  当 $n=5$ 时，
+  \[
+    A_5^2=5\times4=20,
+    \qquad
+    A_4^2=4\times3=12,
+  \]
+  与题设一致.
+  \par\textbf{理由：} 代回原排列数检验，避免只满足方程但不满足题意.
+\end{description}
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{$n=5$}.
+\end{examplebox}

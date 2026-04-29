@@ -1,0 +1,38 @@
+\begin{statementbox}
+\textbf{\textcolor{CStatement}{条件}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+  \item[\textbf{\textcolor{CStatement}{条件1（整数范围）：}}]
+  $n,m$ 为正整数，且 $1\le m<n$.
+  \item[\textbf{\textcolor{CStatement}{条件2（固定取法）：}}]
+  递推时保持取出个数 $m$ 不变，只把元素总数从 $n-1$ 增加到 $n$.
+\end{description}
+
+\textbf{\textcolor{CStatement}{结论}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+  \item[\textbf{\textcolor{CStatement}{结论一（按 $n$ 递推）：}}]
+  \textbf{\textcolor{CStatement}{直观描述：}} 排列数 $A_n^m$ 可由 $A_{n-1}^m$ 乘以比例因子 $\frac{n}{n-m}$ 得到.
+  \[
+    A_n^m=\frac{n}{n-m}\,A_{n-1}^m.
+  \]
+
+  \item[\textbf{\textcolor{CStatement}{等价形式（比值公式）：}}]
+  \textbf{\textcolor{CStatement}{直观描述：}} 两个相邻下标排列数的比值为
+  \[
+    \frac{A_n^m}{A_{n-1}^m}=\frac{n}{n-m}.
+  \]
+
+  \item[\textbf{\textcolor{CStatement}{基础公式（阶乘表达）：}}]
+  \textbf{\textcolor{CStatement}{直观描述：}} 排列数也可写成阶乘形式
+  \[
+    A_n^m=\frac{n!}{(n-m)!}.
+  \]
+\end{description}
+
+\medskip
+\textbf{\textcolor{CStatement}{边界提醒：}}
+当 $m=1$ 时，$A_n^1=n$，递推化为
+\[
+  n=\frac{n}{n-1}\,(n-1),
+\]
+仍然成立；当 $m=n$ 时，本递推不能使用，因为 $A_{n-1}^n$ 不存在且分母 $n-m=0$.
+\end{statementbox}
