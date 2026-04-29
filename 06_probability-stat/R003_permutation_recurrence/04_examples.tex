@@ -1,0 +1,96 @@
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 1（基础）}}
+
+\textbf{\textcolor{CExample}{题目：}} 计算 $A_5^3$ 的值。
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第一步（应用递推公式）：}] 令 $n=5,m=3$，由 $A_n^m=nA_{n-1}^{m-1}$ 得
+    \[
+    A_5^3=5\cdot A_4^2.
+    \]
+    \par\textbf{理由：} 先确定第一个位置，剩余问题变为从 $4$ 个元素中取 $2$ 个排列。
+
+    \item[\textbf{第二步（继续递推）：}] 对 $A_4^2$ 再用递推公式：
+    \[
+    A_4^2=4\cdot A_3^1.
+    \]
+    \par\textbf{理由：} 继续把问题降阶。
+
+    \item[\textbf{第三步（计算并回代）：}] 因为 $A_3^1=3$，所以
+    \[
+    A_5^3=5\times4\times3=60.
+    \]
+    \par\textbf{理由：} 一个位置从 $3$ 个元素中选 $1$ 个，共 $3$ 种。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{$A_5^3=60$}。
+
+\medskip
+\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+\textbf{\textcolor{CExample}{题目：}} 已知 $A_n^3=20A_n^2$，求正整数 $n$（$n\geq3$）。
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第一步（用递推降阶）：}] 由递推公式
+    \[
+    A_n^3=nA_{n-1}^2,
+    \]
+    原方程化为
+    \[
+    nA_{n-1}^2=20A_n^2.
+    \]
+    \par\textbf{理由：} 将 $A_n^3$ 降为二阶排列数，便于用乘积形式表示。
+
+    \item[\textbf{第二步（展开二阶排列数）：}] 由定义得
+    \[
+    A_{n-1}^2=(n-1)(n-2),\qquad A_n^2=n(n-1).
+    \]
+    \par\textbf{理由：} 二阶排列数只需写出前两个因子。
+
+    \item[\textbf{第三步（列方程并求解）：}] 代入得
+    \[
+    n(n-1)(n-2)=20n(n-1).
+    \]
+    因为 $n\geq3$，所以 $n(n-1)\neq0$，两边约去 $n(n-1)$，得
+    \[
+    n-2=20,
+    \]
+    故 $n=22$。
+    \par\textbf{理由：} 约分前要先确认被约因子不为 $0$。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{$n=22$}。
+
+\medskip
+\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+\textbf{\textcolor{CExample}{题目：}} 设 $3\leq m\leq n$，证明
+\[
+A_n^m=n(n-1)A_{n-2}^{m-2}.
+\]
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第一步（第一次降阶）：}] 由递推公式得
+    \[
+    A_n^m=nA_{n-1}^{m-1}.
+    \]
+    \par\textbf{理由：} 先确定第一个位置。
+
+    \item[\textbf{第二步（第二次降阶）：}] 对 $A_{n-1}^{m-1}$ 再用同一公式：
+    \[
+    A_{n-1}^{m-1}=(n-1)A_{n-2}^{m-2}.
+    \]
+    \par\textbf{理由：} 因为 $3\leq m\leq n$，所以 $2\leq m-1\leq n-1$，公式可用。
+
+    \item[\textbf{第三步（合并）：}] 代入第一步，得
+    \[
+    A_n^m=n(n-1)A_{n-2}^{m-2}.
+    \]
+    \par\textbf{理由：} 连续两次“先定一个位置”，就会产生因子 $n(n-1)$。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{连续使用本递推公式，可以把排列数逐层降阶。}
+\end{examplebox}

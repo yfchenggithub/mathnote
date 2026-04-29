@@ -1,0 +1,52 @@
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+从 $n$ 个不同元素中选 $m$ 个排成一列，可以先把第一个位置填好；第一个位置有 $n$ 种选法，填完后，还要从剩下的 $n-1$ 个元素中选 $m-1$ 个继续排列。
+
+\medskip
+\textbf{\textcolor{CExplanation}{核心拆解}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{要点一（分步计数原理）：}] 先选第一个位置，再排列剩余位置，总数相乘。
+    \item[\textbf{要点二（参数同步减少）：}] 第一个位置已经占掉一个元素、一个位置，所以元素总数从 $n$ 变为 $n-1$，还需排列的个数从 $m$ 变为 $m-1$。
+    \item[\textbf{要点三（递推方向）：}] 本公式不是只改变 $m$，也不是只改变 $n$，而是把 $A_n^m$ 降为 $A_{n-1}^{m-1}$。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CExplanation}{计数本质（树形分支）}}
+
+排列过程可以看成一棵分支树：第一层有 $n$ 个分支；每个分支确定一个首位元素后，下面都对应一个相同规模的子问题 $A_{n-1}^{m-1}$。因此总数为
+\[
+    n\cdot A_{n-1}^{m-1}.
+\]
+
+\medskip
+\textbf{\textcolor{CExplanation}{代数意义（同步降阶）}}
+
+将 $A_n^m$ 转化为更小规模的 $A_{n-1}^{m-1}$，可以逐步把高阶排列数拆成连续乘积。例如
+\[
+A_n^m=n\cdot A_{n-1}^{m-1}
+= n(n-1)\cdot A_{n-2}^{m-2}=\\cdots.
+\]
+这正好对应排列数定义中的逐项相乘。
+
+\medskip
+\textbf{\textcolor{CExplanation}{考点价值（快速降阶）}}
+\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+    \item \textbf{考法一（直接求值）：} 如求 $A_7^4$，可写成 $7\cdot A_6^3$，继续递推得到 $7\times6\times5\times4$。
+    \item \textbf{考法二（恒等式证明）：} 对含有 $A_n^m$ 的式子做降阶，统一成低阶排列数后比较。
+    \item \textbf{考法三（方程求参）：} 将 $A_n^m$ 拆成 $n\cdot A_{n-1}^{m-1}$，再结合定义式化简求参数。
+\end{itemize}
+
+\medskip
+\textbf{\textcolor{CExplanation}{顿悟点}}
+
+\textbf{关键：} “先定首位”之后，剩下的问题仍然是排列问题，只是规模从 $(n,m)$ 变成 $(n-1,m-1)$。
+
+\medskip
+\textbf{\textcolor{CExplanation}{使用场景}}
+\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+    \item \textbf{场景一（手工计算）：} 避免直接写阶乘，按位置逐步拆开。
+    \item \textbf{场景二（证明恒等式）：} 把高阶排列数降成低阶排列数，便于比较左右两边。
+    \item \textbf{场景三（区分公式）：} 本公式是 $A_n^m=nA_{n-1}^{m-1}$，与 $A_n^m=(n-m+1)A_n^{m-1}$、$A_n^m=\dfrac{n}{n-m}A_{n-1}^{m}$ 递推方向不同。
+\end{itemize}
+\end{explanationbox}

@@ -1,0 +1,21 @@
+\begin{trapbox}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+    \item[\textbf{\textcolor{CTrap}{易错点一（只减 $n$，忘记减 $m$）：}}] 误写为 $A_n^m=nA_{n-1}^{m}$，即元素总数变少了，但待排列个数没有变。
+    \item[\textbf{\textcolor{CTrap}{正确理解（参数同步减少）：}}] 第一个位置已经填好，所以剩余元素数是 $n-1$，剩余待排位置数是 $m-1$，应写成 $A_n^m=nA_{n-1}^{m-1}$。
+    \item[\textbf{\textcolor{CTrap}{错因分析（忽视分步含义）：}}] 只看到了“从 $n$ 变成 $n-1$”，没有意识到“已经排掉了一个位置”。
+\end{description}
+
+\medskip
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+    \item[\textbf{\textcolor{CTrap}{易错点二（边界约定不清）：}}] 当 $m=1$ 时，公式右端会出现 $A_{n-1}^{0}$，若没有说明约定，容易让学生困惑。
+    \item[\textbf{\textcolor{CTrap}{正确理解（边界处理）：}}] 若约定 $A_k^0=1$，则 $A_n^1=nA_{n-1}^0=n$；若教材暂不采用该约定，则把 $m=1$ 单独看作 $A_n^1=n$，递推公式主要用于 $2\leq m\leq n$。
+    \item[\textbf{\textcolor{CTrap}{错因分析（忽略定义约定）：}}] 递推公式看似统一，但边界处依赖 $A_k^0=1$ 这一约定，讲义中必须提前交代。
+\end{description}
+
+\medskip
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+    \item[\textbf{\textcolor{CTrap}{易错点三（混淆三种递推方向）：}}] 把 $A_n^m=nA_{n-1}^{m-1}$、$A_n^m=(n-m+1)A_n^{m-1}$、$A_n^m=\dfrac{n}{n-m}A_{n-1}^{m}$ 混在一起。
+    \item[\textbf{\textcolor{CTrap}{正确理解（看哪个参数变化）：}}] 本结论是“同步降阶”：$n$ 与 $m$ 同时减 $1$；$A_n^m=(n-m+1)A_n^{m-1}$ 是固定 $n$、改变 $m$；$A_n^m=\dfrac{n}{n-m}A_{n-1}^{m}$ 是固定 $m$、改变 $n$。
+    \item[\textbf{\textcolor{CTrap}{错因分析（只背公式不看结构）：}}] 三个公式都叫“排列数递推”，但递推方向完全不同，必须通过下标和上标的变化来区分。
+\end{description}
+\end{trapbox}

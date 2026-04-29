@@ -1,0 +1,179 @@
+{
+  "id": "R003",
+  "module": "probability-stat",
+  "core": {
+    "title": "排列数首位递推公式",
+    "alias": [
+      "排列数首位分步递推",
+      "排列数同步降阶递推",
+      "排列数降阶公式",
+      "A_n^m = n·A_{n-1}^{m-1}"
+    ],
+    "summary": "先确定第一个位置有 n 种选法，再从剩余 n-1 个元素中取 m-1 个排列，因此 A_n^m = n·A_{n-1}^{m-1}。",
+    "difficulty": 2,
+    "category": "排列组合",
+    "tags": [
+      "排列数",
+      "首位分步",
+      "同步降阶",
+      "递推关系",
+      "计数原理",
+      "排列组合"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "排列数首位递推",
+      "排列数同步降阶",
+      "排列数降阶公式",
+      "先定首位",
+      "第一个位置有n种选法",
+      "A_n^m",
+      "A_{n-1}^{m-1}",
+      "A_n^m = n A_{n-1}^{m-1}",
+      "n乘A_{n-1}^{m-1}",
+      "排列数递推关系",
+      "排列数计算",
+      "分步计数原理",
+      "递推降阶",
+      "参数同时减少",
+      "n和m同时减1"
+    ],
+    "synonyms": [
+      "排列数首位分解",
+      "排列首位递推",
+      "排列数分步递推",
+      "排列数递推式",
+      "排列递推关系"
+    ],
+    "intents": [
+      "计算排列数",
+      "证明递推关系",
+      "用首位分步法证明排列公式",
+      "求解排列数方程",
+      "区分排列数递推公式"
+    ],
+    "query_templates": [
+      "排列数首位递推公式是什么",
+      "A_n^m = n A_{n-1}^{m-1} 怎么证明",
+      "为什么排列数可以先定第一个位置",
+      "如何用递推计算A_5^3",
+      "排列数n和m同时减1的公式"
+    ],
+    "ocrKeywords": [
+      "排列数",
+      "首位",
+      "分步",
+      "递推",
+      "A_n^m",
+      "A_{n-1}^{m-1}",
+      "n·A"
+    ],
+    "latex_patterns": [
+      "A_n^m = n \\cdot A_{n-1}^{m-1}",
+      "A_n^m = nA_{n-1}^{m-1}"
+    ],
+    "formulaTokens": [
+      "A_n^m",
+      "n \\cdot A_{n-1}^{m-1}",
+      "A_{n-1}^{m-1}",
+      "n",
+      "m-1",
+      "n-1"
+    ],
+    "pinyin": "pailieshu shouwei ditui gongshi",
+    "pinyinAbbr": "plsswdtgs"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.58,
+    "hot_score": 55,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "A_n^m = n \\cdot A_{n-1}^{m-1}",
+    "related_formulas": [
+      "A_n^m = (n-m+1) \\cdot A_n^{m-1}",
+      "A_n^m = \\frac{n}{n-m}A_{n-1}^m",
+      "A_n^m = \\frac{n!}{(n-m)!}"
+    ],
+    "variables": [
+      "n",
+      "m"
+    ],
+    "conditions": "n,m \\in \\mathbb{N}^*, 1 \\leq m \\leq n；若使用 m=1 情形，约定 A_k^0=1。",
+    "conclusions": "排列数可通过先定首位同步降阶：n 与 m 同时减 1，用于计算、证明和方程化简。"
+  },
+  "content": {
+    "statement": "设 n,m 为正整数，1 \\leq m \\leq n，并约定 A_k^0=1，则 A_n^m = n \\cdot A_{n-1}^{m-1}。",
+    "derivation": [
+      "从 n 个不同元素中取 m 个排成一列，先确定第一个位置，有 n 种选法。",
+      "首位确定后，剩余 n-1 个元素中还需取 m-1 个排列，共 A_{n-1}^{m-1} 种。",
+      "由分步计数原理，总数为 n \\cdot A_{n-1}^{m-1}。"
+    ],
+    "intuition": "先定首位，余下继续排；定一个位置后，元素总数和待排个数都减少 1。",
+    "common_tricks": [
+      "递推降阶：A_n^m = n A_{n-1}^{m-1}，可连续使用得到乘积形式。",
+      "边界处理：m=1 时需约定 A_{n-1}^0=1；否则单独使用 A_n^1=n。",
+      "区分公式：本公式是 n 和 m 同时减 1，不同于固定 n 的 A_n^m=(n-m+1)A_n^{m-1}。",
+      "方程求解：把高阶排列数降阶后，与低阶排列数比较。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "排列数计算",
+      "排列恒等式证明",
+      "含排列数的方程求解",
+      "分步计数原理讲解"
+    ],
+    "problem_types": [
+      "选择题",
+      "填空题",
+      "证明题"
+    ],
+    "exam_frequency": 0.45,
+    "exam_score": 3
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "",
+    "png": "",
+    "gif": "",
+    "video": ""
+  },
+  "shareConfig": {
+    "title": "排列数首位递推：先定首位，余下继续排",
+    "shareDesc": "用 A_n^m = n·A_{n-1}^{m-1} 快速降阶计算排列数，帮助区分三类常见排列数递推公式。"
+  },
+  "relations": {
+    "prerequisites": [
+      "排列数定义",
+      "分步计数原理",
+      "阶乘运算"
+    ],
+    "related_ids": [
+      "R001",
+      "R002"
+    ],
+    "similar": "R001 是固定 n、按 m 递推：A_n^m=(n-m+1)A_n^{m-1}；R002 是固定 m、按 n 递推：A_n^m=\\frac{n}{n-m}A_{n-1}^m。"
+  },
+  "meta": {
+    "version": 2,
+    "source": "AI修订",
+    "created_at": "2026-04-29"
+  },
+  "isPro": 0,
+  "remarks": "标题已从“排列数递推公式”改为“排列数首位递推公式”，用于和 R001、R002 区分。",
+  "knowledgeNode": "概率-古典概型-排列组合",
+  "altNodes": []
+}

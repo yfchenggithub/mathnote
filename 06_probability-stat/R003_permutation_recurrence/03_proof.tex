@@ -1,0 +1,53 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+
+根据排列数的含义，从 $n$ 个不同元素中取出 $m$ 个排成一列，可以先确定第一个位置，再排列剩下的位置。第一个位置有 $n$ 种选择；确定首位后，剩下 $n-1$ 个元素中还要取 $m-1$ 个排列，因此得到递推公式。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（说明边界情形）：}]
+    当 $m=1$ 时，$A_n^1=n$；若约定 $A_{n-1}^{0}=1$，则
+    \[
+    n\cdot A_{n-1}^{0}=n\cdot 1=n=A_n^1.
+    \]
+    \par\textbf{理由：} 这说明公式在 $m=1$ 的边界情形下也成立；若未采用 $A_k^0=1$ 的约定，则将 $m=1$ 单独处理即可。
+
+    \item[\textbf{步骤二（写出乘积形式）：}]
+    当 $2\leq m\leq n$ 时，排列数定义为
+    \[
+    A_n^m = n(n-1)(n-2)\cdots (n-m+1).
+    \]
+    \par\textbf{理由：} 从 $n$ 个不同元素中依次选 $m$ 个，选择数依次为 $n,n-1,\ldots,n-m+1$。
+
+    \item[\textbf{步骤三（提取第一个因子）：}]
+    将乘积中第一个因子 $n$ 单独写出：
+    \[
+    A_n^m = n\bigl[(n-1)(n-2)\cdots (n-m+1)\bigr].
+    \]
+    \par\textbf{理由：} 这是乘法结合律的直接应用。
+
+    \item[\textbf{步骤四（识别剩余部分）：}]
+    括号内从 $n-1$ 开始，连续向下乘 $m-1$ 项，所以
+    \[
+    (n-1)(n-2)\cdots (n-m+1)=A_{n-1}^{m-1}.
+    \]
+    \par\textbf{理由：} $A_{n-1}^{m-1}$ 表示从 $n-1$ 个元素中取 $m-1$ 个排列，乘积形式正是上述括号部分。
+
+    \item[\textbf{步骤五（代入得递推）：}]
+    将步骤四代入步骤三，得
+    \[
+    A_n^m=n\cdot A_{n-1}^{m-1}.
+    \]
+    \par\textbf{理由：} 直接替换即可。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+
+\textbf{综上，} 排列数首位分步递推公式成立：
+\[
+A_n^m=n\cdot A_{n-1}^{m-1}.
+\]
+它的本质是“先定首位，再排余位”。
+\end{proofbox}

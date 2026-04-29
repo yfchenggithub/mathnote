@@ -1,0 +1,24 @@
+\begin{summarybox}
+\textbf{\textcolor{CSummary}{一句话核心}}
+
+\textbf{排列数首位递推：} 先定第一个位置，有 $n$ 种选法；剩下 $n-1$ 个元素中取 $m-1$ 个继续排列，因此
+\[
+A_n^m=nA_{n-1}^{m-1}.
+\]
+
+\medskip
+\textbf{\textcolor{CSummary}{使用条件}}
+\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+    \item \textbf{条件 1（正整数范围）：} $n,m\in\mathbb{N}^*$，且 $1\leq m\leq n$。
+    \item \textbf{条件 2（边界约定）：} 若使用 $m=1$ 情形，需要约定 $A_k^0=1$；若不采用该约定，则 $m=1$ 单独用 $A_n^1=n$。
+    \item \textbf{条件 3（参数同步减少）：} 递推后是 $A_{n-1}^{m-1}$，不能写成 $A_{n-1}^{m}$ 或 $A_n^{m-1}$。
+\end{itemize}
+
+\medskip
+\textbf{\textcolor{CSummary}{关键提醒}}
+\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+    \item \textbf{记忆法：} “先定首位，余下继续排”，所以前面乘 $n$，后面变成 $A_{n-1}^{m-1}$。
+    \item \textbf{易错点：} 本公式是 $n,m$ 同时减 $1$，不要和 $A_n^m=(n-m+1)A_n^{m-1}$ 或 $A_n^m=\dfrac{n}{n-m}A_{n-1}^{m}$ 混淆。
+    \item \textbf{检查项：} 使用前先看题目想改变的是“首位分步”“固定 $n$”还是“固定 $m$”。
+\end{itemize}
+\end{summarybox}
