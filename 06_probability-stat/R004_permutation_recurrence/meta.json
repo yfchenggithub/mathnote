@@ -1,0 +1,180 @@
+{
+  "id": "R004",
+  "module": "probability-stat",
+  "core": {
+    "title": "排列数分类递推公式",
+    "alias": [
+      "排列数加法递推",
+      "排列数分类计数公式",
+      "是否包含特定元素递推",
+      "A_{n+1}^m递推"
+    ],
+    "summary": "从 n+1 个元素中取 m 个排列，按是否含新增元素分成两类，得到 A_{n+1}^m=A_n^m+mA_n^{m-1}。",
+    "difficulty": 3,
+    "category": "排列组合",
+    "tags": [
+      "排列数",
+      "递推关系",
+      "分类计数",
+      "加法原理",
+      "乘法原理",
+      "组合数递推"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "排列数",
+      "分类递推",
+      "排列数加法递推",
+      "A_{n+1}^{m}",
+      "A_n^m",
+      "A_n^{m-1}",
+      "mA_n^{m-1}",
+      "是否包含新增元素",
+      "特定元素是否入选",
+      "分类计数",
+      "加法计数原理",
+      "漏乘m",
+      "帕斯卡公式",
+      "组合数递推"
+    ],
+    "synonyms": [
+      "排列递推",
+      "排列公式递推",
+      "排列数递推公式",
+      "排列数分类计数公式",
+      "按新增元素分类",
+      "含特定元素分类"
+    ],
+    "intents": [
+      "求排列数",
+      "递推计算",
+      "证明组合数递推",
+      "利用排列数证明帕斯卡公式",
+      "化简排列数",
+      "分类计算排列数",
+      "已知A_n^m和A_n^{m-1}求A_{n+1}^m"
+    ],
+    "query_templates": [
+      "排列数分类递推公式是什么",
+      "已知A_5^3和A_5^2求A_6^3",
+      "A_{n+1}^m = A_n^m + m A_n^{m-1}怎么证明",
+      "为什么排列数递推要乘m",
+      "用排列数递推证明组合数递推"
+    ],
+    "ocrKeywords": [
+      "排列数",
+      "递推",
+      "分类计数",
+      "A_{n+1}^m",
+      "A_n^m",
+      "A_n^{m-1}",
+      "mA_n^{m-1}"
+    ],
+    "latex_patterns": [
+      "A_{n+1}^{m}=A_{n}^{m}+mA_{n}^{m-1}",
+      "A_{n}^{m}=A_{n-1}^{m}+mA_{n-1}^{m-1}",
+      "C_{n+1}^{m}=C_n^m+C_n^{m-1}"
+    ],
+    "formulaTokens": [
+      "A_{n+1}^{m}",
+      "A_n^m",
+      "A_n^{m-1}",
+      "mA_n^{m-1}",
+      "A_{n+1}^{m}=A_n^m+mA_n^{m-1}"
+    ],
+    "pinyin": "pai lie shu fen lei di tui gong shi",
+    "pinyinAbbr": "plsfldtgs"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.68,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "A_{n+1}^{m}=A_n^m+mA_n^{m-1}",
+    "related_formulas": [
+      "A_n^m=A_{n-1}^m+mA_{n-1}^{m-1}\\quad(1\\le m\\le n-1)",
+      "C_{n+1}^{m}=C_n^m+C_n^{m-1}",
+      "A_n^m=m!C_n^m"
+    ],
+    "variables": "n, m",
+    "conditions": "n,m\\in\\mathbb{N}^+, 1\\le m\\le n；采用约定 A_k^0=1。平移式 A_n^m=A_{n-1}^m+mA_{n-1}^{m-1} 通常要求 1\\le m\\le n-1。",
+    "conclusions": "可按是否含新增元素分类递推排列数；可用于证明组合数帕斯卡递推公式。"
+  },
+  "content": {
+    "statement": "对于正整数 n,m，若 1≤m≤n，且采用 A_k^0=1 的约定，则 A_{n+1}^{m}=A_n^m+mA_n^{m-1}。",
+    "derivation": [
+      "从 n+1 个元素中取 m 个排列，若不含新增元素，则从 n 个元素中取 m 个排列，有 A_n^m 种。",
+      "若含新增元素，则先确定该元素在 m 个位置中的位置，有 m 种；再从其余 n 个元素中取 m-1 个排列到剩余位置，有 A_n^{m-1} 种，所以共有 mA_n^{m-1} 种。",
+      "两类互斥且不重不漏，由分类加法计数原理得 A_{n+1}^{m}=A_n^m+mA_n^{m-1}。"
+    ],
+    "intuition": "盯住新增元素：不用它贡献 A_n^m，用它贡献 mA_n^{m-1}。",
+    "common_tricks": [
+      "已知 A_n^m 和 A_n^{m-1} 时，一步求 A_{n+1}^m。",
+      "逆向使用时可移项求 A_n^m 或 A_n^{m-1}。",
+      "证明组合数递推时，将 A_k^r=r!C_k^r 代入并约去 m!。",
+      "易错点是第二项漏乘位置数 m。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "排列组合计算题",
+      "排列数恒等式证明",
+      "组合数帕斯卡公式证明",
+      "分类计数建模"
+    ],
+    "problem_types": [
+      "计算题",
+      "证明题",
+      "填空题"
+    ],
+    "exam_frequency": 0.3,
+    "exam_score": 4
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "R004.svg"
+  },
+  "shareConfig": {
+    "title": "排列数分类递推：为什么要多乘一个 m",
+    "shareDesc": "按新增元素是否入选分类，理解 A_{n+1}^m=A_n^m+mA_n^{m-1}，顺便打通组合数帕斯卡公式。"
+  },
+  "relations": {
+    "prerequisites": [
+      "排列数定义",
+      "分类加法计数原理",
+      "分步乘法计数原理",
+      "阶乘"
+    ],
+    "related_ids": [
+      "R001",
+      "R002",
+      "R003"
+    ],
+    "similar": "组合数递推公式 C_{n+1}^m=C_n^m+C_n^{m-1}；区别是排列数含新增元素时要乘位置数 m。"
+  },
+  "meta": {
+    "version": 2,
+    "source": "AI修订",
+    "created_at": "2026-04-29",
+    "updated_at": "2026-04-29"
+  },
+  "isPro": 0,
+  "remarks": "标题从泛化的“排列数递推公式”改为“排列数分类递推公式”，用于区分 R001/R002/R003。",
+  "knowledgeNode": "概率-古典概型-排列组合",
+  "altNodes": [
+    "概率-计数原理-分类加法计数原理"
+  ]
+}

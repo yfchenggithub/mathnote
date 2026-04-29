@@ -1,0 +1,29 @@
+\begin{statementbox}
+
+\textbf{\textcolor{CStatement}{条件}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+    \item[\textbf{\textcolor{CStatement}{条件 1（正整数范围）：}}] $n,m$ 为正整数，且 $1\leq m\leq n$。
+    \item[\textbf{\textcolor{CStatement}{条件 2（边界约定）：}}] 本结论采用排列数的常用约定 $A_k^0=1\ (k\in\mathbb N)$，表示“从 $k$ 个元素中取 $0$ 个排列”只有一种空排列。
+\end{description}
+
+\textbf{\textcolor{CStatement}{结论}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{\textcolor{CStatement}{结论一（分类递推公式）：}}]
+    \textbf{\textcolor{CStatement}{直观描述：}} 从 $n+1$ 个元素中取 $m$ 个排列，按“是否含第 $n+1$ 个元素”分成两类相加。
+    \[
+    A_{n+1}^{m}=A_{n}^{m}+mA_{n}^{m-1}.
+    \]
+
+    \item[\textbf{\textcolor{CStatement}{常见变形（下标平移）：}}]
+    \textbf{\textcolor{CStatement}{直观描述：}} 将上式中的 $n+1$ 整体改写为 $n$，得到
+    \[
+    A_{n}^{m}=A_{n-1}^{m}+m\,A_{n-1}^{m-1}.
+    \]
+    这个平移式在通常定义下需满足 $n\geq 2$，$1\leq m\leq n-1$，否则 $A_{n-1}^{m}$ 可能超出定义范围。
+\end{description}
+
+\textbf{\textcolor{CStatement}{一句话定位}}
+
+\textbf{这是“固定取法个数 $m$，总元素数从 $n$ 增加到 $n+1$”时的分类加法递推公式。}
+
+\end{statementbox}

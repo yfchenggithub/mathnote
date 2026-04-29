@@ -1,0 +1,28 @@
+\begin{trapbox}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+    \item[\textbf{\textcolor{CTrap}{易错点一（漏乘位置数 $m$）}}] 错写成 $A_{n+1}^m=A_n^m+A_n^{m-1}$。
+    \item[\textbf{\textcolor{CTrap}{正确理解（含新增元素要先选位置）：}}] 若排列中含第 $n+1$ 个元素，它可以放在 $m$ 个位置中的任意一个，所以这一类是 $mA_n^{m-1}$。
+    \item[\textbf{\textcolor{CTrap}{错因分析（只想到了选元素）：}}] 只考虑“还要选 $m-1$ 个元素”，却忘记新增元素本身还要安排位置。
+\end{description}
+
+\medskip
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+    \item[\textbf{\textcolor{CTrap}{易错点二（上下标错位）}}] 将 $A_{n+1}^m$ 写成 $A_m^{n+1}$，或把 $A_n^{m-1}$ 误写成 $A_{n-1}^{m}$。
+    \item[\textbf{\textcolor{CTrap}{正确理解（下标是元素总数，上标是选取个数）：}}] $A_n^m$ 中 $n$ 表示元素总数，$m$ 表示取出并排列的个数。公式右端是 $A_n^m$ 和 $A_n^{m-1}$，下标都为 $n$。
+    \item[\textbf{\textcolor{CTrap}{错因分析（混淆三种递推）：}}] 本公式是“按是否含新增元素分类”；不要和 $A_n^m=(n-m+1)A_n^{m-1}$、$A_n^m=nA_{n-1}^{m-1}$ 混在一起。
+\end{description}
+
+\medskip
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+    \item[\textbf{\textcolor{CTrap}{易错点三（平移式范围误用）}}] 使用平移式 $A_n^m=A_{n-1}^m+mA_{n-1}^{m-1}$ 时，仍然代入 $m=n$。
+    \item[\textbf{\textcolor{CTrap}{正确理解（平移式通常要求 $m\leq n-1$）：}}] 因为右端含 $A_{n-1}^m$，在高中常规定义下需保证 $m\leq n-1$。若要处理 $m=n$，应回到原式或另行说明扩展约定。
+    \item[\textbf{\textcolor{CTrap}{错因分析（只看形式不查定义域）：}}] 原式条件是 $1\leq m\leq n$，但平移后每一项的合法范围会随下标改变。
+\end{description}
+
+\medskip
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+    \item[\textbf{\textcolor{CTrap}{易错点四（边界 $m=1$ 忘记约定）}}] 当 $m=1$ 时，右端出现 $A_n^0$，若不说明约定，学生会疑惑公式是否还能用。
+    \item[\textbf{\textcolor{CTrap}{正确理解（空排列约定）：}}] 本讲义采用 $A_n^0=1$，表示取 $0$ 个元素排列只有一种空排列。因此 $A_{n+1}^1=A_n^1+A_n^0=n+1$。
+    \item[\textbf{\textcolor{CTrap}{错因分析（忽略教材约定差异）：}}] 不同教材对 $A_n^0$ 的强调程度不同，使用边界情形时最好主动说明。
+\end{description}
+\end{trapbox}

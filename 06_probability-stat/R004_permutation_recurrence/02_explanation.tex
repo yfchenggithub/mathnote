@@ -1,0 +1,44 @@
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+从 $n+1$ 个不同元素中取 $m$ 个排列，盯住新增的第 $n+1$ 个元素：要么不用它，要么用它。两类不重不漏，所以总数等于两类数量相加。
+
+\medskip
+\textbf{\textcolor{CExplanation}{核心拆解}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{要点一（不含新增元素）：}] 若排列中不含第 $n+1$ 个元素，就等价于从原来的 $n$ 个元素中取 $m$ 个排列，共 $A_n^m$ 种。
+    \item[\textbf{要点二（含新增元素）：}] 若排列中含第 $n+1$ 个元素，则先确定它放在 $m$ 个位置中的哪一个位置，再从剩余 $n$ 个元素中取 $m-1$ 个排到其余位置，共 $mA_n^{m-1}$ 种。
+    \item[\textbf{要点三（分类相加）：}] 两类互斥且覆盖全部情况，所以由分类加法计数原理得到 $A_{n+1}^{m}=A_n^m+mA_n^{m-1}$。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CExplanation}{计数本质（分类分拆）}}
+
+这个公式不是单纯的代数变形，而是把“从 $n+1$ 个元素中取 $m$ 个排列”按一个固定元素是否出现拆开：不出现贡献 $A_n^m$，出现贡献 $mA_n^{m-1}$。
+
+\medskip
+\textbf{\textcolor{CExplanation}{代数意义（阶乘验证）}}
+
+由 $A_n^m=\frac{n!}{(n-m)!}$ 可验证：
+\[
+A_n^m+mA_n^{m-1}
+=\frac{n!}{(n-m)!}+m\frac{n!}{(n-m+1)!}
+=\frac{(n+1)!}{(n+1-m)!}
+=A_{n+1}^m.
+\]
+这说明分类计数结果与阶乘公式完全一致。
+
+\medskip
+\textbf{\textcolor{CExplanation}{考点价值（速算与恒等）}}
+\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+    \item \textbf{考法一（递推求值）：} 已知 $A_n^m$ 和 $A_n^{m-1}$，可快速求 $A_{n+1}^m$。
+    \item \textbf{考法二（逆向求项）：} 已知 $A_{n+1}^m$ 和其中一项，可移项求另一项。
+    \item \textbf{考法三（证明组合数递推）：} 结合 $A_n^m=m!C_n^m$，可推出 $C_{n+1}^m=C_n^m+C_n^{m-1}$。
+\end{itemize}
+
+\medskip
+\textbf{\textcolor{CExplanation}{顿悟点}}
+
+\textbf{多一个元素时，不要急着展开阶乘；先问：这个新增元素到底有没有被选进排列？}
+
+\end{explanationbox}

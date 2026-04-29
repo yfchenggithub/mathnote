@@ -1,0 +1,106 @@
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 1（基础）}}
+
+\textbf{\textcolor{CExample}{题目：}} 已知 $A_5^3=60$，$A_5^2=20$，求 $A_6^3$ 的值。
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第一步（识别公式）：}] 要求 $A_6^3$，可看成 $A_{5+1}^3$，因此在公式
+    \[
+    A_{n+1}^m=A_n^m+mA_n^{m-1}
+    \]
+    中取 $n=5,m=3$。
+    \par\textbf{理由：} 左端下标从 $n+1$ 对应到 $6$。
+
+    \item[\textbf{第二步（代入已知）：}]
+    \[
+    A_6^3=A_5^3+3A_5^2=60+3\times20=120.
+    \]
+    \par\textbf{理由：} 右端两项正好都是题目已知量。
+
+    \item[\textbf{第三步（得出结果）：}]
+    \[
+    A_6^3=120.
+    \]
+    \par\textbf{理由：} 计算完成，也可由定义 $6\times5\times4=120$ 验证。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{已知同一下标 $n$ 下的 $A_n^m$ 与 $A_n^{m-1}$，可一步推出 $A_{n+1}^m$。}
+
+\medskip
+\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+\textbf{\textcolor{CExample}{题目：}} 已知 $A_8^4=1680$，$A_7^3=210$，求 $A_7^4$ 的值。
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第一步（套用递推）：}] 令 $n=7,m=4$，由
+    \[
+    A_{n+1}^m=A_n^m+mA_n^{m-1}
+    \]
+    得
+    \[
+    A_8^4=A_7^4+4A_7^3.
+    \]
+    \par\textbf{理由：} $A_n^{m-1}$ 对应 $A_7^3$。
+
+    \item[\textbf{第二步（移项求解）：}]
+    \[
+    1680=A_7^4+4\times210=A_7^4+840.
+    \]
+    所以
+    \[
+    A_7^4=1680-840=840.
+    \]
+    \par\textbf{理由：} 递推公式也可以反向使用。
+
+    \item[\textbf{第三步（检验）：}]
+    \[
+    A_7^4=7\times6\times5\times4=840.
+    \]
+    \par\textbf{理由：} 与定义计算一致。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{递推式既可正向求 $A_{n+1}^m$，也可通过移项反求 $A_n^m$ 或 $A_n^{m-1}$。}
+
+\medskip
+\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+\textbf{\textcolor{CExample}{题目：}} 设 $1\leq m\leq n$，已知 $C_n^m=\frac{A_n^m}{m!}$，利用排列数分类递推公式证明组合数递推公式
+\[
+C_{n+1}^m=C_n^m+C_n^{m-1}.
+\]
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第一步（写出排列数递推）：}]
+    \[
+    A_{n+1}^m=A_n^m+mA_n^{m-1}.
+    \]
+    \par\textbf{理由：} 这是本结论的核心公式。
+
+    \item[\textbf{第二步（转成组合数）：}] 根据 $A_k^r=r!C_k^r$，有
+    \[
+    A_{n+1}^m=m!C_{n+1}^m,
+    \quad A_n^m=m!C_n^m,
+    \quad A_n^{m-1}=(m-1)!C_n^{m-1}.
+    \]
+    代入得
+    \[
+    m!C_{n+1}^m=m!C_n^m+m(m-1)!C_n^{m-1}.
+    \]
+    \par\textbf{理由：} 排列数与组合数满足 $A_k^r=r!C_k^r$。
+
+    \item[\textbf{第三步（约去公因子）：}] 因为 $m(m-1)!=m!$，所以上式化为
+    \[
+    m!C_{n+1}^m=m!C_n^m+m!C_n^{m-1}.
+    \]
+    两边同除以 $m!$，得到
+    \[
+    C_{n+1}^m=C_n^m+C_n^{m-1}.
+    \]
+    \par\textbf{理由：} $m!>0$，可作为公因子约去。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{排列数分类递推除以 $m!$ 后，正好变成组合数的帕斯卡递推公式。}
+\end{examplebox}

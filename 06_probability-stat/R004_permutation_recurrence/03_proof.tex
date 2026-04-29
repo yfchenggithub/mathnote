@@ -1,0 +1,70 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+
+用分类计数证明最自然：设新增元素为 $x$，把所有从 $n+1$ 个元素中取 $m$ 个的排列按“是否含 $x$”分为两类。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（确定计数对象）：}]
+    左端 $A_{n+1}^m$ 表示从 $n+1$ 个不同元素中取 $m$ 个并排成一列的总数。
+    \par\textbf{理由：} 这是排列数的定义。
+
+    \item[\textbf{步骤二（按是否含新增元素分类）：}]
+    固定第 $n+1$ 个元素，记为 $x$。所有排列分成两类：
+    \begin{itemize}[leftmargin=*, itemsep=0.25em, topsep=0.25em]
+        \item 第一类：排列中不含 $x$；
+        \item 第二类：排列中含 $x$。
+    \end{itemize}
+    \par\textbf{理由：} 任意一个排列要么含 $x$，要么不含 $x$，两类不重不漏。
+
+    \item[\textbf{步骤三（计算不含 $x$ 的情况）：}]
+    若不含 $x$，就只能从原来的 $n$ 个元素中取 $m$ 个排列，因此共有
+    \[
+    A_n^m
+    \]
+    种。
+    \par\textbf{理由：} 这正是 $A_n^m$ 的定义。
+
+    \item[\textbf{步骤四（计算含 $x$ 的情况）：}]
+    若含 $x$，先确定 $x$ 在 $m$ 个位置中的位置，共 $m$ 种；再从其余 $n$ 个元素中取 $m-1$ 个排入剩余位置，共 $A_n^{m-1}$ 种。因此这一类共有
+    \[
+    mA_n^{m-1}
+    \]
+    种。
+    \par\textbf{理由：} 先选位置，再排列剩余元素，使用分步乘法计数原理。
+
+    \item[\textbf{步骤五（分类相加）：}]
+    两类相加得到
+    \[
+    A_{n+1}^{m}=A_n^m+mA_n^{m-1}.
+    \]
+    \par\textbf{理由：} 两类互斥且覆盖全部情况，使用分类加法计数原理。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{边界说明}}
+
+当 $m=1$ 时，公式变为
+\[
+A_{n+1}^{1}=A_n^1+1\cdot A_n^0.
+\]
+由于 $A_n^1=n$，且采用约定 $A_n^0=1$，右端为 $n+1$，与左端 $A_{n+1}^{1}=n+1$ 一致。
+
+\medskip
+\textbf{\textcolor{CProof}{代数验证}}
+
+也可由阶乘公式验证：
+\[
+A_n^m+mA_n^{m-1}
+=\frac{n!}{(n-m)!}+m\cdot\frac{n!}{(n-m+1)!}
+=\frac{n!(n-m+1)+mn!}{(n-m+1)!}
+=\frac{(n+1)!}{(n+1-m)!}
+=A_{n+1}^m.
+\]
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+
+\textbf{排列数分类递推公式的核心是“按新增元素是否出现分类”：不含它得到 $A_n^m$，含它得到 $mA_n^{m-1}$，两类相加即得结论。}
+\end{proofbox}
