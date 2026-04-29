@@ -187,9 +187,9 @@ import logging
 import re
 import sys
 import unicodedata
-from collections import defaultdict
+from collections import Counter, defaultdict
 from collections.abc import Mapping, Sequence
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
 from typing import Callable, DefaultDict
@@ -207,6 +207,7 @@ META_FILENAME = "meta.json"
 DEFAULT_TARGET_MODULES: tuple[str, ...] = ()
 DEFAULT_PREFIX_DOC_LIMIT = 32
 DEFAULT_SUGGESTION_LIMIT = 500
+DEFAULT_AUDIT_REPORT_FILE: Path | None = None
 IGNORED_TOP_LEVEL_DIRS = {
     ".git",
     ".github",
@@ -229,9 +230,14 @@ DEFAULT_SEARCHMETA_WEIGHTS = {
 
 CJK_RE = re.compile(r"[\u3400-\u4DBF\u4E00-\u9FFF]+")
 LATIN_TOKEN_RE = re.compile(r"[a-z0-9][a-z0-9._/+\\-]*")
+COMPACT_LATIN_RE = re.compile(r"[a-z0-9]+")
 WHITESPACE_RE = re.compile(r"\s+")
 FRAGMENT_SPLIT_RE = re.compile(r"[，。；;、,:：!?！？\n\r\t]+")
 ALT_NODE_SPLIT_RE = re.compile(r"[,，;；、/|]+")
+FORMULA_PREFIX_START_CHARS = set("$\\|([{<>=+-*/")
+MAX_PINYIN_EXACT_LENGTH = 24
+MAX_PINYIN_ABBR_EXACT_LENGTH = 24
+MAX_AUDIT_SAMPLES_PER_REASON = 8
 FORMULA_REPLACEMENTS = (
     (r"\geqslant", ">="),
     (r"\geq", ">="),
@@ -263,6 +269,7 @@ class BuildConfig:
 
     project_root: Path
     output_file: Path
+    audit_report_file: Path | None
     target_modules: tuple[str, ...]
     target_items: tuple[str, ...]
     dry_run: bool
@@ -358,6 +365,99 @@ class PostingAccumulator:
     field_mask: int = 0
 
 
+@dataclass
+class IndexAudit:
+    """记录索引裁剪结果，帮助判断构建期过滤是否按预期工作。"""
+
+    kept_exact_candidates: int = 0
+    kept_prefix_candidates: int = 0
+    kept_suggestions: int = 0
+    dropped_exact: Counter = field(default_factory=Counter)
+    dropped_prefix: Counter = field(default_factory=Counter)
+    exact_samples: dict[str, list[dict[str, str]]] = field(
+        default_factory=lambda: defaultdict(list)
+    )
+    prefix_samples: dict[str, list[dict[str, str]]] = field(
+        default_factory=lambda: defaultdict(list)
+    )
+
+    def keep_exact(self) -> None:
+        self.kept_exact_candidates += 1
+
+    def keep_prefix(self) -> None:
+        self.kept_prefix_candidates += 1
+
+    def keep_suggestions(self, count: int) -> None:
+        self.kept_suggestions += count
+
+    def drop_exact(
+        self, reason: str, spec: "FieldSpec", kind: str, term: str, source: str
+    ) -> None:
+        self._drop(self.dropped_exact, self.exact_samples, reason, spec, kind, term, source)
+
+    def drop_prefix(
+        self, reason: str, spec: "FieldSpec", kind: str, term: str, source: str
+    ) -> None:
+        self._drop(self.dropped_prefix, self.prefix_samples, reason, spec, kind, term, source)
+
+    @staticmethod
+    def _drop(
+        counter: Counter,
+        samples: dict[str, list[dict[str, str]]],
+        reason: str,
+        spec: "FieldSpec",
+        kind: str,
+        term: str,
+        source: str,
+    ) -> None:
+        counter[reason] += 1
+        reason_samples = samples[reason]
+        if len(reason_samples) >= MAX_AUDIT_SAMPLES_PER_REASON:
+            return
+        reason_samples.append(
+            {
+                "field": spec.name,
+                "kind": kind,
+                "term": term[:80],
+                "source": source[:80],
+            }
+        )
+
+    def to_payload(self) -> dict[str, object]:
+        """转成可 JSON 序列化的审计报告。"""
+
+        return {
+            "version": 1,
+            "rules": {
+                "maxPinyinExactLength": MAX_PINYIN_EXACT_LENGTH,
+                "maxPinyinAbbrExactLength": MAX_PINYIN_ABBR_EXACT_LENGTH,
+                "formulaPrefix": "disabled",
+                "formulaAutoTokenization": "disabled",
+                "spacedLatinPrefix": "disabled",
+                "samplesPerReason": MAX_AUDIT_SAMPLES_PER_REASON,
+            },
+            "kept": {
+                "exactCandidates": self.kept_exact_candidates,
+                "prefixCandidates": self.kept_prefix_candidates,
+                "suggestions": self.kept_suggestions,
+            },
+            "dropped": {
+                "exactCandidates": dict(sorted(self.dropped_exact.items())),
+                "prefixCandidates": dict(sorted(self.dropped_prefix.items())),
+            },
+            "samples": {
+                "exactCandidates": {
+                    reason: items
+                    for reason, items in sorted(self.exact_samples.items())
+                },
+                "prefixCandidates": {
+                    reason: items
+                    for reason, items in sorted(self.prefix_samples.items())
+                },
+            },
+        }
+
+
 def configure_console_encoding() -> None:
     """尽量把控制台输出编码切到 UTF-8。
 
@@ -416,6 +516,14 @@ def parse_args() -> argparse.Namespace:
         "--output-file",
         default=str(DEFAULT_OUTPUT_FILE),
         help="Output JS bundle path. Defaults to data/search_engine/search_bundle.js.",
+    )
+    parser.add_argument(
+        "--audit-report",
+        default=DEFAULT_AUDIT_REPORT_FILE,
+        help=(
+            "Optional JSON report path for build-time index pruning audit. "
+            "When omitted, audit details are only logged."
+        ),
     )
     parser.add_argument(
         "--module",
@@ -495,6 +603,9 @@ def build_config(args: argparse.Namespace) -> BuildConfig:
     return BuildConfig(
         project_root=Path(args.base_dir).resolve(),
         output_file=Path(args.output_file).resolve(),
+        audit_report_file=Path(args.audit_report).resolve()
+        if args.audit_report
+        else None,
         target_modules=tuple(args.modules or DEFAULT_TARGET_MODULES),
         target_items=tuple(args.items or ()),
         dry_run=bool(args.dry_run),
@@ -736,6 +847,29 @@ def is_formula_like(text: str) -> bool:
     return any(ch in text for ch in "^=<>/*()[]{}\\")
 
 
+def is_compact_latin(text: str) -> bool:
+    """判断文本是否是没有空格和符号的拉丁/数字串。"""
+
+    return bool(COMPACT_LATIN_RE.fullmatch(text))
+
+
+def is_formula_fragment_token(term: str) -> bool:
+    """判断 token 是否像从自然语言里误拆出的公式碎片。"""
+
+    return bool(
+        re.search(r"[<>=/*^\\]", term)
+        or re.search(r"[a-z]\([^)]*\)", term)
+        or re.search(r"\d+[a-z]+|[a-z]+\d+", term)
+        or re.search(r"\d.*[+\-].*\d|[a-z].*[+\-].*\d|\d.*[+\-].*[a-z]", term)
+    )
+
+
+def starts_with_formula_prefix_noise(term: str) -> bool:
+    """判断前缀源是否会生成 `(f`、`\\f` 这类低价值符号前缀。"""
+
+    return bool(term) and term[0] in FORMULA_PREFIX_START_CHARS
+
+
 def informative_exact(term: str) -> bool:
     """判断一个词是否值得进入精确倒排。
 
@@ -757,6 +891,53 @@ def informative_prefix(term: str) -> bool:
     """
 
     return informative_exact(term) and not (len(term) == 1 and not contains_cjk(term))
+
+
+def exact_drop_reason(term: str, spec: FieldSpec, kind: str) -> str | None:
+    """返回 exact 候选应被丢弃的原因；`None` 表示保留。"""
+
+    if not informative_exact(term):
+        return "uninformative_exact"
+    if spec.treat_as_formula and kind == "token":
+        return "formula_auto_token"
+    if not spec.treat_as_formula and kind == "token" and is_formula_fragment_token(term):
+        return "formula_fragment_from_text"
+    if spec.name == "pinyin" and kind == "full" and WHITESPACE_RE.search(term):
+        return "spaced_pinyin_full"
+    if kind == "pinyin" and is_compact_latin(term) and len(term) > MAX_PINYIN_EXACT_LENGTH:
+        return "long_pinyin_exact"
+    if (
+        kind == "pinyin_abbr"
+        and is_compact_latin(term)
+        and len(term) > MAX_PINYIN_ABBR_EXACT_LENGTH
+    ):
+        return "long_pinyin_abbr_exact"
+    if (
+        spec.name == "pinyin"
+        and kind in {"compact", "full"}
+        and is_compact_latin(normalize_compact(term))
+        and len(normalize_compact(term)) > MAX_PINYIN_EXACT_LENGTH
+    ):
+        return "long_manual_pinyin_exact"
+    return None
+
+
+def prefix_drop_reason(term: str, spec: FieldSpec, kind: str) -> str | None:
+    """返回 prefix 候选应被丢弃的原因；`None` 表示保留。"""
+
+    if not informative_prefix(term):
+        return "uninformative_prefix"
+    if spec.treat_as_formula or (
+        is_formula_fragment_token(term) and not contains_cjk(term)
+    ):
+        return "formula_prefix"
+    if starts_with_formula_prefix_noise(term):
+        return "symbol_prefix"
+    if not contains_cjk(term) and WHITESPACE_RE.search(term):
+        return "spaced_latin_prefix"
+    if not spec.treat_as_formula and kind == "token" and is_formula_fragment_token(term):
+        return "formula_fragment_prefix_from_text"
+    return None
 
 
 def prefix_terms(term: str) -> list[str]:
@@ -1228,7 +1409,9 @@ def build_doc_record(
     }
 
 
-def build_feature_variants(text: str, spec: FieldSpec) -> dict[str, object]:
+def build_feature_variants(
+    text: str, spec: FieldSpec, audit: IndexAudit | None = None
+) -> dict[str, object]:
     """把一段原始字段文本展开成可索引特征。
 
     返回结构中的字段含义如下：
@@ -1260,14 +1443,30 @@ def build_feature_variants(text: str, spec: FieldSpec) -> dict[str, object]:
     seen_prefix: set[str] = set()
 
     def add_exact(term: str, mult: float, kind: str) -> None:
-        if informative_exact(term) and term not in seen_exact:
-            seen_exact.add(term)
-            exact.append((term, mult, kind))
+        reason = exact_drop_reason(term, spec, kind)
+        if reason is not None:
+            if audit is not None:
+                audit.drop_exact(reason, spec, kind, term, display_text)
+            return
+        if term in seen_exact:
+            return
+        seen_exact.add(term)
+        exact.append((term, mult, kind))
+        if audit is not None:
+            audit.keep_exact()
 
     def add_prefix(term: str, mult: float, kind: str) -> None:
-        if informative_prefix(term) and term not in seen_prefix:
-            seen_prefix.add(term)
-            prefix.append((term, mult, kind))
+        reason = prefix_drop_reason(term, spec, kind)
+        if reason is not None:
+            if audit is not None:
+                audit.drop_prefix(reason, spec, kind, term, display_text)
+            return
+        if term in seen_prefix:
+            return
+        seen_prefix.add(term)
+        prefix.append((term, mult, kind))
+        if audit is not None:
+            audit.keep_prefix()
 
     add_exact(base, 1.0, "full")
     if spec.include_prefix:
@@ -1279,10 +1478,11 @@ def build_feature_variants(text: str, spec: FieldSpec) -> dict[str, object]:
         if spec.include_prefix:
             add_prefix(compact, 0.96, "compact")
 
-    for token in word_tokens(base):
-        add_exact(token, 0.72, "token")
-        if spec.include_prefix:
-            add_prefix(token, 0.72, "token")
+    if not spec.treat_as_formula:
+        for token in word_tokens(base):
+            add_exact(token, 0.72, "token")
+            if spec.include_prefix:
+                add_prefix(token, 0.72, "token")
 
     if spec.include_ngrams:
         for token in cjk_ngrams(base):
@@ -1307,6 +1507,8 @@ def build_feature_variants(text: str, spec: FieldSpec) -> dict[str, object]:
         and not is_formula_like(display_text)
         else []
     )
+    if audit is not None:
+        audit.keep_suggestions(len(suggest))
     return {
         "source": display_text,
         "exact": exact,
@@ -1459,6 +1661,28 @@ def write_bundle(bundle: Mapping[str, object], config: BuildConfig) -> None:
     LOGGER.info("Search bundle written: %s", config.output_file)
 
 
+def write_audit_report(
+    bundle: Mapping[str, object], audit: IndexAudit, config: BuildConfig
+) -> None:
+    """把构建期索引裁剪审计写到独立 JSON 文件，避免增加 runtime bundle 体积。"""
+
+    if config.audit_report_file is None:
+        return
+    payload = {
+        "generatedAt": bundle.get("generatedAt"),
+        "outputFile": str(config.output_file),
+        "stats": bundle.get("stats"),
+        "buildOptions": bundle.get("buildOptions"),
+        "audit": audit.to_payload(),
+    }
+    config.audit_report_file.parent.mkdir(parents=True, exist_ok=True)
+    config.audit_report_file.write_text(
+        json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    LOGGER.info("Index audit report written: %s", config.audit_report_file)
+
+
 def run_build(config: BuildConfig) -> dict[str, object]:
     """执行完整构建流程并返回 bundle 对象。
 
@@ -1492,6 +1716,7 @@ def run_build(config: BuildConfig) -> dict[str, object]:
     term_index: DefaultDict[str, dict[str, PostingAccumulator]] = defaultdict(dict)
     prefix_index: DefaultDict[str, dict[str, PostingAccumulator]] = defaultdict(dict)
     suggestions: dict[str, dict[str, object]] = {}
+    index_audit = IndexAudit()
     debug_docs: dict[str, dict[str, object]] = {}
     module_stats: list[ModuleStats] = []
 
@@ -1573,7 +1798,7 @@ def run_build(config: BuildConfig) -> dict[str, object]:
                     field_mask = FIELD_MASK_LEGEND[spec.name]
                     field_weight = compute_field_weight(meta, spec)
                     for raw in dedupe(spec.extractor(meta)):
-                        feature = build_feature_variants(raw, spec)
+                        feature = build_feature_variants(raw, spec, index_audit)
                         if not feature["source"]:
                             continue
                         if capture_debug:
@@ -1747,6 +1972,13 @@ def run_build(config: BuildConfig) -> dict[str, object]:
         bundle["stats"]["prefixes"],
         bundle["stats"]["suggestions"],
     )
+    LOGGER.info(
+        "Index audit | kept_exact=%d | kept_prefix=%d | dropped_exact=%s | dropped_prefix=%s",
+        index_audit.kept_exact_candidates,
+        index_audit.kept_prefix_candidates,
+        dict(sorted(index_audit.dropped_exact.items())),
+        dict(sorted(index_audit.dropped_prefix.items())),
+    )
 
     LOGGER.info("Step 4/5 | Emit debug reports")
     if config.debug_docs:
@@ -1795,6 +2027,7 @@ def run_build(config: BuildConfig) -> dict[str, object]:
         )
     else:
         write_bundle(bundle, config)
+        write_audit_report(bundle, index_audit, config)
         exists = config.output_file.exists()
         size = config.output_file.stat().st_size if exists else 0
         LOGGER.info(
