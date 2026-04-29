@@ -16,6 +16,7 @@
 --------
 1. `--ids`: 仅处理指定 ID（支持一个或多个，如 `--ids I001 I002`）。
 2. `--force`: 强制全量重跑，忽略并覆盖所有阶段缓存（默认关闭）。
+3. DeepSeek V4 Flash 可通过 `pipeline.thinking` 显式开启思考模式，并控制 `high/max` 思考强度。
 
 缓存策略
 --------
@@ -205,6 +206,14 @@ MODEL_CONFIG_KEY_BY_TYPE = {
     "reasoning": "pro",
 }
 
+THINKING_EFFORT_VALUES = ("high", "max")
+THINKING_EFFORT_ALIASES = {
+    "low": "high",
+    "medium": "high",
+    "xhigh": "max",
+}
+THINKING_MODEL_TYPES = ("flash", "pro")
+
 
 def normalize_model_type_name(model_type: str) -> str | None:
     """
@@ -221,6 +230,31 @@ def resolve_model_config_key(model_type: str) -> str | None:
     将模型类型名解析为 app_config.model 的键名。
     """
     return MODEL_CONFIG_KEY_BY_TYPE.get(model_type)
+
+
+def get_configured_model_type(step: str) -> str:
+    """
+    返回阶段归一化后的模型类型（flash/pro）。
+    """
+    model_type = MODEL_MAP.get(step)
+    if model_type is None:
+        raise KeyError(
+            f"未找到阶段模型配置: step={step!r}，请在 pipeline.step_models 中显式配置"
+        )
+    return model_type
+
+
+def get_configured_model_name(step: str) -> str:
+    """
+    返回阶段实际使用的模型名。
+    """
+    model_type = get_configured_model_type(step)
+    config_key = resolve_model_config_key(model_type)
+    if config_key is None or config_key not in model_config:
+        raise KeyError(
+            f"未找到可用模型映射: step={step!r}, model_type={model_type!r}, config_key={config_key!r}"
+        )
+    return model_config[config_key]
 
 
 def build_step_model_map() -> dict[str, str]:
@@ -279,6 +313,153 @@ def build_step_model_map() -> dict[str, str]:
 MODEL_MAP = build_step_model_map()
 logging.info(f"阶段模型映射已生效: {MODEL_MAP}")
 
+
+def normalize_thinking_effort(value: Any, default: str = "high") -> str:
+    """
+    规范化 DeepSeek 思考强度。
+
+    DeepSeek V4 OpenAI 格式支持 high/max；兼容 low/medium/xhigh 的旧式命名。
+    """
+    raw = default if value is None else value
+    token = str(raw).strip().lower()
+    if token in {"", "default", "auto"}:
+        token = default
+    token = THINKING_EFFORT_ALIASES.get(token, token)
+    if token not in THINKING_EFFORT_VALUES:
+        raise ValueError(
+            "配置错误: pipeline.thinking.effort 仅支持 high/max"
+            "（兼容 low/medium=>high, xhigh=>max）"
+        )
+    return token
+
+
+def normalize_model_type_filter(
+    value: Any,
+    *,
+    default: tuple[str, ...],
+    field_name: str,
+) -> tuple[str, ...]:
+    """
+    规范化模型类型过滤器，支持字符串、数组以及 all/*。
+    """
+    if value is None:
+        return default
+
+    if isinstance(value, str):
+        raw_tokens = [piece for piece in re.split(r"[\s,，]+", value) if piece]
+    elif isinstance(value, list):
+        raw_tokens = [str(piece) for piece in value]
+    else:
+        raise ValueError(f"配置错误: {field_name} 必须是字符串或数组")
+
+    normalized: list[str] = []
+    for raw_token in raw_tokens:
+        token = raw_token.strip().lower()
+        if not token:
+            continue
+        if token in {"all", "*"}:
+            return THINKING_MODEL_TYPES
+
+        model_type = normalize_model_type_name(token)
+        if model_type is None:
+            raise ValueError(
+                f"配置错误: {field_name} 包含非法模型类型 {raw_token!r}，支持 flash/pro/all"
+            )
+        normalized.append(model_type)
+
+    if not normalized:
+        return default
+    return tuple(dict.fromkeys(normalized))
+
+
+def normalize_step_thinking_overrides(raw_overrides: Any) -> dict[str, dict[str, Any]]:
+    """
+    解析 pipeline.thinking.step_overrides。
+    """
+    if raw_overrides is None:
+        return {}
+    if not isinstance(raw_overrides, dict):
+        raise ValueError("配置错误: pipeline.thinking.step_overrides 必须是对象")
+
+    normalized: dict[str, dict[str, Any]] = {}
+    for step_name, raw_override in raw_overrides.items():
+        if step_name not in PIPELINE_MODEL_STEPS:
+            logging.warning("pipeline.thinking.step_overrides 存在未知阶段，将忽略: %s", step_name)
+            continue
+
+        if isinstance(raw_override, bool):
+            normalized[step_name] = {"enabled": raw_override}
+            continue
+
+        if not isinstance(raw_override, dict):
+            raise ValueError(
+                f"配置错误: pipeline.thinking.step_overrides[{step_name!r}] 必须是对象或布尔值"
+            )
+
+        clean: dict[str, Any] = {}
+        if "enabled" in raw_override:
+            clean["enabled"] = coerce_bool_config(raw_override.get("enabled"), True)
+        if "effort" in raw_override:
+            clean["effort"] = normalize_thinking_effort(raw_override.get("effort"))
+        if "apply_to" in raw_override:
+            clean["apply_to"] = normalize_model_type_filter(
+                raw_override.get("apply_to"),
+                default=THINKING_MODEL_TYPES,
+                field_name=f"pipeline.thinking.step_overrides[{step_name!r}].apply_to",
+            )
+        normalized[step_name] = clean
+
+    return normalized
+
+
+def build_deepseek_thinking_config() -> dict[str, Any]:
+    """
+    构建 DeepSeek V4 思考模式配置。
+
+    未配置 pipeline.thinking 时保持旧行为：不显式发送 thinking/reasoning_effort。
+    """
+    raw = pipeline_config.get("thinking")
+    if raw is None:
+        return {
+            "configured": False,
+            "enabled": False,
+            "effort": "high",
+            "apply_to": THINKING_MODEL_TYPES,
+            "step_overrides": {},
+        }
+
+    if isinstance(raw, bool):
+        return {
+            "configured": True,
+            "enabled": raw,
+            "effort": "high",
+            "apply_to": THINKING_MODEL_TYPES,
+            "step_overrides": {},
+        }
+
+    if not isinstance(raw, dict):
+        raise ValueError("配置错误: pipeline.thinking 必须是对象或布尔值")
+
+    raw_step_overrides = raw.get("step_overrides", raw.get("steps"))
+    return {
+        "configured": True,
+        "enabled": coerce_bool_config(raw.get("enabled"), True),
+        "effort": normalize_thinking_effort(raw.get("effort")),
+        "apply_to": normalize_model_type_filter(
+            raw.get("apply_to"),
+            default=THINKING_MODEL_TYPES,
+            field_name="pipeline.thinking.apply_to",
+        ),
+        "step_overrides": normalize_step_thinking_overrides(raw_step_overrides),
+    }
+
+
+DEEPSEEK_THINKING_CONFIG = build_deepseek_thinking_config()
+logging.info(
+    "DeepSeek 思考模式配置: %s",
+    json.dumps(DEEPSEEK_THINKING_CONFIG, ensure_ascii=False, sort_keys=True, default=list),
+)
+
 client = OpenAI(
     api_key=api_config["api_key"],
     base_url=api_config["base_url"],
@@ -309,6 +490,127 @@ ID_DIR_PATTERN = re.compile(r"^[A-Za-z]\d{3}$")
 L6_DIRNAME_FILE_PATTERN_TEMPLATE = r"^{item_id}_[a-z0-9]+(?:_[a-z0-9]+)*$"
 L6_FALLBACK_SLUG = "generated_conclusion"
 CURRENT_ITEM_ID: ContextVar[str] = ContextVar("CURRENT_ITEM_ID", default="-")
+
+
+def is_deepseek_request(model_name: str) -> bool:
+    """
+    判断当前请求是否应使用 DeepSeek 专用参数。
+    """
+    provider = str(api_config.get("provider", "")).strip().lower()
+    base_url = str(api_config.get("base_url", "")).strip().lower()
+    model_token = model_name.strip().lower()
+    return (
+        provider == "deepseek"
+        or "deepseek" in base_url
+        or model_token.startswith("deepseek-")
+    )
+
+
+def resolve_model_type_from_model_name(model_name: str) -> str | None:
+    """
+    尽量从实际模型名反推 flash/pro 类型，用于 fallback 模型请求。
+    """
+    for model_type in THINKING_MODEL_TYPES:
+        config_key = resolve_model_config_key(model_type)
+        configured_name = model_config.get(config_key) if config_key else None
+        if isinstance(configured_name, str) and configured_name == model_name:
+            return model_type
+
+    model_token = model_name.strip().lower()
+    if "flash" in model_token or model_token == "deepseek-chat":
+        return "flash"
+    if "pro" in model_token:
+        return "pro"
+    return None
+
+
+def get_deepseek_thinking_options(step: str, model_name: str) -> dict[str, Any]:
+    """
+    返回单次 DeepSeek 请求应发送的 thinking/reasoning_effort 参数。
+    """
+    if not is_deepseek_request(model_name) or not DEEPSEEK_THINKING_CONFIG["configured"]:
+        return {
+            "send_control": False,
+            "enabled": False,
+            "effort": None,
+            "model_type": resolve_model_type_from_model_name(model_name),
+        }
+
+    model_type = resolve_model_type_from_model_name(model_name)
+    apply_to = DEEPSEEK_THINKING_CONFIG["apply_to"]
+    base_applies = model_type in apply_to
+
+    override = DEEPSEEK_THINKING_CONFIG["step_overrides"].get(step, {})
+    override_apply_to = override.get("apply_to") if isinstance(override, dict) else None
+    if override_apply_to is not None:
+        override_applies = model_type in override_apply_to
+    else:
+        # 阶段 override 是显式配置；即使 base apply_to 没覆盖，也允许单阶段打开。
+        override_applies = bool(override)
+
+    if not base_applies and not override_applies:
+        return {
+            "send_control": False,
+            "enabled": False,
+            "effort": None,
+            "model_type": model_type,
+        }
+
+    enabled = bool(DEEPSEEK_THINKING_CONFIG["enabled"]) if base_applies else True
+    effort = str(DEEPSEEK_THINKING_CONFIG["effort"])
+
+    if override_applies and isinstance(override, dict):
+        if "enabled" in override:
+            enabled = bool(override["enabled"])
+        if "effort" in override:
+            effort = str(override["effort"])
+
+    return {
+        "send_control": True,
+        "enabled": enabled,
+        "effort": effort if enabled else None,
+        "model_type": model_type,
+    }
+
+
+def apply_deepseek_thinking_options(
+    request_kwargs: dict[str, Any],
+    *,
+    step: str,
+    model_name: str,
+) -> dict[str, Any]:
+    """
+    就地补充 DeepSeek thinking 参数，并返回本次请求的思考模式摘要。
+    """
+    options = get_deepseek_thinking_options(step, model_name)
+    if not options["send_control"]:
+        request_kwargs["temperature"] = TEMPERATURE
+        return options
+
+    if options["enabled"]:
+        request_kwargs["reasoning_effort"] = options["effort"]
+        request_kwargs["extra_body"] = {"thinking": {"type": "enabled"}}
+        return options
+
+    request_kwargs["temperature"] = TEMPERATURE
+    request_kwargs["extra_body"] = {"thinking": {"type": "disabled"}}
+    return options
+
+
+def build_step_cache_fingerprint_payload(step: str) -> dict[str, Any]:
+    """
+    组成阶段缓存指纹输入：prompt + 会影响模型输出的请求配置。
+    """
+    model_name = get_configured_model_name(step)
+    thinking_options = get_deepseek_thinking_options(step, model_name)
+    return {
+        "prompt": load_prompt(step),
+        "model": model_name,
+        "model_type": get_configured_model_type(step),
+        "max_tokens": STEP_MAX_TOKENS.get(step),
+        "temperature": None if thinking_options["enabled"] else TEMPERATURE,
+        "deepseek_thinking": thinking_options,
+    }
 
 
 def normalize_reason_text(reason: Any) -> str:
@@ -390,18 +692,22 @@ def compute_prompt_hash(text: str) -> str:
 
 def build_prompt_hash_snapshot() -> dict[str, str]:
     """
-    构建当前进程的 prompt 指纹快照。
+    构建当前进程的阶段缓存指纹快照。
 
     说明：
     - 每次 pipeline 启动时计算一次；
-    - 任一受管阶段 prompt 变更，会导致对应缓存失效；
+    - 任一受管阶段 prompt 或关键模型请求配置变更，会导致对应缓存失效；
     - 与 --force 无关：即使不传 --force，指纹不一致也必须重跑。
     """
     snapshot: dict[str, str] = {}
     for step in PROMPT_MANAGED_STEPS:
-        # 统一复用 load_prompt，避免路径解析逻辑分叉。
-        text = load_prompt(step)
-        snapshot[step] = compute_prompt_hash(text)
+        payload = json.dumps(
+            build_step_cache_fingerprint_payload(step),
+            ensure_ascii=False,
+            sort_keys=True,
+            separators=(",", ":"),
+        )
+        snapshot[step] = compute_prompt_hash(payload)
     return snapshot
 
 
@@ -678,17 +984,7 @@ def get_model(step: str = "default") -> str:
     Returns:
         str: 模型名称。
     """
-    model_type = MODEL_MAP.get(step)
-    if model_type is None:
-        raise KeyError(
-            f"未找到阶段模型配置: step={step!r}，请在 pipeline.step_models 中显式配置"
-        )
-    config_key = resolve_model_config_key(model_type)
-    if config_key is None or config_key not in model_config:
-        raise KeyError(
-            f"未找到可用模型映射: step={step!r}, model_type={model_type!r}, config_key={config_key!r}"
-        )
-    return model_config[config_key]
+    return get_configured_model_name(step)
 
 
 
@@ -781,6 +1077,8 @@ def log_perf_trace(step: str, metrics: dict[str, Any]) -> None:
         "validate_ms": metrics.get("validate_ms"),
         "retry_count": metrics.get("retry_count"),
         "timeout_value": metrics.get("timeout_value"),
+        "thinking_enabled": metrics.get("thinking_enabled"),
+        "reasoning_effort": metrics.get("reasoning_effort"),
     }
     logging.info("[PERF_TRACE] %s", json.dumps(record, ensure_ascii=False))
 
@@ -892,8 +1190,10 @@ def call_llm(
         max_tokens = get_step_max_tokens(step)
 
         if LOG_PROMPT_STATS:
+            thinking_preview = get_deepseek_thinking_options(step, model)
             logging.info(
-                f"{step.upper()} request: model={model}, prompt_chars={len(prompt)}, max_tokens={max_tokens}"
+                f"{step.upper()} request: model={model}, prompt_chars={len(prompt)}, "
+                f"max_tokens={max_tokens}, thinking={thinking_preview}"
             )
 
         total_llm_roundtrip_ms = 0.0
@@ -905,6 +1205,8 @@ def call_llm(
         total_completion_tokens = 0
         total_tokens = 0
         has_usage = False
+        effective_thinking_enabled: bool | None = None
+        effective_reasoning_effort: str | None = None
 
         def _run_request(
             request_model: str,
@@ -914,6 +1216,7 @@ def call_llm(
             nonlocal total_llm_roundtrip_ms, total_retry_count
             nonlocal request_start_ts, request_end_ts, effective_model
             nonlocal total_prompt_tokens, total_completion_tokens, total_tokens, has_usage
+            nonlocal effective_thinking_enabled, effective_reasoning_effort
 
             retry_meta: dict[str, Any] = {}
             current_attempt = 1
@@ -932,12 +1235,24 @@ def call_llm(
                     )
 
             def _request(request_model_name: str, request_max_tokens_inner: int | None) -> Any:
+                nonlocal effective_thinking_enabled, effective_reasoning_effort
+
                 request_kwargs: dict[str, Any] = {
                     "model": request_model_name,
                     "messages": messages,
-                    "temperature": TEMPERATURE,
                     "timeout": API_TIMEOUT_SECONDS,
                 }
+                thinking_options = apply_deepseek_thinking_options(
+                    request_kwargs,
+                    step=step,
+                    model_name=request_model_name,
+                )
+                effective_thinking_enabled = (
+                    bool(thinking_options["enabled"])
+                    if thinking_options["send_control"]
+                    else None
+                )
+                effective_reasoning_effort = thinking_options["effort"]
                 if request_max_tokens_inner is not None:
                     request_kwargs["max_tokens"] = request_max_tokens_inner
                 return request_llm_with_progress(
@@ -1017,6 +1332,8 @@ def call_llm(
                     "total_tokens": total_tokens if has_usage else None,
                     "retry_count": total_retry_count,
                     "timeout_value": API_TIMEOUT_SECONDS,
+                    "thinking_enabled": effective_thinking_enabled,
+                    "reasoning_effort": effective_reasoning_effort,
                 }
             )
 
