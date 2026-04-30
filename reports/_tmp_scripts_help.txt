@@ -1,0 +1,426 @@
+﻿=== scripts/build_conclusion_pdfs.py ===
+usage: build_conclusion_pdfs.py [-h] [--modules [MODULES ...]]
+                                [--ids [IDS ...]]
+                                [--conclusions [CONCLUSIONS ...]]
+                                [--output-dir OUTPUT_DIR]
+                                [--map-json MAP_JSON]
+                                [--pdf-name-mode {id,folder}] [--overwrite]
+                                [--dry-run]
+                                [positional_ids ...]
+
+Compile selected second-level conclusion directories into standalone PDFs and
+write an ID->PDF-name JSON mapping.
+
+positional arguments:
+  positional_ids        Shorthand IDs, equivalent to --ids (e.g. I001 S001).
+                        If --modules is omitted, modules are auto-derived from
+                        12_pipeline/config/module_prefix_map.json.
+
+options:
+  -h, --help            show this help message and exit
+  --modules [MODULES ...]
+                        Modules to include (default: all 00_set~09_geometry-
+                        plane). Supports comma and/or space separated values.
+  --ids [IDS ...]       Conclusion IDs to include (e.g. I001 S001). Supports
+                        comma and/or space separation.
+  --conclusions [CONCLUSIONS ...]
+                        Conclusion folder names to include (e.g.
+                        S001_Subset_Count). Supports comma and/or space
+                        separation.
+  --output-dir OUTPUT_DIR
+                        Output directory for PDFs (default:
+                        build/conclusion_pdfs).
+  --map-json MAP_JSON   Output JSON path for ID->PDF mapping (default:
+                        build/conclusion_pdf_map.json).
+  --pdf-name-mode {id,folder}
+                        PDF naming: "id" -> I001.pdf, "folder" ->
+                        I001_topic_name.pdf (default: folder).
+  --overwrite           Overwrite existing output PDF files.
+  --dry-run             List planned tasks only. No compile, no output writes.
+
+=== scripts/build_detail_page_js.py ===
+usage: build_detail_page_js.py [-h] [--base-dir BASE_DIR]
+                               [--output-dir OUTPUT_DIR] [--module MODULES]
+                               [--item ITEMS] [--dry-run] [--debug] [--strict]
+
+Build display-oriented JS data files for detail pages.
+
+options:
+  -h, --help            show this help message and exit
+  --base-dir BASE_DIR   Project root. Module discovery and relative content paths are resolved from here.
+  --output-dir OUTPUT_DIR
+                        Directory where module detail files are written. Default: data/content
+  --module MODULES      Only build the given module directory. Can be repeated. Example: --module 07_inequality
+  --item ITEMS          Only build the given item directory name or content id. Can be repeated. Example: --item I001 or --item I001_Compound_Inequality_Transformation
+  --dry-run             Build everything in memory and print logs, but do not write files.
+  --debug               Print verbose logs, including per-field previews and fallbacks.
+  --strict              Fail the whole command when required fields are missing, JSON is invalid, or duplicate ids are found.
+
+Examples:
+  python scripts/build_detail_page_js.py
+  python scripts/build_detail_page_js.py --module 07_inequality
+  python scripts/build_detail_page_js.py --module 07_inequality --item I001 --debug --dry-run
+
+=== scripts/build_search_bundle_js.py ===
+usage: build_search_bundle_js.py [-h] [--base-dir BASE_DIR]
+                                 [--output-file OUTPUT_FILE]
+                                 [--audit-report AUDIT_REPORT]
+                                 [--module MODULES] [--item ITEMS] [--dry-run]
+                                 [--debug] [--strict] [--pretty]
+                                 [--embed-debug] [--debug-doc DEBUG_DOCS]
+                                 [--debug-term DEBUG_TERMS]
+                                 [--prefix-doc-limit PREFIX_DOC_LIMIT]
+                                 [--suggestion-limit SUGGESTION_LIMIT]
+
+Build a single-file JS search bundle from meta.json files.
+The generated bundle is optimized for mini-program search, suggestion,
+and incremental prefix matching.
+
+options:
+  -h, --help            show this help message and exit
+  --base-dir BASE_DIR   Project root used for module discovery. Defaults to the repo root beside this script.
+  --output-file OUTPUT_FILE
+                        Output JS bundle path. Defaults to data/search_engine/search_bundle.js.
+  --audit-report AUDIT_REPORT
+                        Optional JSON report path for build-time index pruning audit. When omitted, audit details are only logged.
+  --module MODULES      Only build the specified module directory. Can be passed multiple times.
+  --item ITEMS          Only build the specified item directory name or document id. Can be repeated.
+  --dry-run             Build everything in memory and print stats, but do not write the output file.
+  --debug               Enable verbose logging for scan, filter, and skip decisions.
+  --strict              Fail fast on invalid JSON, missing meta.json, duplicate ids, and similar data issues.
+  --pretty              Pretty-print the output bundle to make manual inspection easier.
+  --embed-debug         Embed debug payloads into the generated bundle. Useful for offline inspection, but increases file size.
+  --debug-doc DEBUG_DOCS
+                        Print the feature expansion report for a document id. Can be repeated.
+  --debug-term DEBUG_TERMS
+                        Print the exact/prefix posting report for a query term. Can be repeated.
+  --prefix-doc-limit PREFIX_DOC_LIMIT
+                        Maximum number of documents stored under one prefix term. Default: 32.
+  --suggestion-limit SUGGESTION_LIMIT
+                        Maximum number of suggestion rows stored in the bundle. Default: 500.
+
+Examples:
+  python scripts/build_search_bundle_js.py
+  python scripts/build_search_bundle_js.py --module 07_inequality
+  python scripts/build_search_bundle_js.py --item I005 --debug-doc I005 --dry-run
+  python scripts/build_search_bundle_js.py --debug-term 柯西不等式 --dry-run
+
+=== scripts/build_statement_card_js.py ===
+usage: build_statement_card_js.py [-h] [--base-dir BASE_DIR]
+                                  [--output-dir OUTPUT_DIR] [--module MODULES]
+                                  [--item ITEMS] [--dry-run] [--debug]
+                                  [--strict]
+
+Build display-oriented JS data files for detail pages.
+
+options:
+  -h, --help            show this help message and exit
+  --base-dir BASE_DIR   Project root. Module discovery and relative content paths are resolved from here.
+  --output-dir OUTPUT_DIR
+                        Directory where module detail files are written. Default: data/content
+  --module MODULES      Only build the given module directory. Can be repeated. Example: --module 07_inequality
+  --item ITEMS          Only build the given item directory name or content id. Can be repeated. Example: --item I001 or --item I001_Compound_Inequality_Transformation
+  --dry-run             Build everything in memory and print logs, but do not write files.
+  --debug               Print verbose logs, including per-field previews and fallbacks.
+  --strict              Fail the whole command when required fields are missing, JSON is invalid, or duplicate ids are found.
+
+Examples:
+  python scripts/build_detail_page_js.py
+  python scripts/build_detail_page_js.py --module 07_inequality
+  python scripts/build_detail_page_js.py --module 07_inequality --item I001 --debug --dry-run
+
+=== scripts/clean_i_dirs_files.py ===
+usage: clean_i_dirs_files.py [-h] [--config CONFIG] [--base-dir BASE_DIR]
+                             [--module MODULE] [--subdir SUBDIR]
+                             [--exclude-subdir EXCLUDE_SUBDIR]
+                             [--pattern PATTERN] [--apply]
+
+Delete files inside selected child directories (keep directories).
+
+options:
+  -h, --help            show this help message and exit
+  --config CONFIG       Path to JSON config file.
+  --base-dir BASE_DIR   Workspace base directory. Default: current directory.
+  --module MODULE       Module path (relative to base-dir). Can be repeated.
+  --subdir SUBDIR       Only clean these exact subdirectory names (applies to
+                        all --module). Can be repeated.
+  --exclude-subdir EXCLUDE_SUBDIR
+                        Exclude these exact subdirectory names (applies to all
+                        --module). Can be repeated.
+  --pattern PATTERN     Regex for target subdirectory names. If omitted:
+                        config.module_patterns > inferred module prefix rule.
+  --apply               Actually delete files. Without this flag, script runs
+                        in dry-run mode.
+
+=== scripts/create_pipeline_input_dirs.py ===
+usage: create_pipeline_input_dirs.py [-h] [--config CONFIG]
+                                     [--base-dir BASE_DIR]
+                                     [--target-root TARGET_ROOT]
+                                     [--prefix PREFIX]
+                                     [--number-width NUMBER_WIDTH]
+                                     [--directory-exists-policy {error,reuse,skip}]
+                                     [--overwrite-files] [--apply] [--verbose]
+                                     [start] [count]
+
+Create sequential Ixxx-style directories and scaffold files.
+
+positional arguments:
+  start                 Starting number. Example: 9 -> I009.
+  count                 How many directories to create. Example: 3 ->
+                        I009~I011.
+
+options:
+  -h, --help            show this help message and exit
+  --config CONFIG       Path to JSON config file. Default:
+                        scripts\create_pipeline_input_dirs.example.json
+  --base-dir BASE_DIR   Workspace base directory. Default: repository root.
+  --target-root TARGET_ROOT
+                        Target root directory relative to base-dir. Example:
+                        12_pipeline/input
+  --prefix PREFIX       Directory prefix. Example: I
+  --number-width NUMBER_WIDTH
+                        Zero-padding width. Example: 3 -> I009
+  --directory-exists-policy {error,reuse,skip}
+                        How to handle an existing target directory: reuse,
+                        skip, or error.
+  --overwrite-files     Force all files to use overwrite mode, regardless of
+                        config.
+  --apply               Actually create directories/files. Without this flag,
+                        the script stays in dry-run mode.
+  --verbose             Show resolved configuration and per-file planning
+                        details.
+
+=== scripts/create_prefixed_dirs_files.py ===
+usage: create_prefixed_dirs_files.py [-h] [--config CONFIG]
+                                     [--base-dir BASE_DIR] [--module MODULE]
+                                     [--subdir SUBDIR]
+                                     [--exclude-subdir EXCLUDE_SUBDIR]
+                                     [--pattern PATTERN] [--file FILE]
+                                     [--overwrite] [--apply]
+
+Create files inside selected child directories.
+
+options:
+  -h, --help            show this help message and exit
+  --config CONFIG       Path to JSON config file.
+  --base-dir BASE_DIR   Workspace base directory. Default: current directory.
+  --module MODULE       Module path (relative to base-dir). Can be repeated.
+  --subdir SUBDIR       Only process these exact subdirectory names. Can be
+                        repeated.
+  --exclude-subdir EXCLUDE_SUBDIR
+                        Exclude these exact subdirectory names. Can be
+                        repeated.
+  --pattern PATTERN     Regex for target subdirectory names. If omitted:
+                        config.module_patterns > inferred module prefix rule.
+  --file FILE           File name (or relative path) to create in each target
+                        subdirectory. Can be repeated.
+  --overwrite           Overwrite existing files. Without this, existing files
+                        are kept.
+  --apply               Actually create files. Without this flag, script runs
+                        in dry-run mode.
+
+=== scripts/extract_backend_index_from_search_bundle.py ===
+usage: extract_backend_index_from_search_bundle.py [-h] [--input INPUT]
+                                                   [--output OUTPUT]
+                                                   [--pretty | --compact]
+                                                   [--ensure-ascii]
+                                                   [--encoding ENCODING]
+                                                   [--fail-on-warning]
+                                                   [--no-meta]
+                                                   [--log-level {DEBUG,INFO,WARNING,ERROR}]
+
+从 CommonJS search_bundle.js 中抽取后端可用 JSON 索引。
+
+options:
+  -h, --help            show this help message and exit
+  --input INPUT         输入 JS bundle 路径，默认:
+                        data\search_engine\search_bundle.js
+  --output OUTPUT       输出 JSON 路径，默认:
+                        data\search_engine\backend_search_index.json
+  --pretty              输出可读 JSON（缩进 2 空格）。默认即 pretty。
+  --compact             输出紧凑 JSON（无额外空白）。
+  --ensure-ascii        启用 JSON ensure_ascii=True（非 ASCII 将转义）。
+  --encoding ENCODING   输入文件编码，默认 utf-8。
+  --fail-on-warning     出现 warning（如统计不一致）时直接失败退出。
+  --no-meta             不写入新增 meta 字段，只输出原始 bundle 内容。
+  --log-level {DEBUG,INFO,WARNING,ERROR}
+                        日志级别，默认 INFO。
+
+=== scripts/fix_math_punctuation.py ===
+usage: fix_math_punctuation.py [-h] [--dry-run] ids [ids ...]
+
+Fix Chinese punctuation inside LaTeX math environments for 01~06 lecture files
+under selected conclusion IDs.
+
+positional arguments:
+  ids         Conclusion IDs (e.g. C019, C020). Supports comma/space mixed
+              input.
+
+options:
+  -h, --help  show this help message and exit
+  --dry-run   Preview only; do not write files.
+
+=== scripts/generate_toc_seed.py ===
+usage: generate_toc_seed.py [-h] [--root ROOT] --output OUTPUT
+
+Generate TOC seed TeX from main/index/module main files.
+
+options:
+  -h, --help       show this help message and exit
+  --root ROOT      Root main.tex path
+  --output OUTPUT  Output seed tex path
+
+=== scripts/migrate_detail_js_to_content_v2.py ===
+usage: migrate_detail_js_to_content_v2.py [-h] --input INPUT [--output OUTPUT]
+                                          [--report REPORT]
+                                          [--schema-path SCHEMA_PATH]
+                                          [--model-path MODEL_PATH]
+                                          [--skip-validation]
+                                          [--strict-validation]
+                                          [--disable-node-fallback]
+                                          [--log-level {DEBUG,INFO,WARNING,ERROR,CRITICAL}]
+
+迁移 detail js 到 canonical_content_v2.json，并输出 conversion_report.json
+
+options:
+  -h, --help            show this help message and exit
+  --input INPUT         输入 detail js 文件
+  --output OUTPUT       输出 canonical_content_v2.json 路径
+  --report REPORT       输出 conversion_report.json 路径
+  --schema-path SCHEMA_PATH
+                        JSON Schema 路径
+  --model-path MODEL_PATH
+                        content_v2.py 路径
+  --skip-validation     跳过模型/Schema 强校验，仅执行基础结构检查
+  --strict-validation   校验失败时，该条记录记为 failed（默认仅记 warning）
+  --disable-node-fallback
+                        禁用 Node require 回退解析
+  --log-level {DEBUG,INFO,WARNING,ERROR,CRITICAL}
+                        日志级别
+
+示例:
+  python scripts/migrate_detail_js_to_content_v2.py --input data/content/07_inequality.js
+  python scripts/migrate_detail_js_to_content_v2.py --input data/content/07_inequality.js --strict-validation --log-level DEBUG
+
+=== scripts/normalize_text_typography.py ===
+usage: normalize_text_typography.py [-h] [--profiles PROFILES [PROFILES ...]]
+                                    [--extra-map SRC=DST]
+                                    [--extensions EXTENSIONS [EXTENSIONS ...]]
+                                    [--exclude-dir EXCLUDE_DIR]
+                                    [--max-kb MAX_KB] [--dry-run]
+                                    [--show-rules]
+                                    [targets ...]
+
+Normalize Chinese-style typography in repository text files.
+
+positional arguments:
+  targets               Optional files/directories/glob patterns. If omitted,
+                        scan repo root using text extensions.
+
+options:
+  -h, --help            show this help message and exit
+  --profiles PROFILES [PROFILES ...]
+                        Rule profiles to apply. Available: punctuation,
+                        quotes, spaces. Default: quotes, punctuation.
+  --extra-map SRC=DST   Add custom one-character mapping, repeatable. Supports
+                        literal chars or unicode forms like U+201C=\".
+  --extensions EXTENSIONS [EXTENSIONS ...]
+                        Text extensions used when scanning directories
+                        recursively. Default is a broad text extension set.
+  --exclude-dir EXCLUDE_DIR
+                        Exclude directory name during recursive scanning
+                        (repeatable). Default includes .git, __pycache__,
+                        node_modules, etc.
+  --max-kb MAX_KB       Skip files larger than this size in KB when scanning
+                        directories.
+  --dry-run             Preview only; do not write files.
+  --show-rules          Print active mapping rules and exit.
+
+=== scripts/unify_module_naming.py ===
+D:\mathnote\scripts\unify_module_naming.py:207: SyntaxWarning: "\i" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\i"? A raw string is also an option.
+  ✔ 只作用于 \input / \include
+usage: unify_module_naming.py [-h] [--dry-run] [--apply] [--rollback]
+
+LaTeX 命名规范重构工具（工业级）
+
+options:
+  -h, --help  show this help message and exit
+  --dry-run   预览修改
+  --apply     执行修改
+  --rollback  回滚
+
+=== scripts/upgrade_module_index.py ===
+D:\mathnote\scripts\upgrade_module_index.py:24: SyntaxWarning: "\i" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\i"? A raw string is also an option.
+  \input{00_set/S01_Subset_Count/main.tex}
+usage: upgrade_module_index.py [-h] --root ROOT [--modules [MODULES ...]]
+                               [--dry-run] [--apply]
+
+模块编号升级工具
+
+options:
+  -h, --help            show this help message and exit
+  --root ROOT           项目根目录
+  --modules [MODULES ...]
+                        指定模块（可选）
+  --dry-run             仅预览
+  --apply               实际执行
+
+=== scripts/verify_backend_index_extraction.py ===
+usage: verify_backend_index_extraction.py [-h] [--bundle-js BUNDLE_JS]
+                                          [--backend-json BACKEND_JSON]
+                                          [--report REPORT]
+                                          [--max-diff-samples MAX_DIFF_SAMPLES]
+                                          [--ignore-meta | --no-ignore-meta]
+                                          [--log-level {DEBUG,INFO,WARNING,ERROR}]
+
+验证 backend_search_index.json 是否与 search_bundle.js 中的 searchBundle 严格一致。
+
+options:
+  -h, --help            show this help message and exit
+  --bundle-js BUNDLE_JS
+                        source bundle 路径，默认:
+                        data\search_engine\search_bundle.js
+  --backend-json BACKEND_JSON
+                        backend JSON 路径，默认:
+                        data\search_engine\backend_search_index.json
+  --report REPORT       可选 JSON 报告路径，例如:
+                        reports/backend_index_verify_report.json
+  --max-diff-samples MAX_DIFF_SAMPLES
+                        最多保留前 N 条差异样本，默认 50
+  --ignore-meta, --no-ignore-meta
+                        是否忽略 backend 顶层 `meta/_extractor_meta` 差异（默认开启）
+  --log-level {DEBUG,INFO,WARNING,ERROR}
+                        日志级别，默认 INFO
+
+=== scripts/verify_detail_js_to_content_v2_integrity.py ===
+D:\mathnote\scripts\verify_detail_js_to_content_v2_integrity.py:13: SyntaxWarning: "\s" is an invalid escape sequence. Such sequences will not work in the future. Did you mean "\\s"? A raw string is also an option.
+  python.exe .\scripts\verify_detail_js_to_content_v2_integrity.py --source-js .\data\content\07_inequality.js --target-json .\data\content\canonical_content_v2.json --migration-script .\scripts\migrate_detail_js_to_content_v2.py
+usage: verify_detail_js_to_content_v2_integrity.py [-h] --source-js SOURCE_JS
+                                                   --target-json TARGET_JSON
+                                                   --migration-script MIGRATION_SCRIPT
+                                                   [--report-json REPORT_JSON]
+                                                   [--report-md REPORT_MD]
+                                                   [--strict]
+                                                   [--log-level {DEBUG,INFO,WARNING,ERROR,CRITICAL}]
+
+校验 detail js -> canonical_content_v2.json 的迁移完整性
+
+options:
+  -h, --help            show this help message and exit
+  --source-js SOURCE_JS
+                        源 detail js 文件
+  --target-json TARGET_JSON
+                        目标 canonical_content_v2.json
+  --migration-script MIGRATION_SCRIPT
+                        迁移脚本 migrate_detail_js_to_content_v2.py
+  --report-json REPORT_JSON
+                        输出 JSON 报告路径
+  --report-md REPORT_MD
+                        输出 Markdown 报告路径
+  --strict              存在 failed 记录时在终端显著提示，但仍不以 failed records 作为退出码
+  --log-level {DEBUG,INFO,WARNING,ERROR,CRITICAL}
+                        日志级别
+
+示例:
+  python verify_detail_js_to_content_v2_integrity.py --source-js 07_inequality.js --target-json canonical_content_v2.json --migration-script migrate_detail_js_to_content_v2.py
+

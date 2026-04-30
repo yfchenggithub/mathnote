@@ -1,0 +1,3259 @@
+==============================================================================================================
+scripts/build_all_indexes.py
+- top 30 lines -
+"""
+====================================================================
+Script Name : build_all_indexes.py
+Project     : Mathnote 高中数学二级结论搜索引擎
+Author      : 程远锋
+Created     : 2026
+
+====================================================================
+一、项目背景
+====================================================================
+
+本项目用于构建"高中数学二级结论搜索引擎"的离线索引。
+
+由于微信小程序运行环境存在以下限制：
+
+1）JSON 解析速度有限
+2）JS 遍历大量对象性能下降
+3）包体大小有限
+4）网络请求不稳定
+
+因此必须在 **构建阶段（Build Time）** 完成大部分计算，
+生成适合小程序端直接使用的索引。
+
+最终目标：
+
+    小程序端搜索延迟 < 3ms
+
+====================================================================
+二、系统架构
+====================================================================
+- main() -
+def main():
+
+    print()
+    print("====================================")
+    print("Building Mathnote Search Engine")
+    print("====================================")
+
+    prepare_output()
+
+    scan_meta()
+
+    print()
+
+    save_json(
+        "keyword_index.json",
+        {k: list(v) for k, v in keyword_index.items()}
+    )
+
+    save_json(
+        "prefix_index.json",
+        {k: list(v) for k, v in prefix_index.items()}
+    )
+
+    save_json(
+        "pinyin_index.json",
+        {k: list(v) for k, v in pinyin_index.items()}
+    )
+
+    save_json(
+        "pinyin_short_index.json",
+        {k: list(v) for k, v in pinyin_short_index.items()}
+    )
+
+    save_json(
+        "formula_index.json",
+        {k: list(v) for k, v in formula_index.items()}
+    )
+
+    save_json("ranking_index.json", ranking_index)
+
+    save_json("meta_compact.json", meta_compact)
+
+    save_json("suggestion_index.json", sorted(list(suggestions)))
+
+    print()
+    print("====================================")
+    print("Build Statistics")
+    print("====================================")
+
+    print("Total conclusions:", len(meta_compact))
+    print("Keyword index:", len(keyword_index))
+    print("Prefix index:", len(prefix_index))
+    print("Formula index:", len(formula_index))
+    print("Suggestion size:", len(suggestions))
+
+    print()
+    print("Search engine build complete.")
+    print()
+- tail 30 lines -
+    save_json(
+        "formula_index.json",
+        {k: list(v) for k, v in formula_index.items()}
+    )
+
+    save_json("ranking_index.json", ranking_index)
+
+    save_json("meta_compact.json", meta_compact)
+
+    save_json("suggestion_index.json", sorted(list(suggestions)))
+
+    print()
+    print("====================================")
+    print("Build Statistics")
+    print("====================================")
+
+    print("Total conclusions:", len(meta_compact))
+    print("Keyword index:", len(keyword_index))
+    print("Prefix index:", len(prefix_index))
+    print("Formula index:", len(formula_index))
+    print("Suggestion size:", len(suggestions))
+
+    print()
+    print("Search engine build complete.")
+    print()
+
+
+if __name__ == "__main__":
+
+    main()
+==============================================================================================================
+scripts/build_conclusion_pdfs.py
+- top 30 lines -
+#!/usr/bin/env python
+"""
+Build one PDF per conclusion directory and emit an ID->PDF-name JSON map.
+
+Examples:
+  python scripts/build_conclusion_pdfs.py --dry-run
+  python scripts/build_conclusion_pdfs.py S001 I001
+  python scripts/build_conclusion_pdfs.py --modules 00_set 07_inequality --ids S001 I001
+  python scripts/build_conclusion_pdfs.py --modules 00_set --conclusions S001_Subset_Count --pdf-name-mode id
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import re
+import shutil
+import subprocess
+import tempfile
+import uuid
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Iterable
+
+DEFAULT_MODULES = [
+    "00_set",
+    "01_function",
+    "02_sequence",
+    "03_conic",
+    "04_vector",
+- parse_args() -
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description=(
+            "Compile selected second-level conclusion directories into standalone PDFs "
+            "and write an ID->PDF-name JSON mapping."
+        )
+    )
+    parser.add_argument(
+        "--modules",
+        nargs="*",
+        default=None,
+        help=(
+            "Modules to include (default: all 00_set~09_geometry-plane). "
+            "Supports comma and/or space separated values."
+        ),
+    )
+    parser.add_argument(
+        "--ids",
+        nargs="*",
+        default=None,
+        help="Conclusion IDs to include (e.g. I001 S001). Supports comma and/or space separation.",
+    )
+    parser.add_argument(
+        "positional_ids",
+        nargs="*",
+        help=(
+            "Shorthand IDs, equivalent to --ids (e.g. I001 S001). "
+            "If --modules is omitted, modules are auto-derived from "
+            "12_pipeline/config/module_prefix_map.json."
+        ),
+    )
+    parser.add_argument(
+        "--conclusions",
+        nargs="*",
+        default=None,
+        help=(
+            "Conclusion folder names to include (e.g. S001_Subset_Count). "
+            "Supports comma and/or space separation."
+        ),
+    )
+    parser.add_argument(
+        "--output-dir",
+        default=str(DEFAULT_OUTPUT_DIR),
+        help=f"Output directory for PDFs (default: {DEFAULT_OUTPUT_DIR.as_posix()}).",
+    )
+    parser.add_argument(
+        "--map-json",
+        default=str(DEFAULT_MAP_JSON),
+        help=f"Output JSON path for ID->PDF mapping (default: {DEFAULT_MAP_JSON.as_posix()}).",
+    )
+    parser.add_argument(
+        "--pdf-name-mode",
+        choices=("id", "folder"),
+        default="folder",
+        help='PDF naming: "id" -> I001.pdf, "folder" -> I001_topic_name.pdf (default: folder).',
+    )
+    parser.add_argument(
+        "--overwrite",
+        action="store_true",
+        help="Overwrite existing output PDF files.",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="List planned tasks only. No compile, no output writes.",
+    )
+    return parser.parse_args()
+- main() -
+def main() -> int:
+    args = parse_args()
+    repo_root = Path(__file__).resolve().parent.parent
+
+    try:
+        raw_ids = split_csv_tokens(args.ids) + split_csv_tokens(args.positional_ids)
+        ids = normalize_ids(raw_ids)
+        conclusions = normalize_conclusions(args.conclusions)
+        modules, module_source = resolve_modules(args.modules, ids, repo_root)
+    except (ValueError, FileNotFoundError) as exc:
+        print(f"[error] {exc}")
+        return 2
+
+    discovered = discover_conclusions(repo_root, modules)
+    selected = filter_items(discovered, ids, conclusions)
+    warn_unmatched_filters(selected, ids, conclusions)
+
+    if not selected:
+        print("[error] No conclusions matched the given filters.")
+        return 2
+
+    try:
+        ensure_unique_ids(selected)
+        ensure_unique_pdf_names(selected, args.pdf_name_mode)
+    except ValueError as exc:
+        print(f"[error] {exc}")
+        return 2
+
+    output_dir = (repo_root / Path(args.output_dir)).resolve()
+    map_json_path = (repo_root / Path(args.map_json)).resolve()
+
+    print(f"[info] Repo root: {repo_root}")
+    print(f"[info] Modules ({module_source}): {', '.join(modules)}")
+    print(f"[info] Selected conclusions: {len(selected)}")
+    print(f"[info] PDF output dir: {output_dir}")
+    print(f"[info] Map JSON path: {map_json_path}")
+    print(f"[info] PDF naming mode: {args.pdf_name_mode}")
+
+    if args.dry_run:
+        print("[dry-run] Planned tasks:")
+        for item in selected:
+            pdf_name = build_pdf_name(item, args.pdf_name_mode)
+            print(f"  - {item.conclusion_id}: {item.module}/{item.folder_name} -> {pdf_name}")
+        print("[dry-run] No files written.")
+        return 0
+
+    output_dir.mkdir(parents=True, exist_ok=True)
+    map_json_path.parent.mkdir(parents=True, exist_ok=True)
+
+    mapping: dict[str, str] = {}
+    results: list[BuildResult] = []
+    total = len(selected)
+
+    for index, item in enumerate(selected, start=1):
+        pdf_name = build_pdf_name(item, args.pdf_name_mode)
+        print(f"[build] ({index}/{total}) {item.module}/{item.folder_name} -> {pdf_name}")
+        result = compile_one(
+            repo_root=repo_root,
+            output_dir=output_dir,
+            item=item,
+            pdf_name_mode=args.pdf_name_mode,
+            overwrite=args.overwrite,
+        )
+        results.append(result)
+
+        if result.status in {"success", "skipped"}:
+            mapping[item.conclusion_id] = result.pdf_name
+            if result.status == "success":
+                print("        status: success")
+            else:
+                print(f"        status: skipped ({result.message})")
+        else:
+            print("        status: failed")
+            if result.message:
+                print("        details:")
+                for line in result.message.splitlines():
+                    print(f"          {line}")
+
+    write_json(map_json_path, mapping)
+
+    success_count = sum(1 for result in results if result.status == "success")
+    skipped_count = sum(1 for result in results if result.status == "skipped")
+    failed = [result for result in results if result.status == "failed"]
+
+    print("[summary]")
+    print(f"  success: {success_count}")
+    print(f"  skipped: {skipped_count}")
+    print(f"  failed : {len(failed)}")
+    print(f"  map json written: {map_json_path}")
+
+    if failed:
+        print("[summary] Failed items:")
+        for result in failed:
+            print(f"  - {result.item.conclusion_id} ({result.item.module}/{result.item.folder_name})")
+        return 1
+    return 0
+- tail 30 lines -
+                print(f"        status: skipped ({result.message})")
+        else:
+            print("        status: failed")
+            if result.message:
+                print("        details:")
+                for line in result.message.splitlines():
+                    print(f"          {line}")
+
+    write_json(map_json_path, mapping)
+
+    success_count = sum(1 for result in results if result.status == "success")
+    skipped_count = sum(1 for result in results if result.status == "skipped")
+    failed = [result for result in results if result.status == "failed"]
+
+    print("[summary]")
+    print(f"  success: {success_count}")
+    print(f"  skipped: {skipped_count}")
+    print(f"  failed : {len(failed)}")
+    print(f"  map json written: {map_json_path}")
+
+    if failed:
+        print("[summary] Failed items:")
+        for result in failed:
+            print(f"  - {result.item.conclusion_id} ({result.item.module}/{result.item.folder_name})")
+        return 1
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+==============================================================================================================
+scripts/build_content_json.py
+- top 30 lines -
+"""
+========================================================
+🚀 build_content_json.py（内容构建器 - 最终版）
+========================================================
+
+【核心目标】
+
+从 LaTeX 文件结构生成小程序可用的 JSON 数据：
+
+D:\\mathnote
+    ↓
+content/*.json
+
+--------------------------------------------------------
+【支持能力】
+
+✔ 指定模块生成（重点）
+✔ 自动解析 meta.json
+✔ 自动读取 6 个 tex 内容
+✔ 输出标准 JSON 结构
+
+--------------------------------------------------------
+【为什么必须做这一步？】
+
+👉 小程序不能解析 tex
+👉 必须在构建阶段转为 JSON
+👉 保证搜索引擎直接使用
+
+========================================================
+"""
+- main() -
+def main():
+
+    print("====================================")
+    print("Building content JSON")
+    print("====================================")
+
+    for module in TARGET_MODULES:
+        process_module(module)
+
+    print("====================================")
+    print("DONE")
+    print("====================================")
+- tail 30 lines -
+
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+    with open(output_file, "w", encoding="utf-8") as f:
+        json.dump(result, f, ensure_ascii=False)
+
+    print(f"Generated: {output_file}  ({len(result)} items)")
+
+
+# ======================================================
+# 主程序
+# ======================================================
+
+
+def main():
+
+    print("====================================")
+    print("Building content JSON")
+    print("====================================")
+
+    for module in TARGET_MODULES:
+        process_module(module)
+
+    print("====================================")
+    print("DONE")
+    print("====================================")
+
+
+if __name__ == "__main__":
+    main()
+==============================================================================================================
+scripts/build_core_index.py
+- top 30 lines -
+"""
+========================================================
+🚀 build_core_index.py（重构版 - 基于 build_all_indexes.py）
+========================================================
+
+【核心目标】
+
+在保留现有 meta.json 数据结构的前提下：
+
+❌ 删除多索引结构（keyword/prefix/pinyin 等）
+✅ 合并为一个 core_index（极致搜索）
+
+--------------------------------------------------------
+【为什么重构？】
+
+原方案（你当前）：
+
+keyword_index
+prefix_index
+pinyin_index
+pinyin_short_index
+formula_index
+...
+
+👉 问题：
+
+1）小程序端需要多次查表（慢）
+2）JSON 文件过多（加载慢）
+3）逻辑分散（不可维护）
+
+- main() -
+def main():
+
+    if os.path.exists(OUTPUT_DIR):
+        shutil.rmtree(OUTPUT_DIR)
+
+    os.makedirs(OUTPUT_DIR)
+
+    print("Building CORE index...")
+
+    scan_meta()
+
+    print("Saving...")
+
+    save_json("core_index.json", {k: list(v) for k, v in core_index.items()})
+    save_json("rank_index.json", rank_index)
+    save_json("suggest_index.json", sorted(list(suggest_set)))
+
+    print("====================================")
+    print("Core index size:", len(core_index))
+    print("Suggest size:", len(suggest_set))
+    print("====================================")
+    print("Done")
+- tail 30 lines -
+# ------------------------------------------------------------
+# 主函数
+# ------------------------------------------------------------
+
+def main():
+
+    if os.path.exists(OUTPUT_DIR):
+        shutil.rmtree(OUTPUT_DIR)
+
+    os.makedirs(OUTPUT_DIR)
+
+    print("Building CORE index...")
+
+    scan_meta()
+
+    print("Saving...")
+
+    save_json("core_index.json", {k: list(v) for k, v in core_index.items()})
+    save_json("rank_index.json", rank_index)
+    save_json("suggest_index.json", sorted(list(suggest_set)))
+
+    print("====================================")
+    print("Core index size:", len(core_index))
+    print("Suggest size:", len(suggest_set))
+    print("====================================")
+    print("Done")
+
+
+if __name__ == "__main__":
+    main()
+==============================================================================================================
+scripts/build_detail_page_js.py
+- top 30 lines -
+from __future__ import annotations
+
+"""
+===============================================================================
+build_detail_page_js.py
+===============================================================================
+
+Purpose
+-------
+Build one JS data file per module for the WeChat mini-program detail page.
+
+This script is intentionally different from `build_search_bundle_js.py`:
+- `build_search_bundle_js.py` prepares aggressively indexed search data.
+- `build_detail_page_js.py` prepares display-oriented detail data.
+
+Why this script exists
+----------------------
+The detail page has different needs from search:
+1. It needs stable, readable, display-ready fields.
+2. It should keep only detail-page metadata, not search-only metadata.
+3. It benefits from a config-driven schema so future fields can be added
+   without rewriting the whole pipeline.
+4. It should be easy to debug when a single item or a single module fails.
+
+Included fields
+---------------
+This builder keeps only detail-page data such as:
+- identity and display fields (`id`, `title`, `alias`, `difficulty`, `tags`)
+- math explanation fields (`core_formula`, `conditions`, `conclusions`)
+- cleaned long-form text (`statement`, `explanation`, `proof`, `examples`,
+- parse_args() -
+def parse_args() -> argparse.Namespace:
+    """Parse CLI arguments with detail-page oriented examples."""
+
+    parser = argparse.ArgumentParser(
+        description="Build display-oriented JS data files for detail pages.",
+        epilog=(
+            "Examples:\n"
+            "  python scripts/build_detail_page_js.py\n"
+            "  python scripts/build_detail_page_js.py --module 07_inequality\n"
+            "  python scripts/build_detail_page_js.py --module 07_inequality "
+            "--item I001 --debug --dry-run\n"
+        ),
+        formatter_class=argparse.RawTextHelpFormatter,
+    )
+    parser.add_argument(
+        "--base-dir",
+        default=str(PROJECT_ROOT),
+        help=(
+            "Project root. Module discovery and relative content paths are "
+            "resolved from here."
+        ),
+    )
+    parser.add_argument(
+        "--output-dir",
+        default=str(DEFAULT_OUTPUT_DIR),
+        help=(
+            "Directory where module detail files are written. "
+            "Default: data/content"
+        ),
+    )
+    parser.add_argument(
+        "--module",
+        dest="modules",
+        action="append",
+        help=(
+            "Only build the given module directory. Can be repeated. "
+            "Example: --module 07_inequality"
+        ),
+    )
+    parser.add_argument(
+        "--item",
+        dest="items",
+        action="append",
+        help=(
+            "Only build the given item directory name or content id. "
+            "Can be repeated. Example: --item I001 or "
+            "--item I001_Compound_Inequality_Transformation"
+        ),
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Build everything in memory and print logs, but do not write files.",
+    )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="Print verbose logs, including per-field previews and fallbacks.",
+    )
+    parser.add_argument(
+        "--strict",
+        action="store_true",
+        help=(
+            "Fail the whole command when required fields are missing, JSON is "
+            "invalid, or duplicate ids are found."
+        ),
+    )
+    return parser.parse_args()
+- main() -
+def main() -> int:
+    """CLI entry point."""
+
+    configure_console_encoding()
+    args = parse_args()
+    configure_logging(args.debug)
+    config = build_config_from_args(args)
+
+    try:
+        run_build(config)
+        return 0
+    except BuildError as exc:
+        LOGGER.error("%s", exc)
+        return 1
+    except Exception:
+        LOGGER.exception("Unexpected build failure")
+        return 1
+- tail 30 lines -
+
+    LOGGER.info("Step 5/5 | Finished")
+    if written_files:
+        for path in written_files:
+            LOGGER.info("Output ready | %s | bytes=%d", path, path.stat().st_size)
+    elif config.dry_run:
+        LOGGER.info("Dry-run finished without writing output files.")
+
+
+def main() -> int:
+    """CLI entry point."""
+
+    configure_console_encoding()
+    args = parse_args()
+    configure_logging(args.debug)
+    config = build_config_from_args(args)
+
+    try:
+        run_build(config)
+        return 0
+    except BuildError as exc:
+        LOGGER.error("%s", exc)
+        return 1
+    except Exception:
+        LOGGER.exception("Unexpected build failure")
+        return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+==============================================================================================================
+scripts/build_search_bundle_js.py
+- top 30 lines -
+﻿# -*- coding: utf-8 -*-
+"""
+===============================================================================
+build_search_bundle_js.py
+===============================================================================
+
+作用
+----
+从项目中的 `meta.json` 构建一个“单文件搜索包” JS 模块，供小程序端直接
+`require` 使用。
+
+这个脚本的核心目标
+------------------
+1. 更快：
+   把运行时需要做的“文本拆词、前缀扩展、候选建议、静态排序”尽量前移到构建期。
+2. 更准：
+   不同来源字段有不同权重，并支持中文、拼音、拼音首字母、公式归一化和标题子串。
+3. 可扩展：
+   通过 `FieldSpec` 描述字段来源、权重和索引策略，新加字段时尽量只改一处。
+4. 可调试：
+   支持 `--dry-run`、`--debug-doc`、`--debug-term`、`--embed-debug`，方便定位召回和排序问题。
+5. 可维护：
+   文件头、数据结构、函数职责都写清楚，让后续维护者不需要先读业务代码才能改索引。
+
+为什么改成一个文件
+-------------------
+旧版脚本输出 `core_index.js / rank_index.js / suggest_index.js` 三个文件。
+现在统一输出 `data/search_engine/search_bundle.js`，这样做有几个直接收益：
+
+1. 小程序端只需要加载一次，减少 I/O 和模块协调成本。
+[PARSE_ERROR] invalid non-printable character U+FEFF (<unknown>, line 1)
+- tail 30 lines -
+        LOGGER.info(
+            "Step 5/5 done | output_exists=%s | output_size_bytes=%d | output_file=%s",
+            exists,
+            size,
+            config.output_file,
+        )
+
+    return bundle
+
+
+def main() -> int:
+    """脚本命令行入口。"""
+
+    configure_console_encoding()
+    args = parse_args()
+    configure_logging(args.debug)
+    try:
+        config = build_config(args)
+        bundle = run_build(config)
+        return 0 if bundle else 1
+    except BuildError as exc:
+        LOGGER.error("%s", exc)
+        return 1
+    except Exception:
+        LOGGER.exception("Unexpected build failure")
+        return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+==============================================================================================================
+scripts/build_search_index.py
+- top 30 lines -
+"""
+===============================================================
+Script Name : build_search_index.py
+Project     : 高中数学二级结论知识库 (Mathnote)
+
+功能说明
+---------------------------------------------------------------
+从项目中的所有 meta.json 文件生成搜索索引 search_index.json。
+
+该索引用于微信小程序实现"极速搜索"，避免每次搜索都遍历
+全部 meta.json 文件。
+
+索引结构：
+
+    keyword -> [结论ID]
+
+例如：
+
+{
+  "连不等式": ["I01"],
+  "夹逼": ["I01"],
+  "数量积": ["V03","V05"]
+}
+
+搜索时只需要：
+
+    index[keyword]
+
+即可快速得到对应结论。
+
+- main() -
+def main():
+
+    print("Building search index...")
+    print("Project:", PROJECT_ROOT)
+    print()
+
+    for root, dirs, files in os.walk(PROJECT_ROOT):
+
+        if "meta.json" in files:
+
+            path = os.path.join(root, "meta.json")
+            process_meta(path)
+
+    result = {k: list(v) for k, v in index.items()}
+
+    with open(OUTPUT_FILE, "w", encoding="utf8") as f:
+        json.dump(result, f, indent=2, ensure_ascii=False)
+
+    print()
+    print("Search index generated:", OUTPUT_FILE)
+    print("Meta files scanned:", total_meta)
+    print("Total keywords:", len(result))
+- tail 30 lines -
+    for w in words:
+        add_word(w, cid)
+
+
+def main():
+
+    print("Building search index...")
+    print("Project:", PROJECT_ROOT)
+    print()
+
+    for root, dirs, files in os.walk(PROJECT_ROOT):
+
+        if "meta.json" in files:
+
+            path = os.path.join(root, "meta.json")
+            process_meta(path)
+
+    result = {k: list(v) for k, v in index.items()}
+
+    with open(OUTPUT_FILE, "w", encoding="utf8") as f:
+        json.dump(result, f, indent=2, ensure_ascii=False)
+
+    print()
+    print("Search index generated:", OUTPUT_FILE)
+    print("Meta files scanned:", total_meta)
+    print("Total keywords:", len(result))
+
+
+if __name__ == "__main__":
+    main()
+==============================================================================================================
+scripts/build_statement_card_js.py
+- top 30 lines -
+from build_detail_page_js import main as _detail_main
+
+
+if __name__ == "__main__":
+    raise SystemExit(_detail_main())
+
+"""
+===============================================================================
+build_content_js.py
+===============================================================================
+
+作用
+----
+将模块目录中的 `01_statement.tex` 构建为可直接 `require` 的 JS 文件。
+
+当前版本只保留一条最小、清晰、可维护的职责链：
+
+1. 扫描目标模块目录
+2. 读取每个结论目录下的 `meta.json`
+3. 读取 `01_statement.tex`
+4. 对 statement 执行 `clean_tex`
+5. 调用 `save_js` 输出 `module.exports = {...}`
+
+这个版本刻意移除了 HTML 渲染、批量 KaTeX、explanation/proof/examples/
+summary 等无关流程。这样做的目标很明确：
+
+- 更容易调试：问题只会出现在“扫描 / 读取 / 清洗 / 输出”四个环节
+- 更容易扩展：以后如果要加字段，只需要增加字段配置，不需要重写主流程
+- 更容易维护：函数职责单一，日志清晰，错误边界明确
+
+- parse_args() -
+def parse_args() -> argparse.Namespace:
+    """解析命令行参数。"""
+
+    parser = argparse.ArgumentParser(
+        description="Build JS content files from cleaned statement tex files."
+    )
+    parser.add_argument(
+        "--base-dir",
+        default=BASE_DIR,
+        help="项目根目录。默认使用脚本所在仓库根目录。",
+    )
+    parser.add_argument(
+        "--output-dir",
+        default=OUTPUT_DIR,
+        help="JS 输出目录。默认写入 data/content。",
+    )
+    parser.add_argument(
+        "--module",
+        dest="modules",
+        action="append",
+        help=("只处理指定模块目录，可重复传入。" "例如：--module 07_inequality"),
+    )
+    parser.add_argument(
+        "--item",
+        dest="items",
+        action="append",
+        help=(
+            "只处理指定结论目录名或结论 ID，可重复传入。"
+            "例如：--item I01 或 --item I001_Compound_Inequality_Transformation"
+        ),
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="执行完整扫描与清洗，但不写入最终 JS 文件。",
+    )
+    parser.add_argument(
+        "--debug",
+        action="store_true",
+        help="输出更详细的调试日志。",
+    )
+    parser.add_argument(
+        "--strict",
+        action="store_true",
+        help="遇到缺失文件、无效 JSON、重复 ID 等问题时立即报错退出。",
+    )
+    return parser.parse_args()
+- main() -
+def main() -> int:
+    """脚本入口。返回进程退出码，便于终端直接判断成败。"""
+
+    configure_console_encoding()
+    args = parse_args()
+    configure_logging(args.debug)
+
+    config = build_config_from_args(args)
+    apply_runtime_paths(config)
+
+    try:
+        run_build(config)
+        return 0
+    except BuildError as exc:
+        LOGGER.error("%s", exc)
+        return 1
+    except Exception:
+        LOGGER.exception("Unexpected build failure")
+        return 1
+- tail 30 lines -
+        total_modules,
+        total_items,
+        total_filtered,
+        total_skipped,
+    )
+
+
+def main() -> int:
+    """脚本入口。返回进程退出码，便于终端直接判断成败。"""
+
+    configure_console_encoding()
+    args = parse_args()
+    configure_logging(args.debug)
+
+    config = build_config_from_args(args)
+    apply_runtime_paths(config)
+
+    try:
+        run_build(config)
+        return 0
+    except BuildError as exc:
+        LOGGER.error("%s", exc)
+        return 1
+    except Exception:
+        LOGGER.exception("Unexpected build failure")
+        return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+==============================================================================================================
+scripts/build_svg_dvisvgm.py
+- top 30 lines -
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
+============================================================
+LaTeX → PDF → SVG 自动生成脚本（最终稳定版 + 裁剪增强）
+============================================================
+
+【流程】
+
+LaTeX → PDF
+      ↓
+pdfcrop（可选，强烈推荐）
+      ↓
+dvisvgm → SVG
+
+【特点】
+
+- ✅ 支持中文 + 数学
+- ✅ 双重裁剪（pdfcrop + bbox）
+- ✅ 无内容缺失
+- ✅ 高稳定性
+- ✅ 可扩展（分块 / JSON）
+
+============================================================
+"""
+
+import subprocess
+from pathlib import Path
+import sys
+- main() -
+def main():
+    if len(sys.argv) != 3:
+        print("usage：python build_svg_dvisvgm.py <module> <conclusion>")
+        return
+
+    base_dir = Path("D:/mathnote")
+    module = sys.argv[1]
+    topic = sys.argv[2]
+
+    build_one(base_dir, module, topic)
+- tail 30 lines -
+    svg_name = convert_pdf_to_svg(target_dir, pdf_name)
+    # svg_path = target_dir / "output.svg"
+    # lighten_watermark_svg(
+    #     svg_path, opacity=0.02, watermark_text="OK-SHUXUE"  # ⭐ 推荐更浅一点
+    # )
+    optimize_svg(target_dir, svg_name)
+
+    final_name = fname(target_dir, "final", "clean", "svg")
+    print(f"\n✅ 完成！最终输出: {final_name}")
+
+
+# ==============================
+# CLI
+# ==============================
+
+
+def main():
+    if len(sys.argv) != 3:
+        print("usage：python build_svg_dvisvgm.py <module> <conclusion>")
+        return
+
+    base_dir = Path("D:/mathnote")
+    module = sys.argv[1]
+    topic = sys.argv[2]
+
+    build_one(base_dir, module, topic)
+
+
+if __name__ == "__main__":
+    main()
+==============================================================================================================
+scripts/build_webp.py
+- top 30 lines -
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+============================================================
+LaTeX → PDF → WebP 图片自动生成脚本（支持模块 & 二级结论定制）
+============================================================
+
+【功能介绍】
+本脚本用于将指定模块下的某个“二级结论”的 01~06.tex 文件：
+
+    01_statement.tex
+    02_explanation.tex
+    03_proof.tex
+    04_examples.tex
+    05_traps.tex
+    06_summary.tex
+
+自动完成以下流程：
+
+1. 合并为 61.tex
+2. 编译生成 PDF
+3. 自动裁剪白边
+4. 转换为 WebP 图片（小体积，适合小程序）
+
+【特点】
+- 支持“模块级”和“二级结论级”精确生成
+- 高可维护性（结构清晰、函数拆分）
+- 易扩展（后续可加缓存 / 分块生成）
+
+【目录示例】
+- main() -
+def main():
+    """
+    使用方式：
+
+    python build_images.py 07-inequality I01_Compound_Inequality_Transformation
+    """
+
+    import sys
+
+    if len(sys.argv) != 3:
+        print("\n用法：")
+        print("python build_images.py <模块名> <二级结论名>")
+        return
+
+    base_dir = Path("D:/mathnote")
+    module = sys.argv[1]
+    topic = sys.argv[2]
+
+    build_one(base_dir, module, topic)
+- tail 30 lines -
+
+
+# ==============================
+# CLI入口
+# ==============================
+
+
+def main():
+    """
+    使用方式：
+
+    python build_images.py 07-inequality I01_Compound_Inequality_Transformation
+    """
+
+    import sys
+
+    if len(sys.argv) != 3:
+        print("\n用法：")
+        print("python build_images.py <模块名> <二级结论名>")
+        return
+
+    base_dir = Path("D:/mathnote")
+    module = sys.argv[1]
+    topic = sys.argv[2]
+
+    build_one(base_dir, module, topic)
+
+
+if __name__ == "__main__":
+    main()
+==============================================================================================================
+scripts/check_meta_json.py
+- top 30 lines -
+# -*- coding: utf-8 -*-
+"""
+=============================================================
+File: check_meta_json.py
+用途：校验所有 meta.json 是否符合 META_SCHEMA 规范（只检查，不修改）
+
+【核心目标】
+-------------------------------------------------------------
+1. 校验 meta.json 结构是否完整（字段缺失 / 类型错误）
+2. 校验 module / id 是否正确（防止路径篡改）
+3. 校验 contentBlocks 结构是否合法（核心渲染数据）
+4. 校验是否存在非法字段（schema 之外）
+5. 提供清晰日志，便于修复
+
+⚠️ 注意：
+- 本脚本只做“检查”，不做修改
+- 自动修复请使用：meta_schema_sync.py
+
+=============================================================
+"""
+
+import os
+import json
+import re
+import datetime
+from typing import Dict, Any
+
+from meta_schema import META_SCHEMA
+
+# ==================== 项目路径 ====================
+- main() -
+def main():
+    print("=" * 50)
+    print("META JSON CHECK TOOL")
+    print("=" * 50)
+
+    scan_all()
+    # ===== 输出 JSON 报告 =====
+    report_path = os.path.join(PROJECT_ROOT, "meta_check_report.json")
+    if REPORT["summary"]["errorFiles"] > 0:
+        REPORT["summary"]["status"] = "FAIL"
+    else:
+        REPORT["summary"]["status"] = "PASS"
+    REPORT["summary"]["generatedAt"] = datetime.datetime.now().isoformat()
+    with open(report_path, "w", encoding="utf8") as f:
+        json.dump(REPORT, f, indent=2, ensure_ascii=False)
+
+    print("\n===== SUMMARY =====")
+    print("Total Files:", REPORT["summary"]["totalFiles"])
+    print("Error Files:", REPORT["summary"]["errorFiles"])
+    print("Total Errors:", REPORT["summary"]["totalErrors"])
+    print("status:", REPORT["summary"]["status"])
+    print("generatedAt:", REPORT["summary"]["generatedAt"])
+
+    print(f"\nJSON Report: {report_path}")
+    print("\nDONE")
+- tail 30 lines -
+
+def main():
+    print("=" * 50)
+    print("META JSON CHECK TOOL")
+    print("=" * 50)
+
+    scan_all()
+    # ===== 输出 JSON 报告 =====
+    report_path = os.path.join(PROJECT_ROOT, "meta_check_report.json")
+    if REPORT["summary"]["errorFiles"] > 0:
+        REPORT["summary"]["status"] = "FAIL"
+    else:
+        REPORT["summary"]["status"] = "PASS"
+    REPORT["summary"]["generatedAt"] = datetime.datetime.now().isoformat()
+    with open(report_path, "w", encoding="utf8") as f:
+        json.dump(REPORT, f, indent=2, ensure_ascii=False)
+
+    print("\n===== SUMMARY =====")
+    print("Total Files:", REPORT["summary"]["totalFiles"])
+    print("Error Files:", REPORT["summary"]["errorFiles"])
+    print("Total Errors:", REPORT["summary"]["totalErrors"])
+    print("status:", REPORT["summary"]["status"])
+    print("generatedAt:", REPORT["summary"]["generatedAt"])
+
+    print(f"\nJSON Report: {report_path}")
+    print("\nDONE")
+
+
+if __name__ == "__main__":
+    main()
+==============================================================================================================
+scripts/clean_i_dirs_files.py
+- top 30 lines -
+#!/usr/bin/env python3
+"""
+Delete files under selected child directories (keep directory structure).
+
+Default behavior:
+- Module: 07-inequality
+- Subdirectory match:
+  1) CLI --pattern (highest priority)
+  2) config.module_patterns[module_path] (if provided)
+  3) inferred from module name, e.g. 01_function -> ^F\\d{2}
+- Dry-run only (no delete) unless --apply is given
+
+Examples:
+1) Preview cleanup for 07-inequality (safe):
+   python scripts/clean_i_dirs_files.py
+
+2) Actually delete for 07-inequality:
+   python scripts/clean_i_dirs_files.py --apply
+
+3) Clean only specific subdirectories in one module:
+   python scripts/clean_i_dirs_files.py --module 07-inequality \
+       --subdir I01_Compound_Inequality_Transformation --subdir I02_Basic_Inequalities_and_Variations --apply
+
+4) Use JSON config (module-specific patterns):
+   python scripts/clean_i_dirs_files.py --config scripts/clean_i_dirs_files.example.json --apply
+"""
+
+from __future__ import annotations
+
+import argparse
+- parse_args() -
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Delete files inside selected child directories (keep directories)."
+    )
+    parser.add_argument(
+        "--config",
+        type=Path,
+        help="Path to JSON config file.",
+    )
+    parser.add_argument(
+        "--base-dir",
+        type=Path,
+        default=Path("."),
+        help="Workspace base directory. Default: current directory.",
+    )
+    parser.add_argument(
+        "--module",
+        action="append",
+        help="Module path (relative to base-dir). Can be repeated.",
+    )
+    parser.add_argument(
+        "--subdir",
+        action="append",
+        help="Only clean these exact subdirectory names (applies to all --module). Can be repeated.",
+    )
+    parser.add_argument(
+        "--exclude-subdir",
+        action="append",
+        help="Exclude these exact subdirectory names (applies to all --module). Can be repeated.",
+    )
+    parser.add_argument(
+        "--pattern",
+        default=None,
+        help=(
+            "Regex for target subdirectory names. "
+            "If omitted: config.module_patterns > inferred module prefix rule."
+        ),
+    )
+    parser.add_argument(
+        "--apply",
+        action="store_true",
+        help="Actually delete files. Without this flag, script runs in dry-run mode.",
+    )
+    return parser.parse_args()
+- main() -
+def main() -> int:
+    args = parse_args()
+
+    config: dict[str, Any] = {}
+    if args.config:
+        config = load_json(args.config.resolve())
+
+    base_dir, module_specs, dry_run = normalize_module_specs(args, config)
+    mode = "DRY-RUN" if dry_run else "APPLY"
+    print(f"[MODE] {mode}")
+    print(f"[BASE] {base_dir}")
+
+    total_deleted = 0
+    total_failed = 0
+    total_target_dirs = 0
+
+    for spec in module_specs:
+        module_path = spec["path"]
+        targets = select_target_dirs(base_dir, spec)
+        print(f"\n[MODULE] {module_path}")
+        print(f"[PATTERN] {spec['pattern']}")
+        print(f"[TARGET DIR COUNT] {len(targets)}")
+        for t in targets:
+            print(f"  - {t}")
+
+        for target_dir in targets:
+            deleted, failed = delete_files_under_dir(target_dir, dry_run=dry_run)
+            total_deleted += deleted
+            total_failed += failed
+            total_target_dirs += 1
+
+    print("\n[SUMMARY]")
+    print(f"target_dirs={total_target_dirs}")
+    print(f"files_processed={total_deleted}")
+    print(f"errors={total_failed}")
+    if dry_run:
+        print("No files were deleted. Add --apply to perform deletion.")
+
+    return 1 if total_failed else 0
+- tail 30 lines -
+    total_failed = 0
+    total_target_dirs = 0
+
+    for spec in module_specs:
+        module_path = spec["path"]
+        targets = select_target_dirs(base_dir, spec)
+        print(f"\n[MODULE] {module_path}")
+        print(f"[PATTERN] {spec['pattern']}")
+        print(f"[TARGET DIR COUNT] {len(targets)}")
+        for t in targets:
+            print(f"  - {t}")
+
+        for target_dir in targets:
+            deleted, failed = delete_files_under_dir(target_dir, dry_run=dry_run)
+            total_deleted += deleted
+            total_failed += failed
+            total_target_dirs += 1
+
+    print("\n[SUMMARY]")
+    print(f"target_dirs={total_target_dirs}")
+    print(f"files_processed={total_deleted}")
+    print(f"errors={total_failed}")
+    if dry_run:
+        print("No files were deleted. Add --apply to perform deletion.")
+
+    return 1 if total_failed else 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+==============================================================================================================
+scripts/content_v2.py
+- top 30 lines -
+from __future__ import annotations
+
+"""
+文件: schemas/content_v2.py
+
+用途:
+- 定义“高中数学二级结论系统”的跨端 canonical content schema v2
+- 作为后端唯一真相源的数据模型
+- 供 FastAPI / JSON 文件加载 / SQLite / PostgreSQL 共用
+- 供 JSON Schema 导出、接口校验、内容构建脚本复用
+
+设计原则:
+1. 后端只保留一份 canonical JSON，不存端专用渲染结果
+2. sections 为主展示源，plain 为降级/调试/搜索辅助源
+3. 统一 token / block / section 协议，前端只做 renderer，不做内容解析器
+4. 模型字段统一 snake_case，适合 Python / JSON / DB 演进
+"""
+
+from typing import Annotated, Any, Dict, List, Literal, Optional, Union
+
+from pydantic import BaseModel, ConfigDict, Field, model_validator
+
+
+# ============================================================
+# 基础基类
+# ============================================================
+
+
+class StrictBaseModel(BaseModel):
+    """
+- tail 30 lines -
+# ============================================================
+# 顶层 Conclusion Record
+# ============================================================
+
+
+class ConclusionRecordV2(StrictBaseModel):
+    """
+    高中数学二级结论内容的顶层记录模型。
+
+    顶层只保留 1 份 canonical record。
+    """
+
+    id: str = Field(
+        ..., min_length=1, description="稳定内容 ID，例如 I001 / F023 / C116"
+    )
+    schema_version: Literal[2] = Field(
+        default=2, description="顶层 schema 版本，当前固定为 2"
+    )
+    type: Literal["conclusion"] = Field(
+        default="conclusion", description="记录类型，当前固定为 conclusion"
+    )
+    status: Literal["draft", "published", "archived"] = Field(
+        default="published", description="发布状态"
+    )
+
+    identity: IdentityInfo = Field(..., description="身份与定位字段")
+    meta: MetaInfo = Field(..., description="业务元数据")
+    content: ContentBodyV2 = Field(..., description="结构化内容主体")
+    assets: AssetInfo = Field(default_factory=AssetInfo, description="静态资源信息")
+    ext: ExtInfo = Field(default_factory=ExtInfo, description="扩展信息")
+==============================================================================================================
+scripts/create_pipeline_input_dirs.py
+- top 30 lines -
+#!/usr/bin/env python3
+"""
+Batch-create sequential pipeline input directories such as I009, I010, I011.
+
+Design goals
+------------
+1. Safe by default:
+   - Dry-run by default; add ``--apply`` to actually write.
+   - Refuses to write outside the configured base directory.
+   - Refuses unsafe file paths such as ``..\\secret.txt``.
+2. Config-driven:
+   - Root directory, prefix, width, default start/count, and files come from JSON.
+   - CLI positional arguments can override the configured start/count.
+3. Easy to debug:
+   - Clear logging, verbose mode, execution summary.
+   - Each file can control its own overwrite policy.
+4. Easy to extend:
+   - File specs support empty files, inline content, or template files.
+   - Supports placeholder rendering without conflicting with LaTeX braces.
+
+Placeholder syntax
+------------------
+Use ``[[name]]`` inside ``content`` or template files. Supported placeholders:
+- ``[[id]]``: full directory id, for example ``I009``
+- ``[[dir_name]]``: same as ``[[id]]``
+- ``[[number]]``: integer value, for example ``9``
+- ``[[number_padded]]``: zero-padded number, for example ``009``
+- ``[[batch_index]]``: zero-based index inside the current batch
+- ``[[batch_ordinal]]``: one-based index inside the current batch
+
+- parse_args() -
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Create sequential Ixxx-style directories and scaffold files."
+    )
+    parser.add_argument(
+        "start",
+        nargs="?",
+        type=int,
+        help="Starting number. Example: 9 -> I009.",
+    )
+    parser.add_argument(
+        "count",
+        nargs="?",
+        type=int,
+        help="How many directories to create. Example: 3 -> I009~I011.",
+    )
+    parser.add_argument(
+        "--config",
+        type=Path,
+        default=None,
+        help=(
+            "Path to JSON config file. "
+            f"Default: {DEFAULT_CONFIG_PATH.relative_to(DEFAULT_BASE_DIR)}"
+        ),
+    )
+    parser.add_argument(
+        "--base-dir",
+        type=Path,
+        default=None,
+        help="Workspace base directory. Default: repository root.",
+    )
+    parser.add_argument(
+        "--target-root",
+        type=Path,
+        default=None,
+        help="Target root directory relative to base-dir. Example: 12_pipeline/input",
+    )
+    parser.add_argument(
+        "--prefix",
+        default=None,
+        help="Directory prefix. Example: I",
+    )
+    parser.add_argument(
+        "--number-width",
+        type=int,
+        default=None,
+        help="Zero-padding width. Example: 3 -> I009",
+    )
+    parser.add_argument(
+        "--directory-exists-policy",
+        choices=sorted(VALID_DIRECTORY_EXISTS_POLICIES),
+        default=None,
+        help="How to handle an existing target directory: reuse, skip, or error.",
+    )
+    parser.add_argument(
+        "--overwrite-files",
+        action="store_true",
+        help="Force all files to use overwrite mode, regardless of config.",
+    )
+    parser.add_argument(
+        "--apply",
+        action="store_true",
+        help="Actually create directories/files. Without this flag, the script stays in dry-run mode.",
+    )
+    parser.add_argument(
+        "--verbose",
+        action="store_true",
+        help="Show resolved configuration and per-file planning details.",
+    )
+    return parser.parse_args()
+- main() -
+def main() -> int:
+    args = parse_args()
+    configure_logging(args.verbose)
+
+    try:
+        app_config = resolve_runtime_config(args)
+        log_resolved_config(app_config)
+
+        if not app_config.target_root.exists():
+            if app_config.dry_run:
+                logger.info("[DRY-RUN] create target root: %s", app_config.target_root)
+            else:
+                app_config.target_root.mkdir(parents=True, exist_ok=True)
+                logger.info("[CREATE] target root: %s", app_config.target_root)
+
+        stats = RunStats()
+        logger.info("")
+        for batch_index in range(app_config.count):
+            number = app_config.start + batch_index
+            dir_name = build_dir_name(
+                prefix=app_config.prefix,
+                number=number,
+                width=app_config.number_width,
+            )
+            try:
+                create_or_plan_directory(
+                    app_config=app_config,
+                    dir_name=dir_name,
+                    number=number,
+                    batch_index=batch_index,
+                    stats=stats,
+                )
+            except Exception as exc:
+                stats.errors += 1
+                logger.error("[ERROR] directory failed for %s: %s", dir_name, exc)
+
+        logger.info("")
+        logger.info("[SUMMARY]")
+        logger.info("target_dirs=%s", stats.target_dirs)
+        logger.info("created_dirs=%s", stats.created_dirs)
+        logger.info("reused_dirs=%s", stats.reused_dirs)
+        logger.info("skipped_dirs=%s", stats.skipped_dirs)
+        logger.info("created_files=%s", stats.created_files)
+        logger.info("overwritten_files=%s", stats.overwritten_files)
+        logger.info("skipped_files=%s", stats.skipped_files)
+        logger.info("errors=%s", stats.errors)
+        if app_config.dry_run:
+            logger.info("No filesystem changes were made. Add --apply to write files.")
+        return 0
+    except Exception as exc:  # pragma: no cover - CLI script friendly error path
+        logger.error("[ERROR] %s", exc)
+        if args.verbose:
+            raise
+        return 1
+- tail 30 lines -
+                    number=number,
+                    batch_index=batch_index,
+                    stats=stats,
+                )
+            except Exception as exc:
+                stats.errors += 1
+                logger.error("[ERROR] directory failed for %s: %s", dir_name, exc)
+
+        logger.info("")
+        logger.info("[SUMMARY]")
+        logger.info("target_dirs=%s", stats.target_dirs)
+        logger.info("created_dirs=%s", stats.created_dirs)
+        logger.info("reused_dirs=%s", stats.reused_dirs)
+        logger.info("skipped_dirs=%s", stats.skipped_dirs)
+        logger.info("created_files=%s", stats.created_files)
+        logger.info("overwritten_files=%s", stats.overwritten_files)
+        logger.info("skipped_files=%s", stats.skipped_files)
+        logger.info("errors=%s", stats.errors)
+        if app_config.dry_run:
+            logger.info("No filesystem changes were made. Add --apply to write files.")
+        return 0
+    except Exception as exc:  # pragma: no cover - CLI script friendly error path
+        logger.error("[ERROR] %s", exc)
+        if args.verbose:
+            raise
+        return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+==============================================================================================================
+scripts/create_prefixed_dirs_files.py
+- top 30 lines -
+#!/usr/bin/env python3
+"""
+Create scaffold files inside selected child directories (keep directories).
+
+Default behavior:
+- Module: 07-inequality
+- Subdirectory match:
+  1) CLI --pattern (highest priority)
+  2) config.module_patterns[module_path] (if provided)
+  3) inferred from module name, e.g. 01_function -> ^F\\d{2}
+- Dry-run only (no write) unless --apply is given
+- Existing files are kept unless --overwrite is given
+
+Examples:
+1) Preview create for one module:
+   python scripts/create_prefixed_dirs_files.py --module 07-inequality
+
+2) Actually create files:
+   python scripts/create_prefixed_dirs_files.py --module 07-inequality --apply
+
+3) Create for selected subdirectories:
+   python scripts/create_prefixed_dirs_files.py --module 07-inequality \
+       --subdir I01_Compound_Inequality_Transformation --subdir I02_Basic_Inequalities_and_Variations --apply
+
+4) Use JSON config:
+   python scripts/create_prefixed_dirs_files.py --config scripts/create_prefixed_dirs_files.example.json --apply
+"""
+
+from __future__ import annotations
+
+- parse_args() -
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Create files inside selected child directories."
+    )
+    parser.add_argument("--config", type=Path, help="Path to JSON config file.")
+    parser.add_argument(
+        "--base-dir",
+        type=Path,
+        default=Path("."),
+        help="Workspace base directory. Default: current directory.",
+    )
+    parser.add_argument(
+        "--module",
+        action="append",
+        help="Module path (relative to base-dir). Can be repeated.",
+    )
+    parser.add_argument(
+        "--subdir",
+        action="append",
+        help="Only process these exact subdirectory names. Can be repeated.",
+    )
+    parser.add_argument(
+        "--exclude-subdir",
+        action="append",
+        help="Exclude these exact subdirectory names. Can be repeated.",
+    )
+    parser.add_argument(
+        "--pattern",
+        default=None,
+        help=(
+            "Regex for target subdirectory names. "
+            "If omitted: config.module_patterns > inferred module prefix rule."
+        ),
+    )
+    parser.add_argument(
+        "--file",
+        action="append",
+        help="File name (or relative path) to create in each target subdirectory. Can be repeated.",
+    )
+    parser.add_argument(
+        "--overwrite",
+        action="store_true",
+        help="Overwrite existing files. Without this, existing files are kept.",
+    )
+    parser.add_argument(
+        "--apply",
+        action="store_true",
+        help="Actually create files. Without this flag, script runs in dry-run mode.",
+    )
+    return parser.parse_args()
+- main() -
+def main() -> int:
+    args = parse_args()
+
+    config: dict[str, Any] = {}
+    if args.config:
+        config = load_json(args.config.resolve())
+
+    base_dir, module_specs, dry_run = normalize_module_specs(args, config)
+    mode = "DRY-RUN" if dry_run else "APPLY"
+    print(f"[MODE] {mode}")
+    print(f"[BASE] {base_dir}")
+    print(f"[OVERWRITE] {args.overwrite}")
+
+    total_dirs = 0
+    total_created = 0
+    total_skipped = 0
+    total_failed = 0
+
+    for spec in module_specs:
+        module_path = spec["path"]
+        targets = select_target_dirs(base_dir, spec)
+        files = spec.get("files") or list(DEFAULT_FILE_NAMES)
+
+        print(f"\n[MODULE] {module_path}")
+        print(f"[PATTERN] {spec['pattern']}")
+        print(f"[FILES PER DIR] {len(files)}")
+        for name in files:
+            print(f"  - {name}")
+        print(f"[TARGET DIR COUNT] {len(targets)}")
+        for t in targets:
+            print(f"  - {t}")
+
+        for target_dir in targets:
+            created, skipped_existing, failed = create_files_under_dir(
+                target_dir=target_dir,
+                file_names=files,
+                dry_run=dry_run,
+                overwrite=args.overwrite,
+            )
+            total_created += created
+            total_skipped += skipped_existing
+            total_failed += failed
+            total_dirs += 1
+
+    print("\n[SUMMARY]")
+    print(f"target_dirs={total_dirs}")
+    print(f"created_or_overwritten={total_created}")
+    print(f"skipped_existing={total_skipped}")
+    print(f"errors={total_failed}")
+    if dry_run:
+        print("No files were created. Add --apply to perform creation.")
+
+    return 1 if total_failed else 0
+- tail 30 lines -
+            print(f"  - {name}")
+        print(f"[TARGET DIR COUNT] {len(targets)}")
+        for t in targets:
+            print(f"  - {t}")
+
+        for target_dir in targets:
+            created, skipped_existing, failed = create_files_under_dir(
+                target_dir=target_dir,
+                file_names=files,
+                dry_run=dry_run,
+                overwrite=args.overwrite,
+            )
+            total_created += created
+            total_skipped += skipped_existing
+            total_failed += failed
+            total_dirs += 1
+
+    print("\n[SUMMARY]")
+    print(f"target_dirs={total_dirs}")
+    print(f"created_or_overwritten={total_created}")
+    print(f"skipped_existing={total_skipped}")
+    print(f"errors={total_failed}")
+    if dry_run:
+        print("No files were created. Add --apply to perform creation.")
+
+    return 1 if total_failed else 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+==============================================================================================================
+scripts/encrypt_pdf.py
+- top 30 lines -
+"""
+PDF 加密脚本（适用于 LaTeX 生成后的 PDF）
+功能：
+1. 添加密码保护
+2. 禁止复制 / 打印 / 修改
+3. 可扩展：批量处理
+
+使用方式：
+python encrypt_pdf.py input.pdf output.pdf user123
+"""
+
+# -*- coding: utf-8 -*-
+
+import sys
+import os
+import pikepdf
+
+sys.stdout.reconfigure(encoding="utf-8")
+
+
+def encrypt_pdf(input_path, output_path, user_tag):
+    """
+    PDF 加密主函数
+
+    :param input_path: 原始PDF路径
+    :param output_path: 输出PDF路径
+    :param user_tag: 用户标识（用于生成密码）
+    """
+
+    if not os.path.exists(input_path):
+- tail 30 lines -
+
+    with pikepdf.open(input_path) as pdf:
+        pdf.save(
+            output_path,
+            encryption=pikepdf.Encryption(
+                # 🔐 权限控制
+                allow=pikepdf.Permissions(
+                    accessibility=True,  # ✅ 允许辅助功能（阅读器/朗读）
+                    extract=True,  # ✅ 允许复制（重要！）
+                    modify_annotation=True,  # ✅ 允许批注（学生会用）
+                    modify_other=False,  # ❌ 禁止修改内容（核心）
+                    print_lowres=True,  # ✅ 允许打印
+                    print_highres=True,  # ✅ 允许高清打印
+                )
+            ),
+        )
+
+    print("加密完成：", output_path)
+
+
+if __name__ == "__main__":
+    if len(sys.argv) < 4:
+        print("用法: python encrypt_pdf.py 输入.pdf 输出.pdf 用户ID")
+        sys.exit(1)
+
+    input_pdf = sys.argv[1]
+    output_pdf = sys.argv[2]
+    user_id = sys.argv[3]
+
+    encrypt_pdf(input_pdf, output_pdf, user_id)
+==============================================================================================================
+scripts/extract_backend_index_from_search_bundle.py
+- top 30 lines -
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+===============================================================================
+脚本名称: extract_backend_index_from_search_bundle.py
+===============================================================================
+
+用途
+----
+把微信小程序前端使用的 CommonJS 搜索 bundle（`search_bundle.js`）提取为
+后端可直接加载的标准 JSON 索引文件。
+
+适用场景
+--------
+`search_bundle.js` 不是纯 JSON，而是类似：
+
+const searchBundle = { ... };
+module.exports = searchBundle;
+
+这类 JS 对象字面量可能包含：
+1. 行注释/块注释
+2. 未加引号的对象 key（包含 Unicode 标识符，如中文）
+3. 单引号字符串
+4. 尾逗号
+
+因此不能直接 `json.load()`，也不应使用脆弱的全局正则替换。
+
+输入/输出
+---------
+输入:
+- main() -
+def main(argv: list[str] | None = None) -> int:
+    """命令行入口。"""
+
+    parser = _build_arg_parser()
+    args = parser.parse_args(argv)
+
+    logging.basicConfig(
+        level=getattr(logging, args.log_level.upper(), logging.INFO),
+        format="%(asctime)s | %(levelname)s | %(message)s",
+    )
+
+    try:
+        LOGGER.info("步骤 1/6: 读取输入文件 -> %s", args.input)
+        js_text = read_text_file(args.input, encoding=args.encoding)
+
+        LOGGER.info("步骤 2/6: 抽取 searchBundle 对象字面量")
+        object_literal = extract_search_bundle_object_literal(js_text, "searchBundle")
+        LOGGER.info("对象字面量抽取完成，长度=%d 字符", len(object_literal))
+
+        LOGGER.info("步骤 3/6: 解析对象字面量为 Python 数据结构")
+        bundle = load_bundle_to_python_obj(object_literal)
+        LOGGER.info("解析完成，顶层字段数=%d", len(bundle))
+
+        LOGGER.info("步骤 4/6: 执行结构与统计校验")
+        warnings = validate_bundle_payload(bundle, fail_on_warning=args.fail_on_warning)
+        if warnings:
+            for item in warnings:
+                LOGGER.warning(item)
+        else:
+            LOGGER.info("校验通过，无 warning")
+
+        LOGGER.info("步骤 5/6: 构建后端 JSON 载荷")
+        payload = build_backend_json_payload(
+            bundle=bundle,
+            source_file=args.input,
+            include_meta=not args.no_meta,
+        )
+
+        LOGGER.info("步骤 6/6: 写出 JSON 文件 -> %s", args.output)
+        pretty = not args.compact
+        write_json_file(
+            path=args.output,
+            data=payload,
+            pretty=pretty,
+            ensure_ascii=args.ensure_ascii,
+        )
+
+        output_size = args.output.stat().st_size
+        docs_count = len(bundle["docs"]) if isinstance(bundle.get("docs"), dict) else -1
+        terms_count = (
+            len(bundle["termIndex"]) if isinstance(bundle.get("termIndex"), dict) else -1
+        )
+        prefixes_count = (
+            len(bundle["prefixIndex"])
+            if isinstance(bundle.get("prefixIndex"), dict)
+            else -1
+        )
+        suggestions_count = (
+            len(bundle["suggestions"])
+            if isinstance(bundle.get("suggestions"), list)
+            else -1
+        )
+
+        LOGGER.info(
+            "输出完成 | 文件大小=%s | docs=%d | terms=%d | prefixes=%d | suggestions=%d",
+            _format_size(output_size),
+            docs_count,
+            terms_count,
+            prefixes_count,
+            suggestions_count,
+        )
+        return 0
+
+    except Exception as exc:
+        LOGGER.exception("执行失败: %s", exc)
+        return 1
+- tail 30 lines -
+            len(bundle["termIndex"]) if isinstance(bundle.get("termIndex"), dict) else -1
+        )
+        prefixes_count = (
+            len(bundle["prefixIndex"])
+            if isinstance(bundle.get("prefixIndex"), dict)
+            else -1
+        )
+        suggestions_count = (
+            len(bundle["suggestions"])
+            if isinstance(bundle.get("suggestions"), list)
+            else -1
+        )
+
+        LOGGER.info(
+            "输出完成 | 文件大小=%s | docs=%d | terms=%d | prefixes=%d | suggestions=%d",
+            _format_size(output_size),
+            docs_count,
+            terms_count,
+            prefixes_count,
+            suggestions_count,
+        )
+        return 0
+
+    except Exception as exc:
+        LOGGER.exception("执行失败: %s", exc)
+        return 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())
+==============================================================================================================
+scripts/fix_math_punctuation.py
+- top 30 lines -
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
+Fix Chinese punctuation inside LaTeX math environments for selected conclusion IDs.
+
+Usage:
+    python scripts/fix_math_punctuation.py C019
+    python scripts/fix_math_punctuation.py C019 C020 --dry-run
+"""
+
+from __future__ import annotations
+
+import argparse
+import re
+import sys
+from collections import Counter
+from pathlib import Path
+
+TARGET_FILES = (
+    "01_statement.tex",
+    "02_explanation.tex",
+    "03_proof.tex",
+    "04_examples.tex",
+    "05_traps.tex",
+    "06_summary.tex",
+)
+
+MODULE_DIR_PATTERN = re.compile(r"^\d{2}[_-].+")
+ID_PATTERN = re.compile(r"^[A-Za-z]\d{3}$")
+- parse_args() -
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description=(
+            "Fix Chinese punctuation inside LaTeX math environments for "
+            "01~06 lecture files under selected conclusion IDs."
+        )
+    )
+    parser.add_argument(
+        "ids",
+        nargs="+",
+        help="Conclusion IDs (e.g. C019, C020). Supports comma/space mixed input.",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Preview only; do not write files.",
+    )
+    return parser.parse_args()
+- main() -
+def main() -> int:
+    args = parse_args()
+    return run(args.ids, args.dry_run)
+- tail 30 lines -
+
+        for filename in TARGET_FILES:
+            checked_total += 1
+            file_path = conclusion_dir / filename
+            status, count = process_file(file_path, dry_run)
+            if status == "missing":
+                missing_total += 1
+                continue
+            existing_total += 1
+            if status == "modified":
+                modified_files += 1
+                replaced_total += count
+
+    print("\n[summary]")
+    print(f"  checked files: {checked_total}")
+    print(f"  existing files: {existing_total}")
+    print(f"  missing files: {missing_total}")
+    print(f"  modified files: {modified_files}")
+    print(f"  total replacements: {replaced_total}")
+
+    return 0
+
+
+def main() -> int:
+    args = parse_args()
+    return run(args.ids, args.dry_run)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+==============================================================================================================
+scripts/fix_prompt_quotes.py
+- top 30 lines -
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
+Compatibility wrapper for legacy command name.
+
+Preferred script:
+    python scripts/normalize_text_typography.py ...
+"""
+
+from __future__ import annotations
+
+from normalize_text_typography import main
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+
+- tail 30 lines -
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
+Compatibility wrapper for legacy command name.
+
+Preferred script:
+    python scripts/normalize_text_typography.py ...
+"""
+
+from __future__ import annotations
+
+from normalize_text_typography import main
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+
+==============================================================================================================
+scripts/generate_toc_seed.py
+- top 30 lines -
+﻿from __future__ import annotations
+
+import argparse
+import re
+import sys
+from pathlib import Path
+from typing import Iterable, List, Optional, Tuple
+
+INPUT_RE = re.compile(r"\\input\s*\{([^}]+)\}")
+SECTION_RE = re.compile(r"\\section\s*\{(.+)\}")
+SUBSECTION_RE = re.compile(r"\\subsection\s*\{(.+)\}")
+
+
+def strip_comments(line: str) -> str:
+    escaped = False
+    for i, ch in enumerate(line):
+        if ch == "\\":
+            escaped = not escaped
+            continue
+        if ch == "%" and not escaped:
+            return line[:i]
+        escaped = False
+    return line
+
+
+def active_lines(path: Path) -> Iterable[str]:
+    for raw in path.read_text(encoding="utf-8").splitlines():
+        line = strip_comments(raw).strip()
+        if line:
+            yield line
+[PARSE_ERROR] invalid non-printable character U+FEFF (<unknown>, line 1)
+- tail 30 lines -
+        description="Generate TOC seed TeX from main/index/module main files."
+    )
+    parser.add_argument("--root", default="main.tex", help="Root main.tex path")
+    parser.add_argument("--output", required=True, help="Output seed tex path")
+    args = parser.parse_args()
+
+    root_main = Path(args.root).resolve()
+    output_path = Path(args.output).resolve()
+
+    if not root_main.exists():
+        print(f"[toc-seed] root file not found: {root_main}", file=sys.stderr)
+        return 1
+
+    entries = build_entries(root_main)
+    if not entries:
+        print("[toc-seed] no TOC entries found from source files", file=sys.stderr)
+        return 1
+
+    write_seed(entries, output_path)
+    section_count = sum(1 for level, _ in entries if level == "section")
+    subsection_count = sum(1 for level, _ in entries if level == "subsection")
+    print(
+        f"[toc-seed] generated {output_path} "
+        f"(sections={section_count}, subsections={subsection_count})"
+    )
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+==============================================================================================================
+scripts/meta_schema.py
+- top 30 lines -
+# -*- coding: utf-8 -*-
+"""
+========================================
+文件名: meta_schema.py
+作用:   定义 meta.json 的标准结构（唯一数据模板）
+版本:   v3.0（结构化渲染 + 搜索引擎 + 推荐系统 + 性能控制）
+========================================
+
+【设计目标】
+1. 支持极致搜索（拼音 / OCR / 公式匹配）
+2. 支持小程序高性能渲染（分块 + 懒加载）
+3. 支持动态演示（GeoGebra / 参数化）
+4. 支持推荐系统（用户行为 + 关联图谱）
+5. 支持未来扩展（知识图谱 / 多版本内容）
+
+========================================
+字段分类说明：
+- 核心标识：唯一性、归属、版本
+- 基础信息：标题、章节、难度等
+- 搜索增强：拼音、关键词、权重控制
+- OCR识别：拍照搜题、公式匹配
+- 内容展示：结构化渲染（核心升级）
+- 高级能力：推导、参数化、知识图谱
+- 资产与分享：图片、动画、分享配置
+- 运营与统计：标签、行为数据、推荐
+========================================
+"""
+
+META_SCHEMA = {
+    # ==================== 1. 核心标识 ====================
+- tail 30 lines -
+    "assets": {
+        "svg": "",  # [可选] SVG（推荐）
+        "webp": "",  # [可选] WebP（兼容）
+        "thumbnail": "",  # [可选] 缩略图
+        "animated": "",  # [可选] 动图（GIF/MP4）
+    },
+    "renderConfig": {  # ⭐ [新增] 渲染控制（性能核心）
+        "renderMode": "svg",  # svg / webp / html
+        "lazyLoad": True,  # 懒加载
+        "priority": "normal",  # high / normal / low
+    },
+    "geogebraId": "",  # [可选] GeoGebra ID
+    "relatedIds": [],  # [可选] 向后兼容
+    "shareConfig": {"title": "", "imageUrl": "", "shareDesc": ""},
+    # ==================== 8. 运营与统计 ====================
+    "tags": [],  # [可选] 标签
+    "abilityTags": [],  # [可选] 能力标签
+    "knowledgeNode": "",  # [可选] 知识树节点
+    "useScene": [],  # [可选] 使用场景
+    "coreIdea": "",  # [可选] 核心思想
+    "remarks": "",  # [可选] 注意事项
+    "stats": {  # ⭐ [新增] 用户行为数据（推荐核心）
+        "viewCount": 0,
+        "likeCount": 0,
+        "saveCount": 0,
+        "errorCount": 0,
+    },
+    "isPro": 0,  # [推荐] 是否付费
+    "formulas": [],  # [可选] 扩展公式（备用）
+}
+==============================================================================================================
+scripts/meta_schema_sync.py
+- top 30 lines -
+# -*- coding: utf-8 -*-
+"""
+=====================================================================
+File Name : meta_schema_sync.py
+Project   : 高中数学二级结论知识库 (Mathnote)
+Author    : 程远锋
+Version   : v4.0 (工业级重构版)
+Created   : 2026
+
+=====================================================================
+【核心功能】
+---------------------------------------------------------------------
+本脚本用于：
+
+    ✅ 批量同步 meta.json 与 META_SCHEMA（Python版本）
+    ✅ 支持模块级 / 全量 / 单文件同步
+    ✅ 支持安全模式（只补字段）与严格模式（补 + 删除）
+    ✅ 支持 Dry Run（仅预览变更）
+    ✅ 支持 Schema Version 自动升级
+    ✅ 支持结构化日志输出（可追踪）
+
+---------------------------------------------------------------------
+【为什么需要它？】
+
+随着二级结论数量增长（目标 500+）：
+
+    - 手动维护 meta.json ❌ 不可行
+    - 字段容易遗漏 ❌
+    - 数据结构容易混乱 ❌
+
+- parse_args() -
+def parse_args():
+    args = sys.argv[1:]
+
+    config = {
+        "module": None,
+        "file": None,
+        "mode": "safe",  # safe / strict
+        "dry_run": False,
+    }
+
+    i = 0
+    while i < len(args):
+        arg = args[i]
+
+        if arg == "--file":
+            config["file"] = args[i + 1]
+            i += 1
+
+        elif arg == "--mode":
+            config["mode"] = args[i + 1]
+            i += 1
+
+        elif arg == "--dry-run":
+            config["dry_run"] = True
+
+        else:
+            # 默认当作 module
+            config["module"] = arg
+
+        i += 1
+
+    return config
+- main() -
+def main():
+    collect_module_totals()
+    # 检查模块目录是否存在
+    for m in ALLOWED_MODULES:
+        full_path = os.path.join(PROJECT_ROOT, m)
+        if not os.path.exists(full_path):
+            print(f"[WARN] 模块目录不存在: {m}")
+    config = parse_args()
+
+    print("=" * 60)
+    print("META SCHEMA SYNC TOOL (v4.0)")
+    print("=" * 60)
+    print("Project Root:", PROJECT_ROOT)
+    print("Mode:", config["mode"])
+    print("Dry Run:", config["dry_run"])
+    print("Module:", config["module"])
+    print("File:", config["file"])
+    print()
+    global_stats = {
+        "added": 0,
+        "removed": 0,
+        "warnings": 0,
+        "errors": 0,
+        "empty": 0,
+        "upgraded": 0,
+    }
+    count = 0
+
+    for path in scan_files(config):
+        process_meta(path, config, global_stats)
+        count += 1
+    print("\n===== SUMMARY =====")
+    print("Files:", count)
+    print("Added:", global_stats["added"])
+    print("Removed:", global_stats["removed"])
+    print("Warnings:", global_stats["warnings"])
+    print("Errors:", global_stats["errors"])
+    print("Empty Fields:", global_stats["empty"])
+    print("Upgraded:", global_stats["upgraded"])
+
+    print("\n===== ID CHECK =====")
+    # 用在 CI / 发布前
+    duplicate_found = False
+    for id_, paths in id_map.items():
+        if len(paths) > 1:
+            duplicate_found = True
+            print(f"\n[ERROR] Duplicate ID: {id_}")
+            for p in paths:
+                print("  ", p)
+
+    if not duplicate_found:
+        print("No duplicate IDs ✅")
+    print("\n===== MODULE SUMMARY =====")
+    for module in sorted(module_total.keys()):
+        print(f"{module:<20} : {module_total[module]} files")
+    print("DONE")
+- tail 30 lines -
+        count += 1
+    print("\n===== SUMMARY =====")
+    print("Files:", count)
+    print("Added:", global_stats["added"])
+    print("Removed:", global_stats["removed"])
+    print("Warnings:", global_stats["warnings"])
+    print("Errors:", global_stats["errors"])
+    print("Empty Fields:", global_stats["empty"])
+    print("Upgraded:", global_stats["upgraded"])
+
+    print("\n===== ID CHECK =====")
+    # 用在 CI / 发布前
+    duplicate_found = False
+    for id_, paths in id_map.items():
+        if len(paths) > 1:
+            duplicate_found = True
+            print(f"\n[ERROR] Duplicate ID: {id_}")
+            for p in paths:
+                print("  ", p)
+
+    if not duplicate_found:
+        print("No duplicate IDs ✅")
+    print("\n===== MODULE SUMMARY =====")
+    for module in sorted(module_total.keys()):
+        print(f"{module:<20} : {module_total[module]} files")
+    print("DONE")
+
+
+if __name__ == "__main__":
+    main()
+==============================================================================================================
+scripts/meta_utils.py
+- top 30 lines -
+- tail 30 lines -
+==============================================================================================================
+scripts/migrate_detail_js_to_content_v2.py
+- top 30 lines -
+from __future__ import annotations
+
+"""
+===============================================================================
+脚本名称: migrate_detail_js_to_content_v2.py
+===============================================================================
+
+功能说明
+--------
+将历史详情页数据（`module.exports = { [id]: DetailRecord }`）迁移为
+跨端统一协议 `canonical_content_v2.json`，并输出结构化迁移报告
+`conversion_report.json`。
+
+适用场景
+--------
+1. 既有微信小程序 detail 数据需要统一到 canonical content v2 协议。
+2. 迁移过程需要“保守保真”：尽量不丢字段、不中断全量处理。
+3. 迁移后需要可审计报告，便于内容工程团队排查与二次修复。
+
+输入 / 输出
+-----------
+输入:
+- detail js 文件（例如 `data/content/07_inequality.js`）
+- 文件形态通常为 `module.exports = {...}`，并可能包含注释头
+
+输出:
+1. canonical_content_v2.json
+   - 顶层对象映射: `{ "I001": ConclusionRecordV2, ... }`
+2. conversion_report.json
+   - `total_records / success_count / failed_count / warnings / per_record_status`
+- parse_args() -
+def parse_args() -> argparse.Namespace:
+    """解析命令行参数。
+
+    返回:
+    - argparse.Namespace，后续由 `build_config_from_args` 转为强类型配置对象。
+
+    设计原因:
+    - 保持与历史脚本习惯一致（argparse + 明确选项）。
+    - 为后续新增模式（例如 batch/fail-fast）保留扩展位。
+    """
+    parser = argparse.ArgumentParser(
+        description="迁移 detail js 到 canonical_content_v2.json，并输出 conversion_report.json",
+        formatter_class=argparse.RawTextHelpFormatter,
+        epilog=(
+            "示例:\n"
+            "  python scripts/migrate_detail_js_to_content_v2.py --input data/content/07_inequality.js\n"
+            "  python scripts/migrate_detail_js_to_content_v2.py --input data/content/07_inequality.js --strict-validation --log-level DEBUG"
+        ),
+    )
+    parser.add_argument("--input", required=True, help="输入 detail js 文件")
+    parser.add_argument("--output", default=None, help="输出 canonical_content_v2.json 路径")
+    parser.add_argument("--report", default=None, help="输出 conversion_report.json 路径")
+    parser.add_argument("--schema-path", default=str(DEFAULT_SCHEMA_PATH), help="JSON Schema 路径")
+    parser.add_argument("--model-path", default=str(DEFAULT_MODEL_PATH), help="content_v2.py 路径")
+    parser.add_argument(
+        "--skip-validation",
+        action="store_true",
+        help="跳过模型/Schema 强校验，仅执行基础结构检查",
+    )
+    parser.add_argument(
+        "--strict-validation",
+        action="store_true",
+        help="校验失败时，该条记录记为 failed（默认仅记 warning）",
+    )
+    parser.add_argument(
+        "--disable-node-fallback",
+        action="store_true",
+        help="禁用 Node require 回退解析",
+    )
+    parser.add_argument(
+        "--log-level",
+        default="INFO",
+        choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
+        help="日志级别",
+    )
+    return parser.parse_args()
+- main() -
+def main() -> int:
+    """CLI 入口。
+
+    流程:
+    - 初始化编码与日志
+    - 构建配置
+    - 执行迁移并写出结果
+
+    返回:
+    - 0: 成功
+    - 1: 失败
+    """
+    configure_console_encoding()
+    args = parse_args()
+    config = build_config_from_args(args)
+    configure_logging(config.log_level)
+
+    try:
+        output_mapping, report = run_migration(config)
+        write_json(config.output_path, output_mapping)
+        write_json(config.report_path, asdict(report))
+
+        LOGGER.info(
+            "迁移完成: total=%d success=%d failed=%d",
+            report.total_records,
+            report.success_count,
+            report.failed_count,
+        )
+        LOGGER.info("canonical: %s", config.output_path)
+        LOGGER.info("report: %s", config.report_path)
+        return 0
+    except Exception as exc:
+        LOGGER.error("迁移失败: %s", exc)
+        LOGGER.debug("异常详情", exc_info=True)
+        return 1
+- tail 30 lines -
+    - 0: 成功
+    - 1: 失败
+    """
+    configure_console_encoding()
+    args = parse_args()
+    config = build_config_from_args(args)
+    configure_logging(config.log_level)
+
+    try:
+        output_mapping, report = run_migration(config)
+        write_json(config.output_path, output_mapping)
+        write_json(config.report_path, asdict(report))
+
+        LOGGER.info(
+            "迁移完成: total=%d success=%d failed=%d",
+            report.total_records,
+            report.success_count,
+            report.failed_count,
+        )
+        LOGGER.info("canonical: %s", config.output_path)
+        LOGGER.info("report: %s", config.report_path)
+        return 0
+    except Exception as exc:
+        LOGGER.error("迁移失败: %s", exc)
+        LOGGER.debug("异常详情", exc_info=True)
+        return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+==============================================================================================================
+scripts/normalize_text_typography.py
+- top 30 lines -
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
+Normalize Chinese-style typography in text files (extensible rule engine).
+
+This script is designed for repository-wide cleanup of punctuation/style
+characters that often cause model instability or formatting noise.
+
+Core design goals
+-----------------
+1. Single responsibility:
+   Only does text typography normalization.
+2. Extensible:
+   Rules are grouped into profiles and can be extended with `--extra-map`.
+3. Safe by default:
+   - supports dry-run
+   - skips binary files
+   - preserves BOM and original newline characters
+4. Easy to use:
+   Run without targets to scan common text files in the whole repo.
+
+Default behavior
+----------------
+If no target is provided, the script scans common text files under repo root
+(excluding typical cache/dependency directories), and applies profiles:
+  - quotes
+  - punctuation
+
+Built-in profiles
+- parse_args() -
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Normalize Chinese-style typography in repository text files."
+    )
+    parser.add_argument(
+        "targets",
+        nargs="*",
+        help=(
+            "Optional files/directories/glob patterns. "
+            "If omitted, scan repo root using text extensions."
+        ),
+    )
+    parser.add_argument(
+        "--profiles",
+        nargs="+",
+        default=list(DEFAULT_PROFILES),
+        help=(
+            "Rule profiles to apply. "
+            f"Available: {', '.join(sorted(PROFILE_RULES))}. "
+            f"Default: {', '.join(DEFAULT_PROFILES)}."
+        ),
+    )
+    parser.add_argument(
+        "--extra-map",
+        action="append",
+        default=[],
+        metavar="SRC=DST",
+        help=(
+            "Add custom one-character mapping, repeatable. "
+            "Supports literal chars or unicode forms like U+201C=\\\"."
+        ),
+    )
+    parser.add_argument(
+        "--extensions",
+        nargs="+",
+        default=sorted(DEFAULT_TEXT_EXTENSIONS),
+        help=(
+            "Text extensions used when scanning directories recursively. "
+            "Default is a broad text extension set."
+        ),
+    )
+    parser.add_argument(
+        "--exclude-dir",
+        action="append",
+        default=[],
+        help=(
+            "Exclude directory name during recursive scanning (repeatable). "
+            "Default includes .git, __pycache__, node_modules, etc."
+        ),
+    )
+    parser.add_argument(
+        "--max-kb",
+        type=int,
+        default=1024,
+        help="Skip files larger than this size in KB when scanning directories.",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Preview only; do not write files.",
+    )
+    parser.add_argument(
+        "--show-rules",
+        action="store_true",
+        help="Print active mapping rules and exit.",
+    )
+    return parser.parse_args()
+- main() -
+def main() -> int:
+    args = parse_args()
+    return run(args)
+- tail 30 lines -
+
+        changed_files += 1
+        changed_chars_total += result.changed_chars
+        pair_counter.update(result.changed_pairs)
+        tag = "DRY" if args.dry_run else "FIX"
+        details = ", ".join(
+            f"{pair} x{count}" for pair, count in sorted(result.changed_pairs.items())
+        )
+        print(f"[{tag}] {rel}: {result.changed_chars} change(s)" + (f" ({details})" if details else ""))
+
+    print("\n[summary]")
+    print(f"  scanned files: {len(files)}")
+    print(f"  changed files: {changed_files}")
+    print(f"  total changes: {changed_chars_total}")
+    if pair_counter:
+        details = ", ".join(
+            f"{pair} x{count}" for pair, count in sorted(pair_counter.items())
+        )
+        print(f"  replacements: {details}")
+
+    return 0
+
+
+def main() -> int:
+    args = parse_args()
+    return run(args)
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+==============================================================================================================
+scripts/png/mercedes_benz_theorem.py
+- top 30 lines -
+﻿from matplotlib import font_manager
+import matplotlib.pyplot as plt
+import numpy as np
+
+# ================= 配置区域 =================
+# 画面比例（宽, 高），常用示例： (16, 9), (9, 16), (3, 4), (1, 1)
+TARGET_RATIO = (3, 4)
+# 画布基础尺寸（单位：英寸）
+BASE_SIZE = 10
+# 预览渲染 DPI（屏幕显示）
+FIGURE_DPI = 140
+# 导出高清 DPI（文件输出，建议 >= 300）
+EXPORT_DPI = 400
+
+# 字号层级（阅读舒适）
+TITLE_FONT_SIZE = 42
+SUBTITLE_FONT_SIZE = 30
+FORMULA_FONT_SIZE = 30
+POINT_LABEL_FONT_SIZE = 26
+AREA_LABEL_FONT_SIZE = 32
+
+# 向量箭头参数（在 P->A/P->B/P->C 末端绘制箭头）
+VECTOR_ARROW_HEAD_LEN = 0.8
+VECTOR_ARROW_INSET = 0.12
+VECTOR_ARROW_SCALE = 16
+
+# 中文字体回退链：按顺序尝试，找到即用
+PREFERRED_FONTS = [
+    "Microsoft YaHei",
+    "SimHei",
+[PARSE_ERROR] invalid non-printable character U+FEFF (<unknown>, line 1)
+- tail 30 lines -
+    )
+
+    formula = r"$S_A \cdot \vec{PA} + S_B \cdot \vec{PB} + S_C \cdot \vec{PC} = \vec{0}$"
+    plt.text(
+        0.5,
+        0.05,
+        formula,
+        transform=ax.transAxes,
+        ha="center",
+        fontsize=FORMULA_FONT_SIZE,
+        color="black",
+    )
+
+    # 9. 导出高清图片
+    ratio_str = f"{ratio[0]}x{ratio[1]}"
+    output_file = f"benz_theorem_{ratio_str}_{EXPORT_DPI}dpi.png"
+    plt.tight_layout(pad=0.6)
+    plt.savefig(
+        output_file,
+        dpi=EXPORT_DPI,
+        bbox_inches="tight",
+        pad_inches=0.12,
+        facecolor=fig.get_facecolor(),
+    )
+    print(f"图片已生成：{output_file}（字体：{selected_font}）")
+    plt.show()
+
+
+if __name__ == "__main__":
+    draw_mercedes_theorem(TARGET_RATIO)
+==============================================================================================================
+scripts/unify_module_naming.py
+- top 30 lines -
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
+============================================================
+📦 LaTeX 项目命名规范重构工具（工业级版本）
+============================================================
+
+【工具目标】
+----------------------------------------
+统一 LaTeX 项目中的命名规范，并确保：
+✔ 路径引用同步更新
+✔ 编译通过后才应用修改
+✔ 全流程可回滚
+✔ 支持 dry-run 预览
+✔ 生成完整变更日志
+
+----------------------------------------
+【适用场景】
+----------------------------------------
+- 数学讲义 / 教材工程
+- 大型 LaTeX 项目结构重构
+- 命名规范统一（破窗修复）
+
+----------------------------------------
+【命名规则】
+----------------------------------------
+
+1️⃣ 模块目录
+    00-set → 00_set
+- tail 30 lines -
+    save_log(mapping_real)
+
+    shutil.rmtree(TEMP_DIR)
+
+    print("🎉 完成（支持回滚）")
+
+
+# =========================
+# 🧩 CLI 入口
+# =========================
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser(description="LaTeX 命名规范重构工具（工业级）")
+
+    parser.add_argument("--dry-run", action="store_true", help="预览修改")
+    parser.add_argument("--apply", action="store_true", help="执行修改")
+    parser.add_argument("--rollback", action="store_true", help="回滚")
+
+    args = parser.parse_args()
+
+    if args.rollback:
+        rollback()
+    else:
+        mapping = build_mapping(ROOT)
+
+        if args.dry_run:
+            dry_run(mapping)
+        elif args.apply:
+            apply()
+        else:
+            print("请使用 --dry-run 或 --apply")
+==============================================================================================================
+scripts/upgrade_module_index.py
+- top 30 lines -
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
+============================================================
+模块二级目录编号升级工具（F01 → F001）
+============================================================
+
+【功能说明】
+本脚本用于批量将如下目录结构：
+
+    00_set/
+        S01_Subset_Count/
+        S02_xxx/
+
+转换为：
+
+    00_set/
+        S001_Subset_Count/
+        S002_xxx/
+
+并同步更新所有 LaTeX 文件中的引用路径，例如：
+
+    \input{00_set/S01_Subset_Count/main.tex}
+    → \input{00_set/S001_Subset_Count/main.tex}
+
+------------------------------------------------------------
+
+【支持功能】
+✔ 目录重命名
+- main() -
+def main():
+    parser = argparse.ArgumentParser(description="模块编号升级工具")
+
+    parser.add_argument("--root", required=True, help="项目根目录")
+    parser.add_argument("--modules", nargs="*", help="指定模块（可选）")
+    parser.add_argument("--dry-run", action="store_true", help="仅预览")
+    parser.add_argument("--apply", action="store_true", help="实际执行")
+
+    args = parser.parse_args()
+
+    if not args.dry_run and not args.apply:
+        print("❌ 必须指定 --dry-run 或 --apply")
+        return
+
+    root = Path(args.root)
+
+    modules = args.modules if args.modules else DEFAULT_MODULE_RANGE
+
+    print("====================================")
+    print("模块编号升级工具")
+    print("模式:", "DRY-RUN" if args.dry_run else "APPLY")
+    print("====================================")
+
+    for module in modules:
+        module_path = root / module
+
+        if not module_path.exists():
+            print(f"[跳过] 模块不存在: {module}")
+            continue
+
+        process_module(module_path, args.dry_run)
+
+    print("\n✅ 完成")
+- tail 30 lines -
+
+    args = parser.parse_args()
+
+    if not args.dry_run and not args.apply:
+        print("❌ 必须指定 --dry-run 或 --apply")
+        return
+
+    root = Path(args.root)
+
+    modules = args.modules if args.modules else DEFAULT_MODULE_RANGE
+
+    print("====================================")
+    print("模块编号升级工具")
+    print("模式:", "DRY-RUN" if args.dry_run else "APPLY")
+    print("====================================")
+
+    for module in modules:
+        module_path = root / module
+
+        if not module_path.exists():
+            print(f"[跳过] 模块不存在: {module}")
+            continue
+
+        process_module(module_path, args.dry_run)
+
+    print("\n✅ 完成")
+
+
+if __name__ == "__main__":
+    main()
+==============================================================================================================
+scripts/verify_backend_index_extraction.py
+- top 30 lines -
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+脚本名称: verify_backend_index_extraction.py
+
+用途:
+- 校验 `backend_search_index.json` 是否与 `search_bundle.js` 中的原始
+  `searchBundle` 数据严格一致（结构、类型、值、数组顺序）。
+
+校验思路:
+1. 复用 `extract_backend_index_from_search_bundle.py` 的解析函数：
+   `read_text_file`、`extract_search_bundle_object_literal`、
+   `load_bundle_to_python_obj`。
+2. source / backend 都解析为 Python 对象后，执行深度结构化比较。
+3. 额外做统计一致性复核（actual vs stats）与 canonical SHA256 指纹比较。
+
+输入输出:
+- 输入:
+  - `--bundle-js`（默认 `data/search_engine/search_bundle.js`）
+  - `--backend-json`（默认 `data/search_engine/backend_search_index.json`）
+- 输出:
+  - 控制台日志（分步骤）
+  - 可选 JSON 报告（`--report`）
+
+退出码:
+- 0: 完全一致
+- 1: 发现不一致
+- 2: 输入文件错误 / 解析失败 / 脚本异常
+
+示例:
+- main() -
+def main(argv: list[str] | None = None) -> int:
+    """CLI 主入口。"""
+
+    parser = build_arg_parser()
+    args = parser.parse_args(argv)
+
+    logging.basicConfig(
+        level=getattr(logging, args.log_level.upper(), logging.INFO),
+        format="%(asctime)s | %(levelname)s | %(message)s",
+    )
+
+    try:
+        LOGGER.info("开始校验 backend 索引抽取一致性")
+        LOGGER.info("source bundle: %s", args.bundle_js)
+        LOGGER.info("backend json : %s", args.backend_json)
+        LOGGER.info("ignore meta  : %s", args.ignore_meta)
+
+        source_payload = load_source_bundle(args.bundle_js)
+        backend_payload = load_backend_json(args.backend_json)
+
+        report = verify_payloads(
+            source_payload=source_payload,
+            backend_payload=backend_payload,
+            bundle_path=args.bundle_js,
+            backend_path=args.backend_json,
+            ignore_meta=args.ignore_meta,
+            max_diff_samples=args.max_diff_samples,
+        )
+
+        LOGGER.info(
+            "统计摘要 | source actual=%s | backend actual=%s",
+            preview_value(report["stats"]["source"]["actual"]),
+            preview_value(report["stats"]["backend"]["actual"]),
+        )
+        LOGGER.info(
+            "指纹摘要 | source=%s | backend=%s",
+            report.get("source_hash"),
+            report.get("backend_hash"),
+        )
+
+        if args.report is not None:
+            write_report_file(args.report, report)
+            LOGGER.info("已写出 JSON 报告: %s", args.report)
+
+        if report.get("passed"):
+            LOGGER.info("校验通过：未发现不一致。")
+            return EXIT_OK
+
+        LOGGER.error(
+            "校验失败：共发现 %d 处不一致（展示前 %d 条）。",
+            report.get("mismatch_count", 0),
+            len(report.get("mismatch_samples", [])),
+        )
+        log_mismatch_samples(report)
+        return EXIT_MISMATCH
+
+    except VerificationInputError as exc:
+        LOGGER.error("输入文件错误: %s", exc)
+        write_error_report_if_needed(
+            report_path=args.report,
+            bundle_path=args.bundle_js,
+            backend_path=args.backend_json,
+            summary=f"输入文件错误: {exc}",
+            ignore_meta=args.ignore_meta,
+        )
+        return EXIT_ERROR
+    except VerificationParseError as exc:
+        LOGGER.error("解析失败: %s", exc)
+        write_error_report_if_needed(
+            report_path=args.report,
+            bundle_path=args.bundle_js,
+            backend_path=args.backend_json,
+            summary=f"解析失败: {exc}",
+            ignore_meta=args.ignore_meta,
+        )
+        return EXIT_ERROR
+    except Exception as exc:
+        LOGGER.exception("脚本异常: %s", exc)
+        write_error_report_if_needed(
+            report_path=args.report,
+            bundle_path=args.bundle_js,
+            backend_path=args.backend_json,
+            summary=f"脚本异常: {exc}",
+            ignore_meta=args.ignore_meta,
+        )
+        return EXIT_ERROR
+- tail 30 lines -
+            bundle_path=args.bundle_js,
+            backend_path=args.backend_json,
+            summary=f"输入文件错误: {exc}",
+            ignore_meta=args.ignore_meta,
+        )
+        return EXIT_ERROR
+    except VerificationParseError as exc:
+        LOGGER.error("解析失败: %s", exc)
+        write_error_report_if_needed(
+            report_path=args.report,
+            bundle_path=args.bundle_js,
+            backend_path=args.backend_json,
+            summary=f"解析失败: {exc}",
+            ignore_meta=args.ignore_meta,
+        )
+        return EXIT_ERROR
+    except Exception as exc:
+        LOGGER.exception("脚本异常: %s", exc)
+        write_error_report_if_needed(
+            report_path=args.report,
+            bundle_path=args.bundle_js,
+            backend_path=args.backend_json,
+            summary=f"脚本异常: {exc}",
+            ignore_meta=args.ignore_meta,
+        )
+        return EXIT_ERROR
+
+
+if __name__ == "__main__":
+    sys.exit(main())
+==============================================================================================================
+scripts/verify_detail_js_to_content_v2_integrity.py
+- top 30 lines -
+from __future__ import annotations
+
+"""
+===============================================================================
+脚本名称: verify_detail_js_to_content_v2_integrity.py
+===============================================================================
+
+python verify_detail_js_to_content_v2_integrity.py \
+  --source-js 07_inequality.js \
+  --target-json canonical_content_v2.json \
+  --migration-script migrate_detail_js_to_content_v2.py
+
+python.exe .\scripts\verify_detail_js_to_content_v2_integrity.py --source-js .\data\content\07_inequality.js --target-json .\data\content\canonical_content_v2.json --migration-script .\scripts\migrate_detail_js_to_content_v2.py  
+
+功能说明
+--------
+校验 legacy detail js（例如 `07_inequality.js`）迁移到
+`canonical_content_v2.json` 后的数据完整性与映射正确性。
+
+本脚本不是新的迁移器，也不是单纯的 schema 校验器；它的职责是：
+1. 根据当前 `migrate_detail_js_to_content_v2.py` 的真实映射逻辑，重建“期望目标值”。
+2. 将“期望目标值”与真实 `canonical_content_v2.json` 逐字段对照。
+3. 输出机器可读 JSON 报告 + 人工可读 Markdown 报告。
+
+适用场景
+--------
+1. 你已经完成 detail js -> canonical v2 的迁移。
+2. 你需要确认迁移后有没有丢字段、落错路径、值被改坏。
+3. 你需要一份可审计报告，便于人工排查具体记录与字段。
+
+- parse_args() -
+def parse_args() -> argparse.Namespace:
+    """解析命令行参数。"""
+    parser = argparse.ArgumentParser(
+        description="校验 detail js -> canonical_content_v2.json 的迁移完整性",
+        formatter_class=argparse.RawTextHelpFormatter,
+        epilog=(
+            "示例:\n"
+            "  python verify_detail_js_to_content_v2_integrity.py "
+            "--source-js 07_inequality.js "
+            "--target-json canonical_content_v2.json "
+            "--migration-script migrate_detail_js_to_content_v2.py\n"
+        ),
+    )
+    parser.add_argument("--source-js", required=True, help="源 detail js 文件")
+    parser.add_argument(
+        "--target-json", required=True, help="目标 canonical_content_v2.json"
+    )
+    parser.add_argument(
+        "--migration-script",
+        required=True,
+        help="迁移脚本 migrate_detail_js_to_content_v2.py",
+    )
+    parser.add_argument(
+        "--report-json",
+        default="data/content/migration_integrity_report.json",
+        help="输出 JSON 报告路径",
+    )
+    parser.add_argument(
+        "--report-md",
+        default="data/content/migration_integrity_report.md",
+        help="输出 Markdown 报告路径",
+    )
+    parser.add_argument(
+        "--strict",
+        action="store_true",
+        help="存在 failed 记录时在终端显著提示，但仍不以 failed records 作为退出码",
+    )
+    parser.add_argument(
+        "--log-level",
+        default="INFO",
+        choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
+        help="日志级别",
+    )
+    return parser.parse_args()
+- main() -
+def main() -> int:
+    """主入口。
+
+    退出码策略:
+    - 只有输入读取失败、脚本导入失败、整体流程异常时返回非 0
+    - 存在 failed records 仍返回 0，因为这属于审计结果，不是运行时崩溃
+    """
+    configure_console_encoding()
+    args = parse_args()
+    config = build_config_from_args(args)
+    configure_logging(config.log_level)
+
+    try:
+        migrator = dynamic_import_module(
+            config.migration_script, "detail_migrator_dynamic"
+        )
+        mapping_rules = extract_mapping_rules_from_current_migrator(migrator)
+
+        source_map, source_parse_warnings = load_source_js(config, migrator)
+        target_map = load_target_json(config)
+
+        fallback_module = (
+            migrator.normalize_non_empty_string(config.source_js.stem)
+            or "unknown_module"
+        )
+
+        per_record: dict[str, RecordVerification] = {}
+        source_record_ids: list[str] = []
+        for source_key, source_value in source_map.items():
+            source_id = None
+            if isinstance(source_value, dict):
+                raw_id = source_value.get("id")
+                source_id = (
+                    raw_id if isinstance(raw_id, str) and raw_id.strip() else None
+                )
+            record_id = source_id or source_key
+            source_record_ids.append(record_id)
+            target_record = target_map.get(record_id)
+            verification = verify_record_integrity(
+                source_key=source_key,
+                source=source_value,
+                target_record=target_record,
+                migrator=migrator,
+                fallback_module=fallback_module,
+            )
+            per_record[record_id] = verification
+
+        extra_target_ids = [
+            rid for rid in target_map.keys() if rid not in set(source_record_ids)
+        ]
+        summary = summarize_results(
+            source_map=source_map,
+            target_map=target_map,
+            per_record=per_record,
+            extra_target_ids=extra_target_ids,
+            mapping_rules=mapping_rules,
+        )
+
+        report = build_report(
+            config=config,
+            source_parse_warnings=source_parse_warnings,
+            mapping_rules=mapping_rules,
+            per_record=per_record,
+            extra_target_ids=extra_target_ids,
+            summary=summary,
+        )
+        write_json(config.report_json, report)
+        write_markdown_report(config.report_md, report)
+
+        LOGGER.info("校验完成")
+        LOGGER.info("总记录数: %s", summary.total_source_records)
+        LOGGER.info(
+            "通过: %s | warning: %s | failed: %s",
+            summary.passed_records,
+            summary.warning_records,
+            summary.failed_records,
+        )
+        LOGGER.info(
+            "字段 warning: %s | 字段 failed: %s",
+            summary.field_warning_count,
+            summary.field_failed_count,
+        )
+        LOGGER.info("目标多余记录数: %s", summary.extra_in_target)
+        LOGGER.info("JSON 报告: %s", config.report_json)
+        LOGGER.info("Markdown 报告: %s", config.report_md)
+
+        if config.strict and summary.failed_records > 0:
+            LOGGER.warning(
+                "strict 模式提示：检测到 failed records，请优先查看 migration_integrity_report.md"
+            )
+
+        return 0
+
+    except Exception as exc:
+        LOGGER.error("执行失败: %s", exc)
+        LOGGER.debug("%s", traceback.format_exc())
+        return 1
+- tail 30 lines -
+        LOGGER.info(
+            "通过: %s | warning: %s | failed: %s",
+            summary.passed_records,
+            summary.warning_records,
+            summary.failed_records,
+        )
+        LOGGER.info(
+            "字段 warning: %s | 字段 failed: %s",
+            summary.field_warning_count,
+            summary.field_failed_count,
+        )
+        LOGGER.info("目标多余记录数: %s", summary.extra_in_target)
+        LOGGER.info("JSON 报告: %s", config.report_json)
+        LOGGER.info("Markdown 报告: %s", config.report_md)
+
+        if config.strict and summary.failed_records > 0:
+            LOGGER.warning(
+                "strict 模式提示：检测到 failed records，请优先查看 migration_integrity_report.md"
+            )
+
+        return 0
+
+    except Exception as exc:
+        LOGGER.error("执行失败: %s", exc)
+        LOGGER.debug("%s", traceback.format_exc())
+        return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
