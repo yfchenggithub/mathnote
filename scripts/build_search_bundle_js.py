@@ -208,6 +208,7 @@ DEFAULT_TARGET_MODULES: tuple[str, ...] = ()
 DEFAULT_PREFIX_DOC_LIMIT = 32
 DEFAULT_SUGGESTION_LIMIT = 500
 DEFAULT_AUDIT_REPORT_FILE: Path | None = None
+DEFAULT_PINYIN_PREFIX_MODE = "syllable"
 IGNORED_TOP_LEVEL_DIRS = {
     ".git",
     ".github",
@@ -239,12 +240,36 @@ MAX_PINYIN_EXACT_LENGTH = 16
 MAX_PINYIN_ABBR_EXACT_LENGTH = 6
 MAX_LOW_VALUE_NATURAL_EXACT_LENGTH = 20
 MAX_LOW_VALUE_NATURAL_TOKEN_LENGTH = 8
+MAX_SUGGESTION_TEXT_LENGTH = 24
+# n-gram 只作为兜底召回，不应成为主策略。
+NGRAM_MIN_N = 2
+NGRAM_MAX_N = 4
+NGRAM_MAX_SOURCE_CJK_LENGTH = 12
+NGRAM_SCORE_MULTIPLIER = 0.35
 MAX_AUDIT_SAMPLES_PER_REASON = 8
 LOW_VALUE_NATURAL_EXACT_FIELDS = {
     "query_template",
     "summary",
     "statement_fragment",
     "usage",
+}
+NGRAM_ALLOWED_FIELDS = {"title", "alias", "keyword", "synonym", "suggest_term"}
+STOP_NGRAM_BIGRAMS = {
+    "值不",
+    "式均",
+    "式最",
+    "的方",
+    "可得",
+    "因此",
+    "从而",
+    "进而",
+    "得到",
+    "于是",
+}
+STOP_NGRAM_SUBSTRINGS = {
+    "不等式均",
+    "值不等",
+    "式均值",
 }
 FORMULA_REPLACEMENTS = (
     (r"\geqslant", ">="),
@@ -285,6 +310,16 @@ class BuildConfig:
     strict: bool
     pretty: bool
     embed_debug: bool
+    enable_cjk_ngrams: bool
+    enable_statement_fragments: bool
+    enable_summary_terms: bool
+    enable_usage_terms: bool
+    enable_ocr_terms: bool
+    enable_knowledge_node_terms: bool
+    enable_formula_token_terms: bool
+    enable_formula_terms: bool
+    enable_query_template_terms: bool
+    pinyin_prefix_mode: str
     prefix_doc_limit: int
     suggestion_limit: int
     debug_docs: tuple[str, ...]
@@ -380,12 +415,19 @@ class IndexAudit:
     kept_exact_candidates: int = 0
     kept_prefix_candidates: int = 0
     kept_suggestions: int = 0
+    ngram_candidates: int = 0
+    kept_ngrams: int = 0
+    dropped_ngrams: int = 0
     dropped_exact: Counter = field(default_factory=Counter)
     dropped_prefix: Counter = field(default_factory=Counter)
+    dropped_ngram_reasons: Counter = field(default_factory=Counter)
     exact_samples: dict[str, list[dict[str, str]]] = field(
         default_factory=lambda: defaultdict(list)
     )
     prefix_samples: dict[str, list[dict[str, str]]] = field(
+        default_factory=lambda: defaultdict(list)
+    )
+    ngram_samples: dict[str, list[dict[str, str]]] = field(
         default_factory=lambda: defaultdict(list)
     )
 
@@ -397,6 +439,26 @@ class IndexAudit:
 
     def keep_suggestions(self, count: int) -> None:
         self.kept_suggestions += count
+
+    def mark_ngram_candidate(self) -> None:
+        self.ngram_candidates += 1
+
+    def keep_ngram(self) -> None:
+        self.kept_ngrams += 1
+
+    def drop_ngram(
+        self, reason: str, spec: "FieldSpec", term: str, source: str
+    ) -> None:
+        self.dropped_ngrams += 1
+        self._drop(
+            self.dropped_ngram_reasons,
+            self.ngram_samples,
+            reason,
+            spec,
+            "ngram",
+            term,
+            source,
+        )
 
     def drop_exact(
         self, reason: str, spec: "FieldSpec", kind: str, term: str, source: str
@@ -445,7 +507,13 @@ class IndexAudit:
                 "maxPinyinAbbrExactLength": MAX_PINYIN_ABBR_EXACT_LENGTH,
                 "maxLowValueNaturalExactLength": MAX_LOW_VALUE_NATURAL_EXACT_LENGTH,
                 "maxLowValueNaturalTokenLength": MAX_LOW_VALUE_NATURAL_TOKEN_LENGTH,
+                "maxSuggestionLength": MAX_SUGGESTION_TEXT_LENGTH,
+                "ngramMinN": NGRAM_MIN_N,
+                "ngramMaxN": NGRAM_MAX_N,
+                "ngramMaxSourceCjkLength": NGRAM_MAX_SOURCE_CJK_LENGTH,
+                "ngramScoreMultiplier": NGRAM_SCORE_MULTIPLIER,
                 "lowValueNaturalExactFields": sorted(LOW_VALUE_NATURAL_EXACT_FIELDS),
+                "ngramAllowedFields": sorted(NGRAM_ALLOWED_FIELDS),
                 "formulaPrefix": "disabled",
                 "formulaAutoTokenization": "disabled",
                 "spacedLatinPrefix": "disabled",
@@ -455,10 +523,14 @@ class IndexAudit:
                 "exactCandidates": self.kept_exact_candidates,
                 "prefixCandidates": self.kept_prefix_candidates,
                 "suggestions": self.kept_suggestions,
+                "ngramCandidates": self.ngram_candidates,
+                "keptNgrams": self.kept_ngrams,
             },
             "dropped": {
                 "exactCandidates": dict(sorted(self.dropped_exact.items())),
                 "prefixCandidates": dict(sorted(self.dropped_prefix.items())),
+                "droppedNgrams": self.dropped_ngrams,
+                "droppedNgramReasons": dict(sorted(self.dropped_ngram_reasons.items())),
             },
             "samples": {
                 "exactCandidates": {
@@ -468,6 +540,9 @@ class IndexAudit:
                 "prefixCandidates": {
                     reason: items
                     for reason, items in sorted(self.prefix_samples.items())
+                },
+                "ngramCandidates": {
+                    reason: items for reason, items in sorted(self.ngram_samples.items())
                 },
             },
         }
@@ -578,6 +653,88 @@ def parse_args() -> argparse.Namespace:
         help="Embed debug payloads into the generated bundle. Useful for offline inspection, but increases file size.",
     )
     parser.add_argument(
+        "--enable-cjk-ngrams",
+        action="store_true",
+        help=(
+            "Enable optional CJK n-gram fallback recall. Disabled by default to keep "
+            "the bundle cleaner and more explainable."
+        ),
+    )
+    parser.add_argument(
+        "--enable-statement-fragments",
+        action="store_true",
+        help=(
+            "Enable statement_fragment indexing from content.statement. Disabled by "
+            "default to avoid noisy fragment recall."
+        ),
+    )
+    parser.add_argument(
+        "--enable-summary-terms",
+        action="store_true",
+        help=(
+            "Enable summary/preview token indexing. Disabled by default because "
+            "summary tokens often add low-value natural-language noise."
+        ),
+    )
+    parser.add_argument(
+        "--enable-usage-terms",
+        action="store_true",
+        help=(
+            "Enable usage.problem_types / usage.scenarios indexing. Disabled by "
+            "default to keep the index focused on curated core fields."
+        ),
+    )
+    parser.add_argument(
+        "--enable-ocr-terms",
+        action="store_true",
+        help=(
+            "Enable OCR keyword indexing. Disabled by default to avoid introducing "
+            "OCR-derived noisy fragments into the main index."
+        ),
+    )
+    parser.add_argument(
+        "--enable-knowledge-node-terms",
+        action="store_true",
+        help=(
+            "Enable knowledgeNode / altNodes indexing. Disabled by default for a "
+            "cleaner, curated core search bundle."
+        ),
+    )
+    parser.add_argument(
+        "--enable-formula-token-terms",
+        action="store_true",
+        help=(
+            "Enable formula_token indexing. Disabled by default in curated mode; "
+            "turn on when formula-symbol recall is explicitly needed."
+        ),
+    )
+    parser.add_argument(
+        "--enable-formula-terms",
+        action="store_true",
+        help=(
+            "Enable full formula indexing. Disabled by default to avoid formula-side "
+            "index bloat in the core clean bundle."
+        ),
+    )
+    parser.add_argument(
+        "--enable-query-template-terms",
+        action="store_true",
+        help=(
+            "Enable query_template indexing. Disabled by default to avoid generic "
+            "natural-language prompt fragments in termIndex."
+        ),
+    )
+    parser.add_argument(
+        "--pinyin-prefix-mode",
+        choices=("syllable", "char", "off"),
+        default=DEFAULT_PINYIN_PREFIX_MODE,
+        help=(
+            "Pinyin prefix strategy: 'syllable' keeps only syllable-level cumulative "
+            "prefixes (recommended), 'char' keeps legacy character-level prefixes, "
+            "and 'off' disables pinyin prefix expansion."
+        ),
+    )
+    parser.add_argument(
         "--debug-doc",
         dest="debug_docs",
         action="append",
@@ -628,6 +785,16 @@ def build_config(args: argparse.Namespace) -> BuildConfig:
         strict=bool(args.strict),
         pretty=bool(args.pretty),
         embed_debug=bool(args.embed_debug),
+        enable_cjk_ngrams=bool(args.enable_cjk_ngrams),
+        enable_statement_fragments=bool(args.enable_statement_fragments),
+        enable_summary_terms=bool(args.enable_summary_terms),
+        enable_usage_terms=bool(args.enable_usage_terms),
+        enable_ocr_terms=bool(args.enable_ocr_terms),
+        enable_knowledge_node_terms=bool(args.enable_knowledge_node_terms),
+        enable_formula_token_terms=bool(args.enable_formula_token_terms),
+        enable_formula_terms=bool(args.enable_formula_terms),
+        enable_query_template_terms=bool(args.enable_query_template_terms),
+        pinyin_prefix_mode=str(args.pinyin_prefix_mode),
         prefix_doc_limit=int(args.prefix_doc_limit),
         suggestion_limit=int(args.suggestion_limit),
         debug_docs=tuple(args.debug_docs or ()),
@@ -820,6 +987,44 @@ def to_pinyin_abbr(text: str) -> str:
     return "".join(item[0] for item in lazy_pinyin(raw) if item)
 
 
+def cjk_pinyin_syllables(text: str) -> list[str]:
+    """把中文文本转为拼音音节序列。"""
+
+    if lazy_pinyin is None:
+        return []
+    raw = "".join(CJK_RE.findall(text))
+    if not raw:
+        return []
+    result: list[str] = []
+    for item in lazy_pinyin(raw):
+        syllable = re.sub(r"[^a-z]", "", str(item).lower())
+        if syllable:
+            result.append(syllable)
+    return result
+
+
+def latin_syllables(text: str) -> list[str]:
+    """从拉丁文本中提取“音节级”片段（空白/符号分隔）。"""
+
+    normalized = normalize_text(text)
+    return [token for token in re.findall(r"[a-z]+", normalized) if token]
+
+
+def cumulative_joined_prefixes(parts: Sequence[str]) -> list[str]:
+    """把音节序列转成累计前缀：a, ab, abc..."""
+
+    result: list[str] = []
+    current = ""
+    for part in parts:
+        token = normalize_compact(part)
+        if not token:
+            continue
+        current += token
+        if len(current) >= 2:
+            result.append(current)
+    return dedupe(result)
+
+
 def word_tokens(text: str) -> list[str]:
     """从文本里抽取较稳定的中文片段和拉丁 token。
 
@@ -839,11 +1044,14 @@ def word_tokens(text: str) -> list[str]:
     return dedupe(tokens)
 
 
-def cjk_ngrams(text: str, min_n: int = 2, max_n: int = 6) -> list[str]:
-    """为短中文串生成 n-gram 子串。
+def cjk_ngrams(
+    text: str, min_n: int = NGRAM_MIN_N, max_n: int = NGRAM_MAX_N
+) -> list[str]:
+    """为短中文串生成 n-gram 子串（可选兜底）。
 
-    需要它，是因为用户常常只记得标题的一部分。对标题、标签、知识点等短文本生成
-    n-gram 能显著提升“半截输入”命中的概率，但不适合对所有长文本都开启。
+    注意：这不是当前主搜索策略。默认构建中应尽量依赖 title/alias/keywords/
+    synonyms/tags/knowledge-node/pinyin/suggest_terms 等可解释信号，n-gram 只在
+    显式开启时用于兜底召回。
     """
 
     result: list[str] = []
@@ -854,6 +1062,45 @@ def cjk_ngrams(text: str, min_n: int = 2, max_n: int = 6) -> list[str]:
             for start in range(0, len(segment) - size + 1):
                 result.append(segment[start : start + size])
     return dedupe(result)
+
+
+def is_good_suggestion_text(text: str) -> bool:
+    """判断一个文本是否适合作为可展示的联想词。"""
+
+    display = normalize_display(text)
+    if len(display) < 2 or len(display) > MAX_SUGGESTION_TEXT_LENGTH:
+        return False
+    if is_formula_like(display):
+        return False
+    if display.isdigit():
+        return False
+    if not re.search(r"[\u3400-\u4DBF\u4E00-\u9FFFa-zA-Z0-9]", display):
+        return False
+    compact = normalize_compact(display)
+    if any(piece in compact for piece in STOP_NGRAM_SUBSTRINGS):
+        return False
+    return True
+
+
+def is_good_cjk_ngram(term: str, source: str, spec: FieldSpec) -> tuple[bool, str]:
+    """判断 n-gram 是否值得保留，并返回裁剪原因。"""
+
+    if spec.name not in NGRAM_ALLOWED_FIELDS:
+        return False, "field_not_allowed"
+    if len(term) < NGRAM_MIN_N:
+        return False, "too_short"
+    if len(term) > NGRAM_MAX_N:
+        return False, "too_long"
+    cjk_segments = CJK_RE.findall(source)
+    cjk_len = sum(len(segment) for segment in cjk_segments)
+    if cjk_len > NGRAM_MAX_SOURCE_CJK_LENGTH:
+        return False, "source_too_long"
+    if term in STOP_NGRAM_BIGRAMS:
+        return False, "stop_bigram"
+    for piece in STOP_NGRAM_SUBSTRINGS:
+        if piece in term:
+            return False, "stop_substring"
+    return True, "ok"
 
 
 def is_formula_like(text: str) -> bool:
@@ -1006,7 +1253,7 @@ def prefix_drop_reason(term: str, spec: FieldSpec, kind: str) -> str | None:
     return None
 
 
-def prefix_terms(term: str) -> list[str]:
+def prefix_terms(term: str, kind: str | None = None) -> list[str]:
     """生成一个词可用于前缀倒排的前缀集合。
 
     中文允许从 1 个字开始前缀命中，因为单字前缀在标题搜索里常见；英文和拼音从
@@ -1015,6 +1262,10 @@ def prefix_terms(term: str) -> list[str]:
 
     if not informative_prefix(term):
         return []
+    # `pinyin_syllable` 这类候选在特征阶段已经是“最终前缀词”，
+    # 不需要再按字符二次展开，否则会回退成 banj/banji 这类噪声。
+    if kind == "pinyin_syllable":
+        return [term]
     min_len = 1 if contains_cjk(term) else 2
     max_len = min(len(term), 12 if contains_cjk(term) else 16)
     return [term[:i] for i in range(min_len, max_len + 1)]
@@ -1069,6 +1320,28 @@ def extract_query(meta: Mapping[str, object]) -> list[str]:
     """
 
     return get_strings(meta, "search.query_templates", "search.queryTemplates")
+
+
+def extract_suggest_terms(meta: Mapping[str, object]) -> list[str]:
+    """提取人工维护的高质量联想词。"""
+
+    return get_strings(
+        meta,
+        "search.suggestTerms",
+        "search.suggest_terms",
+        "suggestTerms",
+    )
+
+
+def extract_search_terms(meta: Mapping[str, object]) -> list[str]:
+    """提取人工维护的召回词，不直接用于展示联想。"""
+
+    return get_strings(
+        meta,
+        "search.searchTerms",
+        "search.search_terms",
+        "searchTerms",
+    )
 
 
 def extract_ocr(meta: Mapping[str, object]) -> list[str]:
@@ -1188,23 +1461,36 @@ def extract_pinyin_abbr_field(meta: Mapping[str, object]) -> list[str]:
 FIELD_SPECS = (
     # 标题：最重要的主召回字段。
     # 需要 suggestion，是因为标题通常最适合直接展示给用户。
-    FieldSpec("title", extract_title, 120, "titleWeight", True, True, True, True),
+    FieldSpec("title", extract_title, 120, "titleWeight", True, True, True, False),
     # 别名：解决同一知识点多种叫法的问题。
-    FieldSpec("alias", extract_alias, 96, None, True, True, True, True),
+    FieldSpec("alias", extract_alias, 96, None, True, True, True, False),
     # 关键词：人工整理的高价值检索入口。
-    FieldSpec("keyword", extract_keyword, 84, "keywordWeight", True, True, True, True),
+    FieldSpec(
+        "keyword", extract_keyword, 84, "keywordWeight", True, True, True, False
+    ),
     # 同义词：覆盖不同表述，但比标题和关键词稍弱。
-    FieldSpec("synonym", extract_synonym, 68, "synonymWeight", True, True, True, True),
+    FieldSpec(
+        "synonym", extract_synonym, 68, "synonymWeight", True, False, True, False
+    ),
+    # 人工联想词：用于高质量可展示建议。
+    FieldSpec(
+        "suggest_term", extract_suggest_terms, 110, None, True, True, True, False
+    ),
+    # 人工召回词：用于召回增强，不直接展示给用户。
+    FieldSpec(
+        "search_term", extract_search_terms, 88, None, True, False, True, False
+    ),
     # 搜索意图：服务“我想解决什么问题”的搜索方式。
-    FieldSpec("intent", extract_intent, 56, None, True, False, True, False),
+    # 仅保留 exact，避免生成“求取”“求取值范”这类低价值前缀碎片。
+    FieldSpec("intent", extract_intent, 56, None, False, False, True, False),
     # 查询模板：更像自然语言句子，适合召回，不适合联想展示。
     FieldSpec("query_template", extract_query, 38, None, False, False, True, False),
     # OCR 关键词：主要用于图片识别、截图识别后的碎片文本。
     FieldSpec("ocr_keyword", extract_ocr, 42, "ocrWeight", True, False, True, False),
     # 分类名：帮助按章节、知识类目检索。
-    FieldSpec("category", extract_category, 48, None, True, True, True, True),
+    FieldSpec("category", extract_category, 48, None, True, False, True, False),
     # 标签：短而稳，适合做补充召回和建议词。
-    FieldSpec("tag", extract_tag, 44, None, True, True, True, True),
+    FieldSpec("tag", extract_tag, 44, None, True, True, True, False),
     # 公式 token：人工挑选过的关键符号表达，精度高于完整公式。
     FieldSpec(
         "formula_token",
@@ -1230,7 +1516,7 @@ FIELD_SPECS = (
     # 使用场景：服务“解某类题该用什么”这一类意图搜索。
     FieldSpec("usage", extract_usage, 28, None, True, False, True, False),
     # 知识节点：兼容知识图谱、目录系统中的节点命名。
-    FieldSpec("knowledge_node", extract_node, 40, None, True, False, True, True),
+    FieldSpec("knowledge_node", extract_node, 40, None, True, False, True, False),
     # 手工全拼：优先级高于自动拼音派生，因为可控性更强。
     FieldSpec("pinyin", extract_pinyin_field, 72, None, True, False, False, False),
     # 手工拼音缩写：服务首字母搜索。
@@ -1475,8 +1761,39 @@ def build_doc_record(
     }
 
 
+def is_field_enabled_for_indexing(spec_name: str, config: BuildConfig) -> bool:
+    """判断字段在当前构建配置下是否参与倒排构建。
+
+    默认策略是“精品字段白名单优先”：title/alias/keyword/synonym/intent/
+    tag/pinyin 等核心字段默认开启；容易引入噪声或体积膨胀的字段
+    默认关闭，只有显式开关才启用。
+    """
+
+    if spec_name == "statement_fragment":
+        return config.enable_statement_fragments
+    if spec_name == "summary":
+        return config.enable_summary_terms
+    if spec_name == "usage":
+        return config.enable_usage_terms
+    if spec_name == "ocr_keyword":
+        return config.enable_ocr_terms
+    if spec_name == "knowledge_node":
+        return config.enable_knowledge_node_terms
+    if spec_name == "formula_token":
+        return config.enable_formula_token_terms
+    if spec_name == "formula":
+        return config.enable_formula_terms
+    if spec_name == "query_template":
+        return config.enable_query_template_terms
+    return True
+
+
 def build_feature_variants(
-    text: str, spec: FieldSpec, audit: IndexAudit | None = None
+    text: str,
+    spec: FieldSpec,
+    audit: IndexAudit | None = None,
+    enable_cjk_ngrams: bool = False,
+    pinyin_prefix_mode: str = DEFAULT_PINYIN_PREFIX_MODE,
 ) -> dict[str, object]:
     """把一段原始字段文本展开成可索引特征。
 
@@ -1507,70 +1824,100 @@ def build_feature_variants(
     prefix: list[tuple[str, float, str]] = []
     seen_exact: set[str] = set()
     seen_prefix: set[str] = set()
+    include_generic_prefix = spec.include_prefix
+    # 手工 pinyin 字段在 syllable/off 模式下不走“字符级前缀展开”，
+    # 以避免产物出现 banj/banji 这类机械前缀。
+    if spec.name == "pinyin" and pinyin_prefix_mode in {"syllable", "off"}:
+        include_generic_prefix = False
+    # `--pinyin-prefix-mode off` 时，手工拼音缩写字段也不展开前缀。
+    if spec.name == "pinyin_abbr" and pinyin_prefix_mode == "off":
+        include_generic_prefix = False
 
-    def add_exact(term: str, mult: float, kind: str) -> None:
+    def add_exact(term: str, mult: float, kind: str) -> bool:
         reason = exact_drop_reason(term, spec, kind)
         if reason is not None:
             if audit is not None:
                 audit.drop_exact(reason, spec, kind, term, display_text)
-            return
+            return False
         if term in seen_exact:
-            return
+            return False
         seen_exact.add(term)
         exact.append((term, mult, kind))
         if audit is not None:
             audit.keep_exact()
+        return True
 
-    def add_prefix(term: str, mult: float, kind: str) -> None:
+    def add_prefix(term: str, mult: float, kind: str) -> bool:
         reason = prefix_drop_reason(term, spec, kind)
         if reason is not None:
             if audit is not None:
                 audit.drop_prefix(reason, spec, kind, term, display_text)
-            return
+            return False
         if term in seen_prefix:
-            return
+            return False
         seen_prefix.add(term)
         prefix.append((term, mult, kind))
         if audit is not None:
             audit.keep_prefix()
+        return True
 
     add_exact(base, 1.0, "full")
-    if spec.include_prefix:
+    if include_generic_prefix:
         add_prefix(base, 1.0, "full")
 
     compact = normalize_compact(base)
     if compact and compact != base:
         add_exact(compact, 0.96, "compact")
-        if spec.include_prefix:
+        if include_generic_prefix:
             add_prefix(compact, 0.96, "compact")
 
     if not spec.treat_as_formula:
         for token in word_tokens(base):
             add_exact(token, 0.72, "token")
-            if spec.include_prefix:
+            if include_generic_prefix:
                 add_prefix(token, 0.72, "token")
 
-    if spec.include_ngrams:
+    if spec.include_ngrams and enable_cjk_ngrams:
         for token in cjk_ngrams(base):
-            add_exact(token, 0.58, "ngram")
+            if audit is not None:
+                audit.mark_ngram_candidate()
+            ok, reason = is_good_cjk_ngram(token, base, spec)
+            if not ok:
+                if audit is not None:
+                    audit.drop_ngram(reason, spec, token, display_text)
+                continue
+            if add_exact(token, NGRAM_SCORE_MULTIPLIER, "ngram") and audit is not None:
+                audit.keep_ngram()
 
     if spec.include_pinyin and contains_cjk(display_text):
         py = normalize_compact(to_pinyin(display_text))
         abbr = normalize_compact(to_pinyin_abbr(display_text))
         if py:
             add_exact(py, 0.72, "pinyin")
-            if spec.include_prefix:
-                add_prefix(py, 0.72, "pinyin")
+            if spec.include_prefix and pinyin_prefix_mode != "off":
+                if pinyin_prefix_mode == "syllable":
+                    syllable_prefixes = cumulative_joined_prefixes(
+                        cjk_pinyin_syllables(display_text)
+                    )
+                    # 理论上中文都有音节；这里留兜底，避免异常数据导致前缀完全缺失。
+                    for item in syllable_prefixes or [py]:
+                        add_prefix(item, 0.72, "pinyin_syllable")
+                else:
+                    add_prefix(py, 0.72, "pinyin")
         if abbr and abbr != py:
             add_exact(abbr, 0.62, "pinyin_abbr")
-            if spec.include_prefix:
+            if spec.include_prefix and pinyin_prefix_mode != "off":
                 add_prefix(abbr, 0.62, "pinyin_abbr")
+
+    # 手工拼音字段（search.pinyin）在 syllable 模式下走“音节累计前缀”。
+    if spec.name == "pinyin" and spec.include_prefix and pinyin_prefix_mode == "syllable":
+        for item in cumulative_joined_prefixes(latin_syllables(display_text)):
+            add_prefix(item, 0.96, "pinyin_syllable")
 
     suggest = (
         [display_text]
         if spec.include_suggest
-        and 2 <= len(display_text) <= 32
-        and not is_formula_like(display_text)
+        and is_good_suggestion_text(display_text)
         else []
     )
     if audit is not None:
@@ -1611,13 +1958,14 @@ def add_prefix_posting(
     doc_id: str,
     score: int,
     field_mask: int,
+    kind: str | None = None,
 ) -> None:
     """把一条 prefix 倒排命中展开并写入内存索引。
 
     prefix posting 采用“同词取最大分”而不是累加，目的是抑制前缀索引过度放大带来的噪声。
     """
 
-    for prefix in prefix_terms(term):
+    for prefix in prefix_terms(term, kind):
         doc_map = index_map[prefix]
         posting = doc_map.get(doc_id)
         if posting is None:
@@ -1861,10 +2209,21 @@ def run_build(config: BuildConfig) -> dict[str, object]:
                 suggestion_count = 0
 
                 for spec in FIELD_SPECS:
+                    # 默认关闭的字段（summary/statement_fragment/query_template/
+                    # usage/ocr_keyword/knowledge_node/formula_token/formula）
+                    # 只有显式开关开启时才参与索引，避免噪声和体积膨胀。
+                    if not is_field_enabled_for_indexing(spec.name, config):
+                        continue
                     field_mask = FIELD_MASK_LEGEND[spec.name]
                     field_weight = compute_field_weight(meta, spec)
                     for raw in dedupe(spec.extractor(meta)):
-                        feature = build_feature_variants(raw, spec, index_audit)
+                        feature = build_feature_variants(
+                            raw,
+                            spec,
+                            index_audit,
+                            enable_cjk_ngrams=config.enable_cjk_ngrams,
+                            pinyin_prefix_mode=config.pinyin_prefix_mode,
+                        )
                         if not feature["source"]:
                             continue
                         if capture_debug:
@@ -1915,7 +2274,7 @@ def run_build(config: BuildConfig) -> dict[str, object]:
                                 max(1, int(round(field_weight * mult))),
                                 field_mask,
                             )
-                        for term, mult, _kind in feature["prefix"]:
+                        for term, mult, kind in feature["prefix"]:
                             add_prefix_posting(
                                 prefix_index,
                                 term,
@@ -1925,6 +2284,7 @@ def run_build(config: BuildConfig) -> dict[str, object]:
                                     int(round(field_weight * spec.prefix_ratio * mult)),
                                 ),
                                 field_mask,
+                                kind,
                             )
                         for display_text in feature["suggest"]:
                             key = normalize_text(display_text)
@@ -2003,6 +2363,16 @@ def run_build(config: BuildConfig) -> dict[str, object]:
         "buildOptions": {
             "prefixDocLimit": config.prefix_doc_limit,
             "suggestionLimit": config.suggestion_limit,
+            "enableCjkNgrams": config.enable_cjk_ngrams,
+            "enableStatementFragments": config.enable_statement_fragments,
+            "enableSummaryTerms": config.enable_summary_terms,
+            "enableUsageTerms": config.enable_usage_terms,
+            "enableOcrTerms": config.enable_ocr_terms,
+            "enableKnowledgeNodeTerms": config.enable_knowledge_node_terms,
+            "enableFormulaTokenTerms": config.enable_formula_token_terms,
+            "enableFormulaTerms": config.enable_formula_terms,
+            "enableQueryTemplateTerms": config.enable_query_template_terms,
+            "pinyinPrefixMode": config.pinyin_prefix_mode,
             "targetModules": list(config.target_modules),
             "targetItems": list(config.target_items),
         },
@@ -2039,11 +2409,15 @@ def run_build(config: BuildConfig) -> dict[str, object]:
         bundle["stats"]["suggestions"],
     )
     LOGGER.info(
-        "Index audit | kept_exact=%d | kept_prefix=%d | dropped_exact=%s | dropped_prefix=%s",
+        "Index audit | kept_exact=%d | kept_prefix=%d | ngram_candidates=%d | kept_ngrams=%d | dropped_ngrams=%d | dropped_exact=%s | dropped_prefix=%s | dropped_ngram_reasons=%s",
         index_audit.kept_exact_candidates,
         index_audit.kept_prefix_candidates,
+        index_audit.ngram_candidates,
+        index_audit.kept_ngrams,
+        index_audit.dropped_ngrams,
         dict(sorted(index_audit.dropped_exact.items())),
         dict(sorted(index_audit.dropped_prefix.items())),
+        dict(sorted(index_audit.dropped_ngram_reasons.items())),
     )
 
     LOGGER.info("Step 4/5 | Emit debug reports")
@@ -2085,11 +2459,13 @@ def run_build(config: BuildConfig) -> dict[str, object]:
     LOGGER.info("Step 5/5 | Finalize output")
     if config.dry_run:
         LOGGER.info(
-            "[dry-run] Bundle ready | docs=%d | terms=%d | prefixes=%d | suggestions=%d",
+            "[dry-run] Bundle ready | docs=%d | terms=%d | prefixes=%d | suggestions=%d | ngram_kept=%d | ngram_dropped=%d",
             bundle["stats"]["documents"],
             bundle["stats"]["terms"],
             bundle["stats"]["prefixes"],
             bundle["stats"]["suggestions"],
+            index_audit.kept_ngrams,
+            index_audit.dropped_ngrams,
         )
     else:
         write_bundle(bundle, config)
@@ -2097,10 +2473,12 @@ def run_build(config: BuildConfig) -> dict[str, object]:
         exists = config.output_file.exists()
         size = config.output_file.stat().st_size if exists else 0
         LOGGER.info(
-            "Step 5/5 done | output_exists=%s | output_size_bytes=%d | output_file=%s",
+            "Step 5/5 done | output_exists=%s | output_size_bytes=%d | output_file=%s | ngram_kept=%d | ngram_dropped=%d",
             exists,
             size,
             config.output_file,
+            index_audit.kept_ngrams,
+            index_audit.dropped_ngrams,
         )
 
     return bundle
