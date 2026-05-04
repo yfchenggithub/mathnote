@@ -1513,10 +1513,10 @@ FIELD_SPECS = (
     FieldSpec(
         "statement_fragment", extract_statement, 18, None, False, False, False, False
     ),
-    # 使用场景：服务“解某类题该用什么”这一类意图搜索。
-    FieldSpec("usage", extract_usage, 28, None, True, False, True, False),
-    # 知识节点：兼容知识图谱、目录系统中的节点命名。
-    FieldSpec("knowledge_node", extract_node, 40, None, True, False, True, False),
+    # 使用场景：仅保留 exact，避免长自然语言路径进入 prefix 候选。
+    FieldSpec("usage", extract_usage, 28, None, False, False, True, False),
+    # 知识节点：仅保留 exact，避免层级路径碎片进入 prefix 候选。
+    FieldSpec("knowledge_node", extract_node, 40, None, False, False, True, False),
     # 手工全拼：优先级高于自动拼音派生，因为可控性更强。
     FieldSpec("pinyin", extract_pinyin_field, 72, None, True, False, False, False),
     # 手工拼音缩写：服务首字母搜索。

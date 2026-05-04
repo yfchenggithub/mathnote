@@ -365,6 +365,16 @@ def orchestrate(config: BuildConfig) -> dict[str, Any]:
         ]
         for module_name in modules:
             cmd_a1.extend(["--module", module_name])
+        # 启用高级召回字段（仅扩展 termIndex，不放大低质量 prefix 候选）。
+        cmd_a1.extend(
+            [
+                "--enable-knowledge-node-terms",
+                "--enable-query-template-terms",
+                "--enable-formula-token-terms",
+                "--enable-formula-terms",
+                "--enable-usage-terms",
+            ]
+        )
         if config.strict:
             cmd_a1.append("--strict")
         run_command("A1 build_search_bundle_js", cmd_a1, config.base_dir, stage_results)
