@@ -487,12 +487,20 @@ def extract_sentences(text: str, min_len: int, limit: int, max_len: int = 120) -
 
 
 def choose_summary(blocks: BlockTexts, title: str) -> str:
-    summary = first_sentence(latex_to_text(blocks.summary), max_len=92)
-    if len(summary) >= 8:
-        return summary
-    summary = first_sentence(latex_to_text(blocks.statement), max_len=92)
-    if len(summary) >= 8:
-        return summary
+    summary_candidate = first_sentence(latex_to_text(blocks.summary), max_len=92)
+    # Prefer natural-language summary. If summary box is mostly formula/symbols,
+    # fallback to statement sentence.
+    cjk_count = len(re.findall(r"[\u4e00-\u9fff]", summary_candidate))
+    symbol_count = len(re.findall(r"[=<>+\-*/^|\\]", summary_candidate))
+    if len(summary_candidate) >= 8 and cjk_count >= 4 and symbol_count < max(6, len(summary_candidate) // 6):
+        return summary_candidate
+
+    statement_candidate = first_sentence(latex_to_text(blocks.statement), max_len=92)
+    if len(statement_candidate) >= 8:
+        return statement_candidate
+
+    if len(summary_candidate) >= 8:
+        return summary_candidate
     return f"{title}的核心结论与使用要点。"
 
 
@@ -528,7 +536,13 @@ def build_keywords(root_name: str, title: str, aliases: list[str], formulas: lis
     out: list[str] = []
     seen: set[str] = set()
     for item in raw:
-        token = clean_sentence(str(item), max_len=60)
+        item_str = str(item)
+        if is_meaningful_formula(item_str):
+            token = normalize_formula(item_str)
+            if len(token) > 100:
+                continue
+        else:
+            token = clean_sentence(item_str, max_len=30)
         if len(token) < 2:
             continue
         if len(token) > 30 and not is_meaningful_formula(token):
@@ -636,12 +650,21 @@ def build_meta(item_dir: Path) -> dict[str, object]:
         [blocks.statement, blocks.explanation, blocks.proof, blocks.examples, blocks.summary]
     )
     core_formula = ""
+    ranked: list[tuple[int, str]] = []
     for formula in formulas:
+        score = 0
         if any(op in formula for op in ("=", "<", ">")):
-            core_formula = formula
-            break
-    if not core_formula and formulas:
-        core_formula = formulas[0]
+            score += 5
+        if any(op in formula for op in ("^", "|", "\\cap", "\\cup", "\\cdot", "\\frac")):
+            score += 3
+        if re.fullmatch(r"[A-Za-z]\s*=\s*\\\{.*", formula):
+            score -= 5
+        if 6 <= len(formula) <= 80:
+            score += 2
+        ranked.append((score, formula))
+    if ranked:
+        ranked.sort(key=lambda item: (-item[0], len(item[1])))
+        core_formula = ranked[0][1]
     related_formulas = [f for f in formulas if f != core_formula][:3] if core_formula else formulas[:3]
 
     token_source = [core_formula] + related_formulas if core_formula else formulas
