@@ -209,6 +209,11 @@ DEFAULT_PREFIX_DOC_LIMIT = 32
 DEFAULT_SUGGESTION_LIMIT = 500
 DEFAULT_AUDIT_REPORT_FILE: Path | None = None
 DEFAULT_PINYIN_PREFIX_MODE = "syllable"
+DEFAULT_CJK_PREFIX_MODE = "semantic"
+DEFAULT_CJK_PREFIX_MIN_LEN = 2
+DEFAULT_PREFIX_WHITELIST_FILE = (
+    PROJECT_ROOT / "data" / "search_engine" / "prefix_whitelist.json"
+)
 IGNORED_TOP_LEVEL_DIRS = {
     ".git",
     ".github",
@@ -283,6 +288,58 @@ FORMULA_REPLACEMENTS = (
     (r"\right", ""),
 )
 
+# 中文语义边界：用于替代逐字符前缀展开，尽量产出“可读片段”。
+CJK_SEMANTIC_SUFFIXES = (
+    "不等式",
+    "恒等式",
+    "不等式链",
+    "定理",
+    "公式",
+    "法则",
+    "方法",
+    "性质",
+    "判定",
+    "转化",
+    "推广",
+    "推论",
+    "特例",
+    "模型",
+    "应用",
+    "方程",
+    "轨迹",
+    "距离",
+    "面积",
+    "体积",
+    "坐标",
+    "外心",
+    "内心",
+    "重心",
+    "垂心",
+    "椭圆",
+    "双曲线",
+    "抛物线",
+)
+
+# 截断尾字：仅用于“严格前缀”场景，过滤明显半截词。
+DEFAULT_CJK_STOP_TAIL_CHARS = frozenset({"不", "等", "推", "特", "分", "开"})
+
+# 允许保留的短语（即使它是更长词条前缀）。
+DEFAULT_PREFIX_SHORT_WHITELIST = frozenset(
+    {
+        "柯西",
+        "琴生",
+        "舒尔",
+        "am-gm",
+        "amgm",
+        "c-s",
+        "cs",
+    }
+)
+
+OPEN_BRACKETS = "([{（【"
+CLOSE_BRACKETS = ")]}）】"
+BRACKET_PAIRS = {")": "(", "]": "[", "}": "{", "）": "（", "】": "【"}
+
 LOGGER = logging.getLogger("build_search_bundle_js")
 
 
@@ -320,6 +377,11 @@ class BuildConfig:
     enable_formula_terms: bool
     enable_query_template_terms: bool
     pinyin_prefix_mode: str
+    cjk_prefix_mode: str
+    cjk_prefix_min_len: int
+    prefix_whitelist_file: Path | None
+    prefix_whitelist_terms: tuple[str, ...]
+    prefix_governance_debug: bool
     prefix_doc_limit: int
     suggestion_limit: int
     debug_docs: tuple[str, ...]
@@ -406,6 +468,39 @@ class PostingAccumulator:
 
     score: int = 0
     field_mask: int = 0
+
+
+@dataclass
+class PrefixGovernanceStats:
+    """记录 prefix/suggest 治理过程的统计与样例。"""
+
+    expanded_prefix_candidates: int = 0
+    kept_prefix_candidates: int = 0
+    prefix_keys_before: int = 0
+    prefix_keys_after: int = 0
+    suggestions_before: int = 0
+    suggestions_after: int = 0
+    dropped: Counter = field(default_factory=Counter)
+    samples: dict[str, list[str]] = field(default_factory=lambda: defaultdict(list))
+
+    def drop(self, reason: str, value: str) -> None:
+        self.dropped[reason] += 1
+        bucket = self.samples[reason]
+        if len(bucket) >= MAX_AUDIT_SAMPLES_PER_REASON:
+            return
+        bucket.append(value[:80])
+
+    def to_payload(self) -> dict[str, object]:
+        return {
+            "expandedPrefixCandidates": self.expanded_prefix_candidates,
+            "keptPrefixCandidates": self.kept_prefix_candidates,
+            "prefixKeysBefore": self.prefix_keys_before,
+            "prefixKeysAfter": self.prefix_keys_after,
+            "suggestionsBefore": self.suggestions_before,
+            "suggestionsAfter": self.suggestions_after,
+            "droppedByRule": dict(sorted(self.dropped.items())),
+            "samples": {k: v for k, v in sorted(self.samples.items())},
+        }
 
 
 @dataclass
@@ -735,6 +830,48 @@ def parse_args() -> argparse.Namespace:
         ),
     )
     parser.add_argument(
+        "--cjk-prefix-mode",
+        choices=("semantic", "char"),
+        default=DEFAULT_CJK_PREFIX_MODE,
+        help=(
+            "CJK prefix strategy: 'semantic' only emits semantic-boundary prefixes "
+            "(recommended), 'char' keeps legacy character-level prefixes."
+        ),
+    )
+    parser.add_argument(
+        "--cjk-prefix-min-len",
+        type=int,
+        default=DEFAULT_CJK_PREFIX_MIN_LEN,
+        help=(
+            "Minimum length for CJK prefix keys. Works with --cjk-prefix-mode. "
+            f"Default: {DEFAULT_CJK_PREFIX_MIN_LEN}."
+        ),
+    )
+    parser.add_argument(
+        "--prefix-whitelist-file",
+        default=str(DEFAULT_PREFIX_WHITELIST_FILE),
+        help=(
+            "Optional JSON file for meaningful short-prefix whitelist. "
+            "Supports array or object keys. Missing file is allowed."
+        ),
+    )
+    parser.add_argument(
+        "--prefix-whitelist-term",
+        dest="prefix_whitelist_terms",
+        action="append",
+        help=(
+            "Append one meaningful short prefix term to whitelist. "
+            "Can be repeated."
+        ),
+    )
+    parser.add_argument(
+        "--prefix-governance-debug",
+        action="store_true",
+        help=(
+            "Print detailed prefix/suggest governance hit counters and samples."
+        ),
+    )
+    parser.add_argument(
         "--debug-doc",
         dest="debug_docs",
         action="append",
@@ -772,6 +909,8 @@ def build_config(args: argparse.Namespace) -> BuildConfig:
         raise BuildError("--prefix-doc-limit must be > 0")
     if args.suggestion_limit <= 0:
         raise BuildError("--suggestion-limit must be > 0")
+    if args.cjk_prefix_min_len <= 0:
+        raise BuildError("--cjk-prefix-min-len must be > 0")
     return BuildConfig(
         project_root=Path(args.base_dir).resolve(),
         output_file=Path(args.output_file).resolve(),
@@ -795,6 +934,15 @@ def build_config(args: argparse.Namespace) -> BuildConfig:
         enable_formula_terms=bool(args.enable_formula_terms),
         enable_query_template_terms=bool(args.enable_query_template_terms),
         pinyin_prefix_mode=str(args.pinyin_prefix_mode),
+        cjk_prefix_mode=str(args.cjk_prefix_mode),
+        cjk_prefix_min_len=int(args.cjk_prefix_min_len),
+        prefix_whitelist_file=(
+            Path(args.prefix_whitelist_file).resolve()
+            if args.prefix_whitelist_file
+            else None
+        ),
+        prefix_whitelist_terms=tuple(args.prefix_whitelist_terms or ()),
+        prefix_governance_debug=bool(args.prefix_governance_debug),
         prefix_doc_limit=int(args.prefix_doc_limit),
         suggestion_limit=int(args.suggestion_limit),
         debug_docs=tuple(args.debug_docs or ()),
@@ -1074,10 +1222,83 @@ def is_good_suggestion_text(text: str) -> bool:
         return False
     if display.isdigit():
         return False
+    if not is_structurally_complete_text(display):
+        return False
     if not re.search(r"[\u3400-\u4DBF\u4E00-\u9FFFa-zA-Z0-9]", display):
         return False
     compact = normalize_compact(display)
     if any(piece in compact for piece in STOP_NGRAM_SUBSTRINGS):
+        return False
+    return True
+
+
+def load_prefix_whitelist(config: BuildConfig) -> set[str]:
+    """加载短前缀白名单（默认项 + 文件 + CLI 追加项）。"""
+
+    whitelist = {normalize_text(item) for item in DEFAULT_PREFIX_SHORT_WHITELIST}
+    file_path = config.prefix_whitelist_file
+    if file_path is not None and file_path.exists():
+        try:
+            raw = json.loads(file_path.read_text(encoding="utf-8"))
+            items: list[str] = []
+            if isinstance(raw, list):
+                items = [str(item) for item in raw]
+            elif isinstance(raw, dict):
+                items = [str(key) for key in raw.keys()]
+            for item in items:
+                value = normalize_text(item)
+                if value:
+                    whitelist.add(value)
+        except Exception as exc:
+            LOGGER.warning("Failed to load prefix whitelist file: %s (%s)", file_path, exc)
+    for item in config.prefix_whitelist_terms:
+        value = normalize_text(item)
+        if value:
+            whitelist.add(value)
+    return whitelist
+
+
+def has_balanced_brackets(text: str) -> bool:
+    """检查括号是否配对。"""
+
+    stack: list[str] = []
+    for ch in text:
+        if ch in OPEN_BRACKETS:
+            stack.append(ch)
+            continue
+        if ch in CLOSE_BRACKETS:
+            if not stack:
+                return False
+            need = BRACKET_PAIRS.get(ch)
+            if need is None or stack[-1] != need:
+                return False
+            stack.pop()
+    return not stack
+
+
+def has_balanced_quotes(text: str) -> bool:
+    """检查常见引号是否配对。"""
+
+    # normalize_text 已统一一部分引号，这里仅做计数约束。
+    return (
+        text.count('"') % 2 == 0
+        and text.count("'") % 2 == 0
+        and text.count("“") == text.count("”")
+        and text.count("‘") == text.count("’")
+    )
+
+
+def is_structurally_complete_text(text: str) -> bool:
+    """判断文本结构是否完整（括号/引号闭合，且不以开括号结尾）。"""
+
+    display = normalize_display(text)
+    if not display:
+        return False
+    if display[-1] in OPEN_BRACKETS:
+        return False
+    if not has_balanced_brackets(display):
+        return False
+    if not has_balanced_quotes(display):
         return False
     return True
 
@@ -1253,22 +1474,98 @@ def prefix_drop_reason(term: str, spec: FieldSpec, kind: str) -> str | None:
     return None
 
 
-def prefix_terms(term: str, kind: str | None = None) -> list[str]:
-    """生成一个词可用于前缀倒排的前缀集合。
+def semantic_cjk_prefixes(term: str, min_len: int) -> list[str]:
+    """按语义边界生成中文前缀，不做逐字符切分。"""
 
-    中文允许从 1 个字开始前缀命中，因为单字前缀在标题搜索里常见；英文和拼音从
-    2 个字符起步，以减少噪声。上限存在是为了控制 bundle 体积。
-    """
+    text = normalize_display(term)
+    if not text or not contains_cjk(text):
+        return []
+
+    boundaries: set[int] = {len(text)}
+
+    # 关键后缀边界，例如“柯西不等式推广” -> “柯西” / “柯西不等式” / 全词。
+    for suffix in CJK_SEMANTIC_SUFFIXES:
+        start = 0
+        while True:
+            idx = text.find(suffix, start)
+            if idx < 0:
+                break
+            end = idx + len(suffix)
+            if end >= min_len:
+                boundaries.add(end)
+            if min_len <= idx <= 6:
+                boundaries.add(idx)
+            start = idx + 1
+
+    # 标点与空白前边界（避免截断到“(分”这类片段）。
+    for match in re.finditer(r"[、，,;；:：/|·\-\s]+", text):
+        idx = match.start()
+        if idx >= min_len:
+            boundaries.add(idx)
+    for match in re.finditer(r"[（(【\\[{\"'“‘]", text):
+        idx = match.start()
+        if idx >= min_len:
+            boundaries.add(idx)
+
+    result = [
+        normalize_display(text[:idx])
+        for idx in sorted(boundaries)
+        if min_len <= idx <= len(text)
+    ]
+    return dedupe([item for item in result if item])
+
+
+def prefix_terms(
+    term: str,
+    kind: str | None = None,
+    *,
+    cjk_prefix_mode: str = DEFAULT_CJK_PREFIX_MODE,
+    cjk_prefix_min_len: int = DEFAULT_CJK_PREFIX_MIN_LEN,
+    governance: PrefixGovernanceStats | None = None,
+) -> list[str]:
+    """生成一个词可用于前缀倒排的前缀集合。"""
 
     if not informative_prefix(term):
         return []
-    # `pinyin_syllable` 这类候选在特征阶段已经是“最终前缀词”，
-    # 不需要再按字符二次展开，否则会回退成 banj/banji 这类噪声。
     if kind == "pinyin_syllable":
         return [term]
-    min_len = 1 if contains_cjk(term) else 2
-    max_len = min(len(term), 12 if contains_cjk(term) else 16)
-    return [term[:i] for i in range(min_len, max_len + 1)]
+
+    candidates: list[str]
+    if contains_cjk(term):
+        if cjk_prefix_mode == "semantic":
+            candidates = semantic_cjk_prefixes(term, cjk_prefix_min_len)
+        else:
+            min_len = max(1, cjk_prefix_min_len)
+            max_len = min(len(term), 12)
+            candidates = [term[:i] for i in range(min_len, max_len + 1)]
+    else:
+        min_len = 2
+        max_len = min(len(term), 16)
+        candidates = [term[:i] for i in range(min_len, max_len + 1)]
+
+    if governance is not None:
+        governance.expanded_prefix_candidates += len(candidates)
+
+    filtered: list[str] = []
+    for candidate in dedupe(candidates):
+        if contains_cjk(candidate) and len(candidate) < cjk_prefix_min_len:
+            if governance is not None:
+                governance.drop("cjk_min_len", candidate)
+            continue
+        if not is_structurally_complete_text(candidate):
+            if governance is not None:
+                governance.drop("unclosed_structure", candidate)
+            continue
+        # 严格前缀末尾不能是开结构符号。
+        if len(candidate) < len(term) and candidate and candidate[-1] in OPEN_BRACKETS:
+            if governance is not None:
+                governance.drop("open_structure_tail", candidate)
+            continue
+        filtered.append(candidate)
+
+    if governance is not None:
+        governance.kept_prefix_candidates += len(filtered)
+    return filtered
 
 
 def extract_title(meta: Mapping[str, object]) -> list[str]:
@@ -1959,13 +2256,23 @@ def add_prefix_posting(
     score: int,
     field_mask: int,
     kind: str | None = None,
+    *,
+    cjk_prefix_mode: str = DEFAULT_CJK_PREFIX_MODE,
+    cjk_prefix_min_len: int = DEFAULT_CJK_PREFIX_MIN_LEN,
+    governance: PrefixGovernanceStats | None = None,
 ) -> None:
     """把一条 prefix 倒排命中展开并写入内存索引。
 
     prefix posting 采用“同词取最大分”而不是累加，目的是抑制前缀索引过度放大带来的噪声。
     """
 
-    for prefix in prefix_terms(term, kind):
+    for prefix in prefix_terms(
+        term,
+        kind,
+        cjk_prefix_mode=cjk_prefix_mode,
+        cjk_prefix_min_len=cjk_prefix_min_len,
+        governance=governance,
+    ):
         doc_map = index_map[prefix]
         posting = doc_map.get(doc_id)
         if posting is None:
@@ -1973,6 +2280,185 @@ def add_prefix_posting(
             continue
         posting.score = max(posting.score, score)
         posting.field_mask |= field_mask
+
+
+def is_independent_term(
+    term: str, term_index: Mapping[str, object], whitelist: set[str]
+) -> bool:
+    """判断一个前缀是否应被视为“独立术语”并保留。"""
+
+    normalized = normalize_text(term)
+    if normalized in whitelist:
+        return True
+    if normalized in term_index:
+        return True
+    if normalize_compact(normalized) in whitelist:
+        return True
+    return False
+
+
+def has_stop_tail_for_strict_prefix(candidate: str, full_term: str) -> bool:
+    """判断严格前缀是否命中停用尾字规则。"""
+
+    if len(candidate) >= len(full_term):
+        return False
+    if not candidate:
+        return False
+    tail = candidate[-1]
+    return tail in DEFAULT_CJK_STOP_TAIL_CHARS
+
+
+def is_whitelisted_prefix(term: str, whitelist: set[str]) -> bool:
+    """判断候选是否命中白名单（含 compact 形式）。"""
+
+    normalized = normalize_text(term)
+    if normalized in whitelist:
+        return True
+    return normalize_compact(normalized) in whitelist
+
+
+def prune_prefix_index(
+    prefix_index: DefaultDict[str, dict[str, PostingAccumulator]],
+    term_index: Mapping[str, dict[str, PostingAccumulator]],
+    whitelist: set[str],
+    governance: PrefixGovernanceStats,
+    cjk_prefix_min_len: int,
+    debug: bool = False,
+) -> None:
+    """对 prefixIndex 做构建期治理：
+
+    1) 结构完整性过滤
+    2) 最小信息量/停用尾字过滤
+    3) 同文档集合的严格前缀淘汰
+    """
+
+    governance.prefix_keys_before = len(prefix_index)
+    if not prefix_index:
+        governance.prefix_keys_after = 0
+        return
+
+    remove_keys: set[str] = set()
+
+    # Rule 1: 结构完整性与尾字过滤
+    for key in list(prefix_index.keys()):
+        if not is_structurally_complete_text(key):
+            governance.drop("prefix_unclosed_structure", key)
+            remove_keys.add(key)
+            continue
+        if contains_cjk(key) and len(key) < cjk_prefix_min_len:
+            if not is_independent_term(key, term_index, whitelist):
+                governance.drop("prefix_cjk_min_len", key)
+                remove_keys.add(key)
+
+    # Rule 2: 同文档集合的严格前缀淘汰
+    groups: defaultdict[tuple[str, ...], list[str]] = defaultdict(list)
+    for key, doc_map in prefix_index.items():
+        if key in remove_keys:
+            continue
+        signature = tuple(sorted(doc_map.keys()))
+        groups[signature].append(key)
+
+    for _sig, keys in groups.items():
+        ordered = sorted(keys, key=lambda item: (len(item), item))
+        for idx, short_key in enumerate(ordered):
+            if short_key in remove_keys:
+                continue
+            independent = is_independent_term(short_key, term_index, whitelist)
+            whitelisted = is_whitelisted_prefix(short_key, whitelist)
+            for long_key in ordered[idx + 1 :]:
+                if not long_key.startswith(short_key):
+                    continue
+                if contains_cjk(short_key) and has_stop_tail_for_strict_prefix(
+                    short_key, long_key
+                ):
+                    if whitelisted:
+                        break
+                    governance.drop("prefix_stop_tail", short_key)
+                    remove_keys.add(short_key)
+                    break
+                if independent:
+                    break
+                governance.drop("prefix_same_docset_strict_prefix", short_key)
+                remove_keys.add(short_key)
+                break
+
+    for key in remove_keys:
+        prefix_index.pop(key, None)
+
+    governance.prefix_keys_after = len(prefix_index)
+    if debug:
+        LOGGER.info(
+            "Prefix governance | before=%d after=%d removed=%d reasons=%s",
+            governance.prefix_keys_before,
+            governance.prefix_keys_after,
+            governance.prefix_keys_before - governance.prefix_keys_after,
+            dict(sorted(governance.dropped.items())),
+        )
+
+
+def prune_suggestions(
+    suggestions: dict[str, dict[str, object]],
+    term_index: Mapping[str, dict[str, PostingAccumulator]],
+    whitelist: set[str],
+    governance: PrefixGovernanceStats,
+    debug: bool = False,
+) -> dict[str, dict[str, object]]:
+    """过滤 suggestion：结构不完整、同文档严格前缀冗余。"""
+
+    governance.suggestions_before = len(suggestions)
+    if not suggestions:
+        governance.suggestions_after = 0
+        return suggestions
+
+    kept: dict[str, dict[str, object]] = {}
+    by_doc: defaultdict[str, list[tuple[str, str]]] = defaultdict(list)
+
+    for key, row in suggestions.items():
+        display = str(row.get("display", ""))
+        if not is_structurally_complete_text(display):
+            governance.drop("suggest_unclosed_structure", display)
+            continue
+        kept[key] = row
+        by_doc[str(row.get("docId", ""))].append((key, display))
+
+    remove_keys: set[str] = set()
+    for doc_id, items in by_doc.items():
+        _ = doc_id
+        ordered = sorted(items, key=lambda item: (len(item[1]), item[1]))
+        for idx, (short_key, short_display) in enumerate(ordered):
+            if short_key in remove_keys:
+                continue
+            independent = is_independent_term(short_display, term_index, whitelist)
+            whitelisted = is_whitelisted_prefix(short_display, whitelist)
+            for _long_key, long_display in ordered[idx + 1 :]:
+                if not long_display.startswith(short_display):
+                    continue
+                if contains_cjk(short_display) and has_stop_tail_for_strict_prefix(
+                    short_display, long_display
+                ):
+                    if whitelisted:
+                        break
+                    governance.drop("suggest_stop_tail", short_display)
+                    remove_keys.add(short_key)
+                    break
+                if independent:
+                    break
+                governance.drop("suggest_same_docset_strict_prefix", short_display)
+                remove_keys.add(short_key)
+                break
+
+    for key in remove_keys:
+        kept.pop(key, None)
+
+    governance.suggestions_after = len(kept)
+    if debug:
+        LOGGER.info(
+            "Suggest governance | before=%d after=%d removed=%d",
+            governance.suggestions_before,
+            governance.suggestions_after,
+            governance.suggestions_before - governance.suggestions_after,
+        )
+    return kept
 
 
 def serialize_postings(
@@ -2131,6 +2617,8 @@ def run_build(config: BuildConfig) -> dict[str, object]:
     prefix_index: DefaultDict[str, dict[str, PostingAccumulator]] = defaultdict(dict)
     suggestions: dict[str, dict[str, object]] = {}
     index_audit = IndexAudit()
+    prefix_governance = PrefixGovernanceStats()
+    prefix_whitelist = load_prefix_whitelist(config)
     debug_docs: dict[str, dict[str, object]] = {}
     module_stats: list[ModuleStats] = []
 
@@ -2285,6 +2773,9 @@ def run_build(config: BuildConfig) -> dict[str, object]:
                                 ),
                                 field_mask,
                                 kind,
+                                cjk_prefix_mode=config.cjk_prefix_mode,
+                                cjk_prefix_min_len=config.cjk_prefix_min_len,
+                                governance=prefix_governance,
                             )
                         for display_text in feature["suggest"]:
                             key = normalize_text(display_text)
@@ -2337,6 +2828,21 @@ def run_build(config: BuildConfig) -> dict[str, object]:
         len(prefix_index),
         len(suggestions),
     )
+    prune_prefix_index(
+        prefix_index,
+        term_index,
+        prefix_whitelist,
+        prefix_governance,
+        cjk_prefix_min_len=config.cjk_prefix_min_len,
+        debug=config.prefix_governance_debug or config.debug,
+    )
+    suggestions = prune_suggestions(
+        suggestions,
+        term_index,
+        prefix_whitelist,
+        prefix_governance,
+        debug=config.prefix_governance_debug or config.debug,
+    )
     LOGGER.info("Step 3/5 | Assemble bundle payload")
     bundle: dict[str, object] = {
         # 结构版本。端上如果以后需要兼容旧 bundle，可以先检查它。
@@ -2348,6 +2854,7 @@ def run_build(config: BuildConfig) -> dict[str, object]:
             "terms": len(term_index),
             "prefixes": len(prefix_index),
             "suggestions": min(len(suggestions), config.suggestion_limit),
+            "prefixGovernance": prefix_governance.to_payload(),
             "modules": len(module_dirs),
             "moduleStats": [
                 {
@@ -2373,6 +2880,13 @@ def run_build(config: BuildConfig) -> dict[str, object]:
             "enableFormulaTerms": config.enable_formula_terms,
             "enableQueryTemplateTerms": config.enable_query_template_terms,
             "pinyinPrefixMode": config.pinyin_prefix_mode,
+            "cjkPrefixMode": config.cjk_prefix_mode,
+            "cjkPrefixMinLen": config.cjk_prefix_min_len,
+            "prefixWhitelistFile": (
+                str(config.prefix_whitelist_file)
+                if config.prefix_whitelist_file is not None
+                else ""
+            ),
             "targetModules": list(config.target_modules),
             "targetItems": list(config.target_items),
         },

@@ -16,6 +16,7 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parent
 META_FILENAME = "meta.json"
 DEFAULT_OUTPUT = Path("data/search_engine/domain_topic_map.json")
+DEFAULT_THEOREM_OUTPUT = Path("data/search_engine/domain_topic_map_theorem.json")
 DEFAULT_ALIASES_FILE = Path("data/search_engine/aliases_overrides.json")
 
 IGNORED_TOP_LEVEL_DIRS = {
@@ -53,6 +54,8 @@ class BuildConfig:
     modules: tuple[str, ...]
     output: Path
     aliases_file: Path
+    profile: str
+    node_source: str
     dry_run: bool
     strict: bool
     pretty: bool
@@ -103,8 +106,12 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--output",
-        default=str(DEFAULT_OUTPUT),
-        help=f"Output file path (default: {DEFAULT_OUTPUT}).",
+        default=None,
+        help=(
+            "Output file path. Defaults to "
+            f"{DEFAULT_OUTPUT} for full profile, "
+            f"{DEFAULT_THEOREM_OUTPUT} for theorem profile."
+        ),
     )
     parser.add_argument(
         "--aliases-file",
@@ -112,6 +119,25 @@ def parse_args() -> argparse.Namespace:
         help=(
             "Optional aliases override JSON. Missing file is allowed "
             f"(default: {DEFAULT_ALIASES_FILE})."
+        ),
+    )
+    parser.add_argument(
+        "--profile",
+        default="full",
+        choices=("full", "theorem"),
+        help=(
+            "Build profile. theorem profile defaults to using only knowledgeNode "
+            "(excluding altNodes)."
+        ),
+    )
+    parser.add_argument(
+        "--node-source",
+        default=None,
+        choices=("all", "knowledge-only"),
+        help=(
+            "Node source strategy. all=knowledgeNode+altNodes, "
+            "knowledge-only=knowledgeNode only. "
+            "Default: all for full profile, knowledge-only for theorem profile."
         ),
     )
     parser.add_argument(
@@ -147,11 +173,24 @@ def resolve_path(base_dir: Path, raw_path: str) -> Path:
 
 def build_config(args: argparse.Namespace) -> BuildConfig:
     base_dir = Path(args.base_dir).resolve()
+    profile = str(args.profile).lower()
+    if args.output:
+        output_raw = str(args.output)
+    else:
+        output_raw = (
+            str(DEFAULT_THEOREM_OUTPUT) if profile == "theorem" else str(DEFAULT_OUTPUT)
+        )
+    if args.node_source:
+        node_source = str(args.node_source).lower()
+    else:
+        node_source = "knowledge-only" if profile == "theorem" else "all"
     return BuildConfig(
         base_dir=base_dir,
         modules=tuple(args.modules or ()),
-        output=resolve_path(base_dir, str(args.output)),
+        output=resolve_path(base_dir, output_raw),
         aliases_file=resolve_path(base_dir, str(args.aliases_file)),
+        profile=profile,
+        node_source=node_source,
         dry_run=bool(args.dry_run),
         strict=bool(args.strict),
         pretty=bool(args.pretty),
@@ -297,15 +336,17 @@ def parse_node_path(node_path: str) -> tuple[str, str] | None:
     return cleaned[0], cleaned[-1]
 
 
-def extract_node_paths(meta: Mapping[str, object]) -> list[str]:
+def extract_node_paths(meta: Mapping[str, object], node_source: str) -> list[str]:
     paths: list[str] = []
     paths.extend(flatten_strings(get_path(meta, "knowledgeNode")))
     paths.extend(flatten_strings(get_path(meta, "core.knowledgeNode")))
-    alt_values = []
-    alt_values.extend(flatten_strings(get_path(meta, "altNodes")))
-    alt_values.extend(flatten_strings(get_path(meta, "core.altNodes")))
-    for raw_alt in alt_values:
-        paths.extend(split_alt_nodes(raw_alt))
+
+    if node_source == "all":
+        alt_values = []
+        alt_values.extend(flatten_strings(get_path(meta, "altNodes")))
+        alt_values.extend(flatten_strings(get_path(meta, "core.altNodes")))
+        for raw_alt in alt_values:
+            paths.extend(split_alt_nodes(raw_alt))
     return dedupe_keep_order(paths)
 
 
@@ -455,7 +496,7 @@ def build_domain_topic_map(config: BuildConfig) -> dict[str, object]:
             LOGGER.warning("meta.json missing id, skipped: %s", meta_path)
             continue
 
-        node_paths = extract_node_paths(meta)
+        node_paths = extract_node_paths(meta, config.node_source)
         if not node_paths:
             stats.docs_without_nodes += 1
             continue
@@ -487,11 +528,17 @@ def build_domain_topic_map(config: BuildConfig) -> dict[str, object]:
 
     payload = {
         "meta": {
-            "source": "auto-generated from knowledgeNode + altNodes",
+            "source": (
+                "auto-generated from knowledgeNode + altNodes"
+                if config.node_source == "all"
+                else "auto-generated from knowledgeNode"
+            ),
             "generated_at": datetime.now(timezone.utc)
             .astimezone()
             .isoformat(timespec="seconds"),
             "version": 1,
+            "profile": config.profile,
+            "nodeSource": config.node_source,
         },
         "stats": {
             "modules": modules,

@@ -379,6 +379,12 @@ def build_wrapper_tex(rel_main_tex: str) -> str:
         "\\input{preamble}\n"
         "\\input{settings}\n"
         "\\graphicspath{{assets/figures/}{./}}\n"
+        # Single-conclusion PDFs usually start with \subsection{...} in main.tex.
+        # In article class without an enclosing \section, this renders as "0.1 ...".
+        # Hide printed section numbers while preserving counters and source structure.
+        "\\makeatletter\n"
+        "\\renewcommand{\\@seccntformat}[1]{}\n"
+        "\\makeatother\n"
         "\n"
         "\\begin{document}\n"
         f"\\input{{{rel_main_tex}}}\n"
