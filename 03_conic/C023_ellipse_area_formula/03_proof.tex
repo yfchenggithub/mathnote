@@ -1,0 +1,54 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+
+本题结论可以由伸缩变换法得到：从单位圆盘 $x'^2+y'^2\le 1$ 出发，作变换
+\[
+    x=ax',\quad y=by'.
+\]
+该变换会把单位圆盘变成椭圆区域 $\frac{x^2}{a^2}+\frac{y^2}{b^2}\le 1$，并把面积放大 $ab$ 倍。因此单位圆盘面积 $\pi$ 对应的椭圆面积就是 $\pi ab$。
+
+\medskip
+\begin{center}
+\input{assets/tikz/C023_ellipse_stretch_diagram.tex}
+
+\vspace{0.5em}
+\small 图：单位圆盘经过伸缩变换得到椭圆区域
+\end{center}
+
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（设定参照圆盘）：}] 考虑单位圆盘 $x'^2+y'^2\le 1$，其面积 $S_0=\pi$。
+    \[
+    S_0 = \pi.
+    \]
+    \par\textbf{理由：} 单位圆盘的半径为 $1$，面积为 $\pi\cdot 1^2=\pi$。
+
+    \item[\textbf{步骤二（建立伸缩变换）：}] 作线性变换
+    \[
+    x = a x',\quad y = b y'.
+    \]
+    由 $x'=\frac{x}{a},\ y'=\frac{y}{b}$，代入 $x'^2+y'^2\le 1$，可得
+    \[
+    \frac{x^2}{a^2}+\frac{y^2}{b^2}\le 1.
+    \]
+    这正是椭圆所围成的区域。
+    \par\textbf{理由：} 该变换将单位圆盘内的每个点 $(x',y')$ 一一映射到椭圆区域内的点 $(x,y)$。
+
+    \item[\textbf{步骤三（面积变换因子）：}] 图形在 $x$ 方向伸缩 $a$ 倍，在 $y$ 方向伸缩 $b$ 倍，面积放大倍数为
+    \[
+    a\cdot b=ab.
+    \]
+    \par\textbf{理由：} 长度在两个互相垂直方向分别乘以 $a$ 和 $b$，面积相应乘以二者的乘积。可以把图形切成很多很小的矩形。每个小矩形的宽变为原来的 $a$ 倍，高变为原来的 $b$ 倍，因此每个小矩形面积变为原来的 $ab$ 倍，整体面积也变为原来的 $ab$ 倍。
+
+    \item[\textbf{步骤四（计算椭圆面积）：}] 设椭圆面积为 $S$，则
+    \[
+    S = ab\cdot S_0 = ab\cdot \pi = \pi ab.
+    \]
+    \par\textbf{理由：} 由单位圆盘到椭圆区域的面积伸缩关系直接得到。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+
+\textbf{椭圆 $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$ 围成区域的面积为 $S=\pi ab$。这里 $a>0,\ b>0$ 是两条半轴长度，公式只看半轴乘积，不要求 $a>b$。}
+\end{proofbox}

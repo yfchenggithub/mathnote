@@ -1,0 +1,81 @@
+% C023 椭圆面积公式：单位圆盘伸缩为椭圆区域
+% 用法：在 proof.tex 中通过 \input{assets/tikz/C023_ellipse_stretch_diagram.tex} 引入
+% 注意：本文件只能包含 tikzpicture，不能包含 \documentclass、\begin{document}、\end{document}
+% 主文档导言区需要：\usepackage{tikz}
+
+\begin{tikzpicture}[
+    x=1cm,
+    y=1cm,
+    >=latex,
+    font=\scriptsize,
+    line cap=round,
+    line join=round
+]
+
+% 绘图参数
+\def\R{1.25} % 左侧单位圆盘绘图半径
+
+\coordinate (O1) at (0,0);
+\coordinate (O2) at (6.9,0);
+\coordinate (P1) at (0.78,0.62);
+\coordinate (P2) at (8.15,0.55);
+
+% 左侧：单位圆盘
+\fill[blue!8] (O1) circle[radius=1.25cm];
+\draw[thick] (O1) circle[radius=1.25cm];
+
+\draw[->,thick] (-1.65,0) -- (1.75,0) node[below] {$x'$};
+\draw[->,thick] (0,-1.55) -- (0,1.65) node[left] {$y'$};
+\node[below left] at (O1) {$O$};
+
+\draw[dashed] (O1) -- (1.25,0);
+\node[below] at (0.63,0) {$1$};
+
+\fill (P1) circle[radius=1.1pt];
+\node[right] at (0.86,0.72) {$P'(x',y')$};
+\draw[dashed] (P1) -- (0.78,0);
+\draw[dashed] (P1) -- (0,0.62);
+
+\node[align=center] at (0,-1.95) {$x'^2+y'^2\le 1$\\单位圆盘};
+\node[align=center] at (0,1.95) {面积 $S_0=\pi$};
+
+% 中间映射箭头
+\draw[->,very thick] (1.95,0) -- (4.85,0);
+\node[align=center] at (3.4,0.50) {$ (x',y')\mapsto (ax',\,by') $};
+\node[align=center] at (3.4,-0.55) {横向伸缩 $a$ 倍\\纵向伸缩 $b$ 倍};
+
+% 右侧：椭圆区域
+% 这里不要写 ellipse (\A and \B)，因为 TeX 会吞掉宏后的空格，容易变成 2.00and 1.10 而报错。
+\fill[green!8] (O2) ellipse[x radius=2.00cm, y radius=1.10cm];
+\draw[thick] (O2) ellipse[x radius=2.00cm, y radius=1.10cm];
+
+\draw[->,thick] (4.55,0) -- (9.30,0) node[below] {$x$};
+\draw[->,thick] (6.9,-1.55) -- (6.9,1.65) node[left] {$y$};
+\node[below left] at (O2) {$O$};
+
+\draw[dashed] (O2) -- (8.9,0);
+\draw[dashed] (O2) -- (6.9,1.1);
+\node[below] at (7.9,0) {$a$};
+\node[left] at (6.9,0.55) {$b$};
+
+\fill (P2) circle[radius=1.1pt];
+\node[right] at (8.22,0.65) {$P(ax',by')$};
+\draw[dashed] (P2) -- (8.15,0);
+\draw[dashed] (P2) -- (6.9,0.55);
+
+\node[align=center] at (6.9,-1.95)
+{$\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}\le 1$\\椭圆区域};
+\node[align=center] at (6.9,1.95) {面积 $S=ab\cdot S_0$};
+
+% 底部结论框
+\node[
+    draw,
+    rounded corners=2pt,
+    fill=yellow!10,
+    align=center,
+    text width=8.8cm,
+    inner sep=5pt
+] at (3.45,-2.75)
+{单位圆盘面积为 $\pi$，伸缩后面积乘以 $a\cdot b$，因此椭圆面积 $S=\pi ab$。};
+
+\end{tikzpicture}
