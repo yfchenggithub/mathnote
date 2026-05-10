@@ -1,0 +1,42 @@
+\begin{tikzpicture}[scale=0.95, line cap=round, line join=round]
+    % 参数：为了画图美观，这里取 a=3, b=1.8
+    \def\a{3}
+    \def\b{1.8}
+
+    % 坐标轴
+    \draw[->, thick] (-3.5,0) -- (3.7,0) node[right] {$x$};
+    \draw[->, thick] (0,-2.2) -- (0,2.4) node[above] {$y$};
+
+    % 椭圆
+    \draw[thick] (0,0) ellipse ({\a} and {\b});
+
+    % 第一象限阴影区域
+    \fill[gray!20, domain=0:\a, samples=120]
+        (0,0)
+        --
+        plot (\x, {\b*sqrt(1-(\x*\x)/(\a*\a))})
+        --
+        (\a,0)
+        --
+        cycle;
+
+    % 第一象限上边界加粗
+    \draw[very thick, domain=0:\a, samples=120]
+        plot (\x, {\b*sqrt(1-(\x*\x)/(\a*\a))});
+
+    % 辅助线
+    \draw[dashed] (0,\b) -- (\a,\b);
+    \draw[dashed] (\a,0) -- (\a,\b);
+
+    % 原点与半轴标注
+    \node[below left] at (0,0) {$O$};
+    \node[below] at (\a,0) {$a$};
+    \node[left] at (0,\b) {$b$};
+
+    % 面积标注
+    \node at (1.25,0.72) {$S_{\frac14}$};
+
+    % 方程标注
+    \node[above right] at (1.15,1.55)
+    {$\displaystyle y=\frac{b}{a}\sqrt{a^2-x^2}$};
+\end{tikzpicture}

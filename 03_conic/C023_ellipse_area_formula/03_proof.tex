@@ -5,7 +5,7 @@
 \[
     x=ax',\quad y=by'.
 \]
-该变换会把单位圆盘变成椭圆区域 $\frac{x^2}{a^2}+\frac{y^2}{b^2}\le 1$，并把面积放大 $ab$ 倍。因此单位圆盘面积 $\pi$ 对应的椭圆面积就是 $\pi ab$。
+该变换会把单位圆盘变成椭圆区域 $\frac{x^2}{a^2}+\frac{y^2}{b^2}\le 1$，并把面积变为原来的 $ab$ 倍。因此单位圆盘面积 $\pi$ 对应的椭圆面积就是 $\pi ab$。
 
 \medskip
 \begin{center}
@@ -34,7 +34,7 @@
     这正是椭圆所围成的区域。
     \par\textbf{理由：} 该变换将单位圆盘内的每个点 $(x',y')$ 一一映射到椭圆区域内的点 $(x,y)$。
 
-    \item[\textbf{步骤三（面积变换因子）：}] 图形在 $x$ 方向伸缩 $a$ 倍，在 $y$ 方向伸缩 $b$ 倍，面积放大倍数为
+    \item[\textbf{步骤三（面积变换因子）：}] 图形在 $x$ 方向伸缩 $a$ 倍，在 $y$ 方向伸缩 $b$ 倍，面积变换因子为
     \[
     a\cdot b=ab.
     \]
@@ -46,6 +46,138 @@
     \]
     \par\textbf{理由：} 由单位圆盘到椭圆区域的面积伸缩关系直接得到。
 \end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{另一种证明：积分法}}
+
+椭圆方程为
+\[
+\frac{x^2}{a^2}+\frac{y^2}{b^2}=1.
+\]
+由椭圆方程可得上半部分曲线为
+\[
+y
+=
+b\sqrt{1-\frac{x^2}{a^2}}
+=
+\frac{b}{a}\sqrt{a^2-x^2}.
+\]
+
+由于椭圆关于 $x$ 轴和 $y$ 轴都对称，所以只需要求第一象限部分面积，再乘以 $4$。
+
+\medskip
+\begin{center}
+\input{assets/tikz/C023_ellipse_area_integral_diagram.tex}
+
+\vspace{0.5em}
+\small 图：椭圆第一象限面积的积分表示
+\end{center}
+
+设椭圆第一象限部分面积为 $S_{\frac14}$，则
+\[
+S_{\frac14}
+=
+\int_0^a y\,dx
+=
+\int_0^a
+\frac{b}{a}\sqrt{a^2-x^2}\,dx.
+\]
+
+令
+\[
+x=a\cos\theta,\qquad 0\le \theta\le \frac{\pi}{2},
+\]
+则
+\[
+dx=-a\sin\theta\,d\theta.
+\]
+
+当 $x=0$ 时，
+\[
+a\cos\theta=0,
+\]
+所以
+\[
+\theta=\frac{\pi}{2}.
+\]
+
+当 $x=a$ 时，
+\[
+a\cos\theta=a,
+\]
+所以
+\[
+\theta=0.
+\]
+
+又因为 \(0\le \theta\le \frac{\pi}{2}\)，所以 \(\sin\theta\ge 0\)。于是
+\[
+\sqrt{a^2-x^2}
+=
+\sqrt{a^2-a^2\cos^2\theta}
+=
+\sqrt{a^2\sin^2\theta}
+=
+a\sin\theta.
+\]
+
+于是
+\[
+\begin{aligned}
+S_{\frac14}
+&=
+\int_0^a
+\frac{b}{a}\sqrt{a^2-x^2}\,dx \\[0.5em]
+&=
+\int_{\frac{\pi}{2}}^0
+\frac{b}{a}\cdot a\sin\theta
+\cdot
+\left(-a\sin\theta\right)
+\,d\theta \\[0.5em]
+&=
+ab\int_0^{\frac{\pi}{2}}\sin^2\theta\,d\theta.
+\end{aligned}
+\]
+
+由二倍角公式
+\[
+\sin^2\theta=\frac{1-\cos 2\theta}{2},
+\]
+可得
+\[
+\begin{aligned}
+S_{\frac14}
+&=
+ab\int_0^{\frac{\pi}{2}}
+\frac{1-\cos 2\theta}{2}
+\,d\theta \\[0.5em]
+&=
+ab
+\left[
+\frac{\theta}{2}
+-
+\frac{\sin 2\theta}{4}
+\right]_0^{\frac{\pi}{2}} \\[0.5em]
+&=
+ab
+\left(
+\frac{\pi}{4}-0
+\right) \\[0.5em]
+&=
+\frac{\pi ab}{4}.
+\end{aligned}
+\]
+
+因此椭圆总面积为
+\[
+S
+=
+4S_{\frac14}
+=
+4\cdot \frac{\pi ab}{4}
+=
+\pi ab.
+\]
 
 \medskip
 \textbf{\textcolor{CProof}{结论回扣}}
