@@ -1,0 +1,66 @@
+\begin{tikzpicture}[
+		x=1cm, y=1cm,
+		every node/.style={font=\small},
+		box/.style={
+				draw=blue!50!black,
+				rounded corners=4pt,
+				line width=0.8pt,
+				minimum width=2.35cm,
+				minimum height=1.00cm,
+				align=center,
+				fill=blue!3,
+				inner xsep=6pt,
+				inner ysep=4pt
+			},
+		arrow/.style={
+				->,
+				>=stealth,
+				line width=0.85pt,
+				blue!65!black
+			},
+		lab/.style={
+				font=\scriptsize,
+				black!75,
+				align=center
+			}
+	]
+
+	% 控制整体宽度和高度
+	\path[use as bounding box] (-1.05,-2.10) rectangle (12.05,0.95);
+
+	% 4 个流程框：适当拉开第 3、4 个框，避免公式挤压
+	\node[box] (ab)   at (0,0)     {$a,\ b$};
+	\node[box] (h)    at (3.25,0)  {$h$};
+	\node[box] (root) at (6.65,0)  {$\sqrt{4-3h}$};
+	\node[box] (c)    at (10.35,0) {$C_{\mathrm{approx}}$};
+
+	% 箭头
+	\draw[arrow] (ab.east) -- (h.west)
+	node[midway, above=4pt, lab] {计算};
+
+	\draw[arrow] (h.east) -- (root.west)
+	node[midway, above=4pt, lab] {计算};
+
+	\draw[arrow] (root.east) -- (c.west)
+	node[midway, above=4pt, lab] {代入};
+
+	% 下方说明
+	\node[lab, text width=2.4cm] at (0,-0.95)
+	{已知半长轴、半短轴};
+
+	\node[lab, text width=2.8cm] at (3.25,-0.95)
+	{$\displaystyle h=\left(\frac{a-b}{a+b}\right)^2$};
+
+	\node[lab, text width=2.6cm] at (6.65,-0.95)
+	{先算根号部分};
+
+	\node[lab, text width=2.4cm] at (10.35,-0.95)
+	{得到近似周长};
+
+	% 最终公式单独下沉一行，避免和第 3 个说明挤在一起
+	\node[lab, font=\scriptsize, text width=7.2cm, align=center] at (8.55,-1.60)
+	{$\displaystyle
+			C\approx \pi(a+b)\left(1+\frac{3h}{10+\sqrt{4-3h}}\right)
+		$};
+
+\end{tikzpicture}

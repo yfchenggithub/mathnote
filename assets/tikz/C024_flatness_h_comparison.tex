@@ -1,0 +1,100 @@
+\begin{tikzpicture}[
+		scale=0.95,
+		every node/.style={font=\small},
+		axis/.style={gray!55, line width=0.4pt},
+		ellipseLine/.style={blue!70!black, line width=1.2pt},
+		dimLine/.style={gray!70, line width=0.45pt},
+		labelText/.style={black!85},
+		hLabel/.style={font=\small\bfseries},
+		noteText/.style={font=\scriptsize, black!70}
+	]
+
+	% 统一固定长半轴 a，改变短半轴 b
+	% h = ((a-b)/(a+b))^2
+	% 当 a 固定时：
+	% h = 0      => b = a
+	% h = 0.25   => b = a/3
+	% h = 0.75   => b = (7 - 4sqrt(3))a ≈ 0.07a
+
+	\def\a{1.75}
+
+	% ---------- 第 1 个：h=0 ----------
+	\begin{scope}[xshift=0cm]
+		\def\b{1.75}
+
+		% 坐标轴
+		\draw[axis] (-2.05,0) -- (2.05,0);
+		\draw[axis] (0,-2.05) -- (0,2.05);
+
+		% 椭圆
+		\draw[ellipseLine] (0,0) ellipse [x radius=\a, y radius=\b];
+
+		% 半长轴 a
+		\draw[dimLine,<->] (0,-2.18) -- (\a,-2.18);
+		\node[labelText] at (0.88,-2.42) {$a$};
+
+		% 半短轴 b
+		\draw[dimLine,<->] (-2.18,0) -- (-2.18,\b);
+		\node[labelText] at (-2.45,0.88) {$b$};
+
+		% 标注
+		\node[hLabel] at (0,-2.95) {$h=0$};
+		\node[noteText] at (0,-3.28) {$a=b$，圆};
+	\end{scope}
+
+	% ---------- 第 2 个：h=0.25 ----------
+	\begin{scope}[xshift=5.2cm]
+		\def\b{0.5833} % b = a/3
+
+		% 坐标轴
+		\draw[axis] (-2.05,0) -- (2.05,0);
+		\draw[axis] (0,-1.1) -- (0,1.1);
+
+		% 椭圆
+		\draw[ellipseLine] (0,0) ellipse [x radius=\a, y radius=\b];
+
+		% 半长轴 a
+		\draw[dimLine,<->] (0,-1.35) -- (\a,-1.35);
+		\node[labelText] at (0.88,-1.60) {$a$};
+
+		% 半短轴 b
+		\draw[dimLine,<->] (-2.18,0) -- (-2.18,\b);
+		\node[labelText] at (-2.45,0.30) {$b$};
+
+		% 标注
+		\node[hLabel] at (0,-2.95) {$h=0.25$};
+		\node[noteText] at (0,-3.28) {$b=\dfrac{a}{3}$，明显变扁};
+	\end{scope}
+
+	% ---------- 第 3 个：h=0.75 ----------
+	\begin{scope}[xshift=10.4cm]
+		\def\b{0.126} % b = (7 - 4sqrt(3))a ≈ 0.0718a
+
+		% 坐标轴
+		\draw[axis] (-2.05,0) -- (2.05,0);
+		\draw[axis] (0,-0.7) -- (0,0.7);
+
+		% 椭圆
+		\draw[ellipseLine] (0,0) ellipse [x radius=\a, y radius=\b];
+
+		% 为了让极扁椭圆更容易被学生看见，额外加一点中心提示线
+		\draw[blue!70!black, line width=0.6pt] (-\a,0) -- (\a,0);
+
+		% 半长轴 a
+		\draw[dimLine,<->] (0,-0.58) -- (\a,-0.58);
+		\node[labelText] at (0.88,-0.82) {$a$};
+
+		% 半短轴 b
+		\draw[dimLine,<->] (-2.18,0) -- (-2.18,\b);
+		\node[labelText] at (-2.45,0.16) {$b$};
+
+		% 标注
+		\node[hLabel] at (0,-2.95) {$h=0.75$};
+		\node[noteText] at (0,-3.28) {$b\approx0.07a$，非常扁};
+	\end{scope}
+
+	% ---------- 总说明 ----------
+	\node[font=\scriptsize, black!65] at (5.2,2.45)
+	{$h=\left(\dfrac{a-b}{a+b}\right)^2$：当 $a$ 固定时，$b$ 越小，$h$ 越大，椭圆越扁。};
+
+\end{tikzpicture}
