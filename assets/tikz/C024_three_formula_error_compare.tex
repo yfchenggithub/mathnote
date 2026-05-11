@@ -1,0 +1,132 @@
+\begin{tikzpicture}[
+		x=1cm, y=0.9cm,
+		every node/.style={font=\small},
+		axis/.style={->, >=stealth, line width=0.8pt, black!75},
+		grid/.style={gray!25, line width=0.35pt},
+		tick/.style={black!65, line width=0.45pt},
+		simpleCurve/.style={red!70!black, line width=1.25pt},
+		eulerCurve/.style={orange!85!black, line width=1.25pt},
+		ramaCurve/.style={blue!70!black, line width=1.45pt},
+		labelText/.style={font=\scriptsize, black!75},
+		titleText/.style={font=\small\bfseries, black!85}
+	]
+
+	% ------------------------------------------------
+	% 三种椭圆周长近似公式的误差对比
+	%
+	% 横轴：离心率 e
+	% 纵轴：相对误差百分比
+	%
+	% 相对误差 = |L_approx - L_exact| / L_exact * 100%
+	%
+	% 为避免依赖 pgfplots 和复杂数值积分，
+	% 曲线坐标点为预先计算好的数值点。
+	% ------------------------------------------------
+
+	% 坐标范围：
+	% x: e = 0 到 0.9，对应 0 到 9
+	% y: 相对误差 0% 到 4%
+
+	% 背景网格
+	\foreach \x in {0,1,2,3,4,5,6,7,8,9} {
+			\draw[grid] (\x,0) -- (\x,4.25);
+		}
+
+	\foreach \y in {0,1,2,3,4} {
+			\draw[grid] (0,\y) -- (9.35,\y);
+		}
+
+	% 坐标轴
+	\draw[axis] (0,0) -- (9.55,0)
+	node[right, labelText] {离心率 $e$};
+
+	\draw[axis] (0,0) -- (0,4.45)
+	node[above, labelText] {相对误差};
+
+	% x 轴刻度
+	\foreach \x/\lab in {0/0,3/0.3,6/0.6,9/0.9} {
+			\draw[tick] (\x,0.06) -- (\x,-0.06);
+			\node[labelText] at (\x,-0.32) {$\lab$};
+		}
+
+	% y 轴刻度
+	\foreach \y/\lab in {0/0,1/1\%,2/2\%,3/3\%,4/4\%} {
+			\draw[tick] (0.06,\y) -- (-0.06,\y);
+			\node[labelText, anchor=east] at (-0.16,\y) {$\lab$};
+		}
+
+	% ------------------------------------------------
+	% 曲线 1：简单公式 L ≈ pi(a+b)
+	% ------------------------------------------------
+	\draw[simpleCurve, smooth] plot coordinates {
+			(0,0.0000)
+			(1,0.0002)
+			(2,0.0026)
+			(3,0.0139)
+			(4,0.0474)
+			(5,0.1287)
+			(6,0.3079)
+			(7,0.6917)
+			(8,1.5445)
+			(9,3.7511)
+		};
+
+	% ------------------------------------------------
+	% 曲线 2：欧拉公式 L ≈ pi sqrt(2(a^2+b^2))
+	% ------------------------------------------------
+	\draw[eulerCurve, smooth] plot coordinates {
+			(0,0.0000)
+			(1,0.0002)
+			(2,0.0026)
+			(3,0.0139)
+			(4,0.0474)
+			(5,0.1283)
+			(6,0.3056)
+			(7,0.6798)
+			(8,1.4856)
+			(9,3.4101)
+		};
+
+	% ------------------------------------------------
+	% 曲线 3：Ramanujan 公式
+	% 在本图的百分比尺度下几乎贴着 x 轴
+	% ------------------------------------------------
+	\draw[ramaCurve, smooth] plot coordinates {
+			(0,0.0000)
+			(1,0.0000)
+			(2,0.0000)
+			(3,0.0000)
+			(4,0.0000)
+			(5,0.0000)
+			(6,0.0000)
+			(7,0.0000)
+			(8,0.0000)
+			(9,0.0000)
+		};
+
+	% 右侧曲线标签
+	\node[labelText, anchor=west, red!70!black] at (9.15,3.75)
+	{$L\approx \pi(a+b)$};
+
+	\node[labelText, anchor=west, orange!85!black] at (9.15,3.35)
+	{$L\approx \pi\sqrt{2(a^2+b^2)}$};
+
+	\node[labelText, anchor=west, blue!70!black] at (5.4,0.28)
+	{Ramanujan 公式：几乎贴着 $x$ 轴};
+
+	% 图内提示
+	\node[labelText, align=left] at (4.8,3.55)
+	{当椭圆越来越扁时，\\简单公式和欧拉公式误差明显上升。};
+
+	\node[labelText, align=left, blue!70!black] at (4.9,0.85)
+	{Ramanujan 公式在该尺度下\\几乎看不出误差。};
+
+	% 标题
+	\node[titleText] at (4.7,4.85)
+	{三种椭圆周长近似公式的相对误差对比};
+
+	% 底部说明
+	\node[labelText, align=center] at (4.7,-0.75)
+	{横轴为离心率 $e$，纵轴为相对误差百分比。};
+
+\end{tikzpicture}
