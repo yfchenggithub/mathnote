@@ -1,1 +1,62 @@
-\begin{proofbox} \textbf{\textcolor{CProof}{思路提示}} 拉马努金公式是椭圆周长的高精度近似，并非精确等式，无法用初等数学严格证明。以下通过特殊情形验证与数值检验说明其合理性与准确性。 \medskip \textbf{\textcolor{CProof}{正式推导}} \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em] \item[\textbf{步骤一（圆极限验证）：}] 令 $a=b$，则 $h=0$，代入公式得 \[ C\approx \pi(a+b) = 2\pi a, \] 与精确圆周长一致。 \par\textbf{理由：} 公式在退化情形下精确成立，这是良好逼近的必要条件。 \item[\textbf{步骤二（数值精度检验）：}] 取 $a=5,\; b=3$。先计算 $h$： \[ h=\left(\frac{5-3}{5+3}\right)^2 = \left(\frac{2}{8}\right)^2 = \frac{1}{16}=0.0625. \] 代入公式： \[ \begin{aligned} C &\approx \pi(5+3)\left(1+\frac{3\times0.0625}{10+\sqrt{4-3\times0.0625}}\right) \\ &= 8\pi\left(1+\frac{0.1875}{10+\sqrt{4-0.1875}}\right) \\ &= 8\pi\left(1+\frac{0.1875}{10+\sqrt{3.8125}}\right) \\ &\approx 8\pi\left(1+\frac{0.1875}{10+1.9526}\right) \\ &= 8\pi\left(1+\frac{0.1875}{11.9526}\right) \\ &\approx 8\pi\times1.01568 \approx 25.529. \end{aligned} \] 该椭圆的精确周长（通过椭圆积分计算）约为 $25.527$，相对误差不到 $0.01\%$。 \par\textbf{理由：} 数值实验证实公式具有极高实际精度。 \item[\textbf{步骤三（极端扁平情形）：}] 令 $b\to 0$，此时 $h=\left(\frac{a-0}{a+0}\right)^2=1$。代入公式： \[ C\approx \pi a\left(1+\frac{3}{10+\sqrt{4-3}}\right) = \pi a\left(1+\frac{3}{10+1}\right) = \pi a\left(1+\frac{3}{11}\right) = \frac{14\pi}{11}a \approx 3.999a. \] 实际椭圆当 $b=0$ 时退化为线段，周长应为 $4a$，公式预测非常接近。 \par\textbf{理由：} 极端情形下公式仍保持合理精度，表明适用范围广。 \end{description} \medskip \textbf{\textcolor{CProof}{结论回扣}} \textbf{以上验证表明，拉马努金公式在从圆到极扁椭圆的各种情形下均能给出高精度近似，因此可在高中范围内作为椭圆周长的实用计算公式。} \end{proofbox}
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	拉马努金公式是椭圆周长的高精度近似，并非精确等式，无法用初等数学严格证明。以下通过特殊情形验证与数值检验说明其合理性与准确性。
+
+	\medskip
+	\begin{center}
+		\input{assets/tikz/C024_ellipse_arc_length_dx_dy.tex}
+	\end{center}
+	\textbf{\textcolor{CProof}{正式推导}}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（圆极限验证）：}]
+		      令 $a=b$，则 $h=0$，代入公式得
+		      \[
+			      C\approx \pi(a+b) = 2\pi a,
+		      \]
+		      与精确圆周长一致。
+
+		      \par\textbf{理由：} 公式在退化情形下精确成立，这是良好逼近的必要条件。
+
+		\item[\textbf{步骤二（数值精度检验）：}]
+		      取 $a=5,\; b=3$。先计算 $h$：
+		      \[
+			      h=\left(\frac{5-3}{5+3}\right)^2
+			      = \left(\frac{2}{8}\right)^2
+			      = \frac{1}{16}=0.0625.
+		      \]
+		      代入公式：
+		      \[
+			      \begin{aligned}
+				      C & \approx \pi(5+3)\left(1+\frac{3\times0.0625}{10+\sqrt{4-3\times0.0625}}\right) \\
+				        & = 8\pi\left(1+\frac{0.1875}{10+\sqrt{4-0.1875}}\right)                         \\
+				        & = 8\pi\left(1+\frac{0.1875}{10+\sqrt{3.8125}}\right)                           \\
+				        & \approx 8\pi\left(1+\frac{0.1875}{10+1.9526}\right)                            \\
+				        & = 8\pi\left(1+\frac{0.1875}{11.9526}\right)                                    \\
+				        & \approx 8\pi\times1.01568 \approx 25.529.
+			      \end{aligned}
+		      \]
+		      该椭圆的精确周长（通过椭圆积分计算）约为 $25.527$，相对误差不到 $0.01\%$。
+
+		      \par\textbf{理由：} 数值实验证实公式具有极高实际精度。
+
+		\item[\textbf{步骤三（极端扁平情形）：}]
+		      令 $b\to 0$，此时 $h=\left(\frac{a-0}{a+0}\right)^2=1$。代入公式：
+		      \[
+			      C\approx \pi a\left(1+\frac{3}{10+\sqrt{4-3}}\right)
+			      = \pi a\left(1+\frac{3}{10+1}\right)
+			      = \pi a\left(1+\frac{3}{11}\right)
+			      = \frac{14\pi}{11}a \approx 3.999a.
+		      \]
+		      实际椭圆当 $b=0$ 时退化为线段，周长应为 $4a$，公式预测非常接近。
+
+		      \par\textbf{理由：} 极端情形下公式仍保持合理精度，表明适用范围广。
+	\end{description}
+
+	\medskip
+
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{以上验证表明，拉马努金公式在从圆到极扁椭圆的各种情形下均能给出高精度近似，因此可在高中范围内作为椭圆周长的实用计算公式。}
+\end{proofbox}
