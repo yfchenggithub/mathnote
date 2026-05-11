@@ -1,13 +1,266 @@
 \begin{proofbox}
 	\textbf{\textcolor{CProof}{思路提示}}
 
-	拉马努金公式是椭圆周长的高精度近似，并非精确等式，无法用初等数学严格证明。以下通过特殊情形验证与数值检验说明其合理性与准确性。
+	拉马努金公式是椭圆周长的高精度近似，并非精确等式，无法用初等数学严格证明。为了理解它为什么合理，需要先知道椭圆周长的精确表达来自弧长积分，而这个积分一般不能化为初等函数。
 
 	\medskip
 	\begin{center}
 		\input{assets/tikz/C024_ellipse_arc_length_dx_dy.tex}
 	\end{center}
-	\textbf{\textcolor{CProof}{正式推导}}
+
+	\medskip
+	\textbf{\textcolor{CProof}{精确表达：椭圆周长的弧长积分}}
+
+	设椭圆为
+	\[
+		\frac{x^2}{a^2}+\frac{y^2}{b^2}=1,
+		\qquad a\ge b>0.
+	\]
+	由于椭圆关于两个坐标轴都对称，所以椭圆周长 \(C\) 等于第一象限弧长的 \(4\) 倍。
+
+	下面用两种参数方式求第一象限弧长，虽然得到的被积函数形式不同，但定积分值相同。
+
+	\medskip
+	\textbf{\textcolor{CProof}{方法一：取 \(x=a\cos\theta,\ y=b\sin\theta\)}}
+
+	取参数方程
+	\[
+		x=a\cos\theta,\qquad y=b\sin\theta,
+		\qquad 0\le \theta\le \frac{\pi}{2}.
+	\]
+	当 \(\theta=0\) 时，点为 \((a,0)\)；当 \(\theta=\frac{\pi}{2}\) 时，点为 \((0,b)\)。因此它正好表示第一象限的椭圆弧。
+
+	由
+	\[
+		x=a\cos\theta,\qquad y=b\sin\theta
+	\]
+	可得
+	\[
+		\frac{dx}{d\theta}=-a\sin\theta,
+		\qquad
+		\frac{dy}{d\theta}=b\cos\theta.
+	\]
+	于是弧长微元为
+	\[
+		ds
+		=
+		\sqrt{
+			\left(\frac{dx}{d\theta}\right)^2
+			+
+			\left(\frac{dy}{d\theta}\right)^2
+		}
+		\,d\theta
+		=
+		\sqrt{
+			a^2\sin^2\theta+b^2\cos^2\theta
+		}
+		\,d\theta.
+	\]
+	因此第一象限弧长为
+	\[
+		L_{\frac14}
+		=
+		\int_0^{\frac{\pi}{2}}
+		\sqrt{
+			a^2\sin^2\theta+b^2\cos^2\theta
+		}
+		\,d\theta.
+	\]
+
+	令
+	\[
+		c^2=a^2-b^2,
+		\qquad
+		e=\frac{c}{a}
+		=
+		\sqrt{1-\frac{b^2}{a^2}}.
+	\]
+	因为
+	\[
+		b^2=a^2-c^2,
+	\]
+	所以
+	\[
+	\begin{aligned}
+		a^2\sin^2\theta+b^2\cos^2\theta
+		&=
+		a^2\sin^2\theta+(a^2-c^2)\cos^2\theta \\[0.4em]
+		&=
+		a^2(\sin^2\theta+\cos^2\theta)-c^2\cos^2\theta \\[0.4em]
+		&=
+		a^2-c^2\cos^2\theta \\[0.4em]
+		&=
+		a^2\left(1-e^2\cos^2\theta\right).
+	\end{aligned}
+	\]
+	因此
+	\[
+		L_{\frac14}
+		=
+		a\int_0^{\frac{\pi}{2}}
+		\sqrt{1-e^2\cos^2\theta}
+		\,d\theta.
+	\]
+
+	\medskip
+	\textbf{\textcolor{CProof}{方法二：取 \(x=a\sin\theta,\ y=b\cos\theta\)}}
+
+	取参数方程
+	\[
+		x=a\sin\theta,\qquad y=b\cos\theta,
+		\qquad 0\le \theta\le \frac{\pi}{2}.
+	\]
+	当 \(\theta=0\) 时，点为 \((0,b)\)；当 \(\theta=\frac{\pi}{2}\) 时，点为 \((a,0)\)。因此它也正好表示第一象限的椭圆弧，只是走向与方法一相反。
+
+	由
+	\[
+		x=a\sin\theta,\qquad y=b\cos\theta
+	\]
+	可得
+	\[
+		\frac{dx}{d\theta}=a\cos\theta,
+		\qquad
+		\frac{dy}{d\theta}=-b\sin\theta.
+	\]
+	于是弧长微元为
+	\[
+		ds
+		=
+		\sqrt{
+			\left(\frac{dx}{d\theta}\right)^2
+			+
+			\left(\frac{dy}{d\theta}\right)^2
+		}
+		\,d\theta
+		=
+		\sqrt{
+			a^2\cos^2\theta+b^2\sin^2\theta
+		}
+		\,d\theta.
+	\]
+	因此第一象限弧长为
+	\[
+		L_{\frac14}
+		=
+		\int_0^{\frac{\pi}{2}}
+		\sqrt{
+			a^2\cos^2\theta+b^2\sin^2\theta
+		}
+		\,d\theta.
+	\]
+
+	仍令
+	\[
+		c^2=a^2-b^2,
+		\qquad
+		e=\frac{c}{a}
+		=
+		\sqrt{1-\frac{b^2}{a^2}}.
+	\]
+	因为
+	\[
+		b^2=a^2-c^2,
+	\]
+	所以
+	\[
+	\begin{aligned}
+		a^2\cos^2\theta+b^2\sin^2\theta
+		&=
+		a^2\cos^2\theta+(a^2-c^2)\sin^2\theta \\[0.4em]
+		&=
+		a^2(\cos^2\theta+\sin^2\theta)-c^2\sin^2\theta \\[0.4em]
+		&=
+		a^2-c^2\sin^2\theta \\[0.4em]
+		&=
+		a^2\left(1-e^2\sin^2\theta\right).
+	\end{aligned}
+	\]
+	因此
+	\[
+		L_{\frac14}
+		=
+		a\int_0^{\frac{\pi}{2}}
+		\sqrt{1-e^2\sin^2\theta}
+		\,d\theta.
+	\]
+
+	\medskip
+	\textbf{\textcolor{CProof}{两种方法为什么结果相同}}
+
+	方法一得到
+	\[
+		L_{\frac14}
+		=
+		a\int_0^{\frac{\pi}{2}}
+		\sqrt{1-e^2\cos^2\theta}
+		\,d\theta.
+	\]
+	方法二得到
+	\[
+		L_{\frac14}
+		=
+		a\int_0^{\frac{\pi}{2}}
+		\sqrt{1-e^2\sin^2\theta}
+		\,d\theta.
+	\]
+	二者形式不同，但定积分相等。事实上，令
+	\[
+		u=\frac{\pi}{2}-\theta,
+	\]
+	则
+	\[
+		\cos\theta=\sin u.
+	\]
+	所以
+	\[
+	\begin{aligned}
+		\int_0^{\frac{\pi}{2}}
+		\sqrt{1-e^2\cos^2\theta}
+		\,d\theta
+		&=
+		\int_0^{\frac{\pi}{2}}
+		\sqrt{1-e^2\sin^2 u}
+		\,du.
+	\end{aligned}
+	\]
+	因此两种方法只是参数选取不同，本质上得到的是同一个第一象限弧长。
+
+	通常把
+	\[
+		E(e)
+		=
+		\int_0^{\frac{\pi}{2}}
+		\sqrt{1-e^2\sin^2\theta}
+		\,d\theta
+	\]
+	称为第二类完全椭圆积分。于是，当 \(a\ge b>0\) 时，椭圆周长的精确表达为
+	\[
+		\boxed{
+			C=4aE(e)
+		},
+		\qquad
+		e=\sqrt{1-\frac{b^2}{a^2}}.
+	\]
+
+	若不预设 \(a\ge b\)，则可设
+	\[
+		A=\max(a,b),
+		\qquad
+		B=\min(a,b),
+	\]
+	并令
+	\[
+		e=\sqrt{1-\frac{B^2}{A^2}}.
+	\]
+	此时椭圆周长的统一精确表达为
+	\[
+		\boxed{
+			C=4AE(e)
+		}.
+	\]
+
+	\medskip
+	\textbf{\textcolor{CProof}{拉马努金近似公式的验证}}
 
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
 		\item[\textbf{步骤一（圆极限验证）：}]
@@ -58,5 +311,5 @@
 
 	\textbf{\textcolor{CProof}{结论回扣}}
 
-	\textbf{以上验证表明，拉马努金公式在从圆到极扁椭圆的各种情形下均能给出高精度近似，因此可在高中范围内作为椭圆周长的实用计算公式。}
+	\textbf{椭圆周长的精确表达需要用第二类完全椭圆积分表示，一般不能化为初等函数。拉马努金公式虽然不是精确等式，但在从圆到极扁椭圆的各种情形下均能给出高精度近似，因此可在高中范围内作为椭圆周长的实用计算公式。}
 \end{proofbox}
