@@ -1,0 +1,105 @@
+% fig04_axis_compare_fixed.tex
+% 用法：在主文件中提前加载 \usepackage{tikz,amsmath}
+% 然后 \input{figures/fig04_axis_compare_fixed.tex}
+% 说明：这是 TikZ 片段，不包含 \documentclass、\begin{document}、\end{document}。
+
+\begin{center}
+	\begin{tikzpicture}[
+			x=1cm,
+			y=1cm,
+			>=stealth,
+			line cap=round,
+			line join=round,
+			every node/.style={font=\small},
+			title/.style={font=\bfseries\Large,blue!55!black},
+			axis/.style={->,line width=0.8pt,black},
+			body/.style={blue!60!black,line width=0.95pt},
+			hidden/.style={blue!50!black,dashed,line width=0.65pt},
+			dimblue/.style={<->,blue!65!black,line width=0.8pt},
+			dimred/.style={<->,red!70!black,line width=0.85pt},
+			lab/.style={fill=blue!6,inner xsep=2pt,inner ysep=1pt},
+			warn/.style={red!70!black,font=\bfseries,align=center}
+		]
+
+		% 手动扩大边界，防止标题、底部说明被裁剪
+		\path[use as bounding box] (-3.05,-4.05) rectangle (8.95,2.85);
+
+		% ==================================================
+		% 左：绕 x 轴旋转
+		% ==================================================
+		\begin{scope}[shift={(0,0)}]
+
+			\node[title] at (0,2.35) {绕 $x$ 轴旋转};
+
+			% 旋转椭球体
+			\fill[blue!6] (0,0) ellipse (2.20 and 0.95);
+			\draw[body] (0,0) ellipse (2.20 and 0.95);
+
+			% 竖向截面虚线
+			\draw[hidden] (0,0) ellipse (0.30 and 0.95);
+
+			% x 轴
+			\draw[axis] (-2.65,0)--(2.85,0);
+			\node at (3.02,0.08) {$x$};
+
+			% 长轴 2a：标签放在线上方，避开下方“三轴半长”
+			\draw[dimblue] (-2.20,-1.20)--(2.20,-1.20)
+			node[midway,above=3pt,lab] {$2a$};
+
+			% 垂直方向 2b：红色强调，表示截面半径来自 y 方向
+			\draw[dimred] (0,-0.95)--(0,0.95)
+			node[midway,right=6pt,fill=blue!6,inner xsep=2pt,inner ysep=1pt] {$2b$};
+
+			% 说明文字整体下移，避免和 2a 标注冲突
+			\node[align=center] at (0,-2.12)
+			{三轴半长：$a,b,b$};
+
+			\node[align=center] at (0,-2.62)
+			{$\displaystyle V_x=\frac{4}{3}\pi ab^2$};
+
+		\end{scope}
+
+		% ==================================================
+		% 右：绕 y 轴旋转
+		% ==================================================
+		\begin{scope}[shift={(6.00,0)}]
+
+			% 标题上移，避免与 y 轴标签重叠
+			\node[title] at (0,2.35) {绕 $y$ 轴旋转};
+
+			% 旋转椭球体
+			\fill[blue!6] (0,0) ellipse (1.05 and 1.65);
+			\draw[body] (0,0) ellipse (1.05 and 1.65);
+
+			% 水平截面虚线
+			\draw[hidden] (0,0) ellipse (1.05 and 0.25);
+
+			% y 轴：y 标签放到左上侧，避免压标题
+			\draw[axis] (0,-1.95)--(0,2.00);
+			\node at (-0.20,2.15) {$y$};
+
+			% 水平方向 2a：蓝色表示来自 x 方向
+			\draw[dimblue] (-1.05,0)--(1.05,0)
+			node[midway,below=5pt,lab] {$2a$};
+
+			% 竖直方向 2b：右移，避免贴住椭球体
+			\draw[dimred] (1.48,-1.65)--(1.48,1.65)
+			node[midway,right=6pt,fill=blue!6,inner xsep=2pt,inner ysep=1pt] {$2b$};
+
+			% 说明文字下移，和图形保持距离
+			\node[align=center] at (0,-2.25)
+			{三轴半长：$a,a,b$};
+
+			\node[align=center] at (0,-2.75)
+			{$\displaystyle V_y=\frac{4}{3}\pi a^2b$};
+
+		\end{scope}
+
+		% ==================================================
+		% 底部提醒
+		% ==================================================
+		\node[warn] at (3.00,-3.55)
+		{旋转轴不同，平方项不同：看清截面半径来自哪个方向};
+
+	\end{tikzpicture}
+\end{center}

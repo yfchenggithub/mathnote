@@ -1,0 +1,93 @@
+% fig06_semiaxis_warning_fixed.tex
+% 用法：在主文件中提前加载 \usepackage{tikz,amsmath}
+% 然后 \input{figures/fig06_semiaxis_warning_fixed.tex}
+% 说明：这是 TikZ 片段，不包含 \documentclass、\begin{document}、\end{document}。
+
+\begin{center}
+	\begin{tikzpicture}[
+			x=1cm,
+			y=1cm,
+			>=stealth,
+			line cap=round,
+			line join=round,
+			every node/.style={font=\small},
+			title/.style={font=\bfseries\Large,blue!55!black},
+			axis/.style={->,line width=0.8pt,black},
+			body/.style={blue!60!black,line width=0.95pt},
+			dim/.style={<->,blue!65!black,line width=0.85pt},
+			semiaxis/.style={->,red!70!black,line width=1.05pt},
+			labBlue/.style={
+					fill=blue!6,
+					inner xsep=3pt,
+					inner ysep=1.5pt
+				},
+			labRed/.style={
+					fill=blue!6,
+					text=red!70!black,
+					inner xsep=3pt,
+					inner ysep=1.5pt
+				},
+			warn/.style={red!70!black,font=\bfseries\large,align=center}
+		]
+
+		% ==================================================
+		% 手动扩大边界，防止裁剪
+		% ==================================================
+		\path[use as bounding box] (-4.65,-3.85) rectangle (4.65,2.95);
+
+		% ==================================================
+		% 标题
+		% ==================================================
+		\node[title] at (0,2.48) {公式里用的是半轴长，不是轴长};
+
+		% ==================================================
+		% 椭圆本体
+		% ==================================================
+		\fill[blue!6] (0,0) ellipse (2.75 and 1.15);
+		\draw[body] (0,0) ellipse (2.75 and 1.15);
+
+		% ==================================================
+		% 坐标轴
+		% ==================================================
+		\draw[axis] (-3.25,0)--(3.45,0);
+		\node at (3.62,0.08) {$x$};
+
+		\draw[axis] (0,-1.62)--(0,1.65);
+		\node at (0.18,1.78) {$y$};
+
+		% ==================================================
+		% 蓝色：轴长
+		% ==================================================
+		% 水平方向轴长 2a
+		\draw[dim] (-2.75,-1.42)--(2.75,-1.42);
+		\node[labBlue] at (0,-1.72) {轴长 $2a$};
+
+		% 竖直方向轴长 2b
+		\draw[dim] (-3.05,-1.15)--(-3.05,1.15);
+		\node[labBlue] at (-3.78,0) {轴长 $2b$};
+
+		% ==================================================
+		% 红色：半轴
+		% ==================================================
+		% 半轴 a：标签放到右侧，不和半轴 b 挤在一起
+		\draw[semiaxis] (0,0)--(2.75,0);
+		\node[labRed] at (1.92,0.34) {半轴 $a$};
+
+		% 半轴 b：标签放到左上侧，和半轴 a 明确分开
+		\draw[semiaxis] (0,0)--(0,1.15);
+		\node[labRed] at (-0.55,0.78) {半轴 $b$};
+
+		% ==================================================
+		% 底部提醒文字
+		% ==================================================
+		\node[warn] at (0,-2.38)
+		{例如长轴长为 $10$，代入公式的是 $a=5$};
+
+		\node[warn] at (0,-2.88)
+		{不是 $a=10$};
+
+		\node[align=center] at (0,-3.42)
+		{$\displaystyle V=\frac{4}{3}\pi ab^2$ 中的 $a,b$ 都是从中心到端点的长度};
+
+	\end{tikzpicture}
+\end{center}

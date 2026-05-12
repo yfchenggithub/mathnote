@@ -1,0 +1,41 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+	椭圆绕轴扫出的椭球体，就像被均匀拉伸的球，体积仍然带着熟悉的 \(\frac{4}{3}\pi\)，只是半径被两个半轴“分工合作”。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（截面圆盘）：}] 用垂直于 \(x\) 轴的平面去截旋转体，截面是圆，半径为当时椭圆纵坐标的绝对值 \(|y|\)，因此截面面积为 \(\pi y^{2}\)。
+		\item[\textbf{要点二（积分累加）：}] 将 \(x\) 从 \(-a\) 到 \(a\) 上所有薄圆盘的体积加总，得到定积分 \(V=\int_{-a}^{a} \pi y^{2}\,dx\)。
+		\item[\textbf{要点三（代数化简）：}] 利用椭圆方程 \(y^{2}=b^{2}\bigl(1-\frac{x^{2}}{a^{2}}\bigr)\) 消去 \(y\)，积分后自然得到 \(V=\frac{4}{3}\pi a b^{2}\)。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（祖暅原理）}}
+	从截面积分的角度看，旋转体体积等于各个位置截面面积的累积：\(V = \int_{-a}^{a} S(x)\,dx\)。这与祖暅原理的思想一致：若两个立体在同一高度处的截面积处处相等，则它们体积相等。椭圆旋转体的每个截面圆半径按椭圆规律变化，但总面积累积后仍保持与球体相同的结构系数。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（对称简化）}}
+	积分利用了区间对称性和被积函数的偶函数性质，使计算化简为 \(\pi b^{2}\cdot 2\bigl(a-\frac{a}{3}\bigr)\)，最终 \(\frac{4}{3}\) 来自 \(2(1-\frac{1}{3})\) 的乘积。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（直接套用公式）：} 给出标准椭圆方程，直接识别 \(a,b\)，代入体积公式。
+		\item \textbf{考法二（逆向求参数）：} 已知旋转椭球体积和其中一个半轴，反求另一半轴或椭圆方程。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	\textbf{球体积是 \(\frac{4}{3}\pi r^{3}\)，而椭球体积是 \(\frac{4}{3}\pi a b^{2}\)。为什么 \(b\) 出现平方？因为旋转垂直于 \(x\) 轴的方向是二维的，所以 \(y\) 方向的尺度对体积的影响是平方关系，而 \(x\) 方向只沿旋转轴拉伸，体积与它成正比。}
+	\begin{center}
+		\input{assets/tikz/C025_fig07_why_b_squared.tex}
+	\end{center}
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（求旋转体体积）：} 题目给出椭圆的标准方程，要求计算绕 \(x\) 轴旋转所得立体体积。
+		\item \textbf{场景二（物理建模）：} 在物理问题中，计算椭球形容器的容积或椭球天体的大致体积。
+	\end{itemize}
+\end{explanationbox}

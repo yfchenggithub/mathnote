@@ -1,0 +1,61 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	采用旋转体体积的圆盘法：体积等于截面面积沿旋转轴的定积分。先由椭圆方程用 \(x\) 表示截面半径平方 \(y^{2}\)，再计算积分 \(\int_{-a}^{a} \pi y^{2}\,dx\)。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（写出截面面积）：}]
+		      由椭圆方程 \(\frac{x^{2}}{a^{2}}+\frac{y^{2}}{b^{2}}=1\) 解出
+		      \[
+			      y^{2}=b^{2}\Bigl(1-\frac{x^{2}}{a^{2}}\Bigr).
+		      \]
+		      绕 \(x\) 轴旋转时，垂直于 \(x\) 轴的截面是圆，半径 \(r=|y|\)，故截面面积函数为
+		      \[
+			      S(x)=\pi y^{2}=\pi b^{2}\Bigl(1-\frac{x^{2}}{a^{2}}\Bigr),\quad x\in[-a,a].
+		      \]
+		      \par\textbf{理由：} 旋转体圆盘法，截面半径由曲线到旋转轴的距离确定。
+		      \begin{center}
+			      \input{assets/tikz/C025_fig02_disk_method.tex}
+
+			      \vspace{0.4em}
+			      {\small 图：圆盘法截面示意图}
+		      \end{center}
+		\item[\textbf{步骤二（建立积分式）：}]
+		      旋转体体积为截面面积沿 \(x\) 轴的积分，并利用对称性：
+		      \[
+			      V=\int_{-a}^{a} S(x)\,dx = 2\int_{0}^{a} \pi b^{2}\Bigl(1-\frac{x^{2}}{a^{2}}\Bigr)\,dx.
+		      \]
+		      \par\textbf{理由：} 被积函数为偶函数，积分区间关于原点对称，可简化为正半轴积分的两倍。
+
+		\item[\textbf{步骤三（计算原函数）：}]
+		      提出常数，计算不定积分：
+		      \[
+			      \int \Bigl(1-\frac{x^{2}}{a^{2}}\Bigr)\,dx = x - \frac{x^{3}}{3a^{2}} + C.
+		      \]
+		      \par\textbf{理由：} 幂函数积分公式 \(\int x^{n}\,dx = \frac{x^{n+1}}{n+1}\)。
+
+		\item[\textbf{步骤四（代入上下限）：}]
+		      计算定积分：
+		      \[
+			      \begin{aligned}
+				      \int_{0}^{a} \Bigl(1-\frac{x^{2}}{a^{2}}\Bigr)\,dx
+				       & = \Bigl[x - \frac{x^{3}}{3a^{2}}\Bigr]_{0}^{a} \\
+				       & = \Bigl(a - \frac{a^{3}}{3a^{2}}\Bigr) - 0     \\
+				       & = a - \frac{a}{3} = \frac{2a}{3}.
+			      \end{aligned}
+		      \]
+		      \par\textbf{理由：} 牛顿-莱布尼茨公式，代入上限减下限。
+
+		\item[\textbf{步骤五（得出体积）：}]
+		      将积分结果代回体积表达式：
+		      \[
+			      V = 2\pi b^{2} \cdot \frac{2a}{3} = \frac{4}{3}\pi a b^{2}.
+		      \]
+		      \par\textbf{理由：} 合并常数因子，即得所需公式。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{所得体积公式与结论一致。特别地，当 \(a=b=r\) 时，\(y^{2}=r^{2}(1-x^{2}/r^{2})\)，代入可得 \(V=\frac{4}{3}\pi r^{3}\)，退化为球体积公式。}
+\end{proofbox}

@@ -1,0 +1,119 @@
+% fig02_disk_method_fixed.tex
+% 用法：在主文件中提前加载 \usepackage{tikz,amsmath}
+% 然后 \input{figures/fig02_disk_method_fixed.tex}
+% 说明：这是 TikZ 片段，不包含 \documentclass、\begin{document}、\end{document}。
+
+\begin{center}
+	\begin{tikzpicture}[
+			x=1cm,
+			y=1cm,
+			>=stealth,
+			line cap=round,
+			line join=round,
+			every node/.style={font=\small},
+			title/.style={font=\bfseries\Large,blue!55!black},
+			axis/.style={->,line width=0.8pt,black},
+			outline/.style={blue!60!black,line width=0.95pt},
+			hidden/.style={blue!50!black,dashed,line width=0.65pt},
+			diskline/.style={red!70!black,line width=1.0pt},
+			note/.style={red!70!black},
+			endpoint/.style={font=\small,fill=blue!6,inner xsep=2pt,inner ysep=1pt},
+			formulaText/.style={anchor=north west,align=left,font=\small},
+			formulaRed/.style={anchor=north west,align=left,text=red!70!black,font=\bfseries\small}
+		]
+
+		% ==================================================
+		% 参数设置
+		% ==================================================
+		\def\semiA{3.60}
+		\def\semiB{1.45}
+		\def\sliceX{1.20}
+		\def\sliceThick{0.18}
+		\def\sliceDepth{0.35}
+
+		\pgfmathsetmacro{\sliceY}{\semiB*sqrt(1-(\sliceX*\sliceX)/(\semiA*\semiA))}
+
+		% 手动扩大边界，避免底部公式被裁剪
+		\path[use as bounding box] (-4.85,-5.75) rectangle (4.90,2.75);
+
+		% ==================================================
+		% 标题
+		% ==================================================
+		\node[title] at (0,2.35) {圆盘法：垂直于 $x$ 轴切成薄圆盘};
+
+		% ==================================================
+		% 旋转椭球体外轮廓
+		% ==================================================
+		\fill[blue!6] (0,0) ellipse [x radius=\semiA, y radius=\semiB];
+		\draw[outline] (0,0) ellipse [x radius=\semiA, y radius=\semiB];
+
+		% 中间虚线截面
+		\draw[hidden] (0,0) ellipse [x radius=0.36, y radius=\semiB];
+
+		% x 轴
+		\draw[axis] (-4.10,0)--(4.35,0);
+		\node at (4.52,0.08) {$x$};
+
+		% 端点标注：下移，避免压在椭圆轮廓和 x 轴上
+		\node[endpoint] at (-\semiA,-0.42) {$-a$};
+		\node[endpoint] at (\semiA,-0.42) {$a$};
+
+		% ==================================================
+		% x 处薄圆盘
+		% ==================================================
+		% 辅助竖虚线
+		\draw[gray!70,dashed,line width=0.65pt]
+		(\sliceX,-1.86)--(\sliceX,1.88);
+
+		% 薄圆盘前侧
+		\fill[red!8] (\sliceX,0) ellipse [x radius=\sliceThick, y radius=\sliceY];
+		\draw[diskline] (\sliceX,0) ellipse [x radius=\sliceThick, y radius=\sliceY];
+
+		% 薄圆盘后侧，增强立体感
+		\draw[red!55!black,line width=0.8pt]
+		(\sliceX+\sliceDepth,0) ellipse [x radius=\sliceThick, y radius=\sliceY];
+
+		\draw[red!55!black,line width=0.8pt]
+		(\sliceX,\sliceY)--(\sliceX+\sliceDepth,\sliceY);
+
+		\draw[red!55!black,line width=0.8pt]
+		(\sliceX,-\sliceY)--(\sliceX+\sliceDepth,-\sliceY);
+
+		% 半径 r(x)
+		\draw[->,note,line width=0.95pt]
+		(\sliceX,0)--(\sliceX,\sliceY);
+
+		\node[note,fill=blue!6,inner xsep=2pt,inner ysep=1pt]
+		at (0.45,0.78) {$r(x)=|y|$};
+
+		% x 标注
+		\node[fill=blue!6,inner xsep=2pt,inner ysep=1pt]
+		at (\sliceX,-1.58) {$x$};
+
+		% dx 标注：放在图形下方，但与公式区保持距离
+		\draw[<->,note,line width=0.8pt]
+		(\sliceX,-1.82)--(\sliceX+\sliceDepth,-1.82);
+
+		\node[note,fill=blue!6,inner xsep=2pt,inner ysep=1pt]
+		at (\sliceX+0.5*\sliceDepth,-2.05) {$dx$};
+
+		% ==================================================
+		% 公式说明区：整体下移并分层排版
+		% ==================================================
+		\node[formulaText] at (-3.95,-2.45)
+		{截面面积：\quad $\displaystyle S(x)=\pi r(x)^2=\pi y^2$};
+
+		\node[formulaText] at (-3.95,-3.05)
+		{由椭圆方程：\quad $\displaystyle y^2=b^2\left(1-\frac{x^2}{a^2}\right)$};
+
+		\node[formulaRed] at (-3.95,-3.78)
+		{$\displaystyle
+				\begin{aligned}
+					V
+					 & =\int_{-a}^{a}S(x)\,dx                                  \\[4pt]
+					 & =\int_{-a}^{a}\pi b^2\left(1-\frac{x^2}{a^2}\right)\,dx
+				\end{aligned}
+			$};
+
+	\end{tikzpicture}
+\end{center}

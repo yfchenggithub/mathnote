@@ -1,0 +1,117 @@
+% C025_fig07_why_b_squared_v5.tex
+% 用法：主文件提前加载 \usepackage{tikz,amsmath}
+% 说明：这是 TikZ 片段，不包含 \documentclass、\begin{document}、\end{document}
+
+\begin{center}
+	\begin{tikzpicture}[
+			x=1cm,
+			y=1cm,
+			>=stealth,
+			line cap=round,
+			line join=round,
+			every node/.style={font=\small},
+			mainarrow/.style={->,line width=0.95pt,blue!65!black},
+			axis/.style={->,line width=0.72pt,black!65},
+			note/.style={
+					draw=red!50!black,
+					rounded corners=5pt,
+					line width=0.85pt,
+					fill=red!3,
+					align=center,
+					inner xsep=10pt,
+					inner ysep=8pt
+				},
+			formulaBox/.style={
+					draw=blue!65!black,
+					rounded corners=7pt,
+					line width=0.95pt,
+					fill=blue!2,
+					align=center,
+					inner xsep=12pt,
+					inner ysep=10pt,
+					font=\small
+				}
+		]
+
+		% 固定画布：用 anchor=north 控制标题和公式框的顶部，避免不同编译环境下重新重叠
+		\path[use as bounding box] (-7.25,-4.45) rectangle (7.25,4.05);
+
+		% 标题：单独占顶部一行
+		\node[anchor=north,font=\bfseries\Large,blue!65!black] at (0,3.90)
+		{为什么体积公式里是 \(b^2\)？};
+
+		% =========================================================
+		% 左侧：椭圆上一点
+		% =========================================================
+		\node[font=\bfseries\large,blue!70!black] at (-5.25,2.18) {椭圆上一点};
+
+		\fill[blue!5] (-5.25,0.88) ellipse (1.58 and 0.74);
+		\draw[blue!70!black,line width=0.95pt] (-5.25,0.88) ellipse (1.58 and 0.74);
+
+		% 坐标轴
+		\draw[axis] (-7.00,0.88) -- (-3.38,0.88) node[below left=-1pt] {\(x\)};
+		\draw[axis] (-5.25,-0.10) -- (-5.25,1.88) node[left] {\(y\)};
+
+		% 固定横坐标 x 处的半径 r(x)
+		\draw[dashed,black!50,line width=0.7pt] (-4.52,0.18) -- (-4.52,1.55);
+		\draw[red!75!black,line width=1.25pt] (-4.52,0.88) -- (-4.52,1.47);
+
+		\node[red!75!black,anchor=west,font=\normalsize] at (-4.22,1.30) {\(r(x)=|y|\)};
+		\node[black!65] at (-4.52,-0.13) {\(x\)};
+
+		\node[blue!65!black,font=\normalsize] at (-5.25,-0.82)
+		{\(\displaystyle \frac{x^2}{a^2}+\frac{y^2}{b^2}=1\)};
+
+		% =========================================================
+		% 中间：截面圆盘
+		% =========================================================
+		\node[font=\bfseries\large,green!45!black] at (-1.42,2.18) {截面圆盘};
+
+		\fill[green!6] (-1.42,0.88) circle (0.80);
+		\draw[green!50!black,line width=0.95pt] (-1.42,0.88) circle (0.80);
+
+		\fill[green!50!black] (-1.42,0.88) circle (1.35pt);
+		\draw[green!55!black,line width=1pt] (-1.42,0.88) -- (-0.62,0.88);
+		\node[green!45!black,anchor=south,font=\normalsize] at (-1.02,0.94) {\(r(x)\)};
+
+		\node[green!45!black,font=\normalsize] at (-1.42,-0.82)
+		{\(\displaystyle S(x)=\pi r(x)^2\)};
+
+		% =========================================================
+		% 右侧：公式推导盒
+		% 关键改动：用 anchor=north 固定盒子顶边，不再用中心点定位
+		% =========================================================
+		\node[formulaBox,anchor=north,text width=4.75cm] at (4.25,2.55)
+		{
+			{\bfseries 半径先变面积}\\[8pt]
+			\(\begin{aligned}
+				r(x) & =b\sqrt{1-\frac{x^2}{a^2}}             \\[9pt]
+				S(x) & =\pi r(x)^2                            \\[9pt]
+				S(x) & =\pi b^2\left(1-\frac{x^2}{a^2}\right)
+			\end{aligned}\)
+		};
+
+		% =========================================================
+		% 箭头：文字和公式标签分层，避免挤压
+		% =========================================================
+		\draw[mainarrow] (-3.34,0.88) -- (-2.42,0.88)
+		node[midway,below=7pt,font=\scriptsize,black!70] {绕 \(x\) 轴旋转};
+
+		\draw[mainarrow] (-0.52,0.88) -- (1.55,0.88)
+		node[midway,above=8pt,font=\scriptsize,black!70] {取面积函数};
+
+		% =========================================================
+		% 底部关键提示：固定顶边，和主体、图注都保持距离
+		% =========================================================
+		\node[note,anchor=north,text width=12.35cm] at (0,-2.12)
+		{
+			\textbf{关键：}绕 \(x\) 轴旋转时，垂直于 \(x\) 轴的截面是圆；\\[3pt]
+			圆面积要平方半径，所以 \(y\) 方向半轴 \(b\) 在体积公式中变成 \(b^2\)。
+		};
+
+		% 图注：独立一行，不再被提示框压住
+		\node[font=\small,black!80] at (0,-4.08)
+		{图：为什么是 \(ab^2\)，不是 \(a^2b\)，也不是 \(ab\)？};
+
+	\end{tikzpicture}
+\end{center}

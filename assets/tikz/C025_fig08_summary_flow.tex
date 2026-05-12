@@ -1,0 +1,187 @@
+% fig08_summary_flow_clean_v6.tex
+% 用法：主文件提前加载：
+% \usepackage{tikz,amsmath,graphicx}
+% \usetikzlibrary{arrows.meta,positioning,calc}
+
+\begin{center}
+	\begin{tikzpicture}[
+			x=1cm,
+			y=1cm,
+			>=Stealth,
+			line cap=round,
+			line join=round,
+			every node/.style={font=\small},
+			flowline/.style={
+					line width=0.9pt,
+					blue!70!black
+				},
+			arrow/.style={
+					->,
+					line width=0.9pt,
+					blue!70!black,
+					shorten >=2pt,
+					shorten <=2pt
+				},
+			topbox/.style={
+					draw=blue!65!black,
+					fill=blue!3,
+					rounded corners=7pt,
+					line width=0.95pt,
+					align=center,
+					minimum height=1.35cm,
+					inner xsep=8pt,
+					inner ysep=7pt
+				},
+			formulaBox/.style={
+					draw=blue!65!black,
+					fill=blue!3,
+					rounded corners=7pt,
+					line width=0.95pt,
+					align=center,
+					minimum width=3.55cm,
+					minimum height=1.65cm,
+					inner xsep=8pt,
+					inner ysep=7pt
+				},
+			readBox/.style={
+					draw=blue!65!black,
+					fill=blue!3,
+					rounded corners=7pt,
+					line width=0.95pt,
+					align=center,
+					minimum width=3.55cm,
+					minimum height=1.95cm,
+					inner xsep=8pt,
+					inner ysep=7pt
+				},
+			judgeBox/.style={
+					draw=red!55!black,
+					fill=red!3,
+					rounded corners=7pt,
+					line width=0.95pt,
+					align=center,
+					minimum width=3.55cm,
+					minimum height=0.95cm,
+					inner xsep=8pt,
+					inner ysep=6pt,
+					font=\small\bfseries
+				},
+			resultX/.style={
+					draw=green!50!black,
+					fill=green!4,
+					rounded corners=7pt,
+					line width=1pt,
+					align=center,
+					text width=4.65cm,
+					minimum height=2.65cm,
+					inner xsep=10pt,
+					inner ysep=9pt
+				},
+			resultY/.style={
+					draw=orange!70!black,
+					fill=orange!5,
+					rounded corners=7pt,
+					line width=1pt,
+					align=center,
+					text width=4.65cm,
+					minimum height=2.65cm,
+					inner xsep=10pt,
+					inner ysep=9pt
+				},
+			noteBox/.style={
+					draw=red!55!black,
+					fill=red!3,
+					rounded corners=7pt,
+					line width=0.95pt,
+					align=center,
+					text width=11.15cm,
+					minimum height=1.25cm,
+					inner xsep=12pt,
+					inner ysep=8pt
+				},
+			arrowLabel/.style={
+					font=\scriptsize,
+					fill=white,
+					inner xsep=3pt,
+					inner ysep=1pt,
+					text=black!65
+				}
+		]
+
+		% ===================== 标题 =====================
+		\node[
+			font=\Large\bfseries,
+			text=blue!60!black
+		] at (6.2,7.05)
+		{一图流总结：先标准，后读轴，再看旋转轴};
+
+		% ===================== 第一层：标准化与读轴 =====================
+		\node[topbox, minimum width=3.1cm] (origin) at (1.55,5.55)
+		{原方程\\[4pt]
+		{\normalsize 可能不是标准式}};
+
+		\node[formulaBox] (standard) at (6.2,5.55)
+		{化为标准式\\[3pt]
+			\(\displaystyle \frac{x^2}{a^2}+\frac{y^2}{b^2}=1\)};
+
+		\node[readBox] (read) at (10.85,5.55)
+		{读半轴\\[4pt]
+			\(\displaystyle a:\ x\text{ 方向}\)\\[3pt]
+			\(\displaystyle b:\ y\text{ 方向}\)};
+
+		\draw[arrow]
+		(origin.east) -- node[arrowLabel, above] {右边化为 \(1\)}
+		(standard.west);
+
+		\draw[arrow]
+		(standard.east) -- node[arrowLabel, above] {看分母}
+		(read.west);
+
+		% ===================== 第二层：判断旋转轴 =====================
+		\node[judgeBox] (judge) at (6.2,3.70)
+		{判断旋转轴};
+
+		\draw[arrow] (standard.south) -- (judge.north);
+
+		% ===================== 第三层：两个结论卡片 =====================
+		% 关键：用 anchor=north 固定卡片上边界。
+		% 这样即使中文字体导致卡片变高，也只会向下扩展，不会向上顶到箭头。
+
+		\node[resultX, anchor=north] (xaxis) at (3.15,2.20)
+		{{\bfseries 绕 \(x\) 轴}\\[5pt]
+		截面半径来自 \(y\) 方向\\[7pt]
+		\(\displaystyle V_x=\frac{4}{3}\pi ab^2\)\\[4pt]
+		{\scriptsize \(x\) 方向半轴 \(a\) 只出现一次}};
+
+		\node[resultY, anchor=north] (yaxis) at (9.25,2.20)
+		{{\bfseries 绕 \(y\) 轴}\\[5pt]
+		截面半径来自 \(x\) 方向\\[7pt]
+		\(\displaystyle V_y=\frac{4}{3}\pi a^2b\)\\[4pt]
+		{\scriptsize \(y\) 方向半轴 \(b\) 只出现一次}};
+
+		% 分叉线：不要再在线上写“绕 x 轴 / 绕 y 轴”，避免遮挡。
+		\coordinate (split)     at (6.2,2.72);
+		\coordinate (leftDrop)  at (3.15,2.72);
+		\coordinate (rightDrop) at (9.25,2.72);
+
+		\draw[arrow]    (judge.south) -- (split);
+		\draw[flowline] (leftDrop) -- (rightDrop);
+		\draw[arrow]    (leftDrop) -- (xaxis.north);
+		\draw[arrow]    (rightDrop) -- (yaxis.north);
+
+		% ===================== 第四层：口诀 =====================
+		\node[noteBox, anchor=north] (note) at (6.2,-1.25)
+		{{\bfseries 口诀：}
+			绕哪条轴，哪条轴方向的半轴只出现一次；\quad
+			垂直于旋转轴的方向作为圆半径，进入面积时要平方。};
+
+		% ===================== 图注 =====================
+		\node[
+			font=\small,
+			text=black!65,
+			anchor=north
+		] at (6.2,-2.75)
+		{图：一图流总结卡};
+
+	\end{tikzpicture}
+\end{center}

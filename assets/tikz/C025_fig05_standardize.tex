@@ -1,0 +1,101 @@
+% fig05_standardize_fixed.tex
+% 用法：在主文件中提前加载 \usepackage{tikz,amsmath}
+% 然后 \input{figures/fig05_standardize_fixed.tex}
+% 说明：这是 TikZ 片段，不包含 \documentclass、\begin{document}、\end{document}。
+
+\begin{center}
+	\begin{tikzpicture}[
+			x=1cm,
+			y=1cm,
+			>=stealth,
+			line cap=round,
+			line join=round,
+			every node/.style={font=\small},
+			title/.style={font=\bfseries\Large,blue!55!black},
+			bluebox/.style={
+					draw=blue!60!black,
+					fill=blue!6,
+					rounded corners=4pt,
+					line width=0.9pt,
+					minimum height=1.05cm,
+					align=center,
+					inner xsep=8pt,
+					inner ysep=6pt
+				},
+			redbox/.style={
+					draw=red!70!black,
+					fill=red!5,
+					rounded corners=4pt,
+					line width=0.9pt,
+					minimum height=1.05cm,
+					align=center,
+					inner xsep=8pt,
+					inner ysep=6pt
+				},
+			greenbox/.style={
+					draw=green!45!black,
+					fill=green!10,
+					rounded corners=4pt,
+					line width=0.9pt,
+					minimum height=1.10cm,
+					align=center,
+					inner xsep=10pt,
+					inner ysep=7pt
+				},
+			flow/.style={->,red!70!black,line width=1.0pt},
+			flowtext/.style={
+					font=\small,
+					red!70!black,
+					fill=white,
+					inner xsep=2pt,
+					inner ysep=1pt
+				},
+			warn/.style={red!70!black,font=\bfseries\large,align=center}
+		]
+
+		% 防止裁剪
+		\path[use as bounding box] (-6.25,-3.10) rectangle (6.25,2.75);
+
+		% 标题
+		\node[title] at (0,2.25) {非标准方程：先化标准式，再读半轴};
+
+		% ==================================================
+		% 上方三步流程
+		% ==================================================
+		\node[bluebox,minimum width=3.00cm] (eq1) at (-4.20,0.75)
+		{$\displaystyle 4x^2+9y^2=36$};
+
+		\node[bluebox,minimum width=3.25cm] (eq2) at (0,0.75)
+		{$\displaystyle \frac{x^2}{9}+\frac{y^2}{4}=1$};
+
+		\node[redbox,minimum width=2.95cm] (ans) at (4.15,0.75)
+		{$\displaystyle a=3,\ b=2$};
+
+		% 箭头与说明
+		\draw[flow] (eq1.east) -- (eq2.west)
+		node[midway,above=7pt,flowtext] {同除以 $36$};
+
+		\draw[flow] (eq2.east) -- (ans.west)
+		node[midway,above=7pt,flowtext] {看分母};
+
+		% ==================================================
+		% 下方：错误读法 与 正确代入
+		% ==================================================
+		\node[redbox,minimum width=4.25cm] (bad) at (-2.65,-1.05)
+		{错误读法：$\displaystyle a=2,\ b=3$};
+
+		% 红叉
+		\draw[red!70!black,line width=1.25pt] (-4.10,-1.42)--(-1.20,-0.68);
+		\draw[red!70!black,line width=1.25pt] (-4.10,-0.68)--(-1.20,-1.42);
+
+		\node[greenbox,minimum width=4.35cm] (good) at (2.70,-1.05)
+		{$\displaystyle V=\frac{4}{3}\pi\cdot 3\cdot 2^2=16\pi$};
+
+		% ==================================================
+		% 底部提醒
+		% ==================================================
+		\node[warn] at (0,-2.35)
+		{等式右边必须先变成 $1$，不能直接从系数读半轴};
+
+	\end{tikzpicture}
+\end{center}

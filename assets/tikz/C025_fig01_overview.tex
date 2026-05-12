@@ -1,0 +1,116 @@
+% fig01_overview_fixed.tex
+% 用法：在主文件中提前加载 \usepackage{tikz,amsmath}
+% 然后 \input{figures/fig01_overview_fixed.tex}
+% 说明：这是 TikZ 片段，不包含 \documentclass、\begin{document}、\end{document}。
+
+\begin{center}
+	\begin{tikzpicture}[
+			x=1cm,
+			y=1cm,
+			>=stealth,
+			line cap=round,
+			line join=round,
+			every node/.style={font=\small},
+			title/.style={font=\bfseries\Large,blue!50!black},
+			axis/.style={->,line width=0.8pt,black},
+			dim/.style={<->,blue!60!black,line width=0.8pt},
+			body/.style={blue!55!black,line width=0.95pt},
+			guide/.style={blue!45!black,dashed,line width=0.7pt},
+			rednote/.style={red!70!black}
+		]
+
+		% 扩大整体边界，防止裁剪
+		\path[use as bounding box] (-3.10,-3.30) rectangle (11.10,2.90);
+
+		% ==================================================
+		% 左侧：二维椭圆
+		% ==================================================
+		\begin{scope}[shift={(0,0)}]
+
+			% 标题
+			\node[title] at (0,2.45) {二维椭圆};
+
+			% 椭圆本体
+			\fill[blue!6] (0,0) ellipse (2.15 and 1.10);
+			\draw[body] (0,0) ellipse (2.15 and 1.10);
+
+			% 坐标轴
+			\draw[axis] (-2.75,0)--(2.80,0);
+			\node at (2.95,0.16) {$x$};
+
+			\draw[axis] (0,-1.58)--(0,1.60);
+			\node at (0.18,1.78) {$y$};
+
+			% 尺寸 2a
+			\draw[dim] (-2.15,-1.42)--(2.15,-1.42)
+			node[midway,above=3pt,fill=blue!6,inner xsep=2pt,inner ysep=1pt] {$2a$};
+
+			% 尺寸 2b
+			\draw[dim] (0,-1.10)--(0,1.10)
+			node[midway,right=7pt,fill=blue!6,inner xsep=2pt,inner ysep=1pt] {$2b$};
+
+			% 左图内部旋转提示
+			\draw[rednote,line width=0.85pt,->]
+			(1.72,0.50)
+			arc[start angle=25,end angle=-235,x radius=0.35,y radius=0.58];
+
+			% 方程
+			\node[align=center] at (0,-2.32)
+			{$\displaystyle \frac{x^2}{a^2}+\frac{y^2}{b^2}=1$};
+
+		\end{scope}
+
+		% ==================================================
+		% 中间说明：绕 x 轴旋转一周
+		% ==================================================
+		\node[rednote,align=center,font=\small] at (3.95,1.02)
+		{绕 $x$ 轴\\旋转一周};
+
+		% 红色箭头：缩短并左移，避免遮挡右侧图形
+		\draw[->,rednote,line width=1.15pt] (3.45,0.00)--(4.70,0.00);
+
+		% ==================================================
+		% 右侧：旋转椭球体
+		% ==================================================
+		\begin{scope}[shift={(7.65,0)}]
+
+			% 标题
+			\node[title] at (0,2.45) {旋转椭球体};
+
+			% 外轮廓
+			\fill[blue!6] (0,0) ellipse (2.35 and 1.10);
+			\draw[body] (0,0) ellipse (2.35 and 1.10);
+
+			% 中间竖向虚截面
+			\draw[guide] (0,0) ellipse (0.30 and 1.10);
+
+			% 水平“赤道”截面：后半虚线，前半实线
+			\draw[blue!35!black,dashed,line width=0.6pt]
+			(-2.35,0) arc[start angle=180,end angle=360,x radius=2.35,y radius=0.26];
+
+			\draw[blue!35!black,line width=0.6pt]
+			(2.35,0) arc[start angle=0,end angle=180,x radius=2.35,y radius=0.26];
+
+			% x 轴
+			\draw[axis] (-2.85,0)--(3.05,0);
+			\node at (3.22,0.16) {$x$};
+
+			% 尺寸 2a
+			\draw[dim] (-2.35,-1.42)--(2.35,-1.42)
+			node[midway,above=3pt,fill=blue!6,inner xsep=2pt,inner ysep=1pt] {$2a$};
+
+			% 尺寸 2b
+			\draw[dim] (0,-1.10)--(0,1.10)
+			node[midway,right=7pt,fill=blue!6,inner xsep=2pt,inner ysep=1pt] {$2b$};
+
+			% 说明文字
+			\node[align=center] at (0,-2.12) {三轴半长：$a,b,b$};
+
+			% 体积公式
+			\node[red!70!black,font=\bfseries] at (0,-2.62)
+			{$\displaystyle V=\frac{4}{3}\pi ab^2$};
+
+		\end{scope}
+
+	\end{tikzpicture}
+\end{center}
