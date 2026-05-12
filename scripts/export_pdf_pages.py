@@ -59,7 +59,7 @@ Windows 下如果提示找不到命令，需要把 Poppler 的 bin 目录加入�
     python.exe .\scripts\export_pdf_pages.py .\build\conclusion_pdfs\C024_ellipse_perimeter_ramanujan.pdf --pages 7 --dpi 400 --out-dir images --xhs-cover --cover-page 2 --xhs-size 1080x1440 --xhs-fit contain --xhs-margin 48 --format png
 
 2. 推荐高清，优先用这个
-python.exe .\scripts\export_pdf_pages.py .\build\conclusion_pdfs\C024_ellipse_perimeter_ramanujan.pdf --pages 7 --dpi 600 --out-dir images --xhs-cover --cover-page 2 --xhs-size 2160x2880 --xhs-fit contain --xhs-margin 96 --format png
+python.exe .\scripts\export_pdf_pages.py  --pages 7 --dpi 600 --out-dir images --xhs-cover --cover-page 2 --xhs-size 2160x2880 --xhs-fit contain --xhs-margin 96 --format png .\build\conclusion_pdfs\C024_ellipse_perimeter_ramanujan.pdf
 
 3. 超高清，适合极端情况，通常不建议使用，除非你知道你在做什么：
     python.exe .\scripts\export_pdf_pages.py .\build\conclusion_pdfs\C024_ellipse_perimeter_ramanujan.pdf --pages 7 --dpi 800 --out-dir images --xhs-cover --cover-page 2 --xhs-size 3240x4320 --xhs-fit contain --xhs-margin 144 --format png
