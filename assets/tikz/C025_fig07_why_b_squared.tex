@@ -1,6 +1,7 @@
-% C025_fig07_why_b_squared_v5.tex
+% C025_fig07_why_b_squared_v6_stable.tex
 % 用法：主文件提前加载 \usepackage{tikz,amsmath}
 % 说明：这是 TikZ 片段，不包含 \documentclass、\begin{document}、\end{document}
+% 核心改进：公式框和提示框都用固定坐标画，不再让 node 自动决定大框高度。
 
 \begin{center}
 	\begin{tikzpicture}[
@@ -11,106 +12,155 @@
 			line join=round,
 			every node/.style={font=\small},
 			mainarrow/.style={->,line width=0.95pt,blue!65!black},
-			axis/.style={->,line width=0.72pt,black!65},
-			note/.style={
-					draw=red!50!black,
-					rounded corners=5pt,
-					line width=0.85pt,
-					fill=red!3,
-					align=center,
-					inner xsep=10pt,
-					inner ysep=8pt
-				},
-			formulaBox/.style={
-					draw=blue!65!black,
-					rounded corners=7pt,
-					line width=0.95pt,
-					fill=blue!2,
-					align=center,
-					inner xsep=12pt,
-					inner ysep=10pt,
-					font=\small
-				}
+			axis/.style={->,line width=0.72pt,black!65}
 		]
 
-		% 固定画布：用 anchor=north 控制标题和公式框的顶部，避免不同编译环境下重新重叠
-		\path[use as bounding box] (-7.25,-4.45) rectangle (7.25,4.05);
+		% =========================================================
+		% 固定画布
+		% =========================================================
+		\path[use as bounding box] (-7.25,-4.35) rectangle (7.25,4.05);
 
-		% 标题：单独占顶部一行
-		\node[anchor=north,font=\bfseries\Large,blue!65!black] at (0,3.90)
+		% =========================================================
+		% 标题
+		% =========================================================
+		\node[
+			anchor=north,
+			font=\bfseries\Large,
+			blue!65!black
+		] at (0,3.88)
 		{为什么体积公式里是 \(b^2\)？};
 
 		% =========================================================
 		% 左侧：椭圆上一点
 		% =========================================================
-		\node[font=\bfseries\large,blue!70!black] at (-5.25,2.18) {椭圆上一点};
+		\node[
+			font=\bfseries\large,
+			blue!70!black
+		] at (-5.28,2.35)
+		{椭圆上一点};
 
-		\fill[blue!5] (-5.25,0.88) ellipse (1.58 and 0.74);
-		\draw[blue!70!black,line width=0.95pt] (-5.25,0.88) ellipse (1.58 and 0.74);
+		\fill[blue!5] (-5.28,0.95) ellipse (1.55 and 0.72);
+		\draw[blue!70!black,line width=0.95pt] (-5.28,0.95) ellipse (1.55 and 0.72);
 
 		% 坐标轴
-		\draw[axis] (-7.00,0.88) -- (-3.38,0.88) node[below left=-1pt] {\(x\)};
-		\draw[axis] (-5.25,-0.10) -- (-5.25,1.88) node[left] {\(y\)};
+		\draw[axis] (-7.00,0.95) -- (-3.45,0.95)
+		node[below left=-1pt] {\(x\)};
+		\draw[axis] (-5.28,-0.05) -- (-5.28,1.88)
+		node[left] {\(y\)};
 
-		% 固定横坐标 x 处的半径 r(x)
-		\draw[dashed,black!50,line width=0.7pt] (-4.52,0.18) -- (-4.52,1.55);
-		\draw[red!75!black,line width=1.25pt] (-4.52,0.88) -- (-4.52,1.47);
+		% 固定横坐标 x 的竖线
+		\draw[dashed,black!50,line width=0.7pt] (-4.56,0.25) -- (-4.56,1.58);
+		\draw[red!75!black,line width=1.25pt] (-4.56,0.95) -- (-4.56,1.50);
 
-		\node[red!75!black,anchor=west,font=\normalsize] at (-4.22,1.30) {\(r(x)=|y|\)};
-		\node[black!65] at (-4.52,-0.13) {\(x\)};
+		\node[
+			red!75!black,
+			anchor=west,
+			font=\normalsize
+		] at (-4.24,1.36)
+		{\(r(x)=|y|\)};
 
-		\node[blue!65!black,font=\normalsize] at (-5.25,-0.82)
+		\node[black!65] at (-4.56,-0.13) {\(x\)};
+
+		\node[
+			blue!65!black,
+			font=\normalsize
+		] at (-5.28,-0.82)
 		{\(\displaystyle \frac{x^2}{a^2}+\frac{y^2}{b^2}=1\)};
 
 		% =========================================================
 		% 中间：截面圆盘
 		% =========================================================
-		\node[font=\bfseries\large,green!45!black] at (-1.42,2.18) {截面圆盘};
+		\node[
+			font=\bfseries\large,
+			green!45!black
+		] at (-1.55,2.35)
+		{截面圆盘};
 
-		\fill[green!6] (-1.42,0.88) circle (0.80);
-		\draw[green!50!black,line width=0.95pt] (-1.42,0.88) circle (0.80);
+		\fill[green!6] (-1.55,0.95) circle (0.78);
+		\draw[green!50!black,line width=0.95pt] (-1.55,0.95) circle (0.78);
 
-		\fill[green!50!black] (-1.42,0.88) circle (1.35pt);
-		\draw[green!55!black,line width=1pt] (-1.42,0.88) -- (-0.62,0.88);
-		\node[green!45!black,anchor=south,font=\normalsize] at (-1.02,0.94) {\(r(x)\)};
+		\fill[green!50!black] (-1.55,0.95) circle (1.35pt);
+		\draw[green!55!black,line width=1pt] (-1.55,0.95) -- (-0.77,0.95);
 
-		\node[green!45!black,font=\normalsize] at (-1.42,-0.82)
+		\node[
+			green!45!black,
+			anchor=south,
+			font=\normalsize
+		] at (-1.16,1.02)
+		{\(r(x)\)};
+
+		\node[
+			green!45!black,
+			font=\normalsize
+		] at (-1.55,-0.82)
 		{\(\displaystyle S(x)=\pi r(x)^2\)};
 
 		% =========================================================
-		% 右侧：公式推导盒
-		% 关键改动：用 anchor=north 固定盒子顶边，不再用中心点定位
+		% 右侧：固定尺寸公式框
+		% 不再使用自动高度 node，避免不同编译环境下高度变化
 		% =========================================================
-		\node[formulaBox,anchor=north,text width=4.75cm] at (4.25,2.55)
-		{
-			{\bfseries 半径先变面积}\\[8pt]
-			\(\begin{aligned}
-				r(x) & =b\sqrt{1-\frac{x^2}{a^2}}             \\[9pt]
-				S(x) & =\pi r(x)^2                            \\[9pt]
-				S(x) & =\pi b^2\left(1-\frac{x^2}{a^2}\right)
-			\end{aligned}\)
-		};
+		\draw[
+			draw=blue!65!black,
+			rounded corners=7pt,
+			line width=0.95pt,
+			fill=blue!2
+		] (1.80,-1.55) rectangle (6.95,2.55);
+
+		\node[
+			font=\bfseries\normalsize,
+			black
+		] at (4.38,2.12)
+		{半径先变面积};
+
+		\node[font=\small] at (4.38,1.25)
+		{\(\displaystyle r(x)=b\sqrt{1-\frac{x^2}{a^2}}\)};
+
+		\node[font=\small] at (4.38,0.25)
+		{\(\displaystyle S(x)=\pi r(x)^2\)};
+
+		\node[font=\small] at (4.38,-0.85)
+		{\(\displaystyle S(x)=\pi b^2\left(1-\frac{x^2}{a^2}\right)\)};
 
 		% =========================================================
-		% 箭头：文字和公式标签分层，避免挤压
+		% 箭头
 		% =========================================================
-		\draw[mainarrow] (-3.34,0.88) -- (-2.42,0.88)
-		node[midway,below=7pt,font=\scriptsize,black!70] {绕 \(x\) 轴旋转};
+		\draw[mainarrow] (-3.43,0.95) -- (-2.48,0.95)
+		node[midway,below=7pt,font=\scriptsize,black!70]
+		{绕 \(x\) 轴旋转};
 
-		\draw[mainarrow] (-0.52,0.88) -- (1.55,0.88)
-		node[midway,above=8pt,font=\scriptsize,black!70] {取面积函数};
+		\draw[mainarrow] (-0.77,0.95) -- (1.80,0.95)
+		node[midway,above=8pt,font=\scriptsize,black!70]
+		{取面积函数};
 
 		% =========================================================
-		% 底部关键提示：固定顶边，和主体、图注都保持距离
+		% 底部关键提示框：固定尺寸
 		% =========================================================
-		\node[note,anchor=north,text width=12.35cm] at (0,-2.12)
-		{
-			\textbf{关键：}绕 \(x\) 轴旋转时，垂直于 \(x\) 轴的截面是圆；\\[3pt]
-			圆面积要平方半径，所以 \(y\) 方向半轴 \(b\) 在体积公式中变成 \(b^2\)。
-		};
+		\draw[
+			draw=red!50!black,
+			rounded corners=5pt,
+			line width=0.85pt,
+			fill=red!3
+		] (-6.30,-3.28) rectangle (6.30,-2.15);
 
-		% 图注：独立一行，不再被提示框压住
-		\node[font=\small,black!80] at (0,-4.08)
+		\node[
+			font=\normalsize,
+			align=center
+		] at (0,-2.58)
+		{\textbf{关键：}绕 \(x\) 轴旋转时，垂直于 \(x\) 轴的截面是圆；};
+
+		\node[
+			font=\normalsize,
+			align=center
+		] at (0,-3.02)
+		{圆面积要平方半径，所以 \(y\) 方向半轴 \(b\) 在体积公式中变成 \(b^2\)。};
+
+		% =========================================================
+		% 图注
+		% =========================================================
+		\node[
+			font=\small,
+			black!80
+		] at (0,-3.95)
 		{图：为什么是 \(ab^2\)，不是 \(a^2b\)，也不是 \(ab\)？};
 
 	\end{tikzpicture}
