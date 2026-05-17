@@ -1,5 +1,5 @@
 % surface_area_revolution_trap.tikz
-% 旋转曲面面积公式易错点示意图
+% 旋转曲面面积公式易错点示意图（继续优化：左右两块主体内容整体下移，避免坐标轴 y 与上方文字重合）
 
 \begin{tikzpicture}[
   x=1cm,y=1cm,
@@ -14,11 +14,13 @@
                  fill=red!2, inner sep=4pt, align=center}
 ]
 
-\path[use as bounding box] (0,0) rectangle (15.2,7.8);
+\path[use as bounding box] (0,-0.32) rectangle (15.2,7.8);
 
 % 标题
 \node[font=\sffamily\bfseries\LARGE, text=blue!75!black] at (7.6,7.45)
 {为什么不是 $2\pi y\,dx$，而是 $2\pi y\,ds$？};
+
+\begin{scope}[yshift=-0.32cm]
 
 % 主面板
 \draw[panel] (0.25,1.08) rectangle (7.25,6.82);
@@ -29,9 +31,10 @@
   (7.35,3.85) -- (7.85,3.85);
 
 % =================================================
-% 左面板：错误直觉
+% 左面板：错误直觉（整体下移）
 % =================================================
-\node[anchor=west] at (0.55,6.25) {曲线 $y=f(x)$ 上一点绕 $x$ 轴旋转：};
+\begin{scope}[yshift=-0.28cm]
+\node[anchor=west] at (0.55,6.40) {曲线 $y=f(x)$ 上一点绕 $x$ 轴旋转：};
 
 % 坐标图
 \draw[->, line width=0.75pt] (0.75,3.72) -- (3.28,3.72) node[right] {$x$};
@@ -67,11 +70,13 @@
 {只是{\color{red!80!black}长度}，不是面积。};
 \node[redbox, text width=4.65cm] at (3.78,1.72)
 {只把圆周长相加，少乘了“{\color{red!80!black}条带宽度}”。};
+\end{scope}
 
 % =================================================
-% 右面板：正确理解
+% 右面板：正确理解（整体下移）
 % =================================================
-\node[anchor=west] at (8.25,6.25) {取曲线的一小段弧：};
+\begin{scope}[yshift=-0.28cm]
+\node[anchor=west] at (8.25,6.40) {取曲线的一小段弧：};
 
 % 曲线小段
 \draw[->, line width=0.75pt] (8.35,3.82) -- (10.92,3.82) node[right] {$x$};
@@ -118,12 +123,13 @@
 {旋转后近似成为圆台侧面。};
 
 % 公式区
-\node[formula, font=\sffamily\normalsize] at (9.35,2.78)
+\node[formula, font=\sffamily\normalsize] at (9.18,2.86)
 {$dS=2\pi y\,{\color{red!80!black}ds}$};
-\node[formula, text width=3.25cm] at (12.65,2.78)
+\node[formula, text width=3.12cm] at (12.78,2.86)
 {$\displaystyle ds=\sqrt{dx^2+dy^2}$};
-\node[formula, font=\sffamily\normalsize, text width=5.50cm] at (11.15,1.68)
+\node[formula, font=\sffamily\normalsize, text width=5.10cm, inner sep=3pt] at (11.15,1.98)
 {$\displaystyle S=2\pi\int y\sqrt{1+(y')^2}\,dx$};
+\end{scope}
 
 % =================================================
 % 底部总结
@@ -135,5 +141,7 @@
 {不是把“圆周长”直接相加，而是用 “{\color{blue!75!black}圆周长 $\times$ 曲线小段长度 $ds$}”。};
 \node[anchor=east, text=blue!75!black] at (14.60,0.52)
 {水平时才有 $ds=dx$};
+
+\end{scope}
 
 \end{tikzpicture}
