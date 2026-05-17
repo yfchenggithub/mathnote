@@ -1,0 +1,446 @@
+\begin{proofbox}
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	旋转曲面的面积公式为
+	\[
+		S
+		=
+		2\pi\int y\sqrt{1+(y')^{2}}\,dx.
+	\]
+
+	将椭圆方程
+	\[
+		\frac{x^{2}}{a^{2}}+\frac{y^{2}}{b^{2}}=1
+	\]
+	代入并化简，再根据 $a$ 与 $b$ 的大小关系分类讨论。
+
+	当 $a>b$ 时，用三角代换，得到含 $\arcsin$ 的公式；当 $a<b$ 时，用双曲代换，得到含 $\operatorname{artanh}$ 的公式；当 $a=b$ 时，退化为球，直接得到 $4\pi R^{2}$。
+
+	\medskip
+
+	\textbf{\textcolor{CProof}{正式推导}}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+
+		\item[\textbf{步骤一（建立积分）：}]
+		      椭圆上半部分可以写成
+		      \[
+			      y
+			      =
+			      b\sqrt{1-\frac{x^{2}}{a^{2}}}.
+		      \]
+
+		      它绕 $x$ 轴旋转一周形成旋转椭球面。
+
+		      根据旋转曲面面积公式，有
+		      \[
+			      S
+			      =
+			      2\pi\int_{-a}^{a}
+			      y\sqrt{1+(y')^{2}}\,dx.
+		      \]
+
+		\item[\textbf{步骤二（化简被积函数）：}]
+		      由
+		      \[
+			      y
+			      =
+			      b\sqrt{1-\frac{x^{2}}{a^{2}}}
+			      =
+			      \frac{b}{a}\sqrt{a^{2}-x^{2}},
+		      \]
+		      可计算出 $y'$，并进一步化简得到
+		      \[
+			      y\sqrt{1+(y')^{2}}
+			      =
+			      \frac{b}{a^{2}}
+			      \sqrt{a^{4}-(a^{2}-b^{2})x^{2}}.
+		      \]
+
+		      因此
+		      \[
+			      S
+			      =
+			      \frac{2\pi b}{a^{2}}
+			      \int_{-a}^{a}
+			      \sqrt{a^{4}-(a^{2}-b^{2})x^{2}}\,dx.
+		      \]
+
+		      记
+		      \[
+			      I
+			      =
+			      \int_{-a}^{a}
+			      \sqrt{a^{4}-(a^{2}-b^{2})x^{2}}\,dx,
+		      \]
+		      则
+		      \[
+			      S
+			      =
+			      \frac{2\pi b}{a^{2}}I.
+		      \]
+
+		\item[\textbf{步骤三（分类讨论）：}]
+		      令
+		      \[
+			      \Delta=a^{2}-b^{2}.
+		      \]
+
+		      根据 $\Delta$ 的符号，分三种情况：
+		      \[
+			      \Delta>0,\qquad \Delta<0,\qquad \Delta=0.
+		      \]
+
+	\end{description}
+
+	\medskip
+
+	\textbf{\textcolor{CProof}{情形一：$a>b$}}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+
+		\item[\textbf{步骤四（三角代换）：}]
+		      当 $a>b$ 时，令
+		      \[
+			      c=\sqrt{a^{2}-b^{2}}>0.
+		      \]
+
+		      则
+		      \[
+			      e=\frac{c}{a}
+			      =
+			      \sqrt{1-\frac{b^{2}}{a^{2}}}.
+		      \]
+
+		      此时
+		      \[
+			      I
+			      =
+			      \int_{-a}^{a}
+			      \sqrt{a^{4}-c^{2}x^{2}}\,dx.
+		      \]
+
+		      由于被积函数是偶函数，所以
+		      \[
+			      I
+			      =
+			      2\int_{0}^{a}
+			      \sqrt{a^{4}-c^{2}x^{2}}\,dx.
+		      \]
+
+		      作三角代换
+		      \[
+			      x=\frac{a^{2}}{c}\sin\theta,
+			      \qquad
+			      dx=\frac{a^{2}}{c}\cos\theta\,d\theta.
+		      \]
+
+		      当 $x=0$ 时，$\theta=0$；当 $x=a$ 时，
+		      \[
+			      \sin\theta=\frac{c}{a}=e,
+			      \qquad
+			      \theta=\arcsin e.
+		      \]
+
+		      同时
+		      \[
+			      \sqrt{a^{4}-c^{2}x^{2}}
+			      =
+			      a^{2}\cos\theta.
+		      \]
+
+		      因此
+		      \[
+			      I
+			      =
+			      \frac{2a^{4}}{c}
+			      \int_{0}^{\arcsin e}
+			      \cos^{2}\theta\,d\theta.
+		      \]
+
+		\item[\textbf{步骤五（积分回代）：}]
+		      因为
+		      \[
+			      \int \cos^{2}\theta\,d\theta
+			      =
+			      \frac12(\theta+\sin\theta\cos\theta),
+		      \]
+		      所以
+		      \[
+			      \int_{0}^{\arcsin e}
+			      \cos^{2}\theta\,d\theta
+			      =
+			      \frac12
+			      \left(
+			      \arcsin e
+			      +
+			      e\cdot \frac{b}{a}
+			      \right).
+		      \]
+
+		      于是
+		      \[
+			      I
+			      =
+			      \frac{a^{4}}{c}
+			      \left(
+			      \arcsin e+\frac{eb}{a}
+			      \right).
+		      \]
+
+		      代入
+		      \[
+			      S=\frac{2\pi b}{a^{2}}I
+		      \]
+		      并利用 $c=ae$，可得
+		      \[
+			      S
+			      =
+			      2\pi b^{2}
+			      +
+			      \frac{2\pi ab}{e}\arcsin e.
+		      \]
+
+		      因此，当 $a>b$ 时，
+		      \[
+			      \boxed{
+				      S
+				      =
+				      2\pi b^{2}
+				      +
+				      \frac{2\pi ab}{e}\arcsin e
+			      },
+			      \qquad
+			      e=\sqrt{1-\frac{b^{2}}{a^{2}}}.
+		      \]
+
+	\end{description}
+
+	\medskip
+
+	\textbf{\textcolor{CProof}{情形二：$a<b$}}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+
+		\item[\textbf{步骤六（双曲代换）：}]
+		      当 $a<b$ 时，令
+		      \[
+			      d=\sqrt{b^{2}-a^{2}}>0.
+		      \]
+
+		      则
+		      \[
+			      e=\frac{d}{b}
+			      =
+			      \sqrt{1-\frac{a^{2}}{b^{2}}}.
+		      \]
+
+		      此时
+		      \[
+			      I
+			      =
+			      \int_{-a}^{a}
+			      \sqrt{a^{4}+d^{2}x^{2}}\,dx.
+		      \]
+
+		      由于被积函数是偶函数，所以
+		      \[
+			      I
+			      =
+			      2\int_{0}^{a}
+			      \sqrt{a^{4}+d^{2}x^{2}}\,dx.
+		      \]
+
+		      作双曲代换
+		      \[
+			      x=\frac{a^{2}}{d}\sinh t,
+			      \qquad
+			      dx=\frac{a^{2}}{d}\cosh t\,dt.
+		      \]
+
+		      当 $x=0$ 时，$t=0$；当 $x=a$ 时，
+		      \[
+			      \sinh t=\frac{d}{a},
+			      \qquad
+			      t=\operatorname{arsinh}\frac{d}{a}.
+		      \]
+
+		      同时
+		      \[
+			      \sqrt{a^{4}+d^{2}x^{2}}
+			      =
+			      a^{2}\cosh t.
+		      \]
+
+		      因此
+		      \[
+			      I
+			      =
+			      \frac{2a^{4}}{d}
+			      \int_{0}^{\operatorname{arsinh}(d/a)}
+			      \cosh^{2}t\,dt.
+		      \]
+
+		\item[\textbf{步骤七（积分回代）：}]
+		      因为
+		      \[
+			      \int \cosh^{2}t\,dt
+			      =
+			      \frac12(t+\sinh t\cosh t),
+		      \]
+		      所以
+		      \[
+			      \int_{0}^{\operatorname{arsinh}(d/a)}
+			      \cosh^{2}t\,dt
+			      =
+			      \frac12
+			      \left(
+			      \operatorname{arsinh}\frac{d}{a}
+			      +
+			      \frac{bd}{a^{2}}
+			      \right).
+		      \]
+
+		      于是
+		      \[
+			      I
+			      =
+			      \frac{a^{4}}{d}
+			      \left(
+			      \operatorname{arsinh}\frac{d}{a}
+			      +
+			      \frac{bd}{a^{2}}
+			      \right).
+		      \]
+
+		      代入
+		      \[
+			      S=\frac{2\pi b}{a^{2}}I
+		      \]
+		      得到
+		      \[
+			      S
+			      =
+			      2\pi b^{2}
+			      +
+			      \frac{2\pi ba^{2}}{d}
+			      \operatorname{arsinh}\frac{d}{a}.
+		      \]
+
+		      又因为
+		      \[
+			      d=be,
+			      \qquad
+			      \operatorname{arsinh}\frac{d}{a}
+			      =
+			      \operatorname{artanh}e,
+		      \]
+		      所以
+		      \[
+			      S
+			      =
+			      2\pi b^{2}
+			      +
+			      \frac{2\pi a^{2}}{e}
+			      \operatorname{artanh}e.
+		      \]
+
+		      因此，当 $a<b$ 时，
+		      \[
+			      \boxed{
+				      S
+				      =
+				      2\pi b^{2}
+				      +
+				      \frac{2\pi a^{2}}{e}
+				      \operatorname{artanh}e
+			      },
+			      \qquad
+			      e=\sqrt{1-\frac{a^{2}}{b^{2}}}.
+		      \]
+
+	\end{description}
+
+	\medskip
+
+	\textbf{\textcolor{CProof}{情形三：$a=b$}}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+
+		\item[\textbf{步骤八（退化为球）：}]
+		      当 $a=b=R$ 时，椭圆退化为圆，绕 $x$ 轴旋转得到半径为 $R$ 的球。
+
+		      此时
+		      \[
+			      I
+			      =
+			      \int_{-R}^{R}R^{2}\,dx
+			      =
+			      2R^{3}.
+		      \]
+
+		      代入
+		      \[
+			      S=\frac{2\pi R}{R^{2}}I
+		      \]
+		      得到
+		      \[
+			      S
+			      =
+			      \frac{2\pi R}{R^{2}}\cdot 2R^{3}
+			      =
+			      4\pi R^{2}.
+		      \]
+
+		      因此，当 $a=b=R$ 时，
+		      \[
+			      \boxed{
+				      S=4\pi R^{2}
+			      }.
+		      \]
+
+	\end{description}
+
+	\medskip
+
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	综上所述，椭圆
+	\[
+		\frac{x^{2}}{a^{2}}+\frac{y^{2}}{b^{2}}=1
+	\]
+	绕 $x$ 轴旋转形成的旋转椭球表面积为：
+
+	\[
+		\begin{cases}
+			\displaystyle
+			S
+			=
+			2\pi b^{2}
+			+
+			\frac{2\pi ab}{e}\arcsin e,
+			 &
+			\displaystyle
+			a>b,\quad
+			e=\sqrt{1-\frac{b^{2}}{a^{2}}},
+			\\[1.2em]
+			\displaystyle
+			S
+			=
+			2\pi b^{2}
+			+
+			\frac{2\pi a^{2}}{e}\operatorname{artanh}e,
+			 &
+			\displaystyle
+			a<b,\quad
+			e=\sqrt{1-\frac{a^{2}}{b^{2}}},
+			\\[1.2em]
+			\displaystyle
+			S=4\pi R^{2},
+			 &
+			a=b=R.
+		\end{cases}
+	\]
+
+\end{proofbox}

@@ -1,0 +1,129 @@
+\begin{explanationbox}
+
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+	旋转椭球表面积等于椭圆曲线绕轴旋转得到的曲面面积。
+
+	也就是说，把椭圆的上半部分绕 $x$ 轴旋转一周，形成一个椭球面，然后用旋转曲面面积公式计算它的面积。
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+
+		\item[\textbf{要点一（公式结构）：}]
+		      旋转椭球表面积公式由两部分组成：
+		      \[
+			      S
+			      =
+			      2\pi b^{2}
+			      +
+			      \text{一个含离心率 } e \text{ 的项}.
+		      \]
+
+		      其中，$2\pi b^{2}$ 是基础面积项；含 $e$ 的部分反映长短轴差异带来的修正。
+
+		\item[\textbf{要点二（参数角色）：}]
+		      椭圆方程为
+		      \[
+			      \frac{x^{2}}{a^{2}}+\frac{y^{2}}{b^{2}}=1,
+		      \]
+		      并且绕 $x$ 轴旋转。
+
+		      因此，$a$ 是旋转轴方向上的半轴，$b$ 是垂直旋转轴方向上的半轴。
+
+		      当 $a>b$ 时，旋转轴方向更长，形成长椭球；当 $a<b$ 时，垂直旋转轴方向更长，形成扁椭球；当 $a=b$ 时，椭圆变成圆，旋转后得到球。
+
+	\end{description}
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{几何本质（面积积分）}}
+
+	旋转曲面的面积来自公式
+	\[
+		S
+		=
+		2\pi\int y\sqrt{1+(y')^{2}}\,dx.
+	\]
+
+	对椭圆
+	\[
+		y=b\sqrt{1-\frac{x^{2}}{a^{2}}},
+	\]
+	代入后，被积函数可以化简为
+	\[
+		y\sqrt{1+(y')^{2}}
+		=
+		\frac{b}{a^{2}}
+		\sqrt{a^{4}-(a^{2}-b^{2})x^{2}}.
+	\]
+
+	所以表面积的核心就是计算定积分
+	\[
+		\int_{-a}^{a}
+		\sqrt{a^{4}-(a^{2}-b^{2})x^{2}}\,dx.
+	\]
+
+	当 $a>b$ 时，根号内是减号结构，适合三角代换，所以结果中出现 $\arcsin$。
+
+	当 $a<b$ 时，根号内变成加号结构，适合双曲代换，所以结果中出现 $\operatorname{artanh}$。
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{代数意义（函数形式）}}
+
+	旋转椭球表面积公式可以统一理解为
+	\[
+		S
+		=
+		2\pi b^{2}
+		+
+		2\pi\times \text{含离心率 } e \text{ 的修正项}.
+	\]
+
+	长椭球情形中，修正项通过三角代换得到，所以出现 $\arcsin e$。
+
+	扁椭球情形中，修正项通过双曲代换得到，所以出现 $\operatorname{artanh} e$。
+
+	这说明旋转椭球表面积虽然来自积分，但在这两类特殊旋转椭球中，可以写成初等函数形式。
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{考点价值}}
+
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（直接套用）：}
+		      给出椭圆方程和旋转轴，先判断 $a$ 与 $b$ 的大小关系，然后选择对应公式计算表面积。
+
+		\item \textbf{考法二（参数反求）：}
+		      如果已知表面积，并给出 $a,b$ 之间的关系，例如 $a=2b$，则可以代入公式列方程，进一步求半轴长或离心率。
+	\end{itemize}
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	当 $a=b=R$ 时，椭圆退化为圆，旋转椭球退化为球。
+
+	此时椭球表面积公式应退化为球的表面积公式：
+	\[
+		S=4\pi R^{2}.
+	\]
+
+	因此，旋转椭球表面积公式可以看作是球面积公式的推广。
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{使用场景}}
+
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（天体物理）：}
+		      可以用来估算旋转天体的表面积，例如行星、卫星、小行星等。
+
+		\item \textbf{场景二（工程设计）：}
+		      可以用来计算旋转椭球形容器、天线罩、壳体结构等所需的表面材料面积。
+	\end{itemize}
+
+\end{explanationbox}

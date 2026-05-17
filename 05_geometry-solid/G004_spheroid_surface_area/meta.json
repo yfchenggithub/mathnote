@@ -1,0 +1,190 @@
+{
+  "id": "G004",
+  "module": "geometry-solid",
+  "core": {
+    "title": "旋转椭球表面积公式（长轴/短轴情形）",
+    "alias": [
+      "椭球表面积",
+      "旋转椭球公式",
+      "长椭球表面积",
+      "扁椭球表面积"
+    ],
+    "summary": "椭圆绕x轴旋转所得旋转椭球的表面积，根据长轴是否在旋转轴上，分别用反三角函数或反双曲正切函数计算。",
+    "difficulty": 4,
+    "category": "立体几何",
+    "tags": [
+      "旋转体",
+      "表面积",
+      "椭球",
+      "反三角函数",
+      "反双曲函数",
+      "超纲公式"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "旋转椭球",
+      "椭球表面积",
+      "椭圆旋转体",
+      "长椭球",
+      "扁椭球",
+      "arcsin",
+      "artanh",
+      "反双曲正切",
+      "旋转体表面积",
+      "a>b",
+      "a<b",
+      "离心率",
+      "4πR²",
+      "球表面积"
+    ],
+    "synonyms": [
+      "旋转椭圆表面积",
+      "椭球侧面积",
+      "椭圆旋转后的表面积",
+      "椭圆绕x轴表面积"
+    ],
+    "intents": [
+      "求旋转椭球表面积",
+      "计算椭球表面积",
+      "比较a和b后选公式"
+    ],
+    "query_templates": [
+      "椭球表面积公式",
+      "旋转椭球表面积怎么算",
+      "椭圆绕x轴旋转表面积",
+      "a>b时椭球表面积",
+      "扁椭球表面积"
+    ],
+    "ocrKeywords": [
+      "椭圆",
+      "旋转",
+      "表面积",
+      "arcsin",
+      "artanh",
+      "离心率",
+      "2πb²",
+      "4πR²"
+    ],
+    "latex_patterns": [
+      "S = 2\\pi b^2 + \\frac{2\\pi ab}{e}\\arcsin e",
+      "S = 2\\pi b^2 + \\frac{2\\pi a^2}{e}\\operatorname{artanh} e",
+      "e = \\sqrt{1-\\frac{b^2}{a^2}}",
+      "e = \\sqrt{1-\\frac{a^2}{b^2}}",
+      "\\operatorname{artanh} e = \\frac12\\ln\\frac{1+e}{1-e}"
+    ],
+    "formulaTokens": [
+      "2\\pi b^2",
+      "\\frac{2\\pi ab}{e}\\arcsin e",
+      "2\\pi b^2 + \\frac{2\\pi ab}{e}\\arcsin e",
+      "\\frac{2\\pi a^2}{e}\\operatorname{artanh} e",
+      "2\\pi b^2 + \\frac{2\\pi a^2}{e}\\operatorname{artanh} e",
+      "\\sqrt{1-\\frac{b^2}{a^2}}",
+      "\\sqrt{1-\\frac{a^2}{b^2}}",
+      "\\frac12\\ln\\frac{1+e}{1-e}",
+      "4\\pi R^2"
+    ],
+    "pinyin": "xuanzhuan tuoqiu biaomianji gongshi",
+    "pinyinAbbr": "xztq"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.15,
+    "hot_score": 60,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "S = \\begin{cases} 2\\pi b^2 + \\dfrac{2\\pi ab}{e}\\arcsin e, & a>b,\\\\ 2\\pi b^2 + \\dfrac{2\\pi a^2}{e}\\operatorname{artanh} e, & a<b,\\\\ 4\\pi R^2, & a=b=R.\\n\\end{cases}",
+    "related_formulas": [
+      "e = \\sqrt{1-\\frac{b^2}{a^2}}\\quad(a>b)",
+      "e = \\sqrt{1-\\frac{a^2}{b^2}}\\quad(a<b)",
+      "\\operatorname{artanh} e = \\frac12\\ln\\frac{1+e}{1-e}"
+    ],
+    "variables": {
+      "a": "椭圆x轴半轴长",
+      "b": "椭圆y轴半轴长",
+      "e": "离心率（依情形定义不同）",
+      "R": "球半径（a=b时）",
+      "S": "旋转椭球表面积"
+    },
+    "conditions": [
+      "椭圆标准方程 $\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1$, $a>0$, $b>0$",
+      "旋转轴为x轴",
+      "必须明确a与b的大小关系以选择公式",
+      "a>b时e<1；a<b时e<1"
+    ],
+    "conclusions": [
+      "当a>b时，旋转椭球表面积含arcsin项",
+      "当a<b时，旋转椭球表面积含artanh项",
+      "当a=b时退化为球表面积4πR²"
+    ]
+  },
+  "content": {
+    "statement": "椭圆 $\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1$ 绕 $x$ 轴旋转所得旋转椭球的表面积 $S$：若 $a>b$，则 $S=2\\pi b^2+\\frac{2\\pi ab}{e}\\arcsin e$，其中 $e=\\sqrt{1-\\frac{b^2}{a^2}}$；若 $a<b$，则 $S=2\\pi b^2+\\frac{2\\pi a^2}{e}\\operatorname{artanh} e$，其中 $e=\\sqrt{1-\\frac{a^2}{b^2}}$，$\\operatorname{artanh} e=\\frac12\\ln\\frac{1+e}{1-e}$；若 $a=b=R$，则退化为球面积 $4\\pi R^2$。",
+    "derivation": [
+      "由旋转体表面积积分公式 $S=2\\pi\\int_{-a}^{a}y\\sqrt{1+(y')^2}\\,dx$，其中 $y=b\\sqrt{1-\\frac{x^2}{a^2}}$。",
+      "代入并整理，利用三角换元（$a>b$时用$x=a\\sin t$）或双曲换元（$a<b$时用$x=a\\cosh t$）得到含参数积分。",
+      "化简后得到分别含 $\\arcsin e$ 或 $\\operatorname{artanh} e$ 的封闭形式。"
+    ],
+    "intuition": "椭圆旋转后曲面在不同方向的弯曲程度不同，当长轴在旋转轴上时，旋转体呈橄榄形，积分得到反三角函数；当短轴在旋转轴上时，旋转体呈扁球形，积分自然出现反双曲函数。",
+    "common_tricks": [
+      "先判断a与b的大小，再套用对应公式，防止混淆。",
+      "离心率e的定义因a>b或a<b而异，代入前需重新确认。",
+      "artanh e可转换为对数形式 $\\frac12\\ln\\frac{1+e}{1-e}$，便于数值计算。",
+      "当a=b时直接使用球面积公式，避免代入复杂表达式。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "大学数学或竞赛中旋转体表面积计算",
+      "对椭圆旋转体形状的深入理解",
+      "超纲拓展阅读（高中极少涉及）"
+    ],
+    "problem_types": [
+      "已知椭圆方程求旋转体表面积"
+    ],
+    "exam_frequency": 0.08,
+    "exam_score": 3
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {
+      "a": 5,
+      "b": 3
+    }
+  },
+  "assets": {
+    "svg": "G004.svg",
+    "video": "",
+    "applet": ""
+  },
+  "shareConfig": {
+    "title": "旋转椭球表面积公式：长轴/短轴如何选公式",
+    "shareDesc": "用于课后拓展或竞赛复习。通过椭圆半轴比较，选择对应公式（arcsin或artanh），避免混淆离心率定义，节省积分计算时间。"
+  },
+  "relations": {
+    "prerequisites": [
+      "椭圆标准方程",
+      "旋转体体积/表面积概念",
+      "积分换元法（选修）"
+    ],
+    "related_ids": [],
+    "similar": "旋转椭球的体积公式 $V=\\frac{4}{3}\\pi a b^2$"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-05-17"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "立体几何-体积与面积-表面积",
+  "altNodes": "解析几何-圆锥曲线-椭圆;其他-未分类-待定"
+}

@@ -1,0 +1,275 @@
+\begin{examplebox}
+
+	\textbf{\textcolor{CExample}{例 1（基础题）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知椭圆
+	\[
+		\frac{x^{2}}{25}+\frac{y^{2}}{9}=1
+	\]
+	绕 $x$ 轴旋转，求旋转椭球的表面积。
+
+	\medskip
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+
+		\item[\textbf{第一步（读取参数）：}]
+		      由椭圆方程得
+		      \[
+			      a=5,\qquad b=3.
+		      \]
+
+		      因为 $a>b$，所以这是长椭球情形。
+
+		\item[\textbf{第二步（选择公式）：}]
+		      当 $a>b$ 时，使用公式
+		      \[
+			      S
+			      =
+			      2\pi b^{2}
+			      +
+			      \frac{2\pi ab}{e}\arcsin e,
+			      \qquad
+			      e=\sqrt{1-\frac{b^{2}}{a^{2}}}.
+		      \]
+
+		\item[\textbf{第三步（计算离心率）：}]
+		      \[
+			      e
+			      =
+			      \sqrt{1-\frac{b^{2}}{a^{2}}}
+			      =
+			      \sqrt{1-\frac{9}{25}}
+			      =
+			      \sqrt{\frac{16}{25}}
+			      =
+			      \frac45.
+		      \]
+
+		\item[\textbf{第四步（代入公式）：}]
+		      \[
+			      \begin{aligned}
+				      S
+				       & =
+				      2\pi\cdot 9
+				      +
+				      \frac{2\pi\cdot 5\cdot 3}{4/5}
+				      \arcsin\frac45
+				      \\
+				       & =
+				      18\pi
+				      +
+				      \frac{30\pi}{4/5}
+				      \arcsin\frac45
+				      \\
+				       & =
+				      18\pi
+				      +
+				      \frac{75\pi}{2}
+				      \arcsin\frac45.
+			      \end{aligned}
+		      \]
+
+	\end{description}
+
+	\textbf{\textcolor{CExample}{答案：}}
+	\[
+		\boxed{
+			S
+			=
+			18\pi
+			+
+			\frac{75\pi}{2}
+			\arcsin\frac45
+		}.
+	\]
+
+	\medskip
+
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知椭圆
+	\[
+		\frac{x^{2}}{9}+\frac{y^{2}}{25}=1
+	\]
+	绕 $x$ 轴旋转，求旋转椭球的表面积。
+
+	\medskip
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+
+		\item[\textbf{第一步（读取参数）：}]
+		      由椭圆方程得
+		      \[
+			      a=3,\qquad b=5.
+		      \]
+
+		      因为 $a<b$，所以这是扁椭球情形。
+
+		\item[\textbf{第二步（选择公式）：}]
+		      当 $a<b$ 时，使用公式
+		      \[
+			      S
+			      =
+			      2\pi b^{2}
+			      +
+			      \frac{2\pi a^{2}}{e}\operatorname{artanh}e,
+			      \qquad
+			      e=\sqrt{1-\frac{a^{2}}{b^{2}}}.
+		      \]
+
+		\item[\textbf{第三步（计算离心率）：}]
+		      \[
+			      e
+			      =
+			      \sqrt{1-\frac{a^{2}}{b^{2}}}
+			      =
+			      \sqrt{1-\frac{9}{25}}
+			      =
+			      \frac45.
+		      \]
+
+		\item[\textbf{第四步（计算反双曲正切）：}]
+		      \[
+			      \operatorname{artanh}e
+			      =
+			      \frac12\ln\frac{1+e}{1-e}.
+		      \]
+
+		      代入 $e=\frac45$，得到
+		      \[
+			      \operatorname{artanh}\frac45
+			      =
+			      \frac12\ln\frac{1+\frac45}{1-\frac45}
+			      =
+			      \frac12\ln 9
+			      =
+			      \ln 3.
+		      \]
+
+		\item[\textbf{第五步（代入公式）：}]
+		      \[
+			      \begin{aligned}
+				      S
+				       & =
+				      2\pi\cdot 25
+				      +
+				      \frac{2\pi\cdot 9}{4/5}\ln 3
+				      \\
+				       & =
+				      50\pi
+				      +
+				      \frac{18\pi}{4/5}\ln 3
+				      \\
+				       & =
+				      50\pi
+				      +
+				      \frac{45\pi}{2}\ln 3.
+			      \end{aligned}
+		      \]
+
+	\end{description}
+
+	\textbf{\textcolor{CExample}{答案：}}
+	\[
+		\boxed{
+			S
+			=
+			50\pi
+			+
+			\frac{45\pi}{2}\ln 3
+		}.
+	\]
+
+	\medskip
+
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	某小行星的截面椭圆方程为
+	\[
+		\frac{x^{2}}{4}+\frac{y^{2}}{9}=1
+	\]
+	它绕 $x$ 轴旋转形成旋转椭球。求该小行星表面积的表达式。
+
+	\medskip
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+
+		\item[\textbf{第一步（读取参数）：}]
+		      由椭圆方程得
+		      \[
+			      a=2,\qquad b=3.
+		      \]
+
+		\item[\textbf{第二步（判断类型）：}]
+		      因为 $a<b$，所以该旋转椭球为扁椭球。
+
+		      使用公式
+		      \[
+			      S
+			      =
+			      2\pi b^{2}
+			      +
+			      \frac{2\pi a^{2}}{e}\operatorname{artanh}e.
+		      \]
+
+		\item[\textbf{第三步（计算离心率）：}]
+		      \[
+			      e
+			      =
+			      \sqrt{1-\frac{a^{2}}{b^{2}}}
+			      =
+			      \sqrt{1-\frac49}
+			      =
+			      \sqrt{\frac59}
+			      =
+			      \frac{\sqrt5}{3}.
+		      \]
+
+		\item[\textbf{第四步（代入公式）：}]
+		      \[
+			      \begin{aligned}
+				      S
+				       & =
+				      2\pi\cdot 9
+				      +
+				      \frac{2\pi\cdot 4}{\sqrt5/3}
+				      \operatorname{artanh}\frac{\sqrt5}{3}
+				      \\
+				       & =
+				      18\pi
+				      +
+				      \frac{8\pi}{\sqrt5/3}
+				      \operatorname{artanh}\frac{\sqrt5}{3}
+				      \\
+				       & =
+				      18\pi
+				      +
+				      \frac{24\pi}{\sqrt5}
+				      \operatorname{artanh}\frac{\sqrt5}{3}.
+			      \end{aligned}
+		      \]
+
+	\end{description}
+
+	\textbf{\textcolor{CExample}{答案：}}
+	\[
+		\boxed{
+			S
+			=
+			18\pi
+			+
+			\frac{24\pi}{\sqrt5}
+			\operatorname{artanh}\frac{\sqrt5}{3}
+		}.
+	\]
+
+\end{examplebox}

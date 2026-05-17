@@ -1,0 +1,125 @@
+\begin{trapbox}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+
+		\item[\textbf{\textcolor{CTrap}{易错点一（公式选择错误）：}}]
+		      已知椭圆方程和旋转轴后，没有先比较 $a$ 与 $b$ 的大小，而是直接套用某一个公式。
+
+		      例如，一看到椭圆方程
+		      \[
+			      \frac{x^{2}}{a^{2}}+\frac{y^{2}}{b^{2}}=1
+		      \]
+		      就默认使用长椭球公式，这是错误的。
+
+		\item[\textbf{\textcolor{CTrap}{正确理解：}}]
+		      必须先判断 $a$ 与 $b$ 的大小。
+
+		      当 $a>b$ 时，使用长椭球公式：
+		      \[
+			      S
+			      =
+			      2\pi b^{2}
+			      +
+			      \frac{2\pi ab}{e}\arcsin e,
+			      \qquad
+			      e=\sqrt{1-\frac{b^{2}}{a^{2}}}.
+		      \]
+
+		      当 $a<b$ 时，使用扁椭球公式：
+		      \[
+			      S
+			      =
+			      2\pi b^{2}
+			      +
+			      \frac{2\pi a^{2}}{e}\operatorname{artanh} e,
+			      \qquad
+			      e=\sqrt{1-\frac{a^{2}}{b^{2}}}.
+		      \]
+
+		      当 $a=b=R$ 时，旋转椭球退化为球，直接使用球面积公式：
+		      \[
+			      S=4\pi R^{2}.
+		      \]
+
+		\item[\textbf{\textcolor{CTrap}{错因分析：}}]
+		      学生常常默认 $a$ 一定是长半轴。
+
+		      但在本题中，椭圆是绕 $x$ 轴旋转的，$a$ 只是 $x$ 轴方向上的半轴，不一定比 $b$ 大。
+
+		      所以必须先比较 $a,b$ 的大小，再选择公式。
+
+	\end{description}
+
+	\medskip
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+
+		\item[\textbf{\textcolor{CTrap}{易错点二（离心率定义混淆）：}}]
+		      学生可能把两种情形下的离心率都写成
+		      \[
+			      e=\sqrt{1-\frac{b^{2}}{a^{2}}}.
+		      \]
+
+		      这个表达式只在 $a>b$ 时成立。
+
+		      如果 $a<b$，继续这样写，就会出现根号内为负数的错误。
+
+		\item[\textbf{\textcolor{CTrap}{正确理解：}}]
+		      两种情形下，$e$ 的定义不同。
+
+		      当 $a>b$ 时：
+		      \[
+			      e=\sqrt{1-\frac{b^{2}}{a^{2}}}.
+		      \]
+
+		      当 $a<b$ 时：
+		      \[
+			      e=\sqrt{1-\frac{a^{2}}{b^{2}}}.
+		      \]
+
+		      本质上，分母应该是较大的半轴的平方。
+
+		\item[\textbf{\textcolor{CTrap}{错因分析：}}]
+		      学生容易死记椭圆离心率公式
+		      \[
+			      e=\sqrt{1-\frac{b^{2}}{a^{2}}},
+		      \]
+		      但忘记这个写法默认了 $a$ 是长半轴。
+
+		      在当前问题中，$a$ 表示 $x$ 轴方向半轴，不一定是长半轴。
+
+	\end{description}
+
+	\medskip
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+
+		\item[\textbf{\textcolor{CTrap}{易错点三（忽视退化情形）：}}]
+		      当 $a=b$ 时，旋转椭球退化为球。
+
+		      但学生可能仍然试图代入含 $\arcsin$ 或 $\operatorname{artanh}$ 的公式。
+
+		      由于此时
+		      \[
+			      e=0,
+		      \]
+		      公式中会出现分母为 $0$ 的形式，不能直接代入。
+
+		\item[\textbf{\textcolor{CTrap}{正确理解：}}]
+		      当 $a=b=R$ 时，直接使用球表面积公式：
+		      \[
+			      S=4\pi R^{2}.
+		      \]
+
+		      不能直接代入含 $e$ 的椭球公式。
+
+		\item[\textbf{\textcolor{CTrap}{错因分析：}}]
+		      从极限角度看，椭球公式在 $a\to b$ 时确实会趋向球面积。
+
+		      但是当 $a=b$ 时，公式中的某些项会出现 $\frac00$ 这类不定式。
+
+		      因此不能直接代入，必须单独处理。
+
+	\end{description}
+
+\end{trapbox}
