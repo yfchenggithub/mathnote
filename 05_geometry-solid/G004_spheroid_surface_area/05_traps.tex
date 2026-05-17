@@ -1,8 +1,60 @@
 \begin{trapbox}
 
+	% ------------------------------------------------------------
+	% 易错点一：旋转曲面面积公式的几何本质
+	% 图片文件：figures/surface_area_revolution_trap.tikz
+	% 主文件需已加载：graphicx, tikz；TikZ 库：arrows.meta
+	% ------------------------------------------------------------
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
 
-		\item[\textbf{\textcolor{CTrap}{易错点一（公式选择错误）：}}]
+		\item[\textbf{\textcolor{CTrap}{易错点一（把圆周长直接相加）：}}]
+		      学生在理解旋转曲面面积公式时，容易只看到“点绕 $x$ 轴旋转形成圆，圆周长为 $2\pi y$”，于是误以为把这些圆周长直接加起来就是表面积。
+
+		      这种想法的直觉方向没有错：$2\pi y$ 确实是对应圆的周长。真正的问题是少乘了一个关键量：\textbf{曲线小段扫出的真实宽度}。
+
+		      \begin{center}
+			      \resizebox{0.98\linewidth}{!}					      {\input{assets/tikz/G004_surface_area_revolution_explained.tikz}}
+		      \end{center}
+		\item[\textbf{\textcolor{CTrap}{正确理解：}}]
+		      曲线上的一小段弧长记为 $ds$。这段小弧绕 $x$ 轴旋转一周后，近似形成一个很薄的圆台侧面。
+
+		      因此面积微元不是单独的圆周长 $2\pi y$，而是
+		      \[
+			      \begin{aligned}
+				      dS
+				       & =\text{圆周长}\times\text{曲线小段长度} \\
+				       & =2\pi y\,ds.
+			      \end{aligned}
+		      \]
+
+		      又因为
+		      \[
+			      ds=\sqrt{dx^{2}+dy^{2}}
+			      =\sqrt{1+(y')^{2}}\,dx,
+		      \]
+		      所以旋转曲面面积公式为
+		      \[
+			      S=2\pi\int y\sqrt{1+(y')^{2}}\,dx.
+		      \]
+
+		\item[\textbf{\textcolor{CTrap}{错因分析：}}]
+		      $2\pi y$ 的单位只是长度，不是面积。面积必须是“长度 $\times$ 长度”。
+
+		      这里第一个长度是圆周长 $2\pi y$，第二个长度不是横向宽度 $dx$，而是曲线小段本身的长度 $ds$。
+
+		      只有当曲线局部水平时，$dy=0$，才有 $ds=dx$。这时面积微元才会退化为熟悉的圆柱侧面积形式：
+		      \[
+			      dS=2\pi y\,dx.
+		      \]
+
+	\end{description}
+
+	\medskip
+
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+
+		\item[\textbf{\textcolor{CTrap}{易错点二（公式选择错误）：}}]
 		      已知椭圆方程和旋转轴后，没有先比较 $a$ 与 $b$ 的大小，而是直接套用某一个公式。
 
 		      例如，一看到椭圆方程
@@ -54,7 +106,7 @@
 
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
 
-		\item[\textbf{\textcolor{CTrap}{易错点二（离心率定义混淆）：}}]
+		\item[\textbf{\textcolor{CTrap}{易错点三（离心率定义混淆）：}}]
 		      学生可能把两种情形下的离心率都写成
 		      \[
 			      e=\sqrt{1-\frac{b^{2}}{a^{2}}}.
@@ -94,7 +146,7 @@
 
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
 
-		\item[\textbf{\textcolor{CTrap}{易错点三（忽视退化情形）：}}]
+		\item[\textbf{\textcolor{CTrap}{易错点四（忽视退化情形）：}}]
 		      当 $a=b$ 时，旋转椭球退化为球。
 
 		      但学生可能仍然试图代入含 $\arcsin$ 或 $\operatorname{artanh}$ 的公式。

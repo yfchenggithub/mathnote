@@ -1,0 +1,139 @@
+% surface_area_revolution_trap.tikz
+% 旋转曲面面积公式易错点示意图
+
+\begin{tikzpicture}[
+  x=1cm,y=1cm,
+  >=Stealth,
+  font=\sffamily\scriptsize,
+  panel/.style={draw=blue!70!black, rounded corners=6pt, line width=0.9pt, fill=white},
+  header/.style={fill=blue!75!black, text=white, rounded corners=4pt,
+                 font=\sffamily\bfseries\normalsize, inner xsep=8pt, inner ysep=3pt},
+  formula/.style={draw=blue!70!black, rounded corners=4pt, line width=0.8pt,
+                  fill=blue!3, inner sep=4pt, align=center},
+  redbox/.style={draw=red!75!black, dashed, rounded corners=4pt, line width=0.8pt,
+                 fill=red!2, inner sep=4pt, align=center}
+]
+
+\path[use as bounding box] (0,0) rectangle (15.2,7.8);
+
+% 标题
+\node[font=\sffamily\bfseries\LARGE, text=blue!75!black] at (7.6,7.45)
+{为什么不是 $2\pi y\,dx$，而是 $2\pi y\,ds$？};
+
+% 主面板
+\draw[panel] (0.25,1.08) rectangle (7.25,6.82);
+\draw[panel] (7.95,1.08) rectangle (14.95,6.82);
+\node[header, minimum width=4.2cm] at (3.75,6.82) {错误直觉：只看到了圆周长};
+\node[header, minimum width=4.2cm] at (11.45,6.82) {正确理解：圆台小条带};
+\draw[blue!70!black, line width=3pt, -{Stealth[length=8pt,width=8pt]}]
+  (7.35,3.85) -- (7.85,3.85);
+
+% =================================================
+% 左面板：错误直觉
+% =================================================
+\node[anchor=west] at (0.55,6.25) {曲线 $y=f(x)$ 上一点绕 $x$ 轴旋转：};
+
+% 坐标图
+\draw[->, line width=0.75pt] (0.75,3.72) -- (3.28,3.72) node[right] {$x$};
+\draw[->, line width=0.75pt] (1.00,3.45) -- (1.00,5.92) node[above] {$y$};
+\node at (0.78,3.45) {$O$};
+\draw[blue!75!black, line width=1.25pt]
+  (0.75,4.35) .. controls (1.35,4.85) and (2.10,5.24) .. (3.03,5.45);
+\node[blue!75!black] at (2.42,5.70) {$y=f(x)$};
+\fill[blue!75!black] (2.07,5.17) circle (1.8pt);
+\draw[dashed] (2.07,5.17) -- (2.07,3.72);
+\draw[<->] (1.45,3.72) -- (1.45,5.02);
+\node[left] at (1.45,4.35) {$y$};
+\draw[blue!75!black, line width=1pt] (1.86,3.55) -- (2.30,3.55);
+\draw[blue!75!black, line width=1pt] (1.86,3.46) -- (1.86,3.64);
+\draw[blue!75!black, line width=1pt] (2.30,3.46) -- (2.30,3.64);
+\node[below] at (2.08,3.55) {$dx$};
+
+% 圆周图
+\draw[blue!70!black, dashed, line width=1pt] (5.42,4.70) circle (0.74);
+\draw[dashed] (4.50,4.70) -- (6.35,4.70);
+\fill (5.42,4.70) circle (1.4pt);
+\draw[blue!70!black, ->, line width=1pt] (5.42,4.70) -- (5.42,5.44);
+\node[right] at (5.48,5.08) {$y$};
+\node at (5.42,3.72) {圆周长：{\color{blue!75!black}$2\pi y$}};
+\node[anchor=west, text width=2.65cm, align=left] at (3.62,5.78)
+{旋转一周得到半径为 $y$ 的圆。};
+
+% 错误点
+\draw[red!80!black, line width=2.8pt] (0.95,2.55) -- (1.35,2.95);
+\draw[red!80!black, line width=2.8pt] (1.35,2.55) -- (0.95,2.95);
+\node[font=\sffamily\Large] at (2.35,2.75) {$2\pi y$};
+\node[anchor=west, align=left] at (3.35,2.78)
+{只是{\color{red!80!black}长度}，不是面积。};
+\node[redbox, text width=4.65cm] at (3.78,1.72)
+{只把圆周长相加，少乘了“{\color{red!80!black}条带宽度}”。};
+
+% =================================================
+% 右面板：正确理解
+% =================================================
+\node[anchor=west] at (8.25,6.25) {取曲线的一小段弧：};
+
+% 曲线小段
+\draw[->, line width=0.75pt] (8.35,3.82) -- (10.92,3.82) node[right] {$x$};
+\draw[->, line width=0.75pt] (8.60,3.55) -- (8.60,5.95) node[above] {$y$};
+\node at (8.38,3.55) {$O$};
+\draw[blue!75!black, line width=1.25pt]
+  (8.30,4.40) .. controls (8.95,4.88) and (9.75,5.34) .. (10.66,5.54);
+\node[blue!75!black] at (10.18,5.78) {$y=f(x)$};
+\coordinate (P) at (9.25,4.82);
+\coordinate (Q) at (10.12,5.25);
+\fill[blue!75!black] (P) circle (1.8pt);
+\fill[blue!75!black] (Q) circle (1.8pt);
+\draw[dashed] (P) -- (9.25,3.82);
+\draw[dashed] (Q) -- (10.12,3.82);
+\draw[red!80!black, line width=1.45pt] (P) -- (Q);
+\node[red!80!black, above] at (9.67,5.18) {$ds$};
+\draw[blue!75!black, line width=1pt] (9.25,3.65) -- (10.12,3.65);
+\draw[blue!75!black, line width=1pt] (9.25,3.56) -- (9.25,3.74);
+\draw[blue!75!black, line width=1pt] (10.12,3.56) -- (10.12,3.74);
+\node[below] at (9.69,3.65) {$dx$};
+\draw[<->] (8.95,3.82) -- (8.95,4.70);
+\node[left] at (8.95,4.25) {$y$};
+\draw[<->] (10.35,4.82) -- (10.35,5.25);
+\node[right] at (10.37,5.04) {$dy$};
+
+% 圆台小条带
+\draw[dashed] (11.28,4.65) -- (14.42,4.65);
+\draw[->, line width=0.75pt] (11.18,4.65) -- (14.58,4.65);
+\path[fill=blue!8] (11.68,5.28) -- (13.82,5.18) -- (13.82,4.12) -- (11.68,4.00) -- cycle;
+\draw[blue!65!black, line width=1pt] (11.68,5.28) -- (13.82,5.18);
+\draw[blue!65!black, line width=1pt] (11.68,4.00) -- (13.82,4.12);
+\draw[blue!65!black, line width=1pt] (11.68,4.65) ellipse (0.20 and 0.64);
+\draw[red!80!black, line width=1.2pt] (13.82,4.65) ellipse (0.20 and 0.52);
+\foreach \yy in {-0.42,-0.20,0,0.20,0.42}{
+  \draw[blue!23] (11.68,{4.65+\yy}) -- (13.82,{4.65+0.82*\yy});
+}
+\fill (12.47,4.65) circle (1.3pt);
+\draw[dashed] (12.47,4.65) -- (12.47,5.13);
+\node[left] at (12.44,4.91) {$y$};
+\node[red!80!black, anchor=west] at (13.66,5.45) {周长：$2\pi y$};
+\draw[red!80!black, <->, line width=0.8pt] (11.75,3.78) -- (13.78,3.88);
+\node[red!80!black, below] at (12.77,3.76) {宽度：$ds$};
+\node[anchor=west, text width=2.8cm, align=left] at (11.20,5.86)
+{旋转后近似成为圆台侧面。};
+
+% 公式区
+\node[formula, font=\sffamily\normalsize] at (9.35,2.78)
+{$dS=2\pi y\,{\color{red!80!black}ds}$};
+\node[formula, text width=3.25cm] at (12.65,2.78)
+{$\displaystyle ds=\sqrt{dx^2+dy^2}$};
+\node[formula, font=\sffamily\normalsize, text width=5.50cm] at (11.15,1.68)
+{$\displaystyle S=2\pi\int y\sqrt{1+(y')^2}\,dx$};
+
+% =================================================
+% 底部总结
+% =================================================
+\draw[panel, fill=blue!2] (0.25,0.18) rectangle (14.95,0.86);
+\node[font=\sffamily\bfseries, text=blue!75!black, anchor=west] at (0.62,0.52)
+{一句话：};
+\node[anchor=west] at (1.95,0.52)
+{不是把“圆周长”直接相加，而是用 “{\color{blue!75!black}圆周长 $\times$ 曲线小段长度 $ds$}”。};
+\node[anchor=east, text=blue!75!black] at (14.60,0.52)
+{水平时才有 $ds=dx$};
+
+\end{tikzpicture}
