@@ -1,0 +1,64 @@
+\begin{proofbox}
+
+\textbf{\textcolor{CProof}{思路提示}}
+
+利用旋转体体积公式 $V=\pi\int_{-b}^{b}x^2\,dy$，其中 $x$ 为椭圆上对应 $y$ 处的 $x$ 坐标。由椭圆方程解出 $x^2$ 并积分。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（建立积分表达式）：}] 
+    将旋转体视为垂直 $y$ 轴的圆盘叠加，圆盘半径 $r(y)=|x|$，体积微元 $dV=\pi x^2\,dy$。沿 $y$ 从 $-b$ 到 $b$ 积分：
+    \[
+    V = \pi \int_{-b}^{b} x^2 \,dy
+    \]
+    \par\textbf{理由：} 旋转体由平面曲线绕轴旋转生成，可用微元法。
+
+    \item[\textbf{步骤二（写出 $x^2$ 表达式）：}]
+    由椭圆方程 $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1$，解出 $x^2$：
+    \[
+    x^2 = a^2\left(1-\frac{y^2}{b^2}\right)
+    \]
+    \par\textbf{理由：} $a>0$，两边同乘 $a^2$ 得。
+
+    \item[\textbf{步骤三（代入并积分）：}]
+    将 $x^2$ 代入积分式：
+    \[
+    V = \pi \int_{-b}^{b} a^2\left(1-\frac{y^2}{b^2}\right) dy
+    \]
+    提出常数 $a^2$：
+    \[
+    V = \pi a^2 \int_{-b}^{b} \left(1-\frac{y^2}{b^2}\right) dy
+    \]
+    \par\textbf{理由：} $a^2$ 为常数，可提出积分号。
+
+    \item[\textbf{步骤四（计算定积分）：}]
+    先求不定积分，再代入上下限：
+    \[
+    \begin{aligned}
+    \int_{-b}^{b} \left(1-\frac{y^2}{b^2}\right) dy
+    &= \left[ y - \frac{y^3}{3b^2} \right]_{-b}^{b} \\
+    &= (b - \frac{b}{3}) - (-b + \frac{b}{3}) \\
+    &= 2\left(b - \frac{b}{3}\right) \\
+    &= \frac{4}{3}b
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 牛顿-莱布尼茨公式，注意 $(-b)^3=-b^3$。
+
+    \item[\textbf{步骤五（得体积公式）：}]
+    将积分结果代入：
+    \[
+    \begin{aligned}
+    V &= \pi a^2 \cdot \frac{4}{3}b \\
+    &= \frac{4}{3}\pi a^2 b
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 化简乘积得到最终体积公式。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+
+\textbf{我们通过积分严格证明了椭圆绕 $y$ 轴旋转所得旋转椭球体积为 $V_y = \frac{4}{3}\pi a^2 b$。}
+
+\end{proofbox}
