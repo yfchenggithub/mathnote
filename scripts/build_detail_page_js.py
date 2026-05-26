@@ -64,9 +64,11 @@ Common usage
    `python scripts/build_detail_page_js.py`
 2. Build one module:
    `python scripts/build_detail_page_js.py --module 07_inequality`
-3. Build one item and inspect logs without writing files:
+3. Build one item by shorthand id (module inferred from prefix map):
+   `python scripts/build_detail_page_js.py I005`
+4. Build one item and inspect logs without writing files:
    `python scripts/build_detail_page_js.py --module 07_inequality --item I001 --debug --dry-run`
-4. Fail immediately on missing required fields:
+5. Fail immediately on missing required fields:
    `python scripts/build_detail_page_js.py --strict`
 
 Maintenance guidance
@@ -79,7 +81,7 @@ When you need to adjust how TeX is converted into display-friendly plain text,
 start here:
 - `clean_tex`
 
-Last Updated: 2026-04-06
+Last Updated: 2026-05-26
 ===============================================================================
 """
 
@@ -98,6 +100,7 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parent
 DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "data" / "content"
 META_FILENAME = "meta.json"
+MODULE_PREFIX_MAP_RELATIVE_PATH = Path("12_pipeline") / "config" / "module_prefix_map.json"
 
 DEFAULT_TARGET_MODULES: tuple[str, ...] = ()
 IGNORED_TOP_LEVEL_DIRS = {
@@ -206,6 +209,7 @@ def parse_args() -> argparse.Namespace:
             "Examples:\n"
             "  python scripts/build_detail_page_js.py\n"
             "  python scripts/build_detail_page_js.py --module 07_inequality\n"
+            "  python scripts/build_detail_page_js.py I005\n"
             "  python scripts/build_detail_page_js.py --module 07_inequality "
             "--item I001 --debug --dry-run\n"
         ),
@@ -247,6 +251,15 @@ def parse_args() -> argparse.Namespace:
         ),
     )
     parser.add_argument(
+        "items_positional",
+        nargs="*",
+        help=(
+            "Optional shorthand item id(s). When --module is omitted, module "
+            "will be inferred from the first character by "
+            "12_pipeline/config/module_prefix_map.json. Example: I005"
+        ),
+    )
+    parser.add_argument(
         "--dry-run",
         action="store_true",
         help="Build everything in memory and print logs, but do not write files.",
@@ -267,14 +280,97 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def load_module_prefix_lookup(
+    project_root: Path,
+    *,
+    strict: bool,
+) -> dict[str, str]:
+    """Load prefix->module lookup from `12_pipeline/config/module_prefix_map.json`."""
+
+    mapping_path = project_root / MODULE_PREFIX_MAP_RELATIVE_PATH
+    raw_mapping = read_json_file(mapping_path, strict=strict)
+    if not raw_mapping:
+        return {}
+
+    lookup: dict[str, str] = {}
+    for module_name, prefix_value in raw_mapping.items():
+        module = str(module_name).strip()
+        prefix_text = str(prefix_value).strip().upper()
+        if not module or not prefix_text:
+            continue
+        prefix = prefix_text[0]
+        existing = lookup.get(prefix)
+        if existing and existing != module:
+            raise BuildError(
+                f"Duplicate prefix '{prefix}' in {mapping_path}: "
+                f"{existing}, {module}"
+            )
+        lookup[prefix] = module
+    return lookup
+
+
+def infer_target_modules_from_items(
+    *,
+    project_root: Path,
+    target_items: tuple[str, ...],
+    strict: bool,
+) -> tuple[str, ...]:
+    """Infer module list from item-id prefixes when `--module` is omitted."""
+
+    if not target_items:
+        return DEFAULT_TARGET_MODULES
+
+    prefix_lookup = load_module_prefix_lookup(project_root, strict=strict)
+    if not prefix_lookup:
+        return DEFAULT_TARGET_MODULES
+
+    inferred_modules: list[str] = []
+    unknown_items: list[str] = []
+
+    for raw_item in target_items:
+        item = str(raw_item).strip()
+        if not item:
+            continue
+        prefix = item[0].upper()
+        module_name = prefix_lookup.get(prefix)
+        if not module_name:
+            unknown_items.append(item)
+            continue
+        if module_name not in inferred_modules:
+            inferred_modules.append(module_name)
+
+    if unknown_items:
+        mapping_path = project_root / MODULE_PREFIX_MAP_RELATIVE_PATH
+        raise BuildError(
+            "Cannot infer module from item prefix for: "
+            + ", ".join(unknown_items)
+            + f". Please update {mapping_path} or pass --module explicitly."
+        )
+
+    return tuple(inferred_modules)
+
+
 def build_config_from_args(args: argparse.Namespace) -> BuildConfig:
     """Convert raw argparse output into one typed config object."""
 
+    project_root = Path(args.base_dir).resolve()
+    explicit_items = tuple(args.items or ())
+    positional_items = tuple(args.items_positional or ())
+    target_items = tuple(dict.fromkeys(explicit_items + positional_items))
+
+    target_modules = tuple(args.modules or DEFAULT_TARGET_MODULES)
+    if not target_modules and target_items:
+        target_modules = infer_target_modules_from_items(
+            project_root=project_root,
+            target_items=target_items,
+            strict=bool(args.strict),
+        )
+
     return BuildConfig(
-        project_root=Path(args.base_dir).resolve(),
+        project_root=project_root,
         output_dir=Path(args.output_dir).resolve(),
-        target_modules=tuple(args.modules or DEFAULT_TARGET_MODULES),
-        target_items=tuple(args.items or ()),
+        target_modules=target_modules,
+        target_items=target_items,
         dry_run=bool(args.dry_run),
         debug=bool(args.debug),
         strict=bool(args.strict),
@@ -1145,7 +1241,13 @@ def extract_list_items_from_protected(
             label, cursor = read_balanced_span(protected_text, cursor, "[", "]")
 
         next_item_index = protected_text.find(r"\item", cursor)
-        body = protected_text[cursor:] if next_item_index == -1 else protected_text[cursor:next_item_index]
+        if next_item_index == -1:
+            body = protected_text[cursor:]
+            end_env_match = re.search(r"\\end\{", body)
+            if end_env_match:
+                body = body[: end_env_match.start()]
+        else:
+            body = protected_text[cursor:next_item_index]
         items.append((label, body))
 
         if next_item_index == -1:
@@ -1350,25 +1452,26 @@ def build_statement_theorem_items(
         if not title or "条件" in title:
             continue
 
-        formula_tokens = MATH_TOKEN_PATTERN.findall(body)
-        formulas: list[str] = []
-        for token in formula_tokens:
-            latex = normalize_latex_for_display(math_map.get(token, ""))
-            if latex and latex not in formulas:
-                formulas.append(latex)
+        normalized_body = normalize_rich_text_markup(body)
+        body_segments = protected_text_to_segments(normalized_body, math_map)
 
-        first_formula_match = MATH_TOKEN_PATTERN.search(body)
-        desc_source = body if first_formula_match is None else body[: first_formula_match.start()]
-        desc_text = normalize_text_segment(
-            normalize_rich_text_markup(strip_math_tokens(desc_source))
-        )
-        desc_text = re.sub(r"^(直观描述|说明|描述)\s*[：:]\s*", "", desc_text)
+        formula_parts: list[str] = []
+        desc_parts: list[str] = []
+        for seg in body_segments:
+            if seg["type"] == "math":
+                formula_parts.append(seg["latex"])
+            elif seg["type"] == "text":
+                cleaned = re.sub(r"^(直观描述|说明|描述)\s*[：:]\s*", "", seg["text"]).strip()
+                if cleaned:
+                    desc_parts.append(cleaned)
+
+        desc_text = " ".join(desc_parts).strip()
 
         theorem_item: dict[str, Any] = {"title": title}
         if desc_text:
             theorem_item["desc"] = desc_text
-        if formulas:
-            theorem_item["latex"] = r" \qquad ".join(formulas)
+        if formula_parts:
+            theorem_item["latex"] = r" \qquad ".join(formula_parts)
         theorem_items.append(theorem_item)
 
     if theorem_items:
