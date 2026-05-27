@@ -55,6 +55,10 @@
  *     2. { latex: string }
  *     3. { segments: [{ type: 'text', text } | { type: 'math', latex }] }
  *     4. theorem-list item: { title, desc?, latex }
+ *   - Rich parser rules for mixed text/math sections:
+ *     - Long equation-chain math is promoted to standalone { latex } items.
+ *     - Trailing punctuation is stripped out of latex and kept in text segments.
+ *     - This improves canonical migration to math_block and avoids inline overflow.
  *   - Important layouts used by this builder:
  *     - text
  *     - theorem-list
@@ -333,52 +337,37 @@ module.exports = {
             "text": "要点二（乘积和平方）：\n右边是两序列对应项乘积之和的平方，体现“协同”效应。"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "几何本质（向量夹角）\n若将序列视为向量"
-              },
-              {
-                "type": "math",
-                "latex": "\\vec{a}=(a_1,\\dots,a_n)"
-              },
-              {
-                "type": "text",
-                "text": ","
-              },
-              {
-                "type": "math",
-                "latex": "\\vec{b}=(b_1,\\dots,b_n)"
-              },
-              {
-                "type": "text",
-                "text": "，则不等式等价于"
-              },
-              {
-                "type": "math",
-                "latex": "(\\vec{a}\\cdot\\vec{b})^2 \\le |\\vec{a}|^2|\\vec{b}|^2"
-              },
-              {
-                "type": "text",
-                "text": "，即"
-              },
-              {
-                "type": "math",
-                "latex": "|\\cos\\theta| \\le 1"
-              },
-              {
-                "type": "text",
-                "text": "，其中"
-              },
-              {
-                "type": "math",
-                "latex": "\\theta"
-              },
-              {
-                "type": "text",
-                "text": "为两向量夹角。"
-              }
-            ]
+            "text": "几何本质（向量夹角）\n若将序列视为向量"
+          },
+          {
+            "latex": "\\vec{a}=(a_1,\\dots,a_n)"
+          },
+          {
+            "text": ","
+          },
+          {
+            "latex": "\\vec{b}=(b_1,\\dots,b_n)"
+          },
+          {
+            "text": "，则不等式等价于"
+          },
+          {
+            "latex": "(\\vec{a}\\cdot\\vec{b})^2 \\le |\\vec{a}|^2|\\vec{b}|^2"
+          },
+          {
+            "text": "，即"
+          },
+          {
+            "latex": "|\\cos\\theta| \\le 1"
+          },
+          {
+            "text": "，其中"
+          },
+          {
+            "latex": "\\theta"
+          },
+          {
+            "text": "为两向量夹角。"
           },
           {
             "segments": [
@@ -393,24 +382,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的二次函数"
-              },
-              {
-                "type": "math",
-                "latex": "f(t)=\\sum (a_i t + b_i)^2"
-              },
-              {
-                "type": "text",
-                "text": "，展开后判别式"
-              },
-              {
-                "type": "math",
-                "latex": "\\Delta \\le 0"
-              },
-              {
-                "type": "text",
-                "text": "，即得不等式。"
               }
             ]
+          },
+          {
+            "latex": "f(t)=\\sum (a_i t + b_i)^2"
+          },
+          {
+            "text": "，展开后判别式"
+          },
+          {
+            "latex": "\\Delta \\le 0"
+          },
+          {
+            "text": "，即得不等式。"
           },
           {
             "text": "考点价值（证明与求最值）"
@@ -453,51 +438,38 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的二次函数"
-              },
-              {
-                "type": "math",
-                "latex": "f(t)=\\sum_{i=1}^n (a_i t + b_i)^2"
-              },
-              {
-                "type": "text",
-                "text": "，由于平方和非负，故判别式"
-              },
-              {
-                "type": "math",
-                "latex": "\\Delta \\le 0"
-              },
-              {
-                "type": "text",
-                "text": "，由此推出不等式。"
               }
             ]
+          },
+          {
+            "latex": "f(t)=\\sum_{i=1}^n (a_i t + b_i)^2"
+          },
+          {
+            "text": "，由于平方和非负，故判别式"
+          },
+          {
+            "latex": "\\Delta \\le 0"
+          },
+          {
+            "text": "，由此推出不等式。"
           },
           {
             "text": "正式推导"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤一（构造函数）：\n令"
-              },
-              {
-                "type": "math",
-                "latex": "f(t) = \\sum_{i=1}^n (a_i t + b_i)^2 \\ge 0 \\quad (\\text{对所有实数 }t)。"
-              },
-              {
-                "type": "text",
-                "text": "理由：\n每个"
-              },
-              {
-                "type": "math",
-                "latex": "(a_i t + b_i)^2 \\ge 0"
-              },
-              {
-                "type": "text",
-                "text": "，故和也非负。"
-              }
-            ]
+            "text": "步骤一（构造函数）：\n令"
+          },
+          {
+            "latex": "f(t) = \\sum_{i=1}^n (a_i t + b_i)^2 \\ge 0 \\quad (\\text{对所有实数 }t)"
+          },
+          {
+            "text": "。理由：\n每个"
+          },
+          {
+            "latex": "(a_i t + b_i)^2 \\ge 0"
+          },
+          {
+            "text": "，故和也非负。"
           },
           {
             "segments": [
@@ -512,27 +484,23 @@ module.exports = {
               {
                 "type": "text",
                 "text": "展开："
-              },
-              {
-                "type": "math",
-                "latex": "f(t) = \\sum_{i=1}^n (a_i^2 t^2 + 2 a_i b_i t + b_i^2) = \\left(\\sum_{i=1}^n a_i^2\\right) t^2 + 2\\left(\\sum_{i=1}^n a_i b_i\\right) t + \\left(\\sum_{i=1}^n b_i^2\\right)."
-              },
-              {
-                "type": "text",
-                "text": "理由：\n按完全平方公式展开，并利用求和线性性质。"
               }
             ]
           },
           {
+            "latex": "f(t) = \\sum_{i=1}^n (a_i^2 t^2 + 2 a_i b_i t + b_i^2) = \\left(\\sum_{i=1}^n a_i^2\\right) t^2 + 2\\left(\\sum_{i=1}^n a_i b_i\\right) t + \\left(\\sum_{i=1}^n b_i^2\\right)"
+          },
+          {
+            "text": ".理由：\n按完全平方公式展开，并利用求和线性性质。"
+          },
+          {
+            "text": "步骤三（判别式非负）：\n因为"
+          },
+          {
+            "latex": "f(t)\\ge 0"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "步骤三（判别式非负）：\n因为"
-              },
-              {
-                "type": "math",
-                "latex": "f(t)\\ge 0"
-              },
               {
                 "type": "text",
                 "text": "对所有"
@@ -552,27 +520,26 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的判别式"
-              },
-              {
-                "type": "math",
-                "latex": "\\Delta \\le 0"
-              },
-              {
-                "type": "text",
-                "text": "："
-              },
-              {
-                "type": "math",
-                "latex": "\\Delta = \\left[2\\sum_{i=1}^n a_i b_i\\right]^2 - 4\\left(\\sum_{i=1}^n a_i^2\\right)\\left(\\sum_{i=1}^n b_i^2\\right) \\le 0."
-              },
-              {
-                "type": "text",
-                "text": "理由：\n二次函数"
-              },
-              {
-                "type": "math",
-                "latex": "At^2+Bt+C \\ge 0"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\Delta \\le 0"
+          },
+          {
+            "text": "："
+          },
+          {
+            "latex": "\\Delta = \\left[2\\sum_{i=1}^n a_i b_i\\right]^2 - 4\\left(\\sum_{i=1}^n a_i^2\\right)\\left(\\sum_{i=1}^n b_i^2\\right) \\le 0"
+          },
+          {
+            "text": ".理由：\n二次函数"
+          },
+          {
+            "latex": "At^2+Bt+C \\ge 0"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "恒成立，则"
@@ -584,19 +551,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "且"
-              },
-              {
-                "type": "math",
-                "latex": "\\Delta \\le 0"
-              },
-              {
-                "type": "text",
-                "text": "。这里"
-              },
-              {
-                "type": "math",
-                "latex": "A=\\sum a_i^2 \\ge 0"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\Delta \\le 0"
+          },
+          {
+            "text": "。这里"
+          },
+          {
+            "latex": "A=\\sum a_i^2 \\ge 0"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "，若"
@@ -620,36 +588,25 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤四（导出不等式）：\n由"
-              },
-              {
-                "type": "math",
-                "latex": "\\Delta \\le 0"
-              },
-              {
-                "type": "text",
-                "text": "直接得到"
-              },
-              {
-                "type": "math",
-                "latex": "4\\left(\\sum_{i=1}^n a_i b_i\\right)^2 - 4\\left(\\sum_{i=1}^n a_i^2\\right)\\left(\\sum_{i=1}^n b_i^2\\right) \\le 0,"
-              },
-              {
-                "type": "text",
-                "text": "即"
-              },
-              {
-                "type": "math",
-                "latex": "\\left(\\sum_{i=1}^n a_i b_i\\right)^2 \\le \\left(\\sum_{i=1}^n a_i^2\\right)\\left(\\sum_{i=1}^n b_i^2\\right)."
-              },
-              {
-                "type": "text",
-                "text": "理由：\n移项并除以正数4即得。"
-              }
-            ]
+            "text": "步骤四（导出不等式）：\n由"
+          },
+          {
+            "latex": "\\Delta \\le 0"
+          },
+          {
+            "text": "直接得到"
+          },
+          {
+            "latex": "4\\left(\\sum_{i=1}^n a_i b_i\\right)^2 - 4\\left(\\sum_{i=1}^n a_i^2\\right)\\left(\\sum_{i=1}^n b_i^2\\right) \\le 0"
+          },
+          {
+            "text": ",即"
+          },
+          {
+            "latex": "\\left(\\sum_{i=1}^n a_i b_i\\right)^2 \\le \\left(\\sum_{i=1}^n a_i^2\\right)\\left(\\sum_{i=1}^n b_i^2\\right)"
+          },
+          {
+            "text": ".理由：\n移项并除以正数4即得。"
           },
           {
             "segments": [
@@ -704,11 +661,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "成比例。\n理由："
-              },
-              {
-                "type": "math",
-                "latex": "\\Delta=0"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\Delta=0"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "时方程有重根"
@@ -770,16 +730,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，求证："
-              },
-              {
-                "type": "math",
-                "latex": "(a^2+b^2)(c^2+d^2) \\ge (ac+bd)^2"
-              },
-              {
-                "type": "text",
-                "text": "。\n解题步骤："
               }
             ]
+          },
+          {
+            "latex": "(a^2+b^2)(c^2+d^2) \\ge (ac+bd)^2"
+          },
+          {
+            "text": "。\n解题步骤："
           },
           {
             "segments": [
@@ -818,27 +776,23 @@ module.exports = {
               {
                 "type": "text",
                 "text": "情形）："
-              },
-              {
-                "type": "math",
-                "latex": "(a^2+b^2)(c^2+d^2) \\ge (ac+bd)^2."
-              },
-              {
-                "type": "text",
-                "text": "理由：\n直接代入，左边平方和乘积，右边对应项乘积和的平方。"
               }
             ]
           },
           {
+            "latex": "(a^2+b^2)(c^2+d^2) \\ge (ac+bd)^2"
+          },
+          {
+            "text": ".理由：\n直接代入，左边平方和乘积，右边对应项乘积和的平方。"
+          },
+          {
+            "text": "第三步（取等条件）：\n等号成立当且仅当"
+          },
+          {
+            "latex": "\\frac{a}{c} = \\frac{b}{d}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "第三步（取等条件）：\n等号成立当且仅当"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{a}{c} = \\frac{b}{d}"
-              },
               {
                 "type": "text",
                 "text": "（当"
@@ -858,24 +812,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。\n理由：\n两序列成比例，即存在"
-              },
-              {
-                "type": "math",
-                "latex": "\\lambda"
-              },
-              {
-                "type": "text",
-                "text": "使"
-              },
-              {
-                "type": "math",
-                "latex": "(a,b)=\\lambda(c,d)"
-              },
-              {
-                "type": "text",
-                "text": "。\n关键结论： 二维形式的柯西不等式直接得证，无需额外计算。"
               }
             ]
+          },
+          {
+            "latex": "\\lambda"
+          },
+          {
+            "text": "使"
+          },
+          {
+            "latex": "(a,b)=\\lambda(c,d)"
+          },
+          {
+            "text": "。\n关键结论： 二维形式的柯西不等式直接得证，无需额外计算。"
           },
           {
             "segments": [
@@ -950,63 +900,43 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第二步（应用柯西）：\n由柯西不等式："
-              },
-              {
-                "type": "math",
-                "latex": "(x^2+y^2+z^2)(1^2+1^2+1^2) \\ge (x\\cdot 1 + y\\cdot 1 + z\\cdot 1)^2 = (x+y+z)^2 = 1^2 = 1."
-              },
-              {
-                "type": "text",
-                "text": "理由：\n将不等式写成柯西形式：左边为"
-              },
-              {
-                "type": "math",
-                "latex": "\\sum a_i^2 \\cdot \\sum b_i^2"
-              },
-              {
-                "type": "text",
-                "text": "，右边为"
-              },
-              {
-                "type": "math",
-                "latex": "(\\sum a_i b_i)^2"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "第二步（应用柯西）：\n由柯西不等式："
+          },
+          {
+            "latex": "(x^2+y^2+z^2)(1^2+1^2+1^2) \\ge (x\\cdot 1 + y\\cdot 1 + z\\cdot 1)^2 = (x+y+z)^2 = 1^2 = 1"
+          },
+          {
+            "text": ".理由：\n将不等式写成柯西形式：左边为"
+          },
+          {
+            "latex": "\\sum a_i^2 \\cdot \\sum b_i^2"
+          },
+          {
+            "text": "，右边为"
+          },
+          {
+            "latex": "(\\sum a_i b_i)^2"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "第三步（解出最值）：\n由上式得"
+          },
+          {
+            "latex": "3(x^2+y^2+z^2) \\ge 1 \\quad \\Rightarrow \\quad x^2+y^2+z^2 \\ge \\frac{1}{3}"
+          },
+          {
+            "text": ".理由：\n移项即可得到平方和的下界。"
+          },
+          {
+            "text": "第四步（验证取等）：\n等号成立当且仅当"
+          },
+          {
+            "latex": "\\frac{x}{1}=\\frac{y}{1}=\\frac{z}{1}"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "第三步（解出最值）：\n由上式得"
-              },
-              {
-                "type": "math",
-                "latex": "3(x^2+y^2+z^2) \\ge 1 \\quad \\Rightarrow \\quad x^2+y^2+z^2 \\ge \\frac{1}{3}."
-              },
-              {
-                "type": "text",
-                "text": "理由：\n移项即可得到平方和的下界。"
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第四步（验证取等）：\n等号成立当且仅当"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x}{1}=\\frac{y}{1}=\\frac{z}{1}"
-              },
               {
                 "type": "text",
                 "text": "，即"
@@ -1026,19 +956,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "得"
-              },
-              {
-                "type": "math",
-                "latex": "x=y=z=\\frac{1}{3}"
-              },
-              {
-                "type": "text",
-                "text": "。\n理由：\n序列成比例，且满足条件，故最小值可达。\n关键结论： 当"
-              },
-              {
-                "type": "math",
-                "latex": "x=y=z=\\frac{1}{3}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "x=y=z=\\frac{1}{3}"
+          },
+          {
+            "text": "。\n理由：\n序列成比例，且满足条件，故最小值可达。\n关键结论： 当"
+          },
+          {
+            "latex": "x=y=z=\\frac{1}{3}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "时，"
@@ -1050,16 +981,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "取得最小值"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{1}{3}"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "\\frac{1}{3}"
+          },
+          {
+            "text": "。"
           }
         ]
       },
@@ -1123,55 +1052,34 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（对应项相乘）：\n右边必须是同一下标项的乘积之和"
-              },
-              {
-                "type": "math",
-                "latex": "\\sum a_i b_i"
-              },
-              {
-                "type": "text",
-                "text": "，不能随意交换顺序。"
-              }
-            ]
+            "text": "正确理解（对应项相乘）：\n右边必须是同一下标项的乘积之和"
+          },
+          {
+            "latex": "\\sum a_i b_i"
+          },
+          {
+            "text": "，不能随意交换顺序。"
           },
           {
             "text": "错因分析（形式混淆）：\n与排序不等式等其他不等式混淆，未理解“对应项”的含义。"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "易错点三（向量形式记反）\n误将向量形式的柯西不等式记为"
-              },
-              {
-                "type": "math",
-                "latex": "|\\vec{a}\\cdot\\vec{b}| \\ge |\\vec{a}| |\\vec{b}|"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "易错点三（向量形式记反）\n误将向量形式的柯西不等式记为"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（内积不大于模积）：\n正确的形式是"
-              },
-              {
-                "type": "math",
-                "latex": "|\\vec{a}\\cdot\\vec{b}| \\le |\\vec{a}| |\\vec{b}|"
-              },
-              {
-                "type": "text",
-                "text": "，即内积的绝对值不超过模的乘积。"
-              }
-            ]
+            "latex": "|\\vec{a}\\cdot\\vec{b}| \\ge |\\vec{a}| |\\vec{b}|"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "正确理解（内积不大于模积）：\n正确的形式是"
+          },
+          {
+            "latex": "|\\vec{a}\\cdot\\vec{b}| \\le |\\vec{a}| |\\vec{b}|"
+          },
+          {
+            "text": "，即内积的绝对值不超过模的乘积。"
           },
           {
             "text": "错因分析（直观错觉）：\n误以为点积越大越好，而忽略了夹角余弦的绝对值不大于1。"

@@ -128,3 +128,15 @@ meta.json (每个结论)
 ```
 
 详细参考见 `scripts_reference.md`。
+## 2026-05 Detail Rich Parsing Update
+
+`build_detail_page_js.py` now applies display-math promotion rules for mixed text/math sections:
+
+- Long equation-chain math segments are promoted from inline `segments` into standalone `{ latex }` items.
+- Trailing punctuation (`.,;:!?` and Chinese variants) is stripped from latex and moved back to surrounding text.
+- The split result is stable for mini-program rendering and migrates to canonical `math_block` instead of oversized inline math.
+
+Practical impact:
+
+- Proof/explanation/example paragraphs no longer keep all formulas inside one mixed line.
+- Long formulas get their own render block, reducing overflow and improving readability.

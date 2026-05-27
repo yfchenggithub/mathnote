@@ -81,7 +81,7 @@ When you need to adjust how TeX is converted into display-friendly plain text,
 start here:
 - `clean_tex`
 
-Last Updated: 2026-05-26
+Last Updated: 2026-05-27
 ===============================================================================
 """
 
@@ -977,6 +977,18 @@ DISPLAY_VERSION = 2
 MATH_TOKEN_PATTERN = re.compile(r"@@M\d+@@")
 CJK_CHAR_RE = re.compile(r"[\u3400-\u4DBF\u4E00-\u9FFF]")
 SIMPLE_SQRT_PATTERN = re.compile(r"\bsqrt\(\s*([^)]+?)\s*\)")
+DISPLAY_MATH_ENV_PATTERN = re.compile(
+    r"\\begin\{(?:aligned|align\*?|gather\*?|cases|array|matrix|pmatrix|bmatrix|Bmatrix|vmatrix|Vmatrix|split)\}"
+)
+DISPLAY_RELATION_TOKEN_PATTERN = re.compile(
+    r"\\(?:Rightarrow|Longrightarrow|Leftrightarrow|iff|implies|ge|geq|le|leq|neq|approx|sim|to|mapsto)"
+)
+DISPLAY_LONG_EQUATION_HINT_PATTERN = re.compile(
+    r"(=|\\Rightarrow|\\Longrightarrow|\\left|\\right|\\frac|\\cdot|\\quad|\\ge|\\geq|\\le|\\leq|\\neq)"
+)
+TRAILING_MATH_PUNCTUATION_PATTERN = re.compile(
+    r"([\uFF0C\u3002\uFF1B\uFF1A\u3001\uFF01\uFF1F,.;:!?]+)$"
+)
 
 SECTION_DEFINITIONS: dict[str, tuple[str, str]] = {
     "core_formula": ("核心公式", "text"),
@@ -1201,6 +1213,181 @@ def build_item_from_segments(segments: list[dict[str, str]]) -> dict[str, Any] |
     return {"segments": segments}
 
 
+def append_text_segment(
+    target: list[dict[str, str]],
+    text: str,
+    *,
+    join_with_newline: bool,
+) -> None:
+    """Append text into a segment list and merge with the previous text segment."""
+
+    if not text:
+        return
+
+    if target and target[-1].get("type") == "text":
+        if join_with_newline:
+            target[-1]["text"] = f"{target[-1]['text']}\n{text}"
+        else:
+            target[-1]["text"] = f"{target[-1]['text']}{text}"
+        return
+
+    target.append({"type": "text", "text": text})
+
+
+def strip_trailing_math_punctuation(latex: str) -> tuple[str, str]:
+    """Split `latex + trailing punctuation` into `(latex, punctuation)` safely."""
+
+    normalized = normalize_latex_for_display(latex)
+    if not normalized:
+        return "", ""
+
+    matched = TRAILING_MATH_PUNCTUATION_PATTERN.search(normalized)
+    if not matched:
+        return normalized, ""
+
+    math_body = normalized[: matched.start()].rstrip()
+    punctuation = matched.group(1)
+
+    if not math_body:
+        return normalized, ""
+
+    return math_body, punctuation
+
+
+def normalize_rich_segments(segments: list[dict[str, str]]) -> list[dict[str, str]]:
+    """Normalize rich segments and move trailing punctuation out of latex."""
+
+    normalized_segments: list[dict[str, str]] = []
+    pending_text_suffix = ""
+
+    for seg in segments:
+        seg_type = str(seg.get("type", "")).strip().lower()
+
+        if seg_type == "math":
+            if pending_text_suffix:
+                append_text_segment(
+                    normalized_segments,
+                    pending_text_suffix,
+                    join_with_newline=False,
+                )
+                pending_text_suffix = ""
+
+            latex = normalize_latex_for_display(str(seg.get("latex", "")))
+            if not latex:
+                continue
+
+            math_body, trailing_punctuation = strip_trailing_math_punctuation(latex)
+            if math_body:
+                normalized_segments.append({"type": "math", "latex": math_body})
+
+            if trailing_punctuation:
+                pending_text_suffix += trailing_punctuation
+            continue
+
+        if seg_type != "text":
+            continue
+
+        text_value = normalize_text_segment(str(seg.get("text", "")))
+        if pending_text_suffix:
+            text_value = f"{pending_text_suffix}{text_value}" if text_value else pending_text_suffix
+            pending_text_suffix = ""
+
+        if text_value:
+            append_text_segment(
+                normalized_segments,
+                text_value,
+                join_with_newline=True,
+            )
+
+    if pending_text_suffix:
+        append_text_segment(
+            normalized_segments,
+            pending_text_suffix,
+            join_with_newline=False,
+        )
+
+    return normalized_segments
+
+
+def is_rich_display_math(latex: str) -> bool:
+    """Heuristically decide whether one math segment should be a standalone block."""
+
+    normalized = normalize_latex_for_display(latex)
+    if not normalized:
+        return False
+
+    if "\n" in normalized or "\\" in normalized:
+        return True
+
+    if DISPLAY_MATH_ENV_PATTERN.search(normalized):
+        return True
+
+    compact = re.sub(r"\s+", " ", normalized).strip()
+    if len(compact) < 24:
+        return False
+
+    relation_count = len(DISPLAY_RELATION_TOKEN_PATTERN.findall(compact))
+    relation_count += len(re.findall(r"[=<>]", compact))
+
+    if relation_count >= 2 and len(compact) >= 28:
+        return True
+
+    if relation_count >= 1 and len(compact) >= 40:
+        return True
+
+    return bool(len(compact) >= 34 and DISPLAY_LONG_EQUATION_HINT_PATTERN.search(compact))
+
+
+def split_rich_segments_into_items(segments: list[dict[str, str]]) -> list[dict[str, Any]]:
+    """Split mixed segments into render-ready items with display-math promotion."""
+
+    normalized_segments = normalize_rich_segments(segments)
+    if not normalized_segments:
+        return []
+
+    items: list[dict[str, Any]] = []
+    inline_buffer: list[dict[str, str]] = []
+
+    def flush_inline_buffer() -> None:
+        nonlocal inline_buffer
+        if not inline_buffer:
+            return
+
+        item = build_item_from_segments(inline_buffer)
+        inline_buffer = []
+        if item:
+            items.append(item)
+
+    for segment in normalized_segments:
+        if segment.get("type") == "math" and is_rich_display_math(str(segment.get("latex", ""))):
+            flush_inline_buffer()
+            items.append({"latex": str(segment.get("latex", ""))})
+            continue
+
+        inline_buffer.append(segment)
+
+    flush_inline_buffer()
+    return items
+
+
+def build_rich_items_from_protected_text(
+    protected_text: str,
+    math_map: dict[str, str],
+    *,
+    label_text: str = "",
+) -> list[dict[str, Any]]:
+    """Build one or multiple rich items from protected mixed text."""
+
+    normalized = normalize_rich_text_markup(protected_text)
+    label = normalize_text_segment(label_text)
+
+    if label:
+        normalized = f"{label}\n{normalized}" if normalized else label
+
+    segments = protected_text_to_segments(normalized, math_map)
+    return split_rich_segments_into_items(segments)
+
+
 def build_rich_item_from_protected_text(
     protected_text: str,
     math_map: dict[str, str],
@@ -1318,28 +1505,24 @@ def parse_generic_rich_items(raw_text: str) -> list[dict[str, Any]]:
     for chunk in chunks:
         first_item_index = chunk.find(r"\item")
         if first_item_index == -1:
-            item = build_rich_item_from_protected_text(chunk, math_map)
-            if item:
-                items.append(item)
+            items.extend(build_rich_items_from_protected_text(chunk, math_map))
             continue
 
         prefix = chunk[:first_item_index]
-        prefix_item = build_rich_item_from_protected_text(prefix, math_map)
-        if prefix_item:
-            items.append(prefix_item)
+        items.extend(build_rich_items_from_protected_text(prefix, math_map))
 
         list_text = chunk[first_item_index:]
         for label, body in extract_list_items_from_protected(list_text):
             label_text = normalize_text_segment(
                 normalize_rich_text_markup(strip_math_tokens(label))
             )
-            item = build_rich_item_from_protected_text(
-                body,
-                math_map,
-                label_text=label_text,
+            items.extend(
+                build_rich_items_from_protected_text(
+                    body,
+                    math_map,
+                    label_text=label_text,
+                )
             )
-            if item:
-                items.append(item)
 
     return items
 
@@ -1982,6 +2165,10 @@ def build_schema_comment() -> str:
             " *     2. { latex: string }",
             " *     3. { segments: [{ type: 'text', text } | { type: 'math', latex }] }",
             " *     4. theorem-list item: { title, desc?, latex }",
+            " *   - Rich parser rules for mixed text/math sections:",
+            " *     - Long equation-chain math is promoted to standalone { latex } items.",
+            " *     - Trailing punctuation is stripped out of latex and kept in text segments.",
+            " *     - This improves canonical migration to math_block and avoids inline overflow.",
             " *   - Important layouts used by this builder:",
             " *     - text",
             " *     - theorem-list",

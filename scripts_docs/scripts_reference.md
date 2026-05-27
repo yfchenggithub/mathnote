@@ -638,3 +638,17 @@ node scripts/test_katex.js
 - `clean_i_dirs_files.example.json`
 
 以上为对应脚本的 JSON 配置示例文件，供首次使用时参考。
+## 2026-05 Update: `build_detail_page_js.py` Formula Promotion
+
+The rich-item parser in `build_detail_page_js.py` now performs an additional normalization/splitting step for generic sections (`explanation`, `proof`, `examples`, `traps`, `summary`):
+
+- Detect display-like math (multi-line, environment-based, or long equation-chain).
+- Promote those segments to standalone `{ latex }` items.
+- Keep short math inline as `{ segments: [...] }`.
+- Move trailing punctuation out of latex into adjacent text segments.
+
+Why this change:
+
+- Prevents core derivation formulas from being hidden inside inline mixed text.
+- Improves migration quality to canonical v2 (`math_block` generation).
+- Reduces inline overflow issues in mini-program detail rendering.
