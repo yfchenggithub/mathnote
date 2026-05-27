@@ -55,6 +55,10 @@
  *     2. { latex: string }
  *     3. { segments: [{ type: 'text', text } | { type: 'math', latex }] }
  *     4. theorem-list item: { title, desc?, latex }
+ *   - Rich parser rules for mixed text/math sections:
+ *     - Long equation-chain math is promoted to standalone { latex } items.
+ *     - Trailing punctuation is stripped out of latex and kept in text segments.
+ *     - This improves canonical migration to math_block and avoids inline overflow.
  *   - Important layouts used by this builder:
  *     - text
  *     - theorem-list
@@ -167,14 +171,143 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
+            "title": "条件 1（等差定义）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "数列"
+              },
+              {
+                "type": "math",
+                "latex": "\\{a_n\\}"
+              },
+              {
+                "type": "text",
+                "text": "为等差数列，设公差为"
+              },
+              {
+                "type": "math",
+                "latex": "d"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "数列 为等差数列，设公差为 。",
+            "latex": "\\{a_n\\} \\qquad d"
+          },
+          {
+            "title": "条件 2（等比定义）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "数列"
+              },
+              {
+                "type": "math",
+                "latex": "\\{b_n\\}"
+              },
+              {
+                "type": "text",
+                "text": "为等比数列，公比"
+              },
+              {
+                "type": "math",
+                "latex": "q \\neq 1"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "数列 为等比数列，公比 。",
+            "latex": "q \\neq 1"
+          },
+          {
+            "title": "条件 3（乘积定义）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "令"
+              },
+              {
+                "type": "math",
+                "latex": "c_n = a_n b_n"
+              },
+              {
+                "type": "text",
+                "text": "，其前"
+              },
+              {
+                "type": "math",
+                "latex": "n"
+              },
+              {
+                "type": "text",
+                "text": "项和为"
+              },
+              {
+                "type": "math",
+                "latex": "S_n = \\sum_{k=1}^{n} c_k"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "令 ，其前 项和为 。",
+            "latex": "c_n = a_n b_n"
+          },
+          {
             "title": "结论一（差比乘积和）：",
-            "desc": "前",
-            "latex": "n \\qquad S_n = \\frac{c_{n+1} - q^{2} c_n + q c_1}{(q-1)^{2}}."
+            "segments": [
+              {
+                "type": "text",
+                "text": "前"
+              },
+              {
+                "type": "math",
+                "latex": "n"
+              },
+              {
+                "type": "text",
+                "text": "项和可用项与首项交叉表达。"
+              },
+              {
+                "type": "math",
+                "latex": "S_n = \\frac{c_{n+1} - q^{2} c_n + q c_1}{(q-1)^{2}}."
+              }
+            ],
+            "desc": "前 项和可用项与首项交叉表达。",
+            "latex": "S_n = \\frac{c_{n+1} - q^{2} c_n + q c_1}{(q-1)^{2}}."
           },
           {
             "title": "推广结论（显式求和）：",
-            "desc": "直接由首项、公差和公比给出显式。",
-            "latex": "S_n = \\frac{a_1 b_1 - a_{n+1} b_{n+1}}{1-q} + \\frac{d b_1 q (1 - q^{n})}{(1-q)^{2}}. \\qquad q \\neq 1"
+            "segments": [
+              {
+                "type": "text",
+                "text": "直接由首项、公差和公比给出显式。"
+              },
+              {
+                "type": "math",
+                "latex": "S_n = \\frac{a_1 b_1 - a_{n+1} b_{n+1}}{1-q} + \\frac{d b_1 q (1 - q^{n})}{(1-q)^{2}}."
+              },
+              {
+                "type": "text",
+                "text": "等号/取等条件： 无（公式为恒等式，仅需"
+              },
+              {
+                "type": "math",
+                "latex": "q \\neq 1"
+              },
+              {
+                "type": "text",
+                "text": "）。"
+              }
+            ],
+            "desc": "直接由首项、公差和公比给出显式。 等号/取等条件： 无（公式为恒等式，仅需 ）。",
+            "latex": "S_n = \\frac{a_1 b_1 - a_{n+1} b_{n+1}}{1-q} + \\frac{d b_1 q (1 - q^{n})}{(1-q)^{2}}."
           }
         ]
       },
@@ -190,20 +323,13 @@ module.exports = {
             "text": "核心拆解"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "要点一（差比结构）：\n数列"
-              },
-              {
-                "type": "math",
-                "latex": "\\{c_n\\}"
-              },
-              {
-                "type": "text",
-                "text": "是等差数列与等比数列的乘积，简称“差比数列”。"
-              }
-            ]
+            "text": "要点一（差比结构）：\n数列"
+          },
+          {
+            "latex": "\\{c_n\\}"
+          },
+          {
+            "text": "是等差数列与等比数列的乘积，简称“差比数列”。"
           },
           {
             "segments": [
@@ -351,20 +477,13 @@ module.exports = {
             "text": "使用场景"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "场景一（差比求和）： 遇到"
-              },
-              {
-                "type": "math",
-                "latex": "\\{ (an+b) q^{n-1} \\}"
-              },
-              {
-                "type": "text",
-                "text": "型求和时，直接套用避免长运算。"
-              }
-            ]
+            "text": "场景一（差比求和）： 遇到"
+          },
+          {
+            "latex": "\\{ (an+b) q^{n-1} \\}"
+          },
+          {
+            "text": "型求和时，直接套用避免长运算。"
           },
           {
             "segments": [
@@ -425,18 +544,16 @@ module.exports = {
             "text": "正式推导"
           },
           {
+            "text": "步骤一（写出和式）："
+          },
+          {
+            "latex": "S_n = a_1 b_1 + a_2 b_2 + \\cdots + a_n b_n"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "步骤一（写出和式）："
-              },
-              {
-                "type": "math",
-                "latex": "S_n = a_1 b_1 + a_2 b_2 + \\cdots + a_n b_n."
-              },
-              {
-                "type": "text",
-                "text": "理由： 直接由定义"
+                "text": ".理由： 直接由定义"
               },
               {
                 "type": "math",
@@ -449,18 +566,16 @@ module.exports = {
             ]
           },
           {
+            "text": "步骤二（构造错位）："
+          },
+          {
+            "latex": "q S_n = a_1 b_2 + a_2 b_3 + \\cdots + a_{n-1} b_n + a_n b_{n+1}"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "步骤二（构造错位）："
-              },
-              {
-                "type": "math",
-                "latex": "q S_n = a_1 b_2 + a_2 b_3 + \\cdots + a_{n-1} b_n + a_n b_{n+1}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 因"
+                "text": ".理由： 因"
               },
               {
                 "type": "math",
@@ -489,15 +604,13 @@ module.exports = {
             ]
           },
           {
+            "text": "步骤三（相减消元）："
+          },
+          {
+            "latex": "\\begin{aligned}\nS_n - q S_n &= a_1 b_1 + (a_2 - a_1) b_2 + (a_3 - a_2) b_3 + \\cdots \\\\\n&\\quad + (a_n - a_{n-1}) b_n - a_n b_{n+1}.\n\\end{aligned}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "步骤三（相减消元）："
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\nS_n - q S_n &= a_1 b_1 + (a_2 - a_1) b_2 + (a_3 - a_2) b_3 + \\cdots \\\\\n&\\quad + (a_n - a_{n-1}) b_n - a_n b_{n+1}.\n\\end{aligned}"
-              },
               {
                 "type": "text",
                 "text": "理由： 上下对应项相减，第二项起系数差为"
@@ -521,18 +634,16 @@ module.exports = {
             ]
           },
           {
+            "text": "步骤四（代入公差）："
+          },
+          {
+            "latex": "(1-q) S_n = a_1 b_1 + d (b_2 + b_3 + \\cdots + b_n) - a_n b_{n+1}"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "步骤四（代入公差）："
-              },
-              {
-                "type": "math",
-                "latex": "(1-q) S_n = a_1 b_1 + d (b_2 + b_3 + \\cdots + b_n) - a_n b_{n+1}."
-              },
-              {
-                "type": "text",
-                "text": "理由："
+                "text": ".理由："
               },
               {
                 "type": "math",
@@ -553,18 +664,16 @@ module.exports = {
             ]
           },
           {
+            "text": "步骤五（等比部分求和）："
+          },
+          {
+            "latex": "b_2 + b_3 + \\cdots + b_n = b_2 \\cdot \\frac{1 - q^{n-1}}{1-q}\n= b_1 q \\cdot \\frac{1 - q^{n-1}}{1-q}"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "步骤五（等比部分求和）："
-              },
-              {
-                "type": "math",
-                "latex": "b_2 + b_3 + \\cdots + b_n = b_2 \\cdot \\frac{1 - q^{n-1}}{1-q}\n= b_1 q \\cdot \\frac{1 - q^{n-1}}{1-q}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 等比数列求和公式，首项"
+                "text": ".理由： 等比数列求和公式，首项"
               },
               {
                 "type": "math",
@@ -585,15 +694,13 @@ module.exports = {
             ]
           },
           {
+            "text": "步骤六（整理出 ）："
+          },
+          {
+            "latex": "\\begin{aligned}\n(1-q) S_n &= a_1 b_1 + d b_1 q \\cdot \\frac{1 - q^{n-1}}{1-q} - a_n b_{n+1}\\\\\n\\Rightarrow\\quad S_n &= \\frac{a_1 b_1 - a_n b_{n+1}}{1-q} + \\frac{d b_1 q (1 - q^{n-1})}{(1-q)^2}.\n\\end{aligned}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "步骤六（整理出 ）："
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\n(1-q) S_n &= a_1 b_1 + d b_1 q \\cdot \\frac{1 - q^{n-1}}{1-q} - a_n b_{n+1}\\\\\n\\Rightarrow\\quad S_n &= \\frac{a_1 b_1 - a_n b_{n+1}}{1-q} + \\frac{d b_1 q (1 - q^{n-1})}{(1-q)^2}.\n\\end{aligned}"
-              },
               {
                 "type": "text",
                 "text": "理由： 两边同除以"
@@ -625,15 +732,13 @@ module.exports = {
             ]
           },
           {
+            "text": "步骤七（化为目标形式）：\n利用"
+          },
+          {
+            "latex": "a_n b_{n+1} = q a_n b_n = q c_n"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "步骤七（化为目标形式）：\n利用"
-              },
-              {
-                "type": "math",
-                "latex": "a_n b_{n+1} = q a_n b_n = q c_n"
-              },
               {
                 "type": "text",
                 "text": "以及"
@@ -653,14 +758,17 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，代入上式并通分整理可得"
-              },
-              {
-                "type": "math",
-                "latex": "S_n = \\frac{c_{n+1} - q^2 c_n + q c_1}{(q-1)^2}."
-              },
+              }
+            ]
+          },
+          {
+            "latex": "S_n = \\frac{c_{n+1} - q^2 c_n + q c_1}{(q-1)^2}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "理由： 将"
+                "text": ".理由： 将"
               },
               {
                 "type": "math",
@@ -699,15 +807,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "例 1（基础）\n题目： 已知等差数列"
+          },
+          {
+            "latex": "\\{a_n\\}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例 1（基础）\n题目： 已知等差数列"
-              },
-              {
-                "type": "math",
-                "latex": "\\{a_n\\}"
-              },
               {
                 "type": "text",
                 "text": "满足"
@@ -719,19 +825,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，等比数列"
-              },
-              {
-                "type": "math",
-                "latex": "\\{b_n\\}"
-              },
-              {
-                "type": "text",
-                "text": "满足"
-              },
-              {
-                "type": "math",
-                "latex": "b_1 = 1,\\; b_n = 2^{n-1}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\{b_n\\}"
+          },
+          {
+            "text": "满足"
+          },
+          {
+            "latex": "b_1 = 1,\\; b_n = 2^{n-1}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "，令"
@@ -743,11 +850,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，求"
-              },
-              {
-                "type": "math",
-                "latex": "\\{c_n\\}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\{c_n\\}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "的前"
@@ -791,11 +901,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，首项"
-              },
-              {
-                "type": "math",
-                "latex": "a_1 = 1,\\; b_1 = 1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "a_1 = 1,\\; b_1 = 1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "。\n理由："
@@ -867,36 +980,25 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第三步（代入公式）：\n使用推广公式"
-              },
-              {
-                "type": "math",
-                "latex": "S_n = \\frac{a_1 b_1 - a_{n+1} b_{n+1}}{1-q} + \\frac{d b_1 q (1 - q^n)}{(1-q)^2}."
-              },
-              {
-                "type": "text",
-                "text": "代入"
-              },
-              {
-                "type": "math",
-                "latex": "a_1=1,\\; b_1=1,\\; d=2,\\; q=2,\\; a_{n+1} b_{n+1}= (2n+1)2^n"
-              },
-              {
-                "type": "text",
-                "text": "："
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\nS_n &= \\frac{1 - (2n+1)2^n}{1-2} + \\frac{2 \\cdot 1 \\cdot 2 (1 - 2^n)}{(1-2)^2}\\\\\n&= \\frac{1 - (2n+1)2^n}{-1} + \\frac{4 (1 - 2^n)}{1}\\\\\n&= (2n+1)2^n - 1 + 4 - 4 \\cdot 2^n\\\\\n&= (2n+1)2^n - 4 \\cdot 2^n + 3\\\\\n&= (2n-3)2^n + 3.\n\\end{aligned}"
-              },
-              {
-                "type": "text",
-                "text": "理由： 逐项计算后合并同类项。"
-              }
-            ]
+            "text": "第三步（代入公式）：\n使用推广公式"
+          },
+          {
+            "latex": "S_n = \\frac{a_1 b_1 - a_{n+1} b_{n+1}}{1-q} + \\frac{d b_1 q (1 - q^n)}{(1-q)^2}"
+          },
+          {
+            "text": ".代入"
+          },
+          {
+            "latex": "a_1=1,\\; b_1=1,\\; d=2,\\; q=2,\\; a_{n+1} b_{n+1}= (2n+1)2^n"
+          },
+          {
+            "text": "："
+          },
+          {
+            "latex": "\\begin{aligned}\nS_n &= \\frac{1 - (2n+1)2^n}{1-2} + \\frac{2 \\cdot 1 \\cdot 2 (1 - 2^n)}{(1-2)^2}\\\\\n&= \\frac{1 - (2n+1)2^n}{-1} + \\frac{4 (1 - 2^n)}{1}\\\\\n&= (2n+1)2^n - 1 + 4 - 4 \\cdot 2^n\\\\\n&= (2n+1)2^n - 4 \\cdot 2^n + 3\\\\\n&= (2n-3)2^n + 3.\n\\end{aligned}"
+          },
+          {
+            "text": "理由： 逐项计算后合并同类项。"
           },
           {
             "segments": [
@@ -927,11 +1029,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，代入"
-              },
-              {
-                "type": "math",
-                "latex": "S_n = \\frac{c_{n+1} - q^2 c_n + q c_1}{(q-1)^2}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "S_n = \\frac{c_{n+1} - q^2 c_n + q c_1}{(q-1)^2}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "应得相同结果，请自行检验。\n理由： 保证公式一致性。\n关键结论："
@@ -947,15 +1052,13 @@ module.exports = {
             ]
           },
           {
+            "text": "例 2（稍变形）\n题目： 设"
+          },
+          {
+            "latex": "\\{a_n\\}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例 2（稍变形）\n题目： 设"
-              },
-              {
-                "type": "math",
-                "latex": "\\{a_n\\}"
-              },
               {
                 "type": "text",
                 "text": "是公差为"
@@ -967,27 +1070,26 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的等差数列，"
-              },
-              {
-                "type": "math",
-                "latex": "\\{b_n\\}"
-              },
-              {
-                "type": "text",
-                "text": "是公比"
-              },
-              {
-                "type": "math",
-                "latex": "q = \\frac{1}{2}"
-              },
-              {
-                "type": "text",
-                "text": "的等比数列，且"
-              },
-              {
-                "type": "math",
-                "latex": "a_1=3,\\; b_1=4"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\{b_n\\}"
+          },
+          {
+            "text": "是公比"
+          },
+          {
+            "latex": "q = \\frac{1}{2}"
+          },
+          {
+            "text": "的等比数列，且"
+          },
+          {
+            "latex": "a_1=3,\\; b_1=4"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "。记"
@@ -1011,15 +1113,13 @@ module.exports = {
             ]
           },
           {
+            "text": "第一步（参数提取）："
+          },
+          {
+            "latex": "d = -1,\\; q = \\frac{1}{2},\\; a_1=3,\\; b_1=4"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "第一步（参数提取）："
-              },
-              {
-                "type": "math",
-                "latex": "d = -1,\\; q = \\frac{1}{2},\\; a_1=3,\\; b_1=4"
-              },
               {
                 "type": "text",
                 "text": "，求"
@@ -1055,51 +1155,41 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "b_6 = b_1 q^{5} = 4 \\cdot \\bigl(\\frac{1}{2}\\bigr)^{5} = 4 \\cdot \\frac{1}{32} = \\frac{1}{8}"
-              },
-              {
-                "type": "text",
-                "text": "，\n则"
-              },
-              {
-                "type": "math",
-                "latex": "a_6 b_6 = -2 \\cdot \\frac{1}{8} = -\\frac{1}{4}"
-              },
-              {
-                "type": "text",
-                "text": "。\n理由： 准备代入公式。"
               }
             ]
           },
           {
+            "latex": "b_6 = b_1 q^{5} = 4 \\cdot \\bigl(\\frac{1}{2}\\bigr)^{5} = 4 \\cdot \\frac{1}{32} = \\frac{1}{8}"
+          },
+          {
+            "text": "，\n则"
+          },
+          {
+            "latex": "a_6 b_6 = -2 \\cdot \\frac{1}{8} = -\\frac{1}{4}"
+          },
+          {
+            "text": "。\n理由： 准备代入公式。"
+          },
+          {
+            "text": "第三步（代入公式求值）：\n使用推广公式："
+          },
+          {
+            "latex": "S_5 = \\frac{a_1 b_1 - a_6 b_6}{1-q} + \\frac{d b_1 q (1 - q^5)}{(1-q)^2}"
+          },
+          {
+            "text": ".代入："
+          },
+          {
+            "latex": "\\begin{aligned}\nS_5 &= \\frac{3\\cdot 4 - (-\\frac{1}{4})}{1 - 1/2} + \\frac{(-1)\\cdot 4 \\cdot \\frac{1}{2} (1 - (1/2)^5)}{(1 - 1/2)^2}\\\\\n&= \\frac{12 + 0.25}{0.5} + \\frac{-2 (1 - 1/32)}{0.25}\\\\\n&= \\frac{12.25}{0.5} - \\frac{2 \\cdot (31/32)}{0.25}\\\\\n&= 24.5 - \\frac{62/32}{0.25} = 24.5 - \\frac{62/32}{1/4} = 24.5 - \\frac{62}{32}\\cdot 4 = 24.5 - \\frac{62}{8} = 24.5 - 7.75 = 16.75.\n\\end{aligned}"
+          },
+          {
+            "text": "即"
+          },
+          {
+            "latex": "S_5 = \\frac{67}{4}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "第三步（代入公式求值）：\n使用推广公式："
-              },
-              {
-                "type": "math",
-                "latex": "S_5 = \\frac{a_1 b_1 - a_6 b_6}{1-q} + \\frac{d b_1 q (1 - q^5)}{(1-q)^2}."
-              },
-              {
-                "type": "text",
-                "text": "代入："
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\nS_5 &= \\frac{3\\cdot 4 - (-\\frac{1}{4})}{1 - 1/2} + \\frac{(-1)\\cdot 4 \\cdot \\frac{1}{2} (1 - (1/2)^5)}{(1 - 1/2)^2}\\\\\n&= \\frac{12 + 0.25}{0.5} + \\frac{-2 (1 - 1/32)}{0.25}\\\\\n&= \\frac{12.25}{0.5} - \\frac{2 \\cdot (31/32)}{0.25}\\\\\n&= 24.5 - \\frac{62/32}{0.25} = 24.5 - \\frac{62/32}{1/4} = 24.5 - \\frac{62}{32}\\cdot 4 = 24.5 - \\frac{62}{8} = 24.5 - 7.75 = 16.75.\n\\end{aligned}"
-              },
-              {
-                "type": "text",
-                "text": "即"
-              },
-              {
-                "type": "math",
-                "latex": "S_5 = \\frac{67}{4}"
-              },
               {
                 "type": "text",
                 "text": ".\n理由： 注意分数运算，"
@@ -1127,43 +1217,38 @@ module.exports = {
               {
                 "type": "text",
                 "text": ","
-              },
-              {
-                "type": "math",
-                "latex": "c_2= (3-1)\\cdot 2 = 2\\cdot 2 =4"
-              },
-              {
-                "type": "text",
-                "text": "? 需具体："
-              },
-              {
-                "type": "math",
-                "latex": "a_2=2,\\; b_2=2,\\; c_2=4"
-              },
-              {
-                "type": "text",
-                "text": ";"
-              },
-              {
-                "type": "math",
-                "latex": "a_3=1,\\; b_3=1,\\; c_3=1"
-              },
-              {
-                "type": "text",
-                "text": ";"
-              },
-              {
-                "type": "math",
-                "latex": "a_4=0,\\; b_4=0.5,\\; c_4=0"
-              },
-              {
-                "type": "text",
-                "text": ";"
-              },
-              {
-                "type": "math",
-                "latex": "a_5=-1,\\; b_5=0.25,\\; c_5=-0.25"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "c_2= (3-1)\\cdot 2 = 2\\cdot 2 =4"
+          },
+          {
+            "text": "? 需具体："
+          },
+          {
+            "latex": "a_2=2,\\; b_2=2,\\; c_2=4"
+          },
+          {
+            "text": ";"
+          },
+          {
+            "latex": "a_3=1,\\; b_3=1,\\; c_3=1"
+          },
+          {
+            "text": ";"
+          },
+          {
+            "latex": "a_4=0,\\; b_4=0.5,\\; c_4=0"
+          },
+          {
+            "text": ";"
+          },
+          {
+            "latex": "a_5=-1,\\; b_5=0.25,\\; c_5=-0.25"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "; 和"
@@ -1175,16 +1260,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，吻合。\n理由： 确保结果正确。\n关键结论："
-              },
-              {
-                "type": "math",
-                "latex": "S_5 = \\frac{67}{4}"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "S_5 = \\frac{67}{4}"
+          },
+          {
+            "text": "。"
           }
         ]
       },
@@ -1210,15 +1293,13 @@ module.exports = {
             ]
           },
           {
+            "text": "正确理解（条件限制）：\n使用该公式前必须确认"
+          },
+          {
+            "latex": "q \\neq 1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（条件限制）：\n使用该公式前必须确认"
-              },
-              {
-                "type": "math",
-                "latex": "q \\neq 1"
-              },
               {
                 "type": "text",
                 "text": "。若"
@@ -1378,20 +1459,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "一句话核心\n差比数列求和可用公式"
-              },
-              {
-                "type": "math",
-                "latex": "S_n = \\frac{c_{n+1} - q^2 c_n + q c_1}{(q-1)^2}"
-              },
-              {
-                "type": "text",
-                "text": "或显式形式快速计算，本质是错位相减的固化。"
-              }
-            ]
+            "text": "一句话核心\n差比数列求和可用公式"
+          },
+          {
+            "latex": "S_n = \\frac{c_{n+1} - q^2 c_n + q c_1}{(q-1)^2}"
+          },
+          {
+            "text": "或显式形式快速计算，本质是错位相减的固化。"
           },
           {
             "text": "使用条件"
@@ -1421,15 +1495,13 @@ module.exports = {
             ]
           },
           {
+            "text": "条件 2（等比数列）： 公比"
+          },
+          {
+            "latex": "q \\neq 1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "条件 2（等比数列）： 公比"
-              },
-              {
-                "type": "math",
-                "latex": "q \\neq 1"
-              },
               {
                 "type": "text",
                 "text": "，并明确首项"
@@ -1464,20 +1536,13 @@ module.exports = {
             "text": "关键提醒"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "易错点（q=1 禁忌）： 必须先验证"
-              },
-              {
-                "type": "math",
-                "latex": "q \\neq 1"
-              },
-              {
-                "type": "text",
-                "text": "，否则公式不适用。"
-              }
-            ]
+            "text": "易错点（q=1 禁忌）： 必须先验证"
+          },
+          {
+            "latex": "q \\neq 1"
+          },
+          {
+            "text": "，否则公式不适用。"
           },
           {
             "segments": [
@@ -1601,12 +1666,83 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
+            "title": "条件 1（等差数列定义）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "数列"
+              },
+              {
+                "type": "math",
+                "latex": "\\{a_n\\}"
+              },
+              {
+                "type": "text",
+                "text": "为等差数列，首项"
+              },
+              {
+                "type": "math",
+                "latex": "a_1"
+              },
+              {
+                "type": "text",
+                "text": "，公差"
+              },
+              {
+                "type": "math",
+                "latex": "d"
+              },
+              {
+                "type": "text",
+                "text": "，即对任意"
+              },
+              {
+                "type": "math",
+                "latex": "n\\in\\mathbb{N}^*"
+              },
+              {
+                "type": "text",
+                "text": "有"
+              },
+              {
+                "type": "math",
+                "latex": "a_{n+1}-a_n=d"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "数列 为等差数列，首项 ，公差 ，即对任意 有 。",
+            "latex": "a_{n+1}-a_n=d"
+          },
+          {
             "title": "结论一（前n项和公式）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "数列和等于首尾平均乘项数，像梯形面积。"
+              },
+              {
+                "type": "math",
+                "latex": "S_n = \\frac{n(a_1+a_n)}{2} = na_1 + \\frac{n(n-1)}{2}d ."
+              }
+            ],
             "desc": "数列和等于首尾平均乘项数，像梯形面积。",
             "latex": "S_n = \\frac{n(a_1+a_n)}{2} = na_1 + \\frac{n(n-1)}{2}d ."
           },
           {
             "title": "推广结论（倒序相加形式）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "采用首尾配对相加，乘以项数一半。"
+              },
+              {
+                "type": "math",
+                "latex": "S_n = \\frac{n}{2}(a_1 + a_n) ."
+              }
+            ],
             "desc": "采用首尾配对相加，乘以项数一半。",
             "latex": "S_n = \\frac{n}{2}(a_1 + a_n) ."
           }
@@ -1687,16 +1823,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "为高的矩形面积，或如梯形面积（上底 + 下底）"
-              },
-              {
-                "type": "math",
-                "latex": "\\times"
-              },
-              {
-                "type": "text",
-                "text": "高 / 2。"
               }
             ]
+          },
+          {
+            "latex": "\\times"
+          },
+          {
+            "text": "高 / 2。"
           },
           {
             "segments": [
@@ -1719,16 +1853,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的二次函数"
-              },
-              {
-                "type": "math",
-                "latex": "S_n = \\frac{d}{2}n^2 + \\bigl(a_1 - \\frac{d}{2}\\bigr)n"
-              },
-              {
-                "type": "text",
-                "text": "，常数项为零，其图像过原点，对称轴与公差有关。"
               }
             ]
+          },
+          {
+            "latex": "S_n = \\frac{d}{2}n^2 + \\bigl(a_1 - \\frac{d}{2}\\bigr)n"
+          },
+          {
+            "text": "，常数项为零，其图像过原点，对称轴与公差有关。"
           },
           {
             "text": "考点价值（灵活求参数）"
@@ -1837,16 +1969,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，选用"
-              },
-              {
-                "type": "math",
-                "latex": "S_n = \\frac{n(a_1+a_n)}{2}"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "S_n = \\frac{n(a_1+a_n)}{2}"
+          },
+          {
+            "text": "。"
           },
           {
             "segments": [
@@ -1861,16 +1991,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，选用"
-              },
-              {
-                "type": "math",
-                "latex": "S_n = na_1 + \\frac{n(n-1)}{2}d"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "S_n = na_1 + \\frac{n(n-1)}{2}d"
+          },
+          {
+            "text": "。"
           }
         ]
       },
@@ -1899,18 +2027,16 @@ module.exports = {
             "text": "正式推导"
           },
           {
+            "text": "步骤一（写出正序和）："
+          },
+          {
+            "latex": "S_n = a_1 + a_2 + a_3 + \\dots + a_{n-2} + a_{n-1} + a_n"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "步骤一（写出正序和）："
-              },
-              {
-                "type": "math",
-                "latex": "S_n = a_1 + a_2 + a_3 + \\dots + a_{n-2} + a_{n-1} + a_n."
-              },
-              {
-                "type": "text",
-                "text": "理由：\n按定义写出前"
+                "text": ".理由：\n按定义写出前"
               },
               {
                 "type": "math",
@@ -1923,31 +2049,22 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤二（写出倒序和）："
-              },
-              {
-                "type": "math",
-                "latex": "S_n = a_n + a_{n-1} + a_{n-2} + \\dots + a_3 + a_2 + a_1."
-              },
-              {
-                "type": "text",
-                "text": "理由：\n将上式各项倒序排列，保持总和不变。"
-              }
-            ]
+            "text": "步骤二（写出倒序和）："
+          },
+          {
+            "latex": "S_n = a_n + a_{n-1} + a_{n-2} + \\dots + a_3 + a_2 + a_1"
+          },
+          {
+            "text": ".理由：\n将上式各项倒序排列，保持总和不变。"
+          },
+          {
+            "text": "步骤三（两式相加）："
+          },
+          {
+            "latex": "\\begin{aligned}\n2S_n &= (a_1+a_n) + (a_2+a_{n-1}) + (a_3+a_{n-2}) + \\dots + (a_n+a_1).\n\\end{aligned}"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "步骤三（两式相加）："
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\n2S_n &= (a_1+a_n) + (a_2+a_{n-1}) + (a_3+a_{n-2}) + \\dots + (a_n+a_1).\n\\end{aligned}"
-              },
               {
                 "type": "text",
                 "text": "理由：\n等号左边相加得"
@@ -2023,14 +2140,17 @@ module.exports = {
               {
                 "type": "text",
                 "text": "对，因此"
-              },
-              {
-                "type": "math",
-                "latex": "2S_n = n(a_1+a_n) \\quad\\Rightarrow\\quad S_n = \\frac{n(a_1+a_n)}{2}."
-              },
+              }
+            ]
+          },
+          {
+            "latex": "2S_n = n(a_1+a_n) \\quad\\Rightarrow\\quad S_n = \\frac{n(a_1+a_n)}{2}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "理由：\n所有对的和相等，共"
+                "text": ".理由：\n所有对的和相等，共"
               },
               {
                 "type": "math",
@@ -2063,11 +2183,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "代入，得"
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\nS_n &= \\frac{n\\bigl(2a_1+(n-1)d\\bigr)}{2} \\\\\n&= na_1 + \\frac{n(n-1)}{2}d .\n\\end{aligned}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\begin{aligned}\nS_n &= \\frac{n\\bigl(2a_1+(n-1)d\\bigr)}{2} \\\\\n&= na_1 + \\frac{n(n-1)}{2}d .\n\\end{aligned}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "理由：\n通过消去"
@@ -2101,15 +2224,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "例 1（基础）\n题目： 在等差数列"
+          },
+          {
+            "latex": "\\{a_n\\}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例 1（基础）\n题目： 在等差数列"
-              },
-              {
-                "type": "math",
-                "latex": "\\{a_n\\}"
-              },
               {
                 "type": "text",
                 "text": "中，已知"
@@ -2189,34 +2310,25 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第二步（选用公式）：\n使用"
-              },
-              {
-                "type": "math",
-                "latex": "S_n = \\frac{n(a_1+a_n)}{2}"
-              },
-              {
-                "type": "text",
-                "text": "。\n理由：\n已知首项和末项时，该式无需先求公差，计算最简。"
-              }
-            ]
+            "text": "第二步（选用公式）：\n使用"
+          },
+          {
+            "latex": "S_n = \\frac{n(a_1+a_n)}{2}"
+          },
+          {
+            "text": "。\n理由：\n已知首项和末项时，该式无需先求公差，计算最简。"
+          },
+          {
+            "text": "第三步（代入计算）："
+          },
+          {
+            "latex": "S_{10} = \\frac{10 \\times (5 + 41)}{2} = \\frac{10 \\times 46}{2} = 230"
           },
           {
             "segments": [
               {
                 "type": "text",
-                "text": "第三步（代入计算）："
-              },
-              {
-                "type": "math",
-                "latex": "S_{10} = \\frac{10 \\times (5 + 41)}{2} = \\frac{10 \\times 46}{2} = 230."
-              },
-              {
-                "type": "text",
-                "text": "理由：\n直接代入数值，注意先算括号内，再乘除避免错误。\n关键结论："
+                "text": ".理由：\n直接代入数值，注意先算括号内，再乘除避免错误。\n关键结论："
               },
               {
                 "type": "math",
@@ -2285,26 +2397,22 @@ module.exports = {
             ]
           },
           {
+            "text": "第一步（设出求和公式）：\n由"
+          },
+          {
+            "latex": "S_n = na_1 + \\frac{n(n-1)}{2}d"
+          },
+          {
+            "text": "得"
+          },
+          {
+            "latex": "S_5 = 5a_1 + 10d,\\quad S_{10} = 10a_1 + 45d"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "第一步（设出求和公式）：\n由"
-              },
-              {
-                "type": "math",
-                "latex": "S_n = na_1 + \\frac{n(n-1)}{2}d"
-              },
-              {
-                "type": "text",
-                "text": "得"
-              },
-              {
-                "type": "math",
-                "latex": "S_5 = 5a_1 + 10d,\\quad S_{10} = 10a_1 + 45d."
-              },
-              {
-                "type": "text",
-                "text": "理由：\n选用含"
+                "text": ".理由：\n选用含"
               },
               {
                 "type": "math",
@@ -2317,15 +2425,13 @@ module.exports = {
             ]
           },
           {
+            "text": "第二步（建立方程组）：\n依题意得"
+          },
+          {
+            "latex": "\\begin{cases}\n5a_1 + 10d = 35,\\\\\n10a_1 + 45d = 120.\n\\end{cases}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "第二步（建立方程组）：\n依题意得"
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{cases}\n5a_1 + 10d = 35,\\\\\n10a_1 + 45d = 120.\n\\end{cases}"
-              },
               {
                 "type": "text",
                 "text": "理由：\n将已知和转化为关于"
@@ -2616,11 +2722,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "时为常数列"
-              },
-              {
-                "type": "math",
-                "latex": "a_n\\equiv a_1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "a_n\\equiv a_1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "，代入公式得"
@@ -2639,15 +2748,13 @@ module.exports = {
             "text": "错因分析（思维定势）：\n日常练习多为非零公差，学生形成“公差非零”的惯性思维，忽略特例。"
           },
           {
+            "text": "易错点三（乱用中点项求和）\n在使用"
+          },
+          {
+            "latex": "S_n = n a_{\\frac{n+1}{2}}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "易错点三（乱用中点项求和）\n在使用"
-              },
-              {
-                "type": "math",
-                "latex": "S_n = n a_{\\frac{n+1}{2}}"
-              },
               {
                 "type": "text",
                 "text": "时，不验证"
@@ -2716,15 +2823,13 @@ module.exports = {
             "text": "使用条件"
           },
           {
+            "text": "条件 1（数列等差）："
+          },
+          {
+            "latex": "\\{a_n\\}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "条件 1（数列等差）："
-              },
-              {
-                "type": "math",
-                "latex": "\\{a_n\\}"
-              },
               {
                 "type": "text",
                 "text": "满足"
@@ -2752,30 +2857,26 @@ module.exports = {
               {
                 "type": "text",
                 "text": "为正整数，公式对"
-              },
-              {
-                "type": "math",
-                "latex": "n\\geq 1"
-              },
-              {
-                "type": "text",
-                "text": "恒成立。"
               }
             ]
+          },
+          {
+            "latex": "n\\geq 1"
+          },
+          {
+            "text": "恒成立。"
           },
           {
             "text": "关键提醒"
           },
           {
+            "text": "易错点（公式选用）： 已知首末项时直接用"
+          },
+          {
+            "latex": "S_n = \\frac{n(a_1+a_n)}{2}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "易错点（公式选用）： 已知首末项时直接用"
-              },
-              {
-                "type": "math",
-                "latex": "S_n = \\frac{n(a_1+a_n)}{2}"
-              },
               {
                 "type": "text",
                 "text": "；已知首项与公差时用含"
@@ -2932,14 +3033,117 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
+            "title": "条件 1（等比定义）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "数列"
+              },
+              {
+                "type": "math",
+                "latex": "\\{a_n\\}"
+              },
+              {
+                "type": "text",
+                "text": "满足"
+              },
+              {
+                "type": "math",
+                "latex": "\\frac{a_{n}}{a_{n-1}} = q"
+              },
+              {
+                "type": "text",
+                "text": "（"
+              },
+              {
+                "type": "math",
+                "latex": "n\\ge 2"
+              },
+              {
+                "type": "text",
+                "text": "），即各项均为前一项的"
+              },
+              {
+                "type": "math",
+                "latex": "q"
+              },
+              {
+                "type": "text",
+                "text": "倍，首项"
+              },
+              {
+                "type": "math",
+                "latex": "a_1\\neq 0"
+              },
+              {
+                "type": "text",
+                "text": "，"
+              },
+              {
+                "type": "math",
+                "latex": "q\\neq 0"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "数列 满足 （ ），即各项均为前一项的 倍，首项 ， 。",
+            "latex": "\\frac{a_{n}}{a_{n-1}} = q"
+          },
+          {
             "title": "结论一（分段求和）：",
-            "desc": "等比数列前",
-            "latex": "n \\qquad 1 \\qquad S_n=\n\\begin{cases}\nn a_1, & q=1,\\\\[6pt]\n\\frac{a_1(1-q^n)}{1-q}\n=\\frac{a_1-a_n q}{1-q}, & q\\neq 1.\n\\end{cases}"
+            "segments": [
+              {
+                "type": "text",
+                "text": "等比数列前"
+              },
+              {
+                "type": "math",
+                "latex": "n"
+              },
+              {
+                "type": "text",
+                "text": "项和按公比是否等于"
+              },
+              {
+                "type": "math",
+                "latex": "1"
+              },
+              {
+                "type": "text",
+                "text": "分成两种情形计算。"
+              },
+              {
+                "type": "math",
+                "latex": "S_n=\n\\begin{cases}\nn a_1, & q=1,\\\\[6pt]\n\\frac{a_1(1-q^n)}{1-q}\n=\\frac{a_1-a_n q}{1-q}, & q\\neq 1.\n\\end{cases}"
+              }
+            ],
+            "desc": "等比数列前 项和按公比是否等于 分成两种情形计算。",
+            "latex": "S_n=\n\\begin{cases}\nn a_1, & q=1,\\\\[6pt]\n\\frac{a_1(1-q^n)}{1-q}\n=\\frac{a_1-a_n q}{1-q}, & q\\neq 1.\n\\end{cases}"
           },
           {
             "title": "推广结论(无穷项和):",
-            "desc": "当公比的绝对值小于",
-            "latex": "1 \\qquad S = \\frac{a_1}{1-q},\\qquad |q|<1."
+            "segments": [
+              {
+                "type": "text",
+                "text": "当公比的绝对值小于"
+              },
+              {
+                "type": "math",
+                "latex": "1"
+              },
+              {
+                "type": "text",
+                "text": "时,无限项求和收敛于常数."
+              },
+              {
+                "type": "math",
+                "latex": "S = \\frac{a_1}{1-q},\\qquad |q|<1."
+              }
+            ],
+            "desc": "当公比的绝对值小于 时,无限项求和收敛于常数.",
+            "latex": "S = \\frac{a_1}{1-q},\\qquad |q|<1."
           }
         ]
       },
@@ -3175,28 +3379,19 @@ module.exports = {
             "text": "场景一（复利模型）： 本金加利息按固定利率滚动，多次存款的终值和就是等比求和。"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "场景二（无穷级数）： 无穷递减等比级数（如"
-              },
-              {
-                "type": "math",
-                "latex": "1+\\frac12+\\frac14+\\dots"
-              },
-              {
-                "type": "text",
-                "text": "）直接套"
-              },
-              {
-                "type": "math",
-                "latex": "S=\\frac{a_1}{1-q}"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "场景二（无穷级数）： 无穷递减等比级数（如"
+          },
+          {
+            "latex": "1+\\frac12+\\frac14+\\dots"
+          },
+          {
+            "text": "）直接套"
+          },
+          {
+            "latex": "S=\\frac{a_1}{1-q}"
+          },
+          {
+            "text": "。"
           }
         ]
       },
@@ -3241,18 +3436,16 @@ module.exports = {
             "text": "正式推导"
           },
           {
+            "text": "步骤一（写和式）："
+          },
+          {
+            "latex": "S_n = a_1 + a_1 q + a_1 q^2 + \\cdots + a_1 q^{n-1}"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "步骤一（写和式）："
-              },
-              {
-                "type": "math",
-                "latex": "S_n = a_1 + a_1 q + a_1 q^2 + \\cdots + a_1 q^{n-1}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 等比数列第"
+                "text": ".理由： 等比数列第"
               },
               {
                 "type": "math",
@@ -3273,18 +3466,16 @@ module.exports = {
             ]
           },
           {
+            "text": "步骤二（乘公比）："
+          },
+          {
+            "latex": "q S_n = a_1 q + a_1 q^2 + \\cdots + a_1 q^{n-1} + a_1 q^n"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "步骤二（乘公比）："
-              },
-              {
-                "type": "math",
-                "latex": "q S_n = a_1 q + a_1 q^2 + \\cdots + a_1 q^{n-1} + a_1 q^n."
-              },
-              {
-                "type": "text",
-                "text": "理由： 对"
+                "text": ".理由： 对"
               },
               {
                 "type": "math",
@@ -3321,15 +3512,13 @@ module.exports = {
             ]
           },
           {
+            "text": "步骤三（错位相减）："
+          },
+          {
+            "latex": "\\begin{aligned}\nS_n - q S_n &= (a_1 + a_1 q + \\cdots + a_1 q^{n-1}) - (a_1 q + \\cdots + a_1 q^{n-1} + a_1 q^n) \\\\\n&= a_1 - a_1 q^n.\n\\end{aligned}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "步骤三（错位相减）："
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\nS_n - q S_n &= (a_1 + a_1 q + \\cdots + a_1 q^{n-1}) - (a_1 q + \\cdots + a_1 q^{n-1} + a_1 q^n) \\\\\n&= a_1 - a_1 q^n.\n\\end{aligned}"
-              },
               {
                 "type": "text",
                 "text": "理由： 对齐作差后，中间所有项成对抵消，仅剩首项"
@@ -3360,36 +3549,34 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "(1-q)S_n = a_1(1-q^n),"
-              },
-              {
-                "type": "math",
-                "latex": "S_n = \\frac{a_1(1-q^n)}{1-q},\\qquad q\\neq 1."
+                "latex": "(1-q)S_n = a_1(1-q^n)"
               },
               {
                 "type": "text",
-                "text": "理由： 提取公因式，当"
-              },
-              {
-                "type": "math",
-                "latex": "1-q\\neq 0"
-              },
-              {
-                "type": "text",
-                "text": "时两边同除，得到显式表达式。"
+                "text": ","
               }
             ]
           },
           {
+            "latex": "S_n = \\frac{a_1(1-q^n)}{1-q},\\qquad q\\neq 1"
+          },
+          {
+            "text": ".理由： 提取公因式，当"
+          },
+          {
+            "latex": "1-q\\neq 0"
+          },
+          {
+            "text": "时两边同除，得到显式表达式。"
+          },
+          {
+            "text": "步骤五（末项替换）："
+          },
+          {
+            "latex": "\\begin{aligned}\nS_n &= \\frac{a_1 - a_1 q^n}{1-q} \\\\\n&= \\frac{a_1 - (a_1 q^{n-1}) q}{1-q} \\\\\n&= \\frac{a_1 - a_n q}{1-q}.\n\\end{aligned}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "步骤五（末项替换）："
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\nS_n &= \\frac{a_1 - a_1 q^n}{1-q} \\\\\n&= \\frac{a_1 - (a_1 q^{n-1}) q}{1-q} \\\\\n&= \\frac{a_1 - a_n q}{1-q}.\n\\end{aligned}"
-              },
               {
                 "type": "text",
                 "text": "理由： 利用通项"
@@ -3421,20 +3608,13 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤六（特例处理）："
-              },
-              {
-                "type": "math",
-                "latex": "q=1 \\text{ 时,各项均为 } a_1, \\quad S_n = a_1 + a_1 + \\cdots + a_1 = n a_1."
-              },
-              {
-                "type": "text",
-                "text": "理由： 此时数列退化为常数列，直接累加即可。"
-              }
-            ]
+            "text": "步骤六（特例处理）："
+          },
+          {
+            "latex": "q=1 \\text{ 时,各项均为 } a_1, \\quad S_n = a_1 + a_1 + \\cdots + a_1 = n a_1"
+          },
+          {
+            "text": ".理由： 此时数列退化为常数列，直接累加即可。"
           },
           {
             "segments": [
@@ -3465,24 +3645,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "；"
-              },
-              {
-                "type": "math",
-                "latex": "q\\neq1"
-              },
-              {
-                "type": "text",
-                "text": "时"
-              },
-              {
-                "type": "math",
-                "latex": "S_n=\\frac{a_1(1-q^n)}{1-q}=\\frac{a_1-a_n q}{1-q}"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "q\\neq1"
+          },
+          {
+            "text": "时"
+          },
+          {
+            "latex": "S_n=\\frac{a_1(1-q^n)}{1-q}=\\frac{a_1-a_n q}{1-q}"
+          },
+          {
+            "text": "。"
           }
         ]
       },
@@ -3492,15 +3668,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "例 1（基础）\n题目： 等比数列"
+          },
+          {
+            "latex": "\\{a_n\\}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例 1（基础）\n题目： 等比数列"
-              },
-              {
-                "type": "math",
-                "latex": "\\{a_n\\}"
-              },
               {
                 "type": "text",
                 "text": "的首项"
@@ -3580,39 +3754,28 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第二步（套公式）：\n因为"
-              },
-              {
-                "type": "math",
-                "latex": "q\\neq 1"
-              },
-              {
-                "type": "text",
-                "text": "，使用"
-              },
-              {
-                "type": "math",
-                "latex": "S_n = \\frac{a_1(1-q^n)}{1-q}"
-              },
-              {
-                "type": "text",
-                "text": "。\n理由： 选择对应情形的求和公式。"
-              }
-            ]
+            "text": "第二步（套公式）：\n因为"
+          },
+          {
+            "latex": "q\\neq 1"
+          },
+          {
+            "text": "，使用"
+          },
+          {
+            "latex": "S_n = \\frac{a_1(1-q^n)}{1-q}"
+          },
+          {
+            "text": "。\n理由： 选择对应情形的求和公式。"
+          },
+          {
+            "text": "第三步（代入求值）："
+          },
+          {
+            "latex": "\\begin{aligned}\nS_5 &= \\frac{2(1-3^5)}{1-3} \\\\\n&= \\frac{2(1-243)}{-2} \\\\\n&= 242.\n\\end{aligned}"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "第三步（代入求值）："
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\nS_5 &= \\frac{2(1-3^5)}{1-3} \\\\\n&= \\frac{2(1-243)}{-2} \\\\\n&= 242.\n\\end{aligned}"
-              },
               {
                 "type": "text",
                 "text": "理由： 计算"
@@ -3672,11 +3835,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，公比"
-              },
-              {
-                "type": "math",
-                "latex": "q=\\frac12"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "q=\\frac12"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "。求前"
@@ -3708,15 +3874,13 @@ module.exports = {
             ]
           },
           {
+            "text": "第一步（判断公比）："
+          },
+          {
+            "latex": "q=\\frac12\\neq 1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "第一步（判断公比）："
-              },
-              {
-                "type": "math",
-                "latex": "q=\\frac12\\neq 1"
-              },
               {
                 "type": "text",
                 "text": "，且"
@@ -3732,34 +3896,25 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第二步（求前5项和）："
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\nS_5 &= \\frac{5\\bigl(1-(\\frac12)^5\\bigr)}{1-\\frac12} \\\\\n&= \\frac{5(1-\\frac{1}{32})}{\\frac12} \\\\\n&= \\frac{5\\cdot\\frac{31}{32}}{\\frac12} \\\\\n&= 5\\cdot\\frac{31}{32}\\cdot2 = \\frac{155}{16}.\n\\end{aligned}"
-              },
-              {
-                "type": "text",
-                "text": "理由： 依次化简指数、通分、乘倒数，得到最简分数。"
-              }
-            ]
+            "text": "第二步（求前5项和）："
+          },
+          {
+            "latex": "\\begin{aligned}\nS_5 &= \\frac{5\\bigl(1-(\\frac12)^5\\bigr)}{1-\\frac12} \\\\\n&= \\frac{5(1-\\frac{1}{32})}{\\frac12} \\\\\n&= \\frac{5\\cdot\\frac{31}{32}}{\\frac12} \\\\\n&= 5\\cdot\\frac{31}{32}\\cdot2 = \\frac{155}{16}.\n\\end{aligned}"
+          },
+          {
+            "text": "理由： 依次化简指数、通分、乘倒数，得到最简分数。"
+          },
+          {
+            "text": "第三步（求无穷和）："
+          },
+          {
+            "latex": "S = \\frac{a_1}{1-q} = \\frac{5}{1-\\frac12}=10"
           },
           {
             "segments": [
               {
                 "type": "text",
-                "text": "第三步（求无穷和）："
-              },
-              {
-                "type": "math",
-                "latex": "S = \\frac{a_1}{1-q} = \\frac{5}{1-\\frac12}=10."
-              },
-              {
-                "type": "text",
-                "text": "理由： 由"
+                "text": ".理由： 由"
               },
               {
                 "type": "math",
@@ -3776,11 +3931,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "项和"
-              },
-              {
-                "type": "math",
-                "latex": "S_5 = \\frac{155}{16}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "S_5 = \\frac{155}{16}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "，所有项的和"
@@ -3866,16 +4024,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，导致求和公式写成"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{a_1(1-q^{n+1})}{1-q}"
-              },
-              {
-                "type": "text",
-                "text": "等错误。"
               }
             ]
+          },
+          {
+            "latex": "\\frac{a_1(1-q^{n+1})}{1-q}"
+          },
+          {
+            "text": "等错误。"
           },
           {
             "segments": [
@@ -3950,15 +4106,13 @@ module.exports = {
             ]
           },
           {
+            "text": "易错点三（末项公式符号）：\n使用"
+          },
+          {
+            "latex": "\\frac{a_n q - a_1}{1-q}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "易错点三（末项公式符号）：\n使用"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{a_n q - a_1}{1-q}"
-              },
               {
                 "type": "text",
                 "text": "或漏乘"
@@ -3970,27 +4124,23 @@ module.exports = {
               {
                 "type": "text",
                 "text": "而写成"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{a_1 - a_n}{1-q}"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
           },
           {
+            "latex": "\\frac{a_1 - a_n}{1-q}"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "正确理解（符号检查）：\n末项表示形式应为"
+          },
+          {
+            "latex": "\\frac{a_1 - a_n q}{1-q}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（符号检查）：\n末项表示形式应为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{a_1 - a_n q}{1-q}"
-              },
               {
                 "type": "text",
                 "text": "，可通过代入"
@@ -4042,16 +4192,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "（"
-              },
-              {
-                "type": "math",
-                "latex": "q\\neq0"
-              },
-              {
-                "type": "text",
-                "text": "）。"
               }
             ]
+          },
+          {
+            "latex": "q\\neq0"
+          },
+          {
+            "text": "）。"
           },
           {
             "segments": [
@@ -4238,13 +4386,80 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
+            "title": "条件1（等差数列定义）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "数列"
+              },
+              {
+                "type": "math",
+                "latex": "\\{a_n\\}"
+              },
+              {
+                "type": "text",
+                "text": "是等差数列，即存在常数"
+              },
+              {
+                "type": "math",
+                "latex": "d"
+              },
+              {
+                "type": "text",
+                "text": "使得"
+              },
+              {
+                "type": "math",
+                "latex": "a_{n+1}-a_n=d"
+              },
+              {
+                "type": "text",
+                "text": "对任意正整数"
+              },
+              {
+                "type": "math",
+                "latex": "n"
+              },
+              {
+                "type": "text",
+                "text": "成立。"
+              }
+            ],
+            "desc": "数列 是等差数列，即存在常数 使得 对任意正整数 成立。",
+            "latex": "a_{n+1}-a_n=d"
+          },
+          {
             "title": "结论一（下标和性质）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "下标和相等时，对应两项之和相等。"
+              },
+              {
+                "type": "math",
+                "latex": "\\text{若}m+n=p+q\\text{，则}a_m+a_n=a_p+a_q\\text{。}"
+              }
+            ],
             "desc": "下标和相等时，对应两项之和相等。",
             "latex": "\\text{若}m+n=p+q\\text{，则}a_m+a_n=a_p+a_q\\text{。}"
           },
           {
             "title": "推广结论（中项特例）：",
-            "desc": "当下标和为偶数时，两项和等于中间项的两倍。",
+            "segments": [
+              {
+                "type": "text",
+                "text": "当下标和为偶数时，两项和等于中间项的两倍。"
+              },
+              {
+                "type": "math",
+                "latex": "\\text{若}m+n=2k\\text{，则}a_m+a_n=2a_k\\text{。}"
+              },
+              {
+                "type": "text",
+                "text": "等号/取等条件： 等号恒成立，无需额外条件。"
+              }
+            ],
+            "desc": "当下标和为偶数时，两项和等于中间项的两倍。 等号/取等条件： 等号恒成立，无需额外条件。",
             "latex": "\\text{若}m+n=2k\\text{，则}a_m+a_n=2a_k\\text{。}"
           }
         ]
@@ -4444,15 +4659,13 @@ module.exports = {
             "text": "正式推导"
           },
           {
+            "text": "步骤一（设公差）：\n设等差数列"
+          },
+          {
+            "latex": "\\{a_n\\}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "步骤一（设公差）：\n设等差数列"
-              },
-              {
-                "type": "math",
-                "latex": "\\{a_n\\}"
-              },
               {
                 "type": "text",
                 "text": "的公差为"
@@ -4472,16 +4685,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。"
-              },
-              {
-                "type": "math",
-                "latex": "a_n = a_1 + (n-1)d,\\quad n\\ge 1."
-              },
-              {
-                "type": "text",
-                "text": "理由： 通项公式是等差数列的基本表达。"
               }
             ]
+          },
+          {
+            "latex": "a_n = a_1 + (n-1)d,\\quad n\\ge 1"
+          },
+          {
+            "text": ".理由： 通项公式是等差数列的基本表达。"
           },
           {
             "segments": [
@@ -4496,16 +4707,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "按通项展开。"
-              },
-              {
-                "type": "math",
-                "latex": "a_m+a_n = [a_1+(m-1)d] + [a_1+(n-1)d] = 2a_1 + (m+n-2)d."
-              },
-              {
-                "type": "text",
-                "text": "理由： 合并同类项，注意首项出现两次。"
               }
             ]
+          },
+          {
+            "latex": "a_m+a_n = [a_1+(m-1)d] + [a_1+(n-1)d] = 2a_1 + (m+n-2)d"
+          },
+          {
+            "text": ".理由： 合并同类项，注意首项出现两次。"
           },
           {
             "segments": [
@@ -4520,16 +4729,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。"
-              },
-              {
-                "type": "math",
-                "latex": "a_p+a_q = [a_1+(p-1)d] + [a_1+(q-1)d] = 2a_1 + (p+q-2)d."
-              },
-              {
-                "type": "text",
-                "text": "理由： 同样的合并操作。"
               }
             ]
+          },
+          {
+            "latex": "a_p+a_q = [a_1+(p-1)d] + [a_1+(q-1)d] = 2a_1 + (p+q-2)d"
+          },
+          {
+            "text": ".理由： 同样的合并操作。"
           },
           {
             "segments": [
@@ -4544,16 +4751,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "代入，得"
-              },
-              {
-                "type": "math",
-                "latex": "a_m+a_n = 2a_1 + (m+n-2)d = 2a_1 + (p+q-2)d = a_p+a_q."
-              },
-              {
-                "type": "text",
-                "text": "理由： 下标和相等导致一次项系数相等，因此两边相等。"
               }
             ]
+          },
+          {
+            "latex": "a_m+a_n = 2a_1 + (m+n-2)d = 2a_1 + (p+q-2)d = a_p+a_q"
+          },
+          {
+            "text": ".理由： 下标和相等导致一次项系数相等，因此两边相等。"
           },
           {
             "text": "结论回扣\n证明结束： 从通项出发，利用下标和相等这一代数条件，直接得出和相等。该证明无漏洞，结果对任意等差数列恒成立。"
@@ -4566,15 +4771,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "例1（基础直接应用）\n题目： 已知等差数列"
+          },
+          {
+            "latex": "\\{a_n\\}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例1（基础直接应用）\n题目： 已知等差数列"
-              },
-              {
-                "type": "math",
-                "latex": "\\{a_n\\}"
-              },
               {
                 "type": "text",
                 "text": "中，"
@@ -4686,15 +4889,13 @@ module.exports = {
             ]
           },
           {
+            "text": "例2（稍变形：已知和求某项）\n题目： 在等差数列"
+          },
+          {
+            "latex": "\\{a_n\\}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例2（稍变形：已知和求某项）\n题目： 在等差数列"
-              },
-              {
-                "type": "math",
-                "latex": "\\{a_n\\}"
-              },
               {
                 "type": "text",
                 "text": "中，"
@@ -4782,15 +4983,13 @@ module.exports = {
             ]
           },
           {
+            "text": "例3（综合应用：结合公差）\n题目： 等差数列"
+          },
+          {
+            "latex": "\\{a_n\\}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例3（综合应用：结合公差）\n题目： 等差数列"
-              },
-              {
-                "type": "math",
-                "latex": "\\{a_n\\}"
-              },
               {
                 "type": "text",
                 "text": "中，"
@@ -4914,11 +5113,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，有"
-              },
-              {
-                "type": "math",
-                "latex": "a_6 = a_4 + (6-4)d = 3 + 2d = 9"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "a_6 = a_4 + (6-4)d = 3 + 2d = 9"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "，解得"
@@ -5070,15 +5272,13 @@ module.exports = {
             ]
           },
           {
+            "text": "正确理解（必须等差）\n该结论依赖于等差数列的通项线性结构，非等差数列一般不再成立。例如数列"
+          },
+          {
+            "latex": "\\{n^2\\}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（必须等差）\n该结论依赖于等差数列的通项线性结构，非等差数列一般不再成立。例如数列"
-              },
-              {
-                "type": "math",
-                "latex": "\\{n^2\\}"
-              },
               {
                 "type": "text",
                 "text": "中"
@@ -5323,13 +5523,72 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
+            "title": "条件1（下标和相等）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "等比数列"
+              },
+              {
+                "type": "math",
+                "latex": "\\{a_n\\}"
+              },
+              {
+                "type": "text",
+                "text": "中，下标"
+              },
+              {
+                "type": "math",
+                "latex": "m,n,p,q\\in\\mathbb{N}^*"
+              },
+              {
+                "type": "text",
+                "text": "满足"
+              },
+              {
+                "type": "math",
+                "latex": "m+n=p+q"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "等比数列 中，下标 满足 。",
+            "latex": "m+n=p+q"
+          },
+          {
             "title": "结论一（两项乘积相等）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "下标和相等时，对应两项的乘积相等。"
+              },
+              {
+                "type": "math",
+                "latex": "a_m\\cdot a_n = a_p\\cdot a_q."
+              }
+            ],
             "desc": "下标和相等时，对应两项的乘积相等。",
             "latex": "a_m\\cdot a_n = a_p\\cdot a_q."
           },
           {
             "title": "推广结论（等比中项性质）：",
-            "desc": "当下标和是偶数时，乘积等于中间项的平方。",
+            "segments": [
+              {
+                "type": "text",
+                "text": "当下标和是偶数时，乘积等于中间项的平方。"
+              },
+              {
+                "type": "math",
+                "latex": "m+n=2k \\quad\\Rightarrow\\quad a_m\\cdot a_n = a_k^2."
+              },
+              {
+                "type": "text",
+                "text": "等号/取等条件： 无额外取等条件，等式恒成立。"
+              }
+            ],
+            "desc": "当下标和是偶数时，乘积等于中间项的平方。 等号/取等条件： 无额外取等条件，等式恒成立。",
             "latex": "m+n=2k \\quad\\Rightarrow\\quad a_m\\cdot a_n = a_k^2."
           }
         ]
@@ -5501,60 +5760,54 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，则对任意"
-              },
-              {
-                "type": "math",
-                "latex": "k\\in\\mathbb{N}^*"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "k\\in\\mathbb{N}^*"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "有"
               },
               {
                 "type": "math",
-                "latex": "a_k = a_1 q^{k-1}."
+                "latex": "a_k = a_1 q^{k-1}"
               },
               {
                 "type": "text",
-                "text": "理由： 等比数列通项公式。"
+                "text": ".理由： 等比数列通项公式。"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤二（写乘积）：\n写出"
-              },
-              {
-                "type": "math",
-                "latex": "a_m\\cdot a_n"
-              },
-              {
-                "type": "text",
-                "text": "和"
-              },
-              {
-                "type": "math",
-                "latex": "a_p\\cdot a_q"
-              },
-              {
-                "type": "text",
-                "text": "的表达式："
-              },
-              {
-                "type": "math",
-                "latex": "a_m\\cdot a_n = (a_1 q^{m-1})(a_1 q^{n-1}) = a_1^2 q^{m+n-2},"
-              },
-              {
-                "type": "math",
-                "latex": "a_p\\cdot a_q = (a_1 q^{p-1})(a_1 q^{q-1}) = a_1^2 q^{p+q-2}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 代入通项并合并幂次。"
-              }
-            ]
+            "text": "步骤二（写乘积）：\n写出"
+          },
+          {
+            "latex": "a_m\\cdot a_n"
+          },
+          {
+            "text": "和"
+          },
+          {
+            "latex": "a_p\\cdot a_q"
+          },
+          {
+            "text": "的表达式："
+          },
+          {
+            "latex": "a_m\\cdot a_n = (a_1 q^{m-1})(a_1 q^{n-1}) = a_1^2 q^{m+n-2}"
+          },
+          {
+            "text": ","
+          },
+          {
+            "latex": "a_p\\cdot a_q = (a_1 q^{p-1})(a_1 q^{q-1}) = a_1^2 q^{p+q-2}"
+          },
+          {
+            "text": ".理由： 代入通项并合并幂次。"
           },
           {
             "segments": [
@@ -5580,29 +5833,22 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "a_1^2 q^{m+n-2} = a_1^2 q^{p+q-2}."
+                "latex": "a_1^2 q^{m+n-2} = a_1^2 q^{p+q-2}"
               },
               {
                 "type": "text",
-                "text": "理由： 底数相同，指数相等则幂相等。"
+                "text": ".理由： 底数相同，指数相等则幂相等。"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "结论回扣\n由以上得"
-              },
-              {
-                "type": "math",
-                "latex": "a_m\\cdot a_n = a_p\\cdot a_q"
-              },
-              {
-                "type": "text",
-                "text": "，结论成立。"
-              }
-            ]
+            "text": "结论回扣\n由以上得"
+          },
+          {
+            "latex": "a_m\\cdot a_n = a_p\\cdot a_q"
+          },
+          {
+            "text": "，结论成立。"
           }
         ]
       },
@@ -5612,15 +5858,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "例1（基础）\n题目： 在等比数列"
+          },
+          {
+            "latex": "\\{a_n\\}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例1（基础）\n题目： 在等比数列"
-              },
-              {
-                "type": "math",
-                "latex": "\\{a_n\\}"
-              },
               {
                 "type": "text",
                 "text": "中，已知"
@@ -5640,16 +5884,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，求"
-              },
-              {
-                "type": "math",
-                "latex": "a_4\\cdot a_6"
-              },
-              {
-                "type": "text",
-                "text": "的值。\n解题步骤："
               }
             ]
+          },
+          {
+            "latex": "a_4\\cdot a_6"
+          },
+          {
+            "text": "的值。\n解题步骤："
           },
           {
             "segments": [
@@ -5684,63 +5926,43 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第二步（套用结论）：\n由结论"
-              },
-              {
-                "type": "math",
-                "latex": "a_2\\cdot a_8 = a_4\\cdot a_6"
-              },
-              {
-                "type": "text",
-                "text": "。\n理由： 下标和相等时乘积相等。"
-              }
-            ]
+            "text": "第二步（套用结论）：\n由结论"
+          },
+          {
+            "latex": "a_2\\cdot a_8 = a_4\\cdot a_6"
+          },
+          {
+            "text": "。\n理由： 下标和相等时乘积相等。"
+          },
+          {
+            "text": "第三步（代入计算）："
+          },
+          {
+            "latex": "a_4\\cdot a_6 = 3\\times 12 = 36"
+          },
+          {
+            "text": "。\n理由： 直接乘法。\n关键结论："
+          },
+          {
+            "latex": "a_4\\cdot a_6 = 36"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "例2（稍变形）\n题目： 在等比数列"
+          },
+          {
+            "latex": "\\{a_n\\}"
+          },
+          {
+            "text": "中，"
+          },
+          {
+            "latex": "a_3\\cdot a_7 = 25"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "第三步（代入计算）："
-              },
-              {
-                "type": "math",
-                "latex": "a_4\\cdot a_6 = 3\\times 12 = 36"
-              },
-              {
-                "type": "text",
-                "text": "。\n理由： 直接乘法。\n关键结论："
-              },
-              {
-                "type": "math",
-                "latex": "a_4\\cdot a_6 = 36"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "例2（稍变形）\n题目： 在等比数列"
-              },
-              {
-                "type": "math",
-                "latex": "\\{a_n\\}"
-              },
-              {
-                "type": "text",
-                "text": "中，"
-              },
-              {
-                "type": "math",
-                "latex": "a_3\\cdot a_7 = 25"
-              },
               {
                 "type": "text",
                 "text": "，求"
@@ -5788,15 +6010,13 @@ module.exports = {
             ]
           },
           {
+            "text": "第二步（套用结论）：\n由结论"
+          },
+          {
+            "latex": "a_3\\cdot a_7 = a_5\\cdot a_5 = a_5^2"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "第二步（套用结论）：\n由结论"
-              },
-              {
-                "type": "math",
-                "latex": "a_3\\cdot a_7 = a_5\\cdot a_5 = a_5^2"
-              },
               {
                 "type": "text",
                 "text": "。\n理由： 推广结论中"
@@ -5808,16 +6028,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "时"
-              },
-              {
-                "type": "math",
-                "latex": "a_5\\cdot a_5 = a_5^2"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "a_5\\cdot a_5 = a_5^2"
+          },
+          {
+            "text": "。"
           },
           {
             "segments": [
@@ -5832,43 +6050,35 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，所以"
-              },
-              {
-                "type": "math",
-                "latex": "a_5 = \\pm 5"
-              },
-              {
-                "type": "text",
-                "text": "。\n理由： 开平方需考虑正负，公比可正可负。\n关键结论："
-              },
-              {
-                "type": "math",
-                "latex": "a_5 = \\pm 5"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
           },
           {
+            "latex": "a_5 = \\pm 5"
+          },
+          {
+            "text": "。\n理由： 开平方需考虑正负，公比可正可负。\n关键结论："
+          },
+          {
+            "latex": "a_5 = \\pm 5"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "例3（综合应用）\n题目： 在等比数列"
+          },
+          {
+            "latex": "\\{a_n\\}"
+          },
+          {
+            "text": "中，"
+          },
+          {
+            "latex": "a_1\\cdot a_9 = 64"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例3（综合应用）\n题目： 在等比数列"
-              },
-              {
-                "type": "math",
-                "latex": "\\{a_n\\}"
-              },
-              {
-                "type": "text",
-                "text": "中，"
-              },
-              {
-                "type": "math",
-                "latex": "a_1\\cdot a_9 = 64"
-              },
               {
                 "type": "text",
                 "text": "，且"
@@ -5912,24 +6122,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，得"
-              },
-              {
-                "type": "math",
-                "latex": "a_1\\cdot a_9 = a_5^2 = 64"
-              },
-              {
-                "type": "text",
-                "text": "，所以"
-              },
-              {
-                "type": "math",
-                "latex": "a_5 = \\pm 8"
-              },
-              {
-                "type": "text",
-                "text": "。\n理由： 推广结论。"
               }
             ]
+          },
+          {
+            "latex": "a_1\\cdot a_9 = a_5^2 = 64"
+          },
+          {
+            "text": "，所以"
+          },
+          {
+            "latex": "a_5 = \\pm 8"
+          },
+          {
+            "text": "。\n理由： 推广结论。"
           },
           {
             "segments": [
@@ -5944,11 +6150,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "a_7 = a_5 \\cdot q^2"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "a_7 = a_5 \\cdot q^2"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "。\n理由： 等比数列项间关系："
@@ -5972,20 +6181,13 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第三步（代入求和）："
-              },
-              {
-                "type": "math",
-                "latex": "a_3 + a_7 = \\frac{a_5}{q^2} + a_5 q^2 = a_5\\left(\\frac{1}{q^2}+q^2\\right) = 20"
-              },
-              {
-                "type": "text",
-                "text": "。\n理由： 代入表达式。"
-              }
-            ]
+            "text": "第三步（代入求和）："
+          },
+          {
+            "latex": "a_3 + a_7 = \\frac{a_5}{q^2} + a_5 q^2 = a_5\\left(\\frac{1}{q^2}+q^2\\right) = 20"
+          },
+          {
+            "text": "。\n理由： 代入表达式。"
           },
           {
             "segments": [
@@ -6000,11 +6202,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，则"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{1}{q^2}+q^2 = \\frac{20}{8}=\\frac{5}{2}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{1}{q^2}+q^2 = \\frac{20}{8}=\\frac{5}{2}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "，解得"
@@ -6016,27 +6221,26 @@ module.exports = {
               {
                 "type": "text",
                 "text": "或"
-              },
-              {
-                "type": "math",
-                "latex": "q^2=\\frac{1}{2}"
-              },
-              {
-                "type": "text",
-                "text": "，故"
-              },
-              {
-                "type": "math",
-                "latex": "q=\\pm\\sqrt{2}"
-              },
-              {
-                "type": "text",
-                "text": "或"
-              },
-              {
-                "type": "math",
-                "latex": "q=\\pm\\frac{\\sqrt{2}}{2}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "q^2=\\frac{1}{2}"
+          },
+          {
+            "text": "，故"
+          },
+          {
+            "latex": "q=\\pm\\sqrt{2}"
+          },
+          {
+            "text": "或"
+          },
+          {
+            "latex": "q=\\pm\\frac{\\sqrt{2}}{2}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "；若"
@@ -6048,19 +6252,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，则"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{1}{q^2}+q^2 = \\frac{20}{-8} = -\\frac{5}{2}"
-              },
-              {
-                "type": "text",
-                "text": "，方程"
-              },
-              {
-                "type": "math",
-                "latex": "t+\\frac{1}{t}=-\\frac{5}{2}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{1}{q^2}+q^2 = \\frac{20}{-8} = -\\frac{5}{2}"
+          },
+          {
+            "text": "，方程"
+          },
+          {
+            "latex": "t+\\frac{1}{t}=-\\frac{5}{2}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "无正实数解，故"
@@ -6072,24 +6277,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "舍去。\n理由： 解方程并验证可行性。\n关键结论："
-              },
-              {
-                "type": "math",
-                "latex": "q = \\pm\\sqrt{2}"
-              },
-              {
-                "type": "text",
-                "text": "或"
-              },
-              {
-                "type": "math",
-                "latex": "q = \\pm\\frac{\\sqrt{2}}{2}"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "q = \\pm\\sqrt{2}"
+          },
+          {
+            "text": "或"
+          },
+          {
+            "latex": "q = \\pm\\frac{\\sqrt{2}}{2}"
+          },
+          {
+            "text": "。"
           }
         ]
       },
@@ -6124,20 +6325,13 @@ module.exports = {
             "text": "易错点二（正负漏解）\n由乘积求单项时只取正值，忽略负数情况。"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（考虑公比符号）：\n等比数列公比可正可负，开平方后应得"
-              },
-              {
-                "type": "math",
-                "latex": "\\pm"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "正确理解（考虑公比符号）：\n等比数列公比可正可负，开平方后应得"
+          },
+          {
+            "latex": "\\pm"
+          },
+          {
+            "text": "。"
           },
           {
             "text": "错因分析（惯性思维）：\n受等差数列影响，默认所有项为正；实际等比数列可正负交替。"
@@ -6193,16 +6387,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "m,n,p,q\\in\\mathbb{N}^*"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "m,n,p,q\\in\\mathbb{N}^*"
+          },
+          {
+            "text": "。"
           },
           {
             "text": "关键提醒"
@@ -6220,16 +6412,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "可能为"
-              },
-              {
-                "type": "math",
-                "latex": "\\pm"
-              },
-              {
-                "type": "text",
-                "text": "值。"
               }
             ]
+          },
+          {
+            "latex": "\\pm"
+          },
+          {
+            "text": "值。"
           },
           {
             "text": "检查项（下标运算）： 先验证下标和是否相等，避免误用。"
@@ -6347,19 +6537,167 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
+            "title": "条件 1（定义域限制）：",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "n\\in\\mathbb{N}^+"
+              },
+              {
+                "type": "text",
+                "text": "，求和下标"
+              },
+              {
+                "type": "math",
+                "latex": "k=1,2,\\dots,n"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "，求和下标 。",
+            "latex": "k=1,2,\\dots,n"
+          },
+          {
+            "title": "条件 2（通项匹配）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "通项必须是"
+              },
+              {
+                "type": "math",
+                "latex": "k\\cdot k!"
+              },
+              {
+                "type": "text",
+                "text": "，即“系数”和“阶乘下标”相同。"
+              }
+            ],
+            "desc": "通项必须是 ，即“系数”和“阶乘下标”相同。",
+            "latex": "k\\cdot k!"
+          },
+          {
             "title": "结论一（阶乘裂项求和公式）：",
-            "desc": "从",
-            "latex": "1\\cdot 1! \\qquad n\\cdot n! \\qquad 1 \\qquad 1\\cdot 1!+2\\cdot 2!+3\\cdot 3!+\\cdots+n\\cdot n\\neq(n+1)!-1. \\qquad 1\\cdot 1\\neq1! \\qquad 1!+2\\cdot 2!+3\\cdot 3!+\\cdots+n\\cdot n\\neq(n+1)!-1."
+            "segments": [
+              {
+                "type": "text",
+                "text": "从"
+              },
+              {
+                "type": "math",
+                "latex": "1\\cdot 1!"
+              },
+              {
+                "type": "text",
+                "text": "到"
+              },
+              {
+                "type": "math",
+                "latex": "n\\cdot n!"
+              },
+              {
+                "type": "text",
+                "text": "求和，结果等于“下一阶乘减"
+              },
+              {
+                "type": "math",
+                "latex": "1"
+              },
+              {
+                "type": "text",
+                "text": "”。"
+              },
+              {
+                "type": "math",
+                "latex": "1\\cdot 1!+2\\cdot 2!+3\\cdot 3!+\\cdots+n\\cdot n\\neq(n+1)!-1."
+              },
+              {
+                "type": "text",
+                "text": "由于"
+              },
+              {
+                "type": "math",
+                "latex": "1\\cdot 1\\neq1!"
+              },
+              {
+                "type": "text",
+                "text": "，也常写成"
+              },
+              {
+                "type": "math",
+                "latex": "1!+2\\cdot 2!+3\\cdot 3!+\\cdots+n\\cdot n\\neq(n+1)!-1."
+              }
+            ],
+            "desc": "从 到 求和，结果等于“下一阶乘减 ”。 由于 ，也常写成",
+            "latex": "1\\cdot 1!+2\\cdot 2!+3\\cdot 3!+\\cdots+n\\cdot n\\neq(n+1)!-1."
           },
           {
             "title": "核心裂项：",
-            "desc": "每一项",
-            "latex": "k\\cdot k! \\qquad k\\cdot k\\neq(k+1)!-k!."
+            "segments": [
+              {
+                "type": "text",
+                "text": "每一项"
+              },
+              {
+                "type": "math",
+                "latex": "k\\cdot k!"
+              },
+              {
+                "type": "text",
+                "text": "都可以拆成相邻两个阶乘之差。"
+              },
+              {
+                "type": "math",
+                "latex": "k\\cdot k\\neq(k+1)!-k!."
+              }
+            ],
+            "desc": "每一项 都可以拆成相邻两个阶乘之差。",
+            "latex": "k\\cdot k\\neq(k+1)!-k!."
           },
           {
             "title": "常用变形（非从 开始）：",
-            "desc": "若",
-            "latex": "1\\le r\\le n \\qquad \\sum_{k=r}^{n}k\\cdot k\\neq(n+1)!-r!. \\qquad 1 \\qquad (n+1)!-1"
+            "segments": [
+              {
+                "type": "text",
+                "text": "若"
+              },
+              {
+                "type": "math",
+                "latex": "1\\le r\\le n"
+              },
+              {
+                "type": "text",
+                "text": "，则"
+              },
+              {
+                "type": "math",
+                "latex": "\\sum_{k=r}^{n}k\\cdot k\\neq(n+1)!-r!."
+              },
+              {
+                "type": "text",
+                "text": "下限不是"
+              },
+              {
+                "type": "math",
+                "latex": "1"
+              },
+              {
+                "type": "text",
+                "text": "时，不能直接写成"
+              },
+              {
+                "type": "math",
+                "latex": "(n+1)!-1"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "若 ，则 下限不是 时，不能直接写成 。",
+            "latex": "1\\le r\\le n"
           }
         ]
       },
@@ -6369,26 +6707,24 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "一句话直觉\n看到"
+          },
+          {
+            "latex": "k\\cdot k"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "一句话直觉\n看到"
+                "text": "!，要立刻想到把它改写成相邻阶乘之差"
               },
               {
                 "type": "math",
-                "latex": "k\\cdot k!"
+                "latex": "(k+1)!-k"
               },
               {
                 "type": "text",
-                "text": "，要立刻想到把它改写成相邻阶乘之差"
-              },
-              {
-                "type": "math",
-                "latex": "(k+1)!-k!"
-              },
-              {
-                "type": "text",
-                "text": "；一求和，中间阶乘全部抵消，只剩首尾。"
+                "text": "!；一求和，中间阶乘全部抵消，只剩首尾。"
               }
             ]
           },
@@ -6396,18 +6732,16 @@ module.exports = {
             "text": "核心拆解"
           },
           {
+            "text": "要点一（识别通项）：\n通项形如"
+          },
+          {
+            "latex": "k\\cdot k"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "要点一（识别通项）：\n通项形如"
-              },
-              {
-                "type": "math",
-                "latex": "k\\cdot k!"
-              },
-              {
-                "type": "text",
-                "text": "，系数"
+                "text": "!，系数"
               },
               {
                 "type": "math",
@@ -6420,24 +6754,19 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "要点二（裂项公式）：\n由"
-              },
-              {
-                "type": "math",
-                "latex": "(k+1)\\neq(k+1)k!"
-              },
-              {
-                "type": "text",
-                "text": "得"
-              },
-              {
-                "type": "math",
-                "latex": "(k+1)!-k\\neq[(k+1)-1]k\\neqk\\cdot k!."
-              }
-            ]
+            "text": "要点二（裂项公式）：\n由"
+          },
+          {
+            "latex": "(k+1)\\neq(k+1)k"
+          },
+          {
+            "text": "!得"
+          },
+          {
+            "latex": "(k+1)!-k\\neq[(k+1)-1]k\\neqk\\cdot k"
+          },
+          {
+            "text": "!."
           },
           {
             "segments": [
@@ -6460,22 +6789,25 @@ module.exports = {
               {
                 "type": "text",
                 "text": "时，"
+              }
+            ]
+          },
+          {
+            "latex": "2!,3!,\\dots,n"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "!全部成对抵消，只剩"
               },
               {
                 "type": "math",
-                "latex": "2!,3!,\\dots,n!"
+                "latex": "(n+1)!-1"
               },
               {
                 "type": "text",
-                "text": "全部成对抵消，只剩"
-              },
-              {
-                "type": "math",
-                "latex": "(n+1)!-1!"
-              },
-              {
-                "type": "text",
-                "text": "。"
+                "text": "!。"
               }
             ]
           },
@@ -6483,36 +6815,32 @@ module.exports = {
             "text": "本质（裂项相消）\n本结论不是“矩形面积”问题，核心是裂项相消：把一个不容易直接求和的阶乘通项，转化成相邻两项之差，使求和过程自动抵消。"
           },
           {
+            "text": "代数意义（阶乘差分）"
+          },
+          {
+            "latex": "k\\cdot k"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "代数意义（阶乘差分）"
+                "text": "!可以看成阶乘序列"
               },
               {
                 "type": "math",
-                "latex": "k\\cdot k!"
+                "latex": "k"
               },
               {
                 "type": "text",
-                "text": "可以看成阶乘序列"
-              },
-              {
-                "type": "math",
-                "latex": "k!"
-              },
-              {
-                "type": "text",
-                "text": "的“相邻差”："
-              },
-              {
-                "type": "math",
-                "latex": "(k+1)!-k\\neqk\\cdot k!."
-              },
-              {
-                "type": "text",
-                "text": "所以它的求和，本质上就是阶乘序列的差分求和。"
+                "text": "!的“相邻差”："
               }
             ]
+          },
+          {
+            "latex": "(k+1)!-k\\neqk\\cdot k"
+          },
+          {
+            "text": "!.所以它的求和，本质上就是阶乘序列的差分求和。"
           },
           {
             "text": "考点价值（数列求和）"
@@ -6530,32 +6858,23 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，快速计算"
-              },
-              {
-                "type": "math",
-                "latex": "1!+2\\cdot2!+\\cdots+n\\cdot n!"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "考法二（变式求和）： 求"
-              },
-              {
-                "type": "math",
-                "latex": "r\\cdot r!+(r+1)\\cdot(r+1)!+\\cdots+n\\cdot n!"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "latex": "1!+2\\cdot2!+\\cdots+n\\cdot n"
+          },
+          {
+            "text": "!。"
+          },
+          {
+            "text": "考法二（变式求和）： 求"
+          },
+          {
+            "latex": "r\\cdot r!+(r+1)\\cdot(r+1)!+\\cdots+n\\cdot n"
+          },
+          {
+            "text": "!。"
           },
           {
             "segments": [
@@ -6582,39 +6901,25 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "顿悟点\n不要硬算阶乘和。只要通项是"
-              },
-              {
-                "type": "math",
-                "latex": "k\\cdot k!"
-              },
-              {
-                "type": "text",
-                "text": "，就把它看成“下一阶乘减当前阶乘”。"
-              }
-            ]
+            "text": "顿悟点\n不要硬算阶乘和。只要通项是"
+          },
+          {
+            "latex": "k\\cdot k"
+          },
+          {
+            "text": "!，就把它看成“下一阶乘减当前阶乘”。"
           },
           {
             "text": "使用场景"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "场景一（阶乘类求和）： 遇到形如"
-              },
-              {
-                "type": "math",
-                "latex": "\\sum k\\cdot k!"
-              },
-              {
-                "type": "text",
-                "text": "的数列求和。"
-              }
-            ]
+            "text": "场景一（阶乘类求和）： 遇到形如"
+          },
+          {
+            "latex": "\\sum k\\cdot k"
+          },
+          {
+            "text": "!的数列求和。"
           },
           {
             "segments": [
@@ -6632,11 +6937,11 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "(n+1)!-r!"
+                "latex": "(n+1)!-r"
               },
               {
                 "type": "text",
-                "text": "，避免漏减首项。"
+                "text": "!，避免漏减首项。"
               }
             ]
           },
@@ -6651,28 +6956,19 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "思路提示\n先证明核心裂项"
-              },
-              {
-                "type": "math",
-                "latex": "k\\cdot k\\neq(k+1)!-k!,"
-              },
-              {
-                "type": "text",
-                "text": "再把"
-              },
-              {
-                "type": "math",
-                "latex": "k=1,2,\\dots,n"
-              },
-              {
-                "type": "text",
-                "text": "的等式逐项相加，利用中间项抵消得到结论。"
-              }
-            ]
+            "text": "思路提示\n先证明核心裂项"
+          },
+          {
+            "latex": "k\\cdot k\\neq(k+1)!-k"
+          },
+          {
+            "text": "!,再把"
+          },
+          {
+            "latex": "k=1,2,\\dots,n"
+          },
+          {
+            "text": "的等式逐项相加，利用中间项抵消得到结论。"
           },
           {
             "text": "正式推导"
@@ -6690,126 +6986,98 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，有"
-              },
-              {
-                "type": "math",
-                "latex": "(k+1)!-k\\neq(k+1)k!-k\\neq[(k+1)-1]k\\neqk\\cdot k!."
-              },
-              {
-                "type": "text",
-                "text": "理由： 利用阶乘定义"
-              },
-              {
-                "type": "math",
-                "latex": "(k+1)\\neq(k+1)k!"
-              },
-              {
-                "type": "text",
-                "text": "，再提取公因式"
-              },
-              {
-                "type": "math",
-                "latex": "k!"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "(k+1)!-k\\neq(k+1)k!-k\\neq[(k+1)-1]k\\neqk\\cdot k"
+          },
+          {
+            "text": "!.理由： 利用阶乘定义"
+          },
+          {
+            "latex": "(k+1)\\neq(k+1)k"
           },
           {
             "segments": [
               {
                 "type": "text",
-                "text": "步骤二（代入求和）：\n因此"
+                "text": "!，再提取公因式"
               },
               {
                 "type": "math",
-                "latex": "\\sum_{k=1}^{n}k\\cdot k\\neq\\sum_{k=1}^{n}\\bigl[(k+1)!-k!\\bigr]."
+                "latex": "k"
               },
               {
                 "type": "text",
-                "text": "理由： 将每一项"
-              },
-              {
-                "type": "math",
-                "latex": "k\\cdot k!"
-              },
-              {
-                "type": "text",
-                "text": "都替换为相邻阶乘之差。"
+                "text": "!。"
               }
             ]
+          },
+          {
+            "text": "步骤二（代入求和）：\n因此"
+          },
+          {
+            "latex": "\\sum_{k=1}^{n}k\\cdot k\\neq\\sum_{k=1}^{n}\\bigl[(k+1)!-k!\\bigr]"
+          },
+          {
+            "text": ".理由： 将每一项"
+          },
+          {
+            "latex": "k\\cdot k"
+          },
+          {
+            "text": "!都替换为相邻阶乘之差。"
+          },
+          {
+            "text": "步骤三（展开观察）：\n展开右端："
+          },
+          {
+            "latex": "\\begin{aligned}\n\\sum_{k=1}^{n}\\bigl[(k+1)!-k!\\bigr]\n&=(2!-1!)+(3!-2!)+(4!-3!)+\\cdots+\\bigl((n+1)!-n!\\bigr)\\\\\n&=-1!+(2!-2!)+(3!-3!)+\\cdots+(n!-n!)+(n+1)!.\n\\end{aligned}"
+          },
+          {
+            "text": "理由："
+          },
+          {
+            "latex": "2!,3!,\\dots,n"
+          },
+          {
+            "text": "!都一正一负成对出现。"
+          },
+          {
+            "text": "步骤四（裂项相消）：\n中间项全部抵消，只剩"
+          },
+          {
+            "latex": "\\sum_{k=1}^{n}k\\cdot k\\neq(n+1)!-1"
+          },
+          {
+            "text": "!.理由： 裂项求和只保留最后一项与最前一项。"
+          },
+          {
+            "text": "步骤五（代入 ）：\n由于"
+          },
+          {
+            "latex": "1\\neq1"
+          },
+          {
+            "text": "，所以"
+          },
+          {
+            "latex": "\\sum_{k=1}^{n}k\\cdot k\\neq(n+1)!-1"
           },
           {
             "segments": [
               {
                 "type": "text",
-                "text": "步骤三（展开观察）：\n展开右端："
+                "text": ".理由： 将"
               },
               {
                 "type": "math",
-                "latex": "\\begin{aligned}\n\\sum_{k=1}^{n}\\bigl[(k+1)!-k!\\bigr]\n&=(2!-1!)+(3!-2!)+(4!-3!)+\\cdots+\\bigl((n+1)!-n!\\bigr)\\\\\n&=-1!+(2!-2!)+(3!-3!)+\\cdots+(n!-n!)+(n+1)!.\n\\end{aligned}"
+                "latex": "1"
               },
               {
                 "type": "text",
-                "text": "理由："
-              },
-              {
-                "type": "math",
-                "latex": "2!,3!,\\dots,n!"
-              },
-              {
-                "type": "text",
-                "text": "都一正一负成对出现。"
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤四（裂项相消）：\n中间项全部抵消，只剩"
-              },
-              {
-                "type": "math",
-                "latex": "\\sum_{k=1}^{n}k\\cdot k\\neq(n+1)!-1!."
-              },
-              {
-                "type": "text",
-                "text": "理由： 裂项求和只保留最后一项与最前一项。"
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤五（代入 ）：\n由于"
-              },
-              {
-                "type": "math",
-                "latex": "1\\neq1"
-              },
-              {
-                "type": "text",
-                "text": "，所以"
-              },
-              {
-                "type": "math",
-                "latex": "\\sum_{k=1}^{n}k\\cdot k\\neq(n+1)!-1."
-              },
-              {
-                "type": "text",
-                "text": "理由： 将"
-              },
-              {
-                "type": "math",
-                "latex": "1!"
-              },
-              {
-                "type": "text",
-                "text": "化为具体数值"
+                "text": "!化为具体数值"
               },
               {
                 "type": "math",
@@ -6822,20 +7090,13 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "结论回扣\n因此"
-              },
-              {
-                "type": "math",
-                "latex": "1!+2\\cdot2!+3\\cdot3!+\\cdots+n\\cdot n\\neq(n+1)!-1."
-              },
-              {
-                "type": "text",
-                "text": "证明的核心不是硬算，而是先裂项，再相消。"
-              }
-            ]
+            "text": "结论回扣\n因此"
+          },
+          {
+            "latex": "1!+2\\cdot2!+3\\cdot3!+\\cdots+n\\cdot n\\neq(n+1)!-1"
+          },
+          {
+            "text": ".证明的核心不是硬算，而是先裂项，再相消。"
           }
         ]
       },
@@ -6845,34 +7106,25 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "例 1（基础）\n题目： 计算"
-              },
-              {
-                "type": "math",
-                "latex": "1!+2\\cdot2!+3\\cdot3!+4\\cdot4!+5\\cdot5!"
-              },
-              {
-                "type": "text",
-                "text": "的值。\n解题步骤："
-              }
-            ]
+            "text": "例 1（基础）\n题目： 计算"
+          },
+          {
+            "latex": "1!+2\\cdot2!+3\\cdot3!+4\\cdot4!+5\\cdot5"
+          },
+          {
+            "text": "!的值。\n解题步骤："
+          },
+          {
+            "text": "第一步（识别公式）：\n原式正是"
+          },
+          {
+            "latex": "1!+2\\cdot2!+\\cdots+n\\cdot n"
           },
           {
             "segments": [
               {
                 "type": "text",
-                "text": "第一步（识别公式）：\n原式正是"
-              },
-              {
-                "type": "math",
-                "latex": "1!+2\\cdot2!+\\cdots+n\\cdot n!"
-              },
-              {
-                "type": "text",
-                "text": "的形式，其中"
+                "text": "!的形式，其中"
               },
               {
                 "type": "math",
@@ -6885,28 +7137,19 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第二步（套用公式）："
-              },
-              {
-                "type": "math",
-                "latex": "1!+2\\cdot2!+3\\cdot3!+4\\cdot4!+5\\cdot5\\neq(5+1)!-1."
-              },
-              {
-                "type": "text",
-                "text": "理由： 直接使用"
-              },
-              {
-                "type": "math",
-                "latex": "\\sum_{k=1}^{n}k\\cdot k\\neq(n+1)!-1"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "第二步（套用公式）："
+          },
+          {
+            "latex": "1!+2\\cdot2!+3\\cdot3!+4\\cdot4!+5\\cdot5\\neq(5+1)!-1"
+          },
+          {
+            "text": ".理由： 直接使用"
+          },
+          {
+            "latex": "\\sum_{k=1}^{n}k\\cdot k\\neq(n+1)!-1"
+          },
+          {
+            "text": "。"
           },
           {
             "segments": [
@@ -6916,41 +7159,31 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "(5+1)!-1=6!-1=720-1=719."
+                "latex": "(5+1)!-1=6!-1=720-1=719"
               },
               {
                 "type": "text",
-                "text": "理由："
-              },
-              {
-                "type": "math",
-                "latex": "6\\neq720"
-              },
-              {
-                "type": "text",
-                "text": "。\n关键结论："
-              },
-              {
-                "type": "math",
-                "latex": "\\boxed{719}"
+                "text": ".理由："
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "例 2（下限变式）\n题目： 求"
-              },
-              {
-                "type": "math",
-                "latex": "2\\cdot2!+3\\cdot3!+4\\cdot4!+5\\cdot5!"
-              },
-              {
-                "type": "text",
-                "text": "的值。\n解题步骤："
-              }
-            ]
+            "latex": "6\\neq720"
+          },
+          {
+            "text": "。\n关键结论："
+          },
+          {
+            "latex": "\\boxed{719}"
+          },
+          {
+            "text": "例 2（下限变式）\n题目： 求"
+          },
+          {
+            "latex": "2\\cdot2!+3\\cdot3!+4\\cdot4!+5\\cdot5"
+          },
+          {
+            "text": "!的值。\n解题步骤："
           },
           {
             "segments": [
@@ -6984,27 +7217,25 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "1!"
+                "latex": "1"
               },
               {
                 "type": "text",
-                "text": "。"
+                "text": "!。"
               }
             ]
+          },
+          {
+            "text": "第二步（使用变形）：\n由"
+          },
+          {
+            "latex": "\\sum_{k=r}^{n}k\\cdot k\\neq(n+1)!-r"
           },
           {
             "segments": [
               {
                 "type": "text",
-                "text": "第二步（使用变形）：\n由"
-              },
-              {
-                "type": "math",
-                "latex": "\\sum_{k=r}^{n}k\\cdot k\\neq(n+1)!-r!,"
-              },
-              {
-                "type": "text",
-                "text": "取"
+                "text": "!,取"
               },
               {
                 "type": "math",
@@ -7013,74 +7244,65 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，得"
-              },
-              {
-                "type": "math",
-                "latex": "2\\cdot2!+3\\cdot3!+4\\cdot4!+5\\cdot5\\neq6!-2!."
-              },
-              {
-                "type": "text",
-                "text": "理由： 裂项后保留末项"
-              },
-              {
-                "type": "math",
-                "latex": "(5+1)!"
-              },
-              {
-                "type": "text",
-                "text": "和首项"
-              },
-              {
-                "type": "math",
-                "latex": "2!"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "2\\cdot2!+3\\cdot3!+4\\cdot4!+5\\cdot5\\neq6!-2"
           },
           {
             "segments": [
               {
                 "type": "text",
-                "text": "第三步（计算结果）："
+                "text": "!.理由： 裂项后保留末项"
               },
               {
                 "type": "math",
-                "latex": "6!-2\\neq720-2=718."
+                "latex": "(5+1)"
               },
               {
                 "type": "text",
-                "text": "理由："
+                "text": "!和首项"
               },
               {
                 "type": "math",
-                "latex": "6\\neq720,\\ 2\\neq2"
+                "latex": "2"
               },
               {
                 "type": "text",
-                "text": "。\n关键结论："
-              },
-              {
-                "type": "math",
-                "latex": "\\boxed{718}"
+                "text": "!。"
               }
             ]
+          },
+          {
+            "text": "第三步（计算结果）："
+          },
+          {
+            "latex": "6!-2\\neq720-2=718"
+          },
+          {
+            "text": ".理由："
+          },
+          {
+            "latex": "6\\neq720,\\ 2\\neq2"
+          },
+          {
+            "text": "。\n关键结论："
+          },
+          {
+            "latex": "\\boxed{718}"
+          },
+          {
+            "text": "例 3（反求项数）\n题目： 已知"
+          },
+          {
+            "latex": "1!+2\\cdot2!+3\\cdot3!+\\cdots+n\\cdot n\\neq5039"
           },
           {
             "segments": [
               {
                 "type": "text",
-                "text": "例 3（反求项数）\n题目： 已知"
-              },
-              {
-                "type": "math",
-                "latex": "1!+2\\cdot2!+3\\cdot3!+\\cdots+n\\cdot n\\neq5039,"
-              },
-              {
-                "type": "text",
-                "text": "求正整数"
+                "text": ",求正整数"
               },
               {
                 "type": "math",
@@ -7100,35 +7322,31 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "(n+1)!-1=5039."
+                "latex": "(n+1)!-1=5039"
               },
               {
                 "type": "text",
-                "text": "理由： 原和式正是"
-              },
-              {
-                "type": "math",
-                "latex": "\\sum_{k=1}^{n}k\\cdot k!"
-              },
-              {
-                "type": "text",
-                "text": "。"
+                "text": ".理由： 原和式正是"
               }
             ]
+          },
+          {
+            "latex": "\\sum_{k=1}^{n}k\\cdot k"
+          },
+          {
+            "text": "!。"
+          },
+          {
+            "text": "第二步（移项）："
+          },
+          {
+            "latex": "(n+1)\\neq5040"
           },
           {
             "segments": [
               {
                 "type": "text",
-                "text": "第二步（移项）："
-              },
-              {
-                "type": "math",
-                "latex": "(n+1)\\neq5040."
-              },
-              {
-                "type": "text",
-                "text": "理由： 两边同时加"
+                "text": ".理由： 两边同时加"
               },
               {
                 "type": "math",
@@ -7141,18 +7359,16 @@ module.exports = {
             ]
           },
           {
+            "text": "第三步（匹配阶乘）：\n因为"
+          },
+          {
+            "latex": "7\\neq5040"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "第三步（匹配阶乘）：\n因为"
-              },
-              {
-                "type": "math",
-                "latex": "7\\neq5040,"
-              },
-              {
-                "type": "text",
-                "text": "所以"
+                "text": ",所以"
               },
               {
                 "type": "math",
@@ -7169,20 +7385,17 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。\n理由： 常见阶乘值："
-              },
-              {
-                "type": "math",
-                "latex": "6\\neq720,\\ 7\\neq5040"
-              },
-              {
-                "type": "text",
-                "text": "。\n关键结论："
-              },
-              {
-                "type": "math",
-                "latex": "\\boxed{6}"
               }
             ]
+          },
+          {
+            "latex": "6\\neq720,\\ 7\\neq5040"
+          },
+          {
+            "text": "。\n关键结论："
+          },
+          {
+            "latex": "\\boxed{6}"
           }
         ]
       },
@@ -7192,28 +7405,22 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "易错点一（漏掉减一）\n错误认为"
-              },
-              {
-                "type": "math",
-                "latex": "1!+2\\cdot2!+\\cdots+n\\cdot n\\neq(n+1)!."
-              }
-            ]
+            "text": "易错点一（漏掉减一）\n错误认为"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（完整公式）：\n正确结果是"
-              },
-              {
-                "type": "math",
-                "latex": "1!+2\\cdot2!+\\cdots+n\\cdot n\\neq(n+1)!-1."
-              }
-            ]
+            "latex": "1!+2\\cdot2!+\\cdots+n\\cdot n\\neq(n+1)"
+          },
+          {
+            "text": "!."
+          },
+          {
+            "text": "正确理解（完整公式）：\n正确结果是"
+          },
+          {
+            "latex": "1!+2\\cdot2!+\\cdots+n\\cdot n\\neq(n+1)!-1"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -7223,16 +7430,19 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "(n+1)!-1!"
+                "latex": "(n+1)!-1"
               },
               {
                 "type": "text",
-                "text": "，而"
-              },
-              {
-                "type": "math",
-                "latex": "1\\neq1"
-              },
+                "text": "!，而"
+              }
+            ]
+          },
+          {
+            "latex": "1\\neq1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "，所以必须减"
@@ -7248,18 +7458,16 @@ module.exports = {
             ]
           },
           {
+            "text": "易错点二（裂项混淆）\n将"
+          },
+          {
+            "latex": "k\\cdot k"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "易错点二（裂项混淆）\n将"
-              },
-              {
-                "type": "math",
-                "latex": "k\\cdot k!"
-              },
-              {
-                "type": "text",
-                "text": "误写成"
+                "text": "!误写成"
               },
               {
                 "type": "math",
@@ -7271,11 +7479,11 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "k!-(k-1)!"
+                "latex": "k!-(k-1)"
               },
               {
                 "type": "text",
-                "text": "或"
+                "text": "!或"
               },
               {
                 "type": "math",
@@ -7288,16 +7496,13 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（标准裂项）：\n标准裂项是"
-              },
-              {
-                "type": "math",
-                "latex": "k\\cdot k\\neq(k+1)!-k!."
-              }
-            ]
+            "text": "正确理解（标准裂项）：\n标准裂项是"
+          },
+          {
+            "latex": "k\\cdot k\\neq(k+1)!-k"
+          },
+          {
+            "text": "!."
           },
           {
             "segments": [
@@ -7307,35 +7512,33 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "(k+1)!"
+                "latex": "(k+1)"
               },
               {
                 "type": "text",
-                "text": "写成"
+                "text": "!写成"
               },
               {
                 "type": "math",
-                "latex": "(k+1)k!"
+                "latex": "(k+1)k"
               },
               {
                 "type": "text",
-                "text": "，导致相邻阶乘差写错。"
+                "text": "!，导致相邻阶乘差写错。"
               }
             ]
+          },
+          {
+            "text": "易错点三（下限变化仍照搬）\n看到"
+          },
+          {
+            "latex": "2\\cdot2!+3\\cdot3!+\\cdots+n\\cdot n"
           },
           {
             "segments": [
               {
                 "type": "text",
-                "text": "易错点三（下限变化仍照搬）\n看到"
-              },
-              {
-                "type": "math",
-                "latex": "2\\cdot2!+3\\cdot3!+\\cdots+n\\cdot n!"
-              },
-              {
-                "type": "text",
-                "text": "，仍写成"
+                "text": "!，仍写成"
               },
               {
                 "type": "math",
@@ -7360,14 +7563,17 @@ module.exports = {
               {
                 "type": "text",
                 "text": "开始，则"
-              },
-              {
-                "type": "math",
-                "latex": "\\sum_{k=r}^{n}k\\cdot k\\neq(n+1)!-r!."
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\sum_{k=r}^{n}k\\cdot k\\neq(n+1)!-r"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "例如从"
+                "text": "!.例如从"
               },
               {
                 "type": "math",
@@ -7379,11 +7585,11 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "(n+1)!-2!"
+                "latex": "(n+1)!-2"
               },
               {
                 "type": "text",
-                "text": "。"
+                "text": "!。"
               }
             ]
           },
@@ -7419,32 +7625,28 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "0!"
+                "latex": "0"
               },
               {
                 "type": "text",
-                "text": "一概排除。"
+                "text": "!一概排除。"
               }
             ]
           },
           {
+            "text": "正确理解（教材约定）：\n高中常用约定包含"
+          },
+          {
+            "latex": "0\\neq1"
+          },
+          {
+            "text": "；本公式主讲"
+          },
+          {
+            "latex": "n\\in\\mathbb{N}^+"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（教材约定）：\n高中常用约定包含"
-              },
-              {
-                "type": "math",
-                "latex": "0\\neq1"
-              },
-              {
-                "type": "text",
-                "text": "；本公式主讲"
-              },
-              {
-                "type": "math",
-                "latex": "n\\in\\mathbb{N}^+"
-              },
               {
                 "type": "text",
                 "text": "，若采用空和约定，则"
@@ -7478,26 +7680,24 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "一句话核心\n看到"
+          },
+          {
+            "latex": "k\\cdot k"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "一句话核心\n看到"
+                "text": "!，先裂成"
               },
               {
                 "type": "math",
-                "latex": "k\\cdot k!"
+                "latex": "(k+1)!-k"
               },
               {
                 "type": "text",
-                "text": "，先裂成"
-              },
-              {
-                "type": "math",
-                "latex": "(k+1)!-k!"
-              },
-              {
-                "type": "text",
-                "text": "；从"
+                "text": "!；从"
               },
               {
                 "type": "math",
@@ -7529,52 +7729,41 @@ module.exports = {
             "text": "使用条件"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "条件 1（正整数限定）： 主公式用于"
-              },
-              {
-                "type": "math",
-                "latex": "n\\in\\mathbb{N}^+"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "条件 1（正整数限定）： 主公式用于"
+          },
+          {
+            "latex": "n\\in\\mathbb{N}^+"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "条件 2（通项匹配）： 通项必须是"
+          },
+          {
+            "latex": "k\\cdot k"
           },
           {
             "segments": [
               {
                 "type": "text",
-                "text": "条件 2（通项匹配）： 通项必须是"
+                "text": "!，不能把"
               },
               {
                 "type": "math",
-                "latex": "k\\cdot k!"
+                "latex": "k"
               },
               {
                 "type": "text",
-                "text": "，不能把"
-              },
-              {
-                "type": "math",
-                "latex": "k!"
-              },
-              {
-                "type": "text",
-                "text": "、"
-              },
-              {
-                "type": "math",
-                "latex": "k\\cdot(k+1)!"
-              },
-              {
-                "type": "text",
-                "text": "等误套入公式。"
+                "text": "!、"
               }
             ]
+          },
+          {
+            "latex": "k\\cdot(k+1)"
+          },
+          {
+            "text": "!等误套入公式。"
           },
           {
             "segments": [
@@ -7589,16 +7778,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "开始，应使用"
-              },
-              {
-                "type": "math",
-                "latex": "\\sum_{k=r}^{n}k\\cdot k\\neq(n+1)!-r!"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "\\sum_{k=r}^{n}k\\cdot k\\neq(n+1)!-r"
+          },
+          {
+            "text": "!。"
           },
           {
             "text": "关键提醒"
@@ -7627,11 +7814,11 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "(n+1)!"
+                "latex": "(n+1)"
               },
               {
                 "type": "text",
-                "text": "。"
+                "text": "!。"
               }
             ]
           },
@@ -7648,24 +7835,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "检验：左边"
-              },
-              {
-                "type": "math",
-                "latex": "1\\cdot1\\neq1"
-              },
-              {
-                "type": "text",
-                "text": "，右边"
-              },
-              {
-                "type": "math",
-                "latex": "2!-1\\neq1"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "1\\cdot1\\neq1"
+          },
+          {
+            "text": "，右边"
+          },
+          {
+            "latex": "2!-1\\neq1"
+          },
+          {
+            "text": "。"
           },
           {
             "text": "记忆法： “阶乘求和看差分，下一阶乘减首阶乘。”"

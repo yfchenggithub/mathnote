@@ -55,6 +55,10 @@
  *     2. { latex: string }
  *     3. { segments: [{ type: 'text', text } | { type: 'math', latex }] }
  *     4. theorem-list item: { title, desc?, latex }
+ *   - Rich parser rules for mixed text/math sections:
+ *     - Long equation-chain math is promoted to standalone { latex } items.
+ *     - Trailing punctuation is stripped out of latex and kept in text segments.
+ *     - This improves canonical migration to math_block and avoids inline overflow.
  *   - Important layouts used by this builder:
  *     - text
  *     - theorem-list
@@ -107,9 +111,416 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "设椭圆"
+              }
+            ],
+            "desc": "设椭圆"
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "E:\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1\\quad (a>b>0)"
+              }
+            ],
+            "latex": "E:\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1\\quad (a>b>0)"
+          },
+          {
+            "title": "条目3",
+            "segments": [
+              {
+                "type": "text",
+                "text": "与圆"
+              }
+            ],
+            "desc": "与圆"
+          },
+          {
+            "title": "条目4",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "\\Gamma:(x-x_0)^2+(y-y_0)^2=r^2\\quad (r>0)"
+              }
+            ],
+            "latex": "\\Gamma:(x-x_0)^2+(y-y_0)^2=r^2\\quad (r>0)"
+          },
+          {
+            "title": "条目5",
+            "segments": [
+              {
+                "type": "text",
+                "text": ",圆心为"
+              },
+              {
+                "type": "math",
+                "latex": "M(x_0,y_0)"
+              },
+              {
+                "type": "text",
+                "text": "。对椭圆上一点"
+              },
+              {
+                "type": "math",
+                "latex": "P"
+              },
+              {
+                "type": "text",
+                "text": "，记"
+              }
+            ],
+            "desc": ",圆心为 。对椭圆上一点 ，记",
+            "latex": "M(x_0,y_0) \\qquad P"
+          },
+          {
+            "title": "条目6",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "d(P)=PM,\n\\qquad\nd_{\\min}=\\min_{P\\in E} PM,\n\\qquad\nd_{\\max}=\\max_{P\\in E} PM"
+              }
+            ],
+            "latex": "d(P)=PM,\n\\qquad\nd_{\\min}=\\min_{P\\in E} PM,\n\\qquad\nd_{\\max}=\\max_{P\\in E} PM"
+          },
+          {
+            "title": ".结论一（点到圆的距离转化）",
+            "segments": [
+              {
+                "type": "text",
+                "text": "对固定点"
+              },
+              {
+                "type": "math",
+                "latex": "P"
+              },
+              {
+                "type": "text",
+                "text": "，它到圆"
+              }
+            ],
+            "desc": "对固定点 ，它到圆",
+            "latex": "P"
+          },
+          {
+            "title": "条目8",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "\\Gamma"
+              }
+            ],
+            "latex": "\\Gamma"
+          },
+          {
+            "title": "条目9",
+            "segments": [
+              {
+                "type": "text",
+                "text": "上点的最短距离与最长距离分别为"
+              }
+            ],
+            "desc": "上点的最短距离与最长距离分别为"
+          },
+          {
+            "title": "条目10",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "\\ell_{\\min}(P)=|PM-r|,\n\\qquad\n\\ell_{\\max}(P)=PM+r"
+              }
+            ],
+            "latex": "\\ell_{\\min}(P)=|PM-r|,\n\\qquad\n\\ell_{\\max}(P)=PM+r"
+          },
+          {
+            "title": "条目11",
+            "segments": [
+              {
+                "type": "text",
+                "text": ".因此椭圆"
+              },
+              {
+                "type": "math",
+                "latex": "E"
+              },
+              {
+                "type": "text",
+                "text": "到圆"
+              }
+            ],
+            "desc": ".因此椭圆 到圆",
+            "latex": "E"
+          },
+          {
+            "title": "条目12",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "\\Gamma"
+              }
+            ],
+            "latex": "\\Gamma"
+          },
+          {
+            "title": "条目13",
+            "segments": [
+              {
+                "type": "text",
+                "text": "的最小距离为"
+              }
+            ],
+            "desc": "的最小距离为"
+          },
+          {
+            "title": "条目14",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "D_{\\min}=\\min_{P\\in E}|PM-r|"
+              }
+            ],
+            "latex": "D_{\\min}=\\min_{P\\in E}|PM-r|"
+          },
+          {
+            "title": "条目15",
+            "segments": [
+              {
+                "type": "text",
+                "text": ".若椭圆与圆不相交，则通常只需比较"
+              },
+              {
+                "type": "math",
+                "latex": "r"
+              },
+              {
+                "type": "text",
+                "text": "与"
+              }
+            ],
+            "desc": ".若椭圆与圆不相交，则通常只需比较 与",
+            "latex": "r"
+          },
+          {
+            "title": "条目16",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "d_{\\min},d_{\\max}"
+              }
+            ],
+            "latex": "d_{\\min},d_{\\max}"
+          },
+          {
+            "title": "条目17",
+            "segments": [
+              {
+                "type": "text",
+                "text": "："
+              }
+            ],
+            "desc": "："
+          },
+          {
+            "title": "条目18",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "D_{\\min}= \n\\begin{cases}\nd_{\\min}-r, & r<d_{\\min},\\\\[2mm]\nr-d_{\\max}, & r>d_{\\max}.\n\\end{cases}"
+              }
+            ],
+            "latex": "D_{\\min}= \n\\begin{cases}\nd_{\\min}-r, & r<d_{\\min},\\\\[2mm]\nr-d_{\\max}, & r>d_{\\max}.\n\\end{cases}"
+          },
+          {
+            "title": "条目19",
+            "segments": [
+              {
+                "type": "text",
+                "text": "其中"
+              }
+            ],
+            "desc": "其中"
+          },
+          {
+            "title": "条目20",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "r<d_{\\min}"
+              }
+            ],
+            "latex": "r<d_{\\min}"
+          },
+          {
+            "title": "条目21",
+            "segments": [
+              {
+                "type": "text",
+                "text": "表示圆与椭圆边界不相交。若圆心 M 在椭圆内部，则圆被椭圆包含；若圆心 M 在椭圆外部，则圆与椭圆外离；"
+              }
+            ],
+            "desc": "表示圆与椭圆边界不相交。若圆心 M 在椭圆内部，则圆被椭圆包含；若圆心 M 在椭圆外部，则圆与椭圆外离；"
+          },
+          {
+            "title": "条目22",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "r>d_{\\max}"
+              }
+            ],
+            "latex": "r>d_{\\max}"
+          },
+          {
+            "title": "条目23",
+            "segments": [
+              {
+                "type": "text",
+                "text": "表示圆包住整个椭圆。最大距离恒为"
+              }
+            ],
+            "desc": "表示圆包住整个椭圆。最大距离恒为"
+          },
+          {
+            "title": "条目24",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "D_{\\max}=d_{\\max}+r"
+              }
+            ],
+            "latex": "D_{\\max}=d_{\\max}+r"
+          },
+          {
+            "title": "条目25",
+            "segments": [
+              {
+                "type": "text",
+                "text": ".assets/tikz/C001_01_xiangli_minmax.tikz\nassets/tikz/C001_02_xiangqie_minmax.tikz\nassets/tikz/C001_03_xiangjiao_minmax.tikz\nassets/tikz/C001_04_neihan_circle_contains_ellipse_minmax.tikz\nassets/tikz/C001_05_waihan_ellipse_contains_circle_minmax.tikz\n结论二（圆心在"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴上的求法）：\n若圆心"
+              },
+              {
+                "type": "math",
+                "latex": "M(x_0,0)"
+              },
+              {
+                "type": "text",
+                "text": "在"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴上，令"
+              },
+              {
+                "type": "math",
+                "latex": "c^2=a^2-b^2"
+              },
+              {
+                "type": "text",
+                "text": "。椭圆上一点"
+              },
+              {
+                "type": "math",
+                "latex": "P(x,y)"
+              },
+              {
+                "type": "text",
+                "text": "到圆心的距离平方满足"
+              }
+            ],
+            "desc": ".assets/tikz/C001_01_xiangli_minmax.tikz\nassets/tikz/C001_02_xiangqie_minmax.tikz\nassets/tikz/C001_03_xiangjiao_minmax.tikz\nassets/tikz/C001_04_neihan_circle_contains_ellipse_minmax.tikz\nassets/tikz/C001_05_waihan_ellipse_contains_circle_minmax.tikz\n结论二（圆心在 轴上的求法）：\n若圆心 在 轴上，令 。椭圆上一点 到圆心的距离平方满足",
+            "latex": "c^2=a^2-b^2"
+          },
+          {
+            "title": "条目26",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "d^2=(x-x_0)^2+y^2\n=\\frac{c^2}{a^2}x^2-2x_0x+x_0^2+b^2,\n\\qquad x\\in[-a,a]"
+              }
+            ],
+            "latex": "d^2=(x-x_0)^2+y^2\n=\\frac{c^2}{a^2}x^2-2x_0x+x_0^2+b^2,\n\\qquad x\\in[-a,a]"
+          },
+          {
+            "title": "条目27",
+            "segments": [
+              {
+                "type": "text",
+                "text": ".所以求"
+              }
+            ],
+            "desc": ".所以求"
+          },
+          {
+            "title": "条目28",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "d_{\\min},d_{\\max}"
+              }
+            ],
+            "latex": "d_{\\min},d_{\\max}"
+          },
+          {
+            "title": "条目29",
+            "segments": [
+              {
+                "type": "text",
+                "text": "，本质上就是求这个二次函数在闭区间"
+              },
+              {
+                "type": "math",
+                "latex": "[-a,a]"
+              },
+              {
+                "type": "text",
+                "text": "上的最值，再开方。\n特别地，若圆心为原点"
+              },
+              {
+                "type": "math",
+                "latex": "M(0,0)"
+              },
+              {
+                "type": "text",
+                "text": "，则"
+              }
+            ],
+            "desc": "，本质上就是求这个二次函数在闭区间 上的最值，再开方。\n特别地，若圆心为原点 ，则",
+            "latex": "[-a,a] \\qquad M(0,0)"
+          },
+          {
+            "title": "条目30",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "d_{\\min}=b,\n\\qquad\nd_{\\max}=a"
+              }
+            ],
+            "latex": "d_{\\min}=b,\n\\qquad\nd_{\\max}=a"
+          },
+          {
+            "title": "条目31",
+            "segments": [
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "desc": "."
           }
         ]
       },
@@ -134,19 +545,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的最近距离"
-              },
-              {
-                "type": "math",
-                "latex": "d_{\\min}"
-              },
-              {
-                "type": "text",
-                "text": "和最远距离"
-              },
-              {
-                "type": "math",
-                "latex": "d_{\\max}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "d_{\\min}"
+          },
+          {
+            "text": "和最远距离"
+          },
+          {
+            "latex": "d_{\\max}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "，再根据圆的半径"
@@ -210,47 +622,37 @@ module.exports = {
             ]
           },
           {
+            "text": "位置判断：若"
+          },
+          {
+            "latex": "r<d_{\\min}"
+          },
+          {
+            "text": "，椭圆上所有点都在圆外，最小距离为"
+          },
+          {
+            "latex": "d_{\\min}-r"
+          },
+          {
+            "text": "；若"
+          },
+          {
+            "latex": "r>d_{\\max}"
+          },
+          {
+            "text": "，圆包住整个椭圆，最小距离为"
+          },
+          {
+            "latex": "r-d_{\\max}"
+          },
+          {
+            "text": "；若"
+          },
+          {
+            "latex": "d_{\\min}\\le r\\le d_{\\max}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "位置判断：若"
-              },
-              {
-                "type": "math",
-                "latex": "r<d_{\\min}"
-              },
-              {
-                "type": "text",
-                "text": "，椭圆上所有点都在圆外，最小距离为"
-              },
-              {
-                "type": "math",
-                "latex": "d_{\\min}-r"
-              },
-              {
-                "type": "text",
-                "text": "；若"
-              },
-              {
-                "type": "math",
-                "latex": "r>d_{\\max}"
-              },
-              {
-                "type": "text",
-                "text": "，圆包住整个椭圆，最小距离为"
-              },
-              {
-                "type": "math",
-                "latex": "r-d_{\\max}"
-              },
-              {
-                "type": "text",
-                "text": "；若"
-              },
-              {
-                "type": "math",
-                "latex": "d_{\\min}\\le r\\le d_{\\max}"
-              },
               {
                 "type": "text",
                 "text": "，圆与椭圆有交点或相切，最小距离为"
@@ -328,11 +730,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。当"
-              },
-              {
-                "type": "math",
-                "latex": "P\\ne M"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "P\\ne M"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "时，圆上离"
@@ -352,14 +757,17 @@ module.exports = {
               {
                 "type": "text",
                 "text": "上，故"
-              },
-              {
-                "type": "math",
-                "latex": "\\ell_{\\min}(P)=|PM-r|,\n\\qquad\n\\ell_{\\max}(P)=PM+r."
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\ell_{\\min}(P)=|PM-r|,\n\\qquad\n\\ell_{\\max}(P)=PM+r"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "当"
+                "text": ".当"
               },
               {
                 "type": "math",
@@ -384,22 +792,23 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，上述公式仍成立。\n因此椭圆到圆的最小距离为"
-              },
-              {
-                "type": "math",
-                "latex": "D_{\\min}=\\min_{P\\in E}|PM-r|,"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "D_{\\min}=\\min_{P\\in E}|PM-r|"
+          },
+          {
+            "text": ",最大距离为"
+          },
+          {
+            "latex": "D_{\\max}=\\max_{P\\in E}(PM+r)=d_{\\max}+r"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "最大距离为"
-              },
-              {
-                "type": "math",
-                "latex": "D_{\\max}=\\max_{P\\in E}(PM+r)=d_{\\max}+r."
-              },
-              {
-                "type": "text",
-                "text": "若圆与椭圆不相交，则"
+                "text": ".若圆与椭圆不相交，则"
               },
               {
                 "type": "math",
@@ -408,30 +817,29 @@ module.exports = {
               {
                 "type": "text",
                 "text": "不落在区间"
-              },
-              {
-                "type": "math",
-                "latex": "[d_{\\min},d_{\\max}]"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "[d_{\\min},d_{\\max}]"
+          },
+          {
+            "text": "内，于是分为两种情况："
+          },
+          {
+            "latex": "D_{\\min}=d_{\\min}-r\\quad (r<d_{\\min})"
+          },
+          {
+            "text": ",或"
+          },
+          {
+            "latex": "D_{\\min}=r-d_{\\max}\\quad (r>d_{\\max})"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "内，于是分为两种情况："
-              },
-              {
-                "type": "math",
-                "latex": "D_{\\min}=d_{\\min}-r\\quad (r<d_{\\min}),"
-              },
-              {
-                "type": "text",
-                "text": "或"
-              },
-              {
-                "type": "math",
-                "latex": "D_{\\min}=r-d_{\\max}\\quad (r>d_{\\max})."
-              },
-              {
-                "type": "text",
-                "text": "第二步：圆心在"
+                "text": ".第二步：圆心在"
               },
               {
                 "type": "math",
@@ -459,32 +867,31 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "d^2=(x-x_0)^2+y^2."
+                "latex": "d^2=(x-x_0)^2+y^2"
               },
               {
                 "type": "text",
-                "text": "由椭圆方程"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
-              },
-              {
-                "type": "text",
-                "text": "得"
-              },
-              {
-                "type": "math",
-                "latex": "y^2=b^2\\left(1-\\frac{x^2}{a^2}\\right)."
-              },
-              {
-                "type": "text",
-                "text": "代入距离平方："
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\nd^2\n&=(x-x_0)^2+b^2\\left(1-\\frac{x^2}{a^2}\\right)\\\\\n&=x^2-2x_0x+x_0^2+b^2-\\frac{b^2}{a^2}x^2\\\\\n&=\\left(1-\\frac{b^2}{a^2}\\right)x^2-2x_0x+x_0^2+b^2.\n\\end{aligned}"
-              },
+                "text": ".由椭圆方程"
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
+            "text": "得"
+          },
+          {
+            "latex": "y^2=b^2\\left(1-\\frac{x^2}{a^2}\\right)"
+          },
+          {
+            "text": ".代入距离平方："
+          },
+          {
+            "latex": "\\begin{aligned}\nd^2\n&=(x-x_0)^2+b^2\\left(1-\\frac{x^2}{a^2}\\right)\\\\\n&=x^2-2x_0x+x_0^2+b^2-\\frac{b^2}{a^2}x^2\\\\\n&=\\left(1-\\frac{b^2}{a^2}\\right)x^2-2x_0x+x_0^2+b^2.\n\\end{aligned}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "令"
@@ -496,14 +903,17 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，则"
-              },
-              {
-                "type": "math",
-                "latex": "d^2=\\frac{c^2}{a^2}x^2-2x_0x+x_0^2+b^2,\n\\qquad x\\in[-a,a]."
-              },
+              }
+            ]
+          },
+          {
+            "latex": "d^2=\\frac{c^2}{a^2}x^2-2x_0x+x_0^2+b^2,\n\\qquad x\\in[-a,a]"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "所以只要在闭区间"
+                "text": ".所以只要在闭区间"
               },
               {
                 "type": "math",
@@ -512,19 +922,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "上求这个二次函数的最值，再开方，即得"
-              },
-              {
-                "type": "math",
-                "latex": "d_{\\min}"
-              },
-              {
-                "type": "text",
-                "text": "与"
-              },
-              {
-                "type": "math",
-                "latex": "d_{\\max}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "d_{\\min}"
+          },
+          {
+            "text": "与"
+          },
+          {
+            "latex": "d_{\\max}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "。\n第三步：原点情形。\n若"
@@ -539,11 +950,11 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "d^2=x^2+y^2."
+                "latex": "d^2=x^2+y^2"
               },
               {
                 "type": "text",
-                "text": "椭圆的长半轴为"
+                "text": ".椭圆的长半轴为"
               },
               {
                 "type": "math",
@@ -576,16 +987,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，即"
-              },
-              {
-                "type": "math",
-                "latex": "d_{\\max}=a,\n\\qquad\nd_{\\min}=b."
-              },
-              {
-                "type": "text",
-                "text": "证毕。"
               }
             ]
+          },
+          {
+            "latex": "d_{\\max}=a,\n\\qquad\nd_{\\min}=b"
+          },
+          {
+            "text": ".证毕。"
           }
         ]
       },
@@ -595,26 +1004,22 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "例题 1（圆在椭圆外侧）：\n已知椭圆"
+          },
+          {
+            "latex": "C:\\frac{x^2}{4}+y^2=1"
+          },
+          {
+            "text": "与圆"
+          },
+          {
+            "latex": "\\Gamma:(x-4)^2+y^2=1"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "例题 1（圆在椭圆外侧）：\n已知椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "C:\\frac{x^2}{4}+y^2=1"
-              },
-              {
-                "type": "text",
-                "text": "与圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\Gamma:(x-4)^2+y^2=1,"
-              },
-              {
-                "type": "text",
-                "text": "求椭圆上的点到圆上点的最小距离。\n解析：\n圆心"
+                "text": ",求椭圆上的点到圆上点的最小距离。\n解析：\n圆心"
               },
               {
                 "type": "math",
@@ -650,35 +1055,34 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "d^2=(x-4)^2+y^2."
+                "latex": "d^2=(x-4)^2+y^2"
               },
               {
                 "type": "text",
-                "text": "由椭圆方程得"
-              },
-              {
-                "type": "math",
-                "latex": "y^2=1-\\frac{x^2}{4},\n\\qquad x\\in[-2,2]."
-              },
+                "text": ".由椭圆方程得"
+              }
+            ]
+          },
+          {
+            "latex": "y^2=1-\\frac{x^2}{4},\n\\qquad x\\in[-2,2]"
+          },
+          {
+            "text": ".所以"
+          },
+          {
+            "latex": "d^2=(x-4)^2+1-\\frac{x^2}{4}\n=\\frac34x^2-8x+17"
+          },
+          {
+            "text": ".该二次函数对称轴为"
+          },
+          {
+            "latex": "x=\\frac{8}{2\\cdot\\frac34}=\\frac{16}{3}>2"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "所以"
-              },
-              {
-                "type": "math",
-                "latex": "d^2=(x-4)^2+1-\\frac{x^2}{4}\n=\\frac34x^2-8x+17."
-              },
-              {
-                "type": "text",
-                "text": "该二次函数对称轴为"
-              },
-              {
-                "type": "math",
-                "latex": "x=\\frac{8}{2\\cdot\\frac34}=\\frac{16}{3}>2,"
-              },
-              {
-                "type": "text",
-                "text": "因此在"
+                "text": ",因此在"
               },
               {
                 "type": "math",
@@ -695,30 +1099,29 @@ module.exports = {
               {
                 "type": "text",
                 "text": "处取得："
-              },
-              {
-                "type": "math",
-                "latex": "d_{\\min}^2=\\frac34\\cdot4-16+17=4,\n\\qquad d_{\\min}=2."
-              },
+              }
+            ]
+          },
+          {
+            "latex": "d_{\\min}^2=\\frac34\\cdot4-16+17=4,\n\\qquad d_{\\min}=2"
+          },
+          {
+            "text": ".又因为"
+          },
+          {
+            "latex": "r=1<d_{\\min}"
+          },
+          {
+            "text": "，所以椭圆与圆的最小距离为"
+          },
+          {
+            "latex": "D_{\\min}=d_{\\min}-r=2-1=1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "又因为"
-              },
-              {
-                "type": "math",
-                "latex": "r=1<d_{\\min}"
-              },
-              {
-                "type": "text",
-                "text": "，所以椭圆与圆的最小距离为"
-              },
-              {
-                "type": "math",
-                "latex": "D_{\\min}=d_{\\min}-r=2-1=1."
-              },
-              {
-                "type": "text",
-                "text": "关键结论：最小距离为"
+                "text": ".关键结论：最小距离为"
               },
               {
                 "type": "math",
@@ -747,15 +1150,13 @@ module.exports = {
             ]
           },
           {
+            "text": "例题 2（圆心在原点）：\n椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{5}+\\frac{y^2}{4}=1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例题 2（圆心在原点）：\n椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{5}+\\frac{y^2}{4}=1"
-              },
               {
                 "type": "text",
                 "text": "上一点到圆"
@@ -775,62 +1176,50 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。椭圆长半轴为"
-              },
-              {
-                "type": "math",
-                "latex": "a=\\sqrt5"
-              },
-              {
-                "type": "text",
-                "text": "，所以"
-              },
-              {
-                "type": "math",
-                "latex": "d_{\\max}=\\sqrt5."
-              },
-              {
-                "type": "text",
-                "text": "最大距离为"
-              },
-              {
-                "type": "math",
-                "latex": "D_{\\max}=d_{\\max}+r=\\sqrt5+1."
-              },
-              {
-                "type": "text",
-                "text": "关键结论：最大距离为"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt5+1"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "a=\\sqrt5"
+          },
+          {
+            "text": "，所以"
+          },
+          {
+            "latex": "d_{\\max}=\\sqrt5"
+          },
+          {
+            "text": ".最大距离为"
+          },
+          {
+            "latex": "D_{\\max}=d_{\\max}+r=\\sqrt5+1"
+          },
+          {
+            "text": ".关键结论：最大距离为"
+          },
+          {
+            "latex": "\\sqrt5+1"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "例题 3（圆包住椭圆）：\n已知椭圆"
+          },
+          {
+            "latex": "C:\\frac{x^2}{4}+y^2=1"
+          },
+          {
+            "text": "与圆"
+          },
+          {
+            "latex": "\\Gamma:x^2+y^2=9"
           },
           {
             "segments": [
               {
                 "type": "text",
-                "text": "例题 3（圆包住椭圆）：\n已知椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "C:\\frac{x^2}{4}+y^2=1"
-              },
-              {
-                "type": "text",
-                "text": "与圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\Gamma:x^2+y^2=9,"
-              },
-              {
-                "type": "text",
-                "text": "求两曲线的最小距离。\n解析：\n圆心为原点，半径"
+                "text": ",求两曲线的最小距离。\n解析：\n圆心为原点，半径"
               },
               {
                 "type": "math",
@@ -847,30 +1236,29 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，所以"
-              },
-              {
-                "type": "math",
-                "latex": "d_{\\max}=2."
-              },
+              }
+            ]
+          },
+          {
+            "latex": "d_{\\max}=2"
+          },
+          {
+            "text": ".由于"
+          },
+          {
+            "latex": "r=3>d_{\\max}"
+          },
+          {
+            "text": "，圆包住整个椭圆，故最小距离为"
+          },
+          {
+            "latex": "D_{\\min}=r-d_{\\max}=3-2=1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "由于"
-              },
-              {
-                "type": "math",
-                "latex": "r=3>d_{\\max}"
-              },
-              {
-                "type": "text",
-                "text": "，圆包住整个椭圆，故最小距离为"
-              },
-              {
-                "type": "math",
-                "latex": "D_{\\min}=r-d_{\\max}=3-2=1."
-              },
-              {
-                "type": "text",
-                "text": "关键结论：最小距离为"
+                "text": ".关键结论：最小距离为"
               },
               {
                 "type": "math",
@@ -879,16 +1267,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。这说明"
-              },
-              {
-                "type": "math",
-                "latex": "r-d_{\\max}"
-              },
-              {
-                "type": "text",
-                "text": "适用于“圆包住椭圆”，不是“圆在椭圆内部”。"
               }
             ]
+          },
+          {
+            "latex": "r-d_{\\max}"
+          },
+          {
+            "text": "适用于“圆包住椭圆”，不是“圆在椭圆内部”。"
           }
         ]
       },
@@ -898,55 +1284,40 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "内外关系误判：若圆在椭圆内部且不相交，通常是"
-              },
-              {
-                "type": "math",
-                "latex": "r<d_{\\min}"
-              },
-              {
-                "type": "text",
-                "text": "，最小距离应为"
-              },
-              {
-                "type": "math",
-                "latex": "d_{\\min}-r"
-              },
-              {
-                "type": "text",
-                "text": "；"
-              },
-              {
-                "type": "math",
-                "latex": "r-d_{\\max}"
-              },
-              {
-                "type": "text",
-                "text": "对应的是“圆包住整个椭圆”，不是“圆在椭圆内”。"
-              }
-            ]
+            "text": "内外关系误判：若圆在椭圆内部且不相交，通常是"
+          },
+          {
+            "latex": "r<d_{\\min}"
+          },
+          {
+            "text": "，最小距离应为"
+          },
+          {
+            "latex": "d_{\\min}-r"
+          },
+          {
+            "text": "；"
+          },
+          {
+            "latex": "r-d_{\\max}"
+          },
+          {
+            "text": "对应的是“圆包住整个椭圆”，不是“圆在椭圆内”。"
+          },
+          {
+            "text": "相切不等于严格不相交：若"
+          },
+          {
+            "latex": "r=d_{\\min}"
+          },
+          {
+            "text": "或"
+          },
+          {
+            "latex": "r=d_{\\max}"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "相切不等于严格不相交：若"
-              },
-              {
-                "type": "math",
-                "latex": "r=d_{\\min}"
-              },
-              {
-                "type": "text",
-                "text": "或"
-              },
-              {
-                "type": "math",
-                "latex": "r=d_{\\max}"
-              },
               {
                 "type": "text",
                 "text": "，最小距离为"
@@ -974,16 +1345,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的二次函数最值时，必须限制"
-              },
-              {
-                "type": "math",
-                "latex": "x\\in[-a,a]"
-              },
-              {
-                "type": "text",
-                "text": "，不能只看顶点公式。顶点不在区间内时，最值往往在端点取得。"
               }
             ]
+          },
+          {
+            "latex": "x\\in[-a,a]"
+          },
+          {
+            "text": "，不能只看顶点公式。顶点不在区间内时，最值往往在端点取得。"
           },
           {
             "segments": [
@@ -1006,16 +1375,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，不能直接用"
-              },
-              {
-                "type": "math",
-                "latex": "d^2\\pm r"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "d^2\\pm r"
+          },
+          {
+            "text": "。"
           },
           {
             "segments": [
@@ -1054,16 +1421,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的正负分支，更稳妥的方法是使用参数方程"
-              },
-              {
-                "type": "math",
-                "latex": "P(a\\cos\\theta,b\\sin\\theta)"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "P(a\\cos\\theta,b\\sin\\theta)"
+          },
+          {
+            "text": "。"
           }
         ]
       },
@@ -1089,47 +1454,37 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "先求"
-              },
-              {
-                "type": "math",
-                "latex": "d_{\\min}=\\min_{P\\in E}PM,\n\\qquad\nd_{\\max}=\\max_{P\\in E}PM."
-              }
-            ]
+            "text": "先求"
+          },
+          {
+            "latex": "d_{\\min}=\\min_{P\\in E}PM,\n\\qquad\nd_{\\max}=\\max_{P\\in E}PM"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "最大距离恒为"
+          },
+          {
+            "latex": "D_{\\max}=d_{\\max}+r"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "最小距离按半径位置判断："
+          },
+          {
+            "latex": "D_{\\min}=d_{\\min}-r\\quad (r<d_{\\min}),\n\\qquad\nD_{\\min}=r-d_{\\max}\\quad (r>d_{\\max})"
+          },
+          {
+            "text": ".若"
+          },
+          {
+            "latex": "d_{\\min}\\le r\\le d_{\\max}"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "最大距离恒为"
-              },
-              {
-                "type": "math",
-                "latex": "D_{\\max}=d_{\\max}+r."
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "最小距离按半径位置判断："
-              },
-              {
-                "type": "math",
-                "latex": "D_{\\min}=d_{\\min}-r\\quad (r<d_{\\min}),\n\\qquad\nD_{\\min}=r-d_{\\max}\\quad (r>d_{\\max})."
-              },
-              {
-                "type": "text",
-                "text": "若"
-              },
-              {
-                "type": "math",
-                "latex": "d_{\\min}\\le r\\le d_{\\max}"
-              },
               {
                 "type": "text",
                 "text": "，则圆与椭圆有交点或相切，最小距离为"
@@ -1157,16 +1512,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "轴上时，优先使用"
-              },
-              {
-                "type": "math",
-                "latex": "d^2=\\frac{c^2}{a^2}x^2-2x_0x+x_0^2+b^2,\n\\qquad x\\in[-a,a],"
-              },
-              {
-                "type": "text",
-                "text": "将问题转化为二次函数在闭区间上的最值。"
               }
             ]
+          },
+          {
+            "latex": "d^2=\\frac{c^2}{a^2}x^2-2x_0x+x_0^2+b^2,\n\\qquad x\\in[-a,a]"
+          },
+          {
+            "text": ",将问题转化为二次函数在闭区间上的最值。"
           }
         ]
       }
@@ -1218,9 +1571,85 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "距离转化形式："
+              },
+              {
+                "type": "math",
+                "latex": "d = \\frac{|Ax + By + C|}{\\sqrt{A^2 + B^2}}"
+              },
+              {
+                "type": "text",
+                "text": "；"
+              }
+            ],
+            "desc": "距离转化形式： ；",
+            "latex": "d = \\frac{|Ax + By + C|}{\\sqrt{A^2 + B^2}}"
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "text",
+                "text": "极值公式："
+              },
+              {
+                "type": "math",
+                "latex": "d_{max} = \\frac{|C| + \\sqrt{A^2a^2 + B^2b^2}}{\\sqrt{A^2 + B^2}}"
+              },
+              {
+                "type": "text",
+                "text": ","
+              },
+              {
+                "type": "math",
+                "latex": "d_{min} = \\frac{|C| - \\sqrt{A^2a^2 + B^2b^2}}{\\sqrt{A^2 + B^2}}"
+              },
+              {
+                "type": "text",
+                "text": "(假设直线在椭圆外且"
+              },
+              {
+                "type": "math",
+                "latex": "C > 0"
+              },
+              {
+                "type": "text",
+                "text": ")；"
+              }
+            ],
+            "desc": "极值公式： , (假设直线在椭圆外且 )；",
+            "latex": "d_{max} = \\frac{|C| + \\sqrt{A^2a^2 + B^2b^2}}{\\sqrt{A^2 + B^2}}"
+          },
+          {
+            "title": "条目3",
+            "segments": [
+              {
+                "type": "text",
+                "text": "切线常数项：与"
+              },
+              {
+                "type": "math",
+                "latex": "l"
+              },
+              {
+                "type": "text",
+                "text": "平行的椭圆切线方程为"
+              },
+              {
+                "type": "math",
+                "latex": "Ax + By \\pm \\sqrt{A^2a^2 + B^2b^2} = 0"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "切线常数项：与 平行的椭圆切线方程为 。",
+            "latex": "Ax + By \\pm \\sqrt{A^2a^2 + B^2b^2} = 0"
           }
         ]
       },
@@ -1248,16 +1677,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "统一为单变量角度"
-              },
-              {
-                "type": "math",
-                "latex": "\\theta"
-              },
-              {
-                "type": "text",
-                "text": "，从而利用三角函数的有界性。"
               }
             ]
+          },
+          {
+            "latex": "\\theta"
+          },
+          {
+            "text": "，从而利用三角函数的有界性。"
           },
           {
             "text": "适用场景："
@@ -1279,20 +1706,13 @@ module.exports = {
             "text": "参数方程推导步骤："
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "设点：设椭圆上任意点"
-              },
-              {
-                "type": "math",
-                "latex": "P(a\\cos\\theta, b\\sin\\theta)"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "设点：设椭圆上任意点"
+          },
+          {
+            "latex": "P(a\\cos\\theta, b\\sin\\theta)"
+          },
+          {
+            "text": "。"
           },
           {
             "segments": [
@@ -1315,51 +1735,38 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的距离为"
-              },
-              {
-                "type": "math",
-                "latex": "d = \\frac{|Aa\\cos\\theta + Bb\\sin\\theta + C|}{\\sqrt{A^2 + B^2}}"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "辅助角合一：令"
-              },
-              {
-                "type": "math",
-                "latex": "Aa\\cos\\theta + Bb\\sin\\theta = \\sqrt{A^2a^2 + B^2b^2}\\sin(\\theta + \\phi)"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "latex": "d = \\frac{|Aa\\cos\\theta + Bb\\sin\\theta + C|}{\\sqrt{A^2 + B^2}}"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "辅助角合一：令"
+          },
+          {
+            "latex": "Aa\\cos\\theta + Bb\\sin\\theta = \\sqrt{A^2a^2 + B^2b^2}\\sin(\\theta + \\phi)"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "求最值：当"
+          },
+          {
+            "latex": "\\sin(\\theta + \\phi) = \\pm 1"
+          },
+          {
+            "text": "时，分子取得极值"
+          },
+          {
+            "latex": "|C \\pm \\sqrt{A^2a^2 + B^2b^2}|"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "求最值：当"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin(\\theta + \\phi) = \\pm 1"
-              },
-              {
-                "type": "text",
-                "text": "时，分子取得极值"
-              },
-              {
-                "type": "math",
-                "latex": "|C \\pm \\sqrt{A^2a^2 + B^2b^2}|"
-              },
               {
                 "type": "text",
                 "text": "，由此得距离"
@@ -1382,15 +1789,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "例题 1： 求椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{4} + y^2 = 1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例题 1： 求椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{4} + y^2 = 1"
-              },
               {
                 "type": "text",
                 "text": "上的点到直线"
@@ -1410,27 +1815,26 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。\n计算项"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{A^2a^2 + B^2b^2} = \\sqrt{1^2 \\cdot 2^2 + (-1)^2 \\cdot 1^2} = \\sqrt{5}"
-              },
-              {
-                "type": "text",
-                "text": "。\n最短距离"
-              },
-              {
-                "type": "math",
-                "latex": "d_{min} = \\frac{4 - \\sqrt{5}}{\\sqrt{1^2 + (-1)^2}} = \\frac{4 - \\sqrt{5}}{\\sqrt{2}} = \\frac{4\\sqrt{2} - \\sqrt{10}}{2}"
-              },
-              {
-                "type": "text",
-                "text": "。\n例题 2： 椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{16} + \\frac{y^2}{9} = 1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\sqrt{A^2a^2 + B^2b^2} = \\sqrt{1^2 \\cdot 2^2 + (-1)^2 \\cdot 1^2} = \\sqrt{5}"
+          },
+          {
+            "text": "。\n最短距离"
+          },
+          {
+            "latex": "d_{min} = \\frac{4 - \\sqrt{5}}{\\sqrt{1^2 + (-1)^2}} = \\frac{4 - \\sqrt{5}}{\\sqrt{2}} = \\frac{4\\sqrt{2} - \\sqrt{10}}{2}"
+          },
+          {
+            "text": "。\n例题 2： 椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{16} + \\frac{y^2}{9} = 1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "上一点"
@@ -1458,24 +1862,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{A^2a^2 + B^2b^2} = \\sqrt{16 + 9} = 5"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              },
-              {
-                "type": "math",
-                "latex": "d_{max} = \\frac{|-10| + 5}{\\sqrt{1^2 + 1^2}} = \\frac{15}{\\sqrt{2}} = \\frac{15\\sqrt{2}}{2}"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "\\sqrt{A^2a^2 + B^2b^2} = \\sqrt{16 + 9} = 5"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "latex": "d_{max} = \\frac{|-10| + 5}{\\sqrt{1^2 + 1^2}} = \\frac{15}{\\sqrt{2}} = \\frac{15\\sqrt{2}}{2}"
+          },
+          {
+            "text": "。"
           }
         ]
       },
@@ -1557,20 +1957,13 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "分子绝对值：当直线从椭圆中间穿过或距离较近时，注意"
-              },
-              {
-                "type": "math",
-                "latex": "|C| - \\sqrt{A^2a^2 + B^2b^2}"
-              },
-              {
-                "type": "text",
-                "text": "可能为负，物理距离需取绝对值。"
-              }
-            ]
+            "text": "分子绝对值：当直线从椭圆中间穿过或距离较近时，注意"
+          },
+          {
+            "latex": "|C| - \\sqrt{A^2a^2 + B^2b^2}"
+          },
+          {
+            "text": "可能为负，物理距离需取绝对值。"
           }
         ]
       },
@@ -1580,20 +1973,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "1. 核心结论：距离最值取决于分子的波动项"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{A^2a^2 + B^2b^2}"
-              },
-              {
-                "type": "text",
-                "text": "。\n2. 工具选择：参数方程法（三角换元）比判别式法在处理距离问题时计算量更小。\n3. 扩展应用：该结论可直接推广至双曲线（注意符号变化）和抛物线的最值距离求解。"
-              }
-            ]
+            "text": "1. 核心结论：距离最值取决于分子的波动项"
+          },
+          {
+            "latex": "\\sqrt{A^2a^2 + B^2b^2}"
+          },
+          {
+            "text": "。\n2. 工具选择：参数方程法（三角换元）比判别式法在处理距离问题时计算量更小。\n3. 扩展应用：该结论可直接推广至双曲线（注意符号变化）和抛物线的最值距离求解。"
           }
         ]
       }
@@ -1645,9 +2031,117 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "最大角结论：当点"
+              },
+              {
+                "type": "math",
+                "latex": "P"
+              },
+              {
+                "type": "text",
+                "text": "位于椭圆短轴端点（即"
+              },
+              {
+                "type": "math",
+                "latex": "P(0, \\pm b)"
+              },
+              {
+                "type": "text",
+                "text": "）时，张角"
+              },
+              {
+                "type": "math",
+                "latex": "\\theta"
+              },
+              {
+                "type": "text",
+                "text": "取得最大值"
+              },
+              {
+                "type": "math",
+                "latex": "\\theta_{max}"
+              },
+              {
+                "type": "text",
+                "text": "；"
+              }
+            ],
+            "desc": "最大角结论：当点 位于椭圆短轴端点（即 ）时，张角 取得最大值 ；",
+            "latex": "P \\qquad P(0, \\pm b) \\qquad \\theta \\qquad \\theta_{max}"
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "text",
+                "text": "正切值公式："
+              },
+              {
+                "type": "math",
+                "latex": "\\tan \\frac{\\theta}{2} = \\frac{c}{y_P}"
+              },
+              {
+                "type": "text",
+                "text": "（其中"
+              },
+              {
+                "type": "math",
+                "latex": "y_P"
+              },
+              {
+                "type": "text",
+                "text": "为点"
+              },
+              {
+                "type": "math",
+                "latex": "P"
+              },
+              {
+                "type": "text",
+                "text": "的纵坐标绝对值）；"
+              }
+            ],
+            "desc": "正切值公式： （其中 为点 的纵坐标绝对值）；",
+            "latex": "\\tan \\frac{\\theta}{2} = \\frac{c}{y_P}"
+          },
+          {
+            "title": "条目3",
+            "segments": [
+              {
+                "type": "text",
+                "text": "余弦值形式："
+              },
+              {
+                "type": "math",
+                "latex": "\\cos \\theta = \\frac{r_1^2 + r_2^2 - 4c^2}{2r_1r_2}"
+              },
+              {
+                "type": "text",
+                "text": "，其中"
+              },
+              {
+                "type": "math",
+                "latex": "r_1, r_2"
+              },
+              {
+                "type": "text",
+                "text": "为焦半径。在短轴端点处，"
+              },
+              {
+                "type": "math",
+                "latex": "\\cos \\theta_{max} = \\frac{b^2-c^2}{b^2+c^2}"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "余弦值形式： ，其中 为焦半径。在短轴端点处， 。",
+            "latex": "\\cos \\theta = \\frac{r_1^2 + r_2^2 - 4c^2}{2r_1r_2}"
           }
         ]
       },
@@ -1727,20 +2221,13 @@ module.exports = {
             "text": "适用场景："
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "求解"
-              },
-              {
-                "type": "math",
-                "latex": "\\angle F_1PF_2"
-              },
-              {
-                "type": "text",
-                "text": "的取值范围。"
-              }
-            ]
+            "text": "求解"
+          },
+          {
+            "latex": "\\angle F_1PF_2"
+          },
+          {
+            "text": "的取值范围。"
           },
           {
             "segments": [
@@ -1772,15 +2259,13 @@ module.exports = {
             "text": "利用正切半角公式推导："
           },
           {
+            "text": "在"
+          },
+          {
+            "latex": "\\triangle F_1PF_2"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "在"
-              },
-              {
-                "type": "math",
-                "latex": "\\triangle F_1PF_2"
-              },
               {
                 "type": "text",
                 "text": "中，设"
@@ -1796,19 +2281,16 @@ module.exports = {
             ]
           },
           {
+            "latex": "\\tan \\angle PF_2O = \\frac{y_0}{c-x_0}"
+          },
+          {
+            "text": "，"
+          },
+          {
+            "latex": "\\tan \\angle PF_1O = \\frac{y_0}{c+x_0}"
+          },
+          {
             "segments": [
-              {
-                "type": "math",
-                "latex": "\\tan \\angle PF_2O = \\frac{y_0}{c-x_0}"
-              },
-              {
-                "type": "text",
-                "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan \\angle PF_1O = \\frac{y_0}{c+x_0}"
-              },
               {
                 "type": "text",
                 "text": "（假设"
@@ -1824,63 +2306,43 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "利用恒等式"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan \\theta = \\tan(\\angle PF_1F_2 + \\angle PF_2F_1)"
-              },
-              {
-                "type": "text",
-                "text": "："
-              },
-              {
-                "type": "math",
-                "latex": "\\tan \\theta = \\frac{\\frac{y_0}{c+x_0} + \\frac{y_0}{c-x_0}}{1 - \\frac{y_0^2}{c^2-x_0^2}} = \\frac{2cy_0}{c^2 - x_0^2 - y_0^2}"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "利用恒等式"
+          },
+          {
+            "latex": "\\tan \\theta = \\tan(\\angle PF_1F_2 + \\angle PF_2F_1)"
+          },
+          {
+            "text": "："
+          },
+          {
+            "latex": "\\tan \\theta = \\frac{\\frac{y_0}{c+x_0} + \\frac{y_0}{c-x_0}}{1 - \\frac{y_0^2}{c^2-x_0^2}} = \\frac{2cy_0}{c^2 - x_0^2 - y_0^2}"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "代入"
+          },
+          {
+            "latex": "x_0^2 = a^2(1 - \\frac{y_0^2}{b^2})"
+          },
+          {
+            "text": "，整理得"
+          },
+          {
+            "latex": "\\tan \\theta = \\frac{2cy_0}{b^2 - a^2 + y_0^2(1 - \\frac{a^2}{b^2})} = \\frac{2cy_0}{y_0^2 \\cdot \\frac{c^2}{b^2} - c^2}"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "进一步分析可知，"
+          },
+          {
+            "latex": "\\theta"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "代入"
-              },
-              {
-                "type": "math",
-                "latex": "x_0^2 = a^2(1 - \\frac{y_0^2}{b^2})"
-              },
-              {
-                "type": "text",
-                "text": "，整理得"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan \\theta = \\frac{2cy_0}{b^2 - a^2 + y_0^2(1 - \\frac{a^2}{b^2})} = \\frac{2cy_0}{y_0^2 \\cdot \\frac{c^2}{b^2} - c^2}"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "进一步分析可知，"
-              },
-              {
-                "type": "math",
-                "latex": "\\theta"
-              },
               {
                 "type": "text",
                 "text": "随"
@@ -1911,15 +2373,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "例题 1： 已知椭圆"
+          },
+          {
+            "latex": "C: \\frac{x^2}{4} + \\frac{y^2}{3} = 1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例题 1： 已知椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "C: \\frac{x^2}{4} + \\frac{y^2}{3} = 1"
-              },
               {
                 "type": "text",
                 "text": "，点"
@@ -1931,27 +2391,26 @@ module.exports = {
               {
                 "type": "text",
                 "text": "为椭圆上一点，求"
-              },
-              {
-                "type": "math",
-                "latex": "\\angle F_1PF_2"
-              },
-              {
-                "type": "text",
-                "text": "的最大值。\n解析：\n1. 由方程知"
-              },
-              {
-                "type": "math",
-                "latex": "a=2, b=\\sqrt{3}"
-              },
-              {
-                "type": "text",
-                "text": "，则"
-              },
-              {
-                "type": "math",
-                "latex": "c = \\sqrt{4-3} = 1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\angle F_1PF_2"
+          },
+          {
+            "text": "的最大值。\n解析：\n1. 由方程知"
+          },
+          {
+            "latex": "a=2, b=\\sqrt{3}"
+          },
+          {
+            "text": "，则"
+          },
+          {
+            "latex": "c = \\sqrt{4-3} = 1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "。\n2. 当点"
@@ -1963,43 +2422,38 @@ module.exports = {
               {
                 "type": "text",
                 "text": "为短轴端点"
-              },
-              {
-                "type": "math",
-                "latex": "(0, \\sqrt{3})"
-              },
-              {
-                "type": "text",
-                "text": "时，张角最大。\n3. 此时"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan \\frac{\\theta_{max}}{2} = \\frac{c}{b} = \\frac{1}{\\sqrt{3}}"
-              },
-              {
-                "type": "text",
-                "text": "。\n4. 故"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{\\theta_{max}}{2} = 30^\\circ"
-              },
-              {
-                "type": "text",
-                "text": "，即"
-              },
-              {
-                "type": "math",
-                "latex": "\\theta_{max} = 60^\\circ"
-              },
-              {
-                "type": "text",
-                "text": "。\n例题 2： 若椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "(0, \\sqrt{3})"
+          },
+          {
+            "text": "时，张角最大。\n3. 此时"
+          },
+          {
+            "latex": "\\tan \\frac{\\theta_{max}}{2} = \\frac{c}{b} = \\frac{1}{\\sqrt{3}}"
+          },
+          {
+            "text": "。\n4. 故"
+          },
+          {
+            "latex": "\\frac{\\theta_{max}}{2} = 30^\\circ"
+          },
+          {
+            "text": "，即"
+          },
+          {
+            "latex": "\\theta_{max} = 60^\\circ"
+          },
+          {
+            "text": "。\n例题 2： 若椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "上存在点"
@@ -2011,11 +2465,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "使得"
-              },
-              {
-                "type": "math",
-                "latex": "\\angle F_1PF_2 = 90^\\circ"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\angle F_1PF_2 = 90^\\circ"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "，求离心率"
@@ -2027,40 +2484,32 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的取值范围。\n解析：\n只需满足最大张角"
-              },
-              {
-                "type": "math",
-                "latex": "\\theta_{max} \\ge 90^\\circ"
-              },
-              {
-                "type": "text",
-                "text": "。\n即"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{c}{b} \\ge \\tan 45^\\circ = 1 \\implies c \\ge b"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              },
-              {
-                "type": "math",
-                "latex": "c^2 \\ge a^2 - c^2 \\implies 2c^2 \\ge a^2 \\implies e^2 \\ge \\frac{1}{2}"
-              },
-              {
-                "type": "text",
-                "text": "。\n故"
-              },
-              {
-                "type": "math",
-                "latex": "e \\in [\\frac{\\sqrt{2}}{2}, 1)"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "\\theta_{max} \\ge 90^\\circ"
+          },
+          {
+            "text": "。\n即"
+          },
+          {
+            "latex": "\\frac{c}{b} \\ge \\tan 45^\\circ = 1 \\implies c \\ge b"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "latex": "c^2 \\ge a^2 - c^2 \\implies 2c^2 \\ge a^2 \\implies e^2 \\ge \\frac{1}{2}"
+          },
+          {
+            "text": "。\n故"
+          },
+          {
+            "latex": "e \\in [\\frac{\\sqrt{2}}{2}, 1)"
+          },
+          {
+            "text": "。"
           }
         ]
       },
@@ -2090,27 +2539,23 @@ module.exports = {
               {
                 "type": "text",
                 "text": "接近 1 时，最大张角趋近于"
-              },
-              {
-                "type": "math",
-                "latex": "180^\\circ"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
           },
           {
+            "latex": "180^\\circ"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "公式适用性："
+          },
+          {
+            "latex": "\\tan \\frac{\\theta}{2} = \\frac{c}{y_P}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "公式适用性："
-              },
-              {
-                "type": "math",
-                "latex": "\\tan \\frac{\\theta}{2} = \\frac{c}{y_P}"
-              },
               {
                 "type": "text",
                 "text": "仅在长轴位于"
@@ -2154,16 +2599,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "减小，张角"
-              },
-              {
-                "type": "math",
-                "latex": "\\theta"
-              },
-              {
-                "type": "text",
-                "text": "是单调递减的，不要记反方向。"
               }
             ]
+          },
+          {
+            "latex": "\\theta"
+          },
+          {
+            "text": "是单调递减的，不要记反方向。"
           }
         ]
       },
@@ -2254,9 +2697,109 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "最大值位置：当点"
+              },
+              {
+                "type": "math",
+                "latex": "P"
+              },
+              {
+                "type": "text",
+                "text": "位于椭圆短轴端点"
+              },
+              {
+                "type": "math",
+                "latex": "(0, \\pm b)"
+              },
+              {
+                "type": "text",
+                "text": "时，顶角"
+              },
+              {
+                "type": "math",
+                "latex": "\\alpha"
+              },
+              {
+                "type": "text",
+                "text": "取得最大值"
+              },
+              {
+                "type": "math",
+                "latex": "\\alpha_{max}"
+              },
+              {
+                "type": "text",
+                "text": "；"
+              }
+            ],
+            "desc": "最大值位置：当点 位于椭圆短轴端点 时，顶角 取得最大值 ；",
+            "latex": "P \\qquad (0, \\pm b) \\qquad \\alpha \\qquad \\alpha_{max}"
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "text",
+                "text": "斜率乘积恒值：直线"
+              },
+              {
+                "type": "math",
+                "latex": "PA_1"
+              },
+              {
+                "type": "text",
+                "text": "与"
+              },
+              {
+                "type": "math",
+                "latex": "PA_2"
+              },
+              {
+                "type": "text",
+                "text": "的斜率乘积满足"
+              },
+              {
+                "type": "math",
+                "latex": "k_{PA_1} \\cdot k_{PA_2} = -\\frac{b^2}{a^2}"
+              },
+              {
+                "type": "text",
+                "text": "；"
+              }
+            ],
+            "desc": "斜率乘积恒值：直线 与 的斜率乘积满足 ；",
+            "latex": "k_{PA_1} \\cdot k_{PA_2} = -\\frac{b^2}{a^2}"
+          },
+          {
+            "title": "条目3",
+            "segments": [
+              {
+                "type": "text",
+                "text": "正切值公式："
+              },
+              {
+                "type": "math",
+                "latex": "\\tan \\alpha = \\frac{2ab|y|}{(a^2-b^2)y^2/b^2 + x^2 - a^2}"
+              },
+              {
+                "type": "text",
+                "text": "，在短轴端点处"
+              },
+              {
+                "type": "math",
+                "latex": "\\tan \\alpha_{max} = \\frac{2ab}{a^2-b^2}"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "正切值公式： ，在短轴端点处 。",
+            "latex": "\\tan \\alpha = \\frac{2ab|y|}{(a^2-b^2)y^2/b^2 + x^2 - a^2}"
           }
         ]
       },
@@ -2313,16 +2856,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，顶角恒为"
-              },
-              {
-                "type": "math",
-                "latex": "90^\\circ"
-              },
-              {
-                "type": "text",
-                "text": "。椭圆可看作圆沿轴向压缩，因此顶角大小随位置波动。"
               }
             ]
+          },
+          {
+            "latex": "90^\\circ"
+          },
+          {
+            "text": "。椭圆可看作圆沿轴向压缩，因此顶角大小随位置波动。"
           },
           {
             "text": "应用价值："
@@ -2356,52 +2897,38 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，则"
-              },
-              {
-                "type": "math",
-                "latex": "k_1 = k_{PA_1} = \\frac{y_0}{x_0+a}"
-              },
-              {
-                "type": "text",
-                "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "k_2 = k_{PA_2} = \\frac{y_0}{x_0-a}"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "math",
-                "latex": "k_1 \\cdot k_2 = \\frac{y_0^2}{x_0^2-a^2}"
-              },
-              {
-                "type": "text",
-                "text": "。由椭圆方程"
-              },
-              {
-                "type": "math",
-                "latex": "x_0^2-a^2 = -\\frac{a^2y_0^2}{b^2}"
-              },
-              {
-                "type": "text",
-                "text": "，代入得"
-              },
-              {
-                "type": "math",
-                "latex": "k_1k_2 = -\\frac{b^2}{a^2}"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "latex": "k_1 = k_{PA_1} = \\frac{y_0}{x_0+a}"
+          },
+          {
+            "text": "，"
+          },
+          {
+            "latex": "k_2 = k_{PA_2} = \\frac{y_0}{x_0-a}"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "latex": "k_1 \\cdot k_2 = \\frac{y_0^2}{x_0^2-a^2}"
+          },
+          {
+            "text": "。由椭圆方程"
+          },
+          {
+            "latex": "x_0^2-a^2 = -\\frac{a^2y_0^2}{b^2}"
+          },
+          {
+            "text": "，代入得"
+          },
+          {
+            "latex": "k_1k_2 = -\\frac{b^2}{a^2}"
+          },
+          {
+            "text": "。"
           },
           {
             "segments": [
@@ -2416,60 +2943,41 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的倾斜角分别为"
-              },
-              {
-                "type": "math",
-                "latex": "\\beta_1, \\beta_2"
-              },
-              {
-                "type": "text",
-                "text": "，则"
-              },
-              {
-                "type": "math",
-                "latex": "\\alpha = \\beta_2 - \\beta_1"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "math",
-                "latex": "\\tan \\alpha = \\left| \\frac{k_2 - k_1}{1 + k_1k_2} \\right| = \\left| \\frac{\\frac{y_0}{x_0-a} - \\frac{y_0}{x_0+a}}{1 - \\frac{b^2}{a^2}} \\right| = \\frac{\\frac{2ay_0}{a^2-x_0^2}}{\\frac{a^2-b^2}{a^2}}"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "latex": "\\beta_1, \\beta_2"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "再次代入"
-              },
-              {
-                "type": "math",
-                "latex": "a^2-x_0^2 = \\frac{a^2y_0^2}{b^2}"
-              },
-              {
-                "type": "text",
-                "text": "，整理得"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan \\alpha = \\frac{2ab}{(a^2-b^2)} \\cdot \\frac{b}{y_0}"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "，则"
+          },
+          {
+            "latex": "\\alpha = \\beta_2 - \\beta_1"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "latex": "\\tan \\alpha = \\left| \\frac{k_2 - k_1}{1 + k_1k_2} \\right| = \\left| \\frac{\\frac{y_0}{x_0-a} - \\frac{y_0}{x_0+a}}{1 - \\frac{b^2}{a^2}} \\right| = \\frac{\\frac{2ay_0}{a^2-x_0^2}}{\\frac{a^2-b^2}{a^2}}"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "再次代入"
+          },
+          {
+            "latex": "a^2-x_0^2 = \\frac{a^2y_0^2}{b^2}"
+          },
+          {
+            "text": "，整理得"
+          },
+          {
+            "latex": "\\tan \\alpha = \\frac{2ab}{(a^2-b^2)} \\cdot \\frac{b}{y_0}"
+          },
+          {
+            "text": "。"
           },
           {
             "segments": [
@@ -2492,24 +3000,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "）时，"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{b}{y_0}=1"
-              },
-              {
-                "type": "text",
-                "text": "为最小值，但在分母位置或其他结构中需注意，此时"
-              },
-              {
-                "type": "math",
-                "latex": "\\alpha"
-              },
-              {
-                "type": "text",
-                "text": "达到最大。"
               }
             ]
+          },
+          {
+            "latex": "\\frac{b}{y_0}=1"
+          },
+          {
+            "text": "为最小值，但在分母位置或其他结构中需注意，此时"
+          },
+          {
+            "latex": "\\alpha"
+          },
+          {
+            "text": "达到最大。"
           }
         ]
       },
@@ -2519,15 +3023,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "例题 1：已知椭圆"
+          },
+          {
+            "latex": "C: \\frac{x^2}{4} + y^2 = 1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例题 1：已知椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "C: \\frac{x^2}{4} + y^2 = 1"
-              },
               {
                 "type": "text",
                 "text": "，求椭圆上一点"
@@ -2563,35 +3065,32 @@ module.exports = {
               {
                 "type": "text",
                 "text": "时，夹角"
-              },
-              {
-                "type": "math",
-                "latex": "\\alpha"
-              },
-              {
-                "type": "text",
-                "text": "最大。\n3. 此时"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan \\alpha_{max} = \\frac{2ab}{a^2-b^2} = \\frac{2 \\cdot 2 \\cdot 1}{4-1} = \\frac{4}{3}"
-              },
-              {
-                "type": "text",
-                "text": "。\n4. 故"
-              },
-              {
-                "type": "math",
-                "latex": "\\alpha_{max} = \\arctan \\frac{4}{3}"
-              },
-              {
-                "type": "text",
-                "text": "。\n例题 2：若椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\alpha"
+          },
+          {
+            "text": "最大。\n3. 此时"
+          },
+          {
+            "latex": "\\tan \\alpha_{max} = \\frac{2ab}{a^2-b^2} = \\frac{2 \\cdot 2 \\cdot 1}{4-1} = \\frac{4}{3}"
+          },
+          {
+            "text": "。\n4. 故"
+          },
+          {
+            "latex": "\\alpha_{max} = \\arctan \\frac{4}{3}"
+          },
+          {
+            "text": "。\n例题 2：若椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "上存在点"
@@ -2603,11 +3102,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "使得"
-              },
-              {
-                "type": "math",
-                "latex": "\\angle A_1PA_2 = 60^\\circ"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\angle A_1PA_2 = 60^\\circ"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "，求离心率"
@@ -2619,19 +3121,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的取值范围。\n解析：\n1. 存在性问题等价于"
-              },
-              {
-                "type": "math",
-                "latex": "\\alpha_{max} \\ge 60^\\circ"
-              },
-              {
-                "type": "text",
-                "text": "。\n2. 即"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{2ab}{a^2-b^2} \\ge \\sqrt{3}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\alpha_{max} \\ge 60^\\circ"
+          },
+          {
+            "text": "。\n2. 即"
+          },
+          {
+            "latex": "\\frac{2ab}{a^2-b^2} \\ge \\sqrt{3}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "。\n3. 利用"
@@ -2698,11 +3201,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "永远为负，说明顶角"
-              },
-              {
-                "type": "math",
-                "latex": "\\alpha"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\alpha"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "在椭圆内部观测时总是钝角（对于"
@@ -2736,60 +3242,43 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "1. 核心值："
-              },
-              {
-                "type": "math",
-                "latex": "\\alpha_{max}"
-              },
-              {
-                "type": "text",
-                "text": "出现在短轴顶点。\n2. 斜率乘积："
-              },
-              {
-                "type": "math",
-                "latex": "k_{A_1P} \\cdot k_{A_2P} = -\\frac{b^2}{a^2}"
-              },
-              {
-                "type": "text",
-                "text": "（椭圆第一定义推论）。\n3. 记忆技巧：圆中是"
-              },
-              {
-                "type": "math",
-                "latex": "90^\\circ"
-              },
-              {
-                "type": "text",
-                "text": "（即"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan"
-              },
-              {
-                "type": "text",
-                "text": "无穷大），椭圆中由于"
-              },
-              {
-                "type": "math",
-                "latex": "a \\neq b"
-              },
-              {
-                "type": "text",
-                "text": "，其最大正切值为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{2ab}{a^2-b^2}"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "1. 核心值："
+          },
+          {
+            "latex": "\\alpha_{max}"
+          },
+          {
+            "text": "出现在短轴顶点。\n2. 斜率乘积："
+          },
+          {
+            "latex": "k_{A_1P} \\cdot k_{A_2P} = -\\frac{b^2}{a^2}"
+          },
+          {
+            "text": "（椭圆第一定义推论）。\n3. 记忆技巧：圆中是"
+          },
+          {
+            "latex": "90^\\circ"
+          },
+          {
+            "text": "（即"
+          },
+          {
+            "latex": "\\tan"
+          },
+          {
+            "text": "无穷大），椭圆中由于"
+          },
+          {
+            "latex": "a \\neq b"
+          },
+          {
+            "text": "，其最大正切值为"
+          },
+          {
+            "latex": "\\frac{2ab}{a^2-b^2}"
+          },
+          {
+            "text": "。"
           }
         ]
       }
@@ -2841,9 +3330,93 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "核心不等式："
+              },
+              {
+                "type": "math",
+                "latex": "\\sin \\frac{\\theta}{2} \\le e"
+              },
+              {
+                "type": "text",
+                "text": "；"
+              }
+            ],
+            "desc": "核心不等式： ；",
+            "latex": "\\sin \\frac{\\theta}{2} \\le e"
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "text",
+                "text": "取等条件：当且仅当点"
+              },
+              {
+                "type": "math",
+                "latex": "P"
+              },
+              {
+                "type": "text",
+                "text": "位于短轴端点"
+              },
+              {
+                "type": "math",
+                "latex": "(0, \\pm b)"
+              },
+              {
+                "type": "text",
+                "text": "时，"
+              },
+              {
+                "type": "math",
+                "latex": "\\sin \\frac{\\theta_{max}}{2} = e"
+              },
+              {
+                "type": "text",
+                "text": "；"
+              }
+            ],
+            "desc": "取等条件：当且仅当点 位于短轴端点 时， ；",
+            "latex": "\\sin \\frac{\\theta_{max}}{2} = e"
+          },
+          {
+            "title": "条目3",
+            "segments": [
+              {
+                "type": "text",
+                "text": "范围结论：若椭圆上存在点"
+              },
+              {
+                "type": "math",
+                "latex": "P"
+              },
+              {
+                "type": "text",
+                "text": "使得"
+              },
+              {
+                "type": "math",
+                "latex": "\\angle F_1PF_2 \\ge \\theta_0"
+              },
+              {
+                "type": "text",
+                "text": "，则该椭圆的离心率满足"
+              },
+              {
+                "type": "math",
+                "latex": "e \\ge \\sin \\frac{\\theta_0}{2}"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "范围结论：若椭圆上存在点 使得 ，则该椭圆的离心率满足 。",
+            "latex": "\\angle F_1PF_2 \\ge \\theta_0"
           }
         ]
       },
@@ -2880,15 +3453,13 @@ module.exports = {
             ]
           },
           {
+            "text": "结构转化：通过"
+          },
+          {
+            "latex": "\\sin \\frac{\\theta}{2}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "结构转化：通过"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin \\frac{\\theta}{2}"
-              },
               {
                 "type": "text",
                 "text": "的形式，将复杂的三角函数范围问题直接简化为对"
@@ -2952,15 +3523,13 @@ module.exports = {
             "text": "利用焦半径公式推导："
           },
           {
+            "text": "在"
+          },
+          {
+            "latex": "\\triangle F_1PF_2"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "在"
-              },
-              {
-                "type": "math",
-                "latex": "\\triangle F_1PF_2"
-              },
               {
                 "type": "text",
                 "text": "中，设"
@@ -2992,47 +3561,31 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "由余弦定理："
-              },
-              {
-                "type": "math",
-                "latex": "\\cos\\theta = \\frac{r_1^2 + r_2^2 - (2c)^2}{2r_1r_2} = \\frac{(r_1+r_2)^2 - 2r_1r_2 - 4c^2}{2r_1r_2} = \\frac{4a^2 - 4c^2 - 2r_1r_2}{2r_1r_2} = \\frac{2b^2}{r_1r_2} - 1"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "由余弦定理："
+          },
+          {
+            "latex": "\\cos\\theta = \\frac{r_1^2 + r_2^2 - (2c)^2}{2r_1r_2} = \\frac{(r_1+r_2)^2 - 2r_1r_2 - 4c^2}{2r_1r_2} = \\frac{4a^2 - 4c^2 - 2r_1r_2}{2r_1r_2} = \\frac{2b^2}{r_1r_2} - 1"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "由半角公式："
+          },
+          {
+            "latex": "\\sin^2 \\frac{\\theta}{2} = \\frac{1-\\cos\\theta}{2} = 1 - \\frac{b^2}{r_1r_2}"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "由均值不等式："
+          },
+          {
+            "latex": "r_1r_2 \\le (\\frac{r_1+r_2}{2})^2 = a^2"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "由半角公式："
-              },
-              {
-                "type": "math",
-                "latex": "\\sin^2 \\frac{\\theta}{2} = \\frac{1-\\cos\\theta}{2} = 1 - \\frac{b^2}{r_1r_2}"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "由均值不等式："
-              },
-              {
-                "type": "math",
-                "latex": "r_1r_2 \\le (\\frac{r_1+r_2}{2})^2 = a^2"
-              },
               {
                 "type": "text",
                 "text": "，等号在"
@@ -3048,36 +3601,22 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "故"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin^2 \\frac{\\theta}{2} \\le 1 - \\frac{b^2}{a^2} = \\frac{c^2}{a^2} = e^2"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "故"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "开方得"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin \\frac{\\theta}{2} \\le e"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "latex": "\\sin^2 \\frac{\\theta}{2} \\le 1 - \\frac{b^2}{a^2} = \\frac{c^2}{a^2} = e^2"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "开方得"
+          },
+          {
+            "latex": "\\sin \\frac{\\theta}{2} \\le e"
+          },
+          {
+            "text": "。"
           }
         ]
       },
@@ -3099,11 +3638,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "满足"
-              },
-              {
-                "type": "math",
-                "latex": "\\angle F_1PF_2 = 120^\\circ"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\angle F_1PF_2 = 120^\\circ"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "，求椭圆离心率"
@@ -3115,72 +3657,56 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的取值范围。\n解析：\n1. 根据结论，存在性条件为"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin \\frac{\\theta_{max}}{2} \\ge \\sin \\frac{120^\\circ}{2}"
-              },
-              {
-                "type": "text",
-                "text": "。\n2. 即"
-              },
-              {
-                "type": "math",
-                "latex": "e \\ge \\sin 60^\\circ = \\frac{\\sqrt{3}}{2}"
-              },
-              {
-                "type": "text",
-                "text": "。\n3. 结合椭圆定义，得"
-              },
-              {
-                "type": "math",
-                "latex": "e \\in [\\frac{\\sqrt{3}}{2}, 1)"
-              },
-              {
-                "type": "text",
-                "text": "。\n例题 2：已知椭圆的离心率"
-              },
-              {
-                "type": "math",
-                "latex": "e = \\frac{1}{2}"
-              },
-              {
-                "type": "text",
-                "text": "，求焦张角"
-              },
-              {
-                "type": "math",
-                "latex": "\\theta"
-              },
-              {
-                "type": "text",
-                "text": "的最大值。\n解析：\n1. 由"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin \\frac{\\theta_{max}}{2} = e = \\frac{1}{2}"
-              },
-              {
-                "type": "text",
-                "text": "。\n2. 得"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{\\theta_{max}}{2} = 30^\\circ"
-              },
-              {
-                "type": "text",
-                "text": "。\n3. 故"
-              },
-              {
-                "type": "math",
-                "latex": "\\theta_{max} = 60^\\circ"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "\\sin \\frac{\\theta_{max}}{2} \\ge \\sin \\frac{120^\\circ}{2}"
+          },
+          {
+            "text": "。\n2. 即"
+          },
+          {
+            "latex": "e \\ge \\sin 60^\\circ = \\frac{\\sqrt{3}}{2}"
+          },
+          {
+            "text": "。\n3. 结合椭圆定义，得"
+          },
+          {
+            "latex": "e \\in [\\frac{\\sqrt{3}}{2}, 1)"
+          },
+          {
+            "text": "。\n例题 2：已知椭圆的离心率"
+          },
+          {
+            "latex": "e = \\frac{1}{2}"
+          },
+          {
+            "text": "，求焦张角"
+          },
+          {
+            "latex": "\\theta"
+          },
+          {
+            "text": "的最大值。\n解析：\n1. 由"
+          },
+          {
+            "latex": "\\sin \\frac{\\theta_{max}}{2} = e = \\frac{1}{2}"
+          },
+          {
+            "text": "。\n2. 得"
+          },
+          {
+            "latex": "\\frac{\\theta_{max}}{2} = 30^\\circ"
+          },
+          {
+            "text": "。\n3. 故"
+          },
+          {
+            "latex": "\\theta_{max} = 60^\\circ"
+          },
+          {
+            "text": "。"
           }
         ]
       },
@@ -3190,23 +3716,19 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "函数单调性：注意"
+          },
+          {
+            "latex": "\\sin \\frac{\\theta}{2}"
+          },
+          {
+            "text": "在"
+          },
+          {
+            "latex": "(0, \\pi)"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "函数单调性：注意"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin \\frac{\\theta}{2}"
-              },
-              {
-                "type": "text",
-                "text": "在"
-              },
-              {
-                "type": "math",
-                "latex": "(0, \\pi)"
-              },
               {
                 "type": "text",
                 "text": "上是单调增函数，因此角度越大，正弦值越大，与"
@@ -3222,52 +3744,34 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "双曲线区别：双曲线的结论是"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos \\frac{\\theta}{2} \\le \\frac{1}{e}"
-              },
-              {
-                "type": "text",
-                "text": "，且最大角出现在顶点处，不要混淆。"
-              }
-            ]
+            "text": "双曲线区别：双曲线的结论是"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "边界开闭：若题目要求\"存在钝角\"，则"
-              },
-              {
-                "type": "math",
-                "latex": "\\theta > 90^\\circ"
-              },
-              {
-                "type": "text",
-                "text": "，应取"
-              },
-              {
-                "type": "math",
-                "latex": "e > \\frac{\\sqrt{2}}{2}"
-              },
-              {
-                "type": "text",
-                "text": "而非"
-              },
-              {
-                "type": "math",
-                "latex": "\\ge"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "latex": "\\cos \\frac{\\theta}{2} \\le \\frac{1}{e}"
+          },
+          {
+            "text": "，且最大角出现在顶点处，不要混淆。"
+          },
+          {
+            "text": "边界开闭：若题目要求\"存在钝角\"，则"
+          },
+          {
+            "latex": "\\theta > 90^\\circ"
+          },
+          {
+            "text": "，应取"
+          },
+          {
+            "latex": "e > \\frac{\\sqrt{2}}{2}"
+          },
+          {
+            "text": "而非"
+          },
+          {
+            "latex": "\\ge"
+          },
+          {
+            "text": "。"
           }
         ]
       },
@@ -3277,23 +3781,19 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "1. 核心不等式："
+          },
+          {
+            "latex": "\\sin \\frac{\\theta}{2} \\le e"
+          },
+          {
+            "text": "（短轴处取等）。\n2. 物理意义：离心率限制了椭圆焦点的\"观测张角\"上限。\n3. 实战策略：看到\"焦点张角\"与\"离心率范围\"复合的题目，直接提取"
+          },
+          {
+            "latex": "\\sin \\frac{\\theta}{2}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "1. 核心不等式："
-              },
-              {
-                "type": "math",
-                "latex": "\\sin \\frac{\\theta}{2} \\le e"
-              },
-              {
-                "type": "text",
-                "text": "（短轴处取等）。\n2. 物理意义：离心率限制了椭圆焦点的\"观测张角\"上限。\n3. 实战策略：看到\"焦点张角\"与\"离心率范围\"复合的题目，直接提取"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin \\frac{\\theta}{2}"
-              },
               {
                 "type": "text",
                 "text": "与"
@@ -3358,9 +3858,101 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "万能余弦公式:"
+              },
+              {
+                "type": "math",
+                "latex": "\\cos \\theta = \\frac{r_1^2 + r_2^2 - 4c^2}{2r_1r_2}"
+              },
+              {
+                "type": "text",
+                "text": ", 其中"
+              },
+              {
+                "type": "math",
+                "latex": "r_1, r_2"
+              },
+              {
+                "type": "text",
+                "text": "为焦半径;"
+              }
+            ],
+            "desc": "万能余弦公式: , 其中 为焦半径;",
+            "latex": "\\cos \\theta = \\frac{r_1^2 + r_2^2 - 4c^2}{2r_1r_2}"
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "text",
+                "text": "半角正切公式:"
+              },
+              {
+                "type": "math",
+                "latex": "\\tan \\frac{\\theta}{2} = \\frac{b^2}{c y_P}"
+              },
+              {
+                "type": "text",
+                "text": "(其中"
+              },
+              {
+                "type": "math",
+                "latex": "y_P"
+              },
+              {
+                "type": "text",
+                "text": "为点"
+              },
+              {
+                "type": "math",
+                "latex": "P"
+              },
+              {
+                "type": "text",
+                "text": "的纵坐标);"
+              }
+            ],
+            "desc": "半角正切公式: (其中 为点 的纵坐标);",
+            "latex": "\\tan \\frac{\\theta}{2} = \\frac{b^2}{c y_P}"
+          },
+          {
+            "title": "条目3",
+            "segments": [
+              {
+                "type": "text",
+                "text": "离心率不等式关系:"
+              },
+              {
+                "type": "math",
+                "latex": "\\sin \\frac{\\theta}{2} \\le e"
+              },
+              {
+                "type": "text",
+                "text": ". 当且仅当"
+              },
+              {
+                "type": "math",
+                "latex": "P"
+              },
+              {
+                "type": "text",
+                "text": "为短轴端点时,"
+              },
+              {
+                "type": "math",
+                "latex": "\\sin \\frac{\\theta_{max}}{2} = e"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "desc": "离心率不等式关系: . 当且仅当 为短轴端点时, .",
+            "latex": "\\sin \\frac{\\theta}{2} \\le e"
           }
         ]
       },
@@ -3392,20 +3984,13 @@ module.exports = {
             "text": "适用场景:"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "快速求解已知"
-              },
-              {
-                "type": "math",
-                "latex": "\\angle F_1PF_2"
-              },
-              {
-                "type": "text",
-                "text": "大小时的离心率取值范围."
-              }
-            ]
+            "text": "快速求解已知"
+          },
+          {
+            "latex": "\\angle F_1PF_2"
+          },
+          {
+            "text": "大小时的离心率取值范围."
           },
           {
             "segments": [
@@ -3458,68 +4043,43 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "在"
-              },
-              {
-                "type": "math",
-                "latex": "\\triangle F_1PF_2"
-              },
-              {
-                "type": "text",
-                "text": "中, 由余弦定理得:"
-              },
-              {
-                "type": "math",
-                "latex": "4c^2 = r_1^2 + r_2^2 - 2r_1r_2\\cos\\theta = (r_1+r_2)^2 - 2r_1r_2(1+\\cos\\theta) = 4a^2 - 4r_1r_2\\cos^2\\frac{\\theta}{2}"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "text": "在"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "整理得"
-              },
-              {
-                "type": "math",
-                "latex": "r_1r_2\\cos^2\\frac{\\theta}{2} = a^2 - c^2 = b^2"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "latex": "\\triangle F_1PF_2"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "又由三角形面积公式"
-              },
-              {
-                "type": "math",
-                "latex": "S = \\frac{1}{2}r_1r_2\\sin\\theta = c|y_P|"
-              },
-              {
-                "type": "text",
-                "text": ", 得"
-              },
-              {
-                "type": "math",
-                "latex": "r_1r_2 = \\frac{2c|y_P|}{\\sin\\theta}"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "text": "中, 由余弦定理得:"
+          },
+          {
+            "latex": "4c^2 = r_1^2 + r_2^2 - 2r_1r_2\\cos\\theta = (r_1+r_2)^2 - 2r_1r_2(1+\\cos\\theta) = 4a^2 - 4r_1r_2\\cos^2\\frac{\\theta}{2}"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "整理得"
+          },
+          {
+            "latex": "r_1r_2\\cos^2\\frac{\\theta}{2} = a^2 - c^2 = b^2"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "又由三角形面积公式"
+          },
+          {
+            "latex": "S = \\frac{1}{2}r_1r_2\\sin\\theta = c|y_P|"
+          },
+          {
+            "text": ", 得"
+          },
+          {
+            "latex": "r_1r_2 = \\frac{2c|y_P|}{\\sin\\theta}"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -3534,48 +4094,35 @@ module.exports = {
               {
                 "type": "text",
                 "text": ", 可导出"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan\\frac{\\theta}{2} = \\frac{c|y_P|}{b^2}"
-              },
-              {
-                "type": "text",
-                "text": "(注意此为另一种变形形式)."
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "结合"
-              },
-              {
-                "type": "math",
-                "latex": "r_1r_2 \\le a^2"
-              },
-              {
-                "type": "text",
-                "text": ", 代入"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos\\theta"
-              },
-              {
-                "type": "text",
-                "text": "公式即可证得"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin\\frac{\\theta}{2} \\le e"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "latex": "\\tan\\frac{\\theta}{2} = \\frac{c|y_P|}{b^2}"
+          },
+          {
+            "text": "(注意此为另一种变形形式)."
+          },
+          {
+            "text": "结合"
+          },
+          {
+            "latex": "r_1r_2 \\le a^2"
+          },
+          {
+            "text": ", 代入"
+          },
+          {
+            "latex": "\\cos\\theta"
+          },
+          {
+            "text": "公式即可证得"
+          },
+          {
+            "latex": "\\sin\\frac{\\theta}{2} \\le e"
+          },
+          {
+            "text": "."
           }
         ]
       },
@@ -3585,15 +4132,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "例题 1: 若椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例题 1: 若椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
-              },
               {
                 "type": "text",
                 "text": "上存在点"
@@ -3605,11 +4150,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "使得"
-              },
-              {
-                "type": "math",
-                "latex": "\\angle F_1PF_2 = 90^\\circ"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\angle F_1PF_2 = 90^\\circ"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": ", 求离心率"
@@ -3621,80 +4169,62 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的范围.\n解析:\n根据结论"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin\\frac{\\theta_{max}}{2} = e"
-              },
-              {
-                "type": "text",
-                "text": ", 存在性要求"
-              },
-              {
-                "type": "math",
-                "latex": "\\theta_{max} \\ge 90^\\circ"
-              },
-              {
-                "type": "text",
-                "text": ".\n则"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin\\frac{\\theta_{max}}{2} \\ge \\sin 45^\\circ = \\frac{\\sqrt{2}}{2}"
-              },
-              {
-                "type": "text",
-                "text": ".\n所以"
-              },
-              {
-                "type": "math",
-                "latex": "e \\in [\\frac{\\sqrt{2}}{2}, 1)"
-              },
-              {
-                "type": "text",
-                "text": ".\n例题 2: 已知椭圆离心率"
-              },
-              {
-                "type": "math",
-                "latex": "e = \\frac{\\sqrt{3}}{2}"
-              },
-              {
-                "type": "text",
-                "text": ", 求焦张角"
-              },
-              {
-                "type": "math",
-                "latex": "\\theta"
-              },
-              {
-                "type": "text",
-                "text": "的最大值.\n解析:\n由"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin\\frac{\\theta_{max}}{2} = e = \\frac{\\sqrt{3}}{2}"
-              },
-              {
-                "type": "text",
-                "text": ", 得"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{\\theta_{max}}{2} = 60^\\circ"
-              },
-              {
-                "type": "text",
-                "text": ".\n故"
-              },
-              {
-                "type": "math",
-                "latex": "\\theta_{max} = 120^\\circ"
-              },
-              {
-                "type": "text",
-                "text": "."
               }
             ]
+          },
+          {
+            "latex": "\\sin\\frac{\\theta_{max}}{2} = e"
+          },
+          {
+            "text": ", 存在性要求"
+          },
+          {
+            "latex": "\\theta_{max} \\ge 90^\\circ"
+          },
+          {
+            "text": ".\n则"
+          },
+          {
+            "latex": "\\sin\\frac{\\theta_{max}}{2} \\ge \\sin 45^\\circ = \\frac{\\sqrt{2}}{2}"
+          },
+          {
+            "text": ".\n所以"
+          },
+          {
+            "latex": "e \\in [\\frac{\\sqrt{2}}{2}, 1)"
+          },
+          {
+            "text": ".\n例题 2: 已知椭圆离心率"
+          },
+          {
+            "latex": "e = \\frac{\\sqrt{3}}{2}"
+          },
+          {
+            "text": ", 求焦张角"
+          },
+          {
+            "latex": "\\theta"
+          },
+          {
+            "text": "的最大值.\n解析:\n由"
+          },
+          {
+            "latex": "\\sin\\frac{\\theta_{max}}{2} = e = \\frac{\\sqrt{3}}{2}"
+          },
+          {
+            "text": ", 得"
+          },
+          {
+            "latex": "\\frac{\\theta_{max}}{2} = 60^\\circ"
+          },
+          {
+            "text": ".\n故"
+          },
+          {
+            "latex": "\\theta_{max} = 120^\\circ"
+          },
+          {
+            "text": "."
           }
         ]
       },
@@ -3704,36 +4234,25 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "计算陷阱: 很多学生会混淆"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin\\frac{\\theta}{2}"
-              },
-              {
-                "type": "text",
-                "text": "与"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos\\theta"
-              },
-              {
-                "type": "text",
-                "text": ", 在处理不等式方向时务必注意正弦函数在"
-              },
-              {
-                "type": "math",
-                "latex": "(0, \\pi/2)"
-              },
-              {
-                "type": "text",
-                "text": "的单调性."
-              }
-            ]
+            "text": "计算陷阱: 很多学生会混淆"
+          },
+          {
+            "latex": "\\sin\\frac{\\theta}{2}"
+          },
+          {
+            "text": "与"
+          },
+          {
+            "latex": "\\cos\\theta"
+          },
+          {
+            "text": ", 在处理不等式方向时务必注意正弦函数在"
+          },
+          {
+            "latex": "(0, \\pi/2)"
+          },
+          {
+            "text": "的单调性."
           },
           {
             "text": "符号规范: 在代码实现或文档编写时, 必须使用英文半角符号, 如 \"e >= sin(theta/2)\" 而非全角字符, 否则会导致解析器失效."
@@ -3770,15 +4289,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "1. 核心记忆: 椭圆半角正弦的最大值等于离心率 ("
+          },
+          {
+            "latex": "e = \\sin\\frac{\\theta_{max}}{2}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "1. 核心记忆: 椭圆半角正弦的最大值等于离心率 ("
-              },
-              {
-                "type": "math",
-                "latex": "e = \\sin\\frac{\\theta_{max}}{2}"
-              },
               {
                 "type": "text",
                 "text": ").\n2. 思想方法: 几何问题代数化, 复杂方程三角化.\n3. 实战建议: 在考试中遇到\"存在点"
@@ -3843,9 +4360,98 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "核心判定式："
+              },
+              {
+                "type": "math",
+                "latex": "m^2 = a^2k^2 + b^2"
+              },
+              {
+                "type": "text",
+                "text": ";"
+              }
+            ],
+            "desc": "核心判定式： ;",
+            "latex": "m^2 = a^2k^2 + b^2"
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "text",
+                "text": "位置关系推论："
+              }
+            ],
+            "desc": "位置关系推论："
+          },
+          {
+            "title": "条目3",
+            "segments": [
+              {
+                "type": "text",
+                "text": "若"
+              },
+              {
+                "type": "math",
+                "latex": "m^2 < a^2k^2 + b^2"
+              },
+              {
+                "type": "text",
+                "text": ", 则直线与椭圆相交;"
+              }
+            ],
+            "desc": "若 , 则直线与椭圆相交;",
+            "latex": "m^2 < a^2k^2 + b^2"
+          },
+          {
+            "title": "条目4",
+            "segments": [
+              {
+                "type": "text",
+                "text": "若"
+              },
+              {
+                "type": "math",
+                "latex": "m^2 > a^2k^2 + b^2"
+              },
+              {
+                "type": "text",
+                "text": ", 则直线与椭圆相离."
+              }
+            ],
+            "desc": "若 , 则直线与椭圆相离.",
+            "latex": "m^2 > a^2k^2 + b^2"
+          },
+          {
+            "title": "条目5",
+            "segments": [
+              {
+                "type": "text",
+                "text": "切线方程：已知斜率为"
+              },
+              {
+                "type": "math",
+                "latex": "k"
+              },
+              {
+                "type": "text",
+                "text": "的椭圆切线方程可直接设为"
+              },
+              {
+                "type": "math",
+                "latex": "y = kx \\pm \\sqrt{a^2k^2 + b^2}"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "desc": "切线方程：已知斜率为 的椭圆切线方程可直接设为 .",
+            "latex": "y = kx \\pm \\sqrt{a^2k^2 + b^2}"
           }
         ]
       },
@@ -3855,31 +4461,22 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "该结论是解析几何中\"判别式"
-              },
-              {
-                "type": "math",
-                "latex": "\\Delta"
-              },
-              {
-                "type": "text",
-                "text": "\"的结构化产物, 具有极高的实战价值:"
-              }
-            ]
+            "text": "该结论是解析几何中\"判别式"
+          },
+          {
+            "latex": "\\Delta"
+          },
+          {
+            "text": "\"的结构化产物, 具有极高的实战价值:"
+          },
+          {
+            "text": "计算提速: 传统方法需要联立方程、展开、代入判别式"
+          },
+          {
+            "latex": "\\Delta=0"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "计算提速: 传统方法需要联立方程、展开、代入判别式"
-              },
-              {
-                "type": "math",
-                "latex": "\\Delta=0"
-              },
               {
                 "type": "text",
                 "text": ". 使用此结论可跳过所有运算步骤, 直接建立"
@@ -4009,60 +4606,38 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的一元二次方程:"
-              },
-              {
-                "type": "math",
-                "latex": "(b^2 + a^2k^2)x^2 + 2a^2kmx + a^2(m^2 - b^2) = 0"
-              },
-              {
-                "type": "text",
-                "text": "."
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "直线与椭圆相切"
-              },
-              {
-                "type": "math",
-                "latex": "\\iff \\Delta = 0"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "latex": "(b^2 + a^2k^2)x^2 + 2a^2kmx + a^2(m^2 - b^2) = 0"
           },
           {
-            "segments": [
-              {
-                "type": "math",
-                "latex": "\\Delta = (2a^2km)^2 - 4(b^2 + a^2k^2) \\cdot a^2(m^2 - b^2) = 0"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "text": "."
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "化简得:"
-              },
-              {
-                "type": "math",
-                "latex": "4a^4k^2m^2 - 4a^2(b^2m^2 - b^4 + a^2k^2m^2 - a^2k^2b^2) = 0"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "text": "直线与椭圆相切"
+          },
+          {
+            "latex": "\\iff \\Delta = 0"
+          },
+          {
+            "text": "."
+          },
+          {
+            "latex": "\\Delta = (2a^2km)^2 - 4(b^2 + a^2k^2) \\cdot a^2(m^2 - b^2) = 0"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "化简得:"
+          },
+          {
+            "latex": "4a^4k^2m^2 - 4a^2(b^2m^2 - b^4 + a^2k^2m^2 - a^2k^2b^2) = 0"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -4124,11 +4699,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "且与椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{4} + y^2 = 1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{x^2}{4} + y^2 = 1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "相切的直线方程.\n解析:\n1. 由题意知"
@@ -4140,35 +4718,32 @@ module.exports = {
               {
                 "type": "text",
                 "text": ".\n2. 由判定公式"
-              },
-              {
-                "type": "math",
-                "latex": "m^2 = a^2k^2 + b^2 = 4(1)^2 + 1 = 5"
-              },
-              {
-                "type": "text",
-                "text": ".\n3. 故"
-              },
-              {
-                "type": "math",
-                "latex": "m = \\pm \\sqrt{5}"
-              },
-              {
-                "type": "text",
-                "text": ".\n4. 所求切线方程为"
-              },
-              {
-                "type": "math",
-                "latex": "y = x + \\sqrt{5}"
-              },
-              {
-                "type": "text",
-                "text": "或"
-              },
-              {
-                "type": "math",
-                "latex": "y = x - \\sqrt{5}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "m^2 = a^2k^2 + b^2 = 4(1)^2 + 1 = 5"
+          },
+          {
+            "text": ".\n3. 故"
+          },
+          {
+            "latex": "m = \\pm \\sqrt{5}"
+          },
+          {
+            "text": ".\n4. 所求切线方程为"
+          },
+          {
+            "latex": "y = x + \\sqrt{5}"
+          },
+          {
+            "text": "或"
+          },
+          {
+            "latex": "y = x - \\sqrt{5}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": ".\n例题 2: 过点"
@@ -4188,11 +4763,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的切线, 求切线斜率.\n解析:\n1. 椭圆标准方程为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{2} + y^2 = 1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{x^2}{2} + y^2 = 1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": ", 则"
@@ -4228,24 +4806,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": ".\n3. 代入公式"
-              },
-              {
-                "type": "math",
-                "latex": "(-3k)^2 = 2k^2 + 1 \\implies 9k^2 = 2k^2 + 1"
-              },
-              {
-                "type": "text",
-                "text": ".\n4."
-              },
-              {
-                "type": "math",
-                "latex": "7k^2 = 1 \\implies k = \\pm \\frac{\\sqrt{7}}{7}"
-              },
-              {
-                "type": "text",
-                "text": "."
               }
             ]
+          },
+          {
+            "latex": "(-3k)^2 = 2k^2 + 1 \\implies 9k^2 = 2k^2 + 1"
+          },
+          {
+            "text": ".\n4."
+          },
+          {
+            "latex": "7k^2 = 1 \\implies k = \\pm \\frac{\\sqrt{7}}{7}"
+          },
+          {
+            "text": "."
           }
         ]
       },
@@ -4275,16 +4849,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "轴（即"
-              },
-              {
-                "type": "math",
-                "latex": "x = \\pm a"
-              },
-              {
-                "type": "text",
-                "text": "）, 需单独讨论."
               }
             ]
+          },
+          {
+            "latex": "x = \\pm a"
+          },
+          {
+            "text": "）, 需单独讨论."
           },
           {
             "segments": [
@@ -4299,16 +4871,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "前, 务必先将椭圆方程化为标准形式"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
-              },
-              {
-                "type": "text",
-                "text": "."
               }
             ]
+          },
+          {
+            "latex": "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -4323,16 +4893,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "时不要漏掉"
-              },
-              {
-                "type": "math",
-                "latex": "\\pm"
-              },
-              {
-                "type": "text",
-                "text": "号, 椭圆上同一斜率的切线通常成对出现."
               }
             ]
+          },
+          {
+            "latex": "\\pm"
+          },
+          {
+            "text": "号, 椭圆上同一斜率的切线通常成对出现."
           },
           {
             "text": "符号规范: 在系统输入时, 确保使用英文半角括号 \"()\" 和逗号 \",\", 否则无法触发 Fuse.js 的公式检索."
@@ -4373,11 +4941,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "平\".\n2. 核心价值: 彻底摆脱"
-              },
-              {
-                "type": "math",
-                "latex": "\\Delta"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\Delta"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "联立运算, 是一类解析几何题目的\"秒杀\"起点.\n3. 知识联动: 该公式可推广至双曲线（"
@@ -4442,9 +5013,85 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "切线方程 (切点幂形式):"
+              },
+              {
+                "type": "math",
+                "latex": "\\frac{x_0x}{a^2} + \\frac{y_0y}{b^2} = 1"
+              },
+              {
+                "type": "text",
+                "text": ";"
+              }
+            ],
+            "desc": "切线方程 (切点幂形式): ;",
+            "latex": "\\frac{x_0x}{a^2} + \\frac{y_0y}{b^2} = 1"
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "text",
+                "text": "切线斜率: 若"
+              },
+              {
+                "type": "math",
+                "latex": "y_0 \\neq 0"
+              },
+              {
+                "type": "text",
+                "text": ", 则切线斜率"
+              },
+              {
+                "type": "math",
+                "latex": "k = -\\frac{b^2x_0}{a^2y_0}"
+              },
+              {
+                "type": "text",
+                "text": ";"
+              }
+            ],
+            "desc": "切线斜率: 若 , 则切线斜率 ;",
+            "latex": "y_0 \\neq 0"
+          },
+          {
+            "title": "条目3",
+            "segments": [
+              {
+                "type": "text",
+                "text": "切点幂定理扩展: 若点"
+              },
+              {
+                "type": "math",
+                "latex": "M(x_1, y_1)"
+              },
+              {
+                "type": "text",
+                "text": "在椭圆外, 则方程"
+              },
+              {
+                "type": "math",
+                "latex": "\\frac{x_1x}{a^2} + \\frac{y_1y}{b^2} = 1"
+              },
+              {
+                "type": "text",
+                "text": "表示过点"
+              },
+              {
+                "type": "math",
+                "latex": "M"
+              },
+              {
+                "type": "text",
+                "text": "引两条切线的切点连线 (极线) 方程."
+              }
+            ],
+            "desc": "切点幂定理扩展: 若点 在椭圆外, 则方程 表示过点 引两条切线的切点连线 (极线) 方程.",
+            "latex": "\\frac{x_1x}{a^2} + \\frac{y_1y}{b^2} = 1"
           }
         ]
       },
@@ -4469,11 +5116,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "拆解为"
-              },
-              {
-                "type": "math",
-                "latex": "x_0 \\cdot x"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "x_0 \\cdot x"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": ","
@@ -4485,16 +5135,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "拆解为"
-              },
-              {
-                "type": "math",
-                "latex": "y_0 \\cdot y"
-              },
-              {
-                "type": "text",
-                "text": ", 即可得到切线."
               }
             ]
+          },
+          {
+            "latex": "y_0 \\cdot y"
+          },
+          {
+            "text": ", 即可得到切线."
           },
           {
             "segments": [
@@ -4535,15 +5183,13 @@ module.exports = {
             "text": "利用导数法推导:"
           },
           {
+            "text": "对椭圆方程"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "对椭圆方程"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
-              },
               {
                 "type": "text",
                 "text": "两边关于"
@@ -4559,24 +5205,16 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "math",
-                "latex": "\\frac{2x}{a^2} + \\frac{2y}{b^2} \\cdot y' = 0"
-              },
-              {
-                "type": "text",
-                "text": ", 解得"
-              },
-              {
-                "type": "math",
-                "latex": "y' = -\\frac{b^2x}{a^2y}"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "latex": "\\frac{2x}{a^2} + \\frac{2y}{b^2} \\cdot y' = 0"
+          },
+          {
+            "text": ", 解得"
+          },
+          {
+            "latex": "y' = -\\frac{b^2x}{a^2y}"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -4591,48 +5229,32 @@ module.exports = {
               {
                 "type": "text",
                 "text": ", 得到切线斜率"
-              },
-              {
-                "type": "math",
-                "latex": "k = -\\frac{b^2x_0}{a^2y_0}"
-              },
-              {
-                "type": "text",
-                "text": "."
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "根据点斜式方程:"
-              },
-              {
-                "type": "math",
-                "latex": "y - y_0 = -\\frac{b^2x_0}{a^2y_0}(x - x_0)"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "latex": "k = -\\frac{b^2x_0}{a^2y_0}"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "展开整理得:"
-              },
-              {
-                "type": "math",
-                "latex": "b^2x_0x + a^2y_0y = b^2x_0^2 + a^2y_0^2"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "text": "."
+          },
+          {
+            "text": "根据点斜式方程:"
+          },
+          {
+            "latex": "y - y_0 = -\\frac{b^2x_0}{a^2y_0}(x - x_0)"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "展开整理得:"
+          },
+          {
+            "latex": "b^2x_0x + a^2y_0y = b^2x_0^2 + a^2y_0^2"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -4647,16 +5269,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": ", 得"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0x}{a^2} + \\frac{y_0y}{b^2} = \\frac{x_0^2}{a^2} + \\frac{y_0^2}{b^2}"
-              },
-              {
-                "type": "text",
-                "text": "."
               }
             ]
+          },
+          {
+            "latex": "\\frac{x_0x}{a^2} + \\frac{y_0y}{b^2} = \\frac{x_0^2}{a^2} + \\frac{y_0^2}{b^2}"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -4679,16 +5299,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": ", 故"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0x}{a^2} + \\frac{y_0y}{b^2} = 1"
-              },
-              {
-                "type": "text",
-                "text": "得证."
               }
             ]
+          },
+          {
+            "latex": "\\frac{x_0x}{a^2} + \\frac{y_0y}{b^2} = 1"
+          },
+          {
+            "text": "得证."
           }
         ]
       },
@@ -4698,15 +5316,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "例题 1: 求椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{8} + \\frac{y^2}{2} = 1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例题 1: 求椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{8} + \\frac{y^2}{2} = 1"
-              },
               {
                 "type": "text",
                 "text": "在点"
@@ -4726,19 +5342,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": ":"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{2^2}{8} + \\frac{1^2}{2} = 1"
-              },
-              {
-                "type": "text",
-                "text": ", 点在椭圆上.\n2. 使用切点幂公式:"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{2x}{8} + \\frac{1y}{2} = 1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{2^2}{8} + \\frac{1^2}{2} = 1"
+          },
+          {
+            "text": ", 点在椭圆上.\n2. 使用切点幂公式:"
+          },
+          {
+            "latex": "\\frac{2x}{8} + \\frac{1y}{2} = 1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": ".\n3. 化简得:"
@@ -4758,11 +5375,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "引椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{4} + y^2 = 1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{x^2}{4} + y^2 = 1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "的两条切线, 求切点连线的直线方程.\n解析:\n1. 点"
@@ -4774,11 +5394,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "在椭圆外.\n2. 根据极线结论, 切点连线方程为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_Mx}{a^2} + \\frac{y_My}{b^2} = 1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{x_Mx}{a^2} + \\frac{y_My}{b^2} = 1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": ".\n3. 代入"
@@ -4790,11 +5413,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "得:"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{2x}{4} + 2y = 1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{2x}{4} + 2y = 1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": ", 即"
@@ -4833,15 +5459,13 @@ module.exports = {
             ]
           },
           {
+            "text": "分母非零限制: 在求斜率"
+          },
+          {
+            "latex": "k = -\\frac{b^2x_0}{a^2y_0}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "分母非零限制: 在求斜率"
-              },
-              {
-                "type": "math",
-                "latex": "k = -\\frac{b^2x_0}{a^2y_0}"
-              },
               {
                 "type": "text",
                 "text": "时, 若"
@@ -4853,32 +5477,23 @@ module.exports = {
               {
                 "type": "text",
                 "text": ", 则切点在长轴顶点, 切线斜率不存在, 方程为"
-              },
-              {
-                "type": "math",
-                "latex": "x = \\pm a"
-              },
-              {
-                "type": "text",
-                "text": "."
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "符号规范: 所有的运算符和标点必须保持英文半角, 例如在系统输入 \""
-              },
-              {
-                "type": "math",
-                "latex": "(x_0 \\cdot x) / a^2"
-              },
-              {
-                "type": "text",
-                "text": "\" 时, 确保括号、逗号等无全角字符."
-              }
-            ]
+            "latex": "x = \\pm a"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "符号规范: 所有的运算符和标点必须保持英文半角, 例如在系统输入 \""
+          },
+          {
+            "latex": "(x_0 \\cdot x) / a^2"
+          },
+          {
+            "text": "\" 时, 确保括号、逗号等无全角字符."
           }
         ]
       },
@@ -4888,28 +5503,19 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "1. 核心公式: 切点幂代换"
-              },
-              {
-                "type": "math",
-                "latex": "x^2 \\to x_0x"
-              },
-              {
-                "type": "text",
-                "text": ","
-              },
-              {
-                "type": "math",
-                "latex": "y^2 \\to y_0y"
-              },
-              {
-                "type": "text",
-                "text": ".\n2. 统一性: 该结论可推广至双曲线和抛物线.\n3. 实战建议: 在处理相切或切点弦问题时, 该公式比联立方程求导更快."
-              }
-            ]
+            "text": "1. 核心公式: 切点幂代换"
+          },
+          {
+            "latex": "x^2 \\to x_0x"
+          },
+          {
+            "text": ","
+          },
+          {
+            "latex": "y^2 \\to y_0y"
+          },
+          {
+            "text": ".\n2. 统一性: 该结论可推广至双曲线和抛物线.\n3. 实战建议: 在处理相切或切点弦问题时, 该公式比联立方程求导更快."
           }
         ]
       }
@@ -4961,9 +5567,85 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "全集性质: 对于椭圆上任意一点 (非长轴顶点), 总存在唯一的切线斜率"
+              },
+              {
+                "type": "math",
+                "latex": "k \\in \\mathbb{R}"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "desc": "全集性质: 对于椭圆上任意一点 (非长轴顶点), 总存在唯一的切线斜率 .",
+            "latex": "k \\in \\mathbb{R}"
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "text",
+                "text": "过点切线斜率方程: 过椭圆外一点"
+              },
+              {
+                "type": "math",
+                "latex": "M(x_0, y_0)"
+              },
+              {
+                "type": "text",
+                "text": "引椭圆的切线, 斜率"
+              },
+              {
+                "type": "math",
+                "latex": "k"
+              },
+              {
+                "type": "text",
+                "text": "满足方程:"
+              },
+              {
+                "type": "math",
+                "latex": "(a^2 - x_0^2)k^2 + 2x_0y_0k + (b^2 - y_0^2) = 0"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "desc": "过点切线斜率方程: 过椭圆外一点 引椭圆的切线, 斜率 满足方程: .",
+            "latex": "(a^2 - x_0^2)k^2 + 2x_0y_0k + (b^2 - y_0^2) = 0"
+          },
+          {
+            "title": "条目3",
+            "segments": [
+              {
+                "type": "text",
+                "text": "存在性判定: 过点"
+              },
+              {
+                "type": "math",
+                "latex": "M"
+              },
+              {
+                "type": "text",
+                "text": "能引两条切线的充要条件是"
+              },
+              {
+                "type": "math",
+                "latex": "\\frac{x_0^2}{a^2} + \\frac{y_0^2}{b^2} > 1"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "desc": "存在性判定: 过点 能引两条切线的充要条件是 .",
+            "latex": "\\frac{x_0^2}{a^2} + \\frac{y_0^2}{b^2} > 1"
           }
         ]
       },
@@ -5008,15 +5690,13 @@ module.exports = {
             ]
           },
           {
+            "text": "方程意义: 方程"
+          },
+          {
+            "latex": "(a^2 - x_0^2)k^2 + 2x_0y_0k + (b^2 - y_0^2) = 0"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "方程意义: 方程"
-              },
-              {
-                "type": "math",
-                "latex": "(a^2 - x_0^2)k^2 + 2x_0y_0k + (b^2 - y_0^2) = 0"
-              },
               {
                 "type": "text",
                 "text": "是处理切线斜率乘积 ("
@@ -5147,20 +5827,13 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "展开方程:"
-              },
-              {
-                "type": "math",
-                "latex": "y_0^2 - 2x_0y_0k + x_0^2k^2 = a^2k^2 + b^2"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "text": "展开方程:"
+          },
+          {
+            "latex": "y_0^2 - 2x_0y_0k + x_0^2k^2 = a^2k^2 + b^2"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -5175,16 +5848,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的二次方程:"
-              },
-              {
-                "type": "math",
-                "latex": "(x_0^2 - a^2)k^2 - 2x_0y_0k + (y_0^2 - b^2) = 0"
-              },
-              {
-                "type": "text",
-                "text": "."
               }
             ]
+          },
+          {
+            "latex": "(x_0^2 - a^2)k^2 - 2x_0y_0k + (y_0^2 - b^2) = 0"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -5222,11 +5893,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "引椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{4} + y^2 = 1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{x^2}{4} + y^2 = 1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "的两条切线, 求切线斜率"
@@ -5246,19 +5920,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": ".\n2. 代入斜率方程:"
-              },
-              {
-                "type": "math",
-                "latex": "(4 - 2^2)k^2 + 2(2)(2)k + (1 - 2^2) = 0"
-              },
-              {
-                "type": "text",
-                "text": ".\n3. 整理得:"
-              },
-              {
-                "type": "math",
-                "latex": "0 \\cdot k^2 + 8k - 3 = 0"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "(4 - 2^2)k^2 + 2(2)(2)k + (1 - 2^2) = 0"
+          },
+          {
+            "text": ".\n3. 整理得:"
+          },
+          {
+            "latex": "0 \\cdot k^2 + 8k - 3 = 0"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": ".\n4. 此时方程退化, 说明一条切线斜率不存在 (垂直线"
@@ -5270,11 +5945,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "), 另一条斜率"
-              },
-              {
-                "type": "math",
-                "latex": "k = \\frac{3}{8}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "k = \\frac{3}{8}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": ".\n例题 2: 若过点"
@@ -5302,19 +5980,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": ".\n2. 由韦达定理:"
-              },
-              {
-                "type": "math",
-                "latex": "k_1k_2 = \\frac{y_0^2 - b^2}{x_0^2 - a^2} = -1"
-              },
-              {
-                "type": "text",
-                "text": ".\n3. 整理得:"
-              },
-              {
-                "type": "math",
-                "latex": "y_0^2 - b^2 = -(x_0^2 - a^2) \\implies x_0^2 + y_0^2 = a^2 + b^2"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "k_1k_2 = \\frac{y_0^2 - b^2}{x_0^2 - a^2} = -1"
+          },
+          {
+            "text": ".\n3. 整理得:"
+          },
+          {
+            "latex": "y_0^2 - b^2 = -(x_0^2 - a^2) \\implies x_0^2 + y_0^2 = a^2 + b^2"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": ".\n4. 结论: 点"
@@ -5326,16 +6005,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的轨迹是以原点为圆心,"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{a^2+b^2}"
-              },
-              {
-                "type": "text",
-                "text": "为半径的圆 (蒙日圆)."
               }
             ]
+          },
+          {
+            "latex": "\\sqrt{a^2+b^2}"
+          },
+          {
+            "text": "为半径的圆 (蒙日圆)."
           }
         ]
       },
@@ -5345,15 +6022,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "斜率不存在的情况: 当"
+          },
+          {
+            "latex": "x_0 = \\pm a"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "斜率不存在的情况: 当"
-              },
-              {
-                "type": "math",
-                "latex": "x_0 = \\pm a"
-              },
               {
                 "type": "text",
                 "text": "时, 二次项系数为"
@@ -5389,11 +6064,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "在椭圆内部, 方程的判别式"
-              },
-              {
-                "type": "math",
-                "latex": "\\Delta < 0"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\Delta < 0"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": ", 此时不存在实数斜率"
@@ -5432,15 +6110,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "1. 核心工具: 切线斜率方程"
+          },
+          {
+            "latex": "(a^2 - x_0^2)k^2 + 2x_0y_0k + (b^2 - y_0^2) = 0"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "1. 核心工具: 切线斜率方程"
-              },
-              {
-                "type": "math",
-                "latex": "(a^2 - x_0^2)k^2 + 2x_0y_0k + (b^2 - y_0^2) = 0"
-              },
               {
                 "type": "text",
                 "text": ".\n2. 数学思想: 方程思想与韦达定理的应用.\n3. 实战提醒: 遇到过定点引切线的问题, 第一反应应是建立"
@@ -5505,9 +6181,133 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "原心距公式: 原点"
+              },
+              {
+                "type": "math",
+                "latex": "O(0, 0)"
+              },
+              {
+                "type": "text",
+                "text": "到切线"
+              },
+              {
+                "type": "math",
+                "latex": "y = kx \\pm \\sqrt{a^2k^2 + b^2}"
+              },
+              {
+                "type": "text",
+                "text": "的距离"
+              },
+              {
+                "type": "math",
+                "latex": "d = \\frac{\\sqrt{a^2k^2 + b^2}}{\\sqrt{k^2 + 1}}"
+              },
+              {
+                "type": "text",
+                "text": ";"
+              }
+            ],
+            "desc": "原心距公式: 原点 到切线 的距离 ;",
+            "latex": "y = kx \\pm \\sqrt{a^2k^2 + b^2}"
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "text",
+                "text": "焦点距离积定值: 若左右焦点分别为"
+              },
+              {
+                "type": "math",
+                "latex": "F_1, F_2"
+              },
+              {
+                "type": "text",
+                "text": ", 则"
+              },
+              {
+                "type": "math",
+                "latex": "F_1"
+              },
+              {
+                "type": "text",
+                "text": "到切线"
+              },
+              {
+                "type": "math",
+                "latex": "l"
+              },
+              {
+                "type": "text",
+                "text": "的距离"
+              },
+              {
+                "type": "math",
+                "latex": "d_1"
+              },
+              {
+                "type": "text",
+                "text": "与"
+              },
+              {
+                "type": "math",
+                "latex": "F_2"
+              },
+              {
+                "type": "text",
+                "text": "到切线"
+              },
+              {
+                "type": "math",
+                "latex": "l"
+              },
+              {
+                "type": "text",
+                "text": "的距离"
+              },
+              {
+                "type": "math",
+                "latex": "d_2"
+              },
+              {
+                "type": "text",
+                "text": "之积满足"
+              },
+              {
+                "type": "math",
+                "latex": "d_1 \\cdot d_2 = b^2"
+              },
+              {
+                "type": "text",
+                "text": ";"
+              }
+            ],
+            "desc": "焦点距离积定值: 若左右焦点分别为 , 则 到切线 的距离 与 到切线 的距离 之积满足 ;",
+            "latex": "d_1 \\cdot d_2 = b^2"
+          },
+          {
+            "title": "条目3",
+            "segments": [
+              {
+                "type": "text",
+                "text": "垂足位置性质: 焦点在切线上的投影 (垂足) 必落在椭圆的主圆"
+              },
+              {
+                "type": "math",
+                "latex": "x^2 + y^2 = a^2"
+              },
+              {
+                "type": "text",
+                "text": "上."
+              }
+            ],
+            "desc": "垂足位置性质: 焦点在切线上的投影 (垂足) 必落在椭圆的主圆 上.",
+            "latex": "x^2 + y^2 = a^2"
           }
         ]
       },
@@ -5630,36 +6430,22 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "math",
-                "latex": "d_1 = \\frac{|-kc + m|}{\\sqrt{k^2+1}}"
-              },
-              {
-                "type": "text",
-                "text": ","
-              },
-              {
-                "type": "math",
-                "latex": "d_2 = \\frac{|kc + m|}{\\sqrt{k^2+1}}"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "latex": "d_1 = \\frac{|-kc + m|}{\\sqrt{k^2+1}}"
           },
           {
-            "segments": [
-              {
-                "type": "math",
-                "latex": "d_1 \\cdot d_2 = \\frac{|m^2 - k^2c^2|}{k^2+1} = \\frac{|a^2k^2 + b^2 - k^2(a^2-b^2)|}{k^2+1} = \\frac{b^2k^2 + b^2}{k^2+1} = b^2"
-              },
-              {
-                "type": "text",
-                "text": ".\n2. 垂足位置性质 (主圆轨迹) 的证明:"
-              }
-            ]
+            "text": ","
+          },
+          {
+            "latex": "d_2 = \\frac{|kc + m|}{\\sqrt{k^2+1}}"
+          },
+          {
+            "text": "."
+          },
+          {
+            "latex": "d_1 \\cdot d_2 = \\frac{|m^2 - k^2c^2|}{k^2+1} = \\frac{|a^2k^2 + b^2 - k^2(a^2-b^2)|}{k^2+1} = \\frac{b^2k^2 + b^2}{k^2+1} = b^2"
+          },
+          {
+            "text": ".\n2. 垂足位置性质 (主圆轨迹) 的证明:"
           },
           {
             "segments": [
@@ -5730,11 +6516,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": ", 方程为 (2):"
-              },
-              {
-                "type": "math",
-                "latex": "y - 0 = -\\frac{1}{k}(x - c)"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "y - 0 = -\\frac{1}{k}(x - c)"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": ", 整理得"
@@ -5750,36 +6539,22 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "将方程 (1) 和 (2) 分别平方后相加:"
-              },
-              {
-                "type": "math",
-                "latex": "(y - kx)^2 + (ky + x)^2 = m^2 + c^2"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "text": "将方程 (1) 和 (2) 分别平方后相加:"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "左边展开化简:"
-              },
-              {
-                "type": "math",
-                "latex": "y^2 - 2kxy + k^2x^2 + k^2y^2 + 2kxy + x^2 = (1 + k^2)(x^2 + y^2)"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "latex": "(y - kx)^2 + (ky + x)^2 = m^2 + c^2"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "左边展开化简:"
+          },
+          {
+            "latex": "y^2 - 2kxy + k^2x^2 + k^2y^2 + 2kxy + x^2 = (1 + k^2)(x^2 + y^2)"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -5794,27 +6569,23 @@ module.exports = {
               {
                 "type": "text",
                 "text": ":"
-              },
-              {
-                "type": "math",
-                "latex": "m^2 + c^2 = a^2k^2 + b^2 + (a^2 - b^2) = a^2k^2 + a^2 = a^2(1 + k^2)"
-              },
-              {
-                "type": "text",
-                "text": "."
               }
             ]
           },
           {
+            "latex": "m^2 + c^2 = a^2k^2 + b^2 + (a^2 - b^2) = a^2k^2 + a^2 = a^2(1 + k^2)"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "故"
+          },
+          {
+            "latex": "(1 + k^2)(x^2 + y^2) = a^2(1 + k^2)"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "故"
-              },
-              {
-                "type": "math",
-                "latex": "(1 + k^2)(x^2 + y^2) = a^2(1 + k^2)"
-              },
               {
                 "type": "text",
                 "text": ", 即"
@@ -5861,15 +6632,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "例题 1: 椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{25} + \\frac{y^2}{9} = 1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例题 1: 椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{25} + \\frac{y^2}{9} = 1"
-              },
               {
                 "type": "text",
                 "text": ", 求焦点到斜率为"
@@ -5889,11 +6658,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": ".\n2. 直接应用结论:"
-              },
-              {
-                "type": "math",
-                "latex": "d_1 \\cdot d_2 = b^2 = 9"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "d_1 \\cdot d_2 = b^2 = 9"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": ".\n例题 2: 已知椭圆中心在原点, 焦点在"
@@ -5921,11 +6693,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": ", 求椭圆方程.\n解析:\n1. 由"
-              },
-              {
-                "type": "math",
-                "latex": "d_1 \\cdot d_2 = 4"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "d_1 \\cdot d_2 = 4"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "知"
@@ -5945,19 +6720,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": ", 代入"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{0}{a^2} + \\frac{4}{4} = 1"
-              },
-              {
-                "type": "text",
-                "text": "恒成立, 满足题意.\n3. 故椭圆方程为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2} + \\frac{y^2}{4} = 1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{0}{a^2} + \\frac{4}{4} = 1"
+          },
+          {
+            "text": "恒成立, 满足题意.\n3. 故椭圆方程为"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2} + \\frac{y^2}{4} = 1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "("
@@ -5980,15 +6756,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "斜率不存在讨论: 当切线为"
+          },
+          {
+            "latex": "x = \\pm a"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "斜率不存在讨论: 当切线为"
-              },
-              {
-                "type": "math",
-                "latex": "x = \\pm a"
-              },
               {
                 "type": "text",
                 "text": "时, 焦点到切线距离分别为"
@@ -6127,9 +6901,99 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "对于椭圆"
+              }
+            ],
+            "desc": "对于椭圆"
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "C: \\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
+              }
+            ],
+            "latex": "C: \\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
+          },
+          {
+            "title": "条目3",
+            "segments": [
+              {
+                "type": "text",
+                "text": "("
+              },
+              {
+                "type": "math",
+                "latex": "a>b>0"
+              },
+              {
+                "type": "text",
+                "text": "), 设点"
+              },
+              {
+                "type": "math",
+                "latex": "P(x_0, y_0)"
+              },
+              {
+                "type": "text",
+                "text": "为椭圆上一点. 若过点"
+              },
+              {
+                "type": "math",
+                "latex": "P"
+              },
+              {
+                "type": "text",
+                "text": "的切线"
+              },
+              {
+                "type": "math",
+                "latex": "l"
+              },
+              {
+                "type": "text",
+                "text": "的斜率为"
+              },
+              {
+                "type": "math",
+                "latex": "k_l"
+              },
+              {
+                "type": "text",
+                "text": ", 点"
+              },
+              {
+                "type": "math",
+                "latex": "P"
+              },
+              {
+                "type": "text",
+                "text": "与原点连线的斜率为"
+              },
+              {
+                "type": "math",
+                "latex": "k_{OP}"
+              },
+              {
+                "type": "text",
+                "text": ", 则有:\nk_l k_OP = e^2 - 1 = - b^2a^2\n其中"
+              },
+              {
+                "type": "math",
+                "latex": "e"
+              },
+              {
+                "type": "text",
+                "text": "为椭圆的离心率."
+              }
+            ],
+            "desc": "( ), 设点 为椭圆上一点. 若过点 的切线 的斜率为 , 点 与原点连线的斜率为 , 则有:\nk_l k_OP = e^2 - 1 = - b^2a^2\n其中 为椭圆的离心率.",
+            "latex": "a>b>0"
           }
         ]
       },
@@ -6142,20 +7006,13 @@ module.exports = {
             "text": "该结论揭示了椭圆切线斜率与径向斜率之间的固定比例关系:"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "结构特征: 这是一个关于斜率乘积的定值结论, 其常数项"
-              },
-              {
-                "type": "math",
-                "latex": "-\\frac{b^2}{a^2}"
-              },
-              {
-                "type": "text",
-                "text": "仅与椭圆的形状 (长短轴之比) 有关."
-              }
-            ]
+            "text": "结构特征: 这是一个关于斜率乘积的定值结论, 其常数项"
+          },
+          {
+            "latex": "-\\frac{b^2}{a^2}"
+          },
+          {
+            "text": "仅与椭圆的形状 (长短轴之比) 有关."
           },
           {
             "segments": [
@@ -6216,11 +7073,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "在椭圆上, 则满足"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0^2}{a^2} + \\frac{y_0^2}{b^2} = 1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{x_0^2}{a^2} + \\frac{y_0^2}{b^2} = 1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": ", 即"
@@ -6236,20 +7096,13 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "对椭圆方程求导得切线斜率:"
-              },
-              {
-                "type": "math",
-                "latex": "k_l = -\\frac{b^2x_0}{a^2y_0}"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "text": "对椭圆方程求导得切线斜率:"
+          },
+          {
+            "latex": "k_l = -\\frac{b^2x_0}{a^2y_0}"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -6264,72 +7117,47 @@ module.exports = {
               {
                 "type": "text",
                 "text": "与原点连线的斜率为:"
-              },
-              {
-                "type": "math",
-                "latex": "k_{OP} = \\frac{y_0}{x_0}"
-              },
-              {
-                "type": "text",
-                "text": "."
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "计算两斜率之积:"
-              },
-              {
-                "type": "math",
-                "latex": "k_l \\cdot k_{OP} = \\left( -\\frac{b^2x_0}{a^2y_0} \\right) \\cdot \\left( \\frac{y_0}{x_0} \\right) = -\\frac{b^2}{a^2}"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "latex": "k_{OP} = \\frac{y_0}{x_0}"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "又由离心率公式"
-              },
-              {
-                "type": "math",
-                "latex": "e^2 = \\frac{c^2}{a^2} = \\frac{a^2-b^2}{a^2} = 1 - \\frac{b^2}{a^2}"
-              },
-              {
-                "type": "text",
-                "text": ", 可得"
-              },
-              {
-                "type": "math",
-                "latex": "e^2 - 1 = -\\frac{b^2}{a^2}"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "text": "."
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "故"
-              },
-              {
-                "type": "math",
-                "latex": "k_l \\cdot k_{OP} = e^2 - 1"
-              },
-              {
-                "type": "text",
-                "text": "得证."
-              }
-            ]
+            "text": "计算两斜率之积:"
+          },
+          {
+            "latex": "k_l \\cdot k_{OP} = \\left( -\\frac{b^2x_0}{a^2y_0} \\right) \\cdot \\left( \\frac{y_0}{x_0} \\right) = -\\frac{b^2}{a^2}"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "又由离心率公式"
+          },
+          {
+            "latex": "e^2 = \\frac{c^2}{a^2} = \\frac{a^2-b^2}{a^2} = 1 - \\frac{b^2}{a^2}"
+          },
+          {
+            "text": ", 可得"
+          },
+          {
+            "latex": "e^2 - 1 = -\\frac{b^2}{a^2}"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "故"
+          },
+          {
+            "latex": "k_l \\cdot k_{OP} = e^2 - 1"
+          },
+          {
+            "text": "得证."
           }
         ]
       },
@@ -6339,15 +7167,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "例题 1: 已知椭圆"
+          },
+          {
+            "latex": "C: \\frac{x^2}{4} + y^2 = 1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例题 1: 已知椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "C: \\frac{x^2}{4} + y^2 = 1"
-              },
               {
                 "type": "text",
                 "text": ", 点"
@@ -6383,11 +7209,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": ", 则"
-              },
-              {
-                "type": "math",
-                "latex": "k_l \\cdot k_{OP} = -1/4"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "k_l \\cdot k_{OP} = -1/4"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": ".\n2. 已知"
@@ -6431,32 +7260,26 @@ module.exports = {
               {
                 "type": "text",
                 "text": ".\n4. 代入椭圆方程:"
-              },
-              {
-                "type": "math",
-                "latex": "x_0^2/4 + x_0^2 = 1 \\implies \\frac{5}{4}x_0^2 = 1 \\implies x_0 = \\frac{2\\sqrt{5}}{5}, y_0 = \\frac{2\\sqrt{5}}{5}"
-              },
-              {
-                "type": "text",
-                "text": ".\n5. 切线方程为:"
-              },
-              {
-                "type": "math",
-                "latex": "y - \\frac{2\\sqrt{5}}{5} = -\\frac{1}{4}(x - \\frac{2\\sqrt{5}}{5})"
-              },
-              {
-                "type": "text",
-                "text": ", 化简得"
-              },
-              {
-                "type": "math",
-                "latex": "x + 4y - 2\\sqrt{5} = 0"
-              },
-              {
-                "type": "text",
-                "text": "."
               }
             ]
+          },
+          {
+            "latex": "x_0^2/4 + x_0^2 = 1 \\implies \\frac{5}{4}x_0^2 = 1 \\implies x_0 = \\frac{2\\sqrt{5}}{5}, y_0 = \\frac{2\\sqrt{5}}{5}"
+          },
+          {
+            "text": ".\n5. 切线方程为:"
+          },
+          {
+            "latex": "y - \\frac{2\\sqrt{5}}{5} = -\\frac{1}{4}(x - \\frac{2\\sqrt{5}}{5})"
+          },
+          {
+            "text": ", 化简得"
+          },
+          {
+            "latex": "x + 4y - 2\\sqrt{5} = 0"
+          },
+          {
+            "text": "."
           }
         ]
       },
@@ -6553,20 +7376,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "1. 核心公式:"
-              },
-              {
-                "type": "math",
-                "latex": "k_l \\cdot k_{OP} = -\\frac{b^2}{a^2}"
-              },
-              {
-                "type": "text",
-                "text": ".\n2. 物理关联: 该性质与椭圆的向径反射性质密切相关.\n3. 解题技巧: 看到涉及原点的斜率积时, 应迅速联想到椭圆的长短轴平方比."
-              }
-            ]
+            "text": "1. 核心公式:"
+          },
+          {
+            "latex": "k_l \\cdot k_{OP} = -\\frac{b^2}{a^2}"
+          },
+          {
+            "text": ".\n2. 物理关联: 该性质与椭圆的向径反射性质密切相关.\n3. 解题技巧: 看到涉及原点的斜率积时, 应迅速联想到椭圆的长短轴平方比."
           }
         ]
       }
@@ -6618,9 +7434,107 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "对于椭圆"
+              }
+            ],
+            "desc": "对于椭圆"
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "C: \\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
+              }
+            ],
+            "latex": "C: \\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
+          },
+          {
+            "title": "条目3",
+            "segments": [
+              {
+                "type": "text",
+                "text": "("
+              },
+              {
+                "type": "math",
+                "latex": "a>b>0"
+              },
+              {
+                "type": "text",
+                "text": "), 设"
+              },
+              {
+                "type": "math",
+                "latex": "P(x_0, y_0)"
+              },
+              {
+                "type": "text",
+                "text": "是椭圆上任意一点,"
+              },
+              {
+                "type": "math",
+                "latex": "l"
+              },
+              {
+                "type": "text",
+                "text": "为椭圆在点"
+              },
+              {
+                "type": "math",
+                "latex": "P"
+              },
+              {
+                "type": "text",
+                "text": "处的切线. 设"
+              },
+              {
+                "type": "math",
+                "latex": "d"
+              },
+              {
+                "type": "text",
+                "text": "是原点到直线"
+              },
+              {
+                "type": "math",
+                "latex": "l"
+              },
+              {
+                "type": "text",
+                "text": "的距离,"
+              },
+              {
+                "type": "math",
+                "latex": "r_1, r_2"
+              },
+              {
+                "type": "text",
+                "text": "分别是点"
+              },
+              {
+                "type": "math",
+                "latex": "P"
+              },
+              {
+                "type": "text",
+                "text": "到椭圆两个焦点"
+              },
+              {
+                "type": "math",
+                "latex": "F_1, F_2"
+              },
+              {
+                "type": "text",
+                "text": "的距离, 则有:\nr_1 r_2 d = ab\n该结论描述了椭圆切线的原心距与切点焦半径乘积之间的定值关系."
+              }
+            ],
+            "desc": "( ), 设 是椭圆上任意一点, 为椭圆在点 处的切线. 设 是原点到直线 的距离, 分别是点 到椭圆两个焦点 的距离, 则有:\nr_1 r_2 d = ab\n该结论描述了椭圆切线的原心距与切点焦半径乘积之间的定值关系.",
+            "latex": "a>b>0"
           }
         ]
       },
@@ -6661,16 +7575,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "都在变化, 但它们的组合项"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1 r_2} \\cdot d"
-              },
-              {
-                "type": "text",
-                "text": "始终锁定为长短轴半轴长的乘积."
               }
             ]
+          },
+          {
+            "latex": "\\sqrt{r_1 r_2} \\cdot d"
+          },
+          {
+            "text": "始终锁定为长短轴半轴长的乘积."
           },
           {
             "text": "结构美感: 公式左边体现了切点的局部性质 (焦半径几何平均数) 与全局位置 (原心距) 的耦合, 右边则是椭圆的核心面积特征参数."
@@ -6710,11 +7622,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": ", 切线"
-              },
-              {
-                "type": "math",
-                "latex": "l: \\frac{x_0x}{a^2} + \\frac{y_0y}{b^2} = 1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "l: \\frac{x_0x}{a^2} + \\frac{y_0y}{b^2} = 1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": ". 原点到"
@@ -6726,83 +7641,56 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的距离"
-              },
-              {
-                "type": "math",
-                "latex": "d = \\frac{1}{\\sqrt{\\frac{x_0^2}{a^4} + \\frac{y_0^2}{b^4}}}"
-              },
-              {
-                "type": "text",
-                "text": "."
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "整理得"
-              },
-              {
-                "type": "math",
-                "latex": "d^2 = \\frac{a^4b^4}{b^4x_0^2 + a^4y_0^2}"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "latex": "d = \\frac{1}{\\sqrt{\\frac{x_0^2}{a^4} + \\frac{y_0^2}{b^4}}}"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "整理得"
+          },
+          {
+            "latex": "d^2 = \\frac{a^4b^4}{b^4x_0^2 + a^4y_0^2}"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "焦点坐标"
+          },
+          {
+            "latex": "F(\\pm c, 0)"
+          },
+          {
+            "text": ", 焦半径公式为"
+          },
+          {
+            "latex": "r_1 = a + ex_0, r_2 = a - ex_0"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "乘积"
+          },
+          {
+            "latex": "r_1r_2 = a^2 - e^2x_0^2 = a^2 - \\frac{c^2}{a^2}x_0^2 = \\frac{a^4 - (a^2-b^2)x_0^2}{a^2}"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "利用"
+          },
+          {
+            "latex": "y_0^2 = b^2(1 - \\frac{x_0^2}{a^2})"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "焦点坐标"
-              },
-              {
-                "type": "math",
-                "latex": "F(\\pm c, 0)"
-              },
-              {
-                "type": "text",
-                "text": ", 焦半径公式为"
-              },
-              {
-                "type": "math",
-                "latex": "r_1 = a + ex_0, r_2 = a - ex_0"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "乘积"
-              },
-              {
-                "type": "math",
-                "latex": "r_1r_2 = a^2 - e^2x_0^2 = a^2 - \\frac{c^2}{a^2}x_0^2 = \\frac{a^4 - (a^2-b^2)x_0^2}{a^2}"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "利用"
-              },
-              {
-                "type": "math",
-                "latex": "y_0^2 = b^2(1 - \\frac{x_0^2}{a^2})"
-              },
               {
                 "type": "text",
                 "text": ", 代入"
@@ -6814,16 +7702,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "分母:"
-              },
-              {
-                "type": "math",
-                "latex": "b^4x_0^2 + a^4 \\cdot b^2(1 - \\frac{x_0^2}{a^2}) = b^4x_0^2 + a^2b^2(a^2 - x_0^2) = b^2(b^2x_0^2 + a^4 - a^2x_0^2)"
-              },
-              {
-                "type": "text",
-                "text": "."
               }
             ]
+          },
+          {
+            "latex": "b^4x_0^2 + a^4 \\cdot b^2(1 - \\frac{x_0^2}{a^2}) = b^4x_0^2 + a^2b^2(a^2 - x_0^2) = b^2(b^2x_0^2 + a^4 - a^2x_0^2)"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -6842,44 +7728,28 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "观察发现"
-              },
-              {
-                "type": "math",
-                "latex": "d^2 = \\frac{a^4b^4}{b^2(a^2 \\cdot r_1r_2)} = \\frac{a^2b^2}{r_1r_2}"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "text": "观察发现"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "两边开方得"
-              },
-              {
-                "type": "math",
-                "latex": "d = \\frac{ab}{\\sqrt{r_1r_2}}"
-              },
-              {
-                "type": "text",
-                "text": ", 即"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1r_2} \\cdot d = ab"
-              },
-              {
-                "type": "text",
-                "text": ". 证毕."
-              }
-            ]
+            "latex": "d^2 = \\frac{a^4b^4}{b^2(a^2 \\cdot r_1r_2)} = \\frac{a^2b^2}{r_1r_2}"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "两边开方得"
+          },
+          {
+            "latex": "d = \\frac{ab}{\\sqrt{r_1r_2}}"
+          },
+          {
+            "text": ", 即"
+          },
+          {
+            "latex": "\\sqrt{r_1r_2} \\cdot d = ab"
+          },
+          {
+            "text": ". 证毕."
           }
         ]
       },
@@ -6889,15 +7759,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "例题 1: 椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{4} + y^2 = 1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例题 1: 椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{4} + y^2 = 1"
-              },
               {
                 "type": "text",
                 "text": ", 点"
@@ -6949,19 +7817,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": ".\n2. 应用公式:"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{2} \\cdot d = 2"
-              },
-              {
-                "type": "text",
-                "text": ".\n3. 解得"
-              },
-              {
-                "type": "math",
-                "latex": "d = \\sqrt{2}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\sqrt{2} \\cdot d = 2"
+          },
+          {
+            "text": ".\n3. 解得"
+          },
+          {
+            "latex": "d = \\sqrt{2}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": ".\n例题 2: 证明椭圆上使原点到切线距离"
@@ -6973,11 +7842,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "最大的点是短轴顶点.\n解析:\n1. 由"
-              },
-              {
-                "type": "math",
-                "latex": "d = \\frac{ab}{\\sqrt{r_1r_2}}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "d = \\frac{ab}{\\sqrt{r_1r_2}}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "知,"
@@ -7005,11 +7877,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": ".\n3. 由于"
-              },
-              {
-                "type": "math",
-                "latex": "0 \\le x_0^2 \\le a^2"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "0 \\le x_0^2 \\le a^2"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": ", 当"
@@ -7053,11 +7928,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "); 当"
-              },
-              {
-                "type": "math",
-                "latex": "x_0 = \\pm a"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "x_0 = \\pm a"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "时,"
@@ -7140,11 +8018,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "在短轴处最大, 实际上根据"
-              },
-              {
-                "type": "math",
-                "latex": "d = ab/\\sqrt{r_1r_2}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "d = ab/\\sqrt{r_1r_2}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": ", 在长轴顶点"
@@ -7176,15 +8057,13 @@ module.exports = {
             ]
           },
           {
+            "text": "符号规范: 确保所有运算符如"
+          },
+          {
+            "latex": "\\cdot"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "符号规范: 确保所有运算符如"
-              },
-              {
-                "type": "math",
-                "latex": "\\cdot"
-              },
               {
                 "type": "text",
                 "text": "以及下标如"
@@ -7207,15 +8086,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "1. 核心公式:"
+          },
+          {
+            "latex": "\\sqrt{r_1r_2} \\cdot d = ab"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "1. 核心公式:"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1r_2} \\cdot d = ab"
-              },
               {
                 "type": "text",
                 "text": ".\n2. 物理隐喻: 该公式反映了椭圆切线在\"包围\"原点时的某种能量守恒特性.\n3. 关联结论: 结合"
@@ -7288,9 +8165,50 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "乘积定值:"
+              },
+              {
+                "type": "math",
+                "latex": "|P_1A_1| \\cdot |P_2A_2| = b^2"
+              },
+              {
+                "type": "text",
+                "text": ";"
+              }
+            ],
+            "desc": "乘积定值: ;",
+            "latex": "|P_1A_1| \\cdot |P_2A_2| = b^2"
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "text",
+                "text": "面积最值: 四边形"
+              },
+              {
+                "type": "math",
+                "latex": "A_1P_1P_2A_2"
+              },
+              {
+                "type": "text",
+                "text": "面积的最小值为"
+              },
+              {
+                "type": "math",
+                "latex": "2ab"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "desc": "面积最值: 四边形 面积的最小值为 .",
+            "latex": "A_1P_1P_2A_2 \\qquad 2ab"
           }
         ]
       },
@@ -7393,16 +8311,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的切线为"
-              },
-              {
-                "type": "math",
-                "latex": "l: \\frac{x_0x}{a^2} + \\frac{y_0y}{b^2} = 1"
-              },
-              {
-                "type": "text",
-                "text": "."
               }
             ]
+          },
+          {
+            "latex": "l: \\frac{x_0x}{a^2} + \\frac{y_0y}{b^2} = 1"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -7437,16 +8353,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "纵坐标:"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{-ax_0}{a^2} + \\frac{y_0y_1}{b^2} = 1 \\implies y_1 = \\frac{b^2(a+x_0)}{ay_0}"
-              },
-              {
-                "type": "text",
-                "text": "."
               }
             ]
+          },
+          {
+            "latex": "\\frac{-ax_0}{a^2} + \\frac{y_0y_1}{b^2} = 1 \\implies y_1 = \\frac{b^2(a+x_0)}{ay_0}"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -7481,32 +8395,23 @@ module.exports = {
               {
                 "type": "text",
                 "text": "纵坐标:"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{ax_0}{a^2} + \\frac{y_0y_2}{b^2} = 1 \\implies y_2 = \\frac{b^2(a-x_0)}{ay_0}"
-              },
-              {
-                "type": "text",
-                "text": "."
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "则"
-              },
-              {
-                "type": "math",
-                "latex": "|P_1A_1| \\cdot |P_2A_2| = |y_1 \\cdot y_2| = \\frac{b^4(a^2-x_0^2)}{a^2y_0^2}"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "latex": "\\frac{ax_0}{a^2} + \\frac{y_0y_2}{b^2} = 1 \\implies y_2 = \\frac{b^2(a-x_0)}{ay_0}"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "则"
+          },
+          {
+            "latex": "|P_1A_1| \\cdot |P_2A_2| = |y_1 \\cdot y_2| = \\frac{b^4(a^2-x_0^2)}{a^2y_0^2}"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -7521,24 +8426,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "在椭圆上知"
-              },
-              {
-                "type": "math",
-                "latex": "y_0^2 = \\frac{b^2(a^2-x_0^2)}{a^2}"
-              },
-              {
-                "type": "text",
-                "text": ", 代入上式:"
-              },
-              {
-                "type": "math",
-                "latex": "|y_1 y_2| = \\frac{b^4(a^2-x_0^2)}{a^2 \\cdot \\frac{b^2(a^2-x_0^2)}{a^2}} = b^2"
-              },
-              {
-                "type": "text",
-                "text": ". 证毕.\n2. 面积最小值的证明:"
               }
             ]
+          },
+          {
+            "latex": "y_0^2 = \\frac{b^2(a^2-x_0^2)}{a^2}"
+          },
+          {
+            "text": ", 代入上式:"
+          },
+          {
+            "latex": "|y_1 y_2| = \\frac{b^4(a^2-x_0^2)}{a^2 \\cdot \\frac{b^2(a^2-x_0^2)}{a^2}} = b^2"
+          },
+          {
+            "text": ". 证毕.\n2. 面积最小值的证明:"
           },
           {
             "segments": [
@@ -7553,32 +8454,23 @@ module.exports = {
               {
                 "type": "text",
                 "text": "为直角梯形, 面积"
-              },
-              {
-                "type": "math",
-                "latex": "S = \\frac{1}{2}(|y_1| + |y_2|) \\cdot 2a = a(|y_1| + |y_2|)"
-              },
-              {
-                "type": "text",
-                "text": "."
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "由算术-几何平均值不等式:"
-              },
-              {
-                "type": "math",
-                "latex": "|y_1| + |y_2| \\ge 2\\sqrt{|y_1 y_2|}"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "latex": "S = \\frac{1}{2}(|y_1| + |y_2|) \\cdot 2a = a(|y_1| + |y_2|)"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "由算术-几何平均值不等式:"
+          },
+          {
+            "latex": "|y_1| + |y_2| \\ge 2\\sqrt{|y_1 y_2|}"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -7593,16 +8485,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": ", 得"
-              },
-              {
-                "type": "math",
-                "latex": "S \\ge a \\cdot 2\\sqrt{b^2} = 2ab"
-              },
-              {
-                "type": "text",
-                "text": "."
               }
             ]
+          },
+          {
+            "latex": "S \\ge a \\cdot 2\\sqrt{b^2} = 2ab"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -7625,16 +8515,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "为短轴顶点"
-              },
-              {
-                "type": "math",
-                "latex": "(0, \\pm b)"
-              },
-              {
-                "type": "text",
-                "text": "."
               }
             ]
+          },
+          {
+            "latex": "(0, \\pm b)"
+          },
+          {
+            "text": "."
           }
         ]
       },
@@ -7834,20 +8722,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "1. 核心乘积: 左右切线截距之积"
-              },
-              {
-                "type": "math",
-                "latex": "d_L \\cdot d_R = b^2"
-              },
-              {
-                "type": "text",
-                "text": ".\n2. 最值点: 面积最小值在短轴顶点处取得, 此时图形具有最强对称性.\n3. 知识联动: 本结论是研究圆锥曲线切线包络性质的重要模型, 也是解决直线与曲线综合位置关系的常用跳板."
-              }
-            ]
+            "text": "1. 核心乘积: 左右切线截距之积"
+          },
+          {
+            "latex": "d_L \\cdot d_R = b^2"
+          },
+          {
+            "text": ".\n2. 最值点: 面积最小值在短轴顶点处取得, 此时图形具有最强对称性.\n3. 知识联动: 本结论是研究圆锥曲线切线包络性质的重要模型, 也是解决直线与曲线综合位置关系的常用跳板."
           }
         ]
       }
@@ -7899,9 +8780,147 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "距离积:"
+              },
+              {
+                "type": "math",
+                "latex": "d_1 d_2 = b^2"
+              },
+              {
+                "type": "text",
+                "text": ";"
+              }
+            ],
+            "desc": "距离积: ;",
+            "latex": "d_1 d_2 = b^2"
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "text",
+                "text": "面积最值: 四边形"
+              },
+              {
+                "type": "math",
+                "latex": "F_1H_1H_2F_2"
+              },
+              {
+                "type": "text",
+                "text": "面积的最大值为"
+              },
+              {
+                "type": "math",
+                "latex": "a^2"
+              },
+              {
+                "type": "text",
+                "text": ";"
+              }
+            ],
+            "desc": "面积最值: 四边形 面积的最大值为 ;",
+            "latex": "F_1H_1H_2F_2 \\qquad a^2"
+          },
+          {
+            "title": "条目3",
+            "segments": [
+              {
+                "type": "text",
+                "text": "光学性质: 切线"
+              },
+              {
+                "type": "math",
+                "latex": "l"
+              },
+              {
+                "type": "text",
+                "text": "是"
+              },
+              {
+                "type": "math",
+                "latex": "\\angle F_1PF_2"
+              },
+              {
+                "type": "text",
+                "text": "的外角平分线, 且内角平分线"
+              },
+              {
+                "type": "math",
+                "latex": "m \\perp l"
+              },
+              {
+                "type": "text",
+                "text": ";"
+              }
+            ],
+            "desc": "光学性质: 切线 是 的外角平分线, 且内角平分线 ;",
+            "latex": "l \\qquad \\angle F_1PF_2 \\qquad m \\perp l"
+          },
+          {
+            "title": "条目4",
+            "segments": [
+              {
+                "type": "text",
+                "text": "共圆性质: 垂足"
+              },
+              {
+                "type": "math",
+                "latex": "H_1, H_2"
+              },
+              {
+                "type": "text",
+                "text": "在主圆"
+              },
+              {
+                "type": "math",
+                "latex": "x^2 + y^2 = a^2"
+              },
+              {
+                "type": "text",
+                "text": "上;"
+              }
+            ],
+            "desc": "共圆性质: 垂足 在主圆 上;",
+            "latex": "x^2 + y^2 = a^2"
+          },
+          {
+            "title": "条目5",
+            "segments": [
+              {
+                "type": "text",
+                "text": "截距性质: 内外角平分线与"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴交点"
+              },
+              {
+                "type": "math",
+                "latex": "M, N"
+              },
+              {
+                "type": "text",
+                "text": "的横坐标满足"
+              },
+              {
+                "type": "math",
+                "latex": "x_M \\cdot x_N = c^2"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "desc": "截距性质: 内外角平分线与 轴交点 的横坐标满足 .",
+            "latex": "x_M \\cdot x_N = c^2"
           }
         ]
       },
@@ -7959,15 +8978,13 @@ module.exports = {
             ]
           },
           {
+            "text": "设椭圆方程为"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "设椭圆方程为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
-              },
               {
                 "type": "text",
                 "text": ", 切线"
@@ -7999,15 +9016,13 @@ module.exports = {
             ]
           },
           {
+            "text": "根据直线与椭圆相切的判别式"
+          },
+          {
+            "latex": "\\Delta = 0"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "根据直线与椭圆相切的判别式"
-              },
-              {
-                "type": "math",
-                "latex": "\\Delta = 0"
-              },
               {
                 "type": "text",
                 "text": ", 得到切线背景下的定值关系:"
@@ -8035,56 +9050,35 @@ module.exports = {
               {
                 "type": "text",
                 "text": ". 利用点到直线距离公式"
-              },
-              {
-                "type": "math",
-                "latex": "d = \\frac{|kx - y + m|}{\\sqrt{k^2+1}}"
-              },
-              {
-                "type": "text",
-                "text": ":"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "math",
-                "latex": "d_1 = \\frac{|-kc - 0 + m|}{\\sqrt{k^2+1}} = \\frac{|m - kc|}{\\sqrt{k^2+1}}"
-              },
-              {
-                "type": "text",
-                "text": ";"
-              }
-            ]
+            "latex": "d = \\frac{|kx - y + m|}{\\sqrt{k^2+1}}"
           },
           {
-            "segments": [
-              {
-                "type": "math",
-                "latex": "d_2 = \\frac{|kc - 0 + m|}{\\sqrt{k^2+1}} = \\frac{|m + kc|}{\\sqrt{k^2+1}}"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "text": ":"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "计算乘积"
-              },
-              {
-                "type": "math",
-                "latex": "d_1 \\cdot d_2 = \\frac{|(m - kc)(m + kc)|}{k^2+1} = \\frac{|m^2 - k^2c^2|}{k^2+1}"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "latex": "d_1 = \\frac{|-kc - 0 + m|}{\\sqrt{k^2+1}} = \\frac{|m - kc|}{\\sqrt{k^2+1}}"
+          },
+          {
+            "text": ";"
+          },
+          {
+            "latex": "d_2 = \\frac{|kc - 0 + m|}{\\sqrt{k^2+1}} = \\frac{|m + kc|}{\\sqrt{k^2+1}}"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "计算乘积"
+          },
+          {
+            "latex": "d_1 \\cdot d_2 = \\frac{|(m - kc)(m + kc)|}{k^2+1} = \\frac{|m^2 - k^2c^2|}{k^2+1}"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -8107,11 +9101,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": ":"
-              },
-              {
-                "type": "math",
-                "latex": "d_1 d_2 = \\frac{a^2k^2 + b^2 - k^2(a^2 - b^2)}{k^2+1} = \\frac{a^2k^2 + b^2 - a^2k^2 + b^2k^2}{k^2+1} = \\frac{b^2(1 + k^2)}{k^2+1} = b^2"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "d_1 d_2 = \\frac{a^2k^2 + b^2 - k^2(a^2 - b^2)}{k^2+1} = \\frac{a^2k^2 + b^2 - a^2k^2 + b^2k^2}{k^2+1} = \\frac{b^2(1 + k^2)}{k^2+1} = b^2"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": ". 证毕.\n2. 垂足"
@@ -8163,11 +9160,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的直线 (垂线) 方程为:"
-              },
-              {
-                "type": "math",
-                "latex": "y = -\\frac{1}{k}(x - c)"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "y = -\\frac{1}{k}(x - c)"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": ", 即"
@@ -8199,36 +9199,22 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "将两方程分别平方后相加:"
-              },
-              {
-                "type": "math",
-                "latex": "(x + ky)^2 + (kx - y)^2 = c^2 + (-m)^2"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "text": "将两方程分别平方后相加:"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "左边展开:"
-              },
-              {
-                "type": "math",
-                "latex": "x^2 + 2kxy + k^2y^2 + k^2x^2 - 2kxy + y^2 = (1 + k^2)(x^2 + y^2)"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "latex": "(x + ky)^2 + (kx - y)^2 = c^2 + (-m)^2"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "左边展开:"
+          },
+          {
+            "latex": "x^2 + 2kxy + k^2y^2 + k^2x^2 - 2kxy + y^2 = (1 + k^2)(x^2 + y^2)"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -8243,16 +9229,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": ":"
-              },
-              {
-                "type": "math",
-                "latex": "c^2 + a^2k^2 + b^2 = (a^2 - b^2) + a^2k^2 + b^2 = a^2(1 + k^2)"
-              },
-              {
-                "type": "text",
-                "text": "."
               }
             ]
+          },
+          {
+            "latex": "c^2 + a^2k^2 + b^2 = (a^2 - b^2) + a^2k^2 + b^2 = a^2(1 + k^2)"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -8283,16 +9267,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "均在圆上. 证毕.\n3. 光学性质 (切线平分"
-              },
-              {
-                "type": "math",
-                "latex": "\\angle F_1PF_2"
-              },
-              {
-                "type": "text",
-                "text": "外角) 的几何证明:"
               }
             ]
+          },
+          {
+            "latex": "\\angle F_1PF_2"
+          },
+          {
+            "text": "外角) 的几何证明:"
           },
           {
             "segments": [
@@ -8419,16 +9401,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "处法线即为"
-              },
-              {
-                "type": "math",
-                "latex": "\\angle F_1PF_2"
-              },
-              {
-                "type": "text",
-                "text": "的角平分线."
               }
             ]
+          },
+          {
+            "latex": "\\angle F_1PF_2"
+          },
+          {
+            "text": "的角平分线."
           },
           {
             "segments": [
@@ -8562,16 +9542,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "与光路夹角相等.\n解析: 依据光学性质 (3), 切线是"
-              },
-              {
-                "type": "math",
-                "latex": "\\angle F_1PF_2"
-              },
-              {
-                "type": "text",
-                "text": "的外角平分线. 根据几何原理, 入射光线与反射光线关于法线对称, 则它们与切线的夹角必相等."
               }
             ]
+          },
+          {
+            "latex": "\\angle F_1PF_2"
+          },
+          {
+            "text": "的外角平分线. 根据几何原理, 入射光线与反射光线关于法线对称, 则它们与切线的夹角必相等."
           }
         ]
       },
@@ -8609,16 +9587,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "必须置于"
-              },
-              {
-                "type": "math",
-                "latex": "\\$"
-              },
-              {
-                "type": "text",
-                "text": "中. 严禁在数学环境外直接书写 \"d\\_1\", 这会导致编译在下划线处崩溃."
               }
             ]
+          },
+          {
+            "latex": "\\$"
+          },
+          {
+            "text": "中. 严禁在数学环境外直接书写 \"d\\_1\", 这会导致编译在下划线处崩溃."
           },
           {
             "segments": [
@@ -8653,20 +9629,13 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "角平分线混淆: 切线是"
-              },
-              {
-                "type": "math",
-                "latex": "\\angle F_1PF_2"
-              },
-              {
-                "type": "text",
-                "text": "的\"外\"角平分线, 而法线才是其\"内\"角平分线, 在解题应用中切勿记反."
-              }
-            ]
+            "text": "角平分线混淆: 切线是"
+          },
+          {
+            "latex": "\\angle F_1PF_2"
+          },
+          {
+            "text": "的\"外\"角平分线, 而法线才是其\"内\"角平分线, 在解题应用中切勿记反."
           }
         ]
       },
@@ -8757,9 +9726,120 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "重心"
+              },
+              {
+                "type": "math",
+                "latex": "G"
+              },
+              {
+                "type": "text",
+                "text": ":"
+              },
+              {
+                "type": "math",
+                "latex": "G\\left( \\frac{x_0}{3}, \\frac{y_0}{3} \\right)"
+              },
+              {
+                "type": "text",
+                "text": ";"
+              }
+            ],
+            "desc": "重心 : ;",
+            "latex": "G\\left( \\frac{x_0}{3}, \\frac{y_0}{3} \\right)"
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "text",
+                "text": "内心"
+              },
+              {
+                "type": "math",
+                "latex": "I"
+              },
+              {
+                "type": "text",
+                "text": ":"
+              },
+              {
+                "type": "math",
+                "latex": "I\\left( ex_0, \\frac{cy_0}{a+c} \\right)"
+              },
+              {
+                "type": "text",
+                "text": ", 其中"
+              },
+              {
+                "type": "math",
+                "latex": "e"
+              },
+              {
+                "type": "text",
+                "text": "为离心率;"
+              }
+            ],
+            "desc": "内心 : , 其中 为离心率;",
+            "latex": "I\\left( ex_0, \\frac{cy_0}{a+c} \\right)"
+          },
+          {
+            "title": "条目3",
+            "segments": [
+              {
+                "type": "text",
+                "text": "垂心"
+              },
+              {
+                "type": "math",
+                "latex": "H"
+              },
+              {
+                "type": "text",
+                "text": ":"
+              },
+              {
+                "type": "math",
+                "latex": "H\\left( x_0, \\frac{c^2-x_0^2}{y_0} \\right)"
+              },
+              {
+                "type": "text",
+                "text": ";"
+              }
+            ],
+            "desc": "垂心 : ;",
+            "latex": "H\\left( x_0, \\frac{c^2-x_0^2}{y_0} \\right)"
+          },
+          {
+            "title": "条目4",
+            "segments": [
+              {
+                "type": "text",
+                "text": "外心"
+              },
+              {
+                "type": "math",
+                "latex": "O'"
+              },
+              {
+                "type": "text",
+                "text": ":"
+              },
+              {
+                "type": "math",
+                "latex": "O'\\left( 0, \\frac{x_0^2+y_0^2-c^2}{2y_0} \\right)"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "desc": "外心 : .",
+            "latex": "O'\\left( 0, \\frac{x_0^2+y_0^2-c^2}{2y_0} \\right)"
           }
         ]
       },
@@ -8821,16 +9901,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "靠近长轴端点（即"
-              },
-              {
-                "type": "math",
-                "latex": "y_0 \\to 0"
-              },
-              {
-                "type": "text",
-                "text": "）时，三角形退化，垂心和外心会趋向无穷远。"
               }
             ]
+          },
+          {
+            "latex": "y_0 \\to 0"
+          },
+          {
+            "text": "）时，三角形退化，垂心和外心会趋向无穷远。"
           },
           {
             "segments": [
@@ -8912,71 +9990,46 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第二步：代入重心公式\n根据重心公式"
-              },
-              {
-                "type": "math",
-                "latex": "G = \\frac{P + F_1 + F_2}{3}"
-              },
-              {
-                "type": "text",
-                "text": "，分量计算："
-              }
-            ]
+            "text": "第二步：代入重心公式\n根据重心公式"
+          },
+          {
+            "latex": "G = \\frac{P + F_1 + F_2}{3}"
+          },
+          {
+            "text": "，分量计算："
+          },
+          {
+            "text": "横坐标："
+          },
+          {
+            "latex": "x_G = \\frac{x_0 + (-c) + c}{3} = \\frac{x_0}{3}"
+          },
+          {
+            "text": "；"
+          },
+          {
+            "text": "纵坐标："
+          },
+          {
+            "latex": "y_G = \\frac{y_0 + 0 + 0}{3} = \\frac{y_0}{3}"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "结论：重心"
+          },
+          {
+            "latex": "G\\left( \\frac{x_0}{3}, \\frac{y_0}{3} \\right)"
+          },
+          {
+            "text": "。这说明重心轨迹是原椭圆缩小到"
+          },
+          {
+            "latex": "\\frac{1}{3}"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "横坐标："
-              },
-              {
-                "type": "math",
-                "latex": "x_G = \\frac{x_0 + (-c) + c}{3} = \\frac{x_0}{3}"
-              },
-              {
-                "type": "text",
-                "text": "；"
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "纵坐标："
-              },
-              {
-                "type": "math",
-                "latex": "y_G = \\frac{y_0 + 0 + 0}{3} = \\frac{y_0}{3}"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "结论：重心"
-              },
-              {
-                "type": "math",
-                "latex": "G\\left( \\frac{x_0}{3}, \\frac{y_0}{3} \\right)"
-              },
-              {
-                "type": "text",
-                "text": "。这说明重心轨迹是原椭圆缩小到"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{1}{3}"
-              },
               {
                 "type": "text",
                 "text": "后的图形。\n2. 内心"
@@ -8992,15 +10045,13 @@ module.exports = {
             ]
           },
           {
+            "text": "第一步：确定三条边的边长\n在"
+          },
+          {
+            "latex": "\\triangle PF_1F_2"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "第一步：确定三条边的边长\n在"
-              },
-              {
-                "type": "math",
-                "latex": "\\triangle PF_1F_2"
-              },
               {
                 "type": "text",
                 "text": "中，设角"
@@ -9072,79 +10123,52 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "周长"
-              },
-              {
-                "type": "math",
-                "latex": "L = p + f_1 + f_2 = 2c + (a-ex_0) + (a+ex_0) = 2a + 2c"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "周长"
+          },
+          {
+            "latex": "L = p + f_1 + f_2 = 2c + (a-ex_0) + (a+ex_0) = 2a + 2c"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "第二步：代入内心分点公式\n横坐标"
+          },
+          {
+            "latex": "x_I = \\frac{p \\cdot x_0 + f_1 \\cdot (-c) + f_2 \\cdot c}{L}"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "第三步：分子代数拆解（重点）\n将边长代入分子："
+          },
+          {
+            "latex": "\\text{分子} = (2c)x_0 + (a - ex_0)(-c) + (a + ex_0)c"
+          },
+          {
+            "text": "逐项展开："
+          },
+          {
+            "latex": "= 2cx_0 - ac + ecx_0 + ac + ecx_0 = 2cx_0 + 2ecx_0 = 2cx_0(1+e)"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "第四步：整体约分"
+          },
+          {
+            "latex": "x_I = \\frac{2cx_0(1+e)}{2a+2c} = \\frac{2cx_0(1+e)}{2a(1+\\frac{c}{a})} = \\frac{2cx_0(1+e)}{2a(1+e)} = \\frac{c}{a}x_0 = ex_0"
+          },
+          {
+            "text": "纵坐标同理："
+          },
+          {
+            "latex": "y_I = \\frac{p \\cdot y_0 + f_1 \\cdot 0 + f_2 \\cdot 0}{2a+2c} = \\frac{2cy_0}{2(a+c)} = \\frac{cy_0}{a+c}"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "第二步：代入内心分点公式\n横坐标"
-              },
-              {
-                "type": "math",
-                "latex": "x_I = \\frac{p \\cdot x_0 + f_1 \\cdot (-c) + f_2 \\cdot c}{L}"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第三步：分子代数拆解（重点）\n将边长代入分子："
-              },
-              {
-                "type": "math",
-                "latex": "\\text{分子} = (2c)x_0 + (a - ex_0)(-c) + (a + ex_0)c"
-              },
-              {
-                "type": "text",
-                "text": "逐项展开："
-              },
-              {
-                "type": "math",
-                "latex": "= 2cx_0 - ac + ecx_0 + ac + ecx_0 = 2cx_0 + 2ecx_0 = 2cx_0(1+e)"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第四步：整体约分"
-              },
-              {
-                "type": "math",
-                "latex": "x_I = \\frac{2cx_0(1+e)}{2a+2c} = \\frac{2cx_0(1+e)}{2a(1+\\frac{c}{a})} = \\frac{2cx_0(1+e)}{2a(1+e)} = \\frac{c}{a}x_0 = ex_0"
-              },
-              {
-                "type": "text",
-                "text": "纵坐标同理："
-              },
-              {
-                "type": "math",
-                "latex": "y_I = \\frac{p \\cdot y_0 + f_1 \\cdot 0 + f_2 \\cdot 0}{2a+2c} = \\frac{2cy_0}{2(a+c)} = \\frac{cy_0}{a+c}"
-              },
               {
                 "type": "text",
                 "text": "。\n3. 垂心"
@@ -9228,16 +10252,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，斜率"
-              },
-              {
-                "type": "math",
-                "latex": "k_{PF2} = \\frac{y_0}{x_0-c}"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "k_{PF2} = \\frac{y_0}{x_0-c}"
+          },
+          {
+            "text": "。"
           },
           {
             "segments": [
@@ -9260,32 +10282,23 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，所以斜率"
-              },
-              {
-                "type": "math",
-                "latex": "k_H = -\\frac{x_0-c}{y_0}"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "写方程：高线为"
-              },
-              {
-                "type": "math",
-                "latex": "y - 0 = -\\frac{x_0-c}{y_0}(x + c)"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "latex": "k_H = -\\frac{x_0-c}{y_0}"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "写方程：高线为"
+          },
+          {
+            "latex": "y - 0 = -\\frac{x_0-c}{y_0}(x + c)"
+          },
+          {
+            "text": "。"
           },
           {
             "segments": [
@@ -9300,11 +10313,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "代入，得"
-              },
-              {
-                "type": "math",
-                "latex": "y_H = -\\frac{(x_0-c)(x_0+c)}{y_0} = -\\frac{x_0^2-c^2}{y_0} = \\frac{c^2-x_0^2}{y_0}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "y_H = -\\frac{(x_0-c)(x_0+c)}{y_0} = -\\frac{x_0^2-c^2}{y_0} = \\frac{c^2-x_0^2}{y_0}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "。\n4. 外心"
@@ -9436,11 +10452,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，由勾股定理："
-              },
-              {
-                "type": "math",
-                "latex": "(x+c)^2 + y^2 = (x-c)^2 + y^2 \\implies x^2+2xc+c^2 = x^2-2xc+c^2 \\implies 4xc=0 \\implies x=0"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "(x+c)^2 + y^2 = (x-c)^2 + y^2 \\implies x^2+2xc+c^2 = x^2-2xc+c^2 \\implies 4xc=0 \\implies x=0"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "。\n修正结论：无论"
@@ -9452,11 +10471,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "在哪，"
-              },
-              {
-                "type": "math",
-                "latex": "\\triangle PF_1F_2"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\triangle PF_1F_2"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "的外心"
@@ -9508,19 +10530,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的距离："
-              },
-              {
-                "type": "math",
-                "latex": "c^2 + y_{O'}^2 = x_0^2 + (y_0 - y_{O'})^2"
-              },
-              {
-                "type": "text",
-                "text": "展开右边："
-              },
-              {
-                "type": "math",
-                "latex": "c^2 + y_{O'}^2 = x_0^2 + y_0^2 - 2y_0y_{O'} + y_{O'}^2"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "c^2 + y_{O'}^2 = x_0^2 + (y_0 - y_{O'})^2"
+          },
+          {
+            "text": "展开右边："
+          },
+          {
+            "latex": "c^2 + y_{O'}^2 = x_0^2 + y_0^2 - 2y_0y_{O'} + y_{O'}^2"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "消去"
@@ -9540,15 +10563,13 @@ module.exports = {
             ]
           },
           {
+            "text": "第三步：化简纵坐标"
+          },
+          {
+            "latex": "y_{O'} = \\frac{x_0^2 + y_0^2 - c^2}{2y_0}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "第三步：化简纵坐标"
-              },
-              {
-                "type": "math",
-                "latex": "y_{O'} = \\frac{x_0^2 + y_0^2 - c^2}{2y_0}"
-              },
               {
                 "type": "text",
                 "text": "。\n代入"
@@ -9560,11 +10581,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "："
-              },
-              {
-                "type": "math",
-                "latex": "y_{O'} = \\frac{x_0^2 + y_0^2 - a^2 + b^2}{2y_0}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "y_{O'} = \\frac{x_0^2 + y_0^2 - a^2 + b^2}{2y_0}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "。\n再次利用椭圆方程化简，可得到与"
@@ -9607,11 +10631,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": ", 其焦点三角形"
-              },
-              {
-                "type": "math",
-                "latex": "\\triangle PF_1F_2"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\triangle PF_1F_2"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "的重心轨迹方程是什么?\n解析: 设重心"
@@ -9623,19 +10650,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": ", 则"
-              },
-              {
-                "type": "math",
-                "latex": "x = x_0/3, y = y_0/3 \\implies x_0 = 3x, y_0 = 3y"
-              },
-              {
-                "type": "text",
-                "text": ".\n代入椭圆方程:"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{(3x)^2}{4} + \\frac{(3y)^2}{3} = 1 \\implies \\frac{x^2}{4/9} + \\frac{y^2}{1/3} = 1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "x = x_0/3, y = y_0/3 \\implies x_0 = 3x, y_0 = 3y"
+          },
+          {
+            "text": ".\n代入椭圆方程:"
+          },
+          {
+            "latex": "\\frac{(3x)^2}{4} + \\frac{(3y)^2}{3} = 1 \\implies \\frac{x^2}{4/9} + \\frac{y^2}{1/3} = 1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": ".\n例题 2: 证明椭圆焦点三角形的内心横坐标与"
@@ -9647,11 +10675,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "点横坐标之比为定值.\n解析: 由结论 (2) 可知"
-              },
-              {
-                "type": "math",
-                "latex": "x_I = \\frac{c}{a}x_0"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "x_I = \\frac{c}{a}x_0"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": ", 则"
@@ -9758,16 +10789,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "坐标常写成"
-              },
-              {
-                "type": "math",
-                "latex": "y_I = \\frac{r_i \\cdot y_0}{PF_1+PF_2+F_1F_2}"
-              },
-              {
-                "type": "text",
-                "text": ", 计算时确保边长对应准确."
               }
             ]
+          },
+          {
+            "latex": "y_I = \\frac{r_i \\cdot y_0}{PF_1+PF_2+F_1F_2}"
+          },
+          {
+            "text": ", 计算时确保边长对应准确."
           }
         ]
       },
@@ -9898,9 +10927,136 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "重心"
+              },
+              {
+                "type": "math",
+                "latex": "G"
+              },
+              {
+                "type": "text",
+                "text": ":"
+              },
+              {
+                "type": "math",
+                "latex": "G\\left( \\frac{x_0}{3}, \\frac{y_0}{3} \\right)"
+              },
+              {
+                "type": "text",
+                "text": ";"
+              }
+            ],
+            "desc": "重心 : ;",
+            "latex": "G\\left( \\frac{x_0}{3}, \\frac{y_0}{3} \\right)"
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "text",
+                "text": "内心"
+              },
+              {
+                "type": "math",
+                "latex": "I"
+              },
+              {
+                "type": "text",
+                "text": ":"
+              },
+              {
+                "type": "math",
+                "latex": "I\\left( a, \\frac{cy_0}{c+ex_0} \\right)"
+              },
+              {
+                "type": "text",
+                "text": ", 其中"
+              },
+              {
+                "type": "math",
+                "latex": "e"
+              },
+              {
+                "type": "text",
+                "text": "为离心率 (若"
+              },
+              {
+                "type": "math",
+                "latex": "P"
+              },
+              {
+                "type": "text",
+                "text": "在左支, 则横坐标"
+              },
+              {
+                "type": "math",
+                "latex": "x_I = -a"
+              },
+              {
+                "type": "text",
+                "text": ");"
+              }
+            ],
+            "desc": "内心 : , 其中 为离心率 (若 在左支, 则横坐标 );",
+            "latex": "I\\left( a, \\frac{cy_0}{c+ex_0} \\right)"
+          },
+          {
+            "title": "条目3",
+            "segments": [
+              {
+                "type": "text",
+                "text": "垂心"
+              },
+              {
+                "type": "math",
+                "latex": "H"
+              },
+              {
+                "type": "text",
+                "text": ":"
+              },
+              {
+                "type": "math",
+                "latex": "H\\left( x_0, \\frac{c^2-x_0^2}{y_0} \\right)"
+              },
+              {
+                "type": "text",
+                "text": ";"
+              }
+            ],
+            "desc": "垂心 : ;",
+            "latex": "H\\left( x_0, \\frac{c^2-x_0^2}{y_0} \\right)"
+          },
+          {
+            "title": "条目4",
+            "segments": [
+              {
+                "type": "text",
+                "text": "外心"
+              },
+              {
+                "type": "math",
+                "latex": "O'"
+              },
+              {
+                "type": "text",
+                "text": ":"
+              },
+              {
+                "type": "math",
+                "latex": "O'\\left( 0, \\frac{x_0^2+y_0^2-c^2}{2y_0} \\right)"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "desc": "外心 : .",
+            "latex": "O'\\left( 0, \\frac{x_0^2+y_0^2-c^2}{2y_0} \\right)"
           }
         ]
       },
@@ -9910,20 +11066,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "内心的惊人结论: 与椭圆不同，双曲线焦点三角形内心的横坐标是定值"
-              },
-              {
-                "type": "math",
-                "latex": "\\pm a"
-              },
-              {
-                "type": "text",
-                "text": "。这意味着内心始终在双曲线的顶点切线上运动。这是一个极高频的秒杀考点。"
-              }
-            ]
+            "text": "内心的惊人结论: 与椭圆不同，双曲线焦点三角形内心的横坐标是定值"
+          },
+          {
+            "latex": "\\pm a"
+          },
+          {
+            "text": "。这意味着内心始终在双曲线的顶点切线上运动。这是一个极高频的秒杀考点。"
           },
           {
             "segments": [
@@ -9938,16 +11087,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "和"
-              },
-              {
-                "type": "math",
-                "latex": "(\\pm c, 0)"
-              },
-              {
-                "type": "text",
-                "text": "，与曲线的具体方程（是加还是减）无关。"
               }
             ]
+          },
+          {
+            "latex": "(\\pm c, 0)"
+          },
+          {
+            "text": "，与曲线的具体方程（是加还是减）无关。"
           },
           {
             "text": "轨迹特征:"
@@ -9965,16 +11112,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的轨迹是原双曲线缩放"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{1}{3}"
-              },
-              {
-                "type": "text",
-                "text": "后的双曲线。"
               }
             ]
+          },
+          {
+            "latex": "\\frac{1}{3}"
+          },
+          {
+            "text": "后的双曲线。"
           },
           {
             "segments": [
@@ -10060,16 +11205,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "在右支"
-              },
-              {
-                "type": "math",
-                "latex": "x_0 \\ge a"
-              },
-              {
-                "type": "text",
-                "text": "):"
               }
             ]
+          },
+          {
+            "latex": "x_0 \\ge a"
+          },
+          {
+            "text": "):"
           },
           {
             "segments": [
@@ -10120,63 +11263,40 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "周长"
-              },
-              {
-                "type": "math",
-                "latex": "L = 2c + (ex_0 - a) + (ex_0 + a) = 2c + 2ex_0"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "text": "周长"
+          },
+          {
+            "latex": "L = 2c + (ex_0 - a) + (ex_0 + a) = 2c + 2ex_0"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "第二步：代入内心坐标公式"
+          },
+          {
+            "latex": "x_I = \\frac{p \\cdot x_0 + f_1 \\cdot (-c) + f_2 \\cdot c}{L}"
+          },
+          {
+            "text": "第三步：分子化简"
+          },
+          {
+            "latex": "\\text{分子} = 2cx_0 - c(ex_0 - a) + c(ex_0 + a) = 2cx_0 - cex_0 + ac + cex_0 + ac = 2cx_0 + 2ac"
+          },
+          {
+            "text": "第四步：求值"
+          },
+          {
+            "latex": "x_I = \\frac{2c(x_0 + a)}{2(c + ex_0)} = \\frac{c(x_0 + a)}{c + \\frac{c}{a}x_0} = \\frac{c(x_0 + a)}{\\frac{c}{a}(a + x_0)} = a"
+          },
+          {
+            "text": "同理可得"
+          },
+          {
+            "latex": "y_I = \\frac{2c \\cdot y_0 + 0 + 0}{2c + 2ex_0} = \\frac{cy_0}{c+ex_0}"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "第二步：代入内心坐标公式"
-              },
-              {
-                "type": "math",
-                "latex": "x_I = \\frac{p \\cdot x_0 + f_1 \\cdot (-c) + f_2 \\cdot c}{L}"
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第三步：分子化简"
-              },
-              {
-                "type": "math",
-                "latex": "\\text{分子} = 2cx_0 - c(ex_0 - a) + c(ex_0 + a) = 2cx_0 - cex_0 + ac + cex_0 + ac = 2cx_0 + 2ac"
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第四步：求值"
-              },
-              {
-                "type": "math",
-                "latex": "x_I = \\frac{2c(x_0 + a)}{2(c + ex_0)} = \\frac{c(x_0 + a)}{c + \\frac{c}{a}x_0} = \\frac{c(x_0 + a)}{\\frac{c}{a}(a + x_0)} = a"
-              },
-              {
-                "type": "text",
-                "text": "同理可得"
-              },
-              {
-                "type": "math",
-                "latex": "y_I = \\frac{2c \\cdot y_0 + 0 + 0}{2c + 2ex_0} = \\frac{cy_0}{c+ex_0}"
-              },
               {
                 "type": "text",
                 "text": "。\n2. 垂心"
@@ -10228,32 +11348,26 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的高线斜率为"
-              },
-              {
-                "type": "math",
-                "latex": "k = -\\frac{1}{k_{PF_2}} = -\\frac{x_0-c}{y_0}"
-              },
-              {
-                "type": "text",
-                "text": "。方程为"
-              },
-              {
-                "type": "math",
-                "latex": "y = -\\frac{x_0-c}{y_0}(x+c)"
-              },
-              {
-                "type": "text",
-                "text": "。联立得"
-              },
-              {
-                "type": "math",
-                "latex": "y_H = \\frac{c^2-x_0^2}{y_0}"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "k = -\\frac{1}{k_{PF_2}} = -\\frac{x_0-c}{y_0}"
+          },
+          {
+            "text": "。方程为"
+          },
+          {
+            "latex": "y = -\\frac{x_0-c}{y_0}(x+c)"
+          },
+          {
+            "text": "。联立得"
+          },
+          {
+            "latex": "y_H = \\frac{c^2-x_0^2}{y_0}"
+          },
+          {
+            "text": "。"
           },
           {
             "segments": [
@@ -10284,16 +11398,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": ":"
-              },
-              {
-                "type": "math",
-                "latex": "c^2 + y_{O'}^2 = x_0^2 + (y_0 - y_{O'})^2 \\implies 2y_0y_{O'} = x_0^2 + y_0^2 - c^2"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "c^2 + y_{O'}^2 = x_0^2 + (y_0 - y_{O'})^2 \\implies 2y_0y_{O'} = x_0^2 + y_0^2 - c^2"
+          },
+          {
+            "text": "。"
           }
         ]
       },
@@ -10303,15 +11415,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "例题 1 (基础): 双曲线"
+          },
+          {
+            "latex": "\\frac{x^2}{9} - \\frac{y^2}{16} = 1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例题 1 (基础): 双曲线"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{9} - \\frac{y^2}{16} = 1"
-              },
               {
                 "type": "text",
                 "text": "上一点"
@@ -10331,19 +11441,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "为焦点, 则"
-              },
-              {
-                "type": "math",
-                "latex": "\\triangle PF_1F_2"
-              },
-              {
-                "type": "text",
-                "text": "的内心横坐标为 .\n解析: 直接套用结论,"
-              },
-              {
-                "type": "math",
-                "latex": "x_I = \\pm a = \\pm 3"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\triangle PF_1F_2"
+          },
+          {
+            "text": "的内心横坐标为 .\n解析: 直接套用结论,"
+          },
+          {
+            "latex": "x_I = \\pm a = \\pm 3"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "。\n例题 2 (进阶): 设"
@@ -10355,11 +11466,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "是双曲线"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2} - \\frac{y^2}{b^2} = 1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{x^2}{a^2} - \\frac{y^2}{b^2} = 1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "右支上一点,"
@@ -10371,35 +11485,32 @@ module.exports = {
               {
                 "type": "text",
                 "text": "为"
-              },
-              {
-                "type": "math",
-                "latex": "\\triangle PF_1F_2"
-              },
-              {
-                "type": "text",
-                "text": "内心, 证明"
-              },
-              {
-                "type": "math",
-                "latex": "\\triangle IF_1F_2"
-              },
-              {
-                "type": "text",
-                "text": "的面积与"
-              },
-              {
-                "type": "math",
-                "latex": "\\triangle PF_1F_2"
-              },
-              {
-                "type": "text",
-                "text": "的面积之比为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{a}{a+ex_0}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\triangle PF_1F_2"
+          },
+          {
+            "text": "内心, 证明"
+          },
+          {
+            "latex": "\\triangle IF_1F_2"
+          },
+          {
+            "text": "的面积与"
+          },
+          {
+            "latex": "\\triangle PF_1F_2"
+          },
+          {
+            "text": "的面积之比为"
+          },
+          {
+            "latex": "\\frac{a}{a+ex_0}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "。\n解析:\n面积之比等于高之比（底边相同, 均为"
@@ -10411,11 +11522,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "）。"
-              },
-              {
-                "type": "math",
-                "latex": "h_I = y_I = \\frac{cy_0}{c+ex_0}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "h_I = y_I = \\frac{cy_0}{c+ex_0}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": ","
@@ -10427,11 +11541,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。\n比值"
-              },
-              {
-                "type": "math",
-                "latex": "= \\frac{c}{c+ex_0} = \\frac{c}{c(1+ex_0/c)} = \\frac{1}{1 + \\frac{x_0}{a}} = \\frac{a}{a+x_0}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "= \\frac{c}{c+ex_0} = \\frac{c}{c(1+ex_0/c)} = \\frac{1}{1 + \\frac{x_0}{a}} = \\frac{a}{a+x_0}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "?\n注意:"
@@ -10443,11 +11560,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": ", 则"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{y_I}{y_0} = \\frac{c}{c+ex_0} = \\frac{a}{a+ex_0}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{y_I}{y_0} = \\frac{c}{c+ex_0} = \\frac{a}{a+ex_0}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "。证毕。\n例题 3 (综合): 当"
@@ -10483,16 +11603,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "范围一致, 即"
-              },
-              {
-                "type": "math",
-                "latex": "(-\\infty, -a] \\cup [a, +\\infty)"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "(-\\infty, -a] \\cup [a, +\\infty)"
+          },
+          {
+            "text": "。"
           }
         ]
       },
@@ -10530,16 +11648,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。考试常考“内心轨迹方程”，应填"
-              },
-              {
-                "type": "math",
-                "latex": "x = \\pm a"
-              },
-              {
-                "type": "text",
-                "text": "（去掉顶点处）。"
               }
             ]
+          },
+          {
+            "latex": "x = \\pm a"
+          },
+          {
+            "text": "（去掉顶点处）。"
           },
           {
             "segments": [
@@ -10554,35 +11670,29 @@ module.exports = {
               {
                 "type": "text",
                 "text": "趋近于顶点"
-              },
-              {
-                "type": "math",
-                "latex": "(\\pm a, 0)"
-              },
-              {
-                "type": "text",
-                "text": "时，"
-              },
-              {
-                "type": "math",
-                "latex": "y_0 \\to 0"
-              },
-              {
-                "type": "text",
-                "text": "，垂心和外心的纵坐标趋于无穷大，此时三角形退化为线段，公式失去几何意义。"
               }
             ]
           },
           {
+            "latex": "(\\pm a, 0)"
+          },
+          {
+            "text": "时，"
+          },
+          {
+            "latex": "y_0 \\to 0"
+          },
+          {
+            "text": "，垂心和外心的纵坐标趋于无穷大，此时三角形退化为线段，公式失去几何意义。"
+          },
+          {
+            "text": "离心率混淆: 在内心纵坐标公式"
+          },
+          {
+            "latex": "y_I = \\frac{cy_0}{c+ex_0}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "离心率混淆: 在内心纵坐标公式"
-              },
-              {
-                "type": "math",
-                "latex": "y_I = \\frac{cy_0}{c+ex_0}"
-              },
               {
                 "type": "text",
                 "text": "中，注意分母是"
@@ -10663,16 +11773,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "), 双曲内心横标定 ("
-              },
-              {
-                "type": "math",
-                "latex": "\\pm a"
-              },
-              {
-                "type": "text",
-                "text": ")。"
               }
             ]
+          },
+          {
+            "latex": "\\pm a"
+          },
+          {
+            "text": ")。"
           }
         ]
       }
@@ -10863,7 +11971,67 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
+            "title": "条件 1（标准方程）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "椭圆方程为"
+              },
+              {
+                "type": "math",
+                "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+              },
+              {
+                "type": "text",
+                "text": "，其中"
+              },
+              {
+                "type": "math",
+                "latex": "a>b>0"
+              },
+              {
+                "type": "text",
+                "text": "；直线方程为"
+              },
+              {
+                "type": "math",
+                "latex": "y=kx+m"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "椭圆方程为 ，其中 ；直线方程为 。",
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
+            "title": "结论一（相切条件）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "直线与椭圆相切时，截距平方满足固定关系。"
+              },
+              {
+                "type": "math",
+                "latex": "m^2 = a^2 k^2 + b^2"
+              }
+            ],
+            "desc": "直线与椭圆相切时，截距平方满足固定关系。",
+            "latex": "m^2 = a^2 k^2 + b^2"
+          },
+          {
             "title": "推广结论（切线方程）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "切线方程可直接写出截距表达式。"
+              },
+              {
+                "type": "math",
+                "latex": "y = kx \\pm \\sqrt{a^2 k^2 + b^2}"
+              }
+            ],
             "desc": "切线方程可直接写出截距表达式。",
             "latex": "y = kx \\pm \\sqrt{a^2 k^2 + b^2}"
           }
@@ -10910,20 +12078,13 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "要点二（判别式零）：\n相切时二次方程有重根，故判别式"
-              },
-              {
-                "type": "math",
-                "latex": "\\Delta = 0"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "要点二（判别式零）：\n相切时二次方程有重根，故判别式"
+          },
+          {
+            "latex": "\\Delta = 0"
+          },
+          {
+            "text": "。"
           },
           {
             "text": "几何本质（唯一交点）\n切线与椭圆仅有一个公共点，且该点处直线斜率与椭圆局部斜率一致，但代数上只需用公共点唯一性刻画。"
@@ -11099,19 +12260,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "代入椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2} + \\frac{(kx+m)^2}{b^2} = 1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2} + \\frac{(kx+m)^2}{b^2} = 1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "理由： 联立直线与椭圆方程，消去"
@@ -11147,11 +12309,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "并展开整理。"
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\nb^2 x^2 + a^2 (k^2 x^2 + 2km x + m^2) &= a^2 b^2 \\\\\n(b^2 + a^2 k^2) x^2 + 2a^2 km \\, x + (a^2 m^2 - a^2 b^2) &= 0\n\\end{aligned}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\begin{aligned}\nb^2 x^2 + a^2 (k^2 x^2 + 2km x + m^2) &= a^2 b^2 \\\\\n(b^2 + a^2 k^2) x^2 + 2a^2 km \\, x + (a^2 m^2 - a^2 b^2) &= 0\n\\end{aligned}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "理由： 通分后合并同类项，化为关于"
@@ -11175,47 +12340,34 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤三（令判别式零）：\n相切时方程有重根，故判别式"
-              },
-              {
-                "type": "math",
-                "latex": "\\Delta = B^2 - 4AC = 0"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              },
-              {
-                "type": "math",
-                "latex": "(2a^2 km)^2 - 4(b^2 + a^2 k^2)(a^2 m^2 - a^2 b^2) = 0"
-              },
-              {
-                "type": "text",
-                "text": "理由： 二次方程有唯一解当且仅当"
-              },
-              {
-                "type": "math",
-                "latex": "\\Delta=0"
-              },
-              {
-                "type": "text",
-                "text": "，这是相切的代数等价条件。"
-              }
-            ]
+            "text": "步骤三（令判别式零）：\n相切时方程有重根，故判别式"
+          },
+          {
+            "latex": "\\Delta = B^2 - 4AC = 0"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "latex": "(2a^2 km)^2 - 4(b^2 + a^2 k^2)(a^2 m^2 - a^2 b^2) = 0"
+          },
+          {
+            "text": "理由： 二次方程有唯一解当且仅当"
+          },
+          {
+            "latex": "\\Delta=0"
+          },
+          {
+            "text": "，这是相切的代数等价条件。"
+          },
+          {
+            "text": "步骤四（化简求解）：\n展开判别式并化简。"
+          },
+          {
+            "latex": "\\begin{aligned}\n4a^4 k^2 m^2 - 4a^2 (b^2 + a^2 k^2)(m^2 - b^2) &= 0 \\\\\na^2 k^2 m^2 - (b^2 + a^2 k^2)(m^2 - b^2) &= 0 \\\\\na^2 k^2 m^2 - (b^2 m^2 - b^4 + a^2 k^2 m^2 - a^2 k^2 b^2) &= 0 \\\\\n-b^2 m^2 + b^4 + a^2 k^2 b^2 &= 0\n\\end{aligned}"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "步骤四（化简求解）：\n展开判别式并化简。"
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\n4a^4 k^2 m^2 - 4a^2 (b^2 + a^2 k^2)(m^2 - b^2) &= 0 \\\\\na^2 k^2 m^2 - (b^2 + a^2 k^2)(m^2 - b^2) &= 0 \\\\\na^2 k^2 m^2 - (b^2 m^2 - b^4 + a^2 k^2 m^2 - a^2 k^2 b^2) &= 0 \\\\\n-b^2 m^2 + b^4 + a^2 k^2 b^2 &= 0\n\\end{aligned}"
-              },
               {
                 "type": "text",
                 "text": "整理得："
@@ -11278,15 +12430,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "例 1（基础）\n题目： 椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{4}+\\frac{y^2}{3}=1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例 1（基础）\n题目： 椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{4}+\\frac{y^2}{3}=1"
-              },
               {
                 "type": "text",
                 "text": "，直线"
@@ -11366,39 +12516,28 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第三步（计算右边）：\n计算"
-              },
-              {
-                "type": "math",
-                "latex": "a^2 k^2 + b^2 = 4 \\times 2^2 + 3 = 4 \\times 4 + 3 = 16 + 3 = 19"
-              },
-              {
-                "type": "text",
-                "text": "。\n理由： 代入公式右边表达式。"
-              }
-            ]
+            "text": "第三步（计算右边）：\n计算"
+          },
+          {
+            "latex": "a^2 k^2 + b^2 = 4 \\times 2^2 + 3 = 4 \\times 4 + 3 = 16 + 3 = 19"
+          },
+          {
+            "text": "。\n理由： 代入公式右边表达式。"
+          },
+          {
+            "text": "第四步（比较判断）：\n因为"
+          },
+          {
+            "latex": "1 \\neq 19"
+          },
+          {
+            "text": "，所以"
+          },
+          {
+            "latex": "m^2 \\neq a^2 k^2 + b^2"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "第四步（比较判断）：\n因为"
-              },
-              {
-                "type": "math",
-                "latex": "1 \\neq 19"
-              },
-              {
-                "type": "text",
-                "text": "，所以"
-              },
-              {
-                "type": "math",
-                "latex": "m^2 \\neq a^2 k^2 + b^2"
-              },
               {
                 "type": "text",
                 "text": "。\n理由： 充要条件不满足，故直线与椭圆不相切。\n关键结论： 直接应用公式快速判断：若"
@@ -11414,15 +12553,13 @@ module.exports = {
             ]
           },
           {
+            "text": "例 2（稍变形）\n题目： 椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{9}+\\frac{y^2}{5}=1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例 2（稍变形）\n题目： 椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{9}+\\frac{y^2}{5}=1"
-              },
               {
                 "type": "text",
                 "text": "，直线"
@@ -11538,16 +12675,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "无实数解，因为平方数非负。\n理由： 实数范围内"
-              },
-              {
-                "type": "math",
-                "latex": "k^2 \\ge 0"
-              },
-              {
-                "type": "text",
-                "text": "，右边为负矛盾。"
               }
             ]
+          },
+          {
+            "latex": "k^2 \\ge 0"
+          },
+          {
+            "text": "，右边为负矛盾。"
           },
           {
             "segments": [
@@ -11621,15 +12756,13 @@ module.exports = {
             ]
           },
           {
+            "text": "正确理解（标准方程）：\n公式仅适用于椭圆标准方程"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（标准方程）：\n公式仅适用于椭圆标准方程"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
-              },
               {
                 "type": "text",
                 "text": "且"
@@ -11736,15 +12869,13 @@ module.exports = {
             ]
           },
           {
+            "text": "正确理解（分类讨论）：\n当直线垂直时，应单独考虑切线方程"
+          },
+          {
+            "latex": "x=\\pm a"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（分类讨论）：\n当直线垂直时，应单独考虑切线方程"
-              },
-              {
-                "type": "math",
-                "latex": "x=\\pm a"
-              },
               {
                 "type": "text",
                 "text": "，其对应"
@@ -11782,11 +12913,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "与椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "相切的充要条件是"
@@ -11872,20 +13006,13 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "检查项（特殊情形）： 遇到垂直切线（斜率不存在）时，应单独验证"
-              },
-              {
-                "type": "math",
-                "latex": "x=\\pm a"
-              },
-              {
-                "type": "text",
-                "text": "是否满足。"
-              }
-            ]
+            "text": "检查项（特殊情形）： 遇到垂直切线（斜率不存在）时，应单独验证"
+          },
+          {
+            "latex": "x=\\pm a"
+          },
+          {
+            "text": "是否满足。"
           }
         ]
       }
@@ -12059,12 +13186,67 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
+            "title": "条件 1（椭圆上点）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "点"
+              },
+              {
+                "type": "math",
+                "latex": "P(x_0, y_0)"
+              },
+              {
+                "type": "text",
+                "text": "在椭圆"
+              },
+              {
+                "type": "math",
+                "latex": "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
+              },
+              {
+                "type": "text",
+                "text": "上。"
+              }
+            ],
+            "desc": "点 在椭圆 上。",
+            "latex": "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
+          },
+          {
             "title": "结论一（标准形式）：",
-            "desc": "椭圆在点",
-            "latex": "P \\qquad \\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1."
+            "segments": [
+              {
+                "type": "text",
+                "text": "椭圆在点"
+              },
+              {
+                "type": "math",
+                "latex": "P"
+              },
+              {
+                "type": "text",
+                "text": "处的切线方程。"
+              },
+              {
+                "type": "math",
+                "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1."
+              }
+            ],
+            "desc": "椭圆在点 处的切线方程。",
+            "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1."
           },
           {
             "title": "推广结论（斜率表达）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "切线斜率的坐标表达式。"
+              },
+              {
+                "type": "math",
+                "latex": "k = -\\frac{b^2 x_0}{a^2 y_0} \\quad (y_0 \\neq 0)."
+              }
+            ],
             "desc": "切线斜率的坐标表达式。",
             "latex": "k = -\\frac{b^2 x_0}{a^2 y_0} \\quad (y_0 \\neq 0)."
           }
@@ -12131,16 +13313,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "满足椭圆方程"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0^2}{a^2} + \\frac{y_0^2}{b^2} = 1"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "\\frac{x_0^2}{a^2} + \\frac{y_0^2}{b^2} = 1"
+          },
+          {
+            "text": "。"
           },
           {
             "segments": [
@@ -12211,28 +13391,19 @@ module.exports = {
             "text": "考法二（切线性质）： 结合切线性质，求参数、判断位置或解决最值问题。"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "顿悟点\n记住“替换法”：在椭圆方程中，将"
-              },
-              {
-                "type": "math",
-                "latex": "x^2 \\to x_0 x"
-              },
-              {
-                "type": "text",
-                "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "y^2 \\to y_0 y"
-              },
-              {
-                "type": "text",
-                "text": "，常数项不变，立即写出切线方程。"
-              }
-            ]
+            "text": "顿悟点\n记住“替换法”：在椭圆方程中，将"
+          },
+          {
+            "latex": "x^2 \\to x_0 x"
+          },
+          {
+            "text": "，"
+          },
+          {
+            "latex": "y^2 \\to y_0 y"
+          },
+          {
+            "text": "，常数项不变，立即写出切线方程。"
           },
           {
             "text": "使用场景"
@@ -12289,28 +13460,19 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤二（联立椭圆）：\n将直线方程代入椭圆方程"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2} + \\frac{[y_0 + k(x - x_0)]^2}{b^2} = 1"
-              },
-              {
-                "type": "text",
-                "text": "理由： 联立直线与椭圆方程，求交点。"
-              }
-            ]
+            "text": "步骤二（联立椭圆）：\n将直线方程代入椭圆方程"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2} + \\frac{[y_0 + k(x - x_0)]^2}{b^2} = 1"
+          },
+          {
+            "text": "理由： 联立直线与椭圆方程，求交点。"
           },
           {
             "segments": [
@@ -12325,16 +13487,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的二次方程。"
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\n&\\frac{x^2}{a^2} + \\frac{y_0^2 + 2k y_0 (x - x_0) + k^2 (x - x_0)^2}{b^2} = 1 \\\\\n&\\Rightarrow \\frac{x^2}{a^2} + \\frac{y_0^2}{b^2} + \\frac{2k y_0 (x - x_0)}{b^2} + \\frac{k^2 (x - x_0)^2}{b^2} = 1\n\\end{aligned}"
-              },
-              {
-                "type": "text",
-                "text": "理由： 展开平方项，为化简做准备。"
               }
             ]
+          },
+          {
+            "latex": "\\begin{aligned}\n&\\frac{x^2}{a^2} + \\frac{y_0^2 + 2k y_0 (x - x_0) + k^2 (x - x_0)^2}{b^2} = 1 \\\\\n&\\Rightarrow \\frac{x^2}{a^2} + \\frac{y_0^2}{b^2} + \\frac{2k y_0 (x - x_0)}{b^2} + \\frac{k^2 (x - x_0)^2}{b^2} = 1\n\\end{aligned}"
+          },
+          {
+            "text": "理由： 展开平方项，为化简做准备。"
           },
           {
             "segments": [
@@ -12349,32 +13509,26 @@ module.exports = {
               {
                 "type": "text",
                 "text": "在椭圆上，有"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0^2}{a^2} + \\frac{y_0^2}{b^2} = 1"
-              },
-              {
-                "type": "text",
-                "text": "，代入上式。"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2} + 1 - \\frac{x_0^2}{a^2} + \\frac{2k y_0 (x - x_0)}{b^2} + \\frac{k^2 (x - x_0)^2}{b^2} = 1"
-              },
-              {
-                "type": "text",
-                "text": "理由： 替换"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{y_0^2}{b^2} = 1 - \\frac{x_0^2}{a^2}"
-              },
-              {
-                "type": "text",
-                "text": "，简化常数项。"
               }
             ]
+          },
+          {
+            "latex": "\\frac{x_0^2}{a^2} + \\frac{y_0^2}{b^2} = 1"
+          },
+          {
+            "text": "，代入上式。"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2} + 1 - \\frac{x_0^2}{a^2} + \\frac{2k y_0 (x - x_0)}{b^2} + \\frac{k^2 (x - x_0)^2}{b^2} = 1"
+          },
+          {
+            "text": "理由： 替换"
+          },
+          {
+            "latex": "\\frac{y_0^2}{b^2} = 1 - \\frac{x_0^2}{a^2}"
+          },
+          {
+            "text": "，简化常数项。"
           },
           {
             "segments": [
@@ -12389,11 +13543,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的二次方程。"
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\n&\\frac{x^2 - x_0^2}{a^2} + \\frac{2k y_0 (x - x_0)}{b^2} + \\frac{k^2 (x - x_0)^2}{b^2} = 0 \\\\\n&\\Rightarrow (x - x_0) \\left[ \\frac{x + x_0}{a^2} + \\frac{2k y_0}{b^2} + \\frac{k^2 (x - x_0)}{b^2} \\right] = 0\n\\end{aligned}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\begin{aligned}\n&\\frac{x^2 - x_0^2}{a^2} + \\frac{2k y_0 (x - x_0)}{b^2} + \\frac{k^2 (x - x_0)^2}{b^2} = 0 \\\\\n&\\Rightarrow (x - x_0) \\left[ \\frac{x + x_0}{a^2} + \\frac{2k y_0}{b^2} + \\frac{k^2 (x - x_0)}{b^2} \\right] = 0\n\\end{aligned}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "理由： 因式分解，注意到"
@@ -12437,11 +13594,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "时也为零。"
-              },
-              {
-                "type": "math",
-                "latex": "\\left. \\frac{x + x_0}{a^2} + \\frac{2k y_0}{b^2} + \\frac{k^2 (x - x_0)}{b^2} \\right|_{x = x_0} = 0"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\left. \\frac{x + x_0}{a^2} + \\frac{2k y_0}{b^2} + \\frac{k^2 (x - x_0)}{b^2} \\right|_{x = x_0} = 0"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "理由： 重根条件意味着"
@@ -12469,40 +13629,32 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，得"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{2x_0}{a^2} + \\frac{2k y_0}{b^2} = 0"
-              },
-              {
-                "type": "text",
-                "text": "，解得"
-              },
-              {
-                "type": "math",
-                "latex": "k = -\\frac{b^2 x_0}{a^2 y_0}"
-              },
-              {
-                "type": "text",
-                "text": "（当"
-              },
-              {
-                "type": "math",
-                "latex": "y_0 \\neq 0"
-              },
-              {
-                "type": "text",
-                "text": "）。"
-              },
-              {
-                "type": "math",
-                "latex": "k = -\\frac{b^2 x_0}{a^2 y_0}"
-              },
-              {
-                "type": "text",
-                "text": "理由： 直接解出斜率表达式。"
               }
             ]
+          },
+          {
+            "latex": "\\frac{2x_0}{a^2} + \\frac{2k y_0}{b^2} = 0"
+          },
+          {
+            "text": "，解得"
+          },
+          {
+            "latex": "k = -\\frac{b^2 x_0}{a^2 y_0}"
+          },
+          {
+            "text": "（当"
+          },
+          {
+            "latex": "y_0 \\neq 0"
+          },
+          {
+            "text": "）。"
+          },
+          {
+            "latex": "k = -\\frac{b^2 x_0}{a^2 y_0}"
+          },
+          {
+            "text": "理由： 直接解出斜率表达式。"
           },
           {
             "segments": [
@@ -12517,27 +13669,23 @@ module.exports = {
               {
                 "type": "text",
                 "text": "代入点斜式，并化简。"
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\ny - y_0 &= -\\frac{b^2 x_0}{a^2 y_0} (x - x_0) \\\\\n\\Rightarrow a^2 y_0 (y - y_0) &= -b^2 x_0 (x - x_0) \\\\\n\\Rightarrow b^2 x_0 x + a^2 y_0 y &= b^2 x_0^2 + a^2 y_0^2\n\\end{aligned}"
-              },
-              {
-                "type": "text",
-                "text": "理由： 代入斜率，整理方程。"
               }
             ]
           },
           {
+            "latex": "\\begin{aligned}\ny - y_0 &= -\\frac{b^2 x_0}{a^2 y_0} (x - x_0) \\\\\n\\Rightarrow a^2 y_0 (y - y_0) &= -b^2 x_0 (x - x_0) \\\\\n\\Rightarrow b^2 x_0 x + a^2 y_0 y &= b^2 x_0^2 + a^2 y_0^2\n\\end{aligned}"
+          },
+          {
+            "text": "理由： 代入斜率，整理方程。"
+          },
+          {
+            "text": "步骤九（利用椭圆方程）：\n由于"
+          },
+          {
+            "latex": "\\frac{x_0^2}{a^2} + \\frac{y_0^2}{b^2} = 1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "步骤九（利用椭圆方程）：\n由于"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0^2}{a^2} + \\frac{y_0^2}{b^2} = 1"
-              },
               {
                 "type": "text",
                 "text": "，有"
@@ -12573,11 +13721,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，得到标准形式。"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "理由： 除以"
@@ -12593,15 +13744,13 @@ module.exports = {
             ]
           },
           {
+            "text": "结论回扣\n因此，椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "结论回扣\n因此，椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
-              },
               {
                 "type": "text",
                 "text": "在点"
@@ -12613,16 +13762,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "处的切线方程为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1"
+          },
+          {
+            "text": "。"
           }
         ]
       },
@@ -12632,15 +13779,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "例 1（基础）\n题目： 已知椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{9} + \\frac{y^2}{4} = 1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例 1（基础）\n题目： 已知椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{9} + \\frac{y^2}{4} = 1"
-              },
               {
                 "type": "text",
                 "text": "，点"
@@ -12676,11 +13821,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "满足椭圆方程。"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{3^2}{9} + \\frac{0^2}{4} = \\frac{9}{9} + 0 = 1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{3^2}{9} + \\frac{0^2}{4} = \\frac{9}{9} + 0 = 1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "理由： 确保点"
@@ -12732,35 +13880,29 @@ module.exports = {
               {
                 "type": "text",
                 "text": "代入切线公式"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{3x}{9} + \\frac{0 \\cdot y}{4} = 1"
-              },
-              {
-                "type": "text",
-                "text": "理由： 直接应用切线方程结论。"
               }
             ]
           },
           {
+            "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "latex": "\\frac{3x}{9} + \\frac{0 \\cdot y}{4} = 1"
+          },
+          {
+            "text": "理由： 直接应用切线方程结论。"
+          },
+          {
+            "text": "第三步（化简方程）：\n化简得切线方程。"
+          },
+          {
+            "latex": "\\frac{x}{3} = 1 \\quad \\Rightarrow \\quad x = 3"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "第三步（化简方程）：\n化简得切线方程。"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x}{3} = 1 \\quad \\Rightarrow \\quad x = 3"
-              },
               {
                 "type": "text",
                 "text": "理由： 简化方程，得到最终形式。\n关键结论： 切线方程为"
@@ -12776,23 +13918,19 @@ module.exports = {
             ]
           },
           {
+            "text": "例 2（稍变形）\n题目： 已知椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{4} + \\frac{y^2}{3} = 1"
+          },
+          {
+            "text": "，点"
+          },
+          {
+            "latex": "P(1, \\frac{3}{2})"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例 2（稍变形）\n题目： 已知椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{4} + \\frac{y^2}{3} = 1"
-              },
-              {
-                "type": "text",
-                "text": "，点"
-              },
-              {
-                "type": "math",
-                "latex": "P(1, \\frac{3}{2})"
-              },
               {
                 "type": "text",
                 "text": "在椭圆上。求椭圆在点"
@@ -12852,56 +13990,41 @@ module.exports = {
               {
                 "type": "text",
                 "text": ","
-              },
-              {
-                "type": "math",
-                "latex": "y_0=\\frac{3}{2}"
-              },
-              {
-                "type": "text",
-                "text": "代入切线公式。"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{1 \\cdot x}{4} + \\frac{\\frac{3}{2} \\cdot y}{3} = 1"
-              },
-              {
-                "type": "text",
-                "text": "理由： 直接应用切线方程结论。"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第二步（化简切线）：\n化简方程。"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x}{4} + \\frac{y}{2} = 1"
-              },
-              {
-                "type": "text",
-                "text": "理由："
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{\\frac{3}{2} y}{3} = \\frac{3y}{6} = \\frac{y}{2}"
-              },
-              {
-                "type": "text",
-                "text": "，所以方程为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x}{4} + \\frac{y}{2} = 1"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "latex": "y_0=\\frac{3}{2}"
+          },
+          {
+            "text": "代入切线公式。"
+          },
+          {
+            "latex": "\\frac{1 \\cdot x}{4} + \\frac{\\frac{3}{2} \\cdot y}{3} = 1"
+          },
+          {
+            "text": "理由： 直接应用切线方程结论。"
+          },
+          {
+            "text": "第二步（化简切线）：\n化简方程。"
+          },
+          {
+            "latex": "\\frac{x}{4} + \\frac{y}{2} = 1"
+          },
+          {
+            "text": "理由："
+          },
+          {
+            "latex": "\\frac{\\frac{3}{2} y}{3} = \\frac{3y}{6} = \\frac{y}{2}"
+          },
+          {
+            "text": "，所以方程为"
+          },
+          {
+            "latex": "\\frac{x}{4} + \\frac{y}{2} = 1"
+          },
+          {
+            "text": "。"
           },
           {
             "segments": [
@@ -12940,47 +14063,38 @@ module.exports = {
               {
                 "type": "text",
                 "text": "截距。"
-              },
-              {
-                "type": "math",
-                "latex": "\\text{令 } y=0: \\frac{x}{4} = 1 \\Rightarrow x = 4 \\quad \\text{（$x$ 截距）}"
-              },
-              {
-                "type": "math",
-                "latex": "\\text{令 } x=0: \\frac{y}{2} = 1 \\Rightarrow y = 2 \\quad \\text{（$y$ 截距）}"
-              },
-              {
-                "type": "text",
-                "text": "理由： 截距是直线与坐标轴交点的坐标。"
               }
             ]
           },
           {
+            "latex": "\\text{令 } y=0: \\frac{x}{4} = 1 \\Rightarrow x = 4 \\quad \\text{（$x$ 截距）}"
+          },
+          {
+            "latex": "\\text{令 } x=0: \\frac{y}{2} = 1 \\Rightarrow y = 2 \\quad \\text{（$y$ 截距）}"
+          },
+          {
+            "text": "理由： 截距是直线与坐标轴交点的坐标。"
+          },
+          {
+            "text": "第四步（求面积）：\n截距围成的直角三角形面积"
+          },
+          {
+            "latex": "S = \\frac{1}{2} \\times |x\\text{截距}| \\times |y\\text{截距}|"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "latex": "S = \\frac{1}{2} \\times 4 \\times 2 = 4"
+          },
+          {
+            "text": "理由： 三角形面积公式。\n关键结论： 切线方程为"
+          },
+          {
+            "latex": "\\frac{x}{4} + \\frac{y}{2} = 1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "第四步（求面积）：\n截距围成的直角三角形面积"
-              },
-              {
-                "type": "math",
-                "latex": "S = \\frac{1}{2} \\times |x\\text{截距}| \\times |y\\text{截距}|"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              },
-              {
-                "type": "math",
-                "latex": "S = \\frac{1}{2} \\times 4 \\times 2 = 4"
-              },
-              {
-                "type": "text",
-                "text": "理由： 三角形面积公式。\n关键结论： 切线方程为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x}{4} + \\frac{y}{2} = 1"
-              },
               {
                 "type": "text",
                 "text": "，"
@@ -13047,16 +14161,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "不在椭圆上时，直接代入公式"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1"
-              },
-              {
-                "type": "text",
-                "text": "得到的是错误方程。"
               }
             ]
+          },
+          {
+            "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1"
+          },
+          {
+            "text": "得到的是错误方程。"
           },
           {
             "segments": [
@@ -13127,27 +14239,23 @@ module.exports = {
               {
                 "type": "text",
                 "text": "时，切点在椭圆左右顶点，切线方程为"
-              },
-              {
-                "type": "math",
-                "latex": "x = \\pm a"
-              },
-              {
-                "type": "text",
-                "text": "，是垂直直线。"
               }
             ]
           },
           {
+            "latex": "x = \\pm a"
+          },
+          {
+            "text": "，是垂直直线。"
+          },
+          {
+            "text": "错因分析（斜率无穷大）：\n斜率公式"
+          },
+          {
+            "latex": "k = -\\frac{b^2 x_0}{a^2 y_0}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "错因分析（斜率无穷大）：\n斜率公式"
-              },
-              {
-                "type": "math",
-                "latex": "k = -\\frac{b^2 x_0}{a^2 y_0}"
-              },
               {
                 "type": "text",
                 "text": "在"
@@ -13163,44 +14271,28 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "易错点三（公式记忆错误）\n记错切线公式，如将"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1"
-              },
-              {
-                "type": "text",
-                "text": "写成"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x x_0}{a^2} + \\frac{y y_0}{b^2} = 1"
-              },
-              {
-                "type": "text",
-                "text": "（正确），但可能混淆分母或符号。"
-              }
-            ]
+            "text": "易错点三（公式记忆错误）\n记错切线公式，如将"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（标准形式）：\n正确形式为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1"
-              },
-              {
-                "type": "text",
-                "text": "，其中分子是切点坐标与变量乘积，分母是对应半轴平方。"
-              }
-            ]
+            "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1"
+          },
+          {
+            "text": "写成"
+          },
+          {
+            "latex": "\\frac{x x_0}{a^2} + \\frac{y y_0}{b^2} = 1"
+          },
+          {
+            "text": "（正确），但可能混淆分母或符号。"
+          },
+          {
+            "text": "正确理解（标准形式）：\n正确形式为"
+          },
+          {
+            "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1"
+          },
+          {
+            "text": "，其中分子是切点坐标与变量乘积，分母是对应半轴平方。"
           },
           {
             "text": "错因分析（记忆混淆）：\n由于椭圆方程与切线形式相似，易混淆平方项与乘积项，需通过推导或特例加强记忆。"
@@ -13268,27 +14360,23 @@ module.exports = {
               {
                 "type": "text",
                 "text": "必须满足椭圆方程"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0^2}{a^2} + \\frac{y_0^2}{b^2} = 1"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
           },
           {
+            "latex": "\\frac{x_0^2}{a^2} + \\frac{y_0^2}{b^2} = 1"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "条件 2（标准方程）： 椭圆方程必须为标准形式"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "条件 2（标准方程）： 椭圆方程必须为标准形式"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
-              },
               {
                 "type": "text",
                 "text": "（"
@@ -13310,15 +14398,13 @@ module.exports = {
             "text": "易错点（点不在椭圆）： 使用公式前务必验证点是否在椭圆上，否则结果错误。"
           },
           {
+            "text": "检查项（验证点坐标）： 解题时先计算"
+          },
+          {
+            "latex": "\\frac{x_0^2}{a^2} + \\frac{y_0^2}{b^2}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "检查项（验证点坐标）： 解题时先计算"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0^2}{a^2} + \\frac{y_0^2}{b^2}"
-              },
               {
                 "type": "text",
                 "text": "是否等于"
@@ -13571,14 +14657,85 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
+            "title": "条件 1（椭圆方程）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "椭圆"
+              },
+              {
+                "type": "math",
+                "latex": "C"
+              },
+              {
+                "type": "text",
+                "text": "的方程为"
+              },
+              {
+                "type": "math",
+                "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1\\ (a>b>0)"
+              },
+              {
+                "type": "text",
+                "text": "，点"
+              },
+              {
+                "type": "math",
+                "latex": "P(x_0,y_0)"
+              },
+              {
+                "type": "text",
+                "text": "在椭圆"
+              },
+              {
+                "type": "math",
+                "latex": "C"
+              },
+              {
+                "type": "text",
+                "text": "上。"
+              }
+            ],
+            "desc": "椭圆 的方程为 ，点 在椭圆 上。",
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1\\ (a>b>0)"
+          },
+          {
             "title": "结论一（斜率乘积）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "原点与椭圆上点连线的斜率，乘以该点处切线的斜率，结果为离心率平方减一。"
+              },
+              {
+                "type": "math",
+                "latex": "k_{OP} \\cdot k_l = e^{2} - 1"
+              }
+            ],
             "desc": "原点与椭圆上点连线的斜率，乘以该点处切线的斜率，结果为离心率平方减一。",
             "latex": "k_{OP} \\cdot k_l = e^{2} - 1"
           },
           {
             "title": "推广结论（圆特例）：",
-            "desc": "当椭圆退化为圆时，两斜率乘积为",
-            "latex": "-1 \\qquad \\text{若 } e=0 \\text{(即圆)} k_{OP} \\cdot k_l = -1."
+            "segments": [
+              {
+                "type": "text",
+                "text": "当椭圆退化为圆时，两斜率乘积为"
+              },
+              {
+                "type": "math",
+                "latex": "-1"
+              },
+              {
+                "type": "text",
+                "text": "，即切线垂直于半径。"
+              },
+              {
+                "type": "math",
+                "latex": "\\text{若 } e=0 \\text{(即圆)} k_{OP} \\cdot k_l = -1."
+              }
+            ],
+            "desc": "当椭圆退化为圆时，两斜率乘积为 ，即切线垂直于半径。",
+            "latex": "\\text{若 } e=0 \\text{(即圆)} k_{OP} \\cdot k_l = -1."
           }
         ]
       },
@@ -13665,19 +14822,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "可由隐函数求导得到："
-              },
-              {
-                "type": "math",
-                "latex": "k_l = -\\frac{b^2 x_0}{a^2 y_0}"
-              },
-              {
-                "type": "text",
-                "text": "。而"
-              },
-              {
-                "type": "math",
-                "latex": "k_{OP} = \\frac{y_0}{x_0}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "k_l = -\\frac{b^2 x_0}{a^2 y_0}"
+          },
+          {
+            "text": "。而"
+          },
+          {
+            "latex": "k_{OP} = \\frac{y_0}{x_0}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "。两者相乘后，坐标"
@@ -13697,11 +14855,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "相关的量"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{b^2}{a^2}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{b^2}{a^2}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "，进而化为"
@@ -13808,15 +14969,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "思路提示\n目标是证明"
+          },
+          {
+            "latex": "k_{OP} \\cdot k_l = e^2 - 1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "思路提示\n目标是证明"
-              },
-              {
-                "type": "math",
-                "latex": "k_{OP} \\cdot k_l = e^2 - 1"
-              },
               {
                 "type": "text",
                 "text": "。核心步骤是：先分别用点"
@@ -13852,16 +15011,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "在椭圆上满足的方程以及离心率定义"
-              },
-              {
-                "type": "math",
-                "latex": "e^2 = 1 - \\frac{b^2}{a^2}"
-              },
-              {
-                "type": "text",
-                "text": "进行化简。"
               }
             ]
+          },
+          {
+            "latex": "e^2 = 1 - \\frac{b^2}{a^2}"
+          },
+          {
+            "text": "进行化简。"
           },
           {
             "text": "正式推导"
@@ -13879,19 +15036,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的斜率为"
-              },
-              {
-                "type": "math",
-                "latex": "k_{OP} = \\frac{y_0}{x_0}"
-              },
-              {
-                "type": "text",
-                "text": "（其中"
-              },
-              {
-                "type": "math",
-                "latex": "x_0 \\neq 0"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "k_{OP} = \\frac{y_0}{x_0}"
+          },
+          {
+            "text": "（其中"
+          },
+          {
+            "latex": "x_0 \\neq 0"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "）。\n理由： 两点"
@@ -13943,11 +15101,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，可通过隐函数求导得到。"
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\n\\frac{x^2}{a^2}+\\frac{y^2}{b^2} &= 1 \\\\\n\\frac{d}{dx}\\left(\\frac{x^2}{a^2}+\\frac{y^2}{b^2}\\right) &= \\frac{d}{dx}(1) \\\\\n\\frac{2x}{a^2} + \\frac{2y}{b^2} \\cdot \\frac{dy}{dx} &= 0\n\\end{aligned}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\begin{aligned}\n\\frac{x^2}{a^2}+\\frac{y^2}{b^2} &= 1 \\\\\n\\frac{d}{dx}\\left(\\frac{x^2}{a^2}+\\frac{y^2}{b^2}\\right) &= \\frac{d}{dx}(1) \\\\\n\\frac{2x}{a^2} + \\frac{2y}{b^2} \\cdot \\frac{dy}{dx} &= 0\n\\end{aligned}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "理由： 对方程两边关于"
@@ -13975,11 +15136,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的函数。\n解出"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{dy}{dx}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{dy}{dx}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "，并在点"
@@ -13991,34 +15155,32 @@ module.exports = {
               {
                 "type": "text",
                 "text": "处取值："
-              },
-              {
-                "type": "math",
-                "latex": "k_l = \\left.\\frac{dy}{dx}\\right|_{(x_0,y_0)} = -\\frac{b^2 x_0}{a^2 y_0} \\quad (y_0 \\neq 0)."
               }
             ]
+          },
+          {
+            "latex": "k_l = \\left.\\frac{dy}{dx}\\right|_{(x_0,y_0)} = -\\frac{b^2 x_0}{a^2 y_0} \\quad (y_0 \\neq 0)"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "步骤三（计算乘积）：\n计算"
+          },
+          {
+            "latex": "k_{OP} \\cdot k_l"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "latex": "k_{OP} \\cdot k_l = \\frac{y_0}{x_0} \\cdot \\left(-\\frac{b^2 x_0}{a^2 y_0}\\right) = -\\frac{b^2}{a^2}"
           },
           {
             "segments": [
               {
                 "type": "text",
-                "text": "步骤三（计算乘积）：\n计算"
-              },
-              {
-                "type": "math",
-                "latex": "k_{OP} \\cdot k_l"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              },
-              {
-                "type": "math",
-                "latex": "k_{OP} \\cdot k_l = \\frac{y_0}{x_0} \\cdot \\left(-\\frac{b^2 x_0}{a^2 y_0}\\right) = -\\frac{b^2}{a^2}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 将步骤一和步骤二的表达式代入，并约去"
+                "text": ".理由： 将步骤一和步骤二的表达式代入，并约去"
               },
               {
                 "type": "math",
@@ -14027,24 +15189,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "（假设"
-              },
-              {
-                "type": "math",
-                "latex": "x_0 \\neq 0"
-              },
-              {
-                "type": "text",
-                "text": "且"
-              },
-              {
-                "type": "math",
-                "latex": "y_0 \\neq 0"
-              },
-              {
-                "type": "text",
-                "text": "）。"
               }
             ]
+          },
+          {
+            "latex": "x_0 \\neq 0"
+          },
+          {
+            "text": "且"
+          },
+          {
+            "latex": "y_0 \\neq 0"
+          },
+          {
+            "text": "）。"
           },
           {
             "segments": [
@@ -14059,14 +15217,17 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的定义进行转化。"
-              },
-              {
-                "type": "math",
-                "latex": "e^2 = \\frac{c^2}{a^2} = \\frac{a^2 - b^2}{a^2} = 1 - \\frac{b^2}{a^2}."
-              },
+              }
+            ]
+          },
+          {
+            "latex": "e^2 = \\frac{c^2}{a^2} = \\frac{a^2 - b^2}{a^2} = 1 - \\frac{b^2}{a^2}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "理由： 这是椭圆离心率的标准定义，其中"
+                "text": ".理由： 这是椭圆离心率的标准定义，其中"
               },
               {
                 "type": "math",
@@ -14075,32 +15236,23 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。\n因此，"
-              },
-              {
-                "type": "math",
-                "latex": "-\\frac{b^2}{a^2} = e^2 - 1"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤五（合并结果）：\n将步骤三与步骤四结合，得到最终关系。"
-              },
-              {
-                "type": "math",
-                "latex": "k_{OP} \\cdot k_l = -\\frac{b^2}{a^2} = e^2 - 1."
-              },
-              {
-                "type": "text",
-                "text": "理由： 直接代入化简。"
-              }
-            ]
+            "latex": "-\\frac{b^2}{a^2} = e^2 - 1"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "步骤五（合并结果）：\n将步骤三与步骤四结合，得到最终关系。"
+          },
+          {
+            "latex": "k_{OP} \\cdot k_l = -\\frac{b^2}{a^2} = e^2 - 1"
+          },
+          {
+            "text": ".理由： 直接代入化简。"
           },
           {
             "segments": [
@@ -14163,11 +15315,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。乘积"
-              },
-              {
-                "type": "math",
-                "latex": "k_{OP} \\cdot k_l"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "k_{OP} \\cdot k_l"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "可理解为"
@@ -14179,11 +15334,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "（或极限情形），而"
-              },
-              {
-                "type": "math",
-                "latex": "e^2-1 \\neq 0"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "e^2-1 \\neq 0"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "，看似矛盾。\n理由： 实际上，当"
@@ -14203,19 +15361,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "坐标为"
-              },
-              {
-                "type": "math",
-                "latex": "(0, \\pm b)"
-              },
-              {
-                "type": "text",
-                "text": "，切线方程为"
-              },
-              {
-                "type": "math",
-                "latex": "y = \\pm b"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "(0, \\pm b)"
+          },
+          {
+            "text": "，切线方程为"
+          },
+          {
+            "latex": "y = \\pm b"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "，斜率为"
@@ -14235,11 +15394,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "斜率不存在，公式"
-              },
-              {
-                "type": "math",
-                "latex": "k_{OP} \\cdot k_l = e^2-1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "k_{OP} \\cdot k_l = e^2-1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "应理解为在极限意义下成立（当"
@@ -14259,19 +15421,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "轴时，"
-              },
-              {
-                "type": "math",
-                "latex": "k_{OP} \\to \\infty"
-              },
-              {
-                "type": "text",
-                "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "k_l \\to 0"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "k_{OP} \\to \\infty"
+          },
+          {
+            "text": "，"
+          },
+          {
+            "latex": "k_l \\to 0"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "，乘积的极限为"
@@ -14319,15 +15482,13 @@ module.exports = {
             ]
           },
           {
+            "text": "结论回扣\n综上所述，对于椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "结论回扣\n综上所述，对于椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
-              },
               {
                 "type": "text",
                 "text": "上非坐标轴上的点"
@@ -14339,16 +15500,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，恒有"
-              },
-              {
-                "type": "math",
-                "latex": "k_{OP} \\cdot k_l = e^2 - 1"
-              },
-              {
-                "type": "text",
-                "text": "。该关系将几何中的两个斜率与椭圆的离心率紧密联系在一起。"
               }
             ]
+          },
+          {
+            "latex": "k_{OP} \\cdot k_l = e^2 - 1"
+          },
+          {
+            "text": "。该关系将几何中的两个斜率与椭圆的离心率紧密联系在一起。"
           }
         ]
       },
@@ -14358,23 +15517,19 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "例 1（基础）\n题目： 已知椭圆"
+          },
+          {
+            "latex": "C: \\frac{x^2}{16}+\\frac{y^2}{9}=1"
+          },
+          {
+            "text": "，点"
+          },
+          {
+            "latex": "P(2, \\frac{3\\sqrt{3}}{2})"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例 1（基础）\n题目： 已知椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "C: \\frac{x^2}{16}+\\frac{y^2}{9}=1"
-              },
-              {
-                "type": "text",
-                "text": "，点"
-              },
-              {
-                "type": "math",
-                "latex": "P(2, \\frac{3\\sqrt{3}}{2})"
-              },
               {
                 "type": "text",
                 "text": "在"
@@ -14434,16 +15589,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，离心率"
-              },
-              {
-                "type": "math",
-                "latex": "e = \\frac{\\sqrt{7}}{4}"
-              },
-              {
-                "type": "text",
-                "text": "。\n理由： 先确定椭圆的基本参数，为使用结论做准备。"
               }
             ]
+          },
+          {
+            "latex": "e = \\frac{\\sqrt{7}}{4}"
+          },
+          {
+            "text": "。\n理由： 先确定椭圆的基本参数，为使用结论做准备。"
           },
           {
             "segments": [
@@ -14458,91 +15611,68 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的斜率。"
-              },
-              {
-                "type": "math",
-                "latex": "k_{OP} = \\frac{y_0}{x_0} = \\frac{3\\sqrt{3}/2}{2} = \\frac{3\\sqrt{3}}{4}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 直接利用斜率公式。"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第三步（用结论求 ）：\n由结论"
-              },
-              {
-                "type": "math",
-                "latex": "k_{OP} \\cdot k_l = e^2 - 1"
-              },
-              {
-                "type": "text",
-                "text": "得"
-              },
-              {
-                "type": "math",
-                "latex": "k_l = \\frac{e^2 - 1}{k_{OP}} = \\frac{\\frac{7}{16} - 1}{\\frac{3\\sqrt{3}}{4}} = \\frac{-\\frac{9}{16}}{\\frac{3\\sqrt{3}}{4}} = -\\frac{9}{16} \\cdot \\frac{4}{3\\sqrt{3}} = -\\frac{3}{4\\sqrt{3}} = -\\frac{\\sqrt{3}}{4}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 代入已知量计算。注意"
-              },
-              {
-                "type": "math",
-                "latex": "e^2 = \\frac{7}{16}"
-              },
-              {
-                "type": "text",
-                "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "e^2-1 = -\\frac{9}{16}"
-              },
-              {
-                "type": "text",
-                "text": "。\n关键结论： 利用"
-              },
-              {
-                "type": "math",
-                "latex": "k_{OP} \\cdot k_l = e^2-1"
-              },
-              {
-                "type": "text",
-                "text": "，可快速求得切线斜率"
-              },
-              {
-                "type": "math",
-                "latex": "k_l = -\\frac{\\sqrt{3}}{4}"
-              },
-              {
-                "type": "text",
-                "text": "，避免了隐函数求导的步骤。"
-              }
-            ]
+            "latex": "k_{OP} = \\frac{y_0}{x_0} = \\frac{3\\sqrt{3}/2}{2} = \\frac{3\\sqrt{3}}{4}"
+          },
+          {
+            "text": ".理由： 直接利用斜率公式。"
+          },
+          {
+            "text": "第三步（用结论求 ）：\n由结论"
+          },
+          {
+            "latex": "k_{OP} \\cdot k_l = e^2 - 1"
+          },
+          {
+            "text": "得"
+          },
+          {
+            "latex": "k_l = \\frac{e^2 - 1}{k_{OP}} = \\frac{\\frac{7}{16} - 1}{\\frac{3\\sqrt{3}}{4}} = \\frac{-\\frac{9}{16}}{\\frac{3\\sqrt{3}}{4}} = -\\frac{9}{16} \\cdot \\frac{4}{3\\sqrt{3}} = -\\frac{3}{4\\sqrt{3}} = -\\frac{\\sqrt{3}}{4}"
+          },
+          {
+            "text": ".理由： 代入已知量计算。注意"
+          },
+          {
+            "latex": "e^2 = \\frac{7}{16}"
+          },
+          {
+            "text": "，"
+          },
+          {
+            "latex": "e^2-1 = -\\frac{9}{16}"
+          },
+          {
+            "text": "。\n关键结论： 利用"
+          },
+          {
+            "latex": "k_{OP} \\cdot k_l = e^2-1"
+          },
+          {
+            "text": "，可快速求得切线斜率"
+          },
+          {
+            "latex": "k_l = -\\frac{\\sqrt{3}}{4}"
+          },
+          {
+            "text": "，避免了隐函数求导的步骤。"
+          },
+          {
+            "text": "例 2（稍变形）\n题目： 已知椭圆"
+          },
+          {
+            "latex": "C: \\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1 (a>b>0)"
+          },
+          {
+            "text": "的离心率为"
+          },
+          {
+            "latex": "\\frac{1}{2}"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "例 2（稍变形）\n题目： 已知椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "C: \\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1 (a>b>0)"
-              },
-              {
-                "type": "text",
-                "text": "的离心率为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{1}{2}"
-              },
               {
                 "type": "text",
                 "text": "。过椭圆上一点"
@@ -14554,11 +15684,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "作切线，若该切线的斜率为"
-              },
-              {
-                "type": "math",
-                "latex": "-\\frac{1}{2}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "-\\frac{1}{2}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "，求直线"
@@ -14582,90 +15715,64 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第一步（列出关系）：\n由已知，"
-              },
-              {
-                "type": "math",
-                "latex": "e=\\frac{1}{2}"
-              },
-              {
-                "type": "text",
-                "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "k_l = -\\frac{1}{2}"
-              },
-              {
-                "type": "text",
-                "text": "。根据结论有"
-              },
-              {
-                "type": "math",
-                "latex": "k_{OP} \\cdot k_l = e^2 - 1."
-              },
-              {
-                "type": "text",
-                "text": "理由： 直接套用结论公式。"
-              }
-            ]
+            "text": "第一步（列出关系）：\n由已知，"
+          },
+          {
+            "latex": "e=\\frac{1}{2}"
+          },
+          {
+            "text": "，"
+          },
+          {
+            "latex": "k_l = -\\frac{1}{2}"
+          },
+          {
+            "text": "。根据结论有"
+          },
+          {
+            "latex": "k_{OP} \\cdot k_l = e^2 - 1"
+          },
+          {
+            "text": ".理由： 直接套用结论公式。"
+          },
+          {
+            "text": "第二步（计算 ）：\n计算常数项。"
+          },
+          {
+            "latex": "e^2 - 1 = \\left(\\frac{1}{2}\\right)^2 - 1 = \\frac{1}{4} - 1 = -\\frac{3}{4}"
+          },
+          {
+            "text": ".理由： 先确定等号右边的值。"
+          },
+          {
+            "text": "第三步（解出 ）：\n将"
+          },
+          {
+            "latex": "k_l = -\\frac{1}{2}"
+          },
+          {
+            "text": "和"
+          },
+          {
+            "latex": "e^2-1 = -\\frac{3}{4}"
+          },
+          {
+            "text": "代入关系式："
+          },
+          {
+            "latex": "k_{OP} \\cdot \\left(-\\frac{1}{2}\\right) = -\\frac{3}{4}"
+          },
+          {
+            "text": ".解得"
+          },
+          {
+            "latex": "k_{OP} = \\frac{-\\frac{3}{4}}{-\\frac{1}{2}} = \\frac{3}{2}"
           },
           {
             "segments": [
               {
                 "type": "text",
-                "text": "第二步（计算 ）：\n计算常数项。"
-              },
-              {
-                "type": "math",
-                "latex": "e^2 - 1 = \\left(\\frac{1}{2}\\right)^2 - 1 = \\frac{1}{4} - 1 = -\\frac{3}{4}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 先确定等号右边的值。"
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第三步（解出 ）：\n将"
-              },
-              {
-                "type": "math",
-                "latex": "k_l = -\\frac{1}{2}"
-              },
-              {
-                "type": "text",
-                "text": "和"
-              },
-              {
-                "type": "math",
-                "latex": "e^2-1 = -\\frac{3}{4}"
-              },
-              {
-                "type": "text",
-                "text": "代入关系式："
-              },
-              {
-                "type": "math",
-                "latex": "k_{OP} \\cdot \\left(-\\frac{1}{2}\\right) = -\\frac{3}{4}."
-              },
-              {
-                "type": "text",
-                "text": "解得"
-              },
-              {
-                "type": "math",
-                "latex": "k_{OP} = \\frac{-\\frac{3}{4}}{-\\frac{1}{2}} = \\frac{3}{2}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 简单代数运算。\n关键结论： 直线"
+                "text": ".理由： 简单代数运算。\n关键结论： 直线"
               },
               {
                 "type": "math",
@@ -14674,16 +15781,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的斜率为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{3}{2}"
-              },
-              {
-                "type": "text",
-                "text": "。本题展示了已知离心率和切线斜率，反求径向斜率的逆向应用。"
               }
             ]
+          },
+          {
+            "latex": "\\frac{3}{2}"
+          },
+          {
+            "text": "。本题展示了已知离心率和切线斜率，反求径向斜率的逆向应用。"
           }
         ]
       },
@@ -14693,15 +15798,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "易错点一（忽略定义域）\n直接套用公式"
+          },
+          {
+            "latex": "k_{OP} \\cdot k_l = e^2-1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "易错点一（忽略定义域）\n直接套用公式"
-              },
-              {
-                "type": "math",
-                "latex": "k_{OP} \\cdot k_l = e^2-1"
-              },
               {
                 "type": "text",
                 "text": "，而忽略点"
@@ -14773,52 +15876,34 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "错因分析（公式盲用）：\n未理解公式的推导过程依赖于"
-              },
-              {
-                "type": "math",
-                "latex": "x_0 \\neq 0"
-              },
-              {
-                "type": "text",
-                "text": "且"
-              },
-              {
-                "type": "math",
-                "latex": "y_0 \\neq 0"
-              },
-              {
-                "type": "text",
-                "text": "的假设，误以为公式无条件适用于所有点。"
-              }
-            ]
+            "text": "错因分析（公式盲用）：\n未理解公式的推导过程依赖于"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "易错点二（符号记混）\n将结论误记为"
-              },
-              {
-                "type": "math",
-                "latex": "k_{OP} \\cdot k_l = 1 - e^2"
-              },
-              {
-                "type": "text",
-                "text": "或"
-              },
-              {
-                "type": "math",
-                "latex": "k_{OP} \\cdot k_l = -\\frac{b^2}{a^2}"
-              },
-              {
-                "type": "text",
-                "text": "时忘记负号。"
-              }
-            ]
+            "latex": "x_0 \\neq 0"
+          },
+          {
+            "text": "且"
+          },
+          {
+            "latex": "y_0 \\neq 0"
+          },
+          {
+            "text": "的假设，误以为公式无条件适用于所有点。"
+          },
+          {
+            "text": "易错点二（符号记混）\n将结论误记为"
+          },
+          {
+            "latex": "k_{OP} \\cdot k_l = 1 - e^2"
+          },
+          {
+            "text": "或"
+          },
+          {
+            "latex": "k_{OP} \\cdot k_l = -\\frac{b^2}{a^2}"
+          },
+          {
+            "text": "时忘记负号。"
           },
           {
             "segments": [
@@ -14857,32 +15942,23 @@ module.exports = {
               {
                 "type": "text",
                 "text": "异号。正确公式为"
-              },
-              {
-                "type": "math",
-                "latex": "k_{OP} \\cdot k_l = e^2 - 1"
-              },
-              {
-                "type": "text",
-                "text": "（负值）。"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "错因分析（记忆模糊）：\n未结合离心率范围理解乘积的符号，或与双曲线中的类似结论（"
-              },
-              {
-                "type": "math",
-                "latex": "k_{OP} \\cdot k_l = e^2+1"
-              },
-              {
-                "type": "text",
-                "text": "）混淆。"
-              }
-            ]
+            "latex": "k_{OP} \\cdot k_l = e^2 - 1"
+          },
+          {
+            "text": "（负值）。"
+          },
+          {
+            "text": "错因分析（记忆模糊）：\n未结合离心率范围理解乘积的符号，或与双曲线中的类似结论（"
+          },
+          {
+            "latex": "k_{OP} \\cdot k_l = e^2+1"
+          },
+          {
+            "text": "）混淆。"
           },
           {
             "segments": [
@@ -14897,35 +15973,29 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，例如误用"
-              },
-              {
-                "type": "math",
-                "latex": "e = \\frac{c}{b}"
-              },
-              {
-                "type": "text",
-                "text": "或"
-              },
-              {
-                "type": "math",
-                "latex": "e^2 = \\frac{a^2-b^2}{b^2}"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
           },
           {
+            "latex": "e = \\frac{c}{b}"
+          },
+          {
+            "text": "或"
+          },
+          {
+            "latex": "e^2 = \\frac{a^2-b^2}{b^2}"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "正确理解（标准定义）：\n椭圆离心率"
+          },
+          {
+            "latex": "e = \\frac{c}{a}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（标准定义）：\n椭圆离心率"
-              },
-              {
-                "type": "math",
-                "latex": "e = \\frac{c}{a}"
-              },
               {
                 "type": "text",
                 "text": "，且"
@@ -14937,16 +16007,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，因此"
-              },
-              {
-                "type": "math",
-                "latex": "e^2 = 1 - \\frac{b^2}{a^2}"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "e^2 = 1 - \\frac{b^2}{a^2}"
+          },
+          {
+            "text": "。"
           },
           {
             "segments": [
@@ -14978,15 +16046,13 @@ module.exports = {
             "text": "使用条件"
           },
           {
+            "text": "条件 1（标准椭圆）： 椭圆方程为"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "条件 1（标准椭圆）： 椭圆方程为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
-              },
               {
                 "type": "text",
                 "text": "，且"
@@ -15014,46 +16080,35 @@ module.exports = {
               {
                 "type": "text",
                 "text": "满足椭圆方程，且通常要求"
-              },
-              {
-                "type": "math",
-                "latex": "x_0 \\neq 0, y_0 \\neq 0"
-              },
-              {
-                "type": "text",
-                "text": "以避免斜率不存在。"
               }
             ]
+          },
+          {
+            "latex": "x_0 \\neq 0, y_0 \\neq 0"
+          },
+          {
+            "text": "以避免斜率不存在。"
           },
           {
             "text": "关键提醒"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "易错点（符号与记忆）： 牢记公式"
-              },
-              {
-                "type": "math",
-                "latex": "k_{OP} \\cdot k_l = e^2-1"
-              },
-              {
-                "type": "text",
-                "text": "（负值），切勿与双曲线结论混淆。"
-              }
-            ]
+            "text": "易错点（符号与记忆）： 牢记公式"
+          },
+          {
+            "latex": "k_{OP} \\cdot k_l = e^2-1"
+          },
+          {
+            "text": "（负值），切勿与双曲线结论混淆。"
+          },
+          {
+            "text": "检查项（离心率计算）： 使用前务必正确计算"
+          },
+          {
+            "latex": "e^2 = 1 - \\frac{b^2}{a^2}"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "检查项（离心率计算）： 使用前务必正确计算"
-              },
-              {
-                "type": "math",
-                "latex": "e^2 = 1 - \\frac{b^2}{a^2}"
-              },
               {
                 "type": "text",
                 "text": "，确保"
@@ -15278,12 +16333,165 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
+            "title": "条件 1（椭圆方程）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "椭圆"
+              },
+              {
+                "type": "math",
+                "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+              },
+              {
+                "type": "text",
+                "text": "，其中"
+              },
+              {
+                "type": "math",
+                "latex": "a>b>0"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "椭圆 ，其中 。",
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
+            "title": "条件 2（点与切线）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "点"
+              },
+              {
+                "type": "math",
+                "latex": "P(x_0,y_0)"
+              },
+              {
+                "type": "text",
+                "text": "在椭圆上，"
+              },
+              {
+                "type": "math",
+                "latex": "l"
+              },
+              {
+                "type": "text",
+                "text": "为椭圆在点"
+              },
+              {
+                "type": "math",
+                "latex": "P"
+              },
+              {
+                "type": "text",
+                "text": "处的切线。"
+              }
+            ],
+            "desc": "点 在椭圆上， 为椭圆在点 处的切线。",
+            "latex": "P(x_0,y_0) \\qquad l \\qquad P"
+          },
+          {
+            "title": "条件 3（距离定义）：",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "d"
+              },
+              {
+                "type": "text",
+                "text": "为原点到直线"
+              },
+              {
+                "type": "math",
+                "latex": "l"
+              },
+              {
+                "type": "text",
+                "text": "的距离，"
+              },
+              {
+                "type": "math",
+                "latex": "r_1"
+              },
+              {
+                "type": "text",
+                "text": "和"
+              },
+              {
+                "type": "math",
+                "latex": "r_2"
+              },
+              {
+                "type": "text",
+                "text": "分别为点"
+              },
+              {
+                "type": "math",
+                "latex": "P"
+              },
+              {
+                "type": "text",
+                "text": "到焦点"
+              },
+              {
+                "type": "math",
+                "latex": "F_1(-c,0)"
+              },
+              {
+                "type": "text",
+                "text": "和"
+              },
+              {
+                "type": "math",
+                "latex": "F_2(c,0)"
+              },
+              {
+                "type": "text",
+                "text": "的距离，其中"
+              },
+              {
+                "type": "math",
+                "latex": "c^2=a^2-b^2"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "为原点到直线 的距离， 和 分别为点 到焦点 和 的距离，其中 。",
+            "latex": "c^2=a^2-b^2"
+          },
+          {
             "title": "结论一（乘积定值）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "焦点距离几何均值与切线距原点距离之积为椭圆半轴积。"
+              },
+              {
+                "type": "math",
+                "latex": "\\sqrt{r_1 r_2} \\cdot d = ab."
+              }
+            ],
             "desc": "焦点距离几何均值与切线距原点距离之积为椭圆半轴积。",
             "latex": "\\sqrt{r_1 r_2} \\cdot d = ab."
           },
           {
             "title": "推广结论（平方形式）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "将原式平方可得焦点距离乘积与距离平方之积为定值。"
+              },
+              {
+                "type": "math",
+                "latex": "r_1 r_2 \\cdot d^2 = a^2 b^2."
+              }
+            ],
             "desc": "将原式平方可得焦点距离乘积与距离平方之积为定值。",
             "latex": "r_1 r_2 \\cdot d^2 = a^2 b^2."
           }
@@ -15321,16 +16529,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "坐标表示，公式为"
-              },
-              {
-                "type": "math",
-                "latex": "d = \\frac{|Ax_0+By_0+C|}{\\sqrt{A^2+B^2}}"
-              },
-              {
-                "type": "text",
-                "text": "，其中切线方程已知。"
               }
             ]
+          },
+          {
+            "latex": "d = \\frac{|Ax_0+By_0+C|}{\\sqrt{A^2+B^2}}"
+          },
+          {
+            "text": "，其中切线方程已知。"
           },
           {
             "segments": [
@@ -15369,35 +16575,29 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，且坐标表达式为"
-              },
-              {
-                "type": "math",
-                "latex": "r_1 = \\sqrt{(x_0+c)^2+y_0^2}"
-              },
-              {
-                "type": "text",
-                "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "r_2 = \\sqrt{(x_0-c)^2+y_0^2}"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
           },
           {
+            "latex": "r_1 = \\sqrt{(x_0+c)^2+y_0^2}"
+          },
+          {
+            "text": "，"
+          },
+          {
+            "latex": "r_2 = \\sqrt{(x_0-c)^2+y_0^2}"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "要点三（乘积定值）：\n乘积"
+          },
+          {
+            "latex": "\\sqrt{r_1 r_2} \\cdot d"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "要点三（乘积定值）：\n乘积"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1 r_2} \\cdot d"
-              },
               {
                 "type": "text",
                 "text": "经代数化简后消去"
@@ -15449,11 +16649,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "在乘积"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1 r_2} \\cdot d"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\sqrt{r_1 r_2} \\cdot d"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "中相互抵消，最终得到仅含"
@@ -15504,20 +16707,13 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "考法二（证明定值）： 在综合题中，要求证明"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1 r_2} \\cdot d"
-              },
-              {
-                "type": "text",
-                "text": "为定值，需熟练运用切线方程和距离公式。"
-              }
-            ]
+            "text": "考法二（证明定值）： 在综合题中，要求证明"
+          },
+          {
+            "latex": "\\sqrt{r_1 r_2} \\cdot d"
+          },
+          {
+            "text": "为定值，需熟练运用切线方程和距离公式。"
           },
           {
             "text": "顿悟点\n一旦记住该结论，在涉及椭圆切线、焦点距离和原点距离的问题中，可直接跳过繁琐推导，快速得到定值关系，简化计算或证明步骤。"
@@ -15604,16 +16800,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，最后计算乘积"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1 r_2} \\cdot d"
-              },
-              {
-                "type": "text",
-                "text": "并利用椭圆方程化简。"
               }
             ]
+          },
+          {
+            "latex": "\\sqrt{r_1 r_2} \\cdot d"
+          },
+          {
+            "text": "并利用椭圆方程化简。"
           },
           {
             "text": "正式推导"
@@ -15647,27 +16841,26 @@ module.exports = {
               {
                 "type": "text",
                 "text": "方程为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1."
-              },
-              {
-                "type": "text",
-                "text": "理由： 椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1"
+          },
+          {
+            "text": ".理由： 椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "在点"
@@ -15703,27 +16896,26 @@ module.exports = {
               {
                 "type": "text",
                 "text": "为"
-              },
-              {
-                "type": "math",
-                "latex": "d = \\frac{1}{\\sqrt{\\frac{x_0^2}{a^4} + \\frac{y_0^2}{b^4}}}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 将切线方程化为一般式"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0}{a^2}x + \\frac{y_0}{b^2}y - 1 = 0"
-              },
-              {
-                "type": "text",
-                "text": "，代入点到直线距离公式"
-              },
-              {
-                "type": "math",
-                "latex": "d = \\frac{|Ax_0+By_0+C|}{\\sqrt{A^2+B^2}}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "d = \\frac{1}{\\sqrt{\\frac{x_0^2}{a^4} + \\frac{y_0^2}{b^4}}}"
+          },
+          {
+            "text": ".理由： 将切线方程化为一般式"
+          },
+          {
+            "latex": "\\frac{x_0}{a^2}x + \\frac{y_0}{b^2}y - 1 = 0"
+          },
+          {
+            "text": "，代入点到直线距离公式"
+          },
+          {
+            "latex": "d = \\frac{|Ax_0+By_0+C|}{\\sqrt{A^2+B^2}}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "，注意此处原点"
@@ -15743,24 +16935,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，且"
-              },
-              {
-                "type": "math",
-                "latex": "A=\\frac{x_0}{a^2}, B=\\frac{y_0}{b^2}"
-              },
-              {
-                "type": "text",
-                "text": "，故分母为"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{\\left(\\frac{x_0}{a^2}\\right)^2 + \\left(\\frac{y_0}{b^2}\\right)^2}"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "A=\\frac{x_0}{a^2}, B=\\frac{y_0}{b^2}"
+          },
+          {
+            "text": "，故分母为"
+          },
+          {
+            "latex": "\\sqrt{\\left(\\frac{x_0}{a^2}\\right)^2 + \\left(\\frac{y_0}{b^2}\\right)^2}"
+          },
+          {
+            "text": "。"
           },
           {
             "segments": [
@@ -15791,71 +16979,56 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，则"
-              },
-              {
-                "type": "math",
-                "latex": "r_1 r_2 = \\sqrt{(x_0+c)^2+y_0^2} \\cdot \\sqrt{(x_0-c)^2+y_0^2}."
-              },
-              {
-                "type": "text",
-                "text": "直接计算平方得"
-              },
-              {
-                "type": "math",
-                "latex": "r_1^2 r_2^2 = \\big[(x_0+c)^2+y_0^2\\big]\\big[(x_0-c)^2+y_0^2\\big]."
-              },
-              {
-                "type": "text",
-                "text": "理由： 利用平方差公式和椭圆方程"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0^2}{a^2}+\\frac{y_0^2}{b^2}=1"
-              },
-              {
-                "type": "text",
-                "text": "化简。展开后："
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\nr_1^2 r_2^2 &= \\big[(x_0^2+y_0^2+c^2)+2cx_0\\big]\\big[(x_0^2+y_0^2+c^2)-2cx_0\\big] \\\\\n&= (x_0^2+y_0^2+c^2)^2 - (2cx_0)^2.\n\\end{aligned}"
               }
             ]
           },
           {
+            "latex": "r_1 r_2 = \\sqrt{(x_0+c)^2+y_0^2} \\cdot \\sqrt{(x_0-c)^2+y_0^2}"
+          },
+          {
+            "text": ".直接计算平方得"
+          },
+          {
+            "latex": "r_1^2 r_2^2 = \\big[(x_0+c)^2+y_0^2\\big]\\big[(x_0-c)^2+y_0^2\\big]"
+          },
+          {
+            "text": ".理由： 利用平方差公式和椭圆方程"
+          },
+          {
+            "latex": "\\frac{x_0^2}{a^2}+\\frac{y_0^2}{b^2}=1"
+          },
+          {
+            "text": "化简。展开后："
+          },
+          {
+            "latex": "\\begin{aligned}\nr_1^2 r_2^2 &= \\big[(x_0^2+y_0^2+c^2)+2cx_0\\big]\\big[(x_0^2+y_0^2+c^2)-2cx_0\\big] \\\\\n&= (x_0^2+y_0^2+c^2)^2 - (2cx_0)^2.\n\\end{aligned}"
+          },
+          {
+            "text": "步骤四（代入椭圆方程）：\n由椭圆方程"
+          },
+          {
+            "latex": "\\frac{x_0^2}{a^2}+\\frac{y_0^2}{b^2}=1"
+          },
+          {
+            "text": "，可得"
+          },
+          {
+            "latex": "y_0^2 = b^2\\left(1-\\frac{x_0^2}{a^2}\\right)"
+          },
+          {
+            "text": "。代入上式并化简："
+          },
+          {
+            "latex": "\\begin{aligned}\nr_1^2 r_2^2 &= \\left(x_0^2 + b^2\\left(1-\\frac{x_0^2}{a^2}\\right) + c^2\\right)^2 - 4c^2 x_0^2 \\\\\n&= \\left(x_0^2\\left(1-\\frac{b^2}{a^2}\\right) + b^2 + c^2\\right)^2 - 4c^2 x_0^2.\n\\end{aligned}"
+          },
+          {
+            "text": "注意到"
+          },
+          {
+            "latex": "1-\\frac{b^2}{a^2} = \\frac{c^2}{a^2}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "步骤四（代入椭圆方程）：\n由椭圆方程"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0^2}{a^2}+\\frac{y_0^2}{b^2}=1"
-              },
-              {
-                "type": "text",
-                "text": "，可得"
-              },
-              {
-                "type": "math",
-                "latex": "y_0^2 = b^2\\left(1-\\frac{x_0^2}{a^2}\\right)"
-              },
-              {
-                "type": "text",
-                "text": "。代入上式并化简："
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\nr_1^2 r_2^2 &= \\left(x_0^2 + b^2\\left(1-\\frac{x_0^2}{a^2}\\right) + c^2\\right)^2 - 4c^2 x_0^2 \\\\\n&= \\left(x_0^2\\left(1-\\frac{b^2}{a^2}\\right) + b^2 + c^2\\right)^2 - 4c^2 x_0^2.\n\\end{aligned}"
-              },
-              {
-                "type": "text",
-                "text": "注意到"
-              },
-              {
-                "type": "math",
-                "latex": "1-\\frac{b^2}{a^2} = \\frac{c^2}{a^2}"
-              },
               {
                 "type": "text",
                 "text": "，且"
@@ -15867,14 +17040,17 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，所以"
-              },
-              {
-                "type": "math",
-                "latex": "r_1^2 r_2^2 = \\left(\\frac{c^2}{a^2}x_0^2 + a^2\\right)^2 - 4c^2 x_0^2."
-              },
+              }
+            ]
+          },
+          {
+            "latex": "r_1^2 r_2^2 = \\left(\\frac{c^2}{a^2}x_0^2 + a^2\\right)^2 - 4c^2 x_0^2"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "理由： 逐步代换以消去"
+                "text": ".理由： 逐步代换以消去"
               },
               {
                 "type": "math",
@@ -15887,31 +17063,25 @@ module.exports = {
             ]
           },
           {
+            "text": "步骤五（化简乘积）：\n进一步展开并整理："
+          },
+          {
+            "latex": "\\begin{aligned}\nr_1^2 r_2^2 &= \\frac{c^4}{a^4}x_0^4 + 2c^2 x_0^2 + a^4 - 4c^2 x_0^2 \\\\\n&= \\frac{c^4}{a^4}x_0^4 - 2c^2 x_0^2 + a^4 \\\\\n&= \\left(\\frac{c^2}{a^2}x_0^2 - a^2\\right)^2.\n\\end{aligned}"
+          },
+          {
+            "text": "因此"
+          },
+          {
+            "latex": "r_1 r_2 = \\left|\\frac{c^2}{a^2}x_0^2 - a^2\\right|"
+          },
+          {
+            "text": "。由于椭圆上"
+          },
+          {
+            "latex": "x_0^2 \\le a^2"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "步骤五（化简乘积）：\n进一步展开并整理："
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\nr_1^2 r_2^2 &= \\frac{c^4}{a^4}x_0^4 + 2c^2 x_0^2 + a^4 - 4c^2 x_0^2 \\\\\n&= \\frac{c^4}{a^4}x_0^4 - 2c^2 x_0^2 + a^4 \\\\\n&= \\left(\\frac{c^2}{a^2}x_0^2 - a^2\\right)^2.\n\\end{aligned}"
-              },
-              {
-                "type": "text",
-                "text": "因此"
-              },
-              {
-                "type": "math",
-                "latex": "r_1 r_2 = \\left|\\frac{c^2}{a^2}x_0^2 - a^2\\right|"
-              },
-              {
-                "type": "text",
-                "text": "。由于椭圆上"
-              },
-              {
-                "type": "math",
-                "latex": "x_0^2 \\le a^2"
-              },
               {
                 "type": "text",
                 "text": "，且"
@@ -15923,16 +17093,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，可判断符号，但最终乘积为正，故取绝对值不影响。为简化，直接取平方根："
-              },
-              {
-                "type": "math",
-                "latex": "r_1 r_2 = a^2 - \\frac{c^2}{a^2}x_0^2."
-              },
-              {
-                "type": "text",
-                "text": "理由： 完全平方公式化简，并利用椭圆范围确定符号。"
               }
             ]
+          },
+          {
+            "latex": "r_1 r_2 = a^2 - \\frac{c^2}{a^2}x_0^2"
+          },
+          {
+            "text": ".理由： 完全平方公式化简，并利用椭圆范围确定符号。"
           },
           {
             "segments": [
@@ -15955,22 +17123,23 @@ module.exports = {
               {
                 "type": "text",
                 "text": "代入："
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\n\\sqrt{r_1 r_2} \\cdot d &= \\sqrt{a^2 - \\frac{c^2}{a^2}x_0^2} \\cdot \\frac{1}{\\sqrt{\\frac{x_0^2}{a^4} + \\frac{y_0^2}{b^4}}} \\\\\n&= \\sqrt{a^2 - \\frac{c^2}{a^2}x_0^2} \\cdot \\frac{1}{\\sqrt{\\frac{x_0^2}{a^4} + \\frac{b^2\\left(1-\\frac{x_0^2}{a^2}\\right)}{b^4}}}.\n\\end{aligned}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\begin{aligned}\n\\sqrt{r_1 r_2} \\cdot d &= \\sqrt{a^2 - \\frac{c^2}{a^2}x_0^2} \\cdot \\frac{1}{\\sqrt{\\frac{x_0^2}{a^4} + \\frac{y_0^2}{b^4}}} \\\\\n&= \\sqrt{a^2 - \\frac{c^2}{a^2}x_0^2} \\cdot \\frac{1}{\\sqrt{\\frac{x_0^2}{a^4} + \\frac{b^2\\left(1-\\frac{x_0^2}{a^2}\\right)}{b^4}}}.\n\\end{aligned}"
+          },
+          {
+            "text": "化简分母："
+          },
+          {
+            "latex": "\\frac{x_0^2}{a^4} + \\frac{1}{b^2} - \\frac{x_0^2}{a^2 b^2} = \\frac{x_0^2}{a^4} - \\frac{x_0^2}{a^2 b^2} + \\frac{1}{b^2} = \\frac{x_0^2(b^2 - a^2)}{a^4 b^2} + \\frac{1}{b^2}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "化简分母："
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0^2}{a^4} + \\frac{1}{b^2} - \\frac{x_0^2}{a^2 b^2} = \\frac{x_0^2}{a^4} - \\frac{x_0^2}{a^2 b^2} + \\frac{1}{b^2} = \\frac{x_0^2(b^2 - a^2)}{a^4 b^2} + \\frac{1}{b^2}."
-              },
-              {
-                "type": "text",
-                "text": "由于"
+                "text": ".由于"
               },
               {
                 "type": "math",
@@ -15979,38 +17148,35 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，代入得"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{1}{b^2} - \\frac{c^2 x_0^2}{a^4 b^2} = \\frac{1}{b^2}\\left(1 - \\frac{c^2 x_0^2}{a^4}\\right)."
-              },
-              {
-                "type": "text",
-                "text": "因此"
-              },
-              {
-                "type": "math",
-                "latex": "d = \\frac{1}{\\sqrt{\\frac{1}{b^2}\\left(1 - \\frac{c^2 x_0^2}{a^4}\\right)}} = \\frac{b}{\\sqrt{1 - \\frac{c^2 x_0^2}{a^4}}}."
-              },
-              {
-                "type": "text",
-                "text": "同时"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1 r_2} = \\sqrt{a^2 - \\frac{c^2}{a^2}x_0^2} = \\sqrt{\\frac{a^4 - c^2 x_0^2}{a^2}}"
-              },
-              {
-                "type": "text",
-                "text": "。\n故乘积为"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1 r_2} \\cdot d = \\sqrt{\\frac{a^4 - c^2 x_0^2}{a^2}} \\cdot \\frac{b}{\\sqrt{1 - \\frac{c^2 x_0^2}{a^4}}} = b \\sqrt{\\frac{a^4 - c^2 x_0^2}{a^2} \\cdot \\frac{a^4}{a^4 - c^2 x_0^2}} = ab."
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{1}{b^2} - \\frac{c^2 x_0^2}{a^4 b^2} = \\frac{1}{b^2}\\left(1 - \\frac{c^2 x_0^2}{a^4}\\right)"
+          },
+          {
+            "text": ".因此"
+          },
+          {
+            "latex": "d = \\frac{1}{\\sqrt{\\frac{1}{b^2}\\left(1 - \\frac{c^2 x_0^2}{a^4}\\right)}} = \\frac{b}{\\sqrt{1 - \\frac{c^2 x_0^2}{a^4}}}"
+          },
+          {
+            "text": ".同时"
+          },
+          {
+            "latex": "\\sqrt{r_1 r_2} = \\sqrt{a^2 - \\frac{c^2}{a^2}x_0^2} = \\sqrt{\\frac{a^4 - c^2 x_0^2}{a^2}}"
+          },
+          {
+            "text": "。\n故乘积为"
+          },
+          {
+            "latex": "\\sqrt{r_1 r_2} \\cdot d = \\sqrt{\\frac{a^4 - c^2 x_0^2}{a^2}} \\cdot \\frac{b}{\\sqrt{1 - \\frac{c^2 x_0^2}{a^4}}} = b \\sqrt{\\frac{a^4 - c^2 x_0^2}{a^2} \\cdot \\frac{a^4}{a^4 - c^2 x_0^2}} = ab"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "理由： 代数通分和约分，关键步骤是分子分母同时出现"
+                "text": ".理由： 代数通分和约分，关键步骤是分子分母同时出现"
               },
               {
                 "type": "math",
@@ -16035,16 +17201,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，恒有"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1 r_2} \\cdot d = ab"
-              },
-              {
-                "type": "text",
-                "text": "，结论成立。"
               }
             ]
+          },
+          {
+            "latex": "\\sqrt{r_1 r_2} \\cdot d = ab"
+          },
+          {
+            "text": "，结论成立。"
           }
         ]
       },
@@ -16054,23 +17218,19 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "例 1（基础）\n题目： 已知椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{16}+\\frac{y^2}{9}=1"
+          },
+          {
+            "text": "，点"
+          },
+          {
+            "latex": "P(2,\\frac{3\\sqrt{3}}{2})"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例 1（基础）\n题目： 已知椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{16}+\\frac{y^2}{9}=1"
-              },
-              {
-                "type": "text",
-                "text": "，点"
-              },
-              {
-                "type": "math",
-                "latex": "P(2,\\frac{3\\sqrt{3}}{2})"
-              },
               {
                 "type": "text",
                 "text": "在椭圆上。求椭圆在点"
@@ -16090,11 +17250,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，并验证"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1 r_2} \\cdot d = 12"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\sqrt{r_1 r_2} \\cdot d = 12"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "，其中"
@@ -16154,139 +17317,101 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，焦距"
-              },
-              {
-                "type": "math",
-                "latex": "c=\\sqrt{a^2-b^2}=\\sqrt{7}"
-              },
-              {
-                "type": "text",
-                "text": "。焦点为"
-              },
-              {
-                "type": "math",
-                "latex": "F_1(-\\sqrt{7},0)"
-              },
-              {
-                "type": "text",
-                "text": ","
-              },
-              {
-                "type": "math",
-                "latex": "F_2(\\sqrt{7},0)"
-              },
-              {
-                "type": "text",
-                "text": "。\n理由： 标准椭圆参数定义。"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第二步（计算 ）：\n点"
-              },
-              {
-                "type": "math",
-                "latex": "P(2,\\frac{3\\sqrt{3}}{2})"
-              },
-              {
-                "type": "text",
-                "text": "，计算"
-              },
-              {
-                "type": "math",
-                "latex": "r_1 = \\sqrt{(2+\\sqrt{7})^2 + \\left(\\frac{3\\sqrt{3}}{2}\\right)^2}"
-              },
-              {
-                "type": "text",
-                "text": ","
-              },
-              {
-                "type": "math",
-                "latex": "r_2 = \\sqrt{(2-\\sqrt{7})^2 + \\left(\\frac{3\\sqrt{3}}{2}\\right)^2}"
-              },
-              {
-                "type": "text",
-                "text": "。先算平方："
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\nr_1^2 &= (2+\\sqrt{7})^2 + \\frac{27}{4} = 4+4\\sqrt{7}+7+6.75 = 17.75+4\\sqrt{7}, \\\\\nr_2^2 &= (2-\\sqrt{7})^2 + \\frac{27}{4} = 4-4\\sqrt{7}+7+6.75 = 17.75-4\\sqrt{7}.\n\\end{aligned}"
-              },
-              {
-                "type": "text",
-                "text": "故"
-              },
-              {
-                "type": "math",
-                "latex": "r_1^2 r_2^2 = (17.75+4\\sqrt{7})(17.75-4\\sqrt{7}) = (17.75)^2 - (4\\sqrt{7})^2 = 315.0625 - 112 = 203.0625"
-              },
-              {
-                "type": "text",
-                "text": "。\n所以"
-              },
-              {
-                "type": "math",
-                "latex": "r_1 r_2 = \\sqrt{203.0625} = 14.25"
-              },
-              {
-                "type": "text",
-                "text": "（精确值可保留为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{57}{4}"
-              },
-              {
-                "type": "text",
-                "text": "）。\n理由： 直接代入距离公式，利用平方差简化计算。"
-              }
-            ]
+            "latex": "c=\\sqrt{a^2-b^2}=\\sqrt{7}"
+          },
+          {
+            "text": "。焦点为"
+          },
+          {
+            "latex": "F_1(-\\sqrt{7},0)"
+          },
+          {
+            "text": ","
+          },
+          {
+            "latex": "F_2(\\sqrt{7},0)"
+          },
+          {
+            "text": "。\n理由： 标准椭圆参数定义。"
+          },
+          {
+            "text": "第二步（计算 ）：\n点"
+          },
+          {
+            "latex": "P(2,\\frac{3\\sqrt{3}}{2})"
+          },
+          {
+            "text": "，计算"
+          },
+          {
+            "latex": "r_1 = \\sqrt{(2+\\sqrt{7})^2 + \\left(\\frac{3\\sqrt{3}}{2}\\right)^2}"
+          },
+          {
+            "text": ","
+          },
+          {
+            "latex": "r_2 = \\sqrt{(2-\\sqrt{7})^2 + \\left(\\frac{3\\sqrt{3}}{2}\\right)^2}"
+          },
+          {
+            "text": "。先算平方："
+          },
+          {
+            "latex": "\\begin{aligned}\nr_1^2 &= (2+\\sqrt{7})^2 + \\frac{27}{4} = 4+4\\sqrt{7}+7+6.75 = 17.75+4\\sqrt{7}, \\\\\nr_2^2 &= (2-\\sqrt{7})^2 + \\frac{27}{4} = 4-4\\sqrt{7}+7+6.75 = 17.75-4\\sqrt{7}.\n\\end{aligned}"
+          },
+          {
+            "text": "故"
+          },
+          {
+            "latex": "r_1^2 r_2^2 = (17.75+4\\sqrt{7})(17.75-4\\sqrt{7}) = (17.75)^2 - (4\\sqrt{7})^2 = 315.0625 - 112 = 203.0625"
+          },
+          {
+            "text": "。\n所以"
+          },
+          {
+            "latex": "r_1 r_2 = \\sqrt{203.0625} = 14.25"
+          },
+          {
+            "text": "（精确值可保留为"
+          },
+          {
+            "latex": "\\frac{57}{4}"
+          },
+          {
+            "text": "）。\n理由： 直接代入距离公式，利用平方差简化计算。"
+          },
+          {
+            "text": "第三步（利用结论求 ）：\n由结论"
+          },
+          {
+            "latex": "\\sqrt{r_1 r_2} \\cdot d = ab = 4\\times3=12"
+          },
+          {
+            "text": "，得"
+          },
+          {
+            "latex": "d = \\frac{12}{\\sqrt{r_1 r_2}} = \\frac{12}{\\sqrt{14.25}} = \\frac{12}{\\frac{\\sqrt{57}}{2}} = \\frac{24}{\\sqrt{57}} = \\frac{24\\sqrt{57}}{57}"
+          },
+          {
+            "text": ".理由： 直接套用结论，避免计算切线方程和距离公式。"
+          },
+          {
+            "text": "第四步（验证）：\n计算"
+          },
+          {
+            "latex": "\\sqrt{r_1 r_2} = \\sqrt{14.25} = \\frac{\\sqrt{57}}{2}"
+          },
+          {
+            "text": "，则"
+          },
+          {
+            "latex": "\\sqrt{r_1 r_2} \\cdot d = \\frac{\\sqrt{57}}{2} \\times \\frac{24\\sqrt{57}}{57} = \\frac{24\\times57}{2\\times57} = 12"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "第三步（利用结论求 ）：\n由结论"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1 r_2} \\cdot d = ab = 4\\times3=12"
-              },
-              {
-                "type": "text",
-                "text": "，得"
-              },
-              {
-                "type": "math",
-                "latex": "d = \\frac{12}{\\sqrt{r_1 r_2}} = \\frac{12}{\\sqrt{14.25}} = \\frac{12}{\\frac{\\sqrt{57}}{2}} = \\frac{24}{\\sqrt{57}} = \\frac{24\\sqrt{57}}{57}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 直接套用结论，避免计算切线方程和距离公式。"
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第四步（验证）：\n计算"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1 r_2} = \\sqrt{14.25} = \\frac{\\sqrt{57}}{2}"
-              },
-              {
-                "type": "text",
-                "text": "，则"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1 r_2} \\cdot d = \\frac{\\sqrt{57}}{2} \\times \\frac{24\\sqrt{57}}{57} = \\frac{24\\times57}{2\\times57} = 12"
-              },
               {
                 "type": "text",
                 "text": "，符合"
@@ -16306,11 +17431,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，可直接用"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1 r_2} \\cdot d = ab"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\sqrt{r_1 r_2} \\cdot d = ab"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "求"
@@ -16326,15 +17454,13 @@ module.exports = {
             ]
           },
           {
+            "text": "例 2（稍变形）\n题目： 椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{25}+\\frac{y^2}{16}=1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例 2（稍变形）\n题目： 椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{25}+\\frac{y^2}{16}=1"
-              },
               {
                 "type": "text",
                 "text": "，点"
@@ -16362,11 +17488,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。求"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1 r_2}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\sqrt{r_1 r_2}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "的值，其中"
@@ -16438,15 +17567,13 @@ module.exports = {
             ]
           },
           {
+            "text": "第二步（套用结论）：\n由"
+          },
+          {
+            "latex": "\\sqrt{r_1 r_2} \\cdot d = ab"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "第二步（套用结论）：\n由"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1 r_2} \\cdot d = ab"
-              },
               {
                 "type": "text",
                 "text": "，代入"
@@ -16466,27 +17593,23 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，得"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1 r_2} \\times 2 = 20 \\quad \\Rightarrow \\quad \\sqrt{r_1 r_2} = 10."
-              },
-              {
-                "type": "text",
-                "text": "理由： 结论直接变形求解。"
               }
             ]
           },
           {
+            "latex": "\\sqrt{r_1 r_2} \\times 2 = 20 \\quad \\Rightarrow \\quad \\sqrt{r_1 r_2} = 10"
+          },
+          {
+            "text": ".理由： 结论直接变形求解。"
+          },
+          {
+            "text": "第三步（解释意义）：\n因此"
+          },
+          {
+            "latex": "\\sqrt{r_1 r_2}=10"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "第三步（解释意义）：\n因此"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1 r_2}=10"
-              },
               {
                 "type": "text",
                 "text": "，即点"
@@ -16538,16 +17661,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "时，可利用结论反推"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1 r_2}"
-              },
-              {
-                "type": "text",
-                "text": "，体现了结论的双向应用价值。"
               }
             ]
+          },
+          {
+            "latex": "\\sqrt{r_1 r_2}"
+          },
+          {
+            "text": "，体现了结论的双向应用价值。"
           }
         ]
       },
@@ -16557,15 +17678,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "易错点一（忽略椭圆方程形式）\n误将椭圆方程写成"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "易错点一（忽略椭圆方程形式）\n误将椭圆方程写成"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
-              },
               {
                 "type": "text",
                 "text": "时未注意"
@@ -16657,40 +17776,29 @@ module.exports = {
               {
                 "type": "text",
                 "text": "处的切线方程时，误用为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0 x}{a^2} - \\frac{y_0 y}{b^2} = 1"
-              },
-              {
-                "type": "text",
-                "text": "或"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x x_0}{a} + \\frac{y y_0}{b} = 1"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（切线公式）：\n正确切线方程为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1"
-              },
-              {
-                "type": "text",
-                "text": "，可通过隐函数求导或记忆标准形式得到。"
-              }
-            ]
+            "latex": "\\frac{x_0 x}{a^2} - \\frac{y_0 y}{b^2} = 1"
+          },
+          {
+            "text": "或"
+          },
+          {
+            "latex": "\\frac{x x_0}{a} + \\frac{y y_0}{b} = 1"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "正确理解（切线公式）：\n正确切线方程为"
+          },
+          {
+            "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1"
+          },
+          {
+            "text": "，可通过隐函数求导或记忆标准形式得到。"
           },
           {
             "segments": [
@@ -16721,16 +17829,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "时，忽略绝对值或分母开方后的正负，误写"
-              },
-              {
-                "type": "math",
-                "latex": "d = \\frac{1}{\\sqrt{\\frac{x_0^2}{a^4} + \\frac{y_0^2}{b^4}}}"
-              },
-              {
-                "type": "text",
-                "text": "而未取正值。"
               }
             ]
+          },
+          {
+            "latex": "d = \\frac{1}{\\sqrt{\\frac{x_0^2}{a^4} + \\frac{y_0^2}{b^4}}}"
+          },
+          {
+            "text": "而未取正值。"
           },
           {
             "segments": [
@@ -16753,16 +17859,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，故"
-              },
-              {
-                "type": "math",
-                "latex": "d = \\frac{1}{\\sqrt{\\frac{x_0^2}{a^4} + \\frac{y_0^2}{b^4}}}"
-              },
-              {
-                "type": "text",
-                "text": "已自动为正。"
               }
             ]
+          },
+          {
+            "latex": "d = \\frac{1}{\\sqrt{\\frac{x_0^2}{a^4} + \\frac{y_0^2}{b^4}}}"
+          },
+          {
+            "text": "已自动为正。"
           },
           {
             "segments": [
@@ -16802,15 +17906,13 @@ module.exports = {
             "text": "使用条件"
           },
           {
+            "text": "条件 1（椭圆标准方程）： 椭圆方程为"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "条件 1（椭圆标准方程）： 椭圆方程为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
-              },
               {
                 "type": "text",
                 "text": "，且"
@@ -16846,16 +17948,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "必须满足椭圆方程，即"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0^2}{a^2}+\\frac{y_0^2}{b^2}=1"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "\\frac{x_0^2}{a^2}+\\frac{y_0^2}{b^2}=1"
+          },
+          {
+            "text": "。"
           },
           {
             "segments": [
@@ -17138,12 +18238,138 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
+            "title": "条件 1（椭圆方程）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "椭圆"
+              },
+              {
+                "type": "math",
+                "latex": "\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1\\ (a>b>0)"
+              },
+              {
+                "type": "text",
+                "text": "，点"
+              },
+              {
+                "type": "math",
+                "latex": "P(x_0,y_0)"
+              },
+              {
+                "type": "text",
+                "text": "在椭圆上。"
+              }
+            ],
+            "desc": "椭圆 ，点 在椭圆上。",
+            "latex": "\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1\\ (a>b>0)"
+          },
+          {
+            "title": "条件 2（几何量）：",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "l"
+              },
+              {
+                "type": "text",
+                "text": "为椭圆在点"
+              },
+              {
+                "type": "math",
+                "latex": "P"
+              },
+              {
+                "type": "text",
+                "text": "处的切线，"
+              },
+              {
+                "type": "math",
+                "latex": "d"
+              },
+              {
+                "type": "text",
+                "text": "为原点"
+              },
+              {
+                "type": "math",
+                "latex": "O"
+              },
+              {
+                "type": "text",
+                "text": "到直线"
+              },
+              {
+                "type": "math",
+                "latex": "l"
+              },
+              {
+                "type": "text",
+                "text": "的距离，"
+              },
+              {
+                "type": "math",
+                "latex": "r_1,\\,r_2"
+              },
+              {
+                "type": "text",
+                "text": "分别为点"
+              },
+              {
+                "type": "math",
+                "latex": "P"
+              },
+              {
+                "type": "text",
+                "text": "到焦点"
+              },
+              {
+                "type": "math",
+                "latex": "F_1(-c,0),\\,F_2(c,0)"
+              },
+              {
+                "type": "text",
+                "text": "的距离，其中"
+              },
+              {
+                "type": "math",
+                "latex": "c=\\sqrt{a^{2}-b^{2}}"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "为椭圆在点 处的切线， 为原点 到直线 的距离， 分别为点 到焦点 的距离，其中 。",
+            "latex": "c=\\sqrt{a^{2}-b^{2}}"
+          },
+          {
             "title": "结论一（乘积恒等）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "原点至切线距离与焦半径几何平均的乘积等于椭圆半轴长乘积。"
+              },
+              {
+                "type": "math",
+                "latex": "\\sqrt{r_1 r_2}\\cdot d = ab."
+              }
+            ],
             "desc": "原点至切线距离与焦半径几何平均的乘积等于椭圆半轴长乘积。",
             "latex": "\\sqrt{r_1 r_2}\\cdot d = ab."
           },
           {
             "title": "推广结论（平方形式）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "将主结论平方可得焦半径乘积与距离平方的关系。"
+              },
+              {
+                "type": "math",
+                "latex": "r_1 r_2 \\cdot d^2 = a^2 b^2."
+              }
+            ],
             "desc": "将主结论平方可得焦半径乘积与距离平方的关系。",
             "latex": "r_1 r_2 \\cdot d^2 = a^2 b^2."
           }
@@ -17177,15 +18403,13 @@ module.exports = {
             ]
           },
           {
+            "text": "要点二（焦半径公式）："
+          },
+          {
+            "latex": "r_1,\\,r_2"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "要点二（焦半径公式）："
-              },
-              {
-                "type": "math",
-                "latex": "r_1,\\,r_2"
-              },
               {
                 "type": "text",
                 "text": "可用椭圆焦半径公式表示，即"
@@ -17229,16 +18453,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "处的切线方程为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1"
+          },
+          {
+            "text": "。"
           },
           {
             "segments": [
@@ -17253,11 +18475,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "与"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1 r_2}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\sqrt{r_1 r_2}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "的乘积为定值"
@@ -17285,11 +18510,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "用切线方程表达，"
-              },
-              {
-                "type": "math",
-                "latex": "r_1,\\,r_2"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "r_1,\\,r_2"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "用坐标表示，代入后经过化简可得"
@@ -17336,16 +18564,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "或"
-              },
-              {
-                "type": "math",
-                "latex": "r_1,\\,r_2"
-              },
-              {
-                "type": "text",
-                "text": "，验证关系式。"
               }
             ]
+          },
+          {
+            "latex": "r_1,\\,r_2"
+          },
+          {
+            "text": "，验证关系式。"
           },
           {
             "segments": [
@@ -17376,16 +18602,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "与"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1 r_2}"
-              },
-              {
-                "type": "text",
-                "text": "的乘积为定值，这类似于“均值不等式”在椭圆几何中的体现，但这里是一个精确等式。"
               }
             ]
+          },
+          {
+            "latex": "\\sqrt{r_1 r_2}"
+          },
+          {
+            "text": "的乘积为定值，这类似于“均值不等式”在椭圆几何中的体现，但这里是一个精确等式。"
           },
           {
             "text": "使用场景"
@@ -17422,16 +18646,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "处的切线方程为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1."
-              },
-              {
-                "type": "text",
-                "text": "理由： 椭圆切线公式（隐函数求导或记忆结论）。"
               }
             ]
+          },
+          {
+            "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1"
+          },
+          {
+            "text": ".理由： 椭圆切线公式（隐函数求导或记忆结论）。"
           },
           {
             "segments": [
@@ -17454,48 +18676,35 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的距离为"
-              },
-              {
-                "type": "math",
-                "latex": "d = \\frac{| -1 |}{\\sqrt{ \\left( \\frac{x_0}{a^2} \\right)^2 + \\left( \\frac{y_0}{b^2} \\right)^2 }} = \\frac{1}{\\sqrt{ \\frac{x_0^2}{a^4} + \\frac{y_0^2}{b^4} }}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 点到直线距离公式，直线方程为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} - 1 = 0"
-              },
-              {
-                "type": "text",
-                "text": "，代入原点得常数项绝对值。"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤三（写焦半径平方）：\n焦半径平方为"
-              },
-              {
-                "type": "math",
-                "latex": "r_1^2 = (x_0 + c)^2 + y_0^2, \\quad r_2^2 = (x_0 - c)^2 + y_0^2,"
-              },
-              {
-                "type": "text",
-                "text": "其中"
-              },
-              {
-                "type": "math",
-                "latex": "c = \\sqrt{a^2 - b^2}"
-              },
-              {
-                "type": "text",
-                "text": "。\n理由： 两点间距离公式。"
-              }
-            ]
+            "latex": "d = \\frac{| -1 |}{\\sqrt{ \\left( \\frac{x_0}{a^2} \\right)^2 + \\left( \\frac{y_0}{b^2} \\right)^2 }} = \\frac{1}{\\sqrt{ \\frac{x_0^2}{a^4} + \\frac{y_0^2}{b^4} }}"
+          },
+          {
+            "text": ".理由： 点到直线距离公式，直线方程为"
+          },
+          {
+            "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} - 1 = 0"
+          },
+          {
+            "text": "，代入原点得常数项绝对值。"
+          },
+          {
+            "text": "步骤三（写焦半径平方）：\n焦半径平方为"
+          },
+          {
+            "latex": "r_1^2 = (x_0 + c)^2 + y_0^2, \\quad r_2^2 = (x_0 - c)^2 + y_0^2"
+          },
+          {
+            "text": ",其中"
+          },
+          {
+            "latex": "c = \\sqrt{a^2 - b^2}"
+          },
+          {
+            "text": "。\n理由： 两点间距离公式。"
           },
           {
             "segments": [
@@ -17510,27 +18719,23 @@ module.exports = {
               {
                 "type": "text",
                 "text": "："
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\nr_1^2 r_2^2 &= [(x_0 + c)^2 + y_0^2][(x_0 - c)^2 + y_0^2] \\\\\n&= (x_0^2 - c^2)^2 + y_0^2[(x_0 + c)^2 + (x_0 - c)^2] + y_0^4 \\\\\n&= (x_0^2 - c^2)^2 + 2y_0^2(x_0^2 + c^2) + y_0^4.\n\\end{aligned}"
-              },
-              {
-                "type": "text",
-                "text": "理由： 代数展开并合并同类项。"
               }
             ]
           },
           {
+            "latex": "\\begin{aligned}\nr_1^2 r_2^2 &= [(x_0 + c)^2 + y_0^2][(x_0 - c)^2 + y_0^2] \\\\\n&= (x_0^2 - c^2)^2 + y_0^2[(x_0 + c)^2 + (x_0 - c)^2] + y_0^4 \\\\\n&= (x_0^2 - c^2)^2 + 2y_0^2(x_0^2 + c^2) + y_0^4.\n\\end{aligned}"
+          },
+          {
+            "text": "理由： 代数展开并合并同类项。"
+          },
+          {
+            "text": "步骤五（代入椭圆方程化简）：\n由椭圆方程"
+          },
+          {
+            "latex": "\\frac{x_0^2}{a^2} + \\frac{y_0^2}{b^2} = 1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "步骤五（代入椭圆方程化简）：\n由椭圆方程"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0^2}{a^2} + \\frac{y_0^2}{b^2} = 1"
-              },
               {
                 "type": "text",
                 "text": "，得"
@@ -17550,11 +18755,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。代入化简："
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\nr_1^2 r_2^2 &= (x_0^2 - (a^2 - b^2))^2 + 2y_0^2(x_0^2 + (a^2 - b^2)) + y_0^4 \\\\\n&= (x_0^2 - a^2 + b^2)^2 + 2y_0^2(x_0^2 + a^2 - b^2) + y_0^4.\n\\end{aligned}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\begin{aligned}\nr_1^2 r_2^2 &= (x_0^2 - (a^2 - b^2))^2 + 2y_0^2(x_0^2 + (a^2 - b^2)) + y_0^4 \\\\\n&= (x_0^2 - a^2 + b^2)^2 + 2y_0^2(x_0^2 + a^2 - b^2) + y_0^4.\n\\end{aligned}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "利用"
@@ -17574,14 +18782,17 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，经过代数运算可得"
-              },
-              {
-                "type": "math",
-                "latex": "r_1^2 r_2^2 = \\frac{a^4 b^4}{\\left( \\frac{x_0^2}{a^4} + \\frac{y_0^2}{b^4} \\right)^2}."
-              },
+              }
+            ]
+          },
+          {
+            "latex": "r_1^2 r_2^2 = \\frac{a^4 b^4}{\\left( \\frac{x_0^2}{a^4} + \\frac{y_0^2}{b^4} \\right)^2}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "理由： 详细代数化简（通分、合并、利用椭圆方程），此处从略以节省版面，但关键是用"
+                "text": ".理由： 详细代数化简（通分、合并、利用椭圆方程），此处从略以节省版面，但关键是用"
               },
               {
                 "type": "math",
@@ -17594,26 +18805,22 @@ module.exports = {
             ]
           },
           {
+            "text": "步骤六（验证平方等式）：\n由步骤二，"
+          },
+          {
+            "latex": "d^2 = \\frac{1}{ \\frac{x_0^2}{a^4} + \\frac{y_0^2}{b^4} }"
+          },
+          {
+            "text": "，因此"
+          },
+          {
+            "latex": "r_1^2 r_2^2 \\cdot d^4 = a^4 b^4"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "步骤六（验证平方等式）：\n由步骤二，"
-              },
-              {
-                "type": "math",
-                "latex": "d^2 = \\frac{1}{ \\frac{x_0^2}{a^4} + \\frac{y_0^2}{b^4} }"
-              },
-              {
-                "type": "text",
-                "text": "，因此"
-              },
-              {
-                "type": "math",
-                "latex": "r_1^2 r_2^2 \\cdot d^4 = a^4 b^4."
-              },
-              {
-                "type": "text",
-                "text": "取平方根（因"
+                "text": ".取平方根（因"
               },
               {
                 "type": "math",
@@ -17622,14 +18829,17 @@ module.exports = {
               {
                 "type": "text",
                 "text": "），得"
-              },
-              {
-                "type": "math",
-                "latex": "r_1 r_2 \\cdot d^2 = a^2 b^2."
-              },
+              }
+            ]
+          },
+          {
+            "latex": "r_1 r_2 \\cdot d^2 = a^2 b^2"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "理由： 将"
+                "text": ".理由： 将"
               },
               {
                 "type": "math",
@@ -17650,20 +18860,13 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤七（得主结论）：\n再次取平方根，即得"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1 r_2} \\cdot d = ab."
-              },
-              {
-                "type": "text",
-                "text": "理由： 正数开平方保持等式成立。"
-              }
-            ]
+            "text": "步骤七（得主结论）：\n再次取平方根，即得"
+          },
+          {
+            "latex": "\\sqrt{r_1 r_2} \\cdot d = ab"
+          },
+          {
+            "text": ".理由： 正数开平方保持等式成立。"
           },
           {
             "segments": [
@@ -17678,16 +18881,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，均有"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1 r_2} \\cdot d = ab"
-              },
-              {
-                "type": "text",
-                "text": "，证毕。"
               }
             ]
+          },
+          {
+            "latex": "\\sqrt{r_1 r_2} \\cdot d = ab"
+          },
+          {
+            "text": "，证毕。"
           }
         ]
       },
@@ -17697,23 +18898,19 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "例 1（基础）\n题目： 椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{4} + \\frac{y^2}{3} = 1"
+          },
+          {
+            "text": "，点"
+          },
+          {
+            "latex": "P(1, \\frac{\\sqrt{3}}{2})"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例 1（基础）\n题目： 椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{4} + \\frac{y^2}{3} = 1"
-              },
-              {
-                "type": "text",
-                "text": "，点"
-              },
-              {
-                "type": "math",
-                "latex": "P(1, \\frac{\\sqrt{3}}{2})"
-              },
               {
                 "type": "text",
                 "text": "在椭圆上。求原点"
@@ -17765,16 +18962,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，验证"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1 r_2} \\cdot d = ab"
-              },
-              {
-                "type": "text",
-                "text": "。\n解题步骤："
               }
             ]
+          },
+          {
+            "latex": "\\sqrt{r_1 r_2} \\cdot d = ab"
+          },
+          {
+            "text": "。\n解题步骤："
           },
           {
             "segments": [
@@ -17789,19 +18984,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "b=\\sqrt{3}"
-              },
-              {
-                "type": "text",
-                "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "c = \\sqrt{a^2 - b^2} = \\sqrt{4-3}=1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "b=\\sqrt{3}"
+          },
+          {
+            "text": "，"
+          },
+          {
+            "latex": "c = \\sqrt{a^2 - b^2} = \\sqrt{4-3}=1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "。焦点为"
@@ -17817,36 +19013,25 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第二步（写切线方程）：\n椭圆在点"
-              },
-              {
-                "type": "math",
-                "latex": "P(1, \\frac{\\sqrt{3}}{2})"
-              },
-              {
-                "type": "text",
-                "text": "处的切线方程为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{1\\cdot x}{4} + \\frac{\\frac{\\sqrt{3}}{2}\\cdot y}{3} = 1 \\quad \\Rightarrow \\quad \\frac{x}{4} + \\frac{\\sqrt{3} y}{6} = 1."
-              },
-              {
-                "type": "text",
-                "text": "理由： 代入切线公式"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "第二步（写切线方程）：\n椭圆在点"
+          },
+          {
+            "latex": "P(1, \\frac{\\sqrt{3}}{2})"
+          },
+          {
+            "text": "处的切线方程为"
+          },
+          {
+            "latex": "\\frac{1\\cdot x}{4} + \\frac{\\frac{\\sqrt{3}}{2}\\cdot y}{3} = 1 \\quad \\Rightarrow \\quad \\frac{x}{4} + \\frac{\\sqrt{3} y}{6} = 1"
+          },
+          {
+            "text": ".理由： 代入切线公式"
+          },
+          {
+            "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1"
+          },
+          {
+            "text": "。"
           },
           {
             "segments": [
@@ -17861,115 +19046,83 @@ module.exports = {
               {
                 "type": "text",
                 "text": "到直线"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x}{4} + \\frac{\\sqrt{3} y}{6} - 1 = 0"
-              },
-              {
-                "type": "text",
-                "text": "的距离为"
-              },
-              {
-                "type": "math",
-                "latex": "d = \\frac{| -1 |}{\\sqrt{ \\left( \\frac{1}{4} \\right)^2 + \\left( \\frac{\\sqrt{3}}{6} \\right)^2 }} = \\frac{1}{\\sqrt{ \\frac{1}{16} + \\frac{3}{36} }} = \\frac{1}{\\sqrt{ \\frac{1}{16} + \\frac{1}{12} }}."
-              },
-              {
-                "type": "text",
-                "text": "计算分母："
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{1}{16} + \\frac{1}{12} = \\frac{3}{48} + \\frac{4}{48} = \\frac{7}{48}"
-              },
-              {
-                "type": "text",
-                "text": "，所以"
-              },
-              {
-                "type": "math",
-                "latex": "d = \\frac{1}{\\sqrt{7/48}} = \\sqrt{\\frac{48}{7}} = \\frac{4\\sqrt{3}}{\\sqrt{7}}"
-              },
-              {
-                "type": "text",
-                "text": "。\n理由： 点到直线距离公式。"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第四步（计算焦半径）："
-              },
-              {
-                "type": "math",
-                "latex": "r_1 = |PF_1| = \\sqrt{(1+1)^2 + \\left( \\frac{\\sqrt{3}}{2} \\right)^2} = \\sqrt{4 + \\frac{3}{4}} = \\sqrt{\\frac{19}{4}} = \\frac{\\sqrt{19}}{2}"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              },
-              {
-                "type": "math",
-                "latex": "r_2 = |PF_2| = \\sqrt{(1-1)^2 + \\left( \\frac{\\sqrt{3}}{2} \\right)^2} = \\sqrt{0 + \\frac{3}{4}} = \\frac{\\sqrt{3}}{2}"
-              },
-              {
-                "type": "text",
-                "text": "。\n理由： 两点间距离公式。"
-              }
-            ]
+            "latex": "\\frac{x}{4} + \\frac{\\sqrt{3} y}{6} - 1 = 0"
+          },
+          {
+            "text": "的距离为"
+          },
+          {
+            "latex": "d = \\frac{| -1 |}{\\sqrt{ \\left( \\frac{1}{4} \\right)^2 + \\left( \\frac{\\sqrt{3}}{6} \\right)^2 }} = \\frac{1}{\\sqrt{ \\frac{1}{16} + \\frac{3}{36} }} = \\frac{1}{\\sqrt{ \\frac{1}{16} + \\frac{1}{12} }}"
+          },
+          {
+            "text": ".计算分母："
+          },
+          {
+            "latex": "\\frac{1}{16} + \\frac{1}{12} = \\frac{3}{48} + \\frac{4}{48} = \\frac{7}{48}"
+          },
+          {
+            "text": "，所以"
+          },
+          {
+            "latex": "d = \\frac{1}{\\sqrt{7/48}} = \\sqrt{\\frac{48}{7}} = \\frac{4\\sqrt{3}}{\\sqrt{7}}"
+          },
+          {
+            "text": "。\n理由： 点到直线距离公式。"
+          },
+          {
+            "text": "第四步（计算焦半径）："
+          },
+          {
+            "latex": "r_1 = |PF_1| = \\sqrt{(1+1)^2 + \\left( \\frac{\\sqrt{3}}{2} \\right)^2} = \\sqrt{4 + \\frac{3}{4}} = \\sqrt{\\frac{19}{4}} = \\frac{\\sqrt{19}}{2}"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "latex": "r_2 = |PF_2| = \\sqrt{(1-1)^2 + \\left( \\frac{\\sqrt{3}}{2} \\right)^2} = \\sqrt{0 + \\frac{3}{4}} = \\frac{\\sqrt{3}}{2}"
+          },
+          {
+            "text": "。\n理由： 两点间距离公式。"
+          },
+          {
+            "text": "第五步（验证关系）：\n计算"
+          },
+          {
+            "latex": "\\sqrt{r_1 r_2} = \\sqrt{ \\frac{\\sqrt{19}}{2} \\cdot \\frac{\\sqrt{3}}{2} } = \\sqrt{ \\frac{\\sqrt{57}}{4} } = \\frac{\\sqrt[4]{57}}{\\sqrt{2}}"
+          },
+          {
+            "text": "。\n则"
+          },
+          {
+            "latex": "\\sqrt{r_1 r_2} \\cdot d = \\frac{\\sqrt[4]{57}}{\\sqrt{2}} \\cdot \\frac{4\\sqrt{3}}{\\sqrt{7}} = \\frac{4\\sqrt{3}\\sqrt[4]{57}}{\\sqrt{14}}"
+          },
+          {
+            "text": "。\n而"
+          },
+          {
+            "latex": "ab = 2 \\cdot \\sqrt{3} = 2\\sqrt{3}"
+          },
+          {
+            "text": "。\n通过数值近似或平方验证，两者相等（具体代数验证略，但可计算平方后相等）。\n理由： 直接代入主结论公式。\n关键结论： 经验证，"
+          },
+          {
+            "latex": "\\sqrt{r_1 r_2} \\cdot d = ab"
+          },
+          {
+            "text": "成立，符合命题。"
+          },
+          {
+            "text": "例 2（稍变形）\n题目： 椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "第五步（验证关系）：\n计算"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1 r_2} = \\sqrt{ \\frac{\\sqrt{19}}{2} \\cdot \\frac{\\sqrt{3}}{2} } = \\sqrt{ \\frac{\\sqrt{57}}{4} } = \\frac{\\sqrt[4]{57}}{\\sqrt{2}}"
-              },
-              {
-                "type": "text",
-                "text": "。\n则"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1 r_2} \\cdot d = \\frac{\\sqrt[4]{57}}{\\sqrt{2}} \\cdot \\frac{4\\sqrt{3}}{\\sqrt{7}} = \\frac{4\\sqrt{3}\\sqrt[4]{57}}{\\sqrt{14}}"
-              },
-              {
-                "type": "text",
-                "text": "。\n而"
-              },
-              {
-                "type": "math",
-                "latex": "ab = 2 \\cdot \\sqrt{3} = 2\\sqrt{3}"
-              },
-              {
-                "type": "text",
-                "text": "。\n通过数值近似或平方验证，两者相等（具体代数验证略，但可计算平方后相等）。\n理由： 直接代入主结论公式。\n关键结论： 经验证，"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1 r_2} \\cdot d = ab"
-              },
-              {
-                "type": "text",
-                "text": "成立，符合命题。"
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "例 2（稍变形）\n题目： 椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
-              },
               {
                 "type": "text",
                 "text": "（"
@@ -17989,11 +19142,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，已知"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1 r_2} \\cdot d = 6"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\sqrt{r_1 r_2} \\cdot d = 6"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "，且"
@@ -18017,15 +19173,13 @@ module.exports = {
             ]
           },
           {
+            "text": "第一步（代入关系）：\n由主结论"
+          },
+          {
+            "latex": "\\sqrt{r_1 r_2} \\cdot d = ab"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "第一步（代入关系）：\n由主结论"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1 r_2} \\cdot d = ab"
-              },
               {
                 "type": "text",
                 "text": "，代入已知值得"
@@ -18093,16 +19247,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，椭圆方程为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{9} + \\frac{y^2}{4} = 1"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "\\frac{x^2}{9} + \\frac{y^2}{4} = 1"
+          },
+          {
+            "text": "。"
           }
         ]
       },
@@ -18136,15 +19288,13 @@ module.exports = {
             ]
           },
           {
+            "text": "正确理解（焦点在长轴）：\n对于椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（焦点在长轴）：\n对于椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
-              },
               {
                 "type": "text",
                 "text": "（"
@@ -18164,24 +19314,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "轴上，坐标为"
-              },
-              {
-                "type": "math",
-                "latex": "(\\pm c,0)"
-              },
-              {
-                "type": "text",
-                "text": "，其中"
-              },
-              {
-                "type": "math",
-                "latex": "c=\\sqrt{a^2-b^2}"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "(\\pm c,0)"
+          },
+          {
+            "text": "，其中"
+          },
+          {
+            "latex": "c=\\sqrt{a^2-b^2}"
+          },
+          {
+            "text": "。"
           },
           {
             "segments": [
@@ -18224,36 +19370,25 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（点到直线距离）：\n直线"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0 x}{a^2}+\\frac{y_0 y}{b^2}=1"
-              },
-              {
-                "type": "text",
-                "text": "的一般式为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0}{a^2}x + \\frac{y_0}{b^2}y - 1 = 0"
-              },
-              {
-                "type": "text",
-                "text": "，距离公式为"
-              },
-              {
-                "type": "math",
-                "latex": "d = \\frac{|C|}{\\sqrt{A^2+B^2}}"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "正确理解（点到直线距离）：\n直线"
+          },
+          {
+            "latex": "\\frac{x_0 x}{a^2}+\\frac{y_0 y}{b^2}=1"
+          },
+          {
+            "text": "的一般式为"
+          },
+          {
+            "latex": "\\frac{x_0}{a^2}x + \\frac{y_0}{b^2}y - 1 = 0"
+          },
+          {
+            "text": "，距离公式为"
+          },
+          {
+            "latex": "d = \\frac{|C|}{\\sqrt{A^2+B^2}}"
+          },
+          {
+            "text": "。"
           },
           {
             "text": "错因分析（公式记忆偏差）：\n对点到直线距离公式的条件理解不清，或直接代入错误系数。"
@@ -18343,16 +19478,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的横坐标，其中"
-              },
-              {
-                "type": "math",
-                "latex": "e=\\frac{c}{a}"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "e=\\frac{c}{a}"
+          },
+          {
+            "text": "。"
           },
           {
             "segments": [
@@ -18375,16 +19508,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "为"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{a^2+b^2}"
-              },
-              {
-                "type": "text",
-                "text": "等。"
               }
             ]
+          },
+          {
+            "latex": "\\sqrt{a^2+b^2}"
+          },
+          {
+            "text": "等。"
           }
         ]
       },
@@ -18400,15 +19531,13 @@ module.exports = {
             "text": "使用条件"
           },
           {
+            "text": "条件 1（标准椭圆）： 椭圆方程为"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "条件 1（标准椭圆）： 椭圆方程为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
-              },
               {
                 "type": "text",
                 "text": "，且"
@@ -18436,24 +19565,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "轴上，坐标为"
-              },
-              {
-                "type": "math",
-                "latex": "(\\pm c,0)"
-              },
-              {
-                "type": "text",
-                "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "c=\\sqrt{a^2-b^2}"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "(\\pm c,0)"
+          },
+          {
+            "text": "，"
+          },
+          {
+            "latex": "c=\\sqrt{a^2-b^2}"
+          },
+          {
+            "text": "。"
           },
           {
             "text": "关键提醒"
@@ -18503,11 +19628,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "后，代入"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{r_1 r_2}\\cdot d"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\sqrt{r_1 r_2}\\cdot d"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "检查是否等于"
@@ -18685,14 +19813,161 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
+            "title": "条件 1（椭圆标准方程）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "设椭圆"
+              },
+              {
+                "type": "math",
+                "latex": "C:\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1\\ (a>b>0)"
+              },
+              {
+                "type": "text",
+                "text": "，长轴端点"
+              },
+              {
+                "type": "math",
+                "latex": "A_{1}(-a,0)"
+              },
+              {
+                "type": "text",
+                "text": "、"
+              },
+              {
+                "type": "math",
+                "latex": "A_{2}(a,0)"
+              },
+              {
+                "type": "text",
+                "text": "，过"
+              },
+              {
+                "type": "math",
+                "latex": "A_{1}"
+              },
+              {
+                "type": "text",
+                "text": "、"
+              },
+              {
+                "type": "math",
+                "latex": "A_{2}"
+              },
+              {
+                "type": "text",
+                "text": "的切线分别为"
+              },
+              {
+                "type": "math",
+                "latex": "x=-a"
+              },
+              {
+                "type": "text",
+                "text": "和"
+              },
+              {
+                "type": "math",
+                "latex": "x=a"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "设椭圆 ，长轴端点 、 ，过 、 的切线分别为 和 。",
+            "latex": "C:\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1\\ (a>b>0)"
+          },
+          {
             "title": "结论一（距离乘积定值）：",
-            "desc": "交点距离乘积恒为",
-            "latex": "b^{2} \\qquad P \\qquad |P_{1}A_{1}|\\cdot|P_{2}A_{2}|=b^{2}"
+            "segments": [
+              {
+                "type": "text",
+                "text": "交点距离乘积恒为"
+              },
+              {
+                "type": "math",
+                "latex": "b^{2}"
+              },
+              {
+                "type": "text",
+                "text": "，与"
+              },
+              {
+                "type": "math",
+                "latex": "P"
+              },
+              {
+                "type": "text",
+                "text": "点位置无关。"
+              },
+              {
+                "type": "math",
+                "latex": "|P_{1}A_{1}|\\cdot|P_{2}A_{2}|=b^{2}"
+              }
+            ],
+            "desc": "交点距离乘积恒为 ，与 点位置无关。",
+            "latex": "|P_{1}A_{1}|\\cdot|P_{2}A_{2}|=b^{2}"
           },
           {
             "title": "推广结论（面积最小值）：",
-            "desc": "四边形面积有最小值",
-            "latex": "2ab \\qquad P \\qquad S_{A_{1}P_{1}P_{2}A_{2}}\\ge 2ab \\qquad (0,\\pm b)"
+            "segments": [
+              {
+                "type": "text",
+                "text": "四边形面积有最小值"
+              },
+              {
+                "type": "math",
+                "latex": "2ab"
+              },
+              {
+                "type": "text",
+                "text": "，当"
+              },
+              {
+                "type": "math",
+                "latex": "P"
+              },
+              {
+                "type": "text",
+                "text": "在短轴端点时取得。"
+              },
+              {
+                "type": "math",
+                "latex": "S_{A_{1}P_{1}P_{2}A_{2}}\\ge 2ab"
+              },
+              {
+                "type": "text",
+                "text": "等号/取等条件： 当"
+              },
+              {
+                "type": "math",
+                "latex": "P"
+              },
+              {
+                "type": "text",
+                "text": "在椭圆短轴端点"
+              },
+              {
+                "type": "math",
+                "latex": "(0,\\pm b)"
+              },
+              {
+                "type": "text",
+                "text": "时，四边形面积取得最小值"
+              },
+              {
+                "type": "math",
+                "latex": "2ab"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "四边形面积有最小值 ，当 在短轴端点时取得。 等号/取等条件： 当 在椭圆短轴端点 时，四边形面积取得最小值 。",
+            "latex": "S_{A_{1}P_{1}P_{2}A_{2}}\\ge 2ab"
           }
         ]
       },
@@ -18749,11 +20024,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的切线方程可写为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0 x}{a^{2}}+\\frac{y_0 y}{b^{2}}=1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{x_0 x}{a^{2}}+\\frac{y_0 y}{b^{2}}=1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "，与"
@@ -18837,16 +20115,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "是梯形，面积"
-              },
-              {
-                "type": "math",
-                "latex": "S=\\frac{1}{2}(|P_1A_1|+|P_2A_2|)\\cdot 2a"
-              },
-              {
-                "type": "text",
-                "text": "，代入距离表达式求最值。"
               }
             ]
+          },
+          {
+            "latex": "S=\\frac{1}{2}(|P_1A_1|+|P_2A_2|)\\cdot 2a"
+          },
+          {
+            "text": "，代入距离表达式求最值。"
           },
           {
             "segments": [
@@ -18893,19 +20169,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "满足"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0^2}{a^2}+\\frac{y_0^2}{b^2}=1"
-              },
-              {
-                "type": "text",
-                "text": "，通过代数推导可得"
-              },
-              {
-                "type": "math",
-                "latex": "|P_1A_1|\\cdot|P_2A_2| = b^2"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{x_0^2}{a^2}+\\frac{y_0^2}{b^2}=1"
+          },
+          {
+            "text": "，通过代数推导可得"
+          },
+          {
+            "latex": "|P_1A_1|\\cdot|P_2A_2| = b^2"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "恒成立，且面积"
@@ -19081,11 +20358,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "在椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "上，则过"
@@ -19097,19 +20377,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的切线方程为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1."
-              },
-              {
-                "type": "text",
-                "text": "理由： 椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1"
+          },
+          {
+            "text": ".理由： 椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "在点"
@@ -19161,27 +20442,26 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。联立方程："
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{cases}\nx = -a, \\\\\n\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1,\n\\end{cases}\n\\quad\\text{解得}\\quad\nP_1\\left(-a,\\ \\frac{b^2}{y_0}\\left(1+\\frac{x_0}{a}\\right)\\right)."
-              },
-              {
-                "type": "text",
-                "text": "类似地，"
-              },
-              {
-                "type": "math",
-                "latex": "P_2\\left(a,\\ \\frac{b^2}{y_0}\\left(1-\\frac{x_0}{a}\\right)\\right)."
-              },
-              {
-                "type": "text",
-                "text": "理由： 将"
-              },
-              {
-                "type": "math",
-                "latex": "x=\\pm a"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\begin{cases}\nx = -a, \\\\\n\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1,\n\\end{cases}\n\\quad\\text{解得}\\quad\nP_1\\left(-a,\\ \\frac{b^2}{y_0}\\left(1+\\frac{x_0}{a}\\right)\\right)"
+          },
+          {
+            "text": ".类似地，"
+          },
+          {
+            "latex": "P_2\\left(a,\\ \\frac{b^2}{y_0}\\left(1-\\frac{x_0}{a}\\right)\\right)"
+          },
+          {
+            "text": ".理由： 将"
+          },
+          {
+            "latex": "x=\\pm a"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "代入切线方程解出"
@@ -19217,14 +20497,17 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，故"
-              },
-              {
-                "type": "math",
-                "latex": "|P_1A_1| = \\left| \\frac{b^2}{y_0}\\left(1+\\frac{x_0}{a}\\right) \\right|,\\quad\n|P_2A_2| = \\left| \\frac{b^2}{y_0}\\left(1-\\frac{x_0}{a}\\right) \\right|."
-              },
+              }
+            ]
+          },
+          {
+            "latex": "|P_1A_1| = \\left| \\frac{b^2}{y_0}\\left(1+\\frac{x_0}{a}\\right) \\right|,\\quad\n|P_2A_2| = \\left| \\frac{b^2}{y_0}\\left(1-\\frac{x_0}{a}\\right) \\right|"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "由于"
+                "text": ".由于"
               },
               {
                 "type": "math",
@@ -19233,86 +20516,68 @@ module.exports = {
               {
                 "type": "text",
                 "text": "在椭圆上，"
-              },
-              {
-                "type": "math",
-                "latex": "x_0\\in[-a,a]"
-              },
-              {
-                "type": "text",
-                "text": "，所以"
-              },
-              {
-                "type": "math",
-                "latex": "1+\\frac{x_0}{a}\\ge 0"
-              },
-              {
-                "type": "text",
-                "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "1-\\frac{x_0}{a}\\ge 0"
-              },
-              {
-                "type": "text",
-                "text": "，且"
-              },
-              {
-                "type": "math",
-                "latex": "y_0\\neq 0"
-              },
-              {
-                "type": "text",
-                "text": "，故绝对值可去掉："
-              },
-              {
-                "type": "math",
-                "latex": "|P_1A_1| = \\frac{b^2}{y_0}\\left(1+\\frac{x_0}{a}\\right),\\quad\n|P_2A_2| = \\frac{b^2}{y_0}\\left(1-\\frac{x_0}{a}\\right)."
-              },
-              {
-                "type": "text",
-                "text": "理由： 距离为纵坐标差的绝对值，由椭圆范围知表达式非负。"
               }
             ]
+          },
+          {
+            "latex": "x_0\\in[-a,a]"
+          },
+          {
+            "text": "，所以"
+          },
+          {
+            "latex": "1+\\frac{x_0}{a}\\ge 0"
+          },
+          {
+            "text": "，"
+          },
+          {
+            "latex": "1-\\frac{x_0}{a}\\ge 0"
+          },
+          {
+            "text": "，且"
+          },
+          {
+            "latex": "y_0\\neq 0"
+          },
+          {
+            "text": "，故绝对值可去掉："
+          },
+          {
+            "latex": "|P_1A_1| = \\frac{b^2}{y_0}\\left(1+\\frac{x_0}{a}\\right),\\quad\n|P_2A_2| = \\frac{b^2}{y_0}\\left(1-\\frac{x_0}{a}\\right)"
+          },
+          {
+            "text": ".理由： 距离为纵坐标差的绝对值，由椭圆范围知表达式非负。"
+          },
+          {
+            "text": "步骤四（乘积化简）：\n计算乘积："
+          },
+          {
+            "latex": "|P_1A_1|\\cdot|P_2A_2| = \\frac{b^2}{y_0}\\left(1+\\frac{x_0}{a}\\right) \\cdot \\frac{b^2}{y_0}\\left(1-\\frac{x_0}{a}\\right) = \\frac{b^4}{y_0^2}\\left(1-\\frac{x_0^2}{a^2}\\right)"
+          },
+          {
+            "text": ".利用椭圆方程"
+          },
+          {
+            "latex": "\\frac{x_0^2}{a^2}+\\frac{y_0^2}{b^2}=1"
+          },
+          {
+            "text": "，得"
+          },
+          {
+            "latex": "1-\\frac{x_0^2}{a^2} = \\frac{y_0^2}{b^2}"
+          },
+          {
+            "text": "，代入："
+          },
+          {
+            "latex": "|P_1A_1|\\cdot|P_2A_2| = \\frac{b^4}{y_0^2} \\cdot \\frac{y_0^2}{b^2} = b^2"
           },
           {
             "segments": [
               {
                 "type": "text",
-                "text": "步骤四（乘积化简）：\n计算乘积："
-              },
-              {
-                "type": "math",
-                "latex": "|P_1A_1|\\cdot|P_2A_2| = \\frac{b^2}{y_0}\\left(1+\\frac{x_0}{a}\\right) \\cdot \\frac{b^2}{y_0}\\left(1-\\frac{x_0}{a}\\right) = \\frac{b^4}{y_0^2}\\left(1-\\frac{x_0^2}{a^2}\\right)."
-              },
-              {
-                "type": "text",
-                "text": "利用椭圆方程"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0^2}{a^2}+\\frac{y_0^2}{b^2}=1"
-              },
-              {
-                "type": "text",
-                "text": "，得"
-              },
-              {
-                "type": "math",
-                "latex": "1-\\frac{x_0^2}{a^2} = \\frac{y_0^2}{b^2}"
-              },
-              {
-                "type": "text",
-                "text": "，代入："
-              },
-              {
-                "type": "math",
-                "latex": "|P_1A_1|\\cdot|P_2A_2| = \\frac{b^4}{y_0^2} \\cdot \\frac{y_0^2}{b^2} = b^2."
-              },
-              {
-                "type": "text",
-                "text": "理由： 代入椭圆方程消去"
+                "text": ".理由： 代入椭圆方程消去"
               },
               {
                 "type": "math",
@@ -19353,22 +20618,23 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，面积"
-              },
-              {
-                "type": "math",
-                "latex": "S = \\frac{1}{2}(|P_1A_1|+|P_2A_2|) \\cdot 2a = a\\left(|P_1A_1|+|P_2A_2|\\right)."
-              },
+              }
+            ]
+          },
+          {
+            "latex": "S = \\frac{1}{2}(|P_1A_1|+|P_2A_2|) \\cdot 2a = a\\left(|P_1A_1|+|P_2A_2|\\right)"
+          },
+          {
+            "text": ".代入距离表达式："
+          },
+          {
+            "latex": "S = a\\left[ \\frac{b^2}{y_0}\\left(1+\\frac{x_0}{a}\\right) + \\frac{b^2}{y_0}\\left(1-\\frac{x_0}{a}\\right) \\right] = a \\cdot \\frac{b^2}{y_0} \\cdot 2 = \\frac{2ab^2}{y_0}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "代入距离表达式："
-              },
-              {
-                "type": "math",
-                "latex": "S = a\\left[ \\frac{b^2}{y_0}\\left(1+\\frac{x_0}{a}\\right) + \\frac{b^2}{y_0}\\left(1-\\frac{x_0}{a}\\right) \\right] = a \\cdot \\frac{b^2}{y_0} \\cdot 2 = \\frac{2ab^2}{y_0}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 梯形面积公式，并化简。注意"
+                "text": ".理由： 梯形面积公式，并化简。注意"
               },
               {
                 "type": "math",
@@ -19377,51 +20643,41 @@ module.exports = {
               {
                 "type": "text",
                 "text": "可正可负，实际面积"
-              },
-              {
-                "type": "math",
-                "latex": "S = \\frac{2ab^2}{|y_0|}"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
           },
           {
+            "latex": "S = \\frac{2ab^2}{|y_0|}"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "步骤六（求最小值）：\n由椭圆方程，"
+          },
+          {
+            "latex": "y_0^2 \\le b^2"
+          },
+          {
+            "text": "，故"
+          },
+          {
+            "latex": "|y_0| \\le b"
+          },
+          {
+            "text": "，且"
+          },
+          {
+            "latex": "y_0 \\neq 0"
+          },
+          {
+            "text": "。所以"
+          },
+          {
+            "latex": "S = \\frac{2ab^2}{|y_0|} \\ge \\frac{2ab^2}{b} = 2ab"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "步骤六（求最小值）：\n由椭圆方程，"
-              },
-              {
-                "type": "math",
-                "latex": "y_0^2 \\le b^2"
-              },
-              {
-                "type": "text",
-                "text": "，故"
-              },
-              {
-                "type": "math",
-                "latex": "|y_0| \\le b"
-              },
-              {
-                "type": "text",
-                "text": "，且"
-              },
-              {
-                "type": "math",
-                "latex": "y_0 \\neq 0"
-              },
-              {
-                "type": "text",
-                "text": "。所以"
-              },
-              {
-                "type": "math",
-                "latex": "S = \\frac{2ab^2}{|y_0|} \\ge \\frac{2ab^2}{b} = 2ab"
-              },
               {
                 "type": "text",
                 "text": "，等号当"
@@ -19433,11 +20689,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "即"
-              },
-              {
-                "type": "math",
-                "latex": "y_0 = \\pm b"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "y_0 = \\pm b"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "时成立，此时"
@@ -19469,15 +20728,13 @@ module.exports = {
             ]
           },
           {
+            "text": "结论回扣\n由此证明了"
+          },
+          {
+            "latex": "|P_1A_1|\\cdot|P_2A_2|=b^2"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "结论回扣\n由此证明了"
-              },
-              {
-                "type": "math",
-                "latex": "|P_1A_1|\\cdot|P_2A_2|=b^2"
-              },
               {
                 "type": "text",
                 "text": "恒成立，且四边形"
@@ -19489,11 +20746,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的面积"
-              },
-              {
-                "type": "math",
-                "latex": "S \\ge 2ab"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "S \\ge 2ab"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "，最小值"
@@ -19505,16 +20765,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "在"
-              },
-              {
-                "type": "math",
-                "latex": "P(0,\\pm b)"
-              },
-              {
-                "type": "text",
-                "text": "时取得。"
               }
             ]
+          },
+          {
+            "latex": "P(0,\\pm b)"
+          },
+          {
+            "text": "时取得。"
           }
         ]
       },
@@ -19524,15 +20782,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "例 1（基础）\n题目： 已知椭圆"
+          },
+          {
+            "latex": "C:\\frac{x^2}{4}+\\frac{y^2}{3}=1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例 1（基础）\n题目： 已知椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "C:\\frac{x^2}{4}+\\frac{y^2}{3}=1"
-              },
               {
                 "type": "text",
                 "text": "，"
@@ -19600,16 +20856,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，求"
-              },
-              {
-                "type": "math",
-                "latex": "|P_1A_1|\\cdot|P_2A_2|"
-              },
-              {
-                "type": "text",
-                "text": "的值。\n解题步骤："
               }
             ]
+          },
+          {
+            "latex": "|P_1A_1|\\cdot|P_2A_2|"
+          },
+          {
+            "text": "的值。\n解题步骤："
           },
           {
             "segments": [
@@ -19624,16 +20878,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "在椭圆上何处，"
-              },
-              {
-                "type": "math",
-                "latex": "|P_1A_1|\\cdot|P_2A_2|=b^2"
-              },
-              {
-                "type": "text",
-                "text": "。\n理由： 直接应用已知二级结论。"
               }
             ]
+          },
+          {
+            "latex": "|P_1A_1|\\cdot|P_2A_2|=b^2"
+          },
+          {
+            "text": "。\n理由： 直接应用已知二级结论。"
           },
           {
             "segments": [
@@ -19684,47 +20936,34 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第三步（写出答案）：\n所以"
-              },
-              {
-                "type": "math",
-                "latex": "|P_1A_1|\\cdot|P_2A_2|=3"
-              },
-              {
-                "type": "text",
-                "text": "。\n理由： 代入结论。\n关键结论： 对于椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
-              },
-              {
-                "type": "text",
-                "text": "，在给定条件下，"
-              },
-              {
-                "type": "math",
-                "latex": "|P_1A_1|\\cdot|P_2A_2|=b^2"
-              },
-              {
-                "type": "text",
-                "text": "恒成立。"
-              }
-            ]
+            "text": "第三步（写出答案）：\n所以"
+          },
+          {
+            "latex": "|P_1A_1|\\cdot|P_2A_2|=3"
+          },
+          {
+            "text": "。\n理由： 代入结论。\n关键结论： 对于椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
+            "text": "，在给定条件下，"
+          },
+          {
+            "latex": "|P_1A_1|\\cdot|P_2A_2|=b^2"
+          },
+          {
+            "text": "恒成立。"
+          },
+          {
+            "text": "例 2（稍变形）\n题目： 椭圆"
+          },
+          {
+            "latex": "C:\\frac{x^2}{9}+\\frac{y^2}{4}=1"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "例 2（稍变形）\n题目： 椭圆"
-              },
-              {
-                "type": "math",
-                "latex": "C:\\frac{x^2}{9}+\\frac{y^2}{4}=1"
-              },
               {
                 "type": "text",
                 "text": "，"
@@ -19804,15 +21043,13 @@ module.exports = {
             ]
           },
           {
+            "text": "第一步（面积表达式）：\n由结论，四边形面积"
+          },
+          {
+            "latex": "S \\ge 2ab"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "第一步（面积表达式）：\n由结论，四边形面积"
-              },
-              {
-                "type": "math",
-                "latex": "S \\ge 2ab"
-              },
               {
                 "type": "text",
                 "text": "，且最小值为"
@@ -19848,11 +21085,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，故"
-              },
-              {
-                "type": "math",
-                "latex": "2ab = 2\\times 3\\times 2 = 12"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "2ab = 2\\times 3\\times 2 = 12"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "。\n理由： 从椭圆方程读取"
@@ -19888,11 +21128,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "在短轴端点"
-              },
-              {
-                "type": "math",
-                "latex": "(0,\\pm 2)"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "(0,\\pm 2)"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "时，面积取得最小值"
@@ -19904,11 +21147,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。\n理由： 最小值在"
-              },
-              {
-                "type": "math",
-                "latex": "P(0,\\pm b)"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "P(0,\\pm b)"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "时取得。\n关键结论： 四边形"
@@ -19979,15 +21225,13 @@ module.exports = {
             ]
           },
           {
+            "text": "正确理解（标准切线公式）：\n正确切线方程为"
+          },
+          {
+            "latex": "\\frac{x_0 x}{a^2}+\\frac{y_0 y}{b^2}=1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（标准切线公式）：\n正确切线方程为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x_0 x}{a^2}+\\frac{y_0 y}{b^2}=1"
-              },
               {
                 "type": "text",
                 "text": "，其中"
@@ -20134,15 +21378,13 @@ module.exports = {
             ]
           },
           {
+            "text": "错因分析（范围分析不当）：\n未利用椭圆方程中"
+          },
+          {
+            "latex": "y_0^2 \\le b^2"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "错因分析（范围分析不当）：\n未利用椭圆方程中"
-              },
-              {
-                "type": "math",
-                "latex": "y_0^2 \\le b^2"
-              },
               {
                 "type": "text",
                 "text": "的条件，或错误认为"
@@ -20200,15 +21442,13 @@ module.exports = {
             "text": "使用条件"
           },
           {
+            "text": "条件 1（椭圆标准方程）： 椭圆方程为"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "条件 1（椭圆标准方程）： 椭圆方程为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
-              },
               {
                 "type": "text",
                 "text": "，长轴在"
@@ -20283,15 +21523,13 @@ module.exports = {
             ]
           },
           {
+            "text": "检查项（乘积定值）： 计算后验证"
+          },
+          {
+            "latex": "|P_1A_1|\\cdot|P_2A_2|"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "检查项（乘积定值）： 计算后验证"
-              },
-              {
-                "type": "math",
-                "latex": "|P_1A_1|\\cdot|P_2A_2|"
-              },
               {
                 "type": "text",
                 "text": "是否等于"
@@ -20303,6 +21541,6582 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，以检查推导正确性。"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "C023": {
+    "id": "C023",
+    "title": "椭圆面积公式",
+    "module": "conic",
+    "alias": [
+      "椭圆面积",
+      "S=πab",
+      "椭圆面积等于π乘ab",
+      "椭圆面积怎么算"
+    ],
+    "difficulty": 2,
+    "category": "解析几何",
+    "tags": [
+      "椭圆",
+      "面积",
+      "圆锥曲线",
+      "二级结论",
+      "S=πab"
+    ],
+    "core_summary": "椭圆面积等于π乘以长半轴与短半轴之积：S=πab。",
+    "core_formula": "S = \\pi ab",
+    "related_formulas": [
+      "S = \\pi a^2 \\quad (a=b)"
+    ],
+    "variables": [],
+    "conditions": [
+      "椭圆方程为标准形式 $\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1$",
+      "$a>0,\\ b>0$"
+    ],
+    "conclusions": [
+      "椭圆面积 $S = \\pi ab$"
+    ],
+    "usage": {
+      "scenarios": [
+        "圆锥曲线章节复习",
+        "椭圆几何性质应用",
+        "已知椭圆方程或部分条件求面积"
+      ],
+      "problem_types": [
+        "选择题",
+        "填空题",
+        "解答题（求面积或关联最值）"
+      ],
+      "exam_frequency": 0.6,
+      "exam_score": 5
+    },
+    "interactive": {
+      "has_diagram": true,
+      "geogebra_id": "",
+      "param_demo": {
+        "a": 2,
+        "b": 3,
+        "S": "6π"
+      }
+    },
+    "assets": {
+      "svg": "ellipse_area.svg",
+      "thumbnail": "",
+      "geogebra": "",
+      "video": "",
+      "audio": "",
+      "pdf": "",
+      "practice_json": ""
+    },
+    "shareConfig": {
+      "title": "椭圆面积公式S=πab：标准方程直接算面积",
+      "shareDesc": "适合圆锥曲线章节复习和考前速查，避免误将分母当半轴，一步得出椭圆面积。"
+    },
+    "relations": {
+      "prerequisites": [
+        "椭圆标准方程",
+        "圆面积公式"
+      ],
+      "related_ids": [],
+      "similar": [
+        "圆面积公式 $S=\\pi r^2$"
+      ]
+    },
+    "isPro": 0,
+    "remarks": "",
+    "knowledgeNode": "解析几何-圆锥曲线-椭圆",
+    "altNodes": [
+      "解析几何-圆-标准方程",
+      "解析几何-圆锥曲线-双曲线",
+      "解析几何-圆锥曲线-抛物线"
+    ],
+    "statement": "条件\n- 条件1（标准椭圆方程）： 椭圆边界为\n(x^2) / (a^2)+(y^2) / (b^2)=1，且 a>0,\\ b>0。其中 a,b 分别表示x方向、y方向的半轴长，不预设 a>b。\n结论\n- 结论一（椭圆面积公式）：\n直观描述： 椭圆围成区域的面积等于 乘以两条半轴长度之积。\nS = ab.\n- 推广结论（圆为特例）：\n直观描述： 当 a=b 时，椭圆变为半径为 a 的圆，面积公式退化为圆面积。\nS = a^2.\n适用范围： 该公式适用于中心在原点、轴与坐标轴平行的标准椭圆。对于平移或旋转后的椭圆，面积仍等于 乘以两条半轴长度，但不能直接从原方程的系数读出 a,b。",
+    "explanation": "一句话直觉\n椭圆面积可以看作单位圆盘面积经过两个方向分别伸缩得到。具体来说，将单位圆盘 x^2+y^2 1 沿 x 轴伸缩 a 倍、沿 y 轴伸缩 b 倍，就得到椭圆区域 (x^2) / (a^2)+(y^2) / (b^2) 1，面积从 变为 ab。\n核心拆解\n- 要点一（伸缩变换基础）： 椭圆区域是单位圆盘经过线性伸缩得到的结果，两个方向的伸缩因子分别为 a 和 b。\n- 要点二（面积伸缩因子）： 平面图形沿两个互相垂直方向分别伸缩时，面积变换因子等于两个方向伸缩因子的乘积，因此椭圆面积为单位圆盘面积的 ab 倍。\n几何本质（面积与圆关联）\n椭圆面积 ab 也可以理解为：该椭圆与半径为 sqrt(ab) 的圆面积相等。这里的 sqrt(ab) 是“等面积圆”的半径，不是椭圆本身的半轴。\n代数意义（对称不可分）\n面积公式 S= ab 中 a 和 b 的地位完全对称，即使 a<b，公式仍然成立，不需要区分谁是长半轴、谁是短半轴。\n考点价值（直接与反解）\n- 考法一（直接求面积）： 给出椭圆方程，先读出两条半轴，再代入 S= ab。\n- 考法二（反求半轴）： 已知面积和一条半轴，反求另一条半轴。\n顿悟点\n在半轴乘积 ab 一定时，椭圆无论“胖瘦”如何变化，面积都相同；若 ab 改变，面积也随之改变。\n使用场景\n- 场景一（基础面积计算）： 椭圆以标准形式给出，直接代入公式。\n- 场景二（参数反求）： 已知椭圆的面积和一个半轴，求另一个半轴。\n- 场景三（结合焦距）： 已知短半轴与焦距时，先由 a^2=b^2+c^2 求长半轴，再求面积。",
+    "proof": "思路提示\n本题结论可以由伸缩变换法得到：从单位圆盘 x'^2+y'^2 1 出发，作变换\nx=ax', y=by'.\n该变换会把单位圆盘变成椭圆区域 (x^2) / (a^2)+(y^2) / (b^2) 1，并把面积变为原来的 ab 倍。因此单位圆盘面积 对应的椭圆面积就是 ab。\nassets/tikz/C023_ellipse_stretch_diagram.tex\n0.5em\n图：单位圆盘经过伸缩变换得到椭圆区域\n正式推导\n- 步骤一（设定参照圆盘）： 考虑单位圆盘 x'^2+y'^2 1，其面积 S_0= 。\nS_0 = .\n理由： 单位圆盘的半径为 1，面积为 * 1^2= 。\n- 步骤二（建立伸缩变换）： 作线性变换\nx = a x', y = b y'.\n由 x'=(x) / (a),\\ y'=(y) / (b)，代入 x'^2+y'^2 1，可得\n(x^2) / (a^2)+(y^2) / (b^2) 1.\n这正是椭圆所围成的区域。\n理由： 该变换将单位圆盘内的每个点 (x',y') 一一映射到椭圆区域内的点 (x,y)。\n- 步骤三（面积变换因子）： 图形在 x 方向伸缩 a 倍，在 y 方向伸缩 b 倍，面积变换因子为\na * b=ab.\n理由： 长度在两个互相垂直方向分别乘以 a 和 b，面积相应乘以二者的乘积。可以把图形切成很多很小的矩形。每个小矩形的宽变为原来的 a 倍，高变为原来的 b 倍，因此每个小矩形面积变为原来的 ab 倍，整体面积也变为原来的 ab 倍。\n- 步骤四（计算椭圆面积）： 设椭圆面积为 S，则\nS = ab * S_0 = ab * = ab.\n理由： 由单位圆盘到椭圆区域的面积伸缩关系直接得到。\n另一种证明：积分法\n椭圆方程为\n(x^2) / (a^2)+(y^2) / (b^2)=1.\n由椭圆方程可得上半部分曲线为\ny\n=\nbsqrt(1-(x^2) / (a^2))\n=\n(b) / (a)sqrt(a^2-x^2).\n由于椭圆关于 x 轴和 y 轴都对称，所以只需要求第一象限部分面积，再乘以 4。\nassets/tikz/C023_ellipse_area_integral_diagram.tex\n0.5em\n图：椭圆第一象限面积的积分表示\n设椭圆第一象限部分面积为 S_ 14，则\nS_ 14\n=\nin t_0^a y\\,dx\n=\nin t_0^a\n(b) / (a)sqrt(a^2-x^2)\\,dx.\n令\nx=a , 0 ( ) / (2),\n则\ndx=-a \\,d .\n当 x=0 时，\na =0,\n所以\n=( ) / (2).\n当 x=a 时，\na =a,\n所以\n=0.\n又因为 0 ( ) / (2)，所以 0。于是\nsqrt(a^2-x^2)\n=\nsqrt(a^2-a^2 ^2 )\n=\nsqrt(a^2 ^2 )\n=\na .\n于是\nS_ 14\n&=\nin t_0^a\n(b) / (a)sqrt(a^2-x^2)\\,dx \\\n0.5em]\n&=\nin t_( ) / (2)^0\n(b) / (a) * a\n*\n(-a )\n\\,d \\\n0.5em]\n&=\nab in t_0^( ) / (2) ^2 \\,d .\n由二倍角公式\n^2 =(1- 2 ) / (2),\n可得\nS_ 14\n&=\nab in t_0^( ) / (2)\n(1- 2 ) / (2)\n\\,d \\\n0.5em]\n&=\nab\n[\n( ) / (2)\n-\n( 2 ) / (4)\n]_0^( ) / (2) \\\n0.5em]\n&=\nab\n(\n( ) / (4)-0\n) \\\n0.5em]\n&=\n( ab) / (4).\n因此椭圆总面积为\nS\n=\n4S_ 14\n=\n4 * ( ab) / (4)\n=\nab.\n结论回扣\n椭圆 (x^2) / (a^2)+(y^2) / (b^2)=1 围成区域的面积为 S= ab。这里 a>0,\\ b>0 是两条半轴长度，公式只看半轴乘积，不要求 a>b。",
+    "examples": "例 1（基础）\n题目： 已知椭圆方程为 (x^2) / (4)+(y^2) / (9)=1，求该椭圆的面积。\n解题步骤：\n- 第一步（识别半轴）： 由方程得 x 方向半轴为 sqrt(4)=2，y 方向半轴为 sqrt(9)=3。\n两条半轴长分别为 2,\\ 3.\n理由： 标准方程中分母是半轴长的平方，读半轴前必须开方。\n- 第二步（套用公式）： 椭圆面积公式为 S= * 半轴_1 * 半轴_2。\nS = * 2 * 3.\n理由： 面积只与两条半轴长度的乘积有关。\n- 第三步（计算面积）： 计算乘积。\nS = 6 .\n理由： 2 * 3=6，再乘以 。\n关键结论： 椭圆面积为 6 。\n例 2（稍变形）\n题目： 已知椭圆的面积为 20 ，且其一条半轴长为 5，求另一条半轴长。\n解题步骤：\n- 第一步（设未知数）： 设另一条半轴长为 t，已知一条半轴长为 5，面积 S=20 。\nS=20 , 一条半轴=5.\n理由： 面积公式只需要两条半轴长度，不必先判断哪条是长半轴。\n- 第二步（代入公式）： 由 S= * 5 * t 得\n20 = * 5 * t.\n理由： 将已知面积和已知半轴代入公式。\n- 第三步（解方程）： 两边同除以 得 20=5t，解得 t=4。\nt = 4.\n理由： 等式两边除以 （ != 0），再除以 5。\n关键结论： 另一条半轴长为 4。\n例 3（综合应用）\n题目： 已知椭圆的短半轴长为 3，焦距为 8，求该椭圆的面积。\n解题步骤：\n- 第一步（求半焦距）： 焦距 2c=8，所以半焦距 c=4。\nc = 4.\n理由： 椭圆的焦距是两个焦点之间的距离，等于 2c。\n- 第二步（求长半轴）： 按圆锥曲线常规记号，设长半轴为 a，短半轴为 b。已知 b=3,\\ c=4，由 a^2=b^2+c^2 得\na^2 = 3^2 + 4^2 = 25, a=5.\n理由： 对椭圆有 a^2=b^2+c^2，其中 a 是长半轴，b 是短半轴。\n- 第三步（计算面积）： 面积公式 S= ab，代入 a=5,\nb=3。\nS = * 5 * 3 = 15 .\n理由： 5 * 3=15，再乘以 。\n关键结论： 椭圆面积为 15 。",
+    "traps": "- 易错点一（把分母当半轴） 将椭圆方程中分母的直接数值当作半轴代入面积公式。\n- 正确理解（分母开方求半轴）： 若椭圆方程为 (x^2) / (m)+(y^2) / (n)=1，其中 m>0,n>0，则两条半轴长分别为 sqrt(m) 和 sqrt(n)，不能直接取分母 m,n。\n- 错因分析（忽略平方关系）： 学生常把分母误当作半轴长，而忽略标准式中的分母表示“半轴长的平方”。\n- 易错点二（混淆记号约定） 认为面积公式中的 a 必须大于 b，当 a<b 时不会使用或怀疑公式。\n- 正确理解（公式对称）： 面积 S= ab 中 a,b 地位对称，只要它们表示两条半轴长度，就直接相乘。\n- 错因分析（混淆长短轴）： 有些教材约定 a 为长半轴、b 为短半轴；但在方程 (x^2) / (a^2)+(y^2) / (b^2)=1 中，也常把 a,b 用作 x,y 方向半轴。无论采用哪种记号，面积都是 乘以两条半轴长度。\n- 易错点三（非标准方程直用） 对于非标准形式的椭圆方程，如 4x^2+9y^2=36，直接读系数 4,9 当作 a^2,b^2。\n- 正确理解（先化为标准形）： 必须先化为标准形式：\n4x^2+9y^2=36\n(x^2) / (9)+(y^2) / (4)=1.\n所以两条半轴长为 3 和 2，面积为 6 。\n- 错因分析（未标准化）： 学生忽略椭圆方程必须化为右边等于 1 的标准形式，导致读错半轴。\n- 易错点四（混淆焦距与半焦距） 题目给“焦距为 8”时，误以为 c=8。\n- 正确理解（焦距等于 2c）： 椭圆的焦距是两个焦点之间的距离，等于 2c。若焦距为 8，则 c=4。\n- 错因分析（少除以 2）： 若把焦距直接当作 c，再代入 a^2=b^2+c^2，会把长半轴算大，面积也随之错误。",
+    "summary": "一句话核心\n椭圆围成区域的面积等于 乘以两条半轴长度之积：S= ab。\n使用条件\n- 条件 1（标准椭圆形式）： 椭圆边界为 (x^2) / (a^2)+(y^2) / (b^2)=1，且 a>0,\\ b>0。\n- 条件 2（半轴含义清楚）： a,b 表示两条半轴长度；可以是 x,y 方向半轴，也可以按教材记作长半轴、短半轴。\n关键提醒\n- 易错点（区分分母与半轴）： 标准方程中的分母是半轴的平方，代入前需开方。\n- 检查项（方程标准化）： 使用前确认椭圆方程已化为右边等于 1 的标准形式，否则会误读半轴。\n- 综合题提醒（焦距）： 椭圆焦距为 2c，不要把题目给出的焦距直接当作 c。",
+    "display_version": 2,
+    "sections": [
+      {
+        "key": "core_formula",
+        "title": "核心公式",
+        "layout": "text",
+        "items": [
+          {
+            "latex": "S = \\pi ab"
+          }
+        ]
+      },
+      {
+        "key": "statement",
+        "title": "命题表述",
+        "layout": "theorem-list",
+        "items": [
+          {
+            "title": "条件1（标准椭圆方程）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "椭圆边界为"
+              },
+              {
+                "type": "math",
+                "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+              },
+              {
+                "type": "text",
+                "text": "，且"
+              },
+              {
+                "type": "math",
+                "latex": "a>0,\\ b>0"
+              },
+              {
+                "type": "text",
+                "text": "。其中"
+              },
+              {
+                "type": "math",
+                "latex": "a,b"
+              },
+              {
+                "type": "text",
+                "text": "分别表示"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "方向、"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "方向的半轴长，不预设"
+              },
+              {
+                "type": "math",
+                "latex": "a>b"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "椭圆边界为 ，且 。其中 分别表示 方向、 方向的半轴长，不预设 。",
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
+            "title": "结论一（椭圆面积公式）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "椭圆围成区域的面积等于"
+              },
+              {
+                "type": "math",
+                "latex": "\\pi"
+              },
+              {
+                "type": "text",
+                "text": "乘以两条半轴长度之积。"
+              },
+              {
+                "type": "math",
+                "latex": "S = \\pi ab."
+              }
+            ],
+            "desc": "椭圆围成区域的面积等于 乘以两条半轴长度之积。",
+            "latex": "S = \\pi ab."
+          },
+          {
+            "title": "推广结论（圆为特例）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "当"
+              },
+              {
+                "type": "math",
+                "latex": "a=b"
+              },
+              {
+                "type": "text",
+                "text": "时，椭圆变为半径为"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "的圆，面积公式退化为圆面积。"
+              },
+              {
+                "type": "math",
+                "latex": "S = \\pi a^2."
+              },
+              {
+                "type": "text",
+                "text": "适用范围： 该公式适用于中心在原点、轴与坐标轴平行的标准椭圆。对于平移或旋转后的椭圆，面积仍等于"
+              },
+              {
+                "type": "math",
+                "latex": "\\pi"
+              },
+              {
+                "type": "text",
+                "text": "乘以两条半轴长度，但不能直接从原方程的系数读出"
+              },
+              {
+                "type": "math",
+                "latex": "a,b"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "当 时，椭圆变为半径为 的圆，面积公式退化为圆面积。 适用范围： 该公式适用于中心在原点、轴与坐标轴平行的标准椭圆。对于平移或旋转后的椭圆，面积仍等于 乘以两条半轴长度，但不能直接从原方程的系数读出 。",
+            "latex": "a=b"
+          }
+        ]
+      },
+      {
+        "key": "explanation",
+        "title": "理解与直觉",
+        "layout": "text",
+        "items": [
+          {
+            "text": "一句话直觉\n椭圆面积可以看作单位圆盘面积经过两个方向分别伸缩得到。具体来说，将单位圆盘"
+          },
+          {
+            "latex": "x^2+y^2\\le 1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "沿"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴伸缩"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "倍、沿"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴伸缩"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "倍，就得到椭圆区域"
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}\\le 1"
+          },
+          {
+            "text": "，面积从"
+          },
+          {
+            "latex": "\\pi"
+          },
+          {
+            "text": "变为"
+          },
+          {
+            "latex": "\\pi ab"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "核心拆解"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "要点一（伸缩变换基础）：\n椭圆区域是单位圆盘经过线性伸缩得到的结果，两个方向的伸缩因子分别为"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "和"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "要点二（面积伸缩因子）：\n平面图形沿两个互相垂直方向分别伸缩时，面积变换因子等于两个方向伸缩因子的乘积，因此椭圆面积为单位圆盘面积的"
+              },
+              {
+                "type": "math",
+                "latex": "ab"
+              },
+              {
+                "type": "text",
+                "text": "倍。"
+              }
+            ]
+          },
+          {
+            "text": "几何本质（面积与圆关联）\n椭圆面积"
+          },
+          {
+            "latex": "\\pi ab"
+          },
+          {
+            "text": "也可以理解为：该椭圆与半径为"
+          },
+          {
+            "latex": "\\sqrt{ab}"
+          },
+          {
+            "text": "的圆面积相等。这里的"
+          },
+          {
+            "latex": "\\sqrt{ab}"
+          },
+          {
+            "text": "是“等面积圆”的半径，不是椭圆本身的半轴。"
+          },
+          {
+            "text": "代数意义（对称不可分）\n面积公式"
+          },
+          {
+            "latex": "S=\\pi ab"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "中"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "和"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "的地位完全对称，即使"
+              },
+              {
+                "type": "math",
+                "latex": "a<b"
+              },
+              {
+                "type": "text",
+                "text": "，公式仍然成立，不需要区分谁是长半轴、谁是短半轴。"
+              }
+            ]
+          },
+          {
+            "text": "考点价值（直接与反解）"
+          },
+          {
+            "text": "考法一（直接求面积）： 给出椭圆方程，先读出两条半轴，再代入"
+          },
+          {
+            "latex": "S=\\pi ab"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "考法二（反求半轴）： 已知面积和一条半轴，反求另一条半轴。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "顿悟点\n在半轴乘积"
+              },
+              {
+                "type": "math",
+                "latex": "ab"
+              },
+              {
+                "type": "text",
+                "text": "一定时，椭圆无论“胖瘦”如何变化，面积都相同；若"
+              },
+              {
+                "type": "math",
+                "latex": "ab"
+              },
+              {
+                "type": "text",
+                "text": "改变，面积也随之改变。"
+              }
+            ]
+          },
+          {
+            "text": "使用场景"
+          },
+          {
+            "text": "场景一（基础面积计算）： 椭圆以标准形式给出，直接代入公式。"
+          },
+          {
+            "text": "场景二（参数反求）： 已知椭圆的面积和一个半轴，求另一个半轴。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "场景三（结合焦距）： 已知短半轴与焦距时，先由"
+              },
+              {
+                "type": "math",
+                "latex": "a^2=b^2+c^2"
+              },
+              {
+                "type": "text",
+                "text": "求长半轴，再求面积。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "proof",
+        "title": "证明过程",
+        "layout": "text",
+        "items": [
+          {
+            "text": "思路提示\n本题结论可以由伸缩变换法得到：从单位圆盘"
+          },
+          {
+            "latex": "x'^2+y'^2\\le 1"
+          },
+          {
+            "text": "出发，作变换"
+          },
+          {
+            "latex": "x=ax',\\quad y=by'"
+          },
+          {
+            "text": ".该变换会把单位圆盘变成椭圆区域"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}\\le 1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，并把面积变为原来的"
+              },
+              {
+                "type": "math",
+                "latex": "ab"
+              },
+              {
+                "type": "text",
+                "text": "倍。因此单位圆盘面积"
+              }
+            ]
+          },
+          {
+            "latex": "\\pi"
+          },
+          {
+            "text": "对应的椭圆面积就是"
+          },
+          {
+            "latex": "\\pi ab"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "assets/tikz/C023_ellipse_stretch_diagram.tex\n0.5em\n图：单位圆盘经过伸缩变换得到椭圆区域\n正式推导"
+          },
+          {
+            "text": "步骤一（设定参照圆盘）：\n考虑单位圆盘"
+          },
+          {
+            "latex": "x'^2+y'^2\\le 1"
+          },
+          {
+            "text": "，其面积"
+          },
+          {
+            "latex": "S_0=\\pi"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "latex": "S_0 = \\pi"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".理由： 单位圆盘的半径为"
+              },
+              {
+                "type": "math",
+                "latex": "1"
+              },
+              {
+                "type": "text",
+                "text": "，面积为"
+              }
+            ]
+          },
+          {
+            "latex": "\\pi\\cdot 1^2=\\pi"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "步骤二（建立伸缩变换）：\n作线性变换"
+          },
+          {
+            "latex": "x = a x',\\quad y = b y'"
+          },
+          {
+            "text": ".由"
+          },
+          {
+            "latex": "x'=\\frac{x}{a},\\ y'=\\frac{y}{b}"
+          },
+          {
+            "text": "，代入"
+          },
+          {
+            "latex": "x'^2+y'^2\\le 1"
+          },
+          {
+            "text": "，可得"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}\\le 1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".这正是椭圆所围成的区域。\n理由： 该变换将单位圆盘内的每个点"
+              },
+              {
+                "type": "math",
+                "latex": "(x',y')"
+              },
+              {
+                "type": "text",
+                "text": "一一映射到椭圆区域内的点"
+              },
+              {
+                "type": "math",
+                "latex": "(x,y)"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "步骤三（面积变换因子）：\n图形在"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "方向伸缩"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "倍，在"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "方向伸缩"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "倍，面积变换因子为"
+              }
+            ]
+          },
+          {
+            "latex": "a\\cdot b=ab"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".理由： 长度在两个互相垂直方向分别乘以"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "和"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "，面积相应乘以二者的乘积。可以把图形切成很多很小的矩形。每个小矩形的宽变为原来的"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "倍，高变为原来的"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "倍，因此每个小矩形面积变为原来的"
+              },
+              {
+                "type": "math",
+                "latex": "ab"
+              },
+              {
+                "type": "text",
+                "text": "倍，整体面积也变为原来的"
+              },
+              {
+                "type": "math",
+                "latex": "ab"
+              },
+              {
+                "type": "text",
+                "text": "倍。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "步骤四（计算椭圆面积）：\n设椭圆面积为"
+              },
+              {
+                "type": "math",
+                "latex": "S"
+              },
+              {
+                "type": "text",
+                "text": "，则"
+              }
+            ]
+          },
+          {
+            "latex": "S = ab\\cdot S_0 = ab\\cdot \\pi = \\pi ab"
+          },
+          {
+            "text": ".理由： 由单位圆盘到椭圆区域的面积伸缩关系直接得到。"
+          },
+          {
+            "text": "另一种证明：积分法\n椭圆方程为"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
+            "text": ".由椭圆方程可得上半部分曲线为"
+          },
+          {
+            "latex": "y\n=\nb\\sqrt{1-\\frac{x^2}{a^2}}\n=\n\\frac{b}{a}\\sqrt{a^2-x^2}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".由于椭圆关于"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴和"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴都对称，所以只需要求第一象限部分面积，再乘以"
+              },
+              {
+                "type": "math",
+                "latex": "4"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "text": "assets/tikz/C023_ellipse_area_integral_diagram.tex\n0.5em\n图：椭圆第一象限面积的积分表示\n设椭圆第一象限部分面积为"
+          },
+          {
+            "latex": "S_{\\frac14}"
+          },
+          {
+            "text": "，则"
+          },
+          {
+            "latex": "S_{\\frac14}\n=\n\\int_0^a y\\,dx\n=\n\\int_0^a\n\\frac{b}{a}\\sqrt{a^2-x^2}\\,dx"
+          },
+          {
+            "text": ".令"
+          },
+          {
+            "latex": "x=a\\cos\\theta,\\qquad 0\\le \\theta\\le \\frac{\\pi}{2}"
+          },
+          {
+            "text": ",则"
+          },
+          {
+            "latex": "dx=-a\\sin\\theta\\,d\\theta"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".当"
+              },
+              {
+                "type": "math",
+                "latex": "x=0"
+              },
+              {
+                "type": "text",
+                "text": "时，"
+              }
+            ]
+          },
+          {
+            "latex": "a\\cos\\theta=0"
+          },
+          {
+            "text": ",所以"
+          },
+          {
+            "latex": "\\theta=\\frac{\\pi}{2}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".当"
+              },
+              {
+                "type": "math",
+                "latex": "x=a"
+              },
+              {
+                "type": "text",
+                "text": "时，"
+              }
+            ]
+          },
+          {
+            "latex": "a\\cos\\theta=a"
+          },
+          {
+            "text": ",所以"
+          },
+          {
+            "latex": "\\theta=0"
+          },
+          {
+            "text": ".又因为"
+          },
+          {
+            "latex": "0\\le \\theta\\le \\frac{\\pi}{2}"
+          },
+          {
+            "text": "，所以"
+          },
+          {
+            "latex": "\\sin\\theta\\ge 0"
+          },
+          {
+            "text": "。于是"
+          },
+          {
+            "latex": "\\sqrt{a^2-x^2}\n=\n\\sqrt{a^2-a^2\\cos^2\\theta}\n=\n\\sqrt{a^2\\sin^2\\theta}\n=\na\\sin\\theta"
+          },
+          {
+            "text": ".于是"
+          },
+          {
+            "latex": "\\begin{aligned}\nS_{\\frac14}\n&=\n\\int_0^a\n\\frac{b}{a}\\sqrt{a^2-x^2}\\,dx \\\\[0.5em]\n&=\n\\int_{\\frac{\\pi}{2}}^0\n\\frac{b}{a}\\cdot a\\sin\\theta\n\\cdot\n\\left(-a\\sin\\theta\\right)\n\\,d\\theta \\\\[0.5em]\n&=\nab\\int_0^{\\frac{\\pi}{2}}\\sin^2\\theta\\,d\\theta.\n\\end{aligned}"
+          },
+          {
+            "text": "由二倍角公式"
+          },
+          {
+            "latex": "\\sin^2\\theta=\\frac{1-\\cos 2\\theta}{2}"
+          },
+          {
+            "text": ",可得"
+          },
+          {
+            "latex": "\\begin{aligned}\nS_{\\frac14}\n&=\nab\\int_0^{\\frac{\\pi}{2}}\n\\frac{1-\\cos 2\\theta}{2}\n\\,d\\theta \\\\[0.5em]\n&=\nab\n\\left[\n\\frac{\\theta}{2}\n-\n\\frac{\\sin 2\\theta}{4}\n\\right]_0^{\\frac{\\pi}{2}} \\\\[0.5em]\n&=\nab\n\\left(\n\\frac{\\pi}{4}-0\n\\right) \\\\[0.5em]\n&=\n\\frac{\\pi ab}{4}.\n\\end{aligned}"
+          },
+          {
+            "text": "因此椭圆总面积为"
+          },
+          {
+            "latex": "S\n=\n4S_{\\frac14}\n=\n4\\cdot \\frac{\\pi ab}{4}\n=\n\\pi ab"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "结论回扣\n椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
+            "text": "围成区域的面积为"
+          },
+          {
+            "latex": "S=\\pi ab"
+          },
+          {
+            "text": "。这里"
+          },
+          {
+            "latex": "a>0,\\ b>0"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "是两条半轴长度，公式只看半轴乘积，不要求"
+              },
+              {
+                "type": "math",
+                "latex": "a>b"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "examples",
+        "title": "例题应用",
+        "layout": "text",
+        "items": [
+          {
+            "text": "例 1（基础）\n题目： 已知椭圆方程为"
+          },
+          {
+            "latex": "\\frac{x^2}{4}+\\frac{y^2}{9}=1"
+          },
+          {
+            "text": "，求该椭圆的面积。\n解题步骤："
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "第一步（识别半轴）：\n由方程得"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "方向半轴为"
+              }
+            ]
+          },
+          {
+            "latex": "\\sqrt{4}=2"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "方向半轴为"
+              }
+            ]
+          },
+          {
+            "latex": "\\sqrt{9}=3"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "latex": "\\text{两条半轴长分别为 }2,\\ 3"
+          },
+          {
+            "text": ".理由： 标准方程中分母是半轴长的平方，读半轴前必须开方。"
+          },
+          {
+            "text": "第二步（套用公式）：\n椭圆面积公式为"
+          },
+          {
+            "latex": "S=\\pi\\times\\text{半轴}_1\\times\\text{半轴}_2"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "latex": "S = \\pi \\times 2 \\times 3"
+          },
+          {
+            "text": ".理由： 面积只与两条半轴长度的乘积有关。"
+          },
+          {
+            "text": "第三步（计算面积）：\n计算乘积。"
+          },
+          {
+            "latex": "S = 6\\pi"
+          },
+          {
+            "text": ".理由："
+          },
+          {
+            "latex": "2\\times3=6"
+          },
+          {
+            "text": "，再乘以"
+          },
+          {
+            "latex": "\\pi"
+          },
+          {
+            "text": "。\n关键结论： 椭圆面积为"
+          },
+          {
+            "latex": "6\\pi"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "例 2（稍变形）\n题目： 已知椭圆的面积为"
+          },
+          {
+            "latex": "20\\pi"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，且其一条半轴长为"
+              },
+              {
+                "type": "math",
+                "latex": "5"
+              },
+              {
+                "type": "text",
+                "text": "，求另一条半轴长。\n解题步骤："
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "第一步（设未知数）：\n设另一条半轴长为"
+              },
+              {
+                "type": "math",
+                "latex": "t"
+              },
+              {
+                "type": "text",
+                "text": "，已知一条半轴长为"
+              },
+              {
+                "type": "math",
+                "latex": "5"
+              },
+              {
+                "type": "text",
+                "text": "，面积"
+              }
+            ]
+          },
+          {
+            "latex": "S=20\\pi"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "latex": "S=20\\pi,\\quad \\text{一条半轴}=5"
+          },
+          {
+            "text": ".理由： 面积公式只需要两条半轴长度，不必先判断哪条是长半轴。"
+          },
+          {
+            "text": "第二步（代入公式）：\n由"
+          },
+          {
+            "latex": "S=\\pi\\times 5\\times t"
+          },
+          {
+            "text": "得"
+          },
+          {
+            "latex": "20\\pi = \\pi\\cdot 5\\cdot t"
+          },
+          {
+            "text": ".理由： 将已知面积和已知半轴代入公式。"
+          },
+          {
+            "text": "第三步（解方程）：\n两边同除以"
+          },
+          {
+            "latex": "\\pi"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "得"
+              },
+              {
+                "type": "math",
+                "latex": "20=5t"
+              },
+              {
+                "type": "text",
+                "text": "，解得"
+              },
+              {
+                "type": "math",
+                "latex": "t=4"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              },
+              {
+                "type": "math",
+                "latex": "t = 4"
+              },
+              {
+                "type": "text",
+                "text": ".理由： 等式两边除以"
+              }
+            ]
+          },
+          {
+            "latex": "\\pi"
+          },
+          {
+            "text": "（"
+          },
+          {
+            "latex": "\\pi\\neq0"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "），再除以"
+              },
+              {
+                "type": "math",
+                "latex": "5"
+              },
+              {
+                "type": "text",
+                "text": "。\n关键结论： 另一条半轴长为"
+              },
+              {
+                "type": "math",
+                "latex": "4"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "例 3（综合应用）\n题目： 已知椭圆的短半轴长为"
+              },
+              {
+                "type": "math",
+                "latex": "3"
+              },
+              {
+                "type": "text",
+                "text": "，焦距为"
+              },
+              {
+                "type": "math",
+                "latex": "8"
+              },
+              {
+                "type": "text",
+                "text": "，求该椭圆的面积。\n解题步骤："
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "第一步（求半焦距）：\n焦距"
+              },
+              {
+                "type": "math",
+                "latex": "2c=8"
+              },
+              {
+                "type": "text",
+                "text": "，所以半焦距"
+              },
+              {
+                "type": "math",
+                "latex": "c=4"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              },
+              {
+                "type": "math",
+                "latex": "c = 4"
+              },
+              {
+                "type": "text",
+                "text": ".理由： 椭圆的焦距是两个焦点之间的距离，等于"
+              },
+              {
+                "type": "math",
+                "latex": "2c"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "第二步（求长半轴）：\n按圆锥曲线常规记号，设长半轴为"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "，短半轴为"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "。已知"
+              }
+            ]
+          },
+          {
+            "latex": "b=3,\\ c=4"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，由"
+              },
+              {
+                "type": "math",
+                "latex": "a^2=b^2+c^2"
+              },
+              {
+                "type": "text",
+                "text": "得"
+              }
+            ]
+          },
+          {
+            "latex": "a^2 = 3^2 + 4^2 = 25,\\quad a=5"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".理由： 对椭圆有"
+              },
+              {
+                "type": "math",
+                "latex": "a^2=b^2+c^2"
+              },
+              {
+                "type": "text",
+                "text": "，其中"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "是长半轴，"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "是短半轴。"
+              }
+            ]
+          },
+          {
+            "text": "第三步（计算面积）：\n面积公式"
+          },
+          {
+            "latex": "S=\\pi ab"
+          },
+          {
+            "text": "，代入"
+          },
+          {
+            "latex": "a=5,\nb=3"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "latex": "S = \\pi \\times 5 \\times 3 = 15\\pi"
+          },
+          {
+            "text": ".理由："
+          },
+          {
+            "latex": "5\\times3=15"
+          },
+          {
+            "text": "，再乘以"
+          },
+          {
+            "latex": "\\pi"
+          },
+          {
+            "text": "。\n关键结论： 椭圆面积为"
+          },
+          {
+            "latex": "15\\pi"
+          },
+          {
+            "text": "。"
+          }
+        ]
+      },
+      {
+        "key": "traps",
+        "title": "易错提醒",
+        "layout": "text",
+        "items": [
+          {
+            "text": "易错点一（把分母当半轴）\n将椭圆方程中分母的直接数值当作半轴代入面积公式。"
+          },
+          {
+            "text": "正确理解（分母开方求半轴）：\n若椭圆方程为"
+          },
+          {
+            "latex": "\\frac{x^2}{m}+\\frac{y^2}{n}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，其中"
+              },
+              {
+                "type": "math",
+                "latex": "m>0,n>0"
+              },
+              {
+                "type": "text",
+                "text": "，则两条半轴长分别为"
+              }
+            ]
+          },
+          {
+            "latex": "\\sqrt{m}"
+          },
+          {
+            "text": "和"
+          },
+          {
+            "latex": "\\sqrt{n}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，不能直接取分母"
+              },
+              {
+                "type": "math",
+                "latex": "m,n"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "text": "错因分析（忽略平方关系）：\n学生常把分母误当作半轴长，而忽略标准式中的分母表示“半轴长的平方”。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "易错点二（混淆记号约定）\n认为面积公式中的"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "必须大于"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "，当"
+              },
+              {
+                "type": "math",
+                "latex": "a<b"
+              },
+              {
+                "type": "text",
+                "text": "时不会使用或怀疑公式。"
+              }
+            ]
+          },
+          {
+            "text": "正确理解（公式对称）：\n面积"
+          },
+          {
+            "latex": "S=\\pi ab"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "中"
+              },
+              {
+                "type": "math",
+                "latex": "a,b"
+              },
+              {
+                "type": "text",
+                "text": "地位对称，只要它们表示两条半轴长度，就直接相乘。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "错因分析（混淆长短轴）：\n有些教材约定"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "为长半轴、"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "为短半轴；但在方程"
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "中，也常把"
+              },
+              {
+                "type": "math",
+                "latex": "a,b"
+              },
+              {
+                "type": "text",
+                "text": "用作"
+              },
+              {
+                "type": "math",
+                "latex": "x,y"
+              },
+              {
+                "type": "text",
+                "text": "方向半轴。无论采用哪种记号，面积都是"
+              }
+            ]
+          },
+          {
+            "latex": "\\pi"
+          },
+          {
+            "text": "乘以两条半轴长度。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "易错点三（非标准方程直用）\n对于非标准形式的椭圆方程，如"
+              },
+              {
+                "type": "math",
+                "latex": "4x^2+9y^2=36"
+              },
+              {
+                "type": "text",
+                "text": "，直接读系数"
+              },
+              {
+                "type": "math",
+                "latex": "4,9"
+              },
+              {
+                "type": "text",
+                "text": "当作"
+              },
+              {
+                "type": "math",
+                "latex": "a^2,b^2"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "text": "正确理解（先化为标准形）：\n必须先化为标准形式："
+          },
+          {
+            "latex": "4x^2+9y^2=36\n\\quad\\Longrightarrow\\quad\n\\frac{x^2}{9}+\\frac{y^2}{4}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".所以两条半轴长为"
+              },
+              {
+                "type": "math",
+                "latex": "3"
+              },
+              {
+                "type": "text",
+                "text": "和"
+              },
+              {
+                "type": "math",
+                "latex": "2"
+              },
+              {
+                "type": "text",
+                "text": "，面积为"
+              }
+            ]
+          },
+          {
+            "latex": "6\\pi"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "错因分析（未标准化）：\n学生忽略椭圆方程必须化为右边等于"
+              },
+              {
+                "type": "math",
+                "latex": "1"
+              },
+              {
+                "type": "text",
+                "text": "的标准形式，导致读错半轴。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "易错点四（混淆焦距与半焦距）\n题目给“焦距为"
+              },
+              {
+                "type": "math",
+                "latex": "8"
+              },
+              {
+                "type": "text",
+                "text": "”时，误以为"
+              },
+              {
+                "type": "math",
+                "latex": "c=8"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "正确理解（焦距等于 ）：\n椭圆的焦距是两个焦点之间的距离，等于"
+              },
+              {
+                "type": "math",
+                "latex": "2c"
+              },
+              {
+                "type": "text",
+                "text": "。若焦距为"
+              },
+              {
+                "type": "math",
+                "latex": "8"
+              },
+              {
+                "type": "text",
+                "text": "，则"
+              },
+              {
+                "type": "math",
+                "latex": "c=4"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "错因分析（少除以 ）：\n若把焦距直接当作"
+              },
+              {
+                "type": "math",
+                "latex": "c"
+              },
+              {
+                "type": "text",
+                "text": "，再代入"
+              },
+              {
+                "type": "math",
+                "latex": "a^2=b^2+c^2"
+              },
+              {
+                "type": "text",
+                "text": "，会把长半轴算大，面积也随之错误。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "summary",
+        "title": "复盘总结",
+        "layout": "text",
+        "items": [
+          {
+            "text": "一句话核心\n椭圆围成区域的面积等于"
+          },
+          {
+            "latex": "\\pi"
+          },
+          {
+            "text": "乘以两条半轴长度之积："
+          },
+          {
+            "latex": "S=\\pi ab"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "使用条件"
+          },
+          {
+            "text": "条件 1（标准椭圆形式）： 椭圆边界为"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
+            "text": "，且"
+          },
+          {
+            "latex": "a>0,\\ b>0"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "条件 2（半轴含义清楚）："
+              },
+              {
+                "type": "math",
+                "latex": "a,b"
+              },
+              {
+                "type": "text",
+                "text": "表示两条半轴长度；可以是"
+              },
+              {
+                "type": "math",
+                "latex": "x,y"
+              },
+              {
+                "type": "text",
+                "text": "方向半轴，也可以按教材记作长半轴、短半轴。"
+              }
+            ]
+          },
+          {
+            "text": "关键提醒"
+          },
+          {
+            "text": "易错点（区分分母与半轴）： 标准方程中的分母是半轴的平方，代入前需开方。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "检查项（方程标准化）： 使用前确认椭圆方程已化为右边等于"
+              },
+              {
+                "type": "math",
+                "latex": "1"
+              },
+              {
+                "type": "text",
+                "text": "的标准形式，否则会误读半轴。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "综合题提醒（焦距）： 椭圆焦距为"
+              },
+              {
+                "type": "math",
+                "latex": "2c"
+              },
+              {
+                "type": "text",
+                "text": "，不要把题目给出的焦距直接当作"
+              },
+              {
+                "type": "math",
+                "latex": "c"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "C024": {
+    "id": "C024",
+    "title": "Ramanujan椭圆周长近似公式",
+    "module": "conic",
+    "alias": [
+      "拉马努金公式",
+      "椭圆周长近似",
+      "椭圆周长公式"
+    ],
+    "difficulty": 3,
+    "category": "解析几何",
+    "tags": [
+      "椭圆周长",
+      "近似公式",
+      "Ramanujan",
+      "高精度",
+      "工程估算"
+    ],
+    "core_summary": "用椭圆长半轴和短半轴快速高精度近似计算椭圆周长。",
+    "core_formula": "C\\\\approx \\\\pi(a+b)\\\\left(1+\\\\frac{3h}{10+\\\\sqrt{4-3h}}\\\\right)\\\\text{，其中}h=\\\\left(\\\\frac{a-b}{a+b}\\\\right)^2",
+    "related_formulas": [
+      "当a=b时，C=2\\\\pi a"
+    ],
+    "variables": [
+      {
+        "latex": "a"
+      },
+      {
+        "latex": "b"
+      },
+      {
+        "latex": "C"
+      },
+      {
+        "latex": "h"
+      }
+    ],
+    "conditions": [
+      "a\\\\ge b>0",
+      "椭圆标准方程形式"
+    ],
+    "conclusions": [
+      "椭圆周长的近似值"
+    ],
+    "usage": {
+      "scenarios": [
+        "工程估算",
+        "选填题中的近似计算"
+      ],
+      "problem_types": [
+        "已知a,b求周长近似"
+      ],
+      "exam_frequency": 0,
+      "exam_score": 1
+    },
+    "interactive": {
+      "has_diagram": false,
+      "geogebra_id": "",
+      "param_demo": {}
+    },
+    "assets": {
+      "svg": ""
+    },
+    "shareConfig": {
+      "title": "Ramanujan椭圆周长近似：快速高精度计算椭圆周长",
+      "shareDesc": "适用于工程估算或拓展阅读，提供一种比常用近似更精确的椭圆周长计算方法，避免直接积分运算。"
+    },
+    "relations": {
+      "prerequisites": [
+        "椭圆标准方程",
+        "圆的周长公式"
+      ],
+      "related_ids": [],
+      "similar": [
+        "其他椭圆周长近似公式如积分表达式"
+      ]
+    },
+    "isPro": 0,
+    "remarks": "",
+    "knowledgeNode": "解析几何-圆锥曲线-椭圆",
+    "altNodes": "解析几何-圆锥曲线-椭圆,解析几何-圆",
+    "statement": "条件\n- 条件1（椭圆标准型）：\n椭圆方程为 (x^2) / (a^2)+(y^2) / (b^2)=1，且 a b>0。\n结论\n- 结论一（Ramanujan近似）：\n直观描述： 用长短半轴计算椭圆周长的高精度近似值。\nC (a+b)(1+(3h) / (10+sqrt(4-3h))),\nh=((a-b) / (a+b))^2.\n- 推广结论（圆特例）：\n直观描述： 当 a=b 时公式退化为精确圆周长 2 a。\nC=2 a.",
+    "explanation": "一句话直觉\n椭圆周长没有简单的封闭表达式，但拉马努金公式用一个巧妙的修正因子给出了极高精度的近似结果，相当于“圆周长乘以一个形状修正项”。\n核心拆解\n- 要点一（h参数含义）：\nh=((a-b) / (a+b))^2 刻画椭圆扁平程度，h=0 对应圆，h 越大椭圆越扁。\nassets/tikz/C024_flatness_h_comparison.tex\n0.3em\n图：不同 h 值对应的椭圆扁平程度对比\n- 要点二（公式结构）：\n公式形如 C (a+b) * (1+(3h) / (10+sqrt(4-3h)))，整体为“半平均周长×修正因子”。\n- 要点三（根号作用）：\n分母中的 sqrt(4-3h) 项保证当 h 较大时分母不过小，从而维持近似稳定，避免高离心率时发散。\n几何本质（椭圆形状修正）\n椭圆周长在几何上无法用初等函数表示，该公式通过将椭圆视为圆在长轴方向拉伸后，再对周长进行非线性修正，本质上是一个关于偏心率 e 的有理逼近。\n代数意义（连分数逼近）\n该公式可以看作第二类完全椭圆积分 E(e) 的一个代数逼近，通过连分数展开截断得到，具有紧凑且高精度的形式。\n考点价值（高考应用）\n- 考法一（直接代入）： 已知 a,b 直接代入公式算近似周长，需仔细计算 h 与根号。\n- 考法二（参数反推）： 已知 C 与 a（或 b），可反解另一参数的近似值，通常转化为方程求解。\n顿悟点\n当 a 与 b 相差不大时（如 a/b<2），该公式误差极小（小于 0.04\\%），完全可以作为精确公式使用，极大简化计算。\n使用场景\n- 场景一（快速估算）： 已知椭圆方程，快速计算周长用于比较或实际估算。\n- 场景二（题干给定）： 在考试中若题干给出该公式，直接应用，无需重新推导。",
+    "proof": "思路提示\n拉马努金公式是椭圆周长的高精度近似，并非精确等式，无法用初等数学严格证明。为了理解它为什么合理，需要先知道椭圆周长的精确表达来自弧长积分，而这个积分一般不能化为初等函数。\nassets/tikz/C024_ellipse_arc_length_dx_dy.tex\n精确表达：椭圆周长的弧长积分\n设椭圆为\n(x^2) / (a^2)+(y^2) / (b^2)=1,\na b>0.\n由于椭圆关于两个坐标轴都对称，所以椭圆周长 C 等于第一象限弧长的 4 倍。\n下面用两种参数方式求第一象限弧长，虽然得到的被积函数形式不同，但定积分值相同。\n方法一：取 x=a ,\\ y=b\n取参数方程\nx=a , y=b ,\n0 ( ) / (2).\n当 =0 时，点为 (a,0)；当 =( ) / (2) 时，点为 (0,b)。因此它正好表示第一象限的椭圆弧。\n由\nx=a , y=b\n可得\n(dx) / (d )=-a ,\n(dy) / (d )=b .\n于是弧长微元为\nds\n=\nsqrt(\n((dx) / (d ))^2\n+\n((dy) / (d ))^2\n)\n\\,d\n=\nsqrt(\na^2 ^2 +b^2 ^2\n)\n\\,d .\n因此第一象限弧长为\nL_ 14\n=\nin t_0^( ) / (2)\nsqrt(\na^2 ^2 +b^2 ^2\n)\n\\,d .\n令\nc^2=a^2-b^2,\ne=(c) / (a)\n=\nsqrt(1-(b^2) / (a^2)).\n因为\nb^2=a^2-c^2,\n所以\na^2 ^2 +b^2 ^2\n& =\na^2 ^2 +(a^2-c^2) ^2 \\\n0.4em]\n& =\na^2( ^2 + ^2 )-c^2 ^2 \\\n0.4em]\n& =\na^2-c^2 ^2 \\\n0.4em]\n& =\na^2(1-e^2 ^2 ).\n因此\nL_ 14\n=\na in t_0^( ) / (2)\nsqrt(1-e^2 ^2 )\n\\,d .\n方法二：取 x=a ,\\ y=b\n取参数方程\nx=a , y=b ,\n0 ( ) / (2).\n当 =0 时，点为 (0,b)；当 =( ) / (2) 时，点为 (a,0)。因此它也正好表示第一象限的椭圆弧，只是走向与方法一相反。\n由\nx=a , y=b\n可得\n(dx) / (d )=a ,\n(dy) / (d )=-b .\n于是弧长微元为\nds\n=\nsqrt(\n((dx) / (d ))^2\n+\n((dy) / (d ))^2\n)\n\\,d\n=\nsqrt(\na^2 ^2 +b^2 ^2\n)\n\\,d .\n因此第一象限弧长为\nL_ 14\n=\nin t_0^( ) / (2)\nsqrt(\na^2 ^2 +b^2 ^2\n)\n\\,d .\n仍令\nc^2=a^2-b^2,\ne=(c) / (a)\n=\nsqrt(1-(b^2) / (a^2)).\n因为\nb^2=a^2-c^2,\n所以\na^2 ^2 +b^2 ^2\n& =\na^2 ^2 +(a^2-c^2) ^2 \\\n0.4em]\n& =\na^2( ^2 + ^2 )-c^2 ^2 \\\n0.4em]\n& =\na^2-c^2 ^2 \\\n0.4em]\n& =\na^2(1-e^2 ^2 ).\n因此\nL_ 14\n=\na in t_0^( ) / (2)\nsqrt(1-e^2 ^2 )\n\\,d .\n两种方法为什么结果相同\n方法一得到\nL_ 14\n=\na in t_0^( ) / (2)\nsqrt(1-e^2 ^2 )\n\\,d .\n方法二得到\nL_ 14\n=\na in t_0^( ) / (2)\nsqrt(1-e^2 ^2 )\n\\,d .\n二者形式不同，但定积分相等。事实上，令\nu=( ) / (2)- ,\n则\n= u.\n所以\nin t_0^( ) / (2)\nsqrt(1-e^2 ^2 )\n\\,d\n& =\nin t_0^( ) / (2)\nsqrt(1-e^2 ^2 u)\n\\,du.\n因此两种方法只是参数选取不同，本质上得到的是同一个第一象限弧长。\n通常把\nE(e)\n=\nin t_0^( ) / (2)\nsqrt(1-e^2 ^2 )\n\\,d\n称为第二类完全椭圆积分。于是，当 a b>0 时，椭圆周长的精确表达为\nC=4aE(e)\n,\ne=sqrt(1-(b^2) / (a^2)).\n若不预设 a b，则可设\nA= (a,b),\nB= (a,b),\n并令\ne=sqrt(1-(B^2) / (A^2)).\n此时椭圆周长的统一精确表达为\nC=4AE(e)\n.\n拉马努金近似公式的验证\n- 步骤一（圆极限验证）：\n令 a=b，则 h=0，代入公式得\nC (a+b) = 2 a,\n与精确圆周长一致。\n理由： 公式在退化情形下精确成立，这是良好逼近的必要条件。\n- 步骤二（数值精度检验）：\n取 a=5,\\; b=3。先计算 h：\nh=((5-3) / (5+3))^2\n= ((2) / (8))^2\n= (1) / (16)=0.0625.\n代入公式：\nC & (5+3)(1+(3 * 0.0625) / (10+sqrt(4-3 * 0.0625))) \\\\\n& = 8 (1+(0.1875) / (10+sqrt(4-0.1875))) \\\\\n& = 8 (1+(0.1875) / (10+sqrt(3.8125))) \\\\\n& 8 (1+(0.1875) / (10+1.9526)) \\\\\n& = 8 (1+(0.1875) / (11.9526)) \\\\\n& 8 * 1.01568 25.529.\n该椭圆的精确周长（通过椭圆积分计算）约为 25.527，相对误差不到 0.01\\%。\n理由： 数值实验证实公式具有极高实际精度。\n- 步骤三（极端扁平情形）：\n令 b -> 0，此时 h=((a-0) / (a+0))^2=1。代入公式：\nC\n& a(1+(3) / (10+sqrt(4-3))) \\\\\n& = a(1+(3) / (10+1))\n= a(1+(3) / (11)) \\\\\n& = (14 ) / (11)a\n3.997a\n4a .\n实际椭圆当 b=0 时退化为线段，周长应为 4a，公式预测非常接近。\n理由： 极端情形下公式仍保持合理精度，表明适用范围广。\nassets/tikz/C024_ramanujan_error_curve.tex\n0.4em\n图：Ramanujan 椭圆周长近似公式的相对误差表现\n!\nassets/tikz/C024_three_formula_error_compare.tex\n0.35em\n图：三种椭圆周长近似公式的相对误差对比\n结论回扣\n椭圆周长的精确表达需要用第二类完全椭圆积分表示，一般不能化为初等函数。拉马努金公式虽然不是精确等式，但在从圆到极扁椭圆的各种情形下均能给出高精度近似，因此可在高中范围内作为椭圆周长的实用计算公式。",
+    "examples": "例 1（基础）\n题目： 已知椭圆方程为 (x^2) / (25)+(y^2) / (9)=1，求该椭圆周长的近似值（结果保留三位小数）。\n在使用 Ramanujan 近似公式求椭圆周长时，不必被公式的复杂外形吓到。实际上只需按照“先由 a,b 算 h，再算 sqrt(4-3h)，最后代入公式”的顺序逐步计算即可。\nassets/tikz/C024_ramanujan_calc_flow.tex\n0.4em\n图：Ramanujan 椭圆周长近似公式的计算流程\n解题步骤：\n- 第一步（识别参数）：\n由标准方程得 a=5,b=3。\n理由： 椭圆方程 (x^2) / (a^2)+(y^2) / (b^2)=1，分母为平方项，故 a^2=25,b^2=9。\n- 第二步（计算h）：\n计算 h=((a-b) / (a+b))^2=((5-3) / (5+3))^2=((2) / (8))^2=(1) / (16)=0.0625。\n理由： h 是公式中反映椭圆扁平程度的中间量。\n- 第三步（代入求值）：\n代入近似公式：\nC & (a+b)(1+(3h) / (10+sqrt(4-3h))) \\\\\n& = * 8 * (1+(3 * 0.0625) / (10+sqrt(4-3 * 0.0625))) \\\\\n& = 8 (1+(0.1875) / (10+sqrt(3.8125))) \\\\\n& 8 (1+(0.1875) / (10+1.9526)) \\\\\n& = 8 (1+(0.1875) / (11.9526)) \\\\\n& 8 * 1.01568 25.529.\n理由： 按公式逐次计算 h、根号、分数，最后乘以 (a+b) 得到近似周长。\n关键结论： 椭圆周长近似为 25.529（单位与半轴相同）。\n例 2（稍变形）\n题目： 已知椭圆长半轴 a=5，离心率 e=(3) / (5)，求该椭圆周长的近似值（结果保留三位小数）。\n解题步骤：\n- 第一步（求短半轴）：\n由 e=(c) / (a)，得 c=3，从而 b=sqrt(a^2-c^2)=sqrt(25-9)=4。\n理由： 椭圆参数关系 c^2=a^2-b^2。\n- 第二步（计算h）：\nh=((a-b) / (a+b))^2=((5-4) / (5+4))^2=((1) / (9))^2=(1) / (81) 0.0123457。\n理由： h为形状参数。\n- 第三步（代入公式）：\nC & (a+b)(1+(3h) / (10+sqrt(4-3h))) \\\\\n& = * 9 * (1+(3 * 0.0123457) / (10+sqrt(4-3 * 0.0123457))) \\\\\n& = 9 (1+(0.0370371) / (10+sqrt(4-0.0370371))) \\\\\n& = 9 (1+(0.0370371) / (10+sqrt(3.9629629))) \\\\\n& 9 (1+(0.0370371) / (10+1.990718)) \\\\\n& = 9 (1+(0.0370371) / (11.990718)) \\\\\n& 9 (1+0.003088) = 9 * 1.003088 9 * 3.14159 * 1.003088 28.362.\n理由： 代入数值逐步计算。\n关键结论： 该椭圆周长近似为 28.362。\n例 3（综合应用）\n题目： 已知椭圆 E_1:(x^2) / (100)+(y^2) / (36)=1，椭圆 E_2:(x^2) / (81)+(y^2) / (49)=1，试比较它们的周长大小。\n解题步骤：\n- 第一步（计算E1周长）：\n对 E_1，a=10,b=6，h=((10-6) / (10+6))^2=((4) / (16))^2=0.0625。代入公式：\nC_1 & (10+6)(1+(3 * 0.0625) / (10+sqrt(4-3 * 0.0625))) \\\\\n& = 16 (1+(0.1875) / (10+sqrt(3.8125))) \\\\\n& 16 (1+(0.1875) / (10+1.9526)) \\\\\n& = 16 (1+(0.1875) / (11.9526)) \\\\\n& 16 * 1.01568 51.053.\n理由： 直接套用公式。\n- 第二步（计算E2周长）：\n对 E_2，a=9,b=7，h=((9-7) / (9+7))^2=((2) / (16))^2=(1) / (64)=0.015625。代入公式：\nC_2 & (9+7)(1+(3 * 0.015625) / (10+sqrt(4-3 * 0.015625))) \\\\\n& = 16 (1+(0.046875) / (10+sqrt(4-0.046875))) \\\\\n& = 16 (1+(0.046875) / (10+sqrt(3.953125))) \\\\\n& 16 (1+(0.046875) / (10+1.9883)) \\\\\n& = 16 (1+(0.046875) / (11.9883)) \\\\\n& 16 (1+0.003910) 16 * 1.00391 50.463.\n理由： 同公式计算。\n- 第三步（比较大小）：\n由于 C_1 51.053 > C_2 50.463，故 E_1 的周长大于 E_2 的周长。\n理由： 直接比较数值大小。\n关键结论： 椭圆 E_1 周长更大（尽管两者 a+b 相等，但 E_1 更扁平导致修正因子更大）。",
+    "traps": "- 易错点一（计算h错误）\n计算 h=((a-b) / (a+b))^2 时，忘记平方，或分子分母顺序颠倒。\n- 正确理解（正确步骤）：\n严格按公式计算：先求 a-b 与 a+b 的比值，再平方得到 h。\n- 错因分析（运算粗心）：\n对平方运算不敏感，或急于求成跳步导致漏算。\n- 易错点二（误当精确公式）\n将该近似公式当作精确等式，在需要精确值的题目中直接使用，导致答案不被认可。\n- 正确理解（近似性质）：\n该公式是近似公式，并非精确值；应用中需注意题目是否允许近似。\n- 错因分析（概念模糊）：\n对椭圆周长无初等表达式缺乏认识，混淆近似与精确。\n- 易错点三（特例处理不当）\n当 a=b 时，不知道 h=0，仍按一般步骤计算，或认为公式不适用。\n- 正确理解（退化情形）：\n当 a=b 时，h=0，公式右端 (a+b) 即为 2 a，与圆周长相同，是精确值。\n- 错因分析（灵活不足）：\n未注意公式退化为圆的情况，缺乏对公式结构的深入理解。",
+    "summary": "一句话核心\n拉马努金公式用长短半轴快速高精度计算椭圆周长，是在无法精确表达时的优秀替代。\n使用条件\n- 条件1（椭圆标准型）： 椭圆方程为 (x^2) / (a^2)+(y^2) / (b^2)=1，且 a b>0。\n- 条件2（近似可用）： 该公式为近似公式，允许在工程估算、选填题中直接使用；若要求精确表达式则不宜。\n关键提醒\n- 易错点（运算步骤）： 按顺序逐步计算：先算 h，再算 sqrt(4-3h)，然后计算分式 (3h) / (10+sqrt(4-3h))，加1后乘以 (a+b)，避免因跳步导致错误。\n- 检查项（参数确认）： 确保 a,b 分别为长半轴和短半轴（a b），且单位一致。",
+    "display_version": 2,
+    "sections": [
+      {
+        "key": "core_formula",
+        "title": "核心公式",
+        "layout": "text",
+        "items": [
+          {
+            "latex": "C\\\\approx \\\\pi(a+b)\\\\left(1+\\\\frac{3h}{10+\\\\sqrt{4-3h}}\\\\right)\\\\text{，其中}h=\\\\left(\\\\frac{a-b}{a+b}\\\\right)^2"
+          }
+        ]
+      },
+      {
+        "key": "variables",
+        "title": "涉及变量",
+        "layout": "text",
+        "items": [
+          {
+            "latex": "a"
+          },
+          {
+            "latex": "b"
+          },
+          {
+            "latex": "C"
+          },
+          {
+            "latex": "h"
+          }
+        ]
+      },
+      {
+        "key": "statement",
+        "title": "命题表述",
+        "layout": "theorem-list",
+        "items": [
+          {
+            "title": "条件1（椭圆标准型）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "椭圆方程为"
+              },
+              {
+                "type": "math",
+                "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+              },
+              {
+                "type": "text",
+                "text": "，且"
+              },
+              {
+                "type": "math",
+                "latex": "a\\ge b>0"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "椭圆方程为 ，且 。",
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
+            "title": "结论一（Ramanujan近似）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "用长短半轴计算椭圆周长的高精度近似值。"
+              },
+              {
+                "type": "math",
+                "latex": "C\\approx \\pi(a+b)\\left(1+\\frac{3h}{10+\\sqrt{4-3h}}\\right),\n\\qquad\nh=\\left(\\frac{a-b}{a+b}\\right)^2."
+              }
+            ],
+            "desc": "用长短半轴计算椭圆周长的高精度近似值。",
+            "latex": "C\\approx \\pi(a+b)\\left(1+\\frac{3h}{10+\\sqrt{4-3h}}\\right),\n\\qquad\nh=\\left(\\frac{a-b}{a+b}\\right)^2."
+          },
+          {
+            "title": "推广结论（圆特例）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "当"
+              },
+              {
+                "type": "math",
+                "latex": "a=b"
+              },
+              {
+                "type": "text",
+                "text": "时公式退化为精确圆周长"
+              },
+              {
+                "type": "math",
+                "latex": "2\\pi a"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              },
+              {
+                "type": "math",
+                "latex": "C=2\\pi a."
+              }
+            ],
+            "desc": "当 时公式退化为精确圆周长 。",
+            "latex": "a=b"
+          }
+        ]
+      },
+      {
+        "key": "explanation",
+        "title": "理解与直觉",
+        "layout": "text",
+        "items": [
+          {
+            "text": "一句话直觉\n椭圆周长没有简单的封闭表达式，但拉马努金公式用一个巧妙的修正因子给出了极高精度的近似结果，相当于“圆周长乘以一个形状修正项”。"
+          },
+          {
+            "text": "核心拆解"
+          },
+          {
+            "text": "要点一（h参数含义）："
+          },
+          {
+            "latex": "h=\\left(\\frac{a-b}{a+b}\\right)^2"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "刻画椭圆扁平程度，"
+              },
+              {
+                "type": "math",
+                "latex": "h=0"
+              },
+              {
+                "type": "text",
+                "text": "对应圆，"
+              },
+              {
+                "type": "math",
+                "latex": "h"
+              },
+              {
+                "type": "text",
+                "text": "越大椭圆越扁。\nassets/tikz/C024_flatness_h_comparison.tex\n0.3em\n图：不同"
+              },
+              {
+                "type": "math",
+                "latex": "h"
+              },
+              {
+                "type": "text",
+                "text": "值对应的椭圆扁平程度对比"
+              }
+            ]
+          },
+          {
+            "text": "要点二（公式结构）：\n公式形如"
+          },
+          {
+            "latex": "C\\approx \\pi(a+b)\\times\\left(1+\\frac{3h}{10+\\sqrt{4-3h}}\\right)"
+          },
+          {
+            "text": "，整体为“半平均周长×修正因子”。"
+          },
+          {
+            "text": "要点三（根号作用）：\n分母中的"
+          },
+          {
+            "latex": "\\sqrt{4-3h}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "项保证当"
+              },
+              {
+                "type": "math",
+                "latex": "h"
+              },
+              {
+                "type": "text",
+                "text": "较大时分母不过小，从而维持近似稳定，避免高离心率时发散。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "几何本质（椭圆形状修正）\n椭圆周长在几何上无法用初等函数表示，该公式通过将椭圆视为圆在长轴方向拉伸后，再对周长进行非线性修正，本质上是一个关于偏心率"
+              },
+              {
+                "type": "math",
+                "latex": "e"
+              },
+              {
+                "type": "text",
+                "text": "的有理逼近。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "代数意义（连分数逼近）\n该公式可以看作第二类完全椭圆积分"
+              },
+              {
+                "type": "math",
+                "latex": "E(e)"
+              },
+              {
+                "type": "text",
+                "text": "的一个代数逼近，通过连分数展开截断得到，具有紧凑且高精度的形式。"
+              }
+            ]
+          },
+          {
+            "text": "考点价值（高考应用）"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "考法一（直接代入）： 已知"
+              },
+              {
+                "type": "math",
+                "latex": "a,b"
+              },
+              {
+                "type": "text",
+                "text": "直接代入公式算近似周长，需仔细计算"
+              },
+              {
+                "type": "math",
+                "latex": "h"
+              },
+              {
+                "type": "text",
+                "text": "与根号。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "考法二（参数反推）： 已知"
+              },
+              {
+                "type": "math",
+                "latex": "C"
+              },
+              {
+                "type": "text",
+                "text": "与"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "（或"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "），可反解另一参数的近似值，通常转化为方程求解。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "顿悟点\n当"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "与"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "相差不大时（如"
+              },
+              {
+                "type": "math",
+                "latex": "a/b<2"
+              },
+              {
+                "type": "text",
+                "text": "），该公式误差极小（小于"
+              }
+            ]
+          },
+          {
+            "latex": "0.04\\%"
+          },
+          {
+            "text": "），完全可以作为精确公式使用，极大简化计算。"
+          },
+          {
+            "text": "使用场景"
+          },
+          {
+            "text": "场景一（快速估算）： 已知椭圆方程，快速计算周长用于比较或实际估算。"
+          },
+          {
+            "text": "场景二（题干给定）： 在考试中若题干给出该公式，直接应用，无需重新推导。"
+          }
+        ]
+      },
+      {
+        "key": "proof",
+        "title": "证明过程",
+        "layout": "text",
+        "items": [
+          {
+            "text": "思路提示\n拉马努金公式是椭圆周长的高精度近似，并非精确等式，无法用初等数学严格证明。为了理解它为什么合理，需要先知道椭圆周长的精确表达来自弧长积分，而这个积分一般不能化为初等函数。"
+          },
+          {
+            "text": "assets/tikz/C024_ellipse_arc_length_dx_dy.tex"
+          },
+          {
+            "text": "精确表达：椭圆周长的弧长积分\n设椭圆为"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1,\n\\qquad a\\ge b>0"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".由于椭圆关于两个坐标轴都对称，所以椭圆周长"
+              },
+              {
+                "type": "math",
+                "latex": "C"
+              },
+              {
+                "type": "text",
+                "text": "等于第一象限弧长的"
+              },
+              {
+                "type": "math",
+                "latex": "4"
+              },
+              {
+                "type": "text",
+                "text": "倍。\n下面用两种参数方式求第一象限弧长，虽然得到的被积函数形式不同，但定积分值相同。"
+              }
+            ]
+          },
+          {
+            "text": "方法一：取"
+          },
+          {
+            "latex": "x=a\\cos\\theta,\\ y=b\\sin\\theta"
+          },
+          {
+            "text": "取参数方程"
+          },
+          {
+            "latex": "x=a\\cos\\theta,\\qquad y=b\\sin\\theta,\n\\qquad 0\\le \\theta\\le \\frac{\\pi}{2}"
+          },
+          {
+            "text": ".当"
+          },
+          {
+            "latex": "\\theta=0"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "时，点为"
+              },
+              {
+                "type": "math",
+                "latex": "(a,0)"
+              },
+              {
+                "type": "text",
+                "text": "；当"
+              }
+            ]
+          },
+          {
+            "latex": "\\theta=\\frac{\\pi}{2}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "时，点为"
+              },
+              {
+                "type": "math",
+                "latex": "(0,b)"
+              },
+              {
+                "type": "text",
+                "text": "。因此它正好表示第一象限的椭圆弧。\n由"
+              }
+            ]
+          },
+          {
+            "latex": "x=a\\cos\\theta,\\qquad y=b\\sin\\theta"
+          },
+          {
+            "text": "可得"
+          },
+          {
+            "latex": "\\frac{dx}{d\\theta}=-a\\sin\\theta,\n\\qquad\n\\frac{dy}{d\\theta}=b\\cos\\theta"
+          },
+          {
+            "text": ".于是弧长微元为"
+          },
+          {
+            "latex": "ds\n=\n\\sqrt{\n\\left(\\frac{dx}{d\\theta}\\right)^2\n+\n\\left(\\frac{dy}{d\\theta}\\right)^2\n}\n\\,d\\theta\n=\n\\sqrt{\na^2\\sin^2\\theta+b^2\\cos^2\\theta\n}\n\\,d\\theta"
+          },
+          {
+            "text": ".因此第一象限弧长为"
+          },
+          {
+            "latex": "L_{\\frac14}\n=\n\\int_0^{\\frac{\\pi}{2}}\n\\sqrt{\na^2\\sin^2\\theta+b^2\\cos^2\\theta\n}\n\\,d\\theta"
+          },
+          {
+            "text": ".令"
+          },
+          {
+            "latex": "c^2=a^2-b^2,\n\\qquad\ne=\\frac{c}{a}\n=\n\\sqrt{1-\\frac{b^2}{a^2}}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".因为"
+              },
+              {
+                "type": "math",
+                "latex": "b^2=a^2-c^2"
+              },
+              {
+                "type": "text",
+                "text": ",所以"
+              }
+            ]
+          },
+          {
+            "latex": "\\begin{aligned}\na^2\\sin^2\\theta+b^2\\cos^2\\theta\n& =\na^2\\sin^2\\theta+(a^2-c^2)\\cos^2\\theta \\\\[0.4em]\n& =\na^2(\\sin^2\\theta+\\cos^2\\theta)-c^2\\cos^2\\theta \\\\[0.4em]\n& =\na^2-c^2\\cos^2\\theta \\\\[0.4em]\n& =\na^2\\left(1-e^2\\cos^2\\theta\\right).\n\\end{aligned}"
+          },
+          {
+            "text": "因此"
+          },
+          {
+            "latex": "L_{\\frac14}\n=\na\\int_0^{\\frac{\\pi}{2}}\n\\sqrt{1-e^2\\cos^2\\theta}\n\\,d\\theta"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "方法二：取"
+          },
+          {
+            "latex": "x=a\\sin\\theta,\\ y=b\\cos\\theta"
+          },
+          {
+            "text": "取参数方程"
+          },
+          {
+            "latex": "x=a\\sin\\theta,\\qquad y=b\\cos\\theta,\n\\qquad 0\\le \\theta\\le \\frac{\\pi}{2}"
+          },
+          {
+            "text": ".当"
+          },
+          {
+            "latex": "\\theta=0"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "时，点为"
+              },
+              {
+                "type": "math",
+                "latex": "(0,b)"
+              },
+              {
+                "type": "text",
+                "text": "；当"
+              }
+            ]
+          },
+          {
+            "latex": "\\theta=\\frac{\\pi}{2}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "时，点为"
+              },
+              {
+                "type": "math",
+                "latex": "(a,0)"
+              },
+              {
+                "type": "text",
+                "text": "。因此它也正好表示第一象限的椭圆弧，只是走向与方法一相反。\n由"
+              }
+            ]
+          },
+          {
+            "latex": "x=a\\sin\\theta,\\qquad y=b\\cos\\theta"
+          },
+          {
+            "text": "可得"
+          },
+          {
+            "latex": "\\frac{dx}{d\\theta}=a\\cos\\theta,\n\\qquad\n\\frac{dy}{d\\theta}=-b\\sin\\theta"
+          },
+          {
+            "text": ".于是弧长微元为"
+          },
+          {
+            "latex": "ds\n=\n\\sqrt{\n\\left(\\frac{dx}{d\\theta}\\right)^2\n+\n\\left(\\frac{dy}{d\\theta}\\right)^2\n}\n\\,d\\theta\n=\n\\sqrt{\na^2\\cos^2\\theta+b^2\\sin^2\\theta\n}\n\\,d\\theta"
+          },
+          {
+            "text": ".因此第一象限弧长为"
+          },
+          {
+            "latex": "L_{\\frac14}\n=\n\\int_0^{\\frac{\\pi}{2}}\n\\sqrt{\na^2\\cos^2\\theta+b^2\\sin^2\\theta\n}\n\\,d\\theta"
+          },
+          {
+            "text": ".仍令"
+          },
+          {
+            "latex": "c^2=a^2-b^2,\n\\qquad\ne=\\frac{c}{a}\n=\n\\sqrt{1-\\frac{b^2}{a^2}}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".因为"
+              },
+              {
+                "type": "math",
+                "latex": "b^2=a^2-c^2"
+              },
+              {
+                "type": "text",
+                "text": ",所以"
+              }
+            ]
+          },
+          {
+            "latex": "\\begin{aligned}\na^2\\cos^2\\theta+b^2\\sin^2\\theta\n& =\na^2\\cos^2\\theta+(a^2-c^2)\\sin^2\\theta \\\\[0.4em]\n& =\na^2(\\cos^2\\theta+\\sin^2\\theta)-c^2\\sin^2\\theta \\\\[0.4em]\n& =\na^2-c^2\\sin^2\\theta \\\\[0.4em]\n& =\na^2\\left(1-e^2\\sin^2\\theta\\right).\n\\end{aligned}"
+          },
+          {
+            "text": "因此"
+          },
+          {
+            "latex": "L_{\\frac14}\n=\na\\int_0^{\\frac{\\pi}{2}}\n\\sqrt{1-e^2\\sin^2\\theta}\n\\,d\\theta"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "两种方法为什么结果相同\n方法一得到"
+          },
+          {
+            "latex": "L_{\\frac14}\n=\na\\int_0^{\\frac{\\pi}{2}}\n\\sqrt{1-e^2\\cos^2\\theta}\n\\,d\\theta"
+          },
+          {
+            "text": ".方法二得到"
+          },
+          {
+            "latex": "L_{\\frac14}\n=\na\\int_0^{\\frac{\\pi}{2}}\n\\sqrt{1-e^2\\sin^2\\theta}\n\\,d\\theta"
+          },
+          {
+            "text": ".二者形式不同，但定积分相等。事实上，令"
+          },
+          {
+            "latex": "u=\\frac{\\pi}{2}-\\theta"
+          },
+          {
+            "text": ",则"
+          },
+          {
+            "latex": "\\cos\\theta=\\sin u"
+          },
+          {
+            "text": ".所以"
+          },
+          {
+            "latex": "\\begin{aligned}\n\\int_0^{\\frac{\\pi}{2}}\n\\sqrt{1-e^2\\cos^2\\theta}\n\\,d\\theta\n& =\n\\int_0^{\\frac{\\pi}{2}}\n\\sqrt{1-e^2\\sin^2 u}\n\\,du.\n\\end{aligned}"
+          },
+          {
+            "text": "因此两种方法只是参数选取不同，本质上得到的是同一个第一象限弧长。\n通常把"
+          },
+          {
+            "latex": "E(e)\n=\n\\int_0^{\\frac{\\pi}{2}}\n\\sqrt{1-e^2\\sin^2\\theta}\n\\,d\\theta"
+          },
+          {
+            "text": "称为第二类完全椭圆积分。于是，当"
+          },
+          {
+            "latex": "a\\ge b>0"
+          },
+          {
+            "text": "时，椭圆周长的精确表达为"
+          },
+          {
+            "latex": "\\boxed{\nC=4aE(e)\n},\n\\qquad\ne=\\sqrt{1-\\frac{b^2}{a^2}}"
+          },
+          {
+            "text": ".若不预设"
+          },
+          {
+            "latex": "a\\ge b"
+          },
+          {
+            "text": "，则可设"
+          },
+          {
+            "latex": "A=\\max(a,b),\n\\qquad\nB=\\min(a,b)"
+          },
+          {
+            "text": ",并令"
+          },
+          {
+            "latex": "e=\\sqrt{1-\\frac{B^2}{A^2}}"
+          },
+          {
+            "text": ".此时椭圆周长的统一精确表达为"
+          },
+          {
+            "latex": "\\boxed{\nC=4AE(e)\n}"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "拉马努金近似公式的验证"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "步骤一（圆极限验证）：\n令"
+              },
+              {
+                "type": "math",
+                "latex": "a=b"
+              },
+              {
+                "type": "text",
+                "text": "，则"
+              },
+              {
+                "type": "math",
+                "latex": "h=0"
+              },
+              {
+                "type": "text",
+                "text": "，代入公式得"
+              }
+            ]
+          },
+          {
+            "latex": "C\\approx \\pi(a+b) = 2\\pi a"
+          },
+          {
+            "text": ",与精确圆周长一致。\n理由： 公式在退化情形下精确成立，这是良好逼近的必要条件。"
+          },
+          {
+            "text": "步骤二（数值精度检验）：\n取"
+          },
+          {
+            "latex": "a=5,\\; b=3"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "。先计算"
+              },
+              {
+                "type": "math",
+                "latex": "h"
+              },
+              {
+                "type": "text",
+                "text": "："
+              }
+            ]
+          },
+          {
+            "latex": "h=\\left(\\frac{5-3}{5+3}\\right)^2\n= \\left(\\frac{2}{8}\\right)^2\n= \\frac{1}{16}=0.0625"
+          },
+          {
+            "text": ".代入公式："
+          },
+          {
+            "latex": "\\begin{aligned}\nC & \\approx \\pi(5+3)\\left(1+\\frac{3\\times0.0625}{10+\\sqrt{4-3\\times0.0625}}\\right) \\\\\n& = 8\\pi\\left(1+\\frac{0.1875}{10+\\sqrt{4-0.1875}}\\right) \\\\\n& = 8\\pi\\left(1+\\frac{0.1875}{10+\\sqrt{3.8125}}\\right) \\\\\n& \\approx 8\\pi\\left(1+\\frac{0.1875}{10+1.9526}\\right) \\\\\n& = 8\\pi\\left(1+\\frac{0.1875}{11.9526}\\right) \\\\\n& \\approx 8\\pi\\times1.01568 \\approx 25.529.\n\\end{aligned}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "该椭圆的精确周长（通过椭圆积分计算）约为"
+              },
+              {
+                "type": "math",
+                "latex": "25.527"
+              },
+              {
+                "type": "text",
+                "text": "，相对误差不到"
+              }
+            ]
+          },
+          {
+            "latex": "0.01\\%"
+          },
+          {
+            "text": "。\n理由： 数值实验证实公式具有极高实际精度。"
+          },
+          {
+            "text": "步骤三（极端扁平情形）：\n令"
+          },
+          {
+            "latex": "b\\to 0"
+          },
+          {
+            "text": "，此时"
+          },
+          {
+            "latex": "h=\\left(\\frac{a-0}{a+0}\\right)^2=1"
+          },
+          {
+            "text": "。代入公式："
+          },
+          {
+            "latex": "\\begin{aligned}\nC\n& \\approx \\pi a\\left(1+\\frac{3}{10+\\sqrt{4-3}}\\right) \\\\\n& = \\pi a\\left(1+\\frac{3}{10+1}\\right)\n= \\pi a\\left(1+\\frac{3}{11}\\right) \\\\\n& = \\frac{14\\pi}{11}a\n\\approx 3.997a\n\\approx 4a .\n\\end{aligned}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "实际椭圆当"
+              },
+              {
+                "type": "math",
+                "latex": "b=0"
+              },
+              {
+                "type": "text",
+                "text": "时退化为线段，周长应为"
+              },
+              {
+                "type": "math",
+                "latex": "4a"
+              },
+              {
+                "type": "text",
+                "text": "，公式预测非常接近。\n理由： 极端情形下公式仍保持合理精度，表明适用范围广。\nassets/tikz/C024_ramanujan_error_curve.tex\n0.4em\n图：Ramanujan 椭圆周长近似公式的相对误差表现"
+              }
+            ]
+          },
+          {
+            "text": "!\nassets/tikz/C024_three_formula_error_compare.tex\n0.35em\n图：三种椭圆周长近似公式的相对误差对比"
+          },
+          {
+            "text": "结论回扣\n椭圆周长的精确表达需要用第二类完全椭圆积分表示，一般不能化为初等函数。拉马努金公式虽然不是精确等式，但在从圆到极扁椭圆的各种情形下均能给出高精度近似，因此可在高中范围内作为椭圆周长的实用计算公式。"
+          }
+        ]
+      },
+      {
+        "key": "examples",
+        "title": "例题应用",
+        "layout": "text",
+        "items": [
+          {
+            "text": "例 1（基础）\n题目： 已知椭圆方程为"
+          },
+          {
+            "latex": "\\frac{x^2}{25}+\\frac{y^2}{9}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，求该椭圆周长的近似值（结果保留三位小数）。\n在使用 Ramanujan 近似公式求椭圆周长时，不必被公式的复杂外形吓到。实际上只需按照“先由"
+              },
+              {
+                "type": "math",
+                "latex": "a,b"
+              },
+              {
+                "type": "text",
+                "text": "算"
+              },
+              {
+                "type": "math",
+                "latex": "h"
+              },
+              {
+                "type": "text",
+                "text": "，再算"
+              }
+            ]
+          },
+          {
+            "latex": "\\sqrt{4-3h}"
+          },
+          {
+            "text": "，最后代入公式”的顺序逐步计算即可。\nassets/tikz/C024_ramanujan_calc_flow.tex\n0.4em\n图：Ramanujan 椭圆周长近似公式的计算流程\n解题步骤："
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "第一步（识别参数）：\n由标准方程得"
+              },
+              {
+                "type": "math",
+                "latex": "a=5,b=3"
+              },
+              {
+                "type": "text",
+                "text": "。\n理由： 椭圆方程"
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，分母为平方项，故"
+              },
+              {
+                "type": "math",
+                "latex": "a^2=25,b^2=9"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "text": "第二步（计算h）：\n计算"
+          },
+          {
+            "latex": "h=\\left(\\frac{a-b}{a+b}\\right)^2=\\left(\\frac{5-3}{5+3}\\right)^2=\\left(\\frac{2}{8}\\right)^2=\\frac{1}{16}=0.0625"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "。\n理由："
+              },
+              {
+                "type": "math",
+                "latex": "h"
+              },
+              {
+                "type": "text",
+                "text": "是公式中反映椭圆扁平程度的中间量。"
+              }
+            ]
+          },
+          {
+            "text": "第三步（代入求值）：\n代入近似公式："
+          },
+          {
+            "latex": "\\begin{aligned}\nC & \\approx \\pi(a+b)\\left(1+\\frac{3h}{10+\\sqrt{4-3h}}\\right) \\\\\n& = \\pi\\times8\\times\\left(1+\\frac{3\\times0.0625}{10+\\sqrt{4-3\\times0.0625}}\\right) \\\\\n& = 8\\pi\\left(1+\\frac{0.1875}{10+\\sqrt{3.8125}}\\right) \\\\\n& \\approx 8\\pi\\left(1+\\frac{0.1875}{10+1.9526}\\right) \\\\\n& = 8\\pi\\left(1+\\frac{0.1875}{11.9526}\\right) \\\\\n& \\approx 8\\pi\\times1.01568 \\approx 25.529.\n\\end{aligned}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "理由： 按公式逐次计算"
+              },
+              {
+                "type": "math",
+                "latex": "h"
+              },
+              {
+                "type": "text",
+                "text": "、根号、分数，最后乘以"
+              }
+            ]
+          },
+          {
+            "latex": "\\pi(a+b)"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "得到近似周长。\n关键结论： 椭圆周长近似为"
+              },
+              {
+                "type": "math",
+                "latex": "25.529"
+              },
+              {
+                "type": "text",
+                "text": "（单位与半轴相同）。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "例 2（稍变形）\n题目： 已知椭圆长半轴"
+              },
+              {
+                "type": "math",
+                "latex": "a=5"
+              },
+              {
+                "type": "text",
+                "text": "，离心率"
+              }
+            ]
+          },
+          {
+            "latex": "e=\\frac{3}{5}"
+          },
+          {
+            "text": "，求该椭圆周长的近似值（结果保留三位小数）。\n解题步骤："
+          },
+          {
+            "text": "第一步（求短半轴）：\n由"
+          },
+          {
+            "latex": "e=\\frac{c}{a}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，得"
+              },
+              {
+                "type": "math",
+                "latex": "c=3"
+              },
+              {
+                "type": "text",
+                "text": "，从而"
+              }
+            ]
+          },
+          {
+            "latex": "b=\\sqrt{a^2-c^2}=\\sqrt{25-9}=4"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "。\n理由： 椭圆参数关系"
+              },
+              {
+                "type": "math",
+                "latex": "c^2=a^2-b^2"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "text": "第二步（计算h）："
+          },
+          {
+            "latex": "h=\\left(\\frac{a-b}{a+b}\\right)^2=\\left(\\frac{5-4}{5+4}\\right)^2=\\left(\\frac{1}{9}\\right)^2=\\frac{1}{81}\\approx0.0123457"
+          },
+          {
+            "text": "。\n理由： h为形状参数。"
+          },
+          {
+            "text": "第三步（代入公式）："
+          },
+          {
+            "latex": "\\begin{aligned}\nC & \\approx \\pi(a+b)\\left(1+\\frac{3h}{10+\\sqrt{4-3h}}\\right) \\\\\n& = \\pi\\times9\\times\\left(1+\\frac{3\\times0.0123457}{10+\\sqrt{4-3\\times0.0123457}}\\right) \\\\\n& = 9\\pi\\left(1+\\frac{0.0370371}{10+\\sqrt{4-0.0370371}}\\right) \\\\\n& = 9\\pi\\left(1+\\frac{0.0370371}{10+\\sqrt{3.9629629}}\\right) \\\\\n& \\approx 9\\pi\\left(1+\\frac{0.0370371}{10+1.990718}\\right) \\\\\n& = 9\\pi\\left(1+\\frac{0.0370371}{11.990718}\\right) \\\\\n& \\approx 9\\pi(1+0.003088) = 9\\pi\\times1.003088 \\approx 9\\times3.14159\\times1.003088 \\approx 28.362.\n\\end{aligned}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "理由： 代入数值逐步计算。\n关键结论： 该椭圆周长近似为"
+              },
+              {
+                "type": "math",
+                "latex": "28.362"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "text": "例 3（综合应用）\n题目： 已知椭圆"
+          },
+          {
+            "latex": "E_1:\\frac{x^2}{100}+\\frac{y^2}{36}=1"
+          },
+          {
+            "text": "，椭圆"
+          },
+          {
+            "latex": "E_2:\\frac{x^2}{81}+\\frac{y^2}{49}=1"
+          },
+          {
+            "text": "，试比较它们的周长大小。\n解题步骤："
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "第一步（计算E1周长）：\n对"
+              },
+              {
+                "type": "math",
+                "latex": "E_1"
+              },
+              {
+                "type": "text",
+                "text": "，"
+              },
+              {
+                "type": "math",
+                "latex": "a=10,b=6"
+              },
+              {
+                "type": "text",
+                "text": "，"
+              }
+            ]
+          },
+          {
+            "latex": "h=\\left(\\frac{10-6}{10+6}\\right)^2=\\left(\\frac{4}{16}\\right)^2=0.0625"
+          },
+          {
+            "text": "。代入公式："
+          },
+          {
+            "latex": "\\begin{aligned}\nC_1 & \\approx \\pi(10+6)\\left(1+\\frac{3\\times0.0625}{10+\\sqrt{4-3\\times0.0625}}\\right) \\\\\n& = 16\\pi\\left(1+\\frac{0.1875}{10+\\sqrt{3.8125}}\\right) \\\\\n& \\approx 16\\pi\\left(1+\\frac{0.1875}{10+1.9526}\\right) \\\\\n& = 16\\pi\\left(1+\\frac{0.1875}{11.9526}\\right) \\\\\n& \\approx 16\\pi\\times1.01568 \\approx 51.053.\n\\end{aligned}"
+          },
+          {
+            "text": "理由： 直接套用公式。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "第二步（计算E2周长）：\n对"
+              },
+              {
+                "type": "math",
+                "latex": "E_2"
+              },
+              {
+                "type": "text",
+                "text": "，"
+              },
+              {
+                "type": "math",
+                "latex": "a=9,b=7"
+              },
+              {
+                "type": "text",
+                "text": "，"
+              }
+            ]
+          },
+          {
+            "latex": "h=\\left(\\frac{9-7}{9+7}\\right)^2=\\left(\\frac{2}{16}\\right)^2=\\frac{1}{64}=0.015625"
+          },
+          {
+            "text": "。代入公式："
+          },
+          {
+            "latex": "\\begin{aligned}\nC_2 & \\approx \\pi(9+7)\\left(1+\\frac{3\\times0.015625}{10+\\sqrt{4-3\\times0.015625}}\\right) \\\\\n& = 16\\pi\\left(1+\\frac{0.046875}{10+\\sqrt{4-0.046875}}\\right) \\\\\n& = 16\\pi\\left(1+\\frac{0.046875}{10+\\sqrt{3.953125}}\\right) \\\\\n& \\approx 16\\pi\\left(1+\\frac{0.046875}{10+1.9883}\\right) \\\\\n& = 16\\pi\\left(1+\\frac{0.046875}{11.9883}\\right) \\\\\n& \\approx 16\\pi(1+0.003910) \\approx 16\\pi\\times1.00391 \\approx 50.463.\n\\end{aligned}"
+          },
+          {
+            "text": "理由： 同公式计算。"
+          },
+          {
+            "text": "第三步（比较大小）：\n由于"
+          },
+          {
+            "latex": "C_1\\approx51.053 > C_2\\approx50.463"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，故"
+              },
+              {
+                "type": "math",
+                "latex": "E_1"
+              },
+              {
+                "type": "text",
+                "text": "的周长大于"
+              },
+              {
+                "type": "math",
+                "latex": "E_2"
+              },
+              {
+                "type": "text",
+                "text": "的周长。\n理由： 直接比较数值大小。\n关键结论： 椭圆"
+              },
+              {
+                "type": "math",
+                "latex": "E_1"
+              },
+              {
+                "type": "text",
+                "text": "周长更大（尽管两者"
+              },
+              {
+                "type": "math",
+                "latex": "a+b"
+              },
+              {
+                "type": "text",
+                "text": "相等，但"
+              },
+              {
+                "type": "math",
+                "latex": "E_1"
+              },
+              {
+                "type": "text",
+                "text": "更扁平导致修正因子更大）。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "traps",
+        "title": "易错提醒",
+        "layout": "text",
+        "items": [
+          {
+            "text": "易错点一（计算h错误）\n计算"
+          },
+          {
+            "latex": "h=\\left(\\frac{a-b}{a+b}\\right)^2"
+          },
+          {
+            "text": "时，忘记平方，或分子分母顺序颠倒。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "正确理解（正确步骤）：\n严格按公式计算：先求"
+              },
+              {
+                "type": "math",
+                "latex": "a-b"
+              },
+              {
+                "type": "text",
+                "text": "与"
+              },
+              {
+                "type": "math",
+                "latex": "a+b"
+              },
+              {
+                "type": "text",
+                "text": "的比值，再平方得到"
+              },
+              {
+                "type": "math",
+                "latex": "h"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "text": "错因分析（运算粗心）：\n对平方运算不敏感，或急于求成跳步导致漏算。"
+          },
+          {
+            "text": "易错点二（误当精确公式）\n将该近似公式当作精确等式，在需要精确值的题目中直接使用，导致答案不被认可。"
+          },
+          {
+            "text": "正确理解（近似性质）：\n该公式是近似公式，并非精确值；应用中需注意题目是否允许近似。"
+          },
+          {
+            "text": "错因分析（概念模糊）：\n对椭圆周长无初等表达式缺乏认识，混淆近似与精确。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "易错点三（特例处理不当）\n当"
+              },
+              {
+                "type": "math",
+                "latex": "a=b"
+              },
+              {
+                "type": "text",
+                "text": "时，不知道"
+              },
+              {
+                "type": "math",
+                "latex": "h=0"
+              },
+              {
+                "type": "text",
+                "text": "，仍按一般步骤计算，或认为公式不适用。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "正确理解（退化情形）：\n当"
+              },
+              {
+                "type": "math",
+                "latex": "a=b"
+              },
+              {
+                "type": "text",
+                "text": "时，"
+              },
+              {
+                "type": "math",
+                "latex": "h=0"
+              },
+              {
+                "type": "text",
+                "text": "，公式右端"
+              }
+            ]
+          },
+          {
+            "latex": "\\pi(a+b)"
+          },
+          {
+            "text": "即为"
+          },
+          {
+            "latex": "2\\pi a"
+          },
+          {
+            "text": "，与圆周长相同，是精确值。"
+          },
+          {
+            "text": "错因分析（灵活不足）：\n未注意公式退化为圆的情况，缺乏对公式结构的深入理解。"
+          }
+        ]
+      },
+      {
+        "key": "summary",
+        "title": "复盘总结",
+        "layout": "text",
+        "items": [
+          {
+            "text": "一句话核心\n拉马努金公式用长短半轴快速高精度计算椭圆周长，是在无法精确表达时的优秀替代。"
+          },
+          {
+            "text": "使用条件"
+          },
+          {
+            "text": "条件1（椭圆标准型）： 椭圆方程为"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
+            "text": "，且"
+          },
+          {
+            "latex": "a\\ge b>0"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "条件2（近似可用）： 该公式为近似公式，允许在工程估算、选填题中直接使用；若要求精确表达式则不宜。"
+          },
+          {
+            "text": "关键提醒"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "易错点（运算步骤）： 按顺序逐步计算：先算"
+              },
+              {
+                "type": "math",
+                "latex": "h"
+              },
+              {
+                "type": "text",
+                "text": "，再算"
+              }
+            ]
+          },
+          {
+            "latex": "\\sqrt{4-3h}"
+          },
+          {
+            "text": "，然后计算分式"
+          },
+          {
+            "latex": "\\frac{3h}{10+\\sqrt{4-3h}}"
+          },
+          {
+            "text": "，加1后乘以"
+          },
+          {
+            "latex": "\\pi(a+b)"
+          },
+          {
+            "text": "，避免因跳步导致错误。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "检查项（参数确认）： 确保"
+              },
+              {
+                "type": "math",
+                "latex": "a,b"
+              },
+              {
+                "type": "text",
+                "text": "分别为长半轴和短半轴（"
+              }
+            ]
+          },
+          {
+            "latex": "a\\ge b"
+          },
+          {
+            "text": "），且单位一致。"
+          }
+        ]
+      }
+    ]
+  },
+  "C025": {
+    "id": "C025",
+    "title": "椭圆绕x轴旋转椭球体积公式",
+    "module": "conic",
+    "alias": [
+      "椭球体积",
+      "椭圆旋转体体积",
+      "椭圆旋转椭球体积"
+    ],
+    "difficulty": 3,
+    "category": "立体几何",
+    "tags": [
+      "椭圆",
+      "旋转体",
+      "椭球体",
+      "体积",
+      "旋转椭球"
+    ],
+    "core_summary": "椭圆绕x轴旋转所得旋转体体积等于三分之四π乘以半长轴a再乘以半短轴b的平方。",
+    "core_formula": "V=\\frac{4}{3}\\pi a b^2",
+    "related_formulas": [
+      "V=\\frac{4}{3}\\pi r^3 \\text{（当} a=b=r \\text{时）}"
+    ],
+    "variables": [
+      {
+        "latex": "a"
+      },
+      {
+        "latex": "b"
+      },
+      {
+        "latex": "V"
+      }
+    ],
+    "conditions": [
+      "椭圆方程为 \\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1，其中 a>0, b>0",
+      "旋转轴为 x 轴"
+    ],
+    "conclusions": [
+      "旋转椭球体体积 V=\\frac{4}{3}\\pi a b^2"
+    ],
+    "usage": {
+      "scenarios": [
+        "立体几何综合题",
+        "选填题快速计算体积"
+      ],
+      "problem_types": [
+        "计算题",
+        "填空题"
+      ],
+      "exam_frequency": 0.4,
+      "exam_score": 5
+    },
+    "interactive": {
+      "has_diagram": false,
+      "geogebra_id": "",
+      "param_demo": {}
+    },
+    "assets": {
+      "svg": "C025.svg",
+      "image": "",
+      "video": "",
+      "audio": ""
+    },
+    "shareConfig": {
+      "title": "椭圆旋转椭球体积公式：直接套用简化计算",
+      "shareDesc": "适合课后复盘和考前回顾，直接给出旋转椭球体积公式，避免积分推导，适合选填题快速计算。"
+    },
+    "relations": {
+      "prerequisites": [
+        "椭圆标准方程",
+        "旋转体体积概念"
+      ],
+      "related_ids": [],
+      "similar": ""
+    },
+    "isPro": 0,
+    "remarks": "",
+    "knowledgeNode": "立体几何-体积与面积-体积",
+    "altNodes": "解析几何-圆锥曲线-椭圆",
+    "statement": "条件\n- 条件 1（椭圆标准方程）： 椭圆方程为 (x^2) / (a^2)+(y^2) / (b^2)=1，其中 a>0，b>0，且将该椭圆绕 x 轴旋转一周。\n结论\n- 结论一（旋转椭球体积）：\n直观描述： 体积等于三分之四 乘 x 半轴再乘 y 半轴的平方。\nV=(4) / (3) a b^2.\n- 推广结论（球体退化特例）：\n直观描述： 当 a=b=r 时，椭圆退化为圆；该圆绕 x 轴旋转一周得到球，体积公式退化为。\nV=(4) / (3) r^3.\nassets/tikz/C025_fig01_overview.tex\n0.4em\n图：椭圆绕 x 轴旋转形成旋转椭球体的示意图\n使用提醒：\n公式中的 a 为 x 方向半轴长，b 为 y 方向半轴长，切勿交换；旋转轴必须为 x 轴。",
+    "explanation": "一句话直觉\n椭圆绕轴扫出的椭球体，就像被均匀拉伸的球，体积仍然带着熟悉的 (4) / (3) ，只是半径被两个半轴“分工合作”。\n核心拆解\n- 要点一（截面圆盘）： 用垂直于 x 轴的平面去截旋转体，截面是圆，半径为当时椭圆纵坐标的绝对值 |y|，因此截面面积为 y^2。\n- 要点二（积分累加）： 将 x 从 -a 到 a 上所有薄圆盘的体积加总，得到定积分 V= in t_-a^a y^2\\,dx。\n- 要点三（代数化简）： 利用椭圆方程 y^2=b^2 (1-(x^2) / (a^2) ) 消去 y，积分后自然得到 V=(4) / (3) a b^2。\n几何本质（祖暅原理）\n从截面积分的角度看，旋转体体积等于各个位置截面面积的累积：V = in t_-a^a S(x)\\,dx。这与祖暅原理的思想一致：若两个立体在同一高度处的截面积处处相等，则它们体积相等。椭圆旋转体的每个截面圆半径按椭圆规律变化，但总面积累积后仍保持与球体相同的结构系数。\n代数意义（对称简化）\n积分利用了区间对称性和被积函数的偶函数性质，使计算化简为 b^2 * 2 (a-(a) / (3) )，最终 (4) / (3) 来自 2(1-(1) / (3)) 的乘积。\n考点价值\n- 考法一（直接套用公式）： 给出标准椭圆方程，直接识别 a,b，代入体积公式。\n- 考法二（逆向求参数）： 已知旋转椭球体积和其中一个半轴，反求另一半轴或椭圆方程。\n顿悟点\n球体积是 (4) / (3) r^3，而椭球体积是 (4) / (3) a b^2。为什么 b 出现平方？因为旋转垂直于 x 轴的方向是二维的，所以 y 方向的尺度对体积的影响是平方关系，而 x 方向只沿旋转轴拉伸，体积与它成正比。\nassets/tikz/C025_fig07_why_b_squared.tex\n使用场景\n- 场景一（求旋转体体积）： 题目给出椭圆的标准方程，要求计算绕 x 轴旋转所得立体体积。\n- 场景二（物理建模）： 在物理问题中，计算椭球形容器的容积或椭球天体的大致体积。",
+    "proof": "思路提示\n采用旋转体体积的圆盘法：体积等于截面面积沿旋转轴的定积分。先由椭圆方程用 x 表示截面半径平方 y^2，再计算积分 in t_-a^a y^2\\,dx。\n正式推导\n- 步骤一（写出截面面积）：\n由椭圆方程 (x^2) / (a^2)+(y^2) / (b^2)=1 解出\ny^2=b^2 (1-(x^2) / (a^2) ).\n绕 x 轴旋转时，垂直于 x 轴的截面是圆，半径 r=|y|，故截面面积函数为\nS(x)= y^2= b^2 (1-(x^2) / (a^2) ), x in [-a,a].\n理由： 旋转体圆盘法，截面半径由曲线到旋转轴的距离确定。\nassets/tikz/C025_fig02_disk_method.tex\n0.4em\n图：圆盘法截面示意图\n- 步骤二（建立积分式）：\n旋转体体积为截面面积沿 x 轴的积分，并利用对称性：\nV= in t_-a^a S(x)\\,dx = 2 in t_0^a b^2 (1-(x^2) / (a^2) )\\,dx.\n理由： 被积函数为偶函数，积分区间关于原点对称，可简化为正半轴积分的两倍。\n- 步骤三（计算原函数）：\n提出常数，计算不定积分：\nin t (1-(x^2) / (a^2) )\\,dx = x - (x^3) / (3a^2) + C.\n理由： 幂函数积分公式 in t x^n\\,dx = (x^n+1) / (n+1)。\n- 步骤四（代入上下限）：\n计算定积分：\nin t_0^a (1-(x^2) / (a^2) )\\,dx\n& = _0^a \\\\\n& = (a - (a^3) / (3a^2) ) - 0 \\\\\n& = a - (a) / (3) = (2a) / (3).\n理由： 牛顿-莱布尼茨公式，代入上限减下限。\n- 步骤五（得出体积）：\n将积分结果代回体积表达式：\nV = 2 b^2 * (2a) / (3) = (4) / (3) a b^2.\n理由： 合并常数因子，即得所需公式。\n结论回扣\n所得体积公式与结论一致。特别地，当 a=b=r 时，y^2=r^2(1-x^2/r^2)，代入可得 V=(4) / (3) r^3，退化为球体积公式。",
+    "examples": "例 1（基础）\n题目： 椭圆方程为 (x^2) / (16)+(y^2) / (9)=1，将其绕 x 轴旋转一周，求所得旋转体的体积。\n解题步骤：\n- 第一步（识别半轴）： 由标准方程直接读出 a^2=16，b^2=9，故 a=4，b=3。\n理由： 标准形式 (x^2) / (a^2)+(y^2) / (b^2)=1 中分母即为半轴平方。\n- 第二步（套用公式）： 旋转椭球体积公式为 V=(4) / (3) a b^2，代入 a=4，b=3：\nV=(4) / (3) * 4 * 3^2.\n理由： 绕 x 轴旋转时适用该公式。\n- 第三步（计算结果）： 计算数值：\nV=(4) / (3) * 4 * 9 = (4) / (3) * 36 = 48 .\n理由： 先算指数，再约分相乘。\n关键结论： 所求体积为 48 （体积单位）。\n例 2（稍变形）\n题目： 已知椭圆方程为 9x^2+25y^2=225，将该椭圆绕 x 轴旋转，求旋转椭球体积。\n解题步骤：\n- 第一步（化为标准式）： 方程两边同除以 225，得 (x^2) / (25)+(y^2) / (9)=1。\n理由： 必须化为 (x^2) / (a^2)+(y^2) / (b^2)=1 的标准形式才能准确识别 a,b。\n- 第二步（提取半轴）： 由此知 a^2=25，b^2=9，即 a=5，b=3。\n理由： a,b>0。\n- 第三步（代入体积公式）：\nV=(4) / (3) a b^2 = (4) / (3) * 5 * 3^2 = (4) / (3) * 5 * 9 = 60 .\n理由： 套用公式直接计算。\n关键结论： 旋转椭球体积为 60 。\n例 3（综合应用）\n题目： 一椭圆绕 x 轴旋转一周所得椭球体积为 (16 ) / (3)，已知椭圆在 x 轴上的半轴长为 2，求椭圆标准方程。\n解题步骤：\n- 第一步（设未知数列方程）： 设椭圆标准方程为 (x^2) / (a^2)+(y^2) / (b^2)=1，已知 a=2，体积 V=(16 ) / (3)。由体积公式\nV=(4) / (3) a b^2,\n代入得 (4) / (3) * 2 * b^2 = (16 ) / (3)。\n理由： 逆用公式建立关于 b^2 的方程。\n- 第二步（化简求解）： 两边消去 并化简：\n(8) / (3) b^2 = (16) / (3) b^2=2.\n理由： 等式两边同乘 (3) / (8)，或交叉相乘。\n- 第三步（写出方程）： 将 a^2=4，b^2=2 代回标准形式：\n(x^2) / (4)+(y^2) / (2)=1.\n理由： 半轴平方 a^2=2^2=4，b^2=2。\n关键结论： 所求椭圆方程为 (x^2) / (4)+(y^2) / (2)=1。",
+    "traps": "- 易错点一（旋转轴混淆） 记错公式，将绕 x 轴旋转的体积公式误用于绕 y 轴旋转。\n- 正确理解（轴决定截面半径）： 绕哪条轴旋转，截面半径就由垂直该轴的坐标决定。绕 x 轴时，半径是 |y|，体积公式含 b^2；若绕 y 轴，则应使用 x 的表达式积分，公式结构会互换 a,b 的角色。\n- 错因分析（死记硬背）： 只记忆体积公式的外形，不思考公式中 a,b 的几何意义与旋转轴的关系。\nassets/tikz/C025_fig04_axis_compare.tex\n0.4em\n图：椭圆分别绕 x 轴与 y 轴旋转的体积公式对比示意图\n- 易错点二（未化标准形式） 遇到非标准方程如 4x^2+9y^2=36 时，直接取 a=2,b=3 代入计算。\n- 正确理解（先归一化）： 必须先将方程化为 (x^2) / (9)+(y^2) / (4)=1，确定正确的半轴 a=3,b=2。\n- 错因分析（系数处理疏忽）： 误以为方程中 x^2,y^2 项的系数就是 (1) / (a^2),(1) / (b^2)，忘记等式右边必须为 1。\nassets/tikz/C025_fig05_standardize.tex\n0.4em\n图：非标准方程先化标准式流程图\n- 易错点三（半轴与轴长混淆） 将轴长（如长轴长 10）直接作为 a=10 代入公式。\n- 正确理解（半轴长定义）： 椭圆标准方程中的 a 是半轴长，即轴长的一半。长轴长为 2a，故 a=5。\n- 错因分析（概念模糊）： 对椭圆几何参数定义记忆不清，混淆了“轴”与“半轴”。\nassets/tikz/C025_fig06_semiaxis_warning.tex\n0.4em\n图：半轴长不是轴长示意图",
+    "summary": "一句话核心\n椭圆绕 x 轴旋转一周所得椭球体积为 V=(4) / (3) a b^2，系数 (4) / (3) 与球体相同，只是半径被两半轴“分工”。\n使用条件\n- 条件 1（标准方程）： 椭圆方程必须为 (x^2) / (a^2)+(y^2) / (b^2)=1 的形式，且 a>0,b>0。\n- 条件 2（明确旋转轴）： 旋转轴为 x 轴，此时截面半径由 y 坐标确定，公式中 b 带平方。\n关键提醒\n- 易错点（半轴与轴长）： a,b 是半轴长（即轴长的一半），切勿将全长直接代入。\n- 检查项（先化标准）： 若方程非标准形式，务必先变形为 (x^2) / (a^2)+(y^2) / (b^2)=1，再读取 a,b。\nassets/tikz/C025_fig08_summary_flow.tex",
+    "display_version": 2,
+    "sections": [
+      {
+        "key": "core_formula",
+        "title": "核心公式",
+        "layout": "text",
+        "items": [
+          {
+            "latex": "V=\\frac{4}{3}\\pi a b^2"
+          }
+        ]
+      },
+      {
+        "key": "variables",
+        "title": "涉及变量",
+        "layout": "text",
+        "items": [
+          {
+            "latex": "a"
+          },
+          {
+            "latex": "b"
+          },
+          {
+            "latex": "V"
+          }
+        ]
+      },
+      {
+        "key": "statement",
+        "title": "命题表述",
+        "layout": "theorem-list",
+        "items": [
+          {
+            "title": "条件 1（椭圆标准方程）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "椭圆方程为"
+              },
+              {
+                "type": "math",
+                "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+              },
+              {
+                "type": "text",
+                "text": "，其中"
+              },
+              {
+                "type": "math",
+                "latex": "a>0"
+              },
+              {
+                "type": "text",
+                "text": "，"
+              },
+              {
+                "type": "math",
+                "latex": "b>0"
+              },
+              {
+                "type": "text",
+                "text": "，且将该椭圆绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转一周。"
+              }
+            ],
+            "desc": "椭圆方程为 ，其中 ， ，且将该椭圆绕 轴旋转一周。",
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
+            "title": "结论一（旋转椭球体积）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "体积等于三分之四"
+              },
+              {
+                "type": "math",
+                "latex": "\\pi"
+              },
+              {
+                "type": "text",
+                "text": "乘"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "半轴再乘"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "半轴的平方。"
+              },
+              {
+                "type": "math",
+                "latex": "V=\\frac{4}{3}\\pi a b^{2}."
+              }
+            ],
+            "desc": "体积等于三分之四 乘 半轴再乘 半轴的平方。",
+            "latex": "V=\\frac{4}{3}\\pi a b^{2}."
+          },
+          {
+            "title": "推广结论（球体退化特例）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "当"
+              },
+              {
+                "type": "math",
+                "latex": "a=b=r"
+              },
+              {
+                "type": "text",
+                "text": "时，椭圆退化为圆；该圆绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转一周得到球，体积公式退化为。"
+              },
+              {
+                "type": "math",
+                "latex": "V=\\frac{4}{3}\\pi r^{3}."
+              },
+              {
+                "type": "text",
+                "text": "assets/tikz/C025_fig01_overview.tex\n0.4em\n图：椭圆绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转形成旋转椭球体的示意图\n使用提醒：\n公式中的"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "为"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "方向半轴长，"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "为"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "方向半轴长，切勿交换；旋转轴必须为"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴。"
+              }
+            ],
+            "desc": "当 时，椭圆退化为圆；该圆绕 轴旋转一周得到球，体积公式退化为。 assets/tikz/C025_fig01_overview.tex\n0.4em\n图：椭圆绕 轴旋转形成旋转椭球体的示意图\n使用提醒：\n公式中的 为 方向半轴长， 为 方向半轴长，切勿交换；旋转轴必须为 轴。",
+            "latex": "a=b=r"
+          }
+        ]
+      },
+      {
+        "key": "explanation",
+        "title": "理解与直觉",
+        "layout": "text",
+        "items": [
+          {
+            "text": "一句话直觉\n椭圆绕轴扫出的椭球体，就像被均匀拉伸的球，体积仍然带着熟悉的"
+          },
+          {
+            "latex": "\\frac{4}{3}\\pi"
+          },
+          {
+            "text": "，只是半径被两个半轴“分工合作”。"
+          },
+          {
+            "text": "核心拆解"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "要点一（截面圆盘）：\n用垂直于"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴的平面去截旋转体，截面是圆，半径为当时椭圆纵坐标的绝对值"
+              },
+              {
+                "type": "math",
+                "latex": "|y|"
+              },
+              {
+                "type": "text",
+                "text": "，因此截面面积为"
+              }
+            ]
+          },
+          {
+            "latex": "\\pi y^{2}"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "要点二（积分累加）：\n将"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "从"
+              },
+              {
+                "type": "math",
+                "latex": "-a"
+              },
+              {
+                "type": "text",
+                "text": "到"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "上所有薄圆盘的体积加总，得到定积分"
+              }
+            ]
+          },
+          {
+            "latex": "V=\\int_{-a}^{a} \\pi y^{2}\\,dx"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "要点三（代数化简）：\n利用椭圆方程"
+          },
+          {
+            "latex": "y^{2}=b^{2}\\bigl(1-\\frac{x^{2}}{a^{2}}\\bigr)"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "消去"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "，积分后自然得到"
+              }
+            ]
+          },
+          {
+            "latex": "V=\\frac{4}{3}\\pi a b^{2}"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "几何本质（祖暅原理）\n从截面积分的角度看，旋转体体积等于各个位置截面面积的累积："
+          },
+          {
+            "latex": "V = \\int_{-a}^{a} S(x)\\,dx"
+          },
+          {
+            "text": "。这与祖暅原理的思想一致：若两个立体在同一高度处的截面积处处相等，则它们体积相等。椭圆旋转体的每个截面圆半径按椭圆规律变化，但总面积累积后仍保持与球体相同的结构系数。"
+          },
+          {
+            "text": "代数意义（对称简化）\n积分利用了区间对称性和被积函数的偶函数性质，使计算化简为"
+          },
+          {
+            "latex": "\\pi b^{2}\\cdot 2\\bigl(a-\\frac{a}{3}\\bigr)"
+          },
+          {
+            "text": "，最终"
+          },
+          {
+            "latex": "\\frac{4}{3}"
+          },
+          {
+            "text": "来自"
+          },
+          {
+            "latex": "2(1-\\frac{1}{3})"
+          },
+          {
+            "text": "的乘积。"
+          },
+          {
+            "text": "考点价值"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "考法一（直接套用公式）： 给出标准椭圆方程，直接识别"
+              },
+              {
+                "type": "math",
+                "latex": "a,b"
+              },
+              {
+                "type": "text",
+                "text": "，代入体积公式。"
+              }
+            ]
+          },
+          {
+            "text": "考法二（逆向求参数）： 已知旋转椭球体积和其中一个半轴，反求另一半轴或椭圆方程。"
+          },
+          {
+            "text": "顿悟点\n球体积是"
+          },
+          {
+            "latex": "\\frac{4}{3}\\pi r^{3}"
+          },
+          {
+            "text": "，而椭球体积是"
+          },
+          {
+            "latex": "\\frac{4}{3}\\pi a b^{2}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "。为什么"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "出现平方？因为旋转垂直于"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴的方向是二维的，所以"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "方向的尺度对体积的影响是平方关系，而"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "方向只沿旋转轴拉伸，体积与它成正比。\nassets/tikz/C025_fig07_why_b_squared.tex"
+              }
+            ]
+          },
+          {
+            "text": "使用场景"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "场景一（求旋转体体积）： 题目给出椭圆的标准方程，要求计算绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转所得立体体积。"
+              }
+            ]
+          },
+          {
+            "text": "场景二（物理建模）： 在物理问题中，计算椭球形容器的容积或椭球天体的大致体积。"
+          }
+        ]
+      },
+      {
+        "key": "proof",
+        "title": "证明过程",
+        "layout": "text",
+        "items": [
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "思路提示\n采用旋转体体积的圆盘法：体积等于截面面积沿旋转轴的定积分。先由椭圆方程用"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "表示截面半径平方"
+              },
+              {
+                "type": "math",
+                "latex": "y^{2}"
+              },
+              {
+                "type": "text",
+                "text": "，再计算积分"
+              }
+            ]
+          },
+          {
+            "latex": "\\int_{-a}^{a} \\pi y^{2}\\,dx"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "正式推导"
+          },
+          {
+            "text": "步骤一（写出截面面积）：\n由椭圆方程"
+          },
+          {
+            "latex": "\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1"
+          },
+          {
+            "text": "解出"
+          },
+          {
+            "latex": "y^{2}=b^{2}\\Bigl(1-\\frac{x^{2}}{a^{2}}\\Bigr)"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转时，垂直于"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴的截面是圆，半径"
+              },
+              {
+                "type": "math",
+                "latex": "r=|y|"
+              },
+              {
+                "type": "text",
+                "text": "，故截面面积函数为"
+              }
+            ]
+          },
+          {
+            "latex": "S(x)=\\pi y^{2}=\\pi b^{2}\\Bigl(1-\\frac{x^{2}}{a^{2}}\\Bigr),\\quad x\\in[-a,a]"
+          },
+          {
+            "text": ".理由： 旋转体圆盘法，截面半径由曲线到旋转轴的距离确定。\nassets/tikz/C025_fig02_disk_method.tex\n0.4em\n图：圆盘法截面示意图"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "步骤二（建立积分式）：\n旋转体体积为截面面积沿"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴的积分，并利用对称性："
+              }
+            ]
+          },
+          {
+            "latex": "V=\\int_{-a}^{a} S(x)\\,dx = 2\\int_{0}^{a} \\pi b^{2}\\Bigl(1-\\frac{x^{2}}{a^{2}}\\Bigr)\\,dx"
+          },
+          {
+            "text": ".理由： 被积函数为偶函数，积分区间关于原点对称，可简化为正半轴积分的两倍。"
+          },
+          {
+            "text": "步骤三（计算原函数）：\n提出常数，计算不定积分："
+          },
+          {
+            "latex": "\\int \\Bigl(1-\\frac{x^{2}}{a^{2}}\\Bigr)\\,dx = x - \\frac{x^{3}}{3a^{2}} + C"
+          },
+          {
+            "text": ".理由： 幂函数积分公式"
+          },
+          {
+            "latex": "\\int x^{n}\\,dx = \\frac{x^{n+1}}{n+1}"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "步骤四（代入上下限）：\n计算定积分："
+          },
+          {
+            "latex": "\\begin{aligned}\n\\int_{0}^{a} \\Bigl(1-\\frac{x^{2}}{a^{2}}\\Bigr)\\,dx\n& = \\Bigl[x - \\frac{x^{3}}{3a^{2}}\\Bigr]_{0}^{a} \\\\\n& = \\Bigl(a - \\frac{a^{3}}{3a^{2}}\\Bigr) - 0 \\\\\n& = a - \\frac{a}{3} = \\frac{2a}{3}.\n\\end{aligned}"
+          },
+          {
+            "text": "理由： 牛顿-莱布尼茨公式，代入上限减下限。"
+          },
+          {
+            "text": "步骤五（得出体积）：\n将积分结果代回体积表达式："
+          },
+          {
+            "latex": "V = 2\\pi b^{2} \\cdot \\frac{2a}{3} = \\frac{4}{3}\\pi a b^{2}"
+          },
+          {
+            "text": ".理由： 合并常数因子，即得所需公式。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "结论回扣\n所得体积公式与结论一致。特别地，当"
+              },
+              {
+                "type": "math",
+                "latex": "a=b=r"
+              },
+              {
+                "type": "text",
+                "text": "时，"
+              },
+              {
+                "type": "math",
+                "latex": "y^{2}=r^{2}(1-x^{2}/r^{2})"
+              },
+              {
+                "type": "text",
+                "text": "，代入可得"
+              }
+            ]
+          },
+          {
+            "latex": "V=\\frac{4}{3}\\pi r^{3}"
+          },
+          {
+            "text": "，退化为球体积公式。"
+          }
+        ]
+      },
+      {
+        "key": "examples",
+        "title": "例题应用",
+        "layout": "text",
+        "items": [
+          {
+            "text": "例 1（基础）\n题目： 椭圆方程为"
+          },
+          {
+            "latex": "\\frac{x^{2}}{16}+\\frac{y^{2}}{9}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，将其绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转一周，求所得旋转体的体积。\n解题步骤："
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "第一步（识别半轴）：\n由标准方程直接读出"
+              },
+              {
+                "type": "math",
+                "latex": "a^{2}=16"
+              },
+              {
+                "type": "text",
+                "text": "，"
+              },
+              {
+                "type": "math",
+                "latex": "b^{2}=9"
+              },
+              {
+                "type": "text",
+                "text": "，故"
+              },
+              {
+                "type": "math",
+                "latex": "a=4"
+              },
+              {
+                "type": "text",
+                "text": "，"
+              },
+              {
+                "type": "math",
+                "latex": "b=3"
+              },
+              {
+                "type": "text",
+                "text": "。\n理由： 标准形式"
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1"
+          },
+          {
+            "text": "中分母即为半轴平方。"
+          },
+          {
+            "text": "第二步（套用公式）：\n旋转椭球体积公式为"
+          },
+          {
+            "latex": "V=\\frac{4}{3}\\pi a b^{2}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，代入"
+              },
+              {
+                "type": "math",
+                "latex": "a=4"
+              },
+              {
+                "type": "text",
+                "text": "，"
+              },
+              {
+                "type": "math",
+                "latex": "b=3"
+              },
+              {
+                "type": "text",
+                "text": "："
+              }
+            ]
+          },
+          {
+            "latex": "V=\\frac{4}{3}\\pi \\times 4 \\times 3^{2}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".理由： 绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转时适用该公式。"
+              }
+            ]
+          },
+          {
+            "text": "第三步（计算结果）：\n计算数值："
+          },
+          {
+            "latex": "V=\\frac{4}{3}\\pi \\times 4 \\times 9 = \\frac{4}{3}\\pi \\times 36 = 48\\pi"
+          },
+          {
+            "text": ".理由： 先算指数，再约分相乘。\n关键结论： 所求体积为"
+          },
+          {
+            "latex": "48\\pi"
+          },
+          {
+            "text": "（体积单位）。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "例 2（稍变形）\n题目： 已知椭圆方程为"
+              },
+              {
+                "type": "math",
+                "latex": "9x^{2}+25y^{2}=225"
+              },
+              {
+                "type": "text",
+                "text": "，将该椭圆绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转，求旋转椭球体积。\n解题步骤："
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "第一步（化为标准式）：\n方程两边同除以"
+              },
+              {
+                "type": "math",
+                "latex": "225"
+              },
+              {
+                "type": "text",
+                "text": "，得"
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{x^{2}}{25}+\\frac{y^{2}}{9}=1"
+          },
+          {
+            "text": "。\n理由： 必须化为"
+          },
+          {
+            "latex": "\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "的标准形式才能准确识别"
+              },
+              {
+                "type": "math",
+                "latex": "a,b"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "第二步（提取半轴）：\n由此知"
+              },
+              {
+                "type": "math",
+                "latex": "a^{2}=25"
+              },
+              {
+                "type": "text",
+                "text": "，"
+              },
+              {
+                "type": "math",
+                "latex": "b^{2}=9"
+              },
+              {
+                "type": "text",
+                "text": "，即"
+              },
+              {
+                "type": "math",
+                "latex": "a=5"
+              },
+              {
+                "type": "text",
+                "text": "，"
+              },
+              {
+                "type": "math",
+                "latex": "b=3"
+              },
+              {
+                "type": "text",
+                "text": "。\n理由："
+              },
+              {
+                "type": "math",
+                "latex": "a,b>0"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "text": "第三步（代入体积公式）："
+          },
+          {
+            "latex": "V=\\frac{4}{3}\\pi a b^{2} = \\frac{4}{3}\\pi \\times 5 \\times 3^{2} = \\frac{4}{3}\\pi \\times 5 \\times 9 = 60\\pi"
+          },
+          {
+            "text": ".理由： 套用公式直接计算。\n关键结论： 旋转椭球体积为"
+          },
+          {
+            "latex": "60\\pi"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "例 3（综合应用）\n题目： 一椭圆绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转一周所得椭球体积为"
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{16\\pi}{3}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，已知椭圆在"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴上的半轴长为"
+              },
+              {
+                "type": "math",
+                "latex": "2"
+              },
+              {
+                "type": "text",
+                "text": "，求椭圆标准方程。\n解题步骤："
+              }
+            ]
+          },
+          {
+            "text": "第一步（设未知数列方程）：\n设椭圆标准方程为"
+          },
+          {
+            "latex": "\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，已知"
+              },
+              {
+                "type": "math",
+                "latex": "a=2"
+              },
+              {
+                "type": "text",
+                "text": "，体积"
+              }
+            ]
+          },
+          {
+            "latex": "V=\\frac{16\\pi}{3}"
+          },
+          {
+            "text": "。由体积公式"
+          },
+          {
+            "latex": "V=\\frac{4}{3}\\pi a b^{2}"
+          },
+          {
+            "text": ",代入得"
+          },
+          {
+            "latex": "\\frac{4}{3}\\pi \\times 2 \\times b^{2} = \\frac{16\\pi}{3}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "。\n理由： 逆用公式建立关于"
+              },
+              {
+                "type": "math",
+                "latex": "b^{2}"
+              },
+              {
+                "type": "text",
+                "text": "的方程。"
+              }
+            ]
+          },
+          {
+            "text": "第二步（化简求解）：\n两边消去"
+          },
+          {
+            "latex": "\\pi"
+          },
+          {
+            "text": "并化简："
+          },
+          {
+            "latex": "\\frac{8}{3} b^{2} = \\frac{16}{3} \\quad\\Longrightarrow\\quad b^{2}=2"
+          },
+          {
+            "text": ".理由： 等式两边同乘"
+          },
+          {
+            "latex": "\\frac{3}{8}"
+          },
+          {
+            "text": "，或交叉相乘。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "第三步（写出方程）：\n将"
+              },
+              {
+                "type": "math",
+                "latex": "a^{2}=4"
+              },
+              {
+                "type": "text",
+                "text": "，"
+              },
+              {
+                "type": "math",
+                "latex": "b^{2}=2"
+              },
+              {
+                "type": "text",
+                "text": "代回标准形式："
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{x^{2}}{4}+\\frac{y^{2}}{2}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".理由： 半轴平方"
+              },
+              {
+                "type": "math",
+                "latex": "a^{2}=2^{2}=4"
+              },
+              {
+                "type": "text",
+                "text": "，"
+              },
+              {
+                "type": "math",
+                "latex": "b^{2}=2"
+              },
+              {
+                "type": "text",
+                "text": "。\n关键结论： 所求椭圆方程为"
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{x^{2}}{4}+\\frac{y^{2}}{2}=1"
+          },
+          {
+            "text": "。"
+          }
+        ]
+      },
+      {
+        "key": "traps",
+        "title": "易错提醒",
+        "layout": "text",
+        "items": [
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "易错点一（旋转轴混淆）\n记错公式，将绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转的体积公式误用于绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "正确理解（轴决定截面半径）：\n绕哪条轴旋转，截面半径就由垂直该轴的坐标决定。绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴时，半径是"
+              },
+              {
+                "type": "math",
+                "latex": "|y|"
+              },
+              {
+                "type": "text",
+                "text": "，体积公式含"
+              },
+              {
+                "type": "math",
+                "latex": "b^{2}"
+              },
+              {
+                "type": "text",
+                "text": "；若绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴，则应使用"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "的表达式积分，公式结构会互换"
+              },
+              {
+                "type": "math",
+                "latex": "a,b"
+              },
+              {
+                "type": "text",
+                "text": "的角色。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "错因分析（死记硬背）：\n只记忆体积公式的外形，不思考公式中"
+              },
+              {
+                "type": "math",
+                "latex": "a,b"
+              },
+              {
+                "type": "text",
+                "text": "的几何意义与旋转轴的关系。\nassets/tikz/C025_fig04_axis_compare.tex\n0.4em\n图：椭圆分别绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴与"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转的体积公式对比示意图"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "易错点二（未化标准形式）\n遇到非标准方程如"
+              },
+              {
+                "type": "math",
+                "latex": "4x^{2}+9y^{2}=36"
+              },
+              {
+                "type": "text",
+                "text": "时，直接取"
+              },
+              {
+                "type": "math",
+                "latex": "a=2,b=3"
+              },
+              {
+                "type": "text",
+                "text": "代入计算。"
+              }
+            ]
+          },
+          {
+            "text": "正确理解（先归一化）：\n必须先将方程化为"
+          },
+          {
+            "latex": "\\frac{x^{2}}{9}+\\frac{y^{2}}{4}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，确定正确的半轴"
+              },
+              {
+                "type": "math",
+                "latex": "a=3,b=2"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "错因分析（系数处理疏忽）：\n误以为方程中"
+              },
+              {
+                "type": "math",
+                "latex": "x^{2},y^{2}"
+              },
+              {
+                "type": "text",
+                "text": "项的系数就是"
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{1}{a^{2}},\\frac{1}{b^{2}}"
+          },
+          {
+            "text": "，忘记等式右边必须为 1。\nassets/tikz/C025_fig05_standardize.tex\n0.4em\n图：非标准方程先化标准式流程图"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "易错点三（半轴与轴长混淆）\n将轴长（如长轴长 10）直接作为"
+              },
+              {
+                "type": "math",
+                "latex": "a=10"
+              },
+              {
+                "type": "text",
+                "text": "代入公式。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "正确理解（半轴长定义）：\n椭圆标准方程中的"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "是半轴长，即轴长的一半。长轴长为"
+              },
+              {
+                "type": "math",
+                "latex": "2a"
+              },
+              {
+                "type": "text",
+                "text": "，故"
+              },
+              {
+                "type": "math",
+                "latex": "a=5"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "text": "错因分析（概念模糊）：\n对椭圆几何参数定义记忆不清，混淆了“轴”与“半轴”。\nassets/tikz/C025_fig06_semiaxis_warning.tex\n0.4em\n图：半轴长不是轴长示意图"
+          }
+        ]
+      },
+      {
+        "key": "summary",
+        "title": "复盘总结",
+        "layout": "text",
+        "items": [
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "一句话核心\n椭圆绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转一周所得椭球体积为"
+              }
+            ]
+          },
+          {
+            "latex": "V=\\frac{4}{3}\\pi a b^{2}"
+          },
+          {
+            "text": "，系数"
+          },
+          {
+            "latex": "\\frac{4}{3}\\pi"
+          },
+          {
+            "text": "与球体相同，只是半径被两半轴“分工”。"
+          },
+          {
+            "text": "使用条件"
+          },
+          {
+            "text": "条件 1（标准方程）： 椭圆方程必须为"
+          },
+          {
+            "latex": "\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "的形式，且"
+              },
+              {
+                "type": "math",
+                "latex": "a>0,b>0"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "条件 2（明确旋转轴）： 旋转轴为"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴，此时截面半径由"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "坐标确定，公式中"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "带平方。"
+              }
+            ]
+          },
+          {
+            "text": "关键提醒"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "易错点（半轴与轴长）："
+              },
+              {
+                "type": "math",
+                "latex": "a,b"
+              },
+              {
+                "type": "text",
+                "text": "是半轴长（即轴长的一半），切勿将全长直接代入。"
+              }
+            ]
+          },
+          {
+            "text": "检查项（先化标准）： 若方程非标准形式，务必先变形为"
+          },
+          {
+            "latex": "\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，再读取"
+              },
+              {
+                "type": "math",
+                "latex": "a,b"
+              },
+              {
+                "type": "text",
+                "text": "。\nassets/tikz/C025_fig08_summary_flow.tex"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "C026": {
+    "id": "C026",
+    "title": "椭圆绕y轴旋转体积公式",
+    "module": "geometry-solid",
+    "alias": [
+      "椭球体积公式",
+      "旋转椭球体积",
+      "V_y=4/3πa²b",
+      "椭圆旋转体体积"
+    ],
+    "difficulty": 3,
+    "category": "立体几何",
+    "tags": [
+      "旋转体体积",
+      "椭圆",
+      "椭球",
+      "定积分应用",
+      "体积公式"
+    ],
+    "core_summary": "椭圆绕y轴旋转一周所得旋转椭球的体积等于(4/3)π乘以x轴半轴长的平方再乘以y轴半轴长",
+    "core_formula": "V_y=\\frac{4}{3}\\pi a^2 b",
+    "related_formulas": [
+      "V_x=\\frac{4}{3}\\pi a b^2",
+      "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+    ],
+    "variables": [],
+    "conditions": [
+      "椭圆方程标准形式",
+      "a>0, b>0",
+      "绕y轴旋转一周"
+    ],
+    "conclusions": [
+      "旋转椭球体积V_y = (4/3)πa²b",
+      "绕x轴旋转体积V_x = (4/3)πab²"
+    ],
+    "usage": {
+      "scenarios": [
+        "旋转体体积计算",
+        "定积分应用",
+        "椭球体积相关综合题"
+      ],
+      "problem_types": [
+        "直接代入公式计算体积",
+        "已知体积反求参数",
+        "比较绕不同轴体积大小",
+        "与离心率结合"
+      ],
+      "exam_frequency": 0.6,
+      "exam_score": 5
+    },
+    "interactive": {
+      "has_diagram": true,
+      "geogebra_id": "",
+      "param_demo": {}
+    },
+    "assets": {
+      "svg": "C026.svg"
+    },
+    "shareConfig": {
+      "title": "椭圆绕y轴旋转体积公式：直接计算旋转椭球体积",
+      "shareDesc": "适合立体几何旋转体体积计算，避免每次用积分推导，直接套用公式V_y=4/3πa²b，提升计算速度和准确性，讲评课或刷题前速查。"
+    },
+    "relations": {
+      "prerequisites": [
+        "椭圆标准方程",
+        "旋转体体积的定积分理解"
+      ],
+      "related_ids": [],
+      "similar": [
+        "绕x轴体积公式V_x=4/3πab²",
+        "球体体积公式（当a=b=R时）"
+      ]
+    },
+    "isPro": 0,
+    "remarks": "",
+    "knowledgeNode": "立体几何-体积与面积-体积",
+    "altNodes": [
+      "解析几何-圆锥曲线-椭圆",
+      "立体几何-体积与面积-表面积"
+    ],
+    "statement": "条件\n- 条件1（椭圆与旋转轴）： 椭圆 (x^2) / (a^2)+(y^2) / (b^2)=1（a>0, b>0）绕 y 轴旋转一周。\n结论\n- 结论一（旋转椭球体积）：\n直观描述： 以 a 为赤道半径、b 为极半径的旋转椭球，体积与 a^2b 成正比。\nV_y = (4) / (3) a^2 b ,\n其中 a 是椭圆在 x 轴方向的半轴长，b 是椭圆在 y 轴方向的半轴长。\n- 推广结论（绕x轴体积）：\n直观描述： 绕 x 轴旋转时，体积与 ab^2 成正比，公式呈对称形式。\nV_x = (4) / (3) a b^2",
+    "explanation": "一句话直觉\n椭圆绕 y 轴旋转后形成旋转椭球。它的横向半径为 a，竖直半径为 b。当 b>a 时像橄榄球，当 a>b 时像扁球,它的体积等于 a^2 b 乘以一个常数 (4) / (3) ，即体积与赤道半径的平方乘以极半径成正比。\n核心拆解\n- 要点一（旋转体体积公式）： 旋转体体积可由积分 V= in t x^2\\,dy 计算，其中 x 是截面半径。\n- 要点二（椭圆与半径关系）： 椭圆方程 (x^2) / (a^2)+(y^2) / (b^2)=1 给出 x^2=a^2(1-(y^2) / (b^2))，截面半径随 y 变化。\n- 要点三（定积分与常数）： 积分 in t_-b^b(1-(y^2) / (b^2))dy 计算得 (4) / (3)b，乘以 a^2 即得 V_y。\n几何本质（截面累加原理）\n旋转椭球可以看作一系列垂直于旋转轴的圆盘叠加而成。每个圆盘半径 r(y)=|x|，其中 |x|=(a) / (b)sqrt(b^2-y^2)，其面积 r^2 在 y 方向上积分即得体积。\n代数意义（公式对称性）\n绕哪条轴，哪条轴方向的半轴只出现一次；垂直于旋转轴的半轴要平方。绕 y 轴体积正比于 a^2b，绕 x 轴体积正比于 ab^2，体现出公式对半轴的对称性。\n考点价值（高考常考点）\n- 考法一（直接计算体积）： 给出椭圆方程，直接代入公式求旋转体体积。\n- 考法二（反求参数）： 利用已知体积与部分半轴，通过方程求解另一半轴。\n顿悟点\n体积由a^2b这个乘积决定，与a、b具体比例无关，只有当a^2b相同的时候，体积才相同。\n使用场景\n- 场景一（旋转体体积计算）： 已知椭圆方程，求绕 y 轴旋转体体积。\n- 场景二（椭球体积比较）： 与其它旋转体（如球、圆柱）体积比较或求比例。",
+    "proof": "思路提示\n利用旋转体体积公式 V= in t_-b^bx^2\\,dy，其中 x 为椭圆上对应 y 处的 x 坐标。由椭圆方程解出 x^2 并积分。\n正式推导\n- 步骤一（建立积分表达式）：\n将旋转体视为垂直 y 轴的圆盘叠加，圆盘半径 r(y)=|x|，体积微元 dV= x^2\\,dy。沿 y 从 -b 到 b 积分：\nV = in t_-b^b x^2 \\,dy\n理由： 旋转体由平面曲线绕轴旋转生成，可用微元法。\n- 步骤二（写出 x^2 表达式）：\n由椭圆方程 a^2+b^2=1，解出 x^2：\nx^2 = a^2(1-(y^2) / (b^2))\n理由： a>0，两边同乘 a^2 得。\n- 步骤三（代入并积分）：\n将 x^2 代入积分式：\nV = in t_-b^b a^2(1-(y^2) / (b^2)) dy\n提出常数 a^2：\nV = a^2 in t_-b^b (1-(y^2) / (b^2)) dy\n理由： a^2 为常数，可提出积分号。\n- 步骤四（计算定积分）：\n先求不定积分，再代入上下限：\nin t_-b^b (1-(y^2) / (b^2)) dy\n&= [ y - (y^3) / (3b^2) ]_-b^b \\\\\n&= (b - (b) / (3)) - (-b + (b) / (3)) \\\\\n&= 2(b - (b) / (3)) \\\\\n&= (4) / (3)b\n理由： 牛顿-莱布尼茨公式，注意 (-b)^3=-b^3。\n- 步骤五（得体积公式）：\n将积分结果代入：\nV &= a^2 * (4) / (3)b \\\\\n&= (4) / (3) a^2 b\n理由： 化简乘积得到最终体积公式。\n结论回扣\n我们通过积分严格证明了椭圆绕 y 轴旋转所得旋转椭球体积为 V_y = (4) / (3) a^2 b。",
+    "examples": "例1（基础）\n题目： 已知椭圆 (x^2) / (25)+(y^2) / (9)=1 绕 y 轴旋转一周，求所得旋转体的体积。\n解题步骤：\n- 第一步（识别半轴）： 由椭圆方程得 a^2=25, b^2=9，所以 a=5, b=3。\na=5, b=3\n理由： 椭圆标准方程 (x^2) / (a^2)+(y^2) / (b^2)=1 中分母对应半轴平方。\n- 第二步（套用体积公式）： 旋转体积公式 V_y=(4) / (3) a^2 b，代入数值：\nV_y &= (4) / (3) a^2 b \\\\\n&= (4) / (3) * 25 * 3 \\\\\n&= (4) / (3) * 75 \\\\\n&= 100\n理由： 直接应用椭圆绕 y 轴旋转的体积公式。\n- 第三步（得出结论）： 旋转体的体积为 V_y = 100 。\nV_y = 100\n理由： 计算无误，结果为最简形式。\n关键结论： 旋转椭球体积为 100 。\n例2（稍变形）\n题目： 已知椭圆 (x^2) / (a^2)+(y^2) / (9)=1 绕 y 轴旋转所得体积为 48 ，求 a 的值（a>0）。\n解题步骤：\n- 第一步（确定已知半轴）： 由椭圆方程得 b^2=9，所以 b=3；设 a 为未知正数。\nb=3\n理由： 椭圆标准方程中 y^2 项分母为 b^2。\n- 第二步（写出体积表达式）： 利用公式 V_y=(4) / (3) a^2 b，代入 b=3 得 V_y = (4) / (3) a^2 * 3 = 4 a^2。\nV_y = 4 a^2\n理由： (4) / (3) * 3 = 4，简化系数。\n- 第三步（列方程并求解）： 由已知 V_y=48 得：\n4 a^2 = 48\n解得：\na^2 &= 12, \\\\\na &= 2sqrt(3)\n理由： 代入体积值，解一元二次方程，取正根。\n关键结论： a = 2sqrt(3)。\n例3（综合应用）\n题目： 椭圆 (x^2) / (a^2)+(y^2) / (b^2)=1（a>b>0）绕 y 轴旋转的体积是绕 x 轴旋转体积的 2 倍，求椭圆的离心率 e。\n解题步骤：\n- 第一步（写出两个体积公式）： 根据椭圆绕坐标轴旋转的体积公式：\nV_y &= (4) / (3) a^2 b, \\\\\nV_x &= (4) / (3) a b^2\n理由： 绕 y 轴时 x 轴半轴 a 起平方作用，绕 x 轴时 b 起平方作用。\n- 第二步（根据条件列方程）： 由 V_y = 2V_x 得：\n(4) / (3) a^2 b = 2 * (4) / (3) a b^2\n理由： 直接代入条件。\n- 第三步（化简得 a 与 b 关系）： 两边同时除以 (4) / (3) a b（a,b>0）：\na = 2b\n理由： 除法化简，a != 0,\\ b != 0。\n- 第四步（求离心率）： 椭圆离心率 e = (c) / (a)，其中 c = sqrt(a^2 - b^2)。先计算 c：\nc &= sqrt(a^2 - b^2) \\\\\n&= sqrt((2b)^2 - b^2) \\\\\n&= sqrt(4b^2 - b^2) \\\\\n&= sqrt(3)\\,b\n再计算 e：\ne &= (c) / (a) \\\\\n&= (sqrt(3)\\,b) / (2b) \\\\\n&= (sqrt(3)) / (2)\n理由： 离心率定义，代入 a=2b 计算。\n关键结论： 椭圆的离心率 e = (sqrt(3)) / (2)。",
+    "traps": "- 易错点一（混淆旋转轴） 乱用公式 V=(4) / (3) a^2 b 和 V=(4) / (3) a b^2，不考虑旋转轴。\n- 正确理解（轴与平方对应）： 绕 y 轴时 a（x 轴半轴）平方，绕 x 轴时 b（y 轴半轴）平方。\n- 错因分析（记忆方法）： 死记硬背未理解来源。通过积分推导可发现平方永远出现在垂直于旋转轴的半轴上。\n- 易错点二（半轴长短混淆） 忽视 a、b 与坐标轴的对应关系，误认为 a 是长半轴、b 是短半轴并代入公式。\n- 正确理解（坐标定义明确）： a 始终是 x 轴方向半轴长，b 是 y 轴方向半轴长，无论长短。\n- 错因分析（习惯固化）： 椭圆通常有长、短半轴概念，但体积公式直接使用方程参数，与长短无关。\n- 易错点三（系数记错） 将 V_y 记成 (4) / (3) a b^2 或 (4) / (3) a b 等。\n- 正确理解（公式系数精准）： V_y = (4) / (3) a^2 b，系数 (4) / (3)， ，a^2 b 缺一不可。\n- 错因分析（类比不当）： 常与球体积 (4) / (3) R^3 混淆，需通过积分或记忆结构区分。",
+    "summary": "一句话核心\n椭圆绕 y 轴旋转形成的旋转椭球体积公式为 V_y = (4) / (3) a^2 b。\n使用条件\n- 条件1（椭圆标准形式）： 椭圆方程为 (x^2) / (a^2)+(y^2) / (b^2)=1，且有 a>0,\\ b>0。\n- 条件2（绕 y 轴旋转）： 旋转轴为 y 轴，旋转一周。\n关键提醒\n- 易错点（区分旋转轴）： 绕 y 轴用 V_y = (4) / (3) a^2 b，绕 x 轴时用 V_x = (4) / (3) a b^2。\n- 检查项（半轴与坐标对应）： 注意 a 是 x 轴半轴长，b 是 y 轴半轴长，不要混用。",
+    "display_version": 2,
+    "sections": [
+      {
+        "key": "core_formula",
+        "title": "核心公式",
+        "layout": "text",
+        "items": [
+          {
+            "latex": "V_y=\\frac{4}{3}\\pi a^2 b"
+          }
+        ]
+      },
+      {
+        "key": "statement",
+        "title": "命题表述",
+        "layout": "theorem-list",
+        "items": [
+          {
+            "title": "条件1（椭圆与旋转轴）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "椭圆"
+              },
+              {
+                "type": "math",
+                "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+              },
+              {
+                "type": "text",
+                "text": "（"
+              },
+              {
+                "type": "math",
+                "latex": "a>0, b>0"
+              },
+              {
+                "type": "text",
+                "text": "）绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转一周。"
+              }
+            ],
+            "desc": "椭圆 （ ）绕 轴旋转一周。",
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
+            "title": "结论一（旋转椭球体积）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "以"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "为赤道半径、"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "为极半径的旋转椭球，体积与"
+              },
+              {
+                "type": "math",
+                "latex": "a^2b"
+              },
+              {
+                "type": "text",
+                "text": "成正比。"
+              },
+              {
+                "type": "math",
+                "latex": "V_y = \\frac{4}{3}\\pi a^2 b ,"
+              },
+              {
+                "type": "text",
+                "text": "其中"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "是椭圆在"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴方向的半轴长，"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "是椭圆在"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴方向的半轴长。"
+              }
+            ],
+            "desc": "以 为赤道半径、 为极半径的旋转椭球，体积与 成正比。 其中 是椭圆在 轴方向的半轴长， 是椭圆在 轴方向的半轴长。",
+            "latex": "V_y = \\frac{4}{3}\\pi a^2 b ,"
+          },
+          {
+            "title": "推广结论（绕x轴体积）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转时，体积与"
+              },
+              {
+                "type": "math",
+                "latex": "ab^2"
+              },
+              {
+                "type": "text",
+                "text": "成正比，公式呈对称形式。"
+              },
+              {
+                "type": "math",
+                "latex": "V_x = \\frac{4}{3}\\pi a b^2"
+              }
+            ],
+            "desc": "绕 轴旋转时，体积与 成正比，公式呈对称形式。",
+            "latex": "V_x = \\frac{4}{3}\\pi a b^2"
+          }
+        ]
+      },
+      {
+        "key": "explanation",
+        "title": "理解与直觉",
+        "layout": "text",
+        "items": [
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "一句话直觉\n椭圆绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转后形成旋转椭球。它的横向半径为"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "，竖直半径为"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "。当"
+              },
+              {
+                "type": "math",
+                "latex": "b>a"
+              },
+              {
+                "type": "text",
+                "text": "时像橄榄球，当"
+              },
+              {
+                "type": "math",
+                "latex": "a>b"
+              },
+              {
+                "type": "text",
+                "text": "时像扁球,它的体积等于"
+              },
+              {
+                "type": "math",
+                "latex": "a^2 b"
+              },
+              {
+                "type": "text",
+                "text": "乘以一个常数"
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{4}{3}\\pi"
+          },
+          {
+            "text": "，即体积与赤道半径的平方乘以极半径成正比。"
+          },
+          {
+            "text": "核心拆解"
+          },
+          {
+            "text": "要点一（旋转体体积公式）：\n旋转体体积可由积分"
+          },
+          {
+            "latex": "V=\\pi\\int x^2\\,dy"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "计算，其中"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "是截面半径。"
+              }
+            ]
+          },
+          {
+            "text": "要点二（椭圆与半径关系）：\n椭圆方程"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
+            "text": "给出"
+          },
+          {
+            "latex": "x^2=a^2\\left(1-\\frac{y^2}{b^2}\\right)"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，截面半径随"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "变化。"
+              }
+            ]
+          },
+          {
+            "text": "要点三（定积分与常数）：\n积分"
+          },
+          {
+            "latex": "\\int_{-b}^{b}\\left(1-\\frac{y^2}{b^2}\\right)dy"
+          },
+          {
+            "text": "计算得"
+          },
+          {
+            "latex": "\\frac{4}{3}b"
+          },
+          {
+            "text": "，乘以"
+          },
+          {
+            "latex": "\\pi a^2"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "即得"
+              },
+              {
+                "type": "math",
+                "latex": "V_y"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "几何本质（截面累加原理）\n旋转椭球可以看作一系列垂直于旋转轴的圆盘叠加而成。每个圆盘半径"
+              },
+              {
+                "type": "math",
+                "latex": "r(y)=|x|"
+              },
+              {
+                "type": "text",
+                "text": "，其中"
+              }
+            ]
+          },
+          {
+            "latex": "|x|=\\frac{a}{b}\\sqrt{b^2-y^2}"
+          },
+          {
+            "text": "，其面积"
+          },
+          {
+            "latex": "\\pi r^2"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "在"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "方向上积分即得体积。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "代数意义（公式对称性）\n绕哪条轴，哪条轴方向的半轴只出现一次；垂直于旋转轴的半轴要平方。绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴体积正比于"
+              },
+              {
+                "type": "math",
+                "latex": "a^2b"
+              },
+              {
+                "type": "text",
+                "text": "，绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴体积正比于"
+              },
+              {
+                "type": "math",
+                "latex": "ab^2"
+              },
+              {
+                "type": "text",
+                "text": "，体现出公式对半轴的对称性。"
+              }
+            ]
+          },
+          {
+            "text": "考点价值（高考常考点）"
+          },
+          {
+            "text": "考法一（直接计算体积）： 给出椭圆方程，直接代入公式求旋转体体积。"
+          },
+          {
+            "text": "考法二（反求参数）： 利用已知体积与部分半轴，通过方程求解另一半轴。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "顿悟点\n体积由"
+              },
+              {
+                "type": "math",
+                "latex": "a^2b"
+              },
+              {
+                "type": "text",
+                "text": "这个乘积决定，与"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "、"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "具体比例无关，只有当"
+              },
+              {
+                "type": "math",
+                "latex": "a^2b"
+              },
+              {
+                "type": "text",
+                "text": "相同的时候，体积才相同。"
+              }
+            ]
+          },
+          {
+            "text": "使用场景"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "场景一（旋转体体积计算）： 已知椭圆方程，求绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转体体积。"
+              }
+            ]
+          },
+          {
+            "text": "场景二（椭球体积比较）： 与其它旋转体（如球、圆柱）体积比较或求比例。"
+          }
+        ]
+      },
+      {
+        "key": "proof",
+        "title": "证明过程",
+        "layout": "text",
+        "items": [
+          {
+            "text": "思路提示\n利用旋转体体积公式"
+          },
+          {
+            "latex": "V=\\pi\\int_{-b}^{b}x^2\\,dy"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，其中"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "为椭圆上对应"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "处的"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "坐标。由椭圆方程解出"
+              },
+              {
+                "type": "math",
+                "latex": "x^2"
+              },
+              {
+                "type": "text",
+                "text": "并积分。"
+              }
+            ]
+          },
+          {
+            "text": "正式推导"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "步骤一（建立积分表达式）：\n将旋转体视为垂直"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴的圆盘叠加，圆盘半径"
+              },
+              {
+                "type": "math",
+                "latex": "r(y)=|x|"
+              },
+              {
+                "type": "text",
+                "text": "，体积微元"
+              }
+            ]
+          },
+          {
+            "latex": "dV=\\pi x^2\\,dy"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "。沿"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "从"
+              },
+              {
+                "type": "math",
+                "latex": "-b"
+              },
+              {
+                "type": "text",
+                "text": "到"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "积分："
+              }
+            ]
+          },
+          {
+            "latex": "V = \\pi \\int_{-b}^{b} x^2 \\,dy"
+          },
+          {
+            "text": "理由： 旋转体由平面曲线绕轴旋转生成，可用微元法。"
+          },
+          {
+            "text": "步骤二（写出 表达式）：\n由椭圆方程"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，解出"
+              },
+              {
+                "type": "math",
+                "latex": "x^2"
+              },
+              {
+                "type": "text",
+                "text": "："
+              }
+            ]
+          },
+          {
+            "latex": "x^2 = a^2\\left(1-\\frac{y^2}{b^2}\\right)"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "理由："
+              },
+              {
+                "type": "math",
+                "latex": "a>0"
+              },
+              {
+                "type": "text",
+                "text": "，两边同乘"
+              },
+              {
+                "type": "math",
+                "latex": "a^2"
+              },
+              {
+                "type": "text",
+                "text": "得。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "步骤三（代入并积分）：\n将"
+              },
+              {
+                "type": "math",
+                "latex": "x^2"
+              },
+              {
+                "type": "text",
+                "text": "代入积分式："
+              }
+            ]
+          },
+          {
+            "latex": "V = \\pi \\int_{-b}^{b} a^2\\left(1-\\frac{y^2}{b^2}\\right) dy"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "提出常数"
+              },
+              {
+                "type": "math",
+                "latex": "a^2"
+              },
+              {
+                "type": "text",
+                "text": "："
+              }
+            ]
+          },
+          {
+            "latex": "V = \\pi a^2 \\int_{-b}^{b} \\left(1-\\frac{y^2}{b^2}\\right) dy"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "理由："
+              },
+              {
+                "type": "math",
+                "latex": "a^2"
+              },
+              {
+                "type": "text",
+                "text": "为常数，可提出积分号。"
+              }
+            ]
+          },
+          {
+            "text": "步骤四（计算定积分）：\n先求不定积分，再代入上下限："
+          },
+          {
+            "latex": "\\begin{aligned}\n\\int_{-b}^{b} \\left(1-\\frac{y^2}{b^2}\\right) dy\n&= \\left[ y - \\frac{y^3}{3b^2} \\right]_{-b}^{b} \\\\\n&= (b - \\frac{b}{3}) - (-b + \\frac{b}{3}) \\\\\n&= 2\\left(b - \\frac{b}{3}\\right) \\\\\n&= \\frac{4}{3}b\n\\end{aligned}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "理由： 牛顿-莱布尼茨公式，注意"
+              },
+              {
+                "type": "math",
+                "latex": "(-b)^3=-b^3"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "text": "步骤五（得体积公式）：\n将积分结果代入："
+          },
+          {
+            "latex": "\\begin{aligned}\nV &= \\pi a^2 \\cdot \\frac{4}{3}b \\\\\n&= \\frac{4}{3}\\pi a^2 b\n\\end{aligned}"
+          },
+          {
+            "text": "理由： 化简乘积得到最终体积公式。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "结论回扣\n我们通过积分严格证明了椭圆绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转所得旋转椭球体积为"
+              }
+            ]
+          },
+          {
+            "latex": "V_y = \\frac{4}{3}\\pi a^2 b"
+          },
+          {
+            "text": "。"
+          }
+        ]
+      },
+      {
+        "key": "examples",
+        "title": "例题应用",
+        "layout": "text",
+        "items": [
+          {
+            "text": "例1（基础）\n题目： 已知椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{25}+\\frac{y^2}{9}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转一周，求所得旋转体的体积。\n解题步骤："
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "第一步（识别半轴）：\n由椭圆方程得"
+              },
+              {
+                "type": "math",
+                "latex": "a^2=25"
+              },
+              {
+                "type": "text",
+                "text": ","
+              },
+              {
+                "type": "math",
+                "latex": "b^2=9"
+              },
+              {
+                "type": "text",
+                "text": "，所以"
+              },
+              {
+                "type": "math",
+                "latex": "a=5"
+              },
+              {
+                "type": "text",
+                "text": ","
+              },
+              {
+                "type": "math",
+                "latex": "b=3"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "latex": "a=5,\\quad b=3"
+          },
+          {
+            "text": "理由： 椭圆标准方程"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
+            "text": "中分母对应半轴平方。"
+          },
+          {
+            "text": "第二步（套用体积公式）：\n旋转体积公式"
+          },
+          {
+            "latex": "V_y=\\frac{4}{3}\\pi a^2 b"
+          },
+          {
+            "text": "，代入数值："
+          },
+          {
+            "latex": "\\begin{aligned}\nV_y &= \\frac{4}{3}\\pi a^2 b \\\\\n&= \\frac{4}{3}\\pi \\cdot 25 \\cdot 3 \\\\\n&= \\frac{4}{3}\\pi \\cdot 75 \\\\\n&= 100\\pi\n\\end{aligned}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "理由： 直接应用椭圆绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转的体积公式。"
+              }
+            ]
+          },
+          {
+            "text": "第三步（得出结论）：\n旋转体的体积为"
+          },
+          {
+            "latex": "V_y = 100\\pi"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "latex": "V_y = 100\\pi"
+          },
+          {
+            "text": "理由： 计算无误，结果为最简形式。\n关键结论： 旋转椭球体积为"
+          },
+          {
+            "latex": "100\\pi"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "例2（稍变形）\n题目： 已知椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{9}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转所得体积为"
+              }
+            ]
+          },
+          {
+            "latex": "48\\pi"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，求"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "的值（"
+              },
+              {
+                "type": "math",
+                "latex": "a>0"
+              },
+              {
+                "type": "text",
+                "text": "）。\n解题步骤："
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "第一步（确定已知半轴）：\n由椭圆方程得"
+              },
+              {
+                "type": "math",
+                "latex": "b^2=9"
+              },
+              {
+                "type": "text",
+                "text": "，所以"
+              },
+              {
+                "type": "math",
+                "latex": "b=3"
+              },
+              {
+                "type": "text",
+                "text": "；设"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "为未知正数。"
+              },
+              {
+                "type": "math",
+                "latex": "b=3"
+              },
+              {
+                "type": "text",
+                "text": "理由： 椭圆标准方程中"
+              },
+              {
+                "type": "math",
+                "latex": "y^2"
+              },
+              {
+                "type": "text",
+                "text": "项分母为"
+              },
+              {
+                "type": "math",
+                "latex": "b^2"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "text": "第二步（写出体积表达式）：\n利用公式"
+          },
+          {
+            "latex": "V_y=\\frac{4}{3}\\pi a^2 b"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，代入"
+              },
+              {
+                "type": "math",
+                "latex": "b=3"
+              },
+              {
+                "type": "text",
+                "text": "得"
+              }
+            ]
+          },
+          {
+            "latex": "V_y = \\frac{4}{3}\\pi a^2 \\cdot 3 = 4\\pi a^2"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "latex": "V_y = 4\\pi a^2"
+          },
+          {
+            "text": "理由："
+          },
+          {
+            "latex": "\\frac{4}{3} \\times 3 = 4"
+          },
+          {
+            "text": "，简化系数。"
+          },
+          {
+            "text": "第三步（列方程并求解）：\n由已知"
+          },
+          {
+            "latex": "V_y=48\\pi"
+          },
+          {
+            "text": "得："
+          },
+          {
+            "latex": "4\\pi a^2 = 48\\pi"
+          },
+          {
+            "text": "解得："
+          },
+          {
+            "latex": "\\begin{aligned}\na^2 &= 12, \\\\\na &= 2\\sqrt{3}\n\\end{aligned}"
+          },
+          {
+            "text": "理由： 代入体积值，解一元二次方程，取正根。\n关键结论："
+          },
+          {
+            "latex": "a = 2\\sqrt{3}"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "例3（综合应用）\n题目： 椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "（"
+              },
+              {
+                "type": "math",
+                "latex": "a>b>0"
+              },
+              {
+                "type": "text",
+                "text": "）绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转的体积是绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转体积的"
+              },
+              {
+                "type": "math",
+                "latex": "2"
+              },
+              {
+                "type": "text",
+                "text": "倍，求椭圆的离心率"
+              },
+              {
+                "type": "math",
+                "latex": "e"
+              },
+              {
+                "type": "text",
+                "text": "。\n解题步骤："
+              }
+            ]
+          },
+          {
+            "text": "第一步（写出两个体积公式）：\n根据椭圆绕坐标轴旋转的体积公式："
+          },
+          {
+            "latex": "\\begin{aligned}\nV_y &= \\frac{4}{3}\\pi a^2 b, \\\\\nV_x &= \\frac{4}{3}\\pi a b^2\n\\end{aligned}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "理由： 绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴时"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴半轴"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "起平方作用，绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴时"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "起平方作用。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "第二步（根据条件列方程）：\n由"
+              },
+              {
+                "type": "math",
+                "latex": "V_y = 2V_x"
+              },
+              {
+                "type": "text",
+                "text": "得："
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{4}{3}\\pi a^2 b = 2 \\cdot \\frac{4}{3}\\pi a b^2"
+          },
+          {
+            "text": "理由： 直接代入条件。"
+          },
+          {
+            "text": "第三步（化简得 与 关系）：\n两边同时除以"
+          },
+          {
+            "latex": "\\frac{4}{3}\\pi a b"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "（"
+              },
+              {
+                "type": "math",
+                "latex": "a,b>0"
+              },
+              {
+                "type": "text",
+                "text": "）："
+              },
+              {
+                "type": "math",
+                "latex": "a = 2b"
+              },
+              {
+                "type": "text",
+                "text": "理由： 除法化简，"
+              }
+            ]
+          },
+          {
+            "latex": "a\\neq0,\\ b\\neq0"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "第四步（求离心率）：\n椭圆离心率"
+          },
+          {
+            "latex": "e = \\frac{c}{a}"
+          },
+          {
+            "text": "，其中"
+          },
+          {
+            "latex": "c = \\sqrt{a^2 - b^2}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "。先计算"
+              },
+              {
+                "type": "math",
+                "latex": "c"
+              },
+              {
+                "type": "text",
+                "text": "："
+              }
+            ]
+          },
+          {
+            "latex": "\\begin{aligned}\nc &= \\sqrt{a^2 - b^2} \\\\\n&= \\sqrt{(2b)^2 - b^2} \\\\\n&= \\sqrt{4b^2 - b^2} \\\\\n&= \\sqrt{3}\\,b\n\\end{aligned}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "再计算"
+              },
+              {
+                "type": "math",
+                "latex": "e"
+              },
+              {
+                "type": "text",
+                "text": "："
+              }
+            ]
+          },
+          {
+            "latex": "\\begin{aligned}\ne &= \\frac{c}{a} \\\\\n&= \\frac{\\sqrt{3}\\,b}{2b} \\\\\n&= \\frac{\\sqrt{3}}{2}\n\\end{aligned}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "理由： 离心率定义，代入"
+              },
+              {
+                "type": "math",
+                "latex": "a=2b"
+              },
+              {
+                "type": "text",
+                "text": "计算。\n关键结论： 椭圆的离心率"
+              }
+            ]
+          },
+          {
+            "latex": "e = \\frac{\\sqrt{3}}{2}"
+          },
+          {
+            "text": "。"
+          }
+        ]
+      },
+      {
+        "key": "traps",
+        "title": "易错提醒",
+        "layout": "text",
+        "items": [
+          {
+            "text": "易错点一（混淆旋转轴）\n乱用公式"
+          },
+          {
+            "latex": "V=\\frac{4}{3}\\pi a^2 b"
+          },
+          {
+            "text": "和"
+          },
+          {
+            "latex": "V=\\frac{4}{3}\\pi a b^2"
+          },
+          {
+            "text": "，不考虑旋转轴。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "正确理解（轴与平方对应）：\n绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴时"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "（"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴半轴）平方，绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴时"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "（"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴半轴）平方。"
+              }
+            ]
+          },
+          {
+            "text": "错因分析（记忆方法）：\n死记硬背未理解来源。通过积分推导可发现平方永远出现在垂直于旋转轴的半轴上。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "易错点二（半轴长短混淆）\n忽视"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "、"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "与坐标轴的对应关系，误认为"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "是长半轴、"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "是短半轴并代入公式。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "正确理解（坐标定义明确）："
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "始终是"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴方向半轴长，"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "是"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴方向半轴长，无论长短。"
+              }
+            ]
+          },
+          {
+            "text": "错因分析（习惯固化）：\n椭圆通常有长、短半轴概念，但体积公式直接使用方程参数，与长短无关。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "易错点三（系数记错）\n将"
+              },
+              {
+                "type": "math",
+                "latex": "V_y"
+              },
+              {
+                "type": "text",
+                "text": "记成"
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{4}{3}\\pi a b^2"
+          },
+          {
+            "text": "或"
+          },
+          {
+            "latex": "\\frac{4}{3}\\pi a b"
+          },
+          {
+            "text": "等。"
+          },
+          {
+            "text": "正确理解（公式系数精准）："
+          },
+          {
+            "latex": "V_y = \\frac{4}{3}\\pi a^2 b"
+          },
+          {
+            "text": "，系数"
+          },
+          {
+            "latex": "\\frac{4}{3}"
+          },
+          {
+            "text": "，"
+          },
+          {
+            "latex": "\\pi"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，"
+              },
+              {
+                "type": "math",
+                "latex": "a^2 b"
+              },
+              {
+                "type": "text",
+                "text": "缺一不可。"
+              }
+            ]
+          },
+          {
+            "text": "错因分析（类比不当）：\n常与球体积"
+          },
+          {
+            "latex": "\\frac{4}{3}\\pi R^3"
+          },
+          {
+            "text": "混淆，需通过积分或记忆结构区分。"
+          }
+        ]
+      },
+      {
+        "key": "summary",
+        "title": "复盘总结",
+        "layout": "text",
+        "items": [
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "一句话核心\n椭圆绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转形成的旋转椭球体积公式为"
+              }
+            ]
+          },
+          {
+            "latex": "V_y = \\frac{4}{3}\\pi a^2 b"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "使用条件"
+          },
+          {
+            "text": "条件1（椭圆标准形式）： 椭圆方程为"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
+            "text": "，且有"
+          },
+          {
+            "latex": "a>0,\\ b>0"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "条件2（绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转）： 旋转轴为"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴，旋转一周。"
+              }
+            ]
+          },
+          {
+            "text": "关键提醒"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "易错点（区分旋转轴）： 绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴用"
+              }
+            ]
+          },
+          {
+            "latex": "V_y = \\frac{4}{3}\\pi a^2 b"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴时用"
+              }
+            ]
+          },
+          {
+            "latex": "V_x = \\frac{4}{3}\\pi a b^2"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "检查项（半轴与坐标对应）： 注意"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "是"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴半轴长，"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "是"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴半轴长，不要混用。"
               }
             ]
           }

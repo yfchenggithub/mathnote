@@ -55,35 +55,94 @@
  *     2. { latex: string }
  *     3. { segments: [{ type: 'text', text } | { type: 'math', latex }] }
  *     4. theorem-list item: { title, desc?, latex }
+ *   - Rich parser rules for mixed text/math sections:
+ *     - Long equation-chain math is promoted to standalone { latex } items.
+ *     - Trailing punctuation is stripped out of latex and kept in text segments.
+ *     - This improves canonical migration to math_block and avoids inline overflow.
  *   - Important layouts used by this builder:
  *     - text
  *     - theorem-list
  *   - Legacy plain-text fields remain in the record for compatibility and debugging.
  */
 module.exports = {
-  "S001_Subset_Count": {
-    "id": "S001_Subset_Count",
-    "title": "S001_Subset_Count",
-    "module": "",
-    "alias": [],
-    "difficulty": null,
-    "category": "",
-    "tags": [],
-    "core_summary": "",
-    "core_formula": "",
-    "related_formulas": [],
+  "S001": {
+    "id": "S001",
+    "title": "有限集合子集计数公式",
+    "module": "set",
+    "alias": [
+      "有限集合子集计数公式",
+      "Subset Count",
+      "有限集合子集计数公式结论",
+      "集合常用结论"
+    ],
+    "difficulty": 3,
+    "category": "集合",
+    "tags": [
+      "有限集合子集计数公式",
+      "Subset Count",
+      "有限集合子集计数公式结论",
+      "集合常用结论",
+      "子集",
+      "补集"
+    ],
+    "core_summary": "核心公式：含 n 个元素的有限集合，子集总数为 2^n，真子集（不含原集）个数为 2^n-1，非空子集个数为 2^n-1，非空真子集个数为 2^n-2 （ n 1 ）",
+    "core_formula": "\\sum_{k=0}^n \\mathrm{C}_n^k = 2^n",
+    "related_formulas": [
+      "A = \\{a_1, a_2, \\dots, a_n\\}",
+      "n \\in \\mathbb{N}^*",
+      "2^n"
+    ],
     "variables": [],
-    "conditions": "",
-    "conclusions": "",
-    "usage": {},
-    "interactive": {},
-    "assets": {},
-    "shareConfig": {},
-    "relations": {},
-    "isPro": null,
+    "conditions": "使用时需满足题设条件，并保证公式 \\sum_{k=0}^n \\mathrm{C}_n^k = 2^n 中各量有定义。",
+    "conclusions": [
+      "核心公式：含 n 个元素的有限集合，子集总数为 2^n，真子集（不含原集）个数为 2^n-1，非空子集个数为 2^n-1，非空真子集个数为 2^n-2 （ n 1 ）"
+    ],
+    "usage": {
+      "scenarios": [
+        "例题：已知集合 A = 1, 2, 3, 4, 5，求",
+        "集合 A 的所有子集个数",
+        "集合 A 的真子集个数"
+      ],
+      "problem_types": [
+        "集合化简",
+        "集合证明"
+      ],
+      "exam_frequency": 0.6,
+      "exam_score": 5
+    },
+    "interactive": {
+      "has_diagram": false,
+      "geogebra_id": "",
+      "param_demo": {}
+    },
+    "assets": {
+      "svg": "S001.svg",
+      "png": "",
+      "webp": "",
+      "video": "",
+      "audio": ""
+    },
+    "shareConfig": {
+      "title": "有限集合子集计数公式：条件判断与题型速查",
+      "shareDesc": "适合刷题前速查与课后复盘，聚焦适用条件和常见误区，做同类题时能减少符号与分类讨论错误。"
+    },
+    "relations": {
+      "prerequisites": [
+        "集合的基本运算",
+        "子集与补集定义"
+      ],
+      "related_ids": [],
+      "similar": [
+        "集合中的相近变形结论"
+      ]
+    },
+    "isPro": 0,
     "remarks": "",
-    "knowledgeNode": "",
-    "altNodes": "",
+    "knowledgeNode": "其他-未分类-待定",
+    "altNodes": [
+      "其他-未分类-待定",
+      "代数-式的变形-恒等变形"
+    ],
     "statement": "有限集合 A = \\a_1, a_2, , a_n\\（n in N^*）的子集个数、真子集个数等有以下核心结论：\n- 子集个数：2^n；\n- 真子集个数：2^n - 1；\n- 非空子集个数：2^n - 1；\n- 非空真子集个数：2^n - 2。",
     "explanation": "集合子集个数的代数本质是\"乘法原理\"与\"二项式系数之和\"：\n- 分步计数：对集合中的每个元素，它在子集中有两种状态——属于或不属于。由乘法原理，所有可能的状态组合数为 2^n，这就是子集总数。\n- 与二项式系数的关系：子集个数也可按元素个数分类：k 元子集个数为 C_n^k，故总数为 _k=0^n C_n^k = 2^n。\n- 真子集与非空子集：真子集不包括原集合本身，因此个数为 2^n-1；非空子集不包括空集，因此个数也为 2^n-1；同时满足\"非空\"和\"真\"的子集个数为 2^n-2。",
     "proof": "方法一（乘法原理）：\n- 考虑集合 A 中的每一个元素 a_i（i=1,2, ,n），在构造一个子集时，每个元素都有两种可能：被选入子集或不选入子集。\n- 根据分步乘法计数原理，所有可能的选取方式共有 2 * 2 * * s * 2_n个 = 2^n 种。\n- 每一种选取方式对应一个子集，且不同的选取方式对应不同的子集，故子集总数为 2^n。\n方法二（二项式定理）：\n- 按子集中所含元素的个数 k 分类，k 可取 0,1,2, ,n。\n- 元素个数为 k 的子集个数为组合数 C_n^k。\n- 因此子集总数为 _k=0^n C_n^k = (1+1)^n = 2^n（二项式定理）。\n- 真子集即除去 k=n 的情形，个数为 2^n - C_n^n = 2^n-1；\n- 非空子集即除去 k=0 的情形，个数为 2^n - C_n^0 = 2^n-1；\n- 非空真子集即同时除去 k=0 和 k=n，个数为 2^n - C_n^0 - C_n^n = 2^n-2。",
@@ -93,14 +152,105 @@ module.exports = {
     "display_version": 2,
     "sections": [
       {
+        "key": "core_formula",
+        "title": "核心公式",
+        "layout": "text",
+        "items": [
+          {
+            "latex": "\\sum_{k=0}^n \\mathrm{C}_n^k = 2^n"
+          }
+        ]
+      },
+      {
+        "key": "conditions",
+        "title": "适用条件",
+        "layout": "text",
+        "items": [
+          {
+            "text": "使用时需满足题设条件，并保证公式 _k=0^n C_n^k = 2^n 中各量有定义。"
+          }
+        ]
+      },
+      {
         "key": "statement",
         "title": "命题表述",
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "子集个数："
+              },
+              {
+                "type": "math",
+                "latex": "2^n"
+              },
+              {
+                "type": "text",
+                "text": "；"
+              }
+            ],
+            "desc": "子集个数： ；",
+            "latex": "2^n"
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "text",
+                "text": "真子集个数："
+              },
+              {
+                "type": "math",
+                "latex": "2^n - 1"
+              },
+              {
+                "type": "text",
+                "text": "；"
+              }
+            ],
+            "desc": "真子集个数： ；",
+            "latex": "2^n - 1"
+          },
+          {
+            "title": "条目3",
+            "segments": [
+              {
+                "type": "text",
+                "text": "非空子集个数："
+              },
+              {
+                "type": "math",
+                "latex": "2^n - 1"
+              },
+              {
+                "type": "text",
+                "text": "；"
+              }
+            ],
+            "desc": "非空子集个数： ；",
+            "latex": "2^n - 1"
+          },
+          {
+            "title": "条目4",
+            "segments": [
+              {
+                "type": "text",
+                "text": "非空真子集个数："
+              },
+              {
+                "type": "math",
+                "latex": "2^n - 2"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "非空真子集个数： 。",
+            "latex": "2^n - 2"
           }
         ]
       },
@@ -141,24 +291,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "元子集个数为"
-              },
-              {
-                "type": "math",
-                "latex": "\\mathrm{C}_n^k"
-              },
-              {
-                "type": "text",
-                "text": "，故总数为"
-              },
-              {
-                "type": "math",
-                "latex": "\\sum_{k=0}^n \\mathrm{C}_n^k = 2^n"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "\\mathrm{C}_n^k"
+          },
+          {
+            "text": "，故总数为"
+          },
+          {
+            "latex": "\\sum_{k=0}^n \\mathrm{C}_n^k = 2^n"
+          },
+          {
+            "text": "。"
           },
           {
             "segments": [
@@ -223,32 +369,23 @@ module.exports = {
               {
                 "type": "text",
                 "text": "（"
-              },
-              {
-                "type": "math",
-                "latex": "i=1,2,\\dots,n"
-              },
-              {
-                "type": "text",
-                "text": "），在构造一个子集时，每个元素都有两种可能：被选入子集或不选入子集。"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "根据分步乘法计数原理，所有可能的选取方式共有"
-              },
-              {
-                "type": "math",
-                "latex": "\\underbrace{2 \\times 2 \\times \\cdots \\times 2}_{n\\text{个}} = 2^n"
-              },
-              {
-                "type": "text",
-                "text": "种。"
-              }
-            ]
+            "latex": "i=1,2,\\dots,n"
+          },
+          {
+            "text": "），在构造一个子集时，每个元素都有两种可能：被选入子集或不选入子集。"
+          },
+          {
+            "text": "根据分步乘法计数原理，所有可能的选取方式共有"
+          },
+          {
+            "latex": "\\underbrace{2 \\times 2 \\times \\cdots \\times 2}_{n\\text{个}} = 2^n"
+          },
+          {
+            "text": "种。"
           },
           {
             "segments": [
@@ -287,16 +424,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "可取"
-              },
-              {
-                "type": "math",
-                "latex": "0,1,2,\\dots,n"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "0,1,2,\\dots,n"
+          },
+          {
+            "text": "。"
           },
           {
             "segments": [
@@ -311,32 +446,23 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的子集个数为组合数"
-              },
-              {
-                "type": "math",
-                "latex": "\\mathrm{C}_n^k"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "因此子集总数为"
-              },
-              {
-                "type": "math",
-                "latex": "\\sum_{k=0}^n \\mathrm{C}_n^k = (1+1)^n = 2^n"
-              },
-              {
-                "type": "text",
-                "text": "（二项式定理）。"
-              }
-            ]
+            "latex": "\\mathrm{C}_n^k"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "因此子集总数为"
+          },
+          {
+            "latex": "\\sum_{k=0}^n \\mathrm{C}_n^k = (1+1)^n = 2^n"
+          },
+          {
+            "text": "（二项式定理）。"
           },
           {
             "segments": [
@@ -351,16 +477,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的情形，个数为"
-              },
-              {
-                "type": "math",
-                "latex": "2^n - \\mathrm{C}_n^n = 2^n-1"
-              },
-              {
-                "type": "text",
-                "text": "；"
               }
             ]
+          },
+          {
+            "latex": "2^n - \\mathrm{C}_n^n = 2^n-1"
+          },
+          {
+            "text": "；"
           },
           {
             "segments": [
@@ -375,16 +499,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的情形，个数为"
-              },
-              {
-                "type": "math",
-                "latex": "2^n - \\mathrm{C}_n^0 = 2^n-1"
-              },
-              {
-                "type": "text",
-                "text": "；"
               }
             ]
+          },
+          {
+            "latex": "2^n - \\mathrm{C}_n^0 = 2^n-1"
+          },
+          {
+            "text": "；"
           },
           {
             "segments": [
@@ -407,16 +529,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，个数为"
-              },
-              {
-                "type": "math",
-                "latex": "2^n - \\mathrm{C}_n^0 - \\mathrm{C}_n^n = 2^n-2"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "2^n - \\mathrm{C}_n^0 - \\mathrm{C}_n^n = 2^n-2"
+          },
+          {
+            "text": "。"
           }
         ]
       },
@@ -426,20 +546,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "例题： 已知集合"
-              },
-              {
-                "type": "math",
-                "latex": "A = \\{1,2,3,4,5\\}"
-              },
-              {
-                "type": "text",
-                "text": "，求："
-              }
-            ]
+            "text": "例题： 已知集合"
+          },
+          {
+            "latex": "A = \\{1,2,3,4,5\\}"
+          },
+          {
+            "text": "，求："
           },
           {
             "segments": [
@@ -738,11 +851,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "（"
-              },
-              {
-                "type": "math",
-                "latex": "n\\geqslant 1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "n\\geqslant 1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "）。\n2. 推导依据：乘法原理（每个元素选或不选）或二项式系数求和。\n3. 易错提醒：注意空集的处理，区分\"真\"与\"非空\"的概念；"
@@ -761,29 +877,84 @@ module.exports = {
       }
     ]
   },
-  "S003_DeMorgan": {
-    "id": "S003_DeMorgan",
-    "title": "S003_DeMorgan",
-    "module": "",
-    "alias": [],
-    "difficulty": null,
-    "category": "",
-    "tags": [],
-    "core_summary": "",
-    "core_formula": "",
-    "related_formulas": [],
+  "S003": {
+    "id": "S003",
+    "title": "德摩根律",
+    "module": "set",
+    "alias": [
+      "德摩根律",
+      "DeMorgan",
+      "德摩根律结论",
+      "集合常用结论"
+    ],
+    "difficulty": 3,
+    "category": "集合",
+    "tags": [
+      "德摩根律",
+      "DeMorgan",
+      "德摩根律结论",
+      "集合常用结论",
+      "子集",
+      "补集"
+    ],
+    "core_summary": "德摩根公式（对偶律）揭示了集合运算中补集与并、交的转换关系",
+    "core_formula": "C_U(A \\cap B) = C_U A \\cup C_U B",
+    "related_formulas": [
+      "C_U(A \\cup B) = C_U A \\cap C_U B",
+      "C_U\\left(\\bigcap_{i=1}^n A_i\\right) = \\bigcup_{i=1}^n C_U A_i,\\quad C_U\\left(\\bigcup_{i=1}^n A_i\\right) = \\bigcap_{i=1}^n C_U A_i",
+      "x \\notin (A \\cap B)"
+    ],
     "variables": [],
-    "conditions": "",
-    "conclusions": "",
-    "usage": {},
-    "interactive": {},
-    "assets": {},
-    "shareConfig": {},
-    "relations": {},
-    "isPro": null,
+    "conditions": "使用时需满足题设条件，并保证公式 C_U(A \\cap B) = C_U A \\cup C_U B 中各量有定义。",
+    "conclusions": [
+      "德摩根公式（对偶律）揭示了集合运算中补集与并、交的转换关系"
+    ],
+    "usage": {
+      "scenarios": [
+        "例题1：设全集 U = 1, 2, 3, 4, 5, 6，A = 1, 2, 3，B = 2, 4, 6",
+        "解析：计算 A B = 2，C_U(A B) = 1, 3, 4, 5, 6",
+        "计算 C_U A = 4, 5, 6，C_U B = 1, 3, 5，则 C_U A C_U B = 1, 3, 4, 5, 6，相等"
+      ],
+      "problem_types": [
+        "集合化简",
+        "集合证明"
+      ],
+      "exam_frequency": 0.6,
+      "exam_score": 5
+    },
+    "interactive": {
+      "has_diagram": false,
+      "geogebra_id": "",
+      "param_demo": {}
+    },
+    "assets": {
+      "svg": "S003.svg",
+      "png": "",
+      "webp": "",
+      "video": "",
+      "audio": ""
+    },
+    "shareConfig": {
+      "title": "德摩根律：条件判断与题型速查",
+      "shareDesc": "适合刷题前速查与课后复盘，聚焦适用条件和常见误区，做同类题时能减少符号与分类讨论错误。"
+    },
+    "relations": {
+      "prerequisites": [
+        "集合的基本运算",
+        "子集与补集定义"
+      ],
+      "related_ids": [],
+      "similar": [
+        "集合中的相近变形结论"
+      ]
+    },
+    "isPro": 0,
     "remarks": "",
-    "knowledgeNode": "",
-    "altNodes": "",
+    "knowledgeNode": "其他-未分类-待定",
+    "altNodes": [
+      "其他-未分类-待定",
+      "代数-式的变形-恒等变形"
+    ],
     "statement": "德摩根公式（对偶律）揭示了集合运算中补集与并、交的转换关系：\n- 交的补等于补的并：C_U(A B) = C_U A C_U B；\n- 并的补等于补的交：C_U(A B) = C_U A C_U B。\n其中 U 为全集，A, B 是 U 的子集。",
     "explanation": "德摩根公式的本质是\"否定\"与\"且\"、\"或\"之间的逻辑等价关系：\n- 逻辑视角：x (A B) 等价于 x A 或 x B，即 x in C_U A C_U B；\n- 对称性：两个公式互为对偶，只需将一个中的 与 互换，并交换左右两边即得另一个；\n- 推广：公式可推广到任意多个集合的并和交：\nC_U( _i=1^n A_i) = _i=1^n C_U A_i,\nC_U( _i=1^n A_i) = _i=1^n C_U A_i.",
     "proof": "证明 C_U(A B) = C_U A C_U B：\n- 设 x in C_U(A B)，则 x A B，即 x 不同时属于 A 和 B。因此 x A 或 x B，即 x in C_U A 或 x in C_U B，故 x in C_U A C_U B。\n- 反之，设 x in C_U A C_U B，则 x in C_U A 或 x in C_U B，即 x A 或 x B。于是 x 不可能同时属于 A 和 B，即 x A B，所以 x in C_U(A B)。\n- 由集合相等的定义，C_U(A B) C_U A C_U B 且 C_U A C_U B C_U(A B)，故等式成立。\n证明 C_U(A B) = C_U A C_U B（类似可证）：\n- x in C_U(A B) <=> x A B <=> x A 且 x B <=> x in C_U A 且 x in C_U B <=> x in C_U A C_U B。\n- 因此两边互为充要条件，集合相等。",
@@ -793,14 +964,91 @@ module.exports = {
     "display_version": 2,
     "sections": [
       {
+        "key": "core_formula",
+        "title": "核心公式",
+        "layout": "text",
+        "items": [
+          {
+            "latex": "C_U(A \\cap B) = C_U A \\cup C_U B"
+          }
+        ]
+      },
+      {
+        "key": "conditions",
+        "title": "适用条件",
+        "layout": "text",
+        "items": [
+          {
+            "text": "使用时需满足题设条件，并保证公式 C_U(A B) = C_U A C_U B 中各量有定义。"
+          }
+        ]
+      },
+      {
         "key": "statement",
         "title": "命题表述",
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "交的补等于补的并："
+              },
+              {
+                "type": "math",
+                "latex": "C_U(A \\cap B) = C_U A \\cup C_U B"
+              },
+              {
+                "type": "text",
+                "text": "；"
+              }
+            ],
+            "desc": "交的补等于补的并： ；",
+            "latex": "C_U(A \\cap B) = C_U A \\cup C_U B"
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "text",
+                "text": "并的补等于补的交："
+              },
+              {
+                "type": "math",
+                "latex": "C_U(A \\cup B) = C_U A \\cap C_U B"
+              },
+              {
+                "type": "text",
+                "text": "。\n其中"
+              },
+              {
+                "type": "math",
+                "latex": "U"
+              },
+              {
+                "type": "text",
+                "text": "为全集，"
+              },
+              {
+                "type": "math",
+                "latex": "A, B"
+              },
+              {
+                "type": "text",
+                "text": "是"
+              },
+              {
+                "type": "math",
+                "latex": "U"
+              },
+              {
+                "type": "text",
+                "text": "的子集。"
+              }
+            ],
+            "desc": "并的补等于补的交： 。\n其中 为全集， 是 的子集。",
+            "latex": "C_U(A \\cup B) = C_U A \\cap C_U B"
           }
         ]
       },
@@ -813,80 +1061,55 @@ module.exports = {
             "text": "德摩根公式的本质是\"否定\"与\"且\"、\"或\"之间的逻辑等价关系："
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "逻辑视角："
-              },
-              {
-                "type": "math",
-                "latex": "x \\notin (A \\cap B)"
-              },
-              {
-                "type": "text",
-                "text": "等价于"
-              },
-              {
-                "type": "math",
-                "latex": "x \\notin A"
-              },
-              {
-                "type": "text",
-                "text": "或"
-              },
-              {
-                "type": "math",
-                "latex": "x \\notin B"
-              },
-              {
-                "type": "text",
-                "text": "，即"
-              },
-              {
-                "type": "math",
-                "latex": "x \\in C_U A \\cup C_U B"
-              },
-              {
-                "type": "text",
-                "text": "；"
-              }
-            ]
+            "text": "逻辑视角："
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "对称性：两个公式互为对偶，只需将一个中的"
-              },
-              {
-                "type": "math",
-                "latex": "\\cap"
-              },
-              {
-                "type": "text",
-                "text": "与"
-              },
-              {
-                "type": "math",
-                "latex": "\\cup"
-              },
-              {
-                "type": "text",
-                "text": "互换，并交换左右两边即得另一个；"
-              }
-            ]
+            "latex": "x \\notin (A \\cap B)"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "推广：公式可推广到任意多个集合的并和交："
-              },
-              {
-                "type": "math",
-                "latex": "C_U\\left(\\bigcap_{i=1}^n A_i\\right) = \\bigcup_{i=1}^n C_U A_i,\\quad\nC_U\\left(\\bigcup_{i=1}^n A_i\\right) = \\bigcap_{i=1}^n C_U A_i."
-              }
-            ]
+            "text": "等价于"
+          },
+          {
+            "latex": "x \\notin A"
+          },
+          {
+            "text": "或"
+          },
+          {
+            "latex": "x \\notin B"
+          },
+          {
+            "text": "，即"
+          },
+          {
+            "latex": "x \\in C_U A \\cup C_U B"
+          },
+          {
+            "text": "；"
+          },
+          {
+            "text": "对称性：两个公式互为对偶，只需将一个中的"
+          },
+          {
+            "latex": "\\cap"
+          },
+          {
+            "text": "与"
+          },
+          {
+            "latex": "\\cup"
+          },
+          {
+            "text": "互换，并交换左右两边即得另一个；"
+          },
+          {
+            "text": "推广：公式可推广到任意多个集合的并和交："
+          },
+          {
+            "latex": "C_U\\left(\\bigcap_{i=1}^n A_i\\right) = \\bigcup_{i=1}^n C_U A_i,\\quad\nC_U\\left(\\bigcup_{i=1}^n A_i\\right) = \\bigcap_{i=1}^n C_U A_i"
+          },
+          {
+            "text": "."
           }
         ]
       },
@@ -896,39 +1119,28 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "证明"
-              },
-              {
-                "type": "math",
-                "latex": "C_U(A \\cap B) = C_U A \\cup C_U B"
-              },
-              {
-                "type": "text",
-                "text": "："
-              }
-            ]
+            "text": "证明"
+          },
+          {
+            "latex": "C_U(A \\cap B) = C_U A \\cup C_U B"
+          },
+          {
+            "text": "："
+          },
+          {
+            "text": "设"
+          },
+          {
+            "latex": "x \\in C_U(A \\cap B)"
+          },
+          {
+            "text": "，则"
+          },
+          {
+            "latex": "x \\notin A \\cap B"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "设"
-              },
-              {
-                "type": "math",
-                "latex": "x \\in C_U(A \\cap B)"
-              },
-              {
-                "type": "text",
-                "text": "，则"
-              },
-              {
-                "type": "math",
-                "latex": "x \\notin A \\cap B"
-              },
               {
                 "type": "text",
                 "text": "，即"
@@ -956,91 +1168,71 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。因此"
-              },
-              {
-                "type": "math",
-                "latex": "x \\notin A"
-              },
-              {
-                "type": "text",
-                "text": "或"
-              },
-              {
-                "type": "math",
-                "latex": "x \\notin B"
-              },
-              {
-                "type": "text",
-                "text": "，即"
-              },
-              {
-                "type": "math",
-                "latex": "x \\in C_U A"
-              },
-              {
-                "type": "text",
-                "text": "或"
-              },
-              {
-                "type": "math",
-                "latex": "x \\in C_U B"
-              },
-              {
-                "type": "text",
-                "text": "，故"
-              },
-              {
-                "type": "math",
-                "latex": "x \\in C_U A \\cup C_U B"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
           },
           {
+            "latex": "x \\notin A"
+          },
+          {
+            "text": "或"
+          },
+          {
+            "latex": "x \\notin B"
+          },
+          {
+            "text": "，即"
+          },
+          {
+            "latex": "x \\in C_U A"
+          },
+          {
+            "text": "或"
+          },
+          {
+            "latex": "x \\in C_U B"
+          },
+          {
+            "text": "，故"
+          },
+          {
+            "latex": "x \\in C_U A \\cup C_U B"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "反之，设"
+          },
+          {
+            "latex": "x \\in C_U A \\cup C_U B"
+          },
+          {
+            "text": "，则"
+          },
+          {
+            "latex": "x \\in C_U A"
+          },
+          {
+            "text": "或"
+          },
+          {
+            "latex": "x \\in C_U B"
+          },
+          {
+            "text": "，即"
+          },
+          {
+            "latex": "x \\notin A"
+          },
+          {
+            "text": "或"
+          },
+          {
+            "latex": "x \\notin B"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "反之，设"
-              },
-              {
-                "type": "math",
-                "latex": "x \\in C_U A \\cup C_U B"
-              },
-              {
-                "type": "text",
-                "text": "，则"
-              },
-              {
-                "type": "math",
-                "latex": "x \\in C_U A"
-              },
-              {
-                "type": "text",
-                "text": "或"
-              },
-              {
-                "type": "math",
-                "latex": "x \\in C_U B"
-              },
-              {
-                "type": "text",
-                "text": "，即"
-              },
-              {
-                "type": "math",
-                "latex": "x \\notin A"
-              },
-              {
-                "type": "text",
-                "text": "或"
-              },
-              {
-                "type": "math",
-                "latex": "x \\notin B"
-              },
               {
                 "type": "text",
                 "text": "。于是"
@@ -1068,84 +1260,59 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，即"
-              },
-              {
-                "type": "math",
-                "latex": "x \\notin A \\cap B"
-              },
-              {
-                "type": "text",
-                "text": "，所以"
-              },
-              {
-                "type": "math",
-                "latex": "x \\in C_U(A \\cap B)"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "由集合相等的定义，"
-              },
-              {
-                "type": "math",
-                "latex": "C_U(A \\cap B) \\subseteq C_U A \\cup C_U B"
-              },
-              {
-                "type": "text",
-                "text": "且"
-              },
-              {
-                "type": "math",
-                "latex": "C_U A \\cup C_U B \\subseteq C_U(A \\cap B)"
-              },
-              {
-                "type": "text",
-                "text": "，故等式成立。\n证明"
-              },
-              {
-                "type": "math",
-                "latex": "C_U(A \\cup B) = C_U A \\cap C_U B"
-              },
-              {
-                "type": "text",
-                "text": "（类似可证）："
-              }
-            ]
+            "latex": "x \\notin A \\cap B"
           },
           {
-            "segments": [
-              {
-                "type": "math",
-                "latex": "x \\in C_U(A \\cup B) \\iff x \\notin A \\cup B \\iff x \\notin A"
-              },
-              {
-                "type": "text",
-                "text": "且"
-              },
-              {
-                "type": "math",
-                "latex": "x \\notin B \\iff x \\in C_U A"
-              },
-              {
-                "type": "text",
-                "text": "且"
-              },
-              {
-                "type": "math",
-                "latex": "x \\in C_U B \\iff x \\in C_U A \\cap C_U B"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "，所以"
+          },
+          {
+            "latex": "x \\in C_U(A \\cap B)"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "由集合相等的定义，"
+          },
+          {
+            "latex": "C_U(A \\cap B) \\subseteq C_U A \\cup C_U B"
+          },
+          {
+            "text": "且"
+          },
+          {
+            "latex": "C_U A \\cup C_U B \\subseteq C_U(A \\cap B)"
+          },
+          {
+            "text": "，故等式成立。\n证明"
+          },
+          {
+            "latex": "C_U(A \\cup B) = C_U A \\cap C_U B"
+          },
+          {
+            "text": "（类似可证）："
+          },
+          {
+            "latex": "x \\in C_U(A \\cup B) \\iff x \\notin A \\cup B \\iff x \\notin A"
+          },
+          {
+            "text": "且"
+          },
+          {
+            "latex": "x \\notin B \\iff x \\in C_U A"
+          },
+          {
+            "text": "且"
+          },
+          {
+            "latex": "x \\in C_U B \\iff x \\in C_U A \\cap C_U B"
+          },
+          {
+            "text": "。"
           },
           {
             "text": "因此两边互为充要条件，集合相等。"
@@ -1158,132 +1325,97 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "例题1： 设全集"
-              },
-              {
-                "type": "math",
-                "latex": "U = \\{1,2,3,4,5,6\\}"
-              },
-              {
-                "type": "text",
-                "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "A = \\{1,2,3\\}"
-              },
-              {
-                "type": "text",
-                "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "B = \\{2,4,6\\}"
-              },
-              {
-                "type": "text",
-                "text": "。验证德摩根公式。\n解析： 计算"
-              },
-              {
-                "type": "math",
-                "latex": "A \\cap B = \\{2\\}"
-              },
-              {
-                "type": "text",
-                "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "C_U(A \\cap B) = \\{1,3,4,5,6\\}"
-              },
-              {
-                "type": "text",
-                "text": "。计算"
-              },
-              {
-                "type": "math",
-                "latex": "C_U A = \\{4,5,6\\}"
-              },
-              {
-                "type": "text",
-                "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "C_U B = \\{1,3,5\\}"
-              },
-              {
-                "type": "text",
-                "text": "，则"
-              },
-              {
-                "type": "math",
-                "latex": "C_U A \\cup C_U B = \\{1,3,4,5,6\\}"
-              },
-              {
-                "type": "text",
-                "text": "，相等。\n计算"
-              },
-              {
-                "type": "math",
-                "latex": "A \\cup B = \\{1,2,3,4,6\\}"
-              },
-              {
-                "type": "text",
-                "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "C_U(A \\cup B) = \\{5\\}"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              },
-              {
-                "type": "math",
-                "latex": "C_U A \\cap C_U B = \\{4,5,6\\} \\cap \\{1,3,5\\} = \\{5\\}"
-              },
-              {
-                "type": "text",
-                "text": "，相等。\n例题2： 证明"
-              },
-              {
-                "type": "math",
-                "latex": "A \\setminus (B \\cup C) = (A \\setminus B) \\cap (A \\setminus C)"
-              },
-              {
-                "type": "text",
-                "text": "。\n解析： 由集合差定义"
-              },
-              {
-                "type": "math",
-                "latex": "A \\setminus B = A \\cap C_U B"
-              },
-              {
-                "type": "text",
-                "text": "，则"
-              },
-              {
-                "type": "math",
-                "latex": "A \\setminus (B \\cup C) = A \\cap C_U(B \\cup C) = A \\cap (C_U B \\cap C_U C) = (A \\cap C_U B) \\cap (A \\cap C_U C) = (A \\setminus B) \\cap (A \\setminus C)."
-              },
-              {
-                "type": "text",
-                "text": "这里用到了德摩根公式"
-              },
-              {
-                "type": "math",
-                "latex": "C_U(B \\cup C) = C_U B \\cap C_U C"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "例题1： 设全集"
+          },
+          {
+            "latex": "U = \\{1,2,3,4,5,6\\}"
+          },
+          {
+            "text": "，"
+          },
+          {
+            "latex": "A = \\{1,2,3\\}"
+          },
+          {
+            "text": "，"
+          },
+          {
+            "latex": "B = \\{2,4,6\\}"
+          },
+          {
+            "text": "。验证德摩根公式。\n解析： 计算"
+          },
+          {
+            "latex": "A \\cap B = \\{2\\}"
+          },
+          {
+            "text": "，"
+          },
+          {
+            "latex": "C_U(A \\cap B) = \\{1,3,4,5,6\\}"
+          },
+          {
+            "text": "。计算"
+          },
+          {
+            "latex": "C_U A = \\{4,5,6\\}"
+          },
+          {
+            "text": "，"
+          },
+          {
+            "latex": "C_U B = \\{1,3,5\\}"
+          },
+          {
+            "text": "，则"
+          },
+          {
+            "latex": "C_U A \\cup C_U B = \\{1,3,4,5,6\\}"
+          },
+          {
+            "text": "，相等。\n计算"
+          },
+          {
+            "latex": "A \\cup B = \\{1,2,3,4,6\\}"
+          },
+          {
+            "text": "，"
+          },
+          {
+            "latex": "C_U(A \\cup B) = \\{5\\}"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "latex": "C_U A \\cap C_U B = \\{4,5,6\\} \\cap \\{1,3,5\\} = \\{5\\}"
+          },
+          {
+            "text": "，相等。\n例题2： 证明"
+          },
+          {
+            "latex": "A \\setminus (B \\cup C) = (A \\setminus B) \\cap (A \\setminus C)"
+          },
+          {
+            "text": "。\n解析： 由集合差定义"
+          },
+          {
+            "latex": "A \\setminus B = A \\cap C_U B"
+          },
+          {
+            "text": "，则"
+          },
+          {
+            "latex": "A \\setminus (B \\cup C) = A \\cap C_U(B \\cup C) = A \\cap (C_U B \\cap C_U C) = (A \\cap C_U B) \\cap (A \\cap C_U C) = (A \\setminus B) \\cap (A \\setminus C)"
+          },
+          {
+            "text": ".这里用到了德摩根公式"
+          },
+          {
+            "latex": "C_U(B \\cup C) = C_U B \\cap C_U C"
+          },
+          {
+            "text": "。"
           }
         ]
       },
@@ -1293,28 +1425,19 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "符号混淆：德摩根公式中的"
-              },
-              {
-                "type": "math",
-                "latex": "\\cap"
-              },
-              {
-                "type": "text",
-                "text": "和"
-              },
-              {
-                "type": "math",
-                "latex": "\\cup"
-              },
-              {
-                "type": "text",
-                "text": "易混淆。记忆技巧：将补集符号看作一个\"长条\"，当它覆盖整个括号时，括号内的运算要变号（交变并，并变交），并且补集符号分配到每个集合上。"
-              }
-            ]
+            "text": "符号混淆：德摩根公式中的"
+          },
+          {
+            "latex": "\\cap"
+          },
+          {
+            "text": "和"
+          },
+          {
+            "latex": "\\cup"
+          },
+          {
+            "text": "易混淆。记忆技巧：将补集符号看作一个\"长条\"，当它覆盖整个括号时，括号内的运算要变号（交变并，并变交），并且补集符号分配到每个集合上。"
           },
           {
             "segments": [
@@ -1333,52 +1456,34 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "逻辑等价：德摩根公式在逻辑中对应"
-              },
-              {
-                "type": "math",
-                "latex": "\\neg (P \\land Q) \\equiv (\\neg P) \\lor (\\neg Q)"
-              },
-              {
-                "type": "text",
-                "text": "和"
-              },
-              {
-                "type": "math",
-                "latex": "\\neg (P \\lor Q) \\equiv (\\neg P) \\land (\\neg Q)"
-              },
-              {
-                "type": "text",
-                "text": "。在集合论中应用时，切勿将逻辑联结词混淆。"
-              }
-            ]
+            "text": "逻辑等价：德摩根公式在逻辑中对应"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "多重集合：当推广到多个集合时，要注意"
-              },
-              {
-                "type": "math",
-                "latex": "\\bigcap"
-              },
-              {
-                "type": "text",
-                "text": "和"
-              },
-              {
-                "type": "math",
-                "latex": "\\bigcup"
-              },
-              {
-                "type": "text",
-                "text": "的变化规律，避免写错。"
-              }
-            ]
+            "latex": "\\neg (P \\land Q) \\equiv (\\neg P) \\lor (\\neg Q)"
+          },
+          {
+            "text": "和"
+          },
+          {
+            "latex": "\\neg (P \\lor Q) \\equiv (\\neg P) \\land (\\neg Q)"
+          },
+          {
+            "text": "。在集合论中应用时，切勿将逻辑联结词混淆。"
+          },
+          {
+            "text": "多重集合：当推广到多个集合时，要注意"
+          },
+          {
+            "latex": "\\bigcap"
+          },
+          {
+            "text": "和"
+          },
+          {
+            "latex": "\\bigcup"
+          },
+          {
+            "text": "的变化规律，避免写错。"
           }
         ]
       },
@@ -1391,56 +1496,99 @@ module.exports = {
             "text": "1. 核心公式："
           },
           {
-            "segments": [
-              {
-                "type": "math",
-                "latex": "C_U(A \\cap B) = C_U A \\cup C_U B"
-              },
-              {
-                "type": "text",
-                "text": "；"
-              }
-            ]
+            "latex": "C_U(A \\cap B) = C_U A \\cup C_U B"
           },
           {
-            "segments": [
-              {
-                "type": "math",
-                "latex": "C_U(A \\cup B) = C_U A \\cap C_U B"
-              },
-              {
-                "type": "text",
-                "text": "。\n2. 记忆口诀：\"交之补等于补之并，并之补等于补之交\"。\n3. 应用场景：常用于集合化简、证明集合恒等式、概率论中的事件运算、逻辑推理等。\n4. 注意事项：公式对任意多个集合也成立，使用时注意运算优先级，补集符号可看作一个整体。"
-              }
-            ]
+            "text": "；"
+          },
+          {
+            "latex": "C_U(A \\cup B) = C_U A \\cap C_U B"
+          },
+          {
+            "text": "。\n2. 记忆口诀：\"交之补等于补之并，并之补等于补之交\"。\n3. 应用场景：常用于集合化简、证明集合恒等式、概率论中的事件运算、逻辑推理等。\n4. 注意事项：公式对任意多个集合也成立，使用时注意运算优先级，补集符号可看作一个整体。"
           }
         ]
       }
     ]
   },
-  "S005_InclusionExclusion": {
-    "id": "S005_InclusionExclusion",
-    "title": "S005_InclusionExclusion",
-    "module": "",
-    "alias": [],
-    "difficulty": null,
-    "category": "",
-    "tags": [],
-    "core_summary": "",
-    "core_formula": "",
-    "related_formulas": [],
+  "S005": {
+    "id": "S005",
+    "title": "两个集合的容斥原理",
+    "module": "set",
+    "alias": [
+      "两个集合的容斥原理",
+      "InclusionExclusion",
+      "两个集合的容斥原理结论",
+      "集合常用结论"
+    ],
+    "difficulty": 3,
+    "category": "集合",
+    "tags": [
+      "两个集合的容斥原理",
+      "InclusionExclusion",
+      "两个集合的容斥原理结论",
+      "集合常用结论",
+      "子集",
+      "补集"
+    ],
+    "core_summary": "容斥原理（包含排除原理）是关于有限集合元素计数的基本定理",
+    "core_formula": "|A \\cup B| = |A| + |B| - |A \\cap B|",
+    "related_formulas": [
+      "|A \\cup B \\cup C| = |A| + |B| + |C| - |A \\cap B| - |A \\cap C| - |B \\cap C| + |A \\cap B \\cap C|",
+      "\\left|\\bigcup_{i=1}^n A_i\\right| = \\sum_{k=1}^n (-1)^{k-1} \\sum_{1 \\le i_1 < i_2 < \\dots < i_k \\le n} |A_{i_1} \\cap A_{i_2} \\cap \\dots \\cap A_{i_k}|",
+      "(-1)^{k-1}"
+    ],
     "variables": [],
-    "conditions": "",
-    "conclusions": "",
-    "usage": {},
-    "interactive": {},
-    "assets": {},
-    "shareConfig": {},
-    "relations": {},
-    "isPro": null,
+    "conditions": "一般形式：对于 n 个有限集合 A_1, A_2, , A_n，有 | _ i=1 ^n A_i | = _ k=1 ^n (-1)^ k-1 _ 1 i_1 < i_2 < < i_k n |A_ i_1 A_ i_2 A_ i_k |.",
+    "conclusions": [
+      "容斥原理（包含排除原理）是关于有限集合元素计数的基本定理"
+    ],
+    "usage": {
+      "scenarios": [
+        "例题1：某班级有 30 名学生，其中 18 人喜欢数学，15 人喜欢物理，10 人既喜欢数学又喜欢物理",
+        "问有多少人至少喜欢一门学科",
+        "有多少人两门都不喜欢"
+      ],
+      "problem_types": [
+        "集合化简",
+        "集合证明"
+      ],
+      "exam_frequency": 0.6,
+      "exam_score": 5
+    },
+    "interactive": {
+      "has_diagram": false,
+      "geogebra_id": "",
+      "param_demo": {}
+    },
+    "assets": {
+      "svg": "S005.svg",
+      "png": "",
+      "webp": "",
+      "video": "",
+      "audio": ""
+    },
+    "shareConfig": {
+      "title": "两个集合的容斥原理：条件判断与题型速查",
+      "shareDesc": "适合刷题前速查与课后复盘，聚焦适用条件和常见误区，做同类题时能减少符号与分类讨论错误。"
+    },
+    "relations": {
+      "prerequisites": [
+        "集合的基本运算",
+        "子集与补集定义"
+      ],
+      "related_ids": [],
+      "similar": [
+        "集合中的相近变形结论"
+      ]
+    },
+    "isPro": 0,
     "remarks": "",
-    "knowledgeNode": "",
-    "altNodes": "",
+    "knowledgeNode": "其他-未分类-待定",
+    "altNodes": [
+      "其他-未分类-待定",
+      "代数-式的变形-恒等变形"
+    ],
     "statement": "容斥原理（包含排除原理）是关于有限集合元素计数的基本定理：\n- 两个集合的容斥原理：对于有限集合 A 和 B，有\n|A B| = |A| + |B| - |A B|.\n- 三个集合的容斥原理：对于有限集合 A, B, C，有\n|A B C| = |A| + |B| + |C| - |A B| - |A C| - |B C| + |A B C|.\n- 一般形式：对于 n 个有限集合 A_1, A_2, , A_n，有\n| _i=1^n A_i| = _k=1^n (-1)^k-1 _1 i_1 < i_2 < < i_k n |A_i_1 A_i_2 A_i_k|.",
     "explanation": "容斥原理的核心思想是\"逐步修正重复计数\"：\n- 直观理解：当计算并集的元素个数时，直接相加会多算交集部分，因此减去一次交集；对于三个集合，两两交集被多减了，需要加回三个集合的交集。\n- 符号规律：每一项的符号由集合个数决定，奇数个集合的交集取正，偶数个取负（在一般公式中体现为 (-1)^k-1）。\n- 推广：容斥原理可以推广到任意有限个集合，也适用于概率论中事件并的概率计算。",
     "proof": "两个集合的容斥原理证明：\n- 将 A B 划分为三部分：A B，B A，A B。\n- 这三部分互不相交，且 A = (A B) (A B)，B = (B A) (A B)。\n- 因此\n|A B| &= |A B| + |B A| + |A B| \\\\\n&= (|A| - |A B|) + (|B| - |A B|) + |A B| \\\\\n&= |A| + |B| - |A B|.\n三个集合的容斥原理证明：\n- 将 A B C 表示为 (A B) C，利用两个集合的容斥原理：\n|A B C| = |A B| + |C| - |(A B) C|.\n- 计算 |(A B) C| = |(A C) (B C)|，再次应用两个集合的容斥原理：\n|(A C) (B C)| &= |A C| + |B C| - |(A C) (B C)| \\\\\n&= |A C| + |B C| - |A B C|.\n- 代入第一步，得\n|A B C| &= |A| + |B| - |A B| + |C| - (|A C| + |B C| - |A B C| ) \\\\\n&= |A| + |B| + |C| - |A B| - |A C| - |B C| + |A B C|.\n一般形式的证明（数学归纳法）：\n- 基础：n=1 时，|A_1| = |A_1| 成立。\n- 假设对 n-1 个集合成立。考虑 n 个集合 A_1, , A_n。\n令 B = A_1 A_n-1，则 A_1 A_n = B A_n。\n由两个集合容斥原理：\n|B A_n| = |B| + |A_n| - |B A_n|.\n由归纳假设，\n|B| = _k=1^n-1 (-1)^k-1 _1 i_1 < < i_k n-1 |A_i_1 A_i_k|.\n而 B A_n = _i=1^n-1 (A_i A_n)，再次应用归纳假设（注意这里是 n-1 个集合 A_i A_n）：\n|B A_n| = _k=1^n-1 (-1)^k-1 _1 i_1 < < i_k n-1 |A_i_1 A_i_k A_n|.\n- 代入并合并同类项，即可得到 n 个集合的容斥公式。具体地，|B| 中每一项对应不含 A_n 的交集，|B A_n| 中每一项对应包含 A_n 的交集，合并后正是所有 k 元交集的交错和。",
@@ -1450,14 +1598,114 @@ module.exports = {
     "display_version": 2,
     "sections": [
       {
+        "key": "core_formula",
+        "title": "核心公式",
+        "layout": "text",
+        "items": [
+          {
+            "latex": "|A \\cup B| = |A| + |B| - |A \\cap B|"
+          }
+        ]
+      },
+      {
+        "key": "conditions",
+        "title": "适用条件",
+        "layout": "text",
+        "items": [
+          {
+            "text": "一般形式：对于 n 个有限集合 A_1, A_2, , A_n，有 | _ i=1 ^n A_i | = _ k=1 ^n (-1)^ k-1 _ 1 i_1 < i_2 < < i_k n |A_ i_1 A_ i_2 A_ i_k |."
+          }
+        ]
+      },
+      {
         "key": "statement",
         "title": "命题表述",
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "两个集合的容斥原理：对于有限集合"
+              },
+              {
+                "type": "math",
+                "latex": "A"
+              },
+              {
+                "type": "text",
+                "text": "和"
+              },
+              {
+                "type": "math",
+                "latex": "B"
+              },
+              {
+                "type": "text",
+                "text": "，有"
+              },
+              {
+                "type": "math",
+                "latex": "|A \\cup B| = |A| + |B| - |A \\cap B|."
+              }
+            ],
+            "desc": "两个集合的容斥原理：对于有限集合 和 ，有",
+            "latex": "|A \\cup B| = |A| + |B| - |A \\cap B|."
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "text",
+                "text": "三个集合的容斥原理：对于有限集合"
+              },
+              {
+                "type": "math",
+                "latex": "A, B, C"
+              },
+              {
+                "type": "text",
+                "text": "，有"
+              },
+              {
+                "type": "math",
+                "latex": "|A \\cup B \\cup C| = |A| + |B| + |C| - |A \\cap B| - |A \\cap C| - |B \\cap C| + |A \\cap B \\cap C|."
+              }
+            ],
+            "desc": "三个集合的容斥原理：对于有限集合 ，有",
+            "latex": "|A \\cup B \\cup C| = |A| + |B| + |C| - |A \\cap B| - |A \\cap C| - |B \\cap C| + |A \\cap B \\cap C|."
+          },
+          {
+            "title": "条目3",
+            "segments": [
+              {
+                "type": "text",
+                "text": "一般形式：对于"
+              },
+              {
+                "type": "math",
+                "latex": "n"
+              },
+              {
+                "type": "text",
+                "text": "个有限集合"
+              },
+              {
+                "type": "math",
+                "latex": "A_1, A_2, \\dots, A_n"
+              },
+              {
+                "type": "text",
+                "text": "，有"
+              },
+              {
+                "type": "math",
+                "latex": "\\left|\\bigcup_{i=1}^n A_i\\right| = \\sum_{k=1}^n (-1)^{k-1} \\sum_{1 \\le i_1 < i_2 < \\dots < i_k \\le n} |A_{i_1} \\cap A_{i_2} \\cap \\dots \\cap A_{i_k}|."
+              }
+            ],
+            "desc": "一般形式：对于 个有限集合 ，有",
+            "latex": "\\left|\\bigcup_{i=1}^n A_i\\right| = \\sum_{k=1}^n (-1)^{k-1} \\sum_{1 \\le i_1 < i_2 < \\dots < i_k \\le n} |A_{i_1} \\cap A_{i_2} \\cap \\dots \\cap A_{i_k}|."
           }
         ]
       },
@@ -1502,115 +1750,79 @@ module.exports = {
             "text": "两个集合的容斥原理证明："
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "将"
-              },
-              {
-                "type": "math",
-                "latex": "A \\cup B"
-              },
-              {
-                "type": "text",
-                "text": "划分为三部分："
-              },
-              {
-                "type": "math",
-                "latex": "A \\setminus B"
-              },
-              {
-                "type": "text",
-                "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "B \\setminus A"
-              },
-              {
-                "type": "text",
-                "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "A \\cap B"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "将"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "这三部分互不相交，且"
-              },
-              {
-                "type": "math",
-                "latex": "A = (A \\setminus B) \\cup (A \\cap B)"
-              },
-              {
-                "type": "text",
-                "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "B = (B \\setminus A) \\cup (A \\cap B)"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "latex": "A \\cup B"
+          },
+          {
+            "text": "划分为三部分："
+          },
+          {
+            "latex": "A \\setminus B"
+          },
+          {
+            "text": "，"
+          },
+          {
+            "latex": "B \\setminus A"
+          },
+          {
+            "text": "，"
+          },
+          {
+            "latex": "A \\cap B"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "这三部分互不相交，且"
+          },
+          {
+            "latex": "A = (A \\setminus B) \\cup (A \\cap B)"
+          },
+          {
+            "text": "，"
+          },
+          {
+            "latex": "B = (B \\setminus A) \\cup (A \\cap B)"
+          },
+          {
+            "text": "。"
           },
           {
             "text": "因此\n|A B| &= |A B| + |B A| + |A B|\n&= (|A| - |A B|) + (|B| - |A B|) + |A B|\n&= |A| + |B| - |A B|.\n三个集合的容斥原理证明："
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "将"
-              },
-              {
-                "type": "math",
-                "latex": "A \\cup B \\cup C"
-              },
-              {
-                "type": "text",
-                "text": "表示为"
-              },
-              {
-                "type": "math",
-                "latex": "(A \\cup B) \\cup C"
-              },
-              {
-                "type": "text",
-                "text": "，利用两个集合的容斥原理："
-              },
-              {
-                "type": "math",
-                "latex": "|A \\cup B \\cup C| = |A \\cup B| + |C| - |(A \\cup B) \\cap C|."
-              }
-            ]
+            "text": "将"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "计算"
-              },
-              {
-                "type": "math",
-                "latex": "|(A \\cup B) \\cap C| = |(A \\cap C) \\cup (B \\cap C)|"
-              },
-              {
-                "type": "text",
-                "text": "，再次应用两个集合的容斥原理：\n|(A C) (B C)| &= |A C| + |B C| - |(A C) (B C)|\n&= |A C| + |B C| - |A B C|."
-              }
-            ]
+            "latex": "A \\cup B \\cup C"
+          },
+          {
+            "text": "表示为"
+          },
+          {
+            "latex": "(A \\cup B) \\cup C"
+          },
+          {
+            "text": "，利用两个集合的容斥原理："
+          },
+          {
+            "latex": "|A \\cup B \\cup C| = |A \\cup B| + |C| - |(A \\cup B) \\cap C|"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "计算"
+          },
+          {
+            "latex": "|(A \\cup B) \\cap C| = |(A \\cap C) \\cup (B \\cap C)|"
+          },
+          {
+            "text": "，再次应用两个集合的容斥原理：\n|(A C) (B C)| &= |A C| + |B C| - |(A C) (B C)|\n&= |A C| + |B C| - |A B C|."
           },
           {
             "text": "代入第一步，得\n|A B C| &= |A| + |B| - |A B| + |C| - (|A C| + |B C| - |A B C| )\n&= |A| + |B| + |C| - |A B| - |A C| - |B C| + |A B C|.\n一般形式的证明（数学归纳法）："
@@ -1660,43 +1872,38 @@ module.exports = {
               {
                 "type": "text",
                 "text": "个集合"
-              },
-              {
-                "type": "math",
-                "latex": "A_1, \\dots, A_n"
-              },
-              {
-                "type": "text",
-                "text": "。\n令"
-              },
-              {
-                "type": "math",
-                "latex": "B = A_1 \\cup \\dots \\cup A_{n-1}"
-              },
-              {
-                "type": "text",
-                "text": "，则"
-              },
-              {
-                "type": "math",
-                "latex": "A_1 \\cup \\dots \\cup A_n = B \\cup A_n"
-              },
-              {
-                "type": "text",
-                "text": "。\n由两个集合容斥原理："
-              },
-              {
-                "type": "math",
-                "latex": "|B \\cup A_n| = |B| + |A_n| - |B \\cap A_n|."
-              },
-              {
-                "type": "text",
-                "text": "由归纳假设，\n|B| = _k=1^n-1 (-1)^k-1 _1 i_1 < < i_k n-1 |A_i_1 A_i_k|.\n而"
-              },
-              {
-                "type": "math",
-                "latex": "B \\cap A_n = \\bigcup_{i=1}^{n-1} (A_i \\cap A_n)"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "A_1, \\dots, A_n"
+          },
+          {
+            "text": "。\n令"
+          },
+          {
+            "latex": "B = A_1 \\cup \\dots \\cup A_{n-1}"
+          },
+          {
+            "text": "，则"
+          },
+          {
+            "latex": "A_1 \\cup \\dots \\cup A_n = B \\cup A_n"
+          },
+          {
+            "text": "。\n由两个集合容斥原理："
+          },
+          {
+            "latex": "|B \\cup A_n| = |B| + |A_n| - |B \\cap A_n|"
+          },
+          {
+            "text": ".由归纳假设，\n|B| = _k=1^n-1 (-1)^k-1 _1 i_1 < < i_k n-1 |A_i_1 A_i_k|.\n而"
+          },
+          {
+            "latex": "B \\cap A_n = \\bigcup_{i=1}^{n-1} (A_i \\cap A_n)"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "，再次应用归纳假设（注意这里是"
@@ -1708,16 +1915,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "个集合"
-              },
-              {
-                "type": "math",
-                "latex": "A_i \\cap A_n"
-              },
-              {
-                "type": "text",
-                "text": "）：\n|B A_n| = _k=1^n-1 (-1)^k-1 _1 i_1 < < i_k n-1 |A_i_1 A_i_k A_n|."
               }
             ]
+          },
+          {
+            "latex": "A_i \\cap A_n"
+          },
+          {
+            "text": "）：\n|B A_n| = _k=1^n-1 (-1)^k-1 _1 i_1 < < i_k n-1 |A_i_1 A_i_k A_n|."
           },
           {
             "segments": [
@@ -1748,11 +1953,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的交集，"
-              },
-              {
-                "type": "math",
-                "latex": "|B \\cap A_n|"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "|B \\cap A_n|"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "中每一项对应包含"
@@ -1819,43 +2027,32 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "|A \\cap B|=10"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "至少喜欢一门的人数："
-              },
-              {
-                "type": "math",
-                "latex": "|A \\cup B| = |A| + |B| - |A \\cap B| = 18+15-10 = 23"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "latex": "|A \\cap B|=10"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "至少喜欢一门的人数："
+          },
+          {
+            "latex": "|A \\cup B| = |A| + |B| - |A \\cap B| = 18+15-10 = 23"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "两门都不喜欢的人数："
+          },
+          {
+            "latex": "|U| - |A \\cup B| = 30 - 23 = 7"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "两门都不喜欢的人数："
-              },
-              {
-                "type": "math",
-                "latex": "|U| - |A \\cup B| = 30 - 23 = 7"
-              },
               {
                 "type": "text",
                 "text": "（"
@@ -1875,11 +2072,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "为能被 2 整除的数，"
-              },
-              {
-                "type": "math",
-                "latex": "|A| = \\lfloor 100/2 \\rfloor = 50"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "|A| = \\lfloor 100/2 \\rfloor = 50"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "；"
@@ -1891,11 +2091,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "为能被 3 整除的数，"
-              },
-              {
-                "type": "math",
-                "latex": "|B| = \\lfloor 100/3 \\rfloor = 33"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "|B| = \\lfloor 100/3 \\rfloor = 33"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "；"
@@ -1915,48 +2118,38 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。\n两两交集："
-              },
-              {
-                "type": "math",
-                "latex": "|A \\cap B| = \\lfloor 100/6 \\rfloor = 16"
-              },
-              {
-                "type": "text",
-                "text": "；"
-              },
-              {
-                "type": "math",
-                "latex": "|A \\cap C| = \\lfloor 100/10 \\rfloor = 10"
-              },
-              {
-                "type": "text",
-                "text": "；"
-              },
-              {
-                "type": "math",
-                "latex": "|B \\cap C| = \\lfloor 100/15 \\rfloor = 6"
-              },
-              {
-                "type": "text",
-                "text": "。\n三个交集："
-              },
-              {
-                "type": "math",
-                "latex": "|A \\cap B \\cap C| = \\lfloor 100/30 \\rfloor = 3"
-              },
-              {
-                "type": "text",
-                "text": "。\n由容斥原理："
-              },
-              {
-                "type": "math",
-                "latex": "|A \\cup B \\cup C| = 50+33+20 - (16+10+6) + 3 = 103 - 32 + 3 = 74."
-              },
-              {
-                "type": "text",
-                "text": "故有 74 个数能被 2 或 3 或 5 整除。"
               }
             ]
+          },
+          {
+            "latex": "|A \\cap B| = \\lfloor 100/6 \\rfloor = 16"
+          },
+          {
+            "text": "；"
+          },
+          {
+            "latex": "|A \\cap C| = \\lfloor 100/10 \\rfloor = 10"
+          },
+          {
+            "text": "；"
+          },
+          {
+            "latex": "|B \\cap C| = \\lfloor 100/15 \\rfloor = 6"
+          },
+          {
+            "text": "。\n三个交集："
+          },
+          {
+            "latex": "|A \\cap B \\cap C| = \\lfloor 100/30 \\rfloor = 3"
+          },
+          {
+            "text": "。\n由容斥原理："
+          },
+          {
+            "latex": "|A \\cup B \\cup C| = 50+33+20 - (16+10+6) + 3 = 103 - 32 + 3 = 74"
+          },
+          {
+            "text": ".故有 74 个数能被 2 或 3 或 5 整除。"
           }
         ]
       },
@@ -2012,80 +2205,114 @@ module.exports = {
             "text": "1. 核心公式："
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "二集合："
-              },
-              {
-                "type": "math",
-                "latex": "|A \\cup B| = |A| + |B| - |A \\cap B|"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "二集合："
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "三集合："
-              },
-              {
-                "type": "math",
-                "latex": "|A \\cup B \\cup C| = |A| + |B| + |C| - |A \\cap B| - |A \\cap C| - |B \\cap C| + |A \\cap B \\cap C|"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "latex": "|A \\cup B| = |A| + |B| - |A \\cap B|"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "一般形式："
-              },
-              {
-                "type": "math",
-                "latex": "|\\bigcup_{i=1}^n A_i| = \\sum_{k=1}^n (-1)^{k-1} \\sum_{1\\le i_1 < \\dots < i_k \\le n} |A_{i_1} \\cap \\dots \\cap A_{i_k}|"
-              },
-              {
-                "type": "text",
-                "text": "。\n2. 记忆口诀：奇加偶减。\n3. 应用场景：计数问题、概率计算、包含排除问题、数论中计算与素数相关的个数等。\n4. 注意事项：注意各项符号，避免遗漏高阶交集；使用时确保集合可数且交集可求。"
-              }
-            ]
+            "text": "。"
+          },
+          {
+            "text": "三集合："
+          },
+          {
+            "latex": "|A \\cup B \\cup C| = |A| + |B| + |C| - |A \\cap B| - |A \\cap C| - |B \\cap C| + |A \\cap B \\cap C|"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "一般形式："
+          },
+          {
+            "latex": "|\\bigcup_{i=1}^n A_i| = \\sum_{k=1}^n (-1)^{k-1} \\sum_{1\\le i_1 < \\dots < i_k \\le n} |A_{i_1} \\cap \\dots \\cap A_{i_k}|"
+          },
+          {
+            "text": "。\n2. 记忆口诀：奇加偶减。\n3. 应用场景：计数问题、概率计算、包含排除问题、数论中计算与素数相关的个数等。\n4. 注意事项：注意各项符号，避免遗漏高阶交集；使用时确保集合可数且交集可求。"
           }
         ]
       }
     ]
   },
-  "S006_Inclusion": {
-    "id": "S006_Inclusion",
-    "title": "S006_Inclusion",
-    "module": "",
-    "alias": [],
-    "difficulty": null,
-    "category": "",
-    "tags": [],
-    "core_summary": "",
-    "core_formula": "",
-    "related_formulas": [],
+  "S006": {
+    "id": "S006",
+    "title": "集合包含关系等价判定",
+    "module": "set",
+    "alias": [
+      "集合包含关系等价判定",
+      "Inclusion",
+      "集合包含关系等价判定结论",
+      "集合常用结论"
+    ],
+    "difficulty": 3,
+    "category": "集合",
+    "tags": [
+      "集合包含关系等价判定",
+      "Inclusion",
+      "集合包含关系等价判定结论",
+      "集合常用结论",
+      "子集",
+      "补集"
+    ],
+    "core_summary": "核心等价链条：A B = A",
+    "core_formula": "A\\cap B = A",
+    "related_formulas": [
+      "A\\cap B = A \\quad\\Leftrightarrow\\quad A\\cup B = B \\quad\\Leftrightarrow\\quad A\\subseteq B \\quad\\Leftrightarrow\\quad C_U B \\subseteq C_U A",
+      "A\\subseteq B",
+      "A\\cap B\\subseteq A"
+    ],
     "variables": [],
-    "conditions": "",
-    "conclusions": "",
-    "usage": {},
-    "interactive": {},
-    "assets": {},
-    "shareConfig": {},
-    "relations": {},
-    "isPro": null,
+    "conditions": "集合的包含关系与交、并、补运算之间存在如下等价链条（设 A, B 为全集 U 的子集）：A B = A A B = B A B C_U B C_U A. 即下列四个命题相互等价",
+    "conclusions": [
+      "核心等价链条：A B = A"
+    ],
+    "usage": {
+      "scenarios": [
+        "例题1：设全集 U= 1, 2, 3, 4, 5，A= 1, 2，B= 1, 2, 3",
+        "验证四个等价命题均成立",
+        "A B = 1, 2 = A"
+      ],
+      "problem_types": [
+        "集合化简",
+        "集合证明"
+      ],
+      "exam_frequency": 0.6,
+      "exam_score": 5
+    },
+    "interactive": {
+      "has_diagram": false,
+      "geogebra_id": "",
+      "param_demo": {}
+    },
+    "assets": {
+      "svg": "S006.svg",
+      "png": "",
+      "webp": "",
+      "video": "",
+      "audio": ""
+    },
+    "shareConfig": {
+      "title": "集合包含关系等价判定：条件判断与题型速查",
+      "shareDesc": "适合刷题前速查与课后复盘，聚焦适用条件和常见误区，做同类题时能减少符号与分类讨论错误。"
+    },
+    "relations": {
+      "prerequisites": [
+        "集合的基本运算",
+        "子集与补集定义"
+      ],
+      "related_ids": [],
+      "similar": [
+        "集合中的相近变形结论"
+      ]
+    },
+    "isPro": 0,
     "remarks": "",
-    "knowledgeNode": "",
-    "altNodes": "",
+    "knowledgeNode": "其他-未分类-待定",
+    "altNodes": [
+      "其他-未分类-待定",
+      "代数-式的变形-恒等变形"
+    ],
     "statement": "集合的包含关系与交、并、补运算之间存在如下等价链条（设 A,B 为全集 U 的子集）：\nA B = A A B = B A B C_U B C_U A.\n即下列四个命题相互等价：\n- A 与 B 的交集等于 A；\n- A 与 B 的并集等于 B；\n- A 是 B 的子集；\n- B 的补集是 A 的补集的子集。",
     "explanation": "包含关系的等价链条反映了子集概念在不同运算下的刻画：\n- A B = A 的意义：A 的所有元素都在 B 中，即 A B。因为 A B A 恒成立，等式 A B = A 等价于 A A B，即 A 的每个元素也属于 B。\n- A B = B 的意义：B 包含了 A 的所有元素，即 A B。因为 B A B 恒成立，等式 A B = B 等价于 A B B，即 A 的元素全在 B 中。\n- C_U B C_U A 的意义：补集的大小关系与原集合的包含关系相反（对偶性）。A B 意味着不在 B 中的元素一定不在 A 中，即 C_U B C_U A。\n- 这四个命题环环相扣，任意一个成立则其他三个也成立，体现了子集概念的内在一致性。",
     "proof": "证明 A B = A A B：\n- ( => ) 若 A B = A，则对任意 x in A，有 x in A B，故 x in B，因此 A B。\n- ( ) 若 A B，则对任意 x in A，x in B，从而 x in A B，即 A A B；又 A B A 恒成立，故 A B = A。\n证明 A B A B = B：\n- ( => ) 若 A B，则 A B B B = B；又 B A B 恒成立，故 A B = B。\n- ( ) 若 A B = B，则对任意 x in A，有 x in A B = B，所以 x in B，即 A B。\n证明 A B C_U B C_U A：\n- ( => ) 若 A B，则对任意 x in C_U B，有 x B，故 x A（否则若 x in A B，矛盾），所以 x in C_U A，即 C_U B C_U A。\n- ( ) 若 C_U B C_U A，则对任意 x in A，有 x C_U A，从而 x C_U B（因为 C_U B C_U A），故 x in B，即 A B。",
@@ -2095,14 +2322,137 @@ module.exports = {
     "display_version": 2,
     "sections": [
       {
+        "key": "core_formula",
+        "title": "核心公式",
+        "layout": "text",
+        "items": [
+          {
+            "latex": "A\\cap B = A"
+          }
+        ]
+      },
+      {
+        "key": "conditions",
+        "title": "适用条件",
+        "layout": "text",
+        "items": [
+          {
+            "text": "集合的包含关系与交、并、补运算之间存在如下等价链条（设 A, B 为全集 U 的子集）：A B = A A B = B A B C_U B C_U A. 即下列四个命题相互等价"
+          }
+        ]
+      },
+      {
         "key": "statement",
         "title": "命题表述",
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "A"
+              },
+              {
+                "type": "text",
+                "text": "与"
+              },
+              {
+                "type": "math",
+                "latex": "B"
+              },
+              {
+                "type": "text",
+                "text": "的交集等于"
+              },
+              {
+                "type": "math",
+                "latex": "A"
+              },
+              {
+                "type": "text",
+                "text": "；"
+              }
+            ],
+            "desc": "与 的交集等于 ；",
+            "latex": "A \\qquad B \\qquad A"
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "A"
+              },
+              {
+                "type": "text",
+                "text": "与"
+              },
+              {
+                "type": "math",
+                "latex": "B"
+              },
+              {
+                "type": "text",
+                "text": "的并集等于"
+              },
+              {
+                "type": "math",
+                "latex": "B"
+              },
+              {
+                "type": "text",
+                "text": "；"
+              }
+            ],
+            "desc": "与 的并集等于 ；",
+            "latex": "A \\qquad B \\qquad B"
+          },
+          {
+            "title": "条目3",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "A"
+              },
+              {
+                "type": "text",
+                "text": "是"
+              },
+              {
+                "type": "math",
+                "latex": "B"
+              },
+              {
+                "type": "text",
+                "text": "的子集；"
+              }
+            ],
+            "desc": "是 的子集；",
+            "latex": "A \\qquad B"
+          },
+          {
+            "title": "条目4",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "B"
+              },
+              {
+                "type": "text",
+                "text": "的补集是"
+              },
+              {
+                "type": "math",
+                "latex": "A"
+              },
+              {
+                "type": "text",
+                "text": "的补集的子集。"
+              }
+            ],
+            "desc": "的补集是 的补集的子集。",
+            "latex": "B \\qquad A"
           }
         ]
       },
@@ -2115,11 +2465,10 @@ module.exports = {
             "text": "包含关系的等价链条反映了子集概念在不同运算下的刻画："
           },
           {
+            "latex": "A\\cap B = A"
+          },
+          {
             "segments": [
-              {
-                "type": "math",
-                "latex": "A\\cap B = A"
-              },
               {
                 "type": "text",
                 "text": "的意义："
@@ -2139,35 +2488,32 @@ module.exports = {
               {
                 "type": "text",
                 "text": "中，即"
-              },
-              {
-                "type": "math",
-                "latex": "A\\subseteq B"
-              },
-              {
-                "type": "text",
-                "text": "。因为"
-              },
-              {
-                "type": "math",
-                "latex": "A\\cap B\\subseteq A"
-              },
-              {
-                "type": "text",
-                "text": "恒成立，等式"
-              },
-              {
-                "type": "math",
-                "latex": "A\\cap B = A"
-              },
-              {
-                "type": "text",
-                "text": "等价于"
-              },
-              {
-                "type": "math",
-                "latex": "A\\subseteq A\\cap B"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "A\\subseteq B"
+          },
+          {
+            "text": "。因为"
+          },
+          {
+            "latex": "A\\cap B\\subseteq A"
+          },
+          {
+            "text": "恒成立，等式"
+          },
+          {
+            "latex": "A\\cap B = A"
+          },
+          {
+            "text": "等价于"
+          },
+          {
+            "latex": "A\\subseteq A\\cap B"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "，即"
@@ -2191,11 +2537,10 @@ module.exports = {
             ]
           },
           {
+            "latex": "A\\cup B = B"
+          },
+          {
             "segments": [
-              {
-                "type": "math",
-                "latex": "A\\cup B = B"
-              },
               {
                 "type": "text",
                 "text": "的意义："
@@ -2215,35 +2560,32 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的所有元素，即"
-              },
-              {
-                "type": "math",
-                "latex": "A\\subseteq B"
-              },
-              {
-                "type": "text",
-                "text": "。因为"
-              },
-              {
-                "type": "math",
-                "latex": "B\\subseteq A\\cup B"
-              },
-              {
-                "type": "text",
-                "text": "恒成立，等式"
-              },
-              {
-                "type": "math",
-                "latex": "A\\cup B = B"
-              },
-              {
-                "type": "text",
-                "text": "等价于"
-              },
-              {
-                "type": "math",
-                "latex": "A\\cup B\\subseteq B"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "A\\subseteq B"
+          },
+          {
+            "text": "。因为"
+          },
+          {
+            "latex": "B\\subseteq A\\cup B"
+          },
+          {
+            "text": "恒成立，等式"
+          },
+          {
+            "latex": "A\\cup B = B"
+          },
+          {
+            "text": "等价于"
+          },
+          {
+            "latex": "A\\cup B\\subseteq B"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "，即"
@@ -2267,19 +2609,16 @@ module.exports = {
             ]
           },
           {
+            "latex": "C_U B \\subseteq C_U A"
+          },
+          {
+            "text": "的意义：补集的大小关系与原集合的包含关系相反（对偶性）。"
+          },
+          {
+            "latex": "A\\subseteq B"
+          },
+          {
             "segments": [
-              {
-                "type": "math",
-                "latex": "C_U B \\subseteq C_U A"
-              },
-              {
-                "type": "text",
-                "text": "的意义：补集的大小关系与原集合的包含关系相反（对偶性）。"
-              },
-              {
-                "type": "math",
-                "latex": "A\\subseteq B"
-              },
               {
                 "type": "text",
                 "text": "意味着不在"
@@ -2299,16 +2638,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "中，即"
-              },
-              {
-                "type": "math",
-                "latex": "C_U B \\subseteq C_U A"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "C_U B \\subseteq C_U A"
+          },
+          {
+            "text": "。"
           },
           {
             "text": "这四个命题环环相扣，任意一个成立则其他三个也成立，体现了子集概念的内在一致性。"
@@ -2321,364 +2658,253 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "证明"
-              },
-              {
-                "type": "math",
-                "latex": "A\\cap B = A \\Leftrightarrow A\\subseteq B"
-              },
-              {
-                "type": "text",
-                "text": "："
-              }
-            ]
+            "text": "证明"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "( )\n若"
-              },
-              {
-                "type": "math",
-                "latex": "A\\cap B = A"
-              },
-              {
-                "type": "text",
-                "text": "，则对任意"
-              },
-              {
-                "type": "math",
-                "latex": "x\\in A"
-              },
-              {
-                "type": "text",
-                "text": "，有"
-              },
-              {
-                "type": "math",
-                "latex": "x\\in A\\cap B"
-              },
-              {
-                "type": "text",
-                "text": "，故"
-              },
-              {
-                "type": "math",
-                "latex": "x\\in B"
-              },
-              {
-                "type": "text",
-                "text": "，因此"
-              },
-              {
-                "type": "math",
-                "latex": "A\\subseteq B"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "latex": "A\\cap B = A \\Leftrightarrow A\\subseteq B"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "( )\n若"
-              },
-              {
-                "type": "math",
-                "latex": "A\\subseteq B"
-              },
-              {
-                "type": "text",
-                "text": "，则对任意"
-              },
-              {
-                "type": "math",
-                "latex": "x\\in A"
-              },
-              {
-                "type": "text",
-                "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "x\\in B"
-              },
-              {
-                "type": "text",
-                "text": "，从而"
-              },
-              {
-                "type": "math",
-                "latex": "x\\in A\\cap B"
-              },
-              {
-                "type": "text",
-                "text": "，即"
-              },
-              {
-                "type": "math",
-                "latex": "A\\subseteq A\\cap B"
-              },
-              {
-                "type": "text",
-                "text": "；又"
-              },
-              {
-                "type": "math",
-                "latex": "A\\cap B\\subseteq A"
-              },
-              {
-                "type": "text",
-                "text": "恒成立，故"
-              },
-              {
-                "type": "math",
-                "latex": "A\\cap B = A"
-              },
-              {
-                "type": "text",
-                "text": "。\n证明"
-              },
-              {
-                "type": "math",
-                "latex": "A\\subseteq B \\Leftrightarrow A\\cup B = B"
-              },
-              {
-                "type": "text",
-                "text": "："
-              }
-            ]
+            "text": "："
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "( )\n若"
-              },
-              {
-                "type": "math",
-                "latex": "A\\subseteq B"
-              },
-              {
-                "type": "text",
-                "text": "，则"
-              },
-              {
-                "type": "math",
-                "latex": "A\\cup B \\subseteq B\\cup B = B"
-              },
-              {
-                "type": "text",
-                "text": "；又"
-              },
-              {
-                "type": "math",
-                "latex": "B\\subseteq A\\cup B"
-              },
-              {
-                "type": "text",
-                "text": "恒成立，故"
-              },
-              {
-                "type": "math",
-                "latex": "A\\cup B = B"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "( )\n若"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "( )\n若"
-              },
-              {
-                "type": "math",
-                "latex": "A\\cup B = B"
-              },
-              {
-                "type": "text",
-                "text": "，则对任意"
-              },
-              {
-                "type": "math",
-                "latex": "x\\in A"
-              },
-              {
-                "type": "text",
-                "text": "，有"
-              },
-              {
-                "type": "math",
-                "latex": "x\\in A\\cup B = B"
-              },
-              {
-                "type": "text",
-                "text": "，所以"
-              },
-              {
-                "type": "math",
-                "latex": "x\\in B"
-              },
-              {
-                "type": "text",
-                "text": "，即"
-              },
-              {
-                "type": "math",
-                "latex": "A\\subseteq B"
-              },
-              {
-                "type": "text",
-                "text": "。\n证明"
-              },
-              {
-                "type": "math",
-                "latex": "A\\subseteq B \\Leftrightarrow C_U B \\subseteq C_U A"
-              },
-              {
-                "type": "text",
-                "text": "："
-              }
-            ]
+            "latex": "A\\cap B = A"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "( )\n若"
-              },
-              {
-                "type": "math",
-                "latex": "A\\subseteq B"
-              },
-              {
-                "type": "text",
-                "text": "，则对任意"
-              },
-              {
-                "type": "math",
-                "latex": "x\\in C_U B"
-              },
-              {
-                "type": "text",
-                "text": "，有"
-              },
-              {
-                "type": "math",
-                "latex": "x\\notin B"
-              },
-              {
-                "type": "text",
-                "text": "，故"
-              },
-              {
-                "type": "math",
-                "latex": "x\\notin A"
-              },
-              {
-                "type": "text",
-                "text": "（否则若"
-              },
-              {
-                "type": "math",
-                "latex": "x\\in A\\subseteq B"
-              },
-              {
-                "type": "text",
-                "text": "，矛盾），所以"
-              },
-              {
-                "type": "math",
-                "latex": "x\\in C_U A"
-              },
-              {
-                "type": "text",
-                "text": "，即"
-              },
-              {
-                "type": "math",
-                "latex": "C_U B \\subseteq C_U A"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "，则对任意"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "( )\n若"
-              },
-              {
-                "type": "math",
-                "latex": "C_U B \\subseteq C_U A"
-              },
-              {
-                "type": "text",
-                "text": "，则对任意"
-              },
-              {
-                "type": "math",
-                "latex": "x\\in A"
-              },
-              {
-                "type": "text",
-                "text": "，有"
-              },
-              {
-                "type": "math",
-                "latex": "x\\notin C_U A"
-              },
-              {
-                "type": "text",
-                "text": "，从而"
-              },
-              {
-                "type": "math",
-                "latex": "x\\notin C_U B"
-              },
-              {
-                "type": "text",
-                "text": "（因为"
-              },
-              {
-                "type": "math",
-                "latex": "C_U B\\subseteq C_U A"
-              },
-              {
-                "type": "text",
-                "text": "），故"
-              },
-              {
-                "type": "math",
-                "latex": "x\\in B"
-              },
-              {
-                "type": "text",
-                "text": "，即"
-              },
-              {
-                "type": "math",
-                "latex": "A\\subseteq B"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "latex": "x\\in A"
+          },
+          {
+            "text": "，有"
+          },
+          {
+            "latex": "x\\in A\\cap B"
+          },
+          {
+            "text": "，故"
+          },
+          {
+            "latex": "x\\in B"
+          },
+          {
+            "text": "，因此"
+          },
+          {
+            "latex": "A\\subseteq B"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "( )\n若"
+          },
+          {
+            "latex": "A\\subseteq B"
+          },
+          {
+            "text": "，则对任意"
+          },
+          {
+            "latex": "x\\in A"
+          },
+          {
+            "text": "，"
+          },
+          {
+            "latex": "x\\in B"
+          },
+          {
+            "text": "，从而"
+          },
+          {
+            "latex": "x\\in A\\cap B"
+          },
+          {
+            "text": "，即"
+          },
+          {
+            "latex": "A\\subseteq A\\cap B"
+          },
+          {
+            "text": "；又"
+          },
+          {
+            "latex": "A\\cap B\\subseteq A"
+          },
+          {
+            "text": "恒成立，故"
+          },
+          {
+            "latex": "A\\cap B = A"
+          },
+          {
+            "text": "。\n证明"
+          },
+          {
+            "latex": "A\\subseteq B \\Leftrightarrow A\\cup B = B"
+          },
+          {
+            "text": "："
+          },
+          {
+            "text": "( )\n若"
+          },
+          {
+            "latex": "A\\subseteq B"
+          },
+          {
+            "text": "，则"
+          },
+          {
+            "latex": "A\\cup B \\subseteq B\\cup B = B"
+          },
+          {
+            "text": "；又"
+          },
+          {
+            "latex": "B\\subseteq A\\cup B"
+          },
+          {
+            "text": "恒成立，故"
+          },
+          {
+            "latex": "A\\cup B = B"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "( )\n若"
+          },
+          {
+            "latex": "A\\cup B = B"
+          },
+          {
+            "text": "，则对任意"
+          },
+          {
+            "latex": "x\\in A"
+          },
+          {
+            "text": "，有"
+          },
+          {
+            "latex": "x\\in A\\cup B = B"
+          },
+          {
+            "text": "，所以"
+          },
+          {
+            "latex": "x\\in B"
+          },
+          {
+            "text": "，即"
+          },
+          {
+            "latex": "A\\subseteq B"
+          },
+          {
+            "text": "。\n证明"
+          },
+          {
+            "latex": "A\\subseteq B \\Leftrightarrow C_U B \\subseteq C_U A"
+          },
+          {
+            "text": "："
+          },
+          {
+            "text": "( )\n若"
+          },
+          {
+            "latex": "A\\subseteq B"
+          },
+          {
+            "text": "，则对任意"
+          },
+          {
+            "latex": "x\\in C_U B"
+          },
+          {
+            "text": "，有"
+          },
+          {
+            "latex": "x\\notin B"
+          },
+          {
+            "text": "，故"
+          },
+          {
+            "latex": "x\\notin A"
+          },
+          {
+            "text": "（否则若"
+          },
+          {
+            "latex": "x\\in A\\subseteq B"
+          },
+          {
+            "text": "，矛盾），所以"
+          },
+          {
+            "latex": "x\\in C_U A"
+          },
+          {
+            "text": "，即"
+          },
+          {
+            "latex": "C_U B \\subseteq C_U A"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "( )\n若"
+          },
+          {
+            "latex": "C_U B \\subseteq C_U A"
+          },
+          {
+            "text": "，则对任意"
+          },
+          {
+            "latex": "x\\in A"
+          },
+          {
+            "text": "，有"
+          },
+          {
+            "latex": "x\\notin C_U A"
+          },
+          {
+            "text": "，从而"
+          },
+          {
+            "latex": "x\\notin C_U B"
+          },
+          {
+            "text": "（因为"
+          },
+          {
+            "latex": "C_U B\\subseteq C_U A"
+          },
+          {
+            "text": "），故"
+          },
+          {
+            "latex": "x\\in B"
+          },
+          {
+            "text": "，即"
+          },
+          {
+            "latex": "A\\subseteq B"
+          },
+          {
+            "text": "。"
           }
         ]
       },
@@ -2688,222 +2914,139 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "例题1： 设全集"
-              },
-              {
-                "type": "math",
-                "latex": "U=\\{1,2,3,4,5\\}"
-              },
-              {
-                "type": "text",
-                "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "A=\\{1,2\\}"
-              },
-              {
-                "type": "text",
-                "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "B=\\{1,2,3\\}"
-              },
-              {
-                "type": "text",
-                "text": "。验证四个等价命题均成立。\n解析："
-              }
-            ]
+            "text": "例题1： 设全集"
           },
           {
-            "segments": [
-              {
-                "type": "math",
-                "latex": "A\\cap B = \\{1,2\\} = A"
-              },
-              {
-                "type": "text",
-                "text": "；"
-              }
-            ]
+            "latex": "U=\\{1,2,3,4,5\\}"
           },
           {
-            "segments": [
-              {
-                "type": "math",
-                "latex": "A\\cup B = \\{1,2,3\\} = B"
-              },
-              {
-                "type": "text",
-                "text": "；"
-              }
-            ]
+            "text": "，"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "显然"
-              },
-              {
-                "type": "math",
-                "latex": "A\\subseteq B"
-              },
-              {
-                "type": "text",
-                "text": "；"
-              }
-            ]
+            "latex": "A=\\{1,2\\}"
           },
           {
-            "segments": [
-              {
-                "type": "math",
-                "latex": "C_U A = \\{3,4,5\\}"
-              },
-              {
-                "type": "text",
-                "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "C_U B = \\{4,5\\}"
-              },
-              {
-                "type": "text",
-                "text": "，有"
-              },
-              {
-                "type": "math",
-                "latex": "C_U B \\subseteq C_U A"
-              },
-              {
-                "type": "text",
-                "text": "。\n因此四个命题同时成立。\n例题2： 已知"
-              },
-              {
-                "type": "math",
-                "latex": "A\\cap B = A"
-              },
-              {
-                "type": "text",
-                "text": "，判断下列命题的真假："
-              }
-            ]
+            "text": "，"
           },
           {
-            "segments": [
-              {
-                "type": "math",
-                "latex": "A\\subseteq B"
-              },
-              {
-                "type": "text",
-                "text": "；"
-              }
-            ]
+            "latex": "B=\\{1,2,3\\}"
           },
           {
-            "segments": [
-              {
-                "type": "math",
-                "latex": "B\\subseteq A"
-              },
-              {
-                "type": "text",
-                "text": "；"
-              }
-            ]
+            "text": "。验证四个等价命题均成立。\n解析："
           },
           {
-            "segments": [
-              {
-                "type": "math",
-                "latex": "A\\cup B = A"
-              },
-              {
-                "type": "text",
-                "text": "；"
-              }
-            ]
+            "latex": "A\\cap B = \\{1,2\\} = A"
           },
           {
-            "segments": [
-              {
-                "type": "math",
-                "latex": "C_U A \\subseteq C_U B"
-              },
-              {
-                "type": "text",
-                "text": "。\n解析： 由"
-              },
-              {
-                "type": "math",
-                "latex": "A\\cap B = A"
-              },
-              {
-                "type": "text",
-                "text": "知"
-              },
-              {
-                "type": "math",
-                "latex": "A\\subseteq B"
-              },
-              {
-                "type": "text",
-                "text": "（根据等价链条）。"
-              }
-            ]
+            "text": "；"
+          },
+          {
+            "latex": "A\\cup B = \\{1,2,3\\} = B"
+          },
+          {
+            "text": "；"
+          },
+          {
+            "text": "显然"
+          },
+          {
+            "latex": "A\\subseteq B"
+          },
+          {
+            "text": "；"
+          },
+          {
+            "latex": "C_U A = \\{3,4,5\\}"
+          },
+          {
+            "text": "，"
+          },
+          {
+            "latex": "C_U B = \\{4,5\\}"
+          },
+          {
+            "text": "，有"
+          },
+          {
+            "latex": "C_U B \\subseteq C_U A"
+          },
+          {
+            "text": "。\n因此四个命题同时成立。\n例题2： 已知"
+          },
+          {
+            "latex": "A\\cap B = A"
+          },
+          {
+            "text": "，判断下列命题的真假："
+          },
+          {
+            "latex": "A\\subseteq B"
+          },
+          {
+            "text": "；"
+          },
+          {
+            "latex": "B\\subseteq A"
+          },
+          {
+            "text": "；"
+          },
+          {
+            "latex": "A\\cup B = A"
+          },
+          {
+            "text": "；"
+          },
+          {
+            "latex": "C_U A \\subseteq C_U B"
+          },
+          {
+            "text": "。\n解析： 由"
+          },
+          {
+            "latex": "A\\cap B = A"
+          },
+          {
+            "text": "知"
+          },
+          {
+            "latex": "A\\subseteq B"
+          },
+          {
+            "text": "（根据等价链条）。"
           },
           {
             "text": "真。"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "假（反例："
-              },
-              {
-                "type": "math",
-                "latex": "A=\\{1\\},B=\\{1,2\\}"
-              },
-              {
-                "type": "text",
-                "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "A\\cap B=A"
-              },
-              {
-                "type": "text",
-                "text": "但"
-              },
-              {
-                "type": "math",
-                "latex": "B\\not\\subseteq A"
-              },
-              {
-                "type": "text",
-                "text": "）。"
-              }
-            ]
+            "text": "假（反例："
+          },
+          {
+            "latex": "A=\\{1\\},B=\\{1,2\\}"
+          },
+          {
+            "text": "，"
+          },
+          {
+            "latex": "A\\cap B=A"
+          },
+          {
+            "text": "但"
+          },
+          {
+            "latex": "B\\not\\subseteq A"
+          },
+          {
+            "text": "）。"
+          },
+          {
+            "text": "假（"
+          },
+          {
+            "latex": "A\\cup B = B \\neq A"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "假（"
-              },
-              {
-                "type": "math",
-                "latex": "A\\cup B = B \\neq A"
-              },
               {
                 "type": "text",
                 "text": "，除非"
@@ -2919,36 +3062,25 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "由"
-              },
-              {
-                "type": "math",
-                "latex": "A\\subseteq B"
-              },
-              {
-                "type": "text",
-                "text": "得"
-              },
-              {
-                "type": "math",
-                "latex": "C_U B \\subseteq C_U A"
-              },
-              {
-                "type": "text",
-                "text": "，故原命题\""
-              },
-              {
-                "type": "math",
-                "latex": "C_U A \\subseteq C_U B"
-              },
-              {
-                "type": "text",
-                "text": "\"应为假。"
-              }
-            ]
+            "text": "由"
+          },
+          {
+            "latex": "A\\subseteq B"
+          },
+          {
+            "text": "得"
+          },
+          {
+            "latex": "C_U B \\subseteq C_U A"
+          },
+          {
+            "text": "，故原命题\""
+          },
+          {
+            "latex": "C_U A \\subseteq C_U B"
+          },
+          {
+            "text": "\"应为假。"
           }
         ]
       },
@@ -2958,71 +3090,52 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "方向混淆："
-              },
-              {
-                "type": "math",
-                "latex": "A\\subseteq B"
-              },
-              {
-                "type": "text",
-                "text": "等价于"
-              },
-              {
-                "type": "math",
-                "latex": "C_U B \\subseteq C_U A"
-              },
-              {
-                "type": "text",
-                "text": "，注意补集的包含关系与原集合相反。容易误记为"
-              },
-              {
-                "type": "math",
-                "latex": "C_U A \\subseteq C_U B"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "方向混淆："
+          },
+          {
+            "latex": "A\\subseteq B"
+          },
+          {
+            "text": "等价于"
+          },
+          {
+            "latex": "C_U B \\subseteq C_U A"
+          },
+          {
+            "text": "，注意补集的包含关系与原集合相反。容易误记为"
+          },
+          {
+            "latex": "C_U A \\subseteq C_U B"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "与真子集混淆："
+          },
+          {
+            "latex": "A\\cap B = A"
+          },
+          {
+            "text": "只说明"
+          },
+          {
+            "latex": "A\\subseteq B"
+          },
+          {
+            "text": "，不保证"
+          },
+          {
+            "latex": "A\\neq B"
+          },
+          {
+            "text": "。同理，"
+          },
+          {
+            "latex": "A\\cup B = B"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "与真子集混淆："
-              },
-              {
-                "type": "math",
-                "latex": "A\\cap B = A"
-              },
-              {
-                "type": "text",
-                "text": "只说明"
-              },
-              {
-                "type": "math",
-                "latex": "A\\subseteq B"
-              },
-              {
-                "type": "text",
-                "text": "，不保证"
-              },
-              {
-                "type": "math",
-                "latex": "A\\neq B"
-              },
-              {
-                "type": "text",
-                "text": "。同理，"
-              },
-              {
-                "type": "math",
-                "latex": "A\\cup B = B"
-              },
               {
                 "type": "text",
                 "text": "也不排除"
@@ -3050,11 +3163,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。在应用"
-              },
-              {
-                "type": "math",
-                "latex": "C_U B \\subseteq C_U A"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "C_U B \\subseteq C_U A"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "时，必须明确"
@@ -3070,52 +3186,34 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "逻辑跳跃：在解题中，直接由"
-              },
-              {
-                "type": "math",
-                "latex": "A\\cap B = A"
-              },
-              {
-                "type": "text",
-                "text": "推出"
-              },
-              {
-                "type": "math",
-                "latex": "A\\subseteq B"
-              },
-              {
-                "type": "text",
-                "text": "是常用的，但需要理解其推导依据，不可死记硬背。"
-              }
-            ]
+            "text": "逻辑跳跃：在解题中，直接由"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "符号滥用：有些资料用"
-              },
-              {
-                "type": "math",
-                "latex": "A\\subset B"
-              },
-              {
-                "type": "text",
-                "text": "表示真子集，但本文中"
-              },
-              {
-                "type": "math",
-                "latex": "A\\subseteq B"
-              },
-              {
-                "type": "text",
-                "text": "表示子集（可能相等）。注意区分不同教材的符号约定。"
-              }
-            ]
+            "latex": "A\\cap B = A"
+          },
+          {
+            "text": "推出"
+          },
+          {
+            "latex": "A\\subseteq B"
+          },
+          {
+            "text": "是常用的，但需要理解其推导依据，不可死记硬背。"
+          },
+          {
+            "text": "符号滥用：有些资料用"
+          },
+          {
+            "latex": "A\\subset B"
+          },
+          {
+            "text": "表示真子集，但本文中"
+          },
+          {
+            "latex": "A\\subseteq B"
+          },
+          {
+            "text": "表示子集（可能相等）。注意区分不同教材的符号约定。"
           }
         ]
       },
@@ -3125,18 +3223,16 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "1. 核心等价链条："
+          },
+          {
+            "latex": "A\\cap B = A \\;\\Leftrightarrow\\; A\\cup B = B \\;\\Leftrightarrow\\; A\\subseteq B \\;\\Leftrightarrow\\; C_U B \\subseteq C_U A"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "1. 核心等价链条："
-              },
-              {
-                "type": "math",
-                "latex": "A\\cap B = A \\;\\Leftrightarrow\\; A\\cup B = B \\;\\Leftrightarrow\\; A\\subseteq B \\;\\Leftrightarrow\\; C_U B \\subseteq C_U A."
-              },
-              {
-                "type": "text",
-                "text": "2. 记忆技巧：交等于小集，并等于大集，补集方向反转。\n3. 应用场景：常用于集合关系推导、化简集合表达式、证明集合恒等式、判断包含关系等。\n4. 注意事项：始终明确全集"
+                "text": ".2. 记忆技巧：交等于小集，并等于大集，补集方向反转。\n3. 应用场景：常用于集合关系推导、化简集合表达式、证明集合恒等式、判断包含关系等。\n4. 注意事项：始终明确全集"
               },
               {
                 "type": "math",
@@ -3152,29 +3248,84 @@ module.exports = {
       }
     ]
   },
-  "S008_NegationForms": {
-    "id": "S008_NegationForms",
-    "title": "S008_NegationForms",
-    "module": "",
-    "alias": [],
-    "difficulty": null,
-    "category": "",
-    "tags": [],
-    "core_summary": "",
-    "core_formula": "",
-    "related_formulas": [],
+  "S008": {
+    "id": "S008",
+    "title": "命题否定形式转换",
+    "module": "set",
+    "alias": [
+      "命题否定形式转换",
+      "NegationForms",
+      "命题否定形式转换结论",
+      "集合常用结论"
+    ],
+    "difficulty": 3,
+    "category": "集合",
+    "tags": [
+      "命题否定形式转换",
+      "NegationForms",
+      "命题否定形式转换结论",
+      "集合常用结论",
+      "子集",
+      "补集"
+    ],
+    "core_summary": "全称量词与存在量词互换，并否定谓词",
+    "core_formula": "\\exists x\\in\\mathbb{R},\\;x^2<0",
+    "related_formulas": [
+      "n-1",
+      "n+1",
+      "\\lnot\\big(\\forall x\\in U,\\;P(x)\\big) \\;\\equiv\\; \\exists x\\in U,\\;\\lnot P(x)"
+    ],
     "variables": [],
-    "conditions": "",
-    "conclusions": "",
-    "usage": {},
-    "interactive": {},
-    "assets": {},
-    "shareConfig": {},
-    "relations": {},
-    "isPro": null,
+    "conditions": "常见结论的否定形式（原命题与反设词）列表如下：|X|X|X|X| 原结论 & 反设词 & 原结论 & 反设词 是 & 不是 & 至少有一个 & 一个也没有 都是 & 不都是 & 至多有一个 & 至少有两个 大于 & 不大于 & 至少有 n",
+    "conclusions": [
+      "全称量词与存在量词互换，并否定谓词"
+    ],
+    "usage": {
+      "scenarios": [
+        "例题1（量词否定）：写出命题\"所有实数的平方都大于等于0\"的否定形式",
+        "解析：原命题为 x",
+        "注意原命题为真，否定为假"
+      ],
+      "problem_types": [
+        "集合化简",
+        "集合证明"
+      ],
+      "exam_frequency": 0.6,
+      "exam_score": 5
+    },
+    "interactive": {
+      "has_diagram": false,
+      "geogebra_id": "",
+      "param_demo": {}
+    },
+    "assets": {
+      "svg": "S008.svg",
+      "png": "",
+      "webp": "",
+      "video": "",
+      "audio": ""
+    },
+    "shareConfig": {
+      "title": "命题否定形式转换：条件判断与题型速查",
+      "shareDesc": "适合刷题前速查与课后复盘，聚焦适用条件和常见误区，做同类题时能减少符号与分类讨论错误。"
+    },
+    "relations": {
+      "prerequisites": [
+        "集合的基本运算",
+        "子集与补集定义"
+      ],
+      "related_ids": [],
+      "similar": [
+        "集合中的相近变形结论"
+      ]
+    },
+    "isPro": 0,
     "remarks": "",
-    "knowledgeNode": "",
-    "altNodes": "",
+    "knowledgeNode": "其他-未分类-待定",
+    "altNodes": [
+      "其他-未分类-待定",
+      "代数-式的变形-恒等变形"
+    ],
     "statement": "常见结论的否定形式（原命题与反设词）列表如下：\n|X|X|X|X|\n原结论 & 反设词 & 原结论 & 反设词 \\\\\n是 & 不是 & 至少有一个 & 一个也没有 \\\\\n都是 & 不都是 & 至多有一个 & 至少有两个 \\\\\n大于 & 不大于 & 至少有 n 个 & 至多有 n-1 个 \\\\\n小于 & 不小于 & 至多有 n 个 & 至少有 n+1 个 \\\\\n对所有 x,\\;P(x) 成立 & 存在某个 x,\\;P(x) 不成立 & 对任何 x,\\;P(x) 不成立 & 存在某个 x,\\;P(x) 成立 \\\\\np 或 q & p q & p 且 q & p q \\\\\n其中 表示逻辑非。以上结论是逻辑推理中否定命题的基本规则。",
     "explanation": "否定形式的本质是\"将原命题的条件与结论整体取反\"，遵循逻辑对偶律：\n- 量词否定：全称量词\"所有\"的否定是存在量词\"存在一个……不\"；存在量词\"存在\"的否定是全称量词\"所有……都不\"。\n- 联结词否定（德摩根定律）：\n(p q) ( p) ( q), (p q) ( p) ( q).\n- 比较关系否定：\"大于\"的否定是\"不大于\"（即小于等于），\"小于\"的否定是\"不小于\"（即大于等于）。\"至少 n 个\"的否定是\"至多 n-1 个\"，依此类推。\n- 这些规则在数学证明（反证法、构造反例）、命题真假判断中频繁使用。",
     "proof": "量词否定的逻辑等价（以全称量词为例）：\n( x in U,\\;P(x) ) \\; \\; x in U,\\; P(x).\n证明：若\"所有 x 都满足 P\"为假，则至少存在一个 x 使 P 不成立，反之亦然。这是逻辑基本公理。\n德摩根定律的证明（以 p q 为例）：\n|c|c|c|c|c|\np & q & p q & (p q) & ( p) ( q) \\\\\n真 & 真 & 真 & 假 & 假 \\\\\n真 & 假 & 假 & 真 & 真 \\\\\n假 & 真 & 假 & 真 & 真 \\\\\n假 & 假 & 假 & 真 & 真 \\\\\n两列真值完全相同，故 (p q) ( p) ( q)。类似可证另一个。\n比较关系的否定（以\"大于\"为例）：\n(a>b) a b.\n实数的序关系具有三歧性：对任意 a,b，a>b、a=b、a<b 有且仅有一个成立。因此\"a>b\"为假等价于\"a b\"为真。",
@@ -3184,14 +3335,246 @@ module.exports = {
     "display_version": 2,
     "sections": [
       {
+        "key": "core_formula",
+        "title": "核心公式",
+        "layout": "text",
+        "items": [
+          {
+            "latex": "\\exists x\\in\\mathbb{R},\\;x^2<0"
+          }
+        ]
+      },
+      {
+        "key": "conditions",
+        "title": "适用条件",
+        "layout": "text",
+        "items": [
+          {
+            "text": "常见结论的否定形式（原命题与反设词）列表如下：|X|X|X|X| 原结论 & 反设词 & 原结论 & 反设词 是 & 不是 & 至少有一个 & 一个也没有 都是 & 不都是 & 至多有一个 & 至少有两个 大于 & 不大于 & 至少有 n"
+          }
+        ]
+      },
+      {
         "key": "statement",
         "title": "命题表述",
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "常见结论的否定形式（原命题与反设词）列表如下：\n|X|X|X|X|\n原结论 & 反设词 & 原结论 & 反设词\n是 & 不是 & 至少有一个 & 一个也没有\n都是 & 不都是 & 至多有一个 & 至少有两个\n大于 & 不大于 & 至少有"
+              },
+              {
+                "type": "math",
+                "latex": "n"
+              },
+              {
+                "type": "text",
+                "text": "个 & 至多有"
+              },
+              {
+                "type": "math",
+                "latex": "n-1"
+              },
+              {
+                "type": "text",
+                "text": "个\n小于 & 不小于 & 至多有"
+              },
+              {
+                "type": "math",
+                "latex": "n"
+              },
+              {
+                "type": "text",
+                "text": "个 & 至少有"
+              },
+              {
+                "type": "math",
+                "latex": "n+1"
+              },
+              {
+                "type": "text",
+                "text": "个\n对所有"
+              }
+            ],
+            "desc": "常见结论的否定形式（原命题与反设词）列表如下：\n|X|X|X|X|\n原结论 & 反设词 & 原结论 & 反设词\n是 & 不是 & 至少有一个 & 一个也没有\n都是 & 不都是 & 至多有一个 & 至少有两个\n大于 & 不大于 & 至少有 个 & 至多有 个\n小于 & 不小于 & 至多有 个 & 至少有 个\n对所有",
+            "latex": "n \\qquad n-1 \\qquad n \\qquad n+1"
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "x,\\;P(x)"
+              }
+            ],
+            "latex": "x,\\;P(x)"
+          },
+          {
+            "title": "条目3",
+            "segments": [
+              {
+                "type": "text",
+                "text": "成立 & 存在某个"
+              }
+            ],
+            "desc": "成立 & 存在某个"
+          },
+          {
+            "title": "条目4",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "x,\\;P(x)"
+              }
+            ],
+            "latex": "x,\\;P(x)"
+          },
+          {
+            "title": "条目5",
+            "segments": [
+              {
+                "type": "text",
+                "text": "不成立 & 对任何"
+              }
+            ],
+            "desc": "不成立 & 对任何"
+          },
+          {
+            "title": "条目6",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "x,\\;P(x)"
+              }
+            ],
+            "latex": "x,\\;P(x)"
+          },
+          {
+            "title": "条目7",
+            "segments": [
+              {
+                "type": "text",
+                "text": "不成立 & 存在某个"
+              }
+            ],
+            "desc": "不成立 & 存在某个"
+          },
+          {
+            "title": "条目8",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "x,\\;P(x)"
+              }
+            ],
+            "latex": "x,\\;P(x)"
+          },
+          {
+            "title": "条目9",
+            "segments": [
+              {
+                "type": "text",
+                "text": "成立"
+              },
+              {
+                "type": "math",
+                "latex": "p"
+              },
+              {
+                "type": "text",
+                "text": "或"
+              },
+              {
+                "type": "math",
+                "latex": "q"
+              },
+              {
+                "type": "text",
+                "text": "&"
+              }
+            ],
+            "desc": "成立 或 &",
+            "latex": "p \\qquad q"
+          },
+          {
+            "title": "条目10",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "\\lnot p \\land \\lnot q"
+              }
+            ],
+            "latex": "\\lnot p \\land \\lnot q"
+          },
+          {
+            "title": "条目11",
+            "segments": [
+              {
+                "type": "text",
+                "text": "&"
+              },
+              {
+                "type": "math",
+                "latex": "p"
+              },
+              {
+                "type": "text",
+                "text": "且"
+              },
+              {
+                "type": "math",
+                "latex": "q"
+              },
+              {
+                "type": "text",
+                "text": "&"
+              }
+            ],
+            "desc": "& 且 &",
+            "latex": "p \\qquad q"
+          },
+          {
+            "title": "条目12",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "\\lnot p \\lor \\lnot q"
+              }
+            ],
+            "latex": "\\lnot p \\lor \\lnot q"
+          },
+          {
+            "title": "条目13",
+            "segments": [
+              {
+                "type": "text",
+                "text": "其中"
+              }
+            ],
+            "desc": "其中"
+          },
+          {
+            "title": "条目14",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "\\lnot"
+              }
+            ],
+            "latex": "\\lnot"
+          },
+          {
+            "title": "条目15",
+            "segments": [
+              {
+                "type": "text",
+                "text": "表示逻辑非。以上结论是逻辑推理中否定命题的基本规则。"
+              }
+            ],
+            "desc": "表示逻辑非。以上结论是逻辑推理中否定命题的基本规则。"
           }
         ]
       },
@@ -3207,16 +3590,13 @@ module.exports = {
             "text": "量词否定：全称量词\"所有\"的否定是存在量词\"存在一个……不\"；存在量词\"存在\"的否定是全称量词\"所有……都不\"。"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "联结词否定（德摩根定律）："
-              },
-              {
-                "type": "math",
-                "latex": "\\lnot(p\\land q) \\equiv (\\lnot p)\\lor(\\lnot q),\\qquad \\lnot(p\\lor q) \\equiv (\\lnot p)\\land(\\lnot q)."
-              }
-            ]
+            "text": "联结词否定（德摩根定律）："
+          },
+          {
+            "latex": "\\lnot(p\\land q) \\equiv (\\lnot p)\\lor(\\lnot q),\\qquad \\lnot(p\\lor q) \\equiv (\\lnot p)\\land(\\lnot q)"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -3253,18 +3633,16 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "量词否定的逻辑等价（以全称量词为例）："
+          },
+          {
+            "latex": "\\lnot\\big(\\forall x\\in U,\\;P(x)\\big) \\;\\equiv\\; \\exists x\\in U,\\;\\lnot P(x)"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "量词否定的逻辑等价（以全称量词为例）："
-              },
-              {
-                "type": "math",
-                "latex": "\\lnot\\big(\\forall x\\in U,\\;P(x)\\big) \\;\\equiv\\; \\exists x\\in U,\\;\\lnot P(x)."
-              },
-              {
-                "type": "text",
-                "text": "证明：若\"所有"
+                "text": ".证明：若\"所有"
               },
               {
                 "type": "math",
@@ -3297,11 +3675,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "不成立，反之亦然。这是逻辑基本公理。\n德摩根定律的证明（以"
-              },
-              {
-                "type": "math",
-                "latex": "p\\land q"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "p\\land q"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "为例）：\n|c|c|c|c|c|"
@@ -3321,46 +3702,41 @@ module.exports = {
               {
                 "type": "text",
                 "text": "&"
-              },
-              {
-                "type": "math",
-                "latex": "p\\land q"
-              },
-              {
-                "type": "text",
-                "text": "&"
-              },
-              {
-                "type": "math",
-                "latex": "\\lnot(p\\land q)"
-              },
-              {
-                "type": "text",
-                "text": "&"
-              },
-              {
-                "type": "math",
-                "latex": "(\\lnot p)\\lor(\\lnot q)"
-              },
-              {
-                "type": "text",
-                "text": "真 & 真 & 真 & 假 & 假\n真 & 假 & 假 & 真 & 真\n假 & 真 & 假 & 真 & 真\n假 & 假 & 假 & 真 & 真\n两列真值完全相同，故"
-              },
-              {
-                "type": "math",
-                "latex": "\\lnot(p\\land q) \\equiv (\\lnot p)\\lor(\\lnot q)"
-              },
-              {
-                "type": "text",
-                "text": "。类似可证另一个。\n比较关系的否定（以\"大于\"为例）："
-              },
-              {
-                "type": "math",
-                "latex": "\\lnot(a>b) \\equiv a\\le b."
-              },
+              }
+            ]
+          },
+          {
+            "latex": "p\\land q"
+          },
+          {
+            "text": "&"
+          },
+          {
+            "latex": "\\lnot(p\\land q)"
+          },
+          {
+            "text": "&"
+          },
+          {
+            "latex": "(\\lnot p)\\lor(\\lnot q)"
+          },
+          {
+            "text": "真 & 真 & 真 & 假 & 假\n真 & 假 & 假 & 真 & 真\n假 & 真 & 假 & 真 & 真\n假 & 假 & 假 & 真 & 真\n两列真值完全相同，故"
+          },
+          {
+            "latex": "\\lnot(p\\land q) \\equiv (\\lnot p)\\lor(\\lnot q)"
+          },
+          {
+            "text": "。类似可证另一个。\n比较关系的否定（以\"大于\"为例）："
+          },
+          {
+            "latex": "\\lnot(a>b) \\equiv a\\le b"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "实数的序关系具有三歧性：对任意"
+                "text": ".实数的序关系具有三歧性：对任意"
               },
               {
                 "type": "math",
@@ -3401,16 +3777,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "\"为假等价于\""
-              },
-              {
-                "type": "math",
-                "latex": "a\\le b"
-              },
-              {
-                "type": "text",
-                "text": "\"为真。"
               }
             ]
+          },
+          {
+            "latex": "a\\le b"
+          },
+          {
+            "text": "\"为真。"
           }
         ]
       },
@@ -3420,31 +3794,25 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "例题1（量词否定）：写出命题\"所有实数的平方都大于等于0\"的否定形式。\n解析：原命题为"
+          },
+          {
+            "latex": "\\forall x\\in\\mathbb{R},\\;x^2\\ge 0"
+          },
+          {
+            "text": "。否定为"
+          },
+          {
+            "latex": "\\exists x\\in\\mathbb{R},\\;x^2<0"
+          },
+          {
+            "text": "。注意原命题为真，否定为假。\n例题2（联结词否定）：写出命题\"他既聪明又勤奋\"的否定。\n解析：原命题为"
+          },
+          {
+            "latex": "p\\land q"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例题1（量词否定）：写出命题\"所有实数的平方都大于等于0\"的否定形式。\n解析：原命题为"
-              },
-              {
-                "type": "math",
-                "latex": "\\forall x\\in\\mathbb{R},\\;x^2\\ge 0"
-              },
-              {
-                "type": "text",
-                "text": "。否定为"
-              },
-              {
-                "type": "math",
-                "latex": "\\exists x\\in\\mathbb{R},\\;x^2<0"
-              },
-              {
-                "type": "text",
-                "text": "。注意原命题为真，否定为假。\n例题2（联结词否定）：写出命题\"他既聪明又勤奋\"的否定。\n解析：原命题为"
-              },
-              {
-                "type": "math",
-                "latex": "p\\land q"
-              },
               {
                 "type": "text",
                 "text": "（"
@@ -3464,27 +3832,26 @@ module.exports = {
               {
                 "type": "text",
                 "text": "：勤奋）。否定为"
-              },
-              {
-                "type": "math",
-                "latex": "\\lnot p\\lor\\lnot q"
-              },
-              {
-                "type": "text",
-                "text": "，即\"他不聪明或者不勤奋\"。\n例题3（数量词否定）：命题\"这个班至少有10个女生\"的否定是什么？\n解析：原命题\"至少有10个\"即人数"
-              },
-              {
-                "type": "math",
-                "latex": "\\ge 10"
-              },
-              {
-                "type": "text",
-                "text": "。否定为\"至多有9个女生\"，即女生人数"
-              },
-              {
-                "type": "math",
-                "latex": "\\le 9"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\lnot p\\lor\\lnot q"
+          },
+          {
+            "text": "，即\"他不聪明或者不勤奋\"。\n例题3（数量词否定）：命题\"这个班至少有10个女生\"的否定是什么？\n解析：原命题\"至少有10个\"即人数"
+          },
+          {
+            "latex": "\\ge 10"
+          },
+          {
+            "text": "。否定为\"至多有9个女生\"，即女生人数"
+          },
+          {
+            "latex": "\\le 9"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "。\n例题4（综合练习）：已知命题"
@@ -3496,64 +3863,50 @@ module.exports = {
               {
                 "type": "text",
                 "text": "：所有"
-              },
-              {
-                "type": "math",
-                "latex": "x\\in(0,+\\infty)"
-              },
-              {
-                "type": "text",
-                "text": "都有"
-              },
-              {
-                "type": "math",
-                "latex": "x+\\frac{1}{x}\\ge 2"
-              },
-              {
-                "type": "text",
-                "text": "。写出"
-              },
-              {
-                "type": "math",
-                "latex": "\\lnot p"
-              },
-              {
-                "type": "text",
-                "text": "，并判断真假。\n解析："
-              },
-              {
-                "type": "math",
-                "latex": "\\lnot p"
-              },
-              {
-                "type": "text",
-                "text": "：存在"
-              },
-              {
-                "type": "math",
-                "latex": "x\\in(0,+\\infty)"
-              },
-              {
-                "type": "text",
-                "text": "使得"
-              },
-              {
-                "type": "math",
-                "latex": "x+\\frac{1}{x}<2"
-              },
-              {
-                "type": "text",
-                "text": "。由于原命题为真（基本不等式），故"
-              },
-              {
-                "type": "math",
-                "latex": "\\lnot p"
-              },
-              {
-                "type": "text",
-                "text": "为假。"
               }
             ]
+          },
+          {
+            "latex": "x\\in(0,+\\infty)"
+          },
+          {
+            "text": "都有"
+          },
+          {
+            "latex": "x+\\frac{1}{x}\\ge 2"
+          },
+          {
+            "text": "。写出"
+          },
+          {
+            "latex": "\\lnot p"
+          },
+          {
+            "text": "，并判断真假。\n解析："
+          },
+          {
+            "latex": "\\lnot p"
+          },
+          {
+            "text": "：存在"
+          },
+          {
+            "latex": "x\\in(0,+\\infty)"
+          },
+          {
+            "text": "使得"
+          },
+          {
+            "latex": "x+\\frac{1}{x}<2"
+          },
+          {
+            "text": "。由于原命题为真（基本不等式），故"
+          },
+          {
+            "latex": "\\lnot p"
+          },
+          {
+            "text": "为假。"
           }
         ]
       },
@@ -3569,36 +3922,25 @@ module.exports = {
             "text": "比较关系否定遗漏等号：\"大于\"的否定是\"不大于\"（即小于等于），学生常误以为\"小于\"。注意\"不大于\"包含等于的情况。"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "联结词否定混淆："
-              },
-              {
-                "type": "math",
-                "latex": "p\\land q"
-              },
-              {
-                "type": "text",
-                "text": "的否定是"
-              },
-              {
-                "type": "math",
-                "latex": "(\\lnot p)\\lor(\\lnot q)"
-              },
-              {
-                "type": "text",
-                "text": "，容易错写成"
-              },
-              {
-                "type": "math",
-                "latex": "(\\lnot p)\\land(\\lnot q)"
-              },
-              {
-                "type": "text",
-                "text": "。牢记德摩根定律。"
-              }
-            ]
+            "text": "联结词否定混淆："
+          },
+          {
+            "latex": "p\\land q"
+          },
+          {
+            "text": "的否定是"
+          },
+          {
+            "latex": "(\\lnot p)\\lor(\\lnot q)"
+          },
+          {
+            "text": "，容易错写成"
+          },
+          {
+            "latex": "(\\lnot p)\\land(\\lnot q)"
+          },
+          {
+            "text": "。牢记德摩根定律。"
           },
           {
             "text": "\"至少n个\"的否定：否定是\"至多n-1个\"，而非\"至多n个\"或\"少于n个\"（后者在整数语境下与\"至多n-1个\"等价，但严格表述应为\"至多n-1\"）。"
@@ -3635,11 +3977,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的否定为"
-              },
-              {
-                "type": "math",
-                "latex": "\\le"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\le"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "；"
@@ -3651,19 +3996,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的否定为"
-              },
-              {
-                "type": "math",
-                "latex": "\\ge"
-              },
-              {
-                "type": "text",
-                "text": "；"
-              },
-              {
-                "type": "math",
-                "latex": "\\ge"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\ge"
+          },
+          {
+            "text": "；"
+          },
+          {
+            "latex": "\\ge"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "的否定为"
@@ -3675,11 +4021,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "；"
-              },
-              {
-                "type": "math",
-                "latex": "\\le"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\le"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "的否定为"
@@ -3738,29 +4087,84 @@ module.exports = {
       }
     ]
   },
-  "S009_FourPropositions": {
-    "id": "S009_FourPropositions",
-    "title": "S009_FourPropositions",
-    "module": "",
-    "alias": [],
-    "difficulty": null,
-    "category": "",
-    "tags": [],
-    "core_summary": "",
-    "core_formula": "",
-    "related_formulas": [],
+  "S009": {
+    "id": "S009",
+    "title": "四种命题关系",
+    "module": "set",
+    "alias": [
+      "四种命题关系",
+      "FourPropositions",
+      "四种命题关系结论",
+      "集合常用结论"
+    ],
+    "difficulty": 3,
+    "category": "集合",
+    "tags": [
+      "四种命题关系",
+      "FourPropositions",
+      "四种命题关系结论",
+      "集合常用结论",
+      "子集",
+      "补集"
+    ],
+    "core_summary": "四种命题的定义与相互关系如下：1.2 |X|X|X| 命题类型 & 定义 & 相互关系 原命题 & 若 p 则 q & 与逆命题互逆，与否命题互否，与逆否命题互为逆否 逆命题 & 若",
+    "core_formula": "x^2=1>0",
+    "related_formulas": [
+      "\\begin{array}{|c|c|c|c|c|c|} \\hline p & q & p\\to q & \\lnot q & \\lnot p & \\lnot q\\to\\lnot p \\\\ \\hline T & T & T & F & F & T \\\\ T & F & F & T & F & F \\\\ F & T & T & F & T & T \\\\ F & F & T & T & T & T \\\\ \\hline \\end{array}",
+      "x>0",
+      "x^2>0"
+    ],
     "variables": [],
-    "conditions": "",
-    "conclusions": "",
-    "usage": {},
-    "interactive": {},
-    "assets": {},
-    "shareConfig": {},
-    "relations": {},
-    "isPro": null,
+    "conditions": "四种命题的定义与相互关系如下：1.2 |X|X|X| 命题类型 & 定义 & 相互关系 原命题 & 若 p 则 q & 与逆命题互逆，与否命题互否，与逆否命题互为逆否 逆命题 & 若 q 则 p & 与原命题互逆，与逆否命题互否，与否命题互",
+    "conclusions": [
+      "四种命题的定义与相互关系如下：1.2 |X|X|X| 命题类型 & 定义 & 相互关系 原命题 & 若 p 则 q & 与逆命题互逆，与否命题互否，与逆否命题互为逆否 逆命题 & 若"
+    ],
+    "usage": {
+      "scenarios": [
+        "例题1：写出命题\"若 x>0，则 x^2>0 \"的逆命题、否命题、逆否命题，并判断它们的真假",
+        "原命题：真（正数的平方为正）",
+        "逆命题：若 x^2>0，则 x>0"
+      ],
+      "problem_types": [
+        "集合化简",
+        "集合证明"
+      ],
+      "exam_frequency": 0.6,
+      "exam_score": 5
+    },
+    "interactive": {
+      "has_diagram": false,
+      "geogebra_id": "",
+      "param_demo": {}
+    },
+    "assets": {
+      "svg": "S009.svg",
+      "png": "",
+      "webp": "",
+      "video": "",
+      "audio": ""
+    },
+    "shareConfig": {
+      "title": "四种命题关系：条件判断与题型速查",
+      "shareDesc": "适合刷题前速查与课后复盘，聚焦适用条件和常见误区，做同类题时能减少符号与分类讨论错误。"
+    },
+    "relations": {
+      "prerequisites": [
+        "集合的基本运算",
+        "子集与补集定义"
+      ],
+      "related_ids": [],
+      "similar": [
+        "集合中的相近变形结论"
+      ]
+    },
+    "isPro": 0,
     "remarks": "",
-    "knowledgeNode": "",
-    "altNodes": "",
+    "knowledgeNode": "其他-未分类-待定",
+    "altNodes": [
+      "其他-未分类-待定",
+      "代数-式的变形-恒等变形"
+    ],
     "statement": "四种命题的定义与相互关系如下：\n1.2\n|X|X|X|\n命题类型 & 定义 & 相互关系 \\\\\n原命题 & 若 p 则 q & 与逆命题互逆，与否命题互否，与逆否命题互为逆否 \\\\\n逆命题 & 若 q 则 p & 与原命题互逆，与逆否命题互否，与否命题互为逆否 \\\\\n否命题 & 若 p 则 q & 与原命题互否，与逆命题互为逆否，与逆否命题互逆 \\\\\n逆否命题 & 若 q 则 p & 与逆命题互否，与否命题互逆，与原命题互为逆否 \\\\\n其中 表示逻辑非。",
     "explanation": "四种命题的关系本质上是逻辑联结词的\"换位\"与\"换质\"操作：\n- 互逆：交换条件与结论（p -> q 变为 q -> p）。\n- 互否：同时否定条件与结论（p -> q 变为 p -> q）。\n- 互为逆否：既交换又否定（p -> q 变为 q -> p）。\n通过真值表或逻辑推理可知，原命题与逆否命题逻辑等价，逆命题与否命题逻辑等价。因此，在证明一个命题困难时，可转而证明其逆否命题。",
     "proof": "证明原命题与逆否命题等价：\n设原命题为\"若 p，则 q\"，记作 p -> q。\n逆否命题为\"若 q，则 p\"，记作 q -> p。\n考虑真值表：\n|c|c|c|c|c|c|\np & q & p -> q & q & p & q -> p \\\\\nT & T & T & F & F & T \\\\\nT & F & F & T & F & F \\\\\nF & T & T & F & T & T \\\\\nF & F & T & T & T & T \\\\\n可见 p -> q 与 q -> p 两列真值完全相同，故二者逻辑等价。\n证明逆命题与否命题等价：\n逆命题：q -> p，否命题： p -> q。\n由上述等价性，将原命题中的 p,q 分别替换为 q,p，即得 q -> p 与 p -> q 等价。\n或直接列出真值表验证。",
@@ -3770,14 +4174,172 @@ module.exports = {
     "display_version": 2,
     "sections": [
       {
+        "key": "core_formula",
+        "title": "核心公式",
+        "layout": "text",
+        "items": [
+          {
+            "latex": "x^2=1>0"
+          }
+        ]
+      },
+      {
+        "key": "conditions",
+        "title": "适用条件",
+        "layout": "text",
+        "items": [
+          {
+            "text": "四种命题的定义与相互关系如下：1.2 |X|X|X| 命题类型 & 定义 & 相互关系 原命题 & 若 p 则 q & 与逆命题互逆，与否命题互否，与逆否命题互为逆否 逆命题 & 若 q 则 p & 与原命题互逆，与逆否命题互否，与否命题互"
+          }
+        ]
+      },
+      {
         "key": "statement",
         "title": "命题表述",
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "四种命题的定义与相互关系如下：\n1.2\n|X|X|X|\n命题类型 & 定义 & 相互关系\n原命题 & 若"
+              },
+              {
+                "type": "math",
+                "latex": "p"
+              },
+              {
+                "type": "text",
+                "text": "则"
+              },
+              {
+                "type": "math",
+                "latex": "q"
+              },
+              {
+                "type": "text",
+                "text": "& 与逆命题互逆，与否命题互否，与逆否命题互为逆否\n逆命题 & 若"
+              },
+              {
+                "type": "math",
+                "latex": "q"
+              },
+              {
+                "type": "text",
+                "text": "则"
+              },
+              {
+                "type": "math",
+                "latex": "p"
+              },
+              {
+                "type": "text",
+                "text": "& 与原命题互逆，与逆否命题互否，与否命题互为逆否\n否命题 & 若"
+              }
+            ],
+            "desc": "四种命题的定义与相互关系如下：\n1.2\n|X|X|X|\n命题类型 & 定义 & 相互关系\n原命题 & 若 则 & 与逆命题互逆，与否命题互否，与逆否命题互为逆否\n逆命题 & 若 则 & 与原命题互逆，与逆否命题互否，与否命题互为逆否\n否命题 & 若",
+            "latex": "p \\qquad q \\qquad q \\qquad p"
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "\\lnot p"
+              }
+            ],
+            "latex": "\\lnot p"
+          },
+          {
+            "title": "条目3",
+            "segments": [
+              {
+                "type": "text",
+                "text": "则"
+              }
+            ],
+            "desc": "则"
+          },
+          {
+            "title": "条目4",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "\\lnot q"
+              }
+            ],
+            "latex": "\\lnot q"
+          },
+          {
+            "title": "条目5",
+            "segments": [
+              {
+                "type": "text",
+                "text": "& 与原命题互否，与逆命题互为逆否，与逆否命题互逆\n逆否命题 & 若"
+              }
+            ],
+            "desc": "& 与原命题互否，与逆命题互为逆否，与逆否命题互逆\n逆否命题 & 若"
+          },
+          {
+            "title": "条目6",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "\\lnot q"
+              }
+            ],
+            "latex": "\\lnot q"
+          },
+          {
+            "title": "条目7",
+            "segments": [
+              {
+                "type": "text",
+                "text": "则"
+              }
+            ],
+            "desc": "则"
+          },
+          {
+            "title": "条目8",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "\\lnot p"
+              }
+            ],
+            "latex": "\\lnot p"
+          },
+          {
+            "title": "条目9",
+            "segments": [
+              {
+                "type": "text",
+                "text": "& 与逆命题互否，与否命题互逆，与原命题互为逆否\n其中"
+              }
+            ],
+            "desc": "& 与逆命题互否，与否命题互逆，与原命题互为逆否\n其中"
+          },
+          {
+            "title": "条目10",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "\\lnot"
+              }
+            ],
+            "latex": "\\lnot"
+          },
+          {
+            "title": "条目11",
+            "segments": [
+              {
+                "type": "text",
+                "text": "表示逻辑非。"
+              }
+            ],
+            "desc": "表示逻辑非。"
           }
         ]
       },
@@ -3790,76 +4352,49 @@ module.exports = {
             "text": "四种命题的关系本质上是逻辑联结词的\"换位\"与\"换质\"操作："
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "互逆：交换条件与结论（"
-              },
-              {
-                "type": "math",
-                "latex": "p\\to q"
-              },
-              {
-                "type": "text",
-                "text": "变为"
-              },
-              {
-                "type": "math",
-                "latex": "q\\to p"
-              },
-              {
-                "type": "text",
-                "text": "）。"
-              }
-            ]
+            "text": "互逆：交换条件与结论（"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "互否：同时否定条件与结论（"
-              },
-              {
-                "type": "math",
-                "latex": "p\\to q"
-              },
-              {
-                "type": "text",
-                "text": "变为"
-              },
-              {
-                "type": "math",
-                "latex": "\\lnot p\\to\\lnot q"
-              },
-              {
-                "type": "text",
-                "text": "）。"
-              }
-            ]
+            "latex": "p\\to q"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "互为逆否：既交换又否定（"
-              },
-              {
-                "type": "math",
-                "latex": "p\\to q"
-              },
-              {
-                "type": "text",
-                "text": "变为"
-              },
-              {
-                "type": "math",
-                "latex": "\\lnot q\\to\\lnot p"
-              },
-              {
-                "type": "text",
-                "text": "）。\n通过真值表或逻辑推理可知，原命题与逆否命题逻辑等价，逆命题与否命题逻辑等价。因此，在证明一个命题困难时，可转而证明其逆否命题。"
-              }
-            ]
+            "text": "变为"
+          },
+          {
+            "latex": "q\\to p"
+          },
+          {
+            "text": "）。"
+          },
+          {
+            "text": "互否：同时否定条件与结论（"
+          },
+          {
+            "latex": "p\\to q"
+          },
+          {
+            "text": "变为"
+          },
+          {
+            "latex": "\\lnot p\\to\\lnot q"
+          },
+          {
+            "text": "）。"
+          },
+          {
+            "text": "互为逆否：既交换又否定（"
+          },
+          {
+            "latex": "p\\to q"
+          },
+          {
+            "text": "变为"
+          },
+          {
+            "latex": "\\lnot q\\to\\lnot p"
+          },
+          {
+            "text": "）。\n通过真值表或逻辑推理可知，原命题与逆否命题逻辑等价，逆命题与否命题逻辑等价。因此，在证明一个命题困难时，可转而证明其逆否命题。"
           }
         ]
       },
@@ -3889,75 +4424,62 @@ module.exports = {
               {
                 "type": "text",
                 "text": "\"，记作"
-              },
-              {
-                "type": "math",
-                "latex": "p\\to q"
-              },
-              {
-                "type": "text",
-                "text": "。\n逆否命题为\"若"
-              },
-              {
-                "type": "math",
-                "latex": "\\lnot q"
-              },
-              {
-                "type": "text",
-                "text": "，则"
-              },
-              {
-                "type": "math",
-                "latex": "\\lnot p"
-              },
-              {
-                "type": "text",
-                "text": "\"，记作"
-              },
-              {
-                "type": "math",
-                "latex": "\\lnot q\\to\\lnot p"
-              },
-              {
-                "type": "text",
-                "text": "。\n考虑真值表："
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{array}{|c|c|c|c|c|c|}\n\\hline\np & q & p\\to q & \\lnot q & \\lnot p & \\lnot q\\to\\lnot p \\\\ \\hline\nT & T & T & F & F & T \\\\\nT & F & F & T & F & F \\\\\nF & T & T & F & T & T \\\\\nF & F & T & T & T & T \\\\ \\hline\n\\end{array}"
-              },
-              {
-                "type": "text",
-                "text": "可见"
-              },
-              {
-                "type": "math",
-                "latex": "p\\to q"
-              },
-              {
-                "type": "text",
-                "text": "与"
-              },
-              {
-                "type": "math",
-                "latex": "\\lnot q\\to\\lnot p"
-              },
-              {
-                "type": "text",
-                "text": "两列真值完全相同，故二者逻辑等价。\n证明逆命题与否命题等价：\n逆命题："
-              },
-              {
-                "type": "math",
-                "latex": "q\\to p"
-              },
-              {
-                "type": "text",
-                "text": "，否命题："
-              },
-              {
-                "type": "math",
-                "latex": "\\lnot p\\to\\lnot q"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "p\\to q"
+          },
+          {
+            "text": "。\n逆否命题为\"若"
+          },
+          {
+            "latex": "\\lnot q"
+          },
+          {
+            "text": "，则"
+          },
+          {
+            "latex": "\\lnot p"
+          },
+          {
+            "text": "\"，记作"
+          },
+          {
+            "latex": "\\lnot q\\to\\lnot p"
+          },
+          {
+            "text": "。\n考虑真值表："
+          },
+          {
+            "latex": "\\begin{array}{|c|c|c|c|c|c|}\n\\hline\np & q & p\\to q & \\lnot q & \\lnot p & \\lnot q\\to\\lnot p \\\\ \\hline\nT & T & T & F & F & T \\\\\nT & F & F & T & F & F \\\\\nF & T & T & F & T & T \\\\\nF & F & T & T & T & T \\\\ \\hline\n\\end{array}"
+          },
+          {
+            "text": "可见"
+          },
+          {
+            "latex": "p\\to q"
+          },
+          {
+            "text": "与"
+          },
+          {
+            "latex": "\\lnot q\\to\\lnot p"
+          },
+          {
+            "text": "两列真值完全相同，故二者逻辑等价。\n证明逆命题与否命题等价：\n逆命题："
+          },
+          {
+            "latex": "q\\to p"
+          },
+          {
+            "text": "，否命题："
+          },
+          {
+            "latex": "\\lnot p\\to\\lnot q"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "。\n由上述等价性，将原命题中的"
@@ -3977,24 +4499,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，即得"
-              },
-              {
-                "type": "math",
-                "latex": "q\\to p"
-              },
-              {
-                "type": "text",
-                "text": "与"
-              },
-              {
-                "type": "math",
-                "latex": "\\lnot p\\to\\lnot q"
-              },
-              {
-                "type": "text",
-                "text": "等价。\n或直接列出真值表验证。"
               }
             ]
+          },
+          {
+            "latex": "q\\to p"
+          },
+          {
+            "text": "与"
+          },
+          {
+            "latex": "\\lnot p\\to\\lnot q"
+          },
+          {
+            "text": "等价。\n或直接列出真值表验证。"
           }
         ]
       },
@@ -4067,35 +4585,29 @@ module.exports = {
               {
                 "type": "text",
                 "text": "但"
-              },
-              {
-                "type": "math",
-                "latex": "x\\not>0"
-              },
-              {
-                "type": "text",
-                "text": "）。"
               }
             ]
           },
           {
+            "latex": "x\\not>0"
+          },
+          {
+            "text": "）。"
+          },
+          {
+            "text": "否命题：若"
+          },
+          {
+            "latex": "x\\le 0"
+          },
+          {
+            "text": "，则"
+          },
+          {
+            "latex": "x^2\\le 0"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "否命题：若"
-              },
-              {
-                "type": "math",
-                "latex": "x\\le 0"
-              },
-              {
-                "type": "text",
-                "text": "，则"
-              },
-              {
-                "type": "math",
-                "latex": "x^2\\le 0"
-              },
               {
                 "type": "text",
                 "text": "。假（如"
@@ -4107,11 +4619,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "时"
-              },
-              {
-                "type": "math",
-                "latex": "x\\le0"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "x\\le0"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "但"
@@ -4127,23 +4642,19 @@ module.exports = {
             ]
           },
           {
+            "text": "逆否命题：若"
+          },
+          {
+            "latex": "x^2\\le0"
+          },
+          {
+            "text": "，则"
+          },
+          {
+            "latex": "x\\le0"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "逆否命题：若"
-              },
-              {
-                "type": "math",
-                "latex": "x^2\\le0"
-              },
-              {
-                "type": "text",
-                "text": "，则"
-              },
-              {
-                "type": "math",
-                "latex": "x\\le0"
-              },
               {
                 "type": "text",
                 "text": "。真（只有"
@@ -4155,19 +4666,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "时"
-              },
-              {
-                "type": "math",
-                "latex": "x^2\\le0"
-              },
-              {
-                "type": "text",
-                "text": "成立，此时"
-              },
-              {
-                "type": "math",
-                "latex": "x\\le0"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "x^2\\le0"
+          },
+          {
+            "text": "成立，此时"
+          },
+          {
+            "latex": "x\\le0"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "成立）。\n注意原命题与逆否命题同真，逆命题与否命题同假。\n例题2： 已知命题\"若"
@@ -4195,32 +4707,26 @@ module.exports = {
               {
                 "type": "text",
                 "text": "无实根，则"
-              },
-              {
-                "type": "math",
-                "latex": "m\\le 0"
-              },
-              {
-                "type": "text",
-                "text": "。由原命题为真，逆否命题必为真（等价性）。可直接验证：方程无实根"
-              },
-              {
-                "type": "math",
-                "latex": "\\Leftrightarrow \\Delta=1+4m<0\\Leftrightarrow m<-\\frac14"
-              },
-              {
-                "type": "text",
-                "text": "，此时"
-              },
-              {
-                "type": "math",
-                "latex": "m\\le0"
-              },
-              {
-                "type": "text",
-                "text": "成立，故逆否命题为真。"
               }
             ]
+          },
+          {
+            "latex": "m\\le 0"
+          },
+          {
+            "text": "。由原命题为真，逆否命题必为真（等价性）。可直接验证：方程无实根"
+          },
+          {
+            "latex": "\\Leftrightarrow \\Delta=1+4m<0\\Leftrightarrow m<-\\frac14"
+          },
+          {
+            "text": "，此时"
+          },
+          {
+            "latex": "m\\le0"
+          },
+          {
+            "text": "成立，故逆否命题为真。"
           }
         ]
       },
@@ -4230,15 +4736,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "混淆\"否命题\"与\"命题的否定\"：否命题是对条件和结论都否定，而命题的否定（"
+          },
+          {
+            "latex": "\\lnot(p\\to q)"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "混淆\"否命题\"与\"命题的否定\"：否命题是对条件和结论都否定，而命题的否定（"
-              },
-              {
-                "type": "math",
-                "latex": "\\lnot(p\\to q)"
-              },
               {
                 "type": "text",
                 "text": "）只否定结论（且保持条件不变），二者完全不同。例如原命题\"若"
@@ -4258,19 +4762,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "\"的否命题是\"若"
-              },
-              {
-                "type": "math",
-                "latex": "x\\le0"
-              },
-              {
-                "type": "text",
-                "text": "则"
-              },
-              {
-                "type": "math",
-                "latex": "x\\le1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "x\\le0"
+          },
+          {
+            "text": "则"
+          },
+          {
+            "latex": "x\\le1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "\"，而命题的否定是\"存在"
@@ -4282,43 +4787,32 @@ module.exports = {
               {
                 "type": "text",
                 "text": "使得"
-              },
-              {
-                "type": "math",
-                "latex": "x\\le1"
-              },
-              {
-                "type": "text",
-                "text": "\"。"
               }
             ]
+          },
+          {
+            "latex": "x\\le1"
+          },
+          {
+            "text": "\"。"
           },
           {
             "text": "误认为逆命题与否命题等价于原命题：原命题与逆否命题等价，逆命题与否命题等价，但原命题与逆命题不一定等价。解题时不可随意互换。"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "忽略条件与结论的否定形式：写否命题或逆否命题时，要正确写出"
-              },
-              {
-                "type": "math",
-                "latex": "\\lnot p"
-              },
-              {
-                "type": "text",
-                "text": "和"
-              },
-              {
-                "type": "math",
-                "latex": "\\lnot q"
-              },
-              {
-                "type": "text",
-                "text": "，注意\"大于\"的否定是\"不大于\"（即小于等于），等等。"
-              }
-            ]
+            "text": "忽略条件与结论的否定形式：写否命题或逆否命题时，要正确写出"
+          },
+          {
+            "latex": "\\lnot p"
+          },
+          {
+            "text": "和"
+          },
+          {
+            "latex": "\\lnot q"
+          },
+          {
+            "text": "，注意\"大于\"的否定是\"不大于\"（即小于等于），等等。"
           },
           {
             "text": "混淆\"互逆\"与\"互否\"关系：可借助\"交换\"和\"取反\"的记忆：逆命题交换位置，否命题同时取反，逆否命题交换+取反。"
@@ -4382,96 +4876,129 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "否命题：若"
-              },
-              {
-                "type": "math",
-                "latex": "\\lnot p"
-              },
-              {
-                "type": "text",
-                "text": "则"
-              },
-              {
-                "type": "math",
-                "latex": "\\lnot q"
-              },
-              {
-                "type": "text",
-                "text": "；"
-              }
-            ]
+            "text": "否命题：若"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "逆否命题：若"
-              },
-              {
-                "type": "math",
-                "latex": "\\lnot q"
-              },
-              {
-                "type": "text",
-                "text": "则"
-              },
-              {
-                "type": "math",
-                "latex": "\\lnot p"
-              },
-              {
-                "type": "text",
-                "text": "。\n2. 等价关系：原命题"
-              },
-              {
-                "type": "math",
-                "latex": "\\Leftrightarrow"
-              },
-              {
-                "type": "text",
-                "text": "逆否命题；逆命题"
-              },
-              {
-                "type": "math",
-                "latex": "\\Leftrightarrow"
-              },
-              {
-                "type": "text",
-                "text": "否命题。\n3. 记忆口诀：逆命题交换位置，否命题两边否定，逆否命题交换且否定。\n4. 应用场景：用于逻辑推理、间接证明（反证法实质是证明逆否命题）、判断命题真假。\n5. 易错点：区分\"否命题\"与\"命题的否定\"；注意否定词的正确写法。"
-              }
-            ]
+            "latex": "\\lnot p"
+          },
+          {
+            "text": "则"
+          },
+          {
+            "latex": "\\lnot q"
+          },
+          {
+            "text": "；"
+          },
+          {
+            "text": "逆否命题：若"
+          },
+          {
+            "latex": "\\lnot q"
+          },
+          {
+            "text": "则"
+          },
+          {
+            "latex": "\\lnot p"
+          },
+          {
+            "text": "。\n2. 等价关系：原命题"
+          },
+          {
+            "latex": "\\Leftrightarrow"
+          },
+          {
+            "text": "逆否命题；逆命题"
+          },
+          {
+            "latex": "\\Leftrightarrow"
+          },
+          {
+            "text": "否命题。\n3. 记忆口诀：逆命题交换位置，否命题两边否定，逆否命题交换且否定。\n4. 应用场景：用于逻辑推理、间接证明（反证法实质是证明逆否命题）、判断命题真假。\n5. 易错点：区分\"否命题\"与\"命题的否定\"；注意否定词的正确写法。"
           }
         ]
       }
     ]
   },
-  "S010_Necessary_and_Sufficient_Conditions": {
-    "id": "S010_Necessary_and_Sufficient_Conditions",
-    "title": "S010_Necessary_and_Sufficient_Conditions",
-    "module": "",
-    "alias": [],
-    "difficulty": null,
-    "category": "",
-    "tags": [],
-    "core_summary": "",
-    "core_formula": "",
-    "related_formulas": [],
+  "S010": {
+    "id": "S010",
+    "title": "充分必要条件判定",
+    "module": "set",
+    "alias": [
+      "充分必要条件判定",
+      "Necessary and Sufficient Conditions",
+      "充分必要条件判定结论",
+      "集合常用结论"
+    ],
+    "difficulty": 3,
+    "category": "集合",
+    "tags": [
+      "充分必要条件判定",
+      "Necessary and Sufficient Condi",
+      "充分必要条件判定结论",
+      "集合常用结论",
+      "子集",
+      "补集"
+    ],
+    "core_summary": "在数学逻辑中，关于\"充分条件\"与\"必要条件\"的核心定义如下",
+    "core_formula": "x^2 > 1",
+    "related_formulas": [
+      "p \\Rightarrow q",
+      "q \\Rightarrow p",
+      "p \\Leftrightarrow q"
+    ],
     "variables": [],
-    "conditions": "",
-    "conclusions": "",
-    "usage": {},
-    "interactive": {},
-    "assets": {},
-    "shareConfig": {},
-    "relations": {},
-    "isPro": null,
+    "conditions": "充分条件：若命题 p q 成立，则称 p 是 q 的充分条件",
+    "conclusions": [
+      "在数学逻辑中，关于\"充分条件\"与\"必要条件\"的核心定义如下"
+    ],
+    "usage": {
+      "scenarios": [
+        "例题 1：判定 \" x > 1 \" 是 \" x^2 > 1 \" 的什么条件",
+        "充分性检查：若 x > 1，则 x^2 > 1 显然成立，故充分性成立",
+        "必要性检查：若 x^2 > 1，则 x > 1 或 x < -1，不能推出 x > 1，故必要性不成立"
+      ],
+      "problem_types": [
+        "集合化简",
+        "集合证明"
+      ],
+      "exam_frequency": 0.6,
+      "exam_score": 5
+    },
+    "interactive": {
+      "has_diagram": false,
+      "geogebra_id": "",
+      "param_demo": {}
+    },
+    "assets": {
+      "svg": "S010.svg",
+      "png": "",
+      "webp": "",
+      "video": "",
+      "audio": ""
+    },
+    "shareConfig": {
+      "title": "充分必要条件判定：条件判断与题型速查",
+      "shareDesc": "适合刷题前速查与课后复盘，聚焦适用条件和常见误区，做同类题时能减少符号与分类讨论错误。"
+    },
+    "relations": {
+      "prerequisites": [
+        "集合的基本运算",
+        "子集与补集定义"
+      ],
+      "related_ids": [],
+      "similar": [
+        "集合中的相近变形结论"
+      ]
+    },
+    "isPro": 0,
     "remarks": "",
-    "knowledgeNode": "",
-    "altNodes": "",
+    "knowledgeNode": "其他-未分类-待定",
+    "altNodes": [
+      "其他-未分类-待定",
+      "代数-式的变形-恒等变形"
+    ],
     "statement": "在数学逻辑中，关于\"充分条件\"与\"必要条件\"的核心定义如下：\n- 充分条件：若命题 p => q 成立，则称 p 是 q 的充分条件；\n- 必要条件：若命题 q => p 成立，则称 p 是 q 的必要条件；\n- 充要条件：若既有 p => q 又有 q => p（即 p q），则称 p 是 q 的充要条件。",
     "explanation": "理解充要条件需要从逻辑指向和集合包含两个维度进行把握：\n- 逻辑指向性：\n- \"充分\"意味着\"有它准行\"（p 成立足以推导出 q）；\n- \"必要\"意味着\"没它不行\"（没有 p 则一定没有 q，即其逆否命题 p => q）。\n- 相对性原理：若甲是乙的充分条件，则乙必然是甲的必要条件。\n- 集合包含视角：设命题 p, q 满足条件的集合分别为 A, B：\n- 若 A B，则 p 是 q 的充分条件（小范围推大范围）；\n- 若 A B，则 p 是 q 的必要条件（大范围推小范围）；\n- 若 A = B，则 p 是 q 的充要条件。",
     "proof": "条件判定的标准化流程（定义法）：\n- 第一步：尝试由 p 推 q。若 p => q 为真，则 p 是 q 的充分条件。\n- 第二步：尝试由 q 推 p。若 q => p 为真，则 p 是 q 的必要条件。\n- 第三步：综合结论：\n- 充分不必要：p => q 且 q p；\n- 必要不充分：p q 且 q => p；\n- 充要条件：p q；\n- 既不充分也不必要：p q 且 q p。",
@@ -4481,14 +5008,150 @@ module.exports = {
     "display_version": 2,
     "sections": [
       {
+        "key": "core_formula",
+        "title": "核心公式",
+        "layout": "text",
+        "items": [
+          {
+            "latex": "x^2 > 1"
+          }
+        ]
+      },
+      {
+        "key": "conditions",
+        "title": "适用条件",
+        "layout": "text",
+        "items": [
+          {
+            "text": "充分条件：若命题 p q 成立，则称 p 是 q 的充分条件"
+          }
+        ]
+      },
+      {
         "key": "statement",
         "title": "命题表述",
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "充分条件：若命题"
+              },
+              {
+                "type": "math",
+                "latex": "p \\Rightarrow q"
+              },
+              {
+                "type": "text",
+                "text": "成立，则称"
+              },
+              {
+                "type": "math",
+                "latex": "p"
+              },
+              {
+                "type": "text",
+                "text": "是"
+              },
+              {
+                "type": "math",
+                "latex": "q"
+              },
+              {
+                "type": "text",
+                "text": "的充分条件；"
+              }
+            ],
+            "desc": "充分条件：若命题 成立，则称 是 的充分条件；",
+            "latex": "p \\Rightarrow q \\qquad p \\qquad q"
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "text",
+                "text": "必要条件：若命题"
+              },
+              {
+                "type": "math",
+                "latex": "q \\Rightarrow p"
+              },
+              {
+                "type": "text",
+                "text": "成立，则称"
+              },
+              {
+                "type": "math",
+                "latex": "p"
+              },
+              {
+                "type": "text",
+                "text": "是"
+              },
+              {
+                "type": "math",
+                "latex": "q"
+              },
+              {
+                "type": "text",
+                "text": "的必要条件；"
+              }
+            ],
+            "desc": "必要条件：若命题 成立，则称 是 的必要条件；",
+            "latex": "q \\Rightarrow p \\qquad p \\qquad q"
+          },
+          {
+            "title": "条目3",
+            "segments": [
+              {
+                "type": "text",
+                "text": "充要条件：若既有"
+              },
+              {
+                "type": "math",
+                "latex": "p \\Rightarrow q"
+              },
+              {
+                "type": "text",
+                "text": "又有"
+              },
+              {
+                "type": "math",
+                "latex": "q \\Rightarrow p"
+              },
+              {
+                "type": "text",
+                "text": "（即"
+              },
+              {
+                "type": "math",
+                "latex": "p \\Leftrightarrow q"
+              },
+              {
+                "type": "text",
+                "text": "），则称"
+              },
+              {
+                "type": "math",
+                "latex": "p"
+              },
+              {
+                "type": "text",
+                "text": "是"
+              },
+              {
+                "type": "math",
+                "latex": "q"
+              },
+              {
+                "type": "text",
+                "text": "的充要条件。"
+              }
+            ],
+            "desc": "充要条件：若既有 又有 （即 ），则称 是 的充要条件。",
+            "latex": "p \\Rightarrow q \\qquad q \\Rightarrow p \\qquad p \\Leftrightarrow q \\qquad p \\qquad q"
           }
         ]
       },
@@ -4548,16 +5211,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，即其逆否命题"
-              },
-              {
-                "type": "math",
-                "latex": "\\neg p \\Rightarrow \\neg q"
-              },
-              {
-                "type": "text",
-                "text": "）。"
               }
             ]
+          },
+          {
+            "latex": "\\neg p \\Rightarrow \\neg q"
+          },
+          {
+            "text": "）。"
           },
           {
             "text": "相对性原理：若甲是乙的充分条件，则乙必然是甲的必要条件。"
@@ -4587,15 +5248,13 @@ module.exports = {
             ]
           },
           {
+            "text": "若"
+          },
+          {
+            "latex": "A \\subseteq B"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "若"
-              },
-              {
-                "type": "math",
-                "latex": "A \\subseteq B"
-              },
               {
                 "type": "text",
                 "text": "，则"
@@ -4619,15 +5278,13 @@ module.exports = {
             ]
           },
           {
+            "text": "若"
+          },
+          {
+            "latex": "A \\supseteq B"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "若"
-              },
-              {
-                "type": "math",
-                "latex": "A \\supseteq B"
-              },
               {
                 "type": "text",
                 "text": "，则"
@@ -4713,11 +5370,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。若"
-              },
-              {
-                "type": "math",
-                "latex": "p \\Rightarrow q"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "p \\Rightarrow q"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "为真，则"
@@ -4761,11 +5421,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。若"
-              },
-              {
-                "type": "math",
-                "latex": "q \\Rightarrow p"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "q \\Rightarrow p"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "为真，则"
@@ -4792,92 +5455,58 @@ module.exports = {
             "text": "第三步：综合结论："
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "充分不必要："
-              },
-              {
-                "type": "math",
-                "latex": "p \\Rightarrow q"
-              },
-              {
-                "type": "text",
-                "text": "且"
-              },
-              {
-                "type": "math",
-                "latex": "q \\nRightarrow p"
-              },
-              {
-                "type": "text",
-                "text": "；"
-              }
-            ]
+            "text": "充分不必要："
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "必要不充分："
-              },
-              {
-                "type": "math",
-                "latex": "p \\nRightarrow q"
-              },
-              {
-                "type": "text",
-                "text": "且"
-              },
-              {
-                "type": "math",
-                "latex": "q \\Rightarrow p"
-              },
-              {
-                "type": "text",
-                "text": "；"
-              }
-            ]
+            "latex": "p \\Rightarrow q"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "充要条件："
-              },
-              {
-                "type": "math",
-                "latex": "p \\Leftrightarrow q"
-              },
-              {
-                "type": "text",
-                "text": "；"
-              }
-            ]
+            "text": "且"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "既不充分也不必要："
-              },
-              {
-                "type": "math",
-                "latex": "p \\nRightarrow q"
-              },
-              {
-                "type": "text",
-                "text": "且"
-              },
-              {
-                "type": "math",
-                "latex": "q \\nRightarrow p"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "latex": "q \\nRightarrow p"
+          },
+          {
+            "text": "；"
+          },
+          {
+            "text": "必要不充分："
+          },
+          {
+            "latex": "p \\nRightarrow q"
+          },
+          {
+            "text": "且"
+          },
+          {
+            "latex": "q \\Rightarrow p"
+          },
+          {
+            "text": "；"
+          },
+          {
+            "text": "充要条件："
+          },
+          {
+            "latex": "p \\Leftrightarrow q"
+          },
+          {
+            "text": "；"
+          },
+          {
+            "text": "既不充分也不必要："
+          },
+          {
+            "latex": "p \\nRightarrow q"
+          },
+          {
+            "text": "且"
+          },
+          {
+            "latex": "q \\nRightarrow p"
+          },
+          {
+            "text": "。"
           }
         ]
       },
@@ -5050,24 +5679,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的什么条件\"，则研究的是"
-              },
-              {
-                "type": "math",
-                "latex": "p \\rightarrow q"
-              },
-              {
-                "type": "text",
-                "text": "和"
-              },
-              {
-                "type": "math",
-                "latex": "q \\rightarrow p"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "p \\rightarrow q"
+          },
+          {
+            "text": "和"
+          },
+          {
+            "latex": "q \\rightarrow p"
+          },
+          {
+            "text": "。"
           },
           {
             "text": "忽略\"不充分\"或\"不必要\"：在判定时，很多学生只证明了一个方向就下结论。必须通过\"双向检测\"来确定最终关系。"

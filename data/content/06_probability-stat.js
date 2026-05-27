@@ -55,6 +55,10 @@
  *     2. { latex: string }
  *     3. { segments: [{ type: 'text', text } | { type: 'math', latex }] }
  *     4. theorem-list item: { title, desc?, latex }
+ *   - Rich parser rules for mixed text/math sections:
+ *     - Long equation-chain math is promoted to standalone { latex } items.
+ *     - Trailing punctuation is stripped out of latex and kept in text segments.
+ *     - This improves canonical migration to math_block and avoids inline overflow.
  *   - Important layouts used by this builder:
  *     - text
  *     - theorem-list
@@ -163,14 +167,144 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
+            "title": "条件1（正整数范围）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "给定正整数"
+              },
+              {
+                "type": "math",
+                "latex": "n,m"
+              },
+              {
+                "type": "text",
+                "text": "，满足"
+              },
+              {
+                "type": "math",
+                "latex": "2 \\le m \\le n"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "给定正整数 ，满足 。",
+            "latex": "2 \\le m \\le n"
+          },
+          {
+            "title": "条件2（符号约定）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "本讲义采用高中常用记法"
+              },
+              {
+                "type": "math",
+                "latex": "A_n^m"
+              },
+              {
+                "type": "text",
+                "text": "，表示从"
+              },
+              {
+                "type": "math",
+                "latex": "n"
+              },
+              {
+                "type": "text",
+                "text": "个不同元素中取出"
+              },
+              {
+                "type": "math",
+                "latex": "m"
+              },
+              {
+                "type": "text",
+                "text": "个并按顺序排列的总数。"
+              }
+            ],
+            "desc": "本讲义采用高中常用记法 ，表示从 个不同元素中取出 个并按顺序排列的总数。",
+            "latex": "A_n^m \\qquad n \\qquad m"
+          },
+          {
             "title": "结论一（按取出个数递推）：",
-            "desc": "从",
-            "latex": "A_n^{m-1} \\qquad A_n^m \\qquad m \\qquad n-m+1 \\qquad A_n^m = (n-m+1)A_n^{m-1}."
+            "segments": [
+              {
+                "type": "text",
+                "text": "从"
+              },
+              {
+                "type": "math",
+                "latex": "A_n^{m-1}"
+              },
+              {
+                "type": "text",
+                "text": "走到"
+              },
+              {
+                "type": "math",
+                "latex": "A_n^m"
+              },
+              {
+                "type": "text",
+                "text": "，只需要再补上第"
+              },
+              {
+                "type": "math",
+                "latex": "m"
+              },
+              {
+                "type": "text",
+                "text": "个位置；此时还有"
+              },
+              {
+                "type": "math",
+                "latex": "n-m+1"
+              },
+              {
+                "type": "text",
+                "text": "个元素可选。"
+              },
+              {
+                "type": "math",
+                "latex": "A_n^m = (n-m+1)A_n^{m-1}."
+              }
+            ],
+            "desc": "从 走到 ，只需要再补上第 个位置；此时还有 个元素可选。",
+            "latex": "A_n^m = (n-m+1)A_n^{m-1}."
           },
           {
             "title": "常见变形（先固定首位）：",
-            "desc": "也可以先确定一个位置上的元素，再从剩下",
-            "latex": "n-1 \\qquad m-1 \\qquad A_n^m = n \\cdot A_{n-1}^{m-1}."
+            "segments": [
+              {
+                "type": "text",
+                "text": "也可以先确定一个位置上的元素，再从剩下"
+              },
+              {
+                "type": "math",
+                "latex": "n-1"
+              },
+              {
+                "type": "text",
+                "text": "个元素中取"
+              },
+              {
+                "type": "math",
+                "latex": "m-1"
+              },
+              {
+                "type": "text",
+                "text": "个排列。"
+              },
+              {
+                "type": "math",
+                "latex": "A_n^m = n \\cdot A_{n-1}^{m-1}."
+              }
+            ],
+            "desc": "也可以先确定一个位置上的元素，再从剩下 个元素中取 个排列。",
+            "latex": "A_n^m = n \\cdot A_{n-1}^{m-1}."
           }
         ]
       },
@@ -399,24 +533,19 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "代数意义（阶乘比值）"
-              },
-              {
-                "type": "math",
-                "latex": "A_n^m=\\frac{n!}{(n-m)!},\\qquad\nA_n^{m-1}=\\frac{n!}{(n-m+1)!}."
-              },
-              {
-                "type": "text",
-                "text": "因此"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{A_n^m}{A_n^{m-1}}\n=\\frac{\\frac{n!}{(n-m)!}}{\\frac{n!}{(n-m+1)!}}\n=n-m+1."
-              }
-            ]
+            "text": "代数意义（阶乘比值）"
+          },
+          {
+            "latex": "A_n^m=\\frac{n!}{(n-m)!},\\qquad\nA_n^{m-1}=\\frac{n!}{(n-m+1)!}"
+          },
+          {
+            "text": ".因此"
+          },
+          {
+            "latex": "\\frac{A_n^m}{A_n^{m-1}}\n=\\frac{\\frac{n!}{(n-m)!}}{\\frac{n!}{(n-m+1)!}}\n=n-m+1"
+          },
+          {
+            "text": "."
           },
           {
             "text": "考点价值（化简与证明）"
@@ -586,14 +715,17 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的定义。"
-              },
-              {
-                "type": "math",
-                "latex": "A_n^m=n(n-1)(n-2)\\cdots(n-m+1)."
-              },
+              }
+            ]
+          },
+          {
+            "latex": "A_n^m=n(n-1)(n-2)\\cdots(n-m+1)"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "理由： 从"
+                "text": ".理由： 从"
               },
               {
                 "type": "math",
@@ -610,16 +742,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "个排列，依次有"
-              },
-              {
-                "type": "math",
-                "latex": "n,n-1,\\ldots,n-m+1"
-              },
-              {
-                "type": "text",
-                "text": "种选择。"
               }
             ]
+          },
+          {
+            "latex": "n,n-1,\\ldots,n-m+1"
+          },
+          {
+            "text": "种选择。"
           },
           {
             "segments": [
@@ -634,14 +764,17 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的定义。"
-              },
-              {
-                "type": "math",
-                "latex": "A_n^{m-1}=n(n-1)(n-2)\\cdots(n-m+2)."
-              },
+              }
+            ]
+          },
+          {
+            "latex": "A_n^{m-1}=n(n-1)(n-2)\\cdots(n-m+2)"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "理由： 从"
+                "text": ".理由： 从"
               },
               {
                 "type": "math",
@@ -698,16 +831,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。"
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\nA_n^m\n&=n(n-1)\\cdots(n-m+2)(n-m+1)\\\\\n&=(n-m+1)\\bigl[n(n-1)\\cdots(n-m+2)\\bigr]\\\\\n&=(n-m+1)A_n^{m-1}.\n\\end{aligned}"
-              },
-              {
-                "type": "text",
-                "text": "理由： 这里使用的是乘法交换律与结合律，将多出的因子单独提出。"
               }
             ]
+          },
+          {
+            "latex": "\\begin{aligned}\nA_n^m\n&=n(n-1)\\cdots(n-m+2)(n-m+1)\\\\\n&=(n-m+1)\\bigl[n(n-1)\\cdots(n-m+2)\\bigr]\\\\\n&=(n-m+1)A_n^{m-1}.\n\\end{aligned}"
+          },
+          {
+            "text": "理由： 这里使用的是乘法交换律与结合律，将多出的因子单独提出。"
           },
           {
             "segments": [
@@ -722,22 +853,25 @@ module.exports = {
               {
                 "type": "text",
                 "text": "为正整数且"
-              },
-              {
-                "type": "math",
-                "latex": "2\\le m\\le n"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "2\\le m\\le n"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "时，"
               },
               {
                 "type": "math",
-                "latex": "A_n^m=(n-m+1)A_n^{m-1}."
+                "latex": "A_n^m=(n-m+1)A_n^{m-1}"
               },
               {
                 "type": "text",
-                "text": "证明完毕。"
+                "text": ".证明完毕。"
               }
             ]
           }
@@ -793,11 +927,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，满足"
-              },
-              {
-                "type": "math",
-                "latex": "2\\le m\\le n"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "2\\le m\\le n"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "。\n理由： 可以使用"
@@ -820,11 +957,11 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "A_5^4=(5-4+1)A_5^3."
+                "latex": "A_5^4=(5-4+1)A_5^3"
               },
               {
                 "type": "text",
-                "text": "理由： 从"
+                "text": ".理由： 从"
               },
               {
                 "type": "math",
@@ -853,18 +990,16 @@ module.exports = {
             ]
           },
           {
+            "text": "第三步（计算结果）：\n计算数值。"
+          },
+          {
+            "latex": "A_5^4=2\\times60=120"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "第三步（计算结果）：\n计算数值。"
-              },
-              {
-                "type": "math",
-                "latex": "A_5^4=2\\times60=120."
-              },
-              {
-                "type": "text",
-                "text": "理由： 已知"
+                "text": ".理由： 已知"
               },
               {
                 "type": "math",
@@ -889,16 +1024,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，与直接计算"
-              },
-              {
-                "type": "math",
-                "latex": "5\\times4\\times3\\times2=120"
-              },
-              {
-                "type": "text",
-                "text": "一致。"
               }
             ]
+          },
+          {
+            "latex": "5\\times4\\times3\\times2=120"
+          },
+          {
+            "text": "一致。"
           },
           {
             "segments": [
@@ -932,11 +1065,11 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "A_n^3=(n-2)A_n^2."
+                "latex": "A_n^3=(n-2)A_n^2"
               },
               {
                 "type": "text",
-                "text": "理由： 令"
+                "text": ".理由： 令"
               },
               {
                 "type": "math",
@@ -964,11 +1097,11 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "A_n^2=n(n-1)."
+                "latex": "A_n^2=n(n-1)"
               },
               {
                 "type": "text",
-                "text": "理由： 从"
+                "text": ".理由： 从"
               },
               {
                 "type": "math",
@@ -1020,11 +1153,11 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "n(n-1)(n-2)=120."
+                "latex": "n(n-1)(n-2)=120"
               },
               {
                 "type": "text",
-                "text": "理由： 因为"
+                "text": ".理由： 因为"
               },
               {
                 "type": "math",
@@ -1033,22 +1166,23 @@ module.exports = {
               {
                 "type": "text",
                 "text": "有意义，所以"
-              },
-              {
-                "type": "math",
-                "latex": "n\\ge3"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "n\\ge3"
+          },
+          {
+            "text": "。在正整数范围内试验相邻三数乘积："
+          },
+          {
+            "latex": "6\\times5\\times4=120"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "。在正整数范围内试验相邻三数乘积："
-              },
-              {
-                "type": "math",
-                "latex": "6\\times5\\times4=120,"
-              },
-              {
-                "type": "text",
-                "text": "所以"
+                "text": ",所以"
               },
               {
                 "type": "math",
@@ -1081,24 +1215,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "为正整数，且"
-              },
-              {
-                "type": "math",
-                "latex": "1\\le m\\le n-1"
-              },
-              {
-                "type": "text",
-                "text": "，证明恒等式"
-              },
-              {
-                "type": "math",
-                "latex": "A_{n+1}^{m+1}=A_n^{m+1}+(m+1)A_n^m."
-              },
-              {
-                "type": "text",
-                "text": "解题步骤："
               }
             ]
+          },
+          {
+            "latex": "1\\le m\\le n-1"
+          },
+          {
+            "text": "，证明恒等式"
+          },
+          {
+            "latex": "A_{n+1}^{m+1}=A_n^{m+1}+(m+1)A_n^m"
+          },
+          {
+            "text": ".解题步骤："
           },
           {
             "segments": [
@@ -1116,16 +1246,19 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "A_{n+1}^{m+1}=(n+1)A_n^m."
+                "latex": "A_{n+1}^{m+1}=(n+1)A_n^m"
               },
               {
                 "type": "text",
-                "text": "理由： 由"
-              },
-              {
-                "type": "math",
-                "latex": "A_N^M=N\\cdot A_{N-1}^{M-1}"
-              },
+                "text": ".理由： 由"
+              }
+            ]
+          },
+          {
+            "latex": "A_N^M=N\\cdot A_{N-1}^{M-1}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "，令"
@@ -1164,11 +1297,11 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "A_n^{m+1}=(n-m)A_n^m."
+                "latex": "A_n^{m+1}=(n-m)A_n^m"
               },
               {
                 "type": "text",
-                "text": "理由： 将"
+                "text": ".理由： 将"
               },
               {
                 "type": "math",
@@ -1193,12 +1326,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，得"
-              },
-              {
-                "type": "math",
-                "latex": "A_n^{m+1}=\\bigl(n-(m+1)+1\\bigr)A_n^m=(n-m)A_n^m."
               }
             ]
+          },
+          {
+            "latex": "A_n^{m+1}=\\bigl(n-(m+1)+1\\bigr)A_n^m=(n-m)A_n^m"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -1213,11 +1348,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。"
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\nA_n^{m+1}+(m+1)A_n^m\n&=(n-m)A_n^m+(m+1)A_n^m\\\\\n&=(n+1)A_n^m\\\\\n&=A_{n+1}^{m+1}.\n\\end{aligned}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\begin{aligned}\nA_n^{m+1}+(m+1)A_n^m\n&=(n-m)A_n^m+(m+1)A_n^m\\\\\n&=(n+1)A_n^m\\\\\n&=A_{n+1}^{m+1}.\n\\end{aligned}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "理由： 两项合并后，系数正好变成"
@@ -1272,15 +1410,13 @@ module.exports = {
             ]
           },
           {
+            "text": "正确理解（按讲义范围使用）：\n本讲义把递推公式限定在"
+          },
+          {
+            "latex": "2\\le m\\le n"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（按讲义范围使用）：\n本讲义把递推公式限定在"
-              },
-              {
-                "type": "math",
-                "latex": "2\\le m\\le n"
-              },
               {
                 "type": "text",
                 "text": "，此时"
@@ -1606,16 +1742,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "为正整数，且"
-              },
-              {
-                "type": "math",
-                "latex": "2\\le m\\le n"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "2\\le m\\le n"
+          },
+          {
+            "text": "。"
           },
           {
             "segments": [
@@ -1678,16 +1812,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "；若未引入该约定，按本讲义范围"
-              },
-              {
-                "type": "math",
-                "latex": "m\\ge2"
-              },
-              {
-                "type": "text",
-                "text": "使用即可。"
               }
             ]
+          },
+          {
+            "latex": "m\\ge2"
+          },
+          {
+            "text": "使用即可。"
           },
           {
             "text": "关键提醒"
@@ -1899,19 +2031,183 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
+            "title": "条件1（整数范围）：",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "n,m"
+              },
+              {
+                "type": "text",
+                "text": "为正整数，且"
+              },
+              {
+                "type": "math",
+                "latex": "1\\le m<n"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "desc": "为正整数，且 .",
+            "latex": "1\\le m<n"
+          },
+          {
+            "title": "条件2（固定取法）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "递推时保持取出个数"
+              },
+              {
+                "type": "math",
+                "latex": "m"
+              },
+              {
+                "type": "text",
+                "text": "不变，只把元素总数从"
+              },
+              {
+                "type": "math",
+                "latex": "n-1"
+              },
+              {
+                "type": "text",
+                "text": "增加到"
+              },
+              {
+                "type": "math",
+                "latex": "n"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "desc": "递推时保持取出个数 不变，只把元素总数从 增加到 .",
+            "latex": "m \\qquad n-1 \\qquad n"
+          },
+          {
             "title": "结论一（按 递推）：",
-            "desc": "排列数",
-            "latex": "A_n^m \\qquad A_{n-1}^m \\qquad \\frac{n}{n-m} \\qquad A_n^m=\\frac{n}{n-m}\\,A_{n-1}^m."
+            "segments": [
+              {
+                "type": "text",
+                "text": "排列数"
+              },
+              {
+                "type": "math",
+                "latex": "A_n^m"
+              },
+              {
+                "type": "text",
+                "text": "可由"
+              },
+              {
+                "type": "math",
+                "latex": "A_{n-1}^m"
+              },
+              {
+                "type": "text",
+                "text": "乘以比例因子"
+              },
+              {
+                "type": "math",
+                "latex": "\\frac{n}{n-m}"
+              },
+              {
+                "type": "text",
+                "text": "得到."
+              },
+              {
+                "type": "math",
+                "latex": "A_n^m=\\frac{n}{n-m}\\,A_{n-1}^m."
+              }
+            ],
+            "desc": "排列数 可由 乘以比例因子 得到.",
+            "latex": "A_n^m=\\frac{n}{n-m}\\,A_{n-1}^m."
           },
           {
             "title": "等价形式（比值公式）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "两个相邻下标排列数的比值为"
+              },
+              {
+                "type": "math",
+                "latex": "\\frac{A_n^m}{A_{n-1}^m}=\\frac{n}{n-m}."
+              }
+            ],
             "desc": "两个相邻下标排列数的比值为",
             "latex": "\\frac{A_n^m}{A_{n-1}^m}=\\frac{n}{n-m}."
           },
           {
             "title": "基础公式（阶乘表达）：",
-            "desc": "排列数也可写成阶乘形式",
-            "latex": "A_n^m=\\frac{n!}{(n-m)!}. \\qquad m=1 \\qquad A_n^1=n \\qquad n=\\frac{n}{n-1}\\,(n-1), \\qquad m=n \\qquad A_{n-1}^n \\qquad n-m=0"
+            "segments": [
+              {
+                "type": "text",
+                "text": "排列数也可写成阶乘形式"
+              },
+              {
+                "type": "math",
+                "latex": "A_n^m=\\frac{n!}{(n-m)!}."
+              },
+              {
+                "type": "text",
+                "text": "边界提醒：\n当"
+              },
+              {
+                "type": "math",
+                "latex": "m=1"
+              },
+              {
+                "type": "text",
+                "text": "时，"
+              },
+              {
+                "type": "math",
+                "latex": "A_n^1=n"
+              },
+              {
+                "type": "text",
+                "text": "，递推化为"
+              },
+              {
+                "type": "math",
+                "latex": "n=\\frac{n}{n-1}\\,(n-1),"
+              },
+              {
+                "type": "text",
+                "text": "仍然成立；当"
+              },
+              {
+                "type": "math",
+                "latex": "m=n"
+              },
+              {
+                "type": "text",
+                "text": "时，本递推不能使用，因为"
+              },
+              {
+                "type": "math",
+                "latex": "A_{n-1}^n"
+              },
+              {
+                "type": "text",
+                "text": "不存在且分母"
+              },
+              {
+                "type": "math",
+                "latex": "n-m=0"
+              },
+              {
+                "type": "text",
+                "text": "."
+              }
+            ],
+            "desc": "排列数也可写成阶乘形式 边界提醒：\n当 时， ，递推化为 仍然成立；当 时，本递推不能使用，因为 不存在且分母 .",
+            "latex": "A_n^m=\\frac{n!}{(n-m)!}."
           }
         ]
       },
@@ -1949,16 +2245,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "时，排列数会乘上一个比例因子"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{n}{n-m}"
-              },
-              {
-                "type": "text",
-                "text": "."
               }
             ]
+          },
+          {
+            "latex": "\\frac{n}{n-m}"
+          },
+          {
+            "text": "."
           },
           {
             "text": "核心拆解"
@@ -2004,24 +2298,19 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "要点二（因子来源）：\n系数"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{n}{n-m}"
-              },
-              {
-                "type": "text",
-                "text": "来自两个阶乘表达式的比值："
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{A_n^m}{A_{n-1}^m}\n=\\frac{\\frac{n!}{(n-m)!}}{\\frac{(n-1)!}{(n-1-m)!}}\n=\\frac{n}{n-m}."
-              }
-            ]
+            "text": "要点二（因子来源）：\n系数"
+          },
+          {
+            "latex": "\\frac{n}{n-m}"
+          },
+          {
+            "text": "来自两个阶乘表达式的比值："
+          },
+          {
+            "latex": "\\frac{A_n^m}{A_{n-1}^m}\n=\\frac{\\frac{n!}{(n-m)!}}{\\frac{(n-1)!}{(n-1-m)!}}\n=\\frac{n}{n-m}"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -2044,16 +2333,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "个元素时，新增加的元素会带来一部分新排列；这个增量最终表现为总数按比例"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{n}{n-m}"
-              },
-              {
-                "type": "text",
-                "text": "放大."
               }
             ]
+          },
+          {
+            "latex": "\\frac{n}{n-m}"
+          },
+          {
+            "text": "放大."
           },
           {
             "segments": [
@@ -2135,37 +2422,33 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "A_n^m=A_{n-1}^m+mA_{n-1}^{m-1}."
+                "latex": "A_n^m=A_{n-1}^m+mA_{n-1}^{m-1}"
               },
               {
                 "type": "text",
-                "text": "又因为"
+                "text": ".又因为"
               },
               {
                 "type": "math",
-                "latex": "A_{n-1}^m=(n-m)A_{n-1}^{m-1},"
+                "latex": "A_{n-1}^m=(n-m)A_{n-1}^{m-1}"
               },
               {
                 "type": "text",
-                "text": "所以"
-              },
-              {
-                "type": "math",
-                "latex": "A_n^m=(n-m)A_{n-1}^{m-1}+mA_{n-1}^{m-1}=nA_{n-1}^{m-1}\n=\\frac{n}{n-m}A_{n-1}^m."
-              },
-              {
-                "type": "text",
-                "text": "这说明"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{n}{n-m}"
-              },
-              {
-                "type": "text",
-                "text": "不是硬记出来的，而是“原有排列 + 新元素贡献”的结果."
+                "text": ",所以"
               }
             ]
+          },
+          {
+            "latex": "A_n^m=(n-m)A_{n-1}^{m-1}+mA_{n-1}^{m-1}=nA_{n-1}^{m-1}\n=\\frac{n}{n-m}A_{n-1}^m"
+          },
+          {
+            "text": ".这说明"
+          },
+          {
+            "latex": "\\frac{n}{n-m}"
+          },
+          {
+            "text": "不是硬记出来的，而是“原有排列 + 新元素贡献”的结果."
           },
           {
             "segments": [
@@ -2227,28 +2510,19 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "考法二（比值判断）： 遇到"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{A_n^m}{A_{n-1}^m}"
-              },
-              {
-                "type": "text",
-                "text": "，直接化为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{n}{n-m}"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "text": "考法二（比值判断）： 遇到"
+          },
+          {
+            "latex": "\\frac{A_n^m}{A_{n-1}^m}"
+          },
+          {
+            "text": "，直接化为"
+          },
+          {
+            "latex": "\\frac{n}{n-m}"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -2395,52 +2669,34 @@ module.exports = {
             "text": "正式推导"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤一（写出阶乘形式）：\n由排列数定义，"
-              },
-              {
-                "type": "math",
-                "latex": "A_n^m=\\frac{n!}{(n-m)!},\\qquad\nA_{n-1}^m=\\frac{(n-1)!}{(n-1-m)!}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 因为"
-              },
-              {
-                "type": "math",
-                "latex": "1\\le m<n"
-              },
-              {
-                "type": "text",
-                "text": "，所以上面两个排列数都有定义，且"
-              },
-              {
-                "type": "math",
-                "latex": "n-m\\ge1"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "text": "步骤一（写出阶乘形式）：\n由排列数定义，"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤二（计算比值）："
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{A_n^m}{A_{n-1}^m}\n=\\frac{\\frac{n!}{(n-m)!}}{\\frac{(n-1)!}{(n-1-m)!}}\n=\\frac{n!}{(n-m)!}\\cdot\\frac{(n-1-m)!}{(n-1)!}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 除以一个分式，等于乘以它的倒数."
-              }
-            ]
+            "latex": "A_n^m=\\frac{n!}{(n-m)!},\\qquad\nA_{n-1}^m=\\frac{(n-1)!}{(n-1-m)!}"
+          },
+          {
+            "text": ".理由： 因为"
+          },
+          {
+            "latex": "1\\le m<n"
+          },
+          {
+            "text": "，所以上面两个排列数都有定义，且"
+          },
+          {
+            "latex": "n-m\\ge1"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "步骤二（计算比值）："
+          },
+          {
+            "latex": "\\frac{A_n^m}{A_{n-1}^m}\n=\\frac{\\frac{n!}{(n-m)!}}{\\frac{(n-1)!}{(n-1-m)!}}\n=\\frac{n!}{(n-m)!}\\cdot\\frac{(n-1-m)!}{(n-1)!}"
+          },
+          {
+            "text": ".理由： 除以一个分式，等于乘以它的倒数."
           },
           {
             "segments": [
@@ -2450,75 +2706,72 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "n!"
+                "latex": "n"
               },
               {
                 "type": "text",
-                "text": "与"
+                "text": "!与"
               },
               {
                 "type": "math",
-                "latex": "(n-m)!"
+                "latex": "(n-m)"
               },
               {
                 "type": "text",
-                "text": "展开一层："
-              },
-              {
-                "type": "math",
-                "latex": "n\\neqn(n-1)!,\\qquad\n(n-m)\\neq(n-m)(n-1-m)!."
-              },
-              {
-                "type": "text",
-                "text": "因此"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{A_n^m}{A_{n-1}^m}\n=\\frac{n(n-1)!}{(n-m)(n-1-m)!}\\cdot\\frac{(n-1-m)!}{(n-1)!}\n=\\frac{n}{n-m}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 消去相同因子"
-              },
-              {
-                "type": "math",
-                "latex": "(n-1)!"
-              },
-              {
-                "type": "text",
-                "text": "与"
-              },
-              {
-                "type": "math",
-                "latex": "(n-1-m)!"
-              },
-              {
-                "type": "text",
-                "text": "."
+                "text": "!展开一层："
               }
             ]
+          },
+          {
+            "latex": "n\\neqn(n-1)!,\\qquad\n(n-m)\\neq(n-m)(n-1-m)"
+          },
+          {
+            "text": "!.因此"
+          },
+          {
+            "latex": "\\frac{A_n^m}{A_{n-1}^m}\n=\\frac{n(n-1)!}{(n-m)(n-1-m)!}\\cdot\\frac{(n-1-m)!}{(n-1)!}\n=\\frac{n}{n-m}"
           },
           {
             "segments": [
               {
                 "type": "text",
-                "text": "步骤四（回代得递推）：\n由"
+                "text": ".理由： 消去相同因子"
               },
               {
                 "type": "math",
-                "latex": "\\frac{A_n^m}{A_{n-1}^m}=\\frac{n}{n-m}"
+                "latex": "(n-1)"
               },
               {
                 "type": "text",
-                "text": "得"
+                "text": "!与"
               },
               {
                 "type": "math",
-                "latex": "A_n^m=\\frac{n}{n-m}\\,A_{n-1}^m."
+                "latex": "(n-1-m)"
               },
               {
                 "type": "text",
-                "text": "理由： 两边同乘"
+                "text": "!."
+              }
+            ]
+          },
+          {
+            "text": "步骤四（回代得递推）：\n由"
+          },
+          {
+            "latex": "\\frac{A_n^m}{A_{n-1}^m}=\\frac{n}{n-m}"
+          },
+          {
+            "text": "得"
+          },
+          {
+            "latex": "A_n^m=\\frac{n}{n-m}\\,A_{n-1}^m"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".理由： 两边同乘"
               },
               {
                 "type": "math",
@@ -2543,11 +2796,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "为正整数且"
-              },
-              {
-                "type": "math",
-                "latex": "1\\le m<n"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "1\\le m<n"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "的条件下，排列数按"
@@ -2559,16 +2815,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "递推公式"
-              },
-              {
-                "type": "math",
-                "latex": "A_n^m=\\frac{n}{n-m}\\,A_{n-1}^m"
-              },
-              {
-                "type": "text",
-                "text": "成立."
               }
             ]
+          },
+          {
+            "latex": "A_n^m=\\frac{n}{n-m}\\,A_{n-1}^m"
+          },
+          {
+            "text": "成立."
           }
         ]
       },
@@ -2630,11 +2884,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": ".\n理由： 递推公式"
-              },
-              {
-                "type": "math",
-                "latex": "A_n^m=\\frac{n}{n-m}A_{n-1}^m"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "A_n^m=\\frac{n}{n-m}A_{n-1}^m"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "中，下标从"
@@ -2658,18 +2915,16 @@ module.exports = {
             ]
           },
           {
+            "text": "第二步（代入公式）："
+          },
+          {
+            "latex": "A_6^2=\\frac{6}{6-2}A_5^2=\\frac{6}{4}\\times20"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "第二步（代入公式）："
-              },
-              {
-                "type": "math",
-                "latex": "A_6^2=\\frac{6}{6-2}A_5^2=\\frac{6}{4}\\times20."
-              },
-              {
-                "type": "text",
-                "text": "理由： 固定"
+                "text": ".理由： 固定"
               },
               {
                 "type": "math",
@@ -2690,18 +2945,16 @@ module.exports = {
             ]
           },
           {
+            "text": "第三步（计算结果）："
+          },
+          {
+            "latex": "A_6^2=\\frac{3}{2}\\times20=30"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "第三步（计算结果）："
-              },
-              {
-                "type": "math",
-                "latex": "A_6^2=\\frac{3}{2}\\times20=30."
-              },
-              {
-                "type": "text",
-                "text": "理由： 保留分数计算，比写成小数更稳.\n关键结论："
+                "text": ".理由： 保留分数计算，比写成小数更稳.\n关键结论："
               },
               {
                 "type": "math",
@@ -2710,32 +2963,23 @@ module.exports = {
               {
                 "type": "text",
                 "text": ". 也可用定义验证："
-              },
-              {
-                "type": "math",
-                "latex": "A_6^2=6\\times5=30"
-              },
-              {
-                "type": "text",
-                "text": "."
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "例2（比值化简）\n题目： 化简"
-              },
-              {
-                "type": "math",
-                "latex": "\\displaystyle \\frac{A_8^3}{A_7^3}"
-              },
-              {
-                "type": "text",
-                "text": ".\n解题步骤："
-              }
-            ]
+            "latex": "A_6^2=6\\times5=30"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "例2（比值化简）\n题目： 化简"
+          },
+          {
+            "latex": "\\displaystyle \\frac{A_8^3}{A_7^3}"
+          },
+          {
+            "text": ".\n解题步骤："
           },
           {
             "segments": [
@@ -2786,36 +3030,25 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第二步（套用比值公式）："
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{A_8^3}{A_7^3}=\\frac{8}{8-3}=\\frac{8}{5}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 由"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{A_n^m}{A_{n-1}^m}=\\frac{n}{n-m}"
-              },
-              {
-                "type": "text",
-                "text": ".\n关键结论："
-              },
-              {
-                "type": "math",
-                "latex": "\\displaystyle \\frac{A_8^3}{A_7^3}=\\frac{8}{5}"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "text": "第二步（套用比值公式）："
+          },
+          {
+            "latex": "\\frac{A_8^3}{A_7^3}=\\frac{8}{8-3}=\\frac{8}{5}"
+          },
+          {
+            "text": ".理由： 由"
+          },
+          {
+            "latex": "\\frac{A_n^m}{A_{n-1}^m}=\\frac{n}{n-m}"
+          },
+          {
+            "text": ".\n关键结论："
+          },
+          {
+            "latex": "\\displaystyle \\frac{A_8^3}{A_7^3}=\\frac{8}{5}"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -2850,26 +3083,22 @@ module.exports = {
             ]
           },
           {
+            "text": "第一步（建立方程）：\n由递推公式"
+          },
+          {
+            "latex": "A_n^2=\\frac{n}{n-2}A_{n-1}^2"
+          },
+          {
+            "text": ",代入已知，得"
+          },
+          {
+            "latex": "20=\\frac{n}{n-2}\\times12"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "第一步（建立方程）：\n由递推公式"
-              },
-              {
-                "type": "math",
-                "latex": "A_n^2=\\frac{n}{n-2}A_{n-1}^2,"
-              },
-              {
-                "type": "text",
-                "text": "代入已知，得"
-              },
-              {
-                "type": "math",
-                "latex": "20=\\frac{n}{n-2}\\times12."
-              },
-              {
-                "type": "text",
-                "text": "理由： 此处"
+                "text": ".理由： 此处"
               },
               {
                 "type": "math",
@@ -2890,26 +3119,24 @@ module.exports = {
             ]
           },
           {
+            "text": "第二步（解方程）："
+          },
+          {
+            "latex": "\\frac{20}{12}=\\frac{n}{n-2}\n\\quad\\Rightarrow\\quad\n\\frac{5}{3}=\\frac{n}{n-2}"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "第二步（解方程）："
+                "text": ".交叉相乘："
               },
               {
                 "type": "math",
-                "latex": "\\frac{20}{12}=\\frac{n}{n-2}\n\\quad\\Rightarrow\\quad\n\\frac{5}{3}=\\frac{n}{n-2}."
+                "latex": "5(n-2)=3n"
               },
               {
                 "type": "text",
-                "text": "交叉相乘："
-              },
-              {
-                "type": "math",
-                "latex": "5(n-2)=3n,"
-              },
-              {
-                "type": "text",
-                "text": "故"
+                "text": ",故"
               },
               {
                 "type": "math",
@@ -2942,14 +3169,17 @@ module.exports = {
               {
                 "type": "text",
                 "text": "时，"
-              },
-              {
-                "type": "math",
-                "latex": "A_5^2=5\\times4=20,\n\\qquad\nA_4^2=4\\times3=12,"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "A_5^2=5\\times4=20,\n\\qquad\nA_4^2=4\\times3=12"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "与题设一致.\n理由： 代回原排列数检验，避免只满足方程但不满足题意.\n关键结论："
+                "text": ",与题设一致.\n理由： 代回原排列数检验，避免只满足方程但不满足题意.\n关键结论："
               },
               {
                 "type": "math",
@@ -2969,15 +3199,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "易错点一（忽略范围）\n忘记"
+          },
+          {
+            "latex": "1\\le m<n"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "易错点一（忽略范围）\n忘记"
-              },
-              {
-                "type": "math",
-                "latex": "1\\le m<n"
-              },
               {
                 "type": "text",
                 "text": "，直接把"
@@ -3029,16 +3257,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "也要求"
-              },
-              {
-                "type": "math",
-                "latex": "m\\le n-1"
-              },
-              {
-                "type": "text",
-                "text": "."
               }
             ]
+          },
+          {
+            "latex": "m\\le n-1"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -3069,11 +3295,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "没有定义，且"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{n}{n-m}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{n}{n-m}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "分母为"
@@ -3089,36 +3318,28 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "易错点二（方向记反）\n把公式错写成"
-              },
-              {
-                "type": "math",
-                "latex": "A_{n-1}^m=\\frac{n}{n-m}A_n^m."
-              }
-            ]
+            "text": "易错点二（方向记反）\n把公式错写成"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（公式形式）：\n正确公式是"
-              },
-              {
-                "type": "math",
-                "latex": "A_n^m=\\frac{n}{n-m}A_{n-1}^m,"
-              },
-              {
-                "type": "text",
-                "text": "如果反过来表示，应为"
-              },
-              {
-                "type": "math",
-                "latex": "A_{n-1}^m=\\frac{n-m}{n}A_n^m."
-              }
-            ]
+            "latex": "A_{n-1}^m=\\frac{n}{n-m}A_n^m"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "正确理解（公式形式）：\n正确公式是"
+          },
+          {
+            "latex": "A_n^m=\\frac{n}{n-m}A_{n-1}^m"
+          },
+          {
+            "text": ",如果反过来表示，应为"
+          },
+          {
+            "latex": "A_{n-1}^m=\\frac{n-m}{n}A_n^m"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -3149,11 +3370,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{n}{n-m}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{n}{n-m}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "；反向时才乘以小于"
@@ -3165,16 +3389,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{n-m}{n}"
-              },
-              {
-                "type": "text",
-                "text": "."
               }
             ]
+          },
+          {
+            "latex": "\\frac{n-m}{n}"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -3193,22 +3415,24 @@ module.exports = {
             ]
           },
           {
+            "text": "正确理解（看谁在变）：\n本讲公式是“上标不变、下标变化”："
+          },
+          {
+            "latex": "A_n^m=\\frac{n}{n-m}A_{n-1}^m"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "正确理解（看谁在变）：\n本讲公式是“上标不变、下标变化”："
+                "text": ".另一个公式是“下标不变、上标变化”："
               },
               {
                 "type": "math",
-                "latex": "A_n^m=\\frac{n}{n-m}A_{n-1}^m."
+                "latex": "A_n^m=(n-m+1)A_n^{m-1}"
               },
               {
                 "type": "text",
-                "text": "另一个公式是“下标不变、上标变化”："
-              },
-              {
-                "type": "math",
-                "latex": "A_n^m=(n-m+1)A_n^{m-1}."
+                "text": "."
               }
             ]
           },
@@ -3237,28 +3461,19 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "易错点四（乱约分）\n把"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{n}{n-m}"
-              },
-              {
-                "type": "text",
-                "text": "错误约分，甚至误认为它等于"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{1}{1-m}"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "text": "易错点四（乱约分）\n把"
+          },
+          {
+            "latex": "\\frac{n}{n-m}"
+          },
+          {
+            "text": "错误约分，甚至误认为它等于"
+          },
+          {
+            "latex": "\\frac{1}{1-m}"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -3336,11 +3551,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "递推公式"
-              },
-              {
-                "type": "math",
-                "latex": "A_n^m=\\frac{n}{n-m}A_{n-1}^m"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "A_n^m=\\frac{n}{n-m}A_{n-1}^m"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "表示：固定取出个数"
@@ -3368,16 +3586,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "时，排列数按比例"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{n}{n-m}"
-              },
-              {
-                "type": "text",
-                "text": "放大."
               }
             ]
+          },
+          {
+            "latex": "\\frac{n}{n-m}"
+          },
+          {
+            "text": "放大."
           },
           {
             "text": "使用条件"
@@ -3395,16 +3611,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "为正整数，且"
-              },
-              {
-                "type": "math",
-                "latex": "1\\le m<n"
-              },
-              {
-                "type": "text",
-                "text": "."
               }
             ]
+          },
+          {
+            "latex": "1\\le m<n"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -3454,16 +3668,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，用"
-              },
-              {
-                "type": "math",
-                "latex": "A_n^m=\\frac{n}{n-m}A_{n-1}^m"
-              },
-              {
-                "type": "text",
-                "text": "."
               }
             ]
+          },
+          {
+            "latex": "A_n^m=\\frac{n}{n-m}A_{n-1}^m"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -3498,20 +3710,13 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "不要倒置： 反向表达时应写成"
-              },
-              {
-                "type": "math",
-                "latex": "A_{n-1}^m=\\frac{n-m}{n}A_n^m"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "text": "不要倒置： 反向表达时应写成"
+          },
+          {
+            "latex": "A_{n-1}^m=\\frac{n-m}{n}A_n^m"
+          },
+          {
+            "text": "."
           }
         ]
       }
@@ -3647,14 +3852,176 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
+            "title": "条件 1（正整数范围）：",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "n,m\\in\\mathbb{N}^*"
+              },
+              {
+                "type": "text",
+                "text": "，且"
+              },
+              {
+                "type": "math",
+                "latex": "1\\leq m\\leq n"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "，且 。",
+            "latex": "1\\leq m\\leq n"
+          },
+          {
+            "title": "条件 2（边界约定）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "为覆盖"
+              },
+              {
+                "type": "math",
+                "latex": "m=1"
+              },
+              {
+                "type": "text",
+                "text": "的情形，约定"
+              },
+              {
+                "type": "math",
+                "latex": "A_k^0=1"
+              },
+              {
+                "type": "text",
+                "text": "。若教材暂未引入该约定，则本公式主要用于"
+              },
+              {
+                "type": "math",
+                "latex": "2\\leq m\\leq n"
+              },
+              {
+                "type": "text",
+                "text": "，而"
+              },
+              {
+                "type": "math",
+                "latex": "m=1"
+              },
+              {
+                "type": "text",
+                "text": "时单独使用"
+              },
+              {
+                "type": "math",
+                "latex": "A_n^1=n"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "为覆盖 的情形，约定 。若教材暂未引入该约定，则本公式主要用于 ，而 时单独使用 。",
+            "latex": "m=1"
+          },
+          {
             "title": "结论一（首位分步递推）：",
-            "desc": "先确定第一个位置，有",
-            "latex": "n \\qquad n-1 \\qquad m-1 \\qquad A_n^m = n\\cdot A_{n-1}^{m-1}."
+            "segments": [
+              {
+                "type": "text",
+                "text": "先确定第一个位置，有"
+              },
+              {
+                "type": "math",
+                "latex": "n"
+              },
+              {
+                "type": "text",
+                "text": "种选法；剩余"
+              },
+              {
+                "type": "math",
+                "latex": "n-1"
+              },
+              {
+                "type": "text",
+                "text": "个元素中再取"
+              },
+              {
+                "type": "math",
+                "latex": "m-1"
+              },
+              {
+                "type": "text",
+                "text": "个排列。"
+              },
+              {
+                "type": "math",
+                "latex": "A_n^m = n\\cdot A_{n-1}^{m-1}."
+              }
+            ],
+            "desc": "先确定第一个位置，有 种选法；剩余 个元素中再取 个排列。",
+            "latex": "A_n^m = n\\cdot A_{n-1}^{m-1}."
           },
           {
             "title": "相关公式（按取出个数递推）：",
-            "desc": "固定总元素数",
-            "latex": "n \\qquad A_n^{m-1} \\qquad A_n^m \\qquad A_n^m = (n-m+1)\\cdot A_n^{m-1}. \\qquad n,m \\qquad 1"
+            "segments": [
+              {
+                "type": "text",
+                "text": "固定总元素数"
+              },
+              {
+                "type": "math",
+                "latex": "n"
+              },
+              {
+                "type": "text",
+                "text": "，也可由"
+              },
+              {
+                "type": "math",
+                "latex": "A_n^{m-1}"
+              },
+              {
+                "type": "text",
+                "text": "推到"
+              },
+              {
+                "type": "math",
+                "latex": "A_n^m"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              },
+              {
+                "type": "math",
+                "latex": "A_n^m = (n-m+1)\\cdot A_n^{m-1}."
+              },
+              {
+                "type": "text",
+                "text": "注意： 这是另一条常用递推式，应与本结论的“"
+              },
+              {
+                "type": "math",
+                "latex": "n,m"
+              },
+              {
+                "type": "text",
+                "text": "同时减"
+              },
+              {
+                "type": "math",
+                "latex": "1"
+              },
+              {
+                "type": "text",
+                "text": "”区分记忆。"
+              }
+            ],
+            "desc": "固定总元素数 ，也可由 推到 。 注意： 这是另一条常用递推式，应与本结论的“ 同时减 ”区分记忆。",
+            "latex": "A_n^m = (n-m+1)\\cdot A_n^{m-1}."
           }
         ]
       },
@@ -3818,12 +4185,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。因此总数为"
-              },
-              {
-                "type": "math",
-                "latex": "n\\cdot A_{n-1}^{m-1}."
               }
             ]
+          },
+          {
+            "latex": "n\\cdot A_{n-1}^{m-1}"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -3846,16 +4215,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，可以逐步把高阶排列数拆成连续乘积。例如"
-              },
-              {
-                "type": "math",
-                "latex": "A_n^m=n\\cdot A_{n-1}^{m-1}\n= n(n-1)\\cdot A_{n-2}^{m-2}=\\\\cdots."
-              },
-              {
-                "type": "text",
-                "text": "这正好对应排列数定义中的逐项相乘。"
               }
             ]
+          },
+          {
+            "latex": "A_n^m=n\\cdot A_{n-1}^{m-1}\n= n(n-1)\\cdot A_{n-2}^{m-2}=\\\\cdots"
+          },
+          {
+            "text": ".这正好对应排列数定义中的逐项相乘。"
           },
           {
             "text": "考点价值（快速降阶）"
@@ -3873,24 +4240,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，可写成"
-              },
-              {
-                "type": "math",
-                "latex": "7\\cdot A_6^3"
-              },
-              {
-                "type": "text",
-                "text": "，继续递推得到"
-              },
-              {
-                "type": "math",
-                "latex": "7\\times6\\times5\\times4"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "7\\cdot A_6^3"
+          },
+          {
+            "text": "，继续递推得到"
+          },
+          {
+            "latex": "7\\times6\\times5\\times4"
+          },
+          {
+            "text": "。"
           },
           {
             "segments": [
@@ -3921,16 +4284,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "拆成"
-              },
-              {
-                "type": "math",
-                "latex": "n\\cdot A_{n-1}^{m-1}"
-              },
-              {
-                "type": "text",
-                "text": "，再结合定义式化简求参数。"
               }
             ]
+          },
+          {
+            "latex": "n\\cdot A_{n-1}^{m-1}"
+          },
+          {
+            "text": "，再结合定义式化简求参数。"
           },
           {
             "segments": [
@@ -3986,16 +4347,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "、"
-              },
-              {
-                "type": "math",
-                "latex": "A_n^m=\\frac{n}{n-m}A_{n-1}^{m}"
-              },
-              {
-                "type": "text",
-                "text": "递推方向不同。"
               }
             ]
+          },
+          {
+            "latex": "A_n^m=\\frac{n}{n-m}A_{n-1}^{m}"
+          },
+          {
+            "text": "递推方向不同。"
           }
         ]
       },
@@ -4084,14 +4443,17 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，则"
-              },
-              {
-                "type": "math",
-                "latex": "n\\cdot A_{n-1}^{0}=n\\cdot 1=n=A_n^1."
-              },
+              }
+            ]
+          },
+          {
+            "latex": "n\\cdot A_{n-1}^{0}=n\\cdot 1=n=A_n^1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "理由： 这说明公式在"
+                "text": ".理由： 这说明公式在"
               },
               {
                 "type": "math",
@@ -4120,26 +4482,22 @@ module.exports = {
             ]
           },
           {
+            "text": "步骤二（写出乘积形式）：\n当"
+          },
+          {
+            "latex": "2\\leq m\\leq n"
+          },
+          {
+            "text": "时，排列数定义为"
+          },
+          {
+            "latex": "A_n^m = n(n-1)(n-2)\\cdots (n-m+1)"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "步骤二（写出乘积形式）：\n当"
-              },
-              {
-                "type": "math",
-                "latex": "2\\leq m\\leq n"
-              },
-              {
-                "type": "text",
-                "text": "时，排列数定义为"
-              },
-              {
-                "type": "math",
-                "latex": "A_n^m = n(n-1)(n-2)\\cdots (n-m+1)."
-              },
-              {
-                "type": "text",
-                "text": "理由： 从"
+                "text": ".理由： 从"
               },
               {
                 "type": "math",
@@ -4156,16 +4514,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "个，选择数依次为"
-              },
-              {
-                "type": "math",
-                "latex": "n,n-1,\\ldots,n-m+1"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "n,n-1,\\ldots,n-m+1"
+          },
+          {
+            "text": "。"
           },
           {
             "segments": [
@@ -4180,16 +4536,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "单独写出："
-              },
-              {
-                "type": "math",
-                "latex": "A_n^m = n\\bigl[(n-1)(n-2)\\cdots (n-m+1)\\bigr]."
-              },
-              {
-                "type": "text",
-                "text": "理由： 这是乘法结合律的直接应用。"
               }
             ]
+          },
+          {
+            "latex": "A_n^m = n\\bigl[(n-1)(n-2)\\cdots (n-m+1)\\bigr]"
+          },
+          {
+            "text": ".理由： 这是乘法结合律的直接应用。"
           },
           {
             "segments": [
@@ -4212,14 +4566,17 @@ module.exports = {
               {
                 "type": "text",
                 "text": "项，所以"
-              },
-              {
-                "type": "math",
-                "latex": "(n-1)(n-2)\\cdots (n-m+1)=A_{n-1}^{m-1}."
-              },
+              }
+            ]
+          },
+          {
+            "latex": "(n-1)(n-2)\\cdots (n-m+1)=A_{n-1}^{m-1}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "理由："
+                "text": ".理由："
               },
               {
                 "type": "math",
@@ -4248,36 +4605,22 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤五（代入得递推）：\n将步骤四代入步骤三，得"
-              },
-              {
-                "type": "math",
-                "latex": "A_n^m=n\\cdot A_{n-1}^{m-1}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 直接替换即可。"
-              }
-            ]
+            "text": "步骤五（代入得递推）：\n将步骤四代入步骤三，得"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "结论回扣\n综上， 排列数首位分步递推公式成立："
-              },
-              {
-                "type": "math",
-                "latex": "A_n^m=n\\cdot A_{n-1}^{m-1}."
-              },
-              {
-                "type": "text",
-                "text": "它的本质是“先定首位，再排余位”。"
-              }
-            ]
+            "latex": "A_n^m=n\\cdot A_{n-1}^{m-1}"
+          },
+          {
+            "text": ".理由： 直接替换即可。"
+          },
+          {
+            "text": "结论回扣\n综上， 排列数首位分步递推公式成立："
+          },
+          {
+            "latex": "A_n^m=n\\cdot A_{n-1}^{m-1}"
+          },
+          {
+            "text": ".它的本质是“先定首位，再排余位”。"
           }
         ]
       },
@@ -4323,14 +4666,17 @@ module.exports = {
               {
                 "type": "text",
                 "text": "得"
-              },
-              {
-                "type": "math",
-                "latex": "A_5^3=5\\cdot A_4^2."
-              },
+              }
+            ]
+          },
+          {
+            "latex": "A_5^3=5\\cdot A_4^2"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "理由： 先确定第一个位置，剩余问题变为从"
+                "text": ".理由： 先确定第一个位置，剩余问题变为从"
               },
               {
                 "type": "math",
@@ -4363,16 +4709,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "再用递推公式："
-              },
-              {
-                "type": "math",
-                "latex": "A_4^2=4\\cdot A_3^1."
-              },
-              {
-                "type": "text",
-                "text": "理由： 继续把问题降阶。"
               }
             ]
+          },
+          {
+            "latex": "A_4^2=4\\cdot A_3^1"
+          },
+          {
+            "text": ".理由： 继续把问题降阶。"
           },
           {
             "segments": [
@@ -4387,14 +4731,17 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，所以"
-              },
-              {
-                "type": "math",
-                "latex": "A_5^3=5\\times4\\times3=60."
-              },
+              }
+            ]
+          },
+          {
+            "latex": "A_5^3=5\\times4\\times3=60"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "理由： 一个位置从"
+                "text": ".理由： 一个位置从"
               },
               {
                 "type": "math",
@@ -4451,16 +4798,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "（"
-              },
-              {
-                "type": "math",
-                "latex": "n\\geq3"
-              },
-              {
-                "type": "text",
-                "text": "）。\n解题步骤："
               }
             ]
+          },
+          {
+            "latex": "n\\geq3"
+          },
+          {
+            "text": "）。\n解题步骤："
           },
           {
             "segments": [
@@ -4470,19 +4815,19 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "A_n^3=nA_{n-1}^2,"
+                "latex": "A_n^3=nA_{n-1}^2"
               },
               {
                 "type": "text",
-                "text": "原方程化为"
+                "text": ",原方程化为"
               },
               {
                 "type": "math",
-                "latex": "nA_{n-1}^2=20A_n^2."
+                "latex": "nA_{n-1}^2=20A_n^2"
               },
               {
                 "type": "text",
-                "text": "理由： 将"
+                "text": ".理由： 将"
               },
               {
                 "type": "math",
@@ -4495,20 +4840,13 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第二步（展开二阶排列数）：\n由定义得"
-              },
-              {
-                "type": "math",
-                "latex": "A_{n-1}^2=(n-1)(n-2),\\qquad A_n^2=n(n-1)."
-              },
-              {
-                "type": "text",
-                "text": "理由： 二阶排列数只需写出前两个因子。"
-              }
-            ]
+            "text": "第二步（展开二阶排列数）：\n由定义得"
+          },
+          {
+            "latex": "A_{n-1}^2=(n-1)(n-2),\\qquad A_n^2=n(n-1)"
+          },
+          {
+            "text": ".理由： 二阶排列数只需写出前两个因子。"
           },
           {
             "segments": [
@@ -4518,24 +4856,25 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "n(n-1)(n-2)=20n(n-1)."
+                "latex": "n(n-1)(n-2)=20n(n-1)"
               },
               {
                 "type": "text",
-                "text": "因为"
-              },
-              {
-                "type": "math",
-                "latex": "n\\geq3"
-              },
-              {
-                "type": "text",
-                "text": "，所以"
-              },
-              {
-                "type": "math",
-                "latex": "n(n-1)\\neq0"
-              },
+                "text": ".因为"
+              }
+            ]
+          },
+          {
+            "latex": "n\\geq3"
+          },
+          {
+            "text": "，所以"
+          },
+          {
+            "latex": "n(n-1)\\neq0"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "，两边约去"
@@ -4550,11 +4889,11 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "n-2=20,"
+                "latex": "n-2=20"
               },
               {
                 "type": "text",
-                "text": "故"
+                "text": ",故"
               },
               {
                 "type": "math",
@@ -4583,26 +4922,24 @@ module.exports = {
             ]
           },
           {
+            "text": "例 3（综合应用）\n题目： 设"
+          },
+          {
+            "latex": "3\\leq m\\leq n"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例 3（综合应用）\n题目： 设"
-              },
-              {
-                "type": "math",
-                "latex": "3\\leq m\\leq n"
-              },
               {
                 "type": "text",
                 "text": "，证明"
               },
               {
                 "type": "math",
-                "latex": "A_n^m=n(n-1)A_{n-2}^{m-2}."
+                "latex": "A_n^m=n(n-1)A_{n-2}^{m-2}"
               },
               {
                 "type": "text",
-                "text": "解题步骤："
+                "text": ".解题步骤："
               }
             ]
           },
@@ -4614,11 +4951,11 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "A_n^m=nA_{n-1}^{m-1}."
+                "latex": "A_n^m=nA_{n-1}^{m-1}"
               },
               {
                 "type": "text",
-                "text": "理由： 先确定第一个位置。"
+                "text": ".理由： 先确定第一个位置。"
               }
             ]
           },
@@ -4638,29 +4975,25 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "A_{n-1}^{m-1}=(n-1)A_{n-2}^{m-2}."
+                "latex": "A_{n-1}^{m-1}=(n-1)A_{n-2}^{m-2}"
               },
               {
                 "type": "text",
-                "text": "理由： 因为"
-              },
-              {
-                "type": "math",
-                "latex": "3\\leq m\\leq n"
-              },
-              {
-                "type": "text",
-                "text": "，所以"
-              },
-              {
-                "type": "math",
-                "latex": "2\\leq m-1\\leq n-1"
-              },
-              {
-                "type": "text",
-                "text": "，公式可用。"
+                "text": ".理由： 因为"
               }
             ]
+          },
+          {
+            "latex": "3\\leq m\\leq n"
+          },
+          {
+            "text": "，所以"
+          },
+          {
+            "latex": "2\\leq m-1\\leq n-1"
+          },
+          {
+            "text": "，公式可用。"
           },
           {
             "segments": [
@@ -4670,11 +5003,11 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "A_n^m=n(n-1)A_{n-2}^{m-2}."
+                "latex": "A_n^m=n(n-1)A_{n-2}^{m-2}"
               },
               {
                 "type": "text",
-                "text": "理由： 连续两次“先定一个位置”，就会产生因子"
+                "text": ".理由： 连续两次“先定一个位置”，就会产生因子"
               },
               {
                 "type": "math",
@@ -4826,16 +5159,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，递推公式主要用于"
-              },
-              {
-                "type": "math",
-                "latex": "2\\leq m\\leq n"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "2\\leq m\\leq n"
+          },
+          {
+            "text": "。"
           },
           {
             "segments": [
@@ -4874,16 +5205,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "、"
-              },
-              {
-                "type": "math",
-                "latex": "A_n^m=\\frac{n}{n-m}A_{n-1}^{m}"
-              },
-              {
-                "type": "text",
-                "text": "混在一起。"
               }
             ]
+          },
+          {
+            "latex": "A_n^m=\\frac{n}{n-m}A_{n-1}^{m}"
+          },
+          {
+            "text": "混在一起。"
           },
           {
             "segments": [
@@ -4938,11 +5267,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "；"
-              },
-              {
-                "type": "math",
-                "latex": "A_n^m=\\frac{n}{n-m}A_{n-1}^{m}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "A_n^m=\\frac{n}{n-m}A_{n-1}^{m}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "是固定"
@@ -5007,7 +5339,11 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "A_n^m=nA_{n-1}^{m-1}."
+                "latex": "A_n^m=nA_{n-1}^{m-1}"
+              },
+              {
+                "type": "text",
+                "text": "."
               }
             ]
           },
@@ -5015,28 +5351,19 @@ module.exports = {
             "text": "使用条件"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "条件 1（正整数范围）："
-              },
-              {
-                "type": "math",
-                "latex": "n,m\\in\\mathbb{N}^*"
-              },
-              {
-                "type": "text",
-                "text": "，且"
-              },
-              {
-                "type": "math",
-                "latex": "1\\leq m\\leq n"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "条件 1（正整数范围）："
+          },
+          {
+            "latex": "n,m\\in\\mathbb{N}^*"
+          },
+          {
+            "text": "，且"
+          },
+          {
+            "latex": "1\\leq m\\leq n"
+          },
+          {
+            "text": "。"
           },
           {
             "segments": [
@@ -5166,16 +5493,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "或"
-              },
-              {
-                "type": "math",
-                "latex": "A_n^m=\\frac{n}{n-m}A_{n-1}^{m}"
-              },
-              {
-                "type": "text",
-                "text": "混淆。"
               }
             ]
+          },
+          {
+            "latex": "A_n^m=\\frac{n}{n-m}A_{n-1}^{m}"
+          },
+          {
+            "text": "混淆。"
           },
           {
             "segments": [
@@ -5316,14 +5641,184 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
+            "title": "条件 1（正整数范围）：",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "n,m"
+              },
+              {
+                "type": "text",
+                "text": "为正整数，且"
+              },
+              {
+                "type": "math",
+                "latex": "1\\leq m\\leq n"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "为正整数，且 。",
+            "latex": "1\\leq m\\leq n"
+          },
+          {
+            "title": "条件 2（边界约定）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "本结论采用排列数的常用约定"
+              },
+              {
+                "type": "math",
+                "latex": "A_k^0=1\\ (k\\in\\mathbb N)"
+              },
+              {
+                "type": "text",
+                "text": "，表示“从"
+              },
+              {
+                "type": "math",
+                "latex": "k"
+              },
+              {
+                "type": "text",
+                "text": "个元素中取"
+              },
+              {
+                "type": "math",
+                "latex": "0"
+              },
+              {
+                "type": "text",
+                "text": "个排列”只有一种空排列。"
+              }
+            ],
+            "desc": "本结论采用排列数的常用约定 ，表示“从 个元素中取 个排列”只有一种空排列。",
+            "latex": "A_k^0=1\\ (k\\in\\mathbb N)"
+          },
+          {
             "title": "结论一（分类递推公式）：",
-            "desc": "从",
-            "latex": "n+1 \\qquad m \\qquad A_{n+1}^{m}=A_{n}^{m}+mA_{n}^{m-1}."
+            "segments": [
+              {
+                "type": "text",
+                "text": "从"
+              },
+              {
+                "type": "math",
+                "latex": "n+1"
+              },
+              {
+                "type": "text",
+                "text": "个元素中取"
+              },
+              {
+                "type": "math",
+                "latex": "m"
+              },
+              {
+                "type": "text",
+                "text": "个排列，按“是否含第"
+              },
+              {
+                "type": "math",
+                "latex": "n+1"
+              },
+              {
+                "type": "text",
+                "text": "个元素”分成两类相加。"
+              },
+              {
+                "type": "math",
+                "latex": "A_{n+1}^{m}=A_{n}^{m}+mA_{n}^{m-1}."
+              }
+            ],
+            "desc": "从 个元素中取 个排列，按“是否含第 个元素”分成两类相加。",
+            "latex": "A_{n+1}^{m}=A_{n}^{m}+mA_{n}^{m-1}."
           },
           {
             "title": "常见变形（下标平移）：",
-            "desc": "将上式中的",
-            "latex": "n+1 \\qquad n \\qquad A_{n}^{m}=A_{n-1}^{m}+m\\,A_{n-1}^{m-1}. \\qquad n\\geq 2 \\qquad 1\\leq m\\leq n-1 \\qquad A_{n-1}^{m} \\qquad m"
+            "segments": [
+              {
+                "type": "text",
+                "text": "将上式中的"
+              },
+              {
+                "type": "math",
+                "latex": "n+1"
+              },
+              {
+                "type": "text",
+                "text": "整体改写为"
+              },
+              {
+                "type": "math",
+                "latex": "n"
+              },
+              {
+                "type": "text",
+                "text": "，得到"
+              },
+              {
+                "type": "math",
+                "latex": "A_{n}^{m}=A_{n-1}^{m}+m\\,A_{n-1}^{m-1}."
+              },
+              {
+                "type": "text",
+                "text": "这个平移式在通常定义下需满足"
+              },
+              {
+                "type": "math",
+                "latex": "n\\geq 2"
+              },
+              {
+                "type": "text",
+                "text": "，"
+              },
+              {
+                "type": "math",
+                "latex": "1\\leq m\\leq n-1"
+              },
+              {
+                "type": "text",
+                "text": "，否则"
+              },
+              {
+                "type": "math",
+                "latex": "A_{n-1}^{m}"
+              },
+              {
+                "type": "text",
+                "text": "可能超出定义范围。\n一句话定位\n这是“固定取法个数"
+              },
+              {
+                "type": "math",
+                "latex": "m"
+              },
+              {
+                "type": "text",
+                "text": "，总元素数从"
+              },
+              {
+                "type": "math",
+                "latex": "n"
+              },
+              {
+                "type": "text",
+                "text": "增加到"
+              },
+              {
+                "type": "math",
+                "latex": "n+1"
+              },
+              {
+                "type": "text",
+                "text": "”时的分类加法递推公式。"
+              }
+            ],
+            "desc": "将上式中的 整体改写为 ，得到 这个平移式在通常定义下需满足 ， ，否则 可能超出定义范围。\n一句话定位\n这是“固定取法个数 ，总元素数从 增加到 ”时的分类加法递推公式。",
+            "latex": "A_{n}^{m}=A_{n-1}^{m}+m\\,A_{n-1}^{m-1}."
           }
         ]
       },
@@ -5512,28 +6007,19 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "代数意义（阶乘验证）\n由"
-              },
-              {
-                "type": "math",
-                "latex": "A_n^m=\\frac{n!}{(n-m)!}"
-              },
-              {
-                "type": "text",
-                "text": "可验证："
-              },
-              {
-                "type": "math",
-                "latex": "A_n^m+mA_n^{m-1}\n=\\frac{n!}{(n-m)!}+m\\frac{n!}{(n-m+1)!}\n=\\frac{(n+1)!}{(n+1-m)!}\n=A_{n+1}^m."
-              },
-              {
-                "type": "text",
-                "text": "这说明分类计数结果与阶乘公式完全一致。"
-              }
-            ]
+            "text": "代数意义（阶乘验证）\n由"
+          },
+          {
+            "latex": "A_n^m=\\frac{n!}{(n-m)!}"
+          },
+          {
+            "text": "可验证："
+          },
+          {
+            "latex": "A_n^m+mA_n^{m-1}\n=\\frac{n!}{(n-m)!}+m\\frac{n!}{(n-m+1)!}\n=\\frac{(n+1)!}{(n+1-m)!}\n=A_{n+1}^m"
+          },
+          {
+            "text": ".这说明分类计数结果与阶乘公式完全一致。"
           },
           {
             "text": "考点价值（速算与恒等）"
@@ -5895,11 +6381,11 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "A_{n+1}^{m}=A_n^m+mA_n^{m-1}."
+                "latex": "A_{n+1}^{m}=A_n^m+mA_n^{m-1}"
               },
               {
                 "type": "text",
-                "text": "理由： 两类互斥且覆盖全部情况，使用分类加法计数原理。"
+                "text": ".理由： 两类互斥且覆盖全部情况，使用分类加法计数原理。"
               }
             ]
           },
@@ -5916,14 +6402,17 @@ module.exports = {
               {
                 "type": "text",
                 "text": "时，公式变为"
-              },
-              {
-                "type": "math",
-                "latex": "A_{n+1}^{1}=A_n^1+1\\cdot A_n^0."
-              },
+              }
+            ]
+          },
+          {
+            "latex": "A_{n+1}^{1}=A_n^1+1\\cdot A_n^0"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "由于"
+                "text": ".由于"
               },
               {
                 "type": "math",
@@ -5960,16 +6449,13 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "代数验证\n也可由阶乘公式验证："
-              },
-              {
-                "type": "math",
-                "latex": "A_n^m+mA_n^{m-1}\n=\\frac{n!}{(n-m)!}+m\\cdot\\frac{n!}{(n-m+1)!}\n=\\frac{n!(n-m+1)+mn!}{(n-m+1)!}\n=\\frac{(n+1)!}{(n+1-m)!}\n=A_{n+1}^m."
-              }
-            ]
+            "text": "代数验证\n也可由阶乘公式验证："
+          },
+          {
+            "latex": "A_n^m+mA_n^{m-1}\n=\\frac{n!}{(n-m)!}+m\\cdot\\frac{n!}{(n-m+1)!}\n=\\frac{n!(n-m+1)+mn!}{(n-m+1)!}\n=\\frac{(n+1)!}{(n+1-m)!}\n=A_{n+1}^m"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -6091,20 +6577,13 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第二步（代入已知）："
-              },
-              {
-                "type": "math",
-                "latex": "A_6^3=A_5^3+3A_5^2=60+3\\times20=120."
-              },
-              {
-                "type": "text",
-                "text": "理由： 右端两项正好都是题目已知量。"
-              }
-            ]
+            "text": "第二步（代入已知）："
+          },
+          {
+            "latex": "A_6^3=A_5^3+3A_5^2=60+3\\times20=120"
+          },
+          {
+            "text": ".理由： 右端两项正好都是题目已知量。"
           },
           {
             "segments": [
@@ -6114,16 +6593,19 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "A_6^3=120."
+                "latex": "A_6^3=120"
               },
               {
                 "type": "text",
-                "text": "理由： 计算完成，也可由定义"
-              },
-              {
-                "type": "math",
-                "latex": "6\\times5\\times4=120"
-              },
+                "text": ".理由： 计算完成，也可由定义"
+              }
+            ]
+          },
+          {
+            "latex": "6\\times5\\times4=120"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "验证。\n关键结论： 已知同一下标"
@@ -6218,11 +6700,11 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "A_8^4=A_7^4+4A_7^3."
+                "latex": "A_8^4=A_7^4+4A_7^3"
               },
               {
                 "type": "text",
-                "text": "理由："
+                "text": ".理由："
               },
               {
                 "type": "math",
@@ -6243,42 +6725,38 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第二步（移项求解）："
-              },
-              {
-                "type": "math",
-                "latex": "1680=A_7^4+4\\times210=A_7^4+840."
-              },
-              {
-                "type": "text",
-                "text": "所以"
-              },
-              {
-                "type": "math",
-                "latex": "A_7^4=1680-840=840."
-              },
-              {
-                "type": "text",
-                "text": "理由： 递推公式也可以反向使用。"
-              }
-            ]
+            "text": "第二步（移项求解）："
+          },
+          {
+            "latex": "1680=A_7^4+4\\times210=A_7^4+840"
           },
           {
             "segments": [
               {
                 "type": "text",
-                "text": "第三步（检验）："
+                "text": ".所以"
               },
               {
                 "type": "math",
-                "latex": "A_7^4=7\\times6\\times5\\times4=840."
+                "latex": "A_7^4=1680-840=840"
               },
               {
                 "type": "text",
-                "text": "理由： 与定义计算一致。\n关键结论： 递推式既可正向求"
+                "text": ".理由： 递推公式也可以反向使用。"
+              }
+            ]
+          },
+          {
+            "text": "第三步（检验）："
+          },
+          {
+            "latex": "A_7^4=7\\times6\\times5\\times4=840"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".理由： 与定义计算一致。\n关键结论： 递推式既可正向求"
               },
               {
                 "type": "math",
@@ -6307,34 +6785,30 @@ module.exports = {
             ]
           },
           {
+            "text": "例 3（综合应用）\n题目： 设"
+          },
+          {
+            "latex": "1\\leq m\\leq n"
+          },
+          {
+            "text": "，已知"
+          },
+          {
+            "latex": "C_n^m=\\frac{A_n^m}{m!}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例 3（综合应用）\n题目： 设"
-              },
-              {
-                "type": "math",
-                "latex": "1\\leq m\\leq n"
-              },
-              {
-                "type": "text",
-                "text": "，已知"
-              },
-              {
-                "type": "math",
-                "latex": "C_n^m=\\frac{A_n^m}{m!}"
-              },
               {
                 "type": "text",
                 "text": "，利用排列数分类递推公式证明组合数递推公式"
               },
               {
                 "type": "math",
-                "latex": "C_{n+1}^m=C_n^m+C_n^{m-1}."
+                "latex": "C_{n+1}^m=C_n^m+C_n^{m-1}"
               },
               {
                 "type": "text",
-                "text": "解题步骤："
+                "text": ".解题步骤："
               }
             ]
           },
@@ -6346,11 +6820,11 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "A_{n+1}^m=A_n^m+mA_n^{m-1}."
+                "latex": "A_{n+1}^m=A_n^m+mA_n^{m-1}"
               },
               {
                 "type": "text",
-                "text": "理由： 这是本结论的核心公式。"
+                "text": ".理由： 这是本结论的核心公式。"
               }
             ]
           },
@@ -6367,22 +6841,23 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，有"
-              },
-              {
-                "type": "math",
-                "latex": "A_{n+1}^m=m!C_{n+1}^m,\n\\quad A_n^m=m!C_n^m,\n\\quad A_n^{m-1}=(m-1)!C_n^{m-1}."
-              },
+              }
+            ]
+          },
+          {
+            "latex": "A_{n+1}^m=m!C_{n+1}^m,\n\\quad A_n^m=m!C_n^m,\n\\quad A_n^{m-1}=(m-1)!C_n^{m-1}"
+          },
+          {
+            "text": ".代入得"
+          },
+          {
+            "latex": "m!C_{n+1}^m=m!C_n^m+m(m-1)!C_n^{m-1}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "代入得"
-              },
-              {
-                "type": "math",
-                "latex": "m!C_{n+1}^m=m!C_n^m+m(m-1)!C_n^{m-1}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 排列数与组合数满足"
+                "text": ".理由： 排列数与组合数满足"
               },
               {
                 "type": "math",
@@ -6395,42 +6870,40 @@ module.exports = {
             ]
           },
           {
+            "text": "第三步（约去公因子）：\n因为"
+          },
+          {
+            "latex": "m(m-1)\\neqm"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "第三步（约去公因子）：\n因为"
+                "text": "!，所以上式化为"
               },
               {
                 "type": "math",
-                "latex": "m(m-1)\\neqm!"
+                "latex": "m!C_{n+1}^m=m!C_n^m+m!C_n^{m-1}"
               },
               {
                 "type": "text",
-                "text": "，所以上式化为"
+                "text": ".两边同除以"
               },
               {
                 "type": "math",
-                "latex": "m!C_{n+1}^m=m!C_n^m+m!C_n^{m-1}."
+                "latex": "m"
               },
               {
                 "type": "text",
-                "text": "两边同除以"
+                "text": "!，得到"
               },
               {
                 "type": "math",
-                "latex": "m!"
+                "latex": "C_{n+1}^m=C_n^m+C_n^{m-1}"
               },
               {
                 "type": "text",
-                "text": "，得到"
-              },
-              {
-                "type": "math",
-                "latex": "C_{n+1}^m=C_n^m+C_n^{m-1}."
-              },
-              {
-                "type": "text",
-                "text": "理由："
+                "text": ".理由："
               },
               {
                 "type": "math",
@@ -6442,11 +6915,11 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "m!"
+                "latex": "m"
               },
               {
                 "type": "text",
-                "text": "后，正好变成组合数的帕斯卡递推公式。"
+                "text": "!后，正好变成组合数的帕斯卡递推公式。"
               }
             ]
           }
@@ -6678,11 +7151,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，在高中常规定义下需保证"
-              },
-              {
-                "type": "math",
-                "latex": "m\\leq n-1"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "m\\leq n-1"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "。若要处理"
@@ -6698,20 +7174,13 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "错因分析（只看形式不查定义域）：\n原式条件是"
-              },
-              {
-                "type": "math",
-                "latex": "1\\leq m\\leq n"
-              },
-              {
-                "type": "text",
-                "text": "，但平移后每一项的合法范围会随下标改变。"
-              }
-            ]
+            "text": "错因分析（只看形式不查定义域）：\n原式条件是"
+          },
+          {
+            "latex": "1\\leq m\\leq n"
+          },
+          {
+            "text": "，但平移后每一项的合法范围会随下标改变。"
           },
           {
             "segments": [
@@ -6840,16 +7309,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "为正整数，且"
-              },
-              {
-                "type": "math",
-                "latex": "1\\leq m\\leq n"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "1\\leq m\\leq n"
+          },
+          {
+            "text": "。"
           },
           {
             "segments": [
@@ -6888,24 +7355,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "通常要求"
-              },
-              {
-                "type": "math",
-                "latex": "n\\geq2"
-              },
-              {
-                "type": "text",
-                "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "1\\leq m\\leq n-1"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "n\\geq2"
+          },
+          {
+            "text": "，"
+          },
+          {
+            "latex": "1\\leq m\\leq n-1"
+          },
+          {
+            "text": "。"
           },
           {
             "text": "关键提醒"
@@ -6982,11 +7445,11 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "m!"
+                "latex": "m"
               },
               {
                 "type": "text",
-                "text": "。"
+                "text": "!。"
               }
             ]
           }

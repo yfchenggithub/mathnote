@@ -55,35 +55,93 @@
  *     2. { latex: string }
  *     3. { segments: [{ type: 'text', text } | { type: 'math', latex }] }
  *     4. theorem-list item: { title, desc?, latex }
+ *   - Rich parser rules for mixed text/math sections:
+ *     - Long equation-chain math is promoted to standalone { latex } items.
+ *     - Trailing punctuation is stripped out of latex and kept in text segments.
+ *     - This improves canonical migration to math_block and avoids inline overflow.
  *   - Important layouts used by this builder:
  *     - text
  *     - theorem-list
  *   - Legacy plain-text fields remain in the record for compatibility and debugging.
  */
 module.exports = {
-  "P001_distance-extreme-from-external-point": {
-    "id": "P001_distance-extreme-from-external-point",
-    "title": "P001_distance-extreme-from-external-point",
-    "module": "",
-    "alias": [],
-    "difficulty": null,
-    "category": "",
-    "tags": [],
-    "core_summary": "",
-    "core_formula": "",
-    "related_formulas": [],
+  "P001": {
+    "id": "P001",
+    "title": "圆外一点到圆的距离极值",
+    "module": "geometry-plane",
+    "alias": [
+      "圆外一点到圆的距离极值",
+      "distance extreme from external point",
+      "圆外一点到圆的距离极值结论",
+      "解析几何常用结论"
+    ],
+    "difficulty": 3,
+    "category": "解析几何",
+    "tags": [
+      "圆外一点到圆的距离极值",
+      "distance extreme from external",
+      "圆外一点到圆的距离极值结论",
+      "解析几何常用结论",
+      "距离",
+      "最值"
+    ],
+    "core_summary": "圆外一点到圆距离极值记忆口诀：\" 外点看圆心，加减半径就行",
+    "core_formula": "PA=d-R",
+    "related_formulas": [
+      "OP=d\\,(d>R)",
+      "d-R",
+      "d+R"
+    ],
     "variables": [],
-    "conditions": "",
-    "conclusions": "",
-    "usage": {},
-    "interactive": {},
-    "assets": {},
-    "shareConfig": {},
-    "relations": {},
-    "isPro": null,
+    "conditions": "P01 圆外一点到圆的距离极值结论 设圆 O 的半径为 R，点 P 在圆外，且 OP=d, (d>R)",
+    "conclusions": [
+      "圆外一点到圆距离极值记忆口诀：\" 外点看圆心，加减半径就行"
+    ],
+    "usage": {
+      "scenarios": [
+        "例：已知圆 O 的半径为 3, 点 P 满足 OP=5, 求点 P 到该圆的最小距离和最大距离",
+        "解：由于 5>3，点 P 在圆外，=5-3=2, =5+3=8"
+      ],
+      "problem_types": [
+        "距离最值",
+        "解析几何计算"
+      ],
+      "exam_frequency": 0.6,
+      "exam_score": 5
+    },
+    "interactive": {
+      "has_diagram": true,
+      "geogebra_id": "",
+      "param_demo": {}
+    },
+    "assets": {
+      "svg": "P001.svg",
+      "png": "",
+      "webp": "",
+      "video": "",
+      "audio": ""
+    },
+    "shareConfig": {
+      "title": "圆外一点到圆的距离极值：条件判断与题型速查",
+      "shareDesc": "适合刷题前速查与课后复盘，聚焦适用条件和常见误区，做同类题时能减少符号与分类讨论错误。"
+    },
+    "relations": {
+      "prerequisites": [
+        "圆的标准方程",
+        "点到圆的距离定义"
+      ],
+      "related_ids": [],
+      "similar": [
+        "解析几何中的相近变形结论"
+      ]
+    },
+    "isPro": 0,
     "remarks": "",
-    "knowledgeNode": "",
-    "altNodes": "",
+    "knowledgeNode": "解析几何-综合-最值问题",
+    "altNodes": [
+      "解析几何-圆-位置关系",
+      "解析几何-综合-最值问题"
+    ],
     "statement": "P01 圆外一点到圆的距离极值结论\n设圆 O 的半径为 R，点 P 在圆外，\n且 OP=d\\,(d>R)。\n则点 P 到圆上各点距离的：\n- 最小值为 d-R;\n- 最大值为 d+R。\n最小距离在 OP 与圆的交点处取得，\n最大距离在 OP 的反向延长线与圆的交点处取得。\nassets/tikz/P001_distance-extreme-from-external-point-min.tikz\nassets/tikz/P001_distance-extreme-from-external-point-max.tikz",
     "explanation": "从点 P 出发，到圆上不同点连线，\n长度是不断变化的。\n直观地看：\n- 离 P 最近的圆上点，一定在\"正对着 P 的那一侧\"；\n- 离 P 最远的圆上点，一定在\"背对着 P 的那一侧\"。\n也就是说，距离的极值一定出现在\n直线 OP 与圆的交点上，\n而不会出现在侧面。",
     "proof": "设圆上任意一点为 A,\n连接 PA、OA。\n在 OPA 中，\n由三角形两边之和大于第三边，有：\n|OP-OA| PA OP+OA\n又因为 OA=R,OP=d，故\nd-R PA d+R\n当 A 在直线 OP 上，且位于\n- O 与 P 之间时，PA=d-R;\n- O 的反向延长线上时，PA=d+R。\n因此结论成立。",
@@ -93,14 +151,83 @@ module.exports = {
     "display_version": 2,
     "sections": [
       {
+        "key": "core_formula",
+        "title": "核心公式",
+        "layout": "text",
+        "items": [
+          {
+            "latex": "PA=d-R"
+          }
+        ]
+      },
+      {
+        "key": "conditions",
+        "title": "适用条件",
+        "layout": "text",
+        "items": [
+          {
+            "text": "P01 圆外一点到圆的距离极值结论 设圆 O 的半径为 R，点 P 在圆外，且 OP=d, (d>R)"
+          }
+        ]
+      },
+      {
         "key": "statement",
         "title": "命题表述",
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "最小值为"
+              },
+              {
+                "type": "math",
+                "latex": "d-R"
+              },
+              {
+                "type": "text",
+                "text": ";"
+              }
+            ],
+            "desc": "最小值为 ;",
+            "latex": "d-R"
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "text",
+                "text": "最大值为"
+              },
+              {
+                "type": "math",
+                "latex": "d+R"
+              },
+              {
+                "type": "text",
+                "text": "。\n最小距离在"
+              },
+              {
+                "type": "math",
+                "latex": "OP"
+              },
+              {
+                "type": "text",
+                "text": "与圆的交点处取得，\n最大距离在"
+              },
+              {
+                "type": "math",
+                "latex": "OP"
+              },
+              {
+                "type": "text",
+                "text": "的反向延长线与圆的交点处取得。\nassets/tikz/P001_distance-extreme-from-external-point-min.tikz\nassets/tikz/P001_distance-extreme-from-external-point-max.tikz"
+              }
+            ],
+            "desc": "最大值为 。\n最小距离在 与圆的交点处取得，\n最大距离在 的反向延长线与圆的交点处取得。\nassets/tikz/P001_distance-extreme-from-external-point-min.tikz\nassets/tikz/P001_distance-extreme-from-external-point-max.tikz",
+            "latex": "d+R \\qquad OP \\qquad OP"
           }
         ]
       },
@@ -217,19 +344,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。\n在"
-              },
-              {
-                "type": "math",
-                "latex": "\\triangle OPA"
-              },
-              {
-                "type": "text",
-                "text": "中，\n由三角形两边之和大于第三边，有："
-              },
-              {
-                "type": "math",
-                "latex": "|OP-OA| \\le PA \\le OP+OA"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\triangle OPA"
+          },
+          {
+            "text": "中，\n由三角形两边之和大于第三边，有："
+          },
+          {
+            "latex": "|OP-OA| \\le PA \\le OP+OA"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "又因为"
@@ -249,11 +377,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，故"
-              },
-              {
-                "type": "math",
-                "latex": "d-R \\le PA \\le d+R"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "d-R \\le PA \\le d+R"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "当"
@@ -392,12 +523,11 @@ module.exports = {
               {
                 "type": "text",
                 "text": "在圆外，"
-              },
-              {
-                "type": "math",
-                "latex": "\\text{最小距离}=5-3=2,\n\\quad\n\\text{最大距离}=5+3=8"
               }
             ]
+          },
+          {
+            "latex": "\\text{最小距离}=5-3=2,\n\\quad\n\\text{最大距离}=5+3=8"
           }
         ]
       },
@@ -514,29 +644,83 @@ module.exports = {
       }
     ]
   },
-  "P002_distance-extreme-from-internal-point": {
-    "id": "P002_distance-extreme-from-internal-point",
-    "title": "P002_distance-extreme-from-internal-point",
-    "module": "",
-    "alias": [],
-    "difficulty": null,
-    "category": "",
-    "tags": [],
-    "core_summary": "",
-    "core_formula": "",
-    "related_formulas": [],
+  "P002": {
+    "id": "P002",
+    "title": "圆内一点到圆的距离极值",
+    "module": "geometry-plane",
+    "alias": [
+      "圆内一点到圆的距离极值",
+      "distance extreme from internal point",
+      "圆内一点到圆的距离极值结论",
+      "解析几何常用结论"
+    ],
+    "difficulty": 3,
+    "category": "解析几何",
+    "tags": [
+      "圆内一点到圆的距离极值",
+      "distance extreme from internal",
+      "圆内一点到圆的距离极值结论",
+      "解析几何常用结论",
+      "距离",
+      "最值"
+    ],
+    "core_summary": "圆与点距离极值统一记忆法：\" 最大一律加，最小看位置",
+    "core_formula": "PA=R-d",
+    "related_formulas": [
+      "OP=d\\,(0\\le d<R)",
+      "R-d",
+      "R+d"
+    ],
     "variables": [],
-    "conditions": "",
-    "conclusions": "",
-    "usage": {},
-    "interactive": {},
-    "assets": {},
-    "shareConfig": {},
-    "relations": {},
-    "isPro": null,
+    "conditions": "P02 圆内一点到圆的距离极值结论 设圆 O 的半径为 R, 点 P 在圆内，且 OP=d, (0 d<R)",
+    "conclusions": [
+      "圆与点距离极值统一记忆法：\" 最大一律加，最小看位置"
+    ],
+    "usage": {
+      "scenarios": [
+        "例：已知圆 O 的半径为 5, 点 P 满足 OP=2, 求点 P 到该圆的最小距离和最大距离",
+        "解：由于 2<5，点 P 在圆内，=5-2=3, =5+2=7"
+      ],
+      "problem_types": [
+        "距离最值",
+        "解析几何计算"
+      ],
+      "exam_frequency": 0.6,
+      "exam_score": 5
+    },
+    "interactive": {
+      "has_diagram": false,
+      "geogebra_id": "",
+      "param_demo": {}
+    },
+    "assets": {
+      "svg": "P002.svg",
+      "png": "",
+      "webp": "",
+      "video": "",
+      "audio": ""
+    },
+    "shareConfig": {
+      "title": "圆内一点到圆的距离极值：条件判断与题型速查",
+      "shareDesc": "适合刷题前速查与课后复盘，聚焦适用条件和常见误区，做同类题时能减少符号与分类讨论错误。"
+    },
+    "relations": {
+      "prerequisites": [
+        "圆的标准方程",
+        "点到圆的距离定义"
+      ],
+      "related_ids": [],
+      "similar": [
+        "解析几何中的相近变形结论"
+      ]
+    },
+    "isPro": 0,
     "remarks": "",
-    "knowledgeNode": "",
-    "altNodes": "",
+    "knowledgeNode": "解析几何-综合-最值问题",
+    "altNodes": [
+      "解析几何-圆-位置关系",
+      "解析几何-综合-最值问题"
+    ],
     "statement": "P02 圆内一点到圆的距离极值结论\n设圆 O 的半径为 R,\n点 P 在圆内，\n且 OP=d\\,(0 d<R)。\n则点 P 到圆上各点距离的：\n- 最小值为 R-d;\n- 最大值为 R+d。\n最小距离在 OP 的反向延长线与圆的交点处取得，\n最大距离在 OP 与圆的交点处取得。",
     "explanation": "点 P 在圆内时，\n从 P 出发连到圆上的各点，\n长度同样是不断变化的。\n直观理解：\n- 离 P 最近的圆上点，\n一定在\"靠近圆心相反方向\"的那一侧；\n- 离 P 最远的圆上点，\n一定在\"从圆心指向 P 再向外\"的那一侧。\n换句话说，\n无论点在圆内还是圆外，\n极值点都只会出现在直线 OP 上。",
     "proof": "设圆上任意一点为 A,\n连接 PA、OA。\n在 OPA 中，\n由三角形两边之和大于第三边，有：\n|OP-OA| PA OP+OA\n因为 OA=R,OP=d,\n且 d<R，故\nR-d PA R+d\n当点 A 在直线 OP 上，\n且位于 O 的反向延长线方向时，\nPA=R-d;\n当点 A 在直线 OP 上，\n且位于 P 指向圆外方向时，\nPA=R+d。\n因此结论成立。",
@@ -546,14 +730,83 @@ module.exports = {
     "display_version": 2,
     "sections": [
       {
+        "key": "core_formula",
+        "title": "核心公式",
+        "layout": "text",
+        "items": [
+          {
+            "latex": "PA=R-d"
+          }
+        ]
+      },
+      {
+        "key": "conditions",
+        "title": "适用条件",
+        "layout": "text",
+        "items": [
+          {
+            "text": "P02 圆内一点到圆的距离极值结论 设圆 O 的半径为 R, 点 P 在圆内，且 OP=d, (0 d<R)"
+          }
+        ]
+      },
+      {
         "key": "statement",
         "title": "命题表述",
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "最小值为"
+              },
+              {
+                "type": "math",
+                "latex": "R-d"
+              },
+              {
+                "type": "text",
+                "text": ";"
+              }
+            ],
+            "desc": "最小值为 ;",
+            "latex": "R-d"
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "text",
+                "text": "最大值为"
+              },
+              {
+                "type": "math",
+                "latex": "R+d"
+              },
+              {
+                "type": "text",
+                "text": "。\n最小距离在"
+              },
+              {
+                "type": "math",
+                "latex": "OP"
+              },
+              {
+                "type": "text",
+                "text": "的反向延长线与圆的交点处取得，\n最大距离在"
+              },
+              {
+                "type": "math",
+                "latex": "OP"
+              },
+              {
+                "type": "text",
+                "text": "与圆的交点处取得。"
+              }
+            ],
+            "desc": "最大值为 。\n最小距离在 的反向延长线与圆的交点处取得，\n最大距离在 与圆的交点处取得。",
+            "latex": "R+d \\qquad OP \\qquad OP"
           }
         ]
       },
@@ -670,19 +923,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。\n在"
-              },
-              {
-                "type": "math",
-                "latex": "\\triangle OPA"
-              },
-              {
-                "type": "text",
-                "text": "中，\n由三角形两边之和大于第三边，有："
-              },
-              {
-                "type": "math",
-                "latex": "|OP-OA| \\le PA \\le OP+OA"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\triangle OPA"
+          },
+          {
+            "text": "中，\n由三角形两边之和大于第三边，有："
+          },
+          {
+            "latex": "|OP-OA| \\le PA \\le OP+OA"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "因为"
@@ -710,11 +964,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，故"
-              },
-              {
-                "type": "math",
-                "latex": "R-d \\le PA \\le R+d"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "R-d \\le PA \\le R+d"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "当点"
@@ -853,12 +1110,11 @@ module.exports = {
               {
                 "type": "text",
                 "text": "在圆内，"
-              },
-              {
-                "type": "math",
-                "latex": "\\text{最小距离}=5-2=3,\n\\quad\n\\text{最大距离}=5+2=7"
               }
             ]
+          },
+          {
+            "latex": "\\text{最小距离}=5-2=3,\n\\quad\n\\text{最大距离}=5+2=7"
           }
         ]
       },
@@ -991,29 +1247,83 @@ module.exports = {
       }
     ]
   },
-  "P003_distance-extreme-from-point-on-circle": {
-    "id": "P003_distance-extreme-from-point-on-circle",
-    "title": "P003_distance-extreme-from-point-on-circle",
-    "module": "",
-    "alias": [],
-    "difficulty": null,
-    "category": "",
-    "tags": [],
-    "core_summary": "",
-    "core_formula": "",
-    "related_formulas": [],
+  "P003": {
+    "id": "P003",
+    "title": "圆上一点到圆的距离极值",
+    "module": "geometry-plane",
+    "alias": [
+      "圆上一点到圆的距离极值",
+      "distance extreme from point on circle",
+      "圆上一点到圆的距离极值结论",
+      "解析几何常用结论"
+    ],
+    "difficulty": 3,
+    "category": "解析几何",
+    "tags": [
+      "圆上一点到圆的距离极值",
+      "distance extreme from point on",
+      "圆上一点到圆的距离极值结论",
+      "解析几何常用结论",
+      "距离",
+      "最值"
+    ],
+    "core_summary": "P03 圆上一点到圆的距离极值结论 设圆 O 的半径为 R，点 P 在圆上，即 OP=R",
+    "core_formula": "OP=OA=R",
+    "related_formulas": [
+      "OP=R",
+      "|OP-OA| \\le PA \\le OP+OA",
+      "0 \\le PA \\le 2R"
+    ],
     "variables": [],
-    "conditions": "",
-    "conclusions": "",
-    "usage": {},
-    "interactive": {},
-    "assets": {},
-    "shareConfig": {},
-    "relations": {},
-    "isPro": null,
+    "conditions": "P03 圆上一点到圆的距离极值结论 设圆 O 的半径为 R，点 P 在圆上，即 OP=R",
+    "conclusions": [
+      "P03 圆上一点到圆的距离极值结论 设圆 O 的半径为 R，点 P 在圆上，即 OP=R"
+    ],
+    "usage": {
+      "scenarios": [
+        "例：已知圆半径为 4, 点 P 在圆上，则 P 到圆上各点距离的最大值为多少",
+        "解：最大距离为 2R=8"
+      ],
+      "problem_types": [
+        "距离最值",
+        "解析几何计算"
+      ],
+      "exam_frequency": 0.6,
+      "exam_score": 5
+    },
+    "interactive": {
+      "has_diagram": false,
+      "geogebra_id": "",
+      "param_demo": {}
+    },
+    "assets": {
+      "svg": "P003.svg",
+      "png": "",
+      "webp": "",
+      "video": "",
+      "audio": ""
+    },
+    "shareConfig": {
+      "title": "圆上一点到圆的距离极值：条件判断与题型速查",
+      "shareDesc": "适合刷题前速查与课后复盘，聚焦适用条件和常见误区，做同类题时能减少符号与分类讨论错误。"
+    },
+    "relations": {
+      "prerequisites": [
+        "圆的标准方程",
+        "点到圆的距离定义"
+      ],
+      "related_ids": [],
+      "similar": [
+        "解析几何中的相近变形结论"
+      ]
+    },
+    "isPro": 0,
     "remarks": "",
-    "knowledgeNode": "",
-    "altNodes": "",
+    "knowledgeNode": "解析几何-综合-最值问题",
+    "altNodes": [
+      "解析几何-圆-位置关系",
+      "解析几何-综合-最值问题"
+    ],
     "statement": "P03 圆上一点到圆的距离极值结论\n设圆 O 的半径为 R，\n点 P 在圆上，\n即 OP=R。\n则点 P 到圆上各点距离的：\n- 最小值为 0；\n- 最大值为 2R。\n最小距离在 P 点本身取得，\n最大距离在圆上与 P 直径相对的点处取得。",
     "explanation": "当点 P 在圆上时，\n它本身就是圆上的一个点，\n因此最小距离显然为 0。\n而最远的圆上点，\n一定在通过圆心 O 的直线 OP 的反方向，\n也就是与 P 成直径相对的位置。",
     "proof": "对任意圆上点 A,\n在 OPA 中有\n|OP-OA| PA OP+OA\n由于 OP=OA=R,\n故\n0 PA 2R\n等号成立情况显然成立，\n故结论成立。",
@@ -1023,14 +1333,83 @@ module.exports = {
     "display_version": 2,
     "sections": [
       {
+        "key": "core_formula",
+        "title": "核心公式",
+        "layout": "text",
+        "items": [
+          {
+            "latex": "OP=OA=R"
+          }
+        ]
+      },
+      {
+        "key": "conditions",
+        "title": "适用条件",
+        "layout": "text",
+        "items": [
+          {
+            "text": "P03 圆上一点到圆的距离极值结论 设圆 O 的半径为 R，点 P 在圆上，即 OP=R"
+          }
+        ]
+      },
+      {
         "key": "statement",
         "title": "命题表述",
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "最小值为"
+              },
+              {
+                "type": "math",
+                "latex": "0"
+              },
+              {
+                "type": "text",
+                "text": "；"
+              }
+            ],
+            "desc": "最小值为 ；",
+            "latex": "0"
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "text",
+                "text": "最大值为"
+              },
+              {
+                "type": "math",
+                "latex": "2R"
+              },
+              {
+                "type": "text",
+                "text": "。\n最小距离在"
+              },
+              {
+                "type": "math",
+                "latex": "P"
+              },
+              {
+                "type": "text",
+                "text": "点本身取得，\n最大距离在圆上与"
+              },
+              {
+                "type": "math",
+                "latex": "P"
+              },
+              {
+                "type": "text",
+                "text": "直径相对的点处取得。"
+              }
+            ],
+            "desc": "最大值为 。\n最小距离在 点本身取得，\n最大距离在圆上与 直径相对的点处取得。",
+            "latex": "2R \\qquad P \\qquad P"
           }
         ]
       },
@@ -1107,19 +1486,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": ",\n在"
-              },
-              {
-                "type": "math",
-                "latex": "\\triangle OPA"
-              },
-              {
-                "type": "text",
-                "text": "中有"
-              },
-              {
-                "type": "math",
-                "latex": "|OP-OA| \\le PA \\le OP+OA"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\triangle OPA"
+          },
+          {
+            "text": "中有"
+          },
+          {
+            "latex": "|OP-OA| \\le PA \\le OP+OA"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "由于"
@@ -1131,16 +1511,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": ",\n故"
-              },
-              {
-                "type": "math",
-                "latex": "0 \\le PA \\le 2R"
-              },
-              {
-                "type": "text",
-                "text": "等号成立情况显然成立，\n故结论成立。"
               }
             ]
+          },
+          {
+            "latex": "0 \\le PA \\le 2R"
+          },
+          {
+            "text": "等号成立情况显然成立，\n故结论成立。"
           }
         ]
       },
@@ -1263,29 +1641,83 @@ module.exports = {
       }
     ]
   },
-  "P004_distance-extreme-between-point-and-circle-unified": {
-    "id": "P004_distance-extreme-between-point-and-circle-unified",
-    "title": "P004_distance-extreme-between-point-and-circle-unified",
-    "module": "",
-    "alias": [],
-    "difficulty": null,
-    "category": "",
-    "tags": [],
-    "core_summary": "",
-    "core_formula": "",
-    "related_formulas": [],
+  "P004": {
+    "id": "P004",
+    "title": "点到圆距离极值统一模型",
+    "module": "geometry-plane",
+    "alias": [
+      "点到圆距离极值统一模型",
+      "distance extreme between point and circl",
+      "点到圆距离极值统一模型结论",
+      "解析几何常用结论"
+    ],
+    "difficulty": 3,
+    "category": "解析几何",
+    "tags": [
+      "点到圆距离极值统一模型",
+      "distance extreme between point",
+      "点到圆距离极值统一模型结论",
+      "解析几何常用结论",
+      "距离",
+      "最值"
+    ],
+    "core_summary": "一句话总结：点到圆距离极值，本质就是三角形不等式",
+    "core_formula": "OP=d, OA=R",
+    "related_formulas": [
+      "|d-R| \\le PA \\le d+R",
+      "d<R",
+      "d=R"
+    ],
     "variables": [],
-    "conditions": "",
-    "conclusions": "",
-    "usage": {},
-    "interactive": {},
-    "assets": {},
-    "shareConfig": {},
-    "relations": {},
-    "isPro": null,
+    "conditions": "P04 点到圆距离极值的统一模型 设圆半径为 R，点 P 到圆心距离为 d, 则点 P 到圆上点距离的极值满足：|d-R| PA d+R 该不等式同时适用于 点在圆内、圆上、圆外三种情形",
+    "conclusions": [
+      "一句话总结：点到圆距离极值，本质就是三角形不等式"
+    ],
+    "usage": {
+      "scenarios": [
+        "例：已知 OP=d，圆半径为 R, 请写出点 P 到圆距离的取值范围",
+        "解：|d-R| PA d+R"
+      ],
+      "problem_types": [
+        "距离最值",
+        "解析几何计算"
+      ],
+      "exam_frequency": 0.6,
+      "exam_score": 5
+    },
+    "interactive": {
+      "has_diagram": false,
+      "geogebra_id": "",
+      "param_demo": {}
+    },
+    "assets": {
+      "svg": "P004.svg",
+      "png": "",
+      "webp": "",
+      "video": "",
+      "audio": ""
+    },
+    "shareConfig": {
+      "title": "点到圆距离极值统一模型：条件判断与题型速查",
+      "shareDesc": "适合刷题前速查与课后复盘，聚焦适用条件和常见误区，做同类题时能减少符号与分类讨论错误。"
+    },
+    "relations": {
+      "prerequisites": [
+        "圆的标准方程",
+        "点到圆的距离定义"
+      ],
+      "related_ids": [],
+      "similar": [
+        "解析几何中的相近变形结论"
+      ]
+    },
+    "isPro": 0,
     "remarks": "",
-    "knowledgeNode": "",
-    "altNodes": "",
+    "knowledgeNode": "解析几何-综合-最值问题",
+    "altNodes": [
+      "解析几何-圆-位置关系",
+      "解析几何-综合-最值问题"
+    ],
     "statement": "P04 点到圆距离极值的统一模型\n设圆半径为 R，点 P 到圆心距离为 d,\n则点 P 到圆上点距离的极值满足：\n|d-R| PA d+R\n该不等式同时适用于\n点在圆内、圆上、圆外三种情形。",
     "explanation": "无论点 P 在哪里，\n距离问题都可以统一转化为\nOPA 中的三角形不等式。\n区别只在于：\n- d<R（圆内）；\n- d=R（圆上）；\n- d>R（圆外）。\n模型不变，位置决定结果。",
     "proof": "由三角形不等式\n|OP-OA| PA OP+OA\n代入 OP=d, OA=R 即得结论。",
@@ -1295,14 +1727,92 @@ module.exports = {
     "display_version": 2,
     "sections": [
       {
+        "key": "core_formula",
+        "title": "核心公式",
+        "layout": "text",
+        "items": [
+          {
+            "latex": "OP=d, OA=R"
+          }
+        ]
+      },
+      {
+        "key": "conditions",
+        "title": "适用条件",
+        "layout": "text",
+        "items": [
+          {
+            "text": "P04 点到圆距离极值的统一模型 设圆半径为 R，点 P 到圆心距离为 d, 则点 P 到圆上点距离的极值满足：|d-R| PA d+R 该不等式同时适用于 点在圆内、圆上、圆外三种情形"
+          }
+        ]
+      },
+      {
         "key": "statement",
         "title": "命题表述",
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "P04 点到圆距离极值的统一模型\n设圆半径为"
+              },
+              {
+                "type": "math",
+                "latex": "R"
+              },
+              {
+                "type": "text",
+                "text": "，点"
+              },
+              {
+                "type": "math",
+                "latex": "P"
+              },
+              {
+                "type": "text",
+                "text": "到圆心距离为"
+              },
+              {
+                "type": "math",
+                "latex": "d"
+              },
+              {
+                "type": "text",
+                "text": ",\n则点"
+              },
+              {
+                "type": "math",
+                "latex": "P"
+              },
+              {
+                "type": "text",
+                "text": "到圆上点距离的极值满足："
+              }
+            ],
+            "desc": "P04 点到圆距离极值的统一模型\n设圆半径为 ，点 到圆心距离为 ,\n则点 到圆上点距离的极值满足：",
+            "latex": "R \\qquad P \\qquad d \\qquad P"
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "|d-R| \\le PA \\le d+R"
+              }
+            ],
+            "latex": "|d-R| \\le PA \\le d+R"
+          },
+          {
+            "title": "条目3",
+            "segments": [
+              {
+                "type": "text",
+                "text": "该不等式同时适用于\n点在圆内、圆上、圆外三种情形。"
+              }
+            ],
+            "desc": "该不等式同时适用于\n点在圆内、圆上、圆外三种情形。"
           }
         ]
       },
@@ -1324,16 +1834,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "在哪里，\n距离问题都可以统一转化为"
-              },
-              {
-                "type": "math",
-                "latex": "\\triangle OPA"
-              },
-              {
-                "type": "text",
-                "text": "中的三角形不等式。\n区别只在于："
               }
             ]
+          },
+          {
+            "latex": "\\triangle OPA"
+          },
+          {
+            "text": "中的三角形不等式。\n区别只在于："
           },
           {
             "segments": [
@@ -1379,15 +1887,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "由三角形不等式"
+          },
+          {
+            "latex": "|OP-OA| \\le PA \\le OP+OA"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "由三角形不等式"
-              },
-              {
-                "type": "math",
-                "latex": "|OP-OA| \\le PA \\le OP+OA"
-              },
               {
                 "type": "text",
                 "text": "代入"
@@ -1438,12 +1944,11 @@ module.exports = {
               {
                 "type": "text",
                 "text": "到圆距离的取值范围。\n解："
-              },
-              {
-                "type": "math",
-                "latex": "|d-R| \\le PA \\le d+R"
               }
             ]
+          },
+          {
+            "latex": "|d-R| \\le PA \\le d+R"
           }
         ]
       },
@@ -1488,29 +1993,83 @@ module.exports = {
       }
     ]
   },
-  "P005_distance-extreme-between-line-and-circle": {
-    "id": "P005_distance-extreme-between-line-and-circle",
-    "title": "P005_distance-extreme-between-line-and-circle",
-    "module": "",
-    "alias": [],
-    "difficulty": null,
-    "category": "",
-    "tags": [],
-    "core_summary": "",
-    "core_formula": "",
-    "related_formulas": [],
+  "P005": {
+    "id": "P005",
+    "title": "直线与圆的距离极值",
+    "module": "geometry-plane",
+    "alias": [
+      "直线与圆的距离极值",
+      "distance extreme between line and circle",
+      "直线与圆的距离极值结论",
+      "解析几何常用结论"
+    ],
+    "difficulty": 3,
+    "category": "解析几何",
+    "tags": [
+      "直线与圆的距离极值",
+      "distance extreme between line",
+      "直线与圆的距离极值结论",
+      "解析几何常用结论",
+      "距离",
+      "最值"
+    ],
+    "core_summary": "直线与圆距离极值口诀：\" 圆心量出来，减半径",
+    "core_formula": "\\text{最小距离}=6-4=2",
+    "related_formulas": [
+      "|d-R|",
+      "d<R",
+      "OA \\ge d"
+    ],
     "variables": [],
-    "conditions": "",
-    "conclusions": "",
-    "usage": {},
-    "interactive": {},
-    "assets": {},
-    "shareConfig": {},
-    "relations": {},
-    "isPro": null,
+    "conditions": "P05 直线与圆的距离极值结论 设圆心 O 到直线 l 的距离为 d, 圆的半径为 R",
+    "conclusions": [
+      "直线与圆距离极值口诀：\" 圆心量出来，减半径"
+    ],
+    "usage": {
+      "scenarios": [
+        "例：已知圆半径为 4, 圆心到直线 l 的距离为 6, 求直线 l 到圆的最小距离",
+        "解：由于 6>4, 直线在圆外，=6-4=2"
+      ],
+      "problem_types": [
+        "距离最值",
+        "解析几何计算"
+      ],
+      "exam_frequency": 0.6,
+      "exam_score": 5
+    },
+    "interactive": {
+      "has_diagram": false,
+      "geogebra_id": "",
+      "param_demo": {}
+    },
+    "assets": {
+      "svg": "P005.svg",
+      "png": "",
+      "webp": "",
+      "video": "",
+      "audio": ""
+    },
+    "shareConfig": {
+      "title": "直线与圆的距离极值：条件判断与题型速查",
+      "shareDesc": "适合刷题前速查与课后复盘，聚焦适用条件和常见误区，做同类题时能减少符号与分类讨论错误。"
+    },
+    "relations": {
+      "prerequisites": [
+        "圆的标准方程",
+        "点到圆的距离定义"
+      ],
+      "related_ids": [],
+      "similar": [
+        "解析几何中的相近变形结论"
+      ]
+    },
+    "isPro": 0,
     "remarks": "",
-    "knowledgeNode": "",
-    "altNodes": "",
+    "knowledgeNode": "解析几何-综合-最值问题",
+    "altNodes": [
+      "解析几何-圆-位置关系",
+      "解析几何-综合-最值问题"
+    ],
     "statement": "P05 直线与圆的距离极值结论\n设圆心 O 到直线 l 的距离为 d,\n圆的半径为 R。\n则直线 l 上点到圆的最小距离为：\n|d-R|\n当 d<R 时，直线与圆有公共点，最小距离为 0。",
     "explanation": "研究直线与圆的距离，\n本质上是研究：\n直线上哪些点，离圆最近。\n距离最短的情形，\n一定发生在：\n- 圆心 O 向直线 l 作垂线；\n- 垂足所在方向与圆的关系。\n因此问题可以完全转化为\n圆心到直线的距离 d 与半径 R 的比较。",
     "proof": "设点 A 为直线 l 上任意一点，\n连接 OA。\n由于点到直线的距离最短为垂线段，\n故 OA d。\n点 A 到圆的最小距离，\n即 OA 与 R 的差的最小值，\n因此最小距离为\n|d-R|\n当 d<R 时，\n直线与圆相交，\n存在公共点，\n故最小距离为 0。",
@@ -1520,14 +2079,104 @@ module.exports = {
     "display_version": 2,
     "sections": [
       {
+        "key": "core_formula",
+        "title": "核心公式",
+        "layout": "text",
+        "items": [
+          {
+            "latex": "\\text{最小距离}=6-4=2"
+          }
+        ]
+      },
+      {
+        "key": "conditions",
+        "title": "适用条件",
+        "layout": "text",
+        "items": [
+          {
+            "text": "P05 直线与圆的距离极值结论 设圆心 O 到直线 l 的距离为 d, 圆的半径为 R"
+          }
+        ]
+      },
+      {
         "key": "statement",
         "title": "命题表述",
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "P05 直线与圆的距离极值结论\n设圆心"
+              },
+              {
+                "type": "math",
+                "latex": "O"
+              },
+              {
+                "type": "text",
+                "text": "到直线"
+              },
+              {
+                "type": "math",
+                "latex": "l"
+              },
+              {
+                "type": "text",
+                "text": "的距离为"
+              },
+              {
+                "type": "math",
+                "latex": "d"
+              },
+              {
+                "type": "text",
+                "text": ",\n圆的半径为"
+              },
+              {
+                "type": "math",
+                "latex": "R"
+              },
+              {
+                "type": "text",
+                "text": "。\n则直线"
+              },
+              {
+                "type": "math",
+                "latex": "l"
+              },
+              {
+                "type": "text",
+                "text": "上点到圆的最小距离为："
+              },
+              {
+                "type": "math",
+                "latex": "|d-R|"
+              },
+              {
+                "type": "text",
+                "text": "当"
+              },
+              {
+                "type": "math",
+                "latex": "d<R"
+              },
+              {
+                "type": "text",
+                "text": "时，直线与圆有公共点，最小距离为"
+              },
+              {
+                "type": "math",
+                "latex": "0"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "P05 直线与圆的距离极值结论\n设圆心 到直线 的距离为 ,\n圆的半径为 。\n则直线 上点到圆的最小距离为： 当 时，直线与圆有公共点，最小距离为 。",
+            "latex": "d<R"
           }
         ]
       },
@@ -1623,11 +2272,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。\n由于点到直线的距离最短为垂线段，\n故"
-              },
-              {
-                "type": "math",
-                "latex": "OA \\ge d"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "OA \\ge d"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "。\n点"
@@ -1734,12 +2386,11 @@ module.exports = {
               {
                 "type": "text",
                 "text": ",\n直线在圆外，"
-              },
-              {
-                "type": "math",
-                "latex": "\\text{最小距离}=6-4=2"
               }
             ]
+          },
+          {
+            "latex": "\\text{最小距离}=6-4=2"
           }
         ]
       },
@@ -1764,16 +2415,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "与"
-              },
-              {
-                "type": "math",
-                "latex": "d\\ge R"
-              },
-              {
-                "type": "text",
-                "text": "两种情况；"
               }
             ]
+          },
+          {
+            "latex": "d\\ge R"
+          },
+          {
+            "text": "两种情况；"
           },
           {
             "text": "\"直线到圆的距离\"\n指的是直线上点到圆的最小值。"
@@ -1852,29 +2501,83 @@ module.exports = {
       }
     ]
   },
-  "P006_distance-extreme-between-two-circles": {
-    "id": "P006_distance-extreme-between-two-circles",
-    "title": "P006_distance-extreme-between-two-circles",
-    "module": "",
-    "alias": [],
-    "difficulty": null,
-    "category": "",
-    "tags": [],
-    "core_summary": "",
-    "core_formula": "",
-    "related_formulas": [],
+  "P006": {
+    "id": "P006",
+    "title": "两圆之间的距离极值",
+    "module": "geometry-plane",
+    "alias": [
+      "两圆之间的距离极值",
+      "distance extreme between two circles",
+      "两圆之间的距离极值结论",
+      "解析几何常用结论"
+    ],
+    "difficulty": 3,
+    "category": "解析几何",
+    "tags": [
+      "两圆之间的距离极值",
+      "distance extreme between two c",
+      "两圆之间的距离极值结论",
+      "解析几何常用结论",
+      "距离",
+      "最值"
+    ],
+    "core_summary": "两圆距离极值统一记忆",
+    "core_formula": "O_1O_2=d,\\quad O_1A=R_1,\\quad O_2B=R_2",
+    "related_formulas": [
+      "|d-(R_1+R_2)| \\le AB \\le d+R_1+R_2",
+      "|O_1O_2-(O_1A+O_2B)| \\le AB \\le O_1O_2+O_1A+O_2B",
+      "\\text{最小值}=10-(2+3)=5, \\quad \\text{最大值}=10+2+3=15"
+    ],
     "variables": [],
-    "conditions": "",
-    "conclusions": "",
-    "usage": {},
-    "interactive": {},
-    "assets": {},
-    "shareConfig": {},
-    "relations": {},
-    "isPro": null,
+    "conditions": "P06 两圆之间的距离极值结论 设两圆圆心分别为 O_1, O_2, 半径分别为 R_1, R_2, 圆心距为 d",
+    "conclusions": [
+      "两圆距离极值统一记忆"
+    ],
+    "usage": {
+      "scenarios": [
+        "例：已知两圆半径分别为 2 与 3, 圆心距为 10, 求两圆上点之间距离的最大值和最小值",
+        "解：=10-(2+3)=5, =10+2+3=15"
+      ],
+      "problem_types": [
+        "距离最值",
+        "解析几何计算"
+      ],
+      "exam_frequency": 0.6,
+      "exam_score": 5
+    },
+    "interactive": {
+      "has_diagram": false,
+      "geogebra_id": "",
+      "param_demo": {}
+    },
+    "assets": {
+      "svg": "P006.svg",
+      "png": "",
+      "webp": "",
+      "video": "",
+      "audio": ""
+    },
+    "shareConfig": {
+      "title": "两圆之间的距离极值：条件判断与题型速查",
+      "shareDesc": "适合刷题前速查与课后复盘，聚焦适用条件和常见误区，做同类题时能减少符号与分类讨论错误。"
+    },
+    "relations": {
+      "prerequisites": [
+        "圆的标准方程",
+        "点到圆的距离定义"
+      ],
+      "related_ids": [],
+      "similar": [
+        "解析几何中的相近变形结论"
+      ]
+    },
+    "isPro": 0,
     "remarks": "",
-    "knowledgeNode": "",
-    "altNodes": "",
+    "knowledgeNode": "解析几何-综合-最值问题",
+    "altNodes": [
+      "解析几何-圆-位置关系",
+      "解析几何-综合-最值问题"
+    ],
     "statement": "P06 两圆之间的距离极值结论\n设两圆圆心分别为 O_1,O_2,\n半径分别为 R_1,R_2,\n圆心距为 d。\n则两圆上点之间距离的取值范围为：\n|d-(R_1+R_2)| AB d+R_1+R_2",
     "explanation": "两圆之间的距离问题，\n本质是把\"点到圆\"的模型升级为\n\"圆到圆\"。\n最短距离：\n- 一定发生在两圆心连线方向；\n- 对应的是两半径的\"迎面\"或\"相交\"情况。\n最长距离：\n- 一定发生在两圆心连线的反方向；\n- 相当于两半径在同一直线上\"拉开\"。",
     "proof": "取圆 O_1 上点 A,\n圆 O_2 上点 B,\n在 O_1ABO_2 中，\n由三角形不等式，\n有\n|O_1O_2-(O_1A+O_2B)| AB O_1O_2+O_1A+O_2B\n代入\nO_1O_2=d, O_1A=R_1, O_2B=R_2,\n即得结论。",
@@ -1884,14 +2587,74 @@ module.exports = {
     "display_version": 2,
     "sections": [
       {
+        "key": "core_formula",
+        "title": "核心公式",
+        "layout": "text",
+        "items": [
+          {
+            "latex": "O_1O_2=d,\\quad O_1A=R_1,\\quad O_2B=R_2"
+          }
+        ]
+      },
+      {
+        "key": "conditions",
+        "title": "适用条件",
+        "layout": "text",
+        "items": [
+          {
+            "text": "P06 两圆之间的距离极值结论 设两圆圆心分别为 O_1, O_2, 半径分别为 R_1, R_2, 圆心距为 d"
+          }
+        ]
+      },
+      {
         "key": "statement",
         "title": "命题表述",
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "P06 两圆之间的距离极值结论\n设两圆圆心分别为"
+              },
+              {
+                "type": "math",
+                "latex": "O_1,O_2"
+              },
+              {
+                "type": "text",
+                "text": ",\n半径分别为"
+              },
+              {
+                "type": "math",
+                "latex": "R_1,R_2"
+              },
+              {
+                "type": "text",
+                "text": ",\n圆心距为"
+              },
+              {
+                "type": "math",
+                "latex": "d"
+              },
+              {
+                "type": "text",
+                "text": "。\n则两圆上点之间距离的取值范围为："
+              }
+            ],
+            "desc": "P06 两圆之间的距离极值结论\n设两圆圆心分别为 ,\n半径分别为 ,\n圆心距为 。\n则两圆上点之间距离的取值范围为：",
+            "latex": "O_1,O_2 \\qquad R_1,R_2 \\qquad d"
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "|d-(R_1+R_2)| \\le AB \\le d+R_1+R_2"
+              }
+            ],
+            "latex": "|d-(R_1+R_2)| \\le AB \\le d+R_1+R_2"
           }
         ]
       },
@@ -1959,32 +2722,26 @@ module.exports = {
               {
                 "type": "text",
                 "text": ",\n在"
-              },
-              {
-                "type": "math",
-                "latex": "\\triangle O_1ABO_2"
-              },
-              {
-                "type": "text",
-                "text": "中，\n由三角形不等式，\n有"
-              },
-              {
-                "type": "math",
-                "latex": "|O_1O_2-(O_1A+O_2B)| \\le AB \\le O_1O_2+O_1A+O_2B"
-              },
-              {
-                "type": "text",
-                "text": "代入"
-              },
-              {
-                "type": "math",
-                "latex": "O_1O_2=d,\\quad O_1A=R_1,\\quad O_2B=R_2,"
-              },
-              {
-                "type": "text",
-                "text": "即得结论。"
               }
             ]
+          },
+          {
+            "latex": "\\triangle O_1ABO_2"
+          },
+          {
+            "text": "中，\n由三角形不等式，\n有"
+          },
+          {
+            "latex": "|O_1O_2-(O_1A+O_2B)| \\le AB \\le O_1O_2+O_1A+O_2B"
+          },
+          {
+            "text": "代入"
+          },
+          {
+            "latex": "O_1O_2=d,\\quad O_1A=R_1,\\quad O_2B=R_2"
+          },
+          {
+            "text": ",即得结论。"
           }
         ]
       },
@@ -2022,12 +2779,11 @@ module.exports = {
               {
                 "type": "text",
                 "text": ",\n求两圆上点之间距离的最大值和最小值。\n解："
-              },
-              {
-                "type": "math",
-                "latex": "\\text{最小值}=10-(2+3)=5,\n\\quad\n\\text{最大值}=10+2+3=15"
               }
             ]
+          },
+          {
+            "latex": "\\text{最小值}=10-(2+3)=5,\n\\quad\n\\text{最大值}=10+2+3=15"
           }
         ]
       },
@@ -2240,19 +2996,104 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
+            "title": "条件1（三边平方组）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "设三角形三边长分别为"
+              },
+              {
+                "type": "math",
+                "latex": "x,y,z"
+              },
+              {
+                "type": "text",
+                "text": ". 定义三个数"
+              },
+              {
+                "type": "math",
+                "latex": "P,Q,R"
+              },
+              {
+                "type": "text",
+                "text": "满足"
+              },
+              {
+                "type": "math",
+                "latex": "\\begin{cases}\nP+Q = x^2,\\\\\nQ+R = y^2,\\\\\nR+P = z^2.\n\\end{cases}"
+              }
+            ],
+            "desc": "设三角形三边长分别为 . 定义三个数 满足",
+            "latex": "\\begin{cases}\nP+Q = x^2,\\\\\nQ+R = y^2,\\\\\nR+P = z^2.\n\\end{cases}"
+          },
+          {
             "title": "结论一（面积对称式）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "三角形面积可用三边平方的交叉乘积和表示."
+              },
+              {
+                "type": "math",
+                "latex": "2S = \\sqrt{PQ + QR + RP}."
+              }
+            ],
             "desc": "三角形面积可用三边平方的交叉乘积和表示.",
             "latex": "2S = \\sqrt{PQ + QR + RP}."
           },
           {
             "title": "常见变形（中间量显式）：",
-            "desc": "将",
-            "latex": "P,Q,R \\qquad P = \\frac{x^2+z^2-y^2}{2},\\quad\nQ = \\frac{x^2+y^2-z^2}{2},\\quad\nR = \\frac{y^2+z^2-x^2}{2}."
+            "segments": [
+              {
+                "type": "text",
+                "text": "将"
+              },
+              {
+                "type": "math",
+                "latex": "P,Q,R"
+              },
+              {
+                "type": "text",
+                "text": "用边长平方直接表示."
+              },
+              {
+                "type": "math",
+                "latex": "P = \\frac{x^2+z^2-y^2}{2},\\quad\nQ = \\frac{x^2+y^2-z^2}{2},\\quad\nR = \\frac{y^2+z^2-x^2}{2}."
+              },
+              {
+                "type": "text",
+                "text": "适用范围"
+              }
+            ],
+            "desc": "将 用边长平方直接表示. 适用范围",
+            "latex": "P = \\frac{x^2+z^2-y^2}{2},\\quad\nQ = \\frac{x^2+y^2-z^2}{2},\\quad\nR = \\frac{y^2+z^2-x^2}{2}."
           },
           {
             "title": "适用场景（根式边长）：",
-            "desc": "当三边为",
-            "latex": "\\sqrt{a},\\sqrt{b},\\sqrt{c} \\qquad x^2=a,y^2=b,z^2=c"
+            "segments": [
+              {
+                "type": "text",
+                "text": "当三边为"
+              },
+              {
+                "type": "math",
+                "latex": "\\sqrt{a},\\sqrt{b},\\sqrt{c}"
+              },
+              {
+                "type": "text",
+                "text": "时，直接取"
+              },
+              {
+                "type": "math",
+                "latex": "x^2=a,y^2=b,z^2=c"
+              },
+              {
+                "type": "text",
+                "text": "，避免计算半周长时的二次根式嵌套."
+              }
+            ],
+            "desc": "当三边为 时，直接取 ，避免计算半周长时的二次根式嵌套.",
+            "latex": "x^2=a,y^2=b,z^2=c"
           }
         ]
       },
@@ -2262,15 +3103,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "一句话直觉\n三角形面积公式"
+          },
+          {
+            "latex": "2S=\\sqrt{PQ+QR+RP}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "一句话直觉\n三角形面积公式"
-              },
-              {
-                "type": "math",
-                "latex": "2S=\\sqrt{PQ+QR+RP}"
-              },
               {
                 "type": "text",
                 "text": "将面积计算转化为三个辅助量"
@@ -2325,16 +3164,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，因此"
-              },
-              {
-                "type": "math",
-                "latex": "2S = \\sqrt{PQ+QR+RP}"
-              },
-              {
-                "type": "text",
-                "text": "."
               }
             ]
+          },
+          {
+            "latex": "2S = \\sqrt{PQ+QR+RP}"
+          },
+          {
+            "text": "."
           },
           {
             "segments": [
@@ -2357,16 +3194,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "分别等于"
-              },
-              {
-                "type": "math",
-                "latex": "yz\\cos A,\\;zx\\cos B,\\;xy\\cos C"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "yz\\cos A,\\;zx\\cos B,\\;xy\\cos C"
+          },
+          {
+            "text": "。"
           },
           {
             "text": "代数意义（平方对称）\n公式中只出现边长平方和它们的乘积，不含边长本身的一次项，因此在处理根式边长时，可直接代入平方值，避免开方带来的嵌套根式."
@@ -2375,15 +3210,13 @@ module.exports = {
             "text": "考点价值（计算简化）"
           },
           {
+            "text": "考法一（根式边长）： 已知三边为"
+          },
+          {
+            "latex": "\\sqrt{a},\\sqrt{b},\\sqrt{c}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "考法一（根式边长）： 已知三边为"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{a},\\sqrt{b},\\sqrt{c}"
-              },
               {
                 "type": "text",
                 "text": "，直接令"
@@ -2415,31 +3248,25 @@ module.exports = {
             ]
           },
           {
+            "text": "顿悟点\n注意到"
+          },
+          {
+            "latex": "P = \\frac{x^2+z^2-y^2}{2}"
+          },
+          {
+            "text": "正是余弦定理中"
+          },
+          {
+            "latex": "x^2+z^2-y^2 = 2xz\\cos B"
+          },
+          {
+            "text": "的"
+          },
+          {
+            "latex": "\\frac12"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "顿悟点\n注意到"
-              },
-              {
-                "type": "math",
-                "latex": "P = \\frac{x^2+z^2-y^2}{2}"
-              },
-              {
-                "type": "text",
-                "text": "正是余弦定理中"
-              },
-              {
-                "type": "math",
-                "latex": "x^2+z^2-y^2 = 2xz\\cos B"
-              },
-              {
-                "type": "text",
-                "text": "的"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac12"
-              },
               {
                 "type": "text",
                 "text": "倍，因此"
@@ -2458,20 +3285,13 @@ module.exports = {
             "text": "使用场景"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "场景一（边长含根号）： 三边长度包含"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{\\ }"
-              },
-              {
-                "type": "text",
-                "text": "时，用平方值代入避免二次根式嵌套."
-              }
-            ]
+            "text": "场景一（边长含根号）： 三边长度包含"
+          },
+          {
+            "latex": "\\sqrt{\\ }"
+          },
+          {
+            "text": "时，用平方值代入避免二次根式嵌套."
           },
           {
             "segments": [
@@ -2552,24 +3372,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，故"
-              },
-              {
-                "type": "math",
-                "latex": "P+Q+R = \\frac{x^2+y^2+z^2}{2}."
-              },
-              {
-                "type": "text",
-                "text": "分别减去每式得"
-              },
-              {
-                "type": "math",
-                "latex": "P = \\frac{x^2+z^2-y^2}{2},\\quad\nQ = \\frac{x^2+y^2-z^2}{2},\\quad\nR = \\frac{y^2+z^2-x^2}{2}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 这是线性方程组的基本解法，利用整体消元."
               }
             ]
+          },
+          {
+            "latex": "P+Q+R = \\frac{x^2+y^2+z^2}{2}"
+          },
+          {
+            "text": ".分别减去每式得"
+          },
+          {
+            "latex": "P = \\frac{x^2+z^2-y^2}{2},\\quad\nQ = \\frac{x^2+y^2-z^2}{2},\\quad\nR = \\frac{y^2+z^2-x^2}{2}"
+          },
+          {
+            "text": ".理由： 这是线性方程组的基本解法，利用整体消元."
           },
           {
             "segments": [
@@ -2584,75 +3400,56 @@ module.exports = {
               {
                 "type": "text",
                 "text": "以消去分母."
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\n4PQ &= (x^2+z^2-y^2)(x^2+y^2-z^2),\\\\\n4QR &= (x^2+y^2-z^2)(y^2+z^2-x^2),\\\\\n4RP &= (y^2+z^2-x^2)(x^2+z^2-y^2).\n\\end{aligned}"
-              },
-              {
-                "type": "text",
-                "text": "三式相加得"
-              },
-              {
-                "type": "math",
-                "latex": "4(PQ+QR+RP) = \\sum_{\\text{cyc}} (x^2+z^2-y^2)(x^2+y^2-z^2)."
-              },
-              {
-                "type": "text",
-                "text": "理由： 按对称性列出三个乘积，统一形式."
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤三（化简代数和）：\n展开上式，分组整理."
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\n4(PQ+QR+RP)\n&= (x^2+z^2-y^2)(x^2+y^2-z^2) \\\\\n&\\quad + (x^2+y^2-z^2)(y^2+z^2-x^2) \\\\\n&\\quad + (y^2+z^2-x^2)(x^2+z^2-y^2) \\\\\n&= (x^2+y^2+z^2)^2 - 2(x^4+y^4+z^4).\n\\end{aligned}"
-              },
-              {
-                "type": "text",
-                "text": "(直接展开合并即得)\n理由： 通过观察对称性，合并后得到简洁表达式."
-              }
-            ]
+            "latex": "\\begin{aligned}\n4PQ &= (x^2+z^2-y^2)(x^2+y^2-z^2),\\\\\n4QR &= (x^2+y^2-z^2)(y^2+z^2-x^2),\\\\\n4RP &= (y^2+z^2-x^2)(x^2+z^2-y^2).\n\\end{aligned}"
+          },
+          {
+            "text": "三式相加得"
+          },
+          {
+            "latex": "4(PQ+QR+RP) = \\sum_{\\text{cyc}} (x^2+z^2-y^2)(x^2+y^2-z^2)"
+          },
+          {
+            "text": ".理由： 按对称性列出三个乘积，统一形式."
+          },
+          {
+            "text": "步骤三（化简代数和）：\n展开上式，分组整理."
+          },
+          {
+            "latex": "\\begin{aligned}\n4(PQ+QR+RP)\n&= (x^2+z^2-y^2)(x^2+y^2-z^2) \\\\\n&\\quad + (x^2+y^2-z^2)(y^2+z^2-x^2) \\\\\n&\\quad + (y^2+z^2-x^2)(x^2+z^2-y^2) \\\\\n&= (x^2+y^2+z^2)^2 - 2(x^4+y^4+z^4).\n\\end{aligned}"
+          },
+          {
+            "text": "(直接展开合并即得)\n理由： 通过观察对称性，合并后得到简洁表达式."
+          },
+          {
+            "text": "步骤四（对比海伦公式）：\n已知海伦公式"
+          },
+          {
+            "latex": "16S^2 = 2(x^2y^2+y^2z^2+z^2x^2) - (x^4+y^4+z^4)"
+          },
+          {
+            "text": ". 而刚得到"
+          },
+          {
+            "latex": "4(PQ+QR+RP) = (x^2+y^2+z^2)^2 - 2(x^4+y^4+z^4)"
+          },
+          {
+            "text": ".展开右边："
+          },
+          {
+            "latex": "(x^2+y^2+z^2)^2 = x^4+y^4+z^4 + 2(x^2y^2+y^2z^2+z^2x^2)"
+          },
+          {
+            "text": ".代入得"
+          },
+          {
+            "latex": "\\begin{aligned}\n4(PQ+QR+RP)\n&= (x^4+y^4+z^4) + 2(x^2y^2+y^2z^2+z^2x^2) \\\\\n&\\quad - 2(x^4+y^4+z^4) \\\\\n&= 2(x^2y^2+y^2z^2+z^2x^2) - (x^4+y^4+z^4).\n\\end{aligned}"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "步骤四（对比海伦公式）：\n已知海伦公式"
-              },
-              {
-                "type": "math",
-                "latex": "16S^2 = 2(x^2y^2+y^2z^2+z^2x^2) - (x^4+y^4+z^4)"
-              },
-              {
-                "type": "text",
-                "text": ". 而刚得到"
-              },
-              {
-                "type": "math",
-                "latex": "4(PQ+QR+RP) = (x^2+y^2+z^2)^2 - 2(x^4+y^4+z^4)."
-              },
-              {
-                "type": "text",
-                "text": "展开右边："
-              },
-              {
-                "type": "math",
-                "latex": "(x^2+y^2+z^2)^2 = x^4+y^4+z^4 + 2(x^2y^2+y^2z^2+z^2x^2)."
-              },
-              {
-                "type": "text",
-                "text": "代入得"
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\n4(PQ+QR+RP)\n&= (x^4+y^4+z^4) + 2(x^2y^2+y^2z^2+z^2x^2) \\\\\n&\\quad - 2(x^4+y^4+z^4) \\\\\n&= 2(x^2y^2+y^2z^2+z^2x^2) - (x^4+y^4+z^4).\n\\end{aligned}"
-              },
               {
                 "type": "text",
                 "text": "这正是"
@@ -2672,16 +3469,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，即"
-              },
-              {
-                "type": "math",
-                "latex": "2S = \\sqrt{PQ+QR+RP}"
-              },
-              {
-                "type": "text",
-                "text": ".\n理由： 等量代换，直接比较得到面积表达式."
               }
             ]
+          },
+          {
+            "latex": "2S = \\sqrt{PQ+QR+RP}"
+          },
+          {
+            "text": ".\n理由： 等量代换，直接比较得到面积表达式."
           },
           {
             "segments": [
@@ -2696,16 +3491,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "满足"
-              },
-              {
-                "type": "math",
-                "latex": "2S = \\sqrt{PQ+QR+RP}"
-              },
-              {
-                "type": "text",
-                "text": "，与海伦公式完全一致."
               }
             ]
+          },
+          {
+            "latex": "2S = \\sqrt{PQ+QR+RP}"
+          },
+          {
+            "text": "，与海伦公式完全一致."
           }
         ]
       },
@@ -2715,319 +3508,208 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "例1（基础）\n题目： 已知三角形的三边长分别为"
-              },
-              {
-                "type": "math",
-                "latex": "x=5,\\;y=6,\\;z=7"
-              },
-              {
-                "type": "text",
-                "text": "，求其面积.\n解题步骤："
-              }
-            ]
+            "text": "例1（基础）\n题目： 已知三角形的三边长分别为"
+          },
+          {
+            "latex": "x=5,\\;y=6,\\;z=7"
+          },
+          {
+            "text": "，求其面积.\n解题步骤："
+          },
+          {
+            "text": "第一步（计算平方）：\n计算各边平方："
+          },
+          {
+            "latex": "x^2=25,\\;y^2=36,\\;z^2=49"
+          },
+          {
+            "text": ".\n理由： 需要平方值建立方程组."
+          },
+          {
+            "text": "第二步（解辅助量）：\n由"
+          },
+          {
+            "latex": "P+Q=25,\\;Q+R=36,\\;R+P=49"
+          },
+          {
+            "text": "解得"
+          },
+          {
+            "latex": "P=19,\\;Q=6,\\;R=30"
+          },
+          {
+            "text": ".\n理由： 解线性方程组，例如"
+          },
+          {
+            "latex": "P = \\frac{x^2+z^2-y^2}{2} = \\frac{25+49-36}{2}=19"
+          },
+          {
+            "text": "，类似可得其他."
+          },
+          {
+            "text": "第三步（代入公式）：\n计算"
+          },
+          {
+            "latex": "PQ+QR+RP = 19\\times6 + 6\\times30 + 30\\times19 = 114+180+570 = 864"
+          },
+          {
+            "text": "，则"
+          },
+          {
+            "latex": "2S = \\sqrt{864} = 12\\sqrt{6}"
+          },
+          {
+            "text": "，故"
+          },
+          {
+            "latex": "S = 6\\sqrt{6}"
+          },
+          {
+            "text": ".\n理由： 直接套用结论"
+          },
+          {
+            "latex": "2S = \\sqrt{PQ+QR+RP}"
+          },
+          {
+            "text": ".\n关键结论："
+          },
+          {
+            "latex": "S=6\\sqrt{6}\\approx 14.70"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "例2（稍变形）\n题目： 已知三角形的三边长分别为"
+          },
+          {
+            "latex": "\\sqrt{27},\\sqrt{28},\\sqrt{29}"
+          },
+          {
+            "text": "，求其面积.\n解题步骤："
+          },
+          {
+            "text": "第一步（取平方）：\n令"
+          },
+          {
+            "latex": "x^2=27,\\;y^2=28,\\;z^2=29"
+          },
+          {
+            "text": ".\n理由： 根式边长直接取其平方，避免开方."
+          },
+          {
+            "text": "第二步（解辅助量）：\n解"
+          },
+          {
+            "latex": "P+Q=27,\\;Q+R=28,\\;R+P=29"
+          },
+          {
+            "text": "，得"
+          },
+          {
+            "latex": "P=14,\\;Q=13,\\;R=15"
+          },
+          {
+            "text": ".\n理由： 利用公式"
+          },
+          {
+            "latex": "P = \\frac{x^2+z^2-y^2}{2} = \\frac{27+29-28}{2}=14"
+          },
+          {
+            "text": "等."
+          },
+          {
+            "text": "第三步（代入公式）：\n计算"
+          },
+          {
+            "latex": "PQ+QR+RP = 14\\times13 + 13\\times15 + 15\\times14 = 182+195+210 = 587"
+          },
+          {
+            "text": "，则"
+          },
+          {
+            "latex": "2S = \\sqrt{587}"
+          },
+          {
+            "text": "，"
+          },
+          {
+            "latex": "S = \\frac{\\sqrt{587}}{2}"
+          },
+          {
+            "text": ".\n理由： 直接得到面积，无需计算半周长和复杂根号.\n关键结论："
+          },
+          {
+            "latex": "S = \\frac{\\sqrt{587}}{2}\\approx 12.12"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "例3（综合应用）\n题目： 三角形的三边长分别为"
+          },
+          {
+            "latex": "\\sqrt{13},\\sqrt{20},\\sqrt{29}"
+          },
+          {
+            "text": "，求其面积.\n解题步骤："
+          },
+          {
+            "text": "第一步（取平方）："
+          },
+          {
+            "latex": "x^2=13,\\;y^2=20,\\;z^2=29"
+          },
+          {
+            "text": ".\n理由： 根式边长直接平方."
+          },
+          {
+            "text": "第二步（解辅助量）：\n解"
+          },
+          {
+            "latex": "P+Q=13,\\;Q+R=20,\\;R+P=29"
+          },
+          {
+            "text": "，得"
+          },
+          {
+            "latex": "P=11,\\;Q=2,\\;R=18"
+          },
+          {
+            "text": ".\n理由："
+          },
+          {
+            "latex": "P = \\frac{13+29-20}{2}=11"
+          },
+          {
+            "text": "，"
+          },
+          {
+            "latex": "Q = \\frac{13+20-29}{2}=2"
+          },
+          {
+            "text": "，"
+          },
+          {
+            "latex": "R = \\frac{20+29-13}{2}=18"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "第三步（代入公式）：\n计算"
+          },
+          {
+            "latex": "PQ+QR+RP = 11\\times2 + 2\\times18 + 18\\times11 = 22+36+198 = 256"
+          },
+          {
+            "text": "，则"
+          },
+          {
+            "latex": "2S = \\sqrt{256}=16"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "第一步（计算平方）：\n计算各边平方："
-              },
-              {
-                "type": "math",
-                "latex": "x^2=25,\\;y^2=36,\\;z^2=49"
-              },
-              {
-                "type": "text",
-                "text": ".\n理由： 需要平方值建立方程组."
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第二步（解辅助量）：\n由"
-              },
-              {
-                "type": "math",
-                "latex": "P+Q=25,\\;Q+R=36,\\;R+P=49"
-              },
-              {
-                "type": "text",
-                "text": "解得"
-              },
-              {
-                "type": "math",
-                "latex": "P=19,\\;Q=6,\\;R=30"
-              },
-              {
-                "type": "text",
-                "text": ".\n理由： 解线性方程组，例如"
-              },
-              {
-                "type": "math",
-                "latex": "P = \\frac{x^2+z^2-y^2}{2} = \\frac{25+49-36}{2}=19"
-              },
-              {
-                "type": "text",
-                "text": "，类似可得其他."
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第三步（代入公式）：\n计算"
-              },
-              {
-                "type": "math",
-                "latex": "PQ+QR+RP = 19\\times6 + 6\\times30 + 30\\times19 = 114+180+570 = 864"
-              },
-              {
-                "type": "text",
-                "text": "，则"
-              },
-              {
-                "type": "math",
-                "latex": "2S = \\sqrt{864} = 12\\sqrt{6}"
-              },
-              {
-                "type": "text",
-                "text": "，故"
-              },
-              {
-                "type": "math",
-                "latex": "S = 6\\sqrt{6}"
-              },
-              {
-                "type": "text",
-                "text": ".\n理由： 直接套用结论"
-              },
-              {
-                "type": "math",
-                "latex": "2S = \\sqrt{PQ+QR+RP}"
-              },
-              {
-                "type": "text",
-                "text": ".\n关键结论："
-              },
-              {
-                "type": "math",
-                "latex": "S=6\\sqrt{6}\\approx 14.70"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "例2（稍变形）\n题目： 已知三角形的三边长分别为"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{27},\\sqrt{28},\\sqrt{29}"
-              },
-              {
-                "type": "text",
-                "text": "，求其面积.\n解题步骤："
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第一步（取平方）：\n令"
-              },
-              {
-                "type": "math",
-                "latex": "x^2=27,\\;y^2=28,\\;z^2=29"
-              },
-              {
-                "type": "text",
-                "text": ".\n理由： 根式边长直接取其平方，避免开方."
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第二步（解辅助量）：\n解"
-              },
-              {
-                "type": "math",
-                "latex": "P+Q=27,\\;Q+R=28,\\;R+P=29"
-              },
-              {
-                "type": "text",
-                "text": "，得"
-              },
-              {
-                "type": "math",
-                "latex": "P=14,\\;Q=13,\\;R=15"
-              },
-              {
-                "type": "text",
-                "text": ".\n理由： 利用公式"
-              },
-              {
-                "type": "math",
-                "latex": "P = \\frac{x^2+z^2-y^2}{2} = \\frac{27+29-28}{2}=14"
-              },
-              {
-                "type": "text",
-                "text": "等."
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第三步（代入公式）：\n计算"
-              },
-              {
-                "type": "math",
-                "latex": "PQ+QR+RP = 14\\times13 + 13\\times15 + 15\\times14 = 182+195+210 = 587"
-              },
-              {
-                "type": "text",
-                "text": "，则"
-              },
-              {
-                "type": "math",
-                "latex": "2S = \\sqrt{587}"
-              },
-              {
-                "type": "text",
-                "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "S = \\frac{\\sqrt{587}}{2}"
-              },
-              {
-                "type": "text",
-                "text": ".\n理由： 直接得到面积，无需计算半周长和复杂根号.\n关键结论："
-              },
-              {
-                "type": "math",
-                "latex": "S = \\frac{\\sqrt{587}}{2}\\approx 12.12"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "例3（综合应用）\n题目： 三角形的三边长分别为"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{13},\\sqrt{20},\\sqrt{29}"
-              },
-              {
-                "type": "text",
-                "text": "，求其面积.\n解题步骤："
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第一步（取平方）："
-              },
-              {
-                "type": "math",
-                "latex": "x^2=13,\\;y^2=20,\\;z^2=29"
-              },
-              {
-                "type": "text",
-                "text": ".\n理由： 根式边长直接平方."
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第二步（解辅助量）：\n解"
-              },
-              {
-                "type": "math",
-                "latex": "P+Q=13,\\;Q+R=20,\\;R+P=29"
-              },
-              {
-                "type": "text",
-                "text": "，得"
-              },
-              {
-                "type": "math",
-                "latex": "P=11,\\;Q=2,\\;R=18"
-              },
-              {
-                "type": "text",
-                "text": ".\n理由："
-              },
-              {
-                "type": "math",
-                "latex": "P = \\frac{13+29-20}{2}=11"
-              },
-              {
-                "type": "text",
-                "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "Q = \\frac{13+20-29}{2}=2"
-              },
-              {
-                "type": "text",
-                "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "R = \\frac{20+29-13}{2}=18"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第三步（代入公式）：\n计算"
-              },
-              {
-                "type": "math",
-                "latex": "PQ+QR+RP = 11\\times2 + 2\\times18 + 18\\times11 = 22+36+198 = 256"
-              },
-              {
-                "type": "text",
-                "text": "，则"
-              },
-              {
-                "type": "math",
-                "latex": "2S = \\sqrt{256}=16"
-              },
               {
                 "type": "text",
                 "text": "，"
@@ -3074,20 +3756,13 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（有序对应）：\n严格按照"
-              },
-              {
-                "type": "math",
-                "latex": "P+Q=x^2,\\;Q+R=y^2,\\;R+P=z^2"
-              },
-              {
-                "type": "text",
-                "text": "的顺序，不可互换."
-              }
-            ]
+            "text": "正确理解（有序对应）：\n严格按照"
+          },
+          {
+            "latex": "P+Q=x^2,\\;Q+R=y^2,\\;R+P=z^2"
+          },
+          {
+            "text": "的顺序，不可互换."
           },
           {
             "segments": [
@@ -3146,15 +3821,13 @@ module.exports = {
             ]
           },
           {
+            "text": "易错点二（公式因子遗漏）\n直接写"
+          },
+          {
+            "latex": "S = \\sqrt{PQ+QR+RP}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "易错点二（公式因子遗漏）\n直接写"
-              },
-              {
-                "type": "math",
-                "latex": "S = \\sqrt{PQ+QR+RP}"
-              },
               {
                 "type": "text",
                 "text": "，忘记公式中是"
@@ -3170,44 +3843,28 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（强调因子2）：\n公式为"
-              },
-              {
-                "type": "math",
-                "latex": "2S = \\sqrt{PQ+QR+RP}"
-              },
-              {
-                "type": "text",
-                "text": "，因此"
-              },
-              {
-                "type": "math",
-                "latex": "S = \\frac{\\sqrt{PQ+QR+RP}}{2}"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
+            "text": "正确理解（强调因子2）：\n公式为"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "错因分析（粗心复制）：\n将海伦公式中"
-              },
-              {
-                "type": "math",
-                "latex": "S = \\sqrt{s(s-a)(s-b)(s-c)}"
-              },
-              {
-                "type": "text",
-                "text": "的系数混淆，未注意本公式多了一个因子2."
-              }
-            ]
+            "latex": "2S = \\sqrt{PQ+QR+RP}"
+          },
+          {
+            "text": "，因此"
+          },
+          {
+            "latex": "S = \\frac{\\sqrt{PQ+QR+RP}}{2}"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "错因分析（粗心复制）：\n将海伦公式中"
+          },
+          {
+            "latex": "S = \\sqrt{s(s-a)(s-b)(s-c)}"
+          },
+          {
+            "text": "的系数混淆，未注意本公式多了一个因子2."
           },
           {
             "text": "易错点三（条件误判）\n认为该公式只适用于三边平方和为整数或边长特殊的三角形."
@@ -3239,23 +3896,19 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "一句话核心\n三角形面积"
+          },
+          {
+            "latex": "S = \\frac12\\sqrt{PQ+QR+RP}"
+          },
+          {
+            "text": "，其中"
+          },
+          {
+            "latex": "P+Q=x^2,\\;Q+R=y^2,\\;R+P=z^2"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "一句话核心\n三角形面积"
-              },
-              {
-                "type": "math",
-                "latex": "S = \\frac12\\sqrt{PQ+QR+RP}"
-              },
-              {
-                "type": "text",
-                "text": "，其中"
-              },
-              {
-                "type": "math",
-                "latex": "P+Q=x^2,\\;Q+R=y^2,\\;R+P=z^2"
-              },
               {
                 "type": "text",
                 "text": "，"
@@ -3317,20 +3970,13 @@ module.exports = {
             "text": "关键提醒"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "易错点（公式因子）： 牢记"
-              },
-              {
-                "type": "math",
-                "latex": "2S = \\sqrt{\\cdots}"
-              },
-              {
-                "type": "text",
-                "text": "，不要遗漏因子2."
-              }
-            ]
+            "text": "易错点（公式因子）： 牢记"
+          },
+          {
+            "latex": "2S = \\sqrt{\\cdots}"
+          },
+          {
+            "text": "，不要遗漏因子2."
           },
           {
             "segments": [

@@ -17,6 +17,7 @@ Mathnote 项目包含 **9 个 bat 文件**（根目录）和 **35 个脚本文�
 | `build.bat` | `build.bat full` / `build.bat toc` | 编译完整 LaTeX 文档 → PDF |
 | `build_content_js.bat` | `build_content_js.bat` | 生成小程序详情页 JS 数据 |
 | `scripts/build_search_bundle_js.py` | `python scripts/build_search_bundle_js.py` | 生成搜索索引 `search_bundle.js` |
+| `scripts/build_backend_and_canonical.py` | `python scripts/build_backend_and_canonical.py` | **一键构建**：搜索索引 + 后端 JSON + detail JS + canonical v2 |
 | `check_meta_json.bat` | `check_meta_json.bat` | 校验所有 meta.json |
 | `upgrade_meta.bat` | `upgrade_meta.bat` | 同步 meta.json 到最新 schema |
 
@@ -30,6 +31,14 @@ Mathnote 项目包含 **9 个 bat 文件**（根目录）和 **35 个脚本文�
 | `scripts/meta_schema_sync.py` | `python scripts/meta_schema_sync.py` | meta.json 同步补全 |
 | `scripts/check_meta_json.py` | `python scripts/check_meta_json.py` | meta.json 校验 |
 | `scripts/extract_backend_index_from_search_bundle.py` | `python scripts/extract_backend_index_from_search_bundle.py` | 从 search_bundle.js 提取后端 JSON 索引 |
+| `scripts/build_domain_topic_map.py` | `python scripts/build_domain_topic_map.py` | 构建领域-主题-结论映射表 |
+| `scripts/generate_toc_seed.py` | `python scripts/generate_toc_seed.py --root main.tex --output toc.tex` | 从 main.tex 提取目录结构 → seed 文件 |
+
+### 元数据生成与补全 📋
+
+| 脚本 | 调用方式 | 做什么 |
+|------|----------|--------|
+| `scripts/generate_missing_meta.py` | `python scripts/generate_missing_meta.py` | 为缺少 meta.json 的结论自动生成元数据 |
 
 ### 媒体生成（需要时用） 🎨
 
@@ -40,6 +49,7 @@ Mathnote 项目包含 **9 个 bat 文件**（根目录）和 **35 个脚本文�
 | `scripts/build_webp.py` | `python scripts/build_webp.py` | LaTeX → PDF → WebP 图片 |
 | `scripts/export_pdf_pages.py` | `python scripts/export_pdf_pages.py` | PDF 页面导出为高清图片 |
 | `encrypt_pdf.bat` | `encrypt_pdf.bat <in> <out> <user>` | PDF 权限加密 |
+| `scripts/png/mercedes_benz_theorem.py` | `python scripts/png/mercedes_benz_theorem.py` | 奔驰定理几何示意图 → PNG |
 
 ### 目录/脚手架（项目初始化/扩展时用） 🏗
 

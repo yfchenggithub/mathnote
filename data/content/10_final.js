@@ -55,6 +55,10 @@
  *     2. { latex: string }
  *     3. { segments: [{ type: 'text', text } | { type: 'math', latex }] }
  *     4. theorem-list item: { title, desc?, latex }
+ *   - Rich parser rules for mixed text/math sections:
+ *     - Long equation-chain math is promoted to standalone { latex } items.
+ *     - Trailing punctuation is stripped out of latex and kept in text segments.
+ *     - This improves canonical migration to math_block and avoids inline overflow.
  *   - Important layouts used by this builder:
  *     - text
  *     - theorem-list
@@ -98,9 +102,14 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "O01 不变量思想\n在函数变化、数列递推、几何变换等过程中，\n若某个量在变化前后保持不变，\n则该量称为不变量，\n可作为突破复杂问题的核心抓手。"
+              }
+            ],
+            "desc": "O01 不变量思想\n在函数变化、数列递推、几何变换等过程中，\n若某个量在变化前后保持不变，\n则该量称为不变量，\n可作为突破复杂问题的核心抓手。"
           }
         ]
       },
@@ -130,36 +139,25 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "例：\n已知数列"
-              },
-              {
-                "type": "math",
-                "latex": "\\{a_n\\}"
-              },
-              {
-                "type": "text",
-                "text": "满足"
-              },
-              {
-                "type": "math",
-                "latex": "a_{n+1} = \\frac{a_n}{1+a_n},"
-              },
-              {
-                "type": "text",
-                "text": "研究其长期变化趋势。\n提示：\n尝试构造"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{1}{a_n}"
-              },
-              {
-                "type": "text",
-                "text": "，\n可发现其差值保持恒定。"
-              }
-            ]
+            "text": "例：\n已知数列"
+          },
+          {
+            "latex": "\\{a_n\\}"
+          },
+          {
+            "text": "满足"
+          },
+          {
+            "latex": "a_{n+1} = \\frac{a_n}{1+a_n}"
+          },
+          {
+            "text": ",研究其长期变化趋势。\n提示：\n尝试构造"
+          },
+          {
+            "latex": "\\frac{1}{a_n}"
+          },
+          {
+            "text": "，\n可发现其差值保持恒定。"
           }
         ]
       },

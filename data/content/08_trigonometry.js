@@ -55,6 +55,10 @@
  *     2. { latex: string }
  *     3. { segments: [{ type: 'text', text } | { type: 'math', latex }] }
  *     4. theorem-list item: { title, desc?, latex }
+ *   - Rich parser rules for mixed text/math sections:
+ *     - Long equation-chain math is promoted to standalone { latex } items.
+ *     - Trailing punctuation is stripped out of latex and kept in text segments.
+ *     - This improves canonical migration to math_block and avoids inline overflow.
  *   - Important layouts used by this builder:
  *     - text
  *     - theorem-list
@@ -166,13 +170,80 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
+            "title": "条件 1（三角形内角）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "在"
+              },
+              {
+                "type": "math",
+                "latex": "\\triangle ABC"
+              },
+              {
+                "type": "text",
+                "text": "中，"
+              },
+              {
+                "type": "math",
+                "latex": "A,B,C"
+              },
+              {
+                "type": "text",
+                "text": "为三个内角，满足"
+              },
+              {
+                "type": "math",
+                "latex": "A+B+C=\\pi"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "在 中， 为三个内角，满足 。",
+            "latex": "A+B+C=\\pi"
+          },
+          {
             "title": "结论一（恒等关系）：",
-            "desc": "三个内角的正弦平方和恒等于",
-            "latex": "2 \\qquad \\sin^2 A+\\sin^2 B+\\sin^2 C = 2+2\\cos A\\cos B\\cos C."
+            "segments": [
+              {
+                "type": "text",
+                "text": "三个内角的正弦平方和恒等于"
+              },
+              {
+                "type": "math",
+                "latex": "2"
+              },
+              {
+                "type": "text",
+                "text": "加上两倍余弦乘积。"
+              },
+              {
+                "type": "math",
+                "latex": "\\sin^2 A+\\sin^2 B+\\sin^2 C = 2+2\\cos A\\cos B\\cos C."
+              }
+            ],
+            "desc": "三个内角的正弦平方和恒等于 加上两倍余弦乘积。",
+            "latex": "\\sin^2 A+\\sin^2 B+\\sin^2 C = 2+2\\cos A\\cos B\\cos C."
           },
           {
             "title": "推广结论（直角情形）：",
-            "desc": "若三角形有一个直角，等式退化为勾股定理的正弦形式。",
+            "segments": [
+              {
+                "type": "text",
+                "text": "若三角形有一个直角，等式退化为勾股定理的正弦形式。"
+              },
+              {
+                "type": "math",
+                "latex": "\\text{若 }C=90^\\circ,\\text{ 则 }\\sin^2 A+\\sin^2 B+1=2,\\quad \\sin^2 A+\\sin^2 B=1."
+              },
+              {
+                "type": "text",
+                "text": "等号/取等条件： 恒成立，无额外限制条件。"
+              }
+            ],
+            "desc": "若三角形有一个直角，等式退化为勾股定理的正弦形式。 等号/取等条件： 恒成立，无额外限制条件。",
             "latex": "\\text{若 }C=90^\\circ,\\text{ 则 }\\sin^2 A+\\sin^2 B+1=2,\\quad \\sin^2 A+\\sin^2 B=1."
           }
         ]
@@ -205,31 +276,25 @@ module.exports = {
             ]
           },
           {
+            "text": "要点二（范围调控）：\n左边"
+          },
+          {
+            "latex": "\\sin^2 A+\\sin^2 B+\\sin^2 C"
+          },
+          {
+            "text": "取值范围在"
+          },
+          {
+            "latex": "(2, \\frac{9}{4}]"
+          },
+          {
+            "text": "之间，右边"
+          },
+          {
+            "latex": "2+2\\cos A\\cos B\\cos C"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "要点二（范围调控）：\n左边"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin^2 A+\\sin^2 B+\\sin^2 C"
-              },
-              {
-                "type": "text",
-                "text": "取值范围在"
-              },
-              {
-                "type": "math",
-                "latex": "(2, \\frac{9}{4}]"
-              },
-              {
-                "type": "text",
-                "text": "之间，右边"
-              },
-              {
-                "type": "math",
-                "latex": "2+2\\cos A\\cos B\\cos C"
-              },
               {
                 "type": "text",
                 "text": "通过乘积项控制这个范围：锐角三角形乘积为正，值偏大；直角三角形乘积为零，值恰为"
@@ -245,20 +310,13 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "要点三（推导入口）：\n引入倍角公式降次后，问题转化为"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos 2A+\\cos 2B+\\cos 2C"
-              },
-              {
-                "type": "text",
-                "text": "的化简，利用内角和关系可简洁证出。"
-              }
-            ]
+            "text": "要点三（推导入口）：\n引入倍角公式降次后，问题转化为"
+          },
+          {
+            "latex": "\\cos 2A+\\cos 2B+\\cos 2C"
+          },
+          {
+            "text": "的化简，利用内角和关系可简洁证出。"
           },
           {
             "segments": [
@@ -273,16 +331,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "代表两倍的基准能量，而"
-              },
-              {
-                "type": "math",
-                "latex": "2\\cos A\\cos B\\cos C"
-              },
-              {
-                "type": "text",
-                "text": "反映三个角度方向夹角的联动乘积，刻画三角形的“锐钝属性”。"
               }
             ]
+          },
+          {
+            "latex": "2\\cos A\\cos B\\cos C"
+          },
+          {
+            "text": "反映三个角度方向夹角的联动乘积，刻画三角形的“锐钝属性”。"
           },
           {
             "text": "代数意义（降次连接） 该恒等式将三个角的正弦平方和与余弦积联系起来，常用于将正弦的二次项转化为余弦的一次乘积，方便解三角形或进行不等式放缩。"
@@ -291,98 +347,64 @@ module.exports = {
             "text": "考点价值（化简求值）"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "考法一（直接求值）： 给定"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos A\\cos B\\cos C"
-              },
-              {
-                "type": "text",
-                "text": "的值，直接代入求"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin^2 A+\\sin^2 B+\\sin^2 C"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "考法一（直接求值）： 给定"
+          },
+          {
+            "latex": "\\cos A\\cos B\\cos C"
+          },
+          {
+            "text": "的值，直接代入求"
+          },
+          {
+            "latex": "\\sin^2 A+\\sin^2 B+\\sin^2 C"
+          },
+          {
+            "text": "。"
           },
           {
             "text": "考法二（隐含条件）： 在三角形内给定部分角或边关系，将目标式朝该恒等式变形以简化。"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "顿悟点\n当三角形为直角三角形时"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos C=0"
-              },
-              {
-                "type": "text",
-                "text": "，等式瞬间蜕化为"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin^2 A+\\sin^2 B=1"
-              },
-              {
-                "type": "text",
-                "text": "，与单位圆的勾股关系一致，可视为勾股定理在三角函数下的“兄弟版”。"
-              }
-            ]
+            "text": "顿悟点\n当三角形为直角三角形时"
+          },
+          {
+            "latex": "\\cos C=0"
+          },
+          {
+            "text": "，等式瞬间蜕化为"
+          },
+          {
+            "latex": "\\sin^2 A+\\sin^2 B=1"
+          },
+          {
+            "text": "，与单位圆的勾股关系一致，可视为勾股定理在三角函数下的“兄弟版”。"
           },
           {
             "text": "使用场景"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "场景一（三角化简）： 遇到"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin^2 A+\\sin^2 B+\\sin^2 C"
-              },
-              {
-                "type": "text",
-                "text": "的多项式和，可直接套用减少运算。"
-              }
-            ]
+            "text": "场景一（三角化简）： 遇到"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "场景二（不等式证明）： 结合"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos A\\cos B\\cos C\\le \\frac{1}{8}"
-              },
-              {
-                "type": "text",
-                "text": "等经典不等式，得到"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin^2 A+\\sin^2 B+\\sin^2 C\\le \\frac{9}{4}"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "latex": "\\sin^2 A+\\sin^2 B+\\sin^2 C"
+          },
+          {
+            "text": "的多项式和，可直接套用减少运算。"
+          },
+          {
+            "text": "场景二（不等式证明）： 结合"
+          },
+          {
+            "latex": "\\cos A\\cos B\\cos C\\le \\frac{1}{8}"
+          },
+          {
+            "text": "等经典不等式，得到"
+          },
+          {
+            "latex": "\\sin^2 A+\\sin^2 B+\\sin^2 C\\le \\frac{9}{4}"
+          },
+          {
+            "text": "。"
           }
         ]
       },
@@ -392,239 +414,160 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "思路提示 用倍角公式将正弦平方降次，转化为余弦倍角求和，再利用三角形内角和的条件对"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos 2A+\\cos 2B+\\cos 2C"
-              },
-              {
-                "type": "text",
-                "text": "进行和差化积，最终整理出"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos A\\cos B\\cos C"
-              },
-              {
-                "type": "text",
-                "text": "的形式。"
-              }
-            ]
+            "text": "思路提示 用倍角公式将正弦平方降次，转化为余弦倍角求和，再利用三角形内角和的条件对"
+          },
+          {
+            "latex": "\\cos 2A+\\cos 2B+\\cos 2C"
+          },
+          {
+            "text": "进行和差化积，最终整理出"
+          },
+          {
+            "latex": "\\cos A\\cos B\\cos C"
+          },
+          {
+            "text": "的形式。"
           },
           {
             "text": "正式推导"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤一（降次倍角）：\n利用"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin^2 x = \\frac{1-\\cos 2x}{2}"
-              },
-              {
-                "type": "text",
-                "text": "，对左边进行变形。"
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\n\\sin^2 A+\\sin^2 B+\\sin^2 C &= \\frac{1-\\cos 2A}{2} + \\frac{1-\\cos 2B}{2} + \\frac{1-\\cos 2C}{2} \\\\\n&= \\frac{3}{2} - \\frac{1}{2}(\\cos 2A+\\cos 2B+\\cos 2C).\n\\end{aligned}"
-              },
-              {
-                "type": "text",
-                "text": "理由： 将平方项转化为一次倍角，便于利用和差化积。"
-              }
-            ]
+            "text": "步骤一（降次倍角）：\n利用"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤二（和差化积）：\n计算"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos 2A+\\cos 2B"
-              },
-              {
-                "type": "text",
-                "text": "，并利用"
-              },
-              {
-                "type": "math",
-                "latex": "A+B=\\pi-C"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\n\\cos 2A + \\cos 2B &= 2\\cos(A+B)\\cos(A-B) \\\\\n&= 2\\cos(\\pi-C)\\cos(A-B) \\\\\n&= -2\\cos C \\cos(A-B).\n\\end{aligned}"
-              },
-              {
-                "type": "text",
-                "text": "理由： 和差化积公式"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos x+\\cos y = 2\\cos\\frac{x+y}{2}\\cos\\frac{x-y}{2}"
-              },
-              {
-                "type": "text",
-                "text": "，再用"
-              },
-              {
-                "type": "math",
-                "latex": "A+B=\\pi-C"
-              },
-              {
-                "type": "text",
-                "text": "及"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos(\\pi-C)=-\\cos C"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "latex": "\\sin^2 x = \\frac{1-\\cos 2x}{2}"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤三（加入第三项）：\n将"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos 2C = 2\\cos^2 C - 1"
-              },
-              {
-                "type": "text",
-                "text": "与上一步结果合并。"
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\n\\cos 2A+\\cos 2B+\\cos 2C &= -2\\cos C\\cos(A-B) + 2\\cos^2 C - 1 \\\\\n&= -1 + 2\\cos C\\bigl(\\cos C - \\cos(A-B)\\bigr).\n\\end{aligned}"
-              },
-              {
-                "type": "text",
-                "text": "理由： 用倍角公式"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos 2C = 2\\cos^2 C -1"
-              },
-              {
-                "type": "text",
-                "text": "，提公因式"
-              },
-              {
-                "type": "math",
-                "latex": "2\\cos C"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "，对左边进行变形。"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤四（再化和差）：\n利用"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos C = -\\cos(A+B)"
-              },
-              {
-                "type": "text",
-                "text": "，以及"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos(A+B) - \\cos(A-B) = -2\\sin A\\sin B"
-              },
-              {
-                "type": "text",
-                "text": "，化简括号内式子。"
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\n\\cos C - \\cos(A-B) &= -\\cos(A+B) - \\cos(A-B) \\\\\n&= -\\bigl[\\cos(A+B)+\\cos(A-B)\\bigr] \\\\\n&= -2\\cos A\\cos B.\n\\end{aligned}"
-              },
-              {
-                "type": "text",
-                "text": "理由："
-              },
-              {
-                "type": "math",
-                "latex": "\\cos(A+B)+\\cos(A-B)=2\\cos A\\cos B"
-              },
-              {
-                "type": "text",
-                "text": "，于是括号内化为"
-              },
-              {
-                "type": "math",
-                "latex": "-2\\cos A\\cos B"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "latex": "\\begin{aligned}\n\\sin^2 A+\\sin^2 B+\\sin^2 C &= \\frac{1-\\cos 2A}{2} + \\frac{1-\\cos 2B}{2} + \\frac{1-\\cos 2C}{2} \\\\\n&= \\frac{3}{2} - \\frac{1}{2}(\\cos 2A+\\cos 2B+\\cos 2C).\n\\end{aligned}"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤五（合并结果）：\n代入上一步得到总和。"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos 2A+\\cos 2B+\\cos 2C = -1 + 2\\cos C \\cdot (-2\\cos A\\cos B) = -1 - 4\\cos A\\cos B\\cos C."
-              },
-              {
-                "type": "text",
-                "text": "理由： 乘积产生了目标项"
-              },
-              {
-                "type": "math",
-                "latex": "-4\\cos A\\cos B\\cos C"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "理由： 将平方项转化为一次倍角，便于利用和差化积。"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤六（回代原式）：\n将此和代入第一步表达式中。"
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\n\\sin^2 A+\\sin^2 B+\\sin^2 C &= \\frac{3}{2} - \\frac{1}{2}\\bigl(-1 - 4\\cos A\\cos B\\cos C\\bigr) \\\\\n&= \\frac{3}{2} + \\frac{1}{2} + 2\\cos A\\cos B\\cos C \\\\\n&= 2 + 2\\cos A\\cos B\\cos C.\n\\end{aligned}"
-              },
-              {
-                "type": "text",
-                "text": "理由： 约分后即得所证恒等式。"
-              }
-            ]
+            "text": "步骤二（和差化积）：\n计算"
+          },
+          {
+            "latex": "\\cos 2A+\\cos 2B"
+          },
+          {
+            "text": "，并利用"
+          },
+          {
+            "latex": "A+B=\\pi-C"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "latex": "\\begin{aligned}\n\\cos 2A + \\cos 2B &= 2\\cos(A+B)\\cos(A-B) \\\\\n&= 2\\cos(\\pi-C)\\cos(A-B) \\\\\n&= -2\\cos C \\cos(A-B).\n\\end{aligned}"
+          },
+          {
+            "text": "理由： 和差化积公式"
+          },
+          {
+            "latex": "\\cos x+\\cos y = 2\\cos\\frac{x+y}{2}\\cos\\frac{x-y}{2}"
+          },
+          {
+            "text": "，再用"
+          },
+          {
+            "latex": "A+B=\\pi-C"
+          },
+          {
+            "text": "及"
+          },
+          {
+            "latex": "\\cos(\\pi-C)=-\\cos C"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "步骤三（加入第三项）：\n将"
+          },
+          {
+            "latex": "\\cos 2C = 2\\cos^2 C - 1"
+          },
+          {
+            "text": "与上一步结果合并。"
+          },
+          {
+            "latex": "\\begin{aligned}\n\\cos 2A+\\cos 2B+\\cos 2C &= -2\\cos C\\cos(A-B) + 2\\cos^2 C - 1 \\\\\n&= -1 + 2\\cos C\\bigl(\\cos C - \\cos(A-B)\\bigr).\n\\end{aligned}"
+          },
+          {
+            "text": "理由： 用倍角公式"
+          },
+          {
+            "latex": "\\cos 2C = 2\\cos^2 C -1"
+          },
+          {
+            "text": "，提公因式"
+          },
+          {
+            "latex": "2\\cos C"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "步骤四（再化和差）：\n利用"
+          },
+          {
+            "latex": "\\cos C = -\\cos(A+B)"
+          },
+          {
+            "text": "，以及"
+          },
+          {
+            "latex": "\\cos(A+B) - \\cos(A-B) = -2\\sin A\\sin B"
+          },
+          {
+            "text": "，化简括号内式子。"
+          },
+          {
+            "latex": "\\begin{aligned}\n\\cos C - \\cos(A-B) &= -\\cos(A+B) - \\cos(A-B) \\\\\n&= -\\bigl[\\cos(A+B)+\\cos(A-B)\\bigr] \\\\\n&= -2\\cos A\\cos B.\n\\end{aligned}"
+          },
+          {
+            "text": "理由："
+          },
+          {
+            "latex": "\\cos(A+B)+\\cos(A-B)=2\\cos A\\cos B"
+          },
+          {
+            "text": "，于是括号内化为"
+          },
+          {
+            "latex": "-2\\cos A\\cos B"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "步骤五（合并结果）：\n代入上一步得到总和。"
+          },
+          {
+            "latex": "\\cos 2A+\\cos 2B+\\cos 2C = -1 + 2\\cos C \\cdot (-2\\cos A\\cos B) = -1 - 4\\cos A\\cos B\\cos C"
+          },
+          {
+            "text": ".理由： 乘积产生了目标项"
+          },
+          {
+            "latex": "-4\\cos A\\cos B\\cos C"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "步骤六（回代原式）：\n将此和代入第一步表达式中。"
+          },
+          {
+            "latex": "\\begin{aligned}\n\\sin^2 A+\\sin^2 B+\\sin^2 C &= \\frac{3}{2} - \\frac{1}{2}\\bigl(-1 - 4\\cos A\\cos B\\cos C\\bigr) \\\\\n&= \\frac{3}{2} + \\frac{1}{2} + 2\\cos A\\cos B\\cos C \\\\\n&= 2 + 2\\cos A\\cos B\\cos C.\n\\end{aligned}"
+          },
+          {
+            "text": "理由： 约分后即得所证恒等式。"
           },
           {
             "text": "结论回扣 由倍角公式出发，经和差化积及内角和代换，零跳步地证明了正弦平方和与余弦积的恒等关系，过程揭示了该恒等式本质上是余弦倍角和的三角形特例。"
@@ -637,140 +580,88 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "例 1（基础）\n题目： 在"
-              },
-              {
-                "type": "math",
-                "latex": "\\triangle ABC"
-              },
-              {
-                "type": "text",
-                "text": "中，若"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos A\\cos B\\cos C = \\frac{1}{8}"
-              },
-              {
-                "type": "text",
-                "text": "，求"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin^2 A+\\sin^2 B+\\sin^2 C"
-              },
-              {
-                "type": "text",
-                "text": "的值。\n解题步骤："
-              }
-            ]
+            "text": "例 1（基础）\n题目： 在"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第一步（代入公式）：\n直接应用恒等式"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin^2 A+\\sin^2 B+\\sin^2 C = 2+2\\cos A\\cos B\\cos C"
-              },
-              {
-                "type": "text",
-                "text": "。\n理由： 题目条件正好给出余弦乘积，可直接套用结论。"
-              }
-            ]
+            "latex": "\\triangle ABC"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第二步（计算求值）：\n代入数值计算："
-              },
-              {
-                "type": "math",
-                "latex": "2+2\\times\\frac{1}{8} = 2+\\frac{1}{4} = \\frac{9}{4}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 简单运算得到最终结果。\n关键结论： 所求值为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{9}{4}"
-              },
-              {
-                "type": "text",
-                "text": "，此时三角形恰为等边三角形。"
-              }
-            ]
+            "text": "中，若"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "例 2（稍变形）\n题目： 在"
-              },
-              {
-                "type": "math",
-                "latex": "\\triangle ABC"
-              },
-              {
-                "type": "text",
-                "text": "中，若"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin^2 A+\\sin^2 B+\\sin^2 C = \\frac{9}{4}"
-              },
-              {
-                "type": "text",
-                "text": "，判断三角形的形状。\n解题步骤："
-              }
-            ]
+            "latex": "\\cos A\\cos B\\cos C = \\frac{1}{8}"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第一步（求余弦积）：\n由恒等式得"
-              },
-              {
-                "type": "math",
-                "latex": "2+2\\cos A\\cos B\\cos C = \\frac{9}{4} \\quad\\Rightarrow\\quad \\cos A\\cos B\\cos C = \\frac{1}{8}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 移项化简即可解出余弦乘积。"
-              }
-            ]
+            "text": "，求"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第二步（引用不等式）：\n在任意三角形中，恒有"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos A\\cos B\\cos C \\le \\frac{1}{8}"
-              },
-              {
-                "type": "text",
-                "text": "，等号成立当且仅当"
-              },
-              {
-                "type": "math",
-                "latex": "A=B=C=60^\\circ"
-              },
-              {
-                "type": "text",
-                "text": "。\n理由： 该不等式可从均值不等式或 Jensen 不等式推出，为常用结论。"
-              }
-            ]
+            "latex": "\\sin^2 A+\\sin^2 B+\\sin^2 C"
+          },
+          {
+            "text": "的值。\n解题步骤："
+          },
+          {
+            "text": "第一步（代入公式）：\n直接应用恒等式"
+          },
+          {
+            "latex": "\\sin^2 A+\\sin^2 B+\\sin^2 C = 2+2\\cos A\\cos B\\cos C"
+          },
+          {
+            "text": "。\n理由： 题目条件正好给出余弦乘积，可直接套用结论。"
+          },
+          {
+            "text": "第二步（计算求值）：\n代入数值计算："
+          },
+          {
+            "latex": "2+2\\times\\frac{1}{8} = 2+\\frac{1}{4} = \\frac{9}{4}"
+          },
+          {
+            "text": ".理由： 简单运算得到最终结果。\n关键结论： 所求值为"
+          },
+          {
+            "latex": "\\frac{9}{4}"
+          },
+          {
+            "text": "，此时三角形恰为等边三角形。"
+          },
+          {
+            "text": "例 2（稍变形）\n题目： 在"
+          },
+          {
+            "latex": "\\triangle ABC"
+          },
+          {
+            "text": "中，若"
+          },
+          {
+            "latex": "\\sin^2 A+\\sin^2 B+\\sin^2 C = \\frac{9}{4}"
+          },
+          {
+            "text": "，判断三角形的形状。\n解题步骤："
+          },
+          {
+            "text": "第一步（求余弦积）：\n由恒等式得"
+          },
+          {
+            "latex": "2+2\\cos A\\cos B\\cos C = \\frac{9}{4} \\quad\\Rightarrow\\quad \\cos A\\cos B\\cos C = \\frac{1}{8}"
+          },
+          {
+            "text": ".理由： 移项化简即可解出余弦乘积。"
+          },
+          {
+            "text": "第二步（引用不等式）：\n在任意三角形中，恒有"
+          },
+          {
+            "latex": "\\cos A\\cos B\\cos C \\le \\frac{1}{8}"
+          },
+          {
+            "text": "，等号成立当且仅当"
+          },
+          {
+            "latex": "A=B=C=60^\\circ"
+          },
+          {
+            "text": "。\n理由： 该不等式可从均值不等式或 Jensen 不等式推出，为常用结论。"
           },
           {
             "segments": [
@@ -796,20 +687,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "易错点一（忽略内角和）\n对三个角不满足"
-              },
-              {
-                "type": "math",
-                "latex": "A+B+C=\\pi"
-              },
-              {
-                "type": "text",
-                "text": "的数组，直接代入恒等式进行计算。"
-              }
-            ]
+            "text": "易错点一（忽略内角和）\n对三个角不满足"
+          },
+          {
+            "latex": "A+B+C=\\pi"
+          },
+          {
+            "text": "的数组，直接代入恒等式进行计算。"
           },
           {
             "segments": [
@@ -824,91 +708,59 @@ module.exports = {
               {
                 "type": "text",
                 "text": "为三角形内角时成立，使用前必须验证和为"
-              },
-              {
-                "type": "math",
-                "latex": "\\pi"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "错因分析（随意推广）：\n学生常把该式当作普适的代数恒等式，忘记背后依赖"
-              },
-              {
-                "type": "math",
-                "latex": "A+B+C=\\pi"
-              },
-              {
-                "type": "text",
-                "text": "的推导前提。"
-              }
-            ]
+            "latex": "\\pi"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "易错点二（符号误判）\n计算"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos A\\cos B\\cos C"
-              },
-              {
-                "type": "text",
-                "text": "时，忽略钝角余弦为负，导致结果偏大。"
-              }
-            ]
+            "text": "。"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（余弦正负）：\n乘积在锐角三角形为正，直角三角形为零，钝角三角形为负，直接影响"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin^2"
-              },
-              {
-                "type": "text",
-                "text": "和的取值范围。"
-              }
-            ]
+            "text": "错因分析（随意推广）：\n学生常把该式当作普适的代数恒等式，忘记背后依赖"
+          },
+          {
+            "latex": "A+B+C=\\pi"
+          },
+          {
+            "text": "的推导前提。"
+          },
+          {
+            "text": "易错点二（符号误判）\n计算"
+          },
+          {
+            "latex": "\\cos A\\cos B\\cos C"
+          },
+          {
+            "text": "时，忽略钝角余弦为负，导致结果偏大。"
+          },
+          {
+            "text": "正确理解（余弦正负）：\n乘积在锐角三角形为正，直角三角形为零，钝角三角形为负，直接影响"
+          },
+          {
+            "latex": "\\sin^2"
+          },
+          {
+            "text": "和的取值范围。"
           },
           {
             "text": "错因分析（忽视符号）：\n思维定势认为所有三角函数值均为正，未根据角度范围判断余弦符号。"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "易错点三（平方混淆）\n把"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin^2 A+\\sin^2 B+\\sin^2 C"
-              },
-              {
-                "type": "text",
-                "text": "与"
-              },
-              {
-                "type": "math",
-                "latex": "(\\sin A+\\sin B+\\sin C)^2"
-              },
-              {
-                "type": "text",
-                "text": "混为一谈，用和平方公式展开而忽略交叉项。"
-              }
-            ]
+            "text": "易错点三（平方混淆）\n把"
+          },
+          {
+            "latex": "\\sin^2 A+\\sin^2 B+\\sin^2 C"
+          },
+          {
+            "text": "与"
+          },
+          {
+            "latex": "(\\sin A+\\sin B+\\sin C)^2"
+          },
+          {
+            "text": "混为一谈，用和平方公式展开而忽略交叉项。"
           },
           {
             "text": "正确理解（恒等关系）：\n平方和与和平方没有直接简化关系，必须使用本恒等式或降次、积化和差另行处理。"
@@ -968,24 +820,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "为"
-              },
-              {
-                "type": "math",
-                "latex": "\\triangle ABC"
-              },
-              {
-                "type": "text",
-                "text": "的内角，满足"
-              },
-              {
-                "type": "math",
-                "latex": "A+B+C=\\pi"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "\\triangle ABC"
+          },
+          {
+            "text": "的内角，满足"
+          },
+          {
+            "latex": "A+B+C=\\pi"
+          },
+          {
+            "text": "。"
           },
           {
             "text": "条件 2（恒成立）： 无其他限制，任意形状三角形均可直接套用。"
@@ -994,36 +842,22 @@ module.exports = {
             "text": "关键提醒"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "易错点（余弦符号）："
-              },
-              {
-                "type": "math",
-                "latex": "\\cos A\\cos B\\cos C"
-              },
-              {
-                "type": "text",
-                "text": "可正可负，锐角为正、直角为零、钝角为负，勿忽略符号。"
-              }
-            ]
+            "text": "易错点（余弦符号）："
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "检查项（内角和验证）： 使用前务必确认"
-              },
-              {
-                "type": "math",
-                "latex": "A+B+C=\\pi"
-              },
-              {
-                "type": "text",
-                "text": "，非三角形角数组严禁套用。"
-              }
-            ]
+            "latex": "\\cos A\\cos B\\cos C"
+          },
+          {
+            "text": "可正可负，锐角为正、直角为零、钝角为负，勿忽略符号。"
+          },
+          {
+            "text": "检查项（内角和验证）： 使用前务必确认"
+          },
+          {
+            "latex": "A+B+C=\\pi"
+          },
+          {
+            "text": "，非三角形角数组严禁套用。"
           }
         ]
       }
@@ -1156,14 +990,85 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
+            "title": "条件 1（内角和为π）：",
+            "segments": [
+              {
+                "type": "math",
+                "latex": "A,B,C"
+              },
+              {
+                "type": "text",
+                "text": "为"
+              },
+              {
+                "type": "math",
+                "latex": "\\triangle ABC"
+              },
+              {
+                "type": "text",
+                "text": "的三个内角，满足"
+              },
+              {
+                "type": "math",
+                "latex": "A+B+C=\\pi"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "为 的三个内角，满足 。",
+            "latex": "A+B+C=\\pi"
+          },
+          {
             "title": "结论一（余弦平方和）：",
-            "desc": "三角形内角余弦平方和等于",
-            "latex": "1 \\qquad \\cos^2 A+\\cos^2 B+\\cos^2 C = 1-2\\cos A\\cos B\\cos C."
+            "segments": [
+              {
+                "type": "text",
+                "text": "三角形内角余弦平方和等于"
+              },
+              {
+                "type": "math",
+                "latex": "1"
+              },
+              {
+                "type": "text",
+                "text": "减去二倍余弦乘积。"
+              },
+              {
+                "type": "math",
+                "latex": "\\cos^2 A+\\cos^2 B+\\cos^2 C = 1-2\\cos A\\cos B\\cos C."
+              }
+            ],
+            "desc": "三角形内角余弦平方和等于 减去二倍余弦乘积。",
+            "latex": "\\cos^2 A+\\cos^2 B+\\cos^2 C = 1-2\\cos A\\cos B\\cos C."
           },
           {
             "title": "推广结论（等价形式）：",
-            "desc": "移项后得到更对称的恒等式，左边为平方和加乘积，右边为",
-            "latex": "1 \\qquad \\cos^2 A+\\cos^2 B+\\cos^2 C+2\\cos A\\cos B\\cos C = 1."
+            "segments": [
+              {
+                "type": "text",
+                "text": "移项后得到更对称的恒等式，左边为平方和加乘积，右边为"
+              },
+              {
+                "type": "math",
+                "latex": "1"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              },
+              {
+                "type": "math",
+                "latex": "\\cos^2 A+\\cos^2 B+\\cos^2 C+2\\cos A\\cos B\\cos C = 1."
+              },
+              {
+                "type": "text",
+                "text": "等号/取等条件： 恒等式对所有满足条件的角度均成立，无额外取等限制。"
+              }
+            ],
+            "desc": "移项后得到更对称的恒等式，左边为平方和加乘积，右边为 。 等号/取等条件： 恒等式对所有满足条件的角度均成立，无额外取等限制。",
+            "latex": "\\cos^2 A+\\cos^2 B+\\cos^2 C+2\\cos A\\cos B\\cos C = 1."
           }
         ]
       },
@@ -1220,32 +1125,23 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，而是用"
-              },
-              {
-                "type": "math",
-                "latex": "2\\cos A\\cos B\\cos C"
-              },
-              {
-                "type": "text",
-                "text": "作为修正项，当某角为直角时该项消失。"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "要点三（内角约束）：\n导出的关键是使用条件"
-              },
-              {
-                "type": "math",
-                "latex": "A+B+C=\\pi"
-              },
-              {
-                "type": "text",
-                "text": "，将三角函数的和差转化为单角函数。"
-              }
-            ]
+            "latex": "2\\cos A\\cos B\\cos C"
+          },
+          {
+            "text": "作为修正项，当某角为直角时该项消失。"
+          },
+          {
+            "text": "要点三（内角约束）：\n导出的关键是使用条件"
+          },
+          {
+            "latex": "A+B+C=\\pi"
+          },
+          {
+            "text": "，将三角函数的和差转化为单角函数。"
           },
           {
             "text": "几何本质（恒等变换）\n该恒等式并非直接揭示某个几何图形的度量性质，而是源于代数化的三角恒等变形。它刻画了“三内角余弦平方和”这一对称量在三角形约束下的必然取值。"
@@ -1263,63 +1159,43 @@ module.exports = {
             "text": "考法二（恒等证明）： 在证明其他三角恒等式时，将该式作为已知结论进行代换，减少推导步骤。"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "顿悟点\n对称与修正：记住"
-              },
-              {
-                "type": "math",
-                "latex": "A=B=C=\\frac{\\pi}{3}"
-              },
-              {
-                "type": "text",
-                "text": "时，各项均为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac14"
-              },
-              {
-                "type": "text",
-                "text": "，平方和为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac34"
-              },
-              {
-                "type": "text",
-                "text": "，右边"
-              },
-              {
-                "type": "math",
-                "latex": "1-2\\cdot\\frac18=\\frac34"
-              },
-              {
-                "type": "text",
-                "text": "。这个特例能帮助检查符号和系数。"
-              }
-            ]
+            "text": "顿悟点\n对称与修正：记住"
+          },
+          {
+            "latex": "A=B=C=\\frac{\\pi}{3}"
+          },
+          {
+            "text": "时，各项均为"
+          },
+          {
+            "latex": "\\frac14"
+          },
+          {
+            "text": "，平方和为"
+          },
+          {
+            "latex": "\\frac34"
+          },
+          {
+            "text": "，右边"
+          },
+          {
+            "latex": "1-2\\cdot\\frac18=\\frac34"
+          },
+          {
+            "text": "。这个特例能帮助检查符号和系数。"
           },
           {
             "text": "使用场景"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "场景一（已知乘积求平方和）： 题目给出"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos A\\cos B\\cos C"
-              },
-              {
-                "type": "text",
-                "text": "的值，直接代入即得余弦平方和。"
-              }
-            ]
+            "text": "场景一（已知乘积求平方和）： 题目给出"
+          },
+          {
+            "latex": "\\cos A\\cos B\\cos C"
+          },
+          {
+            "text": "的值，直接代入即得余弦平方和。"
           },
           {
             "text": "场景二（已知两角余弦求第三角相关式）： 结合内角关系，可借助恒等式确定第三角的余弦或平方，避免复杂求角运算。"
@@ -1332,167 +1208,109 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "思路提示\n利用降次公式将余弦平方转化为倍角余弦之和，再利用和差化积与内角和条件化简"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos 2A+\\cos 2B+\\cos 2C"
-              },
-              {
-                "type": "text",
-                "text": "，最终整理即得结论。"
-              }
-            ]
+            "text": "思路提示\n利用降次公式将余弦平方转化为倍角余弦之和，再利用和差化积与内角和条件化简"
+          },
+          {
+            "latex": "\\cos 2A+\\cos 2B+\\cos 2C"
+          },
+          {
+            "text": "，最终整理即得结论。"
           },
           {
             "text": "正式推导"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤一（降次展开）："
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\n\\cos^2 A+\\cos^2 B+\\cos^2 C \n&= \\frac{1+\\cos 2A}{2} + \\frac{1+\\cos 2B}{2} + \\frac{1+\\cos 2C}{2}\\\\\n&= \\frac{3}{2} + \\frac{1}{2}(\\cos 2A+\\cos 2B+\\cos 2C).\n\\end{aligned}"
-              },
-              {
-                "type": "text",
-                "text": "理由：应用降次公式"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos^2 x = \\frac{1+\\cos 2x}{2}"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "步骤一（降次展开）："
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤二（和差化积）："
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\n\\cos 2A+\\cos 2B &= 2\\cos(A+B)\\cos(A-B)\\\\\n&= -2\\cos C\\cos(A-B),\\\\\n\\cos 2C &= 2\\cos^2 C - 1.\n\\end{aligned}"
-              },
-              {
-                "type": "text",
-                "text": "所以"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos 2A+\\cos 2B+\\cos 2C = -2\\cos C\\cos(A-B) + 2\\cos^2 C - 1."
-              },
-              {
-                "type": "text",
-                "text": "理由：对"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos 2A+\\cos 2B"
-              },
-              {
-                "type": "text",
-                "text": "用和差化积；"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos(A+B)=-\\cos C"
-              },
-              {
-                "type": "text",
-                "text": "；"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos 2C"
-              },
-              {
-                "type": "text",
-                "text": "用倍角公式。"
-              }
-            ]
+            "latex": "\\begin{aligned}\n\\cos^2 A+\\cos^2 B+\\cos^2 C \n&= \\frac{1+\\cos 2A}{2} + \\frac{1+\\cos 2B}{2} + \\frac{1+\\cos 2C}{2}\\\\\n&= \\frac{3}{2} + \\frac{1}{2}(\\cos 2A+\\cos 2B+\\cos 2C).\n\\end{aligned}"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤三（合并化简）："
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\n&\\; -2\\cos C\\cos(A-B) + 2\\cos^2 C\\\\ \n&= 2\\cos C\\bigl[\\cos C - \\cos(A-B)\\bigr]\\\\\n&= 2\\cos C\\bigl[-\\cos(A+B) - \\cos(A-B)\\bigr] \\quad (\\text{因 }\\cos C = -\\cos(A+B))\\\\\n&= -2\\cos C\\bigl[\\cos(A+B)+\\cos(A-B)\\bigr]\\\\\n&= -2\\cos C\\cdot 2\\cos A\\cos B\\\\\n&= -4\\cos A\\cos B\\cos C.\n\\end{aligned}"
-              },
-              {
-                "type": "text",
-                "text": "因此"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos 2A+\\cos 2B+\\cos 2C = -1 - 4\\cos A\\cos B\\cos C."
-              },
-              {
-                "type": "text",
-                "text": "理由：提取公因式，利用诱导公式改写"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos C"
-              },
-              {
-                "type": "text",
-                "text": "，再对和差进行和差化积："
-              },
-              {
-                "type": "math",
-                "latex": "\\cos(A+B)+\\cos(A-B)=2\\cos A\\cos B"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "理由：应用降次公式"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤四（回代得结论）："
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\n\\cos^2 A+\\cos^2 B+\\cos^2 C \n&= \\frac{3}{2} + \\frac{1}{2}\\bigl(-1 - 4\\cos A\\cos B\\cos C\\bigr)\\\\\n&= \\frac{3}{2} - \\frac{1}{2} - 2\\cos A\\cos B\\cos C\\\\\n&= 1 - 2\\cos A\\cos B\\cos C.\n\\end{aligned}"
-              },
-              {
-                "type": "text",
-                "text": "理由：将步骤三的结果代入步骤一的表达式，合并常数项即得。"
-              }
-            ]
+            "latex": "\\cos^2 x = \\frac{1+\\cos 2x}{2}"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "结论回扣\n原恒等式成立，推导的关键是降次之后利用内角和将倍角余弦之和转化为余弦乘积，每一步均严格依赖"
-              },
-              {
-                "type": "math",
-                "latex": "A+B+C=\\pi"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "。"
+          },
+          {
+            "text": "步骤二（和差化积）："
+          },
+          {
+            "latex": "\\begin{aligned}\n\\cos 2A+\\cos 2B &= 2\\cos(A+B)\\cos(A-B)\\\\\n&= -2\\cos C\\cos(A-B),\\\\\n\\cos 2C &= 2\\cos^2 C - 1.\n\\end{aligned}"
+          },
+          {
+            "text": "所以"
+          },
+          {
+            "latex": "\\cos 2A+\\cos 2B+\\cos 2C = -2\\cos C\\cos(A-B) + 2\\cos^2 C - 1"
+          },
+          {
+            "text": ".理由：对"
+          },
+          {
+            "latex": "\\cos 2A+\\cos 2B"
+          },
+          {
+            "text": "用和差化积；"
+          },
+          {
+            "latex": "\\cos(A+B)=-\\cos C"
+          },
+          {
+            "text": "；"
+          },
+          {
+            "latex": "\\cos 2C"
+          },
+          {
+            "text": "用倍角公式。"
+          },
+          {
+            "text": "步骤三（合并化简）："
+          },
+          {
+            "latex": "\\begin{aligned}\n&\\; -2\\cos C\\cos(A-B) + 2\\cos^2 C\\\\ \n&= 2\\cos C\\bigl[\\cos C - \\cos(A-B)\\bigr]\\\\\n&= 2\\cos C\\bigl[-\\cos(A+B) - \\cos(A-B)\\bigr] \\quad (\\text{因 }\\cos C = -\\cos(A+B))\\\\\n&= -2\\cos C\\bigl[\\cos(A+B)+\\cos(A-B)\\bigr]\\\\\n&= -2\\cos C\\cdot 2\\cos A\\cos B\\\\\n&= -4\\cos A\\cos B\\cos C.\n\\end{aligned}"
+          },
+          {
+            "text": "因此"
+          },
+          {
+            "latex": "\\cos 2A+\\cos 2B+\\cos 2C = -1 - 4\\cos A\\cos B\\cos C"
+          },
+          {
+            "text": ".理由：提取公因式，利用诱导公式改写"
+          },
+          {
+            "latex": "\\cos C"
+          },
+          {
+            "text": "，再对和差进行和差化积："
+          },
+          {
+            "latex": "\\cos(A+B)+\\cos(A-B)=2\\cos A\\cos B"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "步骤四（回代得结论）："
+          },
+          {
+            "latex": "\\begin{aligned}\n\\cos^2 A+\\cos^2 B+\\cos^2 C \n&= \\frac{3}{2} + \\frac{1}{2}\\bigl(-1 - 4\\cos A\\cos B\\cos C\\bigr)\\\\\n&= \\frac{3}{2} - \\frac{1}{2} - 2\\cos A\\cos B\\cos C\\\\\n&= 1 - 2\\cos A\\cos B\\cos C.\n\\end{aligned}"
+          },
+          {
+            "text": "理由：将步骤三的结果代入步骤一的表达式，合并常数项即得。"
+          },
+          {
+            "text": "结论回扣\n原恒等式成立，推导的关键是降次之后利用内角和将倍角余弦之和转化为余弦乘积，每一步均严格依赖"
+          },
+          {
+            "latex": "A+B+C=\\pi"
+          },
+          {
+            "text": "。"
           }
         ]
       },
@@ -1502,103 +1320,67 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "例 1（基础）\n题目： 在"
-              },
-              {
-                "type": "math",
-                "latex": "\\triangle ABC"
-              },
-              {
-                "type": "text",
-                "text": "中，已知"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos A\\cos B\\cos C = \\frac{1}{8}"
-              },
-              {
-                "type": "text",
-                "text": "，求"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos^2 A+\\cos^2 B+\\cos^2 C"
-              },
-              {
-                "type": "text",
-                "text": "的值。\n解题步骤："
-              }
-            ]
+            "text": "例 1（基础）\n题目： 在"
+          },
+          {
+            "latex": "\\triangle ABC"
+          },
+          {
+            "text": "中，已知"
+          },
+          {
+            "latex": "\\cos A\\cos B\\cos C = \\frac{1}{8}"
+          },
+          {
+            "text": "，求"
+          },
+          {
+            "latex": "\\cos^2 A+\\cos^2 B+\\cos^2 C"
+          },
+          {
+            "text": "的值。\n解题步骤："
+          },
+          {
+            "text": "第一步（识别恒等式）：\n由三角形内角余弦平方和恒等式"
+          },
+          {
+            "latex": "\\cos^2 A+\\cos^2 B+\\cos^2 C = 1-2\\cos A\\cos B\\cos C"
+          },
+          {
+            "text": ".理由：该恒等式对任意三角形内角均成立。"
+          },
+          {
+            "text": "第二步（代入乘积值）：\n将已知"
+          },
+          {
+            "latex": "\\cos A\\cos B\\cos C = \\frac{1}{8}"
+          },
+          {
+            "text": "代入右边："
+          },
+          {
+            "latex": "1 - 2\\times\\frac{1}{8} = 1 - \\frac{1}{4}"
+          },
+          {
+            "text": ".理由：直接代值计算。"
+          },
+          {
+            "text": "第三步（计算结果）：\n得出"
+          },
+          {
+            "latex": "\\cos^2 A+\\cos^2 B+\\cos^2 C = \\frac{3}{4}"
+          },
+          {
+            "text": ".理由：进行简单分数运算。\n关键结论： 利用恒等式可以绕过具体角度的计算，直接由乘积得出平方和。"
+          },
+          {
+            "text": "例 2（稍变形）\n题目： 在"
+          },
+          {
+            "latex": "\\triangle ABC"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "第一步（识别恒等式）：\n由三角形内角余弦平方和恒等式"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos^2 A+\\cos^2 B+\\cos^2 C = 1-2\\cos A\\cos B\\cos C."
-              },
-              {
-                "type": "text",
-                "text": "理由：该恒等式对任意三角形内角均成立。"
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第二步（代入乘积值）：\n将已知"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos A\\cos B\\cos C = \\frac{1}{8}"
-              },
-              {
-                "type": "text",
-                "text": "代入右边："
-              },
-              {
-                "type": "math",
-                "latex": "1 - 2\\times\\frac{1}{8} = 1 - \\frac{1}{4}."
-              },
-              {
-                "type": "text",
-                "text": "理由：直接代值计算。"
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第三步（计算结果）：\n得出"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos^2 A+\\cos^2 B+\\cos^2 C = \\frac{3}{4}."
-              },
-              {
-                "type": "text",
-                "text": "理由：进行简单分数运算。\n关键结论： 利用恒等式可以绕过具体角度的计算，直接由乘积得出平方和。"
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "例 2（稍变形）\n题目： 在"
-              },
-              {
-                "type": "math",
-                "latex": "\\triangle ABC"
-              },
               {
                 "type": "text",
                 "text": "中，"
@@ -1610,24 +1392,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，且"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos B = \\frac{3}{4}"
-              },
-              {
-                "type": "text",
-                "text": "，求"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos^2 A+\\cos^2 B+\\cos^2 C"
-              },
-              {
-                "type": "text",
-                "text": "的值。\n解题步骤："
               }
             ]
+          },
+          {
+            "latex": "\\cos B = \\frac{3}{4}"
+          },
+          {
+            "text": "，求"
+          },
+          {
+            "latex": "\\cos^2 A+\\cos^2 B+\\cos^2 C"
+          },
+          {
+            "text": "的值。\n解题步骤："
           },
           {
             "segments": [
@@ -1642,108 +1420,83 @@ module.exports = {
               {
                 "type": "text",
                 "text": "及"
-              },
-              {
-                "type": "math",
-                "latex": "A+B+C=\\pi"
-              },
-              {
-                "type": "text",
-                "text": "得"
-              },
-              {
-                "type": "math",
-                "latex": "C = \\pi - 3B"
-              },
-              {
-                "type": "text",
-                "text": "。\n理由：利用内角和与已知倍数关系。"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第二步（计算各余弦）："
-              },
-              {
-                "type": "math",
-                "latex": "\\cos A = \\cos 2B = 2\\cos^2 B - 1 = 2\\cdot\\left(\\frac{3}{4}\\right)^2 - 1 = \\frac{1}{8},"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos C = \\cos(\\pi-3B) = -\\cos 3B = -\\bigl(4\\cos^3 B - 3\\cos B\\bigr)."
-              },
-              {
-                "type": "text",
-                "text": "代入"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos B = \\frac{3}{4}"
-              },
-              {
-                "type": "text",
-                "text": "："
-              },
-              {
-                "type": "math",
-                "latex": "4\\cos^3 B = 4\\cdot\\frac{27}{64} = \\frac{27}{16},\\quad 3\\cos B = \\frac{9}{4} = \\frac{36}{16},"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos 3B = \\frac{27}{16} - \\frac{36}{16} = -\\frac{9}{16},\\quad \\cos C = \\frac{9}{16}."
-              },
-              {
-                "type": "text",
-                "text": "理由：运用倍角公式与三倍角公式，注意诱导公式符号。"
-              }
-            ]
+            "latex": "A+B+C=\\pi"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第三步（代入恒等式）："
-              },
-              {
-                "type": "math",
-                "latex": "\\cos^2 A+\\cos^2 B+\\cos^2 C = 1 - 2\\cos A\\cos B\\cos C."
-              },
-              {
-                "type": "text",
-                "text": "将数值代入："
-              },
-              {
-                "type": "math",
-                "latex": "= 1 - 2\\cdot\\frac{1}{8}\\cdot\\frac{3}{4}\\cdot\\frac{9}{16}."
-              },
-              {
-                "type": "text",
-                "text": "理由：直接使用恒等式计算。"
-              }
-            ]
+            "text": "得"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第四步（化简得值）："
-              },
-              {
-                "type": "math",
-                "latex": "2\\cdot\\frac{1}{8}\\cdot\\frac{3}{4}\\cdot\\frac{9}{16} = \\frac{27}{256},"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos^2 A+\\cos^2 B+\\cos^2 C = 1 - \\frac{27}{256} = \\frac{229}{256}."
-              },
-              {
-                "type": "text",
-                "text": "理由：进行逐步分式化简得出最终结果。\n关键结论： 即使角度关系复杂，恒等式仍能将问题转化为代数运算，体现三角与代数的结合。"
-              }
-            ]
+            "latex": "C = \\pi - 3B"
+          },
+          {
+            "text": "。\n理由：利用内角和与已知倍数关系。"
+          },
+          {
+            "text": "第二步（计算各余弦）："
+          },
+          {
+            "latex": "\\cos A = \\cos 2B = 2\\cos^2 B - 1 = 2\\cdot\\left(\\frac{3}{4}\\right)^2 - 1 = \\frac{1}{8}"
+          },
+          {
+            "text": ","
+          },
+          {
+            "latex": "\\cos C = \\cos(\\pi-3B) = -\\cos 3B = -\\bigl(4\\cos^3 B - 3\\cos B\\bigr)"
+          },
+          {
+            "text": ".代入"
+          },
+          {
+            "latex": "\\cos B = \\frac{3}{4}"
+          },
+          {
+            "text": "："
+          },
+          {
+            "latex": "4\\cos^3 B = 4\\cdot\\frac{27}{64} = \\frac{27}{16},\\quad 3\\cos B = \\frac{9}{4} = \\frac{36}{16}"
+          },
+          {
+            "text": ","
+          },
+          {
+            "latex": "\\cos 3B = \\frac{27}{16} - \\frac{36}{16} = -\\frac{9}{16},\\quad \\cos C = \\frac{9}{16}"
+          },
+          {
+            "text": ".理由：运用倍角公式与三倍角公式，注意诱导公式符号。"
+          },
+          {
+            "text": "第三步（代入恒等式）："
+          },
+          {
+            "latex": "\\cos^2 A+\\cos^2 B+\\cos^2 C = 1 - 2\\cos A\\cos B\\cos C"
+          },
+          {
+            "text": ".将数值代入："
+          },
+          {
+            "latex": "= 1 - 2\\cdot\\frac{1}{8}\\cdot\\frac{3}{4}\\cdot\\frac{9}{16}"
+          },
+          {
+            "text": ".理由：直接使用恒等式计算。"
+          },
+          {
+            "text": "第四步（化简得值）："
+          },
+          {
+            "latex": "2\\cdot\\frac{1}{8}\\cdot\\frac{3}{4}\\cdot\\frac{9}{16} = \\frac{27}{256}"
+          },
+          {
+            "text": ","
+          },
+          {
+            "latex": "\\cos^2 A+\\cos^2 B+\\cos^2 C = 1 - \\frac{27}{256} = \\frac{229}{256}"
+          },
+          {
+            "text": ".理由：进行逐步分式化简得出最终结果。\n关键结论： 即使角度关系复杂，恒等式仍能将问题转化为代数运算，体现三角与代数的结合。"
           }
         ]
       },
@@ -1753,20 +1506,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "易错点一（忽略条件）\n部分学生将恒等式直接用于任意三个角，忽略了必须满足"
-              },
-              {
-                "type": "math",
-                "latex": "A+B+C=\\pi"
-              },
-              {
-                "type": "text",
-                "text": "的前提。"
-              }
-            ]
+            "text": "易错点一（忽略条件）\n部分学生将恒等式直接用于任意三个角，忽略了必须满足"
+          },
+          {
+            "latex": "A+B+C=\\pi"
+          },
+          {
+            "text": "的前提。"
           },
           {
             "text": "正确理解（内角前提）：\n恒等式仅在三角形内角条件下成立，若用于非内角关系（如任意三角）将导致错误。"
@@ -1775,39 +1521,28 @@ module.exports = {
             "text": "错因分析（条件缺失）：\n未确认角度是否构成三角形，盲目套用公式。"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "易错点二（符号混淆）\n恒等式右边的运算符号容易记错，有人误记为"
-              },
-              {
-                "type": "math",
-                "latex": "1+2\\cos A\\cos B\\cos C"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "易错点二（符号混淆）\n恒等式右边的运算符号容易记错，有人误记为"
+          },
+          {
+            "latex": "1+2\\cos A\\cos B\\cos C"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "正确理解（牢记减号）：\n正确形式是"
+          },
+          {
+            "latex": "1-2\\cos A\\cos B\\cos C"
+          },
+          {
+            "text": "，可用等边三角形验证："
+          },
+          {
+            "latex": "A=B=C=60^\\circ"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（牢记减号）：\n正确形式是"
-              },
-              {
-                "type": "math",
-                "latex": "1-2\\cos A\\cos B\\cos C"
-              },
-              {
-                "type": "text",
-                "text": "，可用等边三角形验证："
-              },
-              {
-                "type": "math",
-                "latex": "A=B=C=60^\\circ"
-              },
               {
                 "type": "text",
                 "text": "，左边"
@@ -1819,48 +1554,32 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，右边"
-              },
-              {
-                "type": "math",
-                "latex": "1-2\\cdot(1/2)^3=3/4"
-              },
-              {
-                "type": "text",
-                "text": "，从而确认减号。"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "错因分析（推导失误）：\n推导过程中"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos 2A+\\cos 2B+\\cos 2C = -1-4\\cos A\\cos B\\cos C"
-              },
-              {
-                "type": "text",
-                "text": "，代入时可能忽略负号导致符号错误。"
-              }
-            ]
+            "latex": "1-2\\cdot(1/2)^3=3/4"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "易错点三（单量求解误区）\n有学生试图直接用此恒等式解出单个"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos^2 A"
-              },
-              {
-                "type": "text",
-                "text": "，而忽略它只是整体关系，无法分离出单一变量。"
-              }
-            ]
+            "text": "，从而确认减号。"
+          },
+          {
+            "text": "错因分析（推导失误）：\n推导过程中"
+          },
+          {
+            "latex": "\\cos 2A+\\cos 2B+\\cos 2C = -1-4\\cos A\\cos B\\cos C"
+          },
+          {
+            "text": "，代入时可能忽略负号导致符号错误。"
+          },
+          {
+            "text": "易错点三（单量求解误区）\n有学生试图直接用此恒等式解出单个"
+          },
+          {
+            "latex": "\\cos^2 A"
+          },
+          {
+            "text": "，而忽略它只是整体关系，无法分离出单一变量。"
           },
           {
             "text": "正确理解（整体关系）：\n该式给出余弦平方和与乘积的整体联系，要求解某个角需与其他条件（如内角和、正弦定理）联立。"
@@ -1907,91 +1626,62 @@ module.exports = {
               {
                 "type": "text",
                 "text": "是"
-              },
-              {
-                "type": "math",
-                "latex": "\\triangle ABC"
-              },
-              {
-                "type": "text",
-                "text": "的内角，"
-              },
-              {
-                "type": "math",
-                "latex": "A+B+C=\\pi"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "条件 2（余弦可取值）："
-              },
-              {
-                "type": "math",
-                "latex": "\\cos A,\\cos B,\\cos C"
-              },
-              {
-                "type": "text",
-                "text": "均为实数，无其他定义域限制。"
-              }
-            ]
+            "latex": "\\triangle ABC"
+          },
+          {
+            "text": "的内角，"
+          },
+          {
+            "latex": "A+B+C=\\pi"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "条件 2（余弦可取值）："
+          },
+          {
+            "latex": "\\cos A,\\cos B,\\cos C"
+          },
+          {
+            "text": "均为实数，无其他定义域限制。"
           },
           {
             "text": "关键提醒"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "易错点（条件检查）： 使用前务必确认三个角满足内角和为"
-              },
-              {
-                "type": "math",
-                "latex": "\\pi"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "易错点（条件检查）： 使用前务必确认三个角满足内角和为"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "检查项（特值验证）： 可用"
-              },
-              {
-                "type": "math",
-                "latex": "A=B=C=60^\\circ"
-              },
-              {
-                "type": "text",
-                "text": "快速检验符号与系数：左"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac34"
-              },
-              {
-                "type": "text",
-                "text": "，右"
-              },
-              {
-                "type": "math",
-                "latex": "1-2\\cdot\\frac18=\\frac34"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "latex": "\\pi"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "检查项（特值验证）： 可用"
+          },
+          {
+            "latex": "A=B=C=60^\\circ"
+          },
+          {
+            "text": "快速检验符号与系数：左"
+          },
+          {
+            "latex": "\\frac34"
+          },
+          {
+            "text": "，右"
+          },
+          {
+            "latex": "1-2\\cdot\\frac18=\\frac34"
+          },
+          {
+            "text": "。"
           }
         ]
       }
@@ -2155,12 +1845,67 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
+            "title": "条件 1（非直角三角形）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "三角形"
+              },
+              {
+                "type": "math",
+                "latex": "\\triangle ABC"
+              },
+              {
+                "type": "text",
+                "text": "不是直角三角形，即"
+              },
+              {
+                "type": "math",
+                "latex": "A,B,C \\neq \\frac{\\pi}{2}"
+              },
+              {
+                "type": "text",
+                "text": "，且"
+              },
+              {
+                "type": "math",
+                "latex": "A+B+C=\\pi"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "三角形 不是直角三角形，即 ，且 。",
+            "latex": "A,B,C \\neq \\frac{\\pi}{2}"
+          },
+          {
             "title": "结论一（正切积和等式）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "三个内角的正切之和恒等于它们的乘积。"
+              },
+              {
+                "type": "math",
+                "latex": "\\tan A + \\tan B + \\tan C = \\tan A \\cdot \\tan B \\cdot \\tan C."
+              }
+            ],
             "desc": "三个内角的正切之和恒等于它们的乘积。",
             "latex": "\\tan A + \\tan B + \\tan C = \\tan A \\cdot \\tan B \\cdot \\tan C."
           },
           {
             "title": "推广结论（负和钝角）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "若三正切之和为负数，则三角形必有一个钝角。"
+              },
+              {
+                "type": "math",
+                "latex": "\\tan A + \\tan B + \\tan C < 0 \\quad\\Longrightarrow\\quad \\triangle ABC\\ \\text{为钝角三角形}."
+              }
+            ],
             "desc": "若三正切之和为负数，则三角形必有一个钝角。",
             "latex": "\\tan A + \\tan B + \\tan C < 0 \\quad\\Longrightarrow\\quad \\triangle ABC\\ \\text{为钝角三角形}."
           }
@@ -2172,151 +1917,97 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "一句话直觉\n三角形的内角和"
-              },
-              {
-                "type": "math",
-                "latex": "\\pi"
-              },
-              {
-                "type": "text",
-                "text": "使正切函数通过和角公式产生对消，最终留下简洁的“和等于积”。"
-              }
-            ]
+            "text": "一句话直觉\n三角形的内角和"
+          },
+          {
+            "latex": "\\pi"
+          },
+          {
+            "text": "使正切函数通过和角公式产生对消，最终留下简洁的“和等于积”。"
           },
           {
             "text": "核心拆解"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "要点一（内角代换）：\n利用"
-              },
-              {
-                "type": "math",
-                "latex": "C = \\pi - (A+B)"
-              },
-              {
-                "type": "text",
-                "text": "将"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan C"
-              },
-              {
-                "type": "text",
-                "text": "改写为"
-              },
-              {
-                "type": "math",
-                "latex": "-\\tan(A+B)"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "要点一（内角代换）：\n利用"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "要点二（和角展开）：\n展开"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan(A+B)"
-              },
-              {
-                "type": "text",
-                "text": "后通分，分子分母出现"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan A + \\tan B"
-              },
-              {
-                "type": "text",
-                "text": "与"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan A \\tan B"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "latex": "C = \\pi - (A+B)"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "要点三（乘积匹配）：\n将"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan A + \\tan B + \\tan C"
-              },
-              {
-                "type": "text",
-                "text": "化为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{-\\tan A \\tan B (\\tan A + \\tan B)}{1 - \\tan A \\tan B}"
-              },
-              {
-                "type": "text",
-                "text": "，恰好等于"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan A \\tan B \\tan C"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "将"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "几何本质（内角约束）\n三角形的内角和强制三个角中最多一个钝角，正切符号正好反映了这一事实：负的"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan"
-              },
-              {
-                "type": "text",
-                "text": "对应钝角，乘积符号直接与形状挂钩。"
-              }
-            ]
+            "latex": "\\tan C"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "代数意义（不变量关系）\n恒等式表明"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan A, \\tan B, \\tan C"
-              },
-              {
-                "type": "text",
-                "text": "不是独立的，它们满足一个对称有理关系，类似于三次方程韦达定理中的和与积相等的情形。"
-              }
-            ]
+            "text": "改写为"
+          },
+          {
+            "latex": "-\\tan(A+B)"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "要点二（和角展开）：\n展开"
+          },
+          {
+            "latex": "\\tan(A+B)"
+          },
+          {
+            "text": "后通分，分子分母出现"
+          },
+          {
+            "latex": "\\tan A + \\tan B"
+          },
+          {
+            "text": "与"
+          },
+          {
+            "latex": "\\tan A \\tan B"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "要点三（乘积匹配）：\n将"
+          },
+          {
+            "latex": "\\tan A + \\tan B + \\tan C"
+          },
+          {
+            "text": "化为"
+          },
+          {
+            "latex": "\\frac{-\\tan A \\tan B (\\tan A + \\tan B)}{1 - \\tan A \\tan B}"
+          },
+          {
+            "text": "，恰好等于"
+          },
+          {
+            "latex": "\\tan A \\tan B \\tan C"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "几何本质（内角约束）\n三角形的内角和强制三个角中最多一个钝角，正切符号正好反映了这一事实：负的"
+          },
+          {
+            "latex": "\\tan"
+          },
+          {
+            "text": "对应钝角，乘积符号直接与形状挂钩。"
+          },
+          {
+            "text": "代数意义（不变量关系）\n恒等式表明"
+          },
+          {
+            "latex": "\\tan A, \\tan B, \\tan C"
+          },
+          {
+            "text": "不是独立的，它们满足一个对称有理关系，类似于三次方程韦达定理中的和与积相等的情形。"
           },
           {
             "text": "考点价值"
@@ -2328,44 +2019,31 @@ module.exports = {
             "text": "考法二（形状判定）： 由三正切和的符号直接得出钝角三角形，减少计算量。"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "顿悟点\n把"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan C"
-              },
-              {
-                "type": "text",
-                "text": "替换为"
-              },
-              {
-                "type": "math",
-                "latex": "-\\tan(A+B)"
-              },
-              {
-                "type": "text",
-                "text": "时，自然出现分母"
-              },
-              {
-                "type": "math",
-                "latex": "1-\\tan A \\tan B"
-              },
-              {
-                "type": "text",
-                "text": "，通分后"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan A \\tan B"
-              },
-              {
-                "type": "text",
-                "text": "与和式完美重组，瞬间得到恒等式。"
-              }
-            ]
+            "text": "顿悟点\n把"
+          },
+          {
+            "latex": "\\tan C"
+          },
+          {
+            "text": "替换为"
+          },
+          {
+            "latex": "-\\tan(A+B)"
+          },
+          {
+            "text": "时，自然出现分母"
+          },
+          {
+            "latex": "1-\\tan A \\tan B"
+          },
+          {
+            "text": "，通分后"
+          },
+          {
+            "latex": "\\tan A \\tan B"
+          },
+          {
+            "text": "与和式完美重组，瞬间得到恒等式。"
           },
           {
             "text": "使用场景"
@@ -2384,15 +2062,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "思路提示\n从"
+          },
+          {
+            "latex": "A+B+C=\\pi"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "思路提示\n从"
-              },
-              {
-                "type": "math",
-                "latex": "A+B+C=\\pi"
-              },
               {
                 "type": "text",
                 "text": "出发，把"
@@ -2404,126 +2080,92 @@ module.exports = {
               {
                 "type": "text",
                 "text": "换为"
-              },
-              {
-                "type": "math",
-                "latex": "\\pi-(A+B)"
-              },
-              {
-                "type": "text",
-                "text": "，利用诱导公式与正切和角公式导出"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan A+\\tan B+\\tan C"
-              },
-              {
-                "type": "text",
-                "text": "的表达式，再与"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan A\\tan B\\tan C"
-              },
-              {
-                "type": "text",
-                "text": "比较。"
               }
             ]
+          },
+          {
+            "latex": "\\pi-(A+B)"
+          },
+          {
+            "text": "，利用诱导公式与正切和角公式导出"
+          },
+          {
+            "latex": "\\tan A+\\tan B+\\tan C"
+          },
+          {
+            "text": "的表达式，再与"
+          },
+          {
+            "latex": "\\tan A\\tan B\\tan C"
+          },
+          {
+            "text": "比较。"
           },
           {
             "text": "正式推导"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤一（内角代换）：\n由"
-              },
-              {
-                "type": "math",
-                "latex": "A+B+C=\\pi"
-              },
-              {
-                "type": "text",
-                "text": "得"
-              },
-              {
-                "type": "math",
-                "latex": "C=\\pi-(A+B)"
-              },
-              {
-                "type": "text",
-                "text": "，于是"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan C = \\tan(\\pi-(A+B)) = -\\tan(A+B)."
-              },
-              {
-                "type": "text",
-                "text": "理由：\n正切函数周期为"
-              },
-              {
-                "type": "math",
-                "latex": "\\pi"
-              },
-              {
-                "type": "text",
-                "text": "，且"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan(\\pi-\\theta) = -\\tan\\theta"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "步骤一（内角代换）：\n由"
+          },
+          {
+            "latex": "A+B+C=\\pi"
+          },
+          {
+            "text": "得"
+          },
+          {
+            "latex": "C=\\pi-(A+B)"
+          },
+          {
+            "text": "，于是"
+          },
+          {
+            "latex": "\\tan C = \\tan(\\pi-(A+B)) = -\\tan(A+B)"
+          },
+          {
+            "text": ".理由：\n正切函数周期为"
+          },
+          {
+            "latex": "\\pi"
+          },
+          {
+            "text": "，且"
+          },
+          {
+            "latex": "\\tan(\\pi-\\theta) = -\\tan\\theta"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "步骤二（和角展开）：\n代入正切和角公式"
+          },
+          {
+            "latex": "\\tan(A+B) = \\frac{\\tan A + \\tan B}{1 - \\tan A \\tan B}"
+          },
+          {
+            "text": ",从而"
+          },
+          {
+            "latex": "\\tan C = -\\frac{\\tan A + \\tan B}{1 - \\tan A \\tan B}"
+          },
+          {
+            "text": ".理由：\n这是两个角正切和角的标准公式，分母非零由非直角三角形保证。"
+          },
+          {
+            "text": "步骤三（求和通分）：\n计算"
+          },
+          {
+            "latex": "\\tan A+\\tan B+\\tan C"
+          },
+          {
+            "text": "："
+          },
+          {
+            "latex": "\\begin{aligned}\n\\tan A+\\tan B+\\tan C\n&= \\tan A+\\tan B - \\frac{\\tan A+\\tan B}{1-\\tan A\\tan B} \\\\\n&= (\\tan A+\\tan B)\\left(1 - \\frac{1}{1-\\tan A\\tan B}\\right) \\\\\n&= (\\tan A+\\tan B)\\cdot\\frac{(1-\\tan A\\tan B)-1}{1-\\tan A\\tan B} \\\\\n&= (\\tan A+\\tan B)\\cdot\\frac{-\\tan A\\tan B}{1-\\tan A\\tan B} \\\\\n&= -\\frac{\\tan A\\tan B(\\tan A+\\tan B)}{1-\\tan A\\tan B}.\n\\end{aligned}"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "步骤二（和角展开）：\n代入正切和角公式"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan(A+B) = \\frac{\\tan A + \\tan B}{1 - \\tan A \\tan B},"
-              },
-              {
-                "type": "text",
-                "text": "从而"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan C = -\\frac{\\tan A + \\tan B}{1 - \\tan A \\tan B}."
-              },
-              {
-                "type": "text",
-                "text": "理由：\n这是两个角正切和角的标准公式，分母非零由非直角三角形保证。"
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤三（求和通分）：\n计算"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan A+\\tan B+\\tan C"
-              },
-              {
-                "type": "text",
-                "text": "："
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\n\\tan A+\\tan B+\\tan C\n&= \\tan A+\\tan B - \\frac{\\tan A+\\tan B}{1-\\tan A\\tan B} \\\\\n&= (\\tan A+\\tan B)\\left(1 - \\frac{1}{1-\\tan A\\tan B}\\right) \\\\\n&= (\\tan A+\\tan B)\\cdot\\frac{(1-\\tan A\\tan B)-1}{1-\\tan A\\tan B} \\\\\n&= (\\tan A+\\tan B)\\cdot\\frac{-\\tan A\\tan B}{1-\\tan A\\tan B} \\\\\n&= -\\frac{\\tan A\\tan B(\\tan A+\\tan B)}{1-\\tan A\\tan B}.\n\\end{aligned}"
-              },
               {
                 "type": "text",
                 "text": "理由：\n通分后分子中的"
@@ -2535,88 +2177,62 @@ module.exports = {
               {
                 "type": "text",
                 "text": "被消去，留下"
-              },
-              {
-                "type": "math",
-                "latex": "-\\tan A\\tan B"
-              },
-              {
-                "type": "text",
-                "text": "，完成了核心合并。"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤四（乘积验证）：\n再计算"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan A\\tan B\\tan C"
-              },
-              {
-                "type": "text",
-                "text": "："
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\n\\tan A\\tan B\\tan C\n&= \\tan A\\tan B\\cdot\\left(-\\frac{\\tan A+\\tan B}{1-\\tan A\\tan B}\\right) \\\\\n&= -\\frac{\\tan A\\tan B(\\tan A+\\tan B)}{1-\\tan A\\tan B}.\n\\end{aligned}"
-              },
-              {
-                "type": "text",
-                "text": "与步骤三结果完全相同，故"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan A+\\tan B+\\tan C = \\tan A\\cdot\\tan B\\cdot\\tan C."
-              },
-              {
-                "type": "text",
-                "text": "理由：\n两边表达式一致，恒等式得证。"
-              }
-            ]
+            "latex": "-\\tan A\\tan B"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤五（钝角判定）：\n若"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan A+\\tan B+\\tan C<0"
-              },
-              {
-                "type": "text",
-                "text": "，则由恒等式知"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan A\\tan B\\tan C<0"
-              },
-              {
-                "type": "text",
-                "text": "。三角形中至多一个钝角，而钝角的正切为负，锐角的正切为正。若没有钝角，则三个正切皆正，乘积为正，与负乘积矛盾。故必有一个钝角，即"
-              },
-              {
-                "type": "math",
-                "latex": "\\triangle ABC"
-              },
-              {
-                "type": "text",
-                "text": "为钝角三角形。\n理由：\n正切的符号完全由角的类型决定，乘积为负迫使至少一个"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan"
-              },
-              {
-                "type": "text",
-                "text": "为负，对应于钝角。"
-              }
-            ]
+            "text": "，完成了核心合并。"
+          },
+          {
+            "text": "步骤四（乘积验证）：\n再计算"
+          },
+          {
+            "latex": "\\tan A\\tan B\\tan C"
+          },
+          {
+            "text": "："
+          },
+          {
+            "latex": "\\begin{aligned}\n\\tan A\\tan B\\tan C\n&= \\tan A\\tan B\\cdot\\left(-\\frac{\\tan A+\\tan B}{1-\\tan A\\tan B}\\right) \\\\\n&= -\\frac{\\tan A\\tan B(\\tan A+\\tan B)}{1-\\tan A\\tan B}.\n\\end{aligned}"
+          },
+          {
+            "text": "与步骤三结果完全相同，故"
+          },
+          {
+            "latex": "\\tan A+\\tan B+\\tan C = \\tan A\\cdot\\tan B\\cdot\\tan C"
+          },
+          {
+            "text": ".理由：\n两边表达式一致，恒等式得证。"
+          },
+          {
+            "text": "步骤五（钝角判定）：\n若"
+          },
+          {
+            "latex": "\\tan A+\\tan B+\\tan C<0"
+          },
+          {
+            "text": "，则由恒等式知"
+          },
+          {
+            "latex": "\\tan A\\tan B\\tan C<0"
+          },
+          {
+            "text": "。三角形中至多一个钝角，而钝角的正切为负，锐角的正切为正。若没有钝角，则三个正切皆正，乘积为正，与负乘积矛盾。故必有一个钝角，即"
+          },
+          {
+            "latex": "\\triangle ABC"
+          },
+          {
+            "text": "为钝角三角形。\n理由：\n正切的符号完全由角的类型决定，乘积为负迫使至少一个"
+          },
+          {
+            "latex": "\\tan"
+          },
+          {
+            "text": "为负，对应于钝角。"
           },
           {
             "text": "结论回扣\n该恒等式揭示了非直角三角形中正切之间的必然联系，且提供了仅凭符号判定钝角的简便方法。"
@@ -2629,183 +2245,127 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "例 1（基础）\n题目： 在非直角三角形"
-              },
-              {
-                "type": "math",
-                "latex": "\\triangle ABC"
-              },
-              {
-                "type": "text",
-                "text": "中，已知"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan A = 2"
-              },
-              {
-                "type": "text",
-                "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan B = 3"
-              },
-              {
-                "type": "text",
-                "text": "，求"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan C"
-              },
-              {
-                "type": "text",
-                "text": "的值。\n解题步骤："
-              }
-            ]
+            "text": "例 1（基础）\n题目： 在非直角三角形"
+          },
+          {
+            "latex": "\\triangle ABC"
+          },
+          {
+            "text": "中，已知"
+          },
+          {
+            "latex": "\\tan A = 2"
+          },
+          {
+            "text": "，"
+          },
+          {
+            "latex": "\\tan B = 3"
+          },
+          {
+            "text": "，求"
+          },
+          {
+            "latex": "\\tan C"
+          },
+          {
+            "text": "的值。\n解题步骤："
+          },
+          {
+            "text": "第一步（恒等式列写）：\n由结论得"
+          },
+          {
+            "latex": "\\tan A + \\tan B + \\tan C = \\tan A \\cdot \\tan B \\cdot \\tan C"
+          },
+          {
+            "text": ".理由：\n三角形非直角，恒等式成立。"
+          },
+          {
+            "text": "第二步（反解 ）：\n视"
+          },
+          {
+            "latex": "\\tan C"
+          },
+          {
+            "text": "为未知数，移项整理"
+          },
+          {
+            "latex": "\\tan C(1 - \\tan A \\tan B) = -(\\tan A + \\tan B)"
+          },
+          {
+            "text": ",即"
+          },
+          {
+            "latex": "\\tan C = \\frac{\\tan A + \\tan B}{\\tan A \\tan B - 1}"
+          },
+          {
+            "text": ".理由：\n将乘积项移至一边，提取公因子"
+          },
+          {
+            "latex": "\\tan C"
+          },
+          {
+            "text": "，分母不为零。"
+          },
+          {
+            "text": "第三步（代入求值）：\n代入"
+          },
+          {
+            "latex": "\\tan A = 2"
+          },
+          {
+            "text": "，"
+          },
+          {
+            "latex": "\\tan B = 3"
+          },
+          {
+            "text": "："
+          },
+          {
+            "latex": "\\tan C = \\frac{2+3}{2\\times 3 - 1} = \\frac{5}{5} = 1"
+          },
+          {
+            "text": ".理由：\n直接计算，结果"
+          },
+          {
+            "latex": "\\tan C = 1"
+          },
+          {
+            "text": "对应角"
+          },
+          {
+            "latex": "C = \\frac{\\pi}{4}"
+          },
+          {
+            "text": "。\n关键结论："
+          },
+          {
+            "latex": "\\tan C = 1"
+          },
+          {
+            "text": "，且验证"
+          },
+          {
+            "latex": "\\tan A+\\tan B+\\tan C = 6 = 2\\times 3\\times 1"
+          },
+          {
+            "text": "，与恒等式一致。"
+          },
+          {
+            "text": "例 2（稍变形）\n题目： 已知非直角三角形"
+          },
+          {
+            "latex": "\\triangle ABC"
+          },
+          {
+            "text": "满足"
+          },
+          {
+            "latex": "\\tan A + \\tan B + \\tan C = \\tan A\\tan B\\tan C"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "第一步（恒等式列写）：\n由结论得"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan A + \\tan B + \\tan C = \\tan A \\cdot \\tan B \\cdot \\tan C."
-              },
-              {
-                "type": "text",
-                "text": "理由：\n三角形非直角，恒等式成立。"
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第二步（反解 ）：\n视"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan C"
-              },
-              {
-                "type": "text",
-                "text": "为未知数，移项整理"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan C(1 - \\tan A \\tan B) = -(\\tan A + \\tan B),"
-              },
-              {
-                "type": "text",
-                "text": "即"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan C = \\frac{\\tan A + \\tan B}{\\tan A \\tan B - 1}."
-              },
-              {
-                "type": "text",
-                "text": "理由：\n将乘积项移至一边，提取公因子"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan C"
-              },
-              {
-                "type": "text",
-                "text": "，分母不为零。"
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第三步（代入求值）：\n代入"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan A = 2"
-              },
-              {
-                "type": "text",
-                "text": "，"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan B = 3"
-              },
-              {
-                "type": "text",
-                "text": "："
-              },
-              {
-                "type": "math",
-                "latex": "\\tan C = \\frac{2+3}{2\\times 3 - 1} = \\frac{5}{5} = 1."
-              },
-              {
-                "type": "text",
-                "text": "理由：\n直接计算，结果"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan C = 1"
-              },
-              {
-                "type": "text",
-                "text": "对应角"
-              },
-              {
-                "type": "math",
-                "latex": "C = \\frac{\\pi}{4}"
-              },
-              {
-                "type": "text",
-                "text": "。\n关键结论："
-              },
-              {
-                "type": "math",
-                "latex": "\\tan C = 1"
-              },
-              {
-                "type": "text",
-                "text": "，且验证"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan A+\\tan B+\\tan C = 6 = 2\\times 3\\times 1"
-              },
-              {
-                "type": "text",
-                "text": "，与恒等式一致。"
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "例 2（稍变形）\n题目： 已知非直角三角形"
-              },
-              {
-                "type": "math",
-                "latex": "\\triangle ABC"
-              },
-              {
-                "type": "text",
-                "text": "满足"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan A + \\tan B + \\tan C = \\tan A\\tan B\\tan C"
-              },
               {
                 "type": "text",
                 "text": "，且三者之和为"
@@ -2821,20 +2381,13 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第一步（等量替换）：\n由恒等式及条件得"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan A\\tan B\\tan C = \\tan A+\\tan B+\\tan C = -3."
-              },
-              {
-                "type": "text",
-                "text": "理由：\n恒等式保证和与积相等，可直接代换。"
-              }
-            ]
+            "text": "第一步（等量替换）：\n由恒等式及条件得"
+          },
+          {
+            "latex": "\\tan A\\tan B\\tan C = \\tan A+\\tan B+\\tan C = -3"
+          },
+          {
+            "text": ".理由：\n恒等式保证和与积相等，可直接代换。"
           },
           {
             "segments": [
@@ -2853,28 +2406,19 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第三步（形状判定）：\n三个角中恰有一个钝角（不可能有两个钝角），故"
-              },
-              {
-                "type": "math",
-                "latex": "\\triangle ABC"
-              },
-              {
-                "type": "text",
-                "text": "为钝角三角形。\n理由：\n三角形内角和"
-              },
-              {
-                "type": "math",
-                "latex": "\\pi"
-              },
-              {
-                "type": "text",
-                "text": "至多允许一个钝角，负乘积直接推出存在钝角。\n关键结论： 三角形为钝角三角形，无需逐角求解，仅用符号即可判定。"
-              }
-            ]
+            "text": "第三步（形状判定）：\n三个角中恰有一个钝角（不可能有两个钝角），故"
+          },
+          {
+            "latex": "\\triangle ABC"
+          },
+          {
+            "text": "为钝角三角形。\n理由：\n三角形内角和"
+          },
+          {
+            "latex": "\\pi"
+          },
+          {
+            "text": "至多允许一个钝角，负乘积直接推出存在钝角。\n关键结论： 三角形为钝角三角形，无需逐角求解，仅用符号即可判定。"
           }
         ]
       },
@@ -2884,163 +2428,103 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "易错点一（忽略直角排除）\n直接套用恒等式但忘记三角形不能有直角，导致"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan"
-              },
-              {
-                "type": "text",
-                "text": "无定义或分母为零。"
-              }
-            ]
+            "text": "易错点一（忽略直角排除）\n直接套用恒等式但忘记三角形不能有直角，导致"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（非直角三角形）：\n恒等式成立的前提是"
-              },
-              {
-                "type": "math",
-                "latex": "A,B,C \\neq \\frac{\\pi}{2}"
-              },
-              {
-                "type": "text",
-                "text": "，使用前必须排除直角三角形。"
-              }
-            ]
+            "latex": "\\tan"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "错因分析（条件遗漏）：\n学生见到三角形就下意识使用，忽略正切函数在"
-              },
-              {
-                "type": "math",
-                "latex": "\\pi/2"
-              },
-              {
-                "type": "text",
-                "text": "处无定义，也未检查"
-              },
-              {
-                "type": "math",
-                "latex": "1-\\tan A\\tan B"
-              },
-              {
-                "type": "text",
-                "text": "等分母。"
-              }
-            ]
+            "text": "无定义或分母为零。"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "易错点二（强行反解出错）\n在"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan A\\tan B = 1"
-              },
-              {
-                "type": "text",
-                "text": "时仍用分式"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{\\tan A+\\tan B}{\\tan A\\tan B - 1}"
-              },
-              {
-                "type": "text",
-                "text": "求"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan C"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "正确理解（非直角三角形）：\n恒等式成立的前提是"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（分母零规避）：\n当"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan A\\tan B = 1"
-              },
-              {
-                "type": "text",
-                "text": "时，恒等式退化为"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan A+\\tan B+\\tan C = \\tan C"
-              },
-              {
-                "type": "text",
-                "text": "，迫使"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan A+\\tan B=0"
-              },
-              {
-                "type": "text",
-                "text": "，此时三角形必为直角三角形，不属于讨论范围。"
-              }
-            ]
+            "latex": "A,B,C \\neq \\frac{\\pi}{2}"
+          },
+          {
+            "text": "，使用前必须排除直角三角形。"
+          },
+          {
+            "text": "错因分析（条件遗漏）：\n学生见到三角形就下意识使用，忽略正切函数在"
+          },
+          {
+            "latex": "\\pi/2"
+          },
+          {
+            "text": "处无定义，也未检查"
+          },
+          {
+            "latex": "1-\\tan A\\tan B"
+          },
+          {
+            "text": "等分母。"
+          },
+          {
+            "text": "易错点二（强行反解出错）\n在"
+          },
+          {
+            "latex": "\\tan A\\tan B = 1"
+          },
+          {
+            "text": "时仍用分式"
+          },
+          {
+            "latex": "\\frac{\\tan A+\\tan B}{\\tan A\\tan B - 1}"
+          },
+          {
+            "text": "求"
+          },
+          {
+            "latex": "\\tan C"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "正确理解（分母零规避）：\n当"
+          },
+          {
+            "latex": "\\tan A\\tan B = 1"
+          },
+          {
+            "text": "时，恒等式退化为"
+          },
+          {
+            "latex": "\\tan A+\\tan B+\\tan C = \\tan C"
+          },
+          {
+            "text": "，迫使"
+          },
+          {
+            "latex": "\\tan A+\\tan B=0"
+          },
+          {
+            "text": "，此时三角形必为直角三角形，不属于讨论范围。"
           },
           {
             "text": "错因分析（边界忽视）：\n机械记忆求值公式，未考虑分母为零对应的几何情形，导致无效运算。"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "易错点三（逆命题滥用）\n认为“钝角三角形"
-              },
-              {
-                "type": "math",
-                "latex": "\\Rightarrow"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan A+\\tan B+\\tan C<0"
-              },
-              {
-                "type": "text",
-                "text": "”。"
-              }
-            ]
+            "text": "易错点三（逆命题滥用）\n认为“钝角三角形"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（充分非必要）：\n和小于零是钝角三角形的充分条件，但钝角三角形也可能和为正，例如"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan A=-0.1,\\ \\tan B=3,\\ \\tan C=4"
-              },
-              {
-                "type": "text",
-                "text": "时，和为正值。"
-              }
-            ]
+            "latex": "\\Rightarrow"
+          },
+          {
+            "latex": "\\tan A+\\tan B+\\tan C<0"
+          },
+          {
+            "text": "”。"
+          },
+          {
+            "text": "正确理解（充分非必要）：\n和小于零是钝角三角形的充分条件，但钝角三角形也可能和为正，例如"
+          },
+          {
+            "latex": "\\tan A=-0.1,\\ \\tan B=3,\\ \\tan C=4"
+          },
+          {
+            "text": "时，和为正值。"
           },
           {
             "text": "错因分析（符号推理片面）：\n只记住了“负和为钝角”，错误地认为逆命题也成立，忽略了两个锐角正切足够大时能盖过钝角的负值。"
@@ -3053,63 +2537,40 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "一句话核心\n在非直角三角形中，"
-              },
-              {
-                "type": "math",
-                "latex": "\\tan A+\\tan B+\\tan C = \\tan A\\tan B\\tan C"
-              },
-              {
-                "type": "text",
-                "text": "恒成立；若三者之和为负，则该三角形为钝角三角形。"
-              }
-            ]
+            "text": "一句话核心\n在非直角三角形中，"
+          },
+          {
+            "latex": "\\tan A+\\tan B+\\tan C = \\tan A\\tan B\\tan C"
+          },
+          {
+            "text": "恒成立；若三者之和为负，则该三角形为钝角三角形。"
           },
           {
             "text": "使用条件"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "条件 1（非直角三角形）： 三角形无直角，"
-              },
-              {
-                "type": "math",
-                "latex": "A,B,C \\neq \\pi/2"
-              },
-              {
-                "type": "text",
-                "text": "，保证正切存在且分母"
-              },
-              {
-                "type": "math",
-                "latex": "1-\\tan A\\tan B"
-              },
-              {
-                "type": "text",
-                "text": "非零。"
-              }
-            ]
+            "text": "条件 1（非直角三角形）： 三角形无直角，"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "条件 2（三角形内角和）："
-              },
-              {
-                "type": "math",
-                "latex": "A+B+C=\\pi"
-              },
-              {
-                "type": "text",
-                "text": "，这是导出恒等式的根源，不可忽略。"
-              }
-            ]
+            "latex": "A,B,C \\neq \\pi/2"
+          },
+          {
+            "text": "，保证正切存在且分母"
+          },
+          {
+            "latex": "1-\\tan A\\tan B"
+          },
+          {
+            "text": "非零。"
+          },
+          {
+            "text": "条件 2（三角形内角和）："
+          },
+          {
+            "latex": "A+B+C=\\pi"
+          },
+          {
+            "text": "，这是导出恒等式的根源，不可忽略。"
           },
           {
             "text": "关键提醒"
@@ -3118,20 +2579,13 @@ module.exports = {
             "text": "易错点（直角排除盲区）： 切勿在直角三角形或未判定形状前直接引用，必须先确认无直角。"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "检查项（符号判形单向）： “和负"
-              },
-              {
-                "type": "math",
-                "latex": "\\Rightarrow"
-              },
-              {
-                "type": "text",
-                "text": "钝角”不可逆，判形后勿反向推符号，需结合具体数值或乘积符号。"
-              }
-            ]
+            "text": "检查项（符号判形单向）： “和负"
+          },
+          {
+            "latex": "\\Rightarrow"
+          },
+          {
+            "text": "钝角”不可逆，判形后勿反向推符号，需结合具体数值或乘积符号。"
           }
         ]
       }
@@ -3270,12 +2724,51 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
+            "title": "条件 1（任意角）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "对任意角"
+              },
+              {
+                "type": "math",
+                "latex": "\\alpha,\\beta"
+              },
+              {
+                "type": "text",
+                "text": "，等式恒成立，无需额外限制."
+              }
+            ],
+            "desc": "对任意角 ，等式恒成立，无需额外限制.",
+            "latex": "\\alpha,\\beta"
+          },
+          {
             "title": "结论一（正弦平方差）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "正弦平方差化为两角差与和的正弦之积."
+              },
+              {
+                "type": "math",
+                "latex": "\\sin^2\\alpha - \\sin^2\\beta = \\sin(\\alpha-\\beta)\\,\\sin(\\alpha+\\beta)."
+              }
+            ],
             "desc": "正弦平方差化为两角差与和的正弦之积.",
             "latex": "\\sin^2\\alpha - \\sin^2\\beta = \\sin(\\alpha-\\beta)\\,\\sin(\\alpha+\\beta)."
           },
           {
             "title": "推广结论（余弦平方差）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "余弦平方差与正弦乘积仅差一个负号."
+              },
+              {
+                "type": "math",
+                "latex": "\\cos^2\\alpha - \\cos^2\\beta = -\\sin(\\alpha-\\beta)\\,\\sin(\\alpha+\\beta)."
+              }
+            ],
             "desc": "余弦平方差与正弦乘积仅差一个负号.",
             "latex": "\\cos^2\\alpha - \\cos^2\\beta = -\\sin(\\alpha-\\beta)\\,\\sin(\\alpha+\\beta)."
           }
@@ -3293,15 +2786,13 @@ module.exports = {
             "text": "核心拆解"
           },
           {
+            "text": "要点一（平方差结构）：\n左边是"
+          },
+          {
+            "latex": "\\sin^2\\alpha-\\sin^2\\beta"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "要点一（平方差结构）：\n左边是"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin^2\\alpha-\\sin^2\\beta"
-              },
               {
                 "type": "text",
                 "text": "，类似"
@@ -3317,79 +2808,49 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "要点二（积化和差形式）：\n右边化为"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin(\\alpha-\\beta)\\sin(\\alpha+\\beta)"
-              },
-              {
-                "type": "text",
-                "text": "，差角与和角的正弦之积，可直接调用和差化积思想."
-              }
-            ]
+            "text": "要点二（积化和差形式）：\n右边化为"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "几何本质（单位圆弦长）\n在单位圆中，"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin\\alpha,\\sin\\beta"
-              },
-              {
-                "type": "text",
-                "text": "可看作角"
-              },
-              {
-                "type": "math",
-                "latex": "\\alpha,\\beta"
-              },
-              {
-                "type": "text",
-                "text": "终边与圆交点的纵坐标，公式联系了两角差与和的弦长关系."
-              }
-            ]
+            "latex": "\\sin(\\alpha-\\beta)\\sin(\\alpha+\\beta)"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "代数意义（恒等变形工具）\n该公式提供从“平方差”到“乘积”的直接转化，避免先展开"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin^2"
-              },
-              {
-                "type": "text",
-                "text": "再积化和差的复杂过程，在三角恒等变换中衔接流畅."
-              }
-            ]
+            "text": "，差角与和角的正弦之积，可直接调用和差化积思想."
+          },
+          {
+            "text": "几何本质（单位圆弦长）\n在单位圆中，"
+          },
+          {
+            "latex": "\\sin\\alpha,\\sin\\beta"
+          },
+          {
+            "text": "可看作角"
+          },
+          {
+            "latex": "\\alpha,\\beta"
+          },
+          {
+            "text": "终边与圆交点的纵坐标，公式联系了两角差与和的弦长关系."
+          },
+          {
+            "text": "代数意义（恒等变形工具）\n该公式提供从“平方差”到“乘积”的直接转化，避免先展开"
+          },
+          {
+            "latex": "\\sin^2"
+          },
+          {
+            "text": "再积化和差的复杂过程，在三角恒等变换中衔接流畅."
           },
           {
             "text": "考点价值（化简与求值）"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "考法一（直接代换求值）： 遇"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin^2\\alpha-\\sin^2\\beta"
-              },
-              {
-                "type": "text",
-                "text": "可直接代入右侧求值，减少计算量."
-              }
-            ]
+            "text": "考法一（直接代换求值）： 遇"
+          },
+          {
+            "latex": "\\sin^2\\alpha-\\sin^2\\beta"
+          },
+          {
+            "text": "可直接代入右侧求值，减少计算量."
           },
           {
             "text": "考法二（恒等证明）： 结合其他公式证明复杂恒等式，突出结构转化."
@@ -3401,20 +2862,13 @@ module.exports = {
             "text": "使用场景"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "场景一（平方差出现）： 题目中出现"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin^2 A-\\sin^2 B"
-              },
-              {
-                "type": "text",
-                "text": "，直接套用公式."
-              }
-            ]
+            "text": "场景一（平方差出现）： 题目中出现"
+          },
+          {
+            "latex": "\\sin^2 A-\\sin^2 B"
+          },
+          {
+            "text": "，直接套用公式."
           },
           {
             "text": "场景二（和差化积配合）： 右侧形式暗示可用和差化积或积化和差进一步变形."
@@ -3433,127 +2887,85 @@ module.exports = {
             "text": "正式推导"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤一（降幂公式）：\n使用"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin^2\\theta = \\frac{1-\\cos 2\\theta}{2}"
-              },
-              {
-                "type": "text",
-                "text": "."
-              },
-              {
-                "type": "math",
-                "latex": "\\sin^2\\alpha = \\frac{1-\\cos 2\\alpha}{2},\\quad\n\\sin^2\\beta = \\frac{1-\\cos 2\\beta}{2}."
-              },
-              {
-                "type": "text",
-                "text": "理由：\n降幂消除平方，统一为倍角余弦."
-              }
-            ]
+            "text": "步骤一（降幂公式）：\n使用"
+          },
+          {
+            "latex": "\\sin^2\\theta = \\frac{1-\\cos 2\\theta}{2}"
+          },
+          {
+            "text": "."
+          },
+          {
+            "latex": "\\sin^2\\alpha = \\frac{1-\\cos 2\\alpha}{2},\\quad\n\\sin^2\\beta = \\frac{1-\\cos 2\\beta}{2}"
+          },
+          {
+            "text": ".理由：\n降幂消除平方，统一为倍角余弦."
+          },
+          {
+            "text": "步骤二（作差通分）：\n计算"
+          },
+          {
+            "latex": "\\sin^2\\alpha - \\sin^2\\beta"
+          },
+          {
+            "text": "."
+          },
+          {
+            "latex": "\\begin{aligned}\n\\sin^2\\alpha - \\sin^2\\beta\n&= \\frac{1-\\cos 2\\alpha}{2} - \\frac{1-\\cos 2\\beta}{2} \\\\\n&= \\frac{\\cos 2\\beta - \\cos 2\\alpha}{2}.\n\\end{aligned}"
+          },
+          {
+            "text": "理由：\n分式相减，分子合并得"
+          },
+          {
+            "latex": "\\cos 2\\beta - \\cos 2\\alpha"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "步骤三（余弦差化积）：\n利用"
+          },
+          {
+            "latex": "\\cos x - \\cos y = -2\\sin\\frac{x+y}{2}\\sin\\frac{x-y}{2}"
+          },
+          {
+            "text": "."
+          },
+          {
+            "latex": "\\begin{aligned}\n\\cos 2\\beta - \\cos 2\\alpha\n&= -2\\sin\\frac{2\\beta+2\\alpha}{2}\\sin\\frac{2\\beta-2\\alpha}{2} \\\\\n&= -2\\sin(\\alpha+\\beta)\\sin(\\beta-\\alpha).\n\\end{aligned}"
+          },
+          {
+            "text": "理由：\n和差化积将余弦差转为正弦乘积."
+          },
+          {
+            "text": "步骤四（符号调整）：\n利用"
+          },
+          {
+            "latex": "\\sin(\\beta-\\alpha) = -\\sin(\\alpha-\\beta)"
+          },
+          {
+            "text": "."
+          },
+          {
+            "latex": "\\begin{aligned}\n\\cos 2\\beta - \\cos 2\\alpha\n&= -2\\sin(\\alpha+\\beta)\\cdot\\bigl(-\\sin(\\alpha-\\beta)\\bigr) \\\\\n&= 2\\sin(\\alpha+\\beta)\\sin(\\alpha-\\beta).\n\\end{aligned}"
+          },
+          {
+            "text": "理由：\n奇函数性质翻转符号，使差角变为"
+          },
+          {
+            "latex": "\\alpha-\\beta"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "步骤五（回代约分）：\n代入步骤二的表达式."
+          },
+          {
+            "latex": "\\begin{aligned}\n\\sin^2\\alpha - \\sin^2\\beta\n&= \\frac{2\\sin(\\alpha+\\beta)\\sin(\\alpha-\\beta)}{2} \\\\\n&= \\sin(\\alpha-\\beta)\\sin(\\alpha+\\beta).\n\\end{aligned}"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "步骤二（作差通分）：\n计算"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin^2\\alpha - \\sin^2\\beta"
-              },
-              {
-                "type": "text",
-                "text": "."
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\n\\sin^2\\alpha - \\sin^2\\beta\n&= \\frac{1-\\cos 2\\alpha}{2} - \\frac{1-\\cos 2\\beta}{2} \\\\\n&= \\frac{\\cos 2\\beta - \\cos 2\\alpha}{2}.\n\\end{aligned}"
-              },
-              {
-                "type": "text",
-                "text": "理由：\n分式相减，分子合并得"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos 2\\beta - \\cos 2\\alpha"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤三（余弦差化积）：\n利用"
-              },
-              {
-                "type": "math",
-                "latex": "\\cos x - \\cos y = -2\\sin\\frac{x+y}{2}\\sin\\frac{x-y}{2}"
-              },
-              {
-                "type": "text",
-                "text": "."
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\n\\cos 2\\beta - \\cos 2\\alpha\n&= -2\\sin\\frac{2\\beta+2\\alpha}{2}\\sin\\frac{2\\beta-2\\alpha}{2} \\\\\n&= -2\\sin(\\alpha+\\beta)\\sin(\\beta-\\alpha).\n\\end{aligned}"
-              },
-              {
-                "type": "text",
-                "text": "理由：\n和差化积将余弦差转为正弦乘积."
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤四（符号调整）：\n利用"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin(\\beta-\\alpha) = -\\sin(\\alpha-\\beta)"
-              },
-              {
-                "type": "text",
-                "text": "."
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\n\\cos 2\\beta - \\cos 2\\alpha\n&= -2\\sin(\\alpha+\\beta)\\cdot\\bigl(-\\sin(\\alpha-\\beta)\\bigr) \\\\\n&= 2\\sin(\\alpha+\\beta)\\sin(\\alpha-\\beta).\n\\end{aligned}"
-              },
-              {
-                "type": "text",
-                "text": "理由：\n奇函数性质翻转符号，使差角变为"
-              },
-              {
-                "type": "math",
-                "latex": "\\alpha-\\beta"
-              },
-              {
-                "type": "text",
-                "text": "."
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤五（回代约分）：\n代入步骤二的表达式."
-              },
-              {
-                "type": "math",
-                "latex": "\\begin{aligned}\n\\sin^2\\alpha - \\sin^2\\beta\n&= \\frac{2\\sin(\\alpha+\\beta)\\sin(\\alpha-\\beta)}{2} \\\\\n&= \\sin(\\alpha-\\beta)\\sin(\\alpha+\\beta).\n\\end{aligned}"
-              },
               {
                 "type": "text",
                 "text": "理由：\n约去"
@@ -3569,20 +2981,13 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "结论回扣\n正弦平方差公式对任意角"
-              },
-              {
-                "type": "math",
-                "latex": "\\alpha,\\beta"
-              },
-              {
-                "type": "text",
-                "text": "恒成立，推导过程零跳步."
-              }
-            ]
+            "text": "结论回扣\n正弦平方差公式对任意角"
+          },
+          {
+            "latex": "\\alpha,\\beta"
+          },
+          {
+            "text": "恒成立，推导过程零跳步."
           }
         ]
       },
@@ -3592,196 +2997,124 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "例 1（基础）\n题目： 计算"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin^2 75^\\circ - \\sin^2 15^\\circ"
-              },
-              {
-                "type": "text",
-                "text": "的值.\n解题步骤："
-              }
-            ]
+            "text": "例 1（基础）\n题目： 计算"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第一步（确定差和角）：\n令"
-              },
-              {
-                "type": "math",
-                "latex": "\\alpha = 75^\\circ"
-              },
-              {
-                "type": "text",
-                "text": ","
-              },
-              {
-                "type": "math",
-                "latex": "\\beta = 15^\\circ"
-              },
-              {
-                "type": "text",
-                "text": ", 则"
-              },
-              {
-                "type": "math",
-                "latex": "\\alpha-\\beta = 60^\\circ"
-              },
-              {
-                "type": "text",
-                "text": ","
-              },
-              {
-                "type": "math",
-                "latex": "\\alpha+\\beta = 90^\\circ"
-              },
-              {
-                "type": "text",
-                "text": ".\n理由：\n识别公式所需两角差与两角和."
-              }
-            ]
+            "latex": "\\sin^2 75^\\circ - \\sin^2 15^\\circ"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第二步（代入公式）："
-              },
-              {
-                "type": "math",
-                "latex": "\\sin^2 75^\\circ - \\sin^2 15^\\circ = \\sin 60^\\circ \\cdot \\sin 90^\\circ."
-              },
-              {
-                "type": "text",
-                "text": "理由：\n直接使用正弦平方差公式."
-              }
-            ]
+            "text": "的值.\n解题步骤："
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第三步（计算乘积）："
-              },
-              {
-                "type": "math",
-                "latex": "\\sin 60^\\circ \\cdot \\sin 90^\\circ = \\frac{\\sqrt{3}}{2} \\times 1 = \\frac{\\sqrt{3}}{2}."
-              },
-              {
-                "type": "text",
-                "text": "理由：\n特殊角三角函数值代入.\n关键结论： 原式的值为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{\\sqrt{3}}{2}"
-              },
-              {
-                "type": "text",
-                "text": "，直接代公式避免复杂展开."
-              }
-            ]
+            "text": "第一步（确定差和角）：\n令"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "例 2（稍变形）\n题目： 证明恒等式"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin^2\\left(\\frac{\\pi}{4}+\\theta\\right) - \\sin^2\\left(\\frac{\\pi}{4}-\\theta\\right) = \\sin 2\\theta"
-              },
-              {
-                "type": "text",
-                "text": ".\n解题步骤："
-              }
-            ]
+            "latex": "\\alpha = 75^\\circ"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第一步（设定两角）：\n记"
-              },
-              {
-                "type": "math",
-                "latex": "\\alpha = \\frac{\\pi}{4}+\\theta"
-              },
-              {
-                "type": "text",
-                "text": ","
-              },
-              {
-                "type": "math",
-                "latex": "\\beta = \\frac{\\pi}{4}-\\theta"
-              },
-              {
-                "type": "text",
-                "text": ", 则"
-              },
-              {
-                "type": "math",
-                "latex": "\\alpha-\\beta = 2\\theta"
-              },
-              {
-                "type": "text",
-                "text": ","
-              },
-              {
-                "type": "math",
-                "latex": "\\alpha+\\beta = \\frac{\\pi}{2}"
-              },
-              {
-                "type": "text",
-                "text": ".\n理由：\n将问题转化为公式中的标准形式."
-              }
-            ]
+            "text": ","
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第二步（套用公式）："
-              },
-              {
-                "type": "math",
-                "latex": "\\sin^2\\alpha - \\sin^2\\beta = \\sin(\\alpha-\\beta)\\sin(\\alpha+\\beta) = \\sin 2\\theta \\cdot \\sin\\frac{\\pi}{2}."
-              },
-              {
-                "type": "text",
-                "text": "理由：\n正弦平方差公式直接转化."
-              }
-            ]
+            "latex": "\\beta = 15^\\circ"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第三步（化简得证）："
-              },
-              {
-                "type": "math",
-                "latex": "\\sin\\frac{\\pi}{2} = 1 \\quad \\Rightarrow \\quad \\sin 2\\theta \\cdot 1 = \\sin 2\\theta."
-              },
-              {
-                "type": "text",
-                "text": "理由：\n约简即得右边，恒等式成立.\n关键结论： 形如"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin^2(A\\pm\\theta)"
-              },
-              {
-                "type": "text",
-                "text": "的差可巧妙套用公式，化为单角正弦."
-              }
-            ]
+            "text": ", 则"
+          },
+          {
+            "latex": "\\alpha-\\beta = 60^\\circ"
+          },
+          {
+            "text": ","
+          },
+          {
+            "latex": "\\alpha+\\beta = 90^\\circ"
+          },
+          {
+            "text": ".\n理由：\n识别公式所需两角差与两角和."
+          },
+          {
+            "text": "第二步（代入公式）："
+          },
+          {
+            "latex": "\\sin^2 75^\\circ - \\sin^2 15^\\circ = \\sin 60^\\circ \\cdot \\sin 90^\\circ"
+          },
+          {
+            "text": ".理由：\n直接使用正弦平方差公式."
+          },
+          {
+            "text": "第三步（计算乘积）："
+          },
+          {
+            "latex": "\\sin 60^\\circ \\cdot \\sin 90^\\circ = \\frac{\\sqrt{3}}{2} \\times 1 = \\frac{\\sqrt{3}}{2}"
+          },
+          {
+            "text": ".理由：\n特殊角三角函数值代入.\n关键结论： 原式的值为"
+          },
+          {
+            "latex": "\\frac{\\sqrt{3}}{2}"
+          },
+          {
+            "text": "，直接代公式避免复杂展开."
+          },
+          {
+            "text": "例 2（稍变形）\n题目： 证明恒等式"
+          },
+          {
+            "latex": "\\sin^2\\left(\\frac{\\pi}{4}+\\theta\\right) - \\sin^2\\left(\\frac{\\pi}{4}-\\theta\\right) = \\sin 2\\theta"
+          },
+          {
+            "text": ".\n解题步骤："
+          },
+          {
+            "text": "第一步（设定两角）：\n记"
+          },
+          {
+            "latex": "\\alpha = \\frac{\\pi}{4}+\\theta"
+          },
+          {
+            "text": ","
+          },
+          {
+            "latex": "\\beta = \\frac{\\pi}{4}-\\theta"
+          },
+          {
+            "text": ", 则"
+          },
+          {
+            "latex": "\\alpha-\\beta = 2\\theta"
+          },
+          {
+            "text": ","
+          },
+          {
+            "latex": "\\alpha+\\beta = \\frac{\\pi}{2}"
+          },
+          {
+            "text": ".\n理由：\n将问题转化为公式中的标准形式."
+          },
+          {
+            "text": "第二步（套用公式）："
+          },
+          {
+            "latex": "\\sin^2\\alpha - \\sin^2\\beta = \\sin(\\alpha-\\beta)\\sin(\\alpha+\\beta) = \\sin 2\\theta \\cdot \\sin\\frac{\\pi}{2}"
+          },
+          {
+            "text": ".理由：\n正弦平方差公式直接转化."
+          },
+          {
+            "text": "第三步（化简得证）："
+          },
+          {
+            "latex": "\\sin\\frac{\\pi}{2} = 1 \\quad \\Rightarrow \\quad \\sin 2\\theta \\cdot 1 = \\sin 2\\theta"
+          },
+          {
+            "text": ".理由：\n约简即得右边，恒等式成立.\n关键结论： 形如"
+          },
+          {
+            "latex": "\\sin^2(A\\pm\\theta)"
+          },
+          {
+            "text": "的差可巧妙套用公式，化为单角正弦."
           }
         ]
       },
@@ -3791,20 +3124,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "易错点一（符号混淆）：\n误将公式记作"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin^2\\alpha - \\sin^2\\beta = \\sin(\\alpha-\\beta)\\cos(\\alpha+\\beta)"
-              },
-              {
-                "type": "text",
-                "text": "或缺少负号的余弦平方差形式."
-              }
-            ]
+            "text": "易错点一（符号混淆）：\n误将公式记作"
+          },
+          {
+            "latex": "\\sin^2\\alpha - \\sin^2\\beta = \\sin(\\alpha-\\beta)\\cos(\\alpha+\\beta)"
+          },
+          {
+            "text": "或缺少负号的余弦平方差形式."
           },
           {
             "text": "正确理解（右端正弦积）：\n右边必须是两个正弦的乘积，一个含差角，一个含和角，无余弦."
@@ -3813,55 +3139,34 @@ module.exports = {
             "text": "错因分析（强记结构）：\n只记“差乘和”的外形，忽略函数名，导致与和差化积公式混淆."
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "易错点二（差角符号）：\n认为"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin(\\alpha-\\beta)=\\sin(\\beta-\\alpha)"
-              },
-              {
-                "type": "text",
-                "text": "，随便交换顺序而忽略负号."
-              }
-            ]
+            "text": "易错点二（差角符号）：\n认为"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（奇函数性质）："
-              },
-              {
-                "type": "math",
-                "latex": "\\sin(\\beta-\\alpha) = -\\sin(\\alpha-\\beta)"
-              },
-              {
-                "type": "text",
-                "text": "，若顺序写反，结果会差一个负号."
-              }
-            ]
+            "latex": "\\sin(\\alpha-\\beta)=\\sin(\\beta-\\alpha)"
+          },
+          {
+            "text": "，随便交换顺序而忽略负号."
+          },
+          {
+            "text": "正确理解（奇函数性质）："
+          },
+          {
+            "latex": "\\sin(\\beta-\\alpha) = -\\sin(\\alpha-\\beta)"
+          },
+          {
+            "text": "，若顺序写反，结果会差一个负号."
           },
           {
             "text": "错因分析（忽视奇偶性）：\n没意识到正弦函数是奇函数，习惯性交换两角导致符号错误."
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "易错点三（不敢用公角）：\n遇到形如"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin^2(x+1)-\\sin^2(x-1)"
-              },
-              {
-                "type": "text",
-                "text": "时，因角度不是特殊角而不敢直接套公式."
-              }
-            ]
+            "text": "易错点三（不敢用公角）：\n遇到形如"
+          },
+          {
+            "latex": "\\sin^2(x+1)-\\sin^2(x-1)"
+          },
+          {
+            "text": "时，因角度不是特殊角而不敢直接套公式."
           },
           {
             "text": "正确理解（任意角适用）：\n公式对任意实角恒成立，与是否数值具体无关，可直接化简."
@@ -3877,39 +3182,25 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "一句话核心\n正弦平方差公式"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin^2\\alpha - \\sin^2\\beta = \\sin(\\alpha-\\beta)\\sin(\\alpha+\\beta)"
-              },
-              {
-                "type": "text",
-                "text": "是三角恒等变换的利器，可瞬间化差为积."
-              }
-            ]
+            "text": "一句话核心\n正弦平方差公式"
+          },
+          {
+            "latex": "\\sin^2\\alpha - \\sin^2\\beta = \\sin(\\alpha-\\beta)\\sin(\\alpha+\\beta)"
+          },
+          {
+            "text": "是三角恒等变换的利器，可瞬间化差为积."
           },
           {
             "text": "使用条件"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "条件 1（任意角）："
-              },
-              {
-                "type": "math",
-                "latex": "\\alpha,\\beta"
-              },
-              {
-                "type": "text",
-                "text": "为任意实数角，无象限或范围限制."
-              }
-            ]
+            "text": "条件 1（任意角）："
+          },
+          {
+            "latex": "\\alpha,\\beta"
+          },
+          {
+            "text": "为任意实数角，无象限或范围限制."
           },
           {
             "text": "条件 2（恒等变形）： 等式恒成立，使用时无需额外验证前提."
@@ -3918,52 +3209,34 @@ module.exports = {
             "text": "关键提醒"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "易错点（符号与顺序）： 差角正弦"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin(\\alpha-\\beta)"
-              },
-              {
-                "type": "text",
-                "text": "不可随意交换为"
-              },
-              {
-                "type": "math",
-                "latex": "\\sin(\\beta-\\alpha)"
-              },
-              {
-                "type": "text",
-                "text": "; 与余弦平方差公式区分，后者带负号."
-              }
-            ]
+            "text": "易错点（符号与顺序）： 差角正弦"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "检查项（两角核对）： 代入后快速验证"
-              },
-              {
-                "type": "math",
-                "latex": "\\alpha-\\beta"
-              },
-              {
-                "type": "text",
-                "text": "与"
-              },
-              {
-                "type": "math",
-                "latex": "\\alpha+\\beta"
-              },
-              {
-                "type": "text",
-                "text": "是否正确，尤其在有符号角时注意括号."
-              }
-            ]
+            "latex": "\\sin(\\alpha-\\beta)"
+          },
+          {
+            "text": "不可随意交换为"
+          },
+          {
+            "latex": "\\sin(\\beta-\\alpha)"
+          },
+          {
+            "text": "; 与余弦平方差公式区分，后者带负号."
+          },
+          {
+            "text": "检查项（两角核对）： 代入后快速验证"
+          },
+          {
+            "latex": "\\alpha-\\beta"
+          },
+          {
+            "text": "与"
+          },
+          {
+            "latex": "\\alpha+\\beta"
+          },
+          {
+            "text": "是否正确，尤其在有符号角时注意括号."
           }
         ]
       }

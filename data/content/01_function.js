@@ -55,35 +55,94 @@
  *     2. { latex: string }
  *     3. { segments: [{ type: 'text', text } | { type: 'math', latex }] }
  *     4. theorem-list item: { title, desc?, latex }
+ *   - Rich parser rules for mixed text/math sections:
+ *     - Long equation-chain math is promoted to standalone { latex } items.
+ *     - Trailing punctuation is stripped out of latex and kept in text segments.
+ *     - This improves canonical migration to math_block and avoids inline overflow.
  *   - Important layouts used by this builder:
  *     - text
  *     - theorem-list
  *   - Legacy plain-text fields remain in the record for compatibility and debugging.
  */
 module.exports = {
-  "F001_monotonicity": {
-    "id": "F001_monotonicity",
-    "title": "F001_monotonicity",
-    "module": "",
-    "alias": [],
-    "difficulty": null,
-    "category": "",
-    "tags": [],
-    "core_summary": "",
-    "core_formula": "",
-    "related_formulas": [],
+  "F001": {
+    "id": "F001",
+    "title": "导数判定单调性",
+    "module": "function",
+    "alias": [
+      "导数判定单调性",
+      "monotonicity",
+      "导数判定单调性结论",
+      "函数常用结论"
+    ],
+    "difficulty": 3,
+    "category": "函数",
+    "tags": [
+      "导数判定单调性",
+      "monotonicity",
+      "导数判定单调性结论",
+      "函数常用结论",
+      "导数",
+      "单调性"
+    ],
+    "core_summary": "一句话总结 \"单调性 = 导数符号在区间内是否统一",
+    "core_formula": "f(x)=x^3-3x+1",
+    "related_formulas": [
+      "f'(x) > 0",
+      "f'(x) < 0",
+      "f'(x) \\ge 0"
+    ],
     "variables": [],
-    "conditions": "",
-    "conclusions": "",
-    "usage": {},
-    "interactive": {},
-    "assets": {},
-    "shareConfig": {},
-    "relations": {},
-    "isPro": null,
+    "conditions": "结论（单调性判定定理） 设函数 f(x) 在区间 I 上可导",
+    "conclusions": [
+      "一句话总结 \"单调性 = 导数符号在区间内是否统一"
+    ],
+    "usage": {
+      "scenarios": [
+        "典型例题 例 1：判断函数 f(x)=x^3-3x+1 的单调性",
+        "解：f'(x)=3x^2-3=3(x-1)(x+1). 当 x<-1 或 x>1 时，f'(x)>0",
+        "当 -1<x<1 时，f'(x)<0"
+      ],
+      "problem_types": [
+        "导数应用",
+        "函数性质判定"
+      ],
+      "exam_frequency": 0.6,
+      "exam_score": 5
+    },
+    "interactive": {
+      "has_diagram": false,
+      "geogebra_id": "",
+      "param_demo": {}
+    },
+    "assets": {
+      "svg": "F001.svg",
+      "png": "",
+      "webp": "",
+      "video": "",
+      "audio": ""
+    },
+    "shareConfig": {
+      "title": "导数判定单调性：条件判断与题型速查",
+      "shareDesc": "适合刷题前速查与课后复盘，聚焦适用条件和常见误区，做同类题时能减少符号与分类讨论错误。"
+    },
+    "relations": {
+      "prerequisites": [
+        "导数定义",
+        "导数符号与函数变化"
+      ],
+      "related_ids": [],
+      "similar": [
+        "函数中的相近变形结论"
+      ]
+    },
+    "isPro": 0,
     "remarks": "",
-    "knowledgeNode": "",
-    "altNodes": "",
+    "knowledgeNode": "函数-性质-单调性",
+    "altNodes": [
+      "函数-性质-单调性",
+      "函数-综合-函数与不等式"
+    ],
     "statement": "结论（单调性判定定理）\n设函数 f(x) 在区间 I 上可导：\n- 若 f'(x) > 0 在 I 上恒成立，则 f(x) 在 I 上严格单调递增；\n- 若 f'(x) < 0 在 I 上恒成立，则 f(x) 在 I 上严格单调递减；\n- 若 f'(x) 0（或 0），则 f(x) 在 I 上单调不减（或不增）。",
     "explanation": "直观理解\n导数 f'(x) 表示函数在该点的变化趋势：\n- f'(x) > 0：函数在该点\"向上走\"；\n- f'(x) < 0：函数在该点\"向下走\"。\n若在整个区间内变化方向始终一致，则函数整体呈现出单调性。",
     "proof": "证明（略述）\n由拉格朗日中值定理：\n对任意 x_1 < x_2 in I，存在 in (x_1,x_2)，使得\nf(x_2)-f(x_1)=f'( )(x_2-x_1).\n当 f'(x)>0 时，右端恒为正，因此 f(x_2)>f(x_1)，\n函数在 I 上严格单调递增，其余情况类似。",
@@ -93,14 +152,158 @@ module.exports = {
     "display_version": 2,
     "sections": [
       {
+        "key": "core_formula",
+        "title": "核心公式",
+        "layout": "text",
+        "items": [
+          {
+            "latex": "f(x)=x^3-3x+1"
+          }
+        ]
+      },
+      {
+        "key": "conditions",
+        "title": "适用条件",
+        "layout": "text",
+        "items": [
+          {
+            "text": "结论（单调性判定定理） 设函数 f(x) 在区间 I 上可导"
+          }
+        ]
+      },
+      {
         "key": "statement",
         "title": "命题表述",
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "若"
+              },
+              {
+                "type": "math",
+                "latex": "f'(x) > 0"
+              },
+              {
+                "type": "text",
+                "text": "在"
+              },
+              {
+                "type": "math",
+                "latex": "I"
+              },
+              {
+                "type": "text",
+                "text": "上恒成立，则"
+              },
+              {
+                "type": "math",
+                "latex": "f(x)"
+              },
+              {
+                "type": "text",
+                "text": "在"
+              },
+              {
+                "type": "math",
+                "latex": "I"
+              },
+              {
+                "type": "text",
+                "text": "上严格单调递增；"
+              }
+            ],
+            "desc": "若 在 上恒成立，则 在 上严格单调递增；",
+            "latex": "f'(x) > 0"
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "text",
+                "text": "若"
+              },
+              {
+                "type": "math",
+                "latex": "f'(x) < 0"
+              },
+              {
+                "type": "text",
+                "text": "在"
+              },
+              {
+                "type": "math",
+                "latex": "I"
+              },
+              {
+                "type": "text",
+                "text": "上恒成立，则"
+              },
+              {
+                "type": "math",
+                "latex": "f(x)"
+              },
+              {
+                "type": "text",
+                "text": "在"
+              },
+              {
+                "type": "math",
+                "latex": "I"
+              },
+              {
+                "type": "text",
+                "text": "上严格单调递减；"
+              }
+            ],
+            "desc": "若 在 上恒成立，则 在 上严格单调递减；",
+            "latex": "f'(x) < 0"
+          },
+          {
+            "title": "条目3",
+            "segments": [
+              {
+                "type": "text",
+                "text": "若"
+              },
+              {
+                "type": "math",
+                "latex": "f'(x) \\ge 0"
+              },
+              {
+                "type": "text",
+                "text": "（或"
+              },
+              {
+                "type": "math",
+                "latex": "\\le 0"
+              },
+              {
+                "type": "text",
+                "text": "），则"
+              },
+              {
+                "type": "math",
+                "latex": "f(x)"
+              },
+              {
+                "type": "text",
+                "text": "在"
+              },
+              {
+                "type": "math",
+                "latex": "I"
+              },
+              {
+                "type": "text",
+                "text": "上单调不减（或不增）。"
+              }
+            ],
+            "desc": "若 （或 ），则 在 上单调不减（或不增）。",
+            "latex": "f'(x) \\ge 0"
           }
         ]
       },
@@ -157,34 +360,28 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "agraph证明（略述）\n由拉格朗日中值定理：\n对任意"
+          },
+          {
+            "latex": "x_1 < x_2 \\in I"
+          },
+          {
+            "text": "，存在"
+          },
+          {
+            "latex": "\\xi \\in (x_1,x_2)"
+          },
+          {
+            "text": "，使得"
+          },
+          {
+            "latex": "f(x_2)-f(x_1)=f'(\\xi)(x_2-x_1)"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "agraph证明（略述）\n由拉格朗日中值定理：\n对任意"
-              },
-              {
-                "type": "math",
-                "latex": "x_1 < x_2 \\in I"
-              },
-              {
-                "type": "text",
-                "text": "，存在"
-              },
-              {
-                "type": "math",
-                "latex": "\\xi \\in (x_1,x_2)"
-              },
-              {
-                "type": "text",
-                "text": "，使得"
-              },
-              {
-                "type": "math",
-                "latex": "f(x_2)-f(x_1)=f'(\\xi)(x_2-x_1)."
-              },
-              {
-                "type": "text",
-                "text": "当"
+                "text": ".当"
               },
               {
                 "type": "math",
@@ -235,11 +432,11 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "f'(x)=3x^2-3=3(x-1)(x+1)."
+                "latex": "f'(x)=3x^2-3=3(x-1)(x+1)"
               },
               {
                 "type": "text",
-                "text": "当"
+                "text": ".当"
               },
               {
                 "type": "math",
@@ -284,24 +481,16 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "math",
-                "latex": "(-\\infty,-1)"
-              },
-              {
-                "type": "text",
-                "text": "与"
-              },
-              {
-                "type": "math",
-                "latex": "(1,+\\infty)"
-              },
-              {
-                "type": "text",
-                "text": "上单调递增；"
-              }
-            ]
+            "latex": "(-\\infty,-1)"
+          },
+          {
+            "text": "与"
+          },
+          {
+            "latex": "(1,+\\infty)"
+          },
+          {
+            "text": "上单调递增；"
           },
           {
             "segments": [
@@ -357,29 +546,84 @@ module.exports = {
       }
     ]
   },
-  "F002_extrema": {
-    "id": "F002_extrema",
-    "title": "F002_extrema",
-    "module": "",
-    "alias": [],
-    "difficulty": null,
-    "category": "",
-    "tags": [],
-    "core_summary": "",
-    "core_formula": "",
-    "related_formulas": [],
+  "F002": {
+    "id": "F002",
+    "title": "导数判定单调性",
+    "module": "function",
+    "alias": [
+      "导数判定单调性",
+      "extrema",
+      "导数判定单调性结论",
+      "函数常用结论"
+    ],
+    "difficulty": 3,
+    "category": "函数",
+    "tags": [
+      "导数判定单调性",
+      "extrema",
+      "导数判定单调性结论",
+      "函数常用结论",
+      "导数",
+      "单调性"
+    ],
+    "core_summary": "一句话总结 \"单调性 = 导数符号在区间内是否统一",
+    "core_formula": "f(x)=x^3-3x+1",
+    "related_formulas": [
+      "f'(x) > 0",
+      "f'(x) < 0",
+      "f'(x) \\ge 0"
+    ],
     "variables": [],
-    "conditions": "",
-    "conclusions": "",
-    "usage": {},
-    "interactive": {},
-    "assets": {},
-    "shareConfig": {},
-    "relations": {},
-    "isPro": null,
+    "conditions": "结论（单调性判定定理） 设函数 f(x) 在区间 I 上可导",
+    "conclusions": [
+      "一句话总结 \"单调性 = 导数符号在区间内是否统一"
+    ],
+    "usage": {
+      "scenarios": [
+        "典型例题 例 1：判断函数 f(x)=x^3-3x+1 的单调性",
+        "解：f'(x)=3x^2-3=3(x-1)(x+1). 当 x<-1 或 x>1 时，f'(x)>0",
+        "当 -1<x<1 时，f'(x)<0"
+      ],
+      "problem_types": [
+        "导数应用",
+        "函数性质判定"
+      ],
+      "exam_frequency": 0.6,
+      "exam_score": 5
+    },
+    "interactive": {
+      "has_diagram": false,
+      "geogebra_id": "",
+      "param_demo": {}
+    },
+    "assets": {
+      "svg": "F002.svg",
+      "png": "",
+      "webp": "",
+      "video": "",
+      "audio": ""
+    },
+    "shareConfig": {
+      "title": "导数判定单调性：条件判断与题型速查",
+      "shareDesc": "适合刷题前速查与课后复盘，聚焦适用条件和常见误区，做同类题时能减少符号与分类讨论错误。"
+    },
+    "relations": {
+      "prerequisites": [
+        "导数定义",
+        "导数符号与函数变化"
+      ],
+      "related_ids": [],
+      "similar": [
+        "函数中的相近变形结论"
+      ]
+    },
+    "isPro": 0,
     "remarks": "",
-    "knowledgeNode": "",
-    "altNodes": "",
+    "knowledgeNode": "函数-性质-单调性",
+    "altNodes": [
+      "函数-性质-单调性",
+      "函数-综合-函数与不等式"
+    ],
     "statement": "结论（单调性判定定理）\n设函数 f(x) 在区间 I 上可导：\n- 若 f'(x) > 0 在 I 上恒成立，则 f(x) 在 I 上严格单调递增；\n- 若 f'(x) < 0 在 I 上恒成立，则 f(x) 在 I 上严格单调递减；\n- 若 f'(x) 0（或 0），则 f(x) 在 I 上单调不减（或不增）。",
     "explanation": "直观理解\n导数 f'(x) 表示函数在该点的变化趋势：\n- f'(x) > 0：函数在该点\"向上走\"；\n- f'(x) < 0：函数在该点\"向下走\"。\n若在整个区间内变化方向始终一致，则函数整体呈现出单调性。",
     "proof": "证明（略述）\n由拉格朗日中值定理：\n对任意 x_1 < x_2 in I，存在 in (x_1,x_2)，使得\nf(x_2)-f(x_1)=f'( )(x_2-x_1).\n当 f'(x)>0 时，右端恒为正，因此 f(x_2)>f(x_1)，\n函数在 I 上严格单调递增，其余情况类似。",
@@ -389,14 +633,158 @@ module.exports = {
     "display_version": 2,
     "sections": [
       {
+        "key": "core_formula",
+        "title": "核心公式",
+        "layout": "text",
+        "items": [
+          {
+            "latex": "f(x)=x^3-3x+1"
+          }
+        ]
+      },
+      {
+        "key": "conditions",
+        "title": "适用条件",
+        "layout": "text",
+        "items": [
+          {
+            "text": "结论（单调性判定定理） 设函数 f(x) 在区间 I 上可导"
+          }
+        ]
+      },
+      {
         "key": "statement",
         "title": "命题表述",
         "layout": "theorem-list",
         "items": [
           {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
+            "title": "条目1",
+            "segments": [
+              {
+                "type": "text",
+                "text": "若"
+              },
+              {
+                "type": "math",
+                "latex": "f'(x) > 0"
+              },
+              {
+                "type": "text",
+                "text": "在"
+              },
+              {
+                "type": "math",
+                "latex": "I"
+              },
+              {
+                "type": "text",
+                "text": "上恒成立，则"
+              },
+              {
+                "type": "math",
+                "latex": "f(x)"
+              },
+              {
+                "type": "text",
+                "text": "在"
+              },
+              {
+                "type": "math",
+                "latex": "I"
+              },
+              {
+                "type": "text",
+                "text": "上严格单调递增；"
+              }
+            ],
+            "desc": "若 在 上恒成立，则 在 上严格单调递增；",
+            "latex": "f'(x) > 0"
+          },
+          {
+            "title": "条目2",
+            "segments": [
+              {
+                "type": "text",
+                "text": "若"
+              },
+              {
+                "type": "math",
+                "latex": "f'(x) < 0"
+              },
+              {
+                "type": "text",
+                "text": "在"
+              },
+              {
+                "type": "math",
+                "latex": "I"
+              },
+              {
+                "type": "text",
+                "text": "上恒成立，则"
+              },
+              {
+                "type": "math",
+                "latex": "f(x)"
+              },
+              {
+                "type": "text",
+                "text": "在"
+              },
+              {
+                "type": "math",
+                "latex": "I"
+              },
+              {
+                "type": "text",
+                "text": "上严格单调递减；"
+              }
+            ],
+            "desc": "若 在 上恒成立，则 在 上严格单调递减；",
+            "latex": "f'(x) < 0"
+          },
+          {
+            "title": "条目3",
+            "segments": [
+              {
+                "type": "text",
+                "text": "若"
+              },
+              {
+                "type": "math",
+                "latex": "f'(x) \\ge 0"
+              },
+              {
+                "type": "text",
+                "text": "（或"
+              },
+              {
+                "type": "math",
+                "latex": "\\le 0"
+              },
+              {
+                "type": "text",
+                "text": "），则"
+              },
+              {
+                "type": "math",
+                "latex": "f(x)"
+              },
+              {
+                "type": "text",
+                "text": "在"
+              },
+              {
+                "type": "math",
+                "latex": "I"
+              },
+              {
+                "type": "text",
+                "text": "上单调不减（或不增）。"
+              }
+            ],
+            "desc": "若 （或 ），则 在 上单调不减（或不增）。",
+            "latex": "f'(x) \\ge 0"
           }
         ]
       },
@@ -453,34 +841,28 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "agraph证明（略述）\n由拉格朗日中值定理：\n对任意"
+          },
+          {
+            "latex": "x_1 < x_2 \\in I"
+          },
+          {
+            "text": "，存在"
+          },
+          {
+            "latex": "\\xi \\in (x_1,x_2)"
+          },
+          {
+            "text": "，使得"
+          },
+          {
+            "latex": "f(x_2)-f(x_1)=f'(\\xi)(x_2-x_1)"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "agraph证明（略述）\n由拉格朗日中值定理：\n对任意"
-              },
-              {
-                "type": "math",
-                "latex": "x_1 < x_2 \\in I"
-              },
-              {
-                "type": "text",
-                "text": "，存在"
-              },
-              {
-                "type": "math",
-                "latex": "\\xi \\in (x_1,x_2)"
-              },
-              {
-                "type": "text",
-                "text": "，使得"
-              },
-              {
-                "type": "math",
-                "latex": "f(x_2)-f(x_1)=f'(\\xi)(x_2-x_1)."
-              },
-              {
-                "type": "text",
-                "text": "当"
+                "text": ".当"
               },
               {
                 "type": "math",
@@ -531,11 +913,11 @@ module.exports = {
               },
               {
                 "type": "math",
-                "latex": "f'(x)=3x^2-3=3(x-1)(x+1)."
+                "latex": "f'(x)=3x^2-3=3(x-1)(x+1)"
               },
               {
                 "type": "text",
-                "text": "当"
+                "text": ".当"
               },
               {
                 "type": "math",
@@ -580,320 +962,16 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "math",
-                "latex": "(-\\infty,-1)"
-              },
-              {
-                "type": "text",
-                "text": "与"
-              },
-              {
-                "type": "math",
-                "latex": "(1,+\\infty)"
-              },
-              {
-                "type": "text",
-                "text": "上单调递增；"
-              }
-            ]
+            "latex": "(-\\infty,-1)"
           },
           {
-            "segments": [
-              {
-                "type": "math",
-                "latex": "(-1,1)"
-              },
-              {
-                "type": "text",
-                "text": "上单调递减。"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "key": "traps",
-        "title": "易错提醒",
-        "layout": "text",
-        "items": [
-          {
-            "text": "agraph常见误区"
+            "text": "与"
           },
           {
-            "segments": [
-              {
-                "type": "math",
-                "latex": "f'(x)>0"
-              },
-              {
-                "type": "text",
-                "text": "是 充分条件，不是必要条件；"
-              }
-            ]
+            "latex": "(1,+\\infty)"
           },
           {
-            "text": "导数在个别点为 0，不影响整体单调性；"
-          },
-          {
-            "text": "单调性结论必须结合 区间 描述，不能只给\"递增 / 递减\"。"
-          }
-        ]
-      },
-      {
-        "key": "summary",
-        "title": "复盘总结",
-        "layout": "text",
-        "items": [
-          {
-            "text": "agraph一句话总结\n\"单调性 = 导数符号在区间内是否统一。\""
-          }
-        ]
-      }
-    ]
-  },
-  "F003_zero-points": {
-    "id": "F003_zero-points",
-    "title": "F003_zero-points",
-    "module": "",
-    "alias": [],
-    "difficulty": null,
-    "category": "",
-    "tags": [],
-    "core_summary": "",
-    "core_formula": "",
-    "related_formulas": [],
-    "variables": [],
-    "conditions": "",
-    "conclusions": "",
-    "usage": {},
-    "interactive": {},
-    "assets": {},
-    "shareConfig": {},
-    "relations": {},
-    "isPro": null,
-    "remarks": "",
-    "knowledgeNode": "",
-    "altNodes": "",
-    "statement": "结论（单调性判定定理）\n设函数 f(x) 在区间 I 上可导：\n- 若 f'(x) > 0 在 I 上恒成立，则 f(x) 在 I 上严格单调递增；\n- 若 f'(x) < 0 在 I 上恒成立，则 f(x) 在 I 上严格单调递减；\n- 若 f'(x) 0（或 0），则 f(x) 在 I 上单调不减（或不增）。",
-    "explanation": "直观理解\n导数 f'(x) 表示函数在该点的变化趋势：\n- f'(x) > 0：函数在该点\"向上走\"；\n- f'(x) < 0：函数在该点\"向下走\"。\n若在整个区间内变化方向始终一致，则函数整体呈现出单调性。",
-    "proof": "证明（略述）\n由拉格朗日中值定理：\n对任意 x_1 < x_2 in I，存在 in (x_1,x_2)，使得\nf(x_2)-f(x_1)=f'( )(x_2-x_1).\n当 f'(x)>0 时，右端恒为正，因此 f(x_2)>f(x_1)，\n函数在 I 上严格单调递增，其余情况类似。",
-    "examples": "典型例题\n例 1：判断函数 f(x)=x^3-3x+1 的单调性。\n解：\nf'(x)=3x^2-3=3(x-1)(x+1).\n当 x<-1 或 x>1 时，f'(x)>0；\n当 -1<x<1 时，f'(x)<0。\n因此：\n- (- infinity ,-1) 与 (1,+ infinity ) 上单调递增；\n- (-1,1) 上单调递减。",
-    "traps": "常见误区\n- f'(x)>0 是 充分条件，不是必要条件；\n- 导数在个别点为 0，不影响整体单调性；\n- 单调性结论必须结合 区间 描述，不能只给\"递增 / 递减\"。",
-    "summary": "一句话总结\n\"单调性 = 导数符号在区间内是否统一。\"",
-    "display_version": 2,
-    "sections": [
-      {
-        "key": "statement",
-        "title": "命题表述",
-        "layout": "theorem-list",
-        "items": [
-          {
-            "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": "<object object at 0x0000016A0F1807E0>"
-          }
-        ]
-      },
-      {
-        "key": "explanation",
-        "title": "理解与直觉",
-        "layout": "text",
-        "items": [
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "agraph直观理解\n导数"
-              },
-              {
-                "type": "math",
-                "latex": "f'(x)"
-              },
-              {
-                "type": "text",
-                "text": "表示函数在该点的变化趋势："
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "math",
-                "latex": "f'(x) > 0"
-              },
-              {
-                "type": "text",
-                "text": "：函数在该点\"向上走\"；"
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "math",
-                "latex": "f'(x) < 0"
-              },
-              {
-                "type": "text",
-                "text": "：函数在该点\"向下走\"。\n若在整个区间内变化方向始终一致，则函数整体呈现出单调性。"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "key": "proof",
-        "title": "证明过程",
-        "layout": "text",
-        "items": [
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "agraph证明（略述）\n由拉格朗日中值定理：\n对任意"
-              },
-              {
-                "type": "math",
-                "latex": "x_1 < x_2 \\in I"
-              },
-              {
-                "type": "text",
-                "text": "，存在"
-              },
-              {
-                "type": "math",
-                "latex": "\\xi \\in (x_1,x_2)"
-              },
-              {
-                "type": "text",
-                "text": "，使得"
-              },
-              {
-                "type": "math",
-                "latex": "f(x_2)-f(x_1)=f'(\\xi)(x_2-x_1)."
-              },
-              {
-                "type": "text",
-                "text": "当"
-              },
-              {
-                "type": "math",
-                "latex": "f'(x)>0"
-              },
-              {
-                "type": "text",
-                "text": "时，右端恒为正，因此"
-              },
-              {
-                "type": "math",
-                "latex": "f(x_2)>f(x_1)"
-              },
-              {
-                "type": "text",
-                "text": "，\n函数在"
-              },
-              {
-                "type": "math",
-                "latex": "I"
-              },
-              {
-                "type": "text",
-                "text": "上严格单调递增，其余情况类似。"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        "key": "examples",
-        "title": "例题应用",
-        "layout": "text",
-        "items": [
-          {
-            "segments": [
-              {
-                "type": "text",
-                "text": "agraph典型例题\n例 1：判断函数"
-              },
-              {
-                "type": "math",
-                "latex": "f(x)=x^3-3x+1"
-              },
-              {
-                "type": "text",
-                "text": "的单调性。\n解："
-              },
-              {
-                "type": "math",
-                "latex": "f'(x)=3x^2-3=3(x-1)(x+1)."
-              },
-              {
-                "type": "text",
-                "text": "当"
-              },
-              {
-                "type": "math",
-                "latex": "x<-1"
-              },
-              {
-                "type": "text",
-                "text": "或"
-              },
-              {
-                "type": "math",
-                "latex": "x>1"
-              },
-              {
-                "type": "text",
-                "text": "时，"
-              },
-              {
-                "type": "math",
-                "latex": "f'(x)>0"
-              },
-              {
-                "type": "text",
-                "text": "；\n当"
-              },
-              {
-                "type": "math",
-                "latex": "-1<x<1"
-              },
-              {
-                "type": "text",
-                "text": "时，"
-              },
-              {
-                "type": "math",
-                "latex": "f'(x)<0"
-              },
-              {
-                "type": "text",
-                "text": "。\n因此："
-              }
-            ]
-          },
-          {
-            "segments": [
-              {
-                "type": "math",
-                "latex": "(-\\infty,-1)"
-              },
-              {
-                "type": "text",
-                "text": "与"
-              },
-              {
-                "type": "math",
-                "latex": "(1,+\\infty)"
-              },
-              {
-                "type": "text",
-                "text": "上单调递增；"
-              }
-            ]
+            "text": "上单调递增；"
           },
           {
             "segments": [

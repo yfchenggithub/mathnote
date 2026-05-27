@@ -55,6 +55,10 @@
  *     2. { latex: string }
  *     3. { segments: [{ type: 'text', text } | { type: 'math', latex }] }
  *     4. theorem-list item: { title, desc?, latex }
+ *   - Rich parser rules for mixed text/math sections:
+ *     - Long equation-chain math is promoted to standalone { latex } items.
+ *     - Trailing punctuation is stripped out of latex and kept in text segments.
+ *     - This improves canonical migration to math_block and avoids inline overflow.
  *   - Important layouts used by this builder:
  *     - text
  *     - theorem-list
@@ -193,29 +197,150 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
+            "title": "条件1（球与半径）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "设球的半径为"
+              },
+              {
+                "type": "math",
+                "latex": "R"
+              },
+              {
+                "type": "text",
+                "text": "，其中"
+              },
+              {
+                "type": "math",
+                "latex": "R>0"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "设球的半径为 ，其中 。",
+            "latex": "R>0"
+          },
+          {
             "title": "结论一（体积公式）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "球的体积与半径的三次方成正比。"
+              },
+              {
+                "type": "math",
+                "latex": "V = \\frac{4}{3}\\pi R^{3} ."
+              }
+            ],
             "desc": "球的体积与半径的三次方成正比。",
             "latex": "V = \\frac{4}{3}\\pi R^{3} ."
           },
           {
             "title": "结论二（表面积公式）：",
-            "desc": "球的表面积（即球面面积）与半径的平方成正比。",
+            "segments": [
+              {
+                "type": "text",
+                "text": "球的表面积（即球面面积）与半径的平方成正比。"
+              },
+              {
+                "type": "math",
+                "latex": "S = 4\\pi R^{2} ."
+              },
+              {
+                "type": "text",
+                "text": "推广结论（逆用公式）："
+              }
+            ],
+            "desc": "球的表面积（即球面面积）与半径的平方成正比。 推广结论（逆用公式）：",
             "latex": "S = 4\\pi R^{2} ."
           },
           {
             "title": "（已知体积求半径）：",
-            "desc": "若球的体积为",
-            "latex": "V>0 \\qquad R = \\sqrt[3]{\\frac{3V}{4\\pi}} ."
+            "segments": [
+              {
+                "type": "text",
+                "text": "若球的体积为"
+              },
+              {
+                "type": "math",
+                "latex": "V>0"
+              },
+              {
+                "type": "text",
+                "text": "，则"
+              },
+              {
+                "type": "math",
+                "latex": "R = \\sqrt[3]{\\frac{3V}{4\\pi}} ."
+              }
+            ],
+            "desc": "若球的体积为 ，则",
+            "latex": "V>0"
           },
           {
             "title": "（已知表面积求半径）：",
-            "desc": "若球的表面积为",
-            "latex": "S>0 \\qquad R = \\sqrt{\\frac{S}{4\\pi}} ."
+            "segments": [
+              {
+                "type": "text",
+                "text": "若球的表面积为"
+              },
+              {
+                "type": "math",
+                "latex": "S>0"
+              },
+              {
+                "type": "text",
+                "text": "，则"
+              },
+              {
+                "type": "math",
+                "latex": "R = \\sqrt{\\frac{S}{4\\pi}} ."
+              }
+            ],
+            "desc": "若球的表面积为 ，则",
+            "latex": "S>0"
           },
           {
             "title": "（已知表面积求体积）：",
-            "desc": "若球的表面积为",
-            "latex": "S>0 \\qquad R=\\sqrt{\\frac{S}{4\\pi}} \\qquad V=\\frac{4}{3}\\pi R^{3}. \\qquad V=\\frac{S}{3}\\sqrt{\\frac{S}{4\\pi}}."
+            "segments": [
+              {
+                "type": "text",
+                "text": "若球的表面积为"
+              },
+              {
+                "type": "math",
+                "latex": "S>0"
+              },
+              {
+                "type": "text",
+                "text": "，则先由"
+              },
+              {
+                "type": "math",
+                "latex": "R=\\sqrt{\\frac{S}{4\\pi}}"
+              },
+              {
+                "type": "text",
+                "text": "求出半径，再代入体积公式"
+              },
+              {
+                "type": "math",
+                "latex": "V=\\frac{4}{3}\\pi R^{3}."
+              },
+              {
+                "type": "text",
+                "text": "等价地，"
+              },
+              {
+                "type": "math",
+                "latex": "V=\\frac{S}{3}\\sqrt{\\frac{S}{4\\pi}}."
+              }
+            ],
+            "desc": "若球的表面积为 ，则先由 求出半径，再代入体积公式 等价地，",
+            "latex": "S>0"
           }
         ]
       },
@@ -260,36 +385,22 @@ module.exports = {
             "text": "核心拆解"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "要点一（立方关系）：\n球的体积与半径的三次方成正比，系数为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{4}{3}\\pi"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "要点一（立方关系）：\n球的体积与半径的三次方成正比，系数为"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "要点二（平方关系）：\n球的表面积与半径的平方成正比，系数为"
-              },
-              {
-                "type": "math",
-                "latex": "4\\pi"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "latex": "\\frac{4}{3}\\pi"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "要点二（平方关系）：\n球的表面积与半径的平方成正比，系数为"
+          },
+          {
+            "latex": "4\\pi"
+          },
+          {
+            "text": "。"
           },
           {
             "segments": [
@@ -410,34 +521,28 @@ module.exports = {
             "text": "考法三（表面积转体积）： 已知表面积时，通常先反求半径，再代入体积公式求体积。"
           },
           {
+            "text": "顿悟点\n记住系数：体积是"
+          },
+          {
+            "latex": "\\frac{4}{3}\\pi R^{3}"
+          },
+          {
+            "text": "，表面积是"
+          },
+          {
+            "latex": "4\\pi R^{2}"
+          },
+          {
+            "text": "。两者还满足"
+          },
+          {
+            "latex": "V = \\frac{RS}{3}"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "顿悟点\n记住系数：体积是"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{4}{3}\\pi R^{3}"
-              },
-              {
-                "type": "text",
-                "text": "，表面积是"
-              },
-              {
-                "type": "math",
-                "latex": "4\\pi R^{2}"
-              },
-              {
-                "type": "text",
-                "text": "。两者还满足"
-              },
-              {
-                "type": "math",
-                "latex": "V = \\frac{RS}{3},"
-              },
-              {
-                "type": "text",
-                "text": "其中"
+                "text": ",其中"
               },
               {
                 "type": "math",
@@ -446,16 +551,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "表示球的表面积。这个关系不是说体积和表面积可以直接比较，而是说明体积与表面积之间相差一个长度量纲，具体比例因子为"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{R}{3}"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "\\frac{R}{3}"
+          },
+          {
+            "text": "。"
           },
           {
             "text": "使用场景"
@@ -503,11 +606,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，其中"
-              },
-              {
-                "type": "math",
-                "latex": "0\\le h\\le R"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "0\\le h\\le R"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "。\n另取一个底面半径为"
@@ -551,22 +657,23 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的水平截面处，半球截面半径为"
-              },
-              {
-                "type": "math",
-                "latex": "\\sqrt{R^{2}-h^{2}},"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\sqrt{R^{2}-h^{2}}"
+          },
+          {
+            "text": ",所以半球截面面积为"
+          },
+          {
+            "latex": "\\pi\\left(R^{2}-h^{2}\\right)"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "所以半球截面面积为"
-              },
-              {
-                "type": "math",
-                "latex": "\\pi\\left(R^{2}-h^{2}\\right)."
-              },
-              {
-                "type": "text",
-                "text": "对圆柱减圆锥的组合体，在同一高度"
+                "text": ".对圆柱减圆锥的组合体，在同一高度"
               },
               {
                 "type": "math",
@@ -575,11 +682,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "处，圆柱截面面积为"
-              },
-              {
-                "type": "math",
-                "latex": "\\pi R^{2}"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\pi R^{2}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "。由于圆锥顶点在下底面圆心、底面在上底面，按相似比可知圆锥在高度"
@@ -599,59 +709,47 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，其截面面积为"
-              },
-              {
-                "type": "math",
-                "latex": "\\pi h^{2}"
-              },
-              {
-                "type": "text",
-                "text": "。因此挖去圆锥后剩下的圆环面积为"
-              },
-              {
-                "type": "math",
-                "latex": "\\pi R^{2}-\\pi h^{2}=\\pi\\left(R^{2}-h^{2}\\right)."
-              },
-              {
-                "type": "text",
-                "text": "于是"
-              },
-              {
-                "type": "math",
-                "latex": "\\text{半球截面面积}=\\pi\\left(R^{2}-h^{2}\\right)=\\text{组合体截面面积}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 两个几何体在每一个相同高度处的水平截面面积都相等，根据祖暅原理，它们体积相等。"
               }
             ]
           },
           {
+            "latex": "\\pi h^{2}"
+          },
+          {
+            "text": "。因此挖去圆锥后剩下的圆环面积为"
+          },
+          {
+            "latex": "\\pi R^{2}-\\pi h^{2}=\\pi\\left(R^{2}-h^{2}\\right)"
+          },
+          {
+            "text": ".于是"
+          },
+          {
+            "latex": "\\text{半球截面面积}=\\pi\\left(R^{2}-h^{2}\\right)=\\text{组合体截面面积}"
+          },
+          {
+            "text": ".理由： 两个几何体在每一个相同高度处的水平截面面积都相等，根据祖暅原理，它们体积相等。"
+          },
+          {
+            "text": "步骤三（求组合体体积）：\n组合体体积等于圆柱体积减去圆锥体积："
+          },
+          {
+            "latex": "V_{\\text{组合}}\n=\\pi R^{2}\\cdot R-\\frac{1}{3}\\pi R^{2}\\cdot R\n=\\pi R^{3}-\\frac{1}{3}\\pi R^{3}\n=\\frac{2}{3}\\pi R^{3}"
+          },
+          {
+            "text": ".理由： 圆柱体积公式为"
+          },
+          {
+            "latex": "V_{\\text{柱}}=\\pi R^{2}h"
+          },
+          {
+            "text": "，圆锥体积公式为"
+          },
+          {
+            "latex": "V_{\\text{锥}}=\\frac{1}{3}\\pi R^{2}h"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "步骤三（求组合体体积）：\n组合体体积等于圆柱体积减去圆锥体积："
-              },
-              {
-                "type": "math",
-                "latex": "V_{\\text{组合}}\n=\\pi R^{2}\\cdot R-\\frac{1}{3}\\pi R^{2}\\cdot R\n=\\pi R^{3}-\\frac{1}{3}\\pi R^{3}\n=\\frac{2}{3}\\pi R^{3}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 圆柱体积公式为"
-              },
-              {
-                "type": "math",
-                "latex": "V_{\\text{柱}}=\\pi R^{2}h"
-              },
-              {
-                "type": "text",
-                "text": "，圆锥体积公式为"
-              },
-              {
-                "type": "math",
-                "latex": "V_{\\text{锥}}=\\frac{1}{3}\\pi R^{2}h"
-              },
               {
                 "type": "text",
                 "text": "，这里高度均为"
@@ -667,28 +765,19 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "步骤四（得到半球体积与球体积）：\n由祖暅原理，半球体积等于组合体体积，所以"
-              },
-              {
-                "type": "math",
-                "latex": "V_{\\text{半球}}=\\frac{2}{3}\\pi R^{3}."
-              },
-              {
-                "type": "text",
-                "text": "完整球由两个半球组成，因此"
-              },
-              {
-                "type": "math",
-                "latex": "V=2V_{\\text{半球}}\n=2\\times \\frac{2}{3}\\pi R^{3}\n=\\frac{4}{3}\\pi R^{3}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 两个完全相同的半球拼成一个完整的球。"
-              }
-            ]
+            "text": "步骤四（得到半球体积与球体积）：\n由祖暅原理，半球体积等于组合体体积，所以"
+          },
+          {
+            "latex": "V_{\\text{半球}}=\\frac{2}{3}\\pi R^{3}"
+          },
+          {
+            "text": ".完整球由两个半球组成，因此"
+          },
+          {
+            "latex": "V=2V_{\\text{半球}}\n=2\\times \\frac{2}{3}\\pi R^{3}\n=\\frac{4}{3}\\pi R^{3}"
+          },
+          {
+            "text": ".理由： 两个完全相同的半球拼成一个完整的球。"
           },
           {
             "segments": [
@@ -703,27 +792,26 @@ module.exports = {
               {
                 "type": "text",
                 "text": "增加到"
-              },
-              {
-                "type": "math",
-                "latex": "R+\\Delta R"
-              },
-              {
-                "type": "text",
-                "text": "，体积增量为"
-              },
-              {
-                "type": "math",
-                "latex": "\\Delta V=V(R+\\Delta R)-V(R)."
-              },
-              {
-                "type": "text",
-                "text": "当"
-              },
-              {
-                "type": "math",
-                "latex": "\\Delta R"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "R+\\Delta R"
+          },
+          {
+            "text": "，体积增量为"
+          },
+          {
+            "latex": "\\Delta V=V(R+\\Delta R)-V(R)"
+          },
+          {
+            "text": ".当"
+          },
+          {
+            "latex": "\\Delta R"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "很小时，这一薄球壳的体积可以近似看成“球的表面积"
@@ -735,30 +823,29 @@ module.exports = {
               {
                 "type": "text",
                 "text": "乘以厚度"
-              },
-              {
-                "type": "math",
-                "latex": "\\Delta R"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "\\Delta R"
+          },
+          {
+            "text": "”，即"
+          },
+          {
+            "latex": "\\Delta V \\approx S\\,\\Delta R"
+          },
+          {
+            "text": ".更准确地说，球的表面积可理解为体积对半径的变化率："
+          },
+          {
+            "latex": "S=\\lim_{\\Delta R\\to 0}\\frac{V(R+\\Delta R)-V(R)}{\\Delta R}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "”，即"
-              },
-              {
-                "type": "math",
-                "latex": "\\Delta V \\approx S\\,\\Delta R."
-              },
-              {
-                "type": "text",
-                "text": "更准确地说，球的表面积可理解为体积对半径的变化率："
-              },
-              {
-                "type": "math",
-                "latex": "S=\\lim_{\\Delta R\\to 0}\\frac{V(R+\\Delta R)-V(R)}{\\Delta R}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 薄球壳越来越薄时，其曲面厚度造成的高阶误差趋于"
+                "text": ".理由： 薄球壳越来越薄时，其曲面厚度造成的高阶误差趋于"
               },
               {
                 "type": "math",
@@ -771,31 +858,25 @@ module.exports = {
             ]
           },
           {
+            "text": "步骤六（由体积公式推出表面积）：\n将体积公式"
+          },
+          {
+            "latex": "V(R)=\\frac{4}{3}\\pi R^{3}"
+          },
+          {
+            "text": "代入变化率公式，得到"
+          },
+          {
+            "latex": "S=\\frac{\\mathrm{d}V}{\\mathrm{d}R}=4\\pi R^{2}"
+          },
+          {
+            "text": ".理由： 对"
+          },
+          {
+            "latex": "\\frac{4}{3}\\pi R^{3}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "步骤六（由体积公式推出表面积）：\n将体积公式"
-              },
-              {
-                "type": "math",
-                "latex": "V(R)=\\frac{4}{3}\\pi R^{3}"
-              },
-              {
-                "type": "text",
-                "text": "代入变化率公式，得到"
-              },
-              {
-                "type": "math",
-                "latex": "S=\\frac{\\mathrm{d}V}{\\mathrm{d}R}=4\\pi R^{2}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 对"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{4}{3}\\pi R^{3}"
-              },
               {
                 "type": "text",
                 "text": "关于"
@@ -807,40 +888,29 @@ module.exports = {
               {
                 "type": "text",
                 "text": "求导，结果为"
-              },
-              {
-                "type": "math",
-                "latex": "4\\pi R^{2}"
-              },
-              {
-                "type": "text",
-                "text": "。这一部分使用了微积分思想，可作为表面积公式的直观解释或拓展理解。"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "结论回扣\n通过祖暅原理可得到球体积"
-              },
-              {
-                "type": "math",
-                "latex": "V=\\frac{4}{3}\\pi R^{3}"
-              },
-              {
-                "type": "text",
-                "text": "；再从体积关于半径的变化率角度，可理解球的表面积公式"
-              },
-              {
-                "type": "math",
-                "latex": "S=4\\pi R^{2}"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "latex": "4\\pi R^{2}"
+          },
+          {
+            "text": "。这一部分使用了微积分思想，可作为表面积公式的直观解释或拓展理解。"
+          },
+          {
+            "text": "结论回扣\n通过祖暅原理可得到球体积"
+          },
+          {
+            "latex": "V=\\frac{4}{3}\\pi R^{3}"
+          },
+          {
+            "text": "；再从体积关于半径的变化率角度，可理解球的表面积公式"
+          },
+          {
+            "latex": "S=4\\pi R^{2}"
+          },
+          {
+            "text": "。"
           }
         ]
       },
@@ -850,15 +920,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "例1（基础）\n题目： 已知一个球的半径为"
+          },
+          {
+            "latex": "R = 3\\,\\mathrm{cm}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "例1（基础）\n题目： 已知一个球的半径为"
-              },
-              {
-                "type": "math",
-                "latex": "R = 3\\,\\mathrm{cm}"
-              },
               {
                 "type": "text",
                 "text": "，求它的体积"
@@ -894,24 +962,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "代入"
-              },
-              {
-                "type": "math",
-                "latex": "V = \\frac{4}{3} \\pi R^{3}"
-              },
-              {
-                "type": "text",
-                "text": "，得"
-              },
-              {
-                "type": "math",
-                "latex": "V=\\frac{4}{3}\\pi\\times 3^{3}=\\frac{4}{3}\\pi\\times 27=36\\pi\\,\\mathrm{cm}^{3}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 直接套用球的体积公式。"
               }
             ]
+          },
+          {
+            "latex": "V = \\frac{4}{3} \\pi R^{3}"
+          },
+          {
+            "text": "，得"
+          },
+          {
+            "latex": "V=\\frac{4}{3}\\pi\\times 3^{3}=\\frac{4}{3}\\pi\\times 27=36\\pi\\,\\mathrm{cm}^{3}"
+          },
+          {
+            "text": ".理由： 直接套用球的体积公式。"
           },
           {
             "segments": [
@@ -926,59 +990,44 @@ module.exports = {
               {
                 "type": "text",
                 "text": "代入"
-              },
-              {
-                "type": "math",
-                "latex": "S = 4\\pi R^{2}"
-              },
-              {
-                "type": "text",
-                "text": "，得"
-              },
-              {
-                "type": "math",
-                "latex": "S=4\\pi\\times 3^{2}=4\\pi\\times 9=36\\pi\\,\\mathrm{cm}^{2}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 直接套用球的表面积公式。"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第三步（给出答案）：\n体积为"
-              },
-              {
-                "type": "math",
-                "latex": "36\\pi\\,\\mathrm{cm}^{3}"
-              },
-              {
-                "type": "text",
-                "text": "，表面积为"
-              },
-              {
-                "type": "math",
-                "latex": "36\\pi\\,\\mathrm{cm}^{2}"
-              },
-              {
-                "type": "text",
-                "text": "。\n理由： 题目要求求体积和表面积，注意二者单位不同。\n关键结论： 代入半径直接计算即可。体积和表面积可能数值相等，但单位不同，不能说“体积等于表面积”。"
-              }
-            ]
+            "latex": "S = 4\\pi R^{2}"
+          },
+          {
+            "text": "，得"
+          },
+          {
+            "latex": "S=4\\pi\\times 3^{2}=4\\pi\\times 9=36\\pi\\,\\mathrm{cm}^{2}"
+          },
+          {
+            "text": ".理由： 直接套用球的表面积公式。"
+          },
+          {
+            "text": "第三步（给出答案）：\n体积为"
+          },
+          {
+            "latex": "36\\pi\\,\\mathrm{cm}^{3}"
+          },
+          {
+            "text": "，表面积为"
+          },
+          {
+            "latex": "36\\pi\\,\\mathrm{cm}^{2}"
+          },
+          {
+            "text": "。\n理由： 题目要求求体积和表面积，注意二者单位不同。\n关键结论： 代入半径直接计算即可。体积和表面积可能数值相等，但单位不同，不能说“体积等于表面积”。"
+          },
+          {
+            "text": "例2（稍变形）\n题目： 已知一个球的体积为"
+          },
+          {
+            "latex": "V = 288\\pi\\,\\mathrm{cm}^{3}"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "例2（稍变形）\n题目： 已知一个球的体积为"
-              },
-              {
-                "type": "math",
-                "latex": "V = 288\\pi\\,\\mathrm{cm}^{3}"
-              },
               {
                 "type": "text",
                 "text": "，求它的表面积"
@@ -994,68 +1043,43 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第一步（逆向求半径）：\n由"
-              },
-              {
-                "type": "math",
-                "latex": "V = \\frac{4}{3} \\pi R^{3}"
-              },
-              {
-                "type": "text",
-                "text": "得"
-              },
-              {
-                "type": "math",
-                "latex": "R^{3}=\\frac{3V}{4\\pi}\n=\\frac{3\\times 288\\pi}{4\\pi}\n=216,"
-              },
-              {
-                "type": "text",
-                "text": "所以"
-              },
-              {
-                "type": "math",
-                "latex": "R=\\sqrt[3]{216}=6\\,\\mathrm{cm}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 先由体积求出半径，再求表面积。"
-              }
-            ]
+            "text": "第一步（逆向求半径）：\n由"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第二步（代入表面积公式）："
-              },
-              {
-                "type": "math",
-                "latex": "S=4\\pi R^{2}=4\\pi\\times 6^{2}=144\\pi\\,\\mathrm{cm}^{2}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 得到半径后直接套用表面积公式。"
-              }
-            ]
+            "latex": "V = \\frac{4}{3} \\pi R^{3}"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第三步（给出答案）：\n表面积为"
-              },
-              {
-                "type": "math",
-                "latex": "144\\pi\\,\\mathrm{cm}^{2}"
-              },
-              {
-                "type": "text",
-                "text": "。\n理由： 题目要求表面积。\n关键结论： 已知体积求表面积时，先通过开立方解出半径，再代入表面积公式。"
-              }
-            ]
+            "text": "得"
+          },
+          {
+            "latex": "R^{3}=\\frac{3V}{4\\pi}\n=\\frac{3\\times 288\\pi}{4\\pi}\n=216"
+          },
+          {
+            "text": ",所以"
+          },
+          {
+            "latex": "R=\\sqrt[3]{216}=6\\,\\mathrm{cm}"
+          },
+          {
+            "text": ".理由： 先由体积求出半径，再求表面积。"
+          },
+          {
+            "text": "第二步（代入表面积公式）："
+          },
+          {
+            "latex": "S=4\\pi R^{2}=4\\pi\\times 6^{2}=144\\pi\\,\\mathrm{cm}^{2}"
+          },
+          {
+            "text": ".理由： 得到半径后直接套用表面积公式。"
+          },
+          {
+            "text": "第三步（给出答案）：\n表面积为"
+          },
+          {
+            "latex": "144\\pi\\,\\mathrm{cm}^{2}"
+          },
+          {
+            "text": "。\n理由： 题目要求表面积。\n关键结论： 已知体积求表面积时，先通过开立方解出半径，再代入表面积公式。"
           },
           {
             "segments": [
@@ -1122,18 +1146,16 @@ module.exports = {
             ]
           },
           {
+            "text": "第二步（求体积之比）：\n因为球的体积与半径的三次方成正比，所以"
+          },
+          {
+            "latex": "\\frac{V_1}{V_2}=\\frac{(2k)^{3}}{(3k)^{3}}=\\frac{8}{27}"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "第二步（求体积之比）：\n因为球的体积与半径的三次方成正比，所以"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{V_1}{V_2}=\\frac{(2k)^{3}}{(3k)^{3}}=\\frac{8}{27}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 体积公式中含有"
+                "text": ".理由： 体积公式中含有"
               },
               {
                 "type": "math",
@@ -1146,18 +1168,16 @@ module.exports = {
             ]
           },
           {
+            "text": "第三步（求表面积之比）：\n因为球的表面积与半径的平方成正比，所以"
+          },
+          {
+            "latex": "\\frac{S_1}{S_2}=\\frac{(2k)^{2}}{(3k)^{2}}=\\frac{4}{9}"
+          },
+          {
             "segments": [
               {
                 "type": "text",
-                "text": "第三步（求表面积之比）：\n因为球的表面积与半径的平方成正比，所以"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{S_1}{S_2}=\\frac{(2k)^{2}}{(3k)^{2}}=\\frac{4}{9}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 表面积公式中含有"
+                "text": ".理由： 表面积公式中含有"
               },
               {
                 "type": "math",
@@ -1177,15 +1197,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
+            "text": "易错点一（混淆系数）\n误将体积公式系数"
+          },
+          {
+            "latex": "\\frac{4}{3}"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "易错点一（混淆系数）\n误将体积公式系数"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{4}{3}"
-              },
               {
                 "type": "text",
                 "text": "用于表面积，或将表面积系数"
@@ -1201,39 +1219,28 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（区分公式）：\n体积公式是"
-              },
-              {
-                "type": "math",
-                "latex": "V = \\frac{4}{3} \\pi R^{3}"
-              },
-              {
-                "type": "text",
-                "text": "，表面积公式是"
-              },
-              {
-                "type": "math",
-                "latex": "S = 4\\pi R^{2}"
-              },
-              {
-                "type": "text",
-                "text": "，两者系数不同。"
-              }
-            ]
+            "text": "正确理解（区分公式）：\n体积公式是"
+          },
+          {
+            "latex": "V = \\frac{4}{3} \\pi R^{3}"
+          },
+          {
+            "text": "，表面积公式是"
+          },
+          {
+            "latex": "S = 4\\pi R^{2}"
+          },
+          {
+            "text": "，两者系数不同。"
+          },
+          {
+            "text": "错因分析（记忆混乱）：\n公式形状相似，且都含有"
+          },
+          {
+            "latex": "\\pi"
           },
           {
             "segments": [
-              {
-                "type": "text",
-                "text": "错因分析（记忆混乱）：\n公式形状相似，且都含有"
-              },
-              {
-                "type": "math",
-                "latex": "\\pi"
-              },
               {
                 "type": "text",
                 "text": "和"
@@ -1293,16 +1300,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，必须先转化为"
-              },
-              {
-                "type": "math",
-                "latex": "R=\\frac{D}{2}"
-              },
-              {
-                "type": "text",
-                "text": "再代入公式。"
               }
             ]
+          },
+          {
+            "latex": "R=\\frac{D}{2}"
+          },
+          {
+            "text": "再代入公式。"
           },
           {
             "text": "错因分析（审题不细）：\n误将直径当作半径，忽略“半径”与“直径”的区别。"
@@ -1328,16 +1333,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "反求半径时，只写出"
-              },
-              {
-                "type": "math",
-                "latex": "\\pm"
-              },
-              {
-                "type": "text",
-                "text": "号而不舍去负值，或对开立方的结果产生符号误判。"
               }
             ]
+          },
+          {
+            "latex": "\\pm"
+          },
+          {
+            "text": "号而不舍去负值，或对开立方的结果产生符号误判。"
           },
           {
             "segments": [
@@ -1394,24 +1397,20 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的球，其体积为"
-              },
-              {
-                "type": "math",
-                "latex": "V = \\frac{4}{3}\\pi R^{3}"
-              },
-              {
-                "type": "text",
-                "text": "，表面积为"
-              },
-              {
-                "type": "math",
-                "latex": "S = 4\\pi R^{2}"
-              },
-              {
-                "type": "text",
-                "text": "。"
               }
             ]
+          },
+          {
+            "latex": "V = \\frac{4}{3}\\pi R^{3}"
+          },
+          {
+            "text": "，表面积为"
+          },
+          {
+            "latex": "S = 4\\pi R^{2}"
+          },
+          {
+            "text": "。"
           },
           {
             "text": "使用条件"
@@ -1439,23 +1438,19 @@ module.exports = {
             "text": "关键提醒"
           },
           {
+            "text": "易错点（公式混淆）： 牢记体积系数是"
+          },
+          {
+            "latex": "\\frac{4}{3}\\pi"
+          },
+          {
+            "text": "，表面积系数是"
+          },
+          {
+            "latex": "4\\pi"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "易错点（公式混淆）： 牢记体积系数是"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{4}{3}\\pi"
-              },
-              {
-                "type": "text",
-                "text": "，表面积系数是"
-              },
-              {
-                "type": "math",
-                "latex": "4\\pi"
-              },
               {
                 "type": "text",
                 "text": "，不要交换；同时注意体积是"
@@ -1491,32 +1486,23 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，务必先计算"
-              },
-              {
-                "type": "math",
-                "latex": "R=\\frac{D}{2}"
-              },
-              {
-                "type": "text",
-                "text": "，再套用球的体积或表面积公式。"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "关系式（辅助记忆）： 球的体积与表面积满足"
-              },
-              {
-                "type": "math",
-                "latex": "V=\\frac{RS}{3}"
-              },
-              {
-                "type": "text",
-                "text": "，但二者单位不同，不能直接比较大小。"
-              }
-            ]
+            "latex": "R=\\frac{D}{2}"
+          },
+          {
+            "text": "，再套用球的体积或表面积公式。"
+          },
+          {
+            "text": "关系式（辅助记忆）： 球的体积与表面积满足"
+          },
+          {
+            "latex": "V=\\frac{RS}{3}"
+          },
+          {
+            "text": "，但二者单位不同，不能直接比较大小。"
           }
         ]
       }
@@ -1625,19 +1611,144 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
+            "title": "条件 1（半径比例）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "两个球的半径分别为"
+              },
+              {
+                "type": "math",
+                "latex": "R_1,R_2"
+              },
+              {
+                "type": "text",
+                "text": "，且按“球 1 : 球 2”的顺序有"
+              },
+              {
+                "type": "math",
+                "latex": "R_1:R_2=m:n,"
+              },
+              {
+                "type": "text",
+                "text": "其中"
+              },
+              {
+                "type": "math",
+                "latex": "R_1,R_2>0"
+              },
+              {
+                "type": "text",
+                "text": "，"
+              },
+              {
+                "type": "math",
+                "latex": "m,n>0"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ],
+            "desc": "两个球的半径分别为 ，且按“球 1 : 球 2”的顺序有 其中 ， 。",
+            "latex": "R_1:R_2=m:n,"
+          },
+          {
             "title": "结论一（表面积比例）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "表面积之比等于半径比的平方，且比例顺序保持一致。"
+              },
+              {
+                "type": "math",
+                "latex": "S_1:S_2 = m^2:n^2,\n\\qquad \\text{即}\\qquad\n\\frac{S_1}{S_2}=\\left(\\frac{R_1}{R_2}\\right)^2."
+              }
+            ],
             "desc": "表面积之比等于半径比的平方，且比例顺序保持一致。",
             "latex": "S_1:S_2 = m^2:n^2,\n\\qquad \\text{即}\\qquad\n\\frac{S_1}{S_2}=\\left(\\frac{R_1}{R_2}\\right)^2."
           },
           {
             "title": "结论二（体积比例）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "体积之比等于半径比的立方，且比例顺序保持一致。"
+              },
+              {
+                "type": "math",
+                "latex": "V_1:V_2 = m^3:n^3,\n\\qquad \\text{即}\\qquad\n\\frac{V_1}{V_2}=\\left(\\frac{R_1}{R_2}\\right)^3."
+              }
+            ],
             "desc": "体积之比等于半径比的立方，且比例顺序保持一致。",
             "latex": "V_1:V_2 = m^3:n^3,\n\\qquad \\text{即}\\qquad\n\\frac{V_1}{V_2}=\\left(\\frac{R_1}{R_2}\\right)^3."
           },
           {
             "title": "常见推广（相似体）：",
-            "desc": "对任意两个相似立体，若对应线段之比为",
-            "latex": "m:n \\qquad m^2:n^2 \\qquad m^3:n^3 \\qquad S_1^{(\\text{对应})}:S_2^{(\\text{对应})}=m^2:n^2,\n\\qquad\nV_1^{(\\text{对应})}:V_2^{(\\text{对应})}=m^3:n^3. \\qquad k=\\frac{R_1}{R_2}\n\\quad\\text{（球）}\\qquad\\text{或}\\qquad\nk=\\frac{\\text{对应线段}_1}{\\text{对应线段}_2}\n\\quad\\text{（一般相似体）}, \\qquad \\frac{S_1}{S_2}=k^2,\n\\qquad\n\\frac{V_1}{V_2}=k^3."
+            "segments": [
+              {
+                "type": "text",
+                "text": "对任意两个相似立体，若对应线段之比为"
+              },
+              {
+                "type": "math",
+                "latex": "m:n"
+              },
+              {
+                "type": "text",
+                "text": "，则对应面积之比为"
+              },
+              {
+                "type": "math",
+                "latex": "m^2:n^2"
+              },
+              {
+                "type": "text",
+                "text": "，对应体积之比为"
+              },
+              {
+                "type": "math",
+                "latex": "m^3:n^3"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              },
+              {
+                "type": "math",
+                "latex": "S_1^{(\\text{对应})}:S_2^{(\\text{对应})}=m^2:n^2,\n\\qquad\nV_1^{(\\text{对应})}:V_2^{(\\text{对应})}=m^3:n^3."
+              },
+              {
+                "type": "text",
+                "text": "特别地，若用放大倍数"
+              },
+              {
+                "type": "math",
+                "latex": "k=\\frac{R_1}{R_2}\n\\quad\\text{（球）}\\qquad\\text{或}\\qquad\nk=\\frac{\\text{对应线段}_1}{\\text{对应线段}_2}\n\\quad\\text{（一般相似体）},"
+              },
+              {
+                "type": "text",
+                "text": "表示，则"
+              },
+              {
+                "type": "math",
+                "latex": "\\frac{S_1}{S_2}=k^2,\n\\qquad\n\\frac{V_1}{V_2}=k^3."
+              },
+              {
+                "type": "text",
+                "text": "注意：若只是平面相似图形，只谈对应面积比；只有空间相似体才谈体积比。\n参数限制： 半径必须为正数。若"
+              },
+              {
+                "type": "math",
+                "latex": "m:n"
+              },
+              {
+                "type": "text",
+                "text": "能化为最简整数比，写成最简整数比最便于计算；若不能化为整数比，保持根式或分式形式即可。"
+              }
+            ],
+            "desc": "对任意两个相似立体，若对应线段之比为 ，则对应面积之比为 ，对应体积之比为 。 特别地，若用放大倍数 表示，则 注意：若只是平面相似图形，只谈对应面积比；只有空间相似体才谈体积比。\n参数限制： 半径必须为正数。若 能化为最简整数比，写成最简整数比最便于计算；若不能化为整数比，保持根式或分式形式即可。",
+            "latex": "S_1^{(\\text{对应})}:S_2^{(\\text{对应})}=m^2:n^2,\n\\qquad\nV_1^{(\\text{对应})}:V_2^{(\\text{对应})}=m^3:n^3."
           }
         ]
       },
@@ -1682,15 +1793,13 @@ module.exports = {
             "text": "核心拆解"
           },
           {
+            "text": "要点一（面积公式）：\n球表面积"
+          },
+          {
+            "latex": "S=4\\pi R^2"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "要点一（面积公式）：\n球表面积"
-              },
-              {
-                "type": "math",
-                "latex": "S=4\\pi R^2"
-              },
               {
                 "type": "text",
                 "text": "，与"
@@ -1706,15 +1815,13 @@ module.exports = {
             ]
           },
           {
+            "text": "要点二（体积公式）：\n球体积"
+          },
+          {
+            "latex": "V=\\frac{4}{3}\\pi R^3"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "要点二（体积公式）：\n球体积"
-              },
-              {
-                "type": "math",
-                "latex": "V=\\frac{4}{3}\\pi R^3"
-              },
               {
                 "type": "text",
                 "text": "，与"
@@ -1762,15 +1869,13 @@ module.exports = {
             ]
           },
           {
+            "text": "代数意义（齐次性）"
+          },
+          {
+            "latex": "S=4\\pi R^2"
+          },
+          {
             "segments": [
-              {
-                "type": "text",
-                "text": "代数意义（齐次性）"
-              },
-              {
-                "type": "math",
-                "latex": "S=4\\pi R^2"
-              },
               {
                 "type": "text",
                 "text": "是关于"
@@ -1782,11 +1887,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的二次齐次函数，"
-              },
-              {
-                "type": "math",
-                "latex": "V=\\frac{4}{3}\\pi R^3"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "V=\\frac{4}{3}\\pi R^3"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
                 "text": "是关于"
@@ -1798,12 +1906,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "的三次齐次函数。因此比例关系由次数直接决定："
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{S_1}{S_2}=\\left(\\frac{R_1}{R_2}\\right)^2,\n\\qquad\n\\frac{V_1}{V_2}=\\left(\\frac{R_1}{R_2}\\right)^3."
               }
             ]
+          },
+          {
+            "latex": "\\frac{S_1}{S_2}=\\left(\\frac{R_1}{R_2}\\right)^2,\n\\qquad\n\\frac{V_1}{V_2}=\\left(\\frac{R_1}{R_2}\\right)^3"
+          },
+          {
+            "text": "."
           },
           {
             "text": "考点价值（快速计算）"
@@ -1840,20 +1950,13 @@ module.exports = {
         "layout": "text",
         "items": [
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "思路提示\n球的表面积公式和体积公式分别是"
-              },
-              {
-                "type": "math",
-                "latex": "S=4\\pi R^2,\n\\qquad\nV=\\frac{4}{3}\\pi R^3."
-              },
-              {
-                "type": "text",
-                "text": "把两个球的半径比代入，约去相同常数，就能得到“平方得面积比，立方得体积比”。"
-              }
-            ]
+            "text": "思路提示\n球的表面积公式和体积公式分别是"
+          },
+          {
+            "latex": "S=4\\pi R^2,\n\\qquad\nV=\\frac{4}{3}\\pi R^3"
+          },
+          {
+            "text": ".把两个球的半径比代入，约去相同常数，就能得到“平方得面积比，立方得体积比”。"
           },
           {
             "text": "正式推导"
@@ -1887,16 +1990,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。则"
-              },
-              {
-                "type": "math",
-                "latex": "S_1 = 4\\pi R_1^2,\n\\quad\nS_2 = 4\\pi R_2^2;\n\\qquad\nV_1 = \\frac{4}{3}\\pi R_1^3,\n\\quad\nV_2 = \\frac{4}{3}\\pi R_2^3."
-              },
-              {
-                "type": "text",
-                "text": "理由： 直接使用球的标准表面积公式和体积公式。"
               }
             ]
+          },
+          {
+            "latex": "S_1 = 4\\pi R_1^2,\n\\quad\nS_2 = 4\\pi R_2^2;\n\\qquad\nV_1 = \\frac{4}{3}\\pi R_1^3,\n\\quad\nV_2 = \\frac{4}{3}\\pi R_2^3"
+          },
+          {
+            "text": ".理由： 直接使用球的标准表面积公式和体积公式。"
           },
           {
             "segments": [
@@ -1911,72 +2012,67 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，即"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{R_1}{R_2}=\\frac{m}{n}"
-              },
-              {
-                "type": "text",
-                "text": "。因此"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{S_1}{S_2}\n=\\frac{4\\pi R_1^2}{4\\pi R_2^2}\n=\\left(\\frac{R_1}{R_2}\\right)^2\n=\\left(\\frac{m}{n}\\right)^2\n=\\frac{m^2}{n^2}."
-              },
-              {
-                "type": "text",
-                "text": "所以"
-              },
-              {
-                "type": "math",
-                "latex": "S_1:S_2=m^2:n^2."
-              },
-              {
-                "type": "text",
-                "text": "理由： 约去公因数"
-              },
-              {
-                "type": "math",
-                "latex": "4\\pi"
-              },
-              {
-                "type": "text",
-                "text": "，半径比进入平方；比例顺序仍是“球 1 : 球 2”。"
               }
             ]
+          },
+          {
+            "latex": "\\frac{R_1}{R_2}=\\frac{m}{n}"
+          },
+          {
+            "text": "。因此"
+          },
+          {
+            "latex": "\\frac{S_1}{S_2}\n=\\frac{4\\pi R_1^2}{4\\pi R_2^2}\n=\\left(\\frac{R_1}{R_2}\\right)^2\n=\\left(\\frac{m}{n}\\right)^2\n=\\frac{m^2}{n^2}"
           },
           {
             "segments": [
               {
                 "type": "text",
-                "text": "步骤三（推出体积比）：\n同理，"
+                "text": ".所以"
               },
               {
                 "type": "math",
-                "latex": "\\frac{V_1}{V_2}\n=\\frac{\\frac{4}{3}\\pi R_1^3}{\\frac{4}{3}\\pi R_2^3}\n=\\left(\\frac{R_1}{R_2}\\right)^3\n=\\left(\\frac{m}{n}\\right)^3\n=\\frac{m^3}{n^3}."
+                "latex": "S_1:S_2=m^2:n^2"
               },
               {
                 "type": "text",
-                "text": "所以"
-              },
-              {
-                "type": "math",
-                "latex": "V_1:V_2=m^3:n^3."
-              },
-              {
-                "type": "text",
-                "text": "理由： 约去公因数"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{4}{3}\\pi"
-              },
-              {
-                "type": "text",
-                "text": "，半径比进入立方；比例顺序仍是“球 1 : 球 2”。"
+                "text": ".理由： 约去公因数"
               }
             ]
+          },
+          {
+            "latex": "4\\pi"
+          },
+          {
+            "text": "，半径比进入平方；比例顺序仍是“球 1 : 球 2”。"
+          },
+          {
+            "text": "步骤三（推出体积比）：\n同理，"
+          },
+          {
+            "latex": "\\frac{V_1}{V_2}\n=\\frac{\\frac{4}{3}\\pi R_1^3}{\\frac{4}{3}\\pi R_2^3}\n=\\left(\\frac{R_1}{R_2}\\right)^3\n=\\left(\\frac{m}{n}\\right)^3\n=\\frac{m^3}{n^3}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".所以"
+              },
+              {
+                "type": "math",
+                "latex": "V_1:V_2=m^3:n^3"
+              },
+              {
+                "type": "text",
+                "text": ".理由： 约去公因数"
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{4}{3}\\pi"
+          },
+          {
+            "text": "，半径比进入立方；比例顺序仍是“球 1 : 球 2”。"
           },
           {
             "segments": [
@@ -2066,34 +2162,25 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第二步（套用面积比公式）：\n表面积之比"
-              },
-              {
-                "type": "math",
-                "latex": "S_1:S_2 = m^2:n^2 = 2^2:3^2 = 4:9."
-              },
-              {
-                "type": "text",
-                "text": "理由： 表面积比等于半径比的平方。"
-              }
-            ]
+            "text": "第二步（套用面积比公式）：\n表面积之比"
+          },
+          {
+            "latex": "S_1:S_2 = m^2:n^2 = 2^2:3^2 = 4:9"
+          },
+          {
+            "text": ".理由： 表面积比等于半径比的平方。"
+          },
+          {
+            "text": "第三步（套用体积比公式）：\n体积之比"
+          },
+          {
+            "latex": "V_1:V_2 = m^3:n^3 = 2^3:3^3 = 8:27"
           },
           {
             "segments": [
               {
                 "type": "text",
-                "text": "第三步（套用体积比公式）：\n体积之比"
-              },
-              {
-                "type": "math",
-                "latex": "V_1:V_2 = m^3:n^3 = 2^3:3^3 = 8:27."
-              },
-              {
-                "type": "text",
-                "text": "理由： 体积比等于半径比的立方。\n关键结论： 表面积比"
+                "text": ".理由： 体积比等于半径比的立方。\n关键结论： 表面积比"
               },
               {
                 "type": "math",
@@ -2114,140 +2201,94 @@ module.exports = {
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "例 2（稍变形）\n题目： 两个球的半径分别为"
-              },
-              {
-                "type": "math",
-                "latex": "3\\,\\text{cm}"
-              },
-              {
-                "type": "text",
-                "text": "和"
-              },
-              {
-                "type": "math",
-                "latex": "5\\,\\text{cm}"
-              },
-              {
-                "type": "text",
-                "text": "，求大球体积是小球体积的多少倍，并求大球体积比小球体积大多少倍。\n解题步骤："
-              }
-            ]
+            "text": "例 2（稍变形）\n题目： 两个球的半径分别为"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第一步（明确顺序）：\n小球半径为"
-              },
-              {
-                "type": "math",
-                "latex": "3\\,\\text{cm}"
-              },
-              {
-                "type": "text",
-                "text": "，大球半径为"
-              },
-              {
-                "type": "math",
-                "latex": "5\\,\\text{cm}"
-              },
-              {
-                "type": "text",
-                "text": "，所以"
-              },
-              {
-                "type": "math",
-                "latex": "R_{\\text{小}}:R_{\\text{大}}=3:5."
-              },
-              {
-                "type": "text",
-                "text": "理由： 先把“小球”和“大球”的顺序说清楚，避免比例方向写反。"
-              }
-            ]
+            "latex": "3\\,\\text{cm}"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第二步（套用体积比公式）：\n小球与大球的体积比为"
-              },
-              {
-                "type": "math",
-                "latex": "V_{\\text{小}}:V_{\\text{大}}=3^3:5^3=27:125."
-              },
-              {
-                "type": "text",
-                "text": "因此"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{V_{\\text{大}}}{V_{\\text{小}}}=\\frac{125}{27}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 体积比等于半径比的立方，同时注意题目问的是“大球相对于小球”。"
-              }
-            ]
+            "text": "和"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第三步（区分“是几倍”和“大几倍”）：\n大球体积是小球体积的"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{125}{27}\\approx 4.63"
-              },
-              {
-                "type": "text",
-                "text": "倍；大球体积比小球体积大"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{V_{\\text{大}}-V_{\\text{小}}}{V_{\\text{小}}}\n=\\frac{125-27}{27}\n=\\frac{98}{27}"
-              },
-              {
-                "type": "text",
-                "text": "倍。\n理由： “A 是 B 的多少倍”用"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{A}{B}"
-              },
-              {
-                "type": "text",
-                "text": "；“A 比 B 大多少倍”通常用"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{A-B}{B}"
-              },
-              {
-                "type": "text",
-                "text": "。考试中若题干表达不严谨，优先看题目给出的口径或老师要求。\n关键结论： 大球体积是小球体积的"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{125}{27}"
-              },
-              {
-                "type": "text",
-                "text": "倍；大球体积比小球体积大"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{98}{27}"
-              },
-              {
-                "type": "text",
-                "text": "倍。"
-              }
-            ]
+            "latex": "5\\,\\text{cm}"
+          },
+          {
+            "text": "，求大球体积是小球体积的多少倍，并求大球体积比小球体积大多少倍。\n解题步骤："
+          },
+          {
+            "text": "第一步（明确顺序）：\n小球半径为"
+          },
+          {
+            "latex": "3\\,\\text{cm}"
+          },
+          {
+            "text": "，大球半径为"
+          },
+          {
+            "latex": "5\\,\\text{cm}"
+          },
+          {
+            "text": "，所以"
+          },
+          {
+            "latex": "R_{\\text{小}}:R_{\\text{大}}=3:5"
+          },
+          {
+            "text": ".理由： 先把“小球”和“大球”的顺序说清楚，避免比例方向写反。"
+          },
+          {
+            "text": "第二步（套用体积比公式）：\n小球与大球的体积比为"
+          },
+          {
+            "latex": "V_{\\text{小}}:V_{\\text{大}}=3^3:5^3=27:125"
+          },
+          {
+            "text": ".因此"
+          },
+          {
+            "latex": "\\frac{V_{\\text{大}}}{V_{\\text{小}}}=\\frac{125}{27}"
+          },
+          {
+            "text": ".理由： 体积比等于半径比的立方，同时注意题目问的是“大球相对于小球”。"
+          },
+          {
+            "text": "第三步（区分“是几倍”和“大几倍”）：\n大球体积是小球体积的"
+          },
+          {
+            "latex": "\\frac{125}{27}\\approx 4.63"
+          },
+          {
+            "text": "倍；大球体积比小球体积大"
+          },
+          {
+            "latex": "\\frac{V_{\\text{大}}-V_{\\text{小}}}{V_{\\text{小}}}\n=\\frac{125-27}{27}\n=\\frac{98}{27}"
+          },
+          {
+            "text": "倍。\n理由： “A 是 B 的多少倍”用"
+          },
+          {
+            "latex": "\\frac{A}{B}"
+          },
+          {
+            "text": "；“A 比 B 大多少倍”通常用"
+          },
+          {
+            "latex": "\\frac{A-B}{B}"
+          },
+          {
+            "text": "。考试中若题干表达不严谨，优先看题目给出的口径或老师要求。\n关键结论： 大球体积是小球体积的"
+          },
+          {
+            "latex": "\\frac{125}{27}"
+          },
+          {
+            "text": "倍；大球体积比小球体积大"
+          },
+          {
+            "latex": "\\frac{98}{27}"
+          },
+          {
+            "text": "倍。"
           },
           {
             "segments": [
@@ -2262,16 +2303,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，它们的体积之和为"
-              },
-              {
-                "type": "math",
-                "latex": "36\\pi"
-              },
-              {
-                "type": "text",
-                "text": "，求较大球的表面积。\n解题步骤："
               }
             ]
+          },
+          {
+            "latex": "36\\pi"
+          },
+          {
+            "text": "，求较大球的表面积。\n解题步骤："
           },
           {
             "segments": [
@@ -2294,16 +2333,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。则体积比"
-              },
-              {
-                "type": "math",
-                "latex": "V_{\\text{小}}:V_{\\text{大}}=1^3:2^3=1:8."
-              },
-              {
-                "type": "text",
-                "text": "理由： 体积比等于半径比的立方。"
               }
             ]
+          },
+          {
+            "latex": "V_{\\text{小}}:V_{\\text{大}}=1^3:2^3=1:8"
+          },
+          {
+            "text": ".理由： 体积比等于半径比的立方。"
           },
           {
             "segments": [
@@ -2326,30 +2363,29 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。由题意"
-              },
-              {
-                "type": "math",
-                "latex": "V+8V=9V=36\\pi,"
-              },
+              }
+            ]
+          },
+          {
+            "latex": "V+8V=9V=36\\pi"
+          },
+          {
+            "text": ",解得"
+          },
+          {
+            "latex": "V=4\\pi"
+          },
+          {
+            "text": "，所以大球体积为"
+          },
+          {
+            "latex": "V_{\\text{大}}=8V=32\\pi"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "解得"
-              },
-              {
-                "type": "math",
-                "latex": "V=4\\pi"
-              },
-              {
-                "type": "text",
-                "text": "，所以大球体积为"
-              },
-              {
-                "type": "math",
-                "latex": "V_{\\text{大}}=8V=32\\pi."
-              },
-              {
-                "type": "text",
-                "text": "理由： 体积和已知，先按"
+                "text": ".理由： 体积和已知，先按"
               },
               {
                 "type": "math",
@@ -2374,56 +2410,41 @@ module.exports = {
               {
                 "type": "text",
                 "text": "。由"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{4}{3}\\pi R^3=32\\pi"
-              },
-              {
-                "type": "text",
-                "text": "得"
-              },
-              {
-                "type": "math",
-                "latex": "R^3=24=8\\times 3,\n\\qquad\nR=2\\sqrt[3]{3}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 用大球体积直接反求大球半径，减少中间变量。"
               }
             ]
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "第四步（求大球表面积）："
-              },
-              {
-                "type": "math",
-                "latex": "S_{\\text{大}}=4\\pi R^2\n=4\\pi\\left(2\\sqrt[3]{3}\\right)^2\n=16\\pi\\cdot 3^{2/3}."
-              },
-              {
-                "type": "text",
-                "text": "理由： 代入球表面积公式"
-              },
-              {
-                "type": "math",
-                "latex": "S=4\\pi R^2"
-              },
-              {
-                "type": "text",
-                "text": "。\n关键结论： 较大球的表面积为"
-              },
-              {
-                "type": "math",
-                "latex": "16\\pi\\cdot 3^{2/3}"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "latex": "\\frac{4}{3}\\pi R^3=32\\pi"
+          },
+          {
+            "text": "得"
+          },
+          {
+            "latex": "R^3=24=8\\times 3,\n\\qquad\nR=2\\sqrt[3]{3}"
+          },
+          {
+            "text": ".理由： 用大球体积直接反求大球半径，减少中间变量。"
+          },
+          {
+            "text": "第四步（求大球表面积）："
+          },
+          {
+            "latex": "S_{\\text{大}}=4\\pi R^2\n=4\\pi\\left(2\\sqrt[3]{3}\\right)^2\n=16\\pi\\cdot 3^{2/3}"
+          },
+          {
+            "text": ".理由： 代入球表面积公式"
+          },
+          {
+            "latex": "S=4\\pi R^2"
+          },
+          {
+            "text": "。\n关键结论： 较大球的表面积为"
+          },
+          {
+            "latex": "16\\pi\\cdot 3^{2/3}"
+          },
+          {
+            "text": "。"
           }
         ]
       },
@@ -2495,36 +2516,25 @@ module.exports = {
             "text": "易错点二（单位维度混乱）\n计算具体数值时，把半径平方或立方后的结果仍当作长度单位。"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（单位对应）：\n若半径单位是"
-              },
-              {
-                "type": "math",
-                "latex": "\\text{cm}"
-              },
-              {
-                "type": "text",
-                "text": "，则表面积单位是"
-              },
-              {
-                "type": "math",
-                "latex": "\\text{cm}^2"
-              },
-              {
-                "type": "text",
-                "text": "，体积单位是"
-              },
-              {
-                "type": "math",
-                "latex": "\\text{cm}^3"
-              },
-              {
-                "type": "text",
-                "text": "。半径平方对应面积单位，半径立方对应体积单位。"
-              }
-            ]
+            "text": "正确理解（单位对应）：\n若半径单位是"
+          },
+          {
+            "latex": "\\text{cm}"
+          },
+          {
+            "text": "，则表面积单位是"
+          },
+          {
+            "latex": "\\text{cm}^2"
+          },
+          {
+            "text": "，体积单位是"
+          },
+          {
+            "latex": "\\text{cm}^3"
+          },
+          {
+            "text": "。半径平方对应面积单位，半径立方对应体积单位。"
           },
           {
             "text": "错因分析（只算数值不看量纲）：\n只关注数字运算，忘了长度、面积、体积属于不同维度。"
@@ -2582,14 +2592,17 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，则半径比为"
-              },
-              {
-                "type": "math",
-                "latex": "R_1:R_2=\\sqrt{a}:\\sqrt{b}."
-              },
+              }
+            ]
+          },
+          {
+            "latex": "R_1:R_2=\\sqrt{a}:\\sqrt{b}"
+          },
+          {
+            "segments": [
               {
                 "type": "text",
-                "text": "若体积比为"
+                "text": ".若体积比为"
               },
               {
                 "type": "math",
@@ -2598,12 +2611,14 @@ module.exports = {
               {
                 "type": "text",
                 "text": "，则半径比为"
-              },
-              {
-                "type": "math",
-                "latex": "R_1:R_2=\\sqrt[3]{a}:\\sqrt[3]{b}."
               }
             ]
+          },
+          {
+            "latex": "R_1:R_2=\\sqrt[3]{a}:\\sqrt[3]{b}"
+          },
+          {
+            "text": "."
           },
           {
             "text": "错因分析（逆运算不熟）：\n正向由半径到面积、体积要平方或立方；反向由面积、体积回到半径，就要开平方或开立方。"
@@ -2612,28 +2627,19 @@ module.exports = {
             "text": "易错点四（“是几倍”和“大几倍”混淆）\n把“大球体积是小球体积的多少倍”和“大球体积比小球体积大多少倍”混为一谈。"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "正确理解（倍数口径）：\n“A 是 B 的多少倍”用"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{A}{B}"
-              },
-              {
-                "type": "text",
-                "text": "；“A 比 B 大多少倍”通常用"
-              },
-              {
-                "type": "math",
-                "latex": "\\frac{A-B}{B}"
-              },
-              {
-                "type": "text",
-                "text": "。"
-              }
-            ]
+            "text": "正确理解（倍数口径）：\n“A 是 B 的多少倍”用"
+          },
+          {
+            "latex": "\\frac{A}{B}"
+          },
+          {
+            "text": "；“A 比 B 大多少倍”通常用"
+          },
+          {
+            "latex": "\\frac{A-B}{B}"
+          },
+          {
+            "text": "。"
           },
           {
             "segments": [
@@ -2671,16 +2677,13 @@ module.exports = {
             "text": "一句话核心\n同一顺序下，半径比平方得表面积比，半径比立方得体积比。"
           },
           {
-            "segments": [
-              {
-                "type": "text",
-                "text": "公式总览"
-              },
-              {
-                "type": "math",
-                "latex": "R_1:R_2=m:n\n\\quad\\Longrightarrow\\quad\nS_1:S_2=m^2:n^2,\n\\qquad\nV_1:V_2=m^3:n^3."
-              }
-            ]
+            "text": "公式总览"
+          },
+          {
+            "latex": "R_1:R_2=m:n\n\\quad\\Longrightarrow\\quad\nS_1:S_2=m^2:n^2,\n\\qquad\nV_1:V_2=m^3:n^3"
+          },
+          {
+            "text": "."
           },
           {
             "text": "使用条件"
@@ -2711,6 +2714,2253 @@ module.exports = {
           },
           {
             "text": "别漏前提： 球之间天然相似；一般立体要先确认相似，才能使用面积比平方、体积比立方。"
+          }
+        ]
+      }
+    ]
+  },
+  "G004": {
+    "id": "G004",
+    "title": "旋转椭球表面积公式（长轴/短轴情形）",
+    "module": "geometry-solid",
+    "alias": [
+      "椭球表面积",
+      "旋转椭球公式",
+      "长椭球表面积",
+      "扁椭球表面积"
+    ],
+    "difficulty": 4,
+    "category": "立体几何",
+    "tags": [
+      "旋转体",
+      "表面积",
+      "椭球",
+      "反三角函数",
+      "反双曲函数",
+      "超纲公式"
+    ],
+    "core_summary": "椭圆绕x轴旋转所得旋转椭球的表面积，根据长轴是否在旋转轴上，分别用反三角函数或反双曲正切函数计算。",
+    "core_formula": "S = \\begin{cases} 2\\pi b^2 + \\dfrac{2\\pi ab}{e}\\arcsin e, & a>b,\\\\ 2\\pi b^2 + \\dfrac{2\\pi a^2}{e}\\operatorname{artanh} e, & a<b,\\\\ 4\\pi R^2, & a=b=R.\\n\\end{cases}",
+    "related_formulas": [
+      "e = \\sqrt{1-\\frac{b^2}{a^2}}\\quad(a>b)",
+      "e = \\sqrt{1-\\frac{a^2}{b^2}}\\quad(a<b)",
+      "\\operatorname{artanh} e = \\frac12\\ln\\frac{1+e}{1-e}"
+    ],
+    "variables": [],
+    "conditions": [
+      "椭圆标准方程 $\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1$, $a>0$, $b>0$",
+      "旋转轴为x轴",
+      "必须明确a与b的大小关系以选择公式",
+      "a>b时e<1；a<b时e<1"
+    ],
+    "conclusions": [
+      "当a>b时，旋转椭球表面积含arcsin项",
+      "当a<b时，旋转椭球表面积含artanh项",
+      "当a=b时退化为球表面积4πR²"
+    ],
+    "usage": {
+      "scenarios": [
+        "大学数学或竞赛中旋转体表面积计算",
+        "对椭圆旋转体形状的深入理解",
+        "超纲拓展阅读（高中极少涉及）"
+      ],
+      "problem_types": [
+        "已知椭圆方程求旋转体表面积"
+      ],
+      "exam_frequency": 0.08,
+      "exam_score": 3
+    },
+    "interactive": {
+      "has_diagram": true,
+      "geogebra_id": "",
+      "param_demo": {
+        "a": 5,
+        "b": 3
+      }
+    },
+    "assets": {
+      "svg": "G004.svg",
+      "video": "",
+      "applet": ""
+    },
+    "shareConfig": {
+      "title": "旋转椭球表面积公式：长轴/短轴如何选公式",
+      "shareDesc": "用于课后拓展或竞赛复习。通过椭圆半轴比较，选择对应公式（arcsin或artanh），避免混淆离心率定义，节省积分计算时间。"
+    },
+    "relations": {
+      "prerequisites": [
+        "椭圆标准方程",
+        "旋转体体积/表面积概念",
+        "积分换元法（选修）"
+      ],
+      "related_ids": [],
+      "similar": "旋转椭球的体积公式 $V=\\frac{4}{3}\\pi a b^2$"
+    },
+    "isPro": 0,
+    "remarks": "",
+    "knowledgeNode": "立体几何-体积与面积-表面积",
+    "altNodes": "解析几何-圆锥曲线-椭圆;其他-未分类-待定",
+    "statement": "条件\n- 条件 1（椭圆方程）：\n椭圆方程为\n(x^2) / (a^2)+(y^2) / (b^2)=1,\na>0, b>0.\n- 条件 2（旋转轴）：\n椭圆绕 x 轴旋转一周。\n结论\n- 结论一（长椭球情形）：\n当 a>b 时，旋转椭球呈长椭球形状，表面积公式含反三角函数。\n设\ne=sqrt(1-(b^2) / (a^2)),\n则旋转椭球的表面积为\nS\n=\n2 b^2\n+\n(2 ab) / (e) e.\n- 结论二（扁椭球情形）：\n当 a<b 时，旋转椭球呈扁椭球形状，表面积公式含反双曲正切函数。\n设\ne=sqrt(1-(a^2) / (b^2)),\nartanh e\n=\n12 (1+e) / (1-e),\n则旋转椭球的表面积为\nS\n=\n2 b^2\n+\n(2 a^2) / (e)artanh e.\n特例\n- 退化为球：\n当 a=b=R 时，椭圆退化为圆，旋转椭球退化为半径为 R 的球。\n此时表面积为\nS=4 R^2.",
+    "explanation": "一句话直觉\n旋转椭球表面积等于椭圆曲线绕轴旋转得到的曲面面积。\n也就是说，把椭圆的上半部分绕 x 轴旋转一周，形成一个椭球面，然后用旋转曲面面积公式计算它的面积。\n核心拆解\n- 要点一（公式结构）：\n旋转椭球表面积公式由两部分组成：\nS\n=\n2 b^2\n+\n一个含离心率 e 的项.\n其中，2 b^2 是基础面积项；含 e 的部分反映长短轴差异带来的修正。\n- 要点二（参数角色）：\n椭圆方程为\n(x^2) / (a^2)+(y^2) / (b^2)=1,\n并且绕 x 轴旋转。\n因此，a 是旋转轴方向上的半轴，b 是垂直旋转轴方向上的半轴。\n当 a>b 时，旋转轴方向更长，形成长椭球；当 a<b 时，垂直旋转轴方向更长，形成扁椭球；当 a=b 时，椭圆变成圆，旋转后得到球。\n几何本质（面积积分）\n旋转曲面的面积来自公式\nS\n=\n2 in t ysqrt(1+(y')^2)\\,dx.\n对椭圆\ny=bsqrt(1-(x^2) / (a^2)),\n代入后，被积函数可以化简为\nysqrt(1+(y')^2)\n=\n(b) / (a^2)\nsqrt(a^4-(a^2-b^2)x^2).\n所以表面积的核心就是计算定积分\nin t_-a^a\nsqrt(a^4-(a^2-b^2)x^2)\\,dx.\n当 a>b 时，根号内是减号结构，适合三角代换，所以结果中出现 。\n当 a<b 时，根号内变成加号结构，适合双曲代换，所以结果中出现 artanh。\n代数意义（函数形式）\n旋转椭球表面积公式可以统一理解为\nS\n=\n2 b^2\n+\n2 * 含离心率 e 的修正项.\n长椭球情形中，修正项通过三角代换得到，所以出现 e。\n扁椭球情形中，修正项通过双曲代换得到，所以出现 artanh e。\n这说明旋转椭球表面积虽然来自积分，但在这两类特殊旋转椭球中，可以写成初等函数形式。\n考点价值\n- 考法一（直接套用）：\n给出椭圆方程和旋转轴，先判断 a 与 b 的大小关系，然后选择对应公式计算表面积。\n- 考法二（参数反求）：\n如果已知表面积，并给出 a,b 之间的关系，例如 a=2b，则可以代入公式列方程，进一步求半轴长或离心率。\n顿悟点\n当 a=b=R 时，椭圆退化为圆，旋转椭球退化为球。\n此时椭球表面积公式应退化为球的表面积公式：\nS=4 R^2.\n因此，旋转椭球表面积公式可以看作是球面积公式的推广。\n使用场景\n- 场景一（天体物理）：\n可以用来估算旋转天体的表面积，例如行星、卫星、小行星等。\n- 场景二（工程设计）：\n可以用来计算旋转椭球形容器、天线罩、壳体结构等所需的表面材料面积。",
+    "proof": "思路提示\n旋转曲面的面积公式为\nS\n=\n2 in t ysqrt(1+(y')^2)\\,dx.\n将椭圆方程\n(x^2) / (a^2)+(y^2) / (b^2)=1\n代入并化简，再根据 a 与 b 的大小关系分类讨论。\n当 a>b 时，用三角代换，得到含 的公式；当 a<b 时，用双曲代换，得到含 artanh 的公式；当 a=b 时，退化为球，直接得到 4 R^2。\n正式推导\n- 步骤一（建立积分）：\n椭圆上半部分可以写成\ny\n=\nbsqrt(1-(x^2) / (a^2)).\n它绕 x 轴旋转一周形成旋转椭球面。\n根据旋转曲面面积公式，有\nS\n=\n2 in t_-a^a\nysqrt(1+(y')^2)\\,dx.\n- 步骤二（化简被积函数）：\n由\ny\n=\nbsqrt(1-(x^2) / (a^2))\n=\n(b) / (a)sqrt(a^2-x^2),\n可计算出 y'，并进一步化简得到\nysqrt(1+(y')^2)\n=\n(b) / (a^2)\nsqrt(a^4-(a^2-b^2)x^2).\n因此\nS\n=\n(2 b) / (a^2)\nin t_-a^a\nsqrt(a^4-(a^2-b^2)x^2)\\,dx.\n记\nI\n=\nin t_-a^a\nsqrt(a^4-(a^2-b^2)x^2)\\,dx,\n则\nS\n=\n(2 b) / (a^2)I.\n- 步骤三（分类讨论）：\n令\n=a^2-b^2.\n根据 的符号，分三种情况：\n>0, <0, =0.\n情形一：a>b\n- 步骤四（三角代换）：\n当 a>b 时，令\nc=sqrt(a^2-b^2)>0.\n则\ne=(c) / (a)\n=\nsqrt(1-(b^2) / (a^2)).\n此时\nI\n=\nin t_-a^a\nsqrt(a^4-c^2x^2)\\,dx.\n由于被积函数是偶函数，所以\nI\n=\n2 in t_0^a\nsqrt(a^4-c^2x^2)\\,dx.\n作三角代换\nx=(a^2) / (c) ,\ndx=(a^2) / (c) \\,d .\n当 x=0 时， =0；当 x=a 时，\n=(c) / (a)=e,\n= e.\n同时\nsqrt(a^4-c^2x^2)\n=\na^2 .\n因此\nI\n=\n(2a^4) / (c)\nin t_0^ e\n^2 \\,d .\n- 步骤五（积分回代）：\n因为\nin t ^2 \\,d\n=\n12( + ),\n所以\nin t_0^ e\n^2 \\,d\n=\n12\n(\ne\n+\ne * (b) / (a)\n).\n于是\nI\n=\n(a^4) / (c)\n(\ne+(eb) / (a)\n).\n代入\nS=(2 b) / (a^2)I\n并利用 c=ae，可得\nS\n=\n2 b^2\n+\n(2 ab) / (e) e.\n因此，当 a>b 时，\nS\n=\n2 b^2\n+\n(2 ab) / (e) e\n,\ne=sqrt(1-(b^2) / (a^2)).\n情形二：a<b\n- 步骤六（双曲代换）：\n当 a<b 时，令\nd=sqrt(b^2-a^2)>0.\n则\ne=(d) / (b)\n=\nsqrt(1-(a^2) / (b^2)).\n此时\nI\n=\nin t_-a^a\nsqrt(a^4+d^2x^2)\\,dx.\n由于被积函数是偶函数，所以\nI\n=\n2 in t_0^a\nsqrt(a^4+d^2x^2)\\,dx.\n作双曲代换\nx=(a^2) / (d) t,\ndx=(a^2) / (d) t\\,dt.\n当 x=0 时，t=0；当 x=a 时，\nt=(d) / (a),\nt=arsinh(d) / (a).\n同时\nsqrt(a^4+d^2x^2)\n=\na^2 t.\n因此\nI\n=\n(2a^4) / (d)\nin t_0^arsinh(d/a)\n^2t\\,dt.\n- 步骤七（积分回代）：\n因为\nin t ^2t\\,dt\n=\n12(t+ t t),\n所以\nin t_0^arsinh(d/a)\n^2t\\,dt\n=\n12\n(\narsinh(d) / (a)\n+\n(bd) / (a^2)\n).\n于是\nI\n=\n(a^4) / (d)\n(\narsinh(d) / (a)\n+\n(bd) / (a^2)\n).\n代入\nS=(2 b) / (a^2)I\n得到\nS\n=\n2 b^2\n+\n(2 ba^2) / (d)\narsinh(d) / (a).\n又因为\nd=be,\narsinh(d) / (a)\n=\nartanhe,\n所以\nS\n=\n2 b^2\n+\n(2 a^2) / (e)\nartanhe.\n因此，当 a<b 时，\nS\n=\n2 b^2\n+\n(2 a^2) / (e)\nartanhe\n,\ne=sqrt(1-(a^2) / (b^2)).\n情形三：a=b\n- 步骤八（退化为球）：\n当 a=b=R 时，椭圆退化为圆，绕 x 轴旋转得到半径为 R 的球。\n此时\nI\n=\nin t_-R^RR^2\\,dx\n=\n2R^3.\n代入\nS=(2 R) / (R^2)I\n得到\nS\n=\n(2 R) / (R^2) * 2R^3\n=\n4 R^2.\n因此，当 a=b=R 时，\nS=4 R^2\n.\n结论回扣\n综上所述，椭圆\n(x^2) / (a^2)+(y^2) / (b^2)=1\n绕 x 轴旋转形成的旋转椭球表面积为：\nS\n=\n2 b^2\n+\n(2 ab) / (e) e,\n&\na>b,\ne=sqrt(1-(b^2) / (a^2)),\n\\\n1.2em]\nS\n=\n2 b^2\n+\n(2 a^2) / (e)artanhe,\n&\na<b,\ne=sqrt(1-(a^2) / (b^2)),\n\\\n1.2em]\nS=4 R^2,\n&\na=b=R.",
+    "examples": "例 1（基础题）\n题目：\n已知椭圆\n(x^2) / (25)+(y^2) / (9)=1\n绕 x 轴旋转，求旋转椭球的表面积。\n解题步骤：\n- 第一步（读取参数）：\n由椭圆方程得\na=5, b=3.\n因为 a>b，所以这是长椭球情形。\n- 第二步（选择公式）：\n当 a>b 时，使用公式\nS\n=\n2 b^2\n+\n(2 ab) / (e) e,\ne=sqrt(1-(b^2) / (a^2)).\n- 第三步（计算离心率）：\ne\n=\nsqrt(1-(b^2) / (a^2))\n=\nsqrt(1-(9) / (25))\n=\nsqrt((16) / (25))\n=\n45.\n- 第四步（代入公式）：\nS\n& =\n2 * 9\n+\n(2 * 5 * 3) / (4/5)\n45\n\\\\\n& =\n18\n+\n(30 ) / (4/5)\n45\n\\\\\n& =\n18\n+\n(75 ) / (2)\n45.\n答案：\nS\n=\n18\n+\n(75 ) / (2)\n45\n.\n例 2（稍变形）\n题目：\n已知椭圆\n(x^2) / (9)+(y^2) / (25)=1\n绕 x 轴旋转，求旋转椭球的表面积。\n解题步骤：\n- 第一步（读取参数）：\n由椭圆方程得\na=3, b=5.\n因为 a<b，所以这是扁椭球情形。\n- 第二步（选择公式）：\n当 a<b 时，使用公式\nS\n=\n2 b^2\n+\n(2 a^2) / (e)artanhe,\ne=sqrt(1-(a^2) / (b^2)).\n- 第三步（计算离心率）：\ne\n=\nsqrt(1-(a^2) / (b^2))\n=\nsqrt(1-(9) / (25))\n=\n45.\n- 第四步（计算反双曲正切）：\nartanhe\n=\n12 (1+e) / (1-e).\n代入 e= 45，得到\nartanh 45\n=\n12 (1+ 45) / (1- 45)\n=\n12 9\n=\n3.\n- 第五步（代入公式）：\nS\n& =\n2 * 25\n+\n(2 * 9) / (4/5) 3\n\\\\\n& =\n50\n+\n(18 ) / (4/5) 3\n\\\\\n& =\n50\n+\n(45 ) / (2) 3.\n答案：\nS\n=\n50\n+\n(45 ) / (2) 3\n.\n例 3（综合应用）\n题目：\n某小行星的截面椭圆方程为\n(x^2) / (4)+(y^2) / (9)=1\n它绕 x 轴旋转形成旋转椭球。求该小行星表面积的表达式。\n解题步骤：\n- 第一步（读取参数）：\n由椭圆方程得\na=2, b=3.\n- 第二步（判断类型）：\n因为 a<b，所以该旋转椭球为扁椭球。\n使用公式\nS\n=\n2 b^2\n+\n(2 a^2) / (e)artanhe.\n- 第三步（计算离心率）：\ne\n=\nsqrt(1-(a^2) / (b^2))\n=\nsqrt(1- 49)\n=\nsqrt( 59)\n=\n( 5) / (3).\n- 第四步（代入公式）：\nS\n& =\n2 * 9\n+\n(2 * 4) / ( 5/3)\nartanh( 5) / (3)\n\\\\\n& =\n18\n+\n(8 ) / ( 5/3)\nartanh( 5) / (3)\n\\\\\n& =\n18\n+\n(24 ) / ( 5)\nartanh( 5) / (3).\n答案：\nS\n=\n18\n+\n(24 ) / ( 5)\nartanh( 5) / (3)\n.",
+    "traps": "- 易错点一（把圆周长直接相加）：\n学生在理解旋转曲面面积公式时，容易只看到“点绕 x 轴旋转形成圆，圆周长为 2 y”，于是误以为把这些圆周长直接加起来就是表面积。\n这种想法的直觉方向没有错：2 y 确实是对应圆的周长。真正的问题是少乘了一个关键量：曲线小段扫出的真实宽度。\n! assets/tikz/G004_surface_area_revolution_explained.tikz\n- 正确理解：\n曲线上的一小段弧长记为 ds。这段小弧绕 x 轴旋转一周后，近似形成一个很薄的圆台侧面。\n因此面积微元不是单独的圆周长 2 y，而是\ndS\n& =圆周长 * 曲线小段长度 \\\\\n& =2 y\\,ds.\n又因为\nds=sqrt(dx^2+dy^2)\n=sqrt(1+(y')^2)\\,dx,\n所以旋转曲面面积公式为\nS=2 in t ysqrt(1+(y')^2)\\,dx.\n- 错因分析：\n2 y 的单位只是长度，不是面积。面积必须是“长度 * 长度”。\n这里第一个长度是圆周长 2 y，第二个长度不是横向宽度 dx，而是曲线小段本身的长度 ds。\n只有当曲线局部水平时，dy=0，才有 ds=dx。这时面积微元才会退化为熟悉的圆柱侧面积形式：\ndS=2 y\\,dx.\n- 易错点二（公式选择错误）：\n已知椭圆方程和旋转轴后，没有先比较 a 与 b 的大小，而是直接套用某一个公式。\n例如，一看到椭圆方程\n(x^2) / (a^2)+(y^2) / (b^2)=1\n就默认使用长椭球公式，这是错误的。\n- 正确理解：\n必须先判断 a 与 b 的大小。\n当 a>b 时，使用长椭球公式：\nS\n=\n2 b^2\n+\n(2 ab) / (e) e,\ne=sqrt(1-(b^2) / (a^2)).\n当 a<b 时，使用扁椭球公式：\nS\n=\n2 b^2\n+\n(2 a^2) / (e)artanh e,\ne=sqrt(1-(a^2) / (b^2)).\n当 a=b=R 时，旋转椭球退化为球，直接使用球面积公式：\nS=4 R^2.\n- 错因分析：\n学生常常默认 a 一定是长半轴。\n但在本题中，椭圆是绕 x 轴旋转的，a 只是 x 轴方向上的半轴，不一定比 b 大。\n所以必须先比较 a,b 的大小，再选择公式。\n- 易错点三（离心率定义混淆）：\n学生可能把两种情形下的离心率都写成\ne=sqrt(1-(b^2) / (a^2)).\n这个表达式只在 a>b 时成立。\n如果 a<b，继续这样写，就会出现根号内为负数的错误。\n- 正确理解：\n两种情形下，e 的定义不同。\n当 a>b 时：\ne=sqrt(1-(b^2) / (a^2)).\n当 a<b 时：\ne=sqrt(1-(a^2) / (b^2)).\n本质上，分母应该是较大的半轴的平方。\n- 错因分析：\n学生容易死记椭圆离心率公式\ne=sqrt(1-(b^2) / (a^2)),\n但忘记这个写法默认了 a 是长半轴。\n在当前问题中，a 表示 x 轴方向半轴，不一定是长半轴。\n- 易错点四（忽视退化情形）：\n当 a=b 时，旋转椭球退化为球。\n但学生可能仍然试图代入含 或 artanh 的公式。\n由于此时\ne=0,\n公式中会出现分母为 0 的形式，不能直接代入。\n- 正确理解：\n当 a=b=R 时，直接使用球表面积公式：\nS=4 R^2.\n不能直接代入含 e 的椭球公式。\n- 错因分析：\n从极限角度看，椭球公式在 a -> b 时确实会趋向球面积。\n但是当 a=b 时，公式中的某些项会出现 00 这类不定式。\n因此不能直接代入，必须单独处理。",
+    "summary": "一句话核心\n旋转椭球表面积由椭圆的半轴长短关系决定：\n长轴在旋转轴方向时，用 公式；短轴在旋转轴方向时，用 artanh 公式；两轴相等时，退化为球面积公式 4 R^2。\n使用条件\n- 条件 1（旋转轴）：\n椭圆方程为\n(x^2) / (a^2)+(y^2) / (b^2)=1,\na,b>0.\n椭圆绕 x 轴旋转。\n- 条件 2（大小判断）：\n必须先判断 a 与 b 的大小关系。\n如果 a>b，则旋转轴方向是长轴方向，使用长椭球公式。\n如果 a<b，则旋转轴方向是短轴方向，使用扁椭球公式。\n如果 a=b，则退化为球，使用球面积公式。\n公式汇总\n当 a>b 时：\nS\n=\n2 b^2\n+\n(2 ab) / (e) e,\ne=sqrt(1-(b^2) / (a^2)).\n当 a<b 时：\nS\n=\n2 b^2\n+\n(2 a^2) / (e)artanhe,\ne=sqrt(1-(a^2) / (b^2)).\n其中\nartanhe\n=\n12 (1+e) / (1-e).\n当 a=b=R 时：\nS=4 R^2.\n关键提醒\n- 易错点（公式混淆）：\n不要看到椭圆方程就直接套公式。必须先判断 a>b、a<b，还是 a=b。\n- 检查项（离心率定义）：\n不同情形下，离心率 e 的表达式不同。\n当 a>b 时：\ne=sqrt(1-(b^2) / (a^2)).\n当 a<b 时：\ne=sqrt(1-(a^2) / (b^2)).\n本质上，分母应该是较大的半轴平方。",
+    "display_version": 2,
+    "sections": [
+      {
+        "key": "core_formula",
+        "title": "核心公式",
+        "layout": "text",
+        "items": [
+          {
+            "latex": "S = \\begin{cases} 2\\pi b^2 + \\frac{2\\pi ab}{e}\\arcsin e, & a>b,\\\\ 2\\pi b^2 + \\frac{2\\pi a^2}{e}\\operatorname{artanh} e, & a<b,\\\\ 4\\pi R^2, & a=b=R.\\n\\end{cases}"
+          }
+        ]
+      },
+      {
+        "key": "statement",
+        "title": "命题表述",
+        "layout": "theorem-list",
+        "items": [
+          {
+            "title": "条件 1（椭圆方程）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "椭圆方程为"
+              },
+              {
+                "type": "math",
+                "latex": "\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1,\n\\qquad a>0,\\quad b>0."
+              }
+            ],
+            "desc": "椭圆方程为",
+            "latex": "\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1,\n\\qquad a>0,\\quad b>0."
+          },
+          {
+            "title": "条件 2（旋转轴）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "椭圆绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转一周。"
+              }
+            ],
+            "desc": "椭圆绕 轴旋转一周。",
+            "latex": "x"
+          },
+          {
+            "title": "结论一（长椭球情形）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "当"
+              },
+              {
+                "type": "math",
+                "latex": "a>b"
+              },
+              {
+                "type": "text",
+                "text": "时，旋转椭球呈长椭球形状，表面积公式含反三角函数。\n设"
+              },
+              {
+                "type": "math",
+                "latex": "e=\\sqrt{1-\\frac{b^{2}}{a^{2}}},"
+              },
+              {
+                "type": "text",
+                "text": "则旋转椭球的表面积为"
+              },
+              {
+                "type": "math",
+                "latex": "S\n=\n2\\pi b^{2}\n+\n\\frac{2\\pi ab}{e}\\arcsin e."
+              }
+            ],
+            "desc": "当 时，旋转椭球呈长椭球形状，表面积公式含反三角函数。\n设 则旋转椭球的表面积为",
+            "latex": "a>b"
+          },
+          {
+            "title": "结论二（扁椭球情形）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "当"
+              },
+              {
+                "type": "math",
+                "latex": "a<b"
+              },
+              {
+                "type": "text",
+                "text": "时，旋转椭球呈扁椭球形状，表面积公式含反双曲正切函数。\n设"
+              },
+              {
+                "type": "math",
+                "latex": "e=\\sqrt{1-\\frac{a^{2}}{b^{2}}},\n\\qquad\n\\operatorname{artanh} e\n=\n\\frac12\\ln\\frac{1+e}{1-e},"
+              },
+              {
+                "type": "text",
+                "text": "则旋转椭球的表面积为"
+              },
+              {
+                "type": "math",
+                "latex": "S\n=\n2\\pi b^{2}\n+\n\\frac{2\\pi a^{2}}{e}\\operatorname{artanh} e."
+              },
+              {
+                "type": "text",
+                "text": "特例"
+              }
+            ],
+            "desc": "当 时，旋转椭球呈扁椭球形状，表面积公式含反双曲正切函数。\n设 则旋转椭球的表面积为 特例",
+            "latex": "a<b"
+          },
+          {
+            "title": "退化为球：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "当"
+              },
+              {
+                "type": "math",
+                "latex": "a=b=R"
+              },
+              {
+                "type": "text",
+                "text": "时，椭圆退化为圆，旋转椭球退化为半径为"
+              },
+              {
+                "type": "math",
+                "latex": "R"
+              },
+              {
+                "type": "text",
+                "text": "的球。\n此时表面积为"
+              },
+              {
+                "type": "math",
+                "latex": "S=4\\pi R^{2}."
+              }
+            ],
+            "desc": "当 时，椭圆退化为圆，旋转椭球退化为半径为 的球。\n此时表面积为",
+            "latex": "a=b=R"
+          }
+        ]
+      },
+      {
+        "key": "explanation",
+        "title": "理解与直觉",
+        "layout": "text",
+        "items": [
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "一句话直觉\n旋转椭球表面积等于椭圆曲线绕轴旋转得到的曲面面积。\n也就是说，把椭圆的上半部分绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转一周，形成一个椭球面，然后用旋转曲面面积公式计算它的面积。"
+              }
+            ]
+          },
+          {
+            "text": "核心拆解"
+          },
+          {
+            "text": "要点一（公式结构）：\n旋转椭球表面积公式由两部分组成："
+          },
+          {
+            "latex": "S\n=\n2\\pi b^{2}\n+\n\\text{一个含离心率 } e \\text{ 的项}"
+          },
+          {
+            "text": ".其中，"
+          },
+          {
+            "latex": "2\\pi b^{2}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "是基础面积项；含"
+              },
+              {
+                "type": "math",
+                "latex": "e"
+              },
+              {
+                "type": "text",
+                "text": "的部分反映长短轴差异带来的修正。"
+              }
+            ]
+          },
+          {
+            "text": "要点二（参数角色）：\n椭圆方程为"
+          },
+          {
+            "latex": "\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ",并且绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转。\n因此，"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "是旋转轴方向上的半轴，"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "是垂直旋转轴方向上的半轴。\n当"
+              },
+              {
+                "type": "math",
+                "latex": "a>b"
+              },
+              {
+                "type": "text",
+                "text": "时，旋转轴方向更长，形成长椭球；当"
+              },
+              {
+                "type": "math",
+                "latex": "a<b"
+              },
+              {
+                "type": "text",
+                "text": "时，垂直旋转轴方向更长，形成扁椭球；当"
+              },
+              {
+                "type": "math",
+                "latex": "a=b"
+              },
+              {
+                "type": "text",
+                "text": "时，椭圆变成圆，旋转后得到球。"
+              }
+            ]
+          },
+          {
+            "text": "几何本质（面积积分）\n旋转曲面的面积来自公式"
+          },
+          {
+            "latex": "S\n=\n2\\pi\\int y\\sqrt{1+(y')^{2}}\\,dx"
+          },
+          {
+            "text": ".对椭圆"
+          },
+          {
+            "latex": "y=b\\sqrt{1-\\frac{x^{2}}{a^{2}}}"
+          },
+          {
+            "text": ",代入后，被积函数可以化简为"
+          },
+          {
+            "latex": "y\\sqrt{1+(y')^{2}}\n=\n\\frac{b}{a^{2}}\n\\sqrt{a^{4}-(a^{2}-b^{2})x^{2}}"
+          },
+          {
+            "text": ".所以表面积的核心就是计算定积分"
+          },
+          {
+            "latex": "\\int_{-a}^{a}\n\\sqrt{a^{4}-(a^{2}-b^{2})x^{2}}\\,dx"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".当"
+              },
+              {
+                "type": "math",
+                "latex": "a>b"
+              },
+              {
+                "type": "text",
+                "text": "时，根号内是减号结构，适合三角代换，所以结果中出现"
+              }
+            ]
+          },
+          {
+            "latex": "\\arcsin"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "。\n当"
+              },
+              {
+                "type": "math",
+                "latex": "a<b"
+              },
+              {
+                "type": "text",
+                "text": "时，根号内变成加号结构，适合双曲代换，所以结果中出现"
+              }
+            ]
+          },
+          {
+            "latex": "\\operatorname{artanh}"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "代数意义（函数形式）\n旋转椭球表面积公式可以统一理解为"
+          },
+          {
+            "latex": "S\n=\n2\\pi b^{2}\n+\n2\\pi\\times \\text{含离心率 } e \\text{ 的修正项}"
+          },
+          {
+            "text": ".长椭球情形中，修正项通过三角代换得到，所以出现"
+          },
+          {
+            "latex": "\\arcsin e"
+          },
+          {
+            "text": "。\n扁椭球情形中，修正项通过双曲代换得到，所以出现"
+          },
+          {
+            "latex": "\\operatorname{artanh} e"
+          },
+          {
+            "text": "。\n这说明旋转椭球表面积虽然来自积分，但在这两类特殊旋转椭球中，可以写成初等函数形式。"
+          },
+          {
+            "text": "考点价值"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "考法一（直接套用）：\n给出椭圆方程和旋转轴，先判断"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "与"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "的大小关系，然后选择对应公式计算表面积。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "考法二（参数反求）：\n如果已知表面积，并给出"
+              },
+              {
+                "type": "math",
+                "latex": "a,b"
+              },
+              {
+                "type": "text",
+                "text": "之间的关系，例如"
+              },
+              {
+                "type": "math",
+                "latex": "a=2b"
+              },
+              {
+                "type": "text",
+                "text": "，则可以代入公式列方程，进一步求半轴长或离心率。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "顿悟点\n当"
+              },
+              {
+                "type": "math",
+                "latex": "a=b=R"
+              },
+              {
+                "type": "text",
+                "text": "时，椭圆退化为圆，旋转椭球退化为球。\n此时椭球表面积公式应退化为球的表面积公式："
+              }
+            ]
+          },
+          {
+            "latex": "S=4\\pi R^{2}"
+          },
+          {
+            "text": ".因此，旋转椭球表面积公式可以看作是球面积公式的推广。"
+          },
+          {
+            "text": "使用场景"
+          },
+          {
+            "text": "场景一（天体物理）：\n可以用来估算旋转天体的表面积，例如行星、卫星、小行星等。"
+          },
+          {
+            "text": "场景二（工程设计）：\n可以用来计算旋转椭球形容器、天线罩、壳体结构等所需的表面材料面积。"
+          }
+        ]
+      },
+      {
+        "key": "proof",
+        "title": "证明过程",
+        "layout": "text",
+        "items": [
+          {
+            "text": "思路提示\n旋转曲面的面积公式为"
+          },
+          {
+            "latex": "S\n=\n2\\pi\\int y\\sqrt{1+(y')^{2}}\\,dx"
+          },
+          {
+            "text": ".将椭圆方程"
+          },
+          {
+            "latex": "\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "代入并化简，再根据"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "与"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "的大小关系分类讨论。\n当"
+              },
+              {
+                "type": "math",
+                "latex": "a>b"
+              },
+              {
+                "type": "text",
+                "text": "时，用三角代换，得到含"
+              }
+            ]
+          },
+          {
+            "latex": "\\arcsin"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "的公式；当"
+              },
+              {
+                "type": "math",
+                "latex": "a<b"
+              },
+              {
+                "type": "text",
+                "text": "时，用双曲代换，得到含"
+              }
+            ]
+          },
+          {
+            "latex": "\\operatorname{artanh}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "的公式；当"
+              },
+              {
+                "type": "math",
+                "latex": "a=b"
+              },
+              {
+                "type": "text",
+                "text": "时，退化为球，直接得到"
+              }
+            ]
+          },
+          {
+            "latex": "4\\pi R^{2}"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "正式推导"
+          },
+          {
+            "text": "步骤一（建立积分）：\n椭圆上半部分可以写成"
+          },
+          {
+            "latex": "y\n=\nb\\sqrt{1-\\frac{x^{2}}{a^{2}}}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".它绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转一周形成旋转椭球面。\n根据旋转曲面面积公式，有"
+              }
+            ]
+          },
+          {
+            "latex": "S\n=\n2\\pi\\int_{-a}^{a}\ny\\sqrt{1+(y')^{2}}\\,dx"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "步骤二（化简被积函数）：\n由"
+          },
+          {
+            "latex": "y\n=\nb\\sqrt{1-\\frac{x^{2}}{a^{2}}}\n=\n\\frac{b}{a}\\sqrt{a^{2}-x^{2}}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ",可计算出"
+              },
+              {
+                "type": "math",
+                "latex": "y'"
+              },
+              {
+                "type": "text",
+                "text": "，并进一步化简得到"
+              }
+            ]
+          },
+          {
+            "latex": "y\\sqrt{1+(y')^{2}}\n=\n\\frac{b}{a^{2}}\n\\sqrt{a^{4}-(a^{2}-b^{2})x^{2}}"
+          },
+          {
+            "text": ".因此"
+          },
+          {
+            "latex": "S\n=\n\\frac{2\\pi b}{a^{2}}\n\\int_{-a}^{a}\n\\sqrt{a^{4}-(a^{2}-b^{2})x^{2}}\\,dx"
+          },
+          {
+            "text": ".记"
+          },
+          {
+            "latex": "I\n=\n\\int_{-a}^{a}\n\\sqrt{a^{4}-(a^{2}-b^{2})x^{2}}\\,dx"
+          },
+          {
+            "text": ",则"
+          },
+          {
+            "latex": "S\n=\n\\frac{2\\pi b}{a^{2}}I"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "步骤三（分类讨论）：\n令"
+          },
+          {
+            "latex": "\\Delta=a^{2}-b^{2}"
+          },
+          {
+            "text": ".根据"
+          },
+          {
+            "latex": "\\Delta"
+          },
+          {
+            "text": "的符号，分三种情况："
+          },
+          {
+            "latex": "\\Delta>0,\\qquad \\Delta<0,\\qquad \\Delta=0"
+          },
+          {
+            "text": "."
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "情形一："
+              },
+              {
+                "type": "math",
+                "latex": "a>b"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "步骤四（三角代换）：\n当"
+              },
+              {
+                "type": "math",
+                "latex": "a>b"
+              },
+              {
+                "type": "text",
+                "text": "时，令"
+              }
+            ]
+          },
+          {
+            "latex": "c=\\sqrt{a^{2}-b^{2}}>0"
+          },
+          {
+            "text": ".则"
+          },
+          {
+            "latex": "e=\\frac{c}{a}\n=\n\\sqrt{1-\\frac{b^{2}}{a^{2}}}"
+          },
+          {
+            "text": ".此时"
+          },
+          {
+            "latex": "I\n=\n\\int_{-a}^{a}\n\\sqrt{a^{4}-c^{2}x^{2}}\\,dx"
+          },
+          {
+            "text": ".由于被积函数是偶函数，所以"
+          },
+          {
+            "latex": "I\n=\n2\\int_{0}^{a}\n\\sqrt{a^{4}-c^{2}x^{2}}\\,dx"
+          },
+          {
+            "text": ".作三角代换"
+          },
+          {
+            "latex": "x=\\frac{a^{2}}{c}\\sin\\theta,\n\\qquad\ndx=\\frac{a^{2}}{c}\\cos\\theta\\,d\\theta"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".当"
+              },
+              {
+                "type": "math",
+                "latex": "x=0"
+              },
+              {
+                "type": "text",
+                "text": "时，"
+              }
+            ]
+          },
+          {
+            "latex": "\\theta=0"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "；当"
+              },
+              {
+                "type": "math",
+                "latex": "x=a"
+              },
+              {
+                "type": "text",
+                "text": "时，"
+              }
+            ]
+          },
+          {
+            "latex": "\\sin\\theta=\\frac{c}{a}=e,\n\\qquad\n\\theta=\\arcsin e"
+          },
+          {
+            "text": ".同时"
+          },
+          {
+            "latex": "\\sqrt{a^{4}-c^{2}x^{2}}\n=\na^{2}\\cos\\theta"
+          },
+          {
+            "text": ".因此"
+          },
+          {
+            "latex": "I\n=\n\\frac{2a^{4}}{c}\n\\int_{0}^{\\arcsin e}\n\\cos^{2}\\theta\\,d\\theta"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "步骤五（积分回代）：\n因为"
+          },
+          {
+            "latex": "\\int \\cos^{2}\\theta\\,d\\theta\n=\n\\frac12(\\theta+\\sin\\theta\\cos\\theta)"
+          },
+          {
+            "text": ",所以"
+          },
+          {
+            "latex": "\\int_{0}^{\\arcsin e}\n\\cos^{2}\\theta\\,d\\theta\n=\n\\frac12\n\\left(\n\\arcsin e\n+\ne\\cdot \\frac{b}{a}\n\\right)"
+          },
+          {
+            "text": ".于是"
+          },
+          {
+            "latex": "I\n=\n\\frac{a^{4}}{c}\n\\left(\n\\arcsin e+\\frac{eb}{a}\n\\right)"
+          },
+          {
+            "text": ".代入"
+          },
+          {
+            "latex": "S=\\frac{2\\pi b}{a^{2}}I"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "并利用"
+              },
+              {
+                "type": "math",
+                "latex": "c=ae"
+              },
+              {
+                "type": "text",
+                "text": "，可得"
+              }
+            ]
+          },
+          {
+            "latex": "S\n=\n2\\pi b^{2}\n+\n\\frac{2\\pi ab}{e}\\arcsin e"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".因此，当"
+              },
+              {
+                "type": "math",
+                "latex": "a>b"
+              },
+              {
+                "type": "text",
+                "text": "时，"
+              }
+            ]
+          },
+          {
+            "latex": "\\boxed{\nS\n=\n2\\pi b^{2}\n+\n\\frac{2\\pi ab}{e}\\arcsin e\n},\n\\qquad\ne=\\sqrt{1-\\frac{b^{2}}{a^{2}}}"
+          },
+          {
+            "text": "."
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "情形二："
+              },
+              {
+                "type": "math",
+                "latex": "a<b"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "步骤六（双曲代换）：\n当"
+              },
+              {
+                "type": "math",
+                "latex": "a<b"
+              },
+              {
+                "type": "text",
+                "text": "时，令"
+              }
+            ]
+          },
+          {
+            "latex": "d=\\sqrt{b^{2}-a^{2}}>0"
+          },
+          {
+            "text": ".则"
+          },
+          {
+            "latex": "e=\\frac{d}{b}\n=\n\\sqrt{1-\\frac{a^{2}}{b^{2}}}"
+          },
+          {
+            "text": ".此时"
+          },
+          {
+            "latex": "I\n=\n\\int_{-a}^{a}\n\\sqrt{a^{4}+d^{2}x^{2}}\\,dx"
+          },
+          {
+            "text": ".由于被积函数是偶函数，所以"
+          },
+          {
+            "latex": "I\n=\n2\\int_{0}^{a}\n\\sqrt{a^{4}+d^{2}x^{2}}\\,dx"
+          },
+          {
+            "text": ".作双曲代换"
+          },
+          {
+            "latex": "x=\\frac{a^{2}}{d}\\sinh t,\n\\qquad\ndx=\\frac{a^{2}}{d}\\cosh t\\,dt"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".当"
+              },
+              {
+                "type": "math",
+                "latex": "x=0"
+              },
+              {
+                "type": "text",
+                "text": "时，"
+              },
+              {
+                "type": "math",
+                "latex": "t=0"
+              },
+              {
+                "type": "text",
+                "text": "；当"
+              },
+              {
+                "type": "math",
+                "latex": "x=a"
+              },
+              {
+                "type": "text",
+                "text": "时，"
+              }
+            ]
+          },
+          {
+            "latex": "\\sinh t=\\frac{d}{a},\n\\qquad\nt=\\operatorname{arsinh}\\frac{d}{a}"
+          },
+          {
+            "text": ".同时"
+          },
+          {
+            "latex": "\\sqrt{a^{4}+d^{2}x^{2}}\n=\na^{2}\\cosh t"
+          },
+          {
+            "text": ".因此"
+          },
+          {
+            "latex": "I\n=\n\\frac{2a^{4}}{d}\n\\int_{0}^{\\operatorname{arsinh}(d/a)}\n\\cosh^{2}t\\,dt"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "步骤七（积分回代）：\n因为"
+          },
+          {
+            "latex": "\\int \\cosh^{2}t\\,dt\n=\n\\frac12(t+\\sinh t\\cosh t)"
+          },
+          {
+            "text": ",所以"
+          },
+          {
+            "latex": "\\int_{0}^{\\operatorname{arsinh}(d/a)}\n\\cosh^{2}t\\,dt\n=\n\\frac12\n\\left(\n\\operatorname{arsinh}\\frac{d}{a}\n+\n\\frac{bd}{a^{2}}\n\\right)"
+          },
+          {
+            "text": ".于是"
+          },
+          {
+            "latex": "I\n=\n\\frac{a^{4}}{d}\n\\left(\n\\operatorname{arsinh}\\frac{d}{a}\n+\n\\frac{bd}{a^{2}}\n\\right)"
+          },
+          {
+            "text": ".代入"
+          },
+          {
+            "latex": "S=\\frac{2\\pi b}{a^{2}}I"
+          },
+          {
+            "text": "得到"
+          },
+          {
+            "latex": "S\n=\n2\\pi b^{2}\n+\n\\frac{2\\pi ba^{2}}{d}\n\\operatorname{arsinh}\\frac{d}{a}"
+          },
+          {
+            "text": ".又因为"
+          },
+          {
+            "latex": "d=be,\n\\qquad\n\\operatorname{arsinh}\\frac{d}{a}\n=\n\\operatorname{artanh}e"
+          },
+          {
+            "text": ",所以"
+          },
+          {
+            "latex": "S\n=\n2\\pi b^{2}\n+\n\\frac{2\\pi a^{2}}{e}\n\\operatorname{artanh}e"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".因此，当"
+              },
+              {
+                "type": "math",
+                "latex": "a<b"
+              },
+              {
+                "type": "text",
+                "text": "时，"
+              }
+            ]
+          },
+          {
+            "latex": "\\boxed{\nS\n=\n2\\pi b^{2}\n+\n\\frac{2\\pi a^{2}}{e}\n\\operatorname{artanh}e\n},\n\\qquad\ne=\\sqrt{1-\\frac{a^{2}}{b^{2}}}"
+          },
+          {
+            "text": "."
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "情形三："
+              },
+              {
+                "type": "math",
+                "latex": "a=b"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "步骤八（退化为球）：\n当"
+              },
+              {
+                "type": "math",
+                "latex": "a=b=R"
+              },
+              {
+                "type": "text",
+                "text": "时，椭圆退化为圆，绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转得到半径为"
+              },
+              {
+                "type": "math",
+                "latex": "R"
+              },
+              {
+                "type": "text",
+                "text": "的球。\n此时"
+              }
+            ]
+          },
+          {
+            "latex": "I\n=\n\\int_{-R}^{R}R^{2}\\,dx\n=\n2R^{3}"
+          },
+          {
+            "text": ".代入"
+          },
+          {
+            "latex": "S=\\frac{2\\pi R}{R^{2}}I"
+          },
+          {
+            "text": "得到"
+          },
+          {
+            "latex": "S\n=\n\\frac{2\\pi R}{R^{2}}\\cdot 2R^{3}\n=\n4\\pi R^{2}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".因此，当"
+              },
+              {
+                "type": "math",
+                "latex": "a=b=R"
+              },
+              {
+                "type": "text",
+                "text": "时，"
+              }
+            ]
+          },
+          {
+            "latex": "\\boxed{\nS=4\\pi R^{2}\n}"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "结论回扣\n综上所述，椭圆"
+          },
+          {
+            "latex": "\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转形成的旋转椭球表面积为："
+              }
+            ]
+          },
+          {
+            "latex": "\\begin{cases}\n\\displaystyle\nS\n=\n2\\pi b^{2}\n+\n\\frac{2\\pi ab}{e}\\arcsin e,\n&\n\\displaystyle\na>b,\\quad\ne=\\sqrt{1-\\frac{b^{2}}{a^{2}}},\n\\\\[1.2em]\n\\displaystyle\nS\n=\n2\\pi b^{2}\n+\n\\frac{2\\pi a^{2}}{e}\\operatorname{artanh}e,\n&\n\\displaystyle\na<b,\\quad\ne=\\sqrt{1-\\frac{a^{2}}{b^{2}}},\n\\\\[1.2em]\n\\displaystyle\nS=4\\pi R^{2},\n&\na=b=R.\n\\end{cases}"
+          }
+        ]
+      },
+      {
+        "key": "examples",
+        "title": "例题应用",
+        "layout": "text",
+        "items": [
+          {
+            "text": "例 1（基础题）\n题目：\n已知椭圆"
+          },
+          {
+            "latex": "\\frac{x^{2}}{25}+\\frac{y^{2}}{9}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转，求旋转椭球的表面积。"
+              }
+            ]
+          },
+          {
+            "text": "解题步骤："
+          },
+          {
+            "text": "第一步（读取参数）：\n由椭圆方程得"
+          },
+          {
+            "latex": "a=5,\\qquad b=3"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".因为"
+              },
+              {
+                "type": "math",
+                "latex": "a>b"
+              },
+              {
+                "type": "text",
+                "text": "，所以这是长椭球情形。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "第二步（选择公式）：\n当"
+              },
+              {
+                "type": "math",
+                "latex": "a>b"
+              },
+              {
+                "type": "text",
+                "text": "时，使用公式"
+              }
+            ]
+          },
+          {
+            "latex": "S\n=\n2\\pi b^{2}\n+\n\\frac{2\\pi ab}{e}\\arcsin e,\n\\qquad\ne=\\sqrt{1-\\frac{b^{2}}{a^{2}}}"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "第三步（计算离心率）："
+          },
+          {
+            "latex": "e\n=\n\\sqrt{1-\\frac{b^{2}}{a^{2}}}\n=\n\\sqrt{1-\\frac{9}{25}}\n=\n\\sqrt{\\frac{16}{25}}\n=\n\\frac45"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "第四步（代入公式）："
+          },
+          {
+            "latex": "\\begin{aligned}\nS\n& =\n2\\pi\\cdot 9\n+\n\\frac{2\\pi\\cdot 5\\cdot 3}{4/5}\n\\arcsin\\frac45\n\\\\\n& =\n18\\pi\n+\n\\frac{30\\pi}{4/5}\n\\arcsin\\frac45\n\\\\\n& =\n18\\pi\n+\n\\frac{75\\pi}{2}\n\\arcsin\\frac45.\n\\end{aligned}"
+          },
+          {
+            "text": "答案："
+          },
+          {
+            "latex": "\\boxed{\nS\n=\n18\\pi\n+\n\\frac{75\\pi}{2}\n\\arcsin\\frac45\n}"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "例 2（稍变形）\n题目：\n已知椭圆"
+          },
+          {
+            "latex": "\\frac{x^{2}}{9}+\\frac{y^{2}}{25}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转，求旋转椭球的表面积。"
+              }
+            ]
+          },
+          {
+            "text": "解题步骤："
+          },
+          {
+            "text": "第一步（读取参数）：\n由椭圆方程得"
+          },
+          {
+            "latex": "a=3,\\qquad b=5"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".因为"
+              },
+              {
+                "type": "math",
+                "latex": "a<b"
+              },
+              {
+                "type": "text",
+                "text": "，所以这是扁椭球情形。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "第二步（选择公式）：\n当"
+              },
+              {
+                "type": "math",
+                "latex": "a<b"
+              },
+              {
+                "type": "text",
+                "text": "时，使用公式"
+              }
+            ]
+          },
+          {
+            "latex": "S\n=\n2\\pi b^{2}\n+\n\\frac{2\\pi a^{2}}{e}\\operatorname{artanh}e,\n\\qquad\ne=\\sqrt{1-\\frac{a^{2}}{b^{2}}}"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "第三步（计算离心率）："
+          },
+          {
+            "latex": "e\n=\n\\sqrt{1-\\frac{a^{2}}{b^{2}}}\n=\n\\sqrt{1-\\frac{9}{25}}\n=\n\\frac45"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "第四步（计算反双曲正切）："
+          },
+          {
+            "latex": "\\operatorname{artanh}e\n=\n\\frac12\\ln\\frac{1+e}{1-e}"
+          },
+          {
+            "text": ".代入"
+          },
+          {
+            "latex": "e=\\frac45"
+          },
+          {
+            "text": "，得到"
+          },
+          {
+            "latex": "\\operatorname{artanh}\\frac45\n=\n\\frac12\\ln\\frac{1+\\frac45}{1-\\frac45}\n=\n\\frac12\\ln 9\n=\n\\ln 3"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "第五步（代入公式）："
+          },
+          {
+            "latex": "\\begin{aligned}\nS\n& =\n2\\pi\\cdot 25\n+\n\\frac{2\\pi\\cdot 9}{4/5}\\ln 3\n\\\\\n& =\n50\\pi\n+\n\\frac{18\\pi}{4/5}\\ln 3\n\\\\\n& =\n50\\pi\n+\n\\frac{45\\pi}{2}\\ln 3.\n\\end{aligned}"
+          },
+          {
+            "text": "答案："
+          },
+          {
+            "latex": "\\boxed{\nS\n=\n50\\pi\n+\n\\frac{45\\pi}{2}\\ln 3\n}"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "例 3（综合应用）\n题目：\n某小行星的截面椭圆方程为"
+          },
+          {
+            "latex": "\\frac{x^{2}}{4}+\\frac{y^{2}}{9}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "它绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转形成旋转椭球。求该小行星表面积的表达式。"
+              }
+            ]
+          },
+          {
+            "text": "解题步骤："
+          },
+          {
+            "text": "第一步（读取参数）：\n由椭圆方程得"
+          },
+          {
+            "latex": "a=2,\\qquad b=3"
+          },
+          {
+            "text": "."
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "第二步（判断类型）：\n因为"
+              },
+              {
+                "type": "math",
+                "latex": "a<b"
+              },
+              {
+                "type": "text",
+                "text": "，所以该旋转椭球为扁椭球。\n使用公式"
+              }
+            ]
+          },
+          {
+            "latex": "S\n=\n2\\pi b^{2}\n+\n\\frac{2\\pi a^{2}}{e}\\operatorname{artanh}e"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "第三步（计算离心率）："
+          },
+          {
+            "latex": "e\n=\n\\sqrt{1-\\frac{a^{2}}{b^{2}}}\n=\n\\sqrt{1-\\frac49}\n=\n\\sqrt{\\frac59}\n=\n\\frac{\\sqrt5}{3}"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "第四步（代入公式）："
+          },
+          {
+            "latex": "\\begin{aligned}\nS\n& =\n2\\pi\\cdot 9\n+\n\\frac{2\\pi\\cdot 4}{\\sqrt5/3}\n\\operatorname{artanh}\\frac{\\sqrt5}{3}\n\\\\\n& =\n18\\pi\n+\n\\frac{8\\pi}{\\sqrt5/3}\n\\operatorname{artanh}\\frac{\\sqrt5}{3}\n\\\\\n& =\n18\\pi\n+\n\\frac{24\\pi}{\\sqrt5}\n\\operatorname{artanh}\\frac{\\sqrt5}{3}.\n\\end{aligned}"
+          },
+          {
+            "text": "答案："
+          },
+          {
+            "latex": "\\boxed{\nS\n=\n18\\pi\n+\n\\frac{24\\pi}{\\sqrt5}\n\\operatorname{artanh}\\frac{\\sqrt5}{3}\n}"
+          },
+          {
+            "text": "."
+          }
+        ]
+      },
+      {
+        "key": "traps",
+        "title": "易错提醒",
+        "layout": "text",
+        "items": [
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "易错点一（把圆周长直接相加）：\n学生在理解旋转曲面面积公式时，容易只看到“点绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转形成圆，圆周长为"
+              }
+            ]
+          },
+          {
+            "latex": "2\\pi y"
+          },
+          {
+            "text": "”，于是误以为把这些圆周长直接加起来就是表面积。\n这种想法的直觉方向没有错："
+          },
+          {
+            "latex": "2\\pi y"
+          },
+          {
+            "text": "确实是对应圆的周长。真正的问题是少乘了一个关键量：曲线小段扫出的真实宽度。\n! assets/tikz/G004_surface_area_revolution_explained.tikz"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "正确理解：\n曲线上的一小段弧长记为"
+              },
+              {
+                "type": "math",
+                "latex": "ds"
+              },
+              {
+                "type": "text",
+                "text": "。这段小弧绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转一周后，近似形成一个很薄的圆台侧面。\n因此面积微元不是单独的圆周长"
+              }
+            ]
+          },
+          {
+            "latex": "2\\pi y"
+          },
+          {
+            "text": "，而是"
+          },
+          {
+            "latex": "\\begin{aligned}\ndS\n& =\\text{圆周长}\\times\\text{曲线小段长度} \\\\\n& =2\\pi y\\,ds.\n\\end{aligned}"
+          },
+          {
+            "text": "又因为"
+          },
+          {
+            "latex": "ds=\\sqrt{dx^{2}+dy^{2}}\n=\\sqrt{1+(y')^{2}}\\,dx"
+          },
+          {
+            "text": ",所以旋转曲面面积公式为"
+          },
+          {
+            "latex": "S=2\\pi\\int y\\sqrt{1+(y')^{2}}\\,dx"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "错因分析："
+          },
+          {
+            "latex": "2\\pi y"
+          },
+          {
+            "text": "的单位只是长度，不是面积。面积必须是“长度"
+          },
+          {
+            "latex": "\\times"
+          },
+          {
+            "text": "长度”。\n这里第一个长度是圆周长"
+          },
+          {
+            "latex": "2\\pi y"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，第二个长度不是横向宽度"
+              },
+              {
+                "type": "math",
+                "latex": "dx"
+              },
+              {
+                "type": "text",
+                "text": "，而是曲线小段本身的长度"
+              },
+              {
+                "type": "math",
+                "latex": "ds"
+              },
+              {
+                "type": "text",
+                "text": "。\n只有当曲线局部水平时，"
+              },
+              {
+                "type": "math",
+                "latex": "dy=0"
+              },
+              {
+                "type": "text",
+                "text": "，才有"
+              },
+              {
+                "type": "math",
+                "latex": "ds=dx"
+              },
+              {
+                "type": "text",
+                "text": "。这时面积微元才会退化为熟悉的圆柱侧面积形式："
+              }
+            ]
+          },
+          {
+            "latex": "dS=2\\pi y\\,dx"
+          },
+          {
+            "text": "."
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "易错点二（公式选择错误）：\n已知椭圆方程和旋转轴后，没有先比较"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "与"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "的大小，而是直接套用某一个公式。\n例如，一看到椭圆方程"
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1"
+          },
+          {
+            "text": "就默认使用长椭球公式，这是错误的。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "正确理解：\n必须先判断"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "与"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "的大小。\n当"
+              },
+              {
+                "type": "math",
+                "latex": "a>b"
+              },
+              {
+                "type": "text",
+                "text": "时，使用长椭球公式："
+              }
+            ]
+          },
+          {
+            "latex": "S\n=\n2\\pi b^{2}\n+\n\\frac{2\\pi ab}{e}\\arcsin e,\n\\qquad\ne=\\sqrt{1-\\frac{b^{2}}{a^{2}}}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".当"
+              },
+              {
+                "type": "math",
+                "latex": "a<b"
+              },
+              {
+                "type": "text",
+                "text": "时，使用扁椭球公式："
+              }
+            ]
+          },
+          {
+            "latex": "S\n=\n2\\pi b^{2}\n+\n\\frac{2\\pi a^{2}}{e}\\operatorname{artanh} e,\n\\qquad\ne=\\sqrt{1-\\frac{a^{2}}{b^{2}}}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".当"
+              },
+              {
+                "type": "math",
+                "latex": "a=b=R"
+              },
+              {
+                "type": "text",
+                "text": "时，旋转椭球退化为球，直接使用球面积公式："
+              }
+            ]
+          },
+          {
+            "latex": "S=4\\pi R^{2}"
+          },
+          {
+            "text": "."
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "错因分析：\n学生常常默认"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "一定是长半轴。\n但在本题中，椭圆是绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转的，"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "只是"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴方向上的半轴，不一定比"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "大。\n所以必须先比较"
+              },
+              {
+                "type": "math",
+                "latex": "a,b"
+              },
+              {
+                "type": "text",
+                "text": "的大小，再选择公式。"
+              }
+            ]
+          },
+          {
+            "text": "易错点三（离心率定义混淆）：\n学生可能把两种情形下的离心率都写成"
+          },
+          {
+            "latex": "e=\\sqrt{1-\\frac{b^{2}}{a^{2}}}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".这个表达式只在"
+              },
+              {
+                "type": "math",
+                "latex": "a>b"
+              },
+              {
+                "type": "text",
+                "text": "时成立。\n如果"
+              },
+              {
+                "type": "math",
+                "latex": "a<b"
+              },
+              {
+                "type": "text",
+                "text": "，继续这样写，就会出现根号内为负数的错误。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "正确理解：\n两种情形下，"
+              },
+              {
+                "type": "math",
+                "latex": "e"
+              },
+              {
+                "type": "text",
+                "text": "的定义不同。\n当"
+              },
+              {
+                "type": "math",
+                "latex": "a>b"
+              },
+              {
+                "type": "text",
+                "text": "时："
+              }
+            ]
+          },
+          {
+            "latex": "e=\\sqrt{1-\\frac{b^{2}}{a^{2}}}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".当"
+              },
+              {
+                "type": "math",
+                "latex": "a<b"
+              },
+              {
+                "type": "text",
+                "text": "时："
+              }
+            ]
+          },
+          {
+            "latex": "e=\\sqrt{1-\\frac{a^{2}}{b^{2}}}"
+          },
+          {
+            "text": ".本质上，分母应该是较大的半轴的平方。"
+          },
+          {
+            "text": "错因分析：\n学生容易死记椭圆离心率公式"
+          },
+          {
+            "latex": "e=\\sqrt{1-\\frac{b^{2}}{a^{2}}}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ",但忘记这个写法默认了"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "是长半轴。\n在当前问题中，"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "表示"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴方向半轴，不一定是长半轴。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "易错点四（忽视退化情形）：\n当"
+              },
+              {
+                "type": "math",
+                "latex": "a=b"
+              },
+              {
+                "type": "text",
+                "text": "时，旋转椭球退化为球。\n但学生可能仍然试图代入含"
+              }
+            ]
+          },
+          {
+            "latex": "\\arcsin"
+          },
+          {
+            "text": "或"
+          },
+          {
+            "latex": "\\operatorname{artanh}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "的公式。\n由于此时"
+              },
+              {
+                "type": "math",
+                "latex": "e=0"
+              },
+              {
+                "type": "text",
+                "text": ",公式中会出现分母为"
+              },
+              {
+                "type": "math",
+                "latex": "0"
+              },
+              {
+                "type": "text",
+                "text": "的形式，不能直接代入。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "正确理解：\n当"
+              },
+              {
+                "type": "math",
+                "latex": "a=b=R"
+              },
+              {
+                "type": "text",
+                "text": "时，直接使用球表面积公式："
+              }
+            ]
+          },
+          {
+            "latex": "S=4\\pi R^{2}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".不能直接代入含"
+              },
+              {
+                "type": "math",
+                "latex": "e"
+              },
+              {
+                "type": "text",
+                "text": "的椭球公式。"
+              }
+            ]
+          },
+          {
+            "text": "错因分析：\n从极限角度看，椭球公式在"
+          },
+          {
+            "latex": "a\\to b"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "时确实会趋向球面积。\n但是当"
+              },
+              {
+                "type": "math",
+                "latex": "a=b"
+              },
+              {
+                "type": "text",
+                "text": "时，公式中的某些项会出现"
+              }
+            ]
+          },
+          {
+            "latex": "\\frac00"
+          },
+          {
+            "text": "这类不定式。\n因此不能直接代入，必须单独处理。"
+          }
+        ]
+      },
+      {
+        "key": "summary",
+        "title": "复盘总结",
+        "layout": "text",
+        "items": [
+          {
+            "text": "一句话核心\n旋转椭球表面积由椭圆的半轴长短关系决定：\n长轴在旋转轴方向时，用"
+          },
+          {
+            "latex": "\\arcsin"
+          },
+          {
+            "text": "公式；短轴在旋转轴方向时，用"
+          },
+          {
+            "latex": "\\operatorname{artanh}"
+          },
+          {
+            "text": "公式；两轴相等时，退化为球面积公式"
+          },
+          {
+            "latex": "4\\pi R^{2}"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "使用条件"
+          },
+          {
+            "text": "条件 1（旋转轴）：\n椭圆方程为"
+          },
+          {
+            "latex": "\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1,\n\\qquad a,b>0"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".椭圆绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "条件 2（大小判断）：\n必须先判断"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "与"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "的大小关系。\n如果"
+              },
+              {
+                "type": "math",
+                "latex": "a>b"
+              },
+              {
+                "type": "text",
+                "text": "，则旋转轴方向是长轴方向，使用长椭球公式。\n如果"
+              },
+              {
+                "type": "math",
+                "latex": "a<b"
+              },
+              {
+                "type": "text",
+                "text": "，则旋转轴方向是短轴方向，使用扁椭球公式。\n如果"
+              },
+              {
+                "type": "math",
+                "latex": "a=b"
+              },
+              {
+                "type": "text",
+                "text": "，则退化为球，使用球面积公式。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "公式汇总\n当"
+              },
+              {
+                "type": "math",
+                "latex": "a>b"
+              },
+              {
+                "type": "text",
+                "text": "时："
+              }
+            ]
+          },
+          {
+            "latex": "S\n=\n2\\pi b^{2}\n+\n\\frac{2\\pi ab}{e}\\arcsin e,\n\\qquad\ne=\\sqrt{1-\\frac{b^{2}}{a^{2}}}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".当"
+              },
+              {
+                "type": "math",
+                "latex": "a<b"
+              },
+              {
+                "type": "text",
+                "text": "时："
+              }
+            ]
+          },
+          {
+            "latex": "S\n=\n2\\pi b^{2}\n+\n\\frac{2\\pi a^{2}}{e}\\operatorname{artanh}e,\n\\qquad\ne=\\sqrt{1-\\frac{a^{2}}{b^{2}}}"
+          },
+          {
+            "text": ".其中"
+          },
+          {
+            "latex": "\\operatorname{artanh}e\n=\n\\frac12\\ln\\frac{1+e}{1-e}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".当"
+              },
+              {
+                "type": "math",
+                "latex": "a=b=R"
+              },
+              {
+                "type": "text",
+                "text": "时："
+              }
+            ]
+          },
+          {
+            "latex": "S=4\\pi R^{2}"
+          },
+          {
+            "text": "."
+          },
+          {
+            "text": "关键提醒"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "易错点（公式混淆）：\n不要看到椭圆方程就直接套公式。必须先判断"
+              },
+              {
+                "type": "math",
+                "latex": "a>b"
+              },
+              {
+                "type": "text",
+                "text": "、"
+              },
+              {
+                "type": "math",
+                "latex": "a<b"
+              },
+              {
+                "type": "text",
+                "text": "，还是"
+              },
+              {
+                "type": "math",
+                "latex": "a=b"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "检查项（离心率定义）：\n不同情形下，离心率"
+              },
+              {
+                "type": "math",
+                "latex": "e"
+              },
+              {
+                "type": "text",
+                "text": "的表达式不同。\n当"
+              },
+              {
+                "type": "math",
+                "latex": "a>b"
+              },
+              {
+                "type": "text",
+                "text": "时："
+              }
+            ]
+          },
+          {
+            "latex": "e=\\sqrt{1-\\frac{b^{2}}{a^{2}}}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".当"
+              },
+              {
+                "type": "math",
+                "latex": "a<b"
+              },
+              {
+                "type": "text",
+                "text": "时："
+              }
+            ]
+          },
+          {
+            "latex": "e=\\sqrt{1-\\frac{a^{2}}{b^{2}}}"
+          },
+          {
+            "text": ".本质上，分母应该是较大的半轴平方。"
           }
         ]
       }

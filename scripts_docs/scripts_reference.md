@@ -111,6 +111,63 @@ python scripts/build_core_index.py
 
 **建议：** 直接使用 `build_search_bundle_js.py`。
 
+### `build_backend_and_canonical.py` ⭐ 一键编排
+
+**状态：** 活跃，统合构建入口
+
+**功能：** 一键跑通完整后端构建流水线，按顺序执行：
+1. `build_search_bundle_js.py` → 生成搜索包
+2. `extract_backend_index_from_search_bundle.py` → 提取后端 JSON 索引
+3. `verify_backend_index_extraction.py` → 校验提取完整性
+4. `build_detail_page_js.py` → 生成详情页 JS 数据
+5. `migrate_detail_js_to_content_v2.py` → 每模块迁移 canonical v2 内容
+6. 合并所有模块 → 写出统一的 `canonical_content_v2.json`
+7. 生成结构化构建报告（含每阶段耗时、退出码、状态）
+
+**用法：**
+```bash
+# 全量构建
+python scripts/build_backend_and_canonical.py
+
+# 只处理指定模块
+python scripts/build_backend_and_canonical.py --module 07_inequality
+
+# dry-run（不写最终输出文件）
+python scripts/build_backend_and_canonical.py --dry-run --log-level DEBUG
+
+# 保留临时目录（调试用）
+python scripts/build_backend_and_canonical.py --keep-temp
+```
+
+**输出：**
+- `data/search_engine/backend_search_index.json`
+- `data/content/canonical_content_v2.json`
+- `reports/build_backend_and_canonical_report.json`
+
+---
+
+### `build_domain_topic_map.py`
+
+**状态：** 活跃
+
+**功能：** 从所有 `meta.json` 的 `knowledgeNode` / `altNodes` 字段提取并构建领域-主题映射表。支持 full 和 theorem 两种 profile，支持别名覆盖文件。
+
+**用法：**
+```bash
+# full profile（knowledgeNode + altNodes）
+python scripts/build_domain_topic_map.py
+
+# theorem profile（仅 knowledgeNode）
+python scripts/build_domain_topic_map.py --profile theorem
+
+# dry-run
+python scripts/build_domain_topic_map.py --dry-run --pretty
+```
+
+**输出：**
+- 默认 `data/search_engine/domain_topic_map.json`
+- theorem profile 时 `data/search_engine/domain_topic_map_theorem.json`
+
 ---
 
 ## 二、内容构建脚本
@@ -205,6 +262,21 @@ python scripts/verify_detail_js_to_content_v2_integrity.py
 
 ---
 
+### `generate_toc_seed.py`
+
+**状态：** 活跃
+
+**功能：** 从 `main.tex` 及各模块 `index.tex` 中提取 `\section` 和 `\subsection` 标题，生成 TOC seed 文件供 `build.bat toc` 模式使用。自动解析 `\input{}` 引用链。
+
+**用法：**
+```bash
+python scripts/generate_toc_seed.py --root main.tex --output toc_seed.tex
+```
+
+**输出：** 含 `\SeedSection{...}` 和 `\SeedSubsection{...}` 的 TeX 文件
+
+---
+
 ## 三、元数据 Schema 与质量脚本
 
 ### `meta_schema.py` ⭐ 核心定义
@@ -267,6 +339,23 @@ python scripts/check_meta_json.py
 ### `meta_utils.py`
 
 **状态：** 空占位文件（0 字节）
+
+---
+
+### `generate_missing_meta.py`
+
+**状态：** 活跃
+
+**功能：** 为没有 `meta.json` 的结论目录自动生成 `meta.json`。从 LaTeX 源文件（01-06.tex）保守提取标题、核心公式、关键词、变量、适用条件、使用场景等字段，生成符合 `META_SCHEMA` 的完整元数据。
+
+覆盖 6 个模块共 30 个指定结论（S/F/V/P 系列），支持自定义 `TITLE_OVERRIDES` 映射中文标题。
+
+**用法：**
+```bash
+python scripts/generate_missing_meta.py
+```
+
+**注意：** 会覆盖已存在的 `meta.json`。`pypinyin` 为可选依赖（无则跳过拼音生成）。
 
 ---
 
@@ -435,6 +524,25 @@ python scripts/encrypt_pdf.py <input.pdf> <output.pdf> <user_id>
 ```
 
 **依赖：** pikepdf
+
+---
+
+### `png/mercedes_benz_theorem.py`
+
+**状态：** 活跃（独立工具）
+
+**功能：** 使用 Matplotlib 绘制"奔驰定理"几何示意图。包含三角形、内部点 P、三条虚向量线（带箭头）、三个彩色子区域（S_A/S_B/S_C）、顶点/面积标注、标题/副标题/核心公式。生成高清 PNG。
+
+**用法：**
+```bash
+python scripts/png/mercedes_benz_theorem.py
+```
+
+**输出：** `benz_theorem_3x4_400dpi.png`（3:4 比例，400 DPI）
+
+**配置：** 脚本顶部可调 `TARGET_RATIO`、`BASE_SIZE`、`EXPORT_DPI`、字号、配色
+
+**依赖：** matplotlib、numpy
 
 ---
 

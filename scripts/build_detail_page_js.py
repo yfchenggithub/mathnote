@@ -7,7 +7,9 @@ build_detail_page_js.py
 
 Purpose
 -------
-Build one JS data file per module for the WeChat mini-program detail page.
+Build detail-page JS data files for the WeChat mini-program.
+By default, this script writes one output file per module, and it can also
+optionally write one merged output file for all selected modules.
 
 This script is intentionally different from `build_search_bundle_js.py`:
 - `build_search_bundle_js.py` prepares aggressively indexed search data.
@@ -70,6 +72,10 @@ Common usage
    `python scripts/build_detail_page_js.py --module 07_inequality --item I001 --debug --dry-run`
 5. Fail immediately on missing required fields:
    `python scripts/build_detail_page_js.py --strict`
+6. Exclude a module explicitly:
+   `python scripts/build_detail_page_js.py --exclude-module 10_final`
+7. Build one merged output file for all selected modules:
+   `python scripts/build_detail_page_js.py --merge-output data/content/detail_all.js`
 
 Maintenance guidance
 --------------------
@@ -103,6 +109,7 @@ META_FILENAME = "meta.json"
 MODULE_PREFIX_MAP_RELATIVE_PATH = Path("12_pipeline") / "config" / "module_prefix_map.json"
 
 DEFAULT_TARGET_MODULES: tuple[str, ...] = ()
+DEFAULT_EXCLUDED_MODULES: tuple[str, ...] = ("10_final",)
 IGNORED_TOP_LEVEL_DIRS = {
     ".git",
     ".github",
@@ -163,7 +170,9 @@ class BuildConfig:
     project_root: Path
     output_dir: Path
     target_modules: tuple[str, ...]
+    excluded_modules: tuple[str, ...]
     target_items: tuple[str, ...]
+    merged_output_path: Path | None
     dry_run: bool
     debug: bool
     strict: bool
@@ -209,6 +218,8 @@ def parse_args() -> argparse.Namespace:
             "Examples:\n"
             "  python scripts/build_detail_page_js.py\n"
             "  python scripts/build_detail_page_js.py --module 07_inequality\n"
+            "  python scripts/build_detail_page_js.py --exclude-module 10_final\n"
+            "  python scripts/build_detail_page_js.py --merge-output data/content/detail_all.js\n"
             "  python scripts/build_detail_page_js.py I005\n"
             "  python scripts/build_detail_page_js.py --module 07_inequality "
             "--item I001 --debug --dry-run\n"
@@ -241,6 +252,23 @@ def parse_args() -> argparse.Namespace:
         ),
     )
     parser.add_argument(
+        "--exclude-module",
+        dest="exclude_modules",
+        action="append",
+        help=(
+            "Exclude the given module directory from this build. "
+            "Can be repeated."
+        ),
+    )
+    parser.add_argument(
+        "--no-default-excluded-modules",
+        action="store_true",
+        help=(
+            "Disable default excluded modules (currently: 10_final). "
+            "Useful when you want to include them explicitly."
+        ),
+    )
+    parser.add_argument(
         "--item",
         dest="items",
         action="append",
@@ -257,6 +285,15 @@ def parse_args() -> argparse.Namespace:
             "Optional shorthand item id(s). When --module is omitted, module "
             "will be inferred from the first character by "
             "12_pipeline/config/module_prefix_map.json. Example: I005"
+        ),
+    )
+    parser.add_argument(
+        "--merge-output",
+        default=None,
+        help=(
+            "Write all selected modules into one merged JS file. "
+            "When set, only this merged file is written. "
+            "Example: --merge-output data/content/detail_all.js"
         ),
     )
     parser.add_argument(
@@ -366,11 +403,30 @@ def build_config_from_args(args: argparse.Namespace) -> BuildConfig:
             strict=bool(args.strict),
         )
 
+    default_excluded_modules = (
+        ()
+        if bool(args.no_default_excluded_modules)
+        else DEFAULT_EXCLUDED_MODULES
+    )
+    explicit_excluded_modules = tuple(args.exclude_modules or ())
+    excluded_modules = tuple(
+        dict.fromkeys(
+            str(module_name).strip()
+            for module_name in default_excluded_modules + explicit_excluded_modules
+            if str(module_name).strip()
+        )
+    )
+    merged_output_path = (
+        Path(args.merge_output).resolve() if args.merge_output else None
+    )
+
     return BuildConfig(
         project_root=project_root,
         output_dir=Path(args.output_dir).resolve(),
         target_modules=target_modules,
+        excluded_modules=excluded_modules,
         target_items=target_items,
+        merged_output_path=merged_output_path,
         dry_run=bool(args.dry_run),
         debug=bool(args.debug),
         strict=bool(args.strict),
@@ -914,12 +970,39 @@ def discover_all_module_directories(project_root: Path) -> list[Path]:
 def resolve_target_module_directories(config: BuildConfig) -> list[Path]:
     """Resolve the final module directory list from CLI settings."""
 
+    excluded_module_names = {
+        str(module_name).strip()
+        for module_name in config.excluded_modules
+        if str(module_name).strip()
+    }
+
     if not config.target_modules:
-        return discover_all_module_directories(config.project_root)
+        discovered_modules = discover_all_module_directories(config.project_root)
+        if not excluded_module_names:
+            return discovered_modules
+
+        filtered_modules: list[Path] = []
+        skipped_modules: list[str] = []
+        for module_dir in discovered_modules:
+            if module_dir.name in excluded_module_names:
+                skipped_modules.append(module_dir.name)
+                continue
+            filtered_modules.append(module_dir)
+
+        if skipped_modules:
+            LOGGER.info(
+                "Auto-discovery excluded modules: %s",
+                ", ".join(sorted(dict.fromkeys(skipped_modules))),
+            )
+        return filtered_modules
 
     module_dirs: list[Path] = []
     missing_modules: list[str] = []
+    skipped_modules: list[str] = []
     for module_name in config.target_modules:
+        if module_name in excluded_module_names:
+            skipped_modules.append(module_name)
+            continue
         module_dir = config.project_root / module_name
         if module_dir.is_dir():
             module_dirs.append(module_dir)
@@ -931,6 +1014,12 @@ def resolve_target_module_directories(config: BuildConfig) -> list[Path]:
         if config.strict:
             raise BuildError(message)
         LOGGER.warning(message)
+
+    if skipped_modules:
+        LOGGER.info(
+            "Skipped excluded target modules: %s",
+            ", ".join(sorted(dict.fromkeys(skipped_modules))),
+        )
 
     return module_dirs
 
@@ -2185,15 +2274,13 @@ def build_schema_comment() -> str:
     return "\n".join(lines)
 
 
-def write_module_js(
-    module_name: str,
+def write_js_file(
+    output_path: Path,
     data: dict[str, dict[str, Any]],
-    output_dir: Path,
 ) -> Path:
-    """Write one module output file in a debug-friendly JS format."""
+    """Write one detail-page JS output file in a debug-friendly format."""
 
-    output_dir.mkdir(parents=True, exist_ok=True)
-    output_path = output_dir / f"{module_name}.js"
+    output_path.parent.mkdir(parents=True, exist_ok=True)
     js_content = build_schema_comment() + "module.exports = " + json.dumps(
         data,
         ensure_ascii=False,
@@ -2202,6 +2289,36 @@ def write_module_js(
     ) + "\n"
     output_path.write_text(js_content, encoding="utf-8")
     return output_path
+
+
+def write_module_js(
+    module_name: str,
+    data: dict[str, dict[str, Any]],
+    output_dir: Path,
+) -> Path:
+    """Write one module output file in a debug-friendly JS format."""
+
+    return write_js_file(output_dir / f"{module_name}.js", data)
+
+
+def merge_module_outputs(
+    pending_outputs: list[tuple[str, dict[str, dict[str, Any]]]],
+) -> dict[str, dict[str, Any]]:
+    """Merge `{module -> {item_id -> detail_record}}` into one item-id map."""
+
+    merged: dict[str, dict[str, Any]] = {}
+    id_owner: dict[str, str] = {}
+    for module_name, module_data in pending_outputs:
+        for item_id, record in module_data.items():
+            existing_owner = id_owner.get(item_id)
+            if existing_owner and existing_owner != module_name:
+                raise BuildError(
+                    "Duplicate item id across modules while merging output: "
+                    f"{item_id} (modules: {existing_owner}, {module_name})"
+                )
+            merged[item_id] = record
+            id_owner[item_id] = module_name
+    return merged
 
 
 def run_build(config: BuildConfig) -> None:
@@ -2222,8 +2339,12 @@ def run_build(config: BuildConfig) -> None:
         "Target modules: %s",
         ", ".join(config.target_modules) if config.target_modules else "auto discover",
     )
+    if config.excluded_modules:
+        LOGGER.info("Excluded modules: %s", ", ".join(config.excluded_modules))
     if config.target_items:
         LOGGER.info("Target items: %s", ", ".join(config.target_items))
+    if config.merged_output_path:
+        LOGGER.info("Merged output file: %s", config.merged_output_path)
 
     LOGGER.info("Step 2/5 | Build detail-page records")
 
@@ -2258,23 +2379,42 @@ def run_build(config: BuildConfig) -> None:
 
     LOGGER.info("Step 4/5 | Write JS files")
     written_files: list[Path] = []
-    for module_name, data in pending_outputs:
+    if config.merged_output_path:
+        merged_data = merge_module_outputs(pending_outputs)
         if config.dry_run:
             LOGGER.info(
-                "[dry-run] Skip write | module=%s | items=%d",
+                "[dry-run] Skip write | merged_path=%s | items=%d | modules=%d",
+                config.merged_output_path,
+                len(merged_data),
+                len(pending_outputs),
+            )
+        else:
+            output_path = write_js_file(config.merged_output_path, merged_data)
+            written_files.append(output_path)
+            LOGGER.info(
+                "Wrote merged detail file | path=%s | items=%d | modules=%d",
+                output_path,
+                len(merged_data),
+                len(pending_outputs),
+            )
+    else:
+        for module_name, data in pending_outputs:
+            if config.dry_run:
+                LOGGER.info(
+                    "[dry-run] Skip write | module=%s | items=%d",
+                    module_name,
+                    len(data),
+                )
+                continue
+
+            output_path = write_module_js(module_name, data, config.output_dir)
+            written_files.append(output_path)
+            LOGGER.info(
+                "Wrote detail file | module=%s | path=%s | items=%d",
                 module_name,
+                output_path,
                 len(data),
             )
-            continue
-
-        output_path = write_module_js(module_name, data, config.output_dir)
-        written_files.append(output_path)
-        LOGGER.info(
-            "Wrote detail file | module=%s | path=%s | items=%d",
-            module_name,
-            output_path,
-            len(data),
-        )
 
     LOGGER.info("Step 5/5 | Finished")
     if written_files:
