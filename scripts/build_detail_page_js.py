@@ -1222,7 +1222,14 @@ def build_rich_item_from_protected_text(
 def extract_list_items_from_protected(
     protected_text: str,
 ) -> list[tuple[str, str]]:
-    """Extract `\\item[...] body` or `\\item body` entries from protected text."""
+    """Extract `\\item[...] body` or `\\item body` entries from protected text.
+
+    Preservation-first rule:
+    - Keep the full tail content after the final `\\item` instead of truncating at
+      the first `\\end{...}` marker.
+    - Downstream normalization removes environment markers, so keeping the tail
+      avoids silently dropping meaningful text that appears after a list.
+    """
 
     items: list[tuple[str, str]] = []
     index = 0
@@ -1243,9 +1250,6 @@ def extract_list_items_from_protected(
         next_item_index = protected_text.find(r"\item", cursor)
         if next_item_index == -1:
             body = protected_text[cursor:]
-            end_env_match = re.search(r"\\end\{", body)
-            if end_env_match:
-                body = body[: end_env_match.start()]
         else:
             body = protected_text[cursor:next_item_index]
         items.append((label, body))
@@ -1438,6 +1442,81 @@ def build_core_formula_section(record: dict[str, Any]) -> dict[str, Any] | None:
     }
 
 
+def cleanup_statement_desc_text(text: str) -> str:
+    """Remove statement scaffold-only lines while keeping substantive text."""
+
+    lines = [line.strip() for line in text.splitlines() if line.strip()]
+    filtered = [line for line in lines if line not in {"条件", "结论"}]
+    return "\n".join(filtered).strip()
+
+
+def normalize_statement_segment_text(text: str) -> str:
+    """Normalize one statement text segment without dropping semantic content."""
+
+    cleaned = re.sub(r"^(直观描述|说明|描述)\s*[：:]\s*", "", text).strip()
+    return cleanup_statement_desc_text(cleaned)
+
+
+def build_statement_segments(
+    raw_segments: list[dict[str, str]],
+) -> list[dict[str, str]]:
+    """Build mixed text/math segments for theorem-list items."""
+
+    normalized: list[dict[str, str]] = []
+    for seg in raw_segments:
+        seg_type = str(seg.get("type", "")).strip().lower()
+        if seg_type == "math":
+            latex = str(seg.get("latex", "")).strip()
+            if latex:
+                normalized.append({"type": "math", "latex": latex})
+            continue
+        if seg_type != "text":
+            continue
+
+        text = normalize_statement_segment_text(str(seg.get("text", "")))
+        if not text:
+            continue
+
+        if normalized and normalized[-1].get("type") == "text":
+            normalized[-1]["text"] = f"{normalized[-1]['text']}\n{text}"
+        else:
+            normalized.append({"type": "text", "text": text})
+
+    return normalized
+
+
+def extract_statement_desc_from_segments(segments: list[dict[str, str]]) -> str:
+    """Build legacy `desc` text from mixed segments for backward compatibility."""
+
+    text_parts = [
+        str(seg.get("text", "")).strip()
+        for seg in segments
+        if str(seg.get("type", "")).strip().lower() == "text"
+    ]
+    return " ".join(part for part in text_parts if part).strip()
+
+
+def choose_statement_latex_from_segments(segments: list[dict[str, str]]) -> str:
+    """Pick a representative legacy `latex` formula from mixed segments."""
+
+    formulas = [
+        str(seg.get("latex", "")).strip()
+        for seg in segments
+        if str(seg.get("type", "")).strip().lower() == "math"
+    ]
+    formulas = [latex for latex in formulas if latex]
+    if not formulas:
+        return ""
+    if len(formulas) == 1:
+        return formulas[0]
+
+    comparison_pattern = re.compile(r"\\(?:geq?|leq?|neq|approx)|>=|<=|=|>|<")
+    for latex in formulas:
+        if comparison_pattern.search(latex):
+            return latex
+    return r" \qquad ".join(formulas)
+
+
 def build_statement_theorem_items(
     raw_text: str,
     meta: dict[str, Any],
@@ -1447,32 +1526,97 @@ def build_statement_theorem_items(
     protected_text, math_map = protect_math_segments(raw_text)
     theorem_items: list[dict[str, Any]] = []
 
-    for label, body in extract_list_items_from_protected(protected_text):
+    for index, (label, body) in enumerate(
+        extract_list_items_from_protected(protected_text),
+        start=1,
+    ):
         title = normalize_text_segment(normalize_rich_text_markup(strip_math_tokens(label)))
-        if not title or "条件" in title:
-            continue
+        if not title:
+            title = f"条目{index}"
 
         normalized_body = normalize_rich_text_markup(body)
         body_segments = protected_text_to_segments(normalized_body, math_map)
-
-        formula_parts: list[str] = []
-        desc_parts: list[str] = []
-        for seg in body_segments:
-            if seg["type"] == "math":
-                formula_parts.append(seg["latex"])
-            elif seg["type"] == "text":
-                cleaned = re.sub(r"^(直观描述|说明|描述)\s*[：:]\s*", "", seg["text"]).strip()
-                if cleaned:
-                    desc_parts.append(cleaned)
-
-        desc_text = " ".join(desc_parts).strip()
+        statement_segments = build_statement_segments(body_segments)
+        desc_text = extract_statement_desc_from_segments(statement_segments)
+        latex_text = choose_statement_latex_from_segments(statement_segments)
 
         theorem_item: dict[str, Any] = {"title": title}
+        if statement_segments:
+            theorem_item["segments"] = statement_segments
         if desc_text:
             theorem_item["desc"] = desc_text
-        if formula_parts:
-            theorem_item["latex"] = r" \qquad ".join(formula_parts)
-        theorem_items.append(theorem_item)
+        if latex_text:
+            theorem_item["latex"] = latex_text
+        if len(theorem_item) > 1:
+            theorem_items.append(theorem_item)
+
+    if theorem_items:
+        return theorem_items
+
+    # When no `\item` exists, still preserve statement content by reusing the
+    # generic rich parser and mapping each chunk into theorem-list items.
+    generic_items = parse_generic_rich_items(raw_text)
+    for index, item in enumerate(generic_items, start=1):
+        if not isinstance(item, dict):
+            continue
+
+        title = f"条目{index}"
+        desc_text = ""
+        formula_text = ""
+
+        text_value = str(item.get("text") or "").strip()
+        latex_value = str(item.get("latex") or "").strip()
+        segments_value = item.get("segments")
+        raw_statement_segments: list[dict[str, str]] = []
+        if isinstance(segments_value, list):
+            for seg in segments_value:
+                if not isinstance(seg, dict):
+                    continue
+                seg_type = str(seg.get("type", "")).strip().lower()
+                if seg_type not in {"text", "math"}:
+                    continue
+                if seg_type == "math":
+                    raw_statement_segments.append(
+                        {"type": "math", "latex": str(seg.get("latex") or "").strip()}
+                    )
+                else:
+                    raw_statement_segments.append(
+                        {"type": "text", "text": str(seg.get("text") or "").strip()}
+                    )
+        elif latex_value:
+            raw_statement_segments.append({"type": "math", "latex": latex_value})
+        elif text_value:
+            raw_statement_segments.append({"type": "text", "text": text_value})
+
+        statement_segments = build_statement_segments(raw_statement_segments)
+        if statement_segments:
+            first = statement_segments[0]
+            if (
+                first.get("type") == "text"
+                and isinstance(first.get("text"), str)
+                and first["text"].strip()
+            ):
+                match = re.match(r"^\s*([^：:\n]{1,80})\s*[：:]\s*(.+)$", first["text"].strip())
+                if match:
+                    title = match.group(1).strip() or title
+                    first["text"] = match.group(2).strip()
+                    if not first["text"].strip():
+                        statement_segments = statement_segments[1:]
+
+        desc_text = extract_statement_desc_from_segments(statement_segments)
+        formula_text = choose_statement_latex_from_segments(statement_segments)
+
+        theorem_item: dict[str, Any] = {"title": title}
+        if statement_segments:
+            theorem_item["segments"] = statement_segments
+        if desc_text:
+            theorem_item["desc"] = desc_text
+        if not formula_text and latex_value:
+            formula_text = latex_value
+        if formula_text:
+            theorem_item["latex"] = formula_text
+        if len(theorem_item) > 1:
+            theorem_items.append(theorem_item)
 
     if theorem_items:
         return theorem_items

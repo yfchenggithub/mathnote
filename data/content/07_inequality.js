@@ -205,14 +205,113 @@ module.exports = {
         "layout": "theorem-list",
         "items": [
           {
+            "title": "条件 1（实数序列）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "设"
+              },
+              {
+                "type": "math",
+                "latex": "a_1, a_2, \\dots, a_n"
+              },
+              {
+                "type": "text",
+                "text": "和"
+              },
+              {
+                "type": "math",
+                "latex": "b_1, b_2, \\dots, b_n"
+              },
+              {
+                "type": "text",
+                "text": "是两个实数序列。"
+              }
+            ],
+            "desc": "设 和 是两个实数序列。",
+            "latex": "a_1, a_2, \\dots, a_n \\qquad b_1, b_2, \\dots, b_n"
+          },
+          {
             "title": "结论一（一般形式）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "平方和的乘积不小于乘积和的平方。"
+              },
+              {
+                "type": "math",
+                "latex": "\\left( \\sum_{i=1}^n a_i^2 \\right) \\left( \\sum_{i=1}^n b_i^2 \\right) \\ge \\left( \\sum_{i=1}^n a_i b_i \\right)^2."
+              }
+            ],
             "desc": "平方和的乘积不小于乘积和的平方。",
             "latex": "\\left( \\sum_{i=1}^n a_i^2 \\right) \\left( \\sum_{i=1}^n b_i^2 \\right) \\ge \\left( \\sum_{i=1}^n a_i b_i \\right)^2."
           },
           {
             "title": "推广结论（常见特例）：",
-            "desc": "二维、三维及向量形式是常用的特例。 向量形式： 。",
-            "latex": "(a^2+b^2)(c^2+d^2) \\ge (ac+bd)^2, \\quad (a_1^2+a_2^2+a_3^2)(b_1^2+b_2^2+b_3^2) \\ge (a_1b_1+a_2b_2+a_3b_3)^2. \\qquad |\\vec{a}|^2 |\\vec{b}|^2 \\ge (\\vec{a} \\cdot \\vec{b})^2"
+            "segments": [
+              {
+                "type": "text",
+                "text": "二维、三维及向量形式是常用的特例。"
+              },
+              {
+                "type": "math",
+                "latex": "(a^2+b^2)(c^2+d^2) \\ge (ac+bd)^2, \\quad (a_1^2+a_2^2+a_3^2)(b_1^2+b_2^2+b_3^2) \\ge (a_1b_1+a_2b_2+a_3b_3)^2."
+              },
+              {
+                "type": "text",
+                "text": "向量形式："
+              },
+              {
+                "type": "math",
+                "latex": "|\\vec{a}|^2 |\\vec{b}|^2 \\ge (\\vec{a} \\cdot \\vec{b})^2"
+              },
+              {
+                "type": "text",
+                "text": "。\n等号/取等条件： 当且仅当序列"
+              },
+              {
+                "type": "math",
+                "latex": "(a_i)"
+              },
+              {
+                "type": "text",
+                "text": "与"
+              },
+              {
+                "type": "math",
+                "latex": "(b_i)"
+              },
+              {
+                "type": "text",
+                "text": "成比例，即存在不全为零的实数"
+              },
+              {
+                "type": "math",
+                "latex": "\\lambda, \\mu"
+              },
+              {
+                "type": "text",
+                "text": "使得"
+              },
+              {
+                "type": "math",
+                "latex": "\\lambda a_i + \\mu b_i = 0"
+              },
+              {
+                "type": "text",
+                "text": "对所有"
+              },
+              {
+                "type": "math",
+                "latex": "i"
+              },
+              {
+                "type": "text",
+                "text": "成立。"
+              }
+            ],
+            "desc": "二维、三维及向量形式是常用的特例。 向量形式： 。\n等号/取等条件： 当且仅当序列 与 成比例，即存在不全为零的实数 使得 对所有 成立。",
+            "latex": "(a^2+b^2)(c^2+d^2) \\ge (ac+bd)^2, \\quad (a_1^2+a_2^2+a_3^2)(b_1^2+b_2^2+b_3^2) \\ge (a_1b_1+a_2b_2+a_3b_3)^2."
           }
         ]
       },
@@ -774,7 +873,7 @@ module.exports = {
               },
               {
                 "type": "text",
-                "text": "。"
+                "text": "。\n关键结论： 二维形式的柯西不等式直接得证，无需额外计算。"
               }
             ]
           },
@@ -934,7 +1033,31 @@ module.exports = {
               },
               {
                 "type": "text",
-                "text": "。\n理由：\n序列成比例，且满足条件，故最小值可达。"
+                "text": "。\n理由：\n序列成比例，且满足条件，故最小值可达。\n关键结论： 当"
+              },
+              {
+                "type": "math",
+                "latex": "x=y=z=\\frac{1}{3}"
+              },
+              {
+                "type": "text",
+                "text": "时，"
+              },
+              {
+                "type": "math",
+                "latex": "x^2+y^2+z^2"
+              },
+              {
+                "type": "text",
+                "text": "取得最小值"
+              },
+              {
+                "type": "math",
+                "latex": "\\frac{1}{3}"
+              },
+              {
+                "type": "text",
+                "text": "。"
               }
             ]
           }

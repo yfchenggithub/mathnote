@@ -838,15 +838,43 @@ def map_theorem_list_to_block(
 
         title = normalize_non_empty_string(item.get("title")) or f"结论{idx}"
         desc = normalize_non_empty_string(item.get("desc"))
-        formula = normalize_non_empty_string(item.get("latex")) or normalize_non_empty_string(item.get("formula_latex"))
+        text_value = normalize_non_empty_string(item.get("text"))
+        formula = (
+            normalize_non_empty_string(item.get("latex"))
+            or normalize_non_empty_string(item.get("formula_latex"))
+            or normalize_non_empty_string(item.get("formula"))
+        )
+
+        desc_tokens: list[dict[str, Any]] = []
+        segments = item.get("segments")
+        has_segments = isinstance(segments, list) and len(segments) > 0
+        if has_segments:
+            desc_tokens.extend(convert_segments_to_tokens(segments, warnings))
+
+            if not formula:
+                seg_math = [
+                    normalize_non_empty_string(seg.get("latex"))
+                    for seg in segments
+                    if isinstance(seg, dict)
+                    and str(seg.get("type", "")).strip().lower() in {"math", "math_inline", "math_display"}
+                ]
+                seg_math = [latex for latex in seg_math if latex]
+                if seg_math:
+                    formula = seg_math[0]
+        else:
+            if desc:
+                desc_tokens.append(text_token(desc))
+            if text_value:
+                desc_tokens.append(text_token(text_value))
+
         if not formula:
-            formula = normalize_non_empty_string(item.get("text")) or r"\text{N/A}"
-            warnings.append(f"{section_key}: theorem item 缺失 latex，已降级")
+            formula = r"\text{N/A}"
+            warnings.append(f"{section_key}: theorem item 缺失 latex，已保留说明并填充公式占位")
 
         theorem_items.append(
             {
                 "title": title,
-                "desc_tokens": [text_token(desc)] if desc else None,
+                "desc_tokens": desc_tokens or None,
                 "formula_latex": formula,
             }
         )
