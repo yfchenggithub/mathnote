@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "description": "Rules for recording why a manually marked math_block may need image rendering in WeChat Mini Program.",
+  "decisionPolicy": {
+    "manualFlagField": "need_image",
+    "manualFlagRequired": true,
+    "manualFlagStrictBoolean": true,
+    "rulesAreDecisionGate": false
+  },
+  "matchers": [
+    {
+      "name": "sqrt",
+      "enabled": true,
+      "type": "includes",
+      "pattern": "\\sqrt",
+      "reason": "Square roots can look poor in Mini Program rendering."
+    },
+    {
+      "name": "vector",
+      "enabled": true,
+      "type": "regex",
+      "pattern": "\\\\vec|\\\\overrightarrow",
+      "reason": "Vector notations can be unstable in Mini Program rendering."
+    },
+    {
+      "name": "dfrac",
+      "enabled": true,
+      "type": "includes",
+      "pattern": "\\dfrac",
+      "reason": "Display fractions can be misaligned or too small."
+    },
+    {
+      "name": "aligned",
+      "enabled": true,
+      "type": "regex",
+      "pattern": "\\\\begin\\{aligned\\}|\\\\end\\{aligned\\}",
+      "reason": "Multi-line aligned equations often need image rendering."
+    },
+    {
+      "name": "cases",
+      "enabled": true,
+      "type": "regex",
+      "pattern": "\\\\begin\\{cases\\}|\\\\end\\{cases\\}",
+      "reason": "Piecewise structures are good candidates for image rendering."
+    },
+    {
+      "name": "matrix",
+      "enabled": true,
+      "type": "regex",
+      "pattern": "\\\\begin\\{matrix\\}|\\\\begin\\{pmatrix\\}|\\\\begin\\{bmatrix\\}",
+      "reason": "Matrix layouts are good candidates for image rendering."
+    },
+    {
+      "name": "sum_or_integral",
+      "enabled": false,
+      "type": "regex",
+      "pattern": "\\\\sum|\\\\int",
+      "reason": "Optional future rule for sum and integral."
+    }
+  ]
+}
