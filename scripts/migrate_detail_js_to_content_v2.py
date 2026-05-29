@@ -1100,6 +1100,122 @@ def map_plain_content(source: dict[str, Any]) -> dict[str, Any]:
     }
 
 
+def to_positive_int(
+    value: Any,
+    field_name: str,
+    warnings: list[str],
+) -> int | None:
+    """Parse one value as a positive integer for formula asset fields."""
+    if value in (None, ""):
+        return None
+    try:
+        number = int(float(value))
+    except Exception:
+        warnings.append(f"{field_name} is not a number: {value!r}; dropped")
+        return None
+    if number <= 0:
+        warnings.append(f"{field_name} must be > 0, got {value!r}; dropped")
+        return None
+    return number
+
+
+def map_primary_formula_asset(raw_asset: Any, warnings: list[str]) -> dict[str, Any] | None:
+    """Normalize optional primary formula image asset from legacy input."""
+    if raw_asset is None:
+        return None
+    if not isinstance(raw_asset, dict):
+        warnings.append("primary_formula.asset is not an object; dropped")
+        return None
+
+    png = normalize_nullable_string(raw_asset.get("png"))
+    webp = normalize_nullable_string(raw_asset.get("webp"))
+    width_px = to_positive_int(raw_asset.get("width_px"), "primary_formula.asset.width_px", warnings)
+    height_px = to_positive_int(raw_asset.get("height_px"), "primary_formula.asset.height_px", warnings)
+    display_width_px = to_positive_int(
+        raw_asset.get("display_width_px"),
+        "primary_formula.asset.display_width_px",
+        warnings,
+    )
+    display_height_px = to_positive_int(
+        raw_asset.get("display_height_px"),
+        "primary_formula.asset.display_height_px",
+        warnings,
+    )
+    scale = to_positive_int(raw_asset.get("scale"), "primary_formula.asset.scale", warnings)
+
+    required_values = (
+        png,
+        webp,
+        width_px,
+        height_px,
+        display_width_px,
+        display_height_px,
+        scale,
+    )
+    if any(value is None for value in required_values):
+        warnings.append("primary_formula.asset is incomplete; dropped")
+        return None
+
+    return {
+        "png": png,
+        "webp": webp,
+        "width_px": width_px,
+        "height_px": height_px,
+        "display_width_px": display_width_px,
+        "display_height_px": display_height_px,
+        "scale": scale,
+    }
+
+
+def map_primary_formula(raw_primary_formula: Any, warnings: list[str]) -> dict[str, Any] | None:
+    """Map legacy core_formula into object-style content.primary_formula."""
+    if raw_primary_formula is None:
+        return None
+
+    def normalize_primary_formula_type(value: Any) -> str:
+        text = normalize_non_empty_string(value)
+        if text in {"math_block", "math_image"}:
+            return text
+        if text:
+            warnings.append(f"primary_formula.type invalid: {value!r}; fallback to 'math_block'")
+        return "math_block"
+
+    if isinstance(raw_primary_formula, dict):
+        latex = normalize_nullable_string(
+            raw_primary_formula.get("latex")
+            or raw_primary_formula.get("formula")
+            or raw_primary_formula.get("value")
+            or raw_primary_formula.get("content")
+        )
+        if not latex:
+            warnings.append("primary_formula object has no latex; dropped")
+            return None
+
+        mapped: dict[str, Any] = {
+            "latex": latex,
+            "type": normalize_primary_formula_type(raw_primary_formula.get("type")),
+        }
+        if "need_image" in raw_primary_formula:
+            mapped["need_image"] = normalize_bool(
+                raw_primary_formula.get("need_image"),
+                default=False,
+            )
+        if "asset" in raw_primary_formula:
+            asset = map_primary_formula_asset(raw_primary_formula.get("asset"), warnings)
+            if asset is not None:
+                mapped["asset"] = asset
+        return mapped
+
+    latex = normalize_nullable_string(raw_primary_formula)
+    if not latex:
+        return None
+
+    return {
+        "latex": latex,
+        "type": "math_block",
+    }
+
+
 def map_assets(raw_assets: Any, warnings: list[str]) -> dict[str, Any]:
     """assets 迁移。
 
@@ -1252,7 +1368,10 @@ def convert_record(
 
     content = {
         "render_schema_version": 2,
-        "primary_formula": normalize_nullable_string(source.get("core_formula")),
+        "primary_formula": map_primary_formula(
+            source.get("primary_formula", source.get("core_formula")),
+            warnings,
+        ),
         "variables": map_variables(source.get("variables"), warnings),
         "conditions": map_conditions(source.get("conditions")),
         "conclusions": map_conclusions(source.get("conclusions")),

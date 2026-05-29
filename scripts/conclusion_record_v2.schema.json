@@ -314,7 +314,7 @@
         "primary_formula": {
           "anyOf": [
             {
-              "type": "string"
+              "$ref": "#/$defs/PrimaryFormula"
             },
             {
               "type": "null"
@@ -362,6 +362,110 @@
         }
       },
       "title": "ContentBodyV2",
+      "type": "object"
+    },
+    "FormulaAsset": {
+      "additionalProperties": false,
+      "description": "Rendered formula image asset metadata.",
+      "properties": {
+        "png": {
+          "description": "PNG asset path",
+          "minLength": 1,
+          "title": "Png",
+          "type": "string"
+        },
+        "webp": {
+          "description": "WebP asset path",
+          "minLength": 1,
+          "title": "Webp",
+          "type": "string"
+        },
+        "width_px": {
+          "description": "Raster width in pixels",
+          "minimum": 1,
+          "title": "Width Px",
+          "type": "integer"
+        },
+        "height_px": {
+          "description": "Raster height in pixels",
+          "minimum": 1,
+          "title": "Height Px",
+          "type": "integer"
+        },
+        "display_width_px": {
+          "description": "Suggested display width",
+          "minimum": 1,
+          "title": "Display Width Px",
+          "type": "integer"
+        },
+        "display_height_px": {
+          "description": "Suggested display height",
+          "minimum": 1,
+          "title": "Display Height Px",
+          "type": "integer"
+        },
+        "scale": {
+          "description": "Render scale multiplier",
+          "minimum": 1,
+          "title": "Scale",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "png",
+        "webp",
+        "width_px",
+        "height_px",
+        "display_width_px",
+        "display_height_px",
+        "scale"
+      ],
+      "title": "FormulaAsset",
+      "type": "object"
+    },
+    "PrimaryFormula": {
+      "additionalProperties": false,
+      "description": "Primary formula payload for content rendering.",
+      "properties": {
+        "latex": {
+          "description": "Primary formula LaTeX",
+          "minLength": 1,
+          "title": "Latex",
+          "type": "string"
+        },
+        "type": {
+          "default": "math_block",
+          "description": "Primary formula node type",
+          "enum": [
+            "math_block",
+            "math_image"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "need_image": {
+          "default": false,
+          "description": "Whether image rendering is required",
+          "title": "Need Image",
+          "type": "boolean"
+        },
+        "asset": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/FormulaAsset"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Rendered image asset populated by rendering pipeline"
+        }
+      },
+      "required": [
+        "latex"
+      ],
+      "title": "PrimaryFormula",
       "type": "object"
     },
     "ContentSection": {

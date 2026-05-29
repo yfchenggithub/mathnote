@@ -3,12 +3,42 @@ from __future__ import annotations
 """
 统一构建 backend_search_index.json 与 canonical_content_v2.json。
 
-设计目标
+用法
+----
+1) 全量构建（自动发现可构建模块）
+   python scripts/build_backend_and_canonical.py
+
+2) 指定模块构建（可重复传入 --module）
+   python scripts/build_backend_and_canonical.py --module 07_inequality --module 08_sequence
+
+3) 演练流程但不写最终产物
+   python scripts/build_backend_and_canonical.py --dry-run --log-level DEBUG
+
+使用背景
 --------
-1. 默认全量构建（不传 --module）。
-2. 复用现有脚本，不复制核心业务逻辑。
-3. 输出清晰阶段日志与结构化构建报告。
-4. 支持 dry-run：不写最终 backend/canonical 目标文件。
+本仓库里，backend 搜索索引与 canonical 内容数据的构建依赖多段脚本串行执行。
+如果靠人工依次运行，不仅容易漏步骤，也不便于定位中间失败点。
+
+为什么需要这个脚本
+------------------
+1. 提供统一入口，把多段子脚本编排成单次构建流程。
+2. 复用既有子脚本能力，避免复制核心逻辑造成维护分叉。
+3. 输出分阶段日志和结构化报告，便于本地排障与 CI 集成。
+4. 支持 strict / dry-run / keep-temp，便于校验、演练和问题复现。
+
+代码流程
+--------
+A. 解析 CLI 参数，确定构建配置与目标模块（自动发现或按 --module 指定）。
+B. 创建临时工作目录，保存本次构建的中间产物。
+C. 执行 backend 链路：
+   A1 build_search_bundle_js.py
+   A2 extract_backend_index_from_search_bundle.py
+   A3 verify_backend_index_extraction.py
+D. 执行 canonical 链路：
+   B1 build_detail_page_js.py
+   B2 migrate_detail_js_to_content_v2.py（按模块迁移并合并）
+E. 合并时校验重复 ID，成功后写入最终 backend/canonical 产物（dry-run 模式跳过）。
+F. 写构建报告，最后按 keep-temp 决定保留或清理临时目录。
 """
 
 import argparse

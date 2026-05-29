@@ -313,12 +313,23 @@ function shouldRenderNode(node) {
   return normalizeLatex(node.latex).length > 0;
 }
 
+function inspectPrimaryFormula(node) {
+  if (!isContentRenderSchemaV2Node(node)) return null;
+
+  const primaryFormula = node.primary_formula;
+  if (!primaryFormula || typeof primaryFormula !== "object") return null;
+  if (Array.isArray(primaryFormula)) return null;
+
+  return {
+    marked: isNeedImageEnabled(primaryFormula.need_image),
+    latex: normalizeLatex(primaryFormula.latex),
+  };
+}
+
 function shouldRenderPrimaryFormula(node) {
-  if (!isContentRenderSchemaV2Node(node)) return false;
-  const renderMeta = node.primary_formula_render;
-  if (!renderMeta || typeof renderMeta !== "object") return false;
-  if (!isNeedImageEnabled(renderMeta.need_image)) return false;
-  return normalizeLatex(node.primary_formula).length > 0;
+  const inspected = inspectPrimaryFormula(node);
+  if (!inspected || !inspected.marked) return false;
+  return inspected.latex.length > 0;
 }
 
 function hashLatex(latex) {
@@ -597,17 +608,11 @@ async function main() {
       }
     }
 
-    if (isContentRenderSchemaV2Node(node)) {
-      const renderMeta = node.primary_formula_render;
-      if (
-        renderMeta &&
-        typeof renderMeta === "object" &&
-        isNeedImageEnabled(renderMeta.need_image)
-      ) {
-        totalNeedImagePrimaryFormula += 1;
-        if (normalizeLatex(node.primary_formula).length === 0) {
-          emptyLatexMarkedPrimaryFormula += 1;
-        }
+    const primaryFormulaInspected = inspectPrimaryFormula(node);
+    if (primaryFormulaInspected && primaryFormulaInspected.marked) {
+      totalNeedImagePrimaryFormula += 1;
+      if (primaryFormulaInspected.latex.length === 0) {
+        emptyLatexMarkedPrimaryFormula += 1;
       }
     }
 
@@ -622,11 +627,12 @@ async function main() {
     }
 
     if (shouldRenderPrimaryFormula(node)) {
+      const inspected = inspectPrimaryFormula(node);
       candidates.push({
         sourceType: "primary_formula",
         contentNode: node,
         path: `${nodePath}.primary_formula`,
-        latex: normalizeLatex(node.primary_formula),
+        latex: inspected ? inspected.latex : "",
         conclusionId: context.conclusionId,
       });
     }
@@ -794,13 +800,17 @@ async function main() {
           occurrence.contentNode &&
           typeof occurrence.contentNode === "object"
         ) {
+          const primaryFormula = occurrence.contentNode.primary_formula;
           if (
-            !occurrence.contentNode.primary_formula_render ||
-            typeof occurrence.contentNode.primary_formula_render !== "object"
+            !primaryFormula ||
+            typeof primaryFormula !== "object" ||
+            Array.isArray(primaryFormula)
           ) {
-            occurrence.contentNode.primary_formula_render = {};
+            continue;
           }
-          occurrence.contentNode.primary_formula_render.asset = formulaResult.asset;
+          primaryFormula.type = "math_image";
+          primaryFormula.asset = formulaResult.asset;
+          continue;
         }
       }
     }

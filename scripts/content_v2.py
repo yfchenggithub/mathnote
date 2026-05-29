@@ -418,6 +418,36 @@ class PlainContent(StrictBaseModel):
     summary: Optional[str] = Field(default=None, description="清洗后的总结纯文本")
 
 
+class FormulaAsset(StrictBaseModel):
+    """Rendered formula image asset metadata."""
+
+    png: str = Field(..., min_length=1, description="PNG asset path")
+    webp: str = Field(..., min_length=1, description="WebP asset path")
+    width_px: int = Field(..., ge=1, description="Raster width in pixels")
+    height_px: int = Field(..., ge=1, description="Raster height in pixels")
+    display_width_px: int = Field(..., ge=1, description="Suggested display width")
+    display_height_px: int = Field(..., ge=1, description="Suggested display height")
+    scale: int = Field(..., ge=1, description="Render scale multiplier")
+
+
+class PrimaryFormula(StrictBaseModel):
+    """Primary formula payload for content rendering."""
+
+    latex: str = Field(..., min_length=1, description="Primary formula LaTeX")
+    type: Literal["math_block", "math_image"] = Field(
+        default="math_block",
+        description="Primary formula node type",
+    )
+    need_image: bool = Field(
+        default=False,
+        description="Whether image rendering is required",
+    )
+    asset: Optional[FormulaAsset] = Field(
+        default=None,
+        description="Rendered image asset populated by rendering pipeline",
+    )
+
+
 class ContentBodyV2(StrictBaseModel):
     """
     content 主体。
@@ -428,7 +458,7 @@ class ContentBodyV2(StrictBaseModel):
     render_schema_version: Literal[2] = Field(
         default=2, description="跨端渲染协议版本，当前固定为 2"
     )
-    primary_formula: Optional[str] = Field(
+    primary_formula: Optional[PrimaryFormula] = Field(
         default=None, description="主公式 / 核心命题"
     )
     variables: List[VariableDef] = Field(
