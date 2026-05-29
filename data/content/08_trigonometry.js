@@ -54,7 +54,7 @@
  *     1. { text: string }
  *     2. { latex: string }
  *     3. { segments: [{ type: 'text', text } | { type: 'math', latex }] }
- *     4. theorem-list item: { title, desc?, latex }
+ *     4. theorem-list item: { title, segments }
  *   - Rich parser rules for mixed text/math sections:
  *     - Long equation-chain math is promoted to standalone { latex } items.
  *     - Trailing punctuation is stripped out of latex and kept in text segments.
@@ -200,9 +200,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "在 中， 为三个内角，满足 。",
-            "latex": "A+B+C=\\pi"
+            ]
           },
           {
             "title": "结论一（恒等关系）：",
@@ -223,9 +221,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\sin^2 A+\\sin^2 B+\\sin^2 C = 2+2\\cos A\\cos B\\cos C."
               }
-            ],
-            "desc": "三个内角的正弦平方和恒等于 加上两倍余弦乘积。",
-            "latex": "\\sin^2 A+\\sin^2 B+\\sin^2 C = 2+2\\cos A\\cos B\\cos C."
+            ]
           },
           {
             "title": "推广结论（直角情形）：",
@@ -242,9 +238,7 @@ module.exports = {
                 "type": "text",
                 "text": "等号/取等条件： 恒成立，无额外限制条件。"
               }
-            ],
-            "desc": "若三角形有一个直角，等式退化为勾股定理的正弦形式。 等号/取等条件： 恒成立，无额外限制条件。",
-            "latex": "\\text{若 }C=90^\\circ,\\text{ 则 }\\sin^2 A+\\sin^2 B+1=2,\\quad \\sin^2 A+\\sin^2 B=1."
+            ]
           }
         ]
       },
@@ -1016,9 +1010,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "为 的三个内角，满足 。",
-            "latex": "A+B+C=\\pi"
+            ]
           },
           {
             "title": "结论一（余弦平方和）：",
@@ -1039,9 +1031,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\cos^2 A+\\cos^2 B+\\cos^2 C = 1-2\\cos A\\cos B\\cos C."
               }
-            ],
-            "desc": "三角形内角余弦平方和等于 减去二倍余弦乘积。",
-            "latex": "\\cos^2 A+\\cos^2 B+\\cos^2 C = 1-2\\cos A\\cos B\\cos C."
+            ]
           },
           {
             "title": "推广结论（等价形式）：",
@@ -1066,9 +1056,7 @@ module.exports = {
                 "type": "text",
                 "text": "等号/取等条件： 恒等式对所有满足条件的角度均成立，无额外取等限制。"
               }
-            ],
-            "desc": "移项后得到更对称的恒等式，左边为平方和加乘积，右边为 。 等号/取等条件： 恒等式对所有满足条件的角度均成立，无额外取等限制。",
-            "latex": "\\cos^2 A+\\cos^2 B+\\cos^2 C+2\\cos A\\cos B\\cos C = 1."
+            ]
           }
         ]
       },
@@ -1875,9 +1863,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "三角形 不是直角三角形，即 ，且 。",
-            "latex": "A,B,C \\neq \\frac{\\pi}{2}"
+            ]
           },
           {
             "title": "结论一（正切积和等式）：",
@@ -1890,9 +1876,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\tan A + \\tan B + \\tan C = \\tan A \\cdot \\tan B \\cdot \\tan C."
               }
-            ],
-            "desc": "三个内角的正切之和恒等于它们的乘积。",
-            "latex": "\\tan A + \\tan B + \\tan C = \\tan A \\cdot \\tan B \\cdot \\tan C."
+            ]
           },
           {
             "title": "推广结论（负和钝角）：",
@@ -1905,9 +1889,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\tan A + \\tan B + \\tan C < 0 \\quad\\Longrightarrow\\quad \\triangle ABC\\ \\text{为钝角三角形}."
               }
-            ],
-            "desc": "若三正切之和为负数，则三角形必有一个钝角。",
-            "latex": "\\tan A + \\tan B + \\tan C < 0 \\quad\\Longrightarrow\\quad \\triangle ABC\\ \\text{为钝角三角形}."
+            ]
           }
         ]
       },
@@ -2738,9 +2720,7 @@ module.exports = {
                 "type": "text",
                 "text": "，等式恒成立，无需额外限制."
               }
-            ],
-            "desc": "对任意角 ，等式恒成立，无需额外限制.",
-            "latex": "\\alpha,\\beta"
+            ]
           },
           {
             "title": "结论一（正弦平方差）：",
@@ -2753,9 +2733,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\sin^2\\alpha - \\sin^2\\beta = \\sin(\\alpha-\\beta)\\,\\sin(\\alpha+\\beta)."
               }
-            ],
-            "desc": "正弦平方差化为两角差与和的正弦之积.",
-            "latex": "\\sin^2\\alpha - \\sin^2\\beta = \\sin(\\alpha-\\beta)\\,\\sin(\\alpha+\\beta)."
+            ]
           },
           {
             "title": "推广结论（余弦平方差）：",
@@ -2768,9 +2746,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\cos^2\\alpha - \\cos^2\\beta = -\\sin(\\alpha-\\beta)\\,\\sin(\\alpha+\\beta)."
               }
-            ],
-            "desc": "余弦平方差与正弦乘积仅差一个负号.",
-            "latex": "\\cos^2\\alpha - \\cos^2\\beta = -\\sin(\\alpha-\\beta)\\,\\sin(\\alpha+\\beta)."
+            ]
           }
         ]
       },

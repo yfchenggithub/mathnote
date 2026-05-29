@@ -54,7 +54,7 @@
  *     1. { text: string }
  *     2. { latex: string }
  *     3. { segments: [{ type: 'text', text } | { type: 'math', latex }] }
- *     4. theorem-list item: { title, desc?, latex }
+ *     4. theorem-list item: { title, segments }
  *   - Rich parser rules for mixed text/math sections:
  *     - Long equation-chain math is promoted to standalone { latex } items.
  *     - Trailing punctuation is stripped out of latex and kept in text segments.
@@ -219,9 +219,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "设球的半径为 ，其中 。",
-            "latex": "R>0"
+            ]
           },
           {
             "title": "结论一（体积公式）：",
@@ -234,9 +232,7 @@ module.exports = {
                 "type": "math",
                 "latex": "V = \\frac{4}{3}\\pi R^{3} ."
               }
-            ],
-            "desc": "球的体积与半径的三次方成正比。",
-            "latex": "V = \\frac{4}{3}\\pi R^{3} ."
+            ]
           },
           {
             "title": "结论二（表面积公式）：",
@@ -253,9 +249,7 @@ module.exports = {
                 "type": "text",
                 "text": "推广结论（逆用公式）："
               }
-            ],
-            "desc": "球的表面积（即球面面积）与半径的平方成正比。 推广结论（逆用公式）：",
-            "latex": "S = 4\\pi R^{2} ."
+            ]
           },
           {
             "title": "（已知体积求半径）：",
@@ -276,9 +270,7 @@ module.exports = {
                 "type": "math",
                 "latex": "R = \\sqrt[3]{\\frac{3V}{4\\pi}} ."
               }
-            ],
-            "desc": "若球的体积为 ，则",
-            "latex": "V>0"
+            ]
           },
           {
             "title": "（已知表面积求半径）：",
@@ -299,9 +291,7 @@ module.exports = {
                 "type": "math",
                 "latex": "R = \\sqrt{\\frac{S}{4\\pi}} ."
               }
-            ],
-            "desc": "若球的表面积为 ，则",
-            "latex": "S>0"
+            ]
           },
           {
             "title": "（已知表面积求体积）：",
@@ -338,9 +328,7 @@ module.exports = {
                 "type": "math",
                 "latex": "V=\\frac{S}{3}\\sqrt{\\frac{S}{4\\pi}}."
               }
-            ],
-            "desc": "若球的表面积为 ，则先由 求出半径，再代入体积公式 等价地，",
-            "latex": "S>0"
+            ]
           }
         ]
       },
@@ -1649,9 +1637,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "两个球的半径分别为 ，且按“球 1 : 球 2”的顺序有 其中 ， 。",
-            "latex": "R_1:R_2=m:n,"
+            ]
           },
           {
             "title": "结论一（表面积比例）：",
@@ -1664,9 +1650,7 @@ module.exports = {
                 "type": "math",
                 "latex": "S_1:S_2 = m^2:n^2,\n\\qquad \\text{即}\\qquad\n\\frac{S_1}{S_2}=\\left(\\frac{R_1}{R_2}\\right)^2."
               }
-            ],
-            "desc": "表面积之比等于半径比的平方，且比例顺序保持一致。",
-            "latex": "S_1:S_2 = m^2:n^2,\n\\qquad \\text{即}\\qquad\n\\frac{S_1}{S_2}=\\left(\\frac{R_1}{R_2}\\right)^2."
+            ]
           },
           {
             "title": "结论二（体积比例）：",
@@ -1679,9 +1663,7 @@ module.exports = {
                 "type": "math",
                 "latex": "V_1:V_2 = m^3:n^3,\n\\qquad \\text{即}\\qquad\n\\frac{V_1}{V_2}=\\left(\\frac{R_1}{R_2}\\right)^3."
               }
-            ],
-            "desc": "体积之比等于半径比的立方，且比例顺序保持一致。",
-            "latex": "V_1:V_2 = m^3:n^3,\n\\qquad \\text{即}\\qquad\n\\frac{V_1}{V_2}=\\left(\\frac{R_1}{R_2}\\right)^3."
+            ]
           },
           {
             "title": "常见推广（相似体）：",
@@ -1746,9 +1728,7 @@ module.exports = {
                 "type": "text",
                 "text": "能化为最简整数比，写成最简整数比最便于计算；若不能化为整数比，保持根式或分式形式即可。"
               }
-            ],
-            "desc": "对任意两个相似立体，若对应线段之比为 ，则对应面积之比为 ，对应体积之比为 。 特别地，若用放大倍数 表示，则 注意：若只是平面相似图形，只谈对应面积比；只有空间相似体才谈体积比。\n参数限制： 半径必须为正数。若 能化为最简整数比，写成最简整数比最便于计算；若不能化为整数比，保持根式或分式形式即可。",
-            "latex": "S_1^{(\\text{对应})}:S_2^{(\\text{对应})}=m^2:n^2,\n\\qquad\nV_1^{(\\text{对应})}:V_2^{(\\text{对应})}=m^3:n^3."
+            ]
           }
         ]
       },
@@ -2834,9 +2814,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1,\n\\qquad a>0,\\quad b>0."
               }
-            ],
-            "desc": "椭圆方程为",
-            "latex": "\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1,\n\\qquad a>0,\\quad b>0."
+            ]
           },
           {
             "title": "条件 2（旋转轴）：",
@@ -2853,9 +2831,7 @@ module.exports = {
                 "type": "text",
                 "text": "轴旋转一周。"
               }
-            ],
-            "desc": "椭圆绕 轴旋转一周。",
-            "latex": "x"
+            ]
           },
           {
             "title": "结论一（长椭球情形）：",
@@ -2884,9 +2860,7 @@ module.exports = {
                 "type": "math",
                 "latex": "S\n=\n2\\pi b^{2}\n+\n\\frac{2\\pi ab}{e}\\arcsin e."
               }
-            ],
-            "desc": "当 时，旋转椭球呈长椭球形状，表面积公式含反三角函数。\n设 则旋转椭球的表面积为",
-            "latex": "a>b"
+            ]
           },
           {
             "title": "结论二（扁椭球情形）：",
@@ -2919,9 +2893,7 @@ module.exports = {
                 "type": "text",
                 "text": "特例"
               }
-            ],
-            "desc": "当 时，旋转椭球呈扁椭球形状，表面积公式含反双曲正切函数。\n设 则旋转椭球的表面积为 特例",
-            "latex": "a<b"
+            ]
           },
           {
             "title": "退化为球：",
@@ -2950,9 +2922,7 @@ module.exports = {
                 "type": "math",
                 "latex": "S=4\\pi R^{2}."
               }
-            ],
-            "desc": "当 时，椭圆退化为圆，旋转椭球退化为半径为 的球。\n此时表面积为",
-            "latex": "a=b=R"
+            ]
           }
         ]
       },

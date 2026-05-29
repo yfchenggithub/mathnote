@@ -54,7 +54,7 @@
  *     1. { text: string }
  *     2. { latex: string }
  *     3. { segments: [{ type: 'text', text } | { type: 'math', latex }] }
- *     4. theorem-list item: { title, desc?, latex }
+ *     4. theorem-list item: { title, segments }
  *   - Rich parser rules for mixed text/math sections:
  *     - Long equation-chain math is promoted to standalone { latex } items.
  *     - Trailing punctuation is stripped out of latex and kept in text segments.
@@ -183,8 +183,7 @@ module.exports = {
                 "type": "text",
                 "text": "设"
               }
-            ],
-            "desc": "设"
+            ]
           },
           {
             "title": "条目2",
@@ -193,8 +192,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\vec{a}, \\vec{b}"
               }
-            ],
-            "latex": "\\vec{a}, \\vec{b}"
+            ]
           },
           {
             "title": "条目3",
@@ -203,8 +201,7 @@ module.exports = {
                 "type": "text",
                 "text": "为平面内任意两个向量，则它们的数量积可以表示为："
               }
-            ],
-            "desc": "为平面内任意两个向量，则它们的数量积可以表示为："
+            ]
           },
           {
             "title": "条目4",
@@ -213,8 +210,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\vec{a} \\cdot \\vec{b} = \\frac{1}{4} \\left[ (\\vec{a} + \\vec{b})^2 - (\\vec{a} - \\vec{b})^2 \\right]"
               }
-            ],
-            "latex": "\\vec{a} \\cdot \\vec{b} = \\frac{1}{4} \\left[ (\\vec{a} + \\vec{b})^2 - (\\vec{a} - \\vec{b})^2 \\right]"
+            ]
           },
           {
             "title": "几何意义",
@@ -223,8 +219,7 @@ module.exports = {
                 "type": "text",
                 "text": "向量的数量积等于以该组向量为邻边的平行四边形的\"和对角线\"平方与\"差对角线\"平方差的"
               }
-            ],
-            "desc": "向量的数量积等于以该组向量为邻边的平行四边形的\"和对角线\"平方与\"差对角线\"平方差的"
+            ]
           },
           {
             "title": "条目6",
@@ -233,8 +228,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\frac{1}{4}"
               }
-            ],
-            "latex": "\\frac{1}{4}"
+            ]
           },
           {
             "title": "条目7",
@@ -243,8 +237,7 @@ module.exports = {
                 "type": "text",
                 "text": "。\n即："
               }
-            ],
-            "desc": "。\n即："
+            ]
           },
           {
             "title": "条目8",
@@ -253,8 +246,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\vec{a} \\cdot \\vec{b} = \\frac{1}{4} \\left( |AC|^2 - |DB|^2 \\right)"
               }
-            ],
-            "latex": "\\vec{a} \\cdot \\vec{b} = \\frac{1}{4} \\left( |AC|^2 - |DB|^2 \\right)"
+            ]
           },
           {
             "title": "条目9",
@@ -263,8 +255,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "。"
+            ]
           }
         ]
       },
@@ -615,8 +606,7 @@ module.exports = {
                 "type": "text",
                 "text": "在"
               }
-            ],
-            "desc": "在"
+            ]
           },
           {
             "title": "条目2",
@@ -625,8 +615,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\triangle ABD"
               }
-            ],
-            "latex": "\\triangle ABD"
+            ]
           },
           {
             "title": "条目3",
@@ -651,9 +640,7 @@ module.exports = {
                 "type": "text",
                 "text": "的中点，则极化恒等式可表示为："
               }
-            ],
-            "desc": "中， 为 的中点，则极化恒等式可表示为：",
-            "latex": "M \\qquad BD"
+            ]
           },
           {
             "title": "条目4",
@@ -662,8 +649,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\vec{a} \\cdot \\vec{b} = |\\vec{AM}|^2 - \\frac{1}{4}|\\vec{DB}|^2 \\quad (\\text{三角形模式})"
               }
-            ],
-            "latex": "\\vec{a} \\cdot \\vec{b} = |\\vec{AM}|^2 - \\frac{1}{4}|\\vec{DB}|^2 \\quad (\\text{三角形模式})"
+            ]
           },
           {
             "title": "几何意义",
@@ -672,8 +658,7 @@ module.exports = {
                 "type": "text",
                 "text": "两个向量的数量积等于它们起点指向终点中点的向量模长的平方，减去终点之间距离一半的平方。"
               }
-            ],
-            "desc": "两个向量的数量积等于它们起点指向终点中点的向量模长的平方，减去终点之间距离一半的平方。"
+            ]
           }
         ]
       },
@@ -1161,9 +1146,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "；",
-            "latex": "PA^2 + PC^2 = PB^2 + PD^2"
+            ]
           },
           {
             "title": "条目2",
@@ -1176,9 +1159,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "。",
-            "latex": "\\vec{PA} \\cdot \\vec{PC} = \\vec{PB} \\cdot \\vec{PD}"
+            ]
           }
         ]
       },
@@ -1682,9 +1663,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "；",
-            "latex": "PA^2 + PC^2 = PB^2 + PD^2"
+            ]
           },
           {
             "title": "条目2",
@@ -1713,9 +1692,7 @@ module.exports = {
                 "type": "text",
                 "text": "为矩形，则上述关系恒成立。"
               }
-            ],
-            "desc": "。\n此结论亦可表述为：若四棱锥 的底面 为矩形，则上述关系恒成立。",
-            "latex": "\\vec{PA} \\cdot \\vec{PC} = \\vec{PB} \\cdot \\vec{PD}"
+            ]
           }
         ]
       },
@@ -2230,9 +2207,7 @@ module.exports = {
                 "type": "text",
                 "text": "满足向量乘积关系："
               }
-            ],
-            "desc": "在平面内，若 、 为定点，动点 满足向量乘积关系：",
-            "latex": "B \\qquad C \\qquad A"
+            ]
           },
           {
             "title": "条目2",
@@ -2241,8 +2216,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\vec{AB} \\cdot \\vec{AC} = \\lambda"
               }
-            ],
-            "latex": "\\vec{AB} \\cdot \\vec{AC} = \\lambda"
+            ]
           },
           {
             "title": "条目3",
@@ -2275,9 +2249,7 @@ module.exports = {
                 "type": "text",
                 "text": "为圆心，半径"
               }
-            ],
-            "desc": "则动点 的轨迹是以 中点 为圆心，半径",
-            "latex": "A \\qquad BC \\qquad M"
+            ]
           },
           {
             "title": "条目4",
@@ -2286,8 +2258,7 @@ module.exports = {
                 "type": "math",
                 "latex": "R = \\sqrt{\\lambda + \\frac{1}{4}BC^2}"
               }
-            ],
-            "latex": "R = \\sqrt{\\lambda + \\frac{1}{4}BC^2}"
+            ]
           },
           {
             "title": "条目5",
@@ -2296,8 +2267,7 @@ module.exports = {
                 "type": "text",
                 "text": "的圆。"
               }
-            ],
-            "desc": "的圆。"
+            ]
           }
         ]
       },
@@ -2775,9 +2745,7 @@ module.exports = {
                 "type": "text",
                 "text": "是"
               }
-            ],
-            "desc": "设 是",
-            "latex": "O"
+            ]
           },
           {
             "title": "条目2",
@@ -2786,8 +2754,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\triangle ABC"
               }
-            ],
-            "latex": "\\triangle ABC"
+            ]
           },
           {
             "title": "条目3",
@@ -2796,8 +2763,7 @@ module.exports = {
                 "type": "text",
                 "text": "内任意一点，"
               }
-            ],
-            "desc": "内任意一点，"
+            ]
           },
           {
             "title": "条目4",
@@ -2806,8 +2772,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\triangle BOC, \\triangle AOC, \\triangle AOB"
               }
-            ],
-            "latex": "\\triangle BOC, \\triangle AOC, \\triangle AOB"
+            ]
           },
           {
             "title": "条目5",
@@ -2824,9 +2789,7 @@ module.exports = {
                 "type": "text",
                 "text": "，则有："
               }
-            ],
-            "desc": "的面积分别记作 ，则有：",
-            "latex": "S_A, S_B, S_C"
+            ]
           },
           {
             "title": "条目6",
@@ -2835,8 +2798,7 @@ module.exports = {
                 "type": "math",
                 "latex": "S_A \\cdot \\vec{OA} + S_B \\cdot \\vec{OB} + S_C \\cdot \\vec{OC} = \\vec{0}"
               }
-            ],
-            "latex": "S_A \\cdot \\vec{OA} + S_B \\cdot \\vec{OB} + S_C \\cdot \\vec{OC} = \\vec{0}"
+            ]
           },
           {
             "title": "条目7",
@@ -2845,8 +2807,7 @@ module.exports = {
                 "type": "text",
                 "text": "benz.png\n奔驰定理：顶点线性组合系数对应所对三角形面积之比\nfig:mercedes-proof\n几何意义：\n该定理揭示了三角形内一点对顶点的向量线性组合系数与该点所对应的对边三角形面积之间的比例关系。"
               }
-            ],
-            "desc": "benz.png\n奔驰定理：顶点线性组合系数对应所对三角形面积之比\nfig:mercedes-proof\n几何意义：\n该定理揭示了三角形内一点对顶点的向量线性组合系数与该点所对应的对边三角形面积之间的比例关系。"
+            ]
           }
         ]
       },
@@ -3339,9 +3300,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "面积之比： ；",
-            "latex": "S_{\\triangle BOC} : S_{\\triangle COA} : S_{\\triangle AOB} = |x| : |y| : |z|"
+            ]
           },
           {
             "title": "条目2",
@@ -3358,9 +3317,7 @@ module.exports = {
                 "type": "text",
                 "text": "，以此类推。"
               }
-            ],
-            "desc": "面积占比： ，以此类推。",
-            "latex": "\\frac{S_{\\triangle BOC}}{S_{\\triangle ABC}} = \\left| \\frac{x}{x+y+z} \\right|"
+            ]
           }
         ]
       },
@@ -3767,9 +3724,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "基准等式： ；",
-            "latex": "\\vec{GA} + \\vec{GB} + \\vec{GC} = \\vec{0}"
+            ]
           },
           {
             "title": "条目2",
@@ -3794,9 +3749,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "任意点表示：对于平面内任意一点 ，有 ；",
-            "latex": "\\vec{OG} = \\frac{1}{3}(\\vec{OA} + \\vec{OB} + \\vec{OC})"
+            ]
           },
           {
             "title": "条目3",
@@ -3821,9 +3774,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "坐标公式：重心 的坐标为 ；",
-            "latex": "G\\left( \\frac{x_1+x_2+x_3}{3}, \\frac{y_1+y_2+y_3}{3} \\right)"
+            ]
           },
           {
             "title": "条目4",
@@ -3840,9 +3791,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "面积特性： 。",
-            "latex": "S_{\\triangle GAB} = S_{\\triangle GBC} = S_{\\triangle GCA} = \\frac{1}{3}S_{\\triangle ABC}"
+            ]
           }
         ]
       },
@@ -4608,9 +4557,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "基准等式： ；",
-            "latex": "a\\vec{IA} + b\\vec{IB} + c\\vec{IC} = \\vec{0}"
+            ]
           },
           {
             "title": "条目2",
@@ -4635,9 +4582,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "任意点表示：对于平面内任意一点 ，有 ；",
-            "latex": "\\vec{OI} = \\frac{a\\vec{OA} + b\\vec{OB} + c\\vec{OC}}{a+b+c}"
+            ]
           },
           {
             "title": "条目3",
@@ -4670,9 +4615,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "角平分线向量：若 为 的平分线，则 ；",
-            "latex": "\\vec{AD} = \\frac{b}{b+c}\\vec{AB} + \\frac{c}{b+c}\\vec{AC}"
+            ]
           },
           {
             "title": "条目4",
@@ -4713,9 +4656,7 @@ module.exports = {
                 "type": "text",
                 "text": "共线）。"
               }
-            ],
-            "desc": "单位向量表示：向量 所在直线过 的内心 （即该向量与角平分线 共线）。",
-            "latex": "\\vec{v} = \\lambda \\left( \\frac{\\vec{AB}}{|\\vec{AB}|} + \\frac{\\vec{AC}}{|\\vec{AC}|} \\right) (\\lambda \\neq 0)"
+            ]
           },
           {
             "title": "条目5",
@@ -4748,9 +4689,7 @@ module.exports = {
                 "type": "text",
                 "text": "延伸思考："
               }
-            ],
-            "desc": "内心坐标公式：在平面直角坐标系中，设 ，则内心 的坐标为： 延伸思考：",
-            "latex": "I\\left( \\frac{ax_1 + bx_2 + cx_3}{a+b+c}, \\frac{ay_1 + by_2 + cy_3}{a+b+c} \\right)"
+            ]
           },
           {
             "title": "条目6",
@@ -4775,9 +4714,7 @@ module.exports = {
                 "type": "text",
                 "text": "的外角。"
               }
-            ],
-            "desc": "减法形式：若将加号改为减号，即向量 ，则该向量所在直线平分 的外角。",
-            "latex": "\\vec{u} = \\lambda \\left( \\frac{\\vec{AB}}{|\\vec{AB}|} - \\frac{\\vec{AC}}{|\\vec{AC}|} \\right) (\\lambda \\neq 0)"
+            ]
           },
           {
             "title": "条目7",
@@ -4786,8 +4723,7 @@ module.exports = {
                 "type": "text",
                 "text": "几何直观：加法形式构造的是菱形的对角线（内角平分线），减法形式构造的是与该对角线垂直的另一条对角线（外角平分线）。"
               }
-            ],
-            "desc": "几何直观：加法形式构造的是菱形的对角线（内角平分线），减法形式构造的是与该对角线垂直的另一条对角线（外角平分线）。"
+            ]
           }
         ]
       },
@@ -5784,9 +5720,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "基准等式： ；",
-            "latex": "-a\\vec{OA} + b\\vec{OB} + c\\vec{OC} = \\vec{0}"
+            ]
           },
           {
             "title": "条目2",
@@ -5811,9 +5745,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "任意点表示：对于平面内任意一点 ，有 ；",
-            "latex": "\\vec{MO} = \\frac{-a\\vec{MA} + b\\vec{MB} + c\\vec{MC}}{-a+b+c}"
+            ]
           },
           {
             "title": "条目3",
@@ -5838,9 +5770,7 @@ module.exports = {
                 "type": "text",
                 "text": "所在直线。"
               }
-            ],
-            "desc": "单位向量表示：向量 指向旁心 所在直线。",
-            "latex": "\\vec{v} = \\lambda \\left( \\frac{\\vec{AB}}{|\\vec{AB}|} + \\frac{\\vec{AC}}{|\\vec{AC}|} \\right)"
+            ]
           }
         ]
       },
@@ -6445,9 +6375,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "模长恒等性： ；",
-            "latex": "|\\vec{OA}| = |\\vec{OB}| = |\\vec{OC}| = R"
+            ]
           },
           {
             "title": "条目2",
@@ -6460,9 +6388,7 @@ module.exports = {
                 "type": "math",
                 "latex": "(\\sin 2A) \\cdot \\vec{OA} + (\\sin 2B) \\cdot \\vec{OB} + (\\sin 2C) \\cdot \\vec{OC} = \\vec{0}"
               }
-            ],
-            "desc": "基准等式（奔驰定理形式）：",
-            "latex": "(\\sin 2A) \\cdot \\vec{OA} + (\\sin 2B) \\cdot \\vec{OB} + (\\sin 2C) \\cdot \\vec{OC} = \\vec{0}"
+            ]
           },
           {
             "title": "条目3",
@@ -6471,8 +6397,7 @@ module.exports = {
                 "type": "text",
                 "text": "数量积特性："
               }
-            ],
-            "desc": "数量积特性："
+            ]
           },
           {
             "title": "条目4",
@@ -6481,8 +6406,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\vec{OA} \\cdot \\vec{OB} = R^2 \\cos 2C"
               }
-            ],
-            "latex": "\\vec{OA} \\cdot \\vec{OB} = R^2 \\cos 2C"
+            ]
           },
           {
             "title": "条目5",
@@ -6491,8 +6415,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\vec{OB} \\cdot \\vec{OC} = R^2 \\cos 2A"
               }
-            ],
-            "latex": "\\vec{OB} \\cdot \\vec{OC} = R^2 \\cos 2A"
+            ]
           },
           {
             "title": "条目6",
@@ -6501,8 +6424,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\vec{OC} \\cdot \\vec{OA} = R^2 \\cos 2B"
               }
-            ],
-            "latex": "\\vec{OC} \\cdot \\vec{OA} = R^2 \\cos 2B"
+            ]
           }
         ]
       },
@@ -7091,9 +7013,7 @@ module.exports = {
                 "type": "text",
                 "text": "为定值）；"
               }
-            ],
-            "desc": "核心特征：若点 在直线 或与 平行的直线上，则 （ 为定值）；",
-            "latex": "\\lambda + \\mu = k"
+            ]
           },
           {
             "title": "条目2",
@@ -7102,8 +7022,7 @@ module.exports = {
                 "type": "text",
                 "text": "分情况讨论："
               }
-            ],
-            "desc": "分情况讨论："
+            ]
           },
           {
             "title": "条目3",
@@ -7124,9 +7043,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "：等和线即为直线 ；",
-            "latex": "k=1"
+            ]
           },
           {
             "title": "条目4",
@@ -7155,9 +7072,7 @@ module.exports = {
                 "type": "text",
                 "text": "之间；"
               }
-            ],
-            "desc": "：等和线位于点 与直线 之间；",
-            "latex": "0 < k < 1"
+            ]
           },
           {
             "title": "条目5",
@@ -7186,9 +7101,7 @@ module.exports = {
                 "type": "text",
                 "text": "与等和线之间；"
               }
-            ],
-            "desc": "：直线 位于点 与等和线之间；",
-            "latex": "k > 1"
+            ]
           },
           {
             "title": "条目6",
@@ -7225,9 +7138,7 @@ module.exports = {
                 "type": "text",
                 "text": "的直线）；"
               }
-            ],
-            "desc": "：等和线经过原点 （即与 平行且过 的直线）；",
-            "latex": "k = 0"
+            ]
           },
           {
             "title": "条目7",
@@ -7252,9 +7163,7 @@ module.exports = {
                 "type": "text",
                 "text": "值互为相反数。"
               }
-            ],
-            "desc": "关于 点对称的两条等和线，其 值互为相反数。",
-            "latex": "O \\qquad k"
+            ]
           },
           {
             "title": "条目8",
@@ -7279,9 +7188,7 @@ module.exports = {
                 "type": "text",
                 "text": "的距离成正比。"
               }
-            ],
-            "desc": "距离比例：定值 的变化与等和线到点 的距离成正比。",
-            "latex": "k \\qquad O"
+            ]
           }
         ]
       },
@@ -8109,9 +8016,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\vec{AP} = \\lambda \\vec{AM} + (1 - \\lambda) \\vec{AN}"
               }
-            ],
-            "desc": "核心结论： 三点共线的充要条件是存在实数 ，使得：",
-            "latex": "\\vec{AP} = \\lambda \\vec{AM} + (1 - \\lambda) \\vec{AN}"
+            ]
           },
           {
             "title": "条目2",
@@ -8140,9 +8045,7 @@ module.exports = {
                 "type": "math",
                 "latex": "m + n = 1"
               }
-            ],
-            "desc": "一般形式：若 ，则 三点共线的充要条件是：",
-            "latex": "\\vec{AP} = m \\vec{AM} + n \\vec{AN}"
+            ]
           }
         ]
       },
@@ -8808,9 +8711,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "核心公式： ；",
-            "latex": "\\vec{AB} \\cdot \\vec{AC} = \\frac{b^2 + c^2 - a^2}{2}"
+            ]
           },
           {
             "title": "条目2",
@@ -8819,8 +8720,7 @@ module.exports = {
                 "type": "text",
                 "text": "通项表示："
               }
-            ],
-            "desc": "通项表示："
+            ]
           },
           {
             "title": "条目3",
@@ -8829,8 +8729,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\vec{BA} \\cdot \\vec{BC} = \\frac{a^2 + c^2 - b^2}{2}"
               }
-            ],
-            "latex": "\\vec{BA} \\cdot \\vec{BC} = \\frac{a^2 + c^2 - b^2}{2}"
+            ]
           },
           {
             "title": "条目4",
@@ -8839,8 +8738,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\vec{CA} \\cdot \\vec{CB} = \\frac{a^2 + b^2 - c^2}{2}"
               }
-            ],
-            "latex": "\\vec{CA} \\cdot \\vec{CB} = \\frac{a^2 + b^2 - c^2}{2}"
+            ]
           },
           {
             "title": "条目5",
@@ -8849,8 +8747,7 @@ module.exports = {
                 "type": "text",
                 "text": "几何意义：该公式将两个共起点向量的数量积完全转化为三角形三边的度量。"
               }
-            ],
-            "desc": "几何意义：该公式将两个共起点向量的数量积完全转化为三角形三边的度量。"
+            ]
           }
         ]
       },
@@ -9206,9 +9103,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "核心等式： ；",
-            "latex": "\\vec{OH} = \\vec{OA} + \\vec{OB} + \\vec{OC}"
+            ]
           },
           {
             "title": "条目2",
@@ -9233,9 +9128,7 @@ module.exports = {
                 "type": "text",
                 "text": "顶点亦成立）；"
               }
-            ],
-            "desc": "顶点表示： （同理对 顶点亦成立）；",
-            "latex": "\\vec{AH} = \\vec{OB} + \\vec{OC}"
+            ]
           },
           {
             "title": "条目3",
@@ -9252,9 +9145,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "模长平方结论： ；",
-            "latex": "|\\vec{OH}|^2 = 9R^2 - (a^2 + b^2 + c^2)"
+            ]
           },
           {
             "title": "条目4",
@@ -9271,9 +9162,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "距离关系： 。",
-            "latex": "|\\vec{AH}|^2 = 4R^2 - a^2"
+            ]
           }
         ]
       },
@@ -10171,9 +10060,7 @@ module.exports = {
                 "type": "text",
                 "text": "：三边中垂线交点；"
               }
-            ],
-            "desc": "外心 ：三边中垂线交点；",
-            "latex": "O"
+            ]
           },
           {
             "title": "条目2",
@@ -10190,9 +10077,7 @@ module.exports = {
                 "type": "text",
                 "text": "：三条中线交点；"
               }
-            ],
-            "desc": "重心 ：三条中线交点；",
-            "latex": "G"
+            ]
           },
           {
             "title": "条目3",
@@ -10209,9 +10094,7 @@ module.exports = {
                 "type": "text",
                 "text": "：三角形九点圆的中心；"
               }
-            ],
-            "desc": "九点圆圆心 ：三角形九点圆的中心；",
-            "latex": "E"
+            ]
           },
           {
             "title": "条目4",
@@ -10244,9 +10127,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "垂心 ：三条高线交点。\n核心数量关系： 即比例关系为 。",
-            "latex": "\\vec{OH} = 3\\vec{OG}, \\quad \\vec{OE} = \\frac{1}{2}\\vec{OH}, \\quad \\vec{EG} = \\frac{1}{6}\\vec{OH}"
+            ]
           }
         ]
       },
@@ -10879,9 +10760,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "三边中点： ；",
-            "latex": "D, E, F"
+            ]
           },
           {
             "title": "条目2",
@@ -10898,9 +10777,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "三条高的垂足： ；",
-            "latex": "H_1, H_2, H_3"
+            ]
           },
           {
             "title": "条目3",
@@ -10917,9 +10794,7 @@ module.exports = {
                 "type": "text",
                 "text": "。\n核心性质："
               }
-            ],
-            "desc": "垂心与顶点连线的中点（欧拉点）： 。\n核心性质：",
-            "latex": "X, Y, Z"
+            ]
           },
           {
             "title": "条目4",
@@ -10944,9 +10819,7 @@ module.exports = {
                 "type": "text",
                 "text": "为外接圆半径）；"
               }
-            ],
-            "desc": "半径关系：九点圆半径 （ 为外接圆半径）；",
-            "latex": "R_9 = \\frac{1}{2}R"
+            ]
           },
           {
             "title": "条目5",
@@ -10979,9 +10852,7 @@ module.exports = {
                 "type": "text",
                 "text": "的中点；"
               }
-            ],
-            "desc": "圆心位置：九点圆心 是外心 与垂心 的中点；",
-            "latex": "E \\qquad O \\qquad H"
+            ]
           },
           {
             "title": "条目6",
@@ -11022,9 +10893,7 @@ module.exports = {
                 "type": "text",
                 "text": "，则："
               }
-            ],
-            "desc": "费尔巴哈定理：九点圆与内切圆内切，与三个旁切圆外切。\n结论：九点圆心位置特性\n设 的外心为 ，垂心为 ，九点圆圆心为 ，则：",
-            "latex": "\\triangle ABC \\qquad O \\qquad H \\qquad E"
+            ]
           },
           {
             "title": "条目7",
@@ -11041,9 +10910,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "中点性质： ；",
-            "latex": "\\vec{OE} = \\vec{EH} = \\frac{1}{2}\\vec{OH}"
+            ]
           },
           {
             "title": "条目8",
@@ -11060,9 +10927,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "坐标表示： ；",
-            "latex": "E = \\frac{O + H}{2}"
+            ]
           },
           {
             "title": "条目9",
@@ -11087,9 +10952,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "向量关系：对于平面内任意一点 ， ；",
-            "latex": "\\vec{PE} = \\frac{1}{2}(\\vec{PO} + \\vec{PH})"
+            ]
           },
           {
             "title": "条目10",
@@ -11106,9 +10969,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "半径对应：九点圆的圆心到九点的距离恒为 。",
-            "latex": "\\frac{1}{2}R"
+            ]
           }
         ]
       },
@@ -11961,9 +11822,7 @@ module.exports = {
                 "type": "text",
                 "text": "四点中，任一点均为其余三点构成三角形的垂心；"
               }
-            ],
-            "desc": "垂心组性质：在 四点中，任一点均为其余三点构成三角形的垂心；",
-            "latex": "A, B, C, H"
+            ]
           },
           {
             "title": "条目2",
@@ -11988,9 +11847,7 @@ module.exports = {
                 "type": "text",
                 "text": "的内心；"
               }
-            ],
-            "desc": "内心转化性质：垂心 是其垂足三角形 的内心；",
-            "latex": "H \\qquad \\triangle DEF"
+            ]
           },
           {
             "title": "条目3",
@@ -12015,9 +11872,7 @@ module.exports = {
                 "type": "text",
                 "text": "的旁心；"
               }
-            ],
-            "desc": "旁心转化性质：原三角形顶点 分别是垂足三角形 的旁心；",
-            "latex": "A, B, C \\qquad \\triangle DEF"
+            ]
           },
           {
             "title": "条目4",
@@ -12034,9 +11889,7 @@ module.exports = {
                 "type": "text",
                 "text": "的外接圆上。"
               }
-            ],
-            "desc": "对称点性质：垂心关于边的对称点、关于边中点的对称点均在 的外接圆上。",
-            "latex": "\\triangle ABC"
+            ]
           }
         ]
       },
@@ -12600,9 +12453,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "数量积等量性： ；",
-            "latex": "\\vec{HA} \\cdot \\vec{HB} = \\vec{HB} \\cdot \\vec{HC} = \\vec{HC} \\cdot \\vec{HA}"
+            ]
           },
           {
             "title": "条目2",
@@ -12627,9 +12478,7 @@ module.exports = {
                 "type": "text",
                 "text": "为外接圆半径）；"
               }
-            ],
-            "desc": "等式常数值：上述数量积的值等于 （其中 为外接圆半径）；",
-            "latex": "2R^2 \\cos A \\cos B \\cos C \\qquad R"
+            ]
           },
           {
             "title": "条目3",
@@ -12654,9 +12503,7 @@ module.exports = {
                 "type": "text",
                 "text": "非直角三角形）。"
               }
-            ],
-            "desc": "正切权重等式： （要求 非直角三角形）。",
-            "latex": "\\tan A \\cdot \\vec{HA} + \\tan B \\cdot \\vec{HB} + \\tan C \\cdot \\vec{HC} = \\vec{0}"
+            ]
           },
           {
             "title": "条目4",
@@ -12673,9 +12520,7 @@ module.exports = {
                 "type": "text",
                 "text": "这四个点中，任取一点，该点必然是其余三点所构成的三角形的垂心。"
               }
-            ],
-            "desc": "四点对称性：在 这四个点中，任取一点，该点必然是其余三点所构成的三角形的垂心。",
-            "latex": "A, B, C, H"
+            ]
           },
           {
             "title": "条目5",
@@ -12696,9 +12541,7 @@ module.exports = {
                 "type": "text",
                 "text": "的垂心；"
               }
-            ],
-            "desc": "是 的垂心；",
-            "latex": "H \\qquad \\triangle ABC"
+            ]
           },
           {
             "title": "条目6",
@@ -12719,9 +12562,7 @@ module.exports = {
                 "type": "text",
                 "text": "的垂心；"
               }
-            ],
-            "desc": "是 的垂心；",
-            "latex": "A \\qquad \\triangle HBC"
+            ]
           },
           {
             "title": "条目7",
@@ -12742,9 +12583,7 @@ module.exports = {
                 "type": "text",
                 "text": "的垂心；"
               }
-            ],
-            "desc": "是 的垂心；",
-            "latex": "B \\qquad \\triangle HAC"
+            ]
           },
           {
             "title": "条目8",
@@ -12765,9 +12604,7 @@ module.exports = {
                 "type": "text",
                 "text": "的垂心。"
               }
-            ],
-            "desc": "是 的垂心。",
-            "latex": "C \\qquad \\triangle HAB"
+            ]
           }
         ]
       },

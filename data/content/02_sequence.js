@@ -54,7 +54,7 @@
  *     1. { text: string }
  *     2. { latex: string }
  *     3. { segments: [{ type: 'text', text } | { type: 'math', latex }] }
- *     4. theorem-list item: { title, desc?, latex }
+ *     4. theorem-list item: { title, segments }
  *   - Rich parser rules for mixed text/math sections:
  *     - Long equation-chain math is promoted to standalone { latex } items.
  *     - Trailing punctuation is stripped out of latex and kept in text segments.
@@ -193,9 +193,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "数列 为等差数列，设公差为 。",
-            "latex": "\\{a_n\\} \\qquad d"
+            ]
           },
           {
             "title": "条件 2（等比定义）：",
@@ -220,9 +218,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "数列 为等比数列，公比 。",
-            "latex": "q \\neq 1"
+            ]
           },
           {
             "title": "条件 3（乘积定义）：",
@@ -255,9 +251,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "令 ，其前 项和为 。",
-            "latex": "c_n = a_n b_n"
+            ]
           },
           {
             "title": "结论一（差比乘积和）：",
@@ -278,9 +272,7 @@ module.exports = {
                 "type": "math",
                 "latex": "S_n = \\frac{c_{n+1} - q^{2} c_n + q c_1}{(q-1)^{2}}."
               }
-            ],
-            "desc": "前 项和可用项与首项交叉表达。",
-            "latex": "S_n = \\frac{c_{n+1} - q^{2} c_n + q c_1}{(q-1)^{2}}."
+            ]
           },
           {
             "title": "推广结论（显式求和）：",
@@ -305,9 +297,7 @@ module.exports = {
                 "type": "text",
                 "text": "）。"
               }
-            ],
-            "desc": "直接由首项、公差和公比给出显式。 等号/取等条件： 无（公式为恒等式，仅需 ）。",
-            "latex": "S_n = \\frac{a_1 b_1 - a_{n+1} b_{n+1}}{1-q} + \\frac{d b_1 q (1 - q^{n})}{(1-q)^{2}}."
+            ]
           }
         ]
       },
@@ -1712,9 +1702,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "数列 为等差数列，首项 ，公差 ，即对任意 有 。",
-            "latex": "a_{n+1}-a_n=d"
+            ]
           },
           {
             "title": "结论一（前n项和公式）：",
@@ -1727,9 +1715,7 @@ module.exports = {
                 "type": "math",
                 "latex": "S_n = \\frac{n(a_1+a_n)}{2} = na_1 + \\frac{n(n-1)}{2}d ."
               }
-            ],
-            "desc": "数列和等于首尾平均乘项数，像梯形面积。",
-            "latex": "S_n = \\frac{n(a_1+a_n)}{2} = na_1 + \\frac{n(n-1)}{2}d ."
+            ]
           },
           {
             "title": "推广结论（倒序相加形式）：",
@@ -1742,9 +1728,7 @@ module.exports = {
                 "type": "math",
                 "latex": "S_n = \\frac{n}{2}(a_1 + a_n) ."
               }
-            ],
-            "desc": "采用首尾配对相加，乘以项数一半。",
-            "latex": "S_n = \\frac{n}{2}(a_1 + a_n) ."
+            ]
           }
         ]
       },
@@ -3087,9 +3071,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "数列 满足 （ ），即各项均为前一项的 倍，首项 ， 。",
-            "latex": "\\frac{a_{n}}{a_{n-1}} = q"
+            ]
           },
           {
             "title": "结论一（分段求和）：",
@@ -3118,9 +3100,7 @@ module.exports = {
                 "type": "math",
                 "latex": "S_n=\n\\begin{cases}\nn a_1, & q=1,\\\\[6pt]\n\\frac{a_1(1-q^n)}{1-q}\n=\\frac{a_1-a_n q}{1-q}, & q\\neq 1.\n\\end{cases}"
               }
-            ],
-            "desc": "等比数列前 项和按公比是否等于 分成两种情形计算。",
-            "latex": "S_n=\n\\begin{cases}\nn a_1, & q=1,\\\\[6pt]\n\\frac{a_1(1-q^n)}{1-q}\n=\\frac{a_1-a_n q}{1-q}, & q\\neq 1.\n\\end{cases}"
+            ]
           },
           {
             "title": "推广结论(无穷项和):",
@@ -3141,9 +3121,7 @@ module.exports = {
                 "type": "math",
                 "latex": "S = \\frac{a_1}{1-q},\\qquad |q|<1."
               }
-            ],
-            "desc": "当公比的绝对值小于 时,无限项求和收敛于常数.",
-            "latex": "S = \\frac{a_1}{1-q},\\qquad |q|<1."
+            ]
           }
         ]
       },
@@ -4424,9 +4402,7 @@ module.exports = {
                 "type": "text",
                 "text": "成立。"
               }
-            ],
-            "desc": "数列 是等差数列，即存在常数 使得 对任意正整数 成立。",
-            "latex": "a_{n+1}-a_n=d"
+            ]
           },
           {
             "title": "结论一（下标和性质）：",
@@ -4439,9 +4415,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\text{若}m+n=p+q\\text{，则}a_m+a_n=a_p+a_q\\text{。}"
               }
-            ],
-            "desc": "下标和相等时，对应两项之和相等。",
-            "latex": "\\text{若}m+n=p+q\\text{，则}a_m+a_n=a_p+a_q\\text{。}"
+            ]
           },
           {
             "title": "推广结论（中项特例）：",
@@ -4458,9 +4432,7 @@ module.exports = {
                 "type": "text",
                 "text": "等号/取等条件： 等号恒成立，无需额外条件。"
               }
-            ],
-            "desc": "当下标和为偶数时，两项和等于中间项的两倍。 等号/取等条件： 等号恒成立，无需额外条件。",
-            "latex": "\\text{若}m+n=2k\\text{，则}a_m+a_n=2a_k\\text{。}"
+            ]
           }
         ]
       },
@@ -5553,9 +5525,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "等比数列 中，下标 满足 。",
-            "latex": "m+n=p+q"
+            ]
           },
           {
             "title": "结论一（两项乘积相等）：",
@@ -5568,9 +5538,7 @@ module.exports = {
                 "type": "math",
                 "latex": "a_m\\cdot a_n = a_p\\cdot a_q."
               }
-            ],
-            "desc": "下标和相等时，对应两项的乘积相等。",
-            "latex": "a_m\\cdot a_n = a_p\\cdot a_q."
+            ]
           },
           {
             "title": "推广结论（等比中项性质）：",
@@ -5587,9 +5555,7 @@ module.exports = {
                 "type": "text",
                 "text": "等号/取等条件： 无额外取等条件，等式恒成立。"
               }
-            ],
-            "desc": "当下标和是偶数时，乘积等于中间项的平方。 等号/取等条件： 无额外取等条件，等式恒成立。",
-            "latex": "m+n=2k \\quad\\Rightarrow\\quad a_m\\cdot a_n = a_k^2."
+            ]
           }
         ]
       },
@@ -6555,9 +6521,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "，求和下标 。",
-            "latex": "k=1,2,\\dots,n"
+            ]
           },
           {
             "title": "条件 2（通项匹配）：",
@@ -6574,9 +6538,7 @@ module.exports = {
                 "type": "text",
                 "text": "，即“系数”和“阶乘下标”相同。"
               }
-            ],
-            "desc": "通项必须是 ，即“系数”和“阶乘下标”相同。",
-            "latex": "k\\cdot k!"
+            ]
           },
           {
             "title": "结论一（阶乘裂项求和公式）：",
@@ -6629,9 +6591,7 @@ module.exports = {
                 "type": "math",
                 "latex": "1!+2\\cdot 2!+3\\cdot 3!+\\cdots+n\\cdot n\\neq(n+1)!-1."
               }
-            ],
-            "desc": "从 到 求和，结果等于“下一阶乘减 ”。 由于 ，也常写成",
-            "latex": "1\\cdot 1!+2\\cdot 2!+3\\cdot 3!+\\cdots+n\\cdot n\\neq(n+1)!-1."
+            ]
           },
           {
             "title": "核心裂项：",
@@ -6652,9 +6612,7 @@ module.exports = {
                 "type": "math",
                 "latex": "k\\cdot k\\neq(k+1)!-k!."
               }
-            ],
-            "desc": "每一项 都可以拆成相邻两个阶乘之差。",
-            "latex": "k\\cdot k\\neq(k+1)!-k!."
+            ]
           },
           {
             "title": "常用变形（非从 开始）：",
@@ -6695,9 +6653,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "若 ，则 下限不是 时，不能直接写成 。",
-            "latex": "1\\le r\\le n"
+            ]
           }
         ]
       },

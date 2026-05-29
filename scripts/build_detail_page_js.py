@@ -1757,38 +1757,6 @@ def build_statement_segments(
     return normalized
 
 
-def extract_statement_desc_from_segments(segments: list[dict[str, str]]) -> str:
-    """Build legacy `desc` text from mixed segments for backward compatibility."""
-
-    text_parts = [
-        str(seg.get("text", "")).strip()
-        for seg in segments
-        if str(seg.get("type", "")).strip().lower() == "text"
-    ]
-    return " ".join(part for part in text_parts if part).strip()
-
-
-def choose_statement_latex_from_segments(segments: list[dict[str, str]]) -> str:
-    """Pick a representative legacy `latex` formula from mixed segments."""
-
-    formulas = [
-        str(seg.get("latex", "")).strip()
-        for seg in segments
-        if str(seg.get("type", "")).strip().lower() == "math"
-    ]
-    formulas = [latex for latex in formulas if latex]
-    if not formulas:
-        return ""
-    if len(formulas) == 1:
-        return formulas[0]
-
-    comparison_pattern = re.compile(r"\\(?:geq?|leq?|neq|approx)|>=|<=|=|>|<")
-    for latex in formulas:
-        if comparison_pattern.search(latex):
-            return latex
-    return r" \qquad ".join(formulas)
-
-
 def build_statement_theorem_items(
     raw_text: str,
     meta: dict[str, Any],
@@ -1809,16 +1777,10 @@ def build_statement_theorem_items(
         normalized_body = normalize_rich_text_markup(body)
         body_segments = protected_text_to_segments(normalized_body, math_map)
         statement_segments = build_statement_segments(body_segments)
-        desc_text = extract_statement_desc_from_segments(statement_segments)
-        latex_text = choose_statement_latex_from_segments(statement_segments)
 
         theorem_item: dict[str, Any] = {"title": title}
         if statement_segments:
             theorem_item["segments"] = statement_segments
-        if desc_text:
-            theorem_item["desc"] = desc_text
-        if latex_text:
-            theorem_item["latex"] = latex_text
         if len(theorem_item) > 1:
             theorem_items.append(theorem_item)
 
@@ -1833,8 +1795,6 @@ def build_statement_theorem_items(
             continue
 
         title = f"条目{index}"
-        desc_text = ""
-        formula_text = ""
 
         text_value = str(item.get("text") or "").strip()
         latex_value = str(item.get("latex") or "").strip()
@@ -1875,18 +1835,9 @@ def build_statement_theorem_items(
                     if not first["text"].strip():
                         statement_segments = statement_segments[1:]
 
-        desc_text = extract_statement_desc_from_segments(statement_segments)
-        formula_text = choose_statement_latex_from_segments(statement_segments)
-
         theorem_item: dict[str, Any] = {"title": title}
         if statement_segments:
             theorem_item["segments"] = statement_segments
-        if desc_text:
-            theorem_item["desc"] = desc_text
-        if not formula_text and latex_value:
-            formula_text = latex_value
-        if formula_text:
-            theorem_item["latex"] = formula_text
         if len(theorem_item) > 1:
             theorem_items.append(theorem_item)
 
@@ -1900,11 +1851,12 @@ def build_statement_theorem_items(
     return [
         {
             "title": "核心结论",
-            "desc": "由元数据回退生成的核心不等式。",
-            "latex": normalize_latex_for_display(core_formula),
+            "segments": [
+                {"type": "text", "text": "由元数据回退生成的核心不等式。"},
+                {"type": "math", "latex": normalize_latex_for_display(core_formula)},
+            ],
         }
     ]
-
 
 def build_statement_section(
     raw_text: str,
@@ -2253,7 +2205,7 @@ def build_schema_comment() -> str:
             " *     1. { text: string }",
             " *     2. { latex: string }",
             " *     3. { segments: [{ type: 'text', text } | { type: 'math', latex }] }",
-            " *     4. theorem-list item: { title, desc?, latex }",
+            " *     4. theorem-list item: { title, segments }",
             " *   - Rich parser rules for mixed text/math sections:",
             " *     - Long equation-chain math is promoted to standalone { latex } items.",
             " *     - Trailing punctuation is stripped out of latex and kept in text segments.",

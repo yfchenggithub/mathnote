@@ -54,7 +54,7 @@
  *     1. { text: string }
  *     2. { latex: string }
  *     3. { segments: [{ type: 'text', text } | { type: 'math', latex }] }
- *     4. theorem-list item: { title, desc?, latex }
+ *     4. theorem-list item: { title, segments }
  *   - Rich parser rules for mixed text/math sections:
  *     - Long equation-chain math is promoted to standalone { latex } items.
  *     - Trailing punctuation is stripped out of latex and kept in text segments.
@@ -262,9 +262,7 @@ module.exports = {
                 "type": "text",
                 "text": "上取实数值。"
               }
-            ],
-            "desc": "且 ；函数 在定义域 上取实数值。",
-            "latex": "M > N"
+            ]
           },
           {
             "title": "结论一（原始形式）：",
@@ -277,9 +275,7 @@ module.exports = {
                 "type": "math",
                 "latex": "N < f(x) < M"
               }
-            ],
-            "desc": "函数值介于两个给定实数之间。",
-            "latex": "N < f(x) < M"
+            ]
           },
           {
             "title": "结论二（乘积形式）：",
@@ -292,9 +288,7 @@ module.exports = {
                 "type": "math",
                 "latex": "(f(x)-M)(f(x)-N) < 0"
               }
-            ],
-            "desc": "函数值减端点后乘积为负。",
-            "latex": "(f(x)-M)(f(x)-N) < 0"
+            ]
           },
           {
             "title": "结论三（绝对值形式）：",
@@ -307,9 +301,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\left| f(x) - \\frac{M+N}{2} \\right| < \\frac{M-N}{2}"
               }
-            ],
-            "desc": "函数值到区间中点的距离小于半长。",
-            "latex": "\\left| f(x) - \\frac{M+N}{2} \\right| < \\frac{M-N}{2}"
+            ]
           },
           {
             "title": "结论四（分式形式）：",
@@ -322,9 +314,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\frac{f(x)-N}{M-f(x)} > 0"
               }
-            ],
-            "desc": "函数值相对于端点的比值大于零。",
-            "latex": "\\frac{f(x)-N}{M-f(x)} > 0"
+            ]
           },
           {
             "title": "结论五（倒数形式）：",
@@ -337,9 +327,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\frac{1}{f(x)-N} > \\frac{1}{M-N}, \\quad \\text{其中 } f(x)-N > 0"
               }
-            ],
-            "desc": "函数值减下界的倒数大于差值的倒数（需正条件）。",
-            "latex": "\\frac{1}{f(x)-N} > \\frac{1}{M-N}, \\quad \\text{其中 } f(x)-N > 0"
+            ]
           },
           {
             "title": "推广结论（区间表示）：",
@@ -356,9 +344,7 @@ module.exports = {
                 "type": "text",
                 "text": "等号/取等条件： 无等号成立情况，因原不等式为严格不等式。"
               }
-            ],
-            "desc": "函数值属于以中点为心、半长为半径的开区间。 等号/取等条件： 无等号成立情况，因原不等式为严格不等式。",
-            "latex": "f(x) \\in \\left( \\frac{M+N}{2} - \\frac{M-N}{2}, \\frac{M+N}{2} + \\frac{M-N}{2} \\right)"
+            ]
           }
         ]
       },
@@ -1963,9 +1949,7 @@ module.exports = {
                 "type": "text",
                 "text": "均为正实数。"
               }
-            ],
-            "desc": "均为正实数。",
-            "latex": "a, b"
+            ]
           },
           {
             "title": "条件 2（任意实数）：",
@@ -1978,9 +1962,7 @@ module.exports = {
                 "type": "text",
                 "text": "为任意实数（仅适用于第4条）。"
               }
-            ],
-            "desc": "为任意实数（仅适用于第4条）。",
-            "latex": "a, b"
+            ]
           },
           {
             "title": "结论一（算术-几何平均）：",
@@ -1993,9 +1975,7 @@ module.exports = {
                 "type": "math",
                 "latex": "a + b \\geq 2\\sqrt{ab}"
               }
-            ],
-            "desc": "两正数之和不小于其几何平均数两倍。",
-            "latex": "a + b \\geq 2\\sqrt{ab}"
+            ]
           },
           {
             "title": "结论二（积与和平方）：",
@@ -2008,9 +1988,7 @@ module.exports = {
                 "type": "math",
                 "latex": "ab \\leq \\left(\\frac{a+b}{2}\\right)^2"
               }
-            ],
-            "desc": "两正数积不超过其算术平均平方。",
-            "latex": "ab \\leq \\left(\\frac{a+b}{2}\\right)^2"
+            ]
           },
           {
             "title": "结论三（平方和与和平方）：",
@@ -2023,9 +2001,7 @@ module.exports = {
                 "type": "math",
                 "latex": "a^2 + b^2 \\geq \\frac{(a+b)^2}{2}"
               }
-            ],
-            "desc": "两正数平方和不小于其和平方的一半。",
-            "latex": "a^2 + b^2 \\geq \\frac{(a+b)^2}{2}"
+            ]
           },
           {
             "title": "推广结论（平方和与积）：",
@@ -2050,9 +2026,7 @@ module.exports = {
                 "type": "text",
                 "text": "时，上述所有不等式等号成立。"
               }
-            ],
-            "desc": "任意实数平方和不小于其积两倍。 等号/取等条件： 当且仅当 时，上述所有不等式等号成立。",
-            "latex": "a^2 + b^2 \\geq 2ab"
+            ]
           }
         ]
       },
@@ -3041,9 +3015,7 @@ module.exports = {
                 "type": "text",
                 "text": "（均为正实数）。"
               }
-            ],
-            "desc": "（均为正实数）。",
-            "latex": "a, b, m \\in \\mathbb{R}^+"
+            ]
           },
           {
             "title": "条件 2（大小关系）：",
@@ -3056,9 +3028,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "。",
-            "latex": "a < b"
+            ]
           },
           {
             "title": "条件 3（减糖前提）：",
@@ -3075,9 +3045,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "对于减糖原理，需额外满足 。",
-            "latex": "b > m"
+            ]
           },
           {
             "title": "结论一（加糖原理）：",
@@ -3090,9 +3058,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\frac{a}{b} < \\frac{a+m}{b+m}"
               }
-            ],
-            "desc": "分子分母同加正数，分式值增大。",
-            "latex": "\\frac{a}{b} < \\frac{a+m}{b+m}"
+            ]
           },
           {
             "title": "结论二（减糖原理）：",
@@ -3105,9 +3071,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\frac{a}{b} > \\frac{a-m}{b-m}"
               }
-            ],
-            "desc": "分子分母同减正数，分式值减小。",
-            "latex": "\\frac{a}{b} > \\frac{a-m}{b-m}"
+            ]
           },
           {
             "title": "推广结论（倒数形式）：",
@@ -3120,9 +3084,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\frac{b}{a} > \\frac{b+m}{a+m}"
               }
-            ],
-            "desc": "原分式倒数大于加糖后倒数。",
-            "latex": "\\frac{b}{a} > \\frac{b+m}{a+m}"
+            ]
           }
         ]
       },
@@ -3978,9 +3940,7 @@ module.exports = {
                 "type": "text",
                 "text": "为非负实数。"
               }
-            ],
-            "desc": "为非负实数。",
-            "latex": "a, b, c"
+            ]
           },
           {
             "title": "结论一（立方和不等式）：",
@@ -3993,9 +3953,7 @@ module.exports = {
                 "type": "math",
                 "latex": "a^3 + b^3 + c^3 \\geq 3abc"
               }
-            ],
-            "desc": "三项立方和不小于三倍乘积。",
-            "latex": "a^3 + b^3 + c^3 \\geq 3abc"
+            ]
           },
           {
             "title": "推广结论（因式分解）：",
@@ -4020,9 +3978,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "不等式等价于平方和非负。 等号/取等条件： 当且仅当 。",
-            "latex": "a^3 + b^3 + c^3 - 3abc = \\frac{1}{2}(a+b+c)\\bigl[(a-b)^2+(b-c)^2+(c-a)^2\\bigr] \\geq 0"
+            ]
           }
         ]
       },
@@ -4773,9 +4729,7 @@ module.exports = {
                 "type": "text",
                 "text": "是两个实数序列。"
               }
-            ],
-            "desc": "设 和 是两个实数序列。",
-            "latex": "a_1, a_2, \\dots, a_n \\qquad b_1, b_2, \\dots, b_n"
+            ]
           },
           {
             "title": "结论一（一般形式）：",
@@ -4788,9 +4742,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\left( \\sum_{i=1}^n a_i^2 \\right) \\left( \\sum_{i=1}^n b_i^2 \\right) \\ge \\left( \\sum_{i=1}^n a_i b_i \\right)^2."
               }
-            ],
-            "desc": "平方和的乘积不小于乘积和的平方。",
-            "latex": "\\left( \\sum_{i=1}^n a_i^2 \\right) \\left( \\sum_{i=1}^n b_i^2 \\right) \\ge \\left( \\sum_{i=1}^n a_i b_i \\right)^2."
+            ]
           },
           {
             "title": "推广结论（常见特例）：",
@@ -4855,9 +4807,7 @@ module.exports = {
                 "type": "text",
                 "text": "成立。"
               }
-            ],
-            "desc": "二维、三维及向量形式是常用的特例。 向量形式： 。\n等号/取等条件： 当且仅当序列 与 成比例，即存在不全为零的实数 使得 对所有 成立。",
-            "latex": "(a^2+b^2)(c^2+d^2) \\ge (ac+bd)^2, \\quad (a_1^2+a_2^2+a_3^2)(b_1^2+b_2^2+b_3^2) \\ge (a_1b_1+a_2b_2+a_3b_3)^2."
+            ]
           }
         ]
       },
@@ -5810,9 +5760,7 @@ module.exports = {
                 "type": "text",
                 "text": "）为任意实数。"
               }
-            ],
-            "desc": "（ ）为任意实数。",
-            "latex": "i=1,2,\\dots,n"
+            ]
           },
           {
             "title": "条件 2（正分母）：",
@@ -5833,9 +5781,7 @@ module.exports = {
                 "type": "text",
                 "text": "）为正实数。"
               }
-            ],
-            "desc": "（ ）为正实数。",
-            "latex": "b_i > 0"
+            ]
           },
           {
             "title": "条件 3（指数范围）：",
@@ -5852,9 +5798,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "实数 。",
-            "latex": "m \\geq 1"
+            ]
           },
           {
             "title": "结论一（二维形式）：",
@@ -5867,9 +5811,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\frac{a_1^2}{b_1} + \\frac{a_2^2}{b_2} \\geq \\frac{(a_1 + a_2)^2}{b_1 + b_2}"
               }
-            ],
-            "desc": "两个分式平方和大于等于和的平方除以分母和。",
-            "latex": "\\frac{a_1^2}{b_1} + \\frac{a_2^2}{b_2} \\geq \\frac{(a_1 + a_2)^2}{b_1 + b_2}"
+            ]
           },
           {
             "title": "结论二（一般形式）：",
@@ -5882,9 +5824,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\sum_{i=1}^{n} \\frac{a_i^2}{b_i} \\geq \\frac{\\left(\\sum_{i=1}^{n} a_i\\right)^2}{\\sum_{i=1}^{n} b_i}"
               }
-            ],
-            "desc": "n 个分式平方和大于等于总和的平方除以分母总和。",
-            "latex": "\\sum_{i=1}^{n} \\frac{a_i^2}{b_i} \\geq \\frac{\\left(\\sum_{i=1}^{n} a_i\\right)^2}{\\sum_{i=1}^{n} b_i}"
+            ]
           },
           {
             "title": "推广结论（m次形式）：",
@@ -5909,9 +5849,7 @@ module.exports = {
                 "type": "text",
                 "text": "时等号成立。"
               }
-            ],
-            "desc": "将平方推广到 m 次方，分母指数为 m-1。 等号/取等条件： 当且仅当 时等号成立。",
-            "latex": "\\sum_{i=1}^{n} \\frac{a_i^{m}}{b_i^{\\,m-1}} \\geq \\frac{\\left(\\sum_{i=1}^{n} a_i\\right)^{m}}{\\left(\\sum_{i=1}^{n} b_i\\right)^{m-1}}"
+            ]
           }
         ]
       },
@@ -6940,9 +6878,7 @@ module.exports = {
                 "type": "text",
                 "text": "为任意实数。"
               }
-            ],
-            "desc": "设 为任意实数。",
-            "latex": "a, b"
+            ]
           },
           {
             "title": "结论一（双边不等式）：",
@@ -6955,9 +6891,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\bigl|\\,|a| - |b|\\,\\bigr| \\leq |a + b| \\leq |a| + |b|."
               }
-            ],
-            "desc": "两数和的绝对值被夹在它们绝对值之差的绝对值与和之间。",
-            "latex": "\\bigl|\\,|a| - |b|\\,\\bigr| \\leq |a + b| \\leq |a| + |b|."
+            ]
           },
           {
             "title": "推广结论（多实数形式）：",
@@ -7022,9 +6956,7 @@ module.exports = {
                 "type": "text",
                 "text": "同号或至少有一个为零。"
               }
-            ],
-            "desc": "多个实数和的绝对值不超过各自绝对值之和。 等号/取等条件：\n左边等号 当且仅当 ；\n右边等号 当且仅当 。\n对于 个实数，等号成立当且仅当所有 同号或至少有一个为零。",
-            "latex": "|a_1 + a_2 + \\dots + a_n| \\leq |a_1| + |a_2| + \\dots + |a_n|."
+            ]
           }
         ]
       },
@@ -8157,9 +8089,7 @@ module.exports = {
                 "type": "text",
                 "text": "均为正实数）。"
               }
-            ],
-            "desc": "（ 和 均为正实数）。",
-            "latex": "a, b \\in \\mathbb{R}^{+} \\qquad a \\qquad b"
+            ]
           },
           {
             "title": "结论一（四均值不等式链）：",
@@ -8172,9 +8102,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\begin{aligned}\n\\frac{2}{\\frac{1}{a}+\\frac{1}{b}} &\\leq \\sqrt{ab} \\\\\n&\\leq \\frac{a+b}{2} \\\\\n&\\leq \\sqrt{\\frac{a^{2}+b^{2}}{2}}.\n\\end{aligned}"
               }
-            ],
-            "desc": "两个正实数的四种平均数存在确定的大小序关系。",
-            "latex": "\\begin{aligned}\n\\frac{2}{\\frac{1}{a}+\\frac{1}{b}} &\\leq \\sqrt{ab} \\\\\n&\\leq \\frac{a+b}{2} \\\\\n&\\leq \\sqrt{\\frac{a^{2}+b^{2}}{2}}.\n\\end{aligned}"
+            ]
           },
           {
             "title": "推广结论（n 元不等式链）：",
@@ -8207,9 +8135,7 @@ module.exports = {
                 "type": "text",
                 "text": "）。"
               }
-            ],
-            "desc": "对于 个正实数，四种平均数之间亦有类似序关系。 等号/取等条件：所有不等式中等号成立当且仅当所有变量相等（二元时即 ）。",
-            "latex": "\\begin{aligned}\n\\frac{n}{\\frac{1}{x_1}+\\cdots+\\frac{1}{x_n}} &\\leq \\sqrt[n]{x_1 x_2 \\cdots x_n} \\\\\n&\\leq \\frac{x_1+x_2+\\cdots+x_n}{n} \\\\\n&\\leq \\sqrt{\\frac{x_1^2+x_2^2+\\cdots+x_n^2}{n}}.\n\\end{aligned}"
+            ]
           }
         ]
       },
@@ -9055,9 +8981,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "变量 都是非负实数，即 。",
-            "latex": "a \\geq 0, b \\geq 0, c \\geq 0"
+            ]
           },
           {
             "title": "结论一（三元均值不等式）：",
@@ -9070,9 +8994,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\frac{a+b+c}{3} \\geq \\sqrt[3]{abc}"
               }
-            ],
-            "desc": "三个数的算术平均值不小于它们的几何平均值。",
-            "latex": "\\frac{a+b+c}{3} \\geq \\sqrt[3]{abc}"
+            ]
           },
           {
             "title": "推广结论（等价形式）：",
@@ -9097,9 +9019,7 @@ module.exports = {
                 "type": "text",
                 "text": "时，不等式中的等号成立。"
               }
-            ],
-            "desc": "该不等式有几种常用且等价的表述形式。 等号/取等条件： 当且仅当三个数相等，即 时，不等式中的等号成立。",
-            "latex": "a+b+c \\geq 3\\sqrt[3]{abc} \\quad \\text{或} \\quad abc \\leq \\left(\\frac{a+b+c}{3}\\right)^3"
+            ]
           }
         ]
       },
@@ -10308,9 +10228,7 @@ module.exports = {
                 "type": "text",
                 "text": "为任意实数。"
               }
-            ],
-            "desc": "为任意实数。",
-            "latex": "a, b, c"
+            ]
           },
           {
             "title": "结论一（平方和与积和）：",
@@ -10323,9 +10241,7 @@ module.exports = {
                 "type": "math",
                 "latex": "a^{2} + b^{2} + c^{2} \\geq ab + bc + ca"
               }
-            ],
-            "desc": "平方之和不小于两两乘积之和。",
-            "latex": "a^{2} + b^{2} + c^{2} \\geq ab + bc + ca"
+            ]
           },
           {
             "title": "推广结论（等价变形）：",
@@ -10350,9 +10266,7 @@ module.exports = {
                 "type": "text",
                 "text": "时等号成立。"
               }
-            ],
-            "desc": "与和的平方之间的不等关系。 等号/取等条件： 当且仅当 时等号成立。",
-            "latex": "\\begin{aligned}\n3\\bigl(a^{2} + b^{2} + c^{2}\\bigr) &\\geq (a+b+c)^{2}, \\\\\n(a+b+c)^{2} &\\geq 3\\,(ab+bc+ca).\n\\end{aligned}"
+            ]
           }
         ]
       },
@@ -11035,9 +10949,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "实数 。",
-            "latex": "x>0"
+            ]
           },
           {
             "title": "结论一（基本切线式）：",
@@ -11058,9 +10970,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\ln x \\leq x-1"
               }
-            ],
-            "desc": "对数图像在 处的切线方程。",
-            "latex": "x=1"
+            ]
           },
           {
             "title": "推广结论（平移变形）：",
@@ -11081,9 +10991,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\ln(x+1) \\leq x, \\quad (x>-1)"
               }
-            ],
-            "desc": "将自变量替换为 得到常用形式。",
-            "latex": "\\ln(x+1) \\leq x, \\quad (x>-1)"
+            ]
           },
           {
             "title": "推广结论（乘积形式）：",
@@ -11104,9 +11012,7 @@ module.exports = {
                 "type": "math",
                 "latex": "x\\ln x \\geq x-1, \\quad (x>0)"
               }
-            ],
-            "desc": "不等式两边同乘 后的变形。",
-            "latex": "x\\ln x \\geq x-1, \\quad (x>0)"
+            ]
           },
           {
             "title": "推广结论（二次逼近）：",
@@ -11131,9 +11037,7 @@ module.exports = {
                 "type": "text",
                 "text": "时，所有不等式取等号。"
               }
-            ],
-            "desc": "利用更强的不等式逼近。 等号/取等条件： 仅当 时，所有不等式取等号。",
-            "latex": "\\ln x \\leq \\frac{x^{2}-1}{2x}, \\quad (x>0)"
+            ]
           }
         ]
       },
@@ -12666,9 +12570,7 @@ module.exports = {
                 "type": "text",
                 "text": "为任意实数。"
               }
-            ],
-            "desc": "设 为任意实数。",
-            "latex": "x"
+            ]
           },
           {
             "title": "结论一（切线放缩一）：",
@@ -12689,9 +12591,7 @@ module.exports = {
                 "type": "math",
                 "latex": "e^{x} \\geq x+1"
               }
-            ],
-            "desc": "指数函数在 处的切线不等式。",
-            "latex": "x=0"
+            ]
           },
           {
             "title": "结论二（切线放缩二）：",
@@ -12712,9 +12612,7 @@ module.exports = {
                 "type": "math",
                 "latex": "e^{x} \\geq e x"
               }
-            ],
-            "desc": "指数函数在 处的切线不等式。",
-            "latex": "x=1"
+            ]
           },
           {
             "title": "结论三（二阶放缩）：",
@@ -12735,9 +12633,7 @@ module.exports = {
                 "type": "math",
                 "latex": "e^{x} \\geq 1+x+\\frac{x^{2}}{2} \\quad (x \\geq 0)"
               }
-            ],
-            "desc": "当 非负时的二阶多项式下界。",
-            "latex": "e^{x} \\geq 1+x+\\frac{x^{2}}{2} \\quad (x \\geq 0)"
+            ]
           },
           {
             "title": "推广结论（等价变形）：",
@@ -12786,9 +12682,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "结论二的等价形式，便于变量替换。 等号/取等条件： 结论一等号成立当且仅当 ；结论二等号成立当且仅当 ；结论三等号成立当且仅当 ；推广结论等号成立当且仅当 。",
-            "latex": "e^{x-1} \\geq x"
+            ]
           }
         ]
       },
@@ -14228,9 +14122,7 @@ module.exports = {
                 "type": "text",
                 "text": "为非零实数。"
               }
-            ],
-            "desc": "为非零实数。",
-            "latex": "x"
+            ]
           },
           {
             "title": "结论一（正数情形）：",
@@ -14243,9 +14135,7 @@ module.exports = {
                 "type": "math",
                 "latex": "x + \\frac{1}{x} \\geq 2, \\quad x > 0"
               }
-            ],
-            "desc": "正数与其倒数之和至少为2。",
-            "latex": "x + \\frac{1}{x} \\geq 2, \\quad x > 0"
+            ]
           },
           {
             "title": "结论二（负数情形）：",
@@ -14258,9 +14148,7 @@ module.exports = {
                 "type": "math",
                 "latex": "x + \\frac{1}{x} \\leq -2, \\quad x < 0"
               }
-            ],
-            "desc": "负数与其倒数之和至多为-2。",
-            "latex": "x + \\frac{1}{x} \\leq -2, \\quad x < 0"
+            ]
           },
           {
             "title": "推广结论（一般形式）：",
@@ -14301,9 +14189,7 @@ module.exports = {
                 "type": "text",
                 "text": "时等号成立。"
               }
-            ],
-            "desc": "正系数线性与倒数组合的最小值。 等号/取等条件： 对于结论一，当 时等号成立；对于结论二，当 时等号成立；对于推广结论，当 时等号成立。",
-            "latex": "a x + \\frac{b}{x} \\geq 2\\sqrt{ab}, \\quad a, b, x > 0"
+            ]
           }
         ]
       },
@@ -15201,9 +15087,7 @@ module.exports = {
                 "type": "text",
                 "text": "上连续且二阶可导。"
               }
-            ],
-            "desc": "函数 在区间 上连续且二阶可导。",
-            "latex": "f(x) \\qquad I"
+            ]
           },
           {
             "title": "条件 2（二阶导符号）：",
@@ -15224,9 +15108,7 @@ module.exports = {
                 "type": "text",
                 "text": "（凹函数）。"
               }
-            ],
-            "desc": "（凸函数）或 （凹函数）。",
-            "latex": "f''(x) > 0"
+            ]
           },
           {
             "title": "结论一（两点平均）：",
@@ -15239,9 +15121,7 @@ module.exports = {
                 "type": "math",
                 "latex": "f\\!\\left(\\frac{x_1+x_2}{2}\\right) \\le \\frac{f(x_1)+f(x_2)}{2}"
               }
-            ],
-            "desc": "函数值在区间中点的值，不超过两端点函数值的平均。",
-            "latex": "f\\!\\left(\\frac{x_1+x_2}{2}\\right) \\le \\frac{f(x_1)+f(x_2)}{2}"
+            ]
           },
           {
             "title": "推广结论（加权平均）：",
@@ -15274,9 +15154,7 @@ module.exports = {
                 "type": "text",
                 "text": "为线性函数。"
               }
-            ],
-            "desc": "函数在加权平均点处的值，不超过函数值的加权平均。 等号/取等条件： 等号成立当且仅当所有自变量 相等，或函数 为线性函数。",
-            "latex": "f\\!\\left(\\sum_{i=1}^{n}\\lambda_i x_i\\right) \\le \\sum_{i=1}^{n}\\lambda_i f(x_i)"
+            ]
           }
         ]
       },
@@ -16246,9 +16124,7 @@ module.exports = {
                 "type": "text",
                 "text": "是任意实数。"
               }
-            ],
-            "desc": "设 是任意实数。",
-            "latex": "x_1, x_2, \\dots, x_n"
+            ]
           },
           {
             "title": "结论一（指数平均大）：",
@@ -16261,9 +16137,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\frac{e^{x_1}+e^{x_2}+\\cdots+e^{x_n}}{n} \\geq e^{\\frac{x_1+x_2+\\cdots+x_n}{n}}"
               }
-            ],
-            "desc": "指数平均不小于指数底数的算术平均的指数。",
-            "latex": "\\frac{e^{x_1}+e^{x_2}+\\cdots+e^{x_n}}{n} \\geq e^{\\frac{x_1+x_2+\\cdots+x_n}{n}}"
+            ]
           },
           {
             "title": "推广结论（加权形式）：",
@@ -16288,9 +16162,7 @@ module.exports = {
                 "type": "text",
                 "text": "时等号成立。"
               }
-            ],
-            "desc": "权重非负时，加权指数平均不小于加权算术平均的指数。 等号/取等条件： 当且仅当 时等号成立。",
-            "latex": "\\sum_{i=1}^n \\lambda_i e^{x_i} \\geq e^{\\sum_{i=1}^n \\lambda_i x_i}, \\quad \\text{其中 } \\lambda_i \\geq 0, \\sum_{i=1}^n \\lambda_i = 1."
+            ]
           }
         ]
       },
@@ -17083,9 +16955,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "且 。",
-            "latex": "a>0"
+            ]
           },
           {
             "title": "结论一（算术几何平均不等式）：",
@@ -17098,9 +16968,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\frac{a^{x}+a^{y}}{2} \\geq a^{\\frac{x+y}{2}}."
               }
-            ],
-            "desc": "两指数函数值的算术平均不小于中点的函数值。",
-            "latex": "\\frac{a^{x}+a^{y}}{2} \\geq a^{\\frac{x+y}{2}}."
+            ]
           },
           {
             "title": "推广结论（加权凸性形式）：",
@@ -17125,9 +16993,7 @@ module.exports = {
                 "type": "text",
                 "text": "时等号成立。"
               }
-            ],
-            "desc": "加权平均形式，系数和为 1 时仍成立。 等号/取等条件： 当且仅当 时等号成立。",
-            "latex": "\\lambda a^{x} + (1-\\lambda) a^{y} \\geq a^{\\lambda x + (1-\\lambda)y}, \\quad \\lambda \\in (0,1)."
+            ]
           }
         ]
       },
@@ -18436,9 +18302,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "。",
-            "latex": "x, y \\in (0, \\pi)"
+            ]
           },
           {
             "title": "条件 2（内角条件）：",
@@ -18451,9 +18315,7 @@ module.exports = {
                 "type": "text",
                 "text": "为三角形内角。"
               }
-            ],
-            "desc": "为三角形内角。",
-            "latex": "A, B, C"
+            ]
           },
           {
             "title": "结论一（凹性不等式）：",
@@ -18466,9 +18328,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\frac{\\sin x + \\sin y}{2} \\leq \\sin\\!\\left(\\frac{x+y}{2}\\right)."
               }
-            ],
-            "desc": "正弦函数凹性导致算术平均小于中点正弦值。",
-            "latex": "\\frac{\\sin x + \\sin y}{2} \\leq \\sin\\!\\left(\\frac{x+y}{2}\\right)."
+            ]
           },
           {
             "title": "推广结论（三角形正弦和）：",
@@ -18509,9 +18369,7 @@ module.exports = {
                 "type": "text",
                 "text": "为正三角形。"
               }
-            ],
-            "desc": "三角形内角正弦和的最大值为 。 等号/取等条件： 对于结论一，等号成立当且仅当 ；对于推广结论，等号成立当且仅当 为正三角形。",
-            "latex": "\\frac{\\sin A + \\sin B + \\sin C}{3} \\leq \\sin\\frac{\\pi}{3} = \\frac{\\sqrt{3}}{2}."
+            ]
           }
         ]
       },
@@ -19337,9 +19195,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "。",
-            "latex": "x, y \\in (0, \\frac{\\pi}{2})"
+            ]
           },
           {
             "title": "条件 2（三角形内角）：",
@@ -19352,9 +19208,7 @@ module.exports = {
                 "type": "text",
                 "text": "是锐角三角形的三个内角。"
               }
-            ],
-            "desc": "是锐角三角形的三个内角。",
-            "latex": "A, B, C"
+            ]
           },
           {
             "title": "结论一（余弦凹性不等式）：",
@@ -19367,9 +19221,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\frac{\\cos x + \\cos y}{2} \\leq \\cos\\left( \\frac{x+y}{2} \\right)"
               }
-            ],
-            "desc": "两角余弦算术平均不超过半角余弦。",
-            "latex": "\\frac{\\cos x + \\cos y}{2} \\leq \\cos\\left( \\frac{x+y}{2} \\right)"
+            ]
           },
           {
             "title": "推广结论（三角形余弦和上界）：",
@@ -19410,9 +19262,7 @@ module.exports = {
                 "type": "text",
                 "text": "（即三角形为等边三角形）。"
               }
-            ],
-            "desc": "锐角三角形内角余弦和不超过 。 等号/取等条件： 对于结论一，等号成立当且仅当 ；对于推广结论，等号成立当且仅当 （即三角形为等边三角形）。",
-            "latex": "\\cos A + \\cos B + \\cos C \\leq \\frac{3}{2}"
+            ]
           }
         ]
       },
@@ -20148,9 +19998,7 @@ module.exports = {
                 "type": "text",
                 "text": "内。"
               }
-            ],
-            "desc": "两个角 都在开区间 内。",
-            "latex": "x, y \\qquad (0, \\pi/2)"
+            ]
           },
           {
             "title": "结论一（正切凸性不等式）：",
@@ -20175,9 +20023,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "正切值的算术平均不小于这两角算术平均的正切值。 等号成立当且仅当 。",
-            "latex": "\\frac{\\tan x + \\tan y}{2} \\geq \\tan\\left(\\frac{x+y}{2}\\right),"
+            ]
           },
           {
             "title": "推广结论（三角形正切和下界）：",
@@ -20218,9 +20064,7 @@ module.exports = {
                 "type": "text",
                 "text": "；对于推广结论，等号成立当且仅当三角形为等边三角形。"
               }
-            ],
-            "desc": "锐角三角形三个内角正切之和不小于 。 等号成立当且仅当 （即三角形为等边三角形）。\n等号/取等条件： 对于结论一，等号成立当且仅当 ；对于推广结论，等号成立当且仅当三角形为等边三角形。",
-            "latex": "\\tan A + \\tan B + \\tan C \\geq 3\\sqrt{3},"
+            ]
           }
         ]
       },
@@ -21152,9 +20996,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "设 。",
-            "latex": "x, y \\in (0, +\\infty)"
+            ]
           },
           {
             "title": "结论一（对数平均）：",
@@ -21167,9 +21009,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\frac{\\ln x + \\ln y}{2} \\leq \\ln\\!\\left( \\frac{x+y}{2} \\right)."
               }
-            ],
-            "desc": "算术平均的对数不小于对数的算术平均。",
-            "latex": "\\frac{\\ln x + \\ln y}{2} \\leq \\ln\\!\\left( \\frac{x+y}{2} \\right)."
+            ]
           },
           {
             "title": "推广结论（Jensen推广）：",
@@ -21202,9 +21042,7 @@ module.exports = {
                 "type": "text",
                 "text": "（推广结论）时取等。"
               }
-            ],
-            "desc": "对任意有限个正实数，对数平均不等式成立。 等号/取等条件： 当且仅当 （主结论）或 （推广结论）时取等。",
-            "latex": "\\frac{1}{n} \\sum_{i=1}^{n} \\ln x_i \\leq \\ln\\!\\left( \\frac{1}{n} \\sum_{i=1}^{n} x_i \\right)."
+            ]
           }
         ]
       },
@@ -22094,9 +21932,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "设 ， 。",
-            "latex": "x, y > 0"
+            ]
           },
           {
             "title": "结论一（指数外凸）：",
@@ -22125,9 +21961,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\frac{x^{n} + y^{n}}{2} \\geq \\left(\\frac{x+y}{2}\\right)^{n}."
               }
-            ],
-            "desc": "当指数 或 时，幂函数上凸，算术平均不小于幂平均。",
-            "latex": "n>1"
+            ]
           },
           {
             "title": "结论二（指数内凹）：",
@@ -22148,9 +21982,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\frac{x^{n} + y^{n}}{2} \\leq \\left(\\frac{x+y}{2}\\right)^{n}."
               }
-            ],
-            "desc": "当指数 时，幂函数下凸，算术平均不大于幂平均。",
-            "latex": "0 < n < 1"
+            ]
           },
           {
             "title": "推广结论（Jensen特例）：",
@@ -22175,9 +22007,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "此结论是凸函数 Jensen 不等式的二元特例。 等号/取等条件： 等号成立当且仅当 。",
-            "latex": "\\text{对于凸函数 } f, \\quad f\\!\\left(\\frac{x+y}{2}\\right) \\le \\frac{f(x)+f(y)}{2}."
+            ]
           }
         ]
       },
@@ -23425,9 +23255,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "。",
-            "latex": "x, y > 0"
+            ]
           },
           {
             "title": "结论一（倒数和不等式）：",
@@ -23440,9 +23268,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\frac{1}{x} + \\frac{1}{y} \\geq \\frac{4}{x+y}"
               }
-            ],
-            "desc": "两数倒数和不小于和的倒数的四倍。",
-            "latex": "\\frac{1}{x} + \\frac{1}{y} \\geq \\frac{4}{x+y}"
+            ]
           },
           {
             "title": "结论二（和积不等式）：",
@@ -23455,9 +23281,7 @@ module.exports = {
                 "type": "math",
                 "latex": "(x+y)\\left(\\frac{1}{x}+\\frac{1}{y}\\right) \\geq 4"
               }
-            ],
-            "desc": "和与倒数和之积不小于四。",
-            "latex": "(x+y)\\left(\\frac{1}{x}+\\frac{1}{y}\\right) \\geq 4"
+            ]
           },
           {
             "title": "推广结论（权方和形式）：",
@@ -23474,9 +23298,7 @@ module.exports = {
                 "type": "text",
                 "text": "等号/取等条件："
               }
-            ],
-            "desc": "带权平方和不等式。 等号/取等条件：",
-            "latex": "\\frac{a^2}{x} + \\frac{b^2}{y} \\geq \\frac{(a+b)^2}{x+y}"
+            ]
           },
           {
             "title": "条目5",
@@ -23493,9 +23315,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "对于结论一和结论二，当且仅当 。",
-            "latex": "x = y"
+            ]
           },
           {
             "title": "条目6",
@@ -23520,9 +23340,7 @@ module.exports = {
                 "type": "text",
                 "text": "）。"
               }
-            ],
-            "desc": "对于推广结论，当且仅当 （即 ）。",
-            "latex": "\\frac{a}{x} = \\frac{b}{y}"
+            ]
           }
         ]
       },
@@ -24623,9 +24441,7 @@ module.exports = {
                 "type": "text",
                 "text": "，即定义域为正实数。"
               }
-            ],
-            "desc": "函数 ，其中 ，即定义域为正实数。",
-            "latex": "f(x)=x\\ln x"
+            ]
           },
           {
             "title": "结论一（凸性判定）：",
@@ -24646,9 +24462,7 @@ module.exports = {
                 "type": "math",
                 "latex": "f''(x) = \\frac{1}{x} > 0 \\quad (x>0)"
               }
-            ],
-            "desc": "函数 在其定义域上是凸函数。",
-            "latex": "f''(x) = \\frac{1}{x} > 0 \\quad (x>0)"
+            ]
           },
           {
             "title": "推广结论（Jensen不等式）：",
@@ -24673,9 +24487,7 @@ module.exports = {
                 "type": "text",
                 "text": "时，不等式等号成立。"
               }
-            ],
-            "desc": "凸函数的性质使得均值函数值不大于函数值的均值。 等号/取等条件： 当且仅当所有变量相等，即 时，不等式等号成立。",
-            "latex": "\\frac{1}{n}\\sum_{i=1}^{n} x_i\\ln x_i \\geq \\left(\\frac{1}{n}\\sum_{i=1}^{n} x_i\\right)\\ln\\!\\left(\\frac{1}{n}\\sum_{i=1}^{n} x_i\\right)"
+            ]
           }
         ]
       },
@@ -25982,9 +25794,7 @@ module.exports = {
                 "type": "text",
                 "text": "是任意实数。"
               }
-            ],
-            "desc": "是任意实数。",
-            "latex": "a, b, c"
+            ]
           },
           {
             "title": "结论一（不等式链）：",
@@ -25997,9 +25807,7 @@ module.exports = {
                 "type": "math",
                 "latex": "ab + bc + ca \\leq \\frac{(a+b+c)^2}{3} \\leq a^2 + b^2 + c^2"
               }
-            ],
-            "desc": "两两乘积和、平方平均、平方和间的大小关系。",
-            "latex": "ab + bc + ca \\leq \\frac{(a+b+c)^2}{3} \\leq a^2 + b^2 + c^2"
+            ]
           },
           {
             "title": "推广结论（柯西特例）：",
@@ -26024,9 +25832,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "中间项展开后，即平方和与乘积和的不等式。 等号/取等条件： 所有等号同时成立当且仅当 。",
-            "latex": "a^2+b^2+c^2 \\ge ab+bc+ca"
+            ]
           }
         ]
       },
@@ -27438,9 +27244,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "变量 均为正实数，即 。",
-            "latex": "a>0,\\ b>0,\\ c>0"
+            ]
           },
           {
             "title": "结论一（核心形式）：",
@@ -27461,9 +27265,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\frac{a}{b+c} + \\frac{b}{c+a} + \\frac{c}{a+b} \\ge \\frac{3}{2}."
               }
-            ],
-            "desc": "三个对称分数之和的最小值为 。",
-            "latex": "\\frac{a}{b+c} + \\frac{b}{c+a} + \\frac{c}{a+b} \\ge \\frac{3}{2}."
+            ]
           },
           {
             "title": "推广结论（和表示形式）：",
@@ -27496,9 +27298,7 @@ module.exports = {
                 "type": "text",
                 "text": "时，上述不等式等号成立。"
               }
-            ],
-            "desc": "用总和 改写分母的等价形式。 等号/取等条件： 当且仅当 时，上述不等式等号成立。",
-            "latex": "s=a+b+c"
+            ]
           }
         ]
       },
@@ -28529,9 +28329,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "， 。",
-            "latex": "a, b, c \\geq 0"
+            ]
           },
           {
             "title": "结论一（舒尔不等式）：",
@@ -28544,9 +28342,7 @@ module.exports = {
                 "type": "math",
                 "latex": "a^{r}(a-b)(a-c) + b^{r}(b-a)(b-c) + c^{r}(c-a)(c-b) \\geq 0"
               }
-            ],
-            "desc": "三元对称轮换非负和。",
-            "latex": "a^{r}(a-b)(a-c) + b^{r}(b-a)(b-c) + c^{r}(c-a)(c-b) \\geq 0"
+            ]
           },
           {
             "title": "推广结论（三次舒尔）：",
@@ -28579,9 +28375,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "三次对称不等式常见形式。 等号/取等条件： 等号成立当且仅当 或其中两个相等且第三个为 。",
-            "latex": "a^{3}+b^{3}+c^{3}+3abc \\geq a^{2}b+ab^{2}+b^{2}c+bc^{2}+c^{2}a+ca^{2}"
+            ]
           }
         ]
       },
@@ -29440,9 +29234,7 @@ module.exports = {
                 "type": "text",
                 "text": "为非零实数。"
               }
-            ],
-            "desc": "为非零实数。",
-            "latex": "a, b"
+            ]
           },
           {
             "title": "结论一（同号倒数下界）：",
@@ -29455,9 +29247,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\text{若 } ab > 0,\\quad \\frac{a}{b} + \\frac{b}{a} \\geq 2."
               }
-            ],
-            "desc": "若两数同号，则它们的互为倒数之和不小于 2。",
-            "latex": "\\text{若 } ab > 0,\\quad \\frac{a}{b} + \\frac{b}{a} \\geq 2."
+            ]
           },
           {
             "title": "结论二（异号倒数上界）：",
@@ -29478,9 +29268,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\text{若 } ab < 0,\\quad \\frac{a}{b} + \\frac{b}{a} \\leq -2."
               }
-            ],
-            "desc": "若两数异号，则它们的互为倒数之和不大于 。",
-            "latex": "\\text{若 } ab < 0,\\quad \\frac{a}{b} + \\frac{b}{a} \\leq -2."
+            ]
           },
           {
             "title": "推广结论（正数倒数和）：",
@@ -29513,9 +29301,7 @@ module.exports = {
                 "type": "text",
                 "text": "）时等号成立。"
               }
-            ],
-            "desc": "正数与其倒数的和不小于 2。 等号/取等条件： 当且仅当 （或 ）时等号成立。",
-            "latex": "\\text{若 } x > 0,\\quad x + \\frac{1}{x} \\geq 2."
+            ]
           }
         ]
       },
@@ -30940,9 +30726,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "实数 ，指数 。",
-            "latex": "x \\geq -1"
+            ]
           },
           {
             "title": "结论一（指数分界）：",
@@ -30955,9 +30739,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\begin{aligned}\n&\\text{当 } n \\geq 1 \\text{ 或 } n \\leq 0 \\text{ 时，} && (1+x)^{n} \\geq 1+nx; \\\\\n&\\text{当 } 0 \\leq n \\leq 1 \\text{ 时，} && (1+x)^{n} \\leq 1+nx.\n\\end{aligned}"
               }
-            ],
-            "desc": "指数范围决定不等式方向。",
-            "latex": "\\begin{aligned}\n&\\text{当 } n \\geq 1 \\text{ 或 } n \\leq 0 \\text{ 时，} && (1+x)^{n} \\geq 1+nx; \\\\\n&\\text{当 } 0 \\leq n \\leq 1 \\text{ 时，} && (1+x)^{n} \\leq 1+nx.\n\\end{aligned}"
+            ]
           },
           {
             "title": "推广结论（指数形式）：",
@@ -31014,9 +30796,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "指数函数在零点切线的上方。 等号/取等条件： 等号成立当且仅当 ， ，或 。对于 ，等号成立当且仅当 。",
-            "latex": "e^{x} \\geq 1+x \\quad (\\forall x \\in \\mathbb{R})"
+            ]
           }
         ]
       },
@@ -33602,9 +33382,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "设 。",
-            "latex": "x \\in \\mathbb{R}"
+            ]
           },
           {
             "title": "结论一（绝对值不等式）：",
@@ -33617,9 +33395,7 @@ module.exports = {
                 "type": "math",
                 "latex": "|\\sin x| \\leq |x|"
               }
-            ],
-            "desc": "正弦绝对值不超过自变量绝对值。",
-            "latex": "|\\sin x| \\leq |x|"
+            ]
           },
           {
             "title": "推广结论（平方形式）：",
@@ -33644,9 +33420,7 @@ module.exports = {
                 "type": "text",
                 "text": "时等号成立。"
               }
-            ],
-            "desc": "正弦平方不超过自变量平方。 等号/取等条件： 当且仅当 时等号成立。",
-            "latex": "\\sin^2 x \\leq x^2"
+            ]
           }
         ]
       },
@@ -34938,8 +34712,7 @@ module.exports = {
                 "type": "math",
                 "latex": "x \\in \\bigl[0,\\frac{\\pi}{2}\\bigr)"
               }
-            ],
-            "latex": "x \\in \\bigl[0,\\frac{\\pi}{2}\\bigr)"
+            ]
           },
           {
             "title": "条件 2（非正区间）：",
@@ -34948,8 +34721,7 @@ module.exports = {
                 "type": "math",
                 "latex": "x \\in \\bigl(-\\frac{\\pi}{2},0\\bigr]"
               }
-            ],
-            "latex": "x \\in \\bigl(-\\frac{\\pi}{2},0\\bigr]"
+            ]
           },
           {
             "title": "结论一（正切下界）：",
@@ -34962,9 +34734,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\tan x \\geq x"
               }
-            ],
-            "desc": "在非负区间内，正切函数值不小于自变量。",
-            "latex": "\\tan x \\geq x"
+            ]
           },
           {
             "title": "结论二（正切上界）：",
@@ -34977,9 +34747,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\tan x \\leq x"
               }
-            ],
-            "desc": "在非正区间内，正切函数值不大于自变量。",
-            "latex": "\\tan x \\leq x"
+            ]
           },
           {
             "title": "推广结论（正弦正切夹逼）：",
@@ -35004,9 +34772,7 @@ module.exports = {
                 "type": "text",
                 "text": "（适用于结论一和结论二）。"
               }
-            ],
-            "desc": "在正开区间内，正弦小于自变量，自变量小于正切。 等号/取等条件： 等号成立当且仅当 （适用于结论一和结论二）。",
-            "latex": "\\sin x < x < \\tan x"
+            ]
           }
         ]
       },
@@ -36833,9 +36599,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "为任意实数，即 。",
-            "latex": "x \\qquad x \\in \\mathbb{R}"
+            ]
           },
           {
             "title": "结论一（余弦下界）：",
@@ -36848,9 +36612,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\cos x \\geq 1 - \\frac{x^{2}}{2}"
               }
-            ],
-            "desc": "余弦函数的值总不小于一个开口向下的二次函数的值。",
-            "latex": "\\cos x \\geq 1 - \\frac{x^{2}}{2}"
+            ]
           },
           {
             "title": "推广结论（严格不等式）：",
@@ -36883,9 +36645,7 @@ module.exports = {
                 "type": "text",
                 "text": "成立。"
               }
-            ],
-            "desc": "当自变量不为零时，不等式严格成立。 等号/取等条件： 当且仅当 时，等号 成立。",
-            "latex": "\\text{当 } x \\neq 0 \\text{ 时，有 } \\cos x > 1 - \\frac{x^{2}}{2}"
+            ]
           }
         ]
       },
@@ -38173,9 +37933,7 @@ module.exports = {
                 "type": "text",
                 "text": "内。"
               }
-            ],
-            "desc": "自变量 在开区间 内。",
-            "latex": "x \\qquad (0, \\frac{\\pi}{2})"
+            ]
           },
           {
             "title": "结论一（和式放缩）：",
@@ -38188,9 +37946,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\sin x + \\tan x > 2x"
               }
-            ],
-            "desc": "正弦与正切之和严格大于两倍自变量。",
-            "latex": "\\sin x + \\tan x > 2x"
+            ]
           },
           {
             "title": "推广结论（均值放缩）：",
@@ -38215,9 +37971,7 @@ module.exports = {
                 "type": "text",
                 "text": "时，上述两个不等式中的等号成立。"
               }
-            ],
-            "desc": "正弦与正切的算术平均值严格大于自变量。 等号/取等条件： 当且仅当 时，上述两个不等式中的等号成立。",
-            "latex": "\\frac{\\sin x + \\tan x}{2} > x"
+            ]
           }
         ]
       },
@@ -40321,9 +40075,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "为两个不相等的正实数，即 。",
-            "latex": "x_1>0,\\; x_2>0,\\; x_1 \\neq x_2"
+            ]
           },
           {
             "title": "结论一（均值链）",
@@ -40356,9 +40108,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "对数平均值介于几何平均与算术平均之间。 其中 称为对数平均值，简记为 。",
-            "latex": "\\sqrt{x_1 x_2} < L(x_1, x_2) < \\frac{x_1 + x_2}{2},"
+            ]
           },
           {
             "title": "推广结论（等价式）",
@@ -40371,9 +40121,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\ln\\frac{x_1}{x_2} > \\frac{2(x_1 - x_2)}{x_1 + x_2},\n\\qquad\n\\ln\\frac{x_1}{x_2} < \\frac{x_1 - x_2}{\\sqrt{x_1 x_2}}."
               }
-            ],
-            "desc": "对原式变形，得到关于对数差的直接不等式。",
-            "latex": "\\ln\\frac{x_1}{x_2} > \\frac{2(x_1 - x_2)}{x_1 + x_2},\n\\qquad\n\\ln\\frac{x_1}{x_2} < \\frac{x_1 - x_2}{\\sqrt{x_1 x_2}}."
+            ]
           }
         ]
       },
@@ -41694,9 +41442,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "。",
-            "latex": "x \\geq 0"
+            ]
           },
           {
             "title": "结论一（二次下界）：",
@@ -41709,9 +41455,7 @@ module.exports = {
                 "type": "math",
                 "latex": "e^x \\geq 1 + x + \\frac{x^2}{2}"
               }
-            ],
-            "desc": "指数函数在非负实数上不低于其二次泰勒多项式。",
-            "latex": "e^x \\geq 1 + x + \\frac{x^2}{2}"
+            ]
           },
           {
             "title": "推广结论（泰勒下界）：",
@@ -41736,9 +41480,7 @@ module.exports = {
                 "type": "text",
                 "text": "时等号成立。"
               }
-            ],
-            "desc": "指数函数在非负实数上不低于其任意阶泰勒多项式。 等号/取等条件： 当且仅当 时等号成立。",
-            "latex": "e^x \\geq \\sum_{i=0}^{n} \\frac{x^i}{i!}"
+            ]
           }
         ]
       },
@@ -43072,9 +42814,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "。",
-            "latex": "x \\geq 0"
+            ]
           },
           {
             "title": "结论一（稳健双边）：",
@@ -43087,9 +42827,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\frac{2x}{x+2} \\leq \\ln(1+x) \\leq \\frac{x(x+2)}{2(x+1)}."
               }
-            ],
-            "desc": "对数函数被两个有理函数上下夹逼。",
-            "latex": "\\frac{2x}{x+2} \\leq \\ln(1+x) \\leq \\frac{x(x+2)}{2(x+1)}."
+            ]
           },
           {
             "title": "结论二（标准下界）：",
@@ -43102,9 +42840,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\ln(1+x) \\geq x - \\frac{x^{2}}{2(1+x)}."
               }
-            ],
-            "desc": "对数函数大于等于一次项减二次修正项。",
-            "latex": "\\ln(1+x) \\geq x - \\frac{x^{2}}{2(1+x)}."
+            ]
           },
           {
             "title": "推广结论（三阶上界）：",
@@ -43129,9 +42865,7 @@ module.exports = {
                 "type": "text",
                 "text": "时，所有不等式中的等号成立。"
               }
-            ],
-            "desc": "更高精度的三次多项式上界。 等号/取等条件： 当且仅当 时，所有不等式中的等号成立。",
-            "latex": "\\ln(1+x) \\leq x - \\frac{x^{2}}{2} + \\frac{x^{3}}{3}."
+            ]
           }
         ]
       },
@@ -44096,9 +43830,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "实数 满足 。",
-            "latex": "x > -1"
+            ]
           },
           {
             "title": "结论一（不等式链）：",
@@ -44111,9 +43843,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\frac{x}{1+x} \\le \\ln(1+x) \\le x"
               }
-            ],
-            "desc": "对数函数被一次函数和分式函数夹逼。",
-            "latex": "\\frac{x}{1+x} \\le \\ln(1+x) \\le x"
+            ]
           },
           {
             "title": "推广结论（等价变形）：",
@@ -44146,9 +43876,7 @@ module.exports = {
                 "type": "text",
                 "text": "）时，所有等号成立。"
               }
-            ],
-            "desc": "换元后对数函数与反比例函数的不等式。 等号/取等条件： 当且仅当 （即 ）时，所有等号成立。",
-            "latex": "\\ln t \\ge 1 - \\frac{1}{t}, \\quad t > 0."
+            ]
           }
         ]
       },
@@ -45560,9 +45288,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "自变量 的取值范围为 。",
-            "latex": "x \\qquad \\big[0, \\frac{\\pi}{2}\\big]"
+            ]
           },
           {
             "title": "结论一（线性下界）：",
@@ -45579,9 +45305,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\sin x \\geq \\frac{2}{\\pi}x, \\quad x \\in \\big[0,\\frac{\\pi}{2}\\big]"
               }
-            ],
-            "desc": "在该区间上不小于一条连接端点的直线。",
-            "latex": "\\sin x \\geq \\frac{2}{\\pi}x, \\quad x \\in \\big[0,\\frac{\\pi}{2}\\big]"
+            ]
           },
           {
             "title": "推广结论（上下界夹挤）：",
@@ -45638,9 +45362,7 @@ module.exports = {
                 "type": "text",
                 "text": "取等号。"
               }
-            ],
-            "desc": "结合 ，可得到 的上下界估计。 等号/取等条件： 当 或 时，不等式 取等号。",
-            "latex": "\\sin x \\leq x"
+            ]
           }
         ]
       },
@@ -46880,9 +46602,7 @@ module.exports = {
                 "type": "text",
                 "text": "为正整数）。"
               }
-            ],
-            "desc": "，且 （ 为正整数）。",
-            "latex": "a,b>0"
+            ]
           },
           {
             "title": "结论一（对称分式不等式）：",
@@ -46895,9 +46615,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\frac{a^{n}}{b^{n-1}}+\\frac{b^{n}}{a^{n-1}}\\geqslant a+b"
               }
-            ],
-            "desc": "两个正实数的幂次分式之和不小于它们本身的和。",
-            "latex": "\\frac{a^{n}}{b^{n-1}}+\\frac{b^{n}}{a^{n-1}}\\geqslant a+b"
+            ]
           },
           {
             "title": "推广结论（n=2特例）：",
@@ -46922,9 +46640,7 @@ module.exports = {
                 "type": "text",
                 "text": "时等号成立。"
               }
-            ],
-            "desc": "当指数为2时，不等式简化为常见形式。 等号/取等条件： 当且仅当 时等号成立。",
-            "latex": "\\frac{a^{2}}{b}+\\frac{b^{2}}{a}\\geqslant a+b"
+            ]
           }
         ]
       },
@@ -47875,9 +47591,7 @@ module.exports = {
                 "type": "text",
                 "text": "均为正实数。"
               }
-            ],
-            "desc": "所有 均为正实数。",
-            "latex": "a_1, a_2, \\ldots, a_n"
+            ]
           },
           {
             "title": "结论一（倒数和积不等式）：",
@@ -47898,9 +47612,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\left( \\sum_{i=1}^n a_i \\right) \\left( \\sum_{i=1}^n \\frac{1}{a_i} \\right) \\geq n^2."
               }
-            ],
-            "desc": "和与倒数和之积不小于 的平方。",
-            "latex": "\\left( \\sum_{i=1}^n a_i \\right) \\left( \\sum_{i=1}^n \\frac{1}{a_i} \\right) \\geq n^2."
+            ]
           },
           {
             "title": "推广结论（三元特例）：",
@@ -47941,9 +47653,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "三元时乘积不小于 。 等号/取等条件： 当且仅当所有 时等号成立；对于三元特例，当且仅当 。",
-            "latex": "(a+b+c)\\left(\\frac{1}{a}+\\frac{1}{b}+\\frac{1}{c}\\right) \\geq 9."
+            ]
           }
         ]
       },
@@ -48964,9 +48674,7 @@ module.exports = {
                 "type": "text",
                 "text": "为正实数。"
               }
-            ],
-            "desc": "为正实数。",
-            "latex": "a, b, c"
+            ]
           },
           {
             "title": "结论一（三元权方和）：",
@@ -48979,9 +48687,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\frac{a^{2}}{b+c} + \\frac{b^{2}}{c+a} + \\frac{c^{2}}{a+b} \\geq \\frac{a+b+c}{2}"
               }
-            ],
-            "desc": "平方项除以两数和的下界为半和。",
-            "latex": "\\frac{a^{2}}{b+c} + \\frac{b^{2}}{c+a} + \\frac{c^{2}}{a+b} \\geq \\frac{a+b+c}{2}"
+            ]
           },
           {
             "title": "推广结论（n元形式）：",
@@ -49022,9 +48728,7 @@ module.exports = {
                 "type": "text",
                 "text": "相等）。"
               }
-            ],
-            "desc": "各项平方除以其余项和的下界为总和除以 。 等号/取等条件： 当且仅当 时等号成立（对于推广，当且仅当所有 相等）。",
-            "latex": "\\sum_{i=1}^{n} \\frac{a_i^{2}}{\\sum_{j\\neq i} a_j} \\geq \\frac{\\sum_{i=1}^{n} a_i}{n-1}, \\quad a_i > 0"
+            ]
           }
         ]
       },
@@ -49851,9 +49555,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "变量 均为正实数，并约定 。",
-            "latex": "a_{n+1} = a_1"
+            ]
           },
           {
             "title": "结论一（循环和不等式）：",
@@ -49866,9 +49568,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\sum_{i=1}^{n} \\frac{a_i}{a_{i+1}} \\ge n."
               }
-            ],
-            "desc": "循环分式和不小于变量个数。",
-            "latex": "\\sum_{i=1}^{n} \\frac{a_i}{a_{i+1}} \\ge n."
+            ]
           },
           {
             "title": "推广结论（三元特例）：",
@@ -49901,9 +49601,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "三变量循环和至少为 3。 等号/取等条件： 当且仅当所有变量相等，即 。三元特例等号成立当且仅当 。",
-            "latex": "\\frac{a}{b} + \\frac{b}{c} + \\frac{c}{a} \\ge 3."
+            ]
           }
         ]
       },
@@ -51137,9 +50835,7 @@ module.exports = {
                 "type": "text",
                 "text": "都是正实数。"
               }
-            ],
-            "desc": "变量 都是正实数。",
-            "latex": "x, y, z"
+            ]
           },
           {
             "title": "结论一（三元循环不等式）：",
@@ -51152,9 +50848,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\frac{x^{2}}{y} + \\frac{y^{2}}{z} + \\frac{z^{2}}{x} \\geq x + y + z."
               }
-            ],
-            "desc": "分式的平方和大于等于变量直接和。",
-            "latex": "\\frac{x^{2}}{y} + \\frac{y^{2}}{z} + \\frac{z^{2}}{x} \\geq x + y + z."
+            ]
           },
           {
             "title": "推广结论（加权推广形式）：",
@@ -51179,9 +50873,7 @@ module.exports = {
                 "type": "text",
                 "text": "时，不等式取等号。"
               }
-            ],
-            "desc": "每个分式项乘以正权重的推广。 等号/取等条件： 当且仅当 时，不等式取等号。",
-            "latex": "\\frac{x^{2}}{y} + \\frac{y^{2}}{z} + \\frac{z^{2}}{x} \\geq \\frac{(x+y+z)^{2}}{x+y+z} = x+y+z."
+            ]
           }
         ]
       },

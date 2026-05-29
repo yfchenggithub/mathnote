@@ -54,7 +54,7 @@
  *     1. { text: string }
  *     2. { latex: string }
  *     3. { segments: [{ type: 'text', text } | { type: 'math', latex }] }
- *     4. theorem-list item: { title, desc?, latex }
+ *     4. theorem-list item: { title, segments }
  *   - Rich parser rules for mixed text/math sections:
  *     - Long equation-chain math is promoted to standalone { latex } items.
  *     - Trailing punctuation is stripped out of latex and kept in text segments.
@@ -117,8 +117,7 @@ module.exports = {
                 "type": "text",
                 "text": "设椭圆"
               }
-            ],
-            "desc": "设椭圆"
+            ]
           },
           {
             "title": "条目2",
@@ -127,8 +126,7 @@ module.exports = {
                 "type": "math",
                 "latex": "E:\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1\\quad (a>b>0)"
               }
-            ],
-            "latex": "E:\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1\\quad (a>b>0)"
+            ]
           },
           {
             "title": "条目3",
@@ -137,8 +135,7 @@ module.exports = {
                 "type": "text",
                 "text": "与圆"
               }
-            ],
-            "desc": "与圆"
+            ]
           },
           {
             "title": "条目4",
@@ -147,8 +144,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\Gamma:(x-x_0)^2+(y-y_0)^2=r^2\\quad (r>0)"
               }
-            ],
-            "latex": "\\Gamma:(x-x_0)^2+(y-y_0)^2=r^2\\quad (r>0)"
+            ]
           },
           {
             "title": "条目5",
@@ -173,9 +169,7 @@ module.exports = {
                 "type": "text",
                 "text": "，记"
               }
-            ],
-            "desc": ",圆心为 。对椭圆上一点 ，记",
-            "latex": "M(x_0,y_0) \\qquad P"
+            ]
           },
           {
             "title": "条目6",
@@ -184,8 +178,7 @@ module.exports = {
                 "type": "math",
                 "latex": "d(P)=PM,\n\\qquad\nd_{\\min}=\\min_{P\\in E} PM,\n\\qquad\nd_{\\max}=\\max_{P\\in E} PM"
               }
-            ],
-            "latex": "d(P)=PM,\n\\qquad\nd_{\\min}=\\min_{P\\in E} PM,\n\\qquad\nd_{\\max}=\\max_{P\\in E} PM"
+            ]
           },
           {
             "title": ".结论一（点到圆的距离转化）",
@@ -202,9 +195,7 @@ module.exports = {
                 "type": "text",
                 "text": "，它到圆"
               }
-            ],
-            "desc": "对固定点 ，它到圆",
-            "latex": "P"
+            ]
           },
           {
             "title": "条目8",
@@ -213,8 +204,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\Gamma"
               }
-            ],
-            "latex": "\\Gamma"
+            ]
           },
           {
             "title": "条目9",
@@ -223,8 +213,7 @@ module.exports = {
                 "type": "text",
                 "text": "上点的最短距离与最长距离分别为"
               }
-            ],
-            "desc": "上点的最短距离与最长距离分别为"
+            ]
           },
           {
             "title": "条目10",
@@ -233,8 +222,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\ell_{\\min}(P)=|PM-r|,\n\\qquad\n\\ell_{\\max}(P)=PM+r"
               }
-            ],
-            "latex": "\\ell_{\\min}(P)=|PM-r|,\n\\qquad\n\\ell_{\\max}(P)=PM+r"
+            ]
           },
           {
             "title": "条目11",
@@ -251,9 +239,7 @@ module.exports = {
                 "type": "text",
                 "text": "到圆"
               }
-            ],
-            "desc": ".因此椭圆 到圆",
-            "latex": "E"
+            ]
           },
           {
             "title": "条目12",
@@ -262,8 +248,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\Gamma"
               }
-            ],
-            "latex": "\\Gamma"
+            ]
           },
           {
             "title": "条目13",
@@ -272,8 +257,7 @@ module.exports = {
                 "type": "text",
                 "text": "的最小距离为"
               }
-            ],
-            "desc": "的最小距离为"
+            ]
           },
           {
             "title": "条目14",
@@ -282,8 +266,7 @@ module.exports = {
                 "type": "math",
                 "latex": "D_{\\min}=\\min_{P\\in E}|PM-r|"
               }
-            ],
-            "latex": "D_{\\min}=\\min_{P\\in E}|PM-r|"
+            ]
           },
           {
             "title": "条目15",
@@ -300,9 +283,7 @@ module.exports = {
                 "type": "text",
                 "text": "与"
               }
-            ],
-            "desc": ".若椭圆与圆不相交，则通常只需比较 与",
-            "latex": "r"
+            ]
           },
           {
             "title": "条目16",
@@ -311,8 +292,7 @@ module.exports = {
                 "type": "math",
                 "latex": "d_{\\min},d_{\\max}"
               }
-            ],
-            "latex": "d_{\\min},d_{\\max}"
+            ]
           },
           {
             "title": "条目17",
@@ -321,8 +301,7 @@ module.exports = {
                 "type": "text",
                 "text": "："
               }
-            ],
-            "desc": "："
+            ]
           },
           {
             "title": "条目18",
@@ -331,8 +310,7 @@ module.exports = {
                 "type": "math",
                 "latex": "D_{\\min}= \n\\begin{cases}\nd_{\\min}-r, & r<d_{\\min},\\\\[2mm]\nr-d_{\\max}, & r>d_{\\max}.\n\\end{cases}"
               }
-            ],
-            "latex": "D_{\\min}= \n\\begin{cases}\nd_{\\min}-r, & r<d_{\\min},\\\\[2mm]\nr-d_{\\max}, & r>d_{\\max}.\n\\end{cases}"
+            ]
           },
           {
             "title": "条目19",
@@ -341,8 +319,7 @@ module.exports = {
                 "type": "text",
                 "text": "其中"
               }
-            ],
-            "desc": "其中"
+            ]
           },
           {
             "title": "条目20",
@@ -351,8 +328,7 @@ module.exports = {
                 "type": "math",
                 "latex": "r<d_{\\min}"
               }
-            ],
-            "latex": "r<d_{\\min}"
+            ]
           },
           {
             "title": "条目21",
@@ -361,8 +337,7 @@ module.exports = {
                 "type": "text",
                 "text": "表示圆与椭圆边界不相交。若圆心 M 在椭圆内部，则圆被椭圆包含；若圆心 M 在椭圆外部，则圆与椭圆外离；"
               }
-            ],
-            "desc": "表示圆与椭圆边界不相交。若圆心 M 在椭圆内部，则圆被椭圆包含；若圆心 M 在椭圆外部，则圆与椭圆外离；"
+            ]
           },
           {
             "title": "条目22",
@@ -371,8 +346,7 @@ module.exports = {
                 "type": "math",
                 "latex": "r>d_{\\max}"
               }
-            ],
-            "latex": "r>d_{\\max}"
+            ]
           },
           {
             "title": "条目23",
@@ -381,8 +355,7 @@ module.exports = {
                 "type": "text",
                 "text": "表示圆包住整个椭圆。最大距离恒为"
               }
-            ],
-            "desc": "表示圆包住整个椭圆。最大距离恒为"
+            ]
           },
           {
             "title": "条目24",
@@ -391,8 +364,7 @@ module.exports = {
                 "type": "math",
                 "latex": "D_{\\max}=d_{\\max}+r"
               }
-            ],
-            "latex": "D_{\\max}=d_{\\max}+r"
+            ]
           },
           {
             "title": "条目25",
@@ -441,9 +413,7 @@ module.exports = {
                 "type": "text",
                 "text": "到圆心的距离平方满足"
               }
-            ],
-            "desc": ".assets/tikz/C001_01_xiangli_minmax.tikz\nassets/tikz/C001_02_xiangqie_minmax.tikz\nassets/tikz/C001_03_xiangjiao_minmax.tikz\nassets/tikz/C001_04_neihan_circle_contains_ellipse_minmax.tikz\nassets/tikz/C001_05_waihan_ellipse_contains_circle_minmax.tikz\n结论二（圆心在 轴上的求法）：\n若圆心 在 轴上，令 。椭圆上一点 到圆心的距离平方满足",
-            "latex": "c^2=a^2-b^2"
+            ]
           },
           {
             "title": "条目26",
@@ -452,8 +422,7 @@ module.exports = {
                 "type": "math",
                 "latex": "d^2=(x-x_0)^2+y^2\n=\\frac{c^2}{a^2}x^2-2x_0x+x_0^2+b^2,\n\\qquad x\\in[-a,a]"
               }
-            ],
-            "latex": "d^2=(x-x_0)^2+y^2\n=\\frac{c^2}{a^2}x^2-2x_0x+x_0^2+b^2,\n\\qquad x\\in[-a,a]"
+            ]
           },
           {
             "title": "条目27",
@@ -462,8 +431,7 @@ module.exports = {
                 "type": "text",
                 "text": ".所以求"
               }
-            ],
-            "desc": ".所以求"
+            ]
           },
           {
             "title": "条目28",
@@ -472,8 +440,7 @@ module.exports = {
                 "type": "math",
                 "latex": "d_{\\min},d_{\\max}"
               }
-            ],
-            "latex": "d_{\\min},d_{\\max}"
+            ]
           },
           {
             "title": "条目29",
@@ -498,9 +465,7 @@ module.exports = {
                 "type": "text",
                 "text": "，则"
               }
-            ],
-            "desc": "，本质上就是求这个二次函数在闭区间 上的最值，再开方。\n特别地，若圆心为原点 ，则",
-            "latex": "[-a,a] \\qquad M(0,0)"
+            ]
           },
           {
             "title": "条目30",
@@ -509,8 +474,7 @@ module.exports = {
                 "type": "math",
                 "latex": "d_{\\min}=b,\n\\qquad\nd_{\\max}=a"
               }
-            ],
-            "latex": "d_{\\min}=b,\n\\qquad\nd_{\\max}=a"
+            ]
           },
           {
             "title": "条目31",
@@ -519,8 +483,7 @@ module.exports = {
                 "type": "text",
                 "text": "."
               }
-            ],
-            "desc": "."
+            ]
           }
         ]
       },
@@ -1585,9 +1548,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "距离转化形式： ；",
-            "latex": "d = \\frac{|Ax + By + C|}{\\sqrt{A^2 + B^2}}"
+            ]
           },
           {
             "title": "条目2",
@@ -1620,9 +1581,7 @@ module.exports = {
                 "type": "text",
                 "text": ")；"
               }
-            ],
-            "desc": "极值公式： , (假设直线在椭圆外且 )；",
-            "latex": "d_{max} = \\frac{|C| + \\sqrt{A^2a^2 + B^2b^2}}{\\sqrt{A^2 + B^2}}"
+            ]
           },
           {
             "title": "条目3",
@@ -1647,9 +1606,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "切线常数项：与 平行的椭圆切线方程为 。",
-            "latex": "Ax + By \\pm \\sqrt{A^2a^2 + B^2b^2} = 0"
+            ]
           }
         ]
       },
@@ -2069,9 +2026,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "最大角结论：当点 位于椭圆短轴端点（即 ）时，张角 取得最大值 ；",
-            "latex": "P \\qquad P(0, \\pm b) \\qquad \\theta \\qquad \\theta_{max}"
+            ]
           },
           {
             "title": "条目2",
@@ -2104,9 +2059,7 @@ module.exports = {
                 "type": "text",
                 "text": "的纵坐标绝对值）；"
               }
-            ],
-            "desc": "正切值公式： （其中 为点 的纵坐标绝对值）；",
-            "latex": "\\tan \\frac{\\theta}{2} = \\frac{c}{y_P}"
+            ]
           },
           {
             "title": "条目3",
@@ -2139,9 +2092,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "余弦值形式： ，其中 为焦半径。在短轴端点处， 。",
-            "latex": "\\cos \\theta = \\frac{r_1^2 + r_2^2 - 4c^2}{2r_1r_2}"
+            ]
           }
         ]
       },
@@ -2735,9 +2686,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "最大值位置：当点 位于椭圆短轴端点 时，顶角 取得最大值 ；",
-            "latex": "P \\qquad (0, \\pm b) \\qquad \\alpha \\qquad \\alpha_{max}"
+            ]
           },
           {
             "title": "条目2",
@@ -2770,9 +2719,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "斜率乘积恒值：直线 与 的斜率乘积满足 ；",
-            "latex": "k_{PA_1} \\cdot k_{PA_2} = -\\frac{b^2}{a^2}"
+            ]
           },
           {
             "title": "条目3",
@@ -2797,9 +2744,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "正切值公式： ，在短轴端点处 。",
-            "latex": "\\tan \\alpha = \\frac{2ab|y|}{(a^2-b^2)y^2/b^2 + x^2 - a^2}"
+            ]
           }
         ]
       },
@@ -3344,9 +3289,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "核心不等式： ；",
-            "latex": "\\sin \\frac{\\theta}{2} \\le e"
+            ]
           },
           {
             "title": "条目2",
@@ -3379,9 +3322,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "取等条件：当且仅当点 位于短轴端点 时， ；",
-            "latex": "\\sin \\frac{\\theta_{max}}{2} = e"
+            ]
           },
           {
             "title": "条目3",
@@ -3414,9 +3355,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "范围结论：若椭圆上存在点 使得 ，则该椭圆的离心率满足 。",
-            "latex": "\\angle F_1PF_2 \\ge \\theta_0"
+            ]
           }
         ]
       },
@@ -3880,9 +3819,7 @@ module.exports = {
                 "type": "text",
                 "text": "为焦半径;"
               }
-            ],
-            "desc": "万能余弦公式: , 其中 为焦半径;",
-            "latex": "\\cos \\theta = \\frac{r_1^2 + r_2^2 - 4c^2}{2r_1r_2}"
+            ]
           },
           {
             "title": "条目2",
@@ -3915,9 +3852,7 @@ module.exports = {
                 "type": "text",
                 "text": "的纵坐标);"
               }
-            ],
-            "desc": "半角正切公式: (其中 为点 的纵坐标);",
-            "latex": "\\tan \\frac{\\theta}{2} = \\frac{b^2}{c y_P}"
+            ]
           },
           {
             "title": "条目3",
@@ -3950,9 +3885,7 @@ module.exports = {
                 "type": "text",
                 "text": "."
               }
-            ],
-            "desc": "离心率不等式关系: . 当且仅当 为短轴端点时, .",
-            "latex": "\\sin \\frac{\\theta}{2} \\le e"
+            ]
           }
         ]
       },
@@ -4374,9 +4307,7 @@ module.exports = {
                 "type": "text",
                 "text": ";"
               }
-            ],
-            "desc": "核心判定式： ;",
-            "latex": "m^2 = a^2k^2 + b^2"
+            ]
           },
           {
             "title": "条目2",
@@ -4385,8 +4316,7 @@ module.exports = {
                 "type": "text",
                 "text": "位置关系推论："
               }
-            ],
-            "desc": "位置关系推论："
+            ]
           },
           {
             "title": "条目3",
@@ -4403,9 +4333,7 @@ module.exports = {
                 "type": "text",
                 "text": ", 则直线与椭圆相交;"
               }
-            ],
-            "desc": "若 , 则直线与椭圆相交;",
-            "latex": "m^2 < a^2k^2 + b^2"
+            ]
           },
           {
             "title": "条目4",
@@ -4422,9 +4350,7 @@ module.exports = {
                 "type": "text",
                 "text": ", 则直线与椭圆相离."
               }
-            ],
-            "desc": "若 , 则直线与椭圆相离.",
-            "latex": "m^2 > a^2k^2 + b^2"
+            ]
           },
           {
             "title": "条目5",
@@ -4449,9 +4375,7 @@ module.exports = {
                 "type": "text",
                 "text": "."
               }
-            ],
-            "desc": "切线方程：已知斜率为 的椭圆切线方程可直接设为 .",
-            "latex": "y = kx \\pm \\sqrt{a^2k^2 + b^2}"
+            ]
           }
         ]
       },
@@ -5027,9 +4951,7 @@ module.exports = {
                 "type": "text",
                 "text": ";"
               }
-            ],
-            "desc": "切线方程 (切点幂形式): ;",
-            "latex": "\\frac{x_0x}{a^2} + \\frac{y_0y}{b^2} = 1"
+            ]
           },
           {
             "title": "条目2",
@@ -5054,9 +4976,7 @@ module.exports = {
                 "type": "text",
                 "text": ";"
               }
-            ],
-            "desc": "切线斜率: 若 , 则切线斜率 ;",
-            "latex": "y_0 \\neq 0"
+            ]
           },
           {
             "title": "条目3",
@@ -5089,9 +5009,7 @@ module.exports = {
                 "type": "text",
                 "text": "引两条切线的切点连线 (极线) 方程."
               }
-            ],
-            "desc": "切点幂定理扩展: 若点 在椭圆外, 则方程 表示过点 引两条切线的切点连线 (极线) 方程.",
-            "latex": "\\frac{x_1x}{a^2} + \\frac{y_1y}{b^2} = 1"
+            ]
           }
         ]
       },
@@ -5581,9 +5499,7 @@ module.exports = {
                 "type": "text",
                 "text": "."
               }
-            ],
-            "desc": "全集性质: 对于椭圆上任意一点 (非长轴顶点), 总存在唯一的切线斜率 .",
-            "latex": "k \\in \\mathbb{R}"
+            ]
           },
           {
             "title": "条目2",
@@ -5616,9 +5532,7 @@ module.exports = {
                 "type": "text",
                 "text": "."
               }
-            ],
-            "desc": "过点切线斜率方程: 过椭圆外一点 引椭圆的切线, 斜率 满足方程: .",
-            "latex": "(a^2 - x_0^2)k^2 + 2x_0y_0k + (b^2 - y_0^2) = 0"
+            ]
           },
           {
             "title": "条目3",
@@ -5643,9 +5557,7 @@ module.exports = {
                 "type": "text",
                 "text": "."
               }
-            ],
-            "desc": "存在性判定: 过点 能引两条切线的充要条件是 .",
-            "latex": "\\frac{x_0^2}{a^2} + \\frac{y_0^2}{b^2} > 1"
+            ]
           }
         ]
       },
@@ -6211,9 +6123,7 @@ module.exports = {
                 "type": "text",
                 "text": ";"
               }
-            ],
-            "desc": "原心距公式: 原点 到切线 的距离 ;",
-            "latex": "y = kx \\pm \\sqrt{a^2k^2 + b^2}"
+            ]
           },
           {
             "title": "条目2",
@@ -6286,9 +6196,7 @@ module.exports = {
                 "type": "text",
                 "text": ";"
               }
-            ],
-            "desc": "焦点距离积定值: 若左右焦点分别为 , 则 到切线 的距离 与 到切线 的距离 之积满足 ;",
-            "latex": "d_1 \\cdot d_2 = b^2"
+            ]
           },
           {
             "title": "条目3",
@@ -6305,9 +6213,7 @@ module.exports = {
                 "type": "text",
                 "text": "上."
               }
-            ],
-            "desc": "垂足位置性质: 焦点在切线上的投影 (垂足) 必落在椭圆的主圆 上.",
-            "latex": "x^2 + y^2 = a^2"
+            ]
           }
         ]
       },
@@ -6907,8 +6813,7 @@ module.exports = {
                 "type": "text",
                 "text": "对于椭圆"
               }
-            ],
-            "desc": "对于椭圆"
+            ]
           },
           {
             "title": "条目2",
@@ -6917,8 +6822,7 @@ module.exports = {
                 "type": "math",
                 "latex": "C: \\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
               }
-            ],
-            "latex": "C: \\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
+            ]
           },
           {
             "title": "条目3",
@@ -6991,9 +6895,7 @@ module.exports = {
                 "type": "text",
                 "text": "为椭圆的离心率."
               }
-            ],
-            "desc": "( ), 设点 为椭圆上一点. 若过点 的切线 的斜率为 , 点 与原点连线的斜率为 , 则有:\nk_l k_OP = e^2 - 1 = - b^2a^2\n其中 为椭圆的离心率.",
-            "latex": "a>b>0"
+            ]
           }
         ]
       },
@@ -7440,8 +7342,7 @@ module.exports = {
                 "type": "text",
                 "text": "对于椭圆"
               }
-            ],
-            "desc": "对于椭圆"
+            ]
           },
           {
             "title": "条目2",
@@ -7450,8 +7351,7 @@ module.exports = {
                 "type": "math",
                 "latex": "C: \\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
               }
-            ],
-            "latex": "C: \\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
+            ]
           },
           {
             "title": "条目3",
@@ -7532,9 +7432,7 @@ module.exports = {
                 "type": "text",
                 "text": "的距离, 则有:\nr_1 r_2 d = ab\n该结论描述了椭圆切线的原心距与切点焦半径乘积之间的定值关系."
               }
-            ],
-            "desc": "( ), 设 是椭圆上任意一点, 为椭圆在点 处的切线. 设 是原点到直线 的距离, 分别是点 到椭圆两个焦点 的距离, 则有:\nr_1 r_2 d = ab\n该结论描述了椭圆切线的原心距与切点焦半径乘积之间的定值关系.",
-            "latex": "a>b>0"
+            ]
           }
         ]
       },
@@ -8179,9 +8077,7 @@ module.exports = {
                 "type": "text",
                 "text": ";"
               }
-            ],
-            "desc": "乘积定值: ;",
-            "latex": "|P_1A_1| \\cdot |P_2A_2| = b^2"
+            ]
           },
           {
             "title": "条目2",
@@ -8206,9 +8102,7 @@ module.exports = {
                 "type": "text",
                 "text": "."
               }
-            ],
-            "desc": "面积最值: 四边形 面积的最小值为 .",
-            "latex": "A_1P_1P_2A_2 \\qquad 2ab"
+            ]
           }
         ]
       },
@@ -8794,9 +8688,7 @@ module.exports = {
                 "type": "text",
                 "text": ";"
               }
-            ],
-            "desc": "距离积: ;",
-            "latex": "d_1 d_2 = b^2"
+            ]
           },
           {
             "title": "条目2",
@@ -8821,9 +8713,7 @@ module.exports = {
                 "type": "text",
                 "text": ";"
               }
-            ],
-            "desc": "面积最值: 四边形 面积的最大值为 ;",
-            "latex": "F_1H_1H_2F_2 \\qquad a^2"
+            ]
           },
           {
             "title": "条目3",
@@ -8856,9 +8746,7 @@ module.exports = {
                 "type": "text",
                 "text": ";"
               }
-            ],
-            "desc": "光学性质: 切线 是 的外角平分线, 且内角平分线 ;",
-            "latex": "l \\qquad \\angle F_1PF_2 \\qquad m \\perp l"
+            ]
           },
           {
             "title": "条目4",
@@ -8883,9 +8771,7 @@ module.exports = {
                 "type": "text",
                 "text": "上;"
               }
-            ],
-            "desc": "共圆性质: 垂足 在主圆 上;",
-            "latex": "x^2 + y^2 = a^2"
+            ]
           },
           {
             "title": "条目5",
@@ -8918,9 +8804,7 @@ module.exports = {
                 "type": "text",
                 "text": "."
               }
-            ],
-            "desc": "截距性质: 内外角平分线与 轴交点 的横坐标满足 .",
-            "latex": "x_M \\cdot x_N = c^2"
+            ]
           }
         ]
       },
@@ -9748,9 +9632,7 @@ module.exports = {
                 "type": "text",
                 "text": ";"
               }
-            ],
-            "desc": "重心 : ;",
-            "latex": "G\\left( \\frac{x_0}{3}, \\frac{y_0}{3} \\right)"
+            ]
           },
           {
             "title": "条目2",
@@ -9783,9 +9665,7 @@ module.exports = {
                 "type": "text",
                 "text": "为离心率;"
               }
-            ],
-            "desc": "内心 : , 其中 为离心率;",
-            "latex": "I\\left( ex_0, \\frac{cy_0}{a+c} \\right)"
+            ]
           },
           {
             "title": "条目3",
@@ -9810,9 +9690,7 @@ module.exports = {
                 "type": "text",
                 "text": ";"
               }
-            ],
-            "desc": "垂心 : ;",
-            "latex": "H\\left( x_0, \\frac{c^2-x_0^2}{y_0} \\right)"
+            ]
           },
           {
             "title": "条目4",
@@ -9837,9 +9715,7 @@ module.exports = {
                 "type": "text",
                 "text": "."
               }
-            ],
-            "desc": "外心 : .",
-            "latex": "O'\\left( 0, \\frac{x_0^2+y_0^2-c^2}{2y_0} \\right)"
+            ]
           }
         ]
       },
@@ -10949,9 +10825,7 @@ module.exports = {
                 "type": "text",
                 "text": ";"
               }
-            ],
-            "desc": "重心 : ;",
-            "latex": "G\\left( \\frac{x_0}{3}, \\frac{y_0}{3} \\right)"
+            ]
           },
           {
             "title": "条目2",
@@ -11000,9 +10874,7 @@ module.exports = {
                 "type": "text",
                 "text": ");"
               }
-            ],
-            "desc": "内心 : , 其中 为离心率 (若 在左支, 则横坐标 );",
-            "latex": "I\\left( a, \\frac{cy_0}{c+ex_0} \\right)"
+            ]
           },
           {
             "title": "条目3",
@@ -11027,9 +10899,7 @@ module.exports = {
                 "type": "text",
                 "text": ";"
               }
-            ],
-            "desc": "垂心 : ;",
-            "latex": "H\\left( x_0, \\frac{c^2-x_0^2}{y_0} \\right)"
+            ]
           },
           {
             "title": "条目4",
@@ -11054,9 +10924,7 @@ module.exports = {
                 "type": "text",
                 "text": "."
               }
-            ],
-            "desc": "外心 : .",
-            "latex": "O'\\left( 0, \\frac{x_0^2+y_0^2-c^2}{2y_0} \\right)"
+            ]
           }
         ]
       },
@@ -12001,9 +11869,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "椭圆方程为 ，其中 ；直线方程为 。",
-            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+            ]
           },
           {
             "title": "结论一（相切条件）：",
@@ -12016,9 +11882,7 @@ module.exports = {
                 "type": "math",
                 "latex": "m^2 = a^2 k^2 + b^2"
               }
-            ],
-            "desc": "直线与椭圆相切时，截距平方满足固定关系。",
-            "latex": "m^2 = a^2 k^2 + b^2"
+            ]
           },
           {
             "title": "推广结论（切线方程）：",
@@ -12031,9 +11895,7 @@ module.exports = {
                 "type": "math",
                 "latex": "y = kx \\pm \\sqrt{a^2 k^2 + b^2}"
               }
-            ],
-            "desc": "切线方程可直接写出截距表达式。",
-            "latex": "y = kx \\pm \\sqrt{a^2 k^2 + b^2}"
+            ]
           }
         ]
       },
@@ -13208,9 +13070,7 @@ module.exports = {
                 "type": "text",
                 "text": "上。"
               }
-            ],
-            "desc": "点 在椭圆 上。",
-            "latex": "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1"
+            ]
           },
           {
             "title": "结论一（标准形式）：",
@@ -13231,9 +13091,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1."
               }
-            ],
-            "desc": "椭圆在点 处的切线方程。",
-            "latex": "\\frac{x_0 x}{a^2} + \\frac{y_0 y}{b^2} = 1."
+            ]
           },
           {
             "title": "推广结论（斜率表达）：",
@@ -13246,9 +13104,7 @@ module.exports = {
                 "type": "math",
                 "latex": "k = -\\frac{b^2 x_0}{a^2 y_0} \\quad (y_0 \\neq 0)."
               }
-            ],
-            "desc": "切线斜率的坐标表达式。",
-            "latex": "k = -\\frac{b^2 x_0}{a^2 y_0} \\quad (y_0 \\neq 0)."
+            ]
           }
         ]
       },
@@ -14695,9 +14551,7 @@ module.exports = {
                 "type": "text",
                 "text": "上。"
               }
-            ],
-            "desc": "椭圆 的方程为 ，点 在椭圆 上。",
-            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1\\ (a>b>0)"
+            ]
           },
           {
             "title": "结论一（斜率乘积）：",
@@ -14710,9 +14564,7 @@ module.exports = {
                 "type": "math",
                 "latex": "k_{OP} \\cdot k_l = e^{2} - 1"
               }
-            ],
-            "desc": "原点与椭圆上点连线的斜率，乘以该点处切线的斜率，结果为离心率平方减一。",
-            "latex": "k_{OP} \\cdot k_l = e^{2} - 1"
+            ]
           },
           {
             "title": "推广结论（圆特例）：",
@@ -14733,9 +14585,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\text{若 } e=0 \\text{(即圆)} k_{OP} \\cdot k_l = -1."
               }
-            ],
-            "desc": "当椭圆退化为圆时，两斜率乘积为 ，即切线垂直于半径。",
-            "latex": "\\text{若 } e=0 \\text{(即圆)} k_{OP} \\cdot k_l = -1."
+            ]
           }
         ]
       },
@@ -16355,9 +16205,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "椭圆 ，其中 。",
-            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+            ]
           },
           {
             "title": "条件 2（点与切线）：",
@@ -16390,9 +16238,7 @@ module.exports = {
                 "type": "text",
                 "text": "处的切线。"
               }
-            ],
-            "desc": "点 在椭圆上， 为椭圆在点 处的切线。",
-            "latex": "P(x_0,y_0) \\qquad l \\qquad P"
+            ]
           },
           {
             "title": "条件 3（距离定义）：",
@@ -16461,9 +16307,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "为原点到直线 的距离， 和 分别为点 到焦点 和 的距离，其中 。",
-            "latex": "c^2=a^2-b^2"
+            ]
           },
           {
             "title": "结论一（乘积定值）：",
@@ -16476,9 +16320,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\sqrt{r_1 r_2} \\cdot d = ab."
               }
-            ],
-            "desc": "焦点距离几何均值与切线距原点距离之积为椭圆半轴积。",
-            "latex": "\\sqrt{r_1 r_2} \\cdot d = ab."
+            ]
           },
           {
             "title": "推广结论（平方形式）：",
@@ -16491,9 +16333,7 @@ module.exports = {
                 "type": "math",
                 "latex": "r_1 r_2 \\cdot d^2 = a^2 b^2."
               }
-            ],
-            "desc": "将原式平方可得焦点距离乘积与距离平方之积为定值。",
-            "latex": "r_1 r_2 \\cdot d^2 = a^2 b^2."
+            ]
           }
         ]
       },
@@ -18260,9 +18100,7 @@ module.exports = {
                 "type": "text",
                 "text": "在椭圆上。"
               }
-            ],
-            "desc": "椭圆 ，点 在椭圆上。",
-            "latex": "\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1\\ (a>b>0)"
+            ]
           },
           {
             "title": "条件 2（几何量）：",
@@ -18339,9 +18177,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "为椭圆在点 处的切线， 为原点 到直线 的距离， 分别为点 到焦点 的距离，其中 。",
-            "latex": "c=\\sqrt{a^{2}-b^{2}}"
+            ]
           },
           {
             "title": "结论一（乘积恒等）：",
@@ -18354,9 +18190,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\sqrt{r_1 r_2}\\cdot d = ab."
               }
-            ],
-            "desc": "原点至切线距离与焦半径几何平均的乘积等于椭圆半轴长乘积。",
-            "latex": "\\sqrt{r_1 r_2}\\cdot d = ab."
+            ]
           },
           {
             "title": "推广结论（平方形式）：",
@@ -18369,9 +18203,7 @@ module.exports = {
                 "type": "math",
                 "latex": "r_1 r_2 \\cdot d^2 = a^2 b^2."
               }
-            ],
-            "desc": "将主结论平方可得焦半径乘积与距离平方的关系。",
-            "latex": "r_1 r_2 \\cdot d^2 = a^2 b^2."
+            ]
           }
         ]
       },
@@ -19875,9 +19707,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "设椭圆 ，长轴端点 、 ，过 、 的切线分别为 和 。",
-            "latex": "C:\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1\\ (a>b>0)"
+            ]
           },
           {
             "title": "结论一（距离乘积定值）：",
@@ -19906,9 +19736,7 @@ module.exports = {
                 "type": "math",
                 "latex": "|P_{1}A_{1}|\\cdot|P_{2}A_{2}|=b^{2}"
               }
-            ],
-            "desc": "交点距离乘积恒为 ，与 点位置无关。",
-            "latex": "|P_{1}A_{1}|\\cdot|P_{2}A_{2}|=b^{2}"
+            ]
           },
           {
             "title": "推广结论（面积最小值）：",
@@ -19965,9 +19793,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "四边形面积有最小值 ，当 在短轴端点时取得。 等号/取等条件： 当 在椭圆短轴端点 时，四边形面积取得最小值 。",
-            "latex": "S_{A_{1}P_{1}P_{2}A_{2}}\\ge 2ab"
+            ]
           }
         ]
       },
@@ -21712,9 +21538,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "椭圆边界为 ，且 。其中 分别表示 方向、 方向的半轴长，不预设 。",
-            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+            ]
           },
           {
             "title": "结论一（椭圆面积公式）：",
@@ -21735,9 +21559,7 @@ module.exports = {
                 "type": "math",
                 "latex": "S = \\pi ab."
               }
-            ],
-            "desc": "椭圆围成区域的面积等于 乘以两条半轴长度之积。",
-            "latex": "S = \\pi ab."
+            ]
           },
           {
             "title": "推广结论（圆为特例）：",
@@ -21786,9 +21608,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "当 时，椭圆变为半径为 的圆，面积公式退化为圆面积。 适用范围： 该公式适用于中心在原点、轴与坐标轴平行的标准椭圆。对于平移或旋转后的椭圆，面积仍等于 乘以两条半轴长度，但不能直接从原方程的系数读出 。",
-            "latex": "a=b"
+            ]
           }
         ]
       },
@@ -23514,9 +23334,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "椭圆方程为 ，且 。",
-            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+            ]
           },
           {
             "title": "结论一（Ramanujan近似）：",
@@ -23529,9 +23347,7 @@ module.exports = {
                 "type": "math",
                 "latex": "C\\approx \\pi(a+b)\\left(1+\\frac{3h}{10+\\sqrt{4-3h}}\\right),\n\\qquad\nh=\\left(\\frac{a-b}{a+b}\\right)^2."
               }
-            ],
-            "desc": "用长短半轴计算椭圆周长的高精度近似值。",
-            "latex": "C\\approx \\pi(a+b)\\left(1+\\frac{3h}{10+\\sqrt{4-3h}}\\right),\n\\qquad\nh=\\left(\\frac{a-b}{a+b}\\right)^2."
+            ]
           },
           {
             "title": "推广结论（圆特例）：",
@@ -23560,9 +23376,7 @@ module.exports = {
                 "type": "math",
                 "latex": "C=2\\pi a."
               }
-            ],
-            "desc": "当 时公式退化为精确圆周长 。",
-            "latex": "a=b"
+            ]
           }
         ]
       },
@@ -25003,9 +24817,7 @@ module.exports = {
                 "type": "text",
                 "text": "轴旋转一周。"
               }
-            ],
-            "desc": "椭圆方程为 ，其中 ， ，且将该椭圆绕 轴旋转一周。",
-            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+            ]
           },
           {
             "title": "结论一（旋转椭球体积）：",
@@ -25042,9 +24854,7 @@ module.exports = {
                 "type": "math",
                 "latex": "V=\\frac{4}{3}\\pi a b^{2}."
               }
-            ],
-            "desc": "体积等于三分之四 乘 半轴再乘 半轴的平方。",
-            "latex": "V=\\frac{4}{3}\\pi a b^{2}."
+            ]
           },
           {
             "title": "推广结论（球体退化特例）：",
@@ -25125,9 +24935,7 @@ module.exports = {
                 "type": "text",
                 "text": "轴。"
               }
-            ],
-            "desc": "当 时，椭圆退化为圆；该圆绕 轴旋转一周得到球，体积公式退化为。 assets/tikz/C025_fig01_overview.tex\n0.4em\n图：椭圆绕 轴旋转形成旋转椭球体的示意图\n使用提醒：\n公式中的 为 方向半轴长， 为 方向半轴长，切勿交换；旋转轴必须为 轴。",
-            "latex": "a=b=r"
+            ]
           }
         ]
       },
@@ -26495,9 +26303,7 @@ module.exports = {
                 "type": "text",
                 "text": "轴旋转一周。"
               }
-            ],
-            "desc": "椭圆 （ ）绕 轴旋转一周。",
-            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+            ]
           },
           {
             "title": "结论一（旋转椭球体积）：",
@@ -26570,9 +26376,7 @@ module.exports = {
                 "type": "text",
                 "text": "轴方向的半轴长。"
               }
-            ],
-            "desc": "以 为赤道半径、 为极半径的旋转椭球，体积与 成正比。 其中 是椭圆在 轴方向的半轴长， 是椭圆在 轴方向的半轴长。",
-            "latex": "V_y = \\frac{4}{3}\\pi a^2 b ,"
+            ]
           },
           {
             "title": "推广结论（绕x轴体积）：",
@@ -26601,9 +26405,7 @@ module.exports = {
                 "type": "math",
                 "latex": "V_x = \\frac{4}{3}\\pi a b^2"
               }
-            ],
-            "desc": "绕 轴旋转时，体积与 成正比，公式呈对称形式。",
-            "latex": "V_x = \\frac{4}{3}\\pi a b^2"
+            ]
           }
         ]
       },

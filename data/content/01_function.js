@@ -54,7 +54,7 @@
  *     1. { text: string }
  *     2. { latex: string }
  *     3. { segments: [{ type: 'text', text } | { type: 'math', latex }] }
- *     4. theorem-list item: { title, desc?, latex }
+ *     4. theorem-list item: { title, segments }
  *   - Rich parser rules for mixed text/math sections:
  *     - Long equation-chain math is promoted to standalone { latex } items.
  *     - Trailing punctuation is stripped out of latex and kept in text segments.
@@ -215,9 +215,7 @@ module.exports = {
                 "type": "text",
                 "text": "上严格单调递增；"
               }
-            ],
-            "desc": "若 在 上恒成立，则 在 上严格单调递增；",
-            "latex": "f'(x) > 0"
+            ]
           },
           {
             "title": "条目2",
@@ -258,9 +256,7 @@ module.exports = {
                 "type": "text",
                 "text": "上严格单调递减；"
               }
-            ],
-            "desc": "若 在 上恒成立，则 在 上严格单调递减；",
-            "latex": "f'(x) < 0"
+            ]
           },
           {
             "title": "条目3",
@@ -301,9 +297,7 @@ module.exports = {
                 "type": "text",
                 "text": "上单调不减（或不增）。"
               }
-            ],
-            "desc": "若 （或 ），则 在 上单调不减（或不增）。",
-            "latex": "f'(x) \\ge 0"
+            ]
           }
         ]
       },
@@ -696,9 +690,7 @@ module.exports = {
                 "type": "text",
                 "text": "上严格单调递增；"
               }
-            ],
-            "desc": "若 在 上恒成立，则 在 上严格单调递增；",
-            "latex": "f'(x) > 0"
+            ]
           },
           {
             "title": "条目2",
@@ -739,9 +731,7 @@ module.exports = {
                 "type": "text",
                 "text": "上严格单调递减；"
               }
-            ],
-            "desc": "若 在 上恒成立，则 在 上严格单调递减；",
-            "latex": "f'(x) < 0"
+            ]
           },
           {
             "title": "条目3",
@@ -782,9 +772,7 @@ module.exports = {
                 "type": "text",
                 "text": "上单调不减（或不增）。"
               }
-            ],
-            "desc": "若 （或 ），则 在 上单调不减（或不增）。",
-            "latex": "f'(x) \\ge 0"
+            ]
           }
         ]
       },

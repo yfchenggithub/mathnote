@@ -54,7 +54,7 @@
  *     1. { text: string }
  *     2. { latex: string }
  *     3. { segments: [{ type: 'text', text } | { type: 'math', latex }] }
- *     4. theorem-list item: { title, desc?, latex }
+ *     4. theorem-list item: { title, segments }
  *   - Rich parser rules for mixed text/math sections:
  *     - Long equation-chain math is promoted to standalone { latex } items.
  *     - Trailing punctuation is stripped out of latex and kept in text segments.
@@ -190,9 +190,7 @@ module.exports = {
                 "type": "text",
                 "text": ";"
               }
-            ],
-            "desc": "最小值为 ;",
-            "latex": "d-R"
+            ]
           },
           {
             "title": "条目2",
@@ -225,9 +223,7 @@ module.exports = {
                 "type": "text",
                 "text": "的反向延长线与圆的交点处取得。\nassets/tikz/P001_distance-extreme-from-external-point-min.tikz\nassets/tikz/P001_distance-extreme-from-external-point-max.tikz"
               }
-            ],
-            "desc": "最大值为 。\n最小距离在 与圆的交点处取得，\n最大距离在 的反向延长线与圆的交点处取得。\nassets/tikz/P001_distance-extreme-from-external-point-min.tikz\nassets/tikz/P001_distance-extreme-from-external-point-max.tikz",
-            "latex": "d+R \\qquad OP \\qquad OP"
+            ]
           }
         ]
       },
@@ -769,9 +765,7 @@ module.exports = {
                 "type": "text",
                 "text": ";"
               }
-            ],
-            "desc": "最小值为 ;",
-            "latex": "R-d"
+            ]
           },
           {
             "title": "条目2",
@@ -804,9 +798,7 @@ module.exports = {
                 "type": "text",
                 "text": "与圆的交点处取得。"
               }
-            ],
-            "desc": "最大值为 。\n最小距离在 的反向延长线与圆的交点处取得，\n最大距离在 与圆的交点处取得。",
-            "latex": "R+d \\qquad OP \\qquad OP"
+            ]
           }
         ]
       },
@@ -1372,9 +1364,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "最小值为 ；",
-            "latex": "0"
+            ]
           },
           {
             "title": "条目2",
@@ -1407,9 +1397,7 @@ module.exports = {
                 "type": "text",
                 "text": "直径相对的点处取得。"
               }
-            ],
-            "desc": "最大值为 。\n最小距离在 点本身取得，\n最大距离在圆上与 直径相对的点处取得。",
-            "latex": "2R \\qquad P \\qquad P"
+            ]
           }
         ]
       },
@@ -1790,9 +1778,7 @@ module.exports = {
                 "type": "text",
                 "text": "到圆上点距离的极值满足："
               }
-            ],
-            "desc": "P04 点到圆距离极值的统一模型\n设圆半径为 ，点 到圆心距离为 ,\n则点 到圆上点距离的极值满足：",
-            "latex": "R \\qquad P \\qquad d \\qquad P"
+            ]
           },
           {
             "title": "条目2",
@@ -1801,8 +1787,7 @@ module.exports = {
                 "type": "math",
                 "latex": "|d-R| \\le PA \\le d+R"
               }
-            ],
-            "latex": "|d-R| \\le PA \\le d+R"
+            ]
           },
           {
             "title": "条目3",
@@ -1811,8 +1796,7 @@ module.exports = {
                 "type": "text",
                 "text": "该不等式同时适用于\n点在圆内、圆上、圆外三种情形。"
               }
-            ],
-            "desc": "该不等式同时适用于\n点在圆内、圆上、圆外三种情形。"
+            ]
           }
         ]
       },
@@ -2174,9 +2158,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "P05 直线与圆的距离极值结论\n设圆心 到直线 的距离为 ,\n圆的半径为 。\n则直线 上点到圆的最小距离为： 当 时，直线与圆有公共点，最小距离为 。",
-            "latex": "d<R"
+            ]
           }
         ]
       },
@@ -2642,9 +2624,7 @@ module.exports = {
                 "type": "text",
                 "text": "。\n则两圆上点之间距离的取值范围为："
               }
-            ],
-            "desc": "P06 两圆之间的距离极值结论\n设两圆圆心分别为 ,\n半径分别为 ,\n圆心距为 。\n则两圆上点之间距离的取值范围为：",
-            "latex": "O_1,O_2 \\qquad R_1,R_2 \\qquad d"
+            ]
           },
           {
             "title": "条目2",
@@ -2653,8 +2633,7 @@ module.exports = {
                 "type": "math",
                 "latex": "|d-(R_1+R_2)| \\le AB \\le d+R_1+R_2"
               }
-            ],
-            "latex": "|d-(R_1+R_2)| \\le AB \\le d+R_1+R_2"
+            ]
           }
         ]
       },
@@ -3022,9 +3001,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\begin{cases}\nP+Q = x^2,\\\\\nQ+R = y^2,\\\\\nR+P = z^2.\n\\end{cases}"
               }
-            ],
-            "desc": "设三角形三边长分别为 . 定义三个数 满足",
-            "latex": "\\begin{cases}\nP+Q = x^2,\\\\\nQ+R = y^2,\\\\\nR+P = z^2.\n\\end{cases}"
+            ]
           },
           {
             "title": "结论一（面积对称式）：",
@@ -3037,9 +3014,7 @@ module.exports = {
                 "type": "math",
                 "latex": "2S = \\sqrt{PQ + QR + RP}."
               }
-            ],
-            "desc": "三角形面积可用三边平方的交叉乘积和表示.",
-            "latex": "2S = \\sqrt{PQ + QR + RP}."
+            ]
           },
           {
             "title": "常见变形（中间量显式）：",
@@ -3064,9 +3039,7 @@ module.exports = {
                 "type": "text",
                 "text": "适用范围"
               }
-            ],
-            "desc": "将 用边长平方直接表示. 适用范围",
-            "latex": "P = \\frac{x^2+z^2-y^2}{2},\\quad\nQ = \\frac{x^2+y^2-z^2}{2},\\quad\nR = \\frac{y^2+z^2-x^2}{2}."
+            ]
           },
           {
             "title": "适用场景（根式边长）：",
@@ -3091,9 +3064,7 @@ module.exports = {
                 "type": "text",
                 "text": "，避免计算半周长时的二次根式嵌套."
               }
-            ],
-            "desc": "当三边为 时，直接取 ，避免计算半周长时的二次根式嵌套.",
-            "latex": "x^2=a,y^2=b,z^2=c"
+            ]
           }
         ]
       },

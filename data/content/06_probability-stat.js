@@ -54,7 +54,7 @@
  *     1. { text: string }
  *     2. { latex: string }
  *     3. { segments: [{ type: 'text', text } | { type: 'math', latex }] }
- *     4. theorem-list item: { title, desc?, latex }
+ *     4. theorem-list item: { title, segments }
  *   - Rich parser rules for mixed text/math sections:
  *     - Long equation-chain math is promoted to standalone { latex } items.
  *     - Trailing punctuation is stripped out of latex and kept in text segments.
@@ -189,9 +189,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "给定正整数 ，满足 。",
-            "latex": "2 \\le m \\le n"
+            ]
           },
           {
             "title": "条件2（符号约定）：",
@@ -224,9 +222,7 @@ module.exports = {
                 "type": "text",
                 "text": "个并按顺序排列的总数。"
               }
-            ],
-            "desc": "本讲义采用高中常用记法 ，表示从 个不同元素中取出 个并按顺序排列的总数。",
-            "latex": "A_n^m \\qquad n \\qquad m"
+            ]
           },
           {
             "title": "结论一（按取出个数递推）：",
@@ -271,9 +267,7 @@ module.exports = {
                 "type": "math",
                 "latex": "A_n^m = (n-m+1)A_n^{m-1}."
               }
-            ],
-            "desc": "从 走到 ，只需要再补上第 个位置；此时还有 个元素可选。",
-            "latex": "A_n^m = (n-m+1)A_n^{m-1}."
+            ]
           },
           {
             "title": "常见变形（先固定首位）：",
@@ -302,9 +296,7 @@ module.exports = {
                 "type": "math",
                 "latex": "A_n^m = n \\cdot A_{n-1}^{m-1}."
               }
-            ],
-            "desc": "也可以先确定一个位置上的元素，再从剩下 个元素中取 个排列。",
-            "latex": "A_n^m = n \\cdot A_{n-1}^{m-1}."
+            ]
           }
         ]
       },
@@ -2049,9 +2041,7 @@ module.exports = {
                 "type": "text",
                 "text": "."
               }
-            ],
-            "desc": "为正整数，且 .",
-            "latex": "1\\le m<n"
+            ]
           },
           {
             "title": "条件2（固定取法）：",
@@ -2084,9 +2074,7 @@ module.exports = {
                 "type": "text",
                 "text": "."
               }
-            ],
-            "desc": "递推时保持取出个数 不变，只把元素总数从 增加到 .",
-            "latex": "m \\qquad n-1 \\qquad n"
+            ]
           },
           {
             "title": "结论一（按 递推）：",
@@ -2123,9 +2111,7 @@ module.exports = {
                 "type": "math",
                 "latex": "A_n^m=\\frac{n}{n-m}\\,A_{n-1}^m."
               }
-            ],
-            "desc": "排列数 可由 乘以比例因子 得到.",
-            "latex": "A_n^m=\\frac{n}{n-m}\\,A_{n-1}^m."
+            ]
           },
           {
             "title": "等价形式（比值公式）：",
@@ -2138,9 +2124,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\frac{A_n^m}{A_{n-1}^m}=\\frac{n}{n-m}."
               }
-            ],
-            "desc": "两个相邻下标排列数的比值为",
-            "latex": "\\frac{A_n^m}{A_{n-1}^m}=\\frac{n}{n-m}."
+            ]
           },
           {
             "title": "基础公式（阶乘表达）：",
@@ -2205,9 +2189,7 @@ module.exports = {
                 "type": "text",
                 "text": "."
               }
-            ],
-            "desc": "排列数也可写成阶乘形式 边界提醒：\n当 时， ，递推化为 仍然成立；当 时，本递推不能使用，因为 不存在且分母 .",
-            "latex": "A_n^m=\\frac{n!}{(n-m)!}."
+            ]
           }
         ]
       },
@@ -3870,9 +3852,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "，且 。",
-            "latex": "1\\leq m\\leq n"
+            ]
           },
           {
             "title": "条件 2（边界约定）：",
@@ -3921,9 +3901,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "为覆盖 的情形，约定 。若教材暂未引入该约定，则本公式主要用于 ，而 时单独使用 。",
-            "latex": "m=1"
+            ]
           },
           {
             "title": "结论一（首位分步递推）：",
@@ -3960,9 +3938,7 @@ module.exports = {
                 "type": "math",
                 "latex": "A_n^m = n\\cdot A_{n-1}^{m-1}."
               }
-            ],
-            "desc": "先确定第一个位置，有 种选法；剩余 个元素中再取 个排列。",
-            "latex": "A_n^m = n\\cdot A_{n-1}^{m-1}."
+            ]
           },
           {
             "title": "相关公式（按取出个数递推）：",
@@ -4019,9 +3995,7 @@ module.exports = {
                 "type": "text",
                 "text": "”区分记忆。"
               }
-            ],
-            "desc": "固定总元素数 ，也可由 推到 。 注意： 这是另一条常用递推式，应与本结论的“ 同时减 ”区分记忆。",
-            "latex": "A_n^m = (n-m+1)\\cdot A_n^{m-1}."
+            ]
           }
         ]
       },
@@ -5659,9 +5633,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "为正整数，且 。",
-            "latex": "1\\leq m\\leq n"
+            ]
           },
           {
             "title": "条件 2（边界约定）：",
@@ -5694,9 +5666,7 @@ module.exports = {
                 "type": "text",
                 "text": "个排列”只有一种空排列。"
               }
-            ],
-            "desc": "本结论采用排列数的常用约定 ，表示“从 个元素中取 个排列”只有一种空排列。",
-            "latex": "A_k^0=1\\ (k\\in\\mathbb N)"
+            ]
           },
           {
             "title": "结论一（分类递推公式）：",
@@ -5733,9 +5703,7 @@ module.exports = {
                 "type": "math",
                 "latex": "A_{n+1}^{m}=A_{n}^{m}+mA_{n}^{m-1}."
               }
-            ],
-            "desc": "从 个元素中取 个排列，按“是否含第 个元素”分成两类相加。",
-            "latex": "A_{n+1}^{m}=A_{n}^{m}+mA_{n}^{m-1}."
+            ]
           },
           {
             "title": "常见变形（下标平移）：",
@@ -5816,9 +5784,7 @@ module.exports = {
                 "type": "text",
                 "text": "”时的分类加法递推公式。"
               }
-            ],
-            "desc": "将上式中的 整体改写为 ，得到 这个平移式在通常定义下需满足 ， ，否则 可能超出定义范围。\n一句话定位\n这是“固定取法个数 ，总元素数从 增加到 ”时的分类加法递推公式。",
-            "latex": "A_{n}^{m}=A_{n-1}^{m}+m\\,A_{n-1}^{m-1}."
+            ]
           }
         ]
       },

@@ -54,7 +54,7 @@
  *     1. { text: string }
  *     2. { latex: string }
  *     3. { segments: [{ type: 'text', text } | { type: 'math', latex }] }
- *     4. theorem-list item: { title, desc?, latex }
+ *     4. theorem-list item: { title, segments }
  *   - Rich parser rules for mixed text/math sections:
  *     - Long equation-chain math is promoted to standalone { latex } items.
  *     - Trailing punctuation is stripped out of latex and kept in text segments.
@@ -191,9 +191,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "子集个数： ；",
-            "latex": "2^n"
+            ]
           },
           {
             "title": "条目2",
@@ -210,9 +208,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "真子集个数： ；",
-            "latex": "2^n - 1"
+            ]
           },
           {
             "title": "条目3",
@@ -229,9 +225,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "非空子集个数： ；",
-            "latex": "2^n - 1"
+            ]
           },
           {
             "title": "条目4",
@@ -248,9 +242,7 @@ module.exports = {
                 "type": "text",
                 "text": "。"
               }
-            ],
-            "desc": "非空真子集个数： 。",
-            "latex": "2^n - 2"
+            ]
           }
         ]
       },
@@ -1003,9 +995,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "交的补等于补的并： ；",
-            "latex": "C_U(A \\cap B) = C_U A \\cup C_U B"
+            ]
           },
           {
             "title": "条目2",
@@ -1046,9 +1036,7 @@ module.exports = {
                 "type": "text",
                 "text": "的子集。"
               }
-            ],
-            "desc": "并的补等于补的交： 。\n其中 为全集， 是 的子集。",
-            "latex": "C_U(A \\cup B) = C_U A \\cap C_U B"
+            ]
           }
         ]
       },
@@ -1649,9 +1637,7 @@ module.exports = {
                 "type": "math",
                 "latex": "|A \\cup B| = |A| + |B| - |A \\cap B|."
               }
-            ],
-            "desc": "两个集合的容斥原理：对于有限集合 和 ，有",
-            "latex": "|A \\cup B| = |A| + |B| - |A \\cap B|."
+            ]
           },
           {
             "title": "条目2",
@@ -1672,9 +1658,7 @@ module.exports = {
                 "type": "math",
                 "latex": "|A \\cup B \\cup C| = |A| + |B| + |C| - |A \\cap B| - |A \\cap C| - |B \\cap C| + |A \\cap B \\cap C|."
               }
-            ],
-            "desc": "三个集合的容斥原理：对于有限集合 ，有",
-            "latex": "|A \\cup B \\cup C| = |A| + |B| + |C| - |A \\cap B| - |A \\cap C| - |B \\cap C| + |A \\cap B \\cap C|."
+            ]
           },
           {
             "title": "条目3",
@@ -1703,9 +1687,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\left|\\bigcup_{i=1}^n A_i\\right| = \\sum_{k=1}^n (-1)^{k-1} \\sum_{1 \\le i_1 < i_2 < \\dots < i_k \\le n} |A_{i_1} \\cap A_{i_2} \\cap \\dots \\cap A_{i_k}|."
               }
-            ],
-            "desc": "一般形式：对于 个有限集合 ，有",
-            "latex": "\\left|\\bigcup_{i=1}^n A_i\\right| = \\sum_{k=1}^n (-1)^{k-1} \\sum_{1 \\le i_1 < i_2 < \\dots < i_k \\le n} |A_{i_1} \\cap A_{i_2} \\cap \\dots \\cap A_{i_k}|."
+            ]
           }
         ]
       },
@@ -2373,9 +2355,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "与 的交集等于 ；",
-            "latex": "A \\qquad B \\qquad A"
+            ]
           },
           {
             "title": "条目2",
@@ -2404,9 +2384,7 @@ module.exports = {
                 "type": "text",
                 "text": "；"
               }
-            ],
-            "desc": "与 的并集等于 ；",
-            "latex": "A \\qquad B \\qquad B"
+            ]
           },
           {
             "title": "条目3",
@@ -2427,9 +2405,7 @@ module.exports = {
                 "type": "text",
                 "text": "的子集；"
               }
-            ],
-            "desc": "是 的子集；",
-            "latex": "A \\qquad B"
+            ]
           },
           {
             "title": "条目4",
@@ -2450,9 +2426,7 @@ module.exports = {
                 "type": "text",
                 "text": "的补集的子集。"
               }
-            ],
-            "desc": "的补集是 的补集的子集。",
-            "latex": "B \\qquad A"
+            ]
           }
         ]
       },
@@ -3398,9 +3372,7 @@ module.exports = {
                 "type": "text",
                 "text": "个\n对所有"
               }
-            ],
-            "desc": "常见结论的否定形式（原命题与反设词）列表如下：\n|X|X|X|X|\n原结论 & 反设词 & 原结论 & 反设词\n是 & 不是 & 至少有一个 & 一个也没有\n都是 & 不都是 & 至多有一个 & 至少有两个\n大于 & 不大于 & 至少有 个 & 至多有 个\n小于 & 不小于 & 至多有 个 & 至少有 个\n对所有",
-            "latex": "n \\qquad n-1 \\qquad n \\qquad n+1"
+            ]
           },
           {
             "title": "条目2",
@@ -3409,8 +3381,7 @@ module.exports = {
                 "type": "math",
                 "latex": "x,\\;P(x)"
               }
-            ],
-            "latex": "x,\\;P(x)"
+            ]
           },
           {
             "title": "条目3",
@@ -3419,8 +3390,7 @@ module.exports = {
                 "type": "text",
                 "text": "成立 & 存在某个"
               }
-            ],
-            "desc": "成立 & 存在某个"
+            ]
           },
           {
             "title": "条目4",
@@ -3429,8 +3399,7 @@ module.exports = {
                 "type": "math",
                 "latex": "x,\\;P(x)"
               }
-            ],
-            "latex": "x,\\;P(x)"
+            ]
           },
           {
             "title": "条目5",
@@ -3439,8 +3408,7 @@ module.exports = {
                 "type": "text",
                 "text": "不成立 & 对任何"
               }
-            ],
-            "desc": "不成立 & 对任何"
+            ]
           },
           {
             "title": "条目6",
@@ -3449,8 +3417,7 @@ module.exports = {
                 "type": "math",
                 "latex": "x,\\;P(x)"
               }
-            ],
-            "latex": "x,\\;P(x)"
+            ]
           },
           {
             "title": "条目7",
@@ -3459,8 +3426,7 @@ module.exports = {
                 "type": "text",
                 "text": "不成立 & 存在某个"
               }
-            ],
-            "desc": "不成立 & 存在某个"
+            ]
           },
           {
             "title": "条目8",
@@ -3469,8 +3435,7 @@ module.exports = {
                 "type": "math",
                 "latex": "x,\\;P(x)"
               }
-            ],
-            "latex": "x,\\;P(x)"
+            ]
           },
           {
             "title": "条目9",
@@ -3495,9 +3460,7 @@ module.exports = {
                 "type": "text",
                 "text": "&"
               }
-            ],
-            "desc": "成立 或 &",
-            "latex": "p \\qquad q"
+            ]
           },
           {
             "title": "条目10",
@@ -3506,8 +3469,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\lnot p \\land \\lnot q"
               }
-            ],
-            "latex": "\\lnot p \\land \\lnot q"
+            ]
           },
           {
             "title": "条目11",
@@ -3532,9 +3494,7 @@ module.exports = {
                 "type": "text",
                 "text": "&"
               }
-            ],
-            "desc": "& 且 &",
-            "latex": "p \\qquad q"
+            ]
           },
           {
             "title": "条目12",
@@ -3543,8 +3503,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\lnot p \\lor \\lnot q"
               }
-            ],
-            "latex": "\\lnot p \\lor \\lnot q"
+            ]
           },
           {
             "title": "条目13",
@@ -3553,8 +3512,7 @@ module.exports = {
                 "type": "text",
                 "text": "其中"
               }
-            ],
-            "desc": "其中"
+            ]
           },
           {
             "title": "条目14",
@@ -3563,8 +3521,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\lnot"
               }
-            ],
-            "latex": "\\lnot"
+            ]
           },
           {
             "title": "条目15",
@@ -3573,8 +3530,7 @@ module.exports = {
                 "type": "text",
                 "text": "表示逻辑非。以上结论是逻辑推理中否定命题的基本规则。"
               }
-            ],
-            "desc": "表示逻辑非。以上结论是逻辑推理中否定命题的基本规则。"
+            ]
           }
         ]
       },
@@ -4237,9 +4193,7 @@ module.exports = {
                 "type": "text",
                 "text": "& 与原命题互逆，与逆否命题互否，与否命题互为逆否\n否命题 & 若"
               }
-            ],
-            "desc": "四种命题的定义与相互关系如下：\n1.2\n|X|X|X|\n命题类型 & 定义 & 相互关系\n原命题 & 若 则 & 与逆命题互逆，与否命题互否，与逆否命题互为逆否\n逆命题 & 若 则 & 与原命题互逆，与逆否命题互否，与否命题互为逆否\n否命题 & 若",
-            "latex": "p \\qquad q \\qquad q \\qquad p"
+            ]
           },
           {
             "title": "条目2",
@@ -4248,8 +4202,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\lnot p"
               }
-            ],
-            "latex": "\\lnot p"
+            ]
           },
           {
             "title": "条目3",
@@ -4258,8 +4211,7 @@ module.exports = {
                 "type": "text",
                 "text": "则"
               }
-            ],
-            "desc": "则"
+            ]
           },
           {
             "title": "条目4",
@@ -4268,8 +4220,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\lnot q"
               }
-            ],
-            "latex": "\\lnot q"
+            ]
           },
           {
             "title": "条目5",
@@ -4278,8 +4229,7 @@ module.exports = {
                 "type": "text",
                 "text": "& 与原命题互否，与逆命题互为逆否，与逆否命题互逆\n逆否命题 & 若"
               }
-            ],
-            "desc": "& 与原命题互否，与逆命题互为逆否，与逆否命题互逆\n逆否命题 & 若"
+            ]
           },
           {
             "title": "条目6",
@@ -4288,8 +4238,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\lnot q"
               }
-            ],
-            "latex": "\\lnot q"
+            ]
           },
           {
             "title": "条目7",
@@ -4298,8 +4247,7 @@ module.exports = {
                 "type": "text",
                 "text": "则"
               }
-            ],
-            "desc": "则"
+            ]
           },
           {
             "title": "条目8",
@@ -4308,8 +4256,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\lnot p"
               }
-            ],
-            "latex": "\\lnot p"
+            ]
           },
           {
             "title": "条目9",
@@ -4318,8 +4265,7 @@ module.exports = {
                 "type": "text",
                 "text": "& 与逆命题互否，与否命题互逆，与原命题互为逆否\n其中"
               }
-            ],
-            "desc": "& 与逆命题互否，与否命题互逆，与原命题互为逆否\n其中"
+            ]
           },
           {
             "title": "条目10",
@@ -4328,8 +4274,7 @@ module.exports = {
                 "type": "math",
                 "latex": "\\lnot"
               }
-            ],
-            "latex": "\\lnot"
+            ]
           },
           {
             "title": "条目11",
@@ -4338,8 +4283,7 @@ module.exports = {
                 "type": "text",
                 "text": "表示逻辑非。"
               }
-            ],
-            "desc": "表示逻辑非。"
+            ]
           }
         ]
       },
@@ -5063,9 +5007,7 @@ module.exports = {
                 "type": "text",
                 "text": "的充分条件；"
               }
-            ],
-            "desc": "充分条件：若命题 成立，则称 是 的充分条件；",
-            "latex": "p \\Rightarrow q \\qquad p \\qquad q"
+            ]
           },
           {
             "title": "条目2",
@@ -5098,9 +5040,7 @@ module.exports = {
                 "type": "text",
                 "text": "的必要条件；"
               }
-            ],
-            "desc": "必要条件：若命题 成立，则称 是 的必要条件；",
-            "latex": "q \\Rightarrow p \\qquad p \\qquad q"
+            ]
           },
           {
             "title": "条目3",
@@ -5149,9 +5089,7 @@ module.exports = {
                 "type": "text",
                 "text": "的充要条件。"
               }
-            ],
-            "desc": "充要条件：若既有 又有 （即 ），则称 是 的充要条件。",
-            "latex": "p \\Rightarrow q \\qquad q \\Rightarrow p \\qquad p \\Leftrightarrow q \\qquad p \\qquad q"
+            ]
           }
         ]
       },
