@@ -292,11 +292,33 @@ function normalizeLatex(latex) {
   return latex.trim();
 }
 
+function isNeedImageEnabled(value) {
+  if (value === true) return true;
+  if (typeof value === "string") {
+    return value.trim().toLowerCase() === "true";
+  }
+  return false;
+}
+
+function isContentRenderSchemaV2Node(node) {
+  if (!node || typeof node !== "object") return false;
+  if (node.render_schema_version !== 2) return false;
+  return Object.prototype.hasOwnProperty.call(node, "primary_formula");
+}
+
 function shouldRenderNode(node) {
   if (!node || typeof node !== "object") return false;
   if (node.type !== "math_block") return false;
-  if (node.need_image !== "true") return false;
+  if (!isNeedImageEnabled(node.need_image)) return false;
   return normalizeLatex(node.latex).length > 0;
+}
+
+function shouldRenderPrimaryFormula(node) {
+  if (!isContentRenderSchemaV2Node(node)) return false;
+  const renderMeta = node.primary_formula_render;
+  if (!renderMeta || typeof renderMeta !== "object") return false;
+  if (!isNeedImageEnabled(renderMeta.need_image)) return false;
+  return normalizeLatex(node.primary_formula).length > 0;
 }
 
 function hashLatex(latex) {
@@ -562,32 +584,68 @@ async function main() {
 
   const candidates = [];
   let totalNeedImageMathBlock = 0;
-  let emptyLatexMarked = 0;
+  let emptyLatexMarkedMathBlock = 0;
+  let totalNeedImagePrimaryFormula = 0;
+  let emptyLatexMarkedPrimaryFormula = 0;
 
   walkJson(content, (node, nodePath, context) => {
     if (!node || typeof node !== "object") return;
-    if (node.type === "math_block" && node.need_image === "true") {
+    if (node.type === "math_block" && isNeedImageEnabled(node.need_image)) {
       totalNeedImageMathBlock += 1;
       if (normalizeLatex(node.latex).length === 0) {
-        emptyLatexMarked += 1;
+        emptyLatexMarkedMathBlock += 1;
       }
     }
 
-    if (!shouldRenderNode(node)) return;
-    candidates.push({
-      node,
-      path: nodePath,
-      latex: normalizeLatex(node.latex),
-      conclusionId: context.conclusionId,
-    });
+    if (isContentRenderSchemaV2Node(node)) {
+      const renderMeta = node.primary_formula_render;
+      if (
+        renderMeta &&
+        typeof renderMeta === "object" &&
+        isNeedImageEnabled(renderMeta.need_image)
+      ) {
+        totalNeedImagePrimaryFormula += 1;
+        if (normalizeLatex(node.primary_formula).length === 0) {
+          emptyLatexMarkedPrimaryFormula += 1;
+        }
+      }
+    }
+
+    if (shouldRenderNode(node)) {
+      candidates.push({
+        sourceType: "math_block",
+        node,
+        path: nodePath,
+        latex: normalizeLatex(node.latex),
+        conclusionId: context.conclusionId,
+      });
+    }
+
+    if (shouldRenderPrimaryFormula(node)) {
+      candidates.push({
+        sourceType: "primary_formula",
+        contentNode: node,
+        path: `${nodePath}.primary_formula`,
+        latex: normalizeLatex(node.primary_formula),
+        conclusionId: context.conclusionId,
+      });
+    }
   });
 
   console.log(
     `[render_math_assets] scanned marked math_block count: ${totalNeedImageMathBlock}`,
   );
-  if (emptyLatexMarked > 0) {
+  console.log(
+    `[render_math_assets] scanned marked primary_formula count: ${totalNeedImagePrimaryFormula}`,
+  );
+  if (emptyLatexMarkedMathBlock > 0) {
     console.log(
-      `[render_math_assets] warning: ${emptyLatexMarked} marked nodes have empty latex and were skipped`,
+      `[render_math_assets] warning: ${emptyLatexMarkedMathBlock} marked math_block nodes have empty latex and were skipped`,
+    );
+  }
+  if (emptyLatexMarkedPrimaryFormula > 0) {
+    console.log(
+      `[render_math_assets] warning: ${emptyLatexMarkedPrimaryFormula} marked primary_formula nodes have empty latex and were skipped`,
     );
   }
 
@@ -600,7 +658,7 @@ async function main() {
         key: unresolvedKey,
         latex: candidate.latex,
         conclusionId: null,
-        nodes: [candidate],
+        occurrences: [candidate],
       });
       continue;
     }
@@ -613,10 +671,10 @@ async function main() {
         key: dedupKey,
         latex: candidate.latex,
         conclusionId: candidate.conclusionId,
-        nodes: [],
+        occurrences: [],
       });
     }
-    dedupMap.get(dedupKey).nodes.push(candidate);
+    dedupMap.get(dedupKey).occurrences.push(candidate);
   }
 
   let formulas = Array.from(dedupMap.values());
@@ -644,11 +702,14 @@ async function main() {
   for (let index = 0; index < formulas.length; index += 1) {
     const formula = formulas[index];
     const progress = `${index + 1}/${formulas.length}`;
+    const sourceTypes = Array.from(
+      new Set(formula.occurrences.map((occurrence) => occurrence.sourceType)),
+    );
 
     try {
       if (!isConclusionId(formula.conclusionId)) {
         throw new Error(
-          `Cannot resolve conclusion ID for formula at ${formula.nodes[0]?.path || "unknown path"}`,
+          `Cannot resolve conclusion ID for formula at ${formula.occurrences[0]?.path || "unknown path"}`,
         );
       }
 
@@ -673,6 +734,7 @@ async function main() {
         conclusionId: formula.conclusionId,
         hash: formula.hash,
         latex: formula.latex,
+        source_types: sourceTypes,
         status: result.status,
         png: result.pngUrl,
         webp: result.webpUrl,
@@ -697,6 +759,7 @@ async function main() {
         conclusionId: formula.conclusionId,
         hash: formula.hash,
         latex: formula.latex,
+        source_types: sourceTypes,
         status: "failed",
         png: null,
         webp: null,
@@ -718,10 +781,27 @@ async function main() {
         continue;
       }
 
-      for (const occurrence of formula.nodes) {
-        const originalNode = occurrence.node;
-        originalNode.type = "math_image";
-        originalNode.asset = formulaResult.asset;
+      for (const occurrence of formula.occurrences) {
+        if (occurrence.sourceType === "math_block" && occurrence.node) {
+          const originalNode = occurrence.node;
+          originalNode.type = "math_image";
+          originalNode.asset = formulaResult.asset;
+          continue;
+        }
+
+        if (
+          occurrence.sourceType === "primary_formula" &&
+          occurrence.contentNode &&
+          typeof occurrence.contentNode === "object"
+        ) {
+          if (
+            !occurrence.contentNode.primary_formula_render ||
+            typeof occurrence.contentNode.primary_formula_render !== "object"
+          ) {
+            occurrence.contentNode.primary_formula_render = {};
+          }
+          occurrence.contentNode.primary_formula_render.asset = formulaResult.asset;
+        }
       }
     }
   }
@@ -739,6 +819,14 @@ async function main() {
     assetBase: options.assetBase,
     scale: options.scale,
     totalMarked: totalNeedImageMathBlock,
+    totalMarkedMathBlock: totalNeedImageMathBlock,
+    totalMarkedPrimaryFormula: totalNeedImagePrimaryFormula,
+    totalMarkedAllSources:
+      totalNeedImageMathBlock + totalNeedImagePrimaryFormula,
+    emptyLatexMarkedMathBlock,
+    emptyLatexMarkedPrimaryFormula,
+    emptyLatexMarkedAllSources:
+      emptyLatexMarkedMathBlock + emptyLatexMarkedPrimaryFormula,
     totalEligibleUnique,
     rendered,
     reused,
