@@ -300,6 +300,13 @@ function isNeedImageEnabled(value) {
   return false;
 }
 
+function normalizeNodeType(value) {
+  if (typeof value !== "string") return "";
+  return value.trim().toLowerCase();
+}
+
+const RENDERABLE_NEED_IMAGE_TYPES = new Set(["math_block", "math_inline"]);
+
 function isContentRenderSchemaV2Node(node) {
   if (!node || typeof node !== "object") return false;
   if (node.render_schema_version !== 2) return false;
@@ -308,7 +315,9 @@ function isContentRenderSchemaV2Node(node) {
 
 function shouldRenderNode(node) {
   if (!node || typeof node !== "object") return false;
-  if (node.type !== "math_block") return false;
+  if (!RENDERABLE_NEED_IMAGE_TYPES.has(normalizeNodeType(node.type))) {
+    return false;
+  }
   if (!isNeedImageEnabled(node.need_image)) return false;
   return normalizeLatex(node.latex).length > 0;
 }
@@ -321,6 +330,7 @@ function inspectPrimaryFormula(node) {
   if (Array.isArray(primaryFormula)) return null;
 
   return {
+    type: normalizeNodeType(primaryFormula.type),
     marked: isNeedImageEnabled(primaryFormula.need_image),
     latex: normalizeLatex(primaryFormula.latex),
   };
@@ -329,6 +339,7 @@ function inspectPrimaryFormula(node) {
 function shouldRenderPrimaryFormula(node) {
   const inspected = inspectPrimaryFormula(node);
   if (!inspected || !inspected.marked) return false;
+  if (inspected.type === "math_image") return false;
   return inspected.latex.length > 0;
 }
 
@@ -595,22 +606,39 @@ async function main() {
 
   const candidates = [];
   let totalNeedImageMathBlock = 0;
+  let totalNeedImageMathInline = 0;
+  let totalNeedImageMathImage = 0;
   let emptyLatexMarkedMathBlock = 0;
+  let emptyLatexMarkedMathInline = 0;
   let totalNeedImagePrimaryFormula = 0;
+  let totalNeedImagePrimaryFormulaImage = 0;
   let emptyLatexMarkedPrimaryFormula = 0;
 
   walkJson(content, (node, nodePath, context) => {
     if (!node || typeof node !== "object") return;
-    if (node.type === "math_block" && isNeedImageEnabled(node.need_image)) {
+    const nodeType = normalizeNodeType(node.type);
+    if (nodeType === "math_block" && isNeedImageEnabled(node.need_image)) {
       totalNeedImageMathBlock += 1;
       if (normalizeLatex(node.latex).length === 0) {
         emptyLatexMarkedMathBlock += 1;
       }
     }
+    if (nodeType === "math_inline" && isNeedImageEnabled(node.need_image)) {
+      totalNeedImageMathInline += 1;
+      if (normalizeLatex(node.latex).length === 0) {
+        emptyLatexMarkedMathInline += 1;
+      }
+    }
+    if (nodeType === "math_image" && isNeedImageEnabled(node.need_image)) {
+      totalNeedImageMathImage += 1;
+    }
 
     const primaryFormulaInspected = inspectPrimaryFormula(node);
     if (primaryFormulaInspected && primaryFormulaInspected.marked) {
       totalNeedImagePrimaryFormula += 1;
+      if (primaryFormulaInspected.type === "math_image") {
+        totalNeedImagePrimaryFormulaImage += 1;
+      }
       if (primaryFormulaInspected.latex.length === 0) {
         emptyLatexMarkedPrimaryFormula += 1;
       }
@@ -618,7 +646,7 @@ async function main() {
 
     if (shouldRenderNode(node)) {
       candidates.push({
-        sourceType: "math_block",
+        sourceType: nodeType,
         node,
         path: nodePath,
         latex: normalizeLatex(node.latex),
@@ -642,11 +670,25 @@ async function main() {
     `[render_math_assets] scanned marked math_block count: ${totalNeedImageMathBlock}`,
   );
   console.log(
+    `[render_math_assets] scanned marked math_inline count: ${totalNeedImageMathInline}`,
+  );
+  console.log(
+    `[render_math_assets] skipped marked math_image count: ${totalNeedImageMathImage}`,
+  );
+  console.log(
     `[render_math_assets] scanned marked primary_formula count: ${totalNeedImagePrimaryFormula}`,
+  );
+  console.log(
+    `[render_math_assets] skipped marked primary_formula(type=math_image) count: ${totalNeedImagePrimaryFormulaImage}`,
   );
   if (emptyLatexMarkedMathBlock > 0) {
     console.log(
       `[render_math_assets] warning: ${emptyLatexMarkedMathBlock} marked math_block nodes have empty latex and were skipped`,
+    );
+  }
+  if (emptyLatexMarkedMathInline > 0) {
+    console.log(
+      `[render_math_assets] warning: ${emptyLatexMarkedMathInline} marked math_inline nodes have empty latex and were skipped`,
     );
   }
   if (emptyLatexMarkedPrimaryFormula > 0) {
@@ -788,7 +830,11 @@ async function main() {
       }
 
       for (const occurrence of formula.occurrences) {
-        if (occurrence.sourceType === "math_block" && occurrence.node) {
+        if (
+          (occurrence.sourceType === "math_block" ||
+            occurrence.sourceType === "math_inline") &&
+          occurrence.node
+        ) {
           const originalNode = occurrence.node;
           originalNode.type = "math_image";
           originalNode.asset = formulaResult.asset;
@@ -828,15 +874,23 @@ async function main() {
     outDir: toDisplayPath(options.outDirAbs),
     assetBase: options.assetBase,
     scale: options.scale,
-    totalMarked: totalNeedImageMathBlock,
+    totalMarked: totalNeedImageMathBlock + totalNeedImageMathInline,
     totalMarkedMathBlock: totalNeedImageMathBlock,
+    totalMarkedMathInline: totalNeedImageMathInline,
+    totalMarkedMathImageSkipped: totalNeedImageMathImage,
     totalMarkedPrimaryFormula: totalNeedImagePrimaryFormula,
+    totalMarkedPrimaryFormulaImageSkipped: totalNeedImagePrimaryFormulaImage,
     totalMarkedAllSources:
-      totalNeedImageMathBlock + totalNeedImagePrimaryFormula,
+      totalNeedImageMathBlock +
+      totalNeedImageMathInline +
+      totalNeedImagePrimaryFormula,
     emptyLatexMarkedMathBlock,
+    emptyLatexMarkedMathInline,
     emptyLatexMarkedPrimaryFormula,
     emptyLatexMarkedAllSources:
-      emptyLatexMarkedMathBlock + emptyLatexMarkedPrimaryFormula,
+      emptyLatexMarkedMathBlock +
+      emptyLatexMarkedMathInline +
+      emptyLatexMarkedPrimaryFormula,
     totalEligibleUnique,
     rendered,
     reused,
