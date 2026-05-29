@@ -822,7 +822,13 @@ def map_theorem_list_to_block(
 
     for idx, item in enumerate(source_items, start=1):
         if isinstance(item, str):
-            theorem_items.append({"title": f"结论{idx}", "desc_tokens": None, "formula_latex": item})
+            formula_text = normalize_non_empty_string(item)
+            desc_tokens = (
+                [{"type": "math_inline", "latex": formula_text}]
+                if formula_text
+                else [text_token(preview_text(item))]
+            )
+            theorem_items.append({"title": f"结论{idx}", "desc_tokens": desc_tokens})
             continue
 
         if not isinstance(item, dict):
@@ -831,7 +837,6 @@ def map_theorem_list_to_block(
                 {
                     "title": f"结论{idx}",
                     "desc_tokens": [text_token(preview_text(item))],
-                    "formula_latex": r"\text{N/A}",
                 }
             )
             continue
@@ -841,7 +846,6 @@ def map_theorem_list_to_block(
         text_value = normalize_non_empty_string(item.get("text"))
         formula = (
             normalize_non_empty_string(item.get("latex"))
-            or normalize_non_empty_string(item.get("formula_latex"))
             or normalize_non_empty_string(item.get("formula"))
         )
 
@@ -850,32 +854,30 @@ def map_theorem_list_to_block(
         has_segments = isinstance(segments, list) and len(segments) > 0
         if has_segments:
             desc_tokens.extend(convert_segments_to_tokens(segments, warnings))
-
-            if not formula:
-                seg_math = [
-                    normalize_non_empty_string(seg.get("latex"))
-                    for seg in segments
-                    if isinstance(seg, dict)
-                    and str(seg.get("type", "")).strip().lower() in {"math", "math_inline", "math_display"}
-                ]
-                seg_math = [latex for latex in seg_math if latex]
-                if seg_math:
-                    formula = seg_math[0]
         else:
             if desc:
                 desc_tokens.append(text_token(desc))
             if text_value:
                 desc_tokens.append(text_token(text_value))
 
-        if not formula:
-            formula = r"\text{N/A}"
-            warnings.append(f"{section_key}: theorem item 缺失 latex，已保留说明并填充公式占位")
+        if formula:
+            has_same_formula = any(
+                isinstance(token, dict)
+                and str(token.get("type", "")).strip().lower() in {"math_inline", "math_display"}
+                and normalize_non_empty_string(token.get("latex")) == formula
+                for token in desc_tokens
+            )
+            if not has_same_formula:
+                desc_tokens.append({"type": "math_inline", "latex": formula})
+
+        if not desc_tokens:
+            warnings.append(f"{section_key}: theorem item 为空，已写入占位说明")
+            desc_tokens = [text_token("原 theorem-list item 为空，迁移占位")]
 
         theorem_items.append(
             {
                 "title": title,
-                "desc_tokens": desc_tokens or None,
-                "formula_latex": formula,
+                "desc_tokens": desc_tokens,
             }
         )
 
@@ -884,7 +886,6 @@ def map_theorem_list_to_block(
             {
                 "title": "结论1",
                 "desc_tokens": [text_token("原 theorem-list 为空，迁移占位")],
-                "formula_latex": r"\text{N/A}",
             }
         )
 

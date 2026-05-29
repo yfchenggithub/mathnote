@@ -190,7 +190,6 @@ class TheoremItem(StrictBaseModel):
     desc_tokens: Optional[List[InlineToken]] = Field(
         default=None, description="说明文本，可混排"
     )
-    formula_latex: str = Field(..., min_length=1, description="该条结论对应的公式")
 
 
 class TheoremGroupBlock(StrictBaseModel):

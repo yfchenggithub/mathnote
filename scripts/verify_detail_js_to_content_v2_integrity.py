@@ -411,8 +411,8 @@ def extract_mapping_rules_from_current_migrator(migrator: Any) -> dict[str, Any]
             ],
             "layout=theorem-list": [
                 "items -> single theorem_group block",
-                "{title, desc, latex} -> theorem item",
-                '缺 latex 时尝试用 text，仍无则写 "\\text{N/A}" 并 warning',
+                "{title, desc, latex} -> theorem item（统一落入 desc_tokens）",
+                "若存在 latex 且未在 desc_tokens 中出现，追加为 math_inline token",
             ],
             "block_type": {
                 "summary": "summary",
@@ -559,8 +559,7 @@ def normalize_block(block: Any) -> dict[str, Any]:
                 normalized_items.append(
                     {
                         "title": None,
-                        "desc_tokens": [],
-                        "formula_latex": normalize_text(item),
+                        "desc_tokens": [{"type": "text", "text": normalize_text(item)}],
                     }
                 )
                 continue
@@ -568,7 +567,6 @@ def normalize_block(block: Any) -> dict[str, Any]:
                 {
                     "title": normalize_text(item.get("title")),
                     "desc_tokens": tokens_to_semantic(item.get("desc_tokens")),
-                    "formula_latex": normalize_text(item.get("formula_latex")),
                 }
             )
         return {"type": "theorem_group", "items": normalized_items}
@@ -643,7 +641,7 @@ def normalize_legacy_section(section: Any) -> dict[str, Any]:
                     "kind": "theorem_item",
                     "title": normalize_text(item.get("title")),
                     "desc": normalize_text(item.get("desc")),
-                    "latex": latex_val or normalize_text(item.get("formula_latex")),
+                    "latex": latex_val,
                     "text": text_val,
                 }
             )
