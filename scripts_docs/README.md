@@ -138,6 +138,12 @@ meta.json (每个结论)
 ```
 
 详细参考见 `scripts_reference.md`。
+
+## 工作流文档
+
+| 文档 | 说明 |
+|------|------|
+| `upgrade_detail_content.md` | 修改 .tex 源文件后升级前端数据的完整流程（build → mark image → clean period）
 ## 2026-05 Detail Rich Parsing Update
 
 `build_detail_page_js.py` now applies display-math promotion rules for mixed text/math sections:
