@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """
-Remove punctuation tokens that immediately follow math_image tokens in paragraph blocks.
+Remove punctuation tokens that immediately follow math_image tokens in inline token lists.
 
 Current default rule:
-- In a node with `type == "paragraph"` and list field `tokens`
+- In a list field named `tokens`, `desc_tokens`, or `content`
 - If one token is `{"type": "math_image", ...}`
-- And the next token is `{"type": "text", "text": "。"}`
+- And the next token is `{"type": "text", "text": "\u3002"}`
 - Then remove only that punctuation token.
 
 This script is designed to be safe and debuggable:
@@ -33,22 +33,23 @@ from pathlib import Path
 from typing import Any
 
 DEFAULT_INPUT = Path("data/content/canonical_content_v2.json")
+DEFAULT_TOKEN_LIST_FIELDS = "tokens,desc_tokens,content"
 LOGGER = logging.getLogger("remove_math_image_following_period")
 
 
 @dataclass(frozen=True)
 class CleanConfig:
-    paragraph_type: str
     math_token_type: str
     text_token_type: str
     target_texts: frozenset[str]
+    token_list_fields: frozenset[str]
     strip_text: bool
 
 
 @dataclass
 class CleanStats:
-    paragraphs_seen: int = 0
-    paragraphs_changed: int = 0
+    token_lists_seen: int = 0
+    token_lists_changed: int = 0
     math_image_tokens_seen: int = 0
     punctuation_candidates_seen: int = 0
     tokens_removed: int = 0
@@ -58,7 +59,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
             "Remove text punctuation tokens that are immediately after math_image "
-            "tokens in paragraph token lists."
+            "tokens in inline token lists."
         )
     )
     parser.add_argument(
@@ -98,7 +99,18 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--paragraph-type",
         default="paragraph",
-        help='Paragraph node type value (default: "paragraph").',
+        help=(
+            "Deprecated compatibility option. Token-list fields are cleaned "
+            "regardless of parent node type."
+        ),
+    )
+    parser.add_argument(
+        "--token-list-fields",
+        default=DEFAULT_TOKEN_LIST_FIELDS,
+        help=(
+            "Comma-separated list field names to clean "
+            f'(default: "{DEFAULT_TOKEN_LIST_FIELDS}").'
+        ),
     )
     parser.add_argument(
         "--math-token-type",
@@ -136,11 +148,11 @@ def configure_logging(*, verbose: bool, debug: bool) -> None:
     )
 
 
-def parse_target_texts(raw: str) -> frozenset[str]:
+def parse_comma_separated_values(raw: str, *, option_name: str) -> frozenset[str]:
     values = [part.strip() for part in raw.split(",")]
     filtered = [item for item in values if item]
     if not filtered:
-        raise ValueError("--target-text must contain at least one non-empty value")
+        raise ValueError(f"{option_name} must contain at least one non-empty value")
     return frozenset(filtered)
 
 
@@ -211,7 +223,7 @@ def format_json_path(parts: list[str | int]) -> str:
     return output
 
 
-def clean_paragraph_tokens(
+def clean_token_sequence(
     tokens: list[Any],
     *,
     path: list[str | int],
@@ -263,25 +275,23 @@ def traverse_and_clean(
     stats: CleanStats,
 ) -> None:
     if isinstance(node, dict):
-        node_type = node.get("type")
-        tokens = node.get("tokens")
-        if node_type == config.paragraph_type and isinstance(tokens, list):
-            stats.paragraphs_seen += 1
-            removed = clean_paragraph_tokens(
-                tokens,
-                path=path + ["tokens"],
-                config=config,
-                stats=stats,
-            )
-            if removed > 0:
-                stats.paragraphs_changed += 1
-                LOGGER.debug(
-                    "Paragraph changed at %s, removed %d token(s).",
-                    format_json_path(path),
-                    removed,
-                )
-
         for key, value in node.items():
+            if key in config.token_list_fields and isinstance(value, list):
+                stats.token_lists_seen += 1
+                removed = clean_token_sequence(
+                    value,
+                    path=path + [str(key)],
+                    config=config,
+                    stats=stats,
+                )
+                if removed > 0:
+                    stats.token_lists_changed += 1
+                    LOGGER.debug(
+                        "Token list changed at %s, removed %d token(s).",
+                        format_json_path(path + [str(key)]),
+                        removed,
+                    )
+
             traverse_and_clean(
                 value,
                 path=path + [str(key)],
@@ -301,12 +311,19 @@ def traverse_and_clean(
 
 
 def build_config(args: argparse.Namespace) -> CleanConfig:
-    target_texts = parse_target_texts(str(args.target_text))
+    target_texts = parse_comma_separated_values(
+        str(args.target_text),
+        option_name="--target-text",
+    )
+    token_list_fields = parse_comma_separated_values(
+        str(args.token_list_fields),
+        option_name="--token-list-fields",
+    )
     return CleanConfig(
-        paragraph_type=str(args.paragraph_type),
         math_token_type=str(args.math_token_type),
         text_token_type=str(args.text_token_type),
         target_texts=target_texts,
+        token_list_fields=token_list_fields,
         strip_text=not bool(args.strict_text),
     )
 
@@ -321,8 +338,8 @@ def print_summary(
     mode = "WRITE" if write_enabled else "DRY-RUN"
     print(f"[{mode}] input:  {input_path}")
     print(f"[{mode}] output: {output_path}")
-    print(f"[{mode}] paragraphs_seen:            {stats.paragraphs_seen}")
-    print(f"[{mode}] paragraphs_changed:         {stats.paragraphs_changed}")
+    print(f"[{mode}] token_lists_seen:           {stats.token_lists_seen}")
+    print(f"[{mode}] token_lists_changed:        {stats.token_lists_changed}")
     print(f"[{mode}] math_image_tokens_seen:     {stats.math_image_tokens_seen}")
     print(
         f"[{mode}] punctuation_candidates_seen: "
