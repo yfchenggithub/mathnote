@@ -62,14 +62,13 @@ def _publish_config() -> publisher.PublishConfig:
     )
 
 
+def _fixture_root(name: str) -> Path:
+    return publisher.PROJECT_ROOT / ".tmp" / "test_incremental_publish" / name
+
+
 class IncrementalPublishUploadTests(unittest.TestCase):
     def test_formula_upload_uses_project_relative_scp_source(self) -> None:
-        fixture_root = (
-            publisher.PROJECT_ROOT
-            / "tests"
-            / ".tmp"
-            / "incremental_publish_upload_fixture"
-        )
+        fixture_root = _fixture_root("incremental_publish_upload_fixture")
         shutil.rmtree(fixture_root, ignore_errors=True)
         local_formula_dir = fixture_root / "formulas" / "R005"
         local_formula_dir.mkdir(parents=True, exist_ok=True)
@@ -131,7 +130,7 @@ class IncrementalPublishUploadTests(unittest.TestCase):
         source_path = upload_call["command"][2]
         self.assertEqual(
             source_path,
-            "tests/.tmp/incremental_publish_upload_fixture/formulas/R005",
+            ".tmp/test_incremental_publish/incremental_publish_upload_fixture/formulas/R005",
         )
         self.assertNotIn(":", source_path)
         self.assertNotIn("\\", source_path)
@@ -156,12 +155,7 @@ class IncrementalPublishUploadTests(unittest.TestCase):
 
 class IncrementalPublishBackendSyncTests(unittest.TestCase):
     def test_backend_data_sync_does_not_write_backup_files(self) -> None:
-        fixture_root = (
-            publisher.PROJECT_ROOT
-            / "tests"
-            / ".tmp"
-            / "incremental_publish_backend_sync_fixture"
-        )
+        fixture_root = _fixture_root("incremental_publish_backend_sync_fixture")
         shutil.rmtree(fixture_root, ignore_errors=True)
 
         source_data = fixture_root / "source"
@@ -214,12 +208,7 @@ class IncrementalPublishBackendSyncTests(unittest.TestCase):
 
 class IncrementalPublishProjectCleanupTests(unittest.TestCase):
     def test_project_backup_cleanup_removes_publish_json_backups_only(self) -> None:
-        fixture_root = (
-            publisher.PROJECT_ROOT
-            / "tests"
-            / ".tmp"
-            / "incremental_publish_project_cleanup_fixture"
-        )
+        fixture_root = _fixture_root("incremental_publish_project_cleanup_fixture")
         shutil.rmtree(fixture_root, ignore_errors=True)
 
         data_content = fixture_root / "data" / "content"
