@@ -1,0 +1,31 @@
+\begin{trapbox}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点一（忘记组合数）}}] 直接写出 $P(X=k)=p^k(1-p)^{n-k}$，认为这就是事件 $A$ 恰好发生 $k$ 次的概率。
+		\item[\textbf{\textcolor{CTrap}{正确理解（必须乘组合数）：}}] 必须乘以 $\mathrm{C}_n^k$，因为 $p^k(1-p)^{n-k}$ 只对应一种特定发生位置的结果序列。
+		\item[\textbf{\textcolor{CTrap}{错因分析（忽略位置选法）：}}] 误以为事件 $A$ 发生 $k$ 次只有一种顺序，没有考虑它可以发生在不同位置。
+	\end{description}
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点二（混淆组合与排列）}}] 使用 $\mathrm{A}_n^k$（排列数）代替 $\mathrm{C}_n^k$ 计算。
+		\item[\textbf{\textcolor{CTrap}{正确理解（用组合数）：}}] $n$ 次试验的位置已经固定，只需要选择事件 $A$ 发生在哪 $k$ 个位置，因此使用组合数 $\mathrm{C}_n^k$。
+		\item[\textbf{\textcolor{CTrap}{错因分析（重复计数）：}}] 误把同一组发生位置再次排列，导致重复计算相同的试验结果。
+	\end{description}
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点三（混淆发生与不发生）}}] 错误地将 $p$ 和 $1-p$ 的指数对调，例如写成
+		      \[
+			      P(X=k)=\mathrm{C}_n^k(1-p)^k p^{n-k}.
+		      \]
+		\item[\textbf{\textcolor{CTrap}{正确理解（指数对应次数）：}}] 若 $p$ 表示事件 $A$ 发生的概率，则 $p$ 的指数应为发生次数 $k$，而 $1-p$ 的指数应为不发生次数 $n-k$。
+		\item[\textbf{\textcolor{CTrap}{错因分析（事件角色颠倒）：}}] 没有先确认 $p$ 所对应的事件，或套公式时误把 $k$ 当作事件不发生的次数。
+	\end{description}
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点四（不放回抽样直接套公式）}}] 看到“抽取若干件产品”就直接认为抽到合格品的件数服从二项分布。
+		\item[\textbf{\textcolor{CTrap}{正确理解（先检查独立性）：}}] 二项分布要求各次试验相互独立且事件发生概率固定。有放回抽样满足这一条件；有限总体中的不放回抽样通常不严格满足这一条件。
+		\item[\textbf{\textcolor{CTrap}{错因分析（忽略模型条件）：}}] 不放回抽样后，总体组成发生变化，下一次抽到合格品的概率可能随之改变，因此不能未经判断就直接套用二项分布公式。
+	\end{description}
+\end{trapbox}

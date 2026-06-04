@@ -1,0 +1,163 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}} 某篮球运动员投篮命中率为 $0.8$，独立投篮 $5$ 次。求他恰好命中 $3$ 次的概率。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（建立模型）：}] 设 $X$ 表示该运动员在 $5$ 次投篮中的命中次数。由于每次投篮相互独立，且每次命中的概率均为 $0.8$，因此
+		      \[
+			      X\sim \mathrm{B}(5,0.8).
+		      \]
+		      \par\textbf{理由：} 该问题满足独立重复试验条件。
+
+		\item[\textbf{第二步（代入公式）：}] 根据二项分布公式，
+		      \[
+			      P(X=3)=\mathrm{C}_5^3 \times 0.8^3 \times 0.2^2.
+		      \]
+		      \par\textbf{理由：} 命中概率为 $0.8$，未命中概率为 $1-0.8=0.2$。
+
+		\item[\textbf{第三步（数值计算）：}] 计算 $\mathrm{C}_5^3=10$，$0.8^3=0.512$，$0.2^2=0.04$，得
+		      \[
+			      \begin{aligned}
+				      P(X=3)
+				       & =10\times 0.512\times 0.04 \\
+				       & =0.2048.
+			      \end{aligned}
+		      \]
+		      \par\textbf{理由：} 直接进行乘法运算。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}} \textbf{$P(X=3)=0.2048$}。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}} 某产品合格率为 $0.9$，有放回抽取 $10$ 件。求至少抽到 $8$ 件合格品的概率。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（建立模型并分解事件）：}] 设 $X$ 表示抽到的合格品件数。由于是有放回抽取，每次抽取相互独立，且每次抽到合格品的概率均为 $0.9$，因此
+		      \[
+			      X\sim \mathrm{B}(10,0.9).
+		      \]
+		      “至少抽到 $8$ 件合格品”包含恰好抽到 $8$ 件、$9$ 件、$10$ 件三种互斥情形，所以
+		      \[
+			      P(X\geq 8)=P(X=8)+P(X=9)+P(X=10).
+		      \]
+		      \par\textbf{理由：} 互斥事件的概率可以直接相加。
+
+		\item[\textbf{第二步（逐项套用公式）：}] 分别计算
+		      \[
+			      \begin{aligned}
+				      P(X=8)  & = \mathrm{C}_{10}^8 \times 0.9^8 \times 0.1^2, \\
+				      P(X=9)  & = \mathrm{C}_{10}^9 \times 0.9^9 \times 0.1,   \\
+				      P(X=10) & = \mathrm{C}_{10}^{10} \times 0.9^{10}
+				      =0.9^{10}.
+			      \end{aligned}
+		      \]
+		      \par\textbf{理由：} 合格概率为 $0.9$，不合格概率为 $0.1$。
+
+		\item[\textbf{第三步（数值求和）：}] 代入数值：
+		      \[
+			      \begin{aligned}
+				      P(X=8)  & = 0.1937102445, \\
+				      P(X=9)  & = 0.3874204890, \\
+				      P(X=10) & = 0.3486784401.
+			      \end{aligned}
+		      \]
+		      因此
+		      \[
+			      \begin{aligned}
+				      P(X\geq 8)
+				       & =0.1937102445+0.3874204890+0.3486784401 \\
+				       & =0.9298091736                           \\
+				       & \approx 0.9298.
+			      \end{aligned}
+		      \]
+		      \par\textbf{理由：} 加法计算，最终结果保留 $4$ 位小数。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}} \textbf{$P(X\geq 8)\approx 0.9298$}。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}} 某运动员投篮命中率为 $0.4$，独立投篮 $10$ 次。求最可能命中的次数，并计算该概率。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（建立模型并写出比值）：}] 设 $X$ 表示该运动员在 $10$ 次投篮中的命中次数，则
+		      \[
+			      X\sim \mathrm{B}(10,0.4).
+		      \]
+		      对于 $k=0,1,\dots,9$，有
+		      \[
+			      \begin{aligned}
+				      \frac{P(X=k+1)}{P(X=k)}
+				       & =
+				      \frac{(10-k)p}{(k+1)(1-p)}               \\
+				       & =
+				      \frac{(10-k)\times 0.4}{(k+1)\times 0.6} \\
+				       & =
+				      \frac{2(10-k)}{3(k+1)}.
+			      \end{aligned}
+		      \]
+		      \par\textbf{理由：} 由二项分布概率公式作比可得相邻两项的比值。
+
+		\item[\textbf{第二步（判断概率增减性）：}] 令相邻概率之比大于等于 $1$：
+		      \[
+			      \begin{aligned}
+				      \frac{2(10-k)}{3(k+1)}           & \geq 1      \\
+				      \Longleftrightarrow\quad 2(10-k) & \geq 3(k+1) \\
+				      \Longleftrightarrow\quad 20-2k   & \geq 3k+3   \\
+				      \Longleftrightarrow\quad 17      & \geq 5k     \\
+				      \Longleftrightarrow\quad k       & \leq 3.4.
+			      \end{aligned}
+		      \]
+		      由于 $k$ 为整数，所以当 $k=0,1,2,3$ 时，
+		      \[
+			      P(X=k+1)\geq P(X=k);
+		      \]
+		      当 $k=4,5,\dots,9$ 时，
+		      \[
+			      P(X=k+1)<P(X=k).
+		      \]
+		      因此，概率在 $X=4$ 处取得最大值。
+		      \par\textbf{理由：} 由相邻两项的大小关系判断概率序列的增减性。
+
+		\item[\textbf{第三步（计算最大概率）：}]
+		      \[
+			      \begin{aligned}
+				      P(X=4)
+				       & =
+				      \mathrm{C}_{10}^4 \times 0.4^4 \times 0.6^6 \\
+				       & =
+				      210\times 0.0256\times 0.046656             \\
+				       & =
+				      0.250822656                                 \\
+				       & \approx 0.2508.
+			      \end{aligned}
+		      \]
+		      \par\textbf{理由：} 直接代入二项分布概率公式计算。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}} 最可能命中次数为 $4$，最大概率为
+	\[
+		\mathbf{P(X=4)\approx 0.2508}.
+	\]
+
+	\medskip
+	\textbf{\textcolor{CExample}{方法补充：}}
+
+	一般地，对于 $X\sim \mathrm{B}(n,p)$ 且 $0<p<1$：
+	\begin{itemize}[leftmargin=*, itemsep=0.35em, topsep=0.3em]
+		\item 若 $(n+1)p$ 不是整数，则唯一最可能值为 $\lfloor (n+1)p\rfloor$；
+		\item 若 $(n+1)p=m$ 为整数，则 $m-1$ 与 $m$ 都是最可能值。
+	\end{itemize}
+	本题中
+	\[
+		(10+1)\times 0.4=4.4,
+	\]
+	不是整数，因此唯一最可能命中次数为 $4$。
+\end{examplebox}

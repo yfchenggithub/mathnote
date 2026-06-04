@@ -1,0 +1,54 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	设每次试验均考察同一事件 $A$ 是否发生，且各次试验相互独立，事件 $A$ 每次发生的概率均为 $p$。设随机变量 $X$ 表示事件 $A$ 在 $n$ 次试验中发生的次数。先利用独立性求出一条固定结果路径的概率，再利用组合数计算符合条件的路径条数，最后由互斥事件的加法原理求和。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（固定顺序求概率）：}] 考虑一个特定的结果序列，例如前 $k$ 次事件 $A$ 发生、后 $n-k$ 次事件 $A$ 不发生。由独立性，该序列的概率为各次概率之积：
+		      \[
+			      p^k(1-p)^{n-k}.
+		      \]
+		      \par\textbf{理由：} 每次试验中事件 $A$ 发生的概率为 $p$，不发生的概率为 $1-p$；各次试验相互独立，因此概率相乘。
+
+		\item[\textbf{步骤二（计数不同位置）：}] 事件 $A$ 发生的 $k$ 个位置可以从 $n$ 个位置中任选，共有 $\mathrm{C}_n^k$ 种选法。每一种选法对应一个具体结果序列，且不同结果序列两两互斥。由于每个序列中事件 $A$ 都恰好发生 $k$ 次，因此每个序列的概率都为
+		      \[
+			      p^k(1-p)^{n-k}.
+		      \]
+		      \par\textbf{理由：} 组合数用于选择事件 $A$ 发生的位置；交换发生位置不会改变概率乘积的形式。
+
+		\item[\textbf{步骤三（加法原理求和）：}] 事件“$X=k$”由上述 $\mathrm{C}_n^k$ 个互斥结果组成，因此
+		      \[
+			      P(X=k)
+			      =
+			      \mathrm{C}_n^k \cdot p^k(1-p)^{n-k}.
+		      \]
+		      也即
+		      \[
+			      P_n(k)=P(X=k)=\mathrm{C}_n^k p^k(1-p)^{n-k}.
+		      \]
+		      \par\textbf{理由：} 互斥事件的概率可以直接相加。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	由以上推导，得到二项分布概率公式
+	\[
+		P(X=k)=\mathrm{C}_n^k p^k(1-p)^{n-k},
+		\qquad k=0,1,\dots,n.
+	\]
+	进一步，由二项式定理可验证归一性：
+	\[
+		\begin{aligned}
+			\sum_{k=0}^n P(X=k)
+			 & =
+			\sum_{k=0}^n \mathrm{C}_n^k p^k(1-p)^{n-k} \\
+			 & =
+			\bigl(p+(1-p)\bigr)^n                      \\
+			 & =1.
+		\end{aligned}
+	\]
+	这说明随机变量 $X$ 的所有可能取值对应的概率之和为 $1$。
+\end{proofbox}

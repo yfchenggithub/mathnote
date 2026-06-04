@@ -1,0 +1,197 @@
+{
+  "id": "R007",
+  "module": "probability-stat",
+  "core": {
+    "title": "二项分布概率公式",
+    "alias": [
+      "独立重复试验公式",
+      "贝努利试验公式",
+      "二项分布通项",
+      "恰发生k次概率公式",
+      "伯努利概型"
+    ],
+    "summary": "n次独立重复试验中，事件恰好发生k次的概率等于组合数乘以成功概率的k次方乘以失败概率的(n-k)次方。",
+    "difficulty": 2,
+    "category": "概率统计",
+    "tags": [
+      "二项分布",
+      "独立重复试验",
+      "概率公式",
+      "组合数",
+      "伯努利试验"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "独立重复试验",
+      "二项分布",
+      "概率",
+      "恰好发生k次",
+      "P_n(k)",
+      "C_n^k",
+      "p^k (1-p)^{n-k}",
+      "伯努利试验",
+      "组合数",
+      "贝努利概型",
+      "n次试验",
+      "成功率p",
+      "失败率1-p"
+    ],
+    "synonyms": [
+      "独立重复实验",
+      "二项式分布",
+      "伯努利分布",
+      "成功k次概率",
+      "恰有k次"
+    ],
+    "intents": [
+      "计算概率",
+      "求恰好发生k次",
+      "求分布列",
+      "求二项分布",
+      "应用公式"
+    ],
+    "query_templates": [
+      "n次独立重复试验概率公式",
+      "二项分布概率怎么算",
+      "恰好发生k次的概率公式"
+    ],
+    "ocrKeywords": [
+      "独立重复",
+      "投篮命中率",
+      "抽取",
+      "合格率",
+      "二项分布",
+      "概率为p"
+    ],
+    "latex_patterns": [
+      "C_n^k p^k (1-p)^{n-k}",
+      "P_n(k)=C_n^k p^k (1-p)^{n-k}"
+    ],
+    "formulaTokens": [
+      "P_n(k)",
+      "\\\\mathrm{C}_n^k",
+      "p^k",
+      "(1-p)^{n-k}",
+      "C_n^k p^k (1-p)^{n-k}",
+      "\\\\sum_{k=0}^n \\\\mathrm{C}_n^k p^k (1-p)^{n-k}=1"
+    ],
+    "pinyin": "er xiang fen bu gai lv gong shi",
+    "pinyinAbbr": "exfbgl"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.8,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "P_n(k)=\\\\mathrm{C}_n^k p^k (1-p)^{n-k}",
+    "related_formulas": [
+      "\\\\sum_{k=0}^n \\\\mathrm{C}_n^k p^k (1-p)^{n-k}=1"
+    ],
+    "variables": [
+      {
+        "name": "n",
+        "description": "独立重复试验的总次数",
+        "type": "integer",
+        "range": "n≥1, n∈N*"
+      },
+      {
+        "name": "k",
+        "description": "事件发生的次数",
+        "type": "integer",
+        "range": "0≤k≤n, k∈Z"
+      },
+      {
+        "name": "p",
+        "description": "每次试验事件发生的概率",
+        "type": "real",
+        "range": "0<p<1"
+      }
+    ],
+    "conditions": [
+      "每次试验相互独立",
+      "每次试验事件发生的概率p保持不变",
+      "0<p<1",
+      "n为正整数",
+      "k为0到n之间的整数"
+    ],
+    "conclusions": [
+      "概率计算公式：P_n(k)=C_n^k p^k (1-p)^{n-k}",
+      "归一性：所有可能次数的概率和为1"
+    ]
+  },
+  "content": {
+    "statement": "在n次独立重复试验中，若每次试验某事件发生的概率为p（0<p<1），则该事件恰好发生k次（k=0,1,...,n）的概率为 P_n(k)=C_n^k p^k (1-p)^{n-k}。",
+    "derivation": [
+      "从n次试验中选出k次作为成功的组合方式有C_n^k种。",
+      "每次成功的概率为p，失败的概率为1-p，k次成功和n-k次失败的概率乘积为p^k (1-p)^{n-k}。",
+      "由独立性，总概率为组合数乘以概率乘积：C_n^k p^k (1-p)^{n-k}。"
+    ],
+    "intuition": "相当于先确定哪些试验成功（组合数），再将各次试验的概率相乘，因为试验独立。",
+    "common_tricks": [
+      "注意“恰好”与“至少”的区别，至少需要求和多个概率。",
+      "计算时先算组合数再算幂，避免指数过大。",
+      "可利用概率归一性检验计算结果是否正确。",
+      "当n较大时，可用泊松近似或正态近似估算。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "概率计算题",
+      "分布列题",
+      "投篮命中率问题",
+      "产品抽样问题"
+    ],
+    "problem_types": [
+      "独立重复试验概率",
+      "二项分布计算",
+      "最可能次数求解"
+    ],
+    "exam_frequency": 1.0,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": ""
+  },
+  "shareConfig": {
+    "title": "二项分布概率公式：独立重复试验核心公式",
+    "shareDesc": "适合概率计算题和分布列题，直接代入组合数公式避免漏项，适合考前速查和课后复盘。"
+  },
+  "relations": {
+    "prerequisites": [
+      "组合数公式",
+      "独立事件概率乘法",
+      "互斥事件概率加法"
+    ],
+    "related_ids": [],
+    "similar": [
+      "伯努利试验通项公式",
+      "二项分布分布列"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-04"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "概率-随机变量-分布列",
+  "altNodes": [
+    "概率-古典概型-基本概率",
+    "概率-随机变量-期望"
+  ]
+}
