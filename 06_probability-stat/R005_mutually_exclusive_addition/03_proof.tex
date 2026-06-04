@@ -1,0 +1,62 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{适用范围说明}}
+互斥事件的加法公式适用于一般概率模型，其本质是概率对互斥事件的可加性。下面在古典概型中，利用等可能基本事件的计数对该公式作直观验证。
+
+\medskip
+\textbf{\textcolor{CProof}{思路提示}}
+设样本空间有$n$个等可能基本事件。若$A$与$B$互斥，则它们没有公共基本事件，因此$A\cup B$的基本事件数等于$A$与$B$的基本事件数之和。
+
+\medskip
+\textbf{\textcolor{CProof}{古典概型下的推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（设定样本空间）：}]
+    设样本空间$\Omega$包含$n$个等可能的基本事件。
+    \[
+        P(\Omega)=1,\qquad
+        P(\{\omega_i\})=\frac{1}{n}
+        \quad (i=1,\ldots,n).
+    \]
+    \par\textbf{理由：}
+    在古典概型中，每个基本事件等可能发生。
+
+    \item[\textbf{步骤二（基本事件计数）：}]
+    设事件$A$含有$a$个基本事件，事件$B$含有$b$个基本事件。由于$A$与$B$互斥，即$A\cap B=\varnothing$，所以两事件所包含的基本事件没有重叠。
+    \[
+        a=|A|,\qquad
+        b=|B|,\qquad
+        A\cap B=\varnothing
+        \Rightarrow
+        |A\cup B|=a+b.
+    \]
+    \par\textbf{理由：}
+    无重叠时，并集中的基本事件个数等于两事件基本事件个数之和。
+
+    \item[\textbf{步骤三（计算概率）：}]
+    根据古典概型概率公式，
+    \[
+        P(A)=\frac{a}{n},\qquad
+        P(B)=\frac{b}{n},\qquad
+        P(A\cup B)=\frac{a+b}{n}.
+    \]
+    因此
+    \[
+        P(A\cup B)
+        =
+        \frac{a+b}{n}
+        =
+        \frac{a}{n}+\frac{b}{n}
+        =
+        P(A)+P(B).
+    \]
+    \par\textbf{理由：}
+    概率等于有利基本事件数与基本事件总数之比，代入并集的基本事件数即可得到结论。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+因此，在古典概型中，若事件$A,B$互斥，则
+\[
+    P(A\cup B)=P(A)+P(B).
+\]
+这一结论也正是一般概率模型中互斥事件可加性的体现。
+\end{proofbox}

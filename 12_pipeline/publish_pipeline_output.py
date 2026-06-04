@@ -178,6 +178,28 @@ def load_json(path: Path) -> dict:
         return json.loads(path.read_text(encoding="utf-8-sig"))
 
 
+def load_module_prefix_map(project_root: Path) -> dict[str, str]:
+    """
+    Load module directory -> ID prefix mapping used by automatic publish routing.
+    """
+    config_path = project_root / "12_pipeline" / "config" / "module_prefix_map.json"
+    raw = load_json(config_path)
+    if not isinstance(raw, dict):
+        raise ValueError(f"module prefix config must be a JSON object: {config_path}")
+
+    result: dict[str, str] = {}
+    for module_name, prefix in raw.items():
+        if not isinstance(module_name, str) or not isinstance(prefix, str):
+            raise ValueError(f"Invalid module prefix entry in {config_path}: {module_name!r}")
+        normalized_prefix = prefix.strip().upper()
+        if not re.fullmatch(r"[A-Z]", normalized_prefix):
+            raise ValueError(
+                f"Invalid prefix for module {module_name!r}: {prefix!r}; expected one letter"
+            )
+        result[module_name] = normalized_prefix
+    return result
+
+
 def normalize_key(text: str) -> str:
     """
     标准化字符串，便于模块别名匹配。
@@ -415,6 +437,47 @@ def pick_l6_dirname(output_dir: Path, item_id: str) -> tuple[str | None, list[st
         warnings.append(f"L6 命名文件存在多个，已按字典序使用第一个: {names}")
 
     return files[0].name, warnings
+
+
+def choose_module_by_id_prefix(item_id, module_dirs, alias_map, prefix_map, forced):
+    """
+    Resolve publish module by explicit override or ID prefix only.
+    """
+    if forced:
+        key = normalize_key(forced)
+        if key in alias_map:
+            return alias_map[key]
+        raise ValueError(f"Cannot resolve forced module: {forced}")
+
+    item_prefix = item_id[0].upper()
+    hits = [
+        module_dir
+        for module_dir in module_dirs
+        if prefix_map.get(module_dir.name, "").strip().upper() == item_prefix
+    ]
+
+    if len(hits) == 1:
+        return hits[0]
+    if len(hits) > 1:
+        joined = ", ".join(p.name for p in hits)
+        raise ValueError(
+            f"ID prefix {item_prefix!r} maps to multiple modules for {item_id}: {joined}"
+        )
+
+    configured = [
+        module_name
+        for module_name, prefix in prefix_map.items()
+        if prefix.strip().upper() == item_prefix
+    ]
+    if configured:
+        joined = ", ".join(configured)
+        raise ValueError(
+            f"ID prefix {item_prefix!r} for {item_id} maps to missing module(s): {joined}"
+        )
+
+    raise ValueError(
+        f"ID prefix {item_prefix!r} for {item_id} is not configured in module_prefix_map.json"
+    )
 
 
 def choose_module(item_id, meta, module_dirs, alias_map, forced):
@@ -760,7 +823,7 @@ def update_module_index(module_dir: Path, target_dir: Path, dry_run: bool):
 # =========================================================
 
 
-def publish_one(item_id, args, module_dirs, alias_map):
+def publish_one(item_id, args, module_dirs, alias_map, prefix_map):
     """
     发布单个 ID（调度器核心函数）。
 
@@ -797,7 +860,13 @@ def publish_one(item_id, args, module_dirs, alias_map):
 
     meta = load_json(meta_src)
 
-    module_dir = choose_module(item_id, meta, module_dirs, alias_map, args.module_dir)
+    module_dir = choose_module_by_id_prefix(
+        item_id,
+        module_dirs,
+        alias_map,
+        prefix_map,
+        args.module_dir,
+    )
     target_dir, naming_warnings = choose_conclusion_dir(
         module_dir, item_id, meta, output_dir
     )
@@ -922,6 +991,7 @@ def main():
 
     module_dirs = list_module_dirs(args.project_root)
     alias_map = build_module_alias_map(module_dirs)
+    prefix_map = load_module_prefix_map(args.project_root)
     raw_ids = split_csv_tokens(args.ids) + split_csv_tokens(args.positional_ids)
     try:
         requested_ids = normalize_ids(raw_ids)
@@ -949,7 +1019,7 @@ def main():
         logger.info("")
         logger.info(f"[{item_id}] 开始")
         try:
-            result = publish_one(item_id, args, module_dirs, alias_map)
+            result = publish_one(item_id, args, module_dirs, alias_map, prefix_map)
             success += 1
 
             logger.info(f"[{item_id}] 目标: {result['target']}")

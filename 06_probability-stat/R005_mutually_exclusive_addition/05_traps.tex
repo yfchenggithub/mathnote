@@ -1,0 +1,43 @@
+\begin{trapbox}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点一（忽略互斥条件）}}]
+		      看到“至少有一个发生”就直接用$P(A\cup B)=P(A)+P(B)$，未验证$A$与$B$是否互斥。
+
+		\item[\textbf{\textcolor{CTrap}{正确理解（必须验证互斥）：}}]
+		      只有事件互斥时才能直接相加；若事件可能同时发生，应使用
+		      \[
+			      P(A\cup B)=P(A)+P(B)-P(A\cap B).
+		      \]
+
+		\item[\textbf{\textcolor{CTrap}{错因分析（混淆公式）：}}]
+		      误以为互斥事件的加法公式对任意两个事件都可以直接使用，忽略了交集概率的扣除。
+	\end{description}
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点二（混淆互斥与对立）}}]
+		      认为互斥事件一定是对立事件，从而错误地认为$P(A\cup B)=1$。
+
+		\item[\textbf{\textcolor{CTrap}{正确理解（区分概念）：}}]
+		      互斥只要求$A\cap B=\varnothing$；对立还要求$A\cup B=\Omega$。因此，互斥事件不一定是对立事件。
+
+		\item[\textbf{\textcolor{CTrap}{错因分析（定义混淆）：}}]
+		      将“不能同时发生”等同于“必有一个发生”，忽略了除$A$、$B$之外其他结果出现的可能性。
+	\end{description}
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点三（忽略概率有界性）}}]
+		      计算互斥事件概率时得出$P(A)+P(B)>1$，仍继续使用加法公式，认为结果可能超过$1$。
+
+		\item[\textbf{\textcolor{CTrap}{正确理解（概率范围检查）：}}]
+		      若$A$与$B$互斥，则
+		      \[
+			      P(A\cup B)=P(A)+P(B)\le 1.
+		      \]
+		      因此，若计算得到$P(A)+P(B)>1$，则说明题设中的事件不可能互斥，或者所给概率存在错误。
+
+		\item[\textbf{\textcolor{CTrap}{错因分析（缺乏校验）：}}]
+		      忽略了概率的基本性质$0\le P(E)\le 1$，以及互斥事件对概率和的限制。
+	\end{description}
+\end{trapbox}
