@@ -1,0 +1,459 @@
+{
+  "generated_at": "2026-06-04T14:54:10+08:00",
+  "ids": [
+    "R005"
+  ],
+  "dry_run": false,
+  "tmp_root": "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728",
+  "stages": [
+    {
+      "name": "build_search_bundle_js delta",
+      "command": [
+        "D:\\Program Files\\python\\python314\\python.exe",
+        "D:\\mathnote\\scripts\\build_search_bundle_js.py",
+        "--output-file",
+        "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\search_bundle.delta.js",
+        "--audit-report",
+        "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\search_audit.delta.json",
+        "--module",
+        "06_probability-stat",
+        "--item",
+        "R005",
+        "--enable-knowledge-node-terms",
+        "--enable-query-template-terms",
+        "--enable-formula-token-terms",
+        "--enable-formula-terms",
+        "--enable-usage-terms"
+      ],
+      "cwd": "D:\\mathnote",
+      "return_code": 0,
+      "duration_sec": 0.43765849999908824,
+      "status": "ok",
+      "stdout_tail": "",
+      "stderr_tail": "[INFO] Dependency status | pypinyin is available, dynamic pinyin expansion is enabled.\n[INFO] Step 1/5 | Resolve build scope\n[INFO] Build target | project_root=D:\\mathnote\n[INFO] Build target | output_file=D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\search_bundle.delta.js\n[INFO] Build target | target_modules=06_probability-stat\n[INFO] Build target | target_items=R005\n[INFO] Step 1/5 done | matched_modules=1 | modules=06_probability-stat\n[INFO] Step 2/5 | Scan modules and collect searchable records\n[INFO] Module start | module=06_probability-stat | candidate_items=5\n[INFO] Module done | module=06_probability-stat | scanned=5 | built=1 | filtered=4 | skipped=0\n[INFO] Step 2/5 done | documents=1 | term_keys=97 | prefix_keys=158 | suggestion_candidates=18\n[INFO] Step 3/5 | Assemble bundle payload\n[INFO] Step 3/5 done | bundle_stats docs=1 terms=97 prefixes=73 suggestions=18\n[INFO] Index audit | kept_exact=116 | kept_prefix=197 | ngram_candidates=0 | kept_ngrams=0 | dropped_ngrams=0 | dropped_exact={'long_low_value_natural_token': 4, 'long_manual_pinyin_exact': 1, 'long_pinyin_abbr_exact': 15, 'long_pinyin_exact': 19, 'spaced_pinyin_full': 1} | dropped_prefix={'formula_prefix': 8} | dropped_ngram_reasons={}\n[INFO] Step 4/5 | Emit debug reports\n[INFO] Step 4/5 done\n[INFO] Step 5/5 | Finalize output\n[INFO] Search bundle written: D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\search_bundle.delta.js\n[INFO] Index audit report written: D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\search_audit.delta.json\n[INFO] Step 5/5 done | output_exists=True | output_size_bytes=9251 | output_file=D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\search_bundle.delta.js | ngram_kept=0 | ngram_dropped=0"
+    },
+    {
+      "name": "extract_backend_index_from_search_bundle delta",
+      "command": [
+        "D:\\Program Files\\python\\python314\\python.exe",
+        "D:\\mathnote\\scripts\\extract_backend_index_from_search_bundle.py",
+        "--input",
+        "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\search_bundle.delta.js",
+        "--output",
+        "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\backend_search_index.delta.json",
+        "--pretty"
+      ],
+      "cwd": "D:\\mathnote",
+      "return_code": 0,
+      "duration_sec": 0.18060360000526998,
+      "status": "ok",
+      "stdout_tail": "",
+      "stderr_tail": "2026-06-04 14:54:10,956 | INFO | ���� 1/6: ��ȡ�����ļ� -> D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\search_bundle.delta.js\n2026-06-04 14:54:10,956 | INFO | ���� 2/6: ��ȡ searchBundle ����������\n2026-06-04 14:54:10,957 | INFO | ������������ȡ��ɣ�����=7019 �ַ�\n2026-06-04 14:54:10,957 | INFO | ���� 3/6: ��������������Ϊ Python ���ݽṹ\n2026-06-04 14:54:10,959 | INFO | ������ɣ������ֶ���=9\n2026-06-04 14:54:10,959 | INFO | ���� 4/6: ִ�нṹ��ͳ��У��\n2026-06-04 14:54:10,959 | INFO | У��ͨ������ warning\n2026-06-04 14:54:10,959 | INFO | ���� 5/6: ������� JSON �غ�\n2026-06-04 14:54:10,959 | INFO | ���� 6/6: д�� JSON �ļ� -> D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\backend_search_index.delta.json\n2026-06-04 14:54:10,967 | INFO | ������ | �ļ���С=18.01 KiB | docs=1 | terms=97 | prefixes=73 | suggestions=18"
+    },
+    {
+      "name": "verify_backend_index_extraction delta",
+      "command": [
+        "D:\\Program Files\\python\\python314\\python.exe",
+        "D:\\mathnote\\scripts\\verify_backend_index_extraction.py",
+        "--bundle-js",
+        "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\search_bundle.delta.js",
+        "--backend-json",
+        "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\backend_search_index.delta.json",
+        "--report",
+        "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\backend_index_verify.delta.json"
+      ],
+      "cwd": "D:\\mathnote",
+      "return_code": 0,
+      "duration_sec": 0.19734189999871887,
+      "status": "ok",
+      "stdout_tail": "",
+      "stderr_tail": "2026-06-04 14:54:11,160 | INFO | ��ʼУ�� backend ������ȡһ����\n2026-06-04 14:54:11,160 | INFO | source bundle: D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\search_bundle.delta.js\n2026-06-04 14:54:11,160 | INFO | backend json : D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\backend_search_index.delta.json\n2026-06-04 14:54:11,160 | INFO | ignore meta  : True\n2026-06-04 14:54:11,163 | INFO | ���� 1/8: ����ṹУ��\n2026-06-04 14:54:11,163 | INFO | ���� 2/8: �����ֶ�У��\n2026-06-04 14:54:11,163 | INFO | ���� 3/8: docs ���У��\n2026-06-04 14:54:11,163 | INFO | ���� 4/8: termIndex ���У��\n2026-06-04 14:54:11,164 | INFO | ���� 5/8: prefixIndex ���У��\n2026-06-04 14:54:11,164 | INFO | ���� 6/8: suggestions ���У��\n2026-06-04 14:54:11,164 | INFO | ���� 7/8: ͳ��һ���Ը���\n2026-06-04 14:54:11,164 | INFO | ���� 8/8: ָ��У��\n2026-06-04 14:54:11,164 | INFO | ͳ��ժҪ | source actual={\"documents\": 1, \"prefixes\": 73, \"suggestions\": 18, \"terms\": 97} | backend actual={\"documents\": 1, \"prefixes\": 73, \"suggestions\": 18, \"terms\": 97}\n2026-06-04 14:54:11,164 | INFO | ָ��ժҪ | source=781cb2e4cadb8a10fefcb42b04ce9909aa0dc0fb2d733da38dea018b2b5447f0 | backend=781cb2e4cadb8a10fefcb42b04ce9909aa0dc0fb2d733da38dea018b2b5447f0\n2026-06-04 14:54:11,166 | INFO | ��д�� JSON ����: D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\backend_index_verify.delta.json\n2026-06-04 14:54:11,166 | INFO | У��ͨ����δ���ֲ�һ�¡�"
+    },
+    {
+      "name": "build_detail_page_js delta",
+      "command": [
+        "D:\\Program Files\\python\\python314\\python.exe",
+        "D:\\mathnote\\scripts\\build_detail_page_js.py",
+        "--output-dir",
+        "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\detail_data",
+        "--module",
+        "06_probability-stat",
+        "--item",
+        "R005"
+      ],
+      "cwd": "D:\\mathnote",
+      "return_code": 0,
+      "duration_sec": 0.21520629999577068,
+      "status": "ok",
+      "stdout_tail": "",
+      "stderr_tail": "[INFO] Step 1/5 | Resolve target modules\n[INFO] Project root: D:\\mathnote\n[INFO] Output dir: D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\detail_data\n[INFO] Target modules: 06_probability-stat\n[INFO] Excluded modules: 10_final\n[INFO] Target items: R005\n[INFO] Step 2/5 | Build detail-page records\n[INFO] Module progress | 1/1 | 06_probability-stat\n[INFO] Module start | 06_probability-stat\n[INFO] Module summary | module=06_probability-stat | scanned=5 | built=1 | filtered=4 | skipped=0\n[INFO] Step 3/5 | Validate build results\n[INFO] Build stats | modules=1 | items=1 | filtered=4 | skipped=0\n[INFO] Step 4/5 | Write JS files\n[INFO] Wrote detail file | module=06_probability-stat | path=D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\detail_data\\06_probability-stat.js | items=1\n[INFO] Step 5/5 | Finished\n[INFO] Output ready | D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\detail_data\\06_probability-stat.js | bytes=49546"
+    },
+    {
+      "name": "migrate_detail_js_to_content_v2 delta [06_probability-stat]",
+      "command": [
+        "D:\\Program Files\\python\\python314\\python.exe",
+        "D:\\mathnote\\scripts\\migrate_detail_js_to_content_v2.py",
+        "--input",
+        "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\detail_data\\06_probability-stat.js",
+        "--output",
+        "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\canonical_modules\\06_probability-stat.canonical_content_v2.json",
+        "--report",
+        "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\conversion_reports\\06_probability-stat.conversion_report.json"
+      ],
+      "cwd": "D:\\mathnote",
+      "return_code": 0,
+      "duration_sec": 0.4025081999861868,
+      "status": "ok",
+      "stdout_tail": "",
+      "stderr_tail": "[INFO] 输入: D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\detail_data\\06_probability-stat.js\n[INFO] 输出: D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\canonical_modules\\06_probability-stat.canonical_content_v2.json\n[INFO] 报告: D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\conversion_reports\\06_probability-stat.conversion_report.json\n[INFO] 校验模式: pydantic_model\n[INFO] 记录总数: 1\n[INFO] 迁移完成: total=1 success=1 failed=0\n[INFO] canonical: D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\canonical_modules\\06_probability-stat.canonical_content_v2.json\n[INFO] report: D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\conversion_reports\\06_probability-stat.conversion_report.json"
+    },
+    {
+      "name": "mark_need_image_by_latex_length delta",
+      "command": [
+        "D:\\Program Files\\python\\python314\\python.exe",
+        "D:\\mathnote\\scripts\\mark_need_image_by_latex_length.py",
+        "--input",
+        "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\canonical_content_v2.delta.json",
+        "--output",
+        "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\canonical_content_v2.delta.marked.json",
+        "--min-length",
+        "5"
+      ],
+      "cwd": "D:\\mathnote",
+      "return_code": 0,
+      "duration_sec": 0.22592169999552425,
+      "status": "ok",
+      "stdout_tail": "[mark_need_image] input      : D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\canonical_content_v2.delta.json\n[mark_need_image] output     : D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\canonical_content_v2.delta.marked.json\n[mark_need_image] mode       : add\n[mark_need_image] min_length : 5\n[mark_need_image] flag       : need_image='true'\n[mark_need_image] total_latex_nodes : 117\n[mark_need_image] matched_nodes     : 49\n[mark_need_image] added_flags       : 49\n[mark_need_image] already_flagged   : 0\n[mark_need_image] removed_flags     : 0\n[mark_need_image] done.",
+      "stderr_tail": ""
+    },
+    {
+      "name": "render_math_assets delta",
+      "command": [
+        "node",
+        "D:\\mathnote\\scripts\\render_math_assets.mjs",
+        "--input",
+        "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\canonical_content_v2.delta.marked.json",
+        "--output",
+        "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\canonical_content_v2.delta.rendered.json",
+        "--out-dir",
+        "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\formulas",
+        "--asset-base",
+        "/static/formulas"
+      ],
+      "cwd": "D:\\mathnote",
+      "return_code": 0,
+      "duration_sec": 1.397242400009418,
+      "status": "ok",
+      "stdout_tail": "[render_math_assets] input: .tmp/incremental_publish_20260604_145410_35728/canonical_content_v2.delta.marked.json\n[render_math_assets] scanned marked math_block count: 39\n[render_math_assets] scanned marked math_inline count: 10\n[render_math_assets] skipped marked math_image count: 0\n[render_math_assets] scanned marked primary_formula count: 1\n[render_math_assets] skipped marked primary_formula(type=math_image) count: 0\n[render_math_assets] 1/36 68196d9a398cf248 -> rendered\n[render_math_assets] 2/36 6df17b9048b675ba -> rendered\n[render_math_assets] 3/36 f9b0778aa8deb959 -> rendered\n[render_math_assets] 4/36 381ec2f6cd96a46b -> rendered\n[render_math_assets] 5/36 af3e90a244efd23a -> rendered\n[render_math_assets] 6/36 0c3c7e0d09ed9f5a -> rendered\n[render_math_assets] 7/36 1eec3847b1bfe990 -> rendered\n[render_math_assets] 8/36 39704129a02ba2f0 -> rendered\n[render_math_assets] 9/36 243487583624c380 -> rendered\n[render_math_assets] 10/36 4959627bdb882062 -> rendered\n[render_math_assets] 11/36 9a7345feef097a72 -> rendered\n[render_math_assets] 12/36 202529a83d682dc1 -> rendered\n[render_math_assets] 13/36 4544a679585cde21 -> rendered\n[render_math_assets] 14/36 42760498ba05eb7a -> rendered\n[render_math_assets] 15/36 6080f2e48a393c9b -> rendered\n[render_math_assets] 16/36 634fc8122b8832b7 -> rendered\n[render_math_assets] 17/36 315100a9eb32e6af -> rendered\n[render_math_assets] 18/36 90544ae51aa573c4 -> rendered\n[render_math_assets] 19/36 f515cbb65391b9e6 -> rendered\n[render_math_assets] 20/36 f39bd8a2ebea6ba1 -> rendered\n[render_math_assets] 21/36 a0af20e6240d9f0b -> rendered\n[render_math_assets] 22/36 bec201a1f842560d -> rendered\n[render_math_assets] 23/36 386b5c1571d0a7a2 -> rendered\n[render_math_assets] 24/36 b0eab80425decd42 -> rendered\n[render_math_assets] 25/36 f299a3a3a51bdc08 -> rendered\n[render_math_assets] 26/36 4a62bc042db06b03 -> rendered\n[render_math_assets] 27/36 2acce644b1697a0c -> rendered\n[render_math_assets] 28/36 9857a33c9c46807b -> rendered\n[render_math_assets] 29/36 842fc4f435a7248e -> rendered\n[render_math_assets] 30/36 1fb1dd8819660542 -> rendered\n[render_math_assets] 31/36 480ad101bdab88bc -> rendered\n[render_math_assets] 32/36 60989c28e370ed7e -> rendered\n[render_math_assets] 33/36 570795f5cad8cfd2 -> rendered\n[render_math_assets] 34/36 23e793d50e3b4d61 -> rendered\n[render_math_assets] 35/36 1e1c121846c862b3 -> rendered\n[render_math_assets] 36/36 fd7e51e7e9d04558 -> rendered\n[render_math_assets] rendered: 36\n[render_math_assets] reused: 0\n[render_math_assets] failed: 0\n[render_math_assets] output json: .tmp/incremental_publish_20260604_145410_35728/canonical_content_v2.delta.rendered.json\n[render_math_assets] report: reports/render_math_assets_report.json",
+      "stderr_tail": ""
+    },
+    {
+      "name": "remove_math_image_following_period delta",
+      "command": [
+        "D:\\Program Files\\python\\python314\\python.exe",
+        "D:\\mathnote\\scripts\\remove_math_image_following_period.py",
+        "--input",
+        "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\canonical_content_v2.delta.rendered.json",
+        "--output",
+        "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\canonical_content_v2.delta.final.json",
+        "--write"
+      ],
+      "cwd": "D:\\mathnote",
+      "return_code": 0,
+      "duration_sec": 0.18360039999242872,
+      "status": "ok",
+      "stdout_tail": "[WRITE] input:  D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\canonical_content_v2.delta.rendered.json\n[WRITE] output: D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\canonical_content_v2.delta.final.json\n[WRITE] token_lists_seen:           91\n[WRITE] token_lists_changed:        1\n[WRITE] math_image_tokens_seen:     10\n[WRITE] punctuation_candidates_seen: 1\n[WRITE] tokens_removed:             1",
+      "stderr_tail": ""
+    },
+    {
+      "name": "sync_backend_core_formula_assets delta",
+      "command": [
+        "D:\\Program Files\\python\\python314\\python.exe",
+        "D:\\mathnote\\scripts\\sync_backend_core_formula_assets.py",
+        "--backend-json",
+        "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\backend_search_index.delta.json",
+        "--canonical-json",
+        "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\canonical_content_v2.delta.final.json",
+        "--output",
+        "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\backend_search_index.delta.final.json",
+        "--report",
+        "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\sync_backend_core_formula_assets_report.json",
+        "--write"
+      ],
+      "cwd": "D:\\mathnote",
+      "return_code": 0,
+      "duration_sec": 0.2113699000037741,
+      "status": "ok",
+      "stdout_tail": "[WRITE] backend   : D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\backend_search_index.delta.json\n[WRITE] canonical : D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\canonical_content_v2.delta.final.json\n[WRITE] output    : D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\backend_search_index.delta.final.json\n[WRITE] report    : D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\sync_backend_core_formula_assets_report.json\n[WRITE] backend_docs_seen          : 1\n[WRITE] canonical_image_nodes_seen : 49\n[WRITE] canonical_primary_images   : 1\n[WRITE] core_formula_string_seen   : 1\n[WRITE] core_formula_object_seen   : 0\n[WRITE] converted                  : 1\n[WRITE] already_synced             : 0\n[WRITE] refreshed_existing_object  : 0\n[WRITE] empty_core_formula_skipped : 0\n[WRITE] missing_asset              : 0\n[WRITE] malformed_core_formula     : 0\n[WRITE] fallback_primary_used      : 0",
+      "stderr_tail": "[INFO] Wrote synced backend JSON: D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\backend_search_index.delta.final.json"
+    },
+    {
+      "name": "build_conclusion_pdfs delta",
+      "command": [
+        "D:\\Program Files\\python\\python314\\python.exe",
+        "D:\\mathnote\\scripts\\build_conclusion_pdfs.py",
+        "R005",
+        "--output-dir",
+        "D:\\mathnote\\build\\conclusion_pdfs",
+        "--map-json",
+        "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\conclusion_pdf_map.delta.json",
+        "--overwrite"
+      ],
+      "cwd": "D:\\mathnote",
+      "return_code": 0,
+      "duration_sec": 10.72403420000046,
+      "status": "ok",
+      "stdout_tail": "[info] Repo root: D:\\mathnote\n[info] Modules (derived from ID prefix map (12_pipeline/config/module_prefix_map.json)): 06_probability-stat\n[info] Selected conclusions: 1\n[info] PDF output dir: D:\\mathnote\\build\\conclusion_pdfs\n[info] Map JSON path: D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\conclusion_pdf_map.delta.json\n[info] PDF naming mode: folder\n[build] (1/1) 06_probability-stat/R005_mutually_exclusive_addition -> R005_mutually_exclusive_addition.pdf\n        status: success\n[summary]\n  success: 1\n  skipped: 0\n  failed : 0\n  map json written: D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\conclusion_pdf_map.delta.json",
+      "stderr_tail": ""
+    },
+    {
+      "name": "local backend git status targeted files",
+      "command": [
+        "git",
+        "-C",
+        "D:\\mathnode_backend",
+        "status",
+        "--porcelain",
+        "--",
+        "app/data/canonical_content_v2.json",
+        "app/data/backend_search_index.json",
+        "app/data/conclusion_pdf_map.json",
+        "app/data/pdfs/R005_mutually_exclusive_addition.pdf"
+      ],
+      "cwd": "D:\\mathnote",
+      "return_code": 0,
+      "duration_sec": 0.25516639999113977,
+      "status": "ok",
+      "stdout_tail": " M app/data/pdfs/R005_mutually_exclusive_addition.pdf",
+      "stderr_tail": ""
+    },
+    {
+      "name": "local backend git add synced files",
+      "command": [
+        "git",
+        "-C",
+        "D:\\mathnode_backend",
+        "add",
+        "--",
+        "app/data/canonical_content_v2.json",
+        "app/data/backend_search_index.json",
+        "app/data/conclusion_pdf_map.json",
+        "app/data/pdfs/R005_mutually_exclusive_addition.pdf"
+      ],
+      "cwd": "D:\\mathnote",
+      "return_code": 0,
+      "duration_sec": 0.19984149999800138,
+      "status": "ok",
+      "stdout_tail": "",
+      "stderr_tail": ""
+    },
+    {
+      "name": "local backend git staged targeted files",
+      "command": [
+        "git",
+        "-C",
+        "D:\\mathnode_backend",
+        "diff",
+        "--cached",
+        "--name-only",
+        "--",
+        "app/data/canonical_content_v2.json",
+        "app/data/backend_search_index.json",
+        "app/data/conclusion_pdf_map.json",
+        "app/data/pdfs/R005_mutually_exclusive_addition.pdf"
+      ],
+      "cwd": "D:\\mathnote",
+      "return_code": 0,
+      "duration_sec": 0.15930339999613352,
+      "status": "ok",
+      "stdout_tail": "app/data/pdfs/R005_mutually_exclusive_addition.pdf",
+      "stderr_tail": ""
+    },
+    {
+      "name": "local backend git commit synced files",
+      "command": [
+        "git",
+        "-C",
+        "D:\\mathnode_backend",
+        "commit",
+        "-m",
+        "Incremental publish R005",
+        "--",
+        "app/data/canonical_content_v2.json",
+        "app/data/backend_search_index.json",
+        "app/data/conclusion_pdf_map.json",
+        "app/data/pdfs/R005_mutually_exclusive_addition.pdf"
+      ],
+      "cwd": "D:\\mathnote",
+      "return_code": 0,
+      "duration_sec": 0.545802000007825,
+      "status": "ok",
+      "stdout_tail": "[main 40ead48] Incremental publish R005\n 1 file changed, 0 insertions(+), 0 deletions(-)",
+      "stderr_tail": ""
+    },
+    {
+      "name": "local backend git push",
+      "command": [
+        "git",
+        "-C",
+        "D:\\mathnode_backend",
+        "push"
+      ],
+      "cwd": "D:\\mathnote",
+      "return_code": 0,
+      "duration_sec": 7.202104999989388,
+      "status": "ok",
+      "stdout_tail": "",
+      "stderr_tail": "Could not create directory '/c/Users/\\263\\314\\324\\266\\267\\346/.ssh' (No such file or directory).\nFailed to add the host to the list of known hosts (/c/Users/\\263\\314\\324\\266\\267\\346/.ssh/known_hosts).\nTo github.com:yfchenggithub/mathnode_backend.git\n   6172a9d..40ead48  main -> main"
+    },
+    {
+      "name": "remote prepare formula upload staging",
+      "command": [
+        "ssh",
+        "yfcheng@146.56.223.203",
+        "rm -rf -- '/tmp/incremental_publish_20260604_145410_35728/formulas' && mkdir -p -- '/tmp/incremental_publish_20260604_145410_35728/formulas'"
+      ],
+      "cwd": "D:\\mathnote",
+      "return_code": 0,
+      "duration_sec": 4.0307860000029905,
+      "status": "ok",
+      "stdout_tail": "",
+      "stderr_tail": ""
+    },
+    {
+      "name": "upload formula dir to staging [R005]",
+      "command": [
+        "scp",
+        "-r",
+        ".tmp/incremental_publish_20260604_145410_35728/formulas/R005",
+        "yfcheng@146.56.223.203:/tmp/incremental_publish_20260604_145410_35728/formulas/"
+      ],
+      "cwd": "D:\\mathnote",
+      "return_code": 0,
+      "duration_sec": 7.239343599998392,
+      "status": "ok",
+      "stdout_tail": "",
+      "stderr_tail": ""
+    },
+    {
+      "name": "remote install formula dir [R005]",
+      "command": [
+        "ssh",
+        "-tt",
+        "yfcheng@146.56.223.203",
+        "sudo -i bash -lc '[ -d '\"'\"'/tmp/incremental_publish_20260604_145410_35728/formulas/R005'\"'\"' ] && mkdir -p -- '\"'\"'/var/www/ok-shuxue/static/formulas'\"'\"' && rm -rf -- '\"'\"'/var/www/ok-shuxue/static/formulas/R005'\"'\"' && cp -a -- '\"'\"'/tmp/incremental_publish_20260604_145410_35728/formulas/R005'\"'\"' '\"'\"'/var/www/ok-shuxue/static/formulas/'\"'\"' && chown -- '\"'\"'www-data:www-data'\"'\"' '\"'\"'/var/www/ok-shuxue/static/formulas'\"'\"' && chown -R -- '\"'\"'www-data:www-data'\"'\"' '\"'\"'/var/www/ok-shuxue/static/formulas/R005'\"'\"''"
+      ],
+      "cwd": "D:\\mathnote",
+      "return_code": 0,
+      "duration_sec": 8.442466799999238,
+      "status": "ok",
+      "stdout_tail": "",
+      "stderr_tail": ""
+    },
+    {
+      "name": "remote cleanup formula upload staging",
+      "command": [
+        "ssh",
+        "yfcheng@146.56.223.203",
+        "rm -rf -- '/tmp/incremental_publish_20260604_145410_35728/formulas'"
+      ],
+      "cwd": "D:\\mathnote",
+      "return_code": 0,
+      "duration_sec": 3.100445200005197,
+      "status": "ok",
+      "stdout_tail": "",
+      "stderr_tail": ""
+    },
+    {
+      "name": "remote backend git pull/restart as root",
+      "command": [
+        "ssh",
+        "-tt",
+        "yfcheng@146.56.223.203",
+        "sudo -i bash -lc 'cd '\"'\"'/root/math_search_backend'\"'\"' && git pull --ff-only && systemctl restart math-search.service && systemctl status math-search.service --no-pager'"
+      ],
+      "cwd": "D:\\mathnote",
+      "return_code": 0,
+      "duration_sec": 18.75951869999699,
+      "status": "ok",
+      "stdout_tail": "",
+      "stderr_tail": ""
+    }
+  ],
+  "outputs": {
+    "modules": [
+      "06_probability-stat"
+    ],
+    "canonical_delta_final": "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\canonical_content_v2.delta.final.json",
+    "backend_delta_final": "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\backend_search_index.delta.final.json",
+    "merged_canonical_candidate": "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\canonical_content_v2.merged.json",
+    "merged_backend_candidate": "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\backend_search_index.merged.json",
+    "merged_pdf_map_candidate": "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\conclusion_pdf_map.merged.json",
+    "formula_dirs": [
+      "D:\\mathnote\\.tmp\\incremental_publish_20260604_145410_35728\\formulas\\R005"
+    ],
+    "pdf_delta": {
+      "R005": "R005_mutually_exclusive_addition.pdf"
+    },
+    "backend_sync": {
+      "skipped": false,
+      "backend_data_dir": "D:\\mathnode_backend\\app\\data",
+      "files": [
+        "D:\\mathnode_backend\\app\\data\\canonical_content_v2.json",
+        "D:\\mathnode_backend\\app\\data\\backend_search_index.json",
+        "D:\\mathnode_backend\\app\\data\\conclusion_pdf_map.json",
+        "D:\\mathnode_backend\\app\\data\\pdfs\\R005_mutually_exclusive_addition.pdf"
+      ],
+      "pdfs": [
+        "D:\\mathnode_backend\\app\\data\\pdfs\\R005_mutually_exclusive_addition.pdf"
+      ]
+    },
+    "backend_git": {
+      "skipped": false,
+      "backend_repo": "D:\\mathnode_backend",
+      "commit_message": "Incremental publish R005",
+      "files": [
+        "app/data/pdfs/R005_mutually_exclusive_addition.pdf"
+      ],
+      "pushed": true
+    },
+    "formula_upload": {
+      "skipped": false,
+      "uploaded": [
+        "/var/www/ok-shuxue/static/formulas/R005"
+      ],
+      "staging": "/tmp/incremental_publish_20260604_145410_35728/formulas",
+      "owner_group": "www-data:www-data"
+    },
+    "remote": {
+      "skipped": false,
+      "remote_backend_root": "/root/math_search_backend",
+      "restart": true,
+      "sudo_login_shell": true
+    }
+  },
+  "counts": {
+    "canonical": {
+      "before": 121,
+      "after": 121,
+      "path": "D:\\mathnote\\data\\content\\canonical_content_v2.json"
+    },
+    "backend_index": {
+      "docs_before": 121,
+      "docs_after": 121,
+      "terms_after": 6995,
+      "prefixes_after": 5230,
+      "suggestions_after": 500,
+      "material_changed": false,
+      "generated_at_updated": false,
+      "path": "D:\\mathnote\\data\\search_engine\\backend_search_index.json"
+    },
+    "pdf_map": {
+      "baseline": "D:\\mathnode_backend\\app\\data\\conclusion_pdf_map.json",
+      "path": "D:\\mathnote\\build\\conclusion_pdf_map.json",
+      "before": 121,
+      "after": 121
+    }
+  },
+  "warnings": []
+}
