@@ -690,6 +690,13 @@ def compute_prompt_hash(text: str) -> str:
     return hashlib.sha1(text.encode("utf-8")).hexdigest()
 
 
+def compute_source_hash(text: str) -> str:
+    """
+    Compute a stable fingerprint for the normalized source text.
+    """
+    return hashlib.sha1(text.encode("utf-8")).hexdigest()
+
+
 def build_prompt_hash_snapshot() -> dict[str, str]:
     """
     构建当前进程的阶段缓存指纹快照。
@@ -1415,7 +1422,12 @@ def load_item_cache_state(state_path: str) -> dict[str, Any]:
     Returns:
         dict[str, Any]: 标准化缓存状态。
     """
-    default_state = {"version": 2, "prompt_hashes": {}, "prompt_snapshot_hash": ""}
+    default_state = {
+        "version": 3,
+        "prompt_hashes": {},
+        "prompt_snapshot_hash": "",
+        "source_hash": "",
+    }
     if not os.path.isfile(state_path):
         return default_state
     try:
@@ -1432,11 +1444,16 @@ def load_item_cache_state(state_path: str) -> dict[str, Any]:
             if isinstance(k, str) and isinstance(v, str)
         }
         return {
-            "version": int(data.get("version", 2)),
+            "version": int(data.get("version", 3)),
             "prompt_hashes": clean_hashes,
             "prompt_snapshot_hash": (
                 str(data.get("prompt_snapshot_hash"))
                 if isinstance(data.get("prompt_snapshot_hash"), str)
+                else ""
+            ),
+            "source_hash": (
+                str(data.get("source_hash"))
+                if isinstance(data.get("source_hash"), str)
                 else ""
             ),
         }
@@ -1452,6 +1469,47 @@ def save_item_cache_state(state_path: str, state: dict[str, Any]) -> None:
     os.makedirs(os.path.dirname(state_path), exist_ok=True)
     with open(state_path, "w", encoding="utf-8") as f:
         json.dump(state, f, ensure_ascii=False, indent=2)
+
+
+def is_source_cache_fresh(
+    *,
+    item_id: str,
+    cache_state: dict[str, Any],
+    source_hash: str,
+) -> bool:
+    """
+    Check whether cached pipeline outputs were produced from this source text.
+    """
+    cached = cache_state.get("source_hash", "")
+    if not isinstance(cached, str) or not cached:
+        logging.info(
+            "%s source fingerprint missing; invalidating all stage caches.",
+            item_id,
+        )
+        return False
+
+    if cached != source_hash:
+        logging.info(
+            "%s source changed; invalidating all stage caches. cached=%s current=%s",
+            item_id,
+            cached[:12],
+            source_hash[:12],
+        )
+        return False
+
+    return True
+
+
+def mark_source_hash(cache_state: dict[str, Any], source_hash: str) -> bool:
+    """
+    Store the source fingerprint after a successful end-to-end run.
+    """
+    changed = cache_state.get("source_hash") != source_hash
+    if cache_state.get("version") != 3:
+        changed = True
+    cache_state["version"] = 3
+    cache_state["source_hash"] = source_hash
+    return changed
 
 
 def mark_step_prompt_hash(
@@ -2232,6 +2290,25 @@ def list_l6_dirname_files(item_dir: str, item_id: str) -> list[str]:
     return result
 
 
+def clear_l6_dirname_files(item_dir: str, item_id: str) -> int:
+    """
+    Remove stale L6 dirname marker files for one item.
+    """
+    removed = 0
+    for path in list_l6_dirname_files(item_dir, item_id):
+        try:
+            os.remove(path)
+            removed += 1
+        except OSError as exc:
+            logging.warning(
+                "%s failed to remove stale L6 cache file %s: %s",
+                item_id,
+                path,
+                exc,
+            )
+    return removed
+
+
 def get_cached_l6_dirname(item_dir: str, item_id: str) -> str | None:
     """
     返回已缓存的 L6 文件名；若存在多个，返回字典序第一个并记录告警。
@@ -2514,7 +2591,30 @@ def process_file(
         paths_map = build_output_paths(filename, output_dir)
         item_output_dir = os.path.join(output_dir, filename)
         cache_state_path = paths_map["cache_state"]
+        raw_text = read_input_text(input_path)
+        if not raw_text:
+            logging.error(
+                "%s input is empty or cannot be read: %s",
+                filename,
+                input_path,
+            )
+            return "error"
+
+        source_hash = compute_source_hash(raw_text)
         cache_state = load_item_cache_state(cache_state_path)
+        source_fresh = is_source_cache_fresh(
+            item_id=filename,
+            cache_state=cache_state,
+            source_hash=source_hash,
+        )
+        if not source_fresh:
+            removed_l6 = clear_l6_dirname_files(item_output_dir, filename)
+            if removed_l6:
+                logging.info(
+                    "%s removed %s stale L6 dirname cache file(s).",
+                    filename,
+                    removed_l6,
+                )
         prompt_snapshot_fresh = is_prompt_snapshot_fresh(
             item_id=filename,
             cache_state=cache_state,
@@ -2528,8 +2628,14 @@ def process_file(
             if mark_prompt_snapshot_hash(cache_state):
                 save_item_cache_state(cache_state_path, cache_state)
 
+        def persist_source_hash() -> None:
+            if mark_source_hash(cache_state, source_hash):
+                save_item_cache_state(cache_state_path, cache_state)
+
         def can_use_step_cache(step: str, cache_path: str) -> bool:
             if force:
+                return False
+            if not source_fresh:
                 return False
             if not prompt_snapshot_fresh:
                 return False
@@ -2551,16 +2657,6 @@ def process_file(
             l1 = load_json_file(paths_map["l1"])
             log_stage_done(filename, "L1", l1_mode, l1_started)
         else:
-            raw_text = read_input_text(input_path)
-            if not raw_text:
-                log_stage_fail(
-                    filename,
-                    "L1",
-                    l1_mode,
-                    l1_started,
-                    "input is empty or cannot be read",
-                )
-                return "error"
             l1 = step_latex_extract(raw_text)
             if not is_step_success(l1):
                 save_parse_debug(output_dir, filename, "l1", l1)
@@ -2824,7 +2920,11 @@ def process_file(
             log_stage_done(filename, "L5", "disabled", l5_disabled_started)
 
         # ========= L6 =========
-        cached_l6 = None if force else get_cached_l6_dirname(item_output_dir, filename)
+        cached_l6 = (
+            None
+            if force or not source_fresh
+            else get_cached_l6_dirname(item_output_dir, filename)
+        )
         l6_prompt_fresh = is_step_cache_prompt_fresh(
             item_id=filename,
             step="l6",
@@ -2844,6 +2944,7 @@ def process_file(
                 l6_cache_skip_started,
                 note=f"cached={cached_l6}",
             )
+            persist_source_hash()
             persist_prompt_snapshot_hash()
             return "skipped"
 
@@ -2868,6 +2969,7 @@ def process_file(
             note=f"dirname={os.path.basename(l6_path)}",
         )
 
+        persist_source_hash()
         persist_prompt_snapshot_hash()
         return "success"
 
