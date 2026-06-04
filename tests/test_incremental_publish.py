@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import shutil
+import subprocess
 import unittest
 from pathlib import Path
 from unittest import mock
@@ -39,6 +40,9 @@ def _publish_config() -> publisher.PublishConfig:
         backend_git_publish=False,
         backend_git_push=False,
         backend_commit_message="Incremental publish R005",
+        project_git_publish=False,
+        project_git_push=False,
+        project_commit_message="Incremental publish R005 project artifacts",
         formula_min_length=5,
         asset_base="/static/formulas",
         remote_host="example.invalid",
@@ -206,6 +210,97 @@ class IncrementalPublishBackendSyncTests(unittest.TestCase):
             self.assertEqual(list((backend_data / "pdfs").glob("*.bak_*")), [])
         finally:
             shutil.rmtree(fixture_root, ignore_errors=True)
+
+
+class IncrementalPublishProjectCleanupTests(unittest.TestCase):
+    def test_project_backup_cleanup_removes_publish_json_backups_only(self) -> None:
+        fixture_root = (
+            publisher.PROJECT_ROOT
+            / "tests"
+            / ".tmp"
+            / "incremental_publish_project_cleanup_fixture"
+        )
+        shutil.rmtree(fixture_root, ignore_errors=True)
+
+        data_content = fixture_root / "data" / "content"
+        search_engine = fixture_root / "data" / "search_engine"
+        build_dir = fixture_root / "build"
+        reports_dir = fixture_root / "reports"
+        for directory in (data_content, search_engine, build_dir, reports_dir):
+            directory.mkdir(parents=True, exist_ok=True)
+
+        config = _publish_config()
+        config.canonical_path = data_content / "canonical_content_v2.json"
+        config.backend_index_path = search_engine / "backend_search_index.json"
+        config.pdf_map_path = build_dir / "conclusion_pdf_map.json"
+        config.report_path = reports_dir / "incremental_publish_report.json"
+
+        backups = [
+            config.canonical_path.with_name("canonical_content_v2.json.bak_20260604_154440"),
+            config.backend_index_path.with_name("backend_search_index.json.bak_20260604_154440"),
+            config.pdf_map_path.with_name("conclusion_pdf_map.json.bak_20260604_154440"),
+        ]
+        for backup in backups:
+            backup.write_text("backup\n", encoding="utf-8")
+        unrelated = data_content / "unrelated.json.bak_20260604_154440"
+        unrelated.write_text("keep\n", encoding="utf-8")
+
+        try:
+            with mock.patch.object(Path, "unlink", autospec=True) as unlink_mock:
+                deleted = publisher.cleanup_project_backup_files(config)
+
+            self.assertEqual({Path(path).name for path in deleted}, {path.name for path in backups})
+            self.assertEqual(
+                {call.args[0].name for call in unlink_mock.call_args_list},
+                {path.name for path in backups},
+            )
+            self.assertTrue(unrelated.exists())
+        finally:
+            shutil.rmtree(fixture_root, ignore_errors=True)
+
+    def test_project_git_publish_commits_only_three_project_json_files(self) -> None:
+        config = _publish_config()
+        config.project_git_publish = True
+        stages: list[publisher.StageResult] = []
+        calls: list[tuple[str, list[str]]] = []
+
+        def fake_run_command(
+            name: str,
+            command: list[str],
+            *,
+            cwd: Path = publisher.PROJECT_ROOT,
+            stages: list[publisher.StageResult],
+            interactive: bool = False,
+            env: dict[str, str] | None = None,
+            input_text: str | None = None,
+        ) -> subprocess.CompletedProcess[str]:
+            calls.append((name, command))
+            if name == "local project git status publish artifacts":
+                return subprocess.CompletedProcess(command, 0, stdout=" M data/content/canonical_content_v2.json\n")
+            if name == "local project git staged publish artifacts":
+                return subprocess.CompletedProcess(
+                    command,
+                    0,
+                    stdout=(
+                        "data/content/canonical_content_v2.json\n"
+                        "data/search_engine/backend_search_index.json\n"
+                        "reports/incremental_publish_report.json\n"
+                    ),
+                )
+            return subprocess.CompletedProcess(command, 0, stdout="")
+
+        with mock.patch.object(publisher, "run_command", side_effect=fake_run_command):
+            result = publisher.publish_project_git(config, stages)
+
+        self.assertFalse(result["skipped"])
+        commit_call = next(
+            command for name, command in calls if name == "local project git commit publish artifacts"
+        )
+        self.assertIn("data/content/canonical_content_v2.json", commit_call)
+        self.assertIn("data/search_engine/backend_search_index.json", commit_call)
+        self.assertIn("reports/incremental_publish_report.json", commit_call)
+        self.assertNotIn("canonical_content_v2.json.bak_20260604_154440", commit_call)
+        self.assertNotIn("build/conclusion_pdf_map.json", commit_call)
 
 
 if __name__ == "__main__":

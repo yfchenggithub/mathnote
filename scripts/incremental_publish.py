@@ -130,6 +130,9 @@ class PublishConfig:
     backend_git_publish: bool
     backend_git_push: bool
     backend_commit_message: str
+    project_git_publish: bool
+    project_git_push: bool
+    project_commit_message: str
     formula_min_length: int
     asset_base: str
     remote_host: str
@@ -279,6 +282,21 @@ def parse_args() -> argparse.Namespace:
         default="",
         help="Commit message for backend data publish. Default: Incremental publish <ids>.",
     )
+    parser.add_argument(
+        "--skip-project-git-publish",
+        action="store_true",
+        help="Do not commit local project JSON artifacts after a successful publish.",
+    )
+    parser.add_argument(
+        "--project-git-push",
+        action="store_true",
+        help="Push the local project repo after committing publish artifacts.",
+    )
+    parser.add_argument(
+        "--project-commit-message",
+        default="",
+        help="Commit message for local project artifacts. Default: Incremental publish <ids> project artifacts.",
+    )
 
     parser.add_argument("--formula-min-length", type=int, default=5)
     parser.add_argument("--asset-base", default="/static/formulas")
@@ -349,6 +367,12 @@ def build_config(args: argparse.Namespace) -> PublishConfig:
         backend_commit_message=(
             str(args.backend_commit_message).strip()
             or f"Incremental publish {', '.join(ids)}"
+        ),
+        project_git_publish=not bool(args.skip_project_git_publish),
+        project_git_push=bool(args.project_git_push),
+        project_commit_message=(
+            str(args.project_commit_message).strip()
+            or f"Incremental publish {', '.join(ids)} project artifacts"
         ),
         formula_min_length=int(args.formula_min_length),
         asset_base=str(args.asset_base),
@@ -1297,6 +1321,118 @@ def publish_backend_git(
     }
 
 
+def project_json_artifact_paths(config: PublishConfig) -> list[Path]:
+    return [
+        config.canonical_path,
+        config.backend_index_path,
+        config.report_path,
+    ]
+
+
+def project_backup_source_paths(config: PublishConfig) -> list[Path]:
+    return [
+        config.canonical_path,
+        config.backend_index_path,
+        config.pdf_map_path,
+        config.report_path,
+    ]
+
+
+def path_is_within(root: Path, path: Path) -> bool:
+    root_resolved = root.resolve()
+    path_resolved = path.resolve()
+    try:
+        common = os.path.commonpath([str(root_resolved), str(path_resolved)])
+    except ValueError:
+        return False
+    return os.path.normcase(common) == os.path.normcase(str(root_resolved))
+
+
+def cleanup_project_backup_files(config: PublishConfig) -> list[str]:
+    deleted: list[str] = []
+    for source_path in project_backup_source_paths(config):
+        if not path_is_within(PROJECT_ROOT, source_path):
+            continue
+        for backup_path in sorted(source_path.parent.glob(f"{source_path.name}.bak_*")):
+            if not path_is_within(PROJECT_ROOT, backup_path):
+                raise PublishError(f"Refusing to delete backup outside project root: {backup_path}")
+            if backup_path.is_file():
+                backup_path.unlink()
+                deleted.append(str(backup_path))
+                LOGGER.info("Project backup removed | %s", backup_path)
+    return deleted
+
+
+def publish_project_git(
+    config: PublishConfig,
+    stages: list[StageResult],
+) -> dict[str, Any]:
+    if config.dry_run or not config.project_git_publish:
+        return {"skipped": True, "reason": "dry-run or project git publish disabled"}
+
+    rel_files = [git_relative_path(PROJECT_ROOT, path) for path in project_json_artifact_paths(config)]
+    status = run_command(
+        "local project git status publish artifacts",
+        ["git", "-C", str(PROJECT_ROOT), "status", "--porcelain", "--", *rel_files],
+        stages=stages,
+    )
+    if not status.stdout.strip():
+        return {
+            "skipped": True,
+            "reason": "no git changes in project publish artifacts",
+            "files": rel_files,
+        }
+
+    run_command(
+        "local project git add publish artifacts",
+        ["git", "-C", str(PROJECT_ROOT), "add", "--", *rel_files],
+        stages=stages,
+    )
+    staged = run_command(
+        "local project git staged publish artifacts",
+        ["git", "-C", str(PROJECT_ROOT), "diff", "--cached", "--name-only", "--", *rel_files],
+        stages=stages,
+    )
+    staged_files = [line.strip() for line in staged.stdout.splitlines() if line.strip()]
+    if not staged_files:
+        return {
+            "skipped": True,
+            "reason": "no staged project publish artifact changes",
+            "files": rel_files,
+        }
+
+    run_command(
+        "local project git commit publish artifacts",
+        [
+            "git",
+            "-C",
+            str(PROJECT_ROOT),
+            "commit",
+            "-m",
+            config.project_commit_message,
+            "--",
+            *rel_files,
+        ],
+        stages=stages,
+    )
+
+    pushed = False
+    if config.project_git_push:
+        run_command(
+            "local project git push",
+            ["git", "-C", str(PROJECT_ROOT), "push"],
+            stages=stages,
+        )
+        pushed = True
+
+    return {
+        "skipped": False,
+        "files": staged_files,
+        "commit_message": config.project_commit_message,
+        "pushed": pushed,
+    }
+
+
 def remote_ref(config: PublishConfig) -> str:
     return f"{config.remote_user}@{config.remote_host}"
 
@@ -1564,6 +1700,7 @@ def orchestrate(config: PublishConfig) -> PublishReport:
         backend_git_result = publish_backend_git(config, backend_sync_result, stages)
         formula_upload_result = upload_formula_dirs(config, paths, stages)
         remote_result = remote_pull_and_restart(config, paths, stages)
+        project_backup_cleanup_result = cleanup_project_backup_files(config)
 
         report.stages = [asdict(item) for item in stages]
         report.counts["canonical"] = canonical_counts
@@ -1582,9 +1719,11 @@ def orchestrate(config: PublishConfig) -> PublishReport:
                 "backend_git": backend_git_result,
                 "formula_upload": formula_upload_result,
                 "remote": remote_result,
+                "project_backup_cleanup": project_backup_cleanup_result,
             }
         )
         write_report(report, config, paths)
+        publish_project_git(config, stages)
         return report
     finally:
         cleanup_temp(paths, config)
