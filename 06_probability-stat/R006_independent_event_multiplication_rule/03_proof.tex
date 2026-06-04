@@ -1,0 +1,93 @@
+\begin{proofbox}
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	独立事件的乘积公式
+	\[
+		P(AB)=P(A)P(B)
+	\]
+	本身就是事件独立的定义形式。因此，这里重点说明：当条件概率有定义时，乘积形式与“条件概率不发生改变”的表述是等价的。
+
+	\medskip
+
+	\textbf{\textcolor{CProof}{定义说明与等价关系}}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+
+		\item[\textbf{步骤一（独立性的定义形式）：}]
+		      事件 $A$ 与 $B$ 相互独立，是指
+		      \[
+			      P(AB)=P(A)P(B).
+		      \]
+
+		      \par\textbf{说明：}
+		      因此，一旦题目已知 $A$ 与 $B$ 独立，就可以直接利用上述乘积公式计算它们同时发生的概率。
+
+		\item[\textbf{步骤二（由独立推出条件概率不变）：}]
+		      当 $P(A)>0$ 时，由条件概率定义，
+		      \[
+			      P(B\mid A)=\frac{P(AB)}{P(A)}.
+		      \]
+		      又因为 $A$ 与 $B$ 相互独立，
+		      \[
+			      P(AB)=P(A)P(B),
+		      \]
+		      所以
+		      \[
+			      P(B\mid A)
+			      =
+			      \frac{P(A)P(B)}{P(A)}
+			      =
+			      P(B).
+		      \]
+
+		      \par\textbf{结论：}
+		      当 $P(A)>0$ 时，若 $A$ 与 $B$ 独立，则事件 $A$ 的发生不会改变事件 $B$ 发生的概率。
+
+		\item[\textbf{步骤三（由条件概率不变推出独立）：}]
+		      反过来，当 $P(A)>0$ 且
+		      \[
+			      P(B\mid A)=P(B)
+		      \]
+		      时，由条件概率公式
+		      \[
+			      P(AB)=P(A)P(B\mid A),
+		      \]
+		      得
+		      \[
+			      P(AB)=P(A)P(B).
+		      \]
+		      因而事件 $A$ 与 $B$ 相互独立。
+
+		\item[\textbf{步骤四（零概率事件的特别说明）：}]
+		      当 $P(A)=0$ 时，由 $AB\subseteq A$，可知
+		      \[
+			      P(AB)=0=P(A)P(B).
+		      \]
+		      因此，按照乘积形式的定义，概率为 $0$ 的事件 $A$ 与任意事件 $B$ 都相互独立。
+
+		      \par\textbf{注意：}
+		      此时 $P(B\mid A)$ 没有定义，因此不能使用
+		      \[
+			      P(B\mid A)=P(B)
+		      \]
+		      来描述独立性。
+
+	\end{description}
+
+	\medskip
+
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{
+		事件 $A$ 与 $B$ 相互独立的定义形式是
+		\[
+			P(AB)=P(A)P(B).
+		\]
+		当 $P(A)>0$ 时，它又等价于
+		\[
+			P(B\mid A)=P(B).
+		\]
+	}
+
+\end{proofbox}
