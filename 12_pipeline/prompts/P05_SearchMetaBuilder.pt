@@ -22,6 +22,9 @@
 3. LaTeX 可编译优先
 - 所有 LaTeX 必须语法合法。
 - JSON 字符串中的反斜杠必须正确转义。
+- JSON 中的 LaTeX 命令反斜杠只允许转义一次：源 LaTeX `\mathrm{C}`、`\sum`、`\frac`、`\sqrt` 在 JSON 字符串里必须写成 `"\\mathrm{C}"`、`"\\sum"`、`"\\frac"`、`"\\sqrt"`。
+- 严禁把 LaTeX 命令写成四个反斜杠开头，例如 `"\\\\mathrm{C}"`、`"\\\\sum"`、`"\\\\frac"`、`"\\\\sqrt"` 都是错误输出；这些会在渲染时变成换行命令 `\\` + 普通文本。
+- 只有公式内部确实需要 LaTeX 换行命令时，运行时的 `\\` 才允许在 JSON 中写成 `"\\\\"`，不得用于普通命令前缀。
 - 数学命令必须放在数学模式中。
 - 数学环境内不得出现中文标点或中文解释文字。
 - 不得输出 emoji、特殊装饰符号、带圈数字。
@@ -183,6 +186,7 @@ ocrKeywords：
 
 latex_patterns：
 👉 关键公式结构（用于匹配题目）
+⚠️ 若包含 LaTeX 命令，JSON 中命令前缀只能写两个反斜杠，例如 `"\\mathrm{C}_n^k"`，不得写成 `"\\\\mathrm{C}_n^k"`。
 
 formulaTokens：
 👉 提取“有检索意义的完整子式”，不是逐字符切分
@@ -192,6 +196,7 @@ formulaTokens：
 * 禁止把同一子式拆碎（错误示例：`["(", "M", "+", "N", ")", "/", "2"]`）
 * token 按原公式阅读顺序输出，并去重
 * 数量建议 5~12 个，优先覆盖 core_formula 与 related_formulas 的关键结构
+* 若 token 含 LaTeX 命令，命令前缀必须按 JSON 规则只转义一次：写 `"\\sum"`、`"\\mathrm"`，不要写 `"\\\\sum"`、`"\\\\mathrm"`。
 示例（正确）：
 ["N<f(x)<M", "f(x)-M", "f(x)-N", "(M+N)/2", "(M-N)/2", "(f(x)-N)/(M-f(x))", "1/(M-N)"]
 
@@ -235,9 +240,11 @@ click_rate / success_rate：
 
 core_formula：
 👉 最核心公式（LaTeX）
+⚠️ LaTeX 命令前缀在 JSON 中必须写成两个反斜杠，例如 `"P_n(k)=\\mathrm{C}_n^k p^k (1-p)^{n-k}"`；不得输出 `"P_n(k)=\\\\mathrm{C}_n^k ..."`。
 
 related_formulas：
 👉 1~3个
+⚠️ related_formulas 同样遵守：JSON 中 `\sum` 写 `"\\sum"`，`\mathrm` 写 `"\\mathrm"`；不要多转义成 `"\\\\sum"` 或 `"\\\\mathrm"`。
 
 variables：
 👉 提取变量
