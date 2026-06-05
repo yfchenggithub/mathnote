@@ -1,0 +1,51 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	将二项分布随机变量 $\xi$ 拆解为 $n$ 次独立伯努利试验的指示变量之和，然后利用期望的线性性质将期望逐项相加。
+	其中，独立重复条件用于保证 $\xi\sim B(n,p)$；而期望可加本身不需要独立性。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（变量分解）：}]
+		      设 $X_i$ 表示第 $i$ 次试验是否成功，成功时 $X_i=1$，失败时 $X_i=0$。
+		      则 $X_i\sim B(1,p)$，且 $X_1,\dots,X_n$ 相互独立。于是
+		      \[
+			      \xi = X_1 + X_2 + \cdots + X_n .
+		      \]
+		      \par\textbf{理由：} 二项分布变量 $\xi$ 定义为 $n$ 次独立重复试验的成功总数，因此可分解为各次试验的成败指示变量之和。
+
+		\item[\textbf{步骤二（伯努利期望）：}]
+		      根据期望定义，
+		      \[
+			      E X_i = 1\cdot p + 0\cdot(1-p) = p .
+		      \]
+		      \par\textbf{理由：} 单次试验成功时取 $1$、失败时取 $0$，成功概率为 $p$，故期望值等于 $p$。
+
+		\item[\textbf{步骤三（期望线性）：}]
+		      由期望的线性性质，只要随机变量 $Y_1,\dots,Y_n$ 的期望存在，
+		      无论它们是否独立，均有
+		      \[
+			      E\!\left(\sum_{i=1}^n Y_i\right)
+			      =
+			      \sum_{i=1}^n E Y_i .
+		      \]
+		      \par\textbf{理由：} 数学期望满足线性性；独立性不是期望可加的必要条件。
+
+		\item[\textbf{步骤四（代入求和）：}]
+		      将 $Y_i=X_i$ 代入上式，并代入步骤二的结果：
+		      \[
+			      E\xi = \sum_{i=1}^n E X_i = \sum_{i=1}^n p = np .
+		      \]
+		      \par\textbf{理由：} $n$ 个相同的期望 $p$ 相加等于 $n$ 乘以 $p$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	综上，当 $\xi\sim B(n,p)$ 时，
+	\[
+		E\xi=np.
+	\]
+	这说明二项分布的数学期望等于试验次数与成功概率的乘积。
+\end{proofbox}

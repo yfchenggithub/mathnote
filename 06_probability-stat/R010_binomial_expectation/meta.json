@@ -1,0 +1,173 @@
+{
+  "id": "R010",
+  "module": "probability-stat",
+  "core": {
+    "title": "二项分布的数学期望公式",
+    "alias": [
+      "二项分布期望",
+      "np公式",
+      "二项分布均值公式"
+    ],
+    "summary": "n次独立重复试验中成功次数的平均值等于试验次数乘以单次成功概率。",
+    "difficulty": 2,
+    "category": "概率统计",
+    "tags": [
+      "二项分布",
+      "数学期望",
+      "B(n,p)",
+      "期望公式",
+      "独立重复试验"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "二项分布",
+      "数学期望",
+      "期望公式",
+      "Eξ=np",
+      "np",
+      "二项分布期望",
+      "独立重复试验",
+      "伯努利试验",
+      "期望计算",
+      "概率统计",
+      "B(n,p)",
+      "充分统计量"
+    ],
+    "synonyms": [
+      "二项分布期忘",
+      "二项分布均值",
+      "二项分布的平均值",
+      "二项分布期望值",
+      "二项分布的数学期望",
+      "期望公式np",
+      "二项分布期望等于np"
+    ],
+    "intents": [
+      "求期望",
+      "计算二项分布期望",
+      "求np",
+      "已知期望求参数",
+      "判断二项分布",
+      "证明期望公式"
+    ],
+    "query_templates": [
+      "二项分布的数学期望公式是什么",
+      "B(n,p)的期望怎么算",
+      "二项分布期望等于多少",
+      "Eξ=np怎么来的",
+      "二项分布期望计算例题",
+      "二项分布均值公式推导"
+    ],
+    "ocrKeywords": [
+      "ξ~B(n,p)",
+      "Eξ",
+      "np",
+      "二项分布",
+      "数学期望",
+      "期望"
+    ],
+    "latex_patterns": [
+      "E\\xi = np",
+      "\\xi\\sim B(n,p)"
+    ],
+    "formulaTokens": [
+      "E\\xi",
+      "np",
+      "\\xi\\sim B(n,p)",
+      "E(\\xi/n)=p",
+      "E(a\\xi+b)=aE\\xi+b"
+    ],
+    "pinyin": "erxiangfenbu shuxueqiwang gongshi",
+    "pinyinAbbr": "exfb"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.65,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "E\\xi = np",
+    "related_formulas": [
+      "E\\left(\\frac{\\xi}{n}\\right) = p",
+      "D\\xi = np(1-p)"
+    ],
+    "variables": {
+      "n": "试验次数，正整数",
+      "p": "单次成功概率，0≤p≤1",
+      "ξ": "二项分布随机变量，取值为0,1,…,n"
+    },
+    "conditions": "随机变量ξ服从二项分布B(n,p)，即n次独立重复试验，每次成功概率为p。",
+    "conclusions": "Eξ = np"
+  },
+  "content": {
+    "statement": "若随机变量ξ~B(n,p)，则Eξ=np。",
+    "derivation": [
+      "利用期望定义：Eξ = ∑_{k=0}^n k·C_n^k p^k (1-p)^{n-k}",
+      "将k·C_n^k = n·C_{n-1}^{k-1}代入，得Eξ = np ∑_{k=1}^n C_{n-1}^{k-1} p^{k-1}(1-p)^{n-k}",
+      "求和式为(p+(1-p))^{n-1}=1，故Eξ=np。"
+    ],
+    "intuition": "n次独立试验，每次成功概率p，成功次数的平均值就是n乘以每次成功的概率。",
+    "common_tricks": [
+      "牢记公式Eξ=np，不是np(1-p)（方差公式）。",
+      "遇到E(aξ+b)时先利用线性性质转化为aEξ+b。",
+      "若题目给出期望值求n或p，直接解方程np=已知值。",
+      "注意区分二项分布与超几何分布的期望公式。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "期望计算",
+      "参数求解",
+      "随机变量函数期望",
+      "概率统计综合题"
+    ],
+    "problem_types": [
+      "直接求二项分布期望",
+      "已知期望反求n或p",
+      "与线性变换结合的期望问题",
+      "频率估计概率的期望解释"
+    ],
+    "exam_frequency": 0.9,
+    "exam_score": 4
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": ""
+  },
+  "shareConfig": {
+    "title": "二项分布期望公式：Eξ=np",
+    "shareDesc": "快速计算二项分布期望的基础公式，适用于期望计算、参数求解和综合题，掌握后可减少一步推导。适合课后复习或考前速查。"
+  },
+  "relations": {
+    "prerequisites": [
+      "二项分布的定义",
+      "随机变量的期望定义"
+    ],
+    "related_ids": [],
+    "similar": "二项分布的方差公式Dξ=np(1-p)；超几何分布的期望公式。"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-05"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "概率-随机变量-期望",
+  "altNodes": [
+    "概率-随机变量-分布列",
+    "概率-古典概型-排列组合"
+  ]
+}

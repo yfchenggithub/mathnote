@@ -1,0 +1,51 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}} 已知随机变量 $\xi\sim B(10,0.3)$，求 $E\xi$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别参数）：}] 确定二项分布的参数 $n=10$，$p=0.3$。
+		      \par\textbf{理由：} 由 $\xi\sim B(10,0.3)$ 可直接得到。
+		\item[\textbf{第二步（套用公式）：}] 由期望公式 $E\xi=np$，计算 $E\xi=10\times0.3=3$。
+		      \par\textbf{理由：} 直接代入 $n=10,p=0.3$。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}} \textbf{$E\xi=3$}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}} 设 $\xi\sim B(12,p)$，且 $E(2\xi+1)=10$，求 $p$ 的值。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（线性转化）：}] 由期望线性性质，得 $E(2\xi+1)=2E\xi+1=10$，故 $2E\xi=9$，$E\xi=4.5$。
+		      \par\textbf{理由：} 期望满足 $E(a\xi+b)=aE\xi+b$。
+		\item[\textbf{第二步（二项期望）：}] 由 $\xi\sim B(12,p)$ 得 $E\xi=12p$。
+		      \par\textbf{理由：} 二项分布期望公式 $E\xi=np$，这里 $n=12$。
+		\item[\textbf{第三步（解参数）：}] 由 $12p=4.5$，解得 $p=0.375$。
+		      \par\textbf{理由：} 一次方程求解。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}} \textbf{$p=0.375$}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}} 甲投篮命中率为 $0.7$，独立投 $20$ 次。记 $\xi$ 为命中次数。（1）求 $E\xi$；（2）若每命中 $1$ 次得 $3$ 分，未命中扣 $1$ 分，记总得分为 $\eta$，求 $E\eta$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（分布判断）：}] 由条件知 $\xi\sim B(20,0.7)$。
+		      \par\textbf{理由：} $20$ 次独立试验，每次命中概率 $0.7$。
+		\item[\textbf{第二步（期望命中）：}] $E\xi = 20\times0.7 = 14$。
+		      \par\textbf{理由：} 二项分布期望公式。
+		\item[\textbf{第三步（得分函数）：}] $\eta = 3\xi - 1\cdot(20-\xi) = 4\xi - 20$。
+		      \par\textbf{理由：} 每命中得 $3$ 分，未命中扣 $1$ 分，共 $20$ 次。
+		\item[\textbf{第四步（求得分期望）：}] $E\eta = 4E\xi - 20 = 4\times14 - 20 = 36$。
+		      \par\textbf{理由：} 期望线性性质。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}} \textbf{$E\xi=14$，$E\eta=36$}
+\end{examplebox}
