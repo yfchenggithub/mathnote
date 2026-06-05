@@ -1,0 +1,40 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+	期望是概率加权平均。对随机变量作线性变换时，常数倍会使平均值同步缩放，常数平移会使平均值同步平移。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（常数倍）：}] 随机变量乘以 $a$ 后，可按原来的取值分类计算，每一类的概率不变，所以期望随取值一起乘以 $a$。
+		\item[\textbf{要点二（常数加）：}] 在随机变量上加 $b$，每个取值都增加 $b$，概率总和为 $1$，因此期望直接增加 $b$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（重心变换）}}
+
+	离散情形下，期望可以理解为概率分布的重心。乘以 $a$ 相当于对取值作有符号缩放；当 $a<0$ 时，还会发生方向反转。加上 $b$ 相当于平移分布，重心也平移 $b$。连续情形类似。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（线性算子）}}
+
+	期望算子 $E$ 满足线性性：$E(a\xi+b)=aE(\xi)+b$。这类似于定积分的线性性质，因为期望本质上是关于概率分布的积分；离散型表现为加权求和，连续型有密度时表现为积分。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（简化计算）}}
+
+	高考中常需要求线性变换后的期望。利用该性质，先求原始期望 $E(\xi)$，再代入 $a,b$ 即可，避免重新计算 $a\xi+b$ 的分布。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	求线性变换后的期望时，不必重新求 $a\xi+b$ 的分布；只要已知 $E(\xi)$，就可以由 $a,b$ 直接得到 $E(a\xi+b)$。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（直接代公式）：} 已知 $\xi$ 的分布或期望，求 $a\xi+b$ 的期望。
+		\item \textbf{场景二（分解组合）：} 复杂随机变量可分解为简单变量的有限线性组合，分别求期望再合并。
+		\item \textbf{场景三（不需独立）：} 求有限个随机变量线性组合的期望时，不要求这些随机变量相互独立。
+	\end{itemize}
+\end{explanationbox}

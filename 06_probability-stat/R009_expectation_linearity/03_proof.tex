@@ -1,0 +1,59 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	先在有限离散型随机变量情形下，从期望定义出发推导；可列离散型和连续型情形可分别把有限和式换成无穷级数或积分，核心仍是线性性。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（设分布列）：}] 先证明有限离散型情形。设随机变量 $\xi$ 的可能取值为 $x_1,x_2,\dots,x_n$，对应的概率为 $p_1,p_2,\dots,p_n$。
+		      \[
+			      P(\xi=x_i)=p_i,\quad i=1,2,\dots,n.
+		      \]
+		      \par\textbf{理由：} 有限离散型随机变量可由分布列描述。
+
+		\item[\textbf{步骤二（按原变量取值分类）：}] 当 $\xi=x_i$ 时，有
+		      \[
+			      a\xi+b=ax_i+b.
+		      \]
+		      因此可按 $\xi$ 的取值分类计算：
+		      \[
+			      E(a\xi+b)=\sum_{i=1}^{n}(ax_i+b)p_i.
+		      \]
+		      \par\textbf{理由：} 这里是按原随机变量 $\xi$ 的取值分类加权。即使不同的 $x_i$ 经过变换后得到相同取值，合并概率后期望值仍与上述求和一致。
+
+		\item[\textbf{步骤三（拆分求和）：}] 将和式按乘法分配律拆成两部分：
+		      \[
+			      \sum_{i=1}^{n}(ax_i+b)p_i
+			      =
+			      \sum_{i=1}^{n}a x_i p_i+\sum_{i=1}^{n}b p_i.
+		      \]
+		      \par\textbf{理由：} $(ax_i+b)p_i = a x_i p_i+bp_i$，可以逐项拆分后分别求和。
+
+		\item[\textbf{步骤四（化简代回）：}] 常数 $a,b$ 可提到求和号外，得到
+		      \[
+			      a\sum_{i=1}^{n}x_i p_i + b\sum_{i=1}^{n}p_i.
+		      \]
+		      由定义 $\sum_{i=1}^{n} x_i p_i = E(\xi)$，且 $\sum_{i=1}^{n} p_i = 1$，所以
+		      \[
+			      E(a\xi+b)=aE(\xi)+b.
+		      \]
+		      \par\textbf{理由：} 利用期望定义和概率总和为 $1$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	上述推导严格证明了有限离散型随机变量的情形。对于可列离散型随机变量，可将有限和式换成无穷级数；对于连续型随机变量，可将和式换成积分。只要相关期望存在且有限，结论同样成立。
+
+	\medskip
+	\textbf{\textcolor{CProof}{线性组合推广}}
+
+	若 $\xi_1,\xi_2,\dots,\xi_n$ 的期望均存在且有限，则反复使用两项线性性质，可得
+	\[
+		E\bigl(\sum_{i=1}^n a_i\xi_i+b\bigr)
+		=
+		\sum_{i=1}^n a_iE(\xi_i)+b.
+	\]
+	这个推广不需要 $\xi_1,\xi_2,\dots,\xi_n$ 相互独立。
+\end{proofbox}
