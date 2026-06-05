@@ -1,0 +1,167 @@
+{
+  "id": "C001",
+  "module": "conic",
+  "core": {
+    "title": "椭圆到圆的距离公式",
+    "alias": [
+      "椭圆与圆距离最值",
+      "椭圆到圆最小距离",
+      "椭圆外离圆距离",
+      "圆包含椭圆距离"
+    ],
+    "summary": "椭圆到圆的距离由圆心到椭圆上点的最值以及半径的大小关系决定，分为相离、相交、内包含三种情况。",
+    "difficulty": 3,
+    "category": "解析几何",
+    "tags": ["椭圆", "圆", "距离最值", "几何转化", "参数方程", "圆锥曲线"]
+  },
+  "search": {
+    "keywords": [
+      "椭圆到圆距离",
+      "最小距离",
+      "最大距离",
+      "d_min",
+      "d_max",
+      "圆心到椭圆最值",
+      "参数方程求距离最值",
+      "二次函数最值",
+      "椭圆与圆位置关系",
+      "椭圆外离",
+      "圆包含椭圆",
+      "D_min公式",
+      "D_max公式"
+    ],
+    "synonyms": [
+      "椭圆的圆距离",
+      "椭圆到圆最短距离",
+      "椭圆和圆的最小距离",
+      "椭圆与圆最值问题"
+    ],
+    "intents": ["求距离", "求最值", "判断位置关系", "分类讨论", "计算距离"],
+    "query_templates": [
+      "椭圆到圆的最小距离怎么求",
+      "椭圆到圆距离公式",
+      "椭圆和圆相交时的距离",
+      "椭圆到圆的最大距离",
+      "已知椭圆和圆方程求最短距离"
+    ],
+    "ocrKeywords": [
+      "椭圆",
+      "圆",
+      "方程",
+      "圆心",
+      "半径",
+      "距离",
+      "最小值",
+      "最大值",
+      "参数方程",
+      "二次函数"
+    ],
+    "latex_patterns": [
+      "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1",
+      "(x-x_0)^2+(y-y_0)^2=r^2",
+      "d_{\\min}",
+      "d_{\\max}",
+      "D_{\\min}",
+      "D_{\\max}",
+      "\\min_{P\\in E}PM",
+      "\\max_{P\\in E}PM"
+    ],
+    "formulaTokens": [
+      "\\min_{P\\in E}PM",
+      "\\max_{P\\in E}PM",
+      "|PM-r|",
+      "d_{\\max}+r",
+      "d_{\\min}-r",
+      "r-d_{\\max}",
+      "\\min_{P\\in E}|PM-r|"
+    ],
+    "pinyin": "tuoyuan daoyuan juli gongshi",
+    "pinyinAbbr": "tydyjlg"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.59,
+    "hot_score": 50,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "D_{\\min}=\\min_{P\\in E}|PM-r|,\\quad D_{\\max}=d_{\\max}+r",
+    "related_formulas": [
+      "D_{\\min}=\\begin{cases} d_{\\min}-r, & r<d_{\\min} \\\\ r-d_{\\max}, & r>d_{\\max} \\end{cases}",
+      "d_{\\min}=\\min_{P\\in E}PM,\\quad d_{\\max}=\\max_{P\\in E}PM"
+    ],
+    "variables": {
+      "a": "椭圆长半轴",
+      "b": "椭圆短半轴",
+      "x0": "圆心横坐标",
+      "y0": "圆心纵坐标",
+      "r": "圆半径",
+      "d_min": "椭圆上点到圆心最短距离",
+      "d_max": "椭圆上点到圆心最长距离",
+      "D_min": "椭圆到圆的最小距离",
+      "D_max": "椭圆到圆的最大距离"
+    },
+    "conditions": "椭圆方程 $\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1\\;(a>b>0)$；圆方程 $(x-x_0)^2+(y-y_0)^2=r^2\\;(r>0)$",
+    "conclusions": "椭圆 $E$ 到圆 $\\Gamma$ 的最小距离为 $D_{\\min}=\\min_{P\\in E}|PM-r|$，最大距离为 $D_{\\max}=d_{\\max}+r$。当椭圆与圆无公共点时，$D_{\\min}$ 可化简为 $d_{\\min}-r$（圆在椭圆外）或 $r-d_{\\max}$（圆包含椭圆）。"
+  },
+  "content": {
+    "statement": "设椭圆 $E:\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1\\;(a>b>0)$ 与圆 $\\Gamma:(x-x_0)^2+(y-y_0)^2=r^2\\;(r>0)$，圆心 $M(x_0,y_0)$。记 $d_{\\min}=\\min_{P\\in E}PM$，$d_{\\max}=\\max_{P\\in E}PM$。则椭圆 $E$ 到圆 $\\Gamma$ 的最小距离 $D_{\\min}=\\min_{P\\in E}|PM-r|$，最大距离 $D_{\\max}=d_{\\max}+r$。特别地，当椭圆与圆无公共点时，$D_{\\min}=\\begin{cases} d_{\\min}-r, & r<d_{\\min} \\\\ r-d_{\\max}, & r>d_{\\max} \\end{cases}$。",
+    "derivation": [
+      "第一步：定义椭圆上点到圆心距离的最值 $d_{\\min},d_{\\max}$。",
+      "第二步：椭圆上一点 $P$ 到圆上一点的距离为 $|PM-r|$，故最小距离为 $\\min |PM-r|$，最大距离为 $d_{\\max}+r$。",
+      "第三步：当 $r<d_{\\min}$ 时圆在椭圆外且外离，$D_{\\min}=d_{\\min}-r$；当 $r>d_{\\max}$ 时圆包含椭圆，$D_{\\min}=r-d_{\\max}$；当 $d_{\\min}\\le r\\le d_{\\max}$ 时相交，$D_{\\min}=0$。"
+    ],
+    "intuition": "把圆看作以圆心为中心、半径为 $r$ 的区域，椭圆上的点到圆心距离减去半径的绝对值即为到圆的距离。",
+    "common_tricks": [
+      "用椭圆参数方程 $(a\\cos\\theta,b\\sin\\theta)$ 将 $PM^2$ 转化为关于 $\\sin\\theta$ 或 $\\cos\\theta$ 的二次函数求最值。",
+      "注意分类讨论 $r$ 与 $d_{\\min},d_{\\max}$ 的大小关系，不能直接套用 $|d_{\\min}-r|$。",
+      "当圆心在椭圆内部时，$d_{\\min}=0$（椭圆上存在与圆心重合的点？实际上椭圆是封闭曲线，圆心在椭圆内部时$d_{\\min}$为正，但需注意$d_{\\min}=0$当且仅当圆心在椭圆上）——常见错误，应额外提醒。"
+    ]
+  },
+  "usage": {
+    "scenarios": ["解析几何最值问题", "椭圆与圆位置关系判断"],
+    "problem_types": ["选择题", "填空题", "压轴题中段"],
+    "exam_frequency": 0.6,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "C001.svg",
+    "png": "",
+    "geogebra": "",
+    "video": ""
+  },
+  "shareConfig": {
+    "title": "椭圆到圆的距离最值：圆心到椭圆最值+半径分类",
+    "shareDesc": "适合解析几何最值题型，用参数方程计算圆心到椭圆距离，再结合半径分类讨论，避免直接联立方程复杂运算。"
+  },
+  "relations": {
+    "prerequisites": [
+      "椭圆标准方程",
+      "圆的标准方程",
+      "二次函数最值",
+      "参数方程"
+    ],
+    "related_ids": [],
+    "similar": "椭圆到直线的距离公式、点到圆的距离公式"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-05"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "解析几何-圆锥曲线-椭圆",
+  "altNodes": "解析几何-圆-位置关系, 解析几何-综合-最值问题"
+}

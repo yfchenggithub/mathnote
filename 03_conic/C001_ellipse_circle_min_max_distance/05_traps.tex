@@ -1,0 +1,144 @@
+\begin{trapbox}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+
+		\item[\textbf{\textcolor{CTrap}{易错点一（把圆周误解成圆面）}}]
+		      看到“圆”就默认理解成圆面或圆盘。
+
+		\item[\textbf{\textcolor{CTrap}{正确理解（本文研究圆周）：}}]
+		      本文中的圆 $\Gamma$ 指圆周
+		      \[
+			      (x-x_0)^2+(y-y_0)^2=r^2,
+		      \]
+		      不是圆面
+		      \[
+			      (x-x_0)^2+(y-y_0)^2\le r^2.
+		      \]
+
+		\item[\textbf{\textcolor{CTrap}{错因分析（对象不同）：}}]
+		      若研究的是圆周，则
+		      \[
+			      D_{\min}=
+			      \begin{cases}
+				      d_{\min}-r, & r<d_{\min},                \\[1mm]
+				      0,          & d_{\min}\le r\le d_{\max}, \\[1mm]
+				      r-d_{\max}, & r>d_{\max}.
+			      \end{cases}
+		      \]
+		      若研究的是圆面，则最小距离应为
+		      \[
+			      D_{\min}^{\text{圆面}}=
+			      \begin{cases}
+				      d_{\min}-r, & r<d_{\min},    \\[1mm]
+				      0,          & r\ge d_{\min}.
+			      \end{cases}
+		      \]
+		      两者不能混用。
+
+	\end{description}
+
+	\medskip
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+
+		\item[\textbf{\textcolor{CTrap}{易错点二（混淆距离定义）}}]
+		      误认为
+		      \[
+			      D_{\min}=|d_{\min}-r|
+		      \]
+		      可以直接计算。
+
+		\item[\textbf{\textcolor{CTrap}{正确理解（分段处理）：}}]
+		      必须分三种情况：
+		      \[
+			      r<d_{\min},\qquad d_{\min}\le r\le d_{\max},\qquad r>d_{\max}.
+		      \]
+		      对应地，
+		      \[
+			      D_{\min}=
+			      \begin{cases}
+				      d_{\min}-r, & r<d_{\min},                \\[1mm]
+				      0,          & d_{\min}\le r\le d_{\max}, \\[1mm]
+				      r-d_{\max}, & r>d_{\max}.
+			      \end{cases}
+		      \]
+
+		\item[\textbf{\textcolor{CTrap}{错因分析（忽略区间）：}}]
+		      $PM$ 的取值范围是整个区间 $[d_{\min},d_{\max}]$。
+		      当 $r$ 落在这个区间内时，可以取到 $PM=r$，此时椭圆与圆周有公共点，最小距离为 $0$。
+
+	\end{description}
+
+	\medskip
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+
+		\item[\textbf{\textcolor{CTrap}{易错点三（最大距离公式错用）}}]
+		      误以为最大距离为
+		      \[
+			      |d_{\max}-r|
+		      \]
+		      或
+		      \[
+			      d_{\max}-r.
+		      \]
+
+		\item[\textbf{\textcolor{CTrap}{正确理解（最远距离恒为相加）：}}]
+		      最大距离恒为
+		      \[
+			      D_{\max}=d_{\max}+r,
+		      \]
+		      与相交、外离、内含等位置关系无关。
+
+		\item[\textbf{\textcolor{CTrap}{错因分析（方向取反）：}}]
+		      对固定的椭圆点 $P$，圆周上离 $P$ 最远的点在圆心 $M$ 的另一侧。
+		      此时 $P,M,Q$ 三点共线，且 $M$ 位于 $P,Q$ 之间，所以
+		      \[
+			      PQ=PM+r.
+		      \]
+
+	\end{description}
+
+	\medskip
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+
+		\item[\textbf{\textcolor{CTrap}{易错点四（误判位置关系）}}]
+		      认为
+		      \[
+			      r<d_{\min}
+		      \]
+		      就一定表示“圆在椭圆外且外离”。
+
+		\item[\textbf{\textcolor{CTrap}{正确理解（不能只凭一个不等式判断外内）：}}]
+		      $r<d_{\min}$ 只能说明圆周与椭圆没有公共点，并且
+		      \[
+			      D_{\min}=d_{\min}-r.
+		      \]
+		      但此时圆周可能在椭圆外部，也可能在椭圆内部。
+
+		\item[\textbf{\textcolor{CTrap}{反例提醒：}}]
+		      若圆心 $M$ 是椭圆中心，且半径 $r$ 很小，则可能有
+		      \[
+			      r<d_{\min},
+		      \]
+		      但小圆周显然位于椭圆内部，而不是椭圆外部。
+
+	\end{description}
+
+	\medskip
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+
+		\item[\textbf{\textcolor{CTrap}{易错点五（分类遗漏）}}]
+		      只考虑 $r<d_{\min}$ 一种情况，忽略 $d_{\min}\le r\le d_{\max}$ 或 $r>d_{\max}$。
+
+		\item[\textbf{\textcolor{CTrap}{正确理解（完整分类）：}}]
+		      必须根据 $r$ 与 $d_{\min},d_{\max}$ 的大小关系完整分类，不可遗漏。
+
+		\item[\textbf{\textcolor{CTrap}{错因分析（思维定势）：}}]
+		      受直线与圆位置关系“相离、相切、相交”的影响，容易忽略圆周把椭圆包在内部的情形。
+
+	\end{description}
+
+\end{trapbox}

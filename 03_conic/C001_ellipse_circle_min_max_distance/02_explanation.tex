@@ -1,0 +1,108 @@
+\begin{explanationbox}
+
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+	椭圆到圆周的距离，可以转化为椭圆上的点到圆心距离与半径 $r$ 的接近程度。
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{关键前提}}
+	本文中的“圆”指圆周
+	\[
+		\Gamma:(x-x_0)^2+(y-y_0)^2=r^2,
+	\]
+	不是圆面
+	\[
+		(x-x_0)^2+(y-y_0)^2\le r^2.
+	\]
+	如果把“圆”理解成圆面，最小距离公式会发生变化。
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+
+		\item[\textbf{要点一（距离转化）：}]
+		      对固定的椭圆上点 $P$，圆周上离 $P$ 最近的点到 $P$ 的距离为
+		      \[
+			      |PM-r|.
+		      \]
+		      因此
+		      \[
+			      D_{\min}=\min_{P\in E}|PM-r|.
+		      \]
+
+		\item[\textbf{要点二（取值范围）：}]
+		      椭圆是一条连通闭曲线，函数 $P\mapsto PM$ 连续，所以 $PM$ 的取值范围不是零散的点，而是整个区间
+		      \[
+			      [d_{\min},d_{\max}].
+		      \]
+
+		\item[\textbf{要点三（分段原理）：}]
+		      于是问题变成求
+		      \[
+			      \min_{t\in[d_{\min},d_{\max}]}|t-r|.
+		      \]
+		      也就是在区间 $[d_{\min},d_{\max}]$ 中找一个最接近 $r$ 的数。
+
+	\end{description}
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{几何本质（圆心距离决定）}}
+	圆周上任意点到圆心 $M$ 的距离恒为 $r$；椭圆上点到圆心 $M$ 的距离范围为
+	\[
+		[d_{\min},d_{\max}].
+	\]
+	因此椭圆到圆周的最小距离由 $r$ 到区间 $[d_{\min},d_{\max}]$ 的距离决定。
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{最大距离为什么是相加}}
+	对固定的 $P\in E$，圆周上离 $P$ 最远的点位于圆心 $M$ 的另一侧，此时
+	\[
+		PQ=PM+r.
+	\]
+	所以整体最大距离为
+	\[
+		D_{\max}=d_{\max}+r.
+	\]
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{代数意义（条件极值）}}
+	在椭圆约束下求 $PM$ 的最值，通常用参数方程
+	\[
+		P(a\cos\theta,b\sin\theta)
+	\]
+	把 $PM^2$ 转化为关于 $\theta$ 的函数，再通过二次函数、三角函数或导数求最值。
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{考点价值（高考常见）}}
+	常见于圆锥曲线与圆结合的距离最值问题，核心能力是：
+	先求 $d_{\min},d_{\max}$，再根据 $r$ 与二者的大小关系分类讨论。
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+	当
+	\[
+		r\in[d_{\min},d_{\max}]
+	\]
+	时，椭圆上存在点 $P$ 使得 $PM=r$，也就是说这个点同时在圆周上，所以椭圆与圆周有公共点，此时
+	\[
+		D_{\min}=0.
+	\]
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{使用场景}}
+
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（判断是否相交）：} 比较 $r$ 与 $d_{\min},d_{\max}$ 的大小，判断椭圆与圆周是否有公共点。
+		\item \textbf{场景二（计算最小距离）：} 若 $r<d_{\min}$，则 $D_{\min}=d_{\min}-r$；若 $d_{\min}\le r\le d_{\max}$，则 $D_{\min}=0$；若 $r>d_{\max}$，则 $D_{\min}=r-d_{\max}$。
+		\item \textbf{场景三（计算最大距离）：} 不论位置关系如何，始终有 $D_{\max}=d_{\max}+r$。
+	\end{itemize}
+
+\end{explanationbox}

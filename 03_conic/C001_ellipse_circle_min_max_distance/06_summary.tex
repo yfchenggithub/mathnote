@@ -1,0 +1,103 @@
+\begin{summarybox}
+
+	\textbf{\textcolor{CSummary}{一句话核心}}
+	椭圆到圆周的距离，完全由圆心到椭圆的最短距离 $d_{\min}$、最长距离 $d_{\max}$ 以及半径 $r$ 的大小关系决定。
+
+	\medskip
+
+	\textbf{\textcolor{CSummary}{使用前提}}
+	本文中的“圆”指圆周
+	\[
+		\Gamma:(x-x_0)^2+(y-y_0)^2=r^2,
+	\]
+	不是圆面或圆盘。若研究圆面，最小距离公式需要另行处理。
+
+	\medskip
+
+	\textbf{\textcolor{CSummary}{核心定义}}
+
+	\[
+		d_{\min}=\min_{P\in E}PM,
+		\qquad
+		d_{\max}=\max_{P\in E}PM.
+	\]
+
+	\[
+		D_{\min}=\min_{P\in E,\ Q\in\Gamma}PQ,
+		\qquad
+		D_{\max}=\max_{P\in E,\ Q\in\Gamma}PQ.
+	\]
+
+	\medskip
+
+	\textbf{\textcolor{CSummary}{核心公式}}
+
+	\[
+		D_{\min}=
+		\begin{cases}
+			d_{\min}-r, & r<d_{\min},                \\[2mm]
+			0,          & d_{\min}\le r\le d_{\max}, \\[2mm]
+			r-d_{\max}, & r>d_{\max},
+		\end{cases}
+		\qquad
+		D_{\max}=d_{\max}+r.
+	\]
+
+	\medskip
+
+	\textbf{\textcolor{CSummary}{使用步骤}}
+
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+
+		\item \textbf{第一步（求圆心距离范围）：}
+		      先计算椭圆上点到圆心 $M$ 的距离最值
+		      \[
+			      d_{\min},\qquad d_{\max}.
+		      \]
+
+		\item \textbf{第二步（比较半径）：}
+		      比较 $r$ 与 $d_{\min},d_{\max}$ 的大小关系。
+
+		\item \textbf{第三步（套用分段）：}
+		      若 $r<d_{\min}$，则
+		      \[
+			      D_{\min}=d_{\min}-r.
+		      \]
+		      若 $d_{\min}\le r\le d_{\max}$，则
+		      \[
+			      D_{\min}=0.
+		      \]
+		      若 $r>d_{\max}$，则
+		      \[
+			      D_{\min}=r-d_{\max}.
+		      \]
+
+		\item \textbf{第四步（最大距离）：}
+		      最大距离不用分类，始终为
+		      \[
+			      D_{\max}=d_{\max}+r.
+		      \]
+
+	\end{itemize}
+
+	\medskip
+
+	\textbf{\textcolor{CSummary}{关键提醒}}
+
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+
+		\item \textbf{提醒一（圆周与圆面不同）：}
+		      例题中若圆周把椭圆包在里面，椭圆到圆周的最小距离可能大于 $0$；但椭圆到圆面的最小距离则为 $0$。
+
+		\item \textbf{提醒二（不要直接用 $|d_{\min}-r|$）：}
+		      当 $r\in[d_{\min},d_{\max}]$ 时，椭圆与圆周有公共点，最小距离为 $0$。
+
+		\item \textbf{提醒三（不要误判 $r<d_{\min}$）：}
+		      $r<d_{\min}$ 只能说明圆周与椭圆无交点，不能一概说“圆在椭圆外且外离”。
+
+		\item \textbf{提醒四（特殊点只能验证，不能代替求最值）：}
+		      计算完成后可用椭圆顶点等特殊点检查结果是否合理，但不能只看特殊点就断定最值。
+
+	\end{itemize}
+
+\end{summarybox}
