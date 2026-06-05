@@ -1,0 +1,111 @@
+\begin{summarybox}
+	\textbf{\textcolor{CSummary}{一句话核心}}
+
+	\textbf{方差是随机变量各取值与期望之差的平方按概率加权平均，用来度量波动大小。}
+
+	\medskip
+
+	\textbf{\textcolor{CSummary}{使用条件}}
+
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{条件1（有限分布列已知）：}
+		      随机变量 $X$ 只取有限个互不相同的值
+		      \[
+			      x_1,x_2,\dots,x_n,
+		      \]
+		      对应概率 $p_i=P(X=x_i)$ 明确，并满足
+		      \[
+			      p_i>0,\qquad \sum_{i=1}^{n}p_i=1.
+		      \]
+
+		\item \textbf{条件2（期望先算出）：}
+		      先由分布列计算
+		      \[
+			      E(X)=\sum_{i=1}^{n}x_ip_i,
+		      \]
+		      再代入方差定义式或变形公式。
+		      严格来说，“期望已知”不是额外条件，而是计算方差前必须完成的一步。
+	\end{itemize}
+
+	\medskip
+
+	\textbf{\textcolor{CSummary}{核心公式}}
+
+	\[
+		D(X)=\sum_{i=1}^{n}\bigl[x_i-E(X)\bigr]^2p_i.
+	\]
+
+	\[
+		D(X)=E(X^2)-[E(X)]^2.
+	\]
+
+	\medskip
+
+	\textbf{\textcolor{CSummary}{60分学生三步法}}
+
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{第一步：先求平均值}
+		      \[
+			      E(X)=\sum x_ip_i.
+		      \]
+
+		\item \textbf{第二步：再求平方平均值}
+		      \[
+			      E(X^2)=\sum x_i^2p_i.
+		      \]
+
+		\item \textbf{第三步：最后相减}
+		      \[
+			      D(X)=E(X^2)-[E(X)]^2.
+		      \]
+	\end{itemize}
+
+	记忆口诀：
+
+	\[
+		\boxed{\text{先平均，再平方平均，最后平方平均减平均平方。}}
+	\]
+
+	\medskip
+
+	\textbf{\textcolor{CSummary}{关键提醒}}
+
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{易错点（同时平方加权）：}
+		      计算方差时不要忘记平方，也不要忽略概率权重。
+
+		\item \textbf{检查项（变形公式顺序）：}
+		      使用
+		      \[
+			      D(X)=E(X^2)-[E(X)]^2
+		      \]
+		      时，必须先计算 $E(X^2)$，再减去 $[E(X)]^2$，顺序不能颠倒，平方位置也不能写错。
+
+		\item \textbf{区分两个量：}
+		      \[
+			      E(X^2)
+		      \]
+		      表示先平方，再求平均；
+		      \[
+			      [E(X)]^2
+		      \]
+		      表示先求平均，再平方。二者一般不相等。
+
+		\item \textbf{线性变换：}
+		      若
+		      \[
+			      Y=aX+b,
+		      \]
+		      则
+		      \[
+			      D(Y)=D(aX+b)=a^2D(X).
+		      \]
+		      其中 $b$ 只表示整体平移，不影响方差。
+
+		\item \textbf{平方后要合并概率：}
+		      如果不同的 $X$ 取值平方后变成同一个值，写 $X^2$ 的分布列时要把概率相加。
+
+		\item \textbf{适用范围：}
+		      本讲公式按有限分布列展开。若随机变量有可列无限多个取值，则对应求和应改为无穷级数，并需要保证相关期望存在。
+	\end{itemize}
+\end{summarybox}

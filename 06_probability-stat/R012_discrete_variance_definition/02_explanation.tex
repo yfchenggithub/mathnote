@@ -1,0 +1,143 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+	方差就是用来衡量随机变量“波动大不大”的。
+
+	如果所有结果都很接近平均值，方差就小；如果结果离平均值忽大忽小，方差就大。
+	它本质上是每个取值与平均值的差距平方，再按照发生的可能性加权平均。
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{给60分学生的三步法}}
+
+	遇到分布列求方差，不要一上来硬背定义，优先按下面三步写：
+
+	\[
+		\text{第一步：} \quad E(X)=\sum x_ip_i.
+	\]
+
+	\[
+		\text{第二步：} \quad E(X^2)=\sum x_i^2p_i.
+	\]
+
+	\[
+		\text{第三步：} \quad D(X)=E(X^2)-[E(X)]^2.
+	\]
+
+	口诀：
+
+	\[
+		\boxed{\text{先平均，再平方平均，最后平方平均减平均平方。}}
+	\]
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（偏差平方）：}]
+		      先计算每个取值 $x_i$ 与期望 $\mu=E(X)$ 的差，再平方：
+		      \[
+			      (x_i-\mu)^2.
+		      \]
+		      平方可以消除正负号，突出偏离大小。
+
+		\item[\textbf{要点二（概率加权）：}]
+		      每个偏差平方都要乘上对应概率 $p_i$。概率越大，这个取值对方差的影响越大。
+
+		\item[\textbf{要点三（非负性）：}]
+		      方差必为非负数：
+		      \[
+			      D(X)\ge 0.
+		      \]
+		      并且 $D(X)=0$ 当且仅当 $X$ 几乎必然等于某个常数。
+		      在本讲的有限分布列中，就是所有概率都集中在同一个取值上，随机变量没有波动。
+	\end{description}
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{几何本质（距离平方）}}
+
+	可以把概率分布看作实数轴上的一堆“带权重的点”。
+	期望 $\mu$ 是这些点的重心，方差就是各点到重心的距离平方，再按概率加权求和。
+	离重心越远、概率越大，对方差贡献越大。
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{代数意义（平方均值差）}}
+
+	方差也可以写成
+	\[
+		D(X)=E(X^2)-[E(X)]^2.
+	\]
+
+	其中：
+
+	\[
+		E(X^2)=\sum x_i^2p_i
+	\]
+	表示“先平方，再求平均”；
+
+	\[
+		[E(X)]^2
+	\]
+	表示“先求平均，再整体平方”。
+
+	这两个量一般不相等。基础题中，最常用的计算方法就是先分别求出这两个量，再相减。
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{考点价值（必考工具）}}
+
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（直接计算）：}
+		      给出分布列，要求利用定义式或变形公式求方差，常与期望一起考查。
+
+		\item \textbf{考法二（比较稳定性）：}
+		      比较两个同类随机变量时，在同一量纲、同一评价尺度下，方差越小，说明取值围绕期望的波动越小，越稳定。
+
+		\item \textbf{考法三（线性变换）：}
+		      已知 $X$ 的方差，求 $Y=aX+b$ 的方差，直接使用
+		      \[
+			      D(aX+b)=a^2D(X).
+		      \]
+		      其中 $b$ 只表示整体平移，不影响方差；真正影响方差的是 $a$，而且要平方。
+	\end{itemize}
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	“平方”是为了避免正负抵消，“加权平均”体现概率意义。
+	所以方差的本质就是：
+
+	\[
+		\boxed{\text{平均平方偏差。}}
+	\]
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{使用场景}}
+
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（已知分布列）：}
+		      直接代入
+		      \[
+			      D(X)=\sum (x_i-\mu)^2p_i,
+		      \]
+		      或先算 $E(X)$、$E(X^2)$，再用
+		      \[
+			      D(X)=E(X^2)-[E(X)]^2.
+		      \]
+
+		\item \textbf{场景二（随机变量函数）：}
+		      已知 $X$ 的分布，求 $Y=aX+b$ 的方差，优先用
+		      \[
+			      D(Y)=D(aX+b)=a^2D(X).
+		      \]
+
+		\item \textbf{场景三（单位理解）：}
+		      方差度量的是“平方后的偏离程度”，所以它的单位是原单位的平方。
+		      如果想回到原来的单位，可以进一步看标准差 $\sqrt{D(X)}$。
+	\end{itemize}
+\end{explanationbox}

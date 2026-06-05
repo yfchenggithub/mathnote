@@ -1,0 +1,179 @@
+{
+  "id": "R012",
+  "module": "probability-stat",
+  "core": {
+    "title": "离散型随机变量方差定义公式",
+    "alias": [
+      "方差定义式",
+      "D(X)定义",
+      "方差计算"
+    ],
+    "summary": "方差是随机变量各取值与期望之差的平方按概率加权平均，度量波动大小。",
+    "difficulty": 2,
+    "category": "概率统计",
+    "tags": [
+      "方差公式",
+      "离散型随机变量",
+      "基础结论"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "方差",
+      "定义",
+      "离散型随机变量",
+      "期望",
+      "概率",
+      "分布列",
+      "D(X)",
+      "E(X)",
+      "E(X^2)",
+      "变形公式",
+      "方差计算",
+      "波动大小",
+      "平方加权平均",
+      "方差公式"
+    ],
+    "synonyms": [
+      "方差公式",
+      "方差怎么算",
+      "D(X)公式",
+      "方差定义",
+      "方差计算公式",
+      "方差等于平方的期望减期望的平方"
+    ],
+    "intents": [
+      "求方差",
+      "计算方差",
+      "证明方差",
+      "应用方差定义",
+      "使用方差变形",
+      "判断波动"
+    ],
+    "query_templates": [
+      "离散型随机变量的方差公式",
+      "方差D(X)怎么计算",
+      "方差定义公式",
+      "D(X)=E(X^2)-E(X)^2使用条件"
+    ],
+    "ocrKeywords": [
+      "分布列",
+      "概率",
+      "方差",
+      "期望",
+      "取值",
+      "D(X)",
+      "E(X)",
+      "p_i",
+      "x_i"
+    ],
+    "latex_patterns": [
+      "D(X)=\\sum_{i=1}^{n}[x_i-E(X)]^2 p_i",
+      "D(X)=E(X^2)-[E(X)]^2"
+    ],
+    "formulaTokens": [
+      "x_i-E(X)",
+      "(x_i-E(X))^2",
+      "(x_i-E(X))^2 p_i",
+      "\\sum_{i=1}^n (x_i-E(X))^2 p_i",
+      "D(X)",
+      "E(X^2)",
+      "[E(X)]^2"
+    ],
+    "pinyin": "fangchadingyi",
+    "pinyinAbbr": "fcdy"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.6,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "D(X)=\\sum_{i=1}^{n}[x_i-E(X)]^2 p_i",
+    "related_formulas": [
+      "D(X)=E(X^2)-[E(X)]^2"
+    ],
+    "variables": [
+      "X",
+      "x_i",
+      "p_i",
+      "n",
+      "D(X)",
+      "E(X)",
+      "E(X^2)"
+    ],
+    "conditions": [
+      "离散型随机变量",
+      "分布列已知：P(X=x_i)=p_i, p_i>0, ∑p_i=1",
+      "数学期望E(X)已知"
+    ],
+    "conclusions": [
+      "D(X) = ∑[x_i - E(X)]^2 p_i",
+      "D(X) = E(X^2) - [E(X)]^2"
+    ]
+  },
+  "content": {
+    "statement": "对于离散型随机变量 X，分布列为 P(X=x_i)=p_i (i=1,2,...,n)，期望为 E(X)，则方差 D(X)=∑[x_i-E(X)]^2 p_i。",
+    "derivation": [
+      "展开平方：D(X)=∑(x_i^2 - 2x_iE(X) + [E(X)]^2)p_i",
+      "拆分为三项：∑x_i^2 p_i - 2E(X)∑x_i p_i + [E(X)]^2∑p_i",
+      "利用∑x_i p_i = E(X) 和 ∑p_i=1，得 D(X)=E(X^2) - [E(X)]^2"
+    ],
+    "intuition": "方差通过各取值与期望偏差的平方加权平均来量化随机变量的离散程度。",
+    "common_tricks": [
+      "计算时先求E(X)与E(X^2)，再用变形公式D(X)=E(X^2)-[E(X)]^2",
+      "直接使用定义时注意每一项的平方和权重，不要遗漏平方",
+      "检查概率和是否为1"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "概率统计大题",
+      "求方差基础题",
+      "期望方差综合"
+    ],
+    "problem_types": [
+      "直接计算",
+      "分布列已知求方差",
+      "线性变换后求方差"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": ""
+  },
+  "shareConfig": {
+    "title": "方差定义公式与常用变形D(X)=E(X^2)-E^2(X)",
+    "shareDesc": "适合课后复盘和考前速查，明确方差定义与变形公式的转换条件，减少概率计算中漏平方或顺序错误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "离散型随机变量的期望",
+      "分布列"
+    ],
+    "related_ids": [],
+    "similar": ""
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-06"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "统计-数据分析-方差",
+  "altNodes": "概率-随机变量-期望,概率-随机变量-分布列"
+}

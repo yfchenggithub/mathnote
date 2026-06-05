@@ -1,0 +1,124 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用数学期望的线性性，把方差定义中的平方展开，再把每一部分化成期望形式，
+	即可得到更常用的计算公式
+	\[
+		D(X)=E(X^2)-[E(X)]^2.
+	\]
+
+	\medskip
+
+	\textbf{\textcolor{CProof}{正式推导}}
+
+	设
+	\[
+		\mu=E(X).
+	\]
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（写出定义式）：}]
+		      由方差定义：
+		      \[
+			      D(X)=\sum_{i=1}^{n}(x_i-\mu)^2p_i.
+		      \]
+
+		      \par\textbf{理由：}
+		      方差就是各取值与期望之差的平方，再按概率加权求和。
+
+		\item[\textbf{步骤二（展开平方）：}]
+		      将 $(x_i-\mu)^2$ 展开：
+		      \[
+			      (x_i-\mu)^2=x_i^2-2x_i\mu+\mu^2.
+		      \]
+
+		      \par\textbf{理由：}
+		      使用完全平方公式
+		      \[
+			      (a-b)^2=a^2-2ab+b^2.
+		      \]
+
+		\item[\textbf{步骤三（代入并拆项）：}]
+		      代入方差定义：
+		      \[
+			      D(X)=\sum_{i=1}^{n}(x_i^2-2x_i\mu+\mu^2)p_i.
+		      \]
+
+		      把求和拆开：
+		      \[
+			      D(X)=\sum_{i=1}^{n}x_i^2p_i
+			      -2\mu\sum_{i=1}^{n}x_ip_i
+			      +\mu^2\sum_{i=1}^{n}p_i.
+		      \]
+
+		      \par\textbf{理由：}
+		      利用求和号的线性性质，并且 $\mu$、$\mu^2$ 与 $i$ 无关，可以提出求和号。
+
+		\item[\textbf{步骤四（化为期望形式）：}]
+		      根据期望定义：
+		      \[
+			      \sum_{i=1}^{n}x_i^2p_i=E(X^2),
+		      \]
+		      \[
+			      \sum_{i=1}^{n}x_ip_i=E(X)=\mu,
+		      \]
+		      \[
+			      \sum_{i=1}^{n}p_i=1.
+		      \]
+
+		      所以
+		      \[
+			      D(X)=E(X^2)-2\mu\cdot\mu+\mu^2\cdot1.
+		      \]
+
+		      \par\textbf{理由：}
+		      第一项是“先平方，再求期望”；第二项是期望本身；第三项用到概率总和为 $1$。
+
+		\item[\textbf{步骤五（合并化简）：}]
+		      \[
+			      D(X)=E(X^2)-2\mu^2+\mu^2
+			      =E(X^2)-\mu^2.
+		      \]
+
+		      又因为 $\mu=E(X)$，所以
+		      \[
+			      D(X)=E(X^2)-[E(X)]^2.
+		      \]
+
+		      \par\textbf{理由：}
+		      合并同类项：
+		      \[
+			      -2\mu^2+\mu^2=-\mu^2.
+		      \]
+	\end{description}
+
+	\medskip
+
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	我们由方差定义
+	\[
+		D(X)=\sum_{i=1}^{n}(x_i-\mu)^2p_i
+	\]
+	出发，推出了更便于计算的公式
+	\[
+		\boxed{D(X)=E(X^2)-[E(X)]^2}.
+	\]
+
+	这说明：
+
+	\[
+		\text{方差}=\text{平方的期望}-\text{期望的平方}.
+	\]
+
+	\textbf{\textcolor{CProof}{学生提醒：}}
+	推导不用死背，但要记住两个关键词：
+
+	\[
+		E(X^2): \text{先平方，再平均；}
+	\]
+
+	\[
+		[E(X)]^2: \text{先平均，再平方。}
+	\]
+\end{proofbox}

@@ -1,0 +1,69 @@
+\begin{statementbox}
+	\textbf{\textcolor{CStatement}{条件}}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CStatement}{条件1（有限分布列已知）：}}]
+		      随机变量 $X$ 只取有限个互不相同的值
+		      \[
+			      x_1,x_2,\dots,x_n,
+		      \]
+		      对应概率
+		      \[
+			      p_i=P(X=x_i)\quad (i=1,2,\dots,n),
+		      \]
+		      满足 $p_i>0$ 且
+		      \[
+			      \sum_{i=1}^{n}p_i=1.
+		      \]
+
+		\item[\textbf{\textcolor{CStatement}{计算前准备（先求期望）：}}]
+		      先由分布列计算数学期望
+		      \[
+			      E(X)=\sum_{i=1}^{n}x_i p_i.
+		      \]
+		      为书写方便，常记
+		      \[
+			      \mu=E(X).
+		      \]
+		      这里的 $\mu$ 就是随机变量 $X$ 的平均水平。
+	\end{description}
+
+	\textbf{\textcolor{CStatement}{结论}}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{\textcolor{CStatement}{结论一（方差定义）：}}]
+		      \textbf{\textcolor{CStatement}{直观描述：}}
+		      方差是各取值与期望之差的平方按概率加权平均，用来反映随机变量的波动大小。
+		      \[
+			      D(X)=\sum_{i=1}^{n}(x_i-\mu)^2p_i
+			      =\sum_{i=1}^{n}\bigl[x_i-E(X)\bigr]^2p_i.
+		      \]
+
+		\item[\textbf{\textcolor{CStatement}{常见变形（平方展开式）：}}]
+		      \textbf{\textcolor{CStatement}{直观描述：}}
+		      方差等于“平方的期望”减去“期望的平方”，计算更便捷。
+		      \[
+			      D(X)=E(X^2)-\bigl[E(X)\bigr]^2.
+		      \]
+	\end{description}
+
+	\textbf{\textcolor{CStatement}{60分学生记忆法：}}
+	先平均，再平方平均，最后“平方平均减平均平方”：
+	\[
+		\boxed{D(X)=E(X^2)-[E(X)]^2}.
+	\]
+
+	\textbf{\textcolor{CStatement}{使用提醒：}}
+	考试中若只是求方差，通常优先计算 $E(X)$ 与 $E(X^2)$，再代入变形公式；
+	定义式更适合理解“方差为什么表示波动”。
+
+	\textbf{\textcolor{CStatement}{特别注意：}}
+	\[
+		E(X^2)
+	\]
+	表示先把每个取值平方，再乘概率求和；
+	\[
+		[E(X)]^2
+	\]
+	表示先求期望，再整体平方。二者一般不相等，不能混用。
+\end{statementbox}

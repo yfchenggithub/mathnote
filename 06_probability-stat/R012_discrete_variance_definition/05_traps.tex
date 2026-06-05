@@ -1,0 +1,152 @@
+\begin{trapbox}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点一（漏掉平方）：}}]
+		      错误地认为方差为
+		      \[
+			      \sum (x_i-\mu)p_i.
+		      \]
+
+		\item[\textbf{\textcolor{CTrap}{正确理解（平方必要性）：}}]
+		      方差必须先平方再求和：
+		      \[
+			      D(X)=\sum (x_i-\mu)^2p_i.
+		      \]
+		      如果不平方，正负偏差会相互抵消，不能反映实际波动大小。
+
+		\item[\textbf{\textcolor{CTrap}{错因分析（概念混淆）：}}]
+		      容易把方差与“平均绝对偏差”混淆。
+
+		      平均绝对偏差是
+		      \[
+			      E|X-\mu|=\sum |x_i-\mu|p_i,
+		      \]
+		      而方差是
+		      \[
+			      E[(X-\mu)^2]=\sum (x_i-\mu)^2p_i.
+		      \]
+
+		      如果不加绝对值也不平方，则
+		      \[
+			      \sum (x_i-\mu)p_i=E(X-\mu)=0,
+		      \]
+		      正负偏差会完全抵消。
+	\end{description}
+
+	\medskip
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点二（忽略概率）：}}]
+		      计算时写成
+		      \[
+			      \frac1n\sum (x_i-\mu)^2,
+		      \]
+		      忽略了概率 $p_i$ 不同。
+
+		\item[\textbf{\textcolor{CTrap}{正确理解（加权求和）：}}]
+		      方差定义中每一项都要乘以对应概率 $p_i$：
+		      \[
+			      D(X)=\sum (x_i-\mu)^2p_i.
+		      \]
+
+		      只有当所有取值等概率，即
+		      \[
+			      p_i=\frac1n,
+		      \]
+		      才可以写成等权平均。一般分布列不能这样写。
+
+		\item[\textbf{\textcolor{CTrap}{错因分析（惯性思维）：}}]
+		      习惯用算术平均处理数据，忘记随机变量的概率加权特性。
+	\end{description}
+
+	\medskip
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点三（混淆 $E(X^2)$ 与 $[E(X)]^2$）：}}]
+		      计算变形公式
+		      \[
+			      D(X)=E(X^2)-[E(X)]^2
+		      \]
+		      时，容易误写成
+		      \[
+			      D(X)=[E(X)]^2-E(X^2)
+		      \]
+		      或
+		      \[
+			      D(X)=E(X^2)-E(X).
+		      \]
+
+		\item[\textbf{\textcolor{CTrap}{正确理解（先后顺序）：}}]
+		      \[
+			      E(X^2)
+		      \]
+		      表示“先平方，再求平均”；
+
+		      \[
+			      [E(X)]^2
+		      \]
+		      表示“先求平均，再平方”。
+
+		      正确公式是
+		      \[
+			      \boxed{D(X)=E(X^2)-[E(X)]^2}.
+		      \]
+
+		\item[\textbf{\textcolor{CTrap}{错因分析（记忆偏差）：}}]
+		      把“平方期望”和“期望平方”混成一回事，或者没有理解推导，只靠机械记忆。
+	\end{description}
+
+	\medskip
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点四（线性变换忘记平方系数）：}}]
+		      已知
+		      \[
+			      Y=aX+b,
+		      \]
+		      求方差时，错误写成
+		      \[
+			      D(Y)=aD(X)+b.
+		      \]
+
+		\item[\textbf{\textcolor{CTrap}{正确理解（平移不影响方差）：}}]
+		      正确公式是
+		      \[
+			      D(aX+b)=a^2D(X).
+		      \]
+
+		      其中 $b$ 只是整体平移，不改变波动大小；
+		      $a$ 会放大或缩小波动，方差要乘 $a^2$。
+
+		\item[\textbf{\textcolor{CTrap}{错因分析（把期望公式套到方差上）：}}]
+		      期望满足
+		      \[
+			      E(aX+b)=aE(X)+b,
+		      \]
+		      但方差满足
+		      \[
+			      D(aX+b)=a^2D(X).
+		      \]
+		      二者不能混用。
+	\end{description}
+
+	\medskip
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点五（平方后取值重复时忘记合并概率）：}}]
+		      例如 $X=-1$ 和 $X=1$ 时，平方后都变成 $1$。
+		      如果写 $X^2$ 的分布列，不能把 $1$ 写两次而不合并概率。
+
+		\item[\textbf{\textcolor{CTrap}{正确理解（同一取值概率要相加）：}}]
+		      若
+		      \[
+			      P(X=-1)=0.3,\qquad P(X=1)=0.3,
+		      \]
+		      则
+		      \[
+			      P(X^2=1)=0.3+0.3=0.6.
+		      \]
+
+		\item[\textbf{\textcolor{CTrap}{错因分析（只平方取值，忘记整理分布列）：}}]
+		      随机变量变形后，不同原取值可能对应同一个新取值，写新分布列时必须把概率合并。
+	\end{description}
+\end{trapbox}

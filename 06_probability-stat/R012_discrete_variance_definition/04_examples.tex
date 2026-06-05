@@ -1,0 +1,263 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{考试计算模板}}
+
+	遇到分布列求方差，建议固定按下面四步写：
+
+	\[
+		\text{第一步：检查概率和是否为 }1;
+	\]
+
+	\[
+		\text{第二步：求 }E(X)=\sum x_ip_i;
+	\]
+
+	\[
+		\text{第三步：求 }E(X^2)=\sum x_i^2p_i;
+	\]
+
+	\[
+		\text{第四步：代入 }D(X)=E(X^2)-[E(X)]^2.
+	\]
+
+	这样写步骤清楚，不容易漏掉平方，也不容易漏掉概率。
+
+	\medskip
+
+	\textbf{\textcolor{CExample}{例1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	随机变量 $X$ 分布列如下：
+	\[
+		\begin{array}{c|ccc}
+			X & 0   & 1   & 2   \\
+			\hline
+			P & 0.4 & 0.4 & 0.2
+		\end{array}
+	\]
+	求 $X$ 的方差 $D(X)$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（检查概率）：}]
+		      \[
+			      0.4+0.4+0.2=1.
+		      \]
+
+		      \par\textbf{理由：}
+		      概率和为 $1$，说明这是一个合法分布列，可以继续计算。
+
+		\item[\textbf{第二步（求期望）：}]
+		      根据期望公式 $E(X)=\sum x_ip_i$，计算
+		      \[
+			      E(X)=0\times0.4+1\times0.4+2\times0.2
+			      =0+0.4+0.4=0.8.
+		      \]
+
+		      \par\textbf{理由：}
+		      期望是随机变量取值的概率加权平均。
+
+		\item[\textbf{第三步（求平方期望）：}]
+		      \[
+			      E(X^2)=0^2\times0.4+1^2\times0.4+2^2\times0.2
+			      =0+0.4+0.8=1.2.
+		      \]
+
+		      \par\textbf{理由：}
+		      $E(X^2)$ 表示先把每个取值平方，再乘对应概率求和。
+
+		\item[\textbf{第四步（代入公式）：}]
+		      \[
+			      D(X)=E(X^2)-[E(X)]^2=1.2-0.8^2=1.2-0.64=0.56.
+		      \]
+
+		      \par\textbf{理由：}
+		      使用方差变形公式，比逐项代入定义更快。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\[
+		\boxed{D(X)=0.56=\frac{14}{25}}.
+	\]
+
+	\textbf{\textcolor{CExample}{本题提醒：}}
+	基础题优先用
+	\[
+		D(X)=E(X^2)-[E(X)]^2,
+	\]
+	不要漏掉 $E(X^2)$ 中的平方。
+
+	\medskip
+
+	\textbf{\textcolor{CExample}{例2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	随机变量 $X$ 分布列：
+	\[
+		\begin{array}{c|ccc}
+			X & -1  & 0   & 1   \\
+			\hline
+			P & 0.3 & 0.4 & 0.3
+		\end{array}
+	\]
+	求 $D(X)$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（检查概率）：}]
+		      \[
+			      0.3+0.4+0.3=1.
+		      \]
+
+		      \par\textbf{理由：}
+		      概率和为 $1$，分布列合法。
+
+		\item[\textbf{第二步（求期望）：}]
+		      \[
+			      E(X)=(-1)\times0.3+0\times0.4+1\times0.3
+			      =-0.3+0+0.3=0.
+		      \]
+
+		      \par\textbf{理由：}
+		      左右两端取值关于 $0$ 对称，且概率相同，所以期望为 $0$。
+
+		\item[\textbf{第三步（求 $E(X^2)$）：}]
+		      直接逐项计算：
+		      \[
+			      E(X^2)=(-1)^2\times0.3+0^2\times0.4+1^2\times0.3
+			      =0.3+0+0.3=0.6.
+		      \]
+
+		      也可以先写出 $X^2$ 的分布列。
+		      因为
+		      \[
+			      (-1)^2=1,\qquad 0^2=0,\qquad 1^2=1,
+		      \]
+		      所以 $X^2$ 的取值只有 $0,1$，对应概率为
+		      \[
+			      P(X^2=0)=0.4,\qquad P(X^2=1)=0.3+0.3=0.6.
+		      \]
+
+		      因此
+		      \[
+			      E(X^2)=0\times0.4+1\times0.6=0.6.
+		      \]
+
+		      \par\textbf{理由：}
+		      随机变量平方后，不同的原取值可能变成同一个新取值，写分布列时要把概率合并。
+
+		\item[\textbf{第四步（代入变形公式）：}]
+		      \[
+			      D(X)=E(X^2)-[E(X)]^2=0.6-0^2=0.6.
+		      \]
+
+		      \par\textbf{理由：}
+		      平方期望减去期望平方。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\[
+		\boxed{D(X)=0.6=\frac35}.
+	\]
+
+	\textbf{\textcolor{CExample}{本题提醒：}}
+	因为 $(-1)^2=1$，$1^2=1$，所以计算 $X^2$ 的分布列时，
+	$X^2=1$ 的概率要合并成
+	\[
+		0.3+0.3=0.6.
+	\]
+
+	\medskip
+
+	\textbf{\textcolor{CExample}{例3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	设随机变量 $X$ 分布列：
+	\[
+		\begin{array}{c|ccc}
+			X & 1   & 2   & 3   \\
+			\hline
+			P & 0.2 & 0.3 & 0.5
+		\end{array}
+	\]
+	令
+	\[
+		Y=2X+3,
+	\]
+	求 $D(Y)$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（检查概率）：}]
+		      \[
+			      0.2+0.3+0.5=1.
+		      \]
+
+		      \par\textbf{理由：}
+		      概率和为 $1$，分布列合法。
+
+		\item[\textbf{第二步（求 $X$ 的期望）：}]
+		      \[
+			      E(X)=1\times0.2+2\times0.3+3\times0.5
+			      =0.2+0.6+1.5=2.3.
+		      \]
+
+		      \par\textbf{理由：}
+		      期望定义。
+
+		\item[\textbf{第三步（求 $X$ 的平方期望）：}]
+		      \[
+			      E(X^2)=1^2\times0.2+2^2\times0.3+3^2\times0.5
+			      =0.2+1.2+4.5=5.9.
+		      \]
+
+		      \par\textbf{理由：}
+		      先平方，再乘概率求和。
+
+		\item[\textbf{第四步（求 $D(X)$）：}]
+		      \[
+			      D(X)=E(X^2)-[E(X)]^2=5.9-2.3^2
+			      =5.9-5.29=0.61.
+		      \]
+
+		      \par\textbf{理由：}
+		      用变形公式计算 $X$ 的方差。
+
+		\item[\textbf{第五步（利用方差性质求 $D(Y)$）：}]
+		      对于线性变换
+		      \[
+			      Y=2X+3,
+		      \]
+		      方差性质为
+		      \[
+			      D(aX+b)=a^2D(X).
+		      \]
+
+		      所以
+		      \[
+			      D(Y)=2^2D(X)=4\times0.61=2.44.
+		      \]
+
+		      \par\textbf{理由：}
+		      $+3$ 只表示整体平移，不改变波动大小；
+		      $\times2$ 会把波动放大 $2$ 倍，因此方差放大 $2^2=4$ 倍。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\[
+		\boxed{D(Y)=2.44=\frac{61}{25}}.
+	\]
+
+	\textbf{\textcolor{CExample}{本题提醒：}}
+	遇到
+	\[
+		Y=aX+b
+	\]
+	时，不要急着重新列 $Y$ 的分布列，直接用
+	\[
+		D(Y)=a^2D(X)
+	\]
+	更快。注意是 $a^2$，不是 $a$，也不要把 $+b$ 加到方差里。
+\end{examplebox}
