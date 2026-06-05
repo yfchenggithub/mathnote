@@ -56,7 +56,8 @@ DEFAULT_BACKEND_REPO = Path(r"D:\mathnode_backend")
 DEFAULT_BACKEND_DATA_DIR = DEFAULT_BACKEND_REPO / "app" / "data"
 DEFAULT_REMOTE_HOST = "146.56.223.203"
 DEFAULT_REMOTE_USER = "yfcheng"
-DEFAULT_REMOTE_PASSWORD = "yfcheng"
+REMOTE_PASSWORD_ENV = "MATHNOTE_REMOTE_PASSWORD"
+REMOTE_ASKPASS_PASSWORD_ENV = "MATHNOTE_REMOTE_ASKPASS_PASSWORD"
 DEFAULT_REMOTE_FORMULA_DIR = "/var/www/ok-shuxue/static/formulas"
 DEFAULT_REMOTE_FORMULA_OWNER = "www-data"
 DEFAULT_REMOTE_FORMULA_GROUP = "www-data"
@@ -228,6 +229,48 @@ def normalize_ids(raw_values: Sequence[str]) -> tuple[str, ...]:
     return tuple(normalized)
 
 
+def read_windows_persisted_env(name: str) -> str:
+    if os.name != "nt":
+        return ""
+    try:
+        import winreg
+    except ImportError:
+        return ""
+
+    registry_locations = (
+        (winreg.HKEY_CURRENT_USER, r"Environment"),
+        (
+            winreg.HKEY_LOCAL_MACHINE,
+            r"SYSTEM\CurrentControlSet\Control\Session Manager\Environment",
+        ),
+    )
+    for root, subkey in registry_locations:
+        try:
+            with winreg.OpenKey(root, subkey) as key:
+                value, value_type = winreg.QueryValueEx(key, name)
+        except OSError:
+            continue
+        text = str(value)
+        if value_type == winreg.REG_EXPAND_SZ:
+            text = winreg.ExpandEnvironmentStrings(text)
+        if text:
+            return text
+    return ""
+
+
+def read_remote_password_from_environment() -> str:
+    return os.environ.get(REMOTE_PASSWORD_ENV, "") or read_windows_persisted_env(
+        REMOTE_PASSWORD_ENV
+    )
+
+
+def remote_actions_requested(args: argparse.Namespace) -> bool:
+    return bool(
+        not args.dry_run
+        and (args.deploy or args.upload_formulas or args.remote_pull or args.restart)
+    )
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Incrementally publish selected conclusion IDs.",
@@ -310,8 +353,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--remote-user", default=DEFAULT_REMOTE_USER)
     parser.add_argument(
         "--remote-password",
-        default=DEFAULT_REMOTE_PASSWORD,
-        help="Remote SSH/sudo password for sshpass automation. Pass an empty value for interactive auth.",
+        default=None,
+        help=(
+            f"Deprecated; ignored. Remote SSH/sudo password is read from "
+            f"${REMOTE_PASSWORD_ENV} only."
+        ),
     )
     parser.add_argument("--remote-formula-dir", default=DEFAULT_REMOTE_FORMULA_DIR)
     parser.add_argument("--remote-formula-owner", default=DEFAULT_REMOTE_FORMULA_OWNER)
@@ -348,6 +394,15 @@ def build_config(args: argparse.Namespace) -> PublishConfig:
         raise PublishError("--remote-formula-group must not be empty.")
 
     deploy = bool(args.deploy)
+    remote_password = read_remote_password_from_environment()
+    if "\r" in remote_password or "\n" in remote_password:
+        raise PublishError(f"${REMOTE_PASSWORD_ENV} must be a single-line value.")
+    if remote_actions_requested(args) and not remote_password:
+        raise PublishError(
+            f"Remote publish requires ${REMOTE_PASSWORD_ENV}. Interactive password "
+            "entry is disabled; set the current process environment variable or the "
+            "Windows User/System environment variable before running."
+        )
     return PublishConfig(
         ids=ids,
         dry_run=bool(args.dry_run),
@@ -378,7 +433,7 @@ def build_config(args: argparse.Namespace) -> PublishConfig:
         asset_base=str(args.asset_base),
         remote_host=str(args.remote_host),
         remote_user=str(args.remote_user),
-        remote_password=str(args.remote_password),
+        remote_password=remote_password,
         remote_formula_dir=str(args.remote_formula_dir).rstrip("/"),
         remote_formula_owner=str(args.remote_formula_owner).strip(),
         remote_formula_group=str(args.remote_formula_group).strip(),
@@ -463,14 +518,23 @@ def run_command(
 
     try:
         if interactive:
-            proc = subprocess.run(
-                command,
-                cwd=str(cwd),
-                input=input_text,
-                text=input_text is not None,
-                env=command_env,
-                check=False,
-            )
+            if input_text is not None:
+                proc = subprocess.run(
+                    command,
+                    cwd=str(cwd),
+                    input=input_text,
+                    text=True,
+                    env=command_env,
+                    check=False,
+                )
+            else:
+                proc = subprocess.run(
+                    command,
+                    cwd=str(cwd),
+                    stdin=subprocess.DEVNULL,
+                    env=command_env,
+                    check=False,
+                )
             stdout_tail = ""
             stderr_tail = ""
         else:
@@ -491,7 +555,7 @@ def run_command(
         if command and command[0] == "sshpass":
             raise PublishError(
                 "Command not found: sshpass. Remote password automation requires "
-                "sshpass; install it or pass --remote-password \"\" for interactive auth."
+                "sshpass or the SSH_ASKPASS fallback; interactive password entry is disabled."
             ) from exc
         raise PublishError(f"Command not found: {command[0]}") from exc
 
@@ -1448,7 +1512,7 @@ def ensure_remote_askpass_script(config: PublishConfig, paths: PublishPaths) -> 
     if os.name == "nt":
         path.write_text(
             "@echo off\r\n"
-            f"echo {config.remote_password}\r\n",
+            f"echo(%{REMOTE_ASKPASS_PASSWORD_ENV}%\r\n",
             encoding="utf-8",
         )
     else:
@@ -1477,21 +1541,45 @@ def remote_auth_env(config: PublishConfig, paths: PublishPaths) -> dict[str, str
         "SSH_ASKPASS": str(askpass_path),
         "SSH_ASKPASS_REQUIRE": "force",
         "DISPLAY": "none",
+        REMOTE_ASKPASS_PASSWORD_ENV: config.remote_password,
     }
 
 
 def remote_sudo_input(config: PublishConfig) -> str | None:
     if not config.remote_password:
         return None
-    return config.remote_password + "\n"
+    # Windows OpenSSH can consume the first piped line for SSH auth when
+    # askpass is unavailable; sudo then reads the next line.
+    return config.remote_password + "\n" + config.remote_password + "\n"
+
+
+def remote_ssh_options(config: PublishConfig) -> list[str]:
+    return [
+        "-o",
+        f"BatchMode={'no' if config.remote_password else 'yes'}",
+        "-o",
+        "NumberOfPasswordPrompts=1",
+        "-o",
+        "StrictHostKeyChecking=accept-new",
+    ]
 
 
 def remote_ssh_command(config: PublishConfig, *args: str) -> list[str]:
-    return [*remote_auth_prefix(config), "ssh", *args]
+    return [
+        *remote_auth_prefix(config),
+        "ssh",
+        *remote_ssh_options(config),
+        *args,
+    ]
 
 
 def remote_scp_command(config: PublishConfig, *args: str) -> list[str]:
-    return [*remote_auth_prefix(config), "scp", *args]
+    return [
+        *remote_auth_prefix(config),
+        "scp",
+        *remote_ssh_options(config),
+        *args,
+    ]
 
 
 def project_relative_posix_path(path: Path) -> str:
