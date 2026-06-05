@@ -1,0 +1,92 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	某射手每次击中靶心的概率为 $0.4$，独立重复射击直到第一次击中靶心。用 $\xi$ 表示总射击次数，求 $\xi$ 的数学期望。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别分布）：}]
+		      每次射击独立且成功概率恒为 $p=0.4$，$\xi$ 表示首次成功所需的总试验次数，故 $\xi$ 服从试验次数型几何分布。
+		      \par\textbf{理由：} 几何分布模型要求重复独立试验，且每次成功概率保持不变。
+
+		\item[\textbf{第二步（套用公式）：}]
+		      由试验次数型几何分布期望公式 $E\xi=1/p$，代入 $p=0.4$，得
+		      \[
+			      E\xi=\frac{1}{0.4}=2.5.
+		      \]
+		      \par\textbf{理由：} 这里的 $\xi$ 表示总射击次数，所以适用 $E\xi=1/p$。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}} \textbf{$E\xi=2.5$}
+
+	\medskip
+
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知随机变量 $\eta$ 服从本文约定的试验次数型几何分布，且 $E\eta=10$。求成功概率 $p$ 的值及 $P(\eta=1)$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（反解参数）：}]
+		      由 $E\eta=1/p$ 得
+		      \[
+			      p=\frac{1}{E\eta}=\frac{1}{10}=0.1.
+		      \]
+		      \par\textbf{理由：} 由试验次数型几何分布期望公式变形得到。
+
+		\item[\textbf{第二步（检查范围）：}]
+		      \[
+			      0<p=0.1\le1.
+		      \]
+		      \par\textbf{理由：} 反解参数后必须检查 $p$ 是否满足几何分布的参数范围。
+
+		\item[\textbf{第三步（计算概率）：}]
+		      \[
+			      P(\eta=1)=q^0p=p=0.1.
+		      \]
+		      \par\textbf{理由：} 几何分布概率公式为 $P(\eta=k)=q^{k-1}p$，当 $k=1$ 时即为 $p$。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}} \textbf{$p=0.1$，$P(\eta=1)=0.1$}
+
+	\medskip
+
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	某生产线产品可视为独立产生，且每件产品为次品的概率均为 $0.02$。质检员逐个检查产品，直到发现第一个次品，检查次数记为 $Y$。求：(1) $Y$ 的数学期望；(2) 检查次数不超过 $100$ 的概率。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别分布并求期望）：}]
+		      每件产品是否为次品相互独立，且次品概率恒为 $p=0.02$，$Y$ 表示首次发现次品所需的检查件数，所以 $Y$ 服从试验次数型几何分布。因此
+		      \[
+			      EY=\frac{1}{0.02}=50.
+		      \]
+		      \par\textbf{理由：} 满足独立重复试验、成功概率恒定、记录首次成功所需总次数三个条件。
+
+		\item[\textbf{第二步（概率表达）：}]
+		      \[
+			      P(Y\le100)=1-P(Y>100)=1-(1-0.02)^{100}=1-0.98^{100}.
+		      \]
+		      \par\textbf{理由：} $Y>100$ 表示前 $100$ 件产品均不是次品，其概率为 $0.98^{100}$；所求事件是它的对立事件。
+
+		\item[\textbf{第三步（近似计算）：}]
+		      \[
+			      0.98^{100}\approx0.1326,\qquad P(Y\le100)\approx0.8674.
+		      \]
+		      \par\textbf{理由：} 数值计算或对数近似可得。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}} \textbf{$EY=50$，$P(Y\le100)=1-0.98^{100}\approx0.8674$}
+
+	\medskip
+
+	\textbf{\textcolor{CExample}{补充提醒：}}
+	若题目是从一个有限批次中不放回抽检，且批次中次品数量固定，则每次抽到次品的概率会随抽检过程变化，此时一般不能直接按普通几何分布处理。
+\end{examplebox}

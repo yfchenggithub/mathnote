@@ -1,0 +1,79 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	本文证明的是“试验次数型几何分布”的期望公式。利用期望定义将问题转化为无穷级数求和，通过错位相减法计算 $\sum_{k=1}^\infty k q^{k-1}$，再代入 $q=1-p$ 即可得到 $E\xi=1/p$。
+
+	\medskip
+
+	\textbf{\textcolor{CProof}{正式推导}}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（明确分布）：}]
+		      由试验次数型几何分布的定义，
+		      \[
+			      P(\xi=k)=q^{k-1}p,\quad q=1-p,\quad k=1,2,\dots.
+		      \]
+		      \par\textbf{理由：} 前 $k-1$ 次均失败，第 $k$ 次首次成功；各次试验独立，且每次成功概率均为 $p$。
+
+		\item[\textbf{步骤二（期望定义）：}]
+		      \[
+			      E\xi = \sum_{k=1}^\infty k P(\xi=k) = \sum_{k=1}^\infty k\, q^{k-1}p.
+		      \]
+		      \par\textbf{理由：} 随机变量 $\xi$ 的数学期望定义为 $\sum_{k=1}^\infty k\,P(\xi=k)$。
+
+		\item[\textbf{步骤三（提出公因子）：}]
+		      \[
+			      E\xi = p\sum_{k=1}^\infty k\, q^{k-1}.
+		      \]
+		      \par\textbf{理由：} 常数 $p$ 与求和变量 $k$ 无关，可提到求和符号外面。
+
+		\item[\textbf{步骤四（收敛性说明）：}]
+		      因为 $p\in(0,1]$，所以
+			      \[
+			      q=1-p\in[0,1),
+			      \]
+			      从而 $|q|<1$。
+			      \par\textbf{理由：} 只有在 $|q|<1$ 时，后续等比级数求和与错位相减才是合法的。
+
+		\item[\textbf{步骤五（错位相减求和）：}]
+		      令
+		      \[
+			      S=\sum_{k=1}^\infty k\, q^{k-1},
+		      \]
+		      则
+		      \[
+			      \begin{aligned}
+				      S  & = 1 + 2q + 3q^2 + 4q^3 + \cdots,        \\
+				      qS & = \qquad q + 2q^2 + 3q^3 + 4q^4+\cdots.
+			      \end{aligned}
+		      \]
+		      两式相减，得
+		      \[
+			      (1-q)S=1+q+q^2+q^3+\cdots=\frac{1}{1-q}.
+		      \]
+		      因此
+		      \[
+			      S=\frac{1}{(1-q)^2}.
+		      \]
+		      \par\textbf{理由：} 右侧是首项为 $1$、公比为 $q$ 的收敛等比级数，其和为 $\frac{1}{1-q}$。
+
+		\item[\textbf{步骤六（回代化简）：}]
+		      \[
+			      \begin{aligned}
+				      E\xi
+				       & =p\cdot\frac{1}{(1-q)^2}                          \\
+				       & =p\cdot\frac{1}{p^2}\quad(\because q=1-p,\;1-q=p) \\
+				       & =\frac{1}{p}.
+			      \end{aligned}
+		      \]
+		      \par\textbf{理由：} 代入 $1-q=p$ 并化简。
+	\end{description}
+
+	\medskip
+
+	\textbf{\textcolor{CProof}{结论回扣}}
+	由以上推导可知，若 $\xi$ 表示首次成功所需的总试验次数，且各次试验独立、成功概率恒为 $p$，则
+	\[
+		E\xi=\frac{1}{p}.
+	\]
+	若随机变量表示的是“首次成功前的失败次数”，则应另行转化，不能直接套用本结论。
+\end{proofbox}

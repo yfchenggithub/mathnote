@@ -1,0 +1,76 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+	几何分布就是不断重复试验直到第一次成功。本文中的随机变量 $\xi$ 记录的是“总试验次数”，也就是第几次试验才第一次成功。
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（概率模型）：}]
+		      每次试验相互独立，成功概率 $p$ 保持不变；若前 $k-1$ 次均失败（概率 $q^{k-1}$），第 $k$ 次成功（概率 $p$），故
+		      \[
+			      P(\xi=k)=q^{k-1}p.
+		      \]
+
+		\item[\textbf{要点二（期望计算）：}]
+		      期望定义为
+		      \[
+			      E\xi=\sum_{k=1}^\infty k\,q^{k-1}p,
+		      \]
+		      本质是等差数列 $1,2,3,\dots$ 与等比数列 $1,q,q^2,\dots$ 相乘后形成的等差--等比型级数求和。
+	\end{description}
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{几何本质（等待首次成功）}}
+	分布列 $\{q^{k-1}p\}$ 本身构成等比数列，公比为 $q$；而期望的计算归结为
+	\[
+		p\sum_{k=1}^\infty k\,q^{k-1}.
+	\]
+	这里的 $\sum_{k=1}^\infty k\,q^{k-1}$ 不是普通等比数列，而是“等差数列 $\times$ 等比数列”的混合型级数，常用错位相减或求导法求和。
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{代数意义（无穷级数求和）}}
+	因为 $p\in(0,1]$，所以 $q=1-p\in[0,1)$，从而 $|q|<1$。利用公式
+	\[
+		\sum_{k=1}^\infty k x^{k-1} = \frac{1}{(1-x)^2}\quad (|x|<1),
+	\]
+	取 $x=q$，即得
+	\[
+		E\xi = p\cdot\frac{1}{(1-q)^2}=\frac{1}{p}.
+	\]
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{考点价值（考试方向）}}
+
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（直接套公式）：} 已知成功概率 $p$，直接代入 $E\xi=1/p$ 求期望。
+		\item \textbf{考法二（由期望反解参数）：} 已知 $E\xi$，由 $p=1/E\xi$ 反解成功概率，并检查 $0<p\le1$，等价于 $E\xi\ge1$。
+		\item \textbf{考法三（分布列结合）：} 结合 $P(\xi=k)=q^{k-1}p$ 计算具体概率，再利用期望公式简化运算。
+	\end{itemize}
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+	在“独立重复试验，且每次成功概率恒为 $p$”的前提下，首次成功所需总试验次数的期望只由 $p$ 决定。成功概率越小，平均等待时间越长。
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{使用场景}}
+
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（射击问题）：} 不断独立射击直到首次命中，且每次命中率均为 $p$，则命中时已发射子弹数的期望为 $1/p$。
+		\item \textbf{场景二（质检问题）：} 若每件产品是否为次品相互独立，且每件产品的次品率均为 $p$，逐个检测直到发现第一个次品，则需检测件数的期望为 $1/p$。
+	\end{itemize}
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{定义辨析}}
+	本文的 $\xi$ 表示“首次成功所需总试验次数”，所以 $E\xi=1/p$。若另用 $X$ 表示“首次成功前的失败次数”，则 $X=\xi-1$，因此
+	\[
+		EX=E(\xi-1)=\frac{1}{p}-1=\frac{1-p}{p}=\frac{q}{p}.
+	\]
+\end{explanationbox}

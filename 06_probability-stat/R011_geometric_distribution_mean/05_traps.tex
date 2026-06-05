@@ -1,0 +1,66 @@
+\begin{trapbox}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点一（定义混淆）：}}]
+		      没有先判断随机变量表示的是“首次成功所需总试验次数”，还是“首次成功前的失败次数”，就直接套用公式。
+
+		\item[\textbf{\textcolor{CTrap}{正确理解（先看取值）：}}]
+		      若 $\xi$ 表示首次成功所需总试验次数，则
+		      \[
+			      P(\xi=k)=q^{k-1}p,\quad k=1,2,\dots,\qquad E\xi=\frac{1}{p}.
+		      \]
+		      若 $X$ 表示首次成功前的失败次数，则
+		      \[
+			      P(X=k)=q^k p,\quad k=0,1,2,\dots,\qquad EX=\frac{q}{p}.
+		      \]
+
+		\item[\textbf{\textcolor{CTrap}{错因分析（定义不清）：}}]
+		      不同教材或资料对“几何分布”的随机变量定义可能不同，只记公式而不看随机变量含义，容易把 $\frac{1}{p}$ 和 $\frac{q}{p}$ 混用。
+	\end{description}
+
+	\medskip
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点二（pq混淆）：}}]
+		      误将 $E\xi$ 记为 $1/q$ 或 $p/q$，导致计算错误。
+
+		\item[\textbf{\textcolor{CTrap}{正确理解（公式确认）：}}]
+		      在本文的试验次数型几何分布中，期望公式为
+		      \[
+			      E\xi=\frac{1}{p},
+		      \]
+		      其中 $p$ 是单次试验成功概率，$q=1-p$ 是单次试验失败概率。
+
+		\item[\textbf{\textcolor{CTrap}{错因分析（推导不明）：}}]
+		      不熟悉错位相减的推导过程，容易混淆 $p$ 与 $q$ 的位置。
+	\end{description}
+
+	\medskip
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点三（范围忽略）：}}]
+		      直接使用公式 $E\xi=1/p$ 时，忽略 $p$ 的取值范围，例如当 $p=0$ 时仍机械套用公式。
+
+		\item[\textbf{\textcolor{CTrap}{正确理解（参数范围）：}}]
+		      概率本身的取值范围是 $0\le p\le1$；但在本文的几何分布中，必须满足
+		      \[
+			      0<p\le1.
+		      \]
+		      若 $p=0$，首次成功不可能发生，有限正整数取值的几何分布不成立；若 $p=1$，则第一次必定成功，$\xi=1$，此时 $E\xi=1$。
+
+		\item[\textbf{\textcolor{CTrap}{错因分析（定义域模糊）：}}]
+		      没有区分“概率的一般范围 $[0,1]$”与“几何分布参数限制 $(0,1]$”。
+	\end{description}
+
+	\medskip
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点四（条件遗漏）：}}]
+		      在非独立重复试验的场景中使用几何分布期望公式，例如每次成功概率会改变时仍套用 $1/p$。
+
+		\item[\textbf{\textcolor{CTrap}{正确理解（独立同概率前提）：}}]
+		      普通几何分布要求各次试验相互独立，且成功概率 $p$ 恒定。只有在此前提下，首次成功所需总试验次数的期望才是 $1/p$。
+
+		\item[\textbf{\textcolor{CTrap}{错因分析（模型误判）：}}]
+		      看到“直到第一次成功”就立刻套几何分布，却没有检查各次试验是否独立、成功概率是否保持不变。
+	\end{description}
+\end{trapbox}
