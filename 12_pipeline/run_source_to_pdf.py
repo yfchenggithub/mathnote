@@ -240,7 +240,7 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
             "One-click flow: source.tex -> create input case -> run pipeline -> "
-            "publish -> fix math punctuation -> build PDF."
+            "publish -> fix math punctuation -> build PDF -> fix meta LaTeX escapes."
         )
     )
     parser.add_argument(
@@ -595,6 +595,55 @@ def parse_new_id(stdout: str) -> str:
     return match.group(1).upper()
 
 
+def project_relative_path(path: Path, project_root: Path) -> str:
+    try:
+        return str(path.relative_to(project_root))
+    except ValueError:
+        return str(path)
+
+
+def iter_published_module_dirs(project_root: Path) -> list[Path]:
+    module_dirs: list[Path] = []
+    for path in project_root.iterdir():
+        if path.is_dir() and normalize_module_name(path.name) in ALLOWED_MODULE_SET:
+            module_dirs.append(path)
+    return sorted(module_dirs, key=lambda item: item.name)
+
+
+def find_second_level_meta_json(project_root: Path, item_id: str) -> Path:
+    normalized_id = item_id.upper()
+    matches: list[Path] = []
+
+    for module_dir in iter_published_module_dirs(project_root):
+        for conclusion_dir in sorted(module_dir.iterdir(), key=lambda item: item.name):
+            if not conclusion_dir.is_dir():
+                continue
+            name = conclusion_dir.name.upper()
+            if not (
+                name == normalized_id
+                or name.startswith(f"{normalized_id}_")
+                or name.startswith(f"{normalized_id}-")
+            ):
+                continue
+
+            meta_path = conclusion_dir / "meta.json"
+            if meta_path.is_file():
+                matches.append(meta_path)
+
+    if not matches:
+        raise FileNotFoundError(
+            f"Cannot find published second-level meta.json for {normalized_id}."
+        )
+
+    if len(matches) > 1:
+        display = ", ".join(project_relative_path(path, project_root) for path in matches)
+        raise ValueError(
+            f"Multiple second-level meta.json files found for {normalized_id}: {display}"
+        )
+
+    return matches[0]
+
+
 def run_flow(args: argparse.Namespace) -> int:
     script_path = Path(__file__).resolve()
     pipeline_dir = script_path.parent
@@ -619,18 +668,28 @@ def run_flow(args: argparse.Namespace) -> int:
     run_script = pipeline_dir / "run_pipeline.py"
     publish_script = pipeline_dir / "publish_pipeline_output.py"
     fix_script = project_root / "scripts" / "fix_math_punctuation.py"
+    fix_meta_script = project_root / "scripts" / "fix_meta_latex_command_escapes.py"
     build_pdf_script = project_root / "scripts" / "build_conclusion_pdfs.py"
 
     if args.dry_run:
         planned_id = "<NEW_ID_FROM_STEP1>"
         plan = [
-            ("Step 1/5 create next input case", [python_exe, str(create_script), module_selector]),
-            ("Step 2/5 run pipeline", [python_exe, str(run_script), planned_id]),
-            ("Step 3/5 publish output", [python_exe, str(publish_script), planned_id]),
-            ("Step 4/5 fix math punctuation", [python_exe, str(fix_script), planned_id]),
+            ("Step 1/6 create next input case", [python_exe, str(create_script), module_selector]),
+            ("Step 2/6 run pipeline", [python_exe, str(run_script), planned_id]),
+            ("Step 3/6 publish output", [python_exe, str(publish_script), planned_id]),
+            ("Step 4/6 fix math punctuation", [python_exe, str(fix_script), planned_id]),
             (
-                "Step 5/5 build PDF",
+                "Step 5/6 build PDF",
                 [python_exe, str(build_pdf_script), planned_id, "--pdf-name-mode", "id"],
+            ),
+            (
+                "Step 6/6 fix meta LaTeX command escapes",
+                [
+                    python_exe,
+                    str(fix_meta_script),
+                    "<PUBLISHED_SECOND_LEVEL_META_JSON>",
+                    "--write",
+                ],
             ),
         ]
         print(f"[info] Project root: {project_root}")
@@ -649,7 +708,7 @@ def run_flow(args: argparse.Namespace) -> int:
 
     create_cmd = [python_exe, str(create_script), module_selector]
     create_result = run_command(
-        "Step 1/5 create next input case",
+        "Step 1/6 create next input case",
         create_cmd,
         project_root,
         stream_output=True,
@@ -660,28 +719,28 @@ def run_flow(args: argparse.Namespace) -> int:
     print(f"[info] Parsed NEW_ID={new_id}")
 
     run_command(
-        "Step 2/5 run pipeline",
+        "Step 2/6 run pipeline",
         [python_exe, str(run_script), new_id],
         project_root,
         stream_output=True,
         capture_output=False,
     )
     run_command(
-        "Step 3/5 publish output",
+        "Step 3/6 publish output",
         [python_exe, str(publish_script), new_id],
         project_root,
         stream_output=True,
         capture_output=False,
     )
     run_command(
-        "Step 4/5 fix math punctuation",
+        "Step 4/6 fix math punctuation",
         [python_exe, str(fix_script), new_id],
         project_root,
         stream_output=True,
         capture_output=False,
     )
     run_command(
-        "Step 5/5 build PDF",
+        "Step 5/6 build PDF",
         [python_exe, str(build_pdf_script), new_id, "--pdf-name-mode", "id"],
         project_root,
         stream_output=True,
@@ -695,6 +754,16 @@ def run_flow(args: argparse.Namespace) -> int:
         print(f"PDF_READY={pdf_path}")
     else:
         print(f"[warn] PDF file not found yet: {pdf_path}")
+
+    meta_path = find_second_level_meta_json(project_root, new_id)
+    print(f"[info] META_FIX_TARGET={project_relative_path(meta_path, project_root)}")
+    run_command(
+        "Step 6/6 fix meta LaTeX command escapes",
+        [python_exe, str(fix_meta_script), str(meta_path), "--write"],
+        project_root,
+        stream_output=True,
+        capture_output=False,
+    )
 
     return 0
 
