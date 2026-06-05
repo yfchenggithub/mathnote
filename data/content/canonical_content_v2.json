@@ -273962,5 +273962,3400 @@
         "legacy_display_version": 2
       }
     }
+  },
+  "R008": {
+    "id": "R008",
+    "schema_version": 2,
+    "type": "conclusion",
+    "status": "published",
+    "identity": {
+      "slug": "r008",
+      "module": "probability-stat",
+      "knowledge_node": "概率-随机变量-期望",
+      "alt_nodes": [
+        "概率-随机变量-分布列",
+        "统计-数据分析-平均数"
+      ]
+    },
+    "meta": {
+      "title": "离散型随机变量的数学期望",
+      "aliases": [
+        "数学期望",
+        "期望定义",
+        "加权平均"
+      ],
+      "difficulty": 2,
+      "category": "概率统计",
+      "tags": [
+        "数学期望",
+        "离散型随机变量",
+        "分布列",
+        "加权平均",
+        "期望线性性质",
+        "基础定义"
+      ],
+      "summary": "期望是随机变量取值以概率为权重的加权平均值，反映随机变量的集中位置。",
+      "is_pro": false,
+      "remarks": null
+    },
+    "content": {
+      "render_schema_version": 2,
+      "primary_formula": {
+        "latex": "E\\xi = \\sum_i x_i P_i",
+        "type": "math_image",
+        "need_image": "true",
+        "asset": {
+          "png": "/static/formulas/R008/5cbf9cdd40789c77@3x.png",
+          "webp": "/static/formulas/R008/5cbf9cdd40789c77@3x.webp",
+          "width_px": 269,
+          "height_px": 111,
+          "display_width_px": 90,
+          "display_height_px": 37,
+          "scale": 3
+        }
+      },
+      "variables": [
+        {
+          "name": "\\xi",
+          "latex": "\\xi",
+          "description": "（迁移阶段未提供变量说明）",
+          "required": true
+        },
+        {
+          "name": "x_i",
+          "latex": "x_i",
+          "description": "（迁移阶段未提供变量说明）",
+          "required": true
+        },
+        {
+          "name": "P_i",
+          "latex": "P_i",
+          "description": "（迁移阶段未提供变量说明）",
+          "required": true
+        }
+      ],
+      "conditions": [
+        {
+          "id": "cond_1",
+          "title": "条件1",
+          "content": [
+            {
+              "type": "text",
+              "text": "随机变量\\xi为离散型"
+            }
+          ],
+          "required": true,
+          "scope": null
+        },
+        {
+          "id": "cond_2",
+          "title": "条件2",
+          "content": [
+            {
+              "type": "text",
+              "text": "分布列P(\\xi=x_i)=P_i已知"
+            }
+          ],
+          "required": true,
+          "scope": null
+        },
+        {
+          "id": "cond_3",
+          "title": "条件3",
+          "content": [
+            {
+              "type": "text",
+              "text": "P_i\\ge0"
+            }
+          ],
+          "required": true,
+          "scope": null
+        },
+        {
+          "id": "cond_4",
+          "title": "条件4",
+          "content": [
+            {
+              "type": "text",
+              "text": "\\sum_i P_i=1"
+            }
+          ],
+          "required": true,
+          "scope": null
+        }
+      ],
+      "conclusions": [
+        {
+          "id": "conc_1",
+          "title": "结论1",
+          "content": [
+            {
+              "type": "text",
+              "text": "E\\xi由分布列唯一确定"
+            }
+          ]
+        },
+        {
+          "id": "conc_2",
+          "title": "结论2",
+          "content": [
+            {
+              "type": "text",
+              "text": "期望值介于最小取值和最大取值之间"
+            }
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "key": "core_formula",
+          "title": "核心公式",
+          "block_type": "rich_text",
+          "blocks": [
+            {
+              "id": "core-formula-b1",
+              "type": "math_image",
+              "latex": "E\\xi = \\sum_i x_i P_i",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/5cbf9cdd40789c77@3x.png",
+                "webp": "/static/formulas/R008/5cbf9cdd40789c77@3x.webp",
+                "width_px": 269,
+                "height_px": 111,
+                "display_width_px": 90,
+                "display_height_px": 37,
+                "scale": 3
+              }
+            }
+          ]
+        },
+        {
+          "key": "variables",
+          "title": "涉及变量",
+          "block_type": "rich_text",
+          "blocks": [
+            {
+              "id": "variables-b1",
+              "type": "math_block",
+              "latex": "\\xi",
+              "align": "center"
+            },
+            {
+              "id": "variables-b2",
+              "type": "math_block",
+              "latex": "x_i",
+              "align": "center"
+            },
+            {
+              "id": "variables-b3",
+              "type": "math_block",
+              "latex": "P_i",
+              "align": "center"
+            }
+          ]
+        },
+        {
+          "key": "statement",
+          "title": "命题表述",
+          "block_type": "theorem_group",
+          "blocks": [
+            {
+              "id": "statement-b1",
+              "type": "theorem_group",
+              "items": [
+                {
+                  "title": "条件1（有限离散取值）：",
+                  "desc_tokens": [
+                    {
+                      "type": "text",
+                      "text": "在高中常见题型中，随机变量"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "\\xi"
+                    },
+                    {
+                      "type": "text",
+                      "text": "只取有限个值"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "x_1,x_2,\\dots,x_n",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/R008/985450a5df5924ae@3x.png",
+                        "webp": "/static/formulas/R008/985450a5df5924ae@3x.webp",
+                        "width_px": 245,
+                        "height_px": 50,
+                        "display_width_px": 82,
+                        "display_height_px": 17,
+                        "scale": 3
+                      }
+                    }
+                  ]
+                },
+                {
+                  "title": "条件2（分布列性质）：",
+                  "desc_tokens": [
+                    {
+                      "type": "math_image",
+                      "latex": "P(\\xi=x_i)=P_i",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/R008/a7c6359723fabca8@3x.png",
+                        "webp": "/static/formulas/R008/a7c6359723fabca8@3x.webp",
+                        "width_px": 289,
+                        "height_px": 65,
+                        "display_width_px": 96,
+                        "display_height_px": 22,
+                        "scale": 3
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "，且"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "P_i\\ge0,\\qquad \\sum_{i=1}^{n}P_i=1.",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/R008/f01027687ae2b1da@3x.png",
+                        "webp": "/static/formulas/R008/f01027687ae2b1da@3x.webp",
+                        "width_px": 429,
+                        "height_px": 136,
+                        "display_width_px": 143,
+                        "display_height_px": 45,
+                        "scale": 3
+                      }
+                    }
+                  ]
+                },
+                {
+                  "title": "拓展说明（可列无穷情形）：",
+                  "desc_tokens": [
+                    {
+                      "type": "text",
+                      "text": "若"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "\\xi"
+                    },
+                    {
+                      "type": "text",
+                      "text": "取可列无穷多个值"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "x_1,x_2,\\dots",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/R008/d12ec03333a4d29d@3x.png",
+                        "webp": "/static/formulas/R008/d12ec03333a4d29d@3x.webp",
+                        "width_px": 176,
+                        "height_px": 50,
+                        "display_width_px": 59,
+                        "display_height_px": 17,
+                        "scale": 3
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "，还需满足"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "\\sum_{i=1}^{\\infty}|x_i|P_i<+\\infty,",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/R008/b0baa296a0bcec3d@3x.png",
+                        "webp": "/static/formulas/R008/b0baa296a0bcec3d@3x.webp",
+                        "width_px": 326,
+                        "height_px": 136,
+                        "display_width_px": 109,
+                        "display_height_px": 45,
+                        "scale": 3
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "此时数学期望才作为有限实数存在。"
+                    }
+                  ]
+                },
+                {
+                  "title": "结论一（期望定义）：",
+                  "desc_tokens": [
+                    {
+                      "type": "text",
+                      "text": "期望是以概率为权重的加权平均值，反映随机变量的长期平均水平或概率平衡位置。"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "E\\xi=\\sum_{i=1}^{n}x_iP_i.",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/R008/f9223d79e0caf4ce@3x.png",
+                        "webp": "/static/formulas/R008/f9223d79e0caf4ce@3x.webp",
+                        "width_px": 281,
+                        "height_px": 136,
+                        "display_width_px": 94,
+                        "display_height_px": 45,
+                        "scale": 3
+                      }
+                    }
+                  ]
+                },
+                {
+                  "title": "常见变形（线性性质）：",
+                  "desc_tokens": [
+                    {
+                      "type": "text",
+                      "text": "当相关期望存在时，期望运算满足线性性，常数可提、和可分。"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "E(a\\xi+b)=aE\\xi+b,\\qquad a,b\\in\\mathbb{R}.",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/R008/32be1c063a045986@3x.png",
+                        "webp": "/static/formulas/R008/32be1c063a045986@3x.webp",
+                        "width_px": 633,
+                        "height_px": 65,
+                        "display_width_px": 211,
+                        "display_height_px": 22,
+                        "scale": 3
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "更一般地，若"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "E\\xi"
+                    },
+                    {
+                      "type": "text",
+                      "text": "与"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "E\\eta"
+                    },
+                    {
+                      "type": "text",
+                      "text": "都存在，则"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "E(\\xi+\\eta)=E\\xi+E\\eta.",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/R008/07f729027f75cd26@3x.png",
+                        "webp": "/static/formulas/R008/07f729027f75cd26@3x.webp",
+                        "width_px": 391,
+                        "height_px": 65,
+                        "display_width_px": 130,
+                        "display_height_px": 22,
+                        "scale": 3
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "注意：上式不要求"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "\\xi"
+                    },
+                    {
+                      "type": "text",
+                      "text": "与"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "\\eta"
+                    },
+                    {
+                      "type": "text",
+                      "text": "相互独立。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "explanation",
+          "title": "理解与直觉",
+          "block_type": "rich_text",
+          "blocks": [
+            {
+              "id": "explanation-b1",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "一句话直觉\n期望就是随机变量所有可能取值按对应概率大小进行的加权平均，它刻画的是随机变量的长期平均水平或概率平衡位置，而不一定是最可能出现的值，也不一定是随机变量能够实际取到的值。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b2",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "核心拆解"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b3",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "要点一（加权平均）：\n公式"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b4",
+              "type": "math_image",
+              "latex": "E\\xi=\\sum_{i=1}^{n}x_iP_i",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/d765babbf605a611@3x.png",
+                "webp": "/static/formulas/R008/d765babbf605a611@3x.webp",
+                "width_px": 269,
+                "height_px": 136,
+                "display_width_px": 90,
+                "display_height_px": 45,
+                "scale": 3
+              }
+            },
+            {
+              "id": "explanation-b5",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "中，"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "P_i"
+                },
+                {
+                  "type": "text",
+                  "text": "是对应取值"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x_i"
+                },
+                {
+                  "type": "text",
+                  "text": "的概率权重。权重越大的取值，对期望的影响越大。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b6",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "要点二（归一条件）：\n所有"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "P_i"
+                },
+                {
+                  "type": "text",
+                  "text": "之和为"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "1"
+                },
+                {
+                  "type": "text",
+                  "text": "，保证加权平均的规范性。若总和不为"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "1"
+                },
+                {
+                  "type": "text",
+                  "text": "，这些数就不能直接作为概率使用。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b7",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "要点三（存在条件）：\n对高中常见的有限分布，期望一定存在；若拓展到可列无穷分布，则需额外保证"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b8",
+              "type": "math_image",
+              "latex": "\\sum_{i=1}^{\\infty}|x_i|P_i<+\\infty",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/53855161b5358d9f@3x.png",
+                "webp": "/static/formulas/R008/53855161b5358d9f@3x.webp",
+                "width_px": 315,
+                "height_px": 136,
+                "display_width_px": 105,
+                "display_height_px": 45,
+                "scale": 3
+              }
+            },
+            {
+              "id": "explanation-b9",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b10",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "几何本质（重心位置）\n把概率"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "P_i"
+                },
+                {
+                  "type": "text",
+                  "text": "视为质点质量，把取值"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x_i"
+                },
+                {
+                  "type": "text",
+                  "text": "视为质点在数轴上的位置，则期望就是这些质点系统的重心坐标。它表示“平衡点”，不表示随机变量一定会取到这个值。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b11",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "代数意义（线性算符）\n期望是一种线性运算：当"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b12",
+              "type": "math_block",
+              "latex": "E\\xi",
+              "align": "center"
+            },
+            {
+              "id": "explanation-b13",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "存在时，对任意常数"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "a,b"
+                },
+                {
+                  "type": "text",
+                  "text": "，有"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b14",
+              "type": "math_image",
+              "latex": "E(a\\xi+b)=aE\\xi+b",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/3d5c6d3d91c575b6@3x.png",
+                "webp": "/static/formulas/R008/3d5c6d3d91c575b6@3x.webp",
+                "width_px": 386,
+                "height_px": 65,
+                "display_width_px": 129,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "explanation-b15",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".如果"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b16",
+              "type": "math_block",
+              "latex": "E\\xi",
+              "align": "center"
+            },
+            {
+              "id": "explanation-b17",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "与"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b18",
+              "type": "math_block",
+              "latex": "E\\eta",
+              "align": "center"
+            },
+            {
+              "id": "explanation-b19",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "都存在，则"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b20",
+              "type": "math_image",
+              "latex": "E(\\xi+\\eta)=E\\xi+E\\eta",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/5889891b3d274840@3x.png",
+                "webp": "/static/formulas/R008/5889891b3d274840@3x.webp",
+                "width_px": 380,
+                "height_px": 65,
+                "display_width_px": 127,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "explanation-b21",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".这个“和可分”性质不要求"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b22",
+              "type": "math_block",
+              "latex": "\\xi",
+              "align": "center"
+            },
+            {
+              "id": "explanation-b23",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "与"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b24",
+              "type": "math_block",
+              "latex": "\\eta",
+              "align": "center"
+            },
+            {
+              "id": "explanation-b25",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "独立。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b26",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "考点价值（常考题型）"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b27",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "考法一（直接计算）： 给定分布列，直接代入加权和公式求期望。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b28",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "考法二（逆求参数）： 已知期望值，反推概率"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "P_i"
+                },
+                {
+                  "type": "text",
+                  "text": "或取值"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x_i"
+                },
+                {
+                  "type": "text",
+                  "text": "。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b29",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "考法三（线性应用）： 利用"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b30",
+              "type": "math_image",
+              "latex": "E(a\\xi+b)=aE\\xi+b",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/3d5c6d3d91c575b6@3x.png",
+                "webp": "/static/formulas/R008/3d5c6d3d91c575b6@3x.webp",
+                "width_px": 386,
+                "height_px": 65,
+                "display_width_px": 129,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "explanation-b31",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "简化计算。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b32",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "考法四（范围检查）： 对有限分布，检查"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b33",
+              "type": "math_block",
+              "latex": "E\\xi",
+              "align": "center"
+            },
+            {
+              "id": "explanation-b34",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "是否落在最小取值与最大取值之间。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b35",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "顿悟点\n期望是加权平均，不是简单的算术平均。当各取值等可能，即"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b36",
+              "type": "math_image",
+              "latex": "P_1=P_2=\\cdots=P_n=\\frac1n",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/ba7bb19d91af84b4@3x.png",
+                "webp": "/static/formulas/R008/ba7bb19d91af84b4@3x.webp",
+                "width_px": 450,
+                "height_px": 107,
+                "display_width_px": 150,
+                "display_height_px": 36,
+                "scale": 3
+              }
+            },
+            {
+              "id": "explanation-b37",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "时，期望就是这些取值的算术平均数；一般情况下不能直接用算术平均数代替期望。\n注意：概率相等是“期望等于算术平均数”的常见充分条件，但不能反过来说“只有概率相等时期望才等于算术平均数”。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b38",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "使用场景"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b39",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "场景一（直接套用）： 已知有限离散型随机变量的分布列，直接用公式"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b40",
+              "type": "math_image",
+              "latex": "E\\xi=\\sum_{i=1}^{n}x_iP_i",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/d765babbf605a611@3x.png",
+                "webp": "/static/formulas/R008/d765babbf605a611@3x.webp",
+                "width_px": 269,
+                "height_px": 136,
+                "display_width_px": 90,
+                "display_height_px": 45,
+                "scale": 3
+              }
+            },
+            {
+              "id": "explanation-b41",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "计算。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b42",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "场景二（线性转化）： 已知"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b43",
+              "type": "math_block",
+              "latex": "E\\xi",
+              "align": "center"
+            },
+            {
+              "id": "explanation-b44",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，求"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b45",
+              "type": "math_image",
+              "latex": "E(a\\xi+b)",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/5ddc3bdbe998c801@3x.png",
+                "webp": "/static/formulas/R008/5ddc3bdbe998c801@3x.webp",
+                "width_px": 194,
+                "height_px": 65,
+                "display_width_px": 65,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "explanation-b46",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "时用线性性质，无需重新计算新随机变量的分布列。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b47",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "场景三（平均收益比较）： 若只以长期平均收益为标准，可以比较期望值大小；实际决策还应结合风险、波动和最坏情况等因素。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "proof",
+          "title": "证明过程",
+          "block_type": "rich_text",
+          "blocks": [
+            {
+              "id": "proof-b1",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "思路提示\n数学期望对离散型随机变量来说，本质上是由分布列定义出来的加权平均。下面的内容更准确地说是“合理性说明”或“直观解释”，不是用大数定律反过来严格证明定义。"
+                }
+              ]
+            },
+            {
+              "id": "proof-b2",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "定义与直观解释"
+                }
+              ]
+            },
+            {
+              "id": "proof-b3",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "步骤一（有限分布列）：\n设随机变量"
+                }
+              ]
+            },
+            {
+              "id": "proof-b4",
+              "type": "math_block",
+              "latex": "\\xi",
+              "align": "center"
+            },
+            {
+              "id": "proof-b5",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "只取有限个值"
+                }
+              ]
+            },
+            {
+              "id": "proof-b6",
+              "type": "math_image",
+              "latex": "x_1,x_2,\\dots,x_n",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/985450a5df5924ae@3x.png",
+                "webp": "/static/formulas/R008/985450a5df5924ae@3x.webp",
+                "width_px": 245,
+                "height_px": 50,
+                "display_width_px": 82,
+                "display_height_px": 17,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b7",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，且"
+                }
+              ]
+            },
+            {
+              "id": "proof-b8",
+              "type": "math_image",
+              "latex": "P(\\xi=x_i)=P_i,\\qquad P_i\\ge0,\\qquad \\sum_{i=1}^{n}P_i=1",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/337d210c5a243246@3x.png",
+                "webp": "/static/formulas/R008/337d210c5a243246@3x.webp",
+                "width_px": 782,
+                "height_px": 136,
+                "display_width_px": 261,
+                "display_height_px": 45,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b9",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".理由： 这是高中阶段最常见的离散型随机变量分布列形式。"
+                }
+              ]
+            },
+            {
+              "id": "proof-b10",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "步骤二（加权平均定义）：\n将概率"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "P_i"
+                },
+                {
+                  "type": "text",
+                  "text": "作为权重，把对应取值"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x_i"
+                },
+                {
+                  "type": "text",
+                  "text": "加权求和，定义"
+                }
+              ]
+            },
+            {
+              "id": "proof-b11",
+              "type": "math_image",
+              "latex": "E\\xi=\\sum_{i=1}^{n}x_iP_i",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/d765babbf605a611@3x.png",
+                "webp": "/static/formulas/R008/d765babbf605a611@3x.webp",
+                "width_px": 269,
+                "height_px": 136,
+                "display_width_px": 90,
+                "display_height_px": 45,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b12",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".理由： 概率越大的取值，在长期平均中出现得越频繁，因此对平均水平的影响越大。"
+                }
+              ]
+            },
+            {
+              "id": "proof-b13",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "步骤三（频率直观）：\n设在"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "N"
+                },
+                {
+                  "type": "text",
+                  "text": "次独立重复试验中，"
+                }
+              ]
+            },
+            {
+              "id": "proof-b14",
+              "type": "math_block",
+              "latex": "\\xi",
+              "align": "center"
+            },
+            {
+              "id": "proof-b15",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "取值为"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x_i"
+                },
+                {
+                  "type": "text",
+                  "text": "的次数为"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "N_i"
+                },
+                {
+                  "type": "text",
+                  "text": "，频率为"
+                }
+              ]
+            },
+            {
+              "id": "proof-b16",
+              "type": "math_image",
+              "latex": "f_i=\\frac{N_i}{N}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/62df49914d222538@3x.png",
+                "webp": "/static/formulas/R008/62df49914d222538@3x.webp",
+                "width_px": 176,
+                "height_px": 107,
+                "display_width_px": 59,
+                "display_height_px": 36,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b17",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".则这"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "N"
+                },
+                {
+                  "type": "text",
+                  "text": "次试验的样本平均数为"
+                }
+              ]
+            },
+            {
+              "id": "proof-b18",
+              "type": "math_image",
+              "latex": "\\bar{x}^{(N)}=\\sum_{i=1}^{n}x_i f_i",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/f7e4be14bcf7cb90@3x.png",
+                "webp": "/static/formulas/R008/f7e4be14bcf7cb90@3x.webp",
+                "width_px": 288,
+                "height_px": 136,
+                "display_width_px": 96,
+                "display_height_px": 45,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b19",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".当"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "N"
+                },
+                {
+                  "type": "text",
+                  "text": "很大时，频率"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "f_i"
+                },
+                {
+                  "type": "text",
+                  "text": "通常会稳定在概率"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "P_i"
+                },
+                {
+                  "type": "text",
+                  "text": "附近，于是"
+                }
+              ]
+            },
+            {
+              "id": "proof-b20",
+              "type": "math_image",
+              "latex": "\\bar{x}^{(N)}\\approx \\sum_{i=1}^{n}x_iP_i=E\\xi",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/e7728e8e58311e62@3x.png",
+                "webp": "/static/formulas/R008/e7728e8e58311e62@3x.webp",
+                "width_px": 398,
+                "height_px": 136,
+                "display_width_px": 133,
+                "display_height_px": 45,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b21",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".理由： 这说明期望可以理解为大量重复试验下的长期平均水平。"
+                }
+              ]
+            },
+            {
+              "id": "proof-b22",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "严谨提醒\n期望不是“由样本均值极限临时定义出来”的，而是由分布列给出的加权平均。大数定律说明的是：在适当条件下，大量重复试验的样本平均数会趋近期望。因此这里应理解为期望定义的合理性解释，而不是严格证明。"
+                }
+              ]
+            },
+            {
+              "id": "proof-b23",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "结论回扣\n因此，对有限离散型随机变量，数学期望"
+                }
+              ]
+            },
+            {
+              "id": "proof-b24",
+              "type": "math_block",
+              "latex": "E\\xi",
+              "align": "center"
+            },
+            {
+              "id": "proof-b25",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "可直接由分布列表示为"
+                }
+              ]
+            },
+            {
+              "id": "proof-b26",
+              "type": "math_image",
+              "latex": "E\\xi=\\sum_{i=1}^{n}x_iP_i",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/d765babbf605a611@3x.png",
+                "webp": "/static/formulas/R008/d765babbf605a611@3x.webp",
+                "width_px": 269,
+                "height_px": 136,
+                "display_width_px": 90,
+                "display_height_px": 45,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b27",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ",它是随机变量取值依概率形成的加权平均，反映长期平均水平。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "examples",
+          "title": "例题应用",
+          "block_type": "rich_text",
+          "blocks": [
+            {
+              "id": "examples-b1",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "例1（基础）\n题目： 随机变量"
+                }
+              ]
+            },
+            {
+              "id": "examples-b2",
+              "type": "math_block",
+              "latex": "\\xi",
+              "align": "center"
+            },
+            {
+              "id": "examples-b3",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "的分布列为"
+                }
+              ]
+            },
+            {
+              "id": "examples-b4",
+              "type": "math_image",
+              "latex": "P(\\xi=1)=0.1",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/ab51d3a99d80af1c@3x.png",
+                "webp": "/static/formulas/R008/ab51d3a99d80af1c@3x.webp",
+                "width_px": 286,
+                "height_px": 65,
+                "display_width_px": 95,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b5",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ","
+                }
+              ]
+            },
+            {
+              "id": "examples-b6",
+              "type": "math_image",
+              "latex": "P(\\xi=2)=0.2",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/1390380a91a85e54@3x.png",
+                "webp": "/static/formulas/R008/1390380a91a85e54@3x.webp",
+                "width_px": 286,
+                "height_px": 65,
+                "display_width_px": 95,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b7",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ","
+                }
+              ]
+            },
+            {
+              "id": "examples-b8",
+              "type": "math_image",
+              "latex": "P(\\xi=3)=0.3",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/9a83279e73fbecd1@3x.png",
+                "webp": "/static/formulas/R008/9a83279e73fbecd1@3x.webp",
+                "width_px": 286,
+                "height_px": 65,
+                "display_width_px": 95,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b9",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ","
+                }
+              ]
+            },
+            {
+              "id": "examples-b10",
+              "type": "math_image",
+              "latex": "P(\\xi=4)=0.4",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/92d99c50e612cb2f@3x.png",
+                "webp": "/static/formulas/R008/92d99c50e612cb2f@3x.webp",
+                "width_px": 286,
+                "height_px": 65,
+                "display_width_px": 95,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b11",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，求"
+                }
+              ]
+            },
+            {
+              "id": "examples-b12",
+              "type": "math_block",
+              "latex": "E\\xi",
+              "align": "center"
+            },
+            {
+              "id": "examples-b13",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "。\n解题步骤："
+                }
+              ]
+            },
+            {
+              "id": "examples-b14",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第一步（检查分布）：\n概率均非负，且"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "0.1+0.2+0.3+0.4=1",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/R008/fc9fbdedf32a9f09@3x.png",
+                    "webp": "/static/formulas/R008/fc9fbdedf32a9f09@3x.webp",
+                    "width_px": 456,
+                    "height_px": 55,
+                    "display_width_px": 152,
+                    "display_height_px": 18,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": ".理由： 先确认这些数确实构成一个分布列。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b15",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第二步（套用公式）：\n利用"
+                }
+              ]
+            },
+            {
+              "id": "examples-b16",
+              "type": "math_image",
+              "latex": "E\\xi=\\sum_{i=1}^{n}x_iP_i",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/d765babbf605a611@3x.png",
+                "webp": "/static/formulas/R008/d765babbf605a611@3x.webp",
+                "width_px": 269,
+                "height_px": 136,
+                "display_width_px": 90,
+                "display_height_px": 45,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b17",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，代入："
+                }
+              ]
+            },
+            {
+              "id": "examples-b18",
+              "type": "math_image",
+              "latex": "E\\xi=1\\times0.1+2\\times0.2+3\\times0.3+4\\times0.4",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/d9f3190c358f5f0a@3x.png",
+                "webp": "/static/formulas/R008/d9f3190c358f5f0a@3x.webp",
+                "width_px": 766,
+                "height_px": 61,
+                "display_width_px": 255,
+                "display_height_px": 20,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b19",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".理由： 期望是“取值乘以对应概率”后累加。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b20",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第三步（求和结果）：\n计算得："
+                }
+              ]
+            },
+            {
+              "id": "examples-b21",
+              "type": "math_image",
+              "latex": "E\\xi=0.1+0.4+0.9+1.6=3.0",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/3a57174721b2fc54@3x.png",
+                "webp": "/static/formulas/R008/3a57174721b2fc54@3x.webp",
+                "width_px": 592,
+                "height_px": 61,
+                "display_width_px": 197,
+                "display_height_px": 20,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b22",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".理由： 逐项相加即得期望。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b23",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第四步（范围检查）：\n最小取值为"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "1"
+                },
+                {
+                  "type": "text",
+                  "text": "，最大取值为"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "4"
+                },
+                {
+                  "type": "text",
+                  "text": "，且"
+                }
+              ]
+            },
+            {
+              "id": "examples-b24",
+              "type": "math_image",
+              "latex": "1\\le3.0\\le4",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/20f8f7d6909cdeb9@3x.png",
+                "webp": "/static/formulas/R008/20f8f7d6909cdeb9@3x.webp",
+                "width_px": 225,
+                "height_px": 56,
+                "display_width_px": 75,
+                "display_height_px": 19,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b25",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "。\n理由： 对有限分布，期望应落在最小取值和最大取值之间。\n关键结论："
+                }
+              ]
+            },
+            {
+              "id": "examples-b26",
+              "type": "math_image",
+              "latex": "E\\xi=3.0",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/0d0293d13043806c@3x.png",
+                "webp": "/static/formulas/R008/0d0293d13043806c@3x.webp",
+                "width_px": 180,
+                "height_px": 61,
+                "display_width_px": 60,
+                "display_height_px": 20,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b27",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b28",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "例2（稍变形）\n题目： 随机变量"
+                }
+              ]
+            },
+            {
+              "id": "examples-b29",
+              "type": "math_block",
+              "latex": "\\xi",
+              "align": "center"
+            },
+            {
+              "id": "examples-b30",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "的分布列为"
+                }
+              ]
+            },
+            {
+              "id": "examples-b31",
+              "type": "math_image",
+              "latex": "P(\\xi=1)=p",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/690be5080c6a5608@3x.png",
+                "webp": "/static/formulas/R008/690be5080c6a5608@3x.webp",
+                "width_px": 254,
+                "height_px": 65,
+                "display_width_px": 85,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b32",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ","
+                }
+              ]
+            },
+            {
+              "id": "examples-b33",
+              "type": "math_image",
+              "latex": "P(\\xi=2)=0.3",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/2a818476963a89ac@3x.png",
+                "webp": "/static/formulas/R008/2a818476963a89ac@3x.webp",
+                "width_px": 286,
+                "height_px": 65,
+                "display_width_px": 95,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b34",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ","
+                }
+              ]
+            },
+            {
+              "id": "examples-b35",
+              "type": "math_image",
+              "latex": "P(\\xi=3)=0.7-p",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/66d8b2bb70190e57@3x.png",
+                "webp": "/static/formulas/R008/66d8b2bb70190e57@3x.webp",
+                "width_px": 356,
+                "height_px": 65,
+                "display_width_px": 119,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b36",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，且"
+                }
+              ]
+            },
+            {
+              "id": "examples-b37",
+              "type": "math_image",
+              "latex": "E\\xi=2.3",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/f04301d3d21c7e44@3x.png",
+                "webp": "/static/formulas/R008/f04301d3d21c7e44@3x.webp",
+                "width_px": 180,
+                "height_px": 61,
+                "display_width_px": 60,
+                "display_height_px": 20,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b38",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，求"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "p"
+                },
+                {
+                  "type": "text",
+                  "text": "。\n解题步骤："
+                }
+              ]
+            },
+            {
+              "id": "examples-b39",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第一步（检查概率约束）：\n概率和为"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "p+0.3+(0.7-p)=1",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/R008/dd6e56e554b8e664@3x.png",
+                    "webp": "/static/formulas/R008/dd6e56e554b8e664@3x.webp",
+                    "width_px": 425,
+                    "height_px": 65,
+                    "display_width_px": 142,
+                    "display_height_px": 22,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": ".为保证概率非负，还需"
+                }
+              ]
+            },
+            {
+              "id": "examples-b40",
+              "type": "math_image",
+              "latex": "p\\ge0,\\qquad 0.7-p\\ge0",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/1dc0c792ee1b7580@3x.png",
+                "webp": "/static/formulas/R008/1dc0c792ee1b7580@3x.webp",
+                "width_px": 416,
+                "height_px": 59,
+                "display_width_px": 139,
+                "display_height_px": 20,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b41",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ",即"
+                }
+              ]
+            },
+            {
+              "id": "examples-b42",
+              "type": "math_image",
+              "latex": "0\\le p\\le0.7",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/8343ef49ea5fb7ed@3x.png",
+                "webp": "/static/formulas/R008/8343ef49ea5fb7ed@3x.webp",
+                "width_px": 226,
+                "height_px": 59,
+                "display_width_px": 75,
+                "display_height_px": 20,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b43",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".理由： 分布列必须满足概率非负且总和为"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "1"
+                },
+                {
+                  "type": "text",
+                  "text": "。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b44",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第二步（列期望方程）：\n应用"
+                }
+              ]
+            },
+            {
+              "id": "examples-b45",
+              "type": "math_image",
+              "latex": "E\\xi=\\sum_{i=1}^{n}x_iP_i",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/d765babbf605a611@3x.png",
+                "webp": "/static/formulas/R008/d765babbf605a611@3x.webp",
+                "width_px": 269,
+                "height_px": 136,
+                "display_width_px": 90,
+                "display_height_px": 45,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b46",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "写出："
+                }
+              ]
+            },
+            {
+              "id": "examples-b47",
+              "type": "math_image",
+              "latex": "E\\xi=1\\cdot p+2\\cdot0.3+3\\cdot(0.7-p)=2.7-2p",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/5dc3420c4cdddd75@3x.png",
+                "webp": "/static/formulas/R008/5dc3420c4cdddd75@3x.webp",
+                "width_px": 800,
+                "height_px": 65,
+                "display_width_px": 267,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b48",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".理由： 用参数"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "p"
+                },
+                {
+                  "type": "text",
+                  "text": "表示期望。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b49",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第三步（求解并验证）：\n由"
+                }
+              ]
+            },
+            {
+              "id": "examples-b50",
+              "type": "math_image",
+              "latex": "E\\xi=2.3",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/f04301d3d21c7e44@3x.png",
+                "webp": "/static/formulas/R008/f04301d3d21c7e44@3x.webp",
+                "width_px": 180,
+                "height_px": 61,
+                "display_width_px": 60,
+                "display_height_px": 20,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b51",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，得"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "2.7-2p=2.3",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/R008/4c981d8aa90e3302@3x.png",
+                    "webp": "/static/formulas/R008/4c981d8aa90e3302@3x.webp",
+                    "width_px": 273,
+                    "height_px": 59,
+                    "display_width_px": 91,
+                    "display_height_px": 20,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": ",解得"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "p=0.2"
+                },
+                {
+                  "type": "text",
+                  "text": ".且"
+                }
+              ]
+            },
+            {
+              "id": "examples-b52",
+              "type": "math_image",
+              "latex": "0\\le0.2\\le0.7",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/5e6dee5f613a49f2@3x.png",
+                "webp": "/static/formulas/R008/5e6dee5f613a49f2@3x.webp",
+                "width_px": 257,
+                "height_px": 56,
+                "display_width_px": 86,
+                "display_height_px": 19,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b53",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，满足概率约束。\n理由： 逆求参数时，求出结果后必须代回检查概率范围。\n关键结论："
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "p=0.2"
+                },
+                {
+                  "type": "text",
+                  "text": "。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b54",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "例3（综合应用）\n题目： 随机变量"
+                }
+              ]
+            },
+            {
+              "id": "examples-b55",
+              "type": "math_block",
+              "latex": "\\xi",
+              "align": "center"
+            },
+            {
+              "id": "examples-b56",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "的分布列同例1，定义"
+                }
+              ]
+            },
+            {
+              "id": "examples-b57",
+              "type": "math_image",
+              "latex": "\\eta=2\\xi+1",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/a009b980bf8b3a88@3x.png",
+                "webp": "/static/formulas/R008/a009b980bf8b3a88@3x.webp",
+                "width_px": 207,
+                "height_px": 61,
+                "display_width_px": 69,
+                "display_height_px": 20,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b58",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，求"
+                }
+              ]
+            },
+            {
+              "id": "examples-b59",
+              "type": "math_block",
+              "latex": "E\\eta",
+              "align": "center"
+            },
+            {
+              "id": "examples-b60",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "。\n解题步骤："
+                }
+              ]
+            },
+            {
+              "id": "examples-b61",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第一步（回顾基础）：\n由例1知"
+                }
+              ]
+            },
+            {
+              "id": "examples-b62",
+              "type": "math_image",
+              "latex": "E\\xi=3",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/3ee9be3ff2d08af9@3x.png",
+                "webp": "/static/formulas/R008/3ee9be3ff2d08af9@3x.webp",
+                "width_px": 148,
+                "height_px": 61,
+                "display_width_px": 49,
+                "display_height_px": 20,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b63",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".理由： 例1已经直接计算得到"
+                }
+              ]
+            },
+            {
+              "id": "examples-b64",
+              "type": "math_block",
+              "latex": "\\xi",
+              "align": "center"
+            },
+            {
+              "id": "examples-b65",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "的期望。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b66",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第二步（使用线性性质）：\n因为"
+                }
+              ]
+            },
+            {
+              "id": "examples-b67",
+              "type": "math_block",
+              "latex": "\\xi",
+              "align": "center"
+            },
+            {
+              "id": "examples-b68",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "为有限离散型随机变量，期望存在。利用"
+                }
+              ]
+            },
+            {
+              "id": "examples-b69",
+              "type": "math_image",
+              "latex": "E(a\\xi+b)=aE\\xi+b",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/3d5c6d3d91c575b6@3x.png",
+                "webp": "/static/formulas/R008/3d5c6d3d91c575b6@3x.webp",
+                "width_px": 386,
+                "height_px": 65,
+                "display_width_px": 129,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b70",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ",取"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "a=2,b=1",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/R008/932157256a3d7979@3x.png",
+                    "webp": "/static/formulas/R008/932157256a3d7979@3x.webp",
+                    "width_px": 230,
+                    "height_px": 60,
+                    "display_width_px": 77,
+                    "display_height_px": 20,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "，得"
+                }
+              ]
+            },
+            {
+              "id": "examples-b71",
+              "type": "math_image",
+              "latex": "E\\eta=E(2\\xi+1)=2E\\xi+1=2\\times3+1=7",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/4d5693d7852cd5a6@3x.png",
+                "webp": "/static/formulas/R008/4d5693d7852cd5a6@3x.webp",
+                "width_px": 785,
+                "height_px": 65,
+                "display_width_px": 262,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b72",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".理由： 线性性质可以避免重新列出"
+                }
+              ]
+            },
+            {
+              "id": "examples-b73",
+              "type": "math_block",
+              "latex": "\\eta",
+              "align": "center"
+            },
+            {
+              "id": "examples-b74",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "的分布列。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b75",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第三步（直接验证）：\n由于"
+                }
+              ]
+            },
+            {
+              "id": "examples-b76",
+              "type": "math_image",
+              "latex": "\\eta=2\\xi+1",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/a009b980bf8b3a88@3x.png",
+                "webp": "/static/formulas/R008/a009b980bf8b3a88@3x.webp",
+                "width_px": 207,
+                "height_px": 61,
+                "display_width_px": 69,
+                "display_height_px": 20,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b77",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，当"
+                }
+              ]
+            },
+            {
+              "id": "examples-b78",
+              "type": "math_block",
+              "latex": "\\xi",
+              "align": "center"
+            },
+            {
+              "id": "examples-b79",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "取"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "1,2,3,4",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/R008/4697a8195a0e8ef4@3x.png",
+                    "webp": "/static/formulas/R008/4697a8195a0e8ef4@3x.webp",
+                    "width_px": 160,
+                    "height_px": 59,
+                    "display_width_px": 53,
+                    "display_height_px": 20,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "时，"
+                }
+              ]
+            },
+            {
+              "id": "examples-b80",
+              "type": "math_block",
+              "latex": "\\eta",
+              "align": "center"
+            },
+            {
+              "id": "examples-b81",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "分别取"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "3,5,7,9",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/R008/312ef03b0d98db57@3x.png",
+                    "webp": "/static/formulas/R008/312ef03b0d98db57@3x.webp",
+                    "width_px": 160,
+                    "height_px": 59,
+                    "display_width_px": 53,
+                    "display_height_px": 20,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "，概率仍为"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "0.1,0.2,0.3,0.4",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/R008/4e4d77e9184a2cdd@3x.png",
+                    "webp": "/static/formulas/R008/4e4d77e9184a2cdd@3x.webp",
+                    "width_px": 287,
+                    "height_px": 59,
+                    "display_width_px": 96,
+                    "display_height_px": 20,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "。于是"
+                }
+              ]
+            },
+            {
+              "id": "examples-b82",
+              "type": "math_image",
+              "latex": "E\\eta=3\\times0.1+5\\times0.2+7\\times0.3+9\\times0.4=7",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/aa0abe6cfe8102be@3x.png",
+                "webp": "/static/formulas/R008/aa0abe6cfe8102be@3x.webp",
+                "width_px": 843,
+                "height_px": 60,
+                "display_width_px": 281,
+                "display_height_px": 20,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b83",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".理由： 直接计算与线性性质结果一致，说明计算正确。\n关键结论："
+                }
+              ]
+            },
+            {
+              "id": "examples-b84",
+              "type": "math_image",
+              "latex": "E(2\\xi+1)=7",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/ed3d7a965c07d102@3x.png",
+                "webp": "/static/formulas/R008/ed3d7a965c07d102@3x.webp",
+                "width_px": 270,
+                "height_px": 65,
+                "display_width_px": 90,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b85",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "traps",
+          "title": "易错提醒",
+          "block_type": "warning_group",
+          "blocks": [
+            {
+              "id": "traps-b1",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "易错点一（混淆均值）\n学生常误认为期望就是算术平均数，直接计算各"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x_i"
+                },
+                {
+                  "type": "text",
+                  "text": "的和再除以个数。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b2",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "正确理解（加权平均）：\n期望"
+                }
+              ]
+            },
+            {
+              "id": "traps-b3",
+              "type": "math_image",
+              "latex": "E\\xi=\\sum_{i=1}^{n}x_iP_i",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/d765babbf605a611@3x.png",
+                "webp": "/static/formulas/R008/d765babbf605a611@3x.webp",
+                "width_px": 269,
+                "height_px": 136,
+                "display_width_px": 90,
+                "display_height_px": 45,
+                "scale": 3
+              }
+            },
+            {
+              "id": "traps-b4",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "是加权平均，权数为对应概率。若各取值等可能，即"
+                }
+              ]
+            },
+            {
+              "id": "traps-b5",
+              "type": "math_image",
+              "latex": "P_1=P_2=\\cdots=P_n=\\frac1n",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/ba7bb19d91af84b4@3x.png",
+                "webp": "/static/formulas/R008/ba7bb19d91af84b4@3x.webp",
+                "width_px": 450,
+                "height_px": 107,
+                "display_width_px": 150,
+                "display_height_px": 36,
+                "scale": 3
+              }
+            },
+            {
+              "id": "traps-b6",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，则期望等于这些取值的算术平均数；一般情况下不能直接用算术平均数代替期望。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b7",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "特别提醒（避免反向误判）：\n“概率相等时，期望等于算术平均数”是常见充分条件，但不能写成“只有概率相等时，期望才等于算术平均数”。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b8",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "错因分析（概念不清）：\n将等可能情形下的结论推广到一般，忽略了概率权重的差异。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b9",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "易错点二（忽略归一）\n计算期望前未检查概率和是否等于"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "1"
+                },
+                {
+                  "type": "text",
+                  "text": "，导致结果偏离。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b10",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "正确理解（先检查分布列）：\n分布列必须满足"
+                }
+              ]
+            },
+            {
+              "id": "traps-b11",
+              "type": "math_image",
+              "latex": "P_i\\ge0,\\qquad \\sum_{i=1}^{n}P_i=1",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/fe65e846e757a694@3x.png",
+                "webp": "/static/formulas/R008/fe65e846e757a694@3x.webp",
+                "width_px": 417,
+                "height_px": 136,
+                "display_width_px": 139,
+                "display_height_px": 45,
+                "scale": 3
+              }
+            },
+            {
+              "id": "traps-b12",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".若题目给的是“概率”，却不满足总和为"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "1"
+                },
+                {
+                  "type": "text",
+                  "text": "，说明题目数据或理解方式有问题；若题目给的是“权重”而不是概率，则应先归一化再计算加权平均。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b13",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "错因分析（忽视条件）：\n对概率分布的基本性质不重视，认为题目直接给出的数字一定可以当作概率。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b14",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "易错点三（公式混淆）\n把期望公式写成"
+                }
+              ]
+            },
+            {
+              "id": "traps-b15",
+              "type": "math_image",
+              "latex": "\\sum_i P_i/x_i",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/99b3a42abc7fa12a@3x.png",
+                "webp": "/static/formulas/R008/99b3a42abc7fa12a@3x.webp",
+                "width_px": 186,
+                "height_px": 111,
+                "display_width_px": 62,
+                "display_height_px": 37,
+                "scale": 3
+              }
+            },
+            {
+              "id": "traps-b16",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，或者误认为要把所有"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "x_iP_i",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/R008/5edbfbc7aa284fe6@3x.png",
+                    "webp": "/static/formulas/R008/5edbfbc7aa284fe6@3x.webp",
+                    "width_px": 100,
+                    "height_px": 58,
+                    "display_width_px": 33,
+                    "display_height_px": 19,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "连乘。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b17",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "正确理解（公式结构）：\n正确公式为"
+                }
+              ]
+            },
+            {
+              "id": "traps-b18",
+              "type": "math_image",
+              "latex": "E\\xi=\\sum_{i=1}^{n}(x_i\\cdot P_i)",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/84773746721c033a@3x.png",
+                "webp": "/static/formulas/R008/84773746721c033a@3x.webp",
+                "width_px": 324,
+                "height_px": 136,
+                "display_width_px": 108,
+                "display_height_px": 45,
+                "scale": 3
+              }
+            },
+            {
+              "id": "traps-b19",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ",即“每个取值乘以对应概率”，最后再累加。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b20",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "错因分析（记忆模糊）：\n对期望定义的结构记忆不牢，容易与方差、概率乘法公式等混淆。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b21",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "易错点四（误用线性性质）\n直接使用"
+                }
+              ]
+            },
+            {
+              "id": "traps-b22",
+              "type": "math_image",
+              "latex": "E(a\\xi+b)=aE\\xi+b",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/3d5c6d3d91c575b6@3x.png",
+                "webp": "/static/formulas/R008/3d5c6d3d91c575b6@3x.webp",
+                "width_px": 386,
+                "height_px": 65,
+                "display_width_px": 129,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "traps-b23",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，却没有确认期望是否存在。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b24",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "正确理解（有限分布自动存在）：\n在高中常见的有限离散型随机变量中，期望一定存在，可以直接使用线性性质；若拓展到可列无穷分布，则需先保证期望存在。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b25",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "错因分析（忽略前提）：\n把有限分布中的结论无条件推广到无限分布，忽略了无穷级数可能发散的问题。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "summary",
+          "title": "复盘总结",
+          "block_type": "summary",
+          "blocks": [
+            {
+              "id": "summary-b1",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "一句话核心\n期望是随机变量取值以概率为权重的加权平均值，反映随机变量的长期平均水平或概率平衡位置。"
+                }
+              ]
+            },
+            {
+              "id": "summary-b2",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "使用条件"
+                }
+              ]
+            },
+            {
+              "id": "summary-b3",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "条件1（有限离散已知）： 在高中常见题型中，随机变量"
+                }
+              ]
+            },
+            {
+              "id": "summary-b4",
+              "type": "math_block",
+              "latex": "\\xi",
+              "align": "center"
+            },
+            {
+              "id": "summary-b5",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "只取有限个值"
+                }
+              ]
+            },
+            {
+              "id": "summary-b6",
+              "type": "math_image",
+              "latex": "x_1,x_2,\\dots,x_n",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/985450a5df5924ae@3x.png",
+                "webp": "/static/formulas/R008/985450a5df5924ae@3x.webp",
+                "width_px": 245,
+                "height_px": 50,
+                "display_width_px": 82,
+                "display_height_px": 17,
+                "scale": 3
+              }
+            },
+            {
+              "id": "summary-b7",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，且这些取值及其概率"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "P_i"
+                },
+                {
+                  "type": "text",
+                  "text": "已知或可推导。"
+                }
+              ]
+            },
+            {
+              "id": "summary-b8",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "条件2（概率归一）： 概率满足"
+                }
+              ]
+            },
+            {
+              "id": "summary-b9",
+              "type": "math_image",
+              "latex": "P_i\\ge0,\\qquad \\sum_{i=1}^{n}P_i=1",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/fe65e846e757a694@3x.png",
+                "webp": "/static/formulas/R008/fe65e846e757a694@3x.webp",
+                "width_px": 417,
+                "height_px": 136,
+                "display_width_px": 139,
+                "display_height_px": 45,
+                "scale": 3
+              }
+            },
+            {
+              "id": "summary-b10",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "."
+                }
+              ]
+            },
+            {
+              "id": "summary-b11",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "条件3（拓展到可列无穷）： 若"
+                }
+              ]
+            },
+            {
+              "id": "summary-b12",
+              "type": "math_block",
+              "latex": "\\xi",
+              "align": "center"
+            },
+            {
+              "id": "summary-b13",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "取可列无穷多个值，则还需满足"
+                }
+              ]
+            },
+            {
+              "id": "summary-b14",
+              "type": "math_image",
+              "latex": "\\sum_{i=1}^{\\infty}|x_i|P_i<+\\infty",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/53855161b5358d9f@3x.png",
+                "webp": "/static/formulas/R008/53855161b5358d9f@3x.webp",
+                "width_px": 315,
+                "height_px": 136,
+                "display_width_px": 105,
+                "display_height_px": 45,
+                "scale": 3
+              }
+            },
+            {
+              "id": "summary-b15",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ",此时期望才作为有限实数存在。"
+                }
+              ]
+            },
+            {
+              "id": "summary-b16",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "核心公式"
+                }
+              ]
+            },
+            {
+              "id": "summary-b17",
+              "type": "math_image",
+              "latex": "E\\xi=\\sum_{i=1}^{n}x_iP_i",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/d765babbf605a611@3x.png",
+                "webp": "/static/formulas/R008/d765babbf605a611@3x.webp",
+                "width_px": 269,
+                "height_px": 136,
+                "display_width_px": 90,
+                "display_height_px": 45,
+                "scale": 3
+              }
+            },
+            {
+              "id": "summary-b18",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".当"
+                }
+              ]
+            },
+            {
+              "id": "summary-b19",
+              "type": "math_block",
+              "latex": "E\\xi",
+              "align": "center"
+            },
+            {
+              "id": "summary-b20",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "存在时，"
+                }
+              ]
+            },
+            {
+              "id": "summary-b21",
+              "type": "math_image",
+              "latex": "E(a\\xi+b)=aE\\xi+b,\\qquad a,b\\in\\mathbb{R}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/eb89ee00f292ac51@3x.png",
+                "webp": "/static/formulas/R008/eb89ee00f292ac51@3x.webp",
+                "width_px": 622,
+                "height_px": 65,
+                "display_width_px": 207,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "summary-b22",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".若"
+                }
+              ]
+            },
+            {
+              "id": "summary-b23",
+              "type": "math_block",
+              "latex": "E\\xi",
+              "align": "center"
+            },
+            {
+              "id": "summary-b24",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "与"
+                }
+              ]
+            },
+            {
+              "id": "summary-b25",
+              "type": "math_block",
+              "latex": "E\\eta",
+              "align": "center"
+            },
+            {
+              "id": "summary-b26",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "都存在，则"
+                }
+              ]
+            },
+            {
+              "id": "summary-b27",
+              "type": "math_image",
+              "latex": "E(\\xi+\\eta)=E\\xi+E\\eta",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/5889891b3d274840@3x.png",
+                "webp": "/static/formulas/R008/5889891b3d274840@3x.webp",
+                "width_px": 380,
+                "height_px": 65,
+                "display_width_px": 127,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "summary-b28",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".该性质不要求"
+                }
+              ]
+            },
+            {
+              "id": "summary-b29",
+              "type": "math_block",
+              "latex": "\\xi",
+              "align": "center"
+            },
+            {
+              "id": "summary-b30",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "与"
+                }
+              ]
+            },
+            {
+              "id": "summary-b31",
+              "type": "math_block",
+              "latex": "\\eta",
+              "align": "center"
+            },
+            {
+              "id": "summary-b32",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "独立。"
+                }
+              ]
+            },
+            {
+              "id": "summary-b33",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "关键提醒"
+                }
+              ]
+            },
+            {
+              "id": "summary-b34",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "易错点（前提校验）： 计算前确认分布列已归一化，即"
+                }
+              ]
+            },
+            {
+              "id": "summary-b35",
+              "type": "math_image",
+              "latex": "\\sum_{i=1}^{n}P_i=1",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/a36b122568dd1b87@3x.png",
+                "webp": "/static/formulas/R008/a36b122568dd1b87@3x.webp",
+                "width_px": 204,
+                "height_px": 136,
+                "display_width_px": 68,
+                "display_height_px": 45,
+                "scale": 3
+              }
+            },
+            {
+              "id": "summary-b36",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "；若题目给的是权重而不是概率，需要先归一化。"
+                }
+              ]
+            },
+            {
+              "id": "summary-b37",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "易错点（算术平均）： 等可能时，期望等于算术平均数；一般情况下，期望是加权平均，不能直接用算术平均数代替。"
+                }
+              ]
+            },
+            {
+              "id": "summary-b38",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "检查项（范围检查）： 若随机变量只取有限个值，则"
+                }
+              ]
+            },
+            {
+              "id": "summary-b39",
+              "type": "math_image",
+              "latex": "\\min_i x_i\\le E\\xi\\le \\max_i x_i",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/R008/1a60ebe62893ca0d@3x.png",
+                "webp": "/static/formulas/R008/1a60ebe62893ca0d@3x.webp",
+                "width_px": 412,
+                "height_px": 83,
+                "display_width_px": 137,
+                "display_height_px": 28,
+                "scale": 3
+              }
+            },
+            {
+              "id": "summary-b40",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".若期望超出该范围，通常说明计算或概率分布有误。"
+                }
+              ]
+            },
+            {
+              "id": "summary-b41",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "理解项（不是必然取值）： 期望可以不是随机变量的实际取值，例如掷公平骰子的期望为"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "3.5"
+                },
+                {
+                  "type": "text",
+                  "text": "，但骰子不会掷出"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "3.5"
+                },
+                {
+                  "type": "text",
+                  "text": "。"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "plain": {
+        "statement": "条件\n- 条件1（有限离散取值）： 在高中常见题型中，随机变量 只取有限个值 x_1,x_2, ,x_n。\n- 条件2（分布列性质）： P( =x_i)=P_i，且\nP_i 0, _i=1^nP_i=1.\n- 拓展说明（可列无穷情形）： 若 取可列无穷多个值 x_1,x_2, ，还需满足\n_i=1^ infinity |x_i|P_i<+ infinity ,\n此时数学期望才作为有限实数存在。\n结论\n- 结论一（期望定义）：\n直观描述： 期望是以概率为权重的加权平均值，反映随机变量的长期平均水平或概率平衡位置。\nE = _i=1^nx_iP_i.\n- 常见变形（线性性质）：\n直观描述： 当相关期望存在时，期望运算满足线性性，常数可提、和可分。\nE(a +b)=aE +b, a,b in R.\n更一般地，若 E 与 E 都存在，则\nE( + )=E +E .\n注意：上式不要求 与 相互独立。",
+        "explanation": "一句话直觉\n期望就是随机变量所有可能取值按对应概率大小进行的加权平均，它刻画的是随机变量的长期平均水平或概率平衡位置，而不一定是最可能出现的值，也不一定是随机变量能够实际取到的值。\n核心拆解\n- 要点一（加权平均）： 公式 E = _i=1^nx_iP_i 中，P_i 是对应取值 x_i 的概率权重。权重越大的取值，对期望的影响越大。\n- 要点二（归一条件）： 所有 P_i 之和为 1，保证加权平均的规范性。若总和不为 1，这些数就不能直接作为概率使用。\n- 要点三（存在条件）： 对高中常见的有限分布，期望一定存在；若拓展到可列无穷分布，则需额外保证 _i=1^ infinity |x_i|P_i<+ infinity 。\n几何本质（重心位置）\n把概率 P_i 视为质点质量，把取值 x_i 视为质点在数轴上的位置，则期望就是这些质点系统的重心坐标。它表示“平衡点”，不表示随机变量一定会取到这个值。\n代数意义（线性算符）\n期望是一种线性运算：当 E 存在时，对任意常数 a,b，有\nE(a +b)=aE +b.\n如果 E 与 E 都存在，则\nE( + )=E +E .\n这个“和可分”性质不要求 与 独立。\n考点价值（常考题型）\n- 考法一（直接计算）： 给定分布列，直接代入加权和公式求期望。\n- 考法二（逆求参数）： 已知期望值，反推概率 P_i 或取值 x_i。\n- 考法三（线性应用）： 利用 E(a +b)=aE +b 简化计算。\n- 考法四（范围检查）： 对有限分布，检查 E 是否落在最小取值与最大取值之间。\n顿悟点\n期望是加权平均，不是简单的算术平均。当各取值等可能，即 P_1=P_2= * s=P_n= 1n 时，期望就是这些取值的算术平均数；一般情况下不能直接用算术平均数代替期望。\n注意：概率相等是“期望等于算术平均数”的常见充分条件，但不能反过来说“只有概率相等时期望才等于算术平均数”。\n使用场景\n- 场景一（直接套用）： 已知有限离散型随机变量的分布列，直接用公式 E = _i=1^nx_iP_i 计算。\n- 场景二（线性转化）： 已知 E ，求 E(a +b) 时用线性性质，无需重新计算新随机变量的分布列。\n- 场景三（平均收益比较）： 若只以长期平均收益为标准，可以比较期望值大小；实际决策还应结合风险、波动和最坏情况等因素。",
+        "proof": "思路提示\n数学期望对离散型随机变量来说，本质上是由分布列定义出来的加权平均。下面的内容更准确地说是“合理性说明”或“直观解释”，不是用大数定律反过来严格证明定义。\n定义与直观解释\n- 步骤一（有限分布列）： 设随机变量 只取有限个值 x_1,x_2, ,x_n，且\nP( =x_i)=P_i, P_i 0, _i=1^nP_i=1.\n理由： 这是高中阶段最常见的离散型随机变量分布列形式。\n- 步骤二（加权平均定义）： 将概率 P_i 作为权重，把对应取值 x_i 加权求和，定义\nE = _i=1^nx_iP_i.\n理由： 概率越大的取值，在长期平均中出现得越频繁，因此对平均水平的影响越大。\n- 步骤三（频率直观）： 设在 N 次独立重复试验中， 取值为 x_i 的次数为 N_i，频率为\nf_i=(N_i) / (N).\n则这 N 次试验的样本平均数为\nx^(N)= _i=1^nx_i f_i.\n当 N 很大时，频率 f_i 通常会稳定在概率 P_i 附近，于是\nx^(N) _i=1^nx_iP_i=E .\n理由： 这说明期望可以理解为大量重复试验下的长期平均水平。\n严谨提醒\n期望不是“由样本均值极限临时定义出来”的，而是由分布列给出的加权平均。大数定律说明的是：在适当条件下，大量重复试验的样本平均数会趋近期望。因此这里应理解为期望定义的合理性解释，而不是严格证明。\n结论回扣\n因此，对有限离散型随机变量，数学期望 E 可直接由分布列表示为\nE = _i=1^nx_iP_i,\n它是随机变量取值依概率形成的加权平均，反映长期平均水平。",
+        "examples": "例1（基础）\n题目： 随机变量 的分布列为 P( =1)=0.1, P( =2)=0.2, P( =3)=0.3, P( =4)=0.4，求 E 。\n解题步骤：\n- 第一步（检查分布）： 概率均非负，且\n0.1+0.2+0.3+0.4=1.\n理由： 先确认这些数确实构成一个分布列。\n- 第二步（套用公式）： 利用 E = _i=1^nx_iP_i，代入：\nE =1 * 0.1+2 * 0.2+3 * 0.3+4 * 0.4.\n理由： 期望是“取值乘以对应概率”后累加。\n- 第三步（求和结果）： 计算得：\nE =0.1+0.4+0.9+1.6=3.0.\n理由： 逐项相加即得期望。\n- 第四步（范围检查）： 最小取值为 1，最大取值为 4，且 1 3.0 4。\n理由： 对有限分布，期望应落在最小取值和最大取值之间。\n关键结论： E =3.0。\n例2（稍变形）\n题目： 随机变量 的分布列为 P( =1)=p, P( =2)=0.3, P( =3)=0.7-p，且 E =2.3，求 p。\n解题步骤：\n- 第一步（检查概率约束）： 概率和为\np+0.3+(0.7-p)=1.\n为保证概率非负，还需\np 0, 0.7-p 0,\n即\n0 p 0.7.\n理由： 分布列必须满足概率非负且总和为 1。\n- 第二步（列期望方程）： 应用 E = _i=1^nx_iP_i 写出：\nE =1 * p+2 * 0.3+3 * (0.7-p)=2.7-2p.\n理由： 用参数 p 表示期望。\n- 第三步（求解并验证）： 由 E =2.3，得\n2.7-2p=2.3,\n解得\np=0.2.\n且 0 0.2 0.7，满足概率约束。\n理由： 逆求参数时，求出结果后必须代回检查概率范围。\n关键结论： p=0.2。\n例3（综合应用）\n题目： 随机变量 的分布列同例1，定义 =2 +1，求 E 。\n解题步骤：\n- 第一步（回顾基础）： 由例1知\nE =3.\n理由： 例1已经直接计算得到 的期望。\n- 第二步（使用线性性质）： 因为 为有限离散型随机变量，期望存在。利用\nE(a +b)=aE +b,\n取 a=2,b=1，得\nE =E(2 +1)=2E +1=2 * 3+1=7.\n理由： 线性性质可以避免重新列出 的分布列。\n- 第三步（直接验证）： 由于 =2 +1，当 取 1,2,3,4 时， 分别取 3,5,7,9，概率仍为 0.1,0.2,0.3,0.4。于是\nE =3 * 0.1+5 * 0.2+7 * 0.3+9 * 0.4=7.\n理由： 直接计算与线性性质结果一致，说明计算正确。\n关键结论： E(2 +1)=7。",
+        "traps": "- 易错点一（混淆均值） 学生常误认为期望就是算术平均数，直接计算各 x_i 的和再除以个数。\n- 正确理解（加权平均）： 期望\nE = _i=1^nx_iP_i\n是加权平均，权数为对应概率。若各取值等可能，即 P_1=P_2= * s=P_n= 1n，则期望等于这些取值的算术平均数；一般情况下不能直接用算术平均数代替期望。\n- 特别提醒（避免反向误判）： “概率相等时，期望等于算术平均数”是常见充分条件，但不能写成“只有概率相等时，期望才等于算术平均数”。\n- 错因分析（概念不清）： 将等可能情形下的结论推广到一般，忽略了概率权重的差异。\n- 易错点二（忽略归一） 计算期望前未检查概率和是否等于 1，导致结果偏离。\n- 正确理解（先检查分布列）： 分布列必须满足\nP_i 0, _i=1^nP_i=1.\n若题目给的是“概率”，却不满足总和为 1，说明题目数据或理解方式有问题；若题目给的是“权重”而不是概率，则应先归一化再计算加权平均。\n- 错因分析（忽视条件）： 对概率分布的基本性质不重视，认为题目直接给出的数字一定可以当作概率。\n- 易错点三（公式混淆） 把期望公式写成 _i P_i/x_i，或者误认为要把所有 x_iP_i 连乘。\n- 正确理解（公式结构）： 正确公式为\nE = _i=1^n(x_i * P_i),\n即“每个取值乘以对应概率”，最后再累加。\n- 错因分析（记忆模糊）： 对期望定义的结构记忆不牢，容易与方差、概率乘法公式等混淆。\n- 易错点四（误用线性性质） 直接使用 E(a +b)=aE +b，却没有确认期望是否存在。\n- 正确理解（有限分布自动存在）： 在高中常见的有限离散型随机变量中，期望一定存在，可以直接使用线性性质；若拓展到可列无穷分布，则需先保证期望存在。\n- 错因分析（忽略前提）： 把有限分布中的结论无条件推广到无限分布，忽略了无穷级数可能发散的问题。",
+        "summary": "一句话核心\n期望是随机变量取值以概率为权重的加权平均值，反映随机变量的长期平均水平或概率平衡位置。\n使用条件\n- 条件1（有限离散已知）： 在高中常见题型中，随机变量 只取有限个值 x_1,x_2, ,x_n，且这些取值及其概率 P_i 已知或可推导。\n- 条件2（概率归一）： 概率满足\nP_i 0, _i=1^nP_i=1.\n- 条件3（拓展到可列无穷）： 若 取可列无穷多个值，则还需满足\n_i=1^ infinity |x_i|P_i<+ infinity ,\n此时期望才作为有限实数存在。\n核心公式\nE = _i=1^nx_iP_i.\n当 E 存在时，\nE(a +b)=aE +b, a,b in R.\n若 E 与 E 都存在，则\nE( + )=E +E .\n该性质不要求 与 独立。\n关键提醒\n- 易错点（前提校验）： 计算前确认分布列已归一化，即 _i=1^nP_i=1；若题目给的是权重而不是概率，需要先归一化。\n- 易错点（算术平均）： 等可能时，期望等于算术平均数；一般情况下，期望是加权平均，不能直接用算术平均数代替。\n- 检查项（范围检查）： 若随机变量只取有限个值，则\n_i x_i E _i x_i.\n若期望超出该范围，通常说明计算或概率分布有误。\n- 理解项（不是必然取值）： 期望可以不是随机变量的实际取值，例如掷公平骰子的期望为 3.5，但骰子不会掷出 3.5。"
+      }
+    },
+    "assets": {
+      "cover": null,
+      "svg": null,
+      "png": null,
+      "pdf": null,
+      "mp4": null,
+      "extra": []
+    },
+    "ext": {
+      "share": {
+        "title": "离散型随机变量期望：加权平均法",
+        "desc": "适合基础复习和考前回顾，帮你快速理解期望定义及线性性质，减少计算错误。"
+      },
+      "relations": {
+        "prerequisites": [
+          "分布列",
+          "概率基本性质"
+        ],
+        "related_ids": [],
+        "similar": "['期望的线性性质', '方差定义']"
+      },
+      "exam": {
+        "frequency": 0.8,
+        "score": 5
+      },
+      "extra": {
+        "usage": {
+          "scenarios": [
+            "计算随机变量的期望",
+            "基础概率题",
+            "压轴题中作为中间步骤"
+          ],
+          "problem_types": [
+            "分布列求期望",
+            "期望反求参数",
+            "期望线性应用"
+          ],
+          "exam_frequency": 0.8,
+          "exam_score": 5
+        },
+        "interactive": {
+          "has_diagram": false,
+          "geogebra_id": "",
+          "param_demo": {}
+        },
+        "related_formulas": [
+          "E(a\\xi+b) = aE\\xi + b"
+        ],
+        "legacy_display_version": 2
+      }
+    }
   }
 }
