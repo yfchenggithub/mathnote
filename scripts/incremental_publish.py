@@ -22,8 +22,8 @@ Important data-flow notes:
 1. `build/conclusion_pdf_map.json` is never used as the full baseline.
    The full baseline is always:
        D:\\mathnode_backend\\app\\data\\conclusion_pdf_map.json
-2. Formula images are rendered from the single-ID canonical delta, then only
-   the current ID formula directory is uploaded to the remote static directory.
+2. Formula/TikZ images are rendered from the single-ID canonical delta, then only
+   the current ID image directories are uploaded to the remote static directories.
 3. Remote JSON/PDF updates are expected to arrive through backend git pull.
 4. After files are synced into the local backend data directory, those exact
    files are committed and pushed from the backend repo unless disabled.
@@ -59,6 +59,7 @@ DEFAULT_REMOTE_USER = "yfcheng"
 REMOTE_PASSWORD_ENV = "MATHNOTE_REMOTE_PASSWORD"
 REMOTE_ASKPASS_PASSWORD_ENV = "MATHNOTE_REMOTE_ASKPASS_PASSWORD"
 DEFAULT_REMOTE_FORMULA_DIR = "/var/www/ok-shuxue/static/formulas"
+DEFAULT_REMOTE_TIKZ_DIR = "/var/www/ok-shuxue/static/tikz"
 DEFAULT_REMOTE_FORMULA_OWNER = "www-data"
 DEFAULT_REMOTE_FORMULA_GROUP = "www-data"
 DEFAULT_REMOTE_BACKEND_ROOT = "/root/math_search_backend"
@@ -141,6 +142,7 @@ class PublishConfig:
     remote_user: str
     remote_password: str
     remote_formula_dir: str
+    remote_tikz_dir: str
     remote_formula_owner: str
     remote_formula_group: str
     remote_backend_root: str
@@ -364,18 +366,19 @@ def parse_args() -> argparse.Namespace:
         ),
     )
     parser.add_argument("--remote-formula-dir", default=DEFAULT_REMOTE_FORMULA_DIR)
+    parser.add_argument("--remote-tikz-dir", default=DEFAULT_REMOTE_TIKZ_DIR)
     parser.add_argument("--remote-formula-owner", default=DEFAULT_REMOTE_FORMULA_OWNER)
     parser.add_argument("--remote-formula-group", default=DEFAULT_REMOTE_FORMULA_GROUP)
     parser.add_argument("--remote-backend-root", default=DEFAULT_REMOTE_BACKEND_ROOT)
     parser.add_argument(
         "--deploy",
         action="store_true",
-        help="Upload formula image directories, run remote git pull, and restart the service.",
+        help="Upload formula/TikZ image directories, run remote git pull, and restart the service.",
     )
     parser.add_argument(
         "--upload-formulas",
         action="store_true",
-        help="Only upload formula image directories to the remote static directory.",
+        help="Only upload formula/TikZ image directories to the remote static directories.",
     )
     parser.add_argument(
         "--remote-pull",
@@ -392,6 +395,12 @@ def build_config(args: argparse.Namespace) -> PublishConfig:
     ids = normalize_ids(args.ids)
     if args.formula_min_length < 0:
         raise PublishError("--formula-min-length must be >= 0.")
+    remote_formula_dir = str(args.remote_formula_dir).strip().rstrip("/")
+    remote_tikz_dir = str(args.remote_tikz_dir).strip().rstrip("/")
+    if not remote_formula_dir:
+        raise PublishError("--remote-formula-dir must not be empty.")
+    if not remote_tikz_dir:
+        raise PublishError("--remote-tikz-dir must not be empty.")
     if not str(args.remote_formula_owner).strip():
         raise PublishError("--remote-formula-owner must not be empty.")
     if not str(args.remote_formula_group).strip():
@@ -438,7 +447,8 @@ def build_config(args: argparse.Namespace) -> PublishConfig:
         remote_host=str(args.remote_host),
         remote_user=str(args.remote_user),
         remote_password=remote_password,
-        remote_formula_dir=str(args.remote_formula_dir).rstrip("/"),
+        remote_formula_dir=remote_formula_dir,
+        remote_tikz_dir=remote_tikz_dir,
         remote_formula_owner=str(args.remote_formula_owner).strip(),
         remote_formula_group=str(args.remote_formula_group).strip(),
         remote_backend_root=str(args.remote_backend_root),
@@ -495,13 +505,6 @@ def create_paths(config: PublishConfig) -> PublishPaths:
 
 def derive_tikz_asset_base(asset_base: str) -> str:
     normalized = str(asset_base).strip().rstrip("/")
-    if normalized.endswith("/formulas"):
-        return normalized[: -len("/formulas")] + "/tikz"
-    return normalized + "/tikz"
-
-
-def derive_remote_tikz_dir(remote_formula_dir: str) -> str:
-    normalized = str(remote_formula_dir).strip().rstrip("/")
     if normalized.endswith("/formulas"):
         return normalized[: -len("/formulas")] + "/tikz"
     return normalized + "/tikz"
@@ -1675,7 +1678,7 @@ def upload_formula_dirs(
     target = remote_ref(config)
     remote_stage_root = f"/tmp/{paths.tmp_root.name}/formulas"
     remote_tikz_stage_root = f"/tmp/{paths.tmp_root.name}/tikz"
-    remote_tikz_dir = derive_remote_tikz_dir(config.remote_formula_dir)
+    remote_tikz_dir = config.remote_tikz_dir
     owner_group = remote_formula_owner_group(config)
     run_command(
         "remote prepare formula upload staging",
@@ -1803,6 +1806,8 @@ def upload_formula_dirs(
         "tikz_uploaded": tikz_uploaded,
         "staging": remote_stage_root,
         "tikz_staging": remote_tikz_stage_root,
+        "remote_formula_dir": config.remote_formula_dir,
+        "remote_tikz_dir": remote_tikz_dir,
         "owner_group": owner_group,
     }
 

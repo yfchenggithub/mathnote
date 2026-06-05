@@ -49,6 +49,7 @@ def _publish_config() -> publisher.PublishConfig:
         remote_user="tester",
         remote_password="yfcheng",
         remote_formula_dir="/var/www/ok-shuxue/static/formulas",
+        remote_tikz_dir="/var/www/ok-shuxue/static/tikz",
         remote_formula_owner="www-data",
         remote_formula_group="www-data",
         remote_backend_root="/root/math_search_backend",
@@ -71,12 +72,15 @@ class IncrementalPublishUploadTests(unittest.TestCase):
         fixture_root = _fixture_root("incremental_publish_upload_fixture")
         shutil.rmtree(fixture_root, ignore_errors=True)
         local_formula_dir = fixture_root / "formulas" / "R005"
+        local_tikz_dir = fixture_root / "tikz" / "R005"
         local_formula_dir.mkdir(parents=True, exist_ok=True)
+        local_tikz_dir.mkdir(parents=True, exist_ok=True)
 
         config = _publish_config()
         paths = publisher.create_paths(config)
         paths.tmp_root = fixture_root / "tmp_root"
         paths.formula_out_dir = fixture_root / "formulas"
+        paths.tikz_out_dir = fixture_root / "tikz"
         stages: list[publisher.StageResult] = []
         calls: list[dict[str, object]] = []
 
@@ -113,6 +117,10 @@ class IncrementalPublishUploadTests(unittest.TestCase):
             shutil.rmtree(fixture_root, ignore_errors=True)
 
         self.assertFalse(result["skipped"])
+        self.assertEqual(result["uploaded"], ["/var/www/ok-shuxue/static/formulas/R005"])
+        self.assertEqual(result["tikz_uploaded"], ["/var/www/ok-shuxue/static/tikz/R005"])
+        self.assertEqual(result["remote_formula_dir"], "/var/www/ok-shuxue/static/formulas")
+        self.assertEqual(result["remote_tikz_dir"], "/var/www/ok-shuxue/static/tikz")
         prepare_call = next(
             call for call in calls if call["name"] == "remote prepare formula upload staging"
         )
@@ -151,6 +159,27 @@ class IncrementalPublishUploadTests(unittest.TestCase):
         self.assertIn("www-data:www-data", install_call["command"][-1])
         self.assertIn("SSH_ASKPASS", install_call["env"])
         self.assertEqual(install_call["input_text"], "yfcheng\nyfcheng\n")
+
+        tikz_upload_call = next(
+            call for call in calls if call["name"] == "upload TikZ dir to staging [R005]"
+        )
+        self.assertEqual(tikz_upload_call["command"][0], "scp")
+        tikz_recursive_arg_index = tikz_upload_call["command"].index("-r")
+        tikz_source_path = tikz_upload_call["command"][tikz_recursive_arg_index + 1]
+        self.assertEqual(
+            tikz_source_path,
+            ".tmp/test_incremental_publish/incremental_publish_upload_fixture/tikz/R005",
+        )
+        self.assertTrue(
+            tikz_upload_call["command"][tikz_recursive_arg_index + 2].endswith("/tikz/")
+        )
+
+        tikz_install_call = next(
+            call for call in calls if call["name"] == "remote install TikZ dir [R005]"
+        )
+        self.assertIn("/var/www/ok-shuxue/static/tikz/R005", tikz_install_call["command"][-1])
+        self.assertIn("www-data:www-data", tikz_install_call["command"][-1])
+
         for call in calls:
             self.assertNotIn("yfcheng", " ".join(call["command"]))
 
