@@ -1,0 +1,49 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	数学期望对离散型随机变量来说，本质上是由分布列定义出来的加权平均。下面的内容更准确地说是“合理性说明”或“直观解释”，不是用大数定律反过来严格证明定义。
+
+	\medskip
+	\textbf{\textcolor{CProof}{定义与直观解释}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（有限分布列）：}] 设随机变量 $\xi$ 只取有限个值 $x_1,x_2,\dots,x_n$，且
+		      \[
+			      P(\xi=x_i)=P_i,\qquad P_i\ge0,\qquad \sum_{i=1}^{n}P_i=1.
+		      \]
+		      \par\textbf{理由：} 这是高中阶段最常见的离散型随机变量分布列形式。
+
+		\item[\textbf{步骤二（加权平均定义）：}] 将概率 $P_i$ 作为权重，把对应取值 $x_i$ 加权求和，定义
+		      \[
+			      E\xi=\sum_{i=1}^{n}x_iP_i.
+		      \]
+		      \par\textbf{理由：} 概率越大的取值，在长期平均中出现得越频繁，因此对平均水平的影响越大。
+
+		\item[\textbf{步骤三（频率直观）：}] 设在 $N$ 次独立重复试验中，$\xi$ 取值为 $x_i$ 的次数为 $N_i$，频率为
+		      \[
+			      f_i=\frac{N_i}{N}.
+		      \]
+		      则这 $N$ 次试验的样本平均数为
+		      \[
+			      \bar{x}^{(N)}=\sum_{i=1}^{n}x_i f_i.
+		      \]
+		      当 $N$ 很大时，频率 $f_i$ 通常会稳定在概率 $P_i$ 附近，于是
+		      \[
+			      \bar{x}^{(N)}\approx \sum_{i=1}^{n}x_iP_i=E\xi.
+		      \]
+		      \par\textbf{理由：} 这说明期望可以理解为大量重复试验下的长期平均水平。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{严谨提醒}}
+
+	期望不是“由样本均值极限临时定义出来”的，而是由分布列给出的加权平均。大数定律说明的是：在适当条件下，大量重复试验的样本平均数会趋近期望。因此这里应理解为期望定义的合理性解释，而不是严格证明。
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	因此，对有限离散型随机变量，数学期望 $E\xi$ 可直接由分布列表示为
+	\[
+		E\xi=\sum_{i=1}^{n}x_iP_i,
+	\]
+	它是随机变量取值依概率形成的加权平均，反映长期平均水平。
+\end{proofbox}

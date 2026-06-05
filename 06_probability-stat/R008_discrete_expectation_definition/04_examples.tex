@@ -1,0 +1,104 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}} 随机变量 $\xi$ 的分布列为 $P(\xi=1)=0.1$, $P(\xi=2)=0.2$, $P(\xi=3)=0.3$, $P(\xi=4)=0.4$，求 $E\xi$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（检查分布）：}] 概率均非负，且
+		      \[
+			      0.1+0.2+0.3+0.4=1.
+		      \]
+		      \par\textbf{理由：} 先确认这些数确实构成一个分布列。
+
+		\item[\textbf{第二步（套用公式）：}] 利用 $E\xi=\sum_{i=1}^{n}x_iP_i$，代入：
+		      \[
+			      E\xi=1\times0.1+2\times0.2+3\times0.3+4\times0.4.
+		      \]
+		      \par\textbf{理由：} 期望是“取值乘以对应概率”后累加。
+
+		\item[\textbf{第三步（求和结果）：}] 计算得：
+		      \[
+			      E\xi=0.1+0.4+0.9+1.6=3.0.
+		      \]
+		      \par\textbf{理由：} 逐项相加即得期望。
+
+		\item[\textbf{第四步（范围检查）：}] 最小取值为 $1$，最大取值为 $4$，且 $1\le3.0\le4$。
+		      \par\textbf{理由：} 对有限分布，期望应落在最小取值和最大取值之间。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}} \textbf{$E\xi=3.0$}。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}} 随机变量 $\xi$ 的分布列为 $P(\xi=1)=p$, $P(\xi=2)=0.3$, $P(\xi=3)=0.7-p$，且 $E\xi=2.3$，求 $p$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（检查概率约束）：}] 概率和为
+		      \[
+			      p+0.3+(0.7-p)=1.
+		      \]
+		      为保证概率非负，还需
+		      \[
+			      p\ge0,\qquad 0.7-p\ge0,
+		      \]
+		      即
+		      \[
+			      0\le p\le0.7.
+		      \]
+		      \par\textbf{理由：} 分布列必须满足概率非负且总和为 $1$。
+
+		\item[\textbf{第二步（列期望方程）：}] 应用 $E\xi=\sum_{i=1}^{n}x_iP_i$ 写出：
+		      \[
+			      E\xi=1\cdot p+2\cdot0.3+3\cdot(0.7-p)=2.7-2p.
+		      \]
+		      \par\textbf{理由：} 用参数 $p$ 表示期望。
+
+		\item[\textbf{第三步（求解并验证）：}] 由 $E\xi=2.3$，得
+		      \[
+			      2.7-2p=2.3,
+		      \]
+		      解得
+		      \[
+			      p=0.2.
+		      \]
+		      且 $0\le0.2\le0.7$，满足概率约束。
+		      \par\textbf{理由：} 逆求参数时，求出结果后必须代回检查概率范围。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}} \textbf{$p=0.2$}。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}} 随机变量 $\xi$ 的分布列同例1，定义 $\eta=2\xi+1$，求 $E\eta$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（回顾基础）：}] 由例1知
+		      \[
+			      E\xi=3.
+		      \]
+		      \par\textbf{理由：} 例1已经直接计算得到 $\xi$ 的期望。
+
+		\item[\textbf{第二步（使用线性性质）：}] 因为 $\xi$ 为有限离散型随机变量，期望存在。利用
+		      \[
+			      E(a\xi+b)=aE\xi+b,
+		      \]
+		      取 $a=2,b=1$，得
+		      \[
+			      E\eta=E(2\xi+1)=2E\xi+1=2\times3+1=7.
+		      \]
+		      \par\textbf{理由：} 线性性质可以避免重新列出 $\eta$ 的分布列。
+
+		\item[\textbf{第三步（直接验证）：}] 由于 $\eta=2\xi+1$，当 $\xi$ 取 $1,2,3,4$ 时，$\eta$ 分别取 $3,5,7,9$，概率仍为 $0.1,0.2,0.3,0.4$。于是
+		      \[
+			      E\eta=3\times0.1+5\times0.2+7\times0.3+9\times0.4=7.
+		      \]
+		      \par\textbf{理由：} 直接计算与线性性质结果一致，说明计算正确。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}} \textbf{$E(2\xi+1)=7$}。
+\end{examplebox}

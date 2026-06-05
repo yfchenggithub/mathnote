@@ -1,0 +1,55 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+	期望就是随机变量所有可能取值按对应概率大小进行的加权平均，它刻画的是随机变量的长期平均水平或概率平衡位置，而不一定是最可能出现的值，也不一定是随机变量能够实际取到的值。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（加权平均）：}] 公式 $E\xi=\sum_{i=1}^{n}x_iP_i$ 中，$P_i$ 是对应取值 $x_i$ 的概率权重。权重越大的取值，对期望的影响越大。
+		\item[\textbf{要点二（归一条件）：}] 所有 $P_i$ 之和为 $1$，保证加权平均的规范性。若总和不为 $1$，这些数就不能直接作为概率使用。
+		\item[\textbf{要点三（存在条件）：}] 对高中常见的有限分布，期望一定存在；若拓展到可列无穷分布，则需额外保证 $\sum_{i=1}^{\infty}|x_i|P_i<+\infty$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（重心位置）}}
+
+	把概率 $P_i$ 视为质点质量，把取值 $x_i$ 视为质点在数轴上的位置，则期望就是这些质点系统的重心坐标。它表示“平衡点”，不表示随机变量一定会取到这个值。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（线性算符）}}
+
+	期望是一种线性运算：当 $E\xi$ 存在时，对任意常数 $a,b$，有
+	\[
+		E(a\xi+b)=aE\xi+b.
+	\]
+	如果 $E\xi$ 与 $E\eta$ 都存在，则
+	\[
+		E(\xi+\eta)=E\xi+E\eta.
+	\]
+	这个“和可分”性质不要求 $\xi$ 与 $\eta$ 独立。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（常考题型）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（直接计算）：} 给定分布列，直接代入加权和公式求期望。
+		\item \textbf{考法二（逆求参数）：} 已知期望值，反推概率 $P_i$ 或取值 $x_i$。
+		\item \textbf{考法三（线性应用）：} 利用 $E(a\xi+b)=aE\xi+b$ 简化计算。
+		\item \textbf{考法四（范围检查）：} 对有限分布，检查 $E\xi$ 是否落在最小取值与最大取值之间。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	期望是加权平均，不是简单的算术平均。当各取值等可能，即 $P_1=P_2=\cdots=P_n=\dfrac1n$ 时，期望就是这些取值的算术平均数；一般情况下不能直接用算术平均数代替期望。
+
+	注意：概率相等是“期望等于算术平均数”的常见充分条件，但不能反过来说“只有概率相等时期望才等于算术平均数”。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（直接套用）：} 已知有限离散型随机变量的分布列，直接用公式 $E\xi=\sum_{i=1}^{n}x_iP_i$ 计算。
+		\item \textbf{场景二（线性转化）：} 已知 $E\xi$，求 $E(a\xi+b)$ 时用线性性质，无需重新计算新随机变量的分布列。
+		\item \textbf{场景三（平均收益比较）：} 若只以长期平均收益为标准，可以比较期望值大小；实际决策还应结合风险、波动和最坏情况等因素。
+	\end{itemize}
+\end{explanationbox}

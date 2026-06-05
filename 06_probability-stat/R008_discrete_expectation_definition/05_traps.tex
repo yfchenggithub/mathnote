@@ -1,0 +1,41 @@
+\begin{trapbox}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点一（混淆均值）}}] 学生常误认为期望就是算术平均数，直接计算各 $x_i$ 的和再除以个数。
+		\item[\textbf{\textcolor{CTrap}{正确理解（加权平均）：}}] 期望
+		      \[
+			      E\xi=\sum_{i=1}^{n}x_iP_i
+		      \]
+		      是加权平均，权数为对应概率。若各取值等可能，即 $P_1=P_2=\cdots=P_n=\dfrac1n$，则期望等于这些取值的算术平均数；一般情况下不能直接用算术平均数代替期望。
+		\item[\textbf{\textcolor{CTrap}{特别提醒（避免反向误判）：}}] “概率相等时，期望等于算术平均数”是常见充分条件，但不能写成“只有概率相等时，期望才等于算术平均数”。
+		\item[\textbf{\textcolor{CTrap}{错因分析（概念不清）：}}] 将等可能情形下的结论推广到一般，忽略了概率权重的差异。
+	\end{description}
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点二（忽略归一）}}] 计算期望前未检查概率和是否等于 $1$，导致结果偏离。
+		\item[\textbf{\textcolor{CTrap}{正确理解（先检查分布列）：}}] 分布列必须满足
+		      \[
+			      P_i\ge0,\qquad \sum_{i=1}^{n}P_i=1.
+		      \]
+		      若题目给的是“概率”，却不满足总和为 $1$，说明题目数据或理解方式有问题；若题目给的是“权重”而不是概率，则应先归一化再计算加权平均。
+		\item[\textbf{\textcolor{CTrap}{错因分析（忽视条件）：}}] 对概率分布的基本性质不重视，认为题目直接给出的数字一定可以当作概率。
+	\end{description}
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点三（公式混淆）}}] 把期望公式写成 $\sum_i P_i/x_i$，或者误认为要把所有 $x_iP_i$ 连乘。
+		\item[\textbf{\textcolor{CTrap}{正确理解（公式结构）：}}] 正确公式为
+		      \[
+			      E\xi=\sum_{i=1}^{n}(x_i\cdot P_i),
+		      \]
+		      即“每个取值乘以对应概率”，最后再累加。
+		\item[\textbf{\textcolor{CTrap}{错因分析（记忆模糊）：}}] 对期望定义的结构记忆不牢，容易与方差、概率乘法公式等混淆。
+	\end{description}
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点四（误用线性性质）}}] 直接使用 $E(a\xi+b)=aE\xi+b$，却没有确认期望是否存在。
+		\item[\textbf{\textcolor{CTrap}{正确理解（有限分布自动存在）：}}] 在高中常见的有限离散型随机变量中，期望一定存在，可以直接使用线性性质；若拓展到可列无穷分布，则需先保证期望存在。
+		\item[\textbf{\textcolor{CTrap}{错因分析（忽略前提）：}}] 把有限分布中的结论无条件推广到无限分布，忽略了无穷级数可能发散的问题。
+	\end{description}
+\end{trapbox}
