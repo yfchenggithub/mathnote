@@ -156,6 +156,28 @@ class MathBlock(StrictBaseModel):
     )
 
 
+class ImageBlock(StrictBaseModel):
+    """Rendered image block for figures such as TikZ diagrams."""
+
+    id: str = Field(..., min_length=1, description="Block ID")
+    type: Literal["image_block"] = Field(
+        default="image_block", description="Block type: rendered image"
+    )
+    src: str = Field(..., min_length=1, description="PNG image path")
+    width_px: int = Field(..., ge=1, description="PNG width in pixels")
+    height_px: int = Field(..., ge=1, description="PNG height in pixels")
+    display_width_px: int = Field(..., ge=1, description="Suggested display width")
+    display_height_px: int = Field(..., ge=1, description="Suggested display height")
+    alt: Optional[str] = Field(default=None, description="Alternative text")
+    caption: Optional[str] = Field(default=None, description="Optional figure caption")
+    source: Optional[str] = Field(default=None, description="Original source path")
+    vspace: Optional[str] = Field(default=None, description="Original vertical spacing hint")
+    align: Literal["left", "center", "right"] = Field(
+        default="center", description="Image alignment"
+    )
+    scale: Optional[int] = Field(default=None, ge=1, description="Render scale multiplier")
+
+
 class DividerBlock(StrictBaseModel):
     """分隔线块。"""
 
@@ -307,6 +329,7 @@ ContentBlock = Annotated[
     Union[
         ParagraphBlock,
         MathBlock,
+        ImageBlock,
         DividerBlock,
         BulletListBlock,
         TheoremGroupBlock,

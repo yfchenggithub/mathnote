@@ -75,6 +75,7 @@ DEFAULT_PDF_MAP_PATH = PROJECT_ROOT / "build" / "conclusion_pdf_map.json"
 DEFAULT_PDF_OUTPUT_DIR = PROJECT_ROOT / "build" / "conclusion_pdfs"
 DEFAULT_REPORT_PATH = PROJECT_ROOT / "reports" / "incremental_publish_report.json"
 RENDER_MATH_ASSETS_REPORT = PROJECT_ROOT / "reports" / "render_math_assets_report.json"
+RENDER_TIKZ_ASSETS_REPORT = PROJECT_ROOT / "reports" / "render_tikz_assets_report.json"
 MODULE_PREFIX_MAP = PROJECT_ROOT / "12_pipeline" / "config" / "module_prefix_map.json"
 
 ID_PATTERN = re.compile(r"^[A-Za-z]\d{3}$")
@@ -165,11 +166,14 @@ class PublishPaths:
     canonical_report_dir: Path
     canonical_raw: Path
     canonical_marked: Path
+    canonical_tikz_rendered: Path
     canonical_rendered: Path
     canonical_final: Path
     formula_dir: Path
     formula_out_dir: Path
     formula_render_report: Path
+    tikz_out_dir: Path
+    tikz_render_report: Path
     punctuation_report: Path
     core_formula_sync_report: Path
     merged_canonical: Path
@@ -470,11 +474,14 @@ def create_paths(config: PublishConfig) -> PublishPaths:
         canonical_report_dir=tmp_root / "conversion_reports",
         canonical_raw=tmp_root / "canonical_content_v2.delta.json",
         canonical_marked=tmp_root / "canonical_content_v2.delta.marked.json",
+        canonical_tikz_rendered=tmp_root / "canonical_content_v2.delta.tikz_rendered.json",
         canonical_rendered=tmp_root / "canonical_content_v2.delta.rendered.json",
         canonical_final=tmp_root / "canonical_content_v2.delta.final.json",
         formula_dir=tmp_root / "formulas",
         formula_out_dir=tmp_root / "formulas",
         formula_render_report=tmp_root / "render_math_assets_report.json",
+        tikz_out_dir=tmp_root / "tikz",
+        tikz_render_report=tmp_root / "render_tikz_assets_report.json",
         punctuation_report=tmp_root / "remove_math_image_following_period_report.json",
         core_formula_sync_report=tmp_root / "sync_backend_core_formula_assets_report.json",
         merged_canonical=tmp_root / "canonical_content_v2.merged.json",
@@ -484,6 +491,20 @@ def create_paths(config: PublishConfig) -> PublishPaths:
         merged_pdf_map=tmp_root / "conclusion_pdf_map.merged.json",
         tmp_report=tmp_root / "incremental_publish_report.json",
     )
+
+
+def derive_tikz_asset_base(asset_base: str) -> str:
+    normalized = str(asset_base).strip().rstrip("/")
+    if normalized.endswith("/formulas"):
+        return normalized[: -len("/formulas")] + "/tikz"
+    return normalized + "/tikz"
+
+
+def derive_remote_tikz_dir(remote_formula_dir: str) -> str:
+    normalized = str(remote_formula_dir).strip().rstrip("/")
+    if normalized.endswith("/formulas"):
+        return normalized[: -len("/formulas")] + "/tikz"
+    return normalized + "/tikz"
 
 
 def ensure_parent(path: Path) -> None:
@@ -700,6 +721,7 @@ def validate_input_files(config: PublishConfig) -> None:
         SCRIPT_DIR / "build_detail_page_js.py",
         SCRIPT_DIR / "migrate_detail_js_to_content_v2.py",
         SCRIPT_DIR / "mark_need_image_by_latex_length.py",
+        SCRIPT_DIR / "render_tikz_assets.mjs",
         SCRIPT_DIR / "render_math_assets.mjs",
         SCRIPT_DIR / "remove_math_image_following_period.py",
         SCRIPT_DIR / "sync_backend_core_formula_assets.py",
@@ -845,6 +867,43 @@ def postprocess_canonical_delta(
         ],
         stages=stages,
     )
+    tikz_report_snapshot = (
+        RENDER_TIKZ_ASSETS_REPORT.read_bytes()
+        if RENDER_TIKZ_ASSETS_REPORT.exists()
+        else None
+    )
+    try:
+        run_command(
+            "render_tikz_assets delta",
+            [
+                "node",
+                str(SCRIPT_DIR / "render_tikz_assets.mjs"),
+                "--input",
+                str(paths.canonical_marked),
+                "--output",
+                str(paths.canonical_tikz_rendered),
+                "--out-dir",
+                str(paths.tikz_out_dir),
+                "--asset-base",
+                derive_tikz_asset_base(config.asset_base),
+            ],
+            stages=stages,
+        )
+        if RENDER_TIKZ_ASSETS_REPORT.exists():
+            ensure_parent(paths.tikz_render_report)
+            shutil.copy2(RENDER_TIKZ_ASSETS_REPORT, paths.tikz_render_report)
+    finally:
+        if tikz_report_snapshot is not None:
+            ensure_parent(RENDER_TIKZ_ASSETS_REPORT)
+            RENDER_TIKZ_ASSETS_REPORT.write_bytes(tikz_report_snapshot)
+        elif RENDER_TIKZ_ASSETS_REPORT.exists():
+            try:
+                RENDER_TIKZ_ASSETS_REPORT.unlink()
+            except OSError:
+                LOGGER.warning(
+                    "Could not remove generated TikZ render report: %s",
+                    RENDER_TIKZ_ASSETS_REPORT,
+                )
     render_report_snapshot = (
         RENDER_MATH_ASSETS_REPORT.read_bytes()
         if RENDER_MATH_ASSETS_REPORT.exists()
@@ -857,7 +916,7 @@ def postprocess_canonical_delta(
                 "node",
                 str(SCRIPT_DIR / "render_math_assets.mjs"),
                 "--input",
-                str(paths.canonical_marked),
+                str(paths.canonical_tikz_rendered),
                 "--output",
                 str(paths.canonical_rendered),
                 "--out-dir",
@@ -1612,15 +1671,21 @@ def upload_formula_dirs(
         return {"skipped": True, "reason": "dry-run or upload not requested"}
 
     uploaded: list[str] = []
+    tikz_uploaded: list[str] = []
     target = remote_ref(config)
     remote_stage_root = f"/tmp/{paths.tmp_root.name}/formulas"
+    remote_tikz_stage_root = f"/tmp/{paths.tmp_root.name}/tikz"
+    remote_tikz_dir = derive_remote_tikz_dir(config.remote_formula_dir)
     owner_group = remote_formula_owner_group(config)
     run_command(
         "remote prepare formula upload staging",
         remote_ssh_command(
             config,
             target,
-            f"rm -rf -- {shell_quote(remote_stage_root)} && mkdir -p -- {shell_quote(remote_stage_root)}",
+            (
+                f"rm -rf -- {shell_quote(remote_stage_root)} {shell_quote(remote_tikz_stage_root)} "
+                f"&& mkdir -p -- {shell_quote(remote_stage_root)} {shell_quote(remote_tikz_stage_root)}"
+            ),
         ),
         stages=stages,
         interactive=True,
@@ -1674,12 +1739,59 @@ def upload_formula_dirs(
             input_text=remote_sudo_input(config),
         )
         uploaded.append(remote_item_dir)
+
+    for item_id in config.ids:
+        local_dir = paths.tikz_out_dir / item_id
+        if not local_dir.is_dir():
+            continue
+        local_source = project_relative_posix_path(local_dir)
+        remote_item_dir = f"{remote_tikz_dir}/{item_id}"
+        remote_staged_item_dir = f"{remote_tikz_stage_root}/{item_id}"
+        run_command(
+            f"upload TikZ dir to staging [{item_id}]",
+            remote_scp_command(
+                config,
+                "-r",
+                local_source,
+                f"{target}:{remote_tikz_stage_root}/",
+            ),
+            cwd=PROJECT_ROOT,
+            stages=stages,
+            interactive=True,
+            env=remote_auth_env(config, paths),
+        )
+        install_steps = [
+            f"[ -d {shell_quote(remote_staged_item_dir)} ]",
+            f"mkdir -p -- {shell_quote(remote_tikz_dir)}",
+            f"rm -rf -- {shell_quote(remote_item_dir)}",
+            f"cp -a -- {shell_quote(remote_staged_item_dir)} {shell_quote(remote_tikz_dir + '/')}",
+            f"chown -- {shell_quote(owner_group)} {shell_quote(remote_tikz_dir)}",
+            f"chown -R -- {shell_quote(owner_group)} {shell_quote(remote_item_dir)}",
+        ]
+        run_command(
+            f"remote install TikZ dir [{item_id}]",
+            remote_ssh_command(
+                config,
+                "-tt",
+                target,
+                sudo_login_shell(
+                    " && ".join(install_steps),
+                    password_stdin=bool(config.remote_password),
+                ),
+            ),
+            stages=stages,
+            interactive=True,
+            env=remote_auth_env(config, paths),
+            input_text=remote_sudo_input(config),
+        )
+        tikz_uploaded.append(remote_item_dir)
+
     run_command(
         "remote cleanup formula upload staging",
         remote_ssh_command(
             config,
             target,
-            f"rm -rf -- {shell_quote(remote_stage_root)}",
+            f"rm -rf -- {shell_quote(remote_stage_root)} {shell_quote(remote_tikz_stage_root)}",
         ),
         stages=stages,
         interactive=True,
@@ -1688,7 +1800,9 @@ def upload_formula_dirs(
     return {
         "skipped": False,
         "uploaded": uploaded,
+        "tikz_uploaded": tikz_uploaded,
         "staging": remote_stage_root,
+        "tikz_staging": remote_tikz_stage_root,
         "owner_group": owner_group,
     }
 
@@ -1802,6 +1916,7 @@ def orchestrate(config: PublishConfig) -> PublishReport:
                 "merged_backend_candidate": str(paths.merged_backend_index),
                 "merged_pdf_map_candidate": str(paths.merged_pdf_map),
                 "formula_dirs": [str(paths.formula_out_dir / item_id) for item_id in config.ids],
+                "tikz_dirs": [str(paths.tikz_out_dir / item_id) for item_id in config.ids],
                 "pdf_delta": pdf_delta,
                 "backend_sync": backend_sync_result,
                 "backend_git": backend_git_result,

@@ -116,39 +116,41 @@ class IncrementalPublishUploadTests(unittest.TestCase):
         prepare_call = next(
             call for call in calls if call["name"] == "remote prepare formula upload staging"
         )
-        self.assertEqual(prepare_call["command"][0:2], ["ssh", "tester@example.invalid"])
+        self.assertEqual(prepare_call["command"][0], "ssh")
+        self.assertIn("tester@example.invalid", prepare_call["command"])
         self.assertIn("SSH_ASKPASS", prepare_call["env"])
         self.assertEqual(prepare_call["env"]["SSH_ASKPASS_REQUIRE"], "force")
-        self.assertIn("/tmp/", prepare_call["command"][2])
-        self.assertIn("/formulas", prepare_call["command"][2])
+        self.assertIn("/tmp/", prepare_call["command"][-1])
+        self.assertIn("/formulas", prepare_call["command"][-1])
+        self.assertIn("/tikz", prepare_call["command"][-1])
 
         upload_call = next(
             call for call in calls if call["name"] == "upload formula dir to staging [R005]"
         )
-        self.assertEqual(upload_call["command"][0:2], ["scp", "-r"])
+        self.assertEqual(upload_call["command"][0], "scp")
+        recursive_arg_index = upload_call["command"].index("-r")
         self.assertIn("SSH_ASKPASS", upload_call["env"])
-        source_path = upload_call["command"][2]
+        source_path = upload_call["command"][recursive_arg_index + 1]
         self.assertEqual(
             source_path,
             ".tmp/test_incremental_publish/incremental_publish_upload_fixture/formulas/R005",
         )
         self.assertNotIn(":", source_path)
         self.assertNotIn("\\", source_path)
-        self.assertTrue(upload_call["command"][3].endswith("/formulas/"))
+        self.assertTrue(upload_call["command"][recursive_arg_index + 2].endswith("/formulas/"))
         self.assertEqual(upload_call["cwd"], publisher.PROJECT_ROOT)
 
         install_call = next(
             call for call in calls if call["name"] == "remote install formula dir [R005]"
         )
-        self.assertEqual(
-            install_call["command"][0:3],
-            ["ssh", "-tt", "tester@example.invalid"],
-        )
-        self.assertIn("sudo -S -p '' -i bash -lc", install_call["command"][3])
-        self.assertIn("/var/www/ok-shuxue/static/formulas/R005", install_call["command"][3])
-        self.assertIn("www-data:www-data", install_call["command"][3])
+        self.assertEqual(install_call["command"][0], "ssh")
+        self.assertIn("-tt", install_call["command"])
+        self.assertIn("tester@example.invalid", install_call["command"])
+        self.assertIn("sudo -S -p '' -i bash -lc", install_call["command"][-1])
+        self.assertIn("/var/www/ok-shuxue/static/formulas/R005", install_call["command"][-1])
+        self.assertIn("www-data:www-data", install_call["command"][-1])
         self.assertIn("SSH_ASKPASS", install_call["env"])
-        self.assertEqual(install_call["input_text"], "yfcheng\n")
+        self.assertEqual(install_call["input_text"], "yfcheng\nyfcheng\n")
         for call in calls:
             self.assertNotIn("yfcheng", " ".join(call["command"]))
 
