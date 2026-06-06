@@ -1,1 +1,80 @@
-\begin{proofbox}\textbf{\textcolor{CProof}{思路提示}}利用正方体中心到顶点距离相等，通过坐标法或勾股定理求出体对角线一半即可。\medskip\textbf{\textcolor{CProof}{正式推导}}\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]\item[\textbf{步骤一（建立坐标系）：}] 以正方体一个顶点为原点，三条棱所在直线分别为$x$、$y$、$z$轴建立空间直角坐标系。设棱长为$a$，则顶点坐标可设为$A(0,0,0)$、$C(a,a,a)$等。\[A(0,0,0),\; C(a,a,a)\]\par\textbf{理由：} 坐标化后可用距离公式计算任意两点间距离。\item[\textbf{步骤二（确定球心坐标）：}] 正方体中心是其外接球球心，坐标为$O(\frac{a}{2},\frac{a}{2},\frac{a}{2})$。\[O\left(\frac{a}{2},\frac{a}{2},\frac{a}{2}\right)\]\par\textbf{理由：} 正方体中心到所有顶点距离相等，由对称性可得；或通过体对角线中点坐标验证。\item[\textbf{步骤三（计算半径）：}] 计算顶点$C$到球心$O$的距离。\[\begin{aligned}R &= |OC| = \sqrt{\left(a-\frac{a}{2}\right)^2 + \left(a-\frac{a}{2}\right)^2 + \left(a-\frac{a}{2}\right)^2}\\&= \sqrt{3\cdot\left(\frac{a}{2}\right)^2}\\&= \frac{\sqrt{3}}{2}a.\end{aligned}\]\par\textbf{理由：} 球面上任意点到球心的距离等于半径；代入坐标计算即得结论。\end{description}\medskip\textbf{\textcolor{CProof}{结论回扣}}\textbf{正方体外接球半径公式为 $R = \frac{\sqrt{3}}{2}a$，其中 $a$ 为棱长。}\end{proofbox}
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	利用正方体中心到各顶点距离相等，通过坐标法求出中心到顶点的距离；也可以理解为外接球半径等于体对角线的一半。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（建立坐标系）：}]
+		      以正方体一个顶点为原点，三条棱所在直线分别为 $x$、$y$、$z$ 轴建立空间直角坐标系。
+
+		      设正方体棱长为 $a$，取一个顶点为
+		      \[
+			      A(0,0,0),
+		      \]
+		      与它相对的顶点为
+		      \[
+			      A'(a,a,a).
+		      \]
+
+		      \par\textbf{理由：}
+		      这样命名可以避免把 $C(a,a,a)$ 误认为底面顶点；坐标化后可直接使用空间两点距离公式。
+
+		\item[\textbf{步骤二（确定球心坐标）：}]
+		      正方体中心是其外接球球心，记为 $O$，则
+		      \[
+			      O\left(\frac{a}{2},\frac{a}{2},\frac{a}{2}\right).
+		      \]
+
+		      \par\textbf{理由：}
+		      正方体中心是体对角线 $AA'$ 的中点，并且到所有顶点的距离相等，所以它就是外接球球心。
+
+		\item[\textbf{步骤三（计算外接球半径）：}]
+		      外接球半径等于球心 $O$ 到顶点 $A'$ 的距离，因此
+		      \[
+			      \begin{aligned}
+				      R
+				       & =OA'                                     \\
+				       & =\sqrt{
+					      \left(a-\frac{a}{2}\right)^2+
+					      \left(a-\frac{a}{2}\right)^2+
+					      \left(a-\frac{a}{2}\right)^2
+				      }                                           \\
+				       & =\sqrt{3\cdot\left(\frac{a}{2}\right)^2} \\
+				       & =\frac{\sqrt{3}}{2}a.
+			      \end{aligned}
+		      \]
+
+		      \par\textbf{理由：}
+		      球面上任意一点到球心的距离都等于半径；顶点 $A'$ 在外接球球面上，所以 $OA'$ 就是外接球半径。
+
+		\item[\textbf{步骤四（体对角线验证）：}]
+		      正方体体对角线长为
+		      \[
+			      AA'=\sqrt{a^2+a^2+a^2}=\sqrt{3}a.
+		      \]
+		      因此
+		      \[
+			      2R=AA'=\sqrt{3}a,
+		      \]
+		      也就是
+		      \[
+			      R=\frac{\sqrt{3}}{2}a.
+		      \]
+
+		      \par\textbf{理由：}
+		      外接球直径正好等于正方体体对角线长度，这是本结论最直观的记忆方式。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{正方体外接球半径公式为}
+	\[
+		R=\frac{\sqrt{3}}{2}a,
+	\]
+	\textbf{其中 $a$ 为正方体棱长。反过来，若已知外接球半径 $R$，则}
+	\[
+		a=\frac{2R}{\sqrt{3}}=\frac{2\sqrt{3}}{3}R.
+	\]
+\end{proofbox}
