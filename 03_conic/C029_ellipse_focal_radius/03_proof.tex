@@ -1,0 +1,123 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用两点距离公式表达 $PF_1^2$，借助椭圆方程消去 $y^2$，再利用 $a,b,c,e$ 的关系配方。最后开方时要说明为什么取正号。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（写出距离平方）：}]
+		      \[
+			      PF_1^2 = (x+c)^2 + y^2.
+		      \]
+		      \par\textbf{理由：} 两点间距离公式
+		      \[
+			      PF_1=\sqrt{(x-(-c))^2+(y-0)^2},
+		      \]
+		      平方后得到上式。
+
+		\item[\textbf{步骤二（消去 $y^2$）：}]
+		      由椭圆方程得
+		      \[
+			      y^2=b^2\left(1-\frac{x^2}{a^2}\right).
+		      \]
+		      代入得
+		      \[
+			      PF_1^2=(x+c)^2+b^2\left(1-\frac{x^2}{a^2}\right).
+		      \]
+		      \par\textbf{理由：} 由
+		      \[
+			      \frac{x^2}{a^2}+\frac{y^2}{b^2}=1
+		      \]
+		      解出 $y^2$。
+
+		\item[\textbf{步骤三（利用 $b^2=a^2-c^2$ 展开）：}]
+		      \[
+			      \begin{aligned}
+				      PF_1^2
+				       & =x^2+2cx+c^2+(a^2-c^2)\left(1-\frac{x^2}{a^2}\right) \\
+				       & =x^2+2cx+c^2+a^2-c^2-\frac{a^2-c^2}{a^2}x^2.
+			      \end{aligned}
+		      \]
+		      \par\textbf{理由：} 将 $b^2$ 用 $a^2-c^2$ 代换，再展开合并。
+
+		\item[\textbf{步骤四（合并 $x^2$ 项）：}]
+		      \[
+			      \begin{aligned}
+				      PF_1^2
+				       & =\left(1-\frac{a^2-c^2}{a^2}\right)x^2+2cx+a^2 \\
+				       & =\frac{c^2}{a^2}x^2+2cx+a^2.
+			      \end{aligned}
+		      \]
+		      \par\textbf{理由：}
+		      \[
+			      1-\frac{a^2-c^2}{a^2}
+			      =\frac{a^2-(a^2-c^2)}{a^2}
+			      =\frac{c^2}{a^2}.
+		      \]
+
+		\item[\textbf{步骤五（配方并开方）：}]
+		      \[
+			      PF_1^2=\left(\frac{c}{a}x+a\right)^2.
+		      \]
+		      因为点 $P$ 在椭圆上，所以
+		      \[
+			      -a\le x\le a.
+		      \]
+		      又因为
+		      \[
+			      0<e=\frac{c}{a}<1,
+		      \]
+		      所以
+		      \[
+			      a+ex\ge a-ea=a-c>0.
+		      \]
+		      因此
+		      \[
+			      PF_1=\sqrt{(a+ex)^2}=a+ex.
+		      \]
+		      \par\textbf{理由：} 配方为
+		      \[
+			      \frac{c^2}{a^2}x^2+2cx+a^2
+			      =\left(\frac{c}{a}x+a\right)^2
+			      =(a+ex)^2.
+		      \]
+		      由于 $PF_1$ 是线段长度，且 $a+ex>0$，所以开方后取正号。
+
+		\item[\textbf{步骤六（对应右焦点）：}]
+		      同理，
+		      \[
+			      PF_2^2=(x-c)^2+y^2.
+		      \]
+		      代入椭圆方程并化简可得
+		      \[
+			      PF_2^2=(a-ex)^2.
+		      \]
+		      又因为
+		      \[
+			      a-ex\ge a-ea=a-c>0,
+		      \]
+		      所以
+		      \[
+			      PF_2=a-ex.
+		      \]
+		      \par\textbf{理由：} 对右焦点 $F_2(c,0)$ 进行同样推导即可。开方时同样要利用 $-a\le x\le a$ 与 $0<e<1$，保证 $a-ex>0$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	因此，对于焦点在 $x$ 轴上的标准椭圆
+	\[
+		\frac{x^2}{a^2}+\frac{y^2}{b^2}=1\quad (a>b>0),
+	\]
+	有
+	\[
+		PF_1=a+ex,\qquad PF_2=a-ex.
+	\]
+	由此还可得到
+	\[
+		PF_1+PF_2=2a,\qquad PF_1-PF_2=2ex.
+	\]
+	其中 $PF_1-PF_2$ 是有向差。
+\end{proofbox}
