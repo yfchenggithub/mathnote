@@ -1,0 +1,95 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用对称点的两个几何条件：$PP'$ 垂直于直线 $l$，且 $PP'$ 的中点落在 $l$ 上。通过引入比例因子 $k$ 简化计算。
+
+	\medskip
+
+	\textbf{\textcolor{CProof}{正式推导}}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（设比例因子）：}]
+		      由垂直关系，$PP'$ 的方向与法向量 $(A,B)$ 平行，故存在实数 $k$ 使
+		      \[
+			      \begin{cases}
+				      x' - x_0 = kA, \\
+				      y' - y_0 = kB.
+			      \end{cases}
+		      \]
+		      \par\textbf{理由：} 直线 $l$ 的法向量为 $(A,B)$，与 $l$ 垂直的直线方向与法向量相同。
+
+		\item[\textbf{步骤二（中点条件）：}]
+		      中点
+		      \[
+			      M\left(\dfrac{x_0+x'}{2},\dfrac{y_0+y'}{2}\right)
+		      \]
+		      在 $l$ 上，故
+		      \[
+			      A\cdot\frac{x_0+x'}{2} + B\cdot\frac{y_0+y'}{2} + C = 0.
+		      \]
+		      \par\textbf{理由：} 对称点定义要求中点在对称轴上。
+
+		\item[\textbf{步骤三（代入消元）：}]
+		      将
+		      \[
+			      x' = x_0 + kA,\qquad y' = y_0 + kB
+		      \]
+		      代入中点方程：
+		      \[
+			      \begin{aligned}
+				      A\cdot\frac{x_0 + (x_0+kA)}{2}
+				      + B\cdot\frac{y_0 + (y_0+kB)}{2}
+				      + C                                               & = 0  \\
+				      \Rightarrow\quad
+				      Ax_0 + \frac{A^2k}{2} + By_0 + \frac{B^2k}{2} + C & = 0.
+			      \end{aligned}
+		      \]
+		      \par\textbf{理由：} 合并同类项，整理关于 $k$ 的方程。
+
+		\item[\textbf{步骤四（解因子）：}]
+		      整理上式为
+		      \[
+			      (Ax_0+By_0+C) + \frac{A^2+B^2}{2}\,k = 0,
+		      \]
+		      解得
+		      \[
+			      k = -\frac{2(Ax_0+By_0+C)}{A^2+B^2}
+			      = -2t,
+		      \]
+		      其中
+		      \[
+			      t = \dfrac{Ax_0+By_0+C}{A^2+B^2}.
+		      \]
+		      \par\textbf{理由：} 因为 $A,B$ 不全为零，所以 $A^2+B^2 \neq 0$，方程可解。
+
+		\item[\textbf{步骤五（回代得公式）：}]
+		      将 $k = -2t$ 代入步骤一：
+		      \[
+			      \begin{cases}
+				      x' = x_0 + (-2t)A = x_0 - 2At, \\
+				      y' = y_0 + (-2t)B = y_0 - 2Bt.
+			      \end{cases}
+		      \]
+		      \par\textbf{理由：} 直接回代即得对称点坐标。
+	\end{description}
+
+	\medskip
+
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{如此便得到了对称因子公式。这一推导展示了将几何条件转化为代数比例关系的典型方法。}
+
+	\medskip
+
+	\textbf{\textcolor{CProof}{检验方法}}
+
+	求出 $P'(x',y')$ 后，可以用两个条件快速检验：
+	\[
+		A\cdot\frac{x_0+x'}{2}+B\cdot\frac{y_0+y'}{2}+C=0,
+	\]
+	并且
+	\[
+		(x'-x_0,\ y'-y_0)
+	\]
+	应与法向量 $(A,B)$ 平行。
+\end{proofbox}
