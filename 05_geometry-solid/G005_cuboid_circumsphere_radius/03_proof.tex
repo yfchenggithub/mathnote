@@ -1,0 +1,102 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	建立空间直角坐标系，先严格确定球心位置，再计算球心到任一顶点的距离，即得到外接球半径。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（建立坐标系）：}]
+		      取长方体一个顶点为原点 $O(0,0,0)$，过 $O$ 的三条棱分别沿 $x$ 轴、$y$ 轴、$z$ 轴正向，棱长分别为 $a,b,c$。
+
+		      则长方体的顶点坐标可统一表示为
+		      \[
+			      (x,y,z),\quad x\in\{0,a\},\quad y\in\{0,b\},\quad z\in\{0,c\}.
+		      \]
+		      其中三个与 $O$ 相邻的顶点和一个对顶点可记为
+		      \[
+			      A(a,0,0),\quad B(0,b,0),\quad C(0,0,c),\quad D(a,b,c).
+		      \]
+		      \par\textbf{理由：}
+		      这样建系后，长方体的长、宽、高分别对应三个坐标方向，距离计算最简单。
+
+		\item[\textbf{步骤二（严格确定球心）：}]
+		      设长方体外接球球心为 $P(x,y,z)$。因为外接球经过长方体所有顶点，所以
+		      \[
+			      |PO|=|PA|=|PB|=|PC|.
+		      \]
+		      由 $|PO|^2=|PA|^2$，得
+		      \[
+			      x^2+y^2+z^2=(x-a)^2+y^2+z^2,
+		      \]
+		      所以
+		      \[
+			      x=\frac{a}{2}.
+		      \]
+		      同理，由 $|PO|^2=|PB|^2$ 和 $|PO|^2=|PC|^2$，得
+		      \[
+			      y=\frac{b}{2},\qquad z=\frac{c}{2}.
+		      \]
+		      因此外接球球心为
+		      \[
+			      M\left(\frac{a}{2},\frac{b}{2},\frac{c}{2}\right).
+		      \]
+		      \par\textbf{理由：}
+		      球心到球面上各顶点的距离相等。用等距关系可以直接推出球心坐标，避免只凭直观判断。
+
+		\item[\textbf{步骤三（验证所有顶点都在同一球面上）：}]
+		      任取长方体的一个顶点
+		      \[
+			      V(\varepsilon_1 a,\varepsilon_2 b,\varepsilon_3 c),
+			      \qquad \varepsilon_1,\varepsilon_2,\varepsilon_3\in\{0,1\}.
+		      \]
+		      则
+		      \[
+			      |MV|^2
+			      =
+			      \left(\varepsilon_1a-\frac{a}{2}\right)^2
+			      +
+			      \left(\varepsilon_2b-\frac{b}{2}\right)^2
+			      +
+			      \left(\varepsilon_3c-\frac{c}{2}\right)^2.
+		      \]
+		      由于 $\varepsilon_i$ 只能取 $0$ 或 $1$，所以每一项的平方分别为
+		      \[
+			      \frac{a^2}{4},\quad \frac{b^2}{4},\quad \frac{c^2}{4}.
+		      \]
+		      因此
+		      \[
+			      |MV|^2=\frac{a^2+b^2+c^2}{4}.
+		      \]
+		      这说明 $M$ 到长方体所有顶点的距离都相等。
+
+		      \par\textbf{理由：}
+		      这一步说明以 $M$ 为球心、$|MV|$ 为半径的球确实经过长方体全部顶点。
+
+		\item[\textbf{步骤四（计算半径）：}]
+		      外接球半径为
+		      \[
+			      R=|MO|
+			      =
+			      \sqrt{
+				      \left(\frac{a}{2}\right)^2
+				      +
+				      \left(\frac{b}{2}\right)^2
+				      +
+				      \left(\frac{c}{2}\right)^2
+			      }
+			      =
+			      \frac{1}{2}\sqrt{a^2+b^2+c^2}.
+		      \]
+		      \par\textbf{理由：}
+		      由空间两点间距离公式计算球心到顶点的距离。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{因此，长方体外接球的球心在长方体中心，半径为}
+	\[
+		\boxed{R=\frac{1}{2}\sqrt{a^2+b^2+c^2}}.
+	\]
+\end{proofbox}
