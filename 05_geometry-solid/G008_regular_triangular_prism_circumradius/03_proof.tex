@@ -1,0 +1,78 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	先利用等距条件确定外接球球心的位置，再把空间半径转化为一个直角三角形中的斜边，最后用勾股定理求解。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（确定球心所在直线）：}] 设上、下底面中心分别为 $O_1,O_2$，外接球球心为 $O$.
+
+		      因为 $O$ 到上底面三个顶点距离相等，所以 $O$ 必在上底面正三角形外心 $O_1$ 的垂线上；同理，$O$ 到下底面三个顶点距离相等，所以 $O$ 也在下底面正三角形外心 $O_2$ 的垂线上。
+
+		      由于正三棱柱为直棱柱，两条垂线重合，即 $O$ 在 $O_1O_2$ 所在直线上.
+
+		      \par\textbf{理由：} 空间中到一个三角形三个顶点距离相等的点，一定在该三角形外心的垂线上；正三棱柱上下底面外心的垂线正好是同一条直线.
+
+		\item[\textbf{步骤二（确定球心为中点）：}] 上、下底面对应顶点关于中截面对称，外接球经过上下底面的所有顶点，因此球心 $O$ 位于 $O_1O_2$ 的中点.
+		      \[
+			      OO_1=OO_2=\frac h2.
+		      \]
+		      \par\textbf{理由：} 外接球球心到上下对应顶点距离相等，又球心已在 $O_1O_2$ 上，所以只能取上下底面中心连线的中点.
+
+		\item[\textbf{步骤三（底面外接圆半径）：}] 底面正三角形边长为 $a$，设其外接圆半径为 $r$，则
+		      \[
+			      r = \frac{a}{\sqrt{3}}.
+		      \]
+		      \par\textbf{理由：} 正三角形外心、内心、重心合一，外接圆半径由正弦定理得
+		      \[
+			      r=\frac{a}{2\sin 60^{\circ}}=\frac{a}{\sqrt3}.
+		      \]
+
+		\item[\textbf{步骤四（构造直角三角形）：}] 在上底面中取一个顶点 $A$，则
+		      \[
+			      O_1A=r.
+		      \]
+		      由于 $A$ 是正三棱柱的顶点，且外接球经过所有顶点，所以
+		      \[
+			      OA=R.
+		      \]
+		      又因为 $OO_1$ 垂直于底面，$O_1A$ 在底面内，所以
+		      \[
+			      OO_1\perp O_1A.
+		      \]
+		      因此在直角三角形 $OO_1A$ 中，
+		      \[
+			      \begin{aligned}
+				      R^{2}
+				       & =OA^{2}                           \\
+				       & =OO_1^{2}+O_1A^{2}                \\
+				       & =\left(\frac h2\right)^{2}+r^{2}.
+			      \end{aligned}
+		      \]
+		      \par\textbf{理由：} 这是把空间外接球半径转化为平面直角三角形斜边的关键一步.
+
+		\item[\textbf{步骤五（代入化简）：}] 将 $r=a/\sqrt3$ 代入上式，得
+		      \[
+			      \begin{aligned}
+				      R^{2}
+				       & =\left(\frac h2\right)^{2}+\left(\frac a{\sqrt3}\right)^{2} \\
+				       & =\frac{h^{2}}{4}+\frac{a^{2}}{3}.
+			      \end{aligned}
+		      \]
+		      因为 $R>0$，所以
+		      \[
+			      R=\sqrt{\frac{a^{2}}{3}+\frac{h^{2}}{4}}.
+		      \]
+		      \par\textbf{理由：} 半径为正数，开平方时取正根.
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{正三棱柱外接球半径为}
+	\[
+		\boxed{R=\sqrt{\frac{a^{2}}{3}+\frac{h^{2}}{4}}}.
+	\]
+	\textbf{其中 $a$ 是底面正三角形边长，$h$ 是棱柱高。}
+\end{proofbox}
