@@ -1,0 +1,59 @@
+\begin{proofbox}
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用直线参数方程，将弦长转化为参数差的绝对值，通过韦达定理直接化简，避免解交点坐标。
+
+	\medskip
+
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+
+		\item[\textbf{步骤一（设参数方程）：}] 取右焦点 $F(c,0)$，过 $F$ 且与长轴夹角为 $\theta$ 的直线 $PQ$ 的参数方程为
+		      \[
+			      \begin{cases}
+				      x = c + t\cos\theta, \\
+				      y = t\sin\theta,
+			      \end{cases}
+			      \quad t\in\mathbb{R}.
+		      \]
+		      \par\textbf{理由：} 参数 $t$ 的几何意义是从焦点 $F$ 到直线上点的有向距离，当 $t=0$ 时对应焦点本身。若取左焦点 $F(-c,0)$，只会使代入后的二次方程一次项符号改变，而最终弦长 $|t_1-t_2|$ 不变，因此结论相同。
+
+		\item[\textbf{步骤二（代入椭圆）：}] 将参数方程代入椭圆 $\displaystyle\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$，整理得
+		      \[
+			      (b^2\cos^2\theta + a^2\sin^2\theta)t^2 + 2b^2c\cos\theta\,t - b^4 = 0.
+		      \]
+		      \par\textbf{理由：} 代入后移项化简，并利用 $c^2=a^2-b^2$ 简化常数项 $-b^4$。
+
+		\item[\textbf{步骤三（韦达定理）：}] 设 $t_1,t_2$ 是方程的两个根，则
+		      \[
+			      t_1+t_2 = -\frac{2b^2c\cos\theta}{b^2\cos^2\theta + a^2\sin^2\theta},\qquad
+			      t_1t_2 = -\frac{b^4}{b^2\cos^2\theta + a^2\sin^2\theta}.
+		      \]
+		      \par\textbf{理由：} 二次方程根与系数的关系直接给出。
+
+		\item[\textbf{步骤四（求弦长）：}] 记 $B = b^2\cos^2\theta + a^2\sin^2\theta$，由弦长公式 $|PQ| = |t_1-t_2| = \sqrt{(t_1+t_2)^2 - 4t_1t_2}$ 得
+		      \[
+			      \begin{aligned}
+				      |PQ| & = \sqrt{ \frac{4b^4c^2\cos^2\theta}{B^2} + \frac{4b^4}{B} } \\
+				           & = \frac{2b^2}{B} \sqrt{ c^2\cos^2\theta + B }               \\
+				           & = \frac{2b^2}{B} \sqrt{ a^2 } = \frac{2ab^2}{B}.
+			      \end{aligned}
+		      \]
+		      \par\textbf{理由：} 代入韦达结果并开方，注意到 $c^2\cos^2\theta + (b^2\cos^2\theta+a^2\sin^2\theta) = a^2$。
+
+		\item[\textbf{步骤五（常用形式）：}] 利用 $B = a^2 - c^2\cos^2\theta$，$b^2 = a^2(1-e^2)$，可得
+		      \[
+			      |PQ| = \frac{2ab^2}{a^2-c^2\cos^2\theta} = \frac{2a(1-e^2)}{1-e^2\cos^2\theta}.
+		      \]
+		      \par\textbf{理由：} 分子分母同除以 $a^2$ 并代入离心率即得。
+
+	\end{description}
+
+	\medskip
+
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	上述推导证实了椭圆焦点弦长公式，它将弦长表示为椭圆参数与夹角 $\theta$ 的简洁分式，是处理过焦点弦问题的有利工具。
+
+\end{proofbox}
