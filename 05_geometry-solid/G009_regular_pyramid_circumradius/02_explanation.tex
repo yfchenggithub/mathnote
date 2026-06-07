@@ -1,0 +1,125 @@
+\begin{explanationbox}
+
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+	正棱锥的外接球问题，本质上是把空间问题压缩到“高线”上的直角三角形问题：外接球球心一定在顶点与底面外心所在的直线上，但不一定在线段内部。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（球心位置）：}] 设底面外心为 $C$，外接球球心为 $O$。由于 $O$ 到底面各顶点距离相等，所以 $O$ 在过 $C$ 且垂直底面的直线上；对正棱锥而言，这条直线就是高所在直线。
+		\item[\textbf{要点二（距离相等）：}] 球心到顶点的距离等于球心到底面任意顶点的距离，由此列出方程。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（勾股三角形）}}
+
+	设顶点为 $S$，底面外接圆上一点为 $P$，则
+	\[
+		OS=OP=R.
+	\]
+	若用有向距离表示球心高度，则由直角三角形关系可得
+	\[
+		OP^2 = OC^2 + CP^2.
+	\]
+	其中 $CP=r$，而 $OC$ 对应球心在高线上的位置。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{球心位置分情况}}
+
+	设底面外心为原点，顶点高度为 $h$，球心坐标为
+	\[
+		z=\frac{h^2-r^2}{2h}.
+	\]
+	因此：
+	\[
+		\begin{array}{c|c|c}
+			\text{条件} & z\text{ 的符号} & \text{球心位置}    \\ \hline
+			h>r       & z>0          & \text{底面上方}    \\[3pt]
+			h=r       & z=0          & \text{恰在底面外心处} \\[3pt]
+			h<r       & z<0          & \text{底面下方}
+		\end{array}
+	\]
+	所以，“球心在高线上”不等于“球心一定在棱锥内部”。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（平方后一次消元）}}
+
+	将距离相等条件写成方程，平方后虽然出现二次项，但 $z^2$ 会相互抵消，最终得到关于 $z$ 的一次方程，从而推出
+	\[
+		R=\frac{h^2+r^2}{2h}.
+	\]
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（高频应用）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（直接求半径）：} 已知 $h$ 和 $r$，直接代入
+		      \[
+			      R=\frac{h^2+r^2}{2h}.
+		      \]
+		\item \textbf{考法二（反求底面外接圆半径）：} 已知 $R$ 和 $h$，可由
+		      \[
+			      r^2=2Rh-h^2
+		      \]
+		      得到
+		      \[
+			      r=\sqrt{2Rh-h^2}.
+		      \]
+		      但必须满足
+		      \[
+			      2Rh-h^2\ge 0.
+		      \]
+		      若底面非退化，则应有
+		      \[
+			      2Rh-h^2>0.
+		      \]
+		\item \textbf{考法三（反求高）：} 已知 $R$ 和 $r$，由
+		      \[
+			      h^2-2Rh+r^2=0
+		      \]
+		      可得
+		      \[
+			      h=R\pm\sqrt{R^2-r^2}.
+		      \]
+		      因此必须满足
+		      \[
+			      R\ge r.
+		      \]
+		      当 $R>r$ 时，通常会出现两个正高度。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{常见底面外接圆半径}}
+
+	公式中的 $r$ 是底面外接圆半径，不一定等于底面边长。常见情形如下：
+	\[
+		\begin{array}{c|c}
+			\text{底面图形}      & \text{外接圆半径 } r    \\ \hline
+			\text{正三角形边长 } a & \dfrac{\sqrt3}{3}a \\[6pt]
+			\text{正方形边长 } a  & \dfrac{\sqrt2}{2}a \\[6pt]
+			\text{正六边形边长 } a & a
+		\end{array}
+	\]
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	抓住关系
+	\[
+		R^2=r^2+(h-R)^2,
+	\]
+	移项即可得到
+	\[
+		2hR=h^2+r^2,
+	\]
+	从而推出公式，不必死记。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景（典型情境）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（求解半径）：} 给出正棱锥的高和底面外接圆半径，求外接球半径。
+		\item \textbf{场景二（综合求量）：} 结合侧棱、高、底面边长等关系，先求 $h$ 和 $r$ 再求 $R$。
+		\item \textbf{场景三（反求参数）：} 已知 $R$ 与其中一个参数时，反求 $h$ 或 $r$，但必须检查存在条件。
+	\end{itemize}
+
+\end{explanationbox}
