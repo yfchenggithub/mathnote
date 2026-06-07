@@ -1,0 +1,280 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}} 已知直线$x+y-1=0$与椭圆$\frac{x^2}{8}+\frac{y^2}{4}=1$相交于$A,B$，求弦$AB$的长度.
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（准备系数）}] 直线$Ax+By+C=0$中
+		      \[
+			      A=1,\qquad B=1,\qquad C=-1.
+		      \]
+		      椭圆可写为
+		      \[
+			      \frac{x^2}{\alpha}+\frac{y^2}{\beta}=1,
+		      \]
+		      其中
+		      \[
+			      \alpha=8,\qquad \beta=4.
+		      \]
+		      因此
+		      \[
+			      p=A^2\alpha+B^2\beta=1\cdot8+1\cdot4=12,
+		      \]
+		      \[
+			      q=2AC\alpha=2\cdot1\cdot(-1)\cdot8=-16,
+		      \]
+		      \[
+			      r=C^2\alpha-B^2\alpha\beta=1\cdot8-1\cdot8\cdot4=8-32=-24.
+		      \]
+		      \par\textbf{理由：} 为直接使用硬解定理准备消去$y$后的二次方程系数.
+
+		\item[\textbf{第二步（韦达定理）}] 由消去$y$公式：
+		      \[
+			      x_1+x_2=-\frac{q}{p}=-\frac{-16}{12}=\frac{4}{3},
+			      \qquad
+			      x_1x_2=\frac{r}{p}=\frac{-24}{12}=-2.
+		      \]
+		      \par\textbf{理由：} 硬解定理直接给出韦达结果，无需重新联立展开.
+
+		\item[\textbf{第三步（弦长公式）}] 因为$B=1\neq0$，直线斜率存在，
+		      \[
+			      k=-\frac{A}{B}=-1.
+		      \]
+		      消去$y$所得二次方程的判别式为
+		      \[
+			      \Delta_x=q^2-4pr=(-16)^2-4\cdot12\cdot(-24)=256+1152=1408.
+		      \]
+		      所以
+		      \[
+			      \sqrt{\Delta_x}=8\sqrt{22}.
+		      \]
+		      弦长为
+		      \[
+			      |AB|
+			      =
+			      \sqrt{1+k^2}\cdot\frac{\sqrt{\Delta_x}}{|p|}
+			      =
+			      \sqrt{2}\cdot\frac{8\sqrt{22}}{12}
+			      =
+			      \frac{4\sqrt{11}}{3}.
+		      \]
+		      \par\textbf{理由：} 这里使用的是“消去$y$”后的$x$根差公式：
+		      \[
+			      |x_1-x_2|=\frac{\sqrt{\Delta_x}}{|p|}.
+		      \]
+		      由于直线斜率存在，
+		      \[
+			      |AB|=\sqrt{1+k^2}\,|x_1-x_2|.
+		      \]
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}} \textbf{弦长$|AB|=\frac{4\sqrt{11}}{3}$}.
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}} 已知直线$2x+y-1=0$与椭圆$\frac{x^2}{3}+\frac{y^2}{4}=1$（焦点在$y$轴）相交于$A,B$，求线段$AB$的中点坐标.
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（准备系数）}] 直线$Ax+By+C=0$中
+		      \[
+			      A=2,\qquad B=1,\qquad C=-1.
+		      \]
+		      椭圆
+		      \[
+			      \frac{x^2}{3}+\frac{y^2}{4}=1
+		      \]
+		      可写为
+		      \[
+			      \frac{x^2}{\alpha}+\frac{y^2}{\beta}=1,
+		      \]
+		      其中
+		      \[
+			      \alpha=3,\qquad \beta=4.
+		      \]
+		      于是
+		      \[
+			      A^2\alpha+B^2\beta=4\cdot3+1\cdot4=16,
+		      \]
+		      \[
+			      2AC\alpha=2\cdot2\cdot(-1)\cdot3=-12,
+		      \]
+		      \[
+			      C^2\alpha-B^2\alpha\beta=1\cdot3-1\cdot3\cdot4=3-12=-9.
+		      \]
+		      \par\textbf{理由：} 统一公式中只看$x^2$与$y^2$的分母，不必单独死背焦点在$y$轴的公式.
+
+		\item[\textbf{第二步（应用韦达）}] 由消去$y$公式得
+		      \[
+			      x_1+x_2
+			      =
+			      -\frac{2AC\alpha}{A^2\alpha+B^2\beta}
+			      =
+			      -\frac{-12}{16}
+			      =
+			      \frac{3}{4},
+		      \]
+		      \[
+			      x_1x_2
+			      =
+			      \frac{C^2\alpha-B^2\alpha\beta}{A^2\alpha+B^2\beta}
+			      =
+			      \frac{-9}{16}
+			      =
+			      -\frac{9}{16}.
+		      \]
+		      \par\textbf{理由：} 直接套用硬解定理，快速得到横坐标的韦达关系.
+
+		\item[\textbf{第三步（中点坐标）}] 中点横坐标为
+		      \[
+			      x_M=\frac{x_1+x_2}{2}=\frac{3}{8}.
+		      \]
+		      代入直线
+		      \[
+			      2x+y-1=0
+		      \]
+		      得
+		      \[
+			      y_M=1-2x_M
+			      =
+			      1-2\cdot\frac{3}{8}
+			      =
+			      1-\frac{3}{4}
+			      =
+			      \frac{1}{4}.
+		      \]
+		      故中点坐标为
+		      \[
+			      M\left(\frac{3}{8},\frac{1}{4}\right).
+		      \]
+		      \par\textbf{理由：} 由中点横坐标通过直线直接求出中点纵坐标，避免单独求$y_1+y_2$.
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}} \textbf{中点坐标为$M\left(\frac{3}{8},\frac{1}{4}\right)$}.
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}} 已知直线$l$过定点$(0,1)$，斜率为$k$，与椭圆$\frac{x^2}{2}+y^2=1$相交于$A,B$（$A,B$不重合），且$\angle AOB=90^\circ$（$O$为坐标原点），求$k$的值.
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（设直线并参数）}] 设直线
+		      \[
+			      l:y=kx+1,
+		      \]
+		      化为一般式
+		      \[
+			      kx-y+1=0,
+		      \]
+		      则
+		      \[
+			      A=k,\qquad B=-1,\qquad C=1.
+		      \]
+		      椭圆
+		      \[
+			      \frac{x^2}{2}+y^2=1
+		      \]
+		      可写为
+		      \[
+			      \frac{x^2}{2}+\frac{y^2}{1}=1,
+		      \]
+		      因此
+		      \[
+			      \alpha=2,\qquad \beta=1.
+		      \]
+
+		      当$k=0$时，直线为
+		      \[
+			      y=1,
+		      \]
+		      与椭圆相切，只得到一个公共点，不符合$A,B$不重合的题意. 因此下文只需考虑
+		      \[
+			      k\neq0.
+		      \]
+		      此时$A=k\neq0$，可以同时使用消去$y$和消去$x$的公式.
+
+		      计算得
+		      \[
+			      A^2\alpha+B^2\beta=2k^2+1,
+		      \]
+		      \[
+			      2AC\alpha=2\cdot k\cdot1\cdot2=4k,
+		      \]
+		      \[
+			      C^2\alpha-B^2\alpha\beta=1\cdot2-1\cdot2\cdot1=0,
+		      \]
+		      \[
+			      2BC\beta=2\cdot(-1)\cdot1\cdot1=-2,
+		      \]
+		      \[
+			      C^2\beta-A^2\alpha\beta=1-2k^2.
+		      \]
+		      \par\textbf{理由：} 先排除$k=0$，是为了保证后面使用消去$x$公式时满足$A\neq0$.
+
+		\item[\textbf{第二步（韦达定理）}] 由消去$y$公式得
+		      \[
+			      x_1+x_2=-\frac{4k}{2k^2+1},
+			      \qquad
+			      x_1x_2=0.
+		      \]
+		      由消去$x$公式得
+		      \[
+			      y_1+y_2=\frac{2}{2k^2+1},
+			      \qquad
+			      y_1y_2=\frac{1-2k^2}{2k^2+1}.
+		      \]
+		      \par\textbf{理由：} 直接代入硬解定理公式，避免展开.
+
+		\item[\textbf{第三步（垂直条件）}]
+		      \[
+			      \angle AOB=90^\circ
+		      \]
+		      等价于
+		      \[
+			      \overrightarrow{OA}\cdot\overrightarrow{OB}=0,
+		      \]
+		      即
+		      \[
+			      x_1x_2+y_1y_2=0.
+		      \]
+		      代入第二步结果：
+		      \[
+			      0+\frac{1-2k^2}{2k^2+1}=0.
+		      \]
+		      因为
+		      \[
+			      2k^2+1>0,
+		      \]
+		      所以
+		      \[
+			      1-2k^2=0,
+		      \]
+		      即
+		      \[
+			      k^2=\frac{1}{2},
+			      \qquad
+			      k=\pm\frac{\sqrt{2}}{2}.
+		      \]
+		      \par\textbf{理由：} 利用韦达将几何垂直条件转化为代数方程.
+
+		\item[\textbf{第四步（验证判别式）}] 当
+		      \[
+			      k=\pm\frac{\sqrt{2}}{2}
+		      \]
+		      时，
+		      \[
+			      2k^2+1=2\neq0.
+		      \]
+		      消去$y$所得二次方程的判别式为
+		      \[
+			      \Delta_x=(4k)^2-4(2k^2+1)\cdot0=16k^2=8>0.
+		      \]
+		      因此直线与椭圆有两个不同交点，满足题意.
+		      \par\textbf{理由：} 验证所得结果确实满足“$A,B$不重合”的条件.
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}} \textbf{$k=\pm\frac{\sqrt{2}}{2}$}.
+\end{examplebox}

@@ -1,0 +1,132 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	用统一椭圆
+	\[
+		\frac{x^2}{\alpha}+\frac{y^2}{\beta}=1
+		\qquad(\alpha>0,\ \beta>0)
+	\]
+	推导一次，即可同时覆盖焦点在$x$轴和焦点在$y$轴的情形.
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（消去$y$）}] 若$B\neq0$，由直线
+		      \[
+			      Ax+By+C=0
+		      \]
+		      解出
+		      \[
+			      y=-\frac{Ax+C}{B}.
+		      \]
+		      代入椭圆
+		      \[
+			      \frac{x^2}{\alpha}+\frac{y^2}{\beta}=1,
+		      \]
+		      得到
+		      \[
+			      \frac{x^2}{\alpha}+\frac{(Ax+C)^2}{B^2\beta}=1.
+		      \]
+		      \par\textbf{理由：} 用$y$的表达式替换椭圆中的$y$，实现消去一个变量.
+
+		\item[\textbf{步骤二（去分母）}] 将方程两边乘以$\alpha B^2\beta$，得
+		      \[
+			      B^2\beta x^2+\alpha(Ax+C)^2=\alpha B^2\beta.
+		      \]
+		      \par\textbf{理由：} 将分式方程化为整式方程，方便展开.
+
+		\item[\textbf{步骤三（展开合并）}] 展开$(Ax+C)^2$并合并同类项：
+		      \[
+			      \begin{aligned}
+				      B^2\beta x^2+\alpha(A^2x^2+2ACx+C^2)                           & =\alpha B^2\beta, \\
+				      (A^2\alpha+B^2\beta)x^2+2AC\alpha x+(C^2\alpha-B^2\alpha\beta) & =0.
+			      \end{aligned}
+		      \]
+		      因此关于$x$的二次方程为
+		      \[
+			      (A^2\alpha+B^2\beta)x^2+2AC\alpha x+(C^2\alpha-B^2\alpha\beta)=0.
+		      \]
+		      \par\textbf{理由：} 整理成标准二次方程形式$px^2+qx+r=0$，其中
+		      \[
+			      p=A^2\alpha+B^2\beta,\qquad
+			      q=2AC\alpha,\qquad
+			      r=C^2\alpha-B^2\alpha\beta.
+		      \]
+
+		\item[\textbf{步骤四（韦达定理）}] 由根与系数关系，得
+		      \[
+			      x_1+x_2
+			      =
+			      -\frac{2AC\alpha}{A^2\alpha+B^2\beta},
+			      \qquad
+			      x_1x_2
+			      =
+			      \frac{C^2\alpha-B^2\alpha\beta}{A^2\alpha+B^2\beta}.
+		      \]
+		      \par\textbf{理由：} 对于一元二次方程$px^2+qx+r=0$，韦达定理给出
+		      \[
+			      x_1+x_2=-\frac{q}{p},
+			      \qquad
+			      x_1x_2=\frac{r}{p}.
+		      \]
+
+		\item[\textbf{步骤五（消去$x$）}] 若$A\neq0$，由直线
+		      \[
+			      Ax+By+C=0
+		      \]
+		      解出
+		      \[
+			      x=-\frac{By+C}{A}.
+		      \]
+		      代入椭圆
+		      \[
+			      \frac{x^2}{\alpha}+\frac{y^2}{\beta}=1,
+		      \]
+		      得到
+		      \[
+			      \frac{(By+C)^2}{A^2\alpha}+\frac{y^2}{\beta}=1.
+		      \]
+		      两边乘以$A^2\alpha\beta$，并展开合并，得
+		      \[
+			      (A^2\alpha+B^2\beta)y^2+2BC\beta y+(C^2\beta-A^2\alpha\beta)=0.
+		      \]
+		      因此
+		      \[
+			      y_1+y_2
+			      =
+			      -\frac{2BC\beta}{A^2\alpha+B^2\beta},
+			      \qquad
+			      y_1y_2
+			      =
+			      \frac{C^2\beta-A^2\alpha\beta}{A^2\alpha+B^2\beta}.
+		      \]
+		      \par\textbf{理由：} 消去$x$的过程与消去$y$完全类似，只是把变量换成$y$，并且一次项和常数项中对应的是$\beta$.
+
+		\item[\textbf{步骤六（还原到两类标准椭圆）}]
+		      焦点在$x$轴时，
+		      \[
+			      \frac{x^2}{a^2}+\frac{y^2}{b^2}=1
+			      \qquad(a>b>0),
+		      \]
+		      令
+		      \[
+			      \alpha=a^2,\qquad \beta=b^2.
+		      \]
+
+		      焦点在$y$轴时，
+		      \[
+			      \frac{x^2}{b^2}+\frac{y^2}{a^2}=1
+			      \qquad(a>b>0),
+		      \]
+		      令
+		      \[
+			      \alpha=b^2,\qquad \beta=a^2.
+		      \]
+		      \par\textbf{理由：} 统一公式的本质是看$x^2$与$y^2$各自的分母，而不是机械记忆焦点轴公式.
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{硬解定理直接给出了直线与椭圆联立后二次方程系数及韦达结果. 使用时先写出$\alpha,\beta$，再套统一公式，可以避免焦点轴混淆和$a,b$位置代错.}
+\end{proofbox}
