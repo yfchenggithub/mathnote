@@ -346728,5 +346728,3500 @@
         "legacy_display_version": 2
       }
     }
+  },
+  "F003": {
+    "id": "F003",
+    "schema_version": 2,
+    "type": "conclusion",
+    "status": "published",
+    "identity": {
+      "slug": "f003",
+      "module": "function",
+      "knowledge_node": "其他-未分类-待定",
+      "alt_nodes": [
+        "函数-特殊函数-指数函数"
+      ]
+    },
+    "meta": {
+      "title": "帕德逼近公式（常见函数）",
+      "aliases": [
+        "帕德近似",
+        "有理逼近",
+        "Pade逼近",
+        "有理分式近似"
+      ],
+      "difficulty": 3,
+      "category": "函数逼近",
+      "tags": [
+        "帕德逼近",
+        "有理分式",
+        "指数逼近",
+        "对数逼近",
+        "正弦逼近",
+        "余弦逼近",
+        "正切逼近"
+      ],
+      "summary": "用有理分式近似复杂函数，在$x=0$附近具有高精度，常用于快速计算小$x$下的函数值。",
+      "is_pro": false,
+      "remarks": null
+    },
+    "content": {
+      "render_schema_version": 2,
+      "primary_formula": {
+        "latex": "e^x \\approx \\frac{x^{2}+6x+12}{x^{2}-6x+12}",
+        "type": "math_image",
+        "need_image": "true",
+        "asset": {
+          "png": "/static/formulas/F003/332f27e69dc28da6@3x.png",
+          "webp": "/static/formulas/F003/332f27e69dc28da6@3x.webp",
+          "width_px": 360,
+          "height_px": 118,
+          "display_width_px": 120,
+          "display_height_px": 39,
+          "scale": 3
+        }
+      },
+      "variables": [
+        {
+          "name": "x",
+          "latex": "x",
+          "description": "自变量，需在0附近",
+          "required": true
+        }
+      ],
+      "conditions": [
+        {
+          "id": "cond_1",
+          "title": "条件1",
+          "content": [
+            {
+              "type": "text",
+              "text": "帕德逼近仅在x=0附近有效，一般要求|x|较小（如|x|<1）"
+            }
+          ],
+          "required": true,
+          "scope": null
+        },
+        {
+          "id": "cond_2",
+          "title": "条件2",
+          "content": [
+            {
+              "type": "text",
+              "text": "被逼近函数在x=0处光滑"
+            }
+          ],
+          "required": true,
+          "scope": null
+        }
+      ],
+      "conclusions": [
+        {
+          "id": "conc_1",
+          "title": "结论1",
+          "content": [
+            {
+              "type": "text",
+              "text": "可得到e^x、ln(1+x)、sin x、cos x、tan x在小x下的有理分式近似值"
+            }
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "key": "core_formula",
+          "title": "核心公式",
+          "block_type": "rich_text",
+          "blocks": [
+            {
+              "id": "core-formula-b1",
+              "type": "math_image",
+              "latex": "e^x \\approx \\frac{x^{2}+6x+12}{x^{2}-6x+12}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/332f27e69dc28da6@3x.png",
+                "webp": "/static/formulas/F003/332f27e69dc28da6@3x.webp",
+                "width_px": 360,
+                "height_px": 118,
+                "display_width_px": 120,
+                "display_height_px": 39,
+                "scale": 3
+              }
+            }
+          ]
+        },
+        {
+          "key": "variables",
+          "title": "涉及变量",
+          "block_type": "rich_text",
+          "blocks": [
+            {
+              "id": "variables-b1",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "math_inline",
+                  "latex": "x"
+                },
+                {
+                  "type": "text",
+                  "text": "：自变量，需在0附近"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "statement",
+          "title": "命题表述",
+          "block_type": "theorem_group",
+          "blocks": [
+            {
+              "id": "statement-b1",
+              "type": "theorem_group",
+              "items": [
+                {
+                  "title": "条件1（邻域范围）：",
+                  "desc_tokens": [
+                    {
+                      "type": "text",
+                      "text": "帕德逼近是以"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "x=0"
+                    },
+                    {
+                      "type": "text",
+                      "text": "为中心的局部近似，要求"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "|x|"
+                    },
+                    {
+                      "type": "text",
+                      "text": "较小；实际估算时可把"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "|x|<1"
+                    },
+                    {
+                      "type": "text",
+                      "text": "作为粗略经验范围，但具体精度还要结合函数和误差要求判断。"
+                    }
+                  ]
+                },
+                {
+                  "title": "条件2（定义域）：",
+                  "desc_tokens": [
+                    {
+                      "type": "text",
+                      "text": "使用"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "\\ln(1+x)",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/F003/4bbe1de67ad5ff63@3x.png",
+                        "webp": "/static/formulas/F003/4bbe1de67ad5ff63@3x.webp",
+                        "width_px": 183,
+                        "height_px": 65,
+                        "display_width_px": 61,
+                        "display_height_px": 22,
+                        "scale": 3
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "的逼近时，必须满足"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "x>-1"
+                    },
+                    {
+                      "type": "text",
+                      "text": "。"
+                    }
+                  ]
+                },
+                {
+                  "title": "条件3（弧度制）：",
+                  "desc_tokens": [
+                    {
+                      "type": "text",
+                      "text": "涉及"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "\\sin x,\\cos x,\\tan x",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/F003/91114482b855acbc@3x.png",
+                        "webp": "/static/formulas/F003/91114482b855acbc@3x.webp",
+                        "width_px": 314,
+                        "height_px": 59,
+                        "display_width_px": 105,
+                        "display_height_px": 20,
+                        "scale": 3
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "时，"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "x"
+                    },
+                    {
+                      "type": "text",
+                      "text": "必须使用弧度制，不能直接代入角度制数值。"
+                    }
+                  ]
+                },
+                {
+                  "title": "条件4（分母限制）：",
+                  "desc_tokens": [
+                    {
+                      "type": "text",
+                      "text": "使用正切逼近时，应保证"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "3-x^2\\ne0",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/F003/924813fdcaf8d562@3x.png",
+                        "webp": "/static/formulas/F003/924813fdcaf8d562@3x.webp",
+                        "width_px": 210,
+                        "height_px": 69,
+                        "display_width_px": 70,
+                        "display_height_px": 23,
+                        "scale": 3
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "，即"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "x\\ne\\pm\\sqrt3",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/F003/4457a35846971274@3x.png",
+                        "webp": "/static/formulas/F003/4457a35846971274@3x.webp",
+                        "width_px": 188,
+                        "height_px": 74,
+                        "display_width_px": 63,
+                        "display_height_px": 25,
+                        "scale": 3
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "；实际应用仍以"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "x"
+                    },
+                    {
+                      "type": "text",
+                      "text": "接近0为前提。\n以下公式均为"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "x=0"
+                    },
+                    {
+                      "type": "text",
+                      "text": "附近的局部近似公式，不是恒等式。"
+                    }
+                  ]
+                },
+                {
+                  "title": "结论一（指数逼近）：",
+                  "desc_tokens": [
+                    {
+                      "type": "text",
+                      "text": "用二次有理分式近似指数函数。"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "e^x \\approx \\frac{x^2+6x+12}{x^2-6x+12}.",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/F003/a1eadc264478c78e@3x.png",
+                        "webp": "/static/formulas/F003/a1eadc264478c78e@3x.webp",
+                        "width_px": 371,
+                        "height_px": 118,
+                        "display_width_px": 124,
+                        "display_height_px": 39,
+                        "scale": 3
+                      }
+                    }
+                  ]
+                },
+                {
+                  "title": "结论二（对数逼近）：",
+                  "desc_tokens": [
+                    {
+                      "type": "text",
+                      "text": "用二次有理分式近似对数函数。"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "\\ln(1+x) \\approx \\frac{3x^2+6x}{x^2+6x+6},\\qquad x>-1.",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/F003/605bbff354461667@3x.png",
+                        "webp": "/static/formulas/F003/605bbff354461667@3x.webp",
+                        "width_px": 700,
+                        "height_px": 118,
+                        "display_width_px": 233,
+                        "display_height_px": 39,
+                        "scale": 3
+                      }
+                    }
+                  ]
+                },
+                {
+                  "title": "结论三（正弦逼近）：",
+                  "desc_tokens": [
+                    {
+                      "type": "text",
+                      "text": "用二次有理分式近似正弦函数，其中"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "x"
+                    },
+                    {
+                      "type": "text",
+                      "text": "为弧度制。"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "\\sin x \\approx \\frac{6x}{x^2+6}.",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/F003/afc6d77ec69b4c31@3x.png",
+                        "webp": "/static/formulas/F003/afc6d77ec69b4c31@3x.webp",
+                        "width_px": 299,
+                        "height_px": 111,
+                        "display_width_px": 100,
+                        "display_height_px": 37,
+                        "scale": 3
+                      }
+                    }
+                  ]
+                },
+                {
+                  "title": "结论四（余弦逼近）：",
+                  "desc_tokens": [
+                    {
+                      "type": "text",
+                      "text": "用偶函数型二次有理分式近似余弦函数，其中"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "x"
+                    },
+                    {
+                      "type": "text",
+                      "text": "为弧度制。"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "\\cos x \\approx \\frac{12-5x^2}{12+x^2}.",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/F003/b90fedf40fe1ab2e@3x.png",
+                        "webp": "/static/formulas/F003/b90fedf40fe1ab2e@3x.webp",
+                        "width_px": 344,
+                        "height_px": 118,
+                        "display_width_px": 115,
+                        "display_height_px": 39,
+                        "scale": 3
+                      }
+                    }
+                  ]
+                },
+                {
+                  "title": "结论五（正切逼近）：",
+                  "desc_tokens": [
+                    {
+                      "type": "text",
+                      "text": "用二次有理分式近似正切函数，其中"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "x"
+                    },
+                    {
+                      "type": "text",
+                      "text": "为弧度制。"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "\\tan x \\approx \\frac{3x}{3-x^2},\\qquad x\\ne\\pm\\sqrt3.",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/F003/49b493c491bdc9ca@3x.png",
+                        "webp": "/static/formulas/F003/49b493c491bdc9ca@3x.webp",
+                        "width_px": 571,
+                        "height_px": 111,
+                        "display_width_px": 190,
+                        "display_height_px": 37,
+                        "scale": 3
+                      }
+                    }
+                  ]
+                },
+                {
+                  "title": "推广结论（变量替换）：",
+                  "desc_tokens": [
+                    {
+                      "type": "text",
+                      "text": "将指数逼近中的"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "x"
+                    },
+                    {
+                      "type": "text",
+                      "text": "替换为"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "-x"
+                    },
+                    {
+                      "type": "text",
+                      "text": "，得到"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "e^{-x}",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/F003/874c902607659407@3x.png",
+                        "webp": "/static/formulas/F003/874c902607659407@3x.webp",
+                        "width_px": 85,
+                        "height_px": 58,
+                        "display_width_px": 28,
+                        "display_height_px": 19,
+                        "scale": 3
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "的逼近。"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "e^{-x} \\approx \\frac{x^2-6x+12}{x^2+6x+12}.",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/F003/bbea5039ce258c39@3x.png",
+                        "webp": "/static/formulas/F003/bbea5039ce258c39@3x.webp",
+                        "width_px": 394,
+                        "height_px": 118,
+                        "display_width_px": 131,
+                        "display_height_px": 39,
+                        "scale": 3
+                      }
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "explanation",
+          "title": "理解与直觉",
+          "block_type": "rich_text",
+          "blocks": [
+            {
+              "id": "explanation-b1",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "一句话直觉\n帕德逼近就是用简单有理分式“模仿”复杂函数，在某个点附近尽量贴合原函数。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b2",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "核心拆解"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b3",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "要点一（匹配原理）：\n通过设置有理分式的系数，使它在"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x=0"
+                },
+                {
+                  "type": "text",
+                  "text": "处的函数值以及若干阶导数值与目标函数一致。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b4",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "要点二（展开一致）：\n有理分式在"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x=0"
+                },
+                {
+                  "type": "text",
+                  "text": "处的泰勒展开前几项与目标函数的泰勒展开相同，从而实现局部逼近。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b5",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "要点三（不是恒等）：\n符号"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b6",
+              "type": "math_image",
+              "latex": "\\approx",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/baf1f8e194a46566@3x.png",
+                "webp": "/static/formulas/F003/baf1f8e194a46566@3x.webp",
+                "width_px": 55,
+                "height_px": 41,
+                "display_width_px": 18,
+                "display_height_px": 14,
+                "scale": 3
+              }
+            },
+            {
+              "id": "explanation-b7",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "表示近似，不表示恒等；离展开中心越远，误差通常越明显。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b8",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "几何本质（局部重合）\n在"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x=0"
+                },
+                {
+                  "type": "text",
+                  "text": "附近，有理函数的图像与指数、对数、三角函数的图像高度贴合；但它们只是局部近似，不能直接当作全局相等。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b9",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "代数意义（分式逼近）\n用有理分式代替指数、对数、三角函数等复杂形式，可以把近似计算转化为多项式的加减乘除，便于手算估值。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b10",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "考点价值（速算工具）"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b11",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "考法一（近似计算）： 直接用帕德公式计算函数在"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x"
+                },
+                {
+                  "type": "text",
+                  "text": "接近0时的近似值，快速得到结果。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b12",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "考法二（放缩辅助）： 在不等式证明中，帕德分式可以作为构造辅助函数的灵感来源；但若要用于严格放缩，必须额外证明它是目标函数的上界或下界，不能仅凭近似式直接替代。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b13",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "顿悟点\n帕德逼近由于引入了分母调节，常常能在相近复杂度下获得比普通泰勒多项式更好的局部近似效果；但这种优势不是全局无条件成立的，具体误差仍需结合函数、取值范围和允许误差判断。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b14",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "使用场景"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b15",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "场景一（考场估算）： 遇到"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b16",
+              "type": "math_image",
+              "latex": "e^{0.2},\\ln1.1",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/a66bd5525515d068@3x.png",
+                "webp": "/static/formulas/F003/a66bd5525515d068@3x.webp",
+                "width_px": 194,
+                "height_px": 68,
+                "display_width_px": 65,
+                "display_height_px": 23,
+                "scale": 3
+              }
+            },
+            {
+              "id": "explanation-b17",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "等值，可快速用帕德公式近似，避免复杂计算。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b18",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "场景二（三角估算）： 估算"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b19",
+              "type": "math_image",
+              "latex": "\\sin x,\\cos x,\\tan x",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/91114482b855acbc@3x.png",
+                "webp": "/static/formulas/F003/91114482b855acbc@3x.webp",
+                "width_px": 314,
+                "height_px": 59,
+                "display_width_px": 105,
+                "display_height_px": 20,
+                "scale": 3
+              }
+            },
+            {
+              "id": "explanation-b20",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "时，必须先确认"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x"
+                },
+                {
+                  "type": "text",
+                  "text": "是弧度制；角度制要先转成弧度制再代入。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b21",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "场景三（构造辅助函数）： 在证明与"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b22",
+              "type": "math_image",
+              "latex": "e^x,\\ln(1+x)",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/8c26e72ae45db6ca@3x.png",
+                "webp": "/static/formulas/F003/8c26e72ae45db6ca@3x.webp",
+                "width_px": 240,
+                "height_px": 65,
+                "display_width_px": 80,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "explanation-b23",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "有关的不等式时，可以参考帕德分式构造辅助函数，再通过求导或作差判断大小方向。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "proof",
+          "title": "证明过程",
+          "block_type": "rich_text",
+          "blocks": [
+            {
+              "id": "proof-b1",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "思路提示\n以指数函数"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "e^x"
+                },
+                {
+                  "type": "text",
+                  "text": "的帕德逼近为例，通过待定系数法，使有理分式与"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "e^x"
+                },
+                {
+                  "type": "text",
+                  "text": "在"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x=0"
+                },
+                {
+                  "type": "text",
+                  "text": "处的泰勒展开前五项匹配，列出方程组，求解得到系数，从而验证公式。"
+                }
+              ]
+            },
+            {
+              "id": "proof-b2",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "正式推导"
+                }
+              ]
+            },
+            {
+              "id": "proof-b3",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "步骤一（设定形式）：\n设"
+                }
+              ]
+            },
+            {
+              "id": "proof-b4",
+              "type": "math_image",
+              "latex": "R(x)=\\frac{ax^2+bx+c}{px^2+qx+r}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/f50d789bb05e2367@3x.png",
+                "webp": "/static/formulas/F003/f50d789bb05e2367@3x.webp",
+                "width_px": 403,
+                "height_px": 123,
+                "display_width_px": 134,
+                "display_height_px": 41,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b5",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ",其中"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "a,b,c,p,q,r",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/F003/792274c0877d739c@3x.png",
+                    "webp": "/static/formulas/F003/792274c0877d739c@3x.webp",
+                    "width_px": 228,
+                    "height_px": 60,
+                    "display_width_px": 76,
+                    "display_height_px": 20,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "为待定系数，并要求"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "R(x)"
+                },
+                {
+                  "type": "text",
+                  "text": "在"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x=0"
+                },
+                {
+                  "type": "text",
+                  "text": "附近逼近"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "e^x"
+                },
+                {
+                  "type": "text",
+                  "text": "。\n理由： 这里采用分子、分母均为二次的有理分式；用"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "p,q,r"
+                },
+                {
+                  "type": "text",
+                  "text": "表示分母系数，可避免与自然常数"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "e"
+                },
+                {
+                  "type": "text",
+                  "text": "混淆。"
+                }
+              ]
+            },
+            {
+              "id": "proof-b6",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "步骤二（匹配条件）：\n要使"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "R(x)"
+                },
+                {
+                  "type": "text",
+                  "text": "与"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "e^x"
+                },
+                {
+                  "type": "text",
+                  "text": "在"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x=0"
+                },
+                {
+                  "type": "text",
+                  "text": "处匹配到"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x^4"
+                },
+                {
+                  "type": "text",
+                  "text": "项，只需令"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "(px^2+qx+r)e^x-(ax^2+bx+c)=O(x^5)",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/F003/bc287dbfd98ca9f5@3x.png",
+                    "webp": "/static/formulas/F003/bc287dbfd98ca9f5@3x.webp",
+                    "width_px": 776,
+                    "height_px": 70,
+                    "display_width_px": 259,
+                    "display_height_px": 23,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": ".理由： 交叉相乘后比较"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x^0"
+                },
+                {
+                  "type": "text",
+                  "text": "至"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x^4"
+                },
+                {
+                  "type": "text",
+                  "text": "的系数，等价于让误差从"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x^5"
+                },
+                {
+                  "type": "text",
+                  "text": "及更高次项开始出现。"
+                }
+              ]
+            },
+            {
+              "id": "proof-b7",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "步骤三（展开指数）：\n将"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "e^x"
+                },
+                {
+                  "type": "text",
+                  "text": "在"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x=0"
+                },
+                {
+                  "type": "text",
+                  "text": "处泰勒展开至"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x^4"
+                },
+                {
+                  "type": "text",
+                  "text": "项："
+                }
+              ]
+            },
+            {
+              "id": "proof-b8",
+              "type": "math_image",
+              "latex": "e^x = 1 + x + \\frac{x^2}{2} + \\frac{x^3}{6} + \\frac{x^4}{24} + O(x^5)",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/678e9c71046b441e@3x.png",
+                "webp": "/static/formulas/F003/678e9c71046b441e@3x.webp",
+                "width_px": 691,
+                "height_px": 115,
+                "display_width_px": 230,
+                "display_height_px": 38,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b9",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".理由： 用多项式展开代替"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "e^x"
+                },
+                {
+                  "type": "text",
+                  "text": "，才能逐项比较系数。"
+                }
+              ]
+            },
+            {
+              "id": "proof-b10",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "步骤四（乘积展开）：\n计算"
+                }
+              ]
+            },
+            {
+              "id": "proof-b11",
+              "type": "math_image",
+              "latex": "(px^2+qx+r)\\bigl(1 + x + \\frac{x^2}{2} + \\frac{x^3}{6} + \\frac{x^4}{24}\\bigr)",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/0c9e2562d37dbc5c@3x.png",
+                "webp": "/static/formulas/F003/0c9e2562d37dbc5c@3x.webp",
+                "width_px": 739,
+                "height_px": 115,
+                "display_width_px": 246,
+                "display_height_px": 38,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b12",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，合并至"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x^4"
+                },
+                {
+                  "type": "text",
+                  "text": "项："
+                }
+              ]
+            },
+            {
+              "id": "proof-b13",
+              "type": "math_image",
+              "latex": "\\begin{aligned}\n& x^0:\\; r, \\\\\n& x^1:\\; q+r, \\\\\n& x^2:\\; p+q+\\frac{r}{2}, \\\\\n& x^3:\\; p+\\frac{q}{2}+\\frac{r}{6}, \\\\\n& x^4:\\; \\frac{p}{2}+\\frac{q}{6}+\\frac{r}{24}.\n\\end{aligned}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/131a53e6f558e44d@3x.png",
+                "webp": "/static/formulas/F003/131a53e6f558e44d@3x.webp",
+                "width_px": 357,
+                "height_px": 387,
+                "display_width_px": 119,
+                "display_height_px": 129,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b14",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "理由： 多项式乘法，逐项合并同类项。"
+                }
+              ]
+            },
+            {
+              "id": "proof-b15",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "步骤五（系数对比）：\n令上式与右端"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "ax^2+bx+c",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/F003/62ab720dc0926792@3x.png",
+                    "webp": "/static/formulas/F003/62ab720dc0926792@3x.webp",
+                    "width_px": 245,
+                    "height_px": 63,
+                    "display_width_px": 82,
+                    "display_height_px": 21,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "对应项系数相等，得方程组："
+                }
+              ]
+            },
+            {
+              "id": "proof-b16",
+              "type": "math_image",
+              "latex": "\\begin{cases}\nr = c, \\\\[2pt]\nq+r = b, \\\\[2pt]\np+q+\\frac{r}{2} = a, \\\\[6pt]\np+\\frac{q}{2}+\\frac{r}{6} = 0, \\\\[6pt]\n\\frac{p}{2}+\\frac{q}{6}+\\frac{r}{24} = 0.\n\\end{cases}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/e1c9e9106e30d61e@3x.png",
+                "webp": "/static/formulas/F003/e1c9e9106e30d61e@3x.webp",
+                "width_px": 363,
+                "height_px": 341,
+                "display_width_px": 121,
+                "display_height_px": 114,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b17",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "理由： 误差"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "O(x^5)",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/F003/b335a0470b8d4727@3x.png",
+                    "webp": "/static/formulas/F003/b335a0470b8d4727@3x.webp",
+                    "width_px": 128,
+                    "height_px": 70,
+                    "display_width_px": 43,
+                    "display_height_px": 23,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "要求"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x^0"
+                },
+                {
+                  "type": "text",
+                  "text": "至"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x^4"
+                },
+                {
+                  "type": "text",
+                  "text": "的系数全部匹配。"
+                }
+              ]
+            },
+            {
+              "id": "proof-b18",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "步骤六（求解系数）：\n取"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "r=1"
+                },
+                {
+                  "type": "text",
+                  "text": "（整体缩放不影响分式值），由后两式解得"
+                }
+              ]
+            },
+            {
+              "id": "proof-b19",
+              "type": "math_image",
+              "latex": "p=\\frac{1}{12},\\qquad q=-\\frac{1}{2}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/573957f1a05ef067@3x.png",
+                "webp": "/static/formulas/F003/573957f1a05ef067@3x.webp",
+                "width_px": 400,
+                "height_px": 107,
+                "display_width_px": 133,
+                "display_height_px": 36,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b20",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".代入前三式得"
+                }
+              ]
+            },
+            {
+              "id": "proof-b21",
+              "type": "math_image",
+              "latex": "a=\\frac{1}{12},\\qquad b=\\frac{1}{2},\\qquad c=1",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/6f608d98c7ecc3a6@3x.png",
+                "webp": "/static/formulas/F003/6f608d98c7ecc3a6@3x.webp",
+                "width_px": 560,
+                "height_px": 107,
+                "display_width_px": 187,
+                "display_height_px": 36,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b22",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".因此"
+                }
+              ]
+            },
+            {
+              "id": "proof-b23",
+              "type": "math_image",
+              "latex": "R(x)=\\frac{\\frac{1}{12}x^2+\\frac{1}{2}x+1}{\\frac{1}{12}x^2-\\frac{1}{2}x+1}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/b2a5b74bd1ecca86@3x.png",
+                "webp": "/static/formulas/F003/b2a5b74bd1ecca86@3x.webp",
+                "width_px": 445,
+                "height_px": 140,
+                "display_width_px": 148,
+                "display_height_px": 47,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b24",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".分子分母同乘"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "12"
+                },
+                {
+                  "type": "text",
+                  "text": "，得到"
+                }
+              ]
+            },
+            {
+              "id": "proof-b25",
+              "type": "math_image",
+              "latex": "e^x \\approx \\frac{x^2+6x+12}{x^2-6x+12}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/4623e2d209e4dd36@3x.png",
+                "webp": "/static/formulas/F003/4623e2d209e4dd36@3x.webp",
+                "width_px": 360,
+                "height_px": 118,
+                "display_width_px": 120,
+                "display_height_px": 39,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b26",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".理由： 分式的分子分母同乘非零常数，分式值不变。"
+                }
+              ]
+            },
+            {
+              "id": "proof-b27",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "余弦公式校验\n余弦函数是偶函数，因此它在"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x=0"
+                },
+                {
+                  "type": "text",
+                  "text": "附近的有理逼近也应优先采用只含"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x^2"
+                },
+                {
+                  "type": "text",
+                  "text": "的偶函数形式。正确的二次有理逼近为"
+                }
+              ]
+            },
+            {
+              "id": "proof-b28",
+              "type": "math_image",
+              "latex": "\\cos x \\approx \\frac{12-5x^2}{12+x^2}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/279f0f07200d23c8@3x.png",
+                "webp": "/static/formulas/F003/279f0f07200d23c8@3x.webp",
+                "width_px": 333,
+                "height_px": 118,
+                "display_width_px": 111,
+                "display_height_px": 39,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b29",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".其展开为"
+                }
+              ]
+            },
+            {
+              "id": "proof-b30",
+              "type": "math_image",
+              "latex": "\\frac{12-5x^2}{12+x^2}\n=1-\\frac{x^2}{2}+\\frac{x^4}{24}+O(x^6)",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/23bca2c767247eb6@3x.png",
+                "webp": "/static/formulas/F003/23bca2c767247eb6@3x.webp",
+                "width_px": 640,
+                "height_px": 119,
+                "display_width_px": 213,
+                "display_height_px": 40,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b31",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ",而"
+                }
+              ]
+            },
+            {
+              "id": "proof-b32",
+              "type": "math_image",
+              "latex": "\\cos x=1-\\frac{x^2}{2}+\\frac{x^4}{24}+O(x^6)",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/346ca4f78e87e9a6@3x.png",
+                "webp": "/static/formulas/F003/346ca4f78e87e9a6@3x.webp",
+                "width_px": 554,
+                "height_px": 114,
+                "display_width_px": 185,
+                "display_height_px": 38,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b33",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".两者在"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "x^0,x^2,x^4",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/F003/20100b8b489ca9ed@3x.png",
+                    "webp": "/static/formulas/F003/20100b8b489ca9ed@3x.webp",
+                    "width_px": 183,
+                    "height_px": 68,
+                    "display_width_px": 61,
+                    "display_height_px": 23,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "项上一致，所以该公式与"
+                }
+              ]
+            },
+            {
+              "id": "proof-b34",
+              "type": "math_image",
+              "latex": "\\cos x",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/5600f0018e32eee8@3x.png",
+                "webp": "/static/formulas/F003/5600f0018e32eee8@3x.webp",
+                "width_px": 109,
+                "height_px": 43,
+                "display_width_px": 36,
+                "display_height_px": 14,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b35",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "在"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x=0"
+                },
+                {
+                  "type": "text",
+                  "text": "附近匹配良好。"
+                }
+              ]
+            },
+            {
+              "id": "proof-b36",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "结论回扣\n上述推导完整展示了指数函数帕德逼近系数的确定过程。类似地，将"
+                }
+              ]
+            },
+            {
+              "id": "proof-b37",
+              "type": "math_image",
+              "latex": "\\ln(1+x),\\sin x,\\cos x,\\tan x",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/6a3ec6ba675a1e0f@3x.png",
+                "webp": "/static/formulas/F003/6a3ec6ba675a1e0f@3x.webp",
+                "width_px": 491,
+                "height_px": 65,
+                "display_width_px": 164,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b38",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "在"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x=0"
+                },
+                {
+                  "type": "text",
+                  "text": "处展开，并匹配对应阶数的有理分式，即可得到相应的局部逼近公式。注意：这些公式都是近似公式，不是恒等式；涉及三角函数时，"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x"
+                },
+                {
+                  "type": "text",
+                  "text": "必须使用弧度制。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "examples",
+          "title": "例题应用",
+          "block_type": "rich_text",
+          "blocks": [
+            {
+              "id": "examples-b1",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "例1（基础）\n题目： 已知帕德逼近"
+                }
+              ]
+            },
+            {
+              "id": "examples-b2",
+              "type": "math_image",
+              "latex": "e^x \\approx \\frac{x^2+6x+12}{x^2-6x+12}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/4623e2d209e4dd36@3x.png",
+                "webp": "/static/formulas/F003/4623e2d209e4dd36@3x.webp",
+                "width_px": 360,
+                "height_px": 118,
+                "display_width_px": 120,
+                "display_height_px": 39,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b3",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，求"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "e^{0.1}",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/F003/8126db09e86aecc9@3x.png",
+                    "webp": "/static/formulas/F003/8126db09e86aecc9@3x.webp",
+                    "width_px": 83,
+                    "height_px": 60,
+                    "display_width_px": 28,
+                    "display_height_px": 20,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "的近似值（保留四位小数）。\n解题步骤："
+                }
+              ]
+            },
+            {
+              "id": "examples-b4",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第一步（识别变量）：\n确定逼近公式中的"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x=0.1"
+                },
+                {
+                  "type": "text",
+                  "text": "。\n理由： 当"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x"
+                },
+                {
+                  "type": "text",
+                  "text": "接近0时逼近有效，"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "0.1"
+                },
+                {
+                  "type": "text",
+                  "text": "满足局部近似的使用前提。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b5",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第二步（代入公式）：\n代入"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x=0.1"
+                },
+                {
+                  "type": "text",
+                  "text": "，计算分子："
+                }
+              ]
+            },
+            {
+              "id": "examples-b6",
+              "type": "math_image",
+              "latex": "0.1^2 + 6\\times 0.1 + 12 = 0.01 + 0.6 + 12 = 12.61",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/e21c2c9e2cf7a052@3x.png",
+                "webp": "/static/formulas/F003/e21c2c9e2cf7a052@3x.webp",
+                "width_px": 822,
+                "height_px": 63,
+                "display_width_px": 274,
+                "display_height_px": 21,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b7",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ",分母："
+                }
+              ]
+            },
+            {
+              "id": "examples-b8",
+              "type": "math_image",
+              "latex": "0.1^2 - 6\\times 0.1 + 12 = 0.01 - 0.6 + 12 = 11.41",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/6f21d7fc17a0e540@3x.png",
+                "webp": "/static/formulas/F003/6f21d7fc17a0e540@3x.webp",
+                "width_px": 822,
+                "height_px": 63,
+                "display_width_px": 274,
+                "display_height_px": 21,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b9",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".理由： 直接代入公式。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b10",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第三步（计算近似值）："
+                }
+              ]
+            },
+            {
+              "id": "examples-b11",
+              "type": "math_image",
+              "latex": "e^{0.1} \\approx \\frac{12.61}{11.41} \\approx 1.1052",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/44d6406379c3e6a4@3x.png",
+                "webp": "/static/formulas/F003/44d6406379c3e6a4@3x.webp",
+                "width_px": 415,
+                "height_px": 107,
+                "display_width_px": 138,
+                "display_height_px": 36,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b12",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".理由： 完成除法运算，保留四位小数。\n关键结论："
+                }
+              ]
+            },
+            {
+              "id": "examples-b13",
+              "type": "math_image",
+              "latex": "e^{0.1}\\approx 1.1052",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/ec536855670fa399@3x.png",
+                "webp": "/static/formulas/F003/ec536855670fa399@3x.webp",
+                "width_px": 250,
+                "height_px": 61,
+                "display_width_px": 83,
+                "display_height_px": 20,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b14",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，与真实值"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "1.10517",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/F003/0ed9e799ea12c721@3x.png",
+                    "webp": "/static/formulas/F003/0ed9e799ea12c721@3x.webp",
+                    "width_px": 157,
+                    "height_px": 52,
+                    "display_width_px": 52,
+                    "display_height_px": 17,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "非常接近，误差极小。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b15",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "例2（稍变形）\n题目： 利用"
+                }
+              ]
+            },
+            {
+              "id": "examples-b16",
+              "type": "math_image",
+              "latex": "\\ln(1+x) \\approx \\frac{3x^2+6x}{x^2+6x+6}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/bf25f31496a12c60@3x.png",
+                "webp": "/static/formulas/F003/bf25f31496a12c60@3x.webp",
+                "width_px": 460,
+                "height_px": 118,
+                "display_width_px": 153,
+                "display_height_px": 39,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b17",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，求"
+                }
+              ]
+            },
+            {
+              "id": "examples-b18",
+              "type": "math_image",
+              "latex": "\\ln(1.1)",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/4b966648fa4464a5@3x.png",
+                "webp": "/static/formulas/F003/4b966648fa4464a5@3x.webp",
+                "width_px": 142,
+                "height_px": 65,
+                "display_width_px": 47,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b19",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "的近似值（保留四位小数）。\n解题步骤："
+                }
+              ]
+            },
+            {
+              "id": "examples-b20",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第一步（确定自变量）：\n由"
+                }
+              ]
+            },
+            {
+              "id": "examples-b21",
+              "type": "math_image",
+              "latex": "\\ln(1+x)",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/4bbe1de67ad5ff63@3x.png",
+                "webp": "/static/formulas/F003/4bbe1de67ad5ff63@3x.webp",
+                "width_px": 183,
+                "height_px": 65,
+                "display_width_px": 61,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b22",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "得"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x=0.1"
+                },
+                {
+                  "type": "text",
+                  "text": "。\n理由： 因为"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "1.1=1+0.1",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/F003/b8b0ee89ca7a3978@3x.png",
+                    "webp": "/static/formulas/F003/b8b0ee89ca7a3978@3x.webp",
+                    "width_px": 253,
+                    "height_px": 55,
+                    "display_width_px": 84,
+                    "display_height_px": 18,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "，所以"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x=0.1"
+                },
+                {
+                  "type": "text",
+                  "text": "；同时"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "x=0.1>-1",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/F003/ff1358cb524ac8bc@3x.png",
+                    "webp": "/static/formulas/F003/ff1358cb524ac8bc@3x.webp",
+                    "width_px": 260,
+                    "height_px": 55,
+                    "display_width_px": 87,
+                    "display_height_px": 18,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "，满足对数定义域。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b23",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第二步（代入公式）：\n将"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x=0.1"
+                },
+                {
+                  "type": "text",
+                  "text": "代入公式右边："
+                }
+              ]
+            },
+            {
+              "id": "examples-b24",
+              "type": "math_image",
+              "latex": "\\ln(1.1) \\approx \\frac{3\\times 0.1^2 + 6\\times 0.1}{0.1^2 + 6\\times 0.1 + 6}\n= \\frac{3\\times 0.01 + 0.6}{0.01 + 0.6 + 6}\n= \\frac{0.03+0.6}{6.61} = \\frac{0.63}{6.61}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/ce8898b4146a314e@3x.png",
+                "webp": "/static/formulas/F003/ce8898b4146a314e@3x.webp",
+                "width_px": 1233,
+                "height_px": 124,
+                "display_width_px": 411,
+                "display_height_px": 41,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b25",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".理由： 正确代入并计算平方、乘法。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b26",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第三步（化简求值）："
+                }
+              ]
+            },
+            {
+              "id": "examples-b27",
+              "type": "math_image",
+              "latex": "\\frac{0.63}{6.61} \\approx 0.0953",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/6396856b1a2a5165@3x.png",
+                "webp": "/static/formulas/F003/6396856b1a2a5165@3x.webp",
+                "width_px": 282,
+                "height_px": 107,
+                "display_width_px": 94,
+                "display_height_px": 36,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b28",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".理由： 完成除法，保留四位小数。\n关键结论："
+                }
+              ]
+            },
+            {
+              "id": "examples-b29",
+              "type": "math_image",
+              "latex": "\\ln(1.1)\\approx 0.0953",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/8477b98f0a9e8f3b@3x.png",
+                "webp": "/static/formulas/F003/8477b98f0a9e8f3b@3x.webp",
+                "width_px": 309,
+                "height_px": 65,
+                "display_width_px": 103,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b30",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，实际值约为"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "0.09531",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/F003/30114400d3eb0dd2@3x.png",
+                    "webp": "/static/formulas/F003/30114400d3eb0dd2@3x.webp",
+                    "width_px": 157,
+                    "height_px": 52,
+                    "display_width_px": 52,
+                    "display_height_px": 17,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "，吻合良好。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b31",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "例3（综合应用）\n题目： 已知"
+                }
+              ]
+            },
+            {
+              "id": "examples-b32",
+              "type": "math_image",
+              "latex": "\\tan x \\approx \\frac{3x}{3-x^2}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/3066b3bbaa2fb10c@3x.png",
+                "webp": "/static/formulas/F003/3066b3bbaa2fb10c@3x.webp",
+                "width_px": 296,
+                "height_px": 111,
+                "display_width_px": 99,
+                "display_height_px": 37,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b33",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，求"
+                }
+              ]
+            },
+            {
+              "id": "examples-b34",
+              "type": "math_image",
+              "latex": "\\tan(0.2)",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/0047dc0205105a3b@3x.png",
+                "webp": "/static/formulas/F003/0047dc0205105a3b@3x.webp",
+                "width_px": 167,
+                "height_px": 65,
+                "display_width_px": 56,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b35",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "的近似值（保留四位小数）。\n解题步骤："
+                }
+              ]
+            },
+            {
+              "id": "examples-b36",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第一步（变量确认）：\n确定"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x=0.2"
+                },
+                {
+                  "type": "text",
+                  "text": "，这里"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "0.2"
+                },
+                {
+                  "type": "text",
+                  "text": "表示"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "0.2"
+                },
+                {
+                  "type": "text",
+                  "text": "弧度。\n理由： 三角函数的帕德逼近默认使用弧度制，且"
+                }
+              ]
+            },
+            {
+              "id": "examples-b37",
+              "type": "math_image",
+              "latex": "3-0.2^2\\ne0",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/7e7d5c9de10ee715@3x.png",
+                "webp": "/static/formulas/F003/7e7d5c9de10ee715@3x.webp",
+                "width_px": 239,
+                "height_px": 69,
+                "display_width_px": 80,
+                "display_height_px": 23,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b38",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b39",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第二步（代入公式）："
+                }
+              ]
+            },
+            {
+              "id": "examples-b40",
+              "type": "math_image",
+              "latex": "\\tan(0.2) \\approx \\frac{3\\times 0.2}{3 - 0.2^2} = \\frac{0.6}{3 - 0.04} = \\frac{0.6}{2.96}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/1288fc69c7953920@3x.png",
+                "webp": "/static/formulas/F003/1288fc69c7953920@3x.webp",
+                "width_px": 738,
+                "height_px": 116,
+                "display_width_px": 246,
+                "display_height_px": 39,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b41",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".理由： 计算分子、分母。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b42",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第三步（结果化简）："
+                }
+              ]
+            },
+            {
+              "id": "examples-b43",
+              "type": "math_image",
+              "latex": "\\frac{0.6}{2.96} = 0.2027027\\ldots \\approx 0.2027",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/eae9ff3d9c814d00@3x.png",
+                "webp": "/static/formulas/F003/eae9ff3d9c814d00@3x.webp",
+                "width_px": 551,
+                "height_px": 107,
+                "display_width_px": 184,
+                "display_height_px": 36,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b44",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".理由： 保留四位小数；实际"
+                }
+              ]
+            },
+            {
+              "id": "examples-b45",
+              "type": "math_image",
+              "latex": "\\tan0.2\\approx0.2027",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/6c2837402d75859c@3x.png",
+                "webp": "/static/formulas/F003/6c2837402d75859c@3x.webp",
+                "width_px": 309,
+                "height_px": 52,
+                "display_width_px": 103,
+                "display_height_px": 17,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b46",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，公式准确。\n关键结论："
+                }
+              ]
+            },
+            {
+              "id": "examples-b47",
+              "type": "math_image",
+              "latex": "\\tan(0.2)\\approx 0.2027",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/26ffecf912cae1f4@3x.png",
+                "webp": "/static/formulas/F003/26ffecf912cae1f4@3x.webp",
+                "width_px": 334,
+                "height_px": 65,
+                "display_width_px": 111,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b48",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，验证了帕德逼近在小"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x"
+                },
+                {
+                  "type": "text",
+                  "text": "下的有效性。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b49",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "例4（余弦修正公式）\n题目： 利用"
+                }
+              ]
+            },
+            {
+              "id": "examples-b50",
+              "type": "math_image",
+              "latex": "\\cos x\\approx\\frac{12-5x^2}{12+x^2}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/e69cadc9963dcc18@3x.png",
+                "webp": "/static/formulas/F003/e69cadc9963dcc18@3x.webp",
+                "width_px": 333,
+                "height_px": 118,
+                "display_width_px": 111,
+                "display_height_px": 39,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b51",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，求"
+                }
+              ]
+            },
+            {
+              "id": "examples-b52",
+              "type": "math_image",
+              "latex": "\\cos(0.2)",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/8447bf4cc3c836e1@3x.png",
+                "webp": "/static/formulas/F003/8447bf4cc3c836e1@3x.webp",
+                "width_px": 162,
+                "height_px": 65,
+                "display_width_px": 54,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b53",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "的近似值（保留四位小数）。\n解题步骤："
+                }
+              ]
+            },
+            {
+              "id": "examples-b54",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第一步（确认弧度制）："
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x=0.2"
+                },
+                {
+                  "type": "text",
+                  "text": "表示"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "0.2"
+                },
+                {
+                  "type": "text",
+                  "text": "弧度。\n理由： 三角函数近似公式必须使用弧度制。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b55",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第二步（代入公式）："
+                }
+              ]
+            },
+            {
+              "id": "examples-b56",
+              "type": "math_image",
+              "latex": "\\cos(0.2)\\approx \\frac{12-5\\times0.2^2}{12+0.2^2}\n=\\frac{12-0.2}{12.04}\n=\\frac{11.8}{12.04}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/3bf0e423639630f6@3x.png",
+                "webp": "/static/formulas/F003/3bf0e423639630f6@3x.webp",
+                "width_px": 844,
+                "height_px": 124,
+                "display_width_px": 281,
+                "display_height_px": 41,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b57",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".理由： 使用正确的偶函数型余弦逼近公式。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b58",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第三步（结果化简）："
+                }
+              ]
+            },
+            {
+              "id": "examples-b59",
+              "type": "math_image",
+              "latex": "\\frac{11.8}{12.04}\\approx0.9801",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/83595f40313185d8@3x.png",
+                "webp": "/static/formulas/F003/83595f40313185d8@3x.webp",
+                "width_px": 302,
+                "height_px": 107,
+                "display_width_px": 101,
+                "display_height_px": 36,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b60",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".理由： 保留四位小数；实际"
+                }
+              ]
+            },
+            {
+              "id": "examples-b61",
+              "type": "math_image",
+              "latex": "\\cos0.2\\approx0.9801",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/b1ba9aa0bd8563e5@3x.png",
+                "webp": "/static/formulas/F003/b1ba9aa0bd8563e5@3x.webp",
+                "width_px": 305,
+                "height_px": 52,
+                "display_width_px": 102,
+                "display_height_px": 17,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b62",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，吻合良好。\n关键结论："
+                }
+              ]
+            },
+            {
+              "id": "examples-b63",
+              "type": "math_image",
+              "latex": "\\cos(0.2)\\approx0.9801",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/1e2b4f2479d30901@3x.png",
+                "webp": "/static/formulas/F003/1e2b4f2479d30901@3x.webp",
+                "width_px": 329,
+                "height_px": 65,
+                "display_width_px": 110,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b64",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "。余弦是偶函数，近似式应体现只含"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x^2"
+                },
+                {
+                  "type": "text",
+                  "text": "的结构。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "traps",
+          "title": "易错提醒",
+          "block_type": "warning_group",
+          "blocks": [
+            {
+              "id": "traps-b1",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "易错点一（适用范围）\n直接用帕德逼近公式计算离"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x=0"
+                },
+                {
+                  "type": "text",
+                  "text": "较远的值，例如"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x=2"
+                },
+                {
+                  "type": "text",
+                  "text": "时的"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "e^2"
+                },
+                {
+                  "type": "text",
+                  "text": "，误差已经明显。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b2",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "正确理解（局部有效）：\n帕德逼近只在"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x=0"
+                },
+                {
+                  "type": "text",
+                  "text": "附近精度高；"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "|x|<1"
+                },
+                {
+                  "type": "text",
+                  "text": "可作为粗略经验范围，但不是严格边界，具体能否使用要看误差要求。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b3",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "错因分析（忽略前提）：\n学生误以为逼近公式对所有"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x"
+                },
+                {
+                  "type": "text",
+                  "text": "都成立，忽视了逼近的局部性。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b4",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "易错点二（公式混淆）\n将"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "e^x"
+                },
+                {
+                  "type": "text",
+                  "text": "与"
+                }
+              ]
+            },
+            {
+              "id": "traps-b5",
+              "type": "math_image",
+              "latex": "\\ln(1+x)",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/4bbe1de67ad5ff63@3x.png",
+                "webp": "/static/formulas/F003/4bbe1de67ad5ff63@3x.webp",
+                "width_px": 183,
+                "height_px": 65,
+                "display_width_px": 61,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "traps-b6",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "的帕德公式记反，或把余弦公式误记成含一次项的分式。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b7",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "正确理解（区分特征）："
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "e^x"
+                },
+                {
+                  "type": "text",
+                  "text": "的分母含负号"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "-6x"
+                },
+                {
+                  "type": "text",
+                  "text": "；"
+                }
+              ]
+            },
+            {
+              "id": "traps-b8",
+              "type": "math_image",
+              "latex": "\\ln(1+x)",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/4bbe1de67ad5ff63@3x.png",
+                "webp": "/static/formulas/F003/4bbe1de67ad5ff63@3x.webp",
+                "width_px": 183,
+                "height_px": 65,
+                "display_width_px": 61,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "traps-b9",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "分子含"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "3x^2,6x",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/F003/b782854ceb4e3f03@3x.png",
+                    "webp": "/static/formulas/F003/b782854ceb4e3f03@3x.webp",
+                    "width_px": 147,
+                    "height_px": 68,
+                    "display_width_px": 49,
+                    "display_height_px": 23,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "；"
+                }
+              ]
+            },
+            {
+              "id": "traps-b10",
+              "type": "math_image",
+              "latex": "\\cos x",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/5600f0018e32eee8@3x.png",
+                "webp": "/static/formulas/F003/5600f0018e32eee8@3x.webp",
+                "width_px": 109,
+                "height_px": 43,
+                "display_width_px": 36,
+                "display_height_px": 14,
+                "scale": 3
+              }
+            },
+            {
+              "id": "traps-b11",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "是偶函数，常用逼近应只含"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x^2"
+                },
+                {
+                  "type": "text",
+                  "text": "："
+                }
+              ]
+            },
+            {
+              "id": "traps-b12",
+              "type": "math_image",
+              "latex": "\\cos x\\approx\\frac{12-5x^2}{12+x^2}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/e69cadc9963dcc18@3x.png",
+                "webp": "/static/formulas/F003/e69cadc9963dcc18@3x.webp",
+                "width_px": 333,
+                "height_px": 118,
+                "display_width_px": 111,
+                "display_height_px": 39,
+                "scale": 3
+              }
+            },
+            {
+              "id": "traps-b13",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "."
+                }
+              ]
+            },
+            {
+              "id": "traps-b14",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "错因分析（机械记忆）：\n没有理解公式来源，靠死记硬背容易混淆；尤其余弦函数在"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x=0"
+                },
+                {
+                  "type": "text",
+                  "text": "处一阶导数为0，近似式不应出现一次项。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b15",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "易错点三（近似符号误用）\n在解题中将"
+                }
+              ]
+            },
+            {
+              "id": "traps-b16",
+              "type": "math_image",
+              "latex": "\\approx",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/baf1f8e194a46566@3x.png",
+                "webp": "/static/formulas/F003/baf1f8e194a46566@3x.webp",
+                "width_px": 55,
+                "height_px": 41,
+                "display_width_px": 18,
+                "display_height_px": 14,
+                "scale": 3
+              }
+            },
+            {
+              "id": "traps-b17",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "当作"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "="
+                },
+                {
+                  "type": "text",
+                  "text": "使用，导致后续推导产生累积误差。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b18",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "正确理解（近似非恒等）：\n帕德逼近是近似等式，不是精确恒等；尤其在进行等式变换、不等式放缩时，要额外控制误差或证明大小方向。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b19",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "错因分析（符号意识弱）：\n学生不习惯近似符号，忽略了近似与精确的区别。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b20",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "易错点四（角度制误用）\n计算"
+                }
+              ]
+            },
+            {
+              "id": "traps-b21",
+              "type": "math_image",
+              "latex": "\\sin30^\\circ",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/9601ddbb4a4e0fee@3x.png",
+                "webp": "/static/formulas/F003/9601ddbb4a4e0fee@3x.webp",
+                "width_px": 137,
+                "height_px": 53,
+                "display_width_px": 46,
+                "display_height_px": 18,
+                "scale": 3
+              }
+            },
+            {
+              "id": "traps-b22",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "、"
+                }
+              ]
+            },
+            {
+              "id": "traps-b23",
+              "type": "math_image",
+              "latex": "\\cos60^\\circ",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/4b1678abf87861f7@3x.png",
+                "webp": "/static/formulas/F003/4b1678abf87861f7@3x.webp",
+                "width_px": 141,
+                "height_px": 53,
+                "display_width_px": 47,
+                "display_height_px": 18,
+                "scale": 3
+              }
+            },
+            {
+              "id": "traps-b24",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "时，直接把"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x=30"
+                },
+                {
+                  "type": "text",
+                  "text": "或"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x=60"
+                },
+                {
+                  "type": "text",
+                  "text": "代入三角函数逼近公式。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b25",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "正确理解（先转弧度）：\n三角函数的泰勒展开和帕德逼近默认使用弧度制。若要估算"
+                }
+              ]
+            },
+            {
+              "id": "traps-b26",
+              "type": "math_image",
+              "latex": "30^\\circ",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/df5f4b07dd5316fd@3x.png",
+                "webp": "/static/formulas/F003/df5f4b07dd5316fd@3x.webp",
+                "width_px": 80,
+                "height_px": 53,
+                "display_width_px": 27,
+                "display_height_px": 18,
+                "scale": 3
+              }
+            },
+            {
+              "id": "traps-b27",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，应先转化为"
+                }
+              ]
+            },
+            {
+              "id": "traps-b28",
+              "type": "math_image",
+              "latex": "\\frac{\\pi}{6}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/4b5c359e201ffd14@3x.png",
+                "webp": "/static/formulas/F003/4b5c359e201ffd14@3x.webp",
+                "width_px": 65,
+                "height_px": 98,
+                "display_width_px": 22,
+                "display_height_px": 33,
+                "scale": 3
+              }
+            },
+            {
+              "id": "traps-b29",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，再判断是否适合代入近似公式。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b30",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "错因分析（单位混乱）：\n把角度制数字和弧度制数字混为一谈，导致数量级完全错误。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "summary",
+          "title": "复盘总结",
+          "block_type": "summary",
+          "blocks": [
+            {
+              "id": "summary-b1",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "一句话核心\n帕德逼近是用有理分式近似复杂函数，在"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x=0"
+                },
+                {
+                  "type": "text",
+                  "text": "附近以较小代价获得较高精度；它是局部近似，不是恒等式。"
+                }
+              ]
+            },
+            {
+              "id": "summary-b2",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "使用条件"
+                }
+              ]
+            },
+            {
+              "id": "summary-b3",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "条件1（邻域范围）： 逼近仅在"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x"
+                },
+                {
+                  "type": "text",
+                  "text": "充分接近0时精度较高；"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "|x|<1"
+                },
+                {
+                  "type": "text",
+                  "text": "可作为粗略经验范围，但不是严格数学边界。"
+                }
+              ]
+            },
+            {
+              "id": "summary-b4",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "条件2（光滑性）： 被逼近函数在"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x=0"
+                },
+                {
+                  "type": "text",
+                  "text": "处需有足够高阶导数，才能通过泰勒展开匹配系数。"
+                }
+              ]
+            },
+            {
+              "id": "summary-b5",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "条件3（定义域）： 使用"
+                }
+              ]
+            },
+            {
+              "id": "summary-b6",
+              "type": "math_image",
+              "latex": "\\ln(1+x)",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/4bbe1de67ad5ff63@3x.png",
+                "webp": "/static/formulas/F003/4bbe1de67ad5ff63@3x.webp",
+                "width_px": 183,
+                "height_px": 65,
+                "display_width_px": 61,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "summary-b7",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "时必须满足"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x>-1"
+                },
+                {
+                  "type": "text",
+                  "text": "。"
+                }
+              ]
+            },
+            {
+              "id": "summary-b8",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "条件4（弧度制）： 使用"
+                }
+              ]
+            },
+            {
+              "id": "summary-b9",
+              "type": "math_image",
+              "latex": "\\sin x,\\cos x,\\tan x",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/91114482b855acbc@3x.png",
+                "webp": "/static/formulas/F003/91114482b855acbc@3x.webp",
+                "width_px": 314,
+                "height_px": 59,
+                "display_width_px": 105,
+                "display_height_px": 20,
+                "scale": 3
+              }
+            },
+            {
+              "id": "summary-b10",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "的逼近时，"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x"
+                },
+                {
+                  "type": "text",
+                  "text": "必须是弧度制。"
+                }
+              ]
+            },
+            {
+              "id": "summary-b11",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "条件5（分母限制）： 使用"
+                }
+              ]
+            },
+            {
+              "id": "summary-b12",
+              "type": "math_image",
+              "latex": "\\tan x\\approx\\frac{3x}{3-x^2}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/182ecf2762b831a7@3x.png",
+                "webp": "/static/formulas/F003/182ecf2762b831a7@3x.webp",
+                "width_px": 296,
+                "height_px": 111,
+                "display_width_px": 99,
+                "display_height_px": 37,
+                "scale": 3
+              }
+            },
+            {
+              "id": "summary-b13",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "时，应保证"
+                }
+              ]
+            },
+            {
+              "id": "summary-b14",
+              "type": "math_image",
+              "latex": "3-x^2\\ne0",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/924813fdcaf8d562@3x.png",
+                "webp": "/static/formulas/F003/924813fdcaf8d562@3x.webp",
+                "width_px": 210,
+                "height_px": 69,
+                "display_width_px": 70,
+                "display_height_px": 23,
+                "scale": 3
+              }
+            },
+            {
+              "id": "summary-b15",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "。"
+                }
+              ]
+            },
+            {
+              "id": "summary-b16",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "关键提醒"
+                }
+              ]
+            },
+            {
+              "id": "summary-b17",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "易错点（局部有效）： 不可在大"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x"
+                },
+                {
+                  "type": "text",
+                  "text": "时无条件使用，否则误差可能明显增大。"
+                }
+              ]
+            },
+            {
+              "id": "summary-b18",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "检查项（公式对应）： 使用前确认函数与帕德分式的对应关系，尤其注意"
+                }
+              ]
+            },
+            {
+              "id": "summary-b19",
+              "type": "math_image",
+              "latex": "\\cos x\\approx\\frac{12-5x^2}{12+x^2}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/e69cadc9963dcc18@3x.png",
+                "webp": "/static/formulas/F003/e69cadc9963dcc18@3x.webp",
+                "width_px": 333,
+                "height_px": 118,
+                "display_width_px": 111,
+                "display_height_px": 39,
+                "scale": 3
+              }
+            },
+            {
+              "id": "summary-b20",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "."
+                }
+              ]
+            },
+            {
+              "id": "summary-b21",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "符号意识（近似非恒等）："
+                }
+              ]
+            },
+            {
+              "id": "summary-b22",
+              "type": "math_image",
+              "latex": "\\approx",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/F003/baf1f8e194a46566@3x.png",
+                "webp": "/static/formulas/F003/baf1f8e194a46566@3x.webp",
+                "width_px": 55,
+                "height_px": 41,
+                "display_width_px": 18,
+                "display_height_px": 14,
+                "scale": 3
+              }
+            },
+            {
+              "id": "summary-b23",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "不能当作"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "="
+                },
+                {
+                  "type": "text",
+                  "text": "随意变形；用于不等式证明时，必须另外证明上界、下界或误差符号。"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "plain": {
+        "statement": "条件\n- 条件1（邻域范围）： 帕德逼近是以x=0为中心的局部近似，要求|x|较小；实际估算时可把|x|<1作为粗略经验范围，但具体精度还要结合函数和误差要求判断。\n- 条件2（定义域）： 使用 (1+x)的逼近时，必须满足x>-1。\n- 条件3（弧度制）： 涉及 x, x, x时，x必须使用弧度制，不能直接代入角度制数值。\n- 条件4（分母限制）： 使用正切逼近时，应保证3-x^2 0，即x 3；实际应用仍以x接近0为前提。\n结论\n以下公式均为x=0附近的局部近似公式，不是恒等式。\n- 结论一（指数逼近）：\n直观描述： 用二次有理分式近似指数函数。\ne^x (x^2+6x+12) / (x^2-6x+12).\n- 结论二（对数逼近）：\n直观描述： 用二次有理分式近似对数函数。\n(1+x) (3x^2+6x) / (x^2+6x+6), x>-1.\n- 结论三（正弦逼近）：\n直观描述： 用二次有理分式近似正弦函数，其中x为弧度制。\nx (6x) / (x^2+6).\n- 结论四（余弦逼近）：\n直观描述： 用偶函数型二次有理分式近似余弦函数，其中x为弧度制。\nx (12-5x^2) / (12+x^2).\n- 结论五（正切逼近）：\n直观描述： 用二次有理分式近似正切函数，其中x为弧度制。\nx (3x) / (3-x^2), x 3.\n- 推广结论（变量替换）：\n直观描述： 将指数逼近中的x替换为-x，得到e^-x的逼近。\ne^-x (x^2-6x+12) / (x^2+6x+12).",
+        "explanation": "一句话直觉\n帕德逼近就是用简单有理分式“模仿”复杂函数，在某个点附近尽量贴合原函数。\n核心拆解\n- 要点一（匹配原理）： 通过设置有理分式的系数，使它在x=0处的函数值以及若干阶导数值与目标函数一致。\n- 要点二（展开一致）： 有理分式在x=0处的泰勒展开前几项与目标函数的泰勒展开相同，从而实现局部逼近。\n- 要点三（不是恒等）： 符号 表示近似，不表示恒等；离展开中心越远，误差通常越明显。\n几何本质（局部重合）\n在x=0附近，有理函数的图像与指数、对数、三角函数的图像高度贴合；但它们只是局部近似，不能直接当作全局相等。\n代数意义（分式逼近）\n用有理分式代替指数、对数、三角函数等复杂形式，可以把近似计算转化为多项式的加减乘除，便于手算估值。\n考点价值（速算工具）\n- 考法一（近似计算）： 直接用帕德公式计算函数在x接近0时的近似值，快速得到结果。\n- 考法二（放缩辅助）： 在不等式证明中，帕德分式可以作为构造辅助函数的灵感来源；但若要用于严格放缩，必须额外证明它是目标函数的上界或下界，不能仅凭近似式直接替代。\n顿悟点\n帕德逼近由于引入了分母调节，常常能在相近复杂度下获得比普通泰勒多项式更好的局部近似效果；但这种优势不是全局无条件成立的，具体误差仍需结合函数、取值范围和允许误差判断。\n使用场景\n- 场景一（考场估算）： 遇到e^0.2, 1.1等值，可快速用帕德公式近似，避免复杂计算。\n- 场景二（三角估算）： 估算 x, x, x时，必须先确认x是弧度制；角度制要先转成弧度制再代入。\n- 场景三（构造辅助函数）： 在证明与e^x, (1+x)有关的不等式时，可以参考帕德分式构造辅助函数，再通过求导或作差判断大小方向。",
+        "proof": "思路提示\n以指数函数e^x的帕德逼近为例，通过待定系数法，使有理分式与e^x在x=0处的泰勒展开前五项匹配，列出方程组，求解得到系数，从而验证公式。\n正式推导\n- 步骤一（设定形式）： 设\nR(x)=(ax^2+bx+c) / (px^2+qx+r),\n其中a,b,c,p,q,r为待定系数，并要求R(x)在x=0附近逼近e^x。\n理由： 这里采用分子、分母均为二次的有理分式；用p,q,r表示分母系数，可避免与自然常数e混淆。\n- 步骤二（匹配条件）： 要使R(x)与e^x在x=0处匹配到x^4项，只需令\n(px^2+qx+r)e^x-(ax^2+bx+c)=O(x^5).\n理由： 交叉相乘后比较x^0至x^4的系数，等价于让误差从x^5及更高次项开始出现。\n- 步骤三（展开指数）： 将e^x在x=0处泰勒展开至x^4项：\ne^x = 1 + x + (x^2) / (2) + (x^3) / (6) + (x^4) / (24) + O(x^5).\n理由： 用多项式展开代替e^x，才能逐项比较系数。\n- 步骤四（乘积展开）： 计算(px^2+qx+r) (1 + x + (x^2) / (2) + (x^3) / (6) + (x^4) / (24) )，合并至x^4项：\n& x^0:\\; r, \\\\\n& x^1:\\; q+r, \\\\\n& x^2:\\; p+q+(r) / (2), \\\\\n& x^3:\\; p+(q) / (2)+(r) / (6), \\\\\n& x^4:\\; (p) / (2)+(q) / (6)+(r) / (24).\n理由： 多项式乘法，逐项合并同类项。\n- 步骤五（系数对比）： 令上式与右端ax^2+bx+c对应项系数相等，得方程组：\nr = c, \\\n2pt]\nq+r = b, \\\n2pt]\np+q+2 = a, \\\n6pt]\np+2+6 = 0, \\\n6pt]\n2+6+24 = 0.\n理由： 误差O(x^5)要求x^0至x^4的系数全部匹配。\n- 步骤六（求解系数）： 取r=1（整体缩放不影响分式值），由后两式解得\np=(1) / (12), q=-(1) / (2).\n代入前三式得\na=(1) / (12), b=(1) / (2), c=1.\n因此\nR(x)=((1) / (12)x^2+(1) / (2)x+1) / ((1) / (12)x^2-(1) / (2)x+1).\n分子分母同乘12，得到\ne^x (x^2+6x+12) / (x^2-6x+12).\n理由： 分式的分子分母同乘非零常数，分式值不变。\n余弦公式校验\n余弦函数是偶函数，因此它在x=0附近的有理逼近也应优先采用只含x^2的偶函数形式。正确的二次有理逼近为\nx (12-5x^2) / (12+x^2).\n其展开为\n(12-5x^2) / (12+x^2)\n=1-(x^2) / (2)+(x^4) / (24)+O(x^6),\n而\nx=1-(x^2) / (2)+(x^4) / (24)+O(x^6).\n两者在x^0,x^2,x^4项上一致，所以该公式与 x在x=0附近匹配良好。\n结论回扣\n上述推导完整展示了指数函数帕德逼近系数的确定过程。类似地，将 (1+x), x, x, x在x=0处展开，并匹配对应阶数的有理分式，即可得到相应的局部逼近公式。注意：这些公式都是近似公式，不是恒等式；涉及三角函数时，x必须使用弧度制。",
+        "examples": "例1（基础）\n题目： 已知帕德逼近e^x x^2-6x+12，求e^0.1的近似值（保留四位小数）。\n解题步骤：\n- 第一步（识别变量）： 确定逼近公式中的x=0.1。\n理由： 当x接近0时逼近有效，0.1满足局部近似的使用前提。\n- 第二步（代入公式）： 代入x=0.1，计算分子：\n0.1^2 + 6 * 0.1 + 12 = 0.01 + 0.6 + 12 = 12.61,\n分母：\n0.1^2 - 6 * 0.1 + 12 = 0.01 - 0.6 + 12 = 11.41.\n理由： 直接代入公式。\n- 第三步（计算近似值）：\ne^0.1 (12.61) / (11.41) 1.1052.\n理由： 完成除法运算，保留四位小数。\n关键结论： e^0.1 1.1052，与真实值1.10517非常接近，误差极小。\n例2（稍变形）\n题目： 利用 (1+x) x^2+6x+6，求 (1.1)的近似值（保留四位小数）。\n解题步骤：\n- 第一步（确定自变量）： 由 (1+x)得x=0.1。\n理由： 因为1.1=1+0.1，所以x=0.1；同时x=0.1>-1，满足对数定义域。\n- 第二步（代入公式）： 将x=0.1代入公式右边：\n(1.1) (3 * 0.1^2 + 6 * 0.1) / (0.1^2 + 6 * 0.1 + 6)\n= (3 * 0.01 + 0.6) / (0.01 + 0.6 + 6)\n= (0.03+0.6) / (6.61) = (0.63) / (6.61).\n理由： 正确代入并计算平方、乘法。\n- 第三步（化简求值）：\n(0.63) / (6.61) 0.0953.\n理由： 完成除法，保留四位小数。\n关键结论： (1.1) 0.0953，实际值约为0.09531，吻合良好。\n例3（综合应用）\n题目： 已知 x 3-x^2，求 (0.2)的近似值（保留四位小数）。\n解题步骤：\n- 第一步（变量确认）： 确定x=0.2，这里0.2表示0.2弧度。\n理由： 三角函数的帕德逼近默认使用弧度制，且3-0.2^2 0。\n- 第二步（代入公式）：\n(0.2) (3 * 0.2) / (3 - 0.2^2) = (0.6) / (3 - 0.04) = (0.6) / (2.96).\n理由： 计算分子、分母。\n- 第三步（结果化简）：\n(0.6) / (2.96) = 0.2027027 0.2027.\n理由： 保留四位小数；实际 0.2 0.2027，公式准确。\n关键结论： (0.2) 0.2027，验证了帕德逼近在小x下的有效性。\n例4（余弦修正公式）\n题目： 利用 x 12+x^2，求 (0.2)的近似值（保留四位小数）。\n解题步骤：\n- 第一步（确认弧度制）： x=0.2表示0.2弧度。\n理由： 三角函数近似公式必须使用弧度制。\n- 第二步（代入公式）：\n(0.2) (12-5 * 0.2^2) / (12+0.2^2)\n=(12-0.2) / (12.04)\n=(11.8) / (12.04).\n理由： 使用正确的偶函数型余弦逼近公式。\n- 第三步（结果化简）：\n(11.8) / (12.04) 0.9801.\n理由： 保留四位小数；实际 0.2 0.9801，吻合良好。\n关键结论： (0.2) 0.9801。余弦是偶函数，近似式应体现只含x^2的结构。",
+        "traps": "- 易错点一（适用范围） 直接用帕德逼近公式计算离x=0较远的值，例如x=2时的e^2，误差已经明显。\n- 正确理解（局部有效）： 帕德逼近只在x=0附近精度高；|x|<1可作为粗略经验范围，但不是严格边界，具体能否使用要看误差要求。\n- 错因分析（忽略前提）： 学生误以为逼近公式对所有x都成立，忽视了逼近的局部性。\n- 易错点二（公式混淆） 将e^x与 (1+x)的帕德公式记反，或把余弦公式误记成含一次项的分式。\n- 正确理解（区分特征）： e^x的分母含负号-6x； (1+x)分子含3x^2,6x； x是偶函数，常用逼近应只含x^2：\nx (12-5x^2) / (12+x^2).\n- 错因分析（机械记忆）： 没有理解公式来源，靠死记硬背容易混淆；尤其余弦函数在x=0处一阶导数为0，近似式不应出现一次项。\n- 易错点三（近似符号误用） 在解题中将 当作=使用，导致后续推导产生累积误差。\n- 正确理解（近似非恒等）： 帕德逼近是近似等式，不是精确恒等；尤其在进行等式变换、不等式放缩时，要额外控制误差或证明大小方向。\n- 错因分析（符号意识弱）： 学生不习惯近似符号，忽略了近似与精确的区别。\n- 易错点四（角度制误用） 计算 30^ 、 60^ 时，直接把x=30或x=60代入三角函数逼近公式。\n- 正确理解（先转弧度）： 三角函数的泰勒展开和帕德逼近默认使用弧度制。若要估算30^ ，应先转化为6，再判断是否适合代入近似公式。\n- 错因分析（单位混乱）： 把角度制数字和弧度制数字混为一谈，导致数量级完全错误。",
+        "summary": "一句话核心\n帕德逼近是用有理分式近似复杂函数，在x=0附近以较小代价获得较高精度；它是局部近似，不是恒等式。\n使用条件\n- 条件1（邻域范围）： 逼近仅在x充分接近0时精度较高；|x|<1可作为粗略经验范围，但不是严格数学边界。\n- 条件2（光滑性）： 被逼近函数在x=0处需有足够高阶导数，才能通过泰勒展开匹配系数。\n- 条件3（定义域）： 使用 (1+x)时必须满足x>-1。\n- 条件4（弧度制）： 使用 x, x, x的逼近时，x必须是弧度制。\n- 条件5（分母限制）： 使用 x 3-x^2时，应保证3-x^2 0。\n关键提醒\n- 易错点（局部有效）： 不可在大x时无条件使用，否则误差可能明显增大。\n- 检查项（公式对应）： 使用前确认函数与帕德分式的对应关系，尤其注意\nx (12-5x^2) / (12+x^2).\n- 符号意识（近似非恒等）： 不能当作=随意变形；用于不等式证明时，必须另外证明上界、下界或误差符号。"
+      }
+    },
+    "assets": {
+      "cover": null,
+      "svg": "F003.svg",
+      "png": null,
+      "pdf": null,
+      "mp4": null,
+      "extra": []
+    },
+    "ext": {
+      "share": {
+        "title": "帕德逼近：小x下指数、对数、三角的快速近似",
+        "desc": "适合课后复习或考前速查，掌握5个常用帕德近似公式，直接代入x即可得到高精度结果，减少复杂计算。注意cos公式精度较低。"
+      },
+      "relations": {
+        "prerequisites": [
+          "泰勒展开",
+          "有理函数"
+        ],
+        "related_ids": [],
+        "similar": "泰勒逼近（多项式逼近）"
+      },
+      "exam": {
+        "frequency": 0.2,
+        "score": 3
+      },
+      "extra": {
+        "usage": {
+          "scenarios": [
+            "高等数学数值计算低阶近似",
+            "快速估算小量下的函数值",
+            "课后复习记忆特殊函数的有理逼近形式"
+          ],
+          "problem_types": [
+            "计算近似值（如$e^{0.1}$、$\\ln1.1$、$\\tan0.2$）",
+            "比较不同逼近方法（泰勒vs帕德）"
+          ],
+          "exam_frequency": 0.2,
+          "exam_score": 3
+        },
+        "interactive": {
+          "has_diagram": false,
+          "geogebra_id": "",
+          "param_demo": {}
+        },
+        "related_formulas": [
+          "\\ln(1+x) \\approx \\frac{3x^{2}+6x}{x^{2}+6x+6}",
+          "\\sin x \\approx \\frac{6x}{x^{2}+6}",
+          "\\cos x \\approx \\frac{12}{12+5x}",
+          "\\tan x \\approx \\frac{3x}{3-x^{2}}"
+        ],
+        "legacy_display_version": 2
+      }
+    }
   }
 }
