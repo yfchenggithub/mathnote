@@ -1,0 +1,92 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	投影的推导依赖向量点积的几何定义。先在 $\vec{a}\ne\vec{0}$、$\vec{b}\ne\vec{0}$ 时，用
+	\[
+		\vec{a}\cdot\vec{b}=|\vec{a}||\vec{b}|\cos\theta
+	\]
+	推出投影数量公式，再乘以 $\vec{b}$ 方向的单位向量得到投影向量公式。最后补充 $\vec{a}=\vec{0}$ 的情况，说明公式实际只要求投影方向 $\vec{b}\ne\vec{0}$。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（点积定义）：}] 当 $\vec{a}\ne\vec{0}$、$\vec{b}\ne\vec{0}$ 时，设 $\theta=\angle(\vec{a},\vec{b})\in[0,\pi]$，由向量点积的几何定义得
+		      \[
+			      \vec{a}\cdot\vec{b}=|\vec{a}||\vec{b}|\cos\theta.
+		      \]
+		      \par\textbf{理由：} 这是点积的标准定义，沟通了内积与长度、夹角的关系。
+
+		\item[\textbf{步骤二（投影数量定义）：}] 规定 $\vec{a}$ 在 $\vec{b}$ 方向上的投影数量为
+		      \[
+			      \text{投影数量}=|\vec{a}|\cos\theta.
+		      \]
+		      \par\textbf{理由：} 投影数量是沿 $\vec{b}$ 方向的有向长度，可正、可负、也可为 $0$。
+
+		\item[\textbf{步骤三（代数变形）：}] 由步骤一解出 $|\vec{a}|\cos\theta$：
+		      \[
+			      |\vec{a}|\cos\theta
+			      =
+			      \frac{\vec{a}\cdot\vec{b}}{|\vec{b}|}.
+		      \]
+		      因此
+		      \[
+			      \text{投影数量}
+			      =
+			      \frac{\vec{a}\cdot\vec{b}}{|\vec{b}|}.
+		      \]
+		      \par\textbf{理由：} 将点积等式两边同除以 $|\vec{b}|$，这里 $|\vec{b}|\ne0$。
+
+		\item[\textbf{步骤四（单位向量）：}] $\vec{b}$ 方向上的单位向量为
+		      \[
+			      \frac{\vec{b}}{|\vec{b}|}.
+		      \]
+		      \par\textbf{理由：} 任何非零向量除以其模长，即得到与它同向的单位向量。
+
+		\item[\textbf{步骤五（投影向量）：}] $\vec{a}$ 在 $\vec{b}$ 方向上的投影向量为投影数量乘以该单位向量：
+		      \[
+			      \text{投影向量}
+			      =
+			      \left(\frac{\vec{a}\cdot\vec{b}}{|\vec{b}|}\right)\frac{\vec{b}}{|\vec{b}|}
+			      =
+			      \frac{\vec{a}\cdot\vec{b}}{|\vec{b}|^2}\vec{b}.
+		      \]
+		      \par\textbf{理由：} 投影向量与 $\vec{b}$ 共线，其模长为投影数量的绝对值。
+
+		\item[\textbf{步骤六（方向判断）：}] 投影向量是 $\vec{b}$ 的实数倍，系数为
+		      \[
+			      \frac{\vec{a}\cdot\vec{b}}{|\vec{b}|^2}.
+		      \]
+		      因为 $|\vec{b}|^2>0$，所以方向由 $\vec{a}\cdot\vec{b}$ 的符号决定。
+		      当 $\vec{a}\cdot\vec{b}>0$ 时，投影向量与 $\vec{b}$ 同向；
+		      当 $\vec{a}\cdot\vec{b}<0$ 时，投影向量与 $\vec{b}$ 反向；
+		      当 $\vec{a}\cdot\vec{b}=0$ 时，投影向量为 $\vec{0}$，没有确定方向。
+		      \par\textbf{理由：} 数乘向量的性质决定了共线向量的方向关系。
+
+		\item[\textbf{步骤七（零向量补充）：}] 若 $\vec{a}=\vec{0}$ 且 $\vec{b}\ne\vec{0}$，则
+		      \[
+			      \frac{\vec{a}\cdot\vec{b}}{|\vec{b}|}=0,
+			      \qquad
+			      \frac{\vec{a}\cdot\vec{b}}{|\vec{b}|^2}\vec{b}=\vec{0}.
+		      \]
+		      \par\textbf{理由：} 零向量在任意非零方向上的投影数量为 $0$，投影向量为 $\vec{0}$。因此投影公式实际只要求投影方向 $\vec{b}\ne\vec{0}$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	综上，只要 $\vec{b}\ne\vec{0}$，就有
+	\[
+		\text{投影数量}
+		=
+		\frac{\vec{a}\cdot\vec{b}}{|\vec{b}|},
+		\qquad
+		\text{投影向量}
+		=
+		\frac{\vec{a}\cdot\vec{b}}{|\vec{b}|^2}\vec{b}.
+	\]
+	若 $\vec{a}\ne\vec{0}$，设 $\theta=\angle(\vec{a},\vec{b})$，还可写成
+	\[
+		\text{投影数量}=|\vec{a}|\cos\theta.
+	\]
+	投影数量是标量，投影向量是向量，二者不能混淆。
+\end{proofbox}

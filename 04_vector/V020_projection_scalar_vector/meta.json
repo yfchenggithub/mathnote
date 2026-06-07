@@ -1,0 +1,142 @@
+{
+  "id": "V020",
+  "module": "vector",
+  "core": {
+    "title": "向量投影与投影向量",
+    "alias": ["投影数量", "投影向量", "数量积投影"],
+    "summary": "非零向量a在b方向上的投影是标量（可正可负），投影向量是b的倍数，两者都由点积和模长直接计算。",
+    "difficulty": 2,
+    "category": "平面向量",
+    "tags": ["向量投影", "投影向量", "数量积", "平面向量", "投影"]
+  },
+  "search": {
+    "keywords": [
+      "投影",
+      "投影向量",
+      "投影数量",
+      "向量投影",
+      "数量积",
+      "点积",
+      "夹角",
+      "非零向量",
+      "投影公式",
+      "投影向量公式",
+      "向量a在b上的投影",
+      "投影长度",
+      "带符号长度"
+    ],
+    "synonyms": [
+      "射影",
+      "标量投影",
+      "向量投影数量",
+      "投影系数",
+      "投影方向",
+      "向量投影的模"
+    ],
+    "intents": [
+      "求投影",
+      "求投影向量",
+      "计算投影数量",
+      "判断投影正负",
+      "利用投影求角度"
+    ],
+    "query_templates": [
+      "向量a在向量b上的投影怎么算",
+      "投影向量公式",
+      "投影数量公式分母是模还是模平方",
+      "投影向量与b共线吗",
+      "投影数量正负怎么判断"
+    ],
+    "ocrKeywords": ["投影", "投影向量", "投影数量", "射影", "点积"],
+    "latex_patterns": [
+      "\\frac{\\vec{a}\\cdot\\vec{b}}{|\\vec{b}|}",
+      "\\frac{\\vec{a}\\cdot\\vec{b}}{|\\vec{b}|^2}\\vec{b}",
+      "|\\vec{a}|\\cos\\theta"
+    ],
+    "formulaTokens": [
+      "\\vec{a}\\cdot\\vec{b}",
+      "|\\vec{b}|",
+      "\\frac{\\vec{a}\\cdot\\vec{b}}{|\\vec{b}|}",
+      "\\frac{\\vec{a}\\cdot\\vec{b}}{|\\vec{b}|^2}",
+      "\\frac{\\vec{a}\\cdot\\vec{b}}{|\\vec{b}|^2}\\vec{b}",
+      "|\\vec{a}|\\cos\\theta"
+    ],
+    "pinyin": "xiangliangtouyingyutouyingxiangliang",
+    "pinyinAbbr": "xltxytyxl"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.8,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\text{投影数量}=|\\vec{a}|\\cos\\theta=\\frac{\\vec{a}\\cdot\\vec{b}}{|\\vec{b}|}",
+    "related_formulas": [
+      "\\text{投影向量}=\\frac{\\vec{a}\\cdot\\vec{b}}{|\\vec{b}|^2}\\vec{b}",
+      "\\bigl|\\text{投影向量}\\bigr|=\\frac{|\\vec{a}\\cdot\\vec{b}|}{|\\vec{b}|}"
+    ],
+    "variables": {
+      "vec{a}": "向量a",
+      "vec{b}": "向量b",
+      "theta": "两向量夹角，取值范围[0,π]",
+      "|vec{b}|": "向量b的模（非零）"
+    },
+    "conditions": ["向量a与b均为非零向量", "夹角θ∈[0,π]"],
+    "conclusions": [
+      "投影数量是标量，可正可负，正负由点积符号决定",
+      "投影向量与b共线，方向由点积符号决定，长度为投影数量的绝对值"
+    ]
+  },
+  "content": {
+    "statement": "给定非零向量 a 与 b，夹角为 θ∈[0,π]，则 a 在 b 方向上的投影（数量）为 |a|cosθ = (a·b)/|b|；投影向量为 (a·b)/|b|² b。投影是标量，可正可负；投影向量是与 b 共线的向量。",
+    "derivation": [
+      "由数量积定义 a·b = |a||b|cosθ，两边除以 |b| 得投影数量",
+      "投影向量 = 投影数量 × b 方向单位向量 = (|a|cosθ) * (b/|b|) = (a·b)/|b|² b"
+    ],
+    "intuition": "投影数量是a在b方向上的“带符号长度”，投影向量是把这个长度乘以单位方向向量得到的向量。",
+    "common_tricks": [
+      "区分分母：投影数量分母是|b|，投影向量分母是|b|²",
+      "计算投影向量时先算系数λ=(a·b)/|b|²，然后λb即为投影向量",
+      "利用投影数量可求夹角：cosθ = 投影数量/|a|"
+    ]
+  },
+  "usage": {
+    "scenarios": ["向量运算", "几何问题", "立体几何中求距离", "物理中力的分解"],
+    "problem_types": ["选择题", "填空题", "解答题第一步", "应用问题"],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "V021.svg"
+  },
+  "shareConfig": {
+    "title": "向量投影与投影向量：数量积的几何意义速查",
+    "shareDesc": "适合课后复盘和考前回顾，帮学生快速区分投影数量和投影向量的公式与符号判断，减少向量计算中的分母混淆错误。"
+  },
+  "relations": {
+    "prerequisites": ["向量的数量积", "向量的模长", "单位向量"],
+    "related_ids": [],
+    "similar": "向量的投影与向量的夹角余弦关系"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-07"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "向量-数量积-几何意义",
+  "altNodes": ["向量-基本运算-数乘", "向量-应用-平行与垂直"]
+}
