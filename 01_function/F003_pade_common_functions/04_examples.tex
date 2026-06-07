@@ -1,0 +1,108 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}} 已知帕德逼近$e^x \approx \dfrac{x^2+6x+12}{x^2-6x+12}$，求$e^{0.1}$的近似值（保留四位小数）。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别变量）：}] 确定逼近公式中的$x=0.1$。
+		      \par\textbf{理由：} 当$x$接近0时逼近有效，$0.1$满足局部近似的使用前提。
+
+		\item[\textbf{第二步（代入公式）：}] 代入$x=0.1$，计算分子：
+		      \[
+			      0.1^2 + 6\times 0.1 + 12 = 0.01 + 0.6 + 12 = 12.61,
+		      \]
+		      分母：
+		      \[
+			      0.1^2 - 6\times 0.1 + 12 = 0.01 - 0.6 + 12 = 11.41.
+		      \]
+		      \par\textbf{理由：} 直接代入公式。
+
+		\item[\textbf{第三步（计算近似值）：}]
+		      \[
+			      e^{0.1} \approx \frac{12.61}{11.41} \approx 1.1052.
+		      \]
+		      \par\textbf{理由：} 完成除法运算，保留四位小数。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}} $e^{0.1}\approx 1.1052$，与真实值$1.10517$非常接近，误差极小。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}} 利用$\ln(1+x) \approx \dfrac{3x^2+6x}{x^2+6x+6}$，求$\ln(1.1)$的近似值（保留四位小数）。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（确定自变量）：}] 由$\ln(1+x)$得$x=0.1$。
+		      \par\textbf{理由：} 因为$1.1=1+0.1$，所以$x=0.1$；同时$x=0.1>-1$，满足对数定义域。
+
+		\item[\textbf{第二步（代入公式）：}] 将$x=0.1$代入公式右边：
+		      \[
+			      \ln(1.1) \approx \frac{3\times 0.1^2 + 6\times 0.1}{0.1^2 + 6\times 0.1 + 6}
+			      = \frac{3\times 0.01 + 0.6}{0.01 + 0.6 + 6}
+			      = \frac{0.03+0.6}{6.61} = \frac{0.63}{6.61}.
+		      \]
+		      \par\textbf{理由：} 正确代入并计算平方、乘法。
+
+		\item[\textbf{第三步（化简求值）：}]
+		      \[
+			      \frac{0.63}{6.61} \approx 0.0953.
+		      \]
+		      \par\textbf{理由：} 完成除法，保留四位小数。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}} $\ln(1.1)\approx 0.0953$，实际值约为$0.09531$，吻合良好。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}} 已知$\tan x \approx \dfrac{3x}{3-x^2}$，求$\tan(0.2)$的近似值（保留四位小数）。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（变量确认）：}] 确定$x=0.2$，这里$0.2$表示$0.2$弧度。
+		      \par\textbf{理由：} 三角函数的帕德逼近默认使用弧度制，且$3-0.2^2\ne0$。
+
+		\item[\textbf{第二步（代入公式）：}]
+		      \[
+			      \tan(0.2) \approx \frac{3\times 0.2}{3 - 0.2^2} = \frac{0.6}{3 - 0.04} = \frac{0.6}{2.96}.
+		      \]
+		      \par\textbf{理由：} 计算分子、分母。
+
+		\item[\textbf{第三步（结果化简）：}]
+		      \[
+			      \frac{0.6}{2.96} = 0.2027027\ldots \approx 0.2027.
+		      \]
+		      \par\textbf{理由：} 保留四位小数；实际$\tan0.2\approx0.2027$，公式准确。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}} $\tan(0.2)\approx 0.2027$，验证了帕德逼近在小$x$下的有效性。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例4（余弦修正公式）}}
+
+	\textbf{\textcolor{CExample}{题目：}} 利用$\cos x\approx\dfrac{12-5x^2}{12+x^2}$，求$\cos(0.2)$的近似值（保留四位小数）。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（确认弧度制）：}] $x=0.2$表示$0.2$弧度。
+		      \par\textbf{理由：} 三角函数近似公式必须使用弧度制。
+
+		\item[\textbf{第二步（代入公式）：}]
+		      \[
+			      \cos(0.2)\approx \frac{12-5\times0.2^2}{12+0.2^2}
+			      =\frac{12-0.2}{12.04}
+			      =\frac{11.8}{12.04}.
+		      \]
+		      \par\textbf{理由：} 使用正确的偶函数型余弦逼近公式。
+
+		\item[\textbf{第三步（结果化简）：}]
+		      \[
+			      \frac{11.8}{12.04}\approx0.9801.
+		      \]
+		      \par\textbf{理由：} 保留四位小数；实际$\cos0.2\approx0.9801$，吻合良好。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}} $\cos(0.2)\approx0.9801$。余弦是偶函数，近似式应体现只含$x^2$的结构。
+\end{examplebox}

@@ -1,0 +1,202 @@
+{
+  "id": "F003",
+  "module": "function",
+  "core": {
+    "title": "帕德逼近公式（常见函数）",
+    "alias": [
+      "帕德近似",
+      "有理逼近",
+      "Pade逼近",
+      "有理分式近似"
+    ],
+    "summary": "用有理分式近似复杂函数，在$x=0$附近具有高精度，常用于快速计算小$x$下的函数值。",
+    "difficulty": 3,
+    "category": "函数逼近",
+    "tags": [
+      "帕德逼近",
+      "有理分式",
+      "指数逼近",
+      "对数逼近",
+      "正弦逼近",
+      "余弦逼近",
+      "正切逼近"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "帕德逼近",
+      "e^x近似",
+      "ln(1+x)近似",
+      "sin x近似",
+      "cos x近似",
+      "tan x近似",
+      "有理分式",
+      "函数逼近",
+      "近似公式",
+      "小x近似",
+      "e^{0.1}计算",
+      "ln1.1计算",
+      "tan0.2计算"
+    ],
+    "synonyms": [
+      "pade逼近",
+      "pade近似",
+      "有理函数逼近",
+      "分式逼近",
+      "指数逼近公式",
+      "对数逼近公式",
+      "三角逼近公式"
+    ],
+    "intents": [
+      "求近似值",
+      "计算函数值",
+      "使用帕德逼近",
+      "记忆公式",
+      "小量近似"
+    ],
+    "query_templates": [
+      "帕德逼近公式有哪些",
+      "e^x的帕德逼近",
+      "ln(1+x)有理近似",
+      "sin x分式近似",
+      "cos x帕德逼近",
+      "tan x近似公式",
+      "帕德逼近例题",
+      "如何用帕德逼近求e^{0.1}"
+    ],
+    "ocrKeywords": [
+      "帕德逼近",
+      "e^x ≈",
+      "ln(1+x) ≈",
+      "sin x ≈",
+      "cos x ≈",
+      "tan x ≈",
+      "x^2+6x+12",
+      "x^2-6x+12",
+      "3x^2+6x",
+      "x^2+6x+6",
+      "6x",
+      "x^2+6",
+      "12",
+      "12+5x"
+    ],
+    "latex_patterns": [
+      "\\frac{x^2+6x+12}{x^2-6x+12}",
+      "\\frac{3x^2+6x}{x^2+6x+6}",
+      "\\frac{6x}{x^2+6}",
+      "\\frac{12}{12+5x}",
+      "\\frac{3x}{3-x^2}",
+      "e^x \\approx",
+      "\\ln(1+x) \\approx",
+      "\\sin x \\approx",
+      "\\cos x \\approx",
+      "\\tan x \\approx"
+    ],
+    "formulaTokens": [
+      "x^2+6x+12",
+      "x^2-6x+12",
+      "(x^2+6x+12)/(x^2-6x+12)",
+      "3x^2+6x",
+      "x^2+6x+6",
+      "(3x^2+6x)/(x^2+6x+6)",
+      "6x",
+      "x^2+6",
+      "6x/(x^2+6)",
+      "12/(12+5x)",
+      "3x/(3-x^2)"
+    ],
+    "pinyin": "padebijin",
+    "pinyinAbbr": "pdbj"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.28,
+    "hot_score": 50,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "e^x \\approx \\frac{x^{2}+6x+12}{x^{2}-6x+12}",
+    "related_formulas": [
+      "\\ln(1+x) \\approx \\frac{3x^{2}+6x}{x^{2}+6x+6}",
+      "\\sin x \\approx \\frac{6x}{x^{2}+6}",
+      "\\cos x \\approx \\frac{12}{12+5x}",
+      "\\tan x \\approx \\frac{3x}{3-x^{2}}"
+    ],
+    "variables": [
+      {
+        "name": "x",
+        "domain": "实数（要求|x|较小）",
+        "description": "自变量，需在0附近"
+      }
+    ],
+    "conditions": [
+      "帕德逼近仅在x=0附近有效，一般要求|x|较小（如|x|<1）",
+      "被逼近函数在x=0处光滑"
+    ],
+    "conclusions": [
+      "可得到e^x、ln(1+x)、sin x、cos x、tan x在小x下的有理分式近似值"
+    ]
+  },
+  "content": {
+    "statement": "常见函数的帕德逼近：\n$e^x \\approx \\dfrac{x^2+6x+12}{x^2-6x+12}$，\n$\\ln(1+x) \\approx \\dfrac{3x^2+6x}{x^2+6x+6}$，\n$\\sin x \\approx \\dfrac{6x}{x^2+6}$，\n$\\cos x \\approx \\dfrac{12}{12+5x}$，\n$\\tan x \\approx \\dfrac{3x}{3-x^2}$。",
+    "derivation": [
+      "帕德逼近通过匹配函数在x=0处的泰勒展开前若干项得到有理分式系数。",
+      "例如，$e^x$的帕德[2,2]逼近即上述公式。",
+      "其他函数类似，通过相同阶数匹配导出。"
+    ],
+    "intuition": "有理分式能更好地拟合函数在原点附近的性态，相比泰勒多项式，有理分式可以在更高阶匹配且收敛域更广。",
+    "common_tricks": [
+      "当$|x|$很小时（如$|x|<0.5$），直接用公式计算，误差较小。",
+      "计算$e^{-x}$时，可将指数公式中的$x$替换为$-x$得到$\\dfrac{x^2-6x+12}{x^2+6x+12}$。",
+      "注意$\\cos x$的帕德逼近（$\\frac{12}{12+5x}$）在$x=0$处仅一阶精度，实际使用中可能误差较大，建议谨慎。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "高等数学数值计算低阶近似",
+      "快速估算小量下的函数值",
+      "课后复习记忆特殊函数的有理逼近形式"
+    ],
+    "problem_types": [
+      "计算近似值（如$e^{0.1}$、$\\ln1.1$、$\\tan0.2$）",
+      "比较不同逼近方法（泰勒vs帕德）"
+    ],
+    "exam_frequency": 0.2,
+    "exam_score": 3
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "F003.svg"
+  },
+  "shareConfig": {
+    "title": "帕德逼近：小x下指数、对数、三角的快速近似",
+    "shareDesc": "适合课后复习或考前速查，掌握5个常用帕德近似公式，直接代入x即可得到高精度结果，减少复杂计算。注意cos公式精度较低。"
+  },
+  "relations": {
+    "prerequisites": [
+      "泰勒展开",
+      "有理函数"
+    ],
+    "related_ids": [],
+    "similar": "泰勒逼近（多项式逼近）"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-07"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "其他-未分类-待定",
+  "altNodes": "函数-特殊函数-指数函数"
+}

@@ -1,0 +1,45 @@
+\begin{statementbox}
+	\textbf{\textcolor{CStatement}{条件}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CStatement}{条件1（邻域范围）：}}] 帕德逼近是以$x=0$为中心的局部近似，要求$|x|$较小；实际估算时可把$|x|<1$作为粗略经验范围，但具体精度还要结合函数和误差要求判断。
+		\item[\textbf{\textcolor{CStatement}{条件2（定义域）：}}] 使用$\ln(1+x)$的逼近时，必须满足$x>-1$。
+		\item[\textbf{\textcolor{CStatement}{条件3（弧度制）：}}] 涉及$\sin x,\cos x,\tan x$时，$x$必须使用弧度制，不能直接代入角度制数值。
+		\item[\textbf{\textcolor{CStatement}{条件4（分母限制）：}}] 使用正切逼近时，应保证$3-x^2\ne0$，即$x\ne\pm\sqrt3$；实际应用仍以$x$接近0为前提。
+	\end{description}
+
+	\textbf{\textcolor{CStatement}{结论}}
+
+	以下公式均为$x=0$附近的局部近似公式，不是恒等式。
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{\textcolor{CStatement}{结论一（指数逼近）：}}]
+		      \textbf{\textcolor{CStatement}{直观描述：}} 用二次有理分式近似指数函数。
+		      \[
+			      e^x \approx \frac{x^2+6x+12}{x^2-6x+12}.
+		      \]
+		\item[\textbf{\textcolor{CStatement}{结论二（对数逼近）：}}]
+		      \textbf{\textcolor{CStatement}{直观描述：}} 用二次有理分式近似对数函数。
+		      \[
+			      \ln(1+x) \approx \frac{3x^2+6x}{x^2+6x+6},\qquad x>-1.
+		      \]
+		\item[\textbf{\textcolor{CStatement}{结论三（正弦逼近）：}}]
+		      \textbf{\textcolor{CStatement}{直观描述：}} 用二次有理分式近似正弦函数，其中$x$为弧度制。
+		      \[
+			      \sin x \approx \frac{6x}{x^2+6}.
+		      \]
+		\item[\textbf{\textcolor{CStatement}{结论四（余弦逼近）：}}]
+		      \textbf{\textcolor{CStatement}{直观描述：}} 用偶函数型二次有理分式近似余弦函数，其中$x$为弧度制。
+		      \[
+			      \cos x \approx \frac{12-5x^2}{12+x^2}.
+		      \]
+		\item[\textbf{\textcolor{CStatement}{结论五（正切逼近）：}}]
+		      \textbf{\textcolor{CStatement}{直观描述：}} 用二次有理分式近似正切函数，其中$x$为弧度制。
+		      \[
+			      \tan x \approx \frac{3x}{3-x^2},\qquad x\ne\pm\sqrt3.
+		      \]
+		\item[\textbf{\textcolor{CStatement}{推广结论（变量替换）：}}]
+		      \textbf{\textcolor{CStatement}{直观描述：}} 将指数逼近中的$x$替换为$-x$，得到$e^{-x}$的逼近。
+		      \[
+			      e^{-x} \approx \frac{x^2-6x+12}{x^2+6x+12}.
+		      \]
+	\end{description}
+\end{statementbox}

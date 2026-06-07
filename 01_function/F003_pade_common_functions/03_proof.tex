@@ -1,0 +1,93 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	以指数函数$e^x$的帕德逼近为例，通过待定系数法，使有理分式与$e^x$在$x=0$处的泰勒展开前五项匹配，列出方程组，求解得到系数，从而验证公式。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（设定形式）：}] 设
+		      \[
+			      R(x)=\frac{ax^2+bx+c}{px^2+qx+r},
+		      \]
+		      其中$a,b,c,p,q,r$为待定系数，并要求$R(x)$在$x=0$附近逼近$e^x$。
+		      \par\textbf{理由：} 这里采用分子、分母均为二次的有理分式；用$p,q,r$表示分母系数，可避免与自然常数$e$混淆。
+
+		\item[\textbf{步骤二（匹配条件）：}] 要使$R(x)$与$e^x$在$x=0$处匹配到$x^4$项，只需令
+		      \[
+			      (px^2+qx+r)e^x-(ax^2+bx+c)=O(x^5).
+		      \]
+		      \par\textbf{理由：} 交叉相乘后比较$x^0$至$x^4$的系数，等价于让误差从$x^5$及更高次项开始出现。
+
+		\item[\textbf{步骤三（展开指数）：}] 将$e^x$在$x=0$处泰勒展开至$x^4$项：
+		      \[
+			      e^x = 1 + x + \frac{x^2}{2} + \frac{x^3}{6} + \frac{x^4}{24} + O(x^5).
+		      \]
+		      \par\textbf{理由：} 用多项式展开代替$e^x$，才能逐项比较系数。
+
+		\item[\textbf{步骤四（乘积展开）：}] 计算$(px^2+qx+r)\bigl(1 + x + \frac{x^2}{2} + \frac{x^3}{6} + \frac{x^4}{24}\bigr)$，合并至$x^4$项：
+		      \[
+			      \begin{aligned}
+				       & x^0:\; r,                                    \\
+				       & x^1:\; q+r,                                  \\
+				       & x^2:\; p+q+\frac{r}{2},                      \\
+				       & x^3:\; p+\frac{q}{2}+\frac{r}{6},            \\
+				       & x^4:\; \frac{p}{2}+\frac{q}{6}+\frac{r}{24}.
+			      \end{aligned}
+		      \]
+		      \par\textbf{理由：} 多项式乘法，逐项合并同类项。
+
+		\item[\textbf{步骤五（系数对比）：}] 令上式与右端$ax^2+bx+c$对应项系数相等，得方程组：
+		      \[
+			      \begin{cases}
+				      r = c,                           \\[2pt]
+				      q+r = b,                         \\[2pt]
+				      p+q+\dfrac{r}{2} = a,            \\[6pt]
+				      p+\dfrac{q}{2}+\dfrac{r}{6} = 0, \\[6pt]
+				      \dfrac{p}{2}+\dfrac{q}{6}+\dfrac{r}{24} = 0.
+			      \end{cases}
+		      \]
+		      \par\textbf{理由：} 误差$O(x^5)$要求$x^0$至$x^4$的系数全部匹配。
+
+		\item[\textbf{步骤六（求解系数）：}] 取$r=1$（整体缩放不影响分式值），由后两式解得
+		      \[
+			      p=\frac{1}{12},\qquad q=-\frac{1}{2}.
+		      \]
+		      代入前三式得
+		      \[
+			      a=\frac{1}{12},\qquad b=\frac{1}{2},\qquad c=1.
+		      \]
+		      因此
+		      \[
+			      R(x)=\frac{\frac{1}{12}x^2+\frac{1}{2}x+1}{\frac{1}{12}x^2-\frac{1}{2}x+1}.
+		      \]
+		      分子分母同乘$12$，得到
+		      \[
+			      e^x \approx \frac{x^2+6x+12}{x^2-6x+12}.
+		      \]
+		      \par\textbf{理由：} 分式的分子分母同乘非零常数，分式值不变。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{余弦公式校验}}
+
+	余弦函数是偶函数，因此它在$x=0$附近的有理逼近也应优先采用只含$x^2$的偶函数形式。正确的二次有理逼近为
+	\[
+		\cos x \approx \frac{12-5x^2}{12+x^2}.
+	\]
+	其展开为
+	\[
+		\frac{12-5x^2}{12+x^2}
+		=1-\frac{x^2}{2}+\frac{x^4}{24}+O(x^6),
+	\]
+	而
+	\[
+		\cos x=1-\frac{x^2}{2}+\frac{x^4}{24}+O(x^6).
+	\]
+	两者在$x^0,x^2,x^4$项上一致，所以该公式与$\cos x$在$x=0$附近匹配良好。
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	上述推导完整展示了指数函数帕德逼近系数的确定过程。类似地，将$\ln(1+x),\sin x,\cos x,\tan x$在$x=0$处展开，并匹配对应阶数的有理分式，即可得到相应的局部逼近公式。注意：这些公式都是近似公式，不是恒等式；涉及三角函数时，$x$必须使用弧度制。
+\end{proofbox}

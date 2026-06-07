@@ -1,0 +1,31 @@
+\begin{trapbox}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点一（适用范围）}}] 直接用帕德逼近公式计算离$x=0$较远的值，例如$x=2$时的$e^2$，误差已经明显。
+		\item[\textbf{\textcolor{CTrap}{正确理解（局部有效）：}}] 帕德逼近只在$x=0$附近精度高；$|x|<1$可作为粗略经验范围，但不是严格边界，具体能否使用要看误差要求。
+		\item[\textbf{\textcolor{CTrap}{错因分析（忽略前提）：}}] 学生误以为逼近公式对所有$x$都成立，忽视了逼近的局部性。
+	\end{description}
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点二（公式混淆）}}] 将$e^x$与$\ln(1+x)$的帕德公式记反，或把余弦公式误记成含一次项的分式。
+		\item[\textbf{\textcolor{CTrap}{正确理解（区分特征）：}}] $e^x$的分母含负号$-6x$；$\ln(1+x)$分子含$3x^2,6x$；$\cos x$是偶函数，常用逼近应只含$x^2$：
+		      \[
+			      \cos x\approx\frac{12-5x^2}{12+x^2}.
+		      \]
+		\item[\textbf{\textcolor{CTrap}{错因分析（机械记忆）：}}] 没有理解公式来源，靠死记硬背容易混淆；尤其余弦函数在$x=0$处一阶导数为0，近似式不应出现一次项。
+	\end{description}
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点三（近似符号误用）}}] 在解题中将$\approx$当作$=$使用，导致后续推导产生累积误差。
+		\item[\textbf{\textcolor{CTrap}{正确理解（近似非恒等）：}}] 帕德逼近是近似等式，不是精确恒等；尤其在进行等式变换、不等式放缩时，要额外控制误差或证明大小方向。
+		\item[\textbf{\textcolor{CTrap}{错因分析（符号意识弱）：}}] 学生不习惯近似符号，忽略了近似与精确的区别。
+	\end{description}
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点四（角度制误用）}}] 计算$\sin30^\circ$、$\cos60^\circ$时，直接把$x=30$或$x=60$代入三角函数逼近公式。
+		\item[\textbf{\textcolor{CTrap}{正确理解（先转弧度）：}}] 三角函数的泰勒展开和帕德逼近默认使用弧度制。若要估算$30^\circ$，应先转化为$\dfrac{\pi}{6}$，再判断是否适合代入近似公式。
+		\item[\textbf{\textcolor{CTrap}{错因分析（单位混乱）：}}] 把角度制数字和弧度制数字混为一谈，导致数量级完全错误。
+	\end{description}
+\end{trapbox}
