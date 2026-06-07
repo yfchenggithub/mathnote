@@ -1,0 +1,155 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	把直线与抛物线联立，消去 $y$ 后得到关于 $x$ 的方程；
+	若该方程是真正的二次方程，就可以用韦达定理得到交点横坐标的和与积。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（联立方程）：}]
+		      以开口向右的抛物线
+		      \[
+			      y^2=2px,\qquad p>0
+		      \]
+		      为例，设直线为
+		      \[
+			      Ax+By+C=0,\qquad (A,B)\neq(0,0).
+		      \]
+		      交点满足方程组
+		      \[
+			      \begin{cases}
+				      y^2=2px, \\
+				      Ax+By+C=0.
+			      \end{cases}
+		      \]
+		      \par\textbf{理由：} 交点坐标必须同时满足直线方程和抛物线方程。
+
+		\item[\textbf{步骤二（平方消 $y$）：}]
+		      由直线方程得
+		      \[
+			      By=-(Ax+C).
+		      \]
+		      两边平方，得
+		      \[
+			      B^2y^2=(Ax+C)^2.
+		      \]
+		      \par\textbf{理由：} 平方后出现 $y^2$，可以代入抛物线方程。
+		      这一步没有除以 $B$，因此即使 $B=0$，等式本身仍可用于记录横坐标关系。
+
+		\item[\textbf{步骤三（代入整理）：}]
+		      将 $y^2=2px$ 代入
+		      \[
+			      B^2y^2=(Ax+C)^2
+		      \]
+		      得
+		      \[
+			      2B^2px=(Ax+C)^2.
+		      \]
+		      展开得
+		      \[
+			      2B^2px=A^2x^2+2ACx+C^2.
+		      \]
+		      \par\textbf{理由：} 这样就把交点问题转化成了关于 $x$ 的方程。
+
+		\item[\textbf{步骤四（标准形式）：}]
+		      移项得
+		      \[
+			      A^2x^2+(2AC-2B^2p)x+C^2=0.
+		      \]
+		      \par\textbf{理由：} 若 $A\neq0$，二次项系数 $A^2\neq0$，该方程才是真正的二次方程。
+		      若 $A=0$，方程会退化，不能直接套用本条韦达公式。
+
+		\item[\textbf{步骤五（韦达定理）：}]
+		      若 $A\neq0$，设该二次方程的两个根为 $x_1,x_2$，则
+		      \[
+			      x_1+x_2=-\frac{2AC-2B^2p}{A^2},\qquad
+			      x_1x_2=\frac{C^2}{A^2}.
+		      \]
+		      \par\textbf{理由：} 根与系数关系直接给出交点横坐标的和与积。
+
+		\item[\textbf{步骤六（开口向左）：}]
+		      对于
+		      \[
+			      y^2=-2px,
+		      \]
+		      同样由
+		      \[
+			      B^2y^2=(Ax+C)^2
+		      \]
+		      代入 $y^2=-2px$，得
+		      \[
+			      -2B^2px=(Ax+C)^2.
+		      \]
+		      整理得
+		      \[
+			      A^2x^2+(2AC+2B^2p)x+C^2=0.
+		      \]
+		      因此当 $A\neq0$ 时，
+		      \[
+			      x_1+x_2=-\frac{2AC+2B^2p}{A^2},\qquad
+			      x_1x_2=\frac{C^2}{A^2}.
+		      \]
+
+		\item[\textbf{步骤七（开口向上）：}]
+		      对于
+		      \[
+			      x^2=2py,
+		      \]
+		      由直线方程得
+		      \[
+			      By=-Ax-C.
+		      \]
+		      两边乘以 $2p$，得
+		      \[
+			      2pBy=-2Apx-2Cp.
+		      \]
+		      又因为 $x^2=2py$，所以
+		      \[
+			      Bx^2=-2Apx-2Cp.
+		      \]
+		      整理得
+		      \[
+			      Bx^2+2Apx+2Cp=0.
+		      \]
+		      因此当 $B\neq0$ 时，
+		      \[
+			      x_1+x_2=-\frac{2Ap}{B},\qquad
+			      x_1x_2=\frac{2Cp}{B}.
+		      \]
+
+		\item[\textbf{步骤八（开口向下）：}]
+		      对于
+		      \[
+			      x^2=-2py,
+		      \]
+		      由 $By=-Ax-C$ 得
+		      \[
+			      -2pBy=2Apx+2Cp.
+		      \]
+		      又因为 $x^2=-2py$，所以
+		      \[
+			      Bx^2=2Apx+2Cp.
+		      \]
+		      整理得
+		      \[
+			      Bx^2-2Apx-2Cp=0.
+		      \]
+		      因此当 $B\neq0$ 时，
+		      \[
+			      x_1+x_2=\frac{2Ap}{B},\qquad
+			      x_1x_2=-\frac{2Cp}{B}.
+		      \]
+
+		\item[\textbf{步骤九（判别式与特例）：}]
+		      本文中的判别式应理解为关于 $x$ 的方程的判别式，记作 $\Delta_x$。
+		      若要求两个不同的横坐标，需 $\Delta_x>0$。
+		      但对于左右开口抛物线的竖直弦，可能有两个不同交点却满足 $x_1=x_2$，此时不能仅用 $\Delta_x>0$ 概括所有两点相交情形。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	硬解定理给出了直线与抛物线联立后关于 $x$ 的固定方程形式；
+	在二次项系数非零且交点条件满足时，可直接用韦达定理求横坐标和、积，进而处理弦长、中点和参数问题。
+\end{proofbox}
