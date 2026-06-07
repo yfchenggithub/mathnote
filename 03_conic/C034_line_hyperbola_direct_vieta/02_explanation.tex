@@ -1,0 +1,80 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+	直线与双曲线联立时，无需每次都从头展开消元；只要先判断焦点位置、消元方向和二次项系数是否为零，就可以直接写出二次方程和韦达关系。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（二次项系数）：}] 二次项系数由直线系数 $A,B$ 与双曲线半轴 $a,b$ 组合而成。例如焦点在 $x$ 轴时，核心系数为
+		      \[
+			      B^{2}b^{2}-A^{2}a^{2}.
+		      \]
+		      这个系数是否为零，决定消元后是二次方程还是退化方程；交点个数还要结合判别式 $\Delta$ 判断。
+
+		\item[\textbf{要点二（韦达结构）：}] 当二次项系数非零时，两根之和与积均为 $A,B,C,a,b$ 的分式。分母相同，分子有对称结构，但符号容易混淆，必须先分清焦点在 $x$ 轴还是 $y$ 轴。
+
+		\item[\textbf{要点三（消元方向）：}] 关于 $x$ 的韦达关系适合非竖直线，即 $B\neq0$；关于 $y$ 的韦达关系适合 $A\neq0$。若直线为竖直线，应优先用 $y$ 坐标关系处理弦长和交点个数。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（代数联立）}}
+
+	联立直线与双曲线就是求交点坐标。消元后若得到真正的二次方程，则：
+	\[
+		\Delta>0
+	\]
+	表示两个不同实交点；
+	\[
+		\Delta=0
+	\]
+	表示相切，只有一个实交点，对应二次方程的重根；
+	\[
+		\Delta<0
+	\]
+	表示没有实交点。
+
+	因此，韦达定理本身在 $\Delta=0$ 时仍然可以使用，但若题目要求两点弦长，则必须有 $\Delta>0$。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（系统消除）}}
+
+	硬解公式的作用是把重复的代数消元过程固定下来，减少展开、合并、移项的计算量。但使用前必须检查两个前提：一是二次项系数是否为零；二是所选坐标关系是否适合当前直线。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（核心工具）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（弦长计算）：} 若 $B\neq0$，直线可写成 $y=kx+n$，其中
+		      \[
+			      k=-\frac{A}{B}.
+		      \]
+		      此时可用
+		      \[
+			      |AB|=\sqrt{1+k^{2}}\sqrt{(x_{1}+x_{2})^{2}-4x_{1}x_{2}}.
+		      \]
+		      若 $A\neq0$，也可用 $y$ 坐标计算：
+		      \[
+			      |AB|
+			      =
+			      \frac{\sqrt{A^{2}+B^{2}}}{|A|}
+			      \sqrt{(y_{1}+y_{2})^{2}-4y_{1}y_{2}}.
+		      \]
+		      特别地，当 $B=0$ 时，直线为竖直线，斜率不存在，应使用 $y$ 坐标公式。
+
+		\item \textbf{考法二（位置判定）：} 利用判别式判断直线与双曲线的位置关系：$\Delta>0$ 为相交，$\Delta=0$ 为相切，$\Delta<0$ 为相离。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	\textbf{硬解定理的核心不是死记分式，而是先看二次项系数。} 对焦点在 $x$ 轴的双曲线，核心系数是 $B^{2}b^{2}-A^{2}a^{2}$；对焦点在 $y$ 轴的双曲线，核心系数是 $A^{2}b^{2}-B^{2}a^{2}$。
+
+	其值为零时，不是整个联立方法失效，而是二次韦达公式不再适用。此时应回到退化后的一次方程或原方程组单独求解。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（弦长与中点）：} 已知直线与双曲线相交于两点，需求弦长或中点坐标时，先检查二次项系数和判别式，再套用韦达关系。
+		\item \textbf{场景二（参数分析）：} 含有参数的直线与双曲线相交问题，利用韦达和判别式构造方程或不等式，求解参数范围。
+	\end{itemize}
+\end{explanationbox}

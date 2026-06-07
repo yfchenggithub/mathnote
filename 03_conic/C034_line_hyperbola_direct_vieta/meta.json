@@ -1,0 +1,183 @@
+{
+  "id": "C034",
+  "module": "conic",
+  "core": {
+    "title": "直线与双曲线硬解定理",
+    "alias": [
+      "硬解定理(双曲线)",
+      "双曲线联立公式",
+      "韦达直接写",
+      "联立双曲线秒算"
+    ],
+    "summary": "直接写出直线与标准双曲线联立后二次方程系数和韦达定理，省去消元过程。",
+    "difficulty": 4,
+    "category": "解析几何",
+    "tags": [
+      "直线与双曲线",
+      "硬解定理",
+      "韦达定理",
+      "联立消元",
+      "圆锥曲线"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "直线与双曲线",
+      "硬解定理",
+      "联立",
+      "消元",
+      "二次项系数",
+      "韦达定理",
+      "焦点在x轴",
+      "焦点在y轴",
+      "弦长",
+      "双曲线标准方程",
+      "Ax+By+C",
+      "a^2",
+      "b^2"
+    ],
+    "synonyms": [
+      "双曲线硬解公式",
+      "直线双曲线联立公式",
+      "秒杀双曲线联立",
+      "双曲线韦达定理直接写"
+    ],
+    "intents": [
+      "求韦达定理",
+      "联立双曲线",
+      "直接写系数",
+      "求弦长",
+      "判断交点个数"
+    ],
+    "query_templates": [
+      "直线与双曲线联立怎么快速写韦达",
+      "双曲线硬解定理公式",
+      "直线与双曲线联立二次项系数",
+      "焦点在x轴的双曲线联立公式"
+    ],
+    "ocrKeywords": [
+      "双曲线",
+      "直线",
+      "联立",
+      "Ax+By+C",
+      "x^2/a^2 - y^2/b^2 =1",
+      "韦达定理"
+    ],
+    "latex_patterns": [
+      "B^2 b^2 - A^2 a^2",
+      "A^2 b^2 - B^2 a^2",
+      "\\frac{2ACa^2}{B^2 b^2 - A^2 a^2}",
+      "\\frac{-C^2 a^2 - B^2 a^2 b^2}{B^2 b^2 - A^2 a^2}",
+      "\\frac{2BCb^2}{B^2 b^2 - A^2 a^2}",
+      "\\frac{C^2 b^2 - A^2 a^2 b^2}{B^2 b^2 - A^2 a^2}"
+    ],
+    "formulaTokens": [
+      "B^2 b^2 - A^2 a^2",
+      "2ACa^2",
+      "-C^2 a^2 - B^2 a^2 b^2",
+      "2BCb^2",
+      "C^2 b^2 - A^2 a^2 b^2",
+      "A^2 b^2 - B^2 a^2",
+      "-2ACb^2",
+      "-2BCa^2",
+      "-C^2 a^2 - A^2 a^2 b^2"
+    ],
+    "pinyin": "zhixianyushuangquxianyingjiedingli",
+    "pinyinAbbr": "zxsqxyjdl"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.6,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "x_1+x_2 = \\frac{2ACa^2}{B^2 b^2 - A^2 a^2}, \\quad x_1x_2 = \\frac{-C^2 a^2 - B^2 a^2 b^2}{B^2 b^2 - A^2 a^2}",
+    "related_formulas": [
+      "y_1+y_2 = -\\frac{2BCb^2}{B^2 b^2 - A^2 a^2}, \\quad y_1y_2 = \\frac{C^2 b^2 - A^2 a^2 b^2}{B^2 b^2 - A^2 a^2}",
+      "x_1+x_2 = -\\frac{2ACb^2}{A^2 b^2 - B^2 a^2}, \\quad x_1x_2 = \\frac{C^2 b^2 - B^2 a^2 b^2}{A^2 b^2 - B^2 a^2}"
+    ],
+    "variables": [
+      "A",
+      "B",
+      "C",
+      "a",
+      "b",
+      "x",
+      "y",
+      "x_1",
+      "x_2",
+      "y_1",
+      "y_2"
+    ],
+    "conditions": "直线 Ax+By+C=0 且 A≠0；双曲线为标准方程 x^2/a^2 - y^2/b^2 =1（焦点x轴）或 y^2/a^2 - x^2/b^2 =1（焦点y轴），a>0,b>0；二次项系数 B^2 b^2 - A^2 a^2 ≠0（x轴）或 A^2 b^2 - B^2 a^2 ≠0（y轴）；且判别式 Δ>0 时韦达适用。",
+    "conclusions": "可直接得到韦达定理，用于求弦长、中点坐标、面积等。"
+  },
+  "content": {
+    "statement": "给定直线 Ax+By+C=0（A≠0）与标准双曲线方程，消元后所得一元二次方程的系数及韦达定理可直接写出，分为焦点在 x 轴和 y 轴两种情形。",
+    "derivation": [
+      "将直线方程化为 y = -(A/B)x - (C/B) 代入双曲线方程；",
+      "整理得到关于 x 的二次方程，系数可直接由公式给出；",
+      "直接写出韦达定理 x1+x2 和 x1x2。"
+    ],
+    "intuition": "因为直线方程是线性的，代入双曲线二次方程后，消元结果必然是一个二次方程，且系数由直线和双曲线参数的多项式乘积决定。",
+    "common_tricks": [
+      "使用前先判断焦点位置，选择对应公式。",
+      "注意分母非零（渐近线平行时不能用）。",
+      "注意判别式Δ>0确保有两个交点。",
+      "常用于快速求弦长、中点坐标。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "圆锥曲线大题",
+      "联立求弦长",
+      "中点弦问题"
+    ],
+    "problem_types": [
+      "求弦长",
+      "求交点坐标",
+      "求面积"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "conic_hard_solve.svg",
+    "image": "",
+    "animation": ""
+  },
+  "shareConfig": {
+    "title": "直线与双曲线硬解定理：直接写韦达",
+    "shareDesc": "适合课前快速回顾和刷题中速查，直接写出联立后韦达结果，减少代数计算错误，提升圆锥曲线大题效率。"
+  },
+  "relations": {
+    "prerequisites": [
+      "双曲线标准方程",
+      "直线与圆锥曲线联立",
+      "韦达定理"
+    ],
+    "related_ids": [],
+    "similar": "直线与椭圆硬解定理、直线与抛物线硬解定理"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-07"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "解析几何-圆锥曲线-双曲线",
+  "altNodes": "解析几何-圆锥曲线-椭圆,解析几何-直线-一般式"
+}
