@@ -1,0 +1,33 @@
+\begin{trapbox}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点一（范围误用）：}}] 当 $|x|$ 较大时仍使用低阶近似，例如 $x=2$ 时代入 $e^2\approx 1+2+2=5$，实际 $e^2\approx7.389$，误差巨大。
+		\item[\textbf{\textcolor{CTrap}{正确理解（使用条件）：}}] 近似精度没有统一的固定阈值，通常 $|x|$ 越小、保留项数越多，误差越小；是否足够准确要结合题目精度要求判断。
+		\item[\textbf{\textcolor{CTrap}{错因分析（忽略高阶）：}}] $|x|$ 较大时，略去的高次项不再是小量，低阶多项式可能明显偏离原函数。
+	\end{description}
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点二（阶数不足）：}}] 求极限时展开项数不够，如 $\lim_{x\to0}\frac{e^x-1-x}{x^2}$ 误用 $e^x\approx1+x$，会导致分子被误判为 $0$。
+		\item[\textbf{\textcolor{CTrap}{正确理解（匹配阶数）：}}] 求极限时，应展开到能够判断分子首个非零项的阶数为止。若分母为 $x^k$，且预期极限为有限非零常数，通常需要把分子展开到 $x^k$ 项。
+		\item[\textbf{\textcolor{CTrap}{错因分析（抵消损失）：}}] 低阶项抵消后，真正决定极限的是更高阶的首个非零项；展开欠阶会丢失关键信息。
+	\end{description}
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点三（系数符号）：}}] 记错 $\sin x$ 展开式符号，写成 $\sin x\approx x+\frac{x^3}{6}$，或漏掉 $\cos x$ 的常数项 $1$。
+		\item[\textbf{\textcolor{CTrap}{正确理解（正确公式）：}}]
+		      \[
+			      \sin x=x-\frac{x^3}{6}+\frac{x^5}{120}+O(x^7),
+			      \qquad
+			      \cos x=1-\frac{x^2}{2}+\frac{x^4}{24}+O(x^6).
+		      \]
+		\item[\textbf{\textcolor{CTrap}{错因分析（导数记忆）：}}] $\sin'''(0)=-1$，所以 $x^3$ 项系数为 $-\frac{1}{3!}=-\frac16$；$\cos 0=1$，所以 $\cos x$ 的展开有常数项 $1$。
+	\end{description}
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点四（角度单位误用）：}}] 把角度制直接代入三角函数近似，例如把 $30^\circ$ 当成 $x=30$ 代入 $\sin x\approx x$。
+		\item[\textbf{\textcolor{CTrap}{正确理解（弧度制）：}}] $\sin x,\cos x,\tan x$ 的泰勒展开默认 $x$ 是弧度制。若题目给角度制，必须先换成弧度制，例如 $30^\circ=\frac{\pi}{6}$。
+		\item[\textbf{\textcolor{CTrap}{错因分析（单位混乱）：}}] 泰勒展开中的导数系数依赖弧度制；若直接使用角度数值，导数系数会完全不匹配。
+	\end{description}
+\end{trapbox}

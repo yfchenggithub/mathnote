@@ -1,0 +1,117 @@
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 1（基础）}}
+
+\textbf{\textcolor{CExample}{题目：}} 利用近似公式求 $\sin 0.2$ 的近似值（精确到 $0.0001$）。
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第一步（识别小量）：}] $x=0.2$ 较小，且这里的 $0.2$ 表示 $0.2$ 弧度。
+    \par\textbf{理由：} 三角函数泰勒展开默认使用弧度制；当 $|x|$ 较小时，近似误差较小。
+
+    \item[\textbf{第二步（代入公式）：}] 使用 $\sin x$ 的五次近似公式：
+    \[
+    \sin x=x-\frac{x^3}{6}+\frac{x^5}{120}+O(x^7).
+    \]
+    于是
+    \[
+    \sin 0.2 \approx 0.2-\frac{(0.2)^3}{6}+\frac{(0.2)^5}{120}.
+    \]
+    \par\textbf{理由：} 被省略项从 $x^7$ 量级开始，对精确到 $0.0001$ 的估算影响很小。
+
+    \item[\textbf{第三步（计算结果）：}] 计算幂值并化简：
+    \[
+    \sin 0.2 \approx 0.2-\frac{0.008}{6}+\frac{0.00032}{120}
+    =0.2-0.0013333+0.000002667
+    =0.1986694.
+    \]
+    \par\textbf{理由：} 逐项计算，得近似值 $0.1986694$。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{$\sin 0.2\approx 0.1987$}。
+
+\medskip
+\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+\textbf{\textcolor{CExample}{题目：}} 求极限
+\[
+\lim_{x\to0}\frac{\cos x-1+\frac{x^2}{2}}{x^4}.
+\]
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第一步（类型识别）：}] $x\to0$ 时分子分母都趋于 $0$，是 $\frac00$ 型未定式，可用泰勒展开。
+    \par\textbf{理由：} 分子中低阶项会发生抵消，需要找到分子的首个非零项。
+
+    \item[\textbf{第二步（展开分子）：}] 将 $\cos x$ 展开至 $x^4$ 项，并保留余项：
+    \[
+    \cos x=1-\frac{x^2}{2}+\frac{x^4}{24}+o(x^4).
+    \]
+    \par\textbf{理由：} 分母为 $x^4$，若极限为有限非零常数，分子需要展开到 $x^4$ 项。
+
+    \item[\textbf{第三步（化简求极限）：}] 代入并消去低次项：
+    \[
+    \cos x-1+\frac{x^2}{2}
+    =
+    \left(1-\frac{x^2}{2}+\frac{x^4}{24}+o(x^4)\right)-1+\frac{x^2}{2}
+    =
+    \frac{x^4}{24}+o(x^4).
+    \]
+    所以
+    \[
+    \frac{\cos x-1+\frac{x^2}{2}}{x^4}
+    =
+    \frac{1}{24}+\frac{o(x^4)}{x^4}.
+    \]
+    因此
+    \[
+    \lim_{x\to0}\frac{\cos x-1+\frac{x^2}{2}}{x^4}
+    =
+    \frac{1}{24}.
+    \]
+    \par\textbf{理由：} 因为 $\frac{o(x^4)}{x^4}\to0$，所以极限等于 $\frac{1}{24}$。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{$\displaystyle\lim_{x\to0}\frac{\cos x-1+\frac{x^2}{2}}{x^4}=\frac{1}{24}$}。
+
+\medskip
+\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+\textbf{\textcolor{CExample}{题目：}} 求 $f(x)=\ln(1+\sin x)$ 在 $x=0$ 附近的二次近似多项式。
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第一步（内层近似）：}] 先展开内层函数：
+    \[
+    \sin x=x+O(x^3).
+    \]
+    \par\textbf{理由：} 要求二次近似，$\sin x$ 中的 $x^3$ 及以上项不会影响二次项。
+
+    \item[\textbf{第二步（外层展开）：}] 对 $\ln(1+u)$ 展开到二次：
+    \[
+    \ln(1+u)=u-\frac{u^2}{2}+O(u^3).
+    \]
+    令 $u=\sin x$，得
+    \[
+    \ln(1+\sin x)=\sin x-\frac{(\sin x)^2}{2}+O((\sin x)^3).
+    \]
+    \par\textbf{理由：} 复合函数展开时，应先设内层为 $u$，再回代 $u=\sin x$。
+
+    \item[\textbf{第三步（回代合并）：}] 因为
+    \[
+    \sin x=x+O(x^3),\qquad (\sin x)^2=x^2+O(x^4),
+    \]
+    所以
+    \[
+    \ln(1+\sin x)
+    =
+    x-\frac{x^2}{2}+O(x^3).
+    \]
+    因此二次近似多项式为
+    \[
+    x-\frac{x^2}{2}.
+    \]
+    \par\textbf{理由：} 保留到二次项即可，所有 $x^3$ 及以上项都归入余项。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}} \textbf{$\ln(1+\sin x)$ 在 $x=0$ 附近的二次近似多项式为 $\displaystyle x-\frac{x^2}{2}$}。
+\end{examplebox}

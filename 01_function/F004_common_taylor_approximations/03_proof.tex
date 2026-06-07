@@ -1,0 +1,90 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+这些近似公式来源于泰勒展开，即用多项式逼近足够光滑的函数；核心做法是计算函数在零点处的各阶导数，并用余项说明误差阶数。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（泰勒公式）：}] 若 $f$ 在 $x=0$ 附近足够光滑，则当 $x\to0$ 时，
+    \[
+    f(x)=f(0)+f'(0)x+\frac{f''(0)}{2!}x^2+\cdots+\frac{f^{(n)}(0)}{n!}x^n+o(x^n).
+    \]
+    若 $f$ 在 $0$ 附近存在 $n+1$ 阶导数，还可写成带拉格朗日余项的形式：
+    \[
+    f(x)=f(0)+f'(0)x+\cdots+\frac{f^{(n)}(0)}{n!}x^n
+    +\frac{f^{(n+1)}(\xi)}{(n+1)!}x^{n+1},
+    \]
+    其中 $\xi$ 位于 $0$ 与 $x$ 之间。
+    \par\textbf{理由：} 泰勒公式不仅给出多项式部分，还能刻画被省略项的阶数。
+
+    \item[\textbf{步骤二（指数近似）：}] 对于 $f(x)=e^x$，有 $f^{(k)}(0)=1$，代入泰勒公式得
+    \[
+    e^x=1+x+\frac{x^2}{2}+O(x^3).
+    \]
+    因此二次近似为
+    \[
+    e^x\approx 1+x+\frac{x^2}{2}.
+    \]
+    \par\textbf{理由：} $e^x$ 的各阶导数仍为 $e^x$，在 $x=0$ 处都等于 $1$。
+
+    \item[\textbf{步骤三（对数近似）：}] 对于 $f(x)=\ln(1+x)$，需有 $x>-1$。计算得
+    \[
+    f(0)=0,\qquad f'(0)=1,\qquad f''(0)=-1,\qquad f'''(0)=2.
+    \]
+    所以
+    \[
+    \ln(1+x)=x-\frac{x^2}{2}+\frac{x^3}{3}+O(x^4).
+    \]
+    因此三次近似为
+    \[
+    \ln(1+x)\approx x-\frac{x^2}{2}+\frac{x^3}{3}.
+    \]
+    \par\textbf{理由：} 逐阶求导后代入泰勒公式，且 $\frac{f'''(0)}{3!}=\frac{2}{6}=\frac13$。
+
+    \item[\textbf{步骤四（正弦近似）：}] 对于 $f(x)=\sin x$，其中 $x$ 为弧度制。导数循环给出
+    \[
+    f(0)=0,\quad f'(0)=1,\quad f''(0)=0,\quad f'''(0)=-1,\quad f^{(4)}(0)=0,\quad f^{(5)}(0)=1.
+    \]
+    所以
+    \[
+    \sin x=x-\frac{x^3}{6}+\frac{x^5}{120}+O(x^7).
+    \]
+    因此五次近似为
+    \[
+    \sin x\approx x-\frac{x^3}{6}+\frac{x^5}{120}.
+    \]
+    \par\textbf{理由：} $\sin x$ 的偶次幂项系数为 $0$，非零项从 $x,x^3,x^5$ 依次出现，符号交替。
+
+    \item[\textbf{步骤五（余弦近似）：}] 对于 $f(x)=\cos x$，其中 $x$ 为弧度制。计算得
+    \[
+    f(0)=1,\quad f'(0)=0,\quad f''(0)=-1,\quad f'''(0)=0,\quad f^{(4)}(0)=1.
+    \]
+    所以
+    \[
+    \cos x=1-\frac{x^2}{2}+\frac{x^4}{24}+O(x^6).
+    \]
+    因此四次近似为
+    \[
+    \cos x\approx 1-\frac{x^2}{2}+\frac{x^4}{24}.
+    \]
+    \par\textbf{理由：} $\cos x$ 的奇次幂项系数为 $0$，非零项从常数项、$x^2,x^4$ 依次出现，符号交替。
+
+    \item[\textbf{步骤六（正切近似）：}] 对于 $f(x)=\tan x$，其中 $x$ 为弧度制，且 $x$ 在 $0$ 附近、$\cos x\ne0$。计算得
+    \[
+    f(0)=0,\qquad f'(0)=1,\qquad f''(0)=0,\qquad f'''(0)=2.
+    \]
+    所以
+    \[
+    \tan x=x+\frac{x^3}{3}+O(x^5).
+    \]
+    因此三次近似为
+    \[
+    \tan x\approx x+\frac{x^3}{3}.
+    \]
+    \par\textbf{理由：} $\frac{f'''(0)}{3!}=\frac{2}{6}=\frac13$，且 $\tan x$ 在 $0$ 附近可展开。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+通过泰勒公式，以上近似均可导出。若保留到 $x^n$ 项，余项通常应写成 $o(x^n)$ 或更具体的 $O(x^m)$。求极限时，必须根据分子分母的阶数保留到足够项，而不能只凭“约等于”进行粗略替换。
+\end{proofbox}
