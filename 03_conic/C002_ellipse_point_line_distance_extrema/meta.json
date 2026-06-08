@@ -1,0 +1,161 @@
+{
+  "id": "C002",
+  "module": "conic",
+  "core": {
+    "title": "椭圆上点到直线距离最值公式",
+    "alias": [
+      "椭圆距离最值",
+      "椭圆到直线距离",
+      "椭圆点线距公式",
+      "椭圆参数法距离最值"
+    ],
+    "summary": "利用参数方程将椭圆上的点坐标参数化后，转化为三角函数最值，得到距离最值仅由R与|C|决定。",
+    "difficulty": 3,
+    "category": "解析几何",
+    "tags": ["椭圆", "点到直线距离", "最值", "参数方程"]
+  },
+  "search": {
+    "keywords": [
+      "椭圆",
+      "点到直线距离",
+      "最值",
+      "公式",
+      "最小值",
+      "最大值",
+      "R",
+      "|C|",
+      "相离",
+      "相切",
+      "相交",
+      "参数方程",
+      "柯西不等式",
+      "距离公式"
+    ],
+    "synonyms": [
+      "椭圆到直线的距离",
+      "椭圆与直线距离",
+      "椭圆点线距",
+      "椭圆上点线距离"
+    ],
+    "intents": [
+      "求椭圆上点到直线的最值",
+      "判断直线与椭圆位置关系",
+      "计算距离",
+      "证明公式"
+    ],
+    "query_templates": [
+      "椭圆上点到直线距离最值公式",
+      "椭圆与直线距离最大值最小值",
+      "椭圆点线距离公式推导"
+    ],
+    "ocrKeywords": [
+      "椭圆",
+      "x^2/a^2",
+      "y^2/b^2",
+      "Ax+By+C=0",
+      "R",
+      "d_min",
+      "d_max"
+    ],
+    "latex_patterns": [
+      "d_{\\min}=\\max\\left\\{0,\\frac{|C|-R}{\\sqrt{A^2+B^2}}\\right\\}",
+      "d_{\\max}=\\frac{|C|+R}{\\sqrt{A^2+B^2}}"
+    ],
+    "formulaTokens": [
+      "d_{\\min}",
+      "d_{\\max}",
+      "|C|-R",
+      "|C|+R",
+      "\\sqrt{A^2+B^2}",
+      "\\frac{|C|-R}{\\sqrt{A^2+B^2}}",
+      "\\frac{|C|+R}{\\sqrt{A^2+B^2}}",
+      "\\max\\left\\{0,\\frac{|C|-R}{\\sqrt{A^2+B^2}}\\right\\}"
+    ],
+    "pinyin": "tuo yuan shang dian dao zhi xian ju li zui zhi gong shi",
+    "pinyinAbbr": "tysddzxljlzzgs"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.83,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "d_{\\min}=\\max\\left\\{0,\\frac{|C|-R}{\\sqrt{A^2+B^2}}\\right\\},\\quad d_{\\max}=\\frac{|C|+R}{\\sqrt{A^2+B^2}}",
+    "related_formulas": [
+      "R=\\sqrt{a^2A^2+b^2B^2}",
+      "|C|>R \\Leftrightarrow \\text{相离},\\quad |C|=R \\Leftrightarrow \\text{相切},\\quad |C|<R \\Leftrightarrow \\text{相交}"
+    ],
+    "variables": [
+      "a: 椭圆长半轴",
+      "b: 椭圆短半轴",
+      "A, B, C: 直线一般式系数",
+      "R: 辅助量 sqrt(a^2 A^2 + b^2 B^2)"
+    ],
+    "conditions": [
+      "椭圆方程为标准形式 x^2/a^2 + y^2/b^2 = 1，且 a > b > 0",
+      "直线方程为一般式 Ax + By + C = 0，A, B 不全为 0",
+      "分母 sqrt(A^2 + B^2) ≠ 0"
+    ],
+    "conclusions": [
+      "椭圆上点到直线的最小距离 d_min 和最大距离 d_max 由公式直接给出",
+      "通过比较 |C| 与 R 可判断直线与椭圆的位置关系（相离、相切、相交）"
+    ]
+  },
+  "content": {
+    "statement": "设椭圆 E: \\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1 (a>b>0)，直线 l: Ax+By+C=0 (A,B 不全为 0)，令 R=\\sqrt{a^2A^2+b^2B^2}，则椭圆 E 上的点到直线 l 的距离的最小值与最大值分别为 d_{\\min}=\\max\\left\\{0,\\frac{|C|-R}{\\sqrt{A^2+B^2}}\\right\\},\\quad d_{\\max}=\\frac{|C|+R}{\\sqrt{A^2+B^2}}。",
+    "derivation": [
+      "1. 设椭圆上一点 P(a\\cos\\theta, b\\sin\\theta)，代入点到直线距离公式得 d = \\frac{|Aa\\cos\\theta + Bb\\sin\\theta + C|}{\\sqrt{A^2+B^2}}。",
+      "2. 分子绝对值内表达式可写为 R\\sin(\\theta+\\varphi) + C，其中 R = \\sqrt{a^2A^2+b^2B^2}，\\varphi 由 Aa, Bb 决定。",
+      "3. 由正弦函数有界性知 -R \\le R\\sin(\\theta+\\varphi) \\le R，因此 |R\\sin(\\theta+\\varphi)+C| 的最大值为 |C|+R，最小值为 max\\{0, |C|-R\\}，除以分母即得最值。"
+    ],
+    "intuition": "将椭圆参数化后，分子绝对值内表达式可转化为 R sin(θ+φ)+C 的形式，其取值范围为 [-R+C, R+C] 的绝对值，从而得到距离最值。",
+    "common_tricks": [
+      "先计算 R 与 |C| 比较，判断是否相交；若相交则最小距离为 0",
+      "注意公式中绝对值处理，|C| 要取绝对值",
+      "参数方程法是本质，但直接用公式更快捷",
+      "可用于含参问题中反求椭圆参数或直线参数"
+    ]
+  },
+  "usage": {
+    "scenarios": ["压轴题", "最值问题", "选填压轴或大题中间步骤"],
+    "problem_types": ["求距离最值", "判断位置关系", "含参数求值"],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "C036.svg",
+    "png": "",
+    "gif": "",
+    "thumbnail": ""
+  },
+  "shareConfig": {
+    "title": "椭圆点到直线距离最值公式：一步出最值",
+    "shareDesc": "适合高考选填压轴或大题中段，快速求椭圆上点到直线的最大最小距离，避免联立和判别式繁琐计算，减少推导错误。"
+  },
+  "relations": {
+    "prerequisites": ["椭圆参数方程", "点到直线距离公式", "辅助角公式"],
+    "related_ids": [],
+    "similar": "圆上点到直线距离最值公式；双曲线点到直线距离最值公式（类似但需注意范围）"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-08"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "解析几何-圆锥曲线-椭圆",
+  "altNodes": "解析几何-综合-最值问题,解析几何-圆-位置关系"
+}

@@ -1,0 +1,152 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+	椭圆上的点到直线的距离问题，可以通过椭圆的参数方程转化为三角函数的值域问题，从而得到统一的表达式。
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（参数化转化）：}]
+		      设椭圆上点为
+		      \[
+			      (a\cos\theta,\,b\sin\theta),
+		      \]
+		      代入点到直线距离公式，得
+		      \[
+			      d=
+			      \frac{|Aa\cos\theta+Bb\sin\theta+C|}{\sqrt{A^2+B^2}}.
+		      \]
+
+		\item[\textbf{要点二（三角辅助角）：}]
+		      设
+		      \[
+			      M=Aa\cos\theta+Bb\sin\theta,
+		      \]
+		      利用辅助角公式知 \(M\) 的取值范围是
+		      \[
+			      [-R,R],
+		      \]
+		      其中
+		      \[
+			      R=\sqrt{a^2A^2+b^2B^2}.
+		      \]
+
+		\item[\textbf{要点三（分情况讨论）：}]
+		      对 \(|M+C|\) 的最值：
+
+		      若 \(|C|>R\)，则
+		      \[
+			      |M+C|_{\min}=|C|-R,\qquad |M+C|_{\max}=|C|+R.
+		      \]
+
+		      若 \(|C|\le R\)，则
+		      \[
+			      |M+C|_{\min}=0,\qquad |M+C|_{\max}=|C|+R.
+		      \]
+
+		      分别除以 \(\sqrt{A^2+B^2}\)，即得距离的最小值与最大值。
+	\end{description}
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{几何本质（法向投影半宽）}}
+
+	设直线 \(l:Ax+By+C=0\) 的法向量为
+	\[
+		\vec n=(A,B).
+	\]
+	则
+	\[
+		R=\sqrt{a^2A^2+b^2B^2}
+	\]
+	表示线性表达式 \(Ax+By\) 在椭圆上的最大绝对值，即
+	\[
+		\max_{(x,y)\in E}|Ax+By|=R.
+	\]
+
+	若把法向量单位化，则椭圆在直线法向方向上的真实投影半宽为
+	\[
+		\frac{R}{\sqrt{A^2+B^2}}.
+	\]
+
+	因此，\(R\) 本身是未归一化法向量 \((A,B)\) 对应的支撑函数值，而
+	\[
+		\frac{R}{\sqrt{A^2+B^2}}
+	\]
+	才是距离意义下的法向投影半宽。
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{代数意义（统一运算）}}
+
+	利用柯西不等式：
+	\[
+		(Aa\cos\theta+Bb\sin\theta)^2
+		\le
+		(a^2A^2+b^2B^2)(\cos^2\theta+\sin^2\theta)
+		=
+		R^2.
+	\]
+
+	这说明
+	\[
+		|Aa\cos\theta+Bb\sin\theta|\le R.
+	\]
+
+	并且当
+	\[
+		(\cos\theta,\sin\theta)
+	\]
+	与
+	\[
+		(aA,bB)
+	\]
+	同向或反向时，等号可以取到。因此
+	\[
+		M=Aa\cos\theta+Bb\sin\theta
+	\]
+	的值域确为
+	\[
+		[-R,R].
+	\]
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{考点价值（应试效率）}}
+
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（直接计算最值）：}
+		      给出具体椭圆和直线，直接代入公式得最值，省去分类讨论的时间。
+
+		\item \textbf{考法二（逆向求参）：}
+		      已知距离最值的范围，利用不等式关系反求椭圆参数 \(a,b\) 或直线参数 \(A,B,C\)。
+	\end{itemize}
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	\textbf{\(R\) 是解决此类问题的枢纽。只要算出 \(R\)，并比较 \(|C|\) 与 \(R\) 的大小，最值和位置关系就能同时确定。}
+
+	\medskip
+
+	\textbf{\textcolor{CExplanation}{使用场景}}
+
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（求距离最值）：}
+		      已知椭圆和直线方程，直接套公式。
+
+		\item \textbf{场景二（位置关系判断）：}
+		      比较 \(|C|\) 与 \(R\) 的大小，判断相离、相切或相交。
+
+		\item \textbf{场景三（反求参数）：}
+		      已知距离最值，利用
+		      \[
+			      d_{\max}=\frac{|C|+R}{\sqrt{A^2+B^2}}
+		      \]
+		      反求椭圆参数或直线参数。
+	\end{itemize}
+
+\end{explanationbox}
