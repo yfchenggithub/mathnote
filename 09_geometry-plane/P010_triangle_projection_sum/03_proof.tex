@@ -1,0 +1,45 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用向量加法在单位方向向量上的有向投影，将边的关系转化为余弦表达式，可避免分情况讨论。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（向量分解）：}] 用向量表示边，$\overrightarrow{BC}=\overrightarrow{BA}+\overrightarrow{AC}$。
+		      \par\textbf{理由：}
+		      向量加法三角形法则，$\overrightarrow{BC}$等于$\overrightarrow{BA}$与$\overrightarrow{AC}$的向量和。
+
+		\item[\textbf{步骤二（单位方向）：}] 取$\overrightarrow{BC}$方向的单位向量$\boldsymbol{n}=\dfrac{\overrightarrow{BC}}{a}$，则$\overrightarrow{BC}\cdot\boldsymbol{n}=a$。
+		      \par\textbf{理由：}
+		      单位向量满足$\boldsymbol{n}\cdot\boldsymbol{n}=1$，且与$\overrightarrow{BC}$同向，点积得模长。
+
+		\item[\textbf{步骤三（有向投影计算）：}] 计算$\overrightarrow{BA}$及$\overrightarrow{AC}$在$\boldsymbol{n}$方向上的有向投影：
+		      \[
+			      \overrightarrow{BA}\cdot\boldsymbol{n}=c\cos B,\qquad
+			      \overrightarrow{AC}\cdot\boldsymbol{n}=b\cos C.
+		      \]
+		      \par\textbf{理由：}
+		      点积给出的正是沿单位向量方向的有向投影值。因为$|\overrightarrow{BA}|=c$，且$\overrightarrow{BA}$与$\boldsymbol{n}$的夹角为$B$，所以$\overrightarrow{BA}\cdot\boldsymbol{n}=c\cos B$；同理，$|\overrightarrow{AC}|=b$，$\overrightarrow{AC}$与$\boldsymbol{n}$的夹角为$C$，所以$\overrightarrow{AC}\cdot\boldsymbol{n}=b\cos C$。
+
+		\item[\textbf{步骤四（建立等式）：}] 由$\overrightarrow{BC}=\overrightarrow{BA}+\overrightarrow{AC}$两边同时点乘$\boldsymbol{n}$，利用点积线性性得：
+		      \[
+			      a = c\cos B + b\cos C.
+		      \]
+		      \par\textbf{理由：}
+		      点积满足分配律，且$\overrightarrow{BC}\cdot\boldsymbol{n}=a$，$\overrightarrow{BA}\cdot\boldsymbol{n}=c\cos B$，$\overrightarrow{AC}\cdot\boldsymbol{n}=b\cos C$。这里的加法是有向投影的代数和，因此钝角情形也成立。
+
+		\item[\textbf{步骤五（轮换对称）：}] 对$\triangle ABC$的边角进行循环替换（$A\to B\to C\to A$，$a\to b\to c\to a$），同理可得：
+		      \[
+			      b = c\cos A + a\cos C,\qquad
+			      c = a\cos B + b\cos A.
+		      \]
+		      \par\textbf{理由：}
+		      三角形的对称性，推导过程与步骤一至四完全类似。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{射影定理的三式全部证毕。该定理建立了边长与邻角余弦之间的线性关系，是解三角形的重要工具。}
+\end{proofbox}
