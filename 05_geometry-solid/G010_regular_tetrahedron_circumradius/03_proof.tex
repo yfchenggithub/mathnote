@@ -1,0 +1,95 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	设正四面体 $A-BCD$，棱长为 $a$，取底面 $\triangle BCD$ 的中心 $O_1$，则 $AO_1$ 是正四面体的高。由于外接球球心到 $B,C,D$ 三点距离相等，所以它在底面外心 $O_1$ 的垂线上；又由于正四面体关于高线 $AO_1$ 高度对称，因此外接球球心 $O$ 在 $AO_1$ 上。设 $OO_1=x$，则 $OA=h-x$，$OB=\sqrt{O_1B^2+x^2}$，再由 $OA=OB=R$ 列方程求解。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（求底面外接圆半径）：}] 底面 $\triangle BCD$ 是边长为 $a$ 的正三角形，其外接圆半径为
+		      \[
+			      r = O_1B = \frac{a}{\sqrt{3}}.
+		      \]
+		      \par\textbf{理由：} 正三角形外接圆半径公式为
+		      \[
+			      r=\frac{a}{2\sin 60^\circ}=\frac{a}{\sqrt{3}}.
+		      \]
+
+		\item[\textbf{步骤二（求高线长）：}] 正四面体的高为
+		      \[
+			      h=AO_1.
+		      \]
+		      在直角三角形 $AO_1B$ 中，
+		      \[
+			      h = \sqrt{a^2-r^2}
+			      = \sqrt{a^2-\frac{a^2}{3}}
+			      = \frac{\sqrt{6}}{3}a.
+		      \]
+		      \par\textbf{理由：} 因为 $AB=a$，$O_1B=r$，且 $AO_1\perp \text{平面 }BCD$，所以 $AO_1\perp O_1B$，可用勾股定理。
+
+		\item[\textbf{步骤三（说明球心位置）：}] 外接球球心 $O$ 在高线 $AO_1$ 上。
+		      \[
+			      O\in AO_1.
+		      \]
+		      \par\textbf{理由：} 球心到 $B,C,D$ 三点距离相等，所以 $O$ 必在底面正三角形外心 $O_1$ 的垂线上。该垂线正是 $AO_1$，因此球心 $O$ 位于 $AO_1$ 上。
+
+		\item[\textbf{步骤四（设未知数列方程）：}] 设 $OO_1=x$，其中 $0<x<h$。则
+		      \[
+			      OA=h-x,\qquad OB=\sqrt{r^2+x^2}.
+		      \]
+		      因为 $O$ 是外接球球心，所以
+		      \[
+			      OA=OB=R.
+		      \]
+		      因此
+		      \[
+			      h-x=\sqrt{r^2+x^2}.
+		      \]
+		      \par\textbf{理由：} 外接球球心到正四面体四个顶点的距离相等。
+
+		\item[\textbf{步骤五（解出参数）：}] 两边平方并化简：
+		      \[
+			      \begin{aligned}
+				      (h-x)^2     & = r^2+x^2,            \\
+				      h^2-2hx+x^2 & = r^2+x^2,            \\
+				      h^2-2hx     & = r^2,                \\
+				      2hx         & = h^2-r^2,            \\
+				      x           & = \frac{h^2-r^2}{2h}.
+			      \end{aligned}
+		      \]
+		      \par\textbf{理由：} 这是代数恒等变形。这里 $x$ 表示球心到底面中心 $O_1$ 的距离。
+
+		\item[\textbf{步骤六（代值求半径）：}] 将
+		      \[
+			      h=\frac{\sqrt{6}}{3}a,\qquad r=\frac{a}{\sqrt{3}}
+		      \]
+		      代入：
+		      \[
+			      \begin{aligned}
+				      h^2     & = \frac{6}{9}a^2=\frac{2}{3}a^2,                    \\
+				      r^2     & = \frac{a^2}{3},                                    \\
+				      h^2-r^2 & = \frac{2}{3}a^2-\frac{1}{3}a^2=\frac{1}{3}a^2,     \\
+				      x       & = \frac{\frac{1}{3}a^2}{2\cdot \frac{\sqrt{6}}{3}a}
+				      = \frac{a}{2\sqrt{6}}
+				      = \frac{\sqrt{6}}{12}a.
+			      \end{aligned}
+		      \]
+		      于是
+		      \[
+			      R=OA=h-x
+			      =\frac{\sqrt{6}}{3}a-\frac{\sqrt{6}}{12}a
+			      =\frac{\sqrt{6}}{4}a.
+		      \]
+		      \par\textbf{理由：} 代数运算，最后一步通分即可。
+
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{从推导可见，正四面体外接球半径只依赖于棱长 $a$，且}
+	\[
+		\boxed{R=\frac{\sqrt{6}}{4}a=\frac{3}{4}h.}
+	\]
+	\textbf{同时，球心到底面距离为 $\frac{1}{4}h$，到顶点距离为 $\frac{3}{4}h$，因此不能说球心“更靠近顶点”。}
+\end{proofbox}
