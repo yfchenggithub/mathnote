@@ -14,7 +14,7 @@
  *
  * 对命中节点执行：
  *   - LaTeX -> SVG（MathJax）
- *   - SVG -> PNG/WebP（sharp）
+ *   - SVG -> PNG（sharp）
  *   - 回写节点：type 改为 "math_image"，并写入 asset 信息
  *
  * 二、为什么要有这个脚本
@@ -410,7 +410,7 @@ async function readImageSize(pngPath) {
   };
 }
 
-async function svgToImages({
+async function svgToImage({
   svg,
   outDirAbs,
   conclusionId,
@@ -423,20 +423,15 @@ async function svgToImages({
 
   const suffix = scaleSuffix(scale);
   const pngFilename = `${hash}@${suffix}.png`;
-  const webpFilename = `${hash}@${suffix}.webp`;
   const pngPath = path.join(outConclusionDirAbs, pngFilename);
-  const webpPath = path.join(outConclusionDirAbs, webpFilename);
   const pngExists = await fileExists(pngPath);
-  const webpExists = await fileExists(webpPath);
 
-  if (!force && pngExists && webpExists) {
+  if (!force && pngExists) {
     const { widthPx, heightPx } = await readImageSize(pngPath);
     return {
       status: "reused",
       pngPath,
-      webpPath,
       pngFilename,
-      webpFilename,
       widthPx,
       heightPx,
     };
@@ -470,14 +465,6 @@ async function svgToImages({
     })
     .toFile(pngPath);
 
-  await sharp(withPaddingPngBuffer)
-    .webp({
-      lossless: true,
-      quality: 100,
-      alphaQuality: 100,
-    })
-    .toFile(webpPath);
-
   if (!pngInfo.width || !pngInfo.height) {
     throw new Error(`Failed to get image size for ${pngPath}`);
   }
@@ -485,9 +472,7 @@ async function svgToImages({
   return {
     status: "rendered",
     pngPath,
-    webpPath,
     pngFilename,
-    webpFilename,
     widthPx: pngInfo.width,
     heightPx: pngInfo.height,
   };
@@ -497,14 +482,12 @@ function buildAsset({
   assetBase,
   conclusionId,
   pngFilename,
-  webpFilename,
   widthPx,
   heightPx,
   scale,
 }) {
   return {
     png: joinAssetPath(assetBase, conclusionId, pngFilename),
-    webp: joinAssetPath(assetBase, conclusionId, webpFilename),
     width_px: widthPx,
     height_px: heightPx,
     display_width_px: Math.round(widthPx / scale),
@@ -539,16 +522,11 @@ async function renderOneFormula({
         conclusionId,
         `${hash}@${scaleSuffix(scale)}.png`,
       ),
-      webpUrl: joinAssetPath(
-        assetBase,
-        conclusionId,
-        `${hash}@${scaleSuffix(scale)}.webp`,
-      ),
     };
   }
 
   const svg = await latexToSvg(mathJaxInstance, latex);
-  const imageResult = await svgToImages({
+  const imageResult = await svgToImage({
     svg,
     outDirAbs,
     conclusionId,
@@ -561,7 +539,6 @@ async function renderOneFormula({
     assetBase,
     conclusionId,
     pngFilename: imageResult.pngFilename,
-    webpFilename: imageResult.webpFilename,
     widthPx: imageResult.widthPx,
     heightPx: imageResult.heightPx,
     scale,
@@ -577,7 +554,6 @@ async function renderOneFormula({
     widthPx: imageResult.widthPx,
     heightPx: imageResult.heightPx,
     pngUrl: asset.png,
-    webpUrl: asset.webp,
   };
 }
 
@@ -785,7 +761,6 @@ async function main() {
         source_types: sourceTypes,
         status: result.status,
         png: result.pngUrl,
-        webp: result.webpUrl,
         width_px: result.widthPx,
         height_px: result.heightPx,
         error: null,
@@ -810,7 +785,6 @@ async function main() {
         source_types: sourceTypes,
         status: "failed",
         png: null,
-        webp: null,
         width_px: null,
         height_px: null,
         error: message,
