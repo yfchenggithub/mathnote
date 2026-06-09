@@ -50,7 +50,7 @@ DEFAULT_REPORT_PATH = PROJECT_ROOT / "reports" / "generate_wechat_drafts_report.
 DEFAULT_MODULE_PREFIX_MAP = PROJECT_ROOT / "12_pipeline" / "config" / "module_prefix_map.json"
 DEFAULT_TOKEN_CACHE = DEFAULT_OUTPUT_DIR / "wechat_access_token_cache.json"
 DEFAULT_UPLOAD_CACHE = DEFAULT_OUTPUT_DIR / "wechat_upload_cache.json"
-DEFAULT_AUTHOR = "OK数学"
+DEFAULT_AUTHOR = ""
 DEFAULT_COVER_BRAND = "OK 数学"
 DEFAULT_COVER_SIZE = "1800x1000"
 DEFAULT_SECTION_KEYS = (
@@ -63,6 +63,30 @@ DEFAULT_SECTION_KEYS = (
     "traps",
     "summary",
 )
+
+SECTION_BOX_STYLES = {
+    "statement": {"title": "命题表述", "color": "#1F4E79", "bg": "#EAF2F8"},
+    "explanation": {"title": "理解说明", "color": "#355C7D", "bg": "#F2F5F7"},
+    "proof": {"title": "证明过程", "color": "#6C5B7B", "bg": "#F3F0F7"},
+    "examples": {"title": "例题应用", "color": "#2E7D32", "bg": "#EDF7ED"},
+    "traps": {"title": "易错提醒", "color": "#8E2424", "bg": "#FBEAEA"},
+    "summary": {"title": "复盘总结", "color": "#5D4037", "bg": "#F5F0EB"},
+}
+
+COLORED_SUBHEADINGS = {
+    "一句话直觉",
+    "核心拆解",
+    "几何本质（高度对称）",
+    "代数意义（比例系数）",
+    "考点价值（直接公式）",
+    "顿悟点",
+    "使用场景",
+    "思路提示",
+    "正式推导",
+    "结论回扣",
+    "使用条件",
+    "关键提醒",
+}
 
 WECHAT_API_BASE = "https://api.weixin.qq.com"
 ACCESS_TOKEN_MARGIN_SEC = 300
@@ -231,7 +255,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--report", default=str(DEFAULT_REPORT_PATH))
     parser.add_argument("--appid-env", default="WECHAT_APP_ID")
     parser.add_argument("--secret-env", default="WECHAT_APP_SECRET")
-    parser.add_argument("--author", default=DEFAULT_AUTHOR)
+    parser.add_argument(
+        "--author",
+        default=DEFAULT_AUTHOR,
+        help="Optional author shown in WeChat preview. Default: omitted.",
+    )
     parser.add_argument("--cover-brand", default=DEFAULT_COVER_BRAND)
     parser.add_argument("--cover-size", type=parse_size, default=parse_size(DEFAULT_COVER_SIZE))
     parser.add_argument("--force-cover", action="store_true", help="Regenerate cover PNG files even when they exist.")
@@ -1015,6 +1043,117 @@ def text_to_html(text: str) -> str:
     return "<br/>".join(parts)
 
 
+def section_color(section_key: str) -> str:
+    style = SECTION_BOX_STYLES.get(section_key)
+    if style:
+        return style["color"]
+    return "#164554"
+
+
+def format_inline_labels(content_html: str) -> str:
+    label_pattern = re.compile(
+        r"(^|<br/>|[。；]\s*)"
+        r"((?:"
+        r"要点[一二三四五六七八九十]+"
+        r"|步骤[一二三四五六七八九十]+"
+        r"|考法[一二三四五六七八九十]+"
+        r"|场景[一二三四五六七八九十]+"
+        r"|条件\s*\d+"
+        r"|易错点[一二三四五六七八九十]*"
+        r"|正确理解"
+        r"|错因分析"
+        r"|第一步|第二步|第三步|第四步|第五步|第六步"
+        r"|题目|解题步骤|关键结论|理由"
+        r")[^：:<]{0,28}[：:])"
+    )
+    return label_pattern.sub(
+        r'\1<strong style="font-weight:700;color:#111827;">\2</strong>',
+        content_html,
+    )
+
+
+def split_first_line(raw_text: str) -> tuple[str, str]:
+    lines = str(raw_text or "").splitlines()
+    if not lines:
+        return "", ""
+    first = lines[0].strip()
+    rest = "\n".join(lines[1:]).strip()
+    return first, rest
+
+
+def remove_first_line_html(content_html: str, first_line: str) -> str:
+    prefix = text_to_html(first_line)
+    candidates = (prefix + "<br/>", prefix)
+    for candidate in candidates:
+        if content_html.startswith(candidate):
+            return content_html[len(candidate) :]
+    return content_html
+
+
+def normalize_paragraph_content_html(content_html: str) -> str:
+    content_html = re.sub(
+        r"^\s*[.．。]\s*(?=(?:理由|代入|因为|因此|所以|可用|两边|于是|解出|关键结论|在|设|又|由|再由|其中))",
+        "",
+        content_html,
+    )
+    if re.fullmatch(r"\s*[.．。]\s*", content_html):
+        return ""
+    return content_html
+
+
+def render_paragraph_html(
+    *,
+    first_block: dict[str, Any],
+    content_html: str,
+    section_key: str = "",
+) -> str:
+    raw = paragraph_plain_text(first_block)
+    first_line, _rest = split_first_line(raw)
+    color = section_color(section_key)
+    content_html = normalize_paragraph_content_html(content_html)
+    if not content_html.strip():
+        return ""
+
+    if first_line in COLORED_SUBHEADINGS:
+        body_html = remove_first_line_html(content_html, first_line)
+        pieces = [
+            f'<p style="margin:16px 0 8px;font-size:18px;line-height:1.45;'
+            f'font-weight:700;color:{color};">{escape_text(first_line)}</p>'
+        ]
+        if body_html:
+            pieces.append(
+                f'<p style="margin:8px 0 14px;line-height:1.9;color:#111827;">'
+                f"{format_inline_labels(body_html)}</p>"
+            )
+        return "".join(pieces)
+
+    item_match = re.match(
+        r"^((?:要点[一二三四五六七八九十]+|步骤[一二三四五六七八九十]+|考法[一二三四五六七八九十]+|场景[一二三四五六七八九十]+|"
+        r"条件\s*\d+|易错点[一二三四五六七八九十]*|正确理解|错因分析|第一步|第二步|第三步|第四步|第五步|第六步)"
+        r"[^：:]{0,32}[：:])$",
+        first_line,
+    )
+    if item_match:
+        body_html = remove_first_line_html(content_html, first_line)
+        label = item_match.group(1)
+        if body_html:
+            return (
+                '<p style="margin:12px 0 10px;line-height:1.9;color:#111827;">'
+                f'<strong style="font-weight:700;color:#111827;">{escape_text(label)}</strong> '
+                f"{format_inline_labels(body_html)}</p>"
+            )
+        return (
+            '<p style="margin:12px 0 8px;line-height:1.8;">'
+            f'<strong style="font-weight:700;color:#111827;">{escape_text(label)}</strong></p>'
+        )
+
+    return (
+        '<p style="margin:10px 0;line-height:1.9;color:#111827;">'
+        + format_inline_labels(content_html)
+        + "</p>"
+    )
+
+
 def render_formula_image(
     node: dict[str, Any],
     *,
@@ -1029,25 +1168,25 @@ def render_formula_image(
 
     asset = node.get("asset") if isinstance(node.get("asset"), dict) else {}
     display_width = int(asset.get("display_width_px") or 0) if isinstance(asset, dict) else 0
-    display_height = int(asset.get("display_height_px") or 0) if isinstance(asset, dict) else 0
     width_style = ""
     if display_width > 0:
-        css_width = min(max(display_width * 2, 28), 680)
+        if inline:
+            css_width = min(max(round(display_width * 1.05), 12), 180)
+        else:
+            css_width = min(max(round(display_width * 1.55), 42), 620)
         width_style = f"width:{css_width}px;"
     alt = escape_text(str(node.get("latex") or node.get("alt") or "公式"))
     if inline:
         style = (
-            "display:inline-block;vertical-align:-0.35em;"
-            "max-width:100%;height:auto;margin:0 3px;"
+            "display:inline-block;vertical-align:-0.42em;"
+            "max-width:100%;height:auto;margin:0 2px;line-height:1;"
             + width_style
         )
         return f'<img src="{html.escape(wechat_url, quote=True)}" alt="{alt}" style="{style}"/>'
     style = (
-        "display:block;max-width:100%;height:auto;margin:10px auto;"
+        "display:block;max-width:100%;height:auto;margin:14px auto 20px;"
         + width_style
     )
-    if display_height > 0:
-        style += ""
     return f'<img src="{html.escape(wechat_url, quote=True)}" alt="{alt}" style="{style}"/>'
 
 
@@ -1073,26 +1212,344 @@ def render_tokens(tokens: Any, *, upload_map: dict[str, str]) -> str:
     return "".join(pieces)
 
 
-def render_step_content(blocks: Any, *, upload_map: dict[str, str]) -> str:
-    if not isinstance(blocks, list):
+def is_paragraph_block(block: Any) -> bool:
+    return isinstance(block, dict) and str(block.get("type", "")) == "paragraph"
+
+
+def is_formula_block(block: Any) -> bool:
+    if not isinstance(block, dict):
+        return False
+    return str(block.get("type", "")) in {"math_image", "math_block", "math_inline", "math_display"}
+
+
+def paragraph_plain_text(block: dict[str, Any]) -> str:
+    tokens = block.get("tokens")
+    if not isinstance(tokens, list):
         return ""
     pieces: list[str] = []
-    for block in blocks:
-        if not isinstance(block, dict):
-            continue
-        block_type = str(block.get("type", "paragraph"))
-        if block_type == "paragraph":
-            pieces.append(f'<p style="margin:8px 0;line-height:1.85;">{render_tokens(block.get("tokens"), upload_map=upload_map)}</p>')
-        elif block_type in {"math_block", "math_image", "math_inline"}:
-            pieces.append(render_formula_image(block, upload_map=upload_map, inline=False))
-        elif block_type == "bullet_list":
-            pieces.append(render_bullet_list(block, upload_map=upload_map))
-        elif block_type == "proof_steps":
-            pieces.append(render_proof_steps(block, upload_map=upload_map))
+    for token in tokens:
+        if isinstance(token, str):
+            pieces.append(token)
+        elif isinstance(token, dict) and token.get("type") == "text":
+            pieces.append(str(token.get("text") or ""))
     return "".join(pieces)
 
 
-def render_bullet_list(block: dict[str, Any], *, upload_map: dict[str, str]) -> str:
+def paragraph_continues_inline_formula(block: dict[str, Any]) -> bool:
+    text = paragraph_plain_text(block).strip()
+    if not text:
+        return False
+    if text[0] in "，。；：、,.!?！？":
+        return True
+    if text[0] in "的得为是在与和及或中上下载由则可后前内外":
+        return True
+    if len(text) <= 10 and not text.endswith(("：", ":")):
+        return True
+    return False
+
+
+def paragraph_opens_display_formula(block: dict[str, Any]) -> bool:
+    text = paragraph_plain_text(block).strip()
+    return text.endswith(("：", ":"))
+
+
+def paragraph_starts_reason(block: dict[str, Any]) -> bool:
+    text = paragraph_plain_text(block).strip()
+    text = re.sub(r"^[.．。]\s*", "", text)
+    return text.startswith("理由")
+
+
+def formula_has_display_shape(latex: str, compact: str) -> bool:
+    return (
+        "\\begin{" in latex
+        or "\\\\" in latex
+        or "\\quad" in latex
+        or "\\qquad" in latex
+        or "=" in compact
+        or len(compact) > 36
+    )
+
+
+def formula_block_should_inline(
+    block: dict[str, Any],
+    *,
+    previous_paragraph: dict[str, Any] | None,
+    next_paragraph: dict[str, Any] | None,
+    section_key: str = "",
+) -> bool:
+    latex = str(block.get("latex") or "").strip()
+    if not latex:
+        return False
+    compact = re.sub(r"\s+", "", latex)
+    if "\\begin{" in latex or "\\\\" in latex:
+        return False
+    if previous_paragraph is None and next_paragraph is None:
+        return False
+    has_display_shape = formula_has_display_shape(latex, compact)
+    if has_display_shape and section_key in {"proof", "examples"}:
+        return False
+    if previous_paragraph is not None and paragraph_opens_display_formula(previous_paragraph):
+        if has_display_shape or section_key in {"proof", "examples"}:
+            return False
+    if (
+        section_key in {"proof", "examples"}
+        and next_paragraph is not None
+        and paragraph_starts_reason(next_paragraph)
+    ):
+        return False
+    if has_display_shape and len(compact) > 28:
+        return False
+    if next_paragraph is not None and paragraph_continues_inline_formula(next_paragraph):
+        return True
+    if "=" not in compact and len(compact) <= 24:
+        return True
+    if (
+        not has_display_shape
+        and previous_paragraph is not None
+        and next_paragraph is not None
+        and len(compact) <= 42
+    ):
+        return True
+    return False
+
+
+def next_paragraph_after(blocks: list[Any], start_index: int) -> dict[str, Any] | None:
+    for block in blocks[start_index + 1 :]:
+        if is_paragraph_block(block):
+            return block
+        if not is_formula_block(block):
+            return None
+    return None
+
+
+def render_blocks_sequence(
+    blocks: Any,
+    *,
+    upload_map: dict[str, str],
+    section_key: str = "",
+) -> str:
+    if not isinstance(blocks, list):
+        return ""
+    pieces: list[str] = []
+    index = 0
+    while index < len(blocks):
+        block = blocks[index]
+        if not is_paragraph_block(block):
+            if isinstance(block, dict):
+                pieces.append(render_block(block, upload_map=upload_map, section_key=section_key))
+            index += 1
+            continue
+
+        paragraph_parts = [render_tokens(block.get("tokens"), upload_map=upload_map)]
+        previous_paragraph = block
+        changed = False
+        last_was_inline_formula = False
+        cursor = index + 1
+
+        while cursor < len(blocks):
+            current = blocks[cursor]
+            if is_formula_block(current):
+                following_paragraph = next_paragraph_after(blocks, cursor)
+                if formula_block_should_inline(
+                    current,
+                    previous_paragraph=previous_paragraph,
+                    next_paragraph=following_paragraph,
+                    section_key=section_key,
+                ):
+                    paragraph_parts.append(
+                        render_formula_image(current, upload_map=upload_map, inline=True)
+                    )
+                    changed = True
+                    last_was_inline_formula = True
+                    cursor += 1
+                    continue
+                break
+
+            if last_was_inline_formula and is_paragraph_block(current):
+                if paragraph_continues_inline_formula(current):
+                    paragraph_parts.append(
+                        render_tokens(current.get("tokens"), upload_map=upload_map)
+                    )
+                    previous_paragraph = current
+                    last_was_inline_formula = False
+                    cursor += 1
+                    continue
+                break
+
+            break
+
+        if changed:
+            pieces.append(
+                render_paragraph_html(
+                    first_block=block,
+                    content_html="".join(paragraph_parts),
+                    section_key=section_key,
+                )
+            )
+            index = cursor
+        else:
+            pieces.append(render_block(block, upload_map=upload_map, section_key=section_key))
+            index += 1
+
+    return "".join(pieces)
+
+
+def formula_token_should_display(
+    token: dict[str, Any],
+    *,
+    section_key: str,
+    current_plain: str = "",
+) -> bool:
+    if section_key not in {"proof", "examples"}:
+        return False
+    latex = str(token.get("latex") or "").strip()
+    if not latex:
+        return False
+    compact = re.sub(r"\s+", "", latex)
+    if "\\begin{" in latex or "\\\\" in latex or "\\quad" in latex or "\\qquad" in latex:
+        return True
+    if "=" not in compact:
+        return False
+    if len(compact) > 28:
+        return True
+    text = current_plain.strip()
+    return text.endswith(
+        (
+            "为",
+            "为：",
+            "得",
+            "得：",
+            "则",
+            "则：",
+            "因此",
+            "解得",
+            "列方程",
+            "公式为",
+            "半径为",
+            "高为",
+        )
+    )
+
+
+def render_paragraph_block(
+    block: dict[str, Any],
+    *,
+    upload_map: dict[str, str],
+    section_key: str = "",
+) -> str:
+    tokens = block.get("tokens")
+    if not isinstance(tokens, list):
+        return render_paragraph_html(
+            first_block=block,
+            content_html=text_to_html(str(tokens or "")),
+            section_key=section_key,
+        )
+
+    probe_plain: list[str] = []
+    has_display_formula = False
+    for token in tokens:
+        if isinstance(token, str):
+            probe_plain.append(token)
+            continue
+        if not isinstance(token, dict):
+            continue
+        token_type = str(token.get("type", "text"))
+        if token_type == "text":
+            probe_plain.append(str(token.get("text") or ""))
+        elif token_type == "line_break":
+            probe_plain.append("\n")
+        elif token_type in {"math_image", "math_inline", "math_display", "math_block"}:
+            if formula_token_should_display(
+                token,
+                section_key=section_key,
+                current_plain="".join(probe_plain),
+            ):
+                has_display_formula = True
+                break
+            probe_plain.append(str(token.get("latex") or ""))
+        elif token_type == "ref":
+            probe_plain.append(str(token.get("text") or token.get("target_id") or ""))
+
+    if not has_display_formula:
+        return render_paragraph_html(
+            first_block=block,
+            content_html=render_tokens(tokens, upload_map=upload_map),
+            section_key=section_key,
+        )
+
+    pieces: list[str] = []
+    html_parts: list[str] = []
+    plain_parts: list[str] = []
+
+    def flush_paragraph() -> None:
+        if not "".join(html_parts).strip():
+            html_parts.clear()
+            plain_parts.clear()
+            return
+        first_block = {
+            "type": "paragraph",
+            "tokens": [{"type": "text", "text": "".join(plain_parts)}],
+        }
+        pieces.append(
+            render_paragraph_html(
+                first_block=first_block,
+                content_html="".join(html_parts),
+                section_key=section_key,
+            )
+        )
+        html_parts.clear()
+        plain_parts.clear()
+
+    for token in tokens:
+        if isinstance(token, str):
+            html_parts.append(text_to_html(token))
+            plain_parts.append(token)
+            continue
+        if not isinstance(token, dict):
+            continue
+        token_type = str(token.get("type", "text"))
+        if token_type == "text":
+            text = str(token.get("text") or "")
+            html_parts.append(text_to_html(text))
+            plain_parts.append(text)
+        elif token_type == "line_break":
+            html_parts.append("<br/>")
+            plain_parts.append("\n")
+        elif token_type in {"math_image", "math_inline", "math_display", "math_block"}:
+            if formula_token_should_display(
+                token,
+                section_key=section_key,
+                current_plain="".join(plain_parts),
+            ):
+                flush_paragraph()
+                pieces.append(render_formula_image(token, upload_map=upload_map, inline=False))
+            else:
+                html_parts.append(render_formula_image(token, upload_map=upload_map, inline=True))
+                plain_parts.append(str(token.get("latex") or ""))
+        elif token_type == "ref":
+            text = str(token.get("text") or token.get("target_id") or "")
+            html_parts.append(text_to_html(text))
+            plain_parts.append(text)
+
+    flush_paragraph()
+    return "".join(pieces)
+
+
+def render_step_content(
+    blocks: Any,
+    *,
+    upload_map: dict[str, str],
+    section_key: str = "",
+) -> str:
+    return render_blocks_sequence(blocks, upload_map=upload_map, section_key=section_key)
+
+
+def render_bullet_list(
+    block: dict[str, Any],
+    *,
+    upload_map: dict[str, str],
+    section_key: str = "",
+) -> str:
     items = block.get("items")
     if not isinstance(items, list):
         return ""
@@ -1102,8 +1559,92 @@ def render_bullet_list(block: dict[str, Any], *, upload_map: dict[str, str]) -> 
             content = render_tokens(item.get("tokens"), upload_map=upload_map)
         else:
             content = text_to_html(str(item))
-        lis.append(f'<li style="margin:6px 0;">{content}</li>')
+        lis.append(
+            f'<li style="margin:7px 0;line-height:1.9;color:#111827;">'
+            f"{format_inline_labels(content)}</li>"
+        )
     return '<ul style="padding-left:1.2em;margin:8px 0 12px;">' + "".join(lis) + "</ul>"
+
+
+def theorem_formula_should_display(token: dict[str, Any]) -> bool:
+    latex = str(token.get("latex") or "").strip()
+    if not latex:
+        return False
+    compact = latex.replace(" ", "")
+    if "\\begin{" in latex or "\\\\" in latex:
+        return True
+    if "=" in compact or "\\quad" in latex or "\\qquad" in latex:
+        return True
+    return len(compact) > 28
+
+
+def render_theorem_desc(
+    tokens: Any,
+    *,
+    upload_map: dict[str, str],
+    with_label: bool,
+) -> str:
+    if not isinstance(tokens, list):
+        text = text_to_html(str(tokens or ""))
+        if with_label:
+            return (
+                '<p style="margin:6px 0 10px;padding-left:2.8em;line-height:1.9;">'
+                '<strong style="color:#1f5f8b;">直观描述：</strong> '
+                f"{text}</p>"
+            )
+        return f'<p style="margin:6px 0 10px;line-height:1.9;">{text}</p>'
+
+    paragraphs: list[str] = []
+    inline_parts: list[str] = []
+
+    def flush_inline() -> None:
+        if not inline_parts:
+            return
+        content = "".join(inline_parts)
+        if with_label and not content.rstrip().endswith(("。", "，", "；", "：", ".", "!", "?", "！", "？")):
+            content += "。"
+        prefix = ""
+        padding = "padding-left:2.8em;"
+        if with_label:
+            prefix = '<strong style="color:#1f5f8b;">直观描述：</strong> '
+            padding = "padding-left:2.8em;"
+        paragraphs.append(
+            f'<p style="margin:6px 0 10px;{padding}line-height:1.9;">'
+            + prefix
+            + content
+            + "</p>"
+        )
+        inline_parts.clear()
+
+    for token in tokens:
+        if isinstance(token, str):
+            inline_parts.append(text_to_html(token))
+            continue
+        if not isinstance(token, dict):
+            continue
+        token_type = str(token.get("type", "text"))
+        if token_type == "text":
+            inline_parts.append(text_to_html(str(token.get("text") or "")))
+            continue
+        if token_type == "line_break":
+            inline_parts.append("<br/>")
+            continue
+        if token_type in {"math_image", "math_inline", "math_display", "math_block"}:
+            if theorem_formula_should_display(token):
+                flush_inline()
+                paragraphs.append(
+                    '<section style="margin:10px 0 22px;text-align:center;">'
+                    + render_formula_image(token, upload_map=upload_map, inline=False)
+                    + "</section>"
+                )
+            else:
+                inline_parts.append(render_formula_image(token, upload_map=upload_map, inline=True))
+            continue
+        if token_type == "ref":
+            inline_parts.append(text_to_html(str(token.get("text") or token.get("target_id") or "")))
+
+    flush_inline()
+    return "".join(paragraphs)
 
 
 def render_theorem_group(block: dict[str, Any], *, upload_map: dict[str, str]) -> str:
@@ -1115,18 +1656,28 @@ def render_theorem_group(block: dict[str, Any], *, upload_map: dict[str, str]) -
         if not isinstance(item, dict):
             continue
         title = escape_text(str(item.get("title") or "结论"))
-        desc = render_tokens(item.get("desc_tokens"), upload_map=upload_map)
+        is_conclusion_item = "结论" in str(item.get("title") or "")
+        desc = render_theorem_desc(
+            item.get("desc_tokens"),
+            upload_map=upload_map,
+            with_label=is_conclusion_item,
+        )
         pieces.append(
-            '<section style="margin:10px 0;padding:12px 14px;'
-            'border-left:4px solid #1f7a8c;background:#f6fbfc;">'
-            f'<p style="margin:0 0 6px;font-weight:700;color:#164554;">{title}</p>'
-            f'<p style="margin:0;line-height:1.85;">{desc}</p>'
+            '<section style="margin:18px 0 26px;">'
+            f'<p style="margin:0 0 8px;font-size:17px;line-height:1.5;'
+            f'font-weight:700;color:#1f5f8b;">{title}</p>'
+            f"{desc}"
             "</section>"
         )
     return "".join(pieces)
 
 
-def render_proof_steps(block: dict[str, Any], *, upload_map: dict[str, str]) -> str:
+def render_proof_steps(
+    block: dict[str, Any],
+    *,
+    upload_map: dict[str, str],
+    section_key: str = "",
+) -> str:
     steps = block.get("steps")
     if not isinstance(steps, list):
         return ""
@@ -1135,71 +1686,85 @@ def render_proof_steps(block: dict[str, Any], *, upload_map: dict[str, str]) -> 
         if not isinstance(step, dict):
             continue
         title = escape_text(str(step.get("title") or f"步骤 {index}"))
-        content = render_step_content(step.get("content"), upload_map=upload_map)
+        content = render_step_content(
+            step.get("content"),
+            upload_map=upload_map,
+            section_key=section_key,
+        )
         pieces.append(
-            '<section style="margin:12px 0;padding:12px 14px;background:#fafafa;'
-            'border:1px solid #ece7dc;">'
-            f'<p style="margin:0 0 8px;font-weight:700;color:#374151;">{title}</p>'
+            '<section style="margin:14px 0 18px;">'
+            f'<p style="margin:0 0 8px;font-size:17px;line-height:1.5;'
+            f'font-weight:700;color:#111827;">{title}</p>'
             f"{content}</section>"
         )
     return "".join(pieces)
 
 
-def render_example(block: dict[str, Any], *, upload_map: dict[str, str]) -> str:
+def render_example(
+    block: dict[str, Any],
+    *,
+    upload_map: dict[str, str],
+    section_key: str = "",
+) -> str:
     title = escape_text(str(block.get("title") or "例题"))
-    problem = render_step_content(block.get("problem"), upload_map=upload_map)
-    solution = render_step_content(block.get("solution"), upload_map=upload_map)
-    answer = render_step_content(block.get("answer"), upload_map=upload_map)
+    problem = render_step_content(block.get("problem"), upload_map=upload_map, section_key=section_key)
+    solution = render_step_content(block.get("solution"), upload_map=upload_map, section_key=section_key)
+    answer = render_step_content(block.get("answer"), upload_map=upload_map, section_key=section_key)
     body = (
-        '<p style="margin:0 0 6px;font-weight:700;color:#164554;">题目</p>'
+        '<p style="margin:0 0 6px;font-weight:700;color:#111827;">题目</p>'
         + problem
-        + '<p style="margin:10px 0 6px;font-weight:700;color:#164554;">解答</p>'
+        + '<p style="margin:10px 0 6px;font-weight:700;color:#111827;">解答</p>'
         + solution
     )
     if answer:
-        body += '<p style="margin:10px 0 6px;font-weight:700;color:#164554;">答案</p>' + answer
+        body += '<p style="margin:10px 0 6px;font-weight:700;color:#111827;">答案</p>' + answer
     return (
-        '<section style="margin:14px 0;padding:14px;background:#fffdf7;'
-        'border:1px solid #eadca6;">'
-        f'<p style="margin:0 0 8px;font-weight:700;color:#8a5a00;">{title}</p>'
+        '<section style="margin:16px 0 22px;">'
+        f'<p style="margin:0 0 8px;font-size:17px;line-height:1.5;'
+        f'font-weight:700;color:#111827;">{title}</p>'
         f"{body}</section>"
     )
 
 
-def render_block(block: dict[str, Any], *, upload_map: dict[str, str]) -> str:
+def render_block(
+    block: dict[str, Any],
+    *,
+    upload_map: dict[str, str],
+    section_key: str = "",
+) -> str:
     block_type = str(block.get("type", "paragraph"))
     if block_type == "paragraph":
-        return f'<p style="margin:10px 0;line-height:1.9;">{render_tokens(block.get("tokens"), upload_map=upload_map)}</p>'
+        return render_paragraph_block(block, upload_map=upload_map, section_key=section_key)
     if block_type in {"math_image", "math_block", "math_inline"}:
         return render_formula_image(block, upload_map=upload_map, inline=False)
     if block_type == "image_block":
         return render_formula_image(block, upload_map=upload_map, inline=False)
     if block_type == "bullet_list":
-        return render_bullet_list(block, upload_map=upload_map)
+        return render_bullet_list(block, upload_map=upload_map, section_key=section_key)
     if block_type == "theorem_group":
         return render_theorem_group(block, upload_map=upload_map)
     if block_type == "proof_steps":
-        return render_proof_steps(block, upload_map=upload_map)
+        return render_proof_steps(block, upload_map=upload_map, section_key=section_key)
     if block_type == "warning":
         title = escape_text(str(block.get("title") or "提醒"))
-        content = render_step_content(block.get("content"), upload_map=upload_map)
+        content = render_step_content(block.get("content"), upload_map=upload_map, section_key=section_key)
         return (
-            '<section style="margin:12px 0;padding:12px 14px;background:#fff7f5;'
-            'border-left:4px solid #d14b3f;">'
-            f'<p style="margin:0 0 8px;font-weight:700;color:#9f2f27;">{title}</p>'
+            '<section style="margin:14px 0 18px;">'
+            f'<p style="margin:0 0 8px;font-size:17px;line-height:1.5;'
+            f'font-weight:700;color:#111827;">{title}</p>'
             f"{content}</section>"
         )
     if block_type == "summary_box":
         title = escape_text(str(block.get("title") or "总结"))
-        content = render_step_content(block.get("content"), upload_map=upload_map)
+        content = render_step_content(block.get("content"), upload_map=upload_map, section_key=section_key)
         return (
-            '<section style="margin:12px 0;padding:12px 14px;background:#f7fbf0;'
-            'border:1px solid #dbe9c2;">'
-            f'<p style="margin:0 0 8px;font-weight:700;color:#3f6b2f;">{title}</p>'
+            '<section style="margin:14px 0 18px;">'
+            f'<p style="margin:0 0 8px;font-size:17px;line-height:1.5;'
+            f'font-weight:700;color:#111827;">{title}</p>'
             f"{content}</section>"
         )
     if block_type == "example":
-        return render_example(block, upload_map=upload_map)
+        return render_example(block, upload_map=upload_map, section_key=section_key)
     if block_type == "divider":
         return '<hr style="border:0;border-top:1px solid #ece7dc;margin:18px 0;"/>'
     return ""
@@ -1237,17 +1802,34 @@ def render_article_html(
         key = str(section.get("key") or "")
         if key not in wanted:
             continue
-        section_title = escape_text(str(section.get("title") or key))
         blocks = section.get("blocks") if isinstance(section.get("blocks"), list) else []
-        body.append(
-            '<section style="margin:22px 0 0;">'
-            f'<h2 style="font-size:18px;line-height:1.4;margin:0 0 10px;'
-            f'color:#164554;border-bottom:1px solid #e5e7eb;padding-bottom:6px;">{section_title}</h2>'
+        section_content = render_blocks_sequence(
+            blocks,
+            upload_map=upload_map,
+            section_key=key,
         )
-        for block in blocks:
-            if isinstance(block, dict):
-                body.append(render_block(block, upload_map=upload_map))
-        body.append("</section>")
+        box_style = SECTION_BOX_STYLES.get(key)
+        if box_style:
+            section_title = escape_text(str(box_style.get("title") or section.get("title") or key))
+            color = str(box_style["color"])
+            bg = str(box_style["bg"])
+            body.append(
+                f'<section style="margin:24px 0;border:2px solid {color};'
+                f'background:{bg};border-radius:6px;overflow:hidden;">'
+                f'<p style="margin:0;padding:8px 16px;background:{color};'
+                f'color:#ffffff;font-size:20px;line-height:1.35;font-weight:700;">'
+                f"{section_title}</p>"
+                f'<section style="padding:14px 18px 18px;">{section_content}</section>'
+                "</section>"
+            )
+        else:
+            section_title = escape_text(str(section.get("title") or key))
+            body.append(
+                '<section style="margin:22px 0 0;">'
+                f'<h2 style="font-size:18px;line-height:1.4;margin:0 0 10px;'
+                f'color:#164554;border-bottom:1px solid #e5e7eb;padding-bottom:6px;">{section_title}</h2>'
+                f"{section_content}</section>"
+            )
 
     body.append(
         '<p style="margin:24px 0 0;color:#8a8f98;font-size:13px;line-height:1.7;">'
@@ -1283,9 +1865,8 @@ def build_article_payload(
     config: DraftConfig,
     pdf_map: dict[str, Any],
 ) -> dict[str, Any]:
-    return {
+    article = {
         "title": truncate_text(record_title(record), 64),
-        "author": truncate_text(config.author, 8),
         "digest": record_digest(record),
         "content": html_content,
         "content_source_url": render_content_source_url(
@@ -1298,6 +1879,9 @@ def build_article_payload(
         "need_open_comment": config.need_open_comment,
         "only_fans_can_comment": config.only_fans_can_comment,
     }
+    if config.author:
+        article["author"] = truncate_text(config.author, 8)
+    return article
 
 
 def process_one_item(
