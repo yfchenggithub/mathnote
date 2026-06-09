@@ -20,6 +20,13 @@ class IncrementalPublishConfigTests(unittest.TestCase):
             config = publisher.build_config(publisher.parse_args())
         self.assertTrue(config.keep_temp)
 
+    def test_formula_output_uses_temp_workspace(self) -> None:
+        with mock.patch("sys.argv", ["incremental_publish.py", "R005"]):
+            config = publisher.build_config(publisher.parse_args())
+        paths = publisher.create_paths(config)
+        self.assertEqual(paths.formula_out_dir, paths.tmp_root / "formulas")
+        self.assertTrue(publisher.path_is_within(paths.tmp_root, paths.formula_out_dir))
+
 
 def _publish_config() -> publisher.PublishConfig:
     root = publisher.PROJECT_ROOT
@@ -65,6 +72,40 @@ def _publish_config() -> publisher.PublishConfig:
 
 def _fixture_root(name: str) -> Path:
     return publisher.PROJECT_ROOT / ".tmp" / "test_incremental_publish" / name
+
+
+class IncrementalPublishFormulaBackupTests(unittest.TestCase):
+    def test_cleanup_temp_backs_up_formula_dirs_without_deleting_existing_assets(self) -> None:
+        fixture_root = _fixture_root("incremental_publish_formula_backup_fixture")
+        shutil.rmtree(fixture_root, ignore_errors=True)
+        local_formula_root = fixture_root / "public" / "static" / "formulas"
+        temp_root = fixture_root / "tmp_root"
+        source_dir = temp_root / "formulas" / "R005"
+        target_dir = local_formula_root / "R005"
+        source_dir.mkdir(parents=True, exist_ok=True)
+        target_dir.mkdir(parents=True, exist_ok=True)
+        (source_dir / "new@3x.png").write_bytes(b"new")
+        (target_dir / "existing@3x.png").write_bytes(b"existing")
+
+        config = _publish_config()
+        config.keep_temp = False
+        paths = publisher.create_paths(config)
+        paths.tmp_root = temp_root
+        paths.formula_out_dir = temp_root / "formulas"
+
+        try:
+            with mock.patch.object(
+                publisher,
+                "DEFAULT_LOCAL_FORMULA_DIR",
+                local_formula_root,
+            ):
+                publisher.cleanup_temp(paths, config)
+
+            self.assertFalse(temp_root.exists())
+            self.assertEqual((target_dir / "new@3x.png").read_bytes(), b"new")
+            self.assertEqual((target_dir / "existing@3x.png").read_bytes(), b"existing")
+        finally:
+            shutil.rmtree(fixture_root, ignore_errors=True)
 
 
 class IncrementalPublishUploadTests(unittest.TestCase):

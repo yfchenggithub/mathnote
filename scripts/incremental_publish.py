@@ -24,6 +24,8 @@ Important data-flow notes:
        D:\\mathnode_backend\\app\\data\\conclusion_pdf_map.json
 2. Formula/TikZ images are rendered from the single-ID canonical delta, then only
    the current ID image directories are uploaded to the remote static directories.
+   Formula image directories are copied to public/static/formulas/<ID> before
+   the temporary workspace is deleted so local assets remain available.
 3. Remote JSON/PDF updates are expected to arrive through backend git pull.
 4. After files are synced into the local backend data directory, those exact
    files are committed and pushed from the backend repo unless disabled.
@@ -74,6 +76,7 @@ DEFAULT_BACKEND_INDEX_PATH = (
 )
 DEFAULT_PDF_MAP_PATH = PROJECT_ROOT / "build" / "conclusion_pdf_map.json"
 DEFAULT_PDF_OUTPUT_DIR = PROJECT_ROOT / "build" / "conclusion_pdfs"
+DEFAULT_LOCAL_FORMULA_DIR = PROJECT_ROOT / "public" / "static" / "formulas"
 DEFAULT_REPORT_PATH = PROJECT_ROOT / "reports" / "incremental_publish_report.json"
 RENDER_MATH_ASSETS_REPORT = PROJECT_ROOT / "reports" / "render_math_assets_report.json"
 RENDER_TIKZ_ASSETS_REPORT = PROJECT_ROOT / "reports" / "render_tikz_assets_report.json"
@@ -1868,7 +1871,26 @@ def write_report(report: PublishReport, config: PublishConfig, paths: PublishPat
     LOGGER.info("Report written | %s", config.report_path)
 
 
+def backup_local_formula_dirs(config: PublishConfig, paths: PublishPaths) -> list[str]:
+    if config.dry_run:
+        LOGGER.info("Local formula backup skipped for dry run.")
+        return []
+
+    backed_up: list[str] = []
+    for item_id in config.ids:
+        source_dir = paths.formula_out_dir / item_id
+        if not source_dir.is_dir():
+            continue
+        target_dir = DEFAULT_LOCAL_FORMULA_DIR / item_id
+        target_dir.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copytree(source_dir, target_dir, dirs_exist_ok=True)
+        backed_up.append(str(target_dir))
+        LOGGER.info("Local formula assets backed up | %s -> %s", source_dir, target_dir)
+    return backed_up
+
+
 def cleanup_temp(paths: PublishPaths, config: PublishConfig) -> None:
+    backup_local_formula_dirs(config, paths)
     if config.keep_temp:
         LOGGER.info("Temp workspace kept | %s", paths.tmp_root)
         return
