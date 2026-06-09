@@ -56,7 +56,7 @@ MINICODE_PATH = PROJECT_ROOT / "assets" / "figures" / "MiniCode.png"
 DEFAULT_AUTHOR = ""
 DEFAULT_COVER_BRAND = "ok-shuxue"
 DEFAULT_COVER_SIZE = "1800x1000"
-COVER_LAYOUT_VERSION = "v11"
+COVER_LAYOUT_VERSION = "v12"
 WECHAT_TITLE_PREFIX = "二级结论"
 MODULE_DISPLAY_NAMES = {
     "00_set": "集合",
@@ -1194,11 +1194,10 @@ def generate_cover(
     image = Image.new("RGB", (width, height), "#f7f5ef")
     draw = ImageDraw.Draw(image)
 
-    # Cover v7:
-    # 1. Separate title and subtitle with noticeably more breathing room.
-    # 2. Remove the white formula background completely.
-    # 3. Extract only the dark strokes of the formula and render them in a light
-    #    color onto a dark integrated panel.
+    # Cover v12:
+    # 1. Keep title / subtitle spacing clear.
+    # 2. Move the formula slightly upward.
+    # 3. Add more inner padding so the formula does not touch the edges.
     for x in range(width):
         ratio = x / max(width - 1, 1)
         r = int(11 + 21 * ratio)
@@ -1288,15 +1287,15 @@ def generate_cover(
     draw.text((margin, subtitle_y), subtitle_line, font=subtitle_font, fill="#F4D35E")
 
     # Remove the yellow divider and also remove the separate card feeling.
-    # The formula should live directly inside the same teal gradient region as
-    # the title area, with no extra box fill and no yellow line.
-    formula_box = [margin, int(height * 0.555), width - margin, int(height * 0.905)]
+    # Move the formula zone upward and give it more inner padding so the formula
+    # remains large but no longer presses against the card edges.
+    formula_box = [margin, int(height * 0.515), width - margin, int(height * 0.875)]
 
     formula_path = primary_formula_local_path(record, config.public_dir)
-    content_left = formula_box[0] + int(width * 0.015)
-    content_right = formula_box[2] - int(width * 0.015)
+    content_left = formula_box[0] + int(width * 0.045)
+    content_right = formula_box[2] - int(width * 0.045)
     content_top = formula_box[1] + int(height * 0.020)
-    content_bottom = formula_box[3] - int(height * 0.020)
+    content_bottom = formula_box[3] - int(height * 0.070)
 
     if formula_path:
         formula_img = Image.open(formula_path).convert("RGBA")
@@ -1347,9 +1346,9 @@ def generate_cover(
         tinted.putalpha(stroke_mask)
         formula_img = tinted
 
-        max_w = int((content_right - content_left) * 0.995)
-        max_h = int((content_bottom - content_top) * 0.985)
-        scale = min(max_w / formula_img.width, max_h / formula_img.height, 7.2)
+        max_w = int((content_right - content_left) * 0.985)
+        max_h = int((content_bottom - content_top) * 0.965)
+        scale = min(max_w / formula_img.width, max_h / formula_img.height, 6.6)
         new_size = (
             max(1, int(formula_img.width * scale)),
             max(1, int(formula_img.height * scale)),
@@ -1357,6 +1356,8 @@ def generate_cover(
         formula_img = formula_img.resize(new_size, Image.LANCZOS)
         paste_x = content_left + (content_right - content_left - new_size[0]) // 2
         paste_y = content_top + (content_bottom - content_top - new_size[1]) // 2
+        paste_y -= int(height * 0.020)
+        paste_y = max(content_top, min(paste_y, content_bottom - new_size[1]))
         image.paste(formula_img, (paste_x, paste_y), formula_img)
     elif formula:
         fallback_formula = truncate_text(formula.replace("\n", " "), 84)
@@ -1364,8 +1365,8 @@ def generate_cover(
             draw,
             fallback_formula,
             max_width=content_right - content_left,
-            initial_size=int(width * 0.052),
-            min_size=int(width * 0.032),
+            initial_size=int(width * 0.048),
+            min_size=int(width * 0.030),
             bold=False,
         )
         draw_centered_text(
