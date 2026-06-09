@@ -56,6 +56,21 @@ MINICODE_PATH = PROJECT_ROOT / "assets" / "figures" / "MiniCode.png"
 DEFAULT_AUTHOR = ""
 DEFAULT_COVER_BRAND = "ok-shuxue"
 DEFAULT_COVER_SIZE = "1800x1000"
+COVER_LAYOUT_VERSION = "v11"
+WECHAT_TITLE_PREFIX = "二级结论"
+MODULE_DISPLAY_NAMES = {
+    "00_set": "集合",
+    "01_function": "函数",
+    "02_sequence": "数列",
+    "03_conic": "圆锥曲线",
+    "04_vector": "向量",
+    "05_geometry-solid": "立体几何",
+    "06_probability-stat": "概率统计",
+    "07_inequality": "不等式",
+    "08_trigonometry": "三角函数",
+    "09_geometry-plane": "平面几何",
+    "10_final": "综合压轴",
+}
 DEFAULT_SECTION_KEYS = (
     "statement",
     "explanation",
@@ -926,6 +941,96 @@ def record_title(record: dict[str, Any]) -> str:
     return title or "二级结论"
 
 
+def module_display_name_from_slug(module: str) -> str:
+    value = str(module or "").strip()
+    if not value:
+        return ""
+    if value in MODULE_DISPLAY_NAMES:
+        return MODULE_DISPLAY_NAMES[value]
+    # Fallback: 05_geometry-solid -> geometry solid
+    text = value.split("_", 1)[-1].replace("-", " ").replace("_", " ").strip()
+    return text
+
+
+def module_display_name_for_item(record: dict[str, Any], item_id: str) -> str:
+    """Return the Chinese module name implied by the ID prefix.
+
+    The source of truth is module_prefix_map.json, e.g. 05_geometry-solid -> G,
+    so G009 can be rendered as “立体几何 G009”.
+    """
+    item = str(item_id or "").strip().upper()
+    prefix = item[:1]
+    if prefix:
+        try:
+            prefix_map = load_module_prefix_map()
+        except Exception:
+            prefix_map = {}
+        for module, mapped_prefix in prefix_map.items():
+            if str(mapped_prefix).strip().upper() == prefix:
+                label = module_display_name_from_slug(module)
+                if label:
+                    return label
+
+    category = record_category(record)
+    return category or ""
+
+
+def public_title_prefix(record: dict[str, Any], item_id: str) -> str:
+    module_name = module_display_name_for_item(record, item_id)
+    if module_name:
+        return f"{WECHAT_TITLE_PREFIX} {module_name} {item_id}"
+    return f"{WECHAT_TITLE_PREFIX} {item_id}"
+
+
+def strip_title_prefix(title: str, item_id: str) -> str:
+    """Remove old ID/module/keyword prefixes so new titles do not repeat themselves."""
+    text = str(title or "").strip()
+    item = re.escape(str(item_id or "").strip())
+    # Handles both old titles like “二级结论 G009｜...” and new titles
+    # like “二级结论 立体几何 G009｜...”.
+    patterns = (
+        rf"^\s*{WECHAT_TITLE_PREFIX}\s*(?:[\u4e00-\u9fa5A-Za-z0-9_\-]+\s*)*{item}\s*[｜|:：\-—]*\s*",
+        rf"^\s*{item}\s*{WECHAT_TITLE_PREFIX}\s*[｜|:：\-—]*\s*",
+        rf"^\s*高中数学{WECHAT_TITLE_PREFIX}\s*[｜|:：\-—]*\s*",
+        rf"^\s*{WECHAT_TITLE_PREFIX}\s*[｜|:：\-—]*\s*",
+    )
+    for pattern in patterns:
+        text = re.sub(pattern, "", text, flags=re.I).strip()
+    return text or str(title or "").strip() or "数学结论"
+
+
+def public_article_title(record: dict[str, Any], item_id: str) -> str:
+    """WeChat article title: force 二级结论, module name and ID into the title."""
+    base = strip_title_prefix(record_title(record), item_id)
+    return truncate_text(f"{public_title_prefix(record, item_id)}｜{base}", 64)
+
+
+def public_article_digest(record: dict[str, Any], item_id: str) -> str:
+    raw = record_digest(record)
+    if not raw:
+        base = strip_title_prefix(record_title(record), item_id)
+        raw = f"{base}，核心公式、适用条件、典型例题和易错提醒。"
+    return truncate_text(f"{public_title_prefix(record, item_id)}：{raw}", 120)
+
+
+def split_cover_title(record: dict[str, Any], item_id: str) -> tuple[str, str]:
+    """Split title into cover main title and value subtitle.
+
+    Example:
+        正四面体外接球半径公式：棱长到半径一阶转换
+        -> 正四面体外接球半径公式 / 棱长到半径一阶转换
+    """
+    base = strip_title_prefix(record_title(record), item_id)
+    parts = re.split(r"[：:]", base, maxsplit=1)
+    main = parts[0].strip() if parts else base.strip()
+    subtitle = parts[1].strip() if len(parts) > 1 else "公式速查 · 条件清楚 · 直接使用"
+    return truncate_text(main, 32), truncate_text(subtitle, 28)
+
+
+def cover_kicker(record: dict[str, Any], item_id: str) -> str:
+    return public_title_prefix(record, item_id)
+
+
 def record_body_title(record: dict[str, Any]) -> str:
     meta = record.get("meta") if isinstance(record.get("meta"), dict) else {}
     title = str(meta.get("title") or "").strip()
@@ -1033,6 +1138,41 @@ def wrap_text(
     return lines
 
 
+def fit_font_to_width(
+    draw: Any,
+    text: str,
+    *,
+    max_width: int,
+    initial_size: int,
+    min_size: int,
+    bold: bool = False,
+):
+    size = max(initial_size, min_size)
+    while size > min_size:
+        font = find_font(size, bold=bold)
+        if text_width(draw, text, font) <= max_width:
+            return font
+        size -= 2
+    return find_font(min_size, bold=bold)
+
+
+def draw_centered_text(
+    draw: Any,
+    box: tuple[int, int, int, int] | list[int],
+    text: str,
+    font: Any,
+    *,
+    fill: str,
+) -> None:
+    left, top, right, bottom = map(int, box)
+    bbox = draw.textbbox((0, 0), text, font=font)
+    text_w = bbox[2] - bbox[0]
+    text_h = bbox[3] - bbox[1]
+    x = left + (right - left - text_w) // 2 - bbox[0]
+    y = top + (bottom - top - text_h) // 2 - bbox[1]
+    draw.text((x, y), text, font=font, fill=fill)
+
+
 def generate_cover(
     *,
     record: dict[str, Any],
@@ -1044,7 +1184,7 @@ def generate_cover(
         return
 
     try:
-        from PIL import Image, ImageDraw
+        from PIL import Image, ImageDraw, ImageOps, ImageChops
     except ImportError as exc:
         raise DraftError(
             "Pillow is required for cover generation. Install pillow first."
@@ -1054,88 +1194,186 @@ def generate_cover(
     image = Image.new("RGB", (width, height), "#f7f5ef")
     draw = ImageDraw.Draw(image)
 
-    # Quiet editorial cover with enough contrast for WeChat thumbnails.
+    # Cover v7:
+    # 1. Separate title and subtitle with noticeably more breathing room.
+    # 2. Remove the white formula background completely.
+    # 3. Extract only the dark strokes of the formula and render them in a light
+    #    color onto a dark integrated panel.
     for x in range(width):
         ratio = x / max(width - 1, 1)
-        r = int(20 + 22 * ratio)
-        g = int(68 + 34 * ratio)
-        b = int(82 + 38 * ratio)
+        r = int(11 + 21 * ratio)
+        g = int(60 + 36 * ratio)
+        b = int(74 + 42 * ratio)
         draw.line([(x, 0), (x, height)], fill=(r, g, b))
-    draw.rectangle([0, int(height * 0.72), width, height], fill="#f4d35e")
-    draw.rectangle([0, int(height * 0.78), width, height], fill="#f7f5ef")
 
-    title_font = find_font(int(width * 0.058), bold=True)
-    small_font = find_font(int(width * 0.026), bold=False)
-    tag_font = find_font(int(width * 0.025), bold=True)
-    brand_font = find_font(int(width * 0.024), bold=True)
-
-    margin = int(width * 0.075)
-    title = record_title(record)
+    margin = int(width * 0.07)
+    top = int(height * 0.058)
+    main_title, subtitle = split_cover_title(record, item_id)
     category = record_category(record)
     formula = primary_formula_latex(record)
 
-    draw.text(
-        (margin, int(height * 0.095)),
-        config.cover_brand,
-        font=brand_font,
-        fill="#f7f5ef",
-    )
-    tag_text = f"{item_id}  二级结论"
-    tag_w = text_width(draw, tag_text, tag_font) + int(width * 0.04)
-    tag_h = int(height * 0.065)
-    tag_x = width - margin - tag_w
-    tag_y = int(height * 0.08)
-    draw.rounded_rectangle(
-        [tag_x, tag_y, tag_x + tag_w, tag_y + tag_h], radius=tag_h // 2, fill="#f7f5ef"
-    )
-    draw.text(
-        (tag_x + int(width * 0.02), tag_y + int(height * 0.014)),
-        tag_text,
-        font=tag_font,
-        fill="#164554",
-    )
+    brand_font = find_font(int(width * 0.023), bold=True)
+    title_font = find_font(int(width * 0.051), bold=True)
+    small_font = find_font(int(width * 0.023), bold=False)
 
-    lines = wrap_text(draw, title, title_font, int(width * 0.72), 3)
-    title_y = int(height * 0.24)
-    for line in lines:
-        draw.text((margin, title_y), line, font=title_font, fill="#ffffff")
-        title_y += int(height * 0.105)
+    brand = config.cover_brand.strip() or DEFAULT_COVER_BRAND
+    if "数秒查" not in brand:
+        brand = f"{brand} · 数秒查"
+    draw.text((margin, top), brand, font=brand_font, fill="#D8EDF0")
 
     if category:
-        draw.text(
-            (margin, int(height * 0.67)), category, font=small_font, fill="#d8edf0"
+        chip_text = truncate_text(category, 16)
+        chip_w = text_width(draw, chip_text, small_font) + int(width * 0.04)
+        chip_h = int(height * 0.052)
+        chip_x = width - margin - chip_w
+        chip_y = top
+        draw.rounded_rectangle(
+            [chip_x, chip_y, chip_x + chip_w, chip_y + chip_h],
+            radius=chip_h // 2,
+            outline="#9FC9CE",
+            width=2,
+        )
+        draw_centered_text(
+            draw,
+            [chip_x, chip_y, chip_x + chip_w, chip_y + chip_h],
+            chip_text,
+            small_font,
+            fill="#D8EDF0",
         )
 
-    formula_path = primary_formula_local_path(record, config.public_dir)
-    formula_box = [margin, int(height * 0.79), width - margin, int(height * 0.93)]
-    draw.rounded_rectangle(
-        formula_box,
-        radius=int(height * 0.025),
-        fill="#ffffff",
-        outline="#e7e2d8",
-        width=2,
+    kicker = cover_kicker(record, item_id)
+    badge_pad_x = int(width * 0.030)
+    badge_x = margin
+    badge_y = int(height * 0.135)
+    badge_max_w = int(width * 0.86)
+    badge_h = int(height * 0.078)
+    kicker_font = fit_font_to_width(
+        draw,
+        kicker,
+        max_width=badge_max_w - badge_pad_x * 2,
+        initial_size=int(width * 0.034),
+        min_size=int(width * 0.024),
+        bold=True,
     )
+    badge_w = min(text_width(draw, kicker, kicker_font) + badge_pad_x * 2, badge_max_w)
+    draw.rounded_rectangle(
+        [badge_x, badge_y, badge_x + badge_w, badge_y + badge_h],
+        radius=badge_h // 2,
+        fill="#F4D35E",
+    )
+    draw_centered_text(
+        draw,
+        [badge_x, badge_y, badge_x + badge_w, badge_y + badge_h],
+        kicker,
+        kicker_font,
+        fill="#123F4C",
+    )
+
+    title_y = int(height * 0.255)
+    title_lines = wrap_text(draw, main_title, title_font, int(width * 0.82), 2)
+    for line in title_lines:
+        draw.text((margin, title_y), line, font=title_font, fill="#FFFFFF")
+        title_y += int(height * 0.112)
+
+    subtitle_line = truncate_text(subtitle, 20)
+    subtitle_font = fit_font_to_width(
+        draw,
+        subtitle_line,
+        max_width=int(width * 0.68),
+        initial_size=int(width * 0.028),
+        min_size=int(width * 0.021),
+        bold=True,
+    )
+    subtitle_y = title_y + int(height * 0.050)
+    draw.text((margin, subtitle_y), subtitle_line, font=subtitle_font, fill="#F4D35E")
+
+    # Remove the yellow divider and also remove the separate card feeling.
+    # The formula should live directly inside the same teal gradient region as
+    # the title area, with no extra box fill and no yellow line.
+    formula_box = [margin, int(height * 0.555), width - margin, int(height * 0.905)]
+
+    formula_path = primary_formula_local_path(record, config.public_dir)
+    content_left = formula_box[0] + int(width * 0.015)
+    content_right = formula_box[2] - int(width * 0.015)
+    content_top = formula_box[1] + int(height * 0.020)
+    content_bottom = formula_box[3] - int(height * 0.020)
+
     if formula_path:
         formula_img = Image.open(formula_path).convert("RGBA")
-        max_w = int((formula_box[2] - formula_box[0]) * 0.72)
-        max_h = int((formula_box[3] - formula_box[1]) * 0.58)
-        scale = min(max_w / formula_img.width, max_h / formula_img.height, 2.5)
+
+        # Robust formula extraction for both kinds of assets:
+        # 1) already-transparent formula PNGs, and
+        # 2) white-background formula PNGs.
+        # Goal: remove the light background, keep dark strokes, and recolor the
+        # formula into a light tone for the dark panel.
+        alpha = formula_img.getchannel("A")
+        alpha_bbox = alpha.getbbox()
+        if alpha_bbox:
+            formula_img = formula_img.crop(alpha_bbox)
+            alpha = formula_img.getchannel("A")
+
+        # Flatten on white first, then detect dark strokes from luminance.
+        # IMPORTANT: do not use the original alpha as the final mask. Many formula
+        # assets are opaque white-background PNGs; using alpha directly will turn
+        # the whole white rectangle into a light block and the formula disappears.
+        flat_rgb = Image.new("RGBA", formula_img.size, (255, 255, 255, 255))
+        flat_rgb.alpha_composite(formula_img)
+        gray = ImageOps.grayscale(flat_rgb)
+
+        # Darker pixels become more opaque; near-white pixels disappear.
+        stroke_mask = gray.point(
+            lambda p: 0 if p >= 238 else max(0, min(255, int((238 - p) * 255 / 150)))
+        )
+
+        # Respect transparent backgrounds by multiplying with the original alpha,
+        # but keep the dark-stroke mask as the source of truth.
+        try:
+            stroke_mask = ImageChops.multiply(stroke_mask, alpha)
+        except Exception:
+            pass
+
+        bbox = stroke_mask.getbbox()
+        if bbox:
+            stroke_mask = stroke_mask.crop(bbox)
+        else:
+            # Fallback: if stroke detection fails, keep a normal dark formula on
+            # a light-free panel by using the original cropped image's alpha.
+            stroke_mask = alpha
+            bbox = stroke_mask.getbbox()
+            if bbox:
+                stroke_mask = stroke_mask.crop(bbox)
+
+        tinted = Image.new("RGBA", stroke_mask.size, (247, 245, 238, 0))
+        tinted.putalpha(stroke_mask)
+        formula_img = tinted
+
+        max_w = int((content_right - content_left) * 0.995)
+        max_h = int((content_bottom - content_top) * 0.985)
+        scale = min(max_w / formula_img.width, max_h / formula_img.height, 7.2)
         new_size = (
             max(1, int(formula_img.width * scale)),
             max(1, int(formula_img.height * scale)),
         )
         formula_img = formula_img.resize(new_size, Image.LANCZOS)
-        paste_x = formula_box[0] + (formula_box[2] - formula_box[0] - new_size[0]) // 2
-        paste_y = formula_box[1] + (formula_box[3] - formula_box[1] - new_size[1]) // 2
+        paste_x = content_left + (content_right - content_left - new_size[0]) // 2
+        paste_y = content_top + (content_bottom - content_top - new_size[1]) // 2
         image.paste(formula_img, (paste_x, paste_y), formula_img)
     elif formula:
-        formula_font = find_font(int(width * 0.032), bold=False)
-        formula_text = truncate_text(formula.replace("\\", " "), 50)
-        draw.text(
-            (formula_box[0] + int(width * 0.035), formula_box[1] + int(height * 0.045)),
-            formula_text,
-            font=formula_font,
-            fill="#164554",
+        fallback_formula = truncate_text(formula.replace("\n", " "), 84)
+        formula_font = fit_font_to_width(
+            draw,
+            fallback_formula,
+            max_width=content_right - content_left,
+            initial_size=int(width * 0.052),
+            min_size=int(width * 0.032),
+            bold=False,
+        )
+        draw_centered_text(
+            draw,
+            [content_left, content_top, content_right, content_bottom],
+            fallback_formula,
+            formula_font,
+            fill="#F7F5EF",
         )
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
@@ -2101,7 +2339,9 @@ def render_content_source_url(
         return ""
     pdf_name = str(pdf_map.get(item_id) or "")
     try:
-        return template.format(id=item_id, pdf=pdf_name, title=record_title(record))
+        return template.format(
+            id=item_id, pdf=pdf_name, title=public_article_title(record, item_id)
+        )
     except Exception as exc:
         raise DraftError(f"Invalid --content-source-url-template: {exc}") from exc
 
@@ -2116,8 +2356,8 @@ def build_article_payload(
     pdf_map: dict[str, Any],
 ) -> dict[str, Any]:
     article = {
-        "title": truncate_text(record_title(record), 64),
-        "digest": record_digest(record),
+        "title": public_article_title(record, item_id),
+        "digest": public_article_digest(record, item_id),
         "content": html_content,
         "content_source_url": render_content_source_url(
             config.content_source_url_template,
@@ -2145,8 +2385,8 @@ def process_one_item(
 ) -> DraftItemReport:
     item_output_dir = config.output_dir / item_id
     item_output_dir.mkdir(parents=True, exist_ok=True)
-    title = record_title(record)
-    cover_path = item_output_dir / "cover.png"
+    title = public_article_title(record, item_id)
+    cover_path = item_output_dir / f"cover_{COVER_LAYOUT_VERSION}.png"
     report = DraftItemReport(
         id=item_id,
         title=title,
@@ -2284,10 +2524,14 @@ def orchestrate(config: DraftConfig) -> dict[str, Any]:
             except Exception as exc:
                 item_report = DraftItemReport(
                     id=item_id,
-                    title=record_title(record),
+                    title=public_article_title(record, item_id),
                     status="failed",
                     output_dir=str(config.output_dir / item_id),
-                    cover_path=str(config.output_dir / item_id / "cover.png"),
+                    cover_path=str(
+                        config.output_dir
+                        / item_id
+                        / f"cover_{COVER_LAYOUT_VERSION}.png"
+                    ),
                     error=str(exc),
                 )
                 report["items"].append(asdict(item_report))
