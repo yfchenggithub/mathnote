@@ -50,12 +50,12 @@ DEFAULT_REPORT_PATH = PROJECT_ROOT / "reports" / "generate_wechat_drafts_report.
 DEFAULT_MODULE_PREFIX_MAP = PROJECT_ROOT / "12_pipeline" / "config" / "module_prefix_map.json"
 DEFAULT_TOKEN_CACHE = DEFAULT_OUTPUT_DIR / "wechat_access_token_cache.json"
 DEFAULT_UPLOAD_CACHE = DEFAULT_OUTPUT_DIR / "wechat_upload_cache.json"
+MINICODE_ASSET_URL = "/assets/figures/MiniCode.png"
+MINICODE_PATH = PROJECT_ROOT / "assets" / "figures" / "MiniCode.png"
 DEFAULT_AUTHOR = ""
 DEFAULT_COVER_BRAND = "OK 数学"
 DEFAULT_COVER_SIZE = "1800x1000"
 DEFAULT_SECTION_KEYS = (
-    "core_formula",
-    "conditions",
     "statement",
     "explanation",
     "proof",
@@ -65,15 +65,16 @@ DEFAULT_SECTION_KEYS = (
 )
 
 SECTION_BOX_STYLES = {
-    "statement": {"title": "命题表述", "color": "#1F4E79", "bg": "#EAF2F8"},
-    "explanation": {"title": "理解说明", "color": "#355C7D", "bg": "#F2F5F7"},
-    "proof": {"title": "证明过程", "color": "#6C5B7B", "bg": "#F3F0F7"},
-    "examples": {"title": "例题应用", "color": "#2E7D32", "bg": "#EDF7ED"},
-    "traps": {"title": "易错提醒", "color": "#8E2424", "bg": "#FBEAEA"},
-    "summary": {"title": "复盘总结", "color": "#5D4037", "bg": "#F5F0EB"},
+    "statement": {"title": "二级结论", "color": "#1F4E79", "bg": "#EAF2F8"},
+    "explanation": {"title": "理解说明", "color": "#355C7D", "bg": "#F2F5F7", "west": True},
+    "proof": {"title": "证明", "color": "#6C5B7B", "bg": "#F3F0F7"},
+    "examples": {"title": "典型例题", "color": "#2E7D32", "bg": "#EDF7ED"},
+    "traps": {"title": "易错提醒", "color": "#8E2424", "bg": "#FBEAEA", "west": True},
+    "summary": {"title": "结论小结", "color": "#5D4037", "bg": "#F5F0EB", "west": True},
 }
 
 COLORED_SUBHEADINGS = {
+    "一句话核心",
     "一句话直觉",
     "核心拆解",
     "几何本质（高度对称）",
@@ -735,6 +736,8 @@ def local_asset_path(public_dir: Path, asset_url: str) -> Path | None:
     normalized = text.split("?", 1)[0].split("#", 1)[0].replace("\\", "/")
     if normalized.startswith("/"):
         normalized = normalized[1:]
+    if normalized.startswith("assets/"):
+        return PROJECT_ROOT / normalized
     return public_dir / normalized
 
 
@@ -840,6 +843,9 @@ def collect_article_image_refs(record: dict[str, Any], public_dir: Path) -> dict
         if not local_path.is_file():
             raise DraftError(f"Article image asset missing: {asset_url} -> {local_path}")
         refs.setdefault(asset_url, local_path)
+    if not MINICODE_PATH.is_file():
+        raise DraftError(f"Mini program code image missing: {MINICODE_PATH}")
+    refs.setdefault(MINICODE_ASSET_URL, MINICODE_PATH)
     return refs
 
 
@@ -858,6 +864,12 @@ def record_title(record: dict[str, Any]) -> str:
     share = ext.get("share") if isinstance(ext.get("share"), dict) else {}
     title = str(share.get("title") or meta.get("title") or record.get("id") or "").strip()
     return title or "二级结论"
+
+
+def record_body_title(record: dict[str, Any]) -> str:
+    meta = record.get("meta") if isinstance(record.get("meta"), dict) else {}
+    title = str(meta.get("title") or "").strip()
+    return title or record_title(record)
 
 
 def record_digest(record: dict[str, Any]) -> str:
@@ -1050,10 +1062,20 @@ def section_color(section_key: str) -> str:
     return "#164554"
 
 
-def format_inline_labels(content_html: str) -> str:
+def paragraph_label_color(section_key: str, label: str) -> str:
+    if section_key in {"statement", "traps"}:
+        return section_color(section_key)
+    if section_key == "examples" and re.match(r"^(?:例\s*\d+|题目|解题步骤|关键结论)", label):
+        return section_color(section_key)
+    return "#111827"
+
+
+def format_inline_labels(content_html: str, *, section_key: str = "") -> str:
     label_pattern = re.compile(
         r"(^|<br/>|[。；]\s*)"
         r"((?:"
+        r"例\s*\d+"
+        r"|"
         r"要点[一二三四五六七八九十]+"
         r"|步骤[一二三四五六七八九十]+"
         r"|考法[一二三四五六七八九十]+"
@@ -1066,10 +1088,17 @@ def format_inline_labels(content_html: str) -> str:
         r"|题目|解题步骤|关键结论|理由"
         r")[^：:<]{0,28}[：:])"
     )
-    return label_pattern.sub(
-        r'\1<strong style="font-weight:700;color:#111827;">\2</strong>',
-        content_html,
-    )
+
+    def replace(match: re.Match[str]) -> str:
+        prefix = match.group(1)
+        label = match.group(2)
+        color = paragraph_label_color(section_key, label)
+        return (
+            f'{prefix}<strong style="font-weight:700;color:{color};">'
+            f"{label}</strong>"
+        )
+
+    return label_pattern.sub(replace, content_html)
 
 
 def split_first_line(raw_text: str) -> tuple[str, str]:
@@ -1092,7 +1121,7 @@ def remove_first_line_html(content_html: str, first_line: str) -> str:
 
 def normalize_paragraph_content_html(content_html: str) -> str:
     content_html = re.sub(
-        r"^\s*[.．。]\s*(?=(?:理由|代入|因为|因此|所以|可用|两边|于是|解出|关键结论|在|设|又|由|再由|其中))",
+        r"^\s*[.．。]\s*(?=(?:理由|代入|因为|因此|所以|可用|可结合|两边|于是|解出|关键结论|在|设|又|由|再由|其中))",
         "",
         content_html,
     )
@@ -1123,33 +1152,48 @@ def render_paragraph_html(
         if body_html:
             pieces.append(
                 f'<p style="margin:8px 0 14px;line-height:1.9;color:#111827;">'
-                f"{format_inline_labels(body_html)}</p>"
+                f"{format_inline_labels(body_html, section_key=section_key)}</p>"
+            )
+        return "".join(pieces)
+
+    if section_key == "examples" and re.match(r"^例\s*\d+", first_line):
+        body_html = remove_first_line_html(content_html, first_line)
+        pieces = [
+            f'<p style="margin:16px 0 8px;font-size:18px;line-height:1.45;'
+            f'font-weight:700;color:{color};">{escape_text(first_line)}</p>'
+        ]
+        if body_html:
+            pieces.append(
+                f'<p style="margin:6px 0 12px;line-height:1.9;color:#111827;">'
+                f"{format_inline_labels(body_html, section_key=section_key)}</p>"
             )
         return "".join(pieces)
 
     item_match = re.match(
         r"^((?:要点[一二三四五六七八九十]+|步骤[一二三四五六七八九十]+|考法[一二三四五六七八九十]+|场景[一二三四五六七八九十]+|"
         r"条件\s*\d+|易错点[一二三四五六七八九十]*|正确理解|错因分析|第一步|第二步|第三步|第四步|第五步|第六步)"
-        r"[^：:]{0,32}[：:])$",
+        r"[^：:]{0,32}(?:[：:]|$))$",
         first_line,
     )
     if item_match:
         body_html = remove_first_line_html(content_html, first_line)
         label = item_match.group(1)
+        label_color = paragraph_label_color(section_key, label)
         if body_html:
             return (
-                '<p style="margin:12px 0 10px;line-height:1.9;color:#111827;">'
-                f'<strong style="font-weight:700;color:#111827;">{escape_text(label)}</strong> '
-                f"{format_inline_labels(body_html)}</p>"
+                '<p style="margin:14px 0 4px;line-height:1.7;">'
+                f'<strong style="font-weight:700;color:{label_color};">{escape_text(label)}</strong></p>'
+                '<p style="margin:0 0 12px;padding-left:2.8em;line-height:1.9;color:#111827;">'
+                f"{format_inline_labels(body_html, section_key=section_key)}</p>"
             )
         return (
             '<p style="margin:12px 0 8px;line-height:1.8;">'
-            f'<strong style="font-weight:700;color:#111827;">{escape_text(label)}</strong></p>'
+            f'<strong style="font-weight:700;color:{label_color};">{escape_text(label)}</strong></p>'
         )
 
     return (
         '<p style="margin:10px 0;line-height:1.9;color:#111827;">'
-        + format_inline_labels(content_html)
+        + format_inline_labels(content_html, section_key=section_key)
         + "</p>"
     )
 
@@ -1250,7 +1294,23 @@ def paragraph_continues_inline_formula(block: dict[str, Any]) -> bool:
 
 def paragraph_opens_display_formula(block: dict[str, Any]) -> bool:
     text = paragraph_plain_text(block).strip()
-    return text.endswith(("：", ":"))
+    return text.endswith(
+        (
+            "：",
+            ":",
+            "则",
+            "因此",
+            "于是",
+            "代入",
+            "解出",
+            "正确公式为",
+            "公式为",
+            "可结合高",
+            "以及关系",
+            "满足",
+            "关系",
+        )
+    )
 
 
 def paragraph_starts_reason(block: dict[str, Any]) -> bool:
@@ -1561,7 +1621,7 @@ def render_bullet_list(
             content = text_to_html(str(item))
         lis.append(
             f'<li style="margin:7px 0;line-height:1.9;color:#111827;">'
-            f"{format_inline_labels(content)}</li>"
+            f"{format_inline_labels(content, section_key=section_key)}</li>"
         )
     return '<ul style="padding-left:1.2em;margin:8px 0 12px;">' + "".join(lis) + "</ul>"
 
@@ -1584,12 +1644,13 @@ def render_theorem_desc(
     upload_map: dict[str, str],
     with_label: bool,
 ) -> str:
+    color = section_color("statement")
     if not isinstance(tokens, list):
         text = text_to_html(str(tokens or ""))
         if with_label:
             return (
                 '<p style="margin:6px 0 10px;padding-left:2.8em;line-height:1.9;">'
-                '<strong style="color:#1f5f8b;">直观描述：</strong> '
+                f'<strong style="color:{color};">直观描述：</strong> '
                 f"{text}</p>"
             )
         return f'<p style="margin:6px 0 10px;line-height:1.9;">{text}</p>'
@@ -1606,7 +1667,7 @@ def render_theorem_desc(
         prefix = ""
         padding = "padding-left:2.8em;"
         if with_label:
-            prefix = '<strong style="color:#1f5f8b;">直观描述：</strong> '
+            prefix = f'<strong style="color:{color};">直观描述：</strong> '
             padding = "padding-left:2.8em;"
         paragraphs.append(
             f'<p style="margin:6px 0 10px;{padding}line-height:1.9;">'
@@ -1651,6 +1712,7 @@ def render_theorem_group(block: dict[str, Any], *, upload_map: dict[str, str]) -
     items = block.get("items")
     if not isinstance(items, list):
         return ""
+    color = section_color("statement")
     pieces: list[str] = []
     for item in items:
         if not isinstance(item, dict):
@@ -1665,7 +1727,7 @@ def render_theorem_group(block: dict[str, Any], *, upload_map: dict[str, str]) -
         pieces.append(
             '<section style="margin:18px 0 26px;">'
             f'<p style="margin:0 0 8px;font-size:17px;line-height:1.5;'
-            f'font-weight:700;color:#1f5f8b;">{title}</p>'
+            f'font-weight:700;color:{color};">{title}</p>'
             f"{desc}"
             "</section>"
         )
@@ -1706,22 +1768,23 @@ def render_example(
     upload_map: dict[str, str],
     section_key: str = "",
 ) -> str:
+    color = section_color("examples")
     title = escape_text(str(block.get("title") or "例题"))
     problem = render_step_content(block.get("problem"), upload_map=upload_map, section_key=section_key)
     solution = render_step_content(block.get("solution"), upload_map=upload_map, section_key=section_key)
     answer = render_step_content(block.get("answer"), upload_map=upload_map, section_key=section_key)
     body = (
-        '<p style="margin:0 0 6px;font-weight:700;color:#111827;">题目</p>'
+        f'<p style="margin:0 0 6px;font-weight:700;color:{color};">题目：</p>'
         + problem
-        + '<p style="margin:10px 0 6px;font-weight:700;color:#111827;">解答</p>'
+        + f'<p style="margin:10px 0 6px;font-weight:700;color:{color};">解题步骤：</p>'
         + solution
     )
     if answer:
-        body += '<p style="margin:10px 0 6px;font-weight:700;color:#111827;">答案</p>' + answer
+        body += f'<p style="margin:10px 0 6px;font-weight:700;color:{color};">关键结论：</p>' + answer
     return (
         '<section style="margin:16px 0 22px;">'
         f'<p style="margin:0 0 8px;font-size:17px;line-height:1.5;'
-        f'font-weight:700;color:#111827;">{title}</p>'
+        f'font-weight:700;color:{color};">{title}</p>'
         f"{body}</section>"
     )
 
@@ -1748,19 +1811,21 @@ def render_block(
     if block_type == "warning":
         title = escape_text(str(block.get("title") or "提醒"))
         content = render_step_content(block.get("content"), upload_map=upload_map, section_key=section_key)
+        title_color = section_color(section_key) if section_key == "traps" else "#111827"
         return (
             '<section style="margin:14px 0 18px;">'
             f'<p style="margin:0 0 8px;font-size:17px;line-height:1.5;'
-            f'font-weight:700;color:#111827;">{title}</p>'
+            f'font-weight:700;color:{title_color};">{title}</p>'
             f"{content}</section>"
         )
     if block_type == "summary_box":
         title = escape_text(str(block.get("title") or "总结"))
         content = render_step_content(block.get("content"), upload_map=upload_map, section_key=section_key)
+        title_color = section_color(section_key) if section_key == "summary" else "#111827"
         return (
             '<section style="margin:14px 0 18px;">'
             f'<p style="margin:0 0 8px;font-size:17px;line-height:1.5;'
-            f'font-weight:700;color:#111827;">{title}</p>'
+            f'font-weight:700;color:{title_color};">{title}</p>'
             f"{content}</section>"
         )
     if block_type == "example":
@@ -1770,6 +1835,36 @@ def render_block(
     return ""
 
 
+def render_minicode_cta(
+    *,
+    record: dict[str, Any],
+    item_id: str,
+    upload_map: dict[str, str],
+) -> str:
+    wechat_url = upload_map.get(MINICODE_ASSET_URL, "")
+    if not wechat_url:
+        return ""
+    title = record_body_title(record)
+    return (
+        '<section style="margin:28px 0 4px;padding:18px 16px;'
+        'background:#F7F5EF;border:1px solid #D6CAB8;'
+        'border-left:4px solid #8D6E63;border-radius:6px;text-align:center;">'
+        '<p style="margin:0 0 6px;font-size:18px;line-height:1.45;'
+        'font-weight:700;color:#5D4037;">去小程序拿高清 PDF</p>'
+        '<p style="margin:0 auto 14px;max-width:30em;text-align:left;'
+        'line-height:1.8;color:#374151;">'
+        "长按识别小程序码，进入 OK数秒查小程序。可下载本文高清 PDF，"
+        "也可以按编号或关键词搜索更多二级结论。"
+        "</p>"
+        f'<img src="{html.escape(wechat_url, quote=True)}" alt="OK数学小程序码" '
+        'style="display:block;width:176px;max-width:62%;height:auto;margin:0 auto 10px;"/>'
+        '<p style="margin:0;color:#6b7280;font-size:13px;line-height:1.7;">'
+        f"可搜索：{escape_text(item_id)} · {escape_text(title)}"
+        "</p>"
+        "</section>"
+    )
+
+
 def render_article_html(
     record: dict[str, Any],
     *,
@@ -1777,24 +1872,15 @@ def render_article_html(
     config: DraftConfig,
     upload_map: dict[str, str],
 ) -> str:
-    title = record_title(record)
-    digest = record_digest(record)
+    title = record_body_title(record)
     content = record.get("content") if isinstance(record.get("content"), dict) else {}
     sections = content.get("sections") if isinstance(content.get("sections"), list) else []
     wanted = set(config.section_keys)
     body: list[str] = [
         '<section style="max-width:677px;margin:0 auto;padding:0 0 16px;'
         'font-size:16px;line-height:1.85;color:#1f2933;">',
-        f'<h1 style="font-size:22px;line-height:1.35;margin:0 0 12px;color:#122f3a;">{escape_text(title)}</h1>',
-        f'<p style="margin:0 0 16px;color:#60737b;font-size:14px;">{escape_text(item_id)} · {escape_text(record_category(record))}</p>',
+        f'<h1 style="font-size:22px;line-height:1.35;margin:0 0 18px;color:#111827;">{escape_text(title)}</h1>',
     ]
-    if digest:
-        body.append(
-            '<section style="margin:14px 0 18px;padding:12px 14px;'
-            'background:#f7f5ef;border-left:4px solid #f4d35e;">'
-            f'<p style="margin:0;color:#374151;">{text_to_html(digest)}</p>'
-            "</section>"
-        )
 
     for section in sections:
         if not isinstance(section, dict):
@@ -1813,13 +1899,16 @@ def render_article_html(
             section_title = escape_text(str(box_style.get("title") or section.get("title") or key))
             color = str(box_style["color"])
             bg = str(box_style["bg"])
+            left_border = "4px" if box_style.get("west") else "1px"
+            body_padding = "16px 18px 20px" if key == "summary" else "14px 18px 18px"
             body.append(
-                f'<section style="margin:24px 0;border:2px solid {color};'
+                f'<section style="margin:22px 0;border:1px solid {color};'
+                f'border-left:{left_border} solid {color};'
                 f'background:{bg};border-radius:6px;overflow:hidden;">'
                 f'<p style="margin:0;padding:8px 16px;background:{color};'
                 f'color:#ffffff;font-size:20px;line-height:1.35;font-weight:700;">'
                 f"{section_title}</p>"
-                f'<section style="padding:14px 18px 18px;">{section_content}</section>'
+                f'<section style="padding:{body_padding};">{section_content}</section>'
                 "</section>"
             )
         else:
@@ -1832,9 +1921,7 @@ def render_article_html(
             )
 
     body.append(
-        '<p style="margin:24px 0 0;color:#8a8f98;font-size:13px;line-height:1.7;">'
-        "人工检查后再发布。"
-        "</p>"
+        render_minicode_cta(record=record, item_id=item_id, upload_map=upload_map)
     )
     body.append("</section>")
     return "".join(body)
