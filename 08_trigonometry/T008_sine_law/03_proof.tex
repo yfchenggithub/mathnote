@@ -1,0 +1,64 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用外接圆，作直径将角转移至直角三角形。证明时要注意：同弦所对圆周角可能相等，也可能互补，但二者的正弦值相等，因此仍可得到 $a/\sin A = 2R$，同理可证其它。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（先处理特殊情形）：}] 若 $BC$ 本身为外接圆直径，则 $A=90^\circ$，且 $a=BC=2R$。
+		      \[
+			      \frac{a}{\sin A}=\frac{2R}{\sin 90^\circ}=2R.
+		      \]
+		      \par\textbf{理由：}
+		      直径所对的圆周角是直角，且 $\sin 90^\circ=1$。因此特殊情形下结论成立。下面只讨论 $BC$ 不是直径的情形。
+
+		\item[\textbf{步骤二（作外接圆和直径）：}] 作 $\triangle ABC$ 的外接圆 $\odot O$，半径为 $R$。过点 $B$ 作直径 $BD$，连接 $CD$。
+		      \[
+			      \angle BCD = 90^\circ.
+		      \]
+		      \par\textbf{理由：}
+		      直径所对的圆周角是直角，所以 $\triangle BCD$ 是直角三角形，且 $BD=2R$。
+
+		\item[\textbf{步骤三（比较圆周角）：}] $\angle BDC$ 与 $\angle BAC$ 都对弦 $BC$。
+		      \[
+			      \sin\angle BDC=\sin A.
+		      \]
+		      \par\textbf{理由：}
+		      同弦 $BC$ 所对的圆周角相等或互补。若二者相等，则正弦值相等；若二者互补，也有 $\sin(180^\circ-A)=\sin A$。因此无论锐角、直角还是钝角情形，都有 $\sin\angle BDC=\sin A$。
+
+		\item[\textbf{步骤四（直角三角形正弦）：}] 在 $\mathrm{Rt}\triangle BCD$ 中，$\angle BCD=90^\circ$，所以
+		      \[
+			      \sin\angle BDC=\frac{BC}{BD}=\frac{a}{2R}.
+		      \]
+		      \par\textbf{理由：}
+		      正弦定义为对边比斜边，$\angle BDC$ 的对边是 $BC=a$，斜边是直径 $BD=2R$。
+
+		\item[\textbf{步骤五（代入得边角关系）：}] 由 $\sin\angle BDC=\sin A$ 和 $\sin\angle BDC=\frac{a}{2R}$，得
+		      \[
+			      \sin A=\frac{a}{2R}.
+		      \]
+		      因为非退化三角形中 $0^\circ<A<180^\circ$，所以 $\sin A>0$，于是
+		      \[
+			      \frac{a}{\sin A}=2R.
+		      \]
+		      \par\textbf{理由：}
+		      将正弦关系代入，并利用 $\sin A>0$ 作等式变形。
+
+		\item[\textbf{步骤六（推广到另外两边）：}] 同理，分别对边 $CA$ 和 $AB$ 作同样证明，可得
+		      \[
+			      \frac{b}{\sin B}=2R,\quad \frac{c}{\sin C}=2R.
+		      \]
+		      \par\textbf{理由：}
+		      证法完全相同，只需把边角对应关系轮换即可。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	因此，由以上推导得
+	\[
+		\frac{a}{\sin A}=\frac{b}{\sin B}=\frac{c}{\sin C}=2R,
+	\]
+	即正弦定理成立。
+\end{proofbox}
