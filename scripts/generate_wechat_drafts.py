@@ -38,7 +38,6 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable, Sequence
 
-
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parent
 
@@ -47,13 +46,15 @@ DEFAULT_PDF_MAP_PATH = PROJECT_ROOT / "build" / "conclusion_pdf_map.json"
 DEFAULT_PUBLIC_DIR = PROJECT_ROOT / "public"
 DEFAULT_OUTPUT_DIR = PROJECT_ROOT / "build" / "wechat_drafts"
 DEFAULT_REPORT_PATH = PROJECT_ROOT / "reports" / "generate_wechat_drafts_report.json"
-DEFAULT_MODULE_PREFIX_MAP = PROJECT_ROOT / "12_pipeline" / "config" / "module_prefix_map.json"
+DEFAULT_MODULE_PREFIX_MAP = (
+    PROJECT_ROOT / "12_pipeline" / "config" / "module_prefix_map.json"
+)
 DEFAULT_TOKEN_CACHE = DEFAULT_OUTPUT_DIR / "wechat_access_token_cache.json"
 DEFAULT_UPLOAD_CACHE = DEFAULT_OUTPUT_DIR / "wechat_upload_cache.json"
 MINICODE_ASSET_URL = "/assets/figures/MiniCode.png"
 MINICODE_PATH = PROJECT_ROOT / "assets" / "figures" / "MiniCode.png"
 DEFAULT_AUTHOR = ""
-DEFAULT_COVER_BRAND = "OK 数学"
+DEFAULT_COVER_BRAND = "ok-shuxue"
 DEFAULT_COVER_SIZE = "1800x1000"
 DEFAULT_SECTION_KEYS = (
     "statement",
@@ -66,7 +67,12 @@ DEFAULT_SECTION_KEYS = (
 
 SECTION_BOX_STYLES = {
     "statement": {"title": "二级结论", "color": "#1F4E79", "bg": "#EAF2F8"},
-    "explanation": {"title": "理解说明", "color": "#355C7D", "bg": "#F2F5F7", "west": True},
+    "explanation": {
+        "title": "理解说明",
+        "color": "#355C7D",
+        "bg": "#F2F5F7",
+        "west": True,
+    },
     "proof": {"title": "证明", "color": "#6C5B7B", "bg": "#F3F0F7"},
     "examples": {"title": "典型例题", "color": "#2E7D32", "bg": "#EDF7ED"},
     "traps": {"title": "易错提醒", "color": "#8E2424", "bg": "#FBEAEA", "west": True},
@@ -215,7 +221,10 @@ def read_windows_persisted_env(name: str) -> str:
 
     locations = (
         (winreg.HKEY_CURRENT_USER, r"Environment"),
-        (winreg.HKEY_LOCAL_MACHINE, r"SYSTEM\CurrentControlSet\Control\Session Manager\Environment"),
+        (
+            winreg.HKEY_LOCAL_MACHINE,
+            r"SYSTEM\CurrentControlSet\Control\Session Manager\Environment",
+        ),
     )
     for root, subkey in locations:
         try:
@@ -246,9 +255,21 @@ def parse_args() -> argparse.Namespace:
             "  python scripts/generate_wechat_drafts.py --modules 05_geometry-solid\n"
         ),
     )
-    parser.add_argument("positional_ids", nargs="*", help="Conclusion IDs, e.g. G010 T002.")
-    parser.add_argument("--ids", nargs="*", default=None, help="Conclusion IDs. Supports comma or space separated values.")
-    parser.add_argument("--modules", nargs="*", default=None, help="Module dirs/slugs/prefixes, e.g. 05_geometry-solid or G.")
+    parser.add_argument(
+        "positional_ids", nargs="*", help="Conclusion IDs, e.g. G010 T002."
+    )
+    parser.add_argument(
+        "--ids",
+        nargs="*",
+        default=None,
+        help="Conclusion IDs. Supports comma or space separated values.",
+    )
+    parser.add_argument(
+        "--modules",
+        nargs="*",
+        default=None,
+        help="Module dirs/slugs/prefixes, e.g. 05_geometry-solid or G.",
+    )
     parser.add_argument("--canonical-json", default=str(DEFAULT_CANONICAL_PATH))
     parser.add_argument("--pdf-map-json", default=str(DEFAULT_PDF_MAP_PATH))
     parser.add_argument("--public-dir", default=str(DEFAULT_PUBLIC_DIR))
@@ -262,8 +283,14 @@ def parse_args() -> argparse.Namespace:
         help="Optional author shown in WeChat preview. Default: omitted.",
     )
     parser.add_argument("--cover-brand", default=DEFAULT_COVER_BRAND)
-    parser.add_argument("--cover-size", type=parse_size, default=parse_size(DEFAULT_COVER_SIZE))
-    parser.add_argument("--force-cover", action="store_true", help="Regenerate cover PNG files even when they exist.")
+    parser.add_argument(
+        "--cover-size", type=parse_size, default=parse_size(DEFAULT_COVER_SIZE)
+    )
+    parser.add_argument(
+        "--force-cover",
+        action="store_true",
+        help="Regenerate cover PNG files even when they exist.",
+    )
     parser.add_argument(
         "--refresh-upload-cache",
         action="store_true",
@@ -288,8 +315,12 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--need-open-comment", type=int, choices=(0, 1), default=0)
     parser.add_argument("--only-fans-can-comment", type=int, choices=(0, 1), default=0)
-    parser.add_argument("--timeout", type=int, default=30, help="HTTP timeout in seconds.")
-    parser.add_argument("--log-level", default="INFO", choices=("DEBUG", "INFO", "WARNING", "ERROR"))
+    parser.add_argument(
+        "--timeout", type=int, default=30, help="HTTP timeout in seconds."
+    )
+    parser.add_argument(
+        "--log-level", default="INFO", choices=("DEBUG", "INFO", "WARNING", "ERROR")
+    )
     return parser.parse_args()
 
 
@@ -306,7 +337,9 @@ def read_json(path: Path, default: Any = None) -> Any:
 
 def write_json(path: Path, data: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
 
 
 def load_module_prefix_map() -> dict[str, str]:
@@ -405,7 +438,11 @@ def build_config(args: argparse.Namespace) -> DraftConfig:
     if int(args.timeout) <= 0:
         raise DraftError("--timeout must be > 0.")
 
-    section_keys = tuple(split_csv_tokens(args.section_keys)) if args.section_keys else DEFAULT_SECTION_KEYS
+    section_keys = (
+        tuple(split_csv_tokens(args.section_keys))
+        if args.section_keys
+        else DEFAULT_SECTION_KEYS
+    )
 
     return DraftConfig(
         ids=resolve_ids(args, canonical),
@@ -497,7 +534,9 @@ def post_multipart(
 
     for key, value in (fields or {}).items():
         chunks.append(f"--{boundary}\r\n".encode("utf-8"))
-        chunks.append(f'Content-Disposition: form-data; name="{key}"\r\n\r\n'.encode("utf-8"))
+        chunks.append(
+            f'Content-Disposition: form-data; name="{key}"\r\n\r\n'.encode("utf-8")
+        )
         chunks.append(str(value).encode("utf-8"))
         chunks.append(b"\r\n")
 
@@ -652,7 +691,9 @@ def upload_cover_material(
     )
     media_id = str(payload.get("media_id", "")).strip()
     if not media_id:
-        raise DraftError(f"WeChat permanent image upload returned no media_id: {payload}")
+        raise DraftError(
+            f"WeChat permanent image upload returned no media_id: {payload}"
+        )
     cache_upload_store(
         upload_cache,
         bucket="cover_material",
@@ -765,7 +806,11 @@ def prepare_record_for_formula_render(record: dict[str, Any]) -> dict[str, Any]:
     prepared = copy.deepcopy(record)
     for node in iter_dict_nodes(prepared):
         primary = node.get("primary_formula")
-        if isinstance(primary, dict) and isinstance(primary.get("latex"), str) and primary["latex"].strip():
+        if (
+            isinstance(primary, dict)
+            and isinstance(primary.get("latex"), str)
+            and primary["latex"].strip()
+        ):
             primary["type"] = "math_block"
             primary["need_image"] = "true"
 
@@ -774,7 +819,11 @@ def prepare_record_for_formula_render(record: dict[str, Any]) -> dict[str, Any]:
         if not isinstance(latex, str) or not latex.strip():
             continue
         if node_type in {"math_image", "math_inline", "math_display", "math_block"}:
-            node["type"] = "math_inline" if node_type in {"math_inline", "math_display"} else "math_block"
+            node["type"] = (
+                "math_inline"
+                if node_type in {"math_inline", "math_display"}
+                else "math_block"
+            )
             node["need_image"] = "true"
     return prepared
 
@@ -784,7 +833,10 @@ def render_formula_assets_for_records(
     records: dict[str, Any],
     config: DraftConfig,
 ) -> dict[str, Any]:
-    prepared = {item_id: prepare_record_for_formula_render(record) for item_id, record in records.items()}
+    prepared = {
+        item_id: prepare_record_for_formula_render(record)
+        for item_id, record in records.items()
+    }
     tmp_dir = config.output_dir / "_tmp"
     tmp_dir.mkdir(parents=True, exist_ok=True)
     input_path = tmp_dir / "wechat_formula_input.json"
@@ -826,7 +878,9 @@ def render_formula_assets_for_records(
     return rendered
 
 
-def collect_article_image_refs(record: dict[str, Any], public_dir: Path) -> dict[str, Path]:
+def collect_article_image_refs(
+    record: dict[str, Any], public_dir: Path
+) -> dict[str, Path]:
     refs: dict[str, Path] = {}
     for node in iter_dict_nodes(record):
         if not isinstance(node, dict):
@@ -839,9 +893,13 @@ def collect_article_image_refs(record: dict[str, Any], public_dir: Path) -> dict
             continue
         local_path = local_asset_path(public_dir, asset_url)
         if local_path is None:
-            raise DraftError(f"Cannot upload remote image URL as article image: {asset_url}")
+            raise DraftError(
+                f"Cannot upload remote image URL as article image: {asset_url}"
+            )
         if not local_path.is_file():
-            raise DraftError(f"Article image asset missing: {asset_url} -> {local_path}")
+            raise DraftError(
+                f"Article image asset missing: {asset_url} -> {local_path}"
+            )
         refs.setdefault(asset_url, local_path)
     if not MINICODE_PATH.is_file():
         raise DraftError(f"Mini program code image missing: {MINICODE_PATH}")
@@ -862,7 +920,9 @@ def record_title(record: dict[str, Any]) -> str:
     meta = record.get("meta") if isinstance(record.get("meta"), dict) else {}
     ext = record.get("ext") if isinstance(record.get("ext"), dict) else {}
     share = ext.get("share") if isinstance(ext.get("share"), dict) else {}
-    title = str(share.get("title") or meta.get("title") or record.get("id") or "").strip()
+    title = str(
+        share.get("title") or meta.get("title") or record.get("id") or ""
+    ).strip()
     return title or "二级结论"
 
 
@@ -881,7 +941,9 @@ def record_digest(record: dict[str, Any]) -> str:
 
 def record_category(record: dict[str, Any]) -> str:
     meta = record.get("meta") if isinstance(record.get("meta"), dict) else {}
-    identity = record.get("identity") if isinstance(record.get("identity"), dict) else {}
+    identity = (
+        record.get("identity") if isinstance(record.get("identity"), dict) else {}
+    )
     return str(meta.get("category") or identity.get("module") or "").strip()
 
 
@@ -915,7 +977,9 @@ def find_font(size: int, *, bold: bool = False):
     try:
         from PIL import ImageFont
     except ImportError as exc:
-        raise DraftError("Pillow is required for cover generation. Install pillow first.") from exc
+        raise DraftError(
+            "Pillow is required for cover generation. Install pillow first."
+        ) from exc
 
     candidates = []
     if os.name == "nt":
@@ -946,7 +1010,9 @@ def text_width(draw: Any, text: str, font: Any) -> int:
     return int(bbox[2] - bbox[0])
 
 
-def wrap_text(draw: Any, text: str, font: Any, max_width: int, max_lines: int) -> list[str]:
+def wrap_text(
+    draw: Any, text: str, font: Any, max_width: int, max_lines: int
+) -> list[str]:
     words = list(text)
     lines: list[str] = []
     current = ""
@@ -980,7 +1046,9 @@ def generate_cover(
     try:
         from PIL import Image, ImageDraw
     except ImportError as exc:
-        raise DraftError("Pillow is required for cover generation. Install pillow first.") from exc
+        raise DraftError(
+            "Pillow is required for cover generation. Install pillow first."
+        ) from exc
 
     width, height = config.cover_size
     image = Image.new("RGB", (width, height), "#f7f5ef")
@@ -1006,14 +1074,26 @@ def generate_cover(
     category = record_category(record)
     formula = primary_formula_latex(record)
 
-    draw.text((margin, int(height * 0.095)), config.cover_brand, font=brand_font, fill="#f7f5ef")
+    draw.text(
+        (margin, int(height * 0.095)),
+        config.cover_brand,
+        font=brand_font,
+        fill="#f7f5ef",
+    )
     tag_text = f"{item_id}  二级结论"
     tag_w = text_width(draw, tag_text, tag_font) + int(width * 0.04)
     tag_h = int(height * 0.065)
     tag_x = width - margin - tag_w
     tag_y = int(height * 0.08)
-    draw.rounded_rectangle([tag_x, tag_y, tag_x + tag_w, tag_y + tag_h], radius=tag_h // 2, fill="#f7f5ef")
-    draw.text((tag_x + int(width * 0.02), tag_y + int(height * 0.014)), tag_text, font=tag_font, fill="#164554")
+    draw.rounded_rectangle(
+        [tag_x, tag_y, tag_x + tag_w, tag_y + tag_h], radius=tag_h // 2, fill="#f7f5ef"
+    )
+    draw.text(
+        (tag_x + int(width * 0.02), tag_y + int(height * 0.014)),
+        tag_text,
+        font=tag_font,
+        fill="#164554",
+    )
 
     lines = wrap_text(draw, title, title_font, int(width * 0.72), 3)
     title_y = int(height * 0.24)
@@ -1022,17 +1102,28 @@ def generate_cover(
         title_y += int(height * 0.105)
 
     if category:
-        draw.text((margin, int(height * 0.67)), category, font=small_font, fill="#d8edf0")
+        draw.text(
+            (margin, int(height * 0.67)), category, font=small_font, fill="#d8edf0"
+        )
 
     formula_path = primary_formula_local_path(record, config.public_dir)
     formula_box = [margin, int(height * 0.79), width - margin, int(height * 0.93)]
-    draw.rounded_rectangle(formula_box, radius=int(height * 0.025), fill="#ffffff", outline="#e7e2d8", width=2)
+    draw.rounded_rectangle(
+        formula_box,
+        radius=int(height * 0.025),
+        fill="#ffffff",
+        outline="#e7e2d8",
+        width=2,
+    )
     if formula_path:
         formula_img = Image.open(formula_path).convert("RGBA")
         max_w = int((formula_box[2] - formula_box[0]) * 0.72)
         max_h = int((formula_box[3] - formula_box[1]) * 0.58)
         scale = min(max_w / formula_img.width, max_h / formula_img.height, 2.5)
-        new_size = (max(1, int(formula_img.width * scale)), max(1, int(formula_img.height * scale)))
+        new_size = (
+            max(1, int(formula_img.width * scale)),
+            max(1, int(formula_img.height * scale)),
+        )
         formula_img = formula_img.resize(new_size, Image.LANCZOS)
         paste_x = formula_box[0] + (formula_box[2] - formula_box[0] - new_size[0]) // 2
         paste_y = formula_box[1] + (formula_box[3] - formula_box[1] - new_size[1]) // 2
@@ -1040,7 +1131,12 @@ def generate_cover(
     elif formula:
         formula_font = find_font(int(width * 0.032), bold=False)
         formula_text = truncate_text(formula.replace("\\", " "), 50)
-        draw.text((formula_box[0] + int(width * 0.035), formula_box[1] + int(height * 0.045)), formula_text, font=formula_font, fill="#164554")
+        draw.text(
+            (formula_box[0] + int(width * 0.035), formula_box[1] + int(height * 0.045)),
+            formula_text,
+            font=formula_font,
+            fill="#164554",
+        )
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     image.save(output_path, format="PNG")
@@ -1065,7 +1161,9 @@ def section_color(section_key: str) -> str:
 def paragraph_label_color(section_key: str, label: str) -> str:
     if section_key in {"statement", "traps"}:
         return section_color(section_key)
-    if section_key == "examples" and re.match(r"^(?:例\s*\d+|题目|解题步骤|关键结论)", label):
+    if section_key == "examples" and re.match(
+        r"^(?:例\s*\d+|题目|解题步骤|关键结论)", label
+    ):
         return section_color(section_key)
     return "#111827"
 
@@ -1208,10 +1306,14 @@ def render_formula_image(
     wechat_url = upload_map.get(asset_url)
     if not wechat_url:
         latex = str(node.get("latex") or "").strip()
-        return f'<code style="font-size:14px;color:#374151;">{escape_text(latex)}</code>'
+        return (
+            f'<code style="font-size:14px;color:#374151;">{escape_text(latex)}</code>'
+        )
 
     asset = node.get("asset") if isinstance(node.get("asset"), dict) else {}
-    display_width = int(asset.get("display_width_px") or 0) if isinstance(asset, dict) else 0
+    display_width = (
+        int(asset.get("display_width_px") or 0) if isinstance(asset, dict) else 0
+    )
     width_style = ""
     if display_width > 0:
         if inline:
@@ -1223,13 +1325,11 @@ def render_formula_image(
     if inline:
         style = (
             "display:inline-block;vertical-align:-0.42em;"
-            "max-width:100%;height:auto;margin:0 2px;line-height:1;"
-            + width_style
+            "max-width:100%;height:auto;margin:0 2px;line-height:1;" + width_style
         )
         return f'<img src="{html.escape(wechat_url, quote=True)}" alt="{alt}" style="{style}"/>'
     style = (
-        "display:block;max-width:100%;height:auto;margin:14px auto 20px;"
-        + width_style
+        "display:block;max-width:100%;height:auto;margin:14px auto 20px;" + width_style
     )
     return f'<img src="{html.escape(wechat_url, quote=True)}" alt="{alt}" style="{style}"/>'
 
@@ -1250,9 +1350,13 @@ def render_tokens(tokens: Any, *, upload_map: dict[str, str]) -> str:
         elif token_type == "line_break":
             pieces.append("<br/>")
         elif token_type in {"math_image", "math_inline", "math_display", "math_block"}:
-            pieces.append(render_formula_image(token, upload_map=upload_map, inline=True))
+            pieces.append(
+                render_formula_image(token, upload_map=upload_map, inline=True)
+            )
         elif token_type == "ref":
-            pieces.append(text_to_html(str(token.get("text") or token.get("target_id") or "")))
+            pieces.append(
+                text_to_html(str(token.get("text") or token.get("target_id") or ""))
+            )
     return "".join(pieces)
 
 
@@ -1263,7 +1367,12 @@ def is_paragraph_block(block: Any) -> bool:
 def is_formula_block(block: Any) -> bool:
     if not isinstance(block, dict):
         return False
-    return str(block.get("type", "")) in {"math_image", "math_block", "math_inline", "math_display"}
+    return str(block.get("type", "")) in {
+        "math_image",
+        "math_block",
+        "math_inline",
+        "math_display",
+    }
 
 
 def paragraph_plain_text(block: dict[str, Any]) -> str:
@@ -1348,7 +1457,9 @@ def formula_block_should_inline(
     has_display_shape = formula_has_display_shape(latex, compact)
     if has_display_shape and section_key in {"proof", "examples"}:
         return False
-    if previous_paragraph is not None and paragraph_opens_display_formula(previous_paragraph):
+    if previous_paragraph is not None and paragraph_opens_display_formula(
+        previous_paragraph
+    ):
         if has_display_shape or section_key in {"proof", "examples"}:
             return False
     if (
@@ -1359,7 +1470,9 @@ def formula_block_should_inline(
         return False
     if has_display_shape and len(compact) > 28:
         return False
-    if next_paragraph is not None and paragraph_continues_inline_formula(next_paragraph):
+    if next_paragraph is not None and paragraph_continues_inline_formula(
+        next_paragraph
+    ):
         return True
     if "=" not in compact and len(compact) <= 24:
         return True
@@ -1396,7 +1509,9 @@ def render_blocks_sequence(
         block = blocks[index]
         if not is_paragraph_block(block):
             if isinstance(block, dict):
-                pieces.append(render_block(block, upload_map=upload_map, section_key=section_key))
+                pieces.append(
+                    render_block(block, upload_map=upload_map, section_key=section_key)
+                )
             index += 1
             continue
 
@@ -1417,7 +1532,9 @@ def render_blocks_sequence(
                     section_key=section_key,
                 ):
                     paragraph_parts.append(
-                        render_formula_image(current, upload_map=upload_map, inline=True)
+                        render_formula_image(
+                            current, upload_map=upload_map, inline=True
+                        )
                     )
                     changed = True
                     last_was_inline_formula = True
@@ -1448,7 +1565,9 @@ def render_blocks_sequence(
             )
             index = cursor
         else:
-            pieces.append(render_block(block, upload_map=upload_map, section_key=section_key))
+            pieces.append(
+                render_block(block, upload_map=upload_map, section_key=section_key)
+            )
             index += 1
 
     return "".join(pieces)
@@ -1466,7 +1585,12 @@ def formula_token_should_display(
     if not latex:
         return False
     compact = re.sub(r"\s+", "", latex)
-    if "\\begin{" in latex or "\\\\" in latex or "\\quad" in latex or "\\qquad" in latex:
+    if (
+        "\\begin{" in latex
+        or "\\\\" in latex
+        or "\\quad" in latex
+        or "\\qquad" in latex
+    ):
         return True
     if "=" not in compact:
         return False
@@ -1582,9 +1706,13 @@ def render_paragraph_block(
                 current_plain="".join(plain_parts),
             ):
                 flush_paragraph()
-                pieces.append(render_formula_image(token, upload_map=upload_map, inline=False))
+                pieces.append(
+                    render_formula_image(token, upload_map=upload_map, inline=False)
+                )
             else:
-                html_parts.append(render_formula_image(token, upload_map=upload_map, inline=True))
+                html_parts.append(
+                    render_formula_image(token, upload_map=upload_map, inline=True)
+                )
                 plain_parts.append(str(token.get("latex") or ""))
         elif token_type == "ref":
             text = str(token.get("text") or token.get("target_id") or "")
@@ -1601,7 +1729,9 @@ def render_step_content(
     upload_map: dict[str, str],
     section_key: str = "",
 ) -> str:
-    return render_blocks_sequence(blocks, upload_map=upload_map, section_key=section_key)
+    return render_blocks_sequence(
+        blocks, upload_map=upload_map, section_key=section_key
+    )
 
 
 def render_bullet_list(
@@ -1662,7 +1792,9 @@ def render_theorem_desc(
         if not inline_parts:
             return
         content = "".join(inline_parts)
-        if with_label and not content.rstrip().endswith(("。", "，", "；", "：", ".", "!", "?", "！", "？")):
+        if with_label and not content.rstrip().endswith(
+            ("。", "，", "；", "：", ".", "!", "?", "！", "？")
+        ):
             content += "。"
         prefix = ""
         padding = "padding-left:2.8em;"
@@ -1699,10 +1831,14 @@ def render_theorem_desc(
                     + "</section>"
                 )
             else:
-                inline_parts.append(render_formula_image(token, upload_map=upload_map, inline=True))
+                inline_parts.append(
+                    render_formula_image(token, upload_map=upload_map, inline=True)
+                )
             continue
         if token_type == "ref":
-            inline_parts.append(text_to_html(str(token.get("text") or token.get("target_id") or "")))
+            inline_parts.append(
+                text_to_html(str(token.get("text") or token.get("target_id") or ""))
+            )
 
     flush_inline()
     return "".join(paragraphs)
@@ -1770,9 +1906,15 @@ def render_example(
 ) -> str:
     color = section_color("examples")
     title = escape_text(str(block.get("title") or "例题"))
-    problem = render_step_content(block.get("problem"), upload_map=upload_map, section_key=section_key)
-    solution = render_step_content(block.get("solution"), upload_map=upload_map, section_key=section_key)
-    answer = render_step_content(block.get("answer"), upload_map=upload_map, section_key=section_key)
+    problem = render_step_content(
+        block.get("problem"), upload_map=upload_map, section_key=section_key
+    )
+    solution = render_step_content(
+        block.get("solution"), upload_map=upload_map, section_key=section_key
+    )
+    answer = render_step_content(
+        block.get("answer"), upload_map=upload_map, section_key=section_key
+    )
     body = (
         f'<p style="margin:0 0 6px;font-weight:700;color:{color};">题目：</p>'
         + problem
@@ -1780,7 +1922,10 @@ def render_example(
         + solution
     )
     if answer:
-        body += f'<p style="margin:10px 0 6px;font-weight:700;color:{color};">关键结论：</p>' + answer
+        body += (
+            f'<p style="margin:10px 0 6px;font-weight:700;color:{color};">关键结论：</p>'
+            + answer
+        )
     return (
         '<section style="margin:16px 0 22px;">'
         f'<p style="margin:0 0 8px;font-size:17px;line-height:1.5;'
@@ -1797,7 +1942,9 @@ def render_block(
 ) -> str:
     block_type = str(block.get("type", "paragraph"))
     if block_type == "paragraph":
-        return render_paragraph_block(block, upload_map=upload_map, section_key=section_key)
+        return render_paragraph_block(
+            block, upload_map=upload_map, section_key=section_key
+        )
     if block_type in {"math_image", "math_block", "math_inline"}:
         return render_formula_image(block, upload_map=upload_map, inline=False)
     if block_type == "image_block":
@@ -1810,8 +1957,12 @@ def render_block(
         return render_proof_steps(block, upload_map=upload_map, section_key=section_key)
     if block_type == "warning":
         title = escape_text(str(block.get("title") or "提醒"))
-        content = render_step_content(block.get("content"), upload_map=upload_map, section_key=section_key)
-        title_color = section_color(section_key) if section_key == "traps" else "#111827"
+        content = render_step_content(
+            block.get("content"), upload_map=upload_map, section_key=section_key
+        )
+        title_color = (
+            section_color(section_key) if section_key == "traps" else "#111827"
+        )
         return (
             '<section style="margin:14px 0 18px;">'
             f'<p style="margin:0 0 8px;font-size:17px;line-height:1.5;'
@@ -1820,8 +1971,12 @@ def render_block(
         )
     if block_type == "summary_box":
         title = escape_text(str(block.get("title") or "总结"))
-        content = render_step_content(block.get("content"), upload_map=upload_map, section_key=section_key)
-        title_color = section_color(section_key) if section_key == "summary" else "#111827"
+        content = render_step_content(
+            block.get("content"), upload_map=upload_map, section_key=section_key
+        )
+        title_color = (
+            section_color(section_key) if section_key == "summary" else "#111827"
+        )
         return (
             '<section style="margin:14px 0 18px;">'
             f'<p style="margin:0 0 8px;font-size:17px;line-height:1.5;'
@@ -1847,13 +2002,13 @@ def render_minicode_cta(
     title = record_body_title(record)
     return (
         '<section style="margin:28px 0 4px;padding:18px 16px;'
-        'background:#F7F5EF;border:1px solid #D6CAB8;'
+        "background:#F7F5EF;border:1px solid #D6CAB8;"
         'border-left:4px solid #8D6E63;border-radius:6px;text-align:center;">'
         '<p style="margin:0 0 6px;font-size:18px;line-height:1.45;'
         'font-weight:700;color:#5D4037;">去小程序拿高清 PDF</p>'
         '<p style="margin:0 auto 14px;max-width:30em;text-align:left;'
         'line-height:1.8;color:#374151;">'
-        "长按识别小程序码，进入 OK数秒查小程序。可下载本文高清 PDF，"
+        "长按识别小程序码，进入数秒查小程序。可下载本文高清 PDF，"
         "也可以按编号或关键词搜索更多二级结论。"
         "</p>"
         f'<img src="{html.escape(wechat_url, quote=True)}" alt="OK数学小程序码" '
@@ -1874,7 +2029,9 @@ def render_article_html(
 ) -> str:
     title = record_body_title(record)
     content = record.get("content") if isinstance(record.get("content"), dict) else {}
-    sections = content.get("sections") if isinstance(content.get("sections"), list) else []
+    sections = (
+        content.get("sections") if isinstance(content.get("sections"), list) else []
+    )
     wanted = set(config.section_keys)
     body: list[str] = [
         '<section style="max-width:677px;margin:0 auto;padding:0 0 16px;'
@@ -1888,7 +2045,9 @@ def render_article_html(
         key = str(section.get("key") or "")
         if key not in wanted:
             continue
-        blocks = section.get("blocks") if isinstance(section.get("blocks"), list) else []
+        blocks = (
+            section.get("blocks") if isinstance(section.get("blocks"), list) else []
+        )
         section_content = render_blocks_sequence(
             blocks,
             upload_map=upload_map,
@@ -1896,14 +2055,16 @@ def render_article_html(
         )
         box_style = SECTION_BOX_STYLES.get(key)
         if box_style:
-            section_title = escape_text(str(box_style.get("title") or section.get("title") or key))
+            section_title = escape_text(
+                str(box_style.get("title") or section.get("title") or key)
+            )
             color = str(box_style["color"])
             bg = str(box_style["bg"])
             left_border = "4px" if box_style.get("west") else "1px"
             body_padding = "16px 18px 20px" if key == "summary" else "14px 18px 18px"
             body.append(
                 f'<section style="margin:22px 0;border:1px solid {color};'
-                f'border-left:{left_border} solid {color};'
+                f"border-left:{left_border} solid {color};"
                 f'background:{bg};border-radius:6px;overflow:hidden;">'
                 f'<p style="margin:0;padding:8px 16px;background:{color};'
                 f'color:#ffffff;font-size:20px;line-height:1.35;font-weight:700;">'
@@ -1992,7 +2153,9 @@ def process_one_item(
         cover_path=str(cover_path),
     )
 
-    generate_cover(record=record, item_id=item_id, config=config, output_path=cover_path)
+    generate_cover(
+        record=record, item_id=item_id, config=config, output_path=cover_path
+    )
     thumb_media_id, cover_cached = upload_cover_material(
         config=config.wechat,
         access_token=access_token,
@@ -2143,7 +2306,9 @@ def main() -> int:
         configure_logging(config.log_level)
         LOGGER.info("Draft target IDs | %s", ", ".join(config.ids))
         report = orchestrate(config)
-        success_count = sum(1 for item in report["items"] if item.get("status") == "success")
+        success_count = sum(
+            1 for item in report["items"] if item.get("status") == "success"
+        )
         LOGGER.info(
             "WeChat draft generation complete | success=%d/%d | report=%s",
             success_count,
