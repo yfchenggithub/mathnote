@@ -2008,8 +2008,10 @@ def render_minicode_cta(
         'font-weight:700;color:#5D4037;">去小程序拿高清 PDF</p>'
         '<p style="margin:0 auto 14px;max-width:30em;text-align:left;'
         'line-height:1.8;color:#374151;">'
+        "想查更多高中数学二级结论，可以在公众号后台回复：数秒查"
         "长按识别小程序码，进入数秒查小程序。可下载本文高清 PDF，"
-        "也可以按编号或关键词搜索更多二级结论。"
+        "进入小程序后可直接搜索关键词，例如："
+        "圆锥曲线、向量、外接球、不等式、导数、三角函数、数列"
         "</p>"
         f'<img src="{html.escape(wechat_url, quote=True)}" alt="OK数学小程序码" '
         'style="display:block;width:176px;max-width:62%;height:auto;margin:0 auto 10px;"/>'
