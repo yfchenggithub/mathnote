@@ -1,0 +1,42 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	采用向量法：将三角形的边看作向量，边长的平方等于向量模的平方，利用向量减法与点积展开即得。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（向量建模）：}] 以点 $C$ 为起点，记 $\overrightarrow{CA} = \vec{u}$，$\overrightarrow{CB} = \vec{v}$，则 $|\vec{u}| = b$，$|\vec{v}| = a$，且 $\vec{u}$ 与 $\vec{v}$ 的夹角为 $\angle C$。
+		      \[
+			      \overrightarrow{AB} = \overrightarrow{CB} - \overrightarrow{CA} = \vec{v} - \vec{u}.
+		      \]
+		      \par\textbf{理由：} 用向量表示三角形的边，将位置关系转化为代数运算。
+
+		\item[\textbf{步骤二（模长展开）：}] 计算 $c^2 = |\overrightarrow{AB}|^2$：
+		      \[
+			      |\vec{v} - \vec{u}|^2 = |\vec{v}|^2 + |\vec{u}|^2 - 2 \vec{v} \cdot \vec{u}.
+		      \]
+		      \par\textbf{理由：} 向量模平方等于自身点积，展开完全平方。
+
+		\item[\textbf{步骤三（点积定义）：}] 向量点积 $\vec{v} \cdot \vec{u} = |\vec{v}||\vec{u}|\cos C = ab\cos C$。
+		      \par\textbf{理由：} 点积等于模长之积乘以夹角余弦。
+
+		\item[\textbf{步骤四（代入结论）：}] 将 $|\vec{u}|=b$，$|\vec{v}|=a$ 及点积结果代入第2步：
+		      \[
+			      c^2 = a^2 + b^2 - 2ab\cos C.
+		      \]
+		      \par\textbf{理由：} 直接代入并整理即得 $c$ 的余弦定理。
+
+		\item[\textbf{步骤五（轮换对称）：}] 同理，将顶点轮换，可得另外两式：
+		      \[
+			      a^2 = b^2 + c^2 - 2bc\cos A,\qquad
+			      b^2 = c^2 + a^2 - 2ca\cos B.
+		      \]
+		      \par\textbf{理由：} 三角形公式具有对称性，按字母对应关系替换即得。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	以上推导完整得到了余弦定理的三个公式。定理将边长与内角的余弦联系起来，是解三角形的基础。
+\end{proofbox}
