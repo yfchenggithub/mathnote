@@ -1,0 +1,87 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	从条件“侧棱相等”出发，先确定顶点 $S$ 在底面的射影为外心 $O$；再根据球心到三顶点距离相等，推出球心在过 $O$ 且垂直底面的直线上。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（射影定位）：}] 作 $SH\perp(ABC)$ 于 $H$。
+		      由 $SA=SB=SC$，且 $SH$ 为公共直角边，得
+		      \[
+			      \triangle SHA \cong \triangle SHB \cong \triangle SHC,
+		      \]
+		      故
+		      \[
+			      HA=HB=HC.
+		      \]
+		      所以 $H$ 是 $\triangle ABC$ 的外心，即 $H=O$，且 $SO\perp(ABC)$。
+		      \par\textbf{理由：} 直角三角形斜边与一条直角边分别相等，可判定全等；全等三角形对应边相等。
+
+		\item[\textbf{步骤二（球心定位）：}] 设外接球球心为 $Q$，由
+		      \[
+			      QA=QB=QC,
+		      \]
+		      作 $Q$ 在底面上的射影 $D$。因为 $QD\perp(ABC)$，所以
+		      \[
+			      QA^{2}=QD^{2}+DA^{2},\quad
+			      QB^{2}=QD^{2}+DB^{2},\quad
+			      QC^{2}=QD^{2}+DC^{2}.
+		      \]
+		      由 $QA=QB=QC$ 得
+		      \[
+			      DA=DB=DC.
+		      \]
+		      因此 $D$ 为 $\triangle ABC$ 的外心，即 $D=O$。所以 $Q$ 在过 $O$ 且垂直于底面的直线上。
+		      \[
+			      QD\perp (ABC),\quad D=O.
+		      \]
+		      \par\textbf{理由：} 球心到底面三顶点距离相等，其底面射影到底面三顶点的距离也相等，故射影为底面外心。
+
+		\item[\textbf{步骤三（共线确认）：}] 由步骤一知 $SO\perp(ABC)$，由步骤二知 $Q$ 也在过 $O$ 且垂直于底面的直线上，所以 $S,O,Q$ 三点共线，即 $Q$ 在直线 $SO$ 上。
+		      再由
+		      \[
+			      QS=QA=R
+		      \]
+		      可确定 $Q$ 的具体位置。
+		      \par\textbf{理由：} 过平面上一点且垂直于该平面的直线唯一；等距条件给出球心位置约束。
+		      \[
+			      Q\in SO,\quad QA=QS=R.
+		      \]
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{半径公式补充}}
+
+	设底面外接圆半径为 $r$，高 $SO=h>0$。以 $O$ 为原点、$SO$ 所在直线为 $z$ 轴，设
+	\[
+		S(0,0,h),\quad Q(0,0,t).
+	\]
+	由 $QA=QS$ 得
+	\[
+		r^{2}+t^{2}=(h-t)^{2},
+	\]
+	所以
+	\[
+		t=\frac{h^{2}-r^{2}}{2h}.
+	\]
+	因此
+	\[
+		R=\sqrt{r^{2}+t^{2}}
+		=\frac{h^{2}+r^{2}}{2h}.
+	\]
+
+	并且球心位置满足
+	\[
+		\begin{cases}
+			h^{2}>r^{2}, & Q \text{ 在线段 } SO \text{ 上};               \\[4pt]
+			h^{2}=r^{2}, & Q=O;                                       \\[4pt]
+			h^{2}<r^{2}, & Q \text{ 在 } O \text{ 的远离 } S \text{ 的一侧}.
+		\end{cases}
+	\]
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	因此，三棱锥 $S$-$ABC$ 的外接球球心必在过底面外心 $O$ 且垂直于底面的直线上，即在直线 $SO$ 上，且到四个顶点的距离相等。注意这里的直线 $SO$ 指整条直线，不一定指线段 $SO$。
+\end{proofbox}

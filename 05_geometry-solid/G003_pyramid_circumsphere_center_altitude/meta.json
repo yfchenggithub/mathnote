@@ -1,0 +1,172 @@
+{
+  "id": "G003",
+  "module": "geometry-solid",
+  "core": {
+    "title": "三棱锥外接球球心定位：侧棱相等用垂线法",
+    "alias": [
+      "外接球垂线法",
+      "侧棱相等球心",
+      "外心高线法",
+      "底面外心法"
+    ],
+    "summary": "侧棱相等的三棱锥，其外接球球心在过底面外心且垂直于底面的直线上。",
+    "difficulty": 3,
+    "category": "立体几何",
+    "tags": [
+      "三棱锥",
+      "外接球",
+      "球心",
+      "侧棱相等",
+      "外心",
+      "垂线法"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "三棱锥外接球",
+      "侧棱相等",
+      "球心定位",
+      "底面外心",
+      "垂线法",
+      "外接球半径",
+      "半径公式",
+      "h平方加r平方除以2h",
+      "正三角形外接圆半径",
+      "直角三角形外心",
+      "勾股定理求高"
+    ],
+    "synonyms": [
+      "三棱锥外接球球心在哪",
+      "侧棱相等怎么求外接球半径",
+      "外接球半径公式 h和r",
+      "底面外心加高线法"
+    ],
+    "intents": [
+      "求外接球半径",
+      "判断球心位置",
+      "证明球心在垂线上",
+      "计算高和底面外接圆半径"
+    ],
+    "query_templates": [
+      "侧棱相等的三棱锥外接球球心位置",
+      "底面外心加高线法求外接球半径",
+      "三棱锥外接球半径公式 h和r",
+      "正三棱锥外接球半径怎么求"
+    ],
+    "ocrKeywords": [
+      "侧棱相等",
+      "外心",
+      "垂线",
+      "外接球半径",
+      "SA=SB=SC"
+    ],
+    "latex_patterns": [
+      "R=\\frac{h^{2}+r^{2}}{2h}",
+      "SA=SB=SC",
+      "Q\\in l,\\quad l\\perp (ABC)"
+    ],
+    "formulaTokens": [
+      "SA=SB=SC",
+      "R=\\frac{h^{2}+r^{2}}{2h}",
+      "h^{2}+r^{2}",
+      "2h",
+      "R^{2}=r^{2}+OQ^{2}",
+      "R=|h-OQ|",
+      "r=\\frac{a}{\\sqrt{3}}",
+      "r=\\frac{BC}{2}"
+    ],
+    "pinyin": "sanlengzhui waijieqiu qiuxin dingwei",
+    "pinyinAbbr": "slzwjqqx"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.7,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "R=\\frac{h^{2}+r^{2}}{2h}",
+    "related_formulas": [
+      "R^{2}=r^{2}+OQ^{2}",
+      "R=|h-OQ|",
+      "SA^{2}=h^{2}+r^{2}"
+    ],
+    "variables": {
+      "R": "外接球半径",
+      "h": "顶点S到底面ABC的距离（高）",
+      "r": "底面三角形ABC的外接圆半径",
+      "O": "底面外心",
+      "Q": "外接球球心",
+      "SA": "侧棱长"
+    },
+    "conditions": "三棱锥S-ABC中，侧棱SA=SB=SC（等价于顶点S在底面ABC上的射影为△ABC的外心O），且SO⊥底面ABC。",
+    "conclusions": "外接球球心Q在过O且垂直于底面ABC的直线上；QA=QB=QC=QS=R；半径R=(h^2+r^2)/(2h)。"
+  },
+  "content": {
+    "statement": "若三棱锥的侧棱长相等（或顶点在底面上的射影为底面外心），则其外接球的球心在过底面外心且垂直于底面的直线上。此时球心到各顶点的距离相等，均为外接球半径。",
+    "derivation": [
+      "由侧棱相等得SO⊥底面且O为底面外心。",
+      "设球心Q在过O的垂线上，由QA=QS建立方程：R^2 = r^2 + OQ^2 且 h = |SO|，又R = |h - OQ|，联立解得R。",
+      "整理得R = (h^2 + r^2)/(2h)。"
+    ],
+    "intuition": "因为所有顶点到球心距离相等，且S在底面的投影是外心O，所以球心只能在过O的垂线上才能保证到S和到底面顶点的距离相等。",
+    "common_tricks": [
+      "先判断侧棱是否相等，若相等则直接用此结论。",
+      "求底面外接圆半径r：正三角形用a/√3，直角三角形用斜边一半，一般用正弦定理。",
+      "用勾股定理求高h：h = √(SA^2 - r^2)。",
+      "代入半径公式R = (h^2+r^2)/(2h)，注意h>0。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "立体几何外接球问题",
+      "锥体外接球半径计算",
+      "球心位置快速确定"
+    ],
+    "problem_types": [
+      "求外接球半径",
+      "判断球心位置",
+      "综合计算"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "G011.svg",
+    "png": "",
+    "gif": ""
+  },
+  "shareConfig": {
+    "title": "三棱锥外接球球心定位：侧棱相等用垂线法",
+    "shareDesc": "适合立体几何外接球问题考前回顾和讲评课，能快速定位球心并求出半径，避免复杂空间坐标计算，减少推导错误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "三棱锥的顶点在底面投影",
+      "三角形外接圆半径",
+      "勾股定理"
+    ],
+    "related_ids": [],
+    "similar": "正三棱锥的外接球、直三棱柱的外接球、长方体对角线公式求外接球半径"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-10"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "立体几何-空间关系-垂直",
+  "altNodes": "立体几何-体积与面积-体积,立体几何-空间向量-坐标法"
+}
