@@ -1972,6 +1972,8 @@ def try_add_topics(page: Any, topics: Sequence[str]) -> None:
 
 
 def add_zhihu_topic(page: Any, topic: str) -> bool:
+    if zhihu_topic_chip_exists(page, topic):
+        return True
     trigger_selectors = [
         'button:has-text("添加话题")',
         "text=+ 添加话题",
@@ -2005,18 +2007,19 @@ def add_zhihu_topic(page: Any, topic: str) -> bool:
         page.keyboard.press("Control+A")
         page.keyboard.insert_text(topic)
         page.wait_for_timeout(900)
-        if click_zhihu_topic_suggestion(page, topic):
+        if click_first_zhihu_topic_suggestion(page, topic):
             page.wait_for_timeout(500)
             return True
+        page.keyboard.press("ArrowDown")
         page.keyboard.press("Enter")
-        page.wait_for_timeout(500)
-        return True
+        page.wait_for_timeout(600)
+        return zhihu_topic_chip_exists(page, topic)
     except Exception as exc:
         LOGGER.debug("Add Zhihu topic failed for %s: %s", topic, exc)
         return False
 
 
-def click_zhihu_topic_suggestion(page: Any, topic: str) -> bool:
+def click_first_zhihu_topic_suggestion(page: Any, topic: str) -> bool:
     try:
         result = page.evaluate(
             """
@@ -2024,27 +2027,38 @@ def click_zhihu_topic_suggestion(page: Any, topic: str) -> bool:
               const active = document.activeElement;
               const activeRect = active && active.getBoundingClientRect
                 ? active.getBoundingClientRect()
-                : {top: 0};
+                : {left: 0, right: window.innerWidth, top: 0, bottom: 0};
               const all = Array.from(document.querySelectorAll('body *'));
               const candidates = [];
               for (const el of all) {
                 const text = (el.textContent || '').trim();
-                if (!text || !text.includes(topic)) continue;
+                if (!text || text.length > 40) continue;
+                if (text.includes('添加话题') || text.includes('文章话题')) continue;
                 const style = window.getComputedStyle(el);
                 if (style.display === 'none' || style.visibility === 'hidden') continue;
                 const rect = el.getBoundingClientRect();
                 if (rect.width <= 0 || rect.height <= 0) continue;
-                if (rect.bottom < activeRect.top - 8) continue;
-                if (rect.width > 760 || rect.height > 120) continue;
+                if (rect.top < activeRect.bottom - 8) continue;
+                if (rect.left < activeRect.left - 80) continue;
+                if (rect.right > activeRect.right + 260) continue;
+                if (rect.width < 80 || rect.width > 620) continue;
+                if (rect.height < 20 || rect.height > 90) continue;
                 candidates.push({
                   el,
+                  text,
                   exact: text === topic ? 1 : 0,
+                  includes: text.includes(topic) ? 1 : 0,
                   top: rect.top,
-                  area: rect.width * rect.height,
+                  left: Math.abs(rect.left - activeRect.left),
+                  area: rect.width * rect.height
                 });
               }
               candidates.sort((a, b) =>
-                b.exact - a.exact || a.top - b.top || a.area - b.area
+                a.top - b.top ||
+                b.exact - a.exact ||
+                b.includes - a.includes ||
+                a.left - b.left ||
+                a.area - b.area
               );
               const picked = candidates[0];
               if (!picked) return false;
@@ -2056,7 +2070,33 @@ def click_zhihu_topic_suggestion(page: Any, topic: str) -> bool:
         )
         return bool(result)
     except Exception as exc:
-        LOGGER.debug("Click Zhihu topic suggestion failed for %s: %s", topic, exc)
+        LOGGER.debug("Click first Zhihu topic suggestion failed for %s: %s", topic, exc)
+        return False
+
+
+def zhihu_topic_chip_exists(page: Any, topic: str) -> bool:
+    try:
+        return bool(
+            page.evaluate(
+                """
+                (topic) => {
+                  const all = Array.from(document.querySelectorAll('body *'));
+                  return all.some((el) => {
+                    const text = (el.textContent || '').trim();
+                    if (!text || !text.includes(topic)) return false;
+                    const style = window.getComputedStyle(el);
+                    if (style.display === 'none' || style.visibility === 'hidden') return false;
+                    const rect = el.getBoundingClientRect();
+                    if (rect.width < 80 || rect.width > 420) return false;
+                    if (rect.height < 30 || rect.height > 80) return false;
+                    return text.includes('×') || text.includes('✕') || text.includes('关闭');
+                  });
+                }
+                """,
+                topic,
+            )
+        )
+    except Exception:
         return False
 
 
