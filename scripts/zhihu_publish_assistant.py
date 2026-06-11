@@ -769,6 +769,291 @@ def convert_to_zhihu_png(source_path: Path, output_path: Path) -> None:
     rgb.save(output_path, format="PNG", optimize=True)
 
 
+ZHIHU_WECHAT_CONTENT_SECTION_KEYS = (
+    "statement",
+    "explanation",
+    "proof",
+    "examples",
+    "traps",
+    "summary",
+)
+
+ZHIHU_WECHAT_SECTION_TITLE_TO_KEY = {
+    "二级结论": "statement",
+    "理解说明": "explanation",
+    "证明": "proof",
+    "典型例题": "examples",
+    "易错提醒": "traps",
+    "结论小结": "summary",
+}
+
+ZHIHU_WECHAT_PART_LABELS = {
+    "preface": "前言",
+    "statement": "二级结论",
+    "explanation": "理解说明",
+    "proof": "证明",
+    "examples": "典型例题",
+    "traps": "易错提醒",
+    "summary": "结论小结",
+    "minicode": "小程序入口",
+}
+
+
+def build_wechat_section_image_blocks(
+    record: dict[str, Any],
+    *,
+    item_id: str,
+    config: Config,
+    output_dir: Path,
+) -> list[dict[str, Any]]:
+    parts = build_wechat_article_image_parts(
+        record,
+        item_id=item_id,
+        config=config,
+    )
+    image_dir = output_dir / "wechat_section_images"
+    html_dir = output_dir / "wechat_section_html"
+    blocks: list[dict[str, Any]] = []
+    for index, part in enumerate(parts, start=1):
+        key = str(part["key"])
+        label = str(part["label"])
+        html_path = html_dir / f"{index:02d}_{key}.html"
+        image_path = image_dir / f"{index:02d}_{key}.png"
+        write_text(html_path, str(part["html"]))
+        screenshot_html_to_png(
+            html_path,
+            image_path,
+            chrome_path=config.chrome_path,
+            width=config.wechat_shot_width,
+            device_scale_factor=config.wechat_shot_dpr,
+        )
+        blocks.append(
+            {
+                "type": "image_block",
+                "asset_url": f"zhihu://wechat_section/{key}",
+                "local_path": str(image_path),
+                "exists": image_path.is_file(),
+                "alt": f"{item_id} {label}",
+                "caption": "",
+                "section_key": key,
+                "section_order": index,
+            }
+        )
+    return blocks
+
+
+def build_wechat_article_image_parts(
+    record: dict[str, Any],
+    *,
+    item_id: str,
+    config: Config,
+) -> list[dict[str, str]]:
+    article_html = read_localized_wechat_article_html(
+        item_id=item_id,
+        config=config,
+    )
+    section_html_by_key = extract_wechat_content_sections(article_html)
+    missing = [
+        key for key in ZHIHU_WECHAT_CONTENT_SECTION_KEYS if key not in section_html_by_key
+    ]
+    if missing:
+        raise ZhihuAssistantError(
+            "WeChat article HTML missing section(s): " + ", ".join(missing)
+        )
+
+    title = zhihu_title(record, item_id)
+    parts: list[dict[str, str]] = [
+        {
+            "key": "preface",
+            "label": ZHIHU_WECHAT_PART_LABELS["preface"],
+            "html": wrap_zhihu_wechat_part_html(
+                render_zhihu_preface_card(record, item_id=item_id),
+                title=f"{title} - 前言",
+                shot_width=config.wechat_shot_width,
+            ),
+        }
+    ]
+    for key in ZHIHU_WECHAT_CONTENT_SECTION_KEYS:
+        label = ZHIHU_WECHAT_PART_LABELS[key]
+        parts.append(
+            {
+                "key": key,
+                "label": label,
+                "html": wrap_zhihu_wechat_part_html(
+                    section_html_by_key[key],
+                    title=f"{title} - {label}",
+                    shot_width=config.wechat_shot_width,
+                ),
+            }
+        )
+    parts.append(
+        {
+            "key": "minicode",
+            "label": ZHIHU_WECHAT_PART_LABELS["minicode"],
+            "html": wrap_zhihu_wechat_part_html(
+                render_zhihu_minicode_card(record, item_id=item_id, config=config),
+                title=f"{title} - 小程序入口",
+                shot_width=config.wechat_shot_width,
+            ),
+        }
+    )
+    return parts
+
+
+def read_localized_wechat_article_html(*, item_id: str, config: Config) -> str:
+    article_dir = config.wechat_drafts_dir / item_id
+    article_path = article_dir / "article.html"
+    manifest_path = article_dir / "asset_manifest.json"
+    if not article_path.is_file():
+        raise ZhihuAssistantError(
+            f"WeChat article HTML not found: {article_path}. "
+            "Run generate_wechat_drafts.py for this ID first, or use --content-mode blocks."
+        )
+    article_html = article_path.read_text(encoding="utf-8")
+    return localize_wechat_article_images(article_html, manifest_path)
+
+
+def extract_wechat_content_sections(article_html: str) -> dict[str, str]:
+    sections: dict[str, str] = {}
+    for section_html in split_top_level_wechat_sections(article_html):
+        heading = first_section_heading_text(section_html)
+        key = ZHIHU_WECHAT_SECTION_TITLE_TO_KEY.get(heading)
+        if key:
+            sections[key] = section_html
+    return sections
+
+
+def split_top_level_wechat_sections(article_html: str) -> list[str]:
+    root_match = re.search(r"<section\b[^>]*>", article_html, flags=re.IGNORECASE)
+    if not root_match:
+        return []
+    pos = root_match.end()
+    depth = 0
+    start: int | None = None
+    sections: list[str] = []
+    tag_re = re.compile(r"</?section\b[^>]*>", flags=re.IGNORECASE)
+    for match in tag_re.finditer(article_html, pos):
+        tag = match.group(0)
+        is_close = tag.startswith("</")
+        if is_close:
+            if depth == 0:
+                break
+            depth -= 1
+            if depth == 0 and start is not None:
+                sections.append(article_html[start : match.end()])
+                start = None
+        else:
+            if depth == 0:
+                start = match.start()
+            depth += 1
+    return sections
+
+
+def first_section_heading_text(section_html: str) -> str:
+    match = re.search(
+        r"<p\b[^>]*background\s*:[^>]*>(.*?)</p>",
+        section_html,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+    if not match:
+        return ""
+    text = re.sub(r"<[^>]+>", "", match.group(1))
+    return html.unescape(" ".join(text.split()))
+
+
+def wrap_zhihu_wechat_part_html(inner_html: str, *, title: str, shot_width: int) -> str:
+    page_title = html.escape(title, quote=False)
+    return f"""<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>{page_title}</title>
+  <style>
+    html, body {{
+      margin: 0;
+      padding: 0;
+      background: #c9edcf;
+      color: #1f2933;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    }}
+    body {{
+      width: {shot_width}px;
+      overflow-x: hidden;
+    }}
+    .zhihu-shot-page {{
+      width: {shot_width}px;
+      background: #c9edcf;
+      padding: 18px 12px 22px;
+      box-sizing: border-box;
+    }}
+    .zhihu-shot-inner {{
+      max-width: 677px;
+      margin: 0 auto;
+    }}
+    .zhihu-shot-inner > section:first-child {{
+      margin-top: 0 !important;
+    }}
+    .zhihu-shot-inner > section:last-child {{
+      margin-bottom: 0 !important;
+    }}
+    img {{
+      max-width: 100%;
+    }}
+  </style>
+</head>
+<body>
+  <main class="zhihu-shot-page">
+    <div class="zhihu-shot-inner">
+      {inner_html}
+    </div>
+  </main>
+</body>
+</html>
+"""
+
+
+def render_zhihu_preface_card(record: dict[str, Any], *, item_id: str) -> str:
+    summary = record_summary(record) or record_title(record, item_id)
+    title = "这篇先整理 1 个常用二级结论"
+    return f"""
+<section style="margin:0;padding:24px 22px 24px;background:#FFFDF8;border:1px solid #E8D9C5;border-radius:12px;box-sizing:border-box;">
+  <p style="margin:0 0 12px;"><span style="display:inline-block;padding:4px 13px;border-radius:999px;background:#DDF4E8;color:#146B52;font-size:15px;line-height:1.4;font-weight:700;">前言</span></p>
+  <h1 style="margin:0 0 18px;color:#164554;font-size:30px;line-height:1.28;font-weight:800;">{html.escape(title, quote=False)}</h1>
+  <p style="margin:0 0 18px;color:#374151;font-size:18px;line-height:1.85;">为了适合知乎和手机端阅读，这次不再把整篇内容压成一张超长图，而是按内容分成独立图片：前言、每个二级结论、最后的小程序入口。</p>
+  <p style="margin:0 0 8px;color:#164554;font-size:22px;line-height:1.45;font-weight:800;">本篇包含</p>
+  <p style="margin:0 0 18px;color:#1f2933;font-size:18px;line-height:1.8;">• <strong>{html.escape(item_id, quote=False)}</strong>：{html.escape(summary, quote=False)}</p>
+  <p style="margin:0;color:#6b7280;font-size:15px;line-height:1.8;">阅读建议：先看适用条件，再看核心公式，最后看易错提醒。公式较多的部分建议收藏后反复复看。</p>
+</section>
+"""
+
+
+def render_zhihu_minicode_card(
+    record: dict[str, Any], *, item_id: str, config: Config
+) -> str:
+    if not config.minicode_path.is_file():
+        raise ZhihuAssistantError(f"MiniCode image not found: {config.minicode_path}")
+    tags = []
+    meta = record.get("meta") if isinstance(record.get("meta"), dict) else {}
+    raw_tags = meta.get("tags") if isinstance(meta.get("tags"), list) else []
+    for tag in raw_tags:
+        text = clean_text(tag)
+        if text:
+            tags.append(text)
+    examples = "、".join([item_id] + tags[:3])
+    minicode_src = config.minicode_path.resolve().as_uri()
+    return f"""
+<section style="margin:0;padding:28px 28px 28px;background:#FFFDF8;border:1px solid #E8D9C5;border-radius:12px;box-sizing:border-box;text-align:center;">
+  <p style="margin:0 0 18px;"><span style="display:inline-block;padding:4px 13px;border-radius:999px;background:#DDF4E8;color:#146B52;font-size:15px;line-height:1.4;font-weight:700;">小程序入口</span></p>
+  <h1 style="margin:0 0 18px;color:#164554;font-size:30px;line-height:1.28;font-weight:800;">想查更多二级结论，可以用「数秒查」</h1>
+  <p style="margin:0 0 20px;color:#374151;font-size:18px;line-height:1.8;">支持关键词搜索、热门结论、最近更新、收藏和高清 PDF 下载。</p>
+  <img src="{html.escape(minicode_src, quote=True)}" alt="数秒查小程序码" style="display:block;width:230px;max-width:58%;height:auto;margin:0 auto 22px;"/>
+  <p style="margin:0 0 14px;color:#1f2933;font-size:17px;line-height:1.8;text-align:left;"><strong>使用方式：</strong> 长按识别小程序码，进入后搜索结论 ID 或关键词。</p>
+  <p style="margin:0;color:#6b7280;font-size:15px;line-height:1.7;">例如可以搜索：{html.escape(examples, quote=False)}。</p>
+</section>
+"""
+
+
 def build_wechat_image_blocks(
     record: dict[str, Any],
     *,
@@ -776,6 +1061,13 @@ def build_wechat_image_blocks(
     config: Config,
     output_dir: Path,
 ) -> list[dict[str, Any]]:
+    return build_wechat_section_image_blocks(
+        record,
+        item_id=item_id,
+        config=config,
+        output_dir=output_dir,
+    )
+
     image_path = output_dir / "wechat_article_long.png"
     html_path = output_dir / "wechat_article_render.html"
     render_wechat_article_long_image(
@@ -920,18 +1212,67 @@ def screenshot_html_to_png(
 
     image_path.parent.mkdir(parents=True, exist_ok=True)
     with sync_playwright() as playwright:
+        viewport_height = 1200
         browser = playwright.chromium.launch(
             executable_path=str(chrome_path),
             headless=True,
         )
         page = browser.new_page(
-            viewport={"width": width, "height": 1200},
+            viewport={"width": width, "height": viewport_height},
             device_scale_factor=device_scale_factor,
         )
         page.goto(html_path.resolve().as_uri(), wait_until="load")
         page.wait_for_load_state("networkidle", timeout=10000)
         page.wait_for_timeout(600)
-        page.screenshot(path=str(image_path), full_page=True)
+        try:
+            scroll_height = int(
+                page.evaluate("() => Math.ceil(document.documentElement.scrollHeight)")
+            )
+        except Exception:
+            scroll_height = 0
+        if scroll_height > viewport_height:
+            page.screenshot(path=str(image_path), full_page=True)
+            browser.close()
+            return
+
+        clip = None
+        try:
+            metrics = page.evaluate(
+                """
+                () => {
+                  const main = document.querySelector('main') || document.body;
+                  const root = main.getBoundingClientRect();
+                  let bottom = root.top;
+                  for (const el of main.querySelectorAll('*')) {
+                    const style = window.getComputedStyle(el);
+                    if (style.display === 'none' || style.visibility === 'hidden') continue;
+                    const rect = el.getBoundingClientRect();
+                    if (rect.width > 0 && rect.height > 0) {
+                      bottom = Math.max(bottom, rect.bottom);
+                    }
+                  }
+                  return {
+                    x: Math.max(0, root.left),
+                    y: Math.max(0, root.top),
+                    width: Math.max(1, root.width),
+                    height: Math.max(1, Math.ceil(bottom - root.top))
+                  };
+                }
+                """
+            )
+            if isinstance(metrics, dict):
+                clip = {
+                    "x": max(0, float(metrics["x"])),
+                    "y": max(0, float(metrics["y"])),
+                    "width": min(float(width), float(metrics["width"])),
+                    "height": max(1.0, float(metrics["height"])),
+                }
+        except Exception:
+            clip = None
+        if clip:
+            page.screenshot(path=str(image_path), clip=clip)
+        else:
+            page.screenshot(path=str(image_path), full_page=True)
         browser.close()
 
 
