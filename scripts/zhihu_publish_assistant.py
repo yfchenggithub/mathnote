@@ -30,7 +30,6 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any, Iterable, Sequence
 
-
 SCRIPT_DIR = Path(__file__).resolve().parent
 PROJECT_ROOT = SCRIPT_DIR.parent
 
@@ -46,6 +45,9 @@ DEFAULT_ZHIHU_WRITE_URL = "https://zhuanlan.zhihu.com/write"
 DEFAULT_COVER_SIZE = "1200x675"
 DEFAULT_WECHAT_SHOT_WIDTH = 720
 DEFAULT_WECHAT_SHOT_DPR = 2.0
+ZHIHU_ACCOUNT_TARGET_COUNT = 500
+ZHIHU_ACCOUNT_CURRENT_COUNT = 149
+ZHIHU_TOPIC_COUNT = 6
 ID_PATTERN = re.compile(r"^[A-Za-z]\d{3}$")
 
 SECTION_TITLE_MAP = {
@@ -129,6 +131,7 @@ class PackageResult:
     checklist_path: str
     formula_asset_count: int
     missing_asset_count: int
+    topics: list[str] = field(default_factory=list)
     status: str = "success"
     warnings: list[str] = field(default_factory=list)
     error: str | None = None
@@ -190,10 +193,12 @@ def parse_args() -> argparse.Namespace:
             "Examples:\n"
             "  python scripts/zhihu_publish_assistant.py G003 --package-only\n"
             "  python scripts/zhihu_publish_assistant.py G003\n"
-            "  python scripts/zhihu_publish_assistant.py G003 --chrome \"C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe\"\n"
+            '  python scripts/zhihu_publish_assistant.py G003 --chrome "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe"\n'
         ),
     )
-    parser.add_argument("ids", nargs="+", help="Conclusion IDs, e.g. G003 or G003,T008.")
+    parser.add_argument(
+        "ids", nargs="+", help="Conclusion IDs, e.g. G003 or G003,T008."
+    )
     parser.add_argument("--canonical-json", default=str(DEFAULT_CANONICAL_PATH))
     parser.add_argument("--public-dir", default=str(DEFAULT_PUBLIC_DIR))
     parser.add_argument("--output-dir", default=str(DEFAULT_OUTPUT_DIR))
@@ -203,15 +208,21 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--chrome", default=str(DEFAULT_CHROME_PATH))
     parser.add_argument("--profile-dir", default=str(DEFAULT_PROFILE_DIR))
     parser.add_argument("--draft-url", default=DEFAULT_ZHIHU_WRITE_URL)
-    parser.add_argument("--cover-size", type=parse_size, default=parse_size(DEFAULT_COVER_SIZE))
+    parser.add_argument(
+        "--cover-size", type=parse_size, default=parse_size(DEFAULT_COVER_SIZE)
+    )
     parser.add_argument(
         "--content-mode",
         choices=("wechat-image", "blocks"),
         default="wechat-image",
         help="wechat-image renders the existing WeChat article as one long image. blocks inserts structured text/images.",
     )
-    parser.add_argument("--wechat-shot-width", type=int, default=DEFAULT_WECHAT_SHOT_WIDTH)
-    parser.add_argument("--wechat-shot-dpr", type=float, default=DEFAULT_WECHAT_SHOT_DPR)
+    parser.add_argument(
+        "--wechat-shot-width", type=int, default=DEFAULT_WECHAT_SHOT_WIDTH
+    )
+    parser.add_argument(
+        "--wechat-shot-dpr", type=float, default=DEFAULT_WECHAT_SHOT_DPR
+    )
     parser.add_argument("--force-cover", action="store_true")
     parser.add_argument(
         "--package-only",
@@ -262,7 +273,9 @@ def write_text(path: Path, text: str) -> None:
 
 def write_json(path: Path, data: Any) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    path.write_text(
+        json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
 
 
 def normalize_ids(raw_values: Sequence[str]) -> tuple[str, ...]:
@@ -353,6 +366,75 @@ def record_category(record: dict[str, Any]) -> str:
     return str(meta.get("category") or "").strip()
 
 
+def record_tags(record: dict[str, Any]) -> list[str]:
+    meta = record.get("meta") if isinstance(record.get("meta"), dict) else {}
+    raw_tags = meta.get("tags") if isinstance(meta.get("tags"), list) else []
+    return [clean_text(tag) for tag in raw_tags if clean_text(tag)]
+
+
+def record_aliases(record: dict[str, Any]) -> list[str]:
+    meta = record.get("meta") if isinstance(record.get("meta"), dict) else {}
+    raw_aliases = meta.get("aliases") if isinstance(meta.get("aliases"), list) else []
+    return [clean_text(alias) for alias in raw_aliases if clean_text(alias)]
+
+
+def zhihu_topics(record: dict[str, Any], item_id: str) -> list[str]:
+    fixed = ["高中数学", "高考数学", "二级结论"]
+    category = record_category(record)
+    title = record_title(record, item_id)
+    candidates: list[tuple[str, int, int]] = []
+
+    def add_candidate(topic: str, score: int, order: int) -> None:
+        topic = clean_text(topic)
+        if not topic or topic in fixed:
+            return
+        candidates.append((topic, score, order))
+
+    if category:
+        add_candidate(category, 1000, 0)
+
+    seo_priority = {
+        "函数": 950,
+        "数列": 940,
+        "圆锥曲线": 930,
+        "立体几何": 920,
+        "平面几何": 910,
+        "三角函数": 900,
+        "导数": 890,
+        "概率统计": 880,
+        "向量": 870,
+        "不等式": 860,
+        "外接球": 820,
+        "三棱锥": 800,
+        "椭圆": 790,
+        "双曲线": 780,
+        "抛物线": 770,
+    }
+    for index, tag in enumerate(record_tags(record), start=1):
+        score = seo_priority.get(tag, 500)
+        if tag in title:
+            score += 80
+        add_candidate(tag, score, index)
+    for index, alias in enumerate(record_aliases(record), start=100):
+        score = seo_priority.get(alias, 360)
+        if alias in title:
+            score += 40
+        add_candidate(alias, score, index)
+
+    best_by_topic: dict[str, tuple[str, int, int]] = {}
+    for topic, score, order in candidates:
+        previous = best_by_topic.get(topic)
+        if previous is None or (score, -order) > (previous[1], -previous[2]):
+            best_by_topic[topic] = (topic, score, order)
+
+    ranked = sorted(
+        best_by_topic.values(), key=lambda item: (-item[1], item[2], item[0])
+    )
+    return dedupe_keep_order([*fixed, *(topic for topic, _score, _order in ranked)])[
+        :ZHIHU_TOPIC_COUNT
+    ]
+
+
 def zhihu_title(record: dict[str, Any], item_id: str) -> str:
     base = record_title(record, item_id)
     prefix = f"高中数学二级结论 {item_id}"
@@ -429,7 +511,9 @@ def formula_should_display(node: dict[str, Any], *, force_block: bool = False) -
     return False
 
 
-def make_asset_ref(kind: str, node: dict[str, Any], public_dir: Path) -> AssetRef | None:
+def make_asset_ref(
+    kind: str, node: dict[str, Any], public_dir: Path
+) -> AssetRef | None:
     asset_url = resolve_asset_url(node)
     if not asset_url:
         return None
@@ -441,8 +525,12 @@ def make_asset_ref(kind: str, node: dict[str, Any], public_dir: Path) -> AssetRe
         local_path=str(local) if local else "",
         exists=bool(local and local.is_file()),
         latex=str(node.get("latex") or ""),
-        width_px=int(asset["width_px"]) if isinstance(asset.get("width_px"), int) else None,
-        height_px=int(asset["height_px"]) if isinstance(asset.get("height_px"), int) else None,
+        width_px=(
+            int(asset["width_px"]) if isinstance(asset.get("width_px"), int) else None
+        ),
+        height_px=(
+            int(asset["height_px"]) if isinstance(asset.get("height_px"), int) else None
+        ),
         display_width_px=(
             int(asset["display_width_px"])
             if isinstance(asset.get("display_width_px"), int)
@@ -528,7 +616,9 @@ def append_tokens_as_blocks(
         elif token_type == "math_image":
             if formula_should_display(token):
                 flush_inline()
-                append_formula_image(blocks, token, public_dir=public_dir, asset_refs=asset_refs)
+                append_formula_image(
+                    blocks, token, public_dir=public_dir, asset_refs=asset_refs
+                )
             else:
                 inline_parts.append(token_latex_text(str(token.get("latex") or "")))
                 ref = make_asset_ref("inline_formula_image", token, public_dir)
@@ -557,7 +647,9 @@ def convert_block_to_article_blocks(
             asset_refs=asset_refs,
         )
     elif block_type in {"math_image", "math_block", "math_display"}:
-        append_formula_image(output, source_block, public_dir=public_dir, asset_refs=asset_refs)
+        append_formula_image(
+            output, source_block, public_dir=public_dir, asset_refs=asset_refs
+        )
     elif block_type == "theorem_group":
         items = source_block.get("items")
         if isinstance(items, list):
@@ -586,7 +678,9 @@ def convert_block_to_article_blocks(
             for index, step in enumerate(steps, start=1):
                 if not isinstance(step, dict):
                     continue
-                append_heading(output, str(step.get("title") or f"步骤 {index}"), level=3)
+                append_heading(
+                    output, str(step.get("title") or f"步骤 {index}"), level=3
+                )
                 for child in step.get("content") or []:
                     if isinstance(child, dict):
                         output.extend(
@@ -596,7 +690,11 @@ def convert_block_to_article_blocks(
                         )
     elif block_type == "example":
         append_heading(output, str(source_block.get("title") or "例题"), level=3)
-        for label, key in (("题目", "problem"), ("解题步骤", "solution"), ("关键结论", "answer")):
+        for label, key in (
+            ("题目", "problem"),
+            ("解题步骤", "solution"),
+            ("关键结论", "answer"),
+        ):
             content = source_block.get(key)
             if not content:
                 continue
@@ -646,7 +744,9 @@ def build_article_blocks(
         append_paragraph(blocks, summary)
 
     content = record.get("content") if isinstance(record.get("content"), dict) else {}
-    sections = content.get("sections") if isinstance(content.get("sections"), list) else []
+    sections = (
+        content.get("sections") if isinstance(content.get("sections"), list) else []
+    )
     wanted = set(config.section_keys)
     for section in sections:
         if not isinstance(section, dict):
@@ -656,7 +756,9 @@ def build_article_blocks(
             continue
         section_title = str(section.get("title") or SECTION_TITLE_MAP.get(key) or key)
         append_heading(blocks, section_title, level=2)
-        section_blocks = section.get("blocks") if isinstance(section.get("blocks"), list) else []
+        section_blocks = (
+            section.get("blocks") if isinstance(section.get("blocks"), list) else []
+        )
         for source_block in section_blocks:
             if not isinstance(source_block, dict):
                 continue
@@ -695,7 +797,9 @@ def build_article_blocks(
     return blocks
 
 
-def collect_all_formula_refs(record: dict[str, Any], public_dir: Path) -> list[AssetRef]:
+def collect_all_formula_refs(
+    record: dict[str, Any], public_dir: Path
+) -> list[AssetRef]:
     refs: dict[str, AssetRef] = {}
 
     def walk(node: Any) -> None:
@@ -715,7 +819,9 @@ def collect_all_formula_refs(record: dict[str, Any], public_dir: Path) -> list[A
     return list(refs.values())
 
 
-def prepare_zhihu_upload_assets(blocks: list[dict[str, Any]], output_dir: Path) -> list[dict[str, Any]]:
+def prepare_zhihu_upload_assets(
+    blocks: list[dict[str, Any]], output_dir: Path
+) -> list[dict[str, Any]]:
     upload_assets: list[dict[str, Any]] = []
     counters = {"formula_image": 0, "image_block": 0}
     for block in blocks:
@@ -728,7 +834,12 @@ def prepare_zhihu_upload_assets(blocks: list[dict[str, Any]], output_dir: Path) 
         counters[block_type] += 1
         subdir = "formulas" if block_type == "formula_image" else "images"
         prefix = "formula" if block_type == "formula_image" else "image"
-        upload_path = output_dir / "upload_assets" / subdir / f"{prefix}_{counters[block_type]:03d}.png"
+        upload_path = (
+            output_dir
+            / "upload_assets"
+            / subdir
+            / f"{prefix}_{counters[block_type]:03d}.png"
+        )
         convert_to_zhihu_png(source_path, upload_path)
         block["source_local_path"] = str(source_path)
         block["local_path"] = str(upload_path)
@@ -750,7 +861,9 @@ def convert_to_zhihu_png(source_path: Path, output_path: Path) -> None:
     try:
         from PIL import Image
     except ImportError as exc:
-        raise ZhihuAssistantError("Pillow is required for Zhihu image conversion.") from exc
+        raise ZhihuAssistantError(
+            "Pillow is required for Zhihu image conversion."
+        ) from exc
 
     image = Image.open(source_path)
     if image.mode in {"RGBA", "LA"} or (
@@ -854,7 +967,9 @@ def build_wechat_article_image_parts(
     )
     section_html_by_key = extract_wechat_content_sections(article_html)
     missing = [
-        key for key in ZHIHU_WECHAT_CONTENT_SECTION_KEYS if key not in section_html_by_key
+        key
+        for key in ZHIHU_WECHAT_CONTENT_SECTION_KEYS
+        if key not in section_html_by_key
     ]
     if missing:
         raise ZhihuAssistantError(
@@ -1015,17 +1130,44 @@ def wrap_zhihu_wechat_part_html(inner_html: str, *, title: str, shot_width: int)
 
 def render_zhihu_preface_card(record: dict[str, Any], *, item_id: str) -> str:
     summary = record_summary(record) or record_title(record, item_id)
-    title = "这篇先整理 1 个常用二级结论"
     return f"""
 <section style="margin:0;padding:24px 22px 24px;background:#FFFDF8;border:1px solid #E8D9C5;border-radius:12px;box-sizing:border-box;">
   <p style="margin:0 0 12px;"><span style="display:inline-block;padding:4px 13px;border-radius:999px;background:#DDF4E8;color:#146B52;font-size:15px;line-height:1.4;font-weight:700;">前言</span></p>
-  <h1 style="margin:0 0 18px;color:#164554;font-size:30px;line-height:1.28;font-weight:800;">{html.escape(title, quote=False)}</h1>
-  <p style="margin:0 0 18px;color:#374151;font-size:18px;line-height:1.85;">为了适合知乎和手机端阅读，这次不再把整篇内容压成一张超长图，而是按内容分成独立图片：前言、每个二级结论、最后的小程序入口。</p>
   <p style="margin:0 0 8px;color:#164554;font-size:22px;line-height:1.45;font-weight:800;">本篇包含</p>
   <p style="margin:0 0 18px;color:#1f2933;font-size:18px;line-height:1.8;">• <strong>{html.escape(item_id, quote=False)}</strong>：{html.escape(summary, quote=False)}</p>
   <p style="margin:0;color:#6b7280;font-size:15px;line-height:1.8;">阅读建议：先看适用条件，再看核心公式，最后看易错提醒。公式较多的部分建议收藏后反复复看。</p>
 </section>
 """
+
+
+def build_zhihu_required_text_block(
+    record: dict[str, Any], item_id: str
+) -> dict[str, Any]:
+    title = record_title(record, item_id)
+    summary = record_summary(record)
+    text = (
+        f"本号计划系统整理 {ZHIHU_ACCOUNT_TARGET_COUNT} 条高中数学常用二级结论，"
+        f"目前已经整理了 {ZHIHU_ACCOUNT_CURRENT_COUNT} 条。"
+        f"本文是其中的 {item_id}：{title}。"
+        "下方按前言、二级结论、理解说明、证明、典型例题、易错提醒、复盘总结和小程序入口分段展示。"
+    )
+    if summary:
+        text += f"核心提示：{summary}"
+    if len(clean_text(text)) <= 20:
+        text += "请结合下方分段图片阅读完整推导、例题和易错提醒。"
+    return {
+        "type": "paragraph",
+        "text": text,
+        "purpose": "zhihu_required_text",
+    }
+
+
+def build_zhihu_ebook_text_block(item_id: str) -> dict[str, Any]:
+    return {
+        "type": "paragraph",
+        "text": f"需要电子版的同学，点赞+关注后，斯信发送“{item_id}”聆取。",
+        "purpose": "zhihu_ebook_cta",
+    }
 
 
 def render_zhihu_minicode_card(
@@ -1237,8 +1379,7 @@ def screenshot_html_to_png(
 
         clip = None
         try:
-            metrics = page.evaluate(
-                """
+            metrics = page.evaluate("""
                 () => {
                   const main = document.querySelector('main') || document.body;
                   const root = main.getBoundingClientRect();
@@ -1258,8 +1399,7 @@ def screenshot_html_to_png(
                     height: Math.max(1, Math.ceil(bottom - root.top))
                   };
                 }
-                """
-            )
+                """)
             if isinstance(metrics, dict):
                 clip = {
                     "x": max(0, float(metrics["x"])),
@@ -1286,7 +1426,9 @@ def find_font(size: int, *, bold: bool = False) -> Any:
         Path(r"C:\Windows\Fonts\msyhbd.ttc" if bold else r"C:\Windows\Fonts\msyh.ttc"),
         Path(r"C:\Windows\Fonts\simhei.ttf"),
         Path(r"C:\Windows\Fonts\simsun.ttc"),
-        Path(r"C:\Windows\Fonts\arialbd.ttf" if bold else r"C:\Windows\Fonts\arial.ttf"),
+        Path(
+            r"C:\Windows\Fonts\arialbd.ttf" if bold else r"C:\Windows\Fonts\arial.ttf"
+        ),
     ]
     for path in candidates:
         if path.is_file():
@@ -1302,7 +1444,15 @@ def text_size(draw: Any, text: str, font: Any) -> tuple[int, int]:
     return bbox[2] - bbox[0], bbox[3] - bbox[1]
 
 
-def fit_font(draw: Any, text: str, max_width: int, initial_size: int, min_size: int, *, bold: bool) -> Any:
+def fit_font(
+    draw: Any,
+    text: str,
+    max_width: int,
+    initial_size: int,
+    min_size: int,
+    *,
+    bold: bool,
+) -> Any:
     size = initial_size
     while size > min_size:
         font = find_font(size, bold=bold)
@@ -1313,7 +1463,9 @@ def fit_font(draw: Any, text: str, max_width: int, initial_size: int, min_size: 
     return find_font(min_size, bold=bold)
 
 
-def wrap_text(draw: Any, text: str, font: Any, max_width: int, max_lines: int) -> list[str]:
+def wrap_text(
+    draw: Any, text: str, font: Any, max_width: int, max_lines: int
+) -> list[str]:
     chars = list(str(text or ""))
     lines: list[str] = []
     current = ""
@@ -1349,7 +1501,9 @@ def primary_formula_path(record: dict[str, Any], public_dir: Path) -> Path | Non
     return local if local and local.is_file() else None
 
 
-def generate_cover(record: dict[str, Any], *, item_id: str, config: Config, output_path: Path) -> None:
+def generate_cover(
+    record: dict[str, Any], *, item_id: str, config: Config, output_path: Path
+) -> None:
     if output_path.exists() and not config.force_cover:
         return
     try:
@@ -1381,7 +1535,9 @@ def generate_cover(record: dict[str, Any], *, item_id: str, config: Config, outp
     title_font = find_font(int(width * 0.064), bold=True)
     sub_font = find_font(int(width * 0.032), bold=False)
 
-    draw.text((margin, top), "数秒查 · 高中数学二级结论", font=brand_font, fill="#d8edf0")
+    draw.text(
+        (margin, top), "数秒查 · 高中数学二级结论", font=brand_font, fill="#d8edf0"
+    )
 
     chip = f"{category or '高中数学'} · {item_id}"
     chip_w, chip_h = text_size(draw, chip, chip_font)
@@ -1394,7 +1550,9 @@ def generate_cover(record: dict[str, Any], *, item_id: str, config: Config, outp
         top + chip_h + pad_y * 2,
     ]
     draw.rounded_rectangle(chip_box, radius=chip_h, outline="#a7d6d9", width=2)
-    draw.text((chip_box[0] + pad_x, chip_box[1] + pad_y), chip, font=chip_font, fill="#e4f5f5")
+    draw.text(
+        (chip_box[0] + pad_x, chip_box[1] + pad_y), chip, font=chip_font, fill="#e4f5f5"
+    )
 
     title_y = int(height * 0.23)
     title_lines = wrap_text(draw, title, title_font, int(width * 0.82), 2)
@@ -1412,7 +1570,12 @@ def generate_cover(record: dict[str, Any], *, item_id: str, config: Config, outp
             min_size=int(width * 0.023),
             bold=False,
         )
-        draw.text((margin, title_y + int(height * 0.035)), summary, font=summary_font, fill="#f4d35e")
+        draw.text(
+            (margin, title_y + int(height * 0.035)),
+            summary,
+            font=summary_font,
+            fill="#f4d35e",
+        )
 
     formula_box = [
         margin,
@@ -1432,7 +1595,9 @@ def generate_cover(record: dict[str, Any], *, item_id: str, config: Config, outp
         flat = Image.new("RGBA", formula_img.size, (255, 255, 255, 255))
         flat.alpha_composite(formula_img)
         gray = ImageOps.grayscale(flat)
-        mask = gray.point(lambda p: 0 if p >= 245 else max(0, min(255, int((245 - p) * 255 / 170))))
+        mask = gray.point(
+            lambda p: 0 if p >= 245 else max(0, min(255, int((245 - p) * 255 / 170)))
+        )
         try:
             mask = ImageChops.multiply(mask, alpha)
         except Exception:
@@ -1508,13 +1673,21 @@ def block_to_html(block: dict[str, Any]) -> str:
         text = html.escape(str(block.get("text") or ""), quote=False)
         return f"<h{level}>{text}</h{level}>"
     if block_type == "paragraph":
-        text = html.escape(str(block.get("text") or ""), quote=False).replace("\n", "<br/>")
+        text = html.escape(str(block.get("text") or ""), quote=False).replace(
+            "\n", "<br/>"
+        )
         return f"<p>{text}</p>"
     if block_type in {"formula_image", "image_block"}:
         path = Path(str(block.get("local_path") or ""))
-        src = path.as_uri() if path.is_absolute() else html.escape(str(path), quote=True)
-        alt = html.escape(str(block.get("alt") or block.get("latex") or "图片"), quote=True)
-        css_class = "formula-image" if block_type == "formula_image" else "article-image"
+        src = (
+            path.as_uri() if path.is_absolute() else html.escape(str(path), quote=True)
+        )
+        alt = html.escape(
+            str(block.get("alt") or block.get("latex") or "图片"), quote=True
+        )
+        css_class = (
+            "formula-image" if block_type == "formula_image" else "article-image"
+        )
         caption = html.escape(str(block.get("caption") or ""), quote=False)
         caption_html = f"<figcaption>{caption}</figcaption>" if caption else ""
         return f'<figure><img class="{css_class}" src="{src}" alt="{alt}"/>{caption_html}</figure>'
@@ -1586,6 +1759,7 @@ def render_preview_html(title: str, body_html: str, cover_path: Path) -> str:
 
 
 def render_checklist(item_id: str, result: PackageResult) -> str:
+    topics_text = "、".join(result.topics)
     return f"""# 知乎发布检查清单：{item_id}
 
 1. 打开 `preview.html` 检查封面、标题、正文和公式顺序。
@@ -1600,13 +1774,18 @@ def render_checklist(item_id: str, result: PackageResult) -> str:
 - 正文 blocks：`{result.article_blocks_path}`
 - 预览：`{result.preview_html_path}`
 - 资源清单：`{result.manifest_path}`
+
+推荐话题：{topics_text}
 """
 
 
-def package_one_item(item_id: str, record: dict[str, Any], config: Config) -> PackageResult:
+def package_one_item(
+    item_id: str, record: dict[str, Any], config: Config
+) -> PackageResult:
     output_dir = config.output_dir / item_id
     output_dir.mkdir(parents=True, exist_ok=True)
     title = zhihu_title(record, item_id)
+    topics = zhihu_topics(record, item_id)
     cover_path = output_dir / "cover.png"
     article_blocks_path = output_dir / "article_blocks.json"
     preview_html_path = output_dir / "preview.html"
@@ -1620,14 +1799,21 @@ def package_one_item(item_id: str, record: dict[str, Any], config: Config) -> Pa
 
     asset_refs: list[AssetRef] = []
     if config.content_mode == "wechat-image":
-        blocks = build_wechat_image_blocks(
+        image_blocks = build_wechat_image_blocks(
             record,
             item_id=item_id,
             config=config,
             output_dir=output_dir,
         )
+        blocks = [
+            build_zhihu_required_text_block(record, item_id),
+            *image_blocks,
+            build_zhihu_ebook_text_block(item_id),
+        ]
     else:
-        blocks = build_article_blocks(record, item_id=item_id, config=config, asset_refs=asset_refs)
+        blocks = build_article_blocks(
+            record, item_id=item_id, config=config, asset_refs=asset_refs
+        )
     upload_assets = prepare_zhihu_upload_assets(blocks, output_dir)
     all_formula_refs = collect_all_formula_refs(record, config.public_dir)
     by_url = {ref.asset_url: ref for ref in all_formula_refs}
@@ -1646,6 +1832,7 @@ def package_one_item(item_id: str, record: dict[str, Any], config: Config) -> Pa
             "id": item_id,
             "title": title,
             "cover_path": str(cover_path),
+            "topics": topics,
             "generated_at": now_iso(),
             "blocks": blocks,
         },
@@ -1659,6 +1846,7 @@ def package_one_item(item_id: str, record: dict[str, Any], config: Config) -> Pa
         "title": title,
         "generated_at": now_iso(),
         "cover": {"path": str(cover_path), "exists": cover_path.is_file()},
+        "topics": topics,
         "formula_asset_count": len(formula_refs),
         "missing_asset_count": len(missing),
         "upload_asset_count": len(upload_assets),
@@ -1681,6 +1869,7 @@ def package_one_item(item_id: str, record: dict[str, Any], config: Config) -> Pa
         checklist_path=str(checklist_path),
         formula_asset_count=len(formula_refs),
         missing_asset_count=len(missing),
+        topics=topics,
         warnings=[],
     )
     if missing:
@@ -1712,6 +1901,9 @@ def fill_zhihu_draft(result: PackageResult, config: Config) -> None:
     payload = load_package_blocks(Path(result.article_blocks_path))
     title = str(payload.get("title") or result.title)
     blocks = payload["blocks"]
+    topics = [
+        str(item).strip() for item in payload.get("topics", []) if str(item).strip()
+    ]
 
     LOGGER.info("Opening Zhihu draft in local Chrome | %s", config.chrome_path)
     config.profile_dir.mkdir(parents=True, exist_ok=True)
@@ -1736,6 +1928,7 @@ def fill_zhihu_draft(result: PackageResult, config: Config) -> None:
         try_fill_title(page, title)
         try_fill_body(page, blocks)
         try_upload_cover(page, Path(result.cover_path))
+        try_add_topics(page, topics)
 
         LOGGER.info(
             "Draft fill attempted. Keeping Chrome open for %d seconds for review.",
@@ -1746,7 +1939,9 @@ def fill_zhihu_draft(result: PackageResult, config: Config) -> None:
         context.close()
 
 
-def first_visible_locator(page: Any, selectors: Sequence[str], *, timeout_ms: int = 1500) -> Any | None:
+def first_visible_locator(
+    page: Any, selectors: Sequence[str], *, timeout_ms: int = 1500
+) -> Any | None:
     for selector in selectors:
         locator = page.locator(selector).first
         try:
@@ -1755,6 +1950,114 @@ def first_visible_locator(page: Any, selectors: Sequence[str], *, timeout_ms: in
         except Exception:
             continue
     return None
+
+
+def try_add_topics(page: Any, topics: Sequence[str]) -> None:
+    topics = [clean_text(topic) for topic in topics if clean_text(topic)]
+    if not topics:
+        return
+    try:
+        page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
+        page.wait_for_timeout(600)
+        added: list[str] = []
+        for topic in topics[:ZHIHU_TOPIC_COUNT]:
+            if add_zhihu_topic(page, topic):
+                added.append(topic)
+            else:
+                LOGGER.warning("Could not add Zhihu topic automatically: %s", topic)
+        if added:
+            LOGGER.info("Zhihu topics attempted: %s", "、".join(added))
+    except Exception as exc:
+        LOGGER.warning("Zhihu topic automation failed: %s", exc)
+
+
+def add_zhihu_topic(page: Any, topic: str) -> bool:
+    trigger_selectors = [
+        'button:has-text("添加话题")',
+        "text=+ 添加话题",
+        "text=+添加话题",
+        "text=添加话题",
+        '[aria-label*="添加话题"]',
+    ]
+    trigger = first_visible_locator(page, trigger_selectors, timeout_ms=1200)
+    if trigger is None:
+        return False
+    try:
+        trigger.click()
+        page.wait_for_timeout(300)
+    except Exception:
+        return False
+
+    input_selectors = [
+        'input[placeholder*="话题"]',
+        'input[placeholder*="搜索"]',
+        'input[placeholder*="请输入"]',
+        'textarea[placeholder*="话题"]',
+        '[contenteditable="true"][data-placeholder*="话题"]',
+        '[contenteditable="true"][placeholder*="话题"]',
+    ]
+    topic_input = first_visible_locator(page, input_selectors, timeout_ms=1800)
+    if topic_input is None:
+        return False
+
+    try:
+        topic_input.click()
+        page.keyboard.press("Control+A")
+        page.keyboard.insert_text(topic)
+        page.wait_for_timeout(900)
+        if click_zhihu_topic_suggestion(page, topic):
+            page.wait_for_timeout(500)
+            return True
+        page.keyboard.press("Enter")
+        page.wait_for_timeout(500)
+        return True
+    except Exception as exc:
+        LOGGER.debug("Add Zhihu topic failed for %s: %s", topic, exc)
+        return False
+
+
+def click_zhihu_topic_suggestion(page: Any, topic: str) -> bool:
+    try:
+        result = page.evaluate(
+            """
+            (topic) => {
+              const active = document.activeElement;
+              const activeRect = active && active.getBoundingClientRect
+                ? active.getBoundingClientRect()
+                : {top: 0};
+              const all = Array.from(document.querySelectorAll('body *'));
+              const candidates = [];
+              for (const el of all) {
+                const text = (el.textContent || '').trim();
+                if (!text || !text.includes(topic)) continue;
+                const style = window.getComputedStyle(el);
+                if (style.display === 'none' || style.visibility === 'hidden') continue;
+                const rect = el.getBoundingClientRect();
+                if (rect.width <= 0 || rect.height <= 0) continue;
+                if (rect.bottom < activeRect.top - 8) continue;
+                if (rect.width > 760 || rect.height > 120) continue;
+                candidates.push({
+                  el,
+                  exact: text === topic ? 1 : 0,
+                  top: rect.top,
+                  area: rect.width * rect.height,
+                });
+              }
+              candidates.sort((a, b) =>
+                b.exact - a.exact || a.top - b.top || a.area - b.area
+              );
+              const picked = candidates[0];
+              if (!picked) return false;
+              picked.el.click();
+              return true;
+            }
+            """,
+            topic,
+        )
+        return bool(result)
+    except Exception as exc:
+        LOGGER.debug("Click Zhihu topic suggestion failed for %s: %s", topic, exc)
+        return False
 
 
 def wait_for_editor_ready(page: Any, *, timeout_sec: int) -> bool:
@@ -1766,8 +2069,8 @@ def wait_for_editor_ready(page: Any, *, timeout_sec: int) -> bool:
         '[contenteditable="true"][data-placeholder*="请输入标题"]',
         '[contenteditable="true"][data-placeholder*="标题"]',
         '[contenteditable="true"]:has-text("请输入正文")',
-        'text=请输入正文',
-        'text=请输入标题',
+        "text=请输入正文",
+        "text=请输入标题",
         '.public-DraftEditor-content[contenteditable="true"]',
         '.ProseMirror[contenteditable="true"]',
     ]
@@ -1789,12 +2092,14 @@ def try_fill_title(page: Any, title: str) -> None:
         '[contenteditable="true"][data-placeholder*="标题"]',
         '[contenteditable="true"][placeholder*="请输入标题"]',
         '[contenteditable="true"][placeholder*="标题"]',
-        '.WriteIndex-titleInput textarea',
-        '.WriteIndex-titleInput input',
+        ".WriteIndex-titleInput textarea",
+        ".WriteIndex-titleInput input",
     ]
     locator = first_visible_locator(page, selectors)
     if locator is None:
-        LOGGER.warning("Could not find title input. Please paste the title manually: %s", title)
+        LOGGER.warning(
+            "Could not find title input. Please paste the title manually: %s", title
+        )
         return
     try:
         locator.click()
@@ -1814,10 +2119,10 @@ def try_upload_cover(page: Any, cover_path: Path) -> None:
     # editor image upload inputs, and using the first global input inserts the
     # cover into the article body instead of the publish-settings cover slot.
     trigger_selectors = [
-        'text=添加文章封面',
-        'text=上传文章封面',
-        'text=更换文章封面',
-        'text=添加封面',
+        "text=添加文章封面",
+        "text=上传文章封面",
+        "text=更换文章封面",
+        "text=添加封面",
         '[aria-label*="文章封面"]',
     ]
     try:
@@ -1857,8 +2162,7 @@ def cover_input_near_trigger(page: Any, trigger: Any) -> Any | None:
         handle = trigger.element_handle(timeout=1000)
         if handle is None:
             return None
-        input_handle = handle.evaluate_handle(
-            """
+        input_handle = handle.evaluate_handle("""
             (node) => {
               let current = node;
               for (let depth = 0; current && depth < 7; depth += 1) {
@@ -1870,8 +2174,7 @@ def cover_input_near_trigger(page: Any, trigger: Any) -> Any | None:
               }
               return null;
             }
-            """
-        )
+            """)
         element = input_handle.as_element()
         return element
     except Exception:
@@ -1891,7 +2194,9 @@ def try_fill_body(page: Any, blocks: list[dict[str, Any]]) -> None:
     ]
     editor = first_visible_locator(page, editor_selectors, timeout_ms=2000)
     if editor is None:
-        LOGGER.warning("Could not find body editor. Use article_blocks.json for manual fallback.")
+        LOGGER.warning(
+            "Could not find body editor. Use article_blocks.json for manual fallback."
+        )
         return
 
     try:
@@ -1917,7 +2222,9 @@ def try_fill_body(page: Any, blocks: list[dict[str, Any]]) -> None:
         elif block_type in {"formula_image", "image_block"}:
             path = Path(str(block.get("local_path") or ""))
             if not path.is_file():
-                page.keyboard.insert_text(str(block.get("latex") or block.get("alt") or "[图片缺失]"))
+                page.keyboard.insert_text(
+                    str(block.get("latex") or block.get("alt") or "[图片缺失]")
+                )
                 page.keyboard.press("Enter")
                 page.keyboard.press("Enter")
                 continue
@@ -1937,11 +2244,11 @@ def try_upload_image_into_editor(page: Any, image_path: Path) -> bool:
         'button[aria-label*="图片"]',
         'button:has-text("图片")',
         '[aria-label*="图片"]',
-        'text=图片',
+        "text=图片",
         'button[aria-label*="ͼƬ"]',
         'button:has-text("ͼƬ")',
         '[aria-label*="ͼƬ"]',
-        'text=ͼƬ',
+        "text=ͼƬ",
     ]
     try:
         button = first_visible_locator(page, button_selectors, timeout_ms=500)
@@ -1956,22 +2263,24 @@ def try_upload_image_into_editor(page: Any, image_path: Path) -> bool:
 
 def upload_image_via_zhihu_upload_modal(page: Any, image_path: Path) -> bool:
     modal_ready_selectors = [
-        'text=上传图片',
-        'text=本地图片上传',
-        'text=手机扫码上传',
-        'text=AI 配图',
+        "text=上传图片",
+        "text=本地图片上传",
+        "text=手机扫码上传",
+        "text=AI 配图",
     ]
     if first_visible_locator(page, modal_ready_selectors, timeout_ms=2500) is None:
         return False
 
     local_upload_selectors = [
         'button:has-text("本地图片上传")',
-        'text=本地图片上传',
+        "text=本地图片上传",
         '[aria-label*="本地图片上传"]',
     ]
     trigger = first_visible_locator(page, local_upload_selectors, timeout_ms=1500)
     if trigger is None:
-        LOGGER.debug("Zhihu upload modal opened, but local upload trigger was not found.")
+        LOGGER.debug(
+            "Zhihu upload modal opened, but local upload trigger was not found."
+        )
         return False
 
     try:
@@ -1984,7 +2293,9 @@ def upload_image_via_zhihu_upload_modal(page: Any, image_path: Path) -> bool:
         if not set_zhihu_upload_modal_file_input(page, image_path):
             return False
 
-    if not wait_for_zhihu_image_modal_upload_ready(page, image_path.name, timeout_sec=35):
+    if not wait_for_zhihu_image_modal_upload_ready(
+        page, image_path.name, timeout_sec=35
+    ):
         return False
     return click_zhihu_insert_image_button(page)
 
@@ -2006,7 +2317,9 @@ def set_zhihu_upload_modal_file_input(page: Any, image_path: Path) -> bool:
     return False
 
 
-def wait_for_zhihu_image_modal_upload_ready(page: Any, file_name: str, *, timeout_sec: int) -> bool:
+def wait_for_zhihu_image_modal_upload_ready(
+    page: Any, file_name: str, *, timeout_sec: int
+) -> bool:
     bad_words = ("解析失败", "上传失败", "校验失败", "检测失败", "文件解析失败", "失败")
     busy_words = (
         "上传中",
@@ -2025,10 +2338,20 @@ def wait_for_zhihu_image_modal_upload_ready(page: Any, file_name: str, *, timeou
     while time.monotonic() < deadline:
         text = zhihu_visible_body_text(page)
         if any(word in text for word in bad_words):
-            LOGGER.warning("Zhihu image upload failed for %s: %s", file_name, compact_log_text(text))
+            LOGGER.warning(
+                "Zhihu image upload failed for %s: %s",
+                file_name,
+                compact_log_text(text),
+            )
             return False
-        if any(word in text for word in busy_words) or re.search(r"\b\d{1,3}\s*%", text):
-            LOGGER.debug("Zhihu image still processing | %s | %s", file_name, compact_log_text(text))
+        if any(word in text for word in busy_words) or re.search(
+            r"\b\d{1,3}\s*%", text
+        ):
+            LOGGER.debug(
+                "Zhihu image still processing | %s | %s",
+                file_name,
+                compact_log_text(text),
+            )
             page.wait_for_timeout(700)
             continue
         if "已上传" in text and ("插入图片" in text or "插入" in text):
@@ -2039,14 +2362,16 @@ def wait_for_zhihu_image_modal_upload_ready(page: Any, file_name: str, *, timeou
             except Exception:
                 pass
         page.wait_for_timeout(500)
-    LOGGER.warning("Timed out waiting for Zhihu image upload to become ready: %s", file_name)
+    LOGGER.warning(
+        "Timed out waiting for Zhihu image upload to become ready: %s", file_name
+    )
     return False
 
 
 def zhihu_insert_image_button(page: Any) -> Any | None:
     selectors = [
         'button:has-text("插入图片")',
-        'text=插入图片',
+        "text=插入图片",
         'button:has-text("插入")',
     ]
     for selector in selectors:
@@ -2090,7 +2415,9 @@ def compact_log_text(text: str, limit: int = 240) -> str:
 def orchestrate(config: Config) -> dict[str, Any]:
     canonical = read_json(config.canonical_path)
     if not isinstance(canonical, dict):
-        raise ZhihuAssistantError(f"Canonical JSON must be an object: {config.canonical_path}")
+        raise ZhihuAssistantError(
+            f"Canonical JSON must be an object: {config.canonical_path}"
+        )
 
     report: dict[str, Any] = {
         "generated_at": now_iso(),
@@ -2141,12 +2468,16 @@ def main() -> int:
         canonical_path = Path(args.canonical_json).resolve()
         canonical = read_json(canonical_path)
         if not isinstance(canonical, dict):
-            raise ZhihuAssistantError(f"Canonical JSON must be an object: {canonical_path}")
+            raise ZhihuAssistantError(
+                f"Canonical JSON must be an object: {canonical_path}"
+            )
         config = build_config(args, canonical)
         configure_logging(config.log_level)
         LOGGER.info("Zhihu target IDs | %s", ", ".join(config.ids))
         report = orchestrate(config)
-        success_count = sum(1 for item in report["items"] if item.get("status") == "success")
+        success_count = sum(
+            1 for item in report["items"] if item.get("status") == "success"
+        )
         LOGGER.info(
             "Zhihu assistant complete | success=%d/%d | report=%s",
             success_count,
