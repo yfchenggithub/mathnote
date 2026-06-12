@@ -1,0 +1,59 @@
+\begin{proofbox}
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	将直圆锥外接球问题转化为轴截面等腰三角形的外心问题，或直接设球心在圆锥轴线上的有向坐标，利用半径相等列方程。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（设球心位置）：}] 设直圆锥底面圆心为$O_1$，顶点为$P$，则$O_1P=h$，底面半径为$r$。以$O_1$为原点，沿圆锥轴线指向顶点$P$的方向为正方向。由对称性，球心$O$在直线$PO_1$上，设球心$O$的有向坐标为$d$。
+		      \[
+			      P\text{的坐标为}h,\qquad O\text{的坐标为}d.
+		      \]
+		      若$A$为底面圆周上一点，则
+		      \[
+			      OP=|h-d|,\qquad OA=\sqrt{d^2+r^2}.
+		      \]
+		      \par\textbf{理由：}由直圆锥及外接球的旋转对称性，球心必在圆锥轴线上。这里$d$是有向坐标，不是普通线段长度，因此允许$d<0$。
+
+		\item[\textbf{步骤二（列方程）：}] 球面经过顶点$P$和底面圆周上的任一点$A$，所以$OP=OA=R$。平方后得：
+		      \[
+			      (h-d)^2 = d^2 + r^2.
+		      \]
+		      \par\textbf{理由：}球面上任一点到球心距离相等。使用平方形式可消除绝对值符号。
+
+		\item[\textbf{步骤三（解方程）：}] 展开并化简：
+		      \[
+			      \begin{aligned}
+				      h^2 - 2hd + d^2 & = d^2 + r^2             \\
+				      h^2 - 2hd       & = r^2                   \\
+				      2hd             & = h^2 - r^2             \\
+				      d               & = \frac{h^2 - r^2}{2h}.
+			      \end{aligned}
+		      \]
+		      \par\textbf{理由：}移项合并，$d^2$抵消，解一次方程。
+
+		\item[\textbf{步骤四（求半径）：}] 代入$R=OP=|h-d|$。由于
+		      \[
+			      h-d=h-\frac{h^2-r^2}{2h}=\frac{h^2+r^2}{2h}>0,
+		      \]
+		      所以
+		      \[
+			      \begin{aligned}
+				      R & = h - d                         \\
+				        & = h - \frac{h^2 - r^2}{2h}      \\
+				        & = \frac{2h^2 - (h^2 - r^2)}{2h} \\
+				        & = \frac{h^2+r^2}{2h}.
+			      \end{aligned}
+		      \]
+		      利用$l^2 = r^2+h^2$得$R = \dfrac{l^2}{2h}$。
+		      \par\textbf{理由：}代数通分化简。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	由此得到直圆锥外接球半径公式：$\displaystyle R = \frac{r^2+h^2}{2h} = \frac{l^2}{2h}$，与输入结论一致。
+
+\end{proofbox}
