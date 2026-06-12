@@ -237,6 +237,7 @@ DEFAULT_SEARCHMETA_WEIGHTS = {
 CJK_RE = re.compile(r"[\u3400-\u4DBF\u4E00-\u9FFF]+")
 LATIN_TOKEN_RE = re.compile(r"[a-z0-9][a-z0-9._/+\\-]*")
 COMPACT_LATIN_RE = re.compile(r"[a-z0-9]+")
+ID_TAG_RE = re.compile(r"^[A-Za-z]\d{3}$")
 WHITESPACE_RE = re.compile(r"\s+")
 FRAGMENT_SPLIT_RE = re.compile(r"[，。；;、,:：!?！？\n\r\t]+")
 ALT_NODE_SPLIT_RE = re.compile(r"[,，;；、/|]+")
@@ -1663,7 +1664,7 @@ def extract_category(meta: Mapping[str, object]) -> list[str]:
 def extract_tag(meta: Mapping[str, object]) -> list[str]:
     """提取标签。标签通常较短，适合做前缀和建议词。"""
 
-    return get_strings(meta, "core.tags", "tags")
+    return dedupe([*get_strings(meta, "id"), *get_strings(meta, "core.tags", "tags")])
 
 
 def extract_formula_token(meta: Mapping[str, object]) -> list[str]:
@@ -2122,6 +2123,10 @@ def build_feature_variants(
     seen_exact: set[str] = set()
     seen_prefix: set[str] = set()
     include_generic_prefix = spec.include_prefix
+    include_suggest = spec.include_suggest
+    if spec.name == "tag" and ID_TAG_RE.fullmatch(display_text):
+        include_generic_prefix = False
+        include_suggest = False
     # 手工 pinyin 字段在 syllable/off 模式下不走“字符级前缀展开”，
     # 以避免产物出现 banj/banji 这类机械前缀。
     if spec.name == "pinyin" and pinyin_prefix_mode in {"syllable", "off"}:
@@ -2213,7 +2218,7 @@ def build_feature_variants(
 
     suggest = (
         [display_text]
-        if spec.include_suggest
+        if include_suggest
         and is_good_suggestion_text(display_text)
         else []
     )
