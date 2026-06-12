@@ -1188,22 +1188,12 @@ def merge_backend_index(config: PublishConfig, paths: PublishPaths) -> dict[str,
         docs[item_id] = delta_docs[item_id]
 
     build_options = base.get("buildOptions") if isinstance(base.get("buildOptions"), dict) else {}
-    prefix_limit = get_positive_int(build_options.get("prefixDocLimit"), 32)
     suggestion_limit = get_positive_int(build_options.get("suggestionLimit"), 500)
+    if isinstance(build_options, dict):
+        build_options.pop("prefixDocLimit", None)
 
-    base["termIndex"] = merge_posting_index(
-        base.get("termIndex"),
-        delta.get("termIndex"),
-        docs,
-        target_ids,
-    )
-    base["prefixIndex"] = merge_posting_index(
-        base.get("prefixIndex"),
-        delta.get("prefixIndex"),
-        docs,
-        target_ids,
-        limit=prefix_limit,
-    )
+    base.pop("termIndex", None)
+    base.pop("prefixIndex", None)
     base["suggestions"] = merge_suggestions(
         base.get("suggestions"),
         delta.get("suggestions"),
@@ -1214,8 +1204,8 @@ def merge_backend_index(config: PublishConfig, paths: PublishPaths) -> dict[str,
     stats = base.setdefault("stats", {})
     if isinstance(stats, dict):
         stats["documents"] = len(docs)
-        stats["terms"] = len(base["termIndex"])
-        stats["prefixes"] = len(base["prefixIndex"])
+        stats.pop("terms", None)
+        stats.pop("prefixes", None)
         stats["suggestions"] = len(base["suggestions"])
 
     material_changed = without_top_generated_at(base) != without_top_generated_at(original_base)
@@ -1234,8 +1224,6 @@ def merge_backend_index(config: PublishConfig, paths: PublishPaths) -> dict[str,
     return {
         "docs_before": before_docs,
         "docs_after": len(docs),
-        "terms_after": len(base["termIndex"]),
-        "prefixes_after": len(base["prefixIndex"]),
         "suggestions_after": len(base["suggestions"]),
         "material_changed": material_changed,
         "generated_at_updated": material_changed,

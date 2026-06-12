@@ -169,7 +169,7 @@ class BundleRegressionTests(unittest.TestCase):
             debug_terms=(),
         )
 
-    def test_term_index_recall_stays_stable(self) -> None:
+    def test_bundle_omits_posting_indexes_and_keeps_suggestions(self) -> None:
         root = builder.PROJECT_ROOT / "tests" / ".tmp" / "prefix_governance_fixture"
         if root.exists():
             shutil.rmtree(root, ignore_errors=True)
@@ -219,16 +219,11 @@ class BundleRegressionTests(unittest.TestCase):
             bundle_char = builder.run_build(self._make_config(root, "char"))
             bundle_semantic = builder.run_build(self._make_config(root, "semantic"))
 
-            self.assertEqual(bundle_char["termIndex"], bundle_semantic["termIndex"])
-
-            semantic_prefix_keys = set(bundle_semantic["prefixIndex"].keys())
-            self.assertIn("柯西", semantic_prefix_keys)
-            self.assertIn("柯西不等式", semantic_prefix_keys)
-            self.assertIn("柯西不等式推广", semantic_prefix_keys)
-            self.assertIn("kx", semantic_prefix_keys)
-            self.assertNotIn("柯西不等", semantic_prefix_keys)
-            self.assertNotIn("柯西不等式推", semantic_prefix_keys)
-            self.assertNotIn("柯西不等式特例(分", semantic_prefix_keys)
+            for bundle in (bundle_char, bundle_semantic):
+                self.assertNotIn("termIndex", bundle)
+                self.assertNotIn("prefixIndex", bundle)
+                self.assertNotIn("terms", bundle["stats"])
+                self.assertNotIn("prefixes", bundle["stats"])
 
             semantic_suggest_displays = {
                 row[0] for row in bundle_semantic["suggestions"]  # type: ignore[index]

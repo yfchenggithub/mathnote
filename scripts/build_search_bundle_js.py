@@ -38,9 +38,9 @@ build_search_bundle_js.py
    `python scripts/build_search_bundle_js.py`
 2. 只构建一个模块：
    `python scripts/build_search_bundle_js.py --module 07_inequality`
-3. 只构建某个条目并查看它的索引展开结果：
+3. 只构建某个条目并查看它的字段展开结果：
    `python scripts/build_search_bundle_js.py --item I005 --debug-doc I005 --dry-run`
-4. 检查某个查询词最终会命中哪些倒排项：
+4. 检查某个查询词是否仍会作为精确候选参与联想治理：
    `python scripts/build_search_bundle_js.py --debug-term 柯西不等式 --dry-run`
 5. 输出更易读的 JS，并把调试信息嵌入 bundle：
    `python scripts/build_search_bundle_js.py --pretty --embed-debug`
@@ -74,9 +74,9 @@ build_search_bundle_js.py
 `--debug-doc`
   输出指定 doc 的字段展开详情，看每个字段如何变成 exact/prefix/suggest 候选。
 `--debug-term`
-  输出指定查询词在 `termIndex` 和 `prefixIndex` 中的命中情况。
+  输出指定查询词在构建期精确候选集合中的命中情况。
 `--prefix-doc-limit`
-  每个前缀词最多保留多少条 posting。这个字段存在是为了控制包体积。
+  兼容保留参数。`prefixIndex` 已移除，当前产物不再使用它。
 `--suggestion-limit`
   最终建议词数量上限。这个字段存在是为了限制低价值候选侵占空间。
 
@@ -89,8 +89,6 @@ module.exports = {
   buildOptions,
   fieldMaskLegend,
   docs,
-  termIndex,
-  prefixIndex,
   suggestions,
   debug?,
 }
@@ -102,45 +100,17 @@ module.exports = {
 `generatedAt`
   构建时间。排查线上 bundle 是否过期时很有用。
 `stats`
-  文档数、倒排词数、前缀数、建议词数和模块统计。用于验收构建结果是否异常。
+  文档数、建议词数和模块统计。用于验收构建结果是否异常。
 `buildOptions`
   构建时的关键参数快照。出现“为什么这个包这么大/这么小”时可快速对照。
 `fieldMaskLegend`
   字段名到 bit mask 的映射。posting 里只存 int，节省体积，同时还能还原命中来源。
 `docs`
   端上展示和排序需要的文档概要信息。查询只返回 docId 时，要靠它补足标题和摘要。
-`termIndex`
-  精确倒排索引。负责高精度召回，是搜索结果“准”的主干。
-`prefixIndex`
-  前缀倒排索引。负责增量输入场景，如用户只输入标题前半段或拼音前缀。
 `suggestions`
   搜索联想列表。提前构建比端上临时生成更稳定，也更容易做质量控制。
 `debug`
   可选调试信息。默认不输出，避免无意义增大包体。
-
-索引格式（关键）
-----------------
-`termIndex` / `prefixIndex` 的 value 都是 posting 列表，格式为：
-`[docId, score, fieldMask]`
-
-注意：`termIndex` / `prefixIndex` 的 key 都是“构建期归一化后的字符串”。
-端上查询时需要对用户输入做同样的归一化（NFKC、转小写、清理空白；公式字段还会做 LaTeX 符号替换并去空格）。
-
-`docId`
-  文档 id，对应 `docs[docId]`。
-`score`
-  命中分数（整数）。构建时按“字段权重 × 变体系数”计算。
-  - exact 命中：同一个 `(term, docId)` 如果来自多个字段/多种变体，会累加分数。
-  - prefix 命中：prefix 侧还会额外乘一个折扣系数 `prefix_ratio`（默认 0.70）；同一个 `(prefix, docId)` 取最大分（而不是累加），用于抑制噪声与体积膨胀。
-`fieldMask`
-  命中字段来源位图（整数）。按位或累积，可用 `fieldMaskLegend` 反解命中来源字段。
-
-posting 列表在构建期已经排序：
-1. score 降序
-2. docs[docId].rank 降序
-3. docId 升序（稳定）
-
-`prefixIndex` 的 posting 列表还会被截断到 `buildOptions.prefixDocLimit`，用来控制包体大小。
 
 `suggestions` 的每一行格式为：
 `[displayText, docId, score]`
@@ -155,12 +125,9 @@ posting 列表在构建期已经排序：
 
 端上推荐流程
 ------------
-1. 标准化用户输入。
-2. 先查 `termIndex` 做高精度召回。
-3. 再查 `prefixIndex` 兜底做增量召回。
-4. 汇总命中分数，并根据 `fieldMask` 保留命中来源。
-5. 叠加 `docs[docId].rank` 做静态排序微调。
-6. 最终输出标题、摘要、标签等展示信息。
+1. 读取提前构建好的 `suggestions`。
+2. 根据 `displayText` 展示联想词，并用 `docId` 回查 `docs`。
+3. 最终输出标题、摘要、标签等展示信息。
 
 维护入口
 --------
@@ -188,7 +155,7 @@ import re
 import sys
 import unicodedata
 from collections import Counter, defaultdict
-from collections.abc import Mapping, Sequence
+from collections.abc import Container, Mapping, Sequence
 from dataclasses import dataclass, field
 from datetime import datetime
 from pathlib import Path
@@ -817,7 +784,7 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help=(
             "Enable query_template indexing. Disabled by default to avoid generic "
-            "natural-language prompt fragments in termIndex."
+            "natural-language prompt fragments in the build-time candidate set."
         ),
     )
     parser.add_argument(
@@ -882,13 +849,13 @@ def parse_args() -> argparse.Namespace:
         "--debug-term",
         dest="debug_terms",
         action="append",
-        help="Print the exact/prefix posting report for a query term. Can be repeated.",
+        help="Print the exact candidate report for a query term. Can be repeated.",
     )
     parser.add_argument(
         "--prefix-doc-limit",
         type=int,
         default=DEFAULT_PREFIX_DOC_LIMIT,
-        help=f"Maximum number of documents stored under one prefix term. Default: {DEFAULT_PREFIX_DOC_LIMIT}.",
+        help="Deprecated; retained for CLI compatibility after prefixIndex removal.",
     )
     parser.add_argument(
         "--suggestion-limit",
@@ -2092,6 +2059,7 @@ def build_feature_variants(
     audit: IndexAudit | None = None,
     enable_cjk_ngrams: bool = False,
     pinyin_prefix_mode: str = DEFAULT_PINYIN_PREFIX_MODE,
+    include_prefix_candidates: bool = True,
 ) -> dict[str, object]:
     """把一段原始字段文本展开成可索引特征。
 
@@ -2122,7 +2090,7 @@ def build_feature_variants(
     prefix: list[tuple[str, float, str]] = []
     seen_exact: set[str] = set()
     seen_prefix: set[str] = set()
-    include_generic_prefix = spec.include_prefix
+    include_generic_prefix = spec.include_prefix and include_prefix_candidates
     include_suggest = spec.include_suggest
     if spec.name == "tag" and ID_TAG_RE.fullmatch(display_text):
         include_generic_prefix = False
@@ -2196,7 +2164,7 @@ def build_feature_variants(
         abbr = normalize_compact(to_pinyin_abbr(display_text))
         if py:
             add_exact(py, 0.72, "pinyin")
-            if spec.include_prefix and pinyin_prefix_mode != "off":
+            if include_prefix_candidates and spec.include_prefix and pinyin_prefix_mode != "off":
                 if pinyin_prefix_mode == "syllable":
                     syllable_prefixes = cumulative_joined_prefixes(
                         cjk_pinyin_syllables(display_text)
@@ -2208,11 +2176,16 @@ def build_feature_variants(
                     add_prefix(py, 0.72, "pinyin")
         if abbr and abbr != py:
             add_exact(abbr, 0.62, "pinyin_abbr")
-            if spec.include_prefix and pinyin_prefix_mode != "off":
+            if include_prefix_candidates and spec.include_prefix and pinyin_prefix_mode != "off":
                 add_prefix(abbr, 0.62, "pinyin_abbr")
 
     # 手工拼音字段（search.pinyin）在 syllable 模式下走“音节累计前缀”。
-    if spec.name == "pinyin" and spec.include_prefix and pinyin_prefix_mode == "syllable":
+    if (
+        include_prefix_candidates
+        and spec.name == "pinyin"
+        and spec.include_prefix
+        and pinyin_prefix_mode == "syllable"
+    ):
         for item in cumulative_joined_prefixes(latin_syllables(display_text)):
             add_prefix(item, 0.96, "pinyin_syllable")
 
@@ -2288,14 +2261,14 @@ def add_prefix_posting(
 
 
 def is_independent_term(
-    term: str, term_index: Mapping[str, object], whitelist: set[str]
+    term: str, exact_terms: Container[str], whitelist: set[str]
 ) -> bool:
     """判断一个前缀是否应被视为“独立术语”并保留。"""
 
     normalized = normalize_text(term)
     if normalized in whitelist:
         return True
-    if normalized in term_index:
+    if normalized in exact_terms:
         return True
     if normalize_compact(normalized) in whitelist:
         return True
@@ -2403,7 +2376,7 @@ def prune_prefix_index(
 
 def prune_suggestions(
     suggestions: dict[str, dict[str, object]],
-    term_index: Mapping[str, dict[str, PostingAccumulator]],
+    exact_terms: Container[str],
     whitelist: set[str],
     governance: PrefixGovernanceStats,
     debug: bool = False,
@@ -2433,7 +2406,7 @@ def prune_suggestions(
         for idx, (short_key, short_display) in enumerate(ordered):
             if short_key in remove_keys:
                 continue
-            independent = is_independent_term(short_display, term_index, whitelist)
+            independent = is_independent_term(short_display, exact_terms, whitelist)
             whitelisted = is_whitelisted_prefix(short_display, whitelist)
             for _long_key, long_display in ordered[idx + 1 :]:
                 if not long_display.startswith(short_display):
@@ -2534,23 +2507,13 @@ def write_bundle(bundle: Mapping[str, object], config: BuildConfig) -> None:
         (
             "// Stats: "
             f"docs={bundle['stats']['documents']}, "
-            f"terms={bundle['stats']['terms']}, "
-            f"prefixes={bundle['stats']['prefixes']}, "
             f"suggestions={bundle['stats']['suggestions']}"
         ),
         "//",
         "// Bundle schema (v1):",
         "// - docs: { [docId: string]: DocRecord }",
-        "// - termIndex: { [term: string]: Posting[] }",
-        "// - prefixIndex: { [prefix: string]: Posting[] } (per key limited by buildOptions.prefixDocLimit)",
         "// - suggestions: SuggestionRow[] (limited by buildOptions.suggestionLimit)",
         "// - fieldMaskLegend: { [fieldName: string]: number }",
-        "// - term/prefix keys are normalized at build time (NFKC, lower-case; formula variants apply LaTeX replacements and remove spaces)",
-        "//",
-        "// Posting = [docId: string, score: number, fieldMask: number]",
-        "// - score: relevance score aggregated at build time",
-        "// - fieldMask: bitmask of contributing fields (decode via fieldMaskLegend)",
-        "// - postings are sorted by score desc, then docs[docId].rank desc",
         "//",
         "// SuggestionRow = [displayText: string, docId: string, score: number]",
         "// - suggestion score mixes field weight and docs[docId].rank (higher first)",
@@ -2594,7 +2557,7 @@ def run_build(config: BuildConfig) -> dict[str, object]:
     这是脚本的主工作函数，负责：
     1. 解析模块范围。
     2. 读取每个 `meta.json`。
-    3. 生成 `docs / termIndex / prefixIndex / suggestions`。
+    3. 生成 `docs / suggestions`。
     4. 输出调试报告。
     5. 视配置决定落盘还是 dry-run。
     """
@@ -2618,8 +2581,7 @@ def run_build(config: BuildConfig) -> dict[str, object]:
         return {}
 
     docs: dict[str, dict[str, object]] = {}
-    term_index: DefaultDict[str, dict[str, PostingAccumulator]] = defaultdict(dict)
-    prefix_index: DefaultDict[str, dict[str, PostingAccumulator]] = defaultdict(dict)
+    exact_terms: set[str] = set()
     suggestions: dict[str, dict[str, object]] = {}
     index_audit = IndexAudit()
     prefix_governance = PrefixGovernanceStats()
@@ -2697,8 +2659,8 @@ def run_build(config: BuildConfig) -> dict[str, object]:
                     }
 
                 field_feature_count = 0
-                exact_term_count = 0
-                prefix_term_count = 0
+                exact_candidate_count = 0
+                prefix_candidate_count = 0
                 suggestion_count = 0
 
                 for spec in FIELD_SPECS:
@@ -2716,6 +2678,7 @@ def run_build(config: BuildConfig) -> dict[str, object]:
                             index_audit,
                             enable_cjk_ngrams=config.enable_cjk_ngrams,
                             pinyin_prefix_mode=config.pinyin_prefix_mode,
+                            include_prefix_candidates=False,
                         )
                         if not feature["source"]:
                             continue
@@ -2756,32 +2719,12 @@ def run_build(config: BuildConfig) -> dict[str, object]:
                                 }
                             )
                         field_feature_count += 1
-                        exact_term_count += len(feature["exact"])
-                        prefix_term_count += len(feature["prefix"])
+                        exact_candidate_count += len(feature["exact"])
+                        prefix_candidate_count += len(feature["prefix"])
                         suggestion_count += len(feature["suggest"])
                         for term, mult, _kind in feature["exact"]:
-                            add_exact_posting(
-                                term_index,
-                                term,
-                                doc_id,
-                                max(1, int(round(field_weight * mult))),
-                                field_mask,
-                            )
-                        for term, mult, kind in feature["prefix"]:
-                            add_prefix_posting(
-                                prefix_index,
-                                term,
-                                doc_id,
-                                max(
-                                    1,
-                                    int(round(field_weight * spec.prefix_ratio * mult)),
-                                ),
-                                field_mask,
-                                kind,
-                                cjk_prefix_mode=config.cjk_prefix_mode,
-                                cjk_prefix_min_len=config.cjk_prefix_min_len,
-                                governance=prefix_governance,
-                            )
+                            _ = mult
+                            exact_terms.add(term)
                         for display_text in feature["suggest"]:
                             key = normalize_text(display_text)
                             score = field_weight + int(doc_record["rank"])
@@ -2795,13 +2738,13 @@ def run_build(config: BuildConfig) -> dict[str, object]:
 
                 stats.built_items += 1
                 LOGGER.debug(
-                    "Item built | module=%s | item=%s | doc_id=%s | fields=%d | exact_terms=%d | prefix_terms=%d | suggestions=%d | rank=%d",
+                    "Item built | module=%s | item=%s | doc_id=%s | fields=%d | exact_candidates=%d | prefix_candidates=%d | suggestions=%d | rank=%d",
                     module_dir.name,
                     item_dir.name,
                     doc_id,
                     field_feature_count,
-                    exact_term_count,
-                    prefix_term_count,
+                    exact_candidate_count,
+                    prefix_candidate_count,
                     suggestion_count,
                     int(doc_record["rank"]),
                 )
@@ -2827,23 +2770,14 @@ def run_build(config: BuildConfig) -> dict[str, object]:
         )
 
     LOGGER.info(
-        "Step 2/5 done | documents=%d | term_keys=%d | prefix_keys=%d | suggestion_candidates=%d",
+        "Step 2/5 done | documents=%d | exact_candidates=%d | suggestion_candidates=%d",
         len(docs),
-        len(term_index),
-        len(prefix_index),
+        len(exact_terms),
         len(suggestions),
-    )
-    prune_prefix_index(
-        prefix_index,
-        term_index,
-        prefix_whitelist,
-        prefix_governance,
-        cjk_prefix_min_len=config.cjk_prefix_min_len,
-        debug=config.prefix_governance_debug or config.debug,
     )
     suggestions = prune_suggestions(
         suggestions,
-        term_index,
+        exact_terms,
         prefix_whitelist,
         prefix_governance,
         debug=config.prefix_governance_debug or config.debug,
@@ -2856,10 +2790,8 @@ def run_build(config: BuildConfig) -> dict[str, object]:
         "generatedAt": datetime.now().astimezone().isoformat(timespec="seconds"),
         "stats": {
             "documents": len(docs),
-            "terms": len(term_index),
-            "prefixes": len(prefix_index),
             "suggestions": min(len(suggestions), config.suggestion_limit),
-            "prefixGovernance": prefix_governance.to_payload(),
+            "suggestionGovernance": prefix_governance.to_payload(),
             "modules": len(module_dirs),
             "moduleStats": [
                 {
@@ -2873,7 +2805,6 @@ def run_build(config: BuildConfig) -> dict[str, object]:
             ],
         },
         "buildOptions": {
-            "prefixDocLimit": config.prefix_doc_limit,
             "suggestionLimit": config.suggestion_limit,
             "enableCjkNgrams": config.enable_cjk_ngrams,
             "enableStatementFragments": config.enable_statement_fragments,
@@ -2899,16 +2830,6 @@ def run_build(config: BuildConfig) -> dict[str, object]:
         "fieldMaskLegend": FIELD_MASK_LEGEND,
         # 文档主表：倒排只存 docId，真实展示信息在这里补齐。
         "docs": {doc_id: docs[doc_id] for doc_id in sorted(docs)},
-        # 精确倒排：高精度召回主入口。
-        "termIndex": {
-            term: serialize_postings(postings, docs)
-            for term, postings in sorted(term_index.items())
-        },
-        # 前缀倒排：服务增量输入和半截输入。
-        "prefixIndex": {
-            term: serialize_postings(postings, docs, config.prefix_doc_limit)
-            for term, postings in sorted(prefix_index.items())
-        },
         # 联想建议，结构为 [display, docId, score]。
         "suggestions": [
             [item["display"], item["docId"], item["score"]]
@@ -2921,10 +2842,8 @@ def run_build(config: BuildConfig) -> dict[str, object]:
     if config.embed_debug:
         bundle["debug"] = {"docs": debug_docs}
     LOGGER.info(
-        "Step 3/5 done | bundle_stats docs=%d terms=%d prefixes=%d suggestions=%d",
+        "Step 3/5 done | bundle_stats docs=%d suggestions=%d",
         bundle["stats"]["documents"],
-        bundle["stats"]["terms"],
-        bundle["stats"]["prefixes"],
         bundle["stats"]["suggestions"],
     )
     LOGGER.info(
@@ -2959,14 +2878,7 @@ def run_build(config: BuildConfig) -> dict[str, object]:
                 report["candidates"].append(
                     {
                         "candidate": candidate,
-                        "termIndex": serialize_postings(
-                            term_index.get(candidate, {}), docs
-                        ),
-                        "prefixIndex": serialize_postings(
-                            prefix_index.get(candidate, {}),
-                            docs,
-                            config.prefix_doc_limit,
-                        ),
+                        "exactTermCandidate": candidate in exact_terms,
                     }
                 )
             LOGGER.info(
@@ -2978,10 +2890,8 @@ def run_build(config: BuildConfig) -> dict[str, object]:
     LOGGER.info("Step 5/5 | Finalize output")
     if config.dry_run:
         LOGGER.info(
-            "[dry-run] Bundle ready | docs=%d | terms=%d | prefixes=%d | suggestions=%d | ngram_kept=%d | ngram_dropped=%d",
+            "[dry-run] Bundle ready | docs=%d | suggestions=%d | ngram_kept=%d | ngram_dropped=%d",
             bundle["stats"]["documents"],
-            bundle["stats"]["terms"],
-            bundle["stats"]["prefixes"],
             bundle["stats"]["suggestions"],
             index_audit.kept_ngrams,
             index_audit.dropped_ngrams,

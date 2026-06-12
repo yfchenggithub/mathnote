@@ -226,6 +226,72 @@ class IncrementalPublishUploadTests(unittest.TestCase):
 
 
 class IncrementalPublishBackendSyncTests(unittest.TestCase):
+    def test_backend_index_merge_keeps_posting_indexes_absent(self) -> None:
+        fixture_root = _fixture_root("incremental_publish_backend_index_merge_fixture")
+        shutil.rmtree(fixture_root, ignore_errors=True)
+        fixture_root.mkdir(parents=True, exist_ok=True)
+
+        base_path = fixture_root / "backend_search_index.json"
+        delta_path = fixture_root / "backend_search_index.delta.final.json"
+        merged_path = fixture_root / "backend_search_index.merged.json"
+
+        field_mask_legend = {"title": 1, "tag": 2}
+        publisher.write_json_plain(
+            base_path,
+            {
+                "version": 1,
+                "generatedAt": "2026-06-01T00:00:00+08:00",
+                "stats": {
+                    "documents": 2,
+                    "suggestions": 2,
+                },
+                "buildOptions": {"suggestionLimit": 500},
+                "fieldMaskLegend": field_mask_legend,
+                "docs": {
+                    "R005": {"id": "R005", "title": "old", "rank": 1},
+                    "X001": {"id": "X001", "title": "keep", "rank": 1},
+                },
+                "suggestions": [["old", "R005", 10], ["keep", "X001", 5]],
+            },
+        )
+        publisher.write_json_plain(
+            delta_path,
+            {
+                "version": 1,
+                "generatedAt": "2026-06-02T00:00:00+08:00",
+                "stats": {"documents": 1, "suggestions": 1},
+                "buildOptions": {"suggestionLimit": 500},
+                "fieldMaskLegend": field_mask_legend,
+                "docs": {"R005": {"id": "R005", "title": "new", "rank": 9}},
+                "suggestions": [["new", "R005", 20]],
+            },
+        )
+
+        config = _publish_config()
+        config.dry_run = True
+        config.backend_index_path = base_path
+        paths = publisher.create_paths(config)
+        paths.backend_delta_final = delta_path
+        paths.merged_backend_index = merged_path
+
+        try:
+            counts = publisher.merge_backend_index(config, paths)
+            merged = publisher.read_json(merged_path)
+
+            self.assertNotIn("termIndex", merged)
+            self.assertNotIn("prefixIndex", merged)
+            self.assertNotIn("prefixDocLimit", merged["buildOptions"])
+            self.assertNotIn("terms", merged["stats"])
+            self.assertNotIn("prefixes", merged["stats"])
+            self.assertEqual(merged["docs"]["R005"]["title"], "new")
+            self.assertEqual(counts["suggestions_after"], 2)
+            self.assertEqual(
+                {row[0] for row in merged["suggestions"]},
+                {"new", "keep"},
+            )
+        finally:
+            shutil.rmtree(fixture_root, ignore_errors=True)
+
     def test_backend_data_sync_does_not_write_backup_files(self) -> None:
         fixture_root = _fixture_root("incremental_publish_backend_sync_fixture")
         shutil.rmtree(fixture_root, ignore_errors=True)

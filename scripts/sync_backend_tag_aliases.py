@@ -317,14 +317,17 @@ def apply_aliases(payload: dict[str, Any], pairs: list[AliasPair]) -> tuple[dict
     field_mask_legend = payload.get("fieldMaskLegend")
     if not isinstance(docs, dict):
         raise ValueError("backend index must contain object field: docs")
-    if not isinstance(term_index, dict):
-        raise ValueError("backend index must contain object field: termIndex")
-    if not isinstance(prefix_index, dict):
-        raise ValueError("backend index must contain object field: prefixIndex")
-    if not isinstance(field_mask_legend, dict) or TAG_FIELD_NAME not in field_mask_legend:
-        raise ValueError("fieldMaskLegend.tag is required")
-
-    tag_mask = int(field_mask_legend[TAG_FIELD_NAME])
+    posting_indexes_available = isinstance(term_index, dict) and isinstance(prefix_index, dict)
+    if (term_index is None) != (prefix_index is None):
+        raise ValueError("backend index must either contain both termIndex/prefixIndex or neither")
+    if term_index is not None and not posting_indexes_available:
+        raise ValueError("backend termIndex/prefixIndex fields must be objects when present")
+    if posting_indexes_available:
+        if not isinstance(field_mask_legend, dict) or TAG_FIELD_NAME not in field_mask_legend:
+            raise ValueError("fieldMaskLegend.tag is required when posting indexes are present")
+        tag_mask = int(field_mask_legend[TAG_FIELD_NAME])
+    else:
+        tag_mask = 0
     prefix_limit = 32
     build_options = payload.get("buildOptions")
     if isinstance(build_options, dict):
@@ -332,6 +335,8 @@ def apply_aliases(payload: dict[str, Any], pairs: list[AliasPair]) -> tuple[dict
             prefix_limit = int(build_options.get("prefixDocLimit") or prefix_limit)
         except (TypeError, ValueError):
             prefix_limit = 32
+        if not posting_indexes_available:
+            build_options.pop("prefixDocLimit", None)
 
     items: list[dict[str, Any]] = []
     changed = False
@@ -352,28 +357,30 @@ def apply_aliases(payload: dict[str, Any], pairs: list[AliasPair]) -> tuple[dict
 
         tag_status = ensure_doc_tag(doc, pair.tag)
         term = normalize_text(pair.tag)
-        exact_status = upsert_posting(
-            term_index,
-            term,
-            pair.doc_id,
-            exact_score,
-            tag_mask,
-            docs,
-        )
+        exact_status = "posting_indexes_absent"
         removed_prefix_statuses = {}
-        if pair.tag.upper() == pair.doc_id and ID_TAG_RE.fullmatch(pair.tag):
-            removed_prefix_statuses = {
-                prefix: remove_posting_field(
-                    prefix_index,
-                    prefix,
-                    pair.doc_id,
-                    prefix_score,
-                    tag_mask,
-                    docs,
-                    limit=prefix_limit,
-                )
-                for prefix in latin_prefix_terms(term)
-            }
+        if posting_indexes_available:
+            exact_status = upsert_posting(
+                term_index,
+                term,
+                pair.doc_id,
+                exact_score,
+                tag_mask,
+                docs,
+            )
+            if pair.tag.upper() == pair.doc_id and ID_TAG_RE.fullmatch(pair.tag):
+                removed_prefix_statuses = {
+                    prefix: remove_posting_field(
+                        prefix_index,
+                        prefix,
+                        pair.doc_id,
+                        prefix_score,
+                        tag_mask,
+                        docs,
+                        limit=prefix_limit,
+                    )
+                    for prefix in latin_prefix_terms(term)
+                }
 
         item_changed = (
             tag_status != "already_present"
@@ -395,8 +402,12 @@ def apply_aliases(payload: dict[str, Any], pairs: list[AliasPair]) -> tuple[dict
 
     stats = payload.setdefault("stats", {})
     if isinstance(stats, dict):
-        stats["terms"] = len(term_index)
-        stats["prefixes"] = len(prefix_index)
+        if posting_indexes_available:
+            stats["terms"] = len(term_index)
+            stats["prefixes"] = len(prefix_index)
+        else:
+            stats.pop("terms", None)
+            stats.pop("prefixes", None)
 
     return {"items": items, "changed": changed}, changed
 

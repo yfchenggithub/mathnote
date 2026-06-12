@@ -75,8 +75,6 @@ TOP_LEVEL_CORE_FIELDS = (
     "buildOptions",
     "fieldMaskLegend",
     "docs",
-    "termIndex",
-    "prefixIndex",
     "suggestions",
 )
 BASIC_FIELDS = ("version", "generatedAt", "stats", "buildOptions", "fieldMaskLegend")
@@ -530,7 +528,7 @@ def compare_postings_index(
     backend_index: Any,
     diffs: DiffCollector,
 ) -> None:
-    """`termIndex` / `prefixIndex` 深度校验。"""
+    """Legacy posting-index deep comparison helper."""
 
     root = f"$.{index_name}"
     if not isinstance(source_index, dict) or not isinstance(backend_index, dict):
@@ -713,19 +711,15 @@ def summarize_counts(payload: dict[str, Any]) -> dict[str, Any]:
 
     actual = {
         "documents": len(payload["docs"]) if isinstance(payload.get("docs"), dict) else None,
-        "terms": len(payload["termIndex"]) if isinstance(payload.get("termIndex"), dict) else None,
-        "prefixes": len(payload["prefixIndex"]) if isinstance(payload.get("prefixIndex"), dict) else None,
         "suggestions": (
             len(payload["suggestions"]) if isinstance(payload.get("suggestions"), list) else None
         ),
     }
 
-    declared = {"documents": None, "terms": None, "prefixes": None, "suggestions": None}
+    declared = {"documents": None, "suggestions": None}
     stats_obj = payload.get("stats")
     if isinstance(stats_obj, dict):
         declared["documents"] = stats_obj.get("documents")
-        declared["terms"] = stats_obj.get("terms")
-        declared["prefixes"] = stats_obj.get("prefixes")
         declared["suggestions"] = stats_obj.get("suggestions")
 
     return {"actual": actual, "declared": declared}
@@ -739,7 +733,7 @@ def validate_stats_consistency(side: str, payload: dict[str, Any], diffs: DiffCo
     declared = summary["declared"]
     consistent: dict[str, bool | None] = {}
 
-    for metric in ("documents", "terms", "prefixes", "suggestions"):
+    for metric in ("documents", "suggestions"):
         actual_value = actual.get(metric)
         declared_value = declared.get(metric)
         state: bool | None = None
@@ -832,29 +826,23 @@ def verify_payloads(
 
     diffs = DiffCollector(max_samples=max_diff_samples)
 
-    LOGGER.info("步骤 1/8: 顶层结构校验")
+    LOGGER.info("步骤 1/6: 顶层结构校验")
     compare_top_level_structure(source_payload, backend_payload, ignore_meta, diffs)
 
-    LOGGER.info("步骤 2/8: 基础字段校验")
+    LOGGER.info("步骤 2/6: 基础字段校验")
     compare_basic_fields(source_payload, backend_payload, diffs)
 
-    LOGGER.info("步骤 3/8: docs 深度校验")
+    LOGGER.info("步骤 3/6: docs 深度校验")
     compare_docs(source_payload.get("docs"), backend_payload.get("docs"), diffs)
 
-    LOGGER.info("步骤 4/8: termIndex 深度校验")
-    compare_postings_index("termIndex", source_payload.get("termIndex"), backend_payload.get("termIndex"), diffs)
-
-    LOGGER.info("步骤 5/8: prefixIndex 深度校验")
-    compare_postings_index("prefixIndex", source_payload.get("prefixIndex"), backend_payload.get("prefixIndex"), diffs)
-
-    LOGGER.info("步骤 6/8: suggestions 深度校验")
+    LOGGER.info("步骤 4/6: suggestions 深度校验")
     compare_suggestions(source_payload.get("suggestions"), backend_payload.get("suggestions"), diffs)
 
-    LOGGER.info("步骤 7/8: 统计一致性复核")
+    LOGGER.info("步骤 5/6: 统计一致性复核")
     source_stats = validate_stats_consistency("source", source_payload, diffs)
     backend_stats = validate_stats_consistency("backend", backend_payload, diffs)
 
-    LOGGER.info("步骤 8/8: 指纹校验")
+    LOGGER.info("步骤 6/6: 指纹校验")
     _, source_hash = canonical_sha256(source_payload, ignore_meta=ignore_meta)
     _, backend_hash = canonical_sha256(backend_payload, ignore_meta=ignore_meta)
     if source_hash != backend_hash and diffs.mismatch_count == 0:

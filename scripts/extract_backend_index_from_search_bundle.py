@@ -51,8 +51,8 @@ module.exports = searchBundle;
 
 与后端索引的关系
 ----------------
-输出 JSON 结构默认保留原始索引字段（`docs`、`termIndex`、`prefixIndex`、
-`suggestions` 等）不改语义、不改数值，可直接被后端服务加载。
+输出 JSON 结构默认保留原始 bundle 字段（`docs`、`suggestions` 等）不改语义、
+不改数值，可直接被后端服务加载。
 可选附加轻量 `meta`（可通过 `--no-meta` 关闭）。
 
 示例
@@ -97,15 +97,11 @@ EXPECTED_TOP_LEVEL_FIELDS: tuple[str, ...] = (
     "buildOptions",
     "fieldMaskLegend",
     "docs",
-    "termIndex",
-    "prefixIndex",
     "suggestions",
 )
 
 REQUIRED_CORE_FIELDS: tuple[str, ...] = (
     "docs",
-    "termIndex",
-    "prefixIndex",
     "suggestions",
 )
 
@@ -737,7 +733,7 @@ def validate_bundle_payload(
 
     做什么:
     - 校验关键顶层字段是否存在/类型正确。
-    - 如果存在 `stats`，做与 `docs/termIndex/prefixIndex/suggestions` 的数量交叉检查。
+    - 如果存在 `stats`，做与 `docs/suggestions` 的数量交叉检查。
 
     为什么这样做:
     - 尽早发现迁移损坏或结构异常，保证后端索引可用性。
@@ -762,8 +758,6 @@ def validate_bundle_payload(
 
     expected_types: dict[str, type[Any]] = {
         "docs": dict,
-        "termIndex": dict,
-        "prefixIndex": dict,
         "suggestions": list,
     }
     for key in REQUIRED_CORE_FIELDS:
@@ -783,8 +777,6 @@ def validate_bundle_payload(
         else:
             count_pairs = (
                 ("documents", "docs"),
-                ("terms", "termIndex"),
-                ("prefixes", "prefixIndex"),
                 ("suggestions", "suggestions"),
             )
             for stats_key, bundle_key in count_pairs:
@@ -1005,14 +997,6 @@ def main(argv: list[str] | None = None) -> int:
 
         output_size = args.output.stat().st_size
         docs_count = len(bundle["docs"]) if isinstance(bundle.get("docs"), dict) else -1
-        terms_count = (
-            len(bundle["termIndex"]) if isinstance(bundle.get("termIndex"), dict) else -1
-        )
-        prefixes_count = (
-            len(bundle["prefixIndex"])
-            if isinstance(bundle.get("prefixIndex"), dict)
-            else -1
-        )
         suggestions_count = (
             len(bundle["suggestions"])
             if isinstance(bundle.get("suggestions"), list)
@@ -1020,11 +1004,9 @@ def main(argv: list[str] | None = None) -> int:
         )
 
         LOGGER.info(
-            "输出完成 | 文件大小=%s | docs=%d | terms=%d | prefixes=%d | suggestions=%d",
+            "输出完成 | 文件大小=%s | docs=%d | suggestions=%d",
             _format_size(output_size),
             docs_count,
-            terms_count,
-            prefixes_count,
             suggestions_count,
         )
         return 0
