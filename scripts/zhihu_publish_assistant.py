@@ -2245,6 +2245,7 @@ def try_fill_body(page: Any, blocks: list[dict[str, Any]]) -> None:
         LOGGER.warning("Could not focus body editor: %s", exc)
         return
 
+    manual_image_paths: list[Path] = []
     for block in blocks:
         block_type = str(block.get("type") or "")
         if block_type == "heading":
@@ -2269,14 +2270,88 @@ def try_fill_body(page: Any, blocks: list[dict[str, Any]]) -> None:
                 page.keyboard.press("Enter")
                 continue
             if not try_upload_image_into_editor(page, path):
-                raise ZhihuAssistantError(
-                    f"Zhihu modal image upload failed; no alternate upload path will be used: {path}"
+                manual_image_paths.append(path)
+                LOGGER.warning(
+                    "Zhihu image upload failed; leaving manual placeholder and continuing: %s",
+                    path,
                 )
+                leave_manual_image_placeholder(page, editor, block, path)
+                continue
         elif block_type == "divider":
             page.keyboard.insert_text("---")
             page.keyboard.press("Enter")
             page.keyboard.press("Enter")
+    if manual_image_paths:
+        LOGGER.warning(
+            "Body fill finished with %d image(s) left for manual upload: %s",
+            len(manual_image_paths),
+            ", ".join(path.name for path in manual_image_paths),
+        )
     LOGGER.info("Body fill attempted. Please verify in Chrome.")
+
+
+def leave_manual_image_placeholder(
+    page: Any, editor: Any, block: dict[str, Any], image_path: Path
+) -> None:
+    close_zhihu_upload_modal(page)
+    try:
+        editor.click(timeout=1500)
+    except Exception:
+        fallback = first_visible_locator(
+            page,
+            [
+                '.public-DraftEditor-content[contenteditable="true"]',
+                '.ProseMirror[contenteditable="true"]',
+                '[contenteditable="true"]',
+            ],
+            timeout_ms=1000,
+        )
+        if fallback is not None:
+            try:
+                fallback.click(timeout=1500)
+            except Exception:
+                pass
+
+    label = str(block.get("alt") or block.get("latex") or image_path.name).strip()
+    if label and label != image_path.name:
+        placeholder = f"[图片需手动上传：{label} | {image_path.name}]"
+    else:
+        placeholder = f"[图片需手动上传：{image_path.name}]"
+    try:
+        page.keyboard.insert_text(placeholder)
+        page.keyboard.press("Enter")
+        page.keyboard.press("Enter")
+    except Exception as exc:
+        LOGGER.warning("Could not insert manual image placeholder for %s: %s", image_path, exc)
+
+
+def close_zhihu_upload_modal(page: Any) -> bool:
+    closed = False
+    try:
+        page.keyboard.press("Escape")
+        page.wait_for_timeout(300)
+        closed = True
+    except Exception:
+        pass
+
+    close_selectors = [
+        '[role="dialog"] button[aria-label*="关闭"]',
+        '[role="dialog"] [aria-label*="关闭"]',
+        '[role="dialog"] button:has-text("取消")',
+        'button[aria-label*="关闭"]',
+        '[aria-label*="关闭"]',
+        'button:has-text("取消")',
+    ]
+    for selector in close_selectors:
+        try:
+            locator = page.locator(selector).last
+            if locator.count() and locator.is_visible(timeout=250):
+                locator.click(timeout=1000)
+                page.wait_for_timeout(300)
+                return True
+        except Exception:
+            continue
+    return closed
 
 
 def try_upload_image_into_editor(page: Any, image_path: Path) -> bool:
