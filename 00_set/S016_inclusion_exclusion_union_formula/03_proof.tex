@@ -1,0 +1,55 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	两集合情形：将并集分为互不相交的三部分，直接计算基数。三集合情形：将 $A\cup B\cup C$ 看作 $(A\cup B)\cup C$，反复套用两集合公式。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（两集合拆分）：}]
+			将 $A\cup B$ 写成互斥的三个部分：仅属于$A$ 的元素、仅属于$B$ 的元素、同时属于$A$和$B$ 的元素。则
+			\[
+				|A\cup B| = |A\setminus B| + |B\setminus A| + |A\cap B|.
+			\]
+			\par\textbf{理由：} 这三个部分两两不交且合起来就是并集。
+		\item[\textbf{步骤二（表达为已知量）：}]
+			注意 $|A| = |A\setminus B| + |A\cap B|$，$|B| = |B\setminus A| + |A\cap B|$。代入消去 $|A\setminus B|$ 和 $|B\setminus A|$：
+			\[
+				\begin{aligned}
+					|A\cup B| &= (|A| - |A\cap B|) + (|B| - |A\cap B|) + |A\cap B| \\ &= |A| + |B| - |A\cap B|.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 简单的代数代换与合并。
+		\item[\textbf{步骤三（三集合转化）：}]
+			令 $U = A\cup B$，则 $A\cup B\cup C = U\cup C$。由两集合公式，
+			\[
+				|U\cup C| = |U| + |C| - |U\cap C|.
+			\]
+			\par\textbf{理由：} 将三集合问题化归为两集合问题。
+		\item[\textbf{步骤四（代入展开交集）：}]
+			由步骤二，$|U| = |A|+|B|-|A\cap B|$。而
+			\[
+				U\cap C = (A\cup B)\cap C = (A\cap C) \cup (B\cap C).
+			\]
+			对 $(A\cap C) \cup (B\cap C)$ 再次应用两集合公式：
+			\[
+				|(A\cap C) \cup (B\cap C)| = |A\cap C| + |B\cap C| - |(A\cap C)\cap (B\cap C)|.
+			\]
+			注意到 $(A\cap C)\cap (B\cap C) = A\cap B\cap C$。
+			\par\textbf{理由：} 利用分配律和两集合公式，将复杂交集化为已知量。
+		\item[\textbf{步骤五（整理合并）：}]
+			将上述结果代入步骤三的公式：
+			\[
+				\begin{aligned}
+					|A\cup B\cup C| &= (|A|+|B|-|A\cap B|) + |C| - \bigl( |A\cap C| + |B\cap C| - |A\cap B\cap C| \bigr) \\ &= |A|+|B|+|C| - |A\cap B| - |A\cap C| - |B\cap C| + |A\cap B\cap C|.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 去括号并合并同类项，注意符号变化。
+		\item[\textbf{步骤六（得到三集合容斥原理）：}]
+			此即所求的三集合容斥原理公式。
+			\par\textbf{理由：} 完成了从两集合到三集合的推导。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{容斥原理的两个公式是统一的：三集合公式可通过反复应用两集合公式推出，核心思想是“多加了减，多减了加”。}
+\end{proofbox}

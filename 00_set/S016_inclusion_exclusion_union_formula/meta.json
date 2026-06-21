@@ -1,0 +1,186 @@
+{
+  "id": "S016",
+  "module": "set",
+  "core": {
+    "title": "容斥原理（两集合与三集合公式）",
+    "alias": [
+      "容斥公式",
+      "包含排斥原理",
+      "重叠计数"
+    ],
+    "summary": "通过先加单个集合大小，再减交集大小，避免重复计数，得到并集元素个数。",
+    "difficulty": 2,
+    "category": "集合与计数",
+    "tags": [
+      "容斥原理",
+      "集合计数",
+      "计数原理",
+      "重叠问题",
+      "集合运算"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "容斥原理",
+      "两集合并集",
+      "三集合并集",
+      "元素个数",
+      "集合基数",
+      "有限集合",
+      "计数原理",
+      "|A∪B|",
+      "|A∪B∪C|",
+      "交集",
+      "并集",
+      "重叠部分",
+      "包含排斥原理"
+    ],
+    "synonyms": [
+      "容斥定理",
+      "容斥",
+      "容赤原理",
+      "加加减减",
+      "重复计数",
+      "交集并集公式"
+    ],
+    "intents": [
+      "计算并集大小",
+      "求元素个数",
+      "解决重叠问题",
+      "应用容斥原理",
+      "使用容斥公式"
+    ],
+    "query_templates": [
+      "容斥原理公式",
+      "三集合容斥原理怎么用",
+      "两集合容斥原理例题",
+      "容斥原理求|A∪B∪C|",
+      "集合容斥原理练习题"
+    ],
+    "ocrKeywords": [
+      "有限集合",
+      "|A|",
+      "|B|",
+      "|C|",
+      "∪",
+      "∩",
+      "容斥",
+      "元素个数"
+    ],
+    "latex_patterns": [
+      "|A\\cup B| = |A|+|B| - |A\\cap B|",
+      "|A\\cup B\\cup C| = |A|+|B|+|C| - |A\\cap B| - |B\\cap C| - |C\\cap A| + |A\\cap B\\cap C|"
+    ],
+    "formulaTokens": [
+      "|A\\cup B|",
+      "|A|+|B|-|A\\cap B|",
+      "|A\\cup B\\cup C|",
+      "|A|+|B|+|C|",
+      "|A\\cap B|",
+      "|B\\cap C|",
+      "|C\\cap A|",
+      "|A\\cap B\\cap C|"
+    ],
+    "pinyin": "rongchi yuanli",
+    "pinyinAbbr": "rcyl"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.82,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "|A\\cup B| = |A|+|B| - |A\\cap B|",
+    "related_formulas": [
+      "|A\\cup B\\cup C| = |A|+|B|+|C| - |A\\cap B| - |B\\cap C| - |C\\cap A| + |A\\cap B\\cap C|"
+    ],
+    "variables": [
+      "A",
+      "B",
+      "C",
+      "|A|",
+      "|B|",
+      "|C|",
+      "|A\\cap B|",
+      "|B\\cap C|",
+      "|C\\cap A|",
+      "|A\\cap B\\cap C|"
+    ],
+    "conditions": [
+      "A,B,C均为有限集合",
+      "已知各个交集的大小（或可求出）"
+    ],
+    "conclusions": [
+      "|A∪B| = |A|+|B| - |A∩B|",
+      "|A∪B∪C| = |A|+|B|+|C| - |A∩B| - |B∩C| - |C∩A| + |A∩B∩C|",
+      "当交集为空时，|A∪B| = |A|+|B|"
+    ]
+  },
+  "content": {
+    "statement": "对于有限集合 $A,B,C$，有 $|A\\cup B| = |A|+|B|-|A\\cap B|$；进一步地，$|A\\cup B\\cup C| = |A|+|B|+|C| - |A\\cap B| - |B\\cap C| - |C\\cap A| + |A\\cap B\\cap C|$。该结论称为容斥原理，用于计算集合并集的元素个数。",
+    "derivation": "第一步：对两集合，先分别计算|A|和|B|，重叠部分|A∩B|被加了两次，所以减去一次。\n第二步：对三集合，先加|A|+|B|+|C|，然后减去两两交集（被重复计算的部分），但此时三重重叠部分被减了三次（多减了），所以加回一次。",
+    "intuition": "因为先加所有单个集合时，重叠部分被多次计数，需要减去多计的部分，而三个集合的三重重叠部分被减多了又要加回。",
+    "common_tricks": [
+      "识别问题中的集合和重叠部分",
+      "画文氏图辅助理解",
+      "注意符号：两集合一正一负，三集合三正三负一正",
+      "验证结果合理性：并集大小不大于各集合大小之和，不小于最大集合"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "集合计数问题",
+      "包含排斥问题",
+      "概率问题（转化为集合）",
+      "数论中的整除计数"
+    ],
+    "problem_types": [
+      "选择题",
+      "填空题",
+      "计算题"
+    ],
+    "exam_frequency": 0.9,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "S016.svg"
+  },
+  "shareConfig": {
+    "title": "容斥原理公式与例题：快速计算并集大小",
+    "shareDesc": "适合集合计数和重叠问题，课后复盘时使用，能避免重复计数或漏减，两步推演即可得出结果。"
+  },
+  "relations": {
+    "prerequisites": [
+      "集合的基本概念",
+      "交并运算",
+      "基数"
+    ],
+    "related_ids": [],
+    "similar": [
+      "韦恩图（文氏图）",
+      "加法原理",
+      "乘法原理"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-22"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "其他-未分类-待定",
+  "altNodes": ""
+}

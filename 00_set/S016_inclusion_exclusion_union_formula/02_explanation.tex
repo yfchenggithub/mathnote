@@ -1,0 +1,43 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+	容斥原理就是“先把所有集合的大小加起来，然后把重复加的部分减掉，如果减多了就加回来”，像计算重叠面积时的“包含—排除”法。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（先加全部）：}]
+			直接将每个有限集合的元素个数相加。
+		\item[\textbf{要点二（减去两两交）：}]
+			因为两两交集中的元素被加了两次，所以减去一次。
+		\item[\textbf{要点三（加回三交）：}]
+			对于三个集合，三交集中的元素在减去两两交时被减了三次，但原本只多加了一次？这里需要通俗解释：实际上，在单个加时被加了3次，减两两交时被减了3次（因为每个两两交包含一次三交），所以此时三交被算了0次，因此要加回一次。用“多减了再加回来”记忆。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（文氏图面积）}}
+	容斥原理可直观理解为：在文氏图中，并集的总面积等于各个圆的面积之和，减去两两重叠部分的面积（因为这些部分在相加时被算了两次），再加上三重叠部分的面积（因为它在减两两重叠时被多减了）。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（包含排除）}}
+	代数上看，容斥原理给出了有限集合并集基数的计算公式，是计数理论中“包含—排除原理”的最简情形，可推广到 $n$ 个集合。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（高考常考）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（直接求并集）：} 已知各集合及交集的基数，直接代入公式求并集。
+		\item \textbf{考法二（反求交集）：} 已知并集及部分集合基数，利用公式反推未知的交集大小。
+		\item \textbf{考法三（实际问题建模）：} 将实际分类计数问题转化为集合，利用容斥原理求解。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+	\textbf{容斥原理的符号规律是“奇数个集加，偶数个集减”，且项数依次是所有单个集、所有两两交、所有三三交等。}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（已知交集求并集）：} 例如统计多重兴趣小组的总人数。
+		\item \textbf{场景二（已知并集求交集）：} 例如已知总人数和各组人数，反推至少参加两组的人数等。
+	\end{itemize}
+
+\end{explanationbox}
