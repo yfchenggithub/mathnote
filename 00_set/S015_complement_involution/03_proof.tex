@@ -1,0 +1,48 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	直接用补集定义展开元素属于关系，证明两个集合互相包含，从而相等。边界特例则直接由定义得到。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（双补相等）：}] 任取元素 $x\in\complement_U(\complement_U A)$，由补集定义，
+			\[
+				x\in U\ \land\ x\notin\complement_U A.
+			\]
+			\par\textbf{理由：}
+			$x$ 属于某个补集，当且仅当它在全集中且不属于原集。这里原集是 $\complement_U A$。
+
+			继续展开 $x\notin\complement_U A$：意味着并非同时满足 $x\in U$ 且 $x\notin A$。因为已知 $x\in U$，所以只能得到 $x\in A$。
+			\[
+				x\in A.
+			\]
+			\par\textbf{理由：}
+			补集的属于关系取反，结合已知条件推出。
+
+			反之，若 $x\in A$，则 $x\in U$ 且 $x\notin\complement_U A$（因为 $A$ 的元素不满足补集条件），于是 $x\in\complement_U(\complement_U A)$。
+			\par\textbf{理由：}
+			两个方向的包含关系均已证明，由集合相等定义，$\complement_U(\complement_U A)=A$。
+
+		\item[\textbf{步骤二（全集补空）：}] 根据补集定义，
+			\[
+				\begin{aligned}
+					\complement_U U &= \{x\in U \mid x\notin U\} \\
+					&= \varnothing.
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			没有任何元素能既在 $U$ 中又不在 $U$ 中，故集合为空。
+
+		\item[\textbf{步骤三（空集补全）：}] 根据补集定义，
+			\[
+				\complement_U \varnothing = \{x\in U \mid x\notin \varnothing\}.
+			\]
+			由于 $x\notin \varnothing$ 恒为真，该集合就是所有 $U$ 中的元素，即 $U$。
+			\par\textbf{理由：}
+			空集不含元素，所以“不属于空集”对所有 $x$ 都成立，因此补集就是全集。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{通过元素分析法，严格验证了双重补集还原律以及全集与空集的补集性质。证明过程没有依赖任何额外假设，是集合论的基础结果。}
+\end{proofbox}
