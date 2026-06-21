@@ -66,6 +66,7 @@ publish_pipeline_output.py
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import logging
 import re
@@ -89,6 +90,7 @@ LECTURE_FILES = (
 ID_PATTERN = re.compile(r"^[A-Za-z]\d{3}$")
 INDEX_FILENAME = "index.tex"
 L6_DIRNAME_FILE_PATTERN_TEMPLATE = r"^{item_id}_[a-z0-9]+(?:_[a-z0-9]+)*$"
+CACHE_STATE_FILENAME = "_pipeline_cache_state.json"
 
 logging.basicConfig(level=logging.INFO, format="%(message)s")
 logger = logging.getLogger(__name__)
@@ -176,6 +178,66 @@ def load_json(path: Path) -> dict:
         return json.loads(path.read_text(encoding="utf-8"))
     except UnicodeDecodeError:
         return json.loads(path.read_text(encoding="utf-8-sig"))
+
+
+def read_input_source_text(path: Path) -> str:
+    """
+    Read pipeline input source text using the same normalization as run_pipeline.py.
+    """
+    encodings = ("utf-8", "utf-8-sig", "gb18030")
+    for encoding in encodings:
+        try:
+            text = path.read_text(encoding=encoding).strip()
+            if text:
+                return text
+            raise ValueError(f"Input source is empty: {path}")
+        except UnicodeDecodeError:
+            continue
+    raise ValueError(f"Cannot decode input source: {path}")
+
+
+def compute_source_hash(text: str) -> str:
+    """
+    Match run_pipeline.py's source fingerprint algorithm.
+    """
+    return hashlib.sha1(text.encode("utf-8")).hexdigest()
+
+
+def ensure_output_matches_input_source(
+    input_root: Path, output_dir: Path, item_id: str
+) -> None:
+    """
+    Refuse to publish stale output generated from a different source.tex.
+    """
+    source_path = input_root / item_id / "source.tex"
+    if not source_path.is_file():
+        raise FileNotFoundError(
+            f"Refusing to publish {item_id}: missing input source {source_path}"
+        )
+
+    cache_state_path = output_dir / CACHE_STATE_FILENAME
+    if not cache_state_path.is_file():
+        raise FileNotFoundError(
+            f"Refusing to publish {item_id}: missing cache state {cache_state_path}. "
+            "Run the pipeline for this ID first."
+        )
+
+    cache_state = load_json(cache_state_path)
+    cached_hash = cache_state.get("source_hash")
+    if not isinstance(cached_hash, str) or not cached_hash:
+        raise ValueError(
+            f"Refusing to publish {item_id}: cache state has no source_hash. "
+            "Run the pipeline for this ID first."
+        )
+
+    current_hash = compute_source_hash(read_input_source_text(source_path))
+    if cached_hash != current_hash:
+        raise ValueError(
+            f"Refusing to publish stale output for {item_id}: "
+            f"cache source_hash={cached_hash[:12]} "
+            f"current source_hash={current_hash[:12]}. "
+            "Run the pipeline for this ID again before publishing."
+        )
 
 
 def load_module_prefix_map(project_root: Path) -> dict[str, str]:
@@ -858,6 +920,8 @@ def publish_one(item_id, args, module_dirs, alias_map, prefix_map):
     if not output_dir.exists():
         raise FileNotFoundError(f"输出目录不存在: {output_dir}")
 
+    ensure_output_matches_input_source(args.input_root, output_dir, item_id)
+
     meta = load_json(meta_src)
 
     module_dir = choose_module_by_id_prefix(
@@ -974,7 +1038,7 @@ def mode_text(args) -> str:
     return "full"
 
 
-def main():
+def main() -> int:
     """
     程序入口。
 
@@ -1008,7 +1072,7 @@ def main():
 
     if not ids:
         logger.info("未检测到可发布 ID，流程结束。")
-        return
+        return 0
 
     success = 0
     failed = 0
@@ -1054,7 +1118,8 @@ def main():
             logger.info(f"  - {item_id}: {warning}")
 
     logger.info("===================================")
+    return 1 if failed else 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())

@@ -7,16 +7,16 @@ Incrementally publish one or more conclusion IDs.
 This script is intentionally an orchestrator:
 - existing build scripts still own search/detail/canonical/PDF generation;
 - this script owns temporary workspace layout, post-processing order,
-  incremental JSON merging, local backend data sync, and optional remote actions.
+  incremental JSON merging, local backend data sync, and remote deployment.
 
 Typical dry run:
     python scripts/incremental_publish.py R005 --dry-run
 
-Typical local publish:
+Typical publish and deploy:
     python scripts/incremental_publish.py R005
 
-Typical publish with formula upload, remote git pull, and service restart:
-    python scripts/incremental_publish.py R005 --deploy
+Local-only publish without remote deployment:
+    python scripts/incremental_publish.py R005 --no-deploy
 
 Important data-flow notes:
 1. `build/conclusion_pdf_map.json` is never used as the full baseline.
@@ -273,10 +273,19 @@ def read_remote_password_from_environment() -> str:
     )
 
 
+def resolve_deploy(args: argparse.Namespace) -> bool:
+    if args.deploy is not None:
+        return bool(args.deploy)
+    if args.upload_formulas or args.remote_pull or args.restart:
+        return False
+    return True
+
+
 def remote_actions_requested(args: argparse.Namespace) -> bool:
+    deploy = resolve_deploy(args)
     return bool(
         not args.dry_run
-        and (args.deploy or args.upload_formulas or args.remote_pull or args.restart)
+        and (deploy or args.upload_formulas or args.remote_pull or args.restart)
     )
 
 
@@ -288,7 +297,7 @@ def parse_args() -> argparse.Namespace:
             "Examples:\n"
             "  python scripts/incremental_publish.py R005 --dry-run\n"
             "  python scripts/incremental_publish.py R005\n"
-            "  python scripts/incremental_publish.py R005 --deploy\n"
+            "  python scripts/incremental_publish.py R005 --no-deploy\n"
         ),
     )
     parser.add_argument("ids", nargs="+", help="Conclusion IDs, e.g. R005 or R005,R006.")
@@ -375,8 +384,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--remote-backend-root", default=DEFAULT_REMOTE_BACKEND_ROOT)
     parser.add_argument(
         "--deploy",
-        action="store_true",
-        help="Upload formula/TikZ image directories, run remote git pull, and restart the service.",
+        action=argparse.BooleanOptionalAction,
+        default=None,
+        help=(
+            "Upload formula/TikZ image directories, run remote git pull, and "
+            "restart the service. Enabled by default; use --no-deploy for local-only."
+        ),
     )
     parser.add_argument(
         "--upload-formulas",
@@ -409,7 +422,7 @@ def build_config(args: argparse.Namespace) -> PublishConfig:
     if not str(args.remote_formula_group).strip():
         raise PublishError("--remote-formula-group must not be empty.")
 
-    deploy = bool(args.deploy)
+    deploy = resolve_deploy(args)
     remote_password = read_remote_password_from_environment()
     if "\r" in remote_password or "\n" in remote_password:
         raise PublishError(f"${REMOTE_PASSWORD_ENV} must be a single-line value.")

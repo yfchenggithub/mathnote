@@ -1,0 +1,45 @@
+\begin{proofbox}
+
+\textbf{\textcolor{CProof}{思路提示}}
+
+洛必达法则的严格证明需要借助柯西中值定理。高中阶段只需掌握用法，下面提供证明框架供学有余力的同学参考。
+
+\medskip
+\textbf{\textcolor{CProof}{正式推导}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{步骤一（补定义与连续化）：}] 由于 $\lim_{x\to a}f(x)=\lim_{x\to a}g(x)=0$，可补充定义 $f(a)=0,g(a)=0$，则 $f,g$ 在 $x=a$ 处连续，且在 $[a,x]$（或 $[x,a]$）上满足柯西中值定理条件。
+    \[
+    f(a)=0,\quad g(a)=0.
+    \]
+    \par\textbf{理由：}
+    补充定义使函数在 $x=a$ 连续，且不改变其他点的函数值，从而柯西中值定理所需连续性得到满足。
+
+    \item[\textbf{步骤二（应用柯西中值定理）：}] 对任意 $x\neq a$，在区间 $[a,x]$（或 $[x,a]$）上对 $f,g$ 应用柯西中值定理，存在 $\xi$ 介于 $a$ 与 $x$ 之间，使得
+    \[
+    \frac{f(x)-f(a)}{g(x)-g(a)} = \frac{f'(\xi)}{g'(\xi)}.
+    \]
+    由 $f(a)=g(a)=0$，得
+    \[
+    \frac{f(x)}{g(x)} = \frac{f'(\xi)}{g'(\xi)}.
+    \]
+    \par\textbf{理由：}
+    柯西中值定理保证了存在性，且分母 $g(x)-g(a)\neq0$（因为 $g'(x)\neq0$ 保证区间内单调）。
+
+    \item[\textbf{步骤三（取极限得结论）：}] 当 $x\to a$ 时，$\xi$ 也趋于 $a$。对等式两边取极限，若 $\displaystyle\lim_{x\to a}\frac{f'(x)}{g'(x)}$ 存在（或为无穷大），则
+    \[
+    \begin{aligned}
+    \lim_{x\to a}\frac{f(x)}{g(x)}
+    &= \lim_{\xi\to a}\frac{f'(\xi)}{g'(\xi)} \\
+    &= \lim_{x\to a}\frac{f'(x)}{g'(x)}.
+    \end{aligned}
+    \]
+    \par\textbf{理由：}
+    利用极限的迫敛性及复合极限法则。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+
+在满足条件的前提下，洛必达法则将 $\frac{0}{0}$ 型极限转化为导数之比的极限，大大简化计算。注意若一次求导后仍为 $\frac{0}{0}$ 型，可继续使用。
+
+\end{proofbox}

@@ -1,0 +1,84 @@
+\begin{examplebox}
+
+\textbf{\textcolor{CExample}{例 1（基础）}}
+
+\textbf{\textcolor{CExample}{题目：}} 计算 $\displaystyle\lim_{x\to0}\frac{\sin x}{x}$。
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第一步（未定式判定）：}] 当 $x\to0$ 时，$\sin x\to0$，$x\to0$，故为 $\frac{0}{0}$ 型。
+    \par\textbf{理由：} 符合洛必达法则使用前提。
+    \item[\textbf{第二步（应用洛必达）：}] 
+    \[
+    \lim_{x\to0}\frac{\sin x}{x} = \lim_{x\to0}\frac{\cos x}{1}.
+    \]
+    \par\textbf{理由：} 分子分母分别求导，$\sin x$导数为$\cos x$，$x$导数为$1$。
+    \item[\textbf{第三步（求值）：}] 
+    \[
+    \lim_{x\to0}\cos x = 1.
+    \]
+    \par\textbf{理由：} $\cos x$ 在 $x=0$ 连续。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}} $\displaystyle\lim_{x\to0}\frac{\sin x}{x}= \textbf{1}$。
+
+\medskip
+\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+\textbf{\textcolor{CExample}{题目：}} 计算 $\displaystyle\lim_{x\to0}\frac{\ln(1+x)-x}{x^2}$。
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第一步（未定式判定）：}] $x\to0$ 时，分子 $\ln(1+x)-x\to0$，分母 $x^2\to0$，为 $\frac{0}{0}$ 型。
+    \par\textbf{理由：} 未定式识别。
+    \item[\textbf{第二步（应用洛必达并化简）：}] 分子求导得 $\frac{1}{1+x}-1 = -\frac{x}{1+x}$，分母求导得 $2x$，于是
+    \[
+    \begin{aligned}
+    \lim_{x\to0}\frac{\ln(1+x)-x}{x^2}
+    &= \lim_{x\to0}\frac{\frac{1}{1+x}-1}{2x} \\
+    &= \lim_{x\to0}\frac{-\frac{x}{1+x}}{2x} \\
+    &= \lim_{x\to0}\frac{-1}{2(1+x)}.
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 化简后分母非零，可直接代入。
+    \item[\textbf{第三步（求值）：}] 
+    \[
+    \lim_{x\to0}\frac{-1}{2(1+x)} = -\frac12.
+    \]
+    \par\textbf{理由：} 连续函数代值。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}} $\displaystyle\lim_{x\to0}\frac{\ln(1+x)-x}{x^2}= \textbf{$-\frac12$}$。
+
+\medskip
+\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+\textbf{\textcolor{CExample}{题目：}} 计算 $\displaystyle\lim_{x\to0}\frac{x-\sin x}{x^3}$。
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第一步（未定式判定）：}] $x\to0$ 时，分子 $x-\sin x\to0$，分母 $x^3\to0$，为 $\frac{0}{0}$ 型。
+    \par\textbf{理由：} 符合洛必达前提。
+    \item[\textbf{第二步（连续两次洛必达）：}] 第一次求导得 $\frac{1-\cos x}{3x^2}$，仍为 $\frac{0}{0}$ 型；第二次求导得 $\frac{\sin x}{6x}$，仍为 $\frac{0}{0}$ 型。因此
+    \[
+    \begin{aligned}
+    \lim_{x\to0}\frac{x-\sin x}{x^3}
+    &= \lim_{x\to0}\frac{1-\cos x}{3x^2} \\
+    &= \lim_{x\to0}\frac{\sin x}{6x}.
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 每一步均满足洛必达条件。
+    \item[\textbf{第三步（第三次洛必达求值）：}] 第三次洛必达得 $\frac{\cos x}{6}$，或直接利用 $\frac{\sin x}{x}\to1$，得极限值。
+    \[
+    \begin{aligned}
+    \lim_{x\to0}\frac{\sin x}{6x}
+    &= \lim_{x\to0}\frac{\cos x}{6} \\
+    &= \frac16.
+    \end{aligned}
+    \]
+    \par\textbf{理由：} 第三次洛必达后分母非零，直接代入。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}} $\displaystyle\lim_{x\to0}\frac{x-\sin x}{x^3}= \textbf{$\frac16$}$。
+
+\end{examplebox}

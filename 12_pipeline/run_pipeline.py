@@ -3006,12 +3006,14 @@ def run_batch(
     items = discover_input_items(input_dir, input_extensions)
     requested_ids = target_ids or []
     requested_id_set = set(requested_ids)
+    missing_requested_count = 0
 
     # 若指定了 --ids，仅保留命中的 ID 项，并提示未命中的 ID。
     if requested_id_set:
         items = [item for item in items if item[0] in requested_id_set]
         found_id_set = {item[0] for item in items}
         missing_ids = sorted(requested_id_set - found_id_set)
+        missing_requested_count = len(missing_ids)
         if missing_ids:
             logging.warning(
                 "--ids 中以下 ID 未找到可用输入源文件，已跳过: "
@@ -3026,7 +3028,7 @@ def run_batch(
                 "未找到待处理 ID 子目录或源文件。"
                 f" 支持扩展名: {', '.join(input_extensions)}"
             )
-        return {"success": 0, "error": 0, "skipped": 0}
+        return {"success": 0, "error": missing_requested_count, "skipped": 0}
 
     mode = "force（全量重跑）" if force else "cache（优先复用）"
     logging.info(f"开始批处理，共 {len(items)} 个条目，模式: {mode}")
@@ -3034,7 +3036,7 @@ def run_batch(
         logging.info(f"指定 ID: {', '.join(requested_ids)}")
     batch_start = time.perf_counter()
 
-    stats = {"success": 0, "error": 0, "skipped": 0}
+    stats = {"success": 0, "error": missing_requested_count, "skipped": 0}
 
     with tqdm(total=len(items), desc="Processing Pipeline") as pbar:
         for item_id, source_path in items:
@@ -3054,7 +3056,7 @@ def run_batch(
     return stats
 
 
-def main() -> None:
+def main() -> int:
     """脚本入口：解析参数并启动批处理。"""
     args = parse_args()
 
@@ -3099,15 +3101,16 @@ def main() -> None:
         FIRST_PROGRESS_LOG_SECONDS,
     )
 
-    run_batch(
+    stats = run_batch(
         input_dir=args.input_dir,
         output_dir=args.output_dir,
         input_extensions=extensions,
         target_ids=target_ids,
         force=args.force,
     )
+    return 1 if stats.get("error", 0) else 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
 

@@ -268,7 +268,8 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description=(
             "One-click flow: source.tex -> create input case -> run pipeline -> "
-            "publish -> fix math punctuation -> build PDF -> fix meta LaTeX escapes."
+            "publish -> fix math punctuation -> build PDF -> fix meta LaTeX escapes -> "
+            "git commit."
         )
     )
     parser.add_argument(
@@ -290,6 +291,19 @@ def parse_args() -> argparse.Namespace:
         "--python-exe",
         default=sys.executable,
         help="Python executable path used to run sub-scripts. Default: current interpreter.",
+    )
+    parser.add_argument(
+        "--skip-git-commit",
+        action="store_true",
+        help="Do not commit repository changes after a successful PDF build and publish.",
+    )
+    parser.add_argument(
+        "--git-commit-message",
+        default="",
+        help=(
+            "Commit message used after a successful run. "
+            "Default: <NEW_ID> <conclusion title from meta.json>."
+        ),
     )
     return parser.parse_args()
 
@@ -683,6 +697,85 @@ def find_second_level_meta_json(project_root: Path, item_id: str) -> Path:
     return matches[0]
 
 
+def collapse_whitespace(text: str) -> str:
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def read_meta_title(meta_path: Path) -> str:
+    meta = json.loads(read_text_file(meta_path))
+    title_candidates: list[Any] = [
+        meta.get("title") if isinstance(meta, dict) else None,
+    ]
+    core = meta.get("core") if isinstance(meta, dict) else None
+    if isinstance(core, dict):
+        title_candidates.append(core.get("title"))
+
+    for candidate in title_candidates:
+        if isinstance(candidate, str) and candidate.strip():
+            return collapse_whitespace(candidate)
+    return ""
+
+
+def build_git_commit_message(item_id: str, meta_path: Path, override: str) -> str:
+    if override.strip():
+        return collapse_whitespace(override)
+
+    title = read_meta_title(meta_path)
+    if title:
+        return f"{item_id} {title}"
+    return item_id
+
+
+def commit_successful_run(
+    project_root: Path,
+    item_id: str,
+    meta_path: Path,
+    *,
+    skip: bool,
+    message_override: str,
+) -> None:
+    if skip:
+        print("[info] Git commit skipped (--skip-git-commit)")
+        return
+
+    status_result = run_command(
+        "Step 7/7 inspect git changes",
+        ["git", "status", "--porcelain"],
+        project_root,
+        capture_output=True,
+    )
+    if not status_result.stdout.strip():
+        print("[info] Git commit skipped (no repository changes)")
+        return
+
+    run_command(
+        "Step 7/7 stage git changes",
+        ["git", "add", "-A"],
+        project_root,
+        stream_output=True,
+        capture_output=False,
+    )
+    staged_result = run_command(
+        "Step 7/7 inspect staged changes",
+        ["git", "diff", "--cached", "--name-only"],
+        project_root,
+        capture_output=True,
+    )
+    if not staged_result.stdout.strip():
+        print("[info] Git commit skipped (no staged changes)")
+        return
+
+    message = build_git_commit_message(item_id, meta_path, message_override)
+    run_command(
+        "Step 7/7 commit changes",
+        ["git", "commit", "-m", message],
+        project_root,
+        stream_output=True,
+        capture_output=False,
+    )
+    print(f"[info] Git commit created: {message}")
+
+
 def run_flow(args: argparse.Namespace) -> int:
     script_path = Path(__file__).resolve()
     pipeline_dir = script_path.parent
@@ -713,16 +806,16 @@ def run_flow(args: argparse.Namespace) -> int:
     if args.dry_run:
         planned_id = "<NEW_ID_FROM_STEP1>"
         plan = [
-            ("Step 1/6 create next input case", [python_exe, str(create_script), module_selector]),
-            ("Step 2/6 run pipeline", [python_exe, str(run_script), planned_id]),
-            ("Step 3/6 publish output", [python_exe, str(publish_script), planned_id]),
-            ("Step 4/6 fix math punctuation", [python_exe, str(fix_script), planned_id]),
+            ("Step 1/7 create next input case", [python_exe, str(create_script), module_selector]),
+            ("Step 2/7 run pipeline", [python_exe, str(run_script), planned_id]),
+            ("Step 3/7 publish output", [python_exe, str(publish_script), planned_id]),
+            ("Step 4/7 fix math punctuation", [python_exe, str(fix_script), planned_id]),
             (
-                "Step 5/6 build PDF",
+                "Step 5/7 build PDF",
                 [python_exe, str(build_pdf_script), planned_id, "--pdf-name-mode", "id"],
             ),
             (
-                "Step 6/6 fix meta LaTeX command escapes",
+                "Step 6/7 fix meta LaTeX command escapes",
                 [
                     python_exe,
                     str(fix_meta_script),
@@ -731,13 +824,26 @@ def run_flow(args: argparse.Namespace) -> int:
                 ],
             ),
         ]
+        if args.skip_git_commit:
+            plan.append(("Step 7/7 git commit", ["<skipped by --skip-git-commit>"]))
+        else:
+            plan.append(
+                (
+                    "Step 7/7 git commit",
+                    [
+                        "<git status --porcelain; git add -A; "
+                        f"git commit -m \"{planned_id} <TITLE_FROM_META_JSON>\">"
+                    ],
+                )
+            )
         print(f"[info] Project root: {project_root}")
         print(f"[info] source.tex: {source_tex}")
         print(f"[info] module selector source: {module_selector_source}")
         print("[info] Mode: dry-run")
         for label, cmd in plan:
             print(f"[plan] {label}")
-            print(f"       {quoted_command(cmd)}")
+            display = cmd[0] if len(cmd) == 1 and cmd[0].startswith("<") else quoted_command(cmd)
+            print(f"       {display}")
         return 0
 
     print(f"[info] Project root: {project_root}")
@@ -747,7 +853,7 @@ def run_flow(args: argparse.Namespace) -> int:
 
     create_cmd = [python_exe, str(create_script), module_selector]
     create_result = run_command(
-        "Step 1/6 create next input case",
+        "Step 1/7 create next input case",
         create_cmd,
         project_root,
         stream_output=True,
@@ -758,28 +864,28 @@ def run_flow(args: argparse.Namespace) -> int:
     print(f"[info] Parsed NEW_ID={new_id}")
 
     run_command(
-        "Step 2/6 run pipeline",
+        "Step 2/7 run pipeline",
         [python_exe, str(run_script), new_id],
         project_root,
         stream_output=True,
         capture_output=False,
     )
     run_command(
-        "Step 3/6 publish output",
+        "Step 3/7 publish output",
         [python_exe, str(publish_script), new_id],
         project_root,
         stream_output=True,
         capture_output=False,
     )
     run_command(
-        "Step 4/6 fix math punctuation",
+        "Step 4/7 fix math punctuation",
         [python_exe, str(fix_script), new_id],
         project_root,
         stream_output=True,
         capture_output=False,
     )
     run_command(
-        "Step 5/6 build PDF",
+        "Step 5/7 build PDF",
         [python_exe, str(build_pdf_script), new_id, "--pdf-name-mode", "id"],
         project_root,
         stream_output=True,
@@ -792,16 +898,24 @@ def run_flow(args: argparse.Namespace) -> int:
     if pdf_path.is_file():
         print(f"PDF_READY={pdf_path}")
     else:
-        print(f"[warn] PDF file not found yet: {pdf_path}")
+        raise FileNotFoundError(f"PDF file not found after successful build step: {pdf_path}")
 
     meta_path = find_second_level_meta_json(project_root, new_id)
     print(f"[info] META_FIX_TARGET={project_relative_path(meta_path, project_root)}")
     run_command(
-        "Step 6/6 fix meta LaTeX command escapes",
+        "Step 6/7 fix meta LaTeX command escapes",
         [python_exe, str(fix_meta_script), str(meta_path), "--write"],
         project_root,
         stream_output=True,
         capture_output=False,
+    )
+
+    commit_successful_run(
+        project_root,
+        new_id,
+        meta_path,
+        skip=args.skip_git_commit,
+        message_override=args.git_commit_message,
     )
 
     return 0
