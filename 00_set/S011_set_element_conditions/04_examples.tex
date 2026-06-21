@@ -1,0 +1,64 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	已知集合 $A=\{1,\ 2,\ 2,\ 3\}$，求集合 $A$ 的所有子集的个数。\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（化简集合）：}]
+			由互异性，集合 $A$ 中重复的元素 $2$ 只保留一个，即 $A=\{1,2,3\}$。
+			\par\textbf{理由：} 集合元素的互异性决定了同一个元素出现多次仍视为一个元素，因此必须先化简。
+		\item[\textbf{第二步（确定基数）：}]
+			化简后集合 $A$ 含有 $3$ 个元素。
+			\par\textbf{理由：} 子集个数仅取决于集合中不同元素的个数 $n$。
+		\item[\textbf{第三步（套用公式）：}]
+			含有 $n$ 个元素的集合的子集个数为 $2^{n}$。此处 $n=3$，故子集个数为 $2^{3}=8$。
+			\par\textbf{理由：} 每个元素都有“取”与“不取”两种选择，由分步乘法原理即得 $2^{n}$。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{遇到用列举法给出且含重复元素的集合，第一时间应按互异性化简，再进行计数或关系判断。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	已知集合 $B=\{2,\ a+1,\ a^{2}-3a+3\}$，若 $1\in B$，求实数 $a$ 的值。\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（分类讨论）：}]
+			由 $1\in B$ 知，$1$ 必须与 $B$ 中某个表达式相等。可能情况：$a+1=1$ 或 $a^{2}-3a+3=1$（$2=1$ 不可能，无需考虑）。
+			\par\textbf{理由：} 这是元素属于集合的直接翻译，利用确定性，$1$ 具体对应哪个元素需要分情况。
+		\item[\textbf{第二步（求解参数）：}]
+			解第一个方程：$a+1=1\implies a=0$。解第二个方程：$a^{2}-3a+3=1 \implies a^{2}-3a+2=0 \implies (a-1)(a-2)=0 \implies a=1$ 或 $a=2$。
+			\par\textbf{理由：} 解一元一次、二次方程即可得候选值。
+		\item[\textbf{第三步（互异性检验）：}]
+			将候选值代回 $B$ 中，检查元素是否互异。
+			\begin{itemize}[leftmargin=*, itemsep=0.3em]
+			\item 当 $a=0$ 时，$B=\{2,1,3\}$，三元素互异，符合。
+			\item 当 $a=1$ 时，$B=\{2,2,1\}$，出现重复元素 $2$，不满足集合元素的互异性，故 $a=1$ 舍去。
+			\item 当 $a=2$ 时，$B=\{2,3,1\}$，三元素互异，符合。
+		\end{itemize}
+			\par\textbf{理由：} 集合的本质要求元素互异；参数取值若导致集合表示出现重复元素，则与集合的基本特征冲突，必须舍去。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{含参集合问题中，解出参数后必须代回原集合检验互异性，排除使元素重复的参数值。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	设集合 $A=\{1,\ a,\ b\}$，$B=\{a,\ a^{2},\ ab\}$，且 $A=B$，求实数 $a,\ b$ 的值。\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（理解条件）：}]
+			$A=B$ 意味着两个集合的元素完全相同。由于集合无序，只需判断元素是否一致；同时 $A$ 与 $B$ 中都列出了三个元素，暗示各自元素互异。
+			\par\textbf{理由：} 无序性保证我们不关心列出次序；互异性约束元素的唯一性。
+		\item[\textbf{第二步（分类讨论）：}]
+			根据 $1\in B$，在 $B$ 中可能的对应元素为 $a,\ a^{2},\ ab$。
+			\begin{itemize}[leftmargin=*, itemsep=0.3em]
+			\item 若 $a=1$，则 $A=\{1,1,b\}$，元素重复，与互异性矛盾，舍去。
+			\item 若 $a^{2}=1$，则 $a=1$（舍）或 $a=-1$。当 $a=-1$ 时，$B=\{-1,1,-b\}$。此时 $A=\{1,-1,b\}$。由 $A=B$，比较元素得 $b=-b$（因 $1$ 与 $-1$ 已匹配），所以 $2b=0\implies b=0$。检验 $A=\{1,-1,0\}$，$B=\{-1,1,0\}$，元素互异且相等，符合。
+			\item 若 $ab=1$，则 $b=1/a$。此时 $B=\{a,a^{2},1\}$，$A=\{1,a,1/a\}$。由 $A=B$，$a$ 已匹配，其余元素应相等：$a^{2}=1/a$ 或 $a^{2}=a$ 等。由 $a^{2}=a$ 得 $a=0$ 或 $a=1$（$a=0$ 导致 $b$ 无定义，$a=1$ 重复，均舍去）；由 $a^{2}=1/a$ 得 $a^{3}=1$，在实数范围内 $a=1$，同样舍去。故此情况无有效解。
+		\end{itemize}
+			\par\textbf{理由：} 利用无序性将 $A=B$ 转化为元素匹配问题；分类穷举所有可能，同时借助互异性及时排除矛盾情形。
+		\item[\textbf{第三步（结论检验）：}]
+			综合得 $a=-1,\ b=0$。代回原集合：$A=\{1,-1,0\}$，$B=\{-1,1,0\}$，满足互异性且 $A=B$，答案唯一。
+			\par\textbf{理由：} 最终答案必须既满足条件等式，又符合集合元素的互异性与无序性，以保证集合概念的严谨。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{集合相等问题中，无序性允许我们任意排列元素进行对比；互异性则持续淘汰导致重复的方案，二者结合是解决此类问题的核心思维。}
+\end{examplebox}

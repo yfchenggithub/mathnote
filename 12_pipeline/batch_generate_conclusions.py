@@ -13,6 +13,7 @@ module selector, then publishes the generated NEW_ID.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import re
 import shutil
@@ -34,6 +35,18 @@ STATE_PATH = PROJECT_ROOT / "batch_generate_state.jsonl"
 GENERATED_SOURCE_DIR = PIPELINE_DIR / "generated_sources"
 PENDING_MARKER = "待整理结论"
 DRY_RUN_MODE = False
+DEFAULT_TIMEOUT_SECONDS = 3600
+POST_TIMEOUT_RECOVERY_WAIT_SECONDS = 900
+POST_TIMEOUT_RECOVERY_POLL_SECONDS = 15
+LECTURE_FILES = (
+    "01_statement.tex",
+    "02_explanation.tex",
+    "03_proof.tex",
+    "04_examples.tex",
+    "05_traps.tex",
+    "06_summary.tex",
+)
+L6_DIRNAME_PATTERN_TEMPLATE = r"^{item_id}_[a-z0-9]+(?:_[a-z0-9]+)*$"
 MATH_DELIMITER_PATTERN = re.compile(
     r"(\\\[.*?\\\]|\\\(.*?\\\)|\$\$.*?\$\$|(?<!\\)\$(?!\$).+?(?<!\\)\$|"
     r"\\begin\{(?:equation\*?|align\*?|gather\*?|multline\*?)\})",
@@ -543,6 +556,28 @@ def read_text_file(path: Path) -> str:
     raise ValueError(f"Cannot decode file with supported encodings: {path}")
 
 
+def normalize_timeout(value: int) -> int | None:
+    if value < 0:
+        raise ValueError("--timeout must be >= 0")
+    return None if value == 0 else value
+
+
+def describe_timeout(timeout_seconds: int | None) -> str:
+    if timeout_seconds is None:
+        return "disabled"
+    return f"{timeout_seconds}s"
+
+
+def timeout_error(label: str, timeout_seconds: int | None) -> str:
+    if timeout_seconds is None:
+        return f"{label} timed out"
+    return f"{label} timed out (>{timeout_seconds}s)"
+
+
+def compute_source_hash(text: str) -> str:
+    return hashlib.sha1(text.encode("utf-8")).hexdigest()
+
+
 def load_module_prefix_map() -> dict[str, str]:
     raw = load_json(MODULE_PREFIX_MAP_PATH)
     result: dict[str, str] = {}
@@ -777,7 +812,7 @@ def run_pipeline(
     module_dir: str,
     target_id: str,
     skip_git_commit: bool = False,
-    timeout_seconds: int = 600,
+    timeout_seconds: int | None = DEFAULT_TIMEOUT_SECONDS,
 ) -> tuple[str | None, str | None]:
     script = PIPELINE_DIR / "run_source_to_pdf.py"
     cmd = [python_exe, str(script), module_dir, "--target-id", target_id]
@@ -803,7 +838,7 @@ def run_pipeline(
             return None, f"Cannot parse NEW_ID from output: {output[-1000:]}"
         return match.group(1).upper(), None
     except subprocess.TimeoutExpired:
-        return None, f"Pipeline timed out (>{timeout_seconds}s)"
+        return None, timeout_error("Pipeline", timeout_seconds)
     except Exception as exc:
         return None, f"Pipeline error: {exc}"
 
@@ -812,7 +847,7 @@ def run_incremental_publish(
     python_exe: str,
     new_id: str,
     no_deploy: bool = False,
-    timeout_seconds: int = 600,
+    timeout_seconds: int | None = DEFAULT_TIMEOUT_SECONDS,
 ) -> tuple[bool, str | None]:
     script = PROJECT_ROOT / "scripts" / "incremental_publish.py"
     cmd = [python_exe, str(script), new_id]
@@ -833,7 +868,7 @@ def run_incremental_publish(
             return False, f"incremental_publish.py failed (rc={result.returncode}): {output[-1000:]}"
         return True, None
     except subprocess.TimeoutExpired:
-        return False, f"incremental_publish.py timed out (>{timeout_seconds}s)"
+        return False, timeout_error("incremental_publish.py", timeout_seconds)
     except Exception as exc:
         return False, f"incremental_publish.py error: {exc}"
 
@@ -871,6 +906,96 @@ def read_cached_generated_source(conclusion_id: str) -> tuple[Path | None, str |
     content = read_text_file(path).strip()
     problems = validate_latex_content(content)
     return path, content, problems
+
+
+def pipeline_output_status(item_id: str) -> tuple[bool, str]:
+    item_id = item_id.upper()
+    output_dir = PIPELINE_DIR / "output" / item_id
+    if not output_dir.is_dir():
+        return False, f"missing output directory {output_dir.relative_to(PROJECT_ROOT)}"
+
+    missing: list[str] = []
+    for filename in LECTURE_FILES:
+        if not (output_dir / filename).is_file():
+            missing.append(filename)
+
+    if not (output_dir / "l5_meta.json").is_file():
+        missing.append("l5_meta.json")
+
+    cache_state_path = output_dir / "_pipeline_cache_state.json"
+    if not cache_state_path.is_file():
+        missing.append("_pipeline_cache_state.json")
+    else:
+        try:
+            cache_state = load_json(cache_state_path)
+            cached_hash = cache_state.get("source_hash")
+            source_path = PIPELINE_DIR / "input" / item_id / "source.tex"
+            if not source_path.is_file():
+                missing.append(f"{source_path.relative_to(PROJECT_ROOT)}")
+            elif cached_hash != compute_source_hash(read_text_file(source_path)):
+                missing.append("matching source_hash")
+        except Exception as exc:
+            missing.append(f"readable cache state ({exc})")
+
+    l6_pattern = re.compile(
+        L6_DIRNAME_PATTERN_TEMPLATE.format(item_id=re.escape(item_id)),
+        re.IGNORECASE,
+    )
+    has_l6_dirname = any(
+        child.is_file() and l6_pattern.match(child.name)
+        for child in output_dir.iterdir()
+    )
+    if not has_l6_dirname:
+        missing.append("L6 dirname marker")
+
+    if missing:
+        return False, "missing " + ", ".join(missing)
+    return True, f"output ready at {output_dir.relative_to(PROJECT_ROOT)}"
+
+
+def wait_for_pipeline_output_ready(item_id: str) -> tuple[bool, str]:
+    deadline = time.monotonic() + POST_TIMEOUT_RECOVERY_WAIT_SECONDS
+    last_reason = ""
+
+    while True:
+        ready, reason = pipeline_output_status(item_id)
+        if ready:
+            return True, reason
+        last_reason = reason
+
+        remaining = deadline - time.monotonic()
+        if remaining <= 0:
+            return False, last_reason
+
+        time.sleep(min(POST_TIMEOUT_RECOVERY_POLL_SECONDS, remaining))
+
+
+def recover_pipeline_timeout(
+    python_exe: str,
+    module_dir: str,
+    target_id: str,
+    skip_git_commit: bool,
+    timeout_seconds: int | None,
+) -> tuple[str | None, str | None]:
+    log(
+        f"[recover] {target_id}: pipeline timed out; waiting up to "
+        f"{POST_TIMEOUT_RECOVERY_WAIT_SECONDS}s for completed output..."
+    )
+    ready, reason = wait_for_pipeline_output_ready(target_id)
+    if not ready:
+        return None, f"Pipeline timeout recovery failed: {reason}"
+
+    log(
+        f"[recover] {target_id}: {reason}; rerunning run_source_to_pdf.py "
+        "to finish publish/PDF steps from cache"
+    )
+    return run_pipeline(
+        python_exe,
+        module_dir,
+        target_id,
+        skip_git_commit=skip_git_commit,
+        timeout_seconds=timeout_seconds,
+    )
 
 
 def find_existing_conclusion_dir(module_dir: str, item_id: str) -> Path | None:
@@ -919,8 +1044,7 @@ def process_one_conclusion(
     no_deploy: bool = False,
     allow_id_mismatch: bool = False,
     force_regenerate: bool = False,
-    pipeline_timeout: int = 600,
-    publish_timeout: int = 600,
+    timeout_seconds: int | None = DEFAULT_TIMEOUT_SECONDS,
 ) -> bool:
     cid = str(conclusion["id"])
     module_dir = str(conclusion["module_dir"])
@@ -959,7 +1083,7 @@ def process_one_conclusion(
             python_exe,
             resume_publish_id,
             no_deploy=no_deploy,
-            timeout_seconds=publish_timeout,
+            timeout_seconds=timeout_seconds,
         )
         if not published:
             error = publish_error or "incremental_publish.py failed"
@@ -1018,8 +1142,24 @@ def process_one_conclusion(
         module_dir,
         cid,
         skip_git_commit=skip_git_commit,
-        timeout_seconds=pipeline_timeout,
+        timeout_seconds=timeout_seconds,
     )
+    if pipeline_error:
+        if pipeline_error.startswith("Pipeline timed out"):
+            recovered_id, recovery_error = recover_pipeline_timeout(
+                python_exe,
+                module_dir,
+                cid,
+                skip_git_commit=skip_git_commit,
+                timeout_seconds=timeout_seconds,
+            )
+            if not recovery_error and recovered_id:
+                new_id = recovered_id
+                pipeline_error = None
+                log(f"[recover] {cid}: pipeline timeout recovered as {new_id}")
+            else:
+                pipeline_error = recovery_error or pipeline_error
+
     if pipeline_error:
         log(f"[fail] {cid}: {pipeline_error}")
         record_state(conclusion, "failed", stage="pipeline", error=pipeline_error)
@@ -1045,7 +1185,7 @@ def process_one_conclusion(
         python_exe,
         new_id,
         no_deploy=no_deploy,
-        timeout_seconds=publish_timeout,
+        timeout_seconds=timeout_seconds,
     )
     if not published:
         error = publish_error or "incremental_publish.py failed"
@@ -1207,16 +1347,25 @@ def parse_args() -> argparse.Namespace:
         help="Continue publishing if pipeline NEW_ID differs from the readme row ID.",
     )
     parser.add_argument(
+        "--timeout",
+        type=int,
+        default=DEFAULT_TIMEOUT_SECONDS,
+        help=(
+            "Timeout seconds for run_source_to_pdf.py and incremental_publish.py "
+            f"(default: {DEFAULT_TIMEOUT_SECONDS}; 0 disables timeout)."
+        ),
+    )
+    parser.add_argument(
         "--pipeline-timeout",
         type=int,
-        default=600,
-        help="Timeout seconds for run_source_to_pdf.py.",
+        default=None,
+        help=argparse.SUPPRESS,
     )
     parser.add_argument(
         "--publish-timeout",
         type=int,
-        default=600,
-        help="Timeout seconds for incremental_publish.py.",
+        default=None,
+        help=argparse.SUPPRESS,
     )
     return parser.parse_args()
 
@@ -1227,6 +1376,23 @@ def main() -> int:
     DRY_RUN_MODE = bool(args.dry_run)
     if args.force_regenerate:
         args.force_all = True
+
+    timeout_value = args.timeout
+    legacy_timeout_values = [
+        value
+        for value in (args.pipeline_timeout, args.publish_timeout)
+        if value is not None
+    ]
+    if legacy_timeout_values:
+        timeout_value = max(legacy_timeout_values)
+        log("[warn] --pipeline-timeout/--publish-timeout are deprecated; use --timeout instead")
+
+    try:
+        timeout_seconds = normalize_timeout(timeout_value)
+    except ValueError as exc:
+        log(f"[error] {exc}")
+        return 1
+    log(f"[info] Command timeout: {describe_timeout(timeout_seconds)}")
 
     try:
         prefix_map = load_module_prefix_map()
@@ -1333,8 +1499,7 @@ def main() -> int:
             no_deploy=args.no_deploy,
             allow_id_mismatch=args.allow_id_mismatch,
             force_regenerate=args.force_regenerate,
-            pipeline_timeout=args.pipeline_timeout,
-            publish_timeout=args.publish_timeout,
+            timeout_seconds=timeout_seconds,
         )
 
         if ok:
