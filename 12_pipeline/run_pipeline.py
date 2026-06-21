@@ -485,6 +485,7 @@ LECTURE_TEX_FILE_MAP = {
 L4_REQUIRED_KEYS = tuple(LECTURE_TEX_FILE_MAP.keys())
 CACHE_STATE_FILENAME = "_pipeline_cache_state.json"
 PROMPT_MANAGED_STEPS = ("l1", "l2", "l3", "l4", "l4_check", "l5", "l6")
+LECTURE_TEX_MAX_READABLE_LINE_CHARS = 320
 
 ID_DIR_PATTERN = re.compile(r"^[A-Za-z]\d{3}$")
 L6_DIRNAME_FILE_PATTERN_TEMPLATE = r"^{item_id}_[a-z0-9]+(?:_[a-z0-9]+)*$"
@@ -2484,6 +2485,177 @@ def save_parse_debug(
         )
 
 
+def should_expand_lecture_tex_layout(text: str) -> bool:
+    """
+    Detect L4 snippets that are technically valid but visually collapsed.
+
+    The C082 hand-edited files use one structural LaTeX marker per line. When an
+    LLM returns a whole snippet as one JSON string line, the exported tex should
+    be expanded before writing.
+    """
+    lines = [line.rstrip() for line in text.splitlines() if line.strip()]
+    if not lines:
+        return False
+    if len(lines) <= 2:
+        return True
+
+    structural_markers = (
+        r"\begin{",
+        r"\end{",
+        r"\item",
+        r"\[",
+        r"\]",
+        r"\medskip",
+    )
+    for line in lines:
+        marker_count = sum(line.count(marker) for marker in structural_markers)
+        if marker_count >= 2:
+            return True
+        if marker_count and len(line) > LECTURE_TEX_MAX_READABLE_LINE_CHARS:
+            return True
+    return False
+
+
+def expand_compact_lecture_tex(text: str) -> str:
+    """
+    Put major LaTeX structure markers on their own lines.
+
+    This is intentionally syntax-oriented rather than content-aware: it avoids
+    changing mathematical text and only adds line breaks around environments,
+    list items, display math delimiters, and section markers.
+    """
+    compact = re.sub(r"[ \t\r\n]+", " ", text).strip()
+    rules = (
+        (
+            r"\s*(\\begin\{[A-Za-z*]+\}(?:\[[^\]]*\])?)\s*",
+            r"\n\1\n",
+        ),
+        (r"\s*(\\end\{[A-Za-z*]+\})\s*", r"\n\1\n"),
+        (r"\s*(\\item\[[^\]]*\])\s*", r"\n\1\n"),
+        (r"\s*(\\item)\s+", r"\n\1 "),
+        (r"\s*(\\medskip)\s*", r"\n\n\1\n"),
+        (r"\s*(\\\[)\s*", r"\n\1\n"),
+        (r"\s*(\\\])\s*", r"\n\1\n"),
+        (r"\s*(\\par\\textbf)", r"\n\1"),
+        (r"\s+(\\textbf\{\\textcolor\{C[A-Za-z]+\})", r"\n\1"),
+    )
+    for pattern, replacement in rules:
+        compact = re.sub(pattern, replacement, compact)
+    return compact.strip()
+
+
+def split_long_display_math_line(line: str) -> list[str]:
+    """
+    Split common long display-math continuations without parsing LaTeX fully.
+    """
+    if len(line) <= LECTURE_TEX_MAX_READABLE_LINE_CHARS and "\\qquad" not in line:
+        return [line]
+
+    line = re.sub(r",\s*(\\qquad)", r",\n\1", line)
+    line = re.sub(r"\s+(\\qquad)\s+", r"\n\1\n", line)
+    line = re.sub(r"\s*(\\\\)\s*", r"\1\n", line)
+    line = re.sub(r"\s+(&)", r"\n\1", line)
+    return [piece.strip() for piece in line.splitlines() if piece.strip()]
+
+
+def split_leading_textcolor_heading(line: str) -> list[str]:
+    """
+    Split C082-style colored headings from following prose.
+    """
+    prefix = r"\textbf{\textcolor{C"
+    if not line.startswith(prefix):
+        return [line]
+
+    depth = 0
+    end_index: int | None = None
+    for index, char in enumerate(line):
+        if char == "{":
+            depth += 1
+        elif char == "}":
+            depth -= 1
+            if depth == 0:
+                end_index = index + 1
+                break
+
+    if end_index is None:
+        return [line]
+
+    heading = line[:end_index].strip()
+    rest = line[end_index:].strip()
+    if not rest:
+        return [heading]
+    return [heading, rest]
+
+
+def indent_lecture_tex(text: str) -> str:
+    """
+    Indent LaTeX snippets with the C082-style visual hierarchy.
+    """
+    raw_lines: list[str] = []
+    for raw_line in text.splitlines():
+        stripped = raw_line.strip()
+        if not stripped:
+            raw_lines.append("")
+            continue
+        for piece in split_leading_textcolor_heading(stripped):
+            raw_lines.extend(split_long_display_math_line(piece))
+
+    lines: list[str] = []
+    indent = 0
+    list_item_active: list[bool] = []
+    list_envs = {"description", "itemize", "enumerate"}
+
+    previous_blank = False
+    for line in raw_lines:
+        if not line:
+            if lines and not previous_blank:
+                lines.append("")
+            previous_blank = True
+            continue
+        previous_blank = False
+
+        end_match = re.match(r"\\end\{([^{}]+)\}", line)
+        if line.startswith(r"\]") or end_match:
+            indent = max(0, indent - 1)
+            if end_match and end_match.group(1) in list_envs and list_item_active:
+                list_item_active.pop()
+
+        is_item = line.startswith(r"\item")
+        continuation_extra = 0
+        if list_item_active and list_item_active[-1] and not is_item and not end_match:
+            continuation_extra = 1
+
+        lines.append("\t" * (indent + continuation_extra) + line)
+
+        begin_match = re.match(r"\\begin\{([^{}]+)\}", line)
+        if begin_match:
+            env_name = begin_match.group(1)
+            indent += 1
+            if env_name in list_envs:
+                list_item_active.append(False)
+        elif line.startswith(r"\["):
+            indent += 1
+
+        if is_item and list_item_active:
+            list_item_active[-1] = True
+
+    while lines and not lines[-1]:
+        lines.pop()
+    return "\n".join(lines)
+
+
+def format_lecture_tex_snippet(content: str) -> str:
+    """
+    Normalize exported lecture snippets to the readable C082 tex style.
+    """
+    text = content.replace("\r\n", "\n").replace("\r", "\n").strip()
+    if not text:
+        return ""
+    if should_expand_lecture_tex_layout(text):
+        text = expand_compact_lecture_tex(text)
+    return indent_lecture_tex(text).strip()
+
+
 def export_lecture_tex_snippets(
     lecture_json: dict[str, Any], filename: str, output_dir: str
 ) -> None:
@@ -2513,8 +2685,9 @@ def export_lecture_tex_snippets(
             continue
 
         tex_path = os.path.join(target_dir, tex_name)
+        formatted_content = format_lecture_tex_snippet(content)
         with open(tex_path, "w", encoding="utf-8", newline="\n") as f:
-            f.write(content.strip())
+            f.write(formatted_content)
             f.write("\n")
         exported += 1
 
