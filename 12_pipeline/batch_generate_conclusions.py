@@ -39,6 +39,14 @@ MATH_DELIMITER_PATTERN = re.compile(
     r"\\begin\{(?:equation\*?|align\*?|gather\*?|multline\*?)\})",
     re.DOTALL,
 )
+SOURCE_REQUIRED_LABELS = (
+    "结论名称",
+    "适用条件",
+    "变量说明",
+    "核心公式",
+    "使用场景",
+    "简单例子",
+)
 
 MODULE_DIRS = [
     "00_set", "01_function", "02_sequence", "03_conic",
@@ -635,16 +643,21 @@ def build_latex_prompt(
     feedback: str | None = None,
 ) -> str:
     prompt = (
-        "你是高考数学二级结论的 LaTeX 撰写专家。请根据下面 readme.md "
-        "中的一整行待整理结论，生成一个简洁、完整、可进入流水线处理的 LaTeX 片段。\n\n"
+        "你是高考数学二级结论的 LaTeX 源材料整理专家。请根据下面 readme.md "
+        "中的一整行待整理结论，生成一个短而完整、信息密度高、可进入后续流水线处理的 LaTeX 片段。\n\n"
         "要求：\n"
         "1. 必须包含明确的数学公式，优先使用 \\[ ... \\] 展示核心公式。\n"
-        "2. 需要提炼这一行里的结论主题、关键公式、适用条件和简要说明。\n"
-        "3. 使用 \\textbf{} 标记重点，使用 \\boxed{} 框出核心公式。\n"
-        "4. 内容简洁，不写冗长证明，不编造与该行无关的结论。\n"
-        "5. 不要使用 \\documentclass、\\begin{document}、\\end{document}。\n"
-        "6. 不要输出 Markdown 代码围栏，只输出纯 LaTeX 内容。\n"
-        "7. 行首编号只用于理解，不要把编号当作正文标题的一部分。\n"
+        "2. 必须按下面 6 个小节输出，且小节标题必须保留：\n"
+        "   \\textbf{结论名称：}、\\textbf{适用条件：}、\\textbf{变量说明：}、"
+        "\\textbf{核心公式：}、\\textbf{使用场景：}、\\textbf{简单例子：}。\n"
+        "3. \\textbf{核心公式：} 中必须使用 \\boxed{} 框出主公式。\n"
+        "4. \\textbf{简单例子：} 必须给一个可手算、可验证的小例子；若原结论不适合数值例子，给一个典型使用场景。\n"
+        "5. 内容要短而完整，建议 12 到 28 行；不要写长证明，不要扩展成讲义。\n"
+        "6. 不编造与该行无关的新结论；输入信息不足时，用保守表述。\n"
+        "7. 不要使用 \\documentclass、\\begin{document}、\\end{document}。\n"
+        "8. 不要输出 Markdown 代码围栏，只输出纯 LaTeX 内容。\n"
+        "9. 行首编号只用于理解，不要把编号当作正文标题的一部分。\n"
+        "10. 不要输出星级、来源价值评价或 emoji。\n"
     )
     if feedback:
         prompt += f"\n上一次输出存在问题：{feedback}\n请修正后重新输出。\n"
@@ -685,6 +698,11 @@ def validate_latex_content(latex: str) -> list[str]:
         problems.append("contains document wrapper")
     if not ensure_formulas_in_latex(latex):
         problems.append("missing math formula delimiters")
+    missing_labels = [label for label in SOURCE_REQUIRED_LABELS if label not in latex]
+    if missing_labels:
+        problems.append("missing required source labels: " + ", ".join(missing_labels))
+    if "\\boxed" not in latex:
+        problems.append("missing boxed core formula")
     return problems
 
 
@@ -697,7 +715,7 @@ def generate_latex_via_llm(
     from openai import OpenAI
 
     module_name = get_module_name(str(conclusion["module_dir"]))
-    model = model_config.get("flash", model_config.get("default", "deepseek-v4-flash"))
+    model = model_config.get("pro", model_config.get("flash", model_config.get("default", "deepseek-v4-flash")))
     client = OpenAI(api_key=api_config["api_key"], base_url=api_config["base_url"])
     feedback: str | None = None
 
