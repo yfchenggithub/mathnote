@@ -1,89 +1,19 @@
+\subsection*{I051 凑项凑系数求最值（拆项/添项/配系数使乘积为定值）}
+\textbf{方法简述：}对于正数，利用基本不等式 \(a+b\ge 2\sqrt{ab}\)，当 \(ab\) 为定值时和最小；或 \(ab\le\left(\frac{a+b}{2}\right)^2\)，当 \(a+b\) 为定值时积最大。通过拆项、添项或配系数，使和或积为定值，从而求得最值。
+
+\textbf{核心公式：}
 \[
-	\textbf{二级结论：洛必达法则处理 } \frac{0}{0} \text{ 型极限}
+\boxed{\forall x,y>0,\ \frac{x}{k}+ky\ge 2\sqrt{xy},\quad\text{当且仅当}\ \frac{x}{k}=ky\ \text{取等}}
 \]
+更一般地，若 \(p,q>0\)，且 \(p+q\) 为定值，则 \(p\cdot q\) 在 \(p=q\) 时最大。
 
-若函数 \(f(x)\)、\(g(x)\) 在 \(x \to a\) 时满足
-
+\textbf{常见技巧：}凑系数使乘积为定值。例如：
 \[
-	\lim_{x \to a} f(x)=0,\qquad \lim_{x \to a} g(x)=0,
+\boxed{\frac{1}{x}+\frac{4}{y}\ \text{在}\ x+y=5\ \text{条件下的最小值：}}
 \]
-
-且在 \(a\) 的某个去心邻域内，\(f'(x)\)、\(g'(x)\) 存在，并且
-
 \[
-	g'(x)\neq 0,
+\frac{1}{x}+\frac{4}{y}=\frac{1}{5}\left(\frac{1}{x}+\frac{4}{y}\right)(x+y)=\frac{1}{5}\left(5+\frac{y}{x}+\frac{4x}{y}\right)\ge\frac{1}{5}\left(5+2\sqrt{\frac{y}{x}\cdot\frac{4x}{y}}\right)=\frac{9}{5}
 \]
+当且仅当 \(\frac{y}{x}=\frac{4x}{y}\)，即 \(y=2x\) 时取等。
 
-如果极限
-
-\[
-	\lim_{x \to a}\frac{f'(x)}{g'(x)}
-\]
-
-存在或为无穷大，则有
-
-\[
-	\boxed{
-		\lim_{x \to a}\frac{f(x)}{g(x)}
-		=
-		\lim_{x \to a}\frac{f'(x)}{g'(x)}
-	}
-\]
-
-\[
-	\textbf{核心理解：}
-\]
-
-当分子、分母同时趋近于 \(0\) 时，原函数的比值极限可以转化为导数的比值极限。
-
-\[
-	\textbf{常见用法：}
-\]
-
-对于极限
-
-\[
-	\lim_{x\to 0}\frac{\sin x}{x},
-\]
-
-因为
-
-\[
-	\lim_{x\to 0}\sin x=0,\qquad \lim_{x\to 0}x=0,
-\]
-
-所以可以使用洛必达法则：
-
-\[
-	\lim_{x\to 0}\frac{\sin x}{x}
-	=
-	\lim_{x\to 0}\frac{(\sin x)'}{x'}
-	=
-	\lim_{x\to 0}\frac{\cos x}{1}
-	=
-	1.
-\]
-
-\[
-	\textbf{结论：}
-\]
-
-\[
-	\boxed{
-		\lim_{x\to 0}\frac{\sin x}{x}=1
-	}
-\]
-
-\[
-	\textbf{易错提醒：}
-\]
-
-洛必达法则不能直接用于普通的代入型极限，只有当极限是
-
-\[
-	\frac{0}{0}
-	\quad\text{或}\quad
-	\frac{\infty}{\infty}
-\]
-
-这两种未定式时，才可以考虑使用。
+\textbf{说明：}核心是构造出 \textbf{和为定值} 或 \textbf{积为定值} 的形式，利用均值不等式求得最值。

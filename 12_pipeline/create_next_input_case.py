@@ -39,7 +39,7 @@ DEFAULT_MODULE_PREFIX_MAP: dict[str, str] = {
     "07_inequality": "I",
     "08_trigonometry": "T",
     "09_geometry-plane": "P",
-    "10_final": "O",
+    "10_junior_basics": "J",
 }
 
 SINGLE_LETTER_PATTERN = re.compile(r"^[A-Za-z]$")

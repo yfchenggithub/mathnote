@@ -42,6 +42,7 @@ ALLOWED_MODULES: tuple[str, ...] = (
     "inequality",
     "trigonometry",
     "geometry-plane",
+    "junior-basics",
 )
 ALLOWED_MODULE_SET = set(ALLOWED_MODULES)
 MODULE_ORDER = {name: idx for idx, name in enumerate(ALLOWED_MODULES)}
@@ -76,6 +77,13 @@ MODULE_ALIASES = {
     "plane": "geometry-plane",
     "plane-geometry": "geometry-plane",
     "analytic-geometry": "conic",
+    "junior": "junior-basics",
+    "junior-basic": "junior-basics",
+    "junior_basics": "junior-basics",
+    "junior basics": "junior-basics",
+    "初中": "junior-basics",
+    "初中数学": "junior-basics",
+    "初中基础": "junior-basics",
 }
 MODULE_KEYWORDS: dict[str, list[tuple[str, int]]] = {
     "set": [
@@ -200,6 +208,23 @@ MODULE_KEYWORDS: dict[str, list[tuple[str, int]]] = {
         ("全等", 5),
         ("相似", 5),
         ("角平分线", 5),
+    ],
+    "junior-basics": [
+        ("初中数学", 8),
+        ("一元一次", 6),
+        ("二元一次", 6),
+        ("因式分解", 6),
+        ("勾股定理", 6),
+        ("一次函数", 5),
+        ("二次函数", 5),
+        ("反比例", 5),
+        ("全等三角形", 5),
+        ("相似三角形", 5),
+        ("实数", 4),
+        ("整式", 4),
+        ("分式", 4),
+        ("方程", 4),
+        ("圆", 4),
     ],
 }
 STRONG_MODULE_KEYWORDS: dict[str, tuple[str, ...]] = {

@@ -1,0 +1,1176 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+"""
+Batch process pending conclusion rows from module readme.md files.
+
+Each pending markdown table row is treated as one conclusion. The script keeps
+formula pipes such as P(B|A), strips trailing star-rating cells before the LLM
+prompt, writes validated LaTeX to source.tex, runs the pipeline with an explicit
+module selector, then publishes the generated NEW_ID.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import re
+import shutil
+import subprocess
+import sys
+import time
+from datetime import datetime
+from pathlib import Path
+from typing import Any, Iterable
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+PIPELINE_DIR = PROJECT_ROOT / "12_pipeline"
+SOURCE_TEX = PIPELINE_DIR / "source.tex"
+CONFIG_DIR = PIPELINE_DIR / "config"
+MODULE_PREFIX_MAP_PATH = CONFIG_DIR / "module_prefix_map.json"
+APP_CONFIG_PATH = CONFIG_DIR / "app_config.json"
+LOG_PATH = PROJECT_ROOT / "batch_generate.log"
+STATE_PATH = PROJECT_ROOT / "batch_generate_state.jsonl"
+GENERATED_SOURCE_DIR = PIPELINE_DIR / "generated_sources"
+PENDING_MARKER = "待整理结论"
+DRY_RUN_MODE = False
+MATH_DELIMITER_PATTERN = re.compile(
+    r"(\\\[.*?\\\]|\\\(.*?\\\)|\$\$.*?\$\$|(?<!\\)\$(?!\$).+?(?<!\\)\$|"
+    r"\\begin\{(?:equation\*?|align\*?|gather\*?|multline\*?)\})",
+    re.DOTALL,
+)
+
+MODULE_DIRS = [
+    "00_set", "01_function", "02_sequence", "03_conic",
+    "04_vector", "05_geometry-solid", "06_probability-stat",
+    "07_inequality", "08_trigonometry", "09_geometry-plane",
+    "10_junior_basics",
+]
+
+NEW_ID_PATTERN = re.compile(r"^NEW_ID=([A-Za-z]\d{3})\s*$", re.MULTILINE)
+
+# Match conclusion table rows: | I043 | title | ...
+CONCLUSION_ROW_PATTERN = re.compile(
+    r"^\|\s*([A-Z]\d{3})\s*\|\s*(.+?)\s*(?:\|.*)?$"
+)
+
+def build_latex_prompt(title: str, module_name: str) -> str:
+    """Build the LaTeX generation prompt with proper brace escaping."""
+    return (
+        "你是高考数学二级结论的LaTeX撰写专家。请根据以下结论主题，生成一个简洁完整的LaTeX文档。\n"
+        "\n"
+        "要求：\n"
+        "1. 必须包含数学公式（使用 \\[ ... \\] 或 \\( ... \\) ）\n"
+        "2. 内容要包括：结论的数学表述、关键公式、简要说明\n"
+        "3. 使用 \\textbf{} 标记重点\n"
+        "4. 使用 \\boxed{} 框出核心公式\n"
+        "5. 简洁精炼，不要冗长解释\n"
+        "6. 不要使用 \\documentclass、\\begin{document} 等包装\n"
+        "7. 只输出纯LaTeX内容\n"
+        "\n"
+        f"结论主题：{title}\n"
+        f"所属模块：{module_name}\n"
+        "\n"
+        "请直接输出LaTeX代码："
+    )
+
+
+def load_json(path: Path) -> dict[str, Any]:
+    with open(path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def load_module_prefix_map() -> dict[str, str]:
+    if MODULE_PREFIX_MAP_PATH.exists():
+        return load_json(MODULE_PREFIX_MAP_PATH)
+    return {}
+
+
+def load_api_config() -> dict[str, Any]:
+    return load_json(APP_CONFIG_PATH)
+
+
+def log(msg: str) -> None:
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    line = f"[{timestamp}] {msg}"
+    print(line)
+    with open(LOG_PATH, "a", encoding="utf-8") as f:
+        f.write(line + "\n")
+
+
+def parse_readme(module_dir: str) -> list[dict[str, str]]:
+    """
+    Parse a module's readme.md and extract pending conclusions.
+    Returns list of {id, title, module_dir} dicts.
+    """
+    readme_path = PROJECT_ROOT / module_dir / "readme.md"
+    if not readme_path.exists():
+        log(f"[skip] No readme.md in {module_dir}")
+        return []
+
+    content = readme_path.read_text(encoding="utf-8")
+
+    # Split by sections, find all "待整理结论" sections
+    lines = content.split("\n")
+    pending_conclusions: list[dict[str, str]] = []
+    in_pending_section = False
+
+    for line in lines:
+        stripped = line.strip()
+
+        # Detect section headers
+        if stripped.startswith("## ") and "待整理结论" in stripped:
+            in_pending_section = True
+            continue
+        elif stripped.startswith("## ") and "待整理结论" not in stripped:
+            in_pending_section = False
+            continue
+        elif stripped.startswith("---"):
+            # Horizontal rule may end a section, but "待整理" sections
+            # often have multiple subsections separated by ---
+            # Keep in_pending_section = True; only ## headers flip it
+            pass
+
+        if not in_pending_section:
+            continue
+
+        # Match table rows: | I043 | title text | ... |
+        m = CONCLUSION_ROW_PATTERN.match(stripped)
+        if m:
+            conclusion_id = m.group(1)
+            title = m.group(2).strip()
+            # Remove trailing | if present
+            title = re.sub(r"\s*\|\s*$", "", title)
+            pending_conclusions.append({
+                "id": conclusion_id,
+                "title": title,
+                "module_dir": module_dir,
+            })
+
+    log(f"[parse] {module_dir}: found {len(pending_conclusions)} pending conclusions")
+    return pending_conclusions
+
+
+def get_module_name(module_dir: str) -> str:
+    """Convert directory name like '07_inequality' to '不等式'."""
+    name_map = {
+        "00_set": "集合与逻辑",
+        "01_function": "函数与导数",
+        "02_sequence": "数列",
+        "03_conic": "圆锥曲线",
+        "04_vector": "平面向量",
+        "05_geometry-solid": "立体几何",
+        "06_probability-stat": "概率与统计",
+        "07_inequality": "不等式",
+        "08_trigonometry": "三角函数",
+        "09_geometry-plane": "平面几何",
+        "10_junior_basics": "初中基础",
+    }
+    return name_map.get(module_dir, module_dir)
+
+
+def generate_latex_via_llm(
+    conclusion: dict[str, str],
+    api_config: dict[str, Any],
+    model_config: dict[str, Any],
+) -> str | None:
+    """Generate LaTeX content for a conclusion using the LLM API."""
+    module_name = get_module_name(conclusion["module_dir"])
+
+    prompt = build_latex_prompt(
+        title=f"{conclusion['id']} {conclusion['title']}",
+        module_name=module_name,
+    )
+
+    model = model_config.get("flash", model_config.get("default", "deepseek-v4-flash"))
+
+    client = OpenAI(
+        api_key=api_config["api_key"],
+        base_url=api_config["base_url"],
+    )
+
+    for attempt in range(3):
+        try:
+            response = client.chat.completions.create(
+                model=model,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.3,
+                timeout=180,
+            )
+            content = response.choices[0].message.content
+            if content:
+                return content.strip()
+        except Exception as e:
+            log(f"[llm] attempt {attempt + 1}/3 failed for {conclusion['id']}: {e}")
+            if attempt < 2:
+                time.sleep(2 ** attempt)
+    return None
+
+
+def ensure_formulas_in_latex(latex: str) -> bool:
+    """Check that the generated LaTeX contains math formulas."""
+    has_display = "\\[" in latex or "$$" in latex or "\\begin{" in latex
+    has_inline = "\\(" in latex or "$" in latex
+    return has_display or has_inline
+
+
+def run_pipeline(python_exe: str, skip_git_commit: bool = False) -> tuple[str | None, str | None]:
+    """
+    Run run_source_to_pdf.py and capture NEW_ID.
+    Returns (new_id, error_msg).
+    """
+    script = PIPELINE_DIR / "run_source_to_pdf.py"
+    cmd = [python_exe, str(script)]
+    if skip_git_commit:
+        cmd.append("--skip-git-commit")
+
+    try:
+        result = subprocess.run(
+            cmd,
+            cwd=str(PROJECT_ROOT),
+            capture_output=True,
+            text=True,
+            errors="replace",
+            timeout=600,  # 10 min timeout
+        )
+        stdout = result.stdout + result.stderr
+
+        if result.returncode != 0:
+            return None, f"Pipeline failed (rc={result.returncode}): {stdout[-500:]}"
+
+        m = NEW_ID_PATTERN.search(stdout)
+        if m:
+            return m.group(1).upper(), None
+        else:
+            return None, f"Cannot parse NEW_ID from output: {stdout[-500:]}"
+
+    except subprocess.TimeoutExpired:
+        return None, "Pipeline timed out (>10 min)"
+    except Exception as e:
+        return None, f"Pipeline error: {e}"
+
+
+def run_incremental_publish(python_exe: str, new_id: str, no_deploy: bool = False) -> bool:
+    """Run incremental_publish.py for the given ID."""
+    script = PROJECT_ROOT / "scripts" / "incremental_publish.py"
+    cmd = [python_exe, str(script), new_id]
+    if no_deploy:
+        cmd.append("--no-deploy")
+
+    try:
+        result = subprocess.run(
+            cmd,
+            cwd=str(PROJECT_ROOT),
+            capture_output=True,
+            text=True,
+            errors="replace",
+            timeout=600,
+        )
+        if result.returncode != 0:
+            log(f"[publish] incremental_publish.py failed for {new_id}: {result.stderr[-300:]}")
+            return False
+        log(f"[publish] {new_id} published successfully")
+        return True
+    except subprocess.TimeoutExpired:
+        log(f"[publish] incremental_publish.py timed out for {new_id}")
+        return False
+    except Exception as e:
+        log(f"[publish] incremental_publish.py error for {new_id}: {e}")
+        return False
+
+
+def process_one_conclusion(
+    conclusion: dict[str, str],
+    api_config: dict[str, Any],
+    model_config: dict[str, Any],
+    python_exe: str,
+    dry_run: bool,
+    skip_git_commit: bool = False,
+    no_deploy: bool = False,
+) -> bool:
+    """Process a single conclusion through the full pipeline."""
+    cid = conclusion["id"]
+    title = conclusion["title"]
+
+    log(f"[start] {cid}: {title}")
+
+    # Step 1: Generate LaTeX
+    log(f"[latex] Generating LaTeX for {cid}...")
+    latex_content = generate_latex_via_llm(conclusion, api_config, model_config)
+
+    if not latex_content:
+        log(f"[fail] {cid}: LaTeX generation returned empty")
+        return False
+
+    if not ensure_formulas_in_latex(latex_content):
+        log(f"[warn] {cid}: Generated LaTeX may lack formulas, but proceeding")
+
+    # Step 2: Write to source.tex
+    SOURCE_TEX.write_text(latex_content, encoding="utf-8")
+    log(f"[write] source.tex updated ({len(latex_content)} chars)")
+
+    if dry_run:
+        log(f"[dry-run] {cid}: would run pipeline + incremental_publish")
+        return True
+
+    # Step 3: Run pipeline
+    log(f"[pipeline] Running run_source_to_pdf.py for {cid}...")
+    new_id, error = run_pipeline(python_exe, skip_git_commit=skip_git_commit)
+
+    if error:
+        log(f"[fail] {cid}: {error}")
+        return False
+
+    if new_id != cid:
+        log(f"[warn] {cid}: Expected ID {cid} but pipeline produced {new_id}")
+
+    # Step 4: Run incremental_publish
+    log(f"[publish] Running incremental_publish.py for {new_id}...")
+    published = run_incremental_publish(python_exe, new_id, no_deploy=no_deploy)
+
+    if published:
+        log(f"[done] {cid} → {new_id}: Complete!")
+    else:
+        log(f"[warn] {cid} → {new_id}: Pipeline OK but incremental_publish may have issues")
+
+    return published
+
+
+def get_existing_ids() -> set[str]:
+    """Collect all existing conclusion IDs across all module directories."""
+    existing: set[str] = set()
+    for module_dir in MODULE_DIRS:
+        module_path = PROJECT_ROOT / module_dir
+        if not module_path.is_dir():
+            continue
+        for item in module_path.iterdir():
+            if item.is_dir():
+                # Match ID pattern at start of directory name
+                m = re.match(r"^([A-Z]\d{3})", item.name.upper())
+                if m:
+                    existing.add(m.group(1))
+    return existing
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(
+        description="Batch generate pending conclusions from readme.md files"
+    )
+    parser.add_argument(
+        "--module", "-m",
+        default=None,
+        help="Process a single module directory (e.g., 07_inequality)",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Preview without executing pipeline",
+    )
+    parser.add_argument(
+        "--start-from",
+        default=None,
+        help="Resume from a specific conclusion ID (e.g., I043)",
+    )
+    parser.add_argument(
+        "--python-exe",
+        default=sys.executable,
+        help="Python executable path",
+    )
+    parser.add_argument(
+        "--skip-existing",
+        action="store_true",
+        default=True,
+        help="Skip conclusions that already have directories (default: True)",
+    )
+    parser.add_argument(
+        "--force-all",
+        action="store_true",
+        help="Process all pending conclusions, even if directories exist",
+    )
+    parser.add_argument(
+        "--skip-git-commit",
+        action="store_true",
+        help="Pass --skip-git-commit to run_source_to_pdf.py",
+    )
+    parser.add_argument(
+        "--no-deploy",
+        action="store_true",
+        help="Pass --no-deploy to incremental_publish.py (skip remote deployment)",
+    )
+    args = parser.parse_args()
+
+    # Load configs
+    try:
+        api_config_raw = load_api_config()
+        api_config = api_config_raw["api"]
+        model_config = api_config_raw["model"]
+    except Exception as e:
+        log(f"[error] Cannot load API config: {e}")
+        return 1
+
+    # Determine which modules to process
+    if args.module:
+        modules = [args.module]
+        if args.module not in MODULE_DIRS:
+            log(f"[error] Unknown module: {args.module}")
+            log(f"[info] Available: {MODULE_DIRS}")
+            return 1
+    else:
+        modules = MODULE_DIRS
+
+    # Collect all pending conclusions
+    all_conclusions: list[dict[str, str]] = []
+    for module_dir in modules:
+        conclusions = parse_readme(module_dir)
+        all_conclusions.extend(conclusions)
+
+    if not all_conclusions:
+        log("[info] No pending conclusions found.")
+        return 0
+
+    log(f"[info] Total pending conclusions: {len(all_conclusions)}")
+
+    # Filter existing if requested
+    if args.skip_existing and not args.force_all:
+        existing_ids = get_existing_ids()
+        filtered = [c for c in all_conclusions if c["id"] not in existing_ids]
+        skipped = len(all_conclusions) - len(filtered)
+        if skipped > 0:
+            log(f"[info] Skipping {skipped} already-existing conclusions")
+        all_conclusions = filtered
+
+    if not all_conclusions:
+        log("[info] All pending conclusions already exist. Nothing to do.")
+        return 0
+
+    log(f"[info] Will process {len(all_conclusions)} conclusions")
+
+    # Apply --start-from filter
+    if args.start_from:
+        start_id = args.start_from.upper()
+        filtered = []
+        found = False
+        for c in all_conclusions:
+            if c["id"] == start_id:
+                found = True
+            if found:
+                filtered.append(c)
+        if not found:
+            log(f"[warn] --start-from {start_id} not found, processing all")
+        else:
+            all_conclusions = filtered
+            log(f"[info] Resuming from {start_id}, {len(all_conclusions)} remaining")
+
+    # Process each conclusion
+    success = 0
+    fail = 0
+    total = len(all_conclusions)
+
+    for i, conclusion in enumerate(all_conclusions):
+        log(f"\n{'='*60}")
+        log(f"[progress] {i + 1}/{total}: {conclusion['id']} {conclusion['title'][:60]}")
+        log(f"{'='*60}")
+
+        ok = process_one_conclusion(
+            conclusion,
+            api_config,
+            model_config,
+            args.python_exe,
+            args.dry_run,
+            skip_git_commit=args.skip_git_commit,
+            no_deploy=args.no_deploy,
+        )
+        if ok:
+            success += 1
+        else:
+            fail += 1
+
+        # Small delay between conclusions to avoid API rate limits
+        if not args.dry_run and i < total - 1:
+            time.sleep(3)
+
+    log(f"\n{'='*60}")
+    log(f"[summary] Done! Success: {success}, Failed: {fail}, Total: {total}")
+    log(f"{'='*60}")
+
+    return 0 if fail == 0 else 1
+
+
+ROW_ID_PATTERN = re.compile(r"^\|\s*([A-Z]\d{3})\s*\|", re.IGNORECASE)
+STAR_RATING_CELL_PATTERN = re.compile(
+    r"^(?P<head>\|.*)\|\s*(?P<rating>[^|]*[\u2b50\u2605\u2606][^|]*)\|\s*$"
+)
+
+MODULE_NAME_MAP = {
+    "00_set": "集合与逻辑",
+    "01_function": "函数与导数",
+    "02_sequence": "数列",
+    "03_conic": "圆锥曲线",
+    "04_vector": "平面向量",
+    "05_geometry-solid": "立体几何",
+    "06_probability-stat": "概率与统计",
+    "07_inequality": "不等式",
+    "08_trigonometry": "三角函数",
+    "09_geometry-plane": "平面几何",
+    "10_junior_basics": "初中基础",
+}
+
+
+def log(msg: str) -> None:
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    line = f"[{timestamp}] {msg}"
+    encoding = sys.stdout.encoding or "utf-8"
+    print(line.encode(encoding, errors="replace").decode(encoding, errors="replace"))
+    if not DRY_RUN_MODE:
+        with open(LOG_PATH, "a", encoding="utf-8") as f:
+            f.write(line + "\n")
+
+
+def read_text_file(path: Path) -> str:
+    for encoding in ("utf-8", "utf-8-sig", "gb18030"):
+        try:
+            return path.read_text(encoding=encoding)
+        except UnicodeDecodeError:
+            continue
+    raise ValueError(f"Cannot decode file with supported encodings: {path}")
+
+
+def load_module_prefix_map() -> dict[str, str]:
+    raw = load_json(MODULE_PREFIX_MAP_PATH)
+    result: dict[str, str] = {}
+    for module_dir, prefix in raw.items():
+        module_text = str(module_dir).strip()
+        prefix_text = str(prefix).strip().upper()
+        if module_text and re.fullmatch(r"[A-Z]", prefix_text):
+            result[module_text] = prefix_text
+            continue
+        raise ValueError(f"Invalid module prefix mapping: {module_dir!r} -> {prefix!r}")
+    return result
+
+
+def record_state(conclusion: dict[str, Any], status: str, **extra: Any) -> None:
+    if DRY_RUN_MODE:
+        return
+    payload = {
+        "time": datetime.now().isoformat(timespec="seconds"),
+        "status": status,
+        "id": conclusion.get("id"),
+        "module_dir": conclusion.get("module_dir"),
+        "line_number": conclusion.get("line_number"),
+        "source_line": conclusion.get("source_line"),
+        "llm_source_line": conclusion.get("llm_source_line"),
+    }
+    payload.update(extra)
+    with open(STATE_PATH, "a", encoding="utf-8") as f:
+        f.write(json.dumps(payload, ensure_ascii=False) + "\n")
+
+
+def collapse_for_log(text: str, limit: int = 90) -> str:
+    collapsed = re.sub(r"\s+", " ", text).strip()
+    if len(collapsed) <= limit:
+        return collapsed
+    return collapsed[: limit - 3] + "..."
+
+
+def strip_star_rating_cell(row: str) -> str:
+    """Remove the trailing value/rating cell before sending a row to the LLM."""
+    text = row.strip()
+    match = STAR_RATING_CELL_PATTERN.match(text)
+    if match:
+        return match.group("head").rstrip() + " |"
+    return re.sub(r"[\u2b50\u2605\u2606]+", "", text).strip()
+
+
+def parse_readme(module_dir: str) -> list[dict[str, Any]]:
+    """
+    Extract one pending conclusion per table row.
+
+    Keep the whole row as source text. Formula text often contains markdown pipe
+    characters such as |f(x)| or P(B|A), so splitting table columns is unsafe.
+    """
+    readme_path = PROJECT_ROOT / module_dir / "readme.md"
+    if not readme_path.exists():
+        log(f"[skip] No readme.md in {module_dir}")
+        return []
+
+    content = read_text_file(readme_path)
+    pending_conclusions: list[dict[str, Any]] = []
+    in_pending_section = False
+
+    for line_number, line in enumerate(content.splitlines(), start=1):
+        stripped = line.strip()
+
+        if stripped.startswith("## "):
+            in_pending_section = PENDING_MARKER in stripped
+            continue
+
+        if not in_pending_section:
+            continue
+
+        match = ROW_ID_PATTERN.match(stripped)
+        if not match:
+            continue
+
+        pending_conclusions.append(
+            {
+                "id": match.group(1).upper(),
+                "module_dir": module_dir,
+                "line_number": line_number,
+                "source_line": stripped,
+                "llm_source_line": strip_star_rating_cell(stripped),
+            }
+        )
+
+    log(f"[parse] {module_dir}: found {len(pending_conclusions)} pending rows")
+    return pending_conclusions
+
+
+def get_module_name(module_dir: str) -> str:
+    return MODULE_NAME_MAP.get(module_dir, module_dir)
+
+
+def build_latex_prompt(
+    source_line: str,
+    module_name: str,
+    feedback: str | None = None,
+) -> str:
+    prompt = (
+        "你是高考数学二级结论的 LaTeX 撰写专家。请根据下面 readme.md "
+        "中的一整行待整理结论，生成一个简洁、完整、可进入流水线处理的 LaTeX 片段。\n\n"
+        "要求：\n"
+        "1. 必须包含明确的数学公式，优先使用 \\[ ... \\] 展示核心公式。\n"
+        "2. 需要提炼这一行里的结论主题、关键公式、适用条件和简要说明。\n"
+        "3. 使用 \\textbf{} 标记重点，使用 \\boxed{} 框出核心公式。\n"
+        "4. 内容简洁，不写冗长证明，不编造与该行无关的结论。\n"
+        "5. 不要使用 \\documentclass、\\begin{document}、\\end{document}。\n"
+        "6. 不要输出 Markdown 代码围栏，只输出纯 LaTeX 内容。\n"
+        "7. 行首编号只用于理解，不要把编号当作正文标题的一部分。\n"
+    )
+    if feedback:
+        prompt += f"\n上一次输出存在问题：{feedback}\n请修正后重新输出。\n"
+
+    prompt += (
+        f"\n所属模块：{module_name}\n"
+        "readme 原始行：\n"
+        f"{source_line}\n\n"
+        "请直接输出 LaTeX 代码："
+    )
+    return prompt
+
+
+def clean_latex_response(content: str) -> str:
+    text = content.strip()
+    if not text.startswith("```"):
+        return text
+
+    lines = text.splitlines()
+    if lines and lines[0].lstrip().startswith("```"):
+        lines = lines[1:]
+    if lines and lines[-1].strip().startswith("```"):
+        lines = lines[:-1]
+    return "\n".join(lines).strip()
+
+
+def ensure_formulas_in_latex(latex: str) -> bool:
+    return bool(MATH_DELIMITER_PATTERN.search(latex))
+
+
+def validate_latex_content(latex: str) -> list[str]:
+    problems: list[str] = []
+    if not latex.strip():
+        problems.append("empty output")
+    if "```" in latex:
+        problems.append("contains markdown code fence")
+    if "\\documentclass" in latex or "\\begin{document}" in latex or "\\end{document}" in latex:
+        problems.append("contains document wrapper")
+    if not ensure_formulas_in_latex(latex):
+        problems.append("missing math formula delimiters")
+    return problems
+
+
+def generate_latex_via_llm(
+    conclusion: dict[str, Any],
+    api_config: dict[str, Any],
+    model_config: dict[str, Any],
+    max_attempts: int = 3,
+) -> tuple[str | None, str | None]:
+    from openai import OpenAI
+
+    module_name = get_module_name(str(conclusion["module_dir"]))
+    model = model_config.get("flash", model_config.get("default", "deepseek-v4-flash"))
+    client = OpenAI(api_key=api_config["api_key"], base_url=api_config["base_url"])
+    feedback: str | None = None
+
+    for attempt in range(1, max_attempts + 1):
+        prompt = build_latex_prompt(
+            source_line=str(conclusion.get("llm_source_line") or conclusion["source_line"]),
+            module_name=module_name,
+            feedback=feedback,
+        )
+        try:
+            response = client.chat.completions.create(
+                model=model,
+                messages=[{"role": "user", "content": prompt}],
+                temperature=0.3,
+                timeout=180,
+            )
+            raw_content = response.choices[0].message.content
+            latex = clean_latex_response(raw_content if isinstance(raw_content, str) else "")
+            problems = validate_latex_content(latex)
+            if not problems:
+                return latex, None
+
+            feedback = "; ".join(problems)
+            log(
+                f"[llm] attempt {attempt}/{max_attempts} invalid for "
+                f"{conclusion['id']}: {feedback}"
+            )
+        except Exception as exc:
+            feedback = f"API error: {exc}"
+            log(
+                f"[llm] attempt {attempt}/{max_attempts} failed for "
+                f"{conclusion['id']}: {exc}"
+            )
+
+        if attempt < max_attempts:
+            time.sleep(2 ** (attempt - 1))
+
+    return None, feedback or "LaTeX generation failed"
+
+
+def backup_source_tex() -> Path | None:
+    if not SOURCE_TEX.exists():
+        return None
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    backup_path = SOURCE_TEX.with_name(f"source.tex.batch_backup.{timestamp}")
+    shutil.copy2(SOURCE_TEX, backup_path)
+    return backup_path
+
+
+def save_generated_source(conclusion_id: str, latex_content: str) -> Path:
+    GENERATED_SOURCE_DIR.mkdir(parents=True, exist_ok=True)
+    path = GENERATED_SOURCE_DIR / f"{conclusion_id}.tex"
+    path.write_text(latex_content, encoding="utf-8")
+    return path
+
+
+def run_pipeline(
+    python_exe: str,
+    module_dir: str,
+    skip_git_commit: bool = False,
+    timeout_seconds: int = 600,
+) -> tuple[str | None, str | None]:
+    script = PIPELINE_DIR / "run_source_to_pdf.py"
+    cmd = [python_exe, str(script), module_dir]
+    if skip_git_commit:
+        cmd.append("--skip-git-commit")
+
+    try:
+        result = subprocess.run(
+            cmd,
+            cwd=str(PROJECT_ROOT),
+            capture_output=True,
+            text=True,
+            errors="replace",
+            timeout=timeout_seconds,
+        )
+        output = result.stdout + result.stderr
+
+        if result.returncode != 0:
+            return None, f"Pipeline failed (rc={result.returncode}): {output[-1000:]}"
+
+        match = NEW_ID_PATTERN.search(output)
+        if not match:
+            return None, f"Cannot parse NEW_ID from output: {output[-1000:]}"
+        return match.group(1).upper(), None
+    except subprocess.TimeoutExpired:
+        return None, f"Pipeline timed out (>{timeout_seconds}s)"
+    except Exception as exc:
+        return None, f"Pipeline error: {exc}"
+
+
+def run_incremental_publish(
+    python_exe: str,
+    new_id: str,
+    no_deploy: bool = False,
+    timeout_seconds: int = 600,
+) -> tuple[bool, str | None]:
+    script = PROJECT_ROOT / "scripts" / "incremental_publish.py"
+    cmd = [python_exe, str(script), new_id]
+    if no_deploy:
+        cmd.append("--no-deploy")
+
+    try:
+        result = subprocess.run(
+            cmd,
+            cwd=str(PROJECT_ROOT),
+            capture_output=True,
+            text=True,
+            errors="replace",
+            timeout=timeout_seconds,
+        )
+        output = result.stdout + result.stderr
+        if result.returncode != 0:
+            return False, f"incremental_publish.py failed (rc={result.returncode}): {output[-1000:]}"
+        return True, None
+    except subprocess.TimeoutExpired:
+        return False, f"incremental_publish.py timed out (>{timeout_seconds}s)"
+    except Exception as exc:
+        return False, f"incremental_publish.py error: {exc}"
+
+
+def process_one_conclusion(
+    conclusion: dict[str, Any],
+    api_config: dict[str, Any],
+    model_config: dict[str, Any],
+    python_exe: str,
+    dry_run: bool,
+    skip_git_commit: bool = False,
+    no_deploy: bool = False,
+    allow_id_mismatch: bool = False,
+    pipeline_timeout: int = 600,
+    publish_timeout: int = 600,
+) -> bool:
+    cid = str(conclusion["id"])
+    module_dir = str(conclusion["module_dir"])
+    source_line = str(conclusion.get("llm_source_line") or conclusion["source_line"])
+
+    log(f"[start] {cid}: {module_dir}:{conclusion['line_number']} {collapse_for_log(source_line)}")
+    record_state(conclusion, "start")
+
+    if dry_run:
+        log(f"[dry-run] {cid}: would generate LaTeX, write source.tex, run pipeline, publish")
+        record_state(conclusion, "dry_run")
+        return True
+
+    log(f"[latex] Generating LaTeX for {cid}...")
+    latex_content, generation_error = generate_latex_via_llm(
+        conclusion,
+        api_config,
+        model_config,
+    )
+    if not latex_content:
+        error = generation_error or "LaTeX generation returned empty"
+        log(f"[fail] {cid}: {error}")
+        record_state(conclusion, "failed", stage="latex", error=error)
+        return False
+
+    generated_path = save_generated_source(cid, latex_content)
+    SOURCE_TEX.write_text(latex_content, encoding="utf-8")
+    log(
+        f"[write] source.tex updated from {generated_path.relative_to(PROJECT_ROOT)} "
+        f"({len(latex_content)} chars)"
+    )
+
+    log(f"[pipeline] Running run_source_to_pdf.py {module_dir} for {cid}...")
+    new_id, pipeline_error = run_pipeline(
+        python_exe,
+        module_dir,
+        skip_git_commit=skip_git_commit,
+        timeout_seconds=pipeline_timeout,
+    )
+    if pipeline_error:
+        log(f"[fail] {cid}: {pipeline_error}")
+        record_state(conclusion, "failed", stage="pipeline", error=pipeline_error)
+        return False
+
+    if not new_id:
+        error = "Pipeline returned no NEW_ID"
+        log(f"[fail] {cid}: {error}")
+        record_state(conclusion, "failed", stage="pipeline", error=error)
+        return False
+
+    if new_id != cid and not allow_id_mismatch:
+        error = f"Expected ID {cid}, but pipeline produced {new_id}"
+        log(f"[fail] {cid}: {error}")
+        record_state(conclusion, "failed", stage="id_check", new_id=new_id, error=error)
+        return False
+
+    if new_id != cid:
+        log(f"[warn] {cid}: expected ID {cid}, but pipeline produced {new_id}; continuing")
+
+    log(f"[publish] Running incremental_publish.py for {new_id}...")
+    published, publish_error = run_incremental_publish(
+        python_exe,
+        new_id,
+        no_deploy=no_deploy,
+        timeout_seconds=publish_timeout,
+    )
+    if not published:
+        error = publish_error or "incremental_publish.py failed"
+        log(f"[fail] {cid} -> {new_id}: {error}")
+        record_state(conclusion, "failed", stage="publish", new_id=new_id, error=error)
+        return False
+
+    log(f"[done] {cid} -> {new_id}: complete")
+    record_state(conclusion, "done", new_id=new_id, generated_source=str(generated_path))
+    return True
+
+
+def get_existing_ids(module_dirs: Iterable[str]) -> set[str]:
+    existing: set[str] = set()
+    for module_dir in module_dirs:
+        module_path = PROJECT_ROOT / module_dir
+        if not module_path.is_dir():
+            continue
+        for item in module_path.iterdir():
+            if not item.is_dir():
+                continue
+            match = re.match(r"^([A-Z]\d{3})(?:_|$)", item.name.upper())
+            if match:
+                existing.add(match.group(1))
+    return existing
+
+
+def resolve_module_selector(
+    selector: str,
+    module_dirs: list[str],
+    prefix_map: dict[str, str],
+) -> str:
+    token = selector.strip()
+    if not token:
+        raise ValueError("Module selector cannot be empty.")
+
+    exact_hits = [m for m in module_dirs if m.lower() == token.lower()]
+    if len(exact_hits) == 1:
+        return exact_hits[0]
+
+    if re.fullmatch(r"\d{2}", token):
+        index_hits = [m for m in module_dirs if re.match(rf"^{re.escape(token)}[_-]", m)]
+        if len(index_hits) == 1:
+            return index_hits[0]
+
+    if re.fullmatch(r"[A-Za-z]", token):
+        letter = token.upper()
+        prefix_hits = [m for m in module_dirs if prefix_map.get(m, "").upper() == letter]
+        if len(prefix_hits) == 1:
+            return prefix_hits[0]
+
+    normalized = re.sub(r"[-_\s]+", "-", token.lower())
+    suffix_hits: list[str] = []
+    for module_dir in module_dirs:
+        match = re.match(r"^\d{2}[_-](.+)$", module_dir)
+        suffix = match.group(1) if match else module_dir
+        if re.sub(r"[-_\s]+", "-", suffix.lower()) == normalized:
+            suffix_hits.append(module_dir)
+    if len(suffix_hits) == 1:
+        return suffix_hits[0]
+
+    available = ", ".join(module_dirs)
+    raise ValueError(f"Unknown module selector {selector!r}. Available: {available}")
+
+
+def apply_start_from(
+    conclusions: list[dict[str, Any]],
+    start_from: str | None,
+) -> list[dict[str, Any]]:
+    if not start_from:
+        return conclusions
+
+    start_id = start_from.upper()
+    filtered: list[dict[str, Any]] = []
+    found = False
+    for conclusion in conclusions:
+        if conclusion["id"] == start_id:
+            found = True
+        if found:
+            filtered.append(conclusion)
+
+    if not found:
+        log(f"[warn] --start-from {start_id} not found, processing all selected rows")
+        return conclusions
+
+    log(f"[info] Resuming from {start_id}, {len(filtered)} selected rows remain")
+    return filtered
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+        description="Batch generate pending conclusions from readme.md files"
+    )
+    parser.add_argument(
+        "--module",
+        "-m",
+        default=None,
+        help="Process one module, e.g. 07_inequality / 07 / inequality / I",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Only parse and list planned rows; do not call API or write files.",
+    )
+    parser.add_argument(
+        "--start-from",
+        default=None,
+        help="Resume from a specific readme conclusion ID, e.g. I043.",
+    )
+    parser.add_argument(
+        "--python-exe",
+        default=sys.executable,
+        help="Python executable path.",
+    )
+    parser.add_argument(
+        "--skip-existing",
+        dest="skip_existing",
+        action="store_true",
+        default=True,
+        help="Skip conclusions that already have directories (default).",
+    )
+    parser.add_argument(
+        "--no-skip-existing",
+        dest="skip_existing",
+        action="store_false",
+        help="Do not skip existing conclusion directories.",
+    )
+    parser.add_argument(
+        "--force-all",
+        action="store_true",
+        help="Process all pending rows, even if directories already exist.",
+    )
+    parser.add_argument(
+        "--skip-git-commit",
+        action="store_true",
+        help="Pass --skip-git-commit to run_source_to_pdf.py.",
+    )
+    parser.add_argument(
+        "--no-deploy",
+        action="store_true",
+        help="Pass --no-deploy to incremental_publish.py.",
+    )
+    parser.add_argument(
+        "--continue-on-error",
+        action="store_true",
+        help="Continue with the next row after a failure.",
+    )
+    parser.add_argument(
+        "--allow-id-mismatch",
+        action="store_true",
+        help="Continue publishing if pipeline NEW_ID differs from the readme row ID.",
+    )
+    parser.add_argument(
+        "--pipeline-timeout",
+        type=int,
+        default=600,
+        help="Timeout seconds for run_source_to_pdf.py.",
+    )
+    parser.add_argument(
+        "--publish-timeout",
+        type=int,
+        default=600,
+        help="Timeout seconds for incremental_publish.py.",
+    )
+    return parser.parse_args()
+
+
+def main() -> int:
+    global DRY_RUN_MODE
+    args = parse_args()
+    DRY_RUN_MODE = bool(args.dry_run)
+
+    try:
+        prefix_map = load_module_prefix_map()
+    except Exception as exc:
+        log(f"[error] Cannot load module prefix map: {exc}")
+        return 1
+
+    module_dirs = [module for module in prefix_map if (PROJECT_ROOT / module).is_dir()]
+    if not module_dirs:
+        log("[error] No configured module directories found.")
+        return 1
+
+    if args.module:
+        try:
+            modules = [resolve_module_selector(args.module, module_dirs, prefix_map)]
+        except ValueError as exc:
+            log(f"[error] {exc}")
+            return 1
+    else:
+        modules = module_dirs
+
+    all_conclusions: list[dict[str, Any]] = []
+    for module_dir in modules:
+        all_conclusions.extend(parse_readme(module_dir))
+
+    if not all_conclusions:
+        log("[info] No pending rows found.")
+        return 0
+
+    log(f"[info] Total pending rows before filters: {len(all_conclusions)}")
+    all_conclusions = apply_start_from(all_conclusions, args.start_from)
+
+    if args.skip_existing and not args.force_all:
+        existing_ids = get_existing_ids(module_dirs)
+        filtered = [c for c in all_conclusions if c["id"] not in existing_ids]
+        skipped = len(all_conclusions) - len(filtered)
+        if skipped:
+            log(f"[info] Skipping {skipped} rows with existing conclusion directories")
+        all_conclusions = filtered
+
+    if not all_conclusions:
+        log("[info] Nothing to do after filters.")
+        return 0
+
+    log(f"[info] Will process {len(all_conclusions)} rows")
+
+    api_config: dict[str, Any] = {}
+    model_config: dict[str, Any] = {}
+    if not args.dry_run:
+        try:
+            app_config = load_api_config()
+            api_config = app_config["api"]
+            model_config = app_config["model"]
+        except Exception as exc:
+            log(f"[error] Cannot load API config: {exc}")
+            return 1
+
+        backup_path = backup_source_tex()
+        if backup_path:
+            log(f"[backup] source.tex backed up to {backup_path.relative_to(PROJECT_ROOT)}")
+
+    success = 0
+    fail = 0
+    total = len(all_conclusions)
+
+    for index, conclusion in enumerate(all_conclusions, start=1):
+        log("")
+        log("=" * 60)
+        log(
+            f"[progress] {index}/{total}: {conclusion['id']} "
+            f"{collapse_for_log(str(conclusion.get('llm_source_line') or conclusion['source_line']), 70)}"
+        )
+        log("=" * 60)
+
+        ok = process_one_conclusion(
+            conclusion,
+            api_config,
+            model_config,
+            args.python_exe,
+            args.dry_run,
+            skip_git_commit=args.skip_git_commit,
+            no_deploy=args.no_deploy,
+            allow_id_mismatch=args.allow_id_mismatch,
+            pipeline_timeout=args.pipeline_timeout,
+            publish_timeout=args.publish_timeout,
+        )
+
+        if ok:
+            success += 1
+        else:
+            fail += 1
+            if not args.continue_on_error:
+                log("[abort] Stopping at first failure. Use --continue-on-error to keep going.")
+                break
+
+        if not args.dry_run and index < total:
+            time.sleep(3)
+
+    log("")
+    log("=" * 60)
+    log(f"[summary] Done. Success: {success}, Failed: {fail}, Selected: {total}")
+    log("=" * 60)
+
+    return 0 if fail == 0 else 1
+
+
+if __name__ == "__main__":
+    sys.exit(main())
