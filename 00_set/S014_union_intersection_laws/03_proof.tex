@@ -1,0 +1,54 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	集合相等的标准证法是“双向包含”：要证 $X=Y$，先证 $X\subseteq Y$，再证 $Y\subseteq X$。每一步将元素属于关系转化为逻辑命题，利用逻辑等价（如“且”“或”的分配律）直接推出。交换律、结合律的证明较简易，下面以分配律 $A\cap(B\cup C)=(A\cap B)\cup(A\cap C)$ 为例给出完整推导，其余可类比。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（左含于右）：}]
+			任取 $x$，假设 $x\in A\cap(B\cup C)$。
+			\[
+				x \in A \cap (B \cup C) \implies x \in A \land x \in B \cup C.
+			\]
+			\par\textbf{理由：} 由交集定义，$x$ 必须同时属于 $A$ 和 $B\cup C$。
+		\item[\textbf{步骤二（拆开并）：}]
+			由 $x\in B\cup C$ 展开。
+			\[
+				x \in B \cup C \implies x \in B \lor x \in C.
+			\]
+			\par\textbf{理由：} 并集定义。
+		\item[\textbf{步骤三（构造右式）：}]
+			结合步骤一的 $x\in A$，分情况：
+			\begin{itemize}
+			\item 若 $x\in B$，则 $x\in A\cap B$；
+			\item 若 $x\in C$，则 $x\in A\cap C$。
+		\end{itemize}
+			两种情形均推出
+			\[
+				x \in (A \cap B) \cup (A \cap C).
+			\]
+			\par\textbf{理由：} 交、并的定义及逻辑推理；任意情形都导致属于右边，故 $A\cap(B\cup C)\subseteq (A\cap B)\cup(A\cap C)$。
+		\item[\textbf{步骤四（右含于左）：}]
+			任取 $x$，假设 $x\in (A\cap B)\cup(A\cap C)$。
+			\[
+				x \in (A \cap B) \cup (A \cap C) \implies (x \in A \cap B) \lor (x \in A \cap C).
+			\]
+			\par\textbf{理由：} 并集定义。
+		\item[\textbf{步骤五（反推左式）：}]
+			无论哪种情况，先拆出 $x\in A$，且得到 $x\in B$ 或 $x\in C$。
+			\[
+				(x \in A \cap B) \lor (x \in A \cap C) \implies x \in A \land (x \in B \lor x \in C) \implies x \in A \cap (B \cup C).
+			\]
+			\par\textbf{理由：} 先应用交集定义得到 $x\in A$，再结合并集定义及逻辑关系回溯。故 $(A\cap B)\cup(A\cap C)\subseteq A\cap(B\cup C)$。
+		\item[\textbf{步骤六（结论）：}]
+			综合双向包含即得集合相等。
+			\[
+				A\cap(B\cup C) = (A\cap B)\cup(A\cap C).
+			\]
+			\par\textbf{理由：} 集合相等的定义（互含）。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{上述证明仅依赖元素“属于”关系的定义和基础逻辑。对交换律、结合律及另一个分配律，完全可仿此用“双向包含”或直接通过逻辑等值式完成。集合的运算律可靠且严谨，是后续一切集合等式变形的基石。}
+\end{proofbox}

@@ -1,0 +1,75 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	设 $A=\{1,2,3\}$，$B=\{3,4\}$，$C=\{2,4\}$。验证分配律 $A\cap(B\cup C)=(A\cap B)\cup(A\cap C)$。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（求并集）：}]
+			计算 $B\cup C = \{3,4\}\cup\{2,4\} = \{2,3,4\}$。
+			\par\textbf{理由：} 并集定义，取所有元素。
+		\item[\textbf{第二步（求左式）：}]
+			计算 $A\cap(B\cup C) = \{1,2,3\}\cap\{2,3,4\} = \{2,3\}$。
+			\par\textbf{理由：} 交集定义，取公共元素。
+		\item[\textbf{第三步（求右式）：}]
+			先分别求 $A\cap B$ 和 $A\cap C$。 $A\cap B = \{1,2,3\}\cap\{3,4\} = \{3\}$； $A\cap C = \{1,2,3\}\cap\{2,4\} = \{2\}$。 再求并集：$(A\cap B)\cup(A\cap C) = \{3\}\cup\{2\} = \{2,3\}$。
+			\par\textbf{理由：} 先交后并，分步计算。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{左式与右式结果均为 $\{2,3\}$，分配律成立。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	设 $A,B,C$ 为任意集合，利用运算律证明 $(A\cap B)\cup C = (A\cup C)\cap(B\cup C)$。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（交换律）：}]
+			将左式改写为 $C\cup(A\cap B)$。
+			\[
+				(A\cap B)\cup C = C\cup(A\cap B).
+			\]
+			\par\textbf{理由：} 并运算的交换律。
+		\item[\textbf{第二步（分配律）：}]
+			对 $C\cup(A\cap B)$ 应用“并对交”分配律。
+			\[
+				C\cup(A\cap B) = (C\cup A)\cap(C\cup B).
+			\]
+			\par\textbf{理由：} 分配律 $X\cup(Y\cap Z)=(X\cup Y)\cap(X\cup Z)$。
+		\item[\textbf{第三步（交换律回位）：}]
+			将右式中的 $C\cup A$ 和 $C\cup B$ 分别交换顺序。
+			\[
+				(C\cup A)\cap(C\cup B) = (A\cup C)\cap(B\cup C).
+			\]
+			\par\textbf{理由：} 并运算的交换律，使形式与目标一致。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{综合运用交换律和分配律，可得 $(A\cap B)\cup C = (A\cup C)\cap(B\cup C)$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	设 $A,B,C$ 为任意集合，利用运算律证明 $(A\cup B)\cap C = (A\cap C)\cup(B\cap C)$。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（交换律）：}]
+			将左式的交运算交换顺序。
+			\[
+				(A\cup B)\cap C = C\cap(A\cup B).
+			\]
+			\par\textbf{理由：} 交运算的交换律。
+		\item[\textbf{第二步（分配律）：}]
+			对 $C\cap(A\cup B)$ 应用“交对并”分配律。
+			\[
+				C\cap(A\cup B) = (C\cap A)\cup(C\cap B).
+			\]
+			\par\textbf{理由：} 分配律 $X\cap(Y\cup Z)=(X\cap Y)\cup(X\cap Z)$。
+		\item[\textbf{第三步（交换律回位）：}]
+			将右式中的 $C\cap A$ 和 $C\cap B$ 分别交换顺序。
+			\[
+				(C\cap A)\cup(C\cap B) = (A\cap C)\cup(B\cap C).
+			\]
+			\par\textbf{理由：} 交运算的交换律，得到目标形式。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{通过交换律与分配律的配合，可灵活变换交并表达式的结构。}
+\end{examplebox}
