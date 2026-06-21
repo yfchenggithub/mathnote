@@ -318,6 +318,14 @@ def parse_args() -> argparse.Namespace:
         help="Python executable path used to run sub-scripts. Default: current interpreter.",
     )
     parser.add_argument(
+        "--target-id",
+        default=None,
+        help=(
+            "Optional exact conclusion ID for create_next_input_case.py, e.g. C083. "
+            "If omitted, the next available module ID is used."
+        ),
+    )
+    parser.add_argument(
         "--skip-git-commit",
         action="store_true",
         help="Do not commit repository changes after a successful PDF build and publish.",
@@ -829,9 +837,12 @@ def run_flow(args: argparse.Namespace) -> int:
     build_pdf_script = project_root / "scripts" / "build_conclusion_pdfs.py"
 
     if args.dry_run:
-        planned_id = "<NEW_ID_FROM_STEP1>"
+        planned_id = args.target_id.strip().upper() if args.target_id else "<NEW_ID_FROM_STEP1>"
+        create_plan_cmd = [python_exe, str(create_script), module_selector]
+        if args.target_id:
+            create_plan_cmd.extend(["--target-id", args.target_id])
         plan = [
-            ("Step 1/7 create next input case", [python_exe, str(create_script), module_selector]),
+            ("Step 1/7 create next input case", create_plan_cmd),
             ("Step 2/7 run pipeline", [python_exe, str(run_script), planned_id]),
             ("Step 3/7 publish output", [python_exe, str(publish_script), planned_id]),
             ("Step 4/7 fix math punctuation", [python_exe, str(fix_script), planned_id]),
@@ -877,6 +888,8 @@ def run_flow(args: argparse.Namespace) -> int:
     print("[info] Mode: execute")
 
     create_cmd = [python_exe, str(create_script), module_selector]
+    if args.target_id:
+        create_cmd.extend(["--target-id", args.target_id])
     create_result = run_command(
         "Step 1/7 create next input case",
         create_cmd,
@@ -886,6 +899,8 @@ def run_flow(args: argparse.Namespace) -> int:
     )
 
     new_id = parse_new_id(create_result.stdout)
+    if args.target_id and new_id != args.target_id.strip().upper():
+        raise ValueError(f"Expected target ID {args.target_id.strip().upper()}, but got NEW_ID={new_id}.")
     print(f"[info] Parsed NEW_ID={new_id}")
 
     run_command(

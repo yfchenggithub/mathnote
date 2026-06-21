@@ -757,11 +757,12 @@ def save_generated_source(conclusion_id: str, latex_content: str) -> Path:
 def run_pipeline(
     python_exe: str,
     module_dir: str,
+    target_id: str,
     skip_git_commit: bool = False,
     timeout_seconds: int = 600,
 ) -> tuple[str | None, str | None]:
     script = PIPELINE_DIR / "run_source_to_pdf.py"
-    cmd = [python_exe, str(script), module_dir]
+    cmd = [python_exe, str(script), module_dir, "--target-id", target_id]
     if skip_git_commit:
         cmd.append("--skip-git-commit")
 
@@ -919,12 +920,18 @@ def process_one_conclusion(
         elif cached_path and not cached_problems and not force_regenerate:
             log(
                 f"[dry-run] {cid}: would reuse {cached_path.relative_to(PROJECT_ROOT)}, "
-                "write source.tex, run pipeline, publish"
+                f"write source.tex, run pipeline with --target-id {cid}, publish"
             )
         elif force_regenerate:
-            log(f"[dry-run] {cid}: would force-regenerate LaTeX, write source.tex, run pipeline, publish")
+            log(
+                f"[dry-run] {cid}: would force-regenerate LaTeX, write source.tex, "
+                f"run pipeline with --target-id {cid}, publish"
+            )
         else:
-            log(f"[dry-run] {cid}: would generate LaTeX, write source.tex, run pipeline, publish")
+            log(
+                f"[dry-run] {cid}: would generate LaTeX, write source.tex, "
+                f"run pipeline with --target-id {cid}, publish"
+            )
         record_state(conclusion, "dry_run")
         return True
 
@@ -987,10 +994,11 @@ def process_one_conclusion(
         f"({len(latex_content)} chars)"
     )
 
-    log(f"[pipeline] Running run_source_to_pdf.py {module_dir} for {cid}...")
+    log(f"[pipeline] Running run_source_to_pdf.py {module_dir} --target-id {cid}...")
     new_id, pipeline_error = run_pipeline(
         python_exe,
         module_dir,
+        cid,
         skip_git_commit=skip_git_commit,
         timeout_seconds=pipeline_timeout,
     )
@@ -1265,8 +1273,8 @@ def main() -> int:
     if args.force_regenerate:
         log(
             "[warn] --force-regenerate ignores cached LaTeX and existing-directory skips. "
-            "If an ID already exists, run_source_to_pdf.py may allocate the next ID and "
-            "the default ID check will stop the run."
+            "The readme ID is still passed as --target-id, so existing published "
+            "directories may cause later pipeline/publish steps to fail."
         )
 
     api_config: dict[str, Any] = {}

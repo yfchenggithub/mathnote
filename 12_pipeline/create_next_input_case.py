@@ -43,6 +43,7 @@ DEFAULT_MODULE_PREFIX_MAP: dict[str, str] = {
 }
 
 SINGLE_LETTER_PATTERN = re.compile(r"^[A-Za-z]$")
+TARGET_ID_PATTERN = re.compile(r"^[A-Za-z]\d{3}$")
 MODULE_DIR_PATTERN = re.compile(r"^\d{2}[_-].+")
 
 
@@ -80,6 +81,15 @@ def parse_args() -> argparse.Namespace:
         help="Optional manual prefix override (single letter).",
     )
     parser.add_argument(
+        "--target-id",
+        type=str,
+        default=None,
+        help=(
+            "Optional exact conclusion ID to create, e.g. C083. "
+            "If omitted, the next available module ID is used."
+        ),
+    )
+    parser.add_argument(
         "--dry-run",
         action="store_true",
         help="Preview actions only, do not create/copy case files.",
@@ -99,6 +109,13 @@ def normalize_prefix(prefix: str) -> str:
     value = prefix.strip().upper()
     if not SINGLE_LETTER_PATTERN.fullmatch(value):
         raise ValueError(f"Invalid prefix: {prefix!r}. Expected one letter like C/F/I.")
+    return value
+
+
+def normalize_target_id(target_id: str) -> str:
+    value = target_id.strip().upper()
+    if not TARGET_ID_PATTERN.fullmatch(value):
+        raise ValueError(f"Invalid target ID: {target_id!r}. Expected one letter plus 3 digits, e.g. C083.")
     return value
 
 
@@ -346,6 +363,19 @@ def compute_next_module_id(module_dir: Path, prefix: str) -> str:
     )
 
 
+def resolve_new_id(module_dir: Path, prefix: str, target_id: str | None) -> str:
+    if not target_id:
+        return compute_next_module_id(module_dir, prefix)
+
+    normalized = normalize_target_id(target_id)
+    if not normalized.startswith(prefix):
+        raise ValueError(
+            f"Target ID {normalized} does not match module {module_dir.name!r} "
+            f"with configured prefix {prefix!r}."
+        )
+    return normalized
+
+
 def run(args: argparse.Namespace) -> None:
     pipeline_dir = args.pipeline_dir.expanduser().resolve()
 
@@ -383,7 +413,7 @@ def run(args: argparse.Namespace) -> None:
 
     prefix = resolve_prefix(module_dir, prefix_map, args.id_prefix)
 
-    new_id = compute_next_module_id(module_dir, prefix)
+    new_id = resolve_new_id(module_dir, prefix, args.target_id)
     target_dir = input_dir / new_id
     target_source = target_dir / "source.tex"
 
