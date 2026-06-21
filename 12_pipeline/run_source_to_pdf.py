@@ -48,6 +48,10 @@ MODULE_ORDER = {name: idx for idx, name in enumerate(ALLOWED_MODULES)}
 MODULE_ALIASES = {
     "集合": "set",
     "函数": "function",
+    "函数与导数": "function",
+    "导数": "function",
+    "极限": "function",
+    "洛必达": "function",
     "数列": "sequence",
     "圆锥曲线": "conic",
     "解析几何": "conic",
@@ -88,8 +92,18 @@ MODULE_KEYWORDS: dict[str, list[tuple[str, int]]] = {
         ("\\cap", 4),
     ],
     "function": [
+        ("洛必达", 10),
+        ("导数", 8),
+        ("求导", 8),
+        ("导函数", 8),
+        ("极限", 8),
+        ("未定式", 8),
+        ("泰勒", 6),
+        ("帕德", 6),
         ("函数", 4),
         ("f(x)", 4),
+        ("f'(x)", 5),
+        ("g'(x)", 5),
         ("定义域", 5),
         ("值域", 5),
         ("单调", 4),
@@ -188,6 +202,19 @@ MODULE_KEYWORDS: dict[str, list[tuple[str, int]]] = {
         ("角平分线", 5),
     ],
 }
+STRONG_MODULE_KEYWORDS: dict[str, tuple[str, ...]] = {
+    "function": (
+        "洛必达",
+        "l'hospital",
+        "l’hospital",
+        "l'hôpital",
+        "l’hôpital",
+        "导数",
+        "求导",
+        "导函数",
+        "未定式",
+    ),
+}
 MODULE_REPAIR_PROMPT = """你是模块纠偏器。
 
 你必须从下面 10 个模块中选择 1 个最接近且最合适的模块：
@@ -197,7 +224,8 @@ set / function / sequence / conic / vector / geometry-solid / probability-stat /
 1. 只能输出一个模块。
 2. 不得输出枚举之外的值。
 3. 若信息不足，也必须选最接近的一项。
-4. 只输出严格 JSON，不要解释。
+4. function 表示“函数与导数”，导数、极限、洛必达、泰勒/帕德逼近都归 function。
+5. 只输出严格 JSON，不要解释。
 
 输出格式：
 {{"module":"trigonometry"}}
@@ -297,6 +325,14 @@ def render_prompt(step: str, input_data: Any) -> str:
     if "{{input}}" in template:
         return template.replace("{{input}}", payload)
     return f"{template}\n\n{payload}"
+
+
+def detect_strong_module(source_text: str) -> str | None:
+    lowered = source_text.lower()
+    for module, keywords in STRONG_MODULE_KEYWORDS.items():
+        if any(keyword.lower() in lowered for keyword in keywords):
+            return module
+    return None
 
 
 def call_router_llm(prompt: str) -> str:
@@ -444,6 +480,9 @@ def extract_module_candidate(raw_output: str | None) -> str | None:
 
 def auto_detect_module_selector(source_tex: Path) -> tuple[str, str]:
     source_text = read_text_file(source_tex)
+    strong_module = detect_strong_module(source_text)
+    if strong_module:
+        return strong_module, "rule-strong"
 
     primary_prompt = render_prompt(
         "module_router",

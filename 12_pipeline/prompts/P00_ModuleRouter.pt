@@ -20,7 +20,7 @@ set / function / sequence / conic / vector / geometry-solid / probability-stat /
 
 模块识别信号（仅辅助，不是输出）：
 - set：集合、元素关系、子集、空集、全集、并集、交集、补集、Venn 图、\in、\notin、\subset、\cup、\cap。
-- function：函数定义域、值域、解析式、图像、单调性、奇偶性、周期性、最值、零点、反函数、复合函数、函数图像变换、函数与方程。
+- function：函数与导数模块（对应 01_function），覆盖函数基础与导数进阶：函数定义域、值域、解析式、图像、单调性、奇偶性、周期性、最值、零点、反函数、复合函数、函数图像变换、函数与方程、导数、求导、导函数、切线、极值、拐点、极限、未定式、洛必达法则、泰勒展开、帕德逼近、含参函数讨论、导数构造函数。
 - sequence：数列对象 {a_n}、a_n、S_n、通项公式、递推数列、前 n 项和、等差数列、等比数列、裂项相消、错位相减、数列放缩、阶乘型求和、带省略号的前 n 项求和恒等式。
 - conic：解析几何、坐标系中的直线与圆、椭圆、双曲线、抛物线、焦点、准线、离心率、弦长、中点弦、切线、轨迹、圆锥曲线方程。
 - vector：向量、\vec{}、\overrightarrow{}、坐标表示、向量加减、数乘、数量积、夹角、投影、平行、垂直、共线。
@@ -37,17 +37,19 @@ set / function / sequence / conic / vector / geometry-solid / probability-stat /
    - 若题意明确讨论数列本身，例如 {a_n}、a_n、S_n、通项、前 n 项和、等差、等比、递推定义，或把一串依 n 展开的项相加得到通式时，选择 sequence。
 2. function vs inequality：
    - 核心目标是证明、求解、比较不等式或讨论取等条件，选择 inequality。
-   - 核心目标是函数定义域、值域、单调性、奇偶性、周期性、零点、图像或最值，选择 function；即使过程中用到不等式，也不改变主模块。
+   - 核心目标是函数与导数对象或方法，选择 function：包括函数定义域、值域、单调性、奇偶性、周期性、零点、图像、最值、求导、导函数、切线、极值、拐点、极限、洛必达法则、泰勒/帕德逼近、含参函数讨论、导数构造函数；即使过程中用到不等式，也不改变主模块。
 3. trigonometry vs function：
    - 核心对象是三角恒等式、三角变换、三角方程、诱导公式、同角关系，选择 trigonometry。
-   - 若只是函数问题中偶然出现 sin/cos/tan，但主要讨论一般函数性质，选择 function。
-4. conic vs geometry-plane：
+   - 若只是函数与导数问题中出现 sin/cos/tan，例如三角函数的极限、求导、泰勒/帕德逼近、洛必达法则应用，但主要讨论一般函数性质或导数/极限方法，选择 function。
+4. function vs geometry-solid：
+   - 洛必达、导数、极限、未定式、函数比值、f'(x)/g'(x)、0/0、\infty/\infty 等信号都属于 function，不得因为文本中出现“形/型/空间/邻域”等一般词而选择 geometry-solid。
+5. conic vs geometry-plane：
    - 坐标系、方程、焦点、准线、离心率、弦长、切线方程、轨迹等解析几何对象，选择 conic。
    - 三角形、圆、相似、全等、圆周角、切线性质等纯平面几何对象，选择 geometry-plane。
-5. vector vs geometry-solid：
+6. vector vs geometry-solid：
    - 核心是向量运算、数量积、坐标向量、共线/垂直判定，选择 vector。
    - 核心是空间线面关系、二面角、线面角、体积表面积、空间几何体，选择 geometry-solid；即使用空间向量法，也优先选择 geometry-solid。
-6. conic vs vector：
+7. conic vs vector：
    - 核心是圆锥曲线/解析几何图形及其方程性质，选择 conic。
    - 核心是向量关系、向量运算或数量积恒等式，选择 vector。
 
@@ -57,6 +59,8 @@ set / function / sequence / conic / vector / geometry-solid / probability-stat /
 - `\sin^2 x+\cos^2 x=1` 或三角和差角、倍角、诱导公式：选择 trigonometry。
 - `a+b\ge 2\sqrt{ab}` 或柯西、均值不等式：选择 inequality。
 - 含椭圆/双曲线/抛物线焦点、准线、离心率、切线方程：选择 conic。
+- `洛必达法则处理 \frac{0}{0} 型极限`、`\lim_{x\to a}\frac{f(x)}{g(x)}=\lim_{x\to a}\frac{f'(x)}{g'(x)}`：选择 function，因为 01_function 是“函数与导数”，核心是极限与导数方法。
+- `\lim_{x\to0}\frac{\sin x}{x}=1` 若作为洛必达、泰勒展开或函数极限例子讲解：选择 function；只有当核心是三角恒等变换、诱导公式、同角关系等三角对象时才选择 trigonometry。
 
 输出格式（严格 JSON）：
 {
