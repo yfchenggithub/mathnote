@@ -1,0 +1,75 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	设有限集合 $A,B,C$ 满足 $n(A)=12$, $n(B)=10$, $n(C)=8$, $n(A\cap B)=5$, $n(B\cap C)=4$, $n(C\cap A)=3$, $n(A\cap B\cap C)=2$。求 $n(A\cup B\cup C)$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（列出已知）：}] 明确各集合及交集的元素个数。
+			\par\textbf{理由：} 套用公式前需确保数据齐全。
+
+		\item[\textbf{第二步（代入公式）：}] 将数值代入三集容斥原理公式。
+			\[
+				\begin{aligned}
+					n(A\cup B\cup C) &= n(A)+n(B)+n(C) - n(A\cap B) - n(B\cap C) - n(C\cap A) + n(A\cap B\cap C)\\
+					&= 12+10+8 - 5 - 4 - 3 + 2
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 直接替换符号为数值。
+
+		\item[\textbf{第三步（计算结果）：}] 逐步计算得 $30 - 12 + 2 = 20$。
+			\par\textbf{理由：} 先加单集、再减两两交、最后加三交，得出结果。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$n(A\cup B\cup C)=20$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	某班有45名学生，参加数学兴趣组的有20人，参加物理组的有18人，参加化学组的有15人。同时参加数学和物理的有8人，同时参加物理和化学的有6人，同时参加数学和化学的有7人，三组都参加的有2人。问没有参加任何兴趣组的学生有多少人？
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（求并集人数）：}] 设参加数学、物理、化学的集合分别为 $A,B,C$。利用容斥原理求至少参加一科的人数 $n(A\cup B\cup C)$。
+			\[
+				n(A\cup B\cup C) = 20+18+15 - 8 - 6 - 7 + 2 = 34
+			\]
+			\par\textbf{理由：} 直接代入三集容斥公式。
+
+		\item[\textbf{第二步（求补集）：}] 没有参加任何组的人数为总人数减去并集人数：$45 - 34 = 11$。
+			\par\textbf{理由：} 利用全集与补集的关系。
+
+		\item[\textbf{第三步（检验）：}] 检查数据无矛盾（如交集人数不超过各集合人数）。
+			\par\textbf{理由：} 确保实际意义正确，防止计算失误。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{11人未参加任何组。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知集合 $A,B,C$ 满足 $n(A)=18$, $n(B)=15$, $n(C)=12$, $n(A\cup B\cup C)=30$, $n(A\cap B)=7$, $n(B\cap C)=5$, $n(C\cap A)=6$，求 $n(A\cap B\cap C)$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（设未知量）：}] 设 $x = n(A\cap B\cap C)$。
+			\par\textbf{理由：} 将所求设为未知数，方便方程求解。
+
+		\item[\textbf{第二步（列方程）：}] 将已知数据代入三集容斥原理：
+			\[
+				30 = 18 + 15 + 12 - 7 - 5 - 6 + x
+			\]
+			\par\textbf{理由：} 根据公式建立等量关系。
+
+		\item[\textbf{第三步（解方程）：}] 计算右端常数部分：$18+15+12=45$，$7+5+6=18$，故 $45-18=27$。于是 $30 = 27 + x$，解得 $x = 3$。
+			\par\textbf{理由：} 通过移项或简单减法求解未知数。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$n(A\cap B\cap C)=3$。}
+\end{examplebox}

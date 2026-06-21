@@ -1,0 +1,56 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用集合运算的结合律，将三个集合并集视为两个集合并集，再反复应用两个集合的容斥原理即可推导出公式。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（结合律重组）：}] 将 $A\cup B\cup C$ 写为 $(A\cup B)\cup C$。
+			\[
+				n(A\cup B\cup C)=n\bigl((A\cup B)\cup C\bigr)
+			\]
+			\par\textbf{理由：} 集合并集满足结合律，便于分步应用容斥原理。
+
+		\item[\textbf{步骤二（第一次容斥）：}] 对 $(A\cup B)$ 与 $C$ 的并集应用两个集合的容斥原理。
+			\[
+				n\bigl((A\cup B)\cup C\bigr)=n(A\cup B)+n(C)-n\bigl((A\cup B)\cap C\bigr)
+			\]
+			\par\textbf{理由：} 两个集合的容斥原理 $n(X\cup Y)=n(X)+n(Y)-n(X\cap Y)$。
+
+		\item[\textbf{步骤三（展开 $n(A\cup B)$）：}] 再次应用两个集合的容斥原理于 $A$ 与 $B$。
+			\[
+				n(A\cup B)=n(A)+n(B)-n(A\cap B)
+			\]
+			\par\textbf{理由：} 同一原理应用于 $A$ 与 $B$。
+
+		\item[\textbf{步骤四（分配律展开）：}] 利用交对并的分配律展开 $(A\cup B)\cap C$。
+			\[
+				(A\cup B)\cap C=(A\cap C)\cup(B\cap C)
+			\]
+			\par\textbf{理由：} 交对并的分配律：$(X\cup Y)\cap Z=(X\cap Z)\cup(Y\cap Z)$。
+
+		\item[\textbf{步骤五（第二次容斥）：}] 对 $(A\cap C)\cup(B\cap C)$ 应用两个集合的容斥原理，并利用 $(A\cap C)\cap(B\cap C)=A\cap B\cap C$。
+			\[
+				\begin{aligned}
+					n\bigl((A\cap C)\cup(B\cap C)\bigr) &= n(A\cap C)+n(B\cap C)-n\bigl((A\cap C)\cap(B\cap C)\bigr)\\
+					&= n(A\cap C)+n(B\cap C)-n(A\cap B\cap C)
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 二集容斥与交集结合律。
+
+		\item[\textbf{步骤六（回代整理）：}] 将步骤三、步骤五的结果代回步骤二的表达式，并展开括号。
+			\[
+				\begin{aligned}
+					n(A\cup B\cup C) &= \bigl[n(A)+n(B)-n(A\cap B)\bigr] + n(C) - \bigl[n(A\cap C)+n(B\cap C)-n(A\cap B\cap C)\bigr]\\
+					&= n(A)+n(B)+n(C)-n(A\cap B)-n(A\cap C)-n(B\cap C)+n(A\cap B\cap C)
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 去括号，移项合并。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{由此证得三个集合的容斥原理公式，其本质是通过逐步修正重复计数，将并集大小转化为交集大小的代数和。}
+\end{proofbox}

@@ -1,0 +1,169 @@
+{
+  "id": "S013",
+  "module": "set",
+  "core": {
+    "title": "三集合容斥原理",
+    "alias": [
+      "容斥原理（三个集合）",
+      "三集合并集计数公式",
+      "三个集合的容斥公式"
+    ],
+    "summary": "并集的元素个数等于各集合元素个数之和减去两两交集之和再加三者交集。",
+    "difficulty": 2,
+    "category": "集合",
+    "tags": [
+      "集合",
+      "容斥原理",
+      "计数",
+      "有限集合",
+      "交集",
+      "并集"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "集合容斥",
+      "三集合",
+      "并集元素个数",
+      "n(A∪B∪C)",
+      "n(A∩B)",
+      "n(A∩B∩C)",
+      "三集合并集",
+      "容斥原理公式",
+      "有限集合计数",
+      "三个集合交集"
+    ],
+    "synonyms": [
+      "三个集合的容斥",
+      "三集合公式",
+      "容斥定理",
+      "三集合并集计算"
+    ],
+    "intents": [
+      "求并集元素个数",
+      "求交集元素个数",
+      "已知两两交集求三交集",
+      "求未知集合大小"
+    ],
+    "query_templates": [
+      "三集合容斥原理公式怎么写",
+      "三个集合的并集元素个数怎么算",
+      "已知两两交集求三个集合的交集",
+      "容斥原理三个集合例题"
+    ],
+    "ocrKeywords": [
+      "并集",
+      "交集",
+      "元素个数",
+      "容斥",
+      "有限集合",
+      "n(A∪B∪C)"
+    ],
+    "latex_patterns": [
+      "n(A\\cup B\\cup C)=n(A)+n(B)+n(C)-n(A\\cap B)-n(B\\cap C)-n(C\\cap A)+n(A\\cap B\\cap C)"
+    ],
+    "formulaTokens": [
+      "n(A\\cup B\\cup C)",
+      "n(A)",
+      "n(B)",
+      "n(C)",
+      "n(A\\cap B)",
+      "n(B\\cap C)",
+      "n(C\\cap A)",
+      "n(A\\cap B\\cap C)"
+    ],
+    "pinyin": "rongchiyuanli",
+    "pinyinAbbr": "rcyl"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.65,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "n(A\\cup B\\cup C)=n(A)+n(B)+n(C)-n(A\\cap B)-n(B\\cap C)-n(C\\cap A)+n(A\\cap B\\cap C)",
+    "related_formulas": [
+      "n(A\\cup B)=n(A)+n(B)-n(A\\cap B)"
+    ],
+    "variables": "A, B, C 为有限集合；n(·) 表示集合的元素个数。",
+    "conditions": "1. A, B, C 均为有限集合；2. 所有两两交集及三交集的大小已知或可求。",
+    "conclusions": "可计算并集元素个数；若已知并集及部分交集，可解出未知交集。"
+  },
+  "content": {
+    "statement": "对于任意三个有限集合 A, B, C，有 n(A∪B∪C) = n(A) + n(B) + n(C) - n(A∩B) - n(B∩C) - n(C∩A) + n(A∩B∩C)。",
+    "derivation": [
+      "第一步：n(A)+n(B)+n(C) 包含了所有元素，但两两交中的元素被重复计算了两次。",
+      "第二步：减去 n(A∩B)+n(B∩C)+n(C∩A) 后，三重重叠的部分被减了三次（原本被加了三次），此时三重重叠项的计数为0。",
+      "第三步：加回 n(A∩B∩C) 一次，得到正确并集计数。"
+    ],
+    "intuition": "逐个排除重叠计数，最后将多减的三重部分加回。",
+    "common_tricks": [
+      "注意加减顺序：先加单集，再减两两交，最后加三交。",
+      "当已知并集大小时，可列方程求未知交集。",
+      "画文氏图辅助理解，避免遗漏。",
+      "检查所有交集数据是否合理（如两两交不大于各自集合）。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "集合计数题",
+      "概率计数（文氏图）",
+      "选修内容中的容斥原理应用"
+    ],
+    "problem_types": [
+      "直接求并集大小",
+      "已知部分交集求另一交集",
+      "综合应用题（如班级参加兴趣组人数统计）"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {
+      "A_size": 12,
+      "B_size": 10,
+      "C_size": 8,
+      "AB": 5,
+      "BC": 4,
+      "CA": 3,
+      "ABC": 2,
+      "union": 20
+    }
+  },
+  "assets": {
+    "svg": "S013.svg",
+    "image": "",
+    "audio": "",
+    "video": ""
+  },
+  "shareConfig": {
+    "title": "三集合容斥原理：并集计数公式速查",
+    "shareDesc": "适合课后复盘和刷题前速查，解决三个集合的并集元素个数计算，避免遗漏或重复计数错误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "集合的基本概念（交集、并集、补集）",
+      "两集合容斥原理"
+    ],
+    "related_ids": [],
+    "similar": "两集合容斥原理、n个集合的容斥原理（推广）"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-21"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "其他-未分类-待定",
+  "altNodes": ""
+}
