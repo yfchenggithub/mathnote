@@ -819,6 +819,77 @@ def run_incremental_publish(
         return False, f"incremental_publish.py error: {exc}"
 
 
+def load_state_index() -> dict[str, dict[str, Any]]:
+    """Return the latest state record for each readme conclusion ID."""
+    if not STATE_PATH.exists():
+        return {}
+
+    state_index: dict[str, dict[str, Any]] = {}
+    for line in read_text_file(STATE_PATH).splitlines():
+        if not line.strip():
+            continue
+        try:
+            record = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        if not isinstance(record, dict):
+            continue
+        item_id = str(record.get("id", "")).strip().upper()
+        if item_id:
+            state_index[item_id] = record
+    return state_index
+
+
+def generated_source_path(conclusion_id: str) -> Path:
+    return GENERATED_SOURCE_DIR / f"{conclusion_id.upper()}.tex"
+
+
+def read_cached_generated_source(conclusion_id: str) -> tuple[Path | None, str | None, list[str]]:
+    path = generated_source_path(conclusion_id)
+    if not path.is_file():
+        return None, None, []
+
+    content = read_text_file(path).strip()
+    problems = validate_latex_content(content)
+    return path, content, problems
+
+
+def find_existing_conclusion_dir(module_dir: str, item_id: str) -> Path | None:
+    module_path = PROJECT_ROOT / module_dir
+    if not module_path.is_dir():
+        return None
+
+    prefix = item_id.upper()
+    matches: list[Path] = []
+    for child in module_path.iterdir():
+        if not child.is_dir():
+            continue
+        upper_name = child.name.upper()
+        if upper_name == prefix or upper_name.startswith(f"{prefix}_"):
+            matches.append(child)
+
+    if len(matches) == 1:
+        return matches[0]
+    return None
+
+
+def publish_resume_id(
+    conclusion: dict[str, Any],
+    latest_state: dict[str, Any] | None,
+) -> str | None:
+    if not latest_state:
+        return None
+    if latest_state.get("status") != "failed" or latest_state.get("stage") != "publish":
+        return None
+
+    new_id = str(latest_state.get("new_id") or conclusion["id"]).strip().upper()
+    if not re.fullmatch(r"[A-Z]\d{3}", new_id):
+        return None
+    if not find_existing_conclusion_dir(str(conclusion["module_dir"]), new_id):
+        return None
+    return new_id
+
+
 def process_one_conclusion(
     conclusion: dict[str, Any],
     api_config: dict[str, Any],
@@ -828,6 +899,7 @@ def process_one_conclusion(
     skip_git_commit: bool = False,
     no_deploy: bool = False,
     allow_id_mismatch: bool = False,
+    force_regenerate: bool = False,
     pipeline_timeout: int = 600,
     publish_timeout: int = 600,
 ) -> bool:
@@ -838,24 +910,77 @@ def process_one_conclusion(
     log(f"[start] {cid}: {module_dir}:{conclusion['line_number']} {collapse_for_log(source_line)}")
     record_state(conclusion, "start")
 
+    resume_publish_id = str(conclusion.get("_resume_publish_id") or "").strip().upper()
+
     if dry_run:
-        log(f"[dry-run] {cid}: would generate LaTeX, write source.tex, run pipeline, publish")
+        cached_path, _, cached_problems = read_cached_generated_source(cid)
+        if resume_publish_id and not force_regenerate:
+            log(f"[dry-run] {cid}: would resume by publishing {resume_publish_id} only")
+        elif cached_path and not cached_problems and not force_regenerate:
+            log(
+                f"[dry-run] {cid}: would reuse {cached_path.relative_to(PROJECT_ROOT)}, "
+                "write source.tex, run pipeline, publish"
+            )
+        elif force_regenerate:
+            log(f"[dry-run] {cid}: would force-regenerate LaTeX, write source.tex, run pipeline, publish")
+        else:
+            log(f"[dry-run] {cid}: would generate LaTeX, write source.tex, run pipeline, publish")
         record_state(conclusion, "dry_run")
         return True
 
-    log(f"[latex] Generating LaTeX for {cid}...")
-    latex_content, generation_error = generate_latex_via_llm(
-        conclusion,
-        api_config,
-        model_config,
-    )
-    if not latex_content:
-        error = generation_error or "LaTeX generation returned empty"
+    if resume_publish_id and not force_regenerate:
+        log(f"[resume] Previous run reached publish; re-running incremental_publish.py for {resume_publish_id}")
+        published, publish_error = run_incremental_publish(
+            python_exe,
+            resume_publish_id,
+            no_deploy=no_deploy,
+            timeout_seconds=publish_timeout,
+        )
+        if not published:
+            error = publish_error or "incremental_publish.py failed"
+            log(f"[fail] {cid} -> {resume_publish_id}: {error}")
+            record_state(conclusion, "failed", stage="publish", new_id=resume_publish_id, error=error)
+            return False
+
+        log(f"[done] {cid} -> {resume_publish_id}: publish resumed and complete")
+        record_state(conclusion, "done", new_id=resume_publish_id, resumed_publish=True)
+        return True
+
+    generated_path: Path | None = None
+    latex_content: str | None = None
+
+    if not force_regenerate:
+        cached_path, cached_content, cached_problems = read_cached_generated_source(cid)
+        if cached_path and cached_content and not cached_problems:
+            generated_path = cached_path
+            latex_content = cached_content
+            log(f"[latex] Reusing cached LaTeX: {cached_path.relative_to(PROJECT_ROOT)}")
+        elif cached_path and cached_problems:
+            log(
+                f"[latex] Cached LaTeX invalid for {cid}, regenerating: "
+                + "; ".join(cached_problems)
+            )
+
+    if latex_content is None:
+        log(f"[latex] Generating LaTeX for {cid}...")
+        latex_content, generation_error = generate_latex_via_llm(
+            conclusion,
+            api_config,
+            model_config,
+        )
+        if not latex_content:
+            error = generation_error or "LaTeX generation returned empty"
+            log(f"[fail] {cid}: {error}")
+            record_state(conclusion, "failed", stage="latex", error=error)
+            return False
+        generated_path = save_generated_source(cid, latex_content)
+
+    if generated_path is None:
+        error = "Internal error: generated source path is missing"
         log(f"[fail] {cid}: {error}")
         record_state(conclusion, "failed", stage="latex", error=error)
         return False
 
-    generated_path = save_generated_source(cid, latex_content)
     SOURCE_TEX.write_text(latex_content, encoding="utf-8")
     log(
         f"[write] source.tex updated from {generated_path.relative_to(PROJECT_ROOT)} "
@@ -1028,6 +1153,14 @@ def parse_args() -> argparse.Namespace:
         help="Process all pending rows, even if directories already exist.",
     )
     parser.add_argument(
+        "--force-regenerate",
+        action="store_true",
+        help=(
+            "Ignore cached generated_sources and failed-publish resume records; "
+            "regenerate LaTeX and rerun the pipeline. Implies --force-all."
+        ),
+    )
+    parser.add_argument(
         "--skip-git-commit",
         action="store_true",
         help="Pass --skip-git-commit to run_source_to_pdf.py.",
@@ -1066,6 +1199,8 @@ def main() -> int:
     global DRY_RUN_MODE
     args = parse_args()
     DRY_RUN_MODE = bool(args.dry_run)
+    if args.force_regenerate:
+        args.force_all = True
 
     try:
         prefix_map = load_module_prefix_map()
@@ -1098,12 +1233,28 @@ def main() -> int:
     log(f"[info] Total pending rows before filters: {len(all_conclusions)}")
     all_conclusions = apply_start_from(all_conclusions, args.start_from)
 
+    state_index = load_state_index()
+
     if args.skip_existing and not args.force_all:
         existing_ids = get_existing_ids(module_dirs)
-        filtered = [c for c in all_conclusions if c["id"] not in existing_ids]
-        skipped = len(all_conclusions) - len(filtered)
+        filtered: list[dict[str, Any]] = []
+        skipped = 0
+        resume_publish = 0
+        for conclusion in all_conclusions:
+            item_id = str(conclusion["id"]).upper()
+            resume_id = publish_resume_id(conclusion, state_index.get(item_id))
+            if resume_id:
+                conclusion["_resume_publish_id"] = resume_id
+                filtered.append(conclusion)
+                resume_publish += 1
+            elif item_id in existing_ids:
+                skipped += 1
+            else:
+                filtered.append(conclusion)
         if skipped:
             log(f"[info] Skipping {skipped} rows with existing conclusion directories")
+        if resume_publish:
+            log(f"[info] Resuming publish for {resume_publish} previously failed rows")
         all_conclusions = filtered
 
     if not all_conclusions:
@@ -1111,6 +1262,12 @@ def main() -> int:
         return 0
 
     log(f"[info] Will process {len(all_conclusions)} rows")
+    if args.force_regenerate:
+        log(
+            "[warn] --force-regenerate ignores cached LaTeX and existing-directory skips. "
+            "If an ID already exists, run_source_to_pdf.py may allocate the next ID and "
+            "the default ID check will stop the run."
+        )
 
     api_config: dict[str, Any] = {}
     model_config: dict[str, Any] = {}
@@ -1149,6 +1306,7 @@ def main() -> int:
             skip_git_commit=args.skip_git_commit,
             no_deploy=args.no_deploy,
             allow_id_mismatch=args.allow_id_mismatch,
+            force_regenerate=args.force_regenerate,
             pipeline_timeout=args.pipeline_timeout,
             publish_timeout=args.publish_timeout,
         )
