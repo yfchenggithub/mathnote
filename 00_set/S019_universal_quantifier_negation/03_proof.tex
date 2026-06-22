@@ -1,0 +1,56 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用全称命题的真假定义，采用双向推导：先从左到右，再从右到左。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（假设左真）：}] 假设 $\neg(\forall x\in M,\ p(x))$ 成立。
+			\[
+				\neg(\forall x\in M,\ p(x))
+			\]
+			\par\textbf{理由：} 设定推导前提。
+
+		\item[\textbf{步骤二（反例存在）：}] 由全称命题真值定义，存在 $x_0\in M$ 使得 $p(x_0)$ 不成立，即 $\neg p(x_0)$ 成立。
+			\[
+				\exists x_0\in M,\ \neg p(x_0)
+			\]
+			\par\textbf{理由：} 全称命题为假当且仅当存在反例。
+
+		\item[\textbf{步骤三（正向结论）：}] 因此 $\exists x\in M,\ \neg p(x)$ 成立。
+			\[
+				\exists x\in M,\ \neg p(x)
+			\]
+			\par\textbf{理由：} 存在量词概括。
+
+		\item[\textbf{步骤四（假设右真）：}] 假设 $\exists x\in M,\ \neg p(x)$ 成立。
+			\[
+				\exists x\in M,\ \neg p(x)
+			\]
+			\par\textbf{理由：} 设定反向前提。
+
+		\item[\textbf{步骤五（实例化）：}] 取 $x_0\in M$ 满足 $\neg p(x_0)$，即 $p(x_0)$ 为假。
+			\[
+				\neg p(x_0)
+			\]
+			\par\textbf{理由：} 存在量词实例化。
+
+		\item[\textbf{步骤六（全称假）：}] 由 $p(x_0)$ 为假可知 $\forall x\in M,\ p(x)$ 为假，故 $\neg(\forall x\in M,\ p(x))$ 成立。
+			\[
+				\neg(\forall x\in M,\ p(x))
+			\]
+			\par\textbf{理由：} 反例推翻全称。
+
+		\item[\textbf{步骤七（等价归结）：}] 综合上述两个方向，得到等价关系。
+			\[
+				\neg(\forall x\in M,\ p(x)) \iff \exists x\in M,\ \neg p(x)
+			\]
+			\par\textbf{理由：} 双向推导完成。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	全称量词命题的否定与存在量词命题的否定互为等价，即 $\neg(\forall x\in M,\ p(x)) \Longleftrightarrow \exists x\in M,\ \neg p(x)$。这一规则是逻辑量词的对偶律。
+\end{proofbox}
