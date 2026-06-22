@@ -1,0 +1,2302 @@
+{
+  "S017": {
+    "id": "S017",
+    "schema_version": 2,
+    "type": "conclusion",
+    "status": "published",
+    "identity": {
+      "slug": "s017",
+      "module": "set",
+      "knowledge_node": "概率-古典概型-排列组合",
+      "alt_nodes": []
+    },
+    "meta": {
+      "title": "子集个数公式",
+      "aliases": [
+        "子集计数",
+        "2的n次方",
+        "包含指定元素子集",
+        "子集数量公式"
+      ],
+      "difficulty": 2,
+      "category": "计数原理",
+      "tags": [
+        "子集计数",
+        "分类加法",
+        "分步乘法",
+        "组合数学基础",
+        "二项式系数"
+      ],
+      "summary": "有限集的子集个数为2的n次方；若强制包含某些元素，则剩下元素自由组合，个数为2的n-m次方。",
+      "is_pro": false,
+      "remarks": null
+    },
+    "content": {
+      "render_schema_version": 2,
+      "primary_formula": {
+        "latex": "2^{n}",
+        "type": "math_image",
+        "need_image": "true",
+        "asset": {
+          "png": "/static/formulas/S017/b535a45d48945c0c@3x.png",
+          "width_px": 65,
+          "height_px": 54,
+          "display_width_px": 22,
+          "display_height_px": 18,
+          "scale": 3
+        }
+      },
+      "variables": [
+        {
+          "name": "n: 集合元素个数",
+          "latex": "n: 集合元素个数",
+          "description": "（迁移阶段未提供变量说明）",
+          "required": true,
+          "need_image": "true"
+        },
+        {
+          "name": "m: 指定包含的元素个数",
+          "latex": "m: 指定包含的元素个数",
+          "description": "（迁移阶段未提供变量说明）",
+          "required": true,
+          "need_image": "true"
+        },
+        {
+          "name": "N: 子集总数",
+          "latex": "N: 子集总数",
+          "description": "（迁移阶段未提供变量说明）",
+          "required": true,
+          "need_image": "true"
+        },
+        {
+          "name": "N_i: 第i类子集个数",
+          "latex": "N_i: 第i类子集个数",
+          "description": "（迁移阶段未提供变量说明）",
+          "required": true,
+          "need_image": "true"
+        },
+        {
+          "name": "n_i: 第i步的选择数",
+          "latex": "n_i: 第i步的选择数",
+          "description": "（迁移阶段未提供变量说明）",
+          "required": true,
+          "need_image": "true"
+        }
+      ],
+      "conditions": [
+        {
+          "id": "cond_1",
+          "title": "条件1",
+          "content": [
+            {
+              "type": "text",
+              "text": "集合A是有限集，元素个数n≥0"
+            }
+          ],
+          "required": true,
+          "scope": null
+        },
+        {
+          "id": "cond_2",
+          "title": "条件2",
+          "content": [
+            {
+              "type": "text",
+              "text": "元素的选取相互独立，无耦合限制"
+            }
+          ],
+          "required": true,
+          "scope": null
+        },
+        {
+          "id": "cond_3",
+          "title": "条件3",
+          "content": [
+            {
+              "type": "text",
+              "text": "分类时各类互斥"
+            }
+          ],
+          "required": true,
+          "scope": null
+        },
+        {
+          "id": "cond_4",
+          "title": "条件4",
+          "content": [
+            {
+              "type": "text",
+              "text": "分步时各步独立"
+            }
+          ],
+          "required": true,
+          "scope": null
+        }
+      ],
+      "conclusions": [
+        {
+          "id": "conc_1",
+          "title": "结论1",
+          "content": [
+            {
+              "type": "text",
+              "text": "所有子集个数为2^n"
+            }
+          ]
+        },
+        {
+          "id": "conc_2",
+          "title": "结论2",
+          "content": [
+            {
+              "type": "text",
+              "text": "包含指定m个元素的子集个数为2^{n-m}"
+            }
+          ]
+        },
+        {
+          "id": "conc_3",
+          "title": "结论3",
+          "content": [
+            {
+              "type": "text",
+              "text": "互斥分类时总数为各类之和"
+            }
+          ]
+        },
+        {
+          "id": "conc_4",
+          "title": "结论4",
+          "content": [
+            {
+              "type": "text",
+              "text": "独立分步时总数为各步之积"
+            }
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "key": "core_formula",
+          "title": "核心公式",
+          "block_type": "rich_text",
+          "blocks": [
+            {
+              "id": "core-formula-b1",
+              "type": "math_image",
+              "latex": "2^{n}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/S017/b535a45d48945c0c@3x.png",
+                "width_px": 65,
+                "height_px": 54,
+                "display_width_px": 22,
+                "display_height_px": 18,
+                "scale": 3
+              }
+            }
+          ]
+        },
+        {
+          "key": "variables",
+          "title": "涉及变量",
+          "block_type": "rich_text",
+          "blocks": [
+            {
+              "id": "variables-b1",
+              "type": "math_image",
+              "latex": "n: 集合元素个数",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/S017/76ac787f7c3cf501@3x.png",
+                "width_px": 327,
+                "height_px": 63,
+                "display_width_px": 109,
+                "display_height_px": 21,
+                "scale": 3
+              }
+            },
+            {
+              "id": "variables-b2",
+              "type": "math_image",
+              "latex": "m: 指定包含的元素个数",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/S017/6367b02772fd582c@3x.png",
+                "width_px": 460,
+                "height_px": 63,
+                "display_width_px": 153,
+                "display_height_px": 21,
+                "scale": 3
+              }
+            },
+            {
+              "id": "variables-b3",
+              "type": "math_image",
+              "latex": "N: 子集总数",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/S017/67d8d36ce9ad2b77@3x.png",
+                "width_px": 257,
+                "height_px": 63,
+                "display_width_px": 86,
+                "display_height_px": 21,
+                "scale": 3
+              }
+            },
+            {
+              "id": "variables-b4",
+              "type": "math_image",
+              "latex": "N_i: 第i类子集个数",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/S017/ddd2e942538ddddc@3x.png",
+                "width_px": 362,
+                "height_px": 63,
+                "display_width_px": 121,
+                "display_height_px": 21,
+                "scale": 3
+              }
+            },
+            {
+              "id": "variables-b5",
+              "type": "math_image",
+              "latex": "n_i: 第i步的选择数",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/S017/c2bc87fed42c4359@3x.png",
+                "width_px": 354,
+                "height_px": 63,
+                "display_width_px": 118,
+                "display_height_px": 21,
+                "scale": 3
+              }
+            }
+          ]
+        },
+        {
+          "key": "statement",
+          "title": "命题表述",
+          "block_type": "theorem_group",
+          "blocks": [
+            {
+              "id": "statement-b1",
+              "type": "theorem_group",
+              "items": [
+                {
+                  "title": "条件 1（有限集合）：",
+                  "desc_tokens": [
+                    {
+                      "type": "text",
+                      "text": "设"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "A"
+                    },
+                    {
+                      "type": "text",
+                      "text": "为含有"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "n"
+                    },
+                    {
+                      "type": "text",
+                      "text": "个元素的有限集（"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "n\\in\\mathbb{N}",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/S017/04809d88c41d667a@3x.png",
+                        "width_px": 128,
+                        "height_px": 54,
+                        "display_width_px": 43,
+                        "display_height_px": 18,
+                        "scale": 3
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "）。"
+                    }
+                  ]
+                },
+                {
+                  "title": "结论一（所有子集）：",
+                  "desc_tokens": [
+                    {
+                      "type": "text",
+                      "text": "每个元素独立决定“取”或“不取”，"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "n"
+                    },
+                    {
+                      "type": "text",
+                      "text": "次选择产生"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "2^n"
+                    },
+                    {
+                      "type": "text",
+                      "text": "种组合。"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "|\\mathcal{P}(A)| = 2^n.",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/S017/7c2f29c94c5a7b70@3x.png",
+                        "width_px": 247,
+                        "height_px": 65,
+                        "display_width_px": 82,
+                        "display_height_px": 22,
+                        "scale": 3
+                      }
+                    }
+                  ]
+                },
+                {
+                  "title": "结论二（含指定元素）：",
+                  "desc_tokens": [
+                    {
+                      "type": "text",
+                      "text": "强制包含的"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "m"
+                    },
+                    {
+                      "type": "text",
+                      "text": "个元素无选择权，其余"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "n-m"
+                    },
+                    {
+                      "type": "text",
+                      "text": "个元素自由组合。"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "N = 2^{\\,n-m}.",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/S017/67360a07b558212d@3x.png",
+                        "width_px": 221,
+                        "height_px": 58,
+                        "display_width_px": 74,
+                        "display_height_px": 19,
+                        "scale": 3
+                      }
+                    }
+                  ]
+                },
+                {
+                  "title": "推广结论（加法乘法原理）：",
+                  "desc_tokens": [
+                    {
+                      "type": "text",
+                      "text": "互斥情形用加法串联，独立步骤用乘法串联。"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "N = N_1 + N_2 + \\cdots + N_k,",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/S017/4966aa8dc7023c44@3x.png",
+                        "width_px": 459,
+                        "height_px": 60,
+                        "display_width_px": 153,
+                        "display_height_px": 20,
+                        "scale": 3
+                      }
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "N = n_1 n_2 \\cdots n_m.",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/S017/c5fabe27cde397ef@3x.png",
+                        "width_px": 308,
+                        "height_px": 58,
+                        "display_width_px": 103,
+                        "display_height_px": 19,
+                        "scale": 3
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "参数限制：\n要求"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "n"
+                    },
+                    {
+                      "type": "text",
+                      "text": "为非负整数，"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "m"
+                    },
+                    {
+                      "type": "text",
+                      "text": "为整数且满足"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "0 \\le m \\le n",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/S017/2a8a1497958360b6@3x.png",
+                        "width_px": 213,
+                        "height_px": 56,
+                        "display_width_px": 71,
+                        "display_height_px": 19,
+                        "scale": 3
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "。当"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "m=0"
+                    },
+                    {
+                      "type": "text",
+                      "text": "时，公式"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "2^{n-m}",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/S017/0c0287db6b9f96c3@3x.png",
+                        "width_px": 113,
+                        "height_px": 58,
+                        "display_width_px": 38,
+                        "display_height_px": 19,
+                        "scale": 3
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "退化为"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "2^n"
+                    },
+                    {
+                      "type": "text",
+                      "text": "；当"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "m=n"
+                    },
+                    {
+                      "type": "text",
+                      "text": "时，结果为"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "2^0=1",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/S017/6ea3ebe1570074e7@3x.png",
+                        "width_px": 137,
+                        "height_px": 60,
+                        "display_width_px": 46,
+                        "display_height_px": 20,
+                        "scale": 3
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "，即仅有全集。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "explanation",
+          "title": "理解与直觉",
+          "block_type": "rich_text",
+          "blocks": [
+            {
+              "id": "explanation-b1",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "一句话直觉\n子集个数的本质是每个元素独立二选一的决策树，结果是"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "2^n"
+                },
+                {
+                  "type": "text",
+                  "text": "。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b2",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "核心拆解"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b3",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "要点一（独立二选一）：\n每个元素的“取”与“不取”构成一个二岔路口，"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "n"
+                },
+                {
+                  "type": "text",
+                  "text": "个元素形成"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "n"
+                },
+                {
+                  "type": "text",
+                  "text": "级决策树，总叶节点数恰为"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "2^n"
+                },
+                {
+                  "type": "text",
+                  "text": "。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b4",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "要点二（强制包含排除）：\n若某些元素被强制选择或禁止，其对应分支被固定，实际决策级数减少为"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "n-m"
+                },
+                {
+                  "type": "text",
+                  "text": "，故总数降为"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "2^{n-m}",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/S017/0c0287db6b9f96c3@3x.png",
+                    "width_px": 113,
+                    "height_px": 58,
+                    "display_width_px": 38,
+                    "display_height_px": 19,
+                    "scale": 3
+                  }
+                }
+              ]
+            },
+            {
+              "id": "explanation-b5",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "几何本质（决策二叉树）\n将子集生成过程画成二叉树：第"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "1"
+                },
+                {
+                  "type": "text",
+                  "text": "层对应第"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "1"
+                },
+                {
+                  "type": "text",
+                  "text": "个元素，向左表示不取，向右表示取；依此类推，"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "n"
+                },
+                {
+                  "type": "text",
+                  "text": "层后共有"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "2^n"
+                },
+                {
+                  "type": "text",
+                  "text": "条路径，每条路径唯一对应一个子集。包含指定元素则相当于在对应层上强制走右分支，路径数折半。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b6",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "代数意义（幂运算模型）\n公式"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "2^n"
+                },
+                {
+                  "type": "text",
+                  "text": "是指数函数的最简模型，反映“翻倍”特性：每增加一个元素，子集数翻倍。在代数上，"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "(1+1)^n",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/S017/3bc20e9531ca6836@3x.png",
+                    "width_px": 167,
+                    "height_px": 65,
+                    "display_width_px": 56,
+                    "display_height_px": 22,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "的二项式展开"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b7",
+              "type": "math_image",
+              "latex": "C_n^0 + C_n^1 + \\cdots + C_n^n = 2^n",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/S017/53b47b688c5d509f@3x.png",
+                "width_px": 456,
+                "height_px": 70,
+                "display_width_px": 152,
+                "display_height_px": 23,
+                "scale": 3
+              }
+            },
+            {
+              "id": "explanation-b8",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "也揭示了子集个数与组合数的恒等关系。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b9",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "考点价值（原理辨析）"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b10",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "考法一（直接套公式）： 给出集合元素个数，直接求所有子集数或满足简单包含关系的子集数。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b11",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "考法二（原理易混）： 故意将分类加法与分步乘法交错呈现，要求学生准确判断何时用加、何时用乘，以及分类是否互斥。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b12",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "顿悟点\n空集和全集也是合法的子集，因为它们对应“全不取”和“全取”两种决策组合。因此公式中"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "2^n"
+                },
+                {
+                  "type": "text",
+                  "text": "无需减去任何项。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b13",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "使用场景"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b14",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "场景一（样本空间计数）： 求随机试验中样本点的个数，如掷硬币"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "n"
+                },
+                {
+                  "type": "text",
+                  "text": "次的结果空间大小为"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "2^n"
+                },
+                {
+                  "type": "text",
+                  "text": "。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b15",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "场景二（条件筛选）： 在集合中筛选满足“必含某元素、不含某元素”等条件的子集时，先固化指定元素，再对剩余元素套用"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "2^{n-m}",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/S017/0c0287db6b9f96c3@3x.png",
+                    "width_px": 113,
+                    "height_px": 58,
+                    "display_width_px": 38,
+                    "display_height_px": 19,
+                    "scale": 3
+                  }
+                }
+              ]
+            },
+            {
+              "id": "explanation-b16",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "场景三（复杂条件拆分）： 当条件无法直接表达为“包含指定元素”时，可尝试将条件分解为互斥类，再分类套用公式并相加。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "proof",
+          "title": "证明过程",
+          "block_type": "rich_text",
+          "blocks": [
+            {
+              "id": "proof-b1",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "思路提示\n将子集构造视为对每个元素给出“是/否”判断的序列，然后应用乘法原理。"
+                }
+              ]
+            },
+            {
+              "id": "proof-b2",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "正式推导"
+                }
+              ]
+            },
+            {
+              "id": "proof-b3",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "步骤一（元素决策模型）：\n对"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "A"
+                },
+                {
+                  "type": "text",
+                  "text": "中的元素依次决定其归属。每个元素恰有"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "2"
+                },
+                {
+                  "type": "text",
+                  "text": "种可能：属于子集（记为"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "1"
+                },
+                {
+                  "type": "text",
+                  "text": "），或不属于（记为"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "0"
+                },
+                {
+                  "type": "text",
+                  "text": "）。"
+                }
+              ]
+            },
+            {
+              "id": "proof-b4",
+              "type": "math_image",
+              "latex": "c_i = 2 \\quad (i=1,\\dots,n)",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/S017/58538de1bb80ba06@3x.png",
+                "width_px": 392,
+                "height_px": 65,
+                "display_width_px": 131,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b5",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".理由： 子集由布尔向量唯一确定。"
+                }
+              ]
+            },
+            {
+              "id": "proof-b6",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "步骤二（应用乘法原理）：\n因为"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "n"
+                },
+                {
+                  "type": "text",
+                  "text": "个元素的选择相互独立，根据分步乘法原理，总的决策序列数等于各元素选择数之积。"
+                }
+              ]
+            },
+            {
+              "id": "proof-b7",
+              "type": "math_image",
+              "latex": "N = \\prod_{i=1}^{n} 2 = 2^n",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/S017/f28c6069aded2f65@3x.png",
+                "width_px": 289,
+                "height_px": 136,
+                "display_width_px": 96,
+                "display_height_px": 45,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b8",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".理由： 乘法原理的经典形式，这里每个元素贡献因子"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "2"
+                },
+                {
+                  "type": "text",
+                  "text": "。"
+                }
+              ]
+            },
+            {
+              "id": "proof-b9",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "步骤三（包含指定元素的情形）：\n若已知某"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "m"
+                },
+                {
+                  "type": "text",
+                  "text": "个元素必须属于子集，则这"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "m"
+                },
+                {
+                  "type": "text",
+                  "text": "个元素各自只余"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "1"
+                },
+                {
+                  "type": "text",
+                  "text": "种选择（强制取），剩余"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "n-m"
+                },
+                {
+                  "type": "text",
+                  "text": "个元素仍各有"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "2"
+                },
+                {
+                  "type": "text",
+                  "text": "种选择。由乘法原理，"
+                }
+              ]
+            },
+            {
+              "id": "proof-b10",
+              "type": "math_image",
+              "latex": "N' = \\underbrace{1 \\times \\cdots \\times 1}_{m} \\times \\underbrace{2 \\times \\cdots \\times 2}_{n-m} = 2^{\\,n-m}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/S017/4fa8a5feb4efb2e1@3x.png",
+                "width_px": 670,
+                "height_px": 107,
+                "display_width_px": 223,
+                "display_height_px": 36,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b11",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".理由： 固定元素贡献因子"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "1"
+                },
+                {
+                  "type": "text",
+                  "text": "，不影响乘积的倍数性质；实际共有"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "m"
+                },
+                {
+                  "type": "text",
+                  "text": "个"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "1"
+                },
+                {
+                  "type": "text",
+                  "text": "和"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "n-m"
+                },
+                {
+                  "type": "text",
+                  "text": "个"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "2"
+                },
+                {
+                  "type": "text",
+                  "text": "。"
+                }
+              ]
+            },
+            {
+              "id": "proof-b12",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "步骤四（一般原理的自然导出）：\n一般地，若附加条件可将子集分为互斥的"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "k"
+                },
+                {
+                  "type": "text",
+                  "text": "类，且各类已分别求出个数"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "N_i"
+                },
+                {
+                  "type": "text",
+                  "text": "，由加法原理，总数为"
+                }
+              ]
+            },
+            {
+              "id": "proof-b13",
+              "type": "math_image",
+              "latex": "N_1+\\cdots+N_k",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/S017/84075c6883f1264d@3x.png",
+                "width_px": 257,
+                "height_px": 58,
+                "display_width_px": 86,
+                "display_height_px": 19,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b14",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "；若条件是通过"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "m"
+                },
+                {
+                  "type": "text",
+                  "text": "个独立步骤来施加，且第"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "i"
+                },
+                {
+                  "type": "text",
+                  "text": "步有"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "n_i"
+                },
+                {
+                  "type": "text",
+                  "text": "种合法选择，则由乘法原理，总数为"
+                }
+              ]
+            },
+            {
+              "id": "proof-b15",
+              "type": "math_image",
+              "latex": "n_1 n_2 \\cdots n_m",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/S017/265d9ea738840be3@3x.png",
+                "width_px": 207,
+                "height_px": 48,
+                "display_width_px": 69,
+                "display_height_px": 16,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b16",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "。这正是对前面特例的推广。\n理由： 分类加法与分步乘法是计数的两个基本公理，本结论揭示了其典型应用。"
+                }
+              ]
+            },
+            {
+              "id": "proof-b17",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "结论回扣\n子集计数问题最终归结为每个元素的独立二选一；特殊元素“必选”或“必不选”相当于减少独立元素的个数，从而改变了指数。推广原理则提供了处理复杂约束的通用框架。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "examples",
+          "title": "例题应用",
+          "block_type": "rich_text",
+          "blocks": [
+            {
+              "id": "examples-b1",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "例 1（基础）\n题目：\n已知集合"
+                }
+              ]
+            },
+            {
+              "id": "examples-b2",
+              "type": "math_image",
+              "latex": "A = \\{a, b, c, d\\}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/S017/17e52d41fece9578@3x.png",
+                "width_px": 282,
+                "height_px": 65,
+                "display_width_px": 94,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b3",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "。求：(1)"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "A"
+                },
+                {
+                  "type": "text",
+                  "text": "的所有子集个数；(2) 包含元素"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "a"
+                },
+                {
+                  "type": "text",
+                  "text": "的子集个数。\n解题步骤："
+                }
+              ]
+            },
+            {
+              "id": "examples-b4",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第一步（读出参数）：\n集合"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "A"
+                },
+                {
+                  "type": "text",
+                  "text": "共有"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "4"
+                },
+                {
+                  "type": "text",
+                  "text": "个元素，故"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "n=4"
+                },
+                {
+                  "type": "text",
+                  "text": "；涉及包含"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "a"
+                },
+                {
+                  "type": "text",
+                  "text": "时，指定元素个数"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "m=1"
+                },
+                {
+                  "type": "text",
+                  "text": "。\n理由： 直接计数元素即可。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b5",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第二步（计算所有子集）：\n由公式"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "2^n"
+                },
+                {
+                  "type": "text",
+                  "text": "得："
+                },
+                {
+                  "type": "math_image",
+                  "latex": "2^4 = 16",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/S017/eb8da3ca0b295233@3x.png",
+                    "width_px": 157,
+                    "height_px": 61,
+                    "display_width_px": 52,
+                    "display_height_px": 20,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": ".理由： 套用子集总数公式。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b6",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第三步（计算含 的子集）：\n将"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "n=4, m=1",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/S017/a703e26f852474a6@3x.png",
+                    "width_px": 252,
+                    "height_px": 59,
+                    "display_width_px": 84,
+                    "display_height_px": 20,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "代入"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "2^{n-m}",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/S017/0c0287db6b9f96c3@3x.png",
+                    "width_px": 113,
+                    "height_px": 58,
+                    "display_width_px": 38,
+                    "display_height_px": 19,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "，得："
+                },
+                {
+                  "type": "math_image",
+                  "latex": "2^{4-1} = 2^3 = 8",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/S017/f093e216d52c003c@3x.png",
+                    "width_px": 266,
+                    "height_px": 61,
+                    "display_width_px": 89,
+                    "display_height_px": 20,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": ".理由： 使用包含指定元素的公式。\n关键结论：\n当条件只是简单的“包含某几个元素”时，直接代公式计算。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b7",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "例 2（稍变形）\n题目：\n集合"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "B"
+                },
+                {
+                  "type": "text",
+                  "text": "含有"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "5"
+                },
+                {
+                  "type": "text",
+                  "text": "个元素，问同时包含指定的某"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "2"
+                },
+                {
+                  "type": "text",
+                  "text": "个元素的子集有多少个？\n解题步骤："
+                }
+              ]
+            },
+            {
+              "id": "examples-b8",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第一步（确定参数）："
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "n=5"
+                },
+                {
+                  "type": "text",
+                  "text": "，指定的"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "2"
+                },
+                {
+                  "type": "text",
+                  "text": "个元素构成"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "m=2"
+                },
+                {
+                  "type": "text",
+                  "text": "。\n理由： 从题中读取基本量。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b9",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第二步（排除无关元素）：\n由于只关心这"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "2"
+                },
+                {
+                  "type": "text",
+                  "text": "个元素必须出现，其余"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "n-m=3",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/S017/c773260b5ad29394@3x.png",
+                    "width_px": 209,
+                    "height_px": 55,
+                    "display_width_px": 70,
+                    "display_height_px": 18,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "个元素自由选择。\n理由： 固定元素的选择已唯一确定。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b10",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第三步（代入公式）：\n子集个数为："
+                },
+                {
+                  "type": "math_image",
+                  "latex": "2^{5-2} = 2^3 = 8",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/S017/f8fd7f4040d42d2c@3x.png",
+                    "width_px": 266,
+                    "height_px": 61,
+                    "display_width_px": 89,
+                    "display_height_px": 20,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": ".理由： 直接应用公式"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "2^{n-m}",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/S017/0c0287db6b9f96c3@3x.png",
+                    "width_px": 113,
+                    "height_px": 58,
+                    "display_width_px": 38,
+                    "display_height_px": 19,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "。\n关键结论：\n即使题目未直接给出“指定元素个数”，也要能根据“同时包含”识别出"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "m"
+                },
+                {
+                  "type": "text",
+                  "text": "。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b11",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "例 3（综合应用）\n题目：\n设集合"
+                }
+              ]
+            },
+            {
+              "id": "examples-b12",
+              "type": "math_image",
+              "latex": "U = \\{1,2,3,4,5\\}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/S017/6a96946489827b83@3x.png",
+                "width_px": 324,
+                "height_px": 65,
+                "display_width_px": 108,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b13",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，求满足“包含元素"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "1"
+                },
+                {
+                  "type": "text",
+                  "text": "但不含元素"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "2"
+                },
+                {
+                  "type": "text",
+                  "text": "”的子集个数。\n解题步骤："
+                }
+              ]
+            },
+            {
+              "id": "examples-b14",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第一步（条件转化）：\n条件“不含"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "2"
+                },
+                {
+                  "type": "text",
+                  "text": "”等价于子集必须从"
+                }
+              ]
+            },
+            {
+              "id": "examples-b15",
+              "type": "math_image",
+              "latex": "U \\setminus \\{2\\}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/S017/b2f510faaaaa065a@3x.png",
+                "width_px": 157,
+                "height_px": 65,
+                "display_width_px": 52,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b16",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "中选取，故可先将"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "2"
+                },
+                {
+                  "type": "text",
+                  "text": "移除，全集缩小为"
+                }
+              ]
+            },
+            {
+              "id": "examples-b17",
+              "type": "math_image",
+              "latex": "V = \\{1,3,4,5\\}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/S017/0fce2d708a42a2b8@3x.png",
+                "width_px": 286,
+                "height_px": 65,
+                "display_width_px": 95,
+                "display_height_px": 22,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b18",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，其元素个数为"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "4"
+                },
+                {
+                  "type": "text",
+                  "text": "（即新的"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "n'=4",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/S017/f8b75321f458bcad@3x.png",
+                    "width_px": 138,
+                    "height_px": 57,
+                    "display_width_px": 46,
+                    "display_height_px": 19,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "）。\n理由： 排除禁止元素，缩小选择范围。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b19",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第二步（应用包含公式）：\n在"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "V"
+                },
+                {
+                  "type": "text",
+                  "text": "中又要求含元素"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "1"
+                },
+                {
+                  "type": "text",
+                  "text": "，此时指定元素个数"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "m=1"
+                },
+                {
+                  "type": "text",
+                  "text": "。\n理由： 将问题转化为基本模型。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b20",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第三步（计算）：\n所求个数为："
+                },
+                {
+                  "type": "math_image",
+                  "latex": "2^{4-1} = 2^3 = 8",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/S017/f093e216d52c003c@3x.png",
+                    "width_px": 266,
+                    "height_px": 61,
+                    "display_width_px": 89,
+                    "display_height_px": 20,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": ".理由： 直接代入"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "2^{n'-m}",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/S017/3654483abef6fdba@3x.png",
+                    "width_px": 123,
+                    "height_px": 62,
+                    "display_width_px": 41,
+                    "display_height_px": 21,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "；也可用分步乘法：元素"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "1"
+                },
+                {
+                  "type": "text",
+                  "text": "必选（"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "1"
+                },
+                {
+                  "type": "text",
+                  "text": "种），元素"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "2"
+                },
+                {
+                  "type": "text",
+                  "text": "必不选（"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "1"
+                },
+                {
+                  "type": "text",
+                  "text": "种），其余"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "3"
+                },
+                {
+                  "type": "text",
+                  "text": "个元素任选（各"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "2"
+                },
+                {
+                  "type": "text",
+                  "text": "种），得"
+                }
+              ]
+            },
+            {
+              "id": "examples-b21",
+              "type": "math_image",
+              "latex": "1 \\times 1 \\times 2^3 = 8",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/S017/39b9a84d6312065b@3x.png",
+                "width_px": 277,
+                "height_px": 61,
+                "display_width_px": 92,
+                "display_height_px": 20,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b22",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "。\n关键结论：\n遇到“不含某元素”时，可通过缩小全集，然后在新集合上直接套用包含公式。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "traps",
+          "title": "易错提醒",
+          "block_type": "warning_group",
+          "blocks": [
+            {
+              "id": "traps-b1",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "易错点一（忽略空集）\n误以为子集个数是"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "2^n - 1",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/S017/67facf38da81fc37@3x.png",
+                    "width_px": 135,
+                    "height_px": 57,
+                    "display_width_px": 45,
+                    "display_height_px": 19,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "，漏掉了空集或全集。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b2",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "正确理解（全集在内）：\n空集和全集都是合法的子集，总个数恰为"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "2^n"
+                },
+                {
+                  "type": "text",
+                  "text": "，无需额外减"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "1"
+                },
+                {
+                  "type": "text",
+                  "text": "。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b3",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "错因分析（概念混淆）：\n常将“子集”与“非空子集”或“真子集”混淆，没有注意到决定子集时“全不选”也是一种合法决策。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b4",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "易错点二（包含当仅含）\n把“包含指定元素”误解为“恰好由这些元素组成”，从而错误地排除其它元素。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b5",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "正确理解（至少包含）：\n公式"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "2^{n-m}",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/S017/0c0287db6b9f96c3@3x.png",
+                    "width_px": 113,
+                    "height_px": 58,
+                    "display_width_px": 38,
+                    "display_height_px": 19,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "计数的是所有至少含这"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "m"
+                },
+                {
+                  "type": "text",
+                  "text": "个元素的子集，它们仍可包含其余元素，因此是"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "2^{n-m}",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/S017/0c0287db6b9f96c3@3x.png",
+                    "width_px": 113,
+                    "height_px": 58,
+                    "display_width_px": 38,
+                    "display_height_px": 19,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "而非"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "1"
+                },
+                {
+                  "type": "text",
+                  "text": "或别的数。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b6",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "错因分析（语义偏差）：\n对自然语言“包含”在组合数学中的一般含义（至少包含）理解不准确，忽略了“可以多含”的默认约定。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b7",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "易错点三（分类重叠加法）\n在使用分类加法原理时，未检查各类是否互斥，若类别有重叠，直接相加会造成重复计数。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b8",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "正确理解（需先判互斥）：\n分类加法原理的成立前提是“不重不漏”；若发现重叠，必须调整分类或改用容斥原理（如系数修正）。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b9",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "错因分析（盲目套用）：\n看到题目中有“或”就习惯性地用加法，未先厘清条件所对应的子集是否有交集。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "summary",
+          "title": "复盘总结",
+          "block_type": "summary",
+          "blocks": [
+            {
+              "id": "summary-b1",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "一句话核心\n子集个数公式"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "2^n"
+                },
+                {
+                  "type": "text",
+                  "text": "的核心是“每个元素独立二选一”的乘法原理；包含指定"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "m"
+                },
+                {
+                  "type": "text",
+                  "text": "个元素时，相当于强制"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "m"
+                },
+                {
+                  "type": "text",
+                  "text": "个元素选“是”，剩余元素仍二选一，故为"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "2^{n-m}",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/S017/0c0287db6b9f96c3@3x.png",
+                    "width_px": 113,
+                    "height_px": 58,
+                    "display_width_px": 38,
+                    "display_height_px": 19,
+                    "scale": 3
+                  }
+                }
+              ]
+            },
+            {
+              "id": "summary-b2",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "使用条件"
+                }
+              ]
+            },
+            {
+              "id": "summary-b3",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "条件 1（有限集）："
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "A"
+                },
+                {
+                  "type": "text",
+                  "text": "必须为有限集，元素个数"
+                }
+              ]
+            },
+            {
+              "id": "summary-b4",
+              "type": "math_image",
+              "latex": "n \\ge 0",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/S017/77bafba024ca9a37@3x.png",
+                "width_px": 123,
+                "height_px": 56,
+                "display_width_px": 41,
+                "display_height_px": 19,
+                "scale": 3
+              }
+            },
+            {
+              "id": "summary-b5",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "。"
+                }
+              ]
+            },
+            {
+              "id": "summary-b6",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "条件 2（独立可选）： 元素的选取（或决策）相互独立，无附加耦合限制（如“最多选"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "k"
+                },
+                {
+                  "type": "text",
+                  "text": "个”这类限制不适用简单公式）。"
+                }
+              ]
+            },
+            {
+              "id": "summary-b7",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "关键提醒"
+                }
+              ]
+            },
+            {
+              "id": "summary-b8",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "易错点（漏空集/全集）： 切勿遗忘空集（全不选）和全集（全选），它们使总数达到"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "2^n"
+                },
+                {
+                  "type": "text",
+                  "text": "。"
+                }
+              ]
+            },
+            {
+              "id": "summary-b9",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "检查项（判互斥再加法）： 使用分类加法前，一定先检查分类是否互斥。"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "plain": {
+        "statement": "条件\n- 条件 1（有限集合）： 设 A 为含有 n 个元素的有限集（n in N）。\n结论\n- 结论一（所有子集）：\n直观描述：\n每个元素独立决定“取”或“不取”，n 次选择产生 2^n 种组合。\n|P(A)| = 2^n.\n- 结论二（含指定元素）：\n直观描述：\n强制包含的 m 个元素无选择权，其余 n-m 个元素自由组合。\nN = 2^\\,n-m.\n- 推广结论（加法乘法原理）：\n直观描述：\n互斥情形用加法串联，独立步骤用乘法串联。\nN = N_1 + N_2 + * s + N_k,\nN = n_1 n_2 * s n_m.\n参数限制：\n要求 n 为非负整数，m 为整数且满足 0 m n。当 m=0 时，公式 2^n-m 退化为 2^n；当 m=n 时，结果为 2^0=1，即仅有全集。",
+        "explanation": "一句话直觉\n子集个数的本质是每个元素独立二选一的决策树，结果是 2^n。\n核心拆解\n- 要点一（独立二选一）： 每个元素的“取”与“不取”构成一个二岔路口，n 个元素形成 n 级决策树，总叶节点数恰为 2^n。\n- 要点二（强制包含排除）： 若某些元素被强制选择或禁止，其对应分支被固定，实际决策级数减少为 n-m，故总数降为 2^n-m。\n几何本质（决策二叉树）\n将子集生成过程画成二叉树：第 1 层对应第 1 个元素，向左表示不取，向右表示取；依此类推，n 层后共有 2^n 条路径，每条路径唯一对应一个子集。包含指定元素则相当于在对应层上强制走右分支，路径数折半。\n代数意义（幂运算模型）\n公式 2^n 是指数函数的最简模型，反映“翻倍”特性：每增加一个元素，子集数翻倍。在代数上，(1+1)^n 的二项式展开 C_n^0 + C_n^1 + * s + C_n^n = 2^n 也揭示了子集个数与组合数的恒等关系。\n考点价值（原理辨析）\n- 考法一（直接套公式）： 给出集合元素个数，直接求所有子集数或满足简单包含关系的子集数。\n- 考法二（原理易混）： 故意将分类加法与分步乘法交错呈现，要求学生准确判断何时用加、何时用乘，以及分类是否互斥。\n顿悟点\n空集和全集也是合法的子集，因为它们对应“全不取”和“全取”两种决策组合。因此公式中 2^n 无需减去任何项。\n使用场景\n- 场景一（样本空间计数）： 求随机试验中样本点的个数，如掷硬币 n 次的结果空间大小为 2^n。\n- 场景二（条件筛选）： 在集合中筛选满足“必含某元素、不含某元素”等条件的子集时，先固化指定元素，再对剩余元素套用 2^n-m。\n- 场景三（复杂条件拆分）： 当条件无法直接表达为“包含指定元素”时，可尝试将条件分解为互斥类，再分类套用公式并相加。",
+        "proof": "思路提示\n将子集构造视为对每个元素给出“是/否”判断的序列，然后应用乘法原理。\n正式推导\n- 步骤一（元素决策模型）： 对 A 中的元素依次决定其归属。每个元素恰有 2 种可能：属于子集（记为 1），或不属于（记为 0）。\nc_i = 2 (i=1, ,n).\n理由： 子集由布尔向量唯一确定。\n- 步骤二（应用乘法原理）： 因为 n 个元素的选择相互独立，根据分步乘法原理，总的决策序列数等于各元素选择数之积。\nN = _i=1^n 2 = 2^n.\n理由： 乘法原理的经典形式，这里每个元素贡献因子 2。\n- 步骤三（包含指定元素的情形）： 若已知某 m 个元素必须属于子集，则这 m 个元素各自只余 1 种选择（强制取），剩余 n-m 个元素仍各有 2 种选择。由乘法原理，\nN' = 1 * * s * 1_m * 2 * * s * 2_n-m = 2^\\,n-m.\n理由： 固定元素贡献因子 1，不影响乘积的倍数性质；实际共有 m 个 1 和 n-m 个 2。\n- 步骤四（一般原理的自然导出）： 一般地，若附加条件可将子集分为互斥的 k 类，且各类已分别求出个数 N_i，由加法原理，总数为 N_1+ * s+N_k；若条件是通过 m 个独立步骤来施加，且第 i 步有 n_i 种合法选择，则由乘法原理，总数为 n_1 n_2 * s n_m。这正是对前面特例的推广。\n理由： 分类加法与分步乘法是计数的两个基本公理，本结论揭示了其典型应用。\n结论回扣\n子集计数问题最终归结为每个元素的独立二选一；特殊元素“必选”或“必不选”相当于减少独立元素的个数，从而改变了指数。推广原理则提供了处理复杂约束的通用框架。",
+        "examples": "例 1（基础）\n题目：\n已知集合 A = \\a, b, c, d\\。求：(1) A 的所有子集个数；(2) 包含元素 a 的子集个数。\n解题步骤：\n- 第一步（读出参数）： 集合 A 共有 4 个元素，故 n=4；涉及包含 a 时，指定元素个数 m=1。\n理由： 直接计数元素即可。\n- 第二步（计算所有子集）： 由公式 2^n 得：\n2^4 = 16.\n理由： 套用子集总数公式。\n- 第三步（计算含 a 的子集）： 将 n=4, m=1 代入 2^n-m，得：\n2^4-1 = 2^3 = 8.\n理由： 使用包含指定元素的公式。\n关键结论：\n当条件只是简单的“包含某几个元素”时，直接代公式计算。\n例 2（稍变形）\n题目：\n集合 B 含有 5 个元素，问同时包含指定的某 2 个元素的子集有多少个？\n解题步骤：\n- 第一步（确定参数）： n=5，指定的 2 个元素构成 m=2。\n理由： 从题中读取基本量。\n- 第二步（排除无关元素）： 由于只关心这 2 个元素必须出现，其余 n-m=3 个元素自由选择。\n理由： 固定元素的选择已唯一确定。\n- 第三步（代入公式）： 子集个数为：\n2^5-2 = 2^3 = 8.\n理由： 直接应用公式 2^n-m。\n关键结论：\n即使题目未直接给出“指定元素个数”，也要能根据“同时包含”识别出 m。\n例 3（综合应用）\n题目：\n设集合 U = \\1,2,3,4,5\\，求满足“包含元素 1 但不含元素 2”的子集个数。\n解题步骤：\n- 第一步（条件转化）： 条件“不含 2”等价于子集必须从 U \\2\\ 中选取，故可先将 2 移除，全集缩小为 V = \\1,3,4,5\\，其元素个数为 4（即新的 n'=4）。\n理由： 排除禁止元素，缩小选择范围。\n- 第二步（应用包含公式）： 在 V 中又要求含元素 1，此时指定元素个数 m=1。\n理由： 将问题转化为基本模型。\n- 第三步（计算）： 所求个数为：\n2^4-1 = 2^3 = 8.\n理由： 直接代入 2^n'-m；也可用分步乘法：元素 1 必选（1 种），元素 2 必不选（1 种），其余 3 个元素任选（各 2 种），得 1 * 1 * 2^3 = 8。\n关键结论：\n遇到“不含某元素”时，可通过缩小全集，然后在新集合上直接套用包含公式。",
+        "traps": "- 易错点一（忽略空集） 误以为子集个数是 2^n - 1，漏掉了空集或全集。\n- 正确理解（全集在内）： 空集和全集都是合法的子集，总个数恰为 2^n，无需额外减 1。\n- 错因分析（概念混淆）： 常将“子集”与“非空子集”或“真子集”混淆，没有注意到决定子集时“全不选”也是一种合法决策。\n- 易错点二（包含当仅含） 把“包含指定元素”误解为“恰好由这些元素组成”，从而错误地排除其它元素。\n- 正确理解（至少包含）： 公式 2^n-m 计数的是所有至少含这 m 个元素的子集，它们仍可包含其余元素，因此是 2^n-m 而非 1 或别的数。\n- 错因分析（语义偏差）： 对自然语言“包含”在组合数学中的一般含义（至少包含）理解不准确，忽略了“可以多含”的默认约定。\n- 易错点三（分类重叠加法） 在使用分类加法原理时，未检查各类是否互斥，若类别有重叠，直接相加会造成重复计数。\n- 正确理解（需先判互斥）： 分类加法原理的成立前提是“不重不漏”；若发现重叠，必须调整分类或改用容斥原理（如系数修正）。\n- 错因分析（盲目套用）： 看到题目中有“或”就习惯性地用加法，未先厘清条件所对应的子集是否有交集。",
+        "summary": "一句话核心\n子集个数公式 2^n 的核心是“每个元素独立二选一”的乘法原理；包含指定 m 个元素时，相当于强制 m 个元素选“是”，剩余元素仍二选一，故为 2^n-m。\n使用条件\n- 条件 1（有限集）： A 必须为有限集，元素个数 n 0。\n- 条件 2（独立可选）： 元素的选取（或决策）相互独立，无附加耦合限制（如“最多选 k 个”这类限制不适用简单公式）。\n关键提醒\n- 易错点（漏空集/全集）： 切勿遗忘空集（全不选）和全集（全选），它们使总数达到 2^n。\n- 检查项（判互斥再加法）： 使用分类加法前，一定先检查分类是否互斥。"
+      }
+    },
+    "assets": {
+      "cover": null,
+      "svg": "S017.svg",
+      "png": null,
+      "pdf": null,
+      "mp4": null,
+      "extra": []
+    },
+    "ext": {
+      "share": {
+        "title": "子集计数公式：直接套用2^n避免遗漏",
+        "desc": "适合课后复盘和刷题前速查，直接套用公式计算子集个数，避免分类遗漏或重复计数，提升计数题第一步的准确率。"
+      },
+      "relations": {
+        "prerequisites": [
+          "集合基本概念",
+          "乘法原理"
+        ],
+        "related_ids": [],
+        "similar": "['二项式系数之和为2^n', '元素选取的计数模型']"
+      },
+      "exam": {
+        "frequency": 1,
+        "score": 5
+      },
+      "extra": {
+        "usage": {
+          "scenarios": [
+            "子集计数问题",
+            "组合计数基础",
+            "排列组合入门"
+          ],
+          "problem_types": [
+            "求子集个数",
+            "含条件子集计数",
+            "分类计数"
+          ],
+          "exam_frequency": 1,
+          "exam_score": 5
+        },
+        "interactive": {
+          "has_diagram": false,
+          "geogebra_id": "",
+          "param_demo": {}
+        },
+        "related_formulas": [
+          "2^{n-m}",
+          "N = N_1+N_2+\\cdots+N_k",
+          "N = n_1 n_2 \\cdots n_m"
+        ],
+        "legacy_display_version": 2
+      }
+    }
+  }
+}
