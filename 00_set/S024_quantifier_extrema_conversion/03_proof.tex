@@ -1,0 +1,45 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	利用最大值与最小值的定义，对每个等价关系分别证明两个方向。关键是最值的定义：最小值$m$满足$m\in\{f(x)\}$且$\forall x, f(x)\ge m$；最大值$M$满足$M\in\{f(x)\}$且$\forall x, f(x)\le M$。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（全称大于等价）：}]
+			证明 $\forall x\in D, f(x)\geq a \iff m\geq a$。
+			\[
+				\begin{aligned}
+					&\forall x, f(x)\geq a \implies m = \min_{x\in D} f(x) \geq a,\\&m\geq a \implies \forall x, f(x)\geq m\geq a.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 若所有函数值都$\ge a$，则最小值（也是函数值之一）自然$\ge a$；若最小值$\ge a$，则所有函数值$\ge$最小值$\ge a$。注意最小值定义保证存在$x_0$使$f(x_0)=m$，故$m$可代表函数值。
+		\item[\textbf{步骤二（全称小于等价）：}]
+			证明 $\forall x\in D, f(x)\leq a \iff M\leq a$。
+			\[
+				\begin{aligned}
+					&\forall x, f(x)\leq a \implies M = \max_{x\in D} f(x) \leq a,\\&M\leq a \implies \forall x, f(x)\leq M\leq a.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 若所有函数值$\le a$，则最大值（某函数值）$\le a$；若最大值$\le a$，则所有函数值$\le$最大值$\le a$。
+		\item[\textbf{步骤三（存在大于等价）：}]
+			证明 $\exists x\in D, f(x)\geq a \iff M\geq a$。
+			\[
+				\begin{aligned}
+					&\exists x_0, f(x_0)\geq a \implies M \geq f(x_0)\geq a,\\&M\geq a \implies \exists x_0, f(x_0)=M\geq a.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 若存在某个函数值$\ge a$，则最大值至少是该值，故$M\geq a$；若最大值$M\geq a$，则取最大值点$x_0$（使$f(x_0)=M$）即满足$f(x_0)\geq a$。
+		\item[\textbf{步骤四（存在小于等价）：}]
+			证明 $\exists x\in D, f(x)\leq a \iff m\leq a$。
+			\[
+				\begin{aligned}
+					&\exists x_0, f(x_0)\leq a \implies m \leq f(x_0)\leq a,\\&m\leq a \implies \exists x_0, f(x_0)=m\leq a.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 若存在某个函数值$\le a$，则最小值不大于该值，故$m\leq a$；若最小值$m\leq a$，则取最小值点$x_0$即满足$f(x_0)\leq a$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{综上，四个等价关系成立。全称量词不等式转化为关于最小值或最大值的不等式；存在量词不等式转化为关于最大值或最小值的不等式。记忆口诀：全称看“全体”，对应最极端的最值；存在看“存在”，对应较宽松的另一端最值。}
+\end{proofbox}

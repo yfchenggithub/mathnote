@@ -1,0 +1,182 @@
+{
+  "id": "S024",
+  "module": "function",
+  "core": {
+    "title": "全称量词与存在量词不等式的最值转化",
+    "alias": [
+      "恒成立最值法",
+      "存在性最值法",
+      "∀∃转最值",
+      "参数范围最值转化",
+      "全称存在量词最值不等式"
+    ],
+    "summary": "将全称量词（任意）和存在量词（存在）的不等式恒成立或存在性问题，转化为函数在区间上的最大值或最小值与常数比较。",
+    "difficulty": 3,
+    "category": "函数",
+    "tags": [
+      "函数最值",
+      "全称量词",
+      "存在量词",
+      "恒成立参数",
+      "等价转化"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "全称量词",
+      "存在量词",
+      "最值转化",
+      "恒成立",
+      "参数范围",
+      "最小值",
+      "最大值",
+      "∀",
+      "∃",
+      "f(x)≥a",
+      "f(x)≤a",
+      "m≥a",
+      "M≥a",
+      "m≤a",
+      "M≤a"
+    ],
+    "synonyms": [
+      "任意存在转最值",
+      "恒成立问题求参数",
+      "存在性问题求范围",
+      "全称存在量词不等式",
+      "参数范围恒成立"
+    ],
+    "intents": [
+      "求参数范围",
+      "判断恒成立",
+      "证明不等式",
+      "转化量词",
+      "求最值"
+    ],
+    "query_templates": [
+      "全称量词存在量词不等式怎么转化最值？",
+      "恒成立问题求参数范围的方法",
+      "存在性问题转化为最值",
+      "任意x使得f(x)≥a怎么求a",
+      "全称量词和存在量词的最值转化公式"
+    ],
+    "ocrKeywords": [
+      "∀x∈D",
+      "f(x)≥a",
+      "恒成立",
+      "存在实数a",
+      "取值范围"
+    ],
+    "latex_patterns": [
+      "\\forall x\\in D,\\ f(x)\\geq a",
+      "\\exists x\\in D,\\ f(x)\\leq a",
+      "m\\geq a",
+      "M\\geq a",
+      "m\\leq a",
+      "M\\leq a"
+    ],
+    "formulaTokens": [
+      "f(x)≥a",
+      "f(x)≤a",
+      "m≥a",
+      "M≥a",
+      "m≤a",
+      "M≤a",
+      "∀x∈D",
+      "∃x∈D"
+    ],
+    "pinyin": "quanchengliangci cunzailiangci zuizhi zhuanhua",
+    "pinyinAbbr": "qclcclczz"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.86,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\forall x\\in D,\\ f(x)\\geq a \\iff m\\geq a;\\quad \\exists x\\in D,\\ f(x)\\geq a \\iff M\\geq a;\\quad \\forall x\\in D,\\ f(x)\\leq a \\iff M\\leq a;\\quad \\exists x\\in D,\\ f(x)\\leq a \\iff m\\leq a",
+    "related_formulas": [
+      "\\forall x\\in D,\\ f(x)>a \\iff m>a",
+      "\\exists x\\in D,\\ f(x)<a \\iff m<a"
+    ],
+    "variables": [
+      "f",
+      "x",
+      "D",
+      "M",
+      "m",
+      "a"
+    ],
+    "conditions": "函数f(x)在区间D上存在最大值M和最小值m；a为常数。",
+    "conclusions": "全称量词∀对应最严格的最值：≥a时用最小值m≥a，≤a时用最大值M≤a；存在量词∃对应较宽松的一端：≥a时用最大值M≥a，≤a时用最小值m≤a。"
+  },
+  "content": {
+    "statement": "设函数f(x)在区间D上存在最大值M和最小值m，a为常数，则全称量词与存在量词的不等式可转化为最值不等式：∀x∈D, f(x)≥a ⇔ m≥a；∃x∈D, f(x)≥a ⇔ M≥a；∀x∈D, f(x)≤a ⇔ M≤a；∃x∈D, f(x)≤a ⇔ m≤a。",
+    "derivation": [
+      "第一步：由最值定义，m = min_{x∈D} f(x)，M = max_{x∈D} f(x)。",
+      "第二步：若 ∀x∈D, f(x)≥a，则 min f(x) ≥ a，即 m≥a；反之若 m≥a，则所有 f(x) ≥ m ≥ a。",
+      "第三步：其余三条同理：全称要求所有点满足，所以必须最值中最严格的一端；存在只要有一点满足，所以用较宽松的一端。"
+    ],
+    "intuition": "全称量词要求所有函数值都满足，所以必须最严格的最值（不小于a要求最小值不低于a；不大于a要求最大值不高于a）；存在量词只要有一个满足，所以只要最宽松的一端满足即可。",
+    "common_tricks": [
+      "注意区分全称和存在对应的最值：全称用“最严格”的最值，存在用“最宽松”的最值。",
+      "注意不等号方向：≥对应最小值或最大值，≤对应最大值或最小值。",
+      "当参数在不等式两边时，可先分离参数再转化。",
+      "对于严格不等式，同样适用但注意等号不成立（取不到）。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "恒成立求参数范围",
+      "存在性求参数范围",
+      "含参不等式问题",
+      "最值问题"
+    ],
+    "problem_types": [
+      "选择题",
+      "填空题",
+      "解答题"
+    ],
+    "exam_frequency": 0.9,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "S024.svg",
+    "png": "",
+    "pdf": ""
+  },
+  "shareConfig": {
+    "title": "全称存在量词最值转化：恒成立参数范围速解",
+    "shareDesc": "适合讲评课和刷题复盘，集中解决恒成立与存在性问题中量词混淆和不等号方向错误，快速推导参数范围，减少两步推导。"
+  },
+  "relations": {
+    "prerequisites": [
+      "函数最值",
+      "不等式基本性质",
+      "全称量词与存在量词概念"
+    ],
+    "related_ids": [],
+    "similar": "分式不等式恒成立问题转化为最值；二次函数恒成立判别式法"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-22"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "函数-综合-函数与不等式",
+  "altNodes": "不等式-解法-函数法, 函数-性质-有界性"
+}
