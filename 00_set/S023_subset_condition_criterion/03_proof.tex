@@ -1,0 +1,41 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	通过“元素属于集合”建立条件与集合的联系，将逻辑推出转化为集合包含。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（条件集合化）：}]
+			将条件$p,q$分别表示为解集$A=\{x\mid p(x)\}$，$B=\{x\mid q(x)\}$。
+			\[
+				A=\{x\mid p(x)\},\quad B=\{x\mid q(x)\}.
+			\]
+			\par\textbf{理由：} 解集的定义直接给出该等价关系。
+		\item[\textbf{步骤二（转化推出关系）：}]
+			命题$p\Rightarrow q$等价于“任意$x$满足$p(x)$则$q(x)$”，即“若$x\in A$则$x\in B$”。由集合包含定义，这正是$A\subseteq B$。
+			\[
+				\begin{aligned}
+					(p\Rightarrow q) &\Leftrightarrow (\forall x\in A,\; x\in B) \\ &\Leftrightarrow A\subseteq B.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 这是逻辑推出与集合包含的定义性等价，无需额外假设。
+		\item[\textbf{步骤三（反向验证）：}]
+			反之，若$A\subseteq B$，则对任意$x\in A$，有$x\in B$，故当$p(x)$成立时$q(x)$成立，即$p\Rightarrow q$。因此$A\subseteq B$与$p\Rightarrow q$等价。
+			\[
+				A\subseteq B \Leftrightarrow (p\Rightarrow q).
+			\]
+			\par\textbf{理由：} 双向推导成立，故为充要条件。
+		\item[\textbf{步骤四（特殊情况分类）：}]
+			进一步，若$A=B$，则双向包含，故$p\Leftrightarrow q$（充要）；若$A\subsetneqq B$，则$p\Rightarrow q$但$q\not\Rightarrow p$（充分不必要）；若$B\subseteq A$，则$q\Rightarrow p$（$p$是$q$的必要条件）。
+			\[
+				\begin{aligned}
+					A=B &\Leftrightarrow p\Leftrightarrow q,\\ A\subsetneqq B &\Leftrightarrow (p\Rightarrow q)\land\lnot(q\Rightarrow p),\\ B\subseteq A &\Leftrightarrow q\Rightarrow p.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 由集合包含的定义及前两步等价关系直接推得。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{子集法本质是用集合包含关系直观刻画逻辑推出方向，是判断充要条件的常用技巧。}
+\end{proofbox}
