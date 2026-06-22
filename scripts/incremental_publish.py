@@ -359,7 +359,7 @@ def parse_args() -> argparse.Namespace:
         help="Commit message for local project artifacts. Default: Incremental publish <ids> project artifacts.",
     )
 
-    parser.add_argument("--formula-min-length", type=int, default=5)
+    parser.add_argument("--formula-min-length", type=int, default=4)
     parser.add_argument("--asset-base", default="/static/formulas")
     parser.add_argument(
         "--allow-primary-fallback",
