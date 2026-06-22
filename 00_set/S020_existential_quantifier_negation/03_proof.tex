@@ -1,0 +1,40 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	将命题转化为集合的包含关系可以直观理解。令 $A=\{x\in M\mid p(x)\}$，则存在量词对应 $A\neq\emptyset$，全称量词对应 $\forall x\in M, x\notin A$，通过空集性质完成等价变换。\par
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（集合对应）：}]
+			定义集合 $A=\{x\in M\mid p(x)\}$。由存在量词定义，
+			\[
+				\exists x\in M,\,p(x) \iff A\neq\emptyset.
+			\]
+			\par\textbf{理由：} 存在 $x$ 满足 $p(x)$ 等价于满足 $p(x)$ 的元素构成非空集合。
+		\item[\textbf{步骤二（否定转化）：}]
+			对左边命题取否定，
+			\[
+				\neg\big(\exists x\in M,\,p(x)\big) \iff A=\emptyset.
+			\]
+			\par\textbf{理由：} 由步骤一得 $\exists x\in M,p(x)\iff A\neq\emptyset$，两边取否定即得 $\neg(\exists x\in M,p(x))\iff \neg(A\neq\emptyset)$，即 $A=\emptyset$。
+		\item[\textbf{步骤三（空集等价于全称）：}]
+			集合 $A=\emptyset$ 等价于所有 $x\in M$ 都不在 $A$ 中，即
+			\[
+				\begin{aligned}
+					A=\emptyset &\iff \forall x\in M\,(x\notin A)\\&\iff \forall x\in M,\,\neg p(x).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 空集不包含任何元素，故每个 $x$ 均满足 $x\notin A$；而 $x\notin A$ 当且仅当 $\neg p(x)$。
+		\item[\textbf{步骤四（等价传递）：}]
+			由步骤二和步骤三，
+			\[
+				\neg\big(\exists x\in M,\,p(x)\big) \iff \forall x\in M,\,\neg p(x).
+			\]
+			\par\textbf{理由：} 等价关系具有传递性。
+	\end{description}
+	\par
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{以上每一步均为等价变换，因此原结论成立。该证明使用了集合语言，验证了量词否定规则的本质是通过空集连接存在与全称。}
+\end{proofbox}
