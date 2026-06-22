@@ -287,3 +287,51 @@ UnicodeEncodeError: 'gbk' codec can't encode character '\ufffd' in position 30: 
 [2026-06-22 19:33:31] [latex] Generating LaTeX for S020...
 [2026-06-22 19:33:41] [write] source.tex updated from 12_pipeline\generated_sources\S020.tex (557 chars)
 [2026-06-22 19:33:41] [pipeline] Running run_source_to_pdf.py 00_set --target-id S020...
+[2026-06-22 19:50:30] [publish] PDF_READY confirmed for S020; deployment is allowed
+[2026-06-22 19:50:30] [publish] Running incremental_publish.py for S020...
+[2026-06-22 19:51:16] [done] S020 -> S020: complete
+[2026-06-22 19:51:19] 
+[2026-06-22 19:51:19] ============================================================
+[2026-06-22 19:51:19] [progress] 4/7: S021 | S021 | 命题的否定与否命题的区别（命题否定：条件不变结论否定；否命题：条件结论都否定） | 教材选修一 |
+[2026-06-22 19:51:19] ============================================================
+[2026-06-22 19:51:19] [start] S021: 00_set:38 | S021 | 命题的否定与否命题的区别（命题否定：条件不变结论否定；否命题：条件结论都否定） | 教材选修一 |
+[2026-06-22 19:51:19] [latex] Generating LaTeX for S021...
+[2026-06-22 19:51:51] [write] source.tex updated from 12_pipeline\generated_sources\S021.tex (679 chars)
+[2026-06-22 19:51:51] [pipeline] Running run_source_to_pdf.py 00_set --target-id S021...
+[2026-06-22 19:52:32] [fail] S021: Pipeline failed (rc=1): 
+[error] Step 2/7 run pipeline failed with exit code 1
+2026-06-22 19:51:54,061 - INFO - 阶段模型映射已生效: {'l1': 'flash', 'l2': 'pro', 'l3': 'flash', 'l4': 'flash', 'l4_check': 'pro', 'l5': 'flash', 'l6': 'flash'}
+2026-06-22 19:51:54,061 - INFO - DeepSeek 思考模式配置: {"apply_to": ["flash", "pro"], "configured": true, "effort": "high", "enabled": true, "step_overrides": {"l4": {"effort": "max"}, "l4_check": {"effort": "max"}}}
+2026-06-22 19:51:55,241 - INFO - Pipeline 开关: enable_l3=True, enable_l4=True, enable_l4_check=True, enable_l5=True
+2026-06-22 19:51:55,241 - INFO - Prompt 指纹快照(前12位): {"l1": "9438d6e74a91", "l2": "1fd14f50262e", "l3": "58bd9ab2c769", "l4": "0a048a9a130e", "l4_check": "324cd8ed1680", "l5": "1ddba4aa41cd", "l6": "84d942894192"}
+2026-06-22 19:51:55,241 - INFO - Prompt 全局快照(前12位): 3d16dc40b2d1
+2026-06-22 19:51:55,241 - INFO - Pipeline 心跳: progress_log_start_seconds=120, progress_log_interval_seconds=30, progress_poll_seconds=5, effective_first_heartbeat_seconds=30
+2026-06-22 19:51:55,246 - WARNING - C082 未找到可用源文件（支持: .tex, .txt, .md, .latex, .json），已跳过
+2026-06-22 19:51:55,261 - INFO - 开始批处理，共 1 个条目，模式: cache（优先复用）
+2026-06-22 19:51:55,262 - INFO - 指定 ID: S021
+
+Processing Pipeline:   0%|          | 0/1 [00:00<?, ?it/s]2026-06-22 19:51:55,274 - INFO - S021 source fingerprint missing; invalidating all stage caches.
+2026-06-22 19:51:55,274 - INFO - S021 检测到缺失 prompt 快照记录，判定全部阶段缓存失效。
+2026-06-22 19:51:55,274 - INFO - [stage/start] item=S021 stage=L1 mode=run
+2026-06-22 19:51:56,328 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-22 19:52:05,045 - INFO - [stage/done] item=S021 stage=L1 mode=run elapsed=9.77s
+2026-06-22 19:52:05,045 - INFO - [stage/start] item=S021 stage=L2 mode=run
+2026-06-22 19:52:05,130 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-22 19:52:32,204 - INFO - [PERF_TRACE] {"event": "perf_trace", "step": "l2", "model": "deepseek-v4-pro", "prompt_chars": 3258, "payload_chars": 981, "response_chars": 109, "request_start_ts": "2026-06-22T19:52:05.045", "request_end_ts": "2026-06-22T19:52:32.204", "llm_roundtrip_ms": 27158.51, "network_wait_ms": 27158.51, "prompt_tokens": 1625, "completion_tokens": 1541, "total_tokens": 3166, "json_parse_ms": 0.03, "validate_ms": null, "retry_count": 0, "timeout_value": 180, "thinking_enabled": true, "reasoning_effort": "high"}
+2026-06-22 19:52:32,204 - ERROR - [stage/fail] item=S021 stage=L2 mode=run elapsed=27.16s reason=核心公式存在逻辑错误：命题的否定应为 p 且非 q，而非 p → \xacq。示例同样沿用了这一错误表达，无法作为准确的二级结论。
+
+Processing Pipeline:   0%|          | 0/1 [00:36<?, ?it/s, success=0, error=1, skipped=0]
+Processing Pipeline: 100%|██████████| 1/1 [00:36<00:00, 36.93s/it, success=0, error=1, skipped=0]
+Processing Pipeline: 100%|██████████| 1/1 [00:36<00:00, 36.93s/it, success=0, error=1, skipped=0]
+2026-06-22 19:52:32,204 - INFO - 
+\u2705 任务结束: {'success': 0, 'error': 1, 'skipped': 0}
+2026-06-22 19:52:32,204 - INFO - \u23f1 总耗时: 36.94s
+
+[2026-06-22 19:52:35] 
+[2026-06-22 19:52:35] ============================================================
+[2026-06-22 19:52:35] [progress] 5/7: S022 | S022 | 充要条件的传递性：A⇒B且B⇒C，则A⇒C | 教材/高考真题 |
+[2026-06-22 19:52:35] ============================================================
+[2026-06-22 19:52:35] [start] S022: 00_set:39 | S022 | 充要条件的传递性：A⇒B且B⇒C，则A⇒C | 教材/高考真题 |
+[2026-06-22 19:52:35] [latex] Generating LaTeX for S022...
+[2026-06-22 19:52:50] [write] source.tex updated from 12_pipeline\generated_sources\S022.tex (569 chars)
+[2026-06-22 19:52:50] [pipeline] Running run_source_to_pdf.py 00_set --target-id S022...

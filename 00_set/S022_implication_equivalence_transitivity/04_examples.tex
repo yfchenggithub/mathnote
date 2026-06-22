@@ -1,0 +1,96 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知$p:x=2$，$q:x^2=4$，$r:x^2>0$，且$p\Rightarrow q$，$q\Rightarrow r$。判断$p\Rightarrow r$是否成立。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别关系）：}] 找出已知推出关系：$p\Rightarrow q$（若$x=2$则$x^2=4$），$q\Rightarrow r$（若$x^2=4$则$x^2>0$）。
+			\[
+				p\Rightarrow q,\quad q\Rightarrow r.
+			\]
+			\par\textbf{理由：} 题意直接给出。
+
+		\item[\textbf{第二步（应用传递）：}] 根据传递性，由$p\Rightarrow q$和$q\Rightarrow r$可得$p\Rightarrow r$。
+			\[
+				p\Rightarrow q,\;q\Rightarrow r\;\Longrightarrow\;p\Rightarrow r.
+			\]
+			\par\textbf{理由：} 推出关系的传递性（本定理）。
+
+		\item[\textbf{第三步（验证结论）：}] 验证：若$x=2$，则$x^2=4>0$，确实$p\Rightarrow r$成立。
+			\[
+				x=2\;\Longrightarrow\;x^2=4>0.
+			\]
+			\par\textbf{理由：} 具体计算确认。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$p\Rightarrow r$成立，利用传递性可避免直接计算，快速推断。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知$a\Rightarrow b$，$b\Rightarrow c$，$c\Rightarrow d$。求证$a\Rightarrow d$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（两两传递）：}] 由$a\Rightarrow b$和$b\Rightarrow c$得$a\Rightarrow c$。
+			\[
+				a\Rightarrow b,\;b\Rightarrow c\;\Longrightarrow\;a\Rightarrow c.
+			\]
+			\par\textbf{理由：} 传递性。
+
+		\item[\textbf{第二步（再次传递）：}] 由$a\Rightarrow c$和$c\Rightarrow d$得$a\Rightarrow d$。
+			\[
+				a\Rightarrow c,\;c\Rightarrow d\;\Longrightarrow\;a\Rightarrow d.
+			\]
+			\par\textbf{理由：} 再次应用传递性。
+
+		\item[\textbf{第三步（结论）：}] 因此$a\Rightarrow d$成立。
+			\[
+				a\Rightarrow d.
+			\]
+			\par\textbf{理由：} 链式传递证明完成。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{多次传递可连接长链，直接得到首尾关系。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知$p$：三角形$ABC$是等边三角形；$q$：三个内角相等；$r$：三边相等。已知$p\Leftrightarrow q$且$q\Leftrightarrow r$，求证$p\Leftrightarrow r$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（等价拆分）：}] 由$p\Leftrightarrow q$得$p\Rightarrow q$和$q\Rightarrow p$；由$q\Leftrightarrow r$得$q\Rightarrow r$和$r\Rightarrow q$。
+			\[
+				p\Rightarrow q,\; q\Rightarrow p,\; q\Rightarrow r,\; r\Rightarrow q.
+			\]
+			\par\textbf{理由：} 等价定义。
+
+		\item[\textbf{第二步（正向传递）：}] 由$p\Rightarrow q$和$q\Rightarrow r$得$p\Rightarrow r$。
+			\[
+				p\Rightarrow r.
+			\]
+			\par\textbf{理由：} 推出传递性。
+
+		\item[\textbf{第三步（反向传递）：}] 由$r\Rightarrow q$和$q\Rightarrow p$得$r\Rightarrow p$。
+			\[
+				r\Rightarrow p.
+			\]
+			\par\textbf{理由：} 推出传递性。
+
+		\item[\textbf{第四步（合为等价）：}] 由$p\Rightarrow r$和$r\Rightarrow p$得$p\Leftrightarrow r$。
+			\[
+				(p\Rightarrow r)\land(r\Rightarrow p)\;\Longrightarrow\;p\Leftrightarrow r.
+			\]
+			\par\textbf{理由：} 等价定义。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{等价关系传递性可用于几何性质等价证明。}
+\end{examplebox}

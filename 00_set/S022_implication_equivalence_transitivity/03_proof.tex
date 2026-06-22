@@ -1,0 +1,67 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	证明推出传递时，通过假设前提，利用蕴含定义逐步推导；等价传递可由推出传递结合双向分别证明。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（设定前提）：}] 假设$A\Rightarrow B$且$B\Rightarrow C$成立。
+			\[
+				A\Rightarrow B,\quad B\Rightarrow C.
+			\]
+			\par\textbf{理由：} 此为已知条件，作为推理出发点。
+
+		\item[\textbf{步骤二（取真假设）：}] 考虑$A$为真的情况。
+			\[
+				A.
+			\]
+			\par\textbf{理由：} 要证明$A\Rightarrow C$，需假定$A$真导出$C$真。
+
+		\item[\textbf{步骤三（推出$B$真）：}] 由$A\Rightarrow B$和$A$真推出$B$为真。
+			\[
+				A\Rightarrow B,\; A \;\Longrightarrow\; B.
+			\]
+			\par\textbf{理由：} 假言推理：若蕴含式前件真，则后件真。
+
+		\item[\textbf{步骤四（推出$C$真）：}] 由$B\Rightarrow C$和$B$真推出$C$为真。
+			\[
+				B\Rightarrow C,\; B \;\Longrightarrow\; C.
+			\]
+			\par\textbf{理由：} 再次应用假言推理。
+
+		\item[\textbf{步骤五（正向结论）：}] 因此，$A$真时$C$必真，即$A\Rightarrow C$。
+			\[
+				A\Rightarrow C.
+			\]
+			\par\textbf{理由：} 蕴含定义。
+
+		\item[\textbf{步骤六（等价前提）：}] 现在假设$A\Leftrightarrow B$且$B\Leftrightarrow C$。
+			\[
+				A\Leftrightarrow B,\quad B\Leftrightarrow C.
+			\]
+			\par\textbf{理由：} 等价关系等价于$A\Rightarrow B,\;B\Rightarrow A,\;B\Rightarrow C,\;C\Rightarrow B$。
+
+		\item[\textbf{步骤七（正向传递）：}] 由$A\Rightarrow B$和$B\Rightarrow C$（均成立）得$A\Rightarrow C$。
+			\[
+				A\Rightarrow C.
+			\]
+			\par\textbf{理由：} 重复步骤五的结论。
+
+		\item[\textbf{步骤八（反向传递）：}] 由$C\Rightarrow B$和$B\Rightarrow A$得$C\Rightarrow A$。
+			\[
+				C\Rightarrow A.
+			\]
+			\par\textbf{理由：} 同样应用推出传递性。
+
+		\item[\textbf{步骤九（合并等价）：}] 由$A\Rightarrow C$和$C\Rightarrow A$可得$A\Leftrightarrow C$。
+			\[
+				(A\Rightarrow C)\land(C\Rightarrow A)\;\Longrightarrow\;A\Leftrightarrow C.
+			\]
+			\par\textbf{理由：} 等价定义。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	因此，推出关系与等价关系均满足传递性，定理得证。
+\end{proofbox}
