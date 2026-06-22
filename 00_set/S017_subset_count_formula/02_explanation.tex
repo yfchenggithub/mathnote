@@ -1,0 +1,38 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+	子集个数的本质是每个元素独立二选一的决策树，结果是 $2^n$。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（独立二选一）：}] 每个元素的“取”与“不取”构成一个二岔路口，$n$ 个元素形成 $n$ 级决策树，总叶节点数恰为 $2^n$。
+		\item[\textbf{要点二（强制包含排除）：}] 若某些元素被强制选择或禁止，其对应分支被固定，实际决策级数减少为 $n-m$，故总数降为 $2^{n-m}$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（决策二叉树）}}
+	将子集生成过程画成二叉树：第 $1$ 层对应第 $1$ 个元素，向左表示不取，向右表示取；依此类推，$n$ 层后共有 $2^n$ 条路径，每条路径唯一对应一个子集。包含指定元素则相当于在对应层上强制走右分支，路径数折半。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（幂运算模型）}}
+	公式 $2^n$ 是指数函数的最简模型，反映“翻倍”特性：每增加一个元素，子集数翻倍。在代数上，$(1+1)^n$ 的二项式展开 $C_n^0 + C_n^1 + \cdots + C_n^n = 2^n$ 也揭示了子集个数与组合数的恒等关系。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（原理辨析）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（直接套公式）：} 给出集合元素个数，直接求所有子集数或满足简单包含关系的子集数。
+		\item \textbf{考法二（原理易混）：} 故意将分类加法与分步乘法交错呈现，要求学生准确判断何时用加、何时用乘，以及分类是否互斥。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+	\textbf{空集和全集也是合法的子集}，因为它们对应“全不取”和“全取”两种决策组合。因此公式中 $2^n$ 无需减去任何项。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（样本空间计数）：} 求随机试验中样本点的个数，如掷硬币 $n$ 次的结果空间大小为 $2^n$。
+		\item \textbf{场景二（条件筛选）：} 在集合中筛选满足“必含某元素、不含某元素”等条件的子集时，先固化指定元素，再对剩余元素套用 $2^{n-m}$。
+		\item \textbf{场景三（复杂条件拆分）：} 当条件无法直接表达为“包含指定元素”时，可尝试将条件分解为互斥类，再分类套用公式并相加。
+	\end{itemize}
+\end{explanationbox}

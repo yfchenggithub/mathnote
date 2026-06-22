@@ -1,0 +1,30 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	将子集构造视为对每个元素给出“是/否”判断的序列，然后应用乘法原理。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（元素决策模型）：}] 对 $A$ 中的元素依次决定其归属。每个元素恰有 $2$ 种可能：属于子集（记为 $1$），或不属于（记为 $0$）。
+			\[
+				c_i = 2 \quad (i=1,\dots,n).
+			\]
+			\par\textbf{理由：} 子集由布尔向量唯一确定。
+		\item[\textbf{步骤二（应用乘法原理）：}] 因为 $n$ 个元素的选择相互独立，根据分步乘法原理，总的决策序列数等于各元素选择数之积。
+			\[
+				N = \prod_{i=1}^{n} 2 = 2^n.
+			\]
+			\par\textbf{理由：} 乘法原理的经典形式，这里每个元素贡献因子 $2$。
+		\item[\textbf{步骤三（包含指定元素的情形）：}] 若已知某 $m$ 个元素必须属于子集，则这 $m$ 个元素各自只余 $1$ 种选择（强制取），剩余 $n-m$ 个元素仍各有 $2$ 种选择。由乘法原理，
+			\[
+				N' = \underbrace{1 \times \cdots \times 1}_{m} \times \underbrace{2 \times \cdots \times 2}_{n-m} = 2^{\,n-m}.
+			\]
+			\par\textbf{理由：} 固定元素贡献因子 $1$，不影响乘积的倍数性质；实际共有 $m$ 个 $1$ 和 $n-m$ 个 $2$。
+		\item[\textbf{步骤四（一般原理的自然导出）：}] 一般地，若附加条件可将子集分为互斥的 $k$ 类，且各类已分别求出个数 $N_i$，由加法原理，总数为 $N_1+\cdots+N_k$；若条件是通过 $m$ 个独立步骤来施加，且第 $i$ 步有 $n_i$ 种合法选择，则由乘法原理，总数为 $n_1 n_2 \cdots n_m$。这正是对前面特例的推广。
+			\par\textbf{理由：} 分类加法与分步乘法是计数的两个基本公理，本结论揭示了其典型应用。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{子集计数问题最终归结为每个元素的独立二选一}；特殊元素“必选”或“必不选”相当于减少独立元素的个数，从而改变了指数。推广原理则提供了处理复杂约束的通用框架。
+\end{proofbox}

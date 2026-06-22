@@ -1,9 +1,12 @@
 #!/usr/bin/env python
-r"""Find or fix over-escaped LaTeX command prefixes in meta.json files.
+r"""Find or fix LaTeX hygiene problems in meta.json files.
 
 The target bug is JSON text like "\\\\mathrm", which parses to runtime LaTeX
 "\\mathrm" and is interpreted as a line break plus plain text. A normal LaTeX
 command should be written as "\\mathrm" in JSON, which parses to "\mathrm".
+
+It also enforces the project rule that meta.core.title must not contain
+formulas. For example, "子集个数公式（2^n）" becomes "子集个数公式".
 """
 
 from __future__ import annotations
@@ -22,8 +25,29 @@ LATEX_FIELD_NAMES = {
     "latex_patterns",
     "formulaTokens",
 }
-
 OVER_ESCAPED_COMMAND_RE = re.compile(r"\\\\(?=[A-Za-z])")
+MATH_SEGMENT_RE = re.compile(
+    r"(\$[^$\n]*\$|\\\(.+?\\\)|\\\[.+?\\\])",
+    re.DOTALL,
+)
+PAREN_WITH_FORMULA_RE = re.compile(
+    r"[（(][^（）()]*?(?:\$|\\[A-Za-z]+|\^|_|=|/)[^（）()]*?[）)]"
+)
+FORMULA_EQUATION_RE = re.compile(
+    r"(?<![A-Za-z0-9])"
+    r"(?:[A-Za-z]\([^（）()]*\)|[A-Za-z]+|\d+)"
+    r"\s*=\s*"
+    r"[^，。；;、]+"
+)
+BARE_EXPONENT_OR_SUBSCRIPT_RE = re.compile(
+    r"(?<![$\\A-Za-z0-9])"
+    r"(?P<formula>"
+    r"(?:[A-Za-z]+|\d+)"
+    r"(?:(?:\^|_)(?:\{[^{}]+\}|[A-Za-z0-9]+))+"
+    r")"
+    r"(?![$A-Za-z0-9])"
+)
+LATEX_COMMAND_FORMULA_RE = re.compile(r"\\[A-Za-z]+(?:\{[^{}]*\})*")
 
 
 @dataclass
@@ -51,6 +75,21 @@ def normalize_latex_command_escapes(value: str) -> str:
     return normalized
 
 
+def normalize_core_title(value: str) -> str:
+    """Remove formulas from meta.core.title."""
+
+    normalized = value
+    normalized = MATH_SEGMENT_RE.sub("", normalized)
+    normalized = PAREN_WITH_FORMULA_RE.sub("", normalized)
+    normalized = FORMULA_EQUATION_RE.sub("", normalized)
+    normalized = BARE_EXPONENT_OR_SUBSCRIPT_RE.sub("", normalized)
+    normalized = LATEX_COMMAND_FORMULA_RE.sub("", normalized)
+    normalized = re.sub(r"[（(]\s*[）)]", "", normalized)
+    normalized = re.sub(r"\s+", " ", normalized).strip()
+    normalized = re.sub(r"[\s:：,，;；、\-—]+$", "", normalized).strip()
+    return normalized or "未命名结论"
+
+
 def walk_latex_value(value: Any, path: str, changes: list[Change]) -> Any:
     if isinstance(value, str):
         normalized = normalize_latex_command_escapes(value)
@@ -73,6 +112,16 @@ def walk_latex_value(value: Any, path: str, changes: list[Change]) -> Any:
     return value
 
 
+def walk_core_title_value(value: Any, path: str, changes: list[Change]) -> Any:
+    if isinstance(value, str):
+        normalized = normalize_core_title(value)
+        if normalized != value:
+            changes.append(Change(path=path, before=value, after=normalized))
+        return normalized
+
+    return value
+
+
 def walk_json(value: Any, path: str, changes: list[Change]) -> Any:
     if isinstance(value, list):
         return [
@@ -86,6 +135,8 @@ def walk_json(value: Any, path: str, changes: list[Change]) -> Any:
             item_path = f"{path}.{key}"
             if key in LATEX_FIELD_NAMES:
                 normalized[key] = walk_latex_value(item, item_path, changes)
+            elif item_path == "$.core.title":
+                normalized[key] = walk_core_title_value(item, item_path, changes)
             else:
                 normalized[key] = walk_json(item, item_path, changes)
         return normalized
@@ -116,7 +167,7 @@ def save_json(path: Path, data: Any) -> None:
 def main() -> int:
     parser = argparse.ArgumentParser(
         description=(
-            "Dry-run or fix over-escaped LaTeX command prefixes in meta.json files."
+            "Dry-run or fix LaTeX command prefixes and forbidden core.title formulas in meta.json files."
         )
     )
     parser.add_argument(

@@ -1,0 +1,21 @@
+\begin{trapbox}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点一（忽略空集）}}] 误以为子集个数是 $2^n - 1$，漏掉了空集或全集。
+		\item[\textbf{\textcolor{CTrap}{正确理解（全集在内）：}}] 空集和全集都是合法的子集，总个数恰为 $2^n$，无需额外减 $1$。
+		\item[\textbf{\textcolor{CTrap}{错因分析（概念混淆）：}}] 常将“子集”与“非空子集”或“真子集”混淆，没有注意到决定子集时“全不选”也是一种合法决策。
+	\end{description}
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点二（包含当仅含）}}] 把“包含指定元素”误解为“恰好由这些元素组成”，从而错误地排除其它元素。
+		\item[\textbf{\textcolor{CTrap}{正确理解（至少包含）：}}] 公式 $2^{n-m}$ 计数的是所有至少含这 $m$ 个元素的子集，它们仍可包含其余元素，因此是 $2^{n-m}$ 而非 $1$ 或别的数。
+		\item[\textbf{\textcolor{CTrap}{错因分析（语义偏差）：}}] 对自然语言“包含”在组合数学中的一般含义（至少包含）理解不准确，忽略了“可以多含”的默认约定。
+	\end{description}
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点三（分类重叠加法）}}] 在使用分类加法原理时，未检查各类是否互斥，若类别有重叠，直接相加会造成重复计数。
+		\item[\textbf{\textcolor{CTrap}{正确理解（需先判互斥）：}}] 分类加法原理的成立前提是“不重不漏”；若发现重叠，必须调整分类或改用容斥原理（如系数修正）。
+		\item[\textbf{\textcolor{CTrap}{错因分析（盲目套用）：}}] 看到题目中有“或”就习惯性地用加法，未先厘清条件所对应的子集是否有交集。
+	\end{description}
+\end{trapbox}

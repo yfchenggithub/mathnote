@@ -69,6 +69,10 @@ MODULE_DIRS = [
 ]
 
 NEW_ID_PATTERN = re.compile(r"^NEW_ID=([A-Za-z]\d{3})\s*$", re.MULTILINE)
+PDF_READY_PATTERN = re.compile(r"^PDF_READY=(.+?)\s*$", re.MULTILINE)
+PDF_FAILURE_LOG_PATTERN = re.compile(
+    r"(12_pipeline[/\\]output[/\\][A-Za-z]\d{3}[/\\]pdf_compile_error_attempt\d+\.log)"
+)
 
 # Match conclusion table rows: | I043 | title | ...
 CONCLUSION_ROW_PATTERN = re.compile(
@@ -574,6 +578,27 @@ def timeout_error(label: str, timeout_seconds: int | None) -> str:
     return f"{label} timed out (>{timeout_seconds}s)"
 
 
+def is_pdf_compile_failure(error: str | None) -> bool:
+    if not error:
+        return False
+    markers = (
+        "PDF_COMPILE_FAILED",
+        "PDF_COMPILE_FAILED_LOG=",
+        "Step 5/7 build PDF failed",
+        "Step 5/7 build PDF",
+        "PDF failure log:",
+        "build_conclusion_pdfs.py",
+    )
+    return any(marker in error for marker in markers)
+
+
+def extract_pdf_failure_log(error: str | None) -> str:
+    if not error:
+        return ""
+    match = PDF_FAILURE_LOG_PATTERN.search(error)
+    return match.group(1).replace("\\", "/") if match else ""
+
+
 def compute_source_hash(text: str) -> str:
     return hashlib.sha1(text.encode("utf-8")).hexdigest()
 
@@ -831,11 +856,26 @@ def run_pipeline(
         output = result.stdout + result.stderr
 
         if result.returncode != 0:
-            return None, f"Pipeline failed (rc={result.returncode}): {output[-1000:]}"
+            return None, f"Pipeline failed (rc={result.returncode}): {output[-3000:]}"
 
         match = NEW_ID_PATTERN.search(output)
         if not match:
-            return None, f"Cannot parse NEW_ID from output: {output[-1000:]}"
+            return None, f"Cannot parse NEW_ID from output: {output[-3000:]}"
+
+        pdf_ready_match = PDF_READY_PATTERN.search(output)
+        if not pdf_ready_match:
+            return None, (
+                "PDF_COMPILE_FAILED: Pipeline did not report PDF_READY; "
+                f"deployment blocked. Output tail: {output[-3000:]}"
+            )
+
+        pdf_path = Path(pdf_ready_match.group(1).strip())
+        if not pdf_path.is_file():
+            return None, (
+                "PDF_COMPILE_FAILED: Pipeline reported PDF_READY but the file "
+                f"does not exist; deployment blocked: {pdf_path}"
+            )
+
         return match.group(1).upper(), None
     except subprocess.TimeoutExpired:
         return None, timeout_error("Pipeline", timeout_seconds)
@@ -1162,7 +1202,15 @@ def process_one_conclusion(
 
     if pipeline_error:
         log(f"[fail] {cid}: {pipeline_error}")
-        record_state(conclusion, "failed", stage="pipeline", error=pipeline_error)
+        failure_stage = "pdf" if is_pdf_compile_failure(pipeline_error) else "pipeline"
+        conclusion["_last_failure_stage"] = failure_stage
+        conclusion["_last_error"] = pipeline_error
+        extra: dict[str, Any] = {"stage": failure_stage, "error": pipeline_error}
+        pdf_log = extract_pdf_failure_log(pipeline_error)
+        if pdf_log:
+            extra["pdf_error_log"] = pdf_log
+            log(f"[pdf] {cid}: compile failure log saved at {pdf_log}")
+        record_state(conclusion, "failed", **extra)
         return False
 
     if not new_id:
@@ -1180,6 +1228,7 @@ def process_one_conclusion(
     if new_id != cid:
         log(f"[warn] {cid}: expected ID {cid}, but pipeline produced {new_id}; continuing")
 
+    log(f"[publish] PDF_READY confirmed for {new_id}; deployment is allowed")
     log(f"[publish] Running incremental_publish.py for {new_id}...")
     published, publish_error = run_incremental_publish(
         python_exe,
@@ -1506,6 +1555,12 @@ def main() -> int:
             success += 1
         else:
             fail += 1
+            if conclusion.get("_last_failure_stage") == "pdf":
+                log(
+                    f"[skip] {conclusion['id']}: PDF compile failed; "
+                    "recorded and continuing with next row."
+                )
+                continue
             if not args.continue_on_error:
                 log("[abort] Stopping at first failure. Use --continue-on-error to keep going.")
                 break

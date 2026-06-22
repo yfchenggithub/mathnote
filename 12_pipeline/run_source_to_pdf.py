@@ -875,163 +875,29 @@ def run_pdf_build_attempt(
     )
 
 
-def republish_repaired_output(
-    *,
-    project_root: Path,
-    python_exe: str,
-    publish_script: Path,
-    fix_script: Path,
-    item_id: str,
-    mode: str,
-) -> None:
-    run_command(
-        f"Step 5/7 republish after PDF {mode}",
-        [python_exe, str(publish_script), item_id],
-        project_root,
-        stream_output=True,
-        capture_output=False,
-    )
-    run_command(
-        f"Step 5/7 fix math punctuation after PDF {mode}",
-        [python_exe, str(fix_script), item_id],
-        project_root,
-        stream_output=True,
-        capture_output=False,
-    )
-
-
-def run_pdf_repair(
-    *,
-    project_root: Path,
-    pipeline_dir: Path,
-    python_exe: str,
-    repair_script: Path,
-    publish_script: Path,
-    fix_script: Path,
-    item_id: str,
-    error_log_path: Path,
-    mode: str,
-) -> None:
-    run_command(
-        f"Step 5/7 pro PDF {mode}",
-        [
-            python_exe,
-            str(repair_script),
-            item_id,
-            "--mode",
-            mode,
-            "--error-log",
-            str(error_log_path),
-            "--output-root",
-            str(pipeline_dir / "output"),
-            "--input-root",
-            str(pipeline_dir / "input"),
-        ],
-        project_root,
-        stream_output=True,
-        capture_output=False,
-    )
-    republish_repaired_output(
-        project_root=project_root,
-        python_exe=python_exe,
-        publish_script=publish_script,
-        fix_script=fix_script,
-        item_id=item_id,
-        mode=mode,
-    )
-
-
-def build_pdf_with_repair_loop(
+def build_pdf_or_raise(
     *,
     project_root: Path,
     pipeline_dir: Path,
     python_exe: str,
     build_pdf_script: Path,
-    repair_script: Path,
-    publish_script: Path,
-    fix_script: Path,
     item_id: str,
 ) -> None:
-    first_result = run_pdf_build_attempt(
+    result = run_pdf_build_attempt(
         project_root=project_root,
         python_exe=python_exe,
         build_pdf_script=build_pdf_script,
         item_id=item_id,
         label="Step 5/7 build PDF",
     )
-    if first_result.returncode == 0:
+    if result.returncode == 0:
         return
 
-    print("[warn] PDF build failed; pro will repair the six lecture snippets.")
-    first_log = write_pdf_compile_failure_log(
-        pipeline_dir, project_root, item_id, 1, first_result
-    )
-    repair_completed = True
-    try:
-        run_pdf_repair(
-            project_root=project_root,
-            pipeline_dir=pipeline_dir,
-            python_exe=python_exe,
-            repair_script=repair_script,
-            publish_script=publish_script,
-            fix_script=fix_script,
-            item_id=item_id,
-            error_log_path=first_log,
-            mode="repair",
-        )
-    except RuntimeError as exc:
-        repair_completed = False
-        print(f"[warn] pro PDF repair failed before compile retry: {exc}")
-
-    if repair_completed:
-        second_result = run_pdf_build_attempt(
-            project_root=project_root,
-            python_exe=python_exe,
-            build_pdf_script=build_pdf_script,
-            item_id=item_id,
-            label="Step 5/7 build PDF after pro repair",
-        )
-        if second_result.returncode == 0:
-            return
-
-        print("[warn] PDF build still failed; pro will regenerate the six lecture snippets.")
-        second_log = write_pdf_compile_failure_log(
-            pipeline_dir, project_root, item_id, 2, second_result
-        )
-        final_attempt_number = 3
-    else:
-        print("[warn] pro will regenerate the six lecture snippets.")
-        second_log = first_log
-        final_attempt_number = 2
-
-    run_pdf_repair(
-        project_root=project_root,
-        pipeline_dir=pipeline_dir,
-        python_exe=python_exe,
-        repair_script=repair_script,
-        publish_script=publish_script,
-        fix_script=fix_script,
-        item_id=item_id,
-        error_log_path=second_log,
-        mode="regenerate",
-    )
-
-    third_result = run_pdf_build_attempt(
-        project_root=project_root,
-        python_exe=python_exe,
-        build_pdf_script=build_pdf_script,
-        item_id=item_id,
-        label="Step 5/7 build PDF after pro regenerate",
-    )
-    if third_result.returncode == 0:
-        return
-
-    third_log = write_pdf_compile_failure_log(
-        pipeline_dir, project_root, item_id, final_attempt_number, third_result
-    )
+    log_path = write_pdf_compile_failure_log(pipeline_dir, project_root, item_id, 1, result)
+    print(f"PDF_COMPILE_FAILED_LOG={log_path}")
     raise RuntimeError(
-        "Step 5/7 build PDF failed after pro repair and pro regenerate. "
-        f"Last log: {project_relative_path(third_log, project_root)}"
+        "PDF_COMPILE_FAILED: Step 5/7 build PDF failed; "
+        f"log={project_relative_path(log_path, project_root)}"
     )
 
 
@@ -1058,7 +924,6 @@ def run_flow(args: argparse.Namespace) -> int:
     create_script = pipeline_dir / "create_next_input_case.py"
     run_script = pipeline_dir / "run_pipeline.py"
     publish_script = pipeline_dir / "publish_pipeline_output.py"
-    repair_script = pipeline_dir / "repair_lecture_from_pdf_error.py"
     fix_script = project_root / "scripts" / "fix_math_punctuation.py"
     fix_meta_script = project_root / "scripts" / "fix_meta_latex_command_escapes.py"
     build_pdf_script = project_root / "scripts" / "build_conclusion_pdfs.py"
@@ -1071,10 +936,19 @@ def run_flow(args: argparse.Namespace) -> int:
         plan = [
             ("Step 1/7 create next input case", create_plan_cmd),
             ("Step 2/7 run pipeline", [python_exe, str(run_script), planned_id]),
+            (
+                "Step 3/7 fix output meta LaTeX",
+                [
+                    python_exe,
+                    str(fix_meta_script),
+                    f"12_pipeline/output/{planned_id}/l5_meta.json",
+                    "--write",
+                ],
+            ),
             ("Step 3/7 publish output", [python_exe, str(publish_script), planned_id]),
             ("Step 4/7 fix math punctuation", [python_exe, str(fix_script), planned_id]),
             (
-                "Step 5/7 build PDF with pro repair loop",
+                "Step 5/7 build PDF once; record log on failure",
                 [
                     python_exe,
                     str(build_pdf_script),
@@ -1082,30 +956,6 @@ def run_flow(args: argparse.Namespace) -> int:
                     "--pdf-name-mode",
                     "id",
                     "--overwrite",
-                ],
-            ),
-            (
-                "Step 5/7 if PDF fails: pro repair",
-                [
-                    python_exe,
-                    str(repair_script),
-                    planned_id,
-                    "--mode",
-                    "repair",
-                    "--error-log",
-                    f"12_pipeline/output/{planned_id}/pdf_compile_error_attempt1.log",
-                ],
-            ),
-            (
-                "Step 5/7 if repair still fails: pro regenerate",
-                [
-                    python_exe,
-                    str(repair_script),
-                    planned_id,
-                    "--mode",
-                    "regenerate",
-                    "--error-log",
-                    f"12_pipeline/output/{planned_id}/pdf_compile_error_attempt2.log",
                 ],
             ),
             (
@@ -1168,6 +1018,14 @@ def run_flow(args: argparse.Namespace) -> int:
         stream_output=True,
         capture_output=False,
     )
+    output_meta_path = pipeline_dir / "output" / new_id / "l5_meta.json"
+    run_command(
+        "Step 3/7 fix output meta LaTeX",
+        [python_exe, str(fix_meta_script), str(output_meta_path), "--write"],
+        project_root,
+        stream_output=True,
+        capture_output=False,
+    )
     run_command(
         "Step 3/7 publish output",
         [python_exe, str(publish_script), new_id],
@@ -1182,14 +1040,11 @@ def run_flow(args: argparse.Namespace) -> int:
         stream_output=True,
         capture_output=False,
     )
-    build_pdf_with_repair_loop(
+    build_pdf_or_raise(
         project_root=project_root,
         pipeline_dir=pipeline_dir,
         python_exe=python_exe,
         build_pdf_script=build_pdf_script,
-        repair_script=repair_script,
-        publish_script=publish_script,
-        fix_script=fix_script,
         item_id=new_id,
     )
 
