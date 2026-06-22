@@ -16,6 +16,7 @@ import json
 import re
 import shutil
 import subprocess
+import sys
 import tempfile
 import uuid
 from dataclasses import dataclass
@@ -39,6 +40,18 @@ DEFAULT_OUTPUT_DIR = Path("build/conclusion_pdfs")
 DEFAULT_MAP_JSON = Path("build/conclusion_pdf_map.json")
 MODULE_PREFIX_MAP_JSON = Path("12_pipeline/config/module_prefix_map.json")
 ID_PATTERN = re.compile(r"^([A-Za-z]\d{3})")
+
+
+def configure_console_output() -> None:
+    for stream in (sys.stdout, sys.stderr):
+        if hasattr(stream, "reconfigure"):
+            try:
+                stream.reconfigure(errors="replace")
+            except Exception:
+                pass
+
+
+configure_console_output()
 
 
 @dataclass(frozen=True)
@@ -399,6 +412,38 @@ def truncate_tail(text: str, max_lines: int = 25) -> str:
     return "\n".join(lines[-max_lines:]).strip()
 
 
+def is_latexmk_wrapper_failure(text: str) -> bool:
+    return "runscript.tlu" in text and "attempt to concatenate a nil value" in text
+
+
+def run_xelatex_fallback(repo_root: Path, wrapper_path: Path, temp_build_dir: str) -> tuple[bool, str]:
+    output_dir = Path(temp_build_dir).as_posix()
+    cmd = [
+        "xelatex",
+        "-interaction=nonstopmode",
+        "-halt-on-error",
+        f"-output-directory={output_dir}",
+        str(wrapper_path),
+    ]
+    outputs: list[str] = []
+    try:
+        for _ in range(2):
+            proc = subprocess.run(
+                cmd,
+                cwd=str(repo_root),
+                capture_output=True,
+                text=True,
+                errors="replace",
+                check=False,
+            )
+            outputs.append((proc.stdout or "") + "\n" + (proc.stderr or ""))
+            if proc.returncode != 0:
+                return False, truncate_tail("\n".join(outputs))
+    except FileNotFoundError:
+        return False, "xelatex not found in PATH."
+    return True, truncate_tail("\n".join(outputs))
+
+
 def compile_one(
     repo_root: Path,
     output_dir: Path,
@@ -419,37 +464,63 @@ def compile_one(
     wrapper_stem = f"_tmp_conclusion_{item.conclusion_id}_{uuid.uuid4().hex}"
     wrapper_path = repo_root / f"{wrapper_stem}.tex"
     wrapper_text = build_wrapper_tex(item.relative_main_tex(repo_root))
+    temp_build_dir: str | None = None
 
     try:
         wrapper_path.write_text(wrapper_text, encoding="utf-8", newline="\n")
-        with tempfile.TemporaryDirectory(prefix="latexmk_", dir=str(output_dir)) as temp_build_dir:
-            cmd = [
-                "latexmk",
-                "-xelatex",
-                "-interaction=nonstopmode",
-                "-halt-on-error",
-                f"-output-directory={temp_build_dir}",
-                str(wrapper_path),
-            ]
-            try:
-                proc = subprocess.run(
-                    cmd,
-                    cwd=str(repo_root),
-                    capture_output=True,
-                    text=True,
-                    errors="replace",
-                    check=False,
-                )
-            except FileNotFoundError:
+        temp_build_dir = tempfile.mkdtemp(prefix="latexmk_", dir=str(output_dir))
+        tex_output_dir = Path(temp_build_dir).as_posix()
+        latexmk_cmd = [
+            "latexmk",
+            "-xelatex",
+            "-interaction=nonstopmode",
+            "-halt-on-error",
+            f"-output-directory={tex_output_dir}",
+            str(wrapper_path),
+        ]
+        try:
+            proc = subprocess.run(
+                latexmk_cmd,
+                cwd=str(repo_root),
+                capture_output=True,
+                text=True,
+                errors="replace",
+                check=False,
+            )
+        except FileNotFoundError:
+            proc = None
+
+        if proc is None:
+            fallback_ok, fallback_output = run_xelatex_fallback(
+                repo_root, wrapper_path, temp_build_dir
+            )
+            if not fallback_ok:
                 return BuildResult(
                     item=item,
                     pdf_name=pdf_name,
                     status="failed",
-                    message="latexmk not found in PATH.",
+                    message=f"latexmk not found in PATH; xelatex fallback failed.\n{fallback_output}",
                 )
-
-            if proc.returncode != 0:
-                merged = (proc.stdout or "") + "\n" + (proc.stderr or "")
+        elif proc.returncode != 0:
+            merged = (proc.stdout or "") + "\n" + (proc.stderr or "")
+            if is_latexmk_wrapper_failure(merged):
+                fallback_ok, fallback_output = run_xelatex_fallback(
+                    repo_root, wrapper_path, temp_build_dir
+                )
+                if fallback_ok:
+                    merged = (
+                        "latexmk wrapper failed; xelatex fallback succeeded.\n"
+                        + fallback_output
+                    )
+                else:
+                    excerpt = truncate_tail(merged + "\n" + fallback_output)
+                    return BuildResult(
+                        item=item,
+                        pdf_name=pdf_name,
+                        status="failed",
+                        message=f"latexmk wrapper failed; xelatex fallback failed.\n{excerpt}",
+                    )
+            else:
                 excerpt = truncate_tail(merged)
                 return BuildResult(
                     item=item,
@@ -458,18 +529,25 @@ def compile_one(
                     message=f"latexmk failed.\n{excerpt}",
                 )
 
-            built_pdf = Path(temp_build_dir) / f"{wrapper_stem}.pdf"
-            if not built_pdf.is_file():
-                return BuildResult(
-                    item=item,
-                    pdf_name=pdf_name,
-                    status="failed",
-                    message=f"Compiled PDF not found: {built_pdf}",
-                )
+        if proc is not None and proc.returncode != 0:
+            excerpt = truncate_tail(merged)
+            # Keep a short note for diagnostics while allowing the fallback PDF.
+            _ = excerpt
 
-            shutil.copy2(built_pdf, target_pdf)
-            return BuildResult(item=item, pdf_name=pdf_name, status="success")
+        built_pdf = Path(temp_build_dir) / f"{wrapper_stem}.pdf"
+        if not built_pdf.is_file():
+            return BuildResult(
+                item=item,
+                pdf_name=pdf_name,
+                status="failed",
+                message=f"Compiled PDF not found: {built_pdf}",
+            )
+
+        shutil.copy2(built_pdf, target_pdf)
+        return BuildResult(item=item, pdf_name=pdf_name, status="success")
     finally:
+        if temp_build_dir:
+            shutil.rmtree(temp_build_dir, ignore_errors=True)
         try:
             wrapper_path.unlink(missing_ok=True)
         except Exception:
