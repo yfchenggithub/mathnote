@@ -1,0 +1,43 @@
+\begin{proofbox}
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	证明的核心是利用极线方程的对称性，推导出恒等式 $S_P(x_2,y_2)=S_Q(x_1,y_1)$，从而将点线关系转化为代数等式等价关系。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（极线方程）：}] 设二次曲线 $\Gamma: S(x,y)=0$ 的一般形式为 $S(x,y)=Ax^2+Bxy+Cy^2+Dx+Ey+F$，其中至少一个二次项系数非零（非退化）。点 $P(x_1,y_1)$ 的极线方程定义为
+			\[
+				S_P(x,y)=A x_1x+\frac{B}{2}(x_1y+y_1x)+C y_1y+\frac{D}{2}(x+x_1)+\frac{E}{2}(y+y_1)+F=0.
+			\]
+			同理，点 $Q(x_2,y_2)$ 的极线方程为 $S_Q(x,y)=0$。
+			\par\textbf{理由：} 这是二次曲线极线的标准定义。
+
+		\item[\textbf{步骤二（对称恒等式）：}] 代入坐标计算：
+			\[
+				\begin{aligned}
+					S_P(x_2,y_2) &= A x_1x_2+\frac{B}{2}(x_1y_2+y_1x_2)+C y_1y_2+\frac{D}{2}(x_2+x_1)+\frac{E}{2}(y_2+y_1)+F,\\
+					S_Q(x_1,y_1) &= A x_2x_1+\frac{B}{2}(x_2y_1+y_2x_1)+C y_2y_1+\frac{D}{2}(x_1+x_2)+\frac{E}{2}(y_1+y_2)+F.
+			\end{aligned}
+			\]
+			对比两式，每一项在交换 $P,Q$ 后都不变，因此恒有
+			\[
+				S_P(x_2,y_2)=S_Q(x_1,y_1).
+			\]
+			\par\textbf{理由：} 加法和乘法的交换律保证了每一项的对称性。
+
+		\item[\textbf{步骤三（等价转化）：}] 由极线定义：$P\in l_Q$ 等价于 $S_Q(x_1,y_1)=0$；$Q\in l_P$ 等价于 $S_P(x_2,y_2)=0$。利用恒等式 $S_Q(x_1,y_1)=S_P(x_2,y_2)$，得到
+			\[
+				P\in l_Q \iff S_Q(x_1,y_1)=0 \iff S_P(x_2,y_2)=0 \iff Q\in l_P.
+			\]
+			由此完成证明。
+			\par\textbf{理由：} 定义与恒等式的直接组合。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	我们证明了对于任意非退化二次曲线（排除有心曲线的中心点），$P\in l_Q \iff Q\in l_P \iff S_P(x_2,y_2)=0$，这正是极点极线的共轭性。该结论使我们能通过代数计算快速判断点与极线的关系。
+
+\end{proofbox}
