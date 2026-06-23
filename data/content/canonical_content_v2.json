@@ -409076,46 +409076,72 @@
       "module": "conic",
       "knowledge_node": "解析几何-圆锥曲线-椭圆",
       "alt_nodes": [
-        "解析几何-圆锥曲线-双曲线"
+        "解析几何-圆锥曲线-双曲线",
+        "解析几何-综合-轨迹问题"
       ]
     },
     "meta": {
-      "title": "共焦点二次曲线束",
+      "title": "共焦点二次曲线系",
       "aliases": [
-        "共焦点曲线族",
-        "共焦点二次曲线系",
-        "参数曲线族"
+        "共焦点曲线系",
+        "同焦点曲线系",
+        "λ参数曲线系"
       ],
-      "difficulty": 2,
+      "difficulty": 4,
       "category": "解析几何",
       "tags": [
-        "共焦点",
-        "曲线束",
+        "共焦点曲线系",
         "椭圆",
         "双曲线",
-        "参数方程",
-        "圆锥曲线"
+        "参数范围",
+        "焦点"
       ],
-      "summary": "用一个含参方程统一表示以相同两点为焦点的所有椭圆和双曲线。",
+      "summary": "给定一个椭圆，通过参数λ改变分母得到所有与它共焦点的椭圆或双曲线，焦点保持不变。",
       "is_pro": false,
       "remarks": null
     },
     "content": {
       "render_schema_version": 2,
       "primary_formula": {
-        "latex": "\\frac{x^2}{a^2+\\lambda}+\\frac{y^2}{b^2+\\lambda}=1\\quad(\\lambda\\neq -a^2,-b^2)",
+        "latex": "\\frac{x^{2}}{a^{2}-\\lambda}+\\frac{y^{2}}{b^{2}-\\lambda}=1 \\quad (c=\\sqrt{a^{2}-b^{2}})",
         "type": "math_image",
         "need_image": "true",
         "asset": {
-          "png": "/static/formulas/C082/014b099e26b67e3f@3x.png",
-          "width_px": 712,
+          "png": "/static/formulas/C082/18ace26838d15798@3x.png",
+          "width_px": 716,
           "height_px": 118,
-          "display_width_px": 237,
+          "display_width_px": 239,
           "display_height_px": 39,
           "scale": 3
         }
       },
-      "variables": [],
+      "variables": [
+        {
+          "name": "a",
+          "latex": "a",
+          "description": "（迁移阶段未提供变量说明）",
+          "required": true
+        },
+        {
+          "name": "b",
+          "latex": "b",
+          "description": "（迁移阶段未提供变量说明）",
+          "required": true
+        },
+        {
+          "name": "c",
+          "latex": "c",
+          "description": "（迁移阶段未提供变量说明）",
+          "required": true
+        },
+        {
+          "name": "\\lambda",
+          "latex": "\\lambda",
+          "description": "（迁移阶段未提供变量说明）",
+          "required": true,
+          "need_image": "true"
+        }
+      ],
       "conditions": [
         {
           "id": "cond_1",
@@ -409135,7 +409161,7 @@
           "content": [
             {
               "type": "text",
-              "text": "c^2 = a^2 - b^2"
+              "text": "\\lambda < a^{2}"
             }
           ],
           "required": true,
@@ -409147,31 +409173,7 @@
           "content": [
             {
               "type": "text",
-              "text": "λ ≠ -a^2, -b^2"
-            }
-          ],
-          "required": true,
-          "scope": null
-        },
-        {
-          "id": "cond_4",
-          "title": "条件4",
-          "content": [
-            {
-              "type": "text",
-              "text": "λ > -b^2 时曲线为椭圆"
-            }
-          ],
-          "required": true,
-          "scope": null
-        },
-        {
-          "id": "cond_5",
-          "title": "条件5",
-          "content": [
-            {
-              "type": "text",
-              "text": "-a^2 < λ < -b^2 时曲线为双曲线"
+              "text": "\\lambda \\neq b^{2}"
             }
           ],
           "required": true,
@@ -409185,7 +409187,7 @@
           "content": [
             {
               "type": "text",
-              "text": "所有曲线有相同焦点 (±c,0)"
+              "text": "方程 \\frac{x^{2}}{a^{2}-\\lambda}+\\frac{y^{2}}{b^{2}-\\lambda}=1 表示与椭圆共焦点的曲线系"
             }
           ]
         },
@@ -409195,7 +409197,27 @@
           "content": [
             {
               "type": "text",
-              "text": "该方程统一表示所有共焦点椭圆和双曲线"
+              "text": "当 \\lambda < b^{2} 时为椭圆"
+            }
+          ]
+        },
+        {
+          "id": "conc_3",
+          "title": "结论3",
+          "content": [
+            {
+              "type": "text",
+              "text": "当 b^{2} < \\lambda < a^{2} 时为双曲线"
+            }
+          ]
+        },
+        {
+          "id": "conc_4",
+          "title": "结论4",
+          "content": [
+            {
+              "type": "text",
+              "text": "所有曲线的焦点均为 (\\pm c, 0)"
             }
           ]
         }
@@ -409209,15 +409231,55 @@
             {
               "id": "core-formula-b1",
               "type": "math_image",
-              "latex": "\\frac{x^2}{a^2+\\lambda}+\\frac{y^2}{b^2+\\lambda}=1\\quad(\\lambda\\neq -a^2,-b^2)",
+              "latex": "\\frac{x^{2}}{a^{2}-\\lambda}+\\frac{y^{2}}{b^{2}-\\lambda}=1 \\quad (c=\\sqrt{a^{2}-b^{2}})",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/014b099e26b67e3f@3x.png",
-                "width_px": 712,
+                "png": "/static/formulas/C082/18ace26838d15798@3x.png",
+                "width_px": 716,
                 "height_px": 118,
-                "display_width_px": 237,
+                "display_width_px": 239,
                 "display_height_px": 39,
+                "scale": 3
+              }
+            }
+          ]
+        },
+        {
+          "key": "variables",
+          "title": "涉及变量",
+          "block_type": "rich_text",
+          "blocks": [
+            {
+              "id": "variables-b1",
+              "type": "math_block",
+              "latex": "a",
+              "align": "center"
+            },
+            {
+              "id": "variables-b2",
+              "type": "math_block",
+              "latex": "b",
+              "align": "center"
+            },
+            {
+              "id": "variables-b3",
+              "type": "math_block",
+              "latex": "c",
+              "align": "center"
+            },
+            {
+              "id": "variables-b4",
+              "type": "math_image",
+              "latex": "\\lambda",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/b3931f1ce298c536@3x.png",
+                "width_px": 48,
+                "height_px": 53,
+                "display_width_px": 16,
+                "display_height_px": 18,
                 "scale": 3
               }
             }
@@ -409233,11 +409295,11 @@
               "type": "theorem_group",
               "items": [
                 {
-                  "title": "条件1（焦点固定）：",
+                  "title": "条件1（椭圆参数）：",
                   "desc_tokens": [
                     {
                       "type": "text",
-                      "text": "中心在原点，焦点在"
+                      "text": "焦点在"
                     },
                     {
                       "type": "math_inline",
@@ -409245,11 +409307,76 @@
                     },
                     {
                       "type": "text",
-                      "text": "轴，半焦距"
+                      "text": "轴上的椭圆"
                     },
                     {
-                      "type": "math_inline",
-                      "latex": "c"
+                      "type": "math_image",
+                      "latex": "\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/C082/e6e9e43441725ff6@3x.png",
+                        "width_px": 263,
+                        "height_px": 115,
+                        "display_width_px": 88,
+                        "display_height_px": 38,
+                        "scale": 3
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "（"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "a>b>0",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/C082/9a95837e3f62490c@3x.png",
+                        "width_px": 192,
+                        "height_px": 54,
+                        "display_width_px": 64,
+                        "display_height_px": 18,
+                        "scale": 3
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "），焦距"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "c=\\sqrt{a^{2}-b^{2}}",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/C082/e5983cb2afaafb41@3x.png",
+                        "width_px": 262,
+                        "height_px": 75,
+                        "display_width_px": 87,
+                        "display_height_px": 25,
+                        "scale": 3
+                      }
+                    }
+                  ]
+                },
+                {
+                  "title": "条件2（参数范围）：",
+                  "desc_tokens": [
+                    {
+                      "type": "text",
+                      "text": "实数"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "\\lambda",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/C082/b3931f1ce298c536@3x.png",
+                        "width_px": 48,
+                        "height_px": 53,
+                        "display_width_px": 16,
+                        "display_height_px": 18,
+                        "scale": 3
+                      }
                     },
                     {
                       "type": "text",
@@ -409257,50 +409384,38 @@
                     },
                     {
                       "type": "math_image",
-                      "latex": "c^2=a^2-b^2,\\qquad a>b>0,",
+                      "latex": "\\lambda<a^{2}",
                       "need_image": "true",
                       "asset": {
-                        "png": "/static/formulas/C082/81c950e9a115cfc0@3x.png",
-                        "width_px": 517,
-                        "height_px": 68,
-                        "display_width_px": 172,
-                        "display_height_px": 23,
+                        "png": "/static/formulas/C082/b5f6dc306ab6667f@3x.png",
+                        "width_px": 141,
+                        "height_px": 62,
+                        "display_width_px": 47,
+                        "display_height_px": 21,
                         "scale": 3
                       }
                     },
                     {
                       "type": "text",
-                      "text": "焦点坐标为"
+                      "text": "且"
                     },
                     {
                       "type": "math_image",
-                      "latex": "(\\pm c,0)",
+                      "latex": "\\lambda\\neq b^{2}",
                       "need_image": "true",
                       "asset": {
-                        "png": "/static/formulas/C082/3f6dabbe8f30af55@3x.png",
-                        "width_px": 143,
-                        "height_px": 65,
-                        "display_width_px": 48,
-                        "display_height_px": 22,
+                        "png": "/static/formulas/C082/4e26b26f4ed50bbb@3x.png",
+                        "width_px": 137,
+                        "height_px": 69,
+                        "display_width_px": 46,
+                        "display_height_px": 23,
                         "scale": 3
                       }
-                    },
-                    {
-                      "type": "text",
-                      "text": "，两焦点之间的距离为"
-                    },
-                    {
-                      "type": "math_inline",
-                      "latex": "2c"
-                    },
-                    {
-                      "type": "text",
-                      "text": "。"
                     }
                   ]
                 },
                 {
-                  "title": "结论一（标准方程）：",
+                  "title": "结论一（曲线系方程）：",
                   "desc_tokens": [
                     {
                       "type": "text",
@@ -409321,53 +409436,91 @@
                     },
                     {
                       "type": "text",
-                      "text": "控制两个分母，得到一族具有公共焦点的二次曲线。"
+                      "text": "变动时曲线类型改变，但焦点始终相同。"
                     },
                     {
                       "type": "math_image",
-                      "latex": "\\frac{x^{2}}{a^{2}+\\lambda}+\\frac{y^{2}}{b^{2}+\\lambda}=1,\n\\qquad\n\\lambda\\neq -a^{2},-b^{2}.",
+                      "latex": "\\frac{x^{2}}{a^{2}-\\lambda}+\\frac{y^{2}}{b^{2}-\\lambda}=1",
                       "need_image": "true",
                       "asset": {
-                        "png": "/static/formulas/C082/0b205e6f67c172ff@3x.png",
-                        "width_px": 751,
+                        "png": "/static/formulas/C082/208e8293a66d52fb@3x.png",
+                        "width_px": 406,
                         "height_px": 118,
-                        "display_width_px": 250,
+                        "display_width_px": 135,
                         "display_height_px": 39,
-                        "scale": 3
-                      }
-                    }
-                  ]
-                },
-                {
-                  "title": "推广结论（曲线类型）：",
-                  "desc_tokens": [
-                    {
-                      "type": "math_image",
-                      "latex": "\\lambda",
-                      "need_image": "true",
-                      "asset": {
-                        "png": "/static/formulas/C082/b3931f1ce298c536@3x.png",
-                        "width_px": 48,
-                        "height_px": 53,
-                        "display_width_px": 16,
-                        "display_height_px": 18,
                         "scale": 3
                       }
                     },
                     {
                       "type": "text",
-                      "text": "的范围决定方程表示椭圆、双曲线，还是无实轨迹。"
+                      "text": "分类规则：\n当"
                     },
                     {
                       "type": "math_image",
-                      "latex": "\\lambda>-b^{2}\\ \\text{时为椭圆},\n\\qquad\n-a^{2}<\\lambda<-b^{2}\\ \\text{时为双曲线},\n\\qquad\n\\lambda<-a^{2}\\ \\text{时无实轨迹}.",
+                      "latex": "\\lambda<b^{2}",
                       "need_image": "true",
                       "asset": {
-                        "png": "/static/formulas/C082/140187cb1dfaf9c3@3x.png",
-                        "width_px": 1409,
-                        "height_px": 68,
-                        "display_width_px": 470,
-                        "display_height_px": 23,
+                        "png": "/static/formulas/C082/7c34c015e4fcc36e@3x.png",
+                        "width_px": 137,
+                        "height_px": 62,
+                        "display_width_px": 46,
+                        "display_height_px": 21,
+                        "scale": 3
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "时为椭圆；当"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "b^{2}<\\lambda<a^{2}",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/C082/c53eb7e44c3daf42@3x.png",
+                        "width_px": 231,
+                        "height_px": 62,
+                        "display_width_px": 77,
+                        "display_height_px": 21,
+                        "scale": 3
+                      }
+                    },
+                    {
+                      "type": "text",
+                      "text": "时为双曲线。"
+                    }
+                  ]
+                },
+                {
+                  "title": "推广结论（焦点恒定）：",
+                  "desc_tokens": [
+                    {
+                      "type": "text",
+                      "text": "所有曲线共享相同的焦点"
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "(\\pm c,0)",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/C082/3f6dabbe8f30af55@3x.png",
+                        "width_px": 143,
+                        "height_px": 65,
+                        "display_width_px": 48,
+                        "display_height_px": 22,
+                        "scale": 3
+                      }
+                    },
+                    {
+                      "type": "math_image",
+                      "latex": "c=\\sqrt{a^{2}-b^{2}}",
+                      "need_image": "true",
+                      "asset": {
+                        "png": "/static/formulas/C082/e5983cb2afaafb41@3x.png",
+                        "width_px": 262,
+                        "height_px": 75,
+                        "display_width_px": 87,
+                        "display_height_px": 25,
                         "scale": 3
                       }
                     }
@@ -409388,12 +409541,22 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "一句话直觉\n固定两个焦点，通过参数"
+                  "text": "一句话直觉"
                 }
               ]
             },
             {
               "id": "explanation-b2",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "椭圆和双曲线可以共用相同的焦点，通过调整参数"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b3",
               "type": "math_image",
               "latex": "\\lambda",
               "align": "center",
@@ -409408,42 +409571,17 @@
               }
             },
             {
-              "id": "explanation-b3",
+              "id": "explanation-b4",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": "统一表示所有以这两点为焦点的椭圆和双曲线；当"
+                  "text": "互相转化。"
                 }
               ]
-            },
-            {
-              "id": "explanation-b4",
-              "type": "math_image",
-              "latex": "\\lambda<-a^2",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/b153432ff1302b31@3x.png",
-                "width_px": 173,
-                "height_px": 63,
-                "display_width_px": 58,
-                "display_height_px": 21,
-                "scale": 3
-              }
             },
             {
               "id": "explanation-b5",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "时，方程没有实点。"
-                }
-              ]
-            },
-            {
-              "id": "explanation-b6",
               "type": "paragraph",
               "tokens": [
                 {
@@ -409453,72 +409591,54 @@
               ]
             },
             {
-              "id": "explanation-b7",
+              "id": "explanation-b6",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": "要点一（焦点不变）：\n当方程表示实椭圆或实双曲线时，曲线的焦点始终是"
+                  "text": "要点一（参数类型分类）：\n当"
                 }
               ]
             },
             {
-              "id": "explanation-b8",
+              "id": "explanation-b7",
               "type": "math_image",
-              "latex": "(\\pm c,0)",
+              "latex": "\\lambda<b^{2}",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/3f6dabbe8f30af55@3x.png",
-                "width_px": 143,
-                "height_px": 65,
-                "display_width_px": 48,
-                "display_height_px": 22,
+                "png": "/static/formulas/C082/7c34c015e4fcc36e@3x.png",
+                "width_px": 137,
+                "height_px": 62,
+                "display_width_px": 46,
+                "display_height_px": 21,
                 "scale": 3
               }
             },
             {
-              "id": "explanation-b9",
+              "id": "explanation-b8",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": "，因为"
-                },
-                {
-                  "type": "math_image",
-                  "latex": "c^2=a^2-b^2",
-                  "need_image": "true",
-                  "asset": {
-                    "png": "/static/formulas/C082/108facc62b258f57@3x.png",
-                    "width_px": 238,
-                    "height_px": 63,
-                    "display_width_px": 79,
-                    "display_height_px": 21,
-                    "scale": 3
-                  }
-                },
-                {
-                  "type": "text",
-                  "text": "恒定。注意："
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "c"
-                },
-                {
-                  "type": "text",
-                  "text": "是半焦距，真正的焦距是"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "2c"
-                },
-                {
-                  "type": "text",
-                  "text": "。"
+                  "text": "时，"
                 }
               ]
+            },
+            {
+              "id": "explanation-b9",
+              "type": "math_image",
+              "latex": "a^{2}-\\lambda>0",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/ab5db3f3979e9717@3x.png",
+                "width_px": 212,
+                "height_px": 63,
+                "display_width_px": 71,
+                "display_height_px": 21,
+                "scale": 3
+              }
             },
             {
               "id": "explanation-b10",
@@ -409526,22 +409646,22 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "要点二（分母关联）：\n两个分母之差恒定："
+                  "text": ","
                 }
               ]
             },
             {
               "id": "explanation-b11",
               "type": "math_image",
-              "latex": "(a^2+\\lambda)-(b^2+\\lambda)=a^2-b^2=c^2",
+              "latex": "b^{2}-\\lambda>0",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/49726b8afcfcabae@3x.png",
-                "width_px": 627,
-                "height_px": 70,
-                "display_width_px": 209,
-                "display_height_px": 23,
+                "png": "/static/formulas/C082/98d381bf3a81d8d0@3x.png",
+                "width_px": 207,
+                "height_px": 63,
+                "display_width_px": 69,
+                "display_height_px": 21,
                 "scale": 3
               }
             },
@@ -409551,84 +409671,84 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": ".正是这个“分母差恒定”，保证了实椭圆或实双曲线的焦点不变。"
+                  "text": "，曲线为椭圆；当"
                 }
               ]
             },
             {
               "id": "explanation-b13",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "要点三（类型判据）：\n根据两个分母的符号组合分类："
-                }
-              ]
+              "type": "math_image",
+              "latex": "b^{2}<\\lambda<a^{2}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/c53eb7e44c3daf42@3x.png",
+                "width_px": 231,
+                "height_px": 62,
+                "display_width_px": 77,
+                "display_height_px": 21,
+                "scale": 3
+              }
             },
             {
               "id": "explanation-b14",
-              "type": "math_image",
-              "latex": "\\lambda>-b^2",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/12cf816ce76c30a9@3x.png",
-                "width_px": 169,
-                "height_px": 63,
-                "display_width_px": 56,
-                "display_height_px": 21,
-                "scale": 3
-              }
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "时，"
+                }
+              ]
             },
             {
               "id": "explanation-b15",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "时两分母都正，为椭圆；"
-                }
-              ]
+              "type": "math_image",
+              "latex": "a^{2}-\\lambda>0",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/ab5db3f3979e9717@3x.png",
+                "width_px": 212,
+                "height_px": 63,
+                "display_width_px": 71,
+                "display_height_px": 21,
+                "scale": 3
+              }
             },
             {
               "id": "explanation-b16",
-              "type": "math_image",
-              "latex": "-a^2<\\lambda<-b^2",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/f75dab1219543df6@3x.png",
-                "width_px": 294,
-                "height_px": 63,
-                "display_width_px": 98,
-                "display_height_px": 21,
-                "scale": 3
-              }
-            },
-            {
-              "id": "explanation-b17",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": "时一正一负，为双曲线；"
+                  "text": ","
                 }
               ]
             },
             {
-              "id": "explanation-b18",
+              "id": "explanation-b17",
               "type": "math_image",
-              "latex": "\\lambda<-a^2",
+              "latex": "b^{2}-\\lambda<0",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/b153432ff1302b31@3x.png",
-                "width_px": 173,
+                "png": "/static/formulas/C082/1f962f57a13ae532@3x.png",
+                "width_px": 207,
                 "height_px": 63,
-                "display_width_px": 58,
+                "display_width_px": 69,
                 "display_height_px": 21,
                 "scale": 3
               }
+            },
+            {
+              "id": "explanation-b18",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，曲线为双曲线。"
+                }
+              ]
             },
             {
               "id": "explanation-b19",
@@ -409636,75 +409756,72 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "时两分母都负，左边恒小于等于"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "0"
-                },
-                {
-                  "type": "text",
-                  "text": "，不可能等于"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "1"
-                },
-                {
-                  "type": "text",
-                  "text": "，所以无实轨迹。"
+                  "text": "要点二（焦点恒等证明）：\n椭圆中"
                 }
               ]
             },
             {
               "id": "explanation-b20",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "几何本质（同焦曲线族）\n在实椭圆和实双曲线情形下，所有曲线具有相同的焦点"
-                }
-              ]
+              "type": "math_image",
+              "latex": "\\begin{aligned}\nc'^{2}&=(a^{2}-\\lambda)-(b^{2}-\\lambda)\\\\ &=a^{2}-b^{2};\n\\end{aligned}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/fa7eb923e77027fc@3x.png",
+                "width_px": 460,
+                "height_px": 129,
+                "display_width_px": 153,
+                "display_height_px": 43,
+                "scale": 3
+              }
             },
             {
               "id": "explanation-b21",
-              "type": "math_image",
-              "latex": "(\\pm c,0)",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/3f6dabbe8f30af55@3x.png",
-                "width_px": 143,
-                "height_px": 65,
-                "display_width_px": 48,
-                "display_height_px": 22,
-                "scale": 3
-              }
-            },
-            {
-              "id": "explanation-b22",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": "，但离心率、长短轴或实虚轴会随"
+                  "text": "双曲线中"
                 }
               ]
             },
             {
-              "id": "explanation-b23",
+              "id": "explanation-b22",
               "type": "math_image",
-              "latex": "\\lambda",
+              "latex": "\\begin{aligned}\nc'^{2}&=(a^{2}-\\lambda)+(\\lambda-b^{2})\\\\ &=a^{2}-b^{2},\n\\end{aligned}",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/b3931f1ce298c536@3x.png",
-                "width_px": 48,
-                "height_px": 53,
-                "display_width_px": 16,
-                "display_height_px": 18,
+                "png": "/static/formulas/C082/b2cc9253aadb7e55@3x.png",
+                "width_px": 460,
+                "height_px": 129,
+                "display_width_px": 153,
+                "display_height_px": 43,
                 "scale": 3
               }
+            },
+            {
+              "id": "explanation-b23",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "均等于原椭圆"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "c^{2}",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/C082/1c5cce5fd56fd33e@3x.png",
+                    "width_px": 59,
+                    "height_px": 60,
+                    "display_width_px": 20,
+                    "display_height_px": 20,
+                    "scale": 3
+                  }
+                }
+              ]
             },
             {
               "id": "explanation-b24",
@@ -409712,7 +409829,7 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "改变。"
+                  "text": "几何本质（焦点固定）"
                 }
               ]
             },
@@ -409722,22 +409839,22 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "代数意义（分母差恒定）\n设"
+                  "text": "所有曲线拥有相同焦点"
                 }
               ]
             },
             {
               "id": "explanation-b26",
               "type": "math_image",
-              "latex": "A=a^2+\\lambda,\\qquad B=b^2+\\lambda",
+              "latex": "(\\pm c,0)",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/10959d2057a7b4c1@3x.png",
-                "width_px": 515,
-                "height_px": 68,
-                "display_width_px": 172,
-                "display_height_px": 23,
+                "png": "/static/formulas/C082/3f6dabbe8f30af55@3x.png",
+                "width_px": 143,
+                "height_px": 65,
+                "display_width_px": 48,
+                "display_height_px": 22,
                 "scale": 3
               }
             },
@@ -409747,57 +409864,19 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": ",则"
-                },
-                {
-                  "type": "math_image",
-                  "latex": "A-B=c^2",
-                  "need_image": "true",
-                  "asset": {
-                    "png": "/static/formulas/C082/50a7c448aacce06b@3x.png",
-                    "width_px": 225,
-                    "height_px": 63,
-                    "display_width_px": 75,
-                    "display_height_px": 21,
-                    "scale": 3
-                  }
-                },
-                {
-                  "type": "text",
-                  "text": "为定值。由于焦点轴固定为"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "x"
-                },
-                {
-                  "type": "text",
-                  "text": "轴，且"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "A-B"
-                },
-                {
-                  "type": "text",
-                  "text": "恒定，所以实曲线的焦点固定为"
+                  "text": "，构成以该两点为公共焦点的椭圆与双曲线族。"
                 }
               ]
             },
             {
               "id": "explanation-b28",
-              "type": "math_image",
-              "latex": "(\\pm c,0)",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/3f6dabbe8f30af55@3x.png",
-                "width_px": 143,
-                "height_px": 65,
-                "display_width_px": 48,
-                "display_height_px": 22,
-                "scale": 3
-              }
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "代数意义（分母调节）"
+                }
+              ]
             },
             {
               "id": "explanation-b29",
@@ -409805,19 +409884,24 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "。"
+                  "text": "方程"
                 }
               ]
             },
             {
               "id": "explanation-b30",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "考点价值（快速设方程）"
-                }
-              ]
+              "type": "math_image",
+              "latex": "\\frac{x^{2}}{a^{2}-\\lambda}+\\frac{y^{2}}{b^{2}-\\lambda}=1",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/208e8293a66d52fb@3x.png",
+                "width_px": 406,
+                "height_px": 118,
+                "display_width_px": 135,
+                "display_height_px": 39,
+                "scale": 3
+              }
             },
             {
               "id": "explanation-b31",
@@ -409825,39 +409909,22 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "考法一（求曲线方程）：\n已知焦点和另一个条件（如过点）时，可以先选定满足"
-                },
-                {
-                  "type": "math_image",
-                  "latex": "a^2-b^2=c^2",
-                  "need_image": "true",
-                  "asset": {
-                    "png": "/static/formulas/C082/25f5eeb3c9c84778@3x.png",
-                    "width_px": 238,
-                    "height_px": 63,
-                    "display_width_px": 79,
-                    "display_height_px": 21,
-                    "scale": 3
-                  }
-                },
-                {
-                  "type": "text",
-                  "text": "的参考椭圆，再设共焦点方程"
+                  "text": "通过"
                 }
               ]
             },
             {
               "id": "explanation-b32",
               "type": "math_image",
-              "latex": "\\frac{x^2}{a^2+\\lambda}+\\frac{y^2}{b^2+\\lambda}=1",
+              "latex": "\\lambda",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/c40bab9ca26dfcba@3x.png",
-                "width_px": 406,
-                "height_px": 118,
-                "display_width_px": 135,
-                "display_height_px": 39,
+                "png": "/static/formulas/C082/b3931f1ce298c536@3x.png",
+                "width_px": 48,
+                "height_px": 53,
+                "display_width_px": 16,
+                "display_height_px": 18,
                 "scale": 3
               }
             },
@@ -409867,24 +409934,19 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": ",代入条件解"
+                  "text": "统一表示椭圆和双曲线，结构对称。"
                 }
               ]
             },
             {
               "id": "explanation-b34",
-              "type": "math_image",
-              "latex": "\\lambda",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/b3931f1ce298c536@3x.png",
-                "width_px": 48,
-                "height_px": 53,
-                "display_width_px": 16,
-                "display_height_px": 18,
-                "scale": 3
-              }
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "考点价值（高频考查）"
+                }
+              ]
             },
             {
               "id": "explanation-b35",
@@ -409892,22 +409954,12 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "，最后检查分母和曲线类型。"
+                  "text": "考法一（曲线类型判定）： 给定"
                 }
               ]
             },
             {
               "id": "explanation-b36",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "考法二（参数讨论）：\n给定含参方程判断曲线类型，利用"
-                }
-              ]
-            },
-            {
-              "id": "explanation-b37",
               "type": "math_image",
               "latex": "\\lambda",
               "align": "center",
@@ -409922,39 +409974,49 @@
               }
             },
             {
+              "id": "explanation-b37",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "的范围，判断曲线是椭圆还是双曲线。"
+                }
+              ]
+            },
+            {
               "id": "explanation-b38",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": "的范围确定椭圆、双曲线或无实轨迹。"
+                  "text": "考法二（曲线方程求解）： 已知曲线过某点，代入曲线系方程求"
                 }
               ]
             },
             {
               "id": "explanation-b39",
+              "type": "math_image",
+              "latex": "\\lambda",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/b3931f1ce298c536@3x.png",
+                "width_px": 48,
+                "height_px": 53,
+                "display_width_px": 16,
+                "display_height_px": 18,
+                "scale": 3
+              }
+            },
+            {
+              "id": "explanation-b40",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": "考法三（更直接设法）：\n若只知道焦点"
+                  "text": "，确定具体方程。"
                 }
               ]
-            },
-            {
-              "id": "explanation-b40",
-              "type": "math_image",
-              "latex": "(\\pm c,0)",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/3f6dabbe8f30af55@3x.png",
-                "width_px": 143,
-                "height_px": 65,
-                "display_width_px": 48,
-                "display_height_px": 22,
-                "scale": 3
-              }
             },
             {
               "id": "explanation-b41",
@@ -409962,50 +410024,34 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "，也可以设"
+                  "text": "顿悟点"
                 }
               ]
             },
             {
               "id": "explanation-b42",
-              "type": "math_image",
-              "latex": "\\frac{x^2}{u}+\\frac{y^2}{u-c^2}=1",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/11a2e044676070e0@3x.png",
-                "width_px": 334,
-                "height_px": 118,
-                "display_width_px": 111,
-                "display_height_px": 39,
-                "scale": 3
-              }
-            },
-            {
-              "id": "explanation-b43",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": ",再根据"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "u"
-                },
-                {
-                  "type": "text",
-                  "text": "和"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "u-c^2"
-                },
-                {
-                  "type": "text",
-                  "text": "的符号判断曲线类型。"
+                  "text": "关键恒等式："
                 }
               ]
+            },
+            {
+              "id": "explanation-b43",
+              "type": "math_image",
+              "latex": "(a^{2}-\\lambda)-(b^{2}-\\lambda)=a^{2}-b^{2}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/9691bab74d7ce7d1@3x.png",
+                "width_px": 537,
+                "height_px": 70,
+                "display_width_px": 179,
+                "display_height_px": 23,
+                "scale": 3
+              }
             },
             {
               "id": "explanation-b44",
@@ -410013,7 +410059,7 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "顿悟点"
+                  "text": "，与"
                 }
               ]
             },
@@ -410038,70 +410084,12 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "的实质是在参考椭圆（"
+                  "text": "无关，故焦点恒定。"
                 }
               ]
             },
             {
               "id": "explanation-b47",
-              "type": "math_image",
-              "latex": "\\lambda=0",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/84ac7c13242c42de@3x.png",
-                "width_px": 122,
-                "height_px": 53,
-                "display_width_px": 41,
-                "display_height_px": 18,
-                "scale": 3
-              }
-            },
-            {
-              "id": "explanation-b48",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "）的基础上同时改变两个分母，但保持它们的差"
-                }
-              ]
-            },
-            {
-              "id": "explanation-b49",
-              "type": "math_image",
-              "latex": "(a^2+\\lambda)-(b^2+\\lambda)=a^2-b^2",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/f2a41d0012ab514b@3x.png",
-                "width_px": 537,
-                "height_px": 70,
-                "display_width_px": 179,
-                "display_height_px": 23,
-                "scale": 3
-              }
-            },
-            {
-              "id": "explanation-b50",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "不变，所以半焦距"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "c"
-                },
-                {
-                  "type": "text",
-                  "text": "不变。"
-                }
-              ]
-            },
-            {
-              "id": "explanation-b51",
               "type": "paragraph",
               "tokens": [
                 {
@@ -410111,63 +410099,47 @@
               ]
             },
             {
-              "id": "explanation-b52",
+              "id": "explanation-b48",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": "场景一（共焦点曲线求解）：\n已知焦点坐标和曲线上一点，设共焦点方程快速求解。"
+                  "text": "场景一（共焦点曲线设定）： 已知焦点，设共焦点曲线系方程方便求曲线。"
                 }
               ]
             },
             {
-              "id": "explanation-b53",
+              "id": "explanation-b49",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": "场景二（类型判断）：\n给定形如"
+                  "text": "场景二（含参曲线讨论）： 利用参数"
                 }
               ]
             },
             {
-              "id": "explanation-b54",
+              "id": "explanation-b50",
               "type": "math_image",
-              "latex": "\\frac{x^2}{m}+\\frac{y^2}{n}=1",
+              "latex": "\\lambda",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/f7823af5a644a199@3x.png",
-                "width_px": 263,
-                "height_px": 114,
-                "display_width_px": 88,
-                "display_height_px": 38,
+                "png": "/static/formulas/C082/b3931f1ce298c536@3x.png",
+                "width_px": 48,
+                "height_px": 53,
+                "display_width_px": 16,
+                "display_height_px": 18,
                 "scale": 3
               }
             },
             {
-              "id": "explanation-b55",
+              "id": "explanation-b51",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": "且"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "m-n"
-                },
-                {
-                  "type": "text",
-                  "text": "为常数的方程，根据"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "m,n"
-                },
-                {
-                  "type": "text",
-                  "text": "的符号判断曲线类型。"
+                  "text": "统一椭圆与双曲线，简化分类讨论。"
                 }
               ]
             }
@@ -410184,24 +410156,7 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "思路提示\n将原方程与椭圆、双曲线的标准形式对比，利用"
-                },
-                {
-                  "type": "math_image",
-                  "latex": "A-B=c^2",
-                  "need_image": "true",
-                  "asset": {
-                    "png": "/static/formulas/C082/50a7c448aacce06b@3x.png",
-                    "width_px": 225,
-                    "height_px": 63,
-                    "display_width_px": 75,
-                    "display_height_px": 21,
-                    "scale": 3
-                  }
-                },
-                {
-                  "type": "text",
-                  "text": "验证焦点固定；然后根据两个分母的符号分类。需要注意：只有方程表示实椭圆或实双曲线时，才谈得上实焦点。"
+                  "text": "思路提示"
                 }
               ]
             },
@@ -410211,42 +410166,51 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "正式推导"
+                  "text": "通过计算曲线系中焦距的平方，证明其恒等于"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "a^{2}-b^{2}",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/C082/a1c3abb239dc15a8@3x.png",
+                    "width_px": 148,
+                    "height_px": 63,
+                    "display_width_px": 49,
+                    "display_height_px": 21,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "，与参数"
                 }
               ]
             },
             {
               "id": "proof-b3",
+              "type": "math_image",
+              "latex": "\\lambda",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/b3931f1ce298c536@3x.png",
+                "width_px": 48,
+                "height_px": 53,
+                "display_width_px": 16,
+                "display_height_px": 18,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b4",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": "步骤一（设标准形式）：\n考虑中心在原点、焦点在"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "x"
-                },
-                {
-                  "type": "text",
-                  "text": "轴的标准形式"
+                  "text": "无关，从而焦点固定。"
                 }
               ]
-            },
-            {
-              "id": "proof-b4",
-              "type": "math_image",
-              "latex": "\\frac{x^{2}}{A}+\\frac{y^{2}}{B}=1",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/cd133a237e8aa27f@3x.png",
-                "width_px": 263,
-                "height_px": 113,
-                "display_width_px": 88,
-                "display_height_px": 38,
-                "scale": 3
-              }
             },
             {
               "id": "proof-b5",
@@ -410254,165 +410218,59 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": ".当"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "A>B>0"
-                },
-                {
-                  "type": "text",
-                  "text": "时，方程表示焦点在"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "x"
-                },
-                {
-                  "type": "text",
-                  "text": "轴上的椭圆，半焦距"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "c"
-                },
-                {
-                  "type": "text",
-                  "text": "满足"
-                },
-                {
-                  "type": "math_image",
-                  "latex": "c^2=A-B",
-                  "need_image": "true",
-                  "asset": {
-                    "png": "/static/formulas/C082/40ed997245676d36@3x.png",
-                    "width_px": 225,
-                    "height_px": 63,
-                    "display_width_px": 75,
-                    "display_height_px": 21,
-                    "scale": 3
-                  }
-                },
-                {
-                  "type": "text",
-                  "text": ".当"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "A>0>B"
-                },
-                {
-                  "type": "text",
-                  "text": "时，方程可写为"
+                  "text": "正式推导"
                 }
               ]
             },
             {
               "id": "proof-b6",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "步骤一（分母分析）：\n曲线方程"
+                }
+              ]
+            },
+            {
+              "id": "proof-b7",
               "type": "math_image",
-              "latex": "\\frac{x^2}{A}-\\frac{y^2}{-B}=1",
+              "latex": "\\frac{x^{2}}{a^{2}-\\lambda}+\\frac{y^{2}}{b^{2}-\\lambda}=1",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/e2c8061490b59082@3x.png",
-                "width_px": 288,
-                "height_px": 117,
-                "display_width_px": 96,
+                "png": "/static/formulas/C082/208e8293a66d52fb@3x.png",
+                "width_px": 406,
+                "height_px": 118,
+                "display_width_px": 135,
                 "display_height_px": 39,
                 "scale": 3
               }
             },
             {
-              "id": "proof-b7",
+              "id": "proof-b8",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": ",表示焦点在"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "x"
-                },
-                {
-                  "type": "text",
-                  "text": "轴上的双曲线，半焦距"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "c"
-                },
-                {
-                  "type": "text",
-                  "text": "满足"
-                },
-                {
-                  "type": "math_image",
-                  "latex": "c^2=A+(-B)=A-B",
-                  "need_image": "true",
-                  "asset": {
-                    "png": "/static/formulas/C082/861d7963bd525758@3x.png",
-                    "width_px": 454,
-                    "height_px": 70,
-                    "display_width_px": 151,
-                    "display_height_px": 23,
-                    "scale": 3
-                  }
-                },
-                {
-                  "type": "text",
-                  "text": ".当"
+                  "text": "，记"
                 }
               ]
-            },
-            {
-              "id": "proof-b8",
-              "type": "math_image",
-              "latex": "A<0,\\qquad B<0",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/28b45f4e92dc1458@3x.png",
-                "width_px": 334,
-                "height_px": 61,
-                "display_width_px": 111,
-                "display_height_px": 20,
-                "scale": 3
-              }
             },
             {
               "id": "proof-b9",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "时，左边恒小于等于"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "0"
-                },
-                {
-                  "type": "text",
-                  "text": "，不可能等于"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "1"
-                },
-                {
-                  "type": "text",
-                  "text": "，所以无实轨迹。\n理由：\n椭圆和双曲线的焦点位置由标准方程中的分母关系决定；在本结论中，焦点轴固定为"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "x"
-                },
-                {
-                  "type": "text",
-                  "text": "轴，因此需要分别讨论分母符号。"
-                }
-              ]
+              "type": "math_image",
+              "latex": "A=a^{2}-\\lambda",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/c341e7d379940ba6@3x.png",
+                "width_px": 222,
+                "height_px": 63,
+                "display_width_px": 74,
+                "display_height_px": 21,
+                "scale": 3
+              }
             },
             {
               "id": "proof-b10",
@@ -410420,22 +410278,22 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "步骤二（验证焦点不变）：\n令"
+                  "text": ","
                 }
               ]
             },
             {
               "id": "proof-b11",
               "type": "math_image",
-              "latex": "A=a^{2}+\\lambda,\\qquad B=b^{2}+\\lambda",
+              "latex": "B=b^{2}-\\lambda",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/da99fa11e4246f36@3x.png",
-                "width_px": 515,
-                "height_px": 68,
-                "display_width_px": 172,
-                "display_height_px": 23,
+                "png": "/static/formulas/C082/cded19facfd5ff4a@3x.png",
+                "width_px": 218,
+                "height_px": 63,
+                "display_width_px": 73,
+                "display_height_px": 21,
                 "scale": 3
               }
             },
@@ -410445,22 +410303,38 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": ".则"
+                  "text": "，其中"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "A>0"
+                },
+                {
+                  "type": "text",
+                  "text": "。\n理由："
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "A>0"
+                },
+                {
+                  "type": "text",
+                  "text": "由"
                 }
               ]
             },
             {
               "id": "proof-b13",
               "type": "math_image",
-              "latex": "A-B=(a^{2}+\\lambda)-(b^{2}+\\lambda)=a^{2}-b^{2}=c^{2}",
+              "latex": "\\lambda<a^{2}",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/9e6e1c474558fb59@3x.png",
-                "width_px": 793,
-                "height_px": 70,
-                "display_width_px": 264,
-                "display_height_px": 23,
+                "png": "/static/formulas/C082/b5f6dc306ab6667f@3x.png",
+                "width_px": 141,
+                "height_px": 62,
+                "display_width_px": 47,
+                "display_height_px": 21,
                 "scale": 3
               }
             },
@@ -410470,29 +410344,291 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": ".因此，只要方程表示实椭圆或实双曲线，它们的半焦距都满足"
+                  "text": "保证；"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "B"
+                },
+                {
+                  "type": "text",
+                  "text": "符号决定曲线类型。"
+                }
+              ]
+            },
+            {
+              "id": "proof-b15",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "步骤二（类型判定）：\n若"
+                }
+              ]
+            },
+            {
+              "id": "proof-b16",
+              "type": "math_image",
+              "latex": "\\lambda<b^{2}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/7c34c015e4fcc36e@3x.png",
+                "width_px": 137,
+                "height_px": 62,
+                "display_width_px": 46,
+                "display_height_px": 21,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b17",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，则"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "A>0"
+                },
+                {
+                  "type": "text",
+                  "text": ","
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "B>0"
+                },
+                {
+                  "type": "text",
+                  "text": "，曲线为椭圆；若"
+                }
+              ]
+            },
+            {
+              "id": "proof-b18",
+              "type": "math_image",
+              "latex": "b^{2}<\\lambda<a^{2}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/c53eb7e44c3daf42@3x.png",
+                "width_px": 231,
+                "height_px": 62,
+                "display_width_px": 77,
+                "display_height_px": 21,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b19",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，则"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "A>0"
+                },
+                {
+                  "type": "text",
+                  "text": ","
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "B<0"
+                },
+                {
+                  "type": "text",
+                  "text": "，曲线化为"
+                }
+              ]
+            },
+            {
+              "id": "proof-b20",
+              "type": "math_image",
+              "latex": "\\frac{x^{2}}{A}-\\frac{y^{2}}{-B}=1",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/eaa496212dbcd9ae@3x.png",
+                "width_px": 288,
+                "height_px": 117,
+                "display_width_px": 96,
+                "display_height_px": 39,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b21",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，为双曲线。\n理由： 标准圆锥曲线形式。"
+                }
+              ]
+            },
+            {
+              "id": "proof-b22",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "步骤三（焦距计算）：\n当椭圆时，"
+                }
+              ]
+            },
+            {
+              "id": "proof-b23",
+              "type": "math_image",
+              "latex": "\\begin{aligned}\nc^{2}&=A-B\\\\ &=(a^{2}-\\lambda)-(b^{2}-\\lambda)\\\\ &=a^{2}-b^{2};\n\\end{aligned}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/bd7c43ffdc558871@3x.png",
+                "width_px": 448,
+                "height_px": 187,
+                "display_width_px": 149,
+                "display_height_px": 62,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b24",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "当双曲线时，"
+                }
+              ]
+            },
+            {
+              "id": "proof-b25",
+              "type": "math_image",
+              "latex": "\\begin{aligned}\nc^{2}&=A+(-B)\\\\ &=(a^{2}-\\lambda)+(\\lambda-b^{2})\\\\ &=a^{2}-b^{2}.\n\\end{aligned}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/4ef8af8bc13a08af@3x.png",
+                "width_px": 448,
+                "height_px": 187,
+                "display_width_px": 149,
+                "display_height_px": 62,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b26",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "理由： 椭圆"
                 },
                 {
                   "type": "math_image",
-                  "latex": "c^2=A-B=a^2-b^2",
+                  "latex": "c^{2}=a^{2}-b^{2}",
                   "need_image": "true",
                   "asset": {
-                    "png": "/static/formulas/C082/605d9d6c760af8b7@3x.png",
-                    "width_px": 404,
+                    "png": "/static/formulas/C082/8cc0f2104c64b80d@3x.png",
+                    "width_px": 238,
                     "height_px": 63,
-                    "display_width_px": 135,
+                    "display_width_px": 79,
                     "display_height_px": 21,
                     "scale": 3
                   }
                 },
                 {
                   "type": "text",
-                  "text": ",所以焦点均为"
+                  "text": "，双曲线"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "c^{2}=a^{2}+b^{2}",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/C082/68e4c84977ff112c@3x.png",
+                    "width_px": 238,
+                    "height_px": 63,
+                    "display_width_px": 79,
+                    "display_height_px": 21,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "，代入化简即得。"
                 }
               ]
             },
             {
-              "id": "proof-b15",
+              "id": "proof-b27",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "步骤四（焦点结论）：\n因此不论"
+                }
+              ]
+            },
+            {
+              "id": "proof-b28",
+              "type": "math_image",
+              "latex": "\\lambda",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/b3931f1ce298c536@3x.png",
+                "width_px": 48,
+                "height_px": 53,
+                "display_width_px": 16,
+                "display_height_px": 18,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b29",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "如何，焦距恒为"
+                }
+              ]
+            },
+            {
+              "id": "proof-b30",
+              "type": "math_image",
+              "latex": "c=\\sqrt{a^{2}-b^{2}}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/e5983cb2afaafb41@3x.png",
+                "width_px": 262,
+                "height_px": 75,
+                "display_width_px": 87,
+                "display_height_px": 25,
+                "scale": 3
+              }
+            },
+            {
+              "id": "proof-b31",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，焦点为"
+                }
+              ]
+            },
+            {
+              "id": "proof-b32",
               "type": "math_image",
               "latex": "(\\pm c,0)",
               "align": "center",
@@ -410507,28 +410643,12 @@
               }
             },
             {
-              "id": "proof-b16",
+              "id": "proof-b33",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": ".理由：\n不是因为焦点与"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "A,B"
-                },
-                {
-                  "type": "text",
-                  "text": "无关，而是因为本曲线族中"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "A-B"
-                },
-                {
-                  "type": "text",
-                  "text": "恒定，且焦点轴固定为"
+                  "text": "。\n理由： 焦点在"
                 },
                 {
                   "type": "math_inline",
@@ -410536,310 +410656,7 @@
                 },
                 {
                   "type": "text",
-                  "text": "轴。"
-                }
-              ]
-            },
-            {
-              "id": "proof-b17",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "步骤三（分类推导）：\n分别讨论两个分母"
-                }
-              ]
-            },
-            {
-              "id": "proof-b18",
-              "type": "math_image",
-              "latex": "a^2+\\lambda,\\qquad b^2+\\lambda",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/e795826d22606487@3x.png",
-                "width_px": 345,
-                "height_px": 68,
-                "display_width_px": 115,
-                "display_height_px": 23,
-                "scale": 3
-              }
-            },
-            {
-              "id": "proof-b19",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "的符号。"
-                }
-              ]
-            },
-            {
-              "id": "proof-b20",
-              "type": "math_image",
-              "latex": "\\begin{aligned}\n&\\text{(1)}\\quad a^{2}+\\lambda>0,\\quad b^{2}+\\lambda>0\n\\ \\Longrightarrow\\ \\lambda>-b^{2},\\\\\n&\\text{(2)}\\quad a^{2}+\\lambda>0,\\quad b^{2}+\\lambda<0\n\\ \\Longrightarrow\\ -a^{2}<\\lambda<-b^{2},\\\\\n&\\text{(3)}\\quad a^{2}+\\lambda<0,\\quad b^{2}+\\lambda<0\n\\ \\Longrightarrow\\ \\lambda<-a^{2}.\n\\end{aligned}",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/085c9d782c326e27@3x.png",
-                "width_px": 955,
-                "height_px": 187,
-                "display_width_px": 318,
-                "display_height_px": 62,
-                "scale": 3
-              }
-            },
-            {
-              "id": "proof-b21",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "同时必须排除"
-                }
-              ]
-            },
-            {
-              "id": "proof-b22",
-              "type": "math_image",
-              "latex": "\\lambda\\neq -a^{2},\\qquad \\lambda\\neq -b^{2}",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/4f9d5ecdc44444d2@3x.png",
-                "width_px": 418,
-                "height_px": 69,
-                "display_width_px": 139,
-                "display_height_px": 23,
-                "scale": 3
-              }
-            },
-            {
-              "id": "proof-b23",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": ".因此："
-                }
-              ]
-            },
-            {
-              "id": "proof-b24",
-              "type": "math_image",
-              "latex": "\\lambda>-b^2",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/12cf816ce76c30a9@3x.png",
-                "width_px": 169,
-                "height_px": 63,
-                "display_width_px": 56,
-                "display_height_px": 21,
-                "scale": 3
-              }
-            },
-            {
-              "id": "proof-b25",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "时，两个分母均为正，方程为椭圆；"
-                }
-              ]
-            },
-            {
-              "id": "proof-b26",
-              "type": "math_image",
-              "latex": "-a^2<\\lambda<-b^2",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/f75dab1219543df6@3x.png",
-                "width_px": 294,
-                "height_px": 63,
-                "display_width_px": 98,
-                "display_height_px": 21,
-                "scale": 3
-              }
-            },
-            {
-              "id": "proof-b27",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "时，一个分母为正，一个分母为负，方程为双曲线；"
-                }
-              ]
-            },
-            {
-              "id": "proof-b28",
-              "type": "math_image",
-              "latex": "\\lambda<-a^2",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/b153432ff1302b31@3x.png",
-                "width_px": 173,
-                "height_px": 63,
-                "display_width_px": 58,
-                "display_height_px": 21,
-                "scale": 3
-              }
-            },
-            {
-              "id": "proof-b29",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "时，两个分母均为负，方程无实轨迹。\n理由：\n椭圆要求两个平方项分母同正；双曲线要求一正一负；两分母同负时左边不可能等于"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "1"
-                },
-                {
-                  "type": "text",
-                  "text": "。"
-                }
-              ]
-            },
-            {
-              "id": "proof-b30",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "结论回扣\n综上所述，方程"
-                }
-              ]
-            },
-            {
-              "id": "proof-b31",
-              "type": "math_image",
-              "latex": "\\frac{x^{2}}{a^{2}+\\lambda}+\\frac{y^{2}}{b^{2}+\\lambda}=1,\n\\qquad\n\\lambda\\neq -a^{2},-b^{2}",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/1a34f40fbc2b67ea@3x.png",
-                "width_px": 740,
-                "height_px": 118,
-                "display_width_px": 247,
-                "display_height_px": 39,
-                "scale": 3
-              }
-            },
-            {
-              "id": "proof-b32",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "中："
-                }
-              ]
-            },
-            {
-              "id": "proof-b33",
-              "type": "math_image",
-              "latex": "\\lambda>-b^{2}",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/8a65b12da5d77863@3x.png",
-                "width_px": 169,
-                "height_px": 63,
-                "display_width_px": 56,
-                "display_height_px": 21,
-                "scale": 3
-              }
-            },
-            {
-              "id": "proof-b34",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "时为椭圆；"
-                }
-              ]
-            },
-            {
-              "id": "proof-b35",
-              "type": "math_image",
-              "latex": "-a^{2}<\\lambda<-b^{2}",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/ecb3ecc926d91425@3x.png",
-                "width_px": 294,
-                "height_px": 63,
-                "display_width_px": 98,
-                "display_height_px": 21,
-                "scale": 3
-              }
-            },
-            {
-              "id": "proof-b36",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "时为双曲线；"
-                }
-              ]
-            },
-            {
-              "id": "proof-b37",
-              "type": "math_image",
-              "latex": "\\lambda<-a^{2}",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/99f0e35201b677a5@3x.png",
-                "width_px": 173,
-                "height_px": 63,
-                "display_width_px": 58,
-                "display_height_px": 21,
-                "scale": 3
-              }
-            },
-            {
-              "id": "proof-b38",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "时无实轨迹。\n在前两种实曲线情形下，焦点均为"
-                }
-              ]
-            },
-            {
-              "id": "proof-b39",
-              "type": "math_image",
-              "latex": "(\\pm c,0),\n\\qquad\nc^2=a^2-b^2",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/c01e1df5f0d67831@3x.png",
-                "width_px": 457,
-                "height_px": 70,
-                "display_width_px": 152,
-                "display_height_px": 23,
-                "scale": 3
-              }
-            },
-            {
-              "id": "proof-b40",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": ".这里"
+                  "text": "轴上，坐标由"
                 },
                 {
                   "type": "math_inline",
@@ -410847,15 +410664,27 @@
                 },
                 {
                   "type": "text",
-                  "text": "是半焦距，真正的焦距为"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "2c"
-                },
+                  "text": "唯一决定。"
+                }
+              ]
+            },
+            {
+              "id": "proof-b34",
+              "type": "paragraph",
+              "tokens": [
                 {
                   "type": "text",
-                  "text": "。"
+                  "text": "结论回扣"
+                }
+              ]
+            },
+            {
+              "id": "proof-b35",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "共焦点曲线系的核心是焦点与参数无关，统一了椭圆和双曲线的表示。"
                 }
               ]
             }
@@ -410872,42 +410701,34 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "例 1（基础）\n题目：\n已知共焦点二次曲线束方程为"
+                  "text": "例 1（基础）"
                 }
               ]
             },
             {
               "id": "examples-b2",
-              "type": "math_image",
-              "latex": "\\frac{x^{2}}{9+\\lambda}+\\frac{y^{2}}{4+\\lambda}=1\n\\quad\n(\\lambda\\neq -9,-4)",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/d19d38b6603fa1ff@3x.png",
-                "width_px": 645,
-                "height_px": 117,
-                "display_width_px": 215,
-                "display_height_px": 39,
-                "scale": 3
-              }
-            },
-            {
-              "id": "examples-b3",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": ".求该束中经过点"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "(3,0)"
-                },
-                {
-                  "type": "text",
-                  "text": "的曲线方程。\n解题步骤："
+                  "text": "题目：\n已知椭圆"
                 }
               ]
+            },
+            {
+              "id": "examples-b3",
+              "type": "math_image",
+              "latex": "\\frac{x^{2}}{16}+\\frac{y^{2}}{9}=1",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/f290f7993d600f9a@3x.png",
+                "width_px": 263,
+                "height_px": 114,
+                "display_width_px": 88,
+                "display_height_px": 38,
+                "scale": 3
+              }
             },
             {
               "id": "examples-b4",
@@ -410915,30 +410736,22 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "第一步（代入坐标）：\n将点"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "(3,0)"
-                },
-                {
-                  "type": "text",
-                  "text": "代入方程，得"
+                  "text": "，写出与其共焦点的二次曲线系方程，并求当"
                 }
               ]
             },
             {
               "id": "examples-b5",
               "type": "math_image",
-              "latex": "\\frac{9}{9+\\lambda}=1",
+              "latex": "\\lambda=5",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/17a027502ab6856e@3x.png",
-                "width_px": 210,
-                "height_px": 110,
-                "display_width_px": 70,
-                "display_height_px": 37,
+                "png": "/static/formulas/C082/52524208473a76cd@3x.png",
+                "width_px": 122,
+                "height_px": 53,
+                "display_width_px": 41,
+                "display_height_px": 18,
                 "scale": 3
               }
             },
@@ -410948,7 +410761,7 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": ".理由：\n曲线上点的坐标满足方程。"
+                  "text": "时曲线的类型。"
                 }
               ]
             },
@@ -410958,24 +410771,66 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "第二步（解参）：\n解得"
+                  "text": "解题步骤："
                 }
               ]
             },
             {
               "id": "examples-b8",
-              "type": "math_image",
-              "latex": "\\lambda=0",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/84ac7c13242c42de@3x.png",
-                "width_px": 122,
-                "height_px": 53,
-                "display_width_px": 41,
-                "display_height_px": 18,
-                "scale": 3
-              }
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第一步（确定参数）：\n由椭圆方程得"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "a^{2}=16,b^{2}=9,c^{2}=7",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/C082/50f54b0c98a9e789@3x.png",
+                    "width_px": 415,
+                    "height_px": 68,
+                    "display_width_px": 138,
+                    "display_height_px": 23,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "。\n理由： 椭圆"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "a^{2}>b^{2}",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/C082/a27f48820f16ecb1@3x.png",
+                    "width_px": 153,
+                    "height_px": 62,
+                    "display_width_px": 51,
+                    "display_height_px": 21,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "，焦距"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "c^{2}=a^{2}-b^{2}",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/C082/8cc0f2104c64b80d@3x.png",
+                    "width_px": 238,
+                    "height_px": 63,
+                    "display_width_px": 79,
+                    "display_height_px": 21,
+                    "scale": 3
+                  }
+                }
+              ]
             },
             {
               "id": "examples-b9",
@@ -410983,22 +410838,22 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "。\n理由：\n解方程"
+                  "text": "第二步（写曲线系）：\n共焦点曲线系方程为"
                 }
               ]
             },
             {
               "id": "examples-b10",
               "type": "math_image",
-              "latex": "\\frac{9}{9+\\lambda}=1",
+              "latex": "\\frac{x^{2}}{16-\\lambda}+\\frac{y^{2}}{9-\\lambda}=1",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/17a027502ab6856e@3x.png",
-                "width_px": 210,
-                "height_px": 110,
-                "display_width_px": 70,
-                "display_height_px": 37,
+                "png": "/static/formulas/C082/63b5efc5b05c31d8@3x.png",
+                "width_px": 392,
+                "height_px": 117,
+                "display_width_px": 131,
+                "display_height_px": 39,
                 "scale": 3
               }
             },
@@ -411008,68 +410863,28 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": ",两边乘"
+                  "text": "。\n理由： 共焦点曲线系公式代入。"
                 }
               ]
             },
             {
               "id": "examples-b12",
-              "type": "math_image",
-              "latex": "9+\\lambda",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/0022566caeb16fee@3x.png",
-                "width_px": 118,
-                "height_px": 56,
-                "display_width_px": 39,
-                "display_height_px": 19,
-                "scale": 3
-              }
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第三步（判断类型）：\n将"
+                }
+              ]
             },
             {
               "id": "examples-b13",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "得"
-                }
-              ]
-            },
-            {
-              "id": "examples-b14",
               "type": "math_image",
-              "latex": "9=9+\\lambda",
+              "latex": "\\lambda=5",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/ade348d81842fa5d@3x.png",
-                "width_px": 193,
-                "height_px": 56,
-                "display_width_px": 64,
-                "display_height_px": 19,
-                "scale": 3
-              }
-            },
-            {
-              "id": "examples-b15",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "，故"
-                }
-              ]
-            },
-            {
-              "id": "examples-b16",
-              "type": "math_image",
-              "latex": "\\lambda=0",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/84ac7c13242c42de@3x.png",
+                "png": "/static/formulas/C082/52524208473a76cd@3x.png",
                 "width_px": 122,
                 "height_px": 53,
                 "display_width_px": 41,
@@ -411078,14 +410893,54 @@
               }
             },
             {
-              "id": "examples-b17",
+              "id": "examples-b14",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": "。"
+                  "text": "代入，分母均正且"
                 }
               ]
+            },
+            {
+              "id": "examples-b15",
+              "type": "math_image",
+              "latex": "\\lambda<9",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/b06213ba763f389f@3x.png",
+                "width_px": 122,
+                "height_px": 54,
+                "display_width_px": 41,
+                "display_height_px": 18,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b16",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，故曲线为椭圆。\n理由："
+                }
+              ]
+            },
+            {
+              "id": "examples-b17",
+              "type": "math_image",
+              "latex": "\\lambda<b^{2}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/7c34c015e4fcc36e@3x.png",
+                "width_px": 137,
+                "height_px": 62,
+                "display_width_px": 46,
+                "display_height_px": 21,
+                "scale": 3
+              }
             },
             {
               "id": "examples-b18",
@@ -411093,22 +410948,22 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "第三步（检验并分类）：\n检验"
+                  "text": "时为椭圆。\n关键结论：\n曲线系"
                 }
               ]
             },
             {
               "id": "examples-b19",
               "type": "math_image",
-              "latex": "\\lambda=0\\neq -9,-4",
+              "latex": "\\frac{x^{2}}{16-\\lambda}+\\frac{y^{2}}{9-\\lambda}=1",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/d5140b55231b9f3c@3x.png",
-                "width_px": 299,
-                "height_px": 63,
-                "display_width_px": 100,
-                "display_height_px": 21,
+                "png": "/static/formulas/C082/63b5efc5b05c31d8@3x.png",
+                "width_px": 392,
+                "height_px": 117,
+                "display_width_px": 131,
+                "display_height_px": 39,
                 "scale": 3
               }
             },
@@ -411118,22 +410973,22 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": ",且"
+                  "text": "，"
                 }
               ]
             },
             {
               "id": "examples-b21",
               "type": "math_image",
-              "latex": "\\lambda=0>-4",
+              "latex": "\\lambda=5",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/8246c3d46d24878f@3x.png",
-                "width_px": 229,
-                "height_px": 56,
-                "display_width_px": 76,
-                "display_height_px": 19,
+                "png": "/static/formulas/C082/52524208473a76cd@3x.png",
+                "width_px": 122,
+                "height_px": 53,
+                "display_width_px": 41,
+                "display_height_px": 18,
                 "scale": 3
               }
             },
@@ -411143,24 +410998,19 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": ",故曲线为椭圆。\n理由："
+                  "text": "时曲线为椭圆。"
                 }
               ]
             },
             {
               "id": "examples-b23",
-              "type": "math_image",
-              "latex": "\\lambda>-4",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/29e2ccd853c46913@3x.png",
-                "width_px": 154,
-                "height_px": 56,
-                "display_width_px": 51,
-                "display_height_px": 19,
-                "scale": 3
-              }
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "例 2（稍变形）"
+                }
+              ]
             },
             {
               "id": "examples-b24",
@@ -411168,22 +411018,22 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "为椭圆，"
+                  "text": "题目：\n已知二次曲线与椭圆"
                 }
               ]
             },
             {
               "id": "examples-b25",
               "type": "math_image",
-              "latex": "-9<\\lambda<-4",
+              "latex": "\\frac{x^{2}}{16}+\\frac{y^{2}}{9}=1",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/708dd9833a9539fb@3x.png",
-                "width_px": 260,
-                "height_px": 56,
-                "display_width_px": 87,
-                "display_height_px": 19,
+                "png": "/static/formulas/C082/f290f7993d600f9a@3x.png",
+                "width_px": 263,
+                "height_px": 114,
+                "display_width_px": 88,
+                "display_height_px": 38,
                 "scale": 3
               }
             },
@@ -411193,24 +411043,36 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "为双曲线，"
+                  "text": "共焦点，且经过点"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "P(0,4)",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/C082/616ffbe4868f5654@3x.png",
+                    "width_px": 145,
+                    "height_px": 65,
+                    "display_width_px": 48,
+                    "display_height_px": 22,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "，求该曲线的方程并判断类型。"
                 }
               ]
             },
             {
               "id": "examples-b27",
-              "type": "math_image",
-              "latex": "\\lambda<-9",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/9938b773d06ea92c@3x.png",
-                "width_px": 154,
-                "height_px": 56,
-                "display_width_px": 51,
-                "display_height_px": 19,
-                "scale": 3
-              }
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "解题步骤："
+                }
+              ]
             },
             {
               "id": "examples-b28",
@@ -411218,22 +411080,22 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "无实轨迹。\n关键结论：\n所求曲线方程为"
+                  "text": "第一步（设曲线系）：\n设曲线方程为"
                 }
               ]
             },
             {
               "id": "examples-b29",
               "type": "math_image",
-              "latex": "\\frac{x^{2}}{9}+\\frac{y^{2}}{4}=1",
+              "latex": "\\frac{x^{2}}{16-\\lambda}+\\frac{y^{2}}{9-\\lambda}=1",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/a084069a1a00ed38@3x.png",
-                "width_px": 263,
-                "height_px": 114,
-                "display_width_px": 88,
-                "display_height_px": 38,
+                "png": "/static/formulas/C082/63b5efc5b05c31d8@3x.png",
+                "width_px": 392,
+                "height_px": 117,
+                "display_width_px": 131,
+                "display_height_px": 39,
                 "scale": 3
               }
             },
@@ -411243,22 +411105,22 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": ".此时半焦距"
+                  "text": "（"
                 }
               ]
             },
             {
               "id": "examples-b31",
               "type": "math_image",
-              "latex": "c=\\sqrt{9-4}=\\sqrt5",
+              "latex": "\\lambda<16,\\lambda\\neq9",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/ede49d6501016a38@3x.png",
-                "width_px": 331,
-                "height_px": 68,
-                "display_width_px": 110,
-                "display_height_px": 23,
+                "png": "/static/formulas/C082/3f721a2d41cb18ea@3x.png",
+                "width_px": 259,
+                "height_px": 63,
+                "display_width_px": 86,
+                "display_height_px": 21,
                 "scale": 3
               }
             },
@@ -411268,34 +411130,51 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": ",焦点为"
+                  "text": "）。\n理由： 与椭圆共焦点。"
                 }
               ]
             },
             {
               "id": "examples-b33",
-              "type": "math_image",
-              "latex": "(\\pm\\sqrt{5},0)",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/ab8b103238a77307@3x.png",
-                "width_px": 181,
-                "height_px": 75,
-                "display_width_px": 60,
-                "display_height_px": 25,
-                "scale": 3
-              }
-            },
-            {
-              "id": "examples-b34",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": "。"
+                  "text": "第二步（代入求λ）：\n代入"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "x=0,y=4",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/C082/60d67d55d24e4fc6@3x.png",
+                    "width_px": 235,
+                    "height_px": 60,
+                    "display_width_px": 78,
+                    "display_height_px": 20,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "得"
                 }
               ]
+            },
+            {
+              "id": "examples-b34",
+              "type": "math_image",
+              "latex": "\\frac{16}{9-\\lambda}=1",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/e795758b41d00113@3x.png",
+                "width_px": 210,
+                "height_px": 110,
+                "display_width_px": 70,
+                "display_height_px": 37,
+                "scale": 3
+              }
             },
             {
               "id": "examples-b35",
@@ -411303,327 +411182,12 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "例 2（稍变形）\n题目：\n同上束曲线，求经过点"
+                  "text": "，解得"
                 }
               ]
             },
             {
               "id": "examples-b36",
-              "type": "math_image",
-              "latex": "(2,\\sqrt{3})",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/60779a14a96558af@3x.png",
-                "width_px": 149,
-                "height_px": 75,
-                "display_width_px": 50,
-                "display_height_px": 25,
-                "scale": 3
-              }
-            },
-            {
-              "id": "examples-b37",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "的曲线方程，并指出所对应的曲线类型。\n解题步骤："
-                }
-              ]
-            },
-            {
-              "id": "examples-b38",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "第一步（代入坐标）：\n将点"
-                }
-              ]
-            },
-            {
-              "id": "examples-b39",
-              "type": "math_image",
-              "latex": "(2,\\sqrt{3})",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/60779a14a96558af@3x.png",
-                "width_px": 149,
-                "height_px": 75,
-                "display_width_px": 50,
-                "display_height_px": 25,
-                "scale": 3
-              }
-            },
-            {
-              "id": "examples-b40",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "代入，得"
-                }
-              ]
-            },
-            {
-              "id": "examples-b41",
-              "type": "math_image",
-              "latex": "\\frac{4}{9+\\lambda}+\\frac{3}{4+\\lambda}=1",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/6ab114e028a1e9db@3x.png",
-                "width_px": 372,
-                "height_px": 110,
-                "display_width_px": 124,
-                "display_height_px": 37,
-                "scale": 3
-              }
-            },
-            {
-              "id": "examples-b42",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": ".理由：\n条件代入。"
-                }
-              ]
-            },
-            {
-              "id": "examples-b43",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "第二步（化整式）：\n两边乘以"
-                }
-              ]
-            },
-            {
-              "id": "examples-b44",
-              "type": "math_image",
-              "latex": "(9+\\lambda)(4+\\lambda)",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/f5898586ffe66698@3x.png",
-                "width_px": 275,
-                "height_px": 65,
-                "display_width_px": 92,
-                "display_height_px": 22,
-                "scale": 3
-              }
-            },
-            {
-              "id": "examples-b45",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "，得"
-                }
-              ]
-            },
-            {
-              "id": "examples-b46",
-              "type": "math_image",
-              "latex": "4(4+\\lambda)+3(9+\\lambda)=(9+\\lambda)(4+\\lambda)",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/43c49200f53f4e2d@3x.png",
-                "width_px": 671,
-                "height_px": 65,
-                "display_width_px": 224,
-                "display_height_px": 22,
-                "scale": 3
-              }
-            },
-            {
-              "id": "examples-b47",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": ".理由：\n去分母前要注意"
-                }
-              ]
-            },
-            {
-              "id": "examples-b48",
-              "type": "math_image",
-              "latex": "\\lambda\\neq -9,-4",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/dc3675bea0ed49a3@3x.png",
-                "width_px": 224,
-                "height_px": 63,
-                "display_width_px": 75,
-                "display_height_px": 21,
-                "scale": 3
-              }
-            },
-            {
-              "id": "examples-b49",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "，否则方程无意义。"
-                }
-              ]
-            },
-            {
-              "id": "examples-b50",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "第三步（化简求解）：\n展开整理得"
-                }
-              ]
-            },
-            {
-              "id": "examples-b51",
-              "type": "math_image",
-              "latex": "\\lambda^{2}+6\\lambda-7=0",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/e72e497c295461ad@3x.png",
-                "width_px": 304,
-                "height_px": 63,
-                "display_width_px": 101,
-                "display_height_px": 21,
-                "scale": 3
-              }
-            },
-            {
-              "id": "examples-b52",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": ",解得"
-                }
-              ]
-            },
-            {
-              "id": "examples-b53",
-              "type": "math_image",
-              "latex": "\\lambda=1\n\\quad\\text{或}\\quad\n\\lambda=-7",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/325f89a64e3ab5ba@3x.png",
-                "width_px": 375,
-                "height_px": 63,
-                "display_width_px": 125,
-                "display_height_px": 21,
-                "scale": 3
-              }
-            },
-            {
-              "id": "examples-b54",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": ".理由：\n二次方程求解。"
-                }
-              ]
-            },
-            {
-              "id": "examples-b55",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "第四步（检验并分类）：\n当"
-                }
-              ]
-            },
-            {
-              "id": "examples-b56",
-              "type": "math_image",
-              "latex": "\\lambda=1",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/36d457b41d74990f@3x.png",
-                "width_px": 122,
-                "height_px": 53,
-                "display_width_px": 41,
-                "display_height_px": 18,
-                "scale": 3
-              }
-            },
-            {
-              "id": "examples-b57",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "时，"
-                }
-              ]
-            },
-            {
-              "id": "examples-b58",
-              "type": "math_image",
-              "latex": "\\lambda=1>-4",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/edc33b45d8b67d45@3x.png",
-                "width_px": 229,
-                "height_px": 56,
-                "display_width_px": 76,
-                "display_height_px": 19,
-                "scale": 3
-              }
-            },
-            {
-              "id": "examples-b59",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": ",曲线为椭圆，方程为"
-                }
-              ]
-            },
-            {
-              "id": "examples-b60",
-              "type": "math_image",
-              "latex": "\\frac{x^{2}}{10}+\\frac{y^{2}}{5}=1",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/1a76a1599c0bd7a1@3x.png",
-                "width_px": 263,
-                "height_px": 114,
-                "display_width_px": 88,
-                "display_height_px": 38,
-                "scale": 3
-              }
-            },
-            {
-              "id": "examples-b61",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": ".当"
-                }
-              ]
-            },
-            {
-              "id": "examples-b62",
               "type": "math_image",
               "latex": "\\lambda=-7",
               "align": "center",
@@ -411638,27 +411202,337 @@
               }
             },
             {
+              "id": "examples-b37",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "。\n理由： 化简一次方程。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b38",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第三步（写方程并判断）："
+                }
+              ]
+            },
+            {
+              "id": "examples-b39",
+              "type": "math_image",
+              "latex": "\\lambda=-7<9",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/3d7f8f2bfa3de689@3x.png",
+                "width_px": 229,
+                "height_px": 56,
+                "display_width_px": 76,
+                "display_height_px": 19,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b40",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，故为椭圆，方程"
+                }
+              ]
+            },
+            {
+              "id": "examples-b41",
+              "type": "math_image",
+              "latex": "\\frac{x^{2}}{23}+\\frac{y^{2}}{16}=1",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/898851a52b498972@3x.png",
+                "width_px": 266,
+                "height_px": 114,
+                "display_width_px": 89,
+                "display_height_px": 38,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b42",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "。\n理由："
+                }
+              ]
+            },
+            {
+              "id": "examples-b43",
+              "type": "math_image",
+              "latex": "\\lambda<b^{2}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/7c34c015e4fcc36e@3x.png",
+                "width_px": 137,
+                "height_px": 62,
+                "display_width_px": 46,
+                "display_height_px": 21,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b44",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "时为椭圆。\n关键结论：\n曲线方程为"
+                }
+              ]
+            },
+            {
+              "id": "examples-b45",
+              "type": "math_image",
+              "latex": "\\frac{x^{2}}{23}+\\frac{y^{2}}{16}=1",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/898851a52b498972@3x.png",
+                "width_px": 266,
+                "height_px": 114,
+                "display_width_px": 89,
+                "display_height_px": 38,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b46",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，该曲线是椭圆。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b47",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "例 3（综合应用）"
+                }
+              ]
+            },
+            {
+              "id": "examples-b48",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "题目：\n已知双曲线与椭圆"
+                }
+              ]
+            },
+            {
+              "id": "examples-b49",
+              "type": "math_image",
+              "latex": "\\frac{x^{2}}{8}+\\frac{y^{2}}{4}=1",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/944ae445f892545a@3x.png",
+                "width_px": 263,
+                "height_px": 114,
+                "display_width_px": 88,
+                "display_height_px": 38,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b50",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "共焦点，且经过点"
+                }
+              ]
+            },
+            {
+              "id": "examples-b51",
+              "type": "math_image",
+              "latex": "A(3,\\sqrt{2})",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/1d823f15969d9942@3x.png",
+                "width_px": 180,
+                "height_px": 75,
+                "display_width_px": 60,
+                "display_height_px": 25,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b52",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，求双曲线的标准方程。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b53",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "解题步骤："
+                }
+              ]
+            },
+            {
+              "id": "examples-b54",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第一步（设曲线系）：\n设共焦点曲线系"
+                }
+              ]
+            },
+            {
+              "id": "examples-b55",
+              "type": "math_image",
+              "latex": "\\frac{x^{2}}{8-\\lambda}+\\frac{y^{2}}{4-\\lambda}=1",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/10d31bc488dfa88c@3x.png",
+                "width_px": 372,
+                "height_px": 117,
+                "display_width_px": 124,
+                "display_height_px": 39,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b56",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，因为双曲线，所以"
+                }
+              ]
+            },
+            {
+              "id": "examples-b57",
+              "type": "math_image",
+              "latex": "4<\\lambda<8",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/0efd58ab59de5571@3x.png",
+                "width_px": 197,
+                "height_px": 54,
+                "display_width_px": 66,
+                "display_height_px": 18,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b58",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "。\n理由： 双曲线需要分母一正一负。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b59",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第二步（代入求λ）：\n代入"
+                }
+              ]
+            },
+            {
+              "id": "examples-b60",
+              "type": "math_image",
+              "latex": "A(3,\\sqrt{2})",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/1d823f15969d9942@3x.png",
+                "width_px": 180,
+                "height_px": 75,
+                "display_width_px": 60,
+                "display_height_px": 25,
+                "scale": 3
+              }
+            },
+            {
+              "id": "examples-b61",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "得"
+                }
+              ]
+            },
+            {
+              "id": "examples-b62",
+              "type": "math_image",
+              "latex": "\\frac{9}{8-\\lambda}+\\frac{2}{4-\\lambda}=1",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/a1095b38fc142ec4@3x.png",
+                "width_px": 372,
+                "height_px": 110,
+                "display_width_px": 124,
+                "display_height_px": 37,
+                "scale": 3
+              }
+            },
+            {
               "id": "examples-b63",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": "时，"
+                  "text": "。化简得"
                 }
               ]
             },
             {
               "id": "examples-b64",
               "type": "math_image",
-              "latex": "-9<\\lambda=-7<-4",
+              "latex": "\\lambda^{2}-\\lambda-20=0",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/ba842ba79212fd4e@3x.png",
-                "width_px": 367,
-                "height_px": 56,
-                "display_width_px": 122,
-                "display_height_px": 19,
+                "png": "/static/formulas/C082/0fd9e33a10db32b5@3x.png",
+                "width_px": 304,
+                "height_px": 63,
+                "display_width_px": 101,
+                "display_height_px": 21,
                 "scale": 3
               }
             },
@@ -411668,22 +411542,22 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": ",曲线为双曲线，方程为"
+                  "text": "，解得"
                 }
               ]
             },
             {
               "id": "examples-b66",
               "type": "math_image",
-              "latex": "\\frac{x^{2}}{2}+\\frac{y^{2}}{-3}=1",
+              "latex": "\\lambda=5",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/327b4837b219c2c5@3x.png",
-                "width_px": 277,
-                "height_px": 117,
-                "display_width_px": 92,
-                "display_height_px": 39,
+                "png": "/static/formulas/C082/52524208473a76cd@3x.png",
+                "width_px": 122,
+                "height_px": 53,
+                "display_width_px": 41,
+                "display_height_px": 18,
                 "scale": 3
               }
             },
@@ -411693,22 +411567,22 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": ",即"
+                  "text": "或"
                 }
               ]
             },
             {
               "id": "examples-b68",
               "type": "math_image",
-              "latex": "\\frac{x^{2}}{2}-\\frac{y^{2}}{3}=1",
+              "latex": "\\lambda=-4",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/dd0167e5bea9c83d@3x.png",
-                "width_px": 263,
-                "height_px": 114,
-                "display_width_px": 88,
-                "display_height_px": 38,
+                "png": "/static/formulas/C082/13e877b34d540180@3x.png",
+                "width_px": 154,
+                "height_px": 56,
+                "display_width_px": 51,
+                "display_height_px": 19,
                 "scale": 3
               }
             },
@@ -411718,380 +411592,28 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": ".理由：\n椭圆要求"
+                  "text": "（舍去）。\n理由： 分式方程化整式，检验根的范围。"
                 }
               ]
             },
             {
               "id": "examples-b70",
-              "type": "math_image",
-              "latex": "\\lambda>-4",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/29e2ccd853c46913@3x.png",
-                "width_px": 154,
-                "height_px": 56,
-                "display_width_px": 51,
-                "display_height_px": 19,
-                "scale": 3
-              }
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "第三步（写方程）："
+                }
+              ]
             },
             {
               "id": "examples-b71",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "，双曲线要求"
-                }
-              ]
-            },
-            {
-              "id": "examples-b72",
               "type": "math_image",
-              "latex": "-9<\\lambda<-4",
+              "latex": "\\lambda=5",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/708dd9833a9539fb@3x.png",
-                "width_px": 260,
-                "height_px": 56,
-                "display_width_px": 87,
-                "display_height_px": 19,
-                "scale": 3
-              }
-            },
-            {
-              "id": "examples-b73",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "，"
-                }
-              ]
-            },
-            {
-              "id": "examples-b74",
-              "type": "math_image",
-              "latex": "\\lambda<-9",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/9938b773d06ea92c@3x.png",
-                "width_px": 154,
-                "height_px": 56,
-                "display_width_px": 51,
-                "display_height_px": 19,
-                "scale": 3
-              }
-            },
-            {
-              "id": "examples-b75",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "时无实轨迹。\n关键结论：\n过同一点可以有两条不同的共焦点曲线，分别属于椭圆和双曲线；它们的半焦距都为"
-                }
-              ]
-            },
-            {
-              "id": "examples-b76",
-              "type": "math_image",
-              "latex": "\\sqrt5",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/c9bff1d2149ba17a@3x.png",
-                "width_px": 79,
-                "height_px": 67,
-                "display_width_px": 26,
-                "display_height_px": 22,
-                "scale": 3
-              }
-            },
-            {
-              "id": "examples-b77",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "，焦点均为"
-                }
-              ]
-            },
-            {
-              "id": "examples-b78",
-              "type": "math_image",
-              "latex": "(\\pm\\sqrt5,0)",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/86338c7bb64af6a4@3x.png",
-                "width_px": 181,
-                "height_px": 75,
-                "display_width_px": 60,
-                "display_height_px": 25,
-                "scale": 3
-              }
-            },
-            {
-              "id": "examples-b79",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "。"
-                }
-              ]
-            },
-            {
-              "id": "examples-b80",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "例 3（综合应用）\n题目：\n同上束曲线，若有一条曲线是椭圆且长轴长为"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "8"
-                },
-                {
-                  "type": "text",
-                  "text": "，求该椭圆方程。\n解题步骤："
-                }
-              ]
-            },
-            {
-              "id": "examples-b81",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "第一步（确定长轴条件）：\n椭圆的长轴在"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "x"
-                },
-                {
-                  "type": "text",
-                  "text": "轴，设半长轴为"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "a^{*}"
-                },
-                {
-                  "type": "text",
-                  "text": "，则长轴长"
-                },
-                {
-                  "type": "math_image",
-                  "latex": "2a^{*}=8",
-                  "need_image": "true",
-                  "asset": {
-                    "png": "/static/formulas/C082/e4b360bfc4392b53@3x.png",
-                    "width_px": 158,
-                    "height_px": 55,
-                    "display_width_px": 53,
-                    "display_height_px": 18,
-                    "scale": 3
-                  }
-                },
-                {
-                  "type": "text",
-                  "text": ",所以"
-                },
-                {
-                  "type": "math_image",
-                  "latex": "a^{*}=4",
-                  "need_image": "true",
-                  "asset": {
-                    "png": "/static/formulas/C082/28fe73069fbf9224@3x.png",
-                    "width_px": 138,
-                    "height_px": 55,
-                    "display_width_px": 46,
-                    "display_height_px": 18,
-                    "scale": 3
-                  }
-                },
-                {
-                  "type": "text",
-                  "text": ".理由：\n在本曲线束的椭圆情形中，"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "x"
-                },
-                {
-                  "type": "text",
-                  "text": "项分母为"
-                }
-              ]
-            },
-            {
-              "id": "examples-b82",
-              "type": "math_image",
-              "latex": "9+\\lambda",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/0022566caeb16fee@3x.png",
-                "width_px": 118,
-                "height_px": 56,
-                "display_width_px": 39,
-                "display_height_px": 19,
-                "scale": 3
-              }
-            },
-            {
-              "id": "examples-b83",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "，"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "y"
-                },
-                {
-                  "type": "text",
-                  "text": "项分母为"
-                }
-              ]
-            },
-            {
-              "id": "examples-b84",
-              "type": "math_image",
-              "latex": "4+\\lambda",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/f7cb3f0a4f890600@3x.png",
-                "width_px": 118,
-                "height_px": 56,
-                "display_width_px": 39,
-                "display_height_px": 19,
-                "scale": 3
-              }
-            },
-            {
-              "id": "examples-b85",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "，且"
-                }
-              ]
-            },
-            {
-              "id": "examples-b86",
-              "type": "math_image",
-              "latex": "9+\\lambda>4+\\lambda",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/3f61772c92ad3ef9@3x.png",
-                "width_px": 266,
-                "height_px": 56,
-                "display_width_px": 89,
-                "display_height_px": 19,
-                "scale": 3
-              }
-            },
-            {
-              "id": "examples-b87",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": ",故长轴在"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "x"
-                },
-                {
-                  "type": "text",
-                  "text": "轴。"
-                }
-              ]
-            },
-            {
-              "id": "examples-b88",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "第二步（列方程求 ）：\n对于椭圆，半长轴平方为"
-                }
-              ]
-            },
-            {
-              "id": "examples-b89",
-              "type": "math_image",
-              "latex": "9+\\lambda",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/0022566caeb16fee@3x.png",
-                "width_px": 118,
-                "height_px": 56,
-                "display_width_px": 39,
-                "display_height_px": 19,
-                "scale": 3
-              }
-            },
-            {
-              "id": "examples-b90",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "，所以"
-                }
-              ]
-            },
-            {
-              "id": "examples-b91",
-              "type": "math_image",
-              "latex": "9+\\lambda=4^{2}=16",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/2b4ae0f917912c13@3x.png",
-                "width_px": 305,
-                "height_px": 63,
-                "display_width_px": 102,
-                "display_height_px": 21,
-                "scale": 3
-              }
-            },
-            {
-              "id": "examples-b92",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": ",解得"
-                }
-              ]
-            },
-            {
-              "id": "examples-b93",
-              "type": "math_image",
-              "latex": "\\lambda=7",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/e219b4769656685d@3x.png",
+                "png": "/static/formulas/C082/52524208473a76cd@3x.png",
                 "width_px": 122,
                 "height_px": 53,
                 "display_width_px": 41,
@@ -412100,175 +411622,132 @@
               }
             },
             {
-              "id": "examples-b94",
+              "id": "examples-b72",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": ".理由：\n半长轴平方等于"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "x"
-                },
-                {
-                  "type": "text",
-                  "text": "项分母。"
+                  "text": "代入得"
                 }
               ]
             },
             {
-              "id": "examples-b95",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "第三步（检验类型）："
-                }
-              ]
-            },
-            {
-              "id": "examples-b96",
+              "id": "examples-b73",
               "type": "math_image",
-              "latex": "\\lambda=7>-4",
+              "latex": "8-\\lambda=3",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/53b07c053313f27c@3x.png",
-                "width_px": 229,
+                "png": "/static/formulas/C082/ca9cd1e1f1dbe884@3x.png",
+                "width_px": 193,
                 "height_px": 56,
-                "display_width_px": 76,
+                "display_width_px": 64,
                 "display_height_px": 19,
                 "scale": 3
               }
             },
             {
-              "id": "examples-b97",
+              "id": "examples-b74",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": ",符合椭圆条件，且"
+                  "text": ","
                 }
               ]
             },
             {
-              "id": "examples-b98",
+              "id": "examples-b75",
               "type": "math_image",
-              "latex": "\\lambda\\neq -9,-4",
+              "latex": "4-\\lambda=-1",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/dc3675bea0ed49a3@3x.png",
+                "png": "/static/formulas/C082/ba1fa702063b8eea@3x.png",
                 "width_px": 224,
-                "height_px": 63,
-                "display_width_px": 75,
-                "display_height_px": 21,
-                "scale": 3
-              }
-            },
-            {
-              "id": "examples-b99",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": ",方程有效。\n理由：\n椭圆要求"
-                }
-              ]
-            },
-            {
-              "id": "examples-b100",
-              "type": "math_image",
-              "latex": "\\lambda>-4",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/29e2ccd853c46913@3x.png",
-                "width_px": 154,
                 "height_px": 56,
-                "display_width_px": 51,
+                "display_width_px": 75,
                 "display_height_px": 19,
                 "scale": 3
               }
             },
             {
-              "id": "examples-b101",
+              "id": "examples-b76",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": "。\n关键结论：\n所求椭圆方程为"
+                  "text": "，故双曲线方程为"
                 }
               ]
             },
             {
-              "id": "examples-b102",
+              "id": "examples-b77",
               "type": "math_image",
-              "latex": "\\frac{x^{2}}{16}+\\frac{y^{2}}{11}=1",
+              "latex": "\\frac{x^{2}}{3}-\\frac{y^{2}}{1}=1",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/7d7390eb96711216@3x.png",
-                "width_px": 266,
+                "png": "/static/formulas/C082/e68c8bd40cd328a0@3x.png",
+                "width_px": 263,
                 "height_px": 114,
-                "display_width_px": 89,
+                "display_width_px": 88,
                 "display_height_px": 38,
                 "scale": 3
               }
             },
             {
-              "id": "examples-b103",
+              "id": "examples-b78",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": ".此时半焦距仍为"
+                  "text": "，即"
                 }
               ]
             },
             {
-              "id": "examples-b104",
+              "id": "examples-b79",
               "type": "math_image",
-              "latex": "c=\\sqrt{16-11}=\\sqrt5",
+              "latex": "\\frac{x^{2}}{3}-y^{2}=1",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/3a1003e591a1d524@3x.png",
-                "width_px": 371,
-                "height_px": 68,
-                "display_width_px": 124,
-                "display_height_px": 23,
+                "png": "/static/formulas/C082/e4226fa6bf7488b1@3x.png",
+                "width_px": 245,
+                "height_px": 114,
+                "display_width_px": 82,
+                "display_height_px": 38,
                 "scale": 3
               }
             },
             {
-              "id": "examples-b105",
+              "id": "examples-b80",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": ",焦点仍为"
+                  "text": "。\n理由： 双曲线标准形式。\n关键结论：\n双曲线方程为"
                 }
               ]
             },
             {
-              "id": "examples-b106",
+              "id": "examples-b81",
               "type": "math_image",
-              "latex": "(\\pm\\sqrt{5},0)",
+              "latex": "\\frac{x^{2}}{3}-y^{2}=1",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/ab8b103238a77307@3x.png",
-                "width_px": 181,
-                "height_px": 75,
-                "display_width_px": 60,
-                "display_height_px": 25,
+                "png": "/static/formulas/C082/e4226fa6bf7488b1@3x.png",
+                "width_px": 245,
+                "height_px": 114,
+                "display_width_px": 82,
+                "display_height_px": 38,
                 "scale": 3
               }
             },
             {
-              "id": "examples-b107",
+              "id": "examples-b82",
               "type": "paragraph",
               "tokens": [
                 {
@@ -412290,22 +411769,22 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "易错点一（忽略分母限制）\n解题时解出"
+                  "text": "易错点一（忽略λ范围）：\n学生使用曲线系时不检查"
                 }
               ]
             },
             {
               "id": "traps-b2",
               "type": "math_image",
-              "latex": "\\lambda",
+              "latex": "\\lambda<a^{2}",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/b3931f1ce298c536@3x.png",
-                "width_px": 48,
-                "height_px": 53,
-                "display_width_px": 16,
-                "display_height_px": 18,
+                "png": "/static/formulas/C082/b5f6dc306ab6667f@3x.png",
+                "width_px": 141,
+                "height_px": 62,
+                "display_width_px": 47,
+                "display_height_px": 21,
                 "scale": 3
               }
             },
@@ -412315,21 +411794,21 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "后未检查"
+                  "text": "且"
                 }
               ]
             },
             {
               "id": "traps-b4",
               "type": "math_image",
-              "latex": "\\lambda\\neq -a^{2},-b^{2}",
+              "latex": "\\lambda\\neq b^{2}",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/0304a6580a2b15b9@3x.png",
-                "width_px": 258,
+                "png": "/static/formulas/C082/4e26b26f4ed50bbb@3x.png",
+                "width_px": 137,
                 "height_px": 69,
-                "display_width_px": 86,
+                "display_width_px": 46,
                 "display_height_px": 23,
                 "scale": 3
               }
@@ -412340,12 +411819,22 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": ",错误地使用导致分母为零的"
+                  "text": "，导致方程无意义。"
                 }
               ]
             },
             {
               "id": "traps-b6",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "正确理解（先验条件）：\n必须首先确认"
+                }
+              ]
+            },
+            {
+              "id": "traps-b7",
               "type": "math_image",
               "latex": "\\lambda",
               "align": "center",
@@ -412358,16 +411847,6 @@
                 "display_height_px": 18,
                 "scale": 3
               }
-            },
-            {
-              "id": "traps-b7",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "值。"
-                }
-              ]
             },
             {
               "id": "traps-b8",
@@ -412375,12 +411854,32 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "正确理解（条件检验）：\n必须排除使分母为零的"
+                  "text": "满足条件，否则曲线系不成立。"
                 }
               ]
             },
             {
               "id": "traps-b9",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "错因分析（思维盲区）：\n习惯认为方程总是椭圆，忽略参数限制。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b10",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "易错点二（焦点偏移错觉）：\n误以为焦点会随"
+                }
+              ]
+            },
+            {
+              "id": "traps-b11",
               "type": "math_image",
               "latex": "\\lambda",
               "align": "center",
@@ -412391,31 +411890,6 @@
                 "height_px": 53,
                 "display_width_px": 16,
                 "display_height_px": 18,
-                "scale": 3
-              }
-            },
-            {
-              "id": "traps-b10",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "，即"
-                }
-              ]
-            },
-            {
-              "id": "traps-b11",
-              "type": "math_image",
-              "latex": "\\lambda\\neq -a^{2},-b^{2}",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/0304a6580a2b15b9@3x.png",
-                "width_px": 258,
-                "height_px": 69,
-                "display_width_px": 86,
-                "display_height_px": 23,
                 "scale": 3
               }
             },
@@ -412425,7 +411899,7 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "."
+                  "text": "改变而移动。"
                 }
               ]
             },
@@ -412435,59 +411909,59 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "错因分析（增解未检）：\n在解方程时盲目约去分母，或去分母后没有回代检验，容易引入增根。"
+                  "text": "正确理解（焦点恒定）：\n所有曲线焦点均为"
                 }
               ]
             },
             {
               "id": "traps-b14",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "易错点二（类型范围混淆）\n误认为"
-                }
-              ]
+              "type": "math_image",
+              "latex": "(\\pm c,0)",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/3f6dabbe8f30af55@3x.png",
+                "width_px": 143,
+                "height_px": 65,
+                "display_width_px": 48,
+                "display_height_px": 22,
+                "scale": 3
+              }
             },
             {
               "id": "traps-b15",
-              "type": "math_image",
-              "latex": "\\lambda>-b^{2}",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/8a65b12da5d77863@3x.png",
-                "width_px": 169,
-                "height_px": 63,
-                "display_width_px": 56,
-                "display_height_px": 21,
-                "scale": 3
-              }
-            },
-            {
-              "id": "traps-b16",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": "时是双曲线，或者认为"
+                  "text": "，焦距恒为"
                 }
               ]
             },
             {
-              "id": "traps-b17",
+              "id": "traps-b16",
               "type": "math_image",
-              "latex": "\\lambda<-a^{2}",
+              "latex": "c=\\sqrt{a^{2}-b^{2}}",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/99f0e35201b677a5@3x.png",
-                "width_px": 173,
-                "height_px": 63,
-                "display_width_px": 58,
-                "display_height_px": 21,
+                "png": "/static/formulas/C082/e5983cb2afaafb41@3x.png",
+                "width_px": 262,
+                "height_px": 75,
+                "display_width_px": 87,
+                "display_height_px": 25,
                 "scale": 3
               }
+            },
+            {
+              "id": "traps-b17",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "。"
+                }
+              ]
             },
             {
               "id": "traps-b18",
@@ -412495,7 +411969,7 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "时才是双曲线。"
+                  "text": "错因分析（类比不当）：\n误认为分母变化导致曲线形状改变的同时焦点也变。"
                 }
               ]
             },
@@ -412505,74 +411979,69 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "正确理解（范围判定）：\n椭圆要求"
+                  "text": "易错点三（类型判定混淆）：\n只根据分母是否都正判定椭圆，忽略双曲线可能。"
                 }
               ]
             },
             {
               "id": "traps-b20",
-              "type": "math_image",
-              "latex": "\\lambda>-b^{2}",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/8a65b12da5d77863@3x.png",
-                "width_px": 169,
-                "height_px": 63,
-                "display_width_px": 56,
-                "display_height_px": 21,
-                "scale": 3
-              }
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "正确理解（分类条件）："
+                }
+              ]
             },
             {
               "id": "traps-b21",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "此时两个分母同正；\n双曲线要求"
-                }
-              ]
+              "type": "math_image",
+              "latex": "\\lambda<b^{2}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/7c34c015e4fcc36e@3x.png",
+                "width_px": 137,
+                "height_px": 62,
+                "display_width_px": 46,
+                "display_height_px": 21,
+                "scale": 3
+              }
             },
             {
               "id": "traps-b22",
-              "type": "math_image",
-              "latex": "-a^{2}<\\lambda<-b^{2}",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/ecb3ecc926d91425@3x.png",
-                "width_px": 294,
-                "height_px": 63,
-                "display_width_px": 98,
-                "display_height_px": 21,
-                "scale": 3
-              }
-            },
-            {
-              "id": "traps-b23",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": "此时一个分母为正，一个分母为负；\n当"
+                  "text": "为椭圆，"
                 }
               ]
             },
             {
-              "id": "traps-b24",
+              "id": "traps-b23",
               "type": "math_image",
-              "latex": "\\lambda<-a^{2}",
+              "latex": "b^{2}<\\lambda<a^{2}",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/99f0e35201b677a5@3x.png",
-                "width_px": 173,
-                "height_px": 63,
-                "display_width_px": 58,
+                "png": "/static/formulas/C082/c53eb7e44c3daf42@3x.png",
+                "width_px": 231,
+                "height_px": 62,
+                "display_width_px": 77,
                 "display_height_px": 21,
                 "scale": 3
               }
+            },
+            {
+              "id": "traps-b24",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "为双曲线。"
+                }
+              ]
             },
             {
               "id": "traps-b25",
@@ -412580,19 +412049,24 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "时，两个分母同负，方程无实轨迹。"
+                  "text": "错因分析（条件遗漏）：\n未考虑"
                 }
               ]
             },
             {
               "id": "traps-b26",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "错因分析（符号分析疏漏）：\n没有具体分析两个分母的符号组合，仅凭一个分母的符号下结论。"
-                }
-              ]
+              "type": "math_image",
+              "latex": "b^{2}<\\lambda<a^{2}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/c53eb7e44c3daf42@3x.png",
+                "width_px": 231,
+                "height_px": 62,
+                "display_width_px": 77,
+                "display_height_px": 21,
+                "scale": 3
+              }
             },
             {
               "id": "traps-b27",
@@ -412600,22 +412074,22 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "易错点三（焦点坐标误判）\n认为焦点坐标随"
+                  "text": "时"
                 }
               ]
             },
             {
               "id": "traps-b28",
               "type": "math_image",
-              "latex": "\\lambda",
+              "latex": "b^{2}-\\lambda<0",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/b3931f1ce298c536@3x.png",
-                "width_px": 48,
-                "height_px": 53,
-                "display_width_px": 16,
-                "display_height_px": 18,
+                "png": "/static/formulas/C082/1f962f57a13ae532@3x.png",
+                "width_px": 207,
+                "height_px": 63,
+                "display_width_px": 69,
+                "display_height_px": 21,
                 "scale": 3
               }
             },
@@ -412625,280 +412099,7 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "变化，误把焦点坐标写成"
-                }
-              ]
-            },
-            {
-              "id": "traps-b30",
-              "type": "math_image",
-              "latex": "(\\pm\\sqrt{a^{2}+\\lambda},0)",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/f4eb8ffb1389a43c@3x.png",
-                "width_px": 280,
-                "height_px": 79,
-                "display_width_px": 93,
-                "display_height_px": 26,
-                "scale": 3
-              }
-            },
-            {
-              "id": "traps-b31",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "或类似形式。"
-                }
-              ]
-            },
-            {
-              "id": "traps-b32",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "正确理解（焦点恒定）：\n在实椭圆或实双曲线情形下，焦点坐标固定为"
-                }
-              ]
-            },
-            {
-              "id": "traps-b33",
-              "type": "math_image",
-              "latex": "(\\pm c,0),\n\\qquad\nc^{2}=a^{2}-b^{2}",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/85ac3cf938834819@3x.png",
-                "width_px": 457,
-                "height_px": 70,
-                "display_width_px": 152,
-                "display_height_px": 23,
-                "scale": 3
-              }
-            },
-            {
-              "id": "traps-b34",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": ".虽然分母会随"
-                }
-              ]
-            },
-            {
-              "id": "traps-b35",
-              "type": "math_image",
-              "latex": "\\lambda",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/b3931f1ce298c536@3x.png",
-                "width_px": 48,
-                "height_px": 53,
-                "display_width_px": 16,
-                "display_height_px": 18,
-                "scale": 3
-              }
-            },
-            {
-              "id": "traps-b36",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "变化，但两个分母之差始终为"
-                }
-              ]
-            },
-            {
-              "id": "traps-b37",
-              "type": "math_image",
-              "latex": "(a^2+\\lambda)-(b^2+\\lambda)=a^2-b^2",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/f2a41d0012ab514b@3x.png",
-                "width_px": 537,
-                "height_px": 70,
-                "display_width_px": 179,
-                "display_height_px": 23,
-                "scale": 3
-              }
-            },
-            {
-              "id": "traps-b38",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "."
-                }
-              ]
-            },
-            {
-              "id": "traps-b39",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "错因分析（混淆顶点与焦点）："
-                }
-              ]
-            },
-            {
-              "id": "traps-b40",
-              "type": "math_image",
-              "latex": "\\sqrt{a^2+\\lambda}",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/d983a7921b58d23f@3x.png",
-                "width_px": 178,
-                "height_px": 75,
-                "display_width_px": 59,
-                "display_height_px": 25,
-                "scale": 3
-              }
-            },
-            {
-              "id": "traps-b41",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "表示椭圆情形下"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "x"
-                },
-                {
-                  "type": "text",
-                  "text": "方向的半轴长，不是焦点横坐标。焦点由分母差决定，不由某一个分母单独决定。"
-                }
-              ]
-            },
-            {
-              "id": "traps-b42",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "易错点四（焦距与半焦距混淆）\n把"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "c"
-                },
-                {
-                  "type": "text",
-                  "text": "直接说成焦距，误认为两焦点距离是"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "c"
-                },
-                {
-                  "type": "text",
-                  "text": "。"
-                }
-              ]
-            },
-            {
-              "id": "traps-b43",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "正确理解（术语区分）：\n若焦点为"
-                }
-              ]
-            },
-            {
-              "id": "traps-b44",
-              "type": "math_image",
-              "latex": "(-c,0),\\qquad (c,0)",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/2fd792c7ee502e66@3x.png",
-                "width_px": 331,
-                "height_px": 65,
-                "display_width_px": 110,
-                "display_height_px": 22,
-                "scale": 3
-              }
-            },
-            {
-              "id": "traps-b45",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": ",则"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "c"
-                },
-                {
-                  "type": "text",
-                  "text": "是半焦距，真正的焦距为"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "2c"
-                },
-                {
-                  "type": "text",
-                  "text": "."
-                }
-              ]
-            },
-            {
-              "id": "traps-b46",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "错因分析（坐标距离未检查）：\n两个焦点的横坐标相差"
-                },
-                {
-                  "type": "math_image",
-                  "latex": "c-(-c)=2c",
-                  "need_image": "true",
-                  "asset": {
-                    "png": "/static/formulas/C082/5fb56b360fc6726d@3x.png",
-                    "width_px": 265,
-                    "height_px": 65,
-                    "display_width_px": 88,
-                    "display_height_px": 22,
-                    "scale": 3
-                  }
-                },
-                {
-                  "type": "text",
-                  "text": ",所以两焦点之间的距离不是"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "c"
-                },
-                {
-                  "type": "text",
-                  "text": "，而是"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "2c"
-                },
-                {
-                  "type": "text",
-                  "text": "。"
+                  "text": "，曲线类型为双曲线。"
                 }
               ]
             }
@@ -412915,7 +412116,7 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "一句话核心\n共焦点二次曲线束用一个含参方程统一表示所有以同两点为焦点的椭圆和双曲线；但当参数落在无实轨迹范围时，方程不表示实曲线。"
+                  "text": "一句话核心"
                 }
               ]
             },
@@ -412925,71 +412126,12 @@
               "tokens": [
                 {
                   "type": "text",
-                  "text": "使用条件"
+                  "text": "共焦点曲线系的核心是：焦点恒为"
                 }
               ]
             },
             {
               "id": "summary-b3",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "条件1（标准形式）：\n曲线中心在原点，焦点在"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "x"
-                },
-                {
-                  "type": "text",
-                  "text": "轴上；已知"
-                }
-              ]
-            },
-            {
-              "id": "summary-b4",
-              "type": "math_image",
-              "latex": "a>b>0,\n\\qquad\nc^2=a^2-b^2",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/9a7f154084ce455a@3x.png",
-                "width_px": 506,
-                "height_px": 68,
-                "display_width_px": 169,
-                "display_height_px": 23,
-                "scale": 3
-              }
-            },
-            {
-              "id": "summary-b5",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": ".其中"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "c"
-                },
-                {
-                  "type": "text",
-                  "text": "是半焦距，焦距为"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "2c"
-                },
-                {
-                  "type": "text",
-                  "text": "，焦点为"
-                }
-              ]
-            },
-            {
-              "id": "summary-b6",
               "type": "math_image",
               "latex": "(\\pm c,0)",
               "align": "center",
@@ -413004,182 +412146,17 @@
               }
             },
             {
-              "id": "summary-b7",
+              "id": "summary-b4",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": "。"
+                  "text": "，曲线类型由"
                 }
               ]
             },
             {
-              "id": "summary-b8",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "条件2（参数限制）：\n方程"
-                }
-              ]
-            },
-            {
-              "id": "summary-b9",
-              "type": "math_image",
-              "latex": "\\frac{x^{2}}{a^{2}+\\lambda}+\\frac{y^{2}}{b^{2}+\\lambda}=1",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/abe5dee2699a4334@3x.png",
-                "width_px": 406,
-                "height_px": 118,
-                "display_width_px": 135,
-                "display_height_px": 39,
-                "scale": 3
-              }
-            },
-            {
-              "id": "summary-b10",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "必须满足"
-                }
-              ]
-            },
-            {
-              "id": "summary-b11",
-              "type": "math_image",
-              "latex": "\\lambda\\neq -a^{2},-b^{2}",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/0304a6580a2b15b9@3x.png",
-                "width_px": 258,
-                "height_px": 69,
-                "display_width_px": 86,
-                "display_height_px": 23,
-                "scale": 3
-              }
-            },
-            {
-              "id": "summary-b12",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": ",否则分母为零，方程无意义。"
-                }
-              ]
-            },
-            {
-              "id": "summary-b13",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "条件3（类型判断）："
-                }
-              ]
-            },
-            {
-              "id": "summary-b14",
-              "type": "math_image",
-              "latex": "\\lambda>-b^{2}",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/8a65b12da5d77863@3x.png",
-                "width_px": 169,
-                "height_px": 63,
-                "display_width_px": 56,
-                "display_height_px": 21,
-                "scale": 3
-              }
-            },
-            {
-              "id": "summary-b15",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "时为椭圆；"
-                }
-              ]
-            },
-            {
-              "id": "summary-b16",
-              "type": "math_image",
-              "latex": "-a^{2}<\\lambda<-b^{2}",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/ecb3ecc926d91425@3x.png",
-                "width_px": 294,
-                "height_px": 63,
-                "display_width_px": 98,
-                "display_height_px": 21,
-                "scale": 3
-              }
-            },
-            {
-              "id": "summary-b17",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "时为双曲线；"
-                }
-              ]
-            },
-            {
-              "id": "summary-b18",
-              "type": "math_image",
-              "latex": "\\lambda<-a^{2}",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/99f0e35201b677a5@3x.png",
-                "width_px": 173,
-                "height_px": 63,
-                "display_width_px": 58,
-                "display_height_px": 21,
-                "scale": 3
-              }
-            },
-            {
-              "id": "summary-b19",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "时无实轨迹。"
-                }
-              ]
-            },
-            {
-              "id": "summary-b20",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "关键提醒"
-                }
-              ]
-            },
-            {
-              "id": "summary-b21",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": "易错点（分母检验）：\n解出"
-                }
-              ]
-            },
-            {
-              "id": "summary-b22",
+              "id": "summary-b5",
               "type": "math_image",
               "latex": "\\lambda",
               "align": "center",
@@ -413194,158 +412171,264 @@
               }
             },
             {
-              "id": "summary-b23",
+              "id": "summary-b6",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": "后必须确保分母不为零，即"
+                  "text": "与"
+                },
+                {
+                  "type": "math_image",
+                  "latex": "b^{2}",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/C082/3bb1e19139f8e7d1@3x.png",
+                    "width_px": 59,
+                    "height_px": 60,
+                    "display_width_px": 20,
+                    "display_height_px": 20,
+                    "scale": 3
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "的大小关系决定。"
                 }
               ]
             },
             {
-              "id": "summary-b24",
+              "id": "summary-b7",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "使用条件"
+                }
+              ]
+            },
+            {
+              "id": "summary-b8",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "条件1（椭圆参数）： 存在焦点在"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "x"
+                },
+                {
+                  "type": "text",
+                  "text": "轴上的椭圆"
+                }
+              ]
+            },
+            {
+              "id": "summary-b9",
               "type": "math_image",
-              "latex": "\\lambda\\neq -a^{2},-b^{2}",
+              "latex": "\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/0304a6580a2b15b9@3x.png",
-                "width_px": 258,
-                "height_px": 69,
-                "display_width_px": 86,
-                "display_height_px": 23,
+                "png": "/static/formulas/C082/e6e9e43441725ff6@3x.png",
+                "width_px": 263,
+                "height_px": 115,
+                "display_width_px": 88,
+                "display_height_px": 38,
                 "scale": 3
               }
             },
             {
-              "id": "summary-b25",
+              "id": "summary-b10",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": "."
-                }
-              ]
-            },
-            {
-              "id": "summary-b26",
-              "type": "paragraph",
-              "tokens": [
+                  "text": "("
+                },
+                {
+                  "type": "math_image",
+                  "latex": "a>b>0",
+                  "need_image": "true",
+                  "asset": {
+                    "png": "/static/formulas/C082/9a95837e3f62490c@3x.png",
+                    "width_px": 192,
+                    "height_px": 54,
+                    "display_width_px": 64,
+                    "display_height_px": 18,
+                    "scale": 3
+                  }
+                },
                 {
                   "type": "text",
-                  "text": "检查项（类型条件）：\n不要只看一个分母的符号，要同时判断"
+                  "text": ")，"
                 }
               ]
             },
             {
-              "id": "summary-b27",
+              "id": "summary-b11",
               "type": "math_image",
-              "latex": "a^2+\\lambda\n\\quad\\text{和}\\quad\nb^2+\\lambda",
+              "latex": "c=\\sqrt{a^{2}-b^{2}}",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/c3307860a6c20909@3x.png",
-                "width_px": 368,
-                "height_px": 68,
-                "display_width_px": 123,
-                "display_height_px": 23,
+                "png": "/static/formulas/C082/e5983cb2afaafb41@3x.png",
+                "width_px": 262,
+                "height_px": 75,
+                "display_width_px": 87,
+                "display_height_px": 25,
                 "scale": 3
               }
             },
             {
-              "id": "summary-b28",
+              "id": "summary-b12",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": "的符号。"
+                  "text": "。"
                 }
               ]
             },
             {
-              "id": "summary-b29",
+              "id": "summary-b13",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": "焦点项（只对实曲线成立）：\n当方程表示实椭圆或实双曲线时，焦点固定为"
+                  "text": "条件2（λ参数限制）："
                 }
               ]
             },
             {
-              "id": "summary-b30",
+              "id": "summary-b14",
               "type": "math_image",
-              "latex": "(\\pm c,0),\n\\qquad\nc^2=a^2-b^2",
+              "latex": "\\lambda<a^{2}",
               "align": "center",
               "need_image": "true",
               "asset": {
-                "png": "/static/formulas/C082/c01e1df5f0d67831@3x.png",
-                "width_px": 457,
-                "height_px": 70,
-                "display_width_px": 152,
-                "display_height_px": 23,
-                "scale": 3
-              }
-            },
-            {
-              "id": "summary-b31",
-              "type": "paragraph",
-              "tokens": [
-                {
-                  "type": "text",
-                  "text": ".若"
-                }
-              ]
-            },
-            {
-              "id": "summary-b32",
-              "type": "math_image",
-              "latex": "\\lambda<-a^2",
-              "align": "center",
-              "need_image": "true",
-              "asset": {
-                "png": "/static/formulas/C082/b153432ff1302b31@3x.png",
-                "width_px": 173,
-                "height_px": 63,
-                "display_width_px": 58,
+                "png": "/static/formulas/C082/b5f6dc306ab6667f@3x.png",
+                "width_px": 141,
+                "height_px": 62,
+                "display_width_px": 47,
                 "display_height_px": 21,
                 "scale": 3
               }
             },
             {
-              "id": "summary-b33",
+              "id": "summary-b15",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": "，方程无实轨迹，不能再谈实焦点。"
+                  "text": "且"
                 }
               ]
             },
             {
-              "id": "summary-b34",
+              "id": "summary-b16",
+              "type": "math_image",
+              "latex": "\\lambda\\neq b^{2}",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/4e26b26f4ed50bbb@3x.png",
+                "width_px": 137,
+                "height_px": 69,
+                "display_width_px": 46,
+                "display_height_px": 23,
+                "scale": 3
+              }
+            },
+            {
+              "id": "summary-b17",
               "type": "paragraph",
               "tokens": [
                 {
                   "type": "text",
-                  "text": "术语项（焦距与半焦距）："
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "c"
-                },
-                {
-                  "type": "text",
-                  "text": "是半焦距，不是焦距；两焦点之间的距离是"
-                },
-                {
-                  "type": "math_inline",
-                  "latex": "2c"
-                },
-                {
-                  "type": "text",
                   "text": "。"
+                }
+              ]
+            },
+            {
+              "id": "summary-b18",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "关键提醒"
+                }
+              ]
+            },
+            {
+              "id": "summary-b19",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "易错点（检查λ范围）： 使用曲线系必须先验证"
+                }
+              ]
+            },
+            {
+              "id": "summary-b20",
+              "type": "math_image",
+              "latex": "\\lambda",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/b3931f1ce298c536@3x.png",
+                "width_px": 48,
+                "height_px": 53,
+                "display_width_px": 16,
+                "display_height_px": 18,
+                "scale": 3
+              }
+            },
+            {
+              "id": "summary-b21",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "是否满足条件。"
+                }
+              ]
+            },
+            {
+              "id": "summary-b22",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "检查项（分母符号）： 根据"
+                }
+              ]
+            },
+            {
+              "id": "summary-b23",
+              "type": "math_image",
+              "latex": "b^{2}-\\lambda",
+              "align": "center",
+              "need_image": "true",
+              "asset": {
+                "png": "/static/formulas/C082/64c57e6e2edd2842@3x.png",
+                "width_px": 133,
+                "height_px": 63,
+                "display_width_px": 44,
+                "display_height_px": 21,
+                "scale": 3
+              }
+            },
+            {
+              "id": "summary-b24",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "的正负确定曲线类型。"
                 }
               ]
             }
@@ -413353,12 +412436,12 @@
         }
       ],
       "plain": {
-        "statement": "条件\n- 条件1（焦点固定）：\n中心在原点，焦点在x轴，半焦距c满足\nc^2=a^2-b^2, a>b>0,\n焦点坐标为( c,0)，两焦点之间的距离为2c。\n结论\n- 结论一（标准方程）：\n直观描述：\n参数 控制两个分母，得到一族具有公共焦点的二次曲线。\n(x^2) / (a^2+ )+(y^2) / (b^2+ )=1,\n!= -a^2,-b^2.\n- 推广结论（曲线类型）：\n直观描述：\n的范围决定方程表示椭圆、双曲线，还是无实轨迹。\n>-b^2\\ 时为椭圆,\n-a^2< <-b^2\\ 时为双曲线,\n<-a^2\\ 时无实轨迹.",
-        "explanation": "一句话直觉\n固定两个焦点，通过参数 统一表示所有以这两点为焦点的椭圆和双曲线；当 <-a^2时，方程没有实点。\n核心拆解\n- 要点一（焦点不变）：\n当方程表示实椭圆或实双曲线时，曲线的焦点始终是( c,0)，因为\nc^2=a^2-b^2\n恒定。注意：c是半焦距，真正的焦距是2c。\n- 要点二（分母关联）：\n两个分母之差恒定：\n(a^2+ )-(b^2+ )=a^2-b^2=c^2.\n正是这个“分母差恒定”，保证了实椭圆或实双曲线的焦点不变。\n- 要点三（类型判据）：\n根据两个分母的符号组合分类：\n>-b^2\n时两分母都正，为椭圆；\n-a^2< <-b^2\n时一正一负，为双曲线；\n<-a^2\n时两分母都负，左边恒小于等于0，不可能等于1，所以无实轨迹。\n几何本质（同焦曲线族）\n在实椭圆和实双曲线情形下，所有曲线具有相同的焦点( c,0)，但离心率、长短轴或实虚轴会随 改变。\n代数意义（分母差恒定）\n设\nA=a^2+ , B=b^2+ ,\n则\nA-B=c^2\n为定值。由于焦点轴固定为x轴，且A-B恒定，所以实曲线的焦点固定为( c,0)。\n考点价值（快速设方程）\n- 考法一（求曲线方程）：\n已知焦点和另一个条件（如过点）时，可以先选定满足a^2-b^2=c^2的参考椭圆，再设共焦点方程\n(x^2) / (a^2+ )+(y^2) / (b^2+ )=1,\n代入条件解 ，最后检查分母和曲线类型。\n- 考法二（参数讨论）：\n给定含参方程判断曲线类型，利用 的范围确定椭圆、双曲线或无实轨迹。\n- 考法三（更直接设法）：\n若只知道焦点( c,0)，也可以设\n(x^2) / (u)+(y^2) / (u-c^2)=1,\n再根据u和u-c^2的符号判断曲线类型。\n顿悟点\n的实质是在参考椭圆（ =0）的基础上同时改变两个分母，但保持它们的差\n(a^2+ )-(b^2+ )=a^2-b^2\n不变，所以半焦距c不变。\n使用场景\n- 场景一（共焦点曲线求解）：\n已知焦点坐标和曲线上一点，设共焦点方程快速求解。\n- 场景二（类型判断）：\n给定形如\n(x^2) / (m)+(y^2) / (n)=1\n且m-n为常数的方程，根据m,n的符号判断曲线类型。",
-        "proof": "思路提示\n将原方程与椭圆、双曲线的标准形式对比，利用\nA-B=c^2\n验证焦点固定；然后根据两个分母的符号分类。需要注意：只有方程表示实椭圆或实双曲线时，才谈得上实焦点。\n正式推导\n- 步骤一（设标准形式）：\n考虑中心在原点、焦点在x轴的标准形式\n(x^2) / (A)+(y^2) / (B)=1.\n当\nA>B>0\n时，方程表示焦点在x轴上的椭圆，半焦距c满足\nc^2=A-B.\n当\nA>0>B\n时，方程可写为\n(x^2) / (A)-(y^2) / (-B)=1,\n表示焦点在x轴上的双曲线，半焦距c满足\nc^2=A+(-B)=A-B.\n当\nA<0, B<0\n时，左边恒小于等于0，不可能等于1，所以无实轨迹。\n理由：\n椭圆和双曲线的焦点位置由标准方程中的分母关系决定；在本结论中，焦点轴固定为x轴，因此需要分别讨论分母符号。\n- 步骤二（验证焦点不变）：\n令\nA=a^2+ , B=b^2+ .\n则\nA-B=(a^2+ )-(b^2+ )=a^2-b^2=c^2.\n因此，只要方程表示实椭圆或实双曲线，它们的半焦距都满足\nc^2=A-B=a^2-b^2,\n所以焦点均为\n( c,0).\n理由：\n不是因为焦点与A,B无关，而是因为本曲线族中A-B恒定，且焦点轴固定为x轴。\n- 步骤三（分类推导）：\n分别讨论两个分母\na^2+ , b^2+\n的符号。\n&(1) a^2+ >0, b^2+ >0\n\\ \\ >-b^2,\\\\\n&(2) a^2+ >0, b^2+ <0\n\\ \\ -a^2< <-b^2,\\\\\n&(3) a^2+ <0, b^2+ <0\n\\ \\ <-a^2.\n同时必须排除\n!= -a^2, != -b^2.\n因此：\n>-b^2\n时，两个分母均为正，方程为椭圆；\n-a^2< <-b^2\n时，一个分母为正，一个分母为负，方程为双曲线；\n<-a^2\n时，两个分母均为负，方程无实轨迹。\n理由：\n椭圆要求两个平方项分母同正；双曲线要求一正一负；两分母同负时左边不可能等于1。\n结论回扣\n综上所述，方程\n(x^2) / (a^2+ )+(y^2) / (b^2+ )=1,\n!= -a^2,-b^2\n中：\n>-b^2\n时为椭圆；\n-a^2< <-b^2\n时为双曲线；\n<-a^2\n时无实轨迹。\n在前两种实曲线情形下，焦点均为\n( c,0),\nc^2=a^2-b^2.\n这里c是半焦距，真正的焦距为2c。",
-        "examples": "例 1（基础）\n题目：\n已知共焦点二次曲线束方程为\n(x^2) / (9+ )+(y^2) / (4+ )=1\n( != -9,-4).\n求该束中经过点(3,0)的曲线方程。\n解题步骤：\n- 第一步（代入坐标）：\n将点(3,0)代入方程，得\n(9) / (9+ )=1.\n理由：\n曲线上点的坐标满足方程。\n- 第二步（解参）：\n解得 =0。\n理由：\n解方程\n(9) / (9+ )=1,\n两边乘9+ 得9=9+ ，故 =0。\n- 第三步（检验并分类）：\n检验\n=0 != -9,-4,\n且\n=0>-4,\n故曲线为椭圆。\n理由：\n>-4为椭圆，-9< <-4为双曲线， <-9无实轨迹。\n关键结论：\n所求曲线方程为\n(x^2) / (9)+(y^2) / (4)=1.\n此时半焦距\nc=sqrt(9-4)= 5,\n焦点为( (5),0)。\n例 2（稍变形）\n题目：\n同上束曲线，求经过点(2,sqrt(3))的曲线方程，并指出所对应的曲线类型。\n解题步骤：\n- 第一步（代入坐标）：\n将点(2,sqrt(3))代入，得\n(4) / (9+ )+(3) / (4+ )=1.\n理由：\n条件代入。\n- 第二步（化整式）：\n两边乘以(9+ )(4+ )，得\n4(4+ )+3(9+ )=(9+ )(4+ ).\n理由：\n去分母前要注意 != -9,-4，否则方程无意义。\n- 第三步（化简求解）：\n展开整理得\n^2+6 -7=0,\n解得\n=1\n或\n=-7.\n理由：\n二次方程求解。\n- 第四步（检验并分类）：\n当 =1时，\n=1>-4,\n曲线为椭圆，方程为\n(x^2) / (10)+(y^2) / (5)=1.\n当 =-7时，\n-9< =-7<-4,\n曲线为双曲线，方程为\n(x^2) / (2)+(y^2) / (-3)=1,\n即\n(x^2) / (2)-(y^2) / (3)=1.\n理由：\n椭圆要求 >-4，双曲线要求-9< <-4， <-9时无实轨迹。\n关键结论：\n过同一点可以有两条不同的共焦点曲线，分别属于椭圆和双曲线；它们的半焦距都为 5，焦点均为( 5,0)。\n例 3（综合应用）\n题目：\n同上束曲线，若有一条曲线是椭圆且长轴长为8，求该椭圆方程。\n解题步骤：\n- 第一步（确定长轴条件）：\n椭圆的长轴在x轴，设半长轴为a^*，则长轴长\n2a^*=8,\n所以\na^*=4.\n理由：\n在本曲线束的椭圆情形中，x项分母为9+ ，y项分母为4+ ，且\n9+ >4+ ,\n故长轴在x轴。\n- 第二步（列方程求 ）：\n对于椭圆，半长轴平方为9+ ，所以\n9+ =4^2=16,\n解得\n=7.\n理由：\n半长轴平方等于x项分母。\n- 第三步（检验类型）：\n=7>-4,\n符合椭圆条件，且\n!= -9,-4,\n方程有效。\n理由：\n椭圆要求 >-4。\n关键结论：\n所求椭圆方程为\n(x^2) / (16)+(y^2) / (11)=1.\n此时半焦距仍为\nc=sqrt(16-11)= 5,\n焦点仍为( (5),0)。",
-        "traps": "- 易错点一（忽略分母限制）\n解题时解出 后未检查\n!= -a^2,-b^2,\n错误地使用导致分母为零的 值。\n- 正确理解（条件检验）：\n必须排除使分母为零的 ，即\n!= -a^2,-b^2.\n- 错因分析（增解未检）：\n在解方程时盲目约去分母，或去分母后没有回代检验，容易引入增根。\n- 易错点二（类型范围混淆）\n误认为 >-b^2时是双曲线，或者认为 <-a^2时才是双曲线。\n- 正确理解（范围判定）：\n椭圆要求\n>-b^2\n此时两个分母同正；\n双曲线要求\n-a^2< <-b^2\n此时一个分母为正，一个分母为负；\n当\n<-a^2\n时，两个分母同负，方程无实轨迹。\n- 错因分析（符号分析疏漏）：\n没有具体分析两个分母的符号组合，仅凭一个分母的符号下结论。\n- 易错点三（焦点坐标误判）\n认为焦点坐标随 变化，误把焦点坐标写成\n( (a^2+ ),0)\n或类似形式。\n- 正确理解（焦点恒定）：\n在实椭圆或实双曲线情形下，焦点坐标固定为\n( c,0),\nc^2=a^2-b^2.\n虽然分母会随 变化，但两个分母之差始终为\n(a^2+ )-(b^2+ )=a^2-b^2.\n- 错因分析（混淆顶点与焦点）：\nsqrt(a^2+ )表示椭圆情形下x方向的半轴长，不是焦点横坐标。焦点由分母差决定，不由某一个分母单独决定。\n- 易错点四（焦距与半焦距混淆）\n把c直接说成焦距，误认为两焦点距离是c。\n- 正确理解（术语区分）：\n若焦点为\n(-c,0), (c,0),\n则c是半焦距，真正的焦距为\n2c.\n- 错因分析（坐标距离未检查）：\n两个焦点的横坐标相差\nc-(-c)=2c,\n所以两焦点之间的距离不是c，而是2c。",
-        "summary": "一句话核心\n共焦点二次曲线束用一个含参方程统一表示所有以同两点为焦点的椭圆和双曲线；但当参数落在无实轨迹范围时，方程不表示实曲线。\n使用条件\n- 条件1（标准形式）：\n曲线中心在原点，焦点在x轴上；已知\na>b>0,\nc^2=a^2-b^2.\n其中c是半焦距，焦距为2c，焦点为( c,0)。\n- 条件2（参数限制）：\n方程\n(x^2) / (a^2+ )+(y^2) / (b^2+ )=1\n必须满足\n!= -a^2,-b^2,\n否则分母为零，方程无意义。\n- 条件3（类型判断）：\n>-b^2\n时为椭圆；\n-a^2< <-b^2\n时为双曲线；\n<-a^2\n时无实轨迹。\n关键提醒\n- 易错点（分母检验）：\n解出 后必须确保分母不为零，即\n!= -a^2,-b^2.\n- 检查项（类型条件）：\n不要只看一个分母的符号，要同时判断\na^2+\n和\nb^2+\n的符号。\n- 焦点项（只对实曲线成立）：\n当方程表示实椭圆或实双曲线时，焦点固定为\n( c,0),\nc^2=a^2-b^2.\n若 <-a^2，方程无实轨迹，不能再谈实焦点。\n- 术语项（焦距与半焦距）：\nc是半焦距，不是焦距；两焦点之间的距离是2c。"
+        "statement": "条件\n- 条件1（椭圆参数）：\n焦点在 x 轴上的椭圆 (x^2) / (a^2)+(y^2) / (b^2)=1（a>b>0），焦距 c=sqrt(a^2-b^2)。\n- 条件2（参数范围）：\n实数 满足 <a^2 且 != b^2。\n结论\n- 结论一（曲线系方程）：\n直观描述：\n参数 变动时曲线类型改变，但焦点始终相同。\n(x^2) / (a^2- )+(y^2) / (b^2- )=1\n分类规则：\n当 <b^2 时为椭圆；当 b^2< <a^2 时为双曲线。\n- 推广结论（焦点恒定）：\n直观描述：\n所有曲线共享相同的焦点 ( c,0)。\nc=sqrt(a^2-b^2)",
+        "explanation": "一句话直觉\n椭圆和双曲线可以共用相同的焦点，通过调整参数 互相转化。\n核心拆解\n- 要点一（参数类型分类）：\n当 <b^2 时，a^2- >0, b^2- >0，曲线为椭圆；当 b^2< <a^2 时，a^2- >0, b^2- <0，曲线为双曲线。\n- 要点二（焦点恒等证明）：\n椭圆中\nc'^2&=(a^2- )-(b^2- )\\\\ &=a^2-b^2;\n双曲线中\nc'^2&=(a^2- )+( -b^2)\\\\ &=a^2-b^2,\n均等于原椭圆 c^2。\n几何本质（焦点固定）\n所有曲线拥有相同焦点 ( c,0)，构成以该两点为公共焦点的椭圆与双曲线族。\n代数意义（分母调节）\n方程 (x^2) / (a^2- )+(y^2) / (b^2- )=1 通过 统一表示椭圆和双曲线，结构对称。\n考点价值（高频考查）\n- 考法一（曲线类型判定）： 给定 的范围，判断曲线是椭圆还是双曲线。\n- 考法二（曲线方程求解）： 已知曲线过某点，代入曲线系方程求 ，确定具体方程。\n顿悟点\n关键恒等式：(a^2- )-(b^2- )=a^2-b^2，与 无关，故焦点恒定。\n使用场景\n- 场景一（共焦点曲线设定）： 已知焦点，设共焦点曲线系方程方便求曲线。\n- 场景二（含参曲线讨论）： 利用参数 统一椭圆与双曲线，简化分类讨论。",
+        "proof": "思路提示\n通过计算曲线系中焦距的平方，证明其恒等于 a^2-b^2，与参数 无关，从而焦点固定。\n正式推导\n- 步骤一（分母分析）：\n曲线方程 (x^2) / (a^2- )+(y^2) / (b^2- )=1，记 A=a^2- , B=b^2- ，其中 A>0。\n理由： A>0 由 <a^2 保证；B 符号决定曲线类型。\n- 步骤二（类型判定）：\n若 <b^2，则 A>0, B>0，曲线为椭圆；若 b^2< <a^2，则 A>0, B<0，曲线化为 (x^2) / (A)-(y^2) / (-B)=1，为双曲线。\n理由： 标准圆锥曲线形式。\n- 步骤三（焦距计算）：\n当椭圆时，\nc^2&=A-B\\\\ &=(a^2- )-(b^2- )\\\\ &=a^2-b^2;\n当双曲线时，\nc^2&=A+(-B)\\\\ &=(a^2- )+( -b^2)\\\\ &=a^2-b^2.\n理由： 椭圆 c^2=a^2-b^2，双曲线 c^2=a^2+b^2，代入化简即得。\n- 步骤四（焦点结论）：\n因此不论 如何，焦距恒为 c=sqrt(a^2-b^2)，焦点为 ( c,0)。\n理由： 焦点在 x 轴上，坐标由 c 唯一决定。\n结论回扣\n共焦点曲线系的核心是焦点与参数无关，统一了椭圆和双曲线的表示。",
+        "examples": "例 1（基础）\n题目：\n已知椭圆 (x^2) / (16)+(y^2) / (9)=1，写出与其共焦点的二次曲线系方程，并求当 =5 时曲线的类型。\n解题步骤：\n- 第一步（确定参数）：\n由椭圆方程得 a^2=16,b^2=9,c^2=7。\n理由： 椭圆 a^2>b^2，焦距 c^2=a^2-b^2。\n- 第二步（写曲线系）：\n共焦点曲线系方程为 (x^2) / (16- )+(y^2) / (9- )=1。\n理由： 共焦点曲线系公式代入。\n- 第三步（判断类型）：\n将 =5 代入，分母均正且 <9，故曲线为椭圆。\n理由： <b^2 时为椭圆。\n关键结论：\n曲线系 (x^2) / (16- )+(y^2) / (9- )=1， =5 时曲线为椭圆。\n例 2（稍变形）\n题目：\n已知二次曲线与椭圆 (x^2) / (16)+(y^2) / (9)=1 共焦点，且经过点 P(0,4)，求该曲线的方程并判断类型。\n解题步骤：\n- 第一步（设曲线系）：\n设曲线方程为 (x^2) / (16- )+(y^2) / (9- )=1（ <16, != 9）。\n理由： 与椭圆共焦点。\n- 第二步（代入求λ）：\n代入 x=0,y=4 得 (16) / (9- )=1，解得 =-7。\n理由： 化简一次方程。\n- 第三步（写方程并判断）：\n=-7<9，故为椭圆，方程 (x^2) / (23)+(y^2) / (16)=1。\n理由： <b^2 时为椭圆。\n关键结论：\n曲线方程为 (x^2) / (23)+(y^2) / (16)=1，该曲线是椭圆。\n例 3（综合应用）\n题目：\n已知双曲线与椭圆 (x^2) / (8)+(y^2) / (4)=1 共焦点，且经过点 A(3,sqrt(2))，求双曲线的标准方程。\n解题步骤：\n- 第一步（设曲线系）：\n设共焦点曲线系 (x^2) / (8- )+(y^2) / (4- )=1，因为双曲线，所以 4< <8。\n理由： 双曲线需要分母一正一负。\n- 第二步（代入求λ）：\n代入 A(3,sqrt(2)) 得 (9) / (8- )+(2) / (4- )=1。化简得 ^2- -20=0，解得 =5 或 =-4（舍去）。\n理由： 分式方程化整式，检验根的范围。\n- 第三步（写方程）：\n=5 代入得 8- =3, 4- =-1，故双曲线方程为 (x^2) / (3)-(y^2) / (1)=1，即 (x^2) / (3)-y^2=1。\n理由： 双曲线标准形式。\n关键结论：\n双曲线方程为 (x^2) / (3)-y^2=1。",
+        "traps": "- 易错点一（忽略λ范围）：\n学生使用曲线系时不检查 <a^2 且 != b^2，导致方程无意义。\n- 正确理解（先验条件）：\n必须首先确认 满足条件，否则曲线系不成立。\n- 错因分析（思维盲区）：\n习惯认为方程总是椭圆，忽略参数限制。\n- 易错点二（焦点偏移错觉）：\n误以为焦点会随 改变而移动。\n- 正确理解（焦点恒定）：\n所有曲线焦点均为 ( c,0)，焦距恒为 c=sqrt(a^2-b^2)。\n- 错因分析（类比不当）：\n误认为分母变化导致曲线形状改变的同时焦点也变。\n- 易错点三（类型判定混淆）：\n只根据分母是否都正判定椭圆，忽略双曲线可能。\n- 正确理解（分类条件）：\n<b^2 为椭圆，b^2< <a^2 为双曲线。\n- 错因分析（条件遗漏）：\n未考虑 b^2< <a^2 时 b^2- <0，曲线类型为双曲线。",
+        "summary": "一句话核心\n共焦点曲线系的核心是：焦点恒为 ( c,0)，曲线类型由 与 b^2 的大小关系决定。\n使用条件\n- 条件1（椭圆参数）： 存在焦点在 x 轴上的椭圆 (x^2) / (a^2)+(y^2) / (b^2)=1 (a>b>0)，c=sqrt(a^2-b^2)。\n- 条件2（λ参数限制）： <a^2 且 != b^2。\n关键提醒\n- 易错点（检查λ范围）： 使用曲线系必须先验证 是否满足条件。\n- 检查项（分母符号）： 根据 b^2- 的正负确定曲线类型。"
       }
     },
     "assets": {
@@ -413371,36 +412454,35 @@
     },
     "ext": {
       "share": {
-        "title": "共焦点二次曲线束：统一方程与类型判别",
-        "desc": "用于复习解析几何中的曲线族问题，掌握代入点求参数λ的步骤，避免忽略分母非零条件，提升圆锥曲线综合题稳定性。"
+        "title": "共焦点曲线系：快速判定椭圆或双曲线",
+        "desc": "适用于解析几何中与椭圆共焦点的曲线问题，通过参数λ直接写出方程并判断类型，减少因设错方程导致的失分。"
       },
       "relations": {
         "prerequisites": [
-          "椭圆标准方程",
-          "双曲线标准方程",
-          "焦点计算"
+          "椭圆的标准方程",
+          "双曲线的标准方程"
         ],
         "related_ids": [],
-        "similar": "同焦点椭圆系、同焦点双曲线系"
+        "similar": "共焦点的椭圆与双曲线系"
       },
       "exam": {
-        "frequency": 0.4,
-        "score": 6
+        "frequency": 0.6,
+        "score": 5
       },
       "extra": {
         "usage": {
           "scenarios": [
-            "压轴题中的解析几何综合",
-            "曲线类型判别与参数范围",
-            "圆锥曲线系的理解"
+            "压轴题",
+            "轨迹问题",
+            "解析几何综合题"
           ],
           "problem_types": [
-            "求共焦点曲线方程",
-            "含参曲线分类讨论",
-            "过定点求曲线"
+            "求曲线方程",
+            "判断曲线类型",
+            "参数范围问题"
           ],
-          "exam_frequency": 0.4,
-          "exam_score": 6
+          "exam_frequency": 0.6,
+          "exam_score": 5
         },
         "interactive": {
           "has_diagram": true,
@@ -413408,8 +412490,7 @@
           "param_demo": {}
         },
         "related_formulas": [
-          "\\lambda>-b^2\\ \\text{椭圆}",
-          "-a^2<\\lambda<-b^2\\ \\text{双曲线}"
+          "c=\\sqrt{a^{2}-b^{2}}"
         ],
         "legacy_display_version": 2
       }
