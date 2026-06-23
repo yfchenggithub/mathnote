@@ -1,0 +1,85 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	采用坐标法，设过焦点$F$的直线方程为$x = my + \frac{p}{2}$（$m$为参数），联立抛物线$y^2=2px$，利用韦达定理得到$y_1, y_2$的和与积。再将$|AF|$、$|BF|$用$y_1,y_2$表示，计算倒数和化简得$\frac{2}{p}$。同时验证$m=0$（通径）时亦成立。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（设线设点）：}]
+			设$A(x_1,y_1)$，$B(x_2,y_2)$，焦点$F\left(\frac{p}{2},0\right)$，过$F$的直线方程设为$x = my + \frac{p}{2}$（$m\in\mathbb{R}$，$m=0$对应通径）。
+			\[
+				x = my + \frac{p}{2}.
+			\]
+			\par\textbf{理由：} 此形式统一处理所有斜率情形，避免单独讨论斜率不存在的情况。
+		\item[\textbf{步骤二（联立方程）：}]
+			将直线方程代入抛物线$y^2=2px$，得
+			\[
+				\begin{aligned}
+					y^2 &= 2p\left(my + \frac{p}{2}\right) \\ &= 2pmy + p^2.
+			\end{aligned}
+			\]
+			移项整理得
+			\[
+				y^2 - 2pmy - p^2 = 0.
+			\]
+			\par\textbf{理由：} 得到关于$y$的一元二次方程，是后续使用韦达定理的基础。
+		\item[\textbf{步骤三（韦达定理）：}]
+			由二次方程$y^2 - 2pmy - p^2 = 0$得
+			\[
+				y_1 + y_2 = 2pm,
+				\qquad
+				y_1y_2 = -p^2.
+			\]
+			\par\textbf{理由：} 直接根据韦达定理，二次项系数为1，一次项系数为$-2pm$，常数项为$-p^2$。
+		\item[\textbf{步骤四（焦半径表示）：}]
+			利用抛物线定义$|AF| = x_1 + \frac{p}{2}$，并代入直线方程消去$x_1$：
+			\[
+				\begin{aligned}
+					|AF| &= \left(my_1 + \frac{p}{2}\right) + \frac{p}{2} \\ &= my_1 + p.
+			\end{aligned}
+			\]
+			同理
+			\[
+				|BF| = my_2 + p.
+			\]
+			\par\textbf{理由：} 焦半径公式结合直线方程，将长度用$y$坐标线性表示，便于后续求和。
+		\item[\textbf{步骤五（计算倒数和）：}]
+			计算倒数和
+			\[
+				\begin{aligned}
+					\frac{1}{|AF|} + \frac{1}{|BF|} &= \frac{1}{my_1 + p} + \frac{1}{my_2 + p} \\ &= \frac{(my_2 + p)+(my_1 + p)}{(my_1 + p)(my_2 + p)} \\ &= \frac{m(y_1+y_2) + 2p}{m^2y_1y_2 + mp(y_1+y_2) + p^2}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 通分后合并分子、展开分母，得到关于$y_1,y_2$的对称式。
+		\item[\textbf{步骤六（代入韦达化简）：}]
+			将$y_1+y_2=2pm$，$y_1y_2=-p^2$代入上式，得
+			\[
+				m\cdot 2pm + 2p = 2p(m^2+1),
+			\]
+			\[
+				m^2(-p^2) + mp(2pm) + p^2 = p^2(m^2+1).
+			\]
+			因此
+			\[
+				\begin{aligned}
+					\frac{1}{|AF|} + \frac{1}{|BF|} &= \frac{2p(m^2+1)}{p^2(m^2+1)} \\ &= \frac{2}{p}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 分子分母均有公因式$(m^2+1)$，约分后即得定值，与$m$无关。
+		\item[\textbf{步骤七（特殊情况验证）：}]
+			当$m=0$时，直线垂直于$x$轴，方程为$x=\frac{p}{2}$，代入得$y^2=p^2$，解得$y=\pm p$。此时$|AF|=|BF|=p$，直接计算得
+			\[
+				\begin{aligned}
+					\frac{1}{|AF|}+\frac{1}{|BF|} &= \frac{1}{p}+\frac{1}{p} \\ &= \frac{2}{p}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 验证斜率不存在时结论同样成立，确保结论的完备性。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	综上，对于过抛物线$y^2=2px\,(p>0)$焦点$F$的任意弦$AB$，总有
+	\[
+		\frac{1}{|AF|} + \frac{1}{|BF|} = \frac{2}{p}.
+	\]
+\end{proofbox}
