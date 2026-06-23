@@ -1,0 +1,63 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	从双曲线的标准方程出发，通过代数坐标运算，直接验证点 $P$ 到焦点与到准线的距离之比等于离心率 $e$。我们以右焦点 $F(c,0)$ 和右准线 $x=\frac{a^{2}}{c}$ 为例证明；左焦点情形对称。\par
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（设定坐标与方程）：}]
+			设 $P(x,y)$ 是双曲线 $\frac{x^{2}}{a^{2}}-\frac{y^{2}}{b^{2}}=1$ 上任意一点。右焦点 $F(c,0)$，右准线 $l:x=\frac{a^{2}}{c}$。作 $PH\perp l$ 于 $H$，则 $H(\frac{a^{2}}{c},y)$。
+			\[
+				\frac{x^{2}}{a^{2}}-\frac{y^{2}}{b^{2}}=1.
+			\]
+			\par\textbf{理由：} 双曲线的标准方程规定了 $x,y$ 的关系。
+		\item[\textbf{步骤二（写出距离平方）：}]
+			由坐标公式得
+			\[
+				|PF|^{2}=(x-c)^{2}+y^{2},
+				\qquad|PH|^{2}=\Bigl(x-\frac{a^{2}}{c}\Bigr)^{2}.
+			\]
+			\par\textbf{理由：} 平面上两点间距离公式及垂线坐标关系。
+		\item[\textbf{步骤三（消去 $y^{2}$）：}]
+			由双曲线方程解出 $y^{2}=b^{2}\Bigl(\frac{x^{2}}{a^{2}}-1\Bigr)=\frac{b^{2}}{a^{2}}x^{2}-b^{2}$，代入 $|PF|^{2}$：
+			\[
+				\begin{aligned}
+					|PF|^{2}&= (x-c)^{2}+\frac{b^{2}}{a^{2}}x^{2}-b^{2} \\&= \Bigl(1+\frac{b^{2}}{a^{2}}\Bigr)x^{2}-2cx+(c^{2}-b^{2}).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 代入化简，准备利用 $a,b,c$ 关系。
+		\item[\textbf{步骤四（利用 $a,b,c$ 关系简化）：}]
+			因 $c^{2}=a^{2}+b^{2}$，故
+			\[
+				1+\frac{b^{2}}{a^{2}}=\frac{c^{2}}{a^{2}},
+				\qquad
+				c^{2}-b^{2}=a^{2}.
+			\]
+			代入得
+			\[
+				|PF|^{2}= \frac{c^{2}}{a^{2}}x^{2}-2cx+a^{2}.
+			\]
+			\par\textbf{理由：} 双曲线基本参数关系。
+		\item[\textbf{步骤五（配方与比值平方）：}]
+			将 $|PF|^{2}$ 和 $|PH|^{2}$ 写成完全平方形式：
+			\[
+				|PF|^{2}= \frac{(cx-a^{2})^{2}}{a^{2}},
+				\qquad|PH|^{2}= \frac{(cx-a^{2})^{2}}{c^{2}}.
+			\]
+			因此
+			\[
+				\frac{|PF|^{2}}{|PH|^{2}} = \frac{(cx-a^{2})^{2}/a^{2}}{(cx-a^{2})^{2}/c^{2}} = \frac{c^{2}}{a^{2}} = e^{2}.
+			\]
+			\par\textbf{理由：} 配方法及代数运算。
+		\item[\textbf{步骤六（取算术平方根）：}]
+			距离 $|PF|,|PH|$ 均为正数，离心率 $e>0$，故
+			\[
+				\frac{|PF|}{|PH|} = e.
+			\]
+			\par\textbf{理由：} 正数算术平方根的唯一性。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	以上验证了当双曲线处于标准方程时，任意一点 $P$ 到焦点 $F$ 的距离与到对应准线 $l$ 的距离之比恒为离心率 $e$。同理可证左焦点与左准线的情形。因此双曲线第二定义成立。
+\end{proofbox}
