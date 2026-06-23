@@ -1,0 +1,50 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	使用点差法，设出弦端点坐标，利用点在曲线上作差，结合中点坐标公式导出斜率关系。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（设点代入）：}]设$A(x_1,y_1)$，$B(x_2,y_2)$在抛物线$y^2=2px$上，则
+			\[
+				y_1^2 = 2px_1,
+				\qquad
+				y_2^2 = 2px_2
+			\]
+			\par\textbf{理由：}点坐标满足抛物线方程。
+		\item[\textbf{步骤二（作差消元）：}]两式相减得
+			\[
+				y_1^2 - y_2^2 = 2p(x_1 - x_2)
+			\]
+			\par\textbf{理由：}消去二次项，保留差关系。
+		\item[\textbf{步骤三（平方差分解）：}]左边分解:
+			\[
+				(y_1 - y_2)(y_1 + y_2) = 2p(x_1 - x_2)
+			\]
+			\par\textbf{理由：}运用平方差公式。
+		\item[\textbf{步骤四（中点坐标代入）：}]由$M(x_0,y_0)$为中点得
+			\[
+				y_1 + y_2 = 2y_0,\quad x_1 + x_2 = 2x_0
+			\]
+			\par\textbf{理由：}中点坐标定义。
+		\item[\textbf{步骤五（导出斜率）：}]当$x_1\neq x_2$（弦不与$y$轴平行）时，在步骤三等式两边同除以$(x_1-x_2)$：
+			\[
+				\frac{(y_1-y_2)(y_1+y_2)}{x_1-x_2} = 2p
+				\;\Longrightarrow\;
+				k\cdot (y_1+y_2) = 2p,
+			\]
+			代入$y_1+y_2=2y_0$即得
+			\[
+				k = \frac{p}{y_0}
+			\]
+			\par\textbf{理由：}代数变形，利用斜率的定义$k=(y_1-y_2)/(x_1-x_2)$。
+		\item[\textbf{步骤六（条件检验）：}]分母$y_0\neq0$，保证$k$有意义；实质上$k\neq0$。
+			\par\textbf{理由：}若$y_0=0$则弦中点纵坐标为0，此时弦必平行于$y$轴（斜率不存在），不满足题设条件，故公式不适用。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	综上，在题设条件下，弦$AB$的斜率恒为$k = \dfrac{p}{y_0}$，所述公式成立。
+\end{proofbox}
