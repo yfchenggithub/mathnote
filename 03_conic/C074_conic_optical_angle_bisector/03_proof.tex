@@ -1,0 +1,63 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	利用解析法，通过求导得到切线/法线斜率，再通过到角公式或倍角公式证明角平分。对于椭圆和双曲线，直接计算到角正切值并化简，对于抛物线用倍角公式。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（椭圆法线平分）：}]
+			设椭圆$C:\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$（$a>b>0$），$F_1(-c,0),F_2(c,0)$，$c^2=a^2-b^2$，$P(x_0,y_0)$在$C$上（$y_0\neq0$）。切线斜率$k_t=-\frac{b^2x_0}{a^2y_0}$，法线斜率$k_n=\frac{a^2y_0}{b^2x_0}$。焦半径斜率$k_1=\frac{y_0}{x_0+c},k_2=\frac{y_0}{x_0-c}$。计算
+			\[
+				\begin{aligned}
+					\frac{k_1-k_n}{1+k_1k_n}
+					&= \frac{y_0\left(\frac{1}{x_0+c}-\frac{a^2}{b^2x_0}\right)}{1+\frac{a^2y_0^2}{b^2x_0(x_0+c)}} = \frac{-\frac{y_0c(cx_0+a^2)}{b^2x_0(x_0+c)}}{\frac{b^2x_0(x_0+c)+a^2y_0^2}{b^2x_0(x_0+c)}}\\
+					&= -\frac{y_0c(cx_0+a^2)}{b^2x_0(x_0+c)+a^2y_0^2} = -\frac{y_0c(cx_0+a^2)}{b^2(a^2+x_0c)} \quad (\text{利用椭圆方程})\\
+					&= -\frac{c y_0}{b^2}.
+			\end{aligned}
+			\]
+			同理可得
+			\[
+				\frac{k_n-k_2}{1+k_nk_2} = -\frac{c y_0}{b^2}.
+			\]
+			故$\frac{k_1-k_n}{1+k_1k_n}=\frac{k_n-k_2}{1+k_nk_2}$，因此$\angle F_1Pn=\angle nPF_2$。
+			\par\textbf{理由：} 利用椭圆方程$b^2x_0^2+a^2y_0^2=a^2b^2$化简分母，并结合$c^2=a^2-b^2$得到两边相等。
+		\item[\textbf{步骤二（双曲线切线平分）：}]
+			设双曲线$C:\frac{x^2}{a^2}-\frac{y^2}{b^2}=1$（$a>0,b>0$），$F_1(-c,0),F_2(c,0)$，$c^2=a^2+b^2$，$P(x_0,y_0)$在$C$的右支（$x_0>0,y_0\neq0$）。切线斜率$k_t=\frac{b^2x_0}{a^2y_0}$。焦半径斜率$k_1=\frac{y_0}{x_0+c},k_2=\frac{y_0}{x_0-c}$。计算
+			\[
+				\begin{aligned}
+					\frac{k_t-k_1}{1+k_tk_1} &= \frac{\frac{b^2x_0}{a^2y_0}-\frac{y_0}{x_0+c}}{1+\frac{b^2x_0}{a^2y_0}\cdot\frac{y_0}{x_0+c}} = \frac{\frac{b^2x_0(x_0+c)-a^2y_0^2}{a^2y_0(x_0+c)}}{\frac{a^2(x_0+c)+b^2x_0}{a^2(x_0+c)}} \\ &= \frac{b^2x_0(x_0+c)-a^2y_0^2}{y_0\bigl(a^2(x_0+c)+b^2x_0\bigr)}
+			\end{aligned}
+			\]
+			利用双曲线方程$b^2x_0^2-a^2y_0^2=a^2b^2$，分子$b^2x_0(x_0+c)-a^2y_0^2 = a^2b^2+b^2x_0c = b^2(a^2+x_0c)$。分母$y_0\bigl(a^2(x_0+c)+b^2x_0\bigr)=y_0c(x_0c+a^2)$。因此
+			\[
+				\frac{k_t-k_1}{1+k_tk_1} = \frac{b^2(a^2+x_0c)}{y_0c(x_0c+a^2)} = \frac{b^2}{c y_0}.
+			\]
+			类似地，
+			\[
+				\frac{k_2-k_t}{1+k_2k_t} = \frac{b^2(x_0c-a^2)}{y_0c(x_0c-a^2)} = \frac{b^2}{c y_0}.
+			\]
+			故$\frac{k_t-k_1}{1+k_tk_1}=\frac{k_2-k_t}{1+k_2k_t}$，所以$\angle F_1Pl=\angle lPF_2$。
+			\par\textbf{理由：} 利用双曲线方程和$c^2=a^2+b^2$化简代数式，得到左右两边相等。
+		\item[\textbf{步骤三（抛物线切线平分）：}]
+			设抛物线$y^2=2px$（$p>0$），焦点$F(\frac{p}{2},0)$，$P(x_0,y_0)$在抛物线上（$y_0\neq0$）。由对称性，不妨设$y_0>0$（若$y_0<0$同理可证）。切线斜率$k_t=\frac{p}{y_0}$。过$P$作水平射线$PH$平行于$x$轴正向。设$PF$的倾角为$\theta$，切线$l$的倾角为$\phi$，则
+			\[
+				\tan\phi = k_t = \frac{p}{y_0},
+				\qquad
+				\tan\theta = \frac{y_0}{x_0-\frac{p}{2}}.
+			\]
+			由抛物线方程$y_0^2=2px_0$得$x_0=\frac{y_0^2}{2p}$，代入$\tan\theta$：
+			\[
+				\tan\theta = \frac{y_0}{\frac{y_0^2}{2p}-\frac{p}{2}} = \frac{2p y_0}{y_0^2-p^2}.
+			\]
+			计算
+			\[
+				\tan(2\phi) = \frac{2\tan\phi}{1-\tan^2\phi} = \frac{2\cdot\frac{p}{y_0}}{1-\frac{p^2}{y_0^2}} = \frac{2p y_0}{y_0^2-p^2} = \tan\theta.
+			\]
+			由于$y_0>0$，可知$\phi\in(0,\frac{\pi}{2})$，故$2\phi\in(0,\pi)$；又$\theta\in(0,\pi)$且$\tan\theta=\tan(2\phi)$，因此$\theta=2\phi$（若$\theta=2\phi-\pi$则$\theta<0$，不可能）。于是$\angle FPl = \theta-\phi = \phi$，$\angle lPH = \phi$（$PH$水平），故$\angle FPl=\angle lPH$。
+			\par\textbf{理由：} 利用抛物线方程将$\tan\theta$用$y_0$表示，证明$\tan\theta=\tan(2\phi)$，结合角度范围得$\theta=2\phi$，从而角平分成立。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	以上三个步骤分别证明了椭圆、双曲线和抛物线的光学性质，即对应角平分关系。
+\end{proofbox}
