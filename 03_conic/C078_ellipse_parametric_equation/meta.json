@@ -1,0 +1,188 @@
+{
+  "id": "C078",
+  "module": "conic",
+  "core": {
+    "title": "椭圆参数方程",
+    "alias": [
+      "参数方程",
+      "椭圆三角代换",
+      "离心角"
+    ],
+    "summary": "用三角函数表示椭圆上点的坐标，便于求最值和轨迹",
+    "difficulty": 2,
+    "category": "解析几何",
+    "tags": [
+      "椭圆",
+      "参数方程",
+      "离心角",
+      "三角代换",
+      "最值",
+      "轨迹"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "椭圆",
+      "参数方程",
+      "离心角",
+      "三角代换",
+      "最值",
+      "距离",
+      "辅助角公式",
+      "a cosθ",
+      "b sinθ",
+      "标准方程",
+      "焦点在x轴",
+      "焦点在y轴"
+    ],
+    "synonyms": [
+      "椭圆参数",
+      "椭圆参数式",
+      "椭圆三角函数表示",
+      "椭圆点坐标"
+    ],
+    "intents": [
+      "求最值",
+      "设点",
+      "求距离",
+      "求轨迹",
+      "参数化",
+      "三角代换"
+    ],
+    "query_templates": [
+      "椭圆参数方程怎么设",
+      "椭圆上点的坐标参数形式",
+      "椭圆离心角是什么",
+      "椭圆参数方程求最值",
+      "椭圆点到直线距离最大值"
+    ],
+    "ocrKeywords": [
+      "椭圆",
+      "x^2/a^2+y^2/b^2=1",
+      "a cosθ",
+      "b sinθ",
+      "离心角"
+    ],
+    "latex_patterns": [
+      "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1",
+      "x=a\\cos\\theta",
+      "y=b\\sin\\theta"
+    ],
+    "formulaTokens": [
+      "x=a\\cos\\theta",
+      "y=b\\sin\\theta",
+      "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1",
+      "a\\cos\\theta",
+      "b\\sin\\theta",
+      "\\cos\\theta",
+      "\\sin\\theta"
+    ],
+    "pinyin": "tuoyuan canshu fangcheng",
+    "pinyinAbbr": "tycsfc"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.3,
+    "hot_score": 65,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\begin{cases} x=a\\cos\\theta \\\\ y=b\\sin\\theta \\end{cases}",
+    "related_formulas": [
+      "\\begin{cases} x=b\\cos\\theta \\\\ y=a\\sin\\theta \\end{cases}\\quad(\\frac{x^2}{b^2}+\\frac{y^2}{a^2}=1,\\,a>b>0)",
+      "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1(a>b>0)"
+    ],
+    "variables": [
+      "a: 椭圆长半轴",
+      "b: 椭圆短半轴",
+      "θ: 离心角",
+      "x: 横坐标",
+      "y: 纵坐标"
+    ],
+    "conditions": [
+      "椭圆标准方程: \\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1, a>b>0",
+      "中心在原点, 焦点在x轴(或y轴)",
+      "θ∈R (通常取[0,2π))"
+    ],
+    "conclusions": [
+      "椭圆上任意点坐标可表示为三角形式",
+      "可利用三角函数有界性求最值",
+      "离心角θ不是极角, 关系为tanφ=(b/a)tanθ"
+    ]
+  },
+  "content": {
+    "statement": "若椭圆标准方程为\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1 (a>b>0), 中心在原点, 焦点在x轴上, 则椭圆上点的坐标可表示为参数方程\\begin{cases}x=a\\cos\\theta\\\\y=b\\sin\\theta\\end{cases}, 其中θ为离心角, θ∈R。",
+    "derivation": [
+      "将参数方程代入标准方程：\\frac{(a\\cos\\theta)^2}{a^2}+\\frac{(b\\sin\\theta)^2}{b^2}=\\cos^2\\theta+\\sin^2\\theta=1, 恒成立。",
+      "反过来, 由标准方程也可通过三角代换得到参数方程。",
+      "几何意义：椭圆可视为圆x^2+y^2=a^2在y方向压缩为原来的b/a倍。"
+    ],
+    "intuition": "椭圆可以通过将单位圆沿x轴拉伸a倍、沿y轴拉伸b倍得到, 因此用角度参数θ自然地表示坐标。",
+    "common_tricks": [
+      "设点用参数式：P(a\\cos\\theta, b\\sin\\theta), 减少变量。",
+      "利用|sinθ|≤1, |cosθ|≤1求最值。",
+      "距离表达式若含一次三角函数, 用辅助角公式化简。",
+      "注意离心角与极角的区别，避免混淆。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "最值问题",
+      "轨迹问题",
+      "点到直线距离",
+      "与圆相关的问题"
+    ],
+    "problem_types": [
+      "求椭圆上点到直线距离最大/最小值",
+      "求椭圆上点到定点距离范围",
+      "求椭圆内接图形面积最值",
+      "求动点轨迹方程"
+    ],
+    "exam_frequency": 0.6,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "C078.svg",
+    "png": "",
+    "gif": "",
+    "video": "",
+    "geogebra": ""
+  },
+  "shareConfig": {
+    "title": "椭圆参数方程：设点求最值利器",
+    "shareDesc": "适合解析几何最值题设点阶段, 利用三角函数有界性快速求出范围, 减少联立方程计算量。"
+  },
+  "relations": {
+    "prerequisites": [
+      "椭圆标准方程",
+      "三角函数有界性",
+      "辅助角公式"
+    ],
+    "related_ids": [],
+    "similar": [
+      "圆的参数方程",
+      "双曲线的参数方程（选修）",
+      "抛物线的参数方程（选修）"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-23"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "解析几何-圆锥曲线-椭圆",
+  "altNodes": ""
+}
