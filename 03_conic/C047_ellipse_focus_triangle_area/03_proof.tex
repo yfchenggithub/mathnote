@@ -1,0 +1,63 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	焦点三角形面积公式可由椭圆定义和余弦定理联合推出，关键步骤是求出两焦半径的乘积$mn$。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（设长与和）：}] 设$|PF_{1}|=m$，$|PF_{2}|=n$。由椭圆定义得
+			\[
+				m+n = 2a.
+			\]
+			\par\textbf{理由：}椭圆上任意点到两焦点距离之和为常数$2a$。
+		\item[\textbf{步骤二（余弦定理）：}] 在$\triangle PF_{1}F_{2}$中，由余弦定理
+			\[
+				(2c)^{2} = m^{2} + n^{2} - 2mn\cos\theta.
+			\]
+			\par\textbf{理由：}$F_{1}F_{2}=2c$，$c^{2}=a^{2}-b^{2}$。
+		\item[\textbf{步骤三（代入与消元）：}] 将$m+n=2a$两边平方得$m^{2}+n^{2}=4a^{2}-2mn$，代入余弦定理式：
+			\[
+				\begin{aligned}
+					4c^{2} &= (4a^{2}-2mn) - 2mn\cos\theta\\
+					&= 4a^{2} - 2mn(1+\cos\theta).
+			\end{aligned}
+			\]
+			整理得
+			\[
+				\begin{aligned}
+					mn &= \frac{4a^{2}-4c^{2}}{2(1+\cos\theta)}\\
+					&= \frac{2b^{2}}{1+\cos\theta}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：}利用$m^{2}+n^{2}$的变形，以及$a^{2}-c^{2}=b^{2}$化简。
+		\item[\textbf{步骤四（面积公式）：}] 三角形面积$S = \frac{1}{2}mn\sin\theta$，代入$mn$表达式：
+			\[
+				\begin{aligned}
+					S &= \frac{1}{2}mn\sin\theta\\
+					&= \frac{1}{2}\cdot\frac{2b^{2}}{1+\cos\theta}\cdot\sin\theta\\
+					&= b^{2}\cdot\frac{\sin\theta}{1+\cos\theta}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：}面积公式$S=\frac{1}{2}mn\sin\theta$适用于已知两边及其夹角。
+		\item[\textbf{步骤五（三角恒等）：}] 利用$\sin\theta=2\sin\frac{\theta}{2}\cos\frac{\theta}{2}$，$1+\cos\theta=2\cos^{2}\frac{\theta}{2}$，得
+			\[
+				\begin{aligned}
+					\frac{\sin\theta}{1+\cos\theta}
+					&= \frac{2\sin\frac{\theta}{2}\cos\frac{\theta}{2}}{2\cos^{2}\frac{\theta}{2}}\\
+					&= \frac{\sin\frac{\theta}{2}}{\cos\frac{\theta}{2}}\\
+					&= \tan\frac{\theta}{2}.
+			\end{aligned}
+			\]
+			因此
+			\[
+				S = b^{2}\tan\frac{\theta}{2}.
+			\]
+			\par\textbf{理由：}半角恒等式化简。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	由此完成证明，焦点三角形面积$S$与椭圆半短轴的平方$b^{2}$和半角正切$\tan\frac{\theta}{2}$成正比，与长半轴$a$无关。
+\end{proofbox}
