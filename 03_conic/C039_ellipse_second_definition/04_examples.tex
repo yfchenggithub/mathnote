@@ -1,0 +1,88 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知椭圆 $\dfrac{x^2}{25} + \dfrac{y^2}{9} = 1$，求椭圆的右焦点坐标和右准线方程。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别基本量）：}] 由椭圆方程知 $a^2 = 25$，$b^2 = 9$，则 $c^2 = a^2 - b^2 = 16$。
+			\par\textbf{理由：}
+			椭圆标准方程的分母较大者为 $a^2$。
+
+		\item[\textbf{第二步（计算坐标与方程）：}] 解得 $a = 5$，$c = 4$。右焦点为 $F(4, 0)$。右准线为 $x = \dfrac{a^2}{c} = \dfrac{25}{4}$。
+			\par\textbf{理由：}
+			焦点在 $x$ 轴上时，右焦点坐标 $(c,0)$，右准线方程 $x = a^2/c$。
+
+		\item[\textbf{第三步（给出完整答案）：}] 右焦点坐标为 $(4, 0)$，右准线方程为 $x = \dfrac{25}{4}$。
+			\par\textbf{理由：}
+			直接套用结论得出答案。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	已知标准方程，可利用 $c^2 = a^2 - b^2$ 求出焦准对应元素。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	椭圆 $\dfrac{x^2}{16} + \dfrac{y^2}{12} = 1$ 上一点 $P$ 到右焦点的距离为 $4$，求点 $P$ 到右准线的距离。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（求离心率）：}] 由方程得 $a^2 = 16$，$b^2 = 12$，$c^2 = 4$。因此 $a = 4$，$c = 2$，离心率 $e = \dfrac{c}{a} = \dfrac{1}{2}$。
+			\par\textbf{理由：}
+			离心率 $e$ 是联系焦半径与准距的桥梁。
+
+		\item[\textbf{第二步（套用第二定义）：}] 由椭圆第二定义，$\dfrac{|PF_\text{右}|}{d(P,l_\text{右})} = e$，即 $\dfrac{4}{d(P,l_\text{右})} = \dfrac{1}{2}$。
+			\par\textbf{理由：}
+			椭圆上任意点都满足该比例关系。
+
+		\item[\textbf{第三步（求解准距）：}] 解上式得 $d(P,l_\text{右}) = 8$。
+			\par\textbf{理由：}
+			交叉相乘求距离，距离恒为正。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	已知焦半径与 $e$（$e$ 可由方程求出），即可反向求出准距。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	设椭圆 $\dfrac{x^2}{25} + \dfrac{y^2}{9} = 1$ 的右焦点为 $F$，右准线为 $l$，在椭圆上求一点 $P$，使得 $|PF| + \dfrac{4}{5}d(P,l)$ 取得最小值，并求该最小值。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别参数）：}] 由方程知 $a=5$，$b=3$，$c=4$，离心率 $e = \dfrac{c}{a} = \dfrac{4}{5}$。
+			\par\textbf{理由：}
+			系数 $\dfrac{4}{5}$ 恰好等于该椭圆的离心率。
+
+		\item[\textbf{第二步（定义转化）：}] 由第二定义，$|PF| = e \cdot d(P,l) = \dfrac{4}{5} d(P,l)$。
+			代入所求式：
+			\[
+				\begin{aligned}
+					|PF| + \dfrac{4}{5}d(P,l) &= \dfrac{4}{5} d(P,l) + \dfrac{4}{5} d(P,l) \\
+					&= \dfrac{8}{5} d(P,l).
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			将焦半径统一替换为准距，使表达式简化为单一变量。
+
+		\item[\textbf{第三步（求最值）：}] 问题转化为求椭圆上的点到右准线距离的最小值。
+			椭圆上距离右准线最近的点是右顶点 $(5,0)$。此时
+			\[
+				\begin{aligned}
+					d(P,l) &= \left|5 - \dfrac{a^2}{c}\right| \\
+					&= \left|5 - \dfrac{25}{4}\right| \\
+					&= \dfrac{5}{4}.
+			\end{aligned}
+			\]
+			因此最小值为 $\dfrac{8}{5} \times \dfrac{5}{4} = 2$。
+			\par\textbf{理由：}
+			准线是竖直直线，椭圆在 $x$ 方向上有界，顶点处距离取最小。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	巧用第二定义将焦半径替换为 $e$ 倍准距，是处理此类最值问题的核心技巧。
+\end{examplebox}

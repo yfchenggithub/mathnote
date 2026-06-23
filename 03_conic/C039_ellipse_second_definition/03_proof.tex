@@ -1,0 +1,45 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	从椭圆的标准方程出发，设出焦点与准线，直接计算点到焦点的距离与到准线距离的比值，化简后证明恒等于 $e$。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（设椭圆基本量）：}] 设椭圆标准方程 $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1$（$a>b>0$），右焦点 $F(c,0)$，右准线 $l: x=\dfrac{a^2}{c}$，离心率 $e=\dfrac{c}{a}\in(0,1)$。
+			\par\textbf{理由：}
+			确立计算所需的基本代数元素。
+
+		\item[\textbf{步骤二（消 $y^2$ 并化简）：}] 对椭圆上任意点 $P(x,y)$，由椭圆方程得 $y^2 = b^2\left(1-\dfrac{x^2}{a^2}\right)$，代入 $|PF|^2$：
+			\[
+				\begin{aligned}
+					|PF|^2 &= (x-c)^2 + b^2\left(1-\frac{x^2}{a^2}\right) \\
+					&= x^2 - 2cx + c^2 + b^2 - \frac{b^2}{a^2}x^2 \\
+					&= \left(1 - \frac{b^2}{a^2}\right)x^2 - 2cx + (c^2 + b^2) \quad \text{(合并同类项)} \\
+					&= \frac{c^2}{a^2}x^2 - 2cx + a^2 \quad \text{(代入 $c^2 = a^2 - b^2$)} \\
+					&= \frac{c^2}{a^2}\left(x - \frac{a^2}{c}\right)^2.
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			利用椭圆方程消去 $y^2$，通过合并与配方将表达式化为完全平方。
+
+		\item[\textbf{步骤三（开方得等比式）：}] 开平方并取正值（距离非负）：
+			\[
+				|PF| = \frac{c}{a} \left|x - \frac{a^2}{c}\right| = e \cdot d(P,l).
+			\]
+			\par\textbf{理由：}
+			开方后直接得到焦半径与对应准距的比例关系。
+
+		\item[\textbf{步骤四（写出定义式）：}] 将上式变形即得第二定义的标准形式：
+			\[
+				\frac{|PF|}{d(P,l)} = e.
+			\]
+			\par\textbf{理由：}
+			代数运算结果恰好是椭圆的第二定义，证毕。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{从代数运算角度看，利用 $a, b, c$ 的关系可直接从标准方程导出第二定义，说明椭圆第一定义与第二定义完全等价。}
+\end{proofbox}
