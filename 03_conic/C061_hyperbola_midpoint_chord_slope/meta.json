@@ -1,0 +1,183 @@
+{
+  "id": "C061",
+  "module": "conic",
+  "core": {
+    "title": "双曲线中点弦斜率公式",
+    "alias": [
+      "双曲线中点弦公式",
+      "点差法公式",
+      "中点弦斜率"
+    ],
+    "summary": "已知双曲线弦的中点坐标，直接给出弦的斜率，避免联立方程组。",
+    "difficulty": 3,
+    "category": "解析几何",
+    "tags": [
+      "双曲线",
+      "中点弦",
+      "点差法",
+      "斜率公式",
+      "弦中点问题"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "双曲线",
+      "中点弦",
+      "斜率公式",
+      "点差法",
+      "弦中点",
+      "斜率",
+      "标准双曲线",
+      "渐近线",
+      "内部点",
+      "中点坐标",
+      "轨迹方程",
+      "弦方程",
+      "中点弦存在条件"
+    ],
+    "synonyms": [
+      "双曲线中点弦斜率",
+      "中点弦斜率公式",
+      "点差法双曲线",
+      "弦中点公式",
+      "双曲线弦中点",
+      "中点弦公式双曲线"
+    ],
+    "intents": [
+      "求斜率",
+      "求弦方程",
+      "求中点轨迹",
+      "证明存在性",
+      "验证公式"
+    ],
+    "query_templates": [
+      "双曲线中点弦斜率公式",
+      "已知双曲线中点求弦方程",
+      "双曲线点差法公式",
+      "中点弦轨迹问题",
+      "双曲线弦中点斜率条件"
+    ],
+    "ocrKeywords": [
+      "双曲线",
+      "中点",
+      "弦",
+      "斜率",
+      "点差法",
+      "公式",
+      "渐近线",
+      "方程"
+    ],
+    "latex_patterns": [
+      "\\frac{b^2 x_0}{a^2 y_0}",
+      "\\frac{x_0^2}{a^2} - \\frac{y_0^2}{b^2} < 1"
+    ],
+    "formulaTokens": [
+      "\\frac{b^2 x_0}{a^2 y_0}",
+      "\\frac{x_0^2}{a^2} - \\frac{y_0^2}{b^2}",
+      "\\frac{x^2}{a^2} - \\frac{y^2}{b^2} = 1",
+      "y_0 \\neq 0",
+      "k = \\frac{b^2 x_0}{a^2 y_0}",
+      "\\frac{a^2 x_0}{b^2 y_0}"
+    ],
+    "pinyin": "shuangquxian zhongdianxian xielv gongshi",
+    "pinyinAbbr": "sqxzdxxlgs"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.76,
+    "hot_score": 68,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "k = \\frac{b^2 x_0}{a^2 y_0}",
+    "related_formulas": [
+      "k = \\frac{a^2 x_0}{b^2 y_0} \\quad (\\text{焦点在 } y \\text{ 轴})"
+    ],
+    "variables": {
+      "a": "半实轴长（x轴）",
+      "b": "半虚轴长（y轴）",
+      "x_0": "中点横坐标",
+      "y_0": "中点纵坐标",
+      "k": "弦的斜率"
+    },
+    "conditions": [
+      "双曲线标准方程：$\\frac{x^2}{a^2} - \\frac{y^2}{b^2} = 1$，$a,b>0$",
+      "$y_0 \\neq 0$",
+      "$\\frac{x_0^2}{a^2} - \\frac{y_0^2}{b^2} < 1$（中点位于双曲线内部）",
+      "斜率存在且不与渐近线平行（$k \\neq \\pm \\frac{b}{a}$）"
+    ],
+    "conclusions": [
+      "弦的斜率由中点坐标唯一确定，$k = \\frac{b^2 x_0}{a^2 y_0}$",
+      "可用于快速求中点弦方程或中点轨迹"
+    ]
+  },
+  "content": {
+    "statement": "对于标准双曲线 $\\frac{x^2}{a^2} - \\frac{y^2}{b^2} = 1$（$a,b>0$），若弦 $AB$ 的中点为 $M(x_0,y_0)$，且满足 $y_0 \\neq 0$，$\\frac{x_0^2}{a^2} - \\frac{y_0^2}{b^2} < 1$，弦的斜率 $k$ 存在且不与渐近线平行，则 $k = \\frac{b^2 x_0}{a^2 y_0}$。",
+    "derivation": [
+      "设 $A(x_1,y_1),B(x_2,y_2)$，代入双曲线方程，两式相减得 $\\frac{(x_1-x_2)(x_1+x_2)}{a^2} - \\frac{(y_1-y_2)(y_1+y_2)}{b^2} = 0$",
+      "利用中点坐标 $x_0 = \\frac{x_1+x_2}{2}, y_0 = \\frac{y_1+y_2}{2}$，代入得 $\\frac{2x_0\\Delta x}{a^2} - \\frac{2y_0\\Delta y}{b^2} = 0$",
+      "整理得斜率 $k = \\frac{\\Delta y}{\\Delta x} = \\frac{b^2 x_0}{a^2 y_0}$"
+    ],
+    "intuition": "点差法将弦的斜率与中点坐标直接关联，本质是利用中点坐标表示弦的斜率，绕开联立方程组的繁琐运算。",
+    "common_tricks": [
+      "使用前必须验证 $y_0 \\neq 0$ 且 $\\frac{x_0^2}{a^2} - \\frac{y_0^2}{b^2} < 1$，否则中点弦不存在。",
+      "注意双曲线焦点位置：若焦点在 $y$ 轴，公式变为 $k = \\frac{a^2 x_0}{b^2 y_0}$。",
+      "该公式也可用于求中点轨迹：已知斜率，代入公式得出中点坐标的关系，加上内部条件限制。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "圆锥曲线选择填空题",
+      "解析几何解答题中简化计算"
+    ],
+    "problem_types": [
+      "中点弦问题",
+      "中点轨迹问题",
+      "弦方程问题"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "C061.svg",
+    "png": "",
+    "json": "",
+    "pdf": ""
+  },
+  "shareConfig": {
+    "title": "双曲线中点弦斜率公式：中点坐标直接求斜率",
+    "shareDesc": "适合讲评课和刷题前速查，用点差法快速得到中点弦斜率，避免繁琐的判别式计算，减少代数变形错误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "点差法",
+      "双曲线标准方程",
+      "渐近线概念"
+    ],
+    "related_ids": [],
+    "similar": "椭圆中点弦斜率公式：$k = -\\frac{b^2 x_0}{a^2 y_0}$（注意负号）"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-23"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "解析几何-圆锥曲线-双曲线",
+  "altNodes": [
+    "解析几何-圆锥曲线-椭圆",
+    "解析几何-圆锥曲线-抛物线"
+  ]
+}

@@ -1,0 +1,95 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知双曲线 $C: \frac{x^2}{4} - \frac{y^2}{9} = 1$，弦 $AB$ 的中点为 $M(2,1)$。求直线 $AB$ 的方程。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（条件检验）：}] 检查 $M$ 是否满足使用公式的条件。计算得 $y_0=1\neq0$，$\frac{2^2}{4} - \frac{1^2}{9} = 1 - \frac19 = \frac89 < 1$，且渐近线斜率为 $\pm\frac32$，待求斜率不会与之平行（条件成立）。
+			\par\textbf{理由：} 公式要求 $y_0\neq0$、点 $M$ 在双曲线内部、斜率不与渐近线平行。这些条件保证公式适用。
+		\item[\textbf{第二步（套用公式）：}] 由中点弦斜率公式，得
+			\[
+				k = \frac{b^2 x_0}{a^2 y_0} = \frac{9 \times 2}{4 \times 1} = \frac{18}{4} = \frac92.
+			\]
+			\par\textbf{理由：} 直接代入 $a^2=4$，$b^2=9$，$x_0=2$，$y_0=1$。
+		\item[\textbf{第三步（写出方程）：}] 由点斜式，直线 $AB$ 的方程为
+			\[
+				y - 1 = \frac92 (x - 2).
+			\]
+			整理得 $9x - 2y - 16 = 0$。
+			\par\textbf{理由：} 将点 $(2,1)$ 和斜率 $\frac92$ 代入点斜式并化简。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{直线 $AB$ 的方程为 $9x-2y-16=0$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知双曲线 $C: \frac{x^2}{4} - \frac{y^2}{9} = 1$，斜率为 $2$ 的直线 $l$ 与 $C$ 交于 $A,B$ 两点。求弦 $AB$ 的中点 $M$ 的轨迹方程。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（设点与公式）：}] 设中点 $M(x_0,y_0)$。由中点弦斜率公式得
+			\[
+				k = \frac{b^2 x_0}{a^2 y_0}.
+			\]
+			代入 $a^2=4$, $b^2=9$, $k=2$，得
+			\[
+				2 = \frac{9x_0}{4y_0} \quad\Rightarrow\quad 8y_0 = 9x_0 \quad\Rightarrow\quad y_0 = \frac{9}{8}x_0.
+			\]
+			\par\textbf{理由：} 将已知斜率代入公式，整理出 $x_0$ 与 $y_0$ 的关系。
+		\item[\textbf{第二步（附加限制）：}] 弦 $AB$ 存在还需要 $y_0\neq0$ 且中点 $M$ 在双曲线内部，即 $\frac{x_0^2}{4} - \frac{y_0^2}{9} < 1$。将 $y_0 = \frac{9}{8}x_0$ 代入得
+			\[
+				\begin{aligned}
+					\frac{x_0^2}{4} - \frac{(81x_0^2/64)}{9}
+					&= \frac{x_0^2}{4} - \frac{81x_0^2}{576} \\
+					&= \frac{144x_0^2 - 81x_0^2}{576} \\
+					&= \frac{63x_0^2}{576} \\
+					&= \frac{7x_0^2}{64},
+			\end{aligned}
+			\]
+			则 $\frac{7x_0^2}{64} < 1$，即 $|x_0| < \frac{8\sqrt{7}}{7}$。又 $y_0 \neq 0$ 推出 $x_0 \neq 0$。
+			\par\textbf{理由：} 由公式的条件确定 $x_0$ 的取值范围，保证弦确实存在。
+		\item[\textbf{第三步（轨迹方程）：}] 综上，中点 $M$ 的轨迹方程为
+			\[
+				y = \frac{9}{8}x,
+			\]
+			其中 $x\in\left(-\frac{8\sqrt{7}}{7},\frac{8\sqrt{7}}{7}\right)$ 且 $x\neq 0$。
+			\par\textbf{理由：} 轨迹是直线的一段（不包括原点），由关系式和存在条件共同决定。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{中点 $M$ 的轨迹方程为 $y = \frac{9}{8}x$，其中 $x\in\left(-\frac{8\sqrt{7}}{7},\frac{8\sqrt{7}}{7}\right)$ 且 $x\neq0$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知双曲线 $C: \frac{x^2}{4} - \frac{y^2}{9} = 1$，过定点 $P(1,2)$ 的直线 $l$ 与 $C$ 交于 $A,B$ 两点，且弦 $AB$ 的中点在直线 $y=x$ 上。求直线 $l$ 的方程。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（设中点与公式）：}] 设弦 $AB$ 的中点为 $M(x_0,y_0)$。由中点弦斜率公式，直线 $l$ 的斜率 $k$ 满足
+			\[
+				k = \frac{b^2 x_0}{a^2 y_0} = \frac{9x_0}{4y_0}.
+			\]
+			\par\textbf{理由：} 这是双曲线中点弦斜率公式的直接套用。
+		\item[\textbf{第二步（利用中点条件）：}] 由题设 $M$ 在直线 $y=x$ 上，故 $y_0 = x_0$。代入上式得
+			\[
+				k = \frac{9x_0}{4x_0} = \frac94\quad (x_0 \neq 0).
+			\]
+			\par\textbf{理由：} $x_0=0$ 会导致 $y_0=0$，违反 $y_0\neq0$ 的条件，因此 $x_0\neq0$ 可约去。
+		\item[\textbf{第三步（写出直线方程并验证）：}] 直线 $l$ 过点 $P(1,2)$，斜率 $k=\frac94$，点斜式给出
+			\[
+				y-2 = \frac94 (x-1) \quad\Longrightarrow\quad 9x - 4y -1 = 0.
+			\]
+			验证：联立直线 $l$ 与 $y=x$ 得中点 $M\left(\frac15,\frac15\right)$，满足 $y_0\neq0$ 且内部条件 $\frac{(1/5)^2}{4} - \frac{(1/5)^2}{9} = \frac1{180}<1$，且 $k$ 不与渐近线平行。故解正确。
+			\par\textbf{理由：} 求出直线方程后通过计算验证条件成立，确保题目要求满足。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{直线 $l$ 的方程为 $9x-4y-1=0$。}
+\end{examplebox}
