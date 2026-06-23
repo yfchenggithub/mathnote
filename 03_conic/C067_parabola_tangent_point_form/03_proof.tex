@@ -1,0 +1,59 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	采用“设切线方程→联立消元→利用相切条件（判别式为零或重根）→化简”的思路。通过变量替换$t=x-x_0$可简化计算。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（设切线方程）：}] 设切线斜率为$k$（$k$存在），切线方程为
+			\[
+				y - y_0 = k(x - x_0).
+			\]
+			\par\textbf{理由：}点$P(x_0,y_0)$在抛物线上，切线不垂直于$x$轴时可用点斜式表示。
+
+		\item[\textbf{步骤二（联立消元）：}] 将$y = k(x-x_0)+y_0$代入$y^2=2px$，整理得
+			\[
+				\begin{aligned}
+					&[k(x-x_0)+y_0]^2 = 2p x\\
+					\Rightarrow\ &k^2(x-x_0)^2 + 2k y_0 (x-x_0) + y_0^2 = 2p x\\
+					&t=x-x_0,\ x=t+x_0:\\
+					\Rightarrow\ &k^2 t^2 + 2k y_0 t + y_0^2 = 2p(t+x_0)\\
+					\Rightarrow\ &k^2 t^2 + 2k y_0 t + y_0^2 - 2p t - 2p x_0 = 0\\
+					\because\ &y_0^2 = 2p x_0,\\
+					\therefore\ &k^2 t^2 + (2k y_0 - 2p)t = 0\\
+					\Rightarrow\ &t(k^2 t + 2k y_0 - 2p)=0.
+			\end{aligned}
+			\]
+			\par\textbf{理由：}通过换元$t$并利用点在抛物线上，原方程化为一次因式与一次式乘积等于零的形式，便于应用重根条件。
+
+		\item[\textbf{步骤三（求斜率）：}] 方程$t(k^2 t + 2k y_0 - 2p)=0$已有根$t=0$（对应切点横坐标），由相切知该根应为重根（否则会有另一交点），因此必须有$2k y_0 - 2p = 0$，故
+			\[
+				2k y_0 - 2p = 0,
+				\qquad
+				k = \frac{p}{y_0}\quad (y_0\neq0).
+			\]
+			\par\textbf{理由：}重根条件要求另一因式在 $t=0$ 处的值也为 $0$，故 $2k y_0 - 2p = 0$，解出$k$。
+
+		\item[\textbf{步骤四（代回化简）：}] 将$k = p/y_0$代入切线方程并化简：
+			\[
+				\begin{aligned}
+					y - y_0 &= \frac{p}{y_0}(x - x_0)\\
+					\Rightarrow y_0(y - y_0) &= p(x - x_0)\\
+					\Rightarrow y_0 y - y_0^2 &= p x - p x_0\\
+					\because y_0^2 &= 2p x_0,\\
+					\therefore y_0 y - 2p x_0 &= p x - p x_0\\
+					\Rightarrow y_0 y &= p x + p x_0 = p(x + x_0).
+			\end{aligned}
+			\]
+			\par\textbf{理由：}利用点$P$坐标满足抛物线方程消去$y_0^2$，整理得到最终切线方程。
+
+		\item[\textbf{步骤五（特例验证）：}] 当$y_0=0$时，点$P$为顶点$(0,0)$，此时切线为$x=0$。将$y_0=0$代入公式$y_0 y = p(x+x_0)$得$0 = p(x+0)$，即$x=0$，与直观一致。故公式对$y_0=0$也成立。
+			\par\textbf{理由：}验证特殊情况，保证结论的完整性。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	综上，对于抛物线$y^2=2px$（$p>0$）上任意一点$P(x_0,y_0)$，过点$P$的切线方程均为$y_0 y = p(x + x_0)$。
+\end{proofbox}
