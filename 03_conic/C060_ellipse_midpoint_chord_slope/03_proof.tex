@@ -1,0 +1,69 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	采用“点差法”：设弦两端点坐标，代入椭圆方程作差，利用中点坐标消去二次项，直接得到斜率与中点坐标的关系。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（设出两点）：}] 设弦的两个端点分别为 $A(x_1,y_1)$、$B(x_2,y_2)$，且 $x_1\neq x_2$（弦不垂直），中点 $M(x_0,y_0)$。
+			\[
+				x_0 = \frac{x_1+x_2}{2},\quad y_0 = \frac{y_1+y_2}{2}.
+			\]
+			\par\textbf{理由：} 引入端点坐标是点差法的起点，中点公式将用于后续化简。
+
+		\item[\textbf{步骤二（代入作差）：}] 将 $A$、$B$ 坐标代入椭圆方程 $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1$，得到：
+			\[
+				\frac{x_1^2}{a^2}+\frac{y_1^2}{b^2}=1,
+				\qquad
+				\frac{x_2^2}{a^2}+\frac{y_2^2}{b^2}=1.
+			\]
+			两式相减：
+			\[
+				\frac{x_1^2-x_2^2}{a^2}+\frac{y_1^2-y_2^2}{b^2}=0.
+			\]
+			\par\textbf{理由：} 相减可以消去常数项，使端点坐标的平方差出现。
+
+		\item[\textbf{步骤三（因式分解）：}] 应用平方差公式 $x_1^2-x_2^2=(x_1-x_2)(x_1+x_2)$、$y_1^2-y_2^2=(y_1-y_2)(y_1+y_2)$，代入上式：
+			\[
+				\frac{(x_1-x_2)(x_1+x_2)}{a^2}+\frac{(y_1-y_2)(y_1+y_2)}{b^2}=0.
+			\]
+			\par\textbf{理由：} 因式分解后，可分离出斜率 $\dfrac{y_1-y_2}{x_1-x_2}$ 的因子。
+
+		\item[\textbf{步骤四（代入中点坐标）：}] 用中点坐标替换 $x_1+x_2=2x_0$、$y_1+y_2=2y_0$：
+			\[
+				\frac{(x_1-x_2)\cdot 2x_0}{a^2}+\frac{(y_1-y_2)\cdot 2y_0}{b^2}=0.
+			\]
+			两边约去 $2$：
+			\[
+				\frac{(x_1-x_2)\,x_0}{a^2}+\frac{(y_1-y_2)\,y_0}{b^2}=0.
+			\]
+			\par\textbf{理由：} 将中点坐标引入，使得式中的 $(x_1-x_2)$ 和 $(y_1-y_2)$ 成为唯一的未知长度。
+
+		\item[\textbf{步骤五（解出斜率）：}] 将含 $y_1-y_2$ 的项移到等式右边：
+			\[
+				\frac{(x_1-x_2)\,x_0}{a^2} = -\frac{(y_1-y_2)\,y_0}{b^2}.
+			\]
+			两边同除以 $(x_1-x_2)\,y_0$（$x_1\neq x_2$，$y_0\neq 0$）：
+			\[
+				\frac{x_0}{a^2\,y_0} = -\frac{y_1-y_2}{b^2\,(x_1-x_2)}.
+			\]
+			两边同时乘以 $b^2$：
+			\[
+				\frac{b^2\,x_0}{a^2\,y_0} = -\frac{y_1-y_2}{x_1-x_2}.
+			\]
+			所以弦的斜率为：
+			\[
+				\begin{aligned}
+					k &= \frac{y_1-y_2}{x_1-x_2} \\
+					&= -\frac{b^2\,x_0}{a^2\,y_0}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 通过代数变形，直接得到只含中点坐标和椭圆参数的斜率表达式。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{至此，我们证明了当椭圆方程为 $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1$（$a>b>0$），弦不与 $y$ 轴平行且中点 $M(x_0,y_0)$ 在椭圆内部、$y_0\neq0$ 时，弦的斜率为 $\boxed{k=-\dfrac{b^2 x_0}{a^2 y_0}}$。此结果不依赖于弦的具体端点，只与椭圆参数和中点坐标有关。}
+\end{proofbox}
