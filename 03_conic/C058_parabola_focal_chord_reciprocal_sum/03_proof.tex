@@ -1,0 +1,65 @@
+\begin{proofbox}
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	通过抛物线定义将焦半径 $|AF|,|BF|$ 分别用点 $A,B$ 的横坐标表示，再设过焦点的直线方程与抛物线联立，利用韦达定理得到 $x_1+x_2$ 和 $x_1x_2$，代入目标式化简即可得到与斜率无关的定值。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（设直线方程）：}] 设过焦点 $F(\frac{p}{2},0)$ 的直线 $AB$ 的斜率为 $k$（$k\neq0$），则其方程为 $y = k\left(x-\frac{p}{2}\right)$，与抛物线 $y^2 = 2px$ 联立。
+			\par\textbf{理由：} 设参数 $k$ 表示直线，为后续用韦达定理引入两根之和与积。
+			\[
+				\begin{cases}
+					y = k\left(x-\dfrac{p}{2}\right),\\[2ex]
+					y^2 = 2px.
+			\end{cases}
+			\]
+
+		\item[\textbf{步骤二(韦达定理):}] 代入消去 $y$,整理得关于 $x$ 的二次方程:
+			\[
+				k^2x^2 - (k^2p + 2p)x + \frac{k^2p^2}{4} = 0.
+			\]
+			设 $A(x_1,y_1),B(x_2,y_2)$,则
+			\[
+				\begin{aligned}
+					x_1 + x_2 &= \frac{k^2p + 2p}{k^2} \\
+					&= p + \frac{2p}{k^2}, \\
+					x_1 x_2 &= \frac{k^2p^2/4}{k^2} \\
+					&= \frac{p^2}{4}.
+			\end{aligned}
+			\]
+			\par\textbf{理由:} 利用韦达定理得到两根和与积的表达式,它们是后续化简的基础.
+
+		\item[\textbf{步骤三(转化目标式):}] 由抛物线定义,$|AF| = x_1 + \frac{p}{2}$,$|BF| = x_2 + \frac{p}{2}$.代入目标式:
+			\[
+				\begin{aligned}
+					S &= \frac{1}{|AF|} + \frac{1}{|BF|} \\
+					&= \frac{1}{x_1+\frac{p}{2}} + \frac{1}{x_2+\frac{p}{2}} \\
+					&= \frac{(x_1+x_2)+p}{x_1x_2 + \frac{p}{2}(x_1+x_2) + \frac{p^2}{4}}.
+			\end{aligned}
+			\]
+			\par\textbf{理由:} 焦半径转化是用代数法处理长度问题的关键,通分后更便于代入韦达结果.
+
+		\item[\textbf{步骤四(代入化简):}] 将步骤二所得 $x_1+x_2$ 和 $x_1x_2$ 代入 $S$ 的表达式:
+			\[
+				\begin{aligned}
+					S &= \frac{\left(p + \frac{2p}{k^2}\right) + p}{\frac{p^2}{4} + \frac{p}{2}\left(p + \frac{2p}{k^2}\right) + \frac{p^2}{4}} \\
+					&= \frac{2p + \frac{2p}{k^2}}{\frac{p^2}{2} + \frac{p}{2}\left(p + \frac{2p}{k^2}\right)} \\
+					&= \frac{2p\left(1 + \frac{1}{k^2}\right)}{\frac{p^2}{2} + \frac{p^2}{2} + \frac{p^2}{k^2}} \\
+					&= \frac{2p\left(1 + \frac{1}{k^2}\right)}{p^2\left(1 + \frac{1}{k^2}\right)} \\
+					&= \frac{2}{p}.
+			\end{aligned}
+			\]
+			\par\textbf{理由:} 合并同类项后,分子分母的 $\left(1+\frac{1}{k^2}\right)$ 约去,结果与斜率 $k$ 无关.
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	因此,对于任意过焦点 $F(\frac{p}{2},0)$ 的弦 $AB$(斜率不存在时直接验证也成立),总有
+	\[
+		\frac{1}{|AF|} + \frac{1}{|BF|} = \frac{2}{p}.
+	\]
+	该结论简化了涉及焦点弦倒数和的计算,在小题和大题中均可直接使用.
+\end{proofbox}
