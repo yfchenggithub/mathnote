@@ -1,0 +1,57 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	采用坐标法，将定义式转化为代数方程，通过两次平方去掉根号，整理出标准方程。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（建系设点）：}]
+			以两焦点所在直线为 $x$ 轴，线段 $F_1F_2$ 的中点为原点建立直角坐标系，设 $F_1(-c,0),\;F_2(c,0)$，动点 $P(x,y)$。
+			\[
+				F_1(-c,0),\;F_2(c,0)
+			\]
+			\par\textbf{理由：}利用对称性简化计算，此时两焦点关于原点对称。
+
+		\item[\textbf{步骤二（列定义式）：}]
+			由定义 $|PF_1|+|PF_2|=2a$ 写出代数形式。
+			\[
+				\sqrt{(x+c)^2+y^2}+\sqrt{(x-c)^2+y^2}=2a
+			\]
+			\par\textbf{理由：}这是椭圆定义的直接翻译。
+
+		\item[\textbf{步骤三（移项平方）：}]
+			将其中一个根式移到等号右边，两边平方。
+			\[
+				\sqrt{(x+c)^2+y^2}=2a-\sqrt{(x-c)^2+y^2}
+			\]
+			两边平方并整理得
+			\[
+				a^2-cx=a\sqrt{(x-c)^2+y^2}
+			\]
+			\par\textbf{理由：}平方时需保证右边非负，由 $2a>2c$ 可得 $2a-\sqrt{(x-c)^2+y^2}>0$ 恒成立，平方可行。
+
+		\item[\textbf{步骤四（再次平方整理）：}]
+			将上一步结果两边再次平方，合并同类项。
+			\[
+				\begin{aligned}
+					(a^2-cx)^2 &= a^2\bigl[(x-c)^2+y^2\bigr] \\
+					a^4-2a^2cx+c^2x^2 &= a^2x^2-2a^2cx+a^2c^2+a^2y^2 \\
+					(a^2-c^2)x^2 + a^2y^2 &= a^2(a^2-c^2)
+			\end{aligned}
+			\]
+			\par\textbf{理由：}第二次平方彻底消去根号，得到只含 $x,y$ 的二次方程。中间步骤已经合并移项。
+
+		\item[\textbf{步骤五（引入 $b$ 标准化）：}]
+			令 $b^2=a^2-c^2$（由 $a>c>0$ 知 $b^2>0$），代入上式并除以 $a^2b^2$ 得
+			\[
+				\frac{x^2}{a^2}+\frac{y^2}{b^2}=1
+			\]
+			\par\textbf{理由：}参数 $b$ 的引入使方程形式对称，方程为椭圆标准方程，表示焦点在 $x$ 轴上的椭圆。类似地，若焦点在 $y$ 轴可得 $\displaystyle\frac{y^2}{a^2}+\frac{x^2}{b^2}=1$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{从椭圆定义出发，通过坐标法推导出了椭圆的标准方程，说明定义与标准方程是等价的。该推导过程是解析几何中“坐标法”的典型应用。}
+\end{proofbox}
