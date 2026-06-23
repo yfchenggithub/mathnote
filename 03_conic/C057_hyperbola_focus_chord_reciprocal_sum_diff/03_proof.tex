@@ -1,0 +1,89 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用双曲线的焦半径公式 $|PF|=|ex_P - a|$（取右焦点 $F(c,0)$），将 $\frac{1}{|AF|}+\frac{1}{|BF|}$ 及 $\left|\frac{1}{|AF|}-\frac{1}{|BF|}\right|$ 表示为 $x_1,x_2$ 的对称式，再联立直线与双曲线方程，借助韦达定理化简。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（联立方程）：}] 设双曲线 $\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}=1\ (a>0,b>0)$，右焦点 $F(c,0)$，其中 $c=\sqrt{a^2+b^2}$。过 $F$ 的直线斜率为 $k$（$k$ 存在），方程为 $y=k(x-c)$。代入双曲线并整理得：
+			\[
+				(b^2-a^2k^2)x^2+2a^2ck^2x-a^2(k^2c^2+b^2)=0.
+			\]
+			由韦达定理得
+			\[
+				x_1+x_2=\frac{2a^2ck^2}{a^2k^2-b^2},
+				\qquad
+				x_1x_2=\frac{a^2(k^2c^2+b^2)}{a^2k^2-b^2}.
+			\]
+			\par\textbf{理由：} 将直线代入双曲线并化简，分母移项变号以统一为 $a^2k^2-b^2$。
+
+		\item[\textbf{步骤二（构造对称式）：}] 记 $N=e(x_1+x_2)-2a$，$M=e^2x_1x_2-ae(x_1+x_2)+a^2$，其中 $e=\dfrac{c}{a}$。将韦达结果代入，并利用 $c^2=a^2+b^2$ 化简可得：
+			\[
+				N=\frac{2ab^2(k^2+1)}{a^2k^2-b^2},\quad
+				M=\frac{b^4(k^2+1)}{a^2k^2-b^2}.
+			\]
+			因此 $\dfrac{N}{M}=\dfrac{2a}{b^2}$。
+			\par\textbf{理由：} 直接代入并化简，注意分子分母中 $k^2+1$ 因子相消。
+
+		\item[\textbf{步骤三（同支情形）：}] 若 $A,B$ 在双曲线同一支（不妨设都在右支），则 $x_1>0,x_2>0$，且 $ex_1>a,ex_2>a$，故
+			\[
+				|AF|=ex_1-a,\quad |BF|=ex_2-a.
+			\]
+			从而
+			\[
+				\begin{aligned}
+					\frac{1}{|AF|}+\frac{1}{|BF|}
+					&= \frac{1}{ex_1-a}+\frac{1}{ex_2-a} \\
+					&= \frac{e(x_1+x_2)-2a}{e^2x_1x_2-ae(x_1+x_2)+a^2} \\
+					&= \frac{N}{M} \\
+					&= \frac{2a}{b^2}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 通分后分子即为 $N$，分母即为 $M$，代入步骤二的比值即得。
+
+		\item[\textbf{步骤四（异支情形）：}] 设 $A$ 在右支，$B$ 在左支（由对称性其他情形类似），则 $x_1>0,x_2<0$。此时 $|AF|=ex_1-a$，$|BF|=a-ex_2$（因为 $ex_2<a$）。考虑差的绝对值：
+			\[
+				\left|\frac{1}{|AF|}-\frac{1}{|BF|}\right|
+				=\left|\frac{1}{ex_1-a}-\frac{1}{a-ex_2}\right|.
+			\]
+			由于 $a-ex_2=-(ex_2-a)$，所以
+			\[
+				\frac{1}{ex_1-a}-\frac{1}{a-ex_2}
+				=\frac{2a-e(x_1+x_2)}{-(ex_1-a)(ex_2-a)}.
+			\]
+			又 $(ex_1-a)(ex_2-a)=M$，$2a-e(x_1+x_2)=-N$，因此
+			\[
+				\begin{aligned}
+					\frac{1}{ex_1-a}-\frac{1}{a-ex_2}
+					&= \frac{-N}{-M} \\
+					&= \frac{N}{M}.
+			\end{aligned}
+			\]
+			于是
+			\[
+				\begin{aligned}
+					\left|\frac{1}{|AF|}-\frac{1}{|BF|}\right|
+					&= \left|\frac{N}{M}\right| \\
+					&= \frac{2a}{b^2}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 利用 $M$ 和 $N$ 的定义，将异支表达式转化为 $N$ 与 $M$ 的比值，取绝对值后得相同常数。
+
+		\item[\textbf{步骤五（斜率不存在情况）：}] 当 $k$ 不存在时，直线为 $x=c$，代入双曲线得 $y=\pm\dfrac{b^2}{a}$。此时 $A,B$ 都在右支，且 $|AF|=|BF|=\dfrac{b^2}{a}$。直接计算：
+			\[
+				\begin{aligned}
+					\frac{1}{|AF|}+\frac{1}{|BF|}
+					&= \frac{a}{b^2}+\frac{a}{b^2} \\
+					&= \frac{2a}{b^2}.
+			\end{aligned}
+			\]
+			与公式吻合，异支情形在此处不发生。故定理对任意过焦点的直线成立。
+			\par\textbf{理由：} 直接代入验证。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	过焦点的弦 $AB$，当 $A,B$ 同支时 $\frac{1}{|AF|}+\frac{1}{|BF|}=\frac{2a}{b^2}$；当 $A,B$ 异支时 $\left|\frac{1}{|AF|}-\frac{1}{|BF|}\right|=\frac{2a}{b^2}$。若取左焦点 $F(-c,0)$，结论完全类似。
+\end{proofbox}
