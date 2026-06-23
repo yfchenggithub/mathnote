@@ -1,0 +1,65 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	设焦点在$x$轴上，坐标$F_1(-c,0),F_2(c,0)$，动点$P(x,y)$满足$|PF_1|-|PF_2|=\pm 2a$。通过两次平方消去根号，得到标准方程。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（建立方程）：}]
+			由定义 $|PF_1|-|PF_2| = \pm 2a$，得$\sqrt{(x+c)^2+y^2} - \sqrt{(x-c)^2+y^2} = \pm 2a$。
+			\[
+				\sqrt{(x+c)^2+y^2} - \sqrt{(x-c)^2+y^2} = \pm 2a.
+			\]
+			\par\textbf{理由：}代入两点间距离公式。
+		\item[\textbf{步骤二（移项平方）：}]
+			将一根号移到右侧：$\sqrt{(x+c)^2+y^2} = \sqrt{(x-c)^2+y^2} \pm 2a$，两边平方。
+			\[
+				(x+c)^2+y^2 = (x-c)^2+y^2 + 4a^2 \pm 4a\sqrt{(x-c)^2+y^2}.
+			\]
+			\par\textbf{理由：}平方时注意交叉项。
+		\item[\textbf{步骤三（化简消元）：}]
+			消去$x^2,c^2,y^2$项，得$4cx = 4a^2 \pm 4a\sqrt{(x-c)^2+y^2}$，即
+			\[
+				cx - a^2 = \pm a\sqrt{(x-c)^2+y^2}.
+			\]
+			\par\textbf{理由：}整理并除以$4$。
+		\item[\textbf{步骤四（再次平方）：}]
+			两边再平方，去掉根号：
+			\[
+				(cx - a^2)^2 = a^2\left[(x-c)^2+y^2\right].
+			\]
+			\par\textbf{理由：}将$a$乘入根号内再平方。
+		\item[\textbf{步骤五（展开整理）：}]
+			展开得
+			\[
+				\begin{aligned}
+					c^2x^2 - 2a^2cx + a^4 &= a^2(x^2 - 2cx + c^2 + y^2) \\ &= a^2x^2 - 2a^2cx + a^2c^2 + a^2y^2.
+			\end{aligned}
+			\]
+			\par\textbf{理由：}展开平方合并。
+		\item[\textbf{步骤六（合并同类项）：}]
+			移项合并得
+			\[
+				\begin{aligned}
+					(c^2-a^2)x^2 - a^2y^2 &= a^2c^2 - a^4 \\ &= a^2(c^2-a^2).
+			\end{aligned}
+			\]
+			\par\textbf{理由：}右侧提取公因式。
+		\item[\textbf{步骤七（引入$b$）：}]
+			令$b^2 = c^2-a^2$（$b>0$），则方程化为$b^2x^2 - a^2y^2 = a^2b^2$。
+			\[
+				b^2x^2 - a^2y^2 = a^2b^2.
+			\]
+			\par\textbf{理由：}定义$b$简化。
+		\item[\textbf{步骤八（化为标准型）：}]
+			两边除以$a^2b^2$得$\displaystyle\frac{x^2}{a^2} - \frac{y^2}{b^2} = 1$。
+			\[
+				\frac{x^2}{a^2} - \frac{y^2}{b^2} = 1.
+			\]
+			\par\textbf{理由：}完成标准方程形式。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	从定义出发经代数化简，得到焦点在$x$轴上的标准方程。若焦点在$y$轴，类似推导可得$\frac{y^2}{a^2}-\frac{x^2}{b^2}=1$。推导过程中$a<c$保证$b^2>0$。
+\end{proofbox}
