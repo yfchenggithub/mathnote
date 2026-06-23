@@ -1,0 +1,63 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	通过双曲线定义与余弦定理列出方程，消去边长平方项得到 $|PF_1||PF_2|$，再代入面积公式并利用半角公式化简。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一(设定变量)：}]
+			设 $|PF_1|=r_1$，$|PF_2|=r_2$，焦距 $|F_1F_2|=2c$，且 $c^2=a^2+b^2$。
+			\[
+				|r_1-r_2| = 2a
+			\]
+			\par\textbf{理由：} 双曲线定义：双曲线上任意一点到两焦点距离之差的绝对值为 $2a$。
+		\item[\textbf{步骤二(平方展开)：}]
+			将定义式两边平方：
+			\[
+				r_1^2 + r_2^2 - 2r_1r_2 = 4a^2
+			\]
+			\par\textbf{理由：} 为后续与余弦定理联立，消去平方和项。
+		\item[\textbf{步骤三(余弦定理)：}]
+			在 $\triangle F_1PF_2$ 中，由余弦定理：
+			\[
+				4c^2 = r_1^2 + r_2^2 - 2r_1r_2\cos\theta
+			\]
+			\par\textbf{理由：} 三角形边角关系。
+		\item[\textbf{步骤四(联立求乘积)：}]
+			将步骤二代入步骤三消去 $r_1^2+r_2^2$：
+			\[
+				4c^2 = (4a^2 + 2r_1r_2) - 2r_1r_2\cos\theta
+			\]
+			整理得
+			\[
+				4(c^2-a^2) = 2r_1r_2(1-\cos\theta)
+			\]
+			利用 $c^2-a^2 = b^2$，得
+			\[
+				4b^2 = 2r_1r_2(1-\cos\theta) \quad\Rightarrow\quad r_1r_2 = \frac{2b^2}{1-\cos\theta}
+			\]
+			\par\textbf{理由：} 代数化简，利用 $b^2 = c^2-a^2$ 联系双曲线参数。
+		\item[\textbf{步骤五(面积公式)：}]
+			三角形面积 $S_{\triangle F_1PF_2}$ 可表示为
+			\[
+				S = \frac12 r_1r_2 \sin\theta
+			\]
+			\par\textbf{理由：} 两边及其夹角的正弦面积公式。
+		\item[\textbf{步骤六(代入化简)：}]
+			将步骤四结果代入面积公式：
+			\[
+				\begin{aligned}
+					S &= \frac12 \cdot \frac{2b^2}{1-\cos\theta} \cdot \sin\theta \\\\ &= b^2 \cdot \frac{\sin\theta}{1-\cos\theta}
+			\end{aligned}
+			\]
+			利用半角公式 $\dfrac{\sin\theta}{1-\cos\theta} = \cot\dfrac{\theta}{2}$（或 $\tan$ 关系），得
+			\[
+				S = b^2 \cot\frac{\theta}{2}
+			\]
+			\par\textbf{理由：} 三角恒等变形。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{由此证明，双曲线焦点三角形面积公式 $S_{\triangle F_1PF_2}=b^2\cot\frac{\theta}{2}$ 成立。}
+\end{proofbox}
