@@ -1,0 +1,73 @@
+\begin{proofbox}
+	\n\textbf{\textcolor{CProof}{思路提示}}\n\n由定义出发，将点$P$坐标代入椭圆标准方程，通过消元和化简，计算比值$\frac{|PF|}{d(P,l)}$，证明其恒等于$\frac{c}{a}$。\n\n
+
+	\medskip
+	\n\textbf{\textcolor{CProof}{正式推导}}\n
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\n
+		\item[\textbf{步骤一（设定方程与元素）：}]
+			设椭圆$E:\frac{x^{2}}{a^{2}}+\frac{y^{2}}{b^{2}}=1$（$a>b>0$），右焦点$F(c,0)$，对应右准线$l:x=\frac{a^{2}}{c}$，其中$c^{2}=a^{2}-b^{2}$。\n
+			\par\textbf{理由：}\n 标准形式下，焦点在$x$轴正半轴，准线在焦点右侧。\n\n
+			\[
+				\n \frac{x^{2}}{a^{2}}+\frac{y^{2}}{b^{2}}=1,\quad\n F(c,0),\quad l:x=\frac{a^{2}}{c}.\n
+			\]
+			\n\n
+		\item[\textbf{步骤二（距离表示）：}]
+			设$P(x,y)$为椭圆上任意一点，则\n
+			\[
+				\n |PF| = \sqrt{(x-c)^{2}+y^{2}},
+				\qquad\n d(P,l) = \left|x-\frac{a^{2}}{c}\right|.\n
+			\]
+			\n
+			\par\textbf{理由：}\n 两点间距离公式；点到直线距离（直线垂直$x$轴）。\n\n
+		\item[\textbf{步骤三（消去$y^{2}$）：}]
+			由椭圆方程得$y^{2}=b^{2}-\frac{b^{2}}{a^{2}}x^{2}$，代入$|PF|^{2}$中：\n
+			\[
+				\n
+				\begin{aligned}
+					\n |PF|^{2} &= (x-c)^{2}+b^{2}-\frac{b^{2}}{a^{2}}x^{2} \\\n &= \left(1-\frac{b^{2}}{a^{2}}\right)x^{2}-2cx+c^{2}+b^{2}.\n
+			\end{aligned}
+				\n
+			\]
+			\n
+			\par\textbf{理由：}\n 用椭圆方程替换$y^{2}$，整理合并。\n\n
+		\item[\textbf{步骤四（化简得$|PF|$的简洁形式）：}]
+			因为$c^{2}=a^{2}-b^{2}$，所以$1-\frac{b^{2}}{a^{2}}=\frac{c^{2}}{a^{2}}$，且$c^{2}+b^{2}=a^{2}$。于是\n
+			\[
+				\n
+				\begin{aligned}
+					\n |PF|^{2} &= \frac{c^{2}}{a^{2}}x^{2}-2cx+a^{2} \\\n &= \left(a-\frac{c}{a}x\right)^{2}.\n
+			\end{aligned}
+				\n
+			\]
+			\n 由于$x\le a$，$a-\frac{c}{a}x>0$，故\n
+			\[
+				\n |PF| = a-\frac{c}{a}x.\n
+			\]
+			\n
+			\par\textbf{理由：}\n 利用椭圆参数关系配方，开方取正。\n\n
+		\item[\textbf{步骤五（计算比值）：}]
+			对于椭圆上的点，$x\le a<\frac{a^{2}}{c}$，所以$d(P,l)=\frac{a^{2}}{c}-x$。于是\n
+			\[
+				\n
+				\begin{aligned}
+					\n e &= \frac{|PF|}{d(P,l)} \\\n &= \frac{a-\frac{c}{a}x}{\frac{a^{2}}{c}-x}.\n
+			\end{aligned}
+				\n
+			\]
+			\n 注意到 $a-\frac{c}{a}x = \frac{c}{a}\left(\frac{a^{2}}{c}-x\right)$，代入上式得\n
+			\[
+				\n
+				\begin{aligned}
+					\n e &= \frac{\frac{c}{a}\left(\frac{a^{2}}{c}-x\right)}{\frac{a^{2}}{c}-x} \\\n &= \frac{c}{a}.\n
+			\end{aligned}
+				\n
+			\]
+			\n
+			\par\textbf{理由：}\n 分母与分子正好有公因式，约分即得常数$\frac{c}{a}$。\n
+	\end{description}
+	\n\n
+
+	\medskip
+	\n\textbf{\textcolor{CProof}{结论回扣}}\n\n通过以上推导，我们验证了在椭圆中离心率的定义值等于代数表达式$\frac{c}{a}$。对双曲线可类似证明（注意符号差异），而对抛物线，由定义直接可得$e=1$（抛物线定义即为曲线上任意一点到焦点距离等于到准线距离）。\n
+\end{proofbox}
