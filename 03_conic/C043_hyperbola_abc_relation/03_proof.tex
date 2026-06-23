@@ -1,0 +1,50 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	从双曲线定义出发，利用距离公式建立方程；通过两次平方消去根号，整理出标准形式，从而得到 $c^2=a^2+b^2$。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（定义列方程）：}]
+			设焦点 $F_1(-c,0),F_2(c,0)$，动点 $P(x,y)$，根据定义 $|PF_1-PF_2|=2a$，得
+			\[
+				\left| \sqrt{(x+c)^2+y^2} - \sqrt{(x-c)^2+y^2} \right| = 2a.
+			\]
+			\par\textbf{理由：}两点间距离公式表示 $PF_1$ 和 $PF_2$，$2a$ 为实轴长。
+		\item[\textbf{步骤二（一次平方化简）：}]
+			移项得 $\sqrt{(x+c)^2+y^2} = \sqrt{(x-c)^2+y^2} \pm 2a$，两边平方并整理：
+			\[
+				(x+c)^2+y^2 = (x-c)^2+y^2 + 4a^2 \pm 4a\sqrt{(x-c)^2+y^2}.
+			\]
+			消去 $y^2$，化简得 $4cx - 4a^2 = \pm 4a\sqrt{(x-c)^2+y^2}$，即
+			\[
+				cx - a^2 = \pm a\sqrt{(x-c)^2+y^2}.
+			\]
+			\par\textbf{理由：}平方后合并同类项，将含根号的项单独保留。
+		\item[\textbf{步骤三（二次平方消根号）：}]
+			对 $cx - a^2 = \pm a\sqrt{(x-c)^2+y^2}$ 两边平方：
+			\[
+				(cx - a^2)^2 = a^2\big[(x-c)^2+y^2\big].
+			\]
+			展开并整理：
+			\[
+				c^2x^2 - 2a^2cx + a^4 = a^2(x^2 - 2cx + c^2 + y^2).
+			\]
+			移项合并得：
+			\[
+				(c^2 - a^2)x^2 - a^2y^2 = a^2(c^2 - a^2).
+			\]
+			\par\textbf{理由：}平方后展开，所有含 $x$ 的项合并，常数项移项。
+		\item[\textbf{步骤四（引入 $b$ 得关系）：}]
+			因为 $c>a>0$，所以 $c^2-a^2>0$。记 $b^2 = c^2 - a^2$，则上式变为
+			\[
+				b^2 x^2 - a^2 y^2 = a^2 b^2.
+			\]
+			两边除以 $a^2 b^2$ 得标准方程 $\frac{x^2}{a^2} - \frac{y^2}{b^2} = 1$。
+			\par\textbf{理由：}对照双曲线标准方程形式，直接得到 $c^2 = a^2 + b^2$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	由推导可知，对于焦点在 $x$ 轴的双曲线恒有 $c^2 = a^2 + b^2$；焦点在 $y$ 轴时结论相同。因此对中心在原点、焦点在坐标轴上的双曲线，$c^2 = a^2 + b^2$ 成立，且 $c>a$。
+\end{proofbox}

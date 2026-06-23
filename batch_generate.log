@@ -455,3 +455,70 @@ Processing Pipeline: 100%|██████████| 1/1 [00:36<00:00, 36.9
 [2026-06-23 10:04:49] [latex] Generating LaTeX for C041...
 [2026-06-23 10:05:06] [write] source.tex updated from 12_pipeline\generated_sources\C041.tex (673 chars)
 [2026-06-23 10:05:06] [pipeline] Running run_source_to_pdf.py 03_conic --target-id C041...
+[2026-06-23 10:15:47] [publish] PDF_READY confirmed for C041; deployment is allowed
+[2026-06-23 10:15:47] [publish] Running incremental_publish.py for C041...
+[2026-06-23 10:16:31] [done] C041 -> C041: complete
+[2026-06-23 10:16:34] 
+[2026-06-23 10:16:34] ============================================================
+[2026-06-23 10:16:34] [progress] 7/47: C042 | C042 | 椭圆 a,b,c 关系：a²=b²+c² | 教材选修一 |
+[2026-06-23 10:16:34] ============================================================
+[2026-06-23 10:16:34] [start] C042: 03_conic:79 | C042 | 椭圆 a,b,c 关系：a²=b²+c² | 教材选修一 |
+[2026-06-23 10:16:34] [latex] Generating LaTeX for C042...
+[2026-06-23 10:16:43] [write] source.tex updated from 12_pipeline\generated_sources\C042.tex (468 chars)
+[2026-06-23 10:16:43] [pipeline] Running run_source_to_pdf.py 03_conic --target-id C042...
+[2026-06-23 10:33:11] [fail] C042: Pipeline failed (rc=1): O - [progress] item=C042 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=450.7s timeout=180s
+2026-06-23 10:31:29,866 - INFO - [progress] item=C042 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=480.8s timeout=180s
+2026-06-23 10:31:59,902 - INFO - [progress] item=C042 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=510.8s timeout=180s
+2026-06-23 10:32:02,673 - INFO - [PERF_TRACE] {"event": "perf_trace", "step": "l4_check", "model": "deepseek-v4-pro", "prompt_chars": 13249, "payload_chars": 9972, "response_chars": 9270, "request_start_ts": "2026-06-23T10:23:29.099", "request_end_ts": "2026-06-23T10:32:02.669", "llm_roundtrip_ms": 513568.77, "network_wait_ms": 513568.77, "prompt_tokens": 6553, "completion_tokens": 49756, "total_tokens": 56309, "json_parse_ms": 3.61, "validate_ms": 0.04, "retry_count": 0, "timeout_value": 180, "thinking_enabled": true, "reasoning_effort": "max"}
+2026-06-23 10:32:02,699 - INFO - [stage/done] item=C042 stage=L4_CHECK mode=run elapsed=513.60s
+2026-06-23 10:32:02,699 - INFO - [stage/start] item=C042 stage=L4_EXPORT mode=run
+2026-06-23 10:32:02,751 - INFO - C042 L4 导出 tex 片段: 6 个
+2026-06-23 10:32:02,752 - INFO - [stage/done] item=C042 stage=L4_EXPORT mode=run elapsed=0.05s
+2026-06-23 10:32:02,753 - INFO - [stage/start] item=C042 stage=L5 mode=run
+2026-06-23 10:32:03,610 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-23 10:32:32,789 - INFO - [progress] item=C042 stage=L5 model=deepseek-v4-flash attempt=1/3 retry_count=0 waited=30.0s timeout=180s
+2026-06-23 10:32:53,482 - WARNING - C042 L5 id 已纠正: 'C001' -> 'C042'
+2026-06-23 10:32:53,494 - INFO - [stage/done] item=C042 stage=L5 mode=run elapsed=50.74s
+2026-06-23 10:32:53,494 - INFO - C042 L6 缓存无 prompt 指纹记录，判定缓存失效并重跑。
+2026-06-23 10:32:53,495 - INFO - [stage/start] item=C042 stage=L6 mode=run
+2026-06-23 10:32:53,571 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-23 10:32:55,723 - INFO - [stage/done] item=C042 stage=L6 mode=run elapsed=2.23s note=dirname=C042_ellipse_abc_relation
+
+Processing Pipeline:   0%|          | 0/1 [16:08<?, ?it/s, success=1, error=0, skipped=0]
+Processing Pipeline: 100%|██████████| 1/1 [16:08<00:00, 968.50s/it, success=1, error=0, skipped=0]
+Processing Pipeline: 100%|██████████| 1/1 [16:08<00:00, 968.50s/it, success=1, error=0, skipped=0]
+2026-06-23 10:32:55,739 - INFO - 
+\u2705 任务结束: {'success': 1, 'error': 0, 'skipped': 0}
+2026-06-23 10:32:55,739 - INFO - \u23f1 总耗时: 968.51s
+========== Pipeline 发布 ==========
+模式: full
+dry-run: no | verbose: no
+ID 数量: 1
+ID 预览: C042
+===================================
+
+[C042] 开始
+[C042] 目标: 03_conic/C042_ellipse_abc_relation
+[C042] 目录命名: 使用 L6 产物
+[C042] 讲义文件: 已发布 6 个
+[C042] meta.json: 已同步
+[C042] source.tex: 已拷贝
+[C042] main.tex: 已生成
+[C042] index.tex: 已追加入口
+[C042] 完成
+
+============= 发布汇总 =============
+总计: 1
+成功: 1
+失败: 0
+警告: 0
+===================================
+
+[2026-06-23 10:33:14] 
+[2026-06-23 10:33:14] ============================================================
+[2026-06-23 10:33:14] [progress] 8/47: C043 | C043 | 双曲线 a,b,c 关系：c²=a²+b² | 教材选修一 |
+[2026-06-23 10:33:14] ============================================================
+[2026-06-23 10:33:14] [start] C043: 03_conic:80 | C043 | 双曲线 a,b,c 关系：c²=a²+b² | 教材选修一 |
+[2026-06-23 10:33:14] [latex] Generating LaTeX for C043...
+[2026-06-23 10:33:30] [write] source.tex updated from 12_pipeline\generated_sources\C043.tex (488 chars)
+[2026-06-23 10:33:30] [pipeline] Running run_source_to_pdf.py 03_conic --target-id C043...
