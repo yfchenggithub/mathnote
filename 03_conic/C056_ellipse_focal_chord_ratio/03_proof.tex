@@ -1,0 +1,90 @@
+\begin{proofbox}
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用直线参数方程将几何条件代数化，通过求解二次方程得到两个交点的有向距离表达式，从而得到焦半径长度及其比例。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（建立参数方程）：}] 过右焦点 $F(c,0)$ 作倾斜角为 $\theta$ 的直线，设其参数方程为
+			\[
+				\begin{cases}
+					x = c + t\cos\theta,\\
+					y = t\sin\theta,
+			\end{cases}
+				\quad t\in\mathbb{R},
+			\]
+			其中 $t$ 表示从 $F$ 出发的有向距离（$t>0$ 对应 $\theta$ 方向，$t<0$ 对应 $\theta+\pi$ 方向）。
+			\par\textbf{理由：}
+			参数方程可以统一表示直线上的点，且 $|t|$ 等于点到 $F$ 的距离。
+
+		\item[\textbf{步骤二（代入椭圆方程）：}] 将参数方程代入 $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$，整理后得
+			\[
+				(b^2\cos^2\theta + a^2\sin^2\theta)t^2 + 2b^2c\cos\theta\, t - b^4 = 0.
+			\]
+			\par\textbf{理由：}
+			代入并乘 $a^2b^2$ 消去分母，合并 $t$ 的同次项系数，常数项利用 $c^2-a^2=-b^2$ 化简为 $-b^4$。
+
+		\item[\textbf{步骤三（计算判别式）：}] 记 $A = b^2\cos^2\theta + a^2\sin^2\theta$，则判别式
+			\[
+				\begin{aligned}
+					\Delta &= (2b^2c\cos\theta)^2 + 4A\cdot b^4 \\
+					&= 4b^4c^2\cos^2\theta + 4b^4A.
+			\end{aligned}
+			\]
+			由于 $A = a^2 - c^2\cos^2\theta$，代入得
+			\[
+				\begin{aligned}
+					\Delta &= 4b^4(c^2\cos^2\theta + a^2 - c^2\cos^2\theta) \\
+					&= 4a^2b^4 .
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			这里用到了 $c^2 = a^2-b^2$ 以及 $\sin^2\theta = 1-\cos^2\theta$ 进行恒等变形。
+
+		\item[\textbf{步骤四（求解参数 $t$）：}] 利用求根公式
+			\[
+				\begin{aligned}
+					t &= \frac{-2b^2c\cos\theta \pm \sqrt{\Delta}}{2A} \\
+					&= \frac{-2b^2c\cos\theta \pm 2ab^2}{2A} \\
+					&= \frac{b^2(-c\cos\theta \pm a)}{A}.
+			\end{aligned}
+			\]
+			又 $A = a^2 - c^2\cos^2\theta = (a-c\cos\theta)(a+c\cos\theta)$，因此
+			\[
+				t_1 = \frac{b^2(a-c\cos\theta)}{(a-c\cos\theta)(a+c\cos\theta)} = \frac{b^2}{a+c\cos\theta},
+			\]
+			\[
+				t_2 = \frac{b^2(-a - c\cos\theta)}{(a-c\cos\theta)(a+c\cos\theta)} = -\frac{b^2}{a-c\cos\theta}.
+			\]
+			\par\textbf{理由：}
+			分别取“$+$”和“$-$”号并约去公因式，得到两根的简洁表达式。
+
+		\item[\textbf{步骤五（确定焦半径长度）：}] 由步骤四，$t_1 = \frac{b^2}{a+c\cos\theta} > 0$，$t_2 = -\frac{b^2}{a-c\cos\theta} < 0$。在参数方程中，$t>0$ 的点位于倾斜角 $\theta$ 方向，$t<0$ 的点位于 $\theta+\pi$ 方向。
+			为确定 $A,B$ 对应的 $t$，建立极坐标系：以 $F$ 为极点，极轴指向 $x$ 轴负方向（与 $x$ 轴正向相反）。设点 $M$ 的极角为 $\varphi$，则由向量夹角公式得 $\cos\varphi = -\frac{x_M-c}{|FM|}$。将参数方程代入得 $\cos\varphi = -\frac{t}{|t|}\cos\theta$。
+			已知点 $A$ 的极角为 $\theta$，故 $\cos\theta = -\frac{t_A}{|t_A|}\cos\theta$。当 $\cos\theta \neq 0$ 时，得 $\frac{t_A}{|t_A|} = -1$，即 $t_A < 0$；当 $\cos\theta = 0$ 时，可类似由 $\sin\varphi$ 导出同样结论。因此 $A$ 对应 $t_2$，从而 $|AF| = |t_2| = \frac{b^2}{a-c\cos\theta}$。
+			同理，点 $B$ 的极角为 $\theta+\pi$，可推出 $t_B > 0$，故 $|BF| = |t_1| = \frac{b^2}{a+c\cos\theta}$。
+			\par\textbf{理由：}
+			通过极角与有向距离 $t$ 的符号关系，将两根与 $A,B$ 对应。
+
+		\item[\textbf{步骤六（计算焦点分弦比例）：}]
+			\[
+				\begin{aligned}
+					\frac{|AF|}{|BF|}
+					&= \frac{\displaystyle\frac{b^2}{a-c\cos\theta}}{\displaystyle\frac{b^2}{a+c\cos\theta}} \\
+					&= \frac{a+c\cos\theta}{a-c\cos\theta} \\
+					&= \frac{1+\dfrac{c}{a}\cos\theta}{1-\dfrac{c}{a}\cos\theta} \\
+					&= \frac{1+e\cos\theta}{1-e\cos\theta}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			利用 $e=\frac{c}{a}$ 将比值化为标准形式。类似地，$|AF|:|BF| = (1+e\cos\theta):(1-e\cos\theta)$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	由以上推导可见，过椭圆右焦点的弦，其两段焦半径长度可以分别用倾斜角的余弦简洁表示，且它们的比值仅依赖于离心率和倾斜角，与 $a,b$ 的绝对值无关。
+
+\end{proofbox}
