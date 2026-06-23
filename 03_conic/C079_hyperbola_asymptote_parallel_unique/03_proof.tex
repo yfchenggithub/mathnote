@@ -1,0 +1,54 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	联立直线与双曲线后，由于斜率平方等于渐近线斜率平方，二次项系数为零，方程退化一次，故至多一个解；又 $c\neq0$ 保证方程不是恒不成立，可得唯一解。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（曲线设定）：}]
+			取双曲线 $\frac{x^2}{a^2}-\frac{y^2}{b^2}=1$（$a,b>0$），直线 $y=\frac{b}{a}x+c$（$c\neq0$）。
+			\[
+				\frac{x^2}{a^2}-\frac{y^2}{b^2}=1,
+				\qquad
+				y=\frac{b}{a}x+c.
+			\]
+			\par\textbf{理由：} 明确研究对象，$c\neq0$ 保证直线不是渐近线。
+		\item[\textbf{步骤二（代入消元）：}]
+			将直线代入双曲线，消去 $y$。
+			\[
+				\frac{x^2}{a^2} - \frac{(\frac{b}{a}x + c)^2}{b^2} = 1.
+			\]
+			\par\textbf{理由：} 通过代入将交点问题转化为方程解的问题。
+		\item[\textbf{步骤三（展开化简）：}]
+			展开平方并化简。
+			\[
+				\frac{x^2}{a^2} - \frac{\frac{b^2}{a^2}x^2 + \frac{2bc}{a}x + c^2}{b^2} = 1.
+			\]
+			整理得
+			\[
+				\frac{x^2}{a^2} - \left(\frac{x^2}{a^2} + \frac{2c}{a}x + \frac{c^2}{b^2}\right) = 1.
+			\]
+			\par\textbf{理由：} 展开后可见 $\frac{x^2}{a^2}$ 项相互抵消，二次项消失。
+		\item[\textbf{步骤四（降次求解）：}]
+			合并后得一次方程，解唯一 $x$。
+			\[
+				-\frac{2c}{a}x - \frac{c^2}{b^2} = 1 \;\Rightarrow\; -\frac{2c}{a}x = 1 + \frac{c^2}{b^2}.
+			\]
+			由于 $c\neq0$，解得
+			\[
+				x = -\frac{a}{2c}\left(1+\frac{c^2}{b^2}\right).
+			\]
+			\par\textbf{理由：} 一次方程有唯一解，代入直线即得唯一交点。
+		\item[\textbf{步骤五（对称推广）：}]
+			对于斜率负号（$y=-\frac{b}{a}x+c$），代入得
+			\[
+				\frac{x^2}{a^2} - \frac{(-\frac{b}{a}x + c)^2}{b^2} = 1,
+			\]
+			化简后二次项同样抵消，结果一致。焦点在 $y$ 轴时推导对称。
+			\par\textbf{理由：} 符号变化或变量交换不改变代数结构。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	因此，在任何标准双曲线中，平行于渐近线且不重合的直线有且仅有一个交点。
+\end{proofbox}
