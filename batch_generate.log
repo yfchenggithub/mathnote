@@ -821,3 +821,70 @@ ID 预览: C052
 [2026-06-23 17:11:41] [latex] Generating LaTeX for C062...
 [2026-06-23 17:12:08] [write] source.tex updated from 12_pipeline\generated_sources\C062.tex (599 chars)
 [2026-06-23 17:12:08] [pipeline] Running run_source_to_pdf.py 03_conic --target-id C062...
+[2026-06-23 17:26:53] [publish] PDF_READY confirmed for C062; deployment is allowed
+[2026-06-23 17:26:53] [publish] Running incremental_publish.py for C062...
+[2026-06-23 17:27:47] [done] C062 -> C062: complete
+[2026-06-23 17:27:50] 
+[2026-06-23 17:27:50] ============================================================
+[2026-06-23 17:27:50] [progress] 28/47: C063 | C063 | 弦长公式：|AB|=√(1+k²)·|x₁-x₂|=√(1+1/k²)·|y₁-y₂| | 教材选修一 |
+[2026-06-23 17:27:50] ============================================================
+[2026-06-23 17:27:50] [start] C063: 03_conic:114 | C063 | 弦长公式：|AB|=√(1+k²)·|x₁-x₂|=√(1+1/k²)·|y₁-y₂| | 教材选修一 |
+[2026-06-23 17:27:50] [latex] Generating LaTeX for C063...
+[2026-06-23 17:28:12] [write] source.tex updated from 12_pipeline\generated_sources\C063.tex (619 chars)
+[2026-06-23 17:28:12] [pipeline] Running run_source_to_pdf.py 03_conic --target-id C063...
+[2026-06-23 17:46:54] [fail] C063: Pipeline failed (rc=1): tem=C063 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=420.7s timeout=180s
+2026-06-23 17:45:00,462 - INFO - [progress] item=C063 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=450.7s timeout=180s
+2026-06-23 17:45:30,507 - INFO - [progress] item=C063 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=480.8s timeout=180s
+2026-06-23 17:45:50,928 - INFO - [PERF_TRACE] {"event": "perf_trace", "step": "l4_check", "model": "deepseek-v4-pro", "prompt_chars": 13417, "payload_chars": 10140, "response_chars": 9963, "request_start_ts": "2026-06-23T17:37:29.710", "request_end_ts": "2026-06-23T17:45:50.927", "llm_roundtrip_ms": 501216.18, "network_wait_ms": 501216.18, "prompt_tokens": 6768, "completion_tokens": 43471, "total_tokens": 50239, "json_parse_ms": 0.63, "validate_ms": 0.01, "retry_count": 0, "timeout_value": 180, "thinking_enabled": true, "reasoning_effort": "max"}
+2026-06-23 17:45:50,937 - INFO - [stage/done] item=C063 stage=L4_CHECK mode=run elapsed=501.23s
+2026-06-23 17:45:50,937 - INFO - [stage/start] item=C063 stage=L4_EXPORT mode=run
+2026-06-23 17:45:50,947 - INFO - C063 L4 导出 tex 片段: 6 个
+2026-06-23 17:45:50,947 - INFO - [stage/done] item=C063 stage=L4_EXPORT mode=run elapsed=0.01s
+2026-06-23 17:45:50,948 - INFO - [stage/start] item=C063 stage=L5 mode=run
+2026-06-23 17:45:51,057 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-23 17:46:20,987 - INFO - [progress] item=C063 stage=L5 model=deepseek-v4-flash attempt=1/3 retry_count=0 waited=30.0s timeout=180s
+2026-06-23 17:46:41,141 - WARNING - C063 L5 id 已纠正: 'C001' -> 'C063'
+2026-06-23 17:46:41,146 - INFO - [stage/done] item=C063 stage=L5 mode=run elapsed=50.20s
+2026-06-23 17:46:41,146 - INFO - C063 L6 缓存无 prompt 指纹记录，判定缓存失效并重跑。
+2026-06-23 17:46:41,146 - INFO - [stage/start] item=C063 stage=L6 mode=run
+2026-06-23 17:46:41,225 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-23 17:46:48,154 - INFO - [stage/done] item=C063 stage=L6 mode=run elapsed=7.01s note=dirname=C063_conic_chord_length_formula
+
+Processing Pipeline:   0%|          | 0/1 [18:31<?, ?it/s, success=1, error=0, skipped=0]
+Processing Pipeline: 100%|██████████| 1/1 [18:31<00:00, 1111.84s/it, success=1, error=0, skipped=0]
+Processing Pipeline: 100%|██████████| 1/1 [18:31<00:00, 1111.84s/it, success=1, error=0, skipped=0]
+2026-06-23 17:46:48,158 - INFO - 
+\u2705 任务结束: {'success': 1, 'error': 0, 'skipped': 0}
+2026-06-23 17:46:48,158 - INFO - \u23f1 总耗时: 1111.85s
+========== Pipeline 发布 ==========
+模式: full
+dry-run: no | verbose: no
+ID 数量: 1
+ID 预览: C063
+===================================
+
+[C063] 开始
+[C063] 目标: 03_conic/C063_conic_chord_length_formula
+[C063] 目录命名: 使用 L6 产物
+[C063] 讲义文件: 已发布 6 个
+[C063] meta.json: 已同步
+[C063] source.tex: 已拷贝
+[C063] main.tex: 已生成
+[C063] index.tex: 已追加入口
+[C063] 完成
+
+============= 发布汇总 =============
+总计: 1
+成功: 1
+失败: 0
+警告: 0
+===================================
+
+[2026-06-23 17:46:57] 
+[2026-06-23 17:46:57] ============================================================
+[2026-06-23 17:46:57] [progress] 29/47: C064 | C064 | 椭圆第三定义：椭圆上任意点与长轴端点连线斜率积=-b²/a² | 教材选修一 |
+[2026-06-23 17:46:57] ============================================================
+[2026-06-23 17:46:57] [start] C064: 03_conic:115 | C064 | 椭圆第三定义：椭圆上任意点与长轴端点连线斜率积=-b²/a² | 教材选修一 |
+[2026-06-23 17:46:57] [latex] Generating LaTeX for C064...
+[2026-06-23 17:47:10] [write] source.tex updated from 12_pipeline\generated_sources\C064.tex (735 chars)
+[2026-06-23 17:47:10] [pipeline] Running run_source_to_pdf.py 03_conic --target-id C064...

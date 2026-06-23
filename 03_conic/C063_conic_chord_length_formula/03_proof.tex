@@ -1,0 +1,38 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	弦长公式由两点间距离公式推导而来，关键是将纵坐标差用横坐标差（或反之）通过斜率表示。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（两点距离）：}] 设 $A(x_1,y_1)$, $B(x_2,y_2)$，由距离公式
+			\[
+				|AB| = \sqrt{(x_1-x_2)^2 + (y_1-y_2)^2}.
+			\]
+			\par\textbf{理由：} 平面内任意两点间的距离公式。
+
+		\item[\textbf{步骤二（横坐标代换）：}] 由于 $A,B$ 在斜率为 $k$ 的直线上，满足 $y_1-y_2 = k(x_1-x_2)$，代入距离公式：
+			\[
+				\begin{aligned}
+					|AB| &= \sqrt{(x_1-x_2)^2 + k^2(x_1-x_2)^2} \\
+					&= \sqrt{1+k^2}\,|x_1-x_2|.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 公因式 $(x_1-x_2)^2$ 提出后开方，平方根为绝对值。
+
+		\item[\textbf{步骤三（纵坐标代换）：}] 当 $k\neq 0$ 时，由 $y_1-y_2 = k(x_1-x_2)$ 可得 $x_1-x_2 = \frac1k(y_1-y_2)$，代入距离公式：
+			\[
+				\begin{aligned}
+					|AB| &= \sqrt{\frac1{k^2}(y_1-y_2)^2 + (y_1-y_2)^2} \\
+					&= \sqrt{1+\frac1{k^2}}\,|y_1-y_2|.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 同样提取公因式 $(y_1-y_2)^2$ 后开方。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{所以，弦长公式为 $|AB| = \sqrt{1+k^2}\,|x_1-x_2|$，在 $k\neq0$ 时也可写作 $|AB| = \sqrt{1+\frac1{k^2}}\,|y_1-y_2|$。使用时注意斜率是否为零，以及交点必须存在。}
+\end{proofbox}
