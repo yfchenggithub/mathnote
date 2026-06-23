@@ -1,0 +1,43 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	配极原理的证明基于极线方程的代数对称性：将点 $Q$ 的坐标代入点 $P$ 的极线方程，结果等于将点 $P$ 的坐标代入点 $Q$ 的极线方程。只需验证代数等式即可，无需复杂的几何推理。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（极线回顾）：}]
+			对于椭圆 $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1$，点 $P(x_0,y_0)$ 的极线方程为
+			\[
+				\frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1.
+			\]
+			\par\textbf{理由：} 极线的定义即为此形式。
+		\item[\textbf{步骤二（代入条件）：}]
+			设点 $Q(u,v)$ 在点 $P$ 的极线上，则
+			\[
+				\frac{x_0u}{a^2}+\frac{y_0v}{b^2}=1.
+			\]
+			\par\textbf{理由：} 将 $Q$ 坐标代入步骤一的极线方程。
+		\item[\textbf{步骤三（交换对称）：}]
+			考虑点 $P$ 相对于以 $Q$ 为极点的极线方程：$\dfrac{u x_0}{a^2}+\dfrac{v y_0}{b^2}$。由乘法交换律 $x_0u=u x_0$ 和 $y_0v=v y_0$，该表达式等于步骤二中的左边，因此也等于 $1$。故 $P$ 在点 $Q$ 的极线上。
+			\[
+				\frac{u x_0}{a^2}+\frac{v y_0}{b^2}=1.
+			\]
+			\par\textbf{理由：} 代数对称性。
+		\item[\textbf{步骤四（双曲线情形）：}]
+			对于双曲线 $\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}=1$，极线方程为 $\dfrac{x_0x}{a^2}-\dfrac{y_0y}{b^2}=1$。类似地，若 $Q(u,v)$ 在 $P$ 的极线上，则 $\dfrac{x_0u}{a^2}-\dfrac{y_0v}{b^2}=1$；交换 $P$ 与 $Q$ 的角色，$\dfrac{u x_0}{a^2}-\dfrac{v y_0}{b^2}=1$ 同样成立，因此 $P$ 在 $Q$ 的极线上。
+			\[
+				\frac{x_0u}{a^2}-\frac{y_0v}{b^2}=1 \quad\Longrightarrow\quad \frac{u x_0}{a^2}-\frac{v y_0}{b^2}=1.
+			\]
+			\par\textbf{理由：} 乘法交换律使得左右两边相等。
+		\item[\textbf{步骤五（抛物线情形）：}]
+			对于抛物线 $y^2=2px$，极线方程为 $y_0y=p(x+x_0)$。若 $Q(u,v)$ 在 $P$ 的极线上，则 $y_0v=p(u+x_0)$。交换 $P$ 与 $Q$ 得到的方程是 $v y_0=p(x_0+u)$。由乘法交换律和加法交换律，两边相等，故 $P$ 在 $Q$ 的极线上。
+			\[
+				y_0v=p(u+x_0) \;\Longrightarrow\; v y_0=p(x_0+u).
+			\]
+			\par\textbf{理由：} 等式两边交换下标即得，代数运算保证成立。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{综上所述，对于椭圆、双曲线、抛物线等非退化二次曲线，配极原理均成立：若点 $Q$ 在点 $P$ 的极线上，则点 $P$ 也在点 $Q$ 的极线上。}
+\end{proofbox}
