@@ -1,0 +1,173 @@
+{
+  "id": "C082",
+  "module": "conic",
+  "core": {
+    "title": "共焦点二次曲线系",
+    "alias": [
+      "共焦点曲线系",
+      "同焦点曲线系",
+      "λ参数曲线系"
+    ],
+    "summary": "给定一个椭圆，通过参数λ改变分母得到所有与它共焦点的椭圆或双曲线，焦点保持不变。",
+    "difficulty": 4,
+    "category": "解析几何",
+    "tags": [
+      "共焦点曲线系",
+      "椭圆",
+      "双曲线",
+      "参数范围",
+      "焦点"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "共焦点",
+      "椭圆",
+      "双曲线",
+      "二次曲线系",
+      "焦点",
+      "参数λ",
+      "a²-b²",
+      "c",
+      "曲线类型",
+      "椭圆族",
+      "双曲线族",
+      "共焦点曲线系方程",
+      "λ参数法"
+    ],
+    "synonyms": [
+      "同焦点曲线",
+      "共用焦点",
+      "焦点相同",
+      "λ参数法"
+    ],
+    "intents": [
+      "求曲线方程",
+      "判断曲线类型",
+      "求参数λ",
+      "共焦点问题"
+    ],
+    "query_templates": [
+      "共焦点曲线系方程",
+      "与椭圆共焦点的双曲线",
+      "已知椭圆求共焦点曲线",
+      "λ的取值分类"
+    ],
+    "ocrKeywords": [
+      "\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1",
+      "\\frac{x^{2}}{a^{2}-\\lambda}+\\frac{y^{2}}{b^{2}-\\lambda}=1",
+      "c=\\sqrt{a^{2}-b^{2}}",
+      "焦点(\\pm c,0)"
+    ],
+    "latex_patterns": [
+      "\\frac{x^{2}}{a^{2}-\\lambda}+\\frac{y^{2}}{b^{2}-\\lambda}=1",
+      "c=\\sqrt{a^{2}-b^{2}}"
+    ],
+    "formulaTokens": [
+      "a^{2}-\\lambda",
+      "b^{2}-\\lambda",
+      "a^{2}-b^{2}",
+      "\\sqrt{a^{2}-b^{2}}",
+      "\\frac{x^{2}}{a^{2}-\\lambda}",
+      "\\frac{y^{2}}{b^{2}-\\lambda}"
+    ],
+    "pinyin": "gongjiaodianquxianxi",
+    "pinyinAbbr": "gjdxqx"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.7,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\frac{x^{2}}{a^{2}-\\lambda}+\\frac{y^{2}}{b^{2}-\\lambda}=1 \\quad (c=\\sqrt{a^{2}-b^{2}})",
+    "related_formulas": [
+      "c=\\sqrt{a^{2}-b^{2}}"
+    ],
+    "variables": [
+      "a",
+      "b",
+      "c",
+      "\\lambda"
+    ],
+    "conditions": [
+      "a > b > 0",
+      "\\lambda < a^{2}",
+      "\\lambda \\neq b^{2}"
+    ],
+    "conclusions": [
+      "方程 \\frac{x^{2}}{a^{2}-\\lambda}+\\frac{y^{2}}{b^{2}-\\lambda}=1 表示与椭圆共焦点的曲线系",
+      "当 \\lambda < b^{2} 时为椭圆",
+      "当 b^{2} < \\lambda < a^{2} 时为双曲线",
+      "所有曲线的焦点均为 (\\pm c, 0)"
+    ]
+  },
+  "content": {
+    "statement": "对于焦点在 x 轴上的椭圆 \\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1（a>b>0），焦距 c=\\sqrt{a^{2}-b^{2}}。给定实数 \\lambda 满足 \\lambda<a^{2} 且 \\lambda\\neq b^{2}，方程 \\frac{x^{2}}{a^{2}-\\lambda}+\\frac{y^{2}}{b^{2}-\\lambda}=1 表示与该椭圆共焦点的二次曲线系。当 \\lambda<b^{2} 时曲线为椭圆，当 b^{2}<\\lambda<a^{2} 时为双曲线，所有曲线焦点均为 (\\pm c,0)。",
+    "derivation": [
+      "由椭圆方程得 c^{2}=a^{2}-b^{2}。",
+      "对于曲线系方程，计算其半焦距平方：|(a^{2}-\\lambda)-(b^{2}-\\lambda)| = |a^{2}-b^{2}| = c^{2}，故 c'=c，焦点相同。",
+      "当 a^{2}-\\lambda>0 且 b^{2}-\\lambda>0（即 \\lambda<b^{2}）时，方程为椭圆；当 a^{2}-\\lambda>0 且 b^{2}-\\lambda<0（即 b^{2}<\\lambda<a^{2}）时，方程为双曲线。"
+    ],
+    "intuition": "因为曲线系方程中分母之差恒为 a^{2}-b^{2}，所以焦距平方不变，焦点位置恒定。",
+    "common_tricks": [
+      "遇到与已知椭圆共焦点的曲线问题，首选设曲线系方程，避免单独设方程再求c。",
+      "注意λ的范围决定曲线类型，需分类讨论，不能只看分母符号。",
+      "代入点坐标解λ时，一定要检验λ是否满足条件且不为b²。",
+      "若题目要求双曲线，直接令 λ 在 (b², a²) 内，减少验证步骤。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "压轴题",
+      "轨迹问题",
+      "解析几何综合题"
+    ],
+    "problem_types": [
+      "求曲线方程",
+      "判断曲线类型",
+      "参数范围问题"
+    ],
+    "exam_frequency": 0.6,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "C082.svg",
+    "png": "",
+    "video": "",
+    "audio": ""
+  },
+  "shareConfig": {
+    "title": "共焦点曲线系：快速判定椭圆或双曲线",
+    "shareDesc": "适用于解析几何中与椭圆共焦点的曲线问题，通过参数λ直接写出方程并判断类型，减少因设错方程导致的失分。"
+  },
+  "relations": {
+    "prerequisites": [
+      "椭圆的标准方程",
+      "双曲线的标准方程"
+    ],
+    "related_ids": [],
+    "similar": "共焦点的椭圆与双曲线系"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-23"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "解析几何-圆锥曲线-椭圆",
+  "altNodes": "解析几何-圆锥曲线-双曲线,解析几何-综合-轨迹问题"
+}
