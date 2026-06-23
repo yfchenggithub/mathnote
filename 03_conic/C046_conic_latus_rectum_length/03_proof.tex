@@ -1,0 +1,64 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	通径垂直于焦点所在坐标轴，因此只需将焦点的横坐标（或纵坐标）代入曲线方程，即可求出两交点纵坐标（或横坐标），进而得到弦长。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（椭圆设定）：}]
+			椭圆的标准方程为 $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$ ($a>b>0$)。右焦点 $F(c,0)$，满足 $c^2=a^2-b^2$。过 $F$ 且垂直于长轴（$x$ 轴）的直线为 $x=c$。
+			\par\textbf{理由：} 根据通径定义，弦过焦点且垂直于长轴，故直线方程直接取 $x=c$。
+		\item[\textbf{步骤二（椭圆求弦）：}]
+			将 $x=c$ 代入椭圆方程：
+			\[
+				\frac{c^2}{a^2}+\frac{y^2}{b^2}=1.
+			\]
+			利用 $c^2=a^2-b^2$ 得：
+			\[
+				\frac{a^2-b^2}{a^2}+\frac{y^2}{b^2}=1.
+			\]
+			故
+			\[
+				\begin{aligned}
+					\frac{y^2}{b^2} &= 1-\frac{a^2-b^2}{a^2}\\ &= \frac{b^2}{a^2},
+			\end{aligned}
+			\]
+			即 $y^2=\frac{b^4}{a^2}$，$|y|=\frac{b^2}{a}$。因此通径长
+			\[
+				\begin{aligned}
+					L &= 2|y|\\ &= \frac{2b^2}{a}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 代入后通过代数化简直接解出 $y$，无需使用一般弦长公式。
+		\item[\textbf{步骤三（双曲线求弦）：}]
+			双曲线标准方程 $\frac{x^2}{a^2}-\frac{y^2}{b^2}=1$，右焦点 $F(c,0)$，$c^2=a^2+b^2$。将 $x=c$ 代入：
+			\[
+				\frac{c^2}{a^2}-\frac{y^2}{b^2}=1.
+			\]
+			由 $c^2=a^2+b^2$ 得：
+			\[
+				\frac{a^2+b^2}{a^2}-\frac{y^2}{b^2}=1.
+			\]
+			移项得：
+			\[
+				\begin{aligned}
+					\frac{y^2}{b^2} &= \frac{a^2+b^2}{a^2}-1\\ &= \frac{b^2}{a^2},
+			\end{aligned}
+			\]
+			故 $y^2=\frac{b^4}{a^2}$，$|y|=\frac{b^2}{a}$。通径长 $L=2b^2/a$。
+			\par\textbf{理由：} 与椭圆推导类似，仅参数关系不同，结果一致。
+		\item[\textbf{步骤四（抛物线求弦）：}]
+			抛物线 $y^2=2px$ ($p>0$)，焦点 $F\left(\frac{p}{2},0\right)$。代入直线 $x=\frac{p}{2}$：
+			\[
+				\begin{aligned}
+					y^2 &= 2p\cdot\frac{p}{2}\\ &= p^2,
+			\end{aligned}
+			\]
+			得 $|y|=p$，通径长 $L=2p$。对于 $x^2=2py$，类似可得 $L=2p$。
+			\par\textbf{理由：} 直接代入焦点横坐标，开方即得。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{椭圆和双曲线（有心圆锥曲线）的通径长统一为 $\frac{2b^2}{a}$，抛物线的通径长为 $2p$。所有标准方程下的圆锥曲线通径都可用该公式直接计算。}
+\end{proofbox}
