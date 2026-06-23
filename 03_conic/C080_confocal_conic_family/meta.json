@@ -1,0 +1,196 @@
+{
+  "id": "C080",
+  "module": "conic",
+  "core": {
+    "title": "共焦点曲线系方程",
+    "alias": [
+      "共焦点曲线系",
+      "共焦点椭圆双曲线",
+      "λ参数曲线"
+    ],
+    "summary": "将共焦点的椭圆和双曲线用统一参数方程表示，参数λ决定曲线类型",
+    "difficulty": 3,
+    "category": "解析几何",
+    "tags": [
+      "椭圆",
+      "双曲线",
+      "共焦点",
+      "曲线系",
+      "参数方程"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "共焦点",
+      "椭圆系",
+      "双曲线系",
+      "参数λ",
+      "曲线系方程",
+      "焦点相同",
+      "椭圆标准方程",
+      "双曲线标准方程",
+      "统一方程",
+      "λ范围",
+      "共焦点椭圆",
+      "共焦点双曲线",
+      "焦距不变",
+      "代入求λ"
+    ],
+    "synonyms": [
+      "共焦点椭圆",
+      "共焦点双曲线",
+      "焦点相同的椭圆",
+      "参数方程法",
+      "λ参数法"
+    ],
+    "intents": [
+      "求共焦点曲线方程",
+      "判断曲线类型",
+      "设共焦点曲线",
+      "代入点求参数"
+    ],
+    "query_templates": [
+      "共焦点椭圆方程怎么设",
+      "共焦点双曲线方程",
+      "与椭圆共焦点的双曲线",
+      "已知椭圆求共焦点曲线",
+      "曲线系方程参数λ范围"
+    ],
+    "ocrKeywords": [
+      "x^2/(a^2+λ)",
+      "y^2/(b^2+λ)",
+      "λ>-b^2",
+      "-a^2<λ<-b^2"
+    ],
+    "latex_patterns": [
+      "\\frac{x^2}{a^2+\\lambda}+\\frac{y^2}{b^2+\\lambda}=1"
+    ],
+    "formulaTokens": [
+      "\\frac{x^2}{a^2+\\lambda}",
+      "\\frac{y^2}{b^2+\\lambda}",
+      "a^2+\\lambda",
+      "b^2+\\lambda",
+      "(a^2+\\lambda)-(b^2+\\lambda)=c^2",
+      "\\lambda>-b^2",
+      "-a^2<\\lambda<-b^2"
+    ],
+    "pinyin": "gongjiaodianquxianxi",
+    "pinyinAbbr": "gjdqxx"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.76,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\frac{x^2}{a^2+\\lambda}+\\frac{y^2}{b^2+\\lambda}=1",
+    "related_formulas": [
+      "(a^2+\\lambda)-(b^2+\\lambda)=c^2"
+    ],
+    "variables": [
+      {
+        "symbol": "a",
+        "description": "基准椭圆长半轴",
+        "range": "a>b>0"
+      },
+      {
+        "symbol": "b",
+        "description": "基准椭圆短半轴",
+        "range": "a>b>0"
+      },
+      {
+        "symbol": "c",
+        "description": "半焦距",
+        "range": "c=\\sqrt{a^2-b^2}"
+      },
+      {
+        "symbol": "λ",
+        "description": "参数",
+        "range": "a^2+λ>0, b^2+λ≠0; λ>-b^2为椭圆系, -a^2<λ<-b^2为双曲线系"
+      }
+    ],
+    "conditions": [
+      "基准椭圆焦点在x轴，a>b>0",
+      "a^2+λ>0",
+      "b^2+λ≠0",
+      "椭圆系：λ>-b^2",
+      "双曲线系：-a^2<λ<-b^2"
+    ],
+    "conclusions": [
+      "所有共焦点曲线焦距恒为2c，焦点坐标(±c,0)",
+      "λ控制曲线类型：椭圆或双曲线"
+    ]
+  },
+  "content": {
+    "statement": "已知椭圆标准方程 $\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1$（$a>b>0$），焦点在 $x$ 轴上，半焦距 $c=\\sqrt{a^2-b^2}$，则所有与该椭圆共焦点的椭圆和双曲线的标准方程可统一设为 $\\frac{x^2}{a^2+\\lambda}+\\frac{y^2}{b^2+\\lambda}=1$，其中 $\\lambda$ 为实参数，且满足 $a^2+\\lambda>0$，$b^2+\\lambda\\neq 0$。当 $\\lambda>-b^2$ 时，方程表示共焦点的椭圆系；当 $-a^2<\\lambda<-b^2$ 时，方程表示共焦点的双曲线系。",
+    "derivation": [
+      "由基准椭圆得 $c^2=a^2-b^2$",
+      "设共焦点曲线方程 $\\frac{x^2}{A^2}+\\frac{y^2}{B^2}=1$，要求 $A^2-B^2=c^2$，令 $A^2=a^2+\\lambda$，$B^2=b^2+\\lambda$ 满足此条件",
+      "根据 $\\lambda$ 与 $-b^2$ 的大小关系确定分母正负，从而决定曲线类型（椭圆：分母均为正；双曲线：分母一正一负）"
+    ],
+    "intuition": "在标准椭圆方程中同时给 $a^2$ 和 $b^2$ 加上同一个常数，不改变焦距，从而得到共焦点曲线系。",
+    "common_tricks": [
+      "设曲线系方程后，代入已知点坐标即可求出 λ，再根据 λ 范围验证曲线类型",
+      "若求双曲线，需确保分母 $b^2+\\lambda<0$，同时 $a^2+\\lambda>0$",
+      "注意参数 λ 的范围是解题关键，防止遗漏对曲线类型的判断"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "共焦点曲线方程求解",
+      "解析几何综合题",
+      "圆锥曲线参数问题"
+    ],
+    "problem_types": [
+      "求曲线方程",
+      "参数范围",
+      "曲线类型判断"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "C080.svg",
+    "png": "",
+    "gif": ""
+  },
+  "shareConfig": {
+    "title": "共焦点曲线系：统一参数方程速求曲线",
+    "shareDesc": "适合解析几何综合题复习，用λ参数统一设共焦点椭圆或双曲线，代入点即可求方程，减少设方程时间。"
+  },
+  "relations": {
+    "prerequisites": [
+      "椭圆标准方程",
+      "双曲线标准方程",
+      "焦距计算"
+    ],
+    "related_ids": [],
+    "similar": [
+      "共焦点椭圆系",
+      "共焦点双曲线系"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-23"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "解析几何-圆锥曲线-椭圆",
+  "altNodes": [
+    "解析几何-圆锥曲线-双曲线"
+  ]
+}

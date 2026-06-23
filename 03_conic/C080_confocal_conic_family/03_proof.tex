@@ -1,0 +1,67 @@
+\begin{proofbox}
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	设基准椭圆 $C_0$ 的焦点为 $F_1(-c,0),F_2(c,0)$，$c=\sqrt{a^2-b^2}$。对于任何与 $C_0$ 共焦点的圆锥曲线（椭圆或双曲线），其焦距同为 $2c$，因此其标准方程中的参数 $\tilde a,\tilde b$ 必须满足 $\tilde a^2-\tilde b^2=c^2$（椭圆）或 $\tilde a^2+\tilde b^2=c^2$（双曲线）。通过引入参数 $\lambda$ 可实现统一表示。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（建立基准椭圆）：}]
+			已知椭圆 $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1$（$a>b>0$），焦点在 $x$ 轴，半焦距 $c=\sqrt{a^2-b^2}$。
+			\[
+				c^2=a^2-b^2.
+			\]
+			\par\textbf{理由：}
+			焦点坐标由 $c$ 决定，$c^2=a^2-b^2$ 是椭圆基本关系。
+
+		\item[\textbf{步骤二（设所求曲线方程）：}]
+			设与 $C_0$ 共焦点的曲线 $\Gamma$ 的标准方程为
+			\[
+				\frac{x^2}{A^2}+\frac{y^2}{B^2}=1
+			\]
+			或
+			\[
+				\frac{x^2}{A^2}-\frac{y^2}{B^2}=1,
+			\]
+			其中 $A>0,B>0$，且焦点也在 $x$ 轴上。
+			\par\textbf{理由：}
+			由于焦点在 $x$ 轴，椭圆和双曲线的标准形式为上述形式（双曲线取减号）。
+
+		\item[\textbf{步骤三（焦距相等条件）：}]
+			因为 $\Gamma$ 与 $C_0$ 焦点相同，所以焦距相等。对椭圆有 $A^2-B^2=c^2$；对双曲线有 $A^2+B^2=c^2$。
+			\par\textbf{理由：}
+			椭圆中 $c^2=A^2-B^2$；双曲线中 $c^2=A^2+B^2$（焦点在 $x$ 轴时）。
+
+		\item[\textbf{步骤四（引入参数 $\lambda$ 统一表达）：}]
+			注意到 $c^2=a^2-b^2$，令
+			\[
+				A^2 = a^2+\lambda,
+				\qquad
+				B^2 = b^2+\lambda,
+			\]
+			则恒有 $A^2-B^2=a^2-b^2=c^2$。无论 $b^2+\lambda$ 的正负，方程
+			\[
+				\frac{x^2}{a^2+\lambda}+\frac{y^2}{b^2+\lambda}=1
+			\]
+			可同时涵盖椭圆和双曲线两种情形。
+			\par\textbf{理由：}
+			若 $b^2+\lambda>0$，则方程直接表示椭圆（$A^2>B^2$）；若 $b^2+\lambda<0$，则 $y^2$ 的分母为负，移项后可得双曲线标准形式。
+
+		\item[\textbf{步骤五（参数范围决定曲线类型）：}]
+			由曲线类型对分母符号的要求可得参数范围。
+			\par\textbf{理由：}
+			椭圆要求分母均为正，即 $b^2+\lambda>0$ 且 $a^2+\lambda>0$，等价于 $\lambda>-b^2$；
+			双曲线要求 $x^2$ 分母为正、$y^2$ 分母为负，即 $a^2+\lambda>0$ 且 $b^2+\lambda<0$，等价于 $-a^2<\lambda<-b^2$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	因此，所有与基准椭圆共焦点的椭圆或双曲线均可统一表示为
+	\[
+		\boxed{\frac{x^2}{a^2+\lambda}+\frac{y^2}{b^2+\lambda}=1},
+	\]
+	其中 $\lambda$ 为实参数，满足 $a^2+\lambda>0$，$b^2+\lambda\neq 0$，且当 $\lambda>-b^2$ 时为椭圆系，当 $-a^2<\lambda<-b^2$ 时为双曲线系。这一形式将共焦点条件自动内化于分母结构之中。
+
+\end{proofbox}
