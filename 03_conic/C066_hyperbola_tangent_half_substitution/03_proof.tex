@@ -1,0 +1,57 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用隐函数求导得到双曲线在任意点的切线斜率，再写出切线方程，最后利用切点在双曲线上化简为统一形式。需要单独讨论 $y_0=0$ 的特殊情况。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（隐函数求导）：}] 对双曲线方程 $\frac{x^{2}}{a^{2}}-\frac{y^{2}}{b^{2}}=1$ 两边关于 $x$ 求导：
+			\[
+				\frac{2x}{a^{2}}-\frac{2y}{b^{2}}\cdot y' = 0,
+			\]
+			解得
+			\[
+				y' = \frac{b^{2}x}{a^{2}y} \quad (y \neq 0).
+			\]
+			\par\textbf{理由：} 导数即为切线斜率；$y=0$ 时单独讨论。
+
+		\item[\textbf{步骤二（求点 $P$ 处的斜率）：}] 将 $P(x_0,y_0)$ 代入导数式，得切线斜率
+			\[
+				k = \frac{b^{2}x_0}{a^{2}y_0} \quad (y_0 \neq 0).
+			\]
+			\par\textbf{理由：} 导数值即为曲线在该点切线的斜率。
+
+		\item[\textbf{步骤三（写出切线方程）：}] 利用点斜式，切线方程为
+			\[
+				y - y_0 = \frac{b^{2}x_0}{a^{2}y_0}(x - x_0).
+			\]
+			\par\textbf{理由：} 直线方程的点斜式。
+
+		\item[\textbf{步骤四（化简并利用在曲线上条件）：}] 两边乘以 $a^{2}y_0$，移项：
+			\[
+				\begin{aligned}
+					a^{2}y_0(y - y_0) &= b^{2}x_0(x - x_0) \\\\
+					a^{2}y_0y - a^{2}y_0^{2} &= b^{2}x_0x - b^{2}x_0^{2} \\\\
+					b^{2}x_0x - a^{2}y_0y &= b^{2}x_0^{2} - a^{2}y_0^{2}.
+			\end{aligned}
+			\]
+			两边同除以 $a^{2}b^{2}$：
+			\[
+				\frac{x_0x}{a^{2}} - \frac{y_0y}{b^{2}} = \frac{x_0^{2}}{a^{2}} - \frac{y_0^{2}}{b^{2}}.
+			\]
+			因为点 $P$ 在双曲线上，$\frac{x_0^{2}}{a^{2}} - \frac{y_0^{2}}{b^{2}} = 1$，故
+			\[
+				\frac{x_0x}{a^{2}} - \frac{y_0y}{b^{2}} = 1.
+			\]
+			\par\textbf{理由：} 利用点在曲线上化简得到最终形式。
+
+		\item[\textbf{步骤五（讨论 $y_0=0$ 情形）：}] 当 $y_0=0$ 时，点 $P$ 为顶点，切线垂直，方程为 $x = x_0$（$x_0=\pm a$）。代入公式 $\frac{x_0x}{a^{2}} - \frac{0\cdot y}{b^{2}} = 1$ 得 $\frac{x_0x}{a^{2}} = 1$，即 $x = \frac{a^{2}}{x_0} = \pm a$，与上述一致。因此统一公式仍成立。
+			\par\textbf{理由：} 斜率不存在时直接验证。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{综上，过双曲线 $\frac{x^{2}}{a^{2}}-\frac{y^{2}}{b^{2}}=1$ 上一点 $P(x_0,y_0)$ 的切线方程为 $\frac{x_0x}{a^{2}}-\frac{y_0y}{b^{2}}=1$。}
+\end{proofbox}
