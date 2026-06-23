@@ -1,0 +1,190 @@
+{
+  "id": "C081",
+  "module": "conic",
+  "core": {
+    "title": "椭圆的仿射变换与几何量转化",
+    "alias": [
+      "仿射变换化圆法",
+      "拉伸法",
+      "椭圆变圆公式"
+    ],
+    "summary": "通过纵向拉伸将椭圆化为圆，利用圆的性质求解后按比例还原。",
+    "difficulty": 3,
+    "category": "解析几何",
+    "tags": [
+      "仿射变换",
+      "椭圆",
+      "圆",
+      "面积",
+      "斜率",
+      "比例不变性"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "仿射变换",
+      "椭圆",
+      "圆",
+      "面积",
+      "斜率",
+      "变换前后面积关系",
+      "变换前后斜率关系",
+      "平行性不变",
+      "比例不变",
+      "化圆法",
+      "椭圆内接三角形面积最值",
+      "x'=x",
+      "y'=a/b y"
+    ],
+    "synonyms": [
+      "拉伸变换",
+      "椭圆变圆",
+      "面积缩放",
+      "斜率缩放"
+    ],
+    "intents": [
+      "求面积",
+      "求斜率",
+      "求最值",
+      "证明平行",
+      "证明比例"
+    ],
+    "query_templates": [
+      "椭圆面积用仿射变换怎么算",
+      "仿射变换斜率公式",
+      "椭圆变圆后面积关系",
+      "椭圆内接三角形面积最大值仿射变换"
+    ],
+    "ocrKeywords": [
+      "椭圆",
+      "x^2/a^2+y^2/b^2=1",
+      "仿射变换",
+      "面积",
+      "斜率"
+    ],
+    "latex_patterns": [
+      "x'=x,\\ y'=\\frac{a}{b}y",
+      "S=\\frac{b}{a}S'",
+      "k=\\frac{b}{a}k'",
+      "x'^2+y'^2=a^2"
+    ],
+    "formulaTokens": [
+      "x'=x",
+      "y'=\\frac{a}{b}y",
+      "x'^2+y'^2=a^2",
+      "S=\\frac{b}{a}S'",
+      "k=\\frac{b}{a}k'",
+      "\\frac{AP}{PB}=\\lambda",
+      "l_1\\parallel l_2\\Rightarrow l'_1\\parallel l'_2"
+    ],
+    "pinyin": "tuo yuan fang she bian huan",
+    "pinyinAbbr": "tyfsbh"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.79,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\varphi: x'=x,\\ y'=\\frac{a}{b}y \\Longrightarrow x'^2+y'^2=a^2",
+    "related_formulas": [
+      "S=\\frac{b}{a}S'",
+      "k=\\frac{b}{a}k'",
+      "l_1\\parallel l_2 \\Leftrightarrow l'_1\\parallel l'_2"
+    ],
+    "variables": [
+      "a",
+      "b",
+      "x",
+      "y",
+      "x'",
+      "y'",
+      "S",
+      "S'",
+      "k",
+      "k'",
+      "λ"
+    ],
+    "conditions": "椭圆标准方程 $\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1$ 且 $a>b>0$，变换 $\\varphi$ 如上",
+    "conclusions": [
+      "1. 椭圆化为圆 $x'^2+y'^2=a^2$",
+      "2. 面积缩放关系 $S=\\frac{b}{a}S'$",
+      "3. 斜率缩放关系 $k=\\frac{b}{a}k'$",
+      "4. 平行性与共线点分线段比例不变"
+    ]
+  },
+  "content": {
+    "statement": "对于椭圆 $\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1$ ($a>b>0$)，作仿射变换 $x'=x,\\ y'=\\frac{a}{b}y$，则椭圆化为圆 $x'^2+y'^2=a^2$。在此变换下，原图形面积 $S$ 与变换后面积 $S'$ 满足 $S=\\frac{b}{a}S'$，原直线斜率 $k$ 与变换后斜率 $k'$ 满足 $k=\\frac{b}{a}k'$；且平行性、共线点分线段的比例均保持不变。",
+    "derivation": [
+      "1. 由变换得 $x=x',\\ y=\\frac{b}{a}y'$，代入椭圆方程化简得 $x'^2+y'^2=a^2$。",
+      "2. 面积缩放：线性变换的行列式绝对值 $|J|=\\frac{a}{b}$，故 $S'=\\frac{a}{b}S$，即 $S=\\frac{b}{a}S'$。",
+      "3. 斜率关系：直线 $y=kx+m$ 变换后 $y'=\\frac{a}{b}y = \\frac{a}{b}(kx+m)=\\frac{a}{b}k x + \\frac{a}{b}m$，所以 $k'=\\frac{a}{b}k$，即 $k=\\frac{b}{a}k'$。"
+    ],
+    "intuition": "纵向拉伸 $a/b$ 倍使椭圆的纵轴与横轴相等，从而变成圆；面积和斜率随坐标缩放倍数由线性变换的雅可比和斜率定义自然导出。",
+    "common_tricks": [
+      "1. 计算面积时注意是乘以 $b/a$ 还是 $a/b$，建议先写出 $S' = \\frac{a}{b}S$ 再移项。",
+      "2. 斜率关系为 $k = \\frac{b}{a}k'$，不要记反；可通过代入特殊直线验证。",
+      "3. 圆中的垂直关系不能直接迁移到椭圆，需谨慎处理。",
+      "4. 求椭圆内接三角形最值时，先化为圆内接正三角形，再用面积缩放还原。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "压轴题",
+      "最值问题",
+      "面积计算",
+      "斜率问题"
+    ],
+    "problem_types": [
+      "椭圆几何量计算",
+      "椭圆内接图形面积最值",
+      "椭圆中平行线关系"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 7
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "C081.svg",
+    "png": "",
+    "jpg": "",
+    "pdf": "",
+    "geogebra": ""
+  },
+  "shareConfig": {
+    "title": "椭圆的仿射变换：化圆法求面积与斜率",
+    "shareDesc": "适合考前回顾和讲评课，用于椭圆面积、斜率及内接图形最值问题，通过化为圆简化计算，避免繁琐代数推导。"
+  },
+  "relations": {
+    "prerequisites": [
+      "椭圆标准方程",
+      "圆的方程",
+      "线性变换"
+    ],
+    "related_ids": [],
+    "similar": "双曲线的仿射变换（化为等轴双曲线）"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-23"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "解析几何-圆锥曲线-椭圆",
+  "altNodes": [
+    "解析几何-综合-最值问题",
+    "解析几何-圆-标准方程"
+  ]
+}
