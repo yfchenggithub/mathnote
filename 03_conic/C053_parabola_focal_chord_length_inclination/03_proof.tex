@@ -1,0 +1,68 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用过焦点的直线参数方程，将弦长转化为参数差的绝对值，通过韦达定理化简即得公式。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（设参数方程）：}] 对于 $y^2=2px$，焦点 $F(p/2,0)$，设过 $F$ 且倾斜角为 $\theta$ 的直线参数方程为
+			\[
+				\begin{cases}
+					x = \dfrac{p}{2} + t\cos\theta,\\[3pt]
+					y = t\sin\theta,
+			\end{cases}
+			\]
+			其中 $t$ 为从焦点到点 $P$ 的有向距离.
+			\par\textbf{理由:}
+			参数方程便于直接表达距离,也容易代入曲线方程.
+
+		\item[\textbf{步骤二(代入抛物线):}] 将 $x,y$ 代入 $y^2=2px$ 得
+			\[
+				(t\sin\theta)^2 = 2p\left(\frac{p}{2}+t\cos\theta\right),
+			\]
+			整理得
+			\[
+				t^2\sin^2\theta - 2p t\cos\theta - p^2 = 0. \tag{1}
+			\]
+			\par\textbf{理由:}
+			代入后得到关于 $t$ 的二次方程,其两根 $t_1,t_2$ 对应两交点的有向距离.
+
+		\item[\textbf{步骤三(韦达定理):}] 由 (1) 得
+			\[
+				t_1+t_2 = \frac{2p\cos\theta}{\sin^2\theta},
+				\qquad
+				t_1t_2 = -\frac{p^2}{\sin^2\theta}.
+			\]
+			\par\textbf{理由:}
+			韦达定理给出根与系数的关系,为计算长度差做准备.
+
+		\item[\textbf{步骤四(弦长计算):}] 焦点弦长 $L = |t_1-t_2|$(由参数 $t$ 的几何意义,$|t_1-t_2|$ 即 $A,B$ 两点间距离).于是
+			\[
+				\begin{aligned}
+					L^2 &= (t_1-t_2)^2 = (t_1+t_2)^2 - 4t_1t_2 \\
+					&= \frac{4p^2\cos^2\theta}{\sin^4\theta} + \frac{4p^2}{\sin^2\theta} \\
+					&= \frac{4p^2(\cos^2\theta + \sin^2\theta)}{\sin^4\theta} \\
+					&= \frac{4p^2}{\sin^4\theta}.
+			\end{aligned}
+			\]
+			\par\textbf{理由:}
+			利用 $|AB| = |t_1-t_2|$ 计算弦长,并将韦达结果代入.
+
+		\item[\textbf{步骤五(开方得公式):}] 取正平方根得
+			\[
+				L = \frac{2p}{\sin^2\theta}.
+			\]
+			\par\textbf{理由:}
+			$L>0$,$\sin^2\theta>0$,直接开方.
+
+		\item[\textbf{步骤六(开口向左情形):}] 对于 $y^2=-2px$,焦点 $F(-p/2,0)$,设直线 $x = -\dfrac{p}{2}+t\cos\theta$,$y=t\sin\theta$,代入 $y^2=-2px$ 得到方程 $t^2\sin^2\theta + 2p t\cos\theta - p^2 = 0$,由韦达定理和距离公式同样可推出 $L = \dfrac{2p}{\sin^2\theta}$.
+			\par\textbf{理由:}
+			仅一次项符号改变,不影响弦长结果.
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{由此证明了:无论抛物线开口向左还是向右,只要 $p>0$,过焦点且倾斜角为 $\theta$($\theta\neq0,\pi$)的弦长均为 $L = \dfrac{2p}{\sin^2\theta}$.}
+\end{proofbox}

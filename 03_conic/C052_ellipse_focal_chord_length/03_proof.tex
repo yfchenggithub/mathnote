@@ -1,0 +1,77 @@
+\begin{proofbox}
+	\n\textbf{\textcolor{CProof}{思路提示}}\n\n利用直线的参数方程（用倾斜角 $\theta$ 表示），代入椭圆方程转化为关于参数 $t$ 的二次方程，通过韦达定理和弦长公式化简得到结果。\n\n
+
+	\medskip
+	\n\textbf{\textcolor{CProof}{正式推导}}\n
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\n
+		\item[\textbf{步骤一（参数方程引入）：}]
+			设椭圆右焦点 $F(c,0)$，过 $F$ 且倾斜角为 $\theta$ 的直线参数方程为\n
+			\[
+				\n
+				\begin{cases}
+					\n x = c + t\cos\theta,\\\n y = t\sin\theta,\n
+			\end{cases}
+				\n
+			\]
+			\n 其中 $t$ 为参数，表示点 $P$ 到 $F$ 的有向距离。\n
+			\par\textbf{理由：}\n 参数方程能直接表达直线上点的坐标与距离的关系，便于后续计算弦长。\n\n
+		\item[\textbf{步骤二（联立椭圆方程）：}]
+			将参数方程代入椭圆 $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$：\n
+			\[
+				\n \frac{(c+t\cos\theta)^2}{a^2}+\frac{(t\sin\theta)^2}{b^2}=1.\n
+			\]
+			\n 展开并整理，得到关于 $t$ 的二次方程\n
+			\[
+				\n \left(\frac{\cos^2\theta}{a^2}+\frac{\sin^2\theta}{b^2}\right)t^2+\frac{2c\cos\theta}{a^2}t+\left(\frac{c^2}{a^2}-1\right)=0.\n
+			\]
+			\n 由 $c^2=a^2-b^2$ 得常数项 $\frac{c^2}{a^2}-1=-\frac{b^2}{a^2}$。\n
+			\par\textbf{理由：}\n 通过代入消元得到参数 $t$ 满足的二次方程，为使用韦达定理做准备。\n\n
+		\item[\textbf{步骤三（韦达定理与判别式）：}]
+			记 $A=\frac{\cos^2\theta}{a^2}+\frac{\sin^2\theta}{b^2}$, $B=\frac{2c\cos\theta}{a^2}$, $C=-\frac{b^2}{a^2}$。\n
+			\[
+				\n t_1+t_2=-\frac{B}{A},\quad t_1t_2=\frac{C}{A}.\n
+			\]
+			\n 计算判别式 $\Delta = B^2-4AC$。\n
+			\[
+				\n
+				\begin{aligned}
+					\n B^2 &= \frac{4c^2\cos^2\theta}{a^4},\\\n 4AC &= 4\cdot\left(\frac{\cos^2\theta}{a^2}+\frac{\sin^2\theta}{b^2}\right)\cdot\left(-\frac{b^2}{a^2}\right)= -\frac{4b^2\cos^2\theta}{a^4}-\frac{4\sin^2\theta}{a^2}.\n
+			\end{aligned}
+				\n
+			\]
+			\n 所以\n
+			\[
+				\n
+				\begin{aligned}
+					\n \Delta &= \frac{4c^2\cos^2\theta}{a^4}+\frac{4b^2\cos^2\theta}{a^4}+\frac{4\sin^2\theta}{a^2} \\\n &= \frac{4\cos^2\theta(a^2-b^2+b^2)}{a^4}+\frac{4\sin^2\theta}{a^2} \\\n &= \frac{4\cos^2\theta}{a^2}+\frac{4\sin^2\theta}{a^2} \\\n &= \frac{4}{a^2}.\n
+			\end{aligned}
+				\n
+			\]
+			\n
+			\par\textbf{理由：}\n 韦达定理给出和与积，判别式反映参数差值的平方，直接代入弦长公式。\n\n
+		\item[\textbf{步骤四（弦长公式化简）：}]
+			弦长 $L$ 等于 $|t_1-t_2|$，即\n
+			\[
+				\n L = |t_1-t_2| = \sqrt{(t_1+t_2)^2-4t_1t_2} = \frac{\sqrt{\Delta}}{|A|}.\n
+			\]
+			\n 代入 $\sqrt{\Delta}=\frac{2}{a}$，$A=\frac{\cos^2\theta}{a^2}+\frac{\sin^2\theta}{b^2}>0$，得\n
+			\[
+				\n
+				\begin{aligned}
+					\n L &= \frac{2/a}{\frac{\cos^2\theta}{a^2}+\frac{\sin^2\theta}{b^2}} \\\n &= \frac{2ab^2}{b^2\cos^2\theta+a^2\sin^2\theta}.\n
+			\end{aligned}
+				\n
+			\]
+			\n 利用 $a^2\sin^2\theta+b^2\cos^2\theta = a^2-(a^2-b^2)\cos^2\theta = a^2-c^2\cos^2\theta$，即得\n
+			\[
+				\n L = \frac{2ab^2}{a^2-c^2\cos^2\theta}.\n
+			\]
+			\n
+			\par\textbf{理由：}\n 分母恒等变形使表达式更简洁，且突出离心率的影响。\n
+	\end{description}
+	\n\n
+
+	\medskip
+	\n\textbf{\textcolor{CProof}{结论回扣}}\n\n\textbf{至此，椭圆焦点弦长公式得证。当 $\theta=90^\circ$ 时，$\cos\theta=0$，代入得 $L=\frac{2b^2}{a}$，即为通径长。该公式提供了已知倾斜角直接计算焦点弦长的便捷途径。}\n
+\end{proofbox}
