@@ -1324,6 +1324,47 @@ def apply_start_from(
     return filtered
 
 
+def normalize_id_filter(raw_values: list[str] | None) -> list[str]:
+    if not raw_values:
+        return []
+
+    ids: list[str] = []
+    seen: set[str] = set()
+    for raw_value in raw_values:
+        for part in str(raw_value).split(","):
+            item_id = part.strip().upper()
+            if not item_id:
+                continue
+            if not re.fullmatch(r"[A-Z]\d{3}", item_id):
+                raise ValueError(f"Invalid ID in --ids: {part!r}")
+            if item_id in seen:
+                continue
+            seen.add(item_id)
+            ids.append(item_id)
+    return ids
+
+
+def apply_id_filter(
+    conclusions: list[dict[str, Any]],
+    selected_ids: list[str],
+) -> list[dict[str, Any]]:
+    if not selected_ids:
+        return conclusions
+
+    selected = set(selected_ids)
+    filtered = [
+        conclusion
+        for conclusion in conclusions
+        if str(conclusion.get("id", "")).upper() in selected
+    ]
+    found = {str(conclusion.get("id", "")).upper() for conclusion in filtered}
+    missing = [item_id for item_id in selected_ids if item_id not in found]
+    if missing:
+        log(f"[warn] --ids not found in selected module/readme rows: {', '.join(missing)}")
+    log(f"[info] Filtered by --ids: {len(filtered)} selected row(s)")
+    return filtered
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Batch generate pending conclusions from readme.md files"
@@ -1343,6 +1384,15 @@ def parse_args() -> argparse.Namespace:
         "--start-from",
         default=None,
         help="Resume from a specific readme conclusion ID, e.g. I043.",
+    )
+    parser.add_argument(
+        "--ids",
+        nargs="+",
+        default=None,
+        help=(
+            "Only process specific readme IDs. Supports spaces or commas, "
+            "e.g. --ids S021 S024 or --ids S021,S024."
+        ),
     )
     parser.add_argument(
         "--python-exe",
@@ -1426,6 +1476,12 @@ def main() -> int:
     if args.force_regenerate:
         args.force_all = True
 
+    try:
+        selected_ids = normalize_id_filter(args.ids)
+    except ValueError as exc:
+        log(f"[error] {exc}")
+        return 1
+
     timeout_value = args.timeout
     legacy_timeout_values = [
         value
@@ -1472,6 +1528,7 @@ def main() -> int:
         return 0
 
     log(f"[info] Total pending rows before filters: {len(all_conclusions)}")
+    all_conclusions = apply_id_filter(all_conclusions, selected_ids)
     all_conclusions = apply_start_from(all_conclusions, args.start_from)
 
     state_index = load_state_index()
