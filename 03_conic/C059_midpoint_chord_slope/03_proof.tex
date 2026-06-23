@@ -1,0 +1,82 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	点差法通过“设而不求、两式相减”，利用平方差消去二次项，直接建立中点坐标与弦斜率的关系。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（椭圆设点作差）：}]
+			设点 \(A(x_1,y_1), B(x_2,y_2)\) 在椭圆 \(\frac{x^2}{a^2}+\frac{y^2}{b^2}=1\) 上。代入得：
+			\[
+				\frac{x_1^2}{a^2}+\frac{y_1^2}{b^2}=1,\quad
+				\frac{x_2^2}{a^2}+\frac{y_2^2}{b^2}=1
+			\]
+			两式相减：
+			\[
+				\frac{x_1^2-x_2^2}{a^2}+\frac{y_1^2-y_2^2}{b^2}=0
+			\]
+			\par\textbf{理由：} 点在曲线上，代入作差消去常数项。
+
+		\item[\textbf{步骤二（平方差与中点代入）：}]
+			因式分解：
+			\[
+				\frac{(x_1-x_2)(x_1+x_2)}{a^2}+\frac{(y_1-y_2)(y_1+y_2)}{b^2}=0
+			\]
+			代入中点坐标 \(x_1+x_2=2x_0,\; y_1+y_2=2y_0\)：
+			\[
+				\frac{2x_0(x_1-x_2)}{a^2}+\frac{2y_0(y_1-y_2)}{b^2}=0
+			\]
+			\par\textbf{理由：} 平方差公式与中点定义。
+
+		\item[\textbf{步骤三（解出斜率）：}]
+			整理得：
+			\[
+				\frac{2x_0}{a^2}(x_1-x_2)=-\frac{2y_0}{b^2}(y_1-y_2)
+			\]
+			两边除以 \(2(x_1-x_2)\)（假设 \(x_1\neq x_2\)，否则弦垂直\(x\)轴），得：
+			\[
+				\frac{x_0}{a^2}=-\frac{y_0}{b^2}\cdot\frac{y_1-y_2}{x_1-x_2}
+			\]
+			即
+			\[
+				\begin{aligned}
+					k &= \frac{y_1-y_2}{x_1-x_2} \\
+					&= -\frac{b^2x_0}{a^2y_0}
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 代数变形，要求 \(y_0\neq0\)。
+
+		\item[\textbf{步骤四（双曲线类似推导）：}]
+			对于双曲线 \(\frac{x^2}{a^2}-\frac{y^2}{b^2}=1\)，同样设点作差得：
+			\[
+				\frac{x_1^2-x_2^2}{a^2}-\frac{y_1^2-y_2^2}{b^2}=0
+			\]
+			因式分解并代入中点、斜率可得：
+			\[
+				k=\frac{b^2x_0}{a^2y_0}
+			\]
+			\par\textbf{理由：} 推导过程与椭圆类似，注意符号变化。
+
+		\item[\textbf{步骤五（抛物线推导）：}]
+			对于抛物线 \(y^2=2px\)，设点代入：
+			\[
+				y_1^2=2px_1,\; y_2^2=2px_2
+			\]
+			相减得：
+			\[
+				y_1^2-y_2^2=2p(x_1-x_2)
+			\]
+			即 \((y_1-y_2)(y_1+y_2)=2p(x_1-x_2)\)。
+			代入中点 \(y_1+y_2=2y_0\)，斜率定义：
+			\[
+				k\cdot 2y_0=2p \quad\Rightarrow\quad k=\frac{p}{y_0}
+			\]
+			\par\textbf{理由：} 平方差与中点代入。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	点差法直接建立中点与斜率的关系，不需要联立方程组求解，大幅提高运算效率。注意适用前提：弦与曲线有两个交点，且 \(y_0\neq0\)（避免分母为零），同时对于椭圆和双曲线要求 \(x_1\neq x_2\)（即弦不垂直于 \(x\) 轴）。
+\end{proofbox}
