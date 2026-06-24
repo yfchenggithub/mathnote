@@ -1,0 +1,62 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	设 $AD,BE,CF$ 共点于 $P$，利用有向面积比将各线段比转化为以 $P$ 为顶点的三角形面积比，相乘消去得 $1$.
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+
+	\medskip
+	\textcolor{CProof}{（注：以下面积 $S$ 均指有向面积，其比值等于有向线段比，可正可负，且满足可加性。）}
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（面积比代底边）：}]
+			因为 $\triangle ABD$ 与 $\triangle ACD$ 同高（$A$ 到 $BC$），
+			\[
+				\frac{BD}{DC} = \frac{S_{\triangle ABD}}{S_{\triangle ACD}};
+			\]
+			同理，$\triangle PBD$ 与 $\triangle PCD$ 同高（$P$ 到 $BC$），
+			\[
+				\frac{BD}{DC} = \frac{S_{\triangle PBD}}{S_{\triangle PCD}}.
+			\]
+			\par \textbf{理由：} 等高三角形面积比等于底边长度比.
+		\item[\textbf{步骤二（转化至P三角形）：}]
+			记 $k = \frac{BD}{DC}$，由步骤一知
+			\[
+				S_{\triangle ABD} = k\,S_{\triangle ACD},
+				\qquad
+				S_{\triangle PBD} = k\,S_{\triangle PCD}.
+			\]
+			利用面积可加性：
+			\[
+				S_{\triangle ABD} = S_{\triangle ABP} + S_{\triangle PBD},\quad S_{\triangle ACD} = S_{\triangle ACP} + S_{\triangle PCD}.
+			\]
+			于是
+			\[
+				\begin{aligned}
+					S_{\triangle ABP} &= S_{\triangle ABD} - S_{\triangle PBD} \\ &= k\,S_{\triangle ACD} - k\,S_{\triangle PCD} \\ &= k\,(S_{\triangle ACD} - S_{\triangle PCD}) \\ &= k\,S_{\triangle ACP}.
+			\end{aligned}
+			\]
+			故 $\displaystyle\frac{BD}{DC}=k=\frac{S_{\triangle ABP}}{S_{\triangle ACP}}$. \par \textbf{理由：} 面积可加减，比例代入消去.
+		\item[\textbf{步骤三（轮换对称得两比）：}]
+			完全类似可得
+			\[
+				\frac{CE}{EA} = \frac{S_{\triangle BCP}}{S_{\triangle BAP}},
+				\qquad
+				\frac{AF}{FB} = \frac{S_{\triangle CAP}}{S_{\triangle CBP}}.
+			\]
+			\par \textbf{理由：} 只需将三角形顶点轮换（$A\to B\to C\to A$）.
+		\item[\textbf{步骤四（乘积相消得1）：}]
+			将以上三式相乘，
+			\[
+				\begin{aligned}
+					\frac{BD}{DC}\cdot\frac{CE}{EA}\cdot\frac{AF}{FB} &= \frac{S_{\triangle ABP}}{S_{\triangle ACP}}\cdot\frac{S_{\triangle BCP}}{S_{\triangle BAP}}\cdot\frac{S_{\triangle CAP}}{S_{\triangle CBP}} \\ &= 1.
+			\end{aligned}
+			\]
+			\par \textbf{理由：} 分子分母中每个三角形面积恰好出现两次，约分得 $1$.
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{因此，当 $AD,BE,CF$ 共点时，有向线段比乘积为 $1$。塞瓦定理得证.}
+\end{proofbox}
