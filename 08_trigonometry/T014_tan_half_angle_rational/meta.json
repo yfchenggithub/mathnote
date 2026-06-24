@@ -1,0 +1,178 @@
+{
+  "id": "T014",
+  "module": "trigonometry",
+  "core": {
+    "title": "万能公式（半角代换）",
+    "alias": [
+      "万能公式",
+      "半角代换",
+      "正切半角公式"
+    ],
+    "summary": "将三角函数用半角正切统一表示为有理函数，实现三角问题代数化。",
+    "difficulty": 3,
+    "category": "三角函数",
+    "tags": [
+      "三角函数",
+      "万能公式",
+      "半角代换",
+      "恒等变换"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "万能公式",
+      "半角代换",
+      "tan(x/2)",
+      "sin x",
+      "cos x",
+      "tan x",
+      "2t/(1+t^2)",
+      "(1-t^2)/(1+t^2)",
+      "2t/(1-t^2)",
+      "三角恒等变换",
+      "有理化",
+      "t=tan(x/2)"
+    ],
+    "synonyms": [
+      "正切半角公式",
+      "半角正切代换",
+      "万能代换",
+      "半角正切公式"
+    ],
+    "intents": [
+      "求三角值",
+      "化简",
+      "证明恒等式",
+      "代换",
+      "转化",
+      "解三角方程"
+    ],
+    "query_templates": [
+      "已知tan(x/2)求sinx",
+      "万能公式的应用",
+      "半角代换解三角方程",
+      "用半角正切表示sinx cosx",
+      "sinx+cosx用t表示"
+    ],
+    "ocrKeywords": [
+      "sinx=2t/(1+t^2)",
+      "cosx=(1-t^2)/(1+t^2)",
+      "tanx=2t/(1-t^2)",
+      "t=tan(x/2)"
+    ],
+    "latex_patterns": [
+      "\\frac{2t}{1+t^2}",
+      "\\frac{1-t^2}{1+t^2}",
+      "\\tan x = \\frac{2t}{1-t^2}"
+    ],
+    "formulaTokens": [
+      "2t/(1+t^2)",
+      "(1-t^2)/(1+t^2)",
+      "2t/(1-t^2)",
+      "tan(x/2)"
+    ],
+    "pinyin": "wannenggongshi",
+    "pinyinAbbr": "wngs"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.71,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\sin x = \\frac{2t}{1+t^2}, \\quad \\cos x = \\frac{1-t^2}{1+t^2} \\quad (t=\\tan\\frac{x}{2}, x\\neq\\pi+2k\\pi, k\\in\\mathbb{Z})",
+    "related_formulas": [
+      "\\tan x = \\frac{2t}{1-t^2} \\quad (x\\neq\\frac{\\pi}{2}+k\\pi)"
+    ],
+    "variables": {
+      "t": "半角正切值",
+      "x": "原角（弧度）",
+      "k": "整数"
+    },
+    "conditions": [
+      "定义域：$x\\neq \\pi+2k\\pi\\ (k\\in\\mathbb{Z})$，保证 $t=\\tan\\frac{x}{2}$ 有意义。",
+      "对于 $\\tan x$ 公式，还需 $x\\neq \\frac{\\pi}{2}+k\\pi$，确保分母 $1-t^2 \\neq 0$。"
+    ],
+    "conclusions": [
+      "$\\sin x$ 和 $\\cos x$ 均可表示为 $t$ 的有理函数。",
+      "当附加条件满足时，$\\tan x$ 也可用 $t$ 表示。"
+    ]
+  },
+  "content": {
+    "statement": "设 $t=\\tan\\frac{x}{2}$（$x\\neq\\pi+2k\\pi,\\ k\\in\\mathbb{Z}$），则 $\\sin x=\\frac{2t}{1+t^2}$，$\\cos x=\\frac{1-t^2}{1+t^2}$；若还有 $x\\neq\\frac{\\pi}{2}+k\\pi$，则 $\\tan x=\\frac{2t}{1-t^2}$。",
+    "derivation": [
+      "利用二倍角公式 $\\sin x=2\\sin\\frac{x}{2}\\cos\\frac{x}{2}$。",
+      "分子分母同除以 $\\cos^2\\frac{x}{2}$，得 $\\frac{2\\tan\\frac{x}{2}}{1+\\tan^2\\frac{x}{2}}$。",
+      "代入 $t=\\tan\\frac{x}{2}$ 即得。同理可得 $\\cos x$ 公式。"
+    ],
+    "intuition": "通过半角正切将三角函数的比值统一为有理分式，便于代数运算。",
+    "common_tricks": [
+      "遇到 $\\sin x\\pm\\cos x$ 或 $\\sin x\\cos x$ 型表达式时，可设 $t$ 化为有理方程。",
+      "注意检查定义域，避免 $t$ 无定义或分母为零。",
+      "用于解 $a\\sin x+b\\cos x=c$ 型方程时，化为关于 $t$ 的一元二次方程。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "三角恒等变换",
+      "三角方程求解",
+      "三角函数式化简",
+      "最值问题（转化为分式函数）"
+    ],
+    "problem_types": [
+      "三角求值",
+      "三角恒等式证明",
+      "三角方程",
+      "三角函数最值"
+    ],
+    "exam_frequency": 0.6,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "T014.svg",
+    "png": "",
+    "gif": "",
+    "video": ""
+  },
+  "shareConfig": {
+    "title": "万能公式：半角正切代换简化三角运算",
+    "shareDesc": "适合课后复盘和刷题前速查，用半角正切将三角函数有理化，减少分步变形错误，提升三角恒等变换和方程求解的稳定性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "二倍角公式",
+      "同角三角函数基本关系",
+      "分式运算"
+    ],
+    "related_ids": [],
+    "similar": [
+      "和差化积公式",
+      "辅助角公式",
+      "半角公式"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-24"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "三角函数-基本关系-同角恒等",
+  "altNodes": [
+    "三角函数-恒等变换-和差化积",
+    "三角函数-恒等变换-降幂公式"
+  ]
+}

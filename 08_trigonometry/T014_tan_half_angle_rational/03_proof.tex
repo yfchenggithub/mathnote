@@ -1,0 +1,51 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	利用二倍角公式将 $\sin x, \cos x$ 用 $\sin\frac{x}{2}, \cos\frac{x}{2}$ 表示，再通过除以 $\cos^2\frac{x}{2}$ 构造 $\tan\frac{x}{2}$。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（半角展开）：}]
+			由二倍角公式，
+			\[
+				\sin x = 2\sin\frac{x}{2}\cos\frac{x}{2},
+				\qquad
+				\cos x = \cos^2\frac{x}{2} - \sin^2\frac{x}{2}.
+			\]
+			\par\textbf{理由：} 将整角 $x$ 写为两倍半角，得到半角表达式。
+		\item[\textbf{步骤二（构造分母）：}]
+			恒等变形，在分子后添加分母 $1 = \cos^2\frac{x}{2}+\sin^2\frac{x}{2}$：
+			\[
+				\sin x = \frac{2\sin\frac{x}{2}\cos\frac{x}{2}}{\cos^2\frac{x}{2}+\sin^2\frac{x}{2}},
+				\qquad
+				\cos x = \frac{\cos^2\frac{x}{2} - \sin^2\frac{x}{2}}{\cos^2\frac{x}{2}+\sin^2\frac{x}{2}}.
+			\]
+			\par\textbf{理由：} 分母等于 $1$，不改变原式。
+		\item[\textbf{步骤三（同除余弦平方）：}]
+			分子分母同除以 $\cos^2\frac{x}{2}$（注意 $\cos\frac{x}{2} \neq 0$）：
+			\[
+				\sin x = \frac{2\tan\frac{x}{2}}{1+\tan^2\frac{x}{2}},
+				\qquad
+				\cos x = \frac{1-\tan^2\frac{x}{2}}{1+\tan^2\frac{x}{2}}.
+			\]
+			\par\textbf{理由：} 利用 $\frac{\sin\frac{x}{2}}{\cos\frac{x}{2}} = \tan\frac{x}{2}$ 化简。
+		\item[\textbf{步骤四（代换得证）：}]
+			令 $t = \tan\frac{x}{2}$，即得
+			\[
+				\sin x = \frac{2t}{1+t^2},
+				\qquad
+				\cos x = \frac{1-t^2}{1+t^2}.
+			\]
+			\par\textbf{理由：} 直接代入 $t$，完成证明。
+		\item[\textbf{步骤五（正切公式）：}]
+			利用 $\tan x = \frac{\sin x}{\cos x}$，代入已得公式并约去 $1+t^2$：
+			\[
+				\tan x = \frac{\frac{2t}{1+t^2}}{\frac{1-t^2}{1+t^2}} = \frac{2t}{1-t^2}.
+			\]
+			\par\textbf{理由：} 当 $\cos x \neq 0$（即 $x \neq \frac{\pi}{2}+k\pi$）时成立。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{综上，在满足定义域条件下，万能公式成立。它将三角函数转化为 $t$ 的有理函数，是解决三角问题的重要工具。}
+\end{proofbox}
