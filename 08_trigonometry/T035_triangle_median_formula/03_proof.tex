@@ -1,0 +1,52 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用余弦定理分别在 $\triangle ABM$ 和 $\triangle ACM$ 中表示出 $AB^2$ 和 $AC^2$，然后相加消去角 $M$ 的余弦值，解出 $m_a^2$。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（余弦定理应用1）：}] 在 $\triangle ABM$ 中，设 $\angle AMB = \theta$，$BM = \frac{a}{2}$，$AM = m_a$，$AB = c$。由余弦定理：
+			\[
+				c^2 = m_a^2 + \left(\frac{a}{2}\right)^2 - 2 \cdot m_a \cdot \frac{a}{2} \cos\theta.
+			\]
+			\par\textbf{理由：} 三角形已知两边及夹角可求第三边。
+
+		\item[\textbf{步骤二（余弦定理应用2）：}] 在 $\triangle ACM$ 中，$\angle AMC = \pi - \theta$，$CM = \frac{a}{2}$，$AM = m_a$，$AC = b$。由余弦定理：
+			\[
+				b^2 = m_a^2 + \left(\frac{a}{2}\right)^2 - 2 \cdot m_a \cdot \frac{a}{2} \cos(\pi - \theta).
+			\]
+			因为 $\cos(\pi - \theta) = -\cos\theta$，所以
+			\[
+				b^2 = m_a^2 + \left(\frac{a}{2}\right)^2 + 2 \cdot m_a \cdot \frac{a}{2} \cos\theta.
+			\]
+			\par\textbf{理由：} 邻补角余弦互为相反数。
+
+		\item[\textbf{步骤三（两式相加）：}] 将步骤一和步骤二的两式相加：
+			\[
+				\begin{aligned}
+					b^2 + c^2 &= 2 m_a^2 + 2 \left(\frac{a}{2}\right)^2 \\
+					&= 2 m_a^2 + \frac{a^2}{2}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} $\cos\theta$ 项消去。
+
+		\item[\textbf{步骤四（整理得公式）：}] 从上式解出 $m_a^2$：
+			\[
+				2 m_a^2 = b^2 + c^2 - \frac{a^2}{2},
+			\]
+			所以
+			\[
+				\begin{aligned}
+					m_a^2 &= \frac{b^2}{2} + \frac{c^2}{2} - \frac{a^2}{4} \\
+					&= \frac{2b^2 + 2c^2 - a^2}{4}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 代数变换得到中线长公式。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{因此，在任意三角形 $ABC$ 中，$m_a^2 = \dfrac{2b^2+2c^2-a^2}{4}$ 成立。同理可证 $m_b^2,m_c^2$ 的公式。}
+\end{proofbox}
