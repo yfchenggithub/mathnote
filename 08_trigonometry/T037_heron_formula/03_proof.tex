@@ -1,77 +1,97 @@
 \begin{proofbox}
 	\textbf{\textcolor{CProof}{思路提示}}
 
-	海伦公式的代数证明源于面积公式与余弦定理的结合，通过平方差与因式分解得到对称形式。
+	海伦公式的代数证明源于面积公式与余弦定理的结合，通过平方差和因式分解得到关于三边的对称形式。
 
 	\medskip
 	\textbf{\textcolor{CProof}{正式推导}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
 		\item[{\textbf{步骤一（正弦面积）：}}]
-			设 $a$ 与 $b$ 的夹角为 $C$，则 $S=\frac12 ab\sin C$。
-			\par\textbf{理由：} 三角形面积公式（两边及其夹角）。
+		      设边 $a$ 与边 $b$ 的夹角为 $C$，边 $c$ 与角 $C$ 相对，则
+		      \[
+			      S=\frac12 ab\sin C.
+		      \]
+		      \par\textbf{理由：} 三角形面积公式：两边及其夹角确定面积。
 
 		\item[{\textbf{步骤二（余弦代换）：}}]
-			由余弦定理 $c^2=a^2+b^2-2ab\cos C$，得
-			\[
-				\cos C = \frac{a^2+b^2-c^2}{2ab}.
-			\]
-			于是
-			\[
-				\begin{aligned}
-					\sin^2 C &= 1 - \cos^2 C \\
-					&= 1 - \left(\frac{a^2+b^2-c^2}{2ab}\right)^2 \\
-					&= 1 - \frac{(a^2+b^2-c^2)^2}{4a^2b^2}.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 同角三角恒等式 $\sin^2 C+\cos^2 C=1$。
+		      由余弦定理
+		      \[
+			      c^2=a^2+b^2-2ab\cos C,
+		      \]
+		      得
+		      \[
+			      \cos C = \frac{a^2+b^2-c^2}{2ab}.
+		      \]
+		      于是
+		      \[
+			      \begin{aligned}
+				      \sin^2 C
+				       & = 1-\cos^2 C                               \\
+				       & = 1-\left(\frac{a^2+b^2-c^2}{2ab}\right)^2 \\
+				       & = 1-\frac{(a^2+b^2-c^2)^2}{4a^2b^2}.
+			      \end{aligned}
+		      \]
+		      \par\textbf{理由：} 使用恒等式 $\sin^2 C+\cos^2 C=1$。
 
 		\item[{\textbf{步骤三（代入化简）：}}]
-			\[
-				\begin{aligned}
-					S^2 &= \frac14 a^2b^2 \sin^2 C \\
-					&= \frac14 a^2b^2 \left(1 - \frac{(a^2+b^2-c^2)^2}{4a^2b^2}\right) \\
-					&= \frac14 a^2b^2 - \frac{1}{16}(a^2+b^2-c^2)^2 \\
-					&= \frac{1}{16}\bigl[4a^2b^2 - (a^2+b^2-c^2)^2\bigr].
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 代数运算与通分。
+		      \[
+			      \begin{aligned}
+				      S^2
+				       & = \frac14 a^2b^2\sin^2 C                            \\
+				       & = \frac14 a^2b^2
+				      \left(1-\frac{(a^2+b^2-c^2)^2}{4a^2b^2}\right)         \\
+				       & = \frac14 a^2b^2-\frac{1}{16}(a^2+b^2-c^2)^2        \\
+				       & = \frac{1}{16}\left[4a^2b^2-(a^2+b^2-c^2)^2\right].
+			      \end{aligned}
+		      \]
+		      \par\textbf{理由：} 将 $\sin^2 C$ 代入面积平方公式。
 
 		\item[{\textbf{步骤四（平方差分解）：}}]
-			\[
-				\begin{aligned}
-					S^2&=\frac{1}{16}\bigl[(2ab)^2-(a^2+b^2-c^2)^2\bigr]\\
-					&=\frac{1}{16}\bigl(2ab+a^2+b^2-c^2\bigr)\bigl(2ab-a^2-b^2+c^2\bigr)\\
-					&=\frac{1}{16}\bigl[(a+b)^2-c^2\bigr]\bigl[c^2-(a-b)^2\bigr]\\
-					&=\frac{1}{16}(a+b+c)(a+b-c)(a-b+c)(-a+b+c).
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 平方差公式与完全平方公式。
+		      \[
+			      \begin{aligned}
+				      S^2
+				       & =\frac{1}{16}\left[(2ab)^2-(a^2+b^2-c^2)^2\right] \\
+				       & =\frac{1}{16}
+				      (2ab+a^2+b^2-c^2)(2ab-a^2-b^2+c^2)                   \\
+				       & =\frac{1}{16}
+				      \left[(a+b)^2-c^2\right]\left[c^2-(a-b)^2\right]     \\
+				       & =\frac{1}{16}(a+b+c)(a+b-c)(a-b+c)(-a+b+c).
+			      \end{aligned}
+		      \]
+		      \par\textbf{理由：} 使用平方差公式和完全平方公式。
 
 		\item[{\textbf{步骤五（半周长代换）：}}]
-			令 $p=\dfrac{a+b+c}{2}$，则
-			\[
-				\begin{aligned}
-					a+b+c &= 2p, \\
-					a+b-c &= 2(p-c), \\
-					a-b+c &= 2(p-b), \\
-					-a+b+c &= 2(p-a).
-			\end{aligned}
-			\]
-			代入 $S^2$ 得
-			\[
-				\begin{aligned}
-					S^2 &= \frac{1}{16} (2p) \cdot 2(p-c) \cdot 2(p-b) \cdot 2(p-a) \\
-					&= \frac{1}{16} \cdot 16\, p(p-a)(p-b)(p-c) \\
-					&= p(p-a)(p-b)(p-c).
-			\end{aligned}
-			\]
-			因此 $S=\sqrt{p(p-a)(p-b)(p-c)}$（面积取正）。
-			\par\textbf{理由：} 算术平方根（面积非负）。
+		      令
+		      \[
+			      p=\frac{a+b+c}{2}.
+		      \]
+		      则
+		      \[
+			      \begin{aligned}
+				      a+b+c  & = 2p,     \\
+				      a+b-c  & = 2(p-c), \\
+				      a-b+c  & = 2(p-b), \\
+				      -a+b+c & = 2(p-a).
+			      \end{aligned}
+		      \]
+		      代入 $S^2$ 得
+		      \[
+			      \begin{aligned}
+				      S^2
+				       & = \frac{1}{16}\cdot 2p\cdot 2(p-c)\cdot 2(p-b)\cdot 2(p-a) \\
+				       & = p(p-a)(p-b)(p-c).
+			      \end{aligned}
+		      \]
+		      因此
+		      \[
+			      S=\sqrt{p(p-a)(p-b)(p-c)}.
+		      \]
+		      \par\textbf{理由：} 面积为正，取算术平方根。
 
 	\end{description}
 
 	\medskip
 	\textbf{\textcolor{CProof}{结论回扣}}
 
-	\textbf{通过五个步骤，我们完成了从边长到面积的推导，证明了海伦公式。}
+	\textbf{由正弦面积公式、余弦定理和因式分解，可以把面积完全表示成三边长的形式，这就是海伦公式。}
 \end{proofbox}
