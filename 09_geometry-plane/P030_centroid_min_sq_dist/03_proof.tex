@@ -1,0 +1,91 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用向量法，将 $PA^2+PB^2+PC^2$ 用 $PG$ 和三角形常量表示，然后利用重心向量和为零消去交叉项，最后根据平方非负性得最小值，再通过中线长公式计算具体值。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（向量拆分）：}] 对任意点 $P$，设重心 $G$，则
+			\[
+				\overrightarrow{PA} = \overrightarrow{PG} + \overrightarrow{GA},\quad
+				\overrightarrow{PB} = \overrightarrow{PG} + \overrightarrow{GB},\quad
+				\overrightarrow{PC} = \overrightarrow{PG} + \overrightarrow{GC}.
+			\]
+			\par\textbf{理由：} 向量加法三角形法则。
+
+		\item[\textbf{步骤二（平方展开）：}] 分别计算模长平方：
+			\[
+				PA^2 = |\overrightarrow{PG}|^2 + |\overrightarrow{GA}|^2 + 2\overrightarrow{PG}\cdot\overrightarrow{GA},
+			\]
+			\[
+				PB^2 = |\overrightarrow{PG}|^2 + |\overrightarrow{GB}|^2 + 2\overrightarrow{PG}\cdot\overrightarrow{GB},
+			\]
+			\[
+				PC^2 = |\overrightarrow{PG}|^2 + |\overrightarrow{GC}|^2 + 2\overrightarrow{PG}\cdot\overrightarrow{GC}.
+			\]
+			\par\textbf{理由：} 模平方公式 $|\vec{u}+\vec{v}|^2 = |\vec{u}|^2+|\vec{v}|^2+2\vec{u}\cdot\vec{v}$。
+
+		\item[\textbf{步骤三（求和合并）：}] 三式相加，得
+			\[
+				\begin{aligned}
+					PA^2+PB^2+PC^2
+					&= 3|\overrightarrow{PG}|^2 + (GA^2+GB^2+GC^2) \\
+					&\quad + 2\overrightarrow{PG}\cdot(\overrightarrow{GA}+\overrightarrow{GB}+\overrightarrow{GC}).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 合并相同项，并记 $GA^2 = |\overrightarrow{GA}|^2$ 等。
+
+		\item[\textbf{步骤四（重心性质）：}] 重心 $G$ 满足向量和为零：
+			\[
+				\overrightarrow{GA}+\overrightarrow{GB}+\overrightarrow{GC} = \vec{0}.
+			\]
+			\par\textbf{理由：} 重心是中线交点，从重心出发到三个顶点的向量之和为零向量。
+
+		\item[\textbf{步骤五（消去交叉项）：}] 代入上式，交叉项消失：
+			\[
+				PA^2+PB^2+PC^2 = 3PG^2 + (GA^2+GB^2+GC^2).
+			\]
+			（其中 $PG^2 = |\overrightarrow{PG}|^2$）
+			\par\textbf{理由：} 因为 $\overrightarrow{GA}+\overrightarrow{GB}+\overrightarrow{GC}=0$，所以含 $\overrightarrow{PG}$ 的点积项为零。
+
+		\item[\textbf{步骤六（最小值结论）：}] 由于 $PG^2 \ge 0$，立即得到
+			\[
+				PA^2+PB^2+PC^2 \ge GA^2+GB^2+GC^2.
+			\]
+			等号成立当且仅当 $PG=0$，即 $P$ 与 $G$ 重合。
+			\par\textbf{理由：} 非负数的性质。
+
+		\item[\textbf{步骤七（重心距离公式）：}] 下面计算 $GA^2+GB^2+GC^2$ 用边长 $a,b,c$ 表示。
+
+			设 $m_a, m_b, m_c$ 为对应边的中线长，则有中线长公式
+			\[
+				m_a^2 = \frac{2b^2+2c^2-a^2}{4},\quad
+				m_b^2 = \frac{2c^2+2a^2-b^2}{4},\quad
+				m_c^2 = \frac{2a^2+2b^2-c^2}{4}.
+			\]
+			重心将每条中线分成 $2:1$（顶点到重心：重心到对边中点），故
+			\[
+				GA = \frac23 m_a,\quad GB = \frac23 m_b,\quad GC = \frac23 m_c.
+			\]
+			因此
+			\[
+				\begin{aligned}
+					GA^2+GB^2+GC^2
+					&= \frac{4}{9}(m_a^2+m_b^2+m_c^2) \\
+					&= \frac{4}{9}\cdot\frac{1}{4}\bigl[(2b^2+2c^2-a^2) \\
+					&\qquad + (2c^2+2a^2-b^2) + (2a^2+2b^2-c^2)\bigr]\\
+					&= \frac{1}{9}\bigl[(2b^2+2c^2-a^2) \\
+					&\qquad + (2c^2+2a^2-b^2) + (2a^2+2b^2-c^2)\bigr]\\
+					&= \frac{1}{9}\cdot 3(a^2+b^2+c^2) \\
+					&= \frac13(a^2+b^2+c^2).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 利用中线长公式和重心分中线比例，合并同类项可得上述结果。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{综上，对任意非退化三角形 $ABC$，有 $\displaystyle PA^2+PB^2+PC^2 \ge GA^2+GB^2+GC^2 = \frac13(a^2+b^2+c^2)$，等号当且仅当 $P$ 与重心 $G$ 重合。}
+\end{proofbox}
