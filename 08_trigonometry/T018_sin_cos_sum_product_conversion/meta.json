@@ -1,0 +1,185 @@
+{
+  "id": "T018",
+  "module": "trigonometry",
+  "core": {
+    "title": "三角函数知一求二：sin x±cos x与sin x cos x互化",
+    "alias": [
+      "知一求二",
+      "三角和差积互化",
+      "S₊、S₋、P关系"
+    ],
+    "summary": "通过平方关系，由 sin x+cos x、sin x-cos x、sin x cos x 中任一个可求其余两个，且取值范围受限。",
+    "difficulty": 2,
+    "category": "三角函数",
+    "tags": [
+      "三角函数",
+      "知一求二",
+      "整体代换",
+      "范围问题",
+      "恒等变形"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "sinx+cosx",
+      "sinx-cosx",
+      "sinxcosx",
+      "知一求二",
+      "互化公式",
+      "平方关系",
+      "整体代换",
+      "三角恒等变形",
+      "和差积",
+      "S₊",
+      "S₋",
+      "P",
+      "范围"
+    ],
+    "synonyms": [
+      "正余弦和差积互求",
+      "三角和积互化",
+      "sin+cos求积",
+      "sin-cos求值",
+      "已知sin+cos求sin-cos"
+    ],
+    "intents": [
+      "求值",
+      "互化",
+      "判断符号",
+      "确定范围",
+      "求解sinxcosx",
+      "求解sinx±cosx"
+    ],
+    "query_templates": [
+      "已知sinx+cosx求sinxcosx",
+      "已知sinxcosx求sinx-cosx",
+      "知一求二公式",
+      "sinx±cosx与sinxcosx关系",
+      "三角和差积互化公式"
+    ],
+    "ocrKeywords": [
+      "sin",
+      "cos",
+      "和",
+      "积",
+      "±",
+      "已知",
+      "求",
+      "值"
+    ],
+    "latex_patterns": [
+      "(\\sin x \\pm \\cos x)^2",
+      "1 \\pm 2\\sin x\\cos x",
+      "S_+^2 + S_-^2 = 2",
+      "P = \\frac{S_+^2 - 1}{2}",
+      "P = \\frac{1 - S_-^2}{2}"
+    ],
+    "formulaTokens": [
+      "S_+^2",
+      "S_-^2",
+      "1 \\pm 2P",
+      "S_+^2 + S_-^2 = 2",
+      "P = \\frac{S_+^2 - 1}{2}",
+      "P = \\frac{1 - S_-^2}{2}",
+      "(S_{\\pm})^2",
+      "[-\\sqrt{2},\\sqrt{2}]",
+      "[-\\frac12,\\frac12]"
+    ],
+    "pinyin": "sanjiaohanshuzhiyiqiuer",
+    "pinyinAbbr": "sjhsz"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.82,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "(S_{\\pm})^2 = 1 \\pm 2P",
+    "related_formulas": [
+      "S_+^2 + S_-^2 = 2",
+      "P = \\frac{S_+^2 - 1}{2}",
+      "P = \\frac{1 - S_-^2}{2}"
+    ],
+    "variables": [
+      "x",
+      "S_+",
+      "S_-",
+      "P"
+    ],
+    "conditions": "对于任意实数 $x$，以上关系成立。",
+    "conclusions": "由 $S_+,S_-,P$ 中任意一个的值可求出其余两个；$S_+,S_- \\\\in [-\\\\sqrt{2},\\\\sqrt{2}]$，$P \\\\in [-\\\\frac12,\\\\frac12]$。"
+  },
+  "content": {
+    "statement": "设 $S_+ = \\\\sin x + \\\\cos x$，$S_- = \\\\sin x - \\\\cos x$，$P = \\\\sin x \\\\cos x$，则有 $(S_+)^2 + (S_-)^2 = 2$，$(S_{\\\\pm})^2 = 1 \\\\pm 2P$，从而 $P = \\\\frac{S_+^2 - 1}{2} = \\\\frac{1 - S_-^2}{2}$。且 $S_+,S_- \\\\in [-\\\\sqrt{2},\\\\sqrt{2}]$，$P \\\\in [-\\\\frac12,\\\\frac12]$。",
+    "derivation": [
+      "展开平方：$(\\\\sin x \\\\pm \\\\cos x)^2 = \\\\sin^2 x + \\\\cos^2 x \\\\pm 2\\\\sin x \\\\cos x = 1 \\\\pm 2\\\\sin x \\\\cos x$",
+      "移项得 $(S_{\\\\pm})^2 = 1 \\\\pm 2P$，且 $S_+^2 + S_-^2 = (1+2P)+(1-2P)=2$",
+      "由 $(S_{\\\\pm})^2 = 1 \\\\pm 2P$ 解出 $P = \\\\frac{S_+^2 - 1}{2} = \\\\frac{1 - S_-^2}{2}$"
+    ],
+    "intuition": "由于 $\\\\sin^2 x + \\\\cos^2 x = 1$，平方展开后交叉项恰好是 $2\\\\sin x \\\\cos x$，因此和差与积之间可通过平方互相表达。",
+    "common_tricks": [
+      "已知 $S_+$ 或 $S_-$ 时，直接平方求出 $P$，再开方注意符号需结合 $x$ 的象限。",
+      "已知 $P$ 时，利用 $S_+^2 = 1+2P$ 和 $S_-^2 = 1-2P$ 先求平方，再根据题意取舍符号。",
+      "联立 $S_+$ 和 $S_-$ 可解出 $\\\\sin x = \\\\frac{S_+ + S_-}{2}$，$\\\\cos x = \\\\frac{S_+ - S_-}{2}$，进而求其他函数值。",
+      "取值范围 $S_+,S_- \\\\in [-\\\\sqrt{2},\\\\sqrt{2}]$ 和 $P \\\\in [-\\\\frac12,\\\\frac12]$ 可用于验证解的正确性。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "三角恒等变形",
+      "整体代换求值",
+      "范围判断",
+      "压轴中段快速互化"
+    ],
+    "problem_types": [
+      "已知一个求另一个",
+      "给和求积或给积求和差",
+      "与三角方程、不等式综合"
+    ],
+    "exam_frequency": 1.0,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "T018.svg",
+    "png": "",
+    "webp": "",
+    "video": "",
+    "audio": ""
+  },
+  "shareConfig": {
+    "title": "三角函数知一求二：和差积互化速查",
+    "shareDesc": "适合课后复盘与刷题前速查，已知sinx±cosx与sinxcosx中任意一个，直接利用平方关系高效互化，避免重复推导，减少符号判断错误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "同角三角函数关系",
+      "平方和公式",
+      "三角函数符号判断"
+    ],
+    "related_ids": [],
+    "similar": [
+      "sin x与cos x的和差积关系"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-24"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "三角函数-恒等变换-降幂公式",
+  "altNodes": "三角函数-基本关系-同角恒等,三角函数-恒等变换-和差化积"
+}

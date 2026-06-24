@@ -1,0 +1,38 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	\textbf{直接对 $(\sin x\pm\cos x)^2$ 展开，利用 $\sin^2x+\cos^2x=1$，导出核心关系，再结合 $\sin2x$ 的有界性确定范围。}
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（展开平方）：}]
+			\[
+				(S_+)^2 = (\sin x+\cos x)^2 = \sin^2 x+\cos^2 x+2\sin x\cos x = 1+2P.
+			\]
+			\[
+				(S_-)^2 = (\sin x-\cos x)^2 = \sin^2 x+\cos^2 x-2\sin x\cos x = 1-2P.
+			\]
+			\par\textbf{理由：} 利用完全平方公式与 $\sin^2x+\cos^2x=1$，$P=\sin x\cos x$。
+		\item[\textbf{步骤二（求平方和）：}]
+			\[
+				(S_+)^2+(S_-)^2 = (1+2P)+(1-2P)=2.
+			\]
+			\par\textbf{理由：} 两式相加，$2P$ 项抵消，得常数 $2$。
+		\item[\textbf{步骤三（互化变形）：}]
+			由 $(S_+)^2 = 1+2P$ 得 $2P = (S_+)^2-1$，即 $P=\dfrac{(S_+)^2-1}{2}$；由 $(S_-)^2=1-2P$ 得 $2P=1-(S_-)^2$，即 $P=\dfrac{1-(S_-)^2}{2}$。所以 $P=\dfrac{S_+^2-1}{2}=\dfrac{1-S_-^2}{2}$。
+			\[
+				P=\frac{S_+^2-1}{2}=\frac{1-S_-^2}{2}.
+			\]
+			\par\textbf{理由：} 移项解出 $P$，得到用 $S_+$ 或 $S_-$ 表示 $P$ 的互化公式。
+		\item[\textbf{步骤四（范围推导）：}]
+			因为 $\sin2x\in[-1,1]$，所以 $(S_+)^2=1+\sin2x\in[0,2]$，故 $|S_+|\le\sqrt2$；同理 $(S_-)^2=1-\sin2x\in[0,2]$，$|S_-|\le\sqrt2$。又 $2P=\sin2x\in[-1,1]$，所以 $P\in[-\frac12,\frac12]$。
+			\[
+				S_+,S_-\in[-\sqrt2,\sqrt2],\quad P\in\left[-\frac12,\frac12\right].
+			\]
+			\par\textbf{理由：} $\sin2x$ 的有界性保证了平方和乘积的范围。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{以上推导完整地建立了 $S_+,S_-,P$ 三组核心关系：平方关系、互化公式和取值范围，构成“知一求二”的理论基础。}
+\end{proofbox}

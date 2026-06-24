@@ -1,0 +1,40 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+	\textbf{$\sin x$ 与 $\cos x$ 的和、差、积三个量之间由固定的平方关系相连，已知其中一个便可直接推算另外两个，避免繁琐的三角变换。}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（平方关联）：}]
+			由 $(\sin x\pm\cos x)^2 = \sin^2 x+\cos^2 x \pm 2\sin x\cos x = 1\pm 2P$ 可得 $(S_{\pm})^2 = 1\pm 2P$，并将两式相加得到 $S_+^2+S_-^2 = 2$。这揭示了和差与积之间的核心纽带。
+		\item[\textbf{要点二（互化枢纽）：}]
+			由平方关系解出 $P$，即 $P = \dfrac{S_+^2-1}{2} = \dfrac{1-S_-^2}{2}$。从而可以在 $S_+,S_-,P$ 三者之间相互转化。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（单位圆映射）}}
+	在单位圆上，设角 $x$ 对应的点为 $(\cos x,\sin x)$，则 $S_+$ 是该点坐标之和，$S_-$ 是坐标之差。$S_+ = \sqrt2\sin(x+\pi/4)$，$S_- = \sqrt2\sin(x-\pi/4)$，$P = \frac12\sin2x$。它们均可视为正弦型函数，振幅决定其取值范围为 $[-\sqrt2,\sqrt2]$ 和 $[-\frac12,\frac12]$。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（二次方程根）}}
+	视 $\sin x$ 和 $\cos x$ 为某二次方程的两根，则由韦达定理：$\sin x+\cos x = S_+$，$\sin x\cos x = P$，所以该方程为 $t^2 - S_+ t + P = 0$。其判别式 $\Delta = S_+^2-4P = (\sin x-\cos x)^2 = S_-^2 \ge 0$，保证了实根存在，也给出了 $P$ 与 $S_+$ 之间的约束。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（解题应用）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（知一求二）：} 当题目给出 $S_+,S_-,P$ 之一时，直接代入互化公式求出其余两个，简化含 $\sin x,\cos x$ 的表达式。
+		\item \textbf{考法二（范围判定）：} 利用 $S_+,S_-\in[-\sqrt2,\sqrt2]$ 和 $P\in[-\frac12,\frac12]$，可快速判断某些三角表达式的取值范围，用于最值或不等式问题。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+	\textbf{$S_+^2+S_-^2 = 2$ 是一个不依赖于 $x$ 的常数，这意味着无论 $x$ 如何变化，$S_+$ 与 $S_-$ 的平方和始终为 $2$，这一恒等关系是和差互化的“定海神针”。}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（已知和求积）：} 若已知 $\sin x+\cos x$ 的值，可由 $P = \dfrac{S_+^2-1}{2}$ 直接求出 $\sin x\cos x$，无需联立方程。
+		\item \textbf{场景二（已知积求和）：} 若已知 $\sin x\cos x$ 的值，可由 $S_{\pm}^2 = 1\pm 2P$ 求出 $|S_+|$ 和 $|S_-|$，再结合角度范围确定符号。
+	\end{itemize}
+
+\end{explanationbox}
