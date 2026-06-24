@@ -1,0 +1,37 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	通过作平行线构造两对相似三角形，将三个线段比转移到同一条线段上，从而导出乘积为$1$。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（作平行线）：}] 过点$C$作$CG\parallel AB$，交直线$DF$于点$G$。
+			\par\textbf{理由：}利用平行线构造相似三角形，建立比例传递桥梁。
+		\item[\textbf{步骤二（相似三角形①）：}] 由$CG\parallel AB$，得$\angle AEF=\angle CEG$（对顶角相等），$\angle AFE=\angle CGE$（同位角相等）。故$\triangle AEF\sim\triangle CEG$。因此
+			\[
+				\frac{AF}{CG}=\frac{AE}{EC}.
+			\]
+			\par\textbf{理由：}两角对应相等得相似，对应边成比例。
+		\item[\textbf{步骤三（相似三角形②）：}] 同样由$CG\parallel AB$，得$\angle BFD=\angle CGD$（同位角相等），$\angle BDF=\angle CDG$（对顶角相等）。故$\triangle BDF\sim\triangle CDG$。因此
+			\[
+				\frac{BD}{DC}=\frac{BF}{CG}.
+			\]
+			\par\textbf{理由：}两角对应相等得相似，对应边成比例。
+		\item[\textbf{步骤四（消去$CG$导出乘积）：}] 由步骤二得 $CG=\dfrac{AF\cdot EC}{AE}$，由步骤三得 $CG=\dfrac{BF\cdot DC}{BD}$。两式相等：
+			\[
+				\frac{AF\cdot EC}{AE}=\frac{BF\cdot DC}{BD}.
+			\]
+			整理得 $AF\cdot EC\cdot BD=BF\cdot DC\cdot AE$。
+			两边同除以$FB\cdot DC\cdot EA$（注意$FB=BF,EA=AE,CE=EC$），得到
+			\[
+				\frac{AF}{FB}\cdot\frac{BD}{DC}\cdot\frac{CE}{EA}=1.
+			\]
+			\par\textbf{理由：}代数恒等变形，利用$FB,DC,EA$均不为零。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	以上以内分情况为例证明了必要性（此时有向比即长度比，乘积为$1$）；当存在外分点时，由共线性可推知外分点个数必为偶数，代入有向比（外分为负）后乘积仍为$1$。充分性可用同一法证明，在实际解题中常直接使用充要条件。
+\end{proofbox}
