@@ -1,0 +1,39 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	将 $\triangle ABC$ 的内心 $I$ 与三个顶点相连，三角形被分成三个小三角形 $\triangle IBC$、$\triangle ICA$、$\triangle IAB$。由于 $I$ 到各边距离均为 $r$，所以三个小三角形的高都等于 $r$，底边分别是对应边长 $a,b,c$。将三个小三角形的面积相加即得总面积。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（分割图形）：}]
+			连接内心 $I$ 与顶点 $A,B,C$，得到三个三角形：$\triangle IBC$、$\triangle ICA$、$\triangle IAB$。
+			\[
+				S_{\triangle ABC} = S_{\triangle IBC} + S_{\triangle ICA} + S_{\triangle IAB}.
+			\]
+			\par\textbf{理由：}内心 $I$ 在 $\triangle ABC$ 内部，分割后无重叠无遗漏。
+		\item[\textbf{步骤二（计算小面积）：}]
+			因为 $I$ 是内心，到三边 $BC, CA, AB$ 的距离均为内切圆半径 $r$，所以每个小三角形的底边对应边长，高为 $r$：
+			\[
+				S_{\triangle IBC} = \frac{1}{2} a r,\quad S_{\triangle ICA} = \frac{1}{2} b r,\quad S_{\triangle IAB} = \frac{1}{2} c r.
+			\]
+			\par\textbf{理由：}三角形面积等于底乘高的一半。这里每个小三角形的底为对应边长，高为内切圆半径 $r$。
+		\item[\textbf{步骤三（求和化简）：}]
+			将三个小面积代入并求和：
+			\[
+				\begin{aligned}
+					S &= \frac{1}{2} a r + \frac{1}{2} b r + \frac{1}{2} c r\\&= \frac{1}{2} (a+b+c) r.
+			\end{aligned}
+			\]
+			\par\textbf{理由：}提取公因式 $\frac{1}{2} r$。
+		\item[\textbf{步骤四（引入半周长）：}]
+			记半周长 $p = \dfrac{a+b+c}{2}$，则 $\dfrac{1}{2}(a+b+c) = p$，故
+			\[
+				S = p r.
+			\]
+			\par\textbf{理由：}半周长的定义。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{因此，对于任意三角形，面积等于半周长与内切圆半径的乘积：$S = \dfrac{1}{2}(a+b+c)r = pr$。}
+\end{proofbox}
