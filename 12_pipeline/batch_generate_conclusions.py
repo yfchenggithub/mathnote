@@ -633,6 +633,11 @@ def record_state(conclusion: dict[str, Any], status: str, **extra: Any) -> None:
         f.write(json.dumps(payload, ensure_ascii=False) + "\n")
 
 
+def remember_failure(conclusion: dict[str, Any], stage: str, error: str) -> None:
+    conclusion["_last_failure_stage"] = stage
+    conclusion["_last_error"] = error
+
+
 def collapse_for_log(text: str, limit: int = 90) -> str:
     collapsed = re.sub(r"\s+", " ", text).strip()
     if len(collapsed) <= limit:
@@ -1128,6 +1133,7 @@ def process_one_conclusion(
         if not published:
             error = publish_error or "incremental_publish.py failed"
             log(f"[fail] {cid} -> {resume_publish_id}: {error}")
+            remember_failure(conclusion, "publish", error)
             record_state(conclusion, "failed", stage="publish", new_id=resume_publish_id, error=error)
             return False
 
@@ -1160,6 +1166,7 @@ def process_one_conclusion(
         if not latex_content:
             error = generation_error or "LaTeX generation returned empty"
             log(f"[fail] {cid}: {error}")
+            remember_failure(conclusion, "latex", error)
             record_state(conclusion, "failed", stage="latex", error=error)
             return False
         generated_path = save_generated_source(cid, latex_content)
@@ -1167,6 +1174,7 @@ def process_one_conclusion(
     if generated_path is None:
         error = "Internal error: generated source path is missing"
         log(f"[fail] {cid}: {error}")
+        remember_failure(conclusion, "latex", error)
         record_state(conclusion, "failed", stage="latex", error=error)
         return False
 
@@ -1203,8 +1211,7 @@ def process_one_conclusion(
     if pipeline_error:
         log(f"[fail] {cid}: {pipeline_error}")
         failure_stage = "pdf" if is_pdf_compile_failure(pipeline_error) else "pipeline"
-        conclusion["_last_failure_stage"] = failure_stage
-        conclusion["_last_error"] = pipeline_error
+        remember_failure(conclusion, failure_stage, pipeline_error)
         extra: dict[str, Any] = {"stage": failure_stage, "error": pipeline_error}
         pdf_log = extract_pdf_failure_log(pipeline_error)
         if pdf_log:
@@ -1216,12 +1223,14 @@ def process_one_conclusion(
     if not new_id:
         error = "Pipeline returned no NEW_ID"
         log(f"[fail] {cid}: {error}")
+        remember_failure(conclusion, "pipeline", error)
         record_state(conclusion, "failed", stage="pipeline", error=error)
         return False
 
     if new_id != cid and not allow_id_mismatch:
         error = f"Expected ID {cid}, but pipeline produced {new_id}"
         log(f"[fail] {cid}: {error}")
+        remember_failure(conclusion, "id_check", error)
         record_state(conclusion, "failed", stage="id_check", new_id=new_id, error=error)
         return False
 
@@ -1239,6 +1248,7 @@ def process_one_conclusion(
     if not published:
         error = publish_error or "incremental_publish.py failed"
         log(f"[fail] {cid} -> {new_id}: {error}")
+        remember_failure(conclusion, "publish", error)
         record_state(conclusion, "failed", stage="publish", new_id=new_id, error=error)
         return False
 
@@ -1612,6 +1622,12 @@ def main() -> int:
             success += 1
         else:
             fail += 1
+            failed_item = {
+                "id": str(conclusion.get("id") or "").upper(),
+                "stage": str(conclusion.get("_last_failure_stage") or "unknown"),
+                "error": collapse_for_log(str(conclusion.get("_last_error") or ""), 180),
+            }
+            failed_items.append(failed_item)
             if conclusion.get("_last_failure_stage") == "pdf":
                 log(
                     f"[skip] {conclusion['id']}: PDF compile failed; "
@@ -1628,6 +1644,21 @@ def main() -> int:
     log("")
     log("=" * 60)
     log(f"[summary] Done. Success: {success}, Failed: {fail}, Selected: {total}")
+    if failed_items:
+        failed_ids = [item["id"] for item in failed_items if item["id"]]
+        log(f"[summary] Failed IDs: {' '.join(failed_ids)}")
+        for item in failed_items:
+            detail = f"[summary]   - {item['id']}: stage={item['stage']}"
+            if item["error"]:
+                detail += f", error={item['error']}"
+            log(detail)
+        module_arg = f" --module {args.module}" if args.module else ""
+        log(
+            "[summary] Retry command:"
+            f" python -B 12_pipeline\\batch_generate_conclusions.py{module_arg} "
+            f"--ids {' '.join(failed_ids)} --force-regenerate --timeout {args.timeout} "
+            "--continue-on-error --no-deploy --skip-git-commit"
+        )
     log("=" * 60)
 
     return 0 if fail == 0 else 1
