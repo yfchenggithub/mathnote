@@ -1,0 +1,171 @@
+{
+  "id": "P024",
+  "module": "geometry-plane",
+  "core": {
+    "title": "两圆位置关系判定",
+    "alias": [
+      "圆位置关系",
+      "两圆相切",
+      "两圆相交"
+    ],
+    "summary": "通过比较圆心距与半径和、差的大小，判断两圆是外离、外切、相交、内切还是内含。",
+    "difficulty": 2,
+    "category": "解析几何",
+    "tags": [
+      "圆的位置关系",
+      "圆心距",
+      "分类讨论",
+      "外离",
+      "外切",
+      "相交",
+      "内切",
+      "内含"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "两圆位置关系",
+      "圆心距",
+      "半径和",
+      "半径差",
+      "外离",
+      "外切",
+      "相交",
+      "内切",
+      "内含",
+      "公切线",
+      "公共弦",
+      "圆与圆"
+    ],
+    "synonyms": [
+      "圆与圆位置关系",
+      "两圆关系",
+      "圆的位置判定",
+      "圆圆位置"
+    ],
+    "intents": [
+      "判断两圆位置关系",
+      "求公切线数量",
+      "求公共弦长",
+      "根据位置关系求参数"
+    ],
+    "query_templates": [
+      "如何判断两圆位置关系",
+      "两圆外切条件",
+      "两圆相交时圆心距范围",
+      "两圆内切圆心距等于半径差",
+      "求两圆公切线数"
+    ],
+    "ocrKeywords": [
+      "半径",
+      "圆心距",
+      "外离",
+      "外切",
+      "相交",
+      "内切",
+      "内含"
+    ],
+    "latex_patterns": [
+      "d > R+r",
+      "d = R+r",
+      "R-r < d < R+r",
+      "d = R-r",
+      "0 \\le d < R-r"
+    ],
+    "formulaTokens": [
+      "R+r",
+      "R-r",
+      "d > R+r",
+      "d = R+r",
+      "R-r < d < R+r",
+      "d = R-r",
+      "0 \\le d < R-r"
+    ],
+    "pinyin": "liangyuanweizhiguanxipanding",
+    "pinyinAbbr": "lywz"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.84,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\begin{cases} d > R+r & \\text{外离} \\\\ d = R+r & \\text{外切} \\\\ R-r < d < R+r & \\text{相交} \\\\ d = R-r & \\text{内切} \\\\ 0 \\le d < R-r & \\text{内含} \\end{cases}",
+    "related_formulas": [
+      "L = \\frac{1}{d}\\sqrt{4R^2d^2 - (R^2 - r^2 + d^2)^2} \\quad (\\text{公共弦长})"
+    ],
+    "variables": [
+      "R",
+      "r",
+      "d"
+    ],
+    "conditions": "两圆半径 $R$ 和 $r$ 满足 $R \\ge r > 0$，圆心距 $d \\ge 0$。",
+    "conclusions": "当 $d > R+r$ 时，两圆外离，无交点；当 $d = R+r$ 时，两圆外切，有一个交点；当 $R-r < d < R+r$ 时，两圆相交，有两个交点；当 $d = R-r$ 时，两圆内切，有一个交点；当 $0 \\le d < R-r$ 时，两圆内含，无交点。"
+  },
+  "content": {
+    "statement": "设两圆半径分别为 $R$ 和 $r$（$R\\ge r>0$），圆心距为 $d$。则两圆的位置关系由 $d$ 与 $R+r$、$R-r$ 的比较决定：- 外离（无交点）当 $d > R+r$；- 外切（1个交点）当 $d = R+r$；- 相交（2个交点）当 $R-r < d < R+r$；- 内切（1个交点）当 $d = R-r$；- 内含（无交点）当 $0 \\le d < R-r$。",
+    "derivation": [
+      "计算半径和 $R+r$ 与半径差 $R-r$。",
+      "将圆心距 $d$ 分别与 $R+r$ 和 $R-r$ 比较大小。",
+      "根据比较结果，对照判定表得出位置关系。"
+    ],
+    "intuition": "圆心距的大小决定了两个圆的重叠程度：距离大于半径和则分离，等于则外切，介于和差之间则相交，等于差则内切，小于差则内含。",
+    "common_tricks": [
+      "注意等号情形： $d=R+r$ 或 $d=R-r$ 对应相切，容易遗漏。",
+      "已知位置关系反求参数时，需分别讨论并验证是否满足半径条件。",
+      "相交时，公共弦长可利用弦心距公式快速求解。",
+      "公切线数量可直接记忆：外离4条，外切3条，相交2条，内切1条，内含0条。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "基础题",
+      "分类讨论题"
+    ],
+    "problem_types": [
+      "选择题",
+      "填空题",
+      "简答题"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "P024.svg",
+    "png": "",
+    "webp": ""
+  },
+  "shareConfig": {
+    "title": "两圆位置关系判定：圆心距与半径和差比较",
+    "shareDesc": "适合基础复习和刷题速查，集中解决两圆外离外切相交内切内含的判断，避免混淆等号情况，提升分类讨论题的稳定性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "圆的标准方程",
+      "两点间距离公式"
+    ],
+    "related_ids": [],
+    "similar": "点与圆的位置关系、直线与圆的位置关系"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-25"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "解析几何-圆-位置关系",
+  "altNodes": "解析几何-圆-标准方程"
+}

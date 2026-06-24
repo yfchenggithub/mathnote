@@ -1,0 +1,41 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	利用三角形中两边之和与差与第三边的关系（三角不等式）建立 $d$ 与 $R,r$ 的不等式，从而得到交点条件。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（三角不等式建立）：}]
+			设两圆圆心分别为 $O_1,O_2$，半径 $R,r$，圆心距 $d=O_1O_2$。对于任意点 $P$，若 $P$ 同时在两圆上，则 $O_1P=R,\,O_2P=r$。在 $\triangle O_1O_2P$ 中，由三角不等式：
+			\[
+				|O_1P - O_2P| \le O_1O_2 \le O_1P + O_2P,
+			\]
+			即
+			\[
+				|R - r| \le d \le R + r.
+			\]
+			\par\textbf{理由：} 三角形两边之差小于第三边，两边之和大于第三边。
+		\item[\textbf{步骤二（交点个数分析）：}]
+			由上述不等式可得：
+			\begin{itemize}[leftmargin=*]
+			\item 若 $d > R+r$ 或 $d < |R-r|$（即 $d < R-r$ 因 $R>r$），则不等式不成立，不存在满足条件的点 $P$，故无交点。
+			\item 若 $d = R+r$，则 $O_1P+O_2P = O_1O_2$，点 $P$ 在线段 $O_1O_2$ 上，此时两圆外切，仅有一个交点。
+			\item 若 $d = R-r$，则 $|O_1P-O_2P| = O_1O_2$，点 $P$ 在线段 $O_1O_2$ 的延长线上，此时两圆内切，仅有一个交点。
+			\item 若 $R-r < d < R+r$ 时，三角不等式取严格不等，可在直线 $O_1O_2$ 两侧各找到一点 $P$，故有两个交点。
+		\end{itemize}
+			\par\textbf{理由：} 三角不等式取等条件对应三点共线；而不加严格不等时交点成对出现。
+		\item[\textbf{步骤三（分类命名）：}]
+			将上述情况对应标准名称：
+			\[
+				\begin{cases}
+					d > R+r,\\ d = R+r,\\ R-r < d < R+r,\\ d = R-r,\\ 0 \le d < R-r.
+			\end{cases}
+			\]
+			分别对应外离、外切、相交、内切、内含。
+			\par\textbf{理由：} 由几何直观习惯命名，且与交点情形一一对应。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	因此，两圆位置关系完全由 $d$ 与 $R+r$、$R-r$ 的比较决定，只要 $R>r>0$，上述条件就是充分且必要的。
+\end{proofbox}
