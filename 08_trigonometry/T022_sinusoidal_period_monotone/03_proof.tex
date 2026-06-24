@@ -1,0 +1,49 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	周期可由正弦函数的周期性直接推出；单调区间通过求导并考察 $\cos$ 的符号得到。以下设 $A > 0$（$A < 0$ 时单调区间互换，推导类似）。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（周期公式推导）：}]
+			\[
+				f(x+T) = A\sin[\omega(x+T)+\varphi] = A\sin(\omega x+\varphi+\omega T)
+			\]
+			由 $\sin(\theta + 2\pi) = \sin\theta$ 知，当 $\omega T = 2\pi$ 时，$f(x+T)=f(x)$ 对任意 $x$ 成立。取最小正值得 $T = \frac{2\pi}{\omega}$。
+			\par\textbf{理由：} 周期函数定义——存在最小正周期 $T$ 使 $f(x+T)=f(x)$。
+		\item[\textbf{步骤二（求导与符号分析）：}]
+			\[
+				y' = A\omega\cos(\omega x+\varphi).
+			\]
+			因为 $\omega>0$，且设 $A>0$，所以 $y'$ 的符号与 $\cos(\omega x+\varphi)$ 相同。
+			\par\textbf{理由：} 导数的符号判别函数单调性：$y'>0$ 时增，$y'<0$ 时减。
+		\item[\textbf{步骤三（余弦的符号区间）：}]
+			$\cos u \geq 0$ 当且仅当 $u$ 在区间
+			\[
+				\left[-\frac{\pi}{2}+2k\pi,\ \frac{\pi}{2}+2k\pi\right]\quad(k\in\mathbb{Z}).
+			\]
+			$\cos u \leq 0$ 当且仅当 $u$ 在区间
+			\[
+				\left[\frac{\pi}{2}+2k\pi,\ \frac{3\pi}{2}+2k\pi\right]\quad(k\in\mathbb{Z}).
+			\]
+			\par\textbf{理由：} 余弦函数的图像与正负性。
+		\item[\textbf{步骤四（求增区间）：}]
+			由 $y'>0$ 得 $\cos(\omega x+\varphi) > 0$，代入 cos 为正的不等式：
+			\[
+				-\frac{\pi}{2}+2k\pi \le \omega x+\varphi \le \frac{\pi}{2}+2k\pi.
+			\]
+			解出 $x$ 得原函数的增区间。
+			\par\textbf{理由：} 导数正、函数增。
+		\item[\textbf{步骤五（求减区间）：}]
+			由 $y'<0$ 得 $\cos(\omega x+\varphi) < 0$，代入 cos 为负的不等式：
+			\[
+				\frac{\pi}{2}+2k\pi \le \omega x+\varphi \le \frac{3\pi}{2}+2k\pi.
+			\]
+			解出 $x$ 得原函数的减区间。
+			\par\textbf{理由：} 导数负、函数减。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	综上，对 $y=A\sin(\omega x+\varphi)$（$\omega>0$，$A>0$），周期 $T=\frac{2\pi}{\omega}$，单调递增区间由 $-\frac{\pi}{2}+2k\pi \le \omega x+\varphi \le \frac{\pi}{2}+2k\pi$ 确定，单调递减区间由 $\frac{\pi}{2}+2k\pi \le \omega x+\varphi \le \frac{3\pi}{2}+2k\pi$ 确定。若 $A<0$，则增区间与减区间互换（可类似推导）。
+\end{proofbox}
