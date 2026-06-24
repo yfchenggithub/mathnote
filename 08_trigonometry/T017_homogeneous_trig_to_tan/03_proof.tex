@@ -1,0 +1,32 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	齐次分式的分子分母同时除以$\cos^n x$，利用$\tan x=\frac{\sin x}{\cos x}$实现变量统一。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（齐次识别）：}]写出分子分母的齐次展开形式：
+			\[
+				\frac{P_n(\sin x,\cos x)}{Q_n(\sin x,\cos x)} = \frac{\sum_{k=0}^{n}a_k\sin^k x\cos^{n-k}x}{\sum_{j=0}^{n}b_j\sin^j x\cos^{n-j}x}
+			\]
+			\par\textbf{理由：} 分子分母均为$n$次齐次多项式，每项可写为$a_k\sin^k x\cos^{n-k}x$形式。
+
+		\item[\textbf{步骤二（同除消元）：}]由于$\cos x\neq0$，分子分母同除以$\cos^n x$：
+			\[
+				\frac{\sum_{k=0}^{n}a_k\sin^k x\cos^{n-k}x}{\sum_{j=0}^{n}b_j\sin^j x\cos^{n-j}x} = \frac{\sum_{k=0}^{n}a_k\left(\frac{\sin x}{\cos x}\right)^k}{\sum_{j=0}^{n}b_j\left(\frac{\sin x}{\cos x}\right)^j}
+			\]
+			\par\textbf{理由：} 同除以$\cos^n x$不改变分式值，且$\frac{\sin^k x\cos^{n-k}x}{\cos^n x}=(\frac{\sin x}{\cos x})^k$。
+
+		\item[\textbf{步骤三（化正切）：}]利用$\frac{\sin x}{\cos x}=\tan x$，得到：
+			\[
+				\frac{\sum_{k=0}^{n}a_k\tan^k x}{\sum_{j=0}^{n}b_j\tan^j x} = \frac{P_n(\tan x,1)}{Q_n(\tan x,1)}
+			\]
+			\par\textbf{理由：} 将$\frac{\sin x}{\cos x}$替换为$\tan x$，即得$P_n(\tan x,1)$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{因此，原齐次分式可化为仅含$\tan x$的有理式，定理成立。}
+\end{proofbox}

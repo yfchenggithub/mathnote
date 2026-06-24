@@ -1,0 +1,172 @@
+{
+  "id": "T017",
+  "module": "trigonometry",
+  "core": {
+    "title": "齐次式切化弦转化法",
+    "alias": [
+      "齐次式化切",
+      "同除cos化tan",
+      "切化弦"
+    ],
+    "summary": "将sin x和cos x的齐次分式，分子分母同除以cos的幂次，转化为tan x的有理式",
+    "difficulty": 2,
+    "category": "三角函数",
+    "tags": [
+      "齐次式",
+      "切化弦",
+      "三角恒等变换",
+      "代数转化",
+      "有理化"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "齐次分式",
+      "切化弦",
+      "sin cos齐次",
+      "分子分母同除cos",
+      "tan x",
+      "一次齐次",
+      "二次齐次",
+      "三角恒等变换",
+      "有理式化简",
+      "三角函数求值",
+      "已知tan求值",
+      "化切求值"
+    ],
+    "synonyms": [
+      "切化弦公式",
+      "齐次三角函数",
+      "同除化切",
+      "tan化法"
+    ],
+    "intents": [
+      "求值",
+      "化简",
+      "转化",
+      "求解tan",
+      "代入"
+    ],
+    "query_templates": [
+      "齐次分式怎么化切",
+      "sin和cos齐次除以cos",
+      "已知tan求sin cos分式值"
+    ],
+    "ocrKeywords": [
+      "sin x",
+      "cos x",
+      "tan x",
+      "齐次",
+      "分子分母"
+    ],
+    "latex_patterns": [
+      "\\frac{a\\sin x + b\\cos x}{c\\sin x + d\\cos x}",
+      "\\frac{a\\sin^2 x + b\\sin x\\cos x + c\\cos^2 x}{d\\sin^2 x + e\\sin x\\cos x + f\\cos^2 x}"
+    ],
+    "formulaTokens": [
+      "a\\sin x + b\\cos x",
+      "c\\sin x + d\\cos x",
+      "a\\tan x + b",
+      "c\\tan x + d",
+      "a\\sin^2 x + b\\sin x\\cos x + c\\cos^2 x",
+      "a\\tan^2 x + b\\tan x + c",
+      "\\frac{a\\sin x + b\\cos x}{c\\sin x + d\\cos x}"
+    ],
+    "pinyin": "qicishiqiehuaxian",
+    "pinyinAbbr": "qcsqhx"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.79,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\frac{P_n(\\sin x,\\cos x)}{Q_n(\\sin x,\\cos x)} = \\frac{P_n(\\tan x,1)}{Q_n(\\tan x,1)}",
+    "related_formulas": [
+      "\\frac{a\\sin x + b\\cos x}{c\\sin x + d\\cos x} = \\frac{a\\tan x + b}{c\\tan x + d}",
+      "\\frac{a\\sin^2 x + b\\sin x\\cos x + c\\cos^2 x}{d\\sin^2 x + e\\sin x\\cos x + f\\cos^2 x} = \\frac{a\\tan^2 x + b\\tan x + c}{d\\tan^2 x + e\\tan x + f}"
+    ],
+    "variables": [
+      "P_n",
+      "Q_n",
+      "a",
+      "b",
+      "c",
+      "d",
+      "e",
+      "f",
+      "x",
+      "n"
+    ],
+    "conditions": "分母$Q_n(\\sin x,\\cos x) \\neq 0$，且$\\cos x \\neq 0$。分子和分母都是$\\sin x$和$\\cos x$的$n$次齐次多项式。",
+    "conclusions": "转化为只含$\\tan x$的有理式，便于代入求值或化简。"
+  },
+  "content": {
+    "statement": "当分子分母均为$\\sin x$与$\\cos x$的$n$次齐次多项式，且$\\cos x \\neq 0$、分母$Q_n(\\sin x,\\cos x) \\neq 0$时，可通过分子分母同除以$\\cos^n x$，将原式化为仅含$\\tan x$的有理式：$\\frac{P_n(\\sin x,\\cos x)}{Q_n(\\sin x,\\cos x)} = \\frac{P_n(\\tan x,1)}{Q_n(\\tan x,1)}$。",
+    "derivation": [
+      "将分子分母每一项都除以$\\cos^n x$，利用$\\frac{\\sin x}{\\cos x}=\\tan x$，得到关于$\\tan x$的表达式。",
+      "对于一次齐次分式，同除$\\cos x$即可；对于二次齐次分式，同除$\\cos^2 x$。"
+    ],
+    "intuition": "因为分子分母都是齐次，可以提取公共因子$\\cos^n x$，约去后只剩下$\\tan x$的函数。",
+    "common_tricks": [
+      "使用前需验证分子分母是否齐次以及$\\cos x \\neq 0$。",
+      "若题目给出$\\tan x$的值，可直接代入化切后的式子求值。",
+      "若给出齐次分式的值，可转化为关于$\\tan x$的方程求解。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "三角恒等变换",
+      "三角函数求值",
+      "已知tan求分式值"
+    ],
+    "problem_types": [
+      "齐次分式化简",
+      "三角函数求值"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "T017.svg",
+    "png": "",
+    "webp": "",
+    "simplified_svg": ""
+  },
+  "shareConfig": {
+    "title": "齐次三角分式切化弦：化tan有理式",
+    "shareDesc": "适用于三角恒等变换求值题，通过同除cos转化为tan，避免联立方程，提升化简稳定性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "同角三角函数关系",
+      "齐次多项式的概念"
+    ],
+    "related_ids": [],
+    "similar": "两角和与差的正切公式，弦化切方法"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-24"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "三角函数-基本关系-同角恒等",
+  "altNodes": [
+    "三角函数-恒等变换-和差化积",
+    "三角函数-解法-三角方程"
+  ]
+}
