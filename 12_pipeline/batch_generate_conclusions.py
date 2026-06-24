@@ -1524,8 +1524,16 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument(
         "--continue-on-error",
+        dest="continue_on_error",
         action="store_true",
-        help="Continue with the next row after a failure.",
+        default=True,
+        help="Continue with the next row after a failure (default).",
+    )
+    parser.add_argument(
+        "--stop-on-error",
+        dest="continue_on_error",
+        action="store_false",
+        help="Stop at the first failure.",
     )
     parser.add_argument(
         "--allow-id-mismatch",
