@@ -1,0 +1,33 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	通过引入直线的方向向量，将两条直线垂直的几何条件转化为方向向量的数量积为零，从而得到系数关系。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（取方向向量）：}]
+			对于直线$l_1:A_1x+B_1y+C_1=0$，其一个方向向量为$\mathbf{d}_1=(-B_1,\,A_1)$；对于$l_2:A_2x+B_2y+C_2=0$，其一个方向向量为$\mathbf{d}_2=(-B_2,\,A_2)$。
+			\[
+				\mathbf{d}_1=(-B_1,\,A_1),\quad\mathbf{d}_2=(-B_2,\,A_2).
+			\]
+			\par\textbf{理由：}因为$\mathbf{d}_1$与直线$l_1$的法向量$(A_1,B_1)$点积为零，所以$\mathbf{d}_1$是$l_1$的方向向量；同理$\mathbf{d}_2$是$l_2$的方向向量。由$A_1,B_1$不全为零知$\mathbf{d}_1\neq\mathbf{0}$，$\mathbf{d}_2$类似。
+		\item[\textbf{步骤二（计算数量积）：}]
+			计算$\mathbf{d}_1$与$\mathbf{d}_2$的数量积：
+			\[
+				\begin{aligned}
+					\mathbf{d}_1\cdot\mathbf{d}_2 &= (-B_1)(-B_2)+A_1A_2 \\ &= A_1A_2+B_1B_2.
+			\end{aligned}
+			\]
+			\par\textbf{理由：}直接展开向量点积。
+		\item[\textbf{步骤三（垂直等价）：}]
+			两条直线垂直当且仅当它们的方向向量垂直，即$\mathbf{d}_1\cdot\mathbf{d}_2=0$。结合步骤二得：
+			\[
+				l_1\perp l_2\;\Longleftrightarrow\;A_1A_2+B_1B_2=0.
+			\]
+			\par\textbf{理由：}方向向量的垂直是直线垂直的充要条件，该条件与常数项$C_1,C_2$无关。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{因此，对于一般式直线方程，垂直判定只需计算$A_1A_2+B_1B_2$是否为零，无需化为斜截式，也适用于斜率不存在的情况。}
+\end{proofbox}

@@ -1,0 +1,47 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	利用法向量构造直角三角形，通过向量投影或坐标运算求出距离。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（设垂足坐标）：}]
+			设直线 $l: Ax+By+C=0$，点 $P(x_0,y_0)$。过 $P$ 作 $l$ 的垂线，垂足为 $Q(x_1,y_1)$。则向量 $\overrightarrow{PQ}$ 与直线法向量 $\vec{n}=(A,B)$ 平行。
+			\[
+				\exists t\in\mathbb{R},\quad (x_1-x_0,\,y_1-y_0)=t(A,B).
+			\]
+			\par\textbf{理由：} 垂线方向与法向量同向。
+		\item[\textbf{步骤二（坐标表示）：}]
+			由上式得 $x_1=x_0+At,\ y_1=y_0+Bt$。代入直线方程 $Ax_1+By_1+C=0$：
+			\[
+				A(x_0+At)+B(y_0+Bt)+C=0.
+			\]
+			\par\textbf{理由：} 垂足 $Q$ 在直线 $l$ 上。
+		\item[\textbf{步骤三（解参数）：}]
+			展开得 $Ax_0+By_0+C + t(A^2+B^2)=0$。
+			\[
+				t = -\frac{Ax_0+By_0+C}{{A^2+B^2}}.
+			\]
+			\par\textbf{理由：} 解一次方程，注意分母非零（$A,B$ 不同时为零）。
+		\item[\textbf{步骤四（求距离）：}]
+			点 $P$ 到直线的距离 $d$ 等于 $|\overrightarrow{PQ}|$：
+			\[
+				\begin{aligned}
+					d &= \sqrt{{(x_1-x_0)}^2+{(y_1-y_0)}^2} \\ &= \sqrt{t^2(A^2+B^2)} \\ &= |t|\sqrt{A^2+B^2}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 利用 $\overrightarrow{PQ}=t(A,B)$，其模为 $|t|\sqrt{A^2+B^2}$。
+		\item[\textbf{步骤五（代入 $t$）：}]
+			将 $t$ 的表达式代入：
+			\[
+				\begin{aligned}
+					d &= \left\lvert -\frac{Ax_0+By_0+C}{{A^2+B^2}} \right\rvert \sqrt{A^2+B^2} \\ &= \frac{|Ax_0+By_0+C|}{{A^2+B^2}}\cdot \sqrt{A^2+B^2} \\ &= \frac{|Ax_0+By_0+C|}{\sqrt{A^2+B^2}}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 化简，$\frac{\sqrt{A^2+B^2}}{{A^2+B^2}}=\frac{1}{\sqrt{A^2+B^2}}$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{距离公式 $d=\frac{|Ax_0+By_0+C|}{\sqrt{A^2+B^2}}$ 成立，且与垂足具体位置无关，仅与直线一般式和点坐标有关。}
+\end{proofbox}

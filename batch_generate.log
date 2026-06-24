@@ -1644,3 +1644,70 @@ ID 预览: T037
 [2026-06-24 20:35:57] [latex] Generating LaTeX for P013...
 [2026-06-24 20:36:15] [write] source.tex updated from 12_pipeline\generated_sources\P013.tex (612 chars)
 [2026-06-24 20:36:15] [pipeline] Running run_source_to_pdf.py 09_geometry-plane --target-id P013...
+[2026-06-24 20:54:59] [publish] PDF_READY confirmed for P013; deployment is allowed
+[2026-06-24 20:54:59] [publish] Running incremental_publish.py for P013...
+[2026-06-24 20:56:04] [done] P013 -> P013: complete
+[2026-06-24 20:56:07] 
+[2026-06-24 20:56:07] ============================================================
+[2026-06-24 20:56:07] [progress] 4/42: P014 | P014 | 一般式中垂直判定：A₁A₂+B₁B₂=0 | 教材选修一 |
+[2026-06-24 20:56:07] ============================================================
+[2026-06-24 20:56:07] [start] P014: 09_geometry-plane:31 | P014 | 一般式中垂直判定：A₁A₂+B₁B₂=0 | 教材选修一 |
+[2026-06-24 20:56:07] [latex] Generating LaTeX for P014...
+[2026-06-24 20:56:29] [write] source.tex updated from 12_pipeline\generated_sources\P014.tex (611 chars)
+[2026-06-24 20:56:29] [pipeline] Running run_source_to_pdf.py 09_geometry-plane --target-id P014...
+[2026-06-24 21:11:44] [fail] P014: Pipeline failed (rc=1): stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=360.6s timeout=180s
+2026-06-24 21:10:06,574 - INFO - [progress] item=P014 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=390.6s timeout=180s
+2026-06-24 21:10:36,629 - INFO - [progress] item=P014 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=420.7s timeout=180s
+2026-06-24 21:11:01,488 - INFO - [PERF_TRACE] {"event": "perf_trace", "step": "l4_check", "model": "deepseek-v4-pro", "prompt_chars": 11617, "payload_chars": 8340, "response_chars": 7479, "request_start_ts": "2026-06-24T21:03:35.932", "request_end_ts": "2026-06-24T21:11:01.487", "llm_roundtrip_ms": 445554.67, "network_wait_ms": 445554.67, "prompt_tokens": 5770, "completion_tokens": 33488, "total_tokens": 39258, "json_parse_ms": 0.88, "validate_ms": 0.01, "retry_count": 0, "timeout_value": 180, "thinking_enabled": true, "reasoning_effort": "max"}
+2026-06-24 21:11:01,496 - INFO - [stage/done] item=P014 stage=L4_CHECK mode=run elapsed=445.56s
+2026-06-24 21:11:01,496 - INFO - [stage/start] item=P014 stage=L4_EXPORT mode=run
+2026-06-24 21:11:01,505 - INFO - P014 L4 导出 tex 片段: 6 个
+2026-06-24 21:11:01,505 - INFO - [stage/done] item=P014 stage=L4_EXPORT mode=run elapsed=0.01s
+2026-06-24 21:11:01,506 - INFO - [stage/start] item=P014 stage=L5 mode=run
+2026-06-24 21:11:01,616 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-24 21:11:31,563 - INFO - [progress] item=P014 stage=L5 model=deepseek-v4-flash attempt=1/3 retry_count=0 waited=30.1s timeout=180s
+2026-06-24 21:11:32,152 - WARNING - P014 L5 id 已纠正: 'G001' -> 'P014'
+2026-06-24 21:11:32,159 - INFO - [stage/done] item=P014 stage=L5 mode=run elapsed=30.65s
+2026-06-24 21:11:32,159 - INFO - P014 L6 缓存无 prompt 指纹记录，判定缓存失效并重跑。
+2026-06-24 21:11:32,159 - INFO - [stage/start] item=P014 stage=L6 mode=run
+2026-06-24 21:11:32,239 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-24 21:11:37,671 - INFO - [stage/done] item=P014 stage=L6 mode=run elapsed=5.51s note=dirname=P014_lines_perpendicular_dot_zero
+
+Processing Pipeline:   0%|          | 0/1 [15:04<?, ?it/s, success=1, error=0, skipped=0]
+Processing Pipeline: 100%|██████████| 1/1 [15:04<00:00, 904.40s/it, success=1, error=0, skipped=0]
+Processing Pipeline: 100%|██████████| 1/1 [15:04<00:00, 904.40s/it, success=1, error=0, skipped=0]
+2026-06-24 21:11:37,675 - INFO - 
+\u2705 任务结束: {'success': 1, 'error': 0, 'skipped': 0}
+2026-06-24 21:11:37,675 - INFO - \u23f1 总耗时: 904.42s
+========== Pipeline 发布 ==========
+模式: full
+dry-run: no | verbose: no
+ID 数量: 1
+ID 预览: P014
+===================================
+
+[P014] 开始
+[P014] 目标: 09_geometry-plane/P014_lines_perpendicular_dot_zero
+[P014] 目录命名: 使用 L6 产物
+[P014] 讲义文件: 已发布 6 个
+[P014] meta.json: 已同步
+[P014] source.tex: 已拷贝
+[P014] main.tex: 已生成
+[P014] index.tex: 已追加入口
+[P014] 完成
+
+============= 发布汇总 =============
+总计: 1
+成功: 1
+失败: 0
+警告: 0
+===================================
+
+[2026-06-24 21:11:47] 
+[2026-06-24 21:11:47] ============================================================
+[2026-06-24 21:11:47] [progress] 5/42: P015 | P015 | 点到直线距离公式 d=|Ax₀+By₀+C|/√(A²+B²) | 教材选修一 |
+[2026-06-24 21:11:47] ============================================================
+[2026-06-24 21:11:47] [start] P015: 09_geometry-plane:32 | P015 | 点到直线距离公式 d=|Ax₀+By₀+C|/√(A²+B²) | 教材选修一 |
+[2026-06-24 21:11:47] [latex] Generating LaTeX for P015...
+[2026-06-24 21:12:02] [write] source.tex updated from 12_pipeline\generated_sources\P015.tex (509 chars)
+[2026-06-24 21:12:02] [pipeline] Running run_source_to_pdf.py 09_geometry-plane --target-id P015...
