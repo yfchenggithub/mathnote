@@ -1,0 +1,45 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	将三角形放置在坐标系中，利用坐标下三角形面积公式直接计算。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（建立坐标系）：}] 将$\triangle ABC$的顶点$C$置于原点，边$CA$落在$x$轴正半轴，则
+			\[
+				A(b,0),
+				\qquad
+				B(a\cos C,\, a\sin C),
+			\]
+			其中$a=|BC|$, $b=|CA|$, 角$C=\angle ACB$.
+			\par\textbf{理由：}
+			坐标化后可用代数方法处理几何量.
+
+		\item[\textbf{步骤二（坐标面积公式）：}] 已知点$A(x_1,y_1)$, $B(x_2,y_2)$与原点$C(0,0)$构成的三角形面积为
+			\[
+				S = \frac12 \bigl| x_1 y_2 - y_1 x_2 \bigr|.
+			\]
+			代入坐标：
+			\[
+				\begin{aligned}
+					S &= \frac12 \bigl| b \cdot a\sin C - 0 \cdot a\cos C \bigr| \\
+					&= \frac12 \bigl| ab\sin C \bigr|.
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			坐标下三角形面积公式的由来是向量叉积的模的一半.
+
+		\item[\textbf{步骤三（确定符号）：}] 在$\triangle ABC$中，内角$C\in(0,\pi)$，故$\sin C > 0$，因此绝对值可直接去掉：
+			\[
+				S = \frac12 ab\sin C.
+			\]
+			\par\textbf{理由：}
+			正弦函数在$(0,\pi)$上恒正，无需保留绝对值符号.
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	通过坐标法，避免了分类讨论，严谨地推导了三角形面积公式，并明确了角的范围对符号的影响.
+\end{proofbox}
