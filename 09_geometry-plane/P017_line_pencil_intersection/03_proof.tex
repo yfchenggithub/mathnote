@@ -1,0 +1,36 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	证明的核心是：交点坐标使两个方程同为零，因此加权和也为零；反过来，任意一条过交点且不与 $l_2$ 重合的直线，其方程总可以写成 $l_1+\lambda l_2=0$ 的形式。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（验证恒过定点）：}]
+			设 $P_0(x_0,y_0)$ 是 $l_1$ 与 $l_2$ 的交点，则
+			\[
+				A_1x_0+B_1y_0+C_1=0,
+				\qquad
+				A_2x_0+B_2y_0+C_2=0.
+			\]
+			对任意实数 $\lambda$，令
+			\[
+				F(x,y)=A_1x+B_1y+C_1+\lambda(A_2x+B_2y+C_2),
+			\]
+			则 $F(x_0,y_0)=0+ \lambda \cdot 0=0$。故 $F(x,y)=0$ 表示的直线均过点 $P_0$。
+			\par\textbf{理由：} 代入即得零，说明交点坐标满足方程，因此直线经过交点。
+		\item[\textbf{步骤二（确保为一次方程）：}]
+			因为 $l_1$ 与 $l_2$ 相交，故 $A_1B_2\neq A_2B_1$。对任意 $\lambda$，$F(x,y)=0$ 中 $x,y$ 的系数分别为 $A_1+\lambda A_2$ 和 $B_1+\lambda B_2$。假设两者同时为零，则 $A_1+\lambda A_2=0$ 且 $B_1+\lambda B_2=0$，消去 $\lambda$ 得 $A_1B_2-A_2B_1=0$，与相交矛盾。所以系数不全为零，$F(x,y)=0$ 确实表示一条直线（除 $l_2$ 外，因为 $l_2$ 对应 $\lambda\to\infty$，无法用有限 $\lambda$ 得到）。
+			\par\textbf{理由：} 相交条件保证了 $l_1$ 与 $l_2$ 不平行，从而 $l_1+\lambda l_2$ 不会退化为恒等式或矛盾式。
+		\item[\textbf{步骤三（覆盖所有过交点直线）：}]
+			设 $l$ 是任意一条过 $P_0$ 且不与 $l_2$ 重合的直线。取其上异于 $P_0$ 的另一点 $Q(x_1,y_1)$。因为 $l$ 与 $l_2$ 不重合且仅有一个交点 $P_0$，而 $Q$ 异于 $P_0$，故 $Q$ 不在 $l_2$ 上，即 $A_2x_1+B_2y_1+C_2\neq0$。令
+			\[
+				\lambda = -\frac{A_1x_1+B_1y_1+C_1}{A_2x_1+B_2y_1+C_2},
+			\]
+			则 $Q$ 满足 $F(x_1,y_1)=0$。因为两点确定一条直线，故 $l$ 的方程即 $F(x,y)=0$。因此，任何符合条件的直线均可表示为所述直线系方程。
+			\par\textbf{理由：} 通过另一点坐标反解 $\lambda$，使得直线系方程恰好通过 $Q$，从而与 $l$ 重合。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{直线系方程 $l_1+\lambda l_2=0$（$\lambda\in\mathbb{R}$）恰好表示过 $l_1$ 与 $l_2$ 交点的一切直线（除 $l_2$ 本身）。若需要包含 $l_2$，可采用 $m l_1 + n l_2=0$（$m,n$ 不全为零）的双参数形式。}
+\end{proofbox}
