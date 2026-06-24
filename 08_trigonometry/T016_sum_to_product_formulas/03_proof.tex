@@ -1,0 +1,55 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	通过变量代换 $u=\frac{\alpha+\beta}{2}, v=\frac{\alpha-\beta}{2}$，将 $\alpha,\beta$ 转化为 $u,v$ 的加减形式，再利用正弦、余弦的和角公式展开，合并同类项即可得到乘积形式。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（变量代换）：}]
+			设 $u=\frac{\alpha+\beta}{2}$, $v=\frac{\alpha-\beta}{2}$，则
+			\[
+				\alpha = u+v,
+				\qquad
+				\beta = u-v.
+			\]
+			\par\textbf{理由：} 将原角 $\alpha,\beta$ 用半角和半差表示，为后续展开做准备。
+
+		\item[\textbf{步骤二（正弦和差推导）：}]
+			代入 $\sin\alpha$ 和 $\sin\beta$，利用和角公式展开并合并：
+			\[
+				\begin{aligned}
+					\sin\alpha+\sin\beta &= \sin(u+v)+\sin(u-v) \\
+					&= ( \sin u\cos v+\cos u\sin v) + (\sin u\cos v-\cos u\sin v) \\
+					&= 2\sin u\cos v \\
+					&= 2\sin\frac{\alpha+\beta}{2}\cos\frac{\alpha-\beta}{2}, \\[4pt]
+					\sin\alpha-\sin\beta &= \sin(u+v)-\sin(u-v) \\
+					&= ( \sin u\cos v+\cos u\sin v) - (\sin u\cos v-\cos u\sin v) \\
+					&= 2\cos u\sin v \\
+					&= 2\cos\frac{\alpha+\beta}{2}\sin\frac{\alpha-\beta}{2}.
+			\end{aligned}
+			\]
+			\par\textbf{理由:} 和角公式展开后,正负交叉项相消(或相加),只剩下单一乘积项.
+
+		\item[\textbf{步骤三(余弦和差推导):}]
+			类似地,代入 $\cos\alpha$ 和 $\cos\beta$:
+			\[
+				\begin{aligned}
+					\cos\alpha+\cos\beta &= \cos(u+v)+\cos(u-v) \\
+					&= ( \cos u\cos v-\sin u\sin v) + (\cos u\cos v+\sin u\sin v) \\
+					&= 2\cos u\cos v \\
+					&= 2\cos\frac{\alpha+\beta}{2}\cos\frac{\alpha-\beta}{2}, \\[4pt]
+					\cos\alpha-\cos\beta &= \cos(u+v)-\cos(u-v) \\
+					&= ( \cos u\cos v-\sin u\sin v) - (\cos u\cos v+\sin u\sin v) \\
+					&= -2\sin u\sin v \\
+					&= -2\sin\frac{\alpha+\beta}{2}\sin\frac{\alpha-\beta}{2}.
+			\end{aligned}
+			\]
+			\par\textbf{理由:} 余弦和角公式展开后相加减,同类项合并即得结果.
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	以上推导完整得到了和差化积公式中的四个等式.每个公式都从和角公式出发,经过代换、展开、合并三步得到,因此公式成立.
+\end{proofbox}
