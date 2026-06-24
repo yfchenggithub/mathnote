@@ -1,0 +1,45 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用方向向量将几何关系转化为代数条件：两条直线平行 $\Longleftrightarrow$ 方向向量平行 $\Longleftrightarrow$ 对应坐标成比例；垂直 $\Longleftrightarrow$ 方向向量垂直 $\Longleftrightarrow$ 数量积为零。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（设定方向向量）：}]
+			设直线 $l_1,l_2$ 的斜率分别为 $k_1,k_2$（均存在）。
+			取它们的一个方向向量：
+			\[
+				\vec{d}_1 = (1,k_1),\quad \vec{d}_2 = (1,k_2).
+			\]
+			\par\textbf{理由：} 当 $x$ 增加 $1$ 时，$y$ 增加 $k$，故 $(1,k)$ 是斜率为 $k$ 的直线的一个方向向量。
+
+		\item[\textbf{步骤二（平行条件推证）：}]
+			$l_1 \parallel l_2$ 的充要条件是方向向量平行，即存在非零实数 $\lambda$ 使 $\vec{d}_1 = \lambda\vec{d}_2$，等价于交叉差为零：
+			\[
+				1\cdot k_2 - k_1\cdot 1 = 0 \quad\Longrightarrow\quad k_1 = k_2.
+			\]
+			\par\textbf{理由：} 向量平行等价于坐标成比例，即 $1:1 = k_1:k_2$。
+
+		\item[\textbf{步骤三（垂直条件推证）：}]
+			$l_1 \perp l_2$ 的充要条件是方向向量垂直，即数量积为零：
+			\[
+				\vec{d}_1\cdot\vec{d}_2 = 1\cdot1 + k_1k_2 = 0 \quad\Longrightarrow\quad k_1k_2 = -1.
+			\]
+			\par\textbf{理由：} 向量垂直等价于点积为零。
+
+		\item[\textbf{步骤四（结论回扣）：}]
+			由步骤二、三，我们得到：
+			\[
+				l_1 \parallel l_2 \Longleftrightarrow k_1 = k_2,
+				\qquad
+				l_1 \perp l_2 \Longleftrightarrow k_1k_2 = -1.
+			\]
+			\par\textbf{理由：} 方向向量的平行与垂直分别等价于直线的平行与垂直。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	当两条直线斜率均存在时，平行 $\Longleftrightarrow$ 斜率相等，垂直 $\Longleftrightarrow$ 斜率乘积为 $-1$。该结论是解析几何中判断直线位置关系的基础工具。
+\end{proofbox}

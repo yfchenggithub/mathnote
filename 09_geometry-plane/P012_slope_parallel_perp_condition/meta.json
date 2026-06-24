@@ -1,0 +1,191 @@
+{
+  "id": "P012",
+  "module": "geometry-plane",
+  "core": {
+    "title": "直线平行垂直的斜率判定",
+    "alias": [
+      "斜率判定",
+      "平行垂直斜率条件",
+      "垂直斜率乘积为-1"
+    ],
+    "summary": "当两条直线斜率都存在时，平行等价于斜率相等，垂直等价于斜率乘积为-1。",
+    "difficulty": 1,
+    "category": "解析几何",
+    "tags": [
+      "解析几何",
+      "直线位置关系",
+      "斜率",
+      "平行垂直",
+      "直线方程"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "直线",
+      "平行",
+      "垂直",
+      "斜率",
+      "斜率相等",
+      "斜率乘积",
+      "-1",
+      "斜率存在",
+      "不与x轴垂直",
+      "平行判定",
+      "垂直判定",
+      "斜率不存在",
+      "一般式",
+      "参数求解"
+    ],
+    "synonyms": [
+      "两条直线平行斜率关系",
+      "什么时候平行",
+      "垂直斜率条件",
+      "斜率互为负倒数",
+      "斜率相等就平行吗",
+      "两直线垂直斜率乘积",
+      "平行垂直的斜率条件",
+      "斜律相等"
+    ],
+    "intents": [
+      "判断平行垂直",
+      "求直线方程",
+      "已知垂直求斜率",
+      "已知平行求参数",
+      "证明两直线垂直",
+      "参数求解"
+    ],
+    "query_templates": [
+      "两条直线平行斜率满足什么条件",
+      "已知两直线垂直求参数",
+      "直线垂直斜率关系",
+      "斜率相等两直线平行吗",
+      "一般式判断垂直",
+      "斜率不存在时如何判断垂直"
+    ],
+    "ocrKeywords": [
+      "直线",
+      "斜率",
+      "平行",
+      "垂直",
+      "点",
+      "方程",
+      "参数"
+    ],
+    "latex_patterns": [
+      "k_1=k_2",
+      "k_1k_2=-1",
+      "A_1B_2=A_2B_1",
+      "A_1A_2+B_1B_2=0"
+    ],
+    "formulaTokens": [
+      "k_1=k_2",
+      "k_1k_2=-1",
+      "A_1B_2=A_2B_1",
+      "A_1A_2+B_1B_2=0"
+    ],
+    "pinyin": "liangzhixian pingxing chuizhi xielv panding",
+    "pinyinAbbr": "zxpdxl"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.74,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "l_1 \\parallel l_2 \\Longleftrightarrow k_1 = k_2, \\quad l_1 \\perp l_2 \\Longleftrightarrow k_1 k_2 = -1",
+    "related_formulas": [
+      "l_1\\parallel l_2 \\Longleftrightarrow A_1B_2=A_2B_1 \\text{且} A_1C_2\\neq A_2C_1",
+      "l_1\\perp l_2 \\Longleftrightarrow A_1A_2+B_1B_2=0"
+    ],
+    "variables": [
+      "k1",
+      "k2",
+      "l1",
+      "l2",
+      "A1",
+      "B1",
+      "C1",
+      "A2",
+      "B2",
+      "C2"
+    ],
+    "conditions": "两直线的斜率$k_1,k_2$均存在，即直线不与$x$轴垂直。若使用一般式，则无需斜率存在。",
+    "conclusions": "平行当且仅当$k_1=k_2$（斜率存在时）；垂直当且仅当$k_1k_2=-1$（斜率存在时）。斜率不存在时需单独讨论。"
+  },
+  "content": {
+    "statement": "对于两条斜率均存在的直线（不与$x$轴垂直），平行当且仅当它们的斜率相等，垂直当且仅当它们的斜率乘积等于$-1$。",
+    "derivation": [
+      "由直线倾斜角相等导出斜率相等",
+      "由倾斜角相差$90^\\circ$导出斜率乘积为$-1$"
+    ],
+    "intuition": "斜率是倾斜角的正切值，平行时倾斜角相等，垂直时倾斜角相差$90^\\circ$，正切值互为负倒数。",
+    "common_tricks": [
+      "先将直线化为斜截式再判断斜率关系",
+      "注意斜率不存在的情况，需单独讨论（平行：都无斜率且不重合；垂直：一条无斜率另一条斜率为0）",
+      "使用一般式时，直接用系数关系$A_1B_2=A_2B_1$（平行）和$A_1A_2+B_1B_2=0$（垂直），避免分类"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "直线位置关系判断",
+      "参数求解",
+      "求直线方程"
+    ],
+    "problem_types": [
+      "判断平行垂直",
+      "已知位置关系求参数",
+      "求高线、中线等直线方程"
+    ],
+    "exam_frequency": 0.6,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "P012.svg",
+    "svg_url": "",
+    "diagram": "",
+    "diagram_url": "",
+    "geogebra": "",
+    "geogebra_url": "",
+    "video": "",
+    "video_url": ""
+  },
+  "shareConfig": {
+    "title": "直线平行垂直的斜率判定：用斜率快速判断位置关系",
+    "shareDesc": "适合解析几何入门和习题课，解决直线平行垂直判断和参数求解，避免斜率不存在时出错。"
+  },
+  "relations": {
+    "prerequisites": [
+      "斜率定义",
+      "直线方程（点斜式、一般式）"
+    ],
+    "related_ids": [],
+    "similar": [
+      "两直线平行垂直的一般式判定",
+      "向量法判断直线位置关系"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-24"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "解析几何-直线-位置关系",
+  "altNodes": [
+    "解析几何-直线-点斜式",
+    "向量-应用-平行与垂直"
+  ]
+}
