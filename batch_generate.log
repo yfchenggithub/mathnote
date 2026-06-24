@@ -2102,3 +2102,70 @@ ID 预览: P029
 [2026-06-25 06:12:17] [latex] Generating LaTeX for P045...
 [2026-06-25 06:12:27] [write] source.tex updated from 12_pipeline\generated_sources\P045.tex (609 chars)
 [2026-06-25 06:12:27] [pipeline] Running run_source_to_pdf.py 09_geometry-plane --target-id P045...
+[2026-06-25 06:21:18] [publish] PDF_READY confirmed for P045; deployment is allowed
+[2026-06-25 06:21:18] [publish] Running incremental_publish.py for P045...
+[2026-06-25 06:21:59] [done] P045 -> P045: complete
+[2026-06-25 06:22:02] 
+[2026-06-25 06:22:02] ============================================================
+[2026-06-25 06:22:02] [progress] 36/42: P046 | P046 | 海伦公式 S=√[p(p-a)(p-b)(p-c)] | 竞赛降维/高考模拟题 |
+[2026-06-25 06:22:02] ============================================================
+[2026-06-25 06:22:02] [start] P046: 09_geometry-plane:87 | P046 | 海伦公式 S=√[p(p-a)(p-b)(p-c)] | 竞赛降维/高考模拟题 |
+[2026-06-25 06:22:02] [latex] Generating LaTeX for P046...
+[2026-06-25 06:22:13] [write] source.tex updated from 12_pipeline\generated_sources\P046.tex (521 chars)
+[2026-06-25 06:22:13] [pipeline] Running run_source_to_pdf.py 09_geometry-plane --target-id P046...
+[2026-06-25 06:39:27] [fail] P046: Pipeline failed (rc=1): NFO - [progress] item=P046 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=330.5s timeout=180s
+2026-06-25 06:37:47,790 - INFO - [progress] item=P046 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=360.6s timeout=180s
+2026-06-25 06:38:17,842 - INFO - [progress] item=P046 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=390.6s timeout=180s
+2026-06-25 06:38:42,268 - INFO - [PERF_TRACE] {"event": "perf_trace", "step": "l4_check", "model": "deepseek-v4-pro", "prompt_chars": 13247, "payload_chars": 9970, "response_chars": 9501, "request_start_ts": "2026-06-25T06:31:47.209", "request_end_ts": "2026-06-25T06:38:42.267", "llm_roundtrip_ms": 415058.03, "network_wait_ms": 415058.03, "prompt_tokens": 6294, "completion_tokens": 54814, "total_tokens": 61108, "json_parse_ms": 0.57, "validate_ms": 0.01, "retry_count": 0, "timeout_value": 180, "thinking_enabled": true, "reasoning_effort": "max"}
+2026-06-25 06:38:42,271 - INFO - [stage/done] item=P046 stage=L4_CHECK mode=run elapsed=415.06s
+2026-06-25 06:38:42,271 - INFO - [stage/start] item=P046 stage=L4_EXPORT mode=run
+2026-06-25 06:38:42,281 - INFO - P046 L4 导出 tex 片段: 6 个
+2026-06-25 06:38:42,281 - INFO - [stage/done] item=P046 stage=L4_EXPORT mode=run elapsed=0.01s
+2026-06-25 06:38:42,281 - INFO - [stage/start] item=P046 stage=L5 mode=run
+2026-06-25 06:38:42,373 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-25 06:39:12,337 - INFO - [progress] item=P046 stage=L5 model=deepseek-v4-flash attempt=1/3 retry_count=0 waited=30.1s timeout=180s
+2026-06-25 06:39:19,029 - WARNING - P046 L5 id 已纠正: 'G001' -> 'P046'
+2026-06-25 06:39:19,037 - INFO - [stage/done] item=P046 stage=L5 mode=run elapsed=36.76s
+2026-06-25 06:39:19,037 - INFO - P046 L6 缓存无 prompt 指纹记录，判定缓存失效并重跑。
+2026-06-25 06:39:19,037 - INFO - [stage/start] item=P046 stage=L6 mode=run
+2026-06-25 06:39:19,110 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-25 06:39:21,592 - INFO - [stage/done] item=P046 stage=L6 mode=run elapsed=2.55s note=dirname=P046_heron_formula
+
+Processing Pipeline:   0%|          | 0/1 [17:04<?, ?it/s, success=1, error=0, skipped=0]
+Processing Pipeline: 100%|██████████| 1/1 [17:04<00:00, 1024.33s/it, success=1, error=0, skipped=0]
+Processing Pipeline: 100%|██████████| 1/1 [17:04<00:00, 1024.33s/it, success=1, error=0, skipped=0]
+2026-06-25 06:39:21,595 - INFO - 
+\u2705 任务结束: {'success': 1, 'error': 0, 'skipped': 0}
+2026-06-25 06:39:21,596 - INFO - \u23f1 总耗时: 1024.34s
+========== Pipeline 发布 ==========
+模式: full
+dry-run: no | verbose: no
+ID 数量: 1
+ID 预览: P046
+===================================
+
+[P046] 开始
+[P046] 目标: 09_geometry-plane/P046_heron_formula
+[P046] 目录命名: 使用 L6 产物
+[P046] 讲义文件: 已发布 6 个
+[P046] meta.json: 已同步
+[P046] source.tex: 已拷贝
+[P046] main.tex: 已生成
+[P046] index.tex: 已追加入口
+[P046] 完成
+
+============= 发布汇总 =============
+总计: 1
+成功: 1
+失败: 0
+警告: 0
+===================================
+
+[2026-06-25 06:39:30] 
+[2026-06-25 06:39:30] ============================================================
+[2026-06-25 06:39:30] [progress] 37/42: P047 | P047 | 四点共圆的判定条件（对角互补/同侧等角/相交弦逆定理/割线逆定理） | 教材/高考真题 |
+[2026-06-25 06:39:30] ============================================================
+[2026-06-25 06:39:30] [start] P047: 09_geometry-plane:88 | P047 | 四点共圆的判定条件（对角互补/同侧等角/相交弦逆定理/割线逆定理） | 教材/高考真题 |
+[2026-06-25 06:39:30] [latex] Generating LaTeX for P047...
+[2026-06-25 06:39:55] [write] source.tex updated from 12_pipeline\generated_sources\P047.tex (971 chars)
+[2026-06-25 06:39:55] [pipeline] Running run_source_to_pdf.py 09_geometry-plane --target-id P047...

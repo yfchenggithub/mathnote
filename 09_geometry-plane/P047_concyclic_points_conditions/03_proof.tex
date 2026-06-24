@@ -1,0 +1,59 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	采用反证法，构造过三点的圆与直线的交点，利用圆内接四边形对角互补及等角关系推出矛盾。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（作外接圆）：}] 过$A,B,C$三点作$\odot O$。
+			\[
+				\exists! \odot O,\ A,B,C\in\odot O.
+			\]
+			\par\textbf{理由：} 三点不共线确定唯一外接圆。
+
+		\item[\textbf{步骤二（反设）：}] 假设$D$不在$\odot O$上。则$D$在$\odot O$外或$\odot O$内。
+			\[
+				D\notin\odot O.
+			\]
+			\par\textbf{理由：} 反证法假设。
+
+		\item[\textbf{步骤三（圆外情形构造）：}] 若$D$在$\odot O$外，作直线$AD$。因$A,B,C$不共线，$AD$不与$\odot O$相切（否则由弦切角定理得$A,C,D$共线，与四点不共线矛盾），故$AD$与$\odot O$交于另一点$E$，且$E$在$A,D$之间。连接$CE$。
+			\[
+				AD\cap\odot O = \{A,E\}.
+			\]
+			\par\textbf{理由：} 构造辅助交点$E$，使$\odot O$与直线$AD$相联系。
+
+		\item[\textbf{步骤四（内接四边形对角互补）：}] $A,B,C,E$共圆，故
+			\[
+				\angle BAE + \angle BCE = 180^{\circ}.
+			\]
+			\par\textbf{理由：} 圆内接四边形对角互补。
+
+		\item[\textbf{步骤五（等角代换）：}] 由$A,E,D$共线且$E$在$A,D$之间，得$\angle BAE = \angle BAD$。代入上式得
+			\[
+				\angle BAD + \angle BCE = 180^{\circ}.
+			\]
+			\par\textbf{理由：} 共线且同向，角相等。
+
+		\item[\textbf{步骤六（导出矛盾）：}] 已知$\angle BAD + \angle BCD = 180^{\circ}$，与步骤五所得比较得$\angle BCE = \angle BCD$。于是射线$CE$与$CD$重合，即$D$在直线$CE$上。又直线$AD$与$CE$已交于点$E$（因为$E$在$AD$和$CE$上），而$D$同时在这两条直线上，故$D$必与$E$重合。但这与$D$在圆外、$E$在圆上矛盾。
+			\[
+				\Rightarrow\Leftarrow
+			\]
+			\par\textbf{理由：} 点$D$既在圆外又在圆上，矛盾。
+
+		\item[\textbf{步骤七（圆内情形）：}] 若$D$在$\odot O$内，作直线$AD$交$\odot O$于另一点$E$（此时$D$在线段$AE$上）。同理可得$\angle BAE = \angle BAD$，结合内接四边形对角互补$\angle BAE + \angle BCE = 180^{\circ}$，代入得$\angle BAD + \angle BCE = 180^{\circ}$。与已知$\angle BAD + \angle BCD = 180^{\circ}$比较，得$\angle BCE = \angle BCD$，从而$C,D,E$共线，导出$D$与$E$重合的矛盾。
+			\par\textbf{理由：} 圆内情形完全类似，同样导出矛盾。
+
+		\item[\textbf{步骤八（结论）：}] 故假设不成立，$D$在$\odot O$上，即$A,B,C,D$四点共圆。
+			\[
+				A,B,C,D\in\odot O.
+			\]
+			\par\textbf{理由：} 反证法完成。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	上述证明表明“对角互补”是四点共圆的充分条件。反之，若四点共圆，由圆内接四边形性质可得对角互补，因此“对角互补”也是必要条件，从而它是充要条件。其他三种判定（同侧等角、相交弦逆定理、割线逆定理）均可类似证明或转化为对角互补情形。
+\end{proofbox}

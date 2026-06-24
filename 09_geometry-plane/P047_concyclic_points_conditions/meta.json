@@ -1,0 +1,165 @@
+{
+  "id": "P047",
+  "module": "geometry-plane",
+  "core": {
+    "title": "四点共圆的判定条件",
+    "alias": [
+      "四点共圆判定",
+      "对角互补判定",
+      "同侧等角定理",
+      "圆幂逆定理"
+    ],
+    "summary": "四点共圆可通过对角互补、同侧等角或圆幂相等来判定，三者等价。",
+    "difficulty": 2,
+    "category": "平面几何",
+    "tags": [
+      "四点共圆",
+      "圆的性质",
+      "平面几何",
+      "对角互补",
+      "同侧等角",
+      "圆幂定理"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "四点共圆",
+      "对角互补",
+      "同侧等角",
+      "相交弦逆定理",
+      "割线逆定理",
+      "圆幂逆定理",
+      "PA·PB=PC·PD",
+      "角度和为180",
+      "共圆判定",
+      "四点共圆判定"
+    ],
+    "synonyms": [
+      "四点共圆判断",
+      "对角和为180",
+      "同侧视角相等",
+      "圆幂相等"
+    ],
+    "intents": [
+      "判定共圆",
+      "证明共圆",
+      "判断四点共圆",
+      "应用圆幂定理"
+    ],
+    "query_templates": [
+      "四点共圆怎么判断",
+      "对角互补能证明四点共圆吗",
+      "同侧等角定理",
+      "PA*PB=PC*PD 四点共圆"
+    ],
+    "ocrKeywords": [
+      "四点",
+      "共圆",
+      "∠A+∠C=180°",
+      "∠ACB=∠ADB",
+      "PA·PB=PC·PD"
+    ],
+    "latex_patterns": [
+      "\\angle A + \\angle C = 180^{\\circ}",
+      "\\angle ACB = \\angle ADB",
+      "PA\\cdot PB = PC\\cdot PD"
+    ],
+    "formulaTokens": [
+      "\\angle A + \\angle C = 180^{\\circ}",
+      "\\angle ACB = \\angle ADB",
+      "PA\\cdot PB = PC\\cdot PD",
+      "PA\\cdot PB",
+      "PC\\cdot PD"
+    ],
+    "pinyin": "sidiangongyuanpanding",
+    "pinyinAbbr": "sdgypd"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.68,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\angle A + \\angle C = 180^{\\circ}",
+    "related_formulas": [
+      "\\angle ACB = \\angle ADB",
+      "PA\\cdot PB = PC\\cdot PD"
+    ],
+    "variables": "点 $A,B,C,D$ 不共线，$P$ 为线段 $AB$ 与 $CD$（或延长线）的交点。",
+    "conditions": "四点 $A,B,C,D$ 不共线（任意三点不共线），且满足以下任一条件：$\\angle A + \\angle C = 180^{\\circ}$；或 $\\angle ACB = \\angle ADB$（$C,D$ 在 $AB$ 同侧）；或 $PA\\cdot PB = PC\\cdot PD$（$P$ 为 $AB$ 与 $CD$ 的交点）。",
+    "conclusions": "则 $A,B,C,D$ 四点共圆。"
+  },
+  "content": {
+    "statement": "对于不共线的四点 $A,B,C,D$，它们共圆的充要条件是下列情形之一：四边形 $ABCD$ 对角互补（$\\angle A + \\angle C = 180^{\\circ}$）；或同侧等角（$\\angle ACB = \\angle ADB$，且 $C,D$ 在 $AB$ 同侧）；或相交弦逆定理（$AB$ 与 $CD$ 交于点 $P$，$P$ 在线段内部，$PA\\cdot PB = PC\\cdot PD$）；或割线逆定理（$AB$ 与 $CD$ 的延长线交于点 $P$，$PA\\cdot PB = PC\\cdot PD$）。",
+    "derivation": [
+      "由圆内接四边形性质，对角互补等价于四点共圆；逆定理成立。",
+      "由圆周角定理，同弧所对圆周角相等，逆定理：若同侧等角则四点共圆。",
+      "由相交弦定理和割线定理，若 $PA\\cdot PB = PC\\cdot PD$，则 $A,B,C,D$ 共圆（圆幂逆定理）。"
+    ],
+    "intuition": "若四边形一组对角和为 $180^{\\circ}$，则四个顶点在一个圆上；若两点对同一条线段张角相等，则也在同一个圆上；若两线段乘积相等，则交点满足圆幂定理，从而四点共圆。",
+    "common_tricks": [
+      "优先考虑对角互补，计算简单直接。",
+      "使用同侧等角时，务必检查两点是否在对应线段同侧。",
+      "用圆幂相等判定时，先确定 $P$ 的位置（内分还是外分），条件相同。",
+      "在解析几何中，常通过斜率关系转化为角度相等或向量垂直来判定。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "平面几何证明题",
+      "解析几何中判断四点共圆",
+      "圆方程与圆幂综合题"
+    ],
+    "problem_types": [
+      "几何证明",
+      "解析几何综合",
+      "圆幂应用"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "P047.svg",
+    "png": "",
+    "video": "",
+    "card": ""
+  },
+  "shareConfig": {
+    "title": "四点共圆判定：对角互补/同侧等角/圆幂相等",
+    "shareDesc": "适合几何证明和解析几何中快速判断四点共圆，减少辅助线构造，提升稳定性，课后复习和刷题前速查。"
+  },
+  "relations": {
+    "prerequisites": [
+      "圆周角定理",
+      "圆内接四边形性质",
+      "割线定理"
+    ],
+    "related_ids": [],
+    "similar": [
+      "圆幂定理",
+      "圆内接四边形判定",
+      "圆周角定理的逆定理"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-25"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "其他-未分类-待定",
+  "altNodes": "解析几何-圆-位置关系"
+}
