@@ -1,0 +1,33 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	$\sin 3x$ 和 $\cos 3x$ 均可表示为 $\sin(2x+x)$ 和 $\cos(2x+x)$，利用两角和公式展开后再代入二倍角公式化简。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（正弦三倍角）：}]
+			\[
+				\begin{aligned}
+					\sin 3x &= \sin(2x+x) \\ &= \sin2x\cos x + \cos2x\sin x \\ &= (2\sin x\cos x)\cos x + (1-2\sin^2 x)\sin x \\ &= 2\sin x\cos^2 x + \sin x - 2\sin^3 x \\ &= 2\sin x(1-\sin^2 x) + \sin x - 2\sin^3 x \\ &= 2\sin x - 2\sin^3 x + \sin x - 2\sin^3 x \\ &= 3\sin x - 4\sin^3 x.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 第1行用 $\sin(\alpha+\beta)$ 展开；第2行代入 $\sin2x=2\sin x\cos x$、$\cos2x=1-2\sin^2 x$；第3行合并后利用 $\cos^2 x=1-\sin^2 x$ 转化；第4-5行整理消去 $\cos x$，合并同类项得到正弦三倍角公式。
+		\item[\textbf{步骤二（余弦三倍角）：}]
+			\[
+				\begin{aligned}
+					\cos 3x &= \cos(2x+x) \\ &= \cos2x\cos x - \sin2x\sin x \\ &= (2\cos^2 x-1)\cos x - (2\sin x\cos x)\sin x \\ &= 2\cos^3 x - \cos x - 2\sin^2 x\cos x \\ &= 2\cos^3 x - \cos x - 2(1-\cos^2 x)\cos x \\ &= 2\cos^3 x - \cos x - 2\cos x + 2\cos^3 x \\ &= 4\cos^3 x - 3\cos x.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 第1行用 $\cos(\alpha+\beta)$ 展开；第2行代入 $\cos2x=2\cos^2 x-1$、$\sin2x=2\sin x\cos x$；第3行略作整理；第4行用 $\sin^2 x=1-\cos^2 x$ 代换；第5行展开括号；第6行合并同类项得到余弦三倍角公式。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	由步骤一、步骤二得到：
+	\[
+		\boxed{\sin 3x = 3\sin x - 4\sin^3 x},
+		\qquad
+		\boxed{\cos 3x = 4\cos^3 x - 3\cos x}.
+	\]
+	这两个恒等式对于任意实数 $x$ 均成立。
+\end{proofbox}
