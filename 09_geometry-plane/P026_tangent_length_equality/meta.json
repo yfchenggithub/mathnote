@@ -1,0 +1,194 @@
+{
+  "id": "P026",
+  "module": "geometry-plane",
+  "core": {
+    "title": "切线长定理",
+    "alias": [
+      "切长定理",
+      "圆外一点切线长",
+      "切线长相等"
+    ],
+    "summary": "圆外一点到圆的两条切线的长度相等。",
+    "difficulty": 2,
+    "category": "平面几何",
+    "tags": [
+      "平面几何",
+      "切线长",
+      "垂直平分",
+      "角平分线",
+      "圆"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "切线长定理",
+      "切线长",
+      "圆外一点",
+      "两条切线",
+      "切点",
+      "圆半径",
+      "圆心距",
+      "垂直平分",
+      "角平分",
+      "切点弦",
+      "PA=PB",
+      "d^2-r^2",
+      "l=sqrt(d^2-r^2)",
+      "三角形周长",
+      "四边形面积"
+    ],
+    "synonyms": [
+      "切线长度定理",
+      "切线长相等",
+      "圆外切线",
+      "切线和弦",
+      "切点弦定理"
+    ],
+    "intents": [
+      "求切线长",
+      "证明切线相等",
+      "求圆心到点的距离",
+      "求三角形周长",
+      "证明垂直平分",
+      "求四边形面积",
+      "判断角平分",
+      "线段替换"
+    ],
+    "query_templates": [
+      "切线长定理证明",
+      "已知圆外一点求切线长",
+      "圆切线长度公式",
+      "切线长相等怎么用",
+      "切线长定理例题"
+    ],
+    "ocrKeywords": [
+      "圆",
+      "切线",
+      "切点",
+      "外一点",
+      "半径",
+      "圆心距",
+      "垂直",
+      "平分",
+      "角平分"
+    ],
+    "latex_patterns": [
+      "\\sqrt{d^{2}-r^{2}}",
+      "PA=PB",
+      "\\angle APO = \\angle BPO",
+      "OP\\perp AB"
+    ],
+    "formulaTokens": [
+      "PA=PB",
+      "\\sqrt{d^{2}-r^{2}}",
+      "d^{2}-r^{2}",
+      "l",
+      "r",
+      "d",
+      "OP\\perp AB",
+      "S_{PAOB}=r\\cdot l",
+      "PA=PB=5"
+    ],
+    "pinyin": "qiexianzhangdingli",
+    "pinyinAbbr": "qxzdl"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.86,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "PA = PB = \\sqrt{d^{2} - r^{2}}",
+    "related_formulas": [
+      "\\angle APO = \\angle BPO",
+      "OP \\perp AB",
+      "S_{PAOB} = r \\cdot l"
+    ],
+    "variables": [
+      "P",
+      "O",
+      "A",
+      "B",
+      "r",
+      "d",
+      "l",
+      "PA",
+      "PB",
+      "AB"
+    ],
+    "conditions": "点 $P$ 在 $\\odot O$ 外，$OP = d > r$，过 $P$ 作 $\\odot O$ 的两条切线 $PA$、$PB$，切点分别为 $A$、$B$。",
+    "conclusions": "切线长 $PA = PB = \\sqrt{d^{2} - r^{2}}$；$OP$ 平分 $\\angle APB$；$OP$ 垂直平分 $AB$；四边形 $PAOB$ 的面积 $S = r \\cdot \\sqrt{d^{2} - r^{2}}$。"
+  },
+  "content": {
+    "statement": "若点 $P$ 在 $\\odot O$ 外，过 $P$ 作圆的两条切线 $PA$、$PB$，切点分别为 $A$、$B$，设圆半径为 $r$，$OP=d>r$，则切线长 $l=PA=PB=\\sqrt{d^{2}-r^{2}}$，且 $OP$ 平分 $\\angle APB$，$OP$ 垂直平分切点弦 $AB$。",
+    "derivation": [
+      "连接 $OA$、$OB$，因为 $OA\\perp PA$，$OB\\perp PB$，所以 $\\triangle OAP$ 和 $\\triangle OBP$ 是直角三角形。",
+      "由勾股定理得 $PA^{2}=OP^{2}-OA^{2}=d^{2}-r^{2}$，同理 $PB^{2}=d^{2}-r^{2}$，故 $PA=PB=\\sqrt{d^{2}-r^{2}}$。",
+      "由 $\\triangle OAP\\cong\\triangle OBP$（$OA=OB$，$OP$ 公共，$PA=PB$）得 $\\angle APO=\\angle BPO$，且 $OP$ 垂直平分 $AB$。"
+    ],
+    "intuition": "圆的切线垂直于半径，构造直角三角形，利用勾股定理直接得到长度关系。",
+    "common_tricks": [
+      "已知 $d$ 和 $r$ 可求切线长 $l$；已知 $l$ 和 $r$ 可求 $d$（$d=\\sqrt{l^{2}+r^{2}}$）；已知 $l$ 和 $d$ 可求 $r$（$r=\\sqrt{d^{2}-l^{2}}$）。",
+      "利用切线长相等进行线段替换，可简化三角形或四边形周长的计算。",
+      "证明垂直平分时需同时验证垂直和平分两个条件，不可遗漏。",
+      "四边形 $PAOB$ 的面积可拆分为两个全等的直角三角形求和，即 $S=2\\cdot\\frac{1}{2}r\\cdot l = r l$。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "几何证明题",
+      "线段长度计算",
+      "角度求解",
+      "面积问题"
+    ],
+    "problem_types": [
+      "求切线长",
+      "求圆心到点的距离",
+      "求三角形或四边形周长",
+      "证明垂直或平分",
+      "求四边形面积"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {
+      "r": 3,
+      "d": 5
+    }
+  },
+  "assets": {
+    "svg": "P026.svg"
+  },
+  "shareConfig": {
+    "title": "切线长定理：圆外一点到两切点等距，可用线段替换求周长",
+    "shareDesc": "适合刷题前速查和讲评课回顾，利用切线长相等可直接进行线段替换，减少几何证明中找等量关系的步骤，提升解题稳定性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "圆的切线性质（半径垂直于切线）",
+      "勾股定理",
+      "全等三角形判定"
+    ],
+    "related_ids": [],
+    "similar": "圆幂定理（切线与割线关系）"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-25"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "解析几何-圆-位置关系",
+  "altNodes": "其他-未分类-待定"
+}
