@@ -1,0 +1,67 @@
+\begin{proofbox}
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	通过将右端展开并与左端比较系数，可以建立关于 $\varphi$ 的方程组，解出 $\cos\varphi$ 和 $\sin\varphi$，从而证明公式成立。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（设定目标）：}] 假设存在角 $\varphi$ 使得待证等式成立：
+			\[
+				a\sin x + b\cos x = \sqrt{a^{2}+b^{2}}\,\sin(x+\varphi)
+			\].
+			下面通过确定 $\varphi$ 满足的条件来证明该假设合理。
+			\par\textbf{理由：} 证明的思路是“待定系数法”，先假设形式，再求解辅助角。
+
+		\item[\textbf{步骤二（展开右端）：}] 利用两角和的正弦公式展开右端：
+			\[
+				\sqrt{a^{2}+b^{2}}\sin(x+\varphi)
+				= \sqrt{a^{2}+b^{2}}(\sin x\cos\varphi + \cos x\sin\varphi)
+			\].
+			\par\textbf{理由：} 将未知角 $\varphi$ 的正余弦提到系数位置，便于与左端比较。
+
+		\item[\textbf{步骤三（比较系数）：}] 上式中 $\sin x$ 和 $\cos x$ 的系数应分别等于左端系数：
+			\[
+				\begin{cases}
+					\sqrt{a^{2}+b^{2}}\cos\varphi = a,\\[4pt]
+					\sqrt{a^{2}+b^{2}}\sin\varphi = b.
+			\end{cases}
+			\]
+			\par\textbf{理由:} 因为 $\sin x$ 与 $\cos x$ 线性无关,同次项的系数必须对应相等.
+
+		\item[\textbf{步骤四(解出正余弦):}] 由上述方程组解出:
+			\[
+				\cos\varphi = \frac{a}{\sqrt{a^{2}+b^{2}}},
+				\qquad
+				\sin\varphi = \frac{b}{\sqrt{a^{2}+b^{2}}}
+			\].
+			\par\textbf{理由:} 两边同除以 $\sqrt{a^{2}+b^{2}}$(它不为零,因为 $a,b$ 不全为零).
+
+		\item[\textbf{步骤五(验证存在性):}] 验证 $\cos^{2}\varphi+\sin^{2}\varphi = 1$:
+			\[
+				\begin{aligned}
+					\left(\frac{a}{\sqrt{a^{2}+b^{2}}}\right)^{2}
+					+\left(\frac{b}{\sqrt{a^{2}+b^{2}}}\right)^{2}
+					&= \frac{a^{2}+b^{2}}{a^{2}+b^{2}} \\
+					&= 1
+			\end{aligned}
+			\].
+			因此存在实数 $\varphi$ 满足上述正余弦值.
+			\par\textbf{理由:} 单位圆上的任意一点 $(\cos\varphi,\sin\varphi)$ 都对应唯一的角度(相差 $2\pi$),所以 $\varphi$ 存在.
+
+		\item[\textbf{步骤六(象限与正切):}] $\varphi$ 的象限由 $(\cos\varphi,\sin\varphi)$ 的符号决定,即由 $(a,b)$ 的符号决定.当 $a\neq0$ 时,还有
+			\[
+				\begin{aligned}
+					\tan\varphi &= \frac{\sin\varphi}{\cos\varphi} \\
+					&= \frac{b}{a}
+			\end{aligned}
+			\].
+			\par\textbf{理由:} 正切等于正余弦之比,但单用正切无法判断象限,必须结合 $a,b$ 的符号.
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	上述推导表明,对任意不同时为零的实数 $a,b$,确实存在角 $\varphi$ 满足 $\cos\varphi = a/\sqrt{a^{2}+b^{2}}$,$\sin\varphi = b/\sqrt{a^{2}+b^{2}}$,使得 $a\sin x + b\cos x = \sqrt{a^{2}+b^{2}}\sin(x+\varphi)$.类似地,若将右端改为余弦形式,可得 $\varphi'$ 满足 $\cos\varphi' = b/\sqrt{a^{2}+b^{2}}$,$\sin\varphi' = a/\sqrt{a^{2}+b^{2}}$,从而得到余弦表达式.
+\end{proofbox}
