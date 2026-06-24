@@ -1,0 +1,57 @@
+\begin{proofbox}
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	将两圆方程（或圆与直线方程）线性组合后，交点坐标自动满足，因此组合曲线必过所有交点。再通过二次项系数判断曲线类型，而参数$\lambda$（或$\mu$）的调节可以得到不同的过交点的圆。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（两圆组合验证）：}] 设 $C_1(x,y)=x^2+y^2+D_1x+E_1y+F_1$, $C_2(x,y)=x^2+y^2+D_2x+E_2y+F_2$。构造曲线族
+			\[
+				C_1(x,y)+\lambda C_2(x,y)=0,
+				\qquad
+				\lambda\in\mathbb{R}.
+			\]
+			若点 $P(x_0,y_0)$ 是 $C_1$ 与 $C_2$ 的交点，则 $C_1(P)=0$, $C_2(P)=0$，因此 $C_1(P)+\lambda C_2(P)=0$，即 $P$ 在组合曲线上。
+			\par\textbf{理由：} 交点坐标使两个原方程同时为零，代入线性组合必为零。
+
+		\item[\textbf{步骤二（二次项判型）：}] 将方程展开整理：
+			\[
+				(1+\lambda)(x^2+y^2)+(D_1+\lambda D_2)x+(E_1+\lambda E_2)y+(F_1+\lambda F_2)=0.
+			\]
+			当 $\lambda\neq -1$ 时，$x^2$ 与 $y^2$ 系数同号且相等，该曲线为圆（可能退化为点圆，但交点保证它为实圆）；当 $\lambda=-1$ 时，方程退化为一次方程：
+			\[
+				(D_1-D_2)x+(E_1-E_2)y+(F_1-F_2)=0,
+			\]
+			即两圆公共弦所在直线。
+			\par\textbf{理由：} 二次项系数决定曲线类型，一次项及常数项影响位置。
+
+		\item[\textbf{步骤三（两圆参数完备）：}] $\lambda$ 取遍除 $-1$ 外的所有实数，得到一族过同一公共点的圆；这族圆恰好包含了所有过这两交点的圆（除 $C_2$ 外）。因为过两点的圆族只有一个自由度，参数 $\lambda$ 正好提供了这个自由度。
+			\par\textbf{理由：} 几何上过两点的圆有无数个，有且仅有一个自由参数，与圆系中的 $\lambda$ 对应。
+
+		\item[\textbf{步骤四（直线-圆组合验证）：}] 设 $C(x,y)=x^2+y^2+Dx+Ey+F$, $l(x,y)=Ax+By+C$。构造曲线族
+			\[
+				C(x,y)+\mu\,l(x,y)=0,
+				\qquad
+				\mu\in\mathbb{R}.
+			\]
+			若点 $P(x_0,y_0)$ 是 $l$ 与 $C$ 的交点，则 $C(P)=0$, $l(P)=0$，故 $C(P)+\mu l(P)=0$，$P$ 在曲线上。
+			\par\textbf{理由：} 同步骤一。
+
+		\item[\textbf{步骤五（直线-圆判型）：}] 上述方程展开得
+			\[
+				x^2+y^2+(D+\mu A)x+(E+\mu B)y+(F+\mu C)=0.
+			\]
+			因为 $x^2$、$y^2$ 系数恒为 $1$（非零且相等），所以无论 $\mu$ 取何实数，该曲线总是圆（或点圆），且过直线与圆的交点。
+			\par\textbf{理由：} 二次项系数未改变，始终表示圆。
+
+		\item[\textbf{步骤六（直线-圆参数完备）：}] 通过改变 $\mu$ 可以得到所有过直线与圆交点的圆，这也是因为过两点的圆族由一个自由参数决定，而 $\mu$ 恰好提供了这个自由度。
+			\par\textbf{理由：} 几何同上。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	综上，过两圆（或圆与直线）交点的圆族可以统一表示为 $C_1+\lambda C_2=0$（$\lambda\neq -1$）或 $C+\mu l=0$（$\mu\in\mathbb{R}$），使用时只需额外条件确定参数即可。
+\end{proofbox}
