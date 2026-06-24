@@ -1,0 +1,48 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用内切圆性质，将 $\triangle ABC$ 分割为三个以内切圆半径为高的小三角形，通过面积求和证明 $S=pr$。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（分割三角形）：}] 设 $\triangle ABC$ 的内心为 $I$，连接 $IA,IB,IC$，将原三角形分为 $\triangle IBC,\triangle ICA,\triangle IAB$。
+			\par\textbf{理由：} 分割的三个小三角形完全覆盖原三角形且互不重叠。
+
+		\item[\textbf{步骤二（确定高）：}] 因 $I$ 是内心，到三边的距离均为内切圆半径 $r$，且各小三角形以原边为底，高都是 $r$。
+			\par\textbf{理由：} 内心性质：$I$ 到三角形各边距离相等且等于内切圆半径，且 $I$ 向边作垂线垂直底边。
+
+		\item[\textbf{步骤三（求各小面积）：}] 使用三角形面积公式，得
+			\[
+				\begin{aligned}
+					S_{\triangle IBC} &= \frac12 a r,\\
+					S_{\triangle ICA} &= \frac12 b r,\\
+					S_{\triangle IAB} &= \frac12 c r.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 底分别为 $a,b,c$，高均为 $r$。
+
+		\item[\textbf{步骤四（求和）：}]
+			\[
+				\begin{aligned}
+					S &= \frac12 a r + \frac12 b r + \frac12 c r \\
+					&= \frac12 (a+b+c) r.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 提取公因式 $\frac12 r$。
+
+		\item[\textbf{步骤五（代换半周长）：}] 由半周长定义 $p=\frac{a+b+c}{2}$，得 $\frac12(a+b+c)=p$，故
+			\[
+				S = p r.
+			\]
+			\par\textbf{理由：} 将 $\frac12(a+b+c)$ 换为 $p$。
+
+		\item[\textbf{步骤六（得证）：}] 因此 $S = \frac12(a+b+c)r$，即 $S = p r$，公式成立。
+			\par\textbf{理由：} 证毕。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{该证明通过几何分割将面积关系转化为代数运算，得出简洁公式 $S=pr$，可用于已知半周长和内切圆半径直接求面积，或逆用求半径。}
+\end{proofbox}
