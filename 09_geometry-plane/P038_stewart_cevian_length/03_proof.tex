@@ -1,0 +1,60 @@
+\begin{proofbox}
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	分别在 $\triangle ABD$ 和 $\triangle ACD$ 中用余弦定理表示 $c^{2}$ 和 $b^{2}$，利用 $\angle ADB$ 与 $\angle ADC$ 互补，两式加权相加消去余弦项，化简即得。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（左三角余弦）：}] 在 $\triangle ABD$，设 $\theta = \angle ADB$，由余弦定理：
+			\[
+				c^{2} = m^{2} + d^{2} - 2md\cos\theta.
+			\]
+			\par\textbf{理由：} 直接对边 $AB$ 应用余弦定理。
+
+		\item[\textbf{步骤二（右三角余弦）：}] 在 $\triangle ADC$，$\angle ADC = \pi - \theta$，由余弦定理及 $\cos(\pi-\theta) = -\cos\theta$：
+			\[
+				\begin{aligned}
+					b^{2} &= n^{2} + d^{2} - 2nd\cos(\pi-\theta) \\
+					&= n^{2} + d^{2} + 2nd\cos\theta.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 互补角余弦值相反。
+
+		\item[\textbf{步骤三（加权乘数）：}] 将步骤一的两边乘以 $n$，得到
+			\[
+				c^{2}n = m^{2}n + d^{2}n - 2mnd\cos\theta.
+			\]
+			将步骤二的两边乘以 $m$，得到
+			\[
+				b^{2}m = n^{2}m + d^{2}m + 2mnd\cos\theta.
+			\]
+			\par\textbf{理由：} 为后续相加消去 $\cos\theta$ 做准备。
+
+		\item[\textbf{步骤四（相加消元）：}] 将步骤三的两式相加，左边得 $c^{2}n + b^{2}m$；右边合并得：
+			\[
+				\begin{aligned}
+					c^{2}n + b^{2}m &= (m^{2}n + d^{2}n - 2mnd\cos\theta) + (n^{2}m + d^{2}m + 2mnd\cos\theta) \\
+					&= mn(m+n) + d^{2}(m+n) \\
+					&= a(mn + d^{2}).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} $\cos\theta$ 项抵消，提取公因式并利用 $m+n=a$ 化简。
+
+		\item[\textbf{步骤五（整理结论）：}] 将上一步等式整理，即得
+			\[
+				c^{2}n + b^{2}m = a(d^{2}+mn),
+			\]
+			等价变形为
+			\[
+				d^{2} = \frac{c^{2}n + b^{2}m}{a} - mn.
+			\]
+			\par\textbf{理由：} 两边同除以 $a$（$a>0$）并移项。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{推导表明，通过互补角余弦定理的加权相加，消去中间角，得到仅含边长和分线段长度的关系式，即斯特瓦尔特定理。}
+\end{proofbox}
