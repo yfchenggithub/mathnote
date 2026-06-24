@@ -1,0 +1,175 @@
+{
+  "id": "T027",
+  "module": "trigonometry",
+  "core": {
+    "title": "余弦定理变形：三边求角与三角形形状判断",
+    "alias": [
+      "余弦定理求角公式",
+      "三边求角公式",
+      "余弦形状判断"
+    ],
+    "summary": "已知三角形三边长度，可直接计算任意内角的余弦值，并通过最大角的余弦符号判断三角形是锐角、直角还是钝角。",
+    "difficulty": 2,
+    "category": "解三角形",
+    "tags": [
+      "余弦定理",
+      "求角",
+      "形状判断",
+      "三边关系",
+      "最大角"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "余弦定理变形",
+      "cosA",
+      "b^2+c^2-a^2",
+      "2bc",
+      "三边求角",
+      "三角形形状判断",
+      "最大角余弦",
+      "锐角三角形",
+      "直角三角形",
+      "钝角三角形",
+      "余弦值公式",
+      "cosB",
+      "cosC",
+      "解三角形"
+    ],
+    "synonyms": [
+      "用边长算角度",
+      "三边求余弦",
+      "余弦定理求角变形",
+      "三角形角度公式",
+      "余弦判定形状"
+    ],
+    "intents": [
+      "求角",
+      "判断三角形形状",
+      "计算余弦",
+      "比较三边",
+      "找最大角"
+    ],
+    "query_templates": [
+      "余弦定理求角公式",
+      "三边求角度公式",
+      "三角形形状判断余弦",
+      "已知三边求cos",
+      "最大角余弦符号"
+    ],
+    "ocrKeywords": [
+      "cosA=",
+      "b^2+c^2-a^2",
+      "2bc",
+      "cosB",
+      "cosC",
+      "钝角三角形",
+      "直角三角形",
+      "锐角三角形"
+    ],
+    "latex_patterns": "\\cos A = \\frac{b^{2}+c^{2}-a^{2}}{2bc}",
+    "formulaTokens": [
+      "cos A",
+      "b^2+c^2-a^2",
+      "2bc",
+      "(b^2+c^2-a^2)/(2bc)",
+      "a^2",
+      "b^2",
+      "c^2"
+    ],
+    "pinyin": "yuxiandinglibianxing",
+    "pinyinAbbr": "yxdlbx"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.9,
+    "hot_score": 85,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\cos A = \\frac{b^{2}+c^{2}-a^{2}}{2bc}",
+    "related_formulas": [
+      "\\cos B = \\frac{a^{2}+c^{2}-b^{2}}{2ac}",
+      "\\cos C = \\frac{a^{2}+b^{2}-c^{2}}{2ab}"
+    ],
+    "variables": {
+      "a": "边BC的长度",
+      "b": "边AC的长度",
+      "c": "边AB的长度",
+      "A": "角A",
+      "B": "角B",
+      "C": "角C"
+    },
+    "conditions": "$\\triangle ABC$ 中，$A,B,C$ 为内角，$a,b,c$ 为对边，满足三角形不等式（任意两边之和大于第三边）。",
+    "conclusions": "1. 已知三边可求任意内角余弦：$\\cos A = \\frac{b^2+c^2-a^2}{2bc}$，$\\cos B = \\frac{a^2+c^2-b^2}{2ac}$，$\\cos C = \\frac{a^2+b^2-c^2}{2ab}$。\n2. 设 $M=\\max\\{A,B,C\\}$，则 $\\cos M > 0 \\Rightarrow$ 锐角三角形，$\\cos M = 0 \\Rightarrow$ 直角三角形，$\\cos M < 0 \\Rightarrow$ 钝角三角形。"
+  },
+  "content": {
+    "statement": "在任意三角形 $ABC$ 中，设角 $A,B,C$ 的对边分别为 $a,b,c$，则有 $\\cos A = \\frac{b^{2}+c^{2}-a^{2}}{2bc}$，同理可得 $\\cos B, \\cos C$ 的轮换形式。利用该组公式可由已知三边求任意内角的余弦值，并能通过最大角的余弦符号判断三角形形状（正为锐角三角形，零为直角三角形，负为钝角三角形）。",
+    "derivation": [
+      "由余弦定理 $a^2 = b^2 + c^2 - 2bc\\cos A$，移项得 $2bc\\cos A = b^2 + c^2 - a^2$。",
+      "两边同时除以 $2bc$ 即得 $\\cos A = \\frac{b^2 + c^2 - a^2}{2bc}$。",
+      "同理可推导 $\\cos B$ 和 $\\cos C$ 的表达式。"
+    ],
+    "intuition": "余弦定理将边长与角度余弦直接关联，移项后即可用三边表示角的余弦。",
+    "common_tricks": [
+      "判断形状时先找出最大边（对应最大角），只计算该角的余弦即可。",
+      "若已知三边比例，可设参数表示边长，代入公式消去参数。",
+      "注意公式中分子是被减边的平方放在减号后，如 $\\cos A$ 分子为 $b^2 + c^2 - a^2$。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "解三角形题型",
+      "已知三边求角度",
+      "判断三角形形状"
+    ],
+    "problem_types": [
+      "填空题",
+      "选择题",
+      "计算题"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "T027.svg",
+    "png": "",
+    "webp": ""
+  },
+  "shareConfig": {
+    "title": "余弦定理变形：三边求角与形状判断",
+    "shareDesc": "适合解三角形课后复盘和刷题前速查，直接用三边求任意角余弦，省去代数变形步骤，同时快速判断三角形形状。"
+  },
+  "relations": {
+    "prerequisites": [
+      "余弦定理",
+      "三角形边角关系",
+      "三角形不等式"
+    ],
+    "related_ids": [],
+    "similar": [
+      "正弦定理变形：$a=2R\\sin A$",
+      "三角形面积公式：$S=\\frac12ab\\sin C$"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-24"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "其他-未分类-待定",
+  "altNodes": ""
+}
