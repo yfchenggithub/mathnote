@@ -1,0 +1,185 @@
+{
+  "id": "P031",
+  "module": "geometry-plane",
+  "core": {
+    "title": "外心性质与正弦定理",
+    "alias": [
+      "外心到顶点距离",
+      "外接圆半径公式",
+      "a/sinA=2R",
+      "边角关系",
+      "正弦定理求半径"
+    ],
+    "summary": "非退化三角形中，外心到三个顶点距离相等且等于外接圆半径；正弦定理将边长与对角正弦联系起来，比值等于外接圆直径。",
+    "difficulty": 2,
+    "category": "平面几何",
+    "tags": [
+      "外心",
+      "正弦定理",
+      "外接圆",
+      "三角形",
+      "解三角形",
+      "半径"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "外心",
+      "三角形",
+      "外接圆半径",
+      "正弦定理",
+      "边长",
+      "对角正弦",
+      "OA=OB=OC=R",
+      "a/sinA=2R",
+      "解三角形",
+      "边角互化",
+      "R计算",
+      "外心性质",
+      "a=2RsinA"
+    ],
+    "synonyms": [
+      "外心到顶点距离公式",
+      "正弦定理求半径",
+      "a比sinA等于2R",
+      "外心半径",
+      "正旋定理",
+      "外心顶点相等"
+    ],
+    "intents": [
+      "求外接圆半径",
+      "证明边角关系",
+      "计算边长",
+      "计算角度",
+      "判断外心位置"
+    ],
+    "query_templates": [
+      "已知三角形两边及夹角求外接圆半径",
+      "正弦定理求R",
+      "外心性质总结",
+      "如何用正弦定理求边长",
+      "三角形外心到顶点距离相等"
+    ],
+    "ocrKeywords": [
+      "三角形",
+      "外接圆",
+      "半径",
+      "R",
+      "sin",
+      "边长",
+      "外心"
+    ],
+    "latex_patterns": [
+      "a/(2\\sin A)",
+      "a/\\sin A = 2R",
+      "OA = OB = OC = R"
+    ],
+    "formulaTokens": [
+      "OA=OB=OC=R",
+      "a/(2\\sin A)",
+      "b/(2\\sin B)",
+      "c/(2\\sin C)",
+      "a/\\sin A",
+      "2R",
+      "\\frac{a}{\\sin A}",
+      "\\frac{b}{\\sin B}",
+      "\\frac{c}{\\sin C}"
+    ],
+    "pinyin": "wai xin xing zhi yu zheng xuan ding li",
+    "pinyinAbbr": "wxxyzxdl"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.6,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\displaystyle OA = OB = OC = R,\\quad \\frac{a}{\\sin A} = \\frac{b}{\\sin B} = \\frac{c}{\\sin C} = 2R",
+    "related_formulas": [
+      "R = \\frac{a}{2\\sin A} = \\frac{b}{2\\sin B} = \\frac{c}{2\\sin C}",
+      "a = 2R\\sin A,\\quad b = 2R\\sin B,\\quad c = 2R\\sin C",
+      "\\sin A = \\frac{a}{2R},\\quad \\sin B = \\frac{b}{2R},\\quad \\sin C = \\frac{c}{2R}"
+    ],
+    "variables": [
+      "O",
+      "A",
+      "B",
+      "C",
+      "a",
+      "b",
+      "c",
+      "R",
+      "\\sin A",
+      "\\sin B",
+      "\\sin C"
+    ],
+    "conditions": "非退化三角形 $\\triangle ABC$（三点不共线），外心 $O$ 存在且唯一。正弦定理要求边与对角对应。",
+    "conclusions": "外心到三个顶点距离相等且等于外接圆半径：$OA=OB=OC=R$。边长与对角正弦的比值等于外接圆直径 $2R$：$\\frac{a}{\\sin A} = \\frac{b}{\\sin B} = \\frac{c}{\\sin C} = 2R$。"
+  },
+  "content": {
+    "statement": "对于任意非退化三角形 $\\triangle ABC$，设其外心为点 $O$，外接圆半径为 $R$，则有 $OA = OB = OC = R$。进一步结合正弦定理可得 $\\displaystyle R = \\frac{a}{2\\sin A} = \\frac{b}{2\\sin B} = \\frac{c}{2\\sin C}$，其中 $a = BC$，$b = CA$，$c = AB$。",
+    "derivation": [
+      "由外心定义：外心是各边垂直平分线的交点，故到三个顶点的距离相等，设为 $R$。",
+      "作外接圆直径 $BD$，连接 $CD$。由圆周角定理得 $\\angle BCD = 90^\\circ$，且 $\\angle BDC = \\angle A$。在 $\\triangle BCD$ 中，$a = BC = BD \\cdot \\sin A = 2R \\sin A$。",
+      "同理可得 $b = 2R \\sin B$，$c = 2R \\sin C$，即 $\\frac{a}{\\sin A} = \\frac{b}{\\sin B} = \\frac{c}{\\sin C} = 2R$。"
+    ],
+    "intuition": "外心是外接圆的圆心，所以到顶点的距离就是半径；正弦定理本质上是用圆的直径把弦长和圆周角联系起来。",
+    "common_tricks": [
+      "已知一边及其对角，直接用 $R = a/(2\\sin A)$ 求半径。",
+      "已知两边及一边对角，用正弦定理先求另一角或半径。",
+      "外心位置可判断三角形形状：锐角三角形外心在内部，直角三角形在斜边中点，钝角三角形在外部。",
+      "注意必须边角对应，如 $a$ 对应 $A$，否则计算错误。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "解三角形",
+      "几何证明",
+      "外接圆半径计算"
+    ],
+    "problem_types": [
+      "计算题",
+      "证明题",
+      "选择题"
+    ],
+    "exam_frequency": 0.7,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "P031.svg"
+  },
+  "shareConfig": {
+    "title": "外心性质与正弦定理：三角形边角互化利器",
+    "shareDesc": "适合课后复习和刷题前速查，直接掌握外接圆半径与正弦定理的等价关系，解三角形时能快速转化边角，减少步骤出错。"
+  },
+  "relations": {
+    "prerequisites": [
+      "三角形内角和",
+      "圆周角定理",
+      "等腰三角形性质"
+    ],
+    "related_ids": [],
+    "similar": "与三角形外心相关的其他性质，如外心与内心、重心的位置关系等。"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-25"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "三角函数-解法-三角方程",
+  "altNodes": ""
+}
