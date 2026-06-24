@@ -1,0 +1,38 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	利用向量运算，以外心$O$为坐标原点，将各点的位置用向量表示，通过重心公式和垂心的向量表示，直接推导出$\overrightarrow{OH}=3\overrightarrow{OG}$，从而得到共线比例和中点关系。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（基底设定）：}]
+			以$O$为原点，设$\overrightarrow{OA}=\vec{a}$，$\overrightarrow{OB}=\vec{b}$，$\overrightarrow{OC}=\vec{c}$，则$|\vec{a}|=|\vec{b}|=|\vec{c}|=R$（$R$为外接圆半径）。
+			\par\textbf{理由：} 外心$O$到三顶点距离相等，以此为原点可简化计算。
+		\item[\textbf{步骤二（重心表示）：}]
+			重心$G$满足$\overrightarrow{OG}=\frac{1}{3}(\vec{a}+\vec{b}+\vec{c})$。
+			\par\textbf{理由：} 重心坐标是三个顶点坐标的算术平均。
+		\item[\textbf{步骤三（垂心表示）：}]
+			我们断言$\overrightarrow{OH}=\vec{a}+\vec{b}+\vec{c}$。验证：计算
+			\[
+				\overrightarrow{AH}=(\vec{a}+\vec{b}+\vec{c})-\vec{a}=\vec{b}+\vec{c},\quad \overrightarrow{BC}=\vec{c}-\vec{b}.
+			\]
+			则$\overrightarrow{AH}\cdot\overrightarrow{BC}=(\vec{b}+\vec{c})\cdot(\vec{c}-\vec{b})=|\vec{c}|^2-|\vec{b}|^2=0$，故$AH\perp BC$。 同理可证$BH\perp AC$，$CH\perp AB$，因此该点确为垂心$H$。
+			\par\textbf{理由：} 通过验证垂直条件判断点的位置，利用唯一性确认该点即垂心。
+		\item[\textbf{步骤四（比例推导）：}]
+			由步骤二和步骤三得
+			\[
+				\begin{aligned}
+					\overrightarrow{OH} &= \vec{a}+\vec{b}+\vec{c} \\\\ &= 3 \cdot \frac{\vec{a}+\vec{b}+\vec{c}}{3} \\\\ &= 3\overrightarrow{OG}.
+			\end{aligned}
+			\]
+			因此$OH=3OG$，即$OG:GH=1:2$（因为$OH=OG+GH$，代入得$OG+GH=3OG\Rightarrow GH=2OG$）。
+			\par\textbf{理由：} 直接代入已得表达式即可。
+		\item[\textbf{步骤五（共线及中点）：}]
+			由$\overrightarrow{OH}=3\overrightarrow{OG}$知$\overrightarrow{OH}$与$\overrightarrow{OG}$共线，故$O,G,H$三点共线。令$N$为$OH$中点，则$N$在$OH$上，从而$O,G,H,N$四点共线。
+			\par\textbf{理由：} 向量共线传递到点共线；中点定义保证$N$在$OH$上。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	以上推导证实：在非等边三角形$ABC$中，重心$G$、外心$O$、垂心$H$及$OH$的中点$N$（即九点圆心）四点共线，且满足$\overrightarrow{OH}=3\overrightarrow{OG}$（即$OG:GH=1:2$），$N$为$OH$中点。当三角形为等边时，$\vec{a}+\vec{b}+\vec{c}=\vec{0}$，三点重合，定理退化为重合情形。
+\end{proofbox}
