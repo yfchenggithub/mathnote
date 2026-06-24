@@ -1,0 +1,183 @@
+{
+  "id": "T029",
+  "module": "trigonometry",
+  "core": {
+    "title": "三角形边角判据（锐直钝判定）",
+    "alias": [
+      "边角判定",
+      "锐角判据",
+      "直角判据",
+      "钝角判据",
+      "最大边判据"
+    ],
+    "summary": "角A为锐角、直角或钝角，完全等价于a²小于、等于或大于b²+c²。",
+    "difficulty": 2,
+    "category": "解三角形",
+    "tags": [
+      "解三角形",
+      "余弦定理",
+      "边角关系",
+      "锐角钝角判定",
+      "三角形形状判断",
+      "最大边"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "三角形",
+      "边角判据",
+      "锐角",
+      "直角",
+      "钝角",
+      "a²",
+      "b²+c²",
+      "比较",
+      "余弦定理",
+      "最大边",
+      "三角形形状",
+      "判定",
+      "等价",
+      "锐角三角形",
+      "直角三角形",
+      "钝角三角形"
+    ],
+    "synonyms": [
+      "锐直钝判定",
+      "三角形形状判断",
+      "边角关系",
+      "cos定理判定",
+      "平方和比较",
+      "最大边平方"
+    ],
+    "intents": [
+      "判断三角形形状",
+      "判断角类型",
+      "判定锐角",
+      "判定直角",
+      "判定钝角",
+      "比较边长平方",
+      "应用余弦定理"
+    ],
+    "query_templates": [
+      "怎么判断一个角是锐角还是钝角",
+      "三角形边平方和与角的关系",
+      "a²和b²+c²比较判断角",
+      "已知三边判断三角形的形状",
+      "如何快速判断三角形是锐角直角钝角"
+    ],
+    "ocrKeywords": [
+      "a^2",
+      "b^2+c^2",
+      "锐角",
+      "直角",
+      "钝角"
+    ],
+    "latex_patterns": [
+      "a^2 < b^2 + c^2",
+      "a^2 = b^2 + c^2",
+      "a^2 > b^2 + c^2"
+    ],
+    "formulaTokens": [
+      "a^2",
+      "b^2+c^2",
+      "a^2<b^2+c^2",
+      "a^2=b^2+c^2",
+      "a^2>b^2+c^2",
+      "b^2",
+      "c^2"
+    ],
+    "pinyin": "sanjiaoxing bianjiao panju ruijiao zhijiao dunjiao",
+    "pinyinAbbr": "sjxbjprjzjdj"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.82,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\angle A<90^\\circ \\iff a^2<b^2+c^2,\\quad \\angle A=90^\\circ \\iff a^2=b^2+c^2,\\quad \\angle A>90^\\circ \\iff a^2>b^2+c^2.",
+    "related_formulas": [
+      "c^2<a^2+b^2 \\iff \\angle C<90^\\circ,\\quad c^2=a^2+b^2 \\iff \\angle C=90^\\circ,\\quad c^2>a^2+b^2 \\iff \\angle C>90^\\circ.",
+      "a^2 = b^2 + c^2 - 2bc\\cos A"
+    ],
+    "variables": [
+      "a",
+      "b",
+      "c",
+      "A",
+      "B",
+      "C"
+    ],
+    "conditions": "在三角形$\\triangle ABC$中，$a,b,c$分别为角$A,B,C$的对边，且满足三角形不等式。",
+    "conclusions": "可判断角$A$的类型：锐角、直角或钝角；进一步可判断三角形形状（按最大角）。"
+  },
+  "content": {
+    "statement": "在三角形$\\triangle ABC$中，设$a$为角$A$的对边，$b,c$为其余两边，则角$A$的类型与$a^2$和$b^2+c^2$的关系等价：$\\angle A$为锐角当且仅当$a^2<b^2+c^2$；直角当且仅当$a^2=b^2+c^2$；钝角当且仅当$a^2>b^2+c^2$。",
+    "derivation": [
+      "由余弦定理$a^2=b^2+c^2-2bc\\cos A$，移项得$a^2-(b^2+c^2) = -2bc\\cos A$。",
+      "因为$b,c>0$，所以$a^2-(b^2+c^2)$与$\\cos A$符号相反。",
+      "故$a^2<b^2+c^2 \\iff \\cos A>0 \\iff \\angle A<90^\\circ$，其余类推。"
+    ],
+    "intuition": "余弦定理将边平方差与角余弦值直接挂钩，余弦正负对应角的锐直钝。",
+    "common_tricks": [
+      "判断三角形形状时，先找出最大边，用其平方与另两边平方和比较。",
+      "单个角为锐角不等同于锐角三角形，需检查所有角（或最大角）。",
+      "注意边角对应：a必须是A的对边，不能张冠李戴。",
+      "使用前确保三边满足三角形不等式（两边之和大于第三边）。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "判断三角形形状",
+      "求边长取值范围",
+      "解三角形选择题或填空题"
+    ],
+    "problem_types": [
+      "选择题",
+      "填空题",
+      "解答题"
+    ],
+    "exam_frequency": 1.0,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "triangle_angle_judgment.svg",
+    "png": "",
+    "gif": "",
+    "geogebra": ""
+  },
+  "shareConfig": {
+    "title": "三角形边角判据：快速判断锐直钝",
+    "shareDesc": "适合解三角形题型课后复盘，通过比较a²与b²+c²直接判断角类型，避免重复用余弦定理，提升做题速度和准确性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "余弦定理",
+      "三角形边角关系",
+      "平方和运算"
+    ],
+    "related_ids": [],
+    "similar": "余弦定理边角转化、正弦定理边角转化"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-24"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "三角函数-解法-三角方程",
+  "altNodes": "三角函数-基本关系-同角恒等,向量-数量积-定义"
+}
