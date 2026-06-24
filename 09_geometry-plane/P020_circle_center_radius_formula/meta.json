@@ -1,0 +1,168 @@
+{
+  "id": "P020",
+  "module": "conic",
+  "core": {
+    "title": "圆的一般方程与圆心半径公式",
+    "alias": [
+      "圆的一般式",
+      "一般方程",
+      "D²+E²-4F公式"
+    ],
+    "summary": "一般方程配方后得到标准形式，判别式大于0时表示圆，圆心和半径可由系数直接算出。",
+    "difficulty": 2,
+    "category": "解析几何",
+    "tags": [
+      "圆的一般方程",
+      "圆心半径",
+      "配方",
+      "解析几何",
+      "判别式"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "圆的一般方程",
+      "一般式",
+      "圆心",
+      "半径",
+      "配方",
+      "D²+E²-4F",
+      "判别式",
+      "圆的条件",
+      "x²+y²+Dx+Ey+F=0",
+      "圆心坐标",
+      "半径公式",
+      "一般式求圆心半径",
+      "圆的一般方程判断",
+      "圆的标准方程转化",
+      "D E F参数"
+    ],
+    "synonyms": [
+      "一般式圆",
+      "圆一般式",
+      "圆方程判断",
+      "圆心半径公式",
+      "圆的判别式"
+    ],
+    "intents": [
+      "判断",
+      "求圆心",
+      "求半径",
+      "配方",
+      "转化",
+      "解参数范围"
+    ],
+    "query_templates": [
+      "圆的一般方程怎么求圆心和半径",
+      "怎么判断一个方程是不是圆",
+      "圆的一般式D²+E²-4F是什么意思"
+    ],
+    "ocrKeywords": [
+      "x^2+y^2",
+      "Dx+Ey+F",
+      "圆心",
+      "半径",
+      "圆的一般方程"
+    ],
+    "latex_patterns": [
+      "x^2+y^2+Dx+Ey+F=0",
+      "D^2+E^2-4F>0",
+      "\\left(-\\frac{D}{2},-\\frac{E}{2}\\right)",
+      "\\frac{1}{2}\\sqrt{D^2+E^2-4F}"
+    ],
+    "formulaTokens": [
+      "x^2+y^2+Dx+Ey+F=0",
+      "D^2+E^2-4F",
+      "\\left(-\\frac{D}{2},-\\frac{E}{2}\\right)",
+      "\\frac{1}{2}\\sqrt{D^2+E^2-4F}",
+      "\\sqrt{D^2+E^2-4F}"
+    ],
+    "pinyin": "yuan de yi ban fang cheng",
+    "pinyinAbbr": "ydybfc"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.8,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\left(-\\frac{D}{2},-\\frac{E}{2}\\right), r=\\frac{1}{2}\\sqrt{D^2+E^2-4F}",
+    "related_formulas": [
+      "(x+\\frac{D}{2})^2+(y+\\frac{E}{2})^2=\\frac{D^2+E^2-4F}{4}",
+      "D^2+E^2-4F>0"
+    ],
+    "variables": "D,E,F,x,y（均为实数，其中 $D,E,F$ 为常数）",
+    "conditions": "方程必须为 $x^2+y^2+Dx+Ey+F=0$，其中 $x^2$ 和 $y^2$ 系数为 $1$，无 $xy$ 项，且 $D^2+E^2-4F>0$。",
+    "conclusions": "该方程表示一个圆，圆心为 $\\left(-\\frac{D}{2},-\\frac{E}{2}\\right)$，半径为 $\\frac{1}{2}\\sqrt{D^2+E^2-4F}$。"
+  },
+  "content": {
+    "statement": "若二元二次方程 $x^2+y^2+Dx+Ey+F=0$（其中 $x^2$、$y^2$ 的系数已化为 $1$，且无 $xy$ 项）满足 $D^2+E^2-4F>0$，则该方程表示一个圆，其圆心为 $\\left(-\\frac{D}{2},-\\frac{E}{2}\\right)$，半径为 $\\frac{1}{2}\\sqrt{D^2+E^2-4F}$。",
+    "derivation": [
+      "将 $x^2+y^2+Dx+Ey+F=0$ 配方：$(x^2+Dx)+(y^2+Ey)=-F$，再完成平方得 $(x+\\frac{D}{2})^2+(y+\\frac{E}{2})^2=\\frac{D^2+E^2-4F}{4}$。",
+      "右边为常数 $R=\\frac{D^2+E^2-4F}{4}$。当 $R>0$ 时，表示以 $(-\\frac{D}{2},-\\frac{E}{2})$ 为圆心、$\\sqrt{R}$ 为半径的圆。",
+      "半径为 $\\sqrt{\\frac{D^2+E^2-4F}{4}}=\\frac{1}{2}\\sqrt{D^2+E^2-4F}$。"
+    ],
+    "intuition": "通过配方将方程转化为平方和形式，平方和等于正数则表示到定点距离为定值的轨迹，即圆。",
+    "common_tricks": [
+      "若 $x^2,y^2$ 系数不是1，先除以该系数化为标准形式。",
+      "半径公式中的 $\\frac12$ 容易遗漏，注意 $r=\\frac12\\sqrt{D^2+E^2-4F}$。",
+      "判别式 $D^2+E^2-4F>0$ 是充要条件，$=0$ 表示点圆，$<0$ 不表示任何图形。",
+      "已知圆过两点求方程时，可设一般式利用待定系数法。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "解析几何求圆方程",
+      "参数范围",
+      "圆的判定"
+    ],
+    "problem_types": [
+      "判断方程是否表示圆",
+      "求圆心半径",
+      "利用待定系数法求圆方程"
+    ],
+    "exam_frequency": 0.9,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "P020.svg",
+    "png": "",
+    "webp": ""
+  },
+  "shareConfig": {
+    "title": "圆的一般方程：判别式判定与圆心半径公式",
+    "shareDesc": "适合刷题前速查或讲评课复盘，集中解决圆的一般式与标准式转化问题，避免半径公式漏系数和配方错误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "配方法",
+      "两点间距离公式",
+      "圆的标准方程"
+    ],
+    "related_ids": [],
+    "similar": "圆的标准方程 $(x-a)^2+(y-b)^2=r^2$，点与圆的位置关系。"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-24"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "解析几何-圆-标准方程",
+  "altNodes": [
+    "解析几何-圆-位置关系"
+  ]
+}
