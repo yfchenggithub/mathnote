@@ -1,0 +1,37 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	两条直线平行 $\iff$ 它们的法向量平行；若法向量平行但常数项不匹配，则平行不重合。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（法向量共线）：}]
+			直线 $L_i$ 的一个法向量为 $\mathbf{n}_i=(A_i,B_i)$ $(i=1,2)$。因为 $L_i$ 的方向垂直于 $\mathbf{n}_i$，所以 $L_1\parallel L_2$ 当且仅当 $\mathbf{n}_1\parallel\mathbf{n}_2$，即
+			\[
+				A_1B_2 - A_2B_1 = 0 \quad\iff\quad A_1B_2 = A_2B_1.
+			\]
+			\par\textbf{理由：} 法向量平行 $\iff$ 分量成比例 $\iff A_1B_2 = A_2B_1$（交叉相乘相等）。
+		\item[\textbf{步骤二（重合的条件）：}]
+			假设 $A_1B_2 = A_2B_1$ 且 $(A_1,B_1)\neq\mathbf{0}$（由条件已知）。则存在实数 $\lambda\neq0$ 使得
+			\[
+				(A_2,B_2) = \lambda\,(A_1,B_1).
+			\]
+			将 $L_2$ 方程改写为
+			\[
+				\lambda(A_1x+B_1y) + C_2 = 0.
+			\]
+			而 $L_1$ 方程为 $A_1x+B_1y+C_1=0$。两直线表示同一条直线当且仅当存在某个非零常数 $k$ 使得
+			\[
+				(\lambda A_1,\lambda B_1,C_2) = k\,(A_1,B_1,C_1).
+			\]
+			由前两个分量得 $k=\lambda$，因此 $C_2 = \lambda C_1$。由此可得 $A_1C_2 = A_2C_1$ 且 $B_1C_2 = B_2C_1$（因为 $A_2=\lambda A_1$, $B_2=\lambda B_1$）。
+			\par\textbf{理由：} 两方程表示同一直线 $\iff$ 对应系数全部成比例。
+		\item[\textbf{步骤三（平行非重合）：}]
+			若 $A_1B_2 = A_2B_1$ 但 $A_1C_2 \neq A_2C_1$ 或 $B_1C_2 \neq B_2C_1$，则两直线法向量平行但常数项不成比例，故它们平行但不重合。
+			\par\textbf{理由：} 此时 $C_2 \neq \lambda C_1$，直线 $L_2$ 不能化为 $L_1$ 的倍数，但方向相同。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	综合步骤一至三，即得：$L_1\parallel L_2$（不重合）的充要条件是 $A_1B_2 = A_2B_1$ 且 $(A_1C_2 \neq A_2C_1\ \text{ 或 }\ B_1C_2 \neq B_2C_1)$；重合的充要条件是 $A_1B_2 = A_2B_1$ 且 $A_1C_2 = A_2C_1$ 且 $B_1C_2 = B_2C_1$。
+\end{proofbox}
