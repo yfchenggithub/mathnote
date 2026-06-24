@@ -1,0 +1,60 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	以圆心 $O$ 为原点建系，将几何问题转化为直线与圆的交点参数。利用韦达定理直接得到线段乘积与 $d,R$ 的关系。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（建立坐标系）：}] 以圆心 $O$ 为原点建立平面直角坐标系，使 $P$ 在 $x$ 轴上，坐标为 $(d,0)$（$d=OP$）。圆 $O$ 方程为 $x^{2}+y^{2}=R^{2}$。
+			\[
+				O(0,0),\quad P(d,0),\quad \odot O: x^{2}+y^{2}=R^{2}.
+			\]
+			\par\textbf{理由：} 坐标平移旋转不变性，可简化计算。
+
+		\item[\textbf{步骤二（设直线参数）：}] 过 $P$ 任作一直线 $l$，设 $l$ 的倾斜角为 $\theta$，则 $l$ 的参数方程为
+			\[
+				\begin{cases}
+					x = d + t\cos\theta,\\
+					y = 0 + t\sin\theta,
+			\end{cases}
+			\]
+			其中 $t$ 为从 $P$ 出发的有向距离参数（$t$ 可正可负）。
+			\par\textbf{理由：} 参数 $t$ 的绝对值恰好是点 $P$ 到直线上点的距离，便于表示 $PA,PB$。
+
+		\item[\textbf{步骤三（代入圆方程）：}] 将参数方程代入 $x^{2}+y^{2}=R^{2}$，得
+			\[
+				(d+t\cos\theta)^{2} + (t\sin\theta)^{2} = R^{2}.
+			\]
+			展开：
+			\[
+				d^{2} + 2d t\cos\theta + t^{2}\cos^{2}\theta + t^{2}\sin^{2}\theta = R^{2}.
+			\]
+			利用 $\cos^{2}\theta+\sin^{2}\theta=1$ 整理得
+			\[
+				t^{2} + (2d\cos\theta)\,t + (d^{2} - R^{2}) = 0.
+			\]
+			\par\textbf{理由：} 展开后合并同类项，得到关于 $t$ 的二次方程。
+
+		\item[\textbf{步骤四（韦达定理求积）：}] 设直线 $l$ 与圆的交点 $A,B$ 对应的参数为 $t_{1},t_{2}$，则 $t_{1},t_{2}$ 是上述二次方程的两根。由韦达定理：
+			\[
+				t_{1}t_{2} = d^{2} - R^{2}.
+			\]
+			\par\textbf{理由：} 二次方程 $t^{2}+Bt+C=0$ 中 $C=d^{2}-R^{2}$，所以两根之积 $=C$。
+
+		\item[\textbf{步骤五（转化为长度乘积）：}] 由于 $PA = |t_{1}|,\; PB = |t_{2}|$（$t$ 的绝对值等于距离），所以
+			\[
+				\begin{aligned}
+					PA\cdot PB &= |t_{1}|\cdot|t_{2}| \\
+					&= |t_{1}t_{2}| \\
+					&= |d^{2} - R^{2}|.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 长度乘积为对应参数绝对值之积，等于积的绝对值。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{由此完成了圆幂定理的证明：过平面内任意点 $P$ 的直线与定圆交于 $A,B$，恒有 $PA\cdot PB = |d^{2}-R^{2}|$，其中 $d=OP$。}
+\end{proofbox}
