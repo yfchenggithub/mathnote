@@ -1492,3 +1492,70 @@ Processing Pipeline: 100%|██████████| 1/1 [07:44<00:00, 464.
 [2026-06-24 17:52:25] [latex] Generating LaTeX for T036...
 [2026-06-24 17:52:59] [write] source.tex updated from 12_pipeline\generated_sources\T036.tex (800 chars)
 [2026-06-24 17:52:59] [pipeline] Running run_source_to_pdf.py 08_trigonometry --target-id T036...
+[2026-06-24 18:14:26] [publish] PDF_READY confirmed for T036; deployment is allowed
+[2026-06-24 18:14:26] [publish] Running incremental_publish.py for T036...
+[2026-06-24 18:15:13] [done] T036 -> T036: complete
+[2026-06-24 18:15:16] 
+[2026-06-24 18:15:16] ============================================================
+[2026-06-24 18:15:16] [progress] 23/24: T037 | T037 | 海伦公式：S=√[p(p-a)(p-b)(p-c)]，p=½(a+b+c) | 教材/竞赛降维 |
+[2026-06-24 18:15:16] ============================================================
+[2026-06-24 18:15:16] [start] T037: 08_trigonometry:81 | T037 | 海伦公式：S=√[p(p-a)(p-b)(p-c)]，p=½(a+b+c) | 教材/竞赛降维 |
+[2026-06-24 18:15:16] [latex] Generating LaTeX for T037...
+[2026-06-24 18:15:28] [write] source.tex updated from 12_pipeline\generated_sources\T037.tex (579 chars)
+[2026-06-24 18:15:28] [pipeline] Running run_source_to_pdf.py 08_trigonometry --target-id T037...
+[2026-06-24 18:31:47] [fail] T037: Pipeline failed (rc=1): 9 - INFO - [progress] item=T037 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=330.5s timeout=180s
+2026-06-24 18:30:34,527 - INFO - [progress] item=T037 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=360.5s timeout=180s
+2026-06-24 18:31:04,579 - INFO - [progress] item=T037 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=390.6s timeout=180s
+2026-06-24 18:31:06,076 - INFO - [PERF_TRACE] {"event": "perf_trace", "step": "l4_check", "model": "deepseek-v4-pro", "prompt_chars": 12292, "payload_chars": 9015, "response_chars": 8462, "request_start_ts": "2026-06-24T18:24:33.996", "request_end_ts": "2026-06-24T18:31:06.075", "llm_roundtrip_ms": 392079.14, "network_wait_ms": 392079.14, "prompt_tokens": 5952, "completion_tokens": 40081, "total_tokens": 46033, "json_parse_ms": 1.13, "validate_ms": 0.01, "retry_count": 0, "timeout_value": 180, "thinking_enabled": true, "reasoning_effort": "max"}
+2026-06-24 18:31:06,084 - INFO - [stage/done] item=T037 stage=L4_CHECK mode=run elapsed=392.09s
+2026-06-24 18:31:06,084 - INFO - [stage/start] item=T037 stage=L4_EXPORT mode=run
+2026-06-24 18:31:06,093 - INFO - T037 L4 导出 tex 片段: 6 个
+2026-06-24 18:31:06,093 - INFO - [stage/done] item=T037 stage=L4_EXPORT mode=run elapsed=0.01s
+2026-06-24 18:31:06,093 - INFO - [stage/start] item=T037 stage=L5 mode=run
+2026-06-24 18:31:06,219 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-24 18:31:36,148 - INFO - [progress] item=T037 stage=L5 model=deepseek-v4-flash attempt=1/3 retry_count=0 waited=30.1s timeout=180s
+2026-06-24 18:31:36,921 - WARNING - T037 L5 id 已纠正: 'G001' -> 'T037'
+2026-06-24 18:31:36,929 - INFO - [stage/done] item=T037 stage=L5 mode=run elapsed=30.84s
+2026-06-24 18:31:36,929 - INFO - T037 L6 缓存无 prompt 指纹记录，判定缓存失效并重跑。
+2026-06-24 18:31:36,929 - INFO - [stage/start] item=T037 stage=L6 mode=run
+2026-06-24 18:31:37,019 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-24 18:31:41,463 - INFO - [stage/done] item=T037 stage=L6 mode=run elapsed=4.53s note=dirname=T037_heron_formula
+
+Processing Pipeline:   0%|          | 0/1 [16:09<?, ?it/s, success=1, error=0, skipped=0]
+Processing Pipeline: 100%|██████████| 1/1 [16:09<00:00, 969.48s/it, success=1, error=0, skipped=0]
+Processing Pipeline: 100%|██████████| 1/1 [16:09<00:00, 969.48s/it, success=1, error=0, skipped=0]
+2026-06-24 18:31:41,468 - INFO - 
+\u2705 任务结束: {'success': 1, 'error': 0, 'skipped': 0}
+2026-06-24 18:31:41,468 - INFO - \u23f1 总耗时: 969.49s
+========== Pipeline 发布 ==========
+模式: full
+dry-run: no | verbose: no
+ID 数量: 1
+ID 预览: T037
+===================================
+
+[T037] 开始
+[T037] 目标: 08_trigonometry/T037_heron_formula
+[T037] 目录命名: 使用 L6 产物
+[T037] 讲义文件: 已发布 6 个
+[T037] meta.json: 已同步
+[T037] source.tex: 已拷贝
+[T037] main.tex: 已生成
+[T037] index.tex: 已追加入口
+[T037] 完成
+
+============= 发布汇总 =============
+总计: 1
+成功: 1
+失败: 0
+警告: 0
+===================================
+
+[2026-06-24 18:31:50] 
+[2026-06-24 18:31:50] ============================================================
+[2026-06-24 18:31:50] [progress] 24/24: T038 | T038 | 三角形形状判定（用正弦/余弦定理边角互化） | 教材必修二/高考真题 |
+[2026-06-24 18:31:50] ============================================================
+[2026-06-24 18:31:50] [start] T038: 08_trigonometry:82 | T038 | 三角形形状判定（用正弦/余弦定理边角互化） | 教材必修二/高考真题 |
+[2026-06-24 18:31:50] [latex] Generating LaTeX for T038...
+[2026-06-24 18:32:10] [write] source.tex updated from 12_pipeline\generated_sources\T038.tex (719 chars)
+[2026-06-24 18:32:10] [pipeline] Running run_source_to_pdf.py 08_trigonometry --target-id T038...

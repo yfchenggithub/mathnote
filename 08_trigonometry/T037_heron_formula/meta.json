@@ -1,0 +1,175 @@
+{
+  "id": "T037",
+  "module": "geometry-plane",
+  "core": {
+    "title": "海伦公式（三角形面积公式）",
+    "alias": [
+      "海伦公式",
+      "Heron公式",
+      "三边求面积",
+      "已知三边求面积"
+    ],
+    "summary": "已知三角形三边长，直接求面积的公式。",
+    "difficulty": 2,
+    "category": "平面几何",
+    "tags": [
+      "海伦公式",
+      "三角形面积",
+      "已知三边求面积",
+      "平面几何",
+      "解三角形"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "海伦公式",
+      "三角形面积",
+      "半周长",
+      "p=(a+b+c)/2",
+      "S=sqrt(p(p-a)(p-b)(p-c))",
+      "内切圆半径",
+      "三角形不等式",
+      "已知三边求面积",
+      "三边求面积",
+      "Heron公式",
+      "任意三角形",
+      "面积公式"
+    ],
+    "synonyms": [
+      "海伦公式",
+      "Heron公式",
+      "三边求面积",
+      "三角形面积公式（三边）",
+      "边长求面积",
+      "海伦定理"
+    ],
+    "intents": [
+      "求三角形面积",
+      "计算面积",
+      "已知三边求面积",
+      "求内切圆半径",
+      "判断三角形",
+      "利用海伦公式"
+    ],
+    "query_templates": [
+      "海伦公式是什么",
+      "已知三角形三边长怎么求面积",
+      "海伦公式例题",
+      "已知三边求面积公式",
+      "三角形的面积公式用边长表示"
+    ],
+    "ocrKeywords": [
+      "三角形",
+      "三边长",
+      "半周长",
+      "面积",
+      "海伦"
+    ],
+    "latex_patterns": [
+      "\\sqrt{p(p-a)(p-b)(p-c)}",
+      "p=\\frac{a+b+c}{2}",
+      "S = \\sqrt{p(p-a)(p-b)(p-c)}"
+    ],
+    "formulaTokens": [
+      "a+b+c",
+      "(a+b+c)/2",
+      "p(p-a)(p-b)(p-c)",
+      "sqrt{p(p-a)(p-b)(p-c)}",
+      "p-a",
+      "p-b",
+      "p-c"
+    ],
+    "pinyin": "hailungongshi",
+    "pinyinAbbr": "hlgs"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.8,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "S = \\sqrt{p(p-a)(p-b)(p-c)},\\quad p=\\frac{a+b+c}{2}",
+    "related_formulas": [
+      "r = \\frac{S}{p} = \\sqrt{\\frac{(p-a)(p-b)(p-c)}{p}}"
+    ],
+    "variables": [
+      "a",
+      "b",
+      "c",
+      "p",
+      "S",
+      "r"
+    ],
+    "conditions": "三角形三边长 $a,b,c$ 满足 $a+b>c$, $b+c>a$, $c+a>b$。",
+    "conclusions": "内切圆半径 $r = \\frac{S}{p}$。"
+  },
+  "content": {
+    "statement": "若三角形三边长分别为 $a$, $b$, $c$，满足三角形不等式，记半周长 $p = \\frac{1}{2}(a+b+c)$，则三角形的面积 $S = \\sqrt{p(p-a)(p-b)(p-c)}$。",
+    "derivation": [
+      "设半周长 $p = \\frac{a+b+c}{2}$。",
+      "利用余弦定理 $\\cos C = \\frac{a^2+b^2-c^2}{2ab}$ 和面积公式 $S = \\frac{1}{2}ab\\sin C$。",
+      "代入 $\\sin C = \\sqrt{1-\\cos^2 C}$ 化简得 $S = \\sqrt{p(p-a)(p-b)(p-c)}$。"
+    ],
+    "intuition": "通过半周长和边长之差，将三角形面积表示为根号下乘积形式，本质是余弦定理和三角形面积公式的代数变形。",
+    "common_tricks": [
+      "使用前必须验证三边满足三角形不等式。",
+      "半周长 $p$ 勿忘除以2。",
+      "开平方取算术平方根（面积恒正）。",
+      "可直接代入求内切圆半径 $r = S/p$。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "基础题直接应用",
+      "解三角形综合题",
+      "求内切圆半径"
+    ],
+    "problem_types": [
+      "计算题",
+      "证明题",
+      "应用题"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "T037.svg",
+    "png": "",
+    "gif": "",
+    "video": ""
+  },
+  "shareConfig": {
+    "title": "海伦公式：已知三边求三角形面积速查",
+    "shareDesc": "适合课后复盘和刷题前速查，直接代入三边长算面积，避免作高，提升计算稳定性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "三角形基本不等式",
+      "平方根运算",
+      "三角形面积公式 S=1/2 ab sin C"
+    ],
+    "related_ids": [],
+    "similar": "已知两边及夹角求面积 S=1/2 ab sin C"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-24"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "其他-未分类-待定",
+  "altNodes": []
+}

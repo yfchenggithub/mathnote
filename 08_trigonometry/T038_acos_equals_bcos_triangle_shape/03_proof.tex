@@ -1,0 +1,51 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	证明的关键是利用正弦定理将边转化为角，再借助二倍角公式得到三角方程，最后根据正弦函数的性质求解，注意分情况讨论。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（边化角）：}] 由正弦定理：$a = 2R\sin A$，$b = 2R\sin B$，代入 $a\cos A = b\cos B$ 得
+			\[
+				2R\sin A\cos A = 2R\sin B\cos B.
+			\]
+			\par\textbf{理由：} 正弦定理建立了边与角的联系，是边角互化的常用手段。
+
+		\item[\textbf{步骤二（约简与倍角）：}] 两边同时除以 $2R$（$R$ 为外接圆半径，$R>0$），得
+			\[
+				\sin A\cos A = \sin B\cos B.
+			\]
+			两边乘以 $2$ 并利用 $\sin 2\theta = 2\sin\theta\cos\theta$，得到
+			\[
+				\sin 2A = \sin 2B.
+			\]
+			\par\textbf{理由：} 二倍角公式将同角正余弦乘积简化为单一角的正弦，便于解方程。
+
+		\item[\textbf{步骤三（解三角方程）：}] 由于 $A,B\in(0,\pi)$，所以 $2A,2B\in(0,2\pi)$。由 $\sin\alpha = \sin\beta$ 的解集知
+			\[
+				2A = 2B + 2k\pi,\quad k\in\mathbb{Z}
+			\]
+			或
+			\[
+				2A = \pi - 2B + 2k\pi,\quad k\in\mathbb{Z}.
+			\]
+			根据 $2A+2B<2\pi$，只能取 $k=0$，故得
+			\[
+				2A = 2B
+			\]
+			或
+			\[
+				2A + 2B = \pi.
+			\]
+			\par\textbf{理由：} 正弦函数周期为 $2\pi$，在指定区间内只有两组解。
+
+		\item[\textbf{步骤四（化简要结论）：}] 由 $2A = 2B$ 得 $A = B$；由 $2A + 2B = \pi$ 得 $A + B = \dfrac{\pi}{2}$。
+			\par\textbf{理由：} 简单代数变形。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	因此，原条件 $a\cos A = b\cos B$ 等价于 $A = B$ 或 $A + B = \dfrac{\pi}{2}$，即 $\triangle ABC$ 是等腰三角形或直角三角形。
+\end{proofbox}
