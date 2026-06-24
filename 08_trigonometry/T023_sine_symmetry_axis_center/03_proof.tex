@@ -1,0 +1,52 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	将 $\omega x+\varphi$ 视为一个整体变量，利用基本正弦函数 $y=\sin t$ 的对称性，再解出 $x$。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（基本对称性）：}] 对于函数 $y = \sin t$（$t\in\mathbb{R}$），
+			\[
+				\begin{aligned}
+					\text{对称轴:}&\quad t = \frac{\pi}{2}+k\pi,\quad k\in\mathbb{Z},\\
+					\text{对称中心:}&\quad (k\pi,0),\quad k\in\mathbb{Z}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：}正弦曲线在每个波峰和波谷处关于竖直线对称，在每个零点处中心对称。
+
+		\item[\textbf{步骤二（整体代换）：}] 在 $y = A\sin(\omega x+\varphi)$ 中，令 $t = \omega x+\varphi$，则函数化为 $y = A\sin t$。由步骤一，对称轴满足 $t = \frac{\pi}{2}+k\pi$，对称中心满足 $t = k\pi$。
+			\par\textbf{理由：}代换不改变函数的对称结构。
+
+		\item[\textbf{步骤三（解出 $x$ 得对称轴）：}] 由 $\omega x+\varphi = \frac{\pi}{2}+k\pi$，解得
+			\[
+				\begin{aligned}
+					x &= \frac{\frac{\pi}{2}+k\pi-\varphi}{\omega} \\
+					&= \frac{k\pi+\frac{\pi}{2}-\varphi}{\omega}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：}$\omega\neq 0$，两边同时减 $\varphi$ 除以 $\omega$。
+
+		\item[\textbf{步骤四（解出 $x$ 得对称中心）：}] 由 $\omega x+\varphi = k\pi$，解得
+			\[
+				x = \frac{k\pi-\varphi}{\omega},
+			\]
+			此时函数值
+			\[
+				\begin{aligned}
+					y &= A\sin(k\pi) \\
+					&= 0,
+			\end{aligned}
+			\]
+			故对称中心为 $\left(\dfrac{k\pi-\varphi}{\omega},0\right)$。
+			\par\textbf{理由：}纵坐标为零是因为 $\sin(k\pi)=0$，且 $A\neq 0$。
+
+		\item[\textbf{步骤五（整数参数 $k$）：}] $k\in\mathbb{Z}$，每条对称轴和每个对称中心对应一个整数 $k$。
+			\par\textbf{理由：}当 $k$ 取遍全体整数时，得到所有对称轴和对称中心，没有遗漏。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	因此，正弦型函数 $y=A\sin(\omega x+\varphi)$ 的对称轴为 $x = \frac{k\pi+\frac{\pi}{2}-\varphi}{\omega}$，对称中心为 $\left(\frac{k\pi-\varphi}{\omega},0\right)$，$k\in\mathbb{Z}$，与结论一致。
+\end{proofbox}
