@@ -1,0 +1,57 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	通过单位圆定义和诱导公式，可以直接验证三角函数的定义域、值域、周期、奇偶性和单调性。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（单位圆定义）：}]
+			设角$x$的终边与单位圆交于点$P(\cos x,\sin x)$，则$\tan x=\frac{\sin x}{\cos x}$（$\cos x\neq0$）。
+			\[
+				P(\cos x,\sin x),\quad \tan x=\frac{\sin x}{\cos x}.
+			\]
+			\par\textbf{理由：} 这是三角函数的坐标定义，是一切性质的基础。
+		\item[\textbf{步骤二（定义域推导）：}]
+			对任意$x\in\mathbb{R}$，$\sin x$和$\cos x$都有定义，所以$y=\sin x$，$y=\cos x$的定义域为$\mathbb{R}$。对于$\tan x$，要求$\cos x\neq0$，即$x\neq\frac{\pi}{2}+k\pi$，$k\in\mathbb{Z}$。
+			\[
+				D_{\sin}= \mathbb{R},\quad D_{\cos}= \mathbb{R},\quad D_{\tan}=\{x\mid x\neq\frac{\pi}{2}+k\pi,k\in\mathbb{Z}\}.
+			\]
+			\par\textbf{理由：} 分母不能为零。
+		\item[\textbf{步骤三（值域推导）：}]
+			因为$P$在单位圆上，$-1\leq\cos x\leq1$，$-1\leq\sin x\leq1$，所以值域$[-1,1]$。$\tan x$可取任意实数，从图上看正切线可无限延伸。
+			\[
+				R_{\sin}=[-1,1],\quad R_{\cos}=[-1,1],\quad R_{\tan}= \mathbb{R}.
+			\]
+			\par\textbf{理由：} 坐标的绝对界限及正切无界。
+		\item[\textbf{步骤四（周期推导）：}]
+			若角$x$增加$2\pi$，终边重合，故$\sin(x+2\pi)=\sin x$，$\cos(x+2\pi)=\cos x$，最小正周期$2\pi$。正切中，
+			\[
+				\begin{aligned}
+					\tan(x+\pi) &= \frac{\sin(x+\pi)}{\cos(x+\pi)} \\ &= \frac{-\sin x}{-\cos x} \\ &= \tan x,
+			\end{aligned}
+			\]
+			最小正周期$\pi$。
+			\[
+				T_{\sin}=2\pi,\quad T_{\cos}=2\pi,\quad T_{\tan}=\pi.
+			\]
+			\par\textbf{理由：} 终边相同角三角函数值相同；诱导公式直接验证。
+		\item[\textbf{步骤五（奇偶性推导）：}]
+			取相反角$-x$，终边关于$x$轴对称，故$\cos(-x)=\cos x$（偶），$\sin(-x)=-\sin x$（奇），进而$\tan(-x)=-\tan x$（奇）。
+			\[
+				\sin(-x)=-\sin x,\quad \cos(-x)=\cos x,\quad \tan(-x)=-\tan x.
+			\]
+			\par\textbf{理由：} 由单位圆对称性或诱导公式。
+		\item[\textbf{步骤六（单调增区间推导）：}]
+			观察单位圆：当$x\in[-\frac{\pi}{2},\frac{\pi}{2}]$时，$\sin x$从$-1$增至$1$，结合周期性得增区间$[-\frac{\pi}{2}+2k\pi,\frac{\pi}{2}+2k\pi]$。$\cos x$在$[-\pi,0]$上递增，由周期得$[-\pi+2k\pi,2k\pi]$。$\tan x$在每个开区间$(-\frac{\pi}{2}+k\pi,\frac{\pi}{2}+k\pi)$内递增。
+			\[
+				\begin{aligned}
+					\sin &: \left[-\frac{\pi}{2}+2k\pi,\frac{\pi}{2}+2k\pi\right],\\\cos &: \left[-\pi+2k\pi,2k\pi\right],\\\tan &: \left(-\frac{\pi}{2}+k\pi,\frac{\pi}{2}+k\pi\right).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 基于单位圆上纵坐标变化（或图像观察），严格证明需用导数，高中阶段以几何直观为主。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	我们已从定义出发，逐条验证了三种基本三角函数的定义域、值域、周期、奇偶性和单调增区间，与表格完全一致。
+\end{proofbox}
