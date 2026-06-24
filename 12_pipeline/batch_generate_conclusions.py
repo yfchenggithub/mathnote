@@ -572,6 +572,83 @@ def describe_timeout(timeout_seconds: int | None) -> str:
     return f"{timeout_seconds}s"
 
 
+def describe_sequence(values: Iterable[Any], empty: str = "(none)") -> str:
+    items = [str(value) for value in values if str(value)]
+    return ", ".join(items) if items else empty
+
+
+def log_config_snapshot(
+    phase: str,
+    args: argparse.Namespace,
+    *,
+    timeout_seconds: int | None,
+    modules: list[str],
+    selected_ids: list[str],
+    total_before_filters: int,
+    selected_total: int,
+    skipped_existing: int,
+    resume_publish: int,
+    api_config: dict[str, Any] | None = None,
+    model_config: dict[str, Any] | None = None,
+    backup_path: Path | None = None,
+    result: dict[str, Any] | None = None,
+) -> None:
+    """Log the effective run configuration without leaking secrets."""
+    api_config = api_config or {}
+    model_config = model_config or {}
+    latex_model = model_config.get(
+        "pro",
+        model_config.get("flash", model_config.get("default", "(not loaded)")),
+    )
+
+    log(f"[config:{phase}] ------------------------------------------------------------")
+    log(f"[config:{phase}] project_root={PROJECT_ROOT}")
+    log(f"[config:{phase}] app_config={APP_CONFIG_PATH.relative_to(PROJECT_ROOT)}")
+    log(f"[config:{phase}] module_prefix_map={MODULE_PREFIX_MAP_PATH.relative_to(PROJECT_ROOT)}")
+    log(
+        f"[config:{phase}] dry_run={args.dry_run}, python_exe={args.python_exe}, "
+        f"timeout={describe_timeout(timeout_seconds)}"
+    )
+    log(
+        f"[config:{phase}] module_arg={args.module or '(all)'}, "
+        f"resolved_modules={describe_sequence(modules)}"
+    )
+    log(
+        f"[config:{phase}] ids={describe_sequence(selected_ids, '(all)')}, "
+        f"start_from={args.start_from or '(none)'}"
+    )
+    log(
+        f"[config:{phase}] skip_existing={args.skip_existing}, force_all={args.force_all}, "
+        f"force_regenerate={args.force_regenerate}"
+    )
+    log(
+        f"[config:{phase}] continue_on_error={args.continue_on_error}, "
+        f"skip_git_commit={args.skip_git_commit}, no_deploy={args.no_deploy}, "
+        f"allow_id_mismatch={args.allow_id_mismatch}"
+    )
+    log(
+        f"[config:{phase}] rows_before_filters={total_before_filters}, "
+        f"selected_rows={selected_total}, skipped_existing={skipped_existing}, "
+        f"resume_publish={resume_publish}"
+    )
+    log(
+        f"[config:{phase}] state_path={STATE_PATH.relative_to(PROJECT_ROOT)}, "
+        f"generated_source_dir={GENERATED_SOURCE_DIR.relative_to(PROJECT_ROOT)}"
+    )
+    if args.dry_run:
+        log(f"[config:{phase}] api_provider=(not loaded: dry-run), latex_model=(not loaded: dry-run)")
+    else:
+        log(
+            f"[config:{phase}] api_provider={api_config.get('provider', '(missing)')}, "
+            f"base_url={api_config.get('base_url', '(missing)')}, latex_model={latex_model}"
+        )
+        log(f"[config:{phase}] source_backup={backup_path.relative_to(PROJECT_ROOT) if backup_path else '(none)'}")
+    if result:
+        result_text = ", ".join(f"{key}={value}" for key, value in result.items())
+        log(f"[config:{phase}] result={result_text}")
+    log(f"[config:{phase}] ------------------------------------------------------------")
+
+
 def timeout_error(label: str, timeout_seconds: int | None) -> str:
     if timeout_seconds is None:
         return f"{label} timed out"
@@ -1533,11 +1610,38 @@ def main() -> int:
     for module_dir in modules:
         all_conclusions.extend(parse_readme(module_dir))
 
+    total_before_filters = len(all_conclusions)
+    skipped_existing = 0
+    resume_publish = 0
+
     if not all_conclusions:
+        log_config_snapshot(
+            "start",
+            args,
+            timeout_seconds=timeout_seconds,
+            modules=modules,
+            selected_ids=selected_ids,
+            total_before_filters=total_before_filters,
+            selected_total=0,
+            skipped_existing=skipped_existing,
+            resume_publish=resume_publish,
+        )
         log("[info] No pending rows found.")
+        log_config_snapshot(
+            "end",
+            args,
+            timeout_seconds=timeout_seconds,
+            modules=modules,
+            selected_ids=selected_ids,
+            total_before_filters=total_before_filters,
+            selected_total=0,
+            skipped_existing=skipped_existing,
+            resume_publish=resume_publish,
+            result={"success": 0, "failed": 0, "selected": 0, "exit_code": 0},
+        )
         return 0
 
-    log(f"[info] Total pending rows before filters: {len(all_conclusions)}")
+    log(f"[info] Total pending rows before filters: {total_before_filters}")
     all_conclusions = apply_id_filter(all_conclusions, selected_ids)
     all_conclusions = apply_start_from(all_conclusions, args.start_from)
 
@@ -1546,8 +1650,6 @@ def main() -> int:
     if args.skip_existing and not args.force_all:
         existing_ids = get_existing_ids(module_dirs)
         filtered: list[dict[str, Any]] = []
-        skipped = 0
-        resume_publish = 0
         for conclusion in all_conclusions:
             item_id = str(conclusion["id"]).upper()
             resume_id = publish_resume_id(conclusion, state_index.get(item_id))
@@ -1556,17 +1658,40 @@ def main() -> int:
                 filtered.append(conclusion)
                 resume_publish += 1
             elif item_id in existing_ids:
-                skipped += 1
+                skipped_existing += 1
             else:
                 filtered.append(conclusion)
-        if skipped:
-            log(f"[info] Skipping {skipped} rows with existing conclusion directories")
+        if skipped_existing:
+            log(f"[info] Skipping {skipped_existing} rows with existing conclusion directories")
         if resume_publish:
             log(f"[info] Resuming publish for {resume_publish} previously failed rows")
         all_conclusions = filtered
 
     if not all_conclusions:
+        log_config_snapshot(
+            "start",
+            args,
+            timeout_seconds=timeout_seconds,
+            modules=modules,
+            selected_ids=selected_ids,
+            total_before_filters=total_before_filters,
+            selected_total=0,
+            skipped_existing=skipped_existing,
+            resume_publish=resume_publish,
+        )
         log("[info] Nothing to do after filters.")
+        log_config_snapshot(
+            "end",
+            args,
+            timeout_seconds=timeout_seconds,
+            modules=modules,
+            selected_ids=selected_ids,
+            total_before_filters=total_before_filters,
+            selected_total=0,
+            skipped_existing=skipped_existing,
+            resume_publish=resume_publish,
+            result={"success": 0, "failed": 0, "selected": 0, "exit_code": 0},
+        )
         return 0
 
     log(f"[info] Will process {len(all_conclusions)} rows")
@@ -1579,6 +1704,7 @@ def main() -> int:
 
     api_config: dict[str, Any] = {}
     model_config: dict[str, Any] = {}
+    backup_path: Path | None = None
     if not args.dry_run:
         try:
             app_config = load_api_config()
@@ -1595,6 +1721,22 @@ def main() -> int:
     success = 0
     fail = 0
     total = len(all_conclusions)
+    failed_items: list[dict[str, str]] = []
+
+    log_config_snapshot(
+        "start",
+        args,
+        timeout_seconds=timeout_seconds,
+        modules=modules,
+        selected_ids=selected_ids,
+        total_before_filters=total_before_filters,
+        selected_total=total,
+        skipped_existing=skipped_existing,
+        resume_publish=resume_publish,
+        api_config=api_config,
+        model_config=model_config,
+        backup_path=backup_path,
+    )
 
     for index, conclusion in enumerate(all_conclusions, start=1):
         log("")
@@ -1659,9 +1801,25 @@ def main() -> int:
             f"--ids {' '.join(failed_ids)} --force-regenerate --timeout {args.timeout} "
             "--continue-on-error --no-deploy --skip-git-commit"
         )
+    exit_code = 0 if fail == 0 else 1
+    log_config_snapshot(
+        "end",
+        args,
+        timeout_seconds=timeout_seconds,
+        modules=modules,
+        selected_ids=selected_ids,
+        total_before_filters=total_before_filters,
+        selected_total=total,
+        skipped_existing=skipped_existing,
+        resume_publish=resume_publish,
+        api_config=api_config,
+        model_config=model_config,
+        backup_path=backup_path,
+        result={"success": success, "failed": fail, "selected": total, "exit_code": exit_code},
+    )
     log("=" * 60)
 
-    return 0 if fail == 0 else 1
+    return exit_code
 
 
 if __name__ == "__main__":
