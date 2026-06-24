@@ -654,6 +654,90 @@ def text_token(text: str) -> dict[str, Any]:
     return {"type": "text", "text": normalize_non_empty_string(text) or "（空文本）"}
 
 
+def _find_unescaped_dollar(text: str, start: int) -> int:
+    """Find the next dollar delimiter that is not escaped."""
+    pos = start
+    while True:
+        pos = text.find("$", pos)
+        if pos < 0:
+            return -1
+        backslashes = 0
+        probe = pos - 1
+        while probe >= 0 and text[probe] == "\\":
+            backslashes += 1
+            probe -= 1
+        if backslashes % 2 == 0:
+            return pos
+        pos += 1
+
+
+def split_inline_math_tokens(text: str) -> list[dict[str, Any]]:
+    """Split a plain string containing explicit math delimiters into tokens.
+
+    This is intentionally delimiter-based. Bare LaTeX commands in Chinese text
+    should be fixed at source instead of guessed during migration.
+    """
+    raw = normalize_non_empty_string(text)
+    if not raw:
+        return [text_token(text)]
+
+    tokens: list[dict[str, Any]] = []
+
+    def append_text(value: str) -> None:
+        normalized = normalize_non_empty_string(value)
+        if normalized:
+            tokens.append(text_token(normalized))
+
+    def append_math(kind: str, latex: str) -> None:
+        normalized = normalize_non_empty_string(latex)
+        if normalized:
+            tokens.append({"type": kind, "latex": normalized})
+
+    pos = 0
+    text_start = 0
+    while pos < len(raw):
+        if raw.startswith("$$", pos):
+            end = raw.find("$$", pos + 2)
+            if end >= 0:
+                append_text(raw[text_start:pos])
+                append_math("math_display", raw[pos + 2 : end])
+                pos = end + 2
+                text_start = pos
+                continue
+
+        if raw.startswith("\\[", pos):
+            end = raw.find("\\]", pos + 2)
+            if end >= 0:
+                append_text(raw[text_start:pos])
+                append_math("math_display", raw[pos + 2 : end])
+                pos = end + 2
+                text_start = pos
+                continue
+
+        if raw.startswith("\\(", pos):
+            end = raw.find("\\)", pos + 2)
+            if end >= 0:
+                append_text(raw[text_start:pos])
+                append_math("math_inline", raw[pos + 2 : end])
+                pos = end + 2
+                text_start = pos
+                continue
+
+        if raw[pos] == "$" and (pos == 0 or raw[pos - 1] != "\\"):
+            end = _find_unescaped_dollar(raw, pos + 1)
+            if end >= 0:
+                append_text(raw[text_start:pos])
+                append_math("math_inline", raw[pos + 1 : end])
+                pos = end + 1
+                text_start = pos
+                continue
+
+        pos += 1
+
+    append_text(raw[text_start:])
+    return tokens or [text_token(raw)]
+
+
 def make_block_id(section_key: str, index: int) -> str:
     """生成稳定 block id。
 
@@ -1057,18 +1141,13 @@ def normalize_condition_or_conclusion_source(value: Any) -> list[str]:
 
 
 def map_conditions(raw_conditions: Any) -> list[dict[str, Any]]:
-    """conditions MVP 迁移。
-
-    当前策略:
-    - 不做复杂数学分词
-    - 每条条件包装为 token 列表（text token）
-    """
+    """conditions 迁移，支持显式数学模式拆分为 inline tokens。"""
     texts = normalize_condition_or_conclusion_source(raw_conditions)
     return [
         {
             "id": f"cond_{idx}",
             "title": f"条件{idx}",
-            "content": [text_token(text)],
+            "content": split_inline_math_tokens(text),
             "required": True,
             "scope": None,
         }
@@ -1077,13 +1156,13 @@ def map_conditions(raw_conditions: Any) -> list[dict[str, Any]]:
 
 
 def map_conclusions(raw_conclusions: Any) -> list[dict[str, Any]]:
-    """conclusions MVP 迁移。"""
+    """conclusions 迁移，支持显式数学模式拆分为 inline tokens。"""
     texts = normalize_condition_or_conclusion_source(raw_conclusions)
     return [
         {
             "id": f"conc_{idx}",
             "title": f"结论{idx}",
-            "content": [text_token(text)],
+            "content": split_inline_math_tokens(text),
         }
         for idx, text in enumerate(texts, start=1)
     ]
