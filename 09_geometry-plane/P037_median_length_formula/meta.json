@@ -1,0 +1,183 @@
+{
+  "id": "P037",
+  "module": "geometry-plane",
+  "core": {
+    "title": "中线长公式（阿波罗尼奥斯定理）",
+    "alias": [
+      "中线公式",
+      "阿波罗尼奥斯定理",
+      "三角形中线长",
+      "中线长定理"
+    ],
+    "summary": "三角形两边平方和的一半减去第三边平方的四分之一，再开方即为该边上的中线长。",
+    "difficulty": 2,
+    "category": "平面几何（解三角形）",
+    "tags": [
+      "解三角形",
+      "中线",
+      "阿波罗尼奥斯定理",
+      "向量",
+      "平面几何"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "中线长公式",
+      "阿波罗尼奥斯定理",
+      "三角形中线",
+      "中线长度",
+      "中线求边长",
+      "三边求中线",
+      "中线平方和",
+      "解三角形中线",
+      "向量法中线",
+      "中线公式推导",
+      "Apollonius",
+      "平面几何中线"
+    ],
+    "synonyms": [
+      "中线定理",
+      "中线长定理",
+      "Apollonius定理",
+      "中线长度公式",
+      "中线长度定理"
+    ],
+    "intents": [
+      "求中线长",
+      "已知中线求边长",
+      "证明中线公式",
+      "推导中线长",
+      "中线平方和证明",
+      "利用中线解三角形"
+    ],
+    "query_templates": [
+      "已知三角形三边求中线长度",
+      "中线长公式推导步骤",
+      "三角形中线长度公式是什么",
+      "阿波罗尼奥斯定理应用例题",
+      "已知两边和中线求第三边"
+    ],
+    "ocrKeywords": [
+      "三角形",
+      "中线",
+      "公式",
+      "a=",
+      "b=",
+      "c=",
+      "m_a",
+      "m_b",
+      "m_c",
+      "平方"
+    ],
+    "latex_patterns": [
+      "m_a^2 = \\frac{1}{4}(2b^2+2c^2-a^2)",
+      "m_b^2 = \\frac{1}{4}(2a^2+2c^2-b^2)",
+      "m_c^2 = \\frac{1}{4}(2a^2+2b^2-c^2)"
+    ],
+    "formulaTokens": [
+      "m_a^2",
+      "2b^2+2c^2-a^2",
+      "\\frac{1}{4}(2b^2+2c^2-a^2)",
+      "b^2",
+      "c^2",
+      "a^2",
+      "2a^2+2c^2-b^2",
+      "2a^2+2b^2-c^2"
+    ],
+    "pinyin": "apollonius dingli",
+    "pinyinAbbr": "apollonius"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.8,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "m_a^2 = \\frac{1}{4}(2b^2+2c^2-a^2)",
+    "related_formulas": [
+      "m_b^2 = \\frac{1}{4}(2a^2+2c^2-b^2)",
+      "m_c^2 = \\frac{1}{4}(2a^2+2b^2-c^2)"
+    ],
+    "variables": [
+      "a = BC",
+      "b = CA",
+      "c = AB",
+      "m_a",
+      "m_b",
+      "m_c"
+    ],
+    "conditions": "在三角形$\\\\triangle ABC$中，三边长$a=BC$，$b=CA$，$c=AB$满足三角形不等式（任意两边之和大于第三边）。公式适用于任意三角形。",
+    "conclusions": "可求中线长$m_a = \\\\frac12\\\\sqrt{2b^2+2c^2-a^2}$；已知$b,c,m_a$可列方程求解第三边$a$；三条中线平方和$m_a^2+m_b^2+m_c^2 = \\\\frac34(a^2+b^2+c^2)$。"
+  },
+  "content": {
+    "statement": "在$\\\\triangle ABC$中，设$a=BC$，$b=CA$，$c=AB$，则边$BC$上的中线长$m_a$满足$m_a^2=\\\\frac{1}{4}(2b^2+2c^2-a^2)$，同理可得$m_b,m_c$的表达式。",
+    "derivation": [
+      "设$M$为$BC$中点，则$\\\\vec{AM}=\\\\frac{1}{2}(\\\\vec{AB}+\\\\vec{AC})$。",
+      "两边平方得$\\\\vec{AM}^2=\\\\frac{1}{4}(\\\\vec{AB}^2+\\\\vec{AC}^2+2\\\\vec{AB}\\\\cdot\\\\vec{AC})$。",
+      "由余弦定理$\\\\vec{AB}\\\\cdot\\\\vec{AC}=bc\\\\cos A=\\\\frac{b^2+c^2-a^2}{2}$，代入化简即得$m_a^2=\\\\frac14(2b^2+2c^2-a^2)$。"
+    ],
+    "intuition": "中线相当于两邻边向量和的一半，向量的平方展开后利用余弦定理消去夹角即可。",
+    "common_tricks": [
+      "已知两边及其夹角时，可直接用余弦定理求该边上的中线，无需使用本公式。",
+      "注意公式中对边$a$的平方系数为$-1$，邻边$b,c$的系数为$+2$，极易混淆。",
+      "利用三条中线公式相加可快速证明中线平方和定理。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "解三角形题中求中线长度",
+      "已知两边和中线求第三边",
+      "向量法证明线段关系"
+    ],
+    "problem_types": [
+      "求中线长",
+      "已知中线求边长",
+      "证明中线数量关系"
+    ],
+    "exam_frequency": 0.7,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "P037.svg",
+    "diagram": "",
+    "thumbnail": "",
+    "audio": "",
+    "video": ""
+  },
+  "shareConfig": {
+    "title": "中线长公式：解三角形求中线或边长",
+    "shareDesc": "考试中较常见的解三角形题型，直接代入公式避免余弦定理推导，适合考前速查和课后复习，减少计算失误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "余弦定理",
+      "向量的数量积"
+    ],
+    "related_ids": [],
+    "similar": [
+      "中线向量公式 $\\\\vec{AM}=\\\\frac12(\\\\vec{AB}+\\\\vec{AC})$",
+      "平行四边形对角线公式"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-25"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "其他-未分类-待定",
+  "altNodes": "三角函数-解法-三角方程;向量-数量积-几何意义"
+}

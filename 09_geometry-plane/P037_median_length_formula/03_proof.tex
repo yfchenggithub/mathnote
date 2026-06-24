@@ -1,0 +1,43 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	利用中点向量性质$\overrightarrow{AM} = \frac12(\overrightarrow{AB} + \overrightarrow{AC})$，两边平方，并将向量点积用边长表示，化简即得。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（中点向量表示）：}]
+			设$M$为$BC$中点，则
+			\[
+				\overrightarrow{AM} = \frac12 \bigl( \overrightarrow{AB} + \overrightarrow{AC} \bigr) .
+			\]
+			\par\textbf{理由：} 由向量中点公式，$\overrightarrow{AM} = \frac12(\overrightarrow{AB} + \overrightarrow{AC})$，当$M$是中点时恒成立。
+		\item[\textbf{步骤二（平方展开）：}]
+			两边取模平方（即计算$|\overrightarrow{AM}|^2$）：
+			\[
+				\begin{aligned}
+					m_a^2 &= |\overrightarrow{AM}|^2 \\ &= \frac14 \bigl( |\overrightarrow{AB}|^2 + |\overrightarrow{AC}|^2 + 2\, \overrightarrow{AB}\cdot\overrightarrow{AC} \bigr) .
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 向量模平方的展开公式：$|\vec{u}+\vec{v}|^2 = |\vec{u}|^2 + |\vec{v}|^2 + 2\vec{u}\cdot\vec{v}$。
+		\item[\textbf{步骤三（数量积转边长）：}]
+			用边长表示数量积：
+			\[
+				\begin{aligned}
+					\overrightarrow{AB}\cdot\overrightarrow{AC} &= \frac12 \bigl( |\overrightarrow{AB}|^2 + |\overrightarrow{AC}|^2 - |\overrightarrow{BC}|^2 \bigr) \\ &= \frac12 (c^2 + b^2 - a^2) .
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 由向量点积定义$|\overrightarrow{AB}||\overrightarrow{AC}|\cos A$，结合余弦定理$\cos A=\frac{b^2+c^2-a^2}{2bc}$，化简可得该表达式。
+		\item[\textbf{步骤四（代入化简）：}]
+			将步骤三代入步骤二：
+			\[
+				\begin{aligned}
+					m_a^2 &= \frac14 \Bigl( b^2 + c^2 + 2\cdot\frac12(b^2 + c^2 - a^2) \Bigr) \\ &= \frac14 \Bigl( b^2 + c^2 + b^2 + c^2 - a^2 \Bigr) \\ &= \frac14 ( 2b^2 + 2c^2 - a^2 ) .
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 直接代数运算，注意$|\overrightarrow{AB}| = c$, $|\overrightarrow{AC}| = b$, $|\overrightarrow{BC}| = a$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	得到$m_a^2 = \frac14(2b^2+2c^2-a^2)$，即中线长公式。通过轮换字母$a,b,c$，类似可得$m_b^2$和$m_c^2$的表达式，故定理成立。
+\end{proofbox}
