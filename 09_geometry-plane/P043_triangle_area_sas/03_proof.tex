@@ -1,0 +1,58 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	通过作高法将三角形面积转化为“底×高”形式，再借助三角函数表示高，得到公式。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（建立三角形）：}] 设定$\triangle ABC$，记$BC=a$，$AC=b$，$\angle ACB=C$。
+			\[
+				BC = a,\quad AC = b,\quad \angle ACB = C.
+			\]
+			\par\textbf{理由：}
+			变量设定，明确已知条件。
+
+		\item[\textbf{步骤二（作辅助高）：}] 过$A$作$AD\perp BC$（或其延长线）于$D$，则$AD$为$BC$上的高。
+			\[
+				AD \perp BC.
+			\]
+			\par\textbf{理由：}
+			高线定义，垂线段长度即为高。
+
+		\item[\textbf{步骤三（正弦表高）：}] 在$\triangle ACD$（含角$C$的直角三角形）中，由正弦定义，
+			\[
+				\begin{aligned}
+					\sin C &= \frac{AD}{AC} \\
+					&= \frac{AD}{b} \\
+					&\Rightarrow \\
+					AD &= b\sin C .
+			\end{aligned}
+			\]
+			当$C$为钝角时，$\sin C=\sin(180^\circ-C)$，上式仍成立。
+			\par\textbf{理由：}
+			直角三角形中，对边比斜边等于角的正弦；互补角正弦值相等。
+
+		\item[\textbf{步骤四（求面积）：}] 由三角形面积公式 $S=\frac12\times BC\times AD$，代入得
+			\[
+				\begin{aligned}
+					S &= \frac12 \times a \times b\sin C \\
+					&= \frac12 ab\sin C .
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			面积等于底乘高的一半，底为$a$，高为$b\sin C$。
+
+		\item[\textbf{步骤五（轮换对称）：}] 同理，选择其他两边及其夹角可得
+			\[
+				S = \frac12 bc\sin A,\quad S = \frac12 ca\sin B.
+			\]
+			\par\textbf{理由：}
+			公式对任意两边及其夹角均成立，由角度轮换得到。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{在任意三角形中，若已知两边及其夹角，面积直接由 $S=\frac12 ab\sin C$ 给出，并且具有轮换形式。}
+\end{proofbox}
