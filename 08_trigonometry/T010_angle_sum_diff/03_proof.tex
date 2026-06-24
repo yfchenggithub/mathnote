@@ -1,0 +1,72 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用单位圆上两点坐标与向量点积，先证明 $\cos(\alpha-\beta)=\cos\alpha\cos\beta+\sin\alpha\sin\beta$，再通过诱导公式推出正弦和角公式，最后用商数关系得到正切和角公式。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（建立单位圆）：}] 在直角坐标系中作单位圆，设射线 $OP,OQ$ 分别与 $x$ 轴正方向成角 $\alpha,\beta$，则点 $P(\cos\alpha,\sin\alpha)$，$Q(\cos\beta,\sin\beta)$。
+			\par\textbf{理由：} 单位圆上任意角对应的点坐标由余弦和正弦给出。
+
+		\item[\textbf{步骤二（向量点积）：}] 计算
+			\[
+				\begin{aligned}
+					\overrightarrow{OP}\cdot\overrightarrow{OQ} &= |\overrightarrow{OP}||\overrightarrow{OQ}|\cos(\angle POQ) \\
+					&= 1\cdot1\cdot\cos(\alpha-\beta) \\
+					&= \cos(\alpha-\beta).
+			\end{aligned}
+			\]
+			另一表达为 $(\cos\alpha,\sin\alpha)\cdot(\cos\beta,\sin\beta)=\cos\alpha\cos\beta+\sin\alpha\sin\beta$。
+			\par\textbf{理由：} 向量点积的坐标表达式。
+
+		\item[\textbf{步骤三（余弦差公式）：}] 由步骤二得恒等式 $\cos(\alpha-\beta)=\cos\alpha\cos\beta+\sin\alpha\sin\beta$。
+			\par\textbf{理由：} 两种表达方式相等。
+
+		\item[\textbf{步骤四（余弦和公式）：}] 用 $-\beta$ 替换 $\beta$，由 $\cos(-\beta)=\cos\beta,\;\sin(-\beta)=-\sin\beta$，得
+			\[
+				\begin{aligned}
+					\cos(\alpha+\beta) &= \cos\alpha\cos(-\beta)+\sin\alpha\sin(-\beta) \\
+					&= \cos\alpha\cos\beta-\sin\alpha\sin\beta.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 余弦为偶函数，正弦为奇函数。
+
+		\item[\textbf{步骤五（正弦和公式）：}] 利用诱导公式 $\sin\theta=\cos(\frac{\pi}{2}-\theta)$，则
+			\[
+				\sin(\alpha+\beta)=\cos\!\Big(\frac{\pi}{2}-(\alpha+\beta)\Big),
+			\]
+			再变形为
+			\[
+				\cos\!\Big(\frac{\pi}{2}-(\alpha+\beta)\Big)=\cos\!\Big((\frac{\pi}{2}-\alpha)-\beta\Big).
+			\]
+			应用步骤三的余弦差公式：
+			\[
+				\begin{aligned}
+					\cos\!\Big((\frac{\pi}{2}-\alpha)-\beta\Big) &= \cos(\frac{\pi}{2}-\alpha)\cos\beta+\sin(\frac{\pi}{2}-\alpha)\sin\beta \\
+					&= \sin\alpha\cos\beta+\cos\alpha\sin\beta.
+			\end{aligned}
+			\]
+			因此 $\sin(\alpha+\beta)=\sin\alpha\cos\beta+\cos\alpha\sin\beta$。将 $\beta$ 换为 $-\beta$ 得 $\sin(\alpha-\beta)=\sin\alpha\cos\beta-\cos\alpha\sin\beta$。
+			\par\textbf{理由：} 诱导公式与余弦差公式相结合。
+
+		\item[\textbf{步骤六（正切和公式）：}] 由 $\tan\theta=\dfrac{\sin\theta}{\cos\theta}$（$\cos\theta\neq0$），得
+			\[
+				\begin{aligned}
+					\tan(\alpha+\beta) &= \frac{\sin(\alpha+\beta)}{\cos(\alpha+\beta)} \\
+					&= \frac{\sin\alpha\cos\beta+\cos\alpha\sin\beta}{\cos\alpha\cos\beta-\sin\alpha\sin\beta}.
+			\end{aligned}
+			\]
+			分子分母同除以 $\cos\alpha\cos\beta$（假设 $\cos\alpha\cos\beta\neq0$），得
+			\[
+				\tan(\alpha+\beta)=\frac{\tan\alpha+\tan\beta}{1-\tan\alpha\tan\beta}.
+			\]
+			同理可得 $\tan(\alpha-\beta)=\dfrac{\tan\alpha-\tan\beta}{1+\tan\alpha\tan\beta}$。
+			\par\textbf{理由：} 商数关系及代数化简，该公式还需要条件 $1\mp\tan\alpha\tan\beta\neq0$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	经过以上步骤，完整推导了两角和与差的正弦、余弦、正切公式，且明确了使用条件（正切时分母不为零）。
+\end{proofbox}
