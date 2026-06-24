@@ -1,0 +1,37 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	本证明通过换元 $t=\omega x+\varphi$，将 $y=A\sin(\omega x+\varphi)$ 转化为 $y=A\sin t$，利用 $A>0$ 时 $y$ 与 $\sin t$ 大小关系一致，得到最值关系。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（换元映射）：}] 令 $t=\omega x+\varphi$，则 $y=A\sin t$。由 $\omega>0$，$x\in[x_1,x_2]$ 可得 $t$ 的范围：
+			\[
+				t_1 = \omega x_1 + \varphi,\quad t_2 = \omega x_2 + \varphi,\quad t\in[t_1,t_2].
+			\]
+			\par\textbf{理由：} 线性映射保端点顺序，且单调递增，故定义域精准映射到 $[t_1,t_2]$。
+
+		\item[\textbf{步骤二（正相关关系）：}] 因为 $A>0$，所以 $y=A\sin t$ 与 $\sin t$ 在同一点同时取最大、最小值。即：
+			\[
+				\max_{t\in[t_1,t_2]} y = A\cdot\max_{t\in[t_1,t_2]}\sin t,
+			\]
+			\[
+				\min_{t\in[t_1,t_2]} y = A\cdot\min_{t\in[t_1,t_2]}\sin t.
+			\]
+			\par\textbf{理由：} 正系数 $A$ 乘以一个函数，最大最小值对应扩大 $A$ 倍，不改变最值点。
+
+		\item[\textbf{步骤三（最值公式）：}] 记 $M=\max_{t\in[t_1,t_2]}\sin t$，$m=\min_{t\in[t_1,t_2]}\sin t$，则
+			\[
+				y_{\max}=A\cdot M,
+				\qquad
+				y_{\min}=A\cdot m.
+			\]
+			\par\textbf{理由：} 用符号 $M,m$ 简明表示正弦部分的最值。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{因此，求 $y=A\sin(\omega x+\varphi)$（$A>0,\omega>0$）在闭区间 $[x_1,x_2]$ 上的最值，只需通过换元 $t=\omega x+\varphi$ 得到 $t$ 区间，计算 $\sin t$ 在该区间上的最大值 $M$ 和最小值 $m$，则 $y_{\max}=A\cdot M$，$y_{\min}=A\cdot m$。}
+\end{proofbox}
