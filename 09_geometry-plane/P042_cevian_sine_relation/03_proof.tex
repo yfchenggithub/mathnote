@@ -1,0 +1,40 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用$\triangle ABD,\triangle ACD,\triangle ABC$的面积公式，通过$S_{\triangle ABC}=S_{\triangle ABD}+S_{\triangle ACD}$建立等式，化简即可。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一(书写面积):}] 分别写出三个三角形的面积（以夹角正弦表示）：
+			\[
+				\begin{aligned}
+					S_{\triangle ABD} &= \frac{1}{2} c d \sin\alpha, \\
+					S_{\triangle ACD} &= \frac{1}{2} b d \sin\beta, \\
+					S_{\triangle ABC} &= \frac{1}{2} b c \sin(\alpha+\beta).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 面积公式$S=\frac12 ab\sin C$，在$\triangle ABD$中，边$AB=c$与$AD=d$的夹角为$\alpha$；在$\triangle ACD$中，边$AC=b$与$AD=d$的夹角为$\beta$；在$\triangle ABC$中，边$AB=c$与$AC=b$的夹角为$\alpha+\beta$。
+
+		\item[\textbf{步骤二(面积相等):}] 因为$\triangle ABC$由$\triangle ABD$与$\triangle ACD$拼成，面积满足：
+			\[
+				S_{\triangle ABC}=S_{\triangle ABD}+S_{\triangle ACD}.
+			\]
+			代入面积表达式得：
+			\[
+				\frac{1}{2} b c \sin(\alpha+\beta)=\frac{1}{2} c d \sin\alpha+\frac{1}{2} b d \sin\beta.
+			\]
+			\par\textbf{理由：} 点$D$在$BC$上，故$\triangle ABD$与$\triangle ACD$无重叠且覆盖$\triangle ABC$。
+
+		\item[\textbf{步骤三(化简结论):}] 两边同时乘以2，再除以$b c d$，整理得：
+			\[
+				\frac{\sin(\alpha+\beta)}{d}=\frac{\sin\alpha}{b}+\frac{\sin\beta}{c}.
+			\]
+			\par\textbf{理由：} $b,c,d$均不为零（三角形边长），且$\sin(\alpha+\beta)>0$（$\alpha+\beta<\pi$且为内角）。两边同除后得到所需形式。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{最终得到$\displaystyle\frac{\sin\alpha}{b}+\frac{\sin\beta}{c}=\frac{\sin(\alpha+\beta)}{d}$，即为张角定理。}
+\end{proofbox}
