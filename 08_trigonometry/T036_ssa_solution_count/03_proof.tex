@@ -1,0 +1,50 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	将三角形解的问题转化为正弦方程 $\sin B = \frac{b\sin A}{a}$ 的解数，并结合内角和及边角大小关系确定解的个数。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（正弦定理转化）：}]
+			在 $\triangle ABC$ 中，由正弦定理
+			\[
+				\frac{a}{\sin A} = \frac{b}{\sin B} \;\Rightarrow\; \sin B = \frac{b\sin A}{a} = \frac{h}{a},
+			\]
+			其中 $h = b\sin A$。
+			\par\textbf{理由：} 将边的关系转化为角 $B$ 的正弦值。
+		\item[\textbf{步骤二（初步分类）：}]
+			根据 $\sin B$ 的取值范围：
+			\begin{itemize}
+			\item 若 $\frac{h}{a}>1$（即 $a<h$），则 $\sin B>1$，无解。
+			\item 若 $\frac{h}{a}=1$（即 $a=h$），则 $\sin B=1$，$B=\frac{\pi}{2}$，一解。
+			\item 若 $\frac{h}{a}<1$（即 $a>h$），则 $\sin B \in (0,1)$，$B$ 可取锐角 $\theta$ 或钝角 $\pi-\theta$，其中 $\theta=\arcsin\frac{h}{a}$。
+		\end{itemize}
+			\par\textbf{理由：} 正弦函数在 $(0,\pi)$ 的值域及解的情况。
+		\item[\textbf{步骤三（$A$ 为钝直角情形）：}]
+			当 $A\geq\frac{\pi}{2}$ 时，由 $A+B<\pi$ 得 $B<\frac{\pi}{2}$，故 $B$ 只能为锐角。此时结合正弦值分析：
+			\begin{itemize}
+			\item 若 $a>b$，则 $\sin B = \frac{b}{a}\sin A < \sin A$。因为 $A\geq\frac{\pi}{2}$，有 $\sin A = \sin(\pi-A)$ 且 $\pi-A\leq\frac{\pi}{2}$，而 $B$ 为锐角，在 $(0,\frac{\pi}{2}]$ 上正弦递增，故 $B < \pi-A$，从而 $C=\pi-A-B>0$，一解。
+			\item 若 $a\leq b$，则 $\sin B = \frac{b}{a}\sin A \geq \sin A = \sin(\pi-A)$，同样由单调性得 $B \geq \pi-A$，从而 $C \leq 0$，无解。
+		\end{itemize}
+			\par\textbf{理由：} 正弦函数单调性与内角和限制。
+		\item[\textbf{步骤四（$A$ 为锐角情形）：}]
+			当 $A<\frac{\pi}{2}$ 时，$\pi-A>\frac{\pi}{2}$。分情况：
+			\begin{itemize}
+			\item 若 $a\geq b$，则 $\sin B = \frac{b}{a}\sin A \leq \sin A$。在 $(0,\frac{\pi}{2})$ 上正弦递增，故 $\theta \leq A$。此时若取 $B=\pi-\theta$，则 $A+B = A+\pi-\theta \geq \pi$（因 $\theta \leq A$），$C\leq0$；因此只能取 $B=\theta$，一解。
+			\item 若 $a<b$ 且 $a>h$（即 $h<a<b$），则 $\sin B = \frac{b}{a}\sin A > \sin A$，从而 $\theta > A$。注意到 $\theta$ 是锐角而 $\pi-A > \frac{\pi}{2}$，故 $\theta < \pi-A$ 自动成立，因此取 $B=\theta$ 有 $C = \pi-A-\theta >0$；取 $B = \pi-\theta$ 有 $C = \pi-A-(\pi-\theta) = \theta-A >0$，故有两解。
+			\item 若 $a<b$ 但 $a\leq h$，已归入步骤二的无解或一解。
+		\end{itemize}
+			\par\textbf{理由：} 正弦函数单调性与内角和条件。
+		\item[\textbf{步骤五（整合）：}]
+			综合以上，得到原判据：
+			\begin{itemize}
+			\item 当 $A\geq90^\circ$ 时：$a\leq b$ 无解，$a>b$ 一解。
+			\item 当 $A<90^\circ$ 时：$a<h$ 无解，$a=h$ 一解，$h<a<b$ 两解，$a\geq b$ 一解。
+		\end{itemize}
+			\par\textbf{理由：} 汇总分析。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	该判据完整刻画了已知两边及一对角时三角形解的个数，核心是比较 $a$ 与 $h$、$a$ 与 $b$ 的大小。证明过程同时说明了两解情形仅出现在 $A$ 为锐角且 $h<a<b$ 的条件下。
+\end{proofbox}
