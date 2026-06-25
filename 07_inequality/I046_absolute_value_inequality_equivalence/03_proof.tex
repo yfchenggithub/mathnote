@@ -1,0 +1,81 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	根据绝对值定义分段讨论，先考虑 $t=f(x)$ 再分别证明两个等价关系。（以下以 $<$ 和 $>$ 为例证明，含等号情形可完全类似推导。）
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（引入代换）：}] 设 $t=f(x)$，则 $|f(x)|=|t|$，原问题转化为研究 $|t|$ 与 $a$ 的大小关系。
+			\[
+				|f(x)|<a \iff |t|<a,
+				\qquad
+				|f(x)|>a \iff |t|>a.
+			\]
+			\par\textbf{理由：} 由 $f(x)$ 的任意性，代入简化符号。
+
+		\item[\textbf{步骤二（定义展开）：}] 根据绝对值定义：
+			\[
+				|t|=\begin{cases}
+				t, & t\ge 0,\\
+				-t, & t<0.
+		\end{cases}
+		\]
+		\par\textbf{理由：} 绝对值是分段函数，需要分情况处理。
+
+	\item[\textbf{步骤三（小于情形正向）：}] 若 $|t|<a$，分类讨论：
+		\[
+			\begin{aligned}
+				t\ge 0 &\Rightarrow t<a;\\
+				t<0 &\Rightarrow -t<a\;\Rightarrow\; t>-a.
+		\end{aligned}
+		\]
+		\par\textbf{理由：} 代入分段定义并解不等式。因为 $a>0$，所以不等号方向不变。
+
+	\item[\textbf{步骤四（小于情形反向）：}] 若 $-a<t<a$，则
+		\[
+			t\ge0 \Rightarrow |t|=t<a,\quad t<0\Rightarrow |t|=-t<a.
+		\]
+		\par\textbf{理由：} 直接验证两种情形都满足 $|t|<a$。
+
+	\item[\textbf{步骤五（小于结论）：}] 结合步骤三和四得：
+		\[
+			|t|<a \iff -a<t<a.
+		\]
+		代回 $t=f(x)$ 即得
+		\[
+			|f(x)|<a \iff -a<f(x)<a.
+		\]
+		\par\textbf{理由：} 双向推理完成，代入 $t$ 得到原式。
+
+	\item[\textbf{步骤六（大于情形正向）：}] 若 $|t|>a$，分类讨论：
+		\[
+			\begin{aligned}
+				t\ge0 &\Rightarrow t>a;\\
+				t<0 &\Rightarrow -t>a\;\Rightarrow\; t<-a.
+		\end{aligned}
+		\]
+		\par\textbf{理由：} 分段代入，注意 $a>0$ 不变号。
+
+	\item[\textbf{步骤七（大于情形反向）：}] 若 $t<-a$ 或 $t>a$，直接检验：
+		\[
+			t<-a\Rightarrow |t|=-t>a,\quad t>a\Rightarrow |t|=t>a.
+		\]
+		\par\textbf{理由：} 均满足 $|t|>a$。
+
+	\item[\textbf{步骤八（大于结论）：}] 组合得：
+		\[
+			|t|>a \iff t<-a \;\lor\; t>a.
+		\]
+		代回 $t=f(x)$：
+		\[
+			|f(x)|>a \iff f(x)<-a \;\lor\; f(x)>a.
+		\]
+		\par\textbf{理由：} 同样双向推理完成。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+
+以上证明了在 $a>0$ 且 $f(x)$ 为实数表达式时，绝对值不等式等价于不含绝对值的简单不等式组，是解绝对值不等式的基础工具。
+\end{proofbox}

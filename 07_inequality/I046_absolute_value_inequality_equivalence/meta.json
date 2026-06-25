@@ -1,0 +1,173 @@
+{
+  "id": "I046",
+  "module": "inequality",
+  "core": {
+    "title": "含绝对值不等式等价转化",
+    "alias": [
+      "绝对值不等式",
+      "绝对值去掉",
+      "绝对值直接拆"
+    ],
+    "summary": "绝对值小于正数：取中间；绝对值大于正数：取两边。",
+    "difficulty": 2,
+    "category": "不等式",
+    "tags": [
+      "绝对值不等式",
+      "等价转化",
+      "基础结论",
+      "代数性质",
+      "不等式解法"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "绝对值",
+      "不等式",
+      "解法",
+      "等价",
+      "小于",
+      "大于",
+      "去绝对值",
+      "含绝对值",
+      "f(x)",
+      "a>0",
+      "解集",
+      "中间",
+      "两边",
+      "取值范围",
+      "|f(x)|<a"
+    ],
+    "synonyms": [
+      "绝对值的解法",
+      "绝对值不等式怎么解",
+      "去掉绝对值",
+      "绝对值小于",
+      "绝对值大于"
+    ],
+    "intents": [
+      "解绝对值不等式",
+      "求解",
+      "转化",
+      "等价变形",
+      "求取值范围"
+    ],
+    "query_templates": [
+      "绝对值不等式怎么解",
+      "|f(x)|<a怎么解",
+      "绝对值大于a的解集",
+      "含绝对值不等式等价转化",
+      "解|2x-1|<3"
+    ],
+    "ocrKeywords": [
+      "|f(x)|",
+      "<a",
+      ">a",
+      "-a<f(x)<a",
+      "f(x)<-a或f(x)>a"
+    ],
+    "latex_patterns": [
+      "|f(x)|<a",
+      "|f(x)|>a"
+    ],
+    "formulaTokens": [
+      "-a<f(x)<a",
+      "f(x)<-a",
+      "f(x)>a",
+      "|f(x)|<a",
+      "|f(x)|>a",
+      "-a≤f(x)≤a",
+      "f(x)≤-a",
+      "f(x)≥a"
+    ],
+    "pinyin": "jueduizhibudengshi",
+    "pinyinAbbr": "jdzbds"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.77,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "|f(x)|<a \\iff -a<f(x)<a,\\quad |f(x)|>a \\iff f(x)<-a \\lor f(x)>a",
+    "related_formulas": [
+      "|f(x)|\\leq a \\iff -a\\leq f(x)\\leq a",
+      "|f(x)|\\geq a \\iff f(x)\\leq -a \\lor f(x)\\geq a"
+    ],
+    "variables": {
+      "a": "正实数",
+      "f(x)": "实数表达式",
+      "x": "自变量"
+    },
+    "conditions": "参数$a>0$，且$f(x)$为实数表达式。",
+    "conclusions": "当$a>0$时，$|f(x)|<a$等价于$-a<f(x)<a$；$|f(x)|>a$等价于$f(x)<-a$或$f(x)>a$。含等号时边界同样包含。"
+  },
+  "content": {
+    "statement": "若$a>0$，$f(x)$为实数表达式，则不等式$|f(x)|<a$等价于$-a<f(x)<a$；不等式$|f(x)|>a$等价于$f(x)<-a$或$f(x)>a$。",
+    "derivation": [
+      "由绝对值定义：$|u|$表示数轴上点$u$到原点的距离。",
+      "当$|f(x)|<a$时，$f(x)$到原点的距离小于$a$，故$f(x)$在$-a$和$a$之间，即$-a<f(x)<a$。",
+      "当$|f(x)|>a$时，$f(x)$到原点的距离大于$a$，故$f(x)$在$-a$左侧或$a$右侧，即$f(x)<-a$或$f(x)>a$。"
+    ],
+    "intuition": "绝对值的几何意义是距离，小于正数意味着落在正负数之间，大于正数意味着落在两侧。",
+    "common_tricks": [
+      "使用前必须确认$a>0$，若$a\\leq0$则结论不成立。",
+      "记住口诀：小于取中间（且），大于取两边（或）。",
+      "含等号时不等式边界也带上等号，逻辑不变。",
+      "最终解集注意：小于情形取交集，大于情形取并集。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "解绝对值不等式",
+      "参数范围题"
+    ],
+    "problem_types": [
+      "解不等式",
+      "含绝对值的不等式"
+    ],
+    "exam_frequency": 1.0,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": ""
+  },
+  "shareConfig": {
+    "title": "绝对值不等式等价转化：解集直接写出",
+    "shareDesc": "适合课后复习和考前速查，快速掌握绝对值不等式去绝对值的方法，避免分情况讨论错误，提升解不等式稳定性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "绝对值定义",
+      "不等式基本性质"
+    ],
+    "related_ids": [],
+    "similar": [
+      "分式不等式转化",
+      "根式不等式转化"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-25"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "不等式-等价变形-绝对值转化",
+  "altNodes": [
+    "不等式-解法-区间法",
+    "不等式-解法-数轴法"
+  ]
+}
