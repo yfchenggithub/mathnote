@@ -2978,3 +2978,70 @@ ID 预览: V034
 [2026-06-25 20:37:59] [latex] Generating LaTeX for V036...
 [2026-06-25 20:38:27] [write] source.tex updated from 12_pipeline\generated_sources\V036.tex (1097 chars)
 [2026-06-25 20:38:27] [pipeline] Running run_source_to_pdf.py 04_vector --target-id V036...
+[2026-06-25 21:04:57] [publish] PDF_READY confirmed for V036; deployment is allowed
+[2026-06-25 21:04:57] [publish] Running incremental_publish.py for V036...
+[2026-06-25 21:06:04] [done] V036 -> V036: complete
+[2026-06-25 21:06:07] 
+[2026-06-25 21:06:07] ============================================================
+[2026-06-25 21:06:07] [progress] 17/18: V037 | V037 | 向量不等式：|a·b|≤|a|·|b|（柯西不等式的向量形式） | 教材必修二 |
+[2026-06-25 21:06:07] ============================================================
+[2026-06-25 21:06:07] [start] V037: 04_vector:74 | V037 | 向量不等式：|a·b|≤|a|·|b|（柯西不等式的向量形式） | 教材必修二 |
+[2026-06-25 21:06:07] [latex] Generating LaTeX for V037...
+[2026-06-25 21:06:35] [write] source.tex updated from 12_pipeline\generated_sources\V037.tex (736 chars)
+[2026-06-25 21:06:35] [pipeline] Running run_source_to_pdf.py 04_vector --target-id V037...
+[2026-06-25 21:20:42] [fail] V037: Pipeline failed (rc=1): rogress] item=V037 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=420.7s timeout=180s
+2026-06-25 21:18:55,411 - INFO - [progress] item=V037 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=450.8s timeout=180s
+2026-06-25 21:19:25,456 - INFO - [progress] item=V037 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=480.8s timeout=180s
+2026-06-25 21:19:44,552 - INFO - [PERF_TRACE] {"event": "perf_trace", "step": "l4_check", "model": "deepseek-v4-pro", "prompt_chars": 14492, "payload_chars": 11215, "response_chars": 10456, "request_start_ts": "2026-06-25T21:11:24.635", "request_end_ts": "2026-06-25T21:19:44.549", "llm_roundtrip_ms": 499913.69, "network_wait_ms": 499913.69, "prompt_tokens": 6771, "completion_tokens": 37224, "total_tokens": 43995, "json_parse_ms": 2.28, "validate_ms": 0.04, "retry_count": 0, "timeout_value": 180, "thinking_enabled": true, "reasoning_effort": "max"}
+2026-06-25 21:19:44,567 - INFO - [stage/done] item=V037 stage=L4_CHECK mode=run elapsed=499.93s
+2026-06-25 21:19:44,568 - INFO - [stage/start] item=V037 stage=L4_EXPORT mode=run
+2026-06-25 21:19:44,610 - INFO - V037 L4 导出 tex 片段: 6 个
+2026-06-25 21:19:44,610 - INFO - [stage/done] item=V037 stage=L4_EXPORT mode=run elapsed=0.04s
+2026-06-25 21:19:44,611 - INFO - [stage/start] item=V037 stage=L5 mode=run
+2026-06-25 21:19:44,746 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-25 21:20:14,653 - INFO - [progress] item=V037 stage=L5 model=deepseek-v4-flash attempt=1/3 retry_count=0 waited=30.0s timeout=180s
+2026-06-25 21:20:19,701 - WARNING - V037 L5 id 已纠正: 'V001' -> 'V037'
+2026-06-25 21:20:19,724 - INFO - [stage/done] item=V037 stage=L5 mode=run elapsed=35.11s
+2026-06-25 21:20:19,724 - INFO - V037 L6 缓存无 prompt 指纹记录，判定缓存失效并重跑。
+2026-06-25 21:20:19,724 - INFO - [stage/start] item=V037 stage=L6 mode=run
+2026-06-25 21:20:19,854 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-25 21:20:31,877 - INFO - [stage/done] item=V037 stage=L6 mode=run elapsed=12.15s note=dirname=V037_vector_cauchy_schwarz
+
+Processing Pipeline:   0%|          | 0/1 [13:51<?, ?it/s, success=1, error=0, skipped=0]
+Processing Pipeline: 100%|██████████| 1/1 [13:51<00:00, 831.48s/it, success=1, error=0, skipped=0]
+Processing Pipeline: 100%|██████████| 1/1 [13:51<00:00, 831.48s/it, success=1, error=0, skipped=0]
+2026-06-25 21:20:31,897 - INFO - 
+\u2705 任务结束: {'success': 1, 'error': 0, 'skipped': 0}
+2026-06-25 21:20:31,898 - INFO - \u23f1 总耗时: 831.58s
+========== Pipeline 发布 ==========
+模式: full
+dry-run: no | verbose: no
+ID 数量: 1
+ID 预览: V037
+===================================
+
+[V037] 开始
+[V037] 目标: 04_vector/V037_vector_cauchy_schwarz
+[V037] 目录命名: 使用 L6 产物
+[V037] 讲义文件: 已发布 6 个
+[V037] meta.json: 已同步
+[V037] source.tex: 已拷贝
+[V037] main.tex: 已生成
+[V037] index.tex: 已追加入口
+[V037] 完成
+
+============= 发布汇总 =============
+总计: 1
+成功: 1
+失败: 0
+警告: 0
+===================================
+
+[2026-06-25 21:20:45] 
+[2026-06-25 21:20:45] ============================================================
+[2026-06-25 21:20:45] [progress] 18/18: V038 | V038 | 向量不等式：|a|-|b|≤|a±b|≤|a|+|b|（三角不等式） | 教材必修二 |
+[2026-06-25 21:20:45] ============================================================
+[2026-06-25 21:20:45] [start] V038: 04_vector:75 | V038 | 向量不等式：|a|-|b|≤|a±b|≤|a|+|b|（三角不等式） | 教材必修二 |
+[2026-06-25 21:20:45] [latex] Generating LaTeX for V038...
+[2026-06-25 21:21:25] [write] source.tex updated from 12_pipeline\generated_sources\V038.tex (709 chars)
+[2026-06-25 21:21:25] [pipeline] Running run_source_to_pdf.py 04_vector --target-id V038...

@@ -1,0 +1,55 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	通过平方展开将模转化为数量积，再利用数量积不等式放缩。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[ \textbf{步骤一（平方展开和模）}]
+			对于向量 $\mathbf{a},\mathbf{b}$，计算
+			\[
+				|\mathbf{a}+\mathbf{b}|^2 = (\mathbf{a}+\mathbf{b})\cdot(\mathbf{a}+\mathbf{b}) = |\mathbf{a}|^2 + 2\mathbf{a}\cdot\mathbf{b} + |\mathbf{b}|^2.
+			\]
+			\par\textbf{理由：} 向量模的平方等于自身数量积。
+		\item[ \textbf{步骤二（数量积放缩）}]
+			由数量积定义 $\mathbf{a}\cdot\mathbf{b}=|\mathbf{a}||\mathbf{b}|\cos\theta$，其中 $\theta$ 为夹角，因此
+			\[
+				\mathbf{a}\cdot\mathbf{b} \le |\mathbf{a}||\mathbf{b}|.
+			\]
+			\par\textbf{理由：} $\cos\theta\le 1$，等号当 $\theta=0^\circ$ 即同向时成立。
+		\item[ \textbf{步骤三（右边不等式得证）}]
+			结合上述两式，
+			\[
+				|\mathbf{a}+\mathbf{b}|^2 \le |\mathbf{a}|^2 + 2|\mathbf{a}||\mathbf{b}| + |\mathbf{b}|^2 = (|\mathbf{a}|+|\mathbf{b}|)^2.
+			\]
+			两边开方（模非负），得
+			\[
+				|\mathbf{a}+\mathbf{b}| \le |\mathbf{a}|+|\mathbf{b}|.
+			\]
+			\par\textbf{理由：} 由不等式传递性及算术平方根单调性。
+		\item[ \textbf{步骤四（差的形式同理）}]
+			将 $\mathbf{b}$ 替换为 $-\mathbf{b}$，由于 $|-\mathbf{b}|=|\mathbf{b}|$，同理可得
+			\[
+				|\mathbf{a}-\mathbf{b}| \le |\mathbf{a}|+|\mathbf{b}|.
+			\]
+			\par\textbf{理由：} 向量模与方向无关，替换后仍满足相同过程。
+		\item[ \textbf{步骤五（左边不等式证明）}]
+			利用已证和不等式，将 $\mathbf{a}$ 表示为 $(\mathbf{a}-\mathbf{b})+\mathbf{b}$：
+			\[
+				|\mathbf{a}| = |(\mathbf{a}-\mathbf{b})+\mathbf{b}| \le |\mathbf{a}-\mathbf{b}| + |\mathbf{b}|.
+			\]
+			移项得 $|\mathbf{a}|-|\mathbf{b}| \le |\mathbf{a}-\mathbf{b}|$。同理交换 $\mathbf{a},\mathbf{b}$ 得 $|\mathbf{b}|-|\mathbf{a}| \le |\mathbf{a}-\mathbf{b}|$，从而
+			\[
+				\bigl| |\mathbf{a}|-|\mathbf{b}| \bigr| \le |\mathbf{a}-\mathbf{b}|.
+			\]
+			将 $\mathbf{b}$ 替换为 $-\mathbf{b}$ 即得对 $|\mathbf{a}+\mathbf{b}|$ 的相同不等式。
+			\par\textbf{理由：} 重复应用已证的右边不等式，并利用绝对值不等式性质。
+		\item[ \textbf{步骤六（取等条件整合）}]
+			对于 $|\mathbf{a}+\mathbf{b}|$：右边取等条件即步骤二中 $\mathbf{a}\cdot\mathbf{b}=|\mathbf{a}||\mathbf{b}|$（$\cos\theta=1$），$\mathbf{a}$ 与 $\mathbf{b}$ 同向共线；左边取等条件要求 $\mathbf{a}$ 与 $-\mathbf{b}$ 同向，即 $\mathbf{a}$ 与 $\mathbf{b}$ 反向共线。对于 $|\mathbf{a}-\mathbf{b}|$，取等条件相反：右边等号当 $\mathbf{a}$ 与 $\mathbf{b}$ 反向共线，左边等号当 $\mathbf{a}$ 与 $\mathbf{b}$ 同向共线。
+			\par\textbf{理由：} 等号传递性及共线条件，注意 $\pm$ 的选取导致方向条件互换。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	由此，原不等式 $\bigl| |\mathbf{a}|-|\mathbf{b}| \bigr| \le |\mathbf{a}\pm\mathbf{b}| \le |\mathbf{a}|+|\mathbf{b}|$ 全部得证，且取等条件与向量共线性一致。
+\end{proofbox}
