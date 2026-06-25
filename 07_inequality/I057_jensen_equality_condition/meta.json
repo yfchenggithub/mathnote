@@ -1,0 +1,182 @@
+{
+  "id": "I057",
+  "module": "inequality",
+  "core": {
+    "title": "琴生不等式取等条件",
+    "alias": [
+      "Jensen不等式取等条件",
+      "凸函数加权平均取等",
+      "琴生不等式等号成立"
+    ],
+    "summary": "严格凸函数加权平均的函数值不大于函数值的加权平均，等号仅当所有自变量相等；严格凹则反向。",
+    "difficulty": 3,
+    "category": "不等式",
+    "tags": [
+      "凸函数",
+      "琴生不等式",
+      "取等条件",
+      "不等式",
+      "加权平均"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "琴生不等式",
+      "Jensen不等式",
+      "凸函数",
+      "凹函数",
+      "取等条件",
+      "等号成立",
+      "加权平均",
+      "严格凸",
+      "严格凹",
+      "不等式放缩",
+      "凸性判断"
+    ],
+    "synonyms": [
+      "琴生不等式什么时候等号成立",
+      "Jensen不等式取等条件",
+      "凸函数不等式取等",
+      "琴生定理取等",
+      "琴生不等式等于条件",
+      "加权平均不等式取等"
+    ],
+    "intents": [
+      "证明不等式",
+      "判断等号成立",
+      "应用琴生不等式",
+      "求最值用琴生",
+      "利用凸性放缩"
+    ],
+    "query_templates": [
+      "琴生不等式取等条件是什么",
+      "凸函数琴生不等式什么时候等号成立",
+      "Jensen不等式等号成立条件",
+      "琴生不等式加权平均取等条件"
+    ],
+    "ocrKeywords": [
+      "琴生不等式",
+      "凸函数",
+      "x_i",
+      "λ_i",
+      "∑",
+      "f(∑λ_i x_i) ≤ ∑λ_i f(x_i)",
+      "等号成立",
+      "x_1=x_2=...=x_n",
+      "严格凸",
+      "严格凹",
+      "区间I",
+      "权重λ_i"
+    ],
+    "latex_patterns": [
+      "f\\left(\\sum \\lambda_i x_i\\right) \\le \\sum \\lambda_i f(x_i)",
+      "f\\left(\\sum \\lambda_i x_i\\right) \\ge \\sum \\lambda_i f(x_i)",
+      "x_1 = x_2 = \\cdots = x_n"
+    ],
+    "formulaTokens": [
+      "f(∑λ_i x_i)",
+      "∑λ_i f(x_i)",
+      "(x+y)/2",
+      "(x^2+y^2)/2",
+      "e^{(a+b)/2}",
+      "(e^a+e^b)/2",
+      "ln((a+b)/2)",
+      "(ln a+ln b)/2",
+      "(a+b)/2",
+      "√(ab)"
+    ],
+    "pinyin": "qinshengbudengshiquedengtiaojian",
+    "pinyinAbbr": "qsbdshqdtj"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.76,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "f\\left(\\sum_{i=1}^n \\lambda_i x_i\\right) \\le \\sum_{i=1}^n \\lambda_i f(x_i)",
+    "related_formulas": [
+      "f\\left(\\sum_{i=1}^n \\lambda_i x_i\\right) \\ge \\sum_{i=1}^n \\lambda_i f(x_i) \\quad (f\\text{严格凹})",
+      "x_1 = x_2 = \\cdots = x_n \\quad (\\text{取等条件})"
+    ],
+    "variables": {
+      "f": "定义在区间I上的函数",
+      "I": "函数的定义区间",
+      "x_i": "自变量，属于I",
+      "λ_i": "权重，正数且和为1",
+      "n": "变量个数"
+    },
+    "conditions": "函数$f$在区间$I$上严格凸（或严格凹），$x_i \\in I$，权重$\\lambda_i > 0$且$\\sum_{i=1}^n \\lambda_i = 1$。",
+    "conclusions": "当$f$严格凸时，$f\\left(\\sum_{i=1}^n \\lambda_i x_i\\right) \\le \\sum_{i=1}^n \\lambda_i f(x_i)$，等号当且仅当所有$x_i$相等；当$f$严格凹时，不等号反向，取等条件相同。"
+  },
+  "content": {
+    "statement": "设函数$f$在区间$I$上严格凸，$x_i \\in I$，$\\lambda_i > 0$且$\\sum_{i=1}^n \\lambda_i = 1$，则$f\\left(\\sum_{i=1}^n \\lambda_i x_i\\right) \\le \\sum_{i=1}^n \\lambda_i f(x_i)$，等号成立当且仅当$x_1 = x_2 = \\cdots = x_n$。对于严格凹函数，不等号反向，取等条件相同。",
+    "derivation": "利用凸函数定义$f(\\lambda x + (1-\\lambda)y) \\le \\lambda f(x) + (1-\\lambda)f(y)$，通过数学归纳法可推广到$n$个变量，等号条件由严格凸性唯一性保证。",
+    "intuition": "凸函数图像上任意两点间的弦位于函数图像上方，加权平均相当于弦上点，其函数值不超过对应函数值的加权平均；严格凸时弦不与图像重合，只有所有变量相等时重合，等号成立。",
+    "common_tricks": [
+      "1. 使用前先判断函数凸性：通过二阶导数恒正（凸）或恒负（凹）快速判定。",
+      "2. 注意权重必须为正且和为1，常用等权$\\lambda_i=1/n$简化计算。",
+      "3. 取等条件仅当所有$x_i$相等，在证明不等式中通过反证或构造等号情况辅助分析。",
+      "4. 在导数压轴题中，常先构造凸函数，再用琴生不等式放缩，难点在于选对函数和权重。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "导数压轴题",
+      "不等式证明",
+      "函数凸性应用",
+      "最值问题"
+    ],
+    "problem_types": [
+      "证明题",
+      "综合题",
+      "填空题"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "i001.svg"
+  },
+  "shareConfig": {
+    "title": "琴生不等式取等条件：凸函数加权平均等号成立条件",
+    "shareDesc": "适合考前回顾和导数压轴刷题前速查，快速判断琴生不等式何时取等，避免在证明不等式中忽略等号条件，提升证明严谨性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "凸函数与凹函数",
+      "加权平均",
+      "凸函数判定（二阶导数）"
+    ],
+    "related_ids": [],
+    "similar": [
+      "均值不等式取等条件",
+      "柯西不等式取等条件",
+      "排序不等式取等条件"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-25"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "函数-综合-函数与不等式",
+  "altNodes": [
+    "不等式-经典不等式-均值不等式",
+    "不等式-经典不等式-柯西不等式（选修）"
+  ]
+}

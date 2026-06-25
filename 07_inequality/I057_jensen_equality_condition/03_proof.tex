@@ -1,0 +1,48 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	从严格凸定义出发，先证明两个变量情形，再用数学归纳法推广到$n$个变量。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（二元情形）：}] 对任意$x_1,x_2\in I$，$\lambda_1,\lambda_2>0,\lambda_1+\lambda_2=1$，由严格凸定义得
+			\[
+				f(\lambda_1x_1+\lambda_2x_2)\le\lambda_1f(x_1)+\lambda_2f(x_2),
+			\]
+			等号成立当且仅当$x_1=x_2$.
+			\par\textbf{理由：} 严格凸函数的等价定义直接给出。
+
+		\item[\textbf{步骤二（归纳假设）：}] 假设对$n-1$个变量结论成立：对任意$y_1,\dots,y_{n-1}\in I$，$\mu_i>0$且$\sum_{i=1}^{n-1}\mu_i=1$，有
+			\[
+				f\Bigl(\sum_{i=1}^{n-1}\mu_i y_i\Bigr)\le\sum_{i=1}^{n-1}\mu_i f(y_i),
+			\]
+			等号当且仅当$y_1=\cdots=y_{n-1}$.
+
+		\item[\textbf{步骤三（推广到$n$个变量）：}] 设$x_1,\dots,x_n\in I$，$\lambda_i>0$且$\sum_{i=1}^n\lambda_i=1$.令
+			\[
+				s=\frac{1}{1-\lambda_n}\sum_{i=1}^{n-1}\lambda_i x_i,
+			\]
+			则$\sum_{i=1}^n\lambda_i x_i=(1-\lambda_n)s+\lambda_n x_n$，且$s\in I$（因$x_i\in I$，$I$为区间）。由二元情形得
+			\[
+				f\Bigl(\sum_{i=1}^n\lambda_i x_i\Bigr)\le(1-\lambda_n)f(s)+\lambda_n f(x_n).
+			\]
+			再对$f(s)$应用归纳假设（注意$\sum_{i=1}^{n-1}\frac{\lambda_i}{1-\lambda_n}=1$）：
+			\[
+				f(s)\le\sum_{i=1}^{n-1}\frac{\lambda_i}{1-\lambda_n}f(x_i).
+			\]
+			代入即得
+			\[
+				f\Bigl(\sum_{i=1}^n\lambda_i x_i\Bigr)\le\sum_{i=1}^n\lambda_i f(x_i).
+			\]
+			\par\textbf{理由：} 利用了严格凸定义的二元形式和归纳假设。
+
+		\item[\textbf{步骤四（取等条件分析）：}] 上述推导中，等号成立必须使第一次应用二元凸性时等号成立，即$s=x_n$；同时归纳假设中的等号也必须成立，即$x_1=\cdots=x_{n-1}$.由$s$的定义，$s=x_n$且$x_1=\cdots=x_{n-1}$可推出$x_1=\cdots=x_n$.反之，若$x_1=\cdots=x_n$，则每一步等号显然成立。
+			\par\textbf{理由：} 严格凸性质下等号的传递性。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	因此，对严格凸函数$f$，琴生不等式等号成立当且仅当所有$x_i$相等. 严格凹情形不等号反向，取等条件相同，证明只需将凸性改为凹性，并反转不等号.
+\end{proofbox}

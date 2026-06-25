@@ -2502,3 +2502,70 @@ ID 预览: I044
 [2026-06-25 13:02:39] [latex] Generating LaTeX for I055...
 [2026-06-25 13:03:02] [write] source.tex updated from 12_pipeline\generated_sources\I055.tex (654 chars)
 [2026-06-25 13:03:02] [pipeline] Running run_source_to_pdf.py 07_inequality --target-id I055...
+[2026-06-25 13:17:53] [publish] PDF_READY confirmed for I055; deployment is allowed
+[2026-06-25 13:17:53] [publish] Running incremental_publish.py for I055...
+[2026-06-25 13:18:48] [done] I055 -> I055: complete
+[2026-06-25 13:18:51] 
+[2026-06-25 13:18:51] ============================================================
+[2026-06-25 13:18:51] [progress] 14/20: I056 | I056 | 分式函数最值换元法（令 t=x+1/x 型整体换元） | 教材/高考真题 |
+[2026-06-25 13:18:51] ============================================================
+[2026-06-25 13:18:51] [start] I056: 07_inequality:115 | I056 | 分式函数最值换元法（令 t=x+1/x 型整体换元） | 教材/高考真题 |
+[2026-06-25 13:18:51] [latex] Generating LaTeX for I056...
+[2026-06-25 13:19:27] [write] source.tex updated from 12_pipeline\generated_sources\I056.tex (846 chars)
+[2026-06-25 13:19:27] [pipeline] Running run_source_to_pdf.py 07_inequality --target-id I056...
+[2026-06-25 13:37:15] [fail] I056: Pipeline failed (rc=1): ge=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=420.9s timeout=180s
+2026-06-25 13:35:42,897 - INFO - [progress] item=I056 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=451.0s timeout=180s
+2026-06-25 13:36:12,959 - INFO - [progress] item=I056 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=481.0s timeout=180s
+2026-06-25 13:36:29,913 - INFO - [PERF_TRACE] {"event": "perf_trace", "step": "l4_check", "model": "deepseek-v4-pro", "prompt_chars": 12146, "payload_chars": 8869, "response_chars": 8158, "request_start_ts": "2026-06-25T13:28:11.941", "request_end_ts": "2026-06-25T13:36:29.911", "llm_roundtrip_ms": 497969.63, "network_wait_ms": 497969.63, "prompt_tokens": 5862, "completion_tokens": 43454, "total_tokens": 49316, "json_parse_ms": 1.72, "validate_ms": 0.01, "retry_count": 0, "timeout_value": 180, "thinking_enabled": true, "reasoning_effort": "max"}
+2026-06-25 13:36:29,928 - INFO - [stage/done] item=I056 stage=L4_CHECK mode=run elapsed=497.99s
+2026-06-25 13:36:29,929 - INFO - [stage/start] item=I056 stage=L4_EXPORT mode=run
+2026-06-25 13:36:29,963 - INFO - I056 L4 导出 tex 片段: 6 个
+2026-06-25 13:36:29,963 - INFO - [stage/done] item=I056 stage=L4_EXPORT mode=run elapsed=0.03s
+2026-06-25 13:36:29,964 - INFO - [stage/start] item=I056 stage=L5 mode=run
+2026-06-25 13:36:30,070 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-25 13:37:00,054 - INFO - [progress] item=I056 stage=L5 model=deepseek-v4-flash attempt=1/3 retry_count=0 waited=30.1s timeout=180s
+2026-06-25 13:37:03,623 - WARNING - I056 L5 id 已纠正: 'F001' -> 'I056'
+2026-06-25 13:37:03,650 - INFO - [stage/done] item=I056 stage=L5 mode=run elapsed=33.69s
+2026-06-25 13:37:03,650 - INFO - I056 L6 缓存无 prompt 指纹记录，判定缓存失效并重跑。
+2026-06-25 13:37:03,650 - INFO - [stage/start] item=I056 stage=L6 mode=run
+2026-06-25 13:37:03,907 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-25 13:37:07,354 - INFO - [stage/done] item=I056 stage=L6 mode=run elapsed=3.70s note=dirname=I056_fraction_substitution_identity
+
+Processing Pipeline:   0%|          | 0/1 [17:36<?, ?it/s, success=1, error=0, skipped=0]
+Processing Pipeline: 100%|██████████| 1/1 [17:36<00:00, 1056.09s/it, success=1, error=0, skipped=0]
+Processing Pipeline: 100%|██████████| 1/1 [17:36<00:00, 1056.09s/it, success=1, error=0, skipped=0]
+2026-06-25 13:37:07,370 - INFO - 
+\u2705 任务结束: {'success': 1, 'error': 0, 'skipped': 0}
+2026-06-25 13:37:07,370 - INFO - \u23f1 总耗时: 1056.11s
+========== Pipeline 发布 ==========
+模式: full
+dry-run: no | verbose: no
+ID 数量: 1
+ID 预览: I056
+===================================
+
+[I056] 开始
+[I056] 目标: 07_inequality/I056_fraction_substitution_identity
+[I056] 目录命名: 使用 L6 产物
+[I056] 讲义文件: 已发布 6 个
+[I056] meta.json: 已同步
+[I056] source.tex: 已拷贝
+[I056] main.tex: 已生成
+[I056] index.tex: 已追加入口
+[I056] 完成
+
+============= 发布汇总 =============
+总计: 1
+成功: 1
+失败: 0
+警告: 0
+===================================
+
+[2026-06-25 13:37:18] 
+[2026-06-25 13:37:18] ============================================================
+[2026-06-25 13:37:18] [progress] 15/20: I057 | I057 | 琴生不等式取等条件（变量相等） | 竞赛降维/教材延展 |
+[2026-06-25 13:37:18] ============================================================
+[2026-06-25 13:37:18] [start] I057: 07_inequality:116 | I057 | 琴生不等式取等条件（变量相等） | 竞赛降维/教材延展 |
+[2026-06-25 13:37:19] [latex] Generating LaTeX for I057...
+[2026-06-25 13:37:50] [write] source.tex updated from 12_pipeline\generated_sources\I057.tex (657 chars)
+[2026-06-25 13:37:50] [pipeline] Running run_source_to_pdf.py 07_inequality --target-id I057...
