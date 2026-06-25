@@ -1,0 +1,173 @@
+{
+  "id": "I053",
+  "module": "inequality",
+  "core": {
+    "title": "柯西不等式取等条件",
+    "alias": [
+      "柯西不等式等号成立条件",
+      "向量线性相关",
+      "Cauchy不等式取等条件",
+      "柯西取等"
+    ],
+    "summary": "柯西不等式等号成立当且仅当两向量对应分量成比例",
+    "difficulty": 2,
+    "category": "不等式",
+    "tags": [
+      "柯西不等式",
+      "取等条件",
+      "向量线性相关",
+      "实数序列",
+      "不等式"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "柯西不等式",
+      "取等条件",
+      "等号成立",
+      "线性相关",
+      "a_i = λ b_i",
+      "实数序列",
+      "向量点积",
+      "平方和",
+      "不等式求最值",
+      "最值检验",
+      "比例关系",
+      "成比例",
+      "柯西取等",
+      "Cauchy不等式",
+      "柯西"
+    ],
+    "synonyms": [
+      "柯西",
+      "柯西不等式等号条件",
+      "柯西取等条件",
+      "柯西不等式什么时候取等"
+    ],
+    "intents": [
+      "求最值",
+      "证明不等式",
+      "判断取等",
+      "求解比例",
+      "验证等号"
+    ],
+    "query_templates": [
+      "柯西不等式取等条件是什么",
+      "柯西不等式等号成立条件",
+      "柯西不等式什么时候取等",
+      "柯西不等式求最值取等验证"
+    ],
+    "ocrKeywords": [
+      "a_i",
+      "b_i",
+      "λ",
+      "线性相关",
+      "平方和",
+      "点积"
+    ],
+    "latex_patterns": [
+      "\\sum_{i=1}^n a_i^2",
+      "\\sum_{i=1}^n b_i^2",
+      "\\sum_{i=1}^n a_i b_i",
+      "a_i = \\lambda b_i",
+      "\\biggl(\\sum a_i^2\\biggr)\\biggl(\\sum b_i^2\\biggr) \\ge \\biggl(\\sum a_i b_i\\biggr)^2"
+    ],
+    "formulaTokens": [
+      "∑a_i^2",
+      "∑b_i^2",
+      "a_i b_i",
+      "∑a_i^2∑b_i^2",
+      "(∑a_i b_i)^2",
+      "a_i = λ b_i",
+      "b_i = λ a_i",
+      "λ∈R"
+    ],
+    "pinyin": "kexi budengshi qu deng tiaojian",
+    "pinyinAbbr": "kxqdtj"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.82,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\biggl(\\sum_{i=1}^n a_i^2\\biggr)\\biggl(\\sum_{i=1}^n b_i^2\\biggr) \\ge \\biggl(\\sum_{i=1}^n a_i b_i\\biggr)^2",
+    "related_formulas": [
+      "|\\boldsymbol{a}\\cdot\\boldsymbol{b}| \\le \\|\\boldsymbol{a}\\|\\,\\|\\boldsymbol{b}\\|"
+    ],
+    "variables": [
+      "a_i",
+      "b_i",
+      "λ",
+      "n",
+      "a",
+      "b"
+    ],
+    "conditions": "$a_i,b_i\\in\\mathbb{R}$（$i=1,2,\\dots,n$，$n\\ge 2$）",
+    "conclusions": "等号成立当且仅当存在 $\\lambda\\in\\mathbb{R}$ 使得 $a_i = \\lambda b_i$（$i=1,2,\\dots,n$），特别地若某些 $b_i=0$，则对应的 $a_i$ 必为 $0$。"
+  },
+  "content": {
+    "statement": "对于任意实数序列 $a_i,b_i\\in\\mathbb{R}$ ($i=1,2,\\dots,n$, $n\\ge 2$)，有 $$\\biggl(\\sum_{i=1}^n a_i^2\\biggr)\\biggl(\\sum_{i=1}^n b_i^2\\biggr) \\ge \\biggl(\\sum_{i=1}^n a_i b_i\\biggr)^2$$ 等号成立当且仅当存在实数 $\\lambda$ 使得 $a_i = \\lambda b_i$（或 $b_i = \\lambda a_i$），且若某 $b_i=0$ 则 $a_i=0$。",
+    "derivation": [
+      "构造二次函数 $f(t)=\\sum_{i=1}^n (a_i - t b_i)^2 \\ge 0$，展开得 $f(t)=\\bigl(\\sum b_i^2\\bigr)t^2 - 2\\bigl(\\sum a_i b_i\\bigr)t + \\bigl(\\sum a_i^2\\bigr) \\ge 0$ 恒成立，因此判别式 $\\Delta = 4\\bigl(\\sum a_i b_i\\bigr)^2 - 4\\bigl(\\sum a_i^2\\bigr)\\bigl(\\sum b_i^2\\bigr) \\le 0$，即得不等式。",
+      "等号成立当且仅当 $f(t)=0$ 有唯一实根，即存在 $t=\\lambda$ 使得对所有 $i$ 有 $a_i - \\lambda b_i = 0$，即 $a_i = \\lambda b_i$。",
+      "若某些 $b_i=0$，则 $f(t)$ 中对应项为 $a_i^2$，等号成立要求 $a_i=0$，故 $a_i=0$ 也符合比例关系。"
+    ],
+    "intuition": "平方和与点积的平方通过非负二次函数建立联系，等号对应二次函数有重根，即向量共线。",
+    "common_tricks": [
+      "利用柯西不等式求最值时，必须代入取等条件验证最值是否能取到，防止出现取不到等号的无效最值。",
+      "当某变量系数为零时，使用比例形式前需单独讨论，不能直接写除法。",
+      "配凑系数是常见技巧，可将目标式改写为符合柯西不等式结构的形式。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "最值问题",
+      "不等式证明"
+    ],
+    "problem_types": [
+      "二次型最值",
+      "代数式范围",
+      "条件极值"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "I053.svg"
+  },
+  "shareConfig": {
+    "title": "柯西不等式取等条件：最值检验关键一步",
+    "shareDesc": "适合刷题前速查和考试前回顾，帮你快速判断最值题中等号能否取到，避免无效最值错误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "向量点积",
+      "二次函数判别式",
+      "不等式基本性质"
+    ],
+    "related_ids": [],
+    "similar": "均值不等式取等条件"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-25"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "不等式-经典不等式-柯西不等式（选修）",
+  "altNodes": "向量-数量积-定义,向量-应用-平行与垂直,不等式-经典不等式-均值不等式"
+}
