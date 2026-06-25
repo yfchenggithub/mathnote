@@ -1,0 +1,28 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	穿根法可以严格证明。核心是分析多项式在根附近的符号变化，以及区间内符号不变性，从而确定整个数轴上的符号分布。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（右端极限符号）：}]
+			由于 $a>0$，当 $x\to +\infty$ 时 $f(x)\to +\infty$，故存在 $M>0$ 使得当 $x>M$ 时 $f(x)>0$。因此曲线在足够大的 $x$ 右侧上方，起笔为右上方。
+			\par\textbf{理由：} 最高次项系数 $a>0$ 决定 $+\infty$ 处符号为正。
+		\item[\textbf{步骤二（根附近符号分析）：}]
+			对任意根 $x_i$，考虑邻域内符号。令 $g_i(x)=\dfrac{f(x)}{(x-x_i)^{m_i}}$，则 $g_i(x)$ 在 $x_i$ 附近连续且 $g_i(x_i)\neq0$（因为其他因式乘积在 $x_i$ 非零）。因此，在 $x_i$ 充分小邻域内，$g_i(x)$ 符号恒定且与 $g_i(x_i)$ 同号。于是 $f(x)$ 在 $x_i$ 两侧的符号由 $(x-x_i)^{m_i}$ 的符号决定。当 $m_i$ 为奇数时，$(x-x_i)^{m_i}$ 在 $x_i$ 左右异号，故 $f(x)$ 变号（曲线穿过轴）；当 $m_i$ 为偶数时，$(x-x_i)^{m_i}$ 左右同号，故 $f(x)$ 不变号（曲线不穿过）。
+			\par\textbf{理由：} 符号变化取决于因式 $(x-x_i)^{m_i}$ 的奇偶性。
+		\item[\textbf{步骤三（区间符号恒定性）：}]
+			相邻根之间（即不含任何零点的区间）多项式连续且不为零，由连续函数介值性质，符号恒定。所以只要知道区间内任一点符号即可确定整个区间。
+			\par\textbf{理由：} 连续函数零点定理保证符号不变。
+		\item[\textbf{步骤四（递推确定每个区间符号）：}]
+			从右端第一个区间 $(\max(x_i),+\infty)$ 开始，已知 $f(x)>0$。当通过根 $x_i$ 时，根据奇偶决定是否变号，从而得到下一区间符号。重复此过程，即可依次确定所有区间的正负。
+			\par\textbf{理由：} 利用步骤二、三归纳。
+		\item[\textbf{步骤五（解集写出）：}]
+			将所有使得 $f(x)>0$ 的区间取并（不含根点），即得严格不等式解集。对于非严格不等式，再并上所有根点即可。
+			\par\textbf{理由：} 等号解为根点。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	以上推导表明，穿根法中的“奇穿偶不穿”规则与多项式因式正负变化完全一致，因而正确。
+\end{proofbox}

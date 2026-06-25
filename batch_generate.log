@@ -2325,3 +2325,70 @@ ID 预览: P048
 [2026-06-25 09:22:29] [latex] Generating LaTeX for I043...
 [2026-06-25 09:23:43] [write] source.tex updated from 12_pipeline\generated_sources\I043.tex (878 chars)
 [2026-06-25 09:23:43] [pipeline] Running run_source_to_pdf.py 07_inequality --target-id I043...
+[2026-06-25 09:37:35] [publish] PDF_READY confirmed for I043; deployment is allowed
+[2026-06-25 09:37:35] [publish] Running incremental_publish.py for I043...
+[2026-06-25 09:38:32] [done] I043 -> I043: complete
+[2026-06-25 09:38:35] 
+[2026-06-25 09:38:35] ============================================================
+[2026-06-25 09:38:35] [progress] 2/20: I044 | I044 | 分式不等式解法：移项→通分→化为乘积形式→穿根法 | 教材必修一 |
+[2026-06-25 09:38:35] ============================================================
+[2026-06-25 09:38:35] [start] I044: 07_inequality:96 | I044 | 分式不等式解法：移项→通分→化为乘积形式→穿根法 | 教材必修一 |
+[2026-06-25 09:38:35] [latex] Generating LaTeX for I044...
+[2026-06-25 09:38:57] [write] source.tex updated from 12_pipeline\generated_sources\I044.tex (766 chars)
+[2026-06-25 09:38:57] [pipeline] Running run_source_to_pdf.py 07_inequality --target-id I044...
+[2026-06-25 09:54:31] [fail] I044: Pipeline failed (rc=1): ECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=210.3s timeout=180s
+2026-06-25 09:52:31,251 - INFO - [progress] item=I044 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=240.4s timeout=180s
+2026-06-25 09:53:01,286 - INFO - [progress] item=I044 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=270.4s timeout=180s
+2026-06-25 09:53:31,322 - INFO - [progress] item=I044 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=300.4s timeout=180s
+2026-06-25 09:53:57,407 - INFO - [PERF_TRACE] {"event": "perf_trace", "step": "l4_check", "model": "deepseek-v4-pro", "prompt_chars": 13258, "payload_chars": 9981, "response_chars": 8854, "request_start_ts": "2026-06-25T09:48:30.892", "request_end_ts": "2026-06-25T09:53:57.405", "llm_roundtrip_ms": 326512.67, "network_wait_ms": 326512.67, "prompt_tokens": 6313, "completion_tokens": 31851, "total_tokens": 38164, "json_parse_ms": 2.02, "validate_ms": 0.01, "retry_count": 0, "timeout_value": 180, "thinking_enabled": true, "reasoning_effort": "max"}
+2026-06-25 09:53:57,425 - INFO - [stage/done] item=I044 stage=L4_CHECK mode=run elapsed=326.53s
+2026-06-25 09:53:57,426 - INFO - [stage/start] item=I044 stage=L4_EXPORT mode=run
+2026-06-25 09:53:57,463 - INFO - I044 L4 导出 tex 片段: 6 个
+2026-06-25 09:53:57,463 - INFO - [stage/done] item=I044 stage=L4_EXPORT mode=run elapsed=0.04s
+2026-06-25 09:53:57,464 - INFO - [stage/start] item=I044 stage=L5 mode=run
+2026-06-25 09:53:57,597 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-25 09:54:17,988 - WARNING - I044 L5 id 已纠正: 'I001' -> 'I044'
+2026-06-25 09:54:18,005 - INFO - [stage/done] item=I044 stage=L5 mode=run elapsed=20.54s
+2026-06-25 09:54:18,005 - INFO - I044 L6 缓存无 prompt 指纹记录，判定缓存失效并重跑。
+2026-06-25 09:54:18,005 - INFO - [stage/start] item=I044 stage=L6 mode=run
+2026-06-25 09:54:18,095 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-25 09:54:22,794 - INFO - [stage/done] item=I044 stage=L6 mode=run elapsed=4.79s note=dirname=I044_fractional_inequality_equivalence
+
+Processing Pipeline:   0%|          | 0/1 [15:21<?, ?it/s, success=1, error=0, skipped=0]
+Processing Pipeline: 100%|██████████| 1/1 [15:21<00:00, 921.12s/it, success=1, error=0, skipped=0]
+Processing Pipeline: 100%|██████████| 1/1 [15:21<00:00, 921.12s/it, success=1, error=0, skipped=0]
+2026-06-25 09:54:22,821 - INFO - 
+\u2705 任务结束: {'success': 1, 'error': 0, 'skipped': 0}
+2026-06-25 09:54:22,821 - INFO - \u23f1 总耗时: 921.13s
+========== Pipeline 发布 ==========
+模式: full
+dry-run: no | verbose: no
+ID 数量: 1
+ID 预览: I044
+===================================
+
+[I044] 开始
+[I044] 目标: 07_inequality/I044_fractional_inequality_equivalence
+[I044] 目录命名: 使用 L6 产物
+[I044] 讲义文件: 已发布 6 个
+[I044] meta.json: 已同步
+[I044] source.tex: 已拷贝
+[I044] main.tex: 已生成
+[I044] index.tex: 已追加入口
+[I044] 完成
+
+============= 发布汇总 =============
+总计: 1
+成功: 1
+失败: 0
+警告: 0
+===================================
+
+[2026-06-25 09:54:34] 
+[2026-06-25 09:54:34] ============================================================
+[2026-06-25 09:54:34] [progress] 3/20: I045 | I045 | 高次不等式解法（穿根法/穿针引线法，奇穿偶不穿） | 教材必修一 |
+[2026-06-25 09:54:34] ============================================================
+[2026-06-25 09:54:34] [start] I045: 07_inequality:97 | I045 | 高次不等式解法（穿根法/穿针引线法，奇穿偶不穿） | 教材必修一 |
+[2026-06-25 09:54:34] [latex] Generating LaTeX for I045...
+[2026-06-25 09:55:38] [write] source.tex updated from 12_pipeline\generated_sources\I045.tex (743 chars)
+[2026-06-25 09:55:38] [pipeline] Running run_source_to_pdf.py 07_inequality --target-id I045...
