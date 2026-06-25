@@ -1,0 +1,174 @@
+{
+  "id": "V030",
+  "module": "vector",
+  "core": {
+    "title": "单位向量定义：非零向量除以模长",
+    "alias": [
+      "同向单位向量",
+      "标准化向量",
+      "方向向量",
+      "同方向单位向量"
+    ],
+    "summary": "非零向量除以自身模长，得到长度为1、方向相同的单位向量。",
+    "difficulty": 1,
+    "category": "向量",
+    "tags": [
+      "向量",
+      "单位向量",
+      "模长",
+      "方向",
+      "标准化"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "单位向量",
+      "非零向量",
+      "模长",
+      "同方向",
+      "单位化",
+      "向量标准化",
+      "坐标求单位向量",
+      "向量方向",
+      "模长公式",
+      "向量除以模"
+    ],
+    "synonyms": [
+      "单位化",
+      "变成单位向量",
+      "方向单位向量",
+      "同向单位矢量",
+      "模为1的向量"
+    ],
+    "intents": [
+      "求单位向量",
+      "标准化向量",
+      "求同方向向量",
+      "向量单位化",
+      "判断单位向量"
+    ],
+    "query_templates": [
+      "怎么求一个向量的单位向量",
+      "单位向量公式",
+      "已知向量求同方向单位向量",
+      "向量的单位化方法",
+      "单位向量模长是多少"
+    ],
+    "ocrKeywords": [
+      "单位向量",
+      "非零向量",
+      "同方向",
+      "模长",
+      "归一化"
+    ],
+    "latex_patterns": [
+      "\\vec{e} = \\frac{\\vec{a}}{|\\vec{a}|}",
+      "|\\vec{e}|=1",
+      "\\vec{a} = |\\vec{a}| \\vec{e}"
+    ],
+    "formulaTokens": [
+      "\\vec{e} = \\frac{\\vec{a}}{|\\vec{a}|}",
+      "|\\vec{e}|=1",
+      "\\vec{a}",
+      "|\\vec{a}|",
+      "\\vec{e}",
+      "\\frac{\\vec{a}}{|\\vec{a}|}"
+    ],
+    "pinyin": "danwei xingliang",
+    "pinyinAbbr": "dwxl"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.3,
+    "hot_score": 50,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\vec{e} = \\frac{\\vec{a}}{|\\vec{a}|}, \\quad |\\vec{e}| = 1",
+    "related_formulas": [
+      "\\vec{a} = |\\vec{a}| \\vec{e}"
+    ],
+    "variables": {
+      "\\vec{a}": "非零向量（坐标或几何形式）",
+      "|\\vec{a}|": "向量 $\\vec{a}$ 的模长（非零实数）",
+      "\\vec{e}": "与 $\\vec{a}$ 同方向的单位向量"
+    },
+    "conditions": [
+      "向量 $\\vec{a}$ 必须为非零向量，即 $\\vec{a} \\neq \\vec{0}$（$|\\vec{a}| \\neq 0$）。",
+      "零向量没有方向，不能定义单位向量。"
+    ],
+    "conclusions": [
+      "单位向量 $\\vec{e}$ 的模长为 1，即 $|\\vec{e}| = 1$。",
+      "向量 $\\vec{a}$ 可表示为 $\\vec{a} = |\\vec{a}| \\vec{e}$，即长度乘以方向。"
+    ]
+  },
+  "content": {
+    "statement": "对于非零向量 $\\vec{a}$，与其同方向的单位向量为 $\\vec{e} = \\dfrac{\\vec{a}}{|\\vec{a}|}$，且 $|\\vec{e}| = 1$。",
+    "derivation": [
+      "由向量数乘定义，$\\dfrac{\\vec{a}}{|\\vec{a}|} = \\dfrac{1}{|\\vec{a}|} \\vec{a}$，是一个数量乘以向量。",
+      "其模长为 $\\left|\\dfrac{1}{|\\vec{a}|} \\vec{a}\\right| = \\dfrac{1}{|\\vec{a}|} |\\vec{a}| = 1$。",
+      "方向与 $\\vec{a}$ 相同，因此是单位向量。"
+    ],
+    "intuition": "把向量等比例压缩或拉伸到长度 1，只保留方向信息。",
+    "common_tricks": [
+      "求单位向量时，先计算向量模长，再逐坐标除以模长。",
+      "验证结果是否为 1：计算所得向量模长，必须等于 1。",
+      "与某向量相反方向的单位向量：将原向量取负再除以模长，即 $-\\dfrac{\\vec{a}}{|\\vec{a}|}$。",
+      "若给出两点坐标，先用终点减起点得到向量，再按公式操作。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "向量坐标运算",
+      "物理受力分解",
+      "几何方向表示"
+    ],
+    "problem_types": [
+      "求单位向量",
+      "向量线性表示",
+      "方向与模长分离"
+    ],
+    "exam_frequency": 0.5,
+    "exam_score": 3
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "V030.svg",
+    "png": "",
+    "gif": ""
+  },
+  "shareConfig": {
+    "title": "单位向量定义：非零向量方向标准化",
+    "shareDesc": "用于课后复习或考前速查，掌握非零向量除以模长得同向单位向量的方法，提高向量方向表达的效率，避免零向量误用。"
+  },
+  "relations": {
+    "prerequisites": [
+      "向量的模长公式",
+      "向量数乘运算"
+    ],
+    "related_ids": [],
+    "similar": [
+      "相反方向单位向量",
+      "任意向量可分解为模长乘以单位向量"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-25"
+  },
+  "isPro": 0,
+  "remarks": "该结论为基础定义，重复风险高，解题加速性弱，不符合二级结论收录标准，仅作为基础参考。",
+  "knowledgeNode": "向量-基本运算-数乘",
+  "altNodes": "向量-基本运算-加减法,向量-基本运算-坐标表示"
+}
