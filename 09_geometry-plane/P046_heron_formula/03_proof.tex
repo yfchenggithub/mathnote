@@ -1,81 +1,86 @@
 \begin{proofbox}
-	\n\textbf{\textcolor{CProof}{思路提示}}\n\n从面积公式 $S=\frac12 ab\sin C$ 出发，利用余弦定理表达 $\sin C$，通过代数化简得到含所有边的对称根式。\n\n
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	从面积公式 $S=\dfrac12 ab\sin C$ 出发，利用余弦定理表达 $\cos C$，再用 $\sin^2 C=1-\cos^2 C$ 化简，得到只含三边的对称根式。
 
 	\medskip
-	\n\textbf{\textcolor{CProof}{正式推导}}\n
+	\textbf{\textcolor{CProof}{正式推导}}
+
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\n
 		\item[\textbf{步骤一（面积与余弦）：}]
-			设角 $C$ 对应的边为 $c$，则\n
-			\[
-				\n S = \frac12 ab\sin C,
-				\qquad
-				\cos C = \frac{a^2+b^2-c^2}{2ab}.\n
-			\]
-			\n
-			\par\textbf{理由：} 面积公式和余弦定理分别给出了 $S$ 与 $\sin C$、$\cos C$ 的关系。\n\n
+		      设角 $C$ 对应的边为 $c$，则
+		      \[
+			      S = \frac12 ab\sin C,
+			      \qquad
+			      \cos C = \frac{a^2+b^2-c^2}{2ab}.
+		      \]
+		      \par\textbf{理由：} 面积公式和余弦定理分别给出了 $S$ 与 $\sin C$、$\cos C$ 的关系。
+
 		\item[\textbf{步骤二（表达正弦平方）：}]
-			利用 $\sin^2 C = 1-\cos^2 C$，代入 $\cos C$：\n
-			\[
-				\n
-				\begin{aligned}
-					\n \sin^2 C &= 1 - \left(\frac{a^2+b^2-c^2}{2ab}\right)^2 \\\n &= \frac{4a^2b^2 - (a^2+b^2-c^2)^2}{4a^2b^2}.\n
-			\end{aligned}
-				\n
-			\]
-			\n
-			\par\textbf{理由：} 通分将分母统一为 $(2ab)^2$。\n\n
+		      利用 $\sin^2 C = 1-\cos^2 C$，代入 $\cos C$：
+		      \[
+			      \begin{aligned}
+				      \sin^2 C
+				       & = 1 - \left(\frac{a^2+b^2-c^2}{2ab}\right)^2 \\
+				       & = \frac{4a^2b^2 - (a^2+b^2-c^2)^2}{4a^2b^2}.
+			      \end{aligned}
+		      \]
+		      \par\textbf{理由：} 通分将分母统一为 $(2ab)^2$。
+
 		\item[\textbf{步骤三（平方差分解）：}]
-			分子为平方差形式：\n
-			\[
-				\n
-				\begin{aligned}
-					\n 4a^2b^2 - (a^2+b^2-c^2)^2\n &= (2ab + (a^2+b^2-c^2))(2ab - (a^2+b^2-c^2)) \\\n &= ( (a+b)^2 - c^2 )( c^2 - (a-b)^2 ).\n
-			\end{aligned}
-				\n
-			\]
-			\n
-			\par\textbf{理由：} 利用 $X^2 - Y^2 = (X+Y)(X-Y)$，再整理为完全平方。\n\n
+		      分子为平方差形式：
+		      \[
+			      \begin{aligned}
+				      4a^2b^2 - (a^2+b^2-c^2)^2
+				       & = \bigl(2ab+a^2+b^2-c^2\bigr)\bigl(2ab-a^2-b^2+c^2\bigr) \\
+				       & = \bigl((a+b)^2-c^2\bigr)\bigl(c^2-(a-b)^2\bigr).
+			      \end{aligned}
+		      \]
+		      \par\textbf{理由：} 利用 $X^2-Y^2=(X+Y)(X-Y)$，再整理为完全平方。
+
 		\item[\textbf{步骤四（继续分解）：}]
-			将每个因子继续分解：\n
-			\[
-				\n
-				\begin{aligned}
-					\n (a+b)^2 - c^2 &= (a+b+c)(a+b-c),\\\\\n c^2 - (a-b)^2 &= (c+a-b)(c-a+b).\n
-			\end{aligned}
-				\n
-			\]
-			\n
-			\par\textbf{理由：} 再次运用平方差公式。\n\n
+		      将每个因子继续分解：
+		      \[
+			      \begin{aligned}
+				      (a+b)^2-c^2 & = (a+b+c)(a+b-c), \\
+				      c^2-(a-b)^2 & = (c+a-b)(c-a+b).
+			      \end{aligned}
+		      \]
+		      \par\textbf{理由：} 再次运用平方差公式。
+
 		\item[\textbf{步骤五（代入面积）：}]
-			因此\n
-			\[
-				\n \sin C = \frac{\sqrt{(a+b+c)(a+b-c)(a-b+c)(-a+b+c)}}{2ab}.\n
-			\]
-			\n 代入 $S = \frac12 ab\sin C$ 得\n
-			\[
-				\n S = \frac14 \sqrt{(a+b+c)(a+b-c)(a-b+c)(-a+b+c)}.\n
-			\]
-			\n
-			\par\textbf{理由：} $S$ 表达式化简，$ab$ 消去分母。\n\n
+		      因为三角形内角 $0<C<\pi$，所以 $\sin C>0$，从而
+		      \[
+			      \sin C = \frac{\sqrt{(a+b+c)(a+b-c)(a-b+c)(-a+b+c)}}{2ab}.
+		      \]
+		      代入 $S = \dfrac12 ab\sin C$ 得
+		      \[
+			      S = \frac14 \sqrt{(a+b+c)(a+b-c)(a-b+c)(-a+b+c)}.
+		      \]
+		      \par\textbf{理由：} $S$ 表达式化简，$ab$ 消去分母。
+
 		\item[\textbf{步骤六（引入半周长）：}]
-			令 $p = \frac{a+b+c}{2}$，则\n
-			\[
-				\n a+b+c = 2p,\quad a+b-c = 2(p-c),\quad a-b+c = 2(p-b),\quad -a+b+c = 2(p-a).\n
-			\]
-			\n 代入根号得\n
-			\[
-				\n
-				\begin{aligned}
-					\n S &= \frac14 \sqrt{(2p)(2(p-a))(2(p-b))(2(p-c))} \\\n &= \frac14 \sqrt{16\,p(p-a)(p-b)(p-c)} \\\n &= \sqrt{p(p-a)(p-b)(p-c)}.\n
-			\end{aligned}
-				\n
-			\]
-			\n
-			\par\textbf{理由：} 提取因子 $2^4=16$，再开方化简。\n
+		      令 $p = \dfrac{a+b+c}{2}$，则
+		      \[
+			      a+b+c = 2p,
+			      \quad a+b-c = 2(p-c),
+			      \quad a-b+c = 2(p-b),
+			      \quad -a+b+c = 2(p-a).
+		      \]
+		      代入根号得
+		      \[
+			      \begin{aligned}
+				      S
+				       & = \frac14 \sqrt{(2p)(2(p-a))(2(p-b))(2(p-c))} \\
+				       & = \frac14 \sqrt{16p(p-a)(p-b)(p-c)}           \\
+				       & = \sqrt{p(p-a)(p-b)(p-c)}.
+			      \end{aligned}
+		      \]
+		      \par\textbf{理由：} 提取因子 $2^4=16$，再开方化简。
 	\end{description}
-	\n\n
 
 	\medskip
-	\n\textbf{\textcolor{CProof}{结论回扣}}\n\n以上推导表明，海伦公式是面积公式与余弦定理结合的代数结果，它巧妙地将几何量转化为仅含三边的代数式，极大方便了计算。\n
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	以上推导表明，海伦公式是面积公式与余弦定理结合的代数结果，它将几何量转化为仅含三边的代数式，极大方便了计算。
 \end{proofbox}
