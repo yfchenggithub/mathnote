@@ -1,0 +1,37 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	先展开乘积，化为 $2+\frac{a}{b}+\frac{b}{a}$，再对 $\frac{a}{b}+\frac{b}{a}$ 使用基本不等式即可得到下界 $4$。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（多项式展开）：}]
+			\[
+				\begin{aligned}
+					(a+b)\left(\frac{1}{a}+\frac{1}{b}\right) &= 1+\frac{a}{b}+\frac{b}{a}+1 \\ &= 2+\frac{a}{b}+\frac{b}{a}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 逐项相乘，$a\cdot\frac{1}{a}=1$，$b\cdot\frac{1}{b}=1$。
+		\item[\textbf{步骤二（基本不等式）：}]
+			\[
+				\begin{aligned}
+					\frac{a}{b}+\frac{b}{a} &\ge 2\sqrt{\frac{a}{b}\cdot\frac{b}{a}} \\ &= 2.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 正数 $x,y$ 满足 $x+y\ge 2\sqrt{xy}$，这里 $x=\frac{a}{b}$，$y=\frac{b}{a}$ 均为正。
+		\item[\textbf{步骤三（合并结论）：}]
+			\[
+				\begin{aligned}
+					(a+b)\left(\frac{1}{a}+\frac{1}{b}\right) &= 2 + \left(\frac{a}{b}+\frac{b}{a}\right) \\ &\ge 2+2 \\ &= 4.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 在展开式的基础上代入第二步的不等式。
+		\item[\textbf{步骤四（等号条件）：}]
+			基本不等式取等要求 $\frac{a}{b}=\frac{b}{a}$，即 $a^2=b^2$。由 $a,b>0$ 得 $a=b$。此时原式恰好等于 $4$。
+			\par\textbf{理由：} 等号传递性。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	综上所述，对任意正实数 $a,b$，恒有 $(a+b)\left(\frac{1}{a}+\frac{1}{b}\right)\ge 4$，等号成立当且仅当 $a=b$。
+\end{proofbox}
