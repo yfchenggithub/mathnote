@@ -1,0 +1,153 @@
+{
+  "id": "I051",
+  "module": "inequality",
+  "core": {
+    "title": "凑项凑系数求最值",
+    "alias": [
+      "凑项法",
+      "拆项添项法",
+      "均值不等式求最值"
+    ],
+    "summary": "通过拆项、添项或配系数，使变形后各正项乘积为常数，利用均值不等式得到和的最小值。",
+    "difficulty": 3,
+    "category": "不等式",
+    "tags": [
+      "均值不等式",
+      "拆项添项",
+      "凑系数",
+      "最值问题",
+      "代数变形"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "凑项",
+      "凑系数",
+      "拆项",
+      "添项",
+      "均值不等式求最值",
+      "正项乘积常数",
+      "和最小",
+      "对偶均值",
+      "最值",
+      "不等式最值"
+    ],
+    "synonyms": [
+      "拼凑法",
+      "配凑法",
+      "拆凑法",
+      "均值不等式应用",
+      "配系数求最值"
+    ],
+    "intents": [
+      "求最值",
+      "证明最小值",
+      "凑项求范围",
+      "利用均值不等式求解"
+    ],
+    "query_templates": [
+      "如何用均值不等式求最小值？",
+      "凑项法求最值例题",
+      "拆项添项求最值步骤",
+      "正项乘积为常数时和的最小值",
+      "对偶均值求最大值"
+    ],
+    "ocrKeywords": [
+      "x+1/x",
+      "2x+3/x",
+      "x+4/(x-1)",
+      "均值不等式",
+      "最小值",
+      "≥",
+      "正实数"
+    ],
+    "latex_patterns": [
+      "\\sum_{i=1}^{n} a_i \\ge n\\sqrt[n]{\\prod_{i=1}^{n} a_i}",
+      "\\prod_{i=1}^{n} b_i \\le \\left(\\frac{\\sum_{i=1}^{n} b_i}{n}\\right)^n"
+    ],
+    "formulaTokens": [
+      "a_1+a_2+\\cdots+a_n",
+      "n\\sqrt[n]{\\prod_{i=1}^{n} a_i}",
+      "\\prod_{i=1}^{n} b_i",
+      "\\left(\\frac{\\sum_{i=1}^{n} b_i}{n}\\right)^n",
+      "x+\\frac{1}{x}",
+      "2x+\\frac{3}{x}",
+      "(x-1)+\\frac{4}{x-1}+1"
+    ],
+    "pinyin": "couxiang couxishu qiuzuizhi",
+    "pinyinAbbr": "cxcxqzz"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.74,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\sum_{i=1}^{n} a_i \\ge n\\sqrt[n]{\\prod_{i=1}^{n} a_i}",
+    "related_formulas": [
+      "\\prod_{i=1}^{n} b_i \\le \\left(\\frac{\\sum_{i=1}^{n} b_i}{n}\\right)^n"
+    ],
+    "variables": {
+      "a_i": "正实数，由原式拆项得到",
+      "b_i": "正实数",
+      "n": "项数，正整数"
+    },
+    "conditions": "$a_1,a_2,\\dots,a_n>0$，且 $\\prod_{i=1}^{n} a_i$ 为常数（与变量无关）。",
+    "conclusions": "和 $\\sum a_i$ 的最小值为 $n\\sqrt[n]{\\prod a_i}$，当且仅当 $a_1=a_2=\\cdots=a_n$ 时取等。"
+  },
+  "content": {
+    "statement": "对于正变量，若通过拆项、添项或引入待定系数，能将所给表达式变形为若干个正项之和，且这些正项的乘积为常数，则当各项相等时，该和取得最小值，最小值由均值不等式给出：$n$ 项的和不小于 $n$ 乘以它们乘积的 $n$ 次算术根。",
+    "derivation": [
+      "由均值不等式 $\\frac{a_1+a_2+\\cdots+a_n}{n}\\ge\\sqrt[n]{a_1a_2\\cdots a_n}$，直接得到 $\\sum a_i\\ge n\\sqrt[n]{\\prod a_i}$。",
+      "等号成立当且仅当 $a_1=a_2=\\cdots=a_n$，此时和为最小值。"
+    ],
+    "intuition": "将原式拆成若干正项，使得它们的乘积是个固定值，那么这些正项的和就被均值不等式控制住了，从而得到最小值。",
+    "common_tricks": [
+      "拆项：如 $x=(x-1)+1$，使出现 $(x-1)$ 与 $\\frac{4}{x-1}$ 乘积为定值。",
+      "添项：通过加减同一个数或乘除系数，构造正项乘积为常数。",
+      "配系数：如 $2x+\\frac{3}{x}$ 直接两项乘积已是常数，无需变形。"
+    ]
+  },
+  "usage": {
+    "scenarios": "最值问题、函数值域、不等式证明、综合题压轴中段",
+    "problem_types": "求最小值、证明不等式、求参数范围",
+    "exam_frequency": 0.8,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": ""
+  },
+  "shareConfig": {
+    "title": "凑项凑系数求最值：均值不等式经典技巧",
+    "shareDesc": "适合刷题前速查和讲评课复盘，掌握拆项、添项、配系数三步法，直接求出和的最小值，减少走弯路推导。"
+  },
+  "relations": {
+    "prerequisites": [
+      "均值不等式（基本形式）",
+      "代数恒等变形"
+    ],
+    "related_ids": [],
+    "similar": "利用柯西不等式求最值，利用排序不等式求最值"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-25"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "不等式-经典不等式-均值不等式",
+  "altNodes": "不等式-解法-函数法,不等式-等价变形-移项与同乘,代数-式的变形-恒等变形"
+}
