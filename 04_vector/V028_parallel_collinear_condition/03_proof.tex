@@ -1,0 +1,35 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	向量平行等价于存在实数 $\lambda$ 使分量成比例。通过坐标代入消去 $\lambda$ 即得等式。反之，由等式可反推比例存在（分母非零时），再单独处理分母为零的情形。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（必要性推导）：}] 设 $\vec{a}\parallel\vec{b}$，则存在实数 $\lambda$ 使得 $\vec{a} = \lambda\vec{b}$。
+			\[
+				(x_1,y_1) = \lambda(x_2,y_2) \Rightarrow x_1 = \lambda x_2,\ y_1 = \lambda y_2.
+			\]
+			消去 $\lambda$ 得 $x_1y_2 = x_2y_1$。
+			\par\textbf{理由：} 由平行定义得线性表示，坐标代入。
+		\item[\textbf{步骤二（充分性证明）：}] 设 $x_1y_2 = x_2y_1$ 且 $\vec{a},\vec{b}\neq\mathbf{0}$。
+			\par
+			当 $x_2\neq0$ 时，令 $\lambda = \dfrac{x_1}{x_2}$，则 $x_1=\lambda x_2$。由 $x_1y_2 = x_2y_1$ 可得
+			\[
+				y_1 = \frac{x_1y_2}{x_2}.
+			\]
+			代入 $\lambda = x_1/x_2$ 得 $y_1 = \lambda y_2$，故 $\vec{a} = \lambda\vec{b}$。
+			当 $x_2 = 0$ 时，条件化为 $x_1y_2=0$；由 $\vec{b}\neq\mathbf{0}$ 得 $y_2\neq0$，故 $x_1=0$，于是 $\vec{a}=(0,y_1)$，$\vec{b}=(0,y_2)$。由于两向量均沿 $y$ 轴方向，故 $\vec{a}\parallel\vec{b}$。
+			\par\textbf{理由：} 分类构造比例或直接观察。
+		\item[\textbf{步骤三（三点共线转化）：}] 三点 $A,B,C$ 共线 $\iff$ $\overrightarrow{AB}\parallel\overrightarrow{AC}$（非零）。设 $\overrightarrow{AB}=(x_1,y_1)$，$\overrightarrow{AC}=(x_2,y_2)$，则
+			\[
+				\overrightarrow{AB}\parallel\overrightarrow{AC} \iff x_1y_2 = x_2y_1.
+			\]
+			\par\textbf{理由：} 共线向量定义。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{综上，非零向量 $\vec{a}\parallel\vec{b}$ 的充要条件是 $x_1y_2=x_2y_1$；该条件可直接用于判定三点共线。}
+\end{proofbox}

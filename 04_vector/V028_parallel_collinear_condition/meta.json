@@ -1,0 +1,191 @@
+{
+  "id": "V028",
+  "module": "vector",
+  "core": {
+    "title": "向量平行与三点共线的坐标判定",
+    "alias": [
+      "平行坐标判定",
+      "三点共线坐标公式",
+      "交叉积相等"
+    ],
+    "summary": "非零向量平行的充要条件是坐标交叉乘积相等，即x1y2=x2y1。",
+    "difficulty": 2,
+    "category": "平面向量",
+    "tags": [
+      "平面向量",
+      "向量平行",
+      "坐标判定",
+      "三点共线",
+      "非零向量",
+      "交叉积"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "向量平行",
+      "坐标判定",
+      "三点共线",
+      "交叉积",
+      "充要条件",
+      "非零向量",
+      "向量共线",
+      "共线判定",
+      "坐标公式",
+      "向量坐标",
+      "平行条件",
+      "共线条件",
+      "AB平行CD",
+      "三点共线判定"
+    ],
+    "synonyms": [
+      "向量平行的坐标公式",
+      "向量共线的条件",
+      "平行向量坐标表示",
+      "三点共线坐标公式",
+      "向量叉积相等",
+      "交叉乘积相等"
+    ],
+    "intents": [
+      "判断向量平行",
+      "判断三点共线",
+      "证明共线",
+      "计算向量平行",
+      "验证共线",
+      "使用坐标判定"
+    ],
+    "query_templates": [
+      "如何判断向量平行",
+      "向量平行的坐标公式是什么",
+      "给定三点坐标如何判断共线",
+      "向量平行x1y2=x2y1",
+      "三点共线条件坐标"
+    ],
+    "ocrKeywords": [
+      "非零向量",
+      "x1y2",
+      "x2y1",
+      "平行",
+      "共线",
+      "充要条件",
+      "坐标",
+      "AB",
+      "AC"
+    ],
+    "latex_patterns": [
+      "\\vec{a}\\parallel\\vec{b} \\iff x_1y_2 = x_2y_1"
+    ],
+    "formulaTokens": [
+      "x_1y_2",
+      "x_2y_1",
+      "x_1y_2 = x_2y_1",
+      "\\vec{a}\\parallel\\vec{b}"
+    ],
+    "pinyin": "xiangliang pingxing yu sandian gongxian zuobiao panding",
+    "pinyinAbbr": "xlpx"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.8,
+    "hot_score": 85,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\vec{a}\\parallel\\vec{b} \\iff x_1y_2 = x_2y_1",
+    "related_formulas": [
+      "\\overrightarrow{AB}\\parallel\\overrightarrow{AC} \\iff x_1y_2 = x_2y_1"
+    ],
+    "variables": [
+      "\\vec{a}",
+      "\\vec{b}",
+      "x_1",
+      "y_1",
+      "x_2",
+      "y_2",
+      "\\overrightarrow{AB}",
+      "\\overrightarrow{AC}"
+    ],
+    "conditions": [
+      "非零向量 $\\vec{a}=(x_1,y_1)$，$\\vec{b}=(x_2,y_2)$，且 $\\vec{a}\\neq\\vec{0}$，$\\vec{b}\\neq\\vec{0}$。",
+      "对于三点 $A,B,C$，需要 $\\overrightarrow{AB}$ 和 $\\overrightarrow{AC}$ 均为非零向量。"
+    ],
+    "conclusions": [
+      "向量平行 $\\iff x_1y_2 = x_2y_1$。",
+      "三点 $A,B,C$ 共线 $\\iff x_1y_2 = x_2y_1$（其中 $\\overrightarrow{AB}=(x_1,y_1)$，$\\overrightarrow{AC}=(x_2,y_2)$）。"
+    ]
+  },
+  "content": {
+    "statement": "对于非零向量 $\\vec{a}=(x_1,y_1)$，$\\vec{b}=(x_2,y_2)$，有 $\\vec{a}\\parallel\\vec{b} \\iff x_1y_2 = x_2y_1$。同样，三点 $A,B,C$ 共线（对应的 $\\overrightarrow{AB}=(x_1,y_1)$，$\\overrightarrow{AC}=(x_2,y_2)$ 均非零）的充要条件是 $x_1y_2 = x_2y_1$。",
+    "derivation": [
+      "若 $\\vec{a}\\parallel\\vec{b}$，则存在实数 $\\lambda$ 使 $(x_2,y_2)=\\lambda(x_1,y_1)$，从而 $x_2=\\lambda x_1,\\ y_2=\\lambda y_1$，代入 $x_1y_2 = \\lambda x_1y_1$，$x_2y_1 = \\lambda x_1y_1$，故相等。",
+      "若 $x_1y_2 = x_2y_1$ 且 $\\vec{a},\\vec{b}$ 非零，当 $x_1\\neq0$ 时 $\\frac{x_2}{x_1}=\\frac{y_2}{y_1}$，即存在 $\\lambda$；当 $x_1=0$ 时 $y_1\\neq0$，同理可得 $\\vec{a}\\parallel\\vec{b}$。",
+      "三点共线转化为同起点向量平行，即 $\\overrightarrow{AB}\\parallel\\overrightarrow{AC}$，直接应用向量平行判定条件。"
+    ],
+    "intuition": "平行向量对应坐标成比例，交叉乘积相等是消去比例系数后的结果。",
+    "common_tricks": [
+      "计算时注意交叉顺序：$x_1y_2$ 和 $x_2y_1$，不要颠倒。",
+      "若向量为零向量，则不适用此条件（零向量与任意向量平行，但坐标判定会失效）。",
+      "证明三点共线时，取同起点向量（如 $\\overrightarrow{AB}$ 和 $\\overrightarrow{AC}$），避免用不同起点的向量。",
+      "也可用斜率相等判断，但要单独处理斜率不存在的情况，而坐标判定更统一。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "向量平行判断",
+      "三点共线证明",
+      "解析几何中直线的平行关系",
+      "向量综合题"
+    ],
+    "problem_types": [
+      "选择题",
+      "填空题",
+      "证明题"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "V028.svg",
+    "png": "",
+    "gif": "",
+    "yt": "",
+    "bilibili": ""
+  },
+  "shareConfig": {
+    "title": "向量平行坐标判定：交叉积相等速判平行与共线",
+    "shareDesc": "适合向量章节复习和刷题前速查，用x1y2=x2y1一步判断向量平行或三点共线，避免用斜率讨论特殊情形，减少计算错误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "向量的坐标表示",
+      "向量平行的定义"
+    ],
+    "related_ids": [],
+    "similar": [
+      "斜率相等判断平行",
+      "向量共线定理（存在实数λ）"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-25"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "向量-应用-平行与垂直",
+  "altNodes": [
+    "向量-基本运算-数乘",
+    "解析几何-直线-位置关系"
+  ]
+}
