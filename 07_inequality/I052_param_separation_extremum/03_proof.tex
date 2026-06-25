@@ -1,0 +1,53 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用最值定义，分别证明充分性和必要性。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（最值记号）：}]
+			设$M=\max_{x\in D}f(x)$，$m=\min_{x\in D}f(x)$。由最值定义，存在$x_1,x_2\in D$使得$f(x_1)=M$，$f(x_2)=m$，且$m\le f(x)\le M$对所有$x\in D$成立。
+			\[
+				\max_{x\in D}f(x)=M,\quad \min_{x\in D}f(x)=m.
+			\]
+			\par\textbf{理由：}最值定义保证存在性及上下界。
+
+		\item[\textbf{步骤二（方向一必要性）：}]
+			若$a\ge f(x)$恒成立，则$a\ge M$。取$x_1$使$f(x_1)=M$，代入得$a\ge M$。
+			\[
+				\begin{aligned}
+					a\ge f(x)\ (\forall x\in D) &\Longrightarrow a\ge f(x_1) \\
+					&\Longrightarrow a\ge \max_{x\in D} f(x).
+			\end{aligned}
+			\]
+			\par\textbf{理由：}恒成立条件必须满足最值点。
+
+		\item[\textbf{步骤三（方向一充分性）：}]
+			若$a\ge M$，则对任意$x\in D$，有$f(x)\le M$且$M\le a$，从而$f(x)\le a$，故$a\ge f(x)$恒成立。
+			\[
+				\begin{aligned}
+					a\ge M &\text{ 且 } \forall x\in D,\ f(x)\le M \\
+					&\Longrightarrow \forall x\in D,\ f(x)\le a \\
+					&\Longrightarrow a\ge f(x)\ (\forall x\in D).
+			\end{aligned}
+			\]
+			\par\textbf{理由：}通过上界传递得到恒成立。
+
+		\item[\textbf{步骤四（方向二类推）：}]
+			同理，若$a\le f(x)$恒成立，取$x_2$得$a\le m$；同时，若$a\le m$，则对任意$x$，有$f(x)\ge m$且$m\ge a$，故$a\le f(x)$恒成立。
+			\[
+				a\le f(x)\ (\forall x\in D) \iff a\le \min f(x).
+			\]
+			\par\textbf{理由：}完全对称于方向一，不等号反向即可。
+
+		\item[\textbf{步骤五（结论综合）：}]
+			由步骤二、三、四，原结论的两个等价关系全部得证。
+			\par\textbf{理由：}充分性和必要性均已覆盖。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{因此，在参数分离且最值存在的条件下，恒成立问题等价于参数与最值直接比较，实现无限问题向有限点问题的转化。}
+\end{proofbox}

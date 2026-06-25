@@ -1,0 +1,173 @@
+{
+  "id": "I052",
+  "module": "inequality",
+  "core": {
+    "title": "参数分离法解恒成立问题（最值转化）",
+    "alias": [
+      "参数分离法",
+      "最值法",
+      "恒成立最值转化",
+      "恒成立问题参数范围"
+    ],
+    "summary": "将恒成立条件 $a \\ge f(x)$ 或 $a \\le f(x)$ 等价转化为参数与函数最值的直接比较。",
+    "difficulty": 2,
+    "category": "不等式恒成立",
+    "tags": [
+      "参数分离",
+      "恒成立问题",
+      "最值法",
+      "参数范围",
+      "存在性问题"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "恒成立",
+      "参数分离",
+      "最值法",
+      "最大值",
+      "最小值",
+      "参数范围",
+      "存在性",
+      "a≥f(x)",
+      "a≤f(x)",
+      "max",
+      "min"
+    ],
+    "synonyms": [
+      "a大于等于f(x)恒成立",
+      "a小于等于f(x)恒成立",
+      "参数范围题",
+      "恒成立求参数",
+      "参数分离求范围"
+    ],
+    "intents": [
+      "求参数取值范围",
+      "解恒成立问题",
+      "判断恒成立条件",
+      "转化最值",
+      "参数分离"
+    ],
+    "query_templates": [
+      "参数分离法求a的取值范围",
+      "恒成立问题最值法",
+      "a≥f(x)恒成立求a",
+      "a≤f(x)恒成立求a",
+      "存在性参数范围转化"
+    ],
+    "ocrKeywords": [
+      "恒成立",
+      "参数a",
+      "最大值",
+      "最小值",
+      "\\forall x\\in D",
+      "\\exists x\\in D"
+    ],
+    "latex_patterns": [
+      "a \\ge f(x)",
+      "a \\le f(x)",
+      "\\max_{x\\in D} f(x)",
+      "\\min_{x\\in D} f(x)"
+    ],
+    "formulaTokens": [
+      "a \\ge f(x)",
+      "a \\le f(x)",
+      "\\max_{x\\in D} f(x)",
+      "\\min_{x\\in D} f(x)",
+      "a \\ge \\max f(x)",
+      "a \\le \\min f(x)",
+      "\\exists x\\in D, a\\ge f(x)",
+      "\\exists x\\in D, a\\le f(x)"
+    ],
+    "pinyin": "canshufenlifa",
+    "pinyinAbbr": "csflf"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.82,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\begin{cases} a \\ge f(x) \\ (\\forall x\\in D) \\iff a \\ge \\max_{x\\in D} f(x), \\\\ a \\le f(x) \\ (\\forall x\\in D) \\iff a \\le \\min_{x\\in D} f(x). \\end{cases}",
+    "related_formulas": [
+      "\\exists x\\in D,\\; a \\ge f(x) \\iff a \\ge \\min_{x\\in D} f(x).",
+      "\\exists x\\in D,\\; a \\le f(x) \\iff a \\le \\max_{x\\in D} f(x)."
+    ],
+    "variables": "a, x, f(x), D",
+    "conditions": "参数 $a$ 已与变量 $x$ 分离，且函数 $f(x)$ 在区间 $D$ 上存在最大值和最小值。",
+    "conclusions": "恒成立条件等价于 $a$ 与函数最值的比较：$a\\ge f(x)$ 对任意 $x\\in D$ 成立 $\\iff a\\ge \\max f(x)$；$a\\le f(x)$ 对任意 $x\\in D$ 成立 $\\iff a\\le \\min f(x)$。"
+  },
+  "content": {
+    "statement": "设函数 $f(x)$ 在区间 $D\\subseteq\\mathbb{R}$ 上有定义，参数 $a$ 已与变量 $x$ 分离。若 $f(x)$ 在 $D$ 上存在最大值，则 $a \\geq f(x) \\ (\\forall x\\in D) \\iff a \\geq \\max_{x\\in D} f(x)$；若 $f(x)$ 在 $D$ 上存在最小值，则 $a \\leq f(x) \\ (\\forall x\\in D) \\iff a \\leq \\min_{x\\in D} f(x)$。",
+    "derivation": [
+      "分离参数：将不等式化为 $a \\ge f(x)$ 或 $a \\le f(x)$ 的形式。",
+      "分析恒成立含义：$a$ 要大于等于所有 $f(x)$，只需 $a$ 大于等于 $f(x)$ 的最大值；同理 $a$ 要小于等于所有 $f(x)$，只需小于等于最小值。",
+      "反之，若 $a$ 不小于最大值，则对于任意 $x$，$f(x)\\le \\max f(x)\\le a$，故恒成立；同理证明另一方向。"
+    ],
+    "intuition": "既然要求 $a$ 不小于每一个 $f(x)$，那只要 $a$ 不小于最大的那个 $f(x)$ 即可。",
+    "common_tricks": [
+      "注意不等号方向：$a\\ge f(x)$ 恒成立对应最大值，$a\\le f(x)$ 恒成立对应最小值。",
+      "存在性问题与恒成立方向相反：$\\exists x\\in D,\\; a\\ge f(x)$ 对应 $a\\ge \\min f(x)$。",
+      "分离参数时若除以变量，需注意符号是否改变。",
+      "闭区间上的连续函数最值必存在，开区间或半开区间需单独判断端点趋势。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "恒成立问题求参数范围",
+      "压轴题中段",
+      "函数综合题"
+    ],
+    "problem_types": [
+      "选择题",
+      "填空题",
+      "解答题"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "参数分离最值法.svg",
+    "png": "",
+    "gif": "",
+    "video": "",
+    "audio": ""
+  },
+  "shareConfig": {
+    "title": "参数分离最值法：恒成立问题参数范围速解",
+    "shareDesc": "适合课前复习和刷题复盘，集中解决恒成立问题中参数范围求解易错点，避免方向混淆，提升压轴中段正确率。"
+  },
+  "relations": {
+    "prerequisites": [
+      "函数最值",
+      "不等式基本性质",
+      "分离参数技巧"
+    ],
+    "related_ids": [],
+    "similar": "存在性问题的最值转化（方向相反）"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-25"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "不等式-解法-函数法",
+  "altNodes": [
+    "函数-综合-函数与不等式",
+    "函数-性质-有界性"
+  ]
+}
