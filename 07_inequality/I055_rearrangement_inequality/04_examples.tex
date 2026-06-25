@@ -1,0 +1,77 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	已知递增数列 $a_1=1,a_2=3,a_3=5$，$b_1=2,b_2=4,b_3=6$。计算顺序和 $S_{\text{ord}}$、反序和 $S_{\text{rev}}$ 以及乱序和 $T=a_1b_2+a_2b_3+a_3b_1$，并验证排序不等式。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（计算顺序和）：}]
+			顺序和 $S_{\text{ord}}$ 为同序对应乘积之和：\par
+			\[
+				S_{\text{ord}} = 1\times2 + 3\times4 + 5\times6 = 2+12+30 = 44 .
+			\]
+			\par\textbf{理由：} 按定义，顺序和即 $\sum a_i b_i$。
+		\item[\textbf{第二步（计算反序和）：}]
+			反序和 $S_{\text{rev}}$ 为逆序对应乘积之和：\par
+			\[
+				S_{\text{rev}} = 1\times6 + 3\times4 + 5\times2 = 6+12+10 = 28 .
+			\]
+			\par\textbf{理由：} 反序和即 $\sum a_i b_{n+1-i}$。
+		\item[\textbf{第三步（乱序比较）：}]
+			乱序和 $T = 1\times4 + 3\times6 + 5\times2 = 4+18+10 = 32$。 比较得 $28 < 32 < 44$，满足 $S_{\text{rev}} \leq T \leq S_{\text{ord}}$。
+			\par\textbf{理由：} 排序不等式保证乱序和介于反序和与顺序和之间。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$S_{\text{rev}} \leq T \leq S_{\text{ord}}$。}
+\end{examplebox}
+
+\medskip
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	设实数 $a,b,c,d$ 满足 $a \le b$，$c \le d$。求证 $ac+bd \ge ad+bc$。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（构造数列）：}]
+			令 $a_1=a,a_2=b$，$b_1=c,b_2=d$。由于 $a\le b$ 且 $c\le d$，两数列都递增。
+			\par\textbf{理由：} 满足排序不等式需要的递增条件。
+		\item[\textbf{第二步（应用排序不等式）：}]
+			顺序和为 $a_1b_1+a_2b_2=ac+bd$；乱序和（交换配对）为 $a_1b_2+a_2b_1=ad+bc$。由排序不等式（$n=2$ 情形），顺序和 $\ge$ 乱序和。\par
+			\[
+				ac+bd \ge ad+bc .
+			\]
+			\par\textbf{理由：} 排序不等式 $n=2$ 直接给出。
+		\item[\textbf{第三步（等号说明）：}]
+			等号成立当 $a=b$ 或 $c=d$。
+			\par\textbf{理由：} 排序不等式等号条件。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$ac+bd \ge ad+bc$。}
+\end{examplebox}
+
+\medskip
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	设正实数 $a,b,c$ 满足 $a \le b \le c$。求证 $a^2+b^2+c^2 \ge ab+bc+ca$。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（构造数列）：}]
+			取两个数列均为 $(a,b,c)$，且已满足递增。
+			\par\textbf{理由：} 条件 $a\le b\le c$ 确保递增。
+		\item[\textbf{第二步（选取乱序排列）：}]
+			考虑排列 $\sigma$：令 $a$ 对应 $b$，$b$ 对应 $c$，$c$ 对应 $a$，即 $\sigma(1)=2,\sigma(2)=3,\sigma(3)=1$。则乱序和为 $ab+bc+ca$。\par
+			\[
+				\sum a_i b_{\sigma(i)} = ab+bc+ca .
+			\]
+			\par\textbf{理由：} 此排列下对应乘积。
+		\item[\textbf{第三步（应用排序不等式）：}]
+			由排序不等式，顺序和 $\sum a_i b_i = a^2+b^2+c^2$ 不小于乱序和:\par
+			\[
+				a^2+b^2+c^2 \ge ab+bc+ca .
+			\]
+			等号成立当 $a=b=c$。
+			\par\textbf{理由：} 排序不等式顺序和最大，等号条件。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$a^2+b^2+c^2 \ge ab+bc+ca$。}
+\end{examplebox}

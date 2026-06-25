@@ -1,0 +1,39 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	通过邻项交换：如果某配对中存在大小颠倒（即较大的 $a_i$ 配了较大的 $b$，却配了一个较小的 $b$），交换这两个配对会使总和增大。反复操作最终得到同序配对，故同序和最大。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（识别逆序）：}]
+			设 $\sigma$ 是任一排列，若它不是恒等排列，则存在 $i<j$ 使得 $\sigma(i)>\sigma(j)$（即配对大序小）。\par
+			\[
+				a_i \leq a_j,\quad b_{\sigma(i)} \geq b_{\sigma(j)} .
+			\]
+			\par\textbf{理由：} 由于 $b$ 列递增，$\sigma(i)>\sigma(j)$ 意味着 $b_{\sigma(i)} \geq b_{\sigma(j)}$，而 $a_i \leq a_j$。
+		\item[\textbf{步骤二（交换增值）：}]
+			仅交换 $i,j$ 两组配对，比较交换前后和的变化。\par
+			\[
+				\begin{aligned}
+					\Delta &= (a_i b_{\sigma(j)} + a_j b_{\sigma(i)}) \\ &\quad - (a_i b_{\sigma(i)} + a_j b_{\sigma(j)}) \\ &= (a_j - a_i)(b_{\sigma(i)} - b_{\sigma(j)}) \geq 0 .
+			\end{aligned}
+			\]
+			\par\textbf{理由：} $a_j-a_i\geq 0$，$b_{\sigma(i)}-b_{\sigma(j)}\geq 0$，乘积非负。等号仅当 $a_i=a_j$ 或 $b_{\sigma(i)}=b_{\sigma(j)}$。
+		\item[\textbf{步骤三（迭代至同序）：}]
+			对 $\sigma$ 反复施行上述逆序对交换，每步和单调不降，有限步后必得到同序排列（顺序和）。\par
+			\[
+				\sum_{i=1}^{n} a_i b_{\sigma(i)} \leq \sum_{i=1}^{n} a_i b_i .
+			\]
+			\par\textbf{理由：} 每次交换改变两个配对并增大和，最终无法再交换时即为同序，因此同序和是上界。
+		\item[\textbf{步骤四（反序最小）：}]
+			与步骤一至三同理，若存在 $i<j$ 且 $\sigma(i)<\sigma(j)$（即顺序配对），交换这样的配对会使总和减小。反复操作，最终得到反序排列，故反序和最小。\par
+			\[
+				\sum_{i=1}^{n} a_i b_{n+1-i} \leq \sum_{i=1}^{n} a_i b_{\sigma(i)} .
+			\]
+			\par\textbf{理由：} 对称地，每次交换使和减小，且有限步后必得到反序配对，因此反序和下界。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	综上，排序不等式成立：反序和 $\leq$ 乱序和 $\leq$ 顺序和，等号成立当所有 $a_i$ 相等或所有 $b_i$ 相等。
+\end{proofbox}
