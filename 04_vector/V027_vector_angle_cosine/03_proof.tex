@@ -1,0 +1,62 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用余弦定理与向量点积两种方法计算差向量的模平方，得到关于夹角的等量关系。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（构造差向量）：}] 构造差向量 $\vec{c}=\vec{a}-\vec{b}$。
+			\[
+				\vec{c} = \vec{a} - \vec{b}
+			\]
+			\par\textbf{理由：}
+			以两向量为邻边作三角形，第三边对应差向量。
+
+		\item[\textbf{步骤二（余弦定理应用）：}] 在三角形中由余弦定理得模平方关系。
+			\[
+				|\vec{c}|^2 = |\vec{a}|^2+|\vec{b}|^2-2|\vec{a}||\vec{b}|\cos\theta
+			\]
+			\par\textbf{理由：}
+			三角形任意一边平方等于另两边平方和减去二倍乘积乘夹角余弦。
+
+		\item[\textbf{步骤三（向量点积展开）：}] 直接用向量减法展开计算模平方。
+			\[
+				\begin{aligned}
+					|\vec{c}|^2 &= (\vec{a}-\vec{b})\cdot(\vec{a}-\vec{b}) \\
+					&= |\vec{a}|^2+|\vec{b}|^2-2\vec{a}\cdot\vec{b}
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			向量模平方等于自身点积，减法展开得上述结果。
+
+		\item[\textbf{步骤四（联立等式）：}] 两种表示相等，得关于 $\theta$ 的方程。
+			\[
+				|\vec{a}|^2+|\vec{b}|^2-2|\vec{a}||\vec{b}|\cos\theta = |\vec{a}|^2+|\vec{b}|^2-2\vec{a}\cdot\vec{b}
+			\]
+			\par\textbf{理由：}
+			同一量的两种表达式必须相等。
+
+		\item[\textbf{步骤五（消去平方和）：}] 两边同时减去 $|\vec{a}|^2+|\vec{b}|^2$。
+			\[
+				-2|\vec{a}||\vec{b}|\cos\theta = -2\vec{a}\cdot\vec{b}
+			\]
+			\par\textbf{理由：}
+			等式两边同时去掉相同项。
+
+		\item[\textbf{步骤六（解出余弦）：}] 两边除以 $-2$，再除以 $|\vec{a}||\vec{b}|$，得到余弦公式。
+			\[
+				\begin{aligned}
+					\vec{a}\cdot\vec{b} &= |\vec{a}||\vec{b}|\cos\theta \\
+					\cos\theta &= \frac{\vec{a}\cdot\vec{b}}{|\vec{a}||\vec{b}|}
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			除以非零数，整理即得。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	通过上述推导，将夹角余弦表示为数量积与模长积之比，实现了向量运算与三角函数的统一。
+\end{proofbox}
