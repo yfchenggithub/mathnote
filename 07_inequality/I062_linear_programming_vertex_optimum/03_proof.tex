@@ -1,0 +1,41 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	通过平移目标函数等值线，观察其与可行域的最后接触点，利用线性函数在闭线段上的最值性质，证明该点必为顶点。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（等值线方程）：}]
+			给定 $z$，目标函数对应直线 $L(z): ax+by=z$。当 $b\neq 0$ 时，$L(z)$ 可写为 $y=-\dfrac{a}{b}x+\dfrac{z}{b}$，纵截距 $\dfrac{z}{b}$ 随 $z$ 线性变化。
+			\[
+				L(z): ax+by=z.
+			\]
+			\par\textbf{理由：} $z$ 的变化等价于直线平移，$z$ 的大小反映截距。
+		\item[\textbf{步骤二（平移临界）：}]
+			由于可行域 $D$ 有界，平移 $L(z)$ 时存在最大值 $z_{\max}$ 和最小值 $z_{\min}$，使 $L(z_{\max})$ 与 $D$ 恰好相触且 $L(z)$ 不再与 $D$ 相交。
+			\[
+				z_{\max} = \max\{ z \mid L(z) \cap D \neq \emptyset \},\quad z_{\min} = \min\{ z \mid L(z) \cap D \neq \emptyset \}.
+			\]
+			\par\textbf{理由：} 可行域有界保证了平移存在临界。
+		\item[\textbf{步骤三（最值点在边界）：}]
+			$L(z_{\max})$ 与 $D$ 的交点一定在 $D$ 的边界上。若存在内部交点，则沿法线方向平移还可增大 $z$，矛盾。
+			\[
+				L(z_{\max}) \cap D \subseteq \partial D,
+				\qquad
+				L(z_{\min}) \cap D \subseteq \partial D.
+			\]
+			\par\textbf{理由：} 内部点无法成为平移的极限。
+		\item[\textbf{步骤四（边界最值在端点）：}]
+			$D$ 的边界由有限条线段组成。在每条线段 $PQ$ 上，$z=ax+by$ 是线性函数，其最大值和最小值只能在端点 $P$ 或 $Q$ 处取得。因此整个边界的最值出现在顶点处。
+			\[
+				\begin{aligned}
+					\max_{(x,y)\in D} (ax+by) &= \max_{V\in \mathcal{V}} (a x_V + b y_V), \\ \min_{(x,y)\in D} (ax+by) &= \min_{V\in \mathcal{V}} (a x_V + b y_V).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 线性函数在闭区间上的最值必在端点；若整个线段都取最值，端点仍包含在内。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	线性规划中，只要可行域是凸多边形（或有界），目标函数的最大、最小值一定在顶点取到。因此解题时只需计算各顶点处目标函数值即可。必要时可利用截距的单调性直接判断最优顶点。
+\end{proofbox}

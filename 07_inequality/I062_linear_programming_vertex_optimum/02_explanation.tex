@@ -1,0 +1,42 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+	线性规划求最值，只需要比较顶点处的函数值。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（顶点最值）：}]
+			所有可行解中，最大或最小值必然出现在可行域的顶点处，而不是边内部的点。
+		\item[\textbf{要点二（截距关系）：}]
+			将目标函数 $z=ax+by$ 视为等值线 $y = -\dfrac{a}{b}x + \dfrac{z}{b}$（$b\neq 0$），$z$ 的大小由纵截距 $\dfrac{z}{b}$ 决定。
+		\item[\textbf{要点三（凸性原理）：}]
+			可行域是凸多边形，线性函数在顶点之间取中间值，因此端点（顶点）是极值点。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（等值线平移）}}
+	固定 $z$ 得到一条直线，增大 $z$ 相当于把直线向外平移。当直线刚好离开可行域时，接触点即为最值点；这个接触点一定是顶点（若与边重合，则端点也是顶点）。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（凸组合表示）}}
+	可行域内任意点可写成顶点凸组合 $P = \sum \lambda_i V_i$，$\lambda_i \geq 0, \sum \lambda_i =1$。代入目标函数得 $z = \sum \lambda_i z(V_i)$，因此 $z$ 介于 $\min z(V_i)$ 与 $\max z(V_i)$ 之间，极值在顶点取等。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（快速求解）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（直接求最值）：} 给出约束和目标，求出所有顶点坐标并代入，直接比较得最值。
+		\item \textbf{考法二（含参问题）：} 利用截距关系反求参数范围或最大最小值的条件。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+	内部点都可以被顶点“拉平均”，所以不可能比顶点更大或更小；顶点就是“极限位置”。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（标准二元线性规划）：} 约束为直线围成的区域，目标为 $z=ax+by$ 型，直接用顶点法。
+		\item \textbf{场景二（截距型最值）：} 当目标函数适合写成截距式时，通过平移等值线快速锁定最值点。
+	\end{itemize}
+
+\end{explanationbox}

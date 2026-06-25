@@ -1,0 +1,41 @@
+\begin{proofbox}
+	\n\textbf{\textcolor{CProof}{思路提示}}\n\n\textbf{由于不等式两边均为非负，可以将两边平方后比较，转化为判断一个代数式的非负性。}\n\n
+
+	\medskip
+	\n\textbf{\textcolor{CProof}{正式推导}}\n
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\n
+		\item[\textbf{步骤一（平方转化）：}]
+			因为 $\sqrt{u}, \sqrt{v}, \sqrt{2(u+v)}$ 均非负，故原不等式等价于\n
+			\[
+				\n (\sqrt{u}+\sqrt{v})^2 \le 2(u+v).\n
+			\]
+			\n
+			\par\textbf{理由：} 对非负实数来说，$a\le b$ 与 $a^2 \le b^2$ 等价（平方函数在 $[0,+\infty)$ 单调递增）。\n\n
+		\item[\textbf{步骤二（作差变形）：}]
+			计算左边展开式与右边的差：\n
+			\[
+				\n
+				\begin{aligned}
+					\n 2(u+v) - (\sqrt{u}+\sqrt{v})^2\n &= 2u + 2v - (u + v + 2\sqrt{uv}) \\\n &= u + v - 2\sqrt{uv} \\\n &= (\sqrt{u} - \sqrt{v})^2.\n
+			\end{aligned}
+				\n
+			\]
+			\n
+			\par\textbf{理由：} 利用完全平方公式 $(\sqrt{u}+\sqrt{v})^2 = u + v + 2\sqrt{uv}$ 展开后合并同类项。\n\n
+		\item[\textbf{步骤三（非负判断）：}]
+			对于任意实数，平方数都非负，故\n
+			\[
+				\n (\sqrt{u} - \sqrt{v})^2 \ge 0.\n
+			\]
+			\n
+			\par\textbf{理由：} 实数的平方总是大于或等于零。当且仅当 $\sqrt{u}=\sqrt{v}$ 即 $u=v$ 时等于零。\n\n
+		\item[\textbf{步骤四（回代结论）：}]
+			由步骤一至三得到 $2(u+v) - (\sqrt{u}+\sqrt{v})^2 \ge 0$，即 $(\sqrt{u}+\sqrt{v})^2 \le 2(u+v)$。两边开方得原不等式 $\sqrt{u}+\sqrt{v} \le \sqrt{2(u+v)}$，且等号当 $u=v$ 时成立。\n
+			\par\textbf{理由：} 平方根函数在 $[0,+\infty)$ 上是单调递增的，从而平方不等式在开方后不等号方向不变。\n
+	\end{description}
+	\n\n
+
+	\medskip
+	\n\textbf{\textcolor{CProof}{结论回扣}}\n\n\textbf{至此，我们严格证明了对于任意非负实数 $u,v$，不等式 $\sqrt{u}+\sqrt{v} \le \sqrt{2(u+v)}$ 恒成立，且等号成立当且仅当 $u=v$。这一定量关系可直接用于含根式和的最值计算。}\n
+\end{proofbox}

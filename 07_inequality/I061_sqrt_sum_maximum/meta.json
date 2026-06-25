@@ -1,0 +1,159 @@
+{
+  "id": "I061",
+  "module": "inequality",
+  "core": {
+    "title": "含根式和的最值不等式",
+    "alias": [
+      "根式和不等式",
+      "sqrt和最值",
+      "根式和小于等于根号二倍和"
+    ],
+    "summary": "两个非负实数的算术平方根之和不超过它们和的算术平方根的√2倍；当两数相等时取等。",
+    "difficulty": 2,
+    "category": "不等式",
+    "tags": [
+      "不等式",
+      "根式最值",
+      "均值不等式",
+      "对称性",
+      "最值问题"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "非负实数",
+      "根式",
+      "最值",
+      "最大值",
+      "sqrt",
+      "不等式",
+      "和定",
+      "取等条件",
+      "u=v",
+      "均值不等式",
+      "换元法",
+      "含根式和"
+    ],
+    "synonyms": [
+      "根号求和最大值",
+      "根式最大值",
+      "根式和不等式",
+      "根号下和的最值"
+    ],
+    "intents": [
+      "求最值",
+      "证明不等式",
+      "判断范围",
+      "求解最大值"
+    ],
+    "query_templates": [
+      "sqrt(u)+sqrt(v) 最大值",
+      "非负实数根式不等式",
+      "根式和小于等于根号2倍和",
+      "含根式和的最值公式"
+    ],
+    "ocrKeywords": [
+      "非负",
+      "实数",
+      "最大值",
+      "当且仅当",
+      "根号",
+      "和"
+    ],
+    "latex_patterns": [
+      "\\sqrt{u}+\\sqrt{v}\\le\\sqrt{2(u+v)}"
+    ],
+    "formulaTokens": [
+      "\\sqrt{u}+\\sqrt{v}",
+      "\\sqrt{2(u+v)}",
+      "u+v",
+      "u=v",
+      "2(u+v)"
+    ],
+    "pinyin": "gen shi he de zui zhi bu deng shi",
+    "pinyinAbbr": "gshdz"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.7,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\sqrt{u}+\\sqrt{v}\\le\\sqrt{2(u+v)}",
+    "related_formulas": [
+      "当 $u+v$ 为定值时，$\\max(\\sqrt{u}+\\sqrt{v})=\\sqrt{2(u+v)}$",
+      "$(\\sqrt{u}+\\sqrt{v})^2 = u+v+2\\sqrt{uv} \\le u+v+(u+v)=2(u+v)$"
+    ],
+    "variables": "u, v",
+    "conditions": "$u,v$ 为非负实数",
+    "conclusions": "当 $u=v$ 时取等，不等式成立；若 $u+v$ 为定值，则 $\\sqrt{u}+\\sqrt{v}$ 的最大值为 $\\sqrt{2(u+v)}$"
+  },
+  "content": {
+    "statement": "对于非负实数 $u,v$，有 $\\sqrt{u}+\\sqrt{v}\\le\\sqrt{2(u+v)}$，当且仅当 $u=v$ 时取等号。若 $u+v$ 为定值，则 $\\sqrt{u}+\\sqrt{v}$ 的最大值为 $\\sqrt{2(u+v)}$。",
+    "derivation": [
+      "由于 $(\\sqrt{u}+\\sqrt{v})^2 = u+v+2\\sqrt{uv}$，且 $u,v\\ge0$，由均值不等式 $2\\sqrt{uv}\\le u+v$，得 $(\\sqrt{u}+\\sqrt{v})^2 \\le u+v + (u+v) = 2(u+v)$。",
+      "两边开平方（非负性保证），得 $\\sqrt{u}+\\sqrt{v} \\le \\sqrt{2(u+v)}$。",
+      "等号成立当且仅当 $\\sqrt{uv}=u+v$ 即 $u=v$。"
+    ],
+    "intuition": "平方后利用均值不等式 $u+v\\ge2\\sqrt{uv}$，将根号内放大，从而得到上界；当两数相等时取到等号。",
+    "common_tricks": [
+      "遇到含根号的和且和为定值，直接套用结论求最大值。",
+      "如果根号内不是单一变量，通过换元转化为标准形式 $\\sqrt{u}+\\sqrt{v}$。",
+      "注意检查非负条件和取等条件是否在可行域内。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "最值问题",
+      "不等式证明",
+      "函数值域"
+    ],
+    "problem_types": [
+      "求函数最值",
+      "含根式表达式的最值",
+      "条件最值"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "I061.svg",
+    "png": "",
+    "geogebra": "",
+    "video": ""
+  },
+  "shareConfig": {
+    "title": "根式和不等式：和定最值直接套公式",
+    "shareDesc": "适合刷题前速查和讲评课，快速求解含根式的和定最值问题，避免繁琐平方和均值不等式推导，提升计算稳定性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "均值不等式",
+      "非负实数概念",
+      "二次函数最值"
+    ],
+    "related_ids": [],
+    "similar": "该结论是均值不等式的推论，与柯西不等式也有联系。"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-25"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "不等式-经典不等式-均值不等式",
+  "altNodes": ""
+}
