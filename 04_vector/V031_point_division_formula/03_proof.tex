@@ -1,0 +1,45 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	从向量等式出发，转化为坐标方程，通过解方程得到分点坐标公式。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（向量坐标化）：}]
+			由 $\overrightarrow{P_1P} = \lambda \overrightarrow{PP_2}$，根据向量坐标运算，得到
+			\[
+				\begin{cases}
+					x-x_1 = \lambda (x_2-x),\\ y-y_1 = \lambda (y_2-y).
+			\end{cases}
+			\]
+			\par\textbf{理由：} 向量减法：$\overrightarrow{P_1P}=(x-x_1,y-y_1)$, $\overrightarrow{PP_2}=(x_2-x,y_2-y)$，代入等式即得。
+		\item[\textbf{步骤二（求横坐标）：}]
+			整理 $x$ 的方程：
+			\[
+				\begin{aligned}
+					x - x_1 &= \lambda x_2 - \lambda x \\ \Rightarrow \quad x + \lambda x &= x_1 + \lambda x_2 \\ \Rightarrow \quad (1+\lambda)x &= x_1 + \lambda x_2 .
+			\end{aligned}
+			\]
+			因为 $\lambda\neq -1$，两边除以 $1+\lambda$，得
+			\[
+				x = \frac{x_1+\lambda x_2}{1+\lambda}.
+			\]
+			\par\textbf{理由：} 移项合并同类项，利用条件 $\lambda\neq -1$ 保证分母非零。
+		\item[\textbf{步骤三（求纵坐标）：}]
+			同理，由 $y-y_1 = \lambda (y_2-y)$ 得
+			\[
+				\begin{aligned}
+					y - y_1 &= \lambda y_2 - \lambda y \\ \Rightarrow \quad y + \lambda y &= y_1 + \lambda y_2 \\ \Rightarrow \quad (1+\lambda)y &= y_1 + \lambda y_2 .
+			\end{aligned}
+			\]
+			所以
+			\[
+				y = \frac{y_1+\lambda y_2}{1+\lambda}.
+			\]
+			\par\textbf{理由：} 与步骤二同理。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	由此我们得到了定比分点坐标公式：$x = \frac{x_1+\lambda x_2}{1+\lambda},\; y = \frac{y_1+\lambda y_2}{1+\lambda}$。特别地，当 $\lambda=1$ 时即为中点坐标公式。该公式在 $\lambda\neq -1$ 时成立。
+\end{proofbox}

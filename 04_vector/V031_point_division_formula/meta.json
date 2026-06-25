@@ -1,0 +1,173 @@
+{
+  "id": "V031",
+  "module": "vector",
+  "core": {
+    "title": "定比分点坐标公式",
+    "alias": [
+      "分点坐标公式",
+      "线段分点坐标",
+      "定比分点"
+    ],
+    "summary": "已知两端点坐标和分比，求分点坐标的公式。",
+    "difficulty": 2,
+    "category": "解析几何",
+    "tags": [
+      "定比分点",
+      "坐标公式",
+      "向量共线",
+      "中点公式",
+      "分点"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "定比分点",
+      "坐标公式",
+      "P1P = λ PP2",
+      "分点坐标",
+      "中点坐标",
+      "向量共线",
+      "分比",
+      "内分",
+      "外分",
+      "参数λ",
+      "加权平均"
+    ],
+    "synonyms": [
+      "分点公式",
+      "定比分点公式",
+      "λ分点",
+      "分点坐标"
+    ],
+    "intents": [
+      "求坐标",
+      "代入公式",
+      "解分点",
+      "求中点",
+      "利用定比分点求坐标"
+    ],
+    "query_templates": [
+      "定比分点坐标公式是什么",
+      "定比分点怎么用",
+      "已知两点和分比求坐标",
+      "中点坐标公式推导",
+      "定比分点公式例题"
+    ],
+    "ocrKeywords": [
+      "P1",
+      "P2",
+      "P",
+      "λ",
+      "比分",
+      "分点",
+      "坐标"
+    ],
+    "latex_patterns": [
+      "x = \\frac{x_1 + \\lambda x_2}{1+\\lambda}",
+      "y = \\frac{y_1 + \\lambda y_2}{1+\\lambda}"
+    ],
+    "formulaTokens": [
+      "(x1+λx2)/(1+λ)",
+      "(y1+λy2)/(1+λ)",
+      "x1+λx2",
+      "y1+λy2",
+      "1+λ"
+    ],
+    "pinyin": "dingbifendianzuobiaogongshi",
+    "pinyinAbbr": "dbfd"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.74,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "x = \\frac{x_1 + \\lambda x_2}{1+\\lambda}, \\quad y = \\frac{y_1 + \\lambda y_2}{1+\\lambda}",
+    "related_formulas": [
+      "x = \\frac{x_1+x_2}{2}, \\quad y = \\frac{y_1+y_2}{2}"
+    ],
+    "variables": [
+      "x1",
+      "y1",
+      "x2",
+      "y2",
+      "λ",
+      "x",
+      "y"
+    ],
+    "conditions": "点 $P$ 满足 $\\overrightarrow{P_1P} = \\lambda \\overrightarrow{PP_2}$（$\\lambda \\in \\mathbb{R}$，$\\lambda \\neq -1$）。",
+    "conclusions": "当 $\\lambda=1$ 时，$P$ 为线段 $P_1P_2$ 的中点。"
+  },
+  "content": {
+    "statement": "已知两点 $P_1(x_1,y_1)$，$P_2(x_2,y_2)$，若点 $P(x,y)$ 满足 $\\overrightarrow{P_1P} = \\lambda \\overrightarrow{PP_2}$（$\\lambda \\in \\mathbb{R}$，$\\lambda \\neq -1$），则 $P$ 的坐标为 $x = \\frac{x_1 + \\lambda x_2}{1+\\lambda}$，$y = \\frac{y_1 + \\lambda y_2}{1+\\lambda}$。",
+    "derivation": [
+      "由向量等式 $\\overrightarrow{P_1P} = \\lambda \\overrightarrow{PP_2}$ 得 $(x-x_1, y-y_1) = \\lambda (x_2-x, y_2-y)$。",
+      "分别对横纵坐标列方程：$x-x_1 = \\lambda (x_2-x)$，$y-y_1 = \\lambda (y_2-y)$。",
+      "解出 $x = \\frac{x_1+\\lambda x_2}{1+\\lambda}$，$y = \\frac{y_1+\\lambda y_2}{1+\\lambda}$。"
+    ],
+    "intuition": "分点坐标是两端点坐标按分比λ的加权平均。",
+    "common_tricks": [
+      "注意 $\\lambda \\neq -1$，否则分母为零。",
+      "根据λ正负判断内分（λ>0）或外分（λ<0）。",
+      "已知分点和一端点，可反求另一端点或λ。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "解析几何求点坐标",
+      "中点坐标",
+      "重心坐标"
+    ],
+    "problem_types": [
+      "计算题",
+      "选择题"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "V031.svg",
+    "png_derivation": "",
+    "png_usage": ""
+  },
+  "shareConfig": {
+    "title": "定比分点坐标公式：已知分比求分点坐标",
+    "shareDesc": "适合课后复盘和刷题前速查，直接套用公式减少向量推导步骤，注意分母非零条件。"
+  },
+  "relations": {
+    "prerequisites": [
+      "向量的线性运算",
+      "坐标表示",
+      "中点坐标公式"
+    ],
+    "related_ids": [],
+    "similar": [
+      "中点坐标公式",
+      "重心坐标公式"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-25"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "向量-应用-坐标表示",
+  "altNodes": [
+    "解析几何-直线-位置关系",
+    "向量-基本运算-数乘"
+  ]
+}
