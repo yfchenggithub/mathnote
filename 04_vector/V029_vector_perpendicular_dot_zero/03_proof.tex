@@ -1,0 +1,41 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	利用向量数量积的定义与坐标展开，将垂直条件转化为数量积为零，再通过正交基底计算坐标表达式，即可得到坐标形式。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（垂直与数量积）：}]
+			必要性：若 $\vec{a}\perp\vec{b}$，则 $\vec{a}\cdot\vec{b}=0$。
+			\[
+				\vec{a}\perp\vec{b} \Rightarrow \vec{a}\cdot\vec{b}=0.
+			\]
+			\par\textbf{理由：}由数量积定义 $\vec{a}\cdot\vec{b}=|\vec{a}||\vec{b}|\cos\theta$，垂直时 $\theta=90^\circ$，$\cos\theta=0$。 充分性：若 $\vec{a}\cdot\vec{b}=0$ 且 $\vec{a}\neq\mathbf{0}$，$\vec{b}\neq\mathbf{0}$，则 $\vec{a}\perp\vec{b}$。
+			\[
+				\vec{a}\cdot\vec{b}=0,\ \vec{a}\neq\mathbf{0},\ \vec{b}\neq\mathbf{0} \Rightarrow \vec{a}\perp\vec{b}.
+			\]
+			\par\textbf{理由：}由定义，$\cos\theta=\dfrac{\vec{a}\cdot\vec{b}}{|\vec{a}||\vec{b}|}=0$，所以 $\theta=90^\circ$。
+		\item[\textbf{步骤二（坐标展开）：}]
+			取正交基底 $\vec{i},\vec{j}$，则 $\vec{a}=x_1\vec{i}+y_1\vec{j}$，$\vec{b}=x_2\vec{i}+y_2\vec{j}$。利用数量积的分配律：
+			\[
+				\begin{aligned}
+					\vec{a}\cdot\vec{b} &= (x_1\vec{i}+y_1\vec{j})\cdot(x_2\vec{i}+y_2\vec{j}) \\ &= x_1x_2(\vec{i}\cdot\vec{i}) + x_1y_2(\vec{i}\cdot\vec{j}) \\ &\quad + y_1x_2(\vec{j}\cdot\vec{i}) + y_1y_2(\vec{j}\cdot\vec{j}).
+			\end{aligned}
+			\]
+			\par\textbf{理由：}按多项式乘法展开。 由于 $\vec{i}\perp\vec{j}$ 且均为单位向量，$\vec{i}\cdot\vec{i}=1$，$\vec{j}\cdot\vec{j}=1$，$\vec{i}\cdot\vec{j}=0$，故
+			\[
+				\vec{a}\cdot\vec{b}=x_1x_2+y_1y_2.
+			\]
+			\par\textbf{理由：}正交基底的运算性质。
+		\item[\textbf{步骤三（合并结论）：}]
+			由步骤一得 $\vec{a}\perp\vec{b} \iff \vec{a}\cdot\vec{b}=0$，由步骤二得 $\vec{a}\cdot\vec{b}=x_1x_2+y_1y_2$，代入得：
+			\[
+				\vec{a}\perp\vec{b} \iff x_1x_2+y_1y_2=0.
+			\]
+			\par\textbf{理由：}传递性。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	因此，在平面直角坐标系中，两个非零向量垂直的充要条件是它们的坐标满足 $x_1x_2+y_1y_2=0$。这一结论将几何垂直转化为代数运算，便于计算与证明。
+\end{proofbox}
