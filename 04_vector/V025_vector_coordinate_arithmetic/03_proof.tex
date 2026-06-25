@@ -1,0 +1,39 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	从向量线性表示出发，利用基底的正交单位性质和向量运算律逐项计算。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（线性表示）：}]
+			将向量表示为基底的线性组合。
+			\[
+				\vec{a}=x_1\mathbf{i}+y_1\mathbf{j},\quad \vec{b}=x_2\mathbf{i}+y_2\mathbf{j}
+			\]
+			\par\textbf{理由：} 坐标定义。
+		\item[\textbf{步骤二（加法运算）：}]
+			根据向量加法定义，对应系数相加。
+			\[
+				\vec{a}+\vec{b} = (x_1+x_2)\mathbf{i} + (y_1+y_2)\mathbf{j}
+			\]
+			\par\textbf{理由：} 利用向量加法的运算律，合并 $\mathbf{i}$ 与 $\mathbf{j}$ 的系数。 因此坐标形式为 $\vec{a}+\vec{b}=(x_1+x_2,\; y_1+y_2)$。减法同理。
+		\item[\textbf{步骤三（数乘运算）：}]
+			数乘时系数乘到每个分量。
+			\[
+				\lambda\vec{a} = (\lambda x_1)\mathbf{i} + (\lambda y_1)\mathbf{j}
+			\]
+			\par\textbf{理由：} 数乘向量定义，实数与向量相乘，每个基底方向坐标按比例缩放。 故 $\lambda\vec{a}=(\lambda x_1,\; \lambda y_1)$。
+		\item[\textbf{步骤四（点乘运算）：}]
+			利用点乘分配律及基底正交性展开。
+			\[
+				\begin{aligned}
+					\vec{a}\cdot\vec{b} &= (x_1\mathbf{i}+y_1\mathbf{j})\cdot(x_2\mathbf{i}+y_2\mathbf{j}) \\ &= x_1x_2(\mathbf{i}\cdot\mathbf{i}) + x_1y_2(\mathbf{i}\cdot\mathbf{j}) + y_1x_2(\mathbf{j}\cdot\mathbf{i}) + y_1y_2(\mathbf{j}\cdot\mathbf{j})
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 利用点乘对加法的分配律。 由于基底单位正交，$\mathbf{i}\cdot\mathbf{i}=1,\; \mathbf{j}\cdot\mathbf{j}=1,\; \mathbf{i}\cdot\mathbf{j}=0$， 代入得 $\vec{a}\cdot\vec{b}=x_1x_2+y_1y_2$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	由以上步骤可知，向量的加减、数乘、数量积均可通过其坐标直接计算，这就得到了向量坐标运算法则。
+\end{proofbox}
