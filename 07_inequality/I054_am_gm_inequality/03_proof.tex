@@ -1,0 +1,47 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	通过标准化 $b_i=\frac{a_i}{A}$ 将不等式转化为 $\prod b_i\le 1$，再借助对数不等式 $\ln x\le x-1$（$x>0$）求和即得。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（零值处理）：}]
+			若存在 $a_i=0$，则 $\sqrt[n]{a_1a_2\cdots a_n}=0$，不等式 $A\ge 0$ 显然成立，且等号要求所有 $a_i=0$（即全相等）。故以下假设所有 $a_i>0$。
+			\par\textbf{理由：} 对数函数仅在正数上有定义，需排除零值以确保后续证明有效。
+		\item[\textbf{步骤二（标准化）：}]
+			设 $A=\frac{a_1+a_2+\cdots+a_n}{n}>0$，令 $b_i=\frac{a_i}{A}$（$i=1,\dots,n$），则 $b_i>0$，$\sum_{i=1}^{n}b_i = n$，目标不等式 $\frac{a_1+\cdots+a_n}{n}\ge\sqrt[n]{a_1\cdots a_n}$ 等价于 $\prod_{i=1}^{n}b_i\le 1$。
+			\[
+				\begin{aligned}
+					A^n \ge a_1a_2\cdots a_n &\iff \frac{a_1a_2\cdots a_n}{A^n}\le 1 \\ &\iff \prod_{i=1}^n b_i \le 1.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 两边同除以 $A^n$ 得到等价形式，标准化后便于利用定值条件。
+		\item[\textbf{步骤三（对数不等式）：}]
+			对于每个 $b_i>0$，有 $\ln b_i \le b_i-1$（等号仅当 $b_i=1$）。
+			\[
+				\ln b_i \le b_i-1 \quad (i=1,2,\dots,n).
+			\]
+			\par\textbf{理由：} 构造函数 $g(x)=\ln x - x + 1$，由 $g'(x)=\frac{1}{x}-1$ 知 $g(1)=0$ 为最大值，故 $g(x)\le 0$。
+		\item[\textbf{步骤四（求和取指数）：}]
+			将 $n$ 个不等式相加：
+			\[
+				\begin{aligned}
+					\sum_{i=1}^{n}\ln b_i &\le \sum_{i=1}^{n}(b_i-1) \\ &= \left(\sum_{i=1}^{n}b_i\right)-n \\ &= n-n \\ &= 0.
+			\end{aligned}
+			\]
+			亦即 $\ln\left(\prod_{i=1}^{n}b_i\right) \le 0$，所以 $\prod_{i=1}^{n}b_i \le 1$，从而 $A^n \ge a_1a_2\cdots a_n$，开方得 $A\ge\sqrt[n]{a_1a_2\cdots a_n}$。
+			\[
+				\begin{aligned}
+					\prod_{i=1}^{n}b_i &\le 1 \\ &\Longrightarrow A\ge\sqrt[n]{a_1a_2\cdots a_n}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 利用 $\sum b_i=n$ 消去变量；指数函数单调增，取指数即得结论。
+		\item[\textbf{步骤五（取等分析）：}]
+			\textbf{等号成立当且仅当所有 $b_i=1$}，即 $a_i=A$，故 $a_1=a_2=\cdots=a_n$。结合零值情况，此条件一致。
+			\par\textbf{理由：} $\ln x = x-1$ 的解唯一；若含零，则仅当全部为零才取等。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{算术平均不小于几何平均}，且等号成立当且仅当所有数相等。原命题获证。
+\end{proofbox}
