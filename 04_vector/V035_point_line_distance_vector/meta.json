@@ -1,0 +1,177 @@
+{
+  "id": "V035",
+  "module": "geometry-plane",
+  "core": {
+    "title": "向量法求点到直线的距离公式",
+    "alias": [
+      "向量距离公式",
+      "叉积法求距离",
+      "点到直线距离向量法",
+      "平行四边形高法"
+    ],
+    "summary": "点到直线距离等于向量AP与方向向量v的叉积模除以v的模。",
+    "difficulty": 3,
+    "category": "平面解析几何",
+    "tags": [
+      "向量法",
+      "点到直线距离",
+      "叉积",
+      "解析几何",
+      "平面几何",
+      "距离公式"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "点到直线距离",
+      "向量法",
+      "叉积",
+      "平行四边形高",
+      "距离公式",
+      "方向向量",
+      "坐标叉积",
+      "解析几何",
+      "平面向量",
+      "求距离"
+    ],
+    "synonyms": [
+      "向量距离公式",
+      "叉积距离",
+      "用向量求点到直线距离",
+      "向量点到直线公式"
+    ],
+    "intents": [
+      "求距离",
+      "计算点到直线距离",
+      "利用向量法",
+      "验证距离",
+      "使用叉积"
+    ],
+    "query_templates": [
+      "点到直线距离向量法公式",
+      "如何用向量求点到直线的距离",
+      "叉积法求点到直线距离",
+      "向量法距离公式例题",
+      "d=(|AP×v|)/|v|"
+    ],
+    "ocrKeywords": [
+      "点",
+      "直线",
+      "距离",
+      "方向向量",
+      "叉积",
+      "过点",
+      "求"
+    ],
+    "latex_patterns": [
+      "d = \\frac{\\lvert \\vec{AP} \\times \\vec{v} \\rvert}{\\lvert \\vec{v} \\rvert}",
+      "d = \\frac{\\lvert (x_1-x_0)v_y - (y_1-y_0)v_x \\rvert}{\\sqrt{v_x^2+v_y^2}}"
+    ],
+    "formulaTokens": [
+      "|AP × v|",
+      "|v|",
+      "(x1-x0)v_y - (y1-y0)v_x",
+      "sqrt(v_x^2+v_y^2)",
+      "d",
+      "AP × v"
+    ],
+    "pinyin": "xiang liang fa qiu dian dao zhi xian ju li",
+    "pinyinAbbr": "xlfgddzxjl"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.74,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "d = \\frac{\\lvert \\vec{AP} \\times \\vec{v} \\rvert}{\\lvert \\vec{v} \\rvert}",
+    "related_formulas": [
+      "d = \\frac{\\lvert (x_1-x_0)v_y - (y_1-y_0)v_x \\rvert}{\\sqrt{v_x^2+v_y^2}}"
+    ],
+    "variables": [
+      "A(x_0,y_0)",
+      "P(x_1,y_1)",
+      "\\vec{v}=(v_x,v_y)",
+      "\\vec{AP}",
+      "d"
+    ],
+    "conditions": [
+      "直线 $l$ 过点 $A(x_0,y_0)$，方向向量 $\\vec{v}=(v_x,v_y) \\neq \\mathbf{0}$。",
+      "点 $P(x_1,y_1)$ 为平面内任意一点。",
+      "$\\vec{AP} = (x_1-x_0,\\; y_1-y_0)$ 与 $\\vec{v}$ 不共线时结果非零。"
+    ],
+    "conclusions": [
+      "点 $P$ 到直线 $l$ 的距离 $d = \\frac{\\lvert \\vec{AP} \\times \\vec{v} \\rvert}{\\lvert \\vec{v} \\rvert}$。",
+      "该公式等价于标准点到直线距离公式 $d = \\frac{|Ax_0+By_0+C|}{\\sqrt{A^2+B^2}}$（当直线方程为一般式时）。"
+    ]
+  },
+  "content": {
+    "statement": "对于平面内的一条直线 $l$，若已知 $l$ 上一点 $A$ 和方向向量 $\\vec{v} \\neq \\mathbf{0}$，则任意点 $P$ 到直线 $l$ 的距离 $d$ 等于以向量 $\\vec{AP}$ 和 $\\vec{v}$ 为邻边的平行四边形的高，即 $d = \\frac{\\lvert \\vec{AP} \\times \\vec{v} \\rvert}{\\lvert \\vec{v} \\rvert}$。",
+    "derivation": [
+      "构造：以 $\\vec{AP}$ 和 $\\vec{v}$ 为邻边作平行四边形。",
+      "面积：平行四边形的面积 $S = |\\vec{AP} \\times \\vec{v}|$（叉积的模）。",
+      "高：距离 $d$ 等于以 $|\\vec{v}|$ 为底时的高，即 $d = S / |\\vec{v}| = |\\vec{AP} \\times \\vec{v}| / |\\vec{v}|$。"
+    ],
+    "intuition": "叉积的几何意义是平行四边形面积，而点到直线距离就是该平行四边形的高。",
+    "common_tricks": [
+      "取直线上任意一点计算结果都相同，可选取坐标简单的点。",
+      "若直线方程是一般式 $Ax+By+C=0$，可先取一点（如令 $x=0$ 求出 $y$），再取方向向量 $(B, -A)$ 或 $(-B, A)$。",
+      "分子叉积计算时注意顺序：$\\vec{AP} \\times \\vec{v} = (x_1-x_0)v_y - (y_1-y_0)v_x$，结果取绝对值。",
+      "验证时可用标准公式 $d = \\frac{|Ax_0+By_0+C|}{\\sqrt{A^2+B^2}}$ 检查。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "解析几何求点到直线距离问题",
+      "三角形的高（如已知三点坐标）",
+      "两平行线间距离（转化为一点到另一线距离）"
+    ],
+    "problem_types": [
+      "计算题",
+      "证明题（如证明几何量关系）"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "",
+    "other": {}
+  },
+  "shareConfig": {
+    "title": "向量法求点到直线距离：直接公式免解垂足",
+    "shareDesc": "适合解析几何课后复盘和刷题前速查，利用叉积直接算距离，减少解垂足坐标的推导步骤，提升计算稳定性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "平面向量的坐标运算",
+      "平面向量叉积的概念与计算",
+      "直线方向向量的求法"
+    ],
+    "related_ids": [],
+    "similar": [
+      "标准点到直线距离公式 $d = \\frac{|Ax_0+By_0+C|}{\\sqrt{A^2+B^2}}$",
+      "向量法求两平行直线距离"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-25"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "解析几何-直线-位置关系",
+  "altNodes": "向量-应用-坐标表示"
+}

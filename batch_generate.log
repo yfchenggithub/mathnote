@@ -2900,3 +2900,70 @@ ID 预览: V023
 [2026-06-25 19:53:35] [latex] Generating LaTeX for V033...
 [2026-06-25 19:54:08] [write] source.tex updated from 12_pipeline\generated_sources\V033.tex (509 chars)
 [2026-06-25 19:54:08] [pipeline] Running run_source_to_pdf.py 04_vector --target-id V033...
+[2026-06-25 20:08:46] [publish] PDF_READY confirmed for V033; deployment is allowed
+[2026-06-25 20:08:46] [publish] Running incremental_publish.py for V033...
+[2026-06-25 20:09:51] [done] V033 -> V033: complete
+[2026-06-25 20:09:54] 
+[2026-06-25 20:09:54] ============================================================
+[2026-06-25 20:09:54] [progress] 14/18: V034 | V034 | 三个向量求和为零⇔首尾相连构成三角形 | 教材/高考真题 |
+[2026-06-25 20:09:54] ============================================================
+[2026-06-25 20:09:54] [start] V034: 04_vector:71 | V034 | 三个向量求和为零⇔首尾相连构成三角形 | 教材/高考真题 |
+[2026-06-25 20:09:54] [latex] Generating LaTeX for V034...
+[2026-06-25 20:10:14] [write] source.tex updated from 12_pipeline\generated_sources\V034.tex (800 chars)
+[2026-06-25 20:10:14] [pipeline] Running run_source_to_pdf.py 04_vector --target-id V034...
+[2026-06-25 20:25:47] [fail] V034: Pipeline failed (rc=1): ss] item=V034 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=330.5s timeout=180s
+2026-06-25 20:23:50,902 - INFO - [progress] item=V034 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=360.6s timeout=180s
+2026-06-25 20:24:20,947 - INFO - [progress] item=V034 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=390.6s timeout=180s
+2026-06-25 20:24:43,590 - INFO - [PERF_TRACE] {"event": "perf_trace", "step": "l4_check", "model": "deepseek-v4-pro", "prompt_chars": 14049, "payload_chars": 10772, "response_chars": 9605, "request_start_ts": "2026-06-25T20:17:50.312", "request_end_ts": "2026-06-25T20:24:43.589", "llm_roundtrip_ms": 413276.55, "network_wait_ms": 413276.55, "prompt_tokens": 6202, "completion_tokens": 36790, "total_tokens": 42992, "json_parse_ms": 1.33, "validate_ms": 0.01, "retry_count": 0, "timeout_value": 180, "thinking_enabled": true, "reasoning_effort": "max"}
+2026-06-25 20:24:43,599 - INFO - [stage/done] item=V034 stage=L4_CHECK mode=run elapsed=413.29s
+2026-06-25 20:24:43,599 - INFO - [stage/start] item=V034 stage=L4_EXPORT mode=run
+2026-06-25 20:24:43,611 - INFO - V034 L4 导出 tex 片段: 6 个
+2026-06-25 20:24:43,611 - INFO - [stage/done] item=V034 stage=L4_EXPORT mode=run elapsed=0.01s
+2026-06-25 20:24:43,611 - INFO - [stage/start] item=V034 stage=L5 mode=run
+2026-06-25 20:24:43,715 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-25 20:25:13,654 - INFO - [progress] item=V034 stage=L5 model=deepseek-v4-flash attempt=1/3 retry_count=0 waited=30.0s timeout=180s
+2026-06-25 20:25:25,459 - WARNING - V034 L5 id 已纠正: 'V001' -> 'V034'
+2026-06-25 20:25:25,463 - INFO - [stage/done] item=V034 stage=L5 mode=run elapsed=41.85s
+2026-06-25 20:25:25,463 - INFO - V034 L6 缓存无 prompt 指纹记录，判定缓存失效并重跑。
+2026-06-25 20:25:25,463 - INFO - [stage/start] item=V034 stage=L6 mode=run
+2026-06-25 20:25:25,581 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-25 20:25:37,370 - INFO - [stage/done] item=V034 stage=L6 mode=run elapsed=11.91s note=dirname=V034_vector_sum_zero_triangle
+
+Processing Pipeline:   0%|          | 0/1 [15:18<?, ?it/s, success=1, error=0, skipped=0]
+Processing Pipeline: 100%|██████████| 1/1 [15:18<00:00, 918.61s/it, success=1, error=0, skipped=0]
+Processing Pipeline: 100%|██████████| 1/1 [15:18<00:00, 918.61s/it, success=1, error=0, skipped=0]
+2026-06-25 20:25:37,396 - INFO - 
+\u2705 任务结束: {'success': 1, 'error': 0, 'skipped': 0}
+2026-06-25 20:25:37,397 - INFO - \u23f1 总耗时: 918.62s
+========== Pipeline 发布 ==========
+模式: full
+dry-run: no | verbose: no
+ID 数量: 1
+ID 预览: V034
+===================================
+
+[V034] 开始
+[V034] 目标: 04_vector/V034_vector_sum_zero_triangle
+[V034] 目录命名: 使用 L6 产物
+[V034] 讲义文件: 已发布 6 个
+[V034] meta.json: 已同步
+[V034] source.tex: 已拷贝
+[V034] main.tex: 已生成
+[V034] index.tex: 已追加入口
+[V034] 完成
+
+============= 发布汇总 =============
+总计: 1
+成功: 1
+失败: 0
+警告: 0
+===================================
+
+[2026-06-25 20:25:50] 
+[2026-06-25 20:25:50] ============================================================
+[2026-06-25 20:25:50] [progress] 15/18: V035 | V035 | 向量法求点到直线距离 | 教材/高考真题 |
+[2026-06-25 20:25:50] ============================================================
+[2026-06-25 20:25:50] [start] V035: 04_vector:72 | V035 | 向量法求点到直线距离 | 教材/高考真题 |
+[2026-06-25 20:25:50] [latex] Generating LaTeX for V035...
+[2026-06-25 20:26:34] [write] source.tex updated from 12_pipeline\generated_sources\V035.tex (826 chars)
+[2026-06-25 20:26:34] [pipeline] Running run_source_to_pdf.py 04_vector --target-id V035...

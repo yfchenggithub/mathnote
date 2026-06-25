@@ -1,0 +1,53 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	点 $P$ 到直线 $l$ 的距离可以视为以 $\vec{AP}$ 和方向向量 $\vec{v}$ 为邻边的平行四边形的高，因此距离 $d = \frac{\text{面积}}{\lvert\vec{v}\rvert} = \frac{\lvert\vec{AP}\times\vec{v}\rvert}{\lvert\vec{v}\rvert}$。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（坐标设定）：}] 设点 $A(x_0,y_0)$，方向向量 $\vec{v}=(v_x,v_y)\neq\mathbf{0}$，点 $P(x_1,y_1)$，记 $\vec{AP}=(x_1-x_0,\;y_1-y_0)$。
+			\par\textbf{理由：} 将问题转化为代数运算，引入坐标符号。
+
+		\item[\textbf{步骤二（叉积计算）：}] 平面向量叉积（标量）为 $\vec{AP}\times\vec{v} = (x_1-x_0)v_y - (y_1-y_0)v_x$。
+			\[
+				\vec{AP}\times\vec{v} = (x_1-x_0)v_y - (y_1-y_0)v_x
+			\]
+			\par\textbf{理由：} 二维向量叉积公式，等于行列式值。
+
+		\item[\textbf{步骤三（平行四边形面积）：}] 叉积的绝对值 $\lvert\vec{AP}\times\vec{v}\rvert$ 等于以 $\vec{AP}$ 和 $\vec{v}$ 为邻边的平行四边形面积 $S$。
+			\[
+				\lvert\vec{AP}\times\vec{v}\rvert = S
+			\]
+			\par\textbf{理由：} 向量叉积的几何意义。
+
+		\item[\textbf{步骤四（底边长）：}] 方向向量的模 $\lvert\vec{v}\rvert = \sqrt{v_x^2+v_y^2}$ 为该平行四边形的一条边长。
+			\[
+				\lvert\vec{v}\rvert = \sqrt{v_x^2+v_y^2}
+			\]
+			\par\textbf{理由：} 模长公式。
+
+		\item[\textbf{步骤五（高等于距离）：}] 点 $P$ 到直线 $l$ 的距离 $d$ 等于该平行四边形以 $\lvert\vec{v}\rvert$ 为底时的高，因此面积 $S = \lvert\vec{v}\rvert \cdot d$。
+			\[
+				S = \lvert\vec{v}\rvert \cdot d
+			\]
+			\par\textbf{理由：} 高是点到直线的垂直距离，底边在直线方向上，故高即为距离。
+
+		\item[\textbf{步骤六（推出公式）：}] 由 $S = \lvert\vec{v}\rvert d$ 和 $S = \lvert\vec{AP}\times\vec{v}\rvert$ 得 $d = \dfrac{\lvert\vec{AP}\times\vec{v}\rvert}{\lvert\vec{v}\rvert}$。
+			\[
+				d = \frac{\lvert\vec{AP}\times\vec{v}\rvert}{\lvert\vec{v}\rvert}
+			\]
+			\par\textbf{理由：} 代数变形，将 $S$ 代换。
+
+		\item[\textbf{步骤七（坐标形式）：}] 将叉积坐标表达式代入，得到 $d = \dfrac{\lvert (x_1-x_0)v_y - (y_1-y_0)v_x \rvert}{\sqrt{v_x^2+v_y^2}}$。
+			\[
+				d = \frac{\lvert (x_1-x_0)v_y - (y_1-y_0)v_x \rvert}{\sqrt{v_x^2+v_y^2}}
+			\]
+			\par\textbf{理由：} 代入步骤二的表达式。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{通过平行四边形面积两步拆解，我们得到点到直线距离的向量表达式。该公式避免了求垂足坐标，只需简单的向量运算，是解析几何中的快速计算工具。}
+\end{proofbox}
