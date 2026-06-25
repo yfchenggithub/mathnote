@@ -16082,3 +16082,88 @@
 2026-06-25 10:33:34,354 - INFO - 
 ✅ 任务结束: {'success': 1, 'error': 0, 'skipped': 0}
 2026-06-25 10:33:34,354 - INFO - ⏱ 总耗时: 1050.67s
+2026-06-25 10:35:30,396 - INFO - 阶段模型映射已生效: {'l1': 'flash', 'l2': 'pro', 'l3': 'flash', 'l4': 'flash', 'l4_check': 'pro', 'l5': 'flash', 'l6': 'flash'}
+2026-06-25 10:35:30,396 - INFO - DeepSeek 思考模式配置: {"apply_to": ["flash", "pro"], "configured": true, "effort": "high", "enabled": true, "step_overrides": {"l4": {"effort": "max"}, "l4_check": {"effort": "max"}}}
+2026-06-25 10:35:31,557 - INFO - Pipeline 开关: enable_l3=True, enable_l4=True, enable_l4_check=True, enable_l5=True
+2026-06-25 10:35:31,557 - INFO - Prompt 指纹快照(前12位): {"l1": "9438d6e74a91", "l2": "1fd14f50262e", "l3": "58bd9ab2c769", "l4": "0a048a9a130e", "l4_check": "324cd8ed1680", "l5": "24cfe6fa35a3", "l6": "84d942894192"}
+2026-06-25 10:35:31,557 - INFO - Prompt 全局快照(前12位): caaea063a2a6
+2026-06-25 10:35:31,557 - INFO - Pipeline 心跳: progress_log_start_seconds=120, progress_log_interval_seconds=30, progress_poll_seconds=5, effective_first_heartbeat_seconds=30
+2026-06-25 10:35:31,596 - INFO - 开始批处理，共 1 个条目，模式: cache（优先复用）
+2026-06-25 10:35:31,596 - INFO - 指定 ID: I047
+2026-06-25 10:35:31,607 - INFO - I047 source fingerprint missing; invalidating all stage caches.
+2026-06-25 10:35:31,607 - INFO - I047 检测到缺失 prompt 快照记录，判定全部阶段缓存失效。
+2026-06-25 10:35:31,607 - INFO - [stage/start] item=I047 stage=L1 mode=run
+2026-06-25 10:35:32,338 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-25 10:36:01,655 - INFO - [progress] item=I047 stage=L1 model=deepseek-v4-flash attempt=1/3 retry_count=0 waited=30.0s timeout=180s
+2026-06-25 10:36:31,721 - INFO - [progress] item=I047 stage=L1 model=deepseek-v4-flash attempt=1/3 retry_count=0 waited=60.1s timeout=180s
+2026-06-25 10:37:01,769 - INFO - [progress] item=I047 stage=L1 model=deepseek-v4-flash attempt=1/3 retry_count=0 waited=90.2s timeout=180s
+2026-06-25 10:37:08,832 - INFO - [stage/done] item=I047 stage=L1 mode=run elapsed=97.22s
+2026-06-25 10:37:08,832 - INFO - [stage/start] item=I047 stage=L2 mode=run
+2026-06-25 10:37:08,983 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-25 10:37:33,711 - INFO - [PERF_TRACE] {"event": "perf_trace", "step": "l2", "model": "deepseek-v4-pro", "prompt_chars": 3552, "payload_chars": 1275, "response_chars": 589, "request_start_ts": "2026-06-25T10:37:08.833", "request_end_ts": "2026-06-25T10:37:33.710", "llm_roundtrip_ms": 24877.64, "network_wait_ms": 24877.64, "prompt_tokens": 1840, "completion_tokens": 1557, "total_tokens": 3397, "json_parse_ms": 0.19, "validate_ms": null, "retry_count": 0, "timeout_value": 180, "thinking_enabled": true, "reasoning_effort": "high"}
+2026-06-25 10:37:33,731 - INFO - [stage/done] item=I047 stage=L2 mode=run elapsed=24.90s
+2026-06-25 10:37:33,732 - INFO - [stage/start] item=I047 stage=L3 mode=run
+2026-06-25 10:37:33,830 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-25 10:37:45,328 - INFO - [stage/done] item=I047 stage=L3 mode=run elapsed=11.59s
+2026-06-25 10:37:45,328 - INFO - [stage/start] item=I047 stage=L4 mode=run
+2026-06-25 10:37:45,477 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-25 10:38:15,432 - INFO - [progress] item=I047 stage=L4 model=deepseek-v4-flash attempt=1/1 retry_count=0 waited=30.1s timeout=180s
+2026-06-25 10:38:45,470 - INFO - [progress] item=I047 stage=L4 model=deepseek-v4-flash attempt=1/1 retry_count=0 waited=60.1s timeout=180s
+2026-06-25 10:39:15,525 - INFO - [progress] item=I047 stage=L4 model=deepseek-v4-flash attempt=1/1 retry_count=0 waited=90.2s timeout=180s
+2026-06-25 10:39:45,559 - INFO - [progress] item=I047 stage=L4 model=deepseek-v4-flash attempt=1/1 retry_count=0 waited=120.2s timeout=180s
+2026-06-25 10:40:15,588 - INFO - [progress] item=I047 stage=L4 model=deepseek-v4-flash attempt=1/1 retry_count=0 waited=150.3s timeout=180s
+2026-06-25 10:40:45,645 - INFO - [progress] item=I047 stage=L4 model=deepseek-v4-flash attempt=1/1 retry_count=0 waited=180.3s timeout=180s
+2026-06-25 10:41:15,708 - INFO - [progress] item=I047 stage=L4 model=deepseek-v4-flash attempt=1/1 retry_count=0 waited=210.4s timeout=180s
+2026-06-25 10:41:45,728 - INFO - [progress] item=I047 stage=L4 model=deepseek-v4-flash attempt=1/1 retry_count=0 waited=240.4s timeout=180s
+2026-06-25 10:41:59,815 - INFO - [PERF_TRACE] {"event": "perf_trace", "step": "l4", "model": "deepseek-v4-flash", "prompt_chars": 14227, "payload_chars": 562, "response_chars": 8963, "request_start_ts": "2026-06-25T10:37:45.328", "request_end_ts": "2026-06-25T10:41:59.814", "llm_roundtrip_ms": 254485.31, "network_wait_ms": 254485.31, "prompt_tokens": 7417, "completion_tokens": 37542, "total_tokens": 44959, "json_parse_ms": 1.51, "validate_ms": 0.01, "retry_count": 0, "timeout_value": 180, "thinking_enabled": true, "reasoning_effort": "max"}
+2026-06-25 10:41:59,829 - INFO - [stage/done] item=I047 stage=L4 mode=run elapsed=254.50s
+2026-06-25 10:41:59,829 - INFO - [stage/start] item=I047 stage=L4_CHECK mode=run
+2026-06-25 10:41:59,969 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-25 10:42:29,880 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=30.0s timeout=180s
+2026-06-25 10:42:59,930 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=60.1s timeout=180s
+2026-06-25 10:43:29,966 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=90.1s timeout=180s
+2026-06-25 10:44:00,016 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=120.2s timeout=180s
+2026-06-25 10:44:30,047 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=150.2s timeout=180s
+2026-06-25 10:45:00,097 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=180.3s timeout=180s
+2026-06-25 10:45:30,149 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=210.3s timeout=180s
+2026-06-25 10:46:00,195 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=240.4s timeout=180s
+2026-06-25 10:46:30,256 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=270.4s timeout=180s
+2026-06-25 10:47:00,291 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=300.5s timeout=180s
+2026-06-25 10:47:30,319 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=330.5s timeout=180s
+2026-06-25 10:48:00,353 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=360.5s timeout=180s
+2026-06-25 10:48:30,403 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=390.6s timeout=180s
+2026-06-25 10:49:00,439 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=420.6s timeout=180s
+2026-06-25 10:49:30,505 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=450.7s timeout=180s
+2026-06-25 10:50:00,567 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=480.7s timeout=180s
+2026-06-25 10:50:30,619 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=510.8s timeout=180s
+2026-06-25 10:51:00,667 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=540.8s timeout=180s
+2026-06-25 10:51:30,712 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=570.9s timeout=180s
+2026-06-25 10:52:00,770 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=600.9s timeout=180s
+2026-06-25 10:52:30,810 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=631.0s timeout=180s
+2026-06-25 10:53:00,868 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=661.0s timeout=180s
+2026-06-25 10:53:30,916 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=691.1s timeout=180s
+2026-06-25 10:54:00,966 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=721.1s timeout=180s
+2026-06-25 10:54:31,003 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=751.2s timeout=180s
+2026-06-25 10:55:01,056 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=781.2s timeout=180s
+2026-06-25 10:55:31,119 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=811.3s timeout=180s
+2026-06-25 10:56:01,181 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=841.3s timeout=180s
+2026-06-25 10:56:31,215 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=871.4s timeout=180s
+2026-06-25 10:57:01,275 - INFO - [progress] item=I047 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=901.4s timeout=180s
+2026-06-25 10:57:17,849 - INFO - [PERF_TRACE] {"event": "perf_trace", "step": "l4_check", "model": "deepseek-v4-pro", "prompt_chars": 13251, "payload_chars": 9974, "response_chars": 9317, "request_start_ts": "2026-06-25T10:41:59.830", "request_end_ts": "2026-06-25T10:57:17.846", "llm_roundtrip_ms": 918016.47, "network_wait_ms": 918016.47, "prompt_tokens": 6522, "completion_tokens": 69753, "total_tokens": 76275, "json_parse_ms": 2.02, "validate_ms": 0.01, "retry_count": 0, "timeout_value": 180, "thinking_enabled": true, "reasoning_effort": "max"}
+2026-06-25 10:57:17,865 - INFO - [stage/done] item=I047 stage=L4_CHECK mode=run elapsed=918.04s
+2026-06-25 10:57:17,866 - INFO - [stage/start] item=I047 stage=L4_EXPORT mode=run
+2026-06-25 10:57:17,906 - INFO - I047 L4 导出 tex 片段: 6 个
+2026-06-25 10:57:17,906 - INFO - [stage/done] item=I047 stage=L4_EXPORT mode=run elapsed=0.04s
+2026-06-25 10:57:17,907 - INFO - [stage/start] item=I047 stage=L5 mode=run
+2026-06-25 10:57:18,022 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-25 10:57:47,943 - INFO - [progress] item=I047 stage=L5 model=deepseek-v4-flash attempt=1/3 retry_count=0 waited=30.0s timeout=180s
+2026-06-25 10:58:17,988 - INFO - [progress] item=I047 stage=L5 model=deepseek-v4-flash attempt=1/3 retry_count=0 waited=60.1s timeout=180s
+2026-06-25 10:58:23,023 - WARNING - I047 L5 id 已纠正: 'I001' -> 'I047'
+2026-06-25 10:58:23,037 - INFO - [stage/done] item=I047 stage=L5 mode=run elapsed=65.13s
+2026-06-25 10:58:23,039 - INFO - I047 L6 缓存无 prompt 指纹记录，判定缓存失效并重跑。
+2026-06-25 10:58:23,039 - INFO - [stage/start] item=I047 stage=L6 mode=run
+2026-06-25 10:58:23,140 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-25 10:58:26,488 - INFO - [stage/done] item=I047 stage=L6 mode=run elapsed=3.45s note=dirname=I047_abs_sum_min_diff_max
+2026-06-25 10:58:26,506 - INFO - 
+✅ 任务结束: {'success': 1, 'error': 0, 'skipped': 0}
+2026-06-25 10:58:26,507 - INFO - ⏱ 总耗时: 1374.91s

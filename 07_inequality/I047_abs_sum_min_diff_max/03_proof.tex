@@ -1,0 +1,55 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示（三角不等式）}}
+	两个结论都可以通过绝对值三角不等式直接证得，关键在于取等条件的分析。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（三角不等式）：}]
+			对任意实数 $u, v$，有 $|u|+|v|\ge |u-v|$，等号当且仅当 $u$ 与 $v$ 异号或其中之一为零。
+			\[
+				|u|+|v|\ge |u-v|.
+			\]
+			\par\textbf{理由：} 这是绝对值三角不等式的常见形式，可通过平方或分类讨论证明。
+		\item[\textbf{步骤二（代入和形式）：}]
+			令 $u=x-a$, $v=x-b$，得
+			\[
+				\begin{aligned}
+					|x-a|+|x-b| &\ge |(x-a)-(x-b)| \\ &= |b-a| \\ &= |a-b|.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 直接代入 $u, v$ 并化简差。
+		\item[\textbf{步骤三（取等等价转化）：}]
+			等号成立 $\iff$ $(x-a)(x-b)\le 0$ $\iff$ $a\le x\le b$。
+			\[
+				\begin{aligned}
+					|x-a|+|x-b| &= |a-b| \\ &\iff a\le x\le b.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} $u$ 与 $v$ 异号等价于 $(x-a)(x-b)\le 0$，解得 $x$ 介于 $a, b$ 之间。
+		\item[\textbf{步骤四（差的三角不等式）：}]
+			对任意实数 $u, v$，有 $|u|-|v|\le |u-v|$，同理 $|v|-|u|\le |u-v|$，故
+			\[
+				\bigl| |u|-|v| \bigr| \le |u-v|.
+			\]
+			\par\textbf{理由：} 由三角不等式 $|u|\le |u-v|+|v|$ 得到 $|u|-|v|\le |u-v|$，对称性得绝对值形式。
+		\item[\textbf{步骤五（代入差形式）：}]
+			令 $u=x-a$, $v=x-b$，代入得
+			\[
+				\begin{aligned}
+					\bigl| |x-a|-|x-b| \bigr| &\le |(x-a)-(x-b)| \\ &= |a-b|.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 直接代入并化简。
+		\item[\textbf{步骤六（取等条件分析）：}]
+			等号成立 $\iff$ $(x-a)(x-b)\ge 0$ $\iff$ $x\le a$ 或 $x\ge b$。
+			\[
+				\bigl| |x-a|-|x-b| \bigr| = |a-b| \iff x\notin (a,b).
+			\]
+			\par\textbf{理由：} 等号 $|u|-|v| = |u-v|$ 要求 $u$ 与 $v$ 同号且 $|u|\ge |v|$，即 $(x-a)(x-b)\ge 0$；对称情形类似，整体得到 $x\notin (a,b)$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	由步骤二和步骤五得到两个不等式，步骤三和步骤六给出等号成立条件，它们就是需要证明的结论。
+\end{proofbox}
