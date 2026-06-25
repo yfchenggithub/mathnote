@@ -2734,3 +2734,70 @@ ID 预览: I061
 [2026-06-25 16:08:50] [latex] Generating LaTeX for V022...
 [2026-06-25 16:09:23] [write] source.tex updated from 12_pipeline\generated_sources\V022.tex (678 chars)
 [2026-06-25 16:09:23] [pipeline] Running run_source_to_pdf.py 04_vector --target-id V022...
+[2026-06-25 16:28:52] [publish] PDF_READY confirmed for V022; deployment is allowed
+[2026-06-25 16:28:52] [publish] Running incremental_publish.py for V022...
+[2026-06-25 16:29:51] [done] V022 -> V022: complete
+[2026-06-25 16:29:54] 
+[2026-06-25 16:29:54] ============================================================
+[2026-06-25 16:29:54] [progress] 3/18: V023 | V023 | 向量数乘的几何意义（同向/反向/伸缩） | 教材必修二 |
+[2026-06-25 16:29:54] ============================================================
+[2026-06-25 16:29:54] [start] V023: 04_vector:53 | V023 | 向量数乘的几何意义（同向/反向/伸缩） | 教材必修二 |
+[2026-06-25 16:29:55] [latex] Generating LaTeX for V023...
+[2026-06-25 16:30:18] [write] source.tex updated from 12_pipeline\generated_sources\V023.tex (762 chars)
+[2026-06-25 16:30:18] [pipeline] Running run_source_to_pdf.py 04_vector --target-id V023...
+[2026-06-25 17:01:31] [fail] V023: Pipeline failed (rc=1): gress] item=V023 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=1081.7s timeout=180s
+2026-06-25 16:59:54,670 - INFO - [progress] item=V023 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=1111.8s timeout=180s
+2026-06-25 16:59:58,108 - INFO - [PERF_TRACE] {"event": "perf_trace", "step": "l4_check", "model": "deepseek-v4-pro", "prompt_chars": 14603, "payload_chars": 11326, "response_chars": 10419, "request_start_ts": "2026-06-25T16:41:22.873", "request_end_ts": "2026-06-25T16:59:58.106", "llm_roundtrip_ms": 1115232.72, "network_wait_ms": 1115232.72, "prompt_tokens": 6552, "completion_tokens": 67118, "total_tokens": 73670, "json_parse_ms": 2.22, "validate_ms": 0.01, "retry_count": 0, "timeout_value": 180, "thinking_enabled": true, "reasoning_effort": "max"}
+2026-06-25 16:59:58,125 - INFO - [stage/done] item=V023 stage=L4_CHECK mode=run elapsed=1115.25s
+2026-06-25 16:59:58,126 - INFO - [stage/start] item=V023 stage=L4_EXPORT mode=run
+2026-06-25 16:59:58,177 - INFO - V023 L4 导出 tex 片段: 6 个
+2026-06-25 16:59:58,179 - INFO - [stage/done] item=V023 stage=L4_EXPORT mode=run elapsed=0.05s
+2026-06-25 16:59:58,179 - INFO - [stage/start] item=V023 stage=L5 mode=run
+2026-06-25 16:59:58,302 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-25 17:00:28,216 - INFO - [progress] item=V023 stage=L5 model=deepseek-v4-flash attempt=1/3 retry_count=0 waited=30.0s timeout=180s
+2026-06-25 17:00:58,293 - INFO - [progress] item=V023 stage=L5 model=deepseek-v4-flash attempt=1/3 retry_count=0 waited=60.1s timeout=180s
+2026-06-25 17:01:13,529 - WARNING - V023 L5 id 已纠正: 'V001' -> 'V023'
+2026-06-25 17:01:13,545 - INFO - [stage/done] item=V023 stage=L5 mode=run elapsed=75.37s
+2026-06-25 17:01:13,545 - INFO - V023 L6 缓存无 prompt 指纹记录，判定缓存失效并重跑。
+2026-06-25 17:01:13,546 - INFO - [stage/start] item=V023 stage=L6 mode=run
+2026-06-25 17:01:13,635 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-25 17:01:23,092 - INFO - [stage/done] item=V023 stage=L6 mode=run elapsed=9.55s note=dirname=V023_scalar_mult_geometric
+
+Processing Pipeline:   0%|          | 0/1 [31:00<?, ?it/s, success=1, error=0, skipped=0]
+Processing Pipeline: 100%|██████████| 1/1 [31:00<00:00, 1860.38s/it, success=1, error=0, skipped=0]
+Processing Pipeline: 100%|██████████| 1/1 [31:00<00:00, 1860.38s/it, success=1, error=0, skipped=0]
+2026-06-25 17:01:23,114 - INFO - 
+\u2705 任务结束: {'success': 1, 'error': 0, 'skipped': 0}
+2026-06-25 17:01:23,114 - INFO - \u23f1 总耗时: 1860.40s
+========== Pipeline 发布 ==========
+模式: full
+dry-run: no | verbose: no
+ID 数量: 1
+ID 预览: V023
+===================================
+
+[V023] 开始
+[V023] 目标: 04_vector/V023_scalar_mult_geometric
+[V023] 目录命名: 使用 L6 产物
+[V023] 讲义文件: 已发布 6 个
+[V023] meta.json: 已同步
+[V023] source.tex: 已拷贝
+[V023] main.tex: 已生成
+[V023] index.tex: 已追加入口
+[V023] 完成
+
+============= 发布汇总 =============
+总计: 1
+成功: 1
+失败: 0
+警告: 0
+===================================
+
+[2026-06-25 17:01:34] 
+[2026-06-25 17:01:34] ============================================================
+[2026-06-25 17:01:34] [progress] 4/18: V024 | V024 | 平面向量基本定理：平面内任意向量可用两个不共线向量唯一线性表示 | 教材必修二 |
+[2026-06-25 17:01:34] ============================================================
+[2026-06-25 17:01:34] [start] V024: 04_vector:54 | V024 | 平面向量基本定理：平面内任意向量可用两个不共线向量唯一线性表示 | 教材必修二 |
+[2026-06-25 17:01:34] [latex] Generating LaTeX for V024...
+[2026-06-25 17:02:04] [write] source.tex updated from 12_pipeline\generated_sources\V024.tex (632 chars)
+[2026-06-25 17:02:04] [pipeline] Running run_source_to_pdf.py 04_vector --target-id V024...

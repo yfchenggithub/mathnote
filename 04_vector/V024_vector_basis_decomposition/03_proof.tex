@@ -1,0 +1,38 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	\par 通过向量加法的平行四边形法则构造分解，再利用反证法证明系数唯一。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（平移共起点）：}]
+			将 $\vec{a},\vec{e}_1,\vec{e}_2$ 的起点都移至同一点 $O$，记 $\vec{a}$ 的终点为 $C$，$\vec{e}_1,\vec{e}_2$ 的终点分别为 $A,B$（保持方向不变）。
+			\[
+				\vec{a} = \overrightarrow{OC},\quad \vec{e}_1 = \overrightarrow{OA},\quad \vec{e}_2 = \overrightarrow{OB}.
+			\]
+			\par\textbf{理由：}向量平移后不变，共起点便于几何构造。
+		\item[\textbf{步骤二（作平行四边形）：}]
+			过点 $C$ 分别作 $\overrightarrow{OA}$ 和 $\overrightarrow{OB}$ 的平行线，交 $\overrightarrow{OA}$ 所在直线于点 $D$，交 $\overrightarrow{OB}$ 所在直线于点 $E$，则四边形 $ODCE$ 是平行四边形。
+			\[
+				\overrightarrow{OC} = \overrightarrow{OD} + \overrightarrow{OE}.
+			\]
+			\par\textbf{理由：}平行四边形法则，邻边 $\overrightarrow{OD}$ 与 $\overrightarrow{OE}$ 之和等于对角线 $\overrightarrow{OC}$。
+		\item[\textbf{步骤三（确定系数）：}]
+			因为 $D$ 在 $OA$ 上，故存在实数 $\lambda_1$ 使 $\overrightarrow{OD} = \lambda_1\overrightarrow{OA} = \lambda_1\vec{e}_1$。同理存在 $\lambda_2$ 使 $\overrightarrow{OE} = \lambda_2\vec{e}_2$。因此
+			\[
+				\vec{a} = \lambda_1\vec{e}_1 + \lambda_2\vec{e}_2.
+			\]
+			\par\textbf{理由：}平行线保证共线，从而可由比例得到实数系数。
+		\item[\textbf{步骤四（唯一性证明）：}]
+			假设还存在另一组系数 $\mu_1,\mu_2$ 使得 $\vec{a} = \mu_1\vec{e}_1 + \mu_2\vec{e}_2$。两式相减得
+			\[
+				(\lambda_1 - \mu_1)\vec{e}_1 + (\lambda_2 - \mu_2)\vec{e}_2 = \vec{0}.
+			\]
+			若 $\lambda_1\neq\mu_1$ 或 $\lambda_2\neq\mu_2$，则 $\vec{e}_1$ 与 $\vec{e}_2$ 可互相表示，与已知不共线矛盾。故 $\lambda_1=\mu_1,\ \lambda_2=\mu_2$，唯一性得证。
+			\par\textbf{理由：}不共线向量组合为零向量时系数必全为零。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\par\textbf{综上，任意平面向量 $\vec{a}$ 可用不共线基底 $\vec{e}_1,\vec{e}_2$ 唯一分解为 $\vec{a}=\lambda_1\vec{e}_1+\lambda_2\vec{e}_2$。}
+\end{proofbox}
