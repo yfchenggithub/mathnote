@@ -1,0 +1,48 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	根据函数奇偶性定义，计算$F(-x)$并与$F(x)$比较。利用内函数$g$的奇偶性将$g(-x)$转化为$\pm g(x)$，进而由外函数$f$的奇偶性决定最终关系。
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（定义展开）：}] 对任意$x$（在定义域内），由复合函数定义得
+			\[
+				F(-x)=f(g(-x)).
+			\]
+			\par\textbf{理由：}依据复合函数关系$F(x)=f(g(x))$。
+		\item[\textbf{步骤二（内偶证明）：}] 若$g$为偶函数，则$g(-x)=g(x)$，代入得
+			\[
+				\begin{aligned}
+					F(-x) &= f(g(x))\\
+					&= F(x).
+			\end{aligned}
+			\]
+			\par\textbf{理由：}偶函数定义$g(-x)=g(x)$。
+		\item[\textbf{步骤三（内奇证明）：}] 若$g$为奇函数，则$g(-x)=-g(x)$，于是
+			\[
+				F(-x)=f(-g(x)).
+			\]
+			\par\textbf{理由：}奇函数定义$g(-x)=-g(x)$。
+			此时，分两种情况：
+			\begin{itemize}
+			\item 若$f$为奇函数，则$f(-u)=-f(u)$，故
+				\[
+					\begin{aligned}
+						F(-x) &= -f(g(x))\\
+						&= -F(x),
+				\end{aligned}
+				\]
+				所以$F$为奇函数。
+			\item 若$f$为偶函数，则$f(-u)=f(u)$，故
+				\[
+					\begin{aligned}
+						F(-x) &= f(g(x))\\
+						&= F(x),
+				\end{aligned}
+				\]
+				所以$F$为偶函数。
+		\end{itemize}
+	\end{description}
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	综合步骤二和三可知：当内函数为偶时，复合函数必为偶；当内函数为奇时，复合函数的奇偶性与外函数保持一致。这正是口诀“内偶则偶，内奇同外”的证明。
+\end{proofbox}

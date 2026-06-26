@@ -3299,3 +3299,70 @@ ID 预览: F014
 [2026-06-26 12:29:16] [latex] Generating LaTeX for F016...
 [2026-06-26 12:29:29] [write] source.tex updated from 12_pipeline\generated_sources\F016.tex (471 chars)
 [2026-06-26 12:29:29] [pipeline] Running run_source_to_pdf.py 01_function --target-id F016...
+[2026-06-26 12:42:50] [publish] PDF_READY confirmed for F016; deployment is allowed
+[2026-06-26 12:42:50] [publish] Running incremental_publish.py for F016...
+[2026-06-26 12:43:35] [done] F016 -> F016: complete
+[2026-06-26 12:43:38] 
+[2026-06-26 12:43:38] ============================================================
+[2026-06-26 12:43:38] [progress] 12/73: F017 | F017 | 奇±奇=奇；偶±偶=偶；奇×奇=偶；奇×偶=奇；偶×偶=偶 | 教材必修一 |
+[2026-06-26 12:43:38] ============================================================
+[2026-06-26 12:43:38] [start] F017: 01_function:38 | F017 | 奇±奇=奇；偶±偶=偶；奇×奇=偶；奇×偶=奇；偶×偶=偶 | 教材必修一 |
+[2026-06-26 12:43:38] [latex] Generating LaTeX for F017...
+[2026-06-26 12:43:58] [write] source.tex updated from 12_pipeline\generated_sources\F017.tex (689 chars)
+[2026-06-26 12:43:58] [pipeline] Running run_source_to_pdf.py 01_function --target-id F017...
+[2026-06-26 13:06:05] [fail] F017: Pipeline failed (rc=1): - INFO - [progress] item=F017 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=510.9s timeout=180s
+2026-06-26 13:04:27,282 - INFO - [progress] item=F017 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=540.9s timeout=180s
+2026-06-26 13:04:34,489 - INFO - [PERF_TRACE] {"event": "perf_trace", "step": "l4_check", "model": "deepseek-v4-pro", "prompt_chars": 13828, "payload_chars": 10551, "response_chars": 9721, "request_start_ts": "2026-06-26T12:55:26.341", "request_end_ts": "2026-06-26T13:04:34.488", "llm_roundtrip_ms": 548147.18, "network_wait_ms": 548147.18, "prompt_tokens": 6570, "completion_tokens": 56134, "total_tokens": 62704, "json_parse_ms": 0.49, "validate_ms": 0.0, "retry_count": 0, "timeout_value": 180, "thinking_enabled": true, "reasoning_effort": "max"}
+2026-06-26 13:04:34,494 - INFO - [stage/done] item=F017 stage=L4_CHECK mode=run elapsed=548.15s
+2026-06-26 13:04:34,494 - INFO - [stage/start] item=F017 stage=L4_EXPORT mode=run
+2026-06-26 13:04:34,508 - INFO - F017 L4 导出 tex 片段: 6 个
+2026-06-26 13:04:34,508 - INFO - [stage/done] item=F017 stage=L4_EXPORT mode=run elapsed=0.01s
+2026-06-26 13:04:34,509 - INFO - [stage/start] item=F017 stage=L5 mode=run
+2026-06-26 13:04:34,622 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-26 13:05:04,564 - INFO - [progress] item=F017 stage=L5 model=deepseek-v4-flash attempt=1/3 retry_count=0 waited=30.1s timeout=180s
+2026-06-26 13:05:34,611 - INFO - [progress] item=F017 stage=L5 model=deepseek-v4-flash attempt=1/3 retry_count=0 waited=60.1s timeout=180s
+2026-06-26 13:05:56,177 - WARNING - F017 L5 id 已纠正: 'F001' -> 'F017'
+2026-06-26 13:05:56,184 - INFO - [stage/done] item=F017 stage=L5 mode=run elapsed=81.68s
+2026-06-26 13:05:56,185 - INFO - F017 L6 缓存无 prompt 指纹记录，判定缓存失效并重跑。
+2026-06-26 13:05:56,185 - INFO - [stage/start] item=F017 stage=L6 mode=run
+2026-06-26 13:05:56,280 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-26 13:05:59,269 - INFO - [stage/done] item=F017 stage=L6 mode=run elapsed=3.08s note=dirname=F017_parity_arithmetic
+
+Processing Pipeline:   0%|          | 0/1 [21:56<?, ?it/s, success=1, error=0, skipped=0]
+Processing Pipeline: 100%|██████████| 1/1 [21:56<00:00, 1316.98s/it, success=1, error=0, skipped=0]
+Processing Pipeline: 100%|██████████| 1/1 [21:56<00:00, 1316.98s/it, success=1, error=0, skipped=0]
+2026-06-26 13:05:59,274 - INFO - 
+\u2705 任务结束: {'success': 1, 'error': 0, 'skipped': 0}
+2026-06-26 13:05:59,274 - INFO - \u23f1 总耗时: 1316.99s
+========== Pipeline 发布 ==========
+模式: full
+dry-run: no | verbose: no
+ID 数量: 1
+ID 预览: F017
+===================================
+
+[F017] 开始
+[F017] 目标: 01_function/F017_parity_arithmetic
+[F017] 目录命名: 使用 L6 产物
+[F017] 讲义文件: 已发布 6 个
+[F017] meta.json: 已同步
+[F017] source.tex: 已拷贝
+[F017] main.tex: 已生成
+[F017] index.tex: 已追加入口
+[F017] 完成
+
+============= 发布汇总 =============
+总计: 1
+成功: 1
+失败: 0
+警告: 0
+===================================
+
+[2026-06-26 13:06:08] 
+[2026-06-26 13:06:08] ============================================================
+[2026-06-26 13:06:08] [progress] 13/73: F018 | F018 | 复合函数的奇偶性：内偶则偶，内奇则奇（同奇同偶） | 教材必修一/模拟题 |
+[2026-06-26 13:06:08] ============================================================
+[2026-06-26 13:06:08] [start] F018: 01_function:39 | F018 | 复合函数的奇偶性：内偶则偶，内奇则奇（同奇同偶） | 教材必修一/模拟题 |
+[2026-06-26 13:06:08] [latex] Generating LaTeX for F018...
+[2026-06-26 13:06:18] [write] source.tex updated from 12_pipeline\generated_sources\F018.tex (720 chars)
+[2026-06-26 13:06:18] [pipeline] Running run_source_to_pdf.py 01_function --target-id F018...
