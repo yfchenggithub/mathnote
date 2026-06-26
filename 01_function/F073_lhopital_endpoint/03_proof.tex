@@ -1,0 +1,31 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	利用柯西中值定理将 $\frac{f(x)}{g(x)}$ 转化为 $\frac{f'(\xi)}{g'(\xi)}$，再取极限．
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（补充定义）：}]
+			令 $f(x_0)=\lim_{x\to x_0}f(x)=0$, $g(x_0)=\lim_{x\to x_0}g(x)=0$，则 $f,g$ 在 $x_0$ 处连续，且在以 $x_0$ 和 $x$ 为端点的闭区间上满足柯西中值定理条件．
+			\[
+				\lim_{x\to x_0}f(x)=\lim_{x\to x_0}g(x)=0.
+			\]
+			\par\textbf{理由：} 原极限为 $0$，补充定义后函数在 $x_0$ 连续，且原条件保证 $f,g$ 在 $x_0$ 的某去心邻域内可导，$g'(x)\neq0$．
+		\item[\textbf{步骤二（柯西中值）：}]
+			对任意 $x\neq x_0$，由柯西中值定理，存在 $\xi$ 介于 $x$ 与 $x_0$ 之间，使得
+			\[
+				\frac{f(x)}{g(x)} = \frac{f(x)-f(x_0)}{g(x)-g(x_0)} = \frac{f'(\xi)}{g'(\xi)}.
+			\]
+			\par\textbf{理由：} 柯西中值定理的条件已经满足（连续、可导、$g'(x)\neq0$），直接应用即得．
+		\item[\textbf{步骤三（取极限）：}]
+			当 $x\to x_0$ 时，$\xi\to x_0$，对等式两边取极限，
+			\[
+				\lim_{x\to x_0}\frac{f(x)}{g(x)} = \lim_{\xi\to x_0}\frac{f'(\xi)}{g'(\xi)} = \lim_{x\to x_0}\frac{f'(x)}{g'(x)}.
+			\]
+			\par\textbf{理由：} 极限与路径无关，且 $\displaystyle\lim_{x\to x_0}\frac{f'(x)}{g'(x)}$ 存在（或为无穷大），故极限相等．
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	以上证明了 $0/0$ 型洛必达法则．$\infty/\infty$ 型洛必达法则的结论同样成立（证明从略）．在含参不等式恒成立问题中，分离参数后若遇到端点 $\frac{0}{0}$ 或 $\frac{\infty}{\infty}$ 型极限，便可使用该法则求出极限，从而得到参数的必要范围（充分性需另证）．
+\end{proofbox}

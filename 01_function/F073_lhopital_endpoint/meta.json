@@ -1,0 +1,185 @@
+{
+  "id": "F073",
+  "module": "function",
+  "core": {
+    "title": "洛必达法则与端点效应",
+    "alias": [
+      "洛必达法则",
+      "端点效应",
+      "参数范围必要条件",
+      "洛必达求极限"
+    ],
+    "summary": "洛必达法则用于求解 $\\frac{0}{0}$ 或 $\\frac{\\infty}{\\infty}$ 型极限；在恒成立问题中分离参数后遇到端点未定式，可用它求出参数的必要范围（充分性需另证）。",
+    "difficulty": 4,
+    "category": "函数与导数",
+    "tags": [
+      "洛必达法则",
+      "端点效应",
+      "恒成立问题",
+      "参数范围",
+      "极限",
+      "必要性探路"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "洛必达法则",
+      "端点效应",
+      "恒成立问题",
+      "参数范围",
+      "极限",
+      "0/0型",
+      "无穷/无穷型",
+      "未定式",
+      "必要性探路",
+      "分离参数",
+      "导数求极限",
+      "必要条件",
+      "端点极限",
+      "洛必达求导"
+    ],
+    "synonyms": [
+      "洛必达",
+      "端点法",
+      "端点极限法",
+      "参数范围端点",
+      "洛必达求极限"
+    ],
+    "intents": [
+      "求极限",
+      "求参数范围",
+      "判断恒成立",
+      "使用洛必达法则",
+      "端点极限计算"
+    ],
+    "query_templates": [
+      "洛必达法则怎么用",
+      "端点效应求参数范围",
+      "恒成立问题参数范围端点极限",
+      "0/0型极限怎么求",
+      "参数分离后端点未定式"
+    ],
+    "ocrKeywords": [
+      "lim",
+      "f'(x)",
+      "g'(x)",
+      "0/0",
+      "∞/∞",
+      "洛必达",
+      "端点",
+      "a≤h(x)"
+    ],
+    "latex_patterns": [
+      "\\lim_{x\\to x_0}\\frac{f(x)}{g(x)}",
+      "\\frac{f'(x)}{g'(x)}",
+      "a\\le h(x)",
+      "a\\ge h(x)",
+      "\\lim_{x\\to x_0}h(x)"
+    ],
+    "formulaTokens": [
+      "\\frac{f(x)}{g(x)}",
+      "\\frac{f'(x)}{g'(x)}",
+      "\\lim_{x\\to x_0}",
+      "a\\le h(x)",
+      "a\\ge h(x)",
+      "\\frac{0}{0}",
+      "\\frac{\\infty}{\\infty}",
+      "\\lim_{x\\to x_0}h(x)"
+    ],
+    "pinyin": "luo bi da fa ze yu duan dian xiao ying",
+    "pinyinAbbr": "lbdfl"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.8,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\lim_{x\\to x_0}\\frac{f(x)}{g(x)} = \\lim_{x\\to x_0}\\frac{f'(x)}{g'(x)}",
+    "related_formulas": [
+      "a \\le \\lim_{x\\to x_0}h(x)\\quad\\text{或}\\quad a \\ge \\lim_{x\\to x_0}h(x)"
+    ],
+    "variables": {
+      "f(x)": "分子函数，与g(x)同时趋向0或无穷",
+      "g(x)": "分母函数，在去心邻域内可导且g'(x)≠0",
+      "h(x)": "分离参数后得到的不等式右边函数，端点极限为未定式",
+      "x_0": "极限点或区间端点",
+      "a": "待求参数"
+    },
+    "conditions": "函数 $f(x),g(x)$ 在 $x_0$ 的某去心邻域内可导，且 $g'(x)\\neq0$，$\\lim_{x\\to x_0}f(x)=\\lim_{x\\to x_0}g(x)=0$（或同为 $\\infty$），极限 $\\displaystyle\\lim_{x\\to x_0}\\frac{f'(x)}{g'(x)}$ 存在（或为无穷大）。在含参不等式恒成立问题中，分离参数后得到 $a\\le h(x)$（或 $a\\ge h(x)$），且 $h(x)$ 在区间端点处极限为 $\\frac{0}{0}$ 或 $\\frac{\\infty}{\\infty}$ 型未定式。",
+    "conclusions": "（1）$\\displaystyle\\lim_{x\\to x_0}\\frac{f(x)}{g(x)} = \\lim_{x\\to x_0}\\frac{f'(x)}{g'(x)}$。\n（2）由 $a\\le h(x)$ 恒成立得到 $a\\le \\lim_{x\\to x_0}h(x)$（必要条件）；由 $a\\ge h(x)$ 恒成立得到 $a\\ge \\lim_{x\\to x_0}h(x)$（必要条件）。充分性需另行验证。"
+  },
+  "content": {
+    "statement": "若函数 $f(x),g(x)$ 在 $x_0$ 的某去心邻域内可导，且 $g'(x)\\neq0$，$\\lim_{x\\to x_0}f(x)=\\lim_{x\\to x_0}g(x)=0$（或同为 $\\infty$），极限 $\\displaystyle\\lim_{x\\to x_0}\\frac{f'(x)}{g'(x)}$ 存在（或为无穷大），则 $\\lim_{x\\to x_0}\\frac{f(x)}{g(x)}=\\lim_{x\\to x_0}\\frac{f'(x)}{g'(x)}$。在含参不等式恒成立问题中，若参数分离后得到形如 $a\\le h(x)$（或 $a\\ge h(x)$）的不等式，且 $h(x)$ 在区间端点处的极限为 $\\frac{0}{0}$ 或 $\\frac{\\infty}{\\infty}$ 型未定式，则可利用该结论求出端点极限，得到参数的必要范围（充分性需另行验证）。",
+    "derivation": [
+      "第一步：判断极限类型是否为 $\\frac{0}{0}$ 或 $\\frac{\\infty}{\\infty}$ 型。",
+      "第二步：对分子分母分别求导，得到导数比 $\\frac{f'(x)}{g'(x)}$。",
+      "第三步：计算导数比的极限，若存在（或为无穷大），则原极限等于该极限。"
+    ],
+    "intuition": "当分子分母同时趋向0或无穷时，它们的趋近速率主要由导数决定，因此极限等于导数比的极限。",
+    "common_tricks": [
+      "使用前必须验证条件：未定式类型、可导性、分母导数非零、导数比极限存在。",
+      "若一次求导后仍为未定式，可多次使用，但每次均需重新验证条件。",
+      "在恒成立问题中，端点极限只给出参数的必要范围，必须通过构造函数证明最值来验证充分性。",
+      "注意：若导数比极限不存在（非无穷大），则洛必达法则失效，需换用其他方法。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "压轴题",
+      "恒成立问题",
+      "极限计算"
+    ],
+    "problem_types": [
+      "含参不等式恒成立求参数范围",
+      "0/0或无穷/无穷型极限计算"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 8
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "F073.svg",
+    "png": "",
+    "geoGebra": ""
+  },
+  "shareConfig": {
+    "title": "洛必达法则+端点效应：求参数必要范围",
+    "shareDesc": "适合课后复盘和压轴题训练，解决恒成立问题中端点极限为未定式时参数范围的快速求解，减少分类讨论步骤。"
+  },
+  "relations": {
+    "prerequisites": [
+      "极限基础",
+      "导数定义",
+      "恒成立问题思路"
+    ],
+    "related_ids": [],
+    "similar": [
+      "端点效应",
+      "必要性探路"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "函数-综合-函数与不等式",
+  "altNodes": [
+    "函数-综合-函数与方程",
+    "不等式-等价变形-分类讨论"
+  ]
+}
