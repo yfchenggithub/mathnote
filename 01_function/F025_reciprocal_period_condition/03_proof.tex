@@ -1,0 +1,48 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	从已知条件出发，将自变量增加$a$一次得到倒数关系，再次增加$a$时倒数相消，还原为原函数值，从而周期为$2a$。对负倒数情况同理。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（列出条件）：}] 设对任意$x$，有$f(x+a)=\dfrac{1}{f(x)}$，且$f(x)\neq 0$。
+			\par\textbf{理由：} 这是题目给出的正倒数条件。
+
+		\item[\textbf{步骤二（平移迭代）：}] 将$x$换成$x+a$，得
+			\[
+				f(x+2a)=\frac{1}{f(x+a)}.
+			\]
+			\par\textbf{理由：} 条件对任意自变量成立，所以替换$x$为$x+a$仍成立。
+
+		\item[\textbf{步骤三（代入化简）：}] 将步骤一中的$f(x+a)=\frac{1}{f(x)}$代入步骤二，得
+			\[
+				\begin{aligned}
+					f(x+2a) &= \frac{1}{\frac{1}{f(x)}} \\
+					&= f(x).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} $\frac{1}{\frac{1}{f(x)}}=f(x)$，因为$f(x)\neq 0$保证了分母非零。
+
+		\item[\textbf{步骤四（导出周期）：}] 由$f(x+2a)=f(x)$可知，$T=2a$是$f(x)$的一个周期。
+			\par\textbf{理由：} 周期函数的定义：存在非零常数$T$使$f(x+T)=f(x)$恒成立。
+
+		\item[\textbf{步骤五（负倒数验证）：}] 若条件为$f(x+a)=-\dfrac{1}{f(x)}$，同样步骤得
+			\[
+				\begin{aligned}
+					f(x+2a) &= -\frac{1}{f(x+a)} \\
+					&= -\frac{1}{-\frac{1}{f(x)}} \\
+					&= f(x).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 两次取负倒数相互抵消，$-\frac{1}{-\frac{1}{f(x)}}=f(x)$。
+
+		\item[\textbf{步骤六（综合结论）：}] 无论条件为$f(x+a)=\frac{1}{f(x)}$还是$f(x+a)=-\frac{1}{f(x)}$，都有$T=2a$为周期。
+			\par\textbf{理由：} 证明一致。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{综上，只要函数$f(x)$满足条件$f(x+a)=\frac{1}{f(x)}$或$f(x+a)=-\frac{1}{f(x)}$（$a\neq 0$，$f(x)\neq 0$），则$f(x)$是周期函数，$T=2a$是它的一个周期。}
+\end{proofbox}
