@@ -1,0 +1,58 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	所有基本初等函数的导数均通过导数定义$f'(x)=\lim_{h\to0}\frac{f(x+h)-f(x)}{h}$及已知极限推得。下面以四个典型代表展示推导过程.
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（幂函数导数）：}] 取$f(x)=x^n$（$n\in\mathbb{N}$）.
+			\[
+				\begin{aligned}
+					f'(x) &= \lim_{h\to0}\frac{(x+h)^n-x^n}{h} \\
+					&= \lim_{h\to0}\frac{x^n+nx^{n-1}h+\frac{n(n-1)}{2}x^{n-2}h^2+\cdots+h^n-x^n}{h} \\
+					&= \lim_{h\to0}\bigl(nx^{n-1}+\frac{n(n-1)}{2}x^{n-2}h+\cdots+h^{n-1}\bigr) \\
+					&= nx^{n-1}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 展开二项式，除$h$后除了第一项$n x^{n-1}$外其余各项均含$h$，取极限后为$0$.
+
+		\item[\textbf{步骤二（指数函数导数）：}] 取$f(x)=a^x$（$a>0,a\neq1$）.
+			\[
+				\begin{aligned}
+					f'(x) &= \lim_{h\to0}\frac{a^{x+h}-a^x}{h} \\
+					&= a^x\lim_{h\to0}\frac{a^{h}-1}{h} \\
+					&= a^x\ln a.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 极限$\displaystyle\lim_{h\to0}\frac{a^h-1}{h}=\ln a$是重要极限（可由$e$的定义或等价无穷小得到）.
+
+		\item[\textbf{步骤三（对数函数导数）：}] 取$f(x)=\ln x$（$x>0$）.
+			\[
+				\begin{aligned}
+					f'(x) &= \lim_{h\to0}\frac{\ln(x+h)-\ln x}{h} \\
+					&= \lim_{h\to0}\frac{1}{h}\ln\frac{x+h}{x} \\
+					&= \lim_{h\to0}\frac{\ln(1+h/x)}{h} \\
+					&= \lim_{h\to0}\frac{1}{x}\cdot\frac{\ln(1+h/x)}{h/x} \\
+					&= \frac{1}{x}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 利用$\displaystyle\lim_{u\to0}\frac{\ln(1+u)}{u}=1$（等价无穷小）.
+
+		\item[\textbf{步骤四（正弦导数）：}] 取$f(x)=\sin x$（$x$弧度）.
+			\[
+				\begin{aligned}
+					f'(x) &= \lim_{h\to0}\frac{\sin(x+h)-\sin x}{h} \\
+					&= \lim_{h\to0}\frac{2\cos(x+\frac{h}{2})\sin\frac{h}{2}}{h} \\
+					&= \lim_{h\to0}\cos(x+\frac{h}{2})\cdot\frac{\sin\frac{h}{2}}{\frac{h}{2}} \\
+					&= \cos x.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 和差化积公式与重要极限$\displaystyle\lim_{t\to0}\frac{\sin t}{t}=1$.
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	以上推导表明，只要满足可导条件与弧度制，各导数公式成立. 对于幂函数$x^\alpha$（$\alpha$为任意实数），可通过取对数求导法证明（需先掌握$\ln x$的导数），此处从略；其余初等函数（如$\cos x$, $\log_a x$, $e^x$）的导数可类似推导或由上述结果派生.
+\end{proofbox}

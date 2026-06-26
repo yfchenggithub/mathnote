@@ -1,0 +1,102 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	求函数 $f(x) = x^5 + 2^x + \log_3 x + \sin x$ 的导数.
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别类型）：}] 将 $f(x)$ 拆分为四项：幂函数 $x^5$，指数函数 $2^x$，对数函数 $\log_3 x$，正弦函数 $\sin x$.
+			\par\textbf{理由：} 根据导数的线性性质，和差可以逐项求导.
+
+		\item[\textbf{第二步（逐项求导）：}] 对每一项应用基本导数公式：
+			\[
+				\begin{aligned}
+					(x^5)' &= 5x^{4}, \\
+					(2^x)' &= 2^x \ln 2, \\
+					(\log_3 x)' &= \frac{1}{x\ln 3}, \\
+					(\sin x)' &= \cos x.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 直接套用幂函数、指数函数、对数函数、正弦函数的导数公式.
+
+		\item[\textbf{第三步（组合结果）：}] 将各项导数相加，得到导函数：
+			\[
+				f'(x) = 5x^4 + 2^x \ln 2 + \frac{1}{x\ln 3} + \cos x.
+			\]
+			\par\textbf{理由：} 导数的线性组合性质.
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	对于基本初等函数的线性组合，只需分别求导后相加即可.
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	求函数 $g(x) = 5e^x - 4\ln x + 3\cos x$ 的导数.
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别类型）：}] $g(x)$ 由常数倍 $5e^x$、$-4\ln x$、$3\cos x$ 组成.
+			\par\textbf{理由：} 线性性质允许分别处理.
+
+		\item[\textbf{第二步（逐项求导）：}]
+			\[
+				\begin{aligned}
+					(5e^x)' &= 5e^x, \\
+					(-4\ln x)' &= -4\cdot\frac{1}{x} \\
+					&= -\frac{4}{x}, \\
+					(3\cos x)' &= 3(-\sin x) \\
+					&= -3\sin x.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 常数因子可以提到求导符号外面；应用 $e^x$、$\ln x$、$\cos x$ 的导数公式.
+
+		\item[\textbf{第三步（组合结果）：}]
+			\[
+				g'(x) = 5e^x - \frac{4}{x} - 3\sin x.
+			\]
+			\par\textbf{理由：} 线性组合相加.
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	常数因子直接保留，对数项系数转移到分母.
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	求曲线 $y = x^3 + \ln x$ 在点 $(1,1)$ 处的切线方程.
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（求导函数）：}]
+			\[
+				\begin{aligned}
+					y' &= (x^3)' + (\ln x)' \\
+					&= 3x^2 + \frac{1}{x}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 幂函数和对数函数的导数公式.
+
+		\item[\textbf{第二步（计算斜率）：}] 将切点横坐标 $x=1$ 代入 $y'$：
+			\[
+				\begin{aligned}
+					k &= y'(1) \\
+					&= 3\cdot 1^2 + \frac{1}{1} \\
+					&= 4.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 导数的几何意义是切线斜率.
+
+		\item[\textbf{第三步（写切线方程）：}] 利用点斜式：
+			\[
+				y - 1 = 4(x - 1) \quad\Rightarrow\quad y = 4x - 3.
+			\]
+			\par\textbf{理由：} 切线方程形式.
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	切线斜率的计算直接依赖基本导数公式; 点斜式写出切线方程.
+\end{examplebox}
