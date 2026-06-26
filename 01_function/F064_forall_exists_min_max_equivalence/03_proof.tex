@@ -1,0 +1,40 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	将全称量词“任意”转化为取函数的最值点，存在量词“存在”转化为对应函数值不超过（或不低于）最值。通过最值定义构建不等式链。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（必要性 $\ge$）：}] 假设对任意 $x_1\in I_1$，存在 $x_2\in I_2$ 使得 $g(x_1)\ge h(x_2)$。取 $x_1^*$ 使 $g(x_1^*)=\min_{x\in I_1} g(x)$（由最小值存在性）。则存在 $x_2^*\in I_2$ 使 $g(x_1^*)\ge h(x_2^*)$。由最小值定义，$h(x_2^*)\ge \min_{x\in I_2} h(x)$。因此
+			\[
+				\min_{x\in I_1} g(x) = g(x_1^*) \ge h(x_2^*) \ge \min_{x\in I_2} h(x).
+			\]
+			\par\textbf{理由：} 第一步利用最小值的存在性取特殊点；第二步由题目条件得到该点处不等式；第三步由 $h(x_2^*)$ 不小于 $h$ 的最小值。最终链式不等式推出结论。
+
+		\item[\textbf{步骤二（充分性 $\ge$）：}] 假设 $\min_{x\in I_1} g(x) \ge \min_{x\in I_2} h(x)$。对任意 $x_1\in I_1$，由最小值定义有 $g(x_1) \ge \min_{x\in I_1} g(x)$，结合假设得
+			\[
+				g(x_1) \ge \min_{x\in I_1} g(x) \ge \min_{x\in I_2} h(x).
+			\]
+			取 $x_2'$ 使 $h(x_2')=\min_{x\in I_2} h(x)$（由最小值存在性），则 $g(x_1) \ge h(x_2')$。因此对任意 $x_1$ 都存在 $x_2'$ 满足要求。
+			\par\textbf{理由：} 最小值不等式链直接传递，再通过取到最小值的点构造出所需的 $x_2$。
+
+		\item[\textbf{步骤三（必要性 $\le$）：}] 已知对任意 $x_1\in I_1$，存在 $x_2\in I_2$ 使 $g(x_1)\le h(x_2)$。取 $x_1^{**}$ 使 $g(x_1^{**})=\max_{x\in I_1} g(x)$。存在 $x_2^{**}\in I_2$ 使 $g(x_1^{**})\le h(x_2^{**})$。由最大值定义 $h(x_2^{**})\le \max_{x\in I_2} h(x)$，故
+			\[
+				\max_{x\in I_1} g(x) = g(x_1^{**}) \le h(x_2^{**}) \le \max_{x\in I_2} h(x).
+			\]
+			\par\textbf{理由：} 对称性，只需将不等号反向，最值类型相应改变。
+
+		\item[\textbf{步骤四（充分性 $\le$）：}] 假设 $\max_{x\in I_1} g(x) \le \max_{x\in I_2} h(x)$。对任意 $x_1$，由最大值定义 $g(x_1) \le \max_{x\in I_1} g(x)$，结合假设得
+			\[
+				g(x_1) \le \max_{x\in I_1} g(x) \le \max_{x\in I_2} h(x).
+			\]
+			取 $x_2''$ 使 $h(x_2'')=\max_{x\in I_2} h(x)$，则 $g(x_1) \le h(x_2'')$。故原命题成立。
+			\par\textbf{理由：} 与步骤二对称，最大值不等式链传递。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	以上四步分别证明了 $\ge$ 方向和 $\le$ 方向的必要性与充分性，因此原定理的两个等价关系成立。
+\end{proofbox}

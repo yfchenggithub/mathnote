@@ -1,0 +1,167 @@
+{
+  "id": "F064",
+  "module": "function",
+  "core": {
+    "title": "任意与存在型不等式等价转化（最值比较法）",
+    "alias": [
+      "双变量最值转化",
+      "存在任意不等式转化",
+      "恒成立与能成立混淆转化"
+    ],
+    "summary": "将双变量任意存在不等式转化为单变量最值比较：$\\ge$配$\\min$，$\\le$配$\\max$。",
+    "difficulty": 3,
+    "category": "函数与导数",
+    "tags": [
+      "双变量不等式",
+      "最值转化",
+      "任意存在型",
+      "函数最值",
+      "等价转化"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "任意",
+      "存在",
+      "混合型不等式",
+      "最值转化",
+      "min",
+      "max",
+      "等价",
+      "双变量",
+      "函数最值",
+      "导数",
+      "恒成立",
+      "能成立",
+      "参数范围"
+    ],
+    "synonyms": [
+      "恒成立与能成立",
+      "任意存在混合",
+      "存在任意问题",
+      "双变量不等式转化"
+    ],
+    "intents": [
+      "求参数范围",
+      "判断真假",
+      "证明不等式",
+      "转化最值"
+    ],
+    "query_templates": [
+      "任意存在不等式怎么转化",
+      "双变量任意存在最值",
+      "对任意x存在y使不等式成立 等价于",
+      "min≥min 条件"
+    ],
+    "ocrKeywords": [
+      "对任意",
+      "存在",
+      "使得",
+      "≥",
+      "≤",
+      "min",
+      "max"
+    ],
+    "latex_patterns": [
+      "\\forall x_1\\in I_1,\\exists x_2\\in I_2: g(x_1)\\ge h(x_2)",
+      "\\forall x_1\\in I_1,\\exists x_2\\in I_2: g(x_1)\\le h(x_2)",
+      "\\min_{x\\in I_1} g(x) \\ge \\min_{x\\in I_2} h(x)",
+      "\\max_{x\\in I_1} g(x) \\le \\max_{x\\in I_2} h(x)"
+    ],
+    "formulaTokens": [
+      "g(x_1) \\ge h(x_2)",
+      "\\min_{x\\in I_1} g(x)",
+      "\\min_{x\\in I_2} h(x)",
+      "\\max_{x\\in I_1} g(x)",
+      "\\max_{x\\in I_2} h(x)",
+      "\\forall x_1\\in I_1",
+      "\\exists x_2\\in I_2"
+    ],
+    "pinyin": "renyiyucunzaihunhexingbudenghuazhuanhua",
+    "pinyinAbbr": "ryy cz"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.8,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\forall x_1\\in I_1,\\exists x_2\\in I_2: g(x_1)\\ge h(x_2) \\Longleftrightarrow \\min_{x\\in I_1} g(x) \\ge \\min_{x\\in I_2} h(x)",
+    "related_formulas": [
+      "\\forall x_1\\in I_1,\\exists x_2\\in I_2: g(x_1)\\le h(x_2) \\Longleftrightarrow \\max_{x\\in I_1} g(x) \\le \\max_{x\\in I_2} h(x)"
+    ],
+    "variables": [
+      "g(x)",
+      "h(x)",
+      "I_1",
+      "I_2",
+      "x_1",
+      "x_2"
+    ],
+    "conditions": "函数 $g$ 在区间 $I_1$ 上存在最小值（或最大值），函数 $h$ 在区间 $I_2$ 上存在最小值（或最大值），具体类型由不等号方向确定。",
+    "conclusions": "当 $\\ge$ 时，等价于 $\\min_{I_1} g \\ge \\min_{I_2} h$；当 $\\le$ 时，等价于 $\\max_{I_1} g \\le \\max_{I_2} h$。"
+  },
+  "content": {
+    "statement": "设函数 $g(x)$ 在区间 $I_1$ 上存在最小值，$h(x)$ 在区间 $I_2$ 上存在最小值，则 $\\forall x_1\\in I_1,\\exists x_2\\in I_2: g(x_1)\\ge h(x_2) \\Longleftrightarrow \\min_{x\\in I_1} g(x) \\ge \\min_{x\\in I_2} h(x)$。若不等号反向，即 $\\forall x_1\\in I_1,\\exists x_2\\in I_2: g(x_1)\\le h(x_2)$，等价于 $\\max_{x\\in I_1} g(x) \\le \\max_{x\\in I_2} h(x)$，此时需 $g$ 在 $I_1$ 上存在最大值，$h$ 在 $I_2$ 上存在最大值。",
+    "derivation": [
+      "必要性：若左边成立，取 $x_1$ 使 $g(x_1)=\\min_{I_1}g$，则存在 $x_2$ 使 $\\min g \\ge h(x_2)$，故 $\\min g \\ge \\min h$。",
+      "充分性：若 $\\min g \\ge \\min h$，则对任意 $x_1$ 有 $g(x_1)\\ge \\min g \\ge \\min h$，取 $x_2$ 使 $h(x_2)=\\min h$，则不等式成立。",
+      "反向类似：$\\max g \\le \\max h$ 可推出左边，反之也成立。"
+    ],
+    "intuition": "“任意”要求所有 $g$ 都满足，所以看 $g$ 的最小值； “存在”只需有一个 $h$ 满足，所以看 $h$ 的最小值（对于 $\\ge$）或最大值（对于 $\\le$）。",
+    "common_tricks": [
+      "先识别不等号方向：$\\ge$ 用 $\\min$，$\\le$ 用 $\\max$。",
+      "求最值时优先利用单调性，若函数含参数则转化为参数范围求解。",
+      "注意函数是否在区间上单调，若不可直接判断需用导数。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "压轴题",
+      "最值问题",
+      "参数范围"
+    ],
+    "problem_types": [
+      "双变量不等式证明",
+      "求参数取值范围"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": ""
+  },
+  "shareConfig": {
+    "title": "任意存在不等式转化：最值比较法",
+    "shareDesc": "适合导数压轴题中双变量任意存在型不等式，用最值转化可避免分类讨论，快速求参数范围。"
+  },
+  "relations": {
+    "prerequisites": [
+      "函数最值",
+      "单调性"
+    ],
+    "related_ids": [],
+    "similar": "类似：恒成立与能成立转化（单变量）"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "函数-综合-函数与不等式",
+  "altNodes": "不等式-解法-函数法"
+}

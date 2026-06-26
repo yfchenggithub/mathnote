@@ -1,0 +1,74 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	判断命题“对任意 $x\in[1,2]$，存在 $y\in[0,1]$ 使得 $x^2+1\ge y+2$”的真假。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别结构）：}] 命题符合 $\forall x\in I_1,\exists y\in I_2: g(x)\ge h(y)$ 形式，其中 $g(x)=x^2+1$, $h(y)=y+2$, $I_1=[1,2]$, $I_2=[0,1]$。
+			\par\textbf{理由：} 直接将文字语言对应到符号形式。
+		\item[\textbf{第二步（求最小值）：}] 计算 $g(x)$ 在 $[1,2]$ 的最小值。$g(x)=x^2+1$ 递增，$\min g = g(1)=2$。
+			\par\textbf{理由：} 利用函数单调性求最小值。
+		\item[\textbf{第三步（比较得结论）：}] 计算 $h(y)$ 在 $[0,1]$ 的最小值。$h(y)=y+2$ 递增，$\min h = h(0)=2$。比较得 $\min g =2 \ge 2 = \min h$，由定理知原命题为真。
+			\par\textbf{理由：} 根据等价关系，命题真当且仅当 $\min g \ge \min h$，代入数值成立。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	原命题为真。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知函数 $f(x)=x^2-2x+a$，$g(x)=x+\ln x$。若对任意 $x_1\in[1,2]$，存在 $x_2\in[1,\mathrm{e}]$ 使得 $f(x_1)\ge g(x_2)$，求实数 $a$ 的取值范围。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（转化条件）：}] 由定理，条件等价于 $\displaystyle\min_{x\in[1,2]} f(x) \ge \min_{x\in[1,\mathrm{e}]} g(x)$。
+			\par\textbf{理由：} 直接应用定理转化。
+		\item[\textbf{第二步（求$f$最小值）：}] $f(x)=x^2-2x+a$ 在 $[1,2]$ 上单调递增，所以 $\min_{[1,2]} f = f(1)=a-1$。
+			\par\textbf{理由：} 二次函数开口向上，对称轴 $x=1$ 在区间左端点，区间内递增。
+		\item[\textbf{第三步（求$g$最小值并解）：}] $g(x)=x+\ln x$ 在 $[1,\mathrm{e}]$ 上单调递增，所以 $\min_{[1,\mathrm{e}]} g = g(1)=1$。代入条件得 $a-1\ge1$，解得 $a\ge2$。
+			\par\textbf{理由：} 利用单调性求最值，代入不等式解出 $a$。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	$a$ 的取值范围是 $[2,+\infty)$。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	设函数 $f(x)=x^2-2ax$（$a\in\mathbb{R}$），$g(x)=\ln x$。若对任意 $x_1\in[1,2]$，存在 $x_2\in[1,\mathrm{e}]$ 使得 $f(x_1)\ge g(x_2)$，求实数 $a$ 的取值范围。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（转化条件）：}] 由定理，条件等价于 $\displaystyle\min_{x\in[1,2]} f(x) \ge \min_{x\in[1,\mathrm{e}]} g(x)$。
+			\par\textbf{理由：} 直接应用定理。
+
+		\item[\textbf{第二步（求$g$最小值）：}] $g(x)=\ln x$ 在 $[1,\mathrm{e}]$ 上单调递增，所以 $\min_{[1,\mathrm{e}]} g = \ln 1 = 0$。因此条件化为 $\min_{[1,2]} f(x) \ge 0$。
+			\par\textbf{理由：} 利用单调性求最值，并简化条件。
+
+		\item[\textbf{第三步（分类求$f$最小值并解）：}] 函数 $f(x)=x^2-2ax$ 的对称轴 $x=a$。需按 $a$ 与 $[1,2]$ 的位置关系分类讨论：
+			\[
+				\min_{x\in[1,2]} f(x) =
+				\begin{cases}
+					1-2a, & a\le1,\\
+					-a^2, & 1<a<2,\\
+					4-4a, & a\ge2.
+			\end{cases}
+			\]
+			由 $\min f\ge0$ 分别得：
+			\begin{itemize}[leftmargin=1.5em]
+			\item 当 $a\le1$ 时，$1-2a\ge0 \Rightarrow a\le\frac12$，结合 $a\le1$ 得 $a\le\frac12$；
+			\item 当 $1<a<2$ 时，$-a^2\ge0 \Rightarrow a=0$，不满足 $1<a<2$，无解；
+			\item 当 $a\ge2$ 时，$4-4a\ge0 \Rightarrow a\le1$，与 $a\ge2$ 矛盾，无解。
+		\end{itemize}
+			故 $a$ 的取值范围是 $(-\infty,\frac12]$。
+			\par\textbf{理由：} 二次函数对称轴与区间关系决定最值位置，分别解不等式后求并集。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	$a$ 的取值范围是 $(-\infty,\frac12]$。
+\end{examplebox}
