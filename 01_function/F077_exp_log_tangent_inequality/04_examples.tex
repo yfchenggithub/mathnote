@@ -1,0 +1,57 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	求函数 $f(x)=e^x - ex$ 的最小值，并指出取等条件。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（求导）：}] 对 $f(x)$ 求导：$f'(x)=e^x - e$。
+			\par\textbf{理由：} 导数公式 $(e^x)'=e^x$，$(ex)'=e$。
+		\item[\textbf{第二步（找临界点）：}] 令 $f'(x)=0$，得 $x=1$。
+			\par\textbf{理由：} 解 $e^x=e$ 得 $x=1$。
+		\item[\textbf{第三步（单调性与最值）：}] 当 $x<1$ 时 $f'(x)<0$，$f(x)$ 递减；当 $x>1$ 时 $f'(x)>0$，$f(x)$ 递增。所以 $f(1)=0$（因为 $e-e=0$）是最小值。
+			\par\textbf{理由：} 导函数符号决定单调性，从而确定最小值点。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	$f(x)\ge 0$，即 $e^x\ge ex$，等号当 $x=1$。这是指数基本不等式。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知 $a>0$，求函数 $g(x)=e^x - a e (x-\ln a)$ 的最小值。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（等价变形）：}] 将 $g(x)$ 写成 $g(x)=e^x - a e x + a e\ln a = a\left(\frac{e^x}{a} - e(x-\ln a)\right)$。
+			\par\textbf{理由：} 提取公因式 $a$ 后，括号内即为含参不等式左侧。
+		\item[\textbf{第二步（套用变形结论）：}] 由推广结论，$\frac{e^x}{a} \ge e(x-\ln a)$，等号当 $x=\ln a+1$。
+			\par\textbf{理由：} 这是指对同构变形不等式，直接使用。
+		\item[\textbf{第三步（得最小值）：}] 因此 $g(x)\ge 0$（因为 $a\cdot 0=0$），且当 $x=\ln a+1$ 时取等。故 $g(x)$ 最小值为 $0$。
+			\par\textbf{理由：} 常数$a>0$乘非负数仍非负，等号条件对应。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	推广结论 $\frac{e^x}{a} \ge e(x-\ln a)$ 可直接用于求含参数的最值问题。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	证明：当 $x>0$ 时，$e^x \ge x^e$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（取对数等价）：}] 要证 $e^x\ge x^e$，两边取自然对数得 $x \ge e\ln x$（因为 $y=\ln t$ 在 $t>0$ 递增）。
+			\par\textbf{理由：} 对数运算性质：$\ln(e^x)=x$，$\ln(x^e)=e\ln x$。
+		\item[\textbf{第二步（应用对数不等式）：}] 由指对同构基本不等式中的对数不等式：$x \ge e\ln x$（$x>0$）成立，等号当 $x=e$。
+			\par\textbf{理由：} 该不等式是已知二级结论，直接使用。
+		\item[\textbf{第三步（回代得证）：}] 等价变形逆推，原不等式 $e^x\ge x^e$ 成立，等号在 $x=e$ 时取得。
+			\par\textbf{理由：} 对数函数的单调性保证等价性，故结论成立。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	对数不等式 $x\ge e\ln x$ 可迅速证明 $e^x\ge x^e$ 这类指数幂比较问题。
+\end{examplebox}
