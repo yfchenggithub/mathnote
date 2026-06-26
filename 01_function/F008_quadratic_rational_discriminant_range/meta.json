@@ -1,0 +1,180 @@
+{
+  "id": "F008",
+  "module": "function",
+  "core": {
+    "title": "判别式法求二次分式函数值域",
+    "alias": [
+      "判别式法",
+      "二次分式值域",
+      "二次比二次值域",
+      "Δ法求值域"
+    ],
+    "summary": "将分式化为关于x的二次方程，利用判别式非负解出y的范围。",
+    "difficulty": 3,
+    "category": "函数",
+    "tags": [
+      "函数值域",
+      "判别式法",
+      "二次分式",
+      "分式函数"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "判别式法",
+      "二次分式函数",
+      "值域",
+      "分母无实根",
+      "分子分母二次",
+      "二次方程有实根",
+      "判别式非负",
+      "Δ(y)≥0",
+      "a-dy=0检验",
+      "参数范围",
+      "分式函数",
+      "值域求法"
+    ],
+    "synonyms": [
+      "△法",
+      "delta法",
+      "二次比二次",
+      "二次分式值域",
+      "判别式求值域"
+    ],
+    "intents": [
+      "求值域",
+      "求范围",
+      "用判别式法",
+      "求函数值域",
+      "判断函数值域"
+    ],
+    "query_templates": [
+      "判别式法求二次分式值域例题",
+      "分母无实根的二次分式值域怎么求",
+      "二次比二次函数值域判别式法步骤",
+      "值域判别式法什么时候要检验"
+    ],
+    "ocrKeywords": [
+      "y=(ax^2+bx+c)/(dx^2+ex+f)",
+      "(b-ey)^2-4(a-dy)(c-fy)≥0",
+      "a-dy≠0"
+    ],
+    "latex_patterns": [
+      "y=\\frac{ax^2+bx+c}{dx^2+ex+f}",
+      "\\Delta(y)=(b-ey)^2-4(a-dy)(c-fy)\\ge0"
+    ],
+    "formulaTokens": [
+      "ax^2+bx+c",
+      "dx^2+ex+f",
+      "(a-dy)x^2+(b-ey)x+(c-fy)=0",
+      "(b-ey)^2-4(a-dy)(c-fy)\\ge0",
+      "a-dy\\neq0"
+    ],
+    "pinyin": "panbieshifa",
+    "pinyinAbbr": "pbsf"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.76,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\Delta(y)=(b-ey)^2-4(a-dy)(c-fy)\\ge0",
+    "related_formulas": [
+      "y=\\frac{ax^2+bx+c}{dx^2+ex+f}",
+      "(a-dy)x^2+(b-ey)x+(c-fy)=0"
+    ],
+    "variables": [
+      "a",
+      "b",
+      "c",
+      "d",
+      "e",
+      "f",
+      "x",
+      "y",
+      "Δ"
+    ],
+    "conditions": [
+      "函数形如 $y=\\frac{ax^2+bx+c}{dx^2+ex+f}$，且 $d\\neq0$。",
+      "分母判别式 $\\Delta_d=e^2-4df<0$，即分母无实根，定义域为 $\\mathbb{R}$。",
+      "当 $a-dy\\neq0$ 时，判别式法成立；当 $a-dy=0$ 时，需单独检验 $y$ 是否可取。"
+    ],
+    "conclusions": [
+      "值域为满足 $\\Delta(y)\\ge0$ 的 $y$ 的集合，并补充 $a-dy=0$ 时可取的 $y$。"
+    ]
+  },
+  "content": {
+    "statement": "对于形如 $y=\\dfrac{ax^2+bx+c}{dx^2+ex+f}$ 的函数，若 $d\\neq0$ 且分母满足 $\\Delta_d = e^2-4df < 0$（即分母无实根，定义域为 $\\mathbb{R}$），则其值域可由关于参数 $y$ 的二次方程判别式非负直接求出。具体地，去分母得 $(a-dy)x^2+(b-ey)x+(c-fy)=0$，当 $a-dy\\neq0$ 时由 $\\Delta(y)=(b-ey)^2-4(a-dy)(c-fy)\\ge0$ 解得 $y$ 的范围；当 $a-dy=0$ 时需单独检验对应的 $x$ 是否在定义域内，若存在则将该 $y$ 并入值域。",
+    "derivation": [
+      "去分母得 $(a-dy)x^2+(b-ey)x+(c-fy)=0$，将分式方程化为关于 $x$ 的二次方程。",
+      "当 $a-dy\\neq0$ 时，方程有实根的条件是判别式 $\\Delta(y)=(b-ey)^2-4(a-dy)(c-fy)\\ge0$，解此不等式得 $y$ 的取值范围。",
+      "当 $a-dy=0$ 时，方程退化为一次或常数，代入原函数检验是否存在实数 $x$ 满足且分母非零，若存在则将该 $y$ 加入值域。"
+    ],
+    "intuition": "因为定义域内任意 $x$ 对应一个 $y$，反之给定 $y$，若存在实数 $x$ 使等式成立，则 $y$ 在值域中；判别式非负保证了存在实数解。",
+    "common_tricks": [
+      "先判断分母判别式是否小于0，确保定义域为 $\\mathbb{R}$。",
+      "展开 $\\Delta(y)$ 时建议先写出各项再合并，避免符号错误。",
+      "当二次项系数 $a-dy=0$ 时，必须单独检验该 $y$ 是否可取。",
+      "如果分母有实根，则定义域不是 $\\mathbb{R}$，需结合定义域取值。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "函数值域题",
+      "参数范围题"
+    ],
+    "problem_types": [
+      "求值域",
+      "求参数范围"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "F008.svg",
+    "image": "",
+    "video": "",
+    "audio": ""
+  },
+  "shareConfig": {
+    "title": "二次分式值域判别式法：条件、推导与检验",
+    "shareDesc": "适合课后复盘和刷题前速查，解决判别式法求二次分式值域时的步骤遗漏和检验错误，减少分类讨论失误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "二次方程判别式",
+      "二次不等式解法",
+      "分式函数定义域"
+    ],
+    "related_ids": [],
+    "similar": [
+      "一次分式函数值域（反比例函数型）",
+      "二次分式函数的值域（分母有实根情形）"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-26"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "函数-综合-函数与方程",
+  "altNodes": [
+    "代数-方程-一元二次方程",
+    "不等式-解法-函数法"
+  ]
+}

@@ -1,0 +1,46 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	将函数式中 $y$ 视为参数，通过去分母将原式转化为关于 $x$ 的二次方程，则值域问题等价于该方程有实数解时 $y$ 的取值范围。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.55em]
+		\item[\textbf{步骤一（构造方程）：}]
+			把 $y$ 看作常数，将原式两边同乘分母 $dx^2+ex+f$（已知该式恒正或恒负，不影响方程同解性），移项整理：
+			\[
+				y(dx^2+ex+f)=ax^2+bx+c\quad\Longrightarrow\quad (a-dy)x^2+(b-ey)x+(c-fy)=0.
+			\]
+			\par\textbf{理由：}将分式方程化为整式方程，建立 $x$ 与 $y$ 的二次关系。
+		\item[\textbf{步骤二（区分类型）：}]
+			根据二次项系数是否为零分情况讨论。\par 若 $a-dy=0$（即 $y=\dfrac{a}{d}$），方程退化为一次或常数方程，此时需单独检验（步骤六）。\par 若 $a-dy\neq0$，方程为二次方程，继续下一步。
+			\par\textbf{理由：}判别式法只适用于真正的二次方程。
+		\item[\textbf{步骤三（有实根条件）：}]
+			对于二次方程，其有实数解等价于判别式非负：
+			\[
+				\Delta(y)=(b-ey)^2-4(a-dy)(c-fy)\ge0.
+			\]
+			\par\textbf{理由：}实系数二次方程 $Ax^2+Bx+C=0$ 有实根的充要条件是 $B^2-4AC\ge0$。
+		\item[\textbf{步骤四（展开判别式）：}]
+			将 $\Delta(y)$ 展开并整理成关于 $y$ 的二次不等式：
+			\[
+				\begin{aligned}
+					\Delta(y) &= (b-ey)^2-4(a-dy)(c-fy) \\ &= b^2-2bey+e^2y^2 -4(ac-afy-cdy+dfy^2) \\ &= b^2-2bey+e^2y^2 -4ac+4afy+4cdy-4dfy^2 \\ &= (e^2-4df)y^2 + (4af+4cd-2be)y + (b^2-4ac).
+			\end{aligned}
+			\]
+			因此条件 $\Delta(y)\ge0$ 即为：
+			\[
+				(e^2-4df)y^2 + (4af+4cd-2be)y + (b^2-4ac) \ge 0.
+			\]
+			\par\textbf{理由：}展开合并同类项，得到显式的不等式形式，便于求解范围。
+		\item[\textbf{步骤五（解不等式）：}]
+			解上述关于 $y$ 的二次不等式。\par 若二次项系数 $e^2-4df>0$，则 $y$ 取两边；若 $e^2-4df<0$，则 $y$ 取中间；若 $e^2-4df=0$，则退化为一次不等式。\par 该不等式解集即为当 $a-dy\neq0$ 时 $y$ 的取值范围。
+			\par\textbf{理由：}二次不等式的解法取决于开口方向和判别式，这里最终得到 $y$ 的取值范围。
+		\item[\textbf{步骤六（检验退化）：}]
+			令 $y=\dfrac{a}{d}$，代入原方程或直接代入原函数。\par 若 $a-dy=0$，原方程变为 $(b-ey)x+(c-fy)=0$。如果该方程有实数解 $x$（即 $b-ey\neq0$ 时 $x=\dfrac{fy-c}{b-ey}$；若 $b-ey=0$ 且 $c-fy=0$ 则恒成立），则 $y=\dfrac{a}{d}$ 可取，应添加至值域。\par 若所得 $x$ 不在定义域内（这里定义域为 $\mathbb{R}$，故只需检查分母是否为零，因 $\Delta_d<0$ 分母恒不为零，所以 $x$ 总是有效），实际上只需判断方程是否有解。
+			\par\textbf{理由：}补充二次项系数为零时遗漏的可能值，保证值域的完整性。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	综合步骤三至六，函数的值域为 $\{y\mid \Delta(y)\ge0\}$（$a-dy\neq0$ 时）与可能补入的 $y=\dfrac{a}{d}$（若存在）的并集。该证明展示了“化分式为方程”的核心思想，也体现了分类讨论的必要性。
+\end{proofbox}
