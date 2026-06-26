@@ -1,0 +1,20 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	证明的关键是利用二次函数的单调性和对称性：若区间包含对称轴，则极值点在内；否则函数在区间上单调，最值在端点。分类讨论 $a>0$ 和 $a<0$ 分别处理。
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（对称轴与开口）：}] 计算对称轴 $x_0=-\frac{b}{2a}$，记 $f(x)=ax^2+bx+c$。当 $a>0$ 时，抛物线开口向上；当 $a<0$ 时，开口向下。
+			\par\textbf{理由：}二次项系数 $a$ 的正负决定抛物线开口方向，从而决定 $f(x_0)$ 是极小值还是极大值。
+		\item[\textbf{步骤二（$a>0$ 且 $x_0\in[m,n]$）：}] 若 $m\le x_0\le n$，对任意 $x\in[m,n]$，有 $f(x)\ge f(x_0)$（因为 $x_0$ 是全局最小值点）。故 $f_{\min}=f(x_0)$。又由于 $f_{\max}=\max\{f(m),f(n)\}$，因为开口向上时，端点中离对称轴越远函数值越大，所以最大值在离 $x_0$ 较远的那个端点处取到，等价于 $\max\{f(m),f(n)\}$。
+			\par\textbf{理由：}二次函数在 $x_0$ 处取得最小值，于是区间上所有函数值不小于 $f(x_0)$，所以最小值就是 $f(x_0)$。端点值的大小比较与对称轴有关，但最大值必为两函数值中较大的。
+		\item[\textbf{步骤三（$a>0$ 且 $x_0\notin[m,n]$）：}] 此时 $x_0<m$ 或 $x_0>n$。函数 $f(x)$ 在区间 $[m,n]$ 上单调：若 $x_0<m$，则 $f'(x)=2ax+b>0$（$a>0$，$x>x_0$），函数递增，最小值在 $m$ 取 $f(m)$，最大值在 $n$ 取 $f(n)$；若 $x_0>n$，则 $f'(x)<0$，函数递减，最小值在 $n$ 取 $f(n)$，最大值在 $m$ 取 $f(m)$。统一表示为 $f_{\min}=\min\{f(m),f(n)\}$，$f_{\max}=\max\{f(m),f(n)\}$。
+			\par\textbf{理由：}导数符号决定单调性，比较端点函数值得出最值。
+		\item[\textbf{步骤四（$a<0$ 的情况）：}] 对称轴 $x_0$ 是全局最大值点。当 $x_0\in[m,n]$ 时，$f_{\max}=f(x_0)$，$f_{\min}=\min\{f(m),f(n)\}$；当 $x_0\notin[m,n]$ 时，函数单调，$f_{\max}=\max\{f(m),f(n)\}$，$f_{\min}=\min\{f(m),f(n)\}$。论证过程与 $a>0$ 完全类似，只需将“最小值”与“最大值”互换。
+			\par\textbf{理由：}开口向下时 $f(x_0)$ 为极大值，其余推理相同。
+	\end{description}
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	综上所述，当 $a>0$ 时，$f_{\min}=f(x_0)$（若 $x_0\in[m,n]$）或 $\min\{f(m),f(n)\}$（若 $x_0\notin[m,n]$），$f_{\max}=\max\{f(m),f(n)\}$；当 $a<0$ 时情况互换，得原定理。
+\end{proofbox}
