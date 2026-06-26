@@ -1,0 +1,63 @@
+\begin{proofbox}
+	\n\textbf{\textcolor{CProof}{思路提示}}\n\n通过求导将三次函数极值问题转化为二次函数零点问题，利用判别式 $\Delta$ 判断导函数根的情况，进而分析原函数单调性.\n\n
+
+	\medskip
+	\n\textbf{\textcolor{CProof}{正式推导}}\n
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\n
+		\item[\textbf{步骤一（求导计算）：}]
+			\n
+			\[
+				\n f'(x) = 3ax^2 + 2bx + c.\n
+			\]
+			\n
+			\par\textbf{理由：} 根据多项式求导法则，$(x^n)'=nx^{n-1}$.\n\n
+		\item[\textbf{步骤二（判别式关联）：}]
+			\n
+			\[
+				\n
+				\begin{aligned}
+					\n \Delta_{f'} &= (2b)^2 - 4\cdot 3a \cdot c \\\n &= 4b^2 - 12ac \\\n &= 4(b^2-3ac) \\\n &= 4\Delta.\n
+			\end{aligned}
+				\n
+			\]
+			\n
+			\par\textbf{理由：} 二次函数判别式 $\Delta_{f'}=B^2-4AC$，其中 $A=3a,\ B=2b,\ C=c$.\n\n
+		\item[\textbf{步骤三（正负判别）：}]
+			\n 若 $\Delta>0$，则 $\Delta_{f'}>0$，因此 $f'(x)=0$ 有两个不等实根，记为 $x_1<x_2$.\n
+			\[
+				\n \Delta_{f'} = 4\Delta > 0.\n
+			\]
+			\n
+			\par\textbf{理由：} 判别式大于零时，二次方程有两个不同实根.\n\n
+		\item[\textbf{步骤四（$a>0$ 单调分析）：}]
+			\n 若 $a>0$，则 $f'(x)$ 开口向上，故\n
+			\[
+				\n
+				\begin{aligned}
+					\n x < x_1 &\Rightarrow f'(x) > 0,\\\n x_1 < x < x_2 &\Rightarrow f'(x) < 0,\\\n x > x_2 &\Rightarrow f'(x) > 0.\n
+			\end{aligned}
+				\n
+			\]
+			\n 因此 $f(x)$ 在 $(-\infty,x_1)$ 和 $(x_2,+\infty)$ 上递增，在 $(x_1,x_2)$ 上递减.\n
+			\par\textbf{理由：} 开口向上的抛物线，两根之外函数值为正，两根之间为负.\n\n
+		\item[\textbf{步骤五（$a<0$ 单调分析）：}]
+			\n 若 $a<0$，则 $f'(x)$ 开口向下，故\n
+			\[
+				\n
+				\begin{aligned}
+					\n x < x_1 &\Rightarrow f'(x) < 0,\\\n x_1 < x < x_2 &\Rightarrow f'(x) > 0,\\\n x > x_2 &\Rightarrow f'(x) < 0.\n
+			\end{aligned}
+				\n
+			\]
+			\n 因此 $f(x)$ 在 $(-\infty,x_1)$ 和 $(x_2,+\infty)$ 上递减，在 $(x_1,x_2)$ 上递增.\n
+			\par\textbf{理由：} 开口向下的抛物线，两根之间函数值为正，之外为负.\n\n
+		\item[\textbf{步骤六（$\Delta\le0$ 情形）：}]
+			\n 若 $\Delta\le0$，则 $\Delta_{f'}\le0$，且 $f'(x)$ 不变号：\n 当 $a>0$ 时 $f'(x)\ge0$；当 $a<0$ 时 $f'(x)\le0$.\n 故 $f(x)$ 无极值点，且当 $a>0$ 时单调递增，当 $a<0$ 时单调递减.\n
+			\par\textbf{理由：} 二次函数判别式非正时，其图像与 $x$ 轴无交点或相切，因此函数值恒正或恒负.\n
+	\end{description}
+	\n\n
+
+	\medskip
+	\n\textbf{\textcolor{CProof}{结论回扣}}\n\n因此，仅通过判别式 $\Delta = b^2-3ac$ 的符号即可直接判断三次函数 $f(x)=ax^3+bx^2+cx+d$ 的极值点个数和大致单调趋势.\n
+\end{proofbox}
