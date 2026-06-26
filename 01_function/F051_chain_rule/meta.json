@@ -1,0 +1,184 @@
+{
+  "id": "F051",
+  "module": "function",
+  "core": {
+    "title": "链式法则（复合函数求导）",
+    "alias": [
+      "复合函数求导",
+      "链式求导",
+      "外层导数乘内层导数",
+      "f(g(x))'=f'(g(x))g'(x)"
+    ],
+    "summary": "复合函数的导数等于外层导数乘内层导数，代入再乘。",
+    "difficulty": 3,
+    "category": "导数",
+    "tags": [
+      "导数",
+      "复合函数",
+      "链式法则",
+      "求导法则"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "链式法则",
+      "复合函数",
+      "求导",
+      "f(g(x))",
+      "导数乘法",
+      "逐层求导",
+      "内层函数",
+      "外层函数",
+      "代入",
+      "复合函数求导",
+      "y=f(g(x))",
+      "dy/dx",
+      "f'(g(x))",
+      "g'(x)",
+      "导数法则"
+    ],
+    "synonyms": [
+      "链导法则",
+      "复合求导",
+      "复合函数导数",
+      "内外求导"
+    ],
+    "intents": [
+      "求导",
+      "计算导数",
+      "求复合函数导数",
+      "求导复合",
+      "利用链式法则"
+    ],
+    "query_templates": [
+      "复合函数怎么求导",
+      "链式法则是什么",
+      "f(g(x))的导数",
+      "sin(2x)求导",
+      "导数链式法则"
+    ],
+    "ocrKeywords": [
+      "f(g(x))",
+      "y=f(g(x))",
+      "dy/dx",
+      "f'(g(x))g'(x)",
+      "复合函数",
+      "可导"
+    ],
+    "latex_patterns": [
+      "\\frac{dy}{dx}=f'(g(x))\\cdot g'(x)",
+      "\\frac{dy}{dx}=\\frac{dy}{du}\\cdot\\frac{du}{dx}"
+    ],
+    "formulaTokens": [
+      "f'(g(x))\\cdot g'(x)",
+      "\\frac{dy}{dx}",
+      "\\frac{dy}{du}\\cdot\\frac{du}{dx}",
+      "f'(g(x))",
+      "g'(x)",
+      "\\frac{dy}{du}",
+      "\\frac{du}{dx}",
+      "f'(g(h(x)))",
+      "g'(h(x))",
+      "h'(x)"
+    ],
+    "pinyin": "lian shi fa ze",
+    "pinyinAbbr": "lsfz"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.8,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\frac{dy}{dx}=f'(g(x))\\cdot g'(x)",
+    "related_formulas": [
+      "\\frac{dy}{dx}=f'(g(h(x)))\\cdot g'(h(x))\\cdot h'(x)",
+      "\\frac{dy}{dx}=\\frac{dy}{du}\\cdot\\frac{du}{dx}"
+    ],
+    "variables": [
+      "x",
+      "u",
+      "y",
+      "f",
+      "g",
+      "f'",
+      "g'"
+    ],
+    "conditions": [
+      "函数 $u=g(x)$ 在点 $x$ 处可导",
+      "函数 $y=f(u)$ 在对应点 $u=g(x)$ 处可导"
+    ],
+    "conclusions": [
+      "复合函数 $y=f(g(x))$ 在点 $x$ 处可导",
+      "导数公式为 $\\frac{dy}{dx}=f'(g(x))\\cdot g'(x)$"
+    ]
+  },
+  "content": {
+    "statement": "若函数 $u=g(x)$ 在点 $x$ 可导，且函数 $y=f(u)$ 在对应点 $u=g(x)$ 可导，则复合函数 $y=f(g(x))$ 在点 $x$ 可导，且 $\\frac{dy}{dx}=f'(g(x))\\cdot g'(x)$。",
+    "derivation": [
+      "第一步：将复合函数分解为外函数 $y=f(u)$ 和内函数 $u=g(x)$。",
+      "第二步：分别求导得 $\\frac{dy}{du}=f'(u)$ 和 $\\frac{du}{dx}=g'(x)$。",
+      "第三步：相乘并回代 $u=g(x)$，得 $\\frac{dy}{dx}=f'(g(x))\\cdot g'(x)$。"
+    ],
+    "intuition": "自变量 $x$ 的变化通过中间变量 $u$ 传递到 $y$，变化率按层相乘。",
+    "common_tricks": [
+      "逐层分解：从最外层向内层逐层表示中间变量。",
+      "各层求导后，必须将内层函数代入外层导数中的变量位置。",
+      "多层嵌套时依次相乘，不可遗漏任何一层。",
+      "检查复合关系：确保每层都是基本初等函数或简单运算。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "导数计算题",
+      "函数图像切线",
+      "物理变化率"
+    ],
+    "problem_types": [
+      "求导计算",
+      "复合函数求导"
+    ],
+    "exam_frequency": 1,
+    "exam_score": 8
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "F051.svg"
+  },
+  "shareConfig": {
+    "title": "复合函数链式求导：外层导数乘内层导数",
+    "shareDesc": "适合课后复盘和考前速查，掌握逐层求导方法，减少复合函数求导的漏乘和代入错误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "导数基本公式 (基本初等函数导数)",
+      "函数复合运算"
+    ],
+    "related_ids": [],
+    "similar": [
+      "乘法法则",
+      "除法法则",
+      "求导运算法则"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "其他-未分类-待定",
+  "altNodes": ""
+}

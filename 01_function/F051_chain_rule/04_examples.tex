@@ -1,0 +1,96 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	求函数 $y=\sin 3x$ 的导数。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（分解内外）：}] 设 $u=3x$，则 $y=\sin u$。
+			\[
+				u=3x,\quad y=\sin u.
+			\]
+			\par\textbf{理由：} 将原函数拆分为内层线性函数和外层正弦函数。
+		\item[\textbf{第二步（各层求导）：}] 分别求导：$u'=3$，$y'(u)=\cos u$。
+			\[
+				\frac{du}{dx}=3,\quad \frac{dy}{du}=\cos u.
+			\]
+			\par\textbf{理由：} 运用导数基本公式：$(kx)'=k$，$(\sin u)'=\cos u$。
+		\item[\textbf{第三步（相乘回代）：}] 代入链式法则，得
+			\[
+				y' = \cos(3x)\cdot 3
+			\]
+			\[
+				y' = 3\cos 3x.
+			\]
+			\par\textbf{理由：} 链式法则 $y'=f'(g(x))g'(x)$，此处 $f'(\cdot)=\cos(\cdot)$，$g'(x)=3$。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$(\sin 3x)' = 3\cos 3x$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	求函数 $y = e^{\cos x}$ 的导数。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（分解内外）：}] 设 $u=\cos x$，则 $y=e^u$。
+			\[
+				u=\cos x,\quad y=e^u.
+			\]
+			\par\textbf{理由：} 识别外层为指数函数，内层为余弦函数。
+		\item[\textbf{第二步（各层求导）：}] 分别求导：$u'=-\sin x$，$y'(u)=e^u$。
+			\[
+				\frac{du}{dx}=-\sin x,\quad \frac{dy}{du}=e^u.
+			\]
+			\par\textbf{理由：} $(\cos x)'=-\sin x$，$(e^u)'=e^u$。
+		\item[\textbf{第三步（相乘回代）：}] 代入链式法则，得
+			\[
+				y' = e^{\cos x} \cdot (-\sin x)
+			\]
+			\[
+				y' = -\sin x \, e^{\cos x}.
+			\]
+			\par\textbf{理由：} 链式法则，$f'(g(x))=e^{\cos x}$，$g'(x)=-\sin x$。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$(e^{\cos x})' = -\sin x\, e^{\cos x}$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	求函数 $y = \ln(\cos 2x)$ 的导数。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（逐层分解）：}] 将函数拆为三层：$y=\ln u$，$u=\cos v$，$v=2x$。
+			\[
+				y=\ln u,\; u=\cos v,\; v=2x.
+			\]
+			\par\textbf{理由：} 分解复合次数较多的函数，每层都是基本初等函数。
+		\item[\textbf{第二步（逐层求导）：}] 从外到内分别求导：$\frac{dy}{du}=\frac{1}{u}$，$\frac{du}{dv}=-\sin v$，$\frac{dv}{dx}=2$。
+			\[
+				\frac{dy}{du}=\frac{1}{u},\quad \frac{du}{dv}=-\sin v,\quad \frac{dv}{dx}=2.
+			\]
+			\par\textbf{理由：} 运用导数公式 $(\ln u)'=1/u$，$(\cos v)'=-\sin v$，$(2x)'=2$。
+		\item[\textbf{第三步（相乘回代）：}] 由链式法则（推广）得
+			\[
+				y' = \frac{dy}{du}\cdot\frac{du}{dv}\cdot\frac{dv}{dx}
+			\]
+			\[
+				y' = \frac{1}{\cos 2x}\cdot(-\sin 2x)\cdot 2
+			\]
+			\[
+				y' = -2\tan 2x.
+			\]
+			\par\textbf{理由：} 多层链式法则：每层导数连续相乘，并逐步回代变量。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$(\ln(\cos 2x))' = -2\tan 2x$。}
+\end{examplebox}

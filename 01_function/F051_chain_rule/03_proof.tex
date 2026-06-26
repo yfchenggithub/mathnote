@@ -1,0 +1,49 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用导数定义：$\frac{dy}{dx}=\lim_{\Delta x\to0}\frac{\Delta y}{\Delta x}$，将 $\frac{\Delta y}{\Delta x}$ 拆为 $\frac{\Delta y}{\Delta u}\cdot\frac{\Delta u}{\Delta x}$，再分别取极限。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（增量定义）：}] 设自变量 $x$ 有增量 $\Delta x$，则内层函数 $u=g(x)$ 产生增量 $\Delta u=g(x+\Delta x)-g(x)$，外层函数 $y=f(u)$ 产生增量 $\Delta y=f(u+\Delta u)-f(u)$。
+			\[
+				\Delta u = g(x+\Delta x)-g(x),\quad \Delta y = f(u+\Delta u)-f(u).
+			\]
+			\par\textbf{理由：} 引入增量为求平均变化率准备。
+
+		\item[\textbf{步骤二（乘积变形）：}] 当 $\Delta x\neq0$ 且 $\Delta u\neq0$ 时，平均变化率可写为
+			\[
+				\frac{\Delta y}{\Delta x} = \frac{\Delta y}{\Delta u}\cdot\frac{\Delta u}{\Delta x}.
+			\]
+			\par\textbf{理由：} 分子分母同时乘除 $\Delta u$，恒等变形。
+
+		\item[\textbf{步骤三（零增量处理）：}] 若 $\Delta u=0$，则 $\Delta y=0$，此时 $\frac{\Delta y}{\Delta x}=0$。可以证明，无论 $\Delta u$ 是否为零，链式法则均成立。以下只考虑 $\Delta u\neq0$ 的情形，以简化推导。
+			\par\textbf{理由：} 当 $\Delta u=0$ 时乘积变形无定义，但公式依然正确；仅考虑非零情形不丧失一般性。
+
+		\item[\textbf{步骤四（取极限）：}] 对 $\frac{\Delta y}{\Delta x} = \frac{\Delta y}{\Delta u}\cdot\frac{\Delta u}{\Delta x}$ 两边取 $\Delta x\to0$ 的极限。由导数定义：
+			\[
+				\lim_{\Delta x\to0}\frac{\Delta u}{\Delta x}=g'(x),
+				\qquad
+				\lim_{\Delta u\to0}\frac{\Delta y}{\Delta u}=f'(g(x)).
+			\]
+			由于 $g$ 可导故连续，$\Delta x\to0$ 时 $\Delta u\to0$。利用极限乘法：
+			\[
+				\frac{dy}{dx} = \lim_{\Delta x\to0}\frac{\Delta y}{\Delta x}
+			\]
+			\[
+				\frac{dy}{dx} = \left(\lim_{\Delta u\to0}\frac{\Delta y}{\Delta u}\right)
+				\left(\lim_{\Delta x\to0}\frac{\Delta u}{\Delta x}\right)
+			\]
+			\[
+				\frac{dy}{dx} = f'(g(x))\cdot g'(x).
+			\]
+			\par\textbf{理由：} 极限可拆条件满足（两极限均存在），乘积法则。
+
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{因此复合函数 $y=f(g(x))$ 在 $x$ 处可导，且导数公式 $\frac{dy}{dx}=f'(g(x))\cdot g'(x)$ 成立。}
+\end{proofbox}
