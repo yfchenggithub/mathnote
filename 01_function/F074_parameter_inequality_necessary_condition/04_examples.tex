@@ -1,0 +1,80 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知函数 $f(x)=e^x-1-ax$，当 $x\ge0$ 时 $f(x)\ge0$ 恒成立，且 $f(0)=0$，求实数 $a$ 的取值范围。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（确定取等点）：}] $f(0)=e^0-1-0=0$，所以 $x_0=0$ 是取等点，且为区间左端点。
+			\par\textbf{理由：} 取等点明显，定位必要约束。
+
+		\item[\textbf{第二步（端点导数必要条件）：}] 由结论，左端点取等时 $f'(0)\ge0$。计算 $f'(x)=e^x-a$，得 $f'(0)=1-a$。由条件 $f'(0)\ge0$ 得 $1-a\ge0$，即 $a\le1$。
+			\par\textbf{理由：} 导数符号必须保持不等式方向。
+
+		\item[\textbf{第三步（充分性验证）：}] 当 $a\le1$ 时，在 $x\ge0$ 上，
+			\[
+				\begin{aligned}
+					f'(x) &= e^x - a \\
+					&\ge e^x - 1 \\
+					&\ge 0
+			\end{aligned}
+			\]
+			（因 $e^x\ge1$），故 $f(x)$ 单调递增。又 $f(0)=0$，所以 $f(x)\ge 0$，恒成立。因此 $a\le1$ 为所求。
+			\par\textbf{理由：} 单调递增保证最小值在左端点。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	$\mathbf{a\le 1}$
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知函数 $f(x)=\ln x - a(x-1)$，若 $f(x)\le0$ 对 $x>0$ 恒成立，求实数 $a$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（确定取等点）：}] $f(1)=\ln1 - a(1-1)=0$，无论 $a$ 为何值，$x_0=1$ 都是取等点，且为区间内点。
+			\par\textbf{理由：} 代入直接得零，取等点与参数无关。
+
+		\item[\textbf{第二步（内点导数必要条件）：}] $f'(x)=\frac{1}{x}-a$，得 $f'(1)=1-a$。令 $f'(1)=0$ 得 $a=1$。
+			\par\textbf{理由：} 内点处可导的极值点导数必须为零。
+
+		\item[\textbf{第三步（充分性验证）：}] 当 $a=1$ 时，$f(x)=\ln x - (x-1)$。令 $g(x)=\ln x - x +1$，$g'(x)=\frac{1}{x}-1$，故 $g(x)$ 在 $(0,1)$ 增，在 $(1,+\infty)$ 减。由于 $g(1)=0$，所以 $g(x)\le 0$，即 $\ln x \le x-1$，所以 $f(x)\le0$ 恒成立。因此 $a=1$。
+			\par\textbf{理由：} 通过单调性求最大值，证明不等式恒成立。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	$\mathbf{a=1}$
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知函数 $f(x)=ax-\ln(x+1)$，当 $x\ge0$ 时 $f(x)\ge0$ 恒成立，且 $f(0)=0$，求实数 $a$ 的取值范围。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（确定取等点）：}] $f(0)=a\cdot0-\ln1=0$，所以 $x_0=0$ 是取等点，且为区间左端点。
+			\par\textbf{理由：} 取等点明确。
+
+		\item[\textbf{第二步（端点导数必要条件）：}] $f'(x)=a-\frac{1}{x+1}$，得 $f'(0)=a-1$。由条件 $f'(0)\ge0$ 得 $a-1\ge0$，即 $a\ge1$。
+			\par\textbf{理由：} 左端点取等，导数必须非负才能保证函数不下降。
+
+		\item[\textbf{第三步（充分性验证）：}] 当 $a\ge1$ 时，在 $x\ge0$ 上，$\frac{1}{x+1}\le1$，故
+			\[
+				\begin{aligned}
+					f'(x) &= a - \frac{1}{x+1} \\
+					&\ge 1 - \frac{1}{x+1} \\
+					&\ge 0
+			\end{aligned}
+			\]
+			所以 $f(x)$ 单调递增。又 $f(0)=0$，因此 $f(x)\ge 0$，恒成立。因此 $a\ge1$ 为所求。
+			\par\textbf{理由：} 单调递增保证最小值在左端点。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	$\mathbf{a\ge 1}$
+
+\end{examplebox}

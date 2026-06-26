@@ -1,0 +1,40 @@
+\begin{statementbox}
+	\textbf{\textcolor{CStatement}{条件}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CStatement}{条件 1（含参不等式）：}}] 函数 $f(x,a)$ 在区间 $D$ 上可导，参数 $a$ 属于某集合。对 $\forall x\in D$，要求 $f(x,a)\ge 0$ 或 $f(x,a)\le 0$ 恒成立。
+		\item[\textbf{\textcolor{CStatement}{条件 2（特殊取等点）：}}] 存在 $x_0\in D$，使得 $f(x_0,a)=0$。
+	\end{description}
+
+	\textbf{\textcolor{CStatement}{结论}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{\textcolor{CStatement}{结论一（端点导数符号）：}}]
+			\textbf{\textcolor{CStatement}{直观描述：}}
+			在取等点处，导数符号必须保证不等式不向反方向变化。
+			\begin{itemize}
+			\item 若 $x_0$ 是左端点且 $D$ 向右延伸，则 $f'(x_0,a)\ge 0$（当原不等式为 $f\ge0$）或 $f'(x_0,a)\le 0$（当原不等式为 $f\le0$）。
+			\item 若 $x_0$ 是右端点，则导数符号反向：$f'(x_0,a)\le 0$（$f\ge0$）或 $f'(x_0,a)\ge 0$（$f\le0$）。
+		\end{itemize}
+
+		\item[\textbf{\textcolor{CStatement}{结论二（内点导数条件）：}}]
+			\textbf{\textcolor{CStatement}{直观描述：}}
+			内点取等处导数必须为零。
+			\[
+				f'(x_0,a)=0.
+			\]
+			并可进一步利用 $f''(x_0,a)$ 判断极值类型。
+
+		\item[\textbf{\textcolor{CStatement}{推广结论（必要性探路思路）：}}]
+			\textbf{\textcolor{CStatement}{直观描述：}}
+			先利用取等点的导数条件求出参数必要条件，再验证充分性。
+			\textbf{步骤简述：}
+			\begin{enumerate}
+			\item 找到特殊点 $x_0$ 使 $f(x_0,a)=0$（若未显式给出则先尝试 $x_0$）。
+			\item 根据 $x_0$ 位置，由导数符号条件列出不等式（组），解得参数范围 $A$。
+			\item 验证当 $a\in A$ 时原不等式恒成立（充分性），确保 $A$ 即为答案。
+		\end{enumerate}
+	\end{description}
+
+	\textbf{\textcolor{CStatement}{适用范围：}}
+	仅适用于存在取等点的恒成立问题；若恒不等号严格（$>$或$<$），不能直接使用，需考虑极限或修正。
+
+\end{statementbox}
