@@ -1,0 +1,85 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	解方程 $3^{2x-1}=3^{x+4}$.
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别同构）：}] 方程两边底数均为3，外层函数 $f(t)=3^t$ 在 $\mathbb{R}$ 上严格增.
+			\par\textbf{理由：} 指数函数 $y=3^x$ 是严格增函数，满足同构脱壳的条件.
+		\item[\textbf{第二步（脱壳转化）：}] 由同构脱壳原理，$3^{2x-1}=3^{x+4}$ 等价于 $2x-1=x+4$.
+			\[
+				3^{2x-1}=3^{x+4}\ \iff\ 2x-1=x+4.
+			\]
+			\par\textbf{理由：} 外层函数严格增，可直接去掉底数 $3$ 转化指数方程.
+		\item[\textbf{第三步（求解方程）：}] 解 $2x-1=x+4$ 得 $x=5$.
+			\[
+				2x-1=x+4\ \Longrightarrow\ x=5.
+			\]
+			\par\textbf{理由：} 一次方程移项合并即可.
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{指数同构：} $a^{g(x)}=a^{h(x)}\ (a>0,a\neq1)\ \Rightarrow\ g(x)=h(x)$，无需检验（指数函数值域自动覆盖正数，无额外限制）.
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	解方程 $\log_2(x^2-5x+6)=\log_2(2x-4)$.
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（求定义域）：}] 真数必须大于0：
+			\[
+				\begin{cases}
+					x^2-5x+6>0,\\
+					2x-4>0.
+			\end{cases}
+			\]
+			具体解：$x^2-5x+6=(x-2)(x-3)>0$，得 $x<2$ 或 $x>3$；$2x-4>0$ 得 $x>2$。取交集得 $x>3$.
+			\par\textbf{理由：} 对数函数的真数必须为正，否则无意义.
+		\item[\textbf{第二步（脱壳转化）：}] 外层函数 $f(t)=\log_2 t$ 在 $(0,+\infty)$ 上严格增，故可直接脱去对数符号：
+			\[
+				\log_2(x^2-5x+6)=\log_2(2x-4)\ \iff\ x^2-5x+6=2x-4.
+			\]
+			\par\textbf{理由：} 严格单调函数保证方程等价性.
+		\item[\textbf{第三步（解并检验）：}] 整理得 $x^2-7x+10=0$，解得 $x=2$ 或 $x=5$. 结合定义域 $x>3$，$x=2$ 不在定义域内，舍去；$x=5$ 满足. 故原方程的解为 $x=5$.
+			\[
+				x^2-7x+10=0\ \Rightarrow\ x=2\ \text{或}\ x=5,\quad \text{检验后得 }x=5.
+			\]
+			\par\textbf{理由：} 对数方程脱壳后必须检验，防止增根.
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{对数同构：} $\log_a g(x)=\log_a h(x)\ (a>0,a\neq1)\ \Rightarrow\ g(x)=h(x)$，但解必须满足 $g(x)>0,\ h(x)>0$.
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	解方程 $9^{x+1}=3^{x^2-1}$.
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（统一底数）：}] 将 $9$ 写成 $3^2$，则 $9^{x+1}=3^{2(x+1)}$. 原方程化为
+			\[
+				3^{2(x+1)}=3^{x^2-1}.
+			\]
+			\par\textbf{理由：} 将不同底化为相同底，才能应用同构脱壳.
+		\item[\textbf{第二步（脱壳转化）：}] 外层函数 $f(t)=3^t$ 在 $\mathbb{R}$ 上严格增，故脱去底数 $3$ 得
+			\[
+				3^{2(x+1)}=3^{x^2-1}\ \iff\ 2(x+1)=x^2-1.
+			\]
+			\par\textbf{理由：} 同构脱壳原理，严格单调函数保持等价性.
+		\item[\textbf{第三步（解二次方程）：}] 整理得 $x^2-2x-3=0$，解得 $x=-1$ 或 $x=3$. 代入原方程均成立，故解为 $x=-1$ 或 $x=3$.
+			\[
+				x^2-2x-3=0\ \Rightarrow\ (x-3)(x+1)=0\ \Rightarrow\ x=-1,\ x=3.
+			\]
+			\par\textbf{理由：} 二次方程因式分解求解；代入检验确保无误（指数方程通常无需额外定义域限制）.
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{化同底再脱壳：} 当底数不同但可化为相同底时，先统一底数再利用同构脱壳，简化指数方程.
+\end{examplebox}

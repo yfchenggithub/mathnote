@@ -1,0 +1,43 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	同构脱壳的本质是严格单调函数的单射性。先证明严格单调函数满足$u\neq v\Rightarrow f(u)\neq f(v)$，再用反证法证明$f(g(x))=f(h(x))$时必有$g(x)=h(x)$；反向直接代入即得。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（单调定义）：}] 设$f$在$D$上严格单调. 写出定义：
+			\[
+				\begin{aligned}
+					\forall u,v\in D,\ u<v\Rightarrow f(u)<f(v) &\quad (\text{严格增}),\\
+					\forall u,v\in D,\ u<v\Rightarrow f(u)>f(v) &\quad (\text{严格减}).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 严格单调的代数定义，包括严格增和严格减两种情形.
+
+		\item[\textbf{步骤二（单射性质）：}] 由定义可知，若$u\neq v$，则$f(u)\neq f(v)$.
+			\[
+				u\neq v \Longrightarrow f(u)\neq f(v).
+			\]
+			\par\textbf{理由：} 因为$u\neq v$必为$u<v$或$u>v$，无论$f$严格增或减，都有$f(u)\neq f(v)$.
+
+		\item[\textbf{步骤三（正向推证）：}] 已知$f(g(x))=f(h(x))$. 若$g(x)\neq h(x)$，则由步骤二得$f(g(x))\neq f(h(x))$，与已知矛盾. 故$g(x)=h(x)$.
+			\[
+				f(g(x))=f(h(x)),
+				\qquad
+				g(x)\neq h(x)\Rightarrow f(g(x))\neq f(h(x)).
+			\]
+			\par\textbf{理由：} 反证法，假设$g(x)\neq h(x)$会导致矛盾，因此只能$g(x)=h(x)$.
+
+		\item[\textbf{步骤四（反向验证）：}] 若$g(x)=h(x)$，则显然$f(g(x))=f(h(x))$.
+			\[
+				g(x)=h(x) \Longrightarrow f(g(x))=f(h(x)).
+			\]
+			\par\textbf{理由：} 函数值由自变量唯一确定，自变量相等时函数值必然相等.
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	由步骤三和步骤四得 $f(g(x))=f(h(x))\iff g(x)=h(x)$，即同构脱壳原理成立.
+\end{proofbox}
