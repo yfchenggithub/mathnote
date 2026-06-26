@@ -1,0 +1,171 @@
+{
+  "id": "F067",
+  "module": "function",
+  "core": {
+    "title": "构造函数判断单调性",
+    "alias": [
+      "除以$x$构造法",
+      "分母$x$构造",
+      "$f(x)/x$单调性"
+    ],
+    "summary": "通过构造$F(x)=f(x)/x$，将分子$x f'(x)-f(x)$的符号直接转化为$F(x)$的单调性。",
+    "difficulty": 3,
+    "category": "导数与函数单调性",
+    "tags": [
+      "导数",
+      "构造法",
+      "单调性",
+      "压轴题",
+      "等价转化"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "构造函数",
+      "f(x)/x",
+      "单调性",
+      "导数",
+      "符号",
+      "定义域不含0",
+      "x f'(x)-f(x)",
+      "同号",
+      "F'(x)",
+      "分子",
+      "压轴题",
+      "分母x^2"
+    ],
+    "synonyms": [
+      "除以x",
+      "构造F",
+      "分母x构造",
+      "分子x f'减f",
+      "x f' - f"
+    ],
+    "intents": [
+      "判断单调性",
+      "构造函数",
+      "求单调区间",
+      "比较大小",
+      "解不等式"
+    ],
+    "query_templates": [
+      "如何构造函数F(x)=f(x)/x判断单调性",
+      "x f'(x)-f(x)的符号怎么用",
+      "已知x f'(x)-f(x)>0求单调性"
+    ],
+    "ocrKeywords": [
+      "可导",
+      "定义域",
+      "单调递增",
+      "单调递减",
+      "x≠0"
+    ],
+    "latex_patterns": [
+      "\\frac{f(x)}{x}",
+      "\\frac{x f'(x)-f(x)}{x^{2}}",
+      "x f'(x)-f(x)"
+    ],
+    "formulaTokens": [
+      "\\frac{f(x)}{x}",
+      "\\frac{x f'(x)-f(x)}{x^{2}}",
+      "x f'(x)-f(x)",
+      "F'(x)"
+    ],
+    "pinyin": "gouzao hanshu F(x)=f(x)/x pan duan dan diao xing",
+    "pinyinAbbr": "gzF"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.81,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "F'(x)=\\frac{x f'(x)-f(x)}{x^{2}}",
+    "related_formulas": [
+      "G'(x)=\\frac{x f'(x)-n f(x)}{x^{n+1}}\\quad (G(x)=\\frac{f(x)}{x^{n}})"
+    ],
+    "variables": [
+      "f(x)",
+      "x",
+      "F(x)",
+      "f'(x)"
+    ],
+    "conditions": [
+      "函数$f(x)$在区间$I$上可导，且$0\\notin I$。",
+      "$x f'(x)-f(x)$在$I$上恒正或恒负。"
+    ],
+    "conclusions": [
+      "若$x f'(x)-f(x)>0$，则$F(x)$在$I$上单调递增。",
+      "若$x f'(x)-f(x)<0$，则$F(x)$在$I$上单调递减。"
+    ]
+  },
+  "content": {
+    "statement": "若可导函数 $f(x)$ 的定义域不包含 $0$，构造函数 $F(x)=\\frac{f(x)}{x}$，则 $F'(x)$ 与 $x f'(x)-f(x)$ 同号，从而可由已知的 $x f'(x)-f(x)$ 的符号得到 $F(x)$ 的单调性。",
+    "derivation": [
+      "定义$F(x)=\\frac{f(x)}{x}$。",
+      "求导得$F'(x)=\\frac{x f'(x)-f(x)}{x^{2}}$。",
+      "由于$x^{2}>0$，$F'(x)$的正负完全由分子$x f'(x)-f(x)$决定，故单调性取决于分子符号。"
+    ],
+    "intuition": "分母$x^2$恒正，因此$F'(x)$的符号与分子完全相同，只要知道分子的符号就能直接得到原函数单调性。",
+    "common_tricks": [
+      "使用前必须检查定义域是否包含$x=0$。",
+      "若分子含参数，需分类讨论符号。",
+      "推广到$G(x)=f(x)/x^{n}$时，分子变为$x f'(x)-n f(x)$。",
+      "有时需结合不等式放缩确定分子符号。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "压轴题",
+      "导数综合题",
+      "含参讨论"
+    ],
+    "problem_types": [
+      "单调性判断",
+      "函数值比较",
+      "不等式证明"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 8
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "F067.svg"
+  },
+  "shareConfig": {
+    "title": "构造函数f(x)/x：由分子符号定单调",
+    "shareDesc": "适合导数压轴题构造辅助函数，利用分子x f'(x)-f(x)的符号直接判断单调性，避免求导后再整理，适合课后复习和考前速查。"
+  },
+  "relations": {
+    "prerequisites": [
+      "导数基本公式",
+      "单调性判断",
+      "函数定义域"
+    ],
+    "related_ids": [],
+    "similar": [
+      "构造函数g(x)=f(x)e^{kx}",
+      "构造函数h(x)=f(x)/(x-a)"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "函数-性质-单调性",
+  "altNodes": ""
+}

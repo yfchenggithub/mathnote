@@ -1,0 +1,100 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例1（基础应用）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	设函数$f(x)=x^{2}+1$，求$F(x)=\dfrac{f(x)}{x}$的单调区间。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（计算条件）：}]
+			先计算$x f'(x)-f(x)$。由$f'(x)=2x$，得
+			\[
+				\begin{aligned}
+					x f'(x)-f(x) &= x\cdot 2x - (x^{2}+1) \\ &= 2x^{2} - x^{2} - 1 \\ &= x^{2}-1.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 直接代入导数表达式并化简。
+		\item[\textbf{第二步（符号区间）：}]
+			解$x^{2}-1$的正负范围：
+			\[
+				x^{2}-1>0\iff|x|>1;\qquad x^{2}-1<0\iff|x|<1.
+			\]
+			注意$x\neq0$，故当$x<-1$或$x>1$时$x^{2}-1>0$；当$-1<x<1$且$x\neq0$时$x^{2}-1<0$。
+			\par\textbf{理由：} 一元二次不等式的求解。
+		\item[\textbf{第三步（单调结论）：}]
+			由定理，符号与单调性对应如下：
+			\[
+				\begin{aligned}
+					x^{2}-1>0 &\Rightarrow F'(x)>0; \\ x^{2}-1<0 &\Rightarrow F'(x)<0.
+			\end{aligned}
+			\]
+			因此$F(x)$在$(-\infty,-1)$和$(1,+\infty)$上单调递增，在$(-1,0)$和$(0,1)$上单调递减。
+			\par\textbf{理由：} 应用本结论，将符号条件翻译成单调区间。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	$F(x)$的单调递增区间为$(-\infty,-1)$与$(1,+\infty)$，单调递减区间为$(-1,0)$与$(0,1)$。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例2（稍变形）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	设$f(x)=e^{x}$，求$F(x)=\dfrac{e^{x}}{x}$的单调区间。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（计算条件）：}]
+			求$x f'(x)-f(x)$：
+			\[
+				\begin{aligned}
+					x f'(x)-f(x) &= x e^{x} - e^{x} \\ &= e^{x}(x-1).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 代入$f'(x)=e^{x}$并提取公因子。
+		\item[\textbf{第二步（符号区间）：}]
+			因为$e^{x}>0$恒成立，所以$x f'(x)-f(x)$的符号由$x-1$决定：
+			\[
+				x-1>0\iff x>1;\qquad x-1<0\iff x<1.
+			\]
+			注意$x\neq0$，故当$x>1$时为正，当$x<1$且$x\neq0$时为负。
+			\par\textbf{理由：} 指数函数正值性质。
+		\item[\textbf{第三步（单调结论）：}]
+			由定理得：
+			\[
+				\begin{aligned}
+					x>1 &\Rightarrow F'(x)>0; \\ x<1,\ x\neq0 &\Rightarrow F'(x)<0.
+			\end{aligned}
+			\]
+			因此$F(x)$在$(1,+\infty)$上单调递增，在$(-\infty,0)$和$(0,1)$上单调递减。
+			\par\textbf{理由：} 应用本结论并考虑定义域。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	$F(x)$的单调递增区间为$(1,+\infty)$，单调递减区间为$(-\infty,0)$与$(0,1)$。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例3（综合应用）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	已知定义在$\mathbb{R}\setminus\{0\}$上的可导函数$f(x)$满足$x f'(x)-f(x)>0\ (\forall x\neq0)$，且$f(2)=4$，比较$\dfrac{f(3)}{3}$与$2$的大小。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（构造函数判单调）：}]
+			令$F(x)=\dfrac{f(x)}{x}$，则
+			\[
+				F'(x)=\frac{x f'(x)-f(x)}{x^{2}}.
+			\]
+			由条件知$x f'(x)-f(x)>0$且$x^{2}>0$，故$F'(x)>0$，$F(x)$在定义域上单调递增。
+			\par\textbf{理由：} 定理直接给出$F(x)$的单调性。
+		\item[\textbf{第二步（应用单调性比较）：}]
+			因为$3>2$，且$F$单调递增，所以
+			\[
+				F(3)>F(2).
+			\]
+			\par\textbf{理由：} 单调递增函数的性质：自变量大则函数值大。
+		\item[\textbf{第三步（代入已知数值）：}]
+			已知$f(2)=4$，计算$F(2)$并利用单调性推出结论：
+			\[
+				\begin{aligned}
+					F(2) &= \frac{f(2)}{2} \\ &= 2, \\ &\Rightarrow F(3) > 2.
+			\end{aligned}
+			\]
+			即$\dfrac{f(3)}{3}>2$.
+			\par\textbf{理由：} 代入数值并应用单调性。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	$\dfrac{f(3)}{3}>2$.
+\end{examplebox}

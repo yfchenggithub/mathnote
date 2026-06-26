@@ -1,0 +1,45 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	只需对$F(x)=\frac{f(x)}{x}$求导，利用分母$x^{2}>0$，将$F'(x)$的符号判定转化为分子$x f'(x)-f(x)$的符号判定。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（构造函数求导）：}]
+			令$F(x)=\frac{f(x)}{x}$，我们需判断$F(x)$的单调性，故先求导。
+			\[
+				F'(x)=\left(\frac{f(x)}{x}\right)'.
+			\]
+			\par\textbf{理由：} 单调性由导函数的符号决定。
+		\item[\textbf{步骤二（商法则展开）：}]
+			应用商法则$\left(\frac{u}{v}\right)'=\frac{u'v-uv'}{v^{2}}$，取$u=f(x),v=x$，得
+			\[
+				F'(x)=\frac{f'(x)\cdot x - f(x)\cdot 1}{x^{2}}.
+			\]
+			\par\textbf{理由：} 商法则是求导的基本公式，直接代入。
+		\item[\textbf{步骤三（整理与判号）：}]
+			整理分子后得
+			\[
+				F'(x)=\frac{x f'(x)-f(x)}{x^{2}}.
+			\]
+			因为区间$I$不含$0$，所以$x^{2}>0$，从而$F'(x)$与$x f'(x)-f(x)$同号。
+			\par\textbf{理由：} 分母为正，不影响符号判断。
+		\item[\textbf{步骤四（单调性判定）：}]
+			由导数与单调性的关系：
+			\[
+				\begin{aligned}
+					x f'(x)-f(x)>0 &\Rightarrow F'(x)>0 \\ &\Rightarrow F(x)\nearrow,
+			\end{aligned}
+			\]
+			\[
+				\begin{aligned}
+					x f'(x)-f(x)<0 &\Rightarrow F'(x)<0 \\ &\Rightarrow F(x)\searrow.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 导函数在区间上恒正则函数递增，恒负则递减。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	我们得到了简洁的判别法则：$F(x)=\frac{f(x)}{x}$的单调性完全由$x f'(x)-f(x)$的符号决定，而不必直接讨论$F'(x)$的复杂表达式。这一结论在构造法证明不等式和分式函数单调性问题中非常实用。
+\end{proofbox}
