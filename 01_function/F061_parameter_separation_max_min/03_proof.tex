@@ -1,0 +1,39 @@
+\begin{proofbox}
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用函数最值的定义，分别证明必要性（恒成立推出最值关系）和充分性（最值关系推出恒成立），从而建立等价性。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（必要性上界）：}] 假设$\forall x\in D,\ a \ge f(x)$成立。令$M=\max_{x\in D} f(x)$，存在$x_0\in D$使得$f(x_0)=M$。由假设$a\ge f(x_0)=M$，故$a\ge M$。
+			\[
+				a\ge f(x)\ \forall x\in D\ \Rightarrow\ a\ge \max_{x\in D} f(x).
+			\]
+			\par\textbf{理由：} 最大值点满足函数值等于最大值，代入假设即得。
+
+		\item[\textbf{步骤二（必要性下界）：}] 假设$\forall x\in D,\ a \le f(x)$成立。令$m=\min_{x\in D} f(x)$，存在$x_1\in D$使得$f(x_1)=m$。由假设$a\le f(x_1)=m$，故$a\le m$。
+			\[
+				a\le f(x)\ \forall x\in D\ \Rightarrow\ a\le \min_{x\in D} f(x).
+			\]
+			\par\textbf{理由：} 利用最小值点代入假设。
+
+		\item[\textbf{步骤三（充分性上界）：}] 假设$a\ge \max_{x\in D} f(x)$，则对任意$x\in D$，有$f(x)\le \max_{x\in D} f(x)\le a$，即$a\ge f(x)$成立。
+			\[
+				a\ge \max_{x\in D} f(x)\ \Rightarrow\ a\ge f(x)\ \forall x\in D.
+			\]
+			\par\textbf{理由：} 函数值不超过最大值，从而不超过$a$。
+
+		\item[\textbf{步骤四（充分性下界）：}] 假设$a\le \min_{x\in D} f(x)$，则对任意$x\in D$，有$a\le \min_{x\in D} f(x)\le f(x)$，即$a\le f(x)$成立。
+			\[
+				a\le \min_{x\in D} f(x)\ \Rightarrow\ a\le f(x)\ \forall x\in D.
+			\]
+			\par\textbf{理由：} 函数值不小于最小值，从而不小于$a$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	以上四步完整证明了分离参数法的等价关系，它为含参恒成立问题提供了一个标准化处理框架：先分离参数，再求函数最值，最后得到参数范围。该方法可推广到存在性等其他量词情形。
+\end{proofbox}
