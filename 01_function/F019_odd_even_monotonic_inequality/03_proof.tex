@@ -1,0 +1,68 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用奇偶性将自变量转化到单调区间，再利用单调性比较函数值。对于奇函数，利用 $f(-x)=-f(x)$ 建立函数值之和与自变量之和的联系；对于偶函数，利用 $f(x)=f(|x|)$ 将比较转化为 $[0,+\infty)$ 上的比较。若单调递减，则不等号方向全部取反。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（奇增充分性）：}]
+			\[
+				\begin{aligned}
+					a+b>0 &\Rightarrow a>-b \\
+					&\Rightarrow f(a)>f(-b) \\
+					&\Rightarrow f(a)>-f(b) \\
+					&\Rightarrow f(a)+f(b)>0.
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			$f$ 是奇函数且在 $[0,+\infty)$ 单调递增，可推出 $f$ 在 $\mathbb{R}$ 上单调递增（奇函数对称区间单调性一致）。于是 $a>-b$ 时 $f(a)>f(-b)$；又 $f(-b)=-f(b)$，代入得 $f(a)+f(b)>0$。
+
+		\item[\textbf{步骤二（奇增必要性）：}]
+			\[
+				\begin{aligned}
+					f(a)+f(b)>0 &\Rightarrow f(a)>-f(b) \\
+					&\Rightarrow f(a)>f(-b) \\
+					&\Rightarrow a>-b \\
+					&\Rightarrow a+b>0.
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			由 $f(a)+f(b)>0$ 移项得 $f(a)>-f(b)$，利用奇函数 $f(-b)=-f(b)$ 得 $f(a)>f(-b)$。再由 $f$ 的单调性得 $a>-b$，即 $a+b>0$。
+
+		\item[\textbf{步骤三（偶增等价）：}]
+			\[
+				\begin{aligned}
+					f(a)>f(b) &\iff f(|a|)>f(|b|) \\
+					&\iff |a|>|b|.
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			偶函数满足 $f(x)=f(|x|)$，故 $f(a)>f(b)$ 等价于 $f(|a|)>f(|b|)$。由于 $f$ 在 $[0,+\infty)$ 上单调递增，所以 $f(|a|)>f(|b|)$ 等价于 $|a|>|b|$。因此 $f(a)>f(b)\iff|a|>|b|$。
+
+		\item[\textbf{步骤四（递减反向）：}]
+			\[
+				\begin{aligned}
+					a+b>0 &\Rightarrow a>-b \\
+					&\Rightarrow f(a)<f(-b) \\
+					&\Rightarrow f(a)<-f(b) \\
+					&\Rightarrow f(a)+f(b)<0.
+			\end{aligned}
+			\]
+			\[
+				\begin{aligned}
+					f(a)+f(b)<0 &\Rightarrow f(a)<-f(b) \\
+					&\Rightarrow f(a)<f(-b) \\
+					&\Rightarrow a<-b \\
+					&\Rightarrow a+b<0.
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			当 $f$ 在 $[0,+\infty)$ 上单调递减时，奇函数整体单调递减，所以 $a>b$ 时 $f(a)<f(b)$。重复步骤一、二的推导但不等号方向取反，即得 $a+b>0\iff f(a)+f(b)<0$，等价于 $f(a)+f(b)>0\iff a+b<0$。偶函数情形类似可得 $f(a)>f(b)\iff|a|<|b|$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	综上，奇函数与偶函数在单调递增时分别有 $f(a)+f(b)>0\iff a+b>0$ 和 $f(a)>f(b)\iff|a|>|b|$；若单调递减，则不等号反向，成为 $f(a)+f(b)>0\iff a+b<0$ 和 $f(a)>f(b)\iff|a|<|b|$。
+\end{proofbox}
