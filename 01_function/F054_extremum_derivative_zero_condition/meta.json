@@ -1,0 +1,179 @@
+{
+  "id": "F054",
+  "module": "function",
+  "core": {
+    "title": "极值点的必要不充分条件：导数零点判定",
+    "alias": [
+      "极值点导数必为零",
+      "导数零点不一定是极值点",
+      "极值必要条件",
+      "驻点不一定是极值点"
+    ],
+    "summary": "可导函数在极值点处导数必为零，但导数为零的点未必是极值点，需用二阶导或定义进一步判定。",
+    "difficulty": 2,
+    "category": "导数",
+    "tags": [
+      "导数与极值",
+      "必要条件",
+      "可导函数",
+      "极值点判定",
+      "驻点",
+      "参数验证"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "极值点",
+      "导数零点",
+      "必要条件",
+      "不充分条件",
+      "可导函数",
+      "驻点",
+      "二阶导",
+      "参数求解",
+      "极值判定",
+      "f'(x0)=0",
+      "x^3",
+      "极值点验证"
+    ],
+    "synonyms": [
+      "极值点导数等于0",
+      "导数等于0是极值吗",
+      "导数零点为什么不是极值",
+      "极值点必要条件",
+      "驻点与极值点关系"
+    ],
+    "intents": [
+      "求参数",
+      "判断极值点",
+      "验证极值",
+      "区分极值点与驻点",
+      "使用必要条件"
+    ],
+    "query_templates": [
+      "极值点的必要条件是什么",
+      "导数为零的点一定是极值点吗",
+      "已知极值点求参数",
+      "为什么f'(x0)=0不一定是极值",
+      "极值点与驻点的区别"
+    ],
+    "ocrKeywords": [
+      "极值点",
+      "导数",
+      "f'(x)=0",
+      "极值",
+      "参数",
+      "二阶导"
+    ],
+    "latex_patterns": [
+      "f'(x_0)=0",
+      "x_0\\in\\operatorname{Ext}(f)\\Rightarrow f'(x_0)=0",
+      "f'(x_0)=0\\nRightarrow x_0\\in\\operatorname{Ext}(f)"
+    ],
+    "formulaTokens": [
+      "f'(x)=3x^2+2ax",
+      "f'(1)=0",
+      "3+2a=0",
+      "a=-\\frac{3}{2}",
+      "f'(x)=6x^2+2ax+b",
+      "12+4a+b=0",
+      "4a+2b=-8",
+      "f''(x)=6x+2a",
+      "f''(2)=4>0",
+      "f'(x)=6x^2-6=6(x-1)(x+1)"
+    ],
+    "pinyin": "ji zhi dian de bi yao bu chong fen tiao jian dao shu ling dian pan ding",
+    "pinyinAbbr": "jzddbybcftjdsldpd"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.7,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "f'(x_0)=0",
+    "related_formulas": [
+      "f(x)=x^3,\\ f'(0)=0,\\ x=0\\text{不是极值点}",
+      "f''(x_0)>0\\Rightarrow \\text{极小值},\\ f''(x_0)<0\\Rightarrow \\text{极大值}"
+    ],
+    "variables": [
+      "f",
+      "x_0"
+    ],
+    "conditions": [
+      "函数 $f(x)$ 在点 $x_0$ 处可导，且 $x_0$ 为定义域内点。"
+    ],
+    "conclusions": [
+      "若 $x_0$ 是极值点，则 $f'(x_0)=0$（必要条件）。",
+      "若 $f'(x_0)=0$，$x_0$ 不一定是极值点（非充分条件）。"
+    ]
+  },
+  "content": {
+    "statement": "对于可导函数，导数为零是极值点的必要不充分条件。即：极值点处导数必为零，但导数为零的点不一定是极值点。",
+    "derivation": [
+      "设 $x_0$ 为极值点（不妨设极大值），则存在邻域 $(x_0-\\delta, x_0+\\delta)$ 使得 $f(x)\\le f(x_0)$。",
+      "考虑导数定义：$f'(x_0)=\\lim_{h\\to0}\\frac{f(x_0+h)-f(x_0)}{h}$，由保号性可得 $f'(x_0)=0$。",
+      "反例 $f(x)=x^3$ 在 $x=0$ 处 $f'(0)=0$，但 $x=0$ 不是极值点，证明不充分。"
+    ],
+    "intuition": "极值点处切线水平，切线的斜率为零；但水平切线也可能对应“拐点”，此时函数在附近继续单调。",
+    "common_tricks": [
+      "由极值点必要条件解出参数后，必须用二阶导数或单调性验证该点是否为极值点。",
+      "若函数在 $x_0$ 处不可导，则极值点可能出现在导数不存在的点，不能套用该结论。",
+      "注意区分驻点（导数为零的点）和极值点：驻点不一定是极值点，极值点（可导时）一定是驻点。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "含参函数极值点求解",
+      "极值点判定与验证",
+      "导数综合大题第一问"
+    ],
+    "problem_types": [
+      "已知极值点求参数值",
+      "判断某点是否为极值点",
+      "极值点存在性讨论"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "F054.svg",
+    "png": "",
+    "gif": "",
+    "video": ""
+  },
+  "shareConfig": {
+    "title": "极值点必要条件：导数零点不一定极值，参数求解后必验证",
+    "shareDesc": "适合讲评课和刷题前速查，集中解决由导数零点误判极值点的常见错误，含参验证更稳，减少第二问推导失误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "导数定义",
+      "极值定义",
+      "函数的单调性与导数"
+    ],
+    "related_ids": [],
+    "similar": "驻点与极值点的关系，极值的充分条件（二阶导判别法）"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "其他-未分类-待定",
+  "altNodes": "函数-综合-函数与方程"
+}
