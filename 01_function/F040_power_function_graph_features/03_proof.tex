@@ -1,0 +1,47 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	从表达式出发，先验证定点，再借助导数工具研究单调性与凸性，最后通过指数函数的单调性证明比较法则。整个推导只依赖代数运算和求导法则。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（定点验证）：}] 代入 $x=1$，得 $y=1^\alpha=1$。因此对所有 $\alpha\in\mathbb{R}$，点 $(1,1)$ 都在函数图像上。
+			\par\textbf{理由：} 直接计算，利用 $1$ 的任意次幂等于 $1$。
+			\[
+				1^\alpha = 1 \quad (\forall \alpha\in\mathbb{R}).
+			\]
+
+		\item[\textbf{步骤二（单调性判定）：}] 对 $y=x^\alpha$ 求导（$x>0$）：
+			\[
+				y' = \alpha x^{\alpha-1}.
+			\]
+			因为 $x^{\alpha-1}>0$，所以 $y'$ 的符号由 $\alpha$ 决定。
+			\par\textbf{理由：} 当 $\alpha>0$ 时 $y'>0$，函数在 $(0,+\infty)$ 上严格递增；当 $\alpha=0$ 时 $y'=0$，函数退化为常数 $y\equiv1$（$x\neq0$）；当 $\alpha<0$ 时 $y'<0$，函数严格递减。
+
+		\item[\textbf{步骤三（凸性分类）：}] 求二阶导数：
+			\[
+				y'' = \alpha(\alpha-1) x^{\alpha-2}.
+			\]
+			$x^{\alpha-2}>0$，$y''$ 的符号由 $\alpha(\alpha-1)$ 确定。
+			\par\textbf{理由：}
+			\begin{itemize}[itemsep=0.3em, topsep=0.2em]
+			\item 若 $\alpha>1$，则 $\alpha(\alpha-1)>0$，$y''>0$，函数下凸（凹向上）。
+			\item 若 $0<\alpha<1$，则 $\alpha(\alpha-1)<0$，$y''<0$，函数上凸（凹向下）。
+			\item 若 $\alpha=1$ 或 $\alpha=0$，则 $y''=0$，此时图像退化为直线或水平线，不讨论凸性。
+		\end{itemize}
+			注：当 $\alpha<0$ 时，$\alpha(\alpha-1)>0$，故 $y''>0$，函数也为下凸；此情形下单调递减更为典型，此处从略。
+
+		\item[\textbf{步骤四（比较法则证明）：}] 固定 $x>0$，考察函数 $g(\alpha)=x^\alpha$（视 $\alpha$ 为变量）。对 $g$ 求导得 $g'(\alpha)=x^\alpha \ln x$。
+			\par\textbf{理由：}
+			\begin{itemize}[itemsep=0.3em, topsep=0.2em]
+			\item 当 $x>1$ 时 $\ln x>0$，$g'(\alpha)>0$，$g$ 严格递增，故 $\alpha_1>\alpha_2 \Rightarrow x^{\alpha_1}>x^{\alpha_2}$。
+			\item 当 $0<x<1$ 时 $\ln x<0$，$g'(\alpha)<0$，$g$ 严格递减，故 $\alpha_1>\alpha_2 \Rightarrow x^{\alpha_1}<x^{\alpha_2}$。
+		\end{itemize}
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	通过以上四步，我们严格证明了幂函数在第一象限内的定点性质、单调性与凸性的分类依据，以及不同区间上的指数比较法则。这些结论可以直接用于快速判断幂函数图像和大小比较。
+\end{proofbox}
