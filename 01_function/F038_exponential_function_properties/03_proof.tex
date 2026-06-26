@@ -1,0 +1,55 @@
+\begin{proofbox}
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用指数运算性质，从定义出发证明定点、正性和单调性；通过极限说明渐近线；最后代数变形得到对称性。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（定点与正性）：}]
+			\[
+				\begin{aligned}
+					&f(0)=1\\
+					&a^x>0.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 由指数定义直接得到 $a^0=1$，且 $a>0$ 时正数的任何实数次幂恒正。因此图像恒过 $(0,1)$，且值域 $\subseteq(0,+\infty)$。利用单调性及极限可进一步得到值域为 $(0,+\infty)$。
+
+		\item[\textbf{步骤二（递增性证明）：}]
+			\[
+				\begin{aligned}
+					&x_1<x_2\\
+					&a^{x_2}=a^{x_1}a^{x_2-x_1}\\     &a^{x_2-x_1}>1\ (a>1)\\     &a^{x_2}>a^{x_1}.    \end{aligned}
+				\]
+				\par\textbf{理由：} 当 $a>1$ 时，正指数幂大于1，故 $a^{x_2}>a^{x_1}$，函数严格递增。
+
+			\item[\textbf{步骤三（递减性证明）：}]
+				\[
+					\begin{aligned}
+						&x_1<x_2\\
+						&a^{x_2}=a^{x_1}a^{x_2-x_1}\\     &a^{x_2-x_1}<1\ (a\in(0,1))\\     &a^{x_2}<a^{x_1}.    \end{aligned}
+					\]
+					\par\textbf{理由：} 当 $a\in(0,1)$ 时，正指数幂小于1，故 $a^{x_2}<a^{x_1}$，函数严格递减。
+
+				\item[\textbf{步骤四（渐近线分析）：}]
+					\[
+						\begin{aligned}
+							&\lim_{x\to -\infty}a^x=0\ (a>1)\\     &\lim_{x\to +\infty}a^x=0\ (a\in(0,1)).    \end{aligned}
+						\]
+						\par\textbf{理由：} 当 $a>1$ 时，$x$ 趋向负无穷时 $a^x$ 趋向0；当 $a\in(0,1)$ 时，$x$ 趋向正无穷时 $a^x$ 趋向0。因此 $y=0$ 是水平渐近线。
+
+					\item[\textbf{步骤五（对称性验证）：}]
+						\[
+							\begin{aligned}
+								&\left(\frac{1}{a}\right)^x = a^{-x}\\     &f(x)=a^x\\     &g(x)=\left(\frac{1}{a}\right)^x\\     &g(x)=f(-x).    \end{aligned}
+							\]
+							\par\textbf{理由：} 由于 $g(x)=f(-x)$，图像上任意点 $(x,f(x))$ 关于 $y$ 轴的对称点 $(-x,f(-x))$ 恰在 $g$ 上，故两函数图像关于 $y$ 轴对称。
+					\end{description}
+
+					\medskip
+					\textbf{\textcolor{CProof}{结论回扣}}
+
+					\textbf{综上，我们证明了：指数函数 $y=a^x$（其中 $a>0$ 且 $a\neq 1$）恒过定点 $(0,1)$，值域为 $(0,+\infty)$，以 $y=0$ 为水平渐近线；当 $a>1$ 时递增，当 $a\in(0,1)$ 时递减；且 $y=a^x$ 与 $y=(1/a)^x$ 的图像关于 $y$ 轴对称。}
+
+				\end{proofbox}
