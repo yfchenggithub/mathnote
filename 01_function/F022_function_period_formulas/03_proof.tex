@@ -1,0 +1,41 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	周期等式证明的核心是反复利用已知条件，通过迭代或代换，最终导出$f(x+T)=f(x)$的结构。推导中需注意定义域平移不变性（即若$x$在定义域内，则$x$与平移常数加减后的值仍在定义域内）。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（加常数直接型）：}]
+			已知$f(x+a)=f(x)$恒成立。
+			\[
+				f(x+a)=f(x).
+			\]
+			\par\textbf{理由：} 若$a>0$，则直接取$T=a$满足$f(x+T)=f(x)$；若$a<0$，由$f(x+a)=f(x)$将$x$换为$x-a$得$f(x)=f(x-a)$，即$f(x+|a|)=f(x)$，故$|a|$是一个周期。
+		\item[\textbf{步骤二（反号两倍型）：}]
+			已知$f(x+a)=-f(x)$。计算$f(x+2a)$：
+			\[
+				\begin{aligned}
+					f(x+2a) &= f((x+a)+a) \\ &= -f(x+a) \\ &= -(-f(x)) \\ &= f(x).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 先令$x\mapsto x+a$代入条件得$f(x+2a)=-f(x+a)$，再利用原式替换$f(x+a)=-f(x)$，两次变号抵消，得到$f(x+2a)=f(x)$，故$2|a|$是周期。
+		\item[\textbf{步骤三（倒数两倍型）：}]
+			已知$f(x+a)=\pm\frac{1}{f(x)}$且$f(x)\neq0$。计算$f(x+2a)$：
+			\[
+				\begin{aligned}
+					f(x+2a) &= f((x+a)+a) \\ &= \pm\frac{1}{f(x+a)} \\ &= \pm\frac{1}{\pm\frac{1}{f(x)}} \\ &= f(x).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 连续两次应用倒数条件，无论正负，复合后均恢复原函数值，因此$2|a|$是周期。
+		\item[\textbf{步骤四（差值平移型）：}]
+			已知$f(x+a)=f(x+b)$（$a\neq b$）。令$t=x+b$，则$x=t-b$，代入得：
+			\[
+				f(t+a-b)=f(t).
+			\]
+			\par\textbf{理由：} 变量代换将两个不同平移的等式转化为标准形式$f(t+(a-b))=f(t)$，因此$|a-b|$是$f$的一个周期。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	以上四个步骤分别证明了输入中给出的四种常见周期判定结论。注意最终周期均取绝对值，且定义域平移不变性是所有结论成立的前提。在实际解题中，可根据条件形式直接套用相应周期公式。
+\end{proofbox}
