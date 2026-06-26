@@ -1,0 +1,42 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+	两段函数方向一致，且在分界点上左段终点不超过右段起点，整体才能单调。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（段内单调性）：}] 每一段必须在各自区间内单调递增（或递减），否则整体不可能单调。
+		\item[\textbf{要点二（衔接不等式）：}] 在分界点 $x_0$ 处，左段终值 $g(x_0)$ 与右段极限 $\lim_{x\to x_0^+}h(x)$ 必须满足递增时 $g(x_0)\le \lim_{x\to x_0^+}h(x)$，递减时反向。
+		\item[\textbf{要点三（极限与函数值）：}] 衔接不等式中必须使用右极限 $\lim_{x\to x_0^+}h(x)$；即使 $h(x)$ 表达式在 $x_0$ 处可代入，也需注意 $x_0$ 是否在定义域内。若 $h$ 在 $x_0$ 处有定义且连续，极限等于函数值，条件可简化为 $g(x_0)\le h(x_0)$ 等。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（光滑拼接）}}
+
+	整体单调的几何要求是在整个定义域上，函数图象从左到右持续上升（或下降），不能有局部的回落。分段函数的分界点处，左段终点和右段起点必须保持趋势，不能出现左高右低（单调递增时）或左低右高（递减时）。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（定义检验）}}
+
+	由函数单调性的定义，对任意 $x_1<x_2$，应有 $f(x_1)\le f(x_2)$（递增）。分段情形需要验证当 $x_1,x_2$ 落在同一段或跨段时都成立。跨段时，必然有 $x_1\le x_0<x_2$，此时 $f(x_1)=g(x_1)$，$f(x_2)=h(x_2)$。由段内单调性及 $g(x_1)\le g(x_0)$ 和 $\lim_{x\to x_0^+}h(x)\le h(x_2)$，结合衔接条件 $g(x_0)\le\lim_{x\to x_0^+}h(x)$ 可得 $f(x_1)\le f(x_2)$。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（高频选择题）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（求参范围）：} 已知分段函数在 $\mathbb{R}$ 上单调，求参数取值范围。通常需要同时满足段内单调性和衔接不等式。
+		\item \textbf{考法二（判断单调性）：} 判断已知分段函数的整体单调性，需要检查每条段单调性和分界点处关系。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	分界点处不等号方向直接影响整体单调：很多同学只考虑段内单调，忘记对比左右极限，导致错误。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（含参分段）：} 题目给出分段函数含参数，要求函数在 $\mathbb{R}$ 上单调递增（或递减），求参数取值范围。
+		\item \textbf{场景二（自定义分段）：} 自己构造分段函数实现指定单调性时，需确保接口处条件。
+	\end{itemize}
+\end{explanationbox}

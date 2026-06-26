@@ -1,0 +1,34 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	证明分为必要性（$\Rightarrow$）和充分性（$\Leftarrow$）两部分。必要性由整体单调推出各段单调和衔接不等式；充分性由各段单调和衔接不等式推出整体单调。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（必要性段内）：}]
+			对任意 $x_1<x_2\le x_0$，由 $f$ 整体单调递增得 $f(x_1)\le f(x_2)$，即 $g(x_1)\le g(x_2)$，故 $g$ 在 $(-\infty,x_0]$ 上单调递增。同理，对任意 $x_0<x_1<x_2$，得 $h(x_1)\le h(x_2)$，故 $h$ 在 $(x_0,+\infty)$ 上单调递增。
+			\par\textbf{理由：} 整体单调限制在子区间上必然保持单调性。
+
+		\item[\textbf{步骤二（必要性衔接）：}]
+			对任意 $x_1\le x_0<x_2$，由 $f$ 整体单调递增得 $g(x_1)\le h(x_2)$。取 $x_1=x_0$，得 $g(x_0)\le h(x_2)$ 对所有 $x_2>x_0$ 成立。令 $x_2\to x_0^+$，取极限得 $g(x_0)\le\displaystyle\lim_{x\to x_0^+}h(x)$。故衔接条件成立。
+			\par\textbf{理由：} 整体单调性迫使跨段不等式成立，极限保持不等号方向。
+
+		\item[\textbf{步骤三（充分性同段）：}]
+			设 $g$ 在 $(-\infty,x_0]$ 上单调递增，$h$ 在 $(x_0,+\infty)$ 上单调递增，且 $g(x_0)\le\lim_{x\to x_0^+}h(x)$。若 $x_1<x_2\le x_0$，则 $g(x_1)\le g(x_2)$，即 $f(x_1)\le f(x_2)$；若 $x_0<x_1<x_2$，则 $h(x_1)\le h(x_2)$，即 $f(x_1)\le f(x_2)$。
+			\par\textbf{理由：} 各子段上的单调性直接保证同段内不等式。
+
+		\item[\textbf{步骤四（充分性跨段）：}]
+			若 $x_1\le x_0<x_2$，由 $g$ 单调递增得 $g(x_1)\le g(x_0)$；由 $h$ 单调递增得 $\lim_{x\to x_0^+}h(x)\le h(x_2)$（因为递增函数在 $x_0$ 右侧的值不小于右极限）。衔接条件 $g(x_0)\le\lim_{x\to x_0^+}h(x)$，因此
+			\[
+				f(x_1)=g(x_1)\le g(x_0)\le\lim_{x\to x_0^+}h(x)\le h(x_2)=f(x_2).
+			\]
+			故 $f(x_1)\le f(x_2)$。从而 $f$ 在 $\mathbb{R}$ 上单调递增。
+			\par\textbf{理由：} 利用段内单调性和衔接条件实现大小传递。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	以上证明了 $f$ 整体单调递增的充要条件是：$g$ 与 $h$ 各自单调递增，且 $g(x_0)\le\lim_{x\to x_0^+}h(x)$。将不等号反向即得单调递减的充要条件。
+\end{proofbox}

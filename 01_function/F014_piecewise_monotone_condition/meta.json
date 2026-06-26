@@ -1,0 +1,181 @@
+{
+  "id": "F014",
+  "module": "function",
+  "core": {
+    "title": "分段函数整体单调充要条件",
+    "alias": [
+      "分段单调充要条件",
+      "整体单调条件",
+      "分段函数单调性求参数范围",
+      "分段函数递增递减条件"
+    ],
+    "summary": "分段函数单调递增要求每段递增且在分界点处左端值≤右端极限；递减相反。",
+    "difficulty": 2,
+    "category": "函数",
+    "tags": [
+      "分段函数",
+      "函数单调性",
+      "充要条件",
+      "参数范围",
+      "单调性求参"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "分段函数",
+      "整体单调",
+      "充要条件",
+      "单调递增",
+      "单调递减",
+      "分界点",
+      "左段",
+      "右段",
+      "极限",
+      "参数范围",
+      "g(x0)≤lim h(x)",
+      "递减反向",
+      "分段单调性",
+      "衔接不等式",
+      "递增条件"
+    ],
+    "synonyms": [
+      "分段函数单调性判断",
+      "分段函数递增递减条件",
+      "分段函数参数范围",
+      "分段函数单调性求a",
+      "分段函数恒单调"
+    ],
+    "intents": [
+      "求参数范围",
+      "判断单调性",
+      "证明整体单调",
+      "确定参数取值",
+      "验证单调性"
+    ],
+    "query_templates": [
+      "分段函数什么时候单调递增",
+      "分段函数单调递增求参数",
+      "分段函数单调递减条件",
+      "分段函数整体单调例题",
+      "分段函数分界点不等式"
+    ],
+    "ocrKeywords": [
+      "已知函数f(x)=...在R上单调递增",
+      "分段函数",
+      "单调递增",
+      "求a的取值范围",
+      "分界点",
+      "g(x0)≤h(x0)"
+    ],
+    "latex_patterns": [
+      "f(x)=\\begin{cases} g(x), & x\\le x_0 \\\\ h(x), & x>x_0 \\end{cases}",
+      "g(x_0)\\le \\lim\\limits_{x\\to x_0^+} h(x)",
+      "g(x_0)\\ge \\lim\\limits_{x\\to x_0^+} h(x)"
+    ],
+    "formulaTokens": [
+      "f(x)=\\begin{cases} g(x) & x\\le x_0 \\\\ h(x) & x>x_0 \\end{cases}",
+      "g(x_0)\\le \\lim\\limits_{x\\to x_0^+} h(x)",
+      "g(x_0)\\ge \\lim\\limits_{x\\to x_0^+} h(x)",
+      "g(x)在(-\\infty,x_0]上单调递增",
+      "h(x)在(x_0,+\\infty)上单调递增",
+      "a>1",
+      "a\\le3",
+      "1<a\\le3",
+      "a\\ge3"
+    ],
+    "pinyin": "fenduan hanshu zhengti dandiao tiaojian",
+    "pinyinAbbr": "fdhs ztdd tj"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.72,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "f(x)\\text{在}\\mathbb{R}\\text{上单调递增}\\iff\\begin{cases}g(x)\\text{在}(-\\infty,x_0]\\text{上单调递增},\\\\ h(x)\\text{在}(x_0,+\\infty)\\text{上单调递增},\\\\ g(x_0)\\le\\displaystyle\\lim_{x\\to x_0^+}h(x).\\end{cases}",
+    "related_formulas": [
+      "f(x)\\text{在}\\mathbb{R}\\text{上单调递减}\\iff\\begin{cases}g(x)\\text{在}(-\\infty,x_0]\\text{上单调递减},\\\\ h(x)\\text{在}(x_0,+\\infty)\\text{上单调递减},\\\\ g(x_0)\\ge\\displaystyle\\lim_{x\\to x_0^+}h(x).\\end{cases}"
+    ],
+    "variables": [
+      "$f(x)$",
+      "$g(x)$",
+      "$h(x)$",
+      "$x_0$",
+      "$a$"
+    ],
+    "conditions": "函数 $f(x)$ 分段定义为 $f(x)=\\begin{cases}g(x), & x\\le x_0,\\\\ h(x), & x>x_0\\end{cases}$；各分段在各自子区间上单调方向一致；在分界点 $x_0$ 处，左段终点与右段起点极限满足大小关系：递增时 $g(x_0)\\le \\displaystyle\\lim_{x\\to x_0^+}h(x)$，递减时 $g(x_0)\\ge \\displaystyle\\lim_{x\\to x_0^+}h(x)$。",
+    "conclusions": "若满足上述条件，则 $f(x)$ 在 $\\mathbb{R}$ 上整体单调（递增或递减）。可用于求参数范围时建立不等式组。"
+  },
+  "content": {
+    "statement": "分段函数 $f(x)=\\begin{cases}g(x)&x\\le x_0\\\\h(x)&x>x_0\\end{cases}$ 在 $\\mathbb{R}$ 上单调递增的充要条件是：$g$ 在 $(-\\infty,x_0]$ 递增，$h$ 在 $(x_0,+\\infty)$ 递增，且 $g(x_0)\\le\\displaystyle\\lim_{x\\to x_0^+}h(x)$；单调递减时条件类似，不等号反向。",
+    "derivation": [
+      "必要性：整体单调则各段必须单调，且分界点处若左端值大于右端极限（递增时）则会出现 $x_1<x_0<x_2$ 但 $f(x_1)>f(x_2)$，故大小关系必成立。",
+      "充分性：各段单调且衔接满足大小关系，对任意 $x_1<x_2$，分三种情况（同在左段、同右段、跨分界点）均可推出 $f(x_1)\\le f(x_2)$，从而整体单调。"
+    ],
+    "intuition": "区间内单调保证局部，分界点处大小关系保证整体不出现下降（递增时左段最大值≤右段最小值），从而整体单调。",
+    "common_tricks": [
+      "先判断每段单调性，确定参数对斜率/指数底数等的影响。",
+      "在分界点处正确使用不等式：注意右段可能不含分界点，要用右极限，勿直接用$h(x_0)$。",
+      "递减时不等号方向相反，易错为同向。",
+      "若右段在分界点有定义且连续，则极限值等于函数值，可简化条件。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "含参数分段函数单调性求参",
+      "判断给定分段函数的整体单调性",
+      "证明分段函数单调性"
+    ],
+    "problem_types": [
+      "参数范围题",
+      "单调性判断题"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": ""
+  },
+  "shareConfig": {
+    "title": "分段函数整体单调充要条件：参数范围速解",
+    "shareDesc": "适合讲评课和考前回顾，集中解决分段函数单调性求参数的易错点，利用衔接不等式快速确定参数范围。"
+  },
+  "relations": {
+    "prerequisites": [
+      "函数单调性",
+      "分段函数",
+      "极限（右极限）"
+    ],
+    "related_ids": [],
+    "similar": [
+      "函数连续性与单调性",
+      "分式函数单调性求参",
+      "指数对数函数单调性"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-26"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "函数-性质-单调性",
+  "altNodes": [
+    "函数-综合-函数与不等式",
+    "函数-特殊函数-指数函数",
+    "函数-特殊函数-对数函数"
+  ]
+}

@@ -3221,3 +3221,70 @@ ID 预览: F012
 [2026-06-26 11:22:48] [latex] Generating LaTeX for F013...
 [2026-06-26 11:23:21] [write] source.tex updated from 12_pipeline\generated_sources\F013.tex (909 chars)
 [2026-06-26 11:23:21] [pipeline] Running run_source_to_pdf.py 01_function --target-id F013...
+[2026-06-26 11:44:03] [publish] PDF_READY confirmed for F013; deployment is allowed
+[2026-06-26 11:44:03] [publish] Running incremental_publish.py for F013...
+[2026-06-26 11:44:47] [done] F013 -> F013: complete
+[2026-06-26 11:44:50] 
+[2026-06-26 11:44:50] ============================================================
+[2026-06-26 11:44:50] [progress] 9/73: F014 | F014 | 分段函数单调性：每段单调且衔接点满足大小关系 | 教材必修一/高考真题 |
+[2026-06-26 11:44:50] ============================================================
+[2026-06-26 11:44:50] [start] F014: 01_function:35 | F014 | 分段函数单调性：每段单调且衔接点满足大小关系 | 教材必修一/高考真题 |
+[2026-06-26 11:44:50] [latex] Generating LaTeX for F014...
+[2026-06-26 11:46:44] [write] source.tex updated from 12_pipeline\generated_sources\F014.tex (962 chars)
+[2026-06-26 11:46:44] [pipeline] Running run_source_to_pdf.py 01_function --target-id F014...
+[2026-06-26 12:14:20] [fail] F014: Pipeline failed (rc=1):  stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=540.8s timeout=180s
+2026-06-26 12:12:54,177 - INFO - [progress] item=F014 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=570.8s timeout=180s
+2026-06-26 12:13:24,206 - INFO - [progress] item=F014 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=600.9s timeout=180s
+2026-06-26 12:13:38,278 - INFO - [PERF_TRACE] {"event": "perf_trace", "step": "l4_check", "model": "deepseek-v4-pro", "prompt_chars": 15069, "payload_chars": 11792, "response_chars": 10575, "request_start_ts": "2026-06-26T12:03:23.337", "request_end_ts": "2026-06-26T12:13:38.276", "llm_roundtrip_ms": 614939.03, "network_wait_ms": 614939.03, "prompt_tokens": 7506, "completion_tokens": 56235, "total_tokens": 63741, "json_parse_ms": 1.44, "validate_ms": 0.01, "retry_count": 0, "timeout_value": 180, "thinking_enabled": true, "reasoning_effort": "max"}
+2026-06-26 12:13:38,286 - INFO - [stage/done] item=F014 stage=L4_CHECK mode=run elapsed=614.95s
+2026-06-26 12:13:38,286 - INFO - [stage/start] item=F014 stage=L4_EXPORT mode=run
+2026-06-26 12:13:38,296 - INFO - F014 L4 导出 tex 片段: 6 个
+2026-06-26 12:13:38,297 - INFO - [stage/done] item=F014 stage=L4_EXPORT mode=run elapsed=0.01s
+2026-06-26 12:13:38,297 - INFO - [stage/start] item=F014 stage=L5 mode=run
+2026-06-26 12:13:38,407 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-26 12:14:08,326 - INFO - [progress] item=F014 stage=L5 model=deepseek-v4-flash attempt=1/3 retry_count=0 waited=30.0s timeout=180s
+2026-06-26 12:14:10,871 - WARNING - F014 L5 id 已纠正: 'F001' -> 'F014'
+2026-06-26 12:14:10,877 - INFO - [stage/done] item=F014 stage=L5 mode=run elapsed=32.58s
+2026-06-26 12:14:10,877 - INFO - F014 L6 缓存无 prompt 指纹记录，判定缓存失效并重跑。
+2026-06-26 12:14:10,877 - INFO - [stage/start] item=F014 stage=L6 mode=run
+2026-06-26 12:14:10,960 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-26 12:14:12,757 - INFO - [stage/done] item=F014 stage=L6 mode=run elapsed=1.88s note=dirname=F014_piecewise_monotone_condition
+
+Processing Pipeline:   0%|          | 0/1 [27:24<?, ?it/s, success=1, error=0, skipped=0]
+Processing Pipeline: 100%|██████████| 1/1 [27:24<00:00, 1644.53s/it, success=1, error=0, skipped=0]
+Processing Pipeline: 100%|██████████| 1/1 [27:24<00:00, 1644.53s/it, success=1, error=0, skipped=0]
+2026-06-26 12:14:12,774 - INFO - 
+\u2705 任务结束: {'success': 1, 'error': 0, 'skipped': 0}
+2026-06-26 12:14:12,774 - INFO - \u23f1 总耗时: 1644.54s
+========== Pipeline 发布 ==========
+模式: full
+dry-run: no | verbose: no
+ID 数量: 1
+ID 预览: F014
+===================================
+
+[F014] 开始
+[F014] 目标: 01_function/F014_piecewise_monotone_condition
+[F014] 目录命名: 使用 L6 产物
+[F014] 讲义文件: 已发布 6 个
+[F014] meta.json: 已同步
+[F014] source.tex: 已拷贝
+[F014] main.tex: 已生成
+[F014] index.tex: 已追加入口
+[F014] 完成
+
+============= 发布汇总 =============
+总计: 1
+成功: 1
+失败: 0
+警告: 0
+===================================
+
+[2026-06-26 12:14:23] 
+[2026-06-26 12:14:23] ============================================================
+[2026-06-26 12:14:23] [progress] 10/73: F015 | F015 | 函数奇偶性判定步骤（先看定义域是否关于原点对称） | 教材必修一 |
+[2026-06-26 12:14:23] ============================================================
+[2026-06-26 12:14:23] [start] F015: 01_function:36 | F015 | 函数奇偶性判定步骤（先看定义域是否关于原点对称） | 教材必修一 |
+[2026-06-26 12:14:23] [latex] Generating LaTeX for F015...
+[2026-06-26 12:14:36] [write] source.tex updated from 12_pipeline\generated_sources\F015.tex (754 chars)
+[2026-06-26 12:14:36] [pipeline] Running run_source_to_pdf.py 01_function --target-id F015...

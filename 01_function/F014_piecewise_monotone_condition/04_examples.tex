@@ -1,0 +1,69 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	已知函数 $f(x)=
+	\begin{cases}
+		(a-1)x+2, & x\le 1,\\ 3x+1, & x>1
+	\end{cases}
+	$ 在 $\mathbb{R}$ 上单调递增，求实数 $a$ 的取值范围。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（检查段内）：}]
+			分析每段单调性。若整体递增，各分段必须在各自区间上单调递增。
+			\par\textbf{理由：} 整体单调递增的必要条件是每段单调递增。 对于 $g(x)=(a-1)x+2\ (x\le1)$，直线递增需斜率 $a-1>0$，得 $a>1$。 对于 $h(x)=3x+1\ (x>1)$，斜率 $3>0$，递增自动满足。
+		\item[\textbf{第二步（衔接不等式）：}]
+			在分界点 $x=1$ 处，需满足 $g(1)\le\lim_{x\to1^+}h(x)$。
+			\par\textbf{理由：} 由整体递增充要条件，左段终点值不大于右段起点极限。 计算得 $g(1)=(a-1)\cdot1+2=a+1$，$\lim_{x\to1^+}h(x)=3\cdot1+1=4$。 故 $a+1\le4$，即 $a\le3$。
+		\item[\textbf{第三步（综合取值）：}]
+			取 $a>1$ 与 $a\le3$ 的交集。
+			\par\textbf{理由：} 必须同时满足段内单调和衔接条件。 因此 $a$ 的取值范围是 $(1,3]$。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$1<a\le3$}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	已知 $f(x)=
+	\begin{cases}
+		-2x+a, & x\le 0,\\ -x+3, & x>0
+	\end{cases}
+	$ 在 $\mathbb{R}$ 上单调递减，求实数 $a$ 的取值范围。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（检查段内）：}]
+			检查各段是否单调递减。
+			\par\textbf{理由：} 整体递减要求各分段也递减。 $g(x)=-2x+a$ 斜率 $-2<0$，在 $(-\infty,0]$ 上递减。 $h(x)=-x+3$ 斜率 $-1<0$，在 $(0,+\infty)$ 上递减。均满足。
+		\item[\textbf{第二步（衔接反向）：}]
+			递减时衔接不等式反向：$g(0)\ge\lim_{x\to0^+}h(x)$。
+			\par\textbf{理由：} 整体递减充要条件中，左端值不小于右端极限。 计算 $g(0)=a$，$\lim_{x\to0^+}h(x)=3$。 故 $a\ge3$。
+		\item[\textbf{第三步（综合取值）：}]
+			段内已自动满足，只需 $a\ge3$。
+			\par\textbf{理由：} 衔接条件已包含所有限制。 所以 $a$ 的取值范围是 $[3,+\infty)$。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$a\ge3$}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	设 $f(x)=
+	\begin{cases}
+		a\cdot3^x, & x\le 0,\\ \ln(x+1)+b, & x>0
+	\end{cases}
+	$ 在 $\mathbb{R}$ 上单调递增，求实数 $a,b$ 满足的条件。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（段内条件）：}]
+			确定每段单调递增的参数条件。
+			\par\textbf{理由：} 整体递增要求各段递增。 $g(x)=a\cdot3^x$ 在 $(-\infty,0]$ 上递增 $\iff a>0$（$3^x>0$ 且递增，乘以正数保持递增）。 $h(x)=\ln(x+1)+b$ 在 $x>0$ 上，$\ln(x+1)$ 递增，故 $h$ 递增恒成立（与 $b$ 无关）。
+		\item[\textbf{第二步（衔接条件）：}]
+			在 $x=0$ 处需满足 $g(0)\le\lim_{x\to0^+}h(x)$。
+			\par\textbf{理由：} 整体递增充要条件中的衔接不等式。 计算 $g(0)=a\cdot3^0=a$，$\lim_{x\to0^+}h(x)=\ln1+b=b$，故 $a\le b$。
+		\item[\textbf{第三步（综合结果）：}]
+			同时满足 $a>0$ 和 $a\le b$。
+			\par\textbf{理由：} 段内条件与衔接条件必须同时成立。 因此 $a>0$ 且 $b\ge a$。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$a>0$ 且 $b\ge a$}
+\end{examplebox}
