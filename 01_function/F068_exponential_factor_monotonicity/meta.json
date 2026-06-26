@@ -1,0 +1,185 @@
+{
+  "id": "F068",
+  "module": "function",
+  "core": {
+    "title": "构造函数 f(x) 转化 f'(x)+f(x) 符号判单调",
+    "alias": [
+      "指数型构造函数",
+      "f'(x)+f(x)型构造",
+      "e^x f(x)法"
+    ],
+    "summary": "当条件出现 f'(x)+f(x) 时，构造 F(x)=e^x f(x)，利用其导数符号判断 F(x) 单调性，从而转化问题。",
+    "difficulty": 3,
+    "category": "导数",
+    "tags": [
+      "导数",
+      "构造函数",
+      "单调性",
+      "指数函数",
+      "f'(x)+f(x)型"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "构造函数",
+      "e^x f(x)",
+      "f'(x)+f(x)",
+      "乘积求导",
+      "导数单调性",
+      "指数型构造",
+      "常数函数",
+      "严格递增",
+      "严格递减",
+      "F(x)=e^x f(x)",
+      "F'(x)=e^x[f'(x)+f(x)]",
+      "e^{kx}推广",
+      "单调性转化"
+    ],
+    "synonyms": [
+      "指数乘函数构造",
+      "乘e的x次方",
+      "f'加f构造",
+      "e的x次方法",
+      "指数构造法"
+    ],
+    "intents": [
+      "判断单调性",
+      "证明不等式",
+      "求解析式",
+      "利用导数符号",
+      "构造辅助函数",
+      "确定常数"
+    ],
+    "query_templates": [
+      "怎么构造e^x f(x)函数",
+      "f'(x)+f(x)>0判断单调性",
+      "用e^x构造导数题",
+      "f'(x)+f(x)=0求解析式",
+      "导数构造e^{kx}"
+    ],
+    "ocrKeywords": [
+      "可导",
+      "f'(x)+f(x)",
+      "构造",
+      "单调递增",
+      "单调递减",
+      "常数"
+    ],
+    "latex_patterns": [
+      "F(x)=e^{x}f(x)",
+      "F'(x)=e^{x}[f'(x)+f(x)]",
+      "e^{kx}f(x)"
+    ],
+    "formulaTokens": [
+      "e^{x}",
+      "f'(x)+f(x)",
+      "e^{kx}",
+      "f'(x)+kf(x)",
+      "F(x)=e^{x}f(x)",
+      "F'(x)=e^{x}[f'(x)+f(x)]"
+    ],
+    "pinyin": "gou zao han shu e^x f(x) yu f'(x)+f(x) dan diao xing",
+    "pinyinAbbr": "GZHS"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.86,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "F'(x)=e^{x}[f'(x)+f(x)]",
+    "related_formulas": [
+      "F'(x)>0 \\Leftrightarrow f'(x)+f(x)>0",
+      "G(x)=e^{kx}f(x),\\quad G'(x)=e^{kx}[f'(x)+kf(x)]"
+    ],
+    "variables": [
+      "x",
+      "f(x)",
+      "F(x)",
+      "k",
+      "I"
+    ],
+    "conditions": [
+      "$f(x)$ 在区间 $I$ 上可导。",
+      "$e^x>0$ 恒成立。",
+      "构造 $F(x)=e^x f(x)$。"
+    ],
+    "conclusions": [
+      "$F'(x)=e^x[f'(x)+f(x)]$。",
+      "若在 $I$ 上恒有 $f'(x)+f(x)>0$，则 $F(x)$ 严格递增。",
+      "若在 $I$ 上恒有 $f'(x)+f(x)<0$，则 $F(x)$ 严格递减。",
+      "若在 $I$ 上恒有 $f'(x)+f(x)=0$，则 $F(x)$ 为常数。",
+      "更一般地，构造 $G(x)=e^{kx}f(x)$，则 $G'(x)=e^{kx}[f'(x)+kf(x)]$。"
+    ]
+  },
+  "content": {
+    "statement": "设 $f(x)$ 在区间 $I$ 上可导，构造函数 $F(x)=e^x f(x)$，则 $F'(x)=e^x[f'(x)+f(x)]$。因此 $F(x)$ 的单调性由 $f'(x)+f(x)$ 的符号决定：若 $f'(x)+f(x)>0$，则 $F(x)$ 严格递增；若 $f'(x)+f(x)<0$，则 $F(x)$ 严格递减；若 $f'(x)+f(x)=0$，则 $F(x)$ 为常数。",
+    "derivation": [
+      "对 $F(x)=e^x f(x)$ 求导得 $F'(x)=e^x f(x)+e^x f'(x)=e^x[f'(x)+f(x)]$。",
+      "由于 $e^x>0$ 恒成立，$F'(x)$ 的符号与 $f'(x)+f(x)$ 相同。",
+      "根据导数符号与单调性关系：$F'(x)>0$ 时 $F$ 递增，$F'(x)<0$ 时递减，$F'(x)=0$ 时为常数。"
+    ],
+    "intuition": "乘积求导后，指数部分保留，导数变为原函数和其导数的和，符号由括号内决定，因为 e^x 始终为正。",
+    "common_tricks": [
+      "若条件为 $f'(x)+f(x)>0$，则构造 $e^x f(x)$ 并判断单调递增。",
+      "若条件为 $f'(x)-f(x)$，则应构造 $e^{-x}f(x)$。",
+      "常数因子 $k$ 对应构造 $e^{kx}$，导数出现 $f'(x)+kf(x)$。",
+      "注意区分 $e^x f(x)$ 和 $f(x)$ 的单调性，$f'(x)+f(x)$ 符号影响的是 $F(x)$ 而非 $f(x)$。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "导数压轴题",
+      "证明不等式",
+      "求函数解析式",
+      "单调性判断"
+    ],
+    "problem_types": [
+      "构造函数型",
+      "导数符号判断",
+      "利用单调性证明不等式"
+    ],
+    "exam_frequency": 0.9,
+    "exam_score": 8
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "F068.svg"
+  },
+  "shareConfig": {
+    "title": "构造函数 e^x f(x) 转化 f'(x)+f(x) 符号判单调",
+    "shareDesc": "用于导数压轴题课前复盘和刷题前速查，将 f'(x)+f(x) 符号转化为 e^x f(x) 单调性，减少一步推导，提升解题稳定性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "导数与单调性关系",
+      "乘积求导法则",
+      "指数函数性质"
+    ],
+    "related_ids": [],
+    "similar": "构造 e^{-x} f(x) 解决 f'(x)-f(x) 型；构造 x f(x) 解决 f(x)+x f'(x) 型。"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "函数-性质-单调性",
+  "altNodes": [
+    "函数-特殊函数-指数函数",
+    "函数-综合-函数与方程"
+  ]
+}

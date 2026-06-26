@@ -1,0 +1,38 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用乘积求导公式 $(uv)'=u'v+uv'$，取 $u=e^x$，$v=f(x)$，得 $F'(x)=e^x f'(x)+e^x f(x)$，整理得 $F'(x)=e^x[f'(x)+f(x)]$。因为 $e^x>0$ 恒成立，所以 $F'(x)$ 与 $f'(x)+f(x)$ 同号，从而单调性由后者符号决定。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（求导表达）：}] 定义 $F(x)=e^{x}f(x)$，对其求导：
+			\[
+				\begin{aligned}
+					F'(x) &= (e^{x})'f(x) + e^{x}f'(x) \\
+					&= e^{x}f(x) + e^{x}f'(x) \\
+					&= e^{x}[f'(x)+f(x)]
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 应用乘积法则 $(uv)'=u'v+uv'$，其中 $u=e^x$，$v=f(x)$。
+
+		\item[\textbf{步骤二（符号传递）：}] 由于指数函数 $e^{x}>0$ 对所有 $x\in I$ 成立，故 $F'(x)$ 的符号完全由 $f'(x)+f(x)$ 确定：
+			\[
+				\operatorname{sgn}[F'(x)] = \operatorname{sgn}[f'(x)+f(x)]
+			\]
+			\par\textbf{理由：} $e^x>0$ 乘以一个正（负）数结果仍为正（负），且不改变零值。
+
+		\item[\textbf{步骤三（单调归纳）：}] 根据导数与函数单调性的关系：
+			\begin{itemize}
+			\item 若在 $I$ 上 $f'(x)+f(x)>0$，则 $F'(x)>0$，故 $F(x)$ 严格递增；
+			\item 若在 $I$ 上 $f'(x)+f(x)<0$，则 $F'(x)<0$，故 $F(x)$ 严格递减；
+			\item 若在 $I$ 上 $f'(x)+f(x)=0$，则 $F'(x)=0$，故 $F(x)$ 为常数。
+		\end{itemize}
+			\par\textbf{理由：} 导数大于零函数严格递增，小于零严格递减，恒等于零则为常数（若区间连通）。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	因此，构造 $e^x f(x)$ 后，其单调性直接反映 $f'(x)+f(x)$ 的符号，这为处理含有 $f'(x)+f(x)$ 的条件提供了转化工具。
+\end{proofbox}

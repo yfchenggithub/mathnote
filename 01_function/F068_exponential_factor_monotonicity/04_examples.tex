@@ -1,0 +1,81 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	设 $f(x)$ 在 $\mathbb{R}$ 上可导，且对任意 $x\in\mathbb{R}$ 都有 $f'(x)+f(x) > 0$。判断函数 $F(x)=e^{x}f(x)$ 的单调性。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（求导表达）：}] 对 $F(x)=e^{x}f(x)$ 求导：
+			\[
+				\begin{aligned}
+					F'(x) &= e^{x}f'(x) + e^{x}f(x) \\
+					&= e^{x}[f'(x)+f(x)].
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 由乘积求导法则 $(uv)'=u'v+uv'$。
+
+		\item[\textbf{第二步（符号判定）：}] 已知 $e^{x}>0$ 恒成立，且 $f'(x)+f(x)>0$，故
+			\[
+				F'(x) = e^{x}[f'(x)+f(x)] > 0.
+			\]
+			\par\textbf{理由：} 正数乘以正数仍为正数。
+
+		\item[\textbf{第三步（单调结论）：}] 由导数大于零，得 $F(x)$ 在 $\mathbb{R}$ 上严格递增。
+			\par\textbf{理由：} 若 $F'(x)>0$ 在区间上恒成立，则函数在该区间上严格单调递增。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$F(x)=e^{x}f(x)$ 是 $\mathbb{R}$ 上的严格增函数。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知 $f(x)$ 在 $\mathbb{R}$ 上可导，且满足 $f'(x)+f(x)=0$，$f(0)=1$。求 $f(x)$ 的解析式。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（构造求导）：}] 令 $F(x)=e^{x}f(x)$，求导得
+			\[
+				F'(x)=e^{x}[f'(x)+f(x)].
+			\]
+			\par\textbf{理由：} 乘积求导法则。
+
+		\item[\textbf{第二步（常数推断）：}] 代入 $f'(x)+f(x)=0$，得 $F'(x)=0$，故 $F(x)$ 为常数，设 $F(x)=C$。
+			\par\textbf{理由：} 若函数在某区间上导数恒为零，则该函数在该区间上为常数。
+
+		\item[\textbf{第三步（代值求解）：}] 由 $f(0)=1$ 得 $F(0)=e^{0}f(0)$，计算得 $F(0)=1$。因为 $F(x)=C$ 为常数，所以 $C=1$，即 $e^{x}f(x)=1$，解得 $f(x)=e^{-x}$。
+			\par\textbf{理由：} 利用初始条件确定常数，再解出 $f(x)$。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$f(x)=e^{-x}$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知 $f(x)$ 在 $[0,+\infty)$ 上可导，且 $f'(x)+f(x)\ge 0$，$f(0)=1$。求证：对任意 $x\ge 0$ 有 $f(x)\ge e^{-x}$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（构造求导）：}] 构造 $F(x)=e^{x}f(x)$，则
+			\[
+				F'(x)=e^{x}[f'(x)+f(x)].
+			\]
+			\par\textbf{理由：} 乘积求导法则。
+
+		\item[\textbf{第二步（符号转化）：}] 由 $f'(x)+f(x)\ge 0$ 且 $e^{x}>0$ 得 $F'(x)\ge 0$，故 $F(x)$ 在 $[0,+\infty)$ 上单调递增（非严格）。
+			\par\textbf{理由：} 导数非负则函数不减。
+
+		\item[\textbf{第三步（单调应用）：}] 由单调性，对任意 $x\ge 0$ 有 $F(x)\ge F(0)$，而 $F(0)=e^{0}f(0)=1$，所以
+			\[
+				e^{x}f(x)\ge 1 \quad\Rightarrow\quad f(x)\ge e^{-x}.
+			\]
+			\par\textbf{理由：} 利用递增函数在区间右端的函数值不小于左端函数值，再除以正数 $e^{x}$。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{不等式 $f(x)\ge e^{-x}$ 得证。}
+\end{examplebox}
