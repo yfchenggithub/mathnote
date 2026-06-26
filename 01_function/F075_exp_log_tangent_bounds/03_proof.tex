@@ -1,0 +1,33 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	通过构造函数差，利用导数研究函数的最值，可证明每个不等式成立。三个不等式的证明思路一致，但注意定义域差异。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（对数放缩证明）：}]
+			\[
+				f(x)=\ln x-x+1 \ (x>0),\quad f'(x)=\frac{1}{x}-1=\frac{1-x}{x}.
+			\]
+			\par\textbf{理由：} 当 $0<x<1$ 时 $f'(x)>0$，函数单调递增；当 $x>1$ 时 $f'(x)<0$，函数单调递减。故 $f(x) \le f(1)=0$，即 $\ln x \le x-1$，等号在 $x=1$ 时取得。
+
+		\item[\textbf{步骤二（指数放缩一证明）：}]
+			\[
+				g(x)=e^x-x-1 \ (x\in\mathbb{R}),\quad g'(x)=e^x-1.
+			\]
+			\par\textbf{理由：} 当 $x<0$ 时 $g'(x)<0$，函数单调递减；当 $x>0$ 时 $g'(x)>0$，函数单调递增。故 $g(x) \ge g(0)=0$，即 $e^x \ge x+1$，等号在 $x=0$ 时取得。
+
+		\item[\textbf{步骤三（指数放缩二证明）：}]
+			\[
+				h(x)=e^x-ex \ (x\in\mathbb{R}),\quad h'(x)=e^x-e.
+			\]
+			\par\textbf{理由：} 当 $x<1$ 时 $h'(x)<0$，函数单调递减；当 $x>1$ 时 $h'(x)>0$，函数单调递增。故 $h(x) \ge h(1)=0$，即 $e^x \ge ex$，等号在 $x=1$ 时取得。
+
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{综上，三个基本放缩不等式均成立。将第1个与第2个结合，对 $x>0$ 有 $e^x-\ln x \ge 2$，但因两式取等条件不同（$x=0$ 与 $x=1$），等号无法同时达到，实际 $e^x-\ln x >2$ 恒成立。}
+\end{proofbox}

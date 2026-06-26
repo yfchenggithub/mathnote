@@ -1,0 +1,57 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	求证：对任意实数 $x$，有 $e^{-x} \ge 1 - x$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（指数代换）：}] 令 $t=-x$，则原不等式化为 $e^{t} \ge 1 + t$。
+			\par\textbf{理由：} $e^{-x}=e^{t}$，$1-x=1+t$。
+		\item[\textbf{第二步（套用放缩）：}] 由基本不等式，对任意 $t\in\mathbb{R}$，有 $e^{t} \ge t+1$，等号当 $t=0$ 时取到。
+			\par\textbf{理由：} 指数函数切线放缩的核心结论。
+		\item[\textbf{第三步（还原结论）：}] 将 $t=-x$ 代回，即得 $e^{-x} \ge 1 - x$，等号当 $x=0$。
+			\par\textbf{理由：} 变量替换的逆过程。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	直接套用 $e^{t} \ge t+1$ 可使不等式得证，无需导数推导。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	求证：当 $x>0$ 时，$\ln(x+1) \le x$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（换元转化）：}] 设 $t=x+1>1$，则 $\ln(x+1)=\ln t$。
+			\par\textbf{理由：} 将表达式转化为标准对数形式。
+		\item[\textbf{第二步（套用放缩）：}] 由对数放缩，当 $t>0$ 时，$\ln t \le t-1$，等号当 $t=1$（即 $x=0$）时成立。
+			\par\textbf{理由：} 这是给定结论的直接应用。
+		\item[\textbf{第三步（回代判断）：}] 代入 $t=x+1$，得 $\ln(x+1) \le (x+1)-1 = x$，故原式成立。注意 $x>0$ 时 $t>1$，等号无法取到，实际为 $\ln(x+1)<x$。
+			\par\textbf{理由：} 代换后常数抵消，等号条件与 $x>0$ 不兼容。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	通过对数放缩 $\ln t \le t-1$ 的变量替换，可以快速得到 $\ln(x+1) \le x$ 的常见变式。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	求证：当 $x>0$ 时，$e^{x} - \ln x > 2$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（分别放缩）：}] 由已知，对 $x>0$ 有 $e^{x} \ge x+1$（等号仅当 $x=0$，故严格成立），且 $\ln x \le x-1$（等号当 $x=1$）。
+			\par\textbf{理由：} 两个基本放缩不等式，注意等号条件。
+		\item[\textbf{第二步（同向相加）：}] 将 $e^{x} \ge x+1$ 与 $-\ln x \ge -(x-1)$（即 $\ln x \le x-1$ 两边乘 $-1$）相加，得 $e^{x} - \ln x \ge 2$。
+			\par\textbf{理由：} 同向不等式可以相加。
+		\item[\textbf{第三步（分析取等）：}] $e^{x} \ge x+1$ 不能取等（因 $x>0$），$\ln x \le x-1$ 仅在 $x=1$ 取等，但二者无法同时实现，故实际 $e^{x} - \ln x > 2$。
+			\par\textbf{理由：} 叠加后等号不共存，推出严格不等式。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	将指数和对数放缩组合使用，能直接得到超越函数差的下界，且通过等号分析可加强为严格不等式。
+\end{examplebox}

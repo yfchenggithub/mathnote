@@ -1,0 +1,191 @@
+{
+  "id": "F075",
+  "module": "inequality",
+  "core": {
+    "title": "指数对数切线放缩不等式",
+    "alias": [
+      "切线放缩",
+      "指数放缩",
+      "对数放缩",
+      "导数放缩常用不等式",
+      "e^x≥x+1放缩"
+    ],
+    "summary": "利用函数在切点处的一阶泰勒展开，将指数对数函数放缩为一次函数，常用于导数压轴题中证明不等式或求参数范围。",
+    "difficulty": 2,
+    "category": "不等式/导数",
+    "tags": [
+      "导数放缩",
+      "切线放缩",
+      "不等式证明",
+      "指数对数",
+      "求参数范围",
+      "导数压轴"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "导数放缩",
+      "ln x ≤ x-1",
+      "e^x ≥ x+1",
+      "e^x ≥ ex",
+      "切线放缩",
+      "对数不等式",
+      "指数不等式",
+      "放缩法",
+      "不等式证明",
+      "求参数范围",
+      "导数压轴",
+      "e^x - ln x ≥ 2",
+      "等号条件",
+      "常用放缩"
+    ],
+    "synonyms": [
+      "放缩公式",
+      "指数对数放缩",
+      "切线不等式",
+      "ln放缩",
+      "ex放缩",
+      "e的x次方大于等于x加1",
+      "ln x小于等于x减1",
+      "放缩技巧",
+      "导数放缩套路"
+    ],
+    "intents": [
+      "求最值",
+      "证明不等式",
+      "判断大小",
+      "放缩",
+      "求参数范围",
+      "比较e^x和ln x",
+      "求极值",
+      "证明恒成立"
+    ],
+    "query_templates": [
+      "导数放缩有哪些常用不等式",
+      "ln x ≤ x-1怎么证明",
+      "e^x ≥ x+1什么时候取等",
+      "e^x - ln x ≥ 2如何使用",
+      "切线放缩在导数题中怎么用"
+    ],
+    "ocrKeywords": [
+      "ln x",
+      "e^x",
+      "x-1",
+      "x+1",
+      "ex",
+      "等号",
+      "放缩",
+      "不等式",
+      "≥",
+      "≤"
+    ],
+    "latex_patterns": [
+      "\\ln x \\le x-1",
+      "e^{x} \\ge x+1",
+      "e^{x} \\ge ex",
+      "e^{x} - \\ln x \\ge 2"
+    ],
+    "formulaTokens": [
+      "\\ln x",
+      "x-1",
+      "e^x",
+      "x+1",
+      "ex",
+      "e^x-\\ln x",
+      "2"
+    ],
+    "pinyin": "qie xian fang suo bu deng shi",
+    "pinyinAbbr": "qxfsbds"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.88,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\ln x \\le x-1, \\quad x>0",
+    "related_formulas": [
+      "e^x \\ge x+1, \\quad x\\in\\mathbb{R}",
+      "e^x \\ge ex, \\quad x\\in\\mathbb{R}",
+      "e^x - \\ln x \\ge 2, \\quad x>0"
+    ],
+    "variables": [
+      "x"
+    ],
+    "conditions": "$\\ln x \\le x-1$ 要求 $x>0$；$e^x \\ge x+1$ 和 $e^x \\ge ex$ 对任意实数 $x$ 成立。",
+    "conclusions": "当 $x=1$ 时 $\\ln x = x-1$；当 $x=0$ 时 $e^x = x+1$；当 $x=1$ 时 $e^x = ex$；组合可得 $e^x - \\ln x \\ge 2$（$x>0$），且等号不能同时取到，实际严格大于 $2$。"
+  },
+  "content": {
+    "statement": "若 $x>0$，则 $\\ln x \\le x-1$，等号当 $x=1$；对任意实数 $x$，有 $e^x \\ge x+1$，等号当 $x=0$；$e^x \\ge ex$，等号当 $x=1$。常用于导数题中将超越式放缩为多项式。",
+    "derivation": [
+      "构造函数 $f(x)=\\ln x - (x-1)$，求导 $f'(x)=\\frac1x-1$，得 $f(x)$ 在 $x=1$ 取最大值 $0$，故 $\\ln x \\le x-1$。",
+      "构造函数 $g(x)=e^x - (x+1)$，求导 $g'(x)=e^x-1$，得 $g(x)$ 在 $x=0$ 取最小值 $0$，故 $e^x \\ge x+1$。",
+      "构造函数 $h(x)=e^x - ex$，求导 $h'(x)=e^x - e$，得 $h(x)$ 在 $x=1$ 取最小值 $0$，故 $e^x \\ge ex$。"
+    ],
+    "intuition": "函数 $y=\\ln x$ 是凹函数，在 $(1,0)$ 处切线为 $y=x-1$，函数图像始终在切线下方；$y=e^x$ 是凸函数，在 $(0,1)$ 和 $(1,e)$ 处切线分别为 $y=x+1$ 和 $y=ex$，函数图像始终在切线上方。",
+    "common_tricks": [
+      "换元法：如 $e^{-x}$ 令 $t=-x$ 转化为 $e^t \\ge t+1$；$\\ln(x+1)$ 令 $t=x+1$ 转化为 $\\ln t \\le t-1$。",
+      "同向相加：将两个不等式相加得到新的下界，注意检查取等条件是否兼容。",
+      "不等号方向判断：放缩后若方向一致可叠加，方向相反则不可直接相加。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "导数压轴题",
+      "不等式证明",
+      "求参数范围",
+      "函数最值"
+    ],
+    "problem_types": [
+      "证明题",
+      "求最值",
+      "求参数范围"
+    ],
+    "exam_frequency": 0.9,
+    "exam_score": 8
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "F075.svg",
+    "video": "",
+    "audio": ""
+  },
+  "shareConfig": {
+    "title": "切线放缩：e^x和ln x常用不等式速查",
+    "shareDesc": "适合讲评课和考前回顾，通过切线放缩将超越不等式化为一次式，减少求导步骤，提升导数压轴题证明稳定性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "导数的几何意义",
+      "函数的单调性与极值",
+      "函数的凸凹性"
+    ],
+    "related_ids": [],
+    "similar": "$\\ln(1+x) \\le x$（$x>-1$），$e^{-x} \\ge 1-x$（换元获得），$e^x \\ge 1+x+\\frac{x^2}{2}$（高阶放缩）"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "函数-综合-函数与不等式",
+  "altNodes": [
+    "不等式-经典不等式-均值不等式",
+    "函数-特殊函数-指数函数",
+    "函数-特殊函数-对数函数",
+    "函数-性质-单调性"
+  ]
+}
