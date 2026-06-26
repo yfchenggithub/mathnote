@@ -1,0 +1,41 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	对 $x>0$ 部分直接用均值不等式；对 $x<0$ 部分通过换元 $x=-t$ 化为正数情形，再利用不等式方向反转得到上界。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（正数最小值）：}]
+			证明：当 $x>0$ 时，$Ax>0,\ \frac{B}{x}>0$，由均值不等式
+			\[
+				\begin{aligned}
+					Ax+\frac{B}{x} &\ge 2\sqrt{Ax\cdot\frac{B}{x}} \\ &= 2\sqrt{AB}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 均值不等式 $a+b\ge 2\sqrt{ab}$（$a,b>0$）立得。等号成立当且仅当 $Ax=\frac{B}{x}$，即 $x=\sqrt{\frac{B}{A}}$（$x>0$）.
+		\item[\textbf{步骤二（负数最大值）：}]
+			考虑 $x<0$，令 $x=-t$（$t>0$），则
+			\[
+				\begin{aligned}
+					f(x) &= A(-t)+\frac{B}{-t} \\ &= -\left(At+\frac{B}{t}\right).
+			\end{aligned}
+			\]
+			由步骤一，$t>0$ 时有 $At+\frac{B}{t}\ge 2\sqrt{AB}$，因此
+			\[
+				\begin{aligned}
+					f(x) &= -\left(At+\frac{B}{t}\right) \\ &\le -2\sqrt{AB}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 通过 $x=-t$ 将 $x<0$ 转化为 $t>0$，然后套用正数范围的不等式，注意不等号方向因取负而反转。等号成立当 $t=\sqrt{\frac{B}{A}}$，即 $x=-\sqrt{\frac{B}{A}}$.
+		\item[\textbf{步骤三（值域综合）：}]
+			由步骤一知，$x>0$ 时 $f(x)\ge 2\sqrt{AB}$，且当 $x\to 0^+$ 时 $\frac{B}{x}\to +\infty$，当 $x\to +\infty$ 时 $Ax\to +\infty$，故 $f(x)$ 在 $(0,+\infty)$ 上可取得 $[2\sqrt{AB},+\infty)$ 中的所有值。类似地，由步骤二知，$x<0$ 时 $f(x)\le -2\sqrt{AB}$，且 $x\to 0^-$ 时 $f(x)\to -\infty$，$x\to -\infty$ 时 $f(x)\to -\infty$，故 $f(x)$ 在 $(-\infty,0)$ 上可取得 $(-\infty,-2\sqrt{AB}]$ 中的所有值。因此综合值域为
+			\[
+				(-\infty,-2\sqrt{AB}\;]\cup[\;2\sqrt{AB},+\infty).
+			\]
+			\par\textbf{理由：} 由连续性及极限趋势可知 $f(x)$ 在两个区间内都能取到所有中间值（利用介值性），将两段值域取并集即得.
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	至此，我们严格证明了 $f(x)=Ax+\frac{B}{x}$（$A,B>0$）在 $x>0$ 时最小值为 $2\sqrt{AB}$，在 $x<0$ 时最大值为 $-2\sqrt{AB}$，并得到值域为 $(-\infty,-2\sqrt{AB}]\cup[2\sqrt{AB},+\infty)$. 同时给出了取等条件 $x=\pm\sqrt{\frac{B}{A}}$.
+\end{proofbox}

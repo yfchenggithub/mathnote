@@ -1,0 +1,180 @@
+{
+  "id": "F011",
+  "module": "function",
+  "core": {
+    "title": "对勾函数值域公式（基本不等式）",
+    "alias": [
+      "对勾函数",
+      "Nike函数",
+      "双勾函数"
+    ],
+    "summary": "利用均值不等式直接得到$f(x)=Ax+\\frac{B}{x}$（$A,B>0$）在$x>0$和$x<0$时的最值，从而确定整个值域。",
+    "difficulty": 2,
+    "category": "函数",
+    "tags": [
+      "对勾函数",
+      "基本不等式",
+      "值域",
+      "分式函数",
+      "函数性质"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "对勾函数",
+      "基本不等式",
+      "值域",
+      "分式函数",
+      "换元",
+      "最小值",
+      "最大值",
+      "取等条件",
+      "Ax+B/x",
+      "2√AB",
+      "正数",
+      "负数",
+      "值域并集",
+      "(-∞,-2√AB]∪[2√AB,+∞)"
+    ],
+    "synonyms": [
+      "对勾函数求最值",
+      "耐克函数",
+      "打勾函数",
+      "均值不等式求对勾"
+    ],
+    "intents": [
+      "求值域",
+      "求最值",
+      "求最小值",
+      "求最大值",
+      "证明",
+      "判断",
+      "化简"
+    ],
+    "query_templates": [
+      "对勾函数值域怎么求",
+      "形如ax+b/x的值域",
+      "分式函数化为对勾函数求值域",
+      "对勾函数最小值公式"
+    ],
+    "ocrKeywords": [
+      "Ax+B/x",
+      "x>0",
+      "x<0",
+      "2√(AB)",
+      "等号成立",
+      "√(B/A)"
+    ],
+    "latex_patterns": [
+      "Ax+\\frac{B}{x}",
+      "2\\sqrt{AB}",
+      "x=\\sqrt{\\frac{B}{A}}",
+      "(-\\infty,-2\\sqrt{AB}]\\cup[2\\sqrt{AB},+\\infty)"
+    ],
+    "formulaTokens": [
+      "Ax+\\frac{B}{x}",
+      "2\\sqrt{AB}",
+      "\\sqrt{\\frac{B}{A}}",
+      "-\\sqrt{\\frac{B}{A}}",
+      "(-\\infty,-2\\sqrt{AB}]\\cup[2\\sqrt{AB},+\\infty)"
+    ],
+    "pinyin": "duigouhanshu zhiquan gongshi",
+    "pinyinAbbr": "dghs"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.84,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "f(x)=Ax+\\frac{B}{x}\\;(A,B>0,\\;x\\neq 0)\\\\ \\text{值域:}\\;(-\\infty,-2\\sqrt{AB}]\\cup[2\\sqrt{AB},+\\infty)",
+    "related_formulas": [
+      "\\frac{dx^2+ex+f}{gx+h}\\xrightarrow{t=gx+h} At+\\frac{B}{t}+C"
+    ],
+    "variables": [
+      "A",
+      "B",
+      "x",
+      "t"
+    ],
+    "conditions": "$A>0$, $B>0$, $x\\neq 0$；需分$x>0$和$x<0$两类应用。",
+    "conclusions": "当$x>0$时，$f(x)\\ge 2\\sqrt{AB}$，等号当$x=\\sqrt{\\frac{B}{A}}$；当$x<0$时，$f(x)\\le -2\\sqrt{AB}$，等号当$x=-\\sqrt{\\frac{B}{A}}$。值域为$(-\\infty,-2\\sqrt{AB}]\\cup[2\\sqrt{AB},+\\infty)$。"
+  },
+  "content": {
+    "statement": "对于$f(x)=Ax+\\frac{B}{x}$（$A,B>0$，$x\\neq 0$），当$x>0$时有$f(x)\\ge 2\\sqrt{AB}$，等号成立当且仅当$x=\\sqrt{\\frac{B}{A}}$；当$x<0$时有$f(x)\\le -2\\sqrt{AB}$，等号成立当且仅当$x=-\\sqrt{\\frac{B}{A}}$。因此函数在$\\mathbb{R}\\setminus\\{0\\}$上的值域为$(-\\infty,-2\\sqrt{AB}]\\cup[2\\sqrt{AB},+\\infty)$。可通过对分式函数换元化为该形式求值域。",
+    "derivation": [
+      "由均值不等式$Ax+\\frac{B}{x}\\ge 2\\sqrt{Ax\\cdot\\frac{B}{x}}=2\\sqrt{AB}$（$x>0$），等号当$Ax=\\frac{B}{x}$即$x=\\sqrt{\\frac{B}{A}}$。",
+      "当$x<0$时，令$t=-x>0$，则$Ax+\\frac{B}{x}=-\\left(At+\\frac{B}{t}\\right)\\le -2\\sqrt{AB}$，等号当$t=\\sqrt{\\frac{B}{A}}$即$x=-\\sqrt{\\frac{B}{A}}$。",
+      "综上可得值域为两段并集。"
+    ],
+    "intuition": "对勾函数是奇函数，$x>0$时直接由均值不等式得最小值为$2\\sqrt{AB}$；$x<0$时利用奇函数性质（$f(-x)=-f(x)$）得最大值为$-2\\sqrt{AB}$。",
+    "common_tricks": [
+      "检验$A,B$是否同号且大于0，否则不能直接套用。",
+      "分式函数$\\frac{dx^2+ex+f}{gx+h}$先通过多项式除法或换元$t=gx+h$化为$At+\\frac{B}{t}+C$形式，再用法则。",
+      "注意$x$的正负分类讨论，取等条件必须落在对应区间内才能取到。",
+      "若区间不包含取等点，则值域端点开放。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "求最值问题",
+      "分式函数值域",
+      "压轴题中分段函数"
+    ],
+    "problem_types": [
+      "求值域",
+      "求最值",
+      "不等式证明"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 7
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {
+      "A": 3,
+      "B": 12,
+      "x>0_min": 2,
+      "value": 12
+    }
+  },
+  "assets": {
+    "svg": "F011.svg",
+    "png": "",
+    "gif": "",
+    "pdf": ""
+  },
+  "shareConfig": {
+    "title": "对勾函数值域公式：直接利用均值不等式",
+    "shareDesc": "适合课后复习和考前速查，求对勾函数及可化为对勾函数的分式函数值域问题时，直接套用公式减少推导，避免分类讨论错误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "均值不等式",
+      "基本不等式",
+      "函数值域概念"
+    ],
+    "related_ids": [],
+    "similar": "形如$f(x)=ax+\\frac{b}{x}$（$ab>0$）的值域与取等条件。"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-26"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "函数-综合-函数与不等式",
+  "altNodes": [
+    "不等式-经典不等式-均值不等式",
+    "函数-性质-有界性"
+  ]
+}
