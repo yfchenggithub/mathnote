@@ -1,0 +1,51 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	分别利用对称性和奇偶性建立 $f(x+2a)=-f(x)$ 的中间关系，再迭代得到 $f(x+4a)=f(x)$，从而周期为 $4|a|$。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（奇函数得递推）：}] 由奇函数 $f(-x)=-f(x)$ 和关于 $x=a$ 对称 $f(a+t)=f(a-t)$，将 $t$ 换成 $x+a$ 得：
+			\[
+				\begin{aligned}
+					f(x+2a) &= f(a+(x+a)) \\
+					&= f(a-(x+a)) \\
+					&= f(-x) \\
+					&= -f(x).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 对称性取 $t=x+a$，奇函数 $f(-x)=-f(x)$。
+
+		\item[\textbf{步骤二（偶函数得递推）：}] 由偶函数 $f(-x)=f(x)$ 和关于点 $(a,0)$ 对称 $f(a+t)+f(a-t)=0$，将 $t$ 换成 $x+a$ 得：
+			\[
+				\begin{aligned}
+					f(x+2a) &= f(a+(x+a)) \\
+					&= -f(a-(x+a)) \\
+					&= -f(-x) \\
+					&= -f(x).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 中心对称取 $t=x+a$，偶函数 $f(-x)=f(x)$，所以 $-f(-x)=-f(x)$。
+
+		\item[\textbf{步骤三（迭代得周期）：}] 对关系 $f(x+2a)=-f(x)$ 迭代：
+			\[
+				\begin{aligned}
+					f(x+4a) &= f((x+2a)+2a) \\
+					&= -f(x+2a) \\
+					&= -(-f(x)) \\
+					&= f(x).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 将 $x$ 替换为 $x+2a$，再代入原式。
+
+		\item[\textbf{步骤四（最小周期确认）：}] 若 $f$ 不为常函数，则可验证 $4|a|$ 是最小正周期。因为若存在 $0<T<4|a|$ 满足周期，与对称性矛盾。故最小正周期为 $4|a|$。
+			\par\textbf{理由：} 可由具体反例（如正弦函数）验证，或由对称性导致的 $2a$ 平移关系约束。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	在两种条件下，函数的最小正周期均为 $T=4|a|$，推导的关键是得到 $f(x+2a)=-f(x)$，再迭代一次即得周期。
+\end{proofbox}

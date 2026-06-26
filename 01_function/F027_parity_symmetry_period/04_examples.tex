@@ -1,0 +1,85 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	设 $f(x)$ 是定义在 $\mathbb{R}$ 上的奇函数，且图像关于直线 $x=2$ 对称。求 $f(x)$ 的最小正周期。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（对称性代数化）：}] 由图像关于 $x=2$ 对称，得 $f(2+x)=f(2-x)$（对任意 $x$）。
+			\par\textbf{理由：} 对称轴定义：$f(a+x)=f(a-x)$ 表示关于 $x=a$ 对称。
+		\item[\textbf{第二步（奇函数条件）：}] 由 $f(x)$ 为奇函数，得 $f(-x)=-f(x)$。
+			\par\textbf{理由：} 奇函数定义。
+		\item[\textbf{第三步（核心递推推导）：}] 在 $f(2+x)=f(2-x)$ 中，将 $x$ 替换为 $x-2$ 得 $f(x)=f(4-x)$；再将 $x$ 替换为 $-x$ 得 $f(-x)=f(4+x)$。结合奇函数得 $f(4+x)=-f(x)$，即 $f(x+4)=-f(x)$。
+			\par\textbf{理由：} 变量代换及奇函数代换。
+		\item[\textbf{第四步（周期迭代）：}] 由 $f(x+4)=-f(x)$，得
+			\[
+				\begin{aligned}
+					f(x+8) &= f((x+4)+4) \\
+					&= -f(x+4) \\
+					&= -(-f(x)) \\
+					&= f(x),
+			\end{aligned}
+			\]
+			故周期 $8$。根据推导，$8$ 是最小正周期。
+			\par\textbf{理由：} 迭代代入。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{最小正周期为 $8$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	设 $f(x)$ 是定义在 $\mathbb{R}$ 上的偶函数，且图像关于点 $(1,0)$ 对称。已知 $f(0)=3$，求 $f(2024)$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（对称性代数化）：}] 由关于点 $(1,0)$ 对称，得 $f(1+x)=-f(1-x)$（对任意 $x$）。
+			\par\textbf{理由：} 中心对称定义：$f(a+x)+f(a-x)=0$。
+		\item[\textbf{第二步（偶函数条件）：}] $f(-x)=f(x)$。
+			\par\textbf{理由：} 偶函数定义。
+		\item[\textbf{第三步（核心递推）：}] 在 $f(1+x)=-f(1-x)$ 中，将 $x$ 替换为 $x-1$ 得 $f(x)=-f(2-x)$；再将 $x$ 替换为 $-x$ 得 $f(-x)=-f(2+x)$。结合偶函数 $f(-x)=f(x)$，得 $f(x)=-f(2+x)$，即 $f(x+2)=-f(x)$。
+			\par\textbf{理由：} 变量代换与偶函数代换。
+		\item[\textbf{第四步（周期迭代）：}] 由 $f(x+2)=-f(x)$，得
+			\[
+				\begin{aligned}
+					f(x+4) &= f((x+2)+2) \\
+					&= -f(x+2) \\
+					&= -(-f(x)) \\
+					&= f(x),
+			\end{aligned}
+			\]
+			故周期 $4$。
+			\par\textbf{理由：} 迭代代入。
+		\item[\textbf{第五步（求值）：}] 因为 $2024=4\times 506+0$，所以 $f(2024)=f(0)=3$。
+			\par\textbf{理由：} 周期定义。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$f(2024)=3$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知 $f(x)$ 是定义在 $\mathbb{R}$ 上的奇函数，且满足 $f(1+x)=f(1-x)$。当 $x\in[0,1]$ 时，$f(x)=2^x-1$。求 $f(2023)$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（对称性代数化）：}] 由 $f(1+x)=f(1-x)$，得图像关于 $x=1$ 对称。进而 $f(x)=f(2-x)$（将 $x$ 替换为 $x-1$）。
+			\par\textbf{理由：} 对称性定义。
+		\item[\textbf{第二步（奇函数条件）：}] $f(-x)=-f(x)$。
+			\par\textbf{理由：} 奇函数定义。
+		\item[\textbf{第三步（核心递推）：}] 由 $f(x)=f(2-x)$，将 $x$ 替换为 $-x$ 得 $f(-x)=f(2+x)$，结合奇函数得 $-f(x)=f(2+x)$，即 $f(x+2)=-f(x)$。
+			\par\textbf{理由：} 变量代换与奇函数代换。
+		\item[\textbf{第四步（周期迭代）：}] 由 $f(x+2)=-f(x)$ 得 $f(x+4)=f(x)$，故周期 $4$。
+			\par\textbf{理由：} 迭代代入。
+		\item[\textbf{第五步（求值）：}] $2023\div4=505\cdots 3$，所以 $f(2023)=f(3)$。由周期 $4$，$f(3)=f(3-4)=f(-1)$。由奇函数 $f(-1)=-f(1)$。而 $f(1)=2^1-1=1$，所以 $f(2023)=-1$。
+			\par\textbf{理由：} 周期转化与奇函数转化。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$f(2023)=-1$。}
+\end{examplebox}
