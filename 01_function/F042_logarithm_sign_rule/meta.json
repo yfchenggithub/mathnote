@@ -1,0 +1,182 @@
+{
+  "id": "F042",
+  "module": "function",
+  "core": {
+    "title": "对数正负判号法则（底真同区间）",
+    "alias": [
+      "对数符号判号",
+      "底真同区间判号",
+      "对数正负判断",
+      "log_a b 符号",
+      "底真同侧法"
+    ],
+    "summary": "对数 $\\log_a b$ 的正负取决于底数 $a$ 与真数 $b$ 是否同时大于 $1$ 或同时小于 $1$：同区间为正，异区间为负。",
+    "difficulty": 2,
+    "category": "对数函数",
+    "tags": [
+      "对数符号",
+      "等价转化",
+      "参数范围",
+      "函数单调性",
+      "底真同区间"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "对数",
+      "符号",
+      "正负",
+      "判号",
+      "底数",
+      "真数",
+      "1比较",
+      "等价转化",
+      "不等式",
+      "log_a b",
+      "乘积符号",
+      "单调性",
+      "对数比较大小",
+      "对数不等式"
+    ],
+    "synonyms": [
+      "底真同侧",
+      "底真异号",
+      "同正异负",
+      "log的正负",
+      "对数判号",
+      "对数符号判断"
+    ],
+    "intents": [
+      "判断对数正负",
+      "比较对数大小",
+      "求解对数不等式",
+      "转化对数符号",
+      "化简对数表达式"
+    ],
+    "query_templates": [
+      "对数正负怎么判断",
+      "log底数和真数同号为正",
+      "对数符号判号法则推导",
+      "底真同区间法",
+      "如何快速判断对数正负",
+      "log_a b>0 条件"
+    ],
+    "ocrKeywords": [
+      "log_a b",
+      "(a-1)(b-1)>0",
+      "(a-1)(b-1)<0",
+      ">0",
+      "<0",
+      "a>0",
+      "a≠1",
+      "b>0"
+    ],
+    "latex_patterns": [
+      "\\log_a b",
+      "\\log_a b>0",
+      "\\log_a b<0",
+      "((a-1)(b-1)>0)",
+      "((a-1)(b-1)<0)"
+    ],
+    "formulaTokens": [
+      "\\log_a b",
+      "a>0",
+      "a\\neq 1",
+      "b>0",
+      "(a-1)(b-1)>0",
+      "(a-1)(b-1)<0",
+      "\\log_a b>0",
+      "\\log_a b<0"
+    ],
+    "pinyin": "duishuzhengfupanhaofaze",
+    "pinyinAbbr": "dszfp"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.76,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\log_a b>0 \\iff (a-1)(b-1)>0,\\quad \\log_a b<0 \\iff (a-1)(b-1)<0",
+    "related_formulas": [
+      "\\log_a b>0 \\iff (a>1\\land b>1)\\lor(0<a<1\\land 0<b<1);\\quad \\log_a b<0 \\iff (a>1\\land 0<b<1)\\lor(0<a<1\\land b>1)",
+      "\\log_a b = \\frac{\\ln b}{\\ln a},\\quad \\mathrm{sgn}(\\log_a b)=\\mathrm{sgn}((a-1)(b-1))"
+    ],
+    "variables": {
+      "a": "底数，$a>0$ 且 $a\\neq 1$",
+      "b": "真数，$b>0$"
+    },
+    "conditions": "定义域：$a>0$, $a\\neq 1$, $b>0$。",
+    "conclusions": "$\\log_a b>0 \\iff (a-1)(b-1)>0$；$\\log_a b<0 \\iff (a-1)(b-1)<0$。"
+  },
+  "content": {
+    "statement": "对于底数 $a>0,\\,a\\neq1$ 且真数 $b>0$ 的对数 $\\log_a b$，其符号与 $(a-1)(b-1)$ 的符号相同：$\\log_a b>0$ 当且仅当 $(a-1)(b-1)>0$；$\\log_a b<0$ 当且仅当 $(a-1)(b-1)<0$。",
+    "derivation": [
+      "利用对数函数 $y=\\log_a x$ 的单调性：当 $a>1$ 时单调递增，当 $0<a<1$ 时单调递减。",
+      "比较 $\\log_a b$ 与 $\\log_a 1=0$：若 $a>1$，则 $\\log_a b>0 \\iff b>1$；若 $0<a<1$，则 $\\log_a b>0 \\iff 0<b<1$。",
+      "两种情况统一为 $(a-1)(b-1)>0$；同理可得负号情况。"
+    ],
+    "intuition": "底数与真数在1的同一侧（都大于1或都小于1）时对数为正，异侧时为负。",
+    "common_tricks": [
+      "比较两个对数大小时，先分别判正负，再结合单调性或中间值比较。",
+      "解对数不等式 $\\log_a f(x)>0$ 可等价转化为 $(a-1)(f(x)-1)>0$，注意定义域 $f(x)>0$。",
+      "在复杂代数式中遇到 $\\log_a b$ 的符号判断，直接看 $(a-1)(b-1)$ 的符号即可，避免分类讨论。",
+      "注意 $b=1$ 时 $\\log_a b=0$，不适用该法则；$a=1$ 时对数无定义。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "对数比较大小",
+      "解对数不等式",
+      "判断对数正负",
+      "化简含对数的表达式"
+    ],
+    "problem_types": [
+      "选择题",
+      "填空题",
+      "解答题中步骤化简"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 4
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "F042.svg"
+  },
+  "shareConfig": {
+    "title": "对数正负判号法则：底真同区间对数为正",
+    "shareDesc": "适合做题时快速判断对数符号，避免繁琐讨论；也适合解对数不等式时转化为乘积不等式，减少分类讨论错误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "对数的定义",
+      "对数函数的单调性",
+      "比较实数大小的方法"
+    ],
+    "related_ids": [],
+    "similar": "对数函数单调性比较大小法、指数函数符号判号（指数与1比较）"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-26"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "函数-特殊函数-对数函数",
+  "altNodes": [
+    "函数-性质-单调性",
+    "函数-综合-函数与不等式"
+  ]
+}

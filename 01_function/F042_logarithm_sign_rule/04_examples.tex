@@ -1,0 +1,102 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	判断下列对数值的正负：
+	(1) $\log_2 7$; (2) $\log_2 0.3$; (3) $\log_{0.4} 0.6$; (4) $\log_{0.4} 1.2$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
+		\item[\textbf{第一步（列出底真）：}]
+			\[
+				\log_2 7\ (a=2,b=7),\ \log_2 0.3\ (a=2,b=0.3),\ \log_{0.4}0.6\ (a=0.4,b=0.6),\ \log_{0.4}1.2\ (a=0.4,b=1.2).
+			\]
+			\par\textbf{理由：} 写出每个对数的底数和真数，以便比较与 $1$ 的大小。
+		\item[\textbf{第二步（计算判号）：}]
+			\[
+				\begin{aligned}
+					\log_2 7 &: (2-1)(7-1)=6>0 \Rightarrow \log_2 7>0;\\
+					\log_2 0.3 &: (2-1)(0.3-1)=-0.7<0 \Rightarrow \log_2 0.3<0;\\
+					\log_{0.4}0.6 &: (0.4-1)(0.6-1)=0.24>0 \Rightarrow \log_{0.4}0.6>0;\\
+					\log_{0.4}1.2 &: (0.4-1)(1.2-1)=-0.12<0 \Rightarrow \log_{0.4}1.2<0.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 利用 $\log_a b>0 \iff (a-1)(b-1)>0$，否则为负。
+		\item[\textbf{第三步（汇总结果）：}]
+			\[
+				\log_2 7>0,\ \log_2 0.3<0,\ \log_{0.4}0.6>0,\ \log_{0.4}1.2<0.
+			\]
+			\par\textbf{理由：} 与第二步计算结果一致。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{验证了对数 $\log_a b$ 的正负判别法则：$(a-1)(b-1)>0$ 时为正，$(a-1)(b-1)<0$ 时为负。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知 $a>0$ 且 $a\neq 1$，判断 $\log_a (a^2+1)$ 的符号。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
+		\item[\textbf{第一步（判断真数）：}] 因为 $a^2+1>1$，所以 $b=a^2+1>1$。
+			\[
+				a^2+1>1.
+			\]
+			\par\textbf{理由：} 平方非负性，$a^2\geq0$。
+		\item[\textbf{第二步（比较底数）：}] 若 $a>1$，底数 $>1$；若 $0<a<1$，底数 $<1$。
+			\[
+				a>1\lor 0<a<1.
+			\]
+			\par\textbf{理由：} 已知 $a$ 的范围。
+		\item[\textbf{第三步（应用判号）：}] 由结论，当 $a>1$ 时底真同大于 $1$，对数为正；当 $0<a<1$ 时底小于 $1$ 而真大于 $1$，对数为负。
+			\[
+				\log_a(a^2+1)\begin{cases}
+				>0, & a>1,\\
+				<0, & 0<a<1.
+		\end{cases}
+		\]
+		\par\textbf{理由：} 对数符号判号法则。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}}
+\textbf{$\log_a (a^2+1)$ 的符号：若 $a>1$ 为正，若 $0<a<1$ 为负。}
+
+\medskip
+\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+\textbf{\textcolor{CExample}{题目：}}
+设 $a>0$ 且 $a\neq 1$，解不等式 $\log_a (x^2-3x+2) > 0$。
+
+\textbf{\textcolor{CExample}{解题步骤：}}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
+	\item[\textbf{第一步（等价转化）：}] 原不等式等价于
+		\[
+			\begin{cases}
+				(a-1)(x^2-3x+1) > 0,\\
+				x^2-3x+2 > 0.
+		\end{cases}
+		\]
+		\par\textbf{理由：} 由 $\log_a u>0 \iff (a-1)(u-1)>0$，且 $u>0$。这里 $u=x^2-3x+2$。
+	\item[\textbf{第二步（分类讨论）：}] 由 $(a-1)$ 的符号分类：
+		\[
+			\begin{cases}
+				x^2-3x+1 > 0, & a>1,\\
+				x^2-3x+1 < 0, & 0<a<1.
+		\end{cases}
+		\]
+		\par\textbf{理由：} 当 $a>1$ 时 $a-1>0$，故需 $x^2-3x+1>0$；当 $0<a<1$ 时 $a-1<0$，故需 $x^2-3x+1<0$。
+	\item[\textbf{第三步（解集）：}] 分别解不等式并与定义域 $x^2-3x+2>0$ 取交集：
+		\[
+			\begin{aligned}
+				a>1&:\ x\in(-\infty,\frac{3-\sqrt5}{2})\cup(\frac{3+\sqrt5}{2},+\infty),\\
+				0<a<1&:\ x\in(\frac{3-\sqrt5}{2},1)\cup(2,\frac{3+\sqrt5}{2}).
+		\end{aligned}
+		\]
+		\par\textbf{理由：} 对于 $a>1$，解 $x^2-3x+1>0$ 得 $x<\frac{3-\sqrt5}{2}$ 或 $x>\frac{3+\sqrt5}{2}$，再结合 $x^2-3x+2>0$（$x<1$ 或 $x>2$）取交集；对于 $0<a<1$，解 $x^2-3x+1<0$ 得 $\frac{3-\sqrt5}{2}<x<\frac{3+\sqrt5}{2}$，与定义域交集得 $\frac{3-\sqrt5}{2}<x<1$ 或 $2<x<\frac{3+\sqrt5}{2}$。
+\end{description}
+
+\textbf{\textcolor{CExample}{关键结论：}}
+\textbf{利用对数符号判号法则，可将 $\log_a f(x)>0$ 转化为 $(a-1)(f(x)-1)>0$ 且 $f(x)>0$，再根据 $a$ 的符号分类求解。}
+\end{examplebox}

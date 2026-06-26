@@ -1,0 +1,46 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	直接利用换底公式将对数符号转化为分子分母的符号判定，结合$\ln x$的符号性质。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.55em]
+		\item[\textbf{步骤一（换底化简）：}] 由换底公式，有
+			\[
+				\log_a b = \frac{\ln b}{\ln a}.
+			\]
+			\par\textbf{理由：} 换底公式 $\log_a b = \frac{\log_c b}{\log_c a}$，取 $c = \mathrm{e}$ 得 $\ln b / \ln a$。
+
+		\item[\textbf{步骤二（判号引理）：}] 对任意 $x>0$ 且 $x\neq 1$，$\ln x$ 与 $x-1$ 同号。
+			\[
+				\begin{aligned}
+					x>1 &\Rightarrow \ln x > 0,\; x-1 > 0;\\
+					0<x<1 &\Rightarrow \ln x < 0,\; x-1 < 0.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 函数 $y=\ln x$ 在 $(0,+\infty)$ 上严格单调递增，且 $\ln 1 = 0$。故 $x>1$ 时 $\ln x>0$，$0<x<1$ 时 $\ln x<0$。
+
+		\item[\textbf{步骤三（乘积判号）：}] 由步骤一、二，
+			\[
+				\begin{aligned}
+					\log_a b > 0 &\iff \frac{\ln b}{\ln a} > 0 \\
+					&\iff (\ln b)\cdot(\ln a) > 0 \\
+					&\iff (b-1)(a-1) > 0,
+			\end{aligned}
+			\]
+			\[
+				\begin{aligned}
+					\log_a b < 0 &\iff \frac{\ln b}{\ln a} < 0 \\
+					&\iff (\ln b)\cdot(\ln a) < 0 \\
+					&\iff (b-1)(a-1) < 0.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 同号相乘为正，异号相乘为负。而 $\ln a$ 与 $a-1$ 同号，$\ln b$ 与 $b-1$ 同号，故 $\ln a\ln b$ 的符号等于 $(a-1)(b-1)$ 的符号。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	综上，$\log_a b$ 的正负完全由 $(a-1)(b-1)$ 的符号决定，正好对应了底数与真数是否在 $1$ 的同侧。当 $b=1$ 时对数值为零，结论不适用。
+\end{proofbox}
