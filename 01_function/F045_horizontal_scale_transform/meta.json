@@ -1,0 +1,167 @@
+{
+  "id": "F045",
+  "module": "function",
+  "core": {
+    "title": "函数图像横坐标伸缩变换",
+    "alias": [
+      "横坐标伸缩",
+      "横向伸缩变换",
+      "横向缩放变换"
+    ],
+    "summary": "横坐标缩放倍数与自变量系数互为倒数，新函数解析式为 $y=f(\\omega x)$。",
+    "difficulty": 2,
+    "category": "函数图像变换",
+    "tags": [
+      "函数图像",
+      "横坐标伸缩",
+      "图像变换",
+      "解析式转换",
+      "三角函数图像变换"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "横坐标变换",
+      "横向伸缩",
+      "图像变换",
+      "解析式",
+      "ω",
+      "f(ωx)",
+      "f(x/k)",
+      "缩放",
+      "压缩",
+      "拉伸"
+    ],
+    "synonyms": [
+      "横坐标拉长缩短",
+      "横坐标伸缩公式",
+      "f(ωx)变换",
+      "图像横向伸缩",
+      "横坐标压缩拉伸"
+    ],
+    "intents": [
+      "求新函数解析式",
+      "描述图像变化",
+      "判断压缩还是拉伸"
+    ],
+    "query_templates": [
+      "横坐标变为原来的1/3，求新函数解析式",
+      "横坐标伸缩变换公式",
+      "图像横坐标压缩怎么变",
+      "y=f(ωx)怎么来的",
+      "横坐标扩大到原来的2倍 新函数"
+    ],
+    "ocrKeywords": [
+      "横坐标",
+      "纵坐标不变",
+      "伸缩",
+      "ω",
+      "f(ωx)"
+    ],
+    "latex_patterns": [
+      "y=f(\\omega x)",
+      "y=f\\left(\\frac{x}{k}\\right)"
+    ],
+    "formulaTokens": [
+      "y=f(\\omega x)",
+      "y=f\\left(\\frac{x}{k}\\right)",
+      "\\frac{1}{\\omega}",
+      "k=\\frac{1}{\\omega}"
+    ],
+    "pinyin": "hengzuobiaoshensuo",
+    "pinyinAbbr": "hzsbs"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.78,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "y = f(\\omega x)",
+    "related_formulas": [
+      "y = f\\left(\\frac{x}{k}\\right) \\quad (k = \\frac{1}{\\omega})"
+    ],
+    "variables": {
+      "f(x)": "原函数",
+      "\\omega": "伸缩系数，$\\omega>0$ 且 $\\omega\\neq 1$",
+      "k": "横坐标缩放倍数，$k>0$ 且 $k\\neq 1$"
+    },
+    "conditions": [
+      "$\\omega>0$ 且 $\\omega\\neq 1$",
+      "横坐标变为原来的 $\\dfrac{1}{\\omega}$，纵坐标不变"
+    ],
+    "conclusions": [
+      "当 $\\omega>1$ 时，图像横向压缩为原来的 $\\dfrac{1}{\\omega}$；",
+      "当 $0<\\omega<1$ 时，图像横向拉伸为原来的 $\\dfrac{1}{\\omega}$。"
+    ]
+  },
+  "content": {
+    "statement": "对于函数 $y=f(x)$，将图像上所有点的横坐标变为原来的 $\\frac{1}{\\omega}$（$\\omega>0,\\ \\omega\\neq 1$）且纵坐标不变，则所得新函数的解析式为 $y=f(\\omega x)$。当 $\\omega>1$ 时图像横向压缩为原来的 $\\frac{1}{\\omega}$，当 $0<\\omega<1$ 时图像横向拉伸为原来的 $\\frac{1}{\\omega}$。",
+    "derivation": [
+      "设原图像上任意一点坐标为 $(x_0, y_0)$，满足 $y_0 = f(x_0)$。",
+      "变换后对应点坐标为 $(x, y)$，由横坐标变为原来的 $\\frac{1}{\\omega}$ 得 $x = \\frac{x_0}{\\omega}$，纵坐标不变 $y = y_0$。",
+      "代入得 $y = f(\\omega x)$，即为新函数解析式。"
+    ],
+    "intuition": "横坐标缩小为原来的 $\\frac{1}{\\omega}$，相当于自变量 $x$ 乘以 $\\omega$，因此函数变为 $f(\\omega x)$。",
+    "common_tricks": [
+      "注意横坐标缩放倍数 $k$ 与 $\\omega$ 互为倒数：$k = \\frac{1}{\\omega}$，新函数为 $f(\\frac{x}{k})$。",
+      "判断压缩还是拉伸：$\\omega>1$ 压缩，$0<\\omega<1$ 拉伸。",
+      "先伸缩后平移时注意顺序影响，分别处理。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "函数图像变换题",
+      "三角函数图像变换",
+      "复合变换（平移+伸缩）"
+    ],
+    "problem_types": [
+      "求解析式",
+      "描述图像变化",
+      "图像变换顺序"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "F045.svg"
+  },
+  "shareConfig": {
+    "title": "横坐标伸缩变换：快速转换解析式",
+    "shareDesc": "适合函数图像变换专题复习，快速从缩放比例得到新解析式，避免混淆伸缩方向。减少图像变换题的推导错误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "函数图像平移变换",
+      "函数概念"
+    ],
+    "related_ids": [],
+    "similar": [
+      "纵坐标伸缩变换",
+      "图像平移变换"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-26"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "函数-图像-图像变换",
+  "altNodes": [
+    "三角函数-图像-图像变换"
+  ]
+}
