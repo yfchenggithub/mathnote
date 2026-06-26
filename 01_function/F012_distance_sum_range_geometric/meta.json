@@ -1,0 +1,184 @@
+{
+  "id": "F012",
+  "module": "function",
+  "core": {
+    "title": "双根号函数值域：几何意义法（距离型）",
+    "alias": [
+      "双根号最小值",
+      "折线距离",
+      "异侧点构造",
+      "两点间距离公式求最值"
+    ],
+    "summary": "将双根号和函数转化为两点间折线长度，利用“两点间线段最短”求最小值。",
+    "difficulty": 3,
+    "category": "函数",
+    "tags": [
+      "函数值域",
+      "几何意义",
+      "距离型",
+      "数形结合",
+      "最小值",
+      "双根号",
+      "共线条件"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "双根号函数",
+      "距离型",
+      "值域",
+      "最小值",
+      "两点间距离",
+      "几何意义",
+      "A(m,-a)",
+      "B(n,b)",
+      "P(x,0)",
+      "三点共线",
+      "sqrt((x-m)^2+a^2)",
+      "sqrt((x-n)^2+b^2)",
+      "折线距离",
+      "函数最值几何法"
+    ],
+    "synonyms": [
+      "双根号求和",
+      "根号下平方和相加",
+      "折线长度最小值",
+      "函数最小值几何法",
+      "异侧点",
+      "双根号最小值问题"
+    ],
+    "intents": [
+      "求最小值",
+      "求值域",
+      "证明最小值",
+      "构造点",
+      "应用几何意义",
+      "解共线条件"
+    ],
+    "query_templates": [
+      "双根号函数最小值怎么求",
+      "sqrt(x^2+4)+sqrt(x^2+9)最小值",
+      "双根号求和几何意义法",
+      "已知双根号函数求最小值",
+      "双根号值域几何解法"
+    ],
+    "ocrKeywords": [
+      "sqrt",
+      "根号",
+      "最小值",
+      "三点共线",
+      "A(m,-a)",
+      "B(n,b)",
+      "P(x,0)"
+    ],
+    "latex_patterns": [
+      "\\sqrt{(x-m)^2+a^2}+\\sqrt{(x-n)^2+b^2}",
+      "f(x)=|PA|+|PB|",
+      "\\sqrt{(m-n)^2+(a+b)^2}",
+      "|AB|=\\sqrt{(m-n)^2+(a+b)^2}"
+    ],
+    "formulaTokens": [
+      "\\sqrt{(x-m)^2+a^2}",
+      "\\sqrt{(x-n)^2+b^2}",
+      "|PA|+|PB|",
+      "\\sqrt{(m-n)^2+(a+b)^2}",
+      "f(x)=\\sqrt{(x-m)^2+a^2}+\\sqrt{(x-n)^2+b^2}",
+      "x介于m与n之间",
+      "|AB|",
+      "(x-m)^2+a^2"
+    ],
+    "pinyin": "shuang gen hao han shu zhi yu ji he yi yi fa ju li xing",
+    "pinyinAbbr": "sghhszyjhyyf"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.72,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "f(x)=\\sqrt{(x-m)^2+a^2}+\\sqrt{(x-n)^2+b^2},\\quad \\text{值域}\\ [\\sqrt{(m-n)^2+(a+b)^2},+\\infty)",
+    "related_formulas": [
+      "y=\\frac{u(x)-y_0}{v(x)-x_0}\\ (v(x)\\neq x_0)\\ \\text{值域为定点}(x_0,y_0)\\text{与动点}(v(x),u(x))\\text{连线斜率的范围}",
+      "|PA|+|PB|\\geq|AB|,\\quad A(m,-a),\\ B(n,b),\\ P(x,0)"
+    ],
+    "variables": [
+      "m",
+      "n",
+      "a",
+      "b",
+      "x",
+      "f(x)",
+      "A(m,-a)",
+      "B(n,b)",
+      "P(x,0)"
+    ],
+    "conditions": "$a>0$，$b>0$，$m,n\\in\\mathbb{R}$，函数定义域为$\\mathbb{R}$。",
+    "conclusions": "值域为$[\\sqrt{(m-n)^2+(a+b)^2},+\\infty)$。当且仅当$A,P,B$三点共线时取最小值，此时$x$介于$m$与$n$之间。"
+  },
+  "content": {
+    "statement": "对于形如 $f(x)=\\sqrt{(x-m)^2+a^2}+\\sqrt{(x-n)^2+b^2}$（$a,b>0$）的函数，令 $A(m,-a)$、$B(n,b)$、$P(x,0)$，则 $f(x)=|PA|+|PB|$，值域为 $[\\sqrt{(m-n)^2+(a+b)^2},+\\infty)$，当 $A,P,B$ 三点共线时取得最小值。",
+    "derivation": [
+      "将根号内配方，构造点 $A(m,-a)$、$B(n,b)$、$P(x,0)$，由距离公式得 $|PA|=\\sqrt{(x-m)^2+a^2}$，$|PB|=\\sqrt{(x-n)^2+b^2}$。",
+      "所以 $f(x)=|PA|+|PB|$，转化为求折线 $PAB$ 的最小长度。",
+      "由“两点间线段最短”，$|PA|+|PB|\\geq|AB|$，计算 $|AB|=\\sqrt{(m-n)^2+(a+b)^2}$，当 $P$ 在线段 $AB$ 上（即 $A,P,B$ 共线）时取等，此时 $x$ 可由共线条件解出。"
+    ],
+    "intuition": "根号结构对应两点间距离，两段折线之和的最小值就是两点间的直线距离。",
+    "common_tricks": [
+      "注意 $A$ 点的纵坐标设为 $-a$（异侧），保证两点在 $x$ 轴两侧，共线时折线跨越 $x$ 轴；若设同侧则需用其它方法。",
+      "求 $x$ 时利用 $A,P,B$ 共线斜率相等：$\\frac{0-(-a)}{x-m}=\\frac{b-(-a)}{n-m}$ 或 $\\frac{x-m}{a}=\\frac{n-x}{b}$。",
+      "验证 $x$ 是否在 $m,n$ 之间：若不在，则最小值在端点取得（$x$ 趋近边界），但通常题目设计会保证在区间内。",
+      "对于 $a,b$ 不全为正时，可通过符号调整仍用此法，但需注意两点位于 $x$ 轴同侧或异侧。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "压轴题",
+      "最值问题",
+      "函数值域"
+    ],
+    "problem_types": [
+      "填空题",
+      "解答题"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 8
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "F012.svg",
+    "other": {}
+  },
+  "shareConfig": {
+    "title": "双根号函数值域：几何意义法构造折线求最小值",
+    "shareDesc": "适合刷题前速查和讲评课复盘，将复杂根号化为折线距离，减少配方和三角换元步骤，快速得出最小值及取等条件。"
+  },
+  "relations": {
+    "prerequisites": [
+      "两点间距离公式",
+      "线段最短公理",
+      "坐标表示"
+    ],
+    "related_ids": [],
+    "similar": "分式函数斜率型值域：$y=\\frac{u(x)-y_0}{v(x)-x_0}$ 的值域对应定点与动点连线斜率范围。"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-26"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "函数-综合-函数与不等式",
+  "altNodes": "解析几何-综合-最值问题"
+}

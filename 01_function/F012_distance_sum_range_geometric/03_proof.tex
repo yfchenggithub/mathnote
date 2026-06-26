@@ -1,0 +1,48 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	构造点 $A(m,-a)$、$B(n,b)$、$P(x,0)$，将函数 $f(x)$ 表示为 $|PA|+|PB|$，再利用“两点间线段最短”原理得到最小值，并推导值域．
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（构造等价）：}]
+			令 $A(m,-a)$、$B(n,b)$、$P(x,0)$，由两点距离公式
+			\[
+				|PA| = \sqrt{(x-m)^2+a^2},
+				\qquad
+				|PB| = \sqrt{(x-n)^2+b^2},
+			\]
+			故
+			\[
+				f(x) = |PA|+|PB|.
+			\]
+			\par\textbf{理由：} 直接验证即可，根号内平方和恰为纵坐标差的平方．
+
+		\item[\textbf{步骤二（几何最值）：}]
+			由三角形不等式（两点间线段最短）得
+			\[
+				|PA|+|PB| \ge |AB|,
+			\]
+			等号成立当且仅当 $A,P,B$ 三点共线且 $P$ 落在线段 $AB$ 上（此时 $x$ 介于 $m,n$ 之间）．
+			\par\textbf{理由：} 平面上两点之间线段最短；仅当折线退化为线段时和最小．
+
+		\item[\textbf{步骤三（计算与值域）：}]
+			计算 $|AB|$：
+			\[
+				\begin{aligned}
+					|AB| &= \sqrt{(m-n)^2+(-a-b)^2} \\\n         &= \sqrt{(m-n)^2+(a+b)^2}.
+			\end{aligned}
+			\]
+			因此 $f(x)$ 的最小值为 $\sqrt{(m-n)^2+(a+b)^2}$．又当 $x\to\pm\infty$ 时 $f(x)\to+\infty$，故值域为
+			\[
+				\bigl[\sqrt{(m-n)^2+(a+b)^2},\,+\infty\bigr).
+			\]
+			\par\textbf{理由：} 最小值由几何不等式确定，无上界由根式的增长性得到．
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{对于函数 $f(x)=\sqrt{(x-m)^2+a^2}+\sqrt{(x-n)^2+b^2}$（$a,b>0$），通过构造点 $A(m,-a)$、$B(n,b)$，可将问题转化为求 $|PA|+|PB|$ 的最小值，利用“两点间线段最短”直接得到最小值 $\sqrt{(m-n)^2+(a+b)^2}$，并确定值域为 $[\sqrt{(m-n)^2+(a+b)^2},+\infty)$．}
+\end{proofbox}

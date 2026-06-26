@@ -1,0 +1,43 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	用单调性定义：在定义域内任取 $x_1<x_2$，通过 $g$ 的单调性得到 $g(x_1),g(x_2)$ 的大小关系，再通过 $f$ 的单调性得到 $f(g(x_1)),f(g(x_2))$ 的大小关系，从而判断 $f\circ g$ 的增减性。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（设定变量）：}] 任取 $x_1,x_2\in I$，且 $x_1<x_2$。
+			\[
+				x_1<x_2\quad (x_1,x_2\in I).
+			\]
+			\par\textbf{理由：} 函数单调性是通过比较任意两点函数值大小来定义的，所以先锁定两个点。
+
+		\item[\textbf{步骤二（同增情形）：}] 设 $f\nearrow,\; g\nearrow$。由 $g$ 单调递增得 $g(x_1)<g(x_2)$；再由 $f$ 单调递增得 $f(g(x_1))<f(g(x_2))$。故 $f\circ g$ 在 $I$ 上单调递增。
+			\[
+				x_1<x_2 \xrightarrow{g\nearrow} g(x_1)<g(x_2)\xrightarrow{f\nearrow} f(g(x_1))<f(g(x_2)).
+			\]
+			\par\textbf{理由：} 内层递增保证自变量大小顺序在 $g$ 下的像保持同向；外层递增使像的大小顺序进一步保持不变号。因此复合函数递增。
+
+		\item[\textbf{步骤三（异减情形）：}] 设 $f\nearrow,\; g\searrow$。由 $g$ 递减得 $g(x_1)>g(x_2)$；再由 $f$ 递增得 $f(g(x_1))>f(g(x_2))$。故 $f\circ g$ 在 $I$ 上单调递减。
+			\[
+				x_1<x_2 \xrightarrow{g\searrow} g(x_1)>g(x_2)\xrightarrow{f\nearrow} f(g(x_1))>f(g(x_2)).
+			\]
+			\par\textbf{理由：} 内层递减翻转了自变量的大小方向，外层递增保持这个翻转后的方向，所以最终比较结果与 $x_1<x_2$ 反向，复合单调递减。
+
+		\item[\textbf{步骤四（同减与异增）：}]
+			\quad\textbf{同减情形：} $f\searrow,\;g\searrow$。由 $g$ 递减得 $g(x_1)>g(x_2)$，再由 $f$ 递减得 $f(g(x_1))<f(g(x_2))$，故复合递增。
+			\[
+				x_1<x_2\xrightarrow{g\searrow} g(x_1)>g(x_2)\xrightarrow{f\searrow} f(g(x_1))<f(g(x_2))\;\Rightarrow\; f\circ g\nearrow.
+			\]
+			\quad\textbf{异增情形：} $f\searrow,\;g\nearrow$。由 $g$ 递增得 $g(x_1)<g(x_2)$，再由 $f$ 递减得 $f(g(x_1))>f(g(x_2))$，故复合递减。
+			\[
+				x_1<x_2\xrightarrow{g\nearrow} g(x_1)<g(x_2)\xrightarrow{f\searrow} f(g(x_1))>f(g(x_2))\;\Rightarrow\; f\circ g\searrow.
+			\]
+			\par\textbf{理由：} 内外单调性符号相乘得正为增，得负为减。这两类均可由前两步类推得到。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	综上所述，复合函数的单调性完全由 $f$ 和 $g$ 的单调性决定：当 $f$ 与 $g$ 单调性相同时，$f\circ g$ 单调递增；当 $f$ 与 $g$ 单调性相反时，$f\circ g$ 单调递减。这就是“同增异减”法则。
+\end{proofbox}

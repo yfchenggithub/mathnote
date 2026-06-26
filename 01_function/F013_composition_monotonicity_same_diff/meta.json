@@ -1,0 +1,167 @@
+{
+  "id": "F013",
+  "module": "function",
+  "core": {
+    "title": "复合函数的单调性（同增异减）",
+    "alias": [
+      "同增异减法则",
+      "复合函数单调性判断",
+      "内外单调性规则"
+    ],
+    "summary": "内外函数单调性相同时复合递增，相异时复合递减。",
+    "difficulty": 2,
+    "category": "函数",
+    "tags": [
+      "函数单调性",
+      "复合函数",
+      "同增异减"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "同增异减",
+      "复合函数",
+      "单调性",
+      "内层函数",
+      "外层函数",
+      "值域",
+      "定义域",
+      "f∘g",
+      "单调递增",
+      "单调递减",
+      "多层复合",
+      "乘积符号"
+    ],
+    "synonyms": [
+      "同增异减口诀",
+      "复合函数单调性判断",
+      "内外单调相同则增",
+      "复合函数单调性规律"
+    ],
+    "intents": [
+      "判断复合函数单调性",
+      "求复合函数单调区间",
+      "应用同增异减规则",
+      "分析内外层单调性"
+    ],
+    "query_templates": [
+      "复合函数单调性怎么判断",
+      "同增异减是什么意思",
+      "如何用同增异减求单调区间",
+      "复合函数单调性例题",
+      "内层减外层减复合函数单调性"
+    ],
+    "ocrKeywords": [
+      "复合函数",
+      "单调性",
+      "同增异减",
+      "f∘g"
+    ],
+    "latex_patterns": [
+      "f\\circ g",
+      "\\nearrow",
+      "\\searrow",
+      "f\\nearrow,\\;g\\nearrow"
+    ],
+    "formulaTokens": [
+      "f\\circ g",
+      "f\\nearrow,\\;g\\nearrow\\implies f\\circ g\\nearrow",
+      "f\\nearrow,\\;g\\searrow\\implies f\\circ g\\searrow",
+      "f\\searrow,\\;g\\nearrow\\implies f\\circ g\\searrow",
+      "f\\searrow,\\;g\\searrow\\implies f\\circ g\\nearrow",
+      "\\prod_{i=1}^n s_i"
+    ],
+    "pinyin": "tong zeng yi jian fu he han shu dan diao xing",
+    "pinyinAbbr": "tzyj"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.8,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\begin{cases} f\\nearrow,\\;g\\nearrow \\implies f\\circ g\\nearrow,\\\\ f\\searrow,\\;g\\searrow \\implies f\\circ g\\nearrow,\\\\ f\\nearrow,\\;g\\searrow \\implies f\\circ g\\searrow,\\\\ f\\searrow,\\;g\\nearrow \\implies f\\circ g\\searrow. \\end{cases}",
+    "related_formulas": [
+      "s_{h} = \\prod_{i=1}^n s_i,\\quad s_i\\in\\{+1,-1\\}"
+    ],
+    "variables": [
+      "f",
+      "g",
+      "I",
+      "U",
+      "x",
+      "t"
+    ],
+    "conditions": "内层函数 $g$ 在区间 $I$ 上单调，外层函数 $f$ 在区间 $U$ 上单调，且 $g(I)\\subseteq U$。",
+    "conclusions": "复合函数 $f\\circ g$ 在 $I$ 上的单调性满足同增异减规则。"
+  },
+  "content": {
+    "statement": "若内层函数与外层函数在各自的区间上均单调，且内层函数的值域包含于外层函数的定义域，则复合函数的单调性遵循“同增异减”规则：内外单调性相同则复合为增，相异则复合为减。",
+    "derivation": [
+      "设 $x_1<x_2$ 且 $x_1,x_2\\in I$。内层 $g$ 单调，则 $g(x_1)$ 与 $g(x_2)$ 的大小关系确定。",
+      "外层 $f$ 单调，因此 $f(g(x_1))$ 与 $f(g(x_2))$ 的大小关系由 $g(x_1)$ 与 $g(x_2)$ 的大小及 $f$ 的单调性共同决定。",
+      "将内层变化方向与外层变化方向相乘：相同方向得正（增），相反方向得负（减）。"
+    ],
+    "intuition": "内外单调性一致时，内层值的变化方向与外层处理的方向一致，复合值同向变化；不一致时，内外变化方向相反，复合值反向变化。",
+    "common_tricks": [
+      "使用前必须检查内层值域是否包含在外层定义域内。",
+      "多层复合时，将每层的单调性符号（增为+1，减为-1）相乘，正得增，负得减。",
+      "关注内层函数的对称轴或分界点，正确划分内层单调区间。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "函数单调性判断",
+      "复合函数分析",
+      "求复合函数单调区间"
+    ],
+    "problem_types": [
+      "选择题",
+      "填空题",
+      "解答题"
+    ],
+    "exam_frequency": 1.0,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "F013.svg",
+    "png": "",
+    "geogebra": ""
+  },
+  "shareConfig": {
+    "title": "复合函数单调性：同增异减规则速查",
+    "shareDesc": "适合函数单调性复习和刷题前速查，用同增异减快速判断复合函数单调区间，减少推导步骤，提高判断准确率。"
+  },
+  "relations": {
+    "prerequisites": [
+      "函数单调性定义",
+      "函数定义域与值域"
+    ],
+    "related_ids": [],
+    "similar": [
+      "复合函数奇偶性",
+      "复合函数周期性"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-26"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "函数-性质-单调性",
+  "altNodes": "函数-特殊函数-指数函数,函数-特殊函数-对数函数,函数-特殊函数-幂函数"
+}
