@@ -1,0 +1,37 @@
+\begin{proofbox}
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用对数定义将函数值转化为指数形式，借助指数函数的单调性证明对数函数的单调性，再结合定点得符号性质。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（化指为对）：}] 任取$0<x_1<x_2$，设$y_1=\log_a x_1$，$y_2=\log_a x_2$，由对数定义得
+			\[
+				a^{y_1}=x_1,
+				\qquad
+				a^{y_2}=x_2.
+			\]
+			\par\textbf{理由：} 对数定义$a^{\log_a N}=N$。
+
+		\item[\textbf{步骤二（底数$a>1$时单调性）：}] 当$a>1$时，指数函数$y=a^x$在$\mathbb{R}$上单调递增。由$x_1<x_2$得$a^{y_1}<a^{y_2}$，再由指数递增性得$y_1<y_2$，即$\log_a x_1<\log_a x_2$。
+			\par\textbf{理由：} 指数函数单调递增，底数大于1时$a^{u}<a^{v}\Leftrightarrow u<v$。
+
+		\item[\textbf{步骤三（底数$0<a<1$时单调性）：}] 当$0<a<1$时，指数函数$y=a^x$在$\mathbb{R}$上单调递减。由$x_1<x_2$得$a^{y_1}<a^{y_2}$，由指数递减性得$y_1>y_2$，即$\log_a x_1>\log_a x_2$。
+			\par\textbf{理由：} 指数函数单调递减，$a^{u}<a^{v}\Leftrightarrow u>v$。
+
+		\item[\textbf{步骤四（符号判定）：}] 由于$f(1)=\log_a 1=0$，结合单调性：
+			\begin{itemize}
+			\item 若$a>1$，函数递增，则$x>1$时$f(x)>f(1)=0$；$0<x<1$时$f(x)<f(1)=0$。
+			\item 若$0<a<1$，函数递减，则$x>1$时$f(x)<f(1)=0$；$0<x<1$时$f(x)>f(1)=0$。
+		\end{itemize}
+			\par\textbf{理由：} 单调函数的值符号由自变量与$1$的相对大小及单调性共同决定。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	因此，对数函数的单调性和函数值符号完全由底数$a$决定，这一性质是处理对数比较、不等式和求参数范围的根本工具。
+
+\end{proofbox}
