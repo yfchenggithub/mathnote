@@ -1,0 +1,70 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用二次函数的单调性：$a>0$ 时在 $(-\infty,x_0]$ 递减，在 $[x_0,\infty)$ 递增；$a<0$ 时相反。通过对称轴与区间的位置分类，直接得出最值在哪些点取得。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（单调性分析）：}] 对 $f(x)=ax^2+bx+c$，求导或由二次函数性质知其对称轴为 $x_0=-\dfrac{b}{2a}$。
+			\par\textbf{理由：}
+			当 $a>0$ 时，函数在 $(-\infty,x_0]$ 单调递减，在 $[x_0,\infty)$ 单调递增；当 $a<0$ 时，单调性相反。
+
+		\item[\textbf{步骤二（最小值分类，$a>0$）：}] 根据对称轴与区间 $[m,n]$ 的相对位置分三种情况。
+			\par\textbf{理由：}
+			\begin{itemize}
+			\item 若 $x_0<m$，则区间在对称轴右侧，函数递增，最小值在左端点 $m$ 取 $f(m)$。
+			\item 若 $m\le x_0\le n$，则对称轴在区间内，最小值在顶点 $x_0$ 取 $f(x_0)$。
+			\item 若 $x_0>n$，则区间在对称轴左侧，函数递减，最小值在右端点 $n$ 取 $f(n)$。
+		\end{itemize}
+			综合得
+			\[
+				f_{\min}=
+				\begin{cases}
+					f(m), & x_0<m,\\
+					f(x_0), & m\le x_0\le n,\\
+					f(n), & x_0>n.
+			\end{cases}
+			\]
+
+		\item[\textbf{步骤三（最大值分类，$a>0$）：}] 开口向上时，最大值一定在离对称轴较远的端点取得。
+			\par\textbf{理由：}
+			比较端点与对称轴的距离：$|m-x_0|$ 与 $|n-x_0|$。
+			\begin{itemize}
+			\item 若 $x_0\le\dfrac{m+n}{2}$，则 $n$ 离对称轴更远，$f(n)\ge f(m)$，最大值为 $f(n)$。
+			\item 若 $x_0>\dfrac{m+n}{2}$，则 $m$ 离对称轴更远，$f(m)\ge f(n)$，最大值为 $f(m)$。
+		\end{itemize}
+			即
+			\[
+				f_{\max}=
+				\begin{cases}
+					f(n), & x_0\le\dfrac{m+n}{2},\\[6pt]
+					f(m), & x_0>\dfrac{m+n}{2}.
+			\end{cases}
+			\]
+
+		\item[\textbf{步骤四($a<0$ 情形):}] 开口向下时,单调性与 $a>0$ 相反,最值结论对调.
+			\par\textbf{理由:}
+			$a<0$ 时函数在 $(-\infty,x_0]$ 递增,在 $[x_0,\infty)$ 递减.对称轴离端点越远函数值越小.故最小值由离对称轴最远的端点(即原 $a>0$ 时最大值条件)决定,最大值由离对称轴最近的端点或顶点(即原 $a>0$ 时最小值条件)决定.
+			因此
+			\[
+				f_{\min}=
+				\begin{cases}
+					f(n), & x_0\le\dfrac{m+n}{2},\\[6pt]
+					f(m), & x_0>\dfrac{m+n}{2},
+			\end{cases}
+				\quad
+				f_{\max}=
+				\begin{cases}
+					f(m), & x_0<m,\\
+					f(x_0), & m\le x_0\le n,\\
+					f(n), & x_0>n.
+			\end{cases}
+			\]
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	通过分类讨论二次函数的单调性,可严格导出对称轴变动时二次函数在定区间上的最值公式,其中 $a>0$ 与 $a<0$ 的结果对称,实际解题时只需掌握 $a>0$ 的情形后对调即得.
+\end{proofbox}
