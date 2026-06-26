@@ -1,0 +1,69 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	指数运算法则来源于乘法的交换与结合律，并通过指数定义逐步推广到实数集。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（正整数定义）：}] 对于正整数 $m,n$，$a^m$ 表示 $m$ 个 $a$ 相乘。
+			\[
+				a^m = \underbrace{a\times a\times\cdots\times a}_{m}.
+			\]
+			\par\textbf{理由：} 这是幂的原始定义。
+
+		\item[\textbf{步骤二（同底乘法）：}] 计算 $a^m a^n$：
+			\[
+				\begin{aligned}
+					a^m a^n &= (\underbrace{a\cdots a}_{m})(\underbrace{a\cdots a}_{n}) \\
+					&= \underbrace{a\cdots a}_{m+n} \\
+					&= a^{m+n}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 乘法结合律，合并相同因子的个数。
+
+		\item[\textbf{步骤三（幂的乘方）：}] 计算 $(a^m)^n$：
+			\[
+				\begin{aligned}
+					(a^m)^n &= \underbrace{a^m \times a^m \times \cdots \times a^m}_{n} \\
+					&= \underbrace{(a\cdots a)}_{m}\cdots\underbrace{(a\cdots a)}_{m} \\
+					&= a^{mn}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 幂的定义与乘法结合律。
+
+		\item[\textbf{步骤四（积的乘方）：}] 计算 $(ab)^m$：
+			\[
+				\begin{aligned}
+					(ab)^m &= \underbrace{(ab)(ab)\cdots(ab)}_{m} \\
+					&= \underbrace{(a\cdots a)}_{m}\underbrace{(b\cdots b)}_{m} \\
+					&= a^m b^m.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 乘法交换与结合律。
+
+		\item[\textbf{步骤五（整数指数）：}] 定义 $a^0=1$，$a^{-n}=1/a^n$（$n>0$）。容易验证三条法则对任意整数仍然成立。例如：
+			\[
+				\begin{aligned}
+					a^m a^{-n} &= a^{m-n} \\
+					&= a^{m+(-n)}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 新的定义使指数运算封闭。
+
+		\item[\textbf{步骤六（实数指数）：}] 对底数 $a>0$，可通过指数函数 $a^x=e^{x\ln a}$ 将指数扩展到实数，并证明三个法则均成立。例如：
+			\[
+				\begin{aligned}
+					a^m a^n &= e^{m\ln a} e^{n\ln a} \\
+					&= e^{(m+n)\ln a} \\
+					&= a^{m+n}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 指数函数定义与对数性质。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{综上，对于任意实数 $m,n$ 和 $a,b>0$，指数幂运算法则 $a^m a^n=a^{m+n}$，$(a^m)^n=a^{mn}$，$(ab)^m=a^m b^m$ 成立。当 $m,n$ 为整数时，条件可放宽至 $a,b\neq0$。}
+\end{proofbox}
