@@ -1,0 +1,102 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	求函数 $y=2x+\sqrt{x-1}$ 的值域。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别根式形式）：}] 表达式含 $\sqrt{x-1}$，属于 $\sqrt{ax+b}$ 型（$a=1,\,b=-1$）。
+			\par\textbf{理由：} 符合换元条件，使用代数换元消去根号。
+
+		\item[\textbf{第二步（进行换元）：}] 令 $t=\sqrt{x-1}$，则 $t\ge0$，且 $x=t^2+1$。原函数化为
+			\[
+				\begin{aligned}
+					y &= 2(t^2+1)+t \\
+					&= 2t^2+t+2
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 将 $x$ 用 $t$ 表示并代入，得到关于 $t$ 的二次函数。
+
+		\item[\textbf{第三步（求值域）：}] 对 $y=2t^2+t+2$（$t\ge0$），配方得
+			\[
+				y=2\left(t+\frac{1}{4}\right)^2+\frac{15}{8}
+			\]
+			由 $t\ge0$，$y$ 在 $t=0$ 处取最小值 $2$，故值域为 $[2,+\infty)$。
+			\par\textbf{理由：} 二次函数在给定区间上单调递增，最小值在左端点取得。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	$y=2x+\sqrt{x-1}$ 的值域为 \textbf{$[2,+\infty)$}。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	求函数 $y=x+\sqrt{4-x^2}$ 的值域。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别根式形式）：}] 含有 $\sqrt{4-x^2}=\sqrt{2^2-x^2}$，属于 $\sqrt{a^2-x^2}$ 型。
+			\par\textbf{理由：} 适合三角换元，利用正弦或余弦消去根号。
+
+		\item[\textbf{第二步（三角换元）：}] 令 $x=2\sin\theta$，$\theta\in[-\frac{\pi}{2},\frac{\pi}{2}]$，则
+			\[
+				\begin{aligned}
+					y &= 2\sin\theta+\sqrt{4-4\sin^2\theta} \\
+					&= 2\sin\theta+2\cos\theta
+			\end{aligned}
+			\]
+			\par\textbf{理由：} $\sqrt{4-x^2}=2\sqrt{1-\sin^2\theta}=2\cos\theta$（在给定区间内 $\cos\theta\ge0$）。
+
+		\item[\textbf{第三步（合并求值）：}] 用辅助角公式：
+			\[
+				\begin{aligned}
+					y &= 2\sin\theta+2\cos\theta \\
+					&= 2\sqrt{2}\sin\left(\theta+\frac{\pi}{4}\right)
+			\end{aligned}
+			\]
+			由 $\theta\in[-\frac{\pi}{2},\frac{\pi}{2}]$，得 $\theta+\frac{\pi}{4}\in[-\frac{\pi}{4},\frac{3\pi}{4}]$，$\sin\left(\theta+\frac{\pi}{4}\right)\in[-\frac{\sqrt{2}}{2},1]$，故 $y\in[-2,2\sqrt{2}]$。
+			\par\textbf{理由：} 利用正弦函数的有界性求出值域。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	$y=x+\sqrt{4-x^2}$ 的值域为 \textbf{$[-2,2\sqrt{2}]$}。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	求函数 $y=\frac{\sqrt{x^2+1}}{x-1}$（$x>1$）的值域。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别根式形式）：}] 分子含 $\sqrt{x^2+1}=\sqrt{x^2+1^2}$，属于 $\sqrt{x^2+a^2}$ 型。
+			\par\textbf{理由：} 采用正切换元，消去根号。
+
+		\item[\textbf{第二步（正切换元）：}] 令 $x=\tan\theta$，$\theta\in(-\frac{\pi}{2},\frac{\pi}{2})$ 且由 $x>1$ 取 $\theta\in(\frac{\pi}{4},\frac{\pi}{2})$。
+			\[
+				\begin{aligned}
+					y &= \frac{\sqrt{\tan^2\theta+1}}{\tan\theta-1} \\
+					&= \frac{|\sec\theta|}{\tan\theta-1}
+			\end{aligned}
+			\]
+			\par\textbf{理由：} $1+\tan^2\theta=\sec^2\theta$，在 $\theta\in(\frac{\pi}{4},\frac{\pi}{2})$ 上 $\sec\theta>0$，故 $y=\frac{\sec\theta}{\tan\theta-1}$。
+
+		\item[\textbf{第三步（化为正余弦）：}] 将 $\sec\theta=\frac{1}{\cos\theta}$，$\tan\theta=\frac{\sin\theta}{\cos\theta}$ 代入：
+			\[
+				\begin{aligned}
+					y &= \frac{\frac{1}{\cos\theta}}{\frac{\sin\theta}{\cos\theta}-1} \\
+					&= \frac{1}{\sin\theta-\cos\theta}
+			\end{aligned}
+			\]
+			用辅助角公式：$\sin\theta-\cos\theta=\sqrt{2}\sin\left(\theta-\frac{\pi}{4}\right)$。
+			\par\textbf{理由：} 消去 $\cos\theta$，使表达式简化。
+
+		\item[\textbf{第四步（求值域）：}] $\theta\in(\frac{\pi}{4},\frac{\pi}{2})$ 时，$\theta-\frac{\pi}{4}\in(0,\frac{\pi}{4})$，$\sin\left(\theta-\frac{\pi}{4}\right)\in(0,\frac{\sqrt{2}}{2})$。故 $\sqrt{2}\sin\left(\theta-\frac{\pi}{4}\right)\in(0,1)$，从而 $y=\frac{1}{\sqrt{2}\sin\left(\theta-\frac{\pi}{4}\right)}\in(1,+\infty)$。
+			\par\textbf{理由：} 分母为正且单调递增，函数值单调递减，值域可直接得出。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	函数 $y=\frac{\sqrt{x^2+1}}{x-1}$（$x>1$）的值域为 \textbf{$(1,+\infty)$}.
+\end{examplebox}

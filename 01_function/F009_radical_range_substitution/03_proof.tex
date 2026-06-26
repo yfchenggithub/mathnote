@@ -1,0 +1,56 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	只需验证每个换元操作后，原根式表达式与新变量或三角函数的等式关系成立，且新变量的取值范围与原变量一一对应。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（$\sqrt{ax+b}$ 换元）：}] 令 $t=\sqrt{ax+b}$（$t\ge0$），由 $t^2=ax+b$ 解出 $x=\frac{t^2-b}{a}$。
+			\[
+				t\ge0,\quad \text{且 }x=\frac{t^2-b}{a}
+			\]
+			\par\textbf{理由：} 根式的非负性保证 $t\ge0$，平方后得到线性关系，直接反解即可。
+
+		\item[\textbf{步骤二（$\sqrt{a^2-x^2}$ 换元）：}] 设 $x=a\sin\theta$，$\theta\in[-\frac{\pi}{2},\frac{\pi}{2}]$。
+			\[
+				\begin{aligned}
+					\sqrt{a^2-x^2}
+					&= \sqrt{a^2-a^2\sin^2\theta} \\
+					&= a\sqrt{1-\sin^2\theta} \\
+					&= a\cos\theta
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 在 $\theta\in[-\frac{\pi}{2},\frac{\pi}{2}]$ 上 $\cos\theta\ge0$，故 $\sqrt{a^2-x^2}=a\cos\theta$ 成立，且 $x$ 与 $\theta$ 一一对应。
+
+		\item[\textbf{步骤三（$\sqrt{x^2+a^2}$ 换元）：}] 设 $x=a\tan\theta$，则
+			\[
+				\begin{aligned}
+					\sqrt{x^2+a^2}
+					&= \sqrt{a^2\tan^2\theta+a^2} \\
+					&= a\sqrt{\tan^2\theta+1} \\
+					&= a\sqrt{\sec^2\theta} \\
+					&= a|\sec\theta|
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 常用 $1+\tan^2\theta=\sec^2\theta$，开平方取绝对值。一般取 $\theta\in(-\frac{\pi}{2},\frac{\pi}{2})$ 则 $\sec\theta>0$，此时 $\sqrt{x^2+a^2}=a\sec\theta$。
+
+		\item[\textbf{步骤四（$\sqrt{x^2-a^2}$ 换元）：}] 设 $x=a\sec\theta$，则
+			\[
+				\begin{aligned}
+					x^2-a^2 &= a^2\sec^2\theta-a^2 \\
+					&= a^2(\sec^2\theta-1) \\
+					&= a^2\tan^2\theta
+			\end{aligned}
+			\]
+			\[
+				\sqrt{x^2-a^2}=a|\tan\theta|
+			\]
+			\par\textbf{理由：} 由 $\sec^2\theta-1=\tan^2\theta$ 得到。需注意 $x$ 的定义域 $|x|\ge a$，同时根据 $\theta$ 范围确定 $\tan\theta$ 的正负，可选择适当区间使 $\sqrt{x^2-a^2}=a\tan\theta$（如 $\theta\in[0,\frac{\pi}{2})$ 时 $\tan\theta\ge0$）。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	以上四种换元均通过代数或三角恒等式消去根号，新变量与原变量满足双射关系，因此原函数的值域与换元后函数的值域完全一致。
+\end{proofbox}
