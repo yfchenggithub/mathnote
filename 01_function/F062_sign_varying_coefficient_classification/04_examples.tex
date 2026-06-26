@@ -1,0 +1,58 @@
+\begin{examplebox}
+
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	设 $a(2x-1) \ge 2x-1$ 对一切 $x\in[0,1]$ 恒成立，求实数 $a$ 的取值范围。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（划分区间）：}] 由于 $k(x)=2x-1$ 在 $[0,1]$ 上变号，记 $D_1=(0.5,1]$（$k>0$），$D_2=[0,0.5)$（$k<0$），$D_0=\{0.5\}$（$k=0$）。
+			\par\textbf{理由：} 根据符号特征细分，原不等式恒成立等价于在每个子集上恒成立。
+		\item[\textbf{第二步（正零区间）：}] 当 $x\in D_1$ 时，$k(x)>0$，除以正数得 $a\ge 1$；当 $x=0.5$ 时，$0\ge0$ 恒成立，无约束。
+			\par\textbf{理由：} 正数除法保号性；直接代入零值验证。
+		\item[\textbf{第三步（负区间取交集）：}] 当 $x\in D_2$ 时，$k(x)<0$，除以负数得 $a\le 1$。结合 $a\ge 1$ 与 $a\le 1$，得 $a=1$。
+			\par\textbf{理由：} 负数除法反转不等号；取交集得到公共部分。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$a=1$}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	设 $a(x-1) \le 2(x-1)$ 对一切 $x\in[0,2]$ 恒成立，求实数 $a$ 的取值范围。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（划分区间）：}] 因为 $k(x)=x-1$ 在 $[0,2]$ 上变号，记 $D_1=(1,2]$（$k>0$），$D_2=[0,1)$（$k<0$），$D_0=\{1\}$（$k=0$）。
+			\par\textbf{理由：} 符号划分是必要条件。
+		\item[\textbf{第二步（正零区间）：}] 当 $x\in D_1$ 时，$x-1>0$，除以正数不等号不变，得 $a\le 2$；当 $x=1$ 时，$0\le0$ 成立，无约束。
+			\par\textbf{理由：} 正数除法保号；代入零值检验。
+		\item[\textbf{第三步（负区间取交集）：}] 当 $x\in D_2$ 时，$x-1<0$，除以负数不等号反转，得 $a\ge 2$。结合 $a\le2$ 与 $a\ge2$，得 $a=2$。
+			\par\textbf{理由：} 负数除法反转；取交集。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$a=2$}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	设 $a(2x-1) \le x^2$ 对一切 $x\in[0,1]$ 恒成立，求实数 $a$ 的取值范围。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（划分区间）：}] $k(x)=2x-1$ 在 $[0,1]$ 上变号，记 $D_1=(0.5,1]$（$k>0$），$D_2=[0,0.5)$（$k<0$），$D_0=\{0.5\}$（$k=0$）。
+			\par\textbf{理由：} 符号分段是前提。
+		\item[\textbf{第二步（正区间求上界）：}] 在 $D_1$ 上，$k>0$，得 $a\le \dfrac{x^2}{2x-1}$。令 $f(x)=\dfrac{x^2}{2x-1}$，则 $f'(x)=\dfrac{2x(x-1)}{(2x-1)^2}\le0$（$x\in(0.5,1]$），故 $f$ 递减，最小值 $f(1)=1$。因此 $a\le 1$。
+			\par\textbf{理由：} 正数除法保号性；利用导数单调性求最小值得上界。
+		\item[\textbf{第三步（负区间求下界取交集）：}] 在 $D_2$ 上，$k<0$，得 $a\ge \dfrac{x^2}{2x-1}$。对 $x\in[0,0.5)$，$f'(x)<0$，故 $f$ 递减，最大值 $f(0)=0$。因此 $a\ge 0$。在 $D_0$ 上，$x=0.5$ 代入 $0\le0.25$ 恒成立。取交集 $0\le a\le 1$。
+			\par\textbf{理由：} 负数除法反转；导数求最大值；零区间直接检验；最后交集。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$a\in[0,1]$}
+\end{examplebox}

@@ -1,0 +1,172 @@
+{
+  "id": "F062",
+  "module": "inequality",
+  "core": {
+    "title": "含参不等式恒成立（变号系数分类讨论法）",
+    "alias": [
+      "变号因子法",
+      "分类讨论求参数范围",
+      "参数系数变号分段法"
+    ],
+    "summary": "当参数系数在区间内变号时，不能直接除，需按正、负、零分段等价转化后取交集。",
+    "difficulty": 3,
+    "category": "不等式",
+    "tags": [
+      "含参不等式",
+      "恒成立",
+      "分类讨论",
+      "参数范围",
+      "变号因子"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "含参不等式",
+      "恒成立",
+      "参数范围",
+      "变号因子",
+      "分类讨论",
+      "正负零分段",
+      "k(x)变号",
+      "不等号反转",
+      "零值检验",
+      "取交集",
+      "a≥h/k",
+      "a≤h/k",
+      "除法方向"
+    ],
+    "synonyms": [
+      "变号系数不等式",
+      "参数分类讨论",
+      "含参恒成立分段法"
+    ],
+    "intents": [
+      "求参数范围",
+      "解含参不等式",
+      "判断恒成立条件",
+      "不等式分类讨论"
+    ],
+    "query_templates": [
+      "含参不等式恒成立变号怎么处理",
+      "参数系数变号如何求范围",
+      "不等式恒成立分类讨论步骤"
+    ],
+    "ocrKeywords": [
+      "a·k(x)≥h(x)",
+      "恒成立",
+      "k(x)变号",
+      "x∈D"
+    ],
+    "latex_patterns": [
+      "a\\cdot k(x)\\ge h(x)",
+      "a\\cdot k(x)\\le h(x)",
+      "\\frac{h(x)}{k(x)}",
+      "D_1=\\{x\\mid k(x)>0\\}",
+      "D_2=\\{x\\mid k(x)<0\\}",
+      "D_0=\\{x\\mid k(x)=0\\}"
+    ],
+    "formulaTokens": [
+      "a\\cdot k(x)\\ge h(x)",
+      "a\\ge \\frac{h(x)}{k(x)}",
+      "a\\le \\frac{h(x)}{k(x)}",
+      "0\\ge h(x)",
+      "k(x)>0",
+      "k(x)<0",
+      "k(x)=0"
+    ],
+    "pinyin": "hancanbudengshihengchenglifenleitaolunfa",
+    "pinyinAbbr": "hcbdschclftlf"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.79,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\begin{cases} a\\ge \\dfrac{h(x)}{k(x)} & \\forall x\\in D_1,\\\\ a\\le \\dfrac{h(x)}{k(x)} & \\forall x\\in D_2,\\\\ 0\\ge h(x) & \\forall x\\in D_0. \\end{cases}",
+    "related_formulas": [
+      "若原不等式为 $a\\cdot k(x)\\le h(x)$，则等价于 \\begin{cases} a\\le \\dfrac{h(x)}{k(x)} & \\forall x\\in D_1,\\\\ a\\ge \\dfrac{h(x)}{k(x)} & \\forall x\\in D_2,\\\\ 0\\le h(x) & \\forall x\\in D_0. \\end{cases}"
+    ],
+    "variables": [
+      "a",
+      "k(x)",
+      "h(x)",
+      "D",
+      "D_1",
+      "D_2",
+      "D_0",
+      "x"
+    ],
+    "conditions": "不等式 $a\\cdot k(x)\\ge h(x)$ 在区间 $D$ 上恒成立，且系数 $k(x)$ 在 $D$ 上变号。",
+    "conclusions": "参数 $a$ 的取值范围由三个子条件分别求出的范围取交集得到。"
+  },
+  "content": {
+    "statement": "对于含参不等式 $a\\cdot k(x)\\ge h(x)$（或 $\\le$）在区间 $D$ 上恒成立，且系数 $k(x)$ 在 $D$ 上变号时，可通过按 $k(x)$ 的符号将 $D$ 划分为 $D_1$（正）、$D_2$（负）、$D_0$（零），将原不等式等价转化为三个子条件：在 $D_1$ 上 $a\\ge h/k$，在 $D_2$ 上 $a\\le h/k$，在 $D_0$ 上 $0\\ge h$。分别求出使各部分恒成立的 $a$ 的范围后再取交集，即得参数的取值范围。",
+    "derivation": [
+      "按 $k(x)$ 的符号将区间 $D$ 分为 $D_1(k>0)$, $D_2(k<0)$, $D_0(k=0)$。",
+      "在 $D_1$ 上除以正数不等号方向不变，得 $a\\ge h/k$；在 $D_2$ 上除以负数不等号反转，得 $a\\le h/k$；在 $D_0$ 上直接代入得 $0\\ge h$。",
+      "分别求出三个条件下 $a$ 的范围，取交集即得最终结果。"
+    ],
+    "intuition": "因为不等号方向受除数符号影响，只有分别处理才能保证等价性。",
+    "common_tricks": [
+      "注意 $k(x)=0$ 的点必须单独带入原不等式验证。",
+      "在 $k(x)<0$ 的区间，除以 $k(x)$ 后不等号必须反转。",
+      "最终结果取各子条件范围的交集，而不是并集。",
+      "若 $k(x)$ 变号但可分离参数，优先考虑分离参数法。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "压轴题中段",
+      "恒成立问题",
+      "参数范围求解"
+    ],
+    "problem_types": [
+      "含参不等式恒成立",
+      "分类讨论求参"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "F062.svg"
+  },
+  "shareConfig": {
+    "title": "含参不等式恒成立：变号系数分类讨论法",
+    "shareDesc": "适用不等式恒成立压轴题，当参数系数变号时，按正负零分段转化，避免不等式方向错误。适合讲评课与考前回顾。"
+  },
+  "relations": {
+    "prerequisites": [
+      "不等式基本性质",
+      "恒成立问题基本解法",
+      "函数单调性"
+    ],
+    "related_ids": [],
+    "similar": [
+      "分离参数法",
+      "参变分离求最值",
+      "二次函数不等式恒成立"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "不等式-解法-分类讨论",
+  "altNodes": ""
+}
