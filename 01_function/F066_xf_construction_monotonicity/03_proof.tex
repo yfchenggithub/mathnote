@@ -1,0 +1,39 @@
+\begin{proofbox}
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用乘法法则直接求导：$(u v)' = u' v + u v'$。对于 $F(x)=x f(x)$，取 $u=x$，$v=f(x)$。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（主结论求导）：}]
+			对 $F(x)=x f(x)$ 求导：
+			\[
+				F'(x) = f(x) + x f'(x).
+			\]
+			\par\textbf{理由：}应用乘法法则，$(x)'=1$，$(f(x))'=f'(x)$。
+
+		\item[\textbf{步骤二（符号判据）：}]
+			由题设 $x f'(x)+f(x) > 0$（或 $<0$），而 $F'(x) = x f'(x)+f(x)$，故 $F'(x)$ 在区间 $I$ 上恒正（或恒负）。因此 $F(x)$ 在 $I$ 上严格单调递增（或递减）。
+			\par\textbf{理由：}导数符号决定单调性。
+
+		\item[\textbf{步骤三（推广求导）：}]
+			对 $G(x)=x^n f(x)$ 求导：
+			\[
+				\begin{aligned}
+					G'(x) &= (x^n)' f(x) + x^n f'(x) \\
+					&= n x^{n-1} f(x) + x^n f'(x) \\
+					&= x^{n-1}\bigl[ n f(x) + x f'(x) \bigr] \\
+					&= x^{n-1}\bigl[ x f'(x) + n f(x) \bigr].
+			\end{aligned}
+			\]
+			\par\textbf{理由：}使用乘法法则和幂函数求导 $(x^n)' = n x^{n-1}$，然后提取因子 $x^{n-1}$。
+
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{已验证：当条件中出现 $x f'(x)+f(x)$（或 $x f'(x)+n f(x)$）时，可通过构造 $F(x)=x f(x)$（或 $G(x)=x^n f(x)$）将其转化为 $F'(x)$（或 $G'(x)$）的符号问题，从而利用导数判断单调性。}
+\end{proofbox}
