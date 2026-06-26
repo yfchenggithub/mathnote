@@ -1,0 +1,42 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	通过多项式除法或凑配法将分式化为常数部分与反比例部分之和，值域排除常数部分。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（多项式除法）：}]
+			计算 $ax+b$ 除以 $cx+d$：
+			\[
+				\frac{ax+b}{{cx+d}} = \frac{a}{c} + \frac{ax+b - \frac{a}{c}(cx+d)}{{cx+d}}
+			\]
+			\par\textbf{理由：} 将分子配凑成 $\frac{a}{c}(cx+d)$，多出的部分作为余项。
+		\item[\textbf{步骤二（化简余项）：}]
+			将余项化简：
+			\[
+				\begin{aligned}
+					ax+b - \frac{a}{c}(cx+d) &= ax+b - ax - \frac{ad}{c} \\ &= \frac{bc-ad}{c}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 展开并合并同类项。
+		\item[\textbf{步骤三（分离形式）：}]
+			代入得：
+			\[
+				\begin{aligned}
+					y &= \frac{a}{c} + \frac{\frac{bc-ad}{c}}{{cx+d}} \\ &= \frac{a}{c} + \frac{bc-ad}{{c(cx+d)}}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 将常数因子提出。
+		\item[\textbf{步骤四（值域分析）：}]
+			记 $t = cx+d$，定义域 $t\neq 0$。因为 $c\neq0$，$t$ 可取任意非零实数。于是
+			\[
+				y = \frac{a}{c} + \frac{bc-ad}{c}\cdot\frac{1}{t},
+			\]
+			其中 $\frac{bc-ad}{c}\cdot\frac{1}{t} \neq 0$（因为 $bc-ad\neq0$ 且 $t\neq0$），且它可以取遍任意非零实数（由反比例函数性质）。故 $y$ 能取除 $\frac{a}{c}$ 外的一切实数。
+			\par\textbf{理由：} 反比例函数值域为非零实数，且系数非零不影响值域覆盖性。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	因此，一次分式函数 $y=\dfrac{ax+b}{{cx+d}}$（$c\neq0, ad\neq bc$）的值域为 $\{y\in\mathbb{R}\mid y\neq\dfrac{a}{c}\}$。
+\end{proofbox}
