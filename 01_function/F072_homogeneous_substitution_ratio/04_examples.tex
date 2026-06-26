@@ -1,0 +1,80 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	设 $a,b>0$，$a\neq b$，用齐次换元法证明 $a^2+b^2>2ab$。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（比值换元）：}]
+			令 $t=\dfrac{a}{b}$，则 $t>0$，且 $t\neq1$。
+			\par\textbf{理由：} 因为 $a,b>0$，$a\neq b$，所以 $t$ 定义合法，且 $t\neq1$。
+		\item[\textbf{第二步（化为单变量）：}]
+			原不等式 $a^2+b^2>2ab$ 两边同除以 $b^2$ 得 $t^2+1>2t$，即 $t^2-2t+1>0$。
+			\par\textbf{理由：} 由 $t=a/b$，得 $a^2/b^2=t^2$，$2a/b=2t$，故等价变形。
+		\item[\textbf{第三步（结论判断）：}]
+			因为 $t^2-2t+1=(t-1)^2>0$ 对 $t\neq1$ 恒成立，所以原不等式成立。
+			\par\textbf{理由：} 平方项恒非负，当 $t\neq1$ 时严格为正。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{通过比值换元，原不等式化为 $(t-1)^2>0$，显然成立。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	设 $x,y>0$，$x\neq y$，求证 $\displaystyle\frac{x^3+y^3}{x^2+y^2}>\frac{x+y}{2}$。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（比值换元）：}]
+			令 $t=\dfrac{x}{y}>0$，$t\neq1$。
+			\par\textbf{理由：} 由 $x,y>0$，$x\neq y$，$t$ 定义合理。
+		\item[\textbf{第二步（代换化简）：}]
+			不等式两边同除以 $y$（$y>0$），得
+			\[
+				\frac{t^3+1}{t^2+1} > \frac{t+1}{2}\text{.}
+			\]
+			\par\textbf{理由：} 左边：$\dfrac{x^3+y^3}{x^2+y^2} = \dfrac{y^3(t^3+1)}{y^2(t^2+1)} = y\dfrac{t^3+1}{t^2+1}$；右边：$\dfrac{x+y}{2}=y\dfrac{t+1}{2}$。约去 $y>0$ 即得。
+		\item[\textbf{第三步（整理证明）：}]
+			移项、通分并化简：
+			\[
+				\begin{aligned}
+					\frac{t^3+1}{t^2+1} - \frac{t+1}{2} &= \frac{2(t^3+1)-(t+1)(t^2+1)}{2(t^2+1)} \\ &= \frac{2t^3+2-(t^3+t^2+t+1)}{2(t^2+1)} \\ &= \frac{t^3 - t^2 - t +1}{2(t^2+1)} \\ &= \frac{(t-1)^2(t+1)}{2(t^2+1)} >0 \quad (t>0,\,t\neq1)\text{.}
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 分子 $(t-1)^2(t+1)>0$，分母 $2(t^2+1)>0$，故差为正，原不等式成立。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{通过换元 $t=x/y$，原不等式化为单变量有理分式不等式并成功证明。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	已知 $x_1,x_2>0$，$x_1\neq x_2$，求证对数均值不等式 $\displaystyle\frac{x_1-x_2}{\ln x_1-\ln x_2}<\frac{x_1+x_2}{2}$。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（比值换元）：}]
+			不妨设 $x_1>x_2>0$，令 $t=\dfrac{x_1}{x_2}>1$。
+			\par\textbf{理由：} 由对称性，只考虑 $t>1$ 情形。
+		\item[\textbf{第二步（化为单变量不等式）：}]
+			将原不等式两边同除以 $x_2$ 并利用对数性质，化为
+			\[
+				\frac{t-1}{\ln t} < \frac{t+1}{2},\quad t>1\text{.}
+			\]
+			\par\textbf{理由：} 左边：$\dfrac{x_1-x_2}{\ln x_1-\ln x_2}=\dfrac{x_2(t-1)}{\ln x_2 + \ln t - \ln x_2}=\dfrac{x_2(t-1)}{\ln t}$；右边：$\dfrac{x_1+x_2}{2}=\dfrac{x_2(t+1)}{2}$。约去 $x_2>0$ 即得。
+		\item[\textbf{第三步（构造函数求导）：}]
+			移项转化为证明 $\ln t - \dfrac{2(t-1)}{t+1}>0$（$t>1$）。令
+			\[
+				f(t)=\ln t - \frac{2(t-1)}{t+1},\quad t>1\text{.}
+			\]
+			求导得
+			\[
+				\begin{aligned}
+					f'(t) &=\frac{1}{t} - \frac{2(t+1)-2(t-1)}{(t+1)^2} \\ &=\frac{1}{t} - \frac{4}{(t+1)^2} \\ &=\frac{(t+1)^2-4t}{t(t+1)^2} \\ &=\frac{(t-1)^2}{t(t+1)^2}>0\text{.}
+			\end{aligned}
+			\]
+			\par\textbf{理由：} $f'(t)>0$，故 $f(t)$ 在 $(1,+\infty)$ 严格递增。
+		\item[\textbf{第四步（回代结论）：}]
+			由单调性，$f(t)>f(1)=0$，即 $\ln t > \dfrac{2(t-1)}{t+1}$，等价于原不等式成立。
+			\par\textbf{理由：} $f(1)=0$（$t\to1$ 时极限为 $0$），$f(t)>0$ 即原式。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{通过比值换元将对数均值不等式化为 $f(t)=\ln t - \frac{2(t-1)}{t+1}>0$，利用导数证明。}
+\end{examplebox}

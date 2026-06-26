@@ -1,0 +1,166 @@
+{
+  "id": "F071",
+  "module": "function",
+  "core": {
+    "title": "极值点偏移：对数均值不等式法",
+    "alias": [
+      "对数均值不等式极值点偏移",
+      "极值点偏移和积不等式",
+      "fx1=fx2化对数均值"
+    ],
+    "summary": "若极值点偏移问题中 $f(x_1)=f(x_2)$ 可化为对数平均形式 $\\frac{x_1-x_2}{\\ln x_1-\\ln x_2}=c$，则直接得到 $x_1+x_2>2c$ 且 $x_1x_2<c^2$。",
+    "difficulty": 4,
+    "category": "函数与导数",
+    "tags": [
+      "极值点偏移",
+      "对数均值不等式",
+      "函数不等式",
+      "导数应用",
+      "和不等式",
+      "积不等式"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "极值点偏移",
+      "对数均值不等式",
+      "x1+x2>2c",
+      "x1x2<c^2",
+      "f(x1)=f(x2)",
+      "对数平均",
+      "极值点偏移结论",
+      "和不等式",
+      "积不等式",
+      "极值点偏移证明",
+      "lnx1-lnx2"
+    ],
+    "synonyms": [
+      "极值点偏移对数均值法",
+      "极值点偏移不等式",
+      "对数均值不等式变形",
+      "极值点偏移和积"
+    ],
+    "intents": [
+      "证明不等式",
+      "比较大小",
+      "求取值范围",
+      "极值点偏移审题",
+      "套用结论"
+    ],
+    "query_templates": [
+      "极值点偏移用对数均值不等式的结论",
+      "x1+x2>2c怎么来的",
+      "极值点偏移积小于c平方",
+      "f(x1)=f(x2)化对数平均的题",
+      "对数均值不等式极值点偏移应用"
+    ],
+    "ocrKeywords": [
+      "f(x1)=f(x2)",
+      "lnx1-lnx2",
+      "x1-x2",
+      "c为常数",
+      "正数x1x2",
+      "极值点偏移"
+    ],
+    "latex_patterns": [
+      "\\frac{x_1-x_2}{\\ln x_1-\\ln x_2}=c",
+      "x_1+x_2>2c",
+      "x_1x_2<c^2",
+      "\\sqrt{x_1x_2}<\\frac{x_1-x_2}{\\ln x_1-\\ln x_2}<\\frac{x_1+x_2}{2}"
+    ],
+    "formulaTokens": [
+      "x_1+x_2>2c",
+      "x_1x_2<c^2",
+      "\\frac{x_1-x_2}{\\ln x_1-\\ln x_2}=c",
+      "\\sqrt{x_1x_2}",
+      "\\frac{x_1+x_2}{2}",
+      "\\ln x_1-\\ln x_2"
+    ],
+    "pinyin": "jizhidianpiandui duishujunzhibudengshifa",
+    "pinyinAbbr": "jzpd"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.57,
+    "hot_score": 65,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\frac{x_1-x_2}{\\ln x_1-\\ln x_2}=c \\Rightarrow x_1+x_2>2c,\\; x_1x_2<c^2",
+    "related_formulas": [
+      "\\sqrt{x_1x_2}<\\frac{x_1-x_2}{\\ln x_1-\\ln x_2}<\\frac{x_1+x_2}{2}"
+    ],
+    "variables": [
+      "x_1",
+      "x_2",
+      "c"
+    ],
+    "conditions": "$x_1,x_2>0$ 且 $x_1\\neq x_2$，且 $f(x_1)=f(x_2)$ 可化为 $\\frac{x_1-x_2}{\\ln x_1-\\ln x_2}=c$（$c$ 为常数）。",
+    "conclusions": "$x_1+x_2>2c$，$x_1x_2<c^2$。"
+  },
+  "content": {
+    "statement": "设 $x_1,x_2>0$ 且 $x_1\\neq x_2$。若由 $f(x_1)=f(x_2)$ 可变形得到 $\\frac{x_1-x_2}{\\ln x_1-\\ln x_2}=c$（$c$ 为常数），则必有 $x_1+x_2>2c$，$x_1x_2<c^2$。",
+    "derivation": [
+      "由对数均值不等式：$\\sqrt{x_1x_2}<\\frac{x_1-x_2}{\\ln x_1-\\ln x_2}<\\frac{x_1+x_2}{2}$。",
+      "已知 $\\frac{x_1-x_2}{\\ln x_1-\\ln x_2}=c$，则 $\\sqrt{x_1x_2}<c<\\frac{x_1+x_2}{2}$。",
+      "从而直接得到 $x_1+x_2>2c$（由 $c<\\frac{x_1+x_2}{2}$ 变形）和 $x_1x_2<c^2$（由 $\\sqrt{x_1x_2}<c$ 平方）。"
+    ],
+    "intuition": "对数均值不等式本身就是两个正数的几何平均与算术平均的关系，当中间值等于常数c时，自然推出和与积的上下界。",
+    "common_tricks": [
+      "遇到 $f(x_1)=f(x_2)$ 时，优先尝试变形为 $\\frac{x_1-x_2}{\\ln x_1-\\ln x_2}=c$ 的结构。",
+      "注意 $c$ 可能由参数给出，如 $c=\\frac{1}{a}$。",
+      "验证 $x_1,x_2>0$ 且 $x_1\\neq x_2$，否则不能使用。",
+      "牢记不等式方向：和大于 $2c$，积小于 $c^2$，可通过对数均值不等式检验。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "压轴题第三问",
+      "极值点偏移证明",
+      "导数综合题"
+    ],
+    "problem_types": [
+      "证明不等式",
+      "比较大小",
+      "求参数范围"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "F071.svg"
+  },
+  "shareConfig": {
+    "title": "极值点偏移用对数均值不等式：和与积范围速判",
+    "shareDesc": "适合压轴题第三问和刷题前复盘，直接利用对数均值理解极值点偏移，快速得到x1+x2和x1x2的不等式，减少变形推导步骤。"
+  },
+  "relations": {
+    "prerequisites": [
+      "对数均值不等式",
+      "极值点偏移概念",
+      "对数函数性质"
+    ],
+    "related_ids": [],
+    "similar": "对数均值不等式本身也可用于其他含 ln 的比较问题。"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "函数-综合-函数与不等式",
+  "altNodes": "函数-性质-单调性,不等式-经典不等式-均值不等式"
+}

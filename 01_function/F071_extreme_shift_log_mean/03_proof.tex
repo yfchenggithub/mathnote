@@ -1,0 +1,56 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	利用 $x_1$ 与 $x_2$ 的比例替换，将变量减少为一个，然后构造函数并利用导数证明所得函数不等式。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（设比值大小）：}]
+			由对称性，不妨设 $x_1 > x_2$（由 $x_1,x_2>0$ 且不等，可令 $x_1$ 较大）。令 $t = \frac{x_1}{x_2}$，则 $t > 1$，且 $x_1 = t x_2$。
+			\par\textbf{理由：} $x_1,x_2$ 地位对等，大小关系不影响结论，设 $t>1$ 可避免绝对值讨论。
+		\item[\textbf{步骤二（表达参数 $c$）：}]
+			将 $x_1 = t x_2$ 代入已知等式：
+			\[
+				\begin{aligned}
+					c &= \frac{x_1-x_2}{\ln x_1 - \ln x_2} \\ &= \frac{t x_2 - x_2}{\ln(t x_2)-\ln x_2} \\ &= \frac{x_2(t-1)}{\ln t}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 利用对数性质消去 $x_2$，将 $c$ 分离为 $x_2$ 与 $t$ 的乘积。
+		\item[\textbf{步骤三（转化目标不等式）：}]
+			将两个待证不等式用 $t$ 表示。
+			\[
+				\begin{aligned}
+					x_1+x_2 > 2c &\iff x_2(t+1) > 2\cdot\frac{x_2(t-1)}{\ln t} \\ &\iff (t+1)\ln t > 2(t-1). \
+					\[
+						4pt] x_1x_2 < c^2 &\iff t x_2^2 < \left[\frac{x_2(t-1)}{\ln t}\right]^2 \\ &\iff t \ln^2 t < (t-1)^2.
+				\end{aligned}
+				\]
+				\par\textbf{理由:} 约去正数 $x_2$,将二元条件化成只含 $t$ 的不等式.
+			\item[\textbf{步骤四(证明和不等式):}]
+				考虑函数 $f(t)=(t+1)\ln t - 2(t-1)$,$t>1$.
+				\[
+					f'(t) = \ln t + \frac{1}{t} - 1,
+					\qquad
+					f''(t) = \frac{1}{t} - \frac{1}{t^2} = \frac{t-1}{t^2}.
+				\]
+				由于 $t>1$,有 $f''(t) > 0$.这表明 $f'(t)$ 在 $(1,+\infty)$ 上单调递增,又 $f'(1)=0$,故 $f'(t)>0$.因此 $f(t)$ 单调递增,且 $f(1)=0$,所以 $f(t)>0$.
+				\par\textbf{理由:} $f(t)>0$ 即 $(t+1)\ln t > 2(t-1)$,和不等式得证.
+			\item[\textbf{步骤五(证明积不等式):}]
+				考虑函数 $g(t)= (t-1)^2 - t\ln^2 t$,$t>1$.
+				\[
+					g'(t) = 2(t-1) - \ln^2 t - 2\ln t.
+				\]
+				为判号,考虑二阶导数:
+				\[
+					\begin{aligned}
+						g''(t) &= 2 - \frac{2\ln t}{t} - \frac{2}{t} \\ &= 2\left(1 - \frac{\ln t+1}{t}\right).
+				\end{aligned}
+				\]
+				当 $t>1$ 时,令 $u(t)=1 - \frac{\ln t+1}{t}$,$u(1)=0$,$u'(t) = \frac{\ln t}{t^2}$,故 $u'(t) > 0$,从而 $u(t)>0$,进而 $g''(t)>0$.所以 $g'(t)$ 在 $(1,+\infty)$ 递增,又 $g'(1)=0$,得 $g'(t)>0$.于是 $g(t)$ 递增,$g(1)=0$,所以 $g(t)>0$,即 $t\ln^2 t < (t-1)^2$.
+				\par\textbf{理由:} $g(t)>0$ 等价于积不等式 $x_1x_2<c^2$.
+		\end{description}
+
+		\medskip
+		\textbf{\textcolor{CProof}{结论回扣}}
+		综合步骤四和步骤五,我们证明了在 $t>1$ 时 $(t+1)\ln t > 2(t-1)$ 与 $t\ln^2 t < (t-1)^2$ 恒成立.由 $t>1$ 的设定($x_1>x_2$)及对称性,原结论 $x_1+x_2>2c$ 与 $x_1x_2<c^2$ 对任意满足条件的 $x_1,x_2$ 成立.
+	\end{proofbox}

@@ -1,0 +1,36 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	利用零次齐次性，将变量之一标准化为1，从而消去一个变量。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（归一化变形）：}]
+			取 $\lambda=1/x_2$（$x_2>0$），由零次齐次性 $F(\lambda x_1,\lambda x_2)=F(x_1,x_2)$ 可得
+			\[
+				F(x_1,x_2)=F\!\left(\frac{x_1}{x_2},1\right)\text{.}
+			\]
+			\par\textbf{理由：} 因为 $x_2>0$，$\lambda x_1=x_1/x_2$，$\lambda x_2=1$，直接代入齐次性即得。
+		\item[\textbf{步骤二（引入比值）：}]
+			令 $t=\dfrac{x_1}{x_2}$，则 $t>0$ 且 $t\neq1$（由 $x_1,x_2>0$，$x_1\neq x_2$）。于是
+			\[
+				F(x_1,x_2)=F(t,1)\text{.}
+			\]
+			\par\textbf{理由：} $t$ 定义明确，代入步骤一结果。
+		\item[\textbf{步骤三（等价转化）：}]
+			原不等式 $F(x_1,x_2)\ge0$ 等价于
+			\[
+				\varphi(t)\ge0,
+				\qquad
+				\varphi(t)=F(t,1)\text{.}
+			\]
+			\par\textbf{理由：} 由步骤二，$F(x_1,x_2)$ 与 $\varphi(t)$ 完全相同，因此不等式等价。同时 $t>0$，$t\neq1$ 即为新的自变量范围。
+		\item[\textbf{步骤四（实际应用习惯）：}]
+			当 $x_1>x_2$ 时，$t>1$；当 $x_1<x_2$ 时，$0<t<1$。通常情况下由对称性可只考虑 $t>1$。
+			\par\textbf{理由：} 若不等式关于 $x_1,x_2$ 对称，则 $t>1$ 与 $0<t<1$ 可相互转化，只需研究一侧。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{因此，对于零次齐次的双变量不等式，通过比值 $t=x_1/x_2$ 可严格化为单变量不等式 $\varphi(t)\ge0$，且 $t$ 的定义域为 $t>0,t\neq1$。}
+\end{proofbox}

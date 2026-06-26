@@ -1,0 +1,182 @@
+{
+  "id": "F072",
+  "module": "inequality",
+  "core": {
+    "title": "齐次换元法（比值换元）",
+    "alias": [
+      "比值换元",
+      "齐次化",
+      "零次齐次换元",
+      "t换元法"
+    ],
+    "summary": "通过引入比值 $t=x_1/x_2$，将二元不等式化为一元不等式。",
+    "difficulty": 4,
+    "category": "不等式",
+    "tags": [
+      "齐次换元",
+      "不等式证明",
+      "化归思想",
+      "双变量问题",
+      "单变量转化"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "齐次换元",
+      "比值换元",
+      "双变量不等式",
+      "零次齐次",
+      "单变量转化",
+      "t=x1/x2",
+      "对数均值不等式",
+      "不等式证明",
+      "化归思想",
+      "导数压轴题",
+      "变量替换",
+      "齐次函数",
+      "同除",
+      "化为一元不等式",
+      "换元法"
+    ],
+    "synonyms": [
+      "齐次换元法",
+      "比值代换",
+      "t代换",
+      "t换元",
+      "齐次化方法",
+      "零次齐次"
+    ],
+    "intents": [
+      "证明不等式",
+      "化二元为一元",
+      "简化双变量问题",
+      "求最值",
+      "比较大小",
+      "转化不等式"
+    ],
+    "query_templates": [
+      "齐次换元法怎么用",
+      "双变量不等式用比值换元",
+      "对数均值不等式齐次换元",
+      "零次齐次不等式换元技巧"
+    ],
+    "ocrKeywords": [
+      "F(x1,x2)≥0",
+      "x1,x2>0",
+      "x1≠x2",
+      "t=x1/x2",
+      "φ(t)=F(t,1)",
+      "比值换元"
+    ],
+    "latex_patterns": [
+      "F(x_1,x_2)\\ge 0",
+      "t=\\frac{x_1}{x_2}",
+      "\\varphi(t)=F(t,1)",
+      "\\frac{t-1}{\\ln t}<\\frac{t+1}{2}"
+    ],
+    "formulaTokens": [
+      "F(x_1,x_2)\\ge 0",
+      "\\frac{x_1}{x_2}",
+      "\\varphi(t)=F(t,1)",
+      "t>0",
+      "t\\neq 1",
+      "\\frac{x_1-x_2}{\\ln x_1-\\ln x_2}",
+      "\\frac{x_1+x_2}{2}",
+      "\\frac{t-1}{\\ln t}",
+      "\\frac{t+1}{2}"
+    ],
+    "pinyin": "qi ci huan yuan fa",
+    "pinyinAbbr": "qchyf"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.86,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "F(x_1,x_2)\\ge 0 \\Longleftrightarrow \\varphi(t)\\ge 0,\\quad \\varphi(t)=F(t,1),\\ t>0,\\ t\\neq 1",
+    "related_formulas": [
+      "\\frac{x_1-x_2}{\\ln x_1-\\ln x_2}<\\frac{x_1+x_2}{2} \\Longleftrightarrow \\frac{t-1}{\\ln t}<\\frac{t+1}{2},\\ t>1"
+    ],
+    "variables": [
+      "x_1",
+      "x_2",
+      "t",
+      "\\lambda"
+    ],
+    "conditions": "函数$F(x_1,x_2)$满足零次齐次性：对任意$\\lambda>0$，$F(\\lambda x_1,\\lambda x_2)=F(x_1,x_2)$；且$x_1,x_2>0$，$x_1\\neq x_2$。",
+    "conclusions": "原不等式$F(x_1,x_2)\\ge 0$等价于$\\varphi(t)\\ge 0$，其中$\\varphi(t)=F(t,1)$，$t>0$，$t\\neq 1$。例如对数均值不等式可化为$\\frac{t-1}{\\ln t}<\\frac{t+1}{2}\\ (t>1)$。"
+  },
+  "content": {
+    "statement": "对于零次齐次的双变量不等式 $F(x_1,x_2)\\ge 0$（其中 $x_1,x_2>0$，$x_1\\neq x_2$），令 $t=\\frac{x_1}{x_2}$，则原不等式等价于单变量不等式 $\\varphi(t)\\ge 0$，其中 $\\varphi(t)=F(t,1)$，$t>0$，$t\\neq 1$。实际应用时常设 $x_1>x_2$，此时 $t>1$。",
+    "derivation": [
+      "由零次齐次性，$F(x_1,x_2)=F\\left(\\frac{x_1}{x_2},1\\right)$。",
+      "令 $t=\\frac{x_1}{x_2}$，得 $\\varphi(t)=F(t,1)$。",
+      "原不等式 $F(x_1,x_2)\\ge 0$ 化为 $\\varphi(t)\\ge 0$。"
+    ],
+    "intuition": "因为函数是零次齐次，输入成比例时函数值不变，所以只需考虑比值 $t$。",
+    "common_tricks": [
+      "比值换元时注意 $t$ 的范围：由 $x_1>x_2$ 得 $t>1$，否则需同时考虑 $0<t<1$ 或利用 $t\\leftrightarrow 1/t$ 对称性。",
+      "换元后通常需要构造函数求导证明不等式。",
+      "检查是否为零次齐次：将变量同时乘以 $\\lambda$ 看函数值是否不变，或直接同除一个变量看是否出现比值。",
+      "对数均值不等式是典型应用，换元后转化为 $\\frac{t-1}{\\ln t}<\\frac{t+1}{2}$。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "导数压轴题",
+      "不等式证明",
+      "双变量最值问题",
+      "对数均值不等式"
+    ],
+    "problem_types": [
+      "证明题",
+      "比较大小",
+      "参数范围"
+    ],
+    "exam_frequency": 1.0,
+    "exam_score": 8
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": ""
+  },
+  "shareConfig": {
+    "title": "齐次换元法：双变量不等式化一元技巧",
+    "shareDesc": "适合复习双变量不等式证明和导数压轴题；掌握通过比值t将二元问题化为一元的方法，减少变量干扰，提升解题稳定性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "不等式基本性质",
+      "函数单调性",
+      "变量替换思想"
+    ],
+    "related_ids": "",
+    "similar": "对称换元法、增量换元法、三角换元法",
+    "altNodes": [
+      "不等式-等价变形-分式不等式转化",
+      "不等式-解法-函数法",
+      "函数-综合-函数与不等式"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "不等式-解法-函数法",
+  "altNodes": ""
+}
