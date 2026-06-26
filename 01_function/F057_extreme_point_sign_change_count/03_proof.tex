@@ -1,0 +1,33 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	通过导数符号判断单调性：导数变号导致单调性改变，从而产生极值。充分性由单调性直接推出；必要性利用反证法。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（导数与单调性）：}] 设 $f$ 在区间 $I$ 上可导。若对任意 $x\in I$ 有 $f'(x)>0$，则 $f$ 在 $I$ 上严格递增；若 $f'(x)<0$，则严格递减。这一关系是证明的基础。
+			\par\textbf{理由：} 由导数的正负决定切线斜率，进而决定函数变化趋势。
+
+		\item[\textbf{步骤二（变号判极值）：}] 设 $f'(x_0)=0$，且存在 $\delta>0$ 使得：
+			\[
+				\forall x\in (x_0-\delta,x_0),\ f'(x)>0;\quad
+				\forall x\in (x_0,x_0+\delta),\ f'(x)<0.
+			\]
+			则 $f$ 在 $[x_0-\delta,x_0]$ 上严格递增，在 $[x_0,x_0+\delta]$ 上严格递减。
+			因此对任意 $x\in (x_0-\delta,x_0)$ 有 $f(x)<f(x_0)$，对任意 $x\in (x_0,x_0+\delta)$ 有 $f(x)<f(x_0)$，故 $x_0$ 为极大值点。
+			若左负右正，同理可得 $x_0$ 为极小值点。
+			\par\textbf{理由：} 利用单调性改变点处函数值达到局部最大或最小。
+
+		\item[\textbf{步骤三（反证证变号）：}] 用反证法。假设 $x_0$ 是极值点（可导），则必有 $f'(x_0)=0$。若 $f'(x)$ 在 $x_0$ 左右两侧不变号，不妨设存在 $\delta>0$ 使得在 $(x_0-\delta,x_0)$ 和 $(x_0,x_0+\delta)$ 上 $f'(x)\ge 0$（或均 $\le 0$），则 $f$ 在左邻域和右邻域单调不减（或不增），从而 $x_0$ 不可能是极值点（函数在 $x_0$ 处不会出现波峰或波谷）。与假设矛盾。故 $f'(x)$ 在 $x_0$ 左右必须变号。
+			\par\textbf{理由：} 若同号，函数在邻域内保持同一单调性，不可能有极值。
+
+		\item[\textbf{步骤四（计数结论）：}] 由步骤二、三，$x_0$ 是极值点当且仅当 $f'(x_0)=0$ 且 $f'(x)$ 在 $x_0$ 左右变号。因此极值点集即为方程 $f'(x)=0$ 的所有实根中满足变号条件的那些根。从而极值点个数等于变号根的个数。
+			\par\textbf{理由：} 充要条件直接转化为计数。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{以上证明完整地建立了极值点与导数变号之间的等价关系，并自然得出“极值点个数等于变号根个数”的推论。}
+\end{proofbox}

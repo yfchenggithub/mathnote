@@ -1,0 +1,169 @@
+{
+  "id": "F057",
+  "module": "function",
+  "core": {
+    "title": "极值点判定与个数定理",
+    "alias": [
+      "极值点充要条件",
+      "变号判定",
+      "导数极值判别"
+    ],
+    "summary": "极值点等价于导数在驻点两侧异号，极值点个数即变号驻点个数。",
+    "difficulty": 3,
+    "category": "函数与导数",
+    "tags": [
+      "函数",
+      "导数",
+      "极值",
+      "驻点",
+      "变号"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "极值点",
+      "导数",
+      "驻点",
+      "变号",
+      "极大值",
+      "极小值",
+      "导数为零",
+      "可导",
+      "二次函数",
+      "三次函数",
+      "分类讨论",
+      "极值点个数",
+      "导数符号"
+    ],
+    "synonyms": [
+      "极值点判断",
+      "导数变号",
+      "极值个数",
+      "导数为零的点",
+      "极值判定"
+    ],
+    "intents": [
+      "求极值",
+      "判断极值点",
+      "求极大值极小值",
+      "讨论极值点个数",
+      "证明极值"
+    ],
+    "query_templates": [
+      "极值点怎么判断",
+      "导数极值点充要条件",
+      "极值点个数怎么求",
+      "驻点一定是极值点吗",
+      "导数变号判别"
+    ],
+    "ocrKeywords": [
+      "导数",
+      "f'(x)",
+      "极值",
+      "极大",
+      "极小"
+    ],
+    "latex_patterns": [
+      "f'(x)=0",
+      "f'(x_1)f'(x_2)<0"
+    ],
+    "formulaTokens": [
+      "f'(x)=0",
+      "f'(x_1)f'(x_2)<0",
+      "x_0-\\delta",
+      "x_0+\\delta",
+      "f'(x_1)",
+      "f'(x_2)"
+    ],
+    "pinyin": "jizhidianpandingyugeshu",
+    "pinyinAbbr": "jzd"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.8,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\exists \\delta>0,\\,\\forall x_1\\in (x_0-\\delta,x_0),\\,\\forall x_2\\in (x_0,x_0+\\delta),\\, f'(x_1)f'(x_2)<0",
+    "related_formulas": [
+      "|\\{x_0\\in D\\mid f'(x_0)=0,\\ \\exists\\delta>0,\\ \\forall x_1\\in (x_0-\\delta,x_0),\\ \\forall x_2\\in (x_0,x_0+\\delta),\\ f'(x_1)f'(x_2)<0\\}|"
+    ],
+    "variables": [
+      "f",
+      "x",
+      "D",
+      "x_0",
+      "\\delta",
+      "x_1",
+      "x_2"
+    ],
+    "conditions": "函数 $f(x)$ 在区间 $D$ 上可导，$x_0$ 为方程 $f'(x)=0$ 的实根。",
+    "conclusions": "$x_0$ 是极值点的充要条件是 $f'(x)$ 在 $x_0$ 左右两侧变号；极值点个数等于 $f'(x)=0$ 的实根中使得 $f'(x)$ 变号的根的个数。"
+  },
+  "content": {
+    "statement": "设函数 $f(x)$ 在区间 $D$ 上可导，$x_0$ 是方程 $f'(x)=0$ 的实根。则 $x_0$ 是极值点的充要条件是 $f'(x)$ 在 $x_0$ 左右两侧变号。极值点个数等于 $f'(x)=0$ 的实根中使得 $f'(x)$ 变号的根的个数。",
+    "derivation": [
+      "必要条件：若 $x_0$ 是极值点且可导，则 $f'(x_0)=0$。",
+      "充分条件：若 $f'(x_0)=0$ 且 $f'(x)$ 在 $x_0$ 左右异号，则函数在 $x_0$ 处单调性改变，必为极值点。",
+      "计数：每个使导数变号的驻点对应一个极值点，不变号的驻点不是极值点。"
+    ],
+    "intuition": "导数反映单调性，导数变号意味着函数从增到减或减到增，从而形成极大值或极小值。",
+    "common_tricks": [
+      "先求导，令导数为零得驻点。",
+      "对每个驻点，取左右各一简单数代入导函数，判断符号是否相反。",
+      "注意导数为零但左右同号时不是极值点（如 $f(x)=x^3$ 在 $x=0$）。",
+      "含参数时，需先讨论导数方程根的个数及符号变化情况。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "求函数极值",
+      "讨论参数极值点个数",
+      "判断极值类型"
+    ],
+    "problem_types": [
+      "函数极值问题",
+      "含参讨论"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "F057.svg"
+  },
+  "shareConfig": {
+    "title": "极值点判定与计数：导数变号判别法",
+    "shareDesc": "适用于课后复习与刷题前速查，解决极值点判断和个数统计易错问题，减少对驻点直接下结论的错误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "导数概念",
+      "函数单调性"
+    ],
+    "related_ids": [],
+    "similar": [
+      "极值点第二充分条件（二阶导数判别）"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "函数-综合-函数与方程",
+  "altNodes": "函数-性质-单调性"
+}
