@@ -1,0 +1,67 @@
+\begin{proofbox}
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用导数的定义 $\displaystyle f'(x)=\lim_{h\to 0}\frac{f(x+h)-f(x)}{h}$ 以及极限的四则运算性质（极限可加、可乘、可除（分母非零））来推导。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（和差证明）：}]
+			\[
+				\begin{aligned}
+					(u\pm v)'(x) &= \lim_{h\to 0}\frac{(u\pm v)(x+h)-(u\pm v)(x)}{h} \\
+					&= \lim_{h\to 0}\frac{u(x+h)\pm v(x+h)-u(x)\mp v(x)}{h} \\
+					&= \lim_{h\to 0}\left(\frac{u(x+h)-u(x)}{h} \pm \frac{v(x+h)-v(x)}{h}\right) \\
+					&= \left(\lim_{h\to 0}\frac{u(x+h)-u(x)}{h}\right) \pm \left(\lim_{h\to 0}\frac{v(x+h)-v(x)}{h}\right) \\
+					&= u'(x) \pm v'(x).
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			第2行展开括号，第3行利用极限加法（减法），第4行将极限拆到两个分式，由 $u,v$ 可导知极限存在，因此拆分合法。
+
+		\item[\textbf{步骤二（乘积证明）：}]
+			\[
+				\begin{aligned}
+					(uv)'(x) &= \lim_{h\to 0}\frac{u(x+h)v(x+h)-u(x)v(x)}{h} \\
+					&= \lim_{h\to 0}\frac{u(x+h)v(x+h)-u(x)v(x+h)+u(x)v(x+h)-u(x)v(x)}{h} \\
+					&= \lim_{h\to 0}\left(\frac{u(x+h)-u(x)}{h}v(x+h) + u(x)\frac{v(x+h)-v(x)}{h}\right) \\
+					&= \left(\lim_{h\to 0}\frac{u(x+h)-u(x)}{h}\right)\left(\lim_{h\to 0}v(x+h)\right) + u(x)\left(\lim_{h\to 0}\frac{v(x+h)-v(x)}{h}\right) \\
+					&= u'(x)v(x) + u(x)v'(x).
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			第2行添加并减去 $u(x)v(x+h)$ 实现拆分；第3行因式分解；第4行利用极限乘法、加法以及 $v(x)$ 在 $x$ 处连续（由可导推出），$\lim_{h\to 0}v(x+h)=v(x)$；最后代入导数定义。
+
+		\item[\textbf{步骤三（商证明）：}]
+			设 $v(x)\neq 0$，则
+			\[
+				\begin{aligned}
+					\left(\frac{u}{v}\right)'(x) &= \lim_{h\to 0}\frac{\frac{u(x+h)}{v(x+h)}-\frac{u(x)}{v(x)}}{h} \\
+					&= \lim_{h\to 0}\frac{u(x+h)v(x)-u(x)v(x+h)}{h\,v(x+h)v(x)} \\
+					&= \lim_{h\to 0}\frac{1}{v(x+h)v(x)}\cdot\frac{u(x+h)v(x)-u(x)v(x+h)}{h} \\
+					&= \frac{1}{v(x)^2}\lim_{h\to 0}\frac{u(x+h)v(x)-u(x)v(x+h)}{h}.
+			\end{aligned}
+			\]
+			对分子做加减处理：
+			\[
+				\begin{aligned}
+					&\phantom{=}\lim_{h\to 0}\frac{u(x+h)v(x)-u(x)v(x+h)}{h} \\
+					&= \lim_{h\to 0}\frac{u(x+h)v(x)-u(x)v(x)+u(x)v(x)-u(x)v(x+h)}{h} \\
+					&= v(x)\lim_{h\to 0}\frac{u(x+h)-u(x)}{h} - u(x)\lim_{h\to 0}\frac{v(x+h)-v(x)}{h} \\
+					&= v(x)u'(x) - u(x)v'(x).
+			\end{aligned}
+			\]
+			因此，
+			\[
+				\left(\frac{u}{v}\right)'(x) = \frac{v(x)u'(x)-u(x)v'(x)}{v(x)^2}.
+			\]
+			\par\textbf{理由：}
+			第1步通分合并；第2步将常数因子 $1/(v(x+h)v(x))$ 提出，且 $\lim_{h\to 0}v(x+h)v(x)=v(x)^2$ （由 $v$ 连续）；分子接着做加减 $u(x)v(x)$ 以构造导数定义形式，最后利用极限线性和可导性得到结果。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{综上，和差、积、商的导数公式全部得证，公式与输入完全一致。}
+\end{proofbox}
