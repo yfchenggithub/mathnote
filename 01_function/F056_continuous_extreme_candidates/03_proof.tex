@@ -1,0 +1,57 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	闭区间上连续的函数最值一定存在；若最值点在区间内部且可导，则导数为零；若不可导，则它是不可导点；否则最值在端点。因而只需计算所有可疑点的函数值即可。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（最值存在性）：}]
+			由闭区间上连续函数的最值定理，$f(x)$ 在 $[a,b]$ 上存在最大值 $M$ 和最小值 $m$，即
+			\[
+				M = \max_{x\in[a,b]} f(x),\quad m = \min_{x\in[a,b]} f(x).
+			\]
+			且存在 $x_{\max},x_{\min}\in[a,b]$ 满足 $f(x_{\max})=M$，$f(x_{\min})=m$。
+			\par\textbf{理由：}连续函数在闭区间上必有最值，这是基本定理。
+		\item[\textbf{步骤二（考察最大值点）：}]
+			设最大值点为 $c$，即 $f(c)=M$。类似地，最小值点同理。
+			\[
+				c\in[a,b],\quad f(c)=M.
+			\]
+			\par\textbf{理由：}由最大值定义。
+		\item[\textbf{步骤三（端点情况）：}]
+			若 $c=a$ 或 $c=b$，则最大值已在端点取得，无需进一步探究。
+			\[
+				c\in\{a,b\}\quad\Longrightarrow\quad M=f(a)\text{ or }f(b).
+			\]
+			\par\textbf{理由：}端点已经是最值候选。
+		\item[\textbf{步骤四（内部可导情形）：}]
+			若 $c\in(a,b)$ 且 $f'(c)$ 存在，则 $f'(c)=0$。
+			\[
+				f'(c)=0.
+			\]
+			\par\textbf{理由：}由费马定理，可导函数在内部极值点处导数为零。因为 $c$ 是最大值点，也是极大值点。
+		\item[\textbf{步骤五（内部不可导情形）：}]
+			若 $c\in(a,b)$ 且 $f'(c)$ 不存在，则 $c$ 是 $(a,b)$ 内的一个不可导点。
+			\[
+				f'(c)\text{ does not exist}.
+			\]
+			\par\textbf{理由：}题设允许有限个不可导点，$c$ 属于这一类。
+		\item[\textbf{步骤六（归纳可疑点）：}]
+			综合以上，最大值点 $c$ 必属于端点集合、导数为零的点的集合或不可导点集合之一。对最小值点同样结论。
+			\[
+				c\in\{a,b\}\cup\{x\in(a,b)\mid f'(x)=0\}\cup\{x\in(a,b)\mid f'(x)\text{ does not exist}\}.
+			\]
+			\par\textbf{理由：}三种情况已囊括所有可能。
+		\item[\textbf{步骤七（比较得最值）：}]
+			计算以上所有可疑点的函数值，最大者即为 $M$，最小者即为 $m$。
+			\[
+				M=\max\{f(a),f(b),f(x_1),\dots,f(x_k)\},\quad m=\min\{f(a),f(b),f(x_1),\dots,f(x_k)\},
+			\]
+			其中 $x_1,\dots,x_k$ 为所有导数为零或不可导的点。
+			\par\textbf{理由：}最值必在可疑点中，一一比较即得。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{求闭区间上连续函数最值的步骤：} (1) 找出所有驻点（$f'(x)=0$）和不可导点； (2) 计算这些点以及端点的函数值； (3) 比较得到最大和最小值。这正是该二级结论的核心内容。
+\end{proofbox}

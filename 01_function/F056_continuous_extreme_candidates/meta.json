@@ -1,0 +1,173 @@
+{
+  "id": "F056",
+  "module": "function",
+  "core": {
+    "title": "闭区间上连续函数最值定理",
+    "alias": [
+      "最值定理",
+      "端点极值定理",
+      "闭区间最值求法"
+    ],
+    "summary": "闭区间上的连续函数，其最大值与最小值只能在端点、导数为零的点或不可导点中取得。",
+    "difficulty": 3,
+    "category": "函数（导数应用）",
+    "tags": [
+      "函数最值",
+      "闭区间",
+      "极值",
+      "导数",
+      "最值求法"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "闭区间",
+      "连续函数",
+      "最值",
+      "最大值",
+      "最小值",
+      "端点",
+      "驻点",
+      "不可导点",
+      "导数零点",
+      "极值可疑点",
+      "比较函数值"
+    ],
+    "synonyms": [
+      "闭区间最值怎么求",
+      "端点极值",
+      "最值定理",
+      "费马引理应用",
+      "最值点"
+    ],
+    "intents": [
+      "求最值",
+      "比较函数值",
+      "确定最大值最小值",
+      "判断最值位置",
+      "恒成立问题求参数"
+    ],
+    "query_templates": [
+      "闭区间上连续函数最值怎么求",
+      "最大值最小值确定方法",
+      "闭区间最值定理",
+      "最值点包括哪些",
+      "求函数在闭区间上的最值"
+    ],
+    "ocrKeywords": [
+      "函数",
+      "闭区间",
+      "连续",
+      "最大值",
+      "最小值",
+      "导数",
+      "端点",
+      "拐点"
+    ],
+    "latex_patterns": [
+      "\\max\\{f(a),f(b),f(x_1),\\dots,f(x_k)\\}",
+      "\\min\\{f(a),f(b),f(x_1),\\dots,f(x_k)\\}"
+    ],
+    "formulaTokens": [
+      "f(a)",
+      "f(b)",
+      "f(x_i)",
+      "M_{\\max}",
+      "m_{\\min}",
+      "\\max\\{f(a),f(b),f(x_1),\\dots,f(x_k)\\}",
+      "\\min\\{f(a),f(b),f(x_1),\\dots,f(x_k)\\}"
+    ],
+    "pinyin": "biqujianshanglianxuhanshuzuizhidingli",
+    "pinyinAbbr": "bqszx"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.87,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "M_{\\max}= \\max\\{f(a),f(b),f(x_1),\\dots,f(x_k)\\},\\quad m_{\\min}= \\min\\{f(a),f(b),f(x_1),\\dots,f(x_k)\\}",
+    "related_formulas": [
+      "f'(x)\\ge0\\ (\\forall x\\in(a,b)) \\Longrightarrow \\max f = f(b),\\ \\min f = f(a)",
+      "f'(x)\\le0\\ (\\forall x\\in(a,b)) \\Longrightarrow \\max f = f(a),\\ \\min f = f(b)"
+    ],
+    "variables": [
+      "$f(x)$",
+      "$a$",
+      "$b$",
+      "$x_i$",
+      "$f(a)$",
+      "$f(b)$",
+      "$M_{\\max}$",
+      "$m_{\\min}$"
+    ],
+    "conditions": "函数 $f(x)$ 在闭区间 $[a,b]$ 上连续，在开区间 $(a,b)$ 内可导（允许有限个不可导点）。",
+    "conclusions": "最大值 $M_{\\max}$ 和最小值 $m_{\\min}$ 由上述公式给出，分别等于所有候选点函数值中的最大者和最小者。"
+  },
+  "content": {
+    "statement": "设函数 $f(x)$ 在闭区间 $[a,b]$ 上连续，在开区间 $(a,b)$ 内可导（允许有限个不可导点）。记 $x_1,x_2,\\dots,x_k$ 为 $(a,b)$ 内所有满足 $f'(x_i)=0$ 或 $f'(x_i)$ 不存在的点，则函数在 $[a,b]$ 上的最大值和最小值分别为 $M_{\\max}= \\max\\{f(a),f(b),f(x_1),\\dots,f(x_k)\\}$ 和 $m_{\\min}= \\min\\{f(a),f(b),f(x_1),\\dots,f(x_k)\\}$。",
+    "derivation": [
+      "由费马引理，若函数在内部点取得极值且可导，则该点导数为零。",
+      "端点也是候选点，因为最值可能在边界处取得。",
+      "对于不可导点（如尖点），导数不存在，但仍是极值可疑点，必须纳入比较。"
+    ],
+    "intuition": "因为闭区间上连续函数必有最值，而内部极值点要么导数为零要么不可导，再加上端点，所以只需比较这些点的函数值。",
+    "common_tricks": [
+      "务必先验证函数在区间内是否连续，若不连续则不能直接使用该定理。",
+      "求导后令导数为零得到驻点，同时要检查是否有使导数不存在的点（如绝对值函数的折点）。",
+      "将所有候选点的函数值算出后，直接比较大小，取最大和最小即可。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "最值问题",
+      "恒成立求参数范围",
+      "不等式证明"
+    ],
+    "problem_types": [
+      "求闭区间上函数的最值",
+      "根据最值确定参数范围",
+      "证明不等式"
+    ],
+    "exam_frequency": 1.0,
+    "exam_score": 8,
+    "recommend_level": "essential"
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "F056.svg"
+  },
+  "shareConfig": {
+    "title": "闭区间最值三步法：找到所有候选点",
+    "shareDesc": "适合讲评课和考前复盘，标准方法求闭区间连续函数最值，避免遗漏端点和不可导点，提升解题稳定性和准确性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "函数的连续性",
+      "导数的概念",
+      "极值的定义"
+    ],
+    "related_ids": [],
+    "similar": "费马引理，极值存在定理，单调性判定最值"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "函数-综合-函数与不等式",
+  "altNodes": "函数-性质-单调性,函数-性质-有界性"
+}
