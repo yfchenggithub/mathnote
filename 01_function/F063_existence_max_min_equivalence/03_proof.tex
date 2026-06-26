@@ -1,0 +1,54 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	证明的关键是使用最值的定义：最大值是函数值的上界且可取得，最小值是下界且可取得。将存在性条件与最值比较，即可完成两个方向的推导。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（最大值定义）：}]
+			设 $M = \max_{x\in D} f(x)$。由最大值定义：
+			\[
+				\forall x\in D,\ f(x)\le M,\quad \exists x_0\in D,\ f(x_0)=M.
+			\]
+			\par\textbf{理由：} 最大值是函数值集合中最大的数，且至少在一个点取到。
+		\item[\textbf{步骤二（$\ge$方向必要性）：}]
+			若 $\exists x\in D,\ f(x)\ge a$，则 $M\ge a$。
+			\[
+				\begin{aligned}
+					&\exists x_1\in D,\ f(x_1)\ge a \Longrightarrow M\ge f(x_1) \\ &\quad \text{且}\quad f(x_1)\ge a \\ &\Longrightarrow M\ge a.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 因为 $M$ 是最大值，所以 $M\ge f(x_1)$；由条件 $f(x_1)\ge a$，传递得 $M\ge a$。
+		\item[\textbf{步骤三（$\ge$方向充分性）：}]
+			若 $M\ge a$，则 $\exists x\in D,\ f(x)\ge a$。
+			\[
+				M\ge a,\quad \exists x_0\in D,\ f(x_0)=M \;\Longrightarrow\; \exists x_0\in D,\ f(x_0)\ge a.
+			\]
+			\par\textbf{理由：} 取最大值点 $x_0$，该点函数值等于 $M$，由 $M\ge a$ 即得 $f(x_0)\ge a$。
+		\item[\textbf{步骤四（$\le$方向必要性）：}]
+			类似地，设 $m = \min_{x\in D} f(x)$。若 $\exists x\in D,\ f(x)\le a$，则 $m\le a$。
+			\[
+				\begin{aligned}
+					&\exists x_2\in D,\ f(x_2)\le a \Longrightarrow m\le f(x_2) \\ &\quad \text{且}\quad f(x_2)\le a \\ &\Longrightarrow m\le a.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 因为 $m$ 是最小值，所以 $m\le f(x_2)$；由条件 $f(x_2)\le a$，传递得 $m\le a$。
+		\item[\textbf{步骤五（$\le$方向充分性）：}]
+			若 $m\le a$，则 $\exists x\in D,\ f(x)\le a$。
+			\[
+				m\le a,\quad \exists x_0'\in D,\ f(x_0')=m \;\Longrightarrow\; \exists x_0'\in D,\ f(x_0')\le a.
+			\]
+			\par\textbf{理由：} 取最小值点 $x_0'$，该点函数值等于 $m$，由 $m\le a$ 即得 $f(x_0')\le a$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	综上，我们证明了：
+	\[
+		\exists x\in D,\ f(x)\ge a \iff \max_{x\in D}f(x)\ge a,
+	\]
+	\[
+		\exists x\in D,\ f(x)\le a \iff \min_{x\in D}f(x)\le a.
+	\]
+	因此原结论成立。
+\end{proofbox}
