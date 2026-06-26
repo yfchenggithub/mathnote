@@ -1,0 +1,47 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	利用周期和对称性的代数定义，通过等式变形推出连锁性质，并利用两条对称轴推导周期。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{\textcolor{CProof}{步骤一（对称轴连锁）：}}]
+			设 $f$ 以 $T$ 为周期，且有一条对称轴 $x=a$。证明 $x=a+T/2$ 也是对称轴。
+			\[
+				\begin{aligned}
+					f(a+\frac{T}{2}+x) &= f\left(a+x+\frac{T}{2}\right) \\ &= f\left(a+x+\frac{T}{2}-T\right) \quad\text{(周期:减 $T$ 函数值不变)}\\ &= f\left(a+x-\frac{T}{2}\right) \\ &= f\left(a-\left(x-\frac{T}{2}\right)\right) \quad\text{(对称轴:$f(a+u)=f(a-u)$)} \\ &= f\left(a-x+\frac{T}{2}\right) \\ &= f\left(a+\frac{T}{2}-x\right).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 第一行将 $a+T/2+x$ 整理；第二行利用周期减去 $T$ 使自变量靠近 $a$；第三行利用对称轴定义将 $a+u$ 变为 $a-u$；最后一行得到对称轴定义形式。因此 $x=a+T/2$ 是对称轴。反复应用可得 $x=a+kT/2$ 均为对称轴。
+		\item[\textbf{\textcolor{CProof}{步骤二（对称中心连锁）：}}]
+			设 $f$ 以 $T$ 为周期，且有一个对称中心 $(b,c)$。令 $g(x)=f(x+b)-c$，则 $g$ 是周期 $T$ 的奇函数（$g(-x)=-g(x)$）。证明 $x=T/2$ 是 $g$ 的对称中心。
+			\[
+				\begin{aligned}
+					g\left(\frac{T}{2}+x\right) &= g\left(\frac{T}{2}+x-T\right) \quad\text{(周期减 $T$)}\\ &= g\left(-\frac{T}{2}+x\right) \\ &= -g\left(\frac{T}{2}-x\right) \quad\text{(奇函数)}.
+			\end{aligned}
+			\]
+			所以 $g(T/2+x)+g(T/2-x)=0$，即 $(\frac{T}{2},0)$ 是 $g$ 的对称中心。代回 $f$ 得 $(b+\frac{T}{2},c)$ 是 $f$ 的对称中心。同理可得全部对称中心 $(b+\frac{kT}{2},c)$。
+			\par\textbf{理由：} 通过平移将中心对称转化为原点对称（奇函数），再结合周期推导，简化计算。
+		\item[\textbf{\textcolor{CProof}{步骤三（两轴定周期）：}}]
+			设 $f$ 有两条不同的对称轴 $x=a_1$ 和 $x=a_2$（$a_1<a_2$）。由对称轴定义：
+			\[
+				f(a_1+x)=f(a_1-x),\quad f(a_2+x)=f(a_2-x).
+			\]
+			令 $x=t-a_1$，得 $f(t)=f(2a_1-t)$；同理 $f(t)=f(2a_2-t)$。于是
+			\[
+				f(2a_1-t)=f(2a_2-t).
+			\]
+			令 $u=2a_1-t$，则 $t=2a_1-u$，代入得
+			\[
+				\begin{aligned}
+					f(u) &= f(2a_2-(2a_1-u)) \\ &= f(u-2(a_1-a_2)) \\ &= f(u+2(a_2-a_1)).
+			\end{aligned}
+			\]
+			因此对任意 $u$，$f(u+2(a_2-a_1))=f(u)$，即 $2(a_2-a_1)$ 是 $f$ 的一个周期。取绝对值得 $T=2|a_1-a_2|$。
+			\par\textbf{理由：} 将两个对称轴等式转化为周期等式，关键是通过变量代换消去 $t$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{以上证明完整给出了周期函数在附加对称性时对称轴、对称中心的分布规律，以及对称轴数量与周期的关系。}
+\end{proofbox}
