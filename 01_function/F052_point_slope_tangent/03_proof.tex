@@ -1,0 +1,33 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	利用导数定义，通过割线极限得到切线斜率，再代入点斜式。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（割线斜率）：}]
+			在曲线上另取一点 $Q(x_0 + \Delta x, f(x_0 + \Delta x))$，则割线 $PQ$ 的斜率为
+			\[
+				k_{PQ} = \frac{f(x_0 + \Delta x) - f(x_0)}{\Delta x}.
+			\]
+			\par\textbf{理由：} 两点连线斜率公式 $k = \dfrac{y_2 - y_1}{x_2 - x_1}$.
+		\item[\textbf{步骤二（极限取斜）：}]
+			令 $\Delta x \to 0$，割线趋近于切线，割线斜率趋近于切线斜率。由导数的定义，
+			\[
+				\begin{aligned}
+					k_t &= \lim_{\Delta x \to 0} \frac{f(x_0 + \Delta x) - f(x_0)}{\Delta x} \\ &= f'(x_0).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 函数在 $x_0$ 可导，导数极限存在且等于 $f'(x_0)$.
+		\item[\textbf{步骤三（点斜方程）：}]
+			已知切点 $(x_0, f(x_0))$ 和斜率 $f'(x_0)$，由直线的点斜式方程得切线方程
+			\[
+				\boxed{y - f(x_0) = f'(x_0)(x - x_0)}.
+			\]
+			\par\textbf{理由：} 点斜式方程 $y - y_0 = k(x - x_0)$.
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{由以上三步可知，函数在可导条件下，切线方程为 $y - f(x_0) = f'(x_0)(x - x_0)$，结论成立。}
+\end{proofbox}
