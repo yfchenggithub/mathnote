@@ -1,0 +1,49 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	通过导数符号确定极值点，结合无穷远处的函数极限，利用零点存在定理，由极值点函数值乘积符号导出零点个数.
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（导数与判别式）：}]
+			计算导数\(f'(x)=3ax^2+2bx+c\)及其判别式\(\Delta'=4(b^2-3ac)\).
+			\[
+				f'(x)=3ax^2+2bx+c,
+				\qquad
+				\Delta'=4(b^2-3ac).
+			\]
+			\par\textbf{理由：} 判别式决定导函数零点个数，进而决定原函数的极值点个数.
+		\item[\textbf{步骤二（\(\Delta'\leq0\)单调唯一零点）：}]
+			当\(\Delta'\leq0\)时，\(f'(x)\geq0\)恒成立或\(f'(x)\leq0\)恒成立，故\(f(x)\)在\(\mathbb{R}\)上严格单调. 又由三次函数首项系数\(a\neq0\)知，\(\lim_{x\to-\infty}f(x)\)与\(\lim_{x\to+\infty}f(x)\)符号相反，因此存在唯一零点.
+			\[
+				\Delta'\leq0\ \Longrightarrow\ \forall x\in\mathbb{R},\ f'(x)\geq0\ \lor\ f'(x)\leq0.
+			\]
+			\par\textbf{理由：} 单调函数至多一个零点；极限异号保证至少一个零点.
+		\item[\textbf{步骤三（\(\Delta'>0\)极值点与单调区间）：}]
+			当\(\Delta'>0\)时，设\(f'(x)=0\)的两根为\(x_1,x_2\ (x_1<x_2)\). 不妨设\(a>0\)（\(a<0\)同理），则导函数符号为：\(x<x_1\)时\(f'(x)>0\)，\(x_1<x<x_2\)时\(f'(x)<0\)，\(x>x_2\)时\(f'(x)>0\). 故\(f\)在\((-\infty,x_1)\)递增，\((x_1,x_2)\)递减，\((x_2,+\infty)\)递增；\(x_1\)为极大值点，\(x_2\)为极小值点.
+			\[
+				x_1<x_2,\quad f'(x)=3a(x-x_1)(x-x_2).
+			\]
+			\par\textbf{理由：} 导函数符号决定原函数单调性.
+		\item[\textbf{步骤四（极值乘积判零点个数）：}]
+			记\(M=f(x_1)f(x_2)\). 分三种情况：
+			\[
+				M
+				\begin{cases}
+					<0 \to N=3,\\ =0 \to N=2,\\ >0 \to N=1.
+			\end{cases}
+			\]
+			其中\(N\)为零点个数.
+			\par\textbf{理由：} (1) 若\(M<0\)，极大值与极小值异号. 考虑各单调区间端点符号：由\(\lim_{x\to-\infty}f(x)=-\infty\)（\(a>0\)）及\(f(x_1)\)，区间\((-\infty,x_1)\)内必有一个零点；区间\((x_1,x_2)\)两端异号有一个零点；区间\((x_2,+\infty)\)有一个零点，共三个. (2) 若\(M=0\)，不妨设\(f(x_1)=0\)，则\(x_1\)是重根. 由单调性，在\((-\infty,x_1)\)内无零点（始终负），在\((x_2,+\infty)\)（或\((x_1,x_2)\)内）必存在另一个零点，故总零点数为2（包含重根）. 另一情况同理. (3) 若\(M>0\)，极大值与极小值同号. 若同为正，则\((-\infty,x_1)\)内一个零点，其余区间无零点；若同为负，则\((x_2,+\infty)\)内一个零点，共一个零点.
+		\item[\textbf{步骤五（\(a<0\)情形）：}]
+			若\(a<0\)，图像形状与\(a>0\)相反（先减后增再减），但极值点的乘积符号与零点个数的对应关系不变，结论同样成立.
+			\[
+				a<0.
+			\]
+			\par\textbf{理由：} 将\(f(x)\)换成\(-f(x)\)，零点不变，但首项系数变正，故\(a<0\)可归结为\(a>0\)情况.
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{综上，三次函数零点个数完全由\(\Delta'\)及\(f(x_1)f(x_2)\)的符号确定.}
+\end{proofbox}

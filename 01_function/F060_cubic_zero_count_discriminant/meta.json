@@ -1,0 +1,173 @@
+{
+  "id": "F060",
+  "module": "function",
+  "core": {
+    "title": "三次函数零点个数判定",
+    "alias": [
+      "三次函数零点定理",
+      "极值乘积法",
+      "导数判别零点"
+    ],
+    "summary": "通过导函数判别式判断单调性，再根据极值点函数值乘积符号确定零点个数",
+    "difficulty": 3,
+    "category": "函数与导数",
+    "tags": [
+      "三次函数",
+      "零点判定",
+      "导数",
+      "极值点",
+      "单调性"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "三次函数",
+      "零点个数",
+      "判别式",
+      "极值点",
+      "乘积符号",
+      "单调性",
+      "重根",
+      "导数",
+      "x1",
+      "x2",
+      "f(x1)f(x2)",
+      "Δ'",
+      "4(b^2-3ac)",
+      "ax^3+bx^2+cx+d"
+    ],
+    "synonyms": [
+      "三次函数有几个零点",
+      "极值乘积法",
+      "重根位置",
+      "零点分类讨论"
+    ],
+    "intents": [
+      "判断零点个数",
+      "分类讨论",
+      "求参数范围",
+      "确定极值点"
+    ],
+    "query_templates": [
+      "三次函数零点个数怎么判断",
+      "三次函数极值乘积法",
+      "f(x1)f(x2)符号与零点",
+      "三次函数零点个数判定公式"
+    ],
+    "ocrKeywords": [
+      "三次函数",
+      "f(x)=ax^3+bx^2+cx+d",
+      "f'(x)=3ax^2+2bx+c",
+      "Δ'",
+      "f(x1)f(x2)"
+    ],
+    "latex_patterns": [
+      "f(x)=ax^3+bx^2+cx+d",
+      "f'(x)=3ax^2+2bx+c",
+      "\\Delta'=4(b^2-3ac)",
+      "f(x_1)f(x_2)"
+    ],
+    "formulaTokens": [
+      "ax^3+bx^2+cx+d",
+      "3ax^2+2bx+c",
+      "4(b^2-3ac)",
+      "f(x_1)f(x_2)",
+      "x_1",
+      "x_2",
+      "\\Delta'"
+    ],
+    "pinyin": "sancihanshu lingdian gexu panding",
+    "pinyinAbbr": "schs"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.73,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\begin{cases} \\Delta' = 4(b^2-3ac) \\\\ f(x_1)f(x_2) \\begin{cases} <0 \\Rightarrow 3\\text{个零点} \\\\ =0 \\Rightarrow 2\\text{个零点（重根）} \\\\ >0 \\Rightarrow 1\\text{个零点} \\end{cases} \\end{cases}",
+    "related_formulas": [
+      "f'(x)=3ax^2+2bx+c",
+      "\\Delta'\\le 0 \\Rightarrow \\text{单调，1个零点}"
+    ],
+    "variables": {
+      "a": "三次项系数，$a\\neq0$",
+      "b": "二次项系数",
+      "c": "一次项系数",
+      "d": "常数项",
+      "x1": "$f'(x)=0$的较小实根（$\\Delta'>0$时）",
+      "x2": "$f'(x)=0$的较大实根（$\\Delta'>0$时）",
+      "\\Delta'": "导函数判别式，$\\Delta'=4(b^2-3ac)$"
+    },
+    "conditions": "函数$f(x)=ax^3+bx^2+cx+d$，其中$a\\neq0$。先判断$\\Delta'=4(b^2-3ac)$：若$\\Delta'\\le0$则函数单调；若$\\Delta'>0$则$f'(x)=0$有两个不等实根$x_1<x_2$。",
+    "conclusions": "当$\\Delta'>0$时，零点个数由$f(x_1)f(x_2)$的符号决定：积为负得3个零点；积为零得2个零点（一个为重根）；积为正得1个零点。"
+  },
+  "content": {
+    "statement": "设三次函数$f(x)=ax^3+bx^2+cx+d$（$a\\neq0$），其导函数$f'(x)=3ax^2+2bx+c$的判别式$\\Delta'=4(b^2-3ac)$。若$\\Delta'\\le0$，则$f(x)$在$\\mathbb{R}$上单调，恰有一个零点。若$\\Delta'>0$，设$f'(x)=0$的两实根为$x_1,x_2$（$x_1<x_2$），则$f(x_1)f(x_2)<0$时有三个零点，$=0$时有两个零点（一个为重根），$>0$时恰有一个零点。",
+    "derivation": [
+      "利用导数求出极值点：令$f'(x)=0$得到二阶方程，判别式$\\Delta'$控制极值点存在性。",
+      "当$\\Delta'\\le0$时$f'(x)$恒非负或非正，故$f(x)$单调，最多一个零点。",
+      "当$\\Delta'>0$时$f(x)$有两个极值点$x_1,x_2$，零点个数取决于极值符号是否异号：$f(x_1)f(x_2)<0$说明极值一正一负，图像穿过$x$轴三次；等于零说明极值点恰在轴上；大于零则同号，只穿过一次。"
+    ],
+    "intuition": "三次函数导数为二次函数，其判别式决定极值点个数；极值点函数值乘积符号反映函数图像穿过x轴的次数。",
+    "common_tricks": [
+      "先计算$\\Delta'$：若$\\Delta'\\le0$直接得一个零点，无需后续。",
+      "当$\\Delta'>0$时，利用韦达定理快速求$x_1+x_2$和$x_1x_2$，简化$f(x_1)f(x_2)$的表达式。",
+      "含参讨论时，将$f(x_1)f(x_2)$化为关于参数的代数式，解不等式或方程即可。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "函数与导数综合题",
+      "含参零点个数讨论",
+      "课后复习速查"
+    ],
+    "problem_types": [
+      "判断零点个数",
+      "含参分类讨论",
+      "极值与零点关系"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "F060.svg",
+    "images": [],
+    "animations": [],
+    "audio": []
+  },
+  "shareConfig": {
+    "title": "三次函数零点个数判定：极值乘积法速查",
+    "shareDesc": "适合课后复盘和刷题前速查，集中解决三次函数零点个数分类讨论的易错点，利用导函数判别式和极值乘积快速判定零点个数，减少推导失误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "导数与单调性",
+      "一元二次方程判别式",
+      "函数零点存在性定理"
+    ],
+    "related_ids": [],
+    "similar": "三次函数极值点分布、多项式函数零点判定"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "函数-综合-函数与方程",
+  "altNodes": "函数-性质-单调性"
+}
