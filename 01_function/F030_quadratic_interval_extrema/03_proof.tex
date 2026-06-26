@@ -1,0 +1,44 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	考虑顶点式 $f(x)=a(x-x_0)^2+f(x_0)$，其中对称轴 $x_0=-\frac{b}{2a}$。通过分析 $a$ 的正负以及 $|x-x_0|$ 的大小，可以直接得出最值的位置。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（配方变形）：}] 将 $f(x)=ax^2+bx+c$ 配成顶点式。
+			\[
+				\begin{aligned}
+					f(x) &= a\left(x+\frac{b}{2a}\right)^2+\frac{4ac-b^2}{4a} \\
+					&= a(x-x_0)^2+f(x_0),
+			\end{aligned}
+			\]
+			其中 $x_0=-\frac{b}{2a}$，$f(x_0)=\frac{4ac-b^2}{4a}$。
+			\par\textbf{理由：} 顶点式可以直接反映对称轴和函数值的基准，便于比较大小。
+
+		\item[\textbf{步骤二（$a>0$ 时性质）：}] 若 $a>0$，则 $f(x)\geq f(x_0)$，且函数值随 $|x-x_0|$ 增大而增大。具体地，$(x-x_0)^2\geq0$，乘正数 $a$ 仍非负；对任意 $x_1,x_2$，$f(x_1)-f(x_2)=a[(x_1-x_0)^2-(x_2-x_0)^2]$，大小关系由距离决定。
+			\par\textbf{理由：} 平方项非负且 $a>0$ 确保 $f(x)\geq f(x_0)$；差值公式说明函数在对称轴同侧单调、异侧对称。
+
+		\item[\textbf{步骤三（$a>0$ 最值）：}] 根据 $x_0$ 是否在 $[m,n]$ 内分两种情况：
+			\begin{itemize}[leftmargin=*, itemsep=0.2em]
+			\item 若 $x_0\in[m,n]$，则最小值为 $f(x_0)$；最大值为 $\max\{f(m),f(n)\}$。
+			\item 若 $x_0\notin[m,n]$，则函数在区间上单调，最小值、最大值分别为 $\min\{f(m),f(n)\}$、$\max\{f(m),f(n)\}$。
+		\end{itemize}
+			\par\textbf{理由：} 当对称轴在区间内时，顶点处取最小值，两端点中离对称轴较远者取最大值；当对称轴不在区间内时，函数完全单调，最值在端点。
+
+		\item[\textbf{步骤四（$a<0$ 时性质）：}] 若 $a<0$，则 $f(x)\leq f(x_0)$，且函数值随 $|x-x_0|$ 增大而减小。因为 $a<0$，$(x-x_0)^2\geq0$ 乘以负数后非正，故 $f(x)\leq f(x_0)$；距离越大，$f(x)$ 越小。
+			\par\textbf{理由：} 对称轴处取最大值，离对称轴越远值越小。
+
+		\item[\textbf{步骤五（$a<0$ 最值）：}] 同理，分对称轴在区间内与不在两种情况：
+			\begin{itemize}[leftmargin=*, itemsep=0.2em]
+			\item 若 $x_0\in[m,n]$，则最大值为 $f(x_0)$；最小值为 $\min\{f(m),f(n)\}$。
+			\item 若 $x_0\notin[m,n]$，则最大值为 $\max\{f(m),f(n)\}$，最小值为 $\min\{f(m),f(n)\}$。
+		\end{itemize}
+			\par\textbf{理由：} 与 $a>0$ 对称，最大值与最小值互换。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{因此，二次函数在闭区间上的最值完全由开口方向和对称轴与区间的位置决定，即题目所给结论。}
+\end{proofbox}
