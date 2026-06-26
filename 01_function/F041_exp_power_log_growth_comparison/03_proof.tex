@@ -1,0 +1,53 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	采用取对数的方法，将无穷大比值转化为无穷大差值，再利用$\displaystyle\lim_{x\to+\infty}\frac{\ln x}{x}=0$和$\displaystyle\lim_{x\to+\infty}\frac{\ln(\ln x)}{\ln x}=0$完成证明。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（取对数转化第一极限）：}]
+			设$A=\frac{a^x}{x^\alpha}$，其中$a>1,\alpha>0$，则
+			\[
+				\ln A = \ln\left(\frac{a^x}{x^\alpha}\right)=x\ln a-\alpha\ln x.
+			\]
+			\par\textbf{理由：} 由对数运算法则：$\ln(M/N)=\ln M-\ln N$，$\ln(a^x)=x\ln a$，$\ln(x^\alpha)=\alpha\ln x$。
+		\item[\textbf{步骤二（证明$\ln A\to+\infty$）：}]
+			因为$\displaystyle\lim_{x\to+\infty}\frac{\ln x}{x}=0$，所以
+			\[
+				\ln A = x\Bigl(\ln a-\alpha\frac{\ln x}{x}\Bigr)\to +\infty \quad (x\to+\infty).
+			\]
+			\par\textbf{理由：} $\ln a>0$，且$\alpha\frac{\ln x}{x}\to0$，因此括号内趋于正数$\ln a$，乘$x$后趋于$+\infty$。
+		\item[\textbf{步骤三（回代得第一极限）：}]
+			由指数函数$y=e^u$的连续性，
+			\[
+				A = e^{\ln A}\to e^{+\infty}=+\infty,
+			\]
+			即$\displaystyle\lim_{x\to+\infty}\frac{a^x}{x^\alpha}=+\infty$。
+			\par\textbf{理由：} 若$\ln A\to+\infty$，则$A\to+\infty$。
+		\item[\textbf{步骤四（取对数转化第二极限）：}]
+			设$B=\frac{x^\alpha}{\log_a x}$。利用$\log_a x=\frac{\ln x}{\ln a}$，得
+			\[
+				\ln B = \alpha\ln x-\ln\left(\frac{\ln x}{\ln a}\right)=\alpha\ln x-\ln(\ln x)+\ln(\ln a).
+			\]
+			\par\textbf{理由：} $\ln(\log_a x)=\ln(\ln x)-\ln(\ln a)$。
+		\item[\textbf{步骤五（证明$\ln B\to+\infty$）：}]
+			因为$\displaystyle\lim_{x\to+\infty}\frac{\ln(\ln x)}{\ln x}=0$，所以
+			\[
+				\ln B = \ln x\Bigl(\alpha-\frac{\ln(\ln x)}{\ln x}\Bigr)+\ln(\ln a)\to +\infty \quad (x\to+\infty).
+			\]
+			\par\textbf{理由：} $\alpha>0$，且$\frac{\ln(\ln x)}{\ln x}\to0$，括号内趋于正数，$\ln x\to+\infty$，故整体趋于$+\infty$。
+		\item[\textbf{步骤六（回代得第二极限）：}]
+			类似地，$B=e^{\ln B}\to+\infty$，即$\displaystyle\lim_{x\to+\infty}\frac{x^\alpha}{\log_a x}=+\infty$。
+			\par\textbf{理由：} 指数函数的连续性。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	由以上两步得到
+	\[
+		\lim_{x\to+\infty}\frac{a^x}{x^\alpha}=+\infty,
+		\qquad
+		\lim_{x\to+\infty}\frac{x^\alpha}{\log_a x}=+\infty,
+	\]
+	记作$a^x\gg x^\alpha\gg\log_a x\ (x\to+\infty)$。
+\end{proofbox}
