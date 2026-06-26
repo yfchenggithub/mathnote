@@ -1,0 +1,38 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	含参函数单调性讨论的核心是解含参不等式 $f'(x)>0$ 和 $f'(x)<0$。将导函数归为五类标准形式后，利用对应不等式的解法，按参数分类即可得到单调区间。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（一次型求解）：}]
+			\[
+				kx+b>0
+			\]
+			\par\textbf{理由：}当 $k>0$ 时，解为 $x>-\frac{b}{k}$；当 $k<0$ 时，解为 $x<-\frac{b}{k}$；当 $k=0$ 时，若 $b>0$ 则解集为 $\mathbb{R}$，若 $b<0$ 则无解，若 $b=0$ 则 $f'(x)=0$，函数为常数。
+		\item[\textbf{步骤二（二次可分解）：}]
+			\[
+				a(x-m)(x-n)>0
+			\]
+			\par\textbf{理由：}设 $m\leq n$。若 $a>0$，解集为 $(-\infty,m)\cup(n,\infty)$；若 $a<0$，解集为 $(m,n)$；若 $m=n$，则 $a(x-m)^2>0$ 当 $a>0$ 时解集为 $x\neq m$，$a<0$ 时解集为空。
+		\item[\textbf{步骤三（二次不可分解）：}]
+			\[
+				ax^2+bx+c>0,\quad \Delta=b^2-4ac
+			\]
+			\par\textbf{理由：}当 $\Delta>0$ 时，设两根 $x_1<x_2$，$a>0$ 时解集为 $(-\infty,x_1)\cup(x_2,\infty)$，$a<0$ 时解集为 $(x_1,x_2)$；当 $\Delta=0$ 时，$a>0$ 时解集为 $\mathbb{R}\setminus\{-\frac{b}{2a}\}$，$a<0$ 时无解；当 $\Delta<0$ 时，$a>0$ 时解集为 $\mathbb{R}$，$a<0$ 时无解。
+		\item[\textbf{步骤四（指数对数型）：}]
+			\[
+				e^x-a>0
+			\]
+			\par\textbf{理由：}若 $a\leq 0$，则 $e^x-a>0$ 恒成立；若 $a>0$，则 $x>\ln a$。对于对数型 $\ln x+a>0$（$x>0$），可化为 $\ln x>-a$，得 $x>e^{-a}$。
+		\item[\textbf{步骤五（分式根式型）：}]
+			\[
+				\frac{x-a}{x}>0
+			\]
+			\par\textbf{理由：}等价于 $(x-a)x>0$ 且 $x\neq 0$。穿根法：若 $a>0$，解为 $x<0$ 或 $x>a$；若 $a<0$，解为 $x<a$ 或 $x>0$；若 $a=0$，则 $\frac{x}{x}>0$ 对所有 $x\neq 0$ 成立。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	以上五类覆盖了高中常见的含参导函数结构，分别解出 $f'(x)>0$ 和 $f'(x)<0$ 后，即可得到 $f(x)$ 的单调区间。
+\end{proofbox}
