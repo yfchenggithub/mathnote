@@ -1,0 +1,46 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	证明分为两个方向：正向取对数，反向取指数，核心是利用指数与对数互为逆运算。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.55em]
+		\item[\textbf{步骤一（正向取对数）：}]
+			已知 $e^{x}(x+a)=1$ 且 $x+a>0$，两边取自然对数。
+			\par\textbf{理由：}对数函数在定义域内严格单调，取对数后等式仍等价。
+			\[
+				\ln(e^{x}(x+a)) = \ln 1,
+			\]
+			\[
+				\ln e^{x} + \ln(x+a) = 0,
+			\]
+			\[
+				x + \ln(x+a) = 0,
+			\]
+			\[
+				\ln(x+a) = -x.
+			\]
+		\item[\textbf{步骤二（反向取指数）：}]
+			已知 $\ln(x+a)=-x$ 且 $x+a>0$，两边取自然指数。
+			\par\textbf{理由：}指数函数严格单调，取指数后等式仍等价。
+			\[
+				e^{\ln(x+a)} = e^{-x},
+			\]
+			\[
+				x+a = e^{-x},
+			\]
+			\[
+				e^{x}(x+a) = 1.
+			\]
+		\item[\textbf{步骤三（条件维护）：}]
+			等价关系成立必须保证 $x+a>0$。
+			\par\textbf{理由：}若 $x+a\leq0$，则 $\ln(x+a)$ 无定义，反向取指数时 $e^{\ln(x+a)}$ 不成立。
+			\[
+				x+a>0.
+			\]
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	由正向和反向推导可知，$e^{x}(x+a)=1$ 与 $\ln(x+a)=-x$ 在 $x+a>0$ 下等价，可以互相代换。
+\end{proofbox}
