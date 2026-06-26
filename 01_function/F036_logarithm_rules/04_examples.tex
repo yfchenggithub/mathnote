@@ -1,0 +1,98 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	计算 $\log_3 81 + \log_3 27 - \log_3 9$ 的值。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（合并对数式）：}]
+			使用积和商的对数性质：
+			\[
+				\log_3 81 + \log_3 27 - \log_3 9 = \log_3\frac{81\times27}{9}.
+			\]
+			\par\textbf{理由：} 对数加法对应真数乘，减法对应真数除。
+		\item[\textbf{第二步（化简真数）：}]
+			计算真数部分：
+			\[
+				\begin{aligned}
+					\frac{81\times27}{9} &= 81\times3 \\ &= 243.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} $27\div9=3$。
+		\item[\textbf{第三步（求对数值）：}]
+			由对数定义：
+			\[
+				\log_3 243 = 5 \quad (\text{因为 }3^5=243).
+			\]
+			\par\textbf{理由：} $3^5=243$，故 $\log_3 243=5$。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$\log_3 81 + \log_3 27 - \log_3 9 = 5$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	计算 $\log_2 3 \cdot \log_3 4$ 的值。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（换底统一）：}]
+			将两个对数都换成常用对数（或以 $e$ 为底）：
+			\[
+				\log_2 3 = \frac{\lg 3}{\lg 2},
+				\qquad
+				\log_3 4 = \frac{\lg 4}{\lg 3}.
+			\]
+			\par\textbf{理由：} 换底公式 $\log_a b = \frac{\log_c b}{\log_c a}$，这里取 $c=10$。
+		\item[\textbf{第二步（相乘约分）：}]
+			将两式相乘：
+			\[
+				\frac{\lg 3}{\lg 2} \cdot \frac{\lg 4}{\lg 3} = \frac{\lg 4}{\lg 2}.
+			\]
+			\par\textbf{理由：} $\lg 3$ 分子分母约去。
+		\item[\textbf{第三步（化简求值）：}]
+			再用换底公式逆用或直接：
+			\[
+				\begin{aligned}
+					\frac{\lg 4}{\lg 2} &= \log_2 4 \\ &= 2.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 对数定义 $2^2=4$，或换底公式逆写。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$\log_2 3 \cdot \log_3 4 = 2$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	解方程组 $
+	\begin{cases}
+		\log_2 x + \log_2 y = 3,\\ x - y = 2.
+	\end{cases}
+	$（其中 $x>0,y>0$）
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（利用对数性质）：}]
+			由 $\log_2 x + \log_2 y = 3$ 得：
+			\[
+				\log_2(xy) = 3 \;\Longrightarrow\; xy = 8.
+			\]
+			\par\textbf{理由：} 积的对数性质 $\log_a M+\log_a N=\log_a(MN)$ 及对数定义。
+		\item[\textbf{第二步（联立方程消元）：}]
+			联立 $xy=8$ 与 $x-y=2$，将 $y=x-2$ 代入：
+			\[
+				x(x-2)=8 \;\Longrightarrow\; x^2-2x-8=0.
+			\]
+			\par\textbf{理由：} 代入消元法。
+		\item[\textbf{第三步（解二次方程并选根）：}]
+			解方程得 $x=4$ 或 $x=-2$。由 $x>0$ 取 $x=4$，从而 $y=x-2=2$。
+			\[
+				\text{因此 } x=4,\; y=2.
+			\]
+			\par\textbf{理由：} 真数必须为正数，舍去 $x=-2$。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{方程组的解为 $
+	\begin{cases}
+		x=4,\\ y=2.
+	\end{cases}
+	$}
+\end{examplebox}

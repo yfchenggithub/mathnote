@@ -1,0 +1,81 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	从对数定义出发：设 $\log_a M = x$，$\log_a N = y$，则 $a^x = M$，$a^y = N$。利用指数运算法则即可推出所需性质。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（变量设定）：}] 设 $\log_a M = x$，$\log_a N = y$，则由对数定义有
+			\[
+				a^x = M,
+				\qquad
+				a^y = N.
+			\]
+			\par\textbf{理由：} 对数定义：若 $\log_a b = c$，则 $a^c = b$（$a>0,a\neq1,b>0$）。这里 $M,N>0$，故可设相应指数。
+
+		\item[\textbf{步骤二（积的对数）：}] 考虑 $MN$，有
+			\[
+				\begin{aligned}
+					a^x a^y &= a^{x+y} \\
+					&= MN.
+			\end{aligned}
+			\]
+			再取以 $a$ 为底的对数：
+			\[
+				\begin{aligned}
+					\log_a(MN) &= x+y \\
+					&= \log_a M + \log_a N.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 先使用指数乘法合并指数，再恢复为对数形式。
+
+		\item[\textbf{步骤三（商的对数）：}] 类似地，
+			\[
+				\begin{aligned}
+					\frac{a^x}{a^y} &= a^{x-y} \\
+					&= \frac{M}{N}.
+			\end{aligned}
+			\]
+			取对数得
+			\[
+				\begin{aligned}
+					\log_a\frac{M}{N} &= x-y \\
+					&= \log_a M - \log_a N.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 指数除法对应指数相减。
+
+		\item[\textbf{步骤四（幂的对数）：}] 当 $M$ 有指数 $m$ 时，
+			\[
+				\begin{aligned}
+					(a^x)^m &= a^{mx} \\
+					&= M^m.
+			\end{aligned}
+			\]
+			取对数得
+			\[
+				\begin{aligned}
+					\log_a M^m &= mx \\
+					&= m\log_a M.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 指数的幂运算：$(a^x)^m = a^{xm}$。
+
+		\item[\textbf{步骤五（换底公式）：}] 设 $\log_a b = x$，则 $a^x = b$。两边取以 $c$ 为底的对数（$c>0,c\neq1$）：
+			\[
+				\log_c(a^x) = \log_c b \;\Longrightarrow\; x\log_c a = \log_c b.
+			\]
+			因为 $\log_c a \neq 0$，解得
+			\[
+				x = \frac{\log_c b}{\log_c a},\quad \text{即}\quad \log_a b = \frac{\log_c b}{\log_c a}.
+			\]
+			\par\textbf{理由：} 利用幂的对数性质（已证的步骤四），然后解出 $x$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	以上五个步骤依次证明了对数运算的四条核心性质。它们贯通指数与对数的对应关系，是处理一切对数问题的基石。
+
+\end{proofbox}

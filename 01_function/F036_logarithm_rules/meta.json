@@ -1,0 +1,169 @@
+{
+  "id": "F036",
+  "module": "function",
+  "core": {
+    "title": "对数运算法则（积商幂及换底公式）",
+    "alias": [
+      "对数运算性质",
+      "对数运算法则",
+      "换底公式"
+    ],
+    "summary": "对数将乘除转化为加减，幂的指数提前，不同底数可统一为同底进行运算。",
+    "difficulty": 2,
+    "category": "函数",
+    "tags": [
+      "对数",
+      "运算法则",
+      "换底公式",
+      "恒等变形"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "对数运算",
+      "对数加法",
+      "对数减法",
+      "幂的对数",
+      "换底公式",
+      "log_a(MN)",
+      "log_a(M/N)",
+      "log_a(M^m)",
+      "log_c b / log_c a",
+      "对数定义域",
+      "底数大于0且不等于1",
+      "真数大于0"
+    ],
+    "synonyms": [
+      "对数相加等于相乘",
+      "对数相减等于相除",
+      "指数提前",
+      "换底",
+      "lg",
+      "ln"
+    ],
+    "intents": [
+      "计算对数值",
+      "化简对数式",
+      "证明对数恒等式",
+      "解对数方程",
+      "换底运算"
+    ],
+    "query_templates": [
+      "计算 log_2 3 + log_2 5",
+      "化简 log_2 8 - log_2 4",
+      "log_2 3 乘以 log_3 4 的值",
+      "换底公式怎么用",
+      "对数运算法则有哪些"
+    ],
+    "ocrKeywords": [
+      "log",
+      "log_a",
+      "logarithm",
+      "底数",
+      "真数",
+      "指数"
+    ],
+    "latex_patterns": [
+      "\\log_a(MN)",
+      "\\log_a M + \\log_a N",
+      "\\log_a (M/N)",
+      "\\log_a M - \\log_a N",
+      "\\log_a M^m",
+      "m\\log_a M",
+      "\\frac{\\log_c b}{\\log_c a}"
+    ],
+    "formulaTokens": [
+      "log_a(MN)",
+      "log_a M + log_a N",
+      "log_a(M/N)",
+      "log_a M - log_a N",
+      "log_a M^m",
+      "m log_a M",
+      "log_a b",
+      "log_c b",
+      "log_c a",
+      "(log_c b)/(log_c a)"
+    ],
+    "pinyin": "dui shu yun suan fa ze",
+    "pinyinAbbr": "dsysz"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.8,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "$$\\log_a(MN)=\\log_a M+\\log_a N,\\quad \\log_a\\frac{M}{N}=\\log_a M-\\log_a N,\\quad \\log_a M^m=m\\log_a M,\\quad \\log_a b=\\frac{\\log_c b}{\\log_c a}.$$",
+    "related_formulas": [],
+    "variables": {
+      "a": "底数，>0且≠1",
+      "b": "真数，>0",
+      "c": "换底中的底数，>0且≠1",
+      "M": "真数，>0",
+      "N": "真数，>0",
+      "m": "任意实数"
+    },
+    "conditions": "底数$a,c>0$且$a,c\\neq1$；真数$M,N,b>0$；指数$m\\in\\mathbb{R}$。",
+    "conclusions": "1. $\\log_a(MN)=\\log_a M+\\log_a N$；2. $\\log_a\\frac{M}{N}=\\log_a M-\\log_a N$；3. $\\log_a M^m=m\\log_a M$；4. $\\log_a b=\\frac{\\log_c b}{\\log_c a}$。"
+  },
+  "content": {
+    "statement": "设$a,b,c>0$且$a,b,c\\neq1$，$M,N>0$，$m\\in\\mathbb{R}$，则对数运算满足：$\\log_a(MN)=\\log_a M+\\log_a N$，$\\log_a\\frac{M}{N}=\\log_a M-\\log_a N$，$\\log_a M^m=m\\log_a M$，$\\log_a b=\\frac{\\log_c b}{\\log_c a}$。",
+    "derivation": [],
+    "intuition": "对数 $\\log_a M$ 是指数运算 $a^?=M$ 的指数，指数运算中 $a^p\\cdot a^q=a^{p+q}$，对应 $\\log_a(MN)=\\log_a M+\\log_a N$；其他类似。",
+    "common_tricks": [
+      "合并：$\\log_a M+\\log_a N=\\log_a(MN)$；展开：$\\log_a(MN)=\\log_a M+\\log_a N$。",
+      "换底公式常用于将不同底数乘积化为同一底数，例如 $\\log_2 3\\cdot\\log_3 4=2$。",
+      "注意真数必须为正，合并时要检查定义域。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "对数式计算",
+      "对数方程化简",
+      "指数与对数转换"
+    ],
+    "problem_types": [
+      "化简求值",
+      "解方程",
+      "证明恒等式"
+    ],
+    "exam_frequency": 1.0,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": ""
+  },
+  "shareConfig": {
+    "title": "对数运算法则：积商幂及换底公式速查",
+    "shareDesc": "适用于课后复盘与考前回顾，集中解决对数运算中合并与展开的易错点，提升化简求值题的稳定性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "指数运算",
+      "对数定义"
+    ],
+    "related_ids": [],
+    "similar": "对数恒等式"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-26"
+  },
+  "isPro": 0,
+  "remarks": "基础教材结论，非二级结论",
+  "knowledgeNode": "函数-特殊函数-对数函数",
+  "altNodes": "函数-特殊函数-对数函数"
+}
