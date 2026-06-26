@@ -1,0 +1,49 @@
+\begin{proofbox}
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	证明的关键是把二次函数化为顶点式，得到最小值表达式，然后分别证明充分性和必要性。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（配方变形）：}]
+			将 $f(x)$ 配方：
+			\[
+				\begin{aligned}
+					f(x) &= a\left(x^2+\frac{b}{a}x\right)+c \\
+					&= a\Bigl(x+\frac{b}{2a}\Bigr)^2+\frac{4ac-b^2}{4a} \\
+					&= a\Bigl(x+\frac{b}{2a}\Bigr)^2-\frac{\Delta}{4a}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			配方得到顶点式，其中 $\Delta=b^2-4ac$，顶点坐标为 $(-\frac{b}{2a},-\frac{\Delta}{4a})$。由此可看出函数的最小值（当 $a>0$ 时）或最大值（当 $a<0$ 时）。
+
+		\item[\textbf{步骤二（证必要性：开口向上）：}]
+			若 $f(x)>0$ 对一切 $x\in\mathbb{R}$ 成立，则必有 $a>0$。
+			\par\textbf{理由：}
+			假设 $a<0$，则当 $x\to\pm\infty$ 时 $f(x)\to-\infty$，与恒正矛盾。若 $a=0$ 则不是二次函数，故 $a$ 只能为正数。
+
+		\item[\textbf{步骤三（证必要性：判别式负）：}]
+			取 $x=-\dfrac{b}{2a}$，得 $f\!\left(-\dfrac{b}{2a}\right)=-\dfrac{\Delta}{4a}$，故 $-\dfrac{\Delta}{4a}>0$。结合 $a>0$，得 $\Delta<0$。
+			\par\textbf{理由：}
+			顶点处的函数值是二次函数的最值。因 $f(x)>0$ 恒成立，最小值也必须为正，故 $-\Delta/(4a)>0$，而 $a>0$，所以 $\Delta<0$。
+
+		\item[\textbf{步骤四（证充分性）：}]
+			若 $a>0$ 且 $\Delta<0$，则 $-\dfrac{\Delta}{4a}>0$。对任意 $x\in\mathbb{R}$，
+			\[
+				\begin{aligned}
+					f(x) &= a\Bigl(x+\frac{b}{2a}\Bigr)^2-\frac{\Delta}{4a} \\
+					&\ge -\frac{\Delta}{4a} .
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			平方项 $a(x+\frac{b}{2a})^2\ge0$，所以 $f(x)$ 的最小值为 $-\Delta/(4a)$，该值为正，因此所有函数值均为正。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	综合步骤二、三（必要性）和步骤四（充分性），原充要条件得证。此结论沟通了代数式与几何图像，是解决二次函数恒正问题的核心依据。
+
+\end{proofbox}
