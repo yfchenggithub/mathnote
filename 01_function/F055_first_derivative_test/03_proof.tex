@@ -1,0 +1,36 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	利用拉格朗日中值定理：导数的正负决定了函数在小区间上的增减性。通过 $f'(x)$ 在 $x_0$ 左右的符号，可以推出 $f(x)$ 在 $x_0$ 两侧的单调性，进而判断极值。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（左增推理）：}]
+			假设条件满足结论一（左正右负）。取 $x_1,x_2$ 满足 $x_0-\delta<x_1<x_2<x_0$。由拉格朗日中值定理，存在 $\xi\in(x_1,x_2)$ 使得
+			\[
+				f(x_2)-f(x_1)=f'(\xi)(x_2-x_1)>0,
+			\]
+			所以 $f(x_1)<f(x_2)$。故 $f$ 在 $(x_0-\delta,x_0)$ 上严格递增。
+			\par\textbf{理由：} 左邻域内 $f'(\xi)>0$，且 $x_2-x_1>0$，差值为正。
+		\item[\textbf{步骤二（右减推理）：}]
+			同理，取 $x_1,x_2$ 满足 $x_0<x_1<x_2<x_0+\delta$。存在 $\xi\in(x_1,x_2)$ 使
+			\[
+				f(x_2)-f(x_1)=f'(\xi)(x_2-x_1)<0,
+			\]
+			所以 $f(x_1)>f(x_2)$。故 $f$ 在 $(x_0,x_0+\delta)$ 上严格递减。
+			\par\textbf{理由：} 右邻域内 $f'(\xi)<0$。
+		\item[\textbf{步骤三（极大值结论）：}]
+			由左增右减，且 $f$ 在 $x_0$ 连续，对任意 $x\in(x_0-\delta,x_0)$ 有 $f(x)<f(x_0)$；对任意 $x\in(x_0,x_0+\delta)$ 有 $f(x)<f(x_0)$。因此 $f(x_0)$ 是极大值。
+			\par\textbf{理由：} 单调性保证了 $f(x_0)$ 大于两侧任何值。
+		\item[\textbf{步骤四（其余情况同理）：}]
+			\begin{itemize}[leftmargin=*]
+			\item 若左负右正，同理可得 $f(x_0)$ 为极小值。
+			\item 若左右同号，则 $f$ 在 $x_0$ 两侧单调性相同，$f(x_0)$ 既非最大也非最小，故不是极值。
+		\end{itemize}
+			\par\textbf{理由：} 同号意味着单调一致，$x_0$ 只是单调区间内部的普通点。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{通过验证导数在 $x_0$ 左右是否变号，即可判定极值。这正是极值第一充分条件的核心思想。}
+\end{proofbox}

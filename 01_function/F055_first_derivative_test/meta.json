@@ -1,0 +1,192 @@
+{
+  "id": "F055",
+  "module": "function",
+  "core": {
+    "title": "极值第一充分条件",
+    "alias": [
+      "一阶导数极值判定",
+      "导数变号法",
+      "左正右负极大值",
+      "左负右正极小值",
+      "第一充分条件"
+    ],
+    "summary": "导数从正变负得极大，从负变正得极小，两侧同号则不是极值。",
+    "difficulty": 2,
+    "category": "函数与导数",
+    "tags": [
+      "极值判定",
+      "导数应用",
+      "一阶导数",
+      "极大值极小值",
+      "单调性"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "极值",
+      "第一充分条件",
+      "导数",
+      "变号",
+      "极大值",
+      "极小值",
+      "驻点",
+      "不可导点",
+      "左正右负",
+      "左负右正",
+      "连续",
+      "可导",
+      "导数符号",
+      "单调性"
+    ],
+    "synonyms": [
+      "导数变号判极值",
+      "一阶导数判定",
+      "先增后减极大",
+      "先减后增极小",
+      "导数同号非极值",
+      "极值判断定理",
+      "极值的第一种判别法",
+      "极值点判定"
+    ],
+    "intents": [
+      "求极值",
+      "判断极值点",
+      "判定极值",
+      "证明极值",
+      "确定极值",
+      "计算极值"
+    ],
+    "query_templates": [
+      "极值第一充分条件怎么用",
+      "一阶导数判定极值方法",
+      "左正右负为什么是极大值",
+      "导数变号判断极值例子",
+      "极值点判断步骤"
+    ],
+    "ocrKeywords": [
+      "极值",
+      "极大值",
+      "极小值",
+      "导数",
+      "驻点",
+      "不可导点",
+      "左正右负",
+      "左负右正",
+      "单调性",
+      "变号"
+    ],
+    "latex_patterns": [
+      "f'(x)>0",
+      "f'(x)<0",
+      "f'(x_0)=0",
+      "f'(x_0) \\text{ 不存在}",
+      "f'(x_1)f'(x_2)>0"
+    ],
+    "formulaTokens": [
+      "f'(x)>0",
+      "f'(x)<0",
+      "f'(x_0)=0",
+      "f'(x_0) \\text{ 不存在}",
+      "f'(x_1)f'(x_2)>0",
+      "\\exists\\delta>0",
+      "x\\in(x_0-\\delta,x_0)",
+      "x\\in(x_0,x_0+\\delta)"
+    ],
+    "pinyin": "jizhidiyichongfentiaojian",
+    "pinyinAbbr": "jzdycftj"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.85,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\exists\\delta>0,\\; f'(x)>0\\;\\forall x\\in(x_0-\\delta,x_0),\\; f'(x)<0\\;\\forall x\\in(x_0,x_0+\\delta)\\Rightarrow f(x_0)\\text{ is a local maximum}",
+    "related_formulas": [
+      "\\exists\\delta>0,\\; f'(x)<0\\;\\forall x\\in(x_0-\\delta,x_0),\\; f'(x)>0\\;\\forall x\\in(x_0,x_0+\\delta)\\Rightarrow f(x_0)\\text{ is a local minimum}",
+      "\\exists\\delta>0,\\; f'(x_1)f'(x_2)>0\\;\\forall x_1\\in(x_0-\\delta,x_0),\\;\\forall x_2\\in(x_0,x_0+\\delta)\\Rightarrow f(x_0)\\text{ is not an extremum}",
+      "f'(x_0)=0,\\; f''(x_0)>0\\Rightarrow f(x_0)\\text{ is a local minimum},\\quad f'(x_0)=0,\\; f''(x_0)<0\\Rightarrow f(x_0)\\text{ is a local maximum}"
+    ],
+    "variables": [
+      "f(x)",
+      "x_0",
+      "\\delta",
+      "f'(x)",
+      "f(x_0)"
+    ],
+    "conditions": "函数$f(x)$在$x_0$处连续，在$x_0$的去心邻域内可导，且$x_0$为驻点（$f'(x_0)=0$）或不可导点。",
+    "conclusions": "若$f'(x)$在$x_0$左侧为正、右侧为负，则$f(x_0)$为极大值；若左侧为负、右侧为正，则$f(x_0)$为极小值；若两侧同号，则$f(x_0)$不是极值。"
+  },
+  "content": {
+    "statement": "极值第一充分条件（一阶导数变号判定）：若函数在一点连续，在该点的去心邻域内可导，且该点为驻点或不可导点，则可根据导数符号变化判定极值——左侧导数正、右侧导数负得极大值；左侧导数负、右侧导数正得极小值；两侧同号则非极值。",
+    "derivation": [
+      "第一步：由导数符号判断单调性——若在区间内f'(x)>0，则f(x)单调递增；若f'(x)<0，则单调递减。",
+      "第二步：若在x0左侧f'(x)>0（递增），右侧f'(x)<0（递减），则x0处由增转减，取得极大值；反之左减右增得极小值；两侧单调性一致则无极值。"
+    ],
+    "intuition": "导数符号决定函数单调性，单调性在一点处发生变化即产生极值。",
+    "common_tricks": [
+      "先求导找出所有驻点（f'(x)=0）和不可导点作为候选点。",
+      "在每个候选点左右两侧各取一个简单数值（如整数）代入导函数，比较符号。",
+      "注意不可导点（如尖点）也可能产生极值，必须检验左右导数符号。",
+      "若函数二阶可导，可用二阶导数符号快速判定（f''>0极小，f''<0极大），但需先确认一阶导数为零。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "求函数极值",
+      "判断极值点",
+      "最值问题"
+    ],
+    "problem_types": [
+      "导数综合题",
+      "函数极值问题",
+      "解答题"
+    ],
+    "exam_frequency": 1.0,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "",
+    "jgp": "",
+    "png": "",
+    "gif": ""
+  },
+  "shareConfig": {
+    "title": "极值第一充分条件：导数变号判定极值",
+    "shareDesc": "适合课后复盘和刷题前速查，集中解决导数极值判断的步骤和易错点，提升判断准确率。"
+  },
+  "relations": {
+    "prerequisites": [
+      "导数概念",
+      "导数与单调性",
+      "驻点与不可导点"
+    ],
+    "related_ids": [],
+    "similar": [
+      "极值第二充分条件（二阶导数判定）",
+      "函数极值的定义",
+      "单调性与导数关系"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "函数-性质-单调性",
+  "altNodes": ""
+}
