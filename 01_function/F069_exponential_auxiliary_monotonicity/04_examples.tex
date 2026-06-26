@@ -1,0 +1,76 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知函数$f(x)$在$\mathbb{R}$上可导，且$f'(x)-f(x)>0$，$f(0)=1$。求证：$f(1)>e$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（构造辅助函数）：}] 构造函数$F(x)=\dfrac{f(x)}{e^x}$，则$F'(x)=\dfrac{f'(x)-f(x)}{e^x}>0$，故$F(x)$在$\mathbb{R}$上严格递增。
+			\par\textbf{理由：}
+			由条件$f'(x)-f(x)>0$及$e^x>0$，得$F'(x)>0$。
+		\item[\textbf{第二步（计算函数值）：}] 计算$F(0)=\dfrac{f(0)}{e^0}=1$。
+			\par\textbf{理由：}
+			代入$f(0)=1$和$e^0=1$。
+		\item[\textbf{第三步（单调性比较）：}] 由$F(x)$递增和$1>0$，得$F(1)>F(0)$，即$\dfrac{f(1)}{e}>1$，所以$f(1)>e$。
+			\par\textbf{理由：}
+			单调递增性质：若$a>b$则$F(a)>F(b)$；此处$1>0$。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$f(1)>e$}。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知函数$f(x)$在$\mathbb{R}$上可导，且$f'(x)-f(x)<0$，$f(2)=2e^2$。比较$f(3)$与$3e^3$的大小。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（构造辅助函数）：}] 构造$F(x)=\dfrac{f(x)}{e^x}$，则$F'(x)=\dfrac{f'(x)-f(x)}{e^x}<0$，故$F(x)$在$\mathbb{R}$上严格递减。
+			\par\textbf{理由：}
+			由条件$f'(x)-f(x)<0$及$e^x>0$可得。
+		\item[\textbf{第二步（计算已知点）：}] 计算$F(2)=\dfrac{f(2)}{e^2}=2$。
+			\par\textbf{理由：}
+			代入$f(2)=2e^2$，$e^2\neq0$。
+		\item[\textbf{第三步（利用单调性比较）：}] 由$F(x)$递减和$3>2$，得$F(3)<F(2)=2$，即$\dfrac{f(3)}{e^3}<2$，所以$f(3)<2e^3$。又$2e^3<3e^3$（因为$2<3$且$e^3>0$），故$f(3)<3e^3$。
+			\par\textbf{理由：}
+			递减性：自变量大者函数值小，结合已知数值比较。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$f(3)<3e^3$}。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	设$f(x)$是$\mathbb{R}$上的可导函数，且满足$f'(x)-f(x)>0$，$a<b$。比较$f(a)e^b$与$f(b)e^a$的大小。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（等价变形）：}] 将比较式两边同除以$e^{a+b}>0$，得
+			\[
+				\frac{f(a)e^b}{e^{a+b}}=\frac{f(a)}{e^a},
+				\qquad
+				\frac{f(b)e^a}{e^{a+b}}=\frac{f(b)}{e^b}.
+			\]
+			因此比较$f(a)e^b$与$f(b)e^a$的大小等价于比较$\dfrac{f(a)}{e^a}$与$\dfrac{f(b)}{e^b}$的大小。
+			\par\textbf{理由：}
+			同除以正数不改变不等号方向；指数运算化简。
+		\item[\textbf{第二步（构造函数判单调）：}] 构造$F(x)=\dfrac{f(x)}{e^x}$，由$f'(x)-f(x)>0$得
+			\[
+				F'(x)=\frac{f'(x)-f(x)}{e^x}>0,
+			\]
+			故$F(x)$在$\mathbb{R}$上严格递增。
+			\par\textbf{理由：}
+			导数正，单调递增。
+		\item[\textbf{第三步（单调性推结论）：}] 由于$a<b$，且$F(x)$递增，有$F(a)<F(b)$，即$\dfrac{f(a)}{e^a}<\dfrac{f(b)}{e^b}$，从而$f(a)e^b<f(b)e^a$。
+			\par\textbf{理由：}
+			单调递增性质，以及第一步的等价关系。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$f(a)e^b<f(b)e^a$}。
+\end{examplebox}

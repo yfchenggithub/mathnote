@@ -1,0 +1,48 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	对 $F(x)=\dfrac{f(x)}{e^x}$ 使用导数商法则，化简后分母为正，故 $F'(x)$ 的符号与 $f'(x)-f(x)$ 一致，从而单调性立判。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（构造函数）：}]
+			在区间 $I$ 上定义辅助函数
+			\[
+				F(x)=\frac{f(x)}{e^x}.
+			\]
+			\par\textbf{理由：} 此函数将原不等式转化为 $F'(x)$ 的符号问题。
+		\item[\textbf{步骤二（求导运算）：}]
+			应用商的导数法则 $(u/v)'=(u'v-uv')/v^2$，得
+			\[
+				F'(x)=\frac{f'(x)\cdot e^x - f(x)\cdot e^x}{e^{2x}}.
+			\]
+			\par\textbf{理由：} 分子提取公因数 $e^x$，分母 $e^{2x}$。
+		\item[\textbf{步骤三（化简结果）：}]
+			分子提取 $e^x$ 后与分母约分：
+			\[
+				\begin{aligned}
+					F'(x)&=\frac{e^x\bigl(f'(x)-f(x)\bigr)}{e^{2x}} \\ &=\frac{f'(x)-f(x)}{e^x}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 约去公因子 $e^x$（$e^x>0$，可安全约分）。
+		\item[\textbf{步骤四（符号判单调）：}]
+			因为 $e^x>0$ 对任意实数 $x$ 恒成立，所以
+			\[
+				\operatorname{sgn}\bigl(F'(x)\bigr) = \operatorname{sgn}\bigl(f'(x)-f(x)\bigr).
+			\]
+			\par\textbf{理由：} 正数除以正数仍为正，负数除以正数仍为负。
+		\item[\textbf{步骤五（单调性结论）：}]
+			因此：
+			\begin{itemize}
+			\item 若 $f'(x)-f(x)>0$，则 $F'(x)>0$，$F(x)$ 在 $I$ 上严格递增；
+			\item 若 $f'(x)-f(x)<0$，则 $F'(x)<0$，$F(x)$ 在 $I$ 上严格递减；
+			\item 若 $f'(x)-f(x)\geq 0$，则 $F'(x)\geq 0$，$F(x)$ 单调不降；
+			\item 若 $f'(x)-f(x)\leq 0$，则 $F'(x)\leq 0$，$F(x)$ 单调不增。
+		\end{itemize}
+			\par\textbf{理由：} 函数导数符号与单调性的基本定理。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	上述推导表明，构造函数 $F(x)=\dfrac{f(x)}{e^x}$ 后，$F(x)$ 的单调性完全由已知条件 $f'(x)-f(x)$ 的符号决定。因此，在解题时只需将此条件代入，即可直接得到 $F(x)$ 的单调区间，进而比较 $F(x)$ 在不同点的值，或解决相关抽象不等式。
+\end{proofbox}
