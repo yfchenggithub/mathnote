@@ -1,0 +1,44 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	根据绝对值定义
+	\[
+		|a| =
+		\begin{cases}
+			a, & a\ge0\\ -a, & a<0
+		\end{cases}
+	\]
+	，将函数图像上的每个点 $(x,f(x))$ 的纵坐标取绝对值，即可得到新图像，从而确定变换规则。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（设定任意点）：}]
+			任取 $x_0\in D$，记原图像上的点为 $A(x_0, f(x_0))$，变换后图像上的点为 $B(x_0, |f(x_0)|)$。
+			\[
+				A = (x_0, f(x_0)),
+				\qquad
+				B = (x_0, |f(x_0)|)
+			\]
+			\par\textbf{理由：} 函数图像由所有满足函数关系的点构成，只需逐点考察 $A$ 到 $B$ 的变化。
+		\item[\textbf{步骤二（非负情况）：}]
+			若 $f(x_0)\ge0$，则 $|f(x_0)| = f(x_0)$，于是 $B = A$。
+			\[
+				|f(x_0)| = f(x_0) \quad\Longrightarrow\quad B = A
+			\]
+			\par\textbf{理由：} 绝对值定义，非负数绝对值等于其本身。
+		\item[\textbf{步骤三（负值情况）：}]
+			若 $f(x_0)<0$，则 $|f(x_0)| = -f(x_0)$。
+			\[
+				|f(x_0)| = -f(x_0) \quad\Longrightarrow\quad B = (x_0, -f(x_0))
+			\]
+			注意到 $(x_0, -f(x_0))$ 是 $A(x_0, f(x_0))$ 关于 $x$ 轴的对称点。
+			\par\textbf{理由：} 绝对值定义，且关于 $x$ 轴对称的坐标特征为纵坐标相反。
+		\item[\textbf{步骤四（归纳总结）：}]
+			对所有 $x_0\in D$ 成立，故原图像上纵坐标非负的点保持不变，纵坐标为负的点对称翻折到 $x$ 轴上方。因此 $y=|f(x)|$ 的图像正是原图像保留 $x$ 轴上方部分并将下方部分关于 $x$ 轴对称翻折所得。
+			\par\textbf{理由：} 上述分类讨论覆盖全部情形，结论得证。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	通过逐点分析，严格建立了 $y=|f(x)|$ 的图像变换规则：保留 $x$ 轴上方部分，翻折 $x$ 轴下方部分。该证明体现了“逐点讨论，分类归纳”的基本思路。
+\end{proofbox}
