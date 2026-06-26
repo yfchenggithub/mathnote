@@ -1,0 +1,31 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	充分性：由零点定理得存在性，由单调性得唯一性。必要性：利用单调性由根的存在导出端点异号。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（充分性存在性）：}]
+			已知 $f(m)f(n)<0$，且 $f$ 在 $[m,n]$ 上连续。由零点定理，存在 $c\in(m,n)$，使得 $f(c)=0$。
+			\[
+				\exists\, c\in(m,n),\; f(c)=0.
+			\]
+			\par\textbf{理由：} 零点定理：连续函数在闭区间两端异号，则区间内至少有一个零点。
+		\item[\textbf{步骤二（充分性唯一性）：}]
+			假设存在另一 $d\in(m,n)$ 且 $d\neq c$ 使得 $f(d)=0$。不妨设 $c<d$（另一种情况对称）。若 $f$ 严格单调递增，则 $f(c)<f(d)$，与 $f(c)=f(d)=0$ 矛盾；若 $f$ 严格单调递减，则 $f(c)>f(d)$，同样矛盾。故至多一个根，结合步骤一得唯一实根。
+			\[
+				\forall\, x_1,x_2\in(m,n),\; x_1<x_2 \Rightarrow f(x_1)\neq f(x_2).
+			\]
+			\par\textbf{理由：} 严格单调函数保持严格不等关系，故不同点函数值必不同，不可能同时为零。
+		\item[\textbf{步骤三（必要性端点异号）：}]
+			设 $f(x)=0$ 在 $(m,n)$ 内有唯一实根 $x_0$。以 $f$ 严格单调递增为例：由 $m<x_0<n$ 及严格单调递增，得 $f(m)<f(x_0)=0$，$f(n)>f(x_0)=0$，故 $f(m)f(n)<0$。若 $f$ 递减，同理得 $f(m)>0, f(n)<0$，乘积仍负。
+			\[
+				f(m)f(n)<0.
+			\]
+			\par\textbf{理由：} 严格单调函数在零点两侧函数值符号相反，端点位于两侧时乘积必为负。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	综上所述，在 $f$ 连续且严格单调的条件下，方程 $f(x)=0$ 在 $(m,n)$ 内有唯一实根的充要条件是 $f(m)f(n)<0$。整点问题中，对相邻整数 $k,k+1$，若 $f(k)f(k+1)<0$，则函数在 $(k,k+1)$ 内存在唯一零点，从而该开区间不含整数解。
+\end{proofbox}
