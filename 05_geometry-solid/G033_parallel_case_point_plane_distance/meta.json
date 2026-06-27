@@ -1,0 +1,175 @@
+{
+  "id": "G033",
+  "module": "geometry-solid",
+  "core": {
+    "title": "线面距与面面距转化为点面距",
+    "alias": [
+      "点面距公式",
+      "平行线面距",
+      "平行面面距"
+    ],
+    "summary": "当直线或平面与目标平面平行时，距离转化为点到平面的距离，用点面距公式计算。",
+    "difficulty": 2,
+    "category": "立体几何",
+    "tags": [
+      "立体几何",
+      "点面距",
+      "线面距",
+      "面面距",
+      "平行关系"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "直线与平面平行",
+      "两平面平行",
+      "点到平面距离",
+      "点面距公式",
+      "平行距离",
+      "距离公式",
+      "绝对值",
+      "法向量",
+      "分母",
+      "线面距",
+      "面面距"
+    ],
+    "synonyms": [
+      "线面距",
+      "面面距",
+      "点面距离公式",
+      "距离公式"
+    ],
+    "intents": [
+      "求距离",
+      "计算线面距",
+      "计算面面距",
+      "判断平行后求距离"
+    ],
+    "query_templates": [
+      "线面距怎么求",
+      "面面距离公式",
+      "点到平面距离公式",
+      "平行线到平面距离",
+      "平行平面间距离"
+    ],
+    "ocrKeywords": [
+      "距离",
+      "平行",
+      "点面距"
+    ],
+    "latex_patterns": [
+      "\\frac{|Ax_0+By_0+Cz_0+D|}{\\sqrt{A^2+B^2+C^2}}"
+    ],
+    "formulaTokens": [
+      "|Ax_0+By_0+Cz_0+D|",
+      "\\sqrt{A^2+B^2+C^2}",
+      "Ax_0+By_0+Cz_0+D",
+      "A^2+B^2+C^2"
+    ],
+    "pinyin": "xianmianju yu mianmianju zhuanhua wei dianmianju",
+    "pinyinAbbr": "xmj"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.6,
+    "hot_score": 60,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "$d=\\frac{|Ax_0+By_0+Cz_0+D|}{\\sqrt{A^2+B^2+C^2}}$",
+    "related_formulas": [],
+    "variables": [
+      {
+        "name": "A",
+        "description": "平面法向量x分量"
+      },
+      {
+        "name": "B",
+        "description": "平面法向量y分量"
+      },
+      {
+        "name": "C",
+        "description": "平面法向量z分量"
+      },
+      {
+        "name": "D",
+        "description": "平面常数项"
+      },
+      {
+        "name": "(x_0,y_0,z_0)",
+        "description": "直线上或平面上的任意一点"
+      }
+    ],
+    "conditions": "直线与平面平行或平面与平面平行，且平面方程为$Ax+By+Cz+D=0$，其中$A^2+B^2+C^2>0$。",
+    "conclusions": "线面距或面面距等于该点到平面的距离，由点面距公式计算。"
+  },
+  "content": {
+    "statement": "当直线与平面平行或两平面平行时，直线（或平面）上任意一点到目标平面的距离相等，该距离可由点面距离公式求得：$d=\\frac{|Ax_0+By_0+Cz_0+D|}{\\sqrt{A^2+B^2+C^2}}$，其中平面方程为$Ax+By+Cz+D=0$，点$(x_0,y_0,z_0)$是直线或平面上任意取定的点。",
+    "derivation": [
+      "基于点到平面距离公式：$d=\\frac{|Ax_0+By_0+Cz_0+D|}{\\sqrt{A^2+B^2+C^2}}$",
+      "由于直线或平面与目标平面平行，任意一点到平面的距离都相等，因此距离与点的选取无关。",
+      "取直线上或平面上任意一点代入公式即得距离。"
+    ],
+    "intuition": "因为平行时所有点到目标平面的距离相同，所以只需计算一个点（如已知点）到平面的距离。",
+    "common_tricks": [
+      "先验证直线或平面是否与目标平面平行",
+      "取点时优先选择已知坐标的点，简化计算",
+      "注意分母$\\sqrt{A^2+B^2+C^2}$不能漏，分子必须加绝对值",
+      "若题目只给平面方程但未化为一般式，先化为一般式再套公式"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "立体几何求距离问题",
+      "平行线面、平行面面的距离计算"
+    ],
+    "problem_types": [
+      "选择题",
+      "填空题",
+      "解答题步骤"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "",
+    "tikz": "",
+    "image": ""
+  },
+  "shareConfig": {
+    "title": "线面距面面距转化为点面距：平行关系下的距离公式",
+    "shareDesc": "适合课后复盘和考前回顾，直接使用点面距公式计算平行线面或平行面面间的距离，避免重新推导，提升解题稳定性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "点到平面距离公式",
+      "直线与平面平行的判定",
+      "平面与平面平行的判定"
+    ],
+    "related_ids": [],
+    "similar": [
+      "点到平面的距离公式",
+      "异面直线距离转化为公垂线段"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "立体几何-空间向量-坐标法",
+  "altNodes": "立体几何-空间关系-平行"
+}

@@ -1,0 +1,39 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	利用平面法向量 $\mathbf{n}=(A,B,C)$，将点到平面的距离转化为向量投影的绝对值；通过平行条件说明距离与取点位置无关。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（点面距公式推导）：}]
+			设平面 $\alpha$ 过定点 $P_0(x_0,y_0,z_0)$，法向量 $\mathbf{n}=(A,B,C)$。对于任意点 $P(x,y,z)$，点 $P$ 到 $\alpha$ 的距离为
+			\[
+				\begin{aligned}
+					d &= \frac{|\overrightarrow{P_0P}\cdot\mathbf{n}|}{\|\mathbf{n}\|} \\ &= \frac{|A(x-x_0)+B(y-y_0)+C(z-z_0)|}{\sqrt{A^2+B^2+C^2}}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 距离等于向量 $P_0P$ 在 $\mathbf{n}$ 上的投影长度。
+		\item[\textbf{步骤二（代入平面方程）：}]
+			因为 $P_0$ 在 $\alpha$ 上，故 $Ax_0+By_0+Cz_0=-D$。代入上式得
+			\[
+				d = \frac{|Ax+By+Cz+D|}{\sqrt{A^2+B^2+C^2}}.
+			\]
+			\par\textbf{理由：} 利用平面方程化简分子。
+		\item[\textbf{步骤三（线面平行距离不变）：}]
+			若直线 $l\parallel\alpha$，取 $l$ 上任意两点 $P,Q$，则 $\overrightarrow{PQ}$ 与 $l$ 的方向向量共线。由于 $l\parallel\alpha$，有 $\overrightarrow{PQ}\cdot\mathbf{n}=0$。于是
+			\[
+				\begin{aligned}
+					\overrightarrow{P_0Q}\cdot\mathbf{n} &= \overrightarrow{P_0P}\cdot\mathbf{n} + \overrightarrow{PQ}\cdot\mathbf{n} \\ &= \overrightarrow{P_0P}\cdot\mathbf{n}.
+			\end{aligned}
+			\]
+			因此 $P$, $Q$ 到 $\alpha$ 的距离相等。
+			\par\textbf{理由：} 直线方向与法向量垂直，保证投影不变。
+		\item[\textbf{步骤四（面面平行距离不变）：}]
+			若平面 $\beta\parallel\alpha$，取 $\beta$ 上任意两点 $P,Q$，则 $\overrightarrow{PQ}$ 平行于 $\beta$，从而 $\overrightarrow{PQ}\perp\mathbf{n}$，故 $\overrightarrow{PQ}\cdot\mathbf{n}=0$。同理得 $P,Q$ 到 $\alpha$ 的距离相等。
+			\par\textbf{理由：} 平行平面有相同的法向量方向，平面内向量与法向量垂直。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{综合以上，线面距和面面距都可以通过选取直线或平面上任意一点，直接代入点面距公式计算，所得距离唯一。}
+\end{proofbox}
