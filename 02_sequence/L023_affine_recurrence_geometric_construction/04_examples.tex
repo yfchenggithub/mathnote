@@ -1,0 +1,84 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知数列 $\{a_n\}$ 满足 $a_1=1$，$a_{n+1}=2a_n - n + 1$，求通项公式 $a_n$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（判定形式）：}] 递推为 $a_{n+1}=p a_n+q n+r$ 型，$p=2,q=-1,r=1$，$p\neq0,1$，满足条件。
+			\par\textbf{理由：} 可直接套用公式 $A=\dfrac{q}{p-1}$，$B=\dfrac{r}{p-1}+\dfrac{q}{(p-1)^2}$。
+		\item[\textbf{第二步（计算 $A,B,b_1$）：}] 计算得
+			\[
+				A = \frac{-1}{2-1} = -1,
+				\qquad
+				B = \frac{1}{2-1} + \frac{-1}{(2-1)^2} = 1 - 1 = 0,
+			\]
+			$b_1 = a_1 + A + B = 1-1+0 = 0$。
+			\par\textbf{理由：} $A,B$ 解出后，构造 $b_n = a_n + A n + B$。
+		\item[\textbf{第三步（写出通项）：}] 由 $b_n = b_1 p^{\,n-1} = 0$，得 $a_n = b_n - A n - B = n$。
+			\par\textbf{理由：} $b_n$ 是公比为 2 的等比数列，首项为 0，故恒为 0；$a_n = b_n - (-1)n - 0 = n$。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$a_n = n$}（可检验 $a_2=2a_1-1+1=2=2$，成立）。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知 $a_1=2$，$a_{n+1}=2a_n + n + 3$，求 $a_n$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（参数识别）：}] $p=2,q=1,r=3$，$p\neq0,1$，符合条件。
+			\par\textbf{理由：} 适用等比构造法。
+		\item[\textbf{第二步（计算 $A,B,b_1$）：}]
+			$A = \dfrac{1}{2-1}=1$，$B = \dfrac{3}{2-1} + \dfrac{1}{(2-1)^2}=3+1=4$，$b_1=2+1+4=7$。
+			\par\textbf{理由：} 构造 $b_n=a_n + n + 4$。
+		\item[\textbf{第三步（写通项公式）：}] 由等比数列得 $b_n = 7\cdot 2^{\,n-1}$，故
+			\[
+				a_n = b_n - n - 4 = 7\cdot 2^{\,n-1} - n - 4.
+			\]
+			\par\textbf{理由：} 代入 $a_n = b_n - A n - B$。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$a_n = 7\cdot 2^{\,n-1} - n - 4$}（$a_2=14-2-4=8$，递推验证 $2\cdot2+1+3=8$，正确）。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知数列 $\{a_n\}$ 的前 $n$ 项和 $S_n$ 满足 $S_{n+1}=2S_n + n + 1$，且 $a_1=1$，求 $\{a_n\}$ 的通项公式。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（对 $S_n$ 套用公式）：}] $S_{n+1}=2S_n + n + 1$ 形如 $S_{n+1}=p S_n+q n+r$，$p=2,q=1,r=1$。由公式得 $A=\dfrac{1}{2-1}=1$，$B=\dfrac{1}{2-1}+\dfrac{1}{(2-1)^2}=1+1=2$，$b_1=S_1+A+B=1+1+2=4$，则
+			\[
+				S_n = 4\cdot2^{\,n-1} - n - 2.
+			\]
+			\par\textbf{理由：} 将 $S_n$ 视为数列，直接应用结论。
+		\item[\textbf{第二步（求 $S_{n-1}$）：}] $n\ge2$ 时，$S_{n-1} = 4\cdot2^{\,n-2} - (n-1) - 2$。
+			\par\textbf{理由：} 将 $n$ 替换为 $n-1$。
+		\item[\textbf{第三步（作差得 $a_n$）：}]
+			$n\ge2$ 时，
+			\[
+				\begin{aligned}
+					a_n &= S_n - S_{n-1} \\
+					&= \bigl(4\cdot2^{\,n-1} - n - 2\bigr) \\
+					&\quad - \bigl(4\cdot2^{\,n-2} - (n-1) - 2\bigr) \\
+					&= 4\cdot2^{\,n-1} - 4\cdot2^{\,n-2} \\
+					&\quad - 1 \\
+					&= 4\cdot2^{\,n-2}(2-1) - 1 \\
+					&= 4\cdot2^{\,n-2} - 1 \\
+					&= 2^{\,n} - 1.
+			\end{aligned}
+			\]
+			且 $n=1$ 时 $a_1=1$ 也满足 $2^1-1=1$。
+			\par\textbf{理由：} 由 $S_n$ 通项相减，逐步化简合并。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$a_n = 2^{\,n} - 1$}（检验 $S_1=1$，$S_2=1+3=4$，递推 $S_2=2\cdot1+1+1=4$，符合）。
+\end{examplebox}

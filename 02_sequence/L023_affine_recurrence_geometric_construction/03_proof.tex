@@ -1,0 +1,75 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	设 $b_n = a_n + A n + B$，代入递推后令常数项和 $n$ 的系数分别相等，解 $A,B$，使 $b_{n+1}=pb_n$。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（构造代数式）：}]
+			令 $b_n = a_n + A n + B$，其中 $A,B$ 为待定常数。则
+			\[
+				b_{n+1} = a_{n+1} + A(n+1) + B.
+			\]
+			\par\textbf{理由：} 代入 $a_{n+1}=p a_n+q n+r$，得
+			\[
+				\begin{aligned}
+					b_{n+1} &= p a_n + q n + r \\
+					&\quad + A n + A + B.
+			\end{aligned}
+			\]
+
+		\item[\textbf{步骤二（转化为 $b_n$ 表达）：}]
+			将 $a_n = b_n - A n - B$ 代入，整理：
+			\[
+				\begin{aligned}
+					b_{n+1} &= p(b_n - A n - B) + q n + r \\
+					&\quad + A n + A + B \\
+					&= p b_n - p A n - p B + q n + r \\
+					&\quad + A n + A + B.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 合并 $n$ 的同类项：
+			\[
+				\begin{aligned}
+					b_{n+1} &= p b_n + \bigl[(-pA + q + A)n\bigr] \\
+					&\quad + \bigl[(-pB + r + A + B)\bigr].
+			\end{aligned}
+			\]
+
+		\item[\textbf{步骤三（令含 $n$ 项系数为零）：}]
+			要使 $b_{n+1}=p b_n$，必须让 $n$ 的系数和常数项均为 $0$：
+			\[
+				\begin{cases}
+					-pA + q + A = 0,\\
+					-pB + r + A + B = 0.
+			\end{cases}
+			\]
+			\par\textbf{理由：} 解得
+			\[
+				A = \frac{q}{p-1},
+				\qquad
+				B = \frac{r}{p-1} + \frac{q}{(p-1)^2}.
+			\]
+
+		\item[\textbf{步骤四（获得等比关系）：}]
+			代入 $A,B$ 后，$b_{n+1}=p b_n$ 成立（推导过程消去了所有 $n$ 项）。
+			\par\textbf{理由：} 由前一步，当取 $A,B$ 满足方程组时，$b_{n+1}=p b_n$ 恒成立，故 $\{b_n\}$ 是公比为 $p$ 的等比数列。
+
+		\item[\textbf{步骤五（写出 $b_n$ 通项）：}]
+			$b_n = b_1 p^{\,n-1}$，其中 $b_1 = a_1 + A + B$.
+			\par\textbf{理由：} 等比数列通项公式 $b_n = b_1 q^{n-1}$.
+
+		\item[\textbf{步骤六（回代求 $a_n$）：}]
+			由 $a_n = b_n - A n - B$ 得
+			\[
+				a_n = (a_1 + A + B) p^{\,n-1} - A n - B.
+			\]
+			\par\textbf{理由：} 将 $b_1$ 代入并整理即得。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	通过待定系数法构造辅助数列，将非齐次线性递推转化为等比数列，最终得到通项公式。该方法的核心是解一个关于 $A,B$ 的线性方程组，计算时需注意分母 $p-1\neq0$。
+\end{proofbox}

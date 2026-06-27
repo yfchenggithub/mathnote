@@ -1,0 +1,43 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+	通过构造一个包含 $n$ 的“补偿”数列 $b_n = a_n + An+B$，将不整齐的递推式化为整齐的等比数列，从而快速求出通项。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（待定系数法）：}]
+			假设 $b_n = a_n + An + B$，代入递推后令含 $n$ 的项系数为零，解出 $A,B$。
+		\item[\textbf{要点二（消去一次项）：}]
+			通过恰当选取 $A,B$，使得 $b_{n+1}$ 与 $b_n$ 之间不再出现 $n$，仅剩倍数关系。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（线性变换）：}}
+
+	将 $(n,a_n)$ 视为平面上的点，构造 $b_n = a_n+An+B$ 相当于对纵坐标做了一个一次函数的平移，使新的纵坐标满足纯等比关系。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（构造等比）：}}
+
+	本质上是用一个一次函数 $An+B$ 去凑配非齐次项 $qn+r$，使原递推转化为齐次形式 $b_{n+1}=p b_n$，从而可用等比通项公式一步到位。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（高考常考）：}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（直接求通项）：} 给出递推公式和首项，要求写出通项公式，通常出现在解答题第一问。
+		\item \textbf{考法二（含参讨论）：} 参数 $p,q,r$ 含字母，需要讨论 $p$ 的范围或 $p=1$ 的特殊情形。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	为什么可以设为 $An+B$ 而不是更高次？因为递推右端是 $n$ 的一次式，递推一次后 $a_{n+1}$ 会引入一次项，而 $a_n$ 中的一次项经过 $p$ 倍后仍然是一次项，所以用一次式足以补偿。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（已知递推求通项）：} 题目给出形如 $a_{n+1}=p a_n+q n+r$ 的递推，直接套用公式。
+		\item \textbf{场景二（递推变形）：} 非齐次项为 $n$ 的更高次多项式时，可类似设 $b_n=a_n+$ 对应次多项式（推广）。
+	\end{itemize}
+\end{explanationbox}

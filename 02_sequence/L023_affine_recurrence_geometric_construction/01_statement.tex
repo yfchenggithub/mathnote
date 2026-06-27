@@ -1,0 +1,44 @@
+\begin{statementbox}
+	\textbf{\textcolor{CStatement}{条件}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CStatement}{条件 1（递推形式）：}}]
+			$a_{n+1}=p a_n+q n+r$，其中 $p\neq0,1$，$q,r$ 为常数。
+	\end{description}
+
+	\textbf{\textcolor{CStatement}{结论}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{\textcolor{CStatement}{结论一（等比构造法）：}}]
+			\textbf{\textcolor{CStatement}{直观描述：}}
+			通过引入一次式 $An+B$ 消去递推中的 $n$，使新数列为等比。
+			\[
+				A=\frac{q}{p-1},
+				\qquad
+				B=\frac{r}{p-1}+\frac{q}{(p-1)^2},
+			\]
+			定义 $b_n=a_n+An+B$，则 $\{b_n\}$ 是公比为 $p$ 的等比数列：
+			\[
+				b_{n+1}=p\,b_n,
+			\]
+			从而
+			\[
+				a_n=b_1 p^{\,n-1}-An-B,
+			\]
+			其中 $b_1=a_1+A+B$。
+
+		\item[\textbf{\textcolor{CStatement}{常见变形（常数非齐次）：}}]
+			\textbf{\textcolor{CStatement}{直观描述：}}
+			当 $q=0$ 时，非齐次项退化为常数，构造更简单。
+			\[
+				A=0,
+				\qquad
+				B=\frac{r}{p-1},
+			\]
+			辅助数列 $b_n=a_n+B$ 为等比，通项为
+			\[
+				a_n = (a_1+B)p^{\,n-1}-B.
+			\]
+	\end{description}
+
+	\textbf{\textcolor{CStatement}{适用范围：}}
+	形如 $a_{n+1}=p a_n+f(n)$ 的线性递推，其中 $f(n)$ 是 $n$ 的一次多项式，$p\neq0,1$。
+\end{statementbox}

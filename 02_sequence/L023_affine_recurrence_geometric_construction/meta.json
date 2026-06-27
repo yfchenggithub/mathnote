@@ -1,0 +1,179 @@
+{
+  "id": "L023",
+  "module": "sequence",
+  "core": {
+    "title": "一次函数型递推通项公式：等比构造法",
+    "alias": [
+      "一次型递推构造法",
+      "配一次项法",
+      "一次函数递推通项"
+    ],
+    "summary": "通过设 $b_n=a_n+An+B$ 消去递推中的一次项，化为等比数列求通项。",
+    "difficulty": 3,
+    "category": "数列",
+    "tags": [
+      "数列递推",
+      "待定系数法",
+      "等比数列构造",
+      "一次函数型",
+      "通项公式",
+      "递推数列"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "一次函数型递推",
+      "等比构造法",
+      "待定系数法",
+      "a_{n+1}=p a_n+q n+r",
+      "辅助数列",
+      "通项公式",
+      "A=q/(p-1)",
+      "B=r/(p-1)+q/(p-1)^2",
+      "一次多项式递推",
+      "$b_n=a_n+An+B$",
+      "一次型递推通项"
+    ],
+    "synonyms": [
+      "一次型递推",
+      "一次函数递推",
+      "配方法求通项",
+      "一次项消去法",
+      "一次递推构造等比"
+    ],
+    "intents": [
+      "求通项",
+      "构造等比数列",
+      "求递推通项",
+      "消去一次项",
+      "套公式求通项",
+      "数列构造法"
+    ],
+    "query_templates": [
+      "一次函数型递推怎么求通项",
+      "a_{n+1}=pa_n+qn+r 通项公式",
+      "一次型递推等比构造法例题",
+      "递推数列一次式构造法步骤",
+      "待定系数法求一次递推通项"
+    ],
+    "ocrKeywords": [
+      "a_{n+1}=p a_n+q n+r",
+      "递推关系",
+      "等比数列",
+      "通项公式",
+      "辅助数列",
+      "待定系数",
+      "一次函数型"
+    ],
+    "latex_patterns": [
+      "a_{n+1}=p a_n+q n+r",
+      "A=\\frac{q}{p-1}",
+      "B=\\frac{r}{p-1}+\\frac{q}{(p-1)^2}",
+      "b_n=a_n+An+B",
+      "b_{n+1}=p b_n",
+      "a_n=b_1 p^{n-1}-An-B"
+    ],
+    "formulaTokens": [
+      "a_{n+1}=p a_n+q n+r",
+      "A=q/(p-1)",
+      "B=r/(p-1)+q/(p-1)^2",
+      "b_n=a_n+An+B",
+      "b_{n+1}=p b_n",
+      "a_n=b_1 p^{n-1}-An-B",
+      "b_1=a_1+A+B"
+    ],
+    "pinyin": "yici hanshuxing tuijian gouzaofa",
+    "pinyinAbbr": "ychxtjgzf"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.72,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "a_n = (a_1 + \\frac{q}{p-1} + \\frac{r}{p-1} + \\frac{q}{(p-1)^2}) p^{n-1} - \\frac{q}{p-1} n - \\left( \\frac{r}{p-1} + \\frac{q}{(p-1)^2} \\right)",
+    "related_formulas": [
+      "b_{n+1} = p b_n, \\quad b_n = a_n + \\frac{q}{p-1} n + \\left( \\frac{r}{p-1}+\\frac{q}{(p-1)^2} \\right)",
+      "q=0 时： a_n = \\left( a_1 + \\frac{r}{p-1} \\right) p^{n-1} - \\frac{r}{p-1}"
+    ],
+    "variables": [
+      "a_n",
+      "a_1",
+      "p",
+      "q",
+      "r",
+      "n",
+      "A",
+      "B",
+      "b_n"
+    ],
+    "conditions": "递推形式为 $a_{n+1}=p a_n + q n + r$，且 $p\\neq 0,1$，$q,r$ 为常数。",
+    "conclusions": "数列 $\\{b_n\\}$ 是公比为 $p$ 的等比数列：$b_{n+1}=p b_n$；通项 $a_n = b_1 p^{n-1} - An - B$，其中 $b_1 = a_1 + A + B$，$A=\\dfrac{q}{p-1}$，$B=\\dfrac{r}{p-1}+\\dfrac{q}{(p-1)^2}$。"
+  },
+  "content": {
+    "statement": "对于递推关系 $a_{n+1}=p a_n+q n+r$（$p\\neq0,1$，$q,r$ 为常数），令 $A=\\frac{q}{p-1}$，$B=\\frac{r}{p-1}+\\frac{q}{(p-1)^2}$，定义 $b_n=a_n+An+B$，则 $\\{b_n\\}$ 是公比为 $p$ 的等比数列：$b_{n+1}=p b_n$。从而 $a_n=b_1 p^{n-1}-An-B$，其中 $b_1=a_1+A+B$。",
+    "derivation": [
+      "设 $b_n = a_n + An + B$，代入递推式得 $b_{n+1} - A(n+1) - B = p(b_n - An - B) + qn + r$，整理得 $b_{n+1} = p b_n + [(p-1)A+q]n + [(p-1)B + A + r]$。",
+      "令 $[(p-1)A+q]=0$ 和 $[(p-1)B+A+r]=0$，解得 $A = \\dfrac{q}{p-1}$，$B = \\dfrac{r}{p-1} + \\dfrac{q}{(p-1)^2}$。",
+      "此时 $b_{n+1}=p b_n$，故 $\\{b_n\\}$ 是公比为 $p$ 的等比数列，$b_n = b_1 p^{n-1}$，进而 $a_n = b_1 p^{n-1} - An - B$。"
+    ],
+    "intuition": "通过引入一次项 $An+B$ 来吸收递推中的 $qn+r$，使得新数列满足纯等比关系，类似于待定系数法解微分方程的思路。",
+    "common_tricks": [
+      "注意 $p\\neq0,1$，否则分母为零或递推退化为等差/常数列。",
+      "计算 $A,B$ 时要小心符号，最后求 $a_n$ 时不要忘记减去 $An+B$。",
+      "若递推中无一次项（$q=0$），则 $A=0$，构造更简单。",
+      "求出通项后，可代入 $a_1,a_2$ 验证正确性。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "递推数列求通项",
+      "数列大题第一问",
+      "构造法训练",
+      "数列复习速查"
+    ],
+    "problem_types": [
+      "递推数列求通项",
+      "构造等比数列"
+    ],
+    "exam_frequency": 0.7,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "L023.svg"
+  },
+  "shareConfig": {
+    "title": "一次函数型递推通项：等比构造法",
+    "shareDesc": "适合数列复习和刷题速查，用待定系数法消去一次项，直接写出通项公式，减少构造步骤。适用于 a_{n+1}=p a_n+q n+r 型递推。"
+  },
+  "relations": {
+    "prerequisites": [
+      "等比数列通项公式",
+      "一次函数",
+      "待定系数法"
+    ],
+    "related_ids": [],
+    "similar": "类似地，对于二次型递推 $a_{n+1}=p a_n + q n^2 + r n + s$，可设二次函数构造。但本结论仅适用于一次型。"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "数列-递推数列-构造法",
+  "altNodes": "数列-等比数列-通项公式,数列-等差数列-通项公式"
+}
