@@ -1,0 +1,77 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例1（基础）}}
+	\textbf{\textcolor{CExample}{题目：}} 已知等差数列$\{a_n\}$中，$a_1=2$，公差$d=3$，求$S_{10}$。\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别公式）：}]
+			本题已知$a_1,d,n$，选用$S_n = na_1 + \frac{n(n-1)}{2}d$。
+			\par\textbf{理由：} 已知量完全对应公式变量。
+		\item[\textbf{第二步（代入数值）：}]
+			\[
+				\begin{aligned}
+					S_{10} &= 10\times2 + \frac{10\times9}{2}\times3\\&= 20 + 45\times3\\&= 155.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 代入公式逐步计算。
+		\item[\textbf{第三步（验证结论）：}]
+			由$a_1=2,d=3$得$a_{10}=29$。代入另一公式$S_n = \frac{n(a_1+a_n)}{2}$：
+			\[
+				\begin{aligned}
+					S_{10} &= \frac{10(2+29)}{2}\\&= 155.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 两种公式互相验证，结果一致。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{等差数列求和时，根据已知条件选择最直接的公式，可用另一公式检验。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例2（稍变形）}}
+	\textbf{\textcolor{CExample}{题目：}} 已知等比数列$\{a_n\}$中，$a_1=1$，公比$q=\frac12$，求$S_5$。\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（判断公式）：}]
+			公比$q=\frac12\neq1$，故使用$S_n = \frac{a_1(1-q^n)}{1-q}$。
+			\par\textbf{理由：} 避免错用$q=1$的简式。
+		\item[\textbf{第二步（代入计算）：}]
+			\[
+				\begin{aligned}
+					S_5 &= \frac{1\times\left[1-\left(\frac12\right)^5\right]}{1-\frac12}\\&= \frac{1-\frac{1}{32}}{\frac12}\\&= \frac{\frac{31}{32}}{\frac12}\\&= \frac{31}{32}\times2\\&= \frac{31}{16}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 精确计算幂和分数，注意除法变乘法。
+		\item[\textbf{第三步（整理结果）：}]
+			所以$S_5 = \frac{31}{16}$。
+			\par\textbf{理由：} 答案已为最简分数。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{等比求和时，必须先确认$q$是否等于$1$，再代入公式；分数运算需仔细。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例3（综合应用）}}
+	\textbf{\textcolor{CExample}{题目：}} 计算$\displaystyle\sum_{i=1}^{10} (2i-1)^2$。\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（展开通项）：}]
+			$(2i-1)^2 = 4i^2 - 4i + 1$，所以原式$= 4\sum_{i=1}^{10} i^2 - 4\sum_{i=1}^{10} i + \sum_{i=1}^{10} 1$。
+			\par\textbf{理由：} 平方展开后，将和分解为三个基本求和问题。
+		\item[\textbf{第二步（代入幂和）：}]
+			由公式得
+			\[
+				\sum_{i=1}^{10} i^2 = 385,
+			\]
+			\[
+				\sum_{i=1}^{10} i = 55,
+			\]
+			\[
+				\sum_{i=1}^{10} 1 = 10.
+			\]
+			\par\textbf{理由：} 直接使用自然数平方和与等差数列求和公式得出数值。
+		\item[\textbf{第三步（合并结果）：}]
+			\[
+				\begin{aligned}
+					4\sum_{i=1}^{10} i^2 - 4\sum_{i=1}^{10} i + \sum_{i=1}^{10} 1 &= 4\times385 - 4\times55 + 10\\&= 1540 - 220 + 10\\&= 1330.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 按顺序计算乘法与加减法。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{当求和项为多项式时，常通过展开转化为多个基本求和的组合，再分别使用公式。}
+\end{examplebox}

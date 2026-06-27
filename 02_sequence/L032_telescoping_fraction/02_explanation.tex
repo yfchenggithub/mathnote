@@ -1,0 +1,41 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+	裂项公式本质上是将分母为乘积的分式拆成两个分母为一次式的分式之差，目的是在求和中实现相邻项相消。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（通分逆向）：}] 裂项是通分的逆过程。通分将两个分式合并，裂项将一个分式拆开。
+		\item[\textbf{要点二（系数待定）：}] 设 $\frac{1}{n(n+k)} = \frac{A}{n} + \frac{B}{n+k}$，通过通分对比系数解得 $A = \frac{1}{k}$, $B = -\frac{1}{k}$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（面积剖分）}}
+
+	考虑一个单位正方形（面积 $1$），将其竖直方向均匀分成 $n$ 条，每一条面积为 $\frac{1}{n}$；若分成 $n+k$ 条，每一条面积为 $\frac{1}{n+k}$。这两个面积的差为 $\frac{1}{n} - \frac{1}{n+k}$。将这个面积差乘以 $\frac{1}{k}$，就恰好等于由单位正方形按 $n$ 和 $n+k$ 复合分割得到的更小矩形面积 $\frac{1}{n(n+k)}$。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（结构分解）}}
+
+	裂项将一个分母为二次（乘积）的分式分解为两个分母为一次的分式之差，这种部分分式分解是代数恒等变形，使得后续运算（特别是累加求和）大大简化。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（求和枢纽）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（直接裂项）：} 分母为 $n(n+k)$、分子为 $1$ 或常数时，直接套用公式求和。
+		\item \textbf{考法二（系数变形）：} 若分子不为 $1$，需将分子提公因子后裂项，形式上仍以该式为基础。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	裂项系数 $\frac{1}{k}$ 恰好等于分母两个因式常数项之差 $k$ 的倒数，这一关系由待定系数法自然导出。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（直接求和）：} 形如 $\sum_{i=1}^n \frac{1}{i(i+k)}$ 的和，可直接裂项相消。
+		\item \textbf{场景二（放缩变形）：} 在不等式证明中，将通项放大或缩小为 $\frac{1}{n(n+k)}$ 的形式，裂项后求和得到可比较的界。
+	\end{itemize}
+\end{explanationbox}

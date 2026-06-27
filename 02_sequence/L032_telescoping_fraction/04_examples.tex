@@ -1,0 +1,71 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	求数列 $\{a_n\}$ 的前 $n$ 项和 $S_n$，其中 $a_n = \frac{1}{n(n+1)}$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别结构）：}] 观察 $a_n = \frac{1}{n(n+1)}$ 符合公式形式，其中 $k = 1$。
+			\par\textbf{理由：} 分母为 $n$ 与 $n+1$ 乘积，差为 $1$，分子为 $1$。
+		\item[\textbf{第二步（裂项展开）：}] 由公式，$a_n = \frac{1}{n} - \frac{1}{n+1}$。写出 $S_n = \sum_{i=1}^n \left(\frac{1}{i} - \frac{1}{i+1}\right)$。
+			\par\textbf{理由：} 将每一项拆成两个分数差。
+		\item[\textbf{第三步（相消求和）：}] 展开后，$-\frac{1}{i+1}$ 与后一项的 $+\frac{1}{i+1}$ 抵消，只剩下第一项的 $1$ 和最后一项的 $-\frac{1}{n+1}$。所以 $S_n = 1 - \frac{1}{n+1}$。
+			\par\textbf{理由：} 逐项写开，消去中间项。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$S_n = 1 - \frac{1}{n+1}$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	求数列 $\{b_n\}$ 的前 $n$ 项和 $T_n$，其中 $b_n = \frac{1}{n(n+2)}$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别结构）：}] $b_n = \frac{1}{n(n+2)}$，这里 $k = 2$。
+			\par\textbf{理由：} 分母两项为 $n$ 与 $n+2$，差为 $2$，分子为 $1$。
+		\item[\textbf{第二步（裂项表示）：}] 应用公式得 $b_n = \frac{1}{2}\left(\frac{1}{n} - \frac{1}{n+2}\right)$。
+			\par\textbf{理由：} 代入 $k=2$。
+		\item[\textbf{第三步（列项求和）：}]
+			\[
+				\begin{aligned}
+					T_n &= \frac{1}{2}\left[ \left(1-\frac{1}{3}\right) + \left(\frac{1}{2}-\frac{1}{4}\right) + \left(\frac{1}{3}-\frac{1}{5}\right) \right.\\
+					&\qquad \left. + \cdots + \left(\frac{1}{n}-\frac{1}{n+2}\right) \right].
+			\end{aligned}
+			\]
+			观察发现，中间项 $\frac{1}{3},\frac{1}{4},\cdots,\frac{1}{n}$ 均被抵消，剩下 $1 + \frac{1}{2} - \frac{1}{n+1} - \frac{1}{n+2}$。
+			\par\textbf{理由：} 逐项列出后，每个正项和负项配对相消，剩余首两项和尾两项。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$T_n = \frac{1}{2}\left(1 + \frac{1}{2} - \frac{1}{n+1} - \frac{1}{n+2}\right)$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知数列 $\{c_n\}$ 的通项 $c_n = \frac{2}{(2n-1)(2n+1)}$，求前 $n$ 项和 $U_n$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（转化结构）：}] 先处理分母：$\frac{1}{(2n-1)(2n+1)} = \frac{1}{2}\left(\frac{1}{2n-1} - \frac{1}{2n+1}\right)$，所以 $c_n = 2 \times \frac{1}{2}\left(\frac{1}{2n-1} - \frac{1}{2n+1}\right) = \frac{1}{2n-1} - \frac{1}{2n+1}$。
+			\par\textbf{理由：} 分母差为 $2$，裂项后再乘以分子 $2$，得到直接相减形式。
+		\item[\textbf{第二步（裂项展开）：}] $c_n = \frac{1}{2n-1} - \frac{1}{2n+1}$。
+			\par\textbf{理由：} 由第一步化简得到。
+		\item[\textbf{第三步（列项求和）：}]
+			\[
+				\begin{aligned}
+					U_n &= \left(1 - \frac{1}{3}\right) + \left(\frac{1}{3} - \frac{1}{5}\right) + \left(\frac{1}{5} - \frac{1}{7}\right) + \cdots + \left(\frac{1}{2n-1} - \frac{1}{2n+1}\right) \\
+					&= 1 - \frac{1}{2n+1} \\
+					&= \frac{2n}{2n+1}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 展开后所有中间项消去，只剩首项 $1$ 和末项 $-\frac{1}{2n+1}$。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$U_n = \frac{2n}{2n+1}$。}
+\end{examplebox}

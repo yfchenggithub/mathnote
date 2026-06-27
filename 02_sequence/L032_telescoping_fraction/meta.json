@@ -1,0 +1,180 @@
+{
+  "id": "L032",
+  "module": "sequence",
+  "core": {
+    "title": "裂项相消基本公式（分母为一次因式乘积）",
+    "alias": [
+      "裂项公式",
+      "分式裂项",
+      "1/n(n+k)裂项",
+      "裂项相消"
+    ],
+    "summary": "将分母为相邻整数乘积的分数拆成两个分数之差，求和时中间项抵消，只留首尾。",
+    "difficulty": 2,
+    "category": "数列",
+    "tags": [
+      "数列求和",
+      "裂项相消",
+      "分式裂项",
+      "一次因式",
+      "求和方法"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "裂项相消",
+      "分式裂项",
+      "1/(n(n+k))",
+      "数列求和",
+      "一次因式",
+      "分母乘积",
+      "相邻项差",
+      "求和相消",
+      "前n项和",
+      "消去中间项",
+      "系数1/k",
+      "裂项公式",
+      "n(n+1)",
+      "n(n+2)",
+      "分子常数"
+    ],
+    "synonyms": [
+      "裂项法",
+      "拆分分数",
+      "拆成差",
+      "相加消掉",
+      "分数裂项",
+      "差为k",
+      "1/n减1/(n+k)",
+      "列项相消"
+    ],
+    "intents": [
+      "求前n项和",
+      "裂项相消",
+      "求和",
+      "化简分数",
+      "计算数列和",
+      "分解分式",
+      "消去中间项"
+    ],
+    "query_templates": [
+      "裂项相消公式",
+      "1/(n(n+1))求和",
+      "分母乘积裂项公式",
+      "n(n+k)裂项方法",
+      "数列裂项相消例题"
+    ],
+    "ocrKeywords": [
+      "1/(n(n+k))",
+      "1/n - 1/(n+k)",
+      "分母为",
+      "n(n+1)",
+      "前n项和",
+      "裂项相消法"
+    ],
+    "latex_patterns": [
+      "\\frac{1}{n(n+k)} = \\frac{1}{k}\\left(\\frac{1}{n} - \\frac{1}{n+k}\\right)",
+      "\\frac{1}{n(n+1)} = \\frac{1}{n} - \\frac{1}{n+1}"
+    ],
+    "formulaTokens": [
+      "1/(n(n+k))",
+      "1/k",
+      "1/n",
+      "1/(n+k)",
+      "1/n - 1/(n+k)",
+      "1/(n(n+1))",
+      "1/n - 1/(n+1)"
+    ],
+    "pinyin": "liexiangxiangxiao",
+    "pinyinAbbr": "lxxx"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.9,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\frac{1}{n(n+k)} = \\frac{1}{k}\\left(\\frac{1}{n} - \\frac{1}{n+k}\\right)",
+    "related_formulas": [
+      "\\frac{A}{n(n+k)} = \\frac{A}{k}\\left(\\frac{1}{n} - \\frac{1}{n+k}\\right)",
+      "\\frac{1}{n(n+1)} = \\frac{1}{n} - \\frac{1}{n+1}"
+    ],
+    "variables": [
+      "n",
+      "k"
+    ],
+    "conditions": "$n\\in\\mathbb{N}^*$，$k\\neq0$（通常为正整数），分母为$n$与$n+k$的乘积，分子为常数（通常为$1$）。",
+    "conclusions": "可将分式$\\frac{1}{n(n+k)}$拆分为$\\frac{1}{k}\\left(\\frac{1}{n} - \\frac{1}{n+k}\\right)$，用于数列求和时中间项相消。若分子为常数$A$，则结果为$\\frac{A}{k}\\left(\\frac{1}{n} - \\frac{1}{n+k}\\right)$。"
+  },
+  "content": {
+    "statement": "对于分母为两个关于$n$的一次因式乘积$n(n+k)$（$k\\neq0$），且分子为常数的分式$\\frac{1}{n(n+k)}$，可将其裂项为$\\frac{1}{k}\\bigl(\\frac{1}{n} - \\frac{1}{n+k}\\bigr)$。此变形适用于数列裂项相消求和，化原有分式差为相邻项差，简化前$m$项和的计算。",
+    "derivation": [
+      "设$\\frac{1}{n(n+k)} = \\frac{A}{n} + \\frac{B}{n+k}$，通分对比分子得$A(n+k)+Bn=1$。",
+      "整理得$(A+B)n + Ak = 1$，由对应系数相等得$\\begin{cases}A+B=0\\\\ Ak=1\\end{cases}$，解得$A=\\frac{1}{k},\\,B=-\\frac{1}{k}$。",
+      "代回得$\\frac{1}{n(n+k)} = \\frac{1}{k}\\left(\\frac{1}{n} - \\frac{1}{n+k}\\right)$。"
+    ],
+    "intuition": "因为分母两个因式相差$k$，引入系数$1/k$可以将分数拆分，类似于通分化简的逆向操作。",
+    "common_tricks": [
+      "裂项后要乘以分母差$k$的倒数，即$\\frac{1}{k}$，切勿漏乘。",
+      "求和时，$k=1$时消去中间项只剩首尾；$k>1$时消项后可能有多项残留，需实际展开观察。",
+      "若分子不是1，则裂项结果整体乘以该常数。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "数列求和题",
+      "通项为分式的数列前n项和",
+      "期中期末考试常见题型"
+    ],
+    "problem_types": [
+      "求和",
+      "化简",
+      "证明恒等式"
+    ],
+    "exam_frequency": 1.0,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "L032.svg"
+  },
+  "shareConfig": {
+    "title": "裂项相消公式：分式型一次因式乘积求和",
+    "shareDesc": "适合数列求和题型，解决分母为n(n+k)的分式拆分问题，减少推导步骤，避免漏乘系数错误，适用于课后复盘和考前速查。"
+  },
+  "relations": {
+    "prerequisites": [
+      "通分化简",
+      "等差数列",
+      "数列基本概念"
+    ],
+    "related_ids": [],
+    "similar": [
+      "错位相减法",
+      "分组求和法",
+      "裂项相消的其他形式（如根式有理化）"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "数列-求和技巧-裂项相消",
+  "altNodes": [
+    "数列-求和技巧-错位相减"
+  ]
+}
