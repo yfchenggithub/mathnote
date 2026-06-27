@@ -1,0 +1,185 @@
+{
+  "id": "L014",
+  "module": "sequence",
+  "core": {
+    "title": "等差数列前n项和的最值条件（符号判定法）",
+    "alias": [
+      "等差数列和的最值",
+      "和的最值条件",
+      "符号拐点法",
+      "二次函数最值"
+    ],
+    "summary": "当等差数列项的符号由正变负（或由负变正）时，前n项和取最值，对应二次函数顶点附近整数点。",
+    "difficulty": 2,
+    "category": "数列",
+    "tags": [
+      "等差数列",
+      "前n项和最值",
+      "公差符号",
+      "项的正负性",
+      "二次函数",
+      "符号判定"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "等差数列前n项和",
+      "最值条件",
+      "公差",
+      "正负",
+      "最大值",
+      "最小值",
+      "a_n>=0",
+      "a_{n+1}<=0",
+      "二次函数",
+      "对称轴",
+      "顶点",
+      "通项",
+      "求和公式",
+      "S_n"
+    ],
+    "synonyms": [
+      "等差和最值",
+      "等差和最大最小",
+      "项变号时和最大",
+      "等差和顶点法",
+      "和的最值二次函数"
+    ],
+    "intents": [
+      "求最值",
+      "判断最值",
+      "求n",
+      "证明最值",
+      "应用最值条件"
+    ],
+    "query_templates": [
+      "等差数列前n项和的最大值怎么求？",
+      "已知公差为负，求S_n最大值对应的n",
+      "什么时候等差数列前n项和最小？"
+    ],
+    "ocrKeywords": [
+      "等差数列",
+      "前n项和",
+      "S_n",
+      "最大",
+      "最小",
+      "公差",
+      "a_n",
+      "a_{n+1}"
+    ],
+    "latex_patterns": [
+      "a_n \\ge 0",
+      "a_{n+1} \\le 0",
+      "d<0",
+      "d>0",
+      "S_n = \\frac{d}{2}n^2 + (a_1-\\frac{d}{2})n"
+    ],
+    "formulaTokens": [
+      "a_n>=0",
+      "a_{n+1}<=0",
+      "d<0",
+      "d>0",
+      "S_n",
+      "a_1",
+      "d",
+      "n"
+    ],
+    "pinyin": "deng cha shu lie qian n xiang he de zui zhi tiao jian",
+    "pinyinAbbr": "dcslqnxdzz"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.86,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "d<0, a_n \\ge 0, a_{n+1} \\le 0 \\Rightarrow S_n \\text{ max}, \\quad d>0, a_n \\le 0, a_{n+1} \\ge 0 \\Rightarrow S_n \\text{ min}.",
+    "related_formulas": [
+      "S_n = \\frac{d}{2}n^2 + (a_1-\\frac{d}{2})n",
+      "a_n = a_1 + (n-1)d"
+    ],
+    "variables": [
+      "a_1",
+      "d",
+      "n",
+      "a_n",
+      "a_{n+1}",
+      "S_n"
+    ],
+    "conditions": "等差数列 $\\\\{a_n\\\\}$ 的公差 $d \\\\neq 0$。当 $d<0$ 时，存在 $n$ 使 $a_n \\\\ge 0$ 且 $a_{n+1} \\\\le 0$；当 $d>0$ 时，存在 $n$ 使 $a_n \\\\le 0$ 且 $a_{n+1} \\\\ge 0$。",
+    "conclusions": "满足条件的 $n$ 即为最值点对应的 $n$；$S_n$ 的最值可通过求和公式 $\\\\frac{n(a_1+a_n)}{2}$ 计算；若 $a_n=0$，则 $S_n$ 与 $S_{n-1}$ 或 $S_{n+1}$ 相等，最值可能在两个 $n$ 处取得。"
+  },
+  "content": {
+    "statement": "等差数列 $\\\\{a_n\\\\}$ 前 $n$ 项和 $S_n$ 的最值条件：当公差 $d<0$ 且 $a_n \\\\ge 0$ 且 $a_{n+1} \\\\le 0$ 时，$S_n$ 取得最大值；当 $d>0$ 且 $a_n \\\\le 0$ 且 $a_{n+1} \\\\ge 0$ 时，$S_n$ 取得最小值。",
+    "derivation": [
+      "将 $S_n$ 写成关于 $n$ 的二次函数 $S_n = \\\\frac{d}{2}n^2 + (a_1-\\\\frac{d}{2})n$。",
+      "由二次函数性质，最值点在对称轴 $n = -\\\\frac{a_1-\\\\frac{d}{2}}{d}$ 附近取整。",
+      "利用通项 $a_n = a_1+(n-1)d$，可将最值条件转化为 $a_n$ 与 $a_{n+1}$ 的符号关系。"
+    ],
+    "intuition": "因为前 $n$ 项和 $S_n$ 是各项累加，当项由正变负时加正项增加而加负项减少，符号变化的临界点即最值点。",
+    "common_tricks": [
+      "已知 $d$ 符号时，直接列不等式组 $a_n\\\\ge 0,\\;a_{n+1}\\\\le 0$（或反向）求整数 $n$。",
+      "注意 $a_n$ 可取 $0$，此时最值可能在相邻两个 $n$ 处相等。",
+      "也可用二次函数对称轴法，但需验证对称轴两侧的整数点。",
+      "先检查 $d \\\\neq 0$，否则 $S_n$ 为线性函数，无极值点。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "最值问题",
+      "选择题",
+      "填空题",
+      "解答题"
+    ],
+    "problem_types": [
+      "求最值",
+      "求最值对应的n",
+      "已知最值条件求参数"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "L014.svg"
+  },
+  "shareConfig": {
+    "title": "等差数列和的最值条件：符号拐点判定法",
+    "shareDesc": "适合考前回顾和刷题速查，用通项符号变化快速确定前n项和最值点，避免二次函数顶点计算易错。"
+  },
+  "relations": {
+    "prerequisites": [
+      "等差数列通项公式",
+      "等差数列求和公式",
+      "二次函数最值"
+    ],
+    "related_ids": [],
+    "similar": [
+      "二次函数顶点求最值",
+      "数列单调性与和的最值"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "数列-等差数列-求和公式",
+  "altNodes": [
+    "函数-特殊函数-二次函数",
+    "数列-等差数列-通项公式"
+  ]
+}

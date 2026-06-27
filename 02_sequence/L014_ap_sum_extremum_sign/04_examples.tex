@@ -1,0 +1,80 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	等差数列$\{a_n\}$中，$a_1=100$，$d=-2$，求$S_n$的最大值及相应的$n$。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（求通项）：}]
+			$a_n=100-2(n-1)=102-2n$。
+			\par\textbf{理由：} 等差数列通项公式。
+		\item[\textbf{第二步（列不等式组）：}]
+			最大值条件要求
+			\[
+				\begin{cases}
+					102-2n\ge0,\\102-2(n+1)\le0.
+			\end{cases}
+			\]
+			解得$n\le51$且$n\ge50$，即$n=50$或$51$。
+			\par\textbf{理由：} 由结论，$d<0$时$S_n$最大需$a_n\ge0$且$a_{n+1}\le0$。
+		\item[\textbf{第三步（求最值）：}]
+			$S_{50}=\frac{(100+2)\cdot50}{2}=2550$，$S_{51}=\frac{(100+0)\cdot51}{2}=2550$，故最大值$2550$，$n=50$或$51$。
+			\par\textbf{理由：} 代入前$n$项和公式。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{最大值为$2550$，对应$n=50$或$51$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	已知等差数列$\{a_n\}$的前$n$项和$S_n=n^2-9n$，求$S_n$的最小值及相应的$n$。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（求通项）：}]
+			$a_n=S_n-S_{n-1}=2n-10$（$n\ge2$），$a_1=S_1=-8$，统一为$a_n=2n-10$，故$d=2>0$。
+			\par\textbf{理由：} 通项与前$n$项和的关系。
+		\item[\textbf{第二步（列不等式组）：}]
+			最小值条件要求
+			\[
+				\begin{cases}
+					2n-10\le0,\\2(n+1)-10\ge0.
+			\end{cases}
+			\]
+			解得$n\le5$且$n\ge4$，即$n=4$或$5$。
+			\par\textbf{理由：} 由结论，$d>0$时$S_n$最小需$a_n\le0$且$a_{n+1}\ge0$。
+		\item[\textbf{第三步（求最值）：}]
+			$S_4=4^2-9\cdot4=-20$，$S_5=5^2-9\cdot5=-20$，最小值为$-20$，$n=4$或$5$。
+			\par\textbf{理由：} 代入$S_n$公式。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{最小值为$-20$，对应$n=4$或$5$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	在等差数列$\{a_n\}$中，$d=-3$，$S_n$在$n=7$时取得最大值，且$S_7=77$，求首项$a_1$。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（最大值条件）：}]
+			由$d=-3<0$及$n=7$是最值点，得$a_7\ge0$且$a_8\le0$。
+			\par\textbf{理由：} 由结论，$d<0$时最大值要求$a_n\ge0,\ a_{n+1}\le0$。
+		\item[\textbf{第二步（化为$a_1$的不等式）：}]
+			通项$a_n=a_1+(n-1)d$，代入得
+			\[
+				\begin{aligned}
+					a_7&=a_1-18\ge0\Rightarrow a_1\ge18,\\ a_8&=a_1-21\le0\Rightarrow a_1\le21.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 等差数列通项。
+		\item[\textbf{第三步（列方程求解）：}]
+			由$S_7=77$得
+			\[
+				\begin{aligned}
+					S_7&=\frac{(a_1+a_7)\cdot7}{2}\\ &=7a_1-63\\ &=77,
+			\end{aligned}
+			\]
+			解得$a_1=20$．且$20\in[18,21]$，符合条件。
+			\par\textbf{理由：} 求和公式与解方程，并验证范围。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{首项$a_1=20$。}
+\end{examplebox}

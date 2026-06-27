@@ -1,0 +1,43 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	利用$S_{n+1}-S_n = a_{n+1}$将和的最值转化为通项符号的拐点问题。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（差式关系）：}]
+			写出相邻和的关系：
+			\[
+				S_{n+1}-S_n = a_{n+1}.
+			\]
+			\par\textbf{理由：} 前$n+1$项和减前$n$项和等于第$n+1$项。
+		\item[\textbf{步骤二（符号定单调）：}]
+			由差式判断单调性：
+			\[
+				a_{n+1}>0 \Longrightarrow S_{n+1}>S_n;\qquad a_{n+1}<0 \Longrightarrow S_{n+1}<S_n.
+			\]
+			\par\textbf{理由：} 相邻和差的正负直接反映和数列的增减。
+		\item[\textbf{步骤三（d<0最大值情形）：}]
+			设$d<0$，数列递减。若存在$n$使得$a_n\ge0$且$a_{n+1}\le0$，则
+			\[
+				\begin{aligned}
+					&k\le n-1 \Rightarrow a_{k+1}\ge a_n\ge0 \Rightarrow S_{k+1}\ge S_k,\\ &k\ge n \Rightarrow a_{k+1}\le a_{n+1}\le0 \Rightarrow S_{k+1}\le S_k.
+			\end{aligned}
+			\]
+			从而$S_n$是$\{S_n\}$中的最大值。
+			\par\textbf{理由：} $S_n$在$n$之前不减，在$n$之后不增，故$S_n$处取峰值。
+		\item[\textbf{步骤四（d>0最小值情形）：}]
+			设$d>0$，数列递增。若存在$n$使得$a_n\le0$且$a_{n+1}\ge0$，则
+			\[
+				\begin{aligned}
+					&k\le n-1 \Rightarrow a_{k+1}\le a_n\le0 \Rightarrow S_{k+1}\le S_k,\\ &k\ge n \Rightarrow a_{k+1}\ge a_{n+1}\ge0 \Rightarrow S_{k+1}\ge S_k.
+			\end{aligned}
+			\]
+			从而$S_n$是$\{S_n\}$中的最小值。
+			\par\textbf{理由：} $S_n$在$n$之前不增，在$n$之后不减，故$S_n$处取谷值。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	综上，当$d<0$且存在$n$使$a_n\ge0,\ a_{n+1}\le0$时，$S_n$最大；当$d>0$且存在$n$使$a_n\le0,\ a_{n+1}\ge0$时，$S_n$最小。该$n$即为最值点数。
+\end{proofbox}
