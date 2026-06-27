@@ -1,47 +1,70 @@
 \begin{proofbox}
-	\n\textbf{\textcolor{CProof}{思路提示}}\n\n通过构造函数，利用导数求出函数的最大值或最小值，与零比较。\n\n
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	\textbf{通过构造辅助函数，利用导数求出函数的最大值或最小值，再与 $0$ 比较。}
 
 	\medskip
-	\n\textbf{\textcolor{CProof}{正式推导}}\n
+	\textbf{\textcolor{CProof}{正式推导}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\n
-		\item[\textbf{步骤一（构造函数对数）：}]
-			令 $f(x)=\ln x-(x-1)$，定义域为 $x>0$。\n
-			\[
-				\n f(x)=\ln x-x+1.\n
-			\]
-			\n
-			\par\textbf{理由：}\n 欲证 $\ln x\le x-1$，等价于证 $f(x)\le 0$，故研究 $f(x)$ 的最大值。\n\n
-		\item[\textbf{步骤二（求导对数）：}]
-			计算 $f'(x)=\frac{1}{x}-1$，即 $f'(x)=\frac{1-x}{x}$。\n
-			\par\textbf{理由：}\n 通过导函数符号判断单调性。\n\n
-		\item[\textbf{步骤三（单调性与最值对数）：}]
-			当 $0<x<1$ 时 $f'(x)>0$，$f(x)$ 递增；当 $x>1$ 时 $f'(x)<0$，$f(x)$ 递减。所以最大值 $f(1)=0$。\n
-			\[
-				\n f(x)\le 0\;\Longrightarrow\;\ln x\le x-1.\n
-			\]
-			\n
-			\par\textbf{理由：}\n 最大值点为 $x=1$，代入得 $f(1)=\ln1-1+1=0$。\n\n
-		\item[\textbf{步骤四（构造函数指数）：}]
-			令 $g(x)=e^x-(x+1)$，定义域为 $\mathbb{R}$。\n
-			\[
-				\n g(x)=e^x-x-1.\n
-			\]
-			\n
-			\par\textbf{理由：}\n 欲证 $e^x\ge x+1$，等价于证 $g(x)\ge 0$，研究 $g(x)$ 的最小值。\n\n
-		\item[\textbf{步骤五（求导指数）：}]
-			计算 $g'(x)=e^x-1$。\n
-			\par\textbf{理由：}\n 导函数符号决定单调性。\n\n
-		\item[\textbf{步骤六（单调性与最值指数）：}]
-			当 $x<0$ 时 $g'(x)<0$，$g(x)$ 递减；当 $x>0$ 时 $g'(x)>0$，$g(x)$ 递增。所以最小值 $g(0)=0$。\n
-			\[
-				\n g(x)\ge 0\;\Longrightarrow\;e^x\ge x+1.\n
-			\]
-			\n
-			\par\textbf{理由：}\n 最小值为 $g(0)=e^0-0-1=0$。\n\n
+		\item[\textbf{步骤一（构造对数辅助函数）：}]
+		      令
+		      \[
+			      f(x)=\ln x-(x-1)=\ln x-x+1,
+			      \qquad x>0.
+		      \]
+		      \par\textbf{理由：} 欲证 $\ln x\le x-1$，等价于证 $f(x)\le0$，故研究 $f(x)$ 的最大值。
+
+		\item[\textbf{步骤二（求导并判断单调性）：}]
+		      计算
+		      \[
+			      f'(x)=\frac{1}{x}-1=\frac{1-x}{x}.
+		      \]
+		      当 $0<x<1$ 时，$f'(x)>0$，$f(x)$ 递增；当 $x>1$ 时，$f'(x)<0$，$f(x)$ 递减。
+		      \par\textbf{理由：} 因为 $x>0$，所以 $f'(x)$ 的符号由 $1-x$ 决定。
+
+		\item[\textbf{步骤三（得到对数不等式）：}]
+		      由单调性可知，$f(x)$ 在 $x=1$ 处取得最大值，且
+		      \[
+			      f(1)=\ln1-1+1=0.
+		      \]
+		      因此
+		      \[
+			      f(x)\le0\quad\Longrightarrow\quad \ln x\le x-1,
+			      \qquad x>0.
+		      \]
+		      \par\textbf{理由：} 最大值为 $0$，所以函数值恒不超过 $0$；等号当且仅当 $x=1$。
+
+		\item[\textbf{步骤四（构造指数辅助函数）：}]
+		      令
+		      \[
+			      g(x)=e^x-(x+1)=e^x-x-1,
+			      \qquad x\in\mathbb{R}.
+		      \]
+		      \par\textbf{理由：} 欲证 $e^x\ge x+1$，等价于证 $g(x)\ge0$，故研究 $g(x)$ 的最小值。
+
+		\item[\textbf{步骤五（求导并判断单调性）：}]
+		      计算
+		      \[
+			      g'(x)=e^x-1.
+		      \]
+		      当 $x<0$ 时，$g'(x)<0$，$g(x)$ 递减；当 $x>0$ 时，$g'(x)>0$，$g(x)$ 递增。
+		      \par\textbf{理由：} $e^x<1$ 等价于 $x<0$，$e^x>1$ 等价于 $x>0$。
+
+		\item[\textbf{步骤六（得到指数不等式）：}]
+		      由单调性可知，$g(x)$ 在 $x=0$ 处取得最小值，且
+		      \[
+			      g(0)=e^0-0-1=0.
+		      \]
+		      因此
+		      \[
+			      g(x)\ge0\quad\Longrightarrow\quad e^x\ge x+1,
+			      \qquad x\in\mathbb{R}.
+		      \]
+		      \par\textbf{理由：} 最小值为 $0$，所以函数值恒不小于 $0$；等号当且仅当 $x=0$。
 	\end{description}
-	\n\n
 
 	\medskip
-	\n\textbf{\textcolor{CProof}{结论回扣}}\n\n通过构造辅助函数并利用导数，我们分别证明了对数不等式 $\ln x\le x-1$（$x>0$）和指数不等式 $e^x\ge x+1$（$x\in\mathbb{R}$），且等号成立条件也由极值点自然给出。这两个不等式在导数放缩中可以直接使用。\n
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	通过构造辅助函数并利用导数，我们分别证明了对数不等式 $\ln x\le x-1$（$x>0$）和指数不等式 $e^x\ge x+1$（$x\in\mathbb{R}$），且等号成立条件也由极值点自然给出。这两个不等式在导数放缩中可以直接使用。
 \end{proofbox}
