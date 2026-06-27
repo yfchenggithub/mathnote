@@ -1,0 +1,41 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	从垂线的几何性质出发，将距离转化为向量共线问题，通过点积建立代数关系。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（作垂足点）：}]
+			设点 $H$ 为 $P$ 在平面 $\alpha$ 上的投影，则 $PH\perp\alpha$，故 $PH\parallel\mathbf{n}$，且 $d=|PH|$。
+			\par\textbf{理由：} 垂线定义：投影即垂足，垂线段长度即为距离。
+		\item[\textbf{步骤二（向量共线表示）：}]
+			因为 $PH\parallel\mathbf{n}$，存在实数 $\lambda$ 使得 $\overrightarrow{PH}=\lambda\mathbf{n}$。
+			\par\textbf{理由：} 共线向量基本定理。
+		\item[\textbf{步骤三（法向量垂直条件）：}]
+			由于 $A,H$ 都在平面 $\alpha$ 内，所以 $\overrightarrow{AH}\perp\mathbf{n}$，即 $\overrightarrow{AH}\cdot\mathbf{n}=0$。
+			\par\textbf{理由：} 法向量垂直于平面内任意向量。
+		\item[\textbf{步骤四（向量分解与点积）：}]
+			在 $\triangle APH$ 中，$\overrightarrow{AP}=\overrightarrow{AH}+\overrightarrow{PH}$。两边分别点乘 $\mathbf{n}$：
+			\[
+				\begin{aligned}
+					\overrightarrow{AP}\cdot\mathbf{n} &= (\overrightarrow{AH}+\overrightarrow{PH})\cdot\mathbf{n} \\ &= \overrightarrow{AH}\cdot\mathbf{n}+\overrightarrow{PH}\cdot\mathbf{n} \\ &= 0 + \lambda|\mathbf{n}|^2 \\ &= \lambda|\mathbf{n}|^2.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 向量加法及点积分配律；利用垂直条件消去 $\overrightarrow{AH}\cdot\mathbf{n}$。
+		\item[\textbf{步骤五（解出参数 $\lambda$）：}]
+			由上式得 $\lambda=\dfrac{\overrightarrow{AP}\cdot\mathbf{n}}{|\mathbf{n}|^2}$。
+			\par\textbf{理由：} 将 $|\mathbf{n}|^2$ 除到右边（$|\mathbf{n}|\neq0$ 已由条件保证）。
+		\item[\textbf{步骤六（计算距离）：}]
+			于是
+			\[
+				\begin{aligned}
+					d &= |\overrightarrow{PH}| = |\lambda|\,|\mathbf{n}| \\ &= \frac{|\overrightarrow{AP}\cdot\mathbf{n}|}{|\mathbf{n}|^2}\cdot|\mathbf{n}| \\ &= \frac{|\overrightarrow{AP}\cdot\mathbf{n}|}{|\mathbf{n}|}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 向量模的缩放及绝对值运算。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	推导表明，点 $P$ 到平面 $\alpha$ 的距离只依赖于平面上任意一点 $A$、法向量 $\mathbf{n}$ 以及点 $P$ 的位置，且公式简洁统一，无需具体求垂足坐标。
+\end{proofbox}
