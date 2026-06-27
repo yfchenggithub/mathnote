@@ -1,0 +1,41 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+	等差乘等比求和，本质是“错位相减”的代数压缩，公式直接给出结果，避免逐项计算。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（公式结构）：}] 公式分为两部分：第一部分 $\frac{a_1 b_1 - a_n b_n q}{1-q}$ 是“首末项差分”的等比化；第二部分 $\frac{d\,b_1 q\,(1-q^{\,n-1})}{(1-q)^2}$ 是“公差贡献”的修正项。
+		\item[\textbf{要点二（适用范围）：}] 仅当 $q \neq 1$ 时公式有效；若 $q = 1$，应直接使用等差数列前 $n$ 项和公式乘以 $b_1$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（错位消除）}}
+
+	将数列按顺序写成两行，错位相减后消去大部分项，公式封装了两次错位相减的净结果。宏观上，乘积求和可视为“等比数列的等差加权和”，从“斜率”与“增长率”的双重角度理解。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（分式整合）}}
+
+	求和 $S_n$ 被表达为 $q$ 的分式，分子分母均为关于 $q$ 的多项式。这种形式便于分析 $n$ 的变化趋势，也可直接用于求 $S_n$ 的极限（当 $|q|<1$ 时）。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（高效计算）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（直接套用公式）：} 给出等差乘等比通项，直接代入公式求 $S_n$。
+		\item \textbf{考法二（逆向求参数）：} 已知 $S_n$ 表达式，利用待定系数法反求 $a_1,d,b_1,q$。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	“错位相减”的本质是构造 $S_n - qS_n$，其中等差部分产生一个等比数列求和。公式就是将这个过程压缩为显式结果，记忆时只需抓住“首项减末项乘 $q$”再除 $1-q$，加上“公差修正项”。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（标准等差乘等比）：} 通项为 $(pn + m)q^{n-1}$ 型。
+		\item \textbf{场景二（可化归形式）：} 通项为 $(pn + m) \cdot r^{n}$，提取公因子后转化为标准型。
+	\end{itemize}
+\end{explanationbox}

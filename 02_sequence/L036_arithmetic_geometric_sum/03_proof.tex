@@ -1,0 +1,66 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用错位相减法：写出 $S_n$ 与 $qS_n$，作差后化简。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（求和表达式）：}]
+			\[
+				S_n = \sum_{k=1}^{n} a_k b_k = \sum_{k=1}^{n} \bigl(a_1 + (k-1)d\bigr) \cdot b_1 q^{\,k-1}.
+			\]
+			\par\textbf{理由：} 将 $a_k$ 和 $b_k$ 的通项代入。
+
+		\item[\textbf{步骤二（写出 $qS_n$）：}]
+			\[
+				qS_n = \sum_{k=1}^{n} \bigl(a_1 + (k-1)d\bigr) \cdot b_1 q^{\,k}.
+			\]
+			\par\textbf{理由：} 每一项乘以 $q$，指数增加 $1$。
+
+		\item[\textbf{步骤三（作差 $S_n - qS_n$）：}]
+			\[
+				S_n - qS_n = \sum_{k=1}^{n} \bigl(a_1 + (k-1)d\bigr) b_1 q^{\,k-1} - \sum_{k=1}^{n} \bigl(a_1 + (k-1)d\bigr) b_1 q^{\,k}.
+			\]
+			\par\textbf{理由：} 两式相减；为合并，将第二个和式的指标平移。
+
+		\item[\textbf{步骤四（化简右侧）：}]
+			\[
+				\begin{aligned}
+					S_n - qS_n
+					&= a_1 b_1 + \sum_{k=2}^{n} \bigl(a_1 + (k-1)d\bigr) b_1 q^{\,k-1} \\
+					&\quad - \sum_{k=2}^{n} \bigl(a_1 + (k-2)d\bigr) b_1 q^{\,k-1}
+					- \bigl(a_1 + (n-1)d\bigr) b_1 q^{\,n} \\
+					&= a_1 b_1 + \sum_{k=2}^{n} d\,b_1 q^{\,k-1} - \bigl(a_1 + (n-1)d\bigr) b_1 q^{\,n}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 指数对齐后，逐项相减，中间项消去，仅剩等差贡献的求和。
+
+		\item[\textbf{步骤五（等比求和）：}]
+			\[
+				\sum_{k=2}^{n} d\,b_1 q^{\,k-1} = d\,b_1 q\,\frac{1-q^{\,n-1}}{1-q} \quad (q \neq 1).
+			\]
+			\par\textbf{理由：} 该和为公比 $q$、首项 $d\,b_1 q$、项数 $n-1$ 的等比数列求和。
+
+		\item[\textbf{步骤六（代入整理）：}]
+			\[
+				\begin{aligned}
+					(1-q)S_n &= a_1 b_1 - \bigl(a_1 + (n-1)d\bigr) b_1 q^{\,n} \\
+					&\quad + d\,b_1 q\,\frac{1-q^{\,n-1}}{1-q}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 将步骤五的结果代入步骤四的等式。
+
+		\item[\textbf{步骤七（解出 $S_n$）：}]
+			\[
+				S_n = \frac{a_1 b_1 - a_n b_n q}{1-q} + \frac{d\,b_1 q\,(1-q^{\,n-1})}{(1-q)^2},
+			\]
+			其中 $a_n = a_1 + (n-1)d$。
+			\par\textbf{理由：} 两边除以 $1-q$，并将最后一项与分母合并，得到最终形式。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	公式成功将复杂求和转化为分式运算，直接代入 $a_1,d,b_1,q,n$ 即可求得 $S_n$，验证了结论的正确性。
+\end{proofbox}

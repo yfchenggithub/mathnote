@@ -1,0 +1,170 @@
+{
+  "id": "L036",
+  "module": "sequence",
+  "core": {
+    "title": "等差乘等比前n项和公式",
+    "alias": [
+      "错位相减公式",
+      "等差乘等比求和",
+      "等差等比乘积求和公式"
+    ],
+    "summary": "直接计算等差数列与等比数列对应项乘积的前n项和，无需逐步错位相减。",
+    "difficulty": 3,
+    "category": "数列",
+    "tags": [
+      "数列求和",
+      "错位相减",
+      "等差数列",
+      "等比数列"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "等差乘等比求和",
+      "错位相减公式",
+      "S_n公式",
+      "前n项和",
+      "等差数列乘等比数列",
+      "错位相减直接算",
+      "a_n b_n求和",
+      "数列求和公式",
+      "等比数列公比不为1",
+      "等差乘等比前n项和"
+    ],
+    "synonyms": [
+      "等差等比相乘求和",
+      "错位相减法",
+      "等比等差乘积求和",
+      "等差乘等比前n项和公式"
+    ],
+    "intents": [
+      "求和",
+      "计算前n项和",
+      "套用公式",
+      "化简",
+      "代入"
+    ],
+    "query_templates": [
+      "等差乘等比前n项和公式",
+      "错位相减求和公式",
+      "等差数列乘等比数列求和",
+      "求等差乘等比前n项和",
+      "已知等差数列和等比数列求乘积和"
+    ],
+    "ocrKeywords": [
+      "a_n",
+      "b_n",
+      "S_n",
+      "等差数列",
+      "等比数列",
+      "公比",
+      "公差",
+      "前n项和"
+    ],
+    "latex_patterns": [
+      "\\frac{a_1 b_1 - a_n b_n q}{1-q}",
+      "\\frac{d\\,b_1 q\\,(1-q^{n-1})}{(1-q)^2}"
+    ],
+    "formulaTokens": [
+      "a_1 b_1",
+      "a_n b_n q",
+      "1-q",
+      "a_1 b_1 - a_n b_n q",
+      "d b_1 q",
+      "1-q^{n-1}",
+      "d b_1 q (1-q^{n-1})",
+      "(1-q)^2",
+      "\\frac{a_1 b_1 - a_n b_n q}{1-q}",
+      "\\frac{d b_1 q (1-q^{n-1})}{(1-q)^2}"
+    ],
+    "pinyin": "dengchachengdengbidaoxiangjianhegongshi",
+    "pinyinAbbr": "dccdbdxjhgs"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.7,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "S_n = \\frac{a_1 b_1 - a_n b_n q}{1-q} + \\frac{d\\,b_1 q\\,(1-q^{n-1})}{(1-q)^2}",
+    "related_formulas": [
+      "d = 0 \\Rightarrow S_n = a_1 b_1 \\cdot \\frac{1-q^n}{1-q}"
+    ],
+    "variables": [
+      "a_1",
+      "d",
+      "b_1",
+      "q",
+      "n",
+      "a_n",
+      "b_n",
+      "S_n"
+    ],
+    "conditions": "等差数列 $\\{a_n\\}$ 首项 $a_1$，公差 $d$；等比数列 $\\{b_n\\}$ 首项 $b_1$，公比 $q$，且 $q \\neq 1$。",
+    "conclusions": "当 $d=0$ 时，$S_n = a_1 b_1 \\cdot \\frac{1-q^n}{1-q}$；公式可直接用于计算 $S_n$。"
+  },
+  "content": {
+    "statement": "对于等差数列 $\\{a_n\\}$（$a_n=a_1+(n-1)d$）与等比数列 $\\{b_n\\}$（$b_n=b_1 q^{n-1}$，公比 $q\\neq1$），其对应项乘积的前 $n$ 项和 $S_n=\\sum_{k=1}^n a_k b_k$ 可由公式 $S_n = \\frac{a_1 b_1 - a_n b_n q}{1-q} + \\frac{d\\,b_1 q\\,(1-q^{n-1})}{(1-q)^2}$ 直接求出。",
+    "derivation": [
+      "写出 $S_n = a_1b_1 + a_2b_2 + \\cdots + a_nb_n$ 和 $qS_n = a_1b_2 + a_2b_3 + \\cdots + a_nb_{n+1}$。",
+      "错位相减得 $(1-q)S_n = a_1b_1 - a_nb_{n+1} + d\\,b_1 q(1+q+\\cdots+q^{n-2})$。",
+      "将 $b_{n+1}=b_n q$ 代入并用等比求和公式化简，即得 $S_n$ 表达式。"
+    ],
+    "intuition": "因为等差数列线性增长，等比数列指数增长，错位相减后得到新的等比数列求和，从而得到显式公式。",
+    "common_tricks": [
+      "使用前检查 $q\\neq1$，否则分母为零。",
+      "注意第二项中的指数为 $n-1$，不要写错。",
+      "若公比为负数或分数，代入时务必加括号。",
+      "当公差 $d=0$ 时可直接用等比求和公式，无需此公式。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "数列求和",
+      "压轴题"
+    ],
+    "problem_types": [
+      "求前n项和",
+      "等差乘等比数列求和"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "L036.svg"
+  },
+  "shareConfig": {
+    "title": "等差乘等比前n项和公式：直接代公式免去错位相减推导",
+    "shareDesc": "适合数列求和题型速查，直接代入等差数列首项、公差、等比数列首项、公比，一步算出前n项和，减少推导步骤和计算错误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "等差数列求和公式",
+      "等比数列求和公式",
+      "错位相减法"
+    ],
+    "related_ids": [],
+    "similar": "等差×等比求和也可用待定系数法或裂项相消法（针对特殊形式）。"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "数列-求和技巧-错位相减",
+  "altNodes": "数列-求和技巧-裂项相消,数列-等比数列-求和公式,数列-等差数列-求和公式"
+}
