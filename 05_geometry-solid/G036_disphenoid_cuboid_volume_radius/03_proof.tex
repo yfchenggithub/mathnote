@@ -1,0 +1,60 @@
+\begin{proofbox}
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	对棱相等保证了四面体可以补形为长方体，利用长方体面对角线关系得到方程组，从而求出长宽高，再得出体积和外接球半径.
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（补形构造）：}] 过四面体 $ABCD$ 各顶点分别作对面所在平面的平行平面，这些平面围成一个平行六面体。由于对棱相等，该六面体为长方体。设长方体长、宽、高分别为 $x,y,z$，四面体顶点为长方体八个顶点中的四个.
+			\par\textbf{理由：} 对棱相等保证了平行六面体的每个面都是矩形，从而为长方体.
+
+		\item[\textbf{步骤二（建立方程）：}] 在长方体中，四面体的每组对棱是相对面的对角线。因此，面对角线长度满足：
+			\[
+				\begin{aligned}
+					y^2+z^2 &= a^2, \\
+					x^2+z^2 &= b^2, \\
+					x^2+y^2 &= c^2.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 长方体面对角线平方等于长宽平方和.
+
+		\item[\textbf{步骤三（解方程组）：}] 将上述三式相加得 $2(x^2+y^2+z^2)=a^2+b^2+c^2$，即
+			\[
+				x^2+y^2+z^2 = \frac{a^2+b^2+c^2}{2}.
+			\]
+			分别减去各方程得
+			\[
+				x^2 = \frac{b^2+c^2-a^2}{2},\quad
+				y^2 = \frac{a^2+c^2-b^2}{2},\quad
+				z^2 = \frac{a^2+b^2-c^2}{2}.
+			\]
+			开方得 $x,y,z$ 的表达式，注意根号内应为正.
+			\par\textbf{理由：} 代数消元，对称性.
+
+		\item[\textbf{步骤四（体积公式）：}] 长方体的体积为 $xyz$，四面体体积等于长方体体积减去四个三棱锥，每个三棱锥体积为 $\frac{1}{6}xyz$，因此四面体体积为
+			\[
+				\begin{aligned}
+					V_{\text{四面体}} &= xyz - 4\cdot\frac{1}{6}xyz \\
+					&= \frac{1}{3}xyz.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 割补法或向量法可得四面体体积是长方体体积的 $\frac13$.
+
+		\item[\textbf{步骤五（外接球半径）：}] 长方体的外接球即为原四面体的外接球，其直径等于长方体体对角线长 $\sqrt{x^2+y^2+z^2}$，所以半径
+			\[
+				\begin{aligned}
+					R &= \frac12\sqrt{x^2+y^2+z^2} \\
+					&= \frac12\sqrt{\frac{a^2+b^2+c^2}{2}}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 长方体体对角线公式 $d = \sqrt{x^2+y^2+z^2}$.
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	由对棱相等条件可直接解出 $x,y,z$，进而得到体积和外接球半径。补形法将空间问题转化为平面计算，简洁高效.
+
+\end{proofbox}
