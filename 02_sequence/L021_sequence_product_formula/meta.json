@@ -1,0 +1,169 @@
+{
+  "id": "L021",
+  "module": "sequence",
+  "core": {
+    "title": "累乘法求数列通项",
+    "alias": [
+      "累乘公式",
+      "连乘法",
+      "递推乘积法",
+      "积商法"
+    ],
+    "summary": "将递推式转化为相邻项之比的连乘形式，直接得到通项公式。",
+    "difficulty": 2,
+    "category": "数列",
+    "tags": [
+      "累乘法",
+      "数列通项",
+      "递推关系",
+      "乘积形式",
+      "通项公式"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "累乘法",
+      "数列通项",
+      "递推公式",
+      "连乘",
+      "乘积",
+      "a_{n+1}=a_n f(n)",
+      "乘积形式",
+      "通项公式",
+      "累乘",
+      "等比数列",
+      "裂项约简"
+    ],
+    "synonyms": [
+      "累积法",
+      "连乘法",
+      "叠乘法",
+      "累积求通项",
+      "累乘求通项"
+    ],
+    "intents": [
+      "求通项",
+      "推导",
+      "计算",
+      "化简"
+    ],
+    "query_templates": [
+      "累乘法求数列通项",
+      "a_{n+1}=a_n f(n) 通项",
+      "累乘公式 a_n = a1 乘 f(k)",
+      "数列累乘法例题",
+      "累乘法怎么用"
+    ],
+    "ocrKeywords": [
+      "a_{n+1}=a_n·f(n)",
+      "a_n = a_1∏",
+      "n∈N*",
+      "a_n≠0",
+      "累乘"
+    ],
+    "latex_patterns": [
+      "a_{n+1}=a_n\\cdot f(n)",
+      "a_n = a_1\\prod_{k=1}^{n-1} f(k)"
+    ],
+    "formulaTokens": [
+      "a_{n+1}=a_n f(n)",
+      "a_n=a_1\\prod_{k=1}^{n-1}f(k)",
+      "a_n\\neq 0",
+      "a_n=a_1 q^{n-1}",
+      "\\prod_{k=1}^{n-1} f(k)"
+    ],
+    "pinyin": "leichengfa",
+    "pinyinAbbr": "lcf"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.8,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "a_n = a_1\\prod_{k=1}^{n-1} f(k)\\qquad (n\\geqslant 2)",
+    "related_formulas": [
+      "a_n = a_1 q^{n-1}"
+    ],
+    "variables": [
+      "a_n",
+      "a_1",
+      "f(n)",
+      "n",
+      "k"
+    ],
+    "conditions": "数列 $\\{a_n\\}$ 满足递推 $a_{n+1}=a_n f(n)$（$n\\in\\mathbb{N}^*$），且对所有 $n$ 有 $a_n\\neq 0$。",
+    "conclusions": "通项公式为 $a_n = a_1\\prod_{k=1}^{n-1}f(k)$（$n\\geqslant 2$）。当 $f(n)$ 恒为常数 $q$ 时，$a_n = a_1 q^{n-1}$（等比数列）。"
+  },
+  "content": {
+    "statement": "若数列 $\\{a_n\\}$ 满足 $a_{n+1}=a_n\\cdot f(n)$（$n\\in\\mathbb{N}^*$），其中 $f(n)$ 是 $\\mathbb{N}^*$ 上的函数，且 $a_n\\neq 0$，则通项公式为 $a_n = a_1\\prod_{k=1}^{n-1}f(k)$（$n\\geqslant 2$）。",
+    "derivation": [
+      "将递推式从 $n=1$ 到 $n-1$ 写出比值形式：$\\frac{a_2}{a_1}=f(1),\\ \\frac{a_3}{a_2}=f(2),\\ \\dots,\\ \\frac{a_n}{a_{n-1}}=f(n-1)$。",
+      "将这 $n-1$ 个等式相乘，左边分子分母交错约去，得 $\\frac{a_n}{a_1} = \\prod_{k=1}^{n-1} f(k)$。",
+      "两边乘以 $a_1$ 即得 $a_n = a_1\\prod_{k=1}^{n-1}f(k)$（$n\\geqslant 2$）。"
+    ],
+    "intuition": "将前后两项的比值连乘，中间项全部约去，只剩下首项和末项的关系。",
+    "common_tricks": [
+      "注意连乘积的上下标：从 $k=1$ 到 $n-1$，共 $n-1$ 个因子，切勿多乘或少乘。",
+      "若 $f(n)$ 可化为 $g(n+1)/g(n)$ 形式，则可用裂项约简直接得到通项。",
+      "验证 $n=1$ 时公式是否成立，若 $a_1$ 满足则公式对全体正整数成立。",
+      "当 $f(n)$ 为常数 $q$ 时，退化为等比数列通项 $a_n=a_1q^{n-1}$。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "求数列通项",
+      "递推关系处理"
+    ],
+    "problem_types": [
+      "选择题",
+      "填空题",
+      "解答题第一问"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "L021.svg"
+  },
+  "shareConfig": {
+    "title": "累乘法求数列通项：递推积化公式",
+    "shareDesc": "适合课后复盘和刷题前速查，直接套用累乘公式跳过连乘推导，节省时间并避免下标错误，适用于 a_{n+1}=a_n f(n) 型递推。"
+  },
+  "relations": {
+    "prerequisites": [
+      "数列递推关系",
+      "等比数列通项",
+      "乘积符号∏"
+    ],
+    "related_ids": [],
+    "similar": [
+      "累加法",
+      "裂项相消法"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "数列-递推数列-递推关系",
+  "altNodes": [
+    "数列-等比数列-通项公式",
+    "数列-求和技巧-裂项相消"
+  ]
+}
