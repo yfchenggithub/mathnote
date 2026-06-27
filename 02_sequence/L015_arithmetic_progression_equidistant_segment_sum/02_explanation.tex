@@ -1,0 +1,43 @@
+\begin{explanationbox}
+
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+	将等差数列每$m$项切一段，每段的总和形成一个“新等差”，且公差被放大了$m$倍。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（线性叠加）：}] 等差数列前$n$项和$S_n$是$n$的二次函数，但增量$S_{km}-S_{(k-1)m}$恰好是$k$的一次函数。
+		\item[\textbf{要点二（平方因子）：}] 每段增加的项数$m$，导致求和后每段和之间的差为$m^2 d$，而非$m d$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（分段累加）}}
+
+	如果把等差数列视为均匀上升的线段（一次函数），各段面积（求和）构成一个二次曲线上的等距采样；对这些采样再次作差，得到的新序列呈现线性，斜率正是$m^2 d$。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（推导基础）}}
+
+	利用求和公式$S_n = n a_1 + \frac{n(n-1)}{2}d$直接计算$T_k = S_{km}-S_{(k-1)m}$，可化简为$T_k = S_m + (k-1)m^2 d$，从而验证等差性质。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（快速算和）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（求连续片段和）：} 已知等差数列和分段长度$m$，直接利用$\{T_k\}$的通项公式或公差快速计算任一$T_k$，避免逐项求和。
+		\item \textbf{考法二（构造方程求参数）：} 利用三项片段和成等差（如$S_m, S_{2m}-S_m, S_{3m}-S_{2m}$）建立方程，求解公差或项数等未知量。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	片段和的公差$m^2 d$中平方因子来自“项数$m$出现在求和公式的二次项中”，每次差两个二次函数，二次项系数差产生$m^2$。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（等距分段求和）：} 出现“从第$p$项到第$q$项的和”且$q-p+1$是$m$的倍数时，可以看作若干完整片段和之差。
+		\item \textbf{场景二（等差性质验证）：} 给出三个等间距部分和，用$2(S_{2m}-S_m)=S_m+(S_{3m}-S_{2m})$快速检验是否为等差数列。
+	\end{itemize}
+
+\end{explanationbox}

@@ -1,0 +1,73 @@
+\begin{proofbox}
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用等差数列求和公式$S_n = n a_1 + \frac{n(n-1)}{2}d$，将$T_k = S_{km} - S_{(k-1)m}$代入，化简得到$T_k$关于$k$的一次表达式，从而直接看出公差为$m^2 d$。关键步骤是二次项系数相减时产生平方因子。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（求和公式）：}] 写出等差数列前$n$项和公式：
+			\[
+				S_n = n a_1 + \frac{n(n-1)}{2}d,
+			\]
+			其中$a_1$为首项，$d$为公差。
+			\par\textbf{理由：} 这是等差数列求和的基本公式，适用于所有正整数$n$。
+
+		\item[\textbf{步骤二（$T_k$表达式）：}] 计算第$k$个片段和：
+			\[
+				\begin{aligned}
+					T_k &= S_{km} - S_{(k-1)m} \\
+					&= \Big[ km a_1 + \frac{km(km-1)}{2}d \Big] \\
+					&\qquad - \Big[ (k-1)m a_1 + \frac{(k-1)m((k-1)m-1)}{2}d \Big]\\
+					&= m a_1 + \frac{d}{2}\Big[ km(km-1) - (k-1)m((k-1)m-1) \Big].
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 代入求和公式并合并同类项，将含$a_1$项合并为$m a_1$，剩下的差放在括号内。
+
+		\item[\textbf{步骤三（化简括号）：}] 化简括号内的表达式：
+			\[
+				\begin{aligned}
+					&\quad km(km-1) - (k-1)m((k-1)m-1) \\
+					&= m\Big[ k(km-1) - (k-1)((k-1)m-1) \Big] \\
+					&= m\Big[ k^2 m - k - (k-1)^2 m + (k-1) \Big] \\
+					&= m\Big[ (k^2 - (k-1)^2)m - 1 \Big] \\
+					&= m\Big[ (2k-1)m - 1 \Big] \\
+					&= (2k-1)m^2 - m.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 展开括号，合并$k$的幂次，使用平方差公式$k^2 - (k-1)^2 = 2k-1$。
+
+		\item[\textbf{步骤四（$T_k$最简形式）：}] 将化简结果代回$T_k$：
+			\[
+				\begin{aligned}
+					T_k &= m a_1 + \frac{d}{2}\big( (2k-1)m^2 - m \big) \\
+					&= m a_1 - \frac{m d}{2} + \frac{(2k-1)m^2 d}{2}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 展开$\frac{d}{2}$并依$k$整理常数项与一次项。
+
+		\item[\textbf{步骤五（计算$T_{k+1}-T_k$）：}] 写出$T_{k+1}$表达式并作差：
+			\[
+				\begin{aligned}
+					T_{k+1} &= m a_1 - \frac{m d}{2} + \frac{(2(k+1)-1)m^2 d}{2} \\
+					&= m a_1 - \frac{m d}{2} + \frac{(2k+1)m^2 d}{2}. \\[4pt]
+					T_{k+1} - T_k &= \frac{(2k+1)m^2 d}{2} - \frac{(2k-1)m^2 d}{2} \\
+					&= m^2 d.
+			\end{aligned}
+			\]
+			\par\textbf{理由:} 常数项$m a_1 - \frac{m d}{2}$相消,仅含$k$的线性项相减后只剩下常数$m^2 d$.
+
+		\item[\textbf{步骤六(等差确认):}] 由等差数列定义,$\{T_k\}$是一个等差数列,公差为$m^2 d$.又因为$T_1=S_m$,所以通项公式为
+			\[
+				T_k = S_m + (k-1)m^2 d.
+			\]
+			\par\textbf{理由:} 首项$T_1=S_m$,每项增加$m^2 d$,直接写出通项.
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	由上述推导可知,无论原等差数列的首项和公差如何,只要固定$m$,按此方式定义的分段和必定构成等差数列,且公差为$m^2 d$.这一性质在解决等距分段求和问题时可以快速得到各段和的值.
+
+\end{proofbox}
