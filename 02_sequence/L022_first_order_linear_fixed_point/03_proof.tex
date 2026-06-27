@@ -1,0 +1,30 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	通过不动点消去常数，构造等比求通项。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（求不动点）：}] 解方程 $x = p x + q$，得到 $\lambda = \dfrac{q}{1-p}$。
+			\par\textbf{理由：}
+			不动点满足递推的不变性。
+
+		\item[\textbf{步骤二（构造关系）：}] 令 $b_n = a_n - \lambda$，则 $b_{n+1} = a_{n+1} - \lambda$。代入递推得 $b_{n+1} = p a_n + q - \lambda$。
+			\par\textbf{理由：}
+			将原递推代入。
+
+		\item[\textbf{步骤三（消常推导）：}] 把 $a_n = b_n + \lambda$ 代入上式，得 $b_{n+1} = p(b_n + \lambda) + q - \lambda$。展开得 $b_{n+1} = p b_n + (p\lambda + q - \lambda)$。因 $\lambda = p\lambda + q$，故括号为 $0$，从而 $b_{n+1} = p b_n$。
+			\par\textbf{理由：}
+			利用不动点性质消除常数项。
+
+		\item[\textbf{步骤四（求通项）：}] $\{b_n\}$ 是等比数列，$b_n = b_1 p^{\,n-1}$，其中 $b_1 = a_1 - \lambda$。所以 $a_n = b_n + \lambda$，代入得 $a_n = p^{\,n-1}(a_1 - \lambda) + \lambda$。
+			\par\textbf{理由：}
+			等比通项加回 $\lambda$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{所得通项公式正是题目所给的公式。}
+\end{proofbox}
