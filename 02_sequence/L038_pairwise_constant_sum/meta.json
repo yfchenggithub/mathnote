@@ -1,0 +1,180 @@
+{
+  "id": "L038",
+  "module": "sequence",
+  "core": {
+    "title": "倒序相加法（对称等和数列求和）",
+    "alias": [
+      "倒序相加",
+      "对称求和",
+      "等和数列求和",
+      "倒序求和公式"
+    ],
+    "summary": "若数列任意对称两项和为定值，则前n项和等于n倍定值的一半。",
+    "difficulty": 2,
+    "category": "数列",
+    "tags": [
+      "数列求和",
+      "倒序相加法",
+      "对称和",
+      "等差数列",
+      "求和公式"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "倒序相加法",
+      "对称等和数列",
+      "前n项和",
+      "S_n=nC/2",
+      "等差数列求和",
+      "三角函数求和",
+      "sin²求和",
+      "a_k+a_{n+1-k}=C",
+      "常数C",
+      "倒序求和"
+    ],
+    "synonyms": [
+      "倒序相加",
+      "对称相加",
+      "等和数列",
+      "倒叙相加法",
+      "倒序法"
+    ],
+    "intents": [
+      "求和",
+      "求前n项和",
+      "证明",
+      "验证",
+      "应用",
+      "计算"
+    ],
+    "query_templates": [
+      "倒序相加法怎么用",
+      "对称等和数列求和公式",
+      "已知a_k+a_{n+1-k}=C求S_n",
+      "等差数列求和公式推导"
+    ],
+    "ocrKeywords": [
+      "a_k+a_{n+1-k}",
+      "S_n",
+      "nC/2",
+      "对称两项",
+      "倒序相加",
+      "常数C"
+    ],
+    "latex_patterns": [
+      "a_k + a_{n+1-k} = C",
+      "S_n = \\frac{nC}{2}",
+      "S_n = \\frac{n(a_1+a_n)}{2}"
+    ],
+    "formulaTokens": [
+      "a_k + a_{n+1-k} = C",
+      "S_n = \\frac{nC}{2}",
+      "S_n = \\frac{n(a_1+a_n)}{2}",
+      "nC/2",
+      "n(a_1+a_n)/2",
+      "C = a_1 + a_n"
+    ],
+    "pinyin": "dao xu xiang jia fa qiu he gong shi",
+    "pinyinAbbr": "dxxjf"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.63,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "S_n = \\frac{nC}{2}",
+    "related_formulas": [
+      "S_n = \\frac{n(a_1+a_n)}{2}",
+      "a_k + a_{n+1-k} = C"
+    ],
+    "variables": [
+      "a_k",
+      "a_1",
+      "a_n",
+      "S_n",
+      "n",
+      "C",
+      "k"
+    ],
+    "conditions": "数列$\\{a_n\\}$为有限项，项数为$n$；存在常数$C$，使得对任意$k=1,2,\\dots,n$有$a_k + a_{n+1-k} = C$。",
+    "conclusions": "前$n$项和$S_n = \\frac{nC}{2}$；特别地，当$\\{a_n\\}$为等差数列时，$C=a_1+a_n$，得$S_n = \\frac{n(a_1+a_n)}{2}$。"
+  },
+  "content": {
+    "statement": "对于数列$\\{a_n\\}$，若与首末两项等距离的两项之和为定值$C$，即$a_k+a_{n+1-k}=C$，则前$n$项和$S_n=nC/2$。特别地，当$\\{a_n\\}$为等差数列时，$C=a_1+a_n$，即得$S_n=n(a_1+a_n)/2$。",
+    "derivation": [
+      "写出$S_n = a_1+a_2+\\cdots+a_n$。",
+      "倒序写出$S_n = a_n+a_{n-1}+\\cdots+a_1$。",
+      "两式相加得$2S_n = (a_1+a_n)+(a_2+a_{n-1})+\\cdots+(a_n+a_1) = nC$，故$S_n = \\frac{nC}{2}$。"
+    ],
+    "intuition": "利用对称性，每个对称对的和为常数C，共有$n/2$对，所以总和为$nC/2$。",
+    "common_tricks": [
+      "使用前必须验证所有对称项和是否相等，不能仅凭部分项判断。",
+      "已知$S_n$和$n$可求常数$C=2S_n/n$，反向检验对称性。",
+      "对于三角函数等复杂数列，可尝试构造对称项寻找常数和。",
+      "等差数列是此结论的特例，可直接用$a_1+a_n$替换$C$。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "数列求和",
+      "等差数列求和",
+      "三角函数求和",
+      "对称性求和"
+    ],
+    "problem_types": [
+      "计算题",
+      "填空题",
+      "证明题"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "L038.svg",
+    "png": "",
+    "gif": "",
+    "mp4": ""
+  },
+  "shareConfig": {
+    "title": "倒序相加法：对称等和数列前n项和公式速算",
+    "shareDesc": "适合课后复盘和刷题前速查，解决已知对称等和条件直接求和的问题，避免繁琐的逐项计算；适用于等差数列及其它对称数列。"
+  },
+  "relations": {
+    "prerequisites": [
+      "数列",
+      "等差数列",
+      "求和符号∑"
+    ],
+    "related_ids": [],
+    "similar": [
+      "错位相减法求和",
+      "裂项相消法求和"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "数列-等差数列-求和公式",
+  "altNodes": [
+    "数列-求和技巧-裂项相消",
+    "数列-求和技巧-错位相减"
+  ]
+}

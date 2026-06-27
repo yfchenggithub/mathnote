@@ -1,0 +1,171 @@
+{
+  "id": "L039",
+  "module": "sequence",
+  "core": {
+    "title": "差比法与商比法判定数列单调性",
+    "alias": [
+      "差比法",
+      "商比法",
+      "数列单调性判定",
+      "相邻项作差/作商"
+    ],
+    "summary": "通过相邻两项的差（a_{n+1}-a_n）的符号，或正项时的比值与1比较，直接判断数列是严格递增、递减还是常数列。",
+    "difficulty": 2,
+    "category": "数列",
+    "tags": [
+      "数列单调性",
+      "差比法",
+      "商比法",
+      "基础定义",
+      "作差法",
+      "作商法"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "数列单调性",
+      "差比法",
+      "a_{n+1}-a_n",
+      "商比法",
+      "a_{n+1}/a_n",
+      "严格递增",
+      "严格递减",
+      "常数列",
+      "正整数n",
+      "作差判断",
+      "作商判断"
+    ],
+    "synonyms": [
+      "数列递增递减判断",
+      "相邻项作差法",
+      "比商法",
+      "a_n+1减a_n",
+      "a_n+1除以a_n"
+    ],
+    "intents": [
+      "判断单调性",
+      "证明数列递增",
+      "证明数列递减",
+      "求参数范围",
+      "判定常数列"
+    ],
+    "query_templates": [
+      "数列递增怎么判断",
+      "差比法判断数列单调性",
+      "商比法使用条件",
+      "a_{n+1}-a_n>0 说明数列什么",
+      "正项数列比值大于1 单调性"
+    ],
+    "ocrKeywords": [
+      "a_{n+1}-a_n",
+      "frac{a_{n+1}}{a_n}",
+      "严格递增",
+      "严格递减",
+      "n in N*"
+    ],
+    "latex_patterns": [
+      "a_{n+1}-a_n > 0",
+      "\\frac{a_{n+1}}{a_n} > 1",
+      "a_{n+1}-a_n = 0",
+      "\\frac{a_{n+1}}{a_n} = 1"
+    ],
+    "formulaTokens": [
+      "a_{n+1}-a_n>0",
+      "a_{n+1}-a_n=0",
+      "a_{n+1}-a_n<0",
+      "\\frac{a_{n+1}}{a_n}>1",
+      "\\frac{a_{n+1}}{a_n}=1",
+      "\\frac{a_{n+1}}{a_n}<1"
+    ],
+    "pinyin": "chabifa yu shangbifa panding shulie dan diao xing",
+    "pinyinAbbr": "cbfysbfpdfx"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.3,
+    "hot_score": 50,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "a_{n+1}-a_n \\begin{cases} >0 &\\iff \\{a_n\\} \\text{ 严格递增}, \\\\ =0 &\\iff \\{a_n\\} \\text{ 为常数列}, \\\\ <0 &\\iff \\{a_n\\} \\text{ 严格递减}. \\end{cases} \\quad (\\text{差比法}) \\qquad \\frac{a_{n+1}}{a_n} \\begin{cases} >1 &\\iff \\{a_n\\} \\text{ 严格递增}, \\\\ =1 &\\iff \\{a_n\\} \\text{ 为常数列}, \\\\ <1 &\\iff \\{a_n\\} \\text{ 严格递减}. \\end{cases} \\quad (\\text{商比法, 需 } a_n>0)",
+    "related_formulas": [
+      "\\{a_n\\} \\text{ 单调递增} \\iff a_{n+1}-a_n \\ge 0 \\text{ 且等号不恒成立}",
+      "\\text{若 } a_n>0, \\text{ 则 } \\{a_n\\} \\text{ 单调递增} \\iff \\frac{a_{n+1}}{a_n} \\ge 1 \\text{ 且等号不恒成立}"
+    ],
+    "variables": [
+      "n",
+      "a_n"
+    ],
+    "conditions": "数列 $\\{a_n\\}$ 定义在 $n\\in\\mathbb{N}^*$ 上。差比法对任意数列适用；商比法需满足对所有 $n$ 有 $a_n>0$。",
+    "conclusions": "差比法：$a_{n+1}-a_n>0$ 等价于严格递增，$a_{n+1}-a_n=0$ 等价于常数列，$a_{n+1}-a_n<0$ 等价于严格递减。商比法（当 $a_n>0$）：$\\frac{a_{n+1}}{a_n}>1$ 等价于严格递增，$=1$ 等价于常数列，$<1$ 等价于严格递减。"
+  },
+  "content": {
+    "statement": "对于任意数列 $\\{a_n\\}$，$a_{n+1}-a_n>0 \\iff \\{a_n\\}$ 严格递增，$=0 \\iff$ 常数列，$<0 \\iff$ 严格递减；若各项 $a_n>0$，则 $\\frac{a_{n+1}}{a_n}>1 \\iff$ 严格递增，$=1 \\iff$ 常数列，$<1 \\iff$ 严格递减。",
+    "derivation": [
+      "由数列单调性定义：$\\{a_n\\}$ 严格递增当且仅当 $a_{n+1}>a_n$，即 $a_{n+1}-a_n>0$。",
+      "若 $a_n>0$，不等式 $a_{n+1}>a_n$ 两边同除以正数 $a_n$ 得 $\\frac{a_{n+1}}{a_n}>1$。",
+      "其余情况同理。"
+    ],
+    "intuition": "比较两个实数的大小，直接作差看符号最自然；当数均为正时，作商与1比较等价于作差。",
+    "common_tricks": [
+      "优先使用差比法，它不受项的正负限制。",
+      "使用商比法前必须验证所有 $a_n>0$，否则结论错误。",
+      "若通项含参数，由差比法得关于n的一次不等式，再求参数范围。",
+      "注意“严格”与“非严格”的区别：题目中“递增”有时指非严格（允许相等），此时改为 $\\ge 0$ 或 $\\ge 1$。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "数列单调性证明",
+      "含参数数列的单调性讨论",
+      "数列不等式的放缩准备"
+    ],
+    "problem_types": [
+      "证明数列单调",
+      "求参数范围使数列单调",
+      "判断数列是否为常数列"
+    ],
+    "exam_frequency": 0.6,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "L039.svg",
+    "cover": "",
+    "audio": "",
+    "video": "",
+    "extra": []
+  },
+  "shareConfig": {
+    "title": "差比法+商比法：数列单调性判定基础",
+    "shareDesc": "适合刷题前速查或课堂讲评，用相邻项作差（或正项作商）快速判断数列增减，避免误用条件。"
+  },
+  "relations": {
+    "prerequisites": [
+      "数列通项公式",
+      "实数比较大小",
+      "不等式性质"
+    ],
+    "related_ids": [],
+    "similar": "与函数单调性的定义法类似，都是通过比较相邻自变量对应的函数值大小来判定。"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "数列-递推数列-递推关系",
+  "altNodes": "函数-性质-单调性,数列-等差数列-通项公式"
+}
