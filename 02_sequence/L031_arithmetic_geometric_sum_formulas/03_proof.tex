@@ -1,64 +1,113 @@
 \begin{proofbox}
 	\textbf{\textcolor{CProof}{思路提示}}
-	\par 数列求和公式的推导核心均为“消元”：等差数列通过对称配对，等比数列通过错位相减，自然数幂和通过裂项累加。
+
+	数列求和公式的推导核心均为“消元”：等差数列通过对称配对，等比数列通过错位相减，自然数幂和通过裂项累加。
 
 	\medskip
 	\textbf{\textcolor{CProof}{正式推导}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
 		\item[\textbf{步骤一（等差倒序）：}]
-			写出$S_n = a_1+a_2+\cdots+a_n$，并倒序写出$S_n = a_n+a_{n-1}+\cdots+a_1$。两式相加得：
-			\[
-				2S_n = (a_1+a_n)+(a_2+a_{n-1})+\cdots+(a_n+a_1).
-			\]
-			由于等差数列中$a_k+a_{n-k+1}=a_1+a_n$恒成立，每一对括号的和均为$a_1+a_n$，共有$n$对，因此
-			\[
-				2S_n = n(a_1+a_n),
-			\]
-			故$S_n = \dfrac{n(a_1+a_n)}{2}$。
-			\par\textbf{理由：} 利用对称性构造配对，将求和问题转化为乘法。
+		      写出
+		      \[
+			      S_n=a_1+a_2+\cdots+a_n,
+		      \]
+		      并倒序写出
+		      \[
+			      S_n=a_n+a_{n-1}+\cdots+a_1.
+		      \]
+		      两式相加得
+		      \[
+			      2S_n=(a_1+a_n)+(a_2+a_{n-1})+\cdots+(a_n+a_1).
+		      \]
+		      由于等差数列中 \(a_k+a_{n-k+1}=a_1+a_n\) 恒成立，每一对括号的和均为 \(a_1+a_n\)，共有 \(n\) 对，因此
+		      \[
+			      2S_n=n(a_1+a_n),
+		      \]
+		      故
+		      \[
+			      S_n=\frac{n(a_1+a_n)}{2}.
+		      \]
+		      再由 \(a_n=a_1+(n-1)d\)，得
+		      \[
+			      S_n=\frac{n\bigl(2a_1+(n-1)d\bigr)}{2}
+			      =na_1+\frac{n(n-1)}{2}d.
+		      \]
+		      \par\textbf{理由：} 利用等差数列的对称性构造配对，将求和问题转化为乘法。
+
 		\item[\textbf{步骤二（等比错位）：}]
-			设$S_n = a_1 + a_1q + a_1q^2 + \cdots + a_1q^{n-1}$。若$q=1$，则$S_n = na_1$。若$q\neq1$，两边乘以$q$错位相减得：
-			\[
-				\begin{aligned}
-					S_n - qS_n &= a_1 - a_1q^n,\\ (1-q)S_n &= a_1(1-q^n),\\ S_n &= \frac{a_1(1-q^n)}{1-q}.
-			\end{aligned}
-			\]
-			合并得：
-			\[
-				S_n =
-				\begin{cases}
-					na_1, & q=1,\\ \dfrac{a_1(1-q^n)}{1-q}, & q\neq1.
-			\end{cases}
-			\]
-			\par\textbf{理由：} 错位相减法利用相同项相消，只剩首末项之差，再除以$1-q$即得；$q=1$时分母为$0$，必须单独处理。
+		      设
+		      \[
+			      S_n=a_1+a_1q+a_1q^2+\cdots+a_1q^{n-1}.
+		      \]
+		      若 \(q=1\)，则 \(S_n=na_1\)。若 \(q\neq1\)，两边乘以 \(q\) 后错位相减：
+		      \[
+			      \begin{aligned}
+				      S_n-qS_n & = a_1-a_1q^n,             \\
+				      (1-q)S_n & = a_1(1-q^n),             \\
+				      S_n      & = \frac{a_1(1-q^n)}{1-q}.
+			      \end{aligned}
+		      \]
+		      合并得
+		      \[
+			      S_n=
+			      \begin{cases}
+				      na_1,                    & q=1,    \\[4pt]
+				      \dfrac{a_1(1-q^n)}{1-q}, & q\neq1.
+			      \end{cases}
+		      \]
+		      \par\textbf{理由：} 错位相减法利用相同项相消，只剩首末项之差；当 \(q=1\) 时分母为零，必须单独处理。
+
 		\item[\textbf{步骤三（平方和裂项）：}]
-			利用恒等式$(k+1)^3 - k^3 = 3k^2 + 3k + 1$，对$k=1$到$n$求和：
-			\[
-				(n+1)^3 - 1 = 3\sum_{k=1}^{n}k^2 + 3\sum_{k=1}^{n}k + n.
-			\]
-			代入$\sum_{k=1}^{n}k = \frac{n(n+1)}{2}$并整理：
-			\[
-				\begin{aligned}
-					(n+1)^3 - 1 &= 3\sum_{k=1}^{n}k^2 + 3\cdot\frac{n(n+1)}{2} + n,\\ 3\sum_{k=1}^{n}k^2 &= (n+1)^3 - 1 - \frac{3n(n+1)}{2} - n,\\ &= \frac{n(n+1)(2n+1)}{2},\\ \sum_{k=1}^{n}k^2 &= \frac{n(n+1)(2n+1)}{6}.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 通过立方差构造将平方和与已知的$\sum k$建立方程，解出结果。
+		      利用恒等式
+		      \[
+			      (k+1)^3-k^3=3k^2+3k+1,
+		      \]
+		      对 \(k=1\) 到 \(n\) 求和：
+		      \[
+			      (n+1)^3-1=3\sum_{k=1}^{n}k^2+3\sum_{k=1}^{n}k+n.
+		      \]
+		      代入 \(\sum_{k=1}^{n}k=\frac{n(n+1)}{2}\) 并整理：
+		      \[
+			      \begin{aligned}
+				      3\sum_{k=1}^{n}k^2
+				       & =(n+1)^3-1-\frac{3n(n+1)}{2}-n \\
+				       & =\frac{n(n+1)(2n+1)}{2}.
+			      \end{aligned}
+		      \]
+		      因此
+		      \[
+			      \sum_{k=1}^{n}k^2=\frac{n(n+1)(2n+1)}{6}.
+		      \]
+		      \par\textbf{理由：} 通过立方差构造方程，将平方和与已知的 \(\sum k\) 建立联系。
+
 		\item[\textbf{步骤四（立方和裂项）：}]
-			利用恒等式$(k+1)^4 - k^4 = 4k^3 + 6k^2 + 4k + 1$，对$k=1$到$n$求和：
-			\[
-				(n+1)^4 - 1 = 4\sum_{k=1}^{n}k^3 + 6\sum_{k=1}^{n}k^2 + 4\sum_{k=1}^{n}k + n.
-			\]
-			代入已得的$\sum k^2$和$\sum k$：
-			\[
-				\begin{aligned}
-					4\sum_{k=1}^{n}k^3 &= (n+1)^4 - 1 - 6\sum_{k=1}^{n}k^2 - 4\sum_{k=1}^{n}k - n\\ &= n^4+4n^3+6n^2+4n - 6\cdot\frac{n(n+1)(2n+1)}{6} - 4\cdot\frac{n(n+1)}{2} - n\\ &= n^4+4n^3+6n^2+4n - n(n+1)(2n+1) - 2n(n+1) - n\\ &= n^4+4n^3+6n^2+4n - (2n^3+3n^2+n) - (2n^2+2n) - n\\ &= n^4 + 2n^3 + n^2,\\ &= n^2(n+1)^2,
-			\end{aligned}
-			\]
-			所以$\displaystyle\sum_{k=1}^{n}k^3 = \frac{n^2(n+1)^2}{4} = \left[\frac{n(n+1)}{2}\right]^2.$
-			\par\textbf{理由：} 通过四次方差构造方程，代入已证的$\sum k$和$\sum k^2$，解出立方和。
+		      利用恒等式
+		      \[
+			      (k+1)^4-k^4=4k^3+6k^2+4k+1,
+		      \]
+		      对 \(k=1\) 到 \(n\) 求和：
+		      \[
+			      (n+1)^4-1=4\sum_{k=1}^{n}k^3+6\sum_{k=1}^{n}k^2+4\sum_{k=1}^{n}k+n.
+		      \]
+		      代入已得的 \(\sum k^2\) 和 \(\sum k\)：
+		      \[
+			      \begin{aligned}
+				      4\sum_{k=1}^{n}k^3
+				       & =(n+1)^4-1-6\sum_{k=1}^{n}k^2-4\sum_{k=1}^{n}k-n \\
+				       & =n^4+4n^3+6n^2+4n-n(n+1)(2n+1)-2n(n+1)-n         \\
+				       & =n^4+2n^3+n^2                                    \\
+				       & =n^2(n+1)^2.
+			      \end{aligned}
+		      \]
+		      所以
+		      \[
+			      \sum_{k=1}^{n}k^3=\frac{n^2(n+1)^2}{4}=\left[\frac{n(n+1)}{2}\right]^2.
+		      \]
+		      \par\textbf{理由：} 通过四次方差构造方程，再代入已证的 \(\sum k\) 和 \(\sum k^2\)，即可解出立方和。
 	\end{description}
 
 	\medskip
 	\textbf{\textcolor{CProof}{结论回扣}}
-	\par 倒序相加、错位相减、裂项累加是数列求和的三大基本方法，上述公式正是这些方法的标准结论。掌握推导过程有助于在复杂问题中灵活迁移。
+
+	倒序相加、错位相减、裂项累加是数列求和的三大基本方法，上述公式正是这些方法的标准结论。掌握推导过程有助于在复杂问题中灵活迁移。
 \end{proofbox}
