@@ -1,23 +1,46 @@
 \begin{explanationbox}
 	\textbf{\textcolor{CExplanation}{一句话直觉}}
-	该结论利用对数均值不等式，将双变量不等式转化为单个参数 $c$ 的不等式，大幅简化极值点偏移问题的证明过程。
+
+	\textbf{该结论利用对数均值不等式：若两个正数的对数均值等于 $c$，那么 $c$ 位于几何平均与算术平均之间，从而直接推出和与积的不等式。}
 
 	\medskip
 	\textbf{\textcolor{CExplanation}{核心拆解}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
 		\item[\textbf{要点一（条件识别）：}]
-			题目中出现 $f(x_1)=f(x_2)$ 且能通过变形得到 $\frac{x_1-x_2}{\ln x_1 - \ln x_2}=c$ 的结构。此时 $c$ 必须是常数（通常与函数参数有关）。该结构一般来源于形如 $f(x)=\ln x + kx$ 的对数线性函数。
+		      题目中出现 $x_1,x_2>0$、$x_1\neq x_2$，且能通过变形得到
+		      \[
+			      \frac{x_1-x_2}{\ln x_1-\ln x_2}=c
+		      \]
+		      的结构。该结构常来源于含有 $\ln x$ 与一次项 $kx$ 的函数等值条件。
+
 		\item[\textbf{要点二（结论套用）：}]
-			一旦确定 $c$，可直接写出 $x_1+x_2>2c$ 和 $x_1x_2<c^2$。不需再对原始函数求导或构造差函数。
+		      一旦确定 $c$，就可直接写出 $x_1+x_2>2c$ 和 $x_1x_2<c^2$，不必再对原始函数反复构造差函数。
+
+		\item[\textbf{要点三（方向来源）：}]
+		      因为
+		      \[
+			      \sqrt{x_1x_2}<c<\frac{x_1+x_2}{2},
+		      \]
+		      所以由右边得到 $x_1+x_2>2c$，由左边得到 $x_1x_2<c^2$。
 	\end{description}
 
 	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（割线与中点）}}
-	设 $y=\ln x$ 图像上两点 $(x_1,\ln x_1)$、$(x_2,\ln x_2)$，则割线斜率的倒数 $\frac{x_1-x_2}{\ln x_1-\ln x_2}$ 表示两点的“对数平均”。该值介于几何平均数 $\sqrt{x_1x_2}$ 与算术平均数 $\frac{x_1+x_2}{2}$ 之间，反映指数增长的非线性。
+	\textbf{\textcolor{CExplanation}{几何本质（割线与平均）}}
+
+	设 $y=\ln x$ 图像上两点为 $(x_1,\ln x_1)$、$(x_2,\ln x_2)$。割线斜率为
+	\[
+		\frac{\ln x_1-\ln x_2}{x_1-x_2},
+	\]
+	它的倒数
+	\[
+		\frac{x_1-x_2}{\ln x_1-\ln x_2}
+	\]
+	就是 $x_1,x_2$ 的对数均值。对数均值比几何平均大，比算术平均小。
 
 	\medskip
 	\textbf{\textcolor{CExplanation}{代数意义（均值排序）}}
-	对数平均是两组正数的一种平均，它总是小于算术平均而大于几何平均。本结论恰好利用这一排序关系，由对数平均等于 $c$ 反推出两数之和、积的范围。
+
+	对数平均是一种介于几何平均和算术平均之间的平均数。本结论利用这一排序关系，由对数平均等于 $c$ 反推出两数之和、两数之积的范围。
 
 	\medskip
 	\textbf{\textcolor{CExplanation}{考点价值（极值点偏移）}}
@@ -28,13 +51,13 @@
 
 	\medskip
 	\textbf{\textcolor{CExplanation}{顿悟点}}
-	本结论将两个变量的问题直接通过 $c$ 简化，避免了比值代换过程。
+
+	\textbf{本结论把两个变量的问题直接压缩成一个常数 $c$ 的问题，核心不是硬算 $x_1,x_2$，而是利用“对数均值夹在几何平均与算术平均之间”。}
 
 	\medskip
 	\textbf{\textcolor{CExplanation}{使用场景}}
 	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（极值点偏移）：} 函数 $f(x)$ 在 $x=c$ 处取极值，若 $f(x_1)=f(x_2)$ 且 $x_1 \neq x_2$，常可通过变形得到所述结构，从而直接得出 $x_1+x_2$ 与 $x_1x_2$ 的范围，无需构造函数。
-		\item \textbf{场景二（对数均值不等式应用）：} 题目直接或间接给出形如 $\frac{a-b}{\ln a-\ln b}=k$ 的条件，问 $a+b$ 或 $ab$ 的范围，可直接套用。
+		\item \textbf{场景一（极值点偏移）：} 若 $f(x_1)=f(x_2)$ 且 $x_1\neq x_2$，常可通过移项得到对数均值结构，从而直接判断 $x_1+x_2$ 与 $x_1x_2$ 的范围。
+		\item \textbf{场景二（对数均值应用）：} 题目直接或间接给出形如 $\dfrac{a-b}{\ln a-\ln b}=k$ 的条件，问 $a+b$ 或 $ab$ 的范围，可直接套用。
 	\end{itemize}
-
 \end{explanationbox}
