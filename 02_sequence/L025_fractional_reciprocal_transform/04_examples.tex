@@ -1,0 +1,94 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知数列 $\{a_n\}$ 满足 $a_{n+1}=\dfrac{a_n}{a_n+1}$，$a_1=1$，求通项公式。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别递推结构）：}] 该递推形如 $a_{n+1}=\dfrac{f(n)a_n}{g(n)a_n+h(n)}$，其中 $f(n)=1,g(n)=1,h(n)=1$，分子只有 $a_n$ 一次项。
+			\par\textbf{理由：}
+			分子没有常数项，符合倒数变换使用条件。
+
+		\item[\textbf{第二步（作倒数变换）：}] 令 $b_n=\dfrac{1}{a_n}$，则 $a_n=\dfrac{1}{b_n}$，$a_{n+1}=\dfrac{1}{b_{n+1}}$，代入原式。
+			\par\textbf{理由：}
+			由 $a_1=1\neq 0$ 且递推保持非零，倒数有意义。
+
+		\item[\textbf{第三步（化简得线性递推）：}] 代入后得 $\dfrac{1}{b_{n+1}}=\dfrac{1\cdot\frac{1}{b_n}}{1\cdot\frac{1}{b_n}+1}$，化简为 $\dfrac{1}{1+b_n}$，取倒数得 $b_{n+1}=b_n+1$。
+			\par\textbf{理由：}
+			直接应用结论得到 $b_{n+1}=b_n+1$。
+
+		\item[\textbf{第四步（求新数列通项）：}] 由 $b_{n+1}=b_n+1$ 可知 $\{b_n\}$ 是等差数列，首项 $b_1=1$，公差 $1$，故 $b_n=n$。
+			\par\textbf{理由：}
+			等差数列通项公式。
+
+		\item[\textbf{第五步（回代得原数列）：}] $a_n=\dfrac{1}{b_n}=\dfrac{1}{n}$。
+			\par\textbf{理由：}
+			倒数关系。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$a_n=\dfrac{1}{n}$}。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知数列 $\{a_n\}$ 满足 $a_{n+1}=\dfrac{a_n}{n a_n+1}$，$a_1=1$，求通项公式。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别函数系数）：}] 递推中 $f(n)=1,g(n)=n,h(n)=1$，分子仍为 $a_n$ 的一次项，符合结构。
+			\par\textbf{理由：}
+			检查 $g(n)$ 不是常数，但不影响方法。
+
+		\item[\textbf{第二步（作倒数变换）：}] 令 $b_n=1/a_n$，代入后得 $b_{n+1}=b_n+n$。
+			\par\textbf{理由：}
+			规范代入化简可得。
+
+		\item[\textbf{第三步（累加法求通项）：}] 由 $b_{n+1}-b_n=n$，累加得 $b_n=1+\sum_{k=1}^{n-1}k$，计算得 $b_n=1+\frac{n(n-1)}{2}$。
+			\par\textbf{理由：}
+			累加时注意从 $k=1$ 到 $n-1$。
+
+		\item[\textbf{第四步（回代得原数列）：}] $a_n=\dfrac{1}{b_n}=\dfrac{2}{n^2-n+2}$。
+			\par\textbf{理由：}
+			取倒数。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$a_n=\dfrac{2}{n^2-n+2}$}。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知数列 $\{a_n\}$ 满足 $a_{n+1}=\dfrac{2^n a_n}{a_n+2^n}$，$a_1=1$，求通项公式。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别指数系数）：}] 递推中 $f(n)=2^n,g(n)=1,h(n)=2^n$，分子为 $2^n a_n$，符合形式。
+			\par\textbf{理由：}
+			$f(n),h(n)\neq 0$，且分母不为零。
+
+		\item[\textbf{第二步（作倒数变换）：}] 令 $b_n=1/a_n$，化简得 $b_{n+1}=b_n+\dfrac{1}{2^n}$。
+			\par\textbf{理由：}
+			代入化简步骤同前。
+
+		\item[\textbf{第三步（等比求和求通项）：}] 由 $b_{n+1}-b_n=\dfrac{1}{2^n}$ 累加得
+			\[
+				\begin{aligned}
+					b_n &= 1 + \sum_{k=1}^{n-1}\frac{1}{2^k} \\
+					&= 2 - \frac{1}{2^{n-1}}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			等比数列求和公式。
+
+		\item[\textbf{第四步（回代得原数列）：}] $a_n=\dfrac{1}{b_n}=\dfrac{2^{n-1}}{2^n-1}$。
+			\par\textbf{理由：}
+			取倒数并化简。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$a_n=\dfrac{2^{n-1}}{2^n-1}$}。
+\end{examplebox}

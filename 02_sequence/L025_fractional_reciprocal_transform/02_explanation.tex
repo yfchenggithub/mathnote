@@ -1,0 +1,44 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+	将分式递推取倒数，分母中的 $a_n$ 转移到分子，使新数列满足线性关系。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（识别分式结构）：}] 递推式形如 $a_{n+1} = \frac{f(n)a_n}{g(n)a_n+h(n)}$，关键是分子只有 $a_n$ 的一次项，分母为 $a_n$ 的一次式加常数。
+		\item[\textbf{要点二（倒数变换技巧）：}] 令 $b_n = 1/a_n$，将 $a_n = 1/b_n$ 代入原递推，经过代数化简得到 $b_{n+1}$ 的线性表达式。
+		\item[\textbf{要点三（代入化简得线性）：}] 化简后得到 $b_{n+1} = \frac{h(n)}{f(n)}b_n + \frac{g(n)}{f(n)}$，这是一阶线性递推的标准形式。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（倒数化直）}}
+
+	原递推是分式函数 $y = \frac{f(n)x}{g(n)x+h(n)}$，其图像是双曲线型。令 $b=1/x$ 后，新函数变为线性函数 $b_{n+1} = \frac{h(n)}{f(n)}b_n + \frac{g(n)}{f(n)}$，即把曲线映射为直线，便于处理。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（降阶线性化）}}
+
+	通过变量替换，将分式关系变为线性关系，使得可以直接套用一阶线性递推的通解公式求出 $b_n$，本质上降低了运算复杂度。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（高频必考型）}}
+
+	在高考数列中，遇到分式线性递推（分子无常数项），直接使用倒数变换是标准解法。
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（直接变换求通项）：} 给出递推和首项，要求通项公式，先写倒数变换得线性递推，再累加法或公式法求 $b_n$，回代 $a_n$。
+		\item \textbf{考法二（含参数讨论）：} 给出含参递推，要求判断数列性质或求参数范围，倒数变换后转化为线性递推的单调性或恒正问题。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	看到分式线性递推且分子不含常数项，立即想到倒数变换。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（分子一次无常数）：} 递推 $a_{n+1}=\frac{2a_n}{3a_n+5}$ 可直接倒数变换。
+		\item \textbf{场景二（常数项再处理）：} 若递推为 $a_{n+1}=\frac{p a_n+q}{r a_n+s}$（常数项 $q\neq 0$），则需要先取倒数后再处理常数项，不能直接套用本结论。
+	\end{itemize}
+\end{explanationbox}

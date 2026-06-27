@@ -1,0 +1,63 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用 $b_n=1/a_n$ 将 $a_n$ 用 $b_n$ 表示，代入原递推后化简即可得到 $b_{n+1}$ 的线性递推。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（定义倒数变换）：}]
+			设 $b_n = \dfrac{1}{a_n}$，则有
+			\[
+				b_n = \frac{1}{a_n},
+				\qquad
+				a_n = \frac{1}{b_n},
+				\qquad
+				a_{n+1} = \frac{1}{b_{n+1}}.
+			\]
+			\par\textbf{理由：}
+			由 $a_n\neq 0$ 保证倒数有意义。
+
+		\item[\textbf{步骤二（代入原递推）：}]
+			将 $a_n,a_{n+1}$ 代入 $a_{n+1} = \dfrac{f(n)a_n}{g(n)a_n+h(n)}$：
+			\[
+				\frac{1}{b_{n+1}} = \frac{f(n)\cdot\frac{1}{b_n}}{g(n)\cdot\frac{1}{b_n}+h(n)}.
+			\]
+			\par\textbf{理由：}
+			直接替换表达。
+
+		\item[\textbf{步骤三（化简分式右边）：}]
+			将右边分母通分并化简：
+			\[
+				\begin{aligned}
+					g(n)\cdot\frac{1}{b_n}+h(n) &= \frac{g(n)+h(n)b_n}{b_n},\\[2mm]
+					\frac{f(n)\cdot\frac{1}{b_n}}{g(n)\cdot\frac{1}{b_n}+h(n)}
+					&= \frac{f(n)}{b_n}\cdot\frac{b_n}{g(n)+h(n)b_n} \\
+					&= \frac{f(n)}{g(n)+h(n)b_n}.
+			\end{aligned}
+			\]
+			\par\textbf{理由:}
+			分数除法转化为乘法,约去 $b_n$($b_n\neq 0$ 保证).
+
+		\item[\textbf{步骤四(取倒数整理):}]
+			由 $\dfrac{1}{b_{n+1}} = \dfrac{f(n)}{g(n)+h(n)b_n}$ 两边取倒数:
+			\[
+				b_{n+1} = \frac{g(n)+h(n)b_n}{f(n)}.
+			\]
+			\par\textbf{理由:}
+			因为 $f(n)\neq 0$,分母非零.
+
+		\item[\textbf{步骤五(标准线性化):}]
+			分离常数与 $b_n$ 项:
+			\[
+				b_{n+1} = \frac{h(n)}{f(n)}\,b_n + \frac{g(n)}{f(n)}.
+			\]
+			\par\textbf{理由:}
+			将和式拆开即得标准一阶线性递推形式.
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	由此证明,对任意满足条件的分式线性递推 $\{a_n\}$,通过倒数变换 $b_n=1/a_n$ 总能转化为一阶线性递推,从而可以进一步求解通项.
+\end{proofbox}

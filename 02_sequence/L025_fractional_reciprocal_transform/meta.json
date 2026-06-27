@@ -1,0 +1,163 @@
+{
+  "id": "L025",
+  "module": "sequence",
+  "core": {
+    "title": "分式递推倒数变换化线性",
+    "alias": [
+      "倒数变换",
+      "取倒数法",
+      "分式递推直接取倒数"
+    ],
+    "summary": "对于分子无常数项的分式线性递推，取倒数后变成一阶线性递推，进而可用累加或构造法求通项。",
+    "difficulty": 3,
+    "category": "数列",
+    "tags": [
+      "数列递推",
+      "倒数变换",
+      "线性化",
+      "分式递推",
+      "通项公式"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "分式递推",
+      "倒数变换",
+      "线性递推",
+      "数列通项",
+      "构造法",
+      "累加法",
+      "a_{n+1}=f(n)a_n/(g(n)a_n+h(n))",
+      "b_n=1/a_n",
+      "一阶线性递推",
+      "取倒数"
+    ],
+    "synonyms": [
+      "取倒数法",
+      "倒数化",
+      "分式递推解法",
+      "倒过来求通项"
+    ],
+    "intents": [
+      "求通项",
+      "变换",
+      "化线性",
+      "求解递推",
+      "化简"
+    ],
+    "query_templates": [
+      "分式递推怎么求通项",
+      "a_{n+1}=a_n/(a_n+1) 怎么解",
+      "倒数变换法求数列通项",
+      "分式线性递推化线性"
+    ],
+    "ocrKeywords": [
+      "a_{n+1} = \\frac{a_n}{a_n+1}",
+      "\\frac{f(n)a_n}{g(n)a_n+h(n)}",
+      "b_n = \\frac{1}{a_n}"
+    ],
+    "latex_patterns": [
+      "a_{n+1} = \\frac{f(n) a_n}{g(n) a_n + h(n)}",
+      "b_{n+1} = \\frac{h(n)}{f(n)} b_n + \\frac{g(n)}{f(n)}"
+    ],
+    "formulaTokens": [
+      "a_{n+1}",
+      "\\frac{f(n)a_n}{g(n)a_n+h(n)}",
+      "b_n=1/a_n",
+      "b_{n+1}",
+      "\\frac{h(n)}{f(n)}b_n",
+      "\\frac{g(n)}{f(n)}"
+    ],
+    "pinyin": "daoshu bianhuan",
+    "pinyinAbbr": "dsbh"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.79,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "b_{n+1} = \\frac{h(n)}{f(n)} b_n + \\frac{g(n)}{f(n)}",
+    "related_formulas": [
+      "a_{n+1} = \\frac{f(n) a_n}{g(n) a_n + h(n)}",
+      "b_{n+1} = \\frac{r}{p} b_n + \\frac{q}{p} \\quad (\\text{当 } f(n)=p,\\, g(n)=q,\\, h(n)=r)"
+    ],
+    "variables": [
+      "a_n",
+      "b_n",
+      "f(n)",
+      "g(n)",
+      "h(n)",
+      "n"
+    ],
+    "conditions": "递推 $a_{n+1} = \\frac{f(n) a_n}{g(n) a_n + h(n)}$ 中，对任意 $n$ 有 $f(n)\\neq 0$, $h(n)\\neq 0$, $a_n\\neq 0$, 且分母 $g(n)a_n+h(n)\\neq 0$。",
+    "conclusions": "令 $b_n = 1/a_n$，则 $\\{b_n\\}$ 满足一阶线性递推 $b_{n+1} = \\frac{h(n)}{f(n)} b_n + \\frac{g(n)}{f(n)}$，之后可用累加法或构造法求 $b_n$ 通项，再取倒数得 $a_n$。"
+  },
+  "content": {
+    "statement": "若数列 $\\{a_n\\}$ 满足 $a_{n+1} = \\frac{f(n) a_n}{g(n) a_n + h(n)}$，其中 $f(n),g(n),h(n)$ 是关于 $n$ 的已知函数，且 $f(n)\\neq 0$, $h(n)\\neq 0$, $a_n\\neq 0$, 分母 $g(n)a_n+h(n)\\neq 0$。令 $b_n = 1/a_n$，则 $\\{b_n\\}$ 满足一阶线性递推 $b_{n+1} = \\frac{h(n)}{f(n)} b_n + \\frac{g(n)}{f(n)}$。",
+    "derivation": [
+      "令 $b_n = \\dfrac{1}{a_n}$，则 $a_n = \\dfrac{1}{b_n}$，$a_{n+1} = \\dfrac{1}{b_{n+1}}$。",
+      "代入原递推得 $\\dfrac{1}{b_{n+1}} = \\dfrac{f(n)\\cdot\\frac{1}{b_n}}{g(n)\\cdot\\frac{1}{b_n}+h(n)} = \\dfrac{f(n)}{g(n)+h(n) b_n}$。",
+      "两边取倒数得 $b_{n+1} = \\dfrac{g(n)+h(n) b_n}{f(n)} = \\dfrac{h(n)}{f(n)} b_n + \\dfrac{g(n)}{f(n)}$。"
+    ],
+    "intuition": "取倒数将分式分母中的 $a_n$ 变成分子，从而把分式拆成线性形式。",
+    "common_tricks": [
+      "识别递推形式：分子只能有 $a_n$ 的一次项，不能有常数项；否则不能直接用倒数变换。",
+      "验证非零条件：使用前必须确认所有 $a_n$ 均非零，且分母不为零。",
+      "得到线性递推后，若系数为常数，则转化为等差数列或等比数列；若非常数，则用累加法或构造法。",
+      "最后回代：$a_n = 1/b_n$。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "数列递推题",
+      "求通项公式"
+    ],
+    "problem_types": [
+      "分式递推求通项",
+      "构造法求通项"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": ""
+  },
+  "shareConfig": {
+    "title": "分式递推倒数变换法：快速化一阶线性求通项",
+    "shareDesc": "适合数列递推题，通过取倒数将分式递推转化为一阶线性递推，再用构造法或累加法求解，减少复杂变形错误。可用于课后复盘和讲评课。"
+  },
+  "relations": {
+    "prerequisites": [
+      "数列递推基础",
+      "一阶线性递推",
+      "等差数列累加法"
+    ],
+    "related_ids": [],
+    "similar": "类似结论：对于分式递推 $a_{n+1}=\\frac{pa_n+q}{ra_n+s}$，可通过不动点法化为等比数列。"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "数列-递推数列-构造法",
+  "altNodes": [
+    "数列-递推数列-递推关系",
+    "数列-通项公式-构造法"
+  ]
+}
