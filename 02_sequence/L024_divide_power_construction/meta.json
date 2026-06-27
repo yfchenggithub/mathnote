@@ -1,0 +1,176 @@
+{
+  "id": "L024",
+  "module": "sequence",
+  "core": {
+    "title": "递推 =+ 的同除变换构造法",
+    "alias": [
+      "同除构造",
+      "除以q^n法",
+      "除以p^n法"
+    ],
+    "summary": "对形如 a_{n+1}=p a_n+q^n 的递推，两边同除以 q^{n+1} 或 p^{n+1}，可转化为标准线性递推或累加形式，进而求得通项。",
+    "difficulty": 3,
+    "category": "数列",
+    "tags": [
+      "递推数列",
+      "构造法",
+      "同除变换",
+      "一阶线性递推",
+      "累加求和"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "递推 a_{n+1}=pa_n+q^n",
+      "同除 q^{n+1}",
+      "同除 p^{n+1}",
+      "构造等比数列",
+      "累加求和求通项",
+      "数列递推构造法",
+      "除以指数幂",
+      "待定系数法递推",
+      "一阶线性递推标准形式",
+      "p=q 等差数列",
+      "数列通项公式构造",
+      "a_{n+1}=2a_n+3^n 解法"
+    ],
+    "synonyms": [
+      "两边同除以q的n+1次方",
+      "除以p的n+1次方",
+      "同除构造法",
+      "同除幂构造",
+      "a_{n+1}=pa_n+q^n通项"
+    ],
+    "intents": [
+      "求通项",
+      "构造新数列",
+      "化为线性递推",
+      "累加求和",
+      "识别同除方法",
+      "判断p=q情况"
+    ],
+    "query_templates": [
+      "a_{n+1}=pa_n+q^n 怎么求通项",
+      "递推a_{n+1}=2a_n+3^n",
+      "同除构造法数列",
+      "除以q^{n+1} 构造等比",
+      "a_{n+1}=4a_n+3^n 通项公式",
+      "p=q时等差数列"
+    ],
+    "ocrKeywords": [
+      "a_{n+1}=p a_n+q^n",
+      "除以q^{n+1}",
+      "除以p^{n+1}",
+      "frac{a_{n+1}}{q^{n+1}}",
+      "frac{p}{q}",
+      "frac{1}{q}",
+      "frac{1}{p}",
+      "left(frac{q}{p}right)^n"
+    ],
+    "latex_patterns": [
+      "\\frac{a_{n+1}}{q^{n+1}} = \\frac{p}{q}\\cdot\\frac{a_n}{q^n}+\\frac{1}{q}",
+      "\\frac{a_{n+1}}{p^{n+1}} = \\frac{a_n}{p^n}+\\frac{1}{p}\\left(\\frac{q}{p}\\right)^n"
+    ],
+    "formulaTokens": [
+      "a_{n+1}=p a_n+q^n",
+      "\\frac{a_{n+1}}{q^{n+1}}",
+      "\\frac{p}{q}\\cdot\\frac{a_n}{q^n}",
+      "\\frac{1}{q}",
+      "\\frac{a_{n+1}}{p^{n+1}}",
+      "\\frac{a_n}{p^n}",
+      "\\frac{1}{p}\\left(\\frac{q}{p}\\right)^n",
+      "\\frac{a_{n+1}}{q^{n+1}} = \\frac{a_n}{q^n}+\\frac{1}{q}",
+      "p=q"
+    ],
+    "pinyin": "tongchuzaofa",
+    "pinyinAbbr": "tczf"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.67,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\displaystyle \\frac{a_{n+1}}{q^{n+1}}=\\frac{p}{q}\\cdot\\frac{a_n}{q^n}+\\frac{1}{q}\\quad\\text{或}\\quad \\frac{a_{n+1}}{p^{n+1}}=\\frac{a_n}{p^n}+\\frac{1}{p}\\left(\\frac{q}{p}\\right)^n",
+    "related_formulas": [
+      "\\frac{a_{n+1}}{q^{n+1}}=\\frac{a_n}{q^n}+\\frac{1}{q}\\quad(p=q)",
+      "b_n=\\frac{a_n}{q^n},\\;b_{n+1}=\\frac{p}{q}b_n+\\frac{1}{q}",
+      "c_n=\\frac{a_n}{p^n},\\;c_{n+1}=c_n+\\frac{1}{p}\\left(\\frac{q}{p}\\right)^n"
+    ],
+    "variables": "a_n, p, q, n",
+    "conditions": "数列 $\\{a_n\\}$ 满足递推 $a_{n+1}=p a_n+q^n$，其中 $p,q$ 为常数且 $q\\neq0$；若使用除以 $p^{n+1}$ 的变换，还需 $p\\neq0$。",
+    "conclusions": "两边同除 $q^{n+1}$ 可化为关于 $\\frac{a_n}{q^n}$ 的一阶线性递推；两边同除 $p^{n+1}$ 可化为关于 $\\frac{a_n}{p^n}$ 的累加形式。当 $p=q$ 时，$\\left\\{\\frac{a_n}{q^n}\\right\\}$ 是公差为 $\\frac{1}{q}$ 的等差数列。"
+  },
+  "content": {
+    "statement": "若数列 $\\{a_n\\}$ 满足递推 $a_{n+1}=p a_n+q^n$（$p,q$ 为常数且 $q\\neq0$，若除以 $p^{n+1}$ 还需 $p\\neq0$），则两边同除以 $q^{n+1}$ 得 $\\frac{a_{n+1}}{q^{n+1}}=\\frac{p}{q}\\cdot\\frac{a_n}{q^n}+\\frac{1}{q}$；同除以 $p^{n+1}$ 得 $\\frac{a_{n+1}}{p^{n+1}}=\\frac{a_n}{p^n}+\\frac{1}{p}\\left(\\frac{q}{p}\\right)^n$。当 $p=q$ 时第一个变换直接得到等差数列。",
+    "derivation": [
+      "对 $a_{n+1}=p a_n+q^n$ 两边同除以 $q^{n+1}$：$\\frac{a_{n+1}}{q^{n+1}} = \\frac{p a_n}{q^{n+1}} + \\frac{q^n}{q^{n+1}} = \\frac{p}{q}\\cdot\\frac{a_n}{q^n}+\\frac{1}{q}$。",
+      "对 $a_{n+1}=p a_n+q^n$ 两边同除以 $p^{n+1}$：$\\frac{a_{n+1}}{p^{n+1}} = \\frac{p a_n}{p^{n+1}} + \\frac{q^n}{p^{n+1}} = \\frac{a_n}{p^n} + \\frac{1}{p}\\left(\\frac{q}{p}\\right)^n$。",
+      "当 $p=q$ 时，第一个变换为 $\\frac{a_{n+1}}{q^{n+1}}=\\frac{a_n}{q^n}+\\frac{1}{q}$，即相邻两项差为常数 $\\frac{1}{q}$，故 $\\left\\{\\frac{a_n}{q^n}\\right\\}$ 是等差数列。"
+    ],
+    "intuition": "通过除以指数幂，将原递推中不同次数的项化为同一变量的相邻项，从而转化为已知的线性递推或累加结构。",
+    "common_tricks": [
+      "优先除以底数较小的幂，可使后续系数简单。",
+      "若 $p$ 与 $q$ 的绝对值相近或相等，优先考虑除以 $q^{n+1}$ 以直接得到等差数列。",
+      "当 $p\\neq q$ 时，两种方法都可用，但除以 $p^{n+1}$ 后通常需要等比数列求和，需注意公比不为1。",
+      "求和时注意项数，累加是从 $k=1$ 到 $n-1$。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "数列求通项",
+      "递推公式构造新数列"
+    ],
+    "problem_types": [
+      "由递推求通项公式",
+      "构造证明题"
+    ],
+    "exam_frequency": 0.6,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "L024.svg",
+    "png": "",
+    "thumb": "",
+    "datasets": {}
+  },
+  "shareConfig": {
+    "title": "递推 a_{n+1}=pa_n+q^n 同除构造，快速求通项",
+    "shareDesc": "适合复习课和刷题前速查，解决形如 a_{n+1}=pa_n+q^n 的递推，用同除变形转化为线性或累加，避免因构造方向错误浪费时间。"
+  },
+  "relations": {
+    "prerequisites": [
+      "递推公式的基本概念",
+      "一阶线性递推的构造法",
+      "等比数列求和公式",
+      "等差数列定义"
+    ],
+    "related_ids": [],
+    "similar": "类似方法还可用于 $a_{n+1}=p a_n+q\\cdot r^n$ 等更一般的指数型递推。"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "数列-递推数列-构造法",
+  "altNodes": [
+    "数列-递推数列-递推关系",
+    "数列-等差数列-通项公式",
+    "数列-等比数列-通项公式"
+  ]
+}

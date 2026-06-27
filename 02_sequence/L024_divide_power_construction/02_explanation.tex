@@ -1,0 +1,52 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+	通过同时除以某个幂，将不可直接求解的递推转化为熟悉的等差或等比形式。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（同除构造新数列）：}]
+			对 $a_{n+1}=p a_n+q^n$，选择除以 $q^{n+1}$ 或 $p^{n+1}$，使得新数列 $\{b_n\}$ 中不含 $q^n$ 或 $p^n$ 的单独项，而变成 $b_{n+1}=k b_n+c$ 或 $b_{n+1}=b_n+f(n)$ 的形式。
+		\item[\textbf{要点二（优先除以较小底数）：}]
+			当 $|p|\neq|q|$ 时，选择除以绝对值较小的底数的幂，通常使后续计算更简单；同时需注意变形后分母不能为零。
+		\item[\textbf{要点三（两种变形路径等价）：}]
+			两种除法本质上都是线性变换，均可求得通项，但具体哪种更简便取决于 $p,q$ 的数值关系。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（坐标缩放变换）}}
+	将数列看作点在数轴上的运动，除以幂相当于缩放坐标轴，使原递推转化为线性递推。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（线性化与求和）}}
+	除以 $q^{n+1}$ 后得到
+	\[
+		\frac{a_{n+1}}{q^{n+1}}=\frac{p}{q}\cdot\frac{a_n}{q^n}+\frac{1}{q},
+	\]
+	这是关于 $\frac{a_n}{q^n}$ 的一阶线性递推；除以 $p^{n+1}$ 后得到
+	\[
+		\frac{a_{n+1}}{p^{n+1}}=\frac{a_n}{p^n}+\frac{1}{p}\Big(\frac{q}{p}\Big)^n,
+	\]
+	右边是可累加的等比数列形式。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（构造与待定系数）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（直接套公式）：} 已知递推形如 $a_{n+1}=pa_n+q^n$，直接应用同除变换写出新数列通项，再回代得 $a_n$。
+		\item \textbf{考法二（识别优先底数）：} 当 $p$ 与 $q$ 数值关系明显时，选择除以较小底数以简化运算。
+		\item \textbf{考法三（综合求和）：} 在求出通项后，常需结合等比数列求和公式求 $a_n$ 的前 $n$ 项和。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+	为什么除以 $q^{n+1}$ 而不是 $q^n$？因为除以 $q^n$ 后左边是 $\frac{a_{n+1}}{q^n}$，右边出现 $\frac{a_n}{q^n}$ 的项但系数不齐；除以 $q^{n+1}$ 使下标对齐，便于构造新数列。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（已知递推求通项）：} 题目给出 $a_{n+1}=p a_n+q^n$ 且给出 $a_1$，要求 $a_n$ 通项公式。
+		\item \textbf{场景二（直接凑等比困难）：} 当递推中既有 $p a_n$ 又有 $q^n$ 不易直接拆分时，同除是标准技巧。
+		\item \textbf{场景三（含参数讨论）：} 参数 $p,q$ 用字母表示，需区分 $p=q$ 与 $p\neq q$ 两种情况分别求解。
+	\end{itemize}
+
+\end{explanationbox}

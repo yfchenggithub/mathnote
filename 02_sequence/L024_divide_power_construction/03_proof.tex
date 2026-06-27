@@ -1,0 +1,55 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	通过代数恒等变形将原递推转化为新数列的线性递推，核心操作是两边同除恰当的幂，使得新数列的递推式中不再出现独立的 $q^n$ 项。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（除以 $q^{n+1}$ 变形）：}]
+			对原递推 $a_{n+1}=pa_n+q^n$ 两边同除以 $q^{n+1}$。
+			\[
+				\frac{a_{n+1}}{q^{n+1}} = \frac{pa_n}{q^{n+1}} + \frac{q^n}{q^{n+1}}.
+			\]
+			\par\textbf{理由：} 目的是将右边第一项中的 $a_n$ 配成 $\frac{a_n}{q^n}$ 的形式。化简右边：
+			\[
+				\frac{pa_n}{q^{n+1}} = \frac{p}{q}\cdot\frac{a_n}{q^n},
+				\qquad
+				\frac{q^n}{q^{n+1}} = \frac{1}{q}.
+			\]
+			代入得
+			\[
+				\frac{a_{n+1}}{q^{n+1}} = \frac{p}{q}\cdot\frac{a_n}{q^n}+\frac{1}{q},
+			\]
+			即第一个变换公式。若记 $b_n=\dfrac{a_n}{q^n}$，则 $b_{n+1}=\dfrac{p}{q}b_n+\dfrac{1}{q}$，为一阶线性递推。
+		\item[\textbf{步骤二（除以 $p^{n+1}$ 变形）：}]
+			对原递推两边同除以 $p^{n+1}$（要求 $p\neq0$）。
+			\[
+				\frac{a_{n+1}}{p^{n+1}} = \frac{pa_n}{p^{n+1}} + \frac{q^n}{p^{n+1}}.
+			\]
+			\par\textbf{理由：} 化简右边第一项：
+			\[
+				\frac{pa_n}{p^{n+1}} = \frac{a_n}{p^n}.
+			\]
+			第二项：
+			\[
+				\begin{aligned}
+					\frac{q^n}{p^{n+1}} &= \frac{1}{p}\cdot\frac{q^n}{p^n} \\ &= \frac{1}{p}\left(\frac{q}{p}\right)^n.
+			\end{aligned}
+			\]
+			所以
+			\[
+				\frac{a_{n+1}}{p^{n+1}} = \frac{a_n}{p^n} + \frac{1}{p}\left(\frac{q}{p}\right)^n,
+			\]
+			即第二个变换公式。此时若令 $c_n=\dfrac{a_n}{p^n}$，则 $c_{n+1}=c_n+\dfrac{1}{p}\left(\dfrac{q}{p}\right)^n$，右边是等比数列形式，可通过累加法求 $c_n$。
+		\item[\textbf{步骤三（$p=q$ 特例）：}]
+			当 $p=q$ 时，第一个变换公式中 $\dfrac{p}{q}=1$，于是
+			\[
+				\frac{a_{n+1}}{q^{n+1}} = \frac{a_n}{q^n} + \frac{1}{q}.
+			\]
+			\par\textbf{理由：} 此时 $\{b_n\}$（$b_n=\dfrac{a_n}{q^n}$）满足 $b_{n+1}=b_n+\dfrac{1}{q}$，即公差为 $\dfrac{1}{q}$ 的等差数列，可直接写出通项。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{通过以上三步，我们得到两种重要的同除变形公式以及它们的特殊情形。在实际解题中，根据 $p,q$ 的具体数值选用适当变换，即可将原递推转化为等差或等比数列问题求解。}
+\end{proofbox}

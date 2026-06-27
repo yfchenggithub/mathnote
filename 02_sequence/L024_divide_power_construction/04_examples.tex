@@ -1,0 +1,123 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例1（基础）}}
+	\textbf{\textcolor{CExample}{题目：}}已知数列$\{a_n\}$满足$a_{n+1}=2a_n+3^n$，$a_1=1$，求$a_n$的通项公式。\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（同除构造）：}]
+			对递推两边同除以$3^{n+1}$，得
+			\[
+				\frac{a_{n+1}}{3^{n+1}} = \frac{2}{3}\cdot\frac{a_n}{3^n} + \frac{1}{3}.
+			\]
+			\par\textbf{理由：} 应用结论一（除以$q^{n+1}$），将原递推化为关于$\frac{a_n}{3^n}$的一阶线性递推。
+		\item[\textbf{第二步（构造等比）：}]
+			设$b_n=\dfrac{a_n}{3^n}$，则$b_{n+1}=\dfrac{2}{3}b_n+\dfrac{1}{3}$。令$b_{n+1}+k=\dfrac{2}{3}(b_n+k)$，解得$k=-1$。因此$\{b_n-1\}$是等比数列，首项$b_1-1=\dfrac{1}{3}-1=-\dfrac{2}{3}$，公比$\dfrac{2}{3}$。
+			\par\textbf{理由：} 通过待定系数法消去常数项，构造出等比形式。
+		\item[\textbf{第三步（回代得解）：}]
+			由等比通项公式：
+			\[
+				\begin{aligned}
+					b_n-1 &= \left(-\frac{2}{3}\right)\left(\frac{2}{3}\right)^{n-1} \\ &= -\left(\frac{2}{3}\right)^n,
+			\end{aligned}
+			\]
+			故$b_n=1-\left(\dfrac{2}{3}\right)^n$。于是
+			\[
+				\begin{aligned}
+					a_n &= 3^n b_n \\ &= 3^n\left[1-\left(\frac{2}{3}\right)^n\right] \\ &= 3^n-2^n.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 将$b_n$代回$a_n=3^n b_n$，化简即得简洁形式。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$a_n = 3^n - 2^n$}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例2（稍变形）}}
+	\textbf{\textcolor{CExample}{题目：}}已知数列$\{a_n\}$满足$a_{n+1}=4a_n+3^n$，$a_1=1$，求$a_n$的通项公式。\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（同除构造）：}]
+			对递推两边同除以$4^{n+1}$，得
+			\[
+				\frac{a_{n+1}}{4^{n+1}} = \frac{a_n}{4^n} + \frac{1}{4}\left(\frac{3}{4}\right)^n.
+			\]
+			\par\textbf{理由：} 应用结论二（除以$p^{n+1}$），将原递推化为关于$\frac{a_n}{4^n}$的累加形式。
+		\item[\textbf{第二步（累加求和）：}]
+			设$c_n=\dfrac{a_n}{4^n}$，则$c_{n+1}=c_n+\dfrac{1}{4}\left(\dfrac{3}{4}\right)^n$，$c_1=\dfrac{1}{4}$。对$k=1$到$n-1$累加：
+			\[
+				c_n = \frac{1}{4} + \sum_{k=1}^{n-1}\frac{1}{4}\left(\frac{3}{4}\right)^k.
+			\]
+			利用等比数列求和公式：
+			\[
+				\begin{aligned}
+					\sum_{k=1}^{n-1}\left(\frac{3}{4}\right)^k &= \frac{\frac{3}{4}\left[1-\left(\frac{3}{4}\right)^{n-1}\right]}{1-\frac{3}{4}} \\ &= 3\left[1-\left(\frac{3}{4}\right)^{n-1}\right].
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 公比$\frac{3}{4}\neq1$，直接使用求和公式。
+		\item[\textbf{第三步（化简回代）：}]
+			代入得
+			\[
+				\begin{aligned}
+					c_n &= \frac{1}{4} + \frac{1}{4}\cdot 3\left[1-\left(\frac{3}{4}\right)^{n-1}\right] \\ &= \frac{1}{4} + \frac{3}{4}\left[1-\left(\frac{3}{4}\right)^{n-1}\right] \\ &= 1 - \left(\frac{3}{4}\right)^n.
+			\end{aligned}
+			\]
+			因此
+			\[
+				\begin{aligned}
+					a_n &= 4^n c_n \\ &= 4^n\left[1-\left(\frac{3}{4}\right)^n\right] \\ &= 4^n - 3^n.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 化简即得最终通项。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$a_n = 4^n - 3^n$}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例3（综合应用）}}
+	\textbf{\textcolor{CExample}{题目：}}已知数列$\{a_n\}$满足$a_{n+1}=p a_n+4^n$，$a_1=1$。分别求$p=2$和$p=4$时的通项公式。\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（同除较小底）：}]
+			当$p=2$时，两边同除以$2^{n+1}$，得
+			\[
+				\begin{aligned}
+					\frac{a_{n+1}}{2^{n+1}} &= \frac{a_n}{2^n} + \frac{1}{2}\left(\frac{4}{2}\right)^n \\ &= \frac{a_n}{2^n} + 2^{n-1}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} $p=2<q=4$，优先除以较小的底数2（即$p^{n+1}$），应用结论二。
+		\item[\textbf{第二步（累加求和）：}]
+			设$b_n=\dfrac{a_n}{2^n}$，则$b_{n+1}=b_n+2^{n-1}$，$b_1=\dfrac{1}{2}$。累加得
+			\[
+				\begin{aligned}
+					b_n &= \frac{1}{2} + \sum_{k=1}^{n-1}2^{k-1} \\ &= \frac{1}{2} + (2^{n-1}-1) \\ &= 2^{n-1}-\frac{1}{2}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 等比数列求和（公比2）。
+		\item[\textbf{第三步（回代得解）：}]
+			由$a_n=2^n b_n$得
+			\[
+				\begin{aligned}
+					a_n &= 2^n\left(2^{n-1}-\frac{1}{2}\right) \\ &= 2^{2n-1} - 2^{n-1} \\ &= 2^{n-1}(2^n-1).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 代入化简即得。
+		\item[\textbf{第四步（同除构造）：}]
+			当$p=4$时，$p=q=4$，两边同除以$4^{n+1}$，得
+			\[
+				\frac{a_{n+1}}{4^{n+1}} = \frac{a_n}{4^n} + \frac{1}{4}.
+			\]
+			\par\textbf{理由：} $p=q$，应用推广结论，直接得到等差数列。
+		\item[\textbf{第五步（等差求解）：}]
+			设$c_n=\dfrac{a_n}{4^n}$，则$c_{n+1}=c_n+\dfrac{1}{4}$，$c_1=\dfrac{1}{4}$，故
+			\[
+				\begin{aligned}
+					c_n &= \frac{1}{4} + (n-1)\frac{1}{4} \\ &= \frac{n}{4}.
+			\end{aligned}
+			\]
+			于是
+			\[
+				\begin{aligned}
+					a_n &= 4^n\cdot\frac{n}{4} \\ &= n\cdot4^{n-1}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 等差数列通项公式。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{当$p=2$时，$a_n=2^{n-1}(2^n-1)$；当$p=4$时，$a_n=n\cdot4^{n-1}$。}
+\end{examplebox}
