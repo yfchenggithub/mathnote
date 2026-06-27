@@ -1,0 +1,47 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用等差数列定义 $a_{k+1}-a_k = d$，对 $k$ 从 $1$ 到 $n-1$ 求和，中间项全部抵消，得到 $a_n-a_1$ 与 $n-1$ 个 $d$ 的关系。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（相邻项差）：}] 由等差数列定义，对任意正整数 $k$ 有
+			\[
+				a_{k+1} - a_k = d.
+			\]
+			\par\textbf{理由：} 等差数列的相邻两项之差为定值 $d$。
+
+		\item[\textbf{步骤二（求和累加）：}] 对等式 $a_{k+1}-a_k = d$ 从 $k=1$ 到 $n-1$ 求和：
+			\[
+				\begin{aligned}
+					\sum_{k=1}^{n-1}(a_{k+1}-a_k) &= \sum_{k=1}^{n-1} d \\
+					&= (n-1)d.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 右边是 $n-1$ 个 $d$ 相加。
+
+		\item[\textbf{步骤三（裂项相消）：}] 左边展开为
+			\[
+				(a_2-a_1)+(a_3-a_2)+\dots+(a_n-a_{n-1}) = a_n - a_1.
+			\]
+			\par\textbf{理由：} 相邻项正负抵消，仅剩首尾项。
+
+		\item[\textbf{步骤四（解出通项）：}] 由 $a_n-a_1 = (n-1)d$ 移项得
+			\[
+				a_n = a_1 + (n-1)d.
+			\]
+			\par\textbf{理由：} 将 $a_1$ 移到右边。
+
+		\item[\textbf{步骤五（一次形式）：}] 将上式整理为
+			\[
+				a_n = d\,n + (a_1 - d).
+			\]
+			\par\textbf{理由：} 合并含 $n$ 的项，常数项合并。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{以上推导得到等差数列的通项公式 $a_n = a_1+(n-1)d$（即 $d\,n + (a_1-d)$），它是证明等差数列通项的标准方法。}
+\end{proofbox}
