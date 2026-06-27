@@ -1,0 +1,156 @@
+{
+  "id": "L019",
+  "module": "sequence",
+  "core": {
+    "title": "已知前n项和求通项公式",
+    "alias": [
+      "S_n求a_n",
+      "前n项和求通项",
+      "通项分段形式"
+    ],
+    "summary": "已知S_n求a_n时，n=1直接取S_1，n≥2取差，验证是否一致决定是否分段。",
+    "difficulty": 2,
+    "category": "数列",
+    "tags": [
+      "数列",
+      "通项公式",
+      "前n项和",
+      "分段通项"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "前n项和",
+      "通项公式",
+      "S_n",
+      "a_n",
+      "S_n-S_{n-1}",
+      "分段",
+      "验证n=1",
+      "数列通项",
+      "已知前n项和求通项"
+    ],
+    "synonyms": [
+      "前n项和求通项公式",
+      "S_n求a_n",
+      "数列通项怎么求",
+      "S_n与a_n关系"
+    ],
+    "intents": [
+      "求通项",
+      "验证",
+      "判断分段"
+    ],
+    "query_templates": [
+      "已知S_n求a_n",
+      "已知前n项和求通项公式",
+      "数列通项怎么求",
+      "S_n与a_n关系",
+      "通项公式分段"
+    ],
+    "ocrKeywords": [
+      "S_n",
+      "a_n",
+      "S_1",
+      "S_n-S_{n-1}",
+      "n=1",
+      "n≥2"
+    ],
+    "latex_patterns": [
+      "a_n=\\begin{cases} S_1 & n=1 \\\\ S_n-S_{n-1} & n\\ge 2 \\end{cases}"
+    ],
+    "formulaTokens": [
+      "S_1",
+      "S_n",
+      "S_{n-1}",
+      "S_n-S_{n-1}",
+      "a_n",
+      "n=1",
+      "n\\ge 2"
+    ],
+    "pinyin": "qian n xiang he qiu tong xiang gong shi",
+    "pinyinAbbr": "qnxhqtxgs"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.8,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "a_n=\\begin{cases} S_1, & n=1 \\\\ S_n-S_{n-1}, & n\\ge 2 \\end{cases}",
+    "related_formulas": [
+      "若 $S_n-S_{n-1}$ 化简后代入 $n=1$ 等于 $S_1$，则 $a_n=S_n-S_{n-1}$ 对所有 $n\\in\\mathbb{N}^*$ 成立。"
+    ],
+    "variables": [
+      "a_n",
+      "S_n",
+      "n"
+    ],
+    "conditions": "已知数列 $\\{a_n\\}$ 的前 $n$ 项和 $S_n$（$n\\in\\mathbb{N}^*$），且对 $n\\ge 2$，$S_n$ 均有定义，并约定 $S_0=0$。",
+    "conclusions": "通项公式为 $a_n=\\begin{cases} S_1, & n=1 \\\\ S_n-S_{n-1}, & n\\ge 2 \\end{cases}$。若 $n\\ge2$ 时由 $S_n-S_{n-1}$ 化简得到的式子代入 $n=1$ 后等于 $S_1$，则该式对 $n=1$ 也成立，通项可统一写为该式，无需分段。"
+  },
+  "content": {
+    "statement": "已知数列 $\\{a_n\\}$ 的前 $n$ 项和 $S_n$（$n\\in\\mathbb{N}^*$），且对 $n\\ge 2$，$S_n$ 均有定义，并约定 $S_0=0$，则其通项公式为\n\\[a_n=\\begin{cases} S_1, & n=1,\\\\ S_n-S_{n-1}, & n\\ge 2. \\end{cases}\\]\n特别地，若由 $S_n-S_{n-1}$ 得到的 $n\\ge 2$ 表达式代入 $n=1$ 后不等于 $S_1$，则通项必须写成分段形式。",
+    "derivation": [
+      "当 $n=1$ 时，由前 $n$ 项和定义得 $a_1=S_1$。",
+      "当 $n\\ge 2$ 时，$a_n = S_n - S_{n-1}$（相邻两项和之差即为第 $n$ 项）。",
+      "将 $n\\ge2$ 得到的表达式代入 $n=1$，若等于 $S_1$ 则通项统一；否则必须分段。"
+    ],
+    "intuition": "通项 $a_n$ 就是前 $n$ 项和减去前 $n-1$ 项和，但 $n=1$ 时 $S_0$ 无定义，故单独处理。",
+    "common_tricks": [
+      "先求 $a_1=S_1$，再求 $n\\ge2$ 时的 $a_n=S_n-S_{n-1}$。",
+      "必须验证 $n\\ge2$ 表达式代入 $n=1$ 是否等于 $a_1$，相等则合并，不等则分段。",
+      "题目若已知 $S_n$ 为关于 $n$ 的多项式或指数型，化简时注意因式分解。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "数列章节课后复习",
+      "刷题前快速回顾公式"
+    ],
+    "problem_types": [
+      "求通项公式",
+      "判断是否分段"
+    ],
+    "exam_frequency": 0.9,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": ""
+  },
+  "shareConfig": {
+    "title": "已知前n项和求通项：分段公式与验证技巧",
+    "shareDesc": "适合数列章节课后复盘和刷题前速查，快速掌握由S_n求a_n的规范步骤，避免忽略n=1导致错误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "数列的概念",
+      "前n项和的定义"
+    ],
+    "related_ids": [],
+    "similar": [
+      "等差数列通项与求和的关系"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "数列-递推数列-递推关系",
+  "altNodes": "数列-等差数列-通项公式,数列-等比数列-通项公式"
+}

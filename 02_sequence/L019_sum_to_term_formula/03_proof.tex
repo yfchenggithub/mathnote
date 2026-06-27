@@ -1,0 +1,44 @@
+\begin{proofbox}
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	从前 $n$ 项和的定义出发，分别讨论 $n=1$ 和 $n\ge2$ 的情形，最后说明何时需要分段。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（$n=1$ 情形）：}] 由定义，$S_1$ 是首项之和，即 $S_1 = a_1$。
+			\[
+				a_1 = S_1.
+			\]
+			\par\textbf{理由：}
+			前 $1$ 项和就是第一项本身。
+
+		\item[\textbf{步骤二（$n\ge2$ 情形）：}] 对任意 $n\ge2$，有 $S_n = a_1 + a_2 + \cdots + a_n$，$S_{n-1} = a_1 + a_2 + \cdots + a_{n-1}$，两式相减得：
+			\[
+				a_n = S_n - S_{n-1}.
+			\]
+			\par\textbf{理由：}
+			前 $n$ 项和减去前 $n-1$ 项和，只剩第 $n$ 项。
+
+		\item[\textbf{步骤三（分段必要性）：}] 在 $n\ge2$ 时，由 $S_n$ 的表达式计算 $a_n = S_n - S_{n-1}$，并化简得到仅含 $n$ 的式子（记为 $f(n)$）。计算 $f(1)$，若 $f(1)=S_1$，则通项可统一为 $a_n = f(n)\ (n\in\mathbb{N}^*)$；若 $f(1)\neq S_1$，则必须写成分段形式：
+			\[
+				a_n = \begin{cases}
+				S_1, & n=1,\\
+				f(n), & n\ge2.
+		\end{cases}
+		\]
+		\par\textbf{理由：}
+		通项公式必须在所有正整数 $n$ 上有定义且一致，$n=1$ 处需要单独确认。统一的前提是化简后的式子恰好也能给出正确的首项。
+
+	\item[\textbf{步骤四（$S_0$ 的约定）：}] 约定 $S_0=0$ 只是为了书写时形式上统一，不是必要条件；实际计算时直接用 $a_1=S_1$ 即可。
+		\par\textbf{理由：}
+		使 $n\ge2$ 的公式在 $n=1$ 时形式上得到 $S_1-S_0=S_1$，但真正决定是否分段的仍是 $S_1$ 与 $n\ge2$ 表达式在 $n=1$ 处的值的关系。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+
+\textbf{综上，已知 $S_n$ 求 $a_n$ 的标准方法：首先由 $S_1$ 得到 $a_1$；再利用 $a_n=S_n-S_{n-1}$（$n\ge2$）得通项表达式；最后验证 $n=1$ 是否匹配，决定是否分段。}
+
+\end{proofbox}
