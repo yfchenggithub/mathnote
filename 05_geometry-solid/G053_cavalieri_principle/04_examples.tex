@@ -1,0 +1,94 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	有两个柱体，一个是底面半径为 $R$ 的圆柱，高为 $H$；另一个是底面为正方形且面积等于 $\pi R^2$ 的直棱柱，高也为 $H$。用祖暅原理证明它们的体积相等。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（截面面积）：}] 对于圆柱，任意高度 $h\in[0,H]$ 的截面是半径为 $R$ 的圆，面积恒为 $\pi R^2$；对于棱柱，截面是与底面全等的正方形，面积也恒为 $\pi R^2$。因此
+			\[
+				S_c(h) = \pi R^2,
+				\qquad
+				S_q(h) = \pi R^2.
+			\]
+			\par\textbf{理由：} 柱体平行于底面的截面与底面全等，面积不变。
+		\item[\textbf{第二步（面积相等）：}] 两个截面面积函数在区间 $[0,H]$ 上处处相等：
+			\[
+				S_c(h) = S_q(h) \quad (\forall h\in[0,H]).
+			\]
+			\par\textbf{理由：} 直接比较可得。
+		\item[\textbf{第三步（套用原理）：}] 两个柱体高均为 $H$，且截面面积处处相等，由祖暅原理得体积相等：
+			\[
+				V_c = V_q.
+			\]
+			\par\textbf{理由：} 满足祖暅原理的条件，结论成立。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{等底等高的柱体，当底面积相等时，体积相等，与底面形状无关。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知球的半径为 $R$。构造几何体 $B$：底面半径和高均为 $R$ 的圆柱，内部挖去一个底面与圆柱上底面相同、顶点在圆柱下底面中心的圆锥。试用祖暅原理证明半球 $A$（半径为 $R$）与几何体 $B$ 体积相等，并导出球体积公式。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（坐标与截面面积）：}] 将半球 $A$ 和几何体 $B$ 的底面置于同一水平面，高均为 $R$。以底部为原点，$h$ 轴向上。在高度 $h$ 处：
+			\begin{itemize}
+			\item 半球 $A$ 的截面是半径为 $\sqrt{R^2 - h^2}$ 的圆，面积 $S_A(h) = \pi(R^2 - h^2)$。
+			\item 几何体 $B$（圆柱挖圆锥）的截面是圆环：外半径 $R$，内半径 $h$，面积 $S_B(h) = \pi R^2 - \pi h^2 = \pi(R^2 - h^2)$。
+		\end{itemize}
+			\[
+				S_A(h) = \pi(R^2 - h^2),
+				\qquad
+				S_B(h) = \pi(R^2 - h^2).
+			\]
+			\par\textbf{理由：} 截面面积由几何形状直接计算。
+		\item[\textbf{第二步（截面相等）：}] 对任意 $h\in[0,R]$，$S_A(h) = S_B(h)$。
+			\[
+				S_A(h) = S_B(h) \quad (\forall h\in[0,R]).
+			\]
+			\par\textbf{理由：} 表达式相同。
+		\item[\textbf{第三步（原理与计算）：}] 由祖暅原理，$V_A = V_B$。而 $V_B = \pi R^2 \cdot R - \frac13 \pi R^2 \cdot R = \frac23 \pi R^3$。因此 $V_A = \frac23 \pi R^3$，球体积 $V = 2V_A = \frac43 \pi R^3$。
+			\[
+				V_A = V_B = \frac23\pi R^3,\quad V = \frac43\pi R^3.
+			\]
+			\par\textbf{理由：} 圆柱和圆锥体积公式已知；祖暅原理保证了等积关系。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{利用祖暅原理可求得球的体积公式 $V = \frac43 \pi R^3$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知一个圆锥和一个三棱锥，底面水平放置，底面面积均为 $S$，高均为 $H$，顶点均在底面正上方。试用祖暅原理证明这两个锥体的体积相等。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（截面分析）：}] 从顶点到底面，高度 $h$ 从 $0$ 到 $H$；$h$ 处平行于底面的截面与底面相似，相似比为 $h/H$。故截面面积与 $h^2$ 成正比，比例系数为 $S/H^2$。
+			\[
+				S_c(h) = \frac{S}{H^2}h^2,
+				\qquad
+				S_t(h) = \frac{S}{H^2}h^2.
+			\]
+			\par\textbf{理由：} 相似比平方等于面积比。
+		\item[\textbf{第二步（面积相等）：}] 对任意 $h\in[0,H]$，$S_c(h) = S_t(h)$。
+			\[
+				S_c(h) = S_t(h) \quad (\forall h\in[0,H]).
+			\]
+			\par\textbf{理由：} 表达式相同，均为 $S h^2 / H^2$。
+		\item[\textbf{第三步（套用原理）：}] 两个锥体高均为 $H$，截面面积处处相等，故体积相等。
+			\[
+				V_c = V_t.
+			\]
+			\par\textbf{理由：} 满足祖暅原理条件。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{等底等高的锥体（圆锥、棱锥）体积相等，与底面形状无关。}
+\end{examplebox}

@@ -1,0 +1,48 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	采用微元法：把高 $H$ 分成 $n$ 个小段，每段厚度 $\Delta h$，每个小段内的体积近似为截面积乘以 $\Delta h$，当 $n\to\infty$ 时累加和趋近于真实体积。若两几何体每个高度上的截面积都相等，则累加和相等，极限也相等。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（等分高度）：}] 将区间 $[0,H]$ 等分为 $n$ 份，每份厚度 $\Delta h = H/n$。记分点 $h_i = i\Delta h\ (i=0,1,\dots,n)$。对于第 $i$ 个小段 $[h_{i-1}, h_i]$，取任意代表高度 $\xi_i \in [h_{i-1}, h_i]$。
+			\[
+				\Delta h = \frac{H}{n}.
+			\]
+			\par\textbf{理由：} 将连续变化离散化，方便近似。
+
+		\item[\textbf{步骤二（近似体积）：}] 在每个小段内，将几何体 $A$ 和 $B$ 近似为以截面积为底、$\Delta h$ 为高的直柱体。第 $i$ 段体积近似为
+			\[
+				V_{A}^{(i)} \approx S_A(\xi_i)\,\Delta h,
+				\qquad
+				V_{B}^{(i)} \approx S_B(\xi_i)\,\Delta h.
+			\]
+			\par\textbf{理由：} 当 $\Delta h$ 很小时，截面面积变化不大，柱体近似合理。
+
+		\item[\textbf{步骤三（求和取极限）：}] 总体积近似为
+			\[
+				V_A \approx \sum_{i=1}^{n} S_A(\xi_i)\,\Delta h,
+				\qquad
+				V_B \approx \sum_{i=1}^{n} S_B(\xi_i)\,\Delta h.
+			\]
+			由已知条件，对每一 $\xi_i$ 都有 $S_A(\xi_i)=S_B(\xi_i)$，故两个和式相等：
+			\[
+				\sum_{i=1}^{n} S_A(\xi_i)\,\Delta h = \sum_{i=1}^{n} S_B(\xi_i)\,\Delta h
+				\qquad
+				(\forall n).
+			\]
+			令 $n\to\infty$（即 $\Delta h\to 0$），近似和趋于真实体积，极限也相等：
+			\[
+				\lim_{n\to\infty}\sum_{i=1}^{n} S_A(\xi_i)\,\Delta h
+				= \lim_{n\to\infty}\sum_{i=1}^{n} S_B(\xi_i)\,\Delta h
+				\;\Longrightarrow\; V_A = V_B.
+			\]
+			\par\textbf{理由：} 极限确定真实体积；两序列处处相等，极限自然相等。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	通过分割、近似、求和、取极限的微元法，我们验证了祖暅原理：若两个几何体在高 $H$ 内截面积函数处处相等，则它们的体积相等。这一思路是定积分思想的雏形，在高中阶段可直接作为推理依据使用。
+\end{proofbox}
