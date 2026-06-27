@@ -1,0 +1,53 @@
+\begin{proofbox}
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用等比数列通项公式 $a_n = a_1 q^{n-1}$，将 $a_{n-1}$ 与 $a_{n+1}$ 分别表示，计算 $a_n^2$ 与 $a_{n-1}a_{n+1}$ 并比较。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（设公比）：}] 令等比数列 $\{a_n\}$ 的公比为 $q$（$q\neq 0$），则 $a_n = a_1 q^{n-1}$。
+			\par\textbf{理由：} 等比数列的通项公式，公比 $q$ 为常数。
+
+		\item[\textbf{步骤二（表示相邻项）：}] 写出 $a_{n-1}$ 与 $a_{n+1}$：
+			\[
+				a_{n-1} = a_1 q^{n-2},
+				\qquad
+				a_{n+1} = a_1 q^{n}.
+			\]
+			\par\textbf{理由：} 代入通项公式，指数分别为 $n-2$ 和 $n$。
+
+		\item[\textbf{步骤三（计算左端）：}] 计算 $a_n^2$：
+			\[
+				\begin{aligned}
+					a_n^2 &= (a_1 q^{n-1})^2 \\
+					&= a_1^2 q^{2n-2}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 利用幂的乘方法则。
+
+		\item[\textbf{步骤四（计算右端）：}] 计算 $a_{n-1}a_{n+1}$：
+			\[
+				\begin{aligned}
+					a_{n-1}a_{n+1} &= (a_1 q^{n-2})(a_1 q^{n}) \\
+					&= a_1^2 q^{(n-2)+n} \\
+					&= a_1^2 q^{2n-2}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 同底数幂相乘，指数相加。
+
+		\item[\textbf{步骤五（结论）：}] 比较两个结果：
+			\[
+				a_n^2 = a_{n-1}a_{n+1}.
+			\]
+			由等比中项定义，$a_n$ 就是 $a_{n-1}$ 与 $a_{n+1}$ 的等比中项。
+			\par\textbf{理由：} 等式成立，且各项非零，满足定义。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	该公式表明，等比数列的相邻三项不仅公比相同，而且中间项平方恒等于左右项之积，这是等比数列的基本性质，可直接用于求解项或验证等比。
+
+\end{proofbox}
