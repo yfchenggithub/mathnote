@@ -1,0 +1,40 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+	二阶线性递推的通项公式，思路就是假设指数形式代入递推，转化为代数方程求解。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（指数假设）：}]
+			设$a_n = r^n$（$r\neq0$），代入递推$a_{n+2}=p a_{n+1}+q a_n$，得到$r^{n+2}=p r^{n+1}+q r^n$，两边除以$r^n$即得特征方程$r^2-pr-q=0$。这个方程的解（特征根）决定了通项形式。
+		\item[\textbf{要点二（通项结构）：}]
+			特征根$\lambda_1,\lambda_2$出现三种情况：不等实根时，通项是指数项的线性组合；相等实根时，通项是多项式乘以指数；共轭复根时，通项可用三角形式表示，体现周期震荡。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（复平面旋转）}}
+	当特征根为共轭复数$re^{\pm i\theta}$时，通项$r^n(C_1\cos n\theta + C_2\sin n\theta)$描述了一个在复平面上螺旋运动（模$r^n$缩放，每步旋转$\theta$角度）。对于实根，则是在实数轴上的指数增长或衰减。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（降维求解）}}
+	将二阶递推关系转化为关于$r$的二次方程，利用代数求根直接写出通项公式，避免了层层迭代。这是代数化数列问题的典型技巧。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（高考常考）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（正向求通项）：}给出数列递推关系（常为$a_{n+2}=p a_{n+1}+q a_n$）和两个初始值，要求写出通项公式。直接套用特征根法即可。
+		\item \textbf{考法二（参数反求）：}已知通项形式（如包含$\lambda_1^n,\lambda_2^n$），反推递推系数$p,q$或特征方程，常出现在综合题中。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+	\textbf{抓住指数代入这个核心，就能理解为什么通项由特征根决定。高阶线性递推的通项也是类似形式，只是特征方程次数更高。}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（Fibonacci数列）：}递推$a_{n+2}=a_{n+1}+a_n$，特征方程$r^2-r-1=0$，根为$\frac{1\pm\sqrt5}{2}$，通项为$A\cdot(\frac{1+\sqrt5}{2})^n + B\cdot(\frac{1-\sqrt5}{2})^n$，是经典应用。
+		\item \textbf{场景二（其他常系数递推）：}任何形如$a_{n+2}=p a_{n+1}+q a_n$的数列（如$a_{n+2}=2a_{n+1}+3a_n$），只要$q\neq0$，均可直接写出特征方程并求通项。
+	\end{itemize}
+
+\end{explanationbox}

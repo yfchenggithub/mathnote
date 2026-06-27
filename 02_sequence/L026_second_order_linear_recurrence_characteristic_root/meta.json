@@ -1,0 +1,181 @@
+{
+  "id": "L026",
+  "module": "sequence",
+  "core": {
+    "title": "二阶线性递推特征根法",
+    "alias": [
+      "特征根法",
+      "特征方程法",
+      "二阶递推通项公式",
+      "二阶线性递推求通项"
+    ],
+    "summary": "通过特征方程的两个根直接写出二阶线性递推数列的通项公式。",
+    "difficulty": 4,
+    "category": "数列",
+    "tags": [
+      "二阶线性递推",
+      "特征根法",
+      "数列通项",
+      "通项公式",
+      "递推数列",
+      "特征方程"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "二阶线性递推",
+      "特征根法",
+      "数列通项",
+      "通项公式",
+      "递推数列",
+      "特征方程",
+      "特征根",
+      "共轭复根",
+      "三角形式",
+      "初始条件",
+      "C1",
+      "C2",
+      "a_{n+2}=pa_{n+1}+qa_n",
+      "Fibonacci数列",
+      "等比数列"
+    ],
+    "synonyms": [
+      "二阶递推求通项",
+      "特征方程求通项",
+      "递推数列通项公式",
+      "二阶线性递推公式",
+      "特征根求通项"
+    ],
+    "intents": [
+      "求通项",
+      "求解递推",
+      "确定系数",
+      "化三角形式"
+    ],
+    "query_templates": [
+      "二阶线性递推求通项公式",
+      "特征根法例题",
+      "已知递推求通项公式",
+      "a_{n+2}=pa_{n+1}+qa_n通项"
+    ],
+    "ocrKeywords": [
+      "a_{n+2}=pa_{n+1}+qa_n",
+      "特征方程",
+      "初值",
+      "通项",
+      "C1λ1^n+C2λ2^n"
+    ],
+    "latex_patterns": [
+      "a_{n+2}=p a_{n+1}+q a_n",
+      "r^2-p r-q=0",
+      "a_n=C_1\\lambda_1^{n}+C_2\\lambda_2^{n}",
+      "(C_1+nC_2)\\lambda_1^{n}",
+      "r^{n}(C_1\\cos n\\theta+C_2\\sin n\\theta)"
+    ],
+    "formulaTokens": [
+      "C_1\\lambda_1^{n}+C_2\\lambda_2^{n}",
+      "(C_1+nC_2)\\lambda_1^{n}",
+      "r^{n}(C_1\\cos n\\theta+C_2\\sin n\\theta)",
+      "r^2-p r-q=0",
+      "\\lambda_1+\\lambda_2=p",
+      "\\lambda_1\\lambda_2=-q"
+    ],
+    "pinyin": "er jie xian xing di tui te zheng gen fa",
+    "pinyinAbbr": "ejxxdttzgf"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.88,
+    "hot_score": 85,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "a_n=\\begin{cases}C_1\\lambda_1^{\\,n}+C_2\\lambda_2^{\\,n} & \\lambda_1\\neq\\lambda_2\\\\\\[4pt](C_1+nC_2)\\lambda_1^{\\,n} & \\lambda_1=\\lambda_2\\\\\\[4pt]r^{\\,n}(C_1\\cos n\\theta+C_2\\sin n\\theta) & \\lambda_{1,2}=re^{\\pm i\\theta}\\end{cases}",
+    "related_formulas": [
+      "r^2-p r-q=0",
+      "\\lambda_1+\\lambda_2=p,\\quad \\lambda_1\\lambda_2=-q"
+    ],
+    "variables": [
+      "a_n",
+      "p",
+      "q",
+      "\\lambda_1",
+      "\\lambda_2",
+      "r",
+      "\\theta",
+      "C_1",
+      "C_2",
+      "n"
+    ],
+    "conditions": "递推关系 $a_{n+2}=pa_{n+1}+qa_n$，其中 $p,q$ 为常数且 $q\\neq0$，已知两个初始值（如 $a_1,a_2$）。",
+    "conclusions": "当特征根为不相等实根时，通项为 $a_n=C_1\\lambda_1^n+C_2\\lambda_2^n$；当为相等实根时，$a_n=(C_1+nC_2)\\lambda_1^n$；当为共轭复根时，$a_n=r^n(C_1\\cos n\\theta+C_2\\sin n\\theta)$。常数 $C_1,C_2$ 由初始条件确定。"
+  },
+  "content": {
+    "statement": "若数列 $\\{a_n\\}$ 满足 $a_{n+2}=pa_{n+1}+qa_n$（$n\\in\\mathbb{N}^*$），其中 $p,q$ 为常数且 $q\\neq0$，初值给定，则其特征方程 $r^2-pr-q=0$ 的两根 $\\lambda_1,\\lambda_2$ 决定通项：当 $\\lambda_1\\neq\\lambda_2$ 时，$a_n=C_1\\lambda_1^n+C_2\\lambda_2^n$；当 $\\lambda_1=\\lambda_2$ 时，$a_n=(C_1+nC_2)\\lambda_1^n$；若为共轭复根 $re^{\\pm i\\theta}$，可化为 $a_n=r^n(C_1\\cos n\\theta+C_2\\sin n\\theta)$。常数 $C_1,C_2$ 由初值确定。",
+    "derivation": [
+      "写出特征方程 $r^2-pr-q=0$，解出特征根 $\\lambda_1,\\lambda_2$。",
+      "根据根的情况选择通项形式：不等根用指数组合，等根用多项式乘指数，共轭复根用三角形式。",
+      "代入两个已知项（如 $a_1,a_2$）建立方程组，解出 $C_1,C_2$。"
+    ],
+    "intuition": "线性递推对应线性差分方程，特征根决定了数列的指数增长率，所有解可由特征根的线性组合表示。",
+    "common_tricks": [
+      "特征方程的常数项是 $-q$，不是 $q$，易错。",
+      "重根时通项为 $(C_1+nC_2)\\lambda^n$，不要漏掉 $n$。",
+      "遇到复根时优先化为三角形式，便于观察周期性。",
+      "可先利用根与系数关系 $\\lambda_1+\\lambda_2=p,\\ \\lambda_1\\lambda_2=-q$ 快速验证或简化计算。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "压轴题",
+      "数列大题",
+      "通项求解"
+    ],
+    "problem_types": [
+      "求通项公式",
+      "证明单调性",
+      "求值"
+    ],
+    "exam_frequency": 1.0,
+    "exam_score": 7
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "L026.svg",
+    "png": "",
+    "gif": "",
+    "video": ""
+  },
+  "shareConfig": {
+    "title": "二阶线性递推特征根法：直接写出通项公式",
+    "shareDesc": "适合数列大题和压轴题，掌握特征方程能快速求解二阶递推通项，减少待定系数计算量。"
+  },
+  "relations": {
+    "prerequisites": [
+      "数列概念",
+      "一元二次方程解法",
+      "等比数列通项公式"
+    ],
+    "related_ids": [],
+    "similar": "一阶线性递推、等比数列通项"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "数列-递推数列-递推关系",
+  "altNodes": "数列-等比数列-通项公式,数列-等差数列-通项公式,数列-递推数列-构造法"
+}

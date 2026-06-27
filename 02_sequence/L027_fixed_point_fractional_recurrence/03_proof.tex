@@ -1,0 +1,60 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	通过减去不动点并分析比例（或倒数）的递推关系，将分式递推转化为等差或等比数列。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（不动点求解）：}]
+			将递推中的 $a_{n+1}$ 和 $a_n$ 同时视为 $x$，得到不动点方程
+			\[
+				x = \frac{Ax+B}{Cx+D}\Longrightarrow Cx^2+(D-A)x-B=0.
+			\]
+			设其两根为 $\alpha,\beta$（可能相等），称为不动点。
+			\par\textbf{理由：} 不动点是递推函数的不动点，用以构造消去常数项。
+		\item[\textbf{步骤二（不同根做比）：}]
+			假设 $\alpha\neq\beta$，且 $A-\alpha C\neq0,A-\beta C\neq0$。计算
+			\[
+				\begin{aligned}
+					a_{n+1}-\alpha &= \frac{Aa_n+B}{Ca_n+D}-\alpha = \frac{(A-\alpha C)a_n+(B-\alpha D)}{Ca_n+D},\\ a_{n+1}-\beta &= \frac{(A-\beta C)a_n+(B-\beta D)}{Ca_n+D}.
+			\end{aligned}
+			\]
+			利用不动点恒等式 $A\alpha+B=\alpha(C\alpha+D)$ 可得 $B-\alpha D = -\alpha(A-\alpha C)$，同理 $B-\beta D = -\beta(A-\beta C)$。代入得
+			\[
+				a_{n+1}-\alpha = \frac{(A-\alpha C)(a_n-\alpha)}{Ca_n+D},
+				\qquad
+				a_{n+1}-\beta = \frac{(A-\beta C)(a_n-\beta)}{Ca_n+D}.
+			\]
+			于是（假设分母 $Ca_n+D\neq0$）
+			\[
+				\frac{a_{n+1}-\alpha}{a_{n+1}-\beta} = \frac{A-\alpha C}{A-\beta C}\cdot\frac{a_n-\alpha}{a_n-\beta}.
+			\]
+			\par\textbf{理由：} 利用不动点性质消去分子中的常数项，使得比分式只含 $a_n$ 的线性部分，从而形成等比关系。
+		\item[\textbf{步骤三（重根取倒数）：}]
+			若 $\alpha=\beta$，则不动点方程为重根。可解出 $\alpha = \dfrac{A-D}{2C}$，并且有
+			\[
+				A-\alpha C = \frac{A+D}{2},
+				\qquad
+				C\alpha+D = \frac{A+D}{2},
+			\]
+			从而 $A-\alpha C = C\alpha+D \neq 0$（否则 $AD-BC=0$，矛盾）。由步骤二的第一个等式仍成立：
+			\[
+				a_{n+1}-\alpha = \frac{(A-\alpha C)(a_n-\alpha)}{Ca_n+D}.
+			\]
+			取倒数并利用 $Ca_n+D = C(a_n-\alpha) + (C\alpha+D)$：
+			\[
+				\begin{aligned}
+					\frac{1}{a_{n+1}-\alpha} &= \frac{Ca_n+D}{(A-\alpha C)(a_n-\alpha)} \\ &= \frac{C(a_n-\alpha)+(C\alpha+D)}{(A-\alpha C)(a_n-\alpha)} \\ &= \frac{C}{A-\alpha C} + \frac{C\alpha+D}{A-\alpha C}\cdot\frac{1}{a_n-\alpha}.
+			\end{aligned}
+			\]
+			由 $C\alpha+D = A-\alpha C$，故 $\dfrac{C\alpha+D}{A-\alpha C}=1$，且 $\dfrac{C}{A-\alpha C} = \dfrac{2C}{A+D}$。因此
+			\[
+				\frac{1}{a_{n+1}-\alpha} = \frac{1}{a_n-\alpha} + \frac{2C}{A+D}.
+			\]
+			\par\textbf{理由：} 重根时比例恒为1，无法得到等比；转而取倒数，利用根的关系将差值项合并为常数，从而得到等差数列。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	通过上述构造，数列 $\left\{\dfrac{a_n-\alpha}{a_n-\beta}\right\}$（不同根时）或 $\left\{\dfrac{1}{a_n-\alpha}\right\}$（重根时）是等差或等比数列，可直接写出通项，再反解 $a_n$ 即得原递推的通项公式。此方法称为不动点法，是求解分式线性递推的标准方法。
+\end{proofbox}

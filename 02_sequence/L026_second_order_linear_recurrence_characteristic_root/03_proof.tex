@@ -1,0 +1,47 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	二阶线性递推的解可以通过构造等比数列转化为一阶递推，进而利用等比通项公式求解。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（特征方程导出）：}]
+			设存在非常数解$r^n$（$r\neq0$），代入递推$a_{n+2}=p a_{n+1}+q a_n$，得$r^{n+2}=p r^{n+1}+q r^n$，两边除以$r^n$（$r\neq0$）得$r^2-pr-q=0$。这个方程就是特征方程，其根$\lambda_1,\lambda_2$称为特征根。
+			\par\textbf{理由：} 指数函数形式的猜测是求解线性递推的标准方法，代入后实现递推到代数的转化。
+		\item[\textbf{步骤二（不等根降阶）：}]
+			设$\lambda_1\neq\lambda_2$，且$\lambda_1+\lambda_2=p,\;\lambda_1\lambda_2=-q$（韦达定理）。计算
+			\[
+				\begin{aligned}
+					a_{n+2}-\lambda_1 a_{n+1}&=(p-\lambda_1)a_{n+1}+q a_n\\&=\lambda_2 a_{n+1} - \lambda_1\lambda_2 a_n\\&=\lambda_2 (a_{n+1}-\lambda_1 a_n).
+			\end{aligned}
+			\]
+			因此数列$\{b_n\}$，其中$b_n=a_{n+1}-\lambda_1 a_n$，是公比为$\lambda_2$的等比数列：$b_n = b_1\lambda_2^{\,n-1}$，$b_1=a_2-\lambda_1 a_1$。同理，$\{c_n\}$，$c_n=a_{n+1}-\lambda_2 a_n$，是公比为$\lambda_1$的等比数列。由此解出
+			\[
+				a_n = \frac{b_1\lambda_2^{\,n-1}-c_1\lambda_1^{\,n-1}}{\lambda_2-\lambda_1}
+			\]
+			可整理为$a_n = C_1\lambda_1^{\,n}+C_2\lambda_2^{\,n}$，其中$C_1,C_2$由初值确定。
+			\par\textbf{理由：} 利用根与系数的关系将递推改写成两项差的等比形式，从而将二阶降为一阶，再通过解线性方程组得到通项表达式。
+		\item[\textbf{步骤三（等根情形）：}]
+			设$\lambda_1=\lambda_2=\lambda$。此时由步骤二推导中的第一个等式仍成立：
+			\[
+				a_{n+2}-\lambda a_{n+1} = \lambda (a_{n+1}-\lambda a_n),
+			\]
+			即$\{a_{n+1}-\lambda a_n\}$是公比为$\lambda$的等比数列。设$d_n=a_{n+1}-\lambda a_n$，则$d_n = d_1\lambda^{\,n-1}$，其中$d_1=a_2-\lambda a_1$。将$a_n$视为一阶线性递推：$a_{n+1}=\lambda a_n + d_1\lambda^{\,n-1}$。两边同除以$\lambda^{n+1}$（$\lambda\neq0$）得
+			\[
+				\frac{a_{n+1}}{\lambda^{n+1}} = \frac{a_n}{\lambda^n} + \frac{d_1}{\lambda^2}.
+			\]
+			因此数列$\left\{\frac{a_n}{\lambda^n}\right\}$是公差为$\frac{d_1}{\lambda^2}$的等差数列。从而$\frac{a_n}{\lambda^n} = C_1 + n\cdot\frac{d_1}{\lambda^2}$，即$a_n = (C_1 + n C_2)\lambda^{\,n}$，其中$C_2 = d_1/\lambda^2$。代入递推可验证正确性。
+			\par\textbf{理由：} 等根时只有一组等比关系，需引入线性项$n\lambda^{\,n}$得到通解；通过构造等差数列可直接导出该形式。
+		\item[\textbf{步骤四（共轭复根三角形式）：}]
+			当$\lambda_{1,2}=re^{\pm i\theta}$（$r>0,\theta\neq0$）时，将复数通解转化为三角函数形式。由欧拉公式，
+			\[
+				C_1 (re^{i\theta})^n + C_2 (re^{-i\theta})^n = r^{\,n}\bigl[ (C_1+C_2)\cos(n\theta) + i(C_1-C_2)\sin(n\theta) \bigr].
+			\]
+			由于初值$a_1,a_2$为实数，可证$C_1$与$C_2$共轭，从而$C_1+C_2$和$i(C_1-C_2)$均为实数，记作$C_1',C_2'$，即得$a_n = r^{\,n}(C_1'\cos n\theta + C_2'\sin n\theta)$。
+			\par\textbf{理由：} 欧拉公式沟通指数与三角函数，将复数域的通解转化为实数域的简洁表达。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{特征根法从指数假设出发，通过根的情况分类，直接写出通项公式。只需记住：两不等根则通项是指数组合，两相等根则多项式乘指数，共轭复根则三角形式。常数由初值唯一确定。}
+\end{proofbox}

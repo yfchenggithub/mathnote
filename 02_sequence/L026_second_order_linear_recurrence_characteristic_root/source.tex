@@ -1,0 +1,20 @@
+\textbf{结论名称：} 二阶线性递推的特征根法
+
+\textbf{适用条件：} 数列$\{a_n\}$满足$a_{n+2}=pa_{n+1}+qa_n\;(n\in\mathbb{N}^*)$，其中$p,q$为常数且$q\neq0$，初值$a_1,a_2$（或$a_0,a_1$）已给。
+
+\textbf{变量说明：} $p,q$为递推系数；$\lambda_1,\lambda_2$为特征方程$r^2-pr-q=0$的两个根（可为复根）；$C_1,C_2$为由初值确定的常数。
+
+\textbf{核心公式：} 特征方程为$r^2-pr-q=0$，设其根为$\lambda_1,\lambda_2$，则通项公式为
+\[
+\boxed{
+a_n=
+\begin{cases}
+C_1\lambda_1^{\,n}+C_2\lambda_2^{\,n}, & \lambda_1\neq\lambda_2,\\[4pt]
+(C_1+nC_2)\lambda_1^{\,n}, & \lambda_1=\lambda_2 .
+\end{cases}}
+\]
+若为共轭复根$\lambda_{1,2}=re^{\pm i\theta}$，可化为$a_n=r^n\bigl(C_1\cos n\theta + C_2\sin n\theta\bigr)$。
+
+\textbf{使用场景：} 已知递推与初值求通项，或利用通项解决数列求和、取值范围、单调性、不等式等问题。
+
+\textbf{简单例子：} 设$a_{n+2}=5a_{n+1}-6a_n$，且$a_1=1,a_2=2$。特征方程$r^2-5r+6=0$的根为$2,3$，故$a_n=C_1\cdot2^n+C_2\cdot3^n$。代入$a_1=1,a_2=2$得$2C_1+3C_2=1,\;4C_1+9C_2=2$，解得$C_1=\frac12,\;C_2=0$，所以$a_n=2^{n-1}$。验证$a_3=4$，由原递推$a_3=5\times2-6\times1=4$，一致。

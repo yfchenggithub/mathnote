@@ -1,0 +1,40 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+	对于形如 $a_{n+1}=\frac{Aa_n+B}{Ca_n+D}$ 的分式递推，通过解方程 $x=\frac{Ax+B}{Cx+D}$ 找到不动点，然后构造比例（或倒数）数列，就能将分式关系转化为等比（或等差）数列，从而直接写出通项。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（不动点求解）：}]
+			先让 $a_{n+1}$ 和 $a_n$ 都等于同一个未知数 $x$，解出不动点 $\alpha,\beta$。这些不动点是递推函数的不动点，用于消去常数项。
+		\item[\textbf{要点二（结构变形）：}]
+			将递推式两边同时减去不动点，经过代数变形可得到 $\frac{a_{n+1}-\alpha}{a_{n+1}-\beta}$ 或 $\frac{1}{a_{n+1}-\alpha}$ 的简单递推。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（不动点迭代）}}
+	递推 $a_{n+1}=f(a_n)$ 可视为函数 $f(x)=\frac{Ax+B}{Cx+D}$ 的迭代。不动点 $\alpha,\beta$ 是函数 $f$ 的不动点（即 $f(x)=x$ 的解）。构造比例相当于在迭代过程中将函数共轭为线性函数，从而简化迭代行为。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（线性化转换）}}
+	通过引入新变量 $b_n=\frac{a_n-\alpha}{a_n-\beta}$ 或 $c_n=\frac{1}{a_n-\alpha}$，原分式递推转化为 $b_{n+1}=k b_n$ 或 $c_{n+1}=c_n+d$ 的简单线性递推。这样就将复杂的分式递推变成了学过的等差或等比数列。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（核心技巧）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（求通项公式）：} 题目给定分式递推关系，要求写出通项。直接用不动点法构造辅助数列（比例或倒数），然后求出通项，再反解 $a_n$。
+		\item \textbf{考法二（处理子列问题）：} 有时需要求 $a_n$ 的极限、数列的有界性或单调性，可以先通过该方法得到精确通项，再进行分析。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+	为什么构造的是 $\frac{a_n-\alpha}{a_n-\beta}$ 而不是别的？因为分式递推两边的分式结构，通过减去不动点并取比值，恰好能消去分子分母中的常数项，剩下一个比例因子，这就是等比数列的由来。当两根相等时，比例恒为1，所以转而取倒数得到等差数列。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（标准分式递推）：} 递推形如 $a_{n+1}=\frac{Aa_n+B}{Ca_n+D}$ 且 $C\neq0$，$AD-BC\neq0$，求通项。
+		\item \textbf{场景二（可化为分式的递推）：} 某些递推通过倒数变换或线性变换后化为该形式，也可间接使用。
+	\end{itemize}
+
+\end{explanationbox}

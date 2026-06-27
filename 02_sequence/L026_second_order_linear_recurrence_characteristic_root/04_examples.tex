@@ -1,0 +1,71 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+	\textbf{\textcolor{CExample}{题目：}} 已知数列$\{a_n\}$满足$a_1=1,a_2=3$，且对任意$n\in\mathbb N^*$有$a_{n+2}=3a_{n+1}-2a_n$，求通项公式。\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（写特征方程）：}]
+			由递推得到特征方程$r^2-3r+2=0$。
+			\par\textbf{理由：} 对照特征方程标准形式$r^2-pr-q=0$，此处$p=3,q=-2$，代入即得。
+		\item[\textbf{第二步（求特征根）：}]
+			解方程$(r-1)(r-2)=0$，得$r_1=1,\;r_2=2$。
+			\par\textbf{理由：} 因式分解易得。
+		\item[\textbf{第三步（通项并定系数）：}]
+			通项为$a_n = A\cdot1^n + B\cdot2^n = A + B\cdot2^n$。代入$a_1=1,a_2=3$得
+			\[
+				\begin{cases}
+					A+2B=1,\\ A+4B=3,
+			\end{cases}
+			\]
+			解得$B=1,A=-1$。所以$a_n = -1+2^n$。
+			\par\textbf{理由：} 利用初始条件建立方程组，通过加减消元求解。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	$\boxed{a_n = 2^n-1}$。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+	\textbf{\textcolor{CExample}{题目：}} 已知数列$\{F_n\}$满足$F_1=1,F_2=1$且$F_{n+2}=F_{n+1}+F_n$（$n\in\mathbb N^*$），求通项公式（Fibonacci数列）。\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（写特征方程）：}]
+			递推对应特征方程$r^2-r-1=0$。
+			\par\textbf{理由：} 系数$p=1,q=1$，代入特征方程$r^2-pr-q=0$即得。
+		\item[\textbf{第二步（求特征根）：}]
+			解方程得$r_{1,2}=\frac{1\pm\sqrt5}{2}$。
+			\par\textbf{理由：} 一元二次方程求根公式，判别式$\Delta=1+4=5$。
+		\item[\textbf{第三步（通项并定系数）：}]
+			设通项$F_n = A\left(\frac{1+\sqrt5}{2}\right)^n + B\left(\frac{1-\sqrt5}{2}\right)^n$。代入$n=1,2$：
+			\[
+				\begin{cases}
+					A\frac{1+\sqrt5}{2} + B\frac{1-\sqrt5}{2} = 1,\
+					\[
+						4pt] A\left(\frac{1+\sqrt5}{2}\right)^2 + B\left(\frac{1-\sqrt5}{2}\right)^2 = 1.
+				\end{cases}
+				\]
+				由$\left(\frac{1\pm\sqrt5}{2}\right)^2 = \frac{3\pm\sqrt5}{2}$,代入后解得$A=\frac1{\sqrt5},\;B=-\frac1{\sqrt5}$.因此$F_n = \frac1{\sqrt5}\left[\left(\frac{1+\sqrt5}{2}\right)^n - \left(\frac{1-\sqrt5}{2}\right)^n\right]$.
+				\par\textbf{理由:} 利用初始条件列方程组,通过加减消元解得$A,B$.
+		\end{description}
+		\textbf{\textcolor{CExample}{关键结论:}}
+		$\boxed{F_n = \frac1{\sqrt5}\left[\left(\frac{1+\sqrt5}{2}\right)^n - \left(\frac{1-\sqrt5}{2}\right)^n\right]}$.
+
+		\medskip
+		\textbf{\textcolor{CExample}{例 3(综合应用)}}
+		\textbf{\textcolor{CExample}{题目:}} 已知数列$\{a_n\}$满足$a_1=2,a_2=4$,且$a_{n+2}=2a_{n+1}-2a_n$($n\in\mathbb N^*$),求通项公式.\textbf{\textcolor{CExample}{解题步骤:}}
+		\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+			\item[\textbf{第一步(写特征方程):}]
+				由递推得特征方程$r^2-2r+2=0$.
+				\par\textbf{理由:} $p=2,q=-2$,代入标准式$r^2-2r-(-2)=r^2-2r+2=0$.
+			\item[\textbf{第二步(求根并化三角形式):}]
+				解方程得$r=1\pm i$,进而化为三角形式:$1+i=\sqrt2\,e^{i\frac{\pi}{4}},\;1-i=\sqrt2\,e^{-i\frac{\pi}{4}}$.故$r=\sqrt2,\;\theta=\frac{\pi}{4}$.
+				\par\textbf{理由:} 实系数二次方程共轭复根,模$r=\sqrt{1^2+1^2}=\sqrt2$,辐角$\theta=\arctan(1)=\frac{\pi}{4}$.
+			\item[\textbf{第三步(通项并定系数):}]
+				通项用三角形式写为$a_n = (\sqrt2)^n\left(C_1\cos\frac{n\pi}{4}+C_2\sin\frac{n\pi}{4}\right)$.代入初值:
+				\[
+					\begin{aligned}
+						n=1:&\quad \sqrt2\left(C_1\frac{\sqrt2}{2}+C_2\frac{\sqrt2}{2}\right)=C_1+C_2=2,\\ n=2:&\quad 2\left(C_1\cos\frac{\pi}{2}+C_2\sin\frac{\pi}{2}\right)=2C_2=4\ \Rightarrow\ C_2=2.
+				\end{aligned}
+				\]
+				故$C_1=0$.因此$a_n = (\sqrt2)^n\cdot 2\sin\frac{n\pi}{4}=2(\sqrt2)^n\sin\frac{n\pi}{4}$.
+				\par\textbf{理由:} 利用$\cos\frac{\pi}{4}=\sin\frac{\pi}{4}=\frac{\sqrt2}{2}$和$\cos\frac{\pi}{2}=0,\sin\frac{\pi}{2}=1$简化计算,解出常数.
+		\end{description}
+		\textbf{\textcolor{CExample}{关键结论:}}
+		$\boxed{a_n = 2(\sqrt2)^n\sin\dfrac{n\pi}{4}}$.
+	\end{examplebox}
