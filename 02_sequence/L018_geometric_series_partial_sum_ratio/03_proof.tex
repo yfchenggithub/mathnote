@@ -1,0 +1,50 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用等比数列前 $n$ 项和公式，化简比值；对 $q=1$ 单独验证。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（公比 $q=1$ 情形）：}]
+			\[
+				\begin{aligned}
+					q=1 &\Rightarrow S_n = na_1, \\
+					&\Rightarrow S_{2n} = 2na_1, \\
+					&\Rightarrow \frac{S_{2n}}{S_n} = 2.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 公比为 $1$ 时数列为常数列，前 $n$ 项和为 $na_1$，$2=1+1^n$，故等价于 $1+q^n$。
+
+		\item[\textbf{步骤二（$q\neq 1$ 时求和公式）：}]
+			\[
+				\begin{aligned}
+					S_n &= a_1\frac{1-q^n}{1-q}, \\
+					S_{2n} &= a_1\frac{1-q^{2n}}{1-q}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 等比数列求和公式，条件 $q\neq 1$。
+
+		\item[\textbf{步骤三（比值化简）：}]
+			\[
+				\begin{aligned}
+					\frac{S_{2n}}{S_n}
+					&= \frac{1-q^{2n}}{1-q^n} \\
+					&= \frac{(1-q^n)(1+q^n)}{1-q^n} \\
+					&= 1+q^n.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 分子平方差分解，约分前提 $1-q^n\neq0$，由 $S_n\neq0$ 知 $q^n\neq1$，故可约分。
+
+		\item[\textbf{步骤四（综合结论）：}]
+			\[
+				\frac{S_{2n}}{S_n}=1+q^n.
+			\]
+			\par\textbf{理由：} $q=1$ 与 $q\neq1$ 两种情形均得到相同表达式，故对任意 $q$ 当 $S_n\neq0$ 时结论成立。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	综上，等比数列前 $n$ 项和 $S_n$ 非零时，$S_{2n}$ 与 $S_n$ 的比值等于 $1$ 加上公比的 $n$ 次方，这一关系沟通了不同片段和之间的联系。
+\end{proofbox}

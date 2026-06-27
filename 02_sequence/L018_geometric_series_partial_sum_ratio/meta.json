@@ -1,0 +1,177 @@
+{
+  "id": "L018",
+  "module": "sequence",
+  "core": {
+    "title": "等比数列片段和比值公式",
+    "alias": [
+      "片段和公式",
+      "S_{2n}/S_n公式",
+      "等比数列分段比"
+    ],
+    "summary": "等比数列前2n项和与前n项和之比等于1加公比的n次方。",
+    "difficulty": 2,
+    "category": "数列",
+    "tags": [
+      "等比数列",
+      "前n项和",
+      "片段和",
+      "公比",
+      "比值"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "等比数列",
+      "前n项和",
+      "片段和",
+      "比值",
+      "S_{2n}",
+      "S_n",
+      "1+q^n",
+      "公比",
+      "求和",
+      "S_n≠0",
+      "n",
+      "2n",
+      "分段",
+      "公式"
+    ],
+    "synonyms": [
+      "分段和公式",
+      "等比数列部分和比值",
+      "片段和结论",
+      "S2n/Sn"
+    ],
+    "intents": [
+      "求比值",
+      "求公比",
+      "求前n项和",
+      "验证条件"
+    ],
+    "query_templates": [
+      "等比数列S2n/Sn等于什么",
+      "等比数列片段和公式",
+      "等比数列前n项和比值",
+      "等比数列片段和1+q^n",
+      "等比数列S_{2n}/S_n"
+    ],
+    "ocrKeywords": [
+      "等比数列",
+      "S_n",
+      "S_{2n}",
+      "公比",
+      "片段和"
+    ],
+    "latex_patterns": [
+      "\\frac{S_{2n}}{S_n}=1+q^{n}"
+    ],
+    "formulaTokens": [
+      "S_{2n}/S_n",
+      "1+q^n",
+      "q^n",
+      "1",
+      "S_{2n}",
+      "S_n"
+    ],
+    "pinyin": "dengbishulie pianduanhe bili gongshi",
+    "pinyinAbbr": "dbslpdb"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.7,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\frac{S_{2n}}{S_n}=1+q^{n}",
+    "related_formulas": [
+      "S_n = \\frac{a_1(1-q^n)}{1-q}\\quad(q\\neq 1)",
+      "S_{2n} = \\frac{a_1(1-q^{2n})}{1-q}"
+    ],
+    "variables": [
+      {
+        "symbol": "S_n",
+        "meaning": "等比数列前n项和"
+      },
+      {
+        "symbol": "S_{2n}",
+        "meaning": "等比数列前2n项和"
+      },
+      {
+        "symbol": "q",
+        "meaning": "公比"
+      },
+      {
+        "symbol": "n",
+        "meaning": "正整数"
+      }
+    ],
+    "conditions": "数列$\\{a_n\\}$是等比数列，公比为$q$，前$n$项和$S_n\\neq 0$。",
+    "conclusions": "$\\frac{S_{2n}}{S_n}=1+q^{n}$。特别地，当$q=-1$时，$\\frac{S_{2n}}{S_n}=1+(-1)^{n}$，需保证$S_n\\neq0$。"
+  },
+  "content": {
+    "statement": "若等比数列$\\{a_n\\}$的公比为$q$，前$n$项和为$S_n$，且$S_n\\neq0$，则$\\displaystyle\\frac{S_{2n}}{S_n}=1+q^{n}$。",
+    "derivation": [
+      "由等比数列求和公式：$S_n=\\frac{a_1(1-q^n)}{1-q}$（$q\\neq1$），$S_{2n}=\\frac{a_1(1-q^{2n})}{1-q}$，相除得$\\frac{S_{2n}}{S_n}=\\frac{1-q^{2n}}{1-q^n}=1+q^n$。",
+      "当$q=1$时，$S_n=na_1\\neq0$，$S_{2n}=2na_1$，比值$2=1+1^n$仍成立。",
+      "当$q=-1$时，需单独检验$S_n$非零，公式仍成立。"
+    ],
+    "intuition": "等比数列求和公式中，前2n项和减去前n项和等于后n项和，而前n项和乘以q^n等于后n项和，因此比值可化简。",
+    "common_tricks": [
+      "利用比值求公比：已知$S_{2n}/S_n$可解得$q^n$。",
+      "注意分母$S_n$非零，若$S_n=0$则公式不适用。",
+      "适用于简化计算，避免逐项求和。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "数列计算",
+      "等比数列综合题"
+    ],
+    "problem_types": [
+      "求比值",
+      "求公比",
+      "求前n项和"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "L018.svg"
+  },
+  "shareConfig": {
+    "title": "等比数列片段和比值：S_{2n}/S_n = 1+q^n",
+    "shareDesc": "适合数列计算和综合题，利用此结论可直接求出公比或比值，避免两次求和计算，提升解题速度。注意检查分母S_n非零。"
+  },
+  "relations": {
+    "prerequisites": [
+      "等比数列求和公式",
+      "等比数列通项公式"
+    ],
+    "related_ids": [],
+    "similar": [
+      "等差数列片段和比值不同",
+      "等比数列前n项和性质"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "数列-等比数列-求和公式",
+  "altNodes": "数列-等比数列-通项公式"
+}
