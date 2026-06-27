@@ -1,0 +1,37 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	转化链的证明可以分为两个方向：正向（判定方向）和反向（性质方向），每个方向各需两步。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（线线推线面判定）：}]
+			设直线$l$垂直于平面$\alpha$内的两条相交直线$m_1,m_2$，即$l\perp m_1$，$l\perp m_2$，$m_1\cap m_2=P$，$m_1,m_2\subset\alpha$。则根据线面垂直判定定理，$l\perp\alpha$。
+			\[
+				l\perp m_1,\; l\perp m_2,\; m_1\cap m_2\neq\varnothing,\; m_1,m_2\subset\alpha \;\Rightarrow\; l\perp\alpha.
+			\]
+			\par\textbf{理由：}线面垂直判定定理的条件（直线垂直平面内两相交直线）完全满足。
+		\item[\textbf{步骤二（线面推面面判定）：}]
+			已知$l\perp\alpha$且$l\subset\beta$，则根据面面垂直判定定理，$\alpha\perp\beta$。
+			\[
+				l\perp\alpha,\; l\subset\beta \;\Rightarrow\; \alpha\perp\beta.
+			\]
+			\par\textbf{理由：}一个平面包含另一个平面的垂线，满足面面垂直判定定理。
+		\item[\textbf{步骤三（面面推线面性质）：}]
+			已知$\alpha\perp\beta$，交线为$l$，且直线$m\subset\alpha$，$m\perp l$，则根据面面垂直性质定理，$m\perp\beta$。
+			\[
+				\alpha\perp\beta,\; \alpha\cap\beta=l,\; m\subset\alpha,\; m\perp l \;\Rightarrow\; m\perp\beta.
+			\]
+			\par\textbf{理由：}两垂直平面中，一个平面内垂直于交线的直线必垂直于另一个平面。
+		\item[\textbf{步骤四（线面推线线性质）：}]
+			已知$m\perp\beta$，由于$l\subset\beta$（交线），根据线面垂直的性质，$m\perp l$。
+			\[
+				m\perp\beta,\; l\subset\beta \;\Rightarrow\; m\perp l.
+			\]
+			\par\textbf{理由：}线面垂直的性质：若直线垂直于平面，则它垂直于平面内的所有直线。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	通过步骤一、二完成了从线线垂直到面面垂直的判定方向，步骤三、四完成了从面面垂直到线线垂直的性质方向。因此，在满足相应条件时，垂直关系确实可以在线线、线面、面面之间双向转化。这就是垂直转化链的证明。
+\end{proofbox}

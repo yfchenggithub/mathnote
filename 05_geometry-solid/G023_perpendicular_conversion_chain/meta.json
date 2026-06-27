@@ -1,0 +1,193 @@
+{
+  "id": "G023",
+  "module": "geometry-solid",
+  "core": {
+    "title": "垂直转化链：线线、线面、面面垂直双向转化",
+    "alias": [
+      "垂直关系转化链",
+      "垂直判定与性质链",
+      "立体几何垂直转化",
+      "垂直定理链"
+    ],
+    "summary": "通过判定定理和性质定理，线线垂直、线面垂直、面面垂直可以互相推导。",
+    "difficulty": 3,
+    "category": "立体几何",
+    "tags": [
+      "立体几何",
+      "垂直关系",
+      "转化链",
+      "判定定理",
+      "性质定理"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "线线垂直",
+      "线面垂直",
+      "面面垂直",
+      "判定定理",
+      "性质定理",
+      "垂直转化链",
+      "立体几何垂直",
+      "线面垂直判定",
+      "面面垂直判定",
+      "垂直关系转化",
+      "立体几何证明",
+      "垂直判断",
+      "线面垂直性质"
+    ],
+    "synonyms": [
+      "垂直转化",
+      "垂直判定",
+      "垂直性质",
+      "线线垂直到线面",
+      "面面垂直到线面",
+      "垂直链"
+    ],
+    "intents": [
+      "证明垂直",
+      "判断垂直关系",
+      "转化垂直关系",
+      "利用垂直链证明",
+      "求面面垂直",
+      "求线面垂直",
+      "判定线面垂直",
+      "使用性质定理"
+    ],
+    "query_templates": [
+      "怎么证明线面垂直？",
+      "面面垂直怎么转化为线面垂直？",
+      "垂直转化链是什么？",
+      "立体几何垂直证明方法",
+      "线线垂直如何得到线面垂直"
+    ],
+    "ocrKeywords": [
+      "垂直",
+      "⊥",
+      "平面",
+      "直线",
+      "相交",
+      "判定",
+      "性质",
+      "转化"
+    ],
+    "latex_patterns": [
+      "l\\perp\\alpha",
+      "\\alpha\\perp\\beta",
+      "m\\perp l",
+      "m\\subset\\alpha",
+      "l\\subset\\beta"
+    ],
+    "formulaTokens": [
+      "l\\perp\\alpha",
+      "\\alpha\\perp\\beta",
+      "l\\subset\\beta",
+      "m\\subset\\alpha",
+      "m\\perp\\beta",
+      "l\\perp m",
+      "AC\\cap AA_1=A"
+    ],
+    "pinyin": "chuizhizhuanhualian",
+    "pinyinAbbr": "czzhl"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.88,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\boxed{\\text{线线垂直}\\;\\xrightarrow{\\text{判定}}\\;\\text{线面垂直}\\;\\xrightarrow{\\text{判定}}\\;\\text{面面垂直}}",
+    "related_formulas": [
+      "\\boxed{\\text{面面垂直}\\;\\xrightarrow{\\text{性质}}\\;\\text{线面垂直}\\;\\xrightarrow{\\text{性质}}\\;\\text{线线垂直}}",
+      "l\\perp\\alpha \\Rightarrow l\\perp m\\ (\\forall m\\subset\\alpha)"
+    ],
+    "variables": [
+      "l",
+      "m",
+      "\\alpha",
+      "\\beta"
+    ],
+    "conditions": [
+      "条件1：若直线 $l$ 垂直于平面 $\\alpha$ 内的两条相交直线，则 $l\\perp\\alpha$。",
+      "条件2：若平面 $\\beta$ 包含直线 $l$ 且 $l\\perp\\alpha$，则 $\\alpha\\perp\\beta$。",
+      "条件3：若 $\\alpha\\perp\\beta$，交线为 $l$，且直线 $m\\subset\\alpha$，$m\\perp l$，则 $m\\perp\\beta$。",
+      "条件4：若直线 $m\\perp\\beta$，则 $m$ 垂直于 $\\beta$ 内任意直线。"
+    ],
+    "conclusions": [
+      "线线垂直 $\\xrightarrow{\\text{判定}}$ 线面垂直 $\\xrightarrow{\\text{判定}}$ 面面垂直",
+      "面面垂直 $\\xrightarrow{\\text{性质}}$ 线面垂直 $\\xrightarrow{\\text{性质}}$ 线线垂直"
+    ]
+  },
+  "content": {
+    "statement": "垂直转化链：线线垂直可通过判定定理转化为线面垂直，再通过判定定理转化为面面垂直；反过来，面面垂直可通过性质定理转化为线面垂直，再通过性质定理转化为线线垂直。",
+    "derivation": [
+      "由线线垂直（直线$l$垂直于平面$\\alpha$内两相交直线）⇒ 线面垂直（$l\\perp\\alpha$）；",
+      "由线面垂直且平面$\\beta$包含$l$ ⇒ 面面垂直（$\\alpha\\perp\\beta$）；",
+      "由面面垂直（$\\alpha\\perp\\beta$，交线$l$，$m\\subset\\alpha$，$m\\perp l$）⇒ 线面垂直（$m\\perp\\beta$）；再由线面垂直（$m\\perp\\beta$）⇒ 线线垂直（$m$垂直于$\\beta$内任意直线）。"
+    ],
+    "intuition": "判定定理将线线垂直条件升级为线面垂直，性质定理将面面垂直条件降级为线面垂直，从而形成双向转化链。",
+    "common_tricks": [
+      "1. 证明面面垂直时，先找其中一个平面的一条垂线与另一个平面相交；",
+      "2. 注意区分判定和性质：正向证明用判定，反向推导用性质；",
+      "3. 常用正方形对角线、等腰三角形三线合一、勾股定理逆定理得到线线垂直。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "证明垂直关系",
+      "立体几何解答题",
+      "二面角判定",
+      "综合证明题"
+    ],
+    "problem_types": [
+      "证明题",
+      "解答题",
+      "选择题"
+    ],
+    "exam_frequency": 1.0,
+    "exam_score": 8
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "G023.svg",
+    "png": "",
+    "gif": "",
+    "embed": ""
+  },
+  "shareConfig": {
+    "title": "垂直转化链：线线、线面、面面垂直双向推导",
+    "shareDesc": "适合立体几何垂直证明的课后复盘和考前速查，利用判定和性质快速转化，减少步骤遗漏，提升证明稳定性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "线面垂直判定定理",
+      "面面垂直判定定理",
+      "线面垂直性质定理"
+    ],
+    "related_ids": [],
+    "similar": "平行转化链：线线平行、线面平行、面面平行双向转化"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "立体几何-空间关系-垂直",
+  "altNodes": [
+    "立体几何-空间关系-平行",
+    "立体几何-空间向量-坐标法"
+  ]
+}
