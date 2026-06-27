@@ -1,0 +1,47 @@
+\begin{proofbox}
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用等比数列递推关系 $a_{k+1}=a_k q$，通过连续乘公比沟通任意两项。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（递推定义）：}] 对任意正整数 $k$，有
+			\[
+				a_{k+1}=a_k q,\quad k\in\mathbb{N}^*.
+			\]
+			\par\textbf{理由：}
+			等比数列的定义，后项等于前项乘以公比 $q$（$q\neq0$）。
+		\item[\textbf{步骤二（$n>m$ 情形）：}] 连续代入 $n-m$ 次。
+			\[
+				\begin{aligned}
+					a_{m+1} &= a_m q,\\
+					a_{m+2} &= a_{m+1} q = a_m q^2,\\
+					&\vdots\\
+					a_n &= a_m q^{n-m}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			每步都利用递推，累积乘 $q$ 的次数恰好等于下标差。
+		\item[\textbf{步骤三（$n<m$ 情形）：}] 若 $n<m$，同理 $a_m = a_n q^{m-n}$。
+			\[
+				a_n = \frac{a_m}{q^{m-n}} = a_m q^{n-m}.
+			\]
+			\par\textbf{理由：}
+			利用 $q\neq0$，两边除以 $q^{m-n}$ 变号，实质是反向乘 $q$ 的 $\lvert n-m\rvert$ 次。
+		\item[\textbf{步骤四（$n=m$ 情形）：}] 当 $n=m$ 时，$q^{n-m}=q^0=1$，直接得 $a_n = a_m$。
+			\[
+				a_n = a_m \cdot 1 = a_m.
+			\]
+			\par\textbf{理由：}
+			自身等于自身，公式成立。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	综合以上三种情况，对任意正整数 $m,n$，恒有 $a_n = a_m q^{\,n-m}$。
+
+\end{proofbox}
