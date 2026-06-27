@@ -1,0 +1,39 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	补形法是利用长方体体对角线中点就是外接球球心这一性质，将所求几何体的外接球问题转化为长方体的外接球问题。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（建系设点）：}] 以长方体的一个顶点为原点 $O$，三条棱所在直线为坐标轴建立空间直角坐标系。设长方体的三条棱长分别为 $a,b,c$，则顶点坐标可设为
+			\[
+				O(0,0,0),\ A(a,0,0),\ B(0,b,0),\ C(0,0,c),\ D(a,b,0),\ E(a,0,c),\ F(0,b,c),\ G(a,b,c)
+			\]
+			\par\textbf{理由：} 方便表示所有顶点坐标。
+
+		\item[\textbf{步骤二（球心坐标）：}] 长方体的外接球球心到所有顶点距离相等，由对称性知球心为体对角线 $OG$ 的中点 $P$，其坐标为
+			\[
+				P\left(\frac{a}{2},\frac{b}{2},\frac{c}{2}\right)
+			\]
+			\par\textbf{理由：} 体对角线中点到各顶点距离相同。
+
+		\item[\textbf{步骤三（距离验证）：}] 计算 $P$ 到原点 $O$ 的距离：
+			\[
+				|PO| = \sqrt{\left(\frac{a}{2}\right)^2 + \left(\frac{b}{2}\right)^2 + \left(\frac{c}{2}\right)^2} = \frac{\sqrt{a^{2}+b^{2}+c^{2}}}{2}
+			\]
+			类似易得 $P$ 到其余七个顶点的距离均等于该值。
+			\par\textbf{理由：} 所有顶点以 $P$ 为球心等距，故 $P$ 为外接球球心。
+
+		\item[\textbf{步骤四（回代结论）：}] 由于几何体补形后所有顶点都是长方体的顶点，因此 $P$ 也是该几何体外接球的球心，几何体外接球半径 $R$ 即为 $|PO|$：
+			\[
+				R = \frac{\sqrt{a^{2}+b^{2}+c^{2}}}{2}
+			\]
+			\par\textbf{理由：} 外接球球心的唯一性以及补形后顶点不改变。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	通过建立坐标系并利用长方体体对角线的性质，我们严格推导了补形法求外接球半径公式 $R = \frac{\sqrt{a^{2}+b^{2}+c^{2}}}{2}$。该证明揭示了补形法的本质：将不规则几何体规约到长方体，利用长方体的对称性直接得到球心和半径。
+\end{proofbox}
