@@ -1,0 +1,40 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+	通过平移或取对数，将不属于等差、等比的递推关系转化为我们熟悉的等比数列，从而直接写出通项。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
+		\item[\textbf{要点一（平移消常数）：}]
+			对线性递推 $a_{n+1}=p a_n+q$，常数项 $q$ 会破坏等比关系。引入 $\lambda$ 并令 $b_n=a_n-\lambda$，可使新数列 $b_n$ 满足 $b_{n+1}=p b_n$，消去常数项。
+		\item[\textbf{要点二（取对降次幂）：}]
+			对幂指递推 $a_{n+1}=c a_n^k$，指数 $k$ 使直接构造困难。两边取对数后，指数化为系数，得到关于 $\ln a_n$ 的线性递推。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（不动点偏移）}}
+	线性递推 $a_{n+1}=p a_n+q$ 的不动点 $x$ 满足 $x=p x+q$ 即 $x=\frac{q}{1-p}$。数列 $\{a_n-x\}$ 表示各点到不动点的距离，该距离按公比 $p$ 缩放。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（特征根引理）}}
+	待定系数构造等比本质是特征根法：设 $a_{n+1}-\lambda=p(a_n-\lambda)$ 展开后与原递推系数对比，得到 $\lambda$ 满足 $\lambda=p\lambda+q$，即特征方程 $\lambda=p\lambda+q$ 的根。这与线性递推的特征根思想一致。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（必考通项法）}}
+	\begin{itemize}[leftmargin=*,itemsep=0.5em,topsep=0.4em]
+		\item \textbf{考法一（线性递推算通项）：} 给出 $a_{n+1}=p a_n+q$ 及首项，要求写出通项公式。直接构造等比即可。
+		\item \textbf{考法二（幂指递推算通项）：} 给出 $a_{n+1}=c a_n^k$，要求通项。先取对数转化为线性，再构造等比。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+	\textbf{构造法不是死记公式，而是设出目标形式，通过待定系数解出参数。核心思想是“变成已经会求的形式”。}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*,itemsep=0.5em,topsep=0.4em]
+		\item \textbf{场景一（已知递推求通项）：} 当递推为 $a_{n+1}=p a_n+q$ 或 $a_{n+1}=c a_n^k$ 时，优先考虑该方法。
+		\item \textbf{场景二（证明数列为等比数列）：} 有时题目只要求证明 $\{a_n-\lambda\}$ 是等比，可直接代入递推验证，无需写出通项。
+	\end{itemize}
+
+\end{explanationbox}

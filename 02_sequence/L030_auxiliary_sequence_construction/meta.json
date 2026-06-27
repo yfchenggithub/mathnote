@@ -1,0 +1,188 @@
+{
+  "id": "L030",
+  "module": "sequence",
+  "core": {
+    "title": "构造辅助数列法",
+    "alias": [
+      "辅助数列法",
+      "构造法",
+      "平移法",
+      "取对数法",
+      "线性递推构造等比"
+    ],
+    "summary": "通过平移（线性型）或取对数（幂指型）将递推关系转化为等比数列，进而求得通项。",
+    "difficulty": 3,
+    "category": "数列",
+    "tags": [
+      "数列",
+      "递推",
+      "构造法",
+      "等比数列",
+      "通项公式",
+      "对数法"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "构造辅助数列法",
+      "线性递推",
+      "幂指递推",
+      "等比数列",
+      "待定系数法",
+      "取对数",
+      "通项公式",
+      "$a_{n+1}=p a_n+q$",
+      "$a_{n+1}=c a_n^k$",
+      "$\\lambda=\\frac{q}{1-p}$",
+      "$a_n>0$",
+      "对数转化",
+      "数列构造",
+      "平移法",
+      "递推求通项"
+    ],
+    "synonyms": [
+      "构造数列",
+      "配凑法",
+      "数列变形",
+      "取对数求通项",
+      "一阶线性递推",
+      "辅助数列"
+    ],
+    "intents": [
+      "求通项",
+      "构造等比",
+      "取对数",
+      "转化递推",
+      "求解数列",
+      "配常数",
+      "降次"
+    ],
+    "query_templates": [
+      "数列构造辅助数列法怎么用",
+      "a_{n+1}=pa_n+q通项公式",
+      "幂指递推取对数求通项",
+      "构造等比数列求通项步骤",
+      "一阶线性递推构造法"
+    ],
+    "ocrKeywords": [
+      "a_{n+1}=2a_n+3",
+      "a_{n+1}=3a_n^2",
+      "通项公式",
+      "构造等比",
+      "$\\lambda$",
+      "$\\ln a_n$",
+      "$b_n$"
+    ],
+    "latex_patterns": [
+      "a_{n+1}=p a_n+q",
+      "a_{n+1}=c a_n^k",
+      "\\lambda=\\frac{q}{1-p}",
+      "b_{n+1}=k b_n+\\log c",
+      "a_{n+1}-\\lambda = p(a_n-\\lambda)"
+    ],
+    "formulaTokens": [
+      "a_{n+1}=p a_n+q",
+      "\\lambda=\\frac{q}{1-p}",
+      "a_{n+1}-\\lambda = p(a_n-\\lambda)",
+      "a_{n+1}=c a_n^k",
+      "\\ln a_{n+1} = \\ln c + k \\ln a_n",
+      "b_{n+1}=k b_n+\\ln c",
+      "b_n = \\ln a_n",
+      "a_{n+1}-\\lambda = p(a_n-\\lambda)"
+    ],
+    "pinyin": "gouzaofuzhushuliefa",
+    "pinyinAbbr": "gzfslf"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.93,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "a_{n+1}-\\lambda = p(a_n-\\lambda), \\quad \\lambda=\\frac{q}{1-p}",
+    "related_formulas": [
+      "a_{n+1}=c a_n^k \\Rightarrow \\ln a_{n+1} = \\ln c + k \\ln a_n",
+      "b_{n+1}=k b_n+\\ln c, \\quad b_n=\\ln a_n"
+    ],
+    "variables": [
+      "a_n",
+      "p",
+      "q",
+      "\\lambda",
+      "c",
+      "k",
+      "b_n"
+    ],
+    "conditions": "线性递推：$a_{n+1}=p a_n+q$ 且 $p \\neq 1$；幂指递推：$a_{n+1}=c a_n^k$ 且 $c>0,\\,a_n>0$。",
+    "conclusions": "数列 $\\{a_n-\\lambda\\}$ 是公比为 $p$ 的等比数列；对于幂指递推，取对数后化为线性递推 $b_{n+1}=k b_n+\\ln c$，再构造等比数列（若 $k \\neq 1$）或等差数列（若 $k=1$）。"
+  },
+  "content": {
+    "statement": "对于一阶递推数列，若满足 $a_{n+1}=p a_n+q$（$p\\neq 1$），通过待定系数构造等比数列 $\\{a_n-\\lambda\\}$，其中 $\\lambda=\\frac{q}{1-p}$；若满足 $a_{n+1}=c a_n^k$（$c>0,\\,a_n>0$），取对数转化为线性递推 $b_{n+1}=k b_n+\\log c$，再进一步构造辅助数列。",
+    "derivation": [
+      "第一步：设 $\\lambda$ 满足 $a_{n+1}-\\lambda = p(a_n-\\lambda)$，展开对比原递推得 $\\lambda = \\frac{q}{1-p}$。",
+      "第二步：令 $b_n = a_n - \\lambda$，则 $b_{n+1} = p b_n$，即 $\\{b_n\\}$ 是公比为 $p$ 的等比数列。",
+      "第三步：利用等比数列通项公式求出 $b_n$，再回代得 $a_n = b_n + \\lambda$。对于幂指递推，先取对数转化，再重复以上步骤。"
+    ],
+    "intuition": "减去一个常数消去常数项，使递推变成纯比例关系；幂指递推通过取对数将指数化为系数，转化为线性递推。",
+    "common_tricks": [
+      "1. 对于线性递推，直接套用公式 $\\lambda = \\frac{q}{1-p}$，无需每次待定系数。",
+      "2. 注意 $p=1$ 时是等差数列，不能用此构造法。",
+      "3. 幂指递推中必须确认 $a_n>0$ 才能取对数，否则需先研究符号。",
+      "4. 取对数后若 $k \\neq 1$，仍需再构造一次线性递推；若 $k=1$，则直接是等差数列。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "数列大题第一问求通项",
+      "选择题、填空题中快速计算通项",
+      "综合题中构造辅助数列解决递推问题"
+    ],
+    "problem_types": [
+      "递推数列求通项",
+      "构造法求通项",
+      "对数法求通项"
+    ],
+    "exam_frequency": 0.9,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "",
+    "png": "",
+    "gif": "",
+    "pdf": ""
+  },
+  "shareConfig": {
+    "title": "构造辅助数列法：两类递推求通项速查",
+    "shareDesc": "适合课后复盘和刷题前速查，集中解决线性递推和幂指递推的构造方法，帮助快速写出通项公式，减少推导步骤。"
+  },
+  "relations": {
+    "prerequisites": [
+      "等比数列通项公式",
+      "对数运算",
+      "待定系数法"
+    ],
+    "related_ids": [],
+    "similar": "累加法、累乘法、一阶递推的其他构造法"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "数列-递推数列-构造法",
+  "altNodes": "数列-递推数列-递推关系,数列-等比数列-通项公式"
+}
