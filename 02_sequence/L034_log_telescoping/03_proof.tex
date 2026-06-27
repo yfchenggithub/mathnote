@@ -1,33 +1,51 @@
 \begin{proofbox}
 	\textbf{\textcolor{CProof}{思路提示}}
-	要证明$\log_a(1+\frac{1}{n})=\log_a(n+1)-\log_a n$，只需将$1+\frac{1}{n}$通分写成$\frac{n+1}{n}$，再使用对数运算公式$\log_a\frac{M}{N}=\log_a M-\log_a N$即可。
+
+	要证明
+	\[
+		\log_a\!\left(1+\frac{1}{n}\right)=\log_a(n+1)-\log_a n,
+	\]
+	只需将 \(1+\frac{1}{n}\) 通分写成 \(\frac{n+1}{n}\)，再使用对数商法则即可。
 
 	\medskip
 	\textbf{\textcolor{CProof}{正式推导}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
 		\item[\textbf{步骤一（分式通分）：}]
-			将$1+\frac{1}{n}$通分成$\frac{n+1}{n}$：
-			\[
-				\begin{aligned}
-					1+\frac{1}{n} &= \frac{n}{n} + \frac{1}{n} \\ &= \frac{n+1}{n}.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 通分后得到单一分式，便于直接使用对数商法则。
+		      将 \(1+\frac{1}{n}\) 通分成 \(\frac{n+1}{n}\)：
+		      \[
+			      \begin{aligned}
+				      1+\frac{1}{n}
+				       & =\frac{n}{n}+\frac{1}{n} \\
+				       & =\frac{n+1}{n}.
+			      \end{aligned}
+		      \]
+		      \par\textbf{理由：} 因为 \(n\in\mathbb N^*\)，所以 \(n>0\)，分母不为 \(0\)，通分合法。
+
 		\item[\textbf{步骤二（对数商公式）：}]
-			对$\log_a\left(\frac{n+1}{n}\right)$应用对数商法则：
-			\[
-				\log_a\left(\frac{n+1}{n}\right) = \log_a(n+1) - \log_a n.
-			\]
-			\par\textbf{理由：} 对数商法则$\log_a\frac{M}{N}=\log_a M-\log_a N$是教材给出的基本运算性质。
+		      对 \(\log_a\left(\frac{n+1}{n}\right)\) 应用对数商法则：
+		      \[
+			      \log_a\left(\frac{n+1}{n}\right)
+			      =
+			      \log_a(n+1)-\log_a n.
+		      \]
+		      \par\textbf{理由：} 当 \(a>0\)、\(a\neq1\)，且 \(M>0,N>0\) 时，
+		      \[
+			      \log_a\frac{M}{N}=\log_a M-\log_a N.
+		      \]
+		      这里 \(M=n+1>0\)，\(N=n>0\)。
+
 		\item[\textbf{步骤三（等量代换）：}]
-			结合步骤一和步骤二，即得：
-			\[
-				\log_a\!\left(1+\frac{1}{n}\right) = \log_a(n+1) - \log_a n.
-			\]
-			\par\textbf{理由：} 左边等于$\log_a(\frac{n+1}{n})$，而右边已经等于$\log_a(\frac{n+1}{n})$，因此恒等式成立。
+		      结合步骤一和步骤二，即得
+		      \[
+			      \log_a\!\left(1+\frac{1}{n}\right)
+			      =
+			      \log_a(n+1)-\log_a n.
+		      \]
+		      \par\textbf{理由：} 左边等于 \(\log_a\left(\frac{n+1}{n}\right)\)，而该式已由对数商法则化为右边。
 	\end{description}
 
 	\medskip
 	\textbf{\textcolor{CProof}{结论回扣}}
-	该恒等式本质是对数商法则的直接应用，其价值在于将分式对数结构转换为相邻整数的对数差，为后续累加消去创造了条件。
+
+	该恒等式本质是对数商法则的直接应用，其价值在于将分式对数结构转换为相邻整数的对数差，为后续累加消去创造条件。
 \end{proofbox}
