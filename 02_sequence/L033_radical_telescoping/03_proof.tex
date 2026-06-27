@@ -1,0 +1,44 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用平方差公式，将分母中的根式和转化为有理数。通过分子分母同乘共轭根式 $\sqrt{n+k}-\sqrt{n}$，达到分母有理化目的。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（写出原式）：}] 给出待变形分式
+			\[
+				E = \frac{1}{\sqrt{n+k}+\sqrt{n}}.
+			\]
+			\par\textbf{理由：} 此为目标等式左端，需证明其等于右端。
+
+		\item[\textbf{步骤二（分子分母同乘共轭）：}] 分子分母同时乘以分母的共轭式 $\sqrt{n+k}-\sqrt{n}$
+			\[
+				E = \frac{\sqrt{n+k}-\sqrt{n}}{(\sqrt{n+k}+\sqrt{n})(\sqrt{n+k}-\sqrt{n})}.
+			\]
+			\par\textbf{理由：} 乘以 $1$ 的等价形式，不改变分式值；构造平方差公式。
+
+		\item[\textbf{步骤三（分母平方差展开）：}] 对分母使用平方差公式
+			\[
+				\begin{aligned}
+					(\sqrt{n+k}+\sqrt{n})(\sqrt{n+k}-\sqrt{n}) &= (n+k) - n \\
+					&= k.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} $(\sqrt{a})^{2}=a$，所以平方差直接为 $n+k-n=k$。
+
+		\item[\textbf{步骤四（代入化简）：}] 将分母结果代回，右端分子仍为 $\sqrt{n+k}-\sqrt{n}$
+			\[
+				E = \frac{\sqrt{n+k}-\sqrt{n}}{k}.
+			\]
+			\par\textbf{理由：} 分母化为常数 $k$，分子保持不变。
+
+		\item[\textbf{步骤五（确认条件）：}] 验证条件 $k>0$，$n\in\mathbb{N}^{*}$，且根式有意义，分母 $k\neq0$，等式成立。
+			\par\textbf{理由：} 要求 $\sqrt{n+k}$ 与 $\sqrt{n}$ 有意义，且分母不为零，在给定范围内自动满足。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	通过上述过程，我们严格证明了恒等式 $\dfrac{1}{\sqrt{n+k}+\sqrt{n}}=\dfrac{\sqrt{n+k}-\sqrt{n}}{k}$，该结果可直接用于根式化简与数列裂项求和。
+\end{proofbox}
