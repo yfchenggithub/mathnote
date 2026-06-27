@@ -1,0 +1,55 @@
+\begin{proofbox}
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用$S_n$与$S_{n-1}$的差就是$a_n$，所以$S_n$的单调性与$a_n$的符号一致，继而通过数列项符号的变化找到最值位置。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（通项与差分）：}]
+			等差数列$\{a_n\}$的通项为$a_n = a_1+(n-1)d$，公差$d<0$。对$n\ge 2$，有
+			\[
+				S_n - S_{n-1} = a_n.
+			\]
+			\par\textbf{理由：}
+			前$n$项和减去前$n-1$项和等于第$n$项。
+
+		\item[\textbf{步骤二（符号分析）：}]
+			由于$d<0$，数列$\{a_n\}$严格递减。又$a_1>0$，故必存在一个正整数$m$使得$a_m\ge 0$且$a_{m+1}<0$。令$n_0 = \max\{n\mid a_n\ge 0\}$，则
+			\[
+				a_{n_0}\ge 0,
+				\qquad
+				a_{n_0+1}<0.
+			\]
+			\par\textbf{理由：}
+			递减数列从正到负必然经过临界点。
+
+		\item[\textbf{步骤三（单调性分段）：}]
+			当$n\le n_0$时，$a_n\ge 0$，故$S_n - S_{n-1}=a_n\ge 0$，所以$S_n$单调不减。
+			当$n\ge n_0+1$时，$a_n<0$，故$S_n - S_{n-1}=a_n<0$，所以$S_n$严格递减。
+			\[
+				S_1\le S_2\le\cdots\le S_{n_0},
+				\qquad
+				S_{n_0}>S_{n_0+1}>S_{n_0+2}>\cdots
+			\]
+			\par\textbf{理由：}
+			差分的符号直接决定单调性。
+
+		\item[\textbf{步骤四（最大值确定）：}]
+			由单调性，$S_{n_0}$是所有$S_n$中的最大者。即$S_{n_0} = \max S_n$。
+			\par\textbf{理由：}
+			前面单调不减，后面严格递减，故$S_{n_0}$为峰值。
+
+		\item[\textbf{步骤五（充要条件证明）：}]
+			先证必要性：若$S_n$为最大值，则必有$a_n\ge 0$且$a_{n+1}\le 0$。否则，若$a_n<0$，则$S_{n-1}=S_n-a_n>S_n$，矛盾；若$a_{n+1}>0$，则$S_{n+1}=S_n+a_{n+1}>S_n$，矛盾。故$a_n\ge0$且$a_{n+1}\le0$。
+			再证充分性：若$a_n\ge0$且$a_{n+1}\le0$，由数列递减知，当$k\le n$时$a_k\ge a_n\ge0$，故$S_k$单调不减，$S_n\ge S_{n-1}\ge\cdots$；当$k>n$时$a_k\le a_{n+1}\le0$，故$S_k$单调不增，$S_n\ge S_{n+1}\ge\cdots$。因此$S_n$为最大值。
+			\par\textbf{理由：} 差分符号决定单调性。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	因此，等差数列$\{a_n\}$在$a_1>0$且$d<0$时，$S_n$取得最大值当且仅当$n$满足$a_n\ge 0$且$a_{n+1}\le 0$。实际解题中，常取满足$a_n\ge 0$的最大整数$n$，此时必有$a_{n+1}<0$，即为最大值对应的项数。
+
+\end{proofbox}

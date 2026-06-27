@@ -1,0 +1,51 @@
+\begin{explanationbox}
+
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+	由于公差为负，数列逐渐减小。只要项为正，总和就不断增加；当项开始为负，总和就开始减小。因此最大值出现在由正转负的那一刻，即最后一个非负项。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（项符号决定增减）：}] 当$a_n>0$时，$S_n$比$S_{n-1}$增加$a_n$，故$S_n$增大；当$a_n<0$时，$S_n$比$S_{n-1}$减少$|a_n|$，故$S_n$减小。因此$S_n$在$a_n$由正变负的临界处取得最大值。
+		\item[\textbf{要点二（临界条件具体化）：}] $S_n$最大值的充要条件是$a_n\ge 0$且$a_{n+1}\le 0$。解题中通常解$a_n\ge 0$取最大整数$n$，此时自然有$a_{n+1}<0$，即为最大值项数。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（二次函数开口向下）}}
+
+	前$n$项和$S_n$是$n$的二次函数：
+	\[
+		S_n = \frac{d}{2}n^2 + \left(a_1-\frac{d}{2}\right)n,
+	\]
+	因为$d<0$，二次项系数$\frac{d}{2}<0$，抛物线开口向下，存在最大值。最大值在对称轴$n_0 = \frac{1}{2} - \frac{a_1}{d}$附近，但因为$n$只能取正整数，所以最大值出现在最接近对称轴的满足$a_n\ge 0$的整数$n$。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（Sn增减与项符号关系）}}
+
+	做差：
+	\[
+		S_n - S_{n-1} = a_n,
+	\]
+	所以$S_n$的增减性完全由$a_n$的符号控制。$a_n\ge 0$时$S_n$不减，$a_n<0$时$S_n$严格减。故最大值必然在$a_n$非负的最后一个位置。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（最值项数的直接求法）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（列不等式求n）：} 写出通项$a_n = a_1+(n-1)d$，解$a_n\ge 0$得$n$的范围，取最大整数即最大值时的$n$。
+		\item \textbf{考法二（Sn对称轴估算）：} 利用$S_n$的二次函数对称轴$\frac{1}{2}-\frac{a_1}{d}$，附近整数代入比较也可，但常用第一种。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	一句话：$S_n$与$a_n$的符号直接挂钩，不要死记结论，要理解“加正项和增大，加负项和减小”这一本质。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（求等差数列前n项和最大值）：} 已知$a_1>0,d<0$，求$S_n$最大值及相应$n$。
+		\item \textbf{场景二（求最小值对称情形）：} 若$a_1<0,d>0$，则$S_n$有最小值，条件应为$a_n\le 0$且$a_{n+1}\ge 0$。
+	\end{itemize}
+
+\end{explanationbox}

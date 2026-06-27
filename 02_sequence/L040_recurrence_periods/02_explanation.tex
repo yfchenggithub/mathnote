@@ -1,0 +1,42 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+	周期数列就像钟表指针，每走一圈回到原位，数列的项按照固定长度$T$循环重复。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（周期定义）：}]
+			数列$\{a_n\}$称为周期数列，当且仅当存在最小正整数$T$使得$a_{n+T}=a_n$对任意$n$成立。
+		\item[\textbf{要点二（递推验证）：}]
+			对于给定递推公式，通过迭代计算$a_{n+1},a_{n+2},\dots$，若经过有限步后得到$a_{n+T}=a_n$，则周期为$T$。
+		\item[\textbf{要点三（下标转换）：}]
+			将大下标$n$写为$n=kT+r$（$r$为$1$到$T$的正整数），则$a_n=a_r$，从而将问题转化为小下标计算。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（图像重复）}}
+	在直角坐标系中，点$(n,a_n)$的位置每$T$个点重复出现，整个图像呈现水平周期性。这就好像每隔$T$个单位，图形完全一样。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（迭代不变性）}}
+	递推公式可以视为从$a_n$到$a_{n+1}$的映射$f$。周期数列意味着映射$f$的$T$次迭代$f^{(T)}$是恒等映射，即$f^{(T)}(x)=x$，这是迭代过程中的一种不变性质。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（命题角度）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（求大下标项）：} 给出递推与首项，求第$n$项（$n$很大）。先计算周期，再将$n$除以$T$取余，得到对应小下标的值。
+		\item \textbf{考法二（周期求和）：} 利用周期数列前$T$项和固定，将前$n$项和转化为多个周期和加一个部分和。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+	发现递推经过几步迭代后值重复，是识别周期数列的关键。一旦确定周期，大指标问题就变成了小指标问题。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（递推判断）：} 遇到分式递推或线性递推，先尝试迭代前几项，观察是否出现循环。
+		\item \textbf{场景二（周期应用）：} 已知数列周期为$T$，可快速计算任意项，以及前$n$项和、积等。
+	\end{itemize}
+
+\end{explanationbox}

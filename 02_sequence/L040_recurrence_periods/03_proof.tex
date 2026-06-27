@@ -1,0 +1,69 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	周期数列的判定通常采用迭代递推公式，计算连续若干项，观察是否返回原值。下面分别验证所列递推公式具有周期性，并求出周期。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（递推一验证）：}]
+			\[
+				\begin{aligned}
+					a_{n+1} &= 1-\frac1{a_n} \\ a_{n+2} &= 1-\frac1{a_{n+1}} \\ &= 1-\frac1{1-\frac1{a_n}} \\ &= 1-\frac{a_n}{a_n-1} \\ &= \frac{a_n-1-a_n}{a_n-1} \\ &= \frac{-1}{a_n-1} \\ &= \frac1{1-a_n} \\ a_{n+3} &= 1-\frac1{a_{n+2}} \\ &= 1-\frac1{\frac1{1-a_n}} \\ &= 1-(1-a_n) \\ &= a_n
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 连续三次使用递推式$a_{n+1}=1-\dfrac1{a_n}$，通过通分与化简，最终得到$a_{n+3}=a_n$，故周期$T=3$。
+		\item[\textbf{步骤二（递推二验证）：}]
+			\[
+				\begin{aligned}
+					a_{n+1}
+					&= \frac{1+a_n}{1-a_n}\\
+					a_{n+2}
+					&= \frac{1+a_{n+1}}{1-a_{n+1}}\\
+					&= \frac{1+\frac{1+a_n}{1-a_n}}{1-\frac{1+a_n}{1-a_n}}\\
+					&= \frac{2}{-2a_n}\\
+					&= -\frac1{a_n}\\
+					a_{n+3}
+					&= \frac{1+a_{n+2}}{1-a_{n+2}}\\
+					&= \frac{1-\frac1{a_n}}{1+\frac1{a_n}}\\
+					&= \frac{a_n-1}{a_n+1}\\
+					a_{n+4}
+					&= \frac{1+a_{n+3}}{1-a_{n+3}}\\
+					&= \frac{1+\frac{a_n-1}{a_n+1}}{1-\frac{a_n-1}{a_n+1}}\\
+					&= \frac{2a_n}{2}\\
+					&= a_n
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 四次迭代，逐步化简分式，最终回到$a_n$，故周期$T=4$。
+		\item[\textbf{步骤三（递推三验证）：}]
+			\[
+				\begin{aligned}
+					a_{n+1}
+					&= -\frac1{a_n+1}\\
+					a_{n+2}
+					&= -\frac1{a_{n+1}+1}\\
+					&= -\frac1{-\frac1{a_n+1}+1}\\
+					&= -\frac1{\frac{-1+a_n+1}{a_n+1}}\\
+					&= -\frac1{\frac{a_n}{a_n+1}}\\
+					&= -\frac{a_n+1}{a_n}\\
+					a_{n+3}
+					&= -\frac1{a_{n+2}+1}\\
+					&= -\frac1{-\frac{a_n+1}{a_n}+1}\\
+					&= -\frac1{\frac{-a_n-1+a_n}{a_n}}\\
+					&= -\frac1{\frac{-1}{a_n}}\\
+					&= a_n
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 三步迭代后得到$a_{n+3}=a_n$，故周期$T=3$。
+		\item[\textbf{步骤四（递推四验证）：}]
+			\[
+				\begin{aligned}
+					a_{n+3} &= a_{n+2} - a_{n+1} \\ &= (a_{n+1} - a_n) - a_{n+1} \\ &= -a_n \\ a_{n+4} &= a_{n+3} - a_{n+2} \\ &= -a_n - (a_{n+1} - a_n) \\ &= -a_{n+1} \\ a_{n+5} &= a_{n+4} - a_{n+3} \\ &= -a_{n+1} - (-a_n) \\ &= a_n - a_{n+1} \\ a_{n+6} &= a_{n+5} - a_{n+4} \\ &= (a_n - a_{n+1}) - (-a_{n+1}) \\ &= a_n
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 利用递推$a_{n+2}=a_{n+1}-a_n$依次推出$a_{n+3}$至$a_{n+6}$，最终得到$a_{n+6}=a_n$，周期$T=6$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	以上分别验证了四个递推公式的周期性，它们的周期分别为$3,4,3,6$。在实际解题时，只要确认递推式符合上述形式，即可直接应用对应周期进行后续计算。
+\end{proofbox}

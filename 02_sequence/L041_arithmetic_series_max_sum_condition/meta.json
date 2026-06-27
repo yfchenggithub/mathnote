@@ -1,0 +1,159 @@
+{
+  "id": "L041",
+  "module": "sequence",
+  "core": {
+    "title": "等差数列前n项和最大值条件",
+    "alias": [
+      "最大值项数",
+      "最后一个非负项",
+      "S_n最大"
+    ],
+    "summary": "在递减等差数列中，前n项和的最大值在最后一个非负项处取得。",
+    "difficulty": 2,
+    "category": "数列",
+    "tags": [
+      "等差数列",
+      "前n项和",
+      "最值",
+      "递减数列"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "等差数列",
+      "前n项和",
+      "最大值",
+      "等差数列最值",
+      "非负项",
+      "公差为负",
+      "a_n>=0",
+      "a_{n+1}<0",
+      "通项公式",
+      "前n项和公式",
+      "递减数列",
+      "最大项序号",
+      "S_n最大"
+    ],
+    "synonyms": [
+      "递减等差数列",
+      "最大项数",
+      "最大项序号"
+    ],
+    "intents": [
+      "求最大值",
+      "求n",
+      "判断最值位置"
+    ],
+    "query_templates": [
+      "等差数列前n项和最大值怎么求",
+      "递减等差数列前n项和最大时n的值",
+      "已知a1>0 d<0求S_n最大值"
+    ],
+    "ocrKeywords": [
+      "等差数列",
+      "S_n",
+      "最大值",
+      "a_n\\ge 0",
+      "d<0"
+    ],
+    "latex_patterns": [
+      "a_n\\ge 0",
+      "a_{n+1}<0",
+      "S_n = \\frac{n}{2}(2a_1+(n-1)d)"
+    ],
+    "formulaTokens": [
+      "a_n\\ge 0",
+      "a_{n+1}<0",
+      "S_n = \\frac{n(2a_1+(n-1)d)}{2}",
+      "2a_1+(n-1)d",
+      "n(2a_1+(n-1)d)"
+    ],
+    "pinyin": "dengchai shulie qiannxianghe zuidazhi tiaojian",
+    "pinyinAbbr": "dcslqnhzdztj"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.35,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "S_n \\text{ 最大 } \\iff a_n \\ge 0 \\text{ 且 } a_{n+1} < 0",
+    "related_formulas": [
+      "a_1<0,\\ d>0 \\;\\Longrightarrow\\; S_n\\text{ 最小 } \\iff a_n\\le 0 \\text{ 且 } a_{n+1}\\ge 0",
+      "S_n = \\frac{n}{2}(2a_1+(n-1)d)"
+    ],
+    "variables": {
+      "a_1": "首项",
+      "d": "公差",
+      "n": "项数",
+      "S_n": "前n项和",
+      "a_n": "第n项"
+    },
+    "conditions": "等差数列 $\\{a_n\\}$，首项 $a_1>0$，公差 $d<0$。",
+    "conclusions": "前n项和$S_n$取得最大值当且仅当$n$是满足$a_n\\ge0$的最大整数，即$a_n\\ge0$且$a_{n+1}<0$。"
+  },
+  "content": {
+    "statement": "在等差数列 $\\{a_n\\}$ 中，若首项 $a_1>0$ 且公差 $d<0$，则前 $n$ 项和 $S_n$ 取得最大值当且仅当 $n$ 是满足 $a_n\\ge 0$ 的最大整数，即 $a_n\\ge 0$ 且 $a_{n+1}<0$。",
+    "derivation": [
+      "由 $d<0$ 知数列递减，$a_n$ 逐渐减小。",
+      "前 $n$ 项和 $S_n$ 是二次函数（开口向下），对称轴在正项与负项分界处。",
+      "因此 $S_n$ 在最后一个非负项 $a_n\\ge0$ 且 $a_{n+1}<0$ 时取最大值。"
+    ],
+    "intuition": "递减数列中，非负项增加前n项和，负项减少前n项和，所以最大值出现在最后一个非负项处。",
+    "common_tricks": [
+      "先解不等式 $a_n\\ge 0$ 得到 $n$ 的范围，再取最大整数。",
+      "若 $a_n=0$，则 $S_n=S_{n-1}$，最大值也在 $n-1$ 处取得。",
+      "注意对偶情形：首项为负、公差为正时，$S_n$ 在最后一个非正项处最小。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "数列最值问题",
+      "等差数列综合题"
+    ],
+    "problem_types": [
+      "求最值",
+      "求n"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "L041.svg",
+    "png": "",
+    "webp": ""
+  },
+  "shareConfig": {
+    "title": "等差数列前n项和最大值：最后一个非负项",
+    "shareDesc": "适用于课后复盘和考前回顾，快速判断递减等差数列前n项和最大值对应的项数，减少解二次不等式的计算量。"
+  },
+  "relations": {
+    "prerequisites": [
+      "等差数列通项公式",
+      "等差数列前n项和公式"
+    ],
+    "related_ids": [],
+    "similar": "递增等差数列前n项和最小值条件"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "数列-等差数列-求和公式",
+  "altNodes": "数列-等差数列-通项公式"
+}
