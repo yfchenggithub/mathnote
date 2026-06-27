@@ -1,0 +1,60 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	运用祖暅原理，将半球体积转化为圆柱与圆锥的体积差.
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（构造组合体）：}] 取半径为 $R$ 的半球，底面为圆；再取底面半径和高均为 $R$ 的圆柱，在其中挖去一个底面半径 $R$、高 $R$ 的圆锥（圆锥顶点在下底面中心，底面在上底面）。使半球底面与圆柱底面重合，则两物体等高，且高度均为 $R$.
+			\[
+				\begin{aligned}
+					H_{\text{hs}} &= R \\
+					H_{\text{cyl}} &= R \\
+					H_{\text{con}} &= R
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			祖暅原理要求两物体等高且在每一水平截面上面积相等.
+
+		\item[\textbf{步骤二（截面面积相等）：}] 在距底面 $h$（$0\le h\le R$）处作水平截面。半球截面半径 $\sqrt{R^2-h^2}$，面积 $S_{\text{hs}}(h)=\pi(R^2-h^2)$；圆柱剩余部分截面为圆环，外圆半径 $R$，内圆半径 $h$，面积 $S_{\text{cyl}}(h)=\pi R^2-\pi h^2$，化简得 $\pi(R^2-h^2)$. 故两者面积相等：
+			\[
+				\begin{aligned}
+					S_{\text{hs}}(h) &= \pi(R^2-h^2) \\
+					S_{\text{cyl}}(h) &= \pi(R^2-h^2)
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			圆锥截面半径 $r$ 满足 $\frac{r}{h} = \frac{R}{R}$，而 $\frac{R}{R}=1$，故 $r=h$.
+
+		\item[\textbf{步骤三（应用祖暅原理）：}] 由祖暅原理，半球体积等于圆柱挖去圆锥后剩余部分的体积.
+			\[
+				V_{\text{hs}} = V_{\text{cyl}} - V_{\text{con}}.
+			\]
+			\par\textbf{理由：}
+			两物体等高且每层截面面积相等，故体积相等.
+
+		\item[\textbf{步骤四（计算得球体积）：}] 圆柱体积 $V_{\text{cyl}}=\pi R^3$，圆锥体积 $V_{\text{con}}=\dfrac{1}{3}\pi R^3$，故
+			\[
+				\begin{aligned}
+					V_{\text{hs}} &= \pi R^3 - \frac{1}{3}\pi R^3 \\
+					&= \frac{2}{3}\pi R^3
+			\end{aligned}
+			\]
+			因此球的体积
+			\[
+				\begin{aligned}
+					V_{\text{ball}} &= 2V_{\text{hs}} \\
+					&= 2 \cdot \frac{2}{3}\pi R^3 \\
+					&= \frac{4}{3}\pi R^3
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			半球体积的两倍即整个球体体积.
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{推导得到球体积公式 $V=\dfrac{4}{3}\pi R^3$.}
+\end{proofbox}
