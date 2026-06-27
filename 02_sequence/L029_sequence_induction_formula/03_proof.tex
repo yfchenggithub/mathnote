@@ -1,0 +1,38 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	由 $n=1$ 成立出发，假设 $n=k$ 成立，利用条件2推出 $n=k+1$ 也成立，根据数学归纳法原理即可断言对所有正整数 $n$ 结论成立.
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（验证起点）：}]
+			\[
+				a_1 = f(1).
+			\]
+			\par\textbf{理由：} 由条件1直接得到，无需额外推导.
+
+		\item[\textbf{步骤二（归纳假设）：}]
+			\[
+				a_k = f(k) \quad (k \geq 1).
+			\]
+			\par\textbf{理由：} 我们假定该等式对某个正整数 $k$ 成立.
+
+		\item[\textbf{步骤三（递推证明）：}]
+			\[
+				a_{k+1} = f(k+1).
+			\]
+			\par\textbf{理由：} 根据条件2，若 $a_k = f(k)$ 成立则 $a_{k+1} = f(k+1)$ 必然成立。步骤二已经假设 $a_k = f(k)$，故 $a_{k+1}=f(k+1)$ 得证.
+
+		\item[\textbf{步骤四（归纳原理）：}]
+			\[
+				\forall n\in\mathbb{N}^*,\ a_n = f(n).
+			\]
+			\par\textbf{理由：} 数学归纳法原理：若命题在 $n=1$ 时真，且由 $n=k$ 真可推出 $n=k+1$ 真，则命题对所有正整数 $n$ 真。步骤一验证了 $n=1$，步骤二、三证明了传递性，因此原结论成立.
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	通过上述推理可见，只要满足条件1和条件2，“先猜后证”的策略就能保证通项公式 $a_n=f(n)$ 对一切正整数 $n$ 成立.
+\end{proofbox}

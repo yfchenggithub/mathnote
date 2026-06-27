@@ -1,0 +1,103 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知数列 $\{a_n\}$ 满足 $a_1=1$，$a_{n+1}=2a_n$，猜想通项公式为 $a_n=2^{\,n-1}$，请用数学归纳法证明.
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（验证起点）：}]
+			\[
+				n=1\text{ 时},\ a_1=1,\ f(1)=2^{1-1}=1,\ \text{故 }a_1=f(1).
+			\]
+			\par\textbf{理由：} 直接代入 $n=1$ 验证左右相等.
+
+		\item[\textbf{第二步（归纳假设）：}]
+			\[
+				\text{假设 } n=k\ (k\ge 1)\ \text{时},\ a_k=2^{\,k-1}\ \text{成立}.
+			\]
+			\par\textbf{理由：} 作为归纳递推的基础假设.
+
+		\item[\textbf{第三步（递推证明）：}]
+			\[
+				a_{k+1}=2a_k=2\cdot 2^{\,k-1}=2^{\,k}=2^{\,(k+1)-1},
+			\]
+			即 $a_{k+1}=f(k+1)$ 成立.
+			\par\textbf{理由：} 利用递推关系 $a_{n+1}=2a_n$ 并代入假设，完成从 $k$ 到 $k+1$ 的过渡.
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{由数学归纳法，对一切 $n\in\mathbb{N}^*$，$a_n=2^{\,n-1}$ 成立.}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知数列 $\{a_n\}$ 满足 $a_1=1$，$a_{n+1}=2a_n+1$，猜想通项公式为 $a_n=2^{\,n}-1$，请用数学归纳法证明.
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（验证起点）：}]
+			\[
+				n=1\text{ 时},\ a_1=1,\ f(1)=2^{1}-1=1,\ \text{故 }a_1=f(1).
+			\]
+			\par\textbf{理由：} 代入 $n=1$ 验证相等.
+
+		\item[\textbf{第二步（归纳假设）：}]
+			\[
+				\text{假设 } n=k\ \text{时},\ a_k=2^{\,k}-1\ \text{成立}.
+			\]
+			\par\textbf{理由：} 归纳假设.
+
+		\item[\textbf{第三步（递推证明）：}]
+			\[
+				\begin{aligned}
+					a_{k+1} &= 2a_k+1 \\
+					&= 2(2^{\,k}-1)+1 \\
+					&= 2^{\,k+1}-2+1 \\
+					&= 2^{\,k+1}-1,
+			\end{aligned}
+			\]
+			即 $a_{k+1}=f(k+1)$ 成立.
+			\par\textbf{理由：} 代入递推和假设，展开整理得到 $k+1$ 的表达形式.
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{由数学归纳法，对一切 $n\in\mathbb{N}^*$，$a_n=2^{\,n}-1$ 成立.}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知数列 $\{a_n\}$ 满足 $a_1=1$，$a_{n+1}=\dfrac{a_n}{a_n+1}$，猜想通项公式为 $a_n=\dfrac{1}{n}$，请用数学归纳法证明.
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（验证起点）：}]
+			\[
+				n=1\text{ 时},\ a_1=1,\ f(1)=\frac{1}{1}=1,\ \text{故 }a_1=f(1).
+			\]
+			\par\textbf{理由：} 直接验证 $n=1$ 成立.
+
+		\item[\textbf{第二步（归纳假设）：}]
+			\[
+				\text{假设 } n=k\ \text{时},\ a_k=\frac{1}{k}\ \text{成立}.
+			\]
+			\par\textbf{理由：} 归纳假设.
+
+		\item[\textbf{第三步（递推证明）：}]
+			\[
+				\begin{aligned}
+					a_{k+1} &= \frac{a_k}{a_k+1} \\
+					&= \frac{\frac{1}{k}}{\frac{1}{k}+1} \\
+					&= \frac{\frac{1}{k}}{\frac{1+k}{k}} \\
+					&= \frac{1}{k+1},
+			\end{aligned}
+			\]
+			即 $a_{k+1}=f(k+1)$ 成立.
+			\par\textbf{理由：} 代入递推和假设，化简分式得到 $k+1$ 的倒数形式.
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{由数学归纳法，对一切 $n\in\mathbb{N}^*$，$a_n=\dfrac{1}{n}$ 成立.}
+\end{examplebox}

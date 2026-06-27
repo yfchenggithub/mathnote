@@ -1,0 +1,163 @@
+{
+  "id": "L029",
+  "module": "sequence",
+  "core": {
+    "title": "数学归纳法证明通项公式（先猜后证）",
+    "alias": [
+      "归纳法证通项",
+      "先猜后证",
+      "数学归纳法",
+      "递推证明"
+    ],
+    "summary": "通过验证起点和递推传递，证明猜想的通项公式对所有正整数成立。",
+    "difficulty": 2,
+    "category": "数列",
+    "tags": [
+      "数学归纳法",
+      "通项公式",
+      "先猜后证",
+      "数列",
+      "递推"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "数学归纳法",
+      "通项公式",
+      "先猜后证",
+      "数列",
+      "验证起点",
+      "归纳假设",
+      "递推证明",
+      "a1=f(1)",
+      "ak=f(k)",
+      "a(k+1)=f(k+1)",
+      "正整数",
+      "归纳法步骤"
+    ],
+    "synonyms": [
+      "数学归纳法证明数列",
+      "归纳法猜通项",
+      "先猜通项再证明",
+      "数列通项证明法"
+    ],
+    "intents": [
+      "证明通项公式",
+      "验证数列",
+      "归纳证明",
+      "猜测通项"
+    ],
+    "query_templates": [
+      "用数学归纳法证明通项公式",
+      "先猜后证数列通项",
+      "数学归纳法证明a_n=...",
+      "数列通项归纳法"
+    ],
+    "ocrKeywords": [
+      "a1=1",
+      "an+1=2an",
+      "an=2^(n-1)",
+      "an+1=2an+1",
+      "an=2^n-1",
+      "an+1=an/(an+1)",
+      "an=1/n"
+    ],
+    "latex_patterns": [
+      "a_1 = f(1)",
+      "a_k = f(k) \\Rightarrow a_{k+1} = f(k+1)",
+      "a_n = f(n)"
+    ],
+    "formulaTokens": [
+      "a_n=f(n)",
+      "a_1=f(1)",
+      "a_k=f(k)",
+      "a_{k+1}=f(k+1)"
+    ],
+    "pinyin": "shu xue gui na fa zheng ming tong xiang gong shi xian cai hou zheng",
+    "pinyinAbbr": "sxgxzm"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.6,
+    "hot_score": 50,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "a_n = f(n), \\forall n \\in \\mathbb{N}^*",
+    "related_formulas": [
+      "P(1) \\land (P(k) \\Rightarrow P(k+1)) \\Rightarrow \\forall n \\in \\mathbb{N}^*, P(n)"
+    ],
+    "variables": [
+      "n",
+      "a_n",
+      "f(n)",
+      "k"
+    ],
+    "conditions": "数列$\\\\{a_n\\\\}$满足$a_1 = f(1)$，且对任意$k \\\\in \\\\mathbb{N}^*$，由$a_k = f(k)$可推出$a_{k+1} = f(k+1)$。",
+    "conclusions": "对所有正整数$n$，有$a_n = f(n)$。"
+  },
+  "content": {
+    "statement": "数学归纳法证明通项公式（先猜后证）：若数列 $\\\\{a_n\\\\}$ 满足 $a_1 = f(1)$，且假设 $a_k = f(k)$ 成立时能推出 $a_{k+1} = f(k+1)$ 也成立，则对所有正整数 $n$，恒有 $a_n = f(n)$。",
+    "derivation": [
+      "验证起点：验证$n=1$时$a_1 = f(1)$成立。",
+      "归纳假设：假设$n=k$时$a_k = f(k)$成立。",
+      "递推证明：利用递推关系和假设证明$a_{k+1}=f(k+1)$，从而由数学归纳法得证。"
+    ],
+    "intuition": "数学归纳法的本质是'多米诺骨牌'：第一块倒下（起点成立），且任意一块倒下必定推倒下一块（递推成立），则所有骨牌都会倒下（结论成立）。",
+    "common_tricks": [
+      "必须先通过观察前几项或递推关系猜想出通项公式$f(n)$，否则本结论无法直接使用。",
+      "递推步骤中必须清晰写出代入假设的过程，确保传递性成立。",
+      "验证起点时不能省略，否则归纳失效。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "数列通项公式证明题",
+      "数学归纳法应用"
+    ],
+    "problem_types": [
+      "证明题",
+      "归纳法题型"
+    ],
+    "exam_frequency": 0.6,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "L029.svg",
+    "png": "",
+    "gif": "",
+    "video": ""
+  },
+  "shareConfig": {
+    "title": "数学归纳法证通项：先猜后证两步走",
+    "shareDesc": "适合数列通项证明题考前回顾，理清归纳假设和递推推导，避免起点遗漏错误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "数列递推关系",
+      "通项公式猜想"
+    ],
+    "related_ids": [],
+    "similar": []
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "数列-递推数列-递推关系",
+  "altNodes": ""
+}
