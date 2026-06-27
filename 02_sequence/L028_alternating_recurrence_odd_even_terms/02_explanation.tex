@@ -1,0 +1,41 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+	隔项递推的本质是将数列按奇偶位置拆成两个独立的子列，每个子列满足一阶线性递推，从而可通过构造等比或等差数列直接写出通项。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（子列独立）：}] 奇数项子列$\{a_{2k-1}\}$和偶数项子列$\{a_{2k}\}$分别满足$a_{2k+1}=p a_{2k-1}+q$和$a_{2k+2}=p a_{2k}+q$，两者互不干扰，可独立处理。
+		\item[\textbf{要点二（构造常数）：}] 对于每个子列，可通过减去常数$t=\frac{q}{1-p}$（当$p\neq1$）将递推化为等比形式；当$p=1$时，直接呈现等差数列形式。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（数轴迭代）}}
+
+	在数轴上，递推$a_{n+2}=p a_n+q$表示每隔一项，点的位置按比例$p$缩放后再平移$|q|$。奇偶子列分别沿数轴向端点收敛或发散，取决于$|p|$与$1$的大小关系。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（一阶化归）}}
+
+	将二阶隔项递推拆分为两个一阶线性递推，再利用累加法或等比数列通项公式求解，实质是降维思想。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（求项求和）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（求指定项）：} 给定隔项递推和初值，直接套用奇偶通项公式计算第$n$项，快速高效。
+		\item \textbf{考法二（前$n$项和）：} 分别求出奇数项和偶数项的通项，再分组求和，避免逐项列举。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	核心在于“分离奇偶”四字：一旦识别出递推只与隔项相关，立即拆成两个独立子列，每个子列的处理方法就是一次线性递推的标准流程。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（递推隔项相关）：} 已知递推$a_{n+2}=p a_n+q$和$a_1,a_2$，求任意项。
+		\item \textbf{场景二（前$n$项和计算）：} 当$n$较大时，分组求和比逐项递推更省时。
+	\end{itemize}
+\end{explanationbox}

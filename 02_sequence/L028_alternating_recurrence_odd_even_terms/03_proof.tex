@@ -1,0 +1,57 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	证明的核心是先将原递推拆分为奇数项和偶数项的子列递推，再分别对$p\neq1$和$p=1$两种情形采用构造法或直接累加法得到通项。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（奇偶子列递推）：}]
+			在原递推$a_{n+2}=p a_n+q$中分别令$n=2k-1$和$n=2k$，得
+			\[
+				a_{2k+1}=p a_{2k-1}+q,
+				\qquad
+				a_{2k+2}=p a_{2k}+q\quad(k=1,2,\dots).
+			\]
+			\par\textbf{理由：}
+			这说明奇数项子列$\{a_{2k-1}\}$和偶数项子列$\{a_{2k}\}$各自满足一个一阶线性递推，且彼此独立。
+
+		\item[\textbf{步骤二（$p\neq1$时构造常数）：}]
+			对于递推$a_{2k+1}=p a_{2k-1}+q$，设常数$t$满足$t=pt+q$，解得$t=\dfrac{q}{1-p}$。
+			\par\textbf{理由：}
+			若令$b_k=a_{2k-1}-t$，则可消去常数项，化为等比形式$b_{k+1}=p b_k$。
+
+		\item[\textbf{步骤三（等比数列求通项）：}]
+			由$b_{k+1}=p b_k$知$\{b_k\}$是公比为$p$的等比数列，首项$b_1=a_1-t$。于是
+			\[
+				b_k=p^{\,k-1}(a_1-t).
+			\]
+			将$t=\dfrac{q}{1-p}$回代得
+			\[
+				a_{2k-1}=p^{\,k-1}a_1+q\frac{p^{\,k-1}-1}{p-1}.
+			\]
+			同理，令$c_k=a_{2k}-t$，可得$a_{2k}=p^{\,k-1}a_2+q\frac{p^{\,k-1}-1}{p-1}$。
+			\par\textbf{理由：}
+			通过构造常数，将线性递推化为等比数列，再利用等比数列通解即可得到原子列的通项。
+
+		\item[\textbf{步骤四（$p=1$时等差数列）：}]
+			当$p=1$时，递推变为$a_{2k+1}=a_{2k-1}+q$，奇数项子列是公差为$q$的等差数列。同理偶数项子列$a_{2k+2}=a_{2k}+q$也是公差为$q$的等差数列。于是
+			\[
+				a_{2k-1}=a_1+(k-1)q,
+				\qquad
+				a_{2k}=a_2+(k-1)q.
+			\]
+			\par\textbf{理由：}
+			直接由递推得到相邻两项之差为常数，符合等差数列定义。
+
+		\item[\textbf{步骤五（综合结论）：}]
+			综合步骤三和步骤四，即得定理中的完整结论。
+			\par\textbf{理由：}
+			两种情形的公式覆盖所有可能情况（$p\neq0$已由递推保证）。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{定理的奇偶通项公式是处理隔项递推的直接工具，使用时只需判断$p$是否等于$1$，代入相应公式即可。}
+\end{proofbox}

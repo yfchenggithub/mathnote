@@ -1,0 +1,125 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知数列$\{a_n\}$满足$a_{n+2}=2a_n+3$，且$a_1=1$，$a_2=2$。求$a_7$和$a_8$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（参数识别）：}] 识别出$p=2$，$q=3$，$a_1=1$，$a_2=2$，且$p\neq1$。
+			\par\textbf{理由：} 符合定理条件，可直接使用定理中的公式。
+		\item[\textbf{第二步（公式套用）：}] 根据定理，当$p\neq1$时，
+			\[
+				a_{2k-1}=p^{\,k-1}a_1+q\frac{p^{\,k-1}-1}{p-1},
+				\qquad
+				a_{2k}=p^{\,k-1}a_2+q\frac{p^{\,k-1}-1}{p-1}.
+			\]
+			\par\textbf{理由：} 将参数代入公式。
+		\item[\textbf{第三步（数值计算）：}] $a_7$是奇数，由 $k=\frac{7+1}{2}$ 得 $k=4$；
+			\[
+				\begin{aligned}
+					a_{2k-1} &= 2^{3}\cdot1+3\frac{2^{3}-1}{1} \\
+					&= 8+3\times7 \\
+					&= 29.
+			\end{aligned}
+			\]
+			$a_8$是偶数，由 $k=\frac{8}{2}$ 得 $k=4$；
+			\[
+				\begin{aligned}
+					a_{2k} &= 2^{3}\cdot2+3\frac{2^{3}-1}{1} \\
+					&= 16+3\times7 \\
+					&= 37.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 注意先求$k$值，再代入公式计算。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$a_7=29$，$a_8=37$}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知数列$\{a_n\}$满足$a_{n+2}=a_n+5$，且$a_1=0$，$a_2=1$。求$a_{10}$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（参数判断）：}] $p=1$，$q=5$，$a_1=0$，$a_2=1$。
+			\par\textbf{理由：} $p=1$符合定理中第二种情形。
+		\item[\textbf{第二步（等差公式）：}] 由定理，当$p=1$时，
+			\[
+				a_{2k-1}=a_1+(k-1)q,
+				\qquad
+				a_{2k}=a_2+(k-1)q.
+			\]
+			\par\textbf{理由：} 直接代入等差数列通项。
+		\item[\textbf{第三步（定位求值）：}] $a_{10}$是偶数项，$k=5$（因为$10=2k$），代入得
+			\[
+				\begin{aligned}
+					a_{10} &= a_2+(5-1)q \\
+					&= 1+4\times5 \\
+					&= 21.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 先由$10=2k$解出$k$，再代入等差数列通项公式。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$a_{10}=21$}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知数列$\{a_n\}$满足$a_{n+2}=3a_n-2$，且$a_1=2$，$a_2=4$。求前20项的和$S_{20}$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（化简通项）：}] 由$p=3$，$q=-2$，$p\neq1$，代入定理公式并简化：
+			\[
+				\begin{aligned}
+					a_{2k-1} &= 3^{k-1}\cdot2+(-2)\frac{3^{k-1}-1}{2} \\
+					&= 2\cdot3^{k-1}-(3^{k-1}-1) \\
+					&= 3^{k-1}+1.
+			\end{aligned}
+			\]
+			\[
+				\begin{aligned}
+					a_{2k} &= 3^{k-1}\cdot4+(-2)\frac{3^{k-1}-1}{2} \\
+					&= 4\cdot3^{k-1}-(3^{k-1}-1) \\
+					&= 3\cdot3^{k-1}+1 \\
+					&= 3^{k}+1.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 注意$p-1=2$，约去公因子得到最简形式。
+		\item[\textbf{第二步（分组求和）：}] 前20项含10个奇数项和10个偶数项。
+			\[
+				\begin{aligned}
+					S_{\text{odd}} &= \sum_{k=1}^{10}(3^{k-1}+1) \\
+					&= \frac{3^{10}-1}{2}+10.
+			\end{aligned}
+			\]
+			\[
+				\begin{aligned}
+					S_{\text{even}} &= \sum_{k=1}^{10}(3^{k}+1) \\
+					&= 3\cdot\frac{3^{10}-1}{2}+10 \\
+					&= \frac{3^{11}-3}{2}+10.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 等比数列求和公式$\sum_{i=0}^{n-1}ar^{i}=a\frac{r^{n}-1}{r-1}$。
+		\item[\textbf{第三步（合并结果）：}]
+			\[
+				\begin{aligned}
+					S_{20} &= S_{\text{odd}}+S_{\text{even}} \\
+					&= \frac{3^{10}-1+3^{11}-3}{2}+20 \\
+					&= \frac{4\cdot3^{10}-4}{2}+20 \\
+					&= 2\cdot3^{10}+18.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 合并分数，注意$3^{11}=3\cdot3^{10}$，化简得到最终结果。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$S_{20}=2\cdot3^{10}+18$}（或\textbf{$118116$}）
+\end{examplebox}
