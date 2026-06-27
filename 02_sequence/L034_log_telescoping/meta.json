@@ -1,0 +1,165 @@
+{
+  "id": "L034",
+  "module": "sequence",
+  "core": {
+    "title": "对数型裂项恒等式",
+    "alias": [
+      "对数分式裂项",
+      "对数差分",
+      "对数恒等裂项"
+    ],
+    "summary": "将对数分式 $\\log_a\\!\\left(1+\\frac{1}{n}\\right)$ 拆成 $\\log_a(n+1)-\\log_a n$，用于数列裂项求和。",
+    "difficulty": 2,
+    "category": "数列",
+    "tags": [
+      "对数运算法则",
+      "数列求和",
+      "裂项相消",
+      "恒等变形",
+      "对数恒等式"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "对数裂项",
+      "裂项相消",
+      "对数求和",
+      "log裂项",
+      "数列裂项",
+      "对数恒等式",
+      "累加相消",
+      "分式对数",
+      "对数运算",
+      "数列求和技巧",
+      "log差",
+      "相邻整数对数差"
+    ],
+    "synonyms": [
+      "对数裂项公式",
+      "对数拆分",
+      "对数差分求和",
+      "logan+1减logn",
+      "对数减法裂项"
+    ],
+    "intents": [
+      "求数列和",
+      "化简对数表达式",
+      "裂项后累加",
+      "证明恒等式",
+      "计算对数累加"
+    ],
+    "query_templates": [
+      "对数裂项公式是什么",
+      "log(1+1/n)怎么拆",
+      "对数裂项求和例题",
+      "数列裂项相消对数",
+      "log_a(n+1)-log_a n"
+    ],
+    "ocrKeywords": [
+      "log",
+      "1+1/n",
+      "log_a",
+      "n+1",
+      "裂项",
+      "求和",
+      "数列"
+    ],
+    "latex_patterns": "\\log_a\\!\\left(1+\\frac{1}{n}\\right)=\\log_a(n+1)-\\log_a n",
+    "formulaTokens": [
+      "\\log_a\\!\\left(1+\\frac{1}{n}\\right)",
+      "\\log_a(n+1)",
+      "\\log_a n",
+      "\\log_a(n+1)-\\log_a n",
+      "1+\\frac{1}{n}",
+      "\\frac{n+1}{n}"
+    ],
+    "pinyin": "duishu liexiang hengdengshi",
+    "pinyinAbbr": "dslxhds"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.43,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\log_a\\!\\left(1+\\frac{1}{n}\\right)=\\log_a(n+1)-\\log_a n",
+    "related_formulas": [
+      "\\log_a\\!\\left(\\frac{n}{n+1}\\right)=\\log_a n-\\log_a(n+1)"
+    ],
+    "variables": {
+      "a": "底数，且 $a>0$，$a\\neq 1$",
+      "n": "正整数 $\\mathbb{N}^*$"
+    },
+    "conditions": "底数满足 $a>0$ 且 $a\\neq 1$；指数 $n$ 为正整数。",
+    "conclusions": "裂项后累加可消去中间项，得到首末差形式：$\\displaystyle\\sum_{k=1}^{m}\\log_a\\!\\left(1+\\frac{1}{k}\\right)=\\log_a(m+1)-\\log_a 1=\\log_a(m+1)$。"
+  },
+  "content": {
+    "statement": "若 $a>0$ 且 $a\\neq 1$，$n$ 为正整数，则 $\\log_a\\bigl(1+\\frac{1}{n}\\bigr)=\\log_a(n+1)-\\log_a n$。该恒等式可将含对数的分式数列通项裂为两项之差，常用于累加相消求和。",
+    "derivation": [
+      "将 $1+\\frac{1}{n}$ 通分得 $\\frac{n+1}{n}$。",
+      "由对数商法则：$\\log_a\\frac{n+1}{n}=\\log_a(n+1)-\\log_a n$。",
+      "合并即得 $\\log_a\\!\\left(1+\\frac{1}{n}\\right)=\\log_a(n+1)-\\log_a n$。"
+    ],
+    "intuition": "对数将除法转化为减法，而 $1+\\frac{1}{n}=\\frac{n+1}{n}$ 恰好是相邻整数的比值，因此变成了两个相邻整数对数之差。",
+    "common_tricks": [
+      "注意裂项方向是减号，不要写成加号。",
+      "若真数是 $\\frac{n}{n+1}$，则裂项为 $\\log_a n-\\log_a(n+1)$，符号相反。",
+      "常用于形如 $\\sum_{k=1}^{m}\\log_a(1+\\frac{1}{k})$ 的数列求和，累加后中间项抵消。",
+      "也可用于化简组合对数表达式，例如 $\\log_2(1+\\frac{1}{n})+\\log_2(1+\\frac{1}{n+1})$ 等。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "数列裂项求和",
+      "对数运算化简",
+      "累加求和消去中间项"
+    ],
+    "problem_types": [
+      "数列求和",
+      "对数计算化简",
+      "恒等式证明"
+    ],
+    "exam_frequency": 0.4,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "L034.svg",
+    "cardImage": "",
+    "cardBackground": "",
+    "cardIcon": ""
+  },
+  "shareConfig": {
+    "title": "对数型裂项恒等式：数列求和利器",
+    "shareDesc": "适用于数列求和或对数化简题型，将分式对数转化为相邻整数对数差，快速实现累加相消，减少运算步骤。"
+  },
+  "relations": {
+    "prerequisites": [
+      "对数概念",
+      "对数运算法则（商法则）",
+      "数列求和基础"
+    ],
+    "related_ids": [],
+    "similar": "类似分数裂项 $\\frac{1}{n(n+1)}=\\frac{1}{n}-\\frac{1}{n+1}$，但这里是对数形式。"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "数列-求和技巧-裂项相消",
+  "altNodes": "代数-式的变形-恒等变形"
+}

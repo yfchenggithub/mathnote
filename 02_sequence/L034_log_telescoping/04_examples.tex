@@ -1,0 +1,79 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	求值：$\displaystyle S=\sum_{k=1}^{99}\log_3\!\left(1+\frac{1}{k}\right)$。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（裂项变形）：}]
+			对每一项 $\log_3(1+\frac{1}{k})$，应用恒等式得 $\log_3(k+1)-\log_3 k$。
+			\par\textbf{理由：} 根据对数裂项恒等式，$\log_a(1+\frac{1}{n})=\log_a(n+1)-\log_a n$。
+		\item[\textbf{第二步（累加相消）：}]
+			将和式展开：
+			\[
+				\begin{aligned}
+					S &= (\log_3 2-\log_3 1)+(\log_3 3-\log_3 2)+\cdots+(\log_3 100-\log_3 99) \\ &= \log_3 100-\log_3 1
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 相邻两项的 $\log_3(k+1)$ 与 $-\log_3(k+1)$ 抵消，只剩首项的 $-\log_3 1$ 和末项的 $\log_3 100$。
+		\item[\textbf{第三步（化简）：}]
+			由于 $\log_3 1=0$，所以 $S=\log_3 100$。
+			\par\textbf{理由：} 对数性质。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$S=\log_3 100$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	化简 $A_n=\log_2\left(1+\frac{1}{n}\right)+\log_2\left(1+\frac{1}{n+1}\right)$，并求 $A_{100}$。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（分别裂项）：}]
+			由恒等式： $\log_2(1+\frac{1}{n})=\log_2(n+1)-\log_2 n$， $\log_2(1+\frac{1}{n+1})=\log_2(n+2)-\log_2(n+1)$。
+			\par\textbf{理由：} 直接套用对数裂项恒等式。
+		\item[\textbf{第二步（合并同类项）：}]
+			\[
+				\begin{aligned}
+					A_n &= [\log_2(n+1)-\log_2 n]+[\log_2(n+2)-\log_2(n+1)] \\ &= \log_2(n+2)-\log_2 n
+			\end{aligned}
+			\]
+			\par\textbf{理由：} $\log_2(n+1)$ 正负抵消，剩余两项。
+		\item[\textbf{第三步（代入求值）：}]
+			当 $n=100$ 时，
+			\[
+				\begin{aligned}
+					A_{100} &= \log_2(102)-\log_2(100) \\ &= \log_2\frac{102}{100} \\ &= \log_2\frac{51}{50}
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 将数值代入化简结果，再利用对数商法则。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$A_n=\log_2\frac{n+2}{n}=\log_2\!\left(1+\frac{2}{n}\right)$，$A_{100}=\log_2\frac{51}{50}$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	已知数列 $\{c_n\}$ 满足 $c_n=\log_2\!\left(1+\frac{1}{2n-1}\right)+\log_2\!\left(1+\frac{1}{2n}\right)$，求该数列的前 $n$ 项和 $S_n$。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（分别裂项）：}]
+			由恒等式： $\log_2(1+\frac{1}{2n-1})=\log_2(2n)-\log_2(2n-1)$， $\log_2(1+\frac{1}{2n})=\log_2(2n+1)-\log_2(2n)$。
+			\par\textbf{理由：} 恒等式中 $n$ 分别代换为 $2n-1$ 和 $2n$。
+		\item[\textbf{第二步（合并通项）：}]
+			\[
+				\begin{aligned}
+					c_n &= [\log_2(2n)-\log_2(2n-1)]+[\log_2(2n+1)-\log_2(2n)] \\ &= \log_2(2n+1)-\log_2(2n-1)
+			\end{aligned}
+			\]
+			\par\textbf{理由：} $\log_2(2n)$ 相互抵消。
+		\item[\textbf{第三步（累加求和）：}]
+			\[
+				\begin{aligned}
+					S_n &=\sum_{k=1}^{n}\bigl[\log_2(2k+1)-\log_2(2k-1)\bigr] \\ &= \log_2(2n+1)-\log_2 1 \\ &= \log_2(2n+1).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 裂项相消，中间项全部抵消，只剩首末项，且有 $\log_2 1=0$。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$S_n=\log_2(2n+1)$。}
+\end{examplebox}
