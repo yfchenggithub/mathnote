@@ -1,0 +1,45 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	通过空间直角坐标，将球面距离转化为向量夹角，利用点积计算球心角的余弦。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（坐标表示）：}]
+			建立空间直角坐标系，球心为原点 $O$，$z$ 轴指向北极，$x$ 轴指向零度经线。则 $A(\varphi_1,\lambda_1)$ 的直角坐标为
+			\[
+				(x_1,y_1,z_1) = (R\cos\varphi_1\cos\lambda_1,\; R\cos\varphi_1\sin\lambda_1,\; R\sin\varphi_1).
+			\]
+			同理 $B$ 点为 $(R\cos\varphi_2\cos\lambda_2,\; R\cos\varphi_2\sin\lambda_2,\; R\sin\varphi_2)$。
+			\par\textbf{理由：} 球坐标与直角坐标的转换关系。
+		\item[\textbf{步骤二（向量点积）：}]
+			计算 $A$、$B$ 对应的位置向量点积：
+			\[
+				\begin{aligned}
+					\overrightarrow{OA}\cdot\overrightarrow{OB}
+					&= R^2\bigl( \cos\varphi_1\cos\lambda_1\cos\varphi_2\cos\lambda_2\\
+					&\qquad + \cos\varphi_1\sin\lambda_1\cos\varphi_2\sin\lambda_2\\
+					&\qquad + \sin\varphi_1\sin\varphi_2 \bigr)\\
+					&= R^2\bigl( \sin\varphi_1\sin\varphi_2 + \cos\varphi_1\cos\varphi_2(\cos\lambda_1\cos\lambda_2+\sin\lambda_1\sin\lambda_2) \bigr).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 提取 $R^2$，合并 $x$、$y$ 分量中的 $\cos\varphi_1\cos\varphi_2$。
+		\item[\textbf{步骤三（球心角余弦）：}]
+			由 $\cos\theta = \dfrac{\overrightarrow{OA}\cdot\overrightarrow{OB}}{R^2}$ 及三角恒等式 $\cos(\lambda_2-\lambda_1)=\cos\lambda_1\cos\lambda_2+\sin\lambda_1\sin\lambda_2$ 得
+			\[
+				\cos\theta = \sin\varphi_1\sin\varphi_2 + \cos\varphi_1\cos\varphi_2\cos(\Delta\lambda),
+			\]
+			其中 $\Delta\lambda = \lambda_2-\lambda_1$。
+			\par\textbf{理由：} 点积除以 $R^2$ 得夹角余弦，并利用余弦差角公式。
+		\item[\textbf{步骤四（弧长公式）：}]
+			球心角 $\theta$ 的弧度值对应大圆劣弧长 $l = R\theta$，故
+			\[
+				l = R\arccos\!\bigl( \sin\varphi_1\sin\varphi_2 + \cos\varphi_1\cos\varphi_2\cos(\Delta\lambda) \bigr).
+			\]
+			\par\textbf{理由：} 弧度制下弧长公式 $l = R\theta$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	这样就推导出给定经纬度的两点沿大圆的劣弧距离公式，是球面几何的基本结果。
+\end{proofbox}

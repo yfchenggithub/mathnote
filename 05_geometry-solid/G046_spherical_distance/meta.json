@@ -1,0 +1,173 @@
+{
+  "id": "G046",
+  "module": "geometry-solid",
+  "core": {
+    "title": "球面距离公式",
+    "alias": [
+      "大圆劣弧长公式",
+      "球面大圆弧长",
+      "经纬度距离公式",
+      "球心角公式"
+    ],
+    "summary": "球面上两点沿大圆的劣弧长度等于球半径乘以球心角，球心角的余弦由两点的纬度正弦余弦乘积与经度差余弦决定。",
+    "difficulty": 3,
+    "category": "立体几何",
+    "tags": [
+      "球面距离",
+      "大圆劣弧",
+      "立体几何",
+      "经纬度",
+      "球心角"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "球面距离公式",
+      "大圆劣弧长",
+      "球心角",
+      "经纬度距离",
+      "arccos",
+      "弧长",
+      "弧度制",
+      "纬度",
+      "经度",
+      "球半径",
+      "余弦公式"
+    ],
+    "synonyms": [
+      "球面弧长公式",
+      "经纬度算距离",
+      "大圆距离",
+      "球面上两点距离"
+    ],
+    "intents": [
+      "计算球面距离",
+      "求球面两点间最短距离",
+      "由经纬度求距离",
+      "推导球面距离公式"
+    ],
+    "query_templates": [
+      "球面距离公式怎么用",
+      "已知经纬度求球面距离",
+      "大圆劣弧长计算",
+      "球心角公式求弧长"
+    ],
+    "ocrKeywords": [
+      "球面",
+      "大圆",
+      "劣弧",
+      "纬度",
+      "经度",
+      "弧长",
+      "arccos",
+      "sin",
+      "cos",
+      "R"
+    ],
+    "latex_patterns": [
+      "\\arccos\\bigl(\\sin\\varphi_1\\sin\\varphi_2+\\cos\\varphi_1\\cos\\varphi_2\\cos(\\Delta\\lambda)\\bigr)"
+    ],
+    "formulaTokens": [
+      "\\sin\\varphi_1\\sin\\varphi_2",
+      "\\cos\\varphi_1\\cos\\varphi_2\\cos(\\Delta\\lambda)",
+      "\\arccos\\bigl(\\sin\\varphi_1\\sin\\varphi_2+\\cos\\varphi_1\\cos\\varphi_2\\cos(\\Delta\\lambda)\\bigr)",
+      "l=R\\arccos\\bigl(\\sin\\varphi_1\\sin\\varphi_2+\\cos\\varphi_1\\cos\\varphi_2\\cos(\\Delta\\lambda)\\bigr)",
+      "R|\\varphi_1-\\varphi_2|"
+    ],
+    "pinyin": "qiumianjuligongshi",
+    "pinyinAbbr": "qmjlg"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.66,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "l = R\\arccos\\!\\bigl( \\sin\\varphi_1\\sin\\varphi_2 + \\cos\\varphi_1\\cos\\varphi_2\\cos(\\Delta\\lambda) \\bigr)",
+    "related_formulas": [
+      "\\cos\\theta = \\sin\\varphi_1\\sin\\varphi_2 + \\cos\\varphi_1\\cos\\varphi_2\\cos(\\Delta\\lambda)",
+      "l = R\\,|\\varphi_1-\\varphi_2|\\quad (\\Delta\\lambda=0)"
+    ],
+    "variables": [
+      "$R$ (球半径)",
+      "$\\varphi_1, \\varphi_2$ (纬度弧度)",
+      "$\\lambda_1, \\lambda_2$ (经度弧度)",
+      "$\\Delta\\lambda = \\lambda_2-\\lambda_1$ (经度差)",
+      "$\\theta$ (球心角)",
+      "$l$ (球面距离)"
+    ],
+    "conditions": "球面上两点 $A(\\varphi_1,\\lambda_1)$ 与 $B(\\varphi_2,\\lambda_2)$，纬度 $\\varphi$ 与经度 $\\lambda$ 均以弧度制表示，北纬东经取正值，南纬西经取负值；球半径为 $R$；经度差 $\\Delta\\lambda = \\lambda_2-\\lambda_1$。",
+    "conclusions": "球面距离 $l = R\\theta$，其中 $\\theta$ 为球心角弧度，满足 $\\cos\\theta = \\sin\\varphi_1\\sin\\varphi_2 + \\cos\\varphi_1\\cos\\varphi_2\\cos(\\Delta\\lambda)$；当 $\\Delta\\lambda=0$（同经线）时，$l = R|\\varphi_1-\\varphi_2|$。"
+  },
+  "content": {
+    "statement": "设球半径为 $R$，球面上两点 $A(\\varphi_1,\\lambda_1)$、$B(\\varphi_2,\\lambda_2)$（纬度 $\\varphi$、经度 $\\lambda$ 以弧度计，北纬东经为正，南纬西经为负）。记经度差 $\\Delta\\lambda = \\lambda_2-\\lambda_1$，则 $A,B$ 间的球面距离（大圆劣弧长）为 $l = R\\arccos(\\sin\\varphi_1\\sin\\varphi_2 + \\cos\\varphi_1\\cos\\varphi_2\\cos(\\Delta\\lambda))$。若球心角为 $\\theta$，则 $l=R\\theta$ 且 $\\cos\\theta = \\sin\\varphi_1\\sin\\varphi_2 + \\cos\\varphi_1\\cos\\varphi_2\\cos(\\Delta\\lambda)$。",
+    "derivation": [
+      "将经纬度坐标转化为直角坐标：$A(R\\cos\\varphi_1\\cos\\lambda_1,\\,R\\cos\\varphi_1\\sin\\lambda_1,\\,R\\sin\\varphi_1)$，$B(R\\cos\\varphi_2\\cos\\lambda_2,\\,R\\cos\\varphi_2\\sin\\lambda_2,\\,R\\sin\\varphi_2)$。",
+      "计算向量 $\\overrightarrow{OA}\\cdot\\overrightarrow{OB}$ 得到 $\\cos\\theta = \\sin\\varphi_1\\sin\\varphi_2 + \\cos\\varphi_1\\cos\\varphi_2\\cos(\\lambda_2-\\lambda_1)$。",
+      "由 $l=R\\theta$ 即得大圆劣弧长公式。"
+    ],
+    "intuition": "球面距离的本质是球心角对应的弧长，而球心角的余弦可以通过两点的经纬度正弦余弦乘积之和表示，这是因为在球坐标系下两点与球心连线向量的点积等于该表达式。",
+    "common_tricks": [
+      "经纬度必须转换为弧度制，注意 $180^\\circ = \\pi$ rad。",
+      "南纬取负弧度，西经取负经度，代入公式自动处理符号。",
+      "当两点在同一经线（$\\Delta\\lambda=0$）或赤道（$\\varphi=0$）时，公式可简化。",
+      "若问题仅给出球面距离反求经纬度，需注意反三角函数的值域。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "球面距离计算",
+      "地理坐标距离",
+      "立体几何综合题"
+    ],
+    "problem_types": [
+      "计算题",
+      "应用题"
+    ],
+    "exam_frequency": 0.6,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "G046.svg",
+    "source": {},
+    "video": "",
+    "image": ""
+  },
+  "shareConfig": {
+    "title": "球面距离公式：由经纬度快速计算大圆劣弧长",
+    "shareDesc": "适合课后复习和刷题速查，利用经纬度三角函数直接计算球面两点间最短距离，避免复杂的空间几何推导，提高解题效率。"
+  },
+  "relations": {
+    "prerequisites": [
+      "三角函数",
+      "弧度制",
+      "空间向量点积"
+    ],
+    "related_ids": [],
+    "similar": [
+      "平面两点间距离公式",
+      "球面三角余弦定理"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "立体几何-空间向量-数量积",
+  "altNodes": "三角函数-基本关系-同角恒等,立体几何-空间向量-坐标法"
+}
