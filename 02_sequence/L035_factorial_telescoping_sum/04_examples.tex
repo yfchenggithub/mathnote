@@ -1,0 +1,88 @@
+\begin{examplebox}
+
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	求 $S_4 = 1\cdot1!+2\cdot2!+3\cdot3!+4\cdot4!$ 的值。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（裂项转化）：}] 对每一项应用公式 $k\cdot k! = (k+1)!-k!$。
+			\par\textbf{理由：} 由公式 $n\cdot n! = (n+1)!-n!$ 直接得到。
+		\item[\textbf{第二步（展开和式）：}] 写出 $S_4 = (2!-1!)+(3!-2!)+(4!-3!)+(5!-4!)$。
+			\par\textbf{理由：} 将 $k=1,2,3,4$ 分别代入裂项公式。
+		\item[\textbf{第三步（消项求值）：}] 合并得
+			\[
+				\begin{aligned}
+					S_4 &= 5! - 1! \\
+					&= 120 - 1 \\
+					&= 119.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 相邻项 $-1!$ 与 $+2!$ 的 $2!$ 抵消，依次类推，只剩 $5!$ 和 $-1!$，且 $1! = 1$，$5! = 120$。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	$S_4 = 119$，验证了公式 $S_n = (n+1)!-1$。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	求 $T_n = \sum_{k=2}^{n} k\cdot k!$ 的表达式。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（裂项转化）：}] 每项 $k\cdot k! = (k+1)!-k!$。
+			\par\textbf{理由：} 同例1。
+		\item[\textbf{第二步（展开和式）：}]
+			\[
+				\begin{aligned}
+					T_n &= \sum_{k=2}^{n} [(k+1)!-k!] \\
+					&= (3!-2!)+(4!-3!)+\cdots+((n+1)!-n!).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 代入裂项并展开。
+		\item[\textbf{第三步（消项化简）：}] 消去中间项得
+			\[
+				\begin{aligned}
+					T_n &= (n+1)! - 2! \\
+					&= (n+1)! - 2.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 首项剩余 $-2!$，末项保留 $(n+1)!$，其余抵消。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	$T_n = (n+1)! - 2$。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	用数学归纳法证明 $1\cdot1!+2\cdot2!+\cdots+n\cdot n! = (n+1)! - 1$ 对所有正整数 $n$ 成立。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（基础验证）：}] 当 $n=1$ 时，左式 $1\cdot1! = 1$，右式 $2!-1 = 1$，等式成立。
+			\par\textbf{理由：} 直接计算 $n=1$ 情况。
+		\item[\textbf{第二步（归纳假设）：}] 假设 $n=k$ 时成立，即 $\sum_{i=1}^{k} i\cdot i! = (k+1)! - 1$。
+			\par\textbf{理由：} 归纳法假设。
+		\item[\textbf{第三步（归纳递推）：}] 当 $n=k+1$ 时，
+			\[
+				\begin{aligned}
+					\text{左} &= \sum_{i=1}^{k} i\cdot i! + (k+1)\cdot(k+1)! \\
+					&= \bigl[(k+1)! - 1\bigr] + (k+1)\cdot(k+1)! \quad\text{(代入归纳假设)}\\
+					&= (k+1)! \cdot [1 + (k+1)] - 1 \\
+					&= (k+1)! \cdot (k+2) - 1 \\
+					&= (k+2)! - 1.
+			\end{aligned}
+			\]
+			即得到右式，故等式成立。
+			\par\textbf{理由：} 利用假设加上新项，提取公因式化简，本质是裂项公式 $ (k+1)\cdot(k+1)! = (k+2)! - (k+1)!$ 的应用。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	等式得证，同时验证了裂项求和公式的正确性。
+
+\end{examplebox}
