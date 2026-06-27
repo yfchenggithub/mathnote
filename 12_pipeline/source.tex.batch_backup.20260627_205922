@@ -1,0 +1,27 @@
+\textbf{结论名称：} 数列放缩证明不等式（裂项放缩/等比放缩/糖水放缩）
+
+\textbf{适用条件：} 待证数列不等式难以直接求和或求积，通常针对正项数列，通过适当放缩使其转化为可求和的等差、等比或可裂项相消的形式。
+
+\textbf{变量说明：} $\{a_n\}$ 为原数列通项，放缩后辅助数列通项记为 $\{b_n\}$（满足 $a_n\le b_n$ 或 $a_n\ge b_n$）；在裂项中常拆为 $\frac{1}{n}-\frac{1}{n+1}$ 等形式；在糖水放缩中常设 $0<a<b,\;m>0$。
+
+\textbf{核心公式：}
+\begin{itemize}
+  \item 裂项放缩核心不等式：
+  \[
+  \boxed{\frac{1}{n(n+1)} < \frac{1}{n^2} < \frac{1}{n(n-1)}\quad (n\ge 2)}
+  \]
+  进而 $\frac{1}{n}-\frac{1}{n+1} < \frac{1}{n^2} < \frac{1}{n-1}-\frac{1}{n}$。
+  \item 等比放缩：若 $0<q<1$，可放大为 $a_n\le C\cdot q^n$ 以便利用等比数列求和 $\sum q^n < \frac{q}{1-q}$。
+  \item 糖水放缩：若 $0<a<b$，$m>0$，则 $\frac{a}{b} < \frac{a+m}{b+m}$，常用于连乘型不等式。
+\end{itemize}
+
+\textbf{使用场景：} 高考压轴题中证明累和型不等式 $\sum a_n < C$ 或累乘型不等式 $\prod a_n < C$，当直接求和（积）困难时，通过放大（或缩小）通项，利用裂项相消或等比求和完成证明。
+
+\textbf{简单例子：} 证明 $\displaystyle\sum_{k=1}^{n}\frac{1}{k^2} < 2$。\\
+当 $k\ge 2$ 时，由裂项放缩知 $\frac{1}{k^2} < \frac{1}{k(k-1)} = \frac{1}{k-1} - \frac{1}{k}$，于是
+\[
+\sum_{k=1}^{n}\frac{1}{k^2}
+= 1 + \sum_{k=2}^{n}\frac{1}{k^2}
+< 1 + \sum_{k=2}^{n}\Bigl(\frac{1}{k-1} - \frac{1}{k}\Bigr)
+= 2 - \frac{1}{n} < 2.
+\]
