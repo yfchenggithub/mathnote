@@ -1,0 +1,76 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	在等比数列$\{a_n\}$中，公比$q>0$，前$n$项和为$S_n$。已知$S_2=3$，$S_4-S_2=12$，求$q$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别片段）：}] 由条件$S_2$与$S_4-S_2$是相邻的两段$m=2$的片段和。
+			\par\textbf{理由：}片段和定义$S_m$和$S_{2m}-S_m$恰好对应。
+		\item[\textbf{第二步（套用性质）：}] 根据性质，比值等于公比的$m$次方，即
+			\[
+				\frac{S_4-S_2}{S_2}=q^2.
+			\]
+			\par\textbf{理由：}公式$\frac{S_{2m}-S_m}{S_m}=q^m$，此处$m=2$。
+		\item[\textbf{第三步（求解）：}] 已知$S_2=3$。又$S_4-S_2=12$。代入性质得到$q^2=4$。由条件$q>0$。因此$q=2$。
+			\par\textbf{理由：}解二次方程，正数条件决定符号。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$q=2$}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	在等比数列$\{a_n\}$中，公比$q\neq 1$，前$n$项和为$S_n$。已知$S_3=2$，$S_6=6$，求$S_9$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别片段）：}] 取$m=3$，由性质可知$S_3$，$S_6-S_3$，$S_9-S_6$成等比数列。
+			\par\textbf{理由：}片段和性质直接给出。
+		\item[\textbf{第二步（求比值）：}] 已知$S_6=6$。又$S_3=2$。所以$S_6-S_3=4$。于是公比为
+			\[
+				\frac{S_6-S_3}{S_3}=2.
+			\]
+			\par\textbf{理由：}等比数列定义。
+		\item[\textbf{第三步（计算$S_9$）：}] 由公比$2$得$S_9-S_6 = 2\cdot(S_6-S_3)$。由条件$S_6-S_3=4$。因此$S_9-S_6=8$。故$S_9=14$。
+			\par\textbf{理由：}后一段和等于前一段和乘以公比。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$S_9=14$}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	在等比数列$\{a_n\}$中，公比$q\neq 1$，前$n$项和为$S_n$，且$S_m\neq 0$。已知$S_{2m}=4S_m$，$S_{3m}=13$，求$S_m$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（求$q^m$）：}] 由性质得$S_{2m}=S_m(1+q^m)$。又已知$S_{2m}=4S_m$。因此
+			\[
+				S_m(1+q^m)=4S_m.
+			\]
+			因为$S_m\neq0$。约去$S_m$得$1+q^m=4$。故$q^m=3$。
+			\par\textbf{理由：}代入条件并利用非零条件化简。
+		\item[\textbf{第二步（表示$S_{3m}$）：}] 利用性质：
+			\[
+				\begin{aligned}
+					S_{3m} &= S_m + q^m S_m \
+					&
+					+ q^{2m} S_m \
+					&= S_m(1+q^m+q^{2m}).
+			\end{aligned}
+			\]
+			代入$q^m=3$。从而$S_{3m}=13S_m$。
+			\par\textbf{理由：}连续拆分后代入$q^m$值。
+		\item[\textbf{第三步（列方程）：}] 由第二步得$S_{3m}=13S_m$。又已知$S_{3m}=13$。因此$13S_m=13$。所以$S_m=1$。
+			\par\textbf{理由：}解一元一次方程。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$S_m=1$}
+\end{examplebox}

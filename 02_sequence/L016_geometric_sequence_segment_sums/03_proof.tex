@@ -1,0 +1,67 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用等比数列“隔项比例不变”的性质，将后m项和表示为$q^m S_m$，再将$S_{2m}$、$S_{3m}$拆分，直接计算片段和比值。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（后m项表示）：}]
+			对等比数列$\{a_n\}$，任意正整数$k$有$a_{k+m}=a_k q^m$，因此第$m+1$项至第$2m$项之和为
+			\[
+				\begin{aligned}
+					a_{m+1}+a_{m+2}+\cdots+a_{2m} &= q^m(a_1+a_2+\cdots+a_m) \
+					&= q^m S_m.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 每一项提取公因式$q^m$，正好是$q^m$乘以$S_m$。
+
+		\item[\textbf{步骤二（拆分$S_{2m}$）：}]
+			前$2m$项和等于前$m$项和加上后$m$项和：
+			\[
+				\begin{aligned}
+					S_{2m} &= S_m+(a_{m+1}+\cdots+a_{2m}) \
+					&= S_m+q^m S_m \
+					&= S_m(1+q^m).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 前$2m$项按位置分成两段，利用步骤一结论。
+
+		\item[\textbf{步骤三（拆分$S_{3m}$）：}]
+			同理，
+			\[
+				\begin{aligned}
+					S_{3m} &= S_{2m}+(a_{2m+1}+\cdots+a_{3m}) \
+					&= S_{2m}+q^{2m}S_m.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 第$2m+1$至$3m$项同样可提取$q^{2m}$，其和为$q^{2m}S_m$。
+
+		\item[\textbf{步骤四（片段差与比值）：}]
+			由步骤二、三，
+			\[
+				\begin{aligned}
+					S_{2m}-S_m &= q^m S_m,\
+					S_{3m}-S_{2m} &= q^{2m} S_m.
+			\end{aligned}
+			\]
+			因为$S_m\neq 0$，所以
+			\[
+				\frac{S_{2m}-S_m}{S_m}=q^m,
+			\]
+			且
+			\[
+				\frac{S_{3m}-S_{2m}}{S_{2m}-S_m}=q^m.
+			\]
+			\par\textbf{理由：} 直接代入化简，分母均非零。
+
+		\item[\textbf{步骤五（等比判定）：}]
+			由$S_m,\ S_{2m}-S_m,\ S_{3m}-S_{2m}$三项，后项与前项之比都等于$q^m$，故成等比数列，公比$q^m$。
+			\par\textbf{理由：} 等比数列定义（相邻项比值相等）。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{对任何正整数$m$，只要$S_m\neq0$，就能从原等比数列中提取出以$q^m$为公比的片段和等比数列。}
+\end{proofbox}
