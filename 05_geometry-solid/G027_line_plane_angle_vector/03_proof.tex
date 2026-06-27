@@ -1,0 +1,51 @@
+\begin{proofbox}
+	\n\textbf{\textcolor{CProof}{思路提示}}\n\n线面角是直线与它在平面内投影的夹角。法向量垂直于平面，因此直线的方向向量可以分解为沿法向量（与平面垂直）和垂直于法向量（在平面内）两个分量。线面角的正弦等于垂直分量长度与方向向量长度之比。\n\n
+
+	\medskip
+	\n\textbf{\textcolor{CProof}{正式推导}}\n
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\n
+		\item[\textbf{步骤一（向量分解）：}]
+			将直线$l$的方向向量$\vec{l}$沿法向量$\vec{n}$方向及垂直于$\vec{n}$的方向分解。设平行于$\vec{n}$的分量为$\vec{l}_{\perp}$，垂直于$\vec{n}$的分量为$\vec{l}_{\parallel}$（该分量在平面$\alpha$内）。\n
+			\[
+				\n \vec{l}_{\perp} = \frac{\vec{l}\cdot\vec{n}}{|\vec{n}|^2}\,\vec{n},
+				\qquad
+				\vec{l}_{\parallel} = \vec{l} - \vec{l}_{\perp}.\n
+			\]
+			\n
+			\par\textbf{理由：}\n 这是向量投影定理，$\vec{l}_{\perp}$是$\vec{l}$在$\vec{n}$上的投影向量。\n\n
+		\item[\textbf{步骤二（长度关系）：}]
+			计算$|\vec{l}_{\perp}|^2$：\n
+			\[
+				\n
+				\begin{aligned}
+					\n |\vec{l}_{\perp}|^2 &= \left(\frac{\vec{l}\cdot\vec{n}}{|\vec{n}|^2}\right)^2 |\vec{n}|^2 \\\n &= \frac{(\vec{l}\cdot\vec{n})^2}{|\vec{n}|^2}.\n
+			\end{aligned}
+				\n
+			\]
+			\n 同时，$|\vec{l}|^2 = |\vec{l}_{\perp}|^2 + |\vec{l}_{\parallel}|^2$（因为$\vec{l}_{\perp} \perp \vec{l}_{\parallel}$）。\n
+			\par\textbf{理由：}\n 正交分解的勾股关系。\n\n
+		\item[\textbf{步骤三（正弦定义）：}]
+			设直线$l$与平面$\alpha$的夹角为$\theta$，则$\sin\theta$等于直线方向向量$\vec{l}$在法向量方向分量的长度与$|\vec{l}|$之比（即$\frac{|\vec{l}_{\perp}|}{|\vec{l}|}$）。\n
+			\[
+				\n
+				\begin{aligned}
+					\n \sin\theta &= \frac{|\vec{l}_{\perp}|}{|\vec{l}|} \\\n &= \frac{\sqrt{(\vec{l}\cdot\vec{n})^2}}{|\vec{n}|\,|\vec{l}|} \\\n &= \frac{|\vec{l}\cdot\vec{n}|}{|\vec{n}|\,|\vec{l}|}.\n
+			\end{aligned}
+				\n
+			\]
+			\n
+			\par\textbf{理由：}\n 线面角定义：直线与投影的夹角，其正弦等于对边比斜边，这里对边即垂直分量长度。\n\n
+		\item[\textbf{步骤四（余弦形式）：}]
+			由于$\vec{l}\cdot\vec{n} = |\vec{n}||\vec{l}|\cos\langle\vec{n},\vec{l}\rangle$，代入即得\n
+			\[
+				\n \sin\theta = |\cos\langle\vec{n},\vec{l}\rangle|.\n
+			\]
+			\n
+			\par\textbf{理由：}\n 点积定义直接代换。\n
+	\end{description}
+	\n\n
+
+	\medskip
+	\n\textbf{\textcolor{CProof}{结论回扣}}\n\n公式$\displaystyle\sin\theta = \frac{|\vec{n}\cdot\vec{l}|}{|\vec{n}|\,|\vec{l}|}$对任意非零法向量$\vec{n}$和方向向量$\vec{l}$成立。当$l\parallel\alpha$或$l\subset\alpha$时，$\vec{n}\perp\vec{l}$，点积为0，$\sin\theta=0$，$\theta=0^\circ$；当$l\perp\alpha$时，$\vec{n}\parallel\vec{l}$，点积绝对值等于$|\vec{n}||\vec{l}|$，$\sin\theta=1$，$\theta=90^\circ$。这些特殊情形均与定义一致。\n\n
+\end{proofbox}

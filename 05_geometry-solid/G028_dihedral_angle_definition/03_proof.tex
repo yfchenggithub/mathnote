@@ -1,0 +1,36 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	二面角定义法直接将空间角转化为平面三角形内角，再通过余弦定理由边长求角，是立体几何中最基本的求角方法之一。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（构造平面角）：}] 在二面角 $\alpha\text{-}l\text{-}\beta$ 的棱 $l$ 上任取一点 $O$，在 $\alpha$ 内作 $OA\perp l$，在 $\beta$ 内作 $OB\perp l$，则 $\angle AOB$ 即为该二面角的平面角，记二面角大小为 $\theta = \angle AOB$。
+			\par\textbf{理由：}
+			由二面角平面角的定义，从棱出发分别垂直于棱的两条射线所成的角就是平面角，其大小即二面角的大小。
+
+		\item[\textbf{步骤二（运用余弦定理）：}] 连接 $AB$，在 $\triangle AOB$ 中，由余弦定理可得
+			\[
+				\cos\angle AOB = \frac{OA^2 + OB^2 - AB^2}{2\cdot OA \cdot OB}.
+			\]
+			\par\textbf{理由：}
+			余弦定理适用于任意三角形，已知三边可求任意内角的余弦值。
+
+		\item[\textbf{步骤三（回代定义）：}] 因为 $\theta = \angle AOB$，所以直接代入得
+			\[
+				\cos\theta = \frac{OA^2 + OB^2 - AB^2}{2\cdot OA \cdot OB}.
+			\]
+			\par\textbf{理由：}
+			将 $\angle AOB$ 替换为 $\theta$ 即得结论公式。
+
+		\item[\textbf{步骤四（确定角大小）：}] 由 $\cos\theta$ 的值并结合 $\theta\in[0,\pi]$ 即可唯一确定二面角 $\theta$。
+			\par\textbf{理由：}
+			二面角的取值范围是 $[0,\pi]$，余弦值在此区间内是单调的（$[0,\pi]$ 上余弦严格递减），因此可反解出角度。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{通过作两条垂直于棱的射线构造平面角，再对三角形使用余弦定理，便可将二面角的大小转化为三条可测线段长度的代数运算，原理清晰、操作简便。}
+\end{proofbox}
