@@ -7,26 +7,42 @@
 	\textbf{\textcolor{CProof}{正式推导}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
 		\item[\textbf{步骤一（定义引入）：}] 由等差数列定义，对任意正整数 \(k\)，有
-			\[
-				a_{k+1} - a_k = d .
-			\]
-			\par\textbf{理由：} 等差数列要求从第2项起每一项与前一项的差等于同一个常数，即公差 \(d\)。
+		      \[
+			      a_{k+1} - a_k = d .
+		      \]
+		      \par\textbf{理由：} 等差数列要求从第2项起每一项与前一项的差等于同一个常数，即公差 \(d\)。
 
 		\item[\textbf{步骤二（累加求和）：}] 假设 \(m < n\)，将 \(m \le k \le n-1\) 的 \(n-m\) 个式子相加，
-			\[
-				\sum_{k=m}^{n-1} (a_{k+1} - a_k) = \sum_{k=m}^{n-1} d = (n-m)d .
-			\]
-			\par\textbf{理由：} 左右两边分别求和，左边是差项序列的和，右边是常数求和。
+		      \[
+			      \sum_{k=m}^{n-1} (a_{k+1} - a_k) = \sum_{k=m}^{n-1} d = (n-m)d .
+		      \]
+		      \par\textbf{理由：} 左右两边分别求和，左边是差项序列的和，右边是常数求和。
 
 		\item[\textbf{步骤三（裂项相消）：}] 左边可写成
-			\[
-				(a_{m+1}-a_m) + (a_{m+2}-a_{m+1}) + \cdots + (a_n - a_{n-1}) = a_n - a_m .
-			\]
-			\par\textbf{理由：} 中间项全部抵消，仅剩首尾项之差。从而得到
-			\[
-				a_n - a_m = (n-m)d .
-			\]
-			移项即得 \(a_n = a_m + (n-m)d\)。
+		      \[
+			      (a_{m+1}-a_m) + (a_{m+2}-a_{m+1}) + \cdots + (a_n - a_{n-1}) = a_n - a_m .
+		      \]
+		      \par\textbf{理由：} 中间项全部抵消，仅剩首尾项之差。从而当 \(m<n\) 时，得到
+		      \[
+			      a_n - a_m = (n-m)d .
+		      \]
+
+		\item[\textbf{步骤四（补全下标情形）：}] 若 \(m=n\)，则
+		      \[
+			      a_n-a_m=0=(n-m)d .
+		      \]
+		      若 \(m>n\)，由 \(n<m\) 的情形可得
+		      \[
+			      a_m-a_n=(m-n)d,
+		      \]
+		      两边取相反数，得
+		      \[
+			      a_n-a_m=(n-m)d .
+		      \]
+		      \par\textbf{理由：} 公式对 \(m<n\)、\(m=n\)、\(m>n\) 三种情况都成立，因此对任意正整数 \(m,n\) 都成立。移项即得
+		      \[
+			      a_n=a_m+(n-m)d .
+		      \]
 	\end{description}
 
 	\medskip
