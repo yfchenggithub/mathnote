@@ -1,0 +1,171 @@
+{
+  "id": "G032",
+  "module": "geometry-solid",
+  "core": {
+    "title": "异面直线距离公式（向量公垂线法）",
+    "alias": [
+      "异面距离公式",
+      "公垂线向量公式",
+      "异面直线距离向量法"
+    ],
+    "summary": "两异面直线距离等于连接向量在公垂线方向投影的绝对值。",
+    "difficulty": 4,
+    "category": "立体几何",
+    "tags": [
+      "异面直线距离",
+      "向量法",
+      "公垂线",
+      "空间向量",
+      "立体几何"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "异面直线距离公式",
+      "向量叉积",
+      "公垂线",
+      "方向向量",
+      "连接向量",
+      "投影绝对值",
+      "空间向量",
+      "直线距离",
+      "参数方程",
+      "空间点坐标"
+    ],
+    "synonyms": [
+      "两条线距离",
+      "异面距离",
+      "向量距离公式",
+      "公垂线长度",
+      "异面直线求距离"
+    ],
+    "intents": [
+      "求距离",
+      "计算异面直线距离",
+      "求异面直线公垂线长度",
+      "用向量法求距离",
+      "异面直线最短距离"
+    ],
+    "query_templates": [
+      "异面直线距离公式",
+      "向量法求异面直线距离",
+      "公垂线向量公式",
+      "空间直线距离",
+      "异面直线距离向量计算"
+    ],
+    "ocrKeywords": [
+      "异面直线",
+      "距离",
+      "方向向量",
+      "点坐标",
+      "参数方程",
+      "叉积",
+      "模长",
+      "投影",
+      "公垂线"
+    ],
+    "latex_patterns": [
+      "\\frac{\\bigl| \\overrightarrow{AB} \\cdot (\\vec{u} \\times \\vec{v}) \\bigr|}{|\\vec{u} \\times \\vec{v}|}"
+    ],
+    "formulaTokens": [
+      "\\overrightarrow{AB} \\cdot (\\vec{u} \\times \\vec{v})",
+      "|\\overrightarrow{AB} \\cdot (\\vec{u} \\times \\vec{v})|",
+      "|\\vec{u} \\times \\vec{v}|",
+      "\\frac{|\\overrightarrow{AB} \\cdot (\\vec{u} \\times \\vec{v})|}{|\\vec{u} \\times \\vec{v}|}",
+      "\\vec{u} \\times \\vec{v}"
+    ],
+    "pinyin": "yimianzhixianjuligongshi",
+    "pinyinAbbr": "ymzxjl"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.78,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "d = \\frac{\\bigl| \\overrightarrow{AB} \\cdot (\\vec{u} \\times \\vec{v}) \\bigr|}{|\\vec{u} \\times \\vec{v}|}",
+    "related_formulas": [
+      "d = \\frac{|\\overrightarrow{AB} \\cdot \\vec{n}|}{|\\vec{n}|},\\ \\vec{n} = \\vec{u} \\times \\vec{v}"
+    ],
+    "variables": [
+      "\\vec{u}",
+      "\\vec{v}",
+      "\\overrightarrow{AB}",
+      "d",
+      "\\vec{n}"
+    ],
+    "conditions": "方向向量$\\vec{u}$与$\\vec{v}$不平行，即$\\vec{u}\\times\\vec{v}\\neq\\vec{0}$；点$A$在直线$l_1$上，点$B$在直线$l_2$上。",
+    "conclusions": "距离$d$非负，且等于向量$\\overrightarrow{AB}$在公垂线方向投影的绝对值。"
+  },
+  "content": {
+    "statement": "对于两条异面直线$l_1$, $l_2$，方向向量分别为$\\vec{u}$, $\\vec{v}$且$\\vec{u}\\nparallel\\vec{v}$，设$l_1$过点$A$，$l_2$过点$B$，则两直线间的距离为$d = \\frac{|\\overrightarrow{AB}\\cdot(\\vec{u}\\times\\vec{v})|}{|\\vec{u}\\times\\vec{v}|}$。",
+    "derivation": [
+      "第一步：公垂线的方向向量为$\\vec{n} = \\vec{u} \\times \\vec{v}$。",
+      "第二步：距离$d$等于$\\overrightarrow{AB}$在$\\vec{n}$方向上的投影的绝对值，即$d = \\frac{|\\overrightarrow{AB} \\cdot \\vec{n}|}{|\\vec{n}|}$。",
+      "第三步：代入$\\vec{n}$即得公式$d = \\frac{\\bigl| \\overrightarrow{AB} \\cdot (\\vec{u} \\times \\vec{v}) \\bigr|}{|\\vec{u} \\times \\vec{v}|}$。"
+    ],
+    "intuition": "公垂线是唯一同时垂直于两条异面直线的直线，因此连接向量在该方向上的投影长度即为最短距离。",
+    "common_tricks": [
+      "1. 使用前必须验证$\\vec{u}\\times\\vec{v}\\neq\\vec{0}$，否则直线平行，公式失效。",
+      "2. 计算点积后取绝对值，避免得到负距离。",
+      "3. 若已知直线参数方程，提取方向向量和定点时注意参数系数。",
+      "4. 也可以先求法向量$\\vec{n}=\\vec{u}\\times\\vec{v}$，再利用投影公式计算。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "立体几何大题中求异面直线距离",
+      "空间向量综合题",
+      "公垂线相关计算"
+    ],
+    "problem_types": [
+      "计算题",
+      "证明题"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "G032.svg",
+    "png": "",
+    "gif": "",
+    "pdf": ""
+  },
+  "shareConfig": {
+    "title": "异面直线距离向量公式：通解所有公垂线问题",
+    "shareDesc": "适合课后复盘和考前速查，用向量叉积与投影一步求距离，避免构造公垂线的复杂几何推导，提升空间向量运算的稳定性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "向量的数量积",
+      "向量叉积",
+      "空间直线方向向量"
+    ],
+    "related_ids": [],
+    "similar": [
+      "点到平面距离公式",
+      "两平行直线距离公式"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "立体几何-空间向量-坐标法",
+  "altNodes": ""
+}

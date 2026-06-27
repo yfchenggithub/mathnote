@@ -1,0 +1,44 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	通过构造公垂线段，利用向量分解和垂直于公垂线的条件，将距离转化为投影长度；补充叉积确定方向。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（公垂线方向）：}] 设公垂线段方向向量为$\vec{n}$，因为公垂线垂直于$l_1$和$l_2$，故$\vec{n}\perp\vec{u}$且$\vec{n}\perp\vec{v}$，因此$\vec{n}\parallel\vec{u}\times\vec{v}$。取$\vec{n}=\vec{u}\times\vec{v}$。
+			\[
+				\vec{n} = \vec{u}\times\vec{v}.
+			\]
+			\par\textbf{理由：}由向量叉积定义，$\vec{u}\times\vec{v}$是同时垂直于$\vec{u}$、$\vec{v}$的向量。
+
+		\item[\textbf{步骤二（向量分解）：}] 设公垂足分别为$P$（在$l_1$上）、$Q$（在$l_2$上），则$\overrightarrow{AB} = \overrightarrow{AP} + \overrightarrow{PQ} + \overrightarrow{QB}$。由$P\in l_1$得$\overrightarrow{AP}\parallel\vec{u}$，由$Q\in l_2$得$\overrightarrow{QB}\parallel\vec{v}$，且$\overrightarrow{PQ}\parallel\vec{n}$。
+			\[
+				\overrightarrow{AB} = \overrightarrow{AP} + \overrightarrow{PQ} + \overrightarrow{QB}.
+			\]
+			\par\textbf{理由：}向量加法；$A,P$在$l_1$上，$B,Q$在$l_2$上。
+
+		\item[\textbf{步骤三（投影求距离）：}] 将上式两边与$\vec{n}$点积。由于$\overrightarrow{AP}\perp\vec{n},\overrightarrow{QB}\perp\vec{n}$，故$\overrightarrow{AP}\cdot\vec{n}=0,\overrightarrow{QB}\cdot\vec{n}=0$，所以
+			\[
+				\begin{aligned}
+					\overrightarrow{AB}\cdot\vec{n} &= \overrightarrow{PQ}\cdot\vec{n} \\
+					&= |\overrightarrow{PQ}|\,|\vec{n}|\cos 0 \\
+					&= |\overrightarrow{PQ}|\,|\vec{n}|.
+			\end{aligned}
+			\]
+			移项得
+			\[
+				\begin{aligned}
+					|\overrightarrow{PQ}| &= \frac{|\overrightarrow{AB}\cdot\vec{n}|}{|\vec{n}|} \\
+					&= \frac{|\overrightarrow{AB}\cdot(\vec{u}\times\vec{v})|}{|\vec{u}\times\vec{v}|}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：}$\overrightarrow{AP}$与$\vec{n}$垂直，点积为零；$\overrightarrow{PQ}$与$\vec{n}$同向，点积为模长乘积。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	上式右边正是异面直线距离公式，左边$|\overrightarrow{PQ}|$是公垂线段长度，故异面直线距离即为
+	\[
+		d = \frac{\bigl|\overrightarrow{AB}\cdot(\vec{u}\times\vec{v})\bigr|}{|\vec{u}\times\vec{v}|}.
+	\]
+\end{proofbox}
