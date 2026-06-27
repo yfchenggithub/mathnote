@@ -1,0 +1,21 @@
+\begin{trapbox}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点一（下标范围）：}}] 误将公式写为 $a_n=a_1+\sum_{k=1}^{n} f(k)$ 或 $\sum_{k=1}^{n-2} f(k)$。
+		\item[\textbf{\textcolor{CTrap}{正确理解（下标范围）：}}] 公式中求和从 $k=1$ 到 $n-1$，共 $n-1$ 项（当 $n=1$ 时求和为空，视为 $0$）。
+		\item[\textbf{\textcolor{CTrap}{错因分析（下标范围）：}}] 未正确数出累加等式的个数：递推涉及 $a_1$ 到 $a_n$ 共 $n-1$ 个差。
+	\end{description}
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点二（函数对应）：}}] 求和时误将 $f(k)$ 写成 $f(k+1)$ 或 $f(k-1)$。
+		\item[\textbf{\textcolor{CTrap}{正确理解（函数对应）：}}] 由 $a_{k+1}-a_k=f(k)$，累加和应为 $\sum_{k=1}^{n-1}f(k)$，下标与递推一致。
+		\item[\textbf{\textcolor{CTrap}{错因分析（函数对应）：}}] 错误地认为 $a_n$ 的差对应 $f(n)$，实际差等式由 $a_{n+1}-a_n=f(n)$ 定义。
+	\end{description}
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点三（首项检验）：}}] 直接使用公式计算 $a_1$ 得到 $a_1=a_1+\sum_{k=1}^{0} f(k)$，但未验证 $n=1$ 时公式是否自恰。
+		\item[\textbf{\textcolor{CTrap}{正确理解（首项检验）：}}] 公式 $a_n=a_1+\sum_{k=1}^{n-1} f(k)$ 在 $n=1$ 时给出 $a_1$（空和为0），因此 $n\ge1$ 均成立，但需确认递推在 $n=1$ 时有定义。
+		\item[\textbf{\textcolor{CTrap}{错因分析（首项检验）：}}] 忽视空和约定，或对 $n=1$ 时公式的适用性未加检查。
+	\end{description}
+\end{trapbox}

@@ -1,0 +1,44 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+	累加法就是将递推关系转化为 $n-1$ 个等式的累加，从而避开逐项递推，直接得到通项公式。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（差式递推）：}] 条件 $a_{n+1}-a_n=f(n)$ 给出了第 $n+1$ 项与第 $n$ 项的差。
+		\item[\textbf{要点二（累加消项）：}] 将 $k=1$ 到 $n-1$ 的 $n-1$ 个等式分别相加，左边相邻项抵消，右边得到 $\sum f(k)$。
+		\item[\textbf{要点三（下标规律）：}] 累加时等式左边为 $a_2-a_1, a_3-a_2,\dots, a_n-a_{n-1}$，相加恰好剩下 $a_n-a_1$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（逐点位移）}}
+
+	将数列 $\{a_n\}$ 视为数轴上的点，$a_1$ 为起点，每次向右（正差）或向左（负差）移动 $f(n)$ 个单位，第 $n$ 项的位置就是起点加上所有位移之和。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（求和推广）}}
+
+	当 $f(n)$ 为常数 $d$ 时，累加法给出 $a_n=a_1+(n-1)d$，即等差数列公式。因此累加法是等差数列通项公式的推广，适用于更一般的可求和差函数。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（高频应用）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（直接求通项）：} 给出 $a_{n+1}=a_n+f(n)$ 和 $a_1$，直接累加求 $a_n$。
+		\item \textbf{考法二（裂项求和）：} 当 $f(n)$ 可裂项（如 $\frac{1}{n(n+1)}$），累加后通过裂项相消简化。
+		\item \textbf{考法三（构造累加）：} 已知 $a_{n+1}=pa_n+q$ 等可通过变形化为累加形式。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	累加法的本质是“把递推想成逐项差，累加差即为总变化”。记住三步：写差、累加、求和。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（标准递推）：} 递推式为 $a_{n+1}=a_n+f(n)$ 且 $f(n)$ 可求和。
+		\item \textbf{场景二（变形递推）：} 递推式可化为 $b_{n+1}-b_n=g(n)$ 的形式，如通过取倒数、取对数等。
+		\item \textbf{场景三（函数递推）：} 已知 $f(n+1)-f(n)=h(n)$，求 $f(n)$ 表达式。
+	\end{itemize}
+\end{explanationbox}

@@ -1,0 +1,50 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	累加法通过将递推关系展开成 $n-1$ 个等式，再将等式两边分别相加，左边消去中间项，右边对 $f(k)$ 求和，从而直接得到通项。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（差式递推）：}] 由已知递推关系 $a_{n+1}=a_n+f(n)$ 可得
+			\[
+				a_{n+1}-a_n=f(n)
+			\]
+			\par\textbf{理由：} 移项即得相邻项的差表达式。
+
+		\item[\textbf{步骤二（列出等式）：}] 对 $k=1,2,\dots,n-1$，将 $n$ 替换为 $k$，有
+			\[
+				a_{k+1}-a_k=f(k)
+			\]
+			\par\textbf{理由：} 步骤一的表达式对任意正整数成立。
+
+		\item[\textbf{步骤三（等号两边分别相加）：}] 将 $n-1$ 个等式两边同时相加：
+			\[
+				\sum_{k=1}^{n-1}(a_{k+1}-a_k)=\sum_{k=1}^{n-1}f(k)
+			\]
+			\par\textbf{理由：} 等式的性质，左边加左边等于右边加右边。
+
+		\item[\textbf{步骤四（左边化简）：}] 将左边展开并抵消相邻项：
+			\[
+				\begin{aligned}
+					\sum_{k=1}^{n-1}(a_{k+1}-a_k) &= (a_2-a_1)+(a_3-a_2)+\cdots+(a_n-a_{n-1})\\
+					&= a_n-a_1
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 中间项 $a_2,a_3,\dots,a_{n-1}$ 正负抵消，仅剩首末项。
+
+		\item[\textbf{步骤五（移项得通项）：}] 由 $a_n-a_1=\sum_{k=1}^{n-1}f(k)$ 移项：
+			\[
+				a_n=a_1+\sum_{k=1}^{n-1}f(k)
+			\]
+			\par\textbf{理由：} 将 $a_1$ 移到右边即得 $a_n$ 的表达式。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	因此，对于满足递推 $a_{n+1}=a_n+f(n)$ 且 $f(n)$ 可求和的数列，通项公式为
+	\[
+		a_n=a_1+\sum_{k=1}^{n-1}f(k)
+	\]。
+\end{proofbox}

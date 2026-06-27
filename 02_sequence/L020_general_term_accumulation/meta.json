@@ -1,0 +1,156 @@
+{
+  "id": "L020",
+  "module": "sequence",
+  "core": {
+    "title": "累加法求通项公式",
+    "alias": [
+      "累加法",
+      "差加求和",
+      "叠加法"
+    ],
+    "summary": "将相邻项之差累加为求和，直接得到通项公式。",
+    "difficulty": 2,
+    "category": "数列",
+    "tags": [
+      "数列",
+      "累加法",
+      "递推",
+      "通项",
+      "求和"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "累加法",
+      "通项公式",
+      "递推关系",
+      "a_{n+1}=a_n+f(n)",
+      "求和",
+      "数列通项",
+      "a_n = a_1 + sum",
+      "累加求和",
+      "递推差",
+      "裂项求和"
+    ],
+    "synonyms": [
+      "叠加法",
+      "累和法",
+      "差加求通项"
+    ],
+    "intents": [
+      "求通项",
+      "计算数列项",
+      "推导公式"
+    ],
+    "query_templates": [
+      "累加法求通项公式",
+      "已知a_{n+1}=a_n+f(n)怎么求a_n",
+      "数列递推累加例题",
+      "累加法a_n公式",
+      "数列累加求和通项"
+    ],
+    "ocrKeywords": [
+      "累加法",
+      "a_{n+1}=a_n",
+      "f(n)",
+      "a_1",
+      "求和"
+    ],
+    "latex_patterns": [
+      "a_{n+1}=a_n+f(n)",
+      "a_n = a_1 + \\sum_{k=1}^{n-1} f(k)"
+    ],
+    "formulaTokens": [
+      "a_{n+1}=a_n+f(n)",
+      "a_n = a_1 + \\sum_{k=1}^{n-1} f(k)",
+      "a_{n+1}-a_n=f(n)",
+      "a_1",
+      "f(k)",
+      "\\sum_{k=1}^{n-1} f(k)"
+    ],
+    "pinyin": "leijiafa",
+    "pinyinAbbr": "ljf"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.8,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "a_n = a_1 + \\sum_{k=1}^{n-1} f(k)",
+    "related_formulas": [
+      "a_m = a_n + \\sum_{k=n}^{m-1} f(k),\\quad m>n"
+    ],
+    "variables": [
+      "a_1",
+      "f(k)",
+      "n",
+      "k"
+    ],
+    "conditions": "数列 $\\{a_n\\}$ 满足 $a_{n+1}=a_n+f(n)$，其中 $f(n)$ 可求和。",
+    "conclusions": "通项 $a_n$ 等于首项 $a_1$ 加上前 $n-1$ 项 $f(k)$ 的和。"
+  },
+  "content": {
+    "statement": "若数列 $\\{a_n\\}$ 满足递推关系 $a_{n+1}=a_n+f(n)$（即 $a_{n+1}-a_n=f(n)$），且 $f(n)$ 可求和，则对任意 $n\\geqslant 2$，有 $a_n = a_1 + \\sum_{k=1}^{n-1} f(k)$。",
+    "derivation": [
+      "由递推式 $a_{n+1}-a_n=f(n)$，对 $k=1,2,\\dots,n-1$ 写出所有等式",
+      "将 $n-1$ 个等式相加，左边相消得 $a_n-a_1 = \\\\sum_{k=1}^{n-1} f(k)$",
+      "移项即得 $a_n = a_1 + \\\\sum_{k=1}^{n-1} f(k)$"
+    ],
+    "intuition": "相邻两项的差已知，从第一项开始累加这些差就得到任意一项。",
+    "common_tricks": [
+      "注意求和下标是 $k=1$ 到 $n-1$，不是 $n$",
+      "若 $f(n)$ 是等差、等比或可裂项，则直接套用求和公式",
+      "有时需要先对 $f(n)$ 变形（如裂项）再累加"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "求通项",
+      "递推数列题",
+      "大题第一问"
+    ],
+    "problem_types": [
+      "数列通项求解"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "L020.svg"
+  },
+  "shareConfig": {
+    "title": "累加法求通项：递推差化求和",
+    "shareDesc": "适合数列递推题，将递推关系转化为求和计算，快速得到通项，减少列式错误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "数列基本概念",
+      "等差数列",
+      "等比数列"
+    ],
+    "related_ids": [],
+    "similar": "累乘法（形如 a_{n+1}=a_n*f(n) 时使用）"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-27"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "数列-递推数列-构造法",
+  "altNodes": "数列-递推数列-递推关系"
+}
