@@ -1,0 +1,58 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	正方体和长方体都是中心对称图形，其外接球球心即为体对角线的中点。正四面体是高对称图形，外接球球心位于高的四等分点处（靠近底面）。先确定半径与体对角线或高的关系，再代入即可得公式。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（正方体球心）：}]
+			正方体的中心 $O$ 是体对角线的中点，它到所有顶点等距，因此 $O$ 为外接球球心。
+			\par\textbf{理由：} 正方体具有中心对称性，对称中心到各顶点距离相同。
+
+		\item[\textbf{步骤二（正方体直径）：}]
+			体对角线长度 $AC_1 = \sqrt{a^2+a^2+a^2} = \sqrt{3}a$。因为球心是 $AC_1$ 中点，所以直径 $2R$ 等于体对角线长：
+			\[
+				2R = \sqrt{3}a.
+			\]
+			\par\textbf{理由：} 直径是球面上最远两点距离，且体对角线端点即为最远点对。
+
+		\item[\textbf{步骤三（长方体球心）：}]
+			长方体也是中心对称图形，其体对角线的中点 $O$ 到各顶点距离相等，故为外接球球心。
+			\par\textbf{理由：} 同正方体，中心对称性。
+
+		\item[\textbf{步骤四（长方体直径）：}]
+			体对角线长度 $\sqrt{a^2+b^2+c^2}$，因此
+			\[
+				2R = \sqrt{a^2+b^2+c^2}.
+			\]
+			\par\textbf{理由：} 体对角线两端点为最远点。
+
+		\item[\textbf{步骤五（正四面体球心位置）：}]
+			正四面体 $S-ABC$，高 $SH = \sqrt{a^2 - \left(\frac{\sqrt{3}}{3}a\right)^2} = \frac{\sqrt{6}}{3}a$ （底面正三角形外接圆半径 $\frac{\sqrt{3}}{3}a$）。设外接球球心 $O$ 在 $SH$ 上，$SO = R$，则 $OH = h - R$。连接 $OA$，$OA=R$，$AH$ 为底面外接圆半径，$AH = \frac{\sqrt{3}}{3}a$。在直角三角形 $OHA$ 中，由勾股定理：
+			\[
+				R^2 = (h - R)^2 + \left(\frac{\sqrt{3}}{3}a\right)^2.
+			\]
+			\par\textbf{理由：} 利用球心到顶点和底面距离关系。
+
+		\item[\textbf{步骤六（正四面体直径）：}]
+			解上一步方程：
+			\[
+				R^2 = h^2 - 2hR + R^2 + \frac{1}{3}a^2 \;\Longrightarrow\; 2hR = h^2 + \frac{1}{3}a^2.
+			\]
+			将 $h^2 = \frac{2}{3}a^2$ 代入：
+			\[
+				2hR = \frac{2}{3}a^2 + \frac{1}{3}a^2 = a^2 \;\Longrightarrow\; R = \frac{a^2}{2h} = \frac{a^2}{2\cdot\frac{\sqrt{6}}{3}a} = \frac{\sqrt{6}}{4}a.
+			\]
+			故直径
+			\[
+				2R = \frac{\sqrt{6}}{2}a.
+			\]
+			\par\textbf{理由：} 代数化简即可。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	通过对称性得到球心位置，借助勾股定理计算出体对角线长度或联立方程，我们严格导出了正方体、长方体和正四面体的外接球直径公式，与输入结论一致。
+\end{proofbox}
