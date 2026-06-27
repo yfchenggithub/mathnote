@@ -1,0 +1,45 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用分割法：将多面体分割成以球心为顶点的棱锥，所有棱锥的高都等于内切球半径，通过体积加法导出关系。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（分割棱锥）：}] 设多面体内切球球心为 $O$，半径为 $r$。连接 $O$ 与多面体每个面的所有顶点，将多面体分割成 $n$ 个棱锥，每个棱锥以多面体的一个面为底面，$O$ 为顶点。
+			\[
+				V_i = \frac{1}{3} S_i \cdot r \quad (i=1,2,\dots,n)
+			\]
+			其中 $S_i$ 为第 $i$ 个面的面积。
+			\par\textbf{理由：} 棱锥体积公式是底面积乘高除以 $3$，这里高就是球心到面的距离 $r$。
+
+		\item[\textbf{步骤二（体积求和）：}] 将所有棱锥体积相加，得总体积
+			\[
+				V = \sum_{i=1}^{n} V_i
+			\]。
+			代入 $V_i = \frac{1}{3} S_i r$，得
+			\[
+				V = \sum_{i=1}^{n} \frac{1}{3} S_i r
+			\]。
+			提取公因式 $\frac{1}{3} r$，得
+			\[
+				V = \frac{1}{3} r \sum_{i=1}^{n} S_i
+			\]。
+			因为 $\sum_{i=1}^{n} S_i$ 等于多面体表面积 $S$，所以
+			\[
+				V = \frac{1}{3} r S
+			\]。
+			\par\textbf{理由：} 先求各棱锥体积和，再逐步化简利用面积和。
+
+		\item[\textbf{步骤三（解出半径）：}] 由 $V = \frac{1}{3} r S$ 两边同乘 $3$ 再同除以 $S$（$S>0$）得
+			\[
+				r = \frac{3V}{S}
+			\]。
+			\par\textbf{理由：} 代数运算，$S>0$ 保证除法有意义。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	因此，对任意存在内切球的多面体，内切球半径恒等于 $3V/S$，该公式简洁地将三个几何量关联，可用于各类计算问题。
+\end{proofbox}
