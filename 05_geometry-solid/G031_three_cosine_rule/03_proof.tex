@@ -1,0 +1,57 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	通过构造直角三角形，将空间角转化为平面三角形的边长比，利用余弦定义推导。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（作垂线确定射影）：}]
+			设斜线 $l$ 与平面 $\alpha$ 交于点 $A$（斜足）。在 $l$ 上取异于 $A$ 的点 $P$，过 $P$ 作 $PO\perp\alpha$ 于点 $O$，连接 $AO$，则 $AO$ 为射影，$\angle PAO=\theta_1$。 \par
+			\[
+				\angle PAO = \theta_1,\quad PO\perp\alpha.
+			\]
+			\par\textbf{理由：} 由线面角定义，$l$ 与 $\alpha$ 所成角等于 $l$ 与射影 $AO$ 的夹角。
+		\item[\textbf{步骤二（构造任意直线与垂线）：}]
+			在 $\alpha$ 内过 $A$ 作直线 $m$，过 $O$ 作 $OB\perp m$ 于 $B$，连接 $PB$。 \par
+			\[
+				OB\perp m,\quad B\in m.
+			\]
+			\par\textbf{理由：} 构造含 $\theta_2$ 和 $\theta$ 的直角三角形。
+		\item[\textbf{步骤三（证明垂直关系）：}]
+			因为 $PO\perp\alpha$，$m\subset\alpha$，所以 $PO\perp m$；又 $OB\perp m$，所以 $m\perp$ 平面 $POB$，从而 $m\perp PB$。故 $\triangle PAB$ 和 $\triangle AOB$ 均为直角三角形，且 $\angle ABP = 90^{\circ}$，$\angle ABO = 90^{\circ}$。 \par
+			\[
+				PO\perp\alpha,\ OB\perp m \;\Rightarrow\; m\perp POB \;\Rightarrow\; m\perp PB.
+			\]
+			\par\textbf{理由：} 线面垂直的判定与性质。
+		\item[\textbf{步骤四（表达 $\cos\theta_1$）：}]
+			在 $\mathrm{Rt}\triangle PAO$ 中，$\angle PAO=\theta_1$，斜边 $AP$，邻边 $AO$，故 \par
+			\[
+				\cos\theta_1 = \frac{AO}{AP}.
+			\]
+			\par\textbf{理由：} 直角三角形锐角余弦定义（邻边比斜边）。
+		\item[\textbf{步骤五（表达 $\cos\theta_2$）：}]
+			在 $\mathrm{Rt}\triangle AOB$ 中，$\angle OAB = \theta_2$（射影 $AO$ 与 $m$ 的夹角），斜边 $AO$，邻边 $AB$，故 \par
+			\[
+				\cos\theta_2 = \frac{AB}{AO}.
+			\]
+			\par\textbf{理由：} 直角三角形锐角余弦定义。
+		\item[\textbf{步骤六（表达 $\cos\theta$）：}]
+			在 $\mathrm{Rt}\triangle PAB$ 中，$\angle PAB = \theta$，斜边 $AP$，邻边 $AB$，故 \par
+			\[
+				\cos\theta = \frac{AB}{AP}.
+			\]
+			\par\textbf{理由：} 直角三角形锐角余弦定义。
+		\item[\textbf{步骤七（代入化简得证）：}]
+			将 $\cos\theta_1$ 和 $\cos\theta_2$ 的表达式相乘： \par
+			\[
+				\begin{aligned}
+					\cos\theta_1\cdot\cos\theta_2 &= \frac{AO}{AP}\cdot\frac{AB}{AO} \\ &= \frac{AB}{AP} \\ &= \cos\theta .
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 代数约分。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{因此有 $\cos\theta = \cos\theta_1\cos\theta_2$，即为最小角定理（三余弦定理）。}
+\end{proofbox}

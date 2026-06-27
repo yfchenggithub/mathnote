@@ -1,0 +1,63 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	已知平面 $\alpha$ 的法向量 $\vec{n}_1=(1,1,0)$，平面 $\beta$ 的法向量 $\vec{n}_2=(0,1,1)$，且二面角 $\alpha-l-\beta$ 的平面角 $\theta$ 为锐角，求 $\cos\theta$。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（计算内积模长）：}]
+			计算 $\vec{n}_1\cdot\vec{n}_2 = 1\cdot0+1\cdot1+0\cdot1 = 1$，$|\vec{n}_1|=\sqrt{1^2+1^2+0^2}=\sqrt{2}$，$|\vec{n}_2|=\sqrt{0^2+1^2+1^2}=\sqrt{2}$。
+			\par\textbf{理由：} 向量内积与模长是计算夹角的基础。
+		\item[\textbf{第二步（套绝对值公式）：}]
+			由结论得 $|\cos\theta| = \dfrac{|\vec{n}_1\cdot\vec{n}_2|}{|\vec{n}_1|\,|\vec{n}_2|} = \dfrac{1}{\sqrt{2}\cdot\sqrt{2}} = \dfrac12$。
+			\par\textbf{理由：} 无论二面角锐钝，$\cos\theta$ 的绝对值恒等于该值。
+		\item[\textbf{第三步（定符号）：}]
+			因为 $\theta$ 为锐角，$\cos\theta>0$，所以 $\cos\theta = |\cos\theta| = \dfrac12$。
+			\par\textbf{理由：} 锐角余弦为正，直接取绝对值即可。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	$\cos\theta = \dfrac12$。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	在空间直角坐标系中，点 $A(1,0,0),B(0,1,0),C(0,0,1)$，平面 $\alpha$ 过 $A,B,C$ 三点，平面 $\beta$ 为 $xOy$ 平面（即 $z=0$）。已知二面角 $\alpha-AB-\beta$ 的平面角为钝角，求其余弦值。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（求法向量）：}]
+			在平面 $\alpha$ 中，$\overrightarrow{AB}=(-1,1,0)$，$\overrightarrow{AC}=(-1,0,1)$，$\vec{n}_1 = \overrightarrow{AB}\times\overrightarrow{AC} = (1,1,1)$（按行列式计算）。平面 $\beta$ 的法向量为 $\vec{n}_2=(0,0,1)$。
+			\par\textbf{理由：} 平面的法向量可通过两条不共线向量的叉乘求得。
+		\item[\textbf{第二步（计算绝对值）：}]
+			$\vec{n}_1\cdot\vec{n}_2 = 1$，$|\vec{n}_1|=\sqrt{3}$，$|\vec{n}_2|=1$，故
+			\[
+				|\cos\theta| = \frac{|\vec{n}_1\cdot\vec{n}_2|}{|\vec{n}_1|\,|\vec{n}_2|} = \frac{1}{\sqrt{3}}.
+			\]
+			\par\textbf{理由：} 套用绝对值公式，无需考虑符号。
+		\item[\textbf{第三步（由钝角定符号）：}]
+			已知 $\theta$ 为钝角，$\cos\theta<0$，所以 $\cos\theta = -|\cos\theta| = -\dfrac{1}{\sqrt{3}}$。
+			\par\textbf{理由：} 钝角余弦为负，在绝对值前加负号。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	$\cos\theta = -\dfrac{1}{\sqrt{3}}$ 或写作 $\cos\theta = -\dfrac{\sqrt{3}}{3}$。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	在棱长为 $1$ 的正方体 $ABCD-A_1B_1C_1D_1$ 中，$E,F,G$ 分别为棱 $AB,AD,AA_1$ 的中点。求平面 $EFG$ 与底面 $ABCD$ 所成二面角的余弦值（该二面角为锐角）。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（建系求法向）：}]
+			以 $A$ 为原点，$AB, AD, AA_1$ 为 $x,y,z$ 轴正方向。则 $E(0.5,0,0), F(0,0.5,0), G(0,0,0.5)$。$\overrightarrow{EF}=(-0.5,0.5,0)$，$\overrightarrow{EG}=(-0.5,0,0.5)$。法向量 $\vec{n}_1 = \overrightarrow{EF}\times\overrightarrow{EG} = (0.25,0.25,0.25)$，可简化为 $\vec{n}_1=(1,1,1)$。底面 $ABCD$ 法向量 $\vec{n}_2=(0,0,1)$。
+			\par\textbf{理由：} 通过向量叉乘得到法向量，方向不影响夹角绝对值。
+		\item[\textbf{第二步（计算绝对值）：}]
+			$\vec{n}_1\cdot\vec{n}_2 = 1$，$|\vec{n}_1|=\sqrt{3}$，$|\vec{n}_2|=1$，故
+			\[
+				|\cos\theta| = \frac{1}{\sqrt{3}}.
+			\]
+			\par\textbf{理由：} 由绝对值公式直接计算。
+		\item[\textbf{第三步（判断符号得结果）：}]
+			由题意及图形可知，该二面角为锐角，因此 $\cos\theta = |\cos\theta| = \dfrac{1}{\sqrt{3}}$。
+			\par\textbf{理由：} 锐角余弦为正，绝对值即为余弦值。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	平面 $EFG$ 与底面 $ABCD$ 所成二面角的余弦值为 $\dfrac{1}{\sqrt{3}}$（即 $\dfrac{\sqrt{3}}{3}$）。
+\end{examplebox}

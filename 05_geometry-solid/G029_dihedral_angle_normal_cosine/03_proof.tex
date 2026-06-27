@@ -1,0 +1,48 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	利用二面角平面角与法向量夹角的几何关系（相等或互补），将二面角的余弦转化为法向量夹角的余弦，再通过绝对值处理符号。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（向量夹角）：}]
+			设 $\varphi = \langle\vec{n}_1,\vec{n}_2\rangle$，由向量夹角定义，
+			\[
+				\cos\varphi = \frac{\vec{n}_1\cdot\vec{n}_2}{|\vec{n}_1|\,|\vec{n}_2|},
+				\qquad
+				\varphi\in[0,\pi].
+			\]
+			\par\textbf{理由：} 这是向量内积的几何意义，直接计算。
+		\item[\textbf{步骤二（几何关系）：}]
+			设二面角的平面角为 $\theta$（$0\le\theta\le\pi$）。由立体几何原理，$\theta$ 与 $\varphi$ 满足
+			\[
+				\theta = \varphi \quad\text{或}\quad \theta = \pi-\varphi,
+			\]
+			具体取哪一种取决于两法向量的指向与二面角的位置关系。
+			\par\textbf{理由：} 法向量垂直于各自平面，故二面角与法向量夹角相等或互补（可画图验证）。
+		\item[\textbf{步骤三（符号分析）：}]
+			由 $\theta$ 的范围 $[0,\pi]$ 知：
+			\[
+				\cos\theta =
+				\begin{cases}
+					\cos\varphi, & \text{若 } \theta = \varphi,\\ -\cos\varphi, & \text{若 } \theta = \pi-\varphi.
+			\end{cases}
+			\]
+			因为 $|\cos\varphi|$ 保持不变，且 $\cos\theta$ 的正负只由 $\theta$ 是否为钝角决定。
+			\par\textbf{理由：} 利用余弦函数的性质：$\cos(\pi-\varphi)=-\cos\varphi$，以及 $\theta$ 与 $\varphi$ 的关系。
+		\item[\textbf{步骤四（分段归纳）：}]
+			综合上述，可得：
+			\[
+				\cos\theta =
+				\begin{cases}
+					\bigl|\cos\varphi\bigr|, & \theta\text{为锐角或直角},\\ -\bigl|\cos\varphi\bigr|, & \theta\text{为钝角},
+			\end{cases}
+			\]
+			其中 $\bigl|\cos\varphi\bigr| = \dfrac{|\vec{n}_1\cdot\vec{n}_2|}{|\vec{n}_1|\,|\vec{n}_2|}$。此即所求结论。
+			\par\textbf{理由：} 当 $\theta$ 为锐角或直角时 $\cos\theta\ge0$，故取正号；当 $\theta$ 为钝角时 $\cos\theta<0$，故取负号。绝对值部分由 $\cos\varphi$ 的绝对值给出。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	通过以上推导，我们证明了二面角的余弦值可以直接用法向量夹角的余弦绝对值与符号因子简捷表示。使用时应特别注意 $\theta$ 的锐钝判断，以确定正负号。
+\end{proofbox}

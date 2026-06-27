@@ -1,0 +1,155 @@
+{
+  "id": "G029",
+  "module": "geometry-solid",
+  "core": {
+    "title": "二面角的法向量求法",
+    "alias": [
+      "法向量求二面角",
+      "二面角余弦公式",
+      "法向量夹角绝对值公式"
+    ],
+    "summary": "二面角的余弦绝对值等于法向量夹角余弦的绝对值，符号由二面角锐钝决定。",
+    "difficulty": 3,
+    "category": "立体几何",
+    "tags": [
+      "二面角",
+      "法向量",
+      "空间角",
+      "余弦公式",
+      "符号判断"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "二面角",
+      "法向量",
+      "余弦",
+      "绝对值",
+      "符号",
+      "锐角",
+      "钝角",
+      "向量法",
+      "空间向量",
+      "夹角",
+      "公式",
+      "平面角"
+    ],
+    "synonyms": [
+      "二面角余弦",
+      "法向量法求二面角",
+      "二面角正负",
+      "锐角钝角判断"
+    ],
+    "intents": [
+      "求二面角的余弦值",
+      "判断二面角锐钝",
+      "用法向量求二面角"
+    ],
+    "query_templates": [
+      "二面角余弦公式",
+      "用法向量求二面角余弦",
+      "二面角锐角钝角符号判断"
+    ],
+    "ocrKeywords": [
+      "二面角",
+      "平面α",
+      "法向量",
+      "cosθ",
+      "绝对值"
+    ],
+    "latex_patterns": "\\cos\\theta = \\frac{|\\vec{n}_1\\cdot\\vec{n}_2|}{|\\vec{n}_1||\\vec{n}_2|}",
+    "formulaTokens": [
+      "\\frac{|\\vec{n}_1\\cdot\\vec{n}_2|}{|\\vec{n}_1||\\vec{n}_2|}",
+      "|\\vec{n}_1\\cdot\\vec{n}_2|",
+      "|\\vec{n}_1||\\vec{n}_2|",
+      "\\bigl|\\cos\\langle\\vec{n}_1,\\vec{n}_2\\rangle\\bigr|",
+      "-\\bigl|\\cos\\langle\\vec{n}_1,\\vec{n}_2\\rangle\\bigr|",
+      "\\cos\\langle\\vec{n}_1,\\vec{n}_2\\rangle"
+    ],
+    "pinyin": "ermianjiao de faxiangliang qiufa",
+    "pinyinAbbr": "emj"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.84,
+    "hot_score": 84,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\cos\\theta = \\begin{cases} \\bigl|\\cos\\langle\\vec{n}_1,\\vec{n}_2\\rangle\\bigr| = \\dfrac{|\\vec{n}_1\\cdot\\vec{n}_2|}{|\\vec{n}_1||\\vec{n}_2|}, & \\text{若二面角为锐角或直角},\\\\ -\\bigl|\\cos\\langle\\vec{n}_1,\\vec{n}_2\\rangle\\bigr|, & \\text{若二面角为钝角}. \\end{cases}",
+    "related_formulas": [
+      "|\\cos\\theta| = \\dfrac{|\\vec{n}_1\\cdot\\vec{n}_2|}{|\\vec{n}_1||\\vec{n}_2|}",
+      "\\cos\\langle\\vec{n}_1,\\vec{n}_2\\rangle = \\dfrac{\\vec{n}_1\\cdot\\vec{n}_2}{|\\vec{n}_1||\\vec{n}_2|}"
+    ],
+    "variables": {
+      "\\vec{n}_1": "平面α的法向量",
+      "\\vec{n}_2": "平面β的法向量",
+      "\\theta": "二面角的平面角"
+    },
+    "conditions": "已知平面$\\alpha$和$\\beta$的法向量$\\vec{n}_1$和$\\vec{n}_2$，$\\theta$为二面角的平面角且$\\theta\\in[0,\\pi]$。二面角的锐钝需结合图形判断，不能仅由法向量直接确定$\\cos\\theta$的符号。",
+    "conclusions": "当二面角为锐角或直角时，$\\cos\\theta = \\dfrac{|\\vec{n}_1\\cdot\\vec{n}_2|}{|\\vec{n}_1||\\vec{n}_2|}$；当二面角为钝角时，$\\cos\\theta = -\\dfrac{|\\vec{n}_1\\cdot\\vec{n}_2|}{|\\vec{n}_1||\\vec{n}_2|}$。绝对值式$|\\cos\\theta| = \\dfrac{|\\vec{n}_1\\cdot\\vec{n}_2|}{|\\vec{n}_1||\\vec{n}_2|}$恒成立。"
+  },
+  "content": {
+    "statement": "设平面α、β的法向量分别为$\\vec{n}_1$、$\\vec{n}_2$，θ为二面角的平面角（0≤θ≤π）。若二面角为锐角或直角，则cosθ=|cos⟨n1,n2⟩|=(|n1·n2|)/(|n1||n2|)；若二面角为钝角，则cosθ=-|cos⟨n1,n2⟩|。实际需结合图形判断二面角的锐钝，确定符号。",
+    "derivation": "",
+    "intuition": "二面角的平面角与两个法向量的夹角要么相等要么互补，所以余弦值相差一个符号。",
+    "common_tricks": [
+      "先计算绝对值$\\frac{|\\vec{n}_1\\cdot\\vec{n}_2|}{|\\vec{n}_1||\\vec{n}_2|}$，再根据二面角锐钝添加正负号。",
+      "法向量方向选择不影响绝对值结果，但符号判断必须结合图形。",
+      "若二面角为锐角，直接取正值；若为钝角，取负值；若不确定，需通过观察二面角的开口方向判断。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "立体几何大题",
+      "空间向量求角"
+    ],
+    "problem_types": [
+      "求二面角余弦",
+      "判断二面角大小"
+    ],
+    "exam_frequency": 1,
+    "exam_score": 8
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "G029.svg",
+    "geogebra": "",
+    "tabular": ""
+  },
+  "shareConfig": {
+    "title": "二面角法向量公式：符号判断是关键",
+    "shareDesc": "课堂补差和考前回顾，解决用法向量求二面角时符号易错问题，直接应用减少推导。"
+  },
+  "relations": {
+    "prerequisites": [
+      "空间向量",
+      "法向量",
+      "二面角定义"
+    ],
+    "related_ids": [],
+    "similar": "线面角的正弦公式也可用方向向量法。"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "立体几何-空间向量-数量积",
+  "altNodes": [
+    "立体几何-空间关系-垂直",
+    "立体几何-空间向量-坐标法"
+  ]
+}

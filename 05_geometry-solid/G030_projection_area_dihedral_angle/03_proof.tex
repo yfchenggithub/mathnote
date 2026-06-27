@@ -1,0 +1,34 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	取原平面内的矩形使其一边平行于棱，分析投影后边长变化，推导面积关系，再推广至任意图形。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.55em]
+		\item[\textbf{\textcolor{CProof}{步骤一（矩形模型）：}}]
+			在平面$\alpha$内取一矩形$ABCD$，使$AB$平行于两平面交线$l$。设$AB=a$，$BC=b$，矩形面积$S_{\text{原}}=ab$。
+			\par\textbf{理由：}$AB$平行于棱，投影后长度不变，简化计算。
+		\item[\textbf{\textcolor{CProof}{步骤二（投影长度变化）：}}]
+			矩形在平面$\beta$上的正投影中，$AB$长度仍为$a$；$BC$垂直于棱，故其投影长度变为$b\,|\cos\theta|$。
+			\par\textbf{理由：}因$BC\perp l$，$BC$与它在$\beta$上的正投影的夹角等于二面角的平面角或其补角，因此线段投影长度缩放因子为$|\cos\theta|$。
+		\item[\textbf{\textcolor{CProof}{步骤三（投影面积计算）：}}]
+			投影矩形面积
+			\[
+				S_{\text{投影}}=a\cdot b\,|\cos\theta|=S_{\text{原}}|\cos\theta|.
+			\]
+			\par\textbf{理由：}投影后图形为矩形，长宽分别为$a$和$b|\cos\theta|$。
+		\item[\textbf{\textcolor{CProof}{步骤四（推广至任意图形）：}}]
+			任意平面图形可分割为许多平行于$l$的条形，每个条形近似为上述矩形，由面积可加性及极限思想，对任意图形均有
+			\[
+				S_{\text{投影}}=S_{\text{原}}|\cos\theta|.
+			\]
+			\par\textbf{理由：}积分（或分割求和）原理，面积覆盖无重叠。
+		\item[\textbf{\textcolor{CProof}{步骤五（整理得结论）：}}]
+			因此$|\cos\theta|=\dfrac{S_{\text{投影}}}{S_{\text{原}}}$。
+			\par\textbf{理由：}由上式两边除以$S_{\text{原}}>0$即得。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	上述推导建立了射影面积法的核心公式，它避免了直接寻找二面角的平面角，将空间角问题转化为两个面积之比。
+\end{proofbox}

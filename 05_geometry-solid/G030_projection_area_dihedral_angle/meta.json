@@ -1,0 +1,187 @@
+{
+  "id": "G030",
+  "module": "geometry-solid",
+  "core": {
+    "title": "射影面积法求二面角",
+    "alias": [
+      "射影面积法",
+      "面积投影法",
+      "面积比法"
+    ],
+    "summary": "二面角的余弦绝对值等于图形在另一平面上的正投影面积与原面积之比。",
+    "difficulty": 3,
+    "category": "立体几何",
+    "tags": [
+      "立体几何",
+      "二面角",
+      "射影面积法",
+      "正投影",
+      "面积比",
+      "余弦"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "射影面积法",
+      "二面角",
+      "正投影",
+      "投影面积",
+      "原面积",
+      "余弦",
+      "锐角",
+      "钝角",
+      "面积比",
+      "平面图形",
+      "垂直投影",
+      "无重叠",
+      "正方体",
+      "矩形",
+      "四棱锥"
+    ],
+    "synonyms": [
+      "投影面积公式",
+      "余弦等于投影面积除以原面积",
+      "面积投影定理",
+      "投影面积法"
+    ],
+    "intents": [
+      "求二面角余弦",
+      "计算投影面积",
+      "判断二面角锐钝",
+      "使用射影面积法"
+    ],
+    "query_templates": [
+      "射影面积法怎么用",
+      "二面角余弦公式投影",
+      "投影面积求二面角",
+      "正投影面积比公式",
+      "面积比求二面角"
+    ],
+    "ocrKeywords": [
+      "正投影",
+      "面积",
+      "二面角",
+      "平面图形",
+      "投影面积",
+      "原面积"
+    ],
+    "latex_patterns": [
+      "|\\cos\\theta|=\\frac{S_{\\text{投影}}}{S_{\\text{原}}}",
+      "\\cos\\theta=\\frac{S_{\\text{投影}}}{S_{\\text{原}}}",
+      "\\cos\\theta=-\\frac{S_{\\text{投影}}}{S_{\\text{原}}}"
+    ],
+    "formulaTokens": [
+      "|\\cos\\theta|",
+      "\\frac{S_{\\text{投影}}}{S_{\\text{原}}}",
+      "S_{\\text{投影}}",
+      "S_{\\text{原}}",
+      "\\cos\\theta",
+      "|\\cos\\theta|=\\frac{S_{\\text{投影}}}{S_{\\text{原}}}",
+      "\\cos\\theta=\\frac{S_{\\text{投影}}}{S_{\\text{原}}}",
+      "\\cos\\theta=-\\frac{S_{\\text{投影}}}{S_{\\text{原}}}"
+    ],
+    "pinyin": "sheyingmianjifa",
+    "pinyinAbbr": "symjf"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.72,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "|\\cos\\theta| = \\frac{S_{\\text{投影}}}{S_{\\text{原}}}",
+    "related_formulas": [
+      "\\cos\\theta = \\frac{S_{\\text{投影}}}{S_{\\text{原}}} \\quad (0<\\theta<\\frac{\\pi}{2})",
+      "\\cos\\theta = -\\frac{S_{\\text{投影}}}{S_{\\text{原}}} \\quad (\\frac{\\pi}{2}<\\theta<\\pi)"
+    ],
+    "variables": {
+      "S_原": "原平面图形面积",
+      "S_投影": "正投影面积",
+      "theta": "二面角的平面角 (0<theta<pi)"
+    },
+    "conditions": [
+      "平面图形$S_{\\text{原}}$无折叠、无重叠。",
+      "投影为正投影（投影线垂直于投影面）。",
+      "$0<\\theta<\\pi$。"
+    ],
+    "conclusions": [
+      "$|\\cos\\theta| = \\dfrac{S_{\\text{投影}}}{S_{\\text{原}}}$。",
+      "当$\\theta$为锐角时，$\\cos\\theta = \\dfrac{S_{\\text{投影}}}{S_{\\text{原}}}$。",
+      "当$\\theta$为钝角时，$\\cos\\theta = -\\dfrac{S_{\\text{投影}}}{S_{\\text{原}}}$。"
+    ]
+  },
+  "content": {
+    "statement": "设平面图形面积为$S_{\\text{原}}$，它在另一平面上的正投影面积为$S_{\\text{投影}}$，两平面所成二面角的平面角为$\\theta$（$0<\\theta<\\pi$），且图形无折叠重叠，投影为垂直投影，则有$|\\cos\\theta|=\\frac{S_{\\text{投影}}}{S_{\\text{原}}}$。锐二面角时$\\cos\\theta$取正，钝二面角时取负。",
+    "derivation": [
+      "根据正投影的几何意义，图形在另一平面上的正投影面积等于原面积乘以二面角余弦的绝对值。",
+      "因此有$|\\cos\\theta| = \\dfrac{S_{\\text{投影}}}{S_{\\text{原}}}$。",
+      "再根据二面角是锐角还是钝角，决定$\\cos\\theta$的符号：锐角取正，钝角取负。"
+    ],
+    "intuition": "正投影相当于将图形沿垂直方向压缩到另一平面，压缩比就是二面角余弦的绝对值。",
+    "common_tricks": [
+      "先分别求出原图形的面积和它在另一平面上的正投影面积。",
+      "代入公式得到$|\\cos\\theta|$，再根据图形直观或已知角度范围判断二面角的锐钝。",
+      "注意投影必须是正投影，且原图形不能有折叠或重叠部分，否则公式不成立。",
+      "如果二面角无法直接判断锐钝，可以结合其他方法（如向量法）验证。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "立体几何二面角计算",
+      "面积比求角",
+      "压轴中段"
+    ],
+    "problem_types": [
+      "选择题",
+      "填空题",
+      "解答题"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "射影面积法.svg",
+    "png": "",
+    "json": ""
+  },
+  "shareConfig": {
+    "title": "射影面积法求二面角：面积比速算公式",
+    "shareDesc": "适合立体几何二面角计算，直接通过原面积和投影面积比得到余弦绝对值，避免复杂作角过程，提升计算效率。"
+  },
+  "relations": {
+    "prerequisites": [
+      "面积计算公式",
+      "正投影概念",
+      "二面角平面角定义"
+    ],
+    "related_ids": [],
+    "similar": [
+      "向量法求二面角余弦（法向量夹角）",
+      "三垂线法求二面角"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "立体几何-空间向量-数量积",
+  "altNodes": [
+    "立体几何-体积与面积-表面积",
+    "立体几何-空间关系-垂直"
+  ]
+}
