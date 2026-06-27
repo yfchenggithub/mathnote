@@ -1,32 +1,42 @@
 \begin{trapbox}
-
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（忽略前提条件）}}]
-			使用递推$a_{n+1}=1-\dfrac1{a_n}$等时，未检查$a_n$是否等于$0$或$1$，直接代入导致分母为零，运算无意义。
-		\item[\textbf{\textcolor{CTrap}{正确理解（验证分母非零）：}}]
-			每次代入前应确认$a_n$不在禁值中；若首项导致禁值，则递推失效。
-		\item[\textbf{\textcolor{CTrap}{错因分析（未检有效范围）：}}]
-			学生只关注代数变形，忽略递推公式的定义域限制，导致错误推导。
+		\item[\textbf{\textcolor{CTrap}{易错点一（忽略前提条件）：}}]
+		      使用分式递推时，未检查分母是否可能为零，直接套用周期结论，导致递推在某一步无意义。
+		\item[\textbf{\textcolor{CTrap}{正确理解（验证递推有意义）：}}]
+		      每次使用分式递推前，都要确认分母不为零。例如
+		      \[
+			      a_{n+1}=\frac{1+a_n}{1-a_n}
+		      \]
+		      不仅要求当前 \(a_n\ne1\)，还要避免初值导致后续出现 \(1\)。
+		\item[\textbf{\textcolor{CTrap}{错因分析（只看公式不看定义域）：}}]
+		      学生只关注代数变形，忽略了递推公式本身必须有意义。
 	\end{description}
 
 	\medskip
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（周期起点误判）}}]
-			误以为周期数列仅从第一项开始循环，认为$k$必须从$1$开始，而忽略了周期定义对任意$n$成立。
-		\item[\textbf{\textcolor{CTrap}{正确理解（对任意$n$成立）：}}]
-			周期数列定义要求$\forall n\in\mathbb{N}^*$，$a_{n+T}=a_n$，即从任意位置开始都满足循环。
-		\item[\textbf{\textcolor{CTrap}{错因分析（思维局限首项）：}}]
-			学生往往通过计算前几项观察到重复，就认为周期只适用于从前几项开始的序列。
+		\item[\textbf{\textcolor{CTrap}{易错点二（把“一个周期”误认为“最小周期”）：}}]
+		      看到 \(a_{n+6}=a_n\)，就直接说最小正周期一定是 \(6\)。
+		\item[\textbf{\textcolor{CTrap}{正确理解（周期与最小周期不同）：}}]
+		      若 \(a_{n+6}=a_n\)，只能说明 \(6\) 是一个周期，最小正周期可能是 \(1,2,3\) 或 \(6\)。例如全零数列的最小正周期是 \(1\)。
+		\item[\textbf{\textcolor{CTrap}{错因分析（忽略“最小”二字）：}}]
+		      周期定义中最小正周期要求是所有周期中最小的正整数，不能只验证一个可行周期就断定它最小。
 	\end{description}
 
 	\medskip
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（余数对应错误）}}]
-			将大下标$n$除以周期$T$后，若余数为$0$，错误地对应$a_0$（不存在），或对应$a_T$时概念混淆。
-		\item[\textbf{\textcolor{CTrap}{正确理解（余数对应规则）：}}]
-			若$n=kT+r$，其中$1\le r\le T$，则$a_n=a_r$；若$r=0$，则应为$a_n=a_T$（因为$n$是$T$的倍数）。
-		\item[\textbf{\textcolor{CTrap}{错因分析（未定义下标$0$）：}}]
-			数列下标通常从$1$开始，没有$a_0$；余数为$0$时应该取$a_T$。
+		\item[\textbf{\textcolor{CTrap}{易错点三（余数对应错误）：}}]
+		      将大下标 \(n\) 除以周期 \(T\) 后，若余数为 \(0\)，错误地对应 \(a_0\)。
+		\item[\textbf{\textcolor{CTrap}{正确理解（余数为零对应最后一项）：}}]
+		      若 \(n=qT+s\)，其中 \(0\le s<T\)，则
+		      \[
+			      a_n=
+			      \begin{cases}
+				      a_s, & 1\le s<T, \\[4pt]
+				      a_T, & s=0.
+			      \end{cases}
+		      \]
+		      因为数列通常从 \(a_1\) 开始，没有 \(a_0\)。
+		\item[\textbf{\textcolor{CTrap}{错因分析（机械取余）：}}]
+		      只做整数除法，没有结合数列下标从 \(1\) 开始的约定来解释余数。
 	\end{description}
-
 \end{trapbox}

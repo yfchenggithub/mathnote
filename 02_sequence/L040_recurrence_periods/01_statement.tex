@@ -1,28 +1,52 @@
 \begin{statementbox}
 	\textbf{\textcolor{CStatement}{条件}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件1（定义要素）：}}]
-			数列$\{a_n\}$定义在$n\in\mathbb{N}^*$上。若存在最小正整数$T$，使得对任意$n$恒有$a_{n+T}=a_n$成立。
+		\item[\textbf{\textcolor{CStatement}{条件1（周期定义）：}}]
+		      数列 \(\{a_n\}\) 定义在 \(n\in\mathbb N^*\) 上。若存在正整数 \(T\)，使得对任意 \(n\in\mathbb N^*\) 都有
+		      \[
+			      a_{n+T}=a_n,
+		      \]
+		      则称 \(\{a_n\}\) 为周期数列。若 \(T\) 是满足上述条件的最小正整数，则称 \(T\) 为该数列的最小正周期。
 	\end{description}
+
 	\textbf{\textcolor{CStatement}{结论}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（周期定义）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			数列的项按固定长度$T$循环重复。
-			\[
-				a_{n+T}=a_n
-			\]
-		\item[\textbf{\textcolor{CStatement}{推广结论（递推周期）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			下面递推公式对一切有意义的首项都形成周期数列，周期分别为。
-			\[
-				\begin{aligned}
-					&\text{(1)}\ a_{n+1}=1-\frac{1}{a_n}\;(a_n\neq0,1)\ \Longrightarrow\ T=3;\\ &\text{(2)}\ a_{n+1}=\frac{1+a_n}{1-a_n}\;(a_n\neq1)\ \Longrightarrow\ T=4;\\ &\text{(3)}\ a_{n+1}=-\frac{1}{a_n+1}\;(a_n\neq-1)\ \Longrightarrow\ T=3;\\ &\text{(4)}\ a_{n+2}=a_{n+1}-a_n\ \Longrightarrow\ T=6.
-			\end{aligned}
-			\]
+		\item[\textbf{\textcolor{CStatement}{结论一（周期下标转化）：}}]
+		      \textbf{\textcolor{CStatement}{直观描述：}}
+		      周期数列的项按固定长度循环重复，大下标可以化为一个周期内的小下标。
+		      若 \(T\) 是周期，且
+		      \[
+			      n=qT+r\quad(q\in\mathbb Z_{\ge0},\ 1\le r\le T),
+		      \]
+		      则
+		      \[
+			      a_n=a_r.
+		      \]
+		      特别地，若按普通除法余数写成 \(n=qT+s\)，\(0\le s<T\)，则 \(s=0\) 时对应 \(a_T\)，不是 \(a_0\)。
+
+		\item[\textbf{\textcolor{CStatement}{推广结论（常见递推周期）：}}]
+		      \textbf{\textcolor{CStatement}{直观描述：}}
+		      下列递推在定义域内反复迭代时，会形成固定周期。
+		      \[
+			      \begin{aligned}
+				       & \text{(1)}\quad a_{n+1}=1-\frac{1}{a_n},\quad a_1\ne0,1
+				      \quad\Longrightarrow\quad a_{n+3}=a_n;                             \\[4pt]
+				       & \text{(2)}\quad a_{n+1}=\frac{1+a_n}{1-a_n},\quad a_1\ne -1,0,1
+				      \quad\Longrightarrow\quad a_{n+4}=a_n;                             \\[4pt]
+				       & \text{(3)}\quad a_{n+1}=-\frac{1}{a_n+1},\quad a_1\ne -1,0
+				      \quad\Longrightarrow\quad a_{n+3}=a_n;                             \\[4pt]
+				       & \text{(4)}\quad a_{n+2}=a_{n+1}-a_n
+				      \quad\Longrightarrow\quad a_{n+6}=a_n.
+			      \end{aligned}
+		      \]
+		      前三个递推在实数范围且初值满足限制时，最小正周期分别为 \(3,4,3\)；第四个递推满足 \(a_{n+6}=a_n\)，因此最小正周期一定整除 \(6\)，一般情况下最小正周期为 \(6\)。
 	\end{description}
 
 	\medskip
-	\textbf{\textcolor{CStatement}{使用提醒（下标转化）：}}
-	对于周期数列，可将任意下标$n$写成$n=kT+r$（$r$为$1$至$T$的正整数），则$a_n=a_r$。同理，前$n$项和与积也可转化为前$r$项和与积的倍数组合。
+	\textbf{\textcolor{CStatement}{使用提醒（求和与乘积）：}}
+	若 \(\{a_n\}\) 的周期为 \(T\)，且 \(n=qT+r\)，其中 \(q\in\mathbb Z_{\ge0}\)、\(0\le r<T\)，则
+	\[
+		\sum_{k=1}^n a_k=q\sum_{k=1}^T a_k+\sum_{k=1}^r a_k.
+	\]
+	当 \(r=0\) 时，最后一段空和为 \(0\)。乘积问题也可按完整周期与剩余部分分组处理。
 \end{statementbox}

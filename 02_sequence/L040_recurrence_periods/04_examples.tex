@@ -1,72 +1,157 @@
 \begin{examplebox}
 	\textbf{\textcolor{CExample}{例 1（基础）}}
+
 	\textbf{\textcolor{CExample}{题目：}}
-	已知数列$\{a_n\}$满足$a_{n+1}=1-\dfrac1{a_n}$，且$a_1=2$，求$a_{2024}$的值。
+	已知数列 \(\{a_n\}\) 满足
+	\[
+		a_{n+1}=1-\frac1{a_n},
+	\]
+	且 \(a_1=2\)，求 \(a_{2024}\) 的值。
+
 	\textbf{\textcolor{CExample}{解题步骤：}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
 		\item[\textbf{第一步（判断周期）：}]
-			由递推形式$a_{n+1}=1-\dfrac1{a_n}$及已知周期结论，可知该数列周期为$T=3$（注意$a_n\neq0,1$，$a_1=2$满足条件）。
-			\par\textbf{理由：} 根据常见递推周期结论，此递推对应周期$3$。
+		      由递推形式
+		      \[
+			      a_{n+1}=1-\frac1{a_n}
+		      \]
+		      可知该数列周期为 \(3\)。
+		      \par\textbf{理由：} 对应常见递推周期结论：\(a_{n+3}=a_n\)。且 \(a_1=2\) 不会使递推分母为零。
+
 		\item[\textbf{第二步（下标转化）：}]
-			计算$2024$除以$3$的余数：$2024 = 3\times674 + 2$，因此$a_{2024}=a_2$。
-			\par\textbf{理由：} 由周期定义$a_{n+T}=a_n$，将大下标化为小下标。
+		      \[
+			      2024=3\times674+2,
+		      \]
+		      因此
+		      \[
+			      a_{2024}=a_2.
+		      \]
+		      \par\textbf{理由：} 周期为 \(3\)，余数为 \(2\)，所以对应周期内第 \(2\) 项。
+
 		\item[\textbf{第三步（计算数值）：}]
-			利用$a_1=2$计算$a_2$：$a_2=1-\dfrac1{a_1}=1-\dfrac12=\dfrac12$。故$a_{2024}=\dfrac12$。
-			\par\textbf{理由：} 代入递推公式即得。
+		      \[
+			      a_2=1-\frac1{a_1}=1-\frac12=\frac12.
+		      \]
+		      所以
+		      \[
+			      a_{2024}=\frac12.
+		      \]
+		      \par\textbf{理由：} 代入递推公式计算 \(a_2\)。
 	\end{description}
+
 	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{本题利用周期$3$，将大下标$a_{2024}$转化为$a_2$，从而快速求解。}
+	\[
+		\boxed{a_{2024}=\frac12}.
+	\]
 
 	\medskip
 	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
 	\textbf{\textcolor{CExample}{题目：}}
-	已知数列$\{a_n\}$满足$a_{n+2}=a_{n+1}-a_n$，且$a_1=1$，$a_2=2$，求$a_{2025}$的值。
+	已知数列 \(\{a_n\}\) 满足
+	\[
+		a_{n+2}=a_{n+1}-a_n,
+	\]
+	且 \(a_1=1\)，\(a_2=2\)，求 \(a_{2025}\) 的值。
+
 	\textbf{\textcolor{CExample}{解题步骤：}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
 		\item[\textbf{第一步（判断周期）：}]
-			由递推$a_{n+2}=a_{n+1}-a_n$属于已知周期结论类型，其周期为$T=6$（该结论对任意首项均成立）。
-			\par\textbf{理由：} 由常见递推周期结论，该二阶递推周期为$6$。
+		      由递推
+		      \[
+			      a_{n+2}=a_{n+1}-a_n
+		      \]
+		      可知 \(a_{n+6}=a_n\)。本题初值下最小正周期为 \(6\)。
+		      \par\textbf{理由：} 该二阶递推每 \(6\) 项循环一次；本题前六项为 \(1,2,1,-1,-2,-1\)，没有更短正周期。
+
 		\item[\textbf{第二步（下标转化）：}]
-			计算$2025$除以$6$的余数：$2025 = 6\times337 + 3$，因此$a_{2025}=a_3$。
-			\par\textbf{理由：} 利用周期性$a_{n+6}=a_n$。
+		      \[
+			      2025=6\times337+3,
+		      \]
+		      因此
+		      \[
+			      a_{2025}=a_3.
+		      \]
+		      \par\textbf{理由：} 周期为 \(6\)，余数为 \(3\)，对应第 \(3\) 项。
+
 		\item[\textbf{第三步（计算数值）：}]
-			由递推公式求$a_3$：$a_3 = a_2 - a_1 = 2-1 = 1$。所以$a_{2025}=1$。
-			\par\textbf{理由：} 代入递推$a_{n+2}=a_{n+1}-a_n$即得。
+		      \[
+			      a_3=a_2-a_1=2-1=1.
+		      \]
+		      所以
+		      \[
+			      a_{2025}=1.
+		      \]
+		      \par\textbf{理由：} 代入递推式求出 \(a_3\)。
 	\end{description}
+
 	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{本题应用周期$6$，将大下标$a_{2025}$转化为$a_3$，一步得出结果。}
+	\[
+		\boxed{a_{2025}=1}.
+	\]
 
 	\medskip
 	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
 	\textbf{\textcolor{CExample}{题目：}}
-	已知数列$\{a_n\}$满足$a_{n+1}=\dfrac{1+a_n}{1-a_n}$，且$a_1=3$。求前$2024$项的和$S_{2024}$。
+	已知数列 \(\{a_n\}\) 满足
+	\[
+		a_{n+1}=\frac{1+a_n}{1-a_n},
+	\]
+	且 \(a_1=3\)。求前 \(2024\) 项的和 \(S_{2024}\)。
+
 	\textbf{\textcolor{CExample}{解题步骤：}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
 		\item[\textbf{第一步（判断周期）：}]
-			由递推形式$a_{n+1}=\dfrac{1+a_n}{1-a_n}$可知其周期为$T=4$（需要$a_n\neq1$，$a_1=3$满足）。
-			\par\textbf{理由：} 常见递推周期结论给出周期$4$。
+		      递推
+		      \[
+			      a_{n+1}=\frac{1+a_n}{1-a_n}
+		      \]
+		      满足 \(a_{n+4}=a_n\)，所以周期为 \(4\)。
+		      \par\textbf{理由：} 该递推是常见四周期递推；且 \(a_1=3\) 避开禁值 \(-1,0,1\)。
+
 		\item[\textbf{第二步（求一个周期内的项）：}]
-			计算前$4$项：
-			\[
-				\begin{aligned}
-					a_1 &= 3,\
-					\[
-						2pt] a_2 &= \frac{1+3}{1-3} = \frac{4}{-2} = -2,\
-						\[
-							2pt] a_3 &= \frac{1+(-2)}{1-(-2)} = \frac{-1}{3} = -\frac13,\
-							\[
-								2pt] a_4 &= \frac{1+(-\frac13)}{1-(-\frac13)} = \frac{\frac23}{\frac43} = \frac12.
-						\end{aligned}
-						\]
-						验证$a_5=\dfrac{1+\frac12}{1-\frac12}=3=a_1$,确认周期为$4$.
-						\par\textbf{理由:} 利用递推公式逐项计算,验证周期.
-					\item[\textbf{第三步(求和转化):}]
-						前$4$项和$S_4 = 3 + (-2) + \left(-\dfrac13\right) + \dfrac12 = \dfrac{7}{6}$.由于$2024 = 4\times506$,故
-						\[
-							S_{2024} = 506 \times S_4 = 506 \times \frac{7}{6} = \frac{1771}{3}.
-						\]
-						\par\textbf{理由:} 周期数列前$n$项和等于$n/T$个完整周期的和.
-				\end{description}
-				\textbf{\textcolor{CExample}{关键结论:}}
-				\textbf{利用周期$4$,将前$2024$项和转化为$506$个周期和,计算简便.}
-			\end{examplebox}
+		      计算前 \(4\) 项：
+		      \[
+			      \begin{aligned}
+				      a_1 & =3,                                                               \\[2pt]
+				      a_2 & =\frac{1+3}{1-3}=-2,                                              \\[2pt]
+				      a_3 & =\frac{1+(-2)}{1-(-2)}=-\frac13,                                  \\[2pt]
+				      a_4 & =\frac{1+\left(-\frac13\right)}{1-\left(-\frac13\right)}=\frac12.
+			      \end{aligned}
+		      \]
+		      并且
+		      \[
+			      a_5=\frac{1+\frac12}{1-\frac12}=3=a_1,
+		      \]
+		      验证周期为 \(4\)。
+		      \par\textbf{理由：} 逐项代入递推式计算，四步后回到初值。
+
+		\item[\textbf{第三步（求一个周期和）：}]
+		      \[
+			      \begin{aligned}
+				      S_4
+				       & =3+(-2)+\left(-\frac13\right)+\frac12 \\[2pt]
+				       & =1-\frac13+\frac12                    \\[2pt]
+				       & =\frac76.
+			      \end{aligned}
+		      \]
+		      \par\textbf{理由：} 一个周期内四项固定，先求周期和。
+
+		\item[\textbf{第四步（转化长求和）：}]
+		      由于
+		      \[
+			      2024=4\times506,
+		      \]
+		      所以
+		      \[
+			      S_{2024}=506S_4=506\times\frac76=\frac{1771}{3}.
+		      \]
+		      \par\textbf{理由：} 前 \(2024\) 项正好由 \(506\) 个完整周期组成。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\[
+		\boxed{S_{2024}=\frac{1771}{3}}.
+	\]
+\end{examplebox}
