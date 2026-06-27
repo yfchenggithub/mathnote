@@ -1,0 +1,34 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	通过平移构造相交直线，在所得三角形中用余弦定理求出对应角的余弦，再根据异面直线所成角范围取绝对值得到公式。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（平移构造）：}]
+			将一条异面直线平移，使其与另一条相交于点$O$，得到两条线段$OA$和$OB$，长度分别为$m$和$n$。连接$AB$，设$AB=d$。
+			\[
+				\triangle OAB,\ OA=m,\ OB=n,\ AB=d.
+			\]
+			\par\textbf{理由：} 平移不改变线段长度和方向，因此异面直线所成角与平移后相交线段的夹角相等。
+		\item[\textbf{步骤二（余弦定理）：}]
+			在$\triangle OAB$中，由余弦定理得$\angle AOB$的余弦。
+			\[
+				\cos\angle AOB = \frac{m^2+n^2-d^2}{2mn}.
+			\]
+			\par\textbf{理由：} 余弦定理直接给出了三角形三边与一角余弦的关系。
+		\item[\textbf{步骤三（角度关系）：}]
+			设异面直线所成角为$\theta$（$0^\circ<\theta\le90^\circ$）。根据$\angle AOB$的取值范围分两种情况：若$0^\circ<\angle AOB\le90^\circ$，则$\theta=\angle AOB$，$\cos\theta=\cos\angle AOB$；若$90^\circ<\angle AOB<180^\circ$，则$\theta=180^\circ-\angle AOB$，$\cos\theta=-\cos\angle AOB$。
+			\par\textbf{理由：} 异面直线所成角定义为两直线所成锐角或直角，故需将钝角转化为补角。
+		\item[\textbf{步骤四（统一公式）：}]
+			综合两种情形，取绝对值即可统一表达。
+			\[
+				\cos\theta = |\cos\angle AOB| = \frac{|m^2+n^2-d^2|}{2mn}.
+			\]
+			\par\textbf{理由：} 绝对值使得无论$\angle AOB$为锐角还是钝角，$\cos\theta$都等于非负的余弦值，符合$\theta$的范围。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{公式$\displaystyle\cos\theta = \frac{|m^2+n^2-d^2|}{2mn}$即为所求，它将异面直线所成角的计算转化为平面三角形中的余弦定理运算，条件是平移后三边可求。}
+\end{proofbox}
