@@ -1,0 +1,192 @@
+{
+  "id": "G042",
+  "module": "geometry-solid",
+  "core": {
+    "title": "正方体内切球、棱切球、外接球半径公式",
+    "alias": [
+      "正方体球半径",
+      "内切球半径",
+      "棱切球半径",
+      "外接球半径"
+    ],
+    "summary": "正方体内切球半径 $a/2$，棱切球半径 $\\sqrt{2}a/2$，外接球半径 $\\sqrt{3}a/2$，直接套用快速求解。",
+    "difficulty": 2,
+    "category": "立体几何",
+    "tags": [
+      "正方体",
+      "内切球",
+      "外接球",
+      "棱切球",
+      "球半径",
+      "立体几何"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "正方体",
+      "棱长",
+      "内切球",
+      "棱切球",
+      "外接球",
+      "半径",
+      "公式",
+      "a/2",
+      "√2/2 a",
+      "√3/2 a",
+      "体对角线",
+      "面对角线",
+      "球表面积",
+      "球体积"
+    ],
+    "synonyms": [
+      "正方体球半径",
+      "正方体三种球",
+      "内切球半径公式",
+      "棱切球半径公式",
+      "外接球半径公式",
+      "正方体外接球内切球"
+    ],
+    "intents": [
+      "求半径",
+      "求棱长",
+      "求体积",
+      "求表面积",
+      "比较大小"
+    ],
+    "query_templates": [
+      "正方体内切球半径是多少",
+      "正方体外接球半径公式",
+      "正方体棱切球半径怎么求",
+      "已知正方体棱长求外接球半径",
+      "内切球表面积求棱长"
+    ],
+    "ocrKeywords": [
+      "正方体",
+      "棱长",
+      "内切球",
+      "外切球",
+      "外接球",
+      "棱切球",
+      "半径"
+    ],
+    "latex_patterns": [
+      "r_{\\text{内}} = \\frac{a}{2}",
+      "r_{\\text{棱}} = \\frac{\\sqrt{2}}{2}a",
+      "r_{\\text{外}} = \\frac{\\sqrt{3}}{2}a"
+    ],
+    "formulaTokens": [
+      "\\frac{a}{2}",
+      "\\frac{\\sqrt{2}}{2}a",
+      "\\frac{\\sqrt{3}}{2}a",
+      "a",
+      "\\sqrt{2}",
+      "\\sqrt{3}"
+    ],
+    "pinyin": "zhengfangti neiqieqiu lengqieqiu waijieqiu banjing gongshi",
+    "pinyinAbbr": "zfqnqqlqqwjqbjgs"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.76,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "r_{\\text{内}} = \\frac{a}{2},\\\\; r_{\\text{棱}} = \\frac{\\sqrt{2}}{2}a,\\\\; r_{\\text{外}} = \\frac{\\sqrt{3}}{2}a",
+    "related_formulas": [
+      "d = \\sqrt{3}a,\\\\; r_{\\text{外}} = \\frac{d}{2}"
+    ],
+    "variables": [
+      {
+        "name": "a",
+        "desc": "正方体棱长",
+        "type": "length"
+      },
+      {
+        "name": "r_i",
+        "desc": "内切球半径",
+        "type": "length"
+      },
+      {
+        "name": "r_m",
+        "desc": "棱切球半径",
+        "type": "length"
+      },
+      {
+        "name": "r_o",
+        "desc": "外接球半径",
+        "type": "length"
+      }
+    ],
+    "conditions": "正方体棱长为$a$，且$a>0$。",
+    "conclusions": "内切球半径$r_i = \\\\frac{a}{2}$，棱切球半径$r_m = \\\\frac{\\\\sqrt{2}}{2}a$，外接球半径$r_o = \\\\frac{\\\\sqrt{3}}{2}a$。"
+  },
+  "content": {
+    "statement": "若正方体的棱长为$a$，则其内切球半径为$\\\\frac{a}{2}$，棱切球（与各棱中点相切）半径为$\\\\frac{\\\\sqrt{2}}{2}a$，外接球半径为$\\\\frac{\\\\sqrt{3}}{2}a$。",
+    "derivation": [
+      "内切球：球心到各面距离等于棱长的一半，即$\\\\frac{a}{2}$。",
+      "棱切球：球心到棱中点距离等于面对角线的一半，面对角线长为$\\\\sqrt{2}a$，故半径为$\\\\frac{\\\\sqrt{2}}{2}a$。",
+      "外接球：球心到顶点距离等于体对角线的一半，体对角线长为$\\\\sqrt{3}a$，故半径为$\\\\frac{\\\\sqrt{3}}{2}a$。"
+    ],
+    "intuition": "三种球的球心均与正方体中心重合，半径等于球心到对应接触元素（面、棱中点、顶点）的距离。",
+    "common_tricks": [
+      "已知内切球半径可反求棱长$a=2r_i$。",
+      "已知外接球半径可反求棱长$a=\\\\frac{2}{\\\\sqrt{3}}r_o$。",
+      "三种球半径大小关系：$r_i<r_m<r_o$。",
+      "求球表面积或体积时先求半径再代入公式。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "高考选择题",
+      "填空题",
+      "立体几何综合题"
+    ],
+    "problem_types": [
+      "直接求半径",
+      "已知半径求棱长",
+      "球表面积或体积计算"
+    ],
+    "exam_frequency": 1.0,
+    "exam_score": 8
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "G042.svg",
+    "png": "",
+    "thumbnail": "",
+    "cover": ""
+  },
+  "shareConfig": {
+    "title": "正方体三种球半径公式：内切、棱切、外接",
+    "shareDesc": "适合考前速查和立体几何练习，直接套公式快速求解正方体球半径，避免混淆系数。"
+  },
+  "relations": {
+    "prerequisites": [
+      "正方体性质",
+      "球的定义",
+      "勾股定理"
+    ],
+    "related_ids": [],
+    "similar": "长方体对角线公式、长方体与外接球半径关系"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "立体几何-体积与面积-体积",
+  "altNodes": "立体几何-体积与面积-表面积"
+}
