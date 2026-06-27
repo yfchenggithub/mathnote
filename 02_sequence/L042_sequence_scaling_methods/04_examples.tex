@@ -1,0 +1,124 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础：裂项放缩）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	证明对任意正整数 $n$，有
+	\[
+		\sum_{k=1}^n\frac1{k^2}<2.
+	\]
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（裂项放缩）：}]
+		      对 $k\ge2$，有
+		      \[
+			      \frac1{k^2}<\frac1{k(k-1)}=\frac1{k-1}-\frac1k.
+		      \]
+		      \par\textbf{理由：} 因为 $k(k-1)<k^2$ 且分母均为正，所以正分数大小反向，得到 $\frac1{k^2}<\frac1{k(k-1)}$。
+
+		\item[\textbf{第二步（分段求和）：}]
+		      将 $k=1$ 的项单独保留，从 $k=2$ 开始使用裂项放缩：
+		      \[
+			      \begin{aligned}
+				      \sum_{k=1}^n\frac1{k^2}
+				       & =1+\sum_{k=2}^n\frac1{k^2}                       \\[2pt]
+				       & <1+\sum_{k=2}^n\frac1{k(k-1)}                    \\[2pt]
+				       & =1+\sum_{k=2}^n\left(\frac1{k-1}-\frac1k\right).
+			      \end{aligned}
+		      \]
+		      \par\textbf{理由：} $k=1$ 时右侧 $\frac1{k(k-1)}$ 无意义，所以必须单独处理。
+
+		\item[\textbf{第三步（裂项相消）：}]
+		      当 $n=1$ 时，左边等于 $1<2$。当 $n\ge2$ 时，
+		      \[
+			      \begin{aligned}
+				      \sum_{k=1}^n\frac1{k^2}
+				       & <1+\left(1-\frac12+\frac12-\frac13+\cdots+\frac1{n-1}-\frac1n\right) \\[2pt]
+				       & =2-\frac1n                                                           \\[2pt]
+				       & <2.
+			      \end{aligned}
+		      \]
+		      \par\textbf{理由：} 中间项全部相消，只剩首尾两项。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\[
+		\boxed{\displaystyle\sum_{k=1}^n\frac1{k^2}<2}.
+	\]
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（等比放缩）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知 $a_n=\frac1{2^n+1}$，证明
+	\[
+		\sum_{k=1}^n a_k<1.
+	\]
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（等比放缩）：}]
+		      对任意 $k\ge1$，有
+		      \[
+			      \frac1{2^k+1}<\frac1{2^k}.
+		      \]
+		      \par\textbf{理由：} 因为 $2^k+1>2^k>0$，所以取倒数后不等号方向反向。
+
+		\item[\textbf{第二步（等比求和）：}]
+		      将原和放大为等比数列求和：
+		      \[
+			      \begin{aligned}
+				      \sum_{k=1}^n\frac1{2^k+1}
+				       & <\sum_{k=1}^n\frac1{2^k}                                        \\[2pt]
+				       & =\frac{\frac12\left(1-\left(\frac12\right)^n\right)}{1-\frac12} \\[2pt]
+				       & =1-\frac1{2^n}                                                  \\[2pt]
+				       & <1.
+			      \end{aligned}
+		      \]
+		      \par\textbf{理由：} 右侧是首项为 $\frac12$、公比为 $\frac12$ 的等比数列前 $n$ 项和。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\[
+		\boxed{\displaystyle\sum_{k=1}^n\frac1{2^k+1}<1}.
+	\]
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（糖水连乘）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	对任意正整数 $n$，证明
+	\[
+		\prod_{k=1}^n\frac{k}{k+1}<\prod_{k=1}^n\frac{k+1}{k+2}.
+	\]
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（条件识别）：}]
+		      对每个 $k$，令 $a=k$，$b=k+1$，$m=1$，则满足
+		      \[
+			      0<a<b,\qquad m>0.
+		      \]
+		      \par\textbf{理由：} 这正好符合糖水放缩的前提。
+
+		\item[\textbf{第二步（糖水放缩）：}]
+		      由糖水放缩得
+		      \[
+			      \frac{k}{k+1}<\frac{k+1}{k+2}.
+		      \]
+		      \par\textbf{理由：} 将 $a=k$，$b=k+1$，$m=1$ 代入 $\frac ab<\frac{a+m}{b+m}$ 即可。
+
+		\item[\textbf{第三步（逐项累乘）：}]
+		      因为每一项均为正，所以把 $k=1,2,\ldots,n$ 的不等式逐项相乘，不等号方向不变，得到
+		      \[
+			      \prod_{k=1}^n\frac{k}{k+1}
+			      <\prod_{k=1}^n\frac{k+1}{k+2}.
+		      \]
+		      \par\textbf{理由：} 正数不等式同向逐项相乘时，不等号方向保持不变。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\[
+		\boxed{\displaystyle\prod_{k=1}^n\frac{k}{k+1}<\prod_{k=1}^n\frac{k+1}{k+2}}.
+	\]
+\end{examplebox}

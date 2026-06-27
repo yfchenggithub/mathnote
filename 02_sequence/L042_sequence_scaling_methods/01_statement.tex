@@ -1,0 +1,59 @@
+\begin{statementbox}
+	\textbf{\textcolor{CStatement}{条件}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CStatement}{条件1（正项数列与不等式目标）：}}]
+		      待证不等式涉及累和 $\sum a_n < C$ 或累乘 $\prod a_n < C$，且直接求和或求积困难。通常要求相关项为正，便于逐项放缩和累乘比较。
+	\end{description}
+
+	\textbf{\textcolor{CStatement}{结论}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{\textcolor{CStatement}{结论一（裂项放缩）：}}]
+		      \textbf{\textcolor{CStatement}{直观描述：}}
+		      将分式通项放大或缩小为相邻整数倒数之差，以便裂项相消。
+		      对 $n\ge 2$，有
+		      \[
+			      \boxed{\frac{1}{n(n+1)}<\frac{1}{n^2}<\frac{1}{n(n-1)}}.
+		      \]
+		      也就是
+		      \[
+			      \frac{1}{n}-\frac{1}{n+1}
+			      <\frac{1}{n^2}
+			      <\frac{1}{n-1}-\frac{1}{n}.
+		      \]
+
+		\item[\textbf{\textcolor{CStatement}{结论二（等比放缩）：}}]
+		      \textbf{\textcolor{CStatement}{直观描述：}}
+		      将通项放大为等比数列的形式，利用等比求和公式控制总和。
+		      若存在常数 $C>0$ 与 $0<q<1$，使得 $a_n\le Cq^n$，则
+		      \[
+			      \sum_{k=1}^n a_k
+			      \le C\sum_{k=1}^n q^k
+			      =C\cdot\frac{q(1-q^n)}{1-q}
+			      < C\cdot\frac{q}{1-q}.
+		      \]
+
+		\item[\textbf{\textcolor{CStatement}{结论三（糖水放缩）：}}]
+		      \textbf{\textcolor{CStatement}{直观描述：}}
+		      分子分母同时加同一个正数，真分数会变大，常用于连乘型不等式。
+		      若 $0<a<b$，$m>0$，则
+		      \[
+			      \frac{a}{b}<\frac{a+m}{b+m}.
+		      \]
+
+		\item[\textbf{\textcolor{CStatement}{推广结论（连乘放缩）：}}]
+		      \textbf{\textcolor{CStatement}{直观描述：}}
+		      糖水放缩可逐项用于连乘。若对每个 $k$ 都有 $0<a_k<b_k$，且 $m>0$，则
+		      \[
+			      \prod_{k=1}^n \frac{a_k}{b_k}
+			      <\prod_{k=1}^n \frac{a_k+m}{b_k+m}.
+		      \]
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CStatement}{参数限制：}}
+	\begin{itemize}[leftmargin=*, itemsep=0.2em, topsep=0.2em]
+		\item 裂项放缩要求 $n\ge 2$，且分母不为零。
+		\item 等比放缩需要 $0<q<1$，且存在常数 $C>0$ 使 $a_n\le Cq^n$。
+		\item 糖水放缩要求 $0<a<b$，$m>0$；连乘时还要保证每一项均为正。
+	\end{itemize}
+\end{statementbox}

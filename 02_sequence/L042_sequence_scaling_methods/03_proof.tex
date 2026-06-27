@@ -1,0 +1,77 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	放缩不等式的核心是构造中间量。下面分别证明裂项放缩、等比放缩、糖水放缩的正确性。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（裂项放缩证明）：}]
+		      证明不等式链
+		      \[
+			      \frac{1}{n(n+1)}<\frac{1}{n^2}<\frac{1}{n(n-1)}\quad(n\ge2).
+		      \]
+		      \par\textbf{理由：} 当 $n\ge2$ 时，$n(n+1)>n^2>n(n-1)>0$。分母越大，正分数越小，所以
+		      \[
+			      \frac{1}{n(n+1)}<\frac{1}{n^2}<\frac{1}{n(n-1)}.
+		      \]
+		      同时有
+		      \[
+			      \frac{1}{n(n+1)}=\frac1n-\frac1{n+1},
+			      \qquad
+			      \frac{1}{n(n-1)}=\frac1{n-1}-\frac1n.
+		      \]
+		      因此该放缩可以直接转化为裂项相消。
+
+		\item[\textbf{步骤二（等比放缩原理）：}]
+		      若 $a_n\le Cq^n$，其中 $C>0$、$0<q<1$，则
+		      \[
+			      \sum_{k=1}^n a_k<C\cdot\frac{q}{1-q}.
+		      \]
+		      \par\textbf{理由：} 利用逐项放缩和等比数列求和公式，得
+		      \[
+			      \begin{aligned}
+				      \sum_{k=1}^n a_k
+				       & \le C\sum_{k=1}^n q^k       \\[2pt]
+				       & =C\cdot\frac{q(1-q^n)}{1-q} \\[2pt]
+				       & <C\cdot\frac{q}{1-q}.
+			      \end{aligned}
+		      \]
+
+		\item[\textbf{步骤三（糖水放缩证明）：}]
+		      若 $0<a<b$，$m>0$，则
+		      \[
+			      \frac{a}{b}<\frac{a+m}{b+m}.
+		      \]
+		      \par\textbf{理由：} 作差通分，得
+		      \[
+			      \frac{a+m}{b+m}-\frac{a}{b}
+			      =\frac{b(a+m)-a(b+m)}{b(b+m)}
+			      =\frac{m(b-a)}{b(b+m)}>0.
+		      \]
+		      所以
+		      \[
+			      \frac{a}{b}<\frac{a+m}{b+m}.
+		      \]
+
+		\item[\textbf{步骤四（连乘放缩说明）：}]
+		      若对每个 $k$ 都有
+		      \[
+			      0<a_k<b_k,
+		      \]
+		      且 $m>0$，则由糖水放缩可得
+		      \[
+			      0<\frac{a_k}{b_k}<\frac{a_k+m}{b_k+m}.
+		      \]
+		      因为每一项均为正，所以从 $k=1$ 到 $n$ 逐项相乘，不等号方向不变，即
+		      \[
+			      \prod_{k=1}^n\frac{a_k}{b_k}
+			      <\prod_{k=1}^n\frac{a_k+m}{b_k+m}.
+		      \]
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	以上三类放缩均为高中常见技巧。它们的共同点是：先把原式估计成更容易求和或求积的形式，再借助裂项、等比求和或连乘化简完成证明。
+\end{proofbox}
