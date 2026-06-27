@@ -1,0 +1,37 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	由等比数列的定义 $a_{n+1} = q a_n$，逐一迭代代入，归纳出 $a_n$ 与 $a_1$, $q$ 的关系。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（定义列出）：}]
+			因为 $\{a_n\}$ 是等比数列，所以对任意 $k\ge 1$，有
+			\[
+				a_{k+1} = q a_k .
+			\]
+			\par\textbf{理由：} 等比数列的定义，后一项等于前一项乘以公比 $q$（$q\neq 0$）。
+		\item[\textbf{步骤二（连乘约简）：}]
+			把 $k=1,2,\dots,n-1$ 对应的等式写出来，左右两边分别相乘：
+			\[
+				\frac{a_2}{a_1} \cdot \frac{a_3}{a_2} \cdots \frac{a_n}{a_{n-1}} = q^{\,n-1}.
+			\]
+			\par\textbf{理由：} 每个分式都等于 $q$，左边共 $n-1$ 个式子相乘，右边就是 $q^{n-1}$。
+		\item[\textbf{步骤三（消去中间项）：}]
+			左边连续约分，只剩下 $\dfrac{a_n}{a_1}$，得到
+			\[
+				\frac{a_n}{a_1} = q^{\,n-1}.
+			\]
+			\par\textbf{理由：} 分子分母依次约去 $a_2,a_3,\dots,a_{n-1}$。
+		\item[\textbf{步骤四（整理得公式）：}]
+			两边同时乘以 $a_1$（$a_1\neq 0$），得到
+			\[
+				a_n = a_1 q^{\,n-1}.
+			\]
+			\par\textbf{理由：} 等式两边同乘 $a_1$，即得通项公式。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{因此，等比数列 $\{a_n\}$ 的通项公式为 $a_n = a_1 q^{\,n-1}$，其中 $a_1$ 是首项，$q$ 是公比，$n\in\mathbb{N}^*$。}
+\end{proofbox}
