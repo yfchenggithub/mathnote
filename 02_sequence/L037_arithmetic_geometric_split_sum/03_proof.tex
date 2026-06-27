@@ -1,0 +1,44 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	分组求和法本质是利用求和运算的线性性质，将拆分的各部分分别求和再相加。根据已知条件，将$c_n=a_n+b_n$代入$S_n$的定义，然后分别利用等差、等比数列求和公式得出结果。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（通项分解）：}]
+			由条件知$c_n = a_n + b_n$。
+			\par\textbf{理由：} 题目假设数列$\{c_n\}$由等差数列$\{a_n\}$和等比数列$\{b_n\}$叠加而成。
+		\item[\textbf{步骤二（求和定义）：}]
+			$S_n = \sum_{k=1}^{n} c_k$，因为 $c_k = a_k + b_k$，所以 $S_n = \sum_{k=1}^{n} (a_k + b_k)$。
+			\par\textbf{理由：} 将$c_k$代入前$n$项和的定义。
+		\item[\textbf{步骤三（分配求和）：}]
+			$\sum_{k=1}^{n} (a_k + b_k) = \sum_{k=1}^{n} a_k + \sum_{k=1}^{n} b_k$。
+			\par\textbf{理由：} 有限项加法满足交换律与结合律，可将求和号拆开。
+		\item[\textbf{步骤四（等差求和）：}]
+			等差数列$\{a_n\}$的首项为$a_1=A+B$，末项为$a_n=An+B$，项数为$n$，因此
+			\[
+				\begin{aligned}
+					\sum_{k=1}^{n} a_k &= \frac{n}{2}(a_1 + a_n) \\ &= \frac{n}{2}\bigl[(A+B)+(An+B)\bigr].
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 等差数列前$n$项和公式$S_n = \frac{n}{2}(a_1 + a_n)$。
+		\item[\textbf{步骤五（等比求和）：}]
+			等比数列$\{b_n\}$的首项为$b_1=C$，公比为$q\;(q\neq1)$，项数为$n$，因此
+			\[
+				\begin{aligned}
+					\sum_{k=1}^{n} b_k &= \frac{b_1(1-q^{n})}{1-q} \\ &= \frac{C(1-q^{n})}{1-q}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 等比数列前$n$项和公式$S_n = \frac{a_1(1-q^n)}{1-q}$（$q\neq1$）。
+		\item[\textbf{步骤六（合并结果）：}]
+			将步骤四、步骤五的结果代入步骤三，得
+			\[
+				S_n = \frac{n}{2}\bigl[(A+B)+(An+B)\bigr] + \frac{C(1-q^{n})}{1-q}.
+			\]
+			\par\textbf{理由：} 直接相加即得最终表达式。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	此公式给出了等差+等比型数列分组求和的直接计算方法。若通项包含更多项（如常数），可类似拆分，道理相同。
+\end{proofbox}
