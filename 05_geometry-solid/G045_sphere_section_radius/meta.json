@@ -1,0 +1,182 @@
+{
+  "id": "G045",
+  "module": "geometry-solid",
+  "core": {
+    "title": "球截面圆半径公式",
+    "alias": [
+      "球截面半径",
+      "截面圆半径",
+      "勾股定理求截面"
+    ],
+    "summary": "球心到截面垂线、截面半径、球半径构成直角三角形，由勾股定理得截面半径公式。",
+    "difficulty": 2,
+    "category": "立体几何",
+    "tags": [
+      "球",
+      "截面",
+      "半径",
+      "距离",
+      "勾股定理"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "球截面",
+      "截面圆半径",
+      "球心到平面距离",
+      "r=sqrt(R^2-d^2)",
+      "R^2-d^2",
+      "立体几何截面",
+      "球半径",
+      "距离公式",
+      "勾股定理截面",
+      "截面面积"
+    ],
+    "synonyms": [
+      "截面半径",
+      "球切面半径",
+      "球截面圆",
+      "截面圆直径",
+      "d=sqrt(R^2-r^2)"
+    ],
+    "intents": [
+      "求截面半径",
+      "求球心到截面距离",
+      "已知截面面积求距离",
+      "验证截面是否存在"
+    ],
+    "query_templates": [
+      "已知球半径和截面距离求半径",
+      "球截面圆半径怎么求",
+      "球心到截面距离公式",
+      "截面圆面积公式",
+      "球截面勾股定理"
+    ],
+    "ocrKeywords": [
+      "球",
+      "截面",
+      "半径",
+      "距离",
+      "圆",
+      "R^2",
+      "d^2",
+      "sqrt",
+      "S=πr^2"
+    ],
+    "latex_patterns": [
+      "r=\\sqrt{R^2-d^2}",
+      "d=\\sqrt{R^2-r^2}"
+    ],
+    "formulaTokens": [
+      "r=\\sqrt{R^2-d^2}",
+      "\\sqrt{R^2-d^2}",
+      "R^2-d^2",
+      "d=\\sqrt{R^2-r^2}",
+      "\\sqrt{R^2-r^2}",
+      "R^2-r^2"
+    ],
+    "pinyin": "qiujiemianbanjinggongshi",
+    "pinyinAbbr": "qjm"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.95,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "r = \\sqrt{R^2 - d^2}",
+    "related_formulas": [
+      "d = \\sqrt{R^2 - r^2}"
+    ],
+    "variables": [
+      {
+        "name": "R",
+        "description": "球半径",
+        "type": "number",
+        "constraints": "R > 0"
+      },
+      {
+        "name": "d",
+        "description": "球心到截面的距离",
+        "type": "number",
+        "constraints": "0 ≤ d < R"
+      },
+      {
+        "name": "r",
+        "description": "截面圆半径",
+        "type": "number",
+        "constraints": "0 ≤ r ≤ R"
+      }
+    ],
+    "conditions": "球半径为 $R$，球心到平面的距离为 $d$，且 $0 \\le d < R$。",
+    "conclusions": "截面圆半径为 $r = \\sqrt{R^2 - d^2}$。若已知 $R$ 和 $r$，则可反求球心到截面距离 $d = \\sqrt{R^2 - r^2}$。"
+  },
+  "content": {
+    "statement": "设球的半径为 $R$，球心到平面的距离为 $d$（$0 \\le d < R$），则截面圆的半径 $r = \\sqrt{R^2 - d^2}$。",
+    "derivation": [
+      "球心 $O$ 到截面圆心 $O'$ 的连线 $OO'$ 垂直于截面，垂足为 $O'$。",
+      "在截面圆上任取一点 $P$，连接 $OP$、$O'P$，则 $OP = R$，$O'P = r$，$OO' = d$。",
+      "在直角三角形 $OO'P$ 中由勾股定理得 $R^2 = d^2 + r^2$，即 $r = \\sqrt{R^2 - d^2}$。"
+    ],
+    "intuition": "球心到截面圆心的连线垂直于截面，与截面半径和球半径构成直角三角形，满足勾股定理。",
+    "common_tricks": [
+      "牢记垂直关系：球心到截面圆心连线垂直于截面。",
+      "逆用公式：已知截面面积 $\\pi r^2$ 时，先求半径 $r$ 再求距离 $d$。",
+      "距离范围检验：代入公式前确保 $0 \\le d < R$，否则截面不存在。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "求截面圆半径",
+      "球心到截面距离",
+      "截面面积计算"
+    ],
+    "problem_types": [
+      "直接计算",
+      "逆向计算",
+      "综合应用题"
+    ],
+    "exam_frequency": 0.3,
+    "exam_score": 4
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "G045.svg",
+    "diagram": "",
+    "video": ""
+  },
+  "shareConfig": {
+    "title": "球截面半径公式：勾股定理一步到位",
+    "shareDesc": "适用于立体几何截面计算，通过球心到截面距离直接求半径，避免复杂空间想象。"
+  },
+  "relations": {
+    "prerequisites": [
+      "勾股定理",
+      "圆面积公式"
+    ],
+    "related_ids": [],
+    "similar": [
+      "圆锥截面半径公式"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "立体几何-空间关系-垂直",
+  "altNodes": "立体几何-体积与面积-体积"
+}
