@@ -1,0 +1,52 @@
+\begin{proofbox}
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	直接按照期望和方差的定义计算，并利用 $E(X^2)$ 简化方差计算。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+
+		\item[\textbf{步骤一（求期望）：}] 根据期望定义：
+			\[
+				\begin{aligned}
+					E(X) &= 0\cdot P(X=0) + 1\cdot P(X=1) \\
+					&= 0\cdot(1-p) + 1\cdot p \\
+					&= p.
+			\end{aligned}
+			\]
+			\par\textbf{理由：}两点分布取值只有 $0$ 和 $1$，直接代入概率。
+
+		\item[\textbf{步骤二（求二阶矩）：}] 计算 $E(X^2)$：
+			\[
+				\begin{aligned}
+					E(X^2) &= 0^2\cdot P(X=0) + 1^2\cdot P(X=1) \\
+					&= 0\cdot(1-p) + 1\cdot p \\
+					&= p.
+			\end{aligned}
+			\]
+			\par\textbf{理由：}因为 $X^2$ 与 $X$ 取值相同（$0^2=0,1^2=1$），故 $E(X^2)=E(X)$。
+
+		\item[\textbf{步骤三（方差公式）：}] 利用 $D(X)=E(X^2)-[E(X)]^2$：
+			\[
+				D(X)=p-p^2.
+			\]
+			\par\textbf{理由：}代入 $E(X)=p$ 和 $E(X^2)=p$。
+
+		\item[\textbf{步骤四（化简得结论）：}] 提取公因式：
+			\[
+				\begin{aligned}
+					D(X) &= p-p^2 \\
+					&= p(1-p).
+			\end{aligned}
+			\]
+			\par\textbf{理由：}代数化简，并注意 $p\in[0,1]$ 保证方差非负。
+
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	综上，两点分布的期望为 $p$，方差为 $p(1-p)$，与结论一致。
+\end{proofbox}

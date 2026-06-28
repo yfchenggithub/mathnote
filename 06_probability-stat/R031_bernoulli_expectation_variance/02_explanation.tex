@@ -1,0 +1,60 @@
+\begin{explanationbox}
+
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+	两点分布的期望就是成功概率，方差衡量不确定性。成功与失败概率越接近，方差越大。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（概率等于期望）：}] 期望 $E(X)=p$，数值上等于成功概率 $P(X=1)$。
+		\item[\textbf{要点二（方差波动范围）：}] 方差 $D(X)=p(1-p)$，在 $p=0.5$ 时达到最大值 $0.25$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（概率可视化）}}
+
+	将两点分布看作 $x=0$ 和 $x=1$ 处的两个质量点，质量分别为 $1-p$ 和 $p$。
+	期望是质心位置 $p$，方差是惯性矩 $p(1-p)$。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（定义计算）}}
+
+	由期望定义
+	\[
+		\begin{aligned}
+			E(X) &= 0\cdot (1-p) + 1\cdot p \\
+			&= p.
+		\end{aligned}
+	\]
+	由方差定义
+	\[
+		\begin{aligned}
+			D(X) &= E(X^2) - [E(X)]^2 \\
+			&= p - p^2 \\
+			&= p(1-p).
+		\end{aligned}
+	\]
+	且 $X^2 = X$，故 $E(X^2)=p$。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（常考基础点）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（公式直接套用）：} 给出 $p$ 直接计算 $E(X)$ 和 $D(X)$。
+		\item \textbf{考法二（线性变换结合）：} 已知 $Y=aX+b$，利用 $E(Y),D(Y)$ 公式求解。
+		\item \textbf{考法三（二项分布铺垫）：} 两点分布是 $n=1$ 的二项分布，为后续概念奠基。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	方差公式 $D(X)=p(1-p)$ 正是 $E(X)\cdot(1-E(X))$，即“成功概率乘以失败概率”。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（基础概率计算）：} 题目直接明确“两点分布”，求期望方差。
+		\item \textbf{场景二（分布列判别）：} 先判断是否两点分布，再套用公式。
+		\item \textbf{场景三（二项分布基础）：} 理解单次试验的方差是二项分布方差的基础。
+	\end{itemize}
+\end{explanationbox}
