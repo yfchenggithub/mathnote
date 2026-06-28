@@ -1,0 +1,185 @@
+{
+  "id": "J005",
+  "module": "geometry-plane",
+  "core": {
+    "title": "一线三等角模型",
+    "alias": [
+      "一线三等角",
+      "K型相似",
+      "一线三垂直",
+      "K型全等"
+    ],
+    "summary": "三点共线且三个角相等，则两个三角形相似，对应边成比例；若有一组对应边相等则全等。",
+    "difficulty": 2,
+    "category": "平面几何",
+    "tags": [
+      "一线三等角",
+      "K型相似",
+      "一线三垂直",
+      "相似模型",
+      "全等模型"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "一线三等角",
+      "K型相似",
+      "一线三垂直",
+      "相似",
+      "全等",
+      "对应边成比例",
+      "三点共线",
+      "等角",
+      "直角",
+      "平面直角坐标系",
+      "求点坐标",
+      "最值",
+      "存在性问题",
+      "三角形相似",
+      "三角形全等"
+    ],
+    "synonyms": [
+      "K字模型",
+      "K型",
+      "三垂直模型",
+      "相似基本型",
+      "一线三直角",
+      "三等角模型",
+      "共线等角模型"
+    ],
+    "intents": [
+      "证明相似",
+      "证明全等",
+      "求边长",
+      "求面积",
+      "求坐标",
+      "构造全等",
+      "构造相似",
+      "判断相似"
+    ],
+    "query_templates": [
+      "一线三等角模型证明相似",
+      "一线三垂直求点坐标",
+      "K型相似对应边成比例"
+    ],
+    "ocrKeywords": [
+      "共线",
+      "∠ABD",
+      "∠BCE",
+      "∠DBE",
+      "AD∥BE",
+      "相似",
+      "全等",
+      "对应边",
+      "比例",
+      "面积比"
+    ],
+    "latex_patterns": [
+      "\\triangle ABD\\sim\\triangle BCE",
+      "\\frac{AB}{BC}=\\frac{BD}{CE}=\\frac{AD}{BE}",
+      "\\triangle ABD\\cong\\triangle BCE"
+    ],
+    "formulaTokens": [
+      "AB/BC",
+      "BD/CE",
+      "AD/BE",
+      "AB=BC",
+      "BD=CE",
+      "\\triangle ABD\\sim\\triangle BCE",
+      "\\theta=90^\\circ"
+    ],
+    "pinyin": "yixiansandengjiao",
+    "pinyinAbbr": "YXSDJ"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.73,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\triangle ABD\\sim\\triangle BCE, \\quad \\frac{AB}{BC}=\\frac{BD}{CE}=\\frac{AD}{BE}",
+    "related_formulas": [
+      "\\text{若 }AB=BC\\text{ 或 }BD=CE,\\text{ 则 }\\triangle ABD\\cong\\triangle BCE",
+      "\\text{当 }\\theta=90^\\circ\\text{ 时，模型称为一线三垂直}"
+    ],
+    "variables": [
+      "A,B,C,D,E",
+      "θ",
+      "AB",
+      "BC",
+      "BD",
+      "CE",
+      "AD",
+      "BE",
+      "k（相似比）",
+      "S（面积）"
+    ],
+    "conditions": "三点 $A,B,C$ 共线，且 $\\angle ABD=\\angle BCE=\\angle DBE=\\theta$，另有 $AD\\parallel BE$（或可由等角与共线推出）。",
+    "conclusions": "$\\triangle ABD\\sim\\triangle BCE$，对应边成比例：$\\frac{AB}{BC}=\\frac{BD}{CE}=\\frac{AD}{BE}$。若有一组对应边相等（如 $AB=BC$ 或 $BD=CE$），则 $\\triangle ABD\\cong\\triangle BCE$。"
+  },
+  "content": {
+    "statement": "若点 $A,B,C$ 共线，$\\angle ABD=\\angle BCE=\\angle DBE=\\theta$，且 $AD\\parallel BE$，则 $\\triangle ABD\\sim\\triangle BCE$，对应边成比例；若有一组对应边相等，则两三角形全等。当 $\\theta=90^\\circ$ 时称为一线三垂直，常用于平面直角坐标系。",
+    "derivation": [
+      "由 $AD\\parallel BE$ 得 $\\angle BAD = \\angle CBE$（内错角相等）。",
+      "已知 $\\angle ABD = \\angle BCE$，故 $\\triangle ABD$ 与 $\\triangle BCE$ 有两组角对应相等，从而相似。",
+      "相似后对应边成比例即得比例式，再结合特殊边相等得全等。"
+    ],
+    "intuition": "三个等角加上平行线，构造出两组对应角相等，自然推出相似。",
+    "common_tricks": [
+      "识别关键：三点共线、三个相等角（常标θ）、平行线。",
+      "利用相似比列出比例式，可求未知边长或面积。",
+      "若出现一组对应边相等，则直接全等，无需再证。",
+      "坐标系中常构造一线三垂直（θ=90°）将几何条件转化为坐标关系。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "压轴题中构造相似或全等求坐标、最值",
+      "平面几何证明题"
+    ],
+    "problem_types": [
+      "相似/全等证明题",
+      "坐标求解题",
+      "存在性问题"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "J005.svg"
+  },
+  "shareConfig": {
+    "title": "一线三等角模型：相似全等速判与比例",
+    "shareDesc": "适合复习相似和全等模型时速查，解决共线等角类几何题的关键步骤，减少对应边比例错误，提升压轴题稳定性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "相似三角形的判定",
+      "全等三角形的判定",
+      "平行线性质"
+    ],
+    "related_ids": [],
+    "similar": "一线三垂直模型（特例）、手拉手模型（不同）"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "其他-未分类-待定",
+  "altNodes": ""
+}
