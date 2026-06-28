@@ -1,0 +1,40 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+	在 $n$ 次独立同概率试验中，成功次数最可能出现在 $np$ 附近；平均偏离程度由 $np(1-p)$ 刻画。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（分解为指示变量）：}]
+			令 $X_i$ 为第 $i$ 次试验的成功指示变量（成功为 $1$，失败为 $0$），则 $X = X_1+X_2+\dots+X_n$，且每个 $X_i$ 独立同分布。
+		\item[\textbf{要点二（期望可加性）：}]
+			对独立变量，和的期望等于期望的和，和的方差等于方差的和。先求单个 $X_i$ 的期望 $E(X_i)=p$、方差 $D(X_i)=p(1-p)$，再乘以 $n$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（分布中心度）}}
+	二项分布的概率质量函数在 $k=np$ 附近取最大值（当 $np$ 为整数时）；方差 $np(1-p)$ 描述了分布的展宽，$p$ 越接近 $0.5$，分布越分散，整体数据越离散。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（参数运算）}}
+	期望是成功概率与试验次数的乘积，方差是试验次数与成功概率、失败概率之积。公式将随机变量的数字特征简化为仅依赖于两个参数 $n$ 和 $p$。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（频率估计）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（直接计算）：} 给出 $n$ 和 $p$，直接代入公式求期望与方差。
+		\item \textbf{考法二（样本比例）：} 通过 $E(\frac{X}{n})=p$、$D(\frac{X}{n})=\frac{p(1-p)}{n}$，考查抽样调查中的误差估计。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+	核心在于将 $X$ 拆成 $n$ 个独立的 $0$-$1$ 变量，利用可加性将复杂问题转化为简单乘法。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（质量检验）：} 在 $n$ 件产品中随机抽取，每次抽到合格品的概率为 $p$，合格品数量的期望与方差直接由公式给出。
+		\item \textbf{场景二（遗传统计）：} 在 $n$ 个子代中，某性状出现的概率为 $p$，出现的个体数服从二项分布，可用公式分析预期数量与波动范围。
+	\end{itemize}
+
+\end{explanationbox}

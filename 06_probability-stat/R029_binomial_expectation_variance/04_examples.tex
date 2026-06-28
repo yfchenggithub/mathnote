@@ -1,0 +1,78 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	设随机变量 $X\sim B(12,0.4)$，求 $E(X)$ 与 $D(X)$。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别分布）：}]
+			由 $X\sim B(12,0.4)$ 知 $n=12$，$p=0.4$。
+			\par\textbf{理由：} 二项分布符号 $B(n,p)$ 明确给出参数。
+		\item[\textbf{第二步（代入公式）：}]
+			直接代入期望方差公式：
+			\[
+				\begin{aligned}
+					E(X) &= np \\ &= 12\times0.4 \\ &= 4.8,\\ D(X) &= np(1-p) \\ &= 12\times0.4\times0.6 \\ &= 2.88.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 二项分布期望与方差公式。
+		\item[\textbf{第三步（给出答案）：}]
+			故 $E(X)=4.8$，$D(X)=2.88$。
+			\par\textbf{理由：} 运算完成。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	$\mathbf{E(X)=4.8}$，$\mathbf{D(X)=2.88}$。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（反求参数）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	已知 $X\sim B(n,p)$，$E(X)=20$，$D(X)=12$，求 $n$ 和 $p$。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（列方程组）：}]
+			由公式得
+			\[
+				\begin{aligned}
+					np &= 20,\\ np(1-p) &= 12.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 直接使用二项分布期望方差公式。
+		\item[\textbf{第二步（解概率）：}]
+			两式相除得 $1-p = \frac{12}{20}$，即 $1-p = 0.6$，故 $p=0.4$。
+			\par\textbf{理由：} $D(X)/E(X) = 1-p$。
+		\item[\textbf{第三步（解次数）：}]
+			代入 $np=20$ 与 $p=0.4$，得 $n=50$。
+			\par\textbf{理由：} 解一元一次方程。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	$\mathbf{n=50}$，$\mathbf{p=0.4}$。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	某产品不合格率为 $p$，随机抽取 $n$ 件，不合格件数 $X\sim B(n,p)$。已知 $E(X)=12$，$D(X)=8$。 （1）求 $n$ 和 $p$； （2）写出 $P(X=10)$ 的表达式（不计算数值）。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（列方程组）：}]
+			由已知条件列出方程组
+			\[
+				\begin{cases}
+					np = 12,\\ np(1-p) = 8.
+			\end{cases}
+			\]
+			\par\textbf{理由：} 利用期望方差公式。
+		\item[\textbf{第二步（解参数）：}]
+			相除得 $1-p = \frac{8}{12}$，即 $1-p = \frac{2}{3}$，所以 $p=\frac{1}{3}$。代入 $np=12$，解得 $n=36$。
+			\[
+				n=36,\quad p=\frac{1}{3}.
+			\]
+			\par\textbf{理由：} 同例2推导，$1-p = D(X)/E(X)$。
+		\item[\textbf{第三步（写概率）：}]
+			由二项分布概率公式，
+			\[
+				P(X=10)=\binom{36}{10}\left(\frac{1}{3}\right)^{10}\left(\frac{2}{3}\right)^{26}.
+			\]
+			\par\textbf{理由：} 二项分布概率公式 $P(X=k)=\binom{n}{k}p^k(1-p)^{n-k}$。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	$\mathbf{n=36,\ p=\frac{1}{3}}$，$\mathbf{P(X=10)=\binom{36}{10}\left(\frac{1}{3}\right)^{10}\left(\frac{2}{3}\right)^{26}}$。
+\end{examplebox}

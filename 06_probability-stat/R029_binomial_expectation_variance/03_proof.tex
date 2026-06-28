@@ -1,0 +1,53 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	二项随机变量可拆分为 $n$ 个独立的单次试验指示变量，通过指示变量的数字特征与可加性得到总体的期望与方差。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（分解为指示变量）：}]
+			记 $X_i$ 为第 $i$ 次试验成功的指示变量，即
+			\[
+				X_i=
+				\begin{cases}
+					1, & \text{第 $i$ 次成功},\\ 0, & \text{第 $i$ 次失败}.
+			\end{cases}
+			\]
+			则 $X=X_1+X_2+\cdots+X_n$，且各 $X_i$ 相互独立，都服从参数为 $p$ 的 $0$-$1$ 分布。
+			\par\textbf{理由：} 二项分布的定义直接给出。
+		\item[\textbf{步骤二（计算伯努利方差）：}]
+			对每个 $X_i$，
+			\[
+				\begin{aligned}
+					E(X_i) &= 1\cdot p + 0\cdot(1-p), \\ &= p, \\ E(X_i^2) &= 1^2\cdot p + 0^2\cdot(1-p), \\ &= p.
+			\end{aligned}
+			\]
+			因此方差为
+			\[
+				\begin{aligned}
+					D(X_i) &= E(X_i^2) - [E(X_i)]^2 \\ &= p - p^2 \\ &= p(1-p).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 期望和方差的定义；$X_i$ 只取 $0,1$，其平方等于自身。
+		\item[\textbf{步骤三（利用期望可加性）：}]
+			由期望的线性性质，
+			\[
+				\begin{aligned}
+					E(X) &= E\!\left(\sum_{i=1}^n X_i\right) \\ &= \sum_{i=1}^n E(X_i) \\ &= n\cdot p \\ &= np.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 期望和不管是否独立，均可逐项相加。
+		\item[\textbf{步骤四（利用方差可加性）：}]
+			因为各 $X_i$ 相互独立，和的方差等于方差之和，
+			\[
+				\begin{aligned}
+					D(X) &= D\!\left(\sum_{i=1}^n X_i\right) \\ &= \sum_{i=1}^n D(X_i) \\ &= n\cdot p(1-p) \\ &= np(1-p).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 独立变量方差具有可加性。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	综上，从伯努利变量的数字特征出发，利用线性与可加性严格推得二项分布的期望 $E(X)=np$ 与方差 $D(X)=np(1-p)$，公式成立。
+\end{proofbox}

@@ -1,0 +1,168 @@
+{
+  "id": "R029",
+  "module": "probability-stat",
+  "core": {
+    "title": "二项分布的期望与方差公式",
+    "alias": [
+      "二项分布期望",
+      "二项分布方差",
+      "B(n,p)期望方差"
+    ],
+    "summary": "二项分布成功次数的期望是np，方差是np(1-p)。",
+    "difficulty": 2,
+    "category": "概率与统计",
+    "tags": [
+      "二项分布",
+      "期望",
+      "方差",
+      "数字特征",
+      "随机变量"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "二项分布",
+      "期望",
+      "方差",
+      "np",
+      "np(1-p)",
+      "伯努利试验",
+      "独立重复试验",
+      "成功概率",
+      "E(X)",
+      "D(X)",
+      "样本比例"
+    ],
+    "synonyms": [
+      "二项分布期望公式",
+      "方差公式",
+      "二项分布均值",
+      "B(n,p)的期望和方差"
+    ],
+    "intents": [
+      "求期望",
+      "求方差",
+      "反求参数",
+      "求概率",
+      "计算数字特征"
+    ],
+    "query_templates": [
+      "求二项分布的期望和方差",
+      "二项分布期望公式是什么",
+      "已知期望和方差求n和p",
+      "X~B(n,p)怎么算期望",
+      "二项分布方差公式"
+    ],
+    "ocrKeywords": [
+      "X~B(n,p)",
+      "E(X)=np",
+      "D(X)=np(1-p)",
+      "二项分布"
+    ],
+    "latex_patterns": [
+      "\\mathrm{B}(n,p)",
+      "E(X)=np",
+      "D(X)=np(1-p)"
+    ],
+    "formulaTokens": [
+      "E(X)=np",
+      "D(X)=np(1-p)",
+      "X\\sim B(n,p)",
+      "1-p",
+      "np(1-p)",
+      "X/n"
+    ],
+    "pinyin": "erxiangfenbu",
+    "pinyinAbbr": "exfb"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.9,
+    "hot_score": 85,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "E(X)=np,\\quad D(X)=np(1-p)",
+    "related_formulas": [
+      "E\\left(\\frac{X}{n}\\right)=p,\\quad D\\left(\\frac{X}{n}\\right)=\\frac{p(1-p)}{n}"
+    ],
+    "variables": [
+      "n",
+      "p",
+      "X",
+      "E(X)",
+      "D(X)"
+    ],
+    "conditions": "随机变量$X$表示$n$次独立重复试验中成功的次数，每次试验成功概率为$p\\in[0,1]$，各次试验相互独立。",
+    "conclusions": "期望$E(X)=np$，方差$D(X)=np(1-p)$。样本比例$\\frac{X}{n}$的期望为$p$，方差为$\\frac{p(1-p)}{n}$。"
+  },
+  "content": {
+    "statement": "若随机变量$X$服从二项分布$X\\sim B(n,p)$，则$X$的期望为$E(X)=np$，方差为$D(X)=np(1-p)$。",
+    "derivation": [
+      "将$X$分解为$n$个独立同分布的0-1随机变量之和$X=\\sum_{i=1}^n X_i$，每个$X_i$服从两点分布$B(1,p)$。",
+      "由两点分布的期望和方差：$E(X_i)=p$，$D(X_i)=p(1-p)$。",
+      "利用期望和方差的可加性（独立性保证方差可加）：$E(X)=\\sum E(X_i)=np$，$D(X)=\\sum D(X_i)=np(1-p)$。"
+    ],
+    "intuition": "成功次数均值等于试验次数乘以成功概率，方差则在此基础上再乘以失败概率。",
+    "common_tricks": [
+      "已知$E(X)$和$D(X)$时，$1-p=\\frac{D(X)}{E(X)}$，可反解$p$和$n$。",
+      "样本比例$\\frac{X}{n}$的期望恒为$p$，方差随$n$增大而减小，用于估计概率。",
+      "注意方差公式中不要漏掉因子$1-p$，即$D(X)=np(1-p)$。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "期望方差计算",
+      "参数估计",
+      "假设检验基础"
+    ],
+    "problem_types": [
+      "求期望方差",
+      "反求参数",
+      "综合应用"
+    ],
+    "exam_frequency": 1.0,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "R029.svg",
+    "image": "",
+    "video": "",
+    "audio": ""
+  },
+  "shareConfig": {
+    "title": "二项分布期望方差：直接套公式求np和np(1-p)",
+    "shareDesc": "适合刷题前速查和考前回顾，直接给出二项分布期望与方差公式，并附带反求参数的技巧，减少代入错误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "伯努利试验",
+      "随机变量的期望与方差"
+    ],
+    "related_ids": [],
+    "similar": [
+      "两点分布的期望与方差",
+      "超几何分布的期望与方差"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "概率-随机变量-期望",
+  "altNodes": "概率-随机变量-分布列"
+}
