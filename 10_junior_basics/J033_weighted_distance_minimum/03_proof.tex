@@ -1,0 +1,60 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	通过构造满足$\sin\alpha=k$的射线$AN$，将$k\cdot PA$转化为垂线段$PK$，使目标式变为$PK+PB$，再利用三角形三边关系或垂线段最短得最小值。
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（构造定角与固定垂足）：}]
+			过点$A$作射线$AN$，使$AN$与直线$l$的夹角$\alpha$满足$\sin\alpha=k$，且$AN$与点$B$分居直线$l$的两侧。
+			\[
+				\sin\alpha = k,\quad \alpha = \angle(AN,l).
+			\]
+			再过点$B$作$BH\perp AN$于点$H$，则$BH$为定长（$B$到直线$AN$的距离）。
+			\par\textbf{理由：} 设定角度比，为后续转化做准备；两侧放置保证$B$到$AN$的垂足$H$落在射线$AN$上，使等号可取得，同时定出目标下界$BH$。
+
+		\item[\textbf{步骤二（转化系数）：}]
+			当动点$P$在$l$上运动时，过$P$作$PK\perp AN$于点$K$。在直角三角形$PAK$中，
+			\[
+				PK = PA\cdot\sin\alpha = k\cdot PA.
+			\]
+			\par\textbf{理由：} 利用锐角三角函数的正弦定义，实现系数$k$的几何化。
+
+		\item[\textbf{步骤三（合并目标）：}]
+			将转化结果代入原式：
+			\[
+				k\cdot PA + PB = PK + PB.
+			\]
+			\par\textbf{理由：} 等量代换，将含系数问题转化为无系数线段和问题。
+
+		\item[\textbf{步骤四（利用不等式）：}]
+			在$\triangle PBK$中，由三角形两边之和大于第三边可得
+			\[
+				PK + PB \ge BK.
+			\]
+			又因为$BK \ge BH$（垂线段最短），所以
+			\[
+				PK + PB \ge BH.
+			\]
+			等号当且仅当$P$在$BH$上且$K=H$时成立（即$P,H,B$三点共线且$PK\perp AN$）。
+			\par\textbf{理由：} 三角形三边关系结合垂线段最短性质。
+
+		\item[\textbf{步骤五（验证取等）：}]
+			当$P$为直线$BH$与$l$的交点时，过$P$作$AN$的垂线，垂足即为$H$（因为$BH\perp AN$），此时$K$与$H$重合，$P,H,B$共线，等号条件满足。故该$P$即为最值点。
+			\[
+				P = BH \cap l.
+			\]
+			\par\textbf{理由：} 该点既在$l$上，又在线段$BH$上，且$PK\perp AN$自然成立。
+
+		\item[\textbf{步骤六（得出结论）：}]
+			因此，目标式的最小值为$BH$：
+			\[
+				\min_{P\in l}\bigl(k\cdot PA+PB\bigr) = BH.
+			\]
+			\par\textbf{理由：} 综合上述推导，$BH$是下界且取得到。
+	\end{description}
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	胡不归模型通过构造定角，将$k\cdot PA$转化为点$P$到$AN$的垂线段长，使原问题转化为折线段的最短路径问题，从而利用“两点之间线段最短”或三角形不等式得到最小值$BH$，且取等位置为$BH$与$l$的交点。当$k>1$时，提取系数后同样适用。
+\end{proofbox}

@@ -1,0 +1,102 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知直线$l:y=0$，定点$A(0,2)$，$B(3,2)$，动点$P$在$l$上，求$\displaystyle\frac12PA+PB$的最小值。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（构造定角）：}] 过$A$作射线$AN$，使$AN$与$l$的夹角$\alpha$满足$\sin\alpha=\frac12$（即$\alpha=30^\circ$），且$AN$与$B$分居$l$两侧（$AN$向$l$下方作）。射线$AN$的方程为$y=2-\dfrac{\sqrt3}{3}x$。
+			\par\textbf{理由：} 设定角度比$\sin\alpha=k$，为后续转化准备。
+
+		\item[\textbf{第二步（转化与构造）：}]
+			过点$B$作$BH\perp AN$于点$H$（固定），则$BH$为定值（$B$到$AN$的距离）。\par
+			当动点$P$在$l$上运动时，过$P$作$PK\perp AN$于点$K$。在直角三角形$PAK$中，
+			\[
+				PK = PA\cdot\sin\alpha = \dfrac12 PA.
+			\]
+			于是
+			\[
+				\frac12PA+PB = PK+PB.
+			\]
+			\par\textbf{理由：} 预先固定下界参考点，同时利用三角函数转化系数。
+
+		\item[\textbf{第三步（求最值）：}]
+			在$\triangle PBK$中，$PK+PB \ge BK$（三角形两边之和大于第三边）。\par
+			又因为$BK \ge BH$（垂线段最短），故
+			\[
+				PK+PB \ge BH.
+			\]
+			等号当且仅当$P$在$BH$上且$K=H$时成立，即$P$为直线$BH$与$l$的交点。\par
+			计算$BH$（点$B$到直线$AN$的距离）：
+			\[
+				BH = \frac{|\sqrt3\cdot3+3\cdot2-6|}{\sqrt{(\sqrt3)^2+3^2}} = \frac{3\sqrt3}{2\sqrt3}= \frac32.
+			\]
+			故最小值为$\dfrac32$，此时$P$坐标为$\bigl(3-\dfrac{2\sqrt3}{3},0\bigr)$（联立直线$BH$与$l$求得）。
+			\par\textbf{理由：} 利用不等式链确定下界；点到直线距离公式求$BH$；直线交点得$P$。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	$\displaystyle\min_{P\in l}\Bigl(\frac12PA+PB\Bigr)=\frac32$，取等点$P\Bigl(3-\dfrac{2\sqrt3}{3},0\Bigr)$。
+	\medskip
+	\textbf{\textcolor{CExample}{例2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	在例1条件下，求$2PA+PB$的最小值。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（提取系数）：}] $2PA+PB = 2\bigl(PA+0.5PB\bigr)$。记$T=PA+0.5PB$，则原式最小值$=2\cdot T_{\min}$。
+			\par\textbf{理由：} 将系数$2>1$通过提取公因数转化为括号内系数$0.5<1$的形式。
+		\item[\textbf{第二步（交换对称）：}] $T=PA+0.5PB$中系数在$PB$上，不直接符合模型。交换$A,B$角色：令$A'=B(3,2)$，$B'=A(0,2)$，则$T=0.5PA'+PB'$。此时符合标准胡不归模型。
+			\par\textbf{理由：} 通过字母重命名使系数位于$PA'$上。
+		\item[\textbf{第三步（应用模型）：}] 对$A'$构造射线$A'N'$，使$\sin\alpha=0.5$（$\alpha=30^\circ$），向下作射线，方程$y-2=-\dfrac{\sqrt3}{3}(x-3)$。作$B'H'\perp A'N'$于$H'$，则$T\ge B'H'$。计算$B'(0,2)$到直线$A'N'$的距离：
+			\[
+				B'H' = \frac{|\sqrt3\cdot0+3\cdot2-3\sqrt3-6|}{\sqrt{3+9}} = \frac{|-3\sqrt3|}{2\sqrt3}= \frac32.
+			\]
+			故$T_{\min}=\dfrac32$，原式最小值$=2\times\dfrac32=3$。取等点$P$为$B'H'$与$l$交点，通过计算得$P\bigl(-\dfrac{2\sqrt3}{3},0\bigr)$。
+			\par\textbf{理由：} 模仿例1步骤求距离；联立直线与$x$轴得$P$坐标。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	$\displaystyle\min_{P\in l}(2PA+PB)=3$，取等点$P\Bigl(-\dfrac{2\sqrt3}{3},0\Bigr)$。
+	\medskip
+	\textbf{\textcolor{CExample}{例3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知直线$l:y=0$，$A(1,3)$，$B(5,2)$，动点$P$在$l$上，求$\displaystyle\frac35PA+PB$的最小值。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（构造定角）：}] 令$\sin\alpha=\dfrac35$，$\cos\alpha=\dfrac45$，$\tan\alpha=\dfrac34$。过$A$作射线$AN$与$l$夹角$\alpha$向下，方程$y-3=-\dfrac34(x-1)$，即$3x+4y-15=0$。
+			\par\textbf{理由：} 确定$\alpha$满足$\sin\alpha=k$，作射线为后步转化做准备。
+
+		\item[\textbf{第二步（转化与构造）：}]
+			过点$B$作$BH\perp AN$于点$H$（固定），则$BH$为定值（$B$到$AN$的距离）。\par
+			当动点$P$在$l$上运动时，过$P$作$PK\perp AN$于点$K$，则$PK=PA\sin\alpha=\dfrac35PA$，故
+			\[
+				\frac35PA+PB = PK+PB.
+			\]
+			\par\textbf{理由：} 预先确定下界参考点，同时利用三角函数转化系数。
+
+		\item[\textbf{第三步（求最值）：}]
+			在$\triangle PBK$中，$PK+PB \ge BK$；又因为$BK \ge BH$（垂线段最短），所以
+			\[
+				PK+PB \ge BH.
+			\]
+			等号当且仅当$P$在$BH$上且$K=H$时成立，即$P$为直线$BH$与$l$的交点。\par
+			计算$BH$（点$B$到直线$AN$的距离）：
+			\[
+				BH = \frac{|3\cdot5+4\cdot2-15|}{\sqrt{3^2+4^2}} = \frac{8}{5}=1.6.
+			\]
+			再求$P$：过$B$垂直于$AN$的直线方向为$(3,4)$，与$AN$联立得垂足$H\bigl(\frac{101}{25},\frac{18}{25}\bigr)$；直线$BH$与$l$（$y=0$）交点$P\bigl(\frac72,0\bigr)$。
+			\[
+				P = \bigl(3.5,\,0\bigr).
+			\]
+			故最小值为$1.6$，此时$P(3.5,0)$。
+			\par\textbf{理由：} 利用不等式链确定下界；点到直线距离公式求$BH$；解直线方程组求交点。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	$\displaystyle\min_{P\in l}\Bigl(\frac35PA+PB\Bigr)=\frac85 = 1.6$，取等点$P\bigl(\frac72,0\bigr)$。
+\end{examplebox}
