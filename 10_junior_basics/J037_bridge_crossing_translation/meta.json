@@ -1,0 +1,183 @@
+{
+  "id": "J037",
+  "module": "geometry-plane",
+  "core": {
+    "title": "造桥选址模型（平行线间折线最短路径）",
+    "alias": [
+      "造桥选址",
+      "折线最短路径",
+      "桥长平移法",
+      "造桥问题"
+    ],
+    "summary": "通过平移将桥长分离，将折线最值转化为两点间直线距离，最小值=$|A'B|+d$。",
+    "difficulty": 2,
+    "category": "平面几何",
+    "tags": [
+      "最短路径",
+      "平移法",
+      "平行线",
+      "折线最小值",
+      "几何变换"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "造桥选址模型",
+      "平行线",
+      "折线",
+      "最小值",
+      "平移构造法",
+      "桥长",
+      "两点间距离",
+      "垂线段",
+      "取等条件",
+      "共线",
+      "造桥问题",
+      "最短路径",
+      "几何变换",
+      "平移",
+      "A'B",
+      "d"
+    ],
+    "synonyms": [
+      "造桥问题",
+      "桥的模型",
+      "折线最短",
+      "平行线间最短路径",
+      "平移桥"
+    ],
+    "intents": [
+      "求最小值",
+      "构造平移",
+      "求折线长度",
+      "求取等点坐标",
+      "求M,N坐标"
+    ],
+    "query_templates": [
+      "如何求平行线间折线最短路径",
+      "造桥选址模型最小值公式",
+      "折线A-M-N-B最小值"
+    ],
+    "ocrKeywords": [
+      "平行线",
+      "间距",
+      "定点",
+      "折线",
+      "最小值",
+      "MN",
+      "垂直于",
+      "平移"
+    ],
+    "latex_patterns": [
+      "L_{\\min}=|A'B|+d"
+    ],
+    "formulaTokens": [
+      "L_{\\min}",
+      "|A'B|",
+      "d",
+      "A'B",
+      "L_{\\min}=|A'B|+d",
+      "|A''B|",
+      "d_1",
+      "d_2"
+    ],
+    "pinyin": "zaoqiao xuanzhi",
+    "pinyinAbbr": "zqxz"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.9,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "L_{\\min}=|A'B|+d",
+    "related_formulas": [
+      "L_{\\min}=|A''B|+d_1+d_2"
+    ],
+    "variables": [
+      "A (定点)",
+      "B (定点)",
+      "A' (平移点)",
+      "d (间距)",
+      "M (l1上的垂足)",
+      "N (l2上的垂足)",
+      "L_min (折线长度最小值)"
+    ],
+    "conditions": "设两条平行线 $l_1\\parallel l_2$，间距为 $d>0$。定点 $A$ 在 $l_1$ 外侧，定点 $B$ 在 $l_2$ 外侧，且 $A,B$ 位于两平行线异侧。线段 $MN$ 满足 $M\\in l_1$，$N\\in l_2$，$MN\\perp l_1,l_2$，$|MN|=d$。",
+    "conclusions": [
+      "折线 $A\\to M\\to N\\to B$ 长度最小值为 $L_{\\min}=|A'B|+d$，其中 $A'$ 是 $A$ 沿垂直于平行线方向平移 $d$ 至对岸一侧的点。",
+      "取等条件：$A',N,B$ 三点共线，且 $N$ 为直线 $A'B$ 与 $l_2$ 的交点，$M$ 为过 $N$ 且垂直于 $l_1,l_2$ 的直线与 $l_1$ 的交点。"
+    ]
+  },
+  "content": {
+    "statement": "设两条平行线 $l_1\\parallel l_2$，间距为 $d$，定点 $A$ 在 $l_1$ 外侧，定点 $B$ 在 $l_2$ 外侧，且 $A,B$ 位于两平行线异侧。作 $MN\\perp l_1,l_2$，$M\\in l_1$，$N\\in l_2$，$|MN|=d$，则折线 $A\\to M\\to N\\to B$ 的长度最小值为 $L_{\\min}=|A'B|+d$，其中 $A'$ 是点 $A$ 沿垂直于 $l_1,l_2$ 的方向平移 $d$ 至对岸一侧所得的点。",
+    "derivation": [
+      "平移 $A$ 至 $A'$，使 $AA'=d$ 且 $AA'\\parallel MN$，构造平行四边形 $AMNA'$，则 $AM=A'N$。",
+      "折线 $AM+MN+NB = AA' + A'N + NB \\ge d + |A'B|$（三角形不等式）。",
+      "等号成立当 $A',N,B$ 共线，此时 $N$ 为 $A'B$ 与 $l_2$ 交点，$M$ 为过 $N$ 的垂线与 $l_1$ 交点。"
+    ],
+    "intuition": "通过平移将桥长转化为固定已知量，将折线路径转化为两点间直线距离，利用三角形不等式求得最小值。",
+    "common_tricks": [
+      "确定平移方向垂直于平行线，平移距离等于桥长 $d$。",
+      "构造平移点 $A'$ 后，直接计算 $|A'B|$ 再加 $d$。",
+      "利用取等条件 $A',N,B$ 共线求 $M,N$ 坐标。",
+      "注意 $A,B$ 异侧条件，若同侧需先对称变换。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "最值问题",
+      "路径规划",
+      "几何综合题"
+    ],
+    "problem_types": [
+      "填空题",
+      "解答题"
+    ],
+    "exam_frequency": 0.9,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "J037.svg"
+  },
+  "shareConfig": {
+    "title": "造桥选址模型：平行线间折线最短路径",
+    "shareDesc": "适合刷题前快速回顾，解决平行线间折线长度最小值问题，通过平移构造避免复杂代数推导，提升解题效率。"
+  },
+  "relations": {
+    "prerequisites": [
+      "平行线性质",
+      "两点间距离公式",
+      "三角形不等式"
+    ],
+    "related_ids": [],
+    "similar": [
+      "将军饮马模型",
+      "对称点法求最短路径"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-29"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "解析几何-综合-最值问题",
+  "altNodes": [
+    "解析几何-综合-轨迹问题",
+    "解析几何-直线-位置关系"
+  ]
+}

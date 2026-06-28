@@ -1,0 +1,42 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+	通过平移将桥长固定，将折线化为两点间直线，最短路径即为直线距离加桥长。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（平移转化）：}]
+			将点 $A$ 沿垂直于 $l_1$ 的方向平移 $d$ 得到 $A'$，则 $AA'=d$ 且 $AA'\parallel MN$，四边形 $AA'NM$ 为平行四边形，从而 $AM = A'N$。
+		\item[\textbf{要点二（折线重组）：}]
+			折线长度先写为 $L = AM + MN + NB$，代入 $AM=A'N$ 得 $L = A'N + d + NB$，再合并为 $L = (A'N+NB)+d$，桥长 $d$ 成为固定项。
+		\item[\textbf{要点三（两点最短）：}]
+			$A'N+NB$ 的最小值为 $|A'B|$，当 $A',N,B$ 共线时取等。此时 $N$ 为 $A'B$ 与 $l_2$ 的交点。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（两点间线段最短）}}
+	\par 利用平移将折线两段 $AM$ 与 $MN$ 转化为 $A'N$，使三条折线段首尾相接形成一条折线，再化折为直。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（函数最小值思想）}}
+	\par 若设 $M,N$ 的坐标，通过距离公式可写出 $L$ 关于桥位坐标的表达式，利用二次函数或向量求最值，但平移法代数形式更简洁。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（最值构造模型）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（直接求最值）：} 给出两组平行线和两定点，直接套用结论求最小值。
+		\item \textbf{考法二（变换后求最值）：} 题目不显含平行线，但通过对称、平移等变换后出现平行线模型。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+	\par 桥长 $d$ 是定值，不会因 $M,N$ 的位置改变而增减，故只需考虑 $AM+NB$ 的最小值，而平移法则将 $AM+NB$ 转化为一条折线 $A'N+NB$。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（河上建桥）：} 村庄位于河两侧，选择桥址使路径最短。
+		\item \textbf{场景二（矩形路径）：} 在矩形或坐标系中有平行边界，求折线最短。
+	\end{itemize}
+
+\end{explanationbox}

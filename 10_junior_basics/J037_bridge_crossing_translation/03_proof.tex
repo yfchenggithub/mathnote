@@ -1,0 +1,39 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	\par 通过平移点 $A$ 构造平行四边形，将 $AM$ 转化为 $A'N$，从而将折线长度转化为 $A'N+NB+d$，再利用两点间线段最短得到最小值。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（平移构造）：}]
+			过点 $A$ 作 $AA' \perp l_1$，且 $AA'=d$，方向指向 $l_2$ 一侧。连接 $A'N$。
+			\[
+				AA' \perp l_1,\quad AA' \perp l_2,\quad AA' = d,\quad MN = d.
+			\]
+			\par \textbf{理由：} $AA'$ 与 $MN$ 都垂直于平行线且长度相等，故 $AA' \parallel MN$ 且 $AA' = MN$，四边形 $AA'NM$ 为平行四边形。
+		\item[\textbf{步骤二（等量代换）：}]
+			由平行四边形性质得 $AM = A'N$。于是折线长度可改写为：
+			\[
+				L = AM + MN + NB,
+			\]
+			\[
+				L = A'N + d + NB,
+			\]
+			\[
+				L = (A'N + NB) + d.
+			\]
+			\par \textbf{理由：} 平行四边形对边相等，桥长 $d$ 固定。
+		\item[\textbf{步骤三（最值转化）：}]
+			考虑 $A'N+NB$，点 $N$ 在 $l_2$ 上运动。由两点间线段最短，
+			\[
+				A'N + NB \ge |A'B|,
+			\]
+			等号当且仅当 $N$ 落在 $A'B$ 线段上（即 $A',N,B$ 共线）时成立。 \par \textbf{理由：} 三角形不等式或两点间直线最短。
+		\item[\textbf{步骤四（取等构造）：}]
+			取 $N$ 为 $A'B$ 与 $l_2$ 的交点，过 $N$ 作 $l_2$ 的垂线交 $l_1$ 于点 $M$，则 $MN \perp l_1,l_2$ 且 $|MN|=d$，满足条件。此时折线长恰好为 $|A'B|+d$，达到最小值。 \par \textbf{理由：} 所作 $M$ 满足前设，且 $A'B$ 被 $l_2$ 所截线段即 $A'N+NB$，故 $L = |A'B|+d$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\par 因此，在题设条件下，折线 $A\to M\to N\to B$ 的最小值为 $L_{\min}=|A'B|+d$，当 $N$ 为 $A'B$ 与 $l_2$ 的交点、$M$ 为过 $N$ 的垂线与 $l_1$ 的交点时取等。
+\end{proofbox}
