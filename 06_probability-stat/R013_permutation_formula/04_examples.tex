@@ -1,0 +1,57 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	计算 $A_7^3$。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别参数）：}]
+			识别 $n=7$，$m=3$。
+			\par\textbf{理由：} 从 $7$ 个不同元素中取出 $3$ 个排列，与公式对应。
+		\item[\textbf{第二步（套用公式）：}]
+			代入排列数公式 $A_7^3 = \dfrac{7!}{(7-3)!}$。
+			\par\textbf{理由：} $A_n^m = \dfrac{n!}{(n-m)!}$ 直接应用。
+		\item[\textbf{第三步（计算化简）：}]
+			计算 $\dfrac{7!}{4!} = 7\times 6\times 5 = 210$。
+			\par\textbf{理由：} 阶乘展开后约分即可。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$A_7^3 = 210$}。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	已知 $A_n^2 = 30$，求正整数 $n$。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（建立方程）：}]
+			由 $A_n^2 = n(n-1) = 30$。
+			\par\textbf{理由：} $A_n^2 = \dfrac{n!}{(n-2)!} = n(n-1)$。
+		\item[\textbf{第二步（解方程）：}]
+			解 $n^2 - n - 30 = 0$，得 $n=6$ 或 $n=-5$。
+			\par\textbf{理由：} 因式分解 $(n-6)(n+5)=0$。
+		\item[\textbf{第三步（验根取舍）：}]
+			因为 $n$ 是正整数且 $n\ge 2$，故 $n=-5$ 舍去，$n=6$。
+			\par\textbf{理由：} 排列数定义要求 $n\ge m$，且 $n$ 为自然数。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$n=6$}。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	从 $6$ 个不同元素中选出 $4$ 个排成一列，要求元素 $A$ 必须在内，求排列数。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（先排特殊元素）：}]
+			元素 $A$ 在 $4$ 个位置中任选一个，有 $4$ 种放法。
+			\par\textbf{理由：} 特殊元素优先处理，先确定其位置。
+		\item[\textbf{第二步（排列剩余元素）：}]
+			从剩下的 $5$ 个元素中选出 $3$ 个排列到其余 $3$ 个位置，排列数为 $A_5^3 = 5\times4\times3 = 60$。
+			\par\textbf{理由：} 剩余位置按正常排列计数。
+		\item[\textbf{第三步（乘法原理）：}]
+			由分步乘法计数原理，总排列数为 $4 \times 60 = 240$。
+			\par\textbf{理由：} 两步相互独立，总数等于各步方法数之积。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$240$ 种排法}。
+\end{examplebox}

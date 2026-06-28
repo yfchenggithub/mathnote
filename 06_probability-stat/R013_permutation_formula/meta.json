@@ -1,0 +1,164 @@
+{
+  "id": "R013",
+  "module": "probability-stat",
+  "core": {
+    "title": "排列数公式",
+    "alias": [
+      "A_n^m公式",
+      "阶乘排列",
+      "排列公式"
+    ],
+    "summary": "从n个不同元素中取出m个排成一列的方法数，等于n的阶乘除以(n-m)的阶乘。",
+    "difficulty": 2,
+    "category": "计数原理",
+    "tags": [
+      "排列数",
+      "计数原理",
+      "阶乘",
+      "有序排列",
+      "A_n^m"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "排列数公式",
+      "A_n^m",
+      "n!/(n-m)!",
+      "排列",
+      "有序",
+      "元素互异",
+      "阶乘",
+      "排列数计算",
+      "n(n-1)...(n-m+1)",
+      "排列问题",
+      "计数原理",
+      "排列组合"
+    ],
+    "synonyms": [
+      "排列数",
+      "排列公式",
+      "排法数",
+      "排列个数",
+      "A(n,m)",
+      "P(n,m)"
+    ],
+    "intents": [
+      "计算排列数",
+      "求排列个数",
+      "求排列总数",
+      "应用排列公式",
+      "解排列方程"
+    ],
+    "query_templates": [
+      "排列数公式是什么",
+      "A_n^m怎么计算",
+      "排列数怎么求",
+      "排列数公式例题",
+      "排列数公式应用"
+    ],
+    "ocrKeywords": [
+      "A_n^m",
+      "n!/(n-m)!",
+      "排列",
+      "元素互不相同",
+      "n(n-1)...(n-m+1)"
+    ],
+    "latex_patterns": [
+      "A_n^m",
+      "\\frac{n!}{(n-m)!}",
+      "n(n-1)\\cdots (n-m+1)"
+    ],
+    "formulaTokens": [
+      "A_n^m",
+      "\\frac{n!}{(n-m)!}",
+      "n!",
+      "(n-m)!",
+      "n(n-1)\\cdots (n-m+1)"
+    ],
+    "pinyin": "pailieshu gongshi",
+    "pinyinAbbr": "plsg"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.8,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "A_n^m = \\frac{n!}{(n-m)!}",
+    "related_formulas": [
+      "A_n^m = n(n-1)\\cdots (n-m+1)"
+    ],
+    "variables": [
+      "n",
+      "m"
+    ],
+    "conditions": "$n, m \\in \\mathbb{N}$，$m \\le n$，且$n$个元素互不相同。",
+    "conclusions": "从$n$个不同元素中取出$m$个元素的所有排列的个数为$A_n^m = \\frac{n!}{(n-m)!}$。"
+  },
+  "content": {
+    "statement": "若$n,m \\in \\mathbb{N}$，$m \\le n$，且$n$个元素互不相同，则从$n$个不同元素中取出$m$个元素的所有排列的个数为$A_n^m = \\frac{n!}{(n-m)!}$。",
+    "derivation": [
+      "第一个位置有$n$种选择。",
+      "第二个位置有$n-1$种选择，以此类推，第$m$个位置有$n-m+1$种选择。",
+      "由乘法原理，排列总数$= n(n-1)\\cdots(n-m+1) = \\frac{n!}{(n-m)!}$。"
+    ],
+    "intuition": "排列与顺序有关，每选一个位置，剩余可选元素减少一个，因此用乘法原理累乘。",
+    "common_tricks": [
+      "当$m$较小时，直接用连乘形式$n(n-1)\\cdots(n-m+1)$计算更快捷。",
+      "注意与组合数公式区分：组合不考虑顺序，公式为$\\mathrm{C}_n^m = \\frac{n!}{m!(n-m)!}$。",
+      "当$m=n$时，$A_n^n = n!$，即全排列数。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "排列计数问题",
+      "有序选取问题"
+    ],
+    "problem_types": [
+      "排列数计算",
+      "排列方程求解",
+      "带有特殊约束的排列问题（如元素必选）"
+    ],
+    "exam_frequency": 0.9,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "R013.svg",
+    "png": ""
+  },
+  "shareConfig": {
+    "title": "排列数公式：从n个不同元素中取m个排成一列的方法数",
+    "shareDesc": "适合课后复习和刷题前速查，快速计算排列总数，避免与组合混淆，提升排列问题解题速度。"
+  },
+  "relations": {
+    "prerequisites": [
+      "阶乘运算",
+      "乘法原理"
+    ],
+    "related_ids": [],
+    "similar": [
+      "组合数公式 $\\mathrm{C}_n^m = \\frac{n!}{m!(n-m)!}$"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "概率-古典概型-排列组合",
+  "altNodes": ""
+}

@@ -1,0 +1,34 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	利用分步乘法计数原理，将排列过程分解为依次为 $m$ 个位置选元素，求出每一步的方法数后再相乘。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（分步建模）：}]
+			将排列看作依次为 $m$ 个位置选元素。
+			\par\textbf{理由：} 排列是有顺序的，因此适合用分步计数。
+		\item[\textbf{步骤二（各步方法数）：}]
+			第 $1$ 个位置有 $n$ 种选法，第 $2$ 个位置有 $n-1$ 种，依次类推，第 $m$ 个位置有 $n-m+1$ 种。
+			\[
+				k_1 = n,\quad k_2 = n-1,\quad \dots,\quad k_m = n-m+1.
+			\]
+			\par\textbf{理由：} 每选一个元素，该元素不再参与后续选择，因此可选数目逐个减少。
+		\item[\textbf{步骤三（乘法原理）：}]
+			由分步乘法计数原理，总排列数等于各步方法数的乘积。
+			\[
+				A_n^m = n(n-1)\cdots (n-m+1).
+			\]
+			\par\textbf{理由：} 各步互相独立，总方法数为各步之积。
+		\item[\textbf{步骤四（阶乘化简）：}]
+			将连乘积转化为阶乘形式。
+			\[
+				n(n-1)\cdots (n-m+1) = \frac{n!}{(n-m)!}.
+			\]
+			\par\textbf{理由：} 因为 $n! = n(n-1)\cdots (n-m+1)(n-m)\cdots 1$，分子分母同时除以 $(n-m)!$ 即得。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	因此排列数公式 $A_n^m = \dfrac{n!}{(n-m)!}$ 得证。
+\end{proofbox}
