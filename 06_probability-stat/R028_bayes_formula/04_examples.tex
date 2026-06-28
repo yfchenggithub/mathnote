@@ -1,0 +1,98 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	假设某种疾病的患病率为 0.1\%（$P(A)=0.001$），检测的灵敏度（患病时检测阳性的概率）为 99\%（$P(B\mid A)=0.99$），特异度（未患病时检测阴性的概率）为 99\%，假阳性率 $P(B\mid \overline{A})=0.01$。现在某人检测结果为阳性（$B$），求该人实际患病的概率。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（设定事件）：}] 设 $A$ 表示患病，$\overline{A}$ 表示未患病。先验概率 $P(A)=0.001$，$P(\overline{A})=0.999$。
+			\par\textbf{理由：} 题目直接给出患病率，健康率为 $1-0.001=0.999$。
+		\item[\textbf{第二步（提取似然）：}] 检测结果为阳性时，$P(B\mid A)=0.99$，$P(B\mid \overline{A})=0.01$。
+			\par\textbf{理由：} 灵敏度为 99\% 直接给出；特异度为 99\%，所以假阳性率为 $1-0.99=0.01$。
+		\item[\textbf{第三步（公式计算）：}] 代入贝叶斯公式：
+			\[
+				\begin{aligned}
+					P(A\mid B) &= \frac{P(A)P(B\mid A)}{P(A)P(B\mid A)+P(\overline{A})P(B\mid \overline{A})} \\
+					&= \frac{0.001\times0.99}{0.001\times0.99+0.999\times0.01}.
+			\end{aligned}
+			\]
+			计算分母：$0.001\times0.99=0.00099$，$0.999\times0.01=0.00999$，合计 $0.01098$。
+			分子 $0.00099$，故 $P(A\mid B)\approx 0.0902$。
+			\par\textbf{理由：} 直接套用贝叶斯公式，计算数值得到后验概率。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{该人实际患病的概率约为 0.0902，即不足 10\%。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	某工厂有甲、乙、丙三台机器生产同一种产品，产量分别占总产量的 50\%、30\%、20\%，次品率分别为 1\%、2\%、3\%。现从总产品中随机抽取一件，发现是次品，求该次品由甲机器生产的概率。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（设定先验）：}] 设 $A_1,A_2,A_3$ 分别表示产品来自甲、乙、丙机器，则 $P(A_1)=0.5$，$P(A_2)=0.3$，$P(A_3)=0.2$。
+			\par\textbf{理由：} 产量占比即为先验概率。
+		\item[\textbf{第二步（确定似然）：}] 用 $B$ 表示次品，$P(B\mid A_1)=0.01$，$P(B\mid A_2)=0.02$，$P(B\mid A_3)=0.03$。
+			\par\textbf{理由：} 各机器的次品率即为条件概率 $P(B\mid A_i)$。
+		\item[\textbf{第三步（代入公式）：}] 先计算全概率：
+			\[
+				\begin{aligned}
+					P(B) &= 0.5\times0.01 + 0.3\times0.02 \\
+					&\quad + 0.2\times0.03 \\
+					&= 0.005 + 0.006 \\
+					&\quad + 0.006 \\
+					&= 0.017.
+			\end{aligned}
+			\]
+			则
+			\[
+				\begin{aligned}
+					P(A_1\mid B) &= \frac{P(A_1)P(B\mid A_1)}{P(B)} \\
+					&= \frac{0.5\times0.01}{0.017} \\
+					&= \frac{0.005}{0.017} \\
+					&\approx 0.2941.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 代入贝叶斯公式，分子为先验与似然乘积，分母为全概率。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{该次品由甲机器生产的概率约为 0.2941。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	一个袋中有两枚硬币：一枚公平（正反概率各 0.5），一枚两面均为正面。随机摸出一枚，连续抛掷两次，每次结果都正面向上。求这枚硬币是公平硬币的概率。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（设定先验）：}] 设 $F$ 表示公平硬币，$U$ 表示不公平硬币，则 $P(F)=P(U)=0.5$。
+			\par\textbf{理由：} 随机摸出一枚，两枚等可能。
+		\item[\textbf{第二步（计算似然）：}] 事件 $B$ =“两次都正面”。$P(B\mid F)=0.5\times0.5=0.25$，$P(B\mid U)=1\times1=1$。
+			\par\textbf{理由：} 公平硬币两次独立，不公平硬币每次必定正面。
+		\item[\textbf{第三步（贝叶斯求解）：}] 全概率
+			\[
+				\begin{aligned}
+					P(B) &= 0.5\times0.25+0.5\times1 \\
+					&= 0.125+0.5 \\
+					&= 0.625.
+			\end{aligned}
+			\]
+			后验概率
+			\[
+				\begin{aligned}
+					P(F\mid B) &= \frac{0.5\times0.25}{0.625} \\
+					&= \frac{0.125}{0.625} \\
+					&= 0.2.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 代入贝叶斯公式，计算得到后验概率。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{在两次正面的条件下，该硬币为公平硬币的概率为 0.2（20\%）。}
+\end{examplebox}

@@ -1,0 +1,21 @@
+\begin{trapbox}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点一（颠倒条件）}}] 误认为 $P(A_i\mid B)=P(B\mid A_i)$，直接交换条件。
+		\item[\textbf{\textcolor{CTrap}{正确理解（方向区分）：}}] $P(A_i\mid B)$ 是在 $B$ 发生下 $A_i$ 的概率，而 $P(B\mid A_i)$ 是在 $A_i$ 发生下 $B$ 的概率，二者通常不相等。贝叶斯公式正是用后者计算前者。
+		\item[\textbf{\textcolor{CTrap}{错因分析（方向混淆）：}}] 学生容易忽略条件概率的“条件”方向，套用公式时误以为两者等价；题目常通过交换条件设置干扰项。
+	\end{description}
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点二（遗漏分母）}}] 写出 $P(A_i\mid B)=P(A_i)P(B\mid A_i)$，漏除以全概率。
+		\item[\textbf{\textcolor{CTrap}{正确理解（分母归一）：}}] 必须除以 $P(B)$ 即 $\sum_{j=1}^{n} P(A_j)P(B\mid A_j)$，确保后验概率总和为 1。
+		\item[\textbf{\textcolor{CTrap}{错因分析（忘记归一化）：}}] 直接使用乘法公式计算联合概率，但条件概率需要归一化，否则会得到错误数值，且所有后验概率之和不会等于1。
+	\end{description}
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点三（划分不全）}}] 在应用全概率公式计算分母时，遗漏了某些 $A_j$ 或者误用了不是划分的事件。
+		\item[\textbf{\textcolor{CTrap}{正确理解（完备互斥）：}}] 事件组 $A_1,\dots,A_n$ 必须互斥且覆盖样本空间，且 $P(A_j)>0$，才能使用全概率公式。
+		\item[\textbf{\textcolor{CTrap}{错因分析（前提不足）：}}] 对全概率公式的适用条件掌握不牢，导致分母计算错误，进而后验概率全部算错。
+	\end{description}
+\end{trapbox}

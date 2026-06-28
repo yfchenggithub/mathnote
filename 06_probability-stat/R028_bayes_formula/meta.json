@@ -1,0 +1,180 @@
+{
+  "id": "R028",
+  "module": "probability-stat",
+  "core": {
+    "title": "贝叶斯公式",
+    "alias": [
+      "贝叶斯定理",
+      "逆概率公式",
+      "后验概率公式"
+    ],
+    "summary": "已知结果发生，反推原因的概率，实现从先验到后验的更新。",
+    "difficulty": 3,
+    "category": "概率与统计",
+    "tags": [
+      "贝叶斯公式",
+      "条件概率",
+      "后验概率",
+      "全概率公式",
+      "原因推断"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "贝叶斯公式",
+      "条件概率",
+      "后验概率",
+      "先验概率",
+      "似然概率",
+      "全概率公式",
+      "划分",
+      "原因推断",
+      "疾病检测",
+      "次品率",
+      "灵敏度",
+      "特异度",
+      "假阳性率",
+      "概率更新",
+      "逆向概率"
+    ],
+    "synonyms": [
+      "贝叶斯定理",
+      "贝叶斯法则",
+      "逆概率公式",
+      "后验概率公式",
+      "贝叶斯"
+    ],
+    "intents": [
+      "求后验概率",
+      "计算原因概率",
+      "逆向概率",
+      "贝叶斯推断",
+      "已知结果求原因",
+      "更新概率"
+    ],
+    "query_templates": [
+      "贝叶斯公式例题",
+      "怎么用贝叶斯公式计算后验概率",
+      "已知阳性求患病概率贝叶斯",
+      "贝叶斯公式记忆方法",
+      "后验概率公式推导"
+    ],
+    "ocrKeywords": [
+      "贝叶斯",
+      "后验概率",
+      "全概率",
+      "划分",
+      "P(A|B)"
+    ],
+    "latex_patterns": [
+      "P(A_i \\mid B) = \\frac{P(A_i)P(B \\mid A_i)}{\\sum_{j=1}^n P(A_j)P(B \\mid A_j)}",
+      "P(A \\mid B) = \\frac{P(A)P(B \\mid A)}{P(A)P(B \\mid A) + P(\\bar A)P(B \\mid \\bar A)}",
+      "P(B) = \\sum_{j=1}^n P(A_j)P(B \\mid A_j)"
+    ],
+    "formulaTokens": [
+      "P(A_i|B)",
+      "P(A_i)P(B|A_i)",
+      "\\sum_{j=1}^n P(A_j)P(B|A_j)",
+      "P(A)P(B|A)",
+      "P(\\bar A)P(B|\\bar A)"
+    ],
+    "pinyin": "beiyesigongshi",
+    "pinyinAbbr": "bysgs"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.86,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "P(A_i \\mid B) = \\frac{P(A_i)P(B \\mid A_i)}{\\sum_{j=1}^{n} P(A_j)P(B \\mid A_j)}",
+    "related_formulas": [
+      "P(A \\mid B) = \\frac{P(A)P(B \\mid A)}{P(A)P(B \\mid A) + P(\\overline{A})P(B \\mid \\overline{A})}",
+      "P(B) = \\sum_{j=1}^{n} P(A_j)P(B \\mid A_j)"
+    ],
+    "variables": [
+      "A_i",
+      "B",
+      "n",
+      "P(A_i)",
+      "P(B|A_i)",
+      "P(A_i|B)"
+    ],
+    "conditions": "事件组 $A_1,\\dots,A_n$ 构成样本空间的一个划分，且 $P(A_i)>0$；结果事件 $B$ 满足 $P(B)>0$。",
+    "conclusions": "后验概率 $P(A_i|B)$ 由先验概率和似然概率通过全概率公式计算得出：\n$P(A_i|B) = \\frac{P(A_i)P(B|A_i)}{\\sum_{j=1}^n P(A_j)P(B|A_j)}$。"
+  },
+  "content": {
+    "statement": "设事件组 $A_1,A_2,\\dots,A_n$ 是样本空间的一个划分，且 $P(A_i)>0$，$B$ 为任意事件且 $P(B)>0$，则后验概率 $P(A_i \\mid B) = \\frac{P(A_i)P(B \\mid A_i)}{\\sum_{j=1}^{n} P(A_j)P(B \\mid A_j)}$。",
+    "derivation": [
+      "由条件概率定义：$P(A_i|B) = \\frac{P(A_i \\cap B)}{P(B)}$。",
+      "分子用乘法公式：$P(A_i \\cap B) = P(A_i)P(B|A_i)$。",
+      "分母用全概率公式：$P(B) = \\sum_{j=1}^n P(A_j)P(B|A_j)$。代入即得。"
+    ],
+    "intuition": "因为结果B发生，我们考虑B被各个原因A_i引起的可能性，通过先验和似然加权归一化。",
+    "common_tricks": [
+      "先确定划分事件（原因），确保它们互斥且完备。",
+      "分母必须包含所有划分事件的全概率，求和等于1可做检验。",
+      "注意 $P(A_i|B)$ 与 $P(B|A_i)$ 方向不同，勿混淆。",
+      "当只有两个原因时，直接用二分形式简化计算。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "概率计算题",
+      "条件概率应用题",
+      "贝叶斯推断题"
+    ],
+    "problem_types": [
+      "逆向概率问题",
+      "已知结果求原因"
+    ],
+    "exam_frequency": 1.0,
+    "exam_score": 8
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "R028.svg",
+    "png": "",
+    "gif": "",
+    "grid": ""
+  },
+  "shareConfig": {
+    "title": "贝叶斯公式：已知结果反推原因的概率更新方法",
+    "shareDesc": "适合课后复盘和考前回顾。用于解决疾病检测、次品率等逆向概率问题，减少条件概率方向混淆的典型错误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "条件概率",
+      "全概率公式",
+      "样本空间划分"
+    ],
+    "related_ids": [],
+    "similar": [
+      "全概率公式",
+      "逆概率公式",
+      "贝叶斯定理"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "概率-古典概型-基本概率",
+  "altNodes": [
+    "概率-随机变量-分布列"
+  ]
+}

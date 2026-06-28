@@ -1,0 +1,41 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+	当结果 $B$ 已经发生，贝叶斯公式帮助我们把对各个原因 $A_i$ 的初始相信程度（先验概率 $P(A_i)$）调整为考虑 $B$ 出现后的新相信程度（后验概率 $P(A_i\mid B)$）。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（比例关系）：}] 后验概率 $P(A_i\mid B)$ 与 $P(A_i)P(B\mid A_i)$ 成正比，体现了原因 $A_i$ 对结果 $B$ 的贡献度。
+		\item[\textbf{要点二（归一化）：}] 分母 $\sum_{j=1}^{n} P(A_j)P(B\mid A_j)$ 是所有原因产生 $B$ 的总概率，确保各后验概率之和为 1。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（划分加权）}}
+
+	样本空间被 $A_1,\dots,A_n$ 划分为 $n$ 个互斥区域，$B$ 分散在这些区域内。后验概率 $P(A_i\mid B)$ 就是 $B$ 落在区域 $A_i$ 中的比例 $\frac{P(A_i\cap B)}{P(B)}$，通过先验与似然的乘积计算。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（条件变形）}}
+
+	直接由条件概率公式 $P(A_i\mid B)=\frac{P(A_i\cap B)}{P(B)}$，通过乘法公式 $P(A_i\cap B)=P(A_i)P(B\mid A_i)$ 和全概率公式 $P(B)=\sum_{j=1}^{n} P(A_j)P(B\mid A_j)$ 变形得到。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（溯因应用）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（溯因计算）：} 给出先验概率和似然概率，要求计算某个原因的后验概率。
+		\item \textbf{考法二（比较原因）：} 比较哪个原因更可能导致结果 $B$，即比较后验概率的大小。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	\textbf{记住：}后验概率 $P(A_i\mid B)$ 不是 $P(B\mid A_i)$！两者条件关系颠倒，计算公式完全不同。贝叶斯公式正是搭建二者桥梁的工具。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（诊断问题）：} 如某人检测阳性，求实际患病概率。需已知患病率（先验）和检测准确率（似然）。
+		\item \textbf{场景二（筛选问题）：} 如邮件含某关键词，求该邮件为垃圾邮件的概率。需已知垃圾邮件比例和关键词出现概率。
+	\end{itemize}
+\end{explanationbox}
