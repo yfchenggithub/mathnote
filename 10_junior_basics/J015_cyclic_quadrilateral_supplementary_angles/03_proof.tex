@@ -1,0 +1,61 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	依据圆周角定理证明必要性（四点共圆 → 对角互补）；采用反证法证明充分性（对角互补 → 四点共圆）：过三点作圆，考虑第四点与该圆的位置关系，利用邻补角及三角形内角和推出矛盾。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（圆周角证必要性）：}]
+			设 $A,B,C,D$ 共圆于 $\odot O$。记 $\widehat{BCD}$ 为 $\angle A$ 所对弧，$\widehat{BAD}$ 为 $\angle C$ 所对弧，两弧恰好构成整个圆，故
+			\[
+				\angle A + \angle C = 180^\circ.
+			\]
+			同理 $\angle B + \angle D = 180^\circ$。
+			\par\textbf{理由：} 圆周角的度数等于所对弧度数的一半，且整个圆的度数为 $360^\circ$。
+
+		\item[\textbf{步骤二（构造假设）：}]
+			已知四边形 $ABCD$ 满足 $\angle A + \angle C = 180^\circ$。过不共线三点 $A,B,D$ 作圆 $\odot O$（三点不共线，确定唯一圆）。只需证点 $C$ 也在 $\odot O$ 上。
+			\par\textbf{理由：} 三点确定一个圆；欲证四点共圆，可转化为证其中三点所在的圆过第四点。
+
+		\item[\textbf{步骤三（反设并讨论位置）：}]
+			假设 $C$ 不在 $\odot O$ 上，则 $C$ 在圆外或圆内。分两种情形处理。
+			\par\textbf{理由：} 排除法。
+
+		\item[\textbf{步骤四（$C$ 在圆外引出矛盾）：}]
+			若 $C$ 在圆外，作射线 $BC$，设其与 $\odot O$ 的另一交点为 $E$（此时 $E$ 在线段 $BC$ 上，即 $B$-$E$-$C$）。连结 $DE$。
+			因为 $A,B,D,E$ 共圆，故 $\angle A + \angle BED = 180^\circ$（圆内接四边形对角互补）。
+			已知 $\angle A + \angle C = 180^\circ$，所以 $\angle BED = \angle C$。
+			由于 $B$-$E$-$C$，所以 $\angle BED + \angle CED = 180^\circ$，从而 $\angle CED = 180^\circ - \angle C$。
+			在 $\triangle CDE$ 中，因为 $B$-$E$-$C$，射线 $CB$ 与 $CE$ 重合，故 $\angle DCE = \angle C$。
+			由三角形内角和：
+			\[
+				\angle CDE + \angle DCE + \angle CED = 180^\circ.
+			\]
+			将 $\angle DCE = \angle C$，$\angle CED = 180^\circ - \angle C$ 代入，解得 $\angle CDE = 0^\circ$，矛盾。
+			故 $C$ 不可能在圆外。
+			\par\textbf{理由：} 圆内接四边形对角互补、邻补角及三角形内角和。
+
+		\item[\textbf{步骤五（$C$ 在圆内引出矛盾）：}]
+			若 $C$ 在圆内，作射线 $BC$，设其与 $\odot O$ 的另一交点为 $E$（此时 $C$ 在 $B$、$E$ 之间，即 $B$-$C$-$E$）。连结 $DE$。
+			同理，由 $A,B,D,E$ 共圆得 $\angle A + \angle BED = 180^\circ$，故 $\angle BED = \angle C$。
+			因为 $B$-$C$-$E$，所以 $\angle DCE + \angle DCB = 180^\circ$（邻补角），即 $\angle DCE = 180^\circ - \angle C$。
+			在 $\triangle CDE$ 中，由于 $B$-$C$-$E$，射线 $EB$ 与 $EC$ 重合，故 $\angle CED = \angle BED$，从而 $\angle CED = \angle C$。
+			由三角形内角和：
+			\[
+				\angle CDE + \angle DCE + \angle CED = 180^\circ.
+			\]
+			代入 $\angle DCE = 180^\circ - \angle C$ 和 $\angle CED = \angle C$，即得 $\angle CDE = 0^\circ$，矛盾。
+			故 $C$ 也不可能在圆内。
+			\par\textbf{理由：} 邻补角、圆内接四边形性质及三角形内角和。
+
+		\item[\textbf{步骤六（合情结论）：}]
+			综合步骤四、五，$C$ 既不能在圆外也不能在圆内，故 $C$ 只能在 $\odot O$ 上，即 $A,B,C,D$ 四点共圆。
+			\par\textbf{理由：} 唯一可能性。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	由此完成了“四点共圆 $\iff$ 对角互补”的双向证明。在解题中可直接用对角互补或外角等于内对角判定共圆，方便快捷。
+\end{proofbox}
