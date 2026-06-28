@@ -1,0 +1,56 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	通过旋转构造等边三角形，将 $a,b$ 转移到同一个三角形中，再利用余弦定理建立与 $c$ 的关系。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（旋转变换）：}]
+			将 $\triangle ABP$ 绕点 $B$ 逆时针旋转 $60^\circ$ 至 $\triangle CBQ$，连接 $PQ$。
+			\[
+				\triangle ABP \cong \triangle CBQ.
+			\]
+			\par\textbf{理由：} 旋转不改变图形形状与大小，故全等。
+		\item[\textbf{步骤二（等边三角形）：}]
+			由旋转知 $PB = QB$，$\angle PBQ = 60^\circ$，因此 $\triangle PBQ$ 为正三角形。
+			\[
+				PB = QB,\ \angle PBQ = 60^\circ.
+			\]
+			\par\textbf{理由：} 两边相等且夹角为 $60^\circ$ 的三角形是等边三角形。
+		\item[\textbf{步骤三（边转移）：}]
+			由旋转全等得 $CQ = PA = a$，由等边三角形得 $PQ = PB = b$。
+			\[
+				CQ = a,
+				\qquad
+				PQ = b.
+			\]
+			\par\textbf{理由：} 对应边相等。
+		\item[\textbf{步骤四（角度关系）：}]
+			因为 $\triangle ABP \cong \triangle CBQ$，所以 $\angle BQC = \angle APB$；又 $\triangle PBQ$ 为等边三角形，故 $\angle BQP = 60^\circ$。因此
+			\[
+				\begin{aligned}
+					\angle PQC &= \angle BQC - \angle BQP \\ &= \angle APB - 60^\circ.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 利用旋转对应角相等和等边三角形内角。
+		\item[\textbf{步骤五（余弦定理）：}]
+			在 $\triangle PQC$ 中，对 $\angle PQC$ 应用余弦定理：
+			\[
+				\begin{aligned}
+					c^2 &= a^2 + b^2 - 2ab\cos(\angle PQC) \\ &= a^2 + b^2 - 2ab\cos(\angle APB - 60^\circ).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 余弦定理公式。
+		\item[\textbf{步骤六（特例推导）：}]
+			若 $a^2+b^2=c^2$，代入得
+			\[
+				a^2+b^2 = a^2+b^2 - 2ab\cos(\angle APB - 60^\circ) \;\Rightarrow\; \cos(\angle APB - 60^\circ)=0.
+			\]
+			由于 $0^\circ < \angle APB < 180^\circ$，所以 $\angle APB - 60^\circ = 90^\circ$，即 $\angle APB = 150^\circ$。
+			\par\textbf{理由：} $\cos\theta =0$ 且 $\theta$ 在 $(0^\circ,180^\circ)$ 内则 $\theta=90^\circ$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	因此，在正三角形内部一点 $P$ 处，$PC,PA,PB$ 满足 $c^2 = a^2 + b^2 - 2ab\cos(\angle APB - 60^\circ)$；特别地，当 $a^2+b^2 = c^2$ 时，$\angle APB = 150^\circ$。
+\end{proofbox}

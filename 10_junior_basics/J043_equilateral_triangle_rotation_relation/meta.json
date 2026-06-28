@@ -1,0 +1,176 @@
+{
+  "id": "J043",
+  "module": "geometry-plane",
+  "core": {
+    "title": "正三角形鸡爪模型（旋转构造）",
+    "alias": [
+      "鸡爪模型",
+      "旋转构造",
+      "正三角形内点距离关系"
+    ],
+    "summary": "将正三角形内部一点与两顶点构成的三角形旋转60°，利用等边三角形和余弦定理建立三边关系。",
+    "difficulty": 4,
+    "category": "平面几何",
+    "tags": [
+      "旋转构造",
+      "正三角形",
+      "余弦定理",
+      "鸡爪模型",
+      "几何变换"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "正三角形",
+      "内部一点",
+      "PA",
+      "PB",
+      "PC",
+      "旋转60度",
+      "余弦定理",
+      "鸡爪模型",
+      "距离关系",
+      "角度差"
+    ],
+    "synonyms": [
+      "鸡爪定理",
+      "旋转法",
+      "正三角形内点问题",
+      "PA PB PC关系"
+    ],
+    "intents": [
+      "求距离",
+      "求角度",
+      "证明关系",
+      "旋转构造"
+    ],
+    "query_templates": [
+      "正三角形内部一点到三个顶点距离关系",
+      "鸡爪模型 正三角形",
+      "旋转60度 正三角形 内部点",
+      "PA PB PC 正三角形 余弦"
+    ],
+    "ocrKeywords": [
+      "正三角形",
+      "内部",
+      "旋转",
+      "60°",
+      "余弦定理"
+    ],
+    "latex_patterns": [
+      "c^2 = a^2 + b^2 - 2ab\\cos(\\angle APB - 60^\\circ)",
+      "\\triangle PBQ 是正三角形",
+      "PQ = b",
+      "CQ = a"
+    ],
+    "formulaTokens": [
+      "c^2",
+      "a^2+b^2",
+      "2ab\\cos(\\angle APB-60^\\circ)",
+      "\\angle APB-60^\\circ",
+      "a^2+b^2=c^2",
+      "\\cos(\\angle APB-60^\\circ)"
+    ],
+    "pinyin": "zheng san jiao xing ji zhao mo xing xuan zhuan gou zao",
+    "pinyinAbbr": "zsjxjzmx"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.7,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "c^2 = a^2 + b^2 - 2ab\\cos(\\angle APB - 60^\\circ)",
+    "related_formulas": [
+      "a^2 + b^2 = c^2 \\Rightarrow \\angle APB = 150^\\circ",
+      "PQ = b, \\quad CQ = a"
+    ],
+    "variables": [
+      {
+        "name": "a",
+        "description": "PA"
+      },
+      {
+        "name": "b",
+        "description": "PB"
+      },
+      {
+        "name": "c",
+        "description": "PC"
+      },
+      {
+        "name": "\\angle APB",
+        "description": "PA与PB夹角"
+      }
+    ],
+    "conditions": "点 $P$ 在正三角形 $ABC$ 内部；三角形 $ABC$ 是正三角形。",
+    "conclusions": "$c^2 = a^2 + b^2 - 2ab\\cos(\\angle APB - 60^\\circ)$；若 $a^2+b^2=c^2$，则 $\\angle APB = 150^\\circ$。"
+  },
+  "content": {
+    "statement": "在正三角形 $ABC$ 中，点 $P$ 在内部，记 $PA=a$，$PB=b$，$PC=c$。将 $\\triangle ABP$ 绕 $B$ 逆时针旋转 $60^\\circ$ 至 $\\triangle CBQ$，连接 $PQ$，则 $\\triangle PBQ$ 为正三角形，$PQ=b$，$CQ=a$。在 $\\triangle PQC$ 中，$c^2 = a^2 + b^2 - 2ab\\cos(\\angle APB - 60^\\circ)$。特别地，若 $a^2+b^2=c^2$，则 $\\angle APB = 150^\\circ$。",
+    "derivation": [
+      "将 $\\triangle ABP$ 绕点 $B$ 逆时针旋转 $60^\\circ$ 得到 $\\triangle CBQ$，则 $\\triangle PBQ$ 为等边三角形，$PQ = PB = b$，$CQ = PA = a$。",
+      "在 $\\triangle PQC$ 中，已知边 $PQ = b$，$CQ = a$，$PC = c$，角 $\\angle PQC = \\angle APB - 60^\\circ$（旋转角与对应角关系）。",
+      "由余弦定理 $c^2 = a^2 + b^2 - 2ab\\cos(\\angle APB - 60^\\circ)$，即得关系。"
+    ],
+    "intuition": "旋转60°将散乱的边集中到同一个三角形中，再利用余弦定理建立联系。",
+    "common_tricks": [
+      "遇到正三角形内一点到三顶点距离，优先考虑绕某顶点旋转60°构造等边三角形。",
+      "注意余弦定理中角度是 $\\angle APB - 60^\\circ$，不是加60°。",
+      "当满足 $a^2+b^2=c^2$ 时，直接得 $\\angle APB = 150^\\circ$。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "平面几何压轴题",
+      "最值问题"
+    ],
+    "problem_types": [
+      "求距离",
+      "求角度",
+      "证明等式"
+    ],
+    "exam_frequency": 0.6,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "J043.svg"
+  },
+  "shareConfig": {
+    "title": "正三角形鸡爪模型：旋转构造求内点距离",
+    "shareDesc": "适合课后复习和讲评课，解决正三角形内一点到顶点距离或角度问题，避免复杂计算，直接套用旋转构造和余弦公式。"
+  },
+  "relations": {
+    "prerequisites": [
+      "正三角形性质",
+      "余弦定理",
+      "旋转全等"
+    ],
+    "related_ids": [],
+    "similar": [
+      "费马点问题",
+      "旋转变换构造全等"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-29"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "其他-未分类-待定",
+  "altNodes": ""
+}
