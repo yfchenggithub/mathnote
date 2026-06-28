@@ -1,0 +1,179 @@
+{
+  "id": "J036",
+  "module": "geometry-plane",
+  "core": {
+    "title": "费马点定理",
+    "alias": [
+      "费马点",
+      "三角形费马点",
+      "到三顶点距离和最小点"
+    ],
+    "summary": "三角形内到三个顶点距离之和最小的点：所有角小于120°时在形内且三连线夹角120°；有角≥120°时该顶点即为最小点。",
+    "difficulty": 3,
+    "category": "平面几何",
+    "tags": [
+      "费马点",
+      "三角形最值",
+      "几何最值",
+      "夹角120°",
+      "距离和最小"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "费马点",
+      "费马点定理",
+      "三角形到三顶点距离和最小",
+      "费马点夹角120°",
+      "三角形最小距离和",
+      "旋转构造法",
+      "等边三角形旋转",
+      "钝角费马点",
+      "锐角费马点"
+    ],
+    "synonyms": [
+      "费马点公式",
+      "费马点最小值",
+      "三角形内一点到三个顶点距离之和",
+      "三角形内一点使距离之和最小",
+      "到三顶点距离之和最小的点",
+      "费马点120度",
+      "费马定理三角形",
+      "费马点求最值"
+    ],
+    "intents": [
+      "求最小值",
+      "证明费马点",
+      "判断费马点位置",
+      "求距离和最小"
+    ],
+    "query_templates": [
+      "费马点怎么求",
+      "三角形内一点到三个顶点距离和最小",
+      "什么时候费马点在内部",
+      "费马点120度",
+      "费马点最小值例题",
+      "费马点旋转构造"
+    ],
+    "ocrKeywords": [
+      "三角形",
+      "距离和最小",
+      "费马点",
+      "PA+PB+PC最小值",
+      "∠APB=120°"
+    ],
+    "latex_patterns": [
+      "\\angle APB = \\angle BPC = \\angle CPA = 120^\\circ",
+      "PA+PB+PC",
+      "AB+AC",
+      "BC'",
+      "\\triangle ABD 等边三角形"
+    ],
+    "formulaTokens": [
+      "PA+PB+PC",
+      "AB+AC",
+      "BC'",
+      "∠APB=∠BPC=∠CPA=120°"
+    ],
+    "pinyin": "feimadian",
+    "pinyinAbbr": "fmd"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.76,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\angle APB = \\angle BPC = \\angle CPA = 120^\\circ; \\text{when all angles}<120^\\circ, \\text{min of }PA+PB+PC \\text{ occurs at }P; \\text{when }\\angle A\\ge120^\\circ, \\text{min}=AB+AC.",
+    "related_formulas": [
+      "\\text{Rotate }\\triangle APC \\text{ around } A \\text{ by }60^\\circ \\text{ to get }\\triangle AP'C', \\text{ then } PA+PB+PC = PB+PP'+P'C' \\ge BC'.",
+      "BC'^2 = AB^2+AC^2 - 2\\cdot AB\\cdot AC\\cdot\\cos(\\angle A+60^\\circ)"
+    ],
+    "variables": [
+      "∠A",
+      "∠B",
+      "∠C",
+      "AB",
+      "AC",
+      "BC",
+      "PA",
+      "PB",
+      "PC",
+      "P"
+    ],
+    "conditions": "三角形$\\triangle ABC$的三个内角均小于$120^\\circ$；或存在一个内角$\\angle A\\ge120^\\circ$。",
+    "conclusions": "当所有内角小于$120^\\circ$时，存在唯一内部点$P$使得$\\angle APB=\\angle BPC=\\angle CPA=120^\\circ$，且$PA+PB+PC$最小。当$\\angle A\\ge120^\\circ$时，费马点与$A$重合，最小距离和为$AB+AC$。"
+  },
+  "content": {
+    "statement": "在三角形中，若三个内角均小于120°，则到三顶点距离之和最小的点（费马点）在三角形内部，且该点与三顶点连线的夹角均为120°；若存在一个内角不小于120°，则费马点即为该角顶点，距离和等于该角两边的长度之和。",
+    "derivation": [
+      "1. 判断三角形内角：若全小于$120^\\circ$，执行步骤2；若存在$\\angle A\\ge120^\\circ$，则最小值为$AB+AC$。",
+      "2. 对于全锐角三角形，将$\\triangle APC$绕点$A$逆时针旋转$60^\\circ$得到$\\triangle AP'C'$，连接$PP'$，则$\\triangle APP'$为等边，有$PA=PP'$，$PC=P'C'$。",
+      "3. 由两点间线段最短，$PB+PP'+P'C'\\ge BC'$，当$B,P,P',C'$共线时取等，最小值为$BC'$，用余弦定理计算$BC'$。"
+    ],
+    "intuition": "费马点利用旋转将三条线段转化为一条折线，再转化为两点间线段，从而得到最小值。",
+    "common_tricks": [
+      "使用前务必检查三角形内角是否小于120°。",
+      "全锐角时向外作等边三角形并连接对应顶点。",
+      "钝角时直接取钝角顶点。",
+      "旋转角度一般为60°以构造等边三角形。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "最值问题",
+      "几何最值",
+      "压轴题"
+    ],
+    "problem_types": [
+      "填空题",
+      "解答题"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 8
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "J036.svg",
+    "png": "",
+    "video": "",
+    "audio": ""
+  },
+  "shareConfig": {
+    "title": "费马点定理：三角形内到三顶点距离和最小",
+    "shareDesc": "适用于最值问题快速判断费马点位置，构造旋转转化线段，减少复杂推导，提升稳定性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "三角形内角",
+      "等边三角形性质",
+      "余弦定理",
+      "两点间线段最短"
+    ],
+    "related_ids": [],
+    "similar": [
+      "三角形内一点到三边距离和最小(类似但不同)",
+      "将军饮马问题(旋转转化)"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-29"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "其他-未分类-待定",
+  "altNodes": "其他-未分类-待定;解析几何-综合-最值问题"
+}

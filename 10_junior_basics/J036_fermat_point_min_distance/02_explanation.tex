@@ -1,0 +1,43 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+	费马点是三角形内(或顶点上)到三个顶点距离之和最小的点;当三角形所有内角都小于 $120^\circ$ 时,它位于形内且与三顶点连线夹角均为 $120^\circ$;当有角不小于 $120^\circ$ 时,它就在该角顶点上.
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一(全锐角内部):}]
+			三角形三个内角均小于 $120^\circ$ 时,存在唯一内点 $P$ 使 $\angle APB=\angle BPC=\angle CPA=120^\circ$,此时 $PA+PB+PC$ 最小.
+		\item[\textbf{要点二(钝角退化):}]
+			若 $\triangle ABC$ 有一内角(设为 $\angle A$) $\ge 120^\circ$,则最小距离和点为顶点 $A$,且 $PA+PB+PC=AB+AC$.
+		\item[\textbf{要点三(构造方法):}]
+			常用旋转法:将 $\triangle APB$(或 $\triangle APC$)绕某顶点旋转 $60^\circ$,构造等边三角形,把三条线段转换为一条折线,折线为直线时取最小值.
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质(旋转共线)}}
+	旋转 $60^\circ$ 后,三条线段组成一条折线,其端点间直线段最短.当折线拉直时,中间点即为费马点,且各角为 $120^\circ$.
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义(余弦定理)}}
+	设 $PA=x$, $PB=y$, $PC=z$,由各 $120^\circ$ 在 $\triangle PAB$ 中利用余弦定理可得 $AB^2=x^2+y^2+xy$,类似得其他两边关系.但更常见的是利用旋转转化为线段长度计算.
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值(判断与计算)}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一(角度判定):} 给出三角形内角大小,直接判断费马点位置(内部或顶点).
+		\item \textbf{考法二(旋转求值):} 通过构造等边三角形将 $PA+PB+PC$ 转化为某条线段长度,然后利用余弦定理或勾股定理求解.
+		\item \textbf{考法三(实际综合):} 在坐标系或实际问题中,转化为费马点模型求解.
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+	费马点的核心思想是\textbf{旋转化直}:将三条共端点的线段通过旋转 $60^\circ$ 变成一条首尾相连的折线,利用“两点间线段最短”直接得到最小值.此思想是几何最值中的经典策略.
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一(全锐角求最值):} 给定三角形各角均小于 $120^\circ$,需计算 $PA+PB+PC$ 最小值时,用旋转法构造等边三角形,将折线段转化为直线段求解.
+		\item \textbf{场景二(退化情况判断):} 若三角形有一角 $\ge 120^\circ$,直接选该角顶点作为所求点,最小值即两边长之和.
+	\end{itemize}
+
+\end{explanationbox}

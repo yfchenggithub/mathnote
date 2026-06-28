@@ -1,0 +1,87 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1(基础)}}
+	\textbf{\textcolor{CExample}{题目:}}
+	已知等边 $\triangle ABC$ 的边长为 $2$,点 $P$ 是三角形内一动点,求 $PA+PB+PC$ 的最小值.
+	\textbf{\textcolor{CExample}{解题步骤:}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步(角度判定):}]
+			等边三角形的每个内角均为 $60^\circ < 120^\circ$,故费马点 $P$ 在三角形内部,且与各顶点连线两两成 $120^\circ$.
+			\par\textbf{理由:} 费马点定理的第一种情况.
+		\item[\textbf{第二步(旋转转化):}]
+			将 $\triangle APC$ 绕点 $A$ 逆时针旋转 $60^\circ$ 得到 $\triangle AP'C'$,连接 $PP'$.此时 $\triangle APP'$ 为等边三角形,故 $PA=PP'$,$PC=P'C'$.于是
+			\[
+				PA+PB+PC = PB+PP'+P'C'.
+			\]
+			\par\textbf{理由:} 旋转不改变线段长度,旋转 $60^\circ$ 构造出等边三角形.
+		\item[\textbf{第三步(计算最小值):}]
+			由两点间线段最短,当 $B,P,P',C'$ 四点共线时,$PA+PB+PC$ 取得最小值,且最小值为 $BC'$.在 $\triangle ABC'$ 中,$AB=2$,$AC'=AC=2$,$\angle C'AB = \angle CAB+60^\circ = 60^\circ+60^\circ=120^\circ$,由余弦定理
+			\[
+				\begin{aligned}
+					BC'^2 &= 2^2+2^2-2\cdot2\cdot2\cdot\cos120^\circ \\ &= 4+4-8\cdot\left(-\frac12\right) \\ &= 12,
+			\end{aligned}
+			\]
+			故 $BC' = \sqrt{12}$，即 $BC'=2\sqrt{3}$.
+			\par\textbf{理由:} 余弦定理 $a^2=b^2+c^2-2bc\cos A$.
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论:}}
+	\textbf{$PA+PB+PC$ 的最小值为 $2\sqrt{3}$.}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2(稍变形)}}
+	\textbf{\textcolor{CExample}{题目:}}
+	在 $\triangle ABC$ 中,$\angle A = 120^\circ$,$AB=3$,$AC=4$,求 $PA+PB+PC$ 的最小值(点 $P$ 是平面内的动点).
+	\textbf{\textcolor{CExample}{解题步骤:}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步(判断大角):}]
+			因为 $\angle A = 120^\circ$,满足费马点退化条件,故最小值点 $P$ 与顶点 $A$ 重合.
+			\par\textbf{理由:} 费马点定理:若三角形有一内角不小于 $120^\circ$,则费马点即为该角顶点.
+		\item[\textbf{第二步(代入边长):}]
+			当 $P$ 与 $A$ 重合时,$PA=0$,$PB=AB=3$,$PC=AC=4$.
+			\par\textbf{理由:} 距离定义.
+		\item[\textbf{第三步(求和得最小值):}]
+			于是 $PA+PB+PC = 0+3+4$.
+			\par\textbf{理由:} 直接加法.
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论:}}
+	\textbf{最小值为 $7$.}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3(综合应用)}}
+	\textbf{\textcolor{CExample}{题目:}}
+	在 $\triangle ABC$ 中,$AB=2$,$AC=3$,$\angle A = 60^\circ$,且所有内角均小于 $120^\circ$,求 $PA+PB+PC$ 的最小值.
+	\textbf{\textcolor{CExample}{解题步骤:}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步(条件验证):}]
+			先由余弦定理得
+			\[
+				\begin{aligned}
+					BC^2 &= AB^2+AC^2-2\cdot AB\cdot AC\cdot\cos60^\circ \\ &= 4+9-2\cdot2\cdot3\cdot\frac12 \\ &= 7,
+			\end{aligned}
+			\]
+			故 $BC=\sqrt7$.计算最大角(对边 $AC$ 所对角 $B$)的余弦:
+			\[
+				\begin{aligned}
+					\cos B &= \frac{AB^2+BC^2-AC^2}{2\cdot AB\cdot BC} \\ &= \frac{4+7-9}{2\cdot2\cdot\sqrt7} \\ &= \frac{2}{4\sqrt7} \\ &= \frac1{2\sqrt7},
+			\end{aligned}
+			\]
+			由于 $\frac1{2\sqrt7}>0$，故 $\cos B>0$，所以 $B<90^\circ$，同理 $C<90^\circ$. 因此所有内角均小于 $120^\circ$,费马点 $P$ 在三角形内部.
+			\par\textbf{理由:} 费马点定理的适用条件.
+		\item[\textbf{第二步(旋转转化):}]
+			将 $\triangle APC$ 绕点 $A$ 逆时针旋转 $60^\circ$ 得 $\triangle AP'C'$,连接 $PP'$.则 $\triangle APP'$ 等边,$PA=PP'$,$PC=P'C'$,故
+			\[
+				PA+PB+PC = PB+PP'+P'C' \ge BC'.
+			\]
+			\par\textbf{理由:} 旋转构造及线段最短公理.
+		\item[\textbf{第三步(计算 $BC'$):}]
+			在 $\triangle ABC'$ 中,$AB=2$,$AC'=AC=3$,$\angle C'AB = \angle CAB + 60^\circ = 60^\circ+60^\circ=120^\circ$.由余弦定理
+			\[
+				\begin{aligned}
+					BC'^2 &= 2^2+3^2-2\cdot2\cdot3\cdot\cos120^\circ \\ &= 4+9-12\cdot\left(-\frac12\right) \\ &= 13+6 \\ &= 19,
+			\end{aligned}
+			\]
+			所以 $BC' = \sqrt{19}$,即 $PA+PB+PC$ 的最小值为 $\sqrt{19}$.
+			\par\textbf{理由:} 代入余弦定理公式.
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论:}}
+	\textbf{$PA+PB+PC$ 的最小值为 $\sqrt{19}$.}
+\end{examplebox}
