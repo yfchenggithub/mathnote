@@ -1,0 +1,166 @@
+{
+  "id": "J042",
+  "module": "geometry-plane",
+  "core": {
+    "title": "对角互补模型（四点共圆与旋转全等）",
+    "alias": [
+      "对角互补",
+      "四点共圆判定",
+      "旋转全等构造"
+    ],
+    "summary": "四边形一组对角和为180°则四点共圆；若还有一组邻边相等，可通过旋转实现全等。",
+    "difficulty": 3,
+    "category": "平面几何",
+    "tags": [
+      "四点共圆",
+      "旋转全等",
+      "对角互补",
+      "几何变换",
+      "四边形"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "对角互补",
+      "四点共圆",
+      "旋转全等",
+      "邻边相等",
+      "四边形",
+      "圆内接四边形",
+      "三角形全等",
+      "旋转构造",
+      "角度计算",
+      "共圆判定"
+    ],
+    "synonyms": [
+      "对角互余",
+      "对角和180°",
+      "对角互补四点共圆",
+      "旋转重合"
+    ],
+    "intents": [
+      "判断四点共圆",
+      "求角度",
+      "证明全等",
+      "旋转构造"
+    ],
+    "query_templates": [
+      "对角互补怎么用",
+      "四点共圆条件",
+      "对角互补邻边相等旋转",
+      "角A加角C等于180度四点共圆"
+    ],
+    "ocrKeywords": [
+      "∠A+∠C=180°",
+      "AB=AD",
+      "ΔABC≅ΔADE"
+    ],
+    "latex_patterns": [
+      "\\angle A+\\angle C=180^\\circ",
+      "\\triangle ABC\\cong\\triangle ADE"
+    ],
+    "formulaTokens": [
+      "\\angle A+\\angle C=180^\\circ",
+      "\\angle B+\\angle D=180^\\circ",
+      "AB=AD",
+      "\\triangle ABC\\cong\\triangle ADE"
+    ],
+    "pinyin": "duijiaohubu",
+    "pinyinAbbr": "djh"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.8,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\angle A+\\angle C=180^\\circ \\Rightarrow A,B,C,D \\text{ 四点共圆}",
+    "related_formulas": [
+      "\\angle B+\\angle D=180^\\circ, AB=AD \\Rightarrow \\triangle ABC \\cong \\triangle ADE"
+    ],
+    "variables": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "∠A",
+      "∠C",
+      "∠B",
+      "∠D",
+      "AB",
+      "AD"
+    ],
+    "conditions": "四边形 $ABCD$ 中，一组对角互补，即 $\\angle A+\\angle C=180^\\circ$（或 $\\angle B+\\angle D=180^\\circ$）。",
+    "conclusions": "若条件成立，则 $A,B,C,D$ 四点共圆；若还有 $AB=AD$，则可将 $\\triangle ABC$ 绕 $A$ 旋转至 $\\triangle ADE$，有 $\\triangle ABC\\cong\\triangle ADE$。"
+  },
+  "content": {
+    "statement": "在四边形 $ABCD$ 中，若一组对角互补，即 $\\angle A+\\angle C=180^\\circ$（或 $\\angle B+\\angle D=180^\\circ$），则 $A,B,C,D$ 四点共圆。若进一步有一组邻边相等（如 $AB=AD$），且另一组对角互补（$\\angle B+\\angle D=180^\\circ$），则将 $\\triangle ABC$ 绕点 $A$ 旋转，使 $AB$ 与 $AD$ 重合，点 $C$ 落在射线 $CD$ 上的点 $E$，可得 $\\triangle ABC \\cong \\triangle ADE$。",
+    "derivation": [
+      "由对角互补条件，结合圆周角定理的逆定理，可得四点共圆。",
+      "若还有邻边相等，可构造旋转，使等边重合。",
+      "旋转后对应角相等，对应边相等，证明全等。"
+    ],
+    "intuition": "对角互补保证了四边形顶点在同一圆上，而邻边相等提供了旋转重合的基准。",
+    "common_tricks": [
+      "看到对角互补先想四点共圆；",
+      "若题目中同时有邻边相等和对角互补，尝试旋转构造全等；",
+      "旋转后注意三点共线（由对角互补保证）；",
+      "利用全等转移角度和边长。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "平面几何压轴题",
+      "角度计算",
+      "证明线段相等"
+    ],
+    "problem_types": [
+      "证明题",
+      "角度计算题",
+      "全等证明"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "J042.svg"
+  },
+  "shareConfig": {
+    "title": "对角互补模型：四点共圆与旋转全等",
+    "shareDesc": "适合考前回顾和讲评课使用，掌握对角互补条件快速判定共圆，结合邻边相等实现旋转全等，减少几何证明中间步骤。"
+  },
+  "relations": {
+    "prerequisites": [
+      "圆的基本性质",
+      "三角形全等判定",
+      "旋转概念"
+    ],
+    "related_ids": [],
+    "similar": [
+      "圆内接四边形性质",
+      "共圆判定定理",
+      "半角模型"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-29"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "其他-未分类-待定",
+  "altNodes": "解析几何-圆-位置关系"
+}

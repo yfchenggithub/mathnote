@@ -1,0 +1,43 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	本结论含两部分：先用反证法证对角互补可得四点共圆；再借助旋转与角度关系证全等与共线。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（四点共圆反证）：}]
+			已知四边形 $ABCD$ 中，$\angle DAB+\angle DCB=180^\circ$（即对角互补）。过 $A,B,D$ 作圆 $\odot O$。假设 $C$ 不在 $\odot O$ 上。 \textbf{情形一：$C$ 在圆外。}连接 $BC$，交 $\odot O$ 于 $C'$（点 $C'$ 在 $B,C$ 之间），连接 $DC'$。由 $A,B,C',D$ 四点共圆得 $\angle DAB + \angle DC'B = 180^\circ$。在 $\triangle DCC'$ 中，$\angle DC'B$ 为外角，故 $\angle DC'B = \angle DCC' + \angle CDC' > \angle DCC' = \angle DCB$。从而 $\angle DCB < \angle DC'B$，于是
+			\[
+				\angle DAB + \angle DCB < \angle DAB + \angle DC'B = 180^\circ,
+			\]
+			与已知矛盾。 \textbf{情形二：$C$ 在圆内。}延长 $BC$ 交 $\odot O$ 于 $C'$（此时 $C$ 在 $B,C'$ 之间），连接 $DC'$。则 $\angle DCB$ 与 $\angle DCC'$ 互补，即 $\angle DCB = 180^\circ - \angle DCC'$。在 $\triangle DCC'$ 中，$\angle DC'B = \angle DC'C = 180^\circ - \angle DCC' - \angle CDC'$。因此 $\angle DCB > \angle DC'B$，于是
+			\[
+				\angle DAB + \angle DCB > \angle DAB + \angle DC'B = 180^\circ,
+			\]
+			也矛盾。 综上，假设不成立，故 $C$ 在 $\odot O$ 上，即 $A,B,C,D$ 四点共圆。
+			\par\textbf{理由：} 反证法；圆内接四边形对角互补；三角形内外角关系。
+		\item[\textbf{步骤二（推出另一组对角互补）：}]
+			由四边形内角和 $360^\circ$ 及 $\angle DAB+\angle DCB=180^\circ$，得 $\angle ABC+\angle ADC = 180^\circ$（记为 $\angle B+\angle D=180^\circ$）。
+			\[
+				\angle B+\angle D = 360^\circ-(\angle A+\angle C) = 180^\circ.
+			\]
+			\par\textbf{理由：} 四边形内角和定理；为下一部分共线证明做准备。
+		\item[\textbf{步骤三（旋转构造全等）：}]
+			已知 $AB=AD$ 且 $\angle B+\angle D=180^\circ$。将 $\triangle ABC$ 绕点 $A$ 旋转，使 $AB$ 与 $AD$ 重合。记点 $C$ 的对应点为 $E$。由旋转的性质知 $AE=AC$，$DE=BC$，且 $\triangle ABC \cong \triangle ADE$。
+			\[
+				\triangle ABC \xrightarrow{\text{旋转}} \triangle ADE
+			\]
+			\par\textbf{理由：} 旋转是全等变换，保边长、保角度。
+		\item[\textbf{步骤四（证明 $C,D,E$ 共线）：}]
+			由全等得 $\angle ADE = \angle ABC$。又 $\angle ABC+\angle ADC = \angle B+\angle D = 180^\circ$，故
+			\[
+				\angle ADE + \angle ADC = 180^\circ.
+			\]
+			$\angle ADE$ 与 $\angle ADC$ 有公共边 $AD$，且由旋转方向可知 $DE$ 与 $DC$ 在 $AD$ 异侧，因此它们互为邻补角，从而 $DE$ 与 $DC$ 共线，即 $C,D,E$ 三点共线，且 $E$ 在射线 $CD$ 上。
+			\par\textbf{理由：} 邻补角定义；共线条件。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{两组结论既独立又关联：} 对角互补直接推出四点共圆；再加邻边相等，旋转可得全等，且由互补保证共线，是几何中转化边角的有力工具。
+\end{proofbox}
