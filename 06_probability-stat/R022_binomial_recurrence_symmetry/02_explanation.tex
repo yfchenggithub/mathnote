@@ -1,0 +1,40 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+	\textbf{从 $n$ 个元素中选 $k$ 个，分类讨论“最后一个元素选还是不选”，立即得到递推公式。}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（分类标准）：}]
+			把 $n$ 个元素编号，考虑第 $n$ 个元素。
+		\item[\textbf{要点二（两种情形）：}]
+			选第 $n$ 个，剩下 $n-1$ 个中选 $k-1$ 个；不选第 $n$ 个，剩下 $n-1$ 个中选 $k$ 个。两种情形无重复，相加即得 $\binom{n}{k}$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（杨辉三角）}}
+	在杨辉三角（帕斯卡三角）中，每个数等于它上方两个数之和。递推公式正是这一性质的代数表示。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（递推工具）}}
+	该恒等式是组合数最基本的递推关系，用于将高阶组合数转化为低阶组合数，也用于证明其他组合恒等式。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（应用方向）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（直接计算）：} 利用递推逐步计算 $\binom{n}{k}$，尤其适合 $n$ 不大时。
+		\item \textbf{考法二（对称化简）：} 利用 $\binom{n}{k}=\binom{n}{n-k}$ 简化运算，将大 $k$ 化为 $n-k$。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+	\textbf{“选第 $n$ 个”是分类的天然分割点；递推与对称结合使用可以大幅降低组合计算的复杂度。}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（递推简化）：} 证明 $\binom{n}{k}=\binom{n-1}{k-1}+\binom{n-1}{k}$ 的恒等式时直接套用。
+		\item \textbf{场景二（对称交换）：} 计算 $\binom{10}{8}$ 时利用对称性化为 $\binom{10}{2}$ 简化。
+	\end{itemize}
+
+\end{explanationbox}

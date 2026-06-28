@@ -1,0 +1,74 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	已知组合数 $\binom{8}{2}=28$，$\binom{8}{3}=56$，利用递推公式求 $\binom{9}{3}$ 的值。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别公式）：}]
+			由递推公式得 $\binom{9}{3}=\binom{8}{2}+\binom{8}{3}$。
+			\par\textbf{理由：} 递推公式 $\binom{n}{k}=\binom{n-1}{k-1}+\binom{n-1}{k}$ 中取 $n=9,k=3$。
+		\item[\textbf{第二步（代入计算）：}]
+			代入已知数值：$\binom{9}{3}=28+56=84$。
+			\par\textbf{理由：} 直接加法运算。
+		\item[\textbf{第三步（结论）：}]
+			$\binom{9}{3}=84$。
+			\par\textbf{理由：} 计算结果正确。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$\binom{9}{3}=84$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	化简 $\binom{10}{3}+\binom{10}{4}$，并求出结果。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（逆用递推）：}]
+			观察发现 $\binom{10}{3}+\binom{10}{4}$ 符合递推公式的逆用：$\binom{n}{k-1}+\binom{n}{k}=\binom{n+1}{k}$。取 $n=10,k=4$，得 $\binom{10}{3}+\binom{10}{4}=\binom{11}{4}$。
+			\par\textbf{理由：} 将递推公式变形，把 $n$ 换成 $n+1$，$k$ 换成 $k$，即得逆用形式。
+		\item[\textbf{第二步（计算组合数）：}]
+			计算 $\binom{11}{4}=330$（或查表得）。
+			\par\textbf{理由：} 组合数公式 $\binom{11}{4}=\frac{11\times10\times9\times8}{4!}=330$。
+		\item[\textbf{第三步（结论）：}]
+			原式 $=330$。
+			\par\textbf{理由：} 逆用递推正确，计算结果无误。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$\binom{10}{3}+\binom{10}{4}=330$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	利用递推公式证明杨辉三角第 $n$ 行各数之和为 $2^n$，即
+	\[
+		\sum_{k=0}^{n}\binom{n}{k}=2^n
+	\]
+	。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（引入符号）：}]
+			记 $S_n=\sum_{k=0}^{n}\binom{n}{k}$。
+			\par\textbf{理由：} 符号化方便递推。
+		\item[\textbf{第二步（拆分应用递推）：}]
+			将中间项（$1\le k\le n-1$）用递推展开，边界项保留：
+			\[
+				\binom{n}{k} = \binom{n-1}{k-1}+\binom{n-1}{k}\quad (1\le k\le n-1),
+				\qquad
+				\binom{n}{0}=\binom{n}{n}=1
+			\]
+			。
+			\par\textbf{理由：} 递推公式只对中间项有效。
+		\item[\textbf{第三步（代入求和）：}]
+			\[
+				\begin{aligned}
+					S_n &= \binom{n}{0}+\binom{n}{n}+\sum_{k=1}^{n-1}\binom{n}{k} \\ &= 2+\sum_{k=1}^{n-1}\bigl(\binom{n-1}{k-1}+\binom{n-1}{k}\bigr) \\ &= 2 + \Bigl(\sum_{k=0}^{n-2}\binom{n-1}{k} + \sum_{k=1}^{n-1}\binom{n-1}{k}\Bigr) \\ &= 2 + \bigl( (S_{n-1}-1) + (S_{n-1}-1) \bigr) \\ &= 2S_{n-1}
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 第一个和缺少第$n-1$项，第二个和缺少第$0$项；利用$S_{n-1}$补全后各减$1$，再与前面的$2$合并得$2S_{n-1}$。
+		\item[\textbf{第四步（递推求解）：}]
+			由 $S_n=2S_{n-1}$ 且 $S_0=\binom{0}{0}=1$，得 $S_n=2^n$。
+			\par\textbf{理由：} 等比递推，$S_n=2^nS_0=2^n$。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$\displaystyle\sum_{k=0}^{n}\binom{n}{k}=2^n$。}
+\end{examplebox}

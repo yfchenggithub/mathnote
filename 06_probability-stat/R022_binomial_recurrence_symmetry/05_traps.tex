@@ -1,0 +1,32 @@
+\begin{trapbox}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点一（忽视边界范围）}}]
+			当 $k=0$ 或 $k=n$ 时，错误地继续使用递推公式 $\binom{n}{k}=\binom{n-1}{k-1}+\binom{n-1}{k}$，导致出现 $\binom{n-1}{-1}$ 等无意义项。
+		\item[\textbf{\textcolor{CTrap}{正确理解（递推适用条件）：}}]
+			递推公式仅对 $1\le k\le n-1$ 成立；边界值直接定义为 $\binom{n}{0}=\binom{n}{n}=1$，无须递推。
+		\item[\textbf{\textcolor{CTrap}{错因分析（忽视定义域）：}}]
+			死记公式，未注意递推导出的前提是 $k-1\ge0$ 和 $k\le n-1$，导致越界错误。
+	\end{description}
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点二（对称性记忆混乱）}}]
+			混淆对称关系，误写为 $\binom{n}{k}=\binom{n}{k-1}$ 或 $\binom{n}{k}=\binom{n-1}{n-k}$。
+		\item[\textbf{\textcolor{CTrap}{正确理解（对称性公式）：}}]
+			正确的对称性是 $\binom{n}{k}=\binom{n}{n-k}$，即下标之和为 $n$ 的组合数相等。
+		\item[\textbf{\textcolor{CTrap}{错因分析（缺乏推导记忆）：}}]
+			未从组合定义理解对称性：选 $k$ 个等价于排除 $n-k$ 个，记混了形式。
+	\end{description}
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点三（递推下标颠倒）}}]
+			使用递推时，误将 $\binom{n-1}{k-1}$ 写成 $\binom{n-1}{k}$ 或 $\binom{n}{k-1}$，导致结果错误。
+		\item[\textbf{\textcolor{CTrap}{正确理解（递推结构）：}}]
+			递推公式为 $\binom{n}{k}=\binom{n-1}{k-1}+\binom{n-1}{k}$，第一项对应“选最后一个元素”，第二项对应“不选”。
+		\item[\textbf{\textcolor{CTrap}{错因分析（分类理解不清）：}}]
+			未理解递推公式的推导源于是否选特定元素，对两类情况的下标变化模糊，导致写错位置。
+	\end{description}
+
+\end{trapbox}

@@ -1,0 +1,30 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	从组合数的原始定义出发，对某一个特定元素进行分类计数。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（选定特元）：}]
+			指定一个特定元素 $a$。
+			\par\textbf{理由：} 引入一个特定元素可以将“选出 $k$ 个元素”拆成两个互斥的子问题。
+		\item[\textbf{步骤二（分类计数）：}]
+			第一类：选 $a$，则从其余 $n-1$ 个元素中选 $k-1$ 个；第二类：不选 $a$，则从其余 $n-1$ 个元素中选 $k$ 个。
+			\[
+				\binom{n-1}{k-1},
+				\qquad
+				\binom{n-1}{k}
+			\]
+			\par\textbf{理由：} 每一类都是标准的组合计数问题，直接套用组合数定义。
+		\item[\textbf{步骤三（加法原理）：}]
+			两类选法互斥，根据加法原理，总选法数为两数之和。同时，直接计算从 $n$ 个元素中选 $k$ 个的结果为 $\binom{n}{k}$，因此：
+			\[
+				\binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k}.
+			\]
+			\par\textbf{理由：} 同一计数问题的两种等价表达，必然相等。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{递推公式 $\binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k}$ 正是“分类计数思想”在组合数中的直接体现，也是杨辉三角的代数表示。}
+\end{proofbox}

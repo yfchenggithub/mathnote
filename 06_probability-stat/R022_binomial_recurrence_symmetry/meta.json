@@ -1,0 +1,163 @@
+{
+  "id": "R022",
+  "module": "probability-stat",
+  "core": {
+    "title": "组合数递推公式与对称性",
+    "alias": [
+      "组合数递推",
+      "杨辉三角递推",
+      "组合数对称性",
+      "Cnk递推"
+    ],
+    "summary": "组合数递推公式 $\\binom{n}{k}=\\binom{n-1}{k-1}+\\binom{n-1}{k}$ 与对称性 $\\binom{n}{k}=\\binom{n}{n-k}$ 是组合计算的基础，用于化简和求和。",
+    "difficulty": 2,
+    "category": "概率统计",
+    "tags": [
+      "组合数",
+      "递推公式",
+      "对称性",
+      "杨辉三角",
+      "组合恒等式"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "组合数递推",
+      "杨辉三角",
+      "组合数性质",
+      "二项式系数递推",
+      "组合数求和",
+      "组合恒等式",
+      "binom",
+      "递推公式",
+      "对称性",
+      "组合数计算公式"
+    ],
+    "synonyms": [
+      "Cnk递推",
+      "组合数递推公式",
+      "二项式系数对称性",
+      "杨辉三角规律",
+      "帕斯卡恒等式"
+    ],
+    "intents": [
+      "计算组合数",
+      "化简组合式",
+      "证明组合恒等式",
+      "求和"
+    ],
+    "query_templates": [
+      "组合数递推公式是什么",
+      "杨辉三角递推公式",
+      "组合数对称性怎么用",
+      "利用递推求组合数",
+      "组合数求和公式推导"
+    ],
+    "ocrKeywords": [
+      "C_n^k",
+      "C(n,k)",
+      "binom",
+      "杨辉三角",
+      "递推",
+      "对称"
+    ],
+    "latex_patterns": [
+      "\\binom{n}{k}=\\binom{n-1}{k-1}+\\binom{n-1}{k}",
+      "\\binom{n}{k}=\\binom{n}{n-k}"
+    ],
+    "formulaTokens": [
+      "\\binom{n}{k}",
+      "\\binom{n-1}{k-1}",
+      "\\binom{n-1}{k}",
+      "\\binom{n}{n-k}",
+      "\\binom{n-1}{k-1}+\\binom{n-1}{k}"
+    ],
+    "pinyin": "zu he shu di tui gong shi yu dui chen xing",
+    "pinyinAbbr": "zhsdt"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.8,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\binom{n}{k}=\\binom{n-1}{k-1}+\\binom{n-1}{k}",
+    "related_formulas": [
+      "\\binom{n}{k}=\\binom{n}{n-k}"
+    ],
+    "variables": [
+      "n",
+      "k"
+    ],
+    "conditions": "$n,k\\in\\mathbb{N}$ 且 $0\\le k\\le n$；递推公式仅适用于 $1\\le k\\le n-1$。",
+    "conclusions": "组合数可通过递推计算；对称性可用于化简和证明。"
+  },
+  "content": {
+    "statement": "若 $n,k\\in\\mathbb{N}$ 且 $0\\le k\\le n$，则 $\\binom{n}{k} = \\binom{n-1}{k-1} + \\binom{n-1}{k}$（$1\\le k\\le n-1$），边界为 $\\binom{n}{0} = \\binom{n}{n} = 1$，对称性 $\\binom{n}{k} = \\binom{n}{n-k}$。",
+    "derivation": [
+      "从 $n$ 个元素中选 $k$ 个，考虑是否包含某特定元素，可分为含该元素（$\\binom{n-1}{k-1}$）和不含该元素（$\\binom{n-1}{k}$）两种情形。",
+      "对称性由组合数定义 $\\binom{n}{k}=\\frac{n!}{k!(n-k)!}$ 直接推导。",
+      "杨辉三角的几何直观：每个数字等于上方两数之和。"
+    ],
+    "intuition": "分类计数：选与不选特定元素，两类互斥且覆盖所有情况。",
+    "common_tricks": [
+      "逆用递推：$\\binom{n}{k-1}+\\binom{n}{k}=\\binom{n+1}{k}$。",
+      "利用对称性将大数组合转化为小数组合。",
+      "在求和问题中逐层应用递推。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "组合恒等式证明",
+      "组合数求和",
+      "二项式定理展开"
+    ],
+    "problem_types": [
+      "化简求值",
+      "证明恒等式",
+      "数列求和"
+    ],
+    "exam_frequency": 1.0,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "TEMP-001.svg",
+    "png": "",
+    "gif": "",
+    "audio": "",
+    "video": ""
+  },
+  "shareConfig": {
+    "title": "组合数递推与对称性：化简求和基础工具",
+    "shareDesc": "适合课后复盘或刷题前速查，用递推公式和对称性可快速化简组合式求和，减少重复计算错误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "组合数定义",
+      "阶乘"
+    ],
+    "related_ids": [],
+    "similar": []
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "概率-古典概型-排列组合",
+  "altNodes": ""
+}
