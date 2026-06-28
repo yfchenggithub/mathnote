@@ -1,0 +1,43 @@
+\begin{explanationbox}
+
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+	将数据从小到大排队，取第 $p\text{\%}$ 位置上的数；若位置不是整数，则向上取整确定下标。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（排序前提）：}] 必须先将原始数据按非降序排列，得到顺序统计量 $x_{(1)}\le x_{(2)}\le\cdots\le x_{(n)}$。
+		\item[\textbf{要点二（位置计算）：}] 计算理论位置 $i=\frac{p}{100}n$，再取 $k=\lceil i\rceil$，则第 $p$ 百分位数就是 $x_{(k)}$。
+		\item[\textbf{要点三（等价理解）：}] “至少有 $p\text{\%}$ 的数据 $\le P_p$”等价于“排名处在 $p\text{\%}$ 之后的最小值”，即第 $\lceil\frac{p}{100}n\rceil$ 个数据。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（比例分割）}}
+
+	在数轴上，百分位数将数据点按数量比例分成左右两部分：左边数据点个数占比约为 $p\text{\%}$，右边约占 $(100-p)\text{\%}$。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（整数函数）}}
+
+	百分位数是“样本容量 $n$”和“百分等级 $p$”的离散函数 $P_p(x;n)=x_{(\lceil np/100\rceil)}$，反映了数据的位置特征。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（统计应用）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（直方图估算）：} 在频率分布直方图中，通过累积频率估计百分位数，需根据定义确定所在组并插值。
+		\item \textbf{考法二（数据排序）：} 给定一组具体数据，要求按照定义手工计算某个百分位数，考查定义的理解与计算。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	百分位数的核心是“排序”和“位置”。定义中的“至少 $p\text{\%}$ 的数据 $\le P_p$”是确认条件，$P_p$ 取满足该条件的最小值。向上取整保证了数据量为整数时刚好满足条件。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（成绩排名）：} 某次考试的成绩百分位数表示超过比例，常用于评估学生相对水平。
+		\item \textbf{场景二（数据概括）：} 用多个百分位数（如 $25\text{\%}$、$50\text{\%}$、$75\text{\%}$）描述数据分布，即箱形图。
+	\end{itemize}
+\end{explanationbox}

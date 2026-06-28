@@ -1,0 +1,42 @@
+\begin{proofbox}
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	先证 $x_{(k)}$ 满足“至少有 $p\text{\%}$ 的数据不超过它”，再证任何比 $x_{(k)}$ 小的数都不满足这一条件，从而 $x_{(k)}$ 是满足条件的最小值。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（满足性证明）：}] 由排序定义，至少有 $k$ 个数据不大于 $x_{(k)}$，即
+			\[
+				\#\{i\mid x_i\le x_{(k)}\} \ge k.
+			\]
+			而由 $k = \lceil \frac{p}{100}n\rceil$ 知 $k \ge \frac{p}{100}n$，因此
+			\[
+				\#\{i\mid x_i\le x_{(k)}\} \ge \frac{p}{100}n.
+			\]
+			\par\textbf{理由：} 顺序统计量的性质：前 $k$ 小的数据都 $\le x_{(k)}$；向上取整保证 $k\ge \frac{p}{100}n$。
+
+		\item[\textbf{步骤二（最小性证明）：}] 设 $t < x_{(k)}$，则至多只有前 $k-1$ 个数据可能不超过 $t$（若 $k=1$ 则 $0$ 个），即
+			\[
+				\#\{i\mid x_i\le t\} \le k-1.
+			\]
+			又因为 $k = \lceil \frac{p}{100}n\rceil$ 意味着 $k-1 < \frac{p}{100}n$，故
+			\[
+				\#\{i\mid x_i\le t\} < \frac{p}{100}n.
+			\]
+			即满足条件 $ \#\{i\mid x_i\le t\} < \frac{p}{100}n$，因此 $t$ 不满足“至少有 $p\text{\%}$ 的数据 $\le t$”的要求。
+			\par\textbf{理由：} 严格小于 $x_{(k)}$ 的数据绝对不超过 $k-1$ 个；由向上取整定义可得 $k-1 < np/100$。
+
+		\item[\textbf{步骤三（综合结论）：}] 综上，$x_{(k)}$ 是满足“至少有 $p\text{\%}$ 的数据 $\le $ 该值”的最小数值，故按定义有
+			\[
+				P_p = x_{(k)} = x_{(\lceil \frac{p}{100}n\rceil)}.
+			\]
+			\par\textbf{理由：} 步骤一证实 $x_{(k)}$ 满足条件，步骤二证实任何更小的数都不满足，因此 $x_{(k)}$ 就是满足条件的最小值。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	通过上述论证，我们验证了百分位数定义的两种表述是等价的：向上取整法得出的 $x_{(k)}$ 恰好就是“至少包含 $p\text{\%}$ 数据的最小值”。
+\end{proofbox}

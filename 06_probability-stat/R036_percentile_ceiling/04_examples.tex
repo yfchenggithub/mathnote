@@ -1,0 +1,81 @@
+\begin{examplebox}
+
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知一组数据经排序后为 $1,2,3,4,5,6,7,8,9,10$，样本容量 $n=10$。按照百分位数定义，求第 $30$ 百分位数 $P_{30}$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（计算比例位置）：}] 由 $p=30$，$n=10$，得理论位置
+			\[
+				i = \frac{p}{100}\cdot n = \frac{30}{100}\times 10 = 3.
+			\]
+			\par\textbf{理由：} 百分位数的定义要求先计算 $np/100$，即 $i$ 值。
+		\item[\textbf{第二步（向上取整确定下标）：}] 取 $k = \lceil i \rceil = \lceil 3 \rceil = 3$。
+			\par\textbf{理由：} 按定义，当 $i$ 是整数时，$\lceil i\rceil = i$，因此 $k=3$。
+		\item[\textbf{第三步（读取第 $k$ 个数据）：}] 在已排序数据中，第 $3$ 个数是 $3$，所以
+			\[
+				P_{30} = x_{(3)} = 3.
+			\]
+			\par\textbf{理由：} 百分位数 $P_p$ 定义为 $x_{(k)}$。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$P_{30}=3$}，表示至少有 $30\text{\%}$ 的数据不超过 $3$（实际 $3$ 个数据，占比 $30\text{\%}$）。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	现有一组原始数据：$3,5,1,4,6,8,2,7$，样本容量 $n=8$。求第 $65$ 百分位数 $P_{65}$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（排序整理数据）：}] 将数据按非降序排列：
+			\[
+				x_{(1)}=1, x_{(2)}=2, x_{(3)}=3, x_{(4)}=4, x_{(5)}=5, x_{(6)}=6, x_{(7)}=7, x_{(8)}=8.
+			\]
+			\par\textbf{理由：} 百分位数定义要求数据必须排序。
+		\item[\textbf{第二步（计算 $k$ 值）：}] 由 $p=65$，$n=8$，得
+			\[
+				i = \frac{65}{100}\times 8 = 5.2,
+				\qquad
+				k = \lceil 5.2 \rceil = 6.
+			\]
+			\par\textbf{理由：} 先算 $i$，再向上取整得到 $k=6$。
+		\item[\textbf{第三步（读取第 $6$ 个数据）：}] 在排序数据中，第 $6$ 个数是 $6$，所以
+			\[
+				P_{65} = x_{(6)} = 6.
+			\]
+			\par\textbf{理由：} 百分位数 $P_p$ 取 $x_{(k)}$。验证：$6$ 不小于任何已排序数据，且至少有 $8\times 65\text{\%} = 5.2$ 个数据不超过 $6$，实际有 $6$ 个（$1,2,3,4,5,6$），满足条件。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$P_{65}=6$}，即至少 $65\text{\%}$ 的数据不超过 $6$。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	某城市 $12$ 个月的空气质量指数（AQI）经排序后为：$35,42,48,55,60,63,68,72,78,85,92,110$，样本容量 $n=12$。求第 $75$ 百分位数 $P_{75}$，并解释其实际含义。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（计算比例位置）：}] $p=75$，$n=12$，计算
+			\[
+				i = \frac{75}{100}\times 12 = 9.
+			\]
+			\par\textbf{理由：} 使用百分位数公式。
+		\item[\textbf{第二步（确定下标）：}] $k = \lceil 9 \rceil = 9$。
+			\par\textbf{理由：} $i=9$ 是整数，向上取整后仍为 $9$。
+		\item[\textbf{第三步（读取数据并解释含义）：}] 排序数据中第 $9$ 个数是 $78$，所以
+			\[
+				P_{75} = x_{(9)} = 78.
+			\]
+			\par\textbf{理由：} 按定义 $P_{75}=78$。实际含义：该城市 $75\text{\%}$ 的月份（即 $12\times 75\text{\%}=9$ 个月）的空气质量指数不超过 $78$，说明该城市多数月份空气质量较好。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$P_{75}=78$}，即至少 $75\text{\%}$ 的月份空气质量指数 $\le 78$。
+\end{examplebox}

@@ -1,0 +1,175 @@
+{
+  "id": "R036",
+  "module": "probability-stat",
+  "core": {
+    "title": "第p百分位数（向上取整法）",
+    "alias": [
+      "百分位数",
+      "第几百分位数",
+      "Pp"
+    ],
+    "summary": "将数据排序后，用位置 $k=\\lceil\\frac{p}{100}n\\rceil$ 确定第 $p$ 百分位数 $P_p=x_{(k)}$，即至少 $p\\%$ 的数据不超过该值。",
+    "difficulty": 2,
+    "category": "统计",
+    "tags": [
+      "百分位数",
+      "统计概念",
+      "基础定义",
+      "数据排序",
+      "顺序统计量"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "百分位数",
+      "第p百分位数",
+      "百分位数定义",
+      "向上取整",
+      "数据排序",
+      "顺序统计量",
+      "样本容量",
+      "百分等级",
+      "P_p",
+      "x_{(k)}",
+      "至少p%数据不超过",
+      "非降序排列"
+    ],
+    "synonyms": [
+      "百分位数怎么算",
+      "第几百分位数",
+      "P30怎么求",
+      "百分位数计算公式",
+      "百分位值"
+    ],
+    "intents": [
+      "求百分位数",
+      "计算Pp",
+      "确定位置",
+      "排序数据",
+      "理解定义"
+    ],
+    "query_templates": [
+      "第30百分位数怎么算",
+      "百分位数向上取整法",
+      "百分位数定义 举例",
+      "P65百分位数计算",
+      "数据排序后百分位数"
+    ],
+    "ocrKeywords": [
+      "排序数据",
+      "百分位数",
+      "第p百分位数",
+      "P_p",
+      "求百分位数"
+    ],
+    "latex_patterns": [
+      "P_p = x_{(k)}",
+      "k = \\lceil \\frac{p}{100} n \\rceil"
+    ],
+    "formulaTokens": [
+      "P_p",
+      "x_{(k)}",
+      "\\lceil \\frac{p}{100}n \\rceil",
+      "\\frac{p}{100}",
+      "n",
+      "k"
+    ],
+    "pinyin": "baifenshuwei",
+    "pinyinAbbr": "bfsw"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.81,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "P_p = x_{(k)},\\quad k = \\left\\lceil \\frac{p}{100}\\cdot n \\right\\rceil",
+    "related_formulas": [
+      "P_p = \\min\\{t \\mid \\#\\{i\\mid x_i\\le t\\} \\ge \\frac{p}{100}\\cdot n\\}",
+      "i = \\frac{p}{100}\\cdot n"
+    ],
+    "variables": [
+      "n: 样本容量",
+      "p: 百分等级 (0,100)",
+      "i: np/100",
+      "k: ceil(i)",
+      "x_{(k)}: 第k个顺序统计量",
+      "P_p: 第p百分位数"
+    ],
+    "conditions": [
+      "数据必须按非降序排列得到顺序统计量 $x_{(1)}\\le x_{(2)}\\le\\cdots\\le x_{(n)}$",
+      "样本容量 $n$ 已知",
+      "百分等级 $p\\in(0,100)$"
+    ],
+    "conclusions": [
+      "第 $p$ 百分位数 $P_p = x_{(k)}$，其中 $k = \\left\\lceil\\frac{p}{100}\\cdot n\\right\\rceil$",
+      "$P_p$ 是满足“至少有 $p\\%$ 的数据值 $\\le P_p$”的最小数值"
+    ]
+  },
+  "content": {
+    "statement": "设定量数据按非降序排列为 $x_{(1)}\\le x_{(2)}\\le\\cdots\\le x_{(n)}$，样本容量为 $n$，百分等级 $p\\in(0,100)$。令 $i=\\frac{p}{100}\\cdot n$，$k=\\lceil i\\rceil$（向上取整），则第 $p$ 百分位数定义为 $P_p=x_{(k)}$。等价地，$P_p$ 是满足“至少有 $p\\%$ 的数据值 $\\le P_p$”的最小值。",
+    "derivation": [
+      "计算理论位置 $i = \\frac{p}{100}\\cdot n$",
+      "取上整得 $k = \\lceil i \\rceil$",
+      "第 $p$ 百分位数 $P_p = x_{(k)}$"
+    ],
+    "intuition": "因为百分位数要求至少有p%的数据不超过它，所以取第k个数据即可保证，其中k是使累计个数达到np/100的最小整数。",
+    "common_tricks": [
+      "注意 $np/100$ 为整数时，直接取第 $i$ 个数据，勿取平均",
+      "始终使用向上取整 $k = \\lceil i\\rceil$ 定位，避免四舍五入",
+      "必须先将数据按非降序排列"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "数据统计",
+      "考试题中求百分位数",
+      "需要分析数据分布时"
+    ],
+    "problem_types": [
+      "百分位数计算",
+      "统计图表中的百分点"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "R036.svg"
+  },
+  "shareConfig": {
+    "title": "百分位数定义与计算：向上取整法速查",
+    "shareDesc": "适合考前浏览和刷题前复盘，解决百分位数计算中位置判断易错问题，减少排序和取整失误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "顺序统计量",
+      "百分比计算"
+    ],
+    "related_ids": [],
+    "similar": "中位数（第50百分位数）、四分位数"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "其他-未分类-待定",
+  "altNodes": [
+    "统计-数据分析-平均数",
+    "统计-数据分析-方差"
+  ]
+}

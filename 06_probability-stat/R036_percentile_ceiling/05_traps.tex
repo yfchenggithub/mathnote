@@ -1,0 +1,21 @@
+\begin{trapbox}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点一（排序必要性）}}] 计算百分位数前未将数据排序，直接使用原始数据顺序中的第 $k$ 个值。
+		\item[\textbf{\textcolor{CTrap}{正确理解（排序必要性）：}}] 必须先将原始数据从小到大排列，得到顺序统计量 $x_{(1)}\le x_{(2)}\le\cdots\le x_{(n)}$，再取第 $k$ 个。
+		\item[\textbf{\textcolor{CTrap}{错因分析（排序忽视）：}}] 不排序导致取值的下标不代表大小顺序，结果毫无意义。
+	\end{description}
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点二（整数位置处理）}}] 当 $i = \frac{p}{100}n$ 为整数时，误以为应取第 $i$ 项与第 $i+1$ 项的平均值（常与中位数定义混淆）。
+		\item[\textbf{\textcolor{CTrap}{正确理解（向上取整规则）：}}] 定义明确 $k=\lceil i\rceil$，故 $i$ 为整数时 $k=i$，直接取 $x_{(i)}$，不取平均。
+		\item[\textbf{\textcolor{CTrap}{错因分析（混淆定义）：}}] 不同教材对百分位数定义有差异，但本题型严格按向上取整法；混淆将导致答案错误。
+	\end{description}
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点三（忽略至少）}}] 将第 $p$ 百分位数理解为“恰好有 $p\text{\%}$ 的数据不超过它”，并用是否恰好相等来验证。
+		\item[\textbf{\textcolor{CTrap}{正确理解（至少含义）：}}] 定义要求“至少有 $p\text{\%}$ 的数据不超过 $P_p$”，即前 $k$ 个数据满足即可，允许实际比例超过 $p\text{\%}$。
+		\item[\textbf{\textcolor{CTrap}{错因分析（条件误读）：}}] 忽略“至少”将导致对定义掌握不准确，可能错误地排除正确结果。
+	\end{description}
+\end{trapbox}

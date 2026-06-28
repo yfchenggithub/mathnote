@@ -1,0 +1,25 @@
+\begin{statementbox}
+
+	\textbf{\textcolor{CStatement}{条件}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CStatement}{条件一（数据排序）：}}] 定量数据按非降序排列为 $x_{(1)}\le x_{(2)}\le\cdots\le x_{(n)}$，样本容量 $n$ 已知。
+		\item[\textbf{\textcolor{CStatement}{条件二（百分等级）：}}] 百分等级 $p$ 满足 $p\in(0,100)$。
+	\end{description}
+
+	\textbf{\textcolor{CStatement}{结论}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{\textcolor{CStatement}{结论一（向上取整法）：}}]
+			\textbf{\textcolor{CStatement}{直观描述：}}
+			先计算位置 $i=\frac{p}{100}n$，再取上取整得 $k$，对应数据即为第 $p$ 百分位数。
+			\[
+				P_p = x_{(k)},\quad k = \left\lceil\frac{p}{100}\cdot n\right\rceil.
+			\]
+		\item[\textbf{\textcolor{CStatement}{推广结论（等价定义）：}}]
+			\textbf{\textcolor{CStatement}{直观描述：}}
+			第 $p$ 百分位数是满足“至少有 $p\text{\%}$ 的数据不超过它”的最小数值。
+			\[
+				P_p = \min\left\{t \mid \#\{i\mid x_i\le t\} \ge \frac{p}{100}\cdot n\right\}.
+			\]
+	\end{description}
+
+\end{statementbox}
