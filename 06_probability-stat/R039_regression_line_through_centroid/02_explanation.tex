@@ -1,0 +1,40 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+	无论数据如何波动，回归直线始终穿过样本点的“重心” $(\bar{x},\bar{y})$。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（样本均值）：}]
+			样本中心 $(\bar{x},\bar{y})$ 是数据的平均位置，代表整体分布趋势。
+		\item[\textbf{要点二（正规方程）：}]
+			最小二乘法的正规方程之一 $\sum_{i=1}^n (y_i - \hat{a} - \hat{b}x_i) = 0$ 可推出 $\bar{y} = \hat{a} + \hat{b}\bar{x}$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（数据重心）}}
+	回归直线在平面直角坐标系中正好通过数据点的“重心”，即所有数据点的平均值位置，这使回归线成为刻画数据线性趋势的代表线。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（残差为零）}}
+	样本均值满足回归方程等价于残差之和为零，即 $\sum_{i=1}^n e_i = 0$（其中 $e_i = y_i - \hat{y}_i$），这是最小二乘估计的固有性质。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（快速检验）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（中心验证）：} 给出回归方程与样本均值点，判断方程是否正确计算。
+		\item \textbf{考法二（参数反求）：} 已知样本中心和一个回归系数，直接计算另一个系数。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+	回归线是否过样本中心是检验最小二乘法计算结果最快捷的手段，不必重算全部数据。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（补全方程）：} 已知 $\bar{x}, \bar{y}, \hat{b}$，立即得到 $\hat{a} = \bar{y} - \hat{b}\bar{x}$。
+		\item \textbf{场景二（模型检验）：} 若题目所给回归方程不满足 $\bar{y} = \hat{b}\bar{x} + \hat{a}$，则该回归方程一定是错误的。
+	\end{itemize}
+
+\end{explanationbox}

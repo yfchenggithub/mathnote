@@ -1,0 +1,174 @@
+{
+  "id": "R039",
+  "module": "probability-stat",
+  "core": {
+    "title": "回归直线过样本中心",
+    "alias": [
+      "过中心点",
+      "样本中心在回归直线上",
+      "中心点性质"
+    ],
+    "summary": "回归直线必过样本点的均值点 (x̄, ȳ)。",
+    "difficulty": 2,
+    "category": "统计",
+    "tags": [
+      "线性回归",
+      "样本中心",
+      "最小二乘法",
+      "回归直线",
+      "统计"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "回归直线",
+      "样本中心",
+      "最小二乘法",
+      "过样本中心",
+      "回归方程",
+      "样本均值",
+      "x̄",
+      "ȳ",
+      "截距",
+      "斜率",
+      "必过中心点",
+      "验证回归",
+      "回归直线方程",
+      "点斜式"
+    ],
+    "synonyms": [
+      "回归线过中心点",
+      "中心点公式",
+      "回归直线必过点",
+      "过均值点"
+    ],
+    "intents": [
+      "求回归方程",
+      "验证回归直线",
+      "利用中心点求参数",
+      "判断回归直线"
+    ],
+    "query_templates": [
+      "回归直线为什么过样本中心",
+      "回归直线必过哪一点",
+      "已知样本中心求回归方程",
+      "回归直线过中心点证明"
+    ],
+    "ocrKeywords": [
+      "样本中心",
+      "回归直线",
+      "x̄",
+      "ȳ",
+      "过点"
+    ],
+    "latex_patterns": [
+      "\\bar{y} = \\hat{b}\\bar{x} + \\hat{a}",
+      "\\hat{y} = \\bar{y} + \\hat{b}(x - \\bar{x})"
+    ],
+    "formulaTokens": [
+      "\\bar{y} = \\hat{b}\\bar{x} + \\hat{a}",
+      "\\hat{y} = \\bar{y} + \\hat{b}(x - \\bar{x})",
+      "\\bar{y} - \\hat{b}\\bar{x}",
+      "\\hat{b}\\bar{x}",
+      "\\bar{x}",
+      "\\hat{a}"
+    ],
+    "pinyin": "huiguizhixianguoyangbenzhongxin",
+    "pinyinAbbr": "hgzxgybzx"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.55,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\bar{y} = \\hat{b}\\bar{x} + \\hat{a}",
+    "related_formulas": [
+      "\\hat{y} = \\bar{y} + \\hat{b}(x - \\bar{x})",
+      "\\hat{a} = \\bar{y} - \\hat{b}\\bar{x}"
+    ],
+    "variables": [
+      "x",
+      "y",
+      "\\bar{x}",
+      "\\bar{y}",
+      "\\hat{a}",
+      "\\hat{b}",
+      "n",
+      "x_i",
+      "y_i"
+    ],
+    "conditions": "回归系数由最小二乘法确定，且模型包含截距项（即形式为 $\\hat{y} = \\hat{b}x + \\hat{a}$）。",
+    "conclusions": "样本中心点 $(\\bar{x}, \\bar{y})$ 在回归直线上。"
+  },
+  "content": {
+    "statement": "在一元线性回归模型 $\\hat{y} = \\hat{b}x + \\hat{a}$ 中，若参数 $\\hat{a}, \\hat{b}$ 由最小二乘法确定，则回归直线必经过样本中心点 $(\\bar{x}, \\bar{y})$，即 $\\bar{y} = \\hat{b}\\bar{x} + \\hat{a}$。",
+    "derivation": [
+      "最小二乘法下，残差平方和 $Q = \\sum (y_i - \\hat{b}x_i - \\hat{a})^2$ 对 $\\hat{a}$ 求偏导令为0，得 $-2\\sum (y_i - \\hat{b}x_i - \\hat{a}) = 0$。",
+      "展开得 $\\sum y_i - \\hat{b}\\sum x_i - n\\hat{a}=0$。",
+      "两边除以 $n$ 得 $\\bar{y} - \\hat{b}\\bar{x} - \\hat{a}=0$，即 $\\bar{y} = \\hat{b}\\bar{x} + \\hat{a}$。"
+    ],
+    "intuition": "最小二乘法通过使残差平方和最小，本质上要求回归直线穿过数据的重心，即样本均值点。",
+    "common_tricks": [
+      "已知样本中心和回归系数，可直接写出回归方程：$\\hat{y} = \\bar{y} + \\hat{b}(x - \\bar{x})$。",
+      "验证回归方程计算是否正确：代入 $\\bar{x}$ 看是否得到 $\\bar{y}$。",
+      "利用该结论可快速求截距 $\\hat{a} = \\bar{y} - \\hat{b}\\bar{x}$。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "线性回归计算题",
+      "回归方程验证"
+    ],
+    "problem_types": [
+      "求解回归方程",
+      "判断回归直线",
+      "参数估计"
+    ],
+    "exam_frequency": 0.6,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "R039.svg",
+    "videos": [],
+    "animations": [],
+    "geogebra": []
+  },
+  "shareConfig": {
+    "title": "回归直线过样本中心：快速求截距与验证",
+    "shareDesc": "适合刷题前速查和讲评课回顾，利用样本中心点可直接写出回归方程点斜式，减少截距计算错误，提升回归方程求解稳定性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "均值（样本均值）",
+      "最小二乘法",
+      "一元线性回归模型"
+    ],
+    "related_ids": [],
+    "similar": [
+      "线性回归方程的点斜式",
+      "样本中心点在回归线上"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "其他-未分类-待定",
+  "altNodes": ""
+}

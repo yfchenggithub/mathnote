@@ -1,0 +1,100 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	已知样本均值 $\bar{x}=5,\ \bar{y}=10$，回归系数 $\hat{b}=2$，求回归直线方程。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别条件）：}]
+			已知 $\bar{x}=5,\ \bar{y}=10,\ \hat{b}=2$。
+			\par\textbf{理由：} 题目直接给出所需统计量。
+		\item[\textbf{第二步（应用结论）：}]
+			由回归直线过样本中心，计算截距：
+			\[
+				\begin{aligned}
+					\hat{a} &= \bar{y} - \hat{b}\bar{x} \\ &= 10 - 2 \times 5 \\ &= 0.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 根据结论 $\bar{y} = \hat{b}\bar{x} + \hat{a}$ 移项可得 $\hat{a} = \bar{y} - \hat{b}\bar{x}$。
+		\item[\textbf{第三步（写出方程）：}]
+			回归直线方程为 $\hat{y}=2x$。
+			\par\textbf{理由：} 代入 $\hat{a}=0,\ \hat{b}=2$ 即得。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	回归直线 $\hat{y}=2x$ 经过样本中心 $(5,10)$。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	已知回归直线方程为 $\hat{y}=3x+1$，且 $\bar{x}=2$，求 $\bar{y}$。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别已知）：}]
+			回归方程中 $\hat{a}=1,\ \hat{b}=3$，样本均值 $\bar{x}=2$。
+			\par\textbf{理由：} 题目直接给出。
+		\item[\textbf{第二步（应用结论）：}]
+			回归直线经过样本中心，代入 $\bar{x}=2$ 得：
+			\[
+				\begin{aligned}
+					\bar{y} &= \hat{b}\bar{x} + \hat{a} \\ &= 3 \times 2 + 1 \\ &= 7.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 样本中心 $(\bar{x},\bar{y})$ 满足回归方程。
+		\item[\textbf{第三步（写出结果）：}]
+			所以 $\bar{y}=7$。
+			\par\textbf{理由：} 已完成求解。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	样本中心 $(2,7)$ 在回归直线 $\hat{y}=3x+1$ 上。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	已知数据点：(1,2)，(2,4)，(3,5)，(4,7)，(5,8)。求回归直线方程，并验证它经过样本中心。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（计算均值）：}]
+			计算样本均值：
+			\[
+				\begin{aligned}
+					\bar{x} &= \frac{1+2+3+4+5}{5} \\ &= 3 \\ \bar{y} &= \frac{2+4+5+7+8}{5} \\ &= 5.2.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 样本均值是数据的平均，为后续计算协方差和方差准备。
+		\item[\textbf{第二步（计算斜率）：}]
+			先计算所需和：
+			\[
+				\begin{aligned}
+					\sum x_i y_i &= 1\cdot2+2\cdot4+3\cdot5+4\cdot7+5\cdot8 \\ &= 2+8+15+28+40 \\ &= 93.
+			\end{aligned}
+			\]
+			\[
+				\begin{aligned}
+					\sum x_i^2 &= 1+4+9+16+25 \\ &= 55.
+			\end{aligned}
+			\]
+			然后利用公式：
+			\[
+				\begin{aligned}
+					\hat{b} &= \frac{\sum x_i y_i - n\bar{x}\bar{y}}{\sum x_i^2 - n\bar{x}^2} \\ &= \frac{93 - 5\times3\times5.2}{55 - 5\times3^2} \\ &= \frac{93-78}{55-45} \\ &= \frac{15}{10} \\ &= 1.5.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 最小二乘法中斜率的计算公式。
+		\item[\textbf{第三步（求截距并验证）：}]
+			截距 $\hat{a}$ 的计算：
+			\[
+				\begin{aligned}
+					\hat{a} &= \bar{y} - \hat{b}\bar{x} \\ &= 5.2 - 1.5\times3 \\ &= 0.7.
+			\end{aligned}
+			\]
+			所以回归直线方程为 $\hat{y}=1.5x+0.7$。 验证：将 $\bar{x}=3$ 代入，
+			\[
+				\begin{aligned}
+					\hat{y} &= 1.5\times3+0.7 \\ &= 4.5+0.7 \\ &= 5.2 \\ &= \bar{y}.
+			\end{aligned}
+			\]
+			故回归直线经过样本中心 $(\bar{x},\bar{y})$。
+			\par\textbf{理由：} 由结论 $\bar{y} = \hat{b}\bar{x} + \hat{a}$ 保证计算正确，验证了结论。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	回归直线 $\hat{y}=1.5x+0.7$ 经过样本中心 $(3,5.2)$。
+\end{examplebox}

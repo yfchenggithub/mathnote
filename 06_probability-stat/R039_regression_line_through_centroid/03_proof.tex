@@ -1,0 +1,52 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	最小二乘法通过使残差平方和最小得到参数估计。对截距项 $\hat{a}$ 求偏导并令为零，可推出残差和为零，进而导出样本均值满足回归方程。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（残差平方和）：}]
+			定义残差平方和：
+			\[
+				Q(a,b) = \sum_{i=1}^n (y_i - a - b x_i)^2.
+			\]
+			当 $a=\hat{a}$, $b=\hat{b}$ 时 $Q$ 取最小值。
+			\par\textbf{理由：} 最小二乘法的目标是使残差平方和最小。
+		\item[\textbf{步骤二（偏导为零）：}]
+			对 $Q$ 关于 $a$ 求偏导数：
+			\[
+				\frac{\partial Q}{\partial a} = -2\sum_{i=1}^n (y_i - a - b x_i).
+			\]
+			在最小值点 $(\hat{a},\hat{b})$ 处有 $\frac{\partial Q}{\partial a}=0$，故
+			\[
+				-2\sum_{i=1}^n (y_i - \hat{a} - \hat{b}x_i) = 0.
+			\]
+			\par\textbf{理由：} 极值点的必要条件是导数为零。
+		\item[\textbf{步骤三（残差和为零）：}]
+			两边同除以 $-2$ 得
+			\[
+				\sum_{i=1}^n (y_i - \hat{a} - \hat{b}x_i) = 0.
+			\]
+			\par\textbf{理由：} 化简得到正规方程之一。
+		\item[\textbf{步骤四（均值代换）：}]
+			将求和拆开并除以 $n$：
+			\[
+				\frac{1}{n}\sum_{i=1}^n y_i - \hat{a} - \hat{b}\,\frac{1}{n}\sum_{i=1}^n x_i = 0.
+			\]
+			注意到 $\bar{x} = \frac{1}{n}\sum x_i,\ \bar{y} = \frac{1}{n}\sum y_i$，代入得
+			\[
+				\bar{y} - \hat{a} - \hat{b}\bar{x} = 0.
+			\]
+			\par\textbf{理由：} 利用样本均值定义简化。
+		\item[\textbf{步骤五（移项结论）：}]
+			移项得
+			\[
+				\bar{y} = \hat{b}\bar{x} + \hat{a}.
+			\]
+			\par\textbf{理由：} 得到回归直线过样本中心的条件。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	证明了由最小二乘法确定的回归直线 $\hat{y}=\hat{b}x+\hat{a}$ 必过样本中心 $(\bar{x},\bar{y})$，结论成立。
+\end{proofbox}
