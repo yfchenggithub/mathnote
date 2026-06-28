@@ -1,0 +1,60 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用余弦定理在两个相邻小三角形中分别表达边长，再结合互补角余弦关系抵消，整理即得.
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（两次余弦定理）：}]
+			在$\triangle ABD$中，由余弦定理：
+			\[
+				c^2 = m_a^2 + \left(\frac{a}{2}\right)^2 - 2 m_a\cdot\frac{a}{2}\cos\angle ADB.
+			\]
+			在$\triangle ADC$中，同理：
+			\[
+				b^2 = m_a^2 + \left(\frac{a}{2}\right)^2 - 2 m_a\cdot\frac{a}{2}\cos\angle ADC.
+			\]
+			\par\textbf{理由：}
+			中线$AD$将$BC$平分，故$BD = DC = \frac{a}{2}$。在两个小三角形中分别使用余弦定理.
+
+		\item[\textbf{步骤二（互补角抵消）：}]
+			因为$\angle ADB$与$\angle ADC$互补，所以$\cos\angle ADB + \cos\angle ADC = 0$. 将上面两式相加：
+			\[
+				\begin{aligned}
+					b^2 + c^2 &= \bigl[m_a^2 + \left(\frac{a}{2}\right)^2\bigr] + \bigl[m_a^2 + \left(\frac{a}{2}\right)^2\bigr] \\
+					&\quad - 2 m_a\cdot\frac{a}{2}(\cos\angle ADB + \cos\angle ADC).
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			互补角的余弦值互为相反数，因此含$\cos$的项之和为零，简化表达式.
+
+		\item[\textbf{步骤三（合并整理）：}]
+			上式化简为
+			\[
+				\begin{aligned}
+					b^2 + c^2 &= 2m_a^2 + 2\cdot\frac{a^2}{4} \\
+					&= 2m_a^2 + \frac12 a^2.
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			移项解出$m_a^2$项.
+
+		\item[\textbf{步骤四（解出中线长）：}]
+			由$2m_a^2 = b^2 + c^2 - \frac12 a^2$，两边同除以$2$得
+			\[
+				m_a^2 = \frac12(b^2+c^2) - \frac14 a^2.
+			\]
+			\par\textbf{理由：}
+			代数化简，得到中线长公式.
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	上述推导从余弦定理出发，利用$BD = DC$和$\angle ADB + \angle ADC = \pi$，消去角因素，得到中线长$m_a$与三边$a,b,c$之间的代数关系，即
+	\[
+		m_a^2 = \frac12(b^2+c^2) - \frac14 a^2.
+	\]
+	这是计算任意三角形中线长度的直接公式.
+\end{proofbox}
