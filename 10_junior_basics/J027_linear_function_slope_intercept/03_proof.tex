@@ -1,0 +1,50 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用函数解析式 $y=kx+b$，通过两点坐标作差推导斜率公式，再通过分析函数值差证明单调性。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（设点代入）：}] 设直线上任意两点 $(x_1,y_1),(x_2,y_2)$ 满足 $x_1\neq x_2$。由解析式得
+			\[
+				y_1 = kx_1 + b,
+				\qquad
+				y_2 = kx_2 + b.
+			\]
+			\par\textbf{理由：} 点的坐标满足直线方程。
+
+		\item[\textbf{步骤二（作差求斜率）：}] 两式相减得
+			\[
+				y_2 - y_1 = k(x_2 - x_1).
+			\]
+			因为 $x_1\neq x_2$，两边同除以 $x_2-x_1$ 得
+			\[
+				k = \frac{y_2 - y_1}{x_2 - x_1}.
+			\]
+			\par\textbf{理由：} 消去 $b$，得到斜率与坐标差的关系。
+
+		\item[\textbf{步骤三（求纵截距）：}] 令 $x=0$，则 $y = k\cdot 0 + b = b$，故 $b = y(0)$。
+			\par\textbf{理由：} 直接代入定义。
+
+		\item[\textbf{步骤四（证明单调性）：}] 任取 $x_1 < x_2$，计算函数值差
+			\[
+				f(x_2) - f(x_1) = (kx_2 + b) - (kx_1 + b) = k(x_2 - x_1).
+			\]
+			由于 $x_2 - x_1 > 0$，差值的符号完全由 $k$ 决定：
+			\[
+				\begin{cases}
+					k > 0 & \Rightarrow f(x_2) > f(x_1) \text{(递增)},\\
+					k < 0 & \Rightarrow f(x_2) < f(x_1) \text{(递减)},\\
+					k = 0 & \Rightarrow f(x_2) = f(x_1) \text{(常函数)}.
+			\end{cases}
+			\]
+			\par\textbf{理由：} 单调性定义，利用 $x_2-x_1>0$ 和 $k$ 的符号判定。
+
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	由此我们严格推导出该函数的斜率公式 $k = \frac{y_2-y_1}{x_2-x_1}$，纵截距 $b = y(0)$，并证明了单调性完全由 $k$ 的正负确定。
+\end{proofbox}
