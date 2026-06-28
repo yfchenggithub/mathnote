@@ -1,0 +1,46 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	直接使用组合数的阶乘公式，将 $m$ 与 $n-m$ 互换，比较分子分母是否相同。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（定义展开）：}] 写出 $\binom{n}{m}$ 的阶乘表达式。
+			\[
+				\binom{n}{m} = \frac{n!}{m!\,(n-m)!}
+			\]
+			\par\textbf{理由：}
+			这是组合数的标准定义。
+
+		\item[\textbf{步骤二（替换参数）：}] 将 $\binom{n}{n-m}$ 用相同定义展开。
+			\[
+				\begin{aligned}
+					\binom{n}{n-m}
+					&= \frac{n!}{(n-m)!\,[n-(n-m)]!} \\
+					&= \frac{n!}{(n-m)!\,m!}
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			将公式中的 $m$ 替换为 $n-m$，注意 $n-(n-m)=m$。
+
+		\item[\textbf{步骤三（交换顺序）：}] 比较两个表达式，分母都是 $m!(n-m)!$。
+			\[
+				\frac{n!}{m!\,(n-m)!} = \frac{n!}{(n-m)!\,m!}
+			\]
+			\par\textbf{理由：}
+			乘法交换律，$m!(n-m)! = (n-m)!\,m!$。
+
+		\item[\textbf{步骤四（得出相等）：}] 因此两个分数相等。
+			\[
+				\binom{n}{m} = \binom{n}{n-m}
+			\]
+			\par\textbf{理由：}
+			分子相同，分母相同，故分数值相等。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{由定义直接推导即可完成证明，无需复杂变形。}
+\end{proofbox}

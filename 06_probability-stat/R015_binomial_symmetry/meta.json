@@ -1,0 +1,159 @@
+{
+  "id": "R015",
+  "module": "probability-stat",
+  "core": {
+    "title": "组合数的对称性",
+    "alias": [
+      "组合恒等式",
+      "C(n,m)=C(n,n-m)",
+      "组合数对称",
+      "组合数上下标互换"
+    ],
+    "summary": "选 m 个与选 n-m 个的方法数相同",
+    "difficulty": 1,
+    "category": "排列组合",
+    "tags": [
+      "组合数",
+      "对称性",
+      "排列组合",
+      "基础结论",
+      "组合恒等式"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "组合数对称性",
+      "C_n^m = C_n^{n-m}",
+      "组合恒等式",
+      "对称性",
+      "选 m 个",
+      "n choose m",
+      "对称公式",
+      "组合数相等",
+      "化简组合数",
+      "组合数性质"
+    ],
+    "synonyms": [
+      "组合数相等",
+      "C(n,m)=C(n,n-m)",
+      "组合对称",
+      "上下标互换",
+      "组合恒等"
+    ],
+    "intents": [
+      "计算组合数",
+      "化简组合数",
+      "证明组合恒等式",
+      "利用对称性",
+      "解组合方程"
+    ],
+    "query_templates": [
+      "如何利用组合数对称性简化计算",
+      "证明 C(n,m)=C(n,n-m)",
+      "组合数对称性例题",
+      "组合数对称性公式",
+      "什么时候用组合数对称性"
+    ],
+    "ocrKeywords": [
+      "C_n^m",
+      "binom",
+      "组合数",
+      "对称"
+    ],
+    "latex_patterns": [
+      "\\binom{n}{m}=\\binom{n}{n-m}"
+    ],
+    "formulaTokens": [
+      "\\binom{n}{m}",
+      "\\binom{n}{n-m}",
+      "n-m",
+      "m",
+      "n"
+    ],
+    "pinyin": "zu he shu dui chen xing",
+    "pinyinAbbr": "zhsdcx"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.4,
+    "hot_score": 55,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\binom{n}{m}=\\binom{n}{n-m}",
+    "related_formulas": [
+      "C_n^m = C_n^{n-m}"
+    ],
+    "variables": [
+      "n",
+      "m"
+    ],
+    "conditions": "若 $n,m\\in\\mathbb{N}$ 且 $0\\le m\\le n$。",
+    "conclusions": "则 $\\binom{n}{m}=\\binom{n}{n-m}$，即选 $m$ 个与选 $n-m$ 个的方法数相同。"
+  },
+  "content": {
+    "statement": "设 $n,m\\in\\mathbb{N}$ 且 $0\\le m\\le n$，则 $\\binom{n}{m}=\\binom{n}{n-m}$，等价于 $C(n,m)=C(n,n-m)$。",
+    "derivation": [
+      "由组合数定义 $\\binom{n}{m}=\\frac{n!}{m!(n-m)!}$。",
+      "将 $m$ 替换为 $n-m$ 得 $\\binom{n}{n-m}=\\frac{n!}{(n-m)!(n-(n-m))!}=\\frac{n!}{(n-m)!\\,m!}$。",
+      "分母 $m!(n-m)!$ 与 $(n-m)!m!$ 相同，因此 $\\binom{n}{m}=\\binom{n}{n-m}$。"
+    ],
+    "intuition": "从 n 个元素中选出 m 个，等价于留下 n-m 个，所以选法数相同。",
+    "common_tricks": [
+      "当 $m > n/2$ 时，用 $\\binom{n}{n-m}$ 代替 $\\binom{n}{m}$ 可减小计算量。",
+      "解形如 $\\binom{n}{m}=\\binom{n}{m+k}$ 的方程时，利用对称性得 $m=m+k$ 或 $m=n-(m+k)$，从而求出 m。",
+      "对称性常用于组合恒等式的证明，如 $\\binom{n}{0}+\\binom{n}{1}+\\cdots+\\binom{n}{n}=2^n$ 的证明中可对称配对。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "基础计算",
+      "化简组合数",
+      "解组合方程",
+      "恒等证明"
+    ],
+    "problem_types": [
+      "直接计算",
+      "恒等证明",
+      "解方程",
+      "应用题中简化运算"
+    ],
+    "exam_frequency": 0.4,
+    "exam_score": 3
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": ""
+  },
+  "shareConfig": {
+    "title": "组合数对称性：选m个等于选n-m个",
+    "shareDesc": "适合刷题前速查和课后复盘，能快速简化大 m 的组合数计算，减少约分步骤，提升计算准确性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "组合数定义",
+      "阶乘运算"
+    ],
+    "related_ids": [],
+    "similar": "类似地，有组合数的递推公式 $\\binom{n}{m}=\\binom{n-1}{m-1}+\\binom{n-1}{m}$。"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "概率-古典概型-排列组合",
+  "altNodes": "代数-式的变形-恒等变形"
+}

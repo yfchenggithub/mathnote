@@ -1,0 +1,119 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	计算 $\binom{8}{3}$ 和 $\binom{8}{5}$，并说明它们的关系。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（公式展开）：}] 写出两个组合数的阶乘形式。
+			\[
+				\begin{aligned}
+					\binom{8}{3} &= \frac{8!}{3!\,5!},\\
+					\binom{8}{5} &= \frac{8!}{5!\,3!}
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			组合数定义 $\binom{n}{m}=\frac{n!}{m!(n-m)!}$。
+
+		\item[\textbf{第二步（计算数值）：}] 利用对称性，通过约分计算验证。
+			\[
+				\begin{aligned}
+					\binom{8}{3} &= \frac{8!}{3!\,5!} \\
+					&= \frac{8\times7\times6}{3\times2\times1} \\
+					&= 56,\\[4pt]
+					\binom{8}{5} &= \frac{8!}{5!\,3!} \\
+					&= \frac{8\times7\times6}{3\times2\times1} \\
+					&= 56.
+			\end{aligned}
+			\]
+			\par\textbf{理由:}
+			分母相同,约分后结果一致,验证对称性.
+
+		\item[\textbf{第三步(得出结论):}] 因此两个值相等.
+			\[
+				\binom{8}{3} = \binom{8}{5}
+			\]
+			\par\textbf{理由:}
+			分子分母分别相等.
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论:}}
+	\textbf{$\binom{8}{3}=\binom{8}{5}=56$}.
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2(稍变形)}}
+
+	\textbf{\textcolor{CExample}{题目:}}
+	计算 $\binom{12}{9}$ 的值.
+
+	\textbf{\textcolor{CExample}{解题步骤:}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步(识别大数):}] 注意到 $9$ 较大,可用对称性转化为较小指数.
+			\[
+				\begin{aligned}
+					\binom{12}{9} &= \binom{12}{12-9} \\
+					&= \binom{12}{3}
+			\end{aligned}
+			\]
+			\par\textbf{理由:}
+			由对称性 $\binom{n}{m}=\binom{n}{n-m}$,取 $n=12,m=9$.
+
+		\item[\textbf{第二步(计算替换):}] 计算 $\binom{12}{3}$ 的值.
+			\[
+				\begin{aligned}
+					\binom{12}{3} &= \frac{12!}{3!\,9!} \\
+					&= \frac{12\times 11\times 10}{3\times 2\times 1} \\
+					&= 220
+			\end{aligned}
+			\]
+			\par\textbf{理由:}
+			阶乘简化,约去 $9!$.
+
+		\item[\textbf{第三步(回代结论):}] 因此 $\binom{12}{9}=220$.
+			\[
+				\binom{12}{9} = 220
+			\]
+			\par\textbf{理由:}
+			由对称性替换后计算结果.
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论:}}
+	\textbf{$\binom{12}{9}=220$}.
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3(综合应用)}}
+
+	\textbf{\textcolor{CExample}{题目:}}
+	已知 $\binom{15}{m} = \binom{15}{m+3}$,$0\le m\le 15$,求整数 $m$ 的值.
+
+	\textbf{\textcolor{CExample}{解题步骤:}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步(建立方程):}] 由对称性,若 $\binom{15}{m} = \binom{15}{m+3}$,则有两种可能:一是 $m=m+3$(不可能),二是 $m = 15 - (m+3)$.
+			\[
+				m = 15 - (m+3)
+			\]
+			\par\textbf{理由:}
+			由对称性,$\binom{15}{m+3} = \binom{15}{15-(m+3)}$,与 $\binom{15}{m}$ 相等时需 $m = 15-(m+3)$ 或 $m=m+3$(舍去).
+
+		\item[\textbf{第二步(解方程):}] 解 $m = 15 - m - 3$.
+			\[
+				\begin{aligned}
+					2m &= 12,\\
+					m &= 6
+			\end{aligned}
+			\]
+			\par\textbf{理由:}
+			移项合并.
+
+		\item[\textbf{第三步(验证范围):}] 验证 $m=6$ 在 $0\le m\le 15$ 内,且 $m+3=9$ 也在范围内.
+			\[
+				\binom{15}{6} = \binom{15}{9}
+			\]
+			\par\textbf{理由:}
+			由对称性,$\binom{15}{6} = \binom{15}{9}$,故等式成立.
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论:}}
+	\textbf{$m=6$}.
+\end{examplebox}
