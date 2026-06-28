@@ -1,0 +1,49 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	利用向量垂直的充要条件（点积为零），将每个直角情况转化为代数方程，并说明该方程对应的轨迹。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（角C直角条件）：}]
+			若 $\angle C=90^\circ$，则 $CA\perp CB$，有
+			\[
+				\overrightarrow{CA}\cdot\overrightarrow{CB}=0.
+			\]
+			\par\textbf{理由：} 向量垂直的充要条件是点积为零。
+		\item[\textbf{步骤二（坐标代入得圆方程）：}]
+			将 $A(x_1,y_1),B(x_2,y_2),C(x,y)$ 代入点积：
+			\[
+				(x-x_1)(x-x_2)+(y-y_1)(y-y_2)=0.
+			\]
+			展开并配方得
+			\[
+				\left(x-\frac{x_1+x_2}{2}\right)^2+\left(y-\frac{y_1+y_2}{2}\right)^2 = \frac{(x_1-x_2)^2+(y_1-y_2)^2}{4},
+			\]
+			表示以$AB$为直径的圆（不含$A,B$）。
+			\par\textbf{理由：} 坐标代入并配方可得圆标准方程。
+		\item[\textbf{步骤三（反向成立）：}]
+			若 $C$ 在该圆上且 $C\neq A,B$，则点积为零，故 $CA\perp CB$，$\angle C=90^\circ$。
+			\par\textbf{理由：} 点积为零直接推出垂直。
+		\item[\textbf{步骤四（角A直角条件）：}]
+			若 $\angle A=90^\circ$，则 $AB\perp AC$，即
+			\[
+				\overrightarrow{AB}\cdot\overrightarrow{AC}=0.
+			\]
+			\par\textbf{理由：} 垂直的点积条件。
+		\item[\textbf{步骤五（坐标代入得直线方程）：}]
+			代入坐标：
+			\[
+				(x_2-x_1)(x-x_1)+(y_2-y_1)(y-y_1)=0.
+			\]
+			这是一条过 $A$ 且垂直于 $AB$ 的直线（不含 $A$）。
+			\par\textbf{理由：} 展开后为一次方程，向量方向与 $AB$ 垂直。
+		\item[\textbf{步骤六（反向成立及角B情况）：}]
+			反之，若 $C$ 在该直线上且 $C\neq A$，则 $\angle A=90^\circ$。同理，$\angle B=90^\circ$ 时 $C$ 在过 $B$ 的垂线上，条件为 $\overrightarrow{BA}\cdot\overrightarrow{BC}=0$。
+			\par\textbf{理由：} 对称性同理可证。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	综上，$\triangle ABC$ 为直角三角形当且仅当 $C$ 落在上述三个轨迹（两线一圆）的并集上（除去 $A,B$ 点）。此即“两线一圆”法。
+\end{proofbox}
