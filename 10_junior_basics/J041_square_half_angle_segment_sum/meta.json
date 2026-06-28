@@ -1,0 +1,174 @@
+{
+  "id": "J041",
+  "module": "geometry-plane",
+  "core": {
+    "title": "正方形45°半角模型",
+    "alias": [
+      "半角模型",
+      "正方形内45°角模型",
+      "旋转全等模型"
+    ],
+    "summary": "正方形内部存在一个45°角时，该角所夹的线段等于正方形的两条邻边上的线段之和。",
+    "difficulty": 3,
+    "category": "平面几何",
+    "tags": [
+      "半角模型",
+      "正方形",
+      "45度角",
+      "线段和",
+      "旋转变换"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "正方形",
+      "半角模型",
+      "45度角",
+      "线段和",
+      "EF=BE+DF",
+      "xy=a^2-a(x+y)",
+      "几何计算",
+      "旋转变换",
+      "边长关系",
+      "一元二次方程",
+      "韦达定理"
+    ],
+    "synonyms": [
+      "正方形45°模型",
+      "半角模型",
+      "旋转模型",
+      "正方形角平分线模型"
+    ],
+    "intents": [
+      "求线段长度",
+      "证明线段和",
+      "计算边长",
+      "求解二次方程",
+      "应用韦达定理"
+    ],
+    "query_templates": [
+      "正方形内45度角求线段长度",
+      "半角模型EF=BE+DF",
+      "正方形45度角模型公式",
+      "正方形中角EAF=45度求DF"
+    ],
+    "ocrKeywords": [
+      "正方形",
+      "ABCD",
+      "E在BC上",
+      "F在CD上",
+      "∠EAF=45°",
+      "BE",
+      "DF",
+      "EF"
+    ],
+    "latex_patterns": [
+      "EF=BE+DF",
+      "xy=a^2-a(x+y)",
+      "(x+a)(y+a)=2a^2"
+    ],
+    "formulaTokens": [
+      "EF",
+      "BE+DF",
+      "xy",
+      "a^2-a(x+y)",
+      "(x+a)(y+a)",
+      "2a^2"
+    ],
+    "pinyin": "zhengfangxing banjiao moxing",
+    "pinyinAbbr": "zfx bj mx"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.77,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "EF = BE + DF",
+    "related_formulas": [
+      "xy = a^2 - a(x+y)",
+      "(x+a)(y+a) = 2a^2"
+    ],
+    "variables": {
+      "a": "正方形边长",
+      "x": "BE",
+      "y": "DF",
+      "z": "EF"
+    },
+    "conditions": "在正方形 $ABCD$ 中，点 $E$ 在边 $BC$ 上，点 $F$ 在边 $CD$ 上，且 $\\angle EAF = 45^\\circ$。",
+    "conclusions": [
+      "$EF = BE + DF$",
+      "$xy = a^2 - a(x+y)$",
+      "$(x+a)(y+a) = 2a^2$"
+    ]
+  },
+  "content": {
+    "statement": "在正方形 $ABCD$ 中，若点 $E$ 在边 $BC$ 上，点 $F$ 在边 $CD$ 上，且 $\\angle EAF = 45^\\circ$，设 $AB = a$，$BE = x$，$DF = y$，$EF = z$，则有 $EF = BE + DF$，且边长满足 $xy = a^2 - a(x+y)$。",
+    "derivation": [
+      "将 $\\triangle ABE$ 绕点 $A$ 逆时针旋转 $90^\\circ$ 至 $\\triangle ADE'$，则 $BE = DE'$，$AE = AE'$，$\\angle BAE = \\angle DAE'$。",
+      "由 $\\angle EAF = 45^\\circ$ 得 $\\angle E'AF = 45^\\circ$，且 $\\triangle AEF \\cong \\triangle AE'F$（SAS），故 $EF = E'F = DE' + DF = BE + DF$。",
+      "设 $BE = x$，$DF = y$，$EC = a-x$，$FC = a-y$，在 $\\triangle CEF$ 中由勾股定理得 $(a-x)^2+(a-y)^2=(x+y)^2$，化简得 $xy = a^2 - a(x+y)$。"
+    ],
+    "intuition": "利用旋转变换将两条分离的线段拼接成一条直线段，从而得到线段和关系；再结合勾股定理导出二次关系。",
+    "common_tricks": [
+      "识别正方形内 $45^\\circ$ 角特征，优先考虑旋转或全等。",
+      "遇到 $\\triangle CEF$ 时，用勾股定理推导乘积关系。",
+      "已知 $BE+DF$ 求 $BE\\cdot DF$ 时，直接代入乘积关系。",
+      "解出 $x,y$ 后验证是否在 $[0,a]$ 内。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "几何压轴题",
+      "线段长度计算",
+      "最值问题"
+    ],
+    "problem_types": [
+      "填空题",
+      "解答题"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "J041.svg",
+    "png": "",
+    "thumbnail": ""
+  },
+  "shareConfig": {
+    "title": "正方形45°半角模型：EF=BE+DF速算",
+    "shareDesc": "适用于讲评课和刷题前速查，解决正方形内45°角线段求和与列方程问题，减少旋转辅助线思考时间。"
+  },
+  "relations": {
+    "prerequisites": [
+      "正方形的性质",
+      "旋转全等",
+      "一元二次方程"
+    ],
+    "related_ids": [],
+    "similar": [
+      "类似结论：矩形内45°角（一般不成立，需特殊比例）"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-29"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "其他-未分类-待定",
+  "altNodes": ""
+}

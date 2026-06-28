@@ -1,0 +1,44 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	通过旋转 $\triangle ADF$ 构造全等，再应用勾股定理导出乘积关系。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（旋转构造）：}]
+			将 $\triangle ADF$ 绕点 $A$ 顺时针旋转 $90^\circ$ 得到 $\triangle ABG$。
+			\[
+				\triangle ABG \cong \triangle ADF.
+			\]
+			\par\textbf{理由：} 旋转后 $AD$ 与 $AB$ 重合，$AG = AF$，$BG = DF$，$\angle ABG = \angle ADF$，均为 $90^\circ$。
+		\item[\textbf{步骤二（共线证明）：}]
+			证明 $G, B, E$ 三点共线。
+			\par\textbf{理由：} $\angle ABG = 90^\circ$，而 $AB \perp BC$，故 $G, B, C$ 共线；又 $E$ 在 $BC$ 上，所以 $G, B, E$ 共线。
+		\item[\textbf{步骤三（全等证和）：}]
+			证明 $\triangle AEF \cong \triangle AEG$，从而得 $EF = BE + DF$。
+			\[
+				\begin{aligned}
+					AG &= AF,\\ \angle GAE &= \angle FAE \quad (\text{均为 }45^\circ),\\ AE &= AE,\\ \therefore\; \triangle AEF &\cong \triangle AEG \quad (\mathrm{SAS}),\\ \therefore\; EF &= EG,\\ EG &= EB + BG,\\ \text{而 } BG &= DF \quad \text{(旋转)},\\ \therefore\; EF &= BE + DF.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 由旋转知 $\angle GAB = \angle FAD$，故 $\angle GAF = 90^\circ$；又已知 $\angle EAF = 45^\circ$，得 $\angle GAE = 45^\circ$；结合 $AG = AF$，$AE = AE$，满足 $\mathrm{SAS}$ 全等。
+		\item[\textbf{步骤四（勾股定理）：}]
+			在 $\triangle EFC$ 中应用勾股定理。
+			\[
+				(x+y)^2 = (a-x)^2 + (a-y)^2.
+			\]
+			\par\textbf{理由：} $EF = BE + DF$，故 $EF = x+y$，$EC = a-x$，$FC = a-y$，代入即得。
+		\item[\textbf{步骤五（化简得关系）：}]
+			展开并整理得线段乘积关系。
+			\[
+				\begin{aligned}
+					(x+y)^2 &= (a-x)^2 + (a-y)^2 \\ x^2 + 2xy + y^2 &= a^2 - 2ax + x^2 + a^2 - 2ay + y^2 \\ 2xy &= 2a^2 - 2a(x+y) \\ xy &= a^2 - a(x+y).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 展开后消去 $x^2$ 和 $y^2$，合并同类项即得。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{综上，在正方形 $ABCD$ 中，若 $\angle EAF = 45^\circ$，则 $EF = BE + DF$ 且 $xy = a^2 - a(x+y)$。}
+\end{proofbox}
