@@ -1,0 +1,171 @@
+{
+  "id": "R027",
+  "module": "probability-stat",
+  "core": {
+    "title": "全概率公式",
+    "alias": [
+      "全概公式",
+      "全概率定理",
+      "全概率"
+    ],
+    "summary": "将复杂事件的总概率分解为按原因（划分）加权的条件概率之和。",
+    "difficulty": 2,
+    "category": "概率与统计",
+    "tags": [
+      "全概率公式",
+      "条件概率",
+      "样本空间划分",
+      "概率计算",
+      "完备事件组"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "全概率公式",
+      "P(B)",
+      "完备事件组",
+      "划分",
+      "条件概率",
+      "P(A_i)",
+      "P(B|A_i)",
+      "概率分解",
+      "次品率",
+      "灵敏度",
+      "特异度",
+      "加权和",
+      "概率计算"
+    ],
+    "synonyms": [
+      "全概率定理",
+      "全概公式",
+      "全概率",
+      "概率分解"
+    ],
+    "intents": [
+      "求概率",
+      "计算概率",
+      "分解概率",
+      "使用全概率公式"
+    ],
+    "query_templates": [
+      "全概率公式怎么用",
+      "全概率公式例题",
+      "全概率公式P(B)计算",
+      "全概率公式划分条件",
+      "全概率公式与贝叶斯公式"
+    ],
+    "ocrKeywords": [
+      "全概率公式",
+      "P(B)=",
+      "∑",
+      "P(A_i)P(B|A_i)"
+    ],
+    "latex_patterns": [
+      "P(B)=\\sum_{i=1}^{n} P(A_i) P(B\\mid A_i)",
+      "P(B)=P(A)P(B\\mid A)+P(\\overline{A})P(B\\mid \\overline{A})"
+    ],
+    "formulaTokens": [
+      "P(B)",
+      "\\sum_{i=1}^{n} P(A_i) P(B\\mid A_i)",
+      "P(A_i) P(B\\mid A_i)",
+      "P(A)",
+      "P(\\overline{A})",
+      "P(B\\mid A)",
+      "P(B\\mid \\overline{A})"
+    ],
+    "pinyin": "quangailvgongshi",
+    "pinyinAbbr": "qglgs"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.8,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "P(B)=\\sum_{i=1}^{n} P(A_i) P(B\\mid A_i)",
+    "related_formulas": [
+      "P(B)=P(A)P(B\\mid A)+P(\\overline{A})P(B\\mid \\overline{A})"
+    ],
+    "variables": [
+      "$B$: 任意事件",
+      "$A_i$: 第 $i$ 个划分事件",
+      "$P(A_i)$: 先验概率",
+      "$P(B\\mid A_i)$: 条件概率",
+      "$n$: 划分事件个数"
+    ],
+    "conditions": "事件组 $\\{A_i\\}$ 互不相容且并集为样本空间 $\\Omega$，每个 $P(A_i)>0$。",
+    "conclusions": "全概率公式 $P(B)=\\sum_{i=1}^n P(A_i)P(B\\mid A_i)$ 成立。"
+  },
+  "content": {
+    "statement": "若事件组 $\\{A_i\\}_{i=1}^n$ 是样本空间 $\\Omega$ 的一个完备事件组（划分），即 $A_i \\cap A_j = \\varnothing$（$i \\neq j$）且 $\\bigcup_{i=1}^n A_i = \\Omega$，且 $P(A_i) > 0$，则对任意事件 $B$，全概率公式成立：$P(B) = \\sum_{i=1}^n P(A_i) P(B \\mid A_i)$。",
+    "derivation": [
+      "由条件概率定义 $P(B\\mid A_i)=\\frac{P(B\\cap A_i)}{P(A_i)}$，得 $P(B\\cap A_i)=P(A_i)P(B\\mid A_i)$。",
+      "因为 $\\{A_i\\}$ 是划分，$B\\cap A_i$ 两两互斥，故 $P(B)=P(\\bigcup_i (B\\cap A_i))=\\sum_i P(B\\cap A_i)$。",
+      "代入第一步结果即得 $P(B)=\\sum_i P(A_i)P(B\\mid A_i)$。"
+    ],
+    "intuition": "将事件 $B$ 的概率拆分为在各个互斥原因 $A_i$ 下发生的概率的加权和。",
+    "common_tricks": [
+      "使用前必须验证划分的互斥性和完备性，常用且容易忽略。",
+      "当划分只有两部分时（如 $A$ 与 $\\overline{A}$），公式简化为 $P(B)=P(A)P(B\\mid A)+P(\\overline{A})P(B\\mid \\overline{A})$。",
+      "注意 $\\sum_{i=1}^n P(A_i)=1$，可用于检查划分是否完整。",
+      "全概率公式常与贝叶斯公式结合使用，由结果推原因。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "概率计算题",
+      "复杂事件概率分解",
+      "质量检测",
+      "医学检测"
+    ],
+    "problem_types": [
+      "直接给出划分的概率计算",
+      "需要构造划分的概率计算"
+    ],
+    "exam_frequency": 0.9,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "R027.svg"
+  },
+  "shareConfig": {
+    "title": "全概率公式：复杂概率按原因分解计算",
+    "shareDesc": "适用于概率计算题，尤其是划分明确时。在课后复盘和考前回顾中能快速掌握概率分解方法，减少分类遗漏错误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "条件概率",
+      "互斥事件",
+      "样本空间"
+    ],
+    "related_ids": [],
+    "similar": [
+      "贝叶斯公式",
+      "全期望公式"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "其他-未分类-待定",
+  "altNodes": [
+    "概率-古典概型-基本概率",
+    "概率-随机变量-分布列"
+  ]
+}

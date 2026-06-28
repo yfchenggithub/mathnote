@@ -1,0 +1,43 @@
+\begin{proofbox}
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	全概率公式的核心是事件分解：将事件$B$按划分$A_i$拆解为若干互斥部分，然后利用概率可加性与乘法公式逐部分求和。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（事件分解）：}] 由于$\{A_i\}$是样本空间$\Omega$的一个划分，$B$可表示为$B=\bigcup_{i=1}^n (B\cap A_i)$，且这些交集互不相容。
+			\[
+				\begin{aligned}
+					B &= B\cap\Omega \\
+					&= B\cap\biggl(\bigcup_{i=1}^n A_i\biggr) \\
+					&= \bigcup_{i=1}^n (B\cap A_i).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 利用划分定义，并运算对交运算分配，且$B\cap A_i$之间互斥（因为$A_i$互斥）。
+
+		\item[\textbf{步骤二（可加性）：}] 互斥事件并的概率等于各事件概率之和。
+			\[
+				P(B) = \sum_{i=1}^n P(B\cap A_i).
+			\]
+			\par\textbf{理由：} 概率的可加性公理：有限个互斥事件之和的概率等于概率之和。
+
+		\item[\textbf{步骤三（乘法公式）：}] 对每个$i$，由条件概率定义$P(B\mid A_i) = \frac{P(B\cap A_i)}{P(A_i)}$，因此
+			\[
+				P(B\cap A_i) = P(A_i)\,P(B\mid A_i).
+			\]
+			\par\textbf{理由：} 条件概率的乘法公式，只需$P(A_i)>0$（已假定）。
+
+		\item[\textbf{步骤四（代入求和）：}] 将步骤三的结果代入步骤二。
+			\[
+				P(B) = \sum_{i=1}^n P(A_i)\,P(B\mid A_i).
+			\]
+			\par\textbf{理由：} 直接代换即得全概率公式。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{证毕。} 上述推导表明，只要选定一个完备事件组，事件$B$的概率即可通过各原因的概率与条件概率的加权和求得。
+\end{proofbox}

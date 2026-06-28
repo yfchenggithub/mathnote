@@ -1,0 +1,87 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	某工厂有甲、乙两条生产线。甲线产量占$60\%$，次品率为$2\%$；乙线产量占$40\%$，次品率为$3\%$。从总产品中任取一件，求它是次品的概率。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（设定事件）：}] 设$B$表示“取到次品”，$A_1$表示“来自甲线”，$A_2$表示“来自乙线”。则$\{A_1,A_2\}$构成样本空间的一个划分。
+			\par\textbf{理由：} 每件产品必然来自甲或乙，且不能同时来自两条线。
+
+		\item[\textbf{第二步（提取数据）：}] $P(A_1)=0.6$，$P(A_2)=0.4$；$P(B\mid A_1)=0.02$，$P(B\mid A_2)=0.03$。
+			\par\textbf{理由：} 已知条件直接给出产量占比和次品率。
+
+		\item[\textbf{第三步（套用公式）：}] 由全概率公式，
+			\[
+				\begin{aligned}
+					P(B) &= P(A_1)P(B\mid A_1)+P(A_2)P(B\mid A_2) \\
+					&= 0.6\times0.02+0.4\times0.03 \\
+					&= 0.012+0.012 \\
+					&= 0.024.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 代入公式计算即得。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{该产品为次品的概率为 $0.024$（即 $2.4\%$）。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	某企业有三个车间，产量分别占总量的$50\%$、$30\%$、$20\%$，次品率分别为$1\%$、$2\%$、$4\%$。从总产品中任取一件，求它是次品的概率。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（设定事件）：}] 设$B$表示“次品”，$A_1,A_2,A_3$分别对应第一、二、三车间。它们构成划分。
+			\par\textbf{理由：} 产品必然来自且仅来自一个车间。
+
+		\item[\textbf{第二步（提取数据）：}] $P(A_1)=0.5$，$P(A_2)=0.3$，$P(A_3)=0.2$；$P(B\mid A_1)=0.01$，$P(B\mid A_2)=0.02$，$P(B\mid A_3)=0.04$。
+			\par\textbf{理由：} 题目直接给出。
+
+		\item[\textbf{第三步（套用公式）：}]
+			\[
+				\begin{aligned}
+					P(B) &= \sum_{i=1}^3 P(A_i)P(B\mid A_i) \\
+					&= 0.5\times0.01+0.3\times0.02+0.2\times0.04 \\
+					&= 0.005+0.006+0.008 \\
+					&= 0.019.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 全概率公式代入计算。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{该产品为次品的概率为 $0.019$（即 $1.9\%$）。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	某地区人群某疾病的患病率为$0.1\%$。一种检测方法对患病者的正确检出率（灵敏度）为$95\%$，对非患病者的正确排除率（特异度）为$90\%$。现从该地区随机抽取一人进行检测，问检测结果呈阳性的概率是多少？
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（设定事件）：}] 设$B$表示“检测阳性”，$A$表示“患病”，则$\overline{A}$表示“未患病”。$\{A,\overline{A}\}$构成划分。
+			\par\textbf{理由：} 一个人要么患病要么不患病，二者互斥且完备。
+
+		\item[\textbf{第二步（提取数据）：}] $P(A)=0.001$，$P(\overline{A})=0.999$；灵敏度$95\%$即$P(B\mid A)=0.95$，特异度$90\%$意味着非患病者阳性的概率$P(B\mid\overline{A})=1-0.90=0.10$。
+			\par\textbf{理由：} 根据定义，特异度是正确排除非患病者的概率，故非患病者阳性率为$1-$特异度。
+
+		\item[\textbf{第三步（套用公式）：}] 由全概率公式，
+			\[
+				\begin{aligned}
+					P(B) &= P(A)P(B\mid A)+P(\overline{A})P(B\mid\overline{A}) \\
+					&= 0.001\times0.95+0.999\times0.10 \\
+					&= 0.00095+0.0999 \\
+					&= 0.10085.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 代入数值，先乘后加。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{检测结果呈阳性的概率约为 $0.10085$（即 $10.085\%$）。}
+\end{examplebox}

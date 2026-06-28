@@ -1,0 +1,42 @@
+\begin{explanationbox}
+
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+	将复杂事件按照导致它发生的不同原因分类，分别计算概率后相加。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（划分思想）：}] 将样本空间分割成若干个互不重叠且覆盖全体的部分。
+		\item[\textbf{要点二（加权求和）：}] 每个原因的概率乘以在该原因下事件发生的条件概率，再求和。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（面积分割）}}
+
+	设想样本空间为单位面积的正方形，$A_i$各占一块互不重叠的区域，其面积为$P(A_i)$。每个$A_i$中，事件$B$所占的比例为$P(B\mid A_i)$。则$B$的总面积等于各块中$B$的面积之和，即$\sum P(A_i)\cdot P(B\mid A_i)$，就是$P(B)$。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（加权平均）}}
+
+	$P(B)$是各条件概率$P(B\mid A_i)$的加权平均，权重恰好是$P(A_i)$。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（计算桥梁）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（正向求总概率）：} 已知各原因概率及条件概率，直接代入公式求总事件概率。
+		\item \textbf{考法二（逆用求条件概率）：} 结合贝叶斯公式，已知$P(B)$和$P(A_i),P(B\mid A_i)$可求$P(A_i\mid B)$。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	\textbf{关键是找到合适的完备事件组。} 划分可以人为构造，如按时间、来源、类型等分类，只要满足互斥且覆盖全部可能。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（多阶段试验）：} 如先选工厂再抽产品、先选盒子再取球等。
+		\item \textbf{场景二（敏感问题调查）：} 通过随机化装置确定回答问题类型，再用全概率公式估计敏感行为比例。
+	\end{itemize}
+\end{explanationbox}
