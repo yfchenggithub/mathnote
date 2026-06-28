@@ -1,0 +1,163 @@
+{
+  "id": "R034",
+  "module": "probability-stat",
+  "core": {
+    "title": "分层抽样比例分配样本量公式",
+    "alias": [
+      "分层抽样公式",
+      "比例分配",
+      "n_i=n*N_i/N",
+      "入样概率相等"
+    ],
+    "summary": "按各层人数比例分配样本，使样本结构与总体一致，每个个体入样概率相同。",
+    "difficulty": 2,
+    "category": "统计与概率",
+    "tags": [
+      "分层抽样",
+      "比例分配",
+      "样本容量",
+      "统计",
+      "按比例分配",
+      "入样概率",
+      "抽样比"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "分层抽样",
+      "比例分配",
+      "样本量",
+      "n_i=n*N_i/N",
+      "入样概率",
+      "抽样比",
+      "总体",
+      "层",
+      "N_i",
+      "n",
+      "N",
+      "样本结构",
+      "等概率抽样"
+    ],
+    "synonyms": [
+      "分层抽样怎么算",
+      "按比例抽样公式",
+      "每层抽多少人",
+      "分层抽样的样本量分配"
+    ],
+    "intents": [
+      "计算样本量",
+      "求各层抽取人数",
+      "验证入样概率",
+      "判断抽样方法"
+    ],
+    "query_templates": [
+      "分层抽样样本量计算公式",
+      "已知总体每层人数和样本容量求各层抽取人数",
+      "分层抽样比例分配例题"
+    ],
+    "ocrKeywords": [
+      "总体",
+      "层",
+      "个体数",
+      "样本容量",
+      "按比例",
+      "抽取"
+    ],
+    "latex_patterns": [
+      "n_i = n \\cdot \\frac{N_i}{N}"
+    ],
+    "formulaTokens": [
+      "n_i = n \\cdot \\frac{N_i}{N}",
+      "\\frac{n_i}{N_i} = \\frac{n}{N}",
+      "n_i",
+      "N_i",
+      "n",
+      "N"
+    ],
+    "pinyin": "fencengchouyangbilifenpei",
+    "pinyinAbbr": "fccyblfp"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.8,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "n_i = n \\cdot \\frac{N_i}{N}",
+    "related_formulas": [
+      "\\frac{n_i}{N_i} = \\frac{n}{N}",
+      "\\sum_{i=1}^L n_i = n"
+    ],
+    "variables": "L, N_i, N, n, n_i (i=1,...,L)",
+    "conditions": "总体由$L$层构成，第$i$层个体数为$N_i$，总个体数$N=\\sum_{i=1}^L N_i$，样本容量为$n$，且要求样本结构与总体结构一致（按比例分配）。",
+    "conclusions": "从第$i$层抽取的样本量$n_i = n \\cdot \\frac{N_i}{N}$，且每个个体入样概率为$\\frac{n}{N}$。"
+  },
+  "content": {
+    "statement": "在分层抽样中，若总体由$L$层组成，第$i$层个体数为$N_i$，总个体数$N=\\sum_{i=1}^L N_i$，样本容量为$n$，且要求样本结构与总体结构一致（即按比例分配），则从第$i$层应抽取的样本量$n_i$由$n_i = n \\cdot \\frac{N_i}{N}$给出。",
+    "derivation": [
+      "按比例分配意味着样本中第i层比例等于总体中第i层比例，即$\\frac{n_i}{n} = \\frac{N_i}{N}$。",
+      "两边同乘以$n$得到$n_i = n \\cdot \\frac{N_i}{N}$。",
+      "由此可得各层入样概率相等：$\\frac{n_i}{N_i} = \\frac{n}{N}$。"
+    ],
+    "intuition": "为了用样本代表总体，必须保持各层在样本中的占比与总体相同，这样每个个体被抽中的机会才均等。",
+    "common_tricks": [
+      "先计算总个体数$N=\\sum N_i$。",
+      "直接代入公式$n_i = n \\cdot \\frac{N_i}{N}$计算各层样本量。",
+      "验证$\\sum n_i = n$，确保计算正确。",
+      "注意$n_i$须为整数（实际中可四舍五入后调整总和）。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "课后练习",
+      "考试计算",
+      "实际调查设计"
+    ],
+    "problem_types": [
+      "分层抽样计算题",
+      "比例分配问题",
+      "样本量分配"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "R034.svg",
+    "png": "",
+    "json": ""
+  },
+  "shareConfig": {
+    "title": "分层抽样比例分配：按人数比例算各层样本量",
+    "shareDesc": "适合课后复盘和刷题前速查，直接套用公式n_i=n*N_i/N计算各层抽取人数，避免按错比例导致样本结构失真。"
+  },
+  "relations": {
+    "prerequisites": [
+      "分层抽样概念",
+      "总体与样本",
+      "比例计算"
+    ],
+    "related_ids": [],
+    "similar": "等距抽样公式、简单随机抽样"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "其他-未分类-待定",
+  "altNodes": ""
+}
