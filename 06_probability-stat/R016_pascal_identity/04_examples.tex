@@ -1,0 +1,66 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	计算 $\binom{5}{2}+\binom{5}{1}$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别参数）：}] 观察 $n=5,m=2$，公式对应 $\binom{n}{m}+\binom{n}{m-1}$，其中 $m-1=1$，完全符合。
+			\par\textbf{理由：} 应与递推公式左边形式对照。
+		\item[\textbf{第二步（代入公式）：}] 由递推公式得 $\binom{5}{2}+\binom{5}{1}=\binom{6}{2}$。
+			\par\textbf{理由：} 直接应用公式 $\binom{n}{m}+\binom{n}{m-1}=\binom{n+1}{m}$。
+		\item[\textbf{第三步（计算结果）：}] 计算 $\binom{6}{2}=\frac{6\times5}{2}=15$。
+			\par\textbf{理由：} 组合数计算公式。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$\binom{5}{2}+\binom{5}{1}=15$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知 $\binom{10}{5}=252$，$\binom{10}{4}=210$，求 $\binom{11}{5}$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（对应形式）：}] 观察发现 $\binom{10}{5}$ 与 $\binom{10}{4}$ 恰好是递推公式左边两项（$n=10,m=5$）。
+			\par\textbf{理由：} 递推公式为 $\binom{n}{m}+\binom{n}{m-1}=\binom{n+1}{m}$，此处 $n=10,m=5$。
+		\item[\textbf{第二步（代入数值）：}] 因此 $\binom{11}{5} = \binom{10}{5}+\binom{10}{4}=252+210$。
+			\par\textbf{理由：} 根据公式直接代入。
+		\item[\textbf{第三步（求和）：}] $252+210=462$。
+			\par\textbf{理由：} 加法计算。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$\binom{11}{5}=462$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	证明组合恒等式 $\binom{n}{m-1}+2\binom{n}{m}+\binom{n}{m+1}=\binom{n+2}{m+1}$（其中 $n\geq m+1\geq 2$，边界由约定补充）。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（分组变形）：}] 将左边分组为 $\bigl(\binom{n}{m-1}+\binom{n}{m}\bigr) + \bigl(\binom{n}{m}+\binom{n}{m+1}\bigr)$。
+			\[
+				\binom{n}{m-1}+2\binom{n}{m}+\binom{n}{m+1}
+				= \bigl(\binom{n}{m-1}+\binom{n}{m}\bigr) + \bigl(\binom{n}{m}+\binom{n}{m+1}\bigr).
+			\]
+			\par\textbf{理由：} 通过并项构造出递推公式的标准形式。
+		\item[\textbf{第二步（应用递推）：}] 分别对两个括号应用递推公式：
+			\[
+				\binom{n}{m-1}+\binom{n}{m} = \binom{n+1}{m},
+				\qquad
+				\binom{n}{m}+\binom{n}{m+1} = \binom{n+1}{m+1}.
+			\]
+			\par\textbf{理由：} 在 $n,m$ 满足条件时公式成立，约定保证边界项为零。
+		\item[\textbf{第三步（再次递推）：}] 将上两式相加得：
+			\[
+				\binom{n+1}{m} + \binom{n+1}{m+1} = \binom{n+2}{m+1}.
+			\]
+			\par\textbf{理由：} 再次对 $n+1,m+1$ 使用递推公式。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{恒等式 $\binom{n}{m-1}+2\binom{n}{m}+\binom{n}{m+1}=\binom{n+2}{m+1}$ 成立。}
+\end{examplebox}

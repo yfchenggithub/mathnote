@@ -1,0 +1,43 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	考虑从 $n+1$ 个不同元素中任选 $m$ 个，通过固定其中一个元素分类计数。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（固定元素）：}] 设集合 $A$ 有 $n+1$ 个元素，固定一个元素记为 $a$。
+			\[
+				A = \{a\} \cup B,\quad |B|=n.
+			\]
+			\par\textbf{理由：} 引入特定元素便于分类。
+
+		\item[\textbf{步骤二（分类情况）：}] 从 $A$ 中选 $m$ 个元素可分为两类：
+			\par 第一类：包含固定元素 $a$，则从剩余 $n$ 个元素中选 $m-1$ 个，方案数为 $\displaystyle\binom{n}{m-1}$。
+			\par 第二类：不包含 $a$，则从剩余 $n$ 个元素中选 $m$ 个，方案数为 $\displaystyle\binom{n}{m}$。
+			\par\textbf{理由：} 对是否含 $a$ 分类，是标准计数策略。
+
+		\item[\textbf{步骤三（加法原理）：}] 两类方法互斥，由加法原理得总选法数为
+			\[
+				\binom{n}{m-1} + \binom{n}{m}.
+			\]
+			\par\textbf{理由：} 互斥事件总数等于各事件数之和。
+
+		\item[\textbf{步骤四（直接计数）：}] 从 $A$ 中直接任选 $m$ 个元素，由组合数定义可得方案数。
+			\[
+				\binom{n+1}{m}
+			\]
+			\par\textbf{理由：} 从 $n+1$ 个元素中选 $m$ 个，组合数即 $\binom{n+1}{m}$。
+
+		\item[\textbf{步骤五（联立等式）：}] 以上两种计数方式应当相等，故
+			\[
+				\binom{n}{m} + \binom{n}{m-1} = \binom{n+1}{m}.
+			\]
+			\par\textbf{理由：} 同一问题的不同计数方法结果相同。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	该证明通过构造 $n+1$ 个元素的子集选取，将递推公式归结为加法分类计数原理，并利用约定自动涵盖边界情形。
+\end{proofbox}

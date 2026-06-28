@@ -1,0 +1,158 @@
+{
+  "id": "R016",
+  "module": "probability-stat",
+  "core": {
+    "title": "组合数递推公式（杨辉三角恒等式）",
+    "alias": [
+      "组合数加法公式",
+      "杨辉三角递推",
+      "帕斯卡公式"
+    ],
+    "summary": "杨辉三角中每个数等于它左上方和右上方两数之和，是组合数计算与化简的核心工具。",
+    "difficulty": 2,
+    "category": "计数原理",
+    "tags": [
+      "组合恒等式",
+      "递推公式",
+      "杨辉三角",
+      "基础结论",
+      "组合数"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "组合数递推公式",
+      "杨辉三角恒等式",
+      "组合数加法",
+      "组合恒等式",
+      "C(n,m)+C(n,m-1)=C(n+1,m)",
+      "帕斯卡公式",
+      "组合数性质",
+      "二项式系数",
+      "binom加法",
+      "组合数递推"
+    ],
+    "synonyms": [
+      "杨辉三角公式",
+      "组合数相加公式",
+      "组合数递推",
+      "Pascal's rule"
+    ],
+    "intents": [
+      "计算组合数",
+      "化简组合和",
+      "证明组合恒等式",
+      "推导杨辉三角"
+    ],
+    "query_templates": [
+      "组合数递推公式是什么",
+      "C(n,m)+C(n,m-1)=?",
+      "杨辉三角怎么计算",
+      "组合恒等式加法"
+    ],
+    "ocrKeywords": [
+      "C_n^m",
+      "组合数",
+      "杨辉三角",
+      "递推",
+      "binom"
+    ],
+    "latex_patterns": [
+      "\\binom{n}{m}+\\binom{n}{m-1}=\\binom{n+1}{m}",
+      "\\binom{n}{m}=\\binom{n-1}{m}+\\binom{n-1}{m-1}"
+    ],
+    "formulaTokens": [
+      "\\binom{n}{m}",
+      "\\binom{n}{m-1}",
+      "\\binom{n+1}{m}",
+      "\\binom{n-1}{m}",
+      "\\binom{n-1}{m-1}"
+    ],
+    "pinyin": "zuheshu digong gongshi",
+    "pinyinAbbr": "zhsdg"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 1.0,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\binom{n}{m}+\\binom{n}{m-1}=\\binom{n+1}{m}",
+    "related_formulas": [
+      "\\binom{n}{m}=\\binom{n-1}{m}+\\binom{n-1}{m-1} \\quad (n\\geq 1,\\ m\\geq 1)"
+    ],
+    "variables": [
+      "n",
+      "m"
+    ],
+    "conditions": "非负整数 $n,m$，满足 $n\\geq m\\geq 1$（或一般地 $n,m\\in\\mathbb{N}_0,\\ n\\geq m$），约定当 $k<0$ 或 $k>n$ 时 $\\binom{n}{k}=0$。",
+    "conclusions": "可直接用于计算组合数或化简组合和，如 $\\binom{5}{2}+\\binom{5}{1}=\\binom{6}{2}=15$。"
+  },
+  "content": {
+    "statement": "对于非负整数 $n,m$，当 $n \\geq m \\geq 1$ 时，有组合恒等式 $\\binom{n}{m}+\\binom{n}{m-1}=\\binom{n+1}{m}$，通常约定 $\\binom{n}{k}=0$ 当 $k<0$ 或 $k>n$ 以保证公式对边界也成立。",
+    "derivation": [
+      "由组合数定义 $\\binom{n}{m}=\\frac{n!}{m!(n-m)!}$ 得 $\\binom{n}{m}+\\binom{n}{m-1}=\\frac{n!}{m!(n-m)!}+\\frac{n!}{(m-1)!(n-m+1)!}$",
+      "通分后分子提取 $n!$，化简分母为 $m!(n-m+1)!$，得 $\\frac{n!(n-m+1 + m)}{m!(n-m+1)!}=\\frac{(n+1)!}{m!(n+1-m)!}=\\binom{n+1}{m}$。"
+    ],
+    "intuition": "从 $n+1$ 个不同元素中选 $m$ 个，可分类为：含某个特定元素（再从剩下 $n$ 个中选 $m-1$ 个）与不含该元素（从 $n$ 个中选 $m$ 个），两类之和即总选法数。",
+    "common_tricks": [
+      "注意边界：当 $m=0$ 或 $m=n$ 时，利用约定 $\\binom{n}{-1}=0,\\ \\binom{n}{n+1}=0$ 使公式依然成立",
+      "常用于合并组合数求和，如证明二项式定理或推导其他恒等式",
+      "多次使用时，注意下标变化，避免方向写反"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "组合恒等式证明",
+      "组合数计算",
+      "二项式定理推导",
+      "概率计算"
+    ],
+    "problem_types": [
+      "计算题",
+      "证明题",
+      "化简题"
+    ],
+    "exam_frequency": 1.0,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "R016.svg"
+  },
+  "shareConfig": {
+    "title": "组合数递推公式：杨辉三角核心恒等式",
+    "shareDesc": "适合章末复习和刷题前速查，掌握组合数相加规律，解决恒等式证明和组合数计算时能一步到位。"
+  },
+  "relations": {
+    "prerequisites": [
+      "组合数定义",
+      "阶乘运算"
+    ],
+    "related_ids": [],
+    "similar": [
+      "二项式系数性质",
+      "组合恒等式"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "概率-古典概型-排列组合",
+  "altNodes": ""
+}
