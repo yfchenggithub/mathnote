@@ -1,0 +1,45 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用柯西-施瓦茨不等式直接导出 $|r|\le 1$，同时从等号成立条件得到 $|r|=1$ 的几何意义。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（构造两个向量）：}] 令
+			\[
+				\mathbf{u} = (x_1-\bar{x},\;x_2-\bar{x},\;\dots,\;x_n-\bar{x}),\quad
+				\mathbf{v} = (y_1-\bar{y},\;y_2-\bar{y},\;\dots,\;y_n-\bar{y}).
+			\]
+			\par\textbf{理由：} 相关系数的分子恰好是 $\mathbf{u}$ 与 $\mathbf{v}$ 的内积，分母是它们模长的乘积。
+
+		\item[\textbf{步骤二（应用柯西-施瓦茨不等式）：}] 对任意两个 $n$ 维实向量 $\mathbf{u},\mathbf{v}$，有
+			\[
+				|\mathbf{u}\cdot\mathbf{v}| \le \|\mathbf{u}\|\,\|\mathbf{v}\|,
+			\]
+			即
+			\[
+				\Bigl|\sum_{i=1}^{n}(x_i-\bar{x})(y_i-\bar{y})\Bigr|
+				\le \sqrt{\sum_{i=1}^{n}(x_i-\bar{x})^2}\,\sqrt{\sum_{i=1}^{n}(y_i-\bar{y})^2}.
+			\]
+			\par\textbf{理由：} 柯西不等式是基本不等式，直接给出内积绝对值与模长乘积的关系。
+
+		\item[\textbf{步骤三（除以分母得 $|r|\le 1$ 并讨论等号）：}] 将上式两边除以分母（分母 $>0$，因为 $n\ge3$ 且数据有变异），得
+			\[
+				\frac{\bigl|\sum_{i=1}^{n} (x_i-\bar{x})(y_i-\bar{y})\bigr|}
+				{\sqrt{\sum_{i=1}^{n} (x_i-\bar{x})^2\sum_{i=1}^{n} (y_i-\bar{y})^2}} \le 1,
+			\]
+			即 $|r|\le 1$。
+			\par\textbf{理由：} 由步骤二的不等式直接变形。
+			\par\textbf{取等条件：} 柯西不等式等号成立当且仅当 $\mathbf{u}$ 与 $\mathbf{v}$ 线性相关，即存在常数 $\lambda$ 使得
+			\[
+				x_i-\bar{x} = \lambda\,(y_i-\bar{y})\quad (\forall i),
+			\]
+			等价于所有样本点 $(x_i,y_i)$ 落在一条直线上。此时 $|r|=1$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	我们证明了 $r\in[-1,1]$，且 $|r|=1$ 的充要条件是样本点共线。$r$ 的正负由分子 $\sum (x_i-\bar{x})(y_i-\bar{y})$ 的符号决定，分子为正则 $r>0$（正相关），分子为负则 $r<0$（负相关）。
+\end{proofbox}

@@ -1,0 +1,188 @@
+{
+  "id": "R040",
+  "module": "probability-stat",
+  "core": {
+    "title": "样本相关系数（Pearson r）",
+    "alias": [
+      "相关系数",
+      "Pearson相关系数",
+      "线性相关系数",
+      "r"
+    ],
+    "summary": "衡量两个定量变量线性相关方向和强度的指标，取值范围[-1,1]。",
+    "difficulty": 2,
+    "category": "统计",
+    "tags": [
+      "相关系数",
+      "线性相关",
+      "统计",
+      "Pearson相关",
+      "样本相关系数",
+      "正相关",
+      "负相关"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "样本相关系数",
+      "Pearson",
+      "r",
+      "线性相关",
+      "正相关",
+      "负相关",
+      "样本均值",
+      "偏差积",
+      "平方和",
+      "相关系数公式",
+      "完全线性相关",
+      "散点图线性趋势",
+      "共线"
+    ],
+    "synonyms": [
+      "相关系数r",
+      "皮尔逊系数",
+      "相关分析",
+      "线性相关系数",
+      "相关程度",
+      "r值",
+      "Pearson r"
+    ],
+    "intents": [
+      "计算相关系数",
+      "判断相关方向",
+      "判断相关强弱",
+      "验证线性相关",
+      "理解相关系数意义",
+      "求r"
+    ],
+    "query_templates": [
+      "怎么计算相关系数",
+      "相关系数公式是什么",
+      "如何判断正相关负相关",
+      "相关系数r的意义",
+      "线性相关系数计算例题",
+      "样本相关系数定义"
+    ],
+    "ocrKeywords": [
+      "样本数据",
+      "(x_i,y_i)",
+      "散点图",
+      "线性趋势",
+      "异常值",
+      "样本均值",
+      "偏差平方和",
+      "相关系数",
+      "r"
+    ],
+    "latex_patterns": [
+      "r = \\frac{\\sum (x_i - \\bar{x})(y_i - \\bar{y})}{\\sqrt{\\sum (x_i - \\bar{x})^2 \\sum (y_i - \\bar{y})^2}}"
+    ],
+    "formulaTokens": [
+      "\\sum (x_i-\\bar{x})(y_i-\\bar{y})",
+      "\\sqrt{\\sum (x_i-\\bar{x})^2 \\sum (y_i-\\bar{y})^2}",
+      "\\sum (x_i-\\bar{x})^2",
+      "\\sum (y_i-\\bar{y})^2",
+      "\\frac{\\sum (x_i-\\bar{x})(y_i-\\bar{y})}{\\sqrt{\\sum (x_i-\\bar{x})^2 \\sum (y_i-\\bar{y})^2}}"
+    ],
+    "pinyin": "xiang guan xi shu",
+    "pinyinAbbr": "xgxs"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.73,
+    "hot_score": 85,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "r = \\frac{\\sum_{i=1}^{n}(x_i-\\bar{x})(y_i-\\bar{y})}{\\sqrt{\\sum_{i=1}^{n}(x_i-\\bar{x})^2\\sum_{i=1}^{n}(y_i-\\bar{y})^2}},\\quad r\\in[-1,1]",
+    "related_formulas": [
+      "|r|=1 \\iff y_i = a x_i + b,\\; i=1,\\dots,n"
+    ],
+    "variables": [
+      "r",
+      "x_i",
+      "y_i",
+      "\\bar{x}",
+      "\\bar{y",
+      "n"
+    ],
+    "conditions": [
+      "样本数 $n\\ge 3$。",
+      "散点图呈现大致线性趋势且无明显异常值。",
+      "分母不为零：$\\sum_{i=1}^{n}(x_i-\\bar{x})^2>0$ 且 $\\sum_{i=1}^{n}(y_i-\\bar{y})^2>0$。"
+    ],
+    "conclusions": [
+      "$r\\in[-1,1]$。",
+      "$|r|$ 越接近 $1$，两变量线性相关越强。",
+      "$r>0$ 表示正相关，$r<0$ 表示负相关，$r=0$ 表示无线性相关关系。",
+      "$|r|=1$ 当且仅当所有样本点 $(x_i,y_i)$ 共线。"
+    ]
+  },
+  "content": {
+    "statement": "对于两个定量变量，当样本数据 $(x_1,y_1),\\dots,(x_n,y_n)$（$n\\ge 3$）大致符合线性趋势且无明显异常值时，样本相关系数 $r$ 定义为 $r=\\frac{\\sum_{i=1}^{n}(x_i-\\bar{x})(y_i-\\bar{y})}{\\sqrt{\\sum_{i=1}^{n}(x_i-\\bar{x})^2\\sum_{i=1}^{n}(y_i-\\bar{y})^2}}$，其中 $\\bar{x},\\bar{y}$ 为样本均值。$r\\in[-1,1]$，$|r|$ 越大表明线性相关性越强。",
+    "derivation": [],
+    "intuition": "相关系数是协方差与标准差乘积之比，通过标准化消除量纲，使得绝对值不超过1，从而衡量线性相关程度。",
+    "common_tricks": [
+      "计算前先画散点图判断线性趋势，避免无效计算。",
+      "计算时列表求偏差、乘积和平方和，防止算错。",
+      "计算后验证 $|r|\\le 1$，若超出说明计算错误。",
+      "注意分母非零条件：两组数据必须有变异（方差非零）。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "统计大题",
+      "数据分析题",
+      "相关关系判断"
+    ],
+    "problem_types": [
+      "计算相关系数",
+      "判断相关方向与强度",
+      "利用相关系数进行变量关系分析"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 8
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "R040.svg",
+    "png": "",
+    "geogebra": ""
+  },
+  "shareConfig": {
+    "title": "样本相关系数公式：判断线性相关强弱与方向",
+    "shareDesc": "适合统计章节复习和考前速查，掌握公式能快速计算r值并判断正负相关，避免计算错误和无效使用。"
+  },
+  "relations": {
+    "prerequisites": [
+      "样本均值计算",
+      "离差（偏差）概念",
+      "平方和的概念"
+    ],
+    "related_ids": [],
+    "similar": [
+      "协方差",
+      "回归系数",
+      "决定系数R²"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "统计-数据分析-方差",
+  "altNodes": "统计-数据分析-平均数,其他-未分类-待定"
+}

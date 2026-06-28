@@ -1,0 +1,52 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+	相关系数通过比较每对数据偏离各自平均数的方向是否一致，来衡量线性关系的强弱。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（协方差含义）：}] 分子 $\sum (x_i-\bar{x})(y_i-\bar{y})$ 称为样本协方差。若 $x$ 和 $y$ 大多同时偏大或偏小，则乘积为正，协方差正；否则为负。绝对值大小反映同向变化的强度。
+
+		\item[\textbf{要点二（标准化作用）：}] 分母将协方差除以两个变量各自波动程度的乘积，使得结果无量纲且限制在 $[-1,1]$ 内，方便比较不同尺度的变量之间的相关性。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（向量夹角余弦）}}
+
+	将样本中心化后的向量 $\tilde{\mathbf{x}}=(x_1-\bar{x},\dots,x_n-\bar{x})$ 和 $\tilde{\mathbf{y}}=(y_1-\bar{y},\dots,y_n-\bar{y})$ 视为 $n$ 维空间中的两个向量，则相关系数 $r$ 正是这两个向量夹角的余弦值：
+	\[
+		r = \frac{\tilde{\mathbf{x}}\cdot\tilde{\mathbf{y}}}{\|\tilde{\mathbf{x}}\|\,\|\tilde{\mathbf{y}}\|} = \cos\theta.
+	\]
+	夹角 $\theta$ 越接近 $0^\circ$（$r$ 接近 $1$）表示两向量方向越一致，线性正相关越强；$\theta$ 接近 $180^\circ$（$r$ 接近 $-1$）表示方向相反，线性负相关越强；$\theta=90^\circ$（$r=0$）表示两向量正交，无线性相关。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（标准化协方差）}}
+
+	$r$ 是 $x$ 与 $y$ 的样本协方差分别除以各自样本标准差得到的标准化量，即
+	\[
+		r = \frac{s_{xy}}{s_x s_y},
+	\]
+	其中 $s_{xy}=\frac1{n-1}\sum (x_i-\bar{x})(y_i-\bar{y})$（有的定义用 $n$），$s_x,s_y$ 为样本标准差。这种标准化使得 $r$ 不受单位影响。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（高考常见）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（计算相关系数）：} 给出几对数据，直接代入公式计算 $r$，并判断正负和强弱。
+
+		\item \textbf{考法二（解释相关系数）：} 给出 $r$ 的值，描述变量间的线性相关程度，或根据 $r$ 的大小选择回归模型。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	相关系数只关心“线性”关系。即使 $r=0$，变量之间仍可能存在完美的非线性关系（如二次函数）。不要因为 $r$ 小就认定两变量无关。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（初步探索）：} 在回归分析之前，先计算 $r$ 粗略判断线性关系是否明显，若 $|r|$ 接近 $1$ 则适合做线性回归。
+
+		\item \textbf{场景二（结果验证）：} 建立回归方程后，可计算样本 $r$ 来评估线性拟合的效果。
+	\end{itemize}
+\end{explanationbox}

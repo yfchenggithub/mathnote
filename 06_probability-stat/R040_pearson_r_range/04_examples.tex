@@ -1,0 +1,86 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	某产品产量 $x$（件）与成本 $y$（元）的 $4$ 组数据如下：
+	\[
+		\begin{array}{c|cccc}
+			x & 1 & 2 & 3 & 4 \\ \hline
+			y & 2 & 4 & 5 & 7
+		\end{array}
+	\]
+	计算产量与成本的样本相关系数 $r$，并判断相关方向。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（计算样本均值）：}]
+			\[
+				\bar{x}=\frac{1+2+3+4}{4}=2.5,
+				\qquad
+				\bar{y}=\frac{2+4+5+7}{4}=4.5.
+			\]
+			\par\textbf{理由：} 相关系数公式中需要每个数据减去各自均值，必须先算出均值。
+
+		\item[\textbf{第二步（计算偏差乘积与平方和）：}] 列表或直接求和：
+			\[
+				\begin{aligned}
+					\sum (x_i-\bar{x})(y_i-\bar{y})
+					&= (-1.5)(-2.5)+(-0.5)(-0.5)+(0.5)(0.5)+(1.5)(2.5)=8,\\
+					\sum (x_i-\bar{x})^2 &= (-1.5)^2+(-0.5)^2+(0.5)^2+(1.5)^2=5,\\
+					\sum (y_i-\bar{y})^2 &= (-2.5)^2+(-0.5)^2+(0.5)^2+(2.5)^2=13.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 公式要求计算这些和。
+
+		\item[\textbf{第三步（代入公式得 $r$）：}]
+			\[
+				r = \frac{8}{\sqrt{5\times13}}=\frac{8}{\sqrt{65}}\approx0.992>0.
+			\]
+			\par\textbf{理由：} 直接套用相关系数定义式。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	产量与成本的相关系数 $r\approx0.992$，接近 $1$，表明两者呈强烈的正线性相关，即产量增加成本也随之增加。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	某次考试中，10 名学生的数学成绩和物理成绩的相关系数 $r=0.87$，散点图显示数据点大致分布在一条直线附近。请回答：数学与物理成绩的相关方向和强弱；能否认为物理成绩完全由数学成绩决定？为什么？
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（判断符号与大小）：}] $r=0.87>0$，且 $|r|=0.87$ 接近 $1$，所以正相关且较强。
+			\par\textbf{理由：} $r>0$ 为正相关，$|r|$ 越接近 $1$ 线性相关越强。
+
+		\item[\textbf{第二步（理解完全相关条件）：}] 完全线性相关要求 $|r|=1$，这里 $0.87<1$，所以不是完全决定。
+			\par\textbf{理由：} 只有所有点共线时 $|r|$ 才等于 $1$，因此物理成绩不是完全由数学成绩决定。
+
+		\item[\textbf{第三步（补充说明）：}] 相关系数只度量线性关系，即使 $r=0.87$ 也不能说明因果关系，物理成绩还可能受其他因素影响。
+			\par\textbf{理由：} 相关关系不蕴涵因果关系。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	数学与物理成绩呈强正线性相关，但物理成绩不完全由数学决定，还需考虑其他因素。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	某公司为研究广告投入 $x$（万元）与销售额 $y$（万元）的关系，收集了 $8$ 个月的数据，计算得相关系数 $r_1=0.92$；同时，产品质量评分 $z$ 与销售额的相关系数 $r_2=0.35$。假设两组数据均满足线性趋势且无明显异常值。根据以上信息回答：（1）指出 $x$ 与 $y$ 的相关方向和强度；（2）能否认为销售额完全由广告投入决定？为什么？（3）若希望提高销售额，应优先增加广告投入还是提高产品质量？请说明理由。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（分析相关方向与强度）：}] $r_1=0.92>0$，且非常接近 $1$，说明广告投入与销售额呈强正线性相关。
+			\par\textbf{理由：} $r>0$ 为正相关，$|r|$ 越接近 $1$ 线性相关越强。
+
+		\item[\textbf{第二步（判断是否完全决定）：}] 完全线性相关要求 $|r|=1$，这里 $0.92<1$，所以销售额不完全由广告投入决定，还受其他因素影响。
+			\par\textbf{理由：} 只有样本点全部共线时 $|r|$ 才等于 $1$。
+
+		\item[\textbf{第三步（比较相关性优先）：}] 比较 $r_1$ 和 $r_2$ 的大小：$|r_1|>|r_2|$，表明广告投入与销售额的线性关联强于产品质量与销售额的关联。因此在资源有限时，优先增加广告投入更可能带来销售额的线性增长（但不能保证因果关系）。
+			\par\textbf{理由：} 相关系数绝对值大小反映线性相关强度，可作为决策参考。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	广告投入与销售额强正相关，但不能完全决定；广告投入比产品质量对销售额的线性影响更显著。
+\end{examplebox}
