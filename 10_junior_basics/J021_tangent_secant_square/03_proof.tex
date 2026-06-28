@@ -1,0 +1,62 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	添加圆心 $O$ 和辅助线 $OH$，利用切线性质与垂径定理将长度关系转化为勾股定理中的平方差，从而直接得到等积式。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（设圆心作垂线）：}]
+			设圆心为 $O$，连接 $OP$、$OT$、$OA$、$OB$。过 $O$ 作 $OH \perp PB$ 于点 $H$。
+			\[
+				O\text{为圆心},\quad OH\perp PB.
+			\]
+			\par\textbf{理由：} 构造直角三角形，利用勾股定理建立等式。
+		\item[\textbf{步骤二（切线性质得勾股关系）：}]
+			因为 $PT$ 是切线，所以 $OT\perp PT$，在 $\triangle PTO$ 中，
+			\[
+				PT^{2}=OP^{2}-OT^{2}.
+			\]
+			\par\textbf{理由：} 切线垂直于半径，勾股定理。
+		\item[\textbf{步骤三（垂径定理得弦中分）：}]
+			由 $OH\perp PB$ 且 $A,B$ 在圆上，知 $H$ 是弦 $AB$ 的中点，故
+			\[
+				AH=BH.
+			\]
+			\par\textbf{理由：} 垂径定理：垂直于弦的直径平分弦。
+		\item[\textbf{步骤四（表示乘积）：}]
+			设 $PH$ 为点 $P$ 到垂足的距离，则线段 $PA$、$PB$ 可表示为
+			\[
+				PA = PH - AH,
+				\qquad
+				PB = PH + AH.
+			\]
+			于是
+			\[
+				PA\cdot PB = (PH-AH)(PH+AH)=PH^{2}-AH^{2}.
+			\]
+			\par\textbf{理由：} 由点 $P,A,H,B$ 的共线关系（$P\!-\!A\!-\!H\!-\!B$）得到 $PA$ 与 $PB$ 的表达式。
+		\item[\textbf{步骤五（勾股代入转化）：}]
+			在 $\triangle OPH$ 中，$OP^{2}=OH^{2}+PH^{2}$，所以 $PH^{2}=OP^{2}-OH^{2}$。 在 $\triangle OAH$ 中，$OA^{2}=OH^{2}+AH^{2}$，所以 $AH^{2}=OA^{2}-OH^{2}$。
+			\[
+				\begin{aligned}
+					PA\cdot PB
+					&= (OP^{2}-OH^{2}) - (OA^{2}-OH^{2})\\
+					&= OP^{2} - OA^{2}\\
+					&= OP^{2} - OT^{2}
+					\qquad
+					(OA = OT = r).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 代入勾股关系，合并消去 $OH^{2}$。
+		\item[\textbf{步骤六（回代得结论）：}]
+			由步骤二 $PT^{2}=OP^{2}-OT^{2}$，结合上一步结果，直接得到
+			\[
+				PT^{2} = PA\cdot PB.
+			\]
+			\par\textbf{理由：} 相等传递性。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	通过圆心辅助线，利用勾股定理与垂径定理，从代数计算上严格证明了切割线定理 $PT^{2}=PA\cdot PB$，此方法不依赖三角形相似，逻辑清晰。
+\end{proofbox}
