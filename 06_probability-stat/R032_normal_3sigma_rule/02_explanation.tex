@@ -1,0 +1,40 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+	正态分布中，数据集中在均值周围，标准差 $\sigma$ 确定分散程度；$k\sigma$ 区间覆盖的比例随 $k$ 增大快速趋近 $1$。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（对称标准化）：}]
+			区间 $(\mu-k\sigma,\;\mu+k\sigma)$ 关于 $\mu$ 对称，标准化 $Z=(X-\mu)/\sigma$ 后等价于 $|Z|<k$。
+		\item[\textbf{要点二（查表求值）：}]
+			$P(|Z|<k)=2\Phi(k)-1$，通过标准正态分布表可查得 $\Phi(1),\Phi(2),\Phi(3)$ 得到近似值 $0.8413,0.9772,0.99865$，进而得到三个原则的概率。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（曲线面积）}}
+	正态密度曲线关于 $x=\mu$ 对称，在区间 $[\mu-k\sigma,\mu+k\sigma]$ 上曲线与 $x$ 轴围成的曲边梯形面积就是概率 $P$；$k$ 越大面积越接近 $1$，$k=3$ 时面积几乎为 $1$。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（标准化函数）}}
+	标准化变量 $Z\sim N(0,1)$ 的分布函数 $\Phi(z)=P(Z\le z)$，则原概率可写为 $\Phi(k)-\Phi(-k)=2\Phi(k)-1$，代数形式统一。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（高频应用）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（直接求概率）：} 给出 $\mu$ 和 $\sigma$，求 $X$ 落在指定 $k\sigma$ 区间的概率，直接套用近似值。
+		\item \textbf{考法二（反求参数）：} 已知概率近似值和 $k$，建立方程求 $\mu$ 或 $\sigma$。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+	$\sigma$ 是衡量数据分散度的关键：区间概率只与 $k$ 有关，与 $\mu$ 和 $\sigma$ 的绝对值无关；$3\sigma$ 原则说明正态变量几乎全落在均值 $3\sigma$ 范围内。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（区间估计）：} 数据近似正态时，可用 $k\sigma$ 区间估计数据范围。
+		\item \textbf{场景二（质量控制）：} 生产管理中，以 $3\sigma$ 为控制界限，超出即判异。
+	\end{itemize}
+
+\end{explanationbox}

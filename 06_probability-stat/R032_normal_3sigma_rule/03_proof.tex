@@ -1,0 +1,47 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	利用标准化变换 $Z=\dfrac{X-\mu}{\sigma}\sim N(0,1)$ 将任意区间概率化为标准正态分布的概率，再查表获得数值。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（标准化变换）：}]
+			设 $X\sim N(\mu,\sigma^2)$，令 $Z=\dfrac{X-\mu}{\sigma}$，则 $Z\sim N(0,1)$。
+			\[
+				\begin{aligned}
+					P(\mu-k\sigma<X<\mu+k\sigma) &= P\left(-k<\dfrac{X-\mu}{\sigma}<k\right) \\ &= P(-k<Z<k).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 标准化不改变概率，只改变随机变量尺度。
+		\item[\textbf{步骤二（转化为单侧概率）：}]
+			利用标准正态分布的对称性 $P(Z<-k)=\Phi(-k)=1-\Phi(k)$，
+			\[
+				\begin{aligned}
+					P(-k<Z<k) &= \Phi(k)-\Phi(-k) \\ &= \Phi(k)-(1-\Phi(k)) \\ &= 2\Phi(k)-1.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 密度函数关于 $0$ 对称，$\Phi(-k)=1-\Phi(k)$。
+		\item[\textbf{步骤三（查表代入 $k$ 值）：}]
+			从标准正态分布表可查得：
+			\[
+				\Phi(1)\approx0.8413,
+				\qquad
+				\Phi(2)\approx0.9772,
+				\qquad
+				\Phi(3)\approx0.99865.
+			\]
+			\par\textbf{理由：} 这些数值是标准正态分布函数已知近似值。
+		\item[\textbf{步骤四（计算原概率）：}]
+			代入 $k=1,2,3$ 得到：
+			\[
+				\begin{aligned}
+					P(\mu-\sigma<X<\mu+\sigma) &\approx 2\times0.8413-1 \\ &= 0.6826 \\ &\approx 0.6827,\\ P(\mu-2\sigma<X<\mu+2\sigma) &\approx 2\times0.9772-1 \\ &= 0.9544 \\ &\approx 0.9545,\\ P(\mu-3\sigma<X<\mu+3\sigma) &\approx 2\times0.99865-1 \\ &= 0.9973.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 利用 $2\Phi(k)-1$ 计算并四舍五入到四位小数。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	三个近似概率即为输入结论中的 $\sigma$ 原则及 $3\sigma$ 原则，证明完毕。
+\end{proofbox}
