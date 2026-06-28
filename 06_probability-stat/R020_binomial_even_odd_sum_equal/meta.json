@@ -1,0 +1,163 @@
+{
+  "id": "R020",
+  "module": "probability-stat",
+  "core": {
+    "title": "二项式系数奇偶项和定理",
+    "alias": [
+      "奇偶项和定理",
+      "偶奇相等",
+      "二项式系数和的一半"
+    ],
+    "summary": "二项式展开中，所有偶数下标系数之和等于所有奇数下标系数之和，且均为2的n-1次方。",
+    "difficulty": 2,
+    "category": "二项式定理",
+    "tags": [
+      "二项式定理",
+      "组合恒等式",
+      "奇偶项和",
+      "赋值法",
+      "组合数求和"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "二项式系数",
+      "偶数下标",
+      "奇数下标",
+      "奇偶项和",
+      "组合数求和",
+      "赋值法",
+      "2的n-1次方",
+      "组合恒等式",
+      "偶数项和",
+      "奇数项和"
+    ],
+    "synonyms": [
+      "二项式系数奇数项和偶数项和",
+      "二项式系数奇偶项相等",
+      "组合数奇偶和",
+      "二项式系数偶奇和相等",
+      "组合数偶数项和"
+    ],
+    "intents": [
+      "求二项式系数偶数项和",
+      "计算奇数项和",
+      "证明奇偶项相等",
+      "利用赋值法求奇偶项和"
+    ],
+    "query_templates": [
+      "二项式系数中偶数项的和怎么算",
+      "奇数项二项式系数和等于多少",
+      "证明组合数偶数项和等于奇数项和",
+      "二项式系数奇偶项和公式"
+    ],
+    "ocrKeywords": [
+      "C(n,0)+C(n,2)",
+      "组合数偶数下标和",
+      "\\binom{n}{0}+\\binom{n}{2}"
+    ],
+    "latex_patterns": [
+      "\\binom{n}{0}+\\binom{n}{2}+\\cdots = \\binom{n}{1}+\\binom{n}{3}+\\cdots = 2^{n-1}"
+    ],
+    "formulaTokens": [
+      "\\binom{n}{0}+\\binom{n}{2}",
+      "\\binom{n}{1}+\\binom{n}{3}",
+      "2^{n-1}",
+      "\\binom{n}{0}",
+      "\\binom{n}{2}",
+      "\\binom{n}{1}",
+      "\\binom{n}{3}"
+    ],
+    "pinyin": "erxiangshijishuojiouxianhe",
+    "pinyinAbbr": "exs"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.9,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\boxed{\\binom{n}{0}+\\binom{n}{2}+\\cdots = \\binom{n}{1}+\\binom{n}{3}+\\cdots = 2^{n-1}}",
+    "related_formulas": [
+      "\\sum_{k=0}^{n}(-1)^k\\binom{n}{k}=0\\quad(n\\ge 1)",
+      "\\binom{n}{0}+\\binom{n}{1}+\\cdots+\\binom{n}{n}=2^n"
+    ],
+    "variables": [
+      "n"
+    ],
+    "conditions": "$n$ 为正整数，$n\\ge 1$。",
+    "conclusions": "偶数下标二项式系数之和等于奇数下标二项式系数之和，且均为 $2^{n-1}$。"
+  },
+  "content": {
+    "statement": "对于任意正整数 $n$，二项式系数中所有偶数下标项之和等于所有奇数下标项之和，且均为 $2^{n-1}$，即 $\\binom{n}{0}+\\binom{n}{2}+\\cdots = \\binom{n}{1}+\\binom{n}{3}+\\cdots = 2^{n-1}$。",
+    "derivation": [
+      "令 $(1+x)^n = \\sum_{k=0}^n \\binom{n}{k} x^k$。",
+      "代入 $x=1$ 得 $\\sum_{k=0}^n \\binom{n}{k}=2^n$；代入 $x=-1$ 得 $\\sum_{k=0}^n (-1)^k \\binom{n}{k}=0$。",
+      "两式相加除以2得偶数项和，相减除以2得奇数项和，均为 $2^{n-1}$。"
+    ],
+    "intuition": "当 $x=1$ 和 $x=-1$ 时，展开式分别给出所有项之和与正负交替项之和，利用加减消去一半即得奇偶项各自的和。",
+    "common_tricks": [
+      "遇奇偶项求和直接套用公式 $2^{n-1}$，避免逐项计算。",
+      "可用赋值法 $x=1$ 和 $x=-1$ 快速推导。",
+      "注意 $n\\ge 1$，否则 $n=0$ 时和为1，不满足。",
+      "结合总和 $2^n$ 可快速得一半。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "组合恒等式证明",
+      "二项式系数求和",
+      "概率二项分布相关计算"
+    ],
+    "problem_types": [
+      "计算题",
+      "证明题"
+    ],
+    "exam_frequency": 0.9,
+    "exam_score": 8
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "R020.svg",
+    "png": "",
+    "pdf": ""
+  },
+  "shareConfig": {
+    "title": "二项式系数奇偶项和：偶数项和=奇数项和",
+    "shareDesc": "适合课后复盘和考前速查，直接用赋值法推导，快速计算二项式系数奇偶项求和，避免分步展开出错。"
+  },
+  "relations": {
+    "prerequisites": [
+      "二项式定理展开",
+      "组合数定义",
+      "代数式赋值法"
+    ],
+    "related_ids": [],
+    "similar": [
+      "二项式系数总和为2^n",
+      "二项式系数交替和为零"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "概率-古典概型-排列组合",
+  "altNodes": [
+    "代数-式的变形-恒等变形"
+  ]
+}

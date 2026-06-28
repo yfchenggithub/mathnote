@@ -1,0 +1,58 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	将 $x=1$ 和 $x=-1$ 分别代入二项式定理 $(1+x)^n$，得到关于奇偶项和的两个方程，联立求解。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（二项展开）：}]
+			根据二项式定理，对任意 $x$ 有
+			\[
+				\begin{aligned}
+					(1+x)^n &= \sum_{k=0}^{n} \binom{n}{k} x^k \\ &= \binom{n}{0} + \binom{n}{1}x + \binom{n}{2}x^2 + \cdots + \binom{n}{n}x^n.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 二项式定理的标准展开形式。
+		\item[\textbf{步骤二（代入 $x=1$）：}]
+			令 $x=1$，则
+			\[
+				\begin{aligned}
+					(1+1)^n &= 2^n \\ &= \binom{n}{0} + \binom{n}{1} + \binom{n}{2} + \cdots + \binom{n}{n}.
+			\end{aligned}
+			\]
+			将所有系数按奇偶下标分为两组，记
+			\[
+				E = \binom{n}{0} + \binom{n}{2} + \binom{n}{4} + \cdots, \quad O = \binom{n}{1} + \binom{n}{3} + \binom{n}{5} + \cdots,
+			\]
+			则有
+			\[
+				E + O = 2^n. \tag{1}
+			\]
+			\par\textbf{理由：} 直接代入并分离奇偶项。
+		\item[\textbf{步骤三（代入 $x=-1$）：}]
+			令 $x=-1$，则
+			\[
+				\begin{aligned}
+					(1-1)^n &= 0 \\ &= \binom{n}{0} - \binom{n}{1} + \binom{n}{2} - \binom{n}{3} + \cdots + (-1)^n\binom{n}{n}.
+			\end{aligned}
+			\]
+			上式右边正是 $E - O$，因此
+			\[
+				E - O = 0. \tag{2}
+			\]
+			\par\textbf{理由：} $x=-1$ 时，奇数项系数带负号，偶数项为正，所以整体为 $E - O$。
+		\item[\textbf{步骤四（联立求解）：}]
+			由 $(1)$ 和 $(2)$ 组成方程组
+			\[
+				\begin{cases}
+					E + O = 2^n,\\ E - O = 0.
+			\end{cases}
+			\]
+			解得 $E = O = 2^{n-1}$。
+			\par\textbf{理由：} 两式相加得 $2E = 2^n$，相减得 $2O = 2^n$，故各为 $2^{n-1}$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{因此，对任意正整数 $n$，二项式系数中偶数下标项之和等于奇数下标项之和，且均为 $2^{n-1}$。}
+\end{proofbox}

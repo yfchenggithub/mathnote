@@ -1,0 +1,73 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例1（基础）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	计算 $\displaystyle\binom{8}{0}+\binom{8}{2}+\binom{8}{4}+\binom{8}{6}+\binom{8}{8}$ 的值。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别模式）：}]
+			所给和式是 $n=8$ 时所有偶数下标二项式系数之和。
+			\par\textbf{理由：} 相应符号 $\binom{8}{0},\binom{8}{2},\binom{8}{4},\binom{8}{6},\binom{8}{8}$ 的下标均为偶数。
+		\item[\textbf{第二步（套用结论）：}]
+			由定理，二项式系数偶数下标项之和等于 $2^{n-1}$。
+			\[
+				\begin{aligned}
+					\binom{8}{0}+\binom{8}{2}+\binom{8}{4}+\binom{8}{6}+\binom{8}{8} &= 2^{8-1} \\ &= 2^{7} \\ &= 128.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 直接代入 $n=8$ 到结论公式。
+		\item[\textbf{第三步（给出答案）：}]
+			结果为 $128$。
+			\par\textbf{理由：} 计算 $2^{7}=128$ 完成。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$\displaystyle\binom{8}{0}+\binom{8}{2}+\binom{8}{4}+\binom{8}{6}+\binom{8}{8}=128$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例2（稍变形）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	已知 $\displaystyle\binom{n}{0}+\binom{n}{2}+\binom{n}{4}+\cdots = 64$（$n$ 为正整数），求 $n$ 的值。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别和式）：}]
+			已知和式为 $n$ 的所有偶数下标二项式系数之和。
+			\par\textbf{理由：} 符号 $\binom{n}{0},\binom{n}{2},\binom{n}{4},\ldots$ 均为偶数下标项。
+		\item[\textbf{第二步（建立方程）：}]
+			由定理，偶数下标系数之和等于 $2^{n-1}$，故有
+			\[
+				2^{n-1}=64.
+			\]
+			\par\textbf{理由：} 代入结论公式。
+		\item[\textbf{第三步（解指数方程）：}]
+			因为 $64=2^6$，所以 $n-1=6$，解得 $n=7$。
+			\par\textbf{理由：} 同底数幂相等则指数相等。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$n=7$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例3（综合应用）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	从 $10$ 名同学中选出若干人组队参加知识竞赛，要求队伍人数为奇数。问有多少种不同的组队方案？
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（转化为组合和式）：}]
+			从 $10$ 人中选 $k$ 人的方案数为 $\binom{10}{k}$。要求 $k$ 为奇数，故总方案数为
+			\[
+				\binom{10}{1}+\binom{10}{3}+\binom{10}{5}+\binom{10}{7}+\binom{10}{9}.
+			\]
+			\par\textbf{理由：} 组合数的求和对应于所有可能的人数。
+		\item[\textbf{第二步（套用结论）：}]
+			上述和式是 $n=10$ 时的奇数下标二项式系数之和。由定理，它等于 $2^{n-1}$。
+			\[
+				\begin{aligned}
+					\binom{10}{1}+\binom{10}{3}+\cdots+\binom{10}{9} &= 2^{10-1} \\ &= 2^{9} \\ &= 512.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} $n=10$，代入结论公式。
+		\item[\textbf{第三步（给出答案）：}]
+			因此不同的组队方案共有 $512$ 种。
+			\par\textbf{理由：} 计算 $2^{9}=512$ 完成。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{方案数为 $512$。}
+\end{examplebox}

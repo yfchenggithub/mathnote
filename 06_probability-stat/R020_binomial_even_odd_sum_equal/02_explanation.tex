@@ -1,0 +1,43 @@
+\begin{explanationbox}
+
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+	从 $n$ 个不同元素中选取子集，所有子集总数为 $2^n$，其中含偶数个元素的子集数目与含奇数个元素的子集数目恰好相等，均为 $2^{n-1}$。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（二项式赋值）：}] 在二项式定理中令 $x=1$ 得所有系数和 $2^n$；令 $x=-1$ 得交替和为零，由此推出奇偶项和相等。
+		\item[\textbf{要点二（奇偶分离）：}] 将 $(1+1)^n$ 和 $(1-1)^n$ 展开，分别得到偶数项和与奇数项和的关系，联立解得各为 $2^{n-1}$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（子集对称）}}
+
+	将 $n$ 元集的全体子集按所含元素个数的奇偶性分为两类。固定一个特定元素，建立奇偶子集之间的一一对应，从而两类数目相等。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（赋值求和）}}
+
+	二项式定理 $(1+x)^n = \sum_{k=0}^n \binom{n}{k}x^k$ 是多项式恒等式。分别令 $x=1$ 和 $x=-1$，得到两个线性方程，即可解出奇偶项和。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（求恒等式）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（直接求值）：} 直接给出二项式系数奇偶项和，求 $2^{n-1}$。
+		\item \textbf{考法二（证明等式）：} 利用奇偶项和相等证明组合恒等式或化简求和式。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	\textbf{关键是将 $x=1$ 和 $x=-1$ 同时代入 $(1+x)^n$，形成方程组，而不是单独代入。}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（组合计数）：} 计算“选出偶数个元素”的方案数。
+		\item \textbf{场景二（求和化简）：} 含 $\binom{n}{k}$ 且 $k$ 有奇偶限制的求和式可快速得出结果。
+	\end{itemize}
+
+\end{explanationbox}
