@@ -1,0 +1,38 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	条件概率的定义并不是凭空产生的。在古典概型中，我们可通过“缩减样本空间”自然地得到该公式。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（古典概型假设）：}] 设随机试验为古典概型，样本空间$\Omega$包含$N$个等可能样本点。记事件$A$包含$n_A$个样本点，事件$AB$包含$n_{AB}$个样本点。
+			\[
+				\begin{aligned}
+					P(A) &= \frac{n_A}{N}, \\
+					P(AB) &= \frac{n_{AB}}{N}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 古典概型中概率计为有利点数除以总数。
+
+		\item[\textbf{步骤二（计算条件概率）：}] 在事件$A$已经发生的条件下，新的样本空间缩小为$A$，共$n_A$个样本点。此时事件$B$发生等价于$AB$发生，因此条件概率等于
+			\[
+				\begin{aligned}
+					\frac{n_{AB}}{n_A} &= \frac{n_{AB}/N}{n_A/N} \\
+					&= \frac{P(AB)}{P(A)}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 等可能的样本点基本事件，利用比例关系进行转化。
+
+		\item[\textbf{步骤三（推广到一般）：}] 上式在古典概型下推导得出，但现代概率论将其作为条件概率的一般定义，只要$P(A)>0$即可。
+			\[
+				P(B \mid A) := \frac{P(AB)}{P(A)}.
+			\]
+			\par\textbf{理由：} 该定义满足概率公理，并可得到乘法公式等重要结论。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	$\boxed{P(B \mid A) = \dfrac{P(AB)}{P(A)}}$ 定义了在事件$A$发生的条件下事件$B$的概率，是概率论中重要的基础概念。
+\end{proofbox}
