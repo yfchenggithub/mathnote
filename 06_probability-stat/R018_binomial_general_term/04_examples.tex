@@ -1,0 +1,79 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	求 $(2+x)^5$ 的展开式中 $x^3$ 的系数。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（识别参数）：}] 确定 $n=5$，$a=2$，$b=x$，所求项为 $x^3$，对应 $b$ 的指数 $r=3$。
+			\par\textbf{理由：} 通项 $T_{r+1}=\binom{n}{r} a^{n-r} b^{r}$，$b$ 的指数由 $r$ 决定。
+		\item[\textbf{第二步（代入通项）：}] 代入 $n=5$，$r=3$，$a=2$，$b=x$ 得
+			\[
+				T_{4} = \binom{5}{3} \cdot 2^{5-3} \cdot x^{3}.
+			\]
+			\par\textbf{理由：} 直接套用通项公式，注意 $T_{r+1}$ 中的 $r$ 应代入。
+		\item[\textbf{第三步（计算系数）：}] 计算组合数与幂：
+			\[
+				\binom{5}{3}=10, \quad 2^{2}=4 \quad\Rightarrow\quad 10\times4=40.
+			\]
+			\par\textbf{理由：} 组合数及幂运算后相乘得到项的系数。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	展开式中 $x^3$ 的系数为 $\mathbf{40}$，对应项为 $\mathbf{40x^{3}}$.\n\n\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	求 $\left(x+\frac{1}{x}\right)^{6}$ 的展开式中的常数项。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（化简通项）：}] 通项
+			\[
+				\begin{aligned}
+					T_{r+1} &= \binom{6}{r} x^{6-r} \left(\frac{1}{x}\right)^{r} \\
+					&= \binom{6}{r} x^{6-r} x^{-r} \\
+					&= \binom{6}{r} x^{6-2r}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 合并同底数幂，指数相减。
+		\item[\textbf{第二步（常数条件）：}] 常数项要求 $x$ 的指数为 $0$，即 $6-2r=0$，解得 $r=3$.
+			\par\textbf{理由：} 只有指数为零时此项不含变量。
+		\item[\textbf{第三步（计算常数项）：}] 将 $r=3$ 代入通项系数：
+			\[
+				T_{4} = \binom{6}{3} = 20.
+			\]
+			\par\textbf{理由：} 此时 $x^{0}=1$，常数项即为系数。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	展开式中的常数项为 $\mathbf{20}$.
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知 $\left(x+\frac{a}{x}\right)^{5}$ 展开式中 $x$ 的系数为 $80$，且 $a>0$，求 $a$ 的值。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（写通项并化简）：}]
+			\[
+				\begin{aligned}
+					T_{r+1} &= \binom{5}{r} x^{5-r} \left(\frac{a}{x}\right)^{r} \\
+					&= \binom{5}{r} a^{r} x^{5-2r}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 利用幂运算将 $x$ 的指数合并。
+		\item[\textbf{第二步（确定 $r$ 值）：}]
+			项 $x$ 的指数为 $1$，所以 $5-2r=1$，解得 $r=2$.
+			\par\textbf{理由：} 通过指数对应确定 $r$。
+		\item[\textbf{第三步（列方程求 $a$）：}]
+			系数为 $\binom{5}{2}a^{2}=10a^{2}$，由已知 $10a^{2}=80$，得 $a^{2}=8$，又 $a>0$，所以 $a=2\sqrt{2}$.
+			\par\textbf{理由：} 组合数计算后解方程，取正值。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	满足条件的 $a = \mathbf{2\sqrt{2}}$.
+\end{examplebox}

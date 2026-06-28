@@ -1,0 +1,37 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	展开 $(a+b)^n$ 本质是 $n$ 个 $(a+b)$ 相乘，每一项都是 $a$ 与 $b$ 的 $n$ 次乘积，同类项合并后系数由选择 $b$ 的个数决定。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（展开一般项）：}]
+			设从 $n$ 个因式中选 $b$ 的次数为 $r$，则选 $a$ 的次数为 $n-r$，所得项为 $a^{n-r}b^{r}$。
+			\par\textbf{理由：}
+			每个因式贡献 $a$ 或 $b$，乘法分配律给出所有可能乘积。
+
+		\item[\textbf{步骤二（组合计数）：}]
+			选 $b$ 的 $r$ 个因式的不同选择方式数目等于从 $n$ 个元素中取 $r$ 个的组合数
+			\[
+				\binom{n}{r} = \frac{n!}{r!(n-r)!}.
+			\]
+			\par\textbf{理由：}
+			组合数定义，不计顺序选出 $r$ 个位置。
+
+		\item[\textbf{步骤三（合并同类项）：}]
+			所有 $a^{n-r}b^{r}$ 型项的系数均为 $\binom{n}{r}$，合并后通项为
+			\[
+				T_{r+1} = \binom{n}{r} a^{n-r}b^{r},
+				\qquad
+				r=0,1,\dots,n.
+			\]
+			\par\textbf{理由：}
+			按 $b$ 指数 $r$ 从小到大排列，$r$ 对应第 $r+1$ 项。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{通项公式将二项展开的项与组合数一一对应，是求指定项、系数、常数项等问题的核心工具。}
+\end{proofbox}

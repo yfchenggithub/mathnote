@@ -1,0 +1,46 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用二项式定理令 $x=1$ 直接导出系数和公式。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（写出定理）：}]
+			对于 $n\in\mathbb{N}^*$，二项式定理给出
+			\[
+				(1+x)^n = \sum_{k=0}^{n} \binom{n}{k} x^k
+			\]
+			\par\textbf{理由：}
+			此式是二项展开的标准公式，$\binom{n}{k}$ 是组合数（二项式系数）。
+
+		\item[\textbf{步骤二（赋值左端）：}]
+			令 $x=1$，左边变成
+			\[
+				(1+1)^n = 2^n
+			\]
+			\par\textbf{理由：}
+			$1+1=2$，再乘方 $n$ 次即得 $2^n$。
+
+		\item[\textbf{步骤三（赋值右端）：}]
+			当 $x=1$ 时，右边成为
+			\[
+				\sum_{k=0}^{n} \binom{n}{k} \cdot 1^k = \sum_{k=0}^{n} \binom{n}{k}
+			\]
+			\par\textbf{理由：}
+			$1^k=1$ 对任意 $k$ 成立，因此求和号内只剩下组合数。
+
+		\item[\textbf{步骤四（等量关系）：}]
+			因为恒等式对任意 $x$ 成立，所以赋值 $x=1$ 后左右仍相等，即
+			\[
+				\sum_{k=0}^{n} \binom{n}{k} = 2^n
+			\]
+			\par\textbf{理由：}
+			左右两侧算的是同一个量，故系数和等于 $2^n$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{综上所述，二项式系数和 $\sum_{k=0}^{n} \binom{n}{k}$ 等于 $2^n$，证毕。}
+\end{proofbox}
