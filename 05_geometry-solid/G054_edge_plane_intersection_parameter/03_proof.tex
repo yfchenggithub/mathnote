@@ -1,0 +1,45 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	\medskip
+	将直线上任意一点表示为 $\vec{x}=\vec{a}+t\vec{v}$（$t$为参数），代入平面方程 $\vec{n}\cdot(\vec{x}-\vec{p})=0$，解出$t$即得。$t\in[0,1]$等价于交点落在线段$AB$上。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（参数设定）：}]
+			设直线 $AB$ 上动点 $X$，以 $A$ 为起点，$\vec{v}=\overrightarrow{AB}$ 为方向，则 $X$ 的向量为
+			\[
+				\vec{x} = \vec{a} + t\vec{v},\quad t\in\mathbb{R}.
+			\]
+			\par\textbf{理由：} $t=0$ 对应 $A$，$t=1$ 对应 $B$，$t$ 线性移动。
+		\item[\textbf{步骤二（代入平面方程）：}]
+			截面 $\pi$ 上一点 $P$ 与其法向量 $\vec{n}$ 满足：平面 $\pi$ 上的点 $X$ 满足 $\vec{n}\cdot(\vec{x}-\vec{p})=0$。代入 $\vec{x}$ 得
+			\[
+				\vec{n}\cdot(\vec{a}+t\vec{v}-\vec{p}) = 0.
+			\]
+			\par\textbf{理由：} 法向量与平面内任一向量垂直。
+		\item[\textbf{步骤三（求解参数 $t$）：}]
+			整理上式为
+			\[
+				\vec{n}\cdot(\vec{a}-\vec{p}) + t\,\vec{n}\cdot\vec{v} = 0.
+			\]
+			因为 $\vec{n}\cdot\vec{v}\neq 0$（直线不平行于平面），移项得
+			\[
+				t = \frac{\vec{n}\cdot(\vec{p}-\vec{a})}{\vec{n}\cdot\vec{v}}.
+			\]
+			\par\textbf{理由：} 移项得 $t\,\vec{n}\cdot\vec{v} = -\vec{n}\cdot(\vec{a}-\vec{p})$，而 $-\vec{n}\cdot(\vec{a}-\vec{p}) = \vec{n}\cdot(\vec{p}-\vec{a})$，故 $t\,\vec{n}\cdot\vec{v} = \vec{n}\cdot(\vec{p}-\vec{a})$。
+		\item[\textbf{步骤四（线段截取条件）：}]
+			交点在线段 $AB$ 上的充要条件是 $t\in[0,1]$。
+			\[
+				t\in[0,1].
+			\]
+			\par\textbf{理由：} $t$ 是位置比例，$t\in[0,1]$ 恰表示从 $A$ 到 $B$ 的线段内部。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\medskip
+	\textbf{至此证明了直线与平面交点参数公式，并明确了 $t$ 的几何意义——比例因子。该公式将空间几何问题转化为代数计算，是立体几何中处理截面问题的核心工具。}
+\end{proofbox}

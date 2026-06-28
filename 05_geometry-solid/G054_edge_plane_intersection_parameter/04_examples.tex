@@ -1,0 +1,97 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\medskip
+	\textbf{\textcolor{CExample}{题目：}}
+	在空间直角坐标系中，已知棱 $AB$ 端点 $A(1,1,1)$，$B(5,1,1)$，截面 $\pi$ 过三点 $P(2,0,0),Q(3,1,0),R(3,0,1)$。求直线 $AB$ 与 $\pi$ 的交点参数 $t$，并判断交点是否在线段 $AB$ 上；若在，求交点坐标。
+
+	\medskip
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（参数与向量设定）：}]
+			设定棱方向 $\vec{v}=\overrightarrow{AB}=(4,0,0)$，起点 $\vec{a}=\overrightarrow{OA}=(1,1,1)$。取 $\vec{p}=\overrightarrow{OP}=(2,0,0)$，$\vec{q}=\overrightarrow{OQ}=(3,1,0)$，$\vec{r}=\overrightarrow{OR}=(3,0,1)$。
+			\par\textbf{理由：} 用坐标表示各点位置向量。
+		\item[\textbf{第二步（法向量计算）：}]
+			计算 $\overrightarrow{PQ}=(1,1,0)$，$\overrightarrow{PR}=(1,0,1)$，法向量 $\vec{n}=\overrightarrow{PQ}\times\overrightarrow{PR}=(1,-1,-1)$。
+			\par\textbf{理由：} 不共线三点确定平面的法向量由叉积得到。
+		\item[\textbf{第三步（公式代入与判断）：}]
+			代入公式：
+			\[
+				\begin{aligned}
+					t &= \frac{\vec{n}\cdot(\vec{p}-\vec{a})}{\vec{n}\cdot\vec{v}} \\ &= \frac{(1,-1,-1)\cdot(1,-1,-1)}{(1,-1,-1)\cdot(4,0,0)} \\ &= \frac{3}{4} \\ &= 0.75.
+			\end{aligned}
+			\]
+			由于 $0.75 \in [0,1]$，交点在线段上。交点坐标：
+			\[
+				\begin{aligned}
+					\vec{a}+t\vec{v} &= (1,1,1) + 0.75(4,0,0) \\ &= (4,1,1).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} $t\in[0,1]$ 表明交点在 $AB$ 上，坐标由参数式直接给出。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{利用公式快速得到 $t=0.75$，交点 $(4,1,1)$，验证了结论的实用性。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\medskip
+	\textbf{\textcolor{CExample}{题目：}}
+	棱 $GH$ 端点 $G(0,2,2)$，$H(0,6,2)$，截面 $\pi$ 同上 $P(2,0,0),Q(3,1,0),R(3,0,1)$。求直线 $GH$ 与 $\pi$ 的交点参数 $t$，并判断交点是否在线段 $GH$ 上。
+
+	\medskip
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（参数设定）：}]
+			$\vec{a}=\overrightarrow{OG}=(0,2,2)$，$\vec{v}=\overrightarrow{GH}=(0,4,0)$；取 $\vec{p}=(2,0,0)$。
+			\par\textbf{理由：} 同例1记法。
+		\item[\textbf{第二步（法向量沿用）：}]
+			截面未变，法向量仍为 $\vec{n}=(1,-1,-1)$。
+			\par\textbf{理由：} 法向量由三点唯一确定。
+		\item[\textbf{第三步（代入公式与判断）：}]
+			代入公式：
+			\[
+				\begin{aligned}
+					t &= \frac{(1,-1,-1)\cdot[(2,0,0)-(0,2,2)]}{(1,-1,-1)\cdot(0,4,0)} \\ &= \frac{(1,-1,-1)\cdot(2,-2,-2)}{-4} \\ &= \frac{6}{-4} \\ &= -1.5.
+			\end{aligned}
+			\]
+			因为 $-1.5 \notin [0,1]$，故交点不在线段上。
+			\par\textbf{理由：} $t=-1.5<0$，说明交点在 $G$ 的延长线上，$GH$ 与截面不相交。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$t=-1.5$ 表明棱 $GH$ 与截面无交点，无需再考虑。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\medskip
+	\textbf{\textcolor{CExample}{题目：}}
+	在四面体 $ABCD$ 中，$A(0,0,0)$，$B(8,0,0)$，$C(0,8,0)$，$D(0,0,8)$。截面 $\pi$ 过 $P(1,1,0),Q(1,0,1),R(0,1,1)$。利用公式求 $\pi$ 与棱 $AB, AC, AD$ 的交点参数，并判断各交点是否在线段上。
+
+	\medskip
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（确定坐标向量）：}]
+			取 $A$ 为原点，则 $\vec{a}_{AB}=\vec{0}$，$\vec{v}_{AB}=(8,0,0)$；$\vec{v}_{AC}=(0,8,0)$；$\vec{v}_{AD}=(0,0,8)$。取 $\vec{p}=\overrightarrow{OP}=(1,1,0)$。
+			\par\textbf{理由：} 统一以 $O$ 为原点写出各位置向量。
+		\item[\textbf{第二步（法向量计算）：}]
+			$\overrightarrow{PQ}=(0,-1,1)$，$\overrightarrow{PR}=(-1,0,1)$，故 $\vec{n}=(-1,-1,-1)$。
+			\par\textbf{理由：} 叉积得到平面法向量。
+		\item[\textbf{第三步（替代公式求 $t$）：}]
+			分别代入三条棱：
+			\[
+				\begin{aligned}
+					t_{AB} &= \frac{(-1,-1,-1)\cdot[(1,1,0)-(0,0,0)]}{(-1,-1,-1)\cdot(8,0,0)} \\ &= \frac{-2}{-8} \\ &= 0.25,\\ t_{AC} &= \frac{(-1,-1,-1)\cdot(1,1,0)}{(-1,-1,-1)\cdot(0,8,0)} \\ &= \frac{-2}{-8} \\ &= 0.25,\\ t_{AD} &= \frac{(-1,-1,-1)\cdot(1,1,0)}{(-1,-1,-1)\cdot(0,0,8)} \\ &= \frac{-2}{-8} \\ &= 0.25.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 分子相同（均为 $\vec{n}\cdot(\vec{p}-\vec{0})$），分母分别为各方向向量与法向量点积。$0.25\in[0,1]$，故三条棱均与截面相交于线段内部。交点坐标分别为 $(2,0,0)$，$(0,2,0)$，$(0,0,2)$，它们恰好是 $P,Q,R$ 连线的延长点，构成截面三角形顶点。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{公式统一处理多条棱，快速得到交点参数，为确定截面形状提供数值依据。}
+\end{examplebox}
