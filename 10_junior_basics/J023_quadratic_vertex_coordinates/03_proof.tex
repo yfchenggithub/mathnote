@@ -1,0 +1,53 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用配方法将一般式 $y=ax^2+bx+c$ 写成 $a(x-h)^2+k$ 的形式，即可直接读出顶点坐标与对称轴。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（提公因子）：}] 提取二次项系数，只对 $x^2$ 和 $x$ 项操作：
+			\[
+				y = a\left(x^2 + \frac{b}{a}x\right) + c.
+			\]
+			\par\textbf{理由：} 为配方做准备，将 $a$ 分离出来使得括号内二次项系数为 $1$。
+
+		\item[\textbf{步骤二（配方）：}] 在括号内加上一次项系数一半的平方 $(\frac{b}{2a})^2$，再减去它，保持等式不变：
+			\[
+				\begin{aligned}
+					x^2 + \frac{b}{a}x
+					&= x^2 + \frac{b}{a}x + \left(\frac{b}{2a}\right)^2 - \left(\frac{b}{2a}\right)^2 \\
+					&= \left(x+\frac{b}{2a}\right)^2 - \frac{b^2}{4a^2}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 完全平方公式构造，括号内凑成平方差形式。
+
+		\item[\textbf{步骤三（代入整理）：}] 将配方结果代回 $y$ 并展开：
+			\[
+				\begin{aligned}
+					y &= a\left[ \left(x+\frac{b}{2a}\right)^2 - \frac{b^2}{4a^2} \right] + c \\
+					&= a\left(x+\frac{b}{2a}\right)^2 - \frac{b^2}{4a} + c.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} $a$ 乘以 $-\frac{b^2}{4a^2}$ 得到 $-\frac{b^2}{4a}$。
+
+		\item[\textbf{步骤四（合并常数）：}] 将常数项 $- \frac{b^2}{4a}$ 与 $c$ 合并：
+			\[
+				y = a\left(x+\frac{b}{2a}\right)^2 + \frac{4ac-b^2}{4a}.
+			\]
+			\par\textbf{理由：} 通分 $c = \frac{4ac}{4a}$，与 $-\frac{b^2}{4a}$ 合并。
+
+		\item[\textbf{步骤五（对照结论）：}] 令 $h = -\dfrac{b}{2a}$，$k = \dfrac{4ac-b^2}{4a}$，则 $y = a(x-h)^2 + k$。
+			\[
+				(h,k) = \left(-\frac{b}{2a},\frac{4ac-b^2}{4a}\right),
+				\qquad
+				x = -\frac{b}{2a}.
+			\]
+			\par\textbf{理由：} 顶点式 $y=a(x-h)^2+k$ 的几何含义：顶点在 $(h,k)$，对称轴 $x=h$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	通过配方，一般式 $y=ax^2+bx+c$ 被转换为顶点式，直接读出顶点坐标和对称轴，整个推导仅依赖代数恒等变形，无需额外假设。
+\end{proofbox}
