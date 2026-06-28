@@ -1,0 +1,65 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	已知四面体 $ABCD$，$A(1,1,1)$，$B(4,1,1)$，$C(1,4,1)$，$D(1,1,5)$，求四面体体积。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（作差求向量）：}]
+			$\vec{a}=\overrightarrow{AB}=(3,0,0)$，$\vec{b}=\overrightarrow{AC}=(0,3,0)$，$\vec{c}=\overrightarrow{AD}=(0,0,4)$。
+			\par\textbf{理由：} 体积公式需要从同一顶点 $A$ 出发的三条棱对应的向量。
+		\item[\textbf{第二步（计算混合积）：}]
+			先计算 $\vec{a}\times\vec{b} = (0,0,9)$，再点乘 $\vec{c}$ 得 $(\vec{a}\times\vec{b})\cdot\vec{c}=36$。
+			\par\textbf{理由：} 叉积得底面法向量，点积得平行六面体体积。
+		\item[\textbf{第三步（套用公式）：}]
+			$V = \frac16 |36|$。 计算得 $V = 6$。
+			\par\textbf{理由：} 四面体体积是平行六面体体积的六分之一。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{四面体体积为 $6$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	已知从点 $A$ 出发的三条棱的向量分别为 $\vec{a}=(1,2,0)$，$\vec{b}=(-1,3,2)$，$\vec{c}=(0,4,1)$，求四面体 $ABCD$ 的体积。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（确认向量）：}]
+			题目已给出以 $A$ 为起点的 $\vec{a},\vec{b},\vec{c}$，直接使用。
+			\par\textbf{理由：} 公式要求共起点，满足条件。
+		\item[\textbf{第二步（计算混合积）：}]
+			计算行列式 $\det[\vec{a}\,\vec{b}\,\vec{c}] =
+			\begin{vmatrix}
+				1&2&0\\-1&3&2\\0&4&1
+		\end{vmatrix}
+			$。 按第一行展开： $3\times1-2\times4 = -5$，所以 $1\times(-5) = -5$； $(-1)\times1-2\times0 = -1$，所以 $-2\times(-1) = 2$； $0$ 项为 $0$。 相加得 $-5+2+0 = -3$。 故 $|(\vec{a}\times\vec{b})\cdot\vec{c}| = 3$。
+			\par\textbf{理由：} 混合积的绝对值等于平行六面体体积。
+		\item[\textbf{第三步（套用公式）：}]
+			$V = \frac16 \times |(\vec{a}\times\vec{b})\cdot\vec{c}|$。 由第二步得 $|(\vec{a}\times\vec{b})\cdot\vec{c}|=3$，所以 $V = \frac16 \times 3$。 计算得 $V = \frac12$。
+			\par\textbf{理由：} 四面体体积是平行六面体体积的六分之一。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{四面体体积为 $\dfrac12$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	已知四点 $A(1,0,1)$，$B(2,1,2)$，$C(1,2,1)$，$D(0,1,2)$，判断它们是否共面；若不共面，求四面体 $ABCD$ 的体积。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（作差求向量）：}]
+			以 $A$ 为起点：$\vec{a}=\overrightarrow{AB}=(1,1,1)$，$\vec{b}=\overrightarrow{AC}=(0,2,0)$，$\vec{c}=\overrightarrow{AD}=(-1,1,1)$。
+			\par\textbf{理由：} 公式需共起点向量。
+		\item[\textbf{第二步（计算混合积）：}]
+			计算 $\det[\vec{a}\,\vec{b}\,\vec{c}] =
+			\begin{vmatrix}
+				1&1&1\\0&2&0\\-1&1&1
+		\end{vmatrix}
+			$。 按第一行展开： $2\times1-0\times1 = 2$，所以 $1\times2 = 2$； $0\times1-0\times(-1) = 0$，所以 $-1\times0 = 0$； $0\times1-2\times(-1) = 2$，所以 $1\times2 = 2$。 相加得 $2+0+2 = 4$。 故混合积的绝对值为 $4$。
+			\par\textbf{理由：} 混合积的绝对值等于平行六面体体积。
+		\item[\textbf{第三步（判断与求积）：}]
+			因为混合积不为零，所以 $A,B,C,D$ 不共面。 体积 $V = \frac16 \times 4$。 计算得 $V = \frac23$。
+			\par\textbf{理由：} 体积公式 $V=\frac16|(\vec{a}\times\vec{b})\cdot\vec{c}|$。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{四点不共面，四面体体积为 $\dfrac23$。}
+\end{examplebox}

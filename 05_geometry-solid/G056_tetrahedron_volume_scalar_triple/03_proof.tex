@@ -1,0 +1,57 @@
+\begin{proofbox}
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用体积公式 $V=\frac13 S_{\triangle ABC} \cdot h$。先以 $AB, AC$ 为边求底面面积，再用向量 $\vec{AD}$ 在法向量上的投影求高，最后化简即得公式。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（底面面积）：}]
+			\[
+				S_{\triangle ABC} = \frac12 |\vec{a}\times\vec{b}|.
+			\]
+			\par\textbf{理由：}
+			以 $AB, AC$ 为邻边的平行四边形面积为 $|\vec{a}\times\vec{b}|$，三角形面积为其一半。
+
+		\item[\textbf{步骤二（法向量方向）：}]
+			记 $\vec{n} = \vec{a}\times\vec{b}$，则 $\vec{n}\perp$ 平面 $ABC$。
+			\par\textbf{理由：}
+			向量积 $\vec{a}\times\vec{b}$ 同时垂直于 $\vec{a}$ 和 $\vec{b}$，因此垂直于底面。
+
+		\item[\textbf{步骤三（点 $D$ 到底面距离）：}]
+			点 $D$ 到平面 $ABC$ 的距离
+			\[
+				h = \frac{|\vec{c}\cdot\vec{n}|}{|\vec{n}|}.
+			\]
+			其中 $\vec{n}=\vec{a}\times\vec{b}$，因此
+			\[
+				h = \frac{|(\vec{a}\times\vec{b})\cdot\vec{c}|}{|\vec{a}\times\vec{b}|}.
+			\]
+			\par\textbf{理由：}
+			点 $D$ 到平面 $ABC$ 的距离等于 $\vec{AD}$ 在法向量 $\vec{n}$ 上的投影绝对值。
+
+		\item[\textbf{步骤四（代入体积公式）：}]
+			代入 $S_{\triangle ABC} = \frac12|\vec{a}\times\vec{b}|$ 和 $h = \frac{|(\vec{a}\times\vec{b})\cdot\vec{c}|}{|\vec{a}\times\vec{b}|}$ 到 $V = \frac13 S_{\triangle ABC} \cdot h$：
+			\[
+				V = \frac13 \cdot \frac12|\vec{a}\times\vec{b}| \cdot \frac{|(\vec{a}\times\vec{b})\cdot\vec{c}|}{|\vec{a}\times\vec{b}|}
+			\]
+			化简得：
+			\[
+				V = \frac16 |(\vec{a}\times\vec{b})\cdot\vec{c}|.
+			\]
+			\par\textbf{理由：}
+			代入并约去 $|\vec{a}\times\vec{b}|$ 得结果。若 $|\vec{a}\times\vec{b}|=0$（即 $\vec{a}\parallel\vec{b}$，底面退化），则四面体体积为 $0$，而 $(\vec{a}\times\vec{b})\cdot\vec{c}=0$，公式仍给出 $V=0$。
+
+		\item[\textbf{步骤五（共面讨论）：}]
+			当 $(\vec{a}\times\vec{b})\cdot\vec{c}=0$ 时，$V=0$，从而 $A,B,C,D$ 四点共面。
+			\par\textbf{理由：}
+			混合积为零意味着 $\vec{AD}$ 在法向量上投影为零，即 $D$ 在底面 $ABC$ 内。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	上述推导表明四面体体积等于混合积绝对值的六分之一，同时混合积为零对应四点共面，与原始结论一致。
+
+\end{proofbox}
