@@ -1,0 +1,180 @@
+{
+  "id": "J049",
+  "module": "geometry-plane",
+  "core": {
+    "title": "相似三角形比例式分类（D在AB上E在AC上）",
+    "alias": [
+      "相似分类讨论",
+      "比例式分类",
+      "顶点对应相似",
+      "三角形相似双解"
+    ],
+    "summary": "当点D在边AB上、点E在边AC上且△ADE∽△ABC时，对应关系有两种，比例式也有两种。",
+    "difficulty": 3,
+    "category": "平面几何",
+    "tags": [
+      "三角形相似",
+      "分类讨论",
+      "比例线段",
+      "平面几何",
+      "相似三角形"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "三角形相似",
+      "分类讨论",
+      "比例式",
+      "AD/AB=AE/AC",
+      "AD/AC=AE/AB",
+      "点D在AB上",
+      "点E在AC上",
+      "对应顶点",
+      "相似三角形分类",
+      "双解",
+      "相似条件",
+      "几何比例",
+      "线段比例",
+      "△ADE∽△ABC",
+      "△ADE∽△ACB"
+    ],
+    "synonyms": [
+      "相似三角形比例",
+      "相似比例式",
+      "相似对应关系",
+      "三角形相似比例式",
+      "D在AB上E在AC上相似",
+      "相似三角形两种情况"
+    ],
+    "intents": [
+      "求AE的长度",
+      "判断相似对应",
+      "分类讨论相似",
+      "验证点在线段上",
+      "解比例式",
+      "求线段长"
+    ],
+    "query_templates": [
+      "D在AB上E在AC上三角形相似求AE",
+      "三角形相似比例式分类",
+      "△ADE∽△ABC两种对应",
+      "相似三角形分类讨论比例"
+    ],
+    "ocrKeywords": [
+      "△ABC",
+      "点D在AB上",
+      "点E在AC上",
+      "△ADE∽△ABC",
+      "相似",
+      "比例",
+      "AD/AB",
+      "AE/AC",
+      "AD/AC",
+      "AE/AB"
+    ],
+    "latex_patterns": [
+      "\\frac{AD}{AB}=\\frac{AE}{AC}",
+      "\\frac{AD}{AC}=\\frac{AE}{AB}"
+    ],
+    "formulaTokens": [
+      "AD/AB",
+      "AE/AC",
+      "AD/AC",
+      "AE/AB",
+      "AD/AB=AE/AC",
+      "AD/AC=AE/AB",
+      "△ADE∽△ABC",
+      "△ADE∽△ACB"
+    ],
+    "pinyin": "xiang si san jiao xing bi li shi fen lei",
+    "pinyinAbbr": "xsjxblsfl"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.69,
+    "hot_score": 60,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\frac{AD}{AB}=\\frac{AE}{AC} \\quad\\text{或}\\quad \\frac{AD}{AC}=\\frac{AE}{AB}",
+    "related_formulas": [
+      "\\frac{AD}{AB}=\\frac{AE}{AC}=\\frac{DE}{BC} \\quad(\\text{当 }DE\\parallel BC)"
+    ],
+    "variables": [
+      "AD",
+      "AB",
+      "AE",
+      "AC",
+      "DE",
+      "BC"
+    ],
+    "conditions": "点$D$在边$AB$上，点$E$在边$AC$上，且$\\triangle ADE$与$\\triangle ABC$相似（对应顶点未指定）。",
+    "conclusions": "若$\\triangle ADE\\sim\\triangle ABC$（$A\\leftrightarrow A,\\;D\\leftrightarrow B,\\;E\\leftrightarrow C$），则$\\frac{AD}{AB}=\\frac{AE}{AC}$；若$\\triangle ADE\\sim\\triangle ACB$（$A\\leftrightarrow A,\\;D\\leftrightarrow C,\\;E\\leftrightarrow B$），则$\\frac{AD}{AC}=\\frac{AE}{AB}$。当$DE\\parallel BC$时，仅第一种成立。"
+  },
+  "content": {
+    "statement": "在$\\triangle ABC$中，点$D$在边$AB$上，点$E$在边$AC$上。若$\\triangle ADE$与$\\triangle ABC$相似，则必有$\\frac{AD}{AB}=\\frac{AE}{AC}$或$\\frac{AD}{AC}=\\frac{AE}{AB}$，前者对应$\\triangle ADE\\sim\\triangle ABC$，后者对应$\\triangle ADE\\sim\\triangle ACB$。",
+    "derivation": [
+      "由于相似三角形的对应顶点未指定，需分类讨论对应关系。",
+      "情况一：点$A$对应$A$，点$D$对应$B$，点$E$对应$C$，得$\\frac{AD}{AB}=\\frac{AE}{AC}$。",
+      "情况二：点$A$对应$A$，点$D$对应$C$，点$E$对应$B$，得$\\frac{AD}{AC}=\\frac{AE}{AB}$。"
+    ],
+    "intuition": "因为相似三角形的对应顶点不确定，所以需要分类讨论，两种对应方式得出两个不同的比例式。",
+    "common_tricks": [
+      "当题目未指明对应关系时，必须分类讨论两种比例式。",
+      "注意检验点$E$是否在线段$AC$上（$0<AE\\leq AC$），防止出现不合理解。",
+      "若出现$DE\\parallel BC$，则自动确定为第一种对应（$\\frac{AD}{AB}=\\frac{AE}{AC}$）。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "三角形相似分类讨论题",
+      "求动点线段长问题",
+      "涉及对应顶点不确定的相似问题"
+    ],
+    "problem_types": [
+      "求线段长",
+      "证明相似",
+      "判断点位置"
+    ],
+    "exam_frequency": 0.6,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "J049.svg",
+    "png": "",
+    "thumbnail": ""
+  },
+  "shareConfig": {
+    "title": "相似三角形比例式分类（D在AB上E在AC上）",
+    "shareDesc": "适合课后复习或刷题前速查，集中解决三角形相似时对应顶点不确定导致的两种比例式，避免漏解或舍去不合理情况。"
+  },
+  "relations": {
+    "prerequisites": [
+      "相似三角形判定",
+      "比例线段",
+      "三角形基本性质"
+    ],
+    "related_ids": [],
+    "similar": "与“点D在BC上、E在AB上相似分类”类似，需注意边对应关系。"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-29"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "其他-未分类-待定",
+  "altNodes": []
+}
