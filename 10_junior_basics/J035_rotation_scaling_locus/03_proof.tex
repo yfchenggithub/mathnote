@@ -1,0 +1,47 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	以定点$O$为原点建立复平面，将变换简化为$z_B = k e^{i\theta} z_A$，然后利用直线和圆的复数表示，代入得到$B$轨迹的表达式，验证其仍具有直线或圆的方程形式。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（平移简化）：}] 将全体图形平移使$O$与原点重合。平移不改变直线的方向、圆的大小，也不改变相对旋转缩放关系。此时$z_O=0$，变换变为
+			\[
+				z_B = k e^{i\theta} z_A.
+			\]
+			\par\textbf{理由：} 平移是等距变换，保持几何形状，且变换公式中的$z_O$移到原式得到等价关系。
+
+		\item[\textbf{步骤二（直线证明）：}] 设点$A$在直线$l$上运动，则$l$可参数化表示为$z_A = z_0 + t\,\mathbf{u}$，其中$z_0$为直线上一定点，$\mathbf{u}$为非零方向复数（$t\in\mathbb{R}$）。代入$z_B = k e^{i\theta} z_A$得
+			\[
+				\begin{aligned}
+					z_B &= k e^{i\theta}(z_0 + t\,\mathbf{u}) \\
+					&= (k e^{i\theta}z_0) + t\,(k e^{i\theta}\mathbf{u}).
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 上式是参数$t$的线性函数，因此$z_B$的轨迹是一条直线，通过定点$k e^{i\theta}z_0$，方向向量为$k e^{i\theta}\mathbf{u}$。所以原直线旋缩放后仍是直线。
+
+		\item[\textbf{步骤三（圆证明）：}] 设点$A$在圆$\Gamma$上，圆心$C_A$对应复数$c$，半径$R$。则$A$满足$|z_A - c| = R$。由$z_B = k e^{i\theta} z_A$反解得$z_A = \frac{1}{k}e^{-i\theta}z_B$。代入圆的方程：
+			\[
+				\left|\frac{1}{k}e^{-i\theta}z_B - c\right| = R.
+			\]
+			两边同乘以$k$得
+			\[
+				\left|e^{-i\theta}z_B - k c\right| = k R.
+			\]
+			由于$|e^{-i\theta}|=1$，化简为
+			\[
+				\left|z_B - k e^{i\theta}c\right| = k R.
+			\]
+			因此$B$的轨迹是以$k e^{i\theta}c$为圆心、$k R$为半径的圆。
+			\par\textbf{理由：} 变换前的圆方程经过代数变形后仍为圆方程，且圆心和半径按公式旋转缩放。
+
+		\item[\textbf{步骤四（一般情况）：}] 若$O$不是原点，可在第一步中先平移，最后再平移回原坐标系。结论一致：从动点轨迹的圆心（若为圆）由原圆心经$z_{C_B} - z_O = k e^{i\theta}(z_{C_A} - z_O)$得到，半径缩放$k$倍；直线轨迹可以看作通过旋转缩放原直线上两点得到。
+			\par\textbf{理由：} 平移不影响相对关系，以上推导在一般位置也成立。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{综上，在“瓜豆原理”条件下，主动点$A$的轨迹是直线时，从动点$B$的轨迹也是直线；主动点$A$的轨迹是圆时，从动点$B$的轨迹也是圆。形状保持不变，大小缩放$k$倍，整体绕$O$旋转角度$\theta$。}
+\end{proofbox}

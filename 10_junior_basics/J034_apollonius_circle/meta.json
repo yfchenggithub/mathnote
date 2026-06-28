@@ -1,0 +1,202 @@
+{
+  "id": "J034",
+  "module": "geometry-plane",
+  "core": {
+    "title": "阿波罗尼斯圆（定点定比轨迹圆）",
+    "alias": [
+      "阿圆",
+      "到两定点距离成定比",
+      "阿波罗尼斯圆定理",
+      "定比圆"
+    ],
+    "summary": "到两定点距离之比为定值（k>0, k≠1）的点的轨迹是一个圆，圆心在两定点连线上。",
+    "difficulty": 3,
+    "category": "平面几何",
+    "tags": [
+      "轨迹",
+      "圆",
+      "线段比",
+      "阿波罗尼奥斯圆",
+      "解析几何"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "阿波罗尼斯圆",
+      "轨迹",
+      "定比分点",
+      "内分点",
+      "外分点",
+      "半径公式",
+      "圆心位置",
+      "定点定比",
+      "PA=kPB",
+      "圆",
+      "线段比",
+      "阿波罗尼奥斯圆",
+      "平面几何轨迹",
+      "定比圆",
+      "阿波罗尼斯圆半径"
+    ],
+    "synonyms": [
+      "阿波罗尼斯圆定理",
+      "阿波罗尼圆",
+      "到两点距离之比为定值",
+      "定比圆",
+      "阿波罗尼奥斯圆",
+      "阿波罗尼斯圆轨迹"
+    ],
+    "intents": [
+      "求轨迹",
+      "求圆心",
+      "求半径",
+      "求三角形面积最值",
+      "判断点是否在圆上",
+      "应用阿波罗尼斯圆解题"
+    ],
+    "query_templates": [
+      "阿波罗尼斯圆怎么用",
+      "PA=2PB的轨迹",
+      "定点定比求轨迹",
+      "阿波罗尼斯圆半径公式",
+      "已知A(0,0) B(4,0) PA=2PB 求轨迹"
+    ],
+    "ocrKeywords": [
+      "PA",
+      "PB",
+      "k",
+      "阿波罗尼斯圆",
+      "轨迹",
+      "圆"
+    ],
+    "latex_patterns": [
+      "PA = k \\cdot PB",
+      "R = \\frac{k}{|1 - k^2|} \\cdot AB",
+      "\\frac{k^2}{k^2 - 1} \\cdot AB",
+      "\\frac{k}{|1 - k^2|}",
+      "\\frac{k^2}{k^2 - 1}"
+    ],
+    "formulaTokens": [
+      "PA = k \\cdot PB",
+      "R = \\frac{k}{|1 - k^2|} \\cdot AB",
+      "\\frac{k^2}{k^2 - 1} \\cdot AB",
+      "\\frac{k}{|1 - k^2|}",
+      "\\frac{k^2}{k^2 - 1}",
+      "PA",
+      "PB",
+      "AB",
+      "k",
+      "R"
+    ],
+    "pinyin": "a bo luo ni si yuan",
+    "pinyinAbbr": "ablny"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.8,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "R = \\frac{k}{|1 - k^2|} \\cdot AB",
+    "related_formulas": [
+      "\\text{圆心到}A\\text{的有向距离为}\\frac{k^2}{k^2 - 1} \\cdot AB",
+      "\\text{当}k=1\\text{时，轨迹为线段}AB\\text{的中垂线}"
+    ],
+    "variables": {
+      "A": "定点1",
+      "B": "定点2",
+      "P": "动点",
+      "k": "距离比（>0且≠1）",
+      "AB": "两定点距离",
+      "R": "轨迹圆半径"
+    },
+    "conditions": "给定两个定点 $A$ 和 $B$，常数 $k>0$，且 $k\\neq 1$。",
+    "conclusions": [
+      "点 $P$ 的轨迹是一个圆，圆心在直线 $AB$ 上。",
+      "半径 $R = \\frac{k}{|1 - k^2|} \\cdot AB$。",
+      "圆心到 $A$ 的有向距离为 $\\frac{k^2}{k^2 - 1} \\cdot AB$（正方向 $A\\to B$）。"
+    ]
+  },
+  "content": {
+    "statement": "设 $A,B$ 为两个定点，$k>0$ 且 $k\\neq 1$，则到 $A$ 的距离等于 $k$ 倍到 $B$ 的距离的点 $P$ 的轨迹是一个圆（阿波罗尼斯圆）。该圆的直径两端点为 $AB$ 的内分点 $C$（$CA/CB=k$）和外分点 $D$（$DA/DB=k$），圆心在直线 $AB$ 上，半径 $R = \\frac{k}{|1-k^2|} \\cdot AB$。",
+    "derivation": [
+      "设 $AB$ 在 $x$ 轴上，$A(0,0)$，$B(d,0)$，$P(x,y)$。由 $PA = k\\cdot PB$ 得 $x^2+y^2 = k^2[(x-d)^2+y^2]$。",
+      "展开并整理得 $(1-k^2)(x^2+y^2) + 2k^2 d x - k^2 d^2 = 0$。",
+      "当 $k\\neq 1$ 时，配方后得到圆的标准方程，圆心和半径即得公式。"
+    ],
+    "intuition": "距离平方关系经过移项配方后，恰好是圆的标准形式，因此轨迹是圆。",
+    "common_tricks": [
+      "直接用半径公式求轨迹，避免冗长化简。",
+      "注意半径公式分母中的绝对值，$k<1$ 时 $1-k^2>0$，$k>1$ 时 $k^2-1>0$。",
+      "$k=1$ 时退化为中垂线，不能套用圆结论。",
+      "求三角形面积最值时，高即为圆上点到定直线的距离最大值。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "轨迹方程求解题",
+      "最值问题（如三角形面积、线段长度）",
+      "点与圆位置关系判断"
+    ],
+    "problem_types": [
+      "轨迹方程",
+      "最值",
+      "定点定比问题",
+      "综合应用"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {
+      "A": "(0,0)",
+      "B": "(4,0)",
+      "k": 2,
+      "center": "(16/3,0)",
+      "radius": "8/3"
+    }
+  },
+  "assets": {
+    "svg": "J034.svg",
+    "illustration": "",
+    "video": "",
+    "geogebra": ""
+  },
+  "shareConfig": {
+    "title": "阿波罗尼斯圆：定点定比轨迹与半径公式",
+    "shareDesc": "适合轨迹题速查和刷题前回顾，直接使用半径圆心公式避免繁琐化简，提升压轴中段稳定性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "两点间距离公式",
+      "圆的标准方程",
+      "定比分点"
+    ],
+    "related_ids": [],
+    "similar": [
+      "到两定点距离之和为定值 → 椭圆",
+      "到两定点距离之差为定值 → 双曲线"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-29"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "解析几何-综合-轨迹问题",
+  "altNodes": [
+    "解析几何-圆-标准方程",
+    "解析几何-圆-位置关系"
+  ]
+}
