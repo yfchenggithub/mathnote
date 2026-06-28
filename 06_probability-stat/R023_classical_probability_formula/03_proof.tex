@@ -1,0 +1,39 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	证明分四步：先设每个基本事件概率为 $p$；然后利用 $n(\Omega)$ 个互斥基本事件的概率和为 $1$ 求出 $p$；最后代入 $P(A)$ 得到公式。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（设等可能概率）：}]
+			设每个基本事件的概率为 $p$。因为基本事件等可能，所以它们概率相同。
+			\[
+				P(\omega_i) = p,\quad i=1,2,\dots,n(\Omega).
+			\]
+			\par\textbf{理由：} 等可能性定义所有基本事件出现机会相等，因此可以设相同概率 $p$。
+		\item[\textbf{步骤二（总概率为1）：}]
+			样本空间 $\Omega$ 是 $n(\Omega)$ 个互斥基本事件的并。由概率加法公式，所有基本事件的概率之和等于 $P(\Omega)=1$。
+			\[
+				n(\Omega) \cdot p = 1.
+			\]
+			\par\textbf{理由：} 基本事件两两互斥，且 $\Omega$ 是它们的并，所以概率相加等于 $P(\Omega)$。而 $P(\Omega)=1$ 是概率的公理。
+		\item[\textbf{步骤三（解基本事件概率）：}]
+			由 $n(\Omega) \cdot p = 1$ 解得
+			\[
+				p = \frac{1}{n(\Omega)}.
+			\]
+			\par\textbf{理由：} 等式两边同除以 $n(\Omega)$ ($n(\Omega)>0$)。
+		\item[\textbf{步骤四（事件A概率）：}]
+			事件 $A$ 包含 $n(A)$ 个基本事件，这些基本事件互斥，故 $P(A)$ 等于它们概率之和。
+			\[
+				\begin{aligned}
+					P(A) &= n(A) \cdot p \\ &= n(A) \cdot \frac{1}{n(\Omega)} \\ &= \frac{n(A)}{n(\Omega)}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 互斥事件概率相加，代回 $p$ 即得。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{因此，在等可能有限样本空间中，事件 $A$ 的概率可简洁表示为 $\frac{n(A)}{n(\Omega)}$，将概率计算转化为计数问题。}
+\end{proofbox}
