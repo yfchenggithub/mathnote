@@ -1,0 +1,187 @@
+{
+  "id": "R030",
+  "module": "probability-stat",
+  "core": {
+    "title": "超几何分布的期望公式",
+    "alias": [
+      "超几何期望",
+      "不放回抽样期望",
+      "E(X)=nM/N"
+    ],
+    "summary": "不放回抽样时，抽到的次品数的期望等于抽取数乘以次品率。",
+    "difficulty": 2,
+    "category": "概率统计",
+    "tags": [
+      "超几何分布",
+      "数学期望",
+      "概率统计",
+      "无放回抽样",
+      "次品问题"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "超几何分布",
+      "数学期望",
+      "不放回抽样",
+      "次品件数",
+      "期望公式",
+      "nM/N",
+      "次品率",
+      "无放回",
+      "E(X)",
+      "总体",
+      "次品数",
+      "抽取件数",
+      "二项分布",
+      "相同期望",
+      "超几何期望"
+    ],
+    "synonyms": [
+      "超几何的期望",
+      "不放回抽样期望怎么算",
+      "超几何期望公式",
+      "无放回期望",
+      "次品期望",
+      "超几何分布期望公式",
+      "E(X)=nM/N"
+    ],
+    "intents": [
+      "求期望",
+      "计算期望",
+      "比较期望",
+      "判断分布"
+    ],
+    "query_templates": [
+      "超几何分布的期望公式",
+      "不放回抽样次品数期望",
+      "E(X)=nM/N怎么来的",
+      "超几何和二项分布期望相等吗",
+      "无放回期望公式"
+    ],
+    "ocrKeywords": [
+      "次品",
+      "不放回",
+      "抽样",
+      "期望",
+      "超几何",
+      "总体",
+      "抽取"
+    ],
+    "latex_patterns": [
+      "E(X)=\\frac{nM}{N}",
+      "E(X)=n\\cdot\\frac{M}{N}",
+      "E(X)=np"
+    ],
+    "formulaTokens": [
+      "E(X)",
+      "\\frac{nM}{N}",
+      "nM",
+      "M/N",
+      "n\\cdot\\frac{M}{N}",
+      "N",
+      "M",
+      "n"
+    ],
+    "pinyin": "chaogejifenbuqiwanggongshi",
+    "pinyinAbbr": "cjh"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.82,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "E(X)=\\frac{nM}{N}",
+    "related_formulas": [
+      "E(X)=n\\cdot\\frac{M}{N}",
+      "E(X)=np,\\; p=\\frac{M}{N}"
+    ],
+    "variables": {
+      "N": "总体产品数",
+      "M": "次品数",
+      "n": "抽取件数",
+      "X": "抽到的次品件数",
+      "E(X)": "次品件数的期望",
+      "p": "次品率 M/N"
+    },
+    "conditions": "总体共$N$件产品，其中次品$M$件；无放回随机抽取$n$件。需满足$0\\le M\\le N$且$1\\le n\\le N$。",
+    "conclusions": "超几何分布与二项分布期望相同：$E(X)=np$，其中$p=\\frac{M}{N}$。"
+  },
+  "content": {
+    "statement": "对于超几何分布：总体共$N$件产品，其中次品$M$件，无放回随机抽取$n$件。若记$X$为抽到的次品件数，则$X$的数学期望为$E(X)=\\frac{nM}{N}$。",
+    "derivation": [
+      "第一步：$X$的概率分布为$P(X=k)=\\frac{\\mathrm{C}_M^k \\mathrm{C}_{N-M}^{n-k}}{\\mathrm{C}_N^n}$。",
+      "第二步：期望定义$E(X)=\\sum_{k=0}^{n} k\\cdot P(X=k)$。",
+      "第三步：通过组合恒等式化简得$E(X)=\\frac{nM}{N}$。"
+    ],
+    "intuition": "每次抽取抽到次品的概率都是$\\frac{M}{N}$，虽然不放回，但期望具有线性性，总期望等于$n$倍单次期望。",
+    "common_tricks": [
+      "快速识别超几何分布：有限总体、不放回、计数次品数。",
+      "直接套用公式$E(X)=\\frac{nM}{N}$，无需计算概率分布。",
+      "注意区分期望与方差：期望与二项相同，但方差不同。",
+      "当$n$远小于$N$时，超几何可近似为二项分布。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "概率统计大题",
+      "期望计算题",
+      "不放回抽样问题"
+    ],
+    "problem_types": [
+      "求期望",
+      "比较期望",
+      "判断分布"
+    ],
+    "exam_frequency": 0.9,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "R030.svg",
+    "png": "",
+    "gif": "",
+    "geogebra": "",
+    "image_url": ""
+  },
+  "shareConfig": {
+    "title": "超几何分布期望公式：不放回抽样的期望",
+    "shareDesc": "适合概率统计章节复习和刷题前速查，直接套用公式减少分布列计算，提升期望计算题的稳定性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "超几何分布",
+      "数学期望定义",
+      "组合数"
+    ],
+    "related_ids": [],
+    "similar": [
+      "二项分布的期望公式$E(X)=np$",
+      "超几何分布的方差公式$D(X)=\\frac{nM}{N}\\left(1-\\frac{M}{N}\\right)\\cdot\\frac{N-n}{N-1}$"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "概率-随机变量-期望",
+  "altNodes": [
+    "概率-随机变量-分布列",
+    "概率-古典概型-排列组合"
+  ]
+}
