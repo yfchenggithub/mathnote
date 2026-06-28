@@ -1,0 +1,48 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	4位同学排成一排，其中甲和乙必须相邻，求不同排法数。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（捆绑内部）：}]
+			将甲、乙视为一个整体，内部排列有 $2!$ 种方法。 \par \textbf{理由：} 甲乙相邻且可交换顺序，故内部排列数为 $2!$。
+		\item[\textbf{第二步（整体全排）：}]
+			将捆绑后的整体与其余2名同学共3个元素全排列，有 $3!$ 种。 \par \textbf{理由：} 所有元素均不同，全排列即可。
+		\item[\textbf{第三步（乘法原理）：}]
+			总数 $= 2! \times 3!$，计算得 $2 \times 6 = 12$。 \par \textbf{理由：} 分步计数，两步结果相乘。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$\displaystyle 2! \times 3! = 12$ 种。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	5个人排成一排，要求丙和丁不相邻，求不同排法数。
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（排不受限人）：}]
+			先排除了丙丁后的3人，有 $3! = 6$ 种排法。 \par \textbf{理由：} 这3人无限制条件，全排列。
+		\item[\textbf{第二步（插空安排）：}]
+			3人排好后形成4个空位（包括两端），选择2个空位放入丙和丁并考虑顺序，有 $A_{4}^{2} = 4 \times 3$，即 $12$ 种。 \par \textbf{理由：} 丙丁需不相邻，故只能选空位插入，且两人不同，需排列。
+		\item[\textbf{第三步（乘法计数）：}]
+			总数为 $6 \times 12 = 72$ 种。 \par \textbf{理由：} 分步计数原理。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$\displaystyle 3! \times A_{4}^{2} = 72$ 种。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+	\textbf{\textcolor{CExample}{题目：}}
+	把12个相同的笔记本分给4个班级，每班至少1本，有多少种不同的分法？
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（验证条件）：}]
+			物品相同 $n=12$，对象不同 $m=4$，每对象至少 $1$ 个，满足隔板法条件。 \par \textbf{理由：} 隔板法要求物品相同、对象不同、至少一个。
+		\item[\textbf{第二步（套用公式）：}]
+			分法数为 $\displaystyle \binom{12-1}{4-1} = \binom{11}{3}$。 \par \textbf{理由：} 隔板法公式 $\binom{n-1}{m-1}$。
+		\item[\textbf{第三步（计算）：}]
+			$\displaystyle \binom{11}{3} = \frac{11 \times 10 \times 9}{3 \times 2 \times 1}$，故结果为 $165$。 \par \textbf{理由：} 组合数计算公式。
+	\end{description}
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$\displaystyle \binom{11}{3} = 165$ 种。}
+\end{examplebox}

@@ -1,0 +1,45 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+	排列组合计数时，根据元素之间的位置关系（相邻、不相邻）或元素性质（相同、相异）选择对应的策略，可以避免盲目枚举。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（相邻捆绑）：}]
+			若某些元素要求必须相邻，将它们视为一个整体（捆绑）再参与排列，内部需考虑排列顺序。
+		\item[\textbf{要点二（不相邻插空）：}]
+			先排列不受限制的元素，在产生的空位中选择位置插入要求不相邻的元素，空位包括两端。
+		\item[\textbf{要点三（相同分配隔板）：}]
+			将相同物品分给不同对象且每对象至少一个时，转化为在物品间隙中插入隔板的问题，用组合数计算。
+		\item[\textbf{要点四（正难则反）：}]
+			当直接计算满足条件的情况复杂时，先计算总数，再减去不符合条件的情况，常用“至少”“至多”问题。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（计数模型）}}
+	每个策略本质上是将约束条件转化为可计算的排列或组合模型：捆绑法构造整体元素，插空法利用空位序列，隔板法建立方程整数解模型，排除法基于补集思想。这些模型使抽象计数问题具象化。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（公式表达）}}
+	各策略对应具体的排列数或组合数公式： 捆绑法：$m!\,(n-m+1)!$； 插空法：$n!\,A_{n+1}^{k}$； 隔板法：$\displaystyle\binom{n-1}{m-1}$； 排除法：$T-B$（总数减不符合数）。 这些公式可直接代入题目数据计算。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（命题方向）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（单一策略）：} 题目明确给出“相邻”“不相邻”“相同物品分配”“至少/至多”等关键词，直接套用对应公式。
+		\item \textbf{考法二（多策略综合）：} 题目同时包含多种条件，需将策略结合使用，如先捆绑再插空，或先分类再排除。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+	\textbf{识别标志：} 相邻 $\rightarrow$ 捆绑；不相邻 $\rightarrow$ 插空；相同物品 $\rightarrow$ 隔板；正面复杂 $\rightarrow$ 排除。同时注意区分元素是否相同、对象是否区分顺序。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（排队问题）：} 若干人排队，其中某些人必须相邻或不相邻，用捆绑法或插空法。
+		\item \textbf{场景二（分配问题）：} 相同礼物分给不同班级，每班至少一个，用隔板法。
+		\item \textbf{场景三（选人组队）：} 从若干人中选代表，要求“至少一人”等，用排除法。
+	\end{itemize}
+
+\end{explanationbox}

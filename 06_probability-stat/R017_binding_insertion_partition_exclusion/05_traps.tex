@@ -1,0 +1,32 @@
+\begin{trapbox}
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点一（捆绑内部排列）：}}]
+			在捆绑法中，捆绑后的整体内部元素有顺序变化，计算时容易忘记乘以内部排列数 $m!$，导致结果偏小。
+		\item[\textbf{\textcolor{CTrap}{正确理解（内部需排列）：}}]
+			捆绑后的整体应视为一个元素参与全排列，但内部顺序需要单独计算并相乘。
+		\item[\textbf{\textcolor{CTrap}{错因分析（顺序易忽）：}}]
+			误认为捆绑后内部顺序固定，忽略元素间差异，导致漏乘。
+	\end{description}
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点二（空位遗漏）：}}]
+			在插空法中，计算空位数时只考虑元素之间的空隙，忽略了两端的位置，导致空位数量少一个。
+		\item[\textbf{\textcolor{CTrap}{正确理解（含两端空位）：}}]
+			$n$ 个元素排成一排，共有 $n+1$ 个空位（包括两端），不相邻元素应放入这些空位中。
+		\item[\textbf{\textcolor{CTrap}{错因分析（空位计数错）：}}]
+			对“空位”概念理解片面，常误认为只有 $n-1$ 个内部空位。
+	\end{description}
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点三（隔板法滥用）：}}]
+			将隔板法用于分配不同物品的问题，或者分配相同物品时每对象可以为零个（直接使用 $\binom{n-1}{m-1}$ 而非 $\binom{n+m-1}{m-1}$），造成错误。
+		\item[\textbf{\textcolor{CTrap}{正确理解（条件严格）：}}]
+			隔板法仅适用于相同物品分配且每对象至少一个。若对象可以为零个，需先用添元素法转化。
+		\item[\textbf{\textcolor{CTrap}{错因分析（条件误判）：}}]
+			混淆了相同与不同物品的计数模型，未注意隔板法的前提条件。
+	\end{description}
+
+\end{trapbox}
