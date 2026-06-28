@@ -1,0 +1,41 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+	乘法公式的核心是：将“多个事件同时发生”的概率，拆解为“依次发生”的条件概率乘积，从而将复杂概率问题转化为分步乘法。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（条件概率定义）：}] 条件概率的公式 $P(B|A)=\frac{P(AB)}{P(A)}$ 两边同时乘以 $P(A)$，即得 $P(AB)=P(A)P(B|A)$。
+		\item[\textbf{要点二（递推扩展）：}] 对于三个事件 $A,B,C$，$P(ABC)=P(A)P(B|A)P(C|AB)$，不断将新事件的条件概率依次乘入，即可推广到 $n$ 个事件。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（树形图概率）}}
+
+	在概率树状图中，从起点到某个结果节点的路径，其概率等于路径上各步条件概率的乘积。这正是乘法公式的直观体现。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（降维分解）}}
+
+	将高维的联合概率 $P(A_1\cdots A_n)$ 分解为一系列低维概率（无条件概率和条件概率）的乘积，使得计算只需要逐次使用已知量，避免直接计算复杂交集。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（解题策略）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（求联合概率）：} 已知各步骤条件概率，求事件串发生的总概率。
+		\item \textbf{考法二（求条件概率）：} 已知联合概率和某条件概率，利用公式反推另一条件概率。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	\textbf{乘法公式其实是条件概率定义的移项形式。因此只要牢记条件概率定义，乘法公式可以立即导出，无需死记。}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（不放回抽样）：} 从有限总体中不放回依次抽取多个个体，计算抽到特定序列的概率。
+		\item \textbf{场景二（多步随机试验）：} 如依次掷骰子、连续摸球等，各步结果相互影响时的概率计算。
+	\end{itemize}
+\end{explanationbox}

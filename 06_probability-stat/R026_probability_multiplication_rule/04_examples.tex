@@ -1,0 +1,106 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	从一副去掉大小王的标准扑克牌（共 52 张）中，不放回地先后抽取两张。求第一张是红心且第二张也是红心的概率。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（求先抽概率）：}] 设 $A$ 表示“第一次抽到红心”，$B$ 表示“第二次抽到红心”。
+			\[
+				P(A)=\frac{13}{52}=\frac{1}{4}
+			\]
+			\par\textbf{理由：}
+			52 张牌中红心 13 张，等可能抽取。
+
+		\item[\textbf{第二步（求条件概率）：}]
+			\[
+				P(B|A)=\frac{12}{51}
+			\]
+			\par\textbf{理由：}
+			第一次已抽走一张红心，剩余 51 张中红心 12 张。
+
+		\item[\textbf{第三步（乘法求积）：}]
+			\[
+				P(AB)=\frac14\times\frac{12}{51}=\frac{12}{204}=\frac{1}{17}
+			\]
+			\par\textbf{理由：}
+			由乘法公式 $P(AB)=P(A)P(B|A)$ 直接计算。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{两次都抽到红心的概率为 $\displaystyle\frac{1}{17}$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	某小组有男生 3 人，女生 2 人。现从中不放回地先后选两人参加活动。求先选男生后选女生的概率。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（求先选男概率）：}] 设 $A$ 表示“先选男生”，$B$ 表示“后选女生”。
+			\[
+				P(A)=\frac{3}{5}
+			\]
+			\par\textbf{理由：}
+			5 人中男生 3 人。
+
+		\item[\textbf{第二步（求条件概率）：}]
+			\[
+				P(B|A)=\frac{2}{4}=\frac{1}{2}
+			\]
+			\par\textbf{理由：}
+			先选出一名男生后，剩余 4 人中有女生 2 人。
+
+		\item[\textbf{第三步（乘法求结果）：}]
+			\[
+				P(AB)=\frac{3}{5}\times\frac{1}{2}=\frac{3}{10}=0.3
+			\]
+			\par\textbf{理由：}
+			由乘法公式 $P(AB)=P(A)P(B|A)$ 代入即得。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{先选男生后选女生的概率为 $0.3$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	某电视台闯关节目共三关。选手通过第一关的概率为 $0.6$。若通过第一关，则通过第二关的概率为 $0.8$。若前两关都通过，则通过第三关的概率为 $0.9$。求选手连过三关的概率。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（求第一关通过概率）：}] 设 $A_1$ 表示通过第一关，$A_2$ 表示通过第二关，$A_3$ 表示通过第三关。
+			\[
+				P(A_1)=0.6
+			\]
+			\par\textbf{理由：}
+			题设给出。
+
+		\item[\textbf{第二步（求第二关条件概率）：}]
+			\[
+				P(A_2|A_1)=0.8
+			\]
+			\par\textbf{理由：}
+			题设给出。
+
+		\item[\textbf{第三步（求第三关条件概率）：}]
+			\[
+				P(A_3|A_1A_2)=0.9
+			\]
+			\par\textbf{理由：}
+			题设给出。
+
+		\item[\textbf{第四步（应用乘法公式）：}]
+			\[
+				P(A_1A_2A_3)=0.6\times0.8\times0.9=0.432
+			\]
+			\par\textbf{理由：}
+			由乘法公式 $P(A_1A_2A_3)=P(A_1)P(A_2|A_1)P(A_3|A_1A_2)$ 直接计算。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{连过三关的概率为 $0.432$。}
+\end{examplebox}

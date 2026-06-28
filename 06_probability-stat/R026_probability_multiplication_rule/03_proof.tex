@@ -1,0 +1,43 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	乘法公式的核心是条件概率定义的直接变形。对于多个事件，反复应用两事件乘法公式即可得到一般形式。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（条件概率定义）：}] 设 $P(A)>0$。
+			\[
+				P(B|A) = \frac{P(AB)}{P(A)}
+			\]
+			\par\textbf{理由：}
+			这是条件概率的定义式。两边乘以 $P(A)$，即得 $P(AB)=P(A)P(B|A)$。
+
+		\item[\textbf{步骤二（三事件递推）：}] 对于事件 $A_1,A_2,A_3$，先合并 $A_1A_2$ 为一个事件。
+			\[
+				P(A_1A_2A_3) = P((A_1A_2)A_3) = P(A_1A_2)\,P(A_3|A_1A_2)
+			\]
+			\par\textbf{理由：}
+			对 $A_1A_2$ 与 $A_3$ 应用两事件乘法公式。再用一次两事件公式于 $A_1A_2$：
+			\[
+				P(A_1A_2)=P(A_1)\,P(A_2|A_1)
+			\]
+			代入得 $P(A_1A_2A_3)=P(A_1)P(A_2|A_1)P(A_3|A_1A_2)$。
+
+		\item[\textbf{步骤三（n事件归纳）：}] 假设对 $k$ 个事件公式成立，对于 $k+1$ 个事件 $A_1,\dots,A_{k+1}$，有
+			\[
+				P(A_1\cdots A_{k+1})=P(A_1\cdots A_k)\,P(A_{k+1}|A_1\cdots A_k)
+			\]
+			\par\textbf{理由：}
+			将 $A_1\cdots A_k$ 视为一个事件，再次使用两事件公式。再由归纳假设，
+			\[
+				P(A_1\cdots A_k)=P(A_1)P(A_2|A_1)\cdots P(A_k|A_1\cdots A_{k-1})
+			\]
+			代入即得 $k+1$ 事件公式。故对任意正整数 $n$ 成立。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{乘法公式将积事件概率转化为条件概率的连乘，是条件概率定义的直接推论，也是计算复杂事件概率的重要工具。}
+\end{proofbox}

@@ -1,0 +1,174 @@
+{
+  "id": "R026",
+  "module": "probability-stat",
+  "core": {
+    "title": "概率乘法公式",
+    "alias": [
+      "乘法公式",
+      "条件概率乘法公式",
+      "积事件概率公式"
+    ],
+    "summary": "将多个事件同时发生的概率分解为一系列条件概率的连乘积。",
+    "difficulty": 2,
+    "category": "概率与统计",
+    "tags": [
+      "概率",
+      "条件概率",
+      "乘法公式",
+      "积事件",
+      "不放回抽样",
+      "闯关问题"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "乘法公式",
+      "条件概率",
+      "概率乘法",
+      "P(AB)=P(A)P(B|A)",
+      "P(A1A2...An)=P(A1)P(A2|A1)...",
+      "积事件概率",
+      "不放回",
+      "先后抽取",
+      "条件概率定义",
+      "概率连乘",
+      "P(A)>0",
+      "闯关概率",
+      "条件概率公式",
+      "多个事件概率"
+    ],
+    "synonyms": [
+      "概率相乘公式",
+      "乘法定理",
+      "条件概率乘法",
+      "积事件公式",
+      "条件概率乘积公式"
+    ],
+    "intents": [
+      "求概率",
+      "计算积事件概率",
+      "应用乘法公式",
+      "求解条件概率",
+      "不放回抽样概率",
+      "闯关概率计算"
+    ],
+    "query_templates": [
+      "乘法公式怎么用",
+      "概率乘法公式例题",
+      "P(AB)=P(A)P(B|A)什么意思",
+      "条件概率乘法公式证明",
+      "不放回抽取概率公式",
+      "多个事件概率连乘"
+    ],
+    "ocrKeywords": [
+      "不放回",
+      "先后",
+      "连续抽",
+      "闯关",
+      "概率",
+      "积事件",
+      "条件概率"
+    ],
+    "latex_patterns": [
+      "P(AB)=P(A)P(B|A)",
+      "P(A_1A_2\\cdots A_n)=P(A_1)P(A_2|A_1)\\cdots P(A_n|A_1\\cdots A_{n-1})"
+    ],
+    "formulaTokens": [
+      "P(AB)",
+      "P(A)",
+      "P(B|A)",
+      "P(A_1)",
+      "P(A_2|A_1)",
+      "P(A_n|A_1\\cdots A_{n-1})",
+      "A_1A_2\\cdots A_n",
+      "A_1\\cdots A_{n-1}"
+    ],
+    "pinyin": "gailv chengfa gongshi",
+    "pinyinAbbr": "glcfgs"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.8,
+    "hot_score": 70,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "P(AB)=P(A)P(B|A)\\quad (P(A)>0)",
+    "related_formulas": [
+      "P(A_1A_2\\cdots A_n)=P(A_1)P(A_2|A_1)P(A_3|A_1A_2)\\cdots P(A_n|A_1\\cdots A_{n-1})"
+    ],
+    "variables": "事件 $A$, $B$, $A_i$, 概率 $P$",
+    "conditions": "$P(A)>0$；对多个事件，$P(A_1A_2\\cdots A_{n-1})>0$。",
+    "conclusions": "条件概率公式 $P(B|A)=\\dfrac{P(AB)}{P(A)}$（当 $P(A)>0$）。"
+  },
+  "content": {
+    "statement": "若事件 $A,B$ 满足 $P(A)>0$，则 $P(AB)=P(A)P(B|A)$。更一般地，对 $n$ 个事件 $A_1,\\dots,A_n$，若 $P(A_1\\cdots A_{n-1})>0$，有 $P(A_1A_2\\cdots A_n)=P(A_1)P(A_2|A_1)P(A_3|A_1A_2)\\cdots P(A_n|A_1\\cdots A_{n-1})$。",
+    "derivation": [
+      "由条件概率定义 $P(B|A)=P(AB)/P(A)$（$P(A)>0$）。",
+      "两边同乘 $P(A)$ 得 $P(AB)=P(A)P(B|A)$。",
+      "对多事件，逐次应用两事件乘法公式即可推广。"
+    ],
+    "intuition": "事件A发生后再考虑B发生的概率，乘积就是两者同时发生的概率，类似于分步计数原理。",
+    "common_tricks": [
+      "注意条件概率的分母不能为零，即 $P(A)>0$。",
+      "用于不放回抽样时，按抽取顺序逐步计算条件概率。",
+      "多事件时严格按照事件顺序依次相乘，不可颠倒。",
+      "可与全概率公式结合，用于复杂事件的概率求解。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "不放回抽样问题",
+      "闯关类概率问题",
+      "多步骤随机试验概率计算"
+    ],
+    "problem_types": [
+      "求积事件概率",
+      "条件概率计算",
+      "概率连乘应用"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "R026.svg",
+    "png": "",
+    "gif": "",
+    "video": ""
+  },
+  "shareConfig": {
+    "title": "概率乘法公式：积事件概率分解为条件概率乘积",
+    "shareDesc": "讲评课和刷题前速查，适用于不放回抽样和闯关概率问题，直接套用公式减少步骤错误，提升概率计算稳定性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "条件概率定义",
+      "事件概率基本性质"
+    ],
+    "related_ids": [],
+    "similar": [
+      "全概率公式",
+      "贝叶斯公式"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "概率-古典概型-基本概率",
+  "altNodes": ""
+}
