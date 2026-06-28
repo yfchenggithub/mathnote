@@ -1,0 +1,169 @@
+{
+  "id": "R021",
+  "module": "probability-stat",
+  "core": {
+    "title": "二项式系数最大项",
+    "alias": [
+      "组合数最大值",
+      "中间项最大",
+      "二项式系数最值",
+      "二项式系数对称性"
+    ],
+    "summary": "二项式系数先增后减，最大值位于中间一项（n偶）或中间两项相等（n奇）。",
+    "difficulty": 2,
+    "category": "计数原理 / 二项式定理",
+    "tags": [
+      "二项式系数",
+      "最大项",
+      "对称性",
+      "组合数",
+      "展开式系数"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "二项式系数",
+      "组合数",
+      "最大值",
+      "中间项",
+      "偶数",
+      "奇数",
+      "n/2",
+      "(n-1)/2",
+      "(n+1)/2",
+      "对称性",
+      "通项",
+      "展开式",
+      "系数最大项",
+      "二项式定理"
+    ],
+    "synonyms": [
+      "组合数最大",
+      "二项式系数最大项",
+      "中间项最大",
+      "最大组合数",
+      "系数最大的一项"
+    ],
+    "intents": [
+      "求最大值",
+      "判断最大项",
+      "计算系数",
+      "比较大小",
+      "奇偶分类"
+    ],
+    "query_templates": [
+      "二项式系数最大项怎么找",
+      "组合数什么时候最大",
+      "n为偶数时最大组合数",
+      "(1+x)^n 系数最大项",
+      "二项式展开式中系数最大的项"
+    ],
+    "ocrKeywords": [
+      "二项式系数",
+      "最大",
+      "中间",
+      "n为偶数",
+      "n为奇数",
+      "\\binom{n}{k}"
+    ],
+    "latex_patterns": [
+      "\\binom{n}{k}",
+      "\\binom{n}{n/2}",
+      "\\binom{n}{(n-1)/2}",
+      "\\binom{n}{(n+1)/2}",
+      "\\max_{0\\le k\\le n} \\binom{n}{k}"
+    ],
+    "formulaTokens": [
+      "\\binom{n}{k}",
+      "\\binom{n}{n/2}",
+      "\\binom{n}{(n-1)/2}",
+      "\\binom{n}{(n+1)/2}",
+      "\\max_{0\\le k\\le n} \\binom{n}{k}",
+      "\\binom{n}{k}=\\binom{n}{n-k}"
+    ],
+    "pinyin": "erxiangshijishu zuidaxiang",
+    "pinyinAbbr": "exsjszdx"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.74,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\max\\limits_{0\\le k\\le n}\\binom{n}{k}=\\begin{cases}\\binom{n}{n/2},&n\\text{为偶数}\\\\ \\binom{n}{(n-1)/2}=\\binom{n}{(n+1)/2},&n\\text{为奇数}\\end{cases}",
+    "related_formulas": [
+      "\\binom{n}{k}=\\binom{n}{n-k}",
+      "\\frac{\\binom{n}{k+1}}{\\binom{n}{k}}=\\frac{n-k}{k+1}"
+    ],
+    "variables": {
+      "n": "正整数",
+      "k": "整数，0≤k≤n"
+    },
+    "conditions": "$n$ 为正整数，$k=0,1,\\dots,n$。",
+    "conclusions": "当 $n$ 为偶数时，$\\max\\binom{n}{k}=\\binom{n}{n/2}$；当 $n$ 为奇数时，$\\max\\binom{n}{k}=\\binom{n}{(n-1)/2}=\\binom{n}{(n+1)/2}$。"
+  },
+  "content": {
+    "statement": "对于正整数 $n$，二项式系数（组合数）$\\binom{n}{k}\\;(k=0,1,\\dots,n)$ 的最大值满足：当 $n$ 为偶数时，最大项唯一，为 $\\binom{n}{n/2}$；当 $n$ 为奇数时，最大项有两个且相等，为 $\\binom{n}{(n-1)/2}$ 和 $\\binom{n}{(n+1)/2}$。",
+    "derivation": [
+      "利用比值 $\\frac{\\binom{n}{k+1}}{\\binom{n}{k}}=\\frac{n-k}{k+1}$，当 $k<\\frac{n-1}{2}$ 时比值>1，系数递增；当 $k>\\frac{n-1}{2}$ 时比值<1，系数递减。",
+      "当 $n$ 为偶数时，$\\frac{n-1}{2}$ 不是整数，中间点 $k=n/2$ 处比值恰好等于1？实际上 $\\frac{\\binom{n}{n/2+1}}{\\binom{n}{n/2}}=\\frac{n-n/2}{n/2+1}=\\frac{n/2}{n/2+1}<1$，所以 $k=n/2$ 是最大值。",
+      "当 $n$ 为奇数时，$\\frac{n-1}{2}$ 是整数，此时 $k=\\frac{n-1}{2}$ 处比值=1，说明 $\\binom{n}{(n-1)/2}=\\binom{n}{(n+1)/2}$ 且同时最大。"
+    ],
+    "intuition": "杨辉三角中每行数字先变大后变小，对称轴位于正中央。",
+    "common_tricks": [
+      "先判断 $n$ 的奇偶性，再套用公式直接写出最大项位置。",
+      "利用对称性 $\\binom{n}{k}=\\binom{n}{n-k}$ 辅助验证。",
+      "遇到 $(a+b)^n$ 求系数最大项时，若 $a,b$ 不为1，需同时考虑系数中的系数，不能直接用二项式系数最大项结论。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "二项式定理相关最值问题",
+      "展开式系数比较",
+      "组合数大小比较"
+    ],
+    "problem_types": [
+      "选择题",
+      "填空题",
+      "简单证明题"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "R021.svg"
+  },
+  "shareConfig": {
+    "title": "二项式系数最大项：奇偶分类速查",
+    "shareDesc": "适合刷题前速查及考前回顾，快速定位二项式展开式中系数最大项，避免奇偶分类错误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "组合数定义",
+      "二项式定理通项公式"
+    ],
+    "related_ids": [],
+    "similar": "杨辉三角对称性、二项式系数先增后减"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "概率-古典概型-排列组合",
+  "altNodes": ""
+}

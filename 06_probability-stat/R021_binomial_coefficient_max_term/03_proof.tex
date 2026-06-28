@@ -1,0 +1,63 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用相邻两项比值 $\frac{\binom{n}{k}}{\binom{n}{k-1}} = \frac{n-k+1}{k}$，通过比较比值与 $1$ 的大小确定 $\binom{n}{k}$ 的单调性，从而找到最大值位置。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（比值表达式）：}]
+			记 $b_k = \binom{n}{k}$（$k=1,\dots,n$），则
+			\[
+				\frac{b_k}{b_{k-1}} = \frac{n-k+1}{k}.
+			\]
+			\par\textbf{理由：}
+			由组合数定义 $\binom{n}{k} = \frac{n!}{k!(n-k)!}$ 直接计算可得。
+
+		\item[\textbf{步骤二（单调区间判定）：}]
+			解不等式 $\frac{n-k+1}{k} > 1$：
+			\[
+				\begin{aligned}
+					\frac{n-k+1}{k} > 1
+					&\Longleftrightarrow n-k+1 > k \\
+					&\Longleftrightarrow 2k < n+1 \\
+					&\Longleftrightarrow k < \frac{n+1}{2}.
+			\end{aligned}
+			\]
+			同理，$\frac{n-k+1}{k} < 1$ 当且仅当 $k > \frac{n+1}{2}$。
+			\par\textbf{理由：}
+			比值 $>1$ 说明 $b_k > b_{k-1}$，数列递增；$<1$ 说明递减。
+
+		\item[\textbf{步骤三（极大点定位）：}]
+			由步骤二，$b_k$ 在 $k \le \lfloor (n+1)/2 \rfloor$ 时递增，在 $k \ge \lceil (n+1)/2\rceil$ 时递减。因此最大值可能出现在 $\lfloor (n+1)/2\rfloor$ 或相邻位置。实际上：
+			\[
+				\max_{0\le k\le n} b_k =
+				\begin{cases}
+					b_{\frac{n-1}{2}}, & \frac{n+1}{2}\in\mathbb{Z};\\[4pt]
+					b_{\lfloor \frac{n+1}{2}\rfloor}, & \frac{n+1}{2}\notin\mathbb{Z}.
+			\end{cases}
+			\]
+			\par\textbf{理由:}
+			若 $\frac{n+1}{2}$ 为整数,则 $b_{\frac{n-1}{2}}=b_{\frac{n+1}{2}}$ 且均为峰值(左右相等);否则在最近的整数点 $\lfloor (n+1)/2\rfloor$ 取得最大值.
+
+		\item[\textbf{步骤四(奇偶分类得结果):}]
+			代入 $n$ 的奇偶性:
+			当 $n$ 为偶数时,$\frac{n+1}{2}\notin\mathbb{Z}$,$\lfloor\frac{n+1}{2}\rfloor = \frac{n}{2}$;
+			当 $n$ 为奇数时,$\frac{n+1}{2}\in\mathbb{Z}$,且 $\frac{n-1}{2},\frac{n+1}{2}$ 恰为两个中间位置.
+			故
+			\[
+				\max_{0\le k\le n} \binom{n}{k} =
+				\begin{cases}
+					\displaystyle \binom{n}{n/2}, & 2\mid n;\\[8pt]
+					\displaystyle \binom{n}{(n-1)/2} \quad \bigl(=\binom{n}{(n+1)/2}\bigr), & 2\nmid n.
+			\end{cases}
+			\]
+			\par\textbf{理由:}
+			直接将 $n$ 的奇偶代入步骤三的结论即可.
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	因此二项式系数最大值的位置由 $n$ 的奇偶性决定:偶数时正中间一项最大,奇数时中间两项相等且最大.
+\end{proofbox}

@@ -1,0 +1,101 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	求 $(1+x)^8$ 的展开式中二项式系数最大的项。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（判断奇偶）：}] $n=8$ 为偶数，根据结论，当 $k = 8/2 = 4$ 时二项式系数最大。
+			\[
+				k = 4.
+			\]
+			\par\textbf{理由：}
+			偶数时二项式系数在正中间一项最大，即 $k=n/2$。
+
+		\item[\textbf{第二步（计算最大值）：}] 最大二项式系数为 $\binom{8}{4}$，计算得 $\binom{8}{4}=70$。
+			\[
+				\binom{8}{4} = 70.
+			\]
+			\par\textbf{理由：}
+			代入组合数公式直接计算。
+
+		\item[\textbf{第三步（写出该项）：}] 展开式中第 $5$ 项（$k=4$）的二项式系数最大，该项为 $\binom{8}{4}x^4 = 70x^4$。
+			\[
+				T_{5} = 70x^4.
+			\]
+			\par\textbf{理由：}
+			通项 $T_{k+1} = \binom{8}{k}x^k$，代入 $k=4$。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{最大二项式系数为 $70$，对应项 $70x^4$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	求 $(1+x)^9$ 的展开式中二项式系数最大的项。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（判断奇偶）：}] $n=9$ 为奇数，根据结论，最大值在 $k = (9-1)/2 = 4$ 和 $k = (9+1)/2 = 5$ 处。
+			\[
+				k = 4,\;5.
+			\]
+			\par\textbf{理由：}
+			奇数时中间两项相等且最大，即 $k = (n-1)/2,\,(n+1)/2$。
+
+		\item[\textbf{第二步（计算最大值）：}] 最大二项式系数为 $\binom{9}{4}$ 和 $\binom{9}{5}$，它们相等。
+			\[
+				\binom{9}{4} = \binom{9}{5} = 126.
+			\]
+			\par\textbf{理由：}
+			代入组合数公式计算，$\binom{9}{4} = \frac{9!}{4!5!}=126$。
+
+		\item[\textbf{第三步（写出两项）：}] 对应项分别为第 $5$ 项（$k=4$）和第 $6$ 项（$k=5$）。
+			\[
+				T_5 = \binom{9}{4}x^4 = 126x^4,
+				\qquad
+				T_6 = \binom{9}{5}x^5 = 126x^5.
+			\]
+			\par\textbf{理由：}
+			通项 $T_{k+1}=\binom{9}{k}x^k$。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{最大二项式系数为 $126$，对应两项 $126x^4$ 和 $126x^5$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	设 $n\ge2$ 为正整数，求证：$\displaystyle \binom{n}{\lfloor n/2\rfloor} > \binom{n}{\lfloor n/2\rfloor - 1}$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（偶数情形）：}] 若 $n$ 为偶数，记 $n=2m$，则 $\lfloor n/2\rfloor = m$。由结论，$\binom{2m}{m}$ 最大，故
+			\[
+				\binom{2m}{m} > \binom{2m}{m-1}.
+			\]
+			\par\textbf{理由：}
+			偶数时二项式系数在正中间 $k=m$ 最大，因此大于相邻项。
+
+		\item[\textbf{第二步（奇数情形）：}] 若 $n$ 为奇数，记 $n=2m+1$，则 $\lfloor n/2\rfloor = m$。由结论，$\binom{2m+1}{m}=\binom{2m+1}{m+1}$ 均为最大，故
+			\[
+				\binom{2m+1}{m} > \binom{2m+1}{m-1}.
+			\]
+			\par\textbf{理由：}
+			奇数时中间两项相等且最大，因此大于左侧项 $m-1$。
+
+		\item[\textbf{第三步（总结）：}] 综合以上，对任意 $n\ge2$ 均有
+			\[
+				\binom{n}{\lfloor n/2\rfloor} > \binom{n}{\lfloor n/2\rfloor - 1}.
+			\]
+			\par\textbf{理由：}
+			已分奇偶两种情形完成证明。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{二项式系数最大值性质可用于直接比较相邻组合数的大小。}
+\end{examplebox}

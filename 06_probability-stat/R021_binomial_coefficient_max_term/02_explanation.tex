@@ -1,0 +1,43 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+	二项式系数 $\binom{n}{k}$ 在 $k=0,\dots,n$ 中先递增后递减，最大值出现在中间位置。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（比值单调性）：}]
+			计算相邻两项比值 $\frac{\binom{n}{k}}{\binom{n}{k-1}} = \frac{n-k+1}{k}$。比值 $>1$ 时递增， $<1$ 时递减。解 $\frac{n-k+1}{k}=1$ 得 $k=\frac{n+1}{2}$，从而增减分界点在 $\frac{n+1}{2}$ 附近。
+		\item[\textbf{要点二（对称性）：}]
+			由组合恒等式 $\binom{n}{k}=\binom{n}{n-k}$，系数关于 $k=n/2$ 对称，因此最大值位于对称轴附近。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（杨辉三角）}}
+	杨辉三角的第 $n$ 行呈现对称性，中间的数（或两个数）最大。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（比值公式）}}
+	\[
+		\frac{\binom{n}{k}}{\binom{n}{k-1}} = \frac{n-k+1}{k},\quad k=1,2,\dots,n.
+	\]
+	该比值随 $k$ 增大而减小，当比值跨过 $1$ 时系数从递增变为递减。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（二项式系数最值）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（求最大项）：} 已知 $n$，直接写出二项式系数最大的项（或对应的 $k$）。
+		\item \textbf{考法二（比较大小）：} 利用单调性或最大值性质比较不同组合数的大小。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点（临界值判定）}}
+	当 $\frac{n-k+1}{k}=1$ 时得到 $k=\frac{n+1}{2}$，此点即为单调性转折点，再结合 $n$ 奇偶即得最大值位置。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（求展开式系数最值）：} 求 $(1+x)^n$ 展开式中的二项式系数最大项（即组合数最大）。
+		\item \textbf{场景二（证明题）：} 证明 $\binom{n}{k} \le \binom{n}{\lfloor n/2\rfloor}$ 之类的不等式。
+	\end{itemize}
+
+\end{explanationbox}
