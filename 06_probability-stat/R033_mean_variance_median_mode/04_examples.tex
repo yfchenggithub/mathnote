@@ -1,0 +1,145 @@
+\begin{examplebox}
+
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	给定数据 $2,2,3,4,4$，求这组数据的平均数、中位数、众数、方差和标准差。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（排序与中位数）}] 将数据从小到大排序得 $2,2,3,4,4$。$n=5$ 为奇数，中位数为第 $3$ 个数，即 $3$。众数为出现次数最多的数 $2$ 和 $4$（两个）。
+			\par\textbf{理由：} 中位数定义（奇数取中间），众数定义（出现最多次）。
+		\item[\textbf{第二步（平均数计算）}] 算术平均数：
+			\[
+				\begin{aligned}
+					\bar{x} &= \frac{1}{5}(2+2+3+4+4) \\
+					&= \frac{15}{5} \\
+					&= 3.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 平均数公式 $\bar{x} = \frac{1}{n}\sum x_i$。
+		\item[\textbf{第三步（方差与标准差）}] 计算方差：
+			\[
+				\begin{aligned}
+					s^2 &= \frac{1}{5}\sum_{i=1}^5 (x_i - \bar{x})^2 \\
+					&= \frac{1}{5}\big[(2-3)^2+(2-3)^2+(3-3)^2+(4-3)^2+(4-3)^2\big] \\
+					&= \frac{1}{5}(1+1+0+1+1) \\
+					&= \frac{4}{5} \\
+					&= 0.8.
+			\end{aligned}
+			\]
+			标准差：
+			\[
+				\begin{aligned}
+					s &= \sqrt{s^2} \\
+					&= \sqrt{0.8} \\
+					&= \frac{2}{\sqrt{5}} \\
+					&\approx 0.8944.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 方差定义，标准差定义。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	平均数 $\bar{x}=3$，中位数 $3$，众数 $2$ 和 $4$，方差 $s^2=0.8$，标准差 $s\approx 0.8944$。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	某班学生成绩如下：$60$ 分 $3$ 人，$70$ 分 $5$ 人，$80$ 分 $2$ 人。求加权平均成绩和加权方差、标准差。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（加权平均）}] 加权平均：
+			\[
+				\begin{aligned}
+					\bar{x} &= \frac{3\times 60 + 5\times 70 + 2\times 80}{3+5+2} \\
+					&= \frac{180+350+160}{10} \\
+					&= \frac{690}{10} \\
+					&= 69.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 加权平均公式 $\bar{x} = \frac{\sum x_i f_i}{\sum f_i}$。
+		\item[\textbf{第二步（加权方差）}] 加权方差：
+			\[
+				\begin{aligned}
+					s^2 &= \frac{3\times (60-69)^2 + 5\times (70-69)^2 + 2\times (80-69)^2}{10} \\
+					&= \frac{3\times 81 + 5\times 1 + 2\times 121}{10} \\
+					&= \frac{243+5+242}{10} \\
+					&= \frac{490}{10} \\
+					&= 49.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 加权方差公式 $s^2 = \frac{\sum (x_i-\bar{x})^2 f_i}{\sum f_i}$。
+		\item[\textbf{第三步（标准差）}] 标准差：
+			\[
+				\begin{aligned}
+					s &= \sqrt{s^2} \\
+					&= \sqrt{49} \\
+					&= 7.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 标准差是方差的算术平方根。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	加权平均 $69$ 分，加权方差 $49$，标准差 $7$ 分。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	甲、乙两名运动员射击成绩（环数）如下：
+	\begin{itemize}
+		\item 甲：$7,8,8,9,10$；
+		\item 乙：$6,9,9,10,11$。
+	\end{itemize}
+	分别计算两组数据的平均数和方差，试评价二人的水平与稳定性。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（甲的平均与方差）}] 甲的平均数：
+			\[
+				\begin{aligned}
+					\bar{x}_A &= \frac{7+8+8+9+10}{5} \\
+					&= \frac{42}{5} \\
+					&= 8.4.
+			\end{aligned}
+			\]
+			甲的方差：
+			\[
+				\begin{aligned}
+					s_A^2 &= \frac{1}{5}\big[(7-8.4)^2+(8-8.4)^2+(8-8.4)^2+(9-8.4)^2+(10-8.4)^2\big] \\
+					&= \frac{1}{5}(1.96+0.16+0.16+0.36+2.56) \\
+					&= \frac{1}{5}\times 5.2 \\
+					&= 1.04.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 平均数和方差公式。
+		\item[\textbf{第二步（乙的平均与方差）}] 乙的平均数：
+			\[
+				\begin{aligned}
+					\bar{x}_B &= \frac{6+9+9+10+11}{5} \\
+					&= \frac{45}{5} \\
+					&= 9.
+			\end{aligned}
+			\]
+			乙的方差：
+			\[
+				\begin{aligned}
+					s_B^2 &= \frac{1}{5}\big[(6-9)^2+(9-9)^2+(9-9)^2+(10-9)^2+(11-9)^2\big] \\
+					&= \frac{1}{5}(9+0+0+1+4) \\
+					&= \frac{14}{5} \\
+					&= 2.8.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 平均数和方差公式。
+		\item[\textbf{第三步（比较稳定性）}] 由 $s_A^2=1.04 < s_B^2=2.8$，故甲的成绩更稳定。乙的平均水平略高（$\bar{x}_B=9 > \bar{x}_A=8.4$），但波动更大。
+			\par\textbf{理由：} 方差越小数据波动越小，稳定性越好。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	甲平均 $8.4$，方差 $1.04$；乙平均 $9$，方差 $2.8$。甲的稳定性更好，乙的平均水平稍优但不够稳定。
+
+\end{examplebox}

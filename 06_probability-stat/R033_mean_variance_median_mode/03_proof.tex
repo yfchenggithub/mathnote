@@ -1,0 +1,42 @@
+\begin{proofbox}
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	要证明 $s^2 = \frac{1}{n}\sum (x_i-\bar{x})^2$ 等价于 $s^2 = \frac{1}{n}\sum x_i^2 - \bar{x}^2$，只需将 $(x_i-\bar{x})^2$ 展开，利用求和性质与 $\bar{x}$ 的定义化简。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（展开平方）}] 先将每个离差平方展开：
+			\[
+				(x_i - \bar{x})^2 = x_i^2 - 2x_i\bar{x} + \bar{x}^2.
+			\]
+			\par\textbf{理由：} 完全平方公式 $(a-b)^2=a^2-2ab+b^2$。
+
+		\item[\textbf{步骤二（求和分配）}] 对方差定义式求和并分配：
+			\[
+				\begin{aligned}
+					s^2 &= \frac{1}{n}\sum_{i=1}^n (x_i^2 - 2x_i\bar{x} + \bar{x}^2) \\
+					&= \frac{1}{n}\left(\sum_{i=1}^n x_i^2 - 2\bar{x}\sum_{i=1}^n x_i + \sum_{i=1}^n \bar{x}^2\right).
+			\end{aligned}
+			\]
+			注意最后一项 $\sum_{i=1}^n \bar{x}^2 = n\bar{x}^2$。
+			\par\textbf{理由：} 求和的可加性；常数 $\bar{x}$ 可提出求和号。
+
+		\item[\textbf{步骤三（代入化简）}] 利用 $\sum_{i=1}^n x_i = n\bar{x}$（平均数定义），代入上式：
+			\[
+				\begin{aligned}
+					s^2 &= \frac{1}{n}\sum x_i^2 - \frac{2\bar{x}}{n} \cdot n\bar{x} + \frac{n\bar{x}^2}{n} \\
+					&= \frac{1}{n}\sum x_i^2 - 2\bar{x}^2 + \bar{x}^2 \\
+					&= \frac{1}{n}\sum x_i^2 - \bar{x}^2.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 代入 $\sum x_i = n\bar{x}$，合并同类项。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	因此，方差可用等价形式 $s^2 = \frac{1}{n}\sum_{i=1}^n x_i^2 - \bar{x}^2$ 计算，避免了二次计算离差，简化运算。
+
+\end{proofbox}

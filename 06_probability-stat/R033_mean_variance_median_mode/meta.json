@@ -1,0 +1,186 @@
+{
+  "id": "R033",
+  "module": "probability-stat",
+  "core": {
+    "title": "描述统计量：平均数、方差、中位数、众数",
+    "alias": [
+      "数据基本统计量",
+      "数字特征",
+      "集中趋势与离散程度",
+      "算术平均数",
+      "方差标准差"
+    ],
+    "summary": "平均数、中位数、众数反映数据的集中趋势，方差和标准差反映数据的离散程度，统称描述统计量。",
+    "difficulty": 1,
+    "category": "统计",
+    "tags": [
+      "统计",
+      "平均数",
+      "方差",
+      "中位数",
+      "众数",
+      "标准差"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "平均数公式",
+      "加权平均数",
+      "方差计算公式",
+      "标准差",
+      "中位数定义",
+      "众数",
+      "数据波动",
+      "集中趋势",
+      "离散程度",
+      "样本方差",
+      "描述统计",
+      "算术平均数",
+      "方差变形",
+      "排序求中位数"
+    ],
+    "synonyms": [
+      "均值",
+      "平均",
+      "方叉",
+      "标准偏差",
+      "中位值",
+      "出现次数最多的数",
+      "加权平均"
+    ],
+    "intents": [
+      "计算平均数",
+      "计算方差",
+      "求中位数",
+      "找众数",
+      "比较数据波动大小",
+      "分析数据特征"
+    ],
+    "query_templates": [
+      "求一组数据的平均数方差",
+      "中位数怎么算",
+      "众数是什么",
+      "方差计算公式",
+      "加权平均数例题"
+    ],
+    "ocrKeywords": [
+      "一组数据",
+      "平均数",
+      "中位数",
+      "众数",
+      "方差",
+      "标准差",
+      "权数",
+      "排序"
+    ],
+    "latex_patterns": [
+      "\\bar{x} = \\frac{1}{n}\\sum_{i=1}^n x_i",
+      "s^2 = \\frac{1}{n}\\sum_{i=1}^n (x_i-\\bar{x})^2",
+      "s = \\sqrt{s^2}",
+      "\\bar{x} = \\frac{\\sum x_i f_i}{\\sum f_i}",
+      "s^2 = \\frac{1}{n}\\sum x_i^2 - \\bar{x}^2"
+    ],
+    "formulaTokens": [
+      "\\bar{x} = \\frac{1}{n}\\sum_{i=1}^n x_i",
+      "s^2 = \\frac{1}{n}\\sum_{i=1}^n (x_i-\\bar{x})^2",
+      "s = \\sqrt{s^2}",
+      "\\bar{x} = \\frac{\\sum x_i f_i}{\\sum f_i}",
+      "s^2 = \\frac{1}{n}\\sum x_i^2 - \\bar{x}^2",
+      "\\sum_{i=1}^n x_i",
+      "\\sum_{i=1}^n (x_i-\\bar{x})^2"
+    ],
+    "pinyin": "miao shu tong ji liang",
+    "pinyinAbbr": "msstj"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 1.0,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\bar{x} = \\frac{1}{n}\\sum_{i=1}^n x_i",
+    "related_formulas": [
+      "s^2 = \\frac{1}{n}\\sum_{i=1}^n (x_i-\\bar{x})^2",
+      "s = \\sqrt{s^2}",
+      "s^2 = \\frac{1}{n}\\sum_{i=1}^n x_i^2 - \\bar{x}^2"
+    ],
+    "variables": {
+      "x_i": "第 i 个数据",
+      "n": "数据个数",
+      "\\bar{x}": "算术平均数",
+      "s^2": "方差",
+      "s": "标准差",
+      "f_i": "第 i 个数据的权重"
+    },
+    "conditions": "数据 $x_1, x_2, \\dots, x_n$ 为实数；样本量 $n$ 为正整数；加权平均数中权重 $f_i \\ge 0$ 且 $\\sum f_i > 0$。",
+    "conclusions": "平均数反映数据中心位置；方差越小数据越集中；标准差与原数据量纲一致；中位数不受极端值影响；众数可能不唯一。"
+  },
+  "content": {
+    "statement": "给定一组数据 $x_1, x_2, \\dots, x_n$，其集中趋势和离散程度用以下统计量描述：算术平均数 $\\bar{x}=\\frac{1}{n}\\sum x_i$，加权平均数 $\\bar{x}=\\frac{\\sum x_i f_i}{\\sum f_i}$；方差 $s^2 = \\frac{1}{n}\\sum (x_i-\\bar{x})^2$，标准差 $s = \\sqrt{s^2}$；中位数是排序后中间位置的数（若 $n$ 为奇数取第 $\\frac{n+1}{2}$ 个，若偶数取中间两个的平均数）；众数是出现次数最多的数值。",
+    "derivation": [
+      "方差变形公式推导：$s^2 = \\frac{1}{n}\\sum (x_i-\\bar{x})^2 = \\frac{1}{n}\\sum (x_i^2 - 2x_i\\bar{x} + \\bar{x}^2) = \\frac{1}{n}\\sum x_i^2 - 2\\bar{x}\\cdot\\frac{1}{n}\\sum x_i + \\bar{x}^2 = \\frac{1}{n}\\sum x_i^2 - \\bar{x}^2$。"
+    ],
+    "intuition": "平均值是数据的平衡点；方差度量每个数据与平均值的平均偏离平方，反映波动大小。",
+    "common_tricks": [
+      "计算方差时优先使用变形公式 $s^2 = \\frac{1}{n}\\sum x_i^2 - \\bar{x}^2$ 以减少运算量",
+      "注意加权平均数与算术平均数的区别，分组数据必须用加权公式",
+      "中位数只需排序后定位，无需复杂计算",
+      "众数可能不止一个，也可能不存在（所有数据出现次数相同）"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "基础计算题",
+      "数据分析初步",
+      "统计描述"
+    ],
+    "problem_types": [
+      "求统计量",
+      "比较数据波动",
+      "选择合适统计量描述数据特征"
+    ],
+    "exam_frequency": 1.0,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "R033.svg",
+    "js": "",
+    "css": "",
+    "video": "",
+    "audio": ""
+  },
+  "shareConfig": {
+    "title": "描述统计量速查：平均数方差中位数众数定义与计算",
+    "shareDesc": "适合考前回顾和刷题前速记，快速掌握数据集中趋势与离散程度的四个核心统计量的定义、公式和计算技巧，减少计算错误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "实数运算",
+      "数据排序",
+      "权重的概念"
+    ],
+    "related_ids": [],
+    "similar": "频率分布直方图估计平均数、方差；样本标准差与总体标准差"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "统计-数据分析-平均数",
+  "altNodes": "统计-数据分析-方差"
+}
