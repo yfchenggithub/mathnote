@@ -1,0 +1,179 @@
+{
+  "id": "R042",
+  "module": "probability-stat",
+  "core": {
+    "title": "卡方独立性检验",
+    "alias": [
+      "卡方检验",
+      "χ²检验",
+      "列联表卡方",
+      "卡方统计量"
+    ],
+    "summary": "通过比较观测频数与期望频数的标准化偏离平方和，判断两个分类变量是否独立。",
+    "difficulty": 3,
+    "category": "统计与概率",
+    "tags": [
+      "独立性检验",
+      "卡方分布",
+      "列联表",
+      "假设检验",
+      "分类变量"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "卡方统计量",
+      "独立性检验",
+      "列联表",
+      "期望频数",
+      "观测频数",
+      "自由度",
+      "临界值",
+      "显著性水平",
+      "拒绝域",
+      "假设检验",
+      "χ²检验",
+      "分类变量",
+      "关联性",
+      "行合计",
+      "列合计"
+    ],
+    "synonyms": [
+      "卡方检测",
+      "Chi-square test",
+      "卡方独立性检验",
+      "卡方公式",
+      "χ²独立性检验",
+      "卡方值计算"
+    ],
+    "intents": [
+      "计算卡方统计量",
+      "判断独立性",
+      "检验相关性",
+      "求临界值",
+      "比较卡方值"
+    ],
+    "query_templates": [
+      "独立性检验卡方统计量公式",
+      "卡方检验怎么算",
+      "列联表卡方计算例题",
+      "卡方临界值查表",
+      "如何判断两变量是否独立"
+    ],
+    "ocrKeywords": [
+      "独立性检验",
+      "列联表",
+      "观测频数",
+      "期望频数",
+      "卡方",
+      "χ²"
+    ],
+    "latex_patterns": [
+      "\\chi^2 = \\sum_{i=1}^r\\sum_{j=1}^c \\frac{(O_{ij}-E_{ij})^2}{E_{ij}}",
+      "E_{ij} = \\frac{R_i C_j}{n}",
+      "\\chi^2_{\\alpha}(k),\\ k=(r-1)(c-1)"
+    ],
+    "formulaTokens": [
+      "(O_{ij}-E_{ij})^2/E_{ij}",
+      "\\sum_{i=1}^r\\sum_{j=1}^c",
+      "E_{ij}=R_iC_j/n",
+      "\\chi^2",
+      "\\chi^2_{\\alpha}(k)",
+      "R_i",
+      "C_j",
+      "n",
+      "k=(r-1)(c-1)"
+    ],
+    "pinyin": "ka fang du li xing jian yan",
+    "pinyinAbbr": "kfdlxjy"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.7,
+    "hot_score": 85,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\chi^2 = \\sum_{i=1}^{r}\\sum_{j=1}^{c} \\frac{(O_{ij} - E_{ij})^{2}}{E_{ij}}",
+    "related_formulas": [
+      "\\chi^2 = \\sum_{i=1}^{r}\\sum_{j=1}^{c} \\frac{O_{ij}^{2}}{E_{ij}} - n",
+      "k = (r-1)(c-1)"
+    ],
+    "variables": [
+      "$O_{ij}$（观测频数）",
+      "$E_{ij}$（期望频数）",
+      "$R_i$（第$i$行合计）",
+      "$C_j$（第$j$列合计）",
+      "$n$（总频数）",
+      "$r$（$X$的水平数）",
+      "$c$（$Y$的水平数）",
+      "$k$（自由度）",
+      "$\\alpha$（显著性水平）"
+    ],
+    "conditions": "每个单元格期望频数 $E_{ij}\\geq 5$，或至少 $80\\%$ 的单元格期望频数 $\\geq 5$；样本观测相互独立。",
+    "conclusions": "若 $\\chi^{2} \\geq \\chi^{2}_{\\alpha}(k)$，则拒绝独立性假设 $H_0$，认为两分类变量存在显著关联；否则不能拒绝 $H_0$。"
+  },
+  "content": {
+    "statement": "设两个分类变量分别为 $X$（$r$个水平）和 $Y$（$c$个水平）。在独立性原假设下，期望频数 $E_{ij}=R_iC_j/n$，构造卡方统计量 $\\chi^{2}=\\sum_{i=1}^{r}\\sum_{j=1}^{c}(O_{ij}-E_{ij})^{2}/E_{ij}$，该统计量近似服从自由度为 $k=(r-1)(c-1)$ 的卡方分布。给定显著性水平 $\\alpha$，若 $\\chi^{2}\\geq\\chi^{2}_{\\alpha}(k)$，则拒绝独立性假设。",
+    "derivation": [
+      "计算期望频数 $E_{ij}=R_iC_j/n$（基于独立性假设和边际合计）。",
+      "计算卡方统计量 $\\chi^{2}=\\sum\\sum (O_{ij}-E_{ij})^{2}/E_{ij}$（衡量观测与期望的偏离）。",
+      "将 $\\chi^{2}$ 与临界值 $\\chi^{2}_{\\alpha}(k)$ 比较，做出拒绝或接受独立性假设的决策。"
+    ],
+    "intuition": "如果实际观测与独立假设下的期望差异很大，则怀疑独立性不成立，差异通过卡方统计量量化。",
+    "common_tricks": [
+      "手算时常用变形公式 $\\chi^{2}=\\sum\\sum O_{ij}^{2}/E_{ij}-n$ 简化计算。",
+      "注意自由度 $k=(r-1)(c-1)$ 不要误算。",
+      "使用前必须检查期望频数条件，否则卡方近似可能失效。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "假设检验",
+      "分类变量关联性分析",
+      "列联表分析"
+    ],
+    "problem_types": [
+      "独立性检验计算题",
+      "卡方临界值比较题"
+    ],
+    "exam_frequency": 1.0,
+    "exam_score": 8
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "R042.svg"
+  },
+  "shareConfig": {
+    "title": "卡方独立性检验：列联表分析判断两变量是否相关",
+    "shareDesc": "适合课后复盘和考前回顾，集中解决卡方统计量计算与临界值比较的易错点，减少自由度判断错误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "独立性概念",
+      "期望计算",
+      "假设检验基本思想"
+    ],
+    "related_ids": [],
+    "similar": ""
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "其他-未分类-待定",
+  "altNodes": "概率-随机变量-分布列,统计-数据分析-方差"
+}

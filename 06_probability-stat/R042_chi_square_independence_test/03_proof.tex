@@ -1,0 +1,46 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	卡方统计量的构造思想是利用标准化残差的平方和来量化整体偏离。在独立性假设下，当样本量足够大时，该统计量近似服从卡方分布，自由度由列联表维度决定。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（期望频数计算）：}]
+			在独立性假设下，单元格 $(i,j)$ 的期望频数为
+			\[
+				E_{ij} = \frac{R_i C_j}{n},
+			\]
+			其中 $R_i=\sum_{j=1}^c O_{ij}$, $C_j=\sum_{i=1}^r O_{ij}$, $n=\sum_{i=1}^r R_i$。
+			\par\textbf{理由：}如果两个变量独立，则行变量第 $i$ 类的概率与列变量第 $j$ 类的概率的估计值之积乘以总频数即为期望频数。
+
+		\item[\textbf{步骤二（标准化残差）：}]
+			定义标准化残差
+			\[
+				z_{ij} = \frac{O_{ij} - E_{ij}}{\sqrt{E_{ij}}}.
+			\]
+			\par\textbf{理由：}减去期望后除以标准差，使得不同量纲的单元格具有可比性。
+
+		\item[\textbf{步骤三（卡方统计量）：}]
+			卡方统计量为所有标准化残差的平方和：
+			\[
+				\chi^2 = \sum_{i=1}^r\sum_{j=1}^c z_{ij}^2 = \sum_{i=1}^r\sum_{j=1}^c \frac{(O_{ij} - E_{ij})^2}{E_{ij}}.
+			\]
+			\par\textbf{理由：}平方和消除了正负抵消，反映累计偏离大小。
+
+		\item[\textbf{步骤四（近似与自由度）：}]
+			在 $H_0$ 和期望频数条件满足下，每个 $z_{ij}$ 近似服从标准正态分布，但由于行列合计固定，实际独立变化的单元格数为
+			\[
+				(r-1)(c-1).
+			\]
+			因此统计量近似服从 $\chi^2\big((r-1)(c-1)\big)$。
+			\par\textbf{理由：}受约束的标准正态变量平方和服从卡方分布，自由度等于独立变量个数。
+
+		\item[\textbf{步骤五（假设检验决策）：}]
+			给定显著性水平 $\alpha$，查卡方分布临界值 $\chi^2_\alpha(k)$。若 $\chi^2 \geq \chi^2_\alpha(k)$，则拒绝 $H_0$，认为两变量有关联；否则不能拒绝 $H_0$。
+			\par\textbf{理由：}小概率事件在一次试验中几乎不发生。若统计量落在拒绝域，说明观测到的偏离在 $H_0$ 下是不寻常的，故怀疑 $H_0$ 不成立。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{卡方统计量是独立性检验的核心工具，通过比较观测与期望的标准化偏离平方和，在近似卡方分布的支持下做出统计推断。}
+\end{proofbox}

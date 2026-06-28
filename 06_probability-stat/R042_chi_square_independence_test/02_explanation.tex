@@ -1,0 +1,41 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+	卡方统计量将每个单元格的观测频数与期望频数的差异进行平方并除以期望，再求和，整体偏差越大，越倾向于认为两变量有关联。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（偏差平方标准化）：}] 每个单元格的贡献 $(O_{ij}-E_{ij})^2/E_{ij}$ 既考虑绝对偏差，又用期望频数标准化，使不同量纲的单元格可以相加。
+		\item[\textbf{要点二（自由度决定临界值）：}] 自由度 $k=(r-1)(c-1)$ 反映独立条件下可自由变化的单元格数目，卡方分布的形状随 $k$ 变化，临界值 $\chi^2_\alpha(k)$ 据此确定。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（标准化距离平方）}}
+
+	将每个单元格的标准化残差 $\frac{O_{ij}-E_{ij}}{\sqrt{E_{ij}}}$ 视为一个坐标分量，则 $\chi^2$ 正是这些分量构成的向量的长度平方（即欧氏距离平方）。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（加权平方和）}}
+
+	$\chi^2 = \sum \frac{(O-E)^2}{E}$ 是偏差平方以 $1/E$ 为权的加权和。期望频数越小的单元格，权重越大，使得低频单元格的偏差对统计量更敏感。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（常见题型）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（计算与判断）：} 给出列联表，要求计算 $\chi^2$ 并与临界值比较，判断两变量是否独立。
+		\item \textbf{考法二（条件检查）：} 判断是否满足期望频数条件，若不满足需合并单元格或调整。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	\textbf{期望频数 $E_{ij}$ 必须由行列合计计算，不能直接取整；近似条件必须提前验证，否则结论不可靠。}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景（典型应用）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（列联表检验）：} 已获得两个分类变量的交叉计数，检验是否独立。
+		\item \textbf{场景二（问卷调查分析）：} 分析两个问题之间是否存在关联，如性别与购买意愿。
+	\end{itemize}
+\end{explanationbox}

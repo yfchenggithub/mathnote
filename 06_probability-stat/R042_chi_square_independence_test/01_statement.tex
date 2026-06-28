@@ -1,0 +1,27 @@
+\begin{statementbox}
+	\textbf{\textcolor{CStatement}{条件}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CStatement}{条件1（期望频数要求）：}}] 每个单元格的期望频数 $E_{ij}\geq 5$，或者至少 $80\%$ 的单元格期望频数 $\geq 5$。
+		\item[\textbf{\textcolor{CStatement}{条件2（样本独立性）：}}] 样本观测之间相互独立。
+	\end{description}
+
+	\textbf{\textcolor{CStatement}{结论}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{\textcolor{CStatement}{结论一（卡方统计量定义）：}}]
+			\textbf{\textcolor{CStatement}{直观描述：}}
+			构造标准化偏离平方和，衡量观测与期望的总体偏离。
+			\[
+				\chi^2 = \sum_{i=1}^r\sum_{j=1}^c \frac{(O_{ij}-E_{ij})^2}{E_{ij}},
+			\]
+			其中 $E_{ij} = \dfrac{R_i C_j}{n}$, $R_i=\sum_{j=1}^c O_{ij}$ 为第 $i$ 行合计，$C_j=\sum_{i=1}^r O_{ij}$ 为第 $j$ 列合计，$n=\sum_{i=1}^r R_i$ 为总频数。
+			在独立性原假设 $H_0$ 下，$\chi^2 \xrightarrow{\text{近似}} \chi^2(k)$，$k=(r-1)(c-1)$。
+			对显著性水平 $\alpha$，若 $\chi^2 \geq \chi^2_\alpha(k)$，则拒绝 $H_0$，认为两变量有关联；否则保留 $H_0$。
+
+		\item[\textbf{\textcolor{CStatement}{常见变形（等价计算公式）：}}]
+			\textbf{\textcolor{CStatement}{直观描述：}}
+			将平方展开后利用边际合计化简，便于手算。
+			\[
+				\chi^2 = \sum_{i=1}^r\sum_{j=1}^c \frac{O_{ij}^2}{E_{ij}} - n.
+			\]
+	\end{description}
+\end{statementbox}

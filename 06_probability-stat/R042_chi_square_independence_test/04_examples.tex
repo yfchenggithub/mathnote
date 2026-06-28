@@ -1,0 +1,157 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	为研究吸烟与肺癌是否有关联，调查200人得下表（$\alpha=0.05$）：
+
+	\begin{center}
+		\begin{tabular}{c|cc|c}
+			& 肺癌 & 无肺癌 & 合计 \\ \hline
+			吸烟 & 30 & 70 & 100 \\
+			不吸烟 & 10 & 90 & 100 \\ \hline
+			合计 & 40 & 160 & 200
+		\end{tabular}
+	\end{center}
+	已知 $\chi^2_{0.05}(1)=3.841$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（计算期望）：}]
+			在独立性假设下，期望频数 $E_{ij}=R_iC_j/n$。得
+			\[
+				E_{11}=100\times40/200=20,\quad E_{12}=100\times160/200=80,
+			\]
+			\[
+				E_{21}=100\times40/200=20,\quad E_{22}=100\times160/200=80.
+			\]
+			\par\textbf{理由：}行列独立时，联合概率等于边际概率乘积。
+		\item[\textbf{第二步（检查条件）：}]
+			所有期望频数 $20,80,20,80$ 均 $\geq 5$，满足使用条件。
+			\par\textbf{理由：}期望频数过小会导致卡方近似失效。
+		\item[\textbf{第三步（计算统计量）：}]
+			\[
+				\begin{aligned}
+					\chi^2 &= \frac{(30-20)^2}{20}+\frac{(70-80)^2}{80}+\frac{(10-20)^2}{20}+\frac{(90-80)^2}{80} \\
+					&= \frac{100}{20}+\frac{100}{80}+\frac{100}{20}+\frac{100}{80} \\
+					&= 5+1.25+5+1.25 \\
+					&= 12.5.
+			\end{aligned}
+			\]
+			\par\textbf{理由：}卡方统计量为所有单元格标准化偏差平方之和。
+		\item[\textbf{第四步（假设检验决策）：}]
+			比较临界值 $\chi^2_{0.05}(1)=3.841$。因为 $12.5>3.841$，所以拒绝 $H_0$，认为吸烟与肺癌有关联。
+			\par\textbf{理由：}小概率事件发生，拒绝原假设。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$\chi^2=12.5>3.841$，拒绝独立性假设，两变量存在关联。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	为调查性别与收入水平是否独立，随机抽取100人，数据如下（$\alpha=0.05$）：
+
+	\begin{center}
+		\begin{tabular}{c|ccc|c}
+			& 低收入 & 中收入 & 高收入 & 合计 \\ \hline
+			男 & 15 & 10 & 25 & 50 \\
+			女 & 15 & 20 & 15 & 50 \\ \hline
+			合计 & 30 & 30 & 40 & 100
+		\end{tabular}
+	\end{center}
+	已知 $\chi^2_{0.05}(2)=5.991$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（计算期望）：}]
+			期望频数按 $E_{ij}=R_iC_j/n$ 计算。得：
+			\[
+				E_{11}=50\times30/100=15,\; E_{12}=50\times30/100=15,\; E_{13}=50\times40/100=20,
+			\]
+			\[
+				E_{21}=50\times30/100=15,\; E_{22}=50\times30/100=15,\; E_{23}=50\times40/100=20.
+			\]
+			\par\textbf{理由：}独立性假设下的估计公式。
+		\item[\textbf{第二步（检查条件）：}]
+			所有期望频数均为 $15$ 或 $20$，均 $\geq 5$，条件满足。
+			\par\textbf{理由：}确保卡方近似有效。
+		\item[\textbf{第三步（计算统计量）：}]
+			\[
+				\begin{aligned}
+					\chi^2 &=\frac{(15-15)^2}{15}+\frac{(10-15)^2}{15}+\frac{(25-20)^2}{20} \\
+					&\quad +\frac{(15-15)^2}{15}+\frac{(20-15)^2}{15}+\frac{(15-20)^2}{20} \\
+					&=0+\frac{25}{15}+\frac{25}{20}+0+\frac{25}{15}+\frac{25}{20} \\
+					&=1.6667+1.25+1.6667+1.25 \\
+					&=5.8334.
+			\end{aligned}
+			\]
+			\par\textbf{理由：}各单元格贡献相加。
+		\item[\textbf{第四步（假设检验决策）：}]
+			$\chi^2=5.8334 < 5.991$，不在拒绝域，不能拒绝 $H_0$。
+			\par\textbf{理由：}统计量不够大，无法认为存在显著关联。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{$\chi^2=5.8334<5.991$，不拒绝独立性假设，性别与收入无显著关联。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	研究年级与食堂满意度关系，调查40名学生得下表（$\alpha=0.05$）：
+
+	\begin{center}
+		\begin{tabular}{c|cc|c}
+			& 满意 & 不满意 & 合计 \\ \hline
+			高一 & 15 & 5 & 20 \\
+			高二 & 10 & 5 & 15 \\
+			高三 & 0 & 5 & 5 \\ \hline
+			合计 & 25 & 15 & 40
+		\end{tabular}
+	\end{center}
+	已知 $\chi^2_{0.05}(2)=5.991$，$\chi^2_{0.05}(1)=3.841$。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（计算期望）：}]
+			\[
+				E_{11}=20\times25/40=12.5,\; E_{12}=20\times15/40=7.5,
+			\]
+			\[
+				E_{21}=15\times25/40=9.375,\; E_{22}=15\times15/40=5.625,
+			\]
+			\[
+				E_{31}=5\times25/40=3.125,\; E_{32}=5\times15/40=1.875.
+			\]
+			\par\textbf{理由：}独立性假设下公式。
+		\item[\textbf{第二步（检查条件）：}] 只有4个单元格期望 $\geq5$（比例 $66.7\%$），低于 $80\%$，不满足使用条件。需要处理。
+			\par\textbf{理由：}期望频数过小可能导致检验不准确。
+		\item[\textbf{第三步（合并类别）：}] 将高二和高三合并为“高年级”，新表：
+			\begin{center}
+				\begin{tabular}{c|cc|c}
+					& 满意 & 不满意 & 合计 \\ \hline
+					高一 & 15 & 5 & 20 \\
+					高年级 & 10 & 10 & 20 \\ \hline
+					合计 & 25 & 15 & 40
+			\end{tabular}
+		\end{center}
+			新期望：$E_{11}=12.5,\;E_{12}=7.5,\;E_{21}=12.5,\;E_{22}=7.5$，均 $\geq5$。
+			\par\textbf{理由：}合并后保留主要结构，同时满足条件。
+		\item[\textbf{第四步（计算卡方）：}]
+			\[
+				\begin{aligned}
+					\chi^2 &= \frac{(15-12.5)^2}{12.5}+\frac{(5-7.5)^2}{7.5}+\frac{(10-12.5)^2}{12.5}+\frac{(10-7.5)^2}{7.5} \\
+					&= \frac{6.25}{12.5}+\frac{6.25}{7.5}+\frac{6.25}{12.5}+\frac{6.25}{7.5} \\
+					&= 0.5+0.8333+0.5+0.8333 \\
+					&= 2.6667.
+			\end{aligned}
+			\]
+			\par\textbf{理由：}卡方公式直接计算。
+		\item[\textbf{第五步（假设检验决策）：}] 自由度 $k=(2-1)(2-1)=1$，临界值 $\chi^2_{0.05}(1)=3.841$。$\chi^2=2.6667<3.841$，不能拒绝 $H_0$。
+			\par\textbf{理由：}统计量未达到显著水平，数据不足以推翻独立性假设。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{合并后 $\chi^2=2.6667<3.841$，不拒绝独立性假设，年级与满意度无显著关联。}
+\end{examplebox}
