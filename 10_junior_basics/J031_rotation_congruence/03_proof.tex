@@ -1,0 +1,41 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	利用极坐标，旋转只改变点的极角（增加 $\theta$），不改变极径。然后通过距离公式证明对应边相等，从而证得三角形全等。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（极坐标表示）：}]
+			以旋转中心 $O$ 为极点建立极坐标系，设点 $A,B,C$ 的极坐标分别为 $(\rho_1,\alpha)$, $(\rho_2,\beta)$, $(\rho_3,\gamma)$，其中 $\rho_1=OA$, $\rho_2=OB$, $\rho_3=OC$.
+			\par\textbf{理由：} 极坐标便于描述绕极点的旋转。
+		\item[\textbf{步骤二（旋转后坐标）：}]
+			旋转后点 $A',B',C'$ 的极坐标为 $(\rho_1,\alpha+\theta)$, $(\rho_2,\beta+\theta)$, $(\rho_3,\gamma+\theta)$.
+			\par\textbf{理由：} 绕点 $O$ 旋转 $\theta$ 角，极径不变，极角增加 $\theta$.
+		\item[\textbf{步骤三（距等性证明）：}]
+			由极径不变，得 $OA=OA'$, $OB=OB'$, $OC=OC'$.
+			\par\textbf{理由：} $\rho_1$ 既是 $OA$ 也是 $OA'$，故相等；同理 $\rho_2$, $\rho_3$.
+		\item[\textbf{步骤四（角等性证明）：}]
+			由旋转坐标表示，得 $\angle AOA' = (\alpha+\theta)-\alpha$，故 $\angle AOA' = \theta$；同理 $\angle BOB' = \theta$，$\angle COC' = \theta$.
+			\par\textbf{理由：} 极角差等于旋转角。
+		\item[\textbf{步骤五（边等性证明）：}]
+			计算 $AB$ 的平方：
+			\[
+				AB^2 = \rho_1^2 + \rho_2^2 - 2\rho_1\rho_2\cos(\alpha-\beta).
+			\]
+			计算 $A'B'$ 的平方：
+			\[
+				\begin{aligned}
+					A'B'^2 &= \rho_1^2 + \rho_2^2 - 2\rho_1\rho_2\cos((\alpha+\theta)-(\beta+\theta)) \\ &= \rho_1^2 + \rho_2^2 - 2\rho_1\rho_2\cos(\alpha-\beta).
+			\end{aligned}
+			\]
+			故 $AB^2 = A'B'^2$，从而 $AB = A'B'$。同理 $BC = B'C'$，$CA = C'A'$.
+			\par\textbf{理由：} 余弦函数性质 $\cos(\alpha+\theta-(\beta+\theta)) = \cos(\alpha-\beta)$.
+		\item[\textbf{步骤六（全等结论）：}]
+			由三边对应相等，得 $\triangle ABC \cong \triangle A'B'C'$（SSS）。
+			\par\textbf{理由：} 三角形全等的判定定理。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	旋转保持任意两点间的距离不变，故图形全等；同时旋转中心到对应点的距离不变，对应点与旋转中心连线的夹角等于旋转角。这些性质统一于旋转的保距保角特性。
+\end{proofbox}

@@ -33740,3 +33740,66 @@
 2026-06-29 02:21:00,074 - INFO - 
 ✅ 任务结束: {'success': 1, 'error': 0, 'skipped': 0}
 2026-06-29 02:21:00,074 - INFO - ⏱ 总耗时: 736.71s
+2026-06-29 02:22:24,224 - INFO - 阶段模型映射已生效: {'l1': 'flash', 'l2': 'pro', 'l3': 'flash', 'l4': 'flash', 'l4_check': 'pro', 'l5': 'flash', 'l6': 'flash'}
+2026-06-29 02:22:24,224 - INFO - DeepSeek 思考模式配置: {"apply_to": ["flash", "pro"], "configured": true, "effort": "high", "enabled": true, "step_overrides": {"l4": {"effort": "max"}, "l4_check": {"effort": "max"}}}
+2026-06-29 02:22:25,379 - INFO - Pipeline 开关: enable_l3=True, enable_l4=True, enable_l4_check=True, enable_l5=True
+2026-06-29 02:22:25,379 - INFO - Prompt 指纹快照(前12位): {"l1": "9438d6e74a91", "l2": "1fd14f50262e", "l3": "58bd9ab2c769", "l4": "0a048a9a130e", "l4_check": "324cd8ed1680", "l5": "24cfe6fa35a3", "l6": "84d942894192"}
+2026-06-29 02:22:25,379 - INFO - Prompt 全局快照(前12位): caaea063a2a6
+2026-06-29 02:22:25,379 - INFO - Pipeline 心跳: progress_log_start_seconds=120, progress_log_interval_seconds=30, progress_poll_seconds=5, effective_first_heartbeat_seconds=30
+2026-06-29 02:22:25,458 - INFO - 开始批处理，共 1 个条目，模式: cache（优先复用）
+2026-06-29 02:22:25,458 - INFO - 指定 ID: J031
+2026-06-29 02:22:25,471 - INFO - J031 source fingerprint missing; invalidating all stage caches.
+2026-06-29 02:22:25,472 - INFO - J031 检测到缺失 prompt 快照记录，判定全部阶段缓存失效。
+2026-06-29 02:22:25,472 - INFO - [stage/start] item=J031 stage=L1 mode=run
+2026-06-29 02:22:26,431 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-29 02:22:34,810 - INFO - [stage/done] item=J031 stage=L1 mode=run elapsed=9.34s
+2026-06-29 02:22:34,810 - INFO - [stage/start] item=J031 stage=L2 mode=run
+2026-06-29 02:22:34,911 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-29 02:22:51,658 - INFO - [PERF_TRACE] {"event": "perf_trace", "step": "l2", "model": "deepseek-v4-pro", "prompt_chars": 3520, "payload_chars": 1243, "response_chars": 844, "request_start_ts": "2026-06-29T02:22:34.810", "request_end_ts": "2026-06-29T02:22:51.657", "llm_roundtrip_ms": 16846.64, "network_wait_ms": 16846.64, "prompt_tokens": 1777, "completion_tokens": 1458, "total_tokens": 3235, "json_parse_ms": 0.3, "validate_ms": null, "retry_count": 0, "timeout_value": 180, "thinking_enabled": true, "reasoning_effort": "high"}
+2026-06-29 02:22:51,668 - INFO - [stage/done] item=J031 stage=L2 mode=run elapsed=16.86s
+2026-06-29 02:22:51,668 - INFO - [stage/start] item=J031 stage=L3 mode=run
+2026-06-29 02:22:51,768 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-29 02:23:05,635 - INFO - [stage/done] item=J031 stage=L3 mode=run elapsed=13.97s
+2026-06-29 02:23:05,635 - INFO - [stage/start] item=J031 stage=L4 mode=run
+2026-06-29 02:23:05,746 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-29 02:23:35,687 - INFO - [progress] item=J031 stage=L4 model=deepseek-v4-flash attempt=1/1 retry_count=0 waited=30.1s timeout=180s
+2026-06-29 02:24:05,745 - INFO - [progress] item=J031 stage=L4 model=deepseek-v4-flash attempt=1/1 retry_count=0 waited=60.1s timeout=180s
+2026-06-29 02:24:35,815 - INFO - [progress] item=J031 stage=L4 model=deepseek-v4-flash attempt=1/1 retry_count=0 waited=90.2s timeout=180s
+2026-06-29 02:25:05,863 - INFO - [progress] item=J031 stage=L4 model=deepseek-v4-flash attempt=1/1 retry_count=0 waited=120.2s timeout=180s
+2026-06-29 02:25:35,902 - INFO - [progress] item=J031 stage=L4 model=deepseek-v4-flash attempt=1/1 retry_count=0 waited=150.3s timeout=180s
+2026-06-29 02:26:05,938 - INFO - [progress] item=J031 stage=L4 model=deepseek-v4-flash attempt=1/1 retry_count=0 waited=180.3s timeout=180s
+2026-06-29 02:26:35,980 - INFO - [progress] item=J031 stage=L4 model=deepseek-v4-flash attempt=1/1 retry_count=0 waited=210.3s timeout=180s
+2026-06-29 02:27:06,030 - INFO - [progress] item=J031 stage=L4 model=deepseek-v4-flash attempt=1/1 retry_count=0 waited=240.4s timeout=180s
+2026-06-29 02:27:36,066 - INFO - [progress] item=J031 stage=L4 model=deepseek-v4-flash attempt=1/1 retry_count=0 waited=270.4s timeout=180s
+2026-06-29 02:28:06,118 - INFO - [progress] item=J031 stage=L4 model=deepseek-v4-flash attempt=1/1 retry_count=0 waited=300.5s timeout=180s
+2026-06-29 02:28:36,172 - INFO - [progress] item=J031 stage=L4 model=deepseek-v4-flash attempt=1/1 retry_count=0 waited=330.5s timeout=180s
+2026-06-29 02:29:06,227 - INFO - [progress] item=J031 stage=L4 model=deepseek-v4-flash attempt=1/1 retry_count=0 waited=360.6s timeout=180s
+2026-06-29 02:29:36,268 - INFO - [progress] item=J031 stage=L4 model=deepseek-v4-flash attempt=1/1 retry_count=0 waited=390.6s timeout=180s
+2026-06-29 02:30:06,323 - INFO - [progress] item=J031 stage=L4 model=deepseek-v4-flash attempt=1/1 retry_count=0 waited=420.7s timeout=180s
+2026-06-29 02:30:18,259 - INFO - [PERF_TRACE] {"event": "perf_trace", "step": "l4", "model": "deepseek-v4-flash", "prompt_chars": 14458, "payload_chars": 793, "response_chars": 8536, "request_start_ts": "2026-06-29T02:23:05.635", "request_end_ts": "2026-06-29T02:30:18.258", "llm_roundtrip_ms": 432622.6, "network_wait_ms": 432622.6, "prompt_tokens": 7496, "completion_tokens": 49210, "total_tokens": 56706, "json_parse_ms": 0.44, "validate_ms": 0.02, "retry_count": 0, "timeout_value": 180, "thinking_enabled": true, "reasoning_effort": "max"}
+2026-06-29 02:30:18,262 - INFO - [stage/done] item=J031 stage=L4 mode=run elapsed=432.63s
+2026-06-29 02:30:18,262 - INFO - [stage/start] item=J031 stage=L4_CHECK mode=run
+2026-06-29 02:30:18,383 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-29 02:30:48,310 - INFO - [progress] item=J031 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=30.0s timeout=180s
+2026-06-29 02:31:18,360 - INFO - [progress] item=J031 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=60.1s timeout=180s
+2026-06-29 02:31:48,431 - INFO - [progress] item=J031 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=90.2s timeout=180s
+2026-06-29 02:32:18,467 - INFO - [progress] item=J031 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=120.2s timeout=180s
+2026-06-29 02:32:48,505 - INFO - [progress] item=J031 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=150.2s timeout=180s
+2026-06-29 02:33:18,553 - INFO - [progress] item=J031 stage=L4_CHECK model=deepseek-v4-pro attempt=1/3 retry_count=0 waited=180.3s timeout=180s
+2026-06-29 02:33:31,138 - INFO - [PERF_TRACE] {"event": "perf_trace", "step": "l4_check", "model": "deepseek-v4-pro", "prompt_chars": 13030, "payload_chars": 9753, "response_chars": 8603, "request_start_ts": "2026-06-29T02:30:18.262", "request_end_ts": "2026-06-29T02:33:31.137", "llm_roundtrip_ms": 192874.48, "network_wait_ms": 192874.48, "prompt_tokens": 6082, "completion_tokens": 20889, "total_tokens": 26971, "json_parse_ms": 1.29, "validate_ms": 0.01, "retry_count": 0, "timeout_value": 180, "thinking_enabled": true, "reasoning_effort": "max"}
+2026-06-29 02:33:31,147 - INFO - [stage/done] item=J031 stage=L4_CHECK mode=run elapsed=192.88s
+2026-06-29 02:33:31,147 - INFO - [stage/start] item=J031 stage=L4_EXPORT mode=run
+2026-06-29 02:33:31,159 - INFO - J031 L4 导出 tex 片段: 6 个
+2026-06-29 02:33:31,159 - INFO - [stage/done] item=J031 stage=L4_EXPORT mode=run elapsed=0.01s
+2026-06-29 02:33:31,159 - INFO - [stage/start] item=J031 stage=L5 mode=run
+2026-06-29 02:33:31,260 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-29 02:34:01,203 - INFO - [progress] item=J031 stage=L5 model=deepseek-v4-flash attempt=1/3 retry_count=0 waited=30.0s timeout=180s
+2026-06-29 02:34:12,548 - WARNING - J031 L5 id 已纠正: 'G001' -> 'J031'
+2026-06-29 02:34:12,552 - INFO - [stage/done] item=J031 stage=L5 mode=run elapsed=41.39s
+2026-06-29 02:34:12,552 - INFO - J031 L6 缓存无 prompt 指纹记录，判定缓存失效并重跑。
+2026-06-29 02:34:12,552 - INFO - [stage/start] item=J031 stage=L6 mode=run
+2026-06-29 02:34:12,638 - INFO - HTTP Request: POST https://api.deepseek.com/chat/completions "HTTP/1.1 200 OK"
+2026-06-29 02:34:16,783 - INFO - [stage/done] item=J031 stage=L6 mode=run elapsed=4.23s note=dirname=J031_rotation_congruence
+2026-06-29 02:34:16,788 - INFO - 
+✅ 任务结束: {'success': 1, 'error': 0, 'skipped': 0}
+2026-06-29 02:34:16,788 - INFO - ⏱ 总耗时: 711.33s
