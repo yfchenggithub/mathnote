@@ -1,0 +1,65 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	从定义 $\chi^2 = \sum\frac{(O-E)^2}{E}$ 出发，先求出各单元格的期望频数，计算残差，提出公因子后利用代数恒等式化简，得到简洁公式。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（建立符号与残差）：}]
+			设 $R_1=a+b$, $R_2=c+d$, $C_1=a+c$, $C_2=b+d$, $n=R_1+R_2=C_1+C_2$。 计算各单元格残差：
+			\[
+				\begin{aligned}
+					a-E_{11} &= \frac{ad-bc}{n}, & b-E_{12} &= -\frac{ad-bc}{n},\\ c-E_{21} &= -\frac{ad-bc}{n}, & d-E_{22} &= \frac{ad-bc}{n}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 利用期望公式 $E_{11}=R_1C_1/n$ 等，代入化简即得。
+		\item[\textbf{步骤二（写出每项平方与期望比值）：}]
+			\[
+				\begin{aligned}
+					\frac{(a-E_{11})^2}{E_{11}} &= \frac{(ad-bc)^2}{n^2 E_{11}}, & \frac{(b-E_{12})^2}{E_{12}} &= \frac{(ad-bc)^2}{n^2 E_{12}},\\ \frac{(c-E_{21})^2}{E_{21}} &= \frac{(ad-bc)^2}{n^2 E_{21}}, & \frac{(d-E_{22})^2}{E_{22}} &= \frac{(ad-bc)^2}{n^2 E_{22}}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 将残差平方并代入期望，注意到每个分子都含有 $(ad-bc)^2$。
+		\item[\textbf{步骤三（提取公因子）：}]
+			\[
+				\chi^2 = \frac{(ad-bc)^2}{n^2}\left(\frac{1}{E_{11}}+\frac{1}{E_{12}}+\frac{1}{E_{21}}+\frac{1}{E_{22}}\right).
+			\]
+			\par\textbf{理由：} 四项累加，公因子 $(ad-bc)^2/n^2$ 提到括号外。
+		\item[\textbf{步骤四（计算期望倒数之和）：}]
+			将 $E_{ij}$ 表达式代入：
+			\[
+				\begin{aligned}
+					\frac{1}{E_{11}} &= \frac{n}{R_1C_1}, & \frac{1}{E_{12}} &= \frac{n}{R_1C_2},\\ \frac{1}{E_{21}} &= \frac{n}{R_2C_1}, & \frac{1}{E_{22}} &= \frac{n}{R_2C_2}.
+			\end{aligned}
+			\]
+			因此
+			\[
+				\frac{1}{E_{11}}+\frac{1}{E_{12}}+\frac{1}{E_{21}}+\frac{1}{E_{22}} = n\left(\frac{1}{R_1C_1}+\frac{1}{R_1C_2}+\frac{1}{R_2C_1}+\frac{1}{R_2C_2}\right).
+			\]
+			\par\textbf{理由：} 由 $E_{ij}=R_iC_j/n$ 得倒数形式。
+		\item[\textbf{步骤五（通分合并）：}]
+			\[
+				\begin{aligned}
+					\frac{1}{R_1C_1}+\frac{1}{R_1C_2}+\frac{1}{R_2C_1}+\frac{1}{R_2C_2} &= \frac{R_2C_2+R_2C_1+R_1C_2+R_1C_1}{R_1R_2C_1C_2} \\ &= \frac{(R_1+R_2)(C_1+C_2)}{R_1R_2C_1C_2} \\ &= \frac{n^2}{R_1R_2C_1C_2}.
+			\end{aligned}
+			\]
+			所以
+			\[
+				\begin{aligned}
+					\sum_{i,j}\frac{1}{E_{ij}} &= n\cdot\frac{n^2}{R_1R_2C_1C_2} \\ &= \frac{n^3}{R_1R_2C_1C_2}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 通分后分子恰为 $(R_1+R_2)(C_1+C_2)=n^2$。
+		\item[\textbf{步骤六（代入得简洁公式）：}]
+			\[
+				\begin{aligned}
+					\chi^2 &= \frac{(ad-bc)^2}{n^2}\cdot\frac{n^3}{R_1R_2C_1C_2} \\ &= \frac{n(ad-bc)^2}{R_1R_2C_1C_2} \\ &= \frac{n(ad-bc)^2}{(a+b)(c+d)(a+c)(b+d)}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 代回 $R_1,R_2,C_1,C_2$ 定义，$R_1R_2C_1C_2 = (a+b)(c+d)(a+c)(b+d)$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	通过上述推导，我们从 $\chi^2=\sum\frac{(O-E)^2}{E}$ 出发，逐步化简得到经典公式，两者完全等价。因此在实际计算中可直接使用较简洁的对角线乘积式。
+\end{proofbox}

@@ -1,0 +1,171 @@
+{
+  "id": "R041",
+  "module": "probability-stat",
+  "core": {
+    "title": "独立性检验卡方统计量公式",
+    "alias": [
+      "卡方统计量",
+      "χ²检验公式",
+      "列联表卡方公式"
+    ],
+    "summary": "卡方统计量通过观测频数与期望频数的差异衡量两个分类变量的关联程度，值越大越倾向于拒绝独立假设。",
+    "difficulty": 3,
+    "category": "统计与概率",
+    "tags": [
+      "独立性检验",
+      "卡方统计量",
+      "列联表",
+      "分类变量",
+      "假设检验",
+      "期望频数"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "独立性检验",
+      "卡方统计量",
+      "列联表",
+      "分类变量",
+      "假设检验",
+      "期望频数",
+      "自由度",
+      "统计量公式",
+      "观测频数",
+      "期望频数",
+      "n(ad-bc)²",
+      "Σ(O-E)²/E"
+    ],
+    "synonyms": [
+      "卡方检验",
+      "卡方值",
+      "独立检验",
+      "卡方公式",
+      "卡方统计量计算",
+      "列联表检验"
+    ],
+    "intents": [
+      "计算卡方值",
+      "判断独立性",
+      "检验相关",
+      "使用卡方公式",
+      "验证独立性",
+      "比较观测期望"
+    ],
+    "query_templates": [
+      "独立性检验卡方统计量公式",
+      "卡方值怎么计算",
+      "列联表卡方公式",
+      "χ²统计量计算",
+      "卡方检验条件",
+      "期望频数计算"
+    ],
+    "ocrKeywords": [
+      "列联表",
+      "a b c d",
+      "合计",
+      "观测频数",
+      "期望频数",
+      "χ²",
+      "独立性检验",
+      "卡方"
+    ],
+    "latex_patterns": [
+      "\\frac{n(ad-bc)^2}{(a+b)(c+d)(a+c)(b+d)}",
+      "\\sum\\frac{(O-E)^2}{E}"
+    ],
+    "formulaTokens": [
+      "ad-bc",
+      "n(ad-bc)^2",
+      "(a+b)(c+d)(a+c)(b+d)",
+      "\\frac{n(ad-bc)^2}{(a+b)(c+d)(a+c)(b+d)}",
+      "\\frac{(O-E)^2}{E}",
+      "\\sum\\frac{(O-E)^2}{E}",
+      "O-E",
+      "(O-E)^2"
+    ],
+    "pinyin": "du li xing jian yan ka fang tong ji liang",
+    "pinyinAbbr": "dlxjykftjl"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.83,
+    "hot_score": 85,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\chi^2 = \\frac{n(ad-bc)^2}{(a+b)(c+d)(a+c)(b+d)}",
+    "related_formulas": [
+      "\\chi^2 = \\sum_{i,j} \\frac{(O_{ij}-E_{ij})^2}{E_{ij}}"
+    ],
+    "variables": "变量$a,b,c,d$为实际观测频数，$n=a+b+c+d$为总频数，$O$为观测频数，$E$为期望频数。",
+    "conditions": "各单元格期望频数均不小于$5$，总频数$n\\geqslant40$，且原假设$H_0$为两变量独立。",
+    "conclusions": "该统计量近似服从自由度为$1$的$\\chi^2$分布。"
+  },
+  "content": {
+    "statement": "对于两个分类变量，在$2\\times 2$列联表中，当原假设为独立且各单元格期望频数均不小于$5$、总频数$n\\geq40$时，检验统计量$\\chi^2 = \\frac{n(ad-bc)^2}{(a+b)(c+d)(a+c)(b+d)}$近似服从自由度为$1$的卡方分布，等价于$\\chi^2 = \\sum \\frac{(O-E)^2}{E}$。",
+    "derivation": [
+      "计算期望频数：$E_{ij} = \\frac{\\text{行合计}_i \\times \\text{列合计}_j}{n}$。",
+      "计算每个单元格的残差平方与期望之比：$\\frac{(O_{ij}-E_{ij})^2}{E_{ij}}$。",
+      "求和得到$\\chi^2$统计量，对于$2\\times 2$表可简化为$\\frac{n(ad-bc)^2}{(a+b)(c+d)(a+c)(b+d)}$。"
+    ],
+    "intuition": "卡方统计量衡量实际观测与独立假设下期望的偏差总和，偏差越大，越说明变量间存在关联。",
+    "common_tricks": [
+      "使用前必须检查期望频数是否均不小于5且n≥40，否则近似失效。",
+      "注意列联表单元格顺序：左上a、右上b、左下c、右下d，确保ad-bc计算正确。",
+      "可用等价形式Σ(O-E)²/E进行验算。",
+      "2×2表自由度为1，无需计算自由度。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "高考统计大题",
+      "独立性检验",
+      "分类变量相关性分析"
+    ],
+    "problem_types": [
+      "列联表计算题",
+      "卡方检验应用题"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": ""
+  },
+  "shareConfig": {
+    "title": "独立性检验卡方统计量：列联表计算与判断",
+    "shareDesc": "适合考前回顾和刷题速查，掌握卡方公式能快速计算统计量并判断变量是否独立，避免期望频数条件判断错误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "分类变量",
+      "列联表",
+      "期望值计算"
+    ],
+    "related_ids": [],
+    "similar": [
+      "独立性检验与相关性分析",
+      "Fisher精确检验"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "其他-未分类-待定",
+  "altNodes": "统计-数据分析-方差,概率-随机变量-分布列"
+}

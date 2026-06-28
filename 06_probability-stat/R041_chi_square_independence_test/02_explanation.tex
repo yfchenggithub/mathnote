@@ -1,0 +1,43 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+	卡方统计量度量实际观测与独立假设下期望之间的整体偏离程度，偏离越大，越不支持独立假设。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（构造思想）：}]
+			将每个单元格的观测值与期望值之差平方，再除以期望值，以消除量纲并给偏离较大的单元格更高权重。
+		\item[\textbf{要点二（自由度意义）：}]
+			在 $2\times2$ 列联表中，固定行合计与列合计后，只有一个单元格可以自由变化，所以近似卡方分布的自由度为 $1$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（残差平方和）}}
+	卡方统计量是各单元格标准化残差($(O-E)/\sqrt{E}$)的平方和，反映观测点与独立模型在多维空间中的欧氏距离。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（交叉乘积差）}}
+	\[
+		\chi^2 = \frac{n(ad-bc)^2}{(a+b)(c+d)(a+c)(b+d)}
+	\]
+	表明关联程度完全由交叉乘积差 $ad-bc$ 决定。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（常见考法）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（列联表计算）：} 给出 $2\times2$ 列联表数值，直接代入公式求 $\chi^2$ 值。
+		\item \textbf{考法二（等价公式运用）：} 利用 $\chi^2=\sum\frac{(O-E)^2}{E}$ 计算，常在期望频数已给或需验证公式时考查。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+	只要记住 $ad-bc$ 决定了关联方向和强度，卡方值与$(ad-bc)^2$成正比，且样本量$n$放大效应。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（独立性检验）：} 判断两个分类变量（如性别与选科）是否独立。
+		\item \textbf{场景二（一致性检验）：} 比较不同群体的分布是否一致（本质相同）。
+	\end{itemize}
+
+\end{explanationbox}
