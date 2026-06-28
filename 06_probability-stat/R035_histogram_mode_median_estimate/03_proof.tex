@@ -1,0 +1,40 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用组内数据均匀分布的假设，累计频率函数在组内为线性函数，根据中位数的定义（累计频率0.5）代入求解。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（均匀假设）：}] 假设每个组内数据均匀分布，则第$j$组内的累计频率函数为线性：
+			\[
+				F(x) = F + \frac{p_j}{d}(x - L), \quad x \in [L, L+d],
+			\]
+			其中$F$为前$j-1$组累计频率，$p_j$为本组频率，$L$为组下限，$d$为组距。
+			\par\textbf{理由：} 均匀分布时，频率密度为常数$\frac{p_j}{d}$，累计频率随$x$线性增长。
+
+		\item[\textbf{步骤二（中位数条件）：}] 设中位数为$m$，则$F(m)=0.5$，且$m$落在第$j$组内，故$F \le 0.5 \le F+p_j$。
+			\par\textbf{理由：} 中位数的定义是累计频率等于$0.5$的点。
+
+		\item[\textbf{步骤三（代入线性式）：}] 将$x=m$和$F(m)=0.5$代入线性表达式得
+			\[
+				0.5 = F + \frac{p_j}{d}(m - L).
+			\]
+			\par\textbf{理由：} 直接代入$F(x)$的表达式。
+
+		\item[\textbf{步骤四（求解公式）：}] 移项并整理：
+			\[
+				\begin{aligned}
+					\frac{p_j}{d}(m - L) &= 0.5 - F \\
+					\Rightarrow\quad m - L &= \frac{0.5 - F}{p_j}\,d \\
+					\Rightarrow\quad m &= L + \frac{0.5 - F}{p_j} \cdot d.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 代数变形，先乘$d$再除以$p_j$，最后加$L$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	上述推导给出了频率分布直方图中中位数估计的线性插值公式，它基于组内均匀假设，将面积等分转化为横轴的偏移计算，是数形结合与比例思想的具体应用。
+\end{proofbox}

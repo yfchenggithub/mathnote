@@ -1,0 +1,33 @@
+\begin{statementbox}
+	\textbf{\textcolor{CStatement}{条件}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CStatement}{条件 1（直方图分组）：}}] 频率分布直方图包含$k$个矩形，第$i$个矩形的组距为$\Delta x_i$，高度（频率/组距）为$h_i$，则该组频率$p_i = \Delta x_i \cdot h_i$，且$\sum_{i=1}^{k} p_i = 1$。
+	\end{description}
+
+	\textbf{\textcolor{CStatement}{结论}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{\textcolor{CStatement}{结论一（众数估计）：}}]
+			\textbf{\textcolor{CStatement}{直观描述：}}
+			众数估计值为最高矩形的底边中点。
+			\[
+				M_o \approx \frac{a+b}{2},
+			\]
+			其中$a,b$分别为该矩形底边的左、右端点。
+
+		\item[\textbf{\textcolor{CStatement}{结论二（中位数估计）：}}]
+			\textbf{\textcolor{CStatement}{直观描述：}}
+			中位数估计值使累计频率等于$0.5$，采用线性插值公式计算。
+			\[
+				m \approx L + \frac{0.5 - F}{p_j} \cdot d,
+			\]
+			其中中位数落在第$j$组，该组下限为$L$，组距为$d$，前$j-1$组累计频率为$F$，本组频率为$p_j$。
+
+		\item[\textbf{\textcolor{CStatement}{推广结论（分位数估计）：}}]
+			\textbf{\textcolor{CStatement}{直观描述：}}
+			任意第$p$分位数可用类似线性插值公式估计。
+			\[
+				Q_p \approx L + \frac{p - F}{p_j} \cdot d,
+			\]
+			其中$p \in (0,1)$，符号含义与中位数公式相同。
+	\end{description}
+\end{statementbox}

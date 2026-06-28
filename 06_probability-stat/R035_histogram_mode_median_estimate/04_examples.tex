@@ -1,0 +1,57 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	频率分布直方图有3组，组距均为10。第一组$[0,10)$频率$0.2$，第二组$[10,20)$频率$0.5$，第三组$[20,30)$频率$0.3$。估计众数和中位数。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（找最高组）：}] 第二组频率最大，为最高组。众数估计值为该组底边中点$\frac{10+20}{2}=15$。
+			\par\textbf{理由：} 根据众数估计方法，众数取最高矩形底边中点。
+		\item[\textbf{第二步（累计频率）：}] 第一组累计$0.2$，第二组累计$0.7$，中位数落入第二组（因为$0.2<0.5<0.7$）。
+			\par\textbf{理由：} 中位数对应累计频率$0.5$，根据累计频率定位所在组。
+		\item[\textbf{第三步（代入公式）：}] $L=10,\ d=10,\ F=0.2,\ p_j=0.5$，则$m=10+\frac{0.5-0.2}{0.5}\times10=10+6=16$。
+			\par\textbf{理由：} 中位数线性插值公式。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{众数估计值为$15$，中位数估计值为$16$。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	某校学生身高的频率分布直方图（单位：cm）如下：第一组$[150,155)$高度$0.04$，第二组$[155,165)$高度$0.05$，第三组$[165,170)$高度$0.04$，第四组$[170,180)$高度$0.01$。求中位数的估计值。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（计算频率）：}] 第一组组距$5$，频率$0.04\times5=0.2$；第二组组距$10$，频率$0.05\times10=0.5$；第三组组距$5$，频率$0.04\times5=0.2$；第四组组距$10$，频率$0.01\times10=0.1$。总频率$0.2+0.5+0.2+0.1=1$。
+			\par\textbf{理由：} 频率 = 组距 $\times$ 高度。
+		\item[\textbf{第二步（累计频率）：}] 依次累计：$0.2,\ 0.7,\ 0.9,\ 1.0$。中位数对应$0.5$，落在第二组（$0.2<0.5<0.7$）。
+			\par\textbf{理由：} 累计频率递增，找$0.5$所在区间。
+		\item[\textbf{第三步（代入公式）：}] 第二组$L=155,\ d=10,\ F=0.2,\ p_j=0.5$，则$m=155+\frac{0.5-0.2}{0.5}\times10=155+6=161$。
+			\par\textbf{理由：} 中位数线性插值公式。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{中位数估计值为$161$ cm。}
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	频率分布直方图由3个等组距（$d=10$）矩形组成，第一组$[0,10)$频率$0.2$，第三组$[20,30)$频率$0.3$，且中位数估计值为$16$。求第二组$[10,20)$的频率，并计算其高度。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（列方程）：}] 设第二组频率为$x$。前一组累计$F=0.2$，中位数在第二组（因为$0.2<0.5<0.2+x$，故$x>0.3$）。由中位数公式$16 = 10 + \frac{0.5-0.2}{x} \times 10$。
+			\par\textbf{理由：} 中位数落在第二组，代入公式。
+		\item[\textbf{第二步（求解$x$）：}] 化简得$6 = \frac{0.3}{x} \times 10 = \frac{3}{x}$，解得$x=0.5$。
+			\par\textbf{理由：} 代数求解。
+		\item[\textbf{第三步（验证与求高度）：}] 总频率$0.2+0.5+0.3=1$，合理。高度 = $0.5/10=0.05$。
+			\par\textbf{理由：} 直方图纵坐标为频率/组距。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	\textbf{第二组频率为$0.5$，高度为$0.05$。}
+\end{examplebox}

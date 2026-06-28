@@ -1,0 +1,182 @@
+{
+  "id": "R035",
+  "module": "probability-stat",
+  "core": {
+    "title": "频率分布直方图的众数与中位数估计",
+    "alias": [
+      "直方图特征量",
+      "众数中位数估计",
+      "中位数线性插值公式"
+    ],
+    "summary": "众数取最高矩形底边中点，中位数用面积等分加线性插值公式估计。",
+    "difficulty": 2,
+    "category": "统计与概率",
+    "tags": [
+      "频率分布直方图",
+      "众数估计",
+      "中位数估计",
+      "线性插值",
+      "直方图"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "频率分布直方图",
+      "众数",
+      "中位数",
+      "线性插值",
+      "估计",
+      "组距",
+      "高度",
+      "频率",
+      "累计频率",
+      "矩形底边中点"
+    ],
+    "synonyms": [
+      "众数估计值",
+      "中位数估计值",
+      "直方图众数",
+      "直方图中位数",
+      "分位数插值",
+      "众数公式",
+      "中位数公式"
+    ],
+    "intents": [
+      "求众数",
+      "求中位数",
+      "估计众数",
+      "估计中位数",
+      "计算中位数",
+      "找中位数",
+      "确定众数"
+    ],
+    "query_templates": [
+      "频率分布直方图怎么求众数",
+      "频率分布直方图中位数公式",
+      "直方图中位数线性插值",
+      "直方图众数和中位数",
+      "中位数估计公式"
+    ],
+    "ocrKeywords": [
+      "频率分布直方图",
+      "众数",
+      "中位数",
+      "组距",
+      "高度",
+      "累计频率"
+    ],
+    "latex_patterns": [
+      "L + \\frac{0.5 - F}{p_j} \\cdot d",
+      "\\frac{a+b}{2}",
+      "L + \\frac{p - F}{p_j} \\cdot d"
+    ],
+    "formulaTokens": [
+      "M_o \\approx \\frac{a+b}{2}",
+      "m \\approx L + \\frac{0.5 - F}{p_j} \\cdot d",
+      "Q_p \\approx L + \\frac{p - F}{p_j} \\cdot d",
+      "\\frac{0.5 - F}{p_j} \\cdot d",
+      "\\frac{a+b}{2}",
+      "p = \\Delta x_i \\cdot h_i",
+      "\\sum_{i=1}^{k} p_i = 1"
+    ],
+    "pinyin": "pinlvfenbuzhifangtu de zhongshu yu zhongweishu guji",
+    "pinyinAbbr": "plfbzft"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.5,
+    "hot_score": 60,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "m \\approx L + \\frac{0.5 - F}{p_j} \\cdot d",
+    "related_formulas": [
+      "M_o \\approx \\frac{a+b}{2}",
+      "Q_p \\approx L + \\frac{p - F}{p_j} \\cdot d"
+    ],
+    "variables": [
+      "L: 中位数所在组的下限",
+      "d: 组距",
+      "F: 前j-1组累计频率",
+      "p_j: 中位数所在组的频率",
+      "a,b: 最高矩形底边左右端点",
+      "p: 分位数（0<p<1）"
+    ],
+    "conditions": [
+      "频率分布直方图各组组距$\\Delta x_i$和高度$h_i$已知，且频率$p_i = \\Delta x_i \\cdot h_i$，$\\sum p_i = 1$。",
+      "中位数所在组满足前$j-1$组累计频率$F<0.5<F+p_j$。",
+      "分位数公式中$p\\in(0,1)$，且所在组满足$F<p<F+p_j$。"
+    ],
+    "conclusions": [
+      "众数估计值为最高矩形底边中点$M_o \\approx \\frac{a+b}{2}$。",
+      "中位数估计值$m \\approx L + \\frac{0.5 - F}{p_j} \\cdot d$。",
+      "第$p$分位数估计值$Q_p \\approx L + \\frac{p - F}{p_j} \\cdot d$（$0<p<1$）。"
+    ]
+  },
+  "content": {
+    "statement": "对于频率分布直方图，设第 $i$ 个矩形组距为 $\\Delta x_i$，高度为 $h_i$，则频率 $p_i = \\Delta x_i \\cdot h_i$，且总和为 $1$。众数估计值为最高矩形的底边中点。中位数 $m$ 满足累计频率 $\\sum_{x_i < m} p_i = 0.5$；若中位数落在第 $j$ 组（组下限 $L$，组距 $d$，前 $j-1$ 组累计频率 $F$，本组频率 $p_j$），则有线性插值 $m \\approx L + \\frac{0.5 - F}{p_j} \\cdot d$。推广至任意 $p$ 分位数：$Q_p \\approx L + \\frac{p - F}{p_j} \\cdot d$。",
+    "derivation": [
+      "第一步：通过累计频率定位中位数所在组。计算每一组频率并累加，找到使得累计频率首次超过0.5的组，记为第j组。",
+      "第二步：假设组内数据均匀分布，则累计频率从F到F+p_j线性增加，目标累计频率0.5对应组内位置的比例为(0.5-F)/p_j。",
+      "第三步：将该比例乘以组距d，再加上组下限L，得到中位数估计值m ≈ L + (0.5-F)/p_j·d。"
+    ],
+    "intuition": "直方图中，每组矩形面积代表频率，中位数是使左右面积各为0.5的竖线位置，由于组内频率均匀分布假设，通过面积比例得到线性插值公式。",
+    "common_tricks": [
+      "计算累计频率时，注意是前j-1组的频率之和，不要包括第j组。",
+      "众数对应频率/组距最大的矩形（即高度最大），而不是频率最大的矩形，因为组距可能不同。",
+      "验证中位数计算结果的合理性：估计值必须落在第j组的区间[L, L+d)内。",
+      "分位数公式中p的范围是(0,1)，注意p=0.5时为中位数。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "统计图表题",
+      "数据集中趋势估计",
+      "选择题与填空题"
+    ],
+    "problem_types": [
+      "求众数",
+      "求中位数",
+      "反推组频率或高度",
+      "分位数估计"
+    ],
+    "exam_frequency": 0.6,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": ""
+  },
+  "shareConfig": {
+    "title": "频率分布直方图的众数与中位数估计方法",
+    "shareDesc": "适合课后复习和考前回顾，具体给出众数、中位数及分位数线性插值公式，避免混淆频率/组距与频率的易错点。"
+  },
+  "relations": {
+    "prerequisites": [
+      "频率分布直方图的概念",
+      "频率 = 组距 × 高度",
+      "累计频率计算"
+    ],
+    "related_ids": [],
+    "similar": "条形图、茎叶图的中位数众数估计方法类似，但直方图需注意组距可能不等。"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "统计-数据分析-平均数",
+  "altNodes": "统计-数据分析-方差"
+}

@@ -1,0 +1,44 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+	在频率分布直方图中，众数就是最高的矩形底边中点；中位数是左右面积各占0.5的分界线，通过比例插值求解。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（面积即频率）：}] 每个矩形的面积等于该组频率，总面积为1。
+		\item[\textbf{要点二（累计频率）：}] 从左向右累加矩形面积得到累计频率，中位数对应累计频率0.5的位置。
+		\item[\textbf{要点三（线性插值）：}] 假设组内数据均匀，则中位数所在组内，累计频率与变量值成线性关系，从而可用比例公式求出具体值。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（面积等分）}}
+
+	中位数对应的竖直线将直方图总面积等分为左右两部分，各为0.5。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（比例公式）}}
+
+	公式$m = L + \frac{0.5 - F}{p_j} \cdot d$实质是线性插值，反映了“所需面积比例$\frac{0.5-F}{p_j}$乘以组距$d$得到横坐标偏移量”。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（必考题型）}}
+
+	高考常以频率分布直方图形式考查数字特征估计，直接考查众数、中位数的计算，有时也反向求频率。
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（直接计算）：} 给出直方图，直接计算众数、中位数。
+		\item \textbf{考法二（逆向推频率）：} 已知中位数或众数等条件，反求某组频率或高度。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	中位数的线性插值公式关键是把面积差转换为横坐标差：组内需要补充的面积比例$\frac{0.5-F}{p_j}$乘以组距即得偏移量。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（读图计算）：} 直接根据直方图数据估计众数、中位数。
+		\item \textbf{场景二（补全直方图）：} 给定部分直方图及中位数等信息，推算缺失的组距或高度。
+	\end{itemize}
+\end{explanationbox}
