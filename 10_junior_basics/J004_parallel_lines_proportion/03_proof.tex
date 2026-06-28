@@ -1,0 +1,71 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	通过建立直角坐标系，将几何问题代数化。将平行线设为水平线，两条截线设为斜线，利用交点坐标计算线段长度，再求比证明比例相等。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（设坐标）：}] 建立平面直角坐标系，设三条平行线为水平线：$l_1: y = y_1$，$l_2: y = y_2$，$l_3: y = y_3$（$y_1, y_2, y_3$互异）。
+			\par\textbf{理由：}
+			通过坐标变换，可让平行线平行于$x$轴，不失一般性。
+
+		\item[\textbf{步骤二（设截线方程）：}] 设两条截线 $a$ 和 $b$ 的方程分别为 $a: y = k_1x + b_1$，$b: y = k_2x + b_2$，且 $k_1\neq k_2$（相交情形，平行情况另行说明）。
+			\par\textbf{理由：}
+			直线的一般形式，保留斜率与截距。
+
+		\item[\textbf{步骤三（求交点坐标）：}] 联立 $l_i$ 与 $a,b$，得到交点坐标：
+			\[
+				\begin{aligned}
+					A:&\left(\frac{y_1-b_1}{k_1},\ y_1\right),\quad B:\left(\frac{y_2-b_1}{k_1},\ y_2\right),\quad C:\left(\frac{y_3-b_1}{k_1},\ y_3\right);\\    D:&\left(\frac{y_1-b_2}{k_2},\ y_1\right),\quad E:\left(\frac{y_2-b_2}{k_2},\ y_2\right),\quad F:\left(\frac{y_3-b_2}{k_2},\ y_3\right).
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			由直线方程直接解出横坐标。
+
+		\item[\textbf{步骤四（计算线段长度）：}] 利用两点间距离公式，注意 $A,B,C$ 共线，可得：
+			\[
+				\begin{aligned}
+					AB &= \frac{|y_2-y_1|}{|k_1|}\sqrt{1+k_1^2},\\    BC &= \frac{|y_3-y_2|}{|k_1|}\sqrt{1+k_1^2}.
+			\end{aligned}
+			\]
+			同理，
+			\[
+				\begin{aligned}
+					DE &= \frac{|y_2-y_1|}{|k_2|}\sqrt{1+k_2^2},\\    EF &= \frac{|y_3-y_2|}{|k_2|}\sqrt{1+k_2^2}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			距离公式 $d=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}$ 化简所得。
+
+		\item[\textbf{步骤五（求比例）：}] 于是
+			\[
+				\begin{aligned}
+					\frac{AB}{BC} &= \frac{|y_2-y_1|}{|y_3-y_2|},\\    \frac{DE}{EF} &= \frac{|y_2-y_1|}{|y_3-y_2|}.
+			\end{aligned}
+			\]
+			故 $\displaystyle\frac{AB}{BC} = \frac{DE}{EF}$。
+			\par\textbf{理由：}
+			两个比例的分母都有 $\sqrt{1+k_i^2}/|k_i|$ 因子，约去后仅剩纵坐标差的绝对值之比。
+
+		\item[\textbf{步骤六（证另一比例）：}] 类似计算 $AC$ 和 $DF$：
+			\[
+				\begin{aligned}
+					AC &= \frac{|y_3-y_1|}{|k_1|}\sqrt{1+k_1^2},\\    DF &= \frac{|y_3-y_1|}{|k_2|}\sqrt{1+k_2^2}.
+			\end{aligned}
+			\]
+			所以
+			\[
+				\begin{aligned}
+					\frac{AB}{AC} &= \frac{|y_2-y_1|}{|y_3-y_1|} \\    &= \frac{DE}{DF}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			同第五步，约去公共因子。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	当 $k_1=k_2$（即 $a\parallel b$）时，直线 $a$ 和 $b$ 平行，此时四个交点 $A,B,C,D,E,F$ 构成平行四边形或梯形，通过平行四边形对边相等可直接得到 $AB=DE$，$BC=EF$，$AC=DF$，比例式自然成立。因此定理得证。
+\end{proofbox}
