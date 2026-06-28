@@ -1,0 +1,49 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	先对二次函数配方，得到顶点坐标。然后根据定义域讨论最值位置。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（配方变形）：}]
+			将二次函数化为顶点式。
+			\[
+				\begin{aligned}
+					S(x) &= A\left(x^{2}+\frac{B}{A}x\right)+C \\ &= A\left[\left(x+\frac{B}{2A}\right)^{2}-\frac{B^{2}}{4A^{2}}\right]+C \\ &= A\left(x+\frac{B}{2A}\right)^{2}+C-\frac{B^{2}}{4A}.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 配方后方便看出对称轴和最值。
+		\item[\textbf{步骤二（顶点坐标）：}]
+			写出对称轴和顶点纵坐标。
+			\[
+				x_{0}=-\frac{B}{2A},
+				\qquad
+				y_{0}=\frac{4AC-B^{2}}{4A}.
+			\]
+			\par\textbf{理由：} 由配方结果直接得到。
+		\item[\textbf{步骤三（区间内有顶点）：}]
+			若 $x_{0}\in[m,n]$，则 $S(x)$ 在 $x_{0}$ 处取得最值。
+			\[
+				S(x_{0})=\frac{4AC-B^{2}}{4A}.
+			\]
+			\par\textbf{理由：} 二次函数在整个实数集上的最值出现在顶点；当顶点落在区间内时，该最值就是区间上的最值。$A>0$ 时为最小值，$A<0$ 时为最大值。
+		\item[\textbf{步骤四（区间外无顶点）：}]
+			若 $x_{0}\notin[m,n]$，则 $S(x)$ 在区间端点 $m$ 或 $n$ 处取得最值。
+			\[
+				S(m)=A m^{2}+B m+C,
+				\qquad
+				S(n)=A n^{2}+B n+C.
+			\]
+			\par\textbf{理由：} 当顶点不在区间内时，函数在区间上单调，最值必在区间端点取得。需计算并比较 $S(m)$ 与 $S(n)$ 的大小，根据 $A$ 的符号及单调性确定最大值与最小值。
+		\item[\textbf{步骤五（最值结论）：}]
+			综合上述讨论，得到最终最值公式。
+			\[
+				\boxed{y_{0}=\frac{4AC-B^{2}}{4A}}.
+			\]
+			\par\textbf{理由：} 当 $x_{0}\in[m,n]$ 时，最值由顶点公式给出；当 $x_{0}\notin[m,n]$ 时，最值等于 $\max\{S(m),S(n)\}$ 或 $\min\{S(m),S(n)\}$，需根据 $A$ 的正负及题目要求取值。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	所证即原文的二次函数面积最值顶点法，关键在于定义域和对称轴的相对位置。
+\end{proofbox}
