@@ -1,0 +1,112 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（基础）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	给定成对数据 $(1,2),(2,3),(3,5),(4,6)$，求回归直线方程。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（计算均值）：}] 计算 $\bar{x}=\frac{1}{4}(1+2+3+4)=2.5$，$\bar{y}=\frac{1}{4}(2+3+5+6)=4$。
+			\par\textbf{理由：} 样本中心是回归直线的基础。
+		\item[\textbf{第二步（计算离差和）：}] 计算
+			\[
+				\begin{aligned}
+					\sum (x_i-\bar{x})(y_i-\bar{y}) &= (1-2.5)(2-4)+(2-2.5)(3-4)+(3-2.5)(5-4)+(4-2.5)(6-4) \\
+					&= (-1.5)(-2)+(-0.5)(-1)+(0.5)(1)+(1.5)(2) \\
+					&= 3+0.5+0.5+3 \\
+					&= 7,
+			\end{aligned}
+			\]
+			\[
+				\begin{aligned}
+					\sum (x_i-\bar{x})^2 &= (1-2.5)^2+(2-2.5)^2+(3-2.5)^2+(4-2.5)^2 \\
+					&= 2.25+0.25+0.25+2.25 \\
+					&= 5.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 分子分母是公式的组成部分。
+		\item[\textbf{第三步（套用公式）：}] 由 $\hat{b}=\frac{7}{5}$ 得 $\hat{b}=1.4$；由 $\hat{a}=4-1.4\times 2.5$ 得 $\hat{a}=0.5$。
+			\par\textbf{理由：} 直接代入最小二乘公式。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	回归直线方程为 $\hat{y}=1.4x+0.5$，且该直线经过点 $(2.5,4)$。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	已知某组数据 $n=5$，$\sum x_i=15$，$\sum y_i=20$，$\sum x_i y_i=70$，$\sum x_i^2=55$，求回归直线方程。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（计算均值）：}] $\bar{x}=15/5=3$，$\bar{y}=20/5=4$。
+			\par\textbf{理由：} 由总和除以个数。
+		\item[\textbf{第二步（计算斜率估计）：}]
+			\[
+				\begin{aligned}
+					\hat{b} &= \frac{\sum x_i y_i - n \bar{x}\bar{y}}{\sum x_i^2 - n \bar{x}^2} \\
+					&= \frac{70-5\times 3\times 4}{55-5\times 9} \\
+					&= \frac{70-60}{55-45} \\
+					&= \frac{10}{10} \\
+					&= 1.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 使用与离差等价的公式（常用简化计算）。
+		\item[\textbf{第三步（计算截距估计）：}]
+			\[
+				\begin{aligned}
+					\hat{a} &= \bar{y} - \hat{b}\bar{x} \\
+					&= 4 - 1\times 3 \\
+					&= 1.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 回归直线过样本中心点。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	回归方程为 $\hat{y}=x+1$。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	某产品价格 $x$（元）与需求量 $y$（件）的统计数据如下：
+	\[
+		\begin{array}{c|ccccc}
+			x & 6 & 7 & 8 & 9 & 10 \\ \hline
+			y & 8 & 7 & 6 & 5 & 4
+		\end{array}
+	\]
+	求需求量对价格的回归直线方程，并预测当价格为 $7.5$ 元时的需求量。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（计算均值）：}] $\bar{x}=\frac{6+7+8+9+10}{5}=8$，$\bar{y}=\frac{8+7+6+5+4}{5}=6$。
+			\par\textbf{理由：} 样本中心为后续计算的基础。
+		\item[\textbf{第二步（计算离差和）：}] 计算
+			\[
+				\begin{aligned}
+					\sum (x_i-\bar{x})(y_i-\bar{y}) &= (6-8)(8-6)+(7-8)(7-6)+(8-8)(6-6)+(9-8)(5-6)+(10-8)(4-6)\\
+					&= (-2)(2)+(-1)(1)+(0)(0)+(1)(-1)+(2)(-2)\\
+					&= -4-1+0-1-4 \\
+					&= -10,
+			\end{aligned}
+			\]
+			\[
+				\begin{aligned}
+					\sum (x_i-\bar{x})^2 &= (6-8)^2+(7-8)^2+(8-8)^2+(9-8)^2+(10-8)^2 \\
+					&= 4+1+0+1+4 \\
+					&= 10.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 公式所需。
+		\item[\textbf{第三步（套用公式）：}] 由 $\hat{b} = \frac{-10}{10}$ 得 $\hat{b} = -1$；由 $\hat{a} = \bar{y} - \hat{b}\bar{x}$ 代入得 $\hat{a} = 6 - (-1)\times 8$，故 $\hat{a} = 14$。
+			\par\textbf{理由：} 代入最小二乘公式。
+		\item[\textbf{第四步（回归预测）：}] 当 $x=7.5$ 时，$\hat{y} = -1\times 7.5 + 14$，计算得 $6.5$（件）。
+			\par\textbf{理由：} 将 $x$ 值代入回归方程即可。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	回归直线方程为 $\hat{y} = -x+14$，样本中心点 $(8,6)$ 在该直线上，价格 $7.5$ 元时需求预测为 $6.5$ 件。
+\end{examplebox}

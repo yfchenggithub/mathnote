@@ -1,0 +1,41 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+	最小二乘法通过最小化所有数据点到回归直线的垂直距离平方和，确定最优斜率和截距。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（协方差结构）：}] 斜率公式的分子是 $x$ 与 $y$ 的离差乘积之和，反映两者线性协同变化；分母是 $x$ 的离差平方和，反映 $x$ 的变异程度。
+		\item[\textbf{要点二（截距回代）：}] 由样本中心点 $(\bar{x},\bar{y})$ 满足回归方程，得 $\hat{a} = \bar{y} - \hat{b}\bar{x}$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（最小化原理）}}
+
+	在二维平面中，回归直线是所有可能直线中使得各点纵向距离（即 $|y_i - \hat{y}_i|$）平方和最小的直线。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（偏导推导）}}
+
+	构造目标函数 $Q(a,b)=\sum_{i=1}^n (y_i - a - bx_i)^2$，分别对 $a$ 和 $b$ 求偏导并令为零，得到正规方程组，解出 $\hat{b}$ 和 $\hat{a}$。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（高频考点）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（求回归方程）：} 给出原始数据 $(x_i,y_i)$，计算 $\bar{x},\bar{y},\sum(x_i-\bar{x})(y_i-\bar{y}),\sum(x_i-\bar{x})^2$，代入公式计算 $\hat{b},\hat{a}$。
+		\item \textbf{考法二（补全参数）：} 已知回归方程过中心点 $(\bar{x},\bar{y})$，结合部分统计量反求未知系数或预测值。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	由 $\hat{a} = \bar{y} - \hat{b}\bar{x}$ 直接得到回归直线经过 $(\bar{x},\bar{y})$，因此样本中心点始终在拟合直线上，无需额外检验。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（完整数据）：} 当给定成对样本值且满足线性相关时，直接套用公式计算回归方程。
+		\item \textbf{场景二（部分统计量）：} 已知 $n,\bar{x},\bar{y},\sum x_i^2,\sum x_i y_i$ 等统计量，可选用等价公式 $\hat{b} = \frac{\sum x_i y_i - n\bar{x}\bar{y}}{\sum x_i^2 - n\bar{x}^2}$。
+	\end{itemize}
+\end{explanationbox}

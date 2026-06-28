@@ -1,0 +1,180 @@
+{
+  "id": "R038",
+  "module": "probability-stat",
+  "core": {
+    "title": "线性回归的最小二乘估计公式",
+    "alias": [
+      "最小二乘法",
+      "回归系数公式",
+      "b帽公式",
+      "回归直线必过样本中心"
+    ],
+    "summary": "通过样本数据计算回归直线的斜率和截距，且直线必过均值点。",
+    "difficulty": 3,
+    "category": "概率统计",
+    "tags": [
+      "线性回归",
+      "最小二乘",
+      "样本中心点",
+      "回归系数",
+      "统计估计"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "最小二乘估计",
+      "回归直线",
+      "斜率",
+      "截距",
+      "样本中心",
+      "线性相关",
+      "离差乘积和",
+      "离差平方和",
+      "hat b",
+      "hat a",
+      "bar x",
+      "bar y",
+      "线性回归方程",
+      "系数公式"
+    ],
+    "synonyms": [
+      "最小二乘法公式",
+      "回归方程系数",
+      "b和a的计算",
+      "回归直线必过(平均值,平均值)",
+      "必过(x¯,y¯)",
+      "b帽",
+      "a帽",
+      "回归方程"
+    ],
+    "intents": [
+      "求回归直线",
+      "计算回归系数",
+      "推导最小二乘估计",
+      "验证过样本中心",
+      "使用最小二乘法"
+    ],
+    "query_templates": [
+      "最小二乘估计公式是什么",
+      "回归直线方程怎么求",
+      "回归直线一定过哪个点",
+      "如何计算回归直线的斜率和截距"
+    ],
+    "ocrKeywords": [
+      "线性相关",
+      "样本数据",
+      "回归",
+      "离差",
+      "平方和",
+      "成对数据"
+    ],
+    "latex_patterns": [
+      "\\hat{b} = \\frac{\\sum (x_i-\\bar{x})(y_i-\\bar{y})}{\\sum (x_i-\\bar{x})^2}",
+      "\\hat{a} = \\bar{y} - \\hat{b}\\bar{x}"
+    ],
+    "formulaTokens": [
+      "\\hat{b}",
+      "\\frac{\\sum (x_i-\\bar{x})(y_i-\\bar{y})}{\\sum (x_i-\\bar{x})^2}",
+      "\\bar{y} - \\hat{b}\\bar{x}",
+      "\\sum (x_i-\\bar{x})(y_i-\\bar{y})",
+      "\\sum (x_i-\\bar{x})^2",
+      "\\bar{x}",
+      "\\bar{y}",
+      "\\hat{a}",
+      "\\hat{y} = \\hat{b}x + \\hat{a}"
+    ],
+    "pinyin": "zuixiaoerchengjisuangongshi",
+    "pinyinAbbr": "zxecjs"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.79,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\hat{b} = \\frac{\\sum_{i=1}^{n} (x_i - \\bar{x})(y_i - \\bar{y})}{\\sum_{i=1}^{n} (x_i - \\bar{x})^2}, \\quad \\hat{a} = \\bar{y} - \\hat{b}\\bar{x}",
+    "related_formulas": [
+      "\\hat{y} = \\hat{b}x + \\hat{a}",
+      "\\bar{y} = \\hat{b}\\bar{x} + \\hat{a}",
+      "\\hat{b} = \\frac{\\sum x_i y_i - n\\bar{x}\\bar{y}}{\\sum x_i^2 - n\\bar{x}^2}"
+    ],
+    "variables": [
+      "$x_i$",
+      "$y_i$",
+      "$\\bar{x}$",
+      "$\\bar{y}$",
+      "$\\hat{b}$",
+      "$\\hat{a}$",
+      "$n$",
+      "$\\hat{y}$"
+    ],
+    "conditions": "成对样本数据$(x_i,y_i)$满足线性相关关系，且$\\sum (x_i-\\bar{x})^2 \\neq 0$（即$x$有变异，分母非零）。",
+    "conclusions": "回归直线$\\hat{y}=\\hat{b}x+\\hat{a}$必过样本中心点$(\\bar{x},\\bar{y})$，即$\\bar{y}=\\hat{b}\\bar{x}+\\hat{a}$。"
+  },
+  "content": {
+    "statement": "给定成对样本数据$(x_i,y_i)$满足线性相关关系且$\\sum (x_i-\\bar{x})^2\\neq 0$，则回归直线$\\hat{y}=\\hat{b}x+\\hat{a}$的斜率与截距的最小二乘估计为$\\hat{b}=\\frac{\\sum (x_i-\\bar{x})(y_i-\\bar{y})}{\\sum (x_i-\\bar{x})^2}$，$\\hat{a}=\\bar{y}-\\hat{b}\\bar{x}$，且回归直线恒过样本中心点$(\\bar{x},\\bar{y})$。",
+    "derivation": [
+      "基于最小二乘原理，定义残差平方和$Q=\\sum (y_i-\\hat{b}x_i-\\hat{a})^2$。",
+      "分别对$\\hat{b}$和$\\hat{a}$求偏导并令其为零，得到正规方程组。",
+      "解方程组得$\\hat{b}=\\frac{\\sum (x_i-\\bar{x})(y_i-\\bar{y})}{\\sum (x_i-\\bar{x})^2}$，$\\hat{a}=\\bar{y}-\\hat{b}\\bar{x}$。"
+    ],
+    "intuition": "通过最小化所有样本点到回归直线的竖直距离平方和，得到最接近样本点的直线。",
+    "common_tricks": [
+      "计算$\\hat{b}$时常用等价形式$\\hat{b}=\\frac{\\sum x_i y_i - n\\bar{x}\\bar{y}}{\\sum x_i^2 - n\\bar{x}^2}$，减少计算量。",
+      "先计算样本均值$\\bar{x}$和$\\bar{y}$，再计算离差积和与离差平方和。",
+      "利用回归直线过样本中心点可快速求截距$\\hat{a}$或检验计算结果。",
+      "注意分母$\\sum (x_i-\\bar{x})^2$不能为零，即自变量必须有变化。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "求回归直线方程",
+      "数据分析应用题",
+      "统计计算题"
+    ],
+    "problem_types": [
+      "回归系数计算",
+      "回归方程求解",
+      "回归直线性质判断"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 6
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "R038.svg"
+  },
+  "shareConfig": {
+    "title": "最小二乘估计公式 回归直线必过中心点",
+    "shareDesc": "适合刷题前速查和计算验证，解决回归直线方程求解易错点，省去推导可直接套用公式。"
+  },
+  "relations": {
+    "prerequisites": [
+      "样本均值",
+      "离差与平方和",
+      "线性相关关系"
+    ],
+    "related_ids": [],
+    "similar": "利用等价形式计算$\\hat{b}$；回归直线必过样本中心点。"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "统计-数据分析-平均数",
+  "altNodes": ""
+}

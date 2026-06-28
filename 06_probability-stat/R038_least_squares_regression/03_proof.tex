@@ -1,0 +1,59 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用最小二乘原理：使所有数据点到直线的纵向距离平方和最小，即最小化 $Q(a,b)=\sum_{i=1}^n (y_i - a - b x_i)^2$。分别对 $a$ 和 $b$ 求偏导并设为零，得到正规方程组，求解即得公式。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（目标函数）：}] 定义平方和函数 $Q(a,b) = \sum\limits_{i=1}^n (y_i - a - b x_i)^2$。
+			\par\textbf{理由：} $Q$ 衡量所有样本点与直线 $y=a+bx$ 的纵向偏离程度，最小二乘法即选择 $a,b$ 使 $Q$ 达到最小。
+
+		\item[\textbf{步骤二（对a偏导）：}] 计算 $\dfrac{\partial Q}{\partial a} = -2\sum\limits_{i=1}^n (y_i - a - b x_i)$，令其为零得 $\sum\limits_{i=1}^n (y_i - a - b x_i)=0$。
+			\par\textbf{理由：} 由极值必要条件，偏导数为零。上式等价于 $\sum y_i - n a - b\sum x_i = 0$。
+
+		\item[\textbf{步骤三（解出a表达式）：}] 由 $\sum y_i - n a - b\sum x_i = 0$ 得 $n a = \sum y_i - b\sum x_i$，即 $a = \bar{y} - b\bar{x}$。
+			\par\textbf{理由：} 移项并除以 $n$，其中 $\bar{y}=\frac1n\sum y_i,\ \bar{x}=\frac1n\sum x_i$。
+
+		\item[\textbf{步骤四（对b偏导）：}] 计算 $\dfrac{\partial Q}{\partial b} = -2\sum\limits_{i=1}^n x_i (y_i - a - b x_i)$，设其为零得 $\sum x_i y_i - a\sum x_i - b\sum x_i^2 = 0$。
+			\par\textbf{理由：} 展开求和项 $\sum x_i(y_i-a-b x_i) = \sum x_i y_i - a\sum x_i - b\sum x_i^2$。
+
+		\item[\textbf{步骤五（代入a并整理）：}] 将 $a = \bar{y} - b\bar{x}$ 代入步骤四的方程：
+			\[
+				\sum x_i y_i - (\bar{y} - b\bar{x})\sum x_i - b\sum x_i^2 = 0.
+			\]
+			展开得 $\sum x_i y_i - \bar{y}\sum x_i + b\bar{x}\sum x_i - b\sum x_i^2 = 0$。
+			\par\textbf{理由：} 移项使含 $b$ 项与不含 $b$ 项分离：
+			\[
+				\sum x_i y_i - \bar{y}\sum x_i = b\bigl(\sum x_i^2 - \bar{x}\sum x_i\bigr).
+			\]
+			注意到 $\sum x_i = n\bar{x},\ \bar{y}\sum x_i = n\bar{x}\bar{y}$，上式化为
+			\[
+				\sum x_i y_i - n\bar{x}\bar{y} = b\bigl(\sum x_i^2 - n\bar{x}^2\bigr).
+			\]
+			因此得到斜率的最小二乘估计
+			\[
+				\hat{b} = \frac{\sum x_i y_i - n\bar{x}\bar{y}}{\sum x_i^2 - n\bar{x}^2}.
+			\]
+			该形式与输入中用离差表示的形式等价，因为
+			$\sum(x_i-\bar{x})(y_i-\bar{y}) = \sum x_i y_i - n\bar{x}\bar{y}$，
+			$\sum(x_i-\bar{x})^2 = \sum x_i^2 - n\bar{x}^2$。
+
+		\item[\textbf{步骤六（截距估计）：}] 回代步骤三的关系，得
+			\[
+				\hat{a} = \bar{y} - \hat{b}\bar{x}.
+			\]
+			\par\textbf{理由：} 直接由步骤三将 $\hat{b}$ 代入 $a = \bar{y} - b\bar{x}$ 即得。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	综上所述，最小二乘估计公式为
+	\[
+		\boxed{\hat{b} = \frac{\sum_{i=1}^n (x_i-\bar{x})(y_i-\bar{y})}{\sum_{i=1}^n (x_i-\bar{x})^2},
+		\qquad
+		\hat{a} = \bar{y} - \hat{b}\bar{x}},
+	\]
+	且回归直线 $\hat{y}=\hat{b}x+\hat{a}$ 恒过样本中心点 $(\bar{x},\bar{y})$。
+\end{proofbox}

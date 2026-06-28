@@ -1,0 +1,42 @@
+\begin{explanationbox}
+
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+	数据线性变换只会通过缩放因子 $|k|$ 改变波动幅度，平移不影响波动。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（标准差的定义）：}] 标准差刻画数据偏离均值的平均程度，计算公式为 $s = \sqrt{\frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})^2}$（总体）或类似形式。
+		\item[\textbf{要点二（线性变换效应）：}] 新数据 $y_i = a + kx_i$ 的均值 $\bar{y} = a + k\bar{x}$，每个偏差 $y_i - \bar{y} = k(x_i - \bar{x})$，因此平方和变为原来的 $k^2$ 倍，开方后得 $|k|$ 倍。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（数据距离度量）}}
+
+	在 $n$ 维空间中，一组数据可视为一个点，标准差正比于该点到均值点的距离（欧几里得范数）。平移对应整个点集的整体移动，不改变相对距离；缩放则按比例改变该距离。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（方差缩放性质）}}
+
+	方差具有性质 $D(a + kX) = k^2 D(X)$，标准差为方差平方根，故 $s_{a+kX} = |k| s_X$。绝对值保证标准差非负。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（快速计算应用）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（直接求标准差）：} 已知原数据标准差与线性变换系数，直接代入公式得新标准差。
+		\item \textbf{考法二（逆用求系数）：} 已知新旧标准差与变换类型（平移已知），反推缩放系数 $|k|$。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	标准差是“尺度”量，不是“位置”量；平移绝对不影响，缩放只取绝对值。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（单位换算）：} 将数据从厘米变为米（$k = 0.01$），标准差变为原来的 $0.01$。
+		\item \textbf{场景二（标准化变换）：} 减去均值除以标准差（$a = -\bar{x}$, $k = 1/s_x$），新数据标准差为 $1$。
+	\end{itemize}
+\end{explanationbox}

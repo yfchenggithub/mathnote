@@ -1,0 +1,167 @@
+{
+  "id": "R037",
+  "module": "probability-stat",
+  "core": {
+    "title": "标准差线性变换性质",
+    "alias": [
+      "标准差伸缩变换",
+      "平移不变性",
+      "方差线性变换",
+      "s_y = |k| s_x"
+    ],
+    "summary": "数据经过线性变换后，标准差乘以系数绝对值，平移不影响标准差。",
+    "difficulty": 2,
+    "category": "统计",
+    "tags": [
+      "标准差",
+      "线性变换",
+      "统计",
+      "基础结论",
+      "方差",
+      "绝对值"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "标准差",
+      "线性变换",
+      "s_y = |k| s_x",
+      "平移不变性",
+      "方差",
+      "数据变换",
+      "绝对值",
+      "系数",
+      "统计",
+      "基础",
+      "例题",
+      "s_x",
+      "s_y",
+      "y = a + kx"
+    ],
+    "synonyms": [
+      "标准差公式",
+      "伸缩",
+      "标准差怎么变",
+      "平移标准差",
+      "线性变换标准差"
+    ],
+    "intents": [
+      "求标准差",
+      "计算标准差",
+      "变换后标准差",
+      "推导标准差"
+    ],
+    "query_templates": [
+      "线性变换后标准差怎么变",
+      "标准差平移不变性",
+      "s_y = |k| s_x 公式",
+      "已知标准差和线性变换求新标准差"
+    ],
+    "ocrKeywords": [
+      "s_y = |k| s_x",
+      "a + kx",
+      "标准差",
+      "线性变换",
+      "平移"
+    ],
+    "latex_patterns": [
+      "s_y = |k| \\, s_x",
+      "s_{x+a} = s_x",
+      "y = a + kx"
+    ],
+    "formulaTokens": [
+      "s_y = |k| \\, s_x",
+      "s_y",
+      "|k| \\, s_x",
+      "s_x",
+      "y = a + kx",
+      "a + kx"
+    ],
+    "pinyin": "biaozhuncha xianxing bianhuan xingzhi",
+    "pinyinAbbr": "bzcbh"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.8,
+    "hot_score": 75,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "s_y = |k| \\, s_x",
+    "related_formulas": [
+      "s_{x+a} = s_x"
+    ],
+    "variables": {
+      "x": "原始数据",
+      "s_x": "原始标准差",
+      "y": "新数据",
+      "s_y": "新标准差",
+      "a": "平移常数",
+      "k": "缩放系数"
+    },
+    "conditions": "设数据 $x_1,x_2,\\dots,x_n$（$n\\ge 2$）的标准差为 $s_x$，常数 $a,k\\in\\mathbb{R}$，令 $y_i = a + kx_i$。",
+    "conclusions": "新数据的标准差 $s_y = |k|\\,s_x$。特别地，平移不改变标准差：$s_{x+a}=s_x$。当 $k=0$ 时，$s_y=0$。"
+  },
+  "content": {
+    "statement": "设数据 $x_1,x_2,\\dots,x_n$（$n\\ge 2$）的标准差为 $s_x$，常数 $a,k\\in\\mathbb{R}$，令 $y_i = a + kx_i$，则新数据的标准差 $s_y = |k|\\,s_x$。平移不改变标准差：$s_{x+a}=s_x$。",
+    "derivation": [
+      "由方差线性变换性质：$D(a+kX)=k^2 D(X)$，标准差为方差的算术平方根，因此 $s_y = |k|\\,s_x$。",
+      "平移 $a$ 对方差无影响，故标准差不变。"
+    ],
+    "intuition": "伸缩改变数据的离散程度，平移只改变整体位置，不改变离散程度。",
+    "common_tricks": [
+      "公式中必须加绝对值 $|k|$，不可直接写 $k$。",
+      "平移 $a$ 不影响标准差，计算时可忽略。",
+      "若已知 $s_y$ 反求 $s_x$ 或 $k$，注意绝对值方程有两个解（$k=\\pm\\frac{s_y}{s_x}$）。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "统计计算题",
+      "数据变换",
+      "已知变换求标准差"
+    ],
+    "problem_types": [
+      "直接计算新标准差",
+      "已知新标准差反求原标准差或系数",
+      "选择题中判断标准差变化"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": ""
+  },
+  "shareConfig": {
+    "title": "标准差线性变换：s_y = |k| s_x",
+    "shareDesc": "适合课后复盘和讲评课，解决线性变换后标准差计算问题，避免忘记绝对值符号，快速得到答案。"
+  },
+  "relations": {
+    "prerequisites": [
+      "标准差定义",
+      "方差性质"
+    ],
+    "related_ids": [],
+    "similar": "方差线性变换性质：$D(a+kX)=k^2 D(X)$"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "统计-数据分析-方差",
+  "altNodes": "统计-数据分析-平均数,统计-其他-待定"
+}

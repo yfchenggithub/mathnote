@@ -1,0 +1,70 @@
+\begin{proofbox}
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	通过计算新数据方差的表达式，然后开方得到标准差关系的公式。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（定义原方差）：}]
+			记原数据均值为 $\bar{x}$，则原数据的方差（总体）为
+			\[
+				s_x^2 = \frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})^2 .
+			\]
+			\par\textbf{理由：}方差是离差平方和的平均值，标准差为方差的正平方根。
+
+		\item[\textbf{步骤二（新数据均值）：}]
+			新数据 $y_i = a + kx_i$ 的均值
+			\[
+				\begin{aligned}
+					\bar{y} &= \frac{1}{n}\sum_{i=1}^n y_i \\
+					&= \frac{1}{n}\sum_{i=1}^n (a + kx_i) \\
+					&= a + k\bar{x} .
+			\end{aligned}
+			\]
+			\par\textbf{理由：}均值线性性质。
+
+		\item[\textbf{步骤三（新数据方差展开）：}]
+			计算 $y_i$ 的方差：
+			\[
+				\begin{aligned}
+					s_y^2 &= \frac{1}{n}\sum_{i=1}^n (y_i - \bar{y})^2 \\
+					&= \frac{1}{n}\sum_{i=1}^n \bigl[(a + kx_i) - (a + k\bar{x})\bigr]^2 \\
+					&= \frac{1}{n}\sum_{i=1}^n \bigl[k(x_i - \bar{x})\bigr]^2 .
+			\end{aligned}
+			\]
+			\par\textbf{理由：}将 $y_i$ 和 $\bar{y}$ 代入，减去 $a$ 后留下 $k(x_i - \bar{x})$。
+
+		\item[\textbf{步骤四（提取公因式）：}]
+			从平方内部提出 $k^2$：
+			\[
+				\begin{aligned}
+					s_y^2 &= \frac{1}{n}\sum_{i=1}^n k^2 (x_i - \bar{x})^2 \\
+					&= k^2 \cdot \frac{1}{n}\sum_{i=1}^n (x_i - \bar{x})^2 \\
+					&= k^2 s_x^2 .
+			\end{aligned}
+			\]
+			\par\textbf{理由：} $k^2$ 与求和无关，可提至求和号外；剩余部分正是 $s_x^2$ 的定义。
+
+		\item[\textbf{步骤五（开方得标准差）：}]
+			因为标准差定义为方差的正平方根，所以
+			\[
+				\begin{aligned}
+					s_y &= \sqrt{s_y^2} \\
+					&= \sqrt{k^2 s_x^2} \\
+					&= |k|\, s_x .
+			\end{aligned}
+			\]
+			\par\textbf{理由：} $\sqrt{k^2} = |k|$，$s_x \ge 0$，故 $|k|\, s_x \ge 0$ 符合标准差要求。
+
+		\item[\textbf{步骤六（特殊情况验证）：}]
+			当 $k=0$ 时，$s_y = 0$，所有 $y_i$ 均相等，公式 $s_y = |k| s_x = 0$ 仍成立；当 $k<0$ 时，$|k| = -k$，公式依然正确。
+			\par\textbf{理由：}代入 $k=0$ 或取绝对值均自动满足。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	因此，对任何实数 $a$ 和 $k$，线性变换 $y = a + kx$ 后数据的标准差 $s_y$ 恒等于 $|k|$ 与原标准差 $s_x$ 的乘积。这一定理直接由标准差定义和均值线性性质推导得出。
+\end{proofbox}
