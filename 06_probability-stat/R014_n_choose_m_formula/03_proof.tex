@@ -1,0 +1,30 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	用排列数公式消去顺序的重复。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（排列公式）：}]
+			\[
+				A_n^m = \frac{n!}{(n-m)!}
+			\]
+			\par\textbf{理由：}从 $n$ 个不同元素中取出 $m$ 个进行排列，第一个位置有 $n$ 种选法，第二个有 $n-1$ 种，依此类推，最后一个有 $n-m+1$ 种，即 $\displaystyle \prod_{k=0}^{m-1}(n-k)= \frac{n!}{(n-m)!}$。
+		\item[\textbf{步骤二（组合关系）：}]
+			\[
+				A_n^m = m! \times C(n,m)
+			\]
+			\par\textbf{理由：}每一种组合对应 $m!$ 种排列（选出的 $m$ 个元素全排列），所以排列总数等于组合数乘以 $m!$。
+		\item[\textbf{步骤三（代入约分）：}]
+			\[
+				\begin{aligned}
+					C(n,m) &= \frac{A_n^m}{m!}\\ &= \frac{n!}{m!\,(n-m)!}
+			\end{aligned}
+			\]
+			\par\textbf{理由：}将步骤一的排列数公式代入，得到最终公式。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	由排列数推出组合数的阶乘表达，是组合计数的核心基础。
+\end{proofbox}

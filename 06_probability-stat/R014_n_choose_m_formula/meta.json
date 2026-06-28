@@ -1,0 +1,160 @@
+{
+  "id": "R014",
+  "module": "probability-stat",
+  "core": {
+    "title": "组合数公式",
+    "alias": [
+      "组合数",
+      "组合数定义",
+      "$C_n^m$"
+    ],
+    "summary": "从 $n$ 个不同元素中无序选取 $m$ 个元素的方案总数。",
+    "difficulty": 1,
+    "category": "排列组合",
+    "tags": [
+      "组合数",
+      "阶乘",
+      "基础公式",
+      "组合计数"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "组合数",
+      "C(n,m)",
+      "n!/(m!(n-m)!)",
+      "阶乘",
+      "组合计数",
+      "无序选取",
+      "对称性 C(n,m)=C(n,n-m)",
+      "自然数条件",
+      "0!"
+    ],
+    "synonyms": [
+      "组合公式",
+      "组合数公式",
+      "Cn取m",
+      "组合数计算",
+      "组合数定义"
+    ],
+    "intents": [
+      "计算组合数",
+      "求组合数",
+      "证明对称性",
+      "化简组合数表达式"
+    ],
+    "query_templates": [
+      "组合数公式是什么",
+      "C(8,3)怎么计算",
+      "组合数对称性",
+      "n选m的公式"
+    ],
+    "ocrKeywords": [
+      "C(n,m)",
+      "组合数",
+      "n!",
+      "阶乘"
+    ],
+    "latex_patterns": [
+      "\\mathrm{C}_n^m",
+      "\\binom{n}{m}",
+      "C(n,m)"
+    ],
+    "formulaTokens": [
+      "C(n,m)",
+      "n!/m!(n-m)!",
+      "C(n,m)=C(n,n-m)",
+      "n!",
+      "m!",
+      "(n-m)!"
+    ],
+    "pinyin": "zuheshu",
+    "pinyinAbbr": "zhs"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.4,
+    "hot_score": 50,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "C(n,m)=\\frac{n!}{m!\\,(n-m)!}",
+    "related_formulas": [
+      "C(n,m)=C(n,n-m)"
+    ],
+    "variables": [
+      "n",
+      "m"
+    ],
+    "conditions": "若 $n,m\\in\\mathbb{N}$ 且 $m\\le n$。",
+    "conclusions": "组合数具有对称性：$C(n,m)=C(n,n-m)$。"
+  },
+  "content": {
+    "statement": "若 $n,m\\in\\mathbb{N}$ 且 $m\\le n$，则组合数 $C(n,m)=\\dfrac{n!}{m!\\,(n-m)!}$。",
+    "derivation": [
+      "先计算排列数 $A(n,m)=n!/(n-m)!$，因为组合不考虑顺序，每个组合对应 $m!$ 种排列，故除以 $m!$。",
+      "公式可展开为 $C(n,m)=\\frac{n(n-1)\\cdots(n-m+1)}{m!}$，常用于约分。"
+    ],
+    "intuition": "从 $n$ 个不同元素中取出 $m$ 个，不再排序，所以除以 $m$ 的阶乘。",
+    "common_tricks": [
+      "先用对称性 $C(n,m)=C(n,n-m)$ 选取较小的 $m$ 简化计算。",
+      "展开阶乘时先逐项约分，避免大数相乘。",
+      "注意 $C(n,0)=1$，$C(n,1)=n$，$C(n,n)=1$ 可作为速算结论。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "排列组合基础题",
+      "古典概型计数",
+      "二项式定理系数计算"
+    ],
+    "problem_types": [
+      "直接求组合数",
+      "利用对称性化简",
+      "组合恒等式证明"
+    ],
+    "exam_frequency": 0.6,
+    "exam_score": 4
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "R014.svg",
+    "png": "",
+    "gif": "",
+    "pdf": ""
+  },
+  "shareConfig": {
+    "title": "组合数公式：n选m的无序计数",
+    "shareDesc": "适合排列组合基础复习，掌握公式可快速计算选取方案，注意区分排列与组合。"
+  },
+  "relations": {
+    "prerequisites": [
+      "阶乘运算",
+      "排列数公式 $A(n,m)=\\frac{n!}{(n-m)!}$"
+    ],
+    "related_ids": [],
+    "similar": [
+      "排列数公式",
+      "二项式系数 $\\binom{n}{m}$ 与组合数相同"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "概率-古典概型-排列组合",
+  "altNodes": "概率-古典概型-基本概率"
+}
