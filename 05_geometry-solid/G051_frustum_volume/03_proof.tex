@@ -1,69 +1,104 @@
 \begin{proofbox}
-	\n\n\textbf{\textcolor{CProof}{思路提示}}\n\n利用大锥减小锥的思想，通过相似比建立高与面积的关系，再代入体积差化简得到公式。\n\n
+
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用大锥减小锥的思想，通过相似比建立高与面积的关系，再代入体积差化简得到公式。若 $S_1=S_2$，台体退化为柱体，公式直接成立；下面主要证明 $0\le S_1<S_2$ 的情形。
 
 	\medskip
-	\n\textbf{\textcolor{CProof}{正式推导}}\n
+
+	\textbf{\textcolor{CProof}{正式推导}}
+
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\n
-		\item[\textbf{步骤一（设定大小锥）：}]
-			\n \textbf{设定：} 将台体补成一个大锥（棱锥或圆锥），大锥底面为台体下底 $S_2$，大锥高 $H$；台体上底面视为小锥底面 $S_1$，小锥高 $h'$；台高 $h = H - h'$。\n
-			\[
-				\n V_1 = \frac13 S_2 H,\quad V_2 = \frac13 S_1 h'.\n
-			\]
-			\n
-			\par\textbf{理由：} 大锥与小锥都是标准的锥体，体积公式为 $V = \frac13 S h$，其中 $S$ 为底面积，$h$ 为高。\n\n
-		\item[\textbf{步骤二（相似比关系）：}]
-			\n 由于台体上下底面平行且相似，故小锥与大锥相似。设相似比为 $k$，则\n
-			\[
-				\n \frac{S_1}{S_2} = k^2,\quad \frac{h'}{H} = k.\n
-			\]
-			\n
-			\[
-				\n \Rightarrow \frac{S_1}{S_2} = \left(\frac{h'}{H}\right)^2.\n
-			\]
-			\n
-			\par\textbf{理由：} 相似形面积比等于相似比的平方，对应线段（高）比等于相似比。\n\n
-		\item[\textbf{步骤三（用 $h$ 表示 $H$ 和 $h'$）：}]
-			\n 由 $\displaystyle\frac{h'}{H} = \sqrt{\frac{S_1}{S_2}}$ 和 $h = H - h'$ 解得\n
-			\[
-				\n H = \frac{h\sqrt{S_2}}{\sqrt{S_2} - \sqrt{S_1}},
-				\qquad
-				h' = \frac{h\sqrt{S_1}}{\sqrt{S_2} - \sqrt{S_1}}.\n
-			\]
-			\n
-			\par\textbf{理由：} 解上述二元方程组，将 $h'$ 用 $H$ 表示后代入 $h$ 的表达式。\n\n
-		\item[\textbf{步骤四（体积差表达式）：}]
-			\n 台体体积 $V = V_1 - V_2$，代入得\n
-			\[
-				\n V = \frac13 S_2 H - \frac13 S_1 h'.\n
-			\]
-			\n
-			\par\textbf{理由：} 锥体体积公式。\n\n
-		\item[\textbf{步骤五（代入 $H, h'$ 化简）：}]
-			\n 将步骤三中的 $H$ 与 $h'$ 代入：\n
-			\[
-				\n V = \frac13 \cdot \frac{h}{\sqrt{S_2} - \sqrt{S_1}} \bigl( S_2\sqrt{S_2} - S_1\sqrt{S_1} \bigr).\n
-			\]
-			\n
-			\par\textbf{理由：} 通分、合并同类项。\n\n
+		\item[\textbf{步骤一（特殊情形先处理）：}]
+		      若 $S_1=S_2$，上下底面积相等且相似，台体为柱体或棱柱，体积为
+		      \[
+			      V=S_1h.
+		      \]
+		      而台体公式右边为
+		      \[
+			      \frac{h}{3}\bigl(S_1+S_1+\sqrt{S_1^2}\bigr)=\frac{h}{3}(3S_1)=S_1h.
+		      \]
+		      因此 $S_1=S_2$ 时公式成立。下设 $0\le S_1<S_2$。
+
+		      \par\textbf{理由：}
+		      先处理等底面积情形，可避免后面推导中除以 $\sqrt{S_2}-\sqrt{S_1}$ 时分母为零。
+
+		\item[\textbf{步骤二（设定大小锥）：}]
+		      将台体补成一个大锥，大锥底面为台体下底 $S_2$，大锥高为 $H$；台体上底面视为被截去小锥的底面，面积为 $S_1$，小锥高为 $h'$。于是台高为
+		      \[
+			      h=H-h'.
+		      \]
+		      大锥和小锥的体积分别为
+		      \[
+			      V_1=\frac13S_2H,
+			      \qquad
+			      V_2=\frac13S_1h'.
+		      \]
+
+		      \par\textbf{理由：}
+		      大锥与小锥都是标准锥体，体积公式为 $V=\frac13Sh$。
+
+		\item[\textbf{步骤三（相似比关系）：}]
+		      由于台体上下底面平行且相似，小锥与大锥相似。设相似比为 $k$，则
+		      \[
+			      \frac{S_1}{S_2}=k^2,
+			      \qquad
+			      \frac{h'}{H}=k.
+		      \]
+		      因此
+		      \[
+			      \frac{h'}{H}=\sqrt{\frac{S_1}{S_2}}.
+		      \]
+
+		      \par\textbf{理由：}
+		      相似形面积比等于相似比的平方，对应高的比等于相似比。
+
+		\item[\textbf{步骤四（用 $h$ 表示 $H$ 和 $h'$）：}]
+		      由 $\dfrac{h'}{H}=\sqrt{\dfrac{S_1}{S_2}}$ 和 $h=H-h'$，解得
+		      \[
+			      H=\frac{h\sqrt{S_2}}{\sqrt{S_2}-\sqrt{S_1}},
+			      \qquad
+			      h'=\frac{h\sqrt{S_1}}{\sqrt{S_2}-\sqrt{S_1}}.
+		      \]
+
+		      \par\textbf{理由：}
+		      将 $h'=H\sqrt{S_1/S_2}$ 代入 $h=H-h'$，再分别解出 $H$ 与 $h'$。
+
+		\item[\textbf{步骤五（体积差表达式）：}]
+		      台体体积等于大锥体积减去小锥体积，即
+		      \[
+			      V=V_1-V_2=\frac13S_2H-\frac13S_1h'.
+		      \]
+		      代入步骤四中的 $H$ 与 $h'$，得到
+		      \[
+			      V=\frac13\cdot\frac{h}{\sqrt{S_2}-\sqrt{S_1}}\bigl(S_2\sqrt{S_2}-S_1\sqrt{S_1}\bigr).
+		      \]
+
+		      \par\textbf{理由：}
+		      这是代入、通分和合并同类项。
+
 		\item[\textbf{步骤六（因式分解与结论）：}]
-			\n 注意到\n
-			\[
-				\n
-				\begin{aligned}
-					\n S_2\sqrt{S_2} - S_1\sqrt{S_1} &= (\sqrt{S_2})^3 - (\sqrt{S_1})^3 \\\n &= (\sqrt{S_2} - \sqrt{S_1})(S_1 + S_2 + \sqrt{S_1S_2}).\n
-			\end{aligned}
-				\n
-			\]
-			\n 代入得\n
-			\[
-				\n V = \frac{h}{3}(S_1 + S_2 + \sqrt{S_1S_2}).\n
-			\]
-			\n
-			\par\textbf{理由：} 立方差公式因式分解后约去 $(\sqrt{S_2} - \sqrt{S_1})$。\n
+		      注意到
+		      \[
+			      \begin{aligned}
+				      S_2\sqrt{S_2}-S_1\sqrt{S_1}
+				       & =(\sqrt{S_2})^3-(\sqrt{S_1})^3                   \\
+				       & =(\sqrt{S_2}-\sqrt{S_1})(S_1+S_2+\sqrt{S_1S_2}).
+			      \end{aligned}
+		      \]
+		      代入并约去 $\sqrt{S_2}-\sqrt{S_1}$，得
+		      \[
+			      V=\frac{h}{3}(S_1+S_2+\sqrt{S_1S_2}).
+		      \]
+
+		      \par\textbf{理由：}
+		      使用立方差公式 $a^3-b^3=(a-b)(a^2+ab+b^2)$，其中 $a=\sqrt{S_2}$，$b=\sqrt{S_1}$。
 	\end{description}
-	\n\n
 
 	\medskip
-	\n\textbf{\textcolor{CProof}{结论回扣}}\n\n\textbf{台体体积公式 $V = \dfrac{h}{3}(S_1+S_2+\sqrt{S_1S_2})$ 得证。核心步骤是通过相似比将高转化为面积表达，再利用立方差公式化简。}\n\n
+
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{台体体积公式 $V=\dfrac{h}{3}(S_1+S_2+\sqrt{S_1S_2})$ 得证。核心步骤是通过相似比将高转化为面积表达，再利用立方差公式化简。}
+
 \end{proofbox}
