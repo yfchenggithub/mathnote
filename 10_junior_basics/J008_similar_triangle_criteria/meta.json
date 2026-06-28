@@ -1,0 +1,188 @@
+{
+  "id": "J008",
+  "module": "geometry-plane",
+  "core": {
+    "title": "相似三角形的判定",
+    "alias": [
+      "AA判定",
+      "SAS判定",
+      "SSS判定",
+      "HL判定",
+      "平行截相似"
+    ],
+    "summary": "通过最少对应元素相等来判定两个三角形形状相同。",
+    "difficulty": 2,
+    "category": "平面几何",
+    "tags": [
+      "相似三角形",
+      "几何判定",
+      "AA",
+      "SAS",
+      "SSS",
+      "HL"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "两角相等",
+      "两边成比例",
+      "夹角相等",
+      "三边成比例",
+      "斜边直角边",
+      "平行截线",
+      "三角形相似",
+      "相似比",
+      "对应边",
+      "对应角",
+      "直角三角形相似"
+    ],
+    "synonyms": [
+      "角角相似",
+      "边角边相似",
+      "边边边相似",
+      "HL相似",
+      "平行线分线段成比例",
+      "相似判定条件"
+    ],
+    "intents": [
+      "判定三角形相似",
+      "证明相似",
+      "判断相似",
+      "应用相似",
+      "相似三角形条件"
+    ],
+    "query_templates": [
+      "如何判断两个三角形相似",
+      "三角形相似的条件有哪些",
+      "AA判定相似例题",
+      "SAS判定相似",
+      "平行线截三角形相似",
+      "斜边直角边相似",
+      "三边成比例相似"
+    ],
+    "ocrKeywords": [
+      "相似",
+      "相似比",
+      "对应边成比例",
+      "对应角相等",
+      "平行于",
+      "直角三角形",
+      "斜边",
+      "直角边"
+    ],
+    "latex_patterns": [
+      "\\frac{a}{a'}=\\frac{b}{b'}",
+      "\\angle A=\\angle A'",
+      "\\frac{a}{a'}=\\frac{b}{b'}=\\frac{c}{c'}",
+      "\\frac{c}{c'}=\\frac{a}{a'}",
+      "DE\\parallel BC"
+    ],
+    "formulaTokens": [
+      "\\frac{a}{a'}",
+      "\\frac{b}{b'}",
+      "\\frac{c}{c'}",
+      "\\angle A=\\angle A'",
+      "\\frac{a}{a'}=\\frac{b}{b'}",
+      "\\frac{c}{c'}=\\frac{a}{a'}",
+      "DE\\parallel BC",
+      "\\triangle ABC\\sim\\triangle A'B'C'"
+    ],
+    "pinyin": "xiang si san jiao xing de pan ding",
+    "pinyinAbbr": "xssjxdpd"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.2,
+    "hot_score": 50,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\angle A=\\angle A',\\angle B=\\angle B' \\Rightarrow \\triangle ABC\\sim\\triangle A'B'C'",
+    "related_formulas": [
+      "\\frac{a}{a'}=\\frac{b}{b'}, \\angle C=\\angle C' \\Rightarrow \\triangle ABC\\sim\\triangle A'B'C'",
+      "\\frac{a}{a'}=\\frac{b}{b'}=\\frac{c}{c'} \\Rightarrow \\triangle ABC\\sim\\triangle A'B'C'",
+      "\\angle C=\\angle C'=90^\\circ, \\frac{c}{c'}=\\frac{a}{a'} \\Rightarrow \\triangle ABC\\sim\\triangle A'B'C'",
+      "DE\\parallel BC \\Rightarrow \\triangle ADE\\sim\\triangle ABC"
+    ],
+    "variables": [
+      "a,b,c",
+      "a',b',c'",
+      "∠A,∠B,∠C",
+      "∠A',∠B',∠C'"
+    ],
+    "conditions": [
+      "条件1（AA）：两个角对应相等，即 $\\angle A=\\angle A'$ 且 $\\angle B=\\angle B'$。",
+      "条件2（SAS）：两边对应成比例且夹角相等，即 $\\frac{a}{a'}=\\frac{b}{b'}$ 且 $\\angle C=\\angle C'$。",
+      "条件3（SSS）：三边对应成比例，即 $\\frac{a}{a'}=\\frac{b}{b'}=\\frac{c}{c'}$。",
+      "条件4（HL）：在直角三角形中，斜边和一直角边对应成比例，即 $\\angle C=\\angle C'=90^\\circ$ 且 $\\frac{c}{c'}=\\frac{a}{a'}$（或 $\\frac{c}{c'}=\\frac{b}{b'}$）。",
+      "条件5（平行截）：$DE\\parallel BC$，其中 $D\\in AB$，$E\\in AC$。"
+    ],
+    "conclusions": [
+      "三角形相似：$\\triangle ABC\\sim\\triangle A'B'C'$，对应角相等，对应边成比例。",
+      "相似三角形的面积比等于相似比的平方：$\\frac{S_{\\triangle ABC}}{S_{\\triangle A'B'C'}}=\\left(\\frac{a}{a'}\\right)^2=k^2$，其中 $k$ 为相似比。"
+    ]
+  },
+  "content": {
+    "statement": "若两个三角形的两对角分别相等，或两边对应成比例且夹角相等，或三边对应成比例，或（直角三角形中）斜边和一直角边对应成比例，或平行于三角形一边的直线截得的三角形与原三角形相似，则这两个三角形相似。",
+    "derivation": [
+      "该定理为教材标准内容，证明可参考教材相关章节。"
+    ],
+    "intuition": "相似意味着形状相同、大小不同；判定条件是最少需要几个对应关系就能确定形状，例如两个角确定第三个角，从而形状固定。",
+    "common_tricks": [
+      "运用SAS判定时，夹角必须是已知成比例两边的夹角，否则无效。",
+      "HL只适用于直角三角形，使用前需确认直角条件。",
+      "平行截线模型常出现在综合题中，可通过比例式求线段长。",
+      "相似比与面积比的关系常用于求面积或证明面积关系。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "几何证明题",
+      "相似三角形性质计算",
+      "面积比问题"
+    ],
+    "problem_types": [
+      "证明相似",
+      "求线段长",
+      "求面积"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "J008.svg"
+  },
+  "shareConfig": {
+    "title": "相似三角形判定：五种条件速查",
+    "shareDesc": "适合课后复盘和考前回顾，集中解决相似三角形判定的易混条件，减少错用SAS夹角的错误。"
+  },
+  "relations": {
+    "prerequisites": [
+      "三角形内角和",
+      "平行线性质",
+      "比例性质"
+    ],
+    "related_ids": [],
+    "similar": []
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-28"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "其他-未分类-待定",
+  "altNodes": ""
+}
