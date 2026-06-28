@@ -1,0 +1,42 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用勾股定理和等体积法，分别求出高和内切球半径，再确定球心位置。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（设底面中心）：}] 设正四面体$A-BCD$，底面$\triangle BCD$的中心为$O'$，则$O'$为重心、外心。
+			\par\textbf{理由：}正三角形中心性质。
+
+		\item[\textbf{步骤二（中心到顶点距）：}] 在等边$\triangle BCD$中，边长$a$，则$BO' = \frac{\sqrt{3}}{3}a$。
+			\par\textbf{理由：}中心到顶点距离等于$\frac{2}{3}$中线长，中线长$\frac{\sqrt{3}}{2}a$，故$BO' = \frac{\sqrt{3}}{3}a$。
+
+		\item[\textbf{步骤三（勾股求高）：}] 连接$AO'$，$AO' \perp$底面。在$\mathrm{Rt}\triangle A O' B$中，$AB = a$，$BO' = \frac{\sqrt{3}}{3}a$，由勾股定理：
+			\[
+				h = AO' = \sqrt{a^2 - \left(\frac{\sqrt{3}}{3}a\right)^2} = \sqrt{a^2 - \frac{1}{3}a^2} = \sqrt{\frac{2}{3}a^2} = \frac{\sqrt{6}}{3}a
+			\]
+			\par\textbf{理由：}直角三角形两直角边平方和等于斜边平方。
+
+		\item[\textbf{步骤四（求体积）：}] 底面面积$S_{\triangle BCD} = \frac{\sqrt{3}}{4}a^2$，体积
+			\[
+				V = \frac{1}{3}S_{\triangle BCD} \cdot h = \frac{1}{3}\cdot\frac{\sqrt{3}}{4}a^2 \cdot \frac{\sqrt{6}}{3}a = \frac{\sqrt{2}}{12}a^3
+			\]
+			\par\textbf{理由：}四面体体积公式。
+
+		\item[\textbf{步骤五（求内切球半径）：}] 设内切球半径为$r$，球心$I$到四个面的距离均为$r$。四面体总表面积$S = 4S_{\triangle BCD} = \sqrt{3}a^2$。由体积分割$V = \frac{1}{3}S r$，得
+			\[
+				r = \frac{3V}{S} = \frac{3\cdot \frac{\sqrt{2}}{12}a^3}{\sqrt{3}a^2} = \frac{\sqrt{6}}{12}a
+			\]
+			直接验证$r = \frac{h}{4}$。
+			\par\textbf{理由：}体积等于四个小棱锥的体积和，每个小棱锥高$r$，底面积为原四面体一个面的面积。
+
+		\item[\textbf{步骤六（球心位置）：}] 由对称性，球心$I$在高$AO'$上。因为$I$到底面距离等于$r$，所以$IO' = r$，于是$AI = h - r = \frac{3}{4}h = 3r$，故$AI : IO' = 3:1$。
+			\par\textbf{理由：}内切球球心到各面距离相等，且高线过球心。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	综上，正四面体中，$h = \frac{\sqrt{6}}{3}a$，$r = \frac{\sqrt{6}}{12}a$，球心位于高线上，且将高分为$3:1$（顶点到球心:球心到底面），顶点到球心距离$=3r$，球心到底面距离$=r$。
+\end{proofbox}
