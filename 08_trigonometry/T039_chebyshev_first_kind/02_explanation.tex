@@ -1,0 +1,42 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+	倍角公式 $\cos 2\theta = 2\cos^2\theta-1$ 可以推广到任意正整数 $n$：$\cos n\theta$ 可表达成 $\cos\theta$ 的 $n$ 次多项式 $T_n(\cos\theta)$，且这些多项式由简单递推生成。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（三角恒等式）：}] 核心恒等式 $T_n(\cos\theta)=\cos n\theta$ 揭示了三角函数与多项式的联系。当 $n=2$ 时就是二倍角公式。
+		\item[\textbf{要点二（递推关系）：}] 递推 $T_{n+1}=2xT_n-T_{n-1}$ 源自三角函数和差化积：$\cos[(n+1)\theta] = 2\cos\theta\cos(n\theta) - \cos[(n-1)\theta]$。
+		\item[\textbf{要点三（多项式系数）：}] $T_n(x)$ 的最高次项系数为 $2^{n-1}$（$n\ge1$），且只含 $x$ 的奇次项或偶次项，奇偶性与 $n$ 一致。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（单位圆投影）}}
+
+	考虑单位圆上角度 $\theta$ 的点 $(\cos\theta,\sin\theta)$ 的横坐标。角度 $n\theta$ 对应旋转 $n$ 次，其横坐标 $\cos n\theta$ 恰好是 $\cos\theta$ 的多项式。这本质上是旋转矩阵的 $n$ 次幂的 $(1,1)$ 元。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（多项式递归）}}
+
+	递推 $T_{n+1}=2xT_n-T_{n-1}$ 是线性递推，可类比数列。特征方程 $r^2-2xr+1=0$ 的解 $r=\mathrm{e}^{\pm\mathrm{i}\theta}$，故通解为 $T_n=A\mathrm{e}^{\mathrm{i}n\theta}+B\mathrm{e}^{-\mathrm{i}n\theta}$，由初值定出 $A=B=1/2$，得 $T_n=\cos n\theta$ 的代数形式。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（竞赛拓展）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（化简求值）：} 利用 $T_n$ 快速计算 $\cos n\theta$（给定 $\cos\theta$）或反求 $\theta$。
+		\item \textbf{考法二（多项式性质）：} 考察 $T_n(x)$ 的零点、对称性、递推求通项。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	“$\cos n\theta$ 是关于 $\cos\theta$ 的多项式”这一事实并不显然，但通过三角恒等变形和递推可以严格证明。递推 $T_{n+1}=2xT_n-T_{n-1}$ 是核心，它同时体现了三角公式 $C_{n+1}=2C_1C_n-C_{n-1}$ 和代数递归。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（倍角化简）：} 需要将 $\cos n\theta$ 展开为 $\cos\theta$ 的表达式时，直接用 $T_n$。
+		\item \textbf{场景二（多项式恒等式）：} 证明某些多项式等式或求 $T_n(1)$ 等特殊值（$T_n(1)=1$）。
+	\end{itemize}
+\end{explanationbox}

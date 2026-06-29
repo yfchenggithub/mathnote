@@ -1,0 +1,48 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	利用三角恒等式 $\cos[(n+1)\theta] = 2\cos\theta\cos(n\theta) - \cos[(n-1)\theta]$，结合递推定义 $T_{n+1}(x)=2xT_n(x)-T_{n-1}(x)$，对 $n$ 用数学归纳法。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（验证基础）：}] 验证 $n=0$ 和 $n=1$ 时结论成立。
+			\[
+				T_0(\cos\theta)=1=\cos(0\theta),\quad T_1(\cos\theta)=\cos\theta=\cos(1\theta)
+			\]
+			\par\textbf{理由：} 由定义 $T_0(x)=1$，$T_1(x)=x$，代入 $x=\cos\theta$ 即得。
+
+		\item[\textbf{步骤二（归纳假设）：}] 假设对 $n-1$ 和 $n$（$n\ge1$）结论成立：
+			\[
+				T_{n-1}(\cos\theta)=\cos[(n-1)\theta],
+				\qquad
+				T_n(\cos\theta)=\cos(n\theta)
+			\]
+			\par\textbf{理由：} 归纳待证 $n+1$。
+
+		\item[\textbf{步骤三（递推代入）：}] 由递推公式，$x=\cos\theta$ 时
+			\[
+				T_{n+1}(\cos\theta)=2\cos\theta\cdot T_n(\cos\theta)-T_{n-1}(\cos\theta)
+			\]
+			\par\textbf{理由：} 定义 $T_{n+1}(x)=2xT_n(x)-T_{n-1}(x)$。
+
+		\item[\textbf{步骤四（三角化简）：}] 代入归纳假设，利用三角恒等式：
+			\[
+				\begin{aligned}
+					T_{n+1}(\cos\theta)
+					&= 2\cos\theta\cdot\cos(n\theta)-\cos[(n-1)\theta] \\
+					&= \cos[(n+1)\theta]+\cos[(n-1)\theta]-\cos[(n-1)\theta] \\
+					&= \cos[(n+1)\theta]
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 积化和差公式 $2\cos\alpha\cos\beta = \cos(\alpha+\beta)+\cos(\alpha-\beta)$，令 $\alpha=\theta$，$\beta=n\theta$ 得 $2\cos\theta\cos(n\theta) = \cos[(n+1)\theta]+\cos[(n-1)\theta]$。
+
+		\item[\textbf{步骤五（归纳完成）：}] 因此若 $n-1,n$ 成立则 $n+1$ 成立，由数学归纳法知对一切 $n\ge0$ 有 $T_n(\cos\theta)=\cos(n\theta)$。
+			\par\textbf{理由：} 归纳法原理。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	我们证明了第一类切比雪夫多项式 $T_n(x)$ 满足 $T_n(\cos\theta)=\cos(n\theta)$，且递推关系正确。这为将倍角余弦转化为多项式提供了可靠工具。
+\end{proofbox}
