@@ -1,0 +1,177 @@
+{
+  "id": "J001",
+  "module": "geometry-plane",
+  "core": {
+    "title": "A字型相似（平行截相似）",
+    "alias": [
+      "A字型相似",
+      "平行线截三角形相似",
+      "A字模型"
+    ],
+    "summary": "当三角形内一条平行于底边的直线截两边，所得小三角形与原三角形相似，且面积比等于相似比的平方。",
+    "difficulty": 2,
+    "category": "平面几何",
+    "tags": [
+      "相似三角形",
+      "平行线",
+      "面积比",
+      "比例线段",
+      "几何模型"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "相似三角形",
+      "平行线",
+      "A字型",
+      "比例线段",
+      "面积比",
+      "相似比",
+      "对应边成比例",
+      "平行截相似",
+      "高线比",
+      "中线比",
+      "角平分线比",
+      "面积比等于相似比的平方"
+    ],
+    "synonyms": [
+      "A字模型",
+      "平行线分线段成比例",
+      "小三角形相似",
+      "相似比平方"
+    ],
+    "intents": [
+      "证明相似",
+      "求比例",
+      "求面积",
+      "求线段长"
+    ],
+    "query_templates": [
+      "什么是A字型相似",
+      "平行线截三角形求面积比",
+      "DE平行BC求AD:AB",
+      "三角形相似面积比等于什么",
+      "A字型相似例题"
+    ],
+    "ocrKeywords": [
+      "平行线",
+      "三角形",
+      "相似",
+      "AD",
+      "AB",
+      "DE",
+      "BC",
+      "面积比"
+    ],
+    "latex_patterns": [
+      "\\frac{AD}{AB} = \\frac{AE}{AC} = \\frac{DE}{BC}",
+      "\\frac{S_{\\triangle ADE}}{S_{\\triangle ABC}} = k^2"
+    ],
+    "formulaTokens": [
+      "AD/AB",
+      "AE/AC",
+      "DE/BC",
+      "k",
+      "k^2",
+      "S_{\\triangle ADE}/S_{\\triangle ABC}",
+      "\\frac{AD}{AB}^2",
+      "AD/AB=AE/AC=DE/BC"
+    ],
+    "pinyin": "A zi xing xiang si",
+    "pinyinAbbr": "azxxs"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.7,
+    "hot_score": 80,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\frac{AD}{AB} = \\frac{AE}{AC} = \\frac{DE}{BC} = k, \\quad \\frac{S_{\\triangle ADE}}{S_{\\triangle ABC}} = k^2",
+    "related_formulas": [
+      "\\frac{h_{ADE}}{h_{ABC}} = k",
+      "\\frac{m_{ADE}}{m_{ABC}} = k"
+    ],
+    "variables": {
+      "AD": "小三角形的一边",
+      "AB": "大三角形的一边",
+      "AE": "小三角形的另一边",
+      "AC": "大三角形的另一边",
+      "DE": "小三角形的底边",
+      "BC": "大三角形的底边",
+      "k": "相似比",
+      "S_{\\triangle ADE}": "小三角形面积",
+      "S_{\\triangle ABC}": "大三角形面积"
+    },
+    "conditions": "在$\\triangle ABC$中，点$D$在$AB$上，点$E$在$AC$上，且$DE\\parallel BC$。",
+    "conclusions": "$\\triangle ADE \\sim \\triangle ABC$，对应边成比例，对应高、中线、角平分线的比均为$k$，面积比$\\frac{S_{\\triangle ADE}}{S_{\\triangle ABC}} = k^2 = \\left(\\frac{AD}{AB}\\right)^2$。"
+  },
+  "content": {
+    "statement": "在$\\triangle ABC$中，若点$D$在$AB$上，点$E$在$AC$上，且$DE\\parallel BC$，则$\\triangle ADE\\sim\\triangle ABC$。设相似比$k=\\frac{AD}{AB}=\\frac{AE}{AC}=\\frac{DE}{BC}$，则对应高、中线、角平分线的比均为$k$，面积比$\\frac{S_{\\triangle ADE}}{S_{\\triangle ABC}}=k^2=\\left(\\frac{AD}{AB}\\right)^2$。",
+    "derivation": [
+      "由$DE\\parallel BC$得$\\angle ADE = \\angle ABC$，$\\angle AED = \\angle ACB$（同位角相等），因此$\\triangle ADE \\sim \\triangle ABC$（AA）。",
+      "由相似得对应边成比例：$\\frac{AD}{AB} = \\frac{AE}{AC} = \\frac{DE}{BC} = k$。",
+      "相似三角形的面积比等于相似比的平方，故$\\frac{S_{\\triangle ADE}}{S_{\\triangle ABC}} = k^2$。"
+    ],
+    "intuition": "平行线产生同位角相等，从而两个三角形形状完全相同，只是大小不同，所有对应线段（包括高、中线）按相同比例缩放，面积则按该比例的平方缩放。",
+    "common_tricks": [
+      "遇到三角形内平行线，立即识别A字型相似，写出对应边比例。",
+      "求面积时，先求相似比，再平方得到面积比，注意面积比不能直接等于边长比。",
+      "若已知部分线段长度，可利用比例关系求整体或未知部分。",
+      "注意对应顶点顺序：小三角形顶点在大三角形对应顶点上，避免比例写错。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "平面几何证明题",
+      "求线段比",
+      "面积计算",
+      "压轴题中的辅助线构建"
+    ],
+    "problem_types": [
+      "选择题",
+      "填空题",
+      "证明题"
+    ],
+    "exam_frequency": 0.8,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "J001.svg",
+    "png": "",
+    "audio": "",
+    "video": ""
+  },
+  "shareConfig": {
+    "title": "A字型相似：平行线截三角形带来的比例与面积关系",
+    "shareDesc": "适用于课后复盘和讲评课，快速掌握平行线截三角形相似模型，求相似比和面积比时能直接套用结论，减少推导步骤。"
+  },
+  "relations": {
+    "prerequisites": [
+      "相似三角形的判定（AA）",
+      "比例的基本性质"
+    ],
+    "related_ids": [],
+    "similar": "X型相似（相交线型）"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-29"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "其他-未分类-待定",
+  "altNodes": []
+}
