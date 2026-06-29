@@ -1,48 +1,56 @@
 \begin{proofbox}
-	\n\textbf{\textcolor{CProof}{思路提示}}\n\n通过配方得到顶点式，利用二次函数单调性，按对称轴与区间位置分类讨论。\n\n
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	通过配方得到顶点式，再根据开口方向确定单调性，最后按对称轴 $h$ 与区间 $[m,n]$ 的位置关系分类讨论。
 
 	\medskip
-	\n\textbf{\textcolor{CProof}{正式推导}}\n
+	\textbf{\textcolor{CProof}{正式推导}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\n
 		\item[\textbf{步骤一（配方得顶点式）：}]
-			$f(x)=a(x-h)^2+k$，其中 $h=-\frac{b}{2a}$，$k=f(h)$。\n
-			\par\textbf{理由：} 配方后对称轴 $h$ 及顶点纵坐标 $k$ 一目了然，便于后续讨论单调性。\n\n
-		\item[\textbf{步骤二（开口向上单调性）：}]
-			当 $a>0$ 时，$f(x)$ 在 $(-\infty,h]$ 上递减，在 $[h,+\infty)$ 上递增。\n
-			\par\textbf{理由：} 二次函数单调性取决于开口方向，开口向上时先减后增。\n\n
-		\item[\textbf{步骤三（分类求最小值）：}]
-			结合区间 $[m,n]$ 讨论对称轴 $h$ 的位置：\n
-			\[
-				\n y_{\min}=\n
-				\begin{cases}
-					\n f(m), & h\le m,\
-					\[
-						2pt]\n f(h), & m<h<n,\
-						\[
-							2pt]\n f(n), & h\ge n.\n
-					\end{cases}
-						\n
-					\]
-					\n
-					\par\textbf{理由:} 由单调性,若 $h\le m$ 则区间在对称轴右侧,递增,最小值在左端点 $m$ 取到;若 $m<h<n$ 则区间包含对称轴,最小值在顶点 $h$ 处取到;若 $h\ge n$ 则区间在对称轴左侧,递减,最小值在右端点 $n$ 取到.\n\n
-				\item[\textbf{步骤四(确定最大值):}]
-					开口向上时,最大值在离对称轴较远的端点取到,即 $y_{\max}=\max\{f(m),f(n)\}$.\n
-					\par\textbf{理由:} 由于函数在对称轴处最小,离对称轴越远函数值越大,故两端点中离对称轴较远的点对应较大值.\n\n
-				\item[\textbf{步骤五(开口向下情形):}]
-					当 $a<0$ 时,单调性相反:在 $(-\infty,h]$ 递增,在 $[h,+\infty)$ 递减.\n 当 $h\in[m,n]$ 时,\n
-					\[
-						\n y_{\max}=f(h),\quad y_{\min}=\min\{f(m),f(n)\};\n
-					\]
-					\n 当 $h\notin[m,n]$ 时,\n
-					\[
-						\n y_{\max}= \max\{f(m),f(n)\},\quad y_{\min}= \min\{f(m),f(n)\}.\n
-					\]
-					\n
-					\par\textbf{理由:} 当对称轴在区间内时,先增后减,最大值在顶点;不在区间内时,函数单调,最值在端点.\n\n
-			\end{description}
-			\n\n
+		      二次函数可写为
+		      \[
+			      f(x)=a(x-h)^2+f(h),\qquad h=-\frac{b}{2a}.
+		      \]
+		      \par\textbf{理由：}配方后对称轴 $x=h$ 与顶点纵坐标 $f(h)$ 一目了然，便于判断最值。
 
-			\medskip
-			\n\textbf{\textcolor{CProof}{结论回扣}}\n\n通过分类讨论对称轴与区间的位置关系,并结合开口方向,我们完整地得到了二次函数在闭区间上最值的全部情形,公式与前述定理一致.\n
-		\end{proofbox}
+		\item[\textbf{步骤二（开口向上时的单调性）：}]
+		      当 $a>0$ 时，$f(x)$ 在 $(-\infty,h]$ 上递减，在 $[h,+\infty)$ 上递增。
+		      \par\textbf{理由：}开口向上时，顶点是最低点，函数值随着点远离对称轴而增大。
+
+		\item[\textbf{步骤三（开口向上求最小值）：}]
+		      结合区间 $[m,n]$ 与对称轴 $h$ 的位置，有
+		      \[
+			      y_{\min}=\begin{cases}
+				      f(m), & h\le m, \\[2pt]
+				      f(h), & m<h<n,  \\[2pt]
+				      f(n), & h\ge n.
+			      \end{cases}
+		      \]
+		      \par\textbf{理由：}若 $h\le m$，区间在对称轴右侧，函数递增，最小值在 $m$ 处；若 $m<h<n$，区间包含对称轴，最小值在 $h$ 处；若 $h\ge n$，区间在对称轴左侧，函数递减，最小值在 $n$ 处。
+
+		\item[\textbf{步骤四（开口向上求最大值）：}]
+		      当 $a>0$ 时，最大值为
+		      \[
+			      y_{\max}=\max\{f(m),f(n)\}.
+		      \]
+		      \par\textbf{理由：}开口向上时，离对称轴越远函数值越大；在闭区间中，离对称轴最远的点一定是端点之一。
+
+		\item[\textbf{步骤五（开口向下情形）：}]
+		      当 $a<0$ 时，$f(x)$ 在 $(-\infty,h]$ 上递增，在 $[h,+\infty)$ 上递减。因此
+		      \[
+			      y_{\max}=\begin{cases}
+				      f(m), & h\le m, \\[2pt]
+				      f(h), & m<h<n,  \\[2pt]
+				      f(n), & h\ge n,
+			      \end{cases}
+			      \qquad
+			      y_{\min}=\min\{f(m),f(n)\}.
+		      \]
+		      \par\textbf{理由：}开口向下时，顶点是最高点，离对称轴越远函数值越小，所以最小值一定在端点中产生。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	通过分类讨论开口方向以及对称轴与区间的位置关系，就能完整确定二次函数在闭区间上的最大值和最小值。
+\end{proofbox}
