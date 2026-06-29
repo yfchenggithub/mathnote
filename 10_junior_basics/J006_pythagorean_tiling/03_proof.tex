@@ -1,0 +1,40 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	通过弦图将斜边正方形分割，分别计算整体面积与局部面积之和，利用面积相等导出三边数量关系。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（构造图形）：}]
+			将四个全等的直角三角形（直角边 $a,b$，斜边 $c$）按弦图方式摆放，使得它们的斜边构成一个边长为 $c$ 的大正方形，中间留出一个边长为 $a-b$ 的小正方形（$a\ge b>0$）。
+			\par\textbf{理由：} 四个三角形旋转对称放置后，相邻直角边正好相接，外侧轮廓为正方形，内侧也为正方形。
+		\item[\textbf{步骤二（面积计算）：}]
+			大正方形面积为 $c^2$，每个直角三角形面积为 $\frac12 ab$，小正方形面积为 $(a-b)^2$。即：
+			\[
+				c^2,
+				\qquad
+				\frac12 ab,
+				\qquad
+				(a-b)^2 .
+			\]
+			\par\textbf{理由：} 正方形面积等于边长的平方，直角三角形面积等于 $\frac12 ab$。
+		\item[\textbf{步骤三（建立等式）：}]
+			由图形可知，大正方形由四个直角三角形和一个小正方形拼合而成，无重叠无缝隙，故面积相等：
+			\[
+				c^2 = 4 \times \frac12 ab + (a-b)^2 .
+			\]
+			\par\textbf{理由：} 面积相加原理。
+		\item[\textbf{步骤四（代数化简）：}]
+			将右边展开并合并同类项：
+			\[
+				\begin{aligned}
+					c^2 &= 2ab + (a^2 - 2ab + b^2) \\ &= 2ab + a^2 - 2ab + b^2 \\ &= a^2 + b^2 .
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 完全平方公式 $(a-b)^2 = a^2-2ab+b^2$；合并同类项 $2ab-2ab=0$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{最终得到 $a^2+b^2=c^2$，即直角三角形的两条直角边的平方和等于斜边的平方。这正是勾股定理的内容。}
+\end{proofbox}
