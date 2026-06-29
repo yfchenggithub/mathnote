@@ -1,0 +1,32 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+	利用中心对称的旋转不变性和三角形面积公式（等底等高）。对于三角形重心情形，通过一个反例说明。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（旋转对称）：}]
+			设 $\Omega$ 为中心对称图形，对称中心为 $O$。任取过 $O$ 的直线 $\ell$。由于 $\Omega$ 绕 $O$ 旋转 $180^\circ$ 后与自身重合，$\ell$ 旋转后仍是同一条直线（方向相反），因此 $\ell$ 分成的两个部分 $\Omega_1$ 和 $\Omega_2$ 恰好互换，从而面积相等。
+			\par\textbf{理由：} 旋转 $180^\circ$ 保持面积不变，且 $\Omega$ 整体不变，所以两部分面积相等。
+			\[
+				\operatorname{Area}(\Omega_1)=\operatorname{Area}(\Omega_2)=\frac12\operatorname{Area}(\Omega).
+			\]
+		\item[\textbf{步骤二（等底等高）：}]
+			在 $\triangle ABC$ 中，取 $BC$ 中点 $D$，连接 $AD$。则 $AD$ 为中线，且 $BD=DC$。$\triangle ABD$ 与 $\triangle ADC$ 有相同的高（从 $A$ 到 $BC$ 的距离），因此面积相等。
+			\par\textbf{理由：} 因为 $BD=DC$ 且高相同，所以面积相等。
+			\[
+				S_{\triangle ABD}=S_{\triangle ADC}=\frac12 S_{\triangle ABC}.
+			\]
+		\item[\textbf{步骤三（反例说明）：}]
+			过 $\triangle ABC$ 的重心 $G$ 作直线平行于 $BC$，交 $AB$ 于 $E$，交 $AC$ 于 $F$。由于重心分中线 $2:1$，知 $\frac{AE}{AB}=\frac{AG}{AD}=\frac23$，故 $\triangle AEF\sim\triangle ABC$ 且相似比为 $2:3$。
+			\par\textbf{理由：} 由相似三角形面积比等于相似比的平方，得
+			\[
+				\frac{S_{\triangle AEF}}{S_{\triangle ABC}}=\left(\frac23\right)^2=\frac49\neq\frac12.
+			\]
+			因此直线 $EF$（过重心且平行于底边）不平分面积，说明过重心的直线不一定平分面积。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{中心对称图形：}过对称中心的直线平分面积；\textbf{三角形：}中线平分面积，过重心且非中线的直线不一定平分。对于给定点 $P$，可作直线 $PG$，若 $PG$ 过顶点（即为中线），则满足平分要求。
+\end{proofbox}

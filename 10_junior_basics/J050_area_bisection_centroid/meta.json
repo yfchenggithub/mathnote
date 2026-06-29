@@ -1,0 +1,194 @@
+{
+  "id": "J050",
+  "module": "geometry-plane",
+  "core": {
+    "title": "面积等分与重心法",
+    "alias": [
+      "面积平分线",
+      "中线平分面积",
+      "对称中心平分",
+      "重心判定法"
+    ],
+    "summary": "中心对称图形过对称中心的直线平分面积；三角形中线平分面积，过重心非中线不一定平分。",
+    "difficulty": 3,
+    "category": "平面几何",
+    "tags": [
+      "面积等分",
+      "重心",
+      "对称中心",
+      "平面几何",
+      "中线"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "面积等分",
+      "平分面积",
+      "中心对称图形",
+      "平行四边形",
+      "圆",
+      "三角形",
+      "中线",
+      "重心",
+      "对称中心",
+      "过定点直线",
+      "面积等分直线",
+      "重心法"
+    ],
+    "synonyms": [
+      "面积平分",
+      "面积等分线",
+      "中线平分三角形",
+      "平行四边形的对称中心",
+      "中心点"
+    ],
+    "intents": [
+      "求平分面积的直线",
+      "判断直线是否平分面积",
+      "求对称中心",
+      "求中线方程",
+      "验证面积相等"
+    ],
+    "query_templates": [
+      "平行四边形过中心直线平分面积",
+      "三角形中线平分面积",
+      "过重心直线平分三角形面积吗",
+      "已知三角形重心怎么作面积平分线",
+      "过定点P作直线平分平行四边形面积"
+    ],
+    "ocrKeywords": [
+      "平分面积",
+      "对称中心",
+      "中线",
+      "重心",
+      "平行四边形",
+      "三角形",
+      "面积"
+    ],
+    "latex_patterns": [
+      "\\operatorname{Area}(\\Omega\\cap H_1)=\\operatorname{Area}(\\Omega\\cap H_2)=\\frac12\\operatorname{Area}(\\Omega)",
+      "BM=CM\\Rightarrow\\operatorname{Area}(\\triangle ABM)=\\operatorname{Area}(\\triangle ACM)=\\frac12\\operatorname{Area}(\\triangle ABC)",
+      "V\\in PG\\Rightarrow\\operatorname{Area}(\\triangle ABC\\cap H_1)=\\operatorname{Area}(\\triangle ABC\\cap H_2)=\\frac12\\operatorname{Area}(\\triangle ABC)"
+    ],
+    "formulaTokens": [
+      "\\operatorname{Area}(\\Omega\\cap H_1)",
+      "\\operatorname{Area}(\\Omega\\cap H_2)",
+      "\\frac12\\operatorname{Area}(\\Omega)",
+      "BM=CM",
+      "\\operatorname{Area}(\\triangle ABM)",
+      "\\operatorname{Area}(\\triangle ACM)",
+      "\\operatorname{Area}(\\triangle ABC)",
+      "PG",
+      "V\\in\\{A,B,C\\}"
+    ],
+    "pinyin": "mianjidenfenyuzhongxinfa",
+    "pinyinAbbr": "mjdf"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.72,
+    "hot_score": 65,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\operatorname{Area}(\\Omega\\cap H_1)=\\operatorname{Area}(\\Omega\\cap H_2)=\\frac12\\operatorname{Area}(\\Omega)",
+    "related_formulas": [
+      "\\operatorname{Area}(\\triangle ABM)=\\operatorname{Area}(\\triangle ACM)=\\frac12\\operatorname{Area}(\\triangle ABC)",
+      "V\\in PG\\Rightarrow\\operatorname{Area}(\\triangle ABC\\cap H_1)=\\operatorname{Area}(\\triangle ABC\\cap H_2)=\\frac12\\operatorname{Area}(\\triangle ABC)"
+    ],
+    "variables": [
+      "$\\Omega$：平面有界图形",
+      "$S$：面积",
+      "$O$：对称中心",
+      "$\\ell$：直线",
+      "$H_1,H_2$：半平面",
+      "$A,B,C$：三角形顶点",
+      "$G$：重心",
+      "$P$：定点",
+      "$M$：边中点"
+    ],
+    "conditions": [
+      "图形$\\Omega$为中心对称图形（如平行四边形、圆），对称中心为$O$。",
+      "三角形$\\triangle ABC$，$G$为其重心。",
+      "点$P$为给定定点。"
+    ],
+    "conclusions": [
+      "过对称中心$O$的任意直线平分$\\Omega$的面积。",
+      "三角形的中线平分面积，过重心$G$的非中线不一定平分面积。",
+      "若过定点$P$和重心$G$的直线经过三角形顶点，则该直线平分面积。"
+    ]
+  },
+  "content": {
+    "statement": "对于中心对称图形（如平行四边形），过对称中心的任意直线平分其面积；对于三角形，每条中线平分面积，三条中线交于重心，过三角形重心的直线不一定平分面积。若要求过定点 P 作直线平分三角形面积，可尝试作直线 PG（G 为重心），若 PG 恰好为中线（即过某一顶点），则该直线平分面积。",
+    "derivation": [
+      "中心对称图形关于对称中心旋转180°与自身重合，因此过中心的直线将图形分成完全对称的两部分，面积相等。",
+      "三角形中线等分底边且同高，故两个子三角形面积相等。",
+      "重心位于中线上，但过重心作非中线直线时，两侧部分一般不等面积，需要额外条件（如过顶点）才成立。"
+    ],
+    "intuition": "对称性和等底同高：中心对称图形过中心的两部分全等；三角形中线将底边等分且同高，面积自然相等。",
+    "common_tricks": [
+      "1. 对于平行四边形，先求对角线交点（对称中心），过该点的任意直线均平分面积。",
+      "2. 三角形中，要平分面积优先考虑中线；若题目要求过定点作直线，可先连接该点与重心，判断是否经过顶点。",
+      "3. 过重心但不经过顶点的直线不一定平分面积，需用面积公式或割补法验证。",
+      "4. 圆是特殊的中心对称图形，圆心即对称中心，过圆心的直线平分圆面积。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "平面几何面积计算题",
+      "解析几何中求平分面积的直线",
+      "三角形重心性质应用"
+    ],
+    "problem_types": [
+      "选择题",
+      "填空题",
+      "解答题"
+    ],
+    "exam_frequency": 0.6,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "J050.svg",
+    "png": "",
+    "gif": "",
+    "json": ""
+  },
+  "shareConfig": {
+    "title": "中心对称与三角形面积等分：速查面积平分线做法",
+    "shareDesc": "适合平面几何和解析几何题，快速判断过定点能否平分面积，减少构造辅助线时的试错，提升基础题稳定性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "平行四边形性质",
+      "三角形中线定义",
+      "重心定义",
+      "对称中心"
+    ],
+    "related_ids": [],
+    "similar": [
+      "平行四边形对角线互相平分",
+      "三角形面积公式",
+      "定比分点"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-06-29"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "其他-未分类-待定",
+  "altNodes": ""
+}
