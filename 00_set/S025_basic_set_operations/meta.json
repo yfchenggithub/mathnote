@@ -6,9 +6,10 @@
     "alias": [
       "并集交集补集差集",
       "集合运算定义",
-      "A∪B A∩B ∁_U A A\\B"
+      "A∪B A∩B ∁_U A A\\B",
+      "集合的并交补差"
     ],
-    "summary": "集合运算就是根据元素是否满足条件（或、且、非）来构造新集合。",
+    "summary": "集合运算的核心是把元素归属翻译成“或、且、全集内取非”：并集对应或，交集对应且，补集依赖全集，差集具有方向性。",
     "difficulty": 1,
     "category": "集合",
     "tags": [
@@ -19,7 +20,8 @@
       "差集",
       "全集",
       "子集",
-      "元素"
+      "区间运算",
+      "元素判定"
     ]
   },
   "search": {
@@ -35,16 +37,20 @@
       "A∩B",
       "∁_U A",
       "A\\B",
+      "A减B",
       "元素条件",
       "或",
       "且",
-      "非"
+      "非",
+      "差集为空",
+      "区间并交补"
     ],
     "synonyms": [
       "A并B",
       "A交B",
       "A的补集",
       "A减B",
+      "相对于U的补集",
       "通用集",
       "U",
       "补运算",
@@ -56,28 +62,27 @@
       "求补集",
       "求差集",
       "理解集合运算",
-      "判断元素是否属于集合"
+      "判断元素是否属于集合",
+      "由差集为空判断子集",
+      "判断区间端点开闭"
     ],
     "query_templates": [
       "集合的并集怎么求",
-      "补集符号是什么",
+      "补集为什么必须有全集",
       "差集和补集的区别",
       "全集U下集合A的补集",
-      "A减B等于什么"
+      "A减B等于什么",
+      "A减B为空说明什么",
+      "区间的并集交集怎么判断端点"
     ],
-    "ocrKeywords": [
-      "A∪B",
-      "A∩B",
-      "∁_U A",
-      "A\\B",
-      "全集",
-      "子集"
-    ],
+    "ocrKeywords": ["A∪B", "A∩B", "∁_U A", "A\\B", "U\\A", "全集", "子集"],
     "latex_patterns": [
       "A\\cup B",
       "A\\cap B",
       "\\complement_U A",
-      "A\\setminus B"
+      "A\\setminus B",
+      "A\\setminus B=\\varnothing",
+      "A\\subseteq B"
     ],
     "formulaTokens": [
       "A\\cup B",
@@ -85,13 +90,15 @@
       "\\complement_U A",
       "A\\setminus B",
       "U\\setminus A",
-      "A\\cap (\\complement_U B)",
+      "A\\cap(\\complement_U B)",
+      "A\\setminus B=\\varnothing",
+      "A\\subseteq B",
       "U",
       "A",
       "B"
     ],
-    "pinyin": "jihedijibenco",
-    "pinyinAbbr": "jhjb"
+    "pinyin": "jihedejibenyunsuan",
+    "pinyinAbbr": "jhdjbys"
   },
   "searchmeta": {
     "titleWeight": 10,
@@ -106,37 +113,40 @@
     "success_rate": 0
   },
   "math": {
-    "core_formula": "A\\cup B = \\{ x \\mid x\\in A \\text{ 或 } x\\in B \\},\\quad A\\cap B = \\{ x \\mid x\\in A \\text{ 且 } x\\in B \\},\\quad \\complement_U A = \\{ x\\in U \\mid x\\notin A \\},\\quad A\\setminus B = \\{ x \\mid x\\in A \\text{ 且 } x\\notin B \\}.",
+    "core_formula": "A\\cup B=\\{x\\mid x\\in A\\text{ 或 }x\\in B\\},\\quad A\\cap B=\\{x\\mid x\\in A\\text{ 且 }x\\in B\\},\\quad \\complement_U A=\\{x\\in U\\mid x\\notin A\\},\\quad A\\setminus B=\\{x\\mid x\\in A\\text{ 且 }x\\notin B\\}.",
     "related_formulas": [
-      "\\complement_U A = U \\setminus A",
-      "A\\setminus B = A \\cap (\\complement_U B)"
+      "\\complement_U A=U\\setminus A",
+      "A\\setminus B=A\\cap(\\complement_U B)",
+      "A\\setminus B=\\varnothing\\iff A\\subseteq B"
     ],
     "variables": "U, A, B, x",
-    "conditions": "$U$ 是全集，$A,B\\subseteq U$。",
-    "conclusions": "并集、交集、补集、差集的定义如上，它们是构造新集合的四种基本方式。"
+    "conditions": "$U$ 是全集，且 $A,B\\subseteq U$。",
+    "conclusions": "并集对应相容或，交集对应且，补集是在全集内取非，差集表示属于前一个集合但不属于后一个集合。"
   },
   "content": {
-    "statement": "已知全集 $U$，且 $A, B \\subseteq U$，则集合的并集、交集、补集、差集分别定义为：$A\\cup B = \\{ x \\mid x \\in A \\text{ 或 } x \\in B \\}$，$A\\cap B = \\{ x \\mid x \\in A \\text{ 且 } x \\in B \\}$，$\\complement_U A = \\{ x \\in U \\mid x \\notin A \\}$，$A\\setminus B = \\{ x \\mid x \\in A \\text{ 且 } x \\notin B \\}$。",
+    "statement": "设全集 $U$，且 $A,B\\subseteq U$。并集为 $A\\cup B=\\{x\\mid x\\in A\\text{ 或 }x\\in B\\}$；交集为 $A\\cap B=\\{x\\mid x\\in A\\text{ 且 }x\\in B\\}$；补集为 $\\complement_U A=\\{x\\in U\\mid x\\notin A\\}$；差集为 $A\\setminus B=\\{x\\mid x\\in A\\text{ 且 }x\\notin B\\}$。",
     "derivation": [
-      "直接由集合元素是否满足条件给出定义，无需推导。"
+      "由元素归属条件可得 $\\complement_U A=U\\setminus A$。",
+      "由元素归属条件可得 $A\\setminus B=A\\cap(\\complement_U B)$。",
+      "由差集定义可得 $A\\setminus B=\\varnothing\\iff A\\subseteq B$。"
     ],
-    "intuition": "并集：满足“或”；交集：满足“且”；补集：在全集中满足“非”；差集：在A中满足“非B”。",
+    "intuition": "并集取至少属于一个集合的元素；交集取公共元素；补集取全集内不属于该集合的元素；差集从前一个集合中删除属于后一个集合的元素。",
     "common_tricks": [
-      "补集运算必须明确全集 $U$，否则无意义。",
-      "差集 $A\\setminus B$ 可转化为 $A\\cap (\\complement_U B)$。",
-      "注意区分“或”与“且”在并集和交集中的作用。"
+      "补集必须相对于确定的全集；上下文明确时可以省略符号下标，但不能忽略全集本身。",
+      "并集中的“或”是相容或，同时属于两个集合的元素仍属于并集。",
+      "差集具有方向性，一般 $A\\setminus B\\neq B\\setminus A$。",
+      "差集为空可立即转化为子集关系：$A\\setminus B=\\varnothing\\iff A\\subseteq B$。",
+      "区间运算完成后应逐个检验临界点，以确定端点开闭。"
     ]
   },
   "usage": {
     "scenarios": [
       "集合基础概念学习",
-      "集合运算题目"
+      "集合直接运算",
+      "区间与数轴运算",
+      "集合参数问题"
     ],
-    "problem_types": [
-      "选择题",
-      "填空题",
-      "简单计算题"
-    ],
+    "problem_types": ["选择题", "填空题", "集合运算题", "参数范围题"],
     "exam_frequency": 0.95,
     "exam_score": 5
   },
@@ -152,25 +162,25 @@
   },
   "shareConfig": {
     "title": "集合基本运算：并集、交集、补集、差集定义速查",
-    "shareDesc": "适合课前预习和课后复习，快速掌握集合运算符号与定义，避免混淆“或”与“且”，巩固集合运算基础。"
+    "shareDesc": "快速掌握并集、交集、补集和差集的元素条件，理解补集依赖全集、差集具有方向性，并学会用差集为空判断子集关系。"
   },
   "relations": {
-    "prerequisites": [
-      "集合的概念",
-      "元素与集合的关系"
-    ],
+    "prerequisites": ["集合的概念", "元素与集合的关系", "子集与真子集"],
     "related_ids": [],
     "similar": [
-      "集合的运算律（交换律、结合律、分配律、德摩根定律）"
+      "集合的运算律（交换律、结合律、分配律、德摩根定律）",
+      "集合之间的包含关系",
+      "区间表示与数轴"
     ]
   },
   "meta": {
-    "version": 1,
-    "source": "AI生成",
-    "created_at": "2026-07-13"
+    "version": 2,
+    "source": "AI生成并校订",
+    "created_at": "2026-07-13",
+    "updated_at": "2026-07-13"
   },
   "isPro": 0,
-  "remarks": "",
-  "knowledgeNode": "其他-未分类-待定",
-  "altNodes": ""
+  "remarks": "已校正补集对全集的依赖表述、并集相容或、差集方向性及差集为空与子集的等价关系。",
+  "knowledgeNode": "集合-集合的概念与运算-集合的基本运算",
+  "altNodes": "集合-集合运算-并集交集补集差集"
 }

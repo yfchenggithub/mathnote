@@ -1,41 +1,47 @@
 \begin{explanationbox}
 	\textbf{\textcolor{CExplanation}{一句话直觉}}
 
-	集合运算本质是对元素是否属于集合进行逻辑判断，并按一定规则组合。
+	集合运算就是把“元素是否属于集合”翻译成“或、且、非”三种逻辑条件，再据此筛选元素。
 
 	\medskip
 	\textbf{\textcolor{CExplanation}{核心拆解}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（元素归属判定）：}] 每个元素 \(x\) 相对于集合 \(A, B\) 只有四种状态：\(x\in A\) 或 \(\notin A\)，\(x\in B\) 或 \(\notin B\)。运算结果由这些归属组合决定。
-		\item[\textbf{要点二（符号与自然语言对应）：}] 并集对应“或”，交集对应“且”，补集对应“非（在全集条件下）”，差集对应“属于 \(A\) 但不属于 \(B\)”。
+		\item[\textbf{要点一（并集对应“或”）：}]
+		      \(x\in A\cup B\) 表示 \(x\in A\) 或 \(x\in B\)。这里的“或”是相容或：只要至少一个条件成立即可，两个条件同时成立也包含在内。
+
+		\item[\textbf{要点二（交集对应“且”）：}]
+		      \(x\in A\cap B\) 表示 \(x\in A\) 且 \(x\in B\)，两个条件必须同时成立。
+
+		\item[\textbf{要点三（补集对应“全集内取反”）：}]
+		      \(x\in\complement_U A\) 表示 \(x\in U\) 且 \(x\notin A\)。补集依赖全集；若上下文已经固定全集，可以省略下标，但全集本身不能缺失。
+
+		\item[\textbf{要点四（差集具有方向性）：}]
+		      \(x\in A\setminus B\) 表示 \(x\in A\) 且 \(x\notin B\)。一般来说，\(A\setminus B\neq B\setminus A\)。
 	\end{description}
 
 	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（韦恩图表示）}}
+	\textbf{\textcolor{CExplanation}{韦恩图直觉}}
 
-	用封闭曲线表示集合，重叠区域表示交集，合并区域表示并集，曲线外（全集内）区域表示补集，差集是只属于 \(A\) 但不属于 \(B\) 的区域。图形直观展示运算结果。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（逻辑联结词）}}
-
-	并集：\(A\cup B\) 对应 \(x\in A\) 或 \(x\in B\)（取两个条件至少一个成立）。交集：\(A\cap B\) 对应 \(x\in A\) 且 \(x\in B\)。补集：\(\complement_U A\) 对应 \(x\notin A\)。差集：\(A\setminus B\) 对应 \(x\in A\) 且 \(x\notin B\)。
+	\(A\cup B\) 是两个区域的全部；\(A\cap B\) 是两个区域的重叠部分；\(\complement_U A\) 是全集内、集合 \(A\) 外的部分；\(A\setminus B\) 是 \(A\) 中删去与 \(B\) 重叠后剩下的部分。
 
 	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（基础运算工具）}}
+	\textbf{\textcolor{CExplanation}{常用等价关系}}
 	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（直接运算求值）：}给定具体集合，按定义计算并、交、补、差。通常结合区间、数轴、韦恩图。
-		\item \textbf{考法二（利用运算性质求参数）：}已知运算结果，反推集合中参数取值。常与方程不等式结合。
+		\item \(\complement_U A=U\setminus A\)：补集就是全集减去 \(A\)。
+		\item \(A\setminus B=A\cap(\complement_U B)\)：在 \(A\) 中排除 \(B\)，等价于“属于 \(A\) 且属于 \(B\) 的补集”。
+		\item \(A\setminus B=\varnothing\iff A\subseteq B\)：\(A\) 中没有落在 \(B\) 外面的元素，等价于 \(A\) 的所有元素都属于 \(B\)。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{直接运算：}给定列举集合、区间或数轴，求并集、交集、补集和差集。
+		\item \textbf{参数问题：}把集合运算结果转化为包含关系、端点关系或不等式，再求参数范围。
+		\item \textbf{条件转化：}把复合条件写成集合语言，例如“至少满足一个条件”对应并集，“同时满足”对应交集。
 	\end{itemize}
 
 	\medskip
 	\textbf{\textcolor{CExplanation}{顿悟点}}
 
-	\textbf{全集是补集的前提，差集可转化为交集与补集。将符号语言转化为元素归属是解题关键。}
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（集合基本运算）：}直接求给定集合的并、交、补、差。
-		\item \textbf{场景二（综合问题转化条件）：}将复杂条件用集合运算表示，转化为元素关系。
-	\end{itemize}
+	\textbf{不要先背区域，要先判断任意元素 \(x\) 应满足什么条件；元素条件写对，集合运算就不会错。}
 \end{explanationbox}
