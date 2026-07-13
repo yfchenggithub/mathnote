@@ -1,17 +1,27 @@
 \begin{proofbox}
 	\textbf{\textcolor{CProof}{思路提示}}
 
-	要证明
+	先将
 	\[
-		\log_a\!\left(1+\frac{1}{n}\right)=\log_a(n+1)-\log_a n,
+		1+\frac{1}{n}
 	\]
-	只需将 \(1+\frac{1}{n}\) 通分写成 \(\frac{n+1}{n}\)，再使用对数商法则即可。
+	通分为 \(\frac{n+1}{n}\)，再使用对数商法则。证明过程中必须同时检查底数和真数的定义域。
 
 	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
+	\textbf{\textcolor{CProof}{恒等式证明}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（分式通分）：}]
-		      将 \(1+\frac{1}{n}\) 通分成 \(\frac{n+1}{n}\)：
+		\item[\textbf{步骤一（检查定义域）：}]
+		      已知 \(a>0\)、\(a\neq1\)、\(n>0\)，因此
+		      \[
+			      n>0,
+			      \qquad
+			      n+1>0,
+			      \qquad
+			      \frac{n+1}{n}>0.
+		      \]
+		      所有对数均有意义，并且可以使用对数商法则。
+
+		\item[\textbf{步骤二（分式通分）：}]
 		      \[
 			      \begin{aligned}
 				      1+\frac{1}{n}
@@ -19,33 +29,51 @@
 				       & =\frac{n+1}{n}.
 			      \end{aligned}
 		      \]
-		      \par\textbf{理由：} 因为 \(n\in\mathbb N^*\)，所以 \(n>0\)，分母不为 \(0\)，通分合法。
 
-		\item[\textbf{步骤二（对数商公式）：}]
-		      对 \(\log_a\left(\frac{n+1}{n}\right)\) 应用对数商法则：
+		\item[\textbf{步骤三（应用对数商法则）：}]
 		      \[
-			      \log_a\left(\frac{n+1}{n}\right)
-			      =
-			      \log_a(n+1)-\log_a n.
+			      \begin{aligned}
+				      \log_a\!\left(1+\frac{1}{n}\right)
+				       & =\log_a\!\left(\frac{n+1}{n}\right) \\
+				       & =\log_a(n+1)-\log_a n.
+			      \end{aligned}
 		      \]
-		      \par\textbf{理由：} 当 \(a>0\)、\(a\neq1\)，且 \(M>0,N>0\) 时，
-		      \[
-			      \log_a\frac{M}{N}=\log_a M-\log_a N.
-		      \]
-		      这里 \(M=n+1>0\)，\(N=n>0\)。
-
-		\item[\textbf{步骤三（等量代换）：}]
-		      结合步骤一和步骤二，即得
-		      \[
-			      \log_a\!\left(1+\frac{1}{n}\right)
-			      =
-			      \log_a(n+1)-\log_a n.
-		      \]
-		      \par\textbf{理由：} 左边等于 \(\log_a\left(\frac{n+1}{n}\right)\)，而该式已由对数商法则化为右边。
 	\end{description}
+
+	因此
+	\[
+		\boxed{
+			\log_a\!\left(1+\frac{1}{n}\right)
+			=\log_a(n+1)-\log_a n
+		}.
+	\]
+
+	\medskip
+	\textbf{\textcolor{CProof}{连续求和公式证明}}
+
+	若 \(p,q\in\mathbb N^*\) 且 \(p\leq q\)，则
+	\[
+		\begin{aligned}
+			\sum_{k=p}^{q}\log_a\!\left(1+\frac{1}{k}\right)
+			 & =\sum_{k=p}^{q}\bigl[\log_a(k+1)-\log_a k\bigr] \\
+			 & =(\log_a(p+1)-\log_a p)                         \\
+			 & \quad +(\log_a(p+2)-\log_a(p+1))                \\
+			 & \quad +\cdots +(\log_a(q+1)-\log_a q)           \\
+			 & =\log_a(q+1)-\log_a p                           \\
+			 & =\log_a\!\left(\frac{q+1}{p}\right).
+		\end{aligned}
+	\]
+
+	因此
+	\[
+		\boxed{
+			\sum_{k=p}^{q}\log_a\!\left(1+\frac{1}{k}\right)
+			=\log_a\!\left(\frac{q+1}{p}\right)
+		}.
+	\]
 
 	\medskip
 	\textbf{\textcolor{CProof}{结论回扣}}
 
-	该恒等式本质是对数商法则的直接应用，其价值在于将分式对数结构转换为相邻整数的对数差，为后续累加消去创造条件。
+	该结论不是新的对数法则，而是“分式通分 + 对数商法则”的组合。其真正价值在于把通项写成 \(u_{k+1}-u_k\) 的形式，从而触发裂项相消。
 \end{proofbox}

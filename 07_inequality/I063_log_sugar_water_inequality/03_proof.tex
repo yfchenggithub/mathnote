@@ -1,0 +1,62 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	欲证原不等式左边 $\frac{\ln a}{\ln b}<\frac{\ln(a+c)}{\ln(b+c)}$，可转化为证函数 $H(x)=\frac{\ln x}{\ln(x+c)}$ 在 $(1,+\infty)$ 严格递增。右边 $\frac{\ln(a+c)}{\ln(b+c)}<1$ 由 $a+c<b+c$ 及 $\ln x$ 递增立即得到。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（等价变形）：}] 原不等式左边 $\frac{\ln a}{\ln b}<\frac{\ln(a+c)}{\ln(b+c)}$ 可交叉相乘（分母正）得：
+			\[
+				\ln a\cdot\ln(b+c)<\ln b\cdot\ln(a+c).
+			\]
+			整理为
+			\[
+				\frac{\ln a}{\ln(a+c)}<\frac{\ln b}{\ln(b+c)}.
+			\]
+			故定义函数 $H(x)=\dfrac{\ln x}{\ln(x+c)},\quad x>1$。
+			\par\textbf{理由：} 由 $a,b>1$ 及 $c>0$ 知 $\ln(a+c),\ln(b+c)>0$，交叉相乘不等号方向不变。
+
+		\item[\textbf{步骤二（求导）：}] 对 $H(x)$ 求导：
+			\[
+				H'(x)=\frac{\frac{1}{x}\ln(x+c)-\ln x\cdot\frac{1}{x+c}}{[\ln(x+c)]^{2}}.
+			\]
+			\par\textbf{理由：} 商数求导法则 $(u/v)'=(u'v-uv')/v^{2}$。
+
+		\item[\textbf{步骤三（判号）：}] 考虑分子：
+			\[
+				M(x)=\frac{\ln(x+c)}{x}-\frac{\ln x}{x+c}.
+			\]
+			通分（不重要），需判断 $M(x)>0$。由于 $x+c>x>1$，考察函数 $\psi(t)=t\ln t$。因为 $\psi'(t)=1+\ln t>0$（$t>1$），故 $\psi(t)$ 严格递增。由 $x+c>x$ 得
+			\[
+				(x+c)\ln(x+c)>x\ln x.
+			\]
+			两边除以 $x(x+c)$ 得
+			\[
+				\frac{\ln(x+c)}{x}>\frac{\ln x}{x+c}.
+			\]
+			因此 $M(x)>0$，从而 $H'(x)>0$。
+			\par\textbf{理由：} 分子正负决定导数符号，利用 $\psi(t)$ 单调性比较。
+
+		\item[\textbf{步骤四（单调性应用）：}] $H'(x)>0$ 说明 $H(x)$ 在 $(1,+\infty)$ 严格递增。因为 $a<b$，所以 $H(a)<H(b)$，即
+			\[
+				\frac{\ln a}{\ln(a+c)}<\frac{\ln b}{\ln(b+c)}.
+			\]
+			交叉乘回原式即得
+			\[
+				\frac{\ln a}{\ln b}<\frac{\ln(a+c)}{\ln(b+c)}.
+			\]
+			\par\textbf{理由：} 单调递增定义与交叉乘的可逆性。
+
+		\item[\textbf{步骤五（右边不等式）：}] 由 $a<b$ 及 $c>0$ 得 $a+c<b+c$。又 $\ln x$ 在 $(0,+\infty)$ 递增，故 $\ln(a+c)<\ln(b+c)$。因此
+			\[
+				\frac{\ln(a+c)}{\ln(b+c)}<1.
+			\]
+			\par\textbf{理由：} 对数函数单调性。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	综合左右两部分，原不等式链 $\dfrac{\ln a}{\ln b}<\dfrac{\ln(a+c)}{\ln(b+c)}<1$ 得证。左边依靠构造函数 $H(x)$ 单调性，右边直接利用真数大小。
+\end{proofbox}

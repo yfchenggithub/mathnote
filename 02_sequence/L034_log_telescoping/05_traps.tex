@@ -1,44 +1,107 @@
 \begin{trapbox}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（底数条件）}}]
-		      忽略 \(a>0\) 且 \(a\neq1\)，错误地在 \(a\leq0\) 或 \(a=1\) 时使用该恒等式。
-		\item[\textbf{\textcolor{CTrap}{正确理解（对数前提）：}}]
-		      恒等式成立的底数条件是 \(a>0\) 且 \(a\neq1\)，否则对数没有意义。
-		\item[\textbf{\textcolor{CTrap}{错因分析（对数定义）：}}]
-		      对底数范围理解不清，误以为 \(a\) 可以为任意实数。
+		\item[\textbf{\textcolor{CTrap}{易错点一（只检查左边真数，不检查裂项后的真数）}}]
+		      只看到
+		      \[
+			      1+\frac{1}{n}>0
+		      \]
+		      就直接裂项，却没有检查 \(\log_a n\) 与 \(\log_a(n+1)\) 是否有意义。
+
+		\item[\textbf{\textcolor{CTrap}{正确理解（裂项要求更严格）：}}]
+		      在实数范围内写成
+		      \[
+			      \log_a(n+1)-\log_a n
+		      \]
+		      时，必须有 \(n>0\)。
+
+		\item[\textbf{\textcolor{CTrap}{反例说明：}}]
+		      当 \(n=-2\) 时，左边
+		      \[
+			      \log_a\!\left(1-\frac{1}{2}\right)
+			      =\log_a\!\left(\frac{1}{2}\right)
+		      \]
+		      有意义，但右边的 \(\log_a(-1)\) 与 \(\log_a(-2)\) 在实数范围内都没有意义，不能进行这种裂项。
 	\end{description}
 
 	\medskip
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（法则混淆）}}]
-		      误将 \(\log_a\!\left(1+\frac{1}{n}\right)\) 拆成
+		\item[\textbf{\textcolor{CTrap}{易错点二（底数条件遗漏）}}]
+		      忽略 \(a>0\) 且 \(a\neq1\)，在非法底数下套用对数公式。
+
+		\item[\textbf{\textcolor{CTrap}{正确理解（实数对数的底数条件）：}}]
+		      对数底数必须满足
 		      \[
-			      \log_a1+\log_a\frac{1}{n},
+			      a>0,
+			      \qquad
+			      a\neq1.
 		      \]
-		      即错误使用对数乘法法则。
-		\item[\textbf{\textcolor{CTrap}{正确理解（正确裂项）：}}]
-		      正确裂项为
+	\end{description}
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点三（把和拆成对数之和）}}]
+		      错误地写成
 		      \[
-			      \log_a\!\left(1+\frac{1}{n}\right)=\log_a(n+1)-\log_a n,
+			      \log_a\!\left(1+\frac{1}{n}\right)
+			      =\log_a1+\log_a\!\left(\frac{1}{n}\right).
 		      \]
-		      不能把 \(\log(M+N)\) 拆成 \(\log M+\log N\)。
-		\item[\textbf{\textcolor{CTrap}{错因分析（法则混淆）：}}]
-		      对数公式中，只有
+
+		\item[\textbf{\textcolor{CTrap}{正确理解（先通分，再用商法则）：}}]
+		      正确过程是
+		      \[
+			      1+\frac{1}{n}=\frac{n+1}{n},
+		      \]
+		      从而
+		      \[
+			      \log_a\!\left(1+\frac{1}{n}\right)
+			      =\log_a(n+1)-\log_a n.
+		      \]
+
+		\item[\textbf{\textcolor{CTrap}{错因分析（法则对象混淆）：}}]
+		      对数可以拆乘积与商：
 		      \[
 			      \log_a(MN)=\log_aM+\log_aN,
 			      \qquad
-			      \log_a\frac{M}{N}=\log_aM-\log_aN,
+			      \log_a\!\left(\frac{M}{N}\right)=\log_aM-\log_aN,
 		      \]
-		      不存在 \(\log_a(M+N)=\log_aM+\log_aN\)。
+		      但不存在
+		      \[
+			      \log_a(M+N)=\log_aM+\log_aN.
+		      \]
 	\end{description}
 
 	\medskip
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（求和遗漏）}}]
-		      在数列求和时，裂项后展开不完整，导致中间项抵消出错，或忘记 \(\log_a1=0\)。
-		\item[\textbf{\textcolor{CTrap}{正确理解（完全展开）：}}]
-		      必须逐项写出并观察抵消规律，确保首末项正确。
-		\item[\textbf{\textcolor{CTrap}{错因分析（过程跳步）：}}]
-		      为了节省步骤，直接给出结果，容易导致首项、末项或抵消方向出错。
+		\item[\textbf{\textcolor{CTrap}{易错点四（裂项方向写反）}}]
+		      将
+		      \[
+			      \log_a\!\left(\frac{n+1}{n}\right)
+		      \]
+		      错写成 \(\log_a n-\log_a(n+1)\)。
+
+		\item[\textbf{\textcolor{CTrap}{正确理解（分子在前，分母在后）：}}]
+		      \[
+			      \log_a\!\left(\frac{n+1}{n}\right)
+			      =\log_a(n+1)-\log_a n.
+		      \]
+		      记忆方式：\textbf{商的对数等于“分子对数减分母对数”}。
+	\end{description}
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点五（求和端点错误）}}]
+		      求
+		      \[
+			      \sum_{k=p}^{q}\log_a\!\left(1+\frac{1}{k}\right)
+		      \]
+		      时，误写成 \(\log_a q-\log_a p\)，或忘记下限不一定是 \(1\)。
+
+		\item[\textbf{\textcolor{CTrap}{正确理解（保留前负后正）：}}]
+		      裂项后最前面保留 \(-\log_a p\)，最后面保留 \(\log_a(q+1)\)，所以
+		      \[
+			      \sum_{k=p}^{q}\log_a\!\left(1+\frac{1}{k}\right)
+			      =\log_a(q+1)-\log_a p
+			      =\log_a\!\left(\frac{q+1}{p}\right).
+		      \]
 	\end{description}
 \end{trapbox}

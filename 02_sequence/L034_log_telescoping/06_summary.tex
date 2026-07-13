@@ -1,20 +1,53 @@
 \begin{summarybox}
 	\textbf{\textcolor{CSummary}{一句话核心}}
 
-	将对数分式 \(\log_a\!\left(1+\frac{1}{n}\right)\) 拆成相邻整数对数差 \(\log_a(n+1)-\log_a n\)，用于数列裂项求和。
+	先把
+	\[
+		1+\frac{1}{n}
+	\]
+	看成相邻整数之比 \(\frac{n+1}{n}\)，再用对数商法则拆成
+	\[
+		\log_a(n+1)-\log_a n,
+	\]
+	从而在连续求和中实现裂项相消。
+
+	\medskip
+	\textbf{\textcolor{CSummary}{核心公式}}
+	\[
+		\boxed{
+			\log_a\!\left(1+\frac{1}{n}\right)
+			=\log_a(n+1)-\log_a n
+		}.
+	\]
+
+	若 \(p,q\in\mathbb N^*\) 且 \(p\leq q\)，则
+	\[
+		\boxed{
+			\sum_{k=p}^{q}\log_a\!\left(1+\frac{1}{k}\right)
+			=\log_a\!\left(\frac{q+1}{p}\right)
+		}.
+	\]
+
+	特别地，
+	\[
+		\sum_{k=1}^{q}\log_a\!\left(1+\frac{1}{k}\right)
+		=\log_a(q+1).
+	\]
 
 	\medskip
 	\textbf{\textcolor{CSummary}{使用条件}}
 	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{条件 1（底数要求）：} \(a>0\) 且 \(a\neq1\)。
-		\item \textbf{条件 2（真数结构）：} 真数必须能写成 \(1+\frac{1}{n}\)，也就是 \(\frac{n+1}{n}\) 的形式，其中 \(n\in\mathbb N^*\)。
+		\item \textbf{底数条件：} \(a>0\) 且 \(a\neq1\)。
+		\item \textbf{恒等式定义域：} 按实数对数讨论时要求 \(n>0\)。
+		\item \textbf{数列场景：} 通常取 \(n\in\mathbb N^*\)。
 	\end{itemize}
 
 	\medskip
 	\textbf{\textcolor{CSummary}{关键提醒}}
 	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{易错点（裂项方向）：} 裂项结果是 \(\log_a(n+1)-\log_a n\)，不是加法，不要与乘法法则混淆。
-		\item \textbf{检查项（定义域）：} 使用前检查底数范围，并确认 \(\log_a(n+1)\) 与 \(\log_a n\) 均有定义。
-		\item \textbf{检查项（求和首末项）：} 求和时中间项抵消，最后通常只剩首末两项，别漏掉 \(\log_a1=0\)。
+		\item \textbf{先通分：} \(1+\frac{1}{n}=\frac{n+1}{n}\)。
+		\item \textbf{商法则方向：} 分子对数减分母对数。
+		\item \textbf{不能拆加法：} \(\log_a(M+N)\) 不能拆成 \(\log_aM+\log_aN\)。
+		\item \textbf{求和看端点：} 下限为 \(p\)、上限为 \(q\) 时，结果是 \(\log_a(q+1)-\log_a p\)。
 	\end{itemize}
 \end{summarybox}

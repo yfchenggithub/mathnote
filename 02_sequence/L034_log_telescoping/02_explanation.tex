@@ -1,55 +1,107 @@
 \begin{explanationbox}
 	\textbf{\textcolor{CExplanation}{一句话直觉}}
 
-	对数中的分式 \(1+\frac{1}{n}\) 可以写成 \(\frac{n+1}{n}\)，再用对数商法则拆成相邻整数的对数差。
+	关键不在“计算” \(1+\frac{1}{n}\)，而在于先看出
+	\[
+		1+\frac{1}{n}=\frac{n+1}{n},
+	\]
+	再利用对数把“除法”变成“减法”。
 
 	\medskip
 	\textbf{\textcolor{CExplanation}{核心拆解}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（对数商法则）：}]
-		      根据
+		\item[\textbf{要点一（先识别相邻整数之比）：}]
 		      \[
-			      \log_a\frac{M}{N}=\log_a M-\log_a N
-			      \quad (M>0,\;N>0),
+			      1+\frac{1}{n}
+			      =\frac{n+1}{n}.
 		      \]
-		      将左边分式看成商 \(\frac{n+1}{n}\)。
+		      分子与分母恰好相差 \(1\)，这是后续连续求和能够相消的结构来源。
 
-		\item[\textbf{要点二（分式恒等变形）：}]
+		\item[\textbf{要点二（再使用对数商法则）：}]
+		      当 \(a>0\)、\(a\neq1\)，且 \(M>0\)、\(N>0\) 时，
 		      \[
-			      1+\frac{1}{n}=\frac{n+1}{n}.
+			      \log_a\!\left(\frac{M}{N}\right)
+			      =\log_a M-\log_a N.
 		      \]
-		      这是实现对数裂项的前提。
+		      因此
+		      \[
+			      \log_a\!\left(\frac{n+1}{n}\right)
+			      =\log_a(n+1)-\log_a n.
+		      \]
+
+		\item[\textbf{要点三（定义域必须检查）：}]
+		      裂项后的两个真数 \(n\) 与 \(n+1\) 都必须为正，因此本结论按实数对数讨论时要求 \(n>0\)。
+		      在数列题中通常直接取 \(n\in\mathbb N^*\)。
 	\end{description}
 
 	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（数轴比例）}}
+	\textbf{\textcolor{CExplanation}{比例直觉（相对增量）}}
 
-	在数轴上，从点 \(n\) 到 \(n+1\) 的长度为 \(1\)，\(\frac{1}{n}\) 可理解为这段增量相对于 \(n\) 的比例。恒等式把“比例的对数”转化为“两个位置的对数差”，体现了对数把乘除关系转化为加减关系的本质。
+	从 \(n\) 增加到 \(n+1\)，绝对增量是 \(1\)，相对于原数 \(n\) 的增长比例是
+	\[
+		\frac{n+1}{n}=1+\frac{1}{n}.
+	\]
+	所以左边可以理解为“从 \(n\) 到 \(n+1\) 的倍率的对数”，右边则是两个对数值之差。
 
 	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（运算降级）}}
+	\textbf{\textcolor{CExplanation}{为什么能够裂项相消}}
 
-	它把对数内的除法转化为对数外的减法，把复杂的分式对数变成相邻两项之差，为后续累加消去提供基础。
+	令
+	\[
+		u_k=\log_a k,
+	\]
+	则
+	\[
+		\log_a\!\left(1+\frac{1}{k}\right)
+		=u_{k+1}-u_k.
+	\]
+	连续求和时形成
+	\[
+		(u_{p+1}-u_p)+(u_{p+2}-u_{p+1})+\cdots+(u_{q+1}-u_q),
+	\]
+	中间项成对抵消，只剩
+	\[
+		u_{q+1}-u_p
+		=\log_a(q+1)-\log_a p.
+	\]
 
 	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（数列裂项求和）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（直接裂项）：} 通项为 \(\log_a\!\left(1+\frac{1}{k}\right)\) 时，可直接拆为 \(\log_a(k+1)-\log_a k\)。
-		\item \textbf{考法二（累加消去）：} 求和时相邻项中的 \(\log_a(k+1)\) 与 \(-\log_a(k+1)\) 互相抵消，只剩首末项。
-	\end{itemize}
+	\textbf{\textcolor{CExplanation}{等价的乘积视角}}
+
+	也可以先使用对数和公式：
+	\[
+		\begin{aligned}
+			\sum_{k=p}^{q}\log_a\!\left(1+\frac{1}{k}\right)
+			 & =\log_a\!\left[
+				\prod_{k=p}^{q}\left(1+\frac{1}{k}\right)
+			\right]                                 \\
+			 & =\log_a\!\left[
+				\frac{p+1}{p}\cdot\frac{p+2}{p+1}\cdots\frac{q+1}{q}
+			\right]                                 \\
+			 & =\log_a\!\left(\frac{q+1}{p}\right).
+		\end{aligned}
+	\]
+	这里是乘积中的分子、分母连续约分。
 
 	\medskip
 	\textbf{\textcolor{CExplanation}{顿悟点}}
 
-	看到形如 \(\log_a\!\left(1+\frac{1}{n}\right)\) 的式子，第一反应不是计算分式值，而是把它写成
+	看到
 	\[
+		\log_a\!\left(1+\frac{1}{n}\right),
+	\]
+	第一反应应当是
+	\[
+		1+\frac{1}{n}=\frac{n+1}{n}
+		\quad\Longrightarrow\quad
 		\log_a(n+1)-\log_a n.
 	\]
 
 	\medskip
 	\textbf{\textcolor{CExplanation}{使用场景}}
 	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（数列求和）：} 求 \(\displaystyle\sum_{k=1}^{n}\log_a\!\left(1+\frac{1}{k}\right)\) 时，裂项后化简为 \(\log_a(n+1)\)。
-		\item \textbf{场景二（简化表达式）：} 对数代数式化简，例如将 \(\log_a\frac{n+1}{n}\) 拆开再合并。
+		\item \textbf{数列求和：} 通项含有 \(\log_a\!\left(1+\frac{1}{k}\right)\)，可转化为相邻两项之差。
+		\item \textbf{对数式化简：} 将 \(\log_a\!\left(\frac{n+1}{n}\right)\) 拆开，与其他对数项合并或抵消。
+		\item \textbf{乘积计算：} 将连续乘积 \(\prod\left(1+\frac{1}{k}\right)\) 转化为对数和，或反向由对数和识别连乘约分。
 	\end{itemize}
 \end{explanationbox}

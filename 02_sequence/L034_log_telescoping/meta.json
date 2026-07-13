@@ -3,18 +3,15 @@
   "module": "sequence",
   "core": {
     "title": "对数型裂项恒等式",
-    "alias": [
-      "对数分式裂项",
-      "对数差分",
-      "对数恒等裂项"
-    ],
-    "summary": "将对数分式 $\\log_a\\!\\left(1+\\frac{1}{n}\\right)$ 拆成 $\\log_a(n+1)-\\log_a n$，用于数列裂项求和。",
+    "alias": ["对数分式裂项", "对数差分", "对数恒等裂项", "对数望远镜求和"],
+    "summary": "将对数分式 $\\log_a\\!\\left(1+\\frac{1}{n}\\right)$ 化为 $\\log_a(n+1)-\\log_a n$，把对数通项转化为相邻两项之差，用于裂项相消求和。",
     "difficulty": 2,
     "category": "数列",
     "tags": [
       "对数运算法则",
       "数列求和",
       "裂项相消",
+      "望远镜求和",
       "恒等变形",
       "对数恒等式"
     ]
@@ -27,6 +24,7 @@
       "log裂项",
       "数列裂项",
       "对数恒等式",
+      "望远镜求和",
       "累加相消",
       "分式对数",
       "对数运算",
@@ -39,21 +37,24 @@
       "对数拆分",
       "对数差分求和",
       "logan+1减logn",
-      "对数减法裂项"
+      "对数减法裂项",
+      "对数望远镜公式"
     ],
     "intents": [
       "求数列和",
       "化简对数表达式",
       "裂项后累加",
       "证明恒等式",
-      "计算对数累加"
+      "计算对数累加",
+      "判断对数裂项定义域"
     ],
     "query_templates": [
       "对数裂项公式是什么",
       "log(1+1/n)怎么拆",
       "对数裂项求和例题",
       "数列裂项相消对数",
-      "log_a(n+1)-log_a n"
+      "log_a(n+1)-log_a n",
+      "对数裂项为什么要求n大于0"
     ],
     "ocrKeywords": [
       "log",
@@ -62,7 +63,8 @@
       "n+1",
       "裂项",
       "求和",
-      "数列"
+      "数列",
+      "望远镜"
     ],
     "latex_patterns": "\\log_a\\!\\left(1+\\frac{1}{n}\\right)=\\log_a(n+1)-\\log_a n",
     "formulaTokens": [
@@ -71,7 +73,9 @@
       "\\log_a n",
       "\\log_a(n+1)-\\log_a n",
       "1+\\frac{1}{n}",
-      "\\frac{n+1}{n}"
+      "\\frac{n+1}{n}",
+      "\\sum_{k=p}^{q}\\log_a\\!\\left(1+\\frac{1}{k}\\right)",
+      "\\log_a\\!\\left(\\frac{q+1}{p}\\right)"
     ],
     "pinyin": "duishu liexiang hengdengshi",
     "pinyinAbbr": "dslxhds"
@@ -91,41 +95,40 @@
   "math": {
     "core_formula": "\\log_a\\!\\left(1+\\frac{1}{n}\\right)=\\log_a(n+1)-\\log_a n",
     "related_formulas": [
-      "\\log_a\\!\\left(\\frac{n}{n+1}\\right)=\\log_a n-\\log_a(n+1)"
+      "\\log_a\\!\\left(\\frac{n}{n+1}\\right)=\\log_a n-\\log_a(n+1)",
+      "\\sum_{k=p}^{q}\\log_a\\!\\left(1+\\frac{1}{k}\\right)=\\log_a\\!\\left(\\frac{q+1}{p}\\right)",
+      "\\sum_{k=1}^{m}\\log_a\\!\\left(1+\\frac{1}{k}\\right)=\\log_a(m+1)"
     ],
     "variables": {
-      "a": "底数，且 $a>0$，$a\\neq 1$",
-      "n": "正整数 $\\mathbb{N}^*$"
+      "a": "对数底数，满足 $a>0$ 且 $a\\neq1$",
+      "n": "变量；恒等式按实数对数讨论时要求 $n>0$，数列场景通常取 $n\\in\\mathbb N^*$",
+      "p": "连续求和的起始下标，$p\\in\\mathbb N^*$",
+      "q": "连续求和的终止下标，$q\\in\\mathbb N^*$ 且 $p\\leq q$"
     },
-    "conditions": "底数满足 $a>0$ 且 $a\\neq 1$；指数 $n$ 为正整数。",
-    "conclusions": "裂项后累加可消去中间项，得到首末差形式：$\\displaystyle\\sum_{k=1}^{m}\\log_a\\!\\left(1+\\frac{1}{k}\\right)=\\log_a(m+1)-\\log_a 1=\\log_a(m+1)$。"
+    "conditions": "底数满足 $a>0$ 且 $a\\neq1$；裂项恒等式要求 $n>0$，数列场景通常取 $n\\in\\mathbb N^*$。连续求和时 $p,q\\in\\mathbb N^*$ 且 $p\\leq q$。",
+    "conclusions": "裂项后中间项相消：$\\displaystyle\\sum_{k=p}^{q}\\log_a\\!\\left(1+\\frac{1}{k}\\right)=\\log_a(q+1)-\\log_a p=\\log_a\\!\\left(\\frac{q+1}{p}\\right)$。特别地，$p=1$ 时结果为 $\\log_a(q+1)$。"
   },
   "content": {
-    "statement": "若 $a>0$ 且 $a\\neq 1$，$n$ 为正整数，则 $\\log_a\\bigl(1+\\frac{1}{n}\\bigr)=\\log_a(n+1)-\\log_a n$。该恒等式可将含对数的分式数列通项裂为两项之差，常用于累加相消求和。",
+    "statement": "若 $a>0$、$a\\neq1$ 且 $n>0$，则 $\\log_a\\!\\left(1+\\frac{1}{n}\\right)=\\log_a(n+1)-\\log_a n$。在数列问题中通常取 $n\\in\\mathbb N^*$，并利用相邻项抵消完成求和。",
     "derivation": [
-      "将 $1+\\frac{1}{n}$ 通分得 $\\frac{n+1}{n}$。",
-      "由对数商法则：$\\log_a\\frac{n+1}{n}=\\log_a(n+1)-\\log_a n$。",
-      "合并即得 $\\log_a\\!\\left(1+\\frac{1}{n}\\right)=\\log_a(n+1)-\\log_a n$。"
+      "由 $n>0$ 可知 $n$、$n+1$ 以及 $\\frac{n+1}{n}$ 均为正数，所有对数都有意义。",
+      "将 $1+\\frac{1}{n}$ 通分为 $\\frac{n+1}{n}$。",
+      "由对数商法则，$\\log_a\\!\\left(\\frac{n+1}{n}\\right)=\\log_a(n+1)-\\log_a n$。",
+      "连续求和时，$\\log_a(k+1)$ 与下一项中的 $-\\log_a(k+1)$ 相消，只保留首末项。"
     ],
-    "intuition": "对数将除法转化为减法，而 $1+\\frac{1}{n}=\\frac{n+1}{n}$ 恰好是相邻整数的比值，因此变成了两个相邻整数对数之差。",
+    "intuition": "$1+\\frac{1}{n}=\\frac{n+1}{n}$ 表示从 $n$ 增长到 $n+1$ 的倍率。对数把这个倍率的除法结构转化为两个对数值之差。",
     "common_tricks": [
-      "注意裂项方向是减号，不要写成加号。",
-      "若真数是 $\\frac{n}{n+1}$，则裂项为 $\\log_a n-\\log_a(n+1)$，符号相反。",
-      "常用于形如 $\\sum_{k=1}^{m}\\log_a(1+\\frac{1}{k})$ 的数列求和，累加后中间项抵消。",
-      "也可用于化简组合对数表达式，例如 $\\log_2(1+\\frac{1}{n})+\\log_2(1+\\frac{1}{n+1})$ 等。"
+      "先识别 $1+\\frac{1}{n}=\\frac{n+1}{n}$，再使用对数商法则。",
+      "裂项方向遵循‘分子对数减分母对数’，不能写反。",
+      "不能把 $\\log_a(M+N)$ 拆成 $\\log_aM+\\log_aN$。",
+      "不能只检查左边真数为正；裂项后的 $n$ 与 $n+1$ 也必须为正，因此要求 $n>0$。",
+      "连续求和 $\\sum_{k=p}^{q}$ 的结果是 $\\log_a(q+1)-\\log_a p$，注意上下限端点。",
+      "若真数是 $\\frac{n}{n+1}$，则裂项为 $\\log_a n-\\log_a(n+1)$。"
     ]
   },
   "usage": {
-    "scenarios": [
-      "数列裂项求和",
-      "对数运算化简",
-      "累加求和消去中间项"
-    ],
-    "problem_types": [
-      "数列求和",
-      "对数计算化简",
-      "恒等式证明"
-    ],
+    "scenarios": ["数列裂项求和", "对数运算化简", "望远镜求和", "连续乘积约分"],
+    "problem_types": ["数列求和", "对数计算化简", "恒等式证明", "定义域判断"],
     "exam_frequency": 0.4,
     "exam_score": 5
   },
@@ -142,24 +145,26 @@
   },
   "shareConfig": {
     "title": "对数型裂项恒等式：数列求和利器",
-    "shareDesc": "适用于数列求和或对数化简题型，将分式对数转化为相邻整数对数差，快速实现累加相消，减少运算步骤。"
+    "shareDesc": "把相邻整数之比的对数拆成相邻两项之差，通过裂项相消快速完成对数数列求和。"
   },
   "relations": {
     "prerequisites": [
-      "对数概念",
+      "对数概念与定义域",
       "对数运算法则（商法则）",
-      "数列求和基础"
+      "数列求和基础",
+      "裂项相消"
     ],
     "related_ids": [],
-    "similar": "类似分数裂项 $\\frac{1}{n(n+1)}=\\frac{1}{n}-\\frac{1}{n+1}$，但这里是对数形式。"
+    "similar": "类似分式裂项 $\\frac{1}{n(n+1)}=\\frac{1}{n}-\\frac{1}{n+1}$：两者都把通项写成相邻两项之差，再利用望远镜相消。"
   },
   "meta": {
-    "version": 1,
-    "source": "AI生成",
-    "created_at": "2026-06-27"
+    "version": 2,
+    "source": "AI生成并校订",
+    "created_at": "2026-06-27",
+    "updated_at": "2026-07-13"
   },
   "isPro": 0,
-  "remarks": "",
+  "remarks": "已修正变量定义、裂项定义域与连续求和端点公式。",
   "knowledgeNode": "数列-求和技巧-裂项相消",
-  "altNodes": "代数-式的变形-恒等变形"
+  "altNodes": "代数-对数运算-恒等变形"
 }
