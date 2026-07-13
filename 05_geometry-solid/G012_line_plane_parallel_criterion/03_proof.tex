@@ -1,30 +1,126 @@
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+    \textbf{\textcolor{CProof}{证明思路}}
 
-	从直线与平面平行的定义出发，使用反证法：假设$a$与$\alpha$相交，推出与已知条件矛盾。
+    由两条平行直线 $a,b$ 构造辅助平面 $\beta$，再使用反证法说明直线 $a$ 不可能与平面 $\alpha$ 相交。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（构造辅助平面）：}] 由$a\parallel b$，两条平行直线可确定一个平面，记为$\beta$。
-			\par\textbf{理由：}
-			经过两条平行直线有且仅有一个平面（平行公理）。
+    \medskip
+    \textbf{\textcolor{CProof}{已知条件}}
 
-		\item[\textbf{步骤二（假设相交）：}] 假设$a$与平面$\alpha$有一个公共点$P$，即$P\in a\cap\alpha$。
-			\par\textbf{理由：}
-			采用反证法，先假设结论的反面成立。
+    \[
+        b\subset\alpha,
+        \qquad
+        a\not\subset\alpha,
+        \qquad
+        a\parallel b.
+    \]
 
-		\item[\textbf{步骤三（推出点$P$在$b$上）：}] 因为$a\subset\beta$，$P\in a$，所以$P\in\beta$；又$P\in\alpha$，故$P\in\alpha\cap\beta$。而$\alpha\cap\beta=b$（因为$b\subset\alpha$且$b\subset\beta$，且在$\beta$内$a\parallel b$，所以$\alpha$与$\beta$的交线就是$b$）。因此$P\in b$。
-			\par\textbf{理由：}
-			两平面相交，交线唯一。
+    \textbf{求证：}
+    \[
+        a\parallel\alpha.
+    \]
 
-		\item[\textbf{步骤四（推出矛盾）：}] $P\in a$且$P\in b$，所以$a$与$b$相交于点$P$，这与已知$a\parallel b$矛盾。
-			\par\textbf{理由：}
-			平行线定义：同一平面内两条平行直线没有公共点。
-	\end{description}
+    \medskip
+    \textbf{\textcolor{CProof}{正式证明}}
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
+    \begin{description}[
+        style=nextline,
+        leftmargin=2.8em,
+        labelsep=0.5em,
+        itemsep=0.55em
+    ]
+        \item[\textbf{步骤一（构造辅助平面）：}]
+        因为 $a\parallel b$，所以两条平行直线 $a,b$ 可以确定一个平面，记为 $\beta$。
 
-	故假设不成立，直线$a$与平面$\alpha$无公共点，因此$a\parallel\alpha$。证毕。
+        因此
+        \[
+            a\subset\beta,
+            \qquad
+            b\subset\beta.
+        \]
+
+        \item[\textbf{步骤二（确定两平面的交线）：}]
+        已知
+        \[
+            b\subset\alpha,
+            \qquad
+            b\subset\beta.
+        \]
+
+        又因为
+        \[
+            a\subset\beta,
+            \qquad
+            a\not\subset\alpha,
+        \]
+        所以平面 $\alpha$ 与平面 $\beta$ 不重合。
+
+        两个不同平面都包含直线 $b$，因此它们的交线为 $b$，即
+        \[
+            \alpha\cap\beta=b.
+        \]
+
+        \item[\textbf{步骤三（反设线面相交）：}]
+        假设直线 $a$ 与平面 $\alpha$ 相交于点 $P$。
+
+        则
+        \[
+            P\in a,
+            \qquad
+            P\in\alpha.
+        \]
+
+        因为
+        \[
+            a\subset\beta,
+        \]
+        所以
+        \[
+            P\in\beta.
+        \]
+
+        从而
+        \[
+            P\in\alpha\cap\beta.
+        \]
+
+        又因为
+        \[
+            \alpha\cap\beta=b,
+        \]
+        所以
+        \[
+            P\in b.
+        \]
+
+        \item[\textbf{步骤四（推出矛盾）：}]
+        由
+        \[
+            P\in a,
+            \qquad
+            P\in b,
+        \]
+        可知直线 $a$ 与直线 $b$ 相交。
+
+        这与已知条件
+        \[
+            a\parallel b
+        \]
+        矛盾。
+    \end{description}
+
+    \medskip
+    \textbf{\textcolor{CProof}{结论}}
+
+    因此，直线 $a$ 与平面 $\alpha$ 没有公共点。
+
+    又因为
+    \[
+        a\not\subset\alpha,
+    \]
+    所以由直线与平面平行的定义可得
+    \[
+        a\parallel\alpha.
+    \]
+
+    证毕。
 \end{proofbox}

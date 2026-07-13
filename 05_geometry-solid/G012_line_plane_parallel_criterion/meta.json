@@ -8,7 +8,7 @@
       "线面平行的判定",
       "线面平行判定"
     ],
-    "summary": "平面外的一条直线如果平行于平面内的一条直线，那么这条直线与平面平行。",
+    "summary": "平面外的一条直线，如果平行于平面内的一条直线，那么该直线与这个平面平行。",
     "difficulty": 2,
     "category": "立体几何",
     "tags": [
@@ -57,18 +57,19 @@
     "ocrKeywords": [
       "直线不在平面内",
       "直线在平面内",
-      "平行",
+      "两直线平行",
+      "线面平行",
       "平面"
     ],
     "latex_patterns": [
-      "a \\not\\subset \\alpha",
       "b \\subset \\alpha",
+      "a \\not\\subset \\alpha",
       "a \\parallel b",
       "a \\parallel \\alpha"
     ],
     "formulaTokens": [
-      "a \\not\\subset \\alpha",
       "b \\subset \\alpha",
+      "a \\not\\subset \\alpha",
       "a \\parallel b",
       "a \\parallel \\alpha"
     ],
@@ -88,41 +89,59 @@
     "success_rate": 0
   },
   "math": {
-    "core_formula": "a \\not\\subset \\alpha,\\\\; b \\subset \\alpha,\\\\; a \\parallel b \\\\;\\Longrightarrow\\\\; a \\parallel \\alpha",
-    "related_formulas": [],
+    "core_formula": "\\left.\\begin{aligned} b &\\subset \\alpha,\\\\ a &\\not\\subset \\alpha,\\\\ a &\\parallel b \\end{aligned}\\right\\}\\quad\\Longrightarrow\\quad a\\parallel\\alpha",
+    "related_formulas": [
+      "\\alpha\\cap\\beta=b",
+      "a\\subset\\beta",
+      "a\\parallel b"
+    ],
     "variables": [
       "a",
       "b",
-      "\\\\alpha"
+      "\\alpha",
+      "\\beta"
     ],
     "conditions": [
-      "$b \\\\subset \\\\alpha$：直线$b$在平面$\\\\alpha$内。",
-      "$a \\\\not\\\\subset \\\\alpha$：直线$a$不在平面$\\\\alpha$内。",
-      "$a \\\\parallel b$：$a$与$b$平行。"
+      "$b \\subset \\alpha$：直线 $b$ 在平面 $\\alpha$ 内。",
+      "$a \\not\\subset \\alpha$：直线 $a$ 不在平面 $\\alpha$ 内。",
+      "$a \\parallel b$：直线 $a$ 与直线 $b$ 平行。"
     ],
     "conclusions": [
-      "$a \\\\parallel \\\\alpha$：直线$a$与平面$\\\\alpha$平行。"
+      "$a \\parallel \\alpha$：直线 $a$ 与平面 $\\alpha$ 平行。"
     ]
   },
   "content": {
     "statement": "若直线 $a$ 不在平面 $\\alpha$ 内，直线 $b$ 在平面 $\\alpha$ 内，且 $a \\parallel b$，则 $a \\parallel \\alpha$。",
     "derivation": [
-      "假设 $a$ 与 $\\alpha$ 相交，设交点为 $P$。",
-      "由 $a \\parallel b$ 可知 $P$ 也在直线 $b$ 上。",
-      "但 $b \\subset \\alpha$，故 $P \\in \\alpha$，与 $a \\not\\subset \\alpha$（直线 $a$ 不在平面 $\\alpha$ 内）矛盾，所以 $a \\parallel \\alpha$。"
+      "因为 $a \\parallel b$，所以两条平行直线 $a,b$ 可以确定一个平面，记为 $\\beta$。",
+      "于是 $a \\subset \\beta$，$b \\subset \\beta$。又因为 $b \\subset \\alpha$，所以直线 $b$ 同时位于平面 $\\alpha$ 与平面 $\\beta$ 内。",
+      "由 $a \\not\\subset \\alpha$ 可知平面 $\\alpha$ 与平面 $\\beta$ 不重合，因此两个平面的交线为 $b$，即 $\\alpha \\cap \\beta=b$。",
+      "假设直线 $a$ 与平面 $\\alpha$ 相交于点 $P$。因为 $a \\subset \\beta$，所以 $P \\in \\beta$；又因为 $P \\in \\alpha$，所以 $P \\in \\alpha \\cap \\beta=b$。",
+      "于是 $P \\in a$ 且 $P \\in b$，说明直线 $a$ 与直线 $b$ 相交，这与 $a \\parallel b$ 矛盾。",
+      "因此直线 $a$ 与平面 $\\alpha$ 没有公共点。再结合 $a \\not\\subset \\alpha$，可得 $a \\parallel \\alpha$。"
     ],
-    "intuition": "如果 a 与 α 内一条直线 b 平行，那么 a 不可能与 α 相交，因为交点在 b 上会导致 a 也在 α 内。",
+    "intuition": "两条平行直线 $a,b$ 确定平面 $\\beta$。平面 $\\alpha$ 与平面 $\\beta$ 的交线是 $b$，而 $a$ 在平面 $\\beta$ 内且平行于交线 $b$，所以 $a$ 不会穿过平面 $\\alpha$。",
     "common_tricks": [
-      "在平面内找一条与已知直线平行的直线，常用中位线或平行四边形对边平行构造。",
-      "连接中点或对角线构造中位线是常见手段。",
-      "必须检查直线不在平面内的条件不能遗漏。",
-      "在几何体中，优先寻找中点、平行四边形等平行关系。"
-    ]
+      "证明线面平行时，先在目标平面内寻找一条与目标直线平行的参照直线。",
+      "常利用三角形中位线、平行四边形对边或棱柱对应棱构造平行关系。",
+      "除了证明两条直线平行，还必须说明参照直线在目标平面内。",
+      "必须检查目标直线不在目标平面内，三个条件缺一不可。",
+      "在几何体中优先寻找中点、对角线交点、平行四边形和棱柱对应棱。"
+    ],
+    "proof_template": [
+      "证明 $b \\subset \\alpha$。",
+      "证明 $a \\parallel b$。",
+      "说明 $a \\not\\subset \\alpha$。",
+      "由直线与平面平行的判定定理，得到 $a \\parallel \\alpha$。"
+    ],
+    "memory_tip": "面内找平行，面外验不含；三条件齐全，线面才平行。"
   },
   "usage": {
     "scenarios": [
       "立体几何证明题",
-      "线面平行的判定"
+      "线面平行的判定",
+      "空间位置关系判断",
+      "利用中位线证明线面平行"
     ],
     "problem_types": [
       "证明题",
@@ -143,25 +162,27 @@
     "gif": ""
   },
   "shareConfig": {
-    "title": "线面平行判定定理：三步找到平面内平行线",
-    "shareDesc": "适用于立体几何课后复习和解题速查，掌握中位线或平行四边形构造平行线的方法，快速证明线面平行。"
+    "title": "线面平行判定定理：面内找一条平行线",
+    "shareDesc": "掌握线面平行判定定理的三个必要条件，利用中位线、平行四边形或棱柱关系快速证明线面平行。"
   },
   "relations": {
     "prerequisites": [
       "直线与直线的平行",
       "平面基本性质",
-      "中位线定理"
+      "平行直线确定一个平面",
+      "三角形中位线定理"
     ],
     "related_ids": [],
     "similar": [
-      "线面平行的性质定理：若 a∥α, a⊂β, α∩β=b, 则 a∥b。",
-      "面面平行的判定定理：一个平面内的两条相交直线平行于另一个平面。"
+      "线面平行的性质定理：若直线 $a$ 与平面 $\\alpha$ 平行，直线 $a$ 位于平面 $\\beta$ 内，且 $\\alpha \\cap \\beta=b$，则 $a \\parallel b$。",
+      "面面平行的判定定理：一个平面内的两条相交直线分别平行于另一个平面，则这两个平面平行。"
     ]
   },
   "meta": {
-    "version": 1,
-    "source": "AI生成",
-    "created_at": "2026-06-27"
+    "version": 2,
+    "source": "AI生成并人工校正",
+    "created_at": "2026-06-27",
+    "updated_at": "2026-07-13"
   },
   "isPro": 0,
   "remarks": "",

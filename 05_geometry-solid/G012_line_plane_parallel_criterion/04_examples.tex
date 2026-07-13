@@ -1,66 +1,287 @@
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例1（基础）}}
+	\textbf{\textcolor{CExample}{例1：利用三角形中位线}}
 
-	\textbf{\textcolor{CExample}{题目：}}
-	在空间四边形$ABCD$中，$E,F$分别是$AB,AD$的中点。求证：$EF\parallel$平面$BCD$。
+	\textbf{题目：}
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（连接$BD$）：}] 连接$BD$。
-			\par\textbf{理由：}
-			构造平面$BCD$内的一条直线$BD$作为参照。
-		\item[\textbf{第二步（证明$EF\parallel BD$）：}] 在$\triangle ABD$中，$E,F$分别为$AB,AD$中点，由中位线定理得$EF\parallel BD$。
-			\par\textbf{理由：}
-			三角形的中位线平行于第三边。
-		\item[\textbf{第三步（判定条件检验）：}] $EF$不在平面$BCD$内（否则$A$在平面$BCD$内，与空间四边形矛盾），$BD\subset$平面$BCD$，$EF\parallel BD$，所以$EF\parallel$平面$BCD$。
-			\par\textbf{理由：}
-			满足线面平行的判定定理：平面外一条直线平行于平面内一条直线。
+	在空间四边形 $ABCD$ 中，$E,F$ 分别是 $AB,AD$ 的中点。求证：
+	\[
+		EF\parallel\text{平面 }BCD.
+	\]
+
+	\textbf{证明：}
+
+	\begin{description}[
+			style=nextline,
+			leftmargin=2.8em,
+			labelsep=0.5em,
+			itemsep=0.45em
+		]
+		\item[\textbf{第一步（寻找面内参照线）：}]
+		      连接 $BD$。
+
+		      因为 $B,D$ 都在平面 $BCD$ 内，所以
+		      \[
+			      BD\subset\text{平面 }BCD.
+		      \]
+
+		\item[\textbf{第二步（证明线线平行）：}]
+		      在 $\triangle ABD$ 中，$E,F$ 分别是 $AB,AD$ 的中点。
+
+		      由三角形中位线定理得
+		      \[
+			      EF\parallel BD.
+		      \]
+
+		\item[\textbf{第三步（确认目标线不在平面内）：}]
+		      因为 $ABCD$ 是空间四边形，所以点 $A$ 不在平面 $BCD$ 内。
+
+		      点 $E$ 是线段 $AB$ 的中点。
+
+		      假设 $E\in\text{平面 }BCD$，由于
+		      \[
+			      B\in\text{平面 }BCD,
+		      \]
+		      则直线 $BE$ 在平面 $BCD$ 内。
+
+		      又因为 $A,B,E$ 共线，所以直线 $BE$ 就是直线 $AB$，从而
+		      \[
+			      A\in\text{平面 }BCD,
+		      \]
+		      产生矛盾。
+
+		      因此
+		      \[
+			      E\notin\text{平面 }BCD,
+		      \]
+		      所以
+		      \[
+			      EF\not\subset\text{平面 }BCD.
+		      \]
+
+		\item[\textbf{第四步（套用判定定理）：}]
+		      因为
+		      \[
+			      EF\not\subset\text{平面 }BCD,
+		      \]
+		      \[
+			      BD\subset\text{平面 }BCD,
+		      \]
+		      且
+		      \[
+			      EF\parallel BD,
+		      \]
+		      所以由直线与平面平行的判定定理得
+		      \[
+			      EF\parallel\text{平面 }BCD.
+		      \]
 	\end{description}
-
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$EF\parallel$平面$BCD$。}
 
 	\medskip
-	\textbf{\textcolor{CExample}{例2（稍变形）}}
+	\textbf{\textcolor{CExample}{例2：利用平行四边形与中位线}}
 
-	\textbf{\textcolor{CExample}{题目：}}
-	如图，在四棱锥$P-ABCD$中，底面$ABCD$为平行四边形，$E$为$PC$中点。求证：$PA\parallel$平面$BDE$。
+	\textbf{题目：}
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（连接$AC$交$BD$于$O$）：}] 连接$AC$交$BD$于点$O$，则$O$为$AC$中点。
-			\par\textbf{理由：}
-			平行四边形对角线互相平分。
-		\item[\textbf{第二步（连接$EO$，证明$EO\parallel PA$）：}] 在$\triangle PAC$中，$E$为$PC$中点，$O$为$AC$中点，所以$EO\parallel PA$。
-			\par\textbf{理由：}
-			三角形的中位线平行于第三边。
-		\item[\textbf{第三步（判定条件检验）：}] $PA$不在平面$BDE$内（因为$A$不在平面$BDE$内），$EO\subset$平面$BDE$，$PA\parallel EO$，所以$PA\parallel$平面$BDE$。
-			\par\textbf{理由：}
-			满足线面平行的判定定理。
+	在四棱锥 $P-ABCD$ 中，底面 $ABCD$ 为平行四边形，$E$ 为 $PC$ 的中点。求证：
+	\[
+		PA\parallel\text{平面 }BDE.
+	\]
+
+	\textbf{证明：}
+
+	\begin{description}[
+			style=nextline,
+			leftmargin=2.8em,
+			labelsep=0.5em,
+			itemsep=0.45em
+		]
+		\item[\textbf{第一步（构造面内参照线）：}]
+		      连接 $AC$，设
+		      \[
+			      AC\cap BD=O.
+		      \]
+
+		      因为四边形 $ABCD$ 是平行四边形，所以它的对角线互相平分。
+
+		      因此点 $O$ 是 $AC$ 的中点。
+
+		      连接 $EO$。
+
+		      因为
+		      \[
+			      E\in\text{平面 }BDE,
+			      \qquad
+			      O\in BD\subset\text{平面 }BDE,
+		      \]
+		      所以
+		      \[
+			      EO\subset\text{平面 }BDE.
+		      \]
+
+		\item[\textbf{第二步（证明线线平行）：}]
+		      在 $\triangle PCA$ 中，$E,O$ 分别是 $PC,CA$ 的中点。
+
+		      由三角形中位线定理得
+		      \[
+			      EO\parallel PA.
+		      \]
+
+		\item[\textbf{第三步（确认目标线不在平面内）：}]
+		      假设
+		      \[
+			      A\in\text{平面 }BDE.
+		      \]
+
+		      因为 $A,B,D$ 三点不共线，所以 $A,B,D$ 确定的平面就是底面 $ABCD$。
+
+		      于是平面 $BDE$ 与底面 $ABCD$ 重合，从而
+		      \[
+			      E\in\text{平面 }ABCD.
+		      \]
+
+		      但 $E$ 是侧棱 $PC$ 的中点，且顶点 $P$ 不在底面 $ABCD$ 内，因此除点 $C$ 外，线段 $PC$ 上的点均不在底面内。
+
+		      所以
+		      \[
+			      E\notin\text{平面 }ABCD,
+		      \]
+		      产生矛盾。
+
+		      因此
+		      \[
+			      A\notin\text{平面 }BDE,
+		      \]
+		      从而
+		      \[
+			      PA\not\subset\text{平面 }BDE.
+		      \]
+
+		\item[\textbf{第四步（套用判定定理）：}]
+		      因为
+		      \[
+			      PA\not\subset\text{平面 }BDE,
+		      \]
+		      \[
+			      EO\subset\text{平面 }BDE,
+		      \]
+		      且
+		      \[
+			      PA\parallel EO,
+		      \]
+		      所以
+		      \[
+			      PA\parallel\text{平面 }BDE.
+		      \]
 	\end{description}
-
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$PA\parallel$平面$BDE$。}
 
 	\medskip
-	\textbf{\textcolor{CExample}{例3（综合应用）}}
+	\textbf{\textcolor{CExample}{例3：利用棱柱中的中位线}}
 
-	\textbf{\textcolor{CExample}{题目：}}
-	如图，在直三棱柱$ABC-A_1B_1C_1$中，$D$为$BC$中点。求证：$A_1B\parallel$平面$ADC_1$。
+	\textbf{题目：}
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（连接$A_1C$交$AC_1$于$O$）：}] 连接$A_1C$，因为$ACC_1A_1$为矩形，所以$A_1C$与$AC_1$互相平分，记$O$为$A_1C$中点（同时也是$AC_1$中点）。
-			\par\textbf{理由：}
-			直三棱柱侧面为矩形，对角线互相平分。
-		\item[\textbf{第二步（连接$OD$，证明$OD\parallel A_1B$）：}] 在$\triangle A_1BC$中，$D$为$BC$中点，$O$为$A_1C$中点，所以$OD\parallel A_1B$（中位线）。
-			\par\textbf{理由：}
-			三角形的中位线平行于第三边。
-		\item[\textbf{第三步（判定条件检验）：}] $A_1B$不在平面$ADC_1$内（因为$A_1$不在平面$ADC_1$内），$OD\subset$平面$ADC_1$，$A_1B\parallel OD$，所以$A_1B\parallel$平面$ADC_1$。
-			\par\textbf{理由：}
-			满足线面平行的判定定理。
+	在直三棱柱 $ABC-A_1B_1C_1$ 中，$D$ 为 $BC$ 的中点。求证：
+	\[
+		A_1B\parallel\text{平面 }ADC_1.
+	\]
+
+	\textbf{证明：}
+
+	\begin{description}[
+			style=nextline,
+			leftmargin=2.8em,
+			labelsep=0.5em,
+			itemsep=0.45em
+		]
+		\item[\textbf{第一步（构造面内参照线）：}]
+		      连接 $A_1C$ 与 $AC_1$，设它们交于点 $O$。
+
+		      因为侧面 $ACC_1A_1$ 是矩形，所以它的对角线互相平分。
+
+		      因此点 $O$ 是 $A_1C$ 的中点，同时
+		      \[
+			      O\in AC_1.
+		      \]
+
+		      连接 $OD$。
+
+		      因为
+		      \[
+			      O\in AC_1\subset\text{平面 }ADC_1,
+		      \]
+		      且
+		      \[
+			      D\in\text{平面 }ADC_1,
+		      \]
+		      所以
+		      \[
+			      OD\subset\text{平面 }ADC_1.
+		      \]
+
+		\item[\textbf{第二步（证明线线平行）：}]
+		      在 $\triangle A_1BC$ 中，$O,D$ 分别是 $A_1C,BC$ 的中点。
+
+		      由三角形中位线定理得
+		      \[
+			      OD\parallel A_1B.
+		      \]
+
+		\item[\textbf{第三步（确认目标线不在平面内）：}]
+		      假设
+		      \[
+			      A_1\in\text{平面 }ADC_1.
+		      \]
+
+		      因为 $A_1,C_1$ 都在平面 $ADC_1$ 内，所以
+		      \[
+			      A_1C_1\subset\text{平面 }ADC_1.
+		      \]
+
+		      又因为棱柱的对应棱平行，所以
+		      \[
+			      AC\parallel A_1C_1.
+		      \]
+
+		      直线 $AC$ 经过平面 $ADC_1$ 内的点 $A$，且平行于平面内的直线 $A_1C_1$，因此
+		      \[
+			      AC\subset\text{平面 }ADC_1.
+		      \]
+
+		      从而
+		      \[
+			      C\in\text{平面 }ADC_1.
+		      \]
+
+		      于是平面 $ADC_1$ 与底面 $ABC$ 同时包含不共线的三点 $A,C,D$，所以两个平面重合。
+
+		      这将导致
+		      \[
+			      C_1\in\text{平面 }ABC,
+		      \]
+		      与棱柱的上、下底面不重合矛盾。
+
+		      因此
+		      \[
+			      A_1\notin\text{平面 }ADC_1,
+		      \]
+		      从而
+		      \[
+			      A_1B\not\subset\text{平面 }ADC_1.
+		      \]
+
+		\item[\textbf{第四步（套用判定定理）：}]
+		      因为
+		      \[
+			      A_1B\not\subset\text{平面 }ADC_1,
+		      \]
+		      \[
+			      OD\subset\text{平面 }ADC_1,
+		      \]
+		      且
+		      \[
+			      A_1B\parallel OD,
+		      \]
+		      所以
+		      \[
+			      A_1B\parallel\text{平面 }ADC_1.
+		      \]
 	\end{description}
-
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$A_1B\parallel$平面$ADC_1$。}
 \end{examplebox}

@@ -1,42 +1,157 @@
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
+    \textbf{\textcolor{CExplanation}{一句话直觉}}
 
-	如果平面外一条直线和平面内一条直线平行，那么这条直线与平面无公共点，即平行。
+    要证明“线与面平行”，就把问题转化为更熟悉的“线与线平行”：
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（判定条件）：}] 需要同时满足三个条件：（1）$a \not\subset \alpha$，（2）$b \subset \alpha$，（3）$a \parallel b$。
-		\item[\textbf{要点二（几何直观）：}] 平行直线$a$和$b$确定一个平面$\beta$，则$\beta \cap \alpha = b$。因为$a$不在$\alpha$内且$a \parallel b$，所以$a$与$\alpha$无交点。
-		\item[\textbf{要点三（符号关系）：}] 若三个条件同时成立，则$a \parallel \alpha$。
-	\end{description}
+    \[
+        \text{在目标平面内，寻找一条与目标直线平行的直线。}
+    \]
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（面面交线）}}
+    \medskip
+    \textbf{\textcolor{CExplanation}{核心拆解}}
 
-	直线$a$与$b$确定平面$\beta$，$b$为$\alpha$与$\beta$的交线。由于$a$平行于交线$b$且不在$\alpha$内，故$a$与$\alpha$无公共点，所以$a \parallel \alpha$。
+    \begin{description}[
+        style=nextline,
+        leftmargin=2.8em,
+        labelsep=0.5em,
+        itemsep=0.45em
+    ]
+        \item[\textbf{要点一（找参照线）：}]
+        参照直线 $b$ 必须真正位于平面 $\alpha$ 内，即
+        \[
+            b\subset\alpha.
+        \]
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（法向量垂直）}}
+        \item[\textbf{要点二（证线线平行）：}]
+        证明目标直线 $a$ 与参照直线 $b$ 平行，即
+        \[
+            a\parallel b.
+        \]
 
-	设平面$\alpha$的法向量为$n$，$v_a$、$v_b$分别为$a$、$b$的方向向量。由$b\subset\alpha$知$v_b\perp n$。由$a\parallel b$得$v_a\parallel v_b$，故$v_a\perp n$。结合$a\not\subset\alpha$，可得$a\parallel\alpha$。
+        常用的平行关系包括：
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（高频考点）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（直接条件判定）：} 给出线面位置关系选项，依据定理判断结论是否正确。
-		\item \textbf{考法二（辅助线构造）：} 在几何体中，需添加辅助线构造平行关系，再使用定理证明线面平行。
-	\end{itemize}
+        \begin{itemize}[leftmargin=*, itemsep=0.25em]
+            \item 三角形中位线；
+            \item 平行四边形的对边；
+            \item 棱柱的对应棱；
+            \item 矩形、平行四边形的对边；
+            \item 由平行线的传递性得到平行。
+        \end{itemize}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
+        \item[\textbf{要点三（排除线在面内）：}]
+        还要确认
+        \[
+            a\not\subset\alpha.
+        \]
 
-	只注意$a \parallel b$而忽略$a \not\subset \alpha$是常见错误。若$a \subset \alpha$，则$a$在平面$\alpha$内，并非平行。
+        否则，直线 $a$ 可能就在平面 $\alpha$ 内，不能称为直线与平面平行。
+    \end{description}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（空间判断）：} 判断直线与平面是否平行时，优先寻找平面内是否存在与目标直线平行的直线。
-		\item \textbf{场景二（证明题）：} 要证线面平行，第一步是在平面内找一条与已知直线平行的直线，第二步确认已知直线不在平面内。
-	\end{itemize}
+    \medskip
+    \textbf{\textcolor{CExplanation}{几何本质}}
+
+    因为 $a\parallel b$，所以两条平行直线 $a,b$ 可以确定一个平面，记为 $\beta$。
+
+    此时有
+    \[
+        a\subset\beta,
+        \qquad
+        b\subset\beta.
+    \]
+
+    又因为
+    \[
+        b\subset\alpha,
+    \]
+    所以直线 $b$ 同时位于平面 $\alpha$ 和平面 $\beta$ 内。
+
+    由于
+    \[
+        a\not\subset\alpha,
+    \]
+    因而平面 $\alpha$ 与平面 $\beta$ 不重合，所以
+    \[
+        \alpha\cap\beta=b.
+    \]
+
+    在平面 $\beta$ 内，直线 $a$ 与两平面的交线 $b$ 平行，因此 $a$ 不可能与 $b$ 相交，也就不可能与平面 $\alpha$ 相交。
+
+    所以
+    \[
+        a\parallel\alpha.
+    \]
+
+    \medskip
+    \textbf{\textcolor{CExplanation}{向量理解}}
+
+    设平面 $\alpha$ 的一个法向量为 $\vec n$，直线 $a,b$ 的方向向量分别为 $\vec v_a,\vec v_b$。
+
+    因为
+    \[
+        b\subset\alpha,
+    \]
+    所以
+    \[
+        \vec v_b\perp\vec n.
+    \]
+
+    又因为
+    \[
+        a\parallel b,
+    \]
+    所以
+    \[
+        \vec v_a\parallel\vec v_b.
+    \]
+
+    因此
+    \[
+        \vec v_a\perp\vec n.
+    \]
+
+    这说明直线 $a$ 的方向与平面 $\alpha$ 平行。再结合
+    \[
+        a\not\subset\alpha,
+    \]
+    得到
+    \[
+        a\parallel\alpha.
+    \]
+
+    \medskip
+    \textbf{\textcolor{CExplanation}{解题操作}}
+
+    \begin{enumerate}[leftmargin=*, itemsep=0.45em, topsep=0.35em]
+        \item 在目标平面内寻找或构造一条参照直线；
+        \item 利用中位线、平行四边形或棱柱关系证明线线平行；
+        \item 说明目标直线不在目标平面内；
+        \item 写出条件，引用线面平行判定定理。
+    \end{enumerate}
+
+    \medskip
+    \textbf{\textcolor{CExplanation}{顿悟点}}
+
+    这个定理不是
+
+    \[
+        a\parallel b
+        \quad\Longrightarrow\quad
+        a\parallel\alpha.
+    \]
+
+    而是
+
+    \[
+        \left.
+        \begin{aligned}
+            b &\subset\alpha,\\
+            a &\not\subset\alpha,\\
+            a &\parallel b
+        \end{aligned}
+        \right\}
+        \quad\Longrightarrow\quad
+        a\parallel\alpha.
+    \]
+
+    \textbf{平面内有参照线，平面外有目标线，两条直线还要平行。三个条件缺一不可。}
 \end{explanationbox}
