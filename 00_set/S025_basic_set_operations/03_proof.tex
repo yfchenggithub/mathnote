@@ -1,0 +1,36 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	补集与差集有直接等价关系，通过元素转化即可验证。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（补集转差集）：}] 验证 \(\complement_U A = U \setminus A\)。
+			\[
+				\begin{aligned}
+					x\in \complement_U A &\iff x\in U \land x\notin A\\
+					&\iff x\in U\setminus A.
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			由补集定义，\(x\in\complement_U A\) 恰表示 \(x\) 属于全集且不属于 \(A\)；这正是差集 \(U\setminus A\) 的定义。所以两者相等。
+
+		\item[\textbf{步骤二（差集补集表示）：}] 验证 \(A\setminus B = A \cap (\complement_U B)\)。
+			\[
+				\begin{aligned}
+					x\in A\setminus B &\iff x\in A \land x\notin B\\
+					&\iff x\in A \land (x\in U \land x\notin B)\\
+					&\iff x\in A \land x\in \complement_U B\\
+					&\iff x\in A \cap (\complement_U B).
+			\end{aligned}
+			\]
+			\par\textbf{理由：}
+			差集定义得第一等价；由于 \(A\subseteq U\)，所以 \(x\in A\) 蕴含 \(x\in U\)，可补充 \(x\in U\) 不改变真假；然后由补集定义替换；最后交集定义。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{上述验证说明，集合运算的基本定义之间具有内在联系，利用这些关系可以简化运算。}
+\end{proofbox}
