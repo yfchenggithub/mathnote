@@ -1,42 +1,83 @@
 \begin{explanationbox}
 	\textbf{\textcolor{CExplanation}{一句话直觉}}
-	同时具有周期和对称轴的函数，每平移半个周期就会重复对称性。
+
+	周期与对称性叠加后，同类对称位置会按已知周期的一半向左右连锁出现。
 
 	\medskip
 	\textbf{\textcolor{CExplanation}{核心拆解}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
 		\item[\textbf{要点一（周期定义）：}]
-			$f(x+T)=f(x)$ 对任意 $x$ 成立。
+		      $f(x+T)=f(x)$ 对任意 $x\in\mathbb{R}$ 成立。
+
 		\item[\textbf{要点二（对称轴定义）：}]
-			$f(a+x)=f(a-x)$ 对任意 $x$ 成立。
-		\item[\textbf{要点三（连锁本质）：}]
-			由前两个等式可推出 $f(a+T/2+x)=f(a+T/2-x)$，即 $a+T/2$ 也是对称轴。反复应用可得全部对称轴。
+		      $f(a+x)=f(a-x)$ 对任意 $x\in\mathbb{R}$ 成立。
+
+		\item[\textbf{要点三（对称轴连锁）：}]
+		      由周期性与对称轴定义可推出
+		      \[
+			      f\left(a+\frac{T}{2}+x\right)
+			      =
+			      f\left(a+\frac{T}{2}-x\right),
+		      \]
+		      因此 $x=a+T/2$ 也是对称轴。反复应用后可得到
+		      \[
+			      x=a+\frac{kT}{2},
+			      \quad k\in\mathbb{Z},
+		      \]
+		      这一组必然存在的对称轴。
+
+		\item[\textbf{要点四（对称中心连锁）：}]
+		      若 $(b,c)$ 是对称中心，则同理有
+		      \[
+			      f\left(b+\frac{T}{2}+x\right)
+			      +
+			      f\left(b+\frac{T}{2}-x\right)
+			      =2c,
+		      \]
+		      所以 $\left(b+T/2,c\right)$ 仍是对称中心。
 	\end{description}
 
 	\medskip
 	\textbf{\textcolor{CExplanation}{几何本质（镜像与平移）}}
-	周期意味着平移 $T$ 后图像重合；对称轴意味着镜像对称。两者结合，将对称轴平移半周期后仍然是对称轴，因为平移一个周期再镜像等价于镜像后再平移。
+
+	周期表示图像水平平移 $T$ 后与原图像重合；对称轴表示关于某条竖直直线镜像后图像不变。把“平移一个周期”和“关于已知轴反射”组合起来，会得到关于相距 $T/2$ 的新直线反射，因此同类对称位置每隔 $T/2$ 再次出现。
+
+	两次关于平行直线的轴对称，等价于一次水平平移，且平移量等于两条直线间距的两倍。这就是“两条对称轴推出一个周期”的几何原因。
 
 	\medskip
 	\textbf{\textcolor{CExplanation}{代数意义（等式推导）}}
-	由 $f(x)=f(x+T)$ 和 $f(a+x)=f(a-x)$ 可以推出 $f(x)=f(2a-x)$，进一步可推出 $f(x+T)=f(2a-x)$，从而得到 $f(a+T/2+x)=f(a+T/2-x)$。
+
+	以对称轴为例，直接计算：
+	\[
+		\begin{aligned}
+			f\left(a+\frac{T}{2}+x\right)
+			 & =f\left(a-\frac{T}{2}+x\right)
+			 &                                             & \text{（相差一个周期 $T$）}  \\
+			 & =f\left(a+\left(x-\frac{T}{2}\right)\right)                        \\
+			 & =f\left(a-\left(x-\frac{T}{2}\right)\right)
+			 &                                             & \text{（关于 $x=a$ 对称）} \\
+			 & =f\left(a+\frac{T}{2}-x\right).
+		\end{aligned}
+	\]
+	这正是直线 $x=a+T/2$ 为对称轴的判定式。
 
 	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（快速找对称）}}
+	\textbf{\textcolor{CExplanation}{考点价值（快速转化）}}
 	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（求对称轴）：} 已知周期和一条对称轴，直接写出所有对称轴。
-		\item \textbf{考法二（求周期）：} 已知两条对称轴，直接用公式 $T=2|a_1-a_2|$ 求出周期。
+		\item \textbf{考法一（求一组对称轴）：} 已知一个周期和一条对称轴，写出 $x=a+kT/2$。
+		\item \textbf{考法二（求全部对称轴）：} 只有进一步知道 $T_0$ 是最小正周期时，才能写成 $x=a+kT_0/2$ 的全部形式。
+		\item \textbf{考法三（求一个周期）：} 已知两条不同对称轴，计算 $P=2|a_1-a_2|$；所得 $P$ 不一定是最小正周期。
 	\end{itemize}
 
 	\medskip
 	\textbf{\textcolor{CExplanation}{顿悟点}}
-	\textbf{对称轴与周期通过“半周期”紧密相连，抓住这个纽带即可统一处理两类性质。}
+
+	\textbf{半个已知周期控制同类对称位置的连锁，两倍轴间距产生一个周期；但“一个周期”不能自动升级为“最小正周期”。}
 
 	\medskip
 	\textbf{\textcolor{CExplanation}{使用场景}}
 	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（抽象函数）：} 已知抽象函数的周期与一条对称轴，可推出所有对称轴，进而简化求值。
-		\item \textbf{场景二（三角函数）：} 已知三角函数的周期与一条对称轴（通常从最值取得点判断），可确定函数解析式中的相位参数。
+		\item \textbf{场景一（抽象函数）：} 将周期条件与对称条件互相转化，用于求值、证明周期性或排除错误选项。
+		\item \textbf{场景二（三角函数）：} 结合最小正周期、最值点和对称轴确定相位参数或验证函数图像性质。
 	\end{itemize}
-
 \end{explanationbox}

@@ -1,47 +1,133 @@
 \begin{proofbox}
 	\textbf{\textcolor{CProof}{思路提示}}
-	利用周期和对称性的代数定义，通过等式变形推出连锁性质，并利用两条对称轴推导周期。
+
+	把周期、对称轴和对称中心都写成对任意实数成立的恒等式，再通过代换与复合对称推出新的对称性和周期性。
 
 	\medskip
 	\textbf{\textcolor{CProof}{正式推导}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
 		\item[\textbf{\textcolor{CProof}{步骤一（对称轴连锁）：}}]
-			设 $f$ 以 $T$ 为周期，且有一条对称轴 $x=a$。证明 $x=a+T/2$ 也是对称轴。
-			\[
-				\begin{aligned}
-					f(a+\frac{T}{2}+x) &= f\left(a+x+\frac{T}{2}\right) \\ &= f\left(a+x+\frac{T}{2}-T\right) \quad\text{(周期:减 $T$ 函数值不变)}\\ &= f\left(a+x-\frac{T}{2}\right) \\ &= f\left(a-\left(x-\frac{T}{2}\right)\right) \quad\text{(对称轴:$f(a+u)=f(a-u)$)} \\ &= f\left(a-x+\frac{T}{2}\right) \\ &= f\left(a+\frac{T}{2}-x\right).
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 第一行将 $a+T/2+x$ 整理；第二行利用周期减去 $T$ 使自变量靠近 $a$；第三行利用对称轴定义将 $a+u$ 变为 $a-u$；最后一行得到对称轴定义形式。因此 $x=a+T/2$ 是对称轴。反复应用可得 $x=a+kT/2$ 均为对称轴。
+		      设 $T>0$ 是 $f$ 的一个周期，且 $x=a$ 是一条对称轴。下面证明 $x=a+T/2$ 也是对称轴。
+		      \[
+			      \begin{aligned}
+				      f\left(a+\frac{T}{2}+x\right)
+				       & =f\left(a-\frac{T}{2}+x\right)
+				       &                                             & \text{（两自变量相差 $T$）}  \\
+				       & =f\left(a+\left(x-\frac{T}{2}\right)\right)                        \\
+				       & =f\left(a-\left(x-\frac{T}{2}\right)\right)
+				       &                                             & \text{（关于 $x=a$ 对称）} \\
+				       & =f\left(a+\frac{T}{2}-x\right).
+			      \end{aligned}
+		      \]
+		      该等式对任意 $x\in\mathbb{R}$ 成立，因此 $x=a+T/2$ 是一条对称轴。
+
+		      把同一结论反复向右或向左应用，可得
+		      \[
+			      x=a+\frac{kT}{2},
+			      \quad k\in\mathbb{Z},
+		      \]
+		      均为对称轴。
+
 		\item[\textbf{\textcolor{CProof}{步骤二（对称中心连锁）：}}]
-			设 $f$ 以 $T$ 为周期，且有一个对称中心 $(b,c)$。令 $g(x)=f(x+b)-c$，则 $g$ 是周期 $T$ 的奇函数（$g(-x)=-g(x)$）。证明 $x=T/2$ 是 $g$ 的对称中心。
-			\[
-				\begin{aligned}
-					g\left(\frac{T}{2}+x\right) &= g\left(\frac{T}{2}+x-T\right) \quad\text{(周期减 $T$)}\\ &= g\left(-\frac{T}{2}+x\right) \\ &= -g\left(\frac{T}{2}-x\right) \quad\text{(奇函数)}.
-			\end{aligned}
-			\]
-			所以 $g(T/2+x)+g(T/2-x)=0$，即 $(\frac{T}{2},0)$ 是 $g$ 的对称中心。代回 $f$ 得 $(b+\frac{T}{2},c)$ 是 $f$ 的对称中心。同理可得全部对称中心 $(b+\frac{kT}{2},c)$。
-			\par\textbf{理由：} 通过平移将中心对称转化为原点对称（奇函数），再结合周期推导，简化计算。
-		\item[\textbf{\textcolor{CProof}{步骤三（两轴定周期）：}}]
-			设 $f$ 有两条不同的对称轴 $x=a_1$ 和 $x=a_2$（$a_1<a_2$）。由对称轴定义：
-			\[
-				f(a_1+x)=f(a_1-x),\quad f(a_2+x)=f(a_2-x).
-			\]
-			令 $x=t-a_1$，得 $f(t)=f(2a_1-t)$；同理 $f(t)=f(2a_2-t)$。于是
-			\[
-				f(2a_1-t)=f(2a_2-t).
-			\]
-			令 $u=2a_1-t$，则 $t=2a_1-u$，代入得
-			\[
-				\begin{aligned}
-					f(u) &= f(2a_2-(2a_1-u)) \\ &= f(u-2(a_1-a_2)) \\ &= f(u+2(a_2-a_1)).
-			\end{aligned}
-			\]
-			因此对任意 $u$，$f(u+2(a_2-a_1))=f(u)$，即 $2(a_2-a_1)$ 是 $f$ 的一个周期。取绝对值得 $T=2|a_1-a_2|$。
-			\par\textbf{理由：} 将两个对称轴等式转化为周期等式，关键是通过变量代换消去 $t$。
+		      设 $(b,c)$ 是 $f$ 的一个对称中心。令
+		      \[
+			      g(x)=f(x+b)-c.
+		      \]
+		      则 $g$ 以 $T$ 为一个周期，并且
+		      \[
+			      g(-x)=-g(x),
+		      \]
+		      即 $g$ 是奇函数。下面证明点 $\left(T/2,0\right)$ 是 $g$ 图像的一个对称中心：
+		      \[
+			      \begin{aligned}
+				      g\left(\frac{T}{2}+x\right)
+				       & =g\left(-\frac{T}{2}+x\right)
+				       &                                            & \text{（两自变量相差 $T$）} \\
+				       & =g\left(-\left(\frac{T}{2}-x\right)\right)                       \\
+				       & =-g\left(\frac{T}{2}-x\right)
+				       &                                            & \text{（$g$ 为奇函数）}.
+			      \end{aligned}
+		      \]
+		      所以
+		      \[
+			      g\left(\frac{T}{2}+x\right)
+			      +
+			      g\left(\frac{T}{2}-x\right)
+			      =0.
+		      \]
+		      代回 $g(x)=f(x+b)-c$，得到
+		      \[
+			      f\left(b+\frac{T}{2}+x\right)
+			      +
+			      f\left(b+\frac{T}{2}-x\right)
+			      =2c.
+		      \]
+		      因此 $\left(b+T/2,c\right)$ 是 $f$ 图像的一个对称中心。反复应用可得
+		      \[
+			      \left(b+\frac{kT}{2},c\right),
+			      \quad k\in\mathbb{Z},
+		      \]
+		      均为对称中心。这里得到的是一组必然存在的对称中心，不能在没有其他条件时称为全部对称中心。
+
+		\item[\textbf{\textcolor{CProof}{步骤三（两条对称轴推出一个周期）：}}]
+		      设 $x=a_1$ 和 $x=a_2$ 是两条不同的对称轴。由对称轴定义，对任意 $u\in\mathbb{R}$，
+		      \[
+			      f(u)=f(2a_1-u).
+		      \]
+		      再关于直线 $x=a_2$ 对称，得到
+		      \[
+			      \begin{aligned}
+				      f(u)
+				       & =f(2a_1-u)                   \\
+				       & =f\left(2a_2-(2a_1-u)\right) \\
+				       & =f\left(u+2(a_2-a_1)\right).
+			      \end{aligned}
+		      \]
+		      因此 $2(a_2-a_1)$ 是 $f$ 的一个非零周期。周期取相反数后仍是周期，所以
+		      \[
+			      P=2|a_1-a_2|
+		      \]
+		      是 $f$ 的一个正周期，但不一定是最小正周期。
+
+		\item[\textbf{\textcolor{CProof}{步骤四（最小正周期下刻画全部对称轴）：}}]
+		      进一步设 $T_0$ 是 $f$ 的最小正周期，且 $x=a$ 是一条对称轴。
+
+		      由步骤一可知，
+		      \[
+			      x=a+\frac{kT_0}{2},
+			      \quad k\in\mathbb{Z},
+		      \]
+		      均为对称轴。
+
+		      反过来，设 $x=s$ 是任意一条对称轴。若 $s=a$，结论显然成立；若 $s\ne a$，由步骤三可知
+		      \[
+			      P=2|s-a|
+		      \]
+		      是一个正周期。
+
+		      对 $P$ 作带余除法：
+		      \[
+			      P=nT_0+r,
+			      \quad n\in\mathbb{Z}_{\ge 0},
+			      \quad 0\le r<T_0.
+		      \]
+		      由于两个周期之差仍是周期，$r=P-nT_0$ 也是周期。由 $T_0$ 的最小正性，只能有 $r=0$。因此
+		      \[
+			      2|s-a|=nT_0.
+		      \]
+		      于是存在 $k\in\mathbb{Z}$，使得
+		      \[
+			      s=a+\frac{kT_0}{2}.
+		      \]
+		      故函数图像的全部对称轴恰为
+		      \[
+			      x=a+\frac{kT_0}{2},
+			      \quad k\in\mathbb{Z}.
+		      \]
 	\end{description}
 
 	\medskip
 	\textbf{\textcolor{CProof}{结论回扣}}
-	\textbf{以上证明完整给出了周期函数在附加对称性时对称轴、对称中心的分布规律，以及对称轴数量与周期的关系。}
+
+	\textbf{一个已知周期能生成一组间隔为 $T/2$ 的同类对称位置；两条不同对称轴能生成一个等于两倍轴间距的周期；使用最小正周期时，才能进一步完整刻画全部对称轴。}
 \end{proofbox}
