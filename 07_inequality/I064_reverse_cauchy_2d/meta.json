@@ -1,0 +1,165 @@
+{
+  "id": "I064",
+  "module": "inequality",
+  "core": {
+    "title": "反向柯西不等式（二维）",
+    "alias": [
+      "反柯西",
+      "反向柯西",
+      "柯西不等式反号形式",
+      "平方差乘积不等式"
+    ],
+    "summary": "两个平方差的乘积不超过交叉乘积差的平方，本质是完全平方$(ad-bc)^2\\ge0$的代数变形。",
+    "difficulty": 3,
+    "category": "不等式",
+    "tags": [
+      "反向柯西不等式",
+      "平方差结构",
+      "代数恒等式",
+      "不等式证明",
+      "柯西变式"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "反向柯西不等式",
+      "平方差乘积",
+      "ac-bd",
+      "ad=bc",
+      "不等式证明",
+      "比较大小",
+      "代数恒等变形",
+      "最值问题",
+      "柯西不等式变式",
+      "完全平方非负"
+    ],
+    "synonyms": [
+      "反向柯西公式",
+      "反柯西不等式",
+      "柯西反号",
+      "平方差不等式",
+      "柯西变式平方差"
+    ],
+    "intents": [
+      "求最值",
+      "证明不等式",
+      "比较大小",
+      "判断等号成立",
+      "应用代数恒等式",
+      "化简平方差结构"
+    ],
+    "query_templates": [
+      "反向柯西不等式证明",
+      "反向柯西不等式例题",
+      "反向柯西等号条件是什么",
+      "平方差乘积不等式公式",
+      "ad=bc 反向柯西"
+    ],
+    "ocrKeywords": [
+      "a^2-b^2",
+      "c^2-d^2",
+      "ac-bd",
+      "(ac-bd)^2",
+      "ad=bc"
+    ],
+    "latex_patterns": [
+      "(a^2-b^2)(c^2-d^2)\\leqslant(ac-bd)^2"
+    ],
+    "formulaTokens": [
+      "a^2-b^2",
+      "c^2-d^2",
+      "ac-bd",
+      "(ac-bd)^2",
+      "(a^2-b^2)(c^2-d^2)",
+      "ad-bc",
+      "(ad-bc)^2"
+    ],
+    "pinyin": "fanxiangkexi",
+    "pinyinAbbr": "fxkxbds"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.57,
+    "hot_score": 60,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "(a^2-b^2)(c^2-d^2)\\leqslant(ac-bd)^2",
+    "related_formulas": [
+      "(ac-bd)^2-(a^2-b^2)(c^2-d^2)=(ad-bc)^2"
+    ],
+    "variables": "$a,b,c,d\\in\\mathbb{R}$",
+    "conditions": "$a,b,c,d$ 为任意实数。",
+    "conclusions": "不等式恒成立，等号成立当且仅当 $ad=bc$。"
+  },
+  "content": {
+    "statement": "设 $a,b,c,d$ 为任意实数，则 $(a^2-b^2)(c^2-d^2)\\leqslant (ac-bd)^2$，等号成立当且仅当 $ad=bc$。",
+    "derivation": [
+      "计算差值：$(ac-bd)^2-(a^2-b^2)(c^2-d^2)=a^2c^2-2abcd+b^2d^2-(a^2c^2-a^2d^2-b^2c^2+b^2d^2)$",
+      "化简得：$a^2d^2-2abcd+b^2c^2=(ad-bc)^2$",
+      "因为平方非负，所以 $(ac-bd)^2-(a^2-b^2)(c^2-d^2)\\ge0$，即 $(a^2-b^2)(c^2-d^2)\\le(ac-bd)^2$。"
+    ],
+    "intuition": "左边的两个平方差相乘，右边是交叉乘积差的平方，两者之差正好是另一交叉乘积的完全平方，由平方非负即得不等式。",
+    "common_tricks": [
+      "遇到形如$(x^2-m^2)(n^2-y^2)$的式子，可对照标准形式$a=x,b=m,c=n,d=y$直接套用。",
+      "等号条件$ad=bc$常用于已知等式成立求变量关系或最值。",
+      "移项后化为完全平方$(ad-bc)^2$，可简化带参数的证明。",
+      "注意不等号方向是$\\le$，与标准柯西$\\ge$相反，避免混淆。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "不等式证明",
+      "最值问题",
+      "代数恒等式变形",
+      "比较大小"
+    ],
+    "problem_types": [
+      "证明题",
+      "比较大小题",
+      "求值题（利用等号条件）"
+    ],
+    "exam_frequency": 0.4,
+    "exam_score": 4
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "I064.svg"
+  },
+  "shareConfig": {
+    "title": "反向柯西不等式：平方差乘积结构速查",
+    "shareDesc": "适合课后复盘，遇到平方差乘积结构时直接套用反向柯西可节省两步推导，避免方向记错，提升不等式证明和求最值的稳定性。"
+  },
+  "relations": {
+    "prerequisites": [
+      "平方差公式",
+      "完全平方公式",
+      "柯西不等式（选修）"
+    ],
+    "related_ids": [],
+    "similar": "柯西不等式 $(a^2+b^2)(c^2+d^2)\\ge(ac+bd)^2$，等号成立当且仅当$ad=bc$。"
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成",
+    "created_at": "2026-07-14"
+  },
+  "isPro": 0,
+  "remarks": "",
+  "knowledgeNode": "不等式-经典不等式-柯西不等式（选修）",
+  "altNodes": [
+    "代数-式的变形-因式分解",
+    "代数-式的变形-恒等变形",
+    "不等式-等价变形-平方与开方"
+  ]
+}
