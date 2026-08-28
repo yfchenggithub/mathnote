@@ -17,6 +17,10 @@ const DEFAULT_OUT_DIR = path.join("public", "static", "tikz");
 const DEFAULT_REPORT = path.join("reports", "render_tikz_assets_report.json");
 const DEFAULT_ASSET_BASE = "/static/tikz";
 const DEFAULT_SCALE = 3;
+// Bump this whenever the standalone LaTeX context changes in a way that can
+// alter rendered pixels. It is part of the asset hash, so stale PNG files are
+// not silently reused after a renderer/preamble update.
+const RENDER_CONTEXT_VERSION = "2026-08-28-v3";
 const CONCLUSION_ID_RE = /^[A-Z]\d{3}$/;
 const TIKZ_PATH_RE =
   /assets[\\/]tikz[\\/][^\s"'<>]+?\.(?:tikz\.tex|tex|tikz)/g;
@@ -36,6 +40,7 @@ Options:
   --asset-base <path>   Asset base path (default: ${DEFAULT_ASSET_BASE})
   --scale <number>      Output scale factor (default: ${DEFAULT_SCALE})
   --force [bool]        Force re-render existing PNG files (default: false)
+  --fail-on-error [bool] Exit non-zero if any TikZ source fails (default: false)
   --dry-run [bool]      Scan only, do not generate files (default: false)
   --limit <number>      Max unique TikZ sources to process (default: unlimited)
   --help                Show this message
@@ -82,6 +87,7 @@ function parseArgs(argv) {
     assetBase: DEFAULT_ASSET_BASE,
     scale: DEFAULT_SCALE,
     force: false,
+    failOnError: false,
     dryRun: false,
     limit: null,
     help: false,
@@ -123,11 +129,12 @@ function parseArgs(argv) {
       continue;
     }
 
-    if (arg === "--force" || arg === "--dry-run") {
+    if (arg === "--force" || arg === "--fail-on-error" || arg === "--dry-run") {
       const nextValue = argv[index + 1];
       const hasValue = Boolean(nextValue && !nextValue.startsWith("--"));
       const parsed = hasValue ? parseBoolean(nextValue, arg) : true;
       if (arg === "--force") options.force = parsed;
+      if (arg === "--fail-on-error") options.failOnError = parsed;
       if (arg === "--dry-run") options.dryRun = parsed;
       if (hasValue) index += 1;
       continue;
@@ -225,7 +232,7 @@ function toDisplayPath(absPath) {
 function hashTikz(source, content) {
   return crypto
     .createHash("sha1")
-    .update(`${normalizeSourcePath(source)}\0${content}`)
+    .update(`${RENDER_CONTEXT_VERSION}\0${normalizeSourcePath(source)}\0${content}`)
     .digest("hex")
     .slice(0, 12);
 }
@@ -293,8 +300,17 @@ function buildStandaloneTex(sourceContent) {
     return sourceContent;
   }
 
+  // Conclusion assets are commonly wrapped in center for the PDF page. That
+  // list-like environment adds page-width glue around a standalone picture and
+  // defeats tight cropping. Centering has no meaning for an isolated bitmap,
+  // so remove only the wrapper commands in the rendering copy.
+  const standaloneBody = sourceContent
+    .replace(/\\begin\s*\{center\}/g, "")
+    .replace(/\\end\s*\{center\}/g, "");
+
   return String.raw`\documentclass[tikz,border=6pt]{standalone}
 \usepackage{fontspec}
+\IfFontExistsTF{Times New Roman}{\setmainfont{Times New Roman}}{}
 \usepackage{xeCJK}
 \IfFontExistsTF{SimSun}{\setCJKmainfont{SimSun}}{%
   \IfFontExistsTF{Noto Serif CJK SC}{\setCJKmainfont{Noto Serif CJK SC}}{}%
@@ -306,8 +322,22 @@ function buildStandaloneTex(sourceContent) {
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.18}
 \usetikzlibrary{arrows,arrows.meta,intersections,calc,quotes,angles,decorations.pathreplacing,decorations.markings,positioning,patterns,shapes.geometric,shapes.misc,fit,matrix}
+% Keep repository semantic colors identical to preamble.tex. TikZ assets are
+% source fragments and intentionally rely on this shared visual vocabulary.
+\definecolor{CStatement}{HTML}{1F4E79}
+\definecolor{CExplanation}{HTML}{355C7D}
+\definecolor{CProof}{HTML}{6C5B7B}
+\definecolor{CExample}{HTML}{2E7D32}
+\definecolor{CTrap}{HTML}{8E2424}
+\definecolor{CSummary}{HTML}{5D4037}
+\definecolor{BGStatement}{HTML}{EAF2F8}
+\definecolor{BGExplanation}{HTML}{F2F5F7}
+\definecolor{BGProof}{HTML}{F3F0F7}
+\definecolor{BGExample}{HTML}{EDF7ED}
+\definecolor{BGTrap}{HTML}{FBEAEA}
+\definecolor{BGSummary}{HTML}{F5F0EB}
 \begin{document}
-` + sourceContent + String.raw`
+` + standaloneBody + String.raw`
 \end{document}
 `;
 }
@@ -482,22 +512,32 @@ function collectReferences(content) {
       const blocks = section?.blocks;
       if (!Array.isArray(blocks)) continue;
       for (const [blockIndex, block] of blocks.entries()) {
-        if (
-          !block ||
-          block.type !== "paragraph" ||
-          !Array.isArray(block.tokens)
-        ) {
-          continue;
+        if (!block || typeof block !== "object") continue;
+        const tokenGroups = [];
+        if (block.type === "paragraph" && Array.isArray(block.tokens)) {
+          tokenGroups.push({ tokens: block.tokens, suffix: "tokens" });
         }
-        for (const source of referencesInTokens(block.tokens)) {
-          const inferredId = isConclusionId(recordId)
-            ? recordId
-            : sourceConclusionId(source);
-          references.push({
-            source,
-            conclusionId: inferredId,
-            path: `${recordKey}.content.sections[${sectionIndex}].blocks[${blockIndex}]`,
-          });
+        if (block.type === "theorem_group" && Array.isArray(block.items)) {
+          for (const [itemIndex, item] of block.items.entries()) {
+            if (Array.isArray(item?.desc_tokens)) {
+              tokenGroups.push({
+                tokens: item.desc_tokens,
+                suffix: `items[${itemIndex}].desc_tokens`,
+              });
+            }
+          }
+        }
+        for (const tokenGroup of tokenGroups) {
+          for (const source of referencesInTokens(tokenGroup.tokens)) {
+            const inferredId = isConclusionId(recordId)
+              ? recordId
+              : sourceConclusionId(source);
+            references.push({
+              source,
+              conclusionId: inferredId,
+              path: `${recordKey}.content.sections[${sectionIndex}].blocks[${blockIndex}].${tokenGroup.suffix}`,
+            });
+          }
         }
       }
     }
@@ -624,6 +664,23 @@ function hasRenderableTokens(tokens) {
   });
 }
 
+function buildImageBlock({ blockId, imageCount, segment, renderResult, captionResult, scale }) {
+  return {
+    id: `${blockId || "block"}-img${imageCount}`,
+    type: "image_block",
+    src: renderResult.asset.src,
+    width_px: renderResult.asset.width_px,
+    height_px: renderResult.asset.height_px,
+    display_width_px: renderResult.asset.display_width_px,
+    display_height_px: renderResult.asset.display_height_px,
+    alt: captionResult.alt,
+    caption: captionResult.caption,
+    source: segment.source,
+    ...(captionResult.vspace ? { vspace: captionResult.vspace } : {}),
+    scale,
+  };
+}
+
 function transformParagraphBlock(block, resultMap, scale) {
   const references = referencesInTokens(block.tokens || []);
   if (references.length === 0) return [block];
@@ -676,25 +733,92 @@ function transformParagraphBlock(block, resultMap, scale) {
     }
     index = captionResult.nextIndex - 1;
 
-    outputBlocks.push({
-      id: `${block.id || "paragraph"}-img${imageCount}`,
-      type: "image_block",
-      src: renderResult.asset.src,
-      width_px: renderResult.asset.width_px,
-      height_px: renderResult.asset.height_px,
-      display_width_px: renderResult.asset.display_width_px,
-      display_height_px: renderResult.asset.display_height_px,
-      alt: captionResult.alt,
-      caption: captionResult.caption,
-      source: segment.source,
-      ...(captionResult.vspace ? { vspace: captionResult.vspace } : {}),
-      scale,
-    });
+    outputBlocks.push(
+      buildImageBlock({
+        blockId: block.id || "paragraph",
+        imageCount,
+        segment,
+        renderResult,
+        captionResult,
+        scale,
+      }),
+    );
     trimLeadingText = true;
   }
 
   flushParagraph();
   return outputBlocks.length > 0 ? outputBlocks : [block];
+}
+
+function extractImagesFromTokens(tokens, resultMap, scale, blockId, startImageCount) {
+  const segments = paragraphSegments(tokens);
+  const outputTokens = [];
+  const imageBlocks = [];
+  let imageCount = startImageCount;
+  let trimLeadingText = false;
+
+  for (let index = 0; index < segments.length; index += 1) {
+    const segment = segments[index];
+    if (segment.kind !== "image") {
+      appendSegmentToken(outputTokens, segment, trimLeadingText);
+      trimLeadingText = false;
+      continue;
+    }
+
+    imageCount += 1;
+    const conclusionId = sourceConclusionId(segment.source);
+    const renderResult = resultMap.get(resultKey(conclusionId, segment.source));
+    const captionResult = consumeCaption(segments, index + 1);
+    if (captionResult.remainingSegments.length > 0) {
+      segments.splice(captionResult.nextIndex, 0, ...captionResult.remainingSegments);
+    }
+    index = captionResult.nextIndex - 1;
+    imageBlocks.push(
+      buildImageBlock({
+        blockId,
+        imageCount,
+        segment,
+        renderResult,
+        captionResult,
+        scale,
+      }),
+    );
+    trimLeadingText = true;
+  }
+
+  return { tokens: outputTokens, imageBlocks, imageCount };
+}
+
+function transformTheoremGroupBlock(block, resultMap, scale) {
+  if (!Array.isArray(block.items)) return [block];
+  const references = block.items.flatMap((item) =>
+    Array.isArray(item?.desc_tokens) ? referencesInTokens(item.desc_tokens) : [],
+  );
+  if (references.length === 0) return [block];
+
+  for (const source of references) {
+    const conclusionId = sourceConclusionId(source);
+    const found = resultMap.get(resultKey(conclusionId, source));
+    if (!found || found.ok !== true || !found.asset) return [block];
+  }
+
+  const nextBlock = structuredClone(block);
+  const imageBlocks = [];
+  let imageCount = 0;
+  for (const item of nextBlock.items) {
+    if (!Array.isArray(item?.desc_tokens)) continue;
+    const extracted = extractImagesFromTokens(
+      item.desc_tokens,
+      resultMap,
+      scale,
+      block.id || "theorem-group",
+      imageCount,
+    );
+    item.desc_tokens = extracted.tokens;
+    imageBlocks.push(...extracted.imageBlocks);
+    imageCount = extracted.imageCount;
+  }
+  return [nextBlock, ...imageBlocks];
 }
 
 function applyRenderedTikz(content, resultMap, scale) {
@@ -715,6 +839,14 @@ function applyRenderedTikz(content, resultMap, scale) {
           Array.isArray(block.tokens)
         ) {
           const transformed = transformParagraphBlock(block, resultMap, scale);
+          if (transformed.length !== 1 || transformed[0] !== block) {
+            replaced += transformed.filter((item) => item.type === "image_block").length;
+          }
+          nextBlocks.push(...transformed);
+          continue;
+        }
+        if (block && block.type === "theorem_group" && Array.isArray(block.items)) {
+          const transformed = transformTheoremGroupBlock(block, resultMap, scale);
           if (transformed.length !== 1 || transformed[0] !== block) {
             replaced += transformed.filter((item) => item.type === "image_block").length;
           }
@@ -853,11 +985,14 @@ async function main() {
   }
 
   let replaced = 0;
-  if (!options.dryRun) {
+  const outputWritten =
+    !options.dryRun && (!options.failOnError || failed === 0);
+  if (outputWritten) {
     replaced = applyRenderedTikz(content, resultMap, options.scale);
     await saveJson(options.outputAbs, content);
   } else {
-    console.log("[render_tikz_assets] dry-run: skip writing output json");
+    const reason = options.dryRun ? "dry-run" : `${failed} render failure(s)`;
+    console.log(`[render_tikz_assets] ${reason}: skip writing output json`);
   }
 
   const report = {
@@ -866,6 +1001,9 @@ async function main() {
     outDir: toDisplayPath(options.outDirAbs),
     assetBase: options.assetBase,
     scale: options.scale,
+    renderContextVersion: RENDER_CONTEXT_VERSION,
+    failOnError: options.failOnError,
+    outputWritten,
     totalReferences: references.length,
     totalEligibleUnique,
     rendered,
@@ -883,12 +1021,18 @@ async function main() {
   console.log(`[render_tikz_assets] reused: ${reused}`);
   console.log(`[render_tikz_assets] failed: ${failed}`);
   console.log(`[render_tikz_assets] replaced image blocks: ${replaced}`);
-  console.log(
-    `[render_tikz_assets] output json: ${toDisplayPath(options.outputAbs)}`,
-  );
+  if (outputWritten) {
+    console.log(
+      `[render_tikz_assets] output json: ${toDisplayPath(options.outputAbs)}`,
+    );
+  }
   console.log(
     `[render_tikz_assets] report: ${toDisplayPath(options.reportAbs)}`,
   );
+
+  if (options.failOnError && failed > 0) {
+    throw new Error(`TikZ rendering failed for ${failed} source(s); publish aborted.`);
+  }
 }
 
 main().catch((error) => {

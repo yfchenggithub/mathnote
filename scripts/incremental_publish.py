@@ -77,6 +77,7 @@ DEFAULT_BACKEND_INDEX_PATH = (
 DEFAULT_PDF_MAP_PATH = PROJECT_ROOT / "build" / "conclusion_pdf_map.json"
 DEFAULT_PDF_OUTPUT_DIR = PROJECT_ROOT / "build" / "conclusion_pdfs"
 DEFAULT_LOCAL_FORMULA_DIR = PROJECT_ROOT / "public" / "static" / "formulas"
+DEFAULT_LOCAL_TIKZ_DIR = PROJECT_ROOT / "public" / "static" / "tikz"
 DEFAULT_REPORT_PATH = PROJECT_ROOT / "reports" / "incremental_publish_report.json"
 RENDER_MATH_ASSETS_REPORT = PROJECT_ROOT / "reports" / "render_math_assets_report.json"
 RENDER_TIKZ_ASSETS_REPORT = PROJECT_ROOT / "reports" / "render_tikz_assets_report.json"
@@ -905,6 +906,8 @@ def postprocess_canonical_delta(
                 str(paths.tikz_out_dir),
                 "--asset-base",
                 derive_tikz_asset_base(config.asset_base),
+                "--fail-on-error",
+                "true",
             ],
             stages=stages,
         )
@@ -1872,26 +1875,36 @@ def write_report(report: PublishReport, config: PublishConfig, paths: PublishPat
     LOGGER.info("Report written | %s", config.report_path)
 
 
-def backup_local_formula_dirs(config: PublishConfig, paths: PublishPaths) -> list[str]:
+def backup_local_asset_dirs(config: PublishConfig, paths: PublishPaths) -> list[str]:
     if config.dry_run:
-        LOGGER.info("Local formula backup skipped for dry run.")
+        LOGGER.info("Local formula/TikZ backup skipped for dry run.")
         return []
 
     backed_up: list[str] = []
-    for item_id in config.ids:
-        source_dir = paths.formula_out_dir / item_id
-        if not source_dir.is_dir():
-            continue
-        target_dir = DEFAULT_LOCAL_FORMULA_DIR / item_id
-        target_dir.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copytree(source_dir, target_dir, dirs_exist_ok=True)
-        backed_up.append(str(target_dir))
-        LOGGER.info("Local formula assets backed up | %s -> %s", source_dir, target_dir)
+    asset_roots = (
+        ("formula", paths.formula_out_dir, DEFAULT_LOCAL_FORMULA_DIR),
+        ("TikZ", paths.tikz_out_dir, DEFAULT_LOCAL_TIKZ_DIR),
+    )
+    for asset_label, source_root, target_root in asset_roots:
+        for item_id in config.ids:
+            source_dir = source_root / item_id
+            if not source_dir.is_dir():
+                continue
+            target_dir = target_root / item_id
+            target_dir.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copytree(source_dir, target_dir, dirs_exist_ok=True)
+            backed_up.append(str(target_dir))
+            LOGGER.info(
+                "Local %s assets backed up | %s -> %s",
+                asset_label,
+                source_dir,
+                target_dir,
+            )
     return backed_up
 
 
 def cleanup_temp(paths: PublishPaths, config: PublishConfig) -> None:
-    backup_local_formula_dirs(config, paths)
+    backup_local_asset_dirs(config, paths)
     if config.keep_temp:
         LOGGER.info("Temp workspace kept | %s", paths.tmp_root)
         return

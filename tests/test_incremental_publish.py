@@ -74,36 +74,56 @@ def _fixture_root(name: str) -> Path:
     return publisher.PROJECT_ROOT / ".tmp" / "test_incremental_publish" / name
 
 
-class IncrementalPublishFormulaBackupTests(unittest.TestCase):
-    def test_cleanup_temp_backs_up_formula_dirs_without_deleting_existing_assets(self) -> None:
+class IncrementalPublishAssetBackupTests(unittest.TestCase):
+    def test_cleanup_temp_backs_up_formula_and_tikz_dirs_without_deleting_existing_assets(self) -> None:
         fixture_root = _fixture_root("incremental_publish_formula_backup_fixture")
         shutil.rmtree(fixture_root, ignore_errors=True)
         local_formula_root = fixture_root / "public" / "static" / "formulas"
+        local_tikz_root = fixture_root / "public" / "static" / "tikz"
         temp_root = fixture_root / "tmp_root"
-        source_dir = temp_root / "formulas" / "R005"
-        target_dir = local_formula_root / "R005"
-        source_dir.mkdir(parents=True, exist_ok=True)
-        target_dir.mkdir(parents=True, exist_ok=True)
-        (source_dir / "new@3x.png").write_bytes(b"new")
-        (target_dir / "existing@3x.png").write_bytes(b"existing")
+        formula_source_dir = temp_root / "formulas" / "R005"
+        formula_target_dir = local_formula_root / "R005"
+        tikz_source_dir = temp_root / "tikz" / "R005"
+        tikz_target_dir = local_tikz_root / "R005"
+        formula_source_dir.mkdir(parents=True, exist_ok=True)
+        formula_target_dir.mkdir(parents=True, exist_ok=True)
+        tikz_source_dir.mkdir(parents=True, exist_ok=True)
+        tikz_target_dir.mkdir(parents=True, exist_ok=True)
+        (formula_source_dir / "new@3x.png").write_bytes(b"new")
+        (formula_target_dir / "existing@3x.png").write_bytes(b"existing")
+        (tikz_source_dir / "new-diagram@3x.png").write_bytes(b"new-tikz")
+        (tikz_target_dir / "existing-diagram@3x.png").write_bytes(b"existing-tikz")
 
         config = _publish_config()
         config.keep_temp = False
         paths = publisher.create_paths(config)
         paths.tmp_root = temp_root
         paths.formula_out_dir = temp_root / "formulas"
+        paths.tikz_out_dir = temp_root / "tikz"
 
         try:
             with mock.patch.object(
                 publisher,
                 "DEFAULT_LOCAL_FORMULA_DIR",
                 local_formula_root,
+            ), mock.patch.object(
+                publisher,
+                "DEFAULT_LOCAL_TIKZ_DIR",
+                local_tikz_root,
             ):
                 publisher.cleanup_temp(paths, config)
 
             self.assertFalse(temp_root.exists())
-            self.assertEqual((target_dir / "new@3x.png").read_bytes(), b"new")
-            self.assertEqual((target_dir / "existing@3x.png").read_bytes(), b"existing")
+            self.assertEqual((formula_target_dir / "new@3x.png").read_bytes(), b"new")
+            self.assertEqual((formula_target_dir / "existing@3x.png").read_bytes(), b"existing")
+            self.assertEqual(
+                (tikz_target_dir / "new-diagram@3x.png").read_bytes(),
+                b"new-tikz",
+            )
+            self.assertEqual(
+                (tikz_target_dir / "existing-diagram@3x.png").read_bytes(),
+                b"existing-tikz",
+            )
         finally:
             shutil.rmtree(fixture_root, ignore_errors=True)
 
