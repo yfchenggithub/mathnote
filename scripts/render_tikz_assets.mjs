@@ -17,6 +17,8 @@ const DEFAULT_OUT_DIR = path.join("public", "static", "tikz");
 const DEFAULT_REPORT = path.join("reports", "render_tikz_assets_report.json");
 const DEFAULT_ASSET_BASE = "/static/tikz";
 const DEFAULT_SCALE = 3;
+const TIKZ_IMAGE_TYPE = "tikz_image";
+const LEGACY_TIKZ_IMAGE_TYPE = "image_block";
 // Bump this whenever the standalone LaTeX context changes in a way that can
 // alter rendered pixels. It is part of the asset hash, so stale PNG files are
 // not silently reused after a renderer/preamble update.
@@ -38,6 +40,7 @@ Options:
   --in-place            Overwrite input JSON directly
   --out-dir <path>      TikZ PNG asset directory (default: ${DEFAULT_OUT_DIR})
   --asset-base <path>   Asset base path (default: ${DEFAULT_ASSET_BASE})
+  --report <path>       Render report path (default: ${DEFAULT_REPORT})
   --scale <number>      Output scale factor (default: ${DEFAULT_SCALE})
   --force [bool]        Force re-render existing PNG files (default: false)
   --fail-on-error [bool] Exit non-zero if any TikZ source fails (default: false)
@@ -85,6 +88,7 @@ function parseArgs(argv) {
     inPlace: false,
     outDir: DEFAULT_OUT_DIR,
     assetBase: DEFAULT_ASSET_BASE,
+    report: DEFAULT_REPORT,
     scale: DEFAULT_SCALE,
     force: false,
     failOnError: false,
@@ -106,6 +110,7 @@ function parseArgs(argv) {
       arg === "--output" ||
       arg === "--out-dir" ||
       arg === "--asset-base" ||
+      arg === "--report" ||
       arg === "--public-base" ||
       arg === "--scale" ||
       arg === "--limit"
@@ -120,6 +125,7 @@ function parseArgs(argv) {
         options.outputFromArg = true;
       }
       if (arg === "--out-dir") options.outDir = value;
+      if (arg === "--report") options.report = value;
       if (arg === "--asset-base" || arg === "--public-base") {
         options.assetBase = value;
       }
@@ -170,7 +176,7 @@ function parseArgs(argv) {
     inputAbs,
     outputAbs,
     outDirAbs: path.resolve(options.outDir),
-    reportAbs: path.resolve(DEFAULT_REPORT),
+    reportAbs: path.resolve(options.report),
     assetBase: normalizeAssetBase(options.assetBase),
   };
 }
@@ -664,10 +670,10 @@ function hasRenderableTokens(tokens) {
   });
 }
 
-function buildImageBlock({ blockId, imageCount, segment, renderResult, captionResult, scale }) {
+function buildTikzImageBlock({ blockId, imageCount, segment, renderResult, captionResult, scale }) {
   return {
     id: `${blockId || "block"}-img${imageCount}`,
-    type: "image_block",
+    type: TIKZ_IMAGE_TYPE,
     src: renderResult.asset.src,
     width_px: renderResult.asset.width_px,
     height_px: renderResult.asset.height_px,
@@ -734,7 +740,7 @@ function transformParagraphBlock(block, resultMap, scale) {
     index = captionResult.nextIndex - 1;
 
     outputBlocks.push(
-      buildImageBlock({
+      buildTikzImageBlock({
         blockId: block.id || "paragraph",
         imageCount,
         segment,
@@ -774,7 +780,7 @@ function extractImagesFromTokens(tokens, resultMap, scale, blockId, startImageCo
     }
     index = captionResult.nextIndex - 1;
     imageBlocks.push(
-      buildImageBlock({
+      buildTikzImageBlock({
         blockId,
         imageCount,
         segment,
@@ -823,16 +829,33 @@ function transformTheoremGroupBlock(block, resultMap, scale) {
 
 function applyRenderedTikz(content, resultMap, scale) {
   let replaced = 0;
-  if (!content || typeof content !== "object") return replaced;
+  let migrated = 0;
+  let sanitizedPlainFields = 0;
+  if (!content || typeof content !== "object") {
+    return { replaced, migrated, sanitizedPlainFields };
+  }
 
   for (const record of Object.values(content)) {
     const sections = record?.content?.sections;
     if (!Array.isArray(sections)) continue;
+    const renderedSources = new Set();
     for (const section of sections) {
       const blocks = section?.blocks;
       if (!Array.isArray(blocks)) continue;
       const nextBlocks = [];
       for (const block of blocks) {
+        if (
+          block
+          && block.type === LEGACY_TIKZ_IMAGE_TYPE
+          && (
+            normalizeSourcePath(block.source).toLowerCase().startsWith("assets/tikz/")
+            || normalizeSourcePath(block.src).toLowerCase().includes("/static/tikz/")
+          )
+        ) {
+          nextBlocks.push({ ...block, type: TIKZ_IMAGE_TYPE });
+          migrated += 1;
+          continue;
+        }
         if (
           block &&
           block.type === "paragraph" &&
@@ -840,7 +863,7 @@ function applyRenderedTikz(content, resultMap, scale) {
         ) {
           const transformed = transformParagraphBlock(block, resultMap, scale);
           if (transformed.length !== 1 || transformed[0] !== block) {
-            replaced += transformed.filter((item) => item.type === "image_block").length;
+            replaced += transformed.filter((item) => item.type === TIKZ_IMAGE_TYPE).length;
           }
           nextBlocks.push(...transformed);
           continue;
@@ -848,7 +871,7 @@ function applyRenderedTikz(content, resultMap, scale) {
         if (block && block.type === "theorem_group" && Array.isArray(block.items)) {
           const transformed = transformTheoremGroupBlock(block, resultMap, scale);
           if (transformed.length !== 1 || transformed[0] !== block) {
-            replaced += transformed.filter((item) => item.type === "image_block").length;
+            replaced += transformed.filter((item) => item.type === TIKZ_IMAGE_TYPE).length;
           }
           nextBlocks.push(...transformed);
           continue;
@@ -856,9 +879,33 @@ function applyRenderedTikz(content, resultMap, scale) {
         nextBlocks.push(block);
       }
       section.blocks = nextBlocks;
+      for (const block of nextBlocks) {
+        if (block?.type !== TIKZ_IMAGE_TYPE) continue;
+        const source = normalizeSourcePath(block.source);
+        if (source) renderedSources.add(source);
+      }
+    }
+
+    const plain = record?.content?.plain;
+    if (plain && typeof plain === "object") {
+      for (const [key, value] of Object.entries(plain)) {
+        if (typeof value !== "string") continue;
+        TIKZ_PATH_RE.lastIndex = 0;
+        const sanitized = value
+          .replace(TIKZ_PATH_RE, (matchedSource) =>
+            renderedSources.has(normalizeSourcePath(matchedSource)) ? "" : matchedSource,
+          )
+          .replace(/[ \t]+\n/g, "\n")
+          .replace(/\n{3,}/g, "\n\n");
+        TIKZ_PATH_RE.lastIndex = 0;
+        if (sanitized !== value) {
+          plain[key] = sanitized;
+          sanitizedPlainFields += 1;
+        }
+      }
     }
   }
-  return replaced;
+  return { replaced, migrated, sanitizedPlainFields };
 }
 
 async function main() {
@@ -985,10 +1032,16 @@ async function main() {
   }
 
   let replaced = 0;
+  let migrated = 0;
+  let sanitizedPlainFields = 0;
   const outputWritten =
     !options.dryRun && (!options.failOnError || failed === 0);
   if (outputWritten) {
-    replaced = applyRenderedTikz(content, resultMap, options.scale);
+    ({ replaced, migrated, sanitizedPlainFields } = applyRenderedTikz(
+      content,
+      resultMap,
+      options.scale,
+    ));
     await saveJson(options.outputAbs, content);
   } else {
     const reason = options.dryRun ? "dry-run" : `${failed} render failure(s)`;
@@ -1013,6 +1066,8 @@ async function main() {
     dryRun: options.dryRun,
     dryRunCount,
     replaced,
+    migrated,
+    sanitizedPlainFields,
     items: reportItems,
   };
   await saveJson(options.reportAbs, report);
@@ -1020,7 +1075,9 @@ async function main() {
   console.log(`[render_tikz_assets] rendered: ${rendered}`);
   console.log(`[render_tikz_assets] reused: ${reused}`);
   console.log(`[render_tikz_assets] failed: ${failed}`);
-  console.log(`[render_tikz_assets] replaced image blocks: ${replaced}`);
+  console.log(`[render_tikz_assets] replaced tikz images: ${replaced}`);
+  console.log(`[render_tikz_assets] migrated legacy image blocks: ${migrated}`);
+  console.log(`[render_tikz_assets] sanitized plain fields: ${sanitizedPlainFields}`);
   if (outputWritten) {
     console.log(
       `[render_tikz_assets] output json: ${toDisplayPath(options.outputAbs)}`,

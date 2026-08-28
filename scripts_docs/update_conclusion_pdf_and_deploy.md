@@ -92,7 +92,7 @@ python -B .\scripts\incremental_publish.py I058
 
 静态图片处理顺序为：先由 `scripts/render_tikz_assets.mjs` 将正文引用的
 `assets/tikz/<ID>_*.tex` 渲染为 `public/static/tikz/<ID>/*.png` 对应的
-`image_block`，再由 `scripts/render_math_assets.mjs` 处理公式图片。TikZ
+`tikz_image`，再由 `scripts/render_math_assets.mjs` 处理公式图片。TikZ
 资源会和公式资源一起上传，但分别保存在服务器的 `/static/tikz/<ID>/`
 与 `/static/formulas/<ID>/`。任何 TikZ 编译失败都会在数据合并、资源上传
 和服务重启之前终止发布，避免服务器出现“部分图片已更新、部分仍是源路径”

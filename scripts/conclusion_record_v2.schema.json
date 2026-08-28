@@ -401,12 +401,12 @@
                 "bullet_list": "#/$defs/BulletListBlock",
                 "divider": "#/$defs/DividerBlock",
                 "example": "#/$defs/ExampleBlock",
-                "image_block": "#/$defs/ImageBlock",
                 "math_block": "#/$defs/MathBlock",
                 "paragraph": "#/$defs/ParagraphBlock",
                 "proof_steps": "#/$defs/ProofStepsBlock",
                 "summary_box": "#/$defs/SummaryBoxBlock",
                 "theorem_group": "#/$defs/TheoremGroupBlock",
+                "tikz_image": "#/$defs/TikzImageBlock",
                 "warning": "#/$defs/WarningBlock"
               },
               "propertyName": "type"
@@ -419,7 +419,7 @@
                 "$ref": "#/$defs/MathBlock"
               },
               {
-                "$ref": "#/$defs/ImageBlock"
+                "$ref": "#/$defs/TikzImageBlock"
               },
               {
                 "$ref": "#/$defs/DividerBlock"
@@ -834,142 +834,6 @@
         "module"
       ],
       "title": "IdentityInfo",
-      "type": "object"
-    },
-    "ImageBlock": {
-      "additionalProperties": false,
-      "description": "Rendered image block for figures such as TikZ diagrams.",
-      "properties": {
-        "id": {
-          "description": "Block ID",
-          "minLength": 1,
-          "title": "Id",
-          "type": "string"
-        },
-        "type": {
-          "const": "image_block",
-          "default": "image_block",
-          "description": "Block type: rendered image",
-          "title": "Type",
-          "type": "string"
-        },
-        "src": {
-          "description": "PNG image path",
-          "minLength": 1,
-          "title": "Src",
-          "type": "string"
-        },
-        "width_px": {
-          "description": "PNG width in pixels",
-          "minimum": 1,
-          "title": "Width Px",
-          "type": "integer"
-        },
-        "height_px": {
-          "description": "PNG height in pixels",
-          "minimum": 1,
-          "title": "Height Px",
-          "type": "integer"
-        },
-        "display_width_px": {
-          "description": "Suggested display width",
-          "minimum": 1,
-          "title": "Display Width Px",
-          "type": "integer"
-        },
-        "display_height_px": {
-          "description": "Suggested display height",
-          "minimum": 1,
-          "title": "Display Height Px",
-          "type": "integer"
-        },
-        "alt": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "description": "Alternative text",
-          "title": "Alt"
-        },
-        "caption": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "description": "Optional figure caption",
-          "title": "Caption"
-        },
-        "source": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "description": "Original source path",
-          "title": "Source"
-        },
-        "vspace": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "description": "Original vertical spacing hint",
-          "title": "Vspace"
-        },
-        "align": {
-          "default": "center",
-          "description": "Image alignment",
-          "enum": [
-            "left",
-            "center",
-            "right"
-          ],
-          "title": "Align",
-          "type": "string"
-        },
-        "scale": {
-          "anyOf": [
-            {
-              "minimum": 1,
-              "type": "integer"
-            },
-            {
-              "type": "null"
-            }
-          ],
-          "default": null,
-          "description": "Render scale multiplier",
-          "title": "Scale"
-        }
-      },
-      "required": [
-        "id",
-        "src",
-        "width_px",
-        "height_px",
-        "display_width_px",
-        "display_height_px"
-      ],
-      "title": "ImageBlock",
       "type": "object"
     },
     "LineBreakToken": {
@@ -1831,6 +1695,142 @@
         "title"
       ],
       "title": "TheoremItem",
+      "type": "object"
+    },
+    "TikzImageBlock": {
+      "additionalProperties": false,
+      "description": "PNG image block rendered from a TikZ source.",
+      "properties": {
+        "id": {
+          "description": "Block ID",
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "type": {
+          "const": "tikz_image",
+          "default": "tikz_image",
+          "description": "Block type: PNG rendered from TikZ",
+          "title": "Type",
+          "type": "string"
+        },
+        "src": {
+          "description": "PNG image path",
+          "minLength": 1,
+          "title": "Src",
+          "type": "string"
+        },
+        "width_px": {
+          "description": "PNG width in pixels",
+          "minimum": 1,
+          "title": "Width Px",
+          "type": "integer"
+        },
+        "height_px": {
+          "description": "PNG height in pixels",
+          "minimum": 1,
+          "title": "Height Px",
+          "type": "integer"
+        },
+        "display_width_px": {
+          "description": "Suggested display width",
+          "minimum": 1,
+          "title": "Display Width Px",
+          "type": "integer"
+        },
+        "display_height_px": {
+          "description": "Suggested display height",
+          "minimum": 1,
+          "title": "Display Height Px",
+          "type": "integer"
+        },
+        "alt": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Alternative text",
+          "title": "Alt"
+        },
+        "caption": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional figure caption",
+          "title": "Caption"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Original source path",
+          "title": "Source"
+        },
+        "vspace": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Original vertical spacing hint",
+          "title": "Vspace"
+        },
+        "align": {
+          "default": "center",
+          "description": "Image alignment",
+          "enum": [
+            "left",
+            "center",
+            "right"
+          ],
+          "title": "Align",
+          "type": "string"
+        },
+        "scale": {
+          "anyOf": [
+            {
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Render scale multiplier",
+          "title": "Scale"
+        }
+      },
+      "required": [
+        "id",
+        "src",
+        "width_px",
+        "height_px",
+        "display_width_px",
+        "display_height_px"
+      ],
+      "title": "TikzImageBlock",
       "type": "object"
     },
     "VariableDef": {

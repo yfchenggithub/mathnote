@@ -805,7 +805,7 @@ def collect_all_formula_refs(
     def walk(node: Any) -> None:
         if isinstance(node, dict):
             node_type = str(node.get("type") or "")
-            if node_type in {"math_image", "image_block"} or "asset" in node:
+            if node_type in {"math_image", "tikz_image", "image_block"} or "asset" in node:
                 ref = make_asset_ref("formula_image", node, public_dir)
                 if ref and ref.asset_url not in refs:
                     refs[ref.asset_url] = ref
@@ -826,7 +826,7 @@ def prepare_zhihu_upload_assets(
     counters = {"formula_image": 0, "image_block": 0}
     for block in blocks:
         block_type = str(block.get("type") or "")
-        if block_type not in {"formula_image", "image_block"}:
+        if block_type not in {"formula_image", "tikz_image", "image_block"}:
             continue
         source_path = Path(str(block.get("local_path") or ""))
         if not source_path.is_file():
@@ -1652,7 +1652,7 @@ def block_to_markdown(block: dict[str, Any]) -> str:
         return "#" * level + " " + str(block.get("text") or "").strip()
     if block_type == "paragraph":
         return str(block.get("text") or "").strip()
-    if block_type in {"formula_image", "image_block"}:
+    if block_type in {"formula_image", "tikz_image", "image_block"}:
         alt = str(block.get("alt") or block.get("latex") or "图片").replace("\n", " ")
         path = str(block.get("local_path") or "")
         caption = str(block.get("caption") or "").strip()
@@ -1677,7 +1677,7 @@ def block_to_html(block: dict[str, Any]) -> str:
             "\n", "<br/>"
         )
         return f"<p>{text}</p>"
-    if block_type in {"formula_image", "image_block"}:
+    if block_type in {"formula_image", "tikz_image", "image_block"}:
         path = Path(str(block.get("local_path") or ""))
         src = (
             path.as_uri() if path.is_absolute() else html.escape(str(path), quote=True)
@@ -2260,7 +2260,7 @@ def try_fill_body(page: Any, blocks: list[dict[str, Any]]) -> None:
                 page.keyboard.insert_text(text)
                 page.keyboard.press("Enter")
                 page.keyboard.press("Enter")
-        elif block_type in {"formula_image", "image_block"}:
+        elif block_type in {"formula_image", "tikz_image", "image_block"}:
             path = Path(str(block.get("local_path") or ""))
             if not path.is_file():
                 page.keyboard.insert_text(

@@ -1413,7 +1413,7 @@ def fill_bilibili_body_blocks(page: Any, blocks: list[dict[str, Any]], config: C
                 page.keyboard.insert_text(text)
                 page.keyboard.press("Enter")
                 page.keyboard.press("Enter")
-        elif block_type in {"formula_image", "image_block"}:
+        elif block_type in {"formula_image", "tikz_image", "image_block"}:
             path = Path(str(block.get("local_path") or ""))
             if not path.is_file():
                 page.keyboard.insert_text(str(block.get("latex") or block.get("alt") or "[图片缺失]"))

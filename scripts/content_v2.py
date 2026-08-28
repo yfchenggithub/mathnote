@@ -156,12 +156,12 @@ class MathBlock(StrictBaseModel):
     )
 
 
-class ImageBlock(StrictBaseModel):
-    """Rendered image block for figures such as TikZ diagrams."""
+class TikzImageBlock(StrictBaseModel):
+    """PNG image block rendered from a TikZ source."""
 
     id: str = Field(..., min_length=1, description="Block ID")
-    type: Literal["image_block"] = Field(
-        default="image_block", description="Block type: rendered image"
+    type: Literal["tikz_image"] = Field(
+        default="tikz_image", description="Block type: PNG rendered from TikZ"
     )
     src: str = Field(..., min_length=1, description="PNG image path")
     width_px: int = Field(..., ge=1, description="PNG width in pixels")
@@ -329,7 +329,7 @@ ContentBlock = Annotated[
     Union[
         ParagraphBlock,
         MathBlock,
-        ImageBlock,
+        TikzImageBlock,
         DividerBlock,
         BulletListBlock,
         TheoremGroupBlock,

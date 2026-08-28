@@ -901,7 +901,7 @@ def collect_article_image_refs(
         if not isinstance(node, dict):
             continue
         node_type = str(node.get("type", ""))
-        if node_type not in {"math_image", "image_block"}:
+        if node_type not in {"math_image", "tikz_image", "image_block"}:
             continue
         asset_url = resolve_asset_url(node)
         if not asset_url:
@@ -2186,7 +2186,7 @@ def render_block(
         )
     if block_type in {"math_image", "math_block", "math_inline"}:
         return render_formula_image(block, upload_map=upload_map, inline=False)
-    if block_type == "image_block":
+    if block_type in {"tikz_image", "image_block"}:
         return render_formula_image(block, upload_map=upload_map, inline=False)
     if block_type == "bullet_list":
         return render_bullet_list(block, upload_map=upload_map, section_key=section_key)
