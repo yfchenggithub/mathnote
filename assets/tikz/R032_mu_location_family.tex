@@ -1,0 +1,68 @@
+% 固定方差时，均值 mu 对正态曲线位置的影响
+% 用法：\input{assets/tikz/R032_mu_location_family.tex}
+
+\begin{center}
+	\begin{tikzpicture}[
+		x=1cm,
+		y=1cm,
+		>=Stealth,
+		line cap=round,
+		line join=round,
+		every node/.style={font=\small},
+		axis/.style={-Stealth, black!65, line width=0.75pt},
+		guide/.style={dashed, line width=0.65pt}
+	]
+		\path[use as bounding box] (0,-0.12) rectangle (12.4,4.05);
+		\fill[blue!3, rounded corners=7pt] (0.25,0.05) rectangle (12.15,3.92);
+		\draw[blue!35!black, rounded corners=7pt, line width=0.8pt]
+			(0.25,0.05) rectangle (12.15,3.92);
+
+		\node[font=\bfseries, text=CExplanation, anchor=west] at (0.62,3.55)
+			{固定方差 $\sigma^2=1$：$\mu$ 决定曲线的水平位置};
+		\node[font=\scriptsize, text=CExplanation, anchor=east] at (11.55,3.53)
+			{峰高与宽窄保持不变};
+
+		% 图例独占一行，避免与曲线峰值争夺空间。
+		\draw[red!82!black, line width=1.15pt] (1.05,3.08) -- (1.60,3.08);
+		\node[font=\scriptsize, anchor=west, text=red!82!black] at (1.72,3.08)
+			{$N(-1,1)$};
+		\draw[blue!88!black, line width=1.15pt] (4.72,3.08) -- (5.27,3.08);
+		\node[font=\scriptsize, anchor=west, text=blue!88!black] at (5.39,3.08)
+			{$N(0,1)$};
+		\draw[green!65!black, line width=1.15pt] (8.25,3.08) -- (8.80,3.08);
+		\node[font=\scriptsize, anchor=west, text=green!65!black] at (8.92,3.08)
+			{$N(1,1)$};
+
+		\draw[axis] (1.05,1.05) -- (11.55,1.05) node[right] {$x$};
+
+		\draw[guide, red!72!black] (4.72,1.13) -- (4.72,2.42);
+		\draw[guide, blue!88!black] (6.25,1.13) -- (6.25,2.42);
+		\draw[guide, green!55!black] (7.78,1.13) -- (7.78,2.42);
+
+		\draw[red!82!black, line width=1.15pt, smooth]
+			plot[domain=1.30:11.25, samples=150]
+			(\x,{1.05+1.30*exp(-((\x-4.72)*(\x-4.72))/2.35)});
+		\draw[blue!88!black, line width=1.15pt, smooth]
+			plot[domain=1.30:11.25, samples=150]
+			(\x,{1.05+1.30*exp(-((\x-6.25)*(\x-6.25))/2.35)});
+		\draw[green!65!black, line width=1.15pt, smooth]
+			plot[domain=1.30:11.25, samples=150]
+			(\x,{1.05+1.30*exp(-((\x-7.78)*(\x-7.78))/2.35)});
+
+		\draw[red!82!black] (4.72,0.97) -- (4.72,1.13);
+		\node[below=3pt, font=\scriptsize, text=red!82!black] at (4.72,1.00)
+			{$\mu=-1$};
+		\fill[red!82!black] (4.72,2.35) circle (1.35pt);
+
+		\draw[blue!88!black] (6.25,0.97) -- (6.25,1.13);
+		\node[below=3pt, font=\scriptsize, text=blue!88!black] at (6.25,1.00)
+			{$\mu=0$};
+		\fill[blue!88!black] (6.25,2.35) circle (1.35pt);
+
+		\draw[green!65!black] (7.78,0.97) -- (7.78,1.13);
+		\node[below=3pt, font=\scriptsize, text=green!65!black] at (7.78,1.00)
+			{$\mu=1$};
+		\fill[green!65!black] (7.78,2.35) circle (1.35pt);
+
+	\end{tikzpicture}
+\end{center}

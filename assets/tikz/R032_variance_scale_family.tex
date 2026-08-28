@@ -1,0 +1,62 @@
+% 固定均值时，方差 sigma^2 对正态曲线尺度的影响
+% 用法：\input{assets/tikz/R032_variance_scale_family.tex}
+
+\begin{center}
+	\begin{tikzpicture}[
+		x=1cm,
+		y=1cm,
+		>=Stealth,
+		line cap=round,
+		line join=round,
+		every node/.style={font=\small},
+		axis/.style={-Stealth, black!65, line width=0.75pt},
+		guide/.style={dashed, line width=0.65pt}
+	]
+		\path[use as bounding box] (0,-0.12) rectangle (12.4,4.12);
+		\fill[teal!3, rounded corners=7pt] (0.25,0.05) rectangle (12.15,3.99);
+		\draw[teal!45!black, rounded corners=7pt, line width=0.8pt]
+			(0.25,0.05) rectangle (12.15,3.99);
+
+		\node[font=\bfseries, text=teal!65!black, anchor=west] at (0.62,3.62)
+			{固定均值 $\mu=0$：方差 $\sigma^2$ 决定曲线的离散程度};
+		\draw[red!82!black, line width=1.15pt] (0.82,3.16) -- (1.35,3.16);
+		\node[font=\scriptsize, anchor=west, text=red!82!black] at (1.47,3.16)
+			{$N(0,\tfrac14)$，$\sigma=\tfrac12$};
+		\draw[blue!88!black, line width=1.15pt] (4.52,3.16) -- (5.05,3.16);
+		\node[font=\scriptsize, anchor=west, text=blue!88!black] at (5.17,3.16)
+			{$N(0,1)$，$\sigma=1$};
+		\draw[green!65!black, line width=1.15pt] (8.12,3.16) -- (8.65,3.16);
+		\node[font=\scriptsize, anchor=west, text=green!65!black] at (8.77,3.16)
+			{$N(0,4)$，$\sigma=2$};
+
+		\draw[axis] (1.05,1.35) -- (11.55,1.35) node[right] {$x$};
+
+		% 宽曲线先画，窄曲线后画，保证三条轮廓都能辨认。
+		\draw[green!65!black, line width=1.15pt, smooth]
+			plot[domain=1.25:11.25, samples=170]
+			(\x,{1.35+0.36*exp(-((\x-6.25)*(\x-6.25))/11.52)});
+		\draw[blue!88!black, line width=1.15pt, smooth]
+			plot[domain=1.25:11.25, samples=170]
+			(\x,{1.35+0.72*exp(-((\x-6.25)*(\x-6.25))/2.88)});
+		\draw[red!82!black, line width=1.15pt, smooth]
+			plot[domain=1.25:11.25, samples=170]
+			(\x,{1.35+1.44*exp(-((\x-6.25)*(\x-6.25))/0.72)});
+
+		\draw[guide, black!45] (6.25,1.43) -- (6.25,2.84);
+		\draw[guide, blue!88!black] (5.05,1.43) -- (5.05,1.80);
+		\draw[guide, blue!88!black] (7.45,1.43) -- (7.45,1.80);
+		\fill[blue!88!black] (5.05,1.79) circle (1.35pt);
+		\fill[blue!88!black] (7.45,1.79) circle (1.35pt);
+
+		\foreach \x/\lab in {5.05/{\mu-\sigma},6.25/{\mu},7.45/{\mu+\sigma}}{
+			\draw[black!55] (\x,1.27) -- (\x,1.43);
+			\node[below=3pt, font=\scriptsize] at (\x,1.30) {$\lab$};
+		}
+		\draw[<->, blue!88!black, line width=0.7pt] (5.05,0.42) -- (6.25,0.42)
+			node[midway, above=1pt, font=\scriptsize] {$\sigma$};
+		\draw[<->, blue!88!black, line width=0.7pt] (6.25,0.42) -- (7.45,0.42)
+			node[midway, above=1pt, font=\scriptsize] {$\sigma$};
+		\node[font=\scriptsize, text=blue!88!black, anchor=east] at (11.45,0.47)
+			{蓝线示意：拐点为 $\mu\pm\sigma$};
+	\end{tikzpicture}
+\end{center}
