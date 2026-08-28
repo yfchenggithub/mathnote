@@ -17,7 +17,6 @@ import re
 import shutil
 import subprocess
 import sys
-import tempfile
 import uuid
 from dataclasses import dataclass
 from pathlib import Path
@@ -417,6 +416,7 @@ def is_latexmk_wrapper_failure(text: str) -> bool:
 
 
 def run_xelatex_fallback(repo_root: Path, wrapper_path: Path, temp_build_dir: str) -> tuple[bool, str]:
+    Path(temp_build_dir).mkdir(parents=True, exist_ok=True)
     output_dir = Path(temp_build_dir).as_posix()
     cmd = [
         "xelatex",
@@ -468,7 +468,9 @@ def compile_one(
 
     try:
         wrapper_path.write_text(wrapper_text, encoding="utf-8", newline="\n")
-        temp_build_dir = tempfile.mkdtemp(prefix="latexmk_", dir=str(output_dir))
+        # latexmk on Windows expects to create -output-directory itself.
+        # Generate a unique path without pre-creating that directory.
+        temp_build_dir = str(output_dir / f"latexmk_{uuid.uuid4().hex[:8]}")
         tex_output_dir = Path(temp_build_dir).as_posix()
         latexmk_cmd = [
             "latexmk",

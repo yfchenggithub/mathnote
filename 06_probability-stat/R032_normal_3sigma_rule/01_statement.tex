@@ -1,39 +1,29 @@
 \begin{statementbox}
 	\textbf{\textcolor{CStatement}{条件}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件 1（正态参数）：}}]
-			随机变量 $X$ 服从正态分布 $N(\mu,\sigma^{2})$，其中 $\sigma>0$。
-	\end{description}
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（一倍标准差）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			变量落在均值附近一个标准差范围内的概率约为 $68.27\%$。
-			\[
-				P(\mu-\sigma<X<\mu+\sigma)\approx0.6827
-			\]
-		\item[\textbf{\textcolor{CStatement}{结论二（两倍标准差）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			变量落在均值附近两个标准差范围内的概率约为 $95.45\%$。
-			\[
-				P(\mu-2\sigma<X<\mu+2\sigma)\approx0.9545
-			\]
-		\item[\textbf{\textcolor{CStatement}{结论三（三倍标准差）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			变量落在均值附近三个标准差范围内的概率约为 $99.73\%$。
-			\[
-				P(\mu-3\sigma<X<\mu+3\sigma)\approx0.9973
-			\]
-	\end{description}
-	\textbf{\textcolor{CStatement}{常见变形（标准化变换）：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{直观描述：}}]
-			作标准化 $Z=\dfrac{X-\mu}{\sigma}\sim N(0,1)$，则原区间概率化为标准正态绝对值概率。
-			\[
-				\begin{aligned}
-					P(\mu-k\sigma<X<\mu+k\sigma) &= P(|Z|<k) \\ &= 2\Phi(k)-1
-			\end{aligned}
-			\]
+		\item[\textbf{\textcolor{CStatement}{条件 1（分布参数）：}}]
+			随机变量 $X\sim N(\mu,\sigma^{2})$，其中 $\mu\in\mathbb{R}$，$\sigma>0$；这里第二个参数 $\sigma^{2}$ 是方差。
+		\item[\textbf{\textcolor{CStatement}{条件 2（区间倍数）：}}]
+			取 $k>0$，考察以均值 $\mu$ 为中心、半宽为 $k\sigma$ 的对称区间。
 	\end{description}
 
+	\textbf{\textcolor{CStatement}{一般结论}}
+	令 $\Phi(z)=P(Z\le z)$ 为标准正态分布函数，则
+	\[
+		\boxed{
+		P(\mu-k\sigma<X<\mu+k\sigma)
+		=P\!\left(\left|\frac{X-\mu}{\sigma}\right|<k\right)
+		=2\Phi(k)-1
+		}.
+	\]
+	由于正态分布是连续型分布，把上式中的严格不等号改为非严格不等号，概率不变。
+
+	\medskip
+	\textbf{\textcolor{CStatement}{常用的 $1\sigma$、$2\sigma$、$3\sigma$ 覆盖概率}}
+	\input{assets/tikz/R032_68_95_997_overview.tex}
+	这三个数常合称为正态分布的“$68$--$95$--$99.7$ 法则”；其中第三行通常称为“$3\sigma$ 原则”。相应地，落在 $3\sigma$ 区间外的双侧概率约为
+	\[
+		P(|X-\mu|\ge 3\sigma)=2\bigl[1-\Phi(3)\bigr]
+		=0.002699\ldots\approx0.27\%.
+	\]
 \end{statementbox}

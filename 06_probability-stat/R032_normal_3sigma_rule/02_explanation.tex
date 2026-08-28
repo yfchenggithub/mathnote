@@ -1,40 +1,45 @@
+\clearpage
 \begin{explanationbox}
 	\textbf{\textcolor{CExplanation}{一句话直觉}}
-	正态分布中，数据集中在均值周围，标准差 $\sigma$ 确定分散程度；$k\sigma$ 区间覆盖的比例随 $k$ 增大快速趋近 $1$。
+	正态曲线关于均值对称；用标准差作距离单位后，位置参数 $\mu$ 与尺度参数 $\sigma$ 都被消去，因此覆盖概率只由倍数 $k$ 决定。
 
 	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（对称标准化）：}]
-			区间 $(\mu-k\sigma,\;\mu+k\sigma)$ 关于 $\mu$ 对称，标准化 $Z=(X-\mu)/\sigma$ 后等价于 $|Z|<k$。
-		\item[\textbf{要点二（查表求值）：}]
-			$P(|Z|<k)=2\Phi(k)-1$，通过标准正态分布表可查得 $\Phi(1),\Phi(2),\Phi(3)$ 得到近似值 $0.8413,0.9772,0.99865$，进而得到三个原则的概率。
-	\end{description}
+	\textbf{\textcolor{CExplanation}{标准化为什么有效}}
+	事件 $|X-\mu|<k\sigma$ 经过
+	\[
+		Z=\frac{X-\mu}{\sigma}
+	\]
+	变成 $|Z|<k$。下面的映射图把“中心归零、尺度归一”的过程完整画出。
+
+	\input{assets/tikz/R032_standardization_mapping.tex}
+
+	\textbf{\textcolor{CExplanation}{关键观察}}
+	平移 $\mu$ 只改变曲线中心，缩放 $\sigma$ 只改变曲线宽窄；标准化以后，无论原来的 $\mu$ 和 $\sigma$ 是多少，所求面积都落到同一条标准正态曲线上。
+\end{explanationbox}
+
+\clearpage
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{曲线面积与嵌套覆盖率}}
+	三个中央区间彼此嵌套；随着 $k$ 增大，新增面积越来越少。
+
+	\input{assets/tikz/R032_normal_3sigma_coverage.tex}
+
+	\textbf{\textcolor{CExplanation}{分层读图}}
+	用累计覆盖概率相减可得
+	\[
+		\begin{aligned}
+			P(1<|Z|<2)&\approx0.9545-0.6827=0.2718,\\
+			P(2<|Z|<3)&\approx0.9973-0.9545=0.0428,\\
+			P(|Z|>3)&\approx1-0.9973=0.0027.
+		\end{aligned}
+	\]
+	利用对称性，每个双侧区域的一半就是对应的单侧概率。例如 $P(1<Z<2)\approx0.1359$，$P(Z>3)\approx0.00135$。
 
 	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（曲线面积）}}
-	正态密度曲线关于 $x=\mu$ 对称，在区间 $[\mu-k\sigma,\mu+k\sigma]$ 上曲线与 $x$ 轴围成的曲边梯形面积就是概率 $P$；$k$ 越大面积越接近 $1$，$k=3$ 时面积几乎为 $1$。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（标准化函数）}}
-	标准化变量 $Z\sim N(0,1)$ 的分布函数 $\Phi(z)=P(Z\le z)$，则原概率可写为 $\Phi(k)-\Phi(-k)=2\Phi(k)-1$，代数形式统一。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（高频应用）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（直接求概率）：} 给出 $\mu$ 和 $\sigma$，求 $X$ 落在指定 $k\sigma$ 区间的概率，直接套用近似值。
-		\item \textbf{考法二（反求参数）：} 已知概率近似值和 $k$，建立方程求 $\mu$ 或 $\sigma$。
+	\textbf{\textcolor{CExplanation}{使用边界}}
+	\begin{itemize}[leftmargin=*, itemsep=0.35em, topsep=0.3em]
+		\item \textbf{正态总体：} $2\Phi(k)-1$ 是精确公式；$0.6827$ 等是小数近似。
+		\item \textbf{近似正态数据：} $68$--$95$--$99.7$ 是经验性近似。若只知道有限方差而不知道分布，切比雪夫不等式对 $k=3$ 只能保证 $P(|X-\mu|<3\sigma)\ge8/9$。
+		\item \textbf{质量控制：} 在过程稳定、正态模型合理等前提下，超出 $\mu\pm3\sigma$ 是值得调查的罕见信号，但并非产品必然不合格。
 	\end{itemize}
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
-	$\sigma$ 是衡量数据分散度的关键：区间概率只与 $k$ 有关，与 $\mu$ 和 $\sigma$ 的绝对值无关；$3\sigma$ 原则说明正态变量几乎全落在均值 $3\sigma$ 范围内。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（区间估计）：} 数据近似正态时，可用 $k\sigma$ 区间估计数据范围。
-		\item \textbf{场景二（质量控制）：} 生产管理中，以 $3\sigma$ 为控制界限，超出即判异。
-	\end{itemize}
-
 \end{explanationbox}

@@ -1,0 +1,70 @@
+% 从 X 到 Z 的标准化映射
+% 用法：\input{assets/tikz/R032_standardization_mapping.tex}
+
+\begin{center}
+	\begin{tikzpicture}[
+		x=1cm,
+		y=1cm,
+		>=Stealth,
+		line cap=round,
+		line join=round,
+		every node/.style={font=\small},
+		axis/.style={-Stealth, black!65, line width=0.75pt},
+		guide/.style={dashed, black!30, line width=0.6pt},
+		maparrow/.style={-Stealth, CExplanation, line width=1pt}
+	]
+		\path[use as bounding box] (0,-0.15) rectangle (12.4,6.05);
+
+		\fill[blue!3, rounded corners=7pt] (0.25,3.55) rectangle (12.15,5.90);
+		\draw[blue!35!black, rounded corners=7pt, line width=0.8pt]
+			(0.25,3.55) rectangle (12.15,5.90);
+		\fill[teal!3, rounded corners=7pt] (0.25,0.05) rectangle (12.15,2.42);
+		\draw[teal!45!black, rounded corners=7pt, line width=0.8pt]
+			(0.25,0.05) rectangle (12.15,2.42);
+
+		\node[font=\bfseries, text=CExplanation, anchor=west] at (0.62,5.52)
+			{原变量 $X$：中心在 $\mu$，距离用 $\sigma$ 衡量};
+		\node[font=\scriptsize, text=CExplanation, anchor=east] at (11.55,5.50)
+			{同一个事件：$|X-\mu|<k\sigma$};
+		\draw[axis] (1.25,4.38) -- (11.55,4.38) node[right] {$x$};
+		\fill[blue!18] (3.15,4.38) rectangle (9.35,4.47);
+		\draw[CExplanation, line width=1.05pt, smooth]
+			plot[domain=1.55:11.15, samples=110]
+			(\x,{4.38+0.72*exp(-((\x-6.25)*(\x-6.25))/2.1)});
+		\foreach \x/\lab in {3.15/{\mu-k\sigma},6.25/{\mu},9.35/{\mu+k\sigma}}{
+			\draw[black!55] (\x,4.30) -- (\x,4.46);
+			\node[below=2pt] at (\x,4.33) {$\lab$};
+		}
+		\draw[guide] (3.15,4.48) -- (3.15,5.15);
+		\draw[guide] (9.35,4.48) -- (9.35,5.15);
+
+		\node[font=\bfseries, text=teal!65!black, anchor=west] at (0.62,2.08)
+			{标准变量 $Z$：中心归零，标准差归一};
+		\node[font=\scriptsize, text=teal!65!black, anchor=east] at (11.55,2.06)
+			{统一为：$|Z|<k$};
+		\draw[axis] (1.25,0.90) -- (11.55,0.90) node[right] {$z$};
+		\fill[teal!18] (3.15,0.90) rectangle (9.35,0.99);
+		\draw[teal!65!black, line width=1.05pt, smooth]
+			plot[domain=1.55:11.15, samples=110]
+			(\x,{0.90+0.72*exp(-((\x-6.25)*(\x-6.25))/2.1)});
+		\foreach \x/\lab in {3.15/{-k},6.25/{0},9.35/{k}}{
+			\draw[black!55] (\x,0.82) -- (\x,0.98);
+			\node[below=2pt] at (\x,0.85) {$\lab$};
+		}
+
+		% 中间变换带把说明和公式分开，避免挤在两幅曲线之间。
+		\node[
+			draw=CExplanation,
+			fill=white,
+			rounded corners=4pt,
+			font=\scriptsize,
+			align=center,
+			inner xsep=7pt,
+			inner ysep=4pt
+		] at (3.30,2.98)
+			{平移中心：$\mu\mapsto0$\qquad 缩放尺度：$\sigma\mapsto1$};
+		\draw[maparrow] (9.55,3.43) -- (9.55,2.55)
+			node[midway, right=6pt, text=CExplanation, font=\scriptsize]
+			{$\displaystyle Z=\frac{X-\mu}{\sigma}$};
+	\end{tikzpicture}
+\end{center}

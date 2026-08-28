@@ -1,0 +1,47 @@
+% 控制界限与规格界限的区别
+% 用法：\input{assets/tikz/R032_control_limits_vs_specs.tex}
+
+\begin{center}
+	\begin{tikzpicture}[
+		x=1cm,
+		y=1cm,
+		line cap=round,
+		line join=round,
+		every node/.style={font=\small}
+	]
+		\path[use as bounding box] (0,-0.05) rectangle (12.5,4.75);
+		\node[font=\bfseries\large, text=CTrap] at (6.25,4.40)
+			{两套界限回答的是不同问题};
+
+		% Control limits card
+		\fill[blue!3, rounded corners=7pt] (0.25,2.25) rectangle (12.25,4.05);
+		\draw[blue!50!black, rounded corners=7pt, line width=0.85pt]
+			(0.25,2.25) rectangle (12.25,4.05);
+		\node[font=\bfseries, text=blue!65!black, anchor=west] at (0.58,3.73)
+			{控制界限：过程是否出现异常信号？};
+		\draw[black!50, line width=0.7pt] (1.05,2.78) -- (9.45,2.78);
+		\draw[blue!70!black, line width=1.3pt] (2.05,2.52) -- (2.05,3.30);
+		\draw[blue!70!black, line width=1.3pt] (8.45,2.52) -- (8.45,3.30);
+		\draw[black!65, line width=0.9pt] (5.25,2.58) -- (5.25,3.16);
+		\node[font=\scriptsize, text=blue!70!black] at (2.05,2.42) {$\mu-3\sigma$};
+		\node[font=\scriptsize] at (5.25,2.42) {$\mu$};
+		\node[font=\scriptsize, text=blue!70!black] at (8.45,2.42) {$\mu+3\sigma$};
+		\node[font=\scriptsize, align=left, anchor=west] at (9.75,2.92)
+			{由过程数据/模型得到\\[-1pt]超界 $\Rightarrow$ 值得调查};
+
+		% Specs card
+		\fill[red!3, rounded corners=7pt] (0.25,0.15) rectangle (12.25,1.95);
+		\draw[red!55!black, rounded corners=7pt, line width=0.85pt]
+			(0.25,0.15) rectangle (12.25,1.95);
+		\node[font=\bfseries, text=red!65!black, anchor=west] at (0.58,1.63)
+			{规格界限：产品是否满足技术要求？};
+		\draw[black!50, line width=0.7pt] (1.05,0.68) -- (9.45,0.68);
+		\draw[green!55!black, line width=5pt] (2.72,0.68) -- (8.05,0.68);
+		\draw[red!70!black, line width=1.3pt] (2.72,0.42) -- (2.72,1.20);
+		\draw[red!70!black, line width=1.3pt] (8.05,0.42) -- (8.05,1.20);
+		\node[font=\scriptsize, text=red!70!black] at (2.72,0.32) {LSL};
+		\node[font=\scriptsize, text=red!70!black] at (8.05,0.32) {USL};
+		\node[font=\scriptsize, align=left, anchor=west] at (9.75,0.82)
+			{由设计/客户要求给出\\[-1pt]越界 $\Rightarrow$ 不符合规格};
+	\end{tikzpicture}
+\end{center}

@@ -1,71 +1,88 @@
+\clearpage
+\input{assets/tikz/R032_example_three_cases.tex}
+
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例 1（基础）}}
+	\textbf{\textcolor{CExample}{例 1（识别方差与标准差）}}
+
 	\textbf{\textcolor{CExample}{题目：}}
 	设 $X\sim N(50,100)$，求 $P(40<X<60)$。
+
 	\textbf{\textcolor{CExample}{解题步骤：}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
 		\item[\textbf{第一步（读取参数）：}]
-			由 $X\sim N(50,100)$ 得 $\mu=50$，$\sigma=10$。
-			\par\textbf{理由：} 正态分布记号中第二个参数为方差，故标准差 $\sigma=\sqrt{100}=10$。
-		\item[\textbf{第二步（区间识别）：}]
-			区间 $(40,60)$ 满足 $40=50-10=\mu-\sigma$，$60=50+10=\mu+\sigma$。
-			\par\textbf{理由：} 区间端点与 $\mu\pm\sigma$ 完全重合。
+			第二个参数是方差，故 $\mu=50$，$\sigma=\sqrt{100}=10$。
+		\item[\textbf{第二步（识别区间）：}]
+			$40=\mu-\sigma$，$60=\mu+\sigma$，所以所求事件为 $|X-\mu|<\sigma$。
 		\item[\textbf{第三步（套用结论）：}]
-			直接利用 $1\sigma$ 原则得 $P(40<X<60)\approx0.6827$。
-			\par\textbf{理由：} $P(\mu-\sigma<X<\mu+\sigma)\approx0.6827$ 为已知结论。
+			由中央覆盖率公式，
+			\[
+				P(40<X<60)=2\Phi(1)-1\approx0.6827.
+			\]
 	\end{description}
 	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$P(40<X<60)\approx0.6827$}
+	\textbf{$P(40<X<60)\approx0.6827$。}
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+\end{examplebox}
+
+\clearpage
+\input{assets/tikz/R032_example_right_tail.tex}
+
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 2（单侧尾部）}}
+
 	\textbf{\textcolor{CExample}{题目：}}
 	设 $X\sim N(50,100)$，求 $P(X>70)$。
+
 	\textbf{\textcolor{CExample}{解题步骤：}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
 		\item[\textbf{第一步（识别临界点）：}]
-			$\mu=50,\sigma=10$，$70=50+20=\mu+2\sigma$。
-			\par\textbf{理由：} 检查临界点与均值关系。
-		\item[\textbf{第二步（对称性转化）：}]
-			由 $2\sigma$ 原则，$P(\mu-2\sigma<X<\mu+2\sigma)=P(30<X<70)=0.9545$，故尾部概率为剩余概率的一半：
+			由 $\mu=50$，$\sigma=10$，有 $70=\mu+2\sigma$。
+		\item[\textbf{第二步（求单侧尾部）：}]
+			由补集公式，
 			\[
 				\begin{aligned}
-					P(X>70) &= \frac{1-0.9545}{2} \\ &= 0.02275.
-			\end{aligned}
+					P(X>70)
+					&=P(Z>2)=1-\Phi(2)\\
+					&=0.0227501\ldots\approx0.0228.
+				\end{aligned}
 			\]
-			\par\textbf{理由：} 正态分布对称，左右尾部面积相等。
-		\item[\textbf{第三步（得出结果）：}]
-			因此 $P(X>70)=0.02275$。
-			\par\textbf{理由：} 利用 $2\sigma$ 原则结合对称性完成。
+			也可用 $2\sigma$ 覆盖概率近似计算为 $(1-0.9545)/2=0.02275$。
 	\end{description}
 	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$P(X>70)=0.02275$}
+	\textbf{$P(X>70)\approx0.0228$。}
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+\end{examplebox}
+
+\clearpage
+\input{assets/tikz/R032_example_asymmetric_interval.tex}
+
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 3（非对称区间）}}
+
 	\textbf{\textcolor{CExample}{题目：}}
 	设 $X\sim N(2,9)$，求 $P(-1<X<8)$。
+
 	\textbf{\textcolor{CExample}{解题步骤：}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（识别参数）：}]
-			$X\sim N(2,9)$，$\mu=2$，$\sigma=3$。
-			\par\textbf{理由：} 读参数。
-		\item[\textbf{第二步（拆分区间）：}]
-			由于 $-1=2-3=\mu-\sigma$，$8=2+6=\mu+2\sigma$，所求概率可拆为 $\mu-\sigma$ 到 $\mu+\sigma$ 与 $\mu+\sigma$ 到 $\mu+2\sigma$ 两部分：
+		\item[\textbf{第一步（标准化两个端点）：}]
+			$\mu=2$，$\sigma=3$，故
 			\[
-				P(-1<X<8)=P(\mu-\sigma<X<\mu+\sigma)+P(\mu+\sigma<X<\mu+2\sigma).
+				\frac{-1-2}{3}=-1,
+				\qquad
+				\frac{8-2}{3}=2.
 			\]
-			\par\textbf{理由：} 区间不关于均值对称，需分拆为两个对称部分。
-		\item[\textbf{第三步（分别计算）：}]
-			$P(\mu-\sigma<X<\mu+\sigma)=0.6827$，由 $2\sigma$ 原则和对称性：
+		\item[\textbf{第二步（用分布函数作差）：}]
+			原区间不关于 $\mu$ 对称，不能直接套用某一个 $k\sigma$ 覆盖率。应计算
 			\[
 				\begin{aligned}
-					P(\mu+\sigma<X<\mu+2\sigma) &= \frac{P(\mu-2\sigma<X<\mu+2\sigma)-P(\mu-\sigma<X<\mu+\sigma)}{2} \\ &= \frac{0.9545-0.6827}{2} \\ &= 0.1359.
-			\end{aligned}
+					P(-1<X<8)
+					&=P(-1<Z<2)\\
+					&=\Phi(2)-\Phi(-1)\\
+					&=\Phi(2)+\Phi(1)-1\\
+					&=0.8185946\ldots\approx0.8186.
+				\end{aligned}
 			\]
-			因此 $P(-1<X<8)=0.8186$。
-			\par\textbf{理由：} 利用 $2\sigma$ 区间概率减去 $1\sigma$ 区间概率除以2得单侧 $1\sigma$ 至 $2\sigma$ 的概率。
 	\end{description}
 	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$P(-1<X<8)\approx0.8186$}
+	\textbf{$P(-1<X<8)\approx0.8186$。}
 \end{examplebox}

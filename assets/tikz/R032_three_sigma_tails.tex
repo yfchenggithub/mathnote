@@ -1,0 +1,60 @@
+% 3sigma 双侧尾部概率示意图
+% 用法：\input{assets/tikz/R032_three_sigma_tails.tex}
+
+\begin{center}
+	\pgfmathdeclarefunction{RThirtyTwoTailGauss}{1}{%
+		\pgfmathparse{exp(-(#1)^2/2)/sqrt(2*pi)}%
+	}
+	\begin{tikzpicture}[
+		x=1.52cm,
+		y=5.1cm,
+		>=Stealth,
+		line cap=round,
+		line join=round,
+		every node/.style={font=\small},
+		axis/.style={-Stealth, black!65, line width=0.75pt}
+	]
+		\path[use as bounding box] (-4.0,-0.33) rectangle (4.0,0.52);
+		\fill[blue!10]
+			(-3,0) -- plot[domain=-3:3, samples=130] (\x,{RThirtyTwoTailGauss(\x)}) -- (3,0) -- cycle;
+		\fill[red!38]
+			(-3.85,0) -- plot[domain=-3.85:-3, samples=40] (\x,{RThirtyTwoTailGauss(\x)}) -- (-3,0) -- cycle;
+		\fill[red!38]
+			(3,0) -- plot[domain=3:3.85, samples=40] (\x,{RThirtyTwoTailGauss(\x)}) -- (3.85,0) -- cycle;
+
+		\draw[axis] (-3.85,0) -- (3.82,0) node[right] {$z$};
+		\draw[CProof, line width=1.05pt]
+			plot[domain=-3.8:3.8, samples=180] (\x,{RThirtyTwoTailGauss(\x)});
+		\foreach \x/\lab in {-3/{-3},0/{0},3/{3}}{
+			\draw[black!60] (\x,0.007) -- (\x,-0.007);
+			\node[below=1pt] at (\x,-0.003) {$\lab$};
+		}
+		\draw[dashed, CTrap, line width=0.75pt] (-3,0) -- (-3,0.19);
+		\draw[dashed, CTrap, line width=0.75pt] (3,0) -- (3,0.19);
+
+		\node[font=\bfseries, text=CProof] at (0,0.47)
+			{$3\sigma$ 原则的另一面：双侧尾部并不为零};
+		\node[
+			draw=CProof,
+			fill=white,
+			rounded corners=4pt,
+			inner xsep=6pt,
+			inner ysep=3pt,
+			text=CProof
+		] at (0,0.245) {中央面积 $\approx99.73\%$};
+		\node[font=\scriptsize, text=CTrap, align=center] at (-3.25,0.095)
+			{左尾\\[-1pt]$\approx0.135\%$};
+		\node[font=\scriptsize, text=CTrap, align=center] at (3.25,0.095)
+			{右尾\\[-1pt]$\approx0.135\%$};
+
+		\node[
+			draw=CTrap,
+			fill=red!4,
+			rounded corners=4pt,
+			inner xsep=8pt,
+			inner ysep=3pt,
+			font=\scriptsize
+		] at (0,-0.25)
+			{$P(|X-\mu|\ge3\sigma)=2[1-\Phi(3)]\approx0.27\%$};
+	\end{tikzpicture}
+\end{center}

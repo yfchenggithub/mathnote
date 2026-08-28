@@ -1,0 +1,47 @@
+% 例 2：单侧尾部概率图
+% 用法：\input{assets/tikz/R032_example_right_tail.tex}
+
+\begin{center}
+	\begin{tikzpicture}[
+		x=1.52cm,
+		y=4.6cm,
+		>=Stealth,
+		line cap=round,
+		line join=round,
+		every node/.style={font=\small},
+		axis/.style={-Stealth, black!60, line width=0.7pt}
+	]
+		\path[use as bounding box] (-3.85,-0.24) rectangle (3.85,0.55);
+		\fill[orange!35]
+			(2,0) -- plot[domain=2:3.65, samples=55] (\x,{0.4*exp(-\x*\x/2)}) -- (3.65,0) -- cycle;
+		\draw[axis] (-3.65,0) -- (3.66,0) node[right] {$z$};
+		\draw[orange!80!black, line width=1.05pt]
+			plot[domain=-3.55:3.55, samples=150] (\x,{0.4*exp(-\x*\x/2)});
+		\draw[dashed, orange!85!black, line width=0.8pt] (2,0)--(2,0.31);
+		\foreach \x/\lab in {0/{0},2/{2}}{
+			\draw[black!55] (\x,-0.012)--(\x,0.012);
+			\node[below=1pt] at (\x,-0.004) {$\lab$};
+		}
+		\node[font=\bfseries\large, text=orange!80!black] at (0,0.49)
+			{单侧尾部：先定位临界点，再取补集};
+		\node[
+			draw=orange!75!black,
+			fill=orange!4,
+			rounded corners=5pt,
+			inner xsep=8pt,
+			inner ysep=3pt,
+			text=orange!80!black
+		] at (2.75,0.19) {$1-\Phi(2)\approx0.0228$};
+		\node[
+			draw=black!35,
+			fill=white,
+			rounded corners=5pt,
+			inner xsep=7pt,
+			inner ysep=3pt,
+			font=\scriptsize,
+			text=black!65
+		] at (-2.15,0.18) {左侧累计面积 $\Phi(2)\approx0.9772$};
+		\node[font=\scriptsize, text=black!65] at (0,-0.18)
+			{$70=\mu+2\sigma\ \Longrightarrow\ P(X>70)=P(Z>2)$};
+	\end{tikzpicture}
+\end{center}

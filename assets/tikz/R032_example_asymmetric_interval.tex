@@ -1,0 +1,39 @@
+% 例 3：非对称区间概率图
+% 用法：\input{assets/tikz/R032_example_asymmetric_interval.tex}
+
+\begin{center}
+	\begin{tikzpicture}[
+		x=1.52cm,
+		y=4.6cm,
+		>=Stealth,
+		line cap=round,
+		line join=round,
+		every node/.style={font=\small},
+		axis/.style={-Stealth, black!60, line width=0.7pt}
+	]
+		\path[use as bounding box] (-3.85,-0.24) rectangle (3.85,0.55);
+		\fill[blue!24]
+			(-1,0) -- plot[domain=-1:2, samples=90] (\x,{0.4*exp(-\x*\x/2)}) -- (2,0) -- cycle;
+		\draw[axis] (-3.65,0) -- (3.66,0) node[right] {$z$};
+		\draw[blue!65!black, line width=1.05pt]
+			plot[domain=-3.55:3.55, samples=150] (\x,{0.4*exp(-\x*\x/2)});
+		\foreach \x/\lab in {-1/{-1},0/{0},2/{2}}{
+			\draw[black!55] (\x,-0.012)--(\x,0.012);
+			\node[below=1pt] at (\x,-0.004) {$\lab$};
+		}
+		\draw[dashed, blue!70!black, line width=0.8pt] (-1,0)--(-1,0.26);
+		\draw[dashed, blue!70!black, line width=0.8pt] (2,0)--(2,0.09);
+		\node[font=\bfseries\large, text=blue!70!black] at (0,0.49)
+			{非对称区间：两个端点分别标准化};
+		\node[
+			draw=blue!65!black,
+			fill=white,
+			rounded corners=5pt,
+			inner xsep=8pt,
+			inner ysep=3pt,
+			text=blue!70!black
+		] at (0,0.23) {$\Phi(2)-\Phi(-1)\approx0.8186$};
+		\node[font=\scriptsize, text=black!65] at (0,-0.18)
+			{$(-1,8)\xrightarrow{\ z=(x-2)/3\ }(-1,2)$};
+	\end{tikzpicture}
+\end{center}

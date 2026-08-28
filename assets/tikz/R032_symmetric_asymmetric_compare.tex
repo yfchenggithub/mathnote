@@ -1,0 +1,60 @@
+% 对称区间与非对称区间的公式对照
+% 用法：\input{assets/tikz/R032_symmetric_asymmetric_compare.tex}
+
+\begin{center}
+	\begin{tikzpicture}[
+		x=1cm,
+		y=1cm,
+		>=Stealth,
+		line cap=round,
+		line join=round,
+		every node/.style={font=\small},
+		axis/.style={-Stealth, black!60, line width=0.65pt}
+	]
+		\path[use as bounding box] (0,-0.1) rectangle (12.5,4.35);
+		\fill[green!3, rounded corners=8pt] (0.15,0.12) rectangle (6.05,4.12);
+		\draw[green!50!black, rounded corners=8pt, line width=0.9pt]
+			(0.15,0.12) rectangle (6.05,4.12);
+		\fill[red!3, rounded corners=8pt] (6.45,0.12) rectangle (12.35,4.12);
+		\draw[red!55!black, rounded corners=8pt, line width=0.9pt]
+			(6.45,0.12) rectangle (12.35,4.12);
+
+		% left
+		\begin{scope}[shift={(3.10,1.62)}]
+			\fill[green!25]
+				(-2,0) -- plot[domain=-2:2, samples=85] (\x,{0.82*exp(-\x*\x/2)}) -- (2,0) -- cycle;
+			\draw[axis] (-2.75,0) -- (2.77,0);
+			\draw[green!60!black, line width=1pt]
+				plot[domain=-2.7:2.7, samples=120] (\x,{0.82*exp(-\x*\x/2)});
+			\foreach \x/\lab in {-2/{-k},0/{0},2/{k}}{
+				\draw[black!60] (\x,-0.07)--(\x,0.07);
+				\node[below=2pt, font=\scriptsize] at (\x,-0.02) {$\lab$};
+			}
+		\end{scope}
+		\node[font=\bfseries, text=green!60!black] at (3.10,3.72)
+			{对称：端点互为相反数};
+		\node[text=green!60!black] at (3.10,0.62)
+			{$P(-k<Z<k)=2\Phi(k)-1$};
+		\node[font=\scriptsize, text=black!60] at (3.10,0.31)
+			{可以直接套中央覆盖率};
+
+		% right
+		\begin{scope}[shift={(9.40,1.62)}]
+			\fill[red!22]
+				(-1,0) -- plot[domain=-1:2, samples=75] (\x,{0.82*exp(-\x*\x/2)}) -- (2,0) -- cycle;
+			\draw[axis] (-2.75,0) -- (2.77,0);
+			\draw[red!65!black, line width=1pt]
+				plot[domain=-2.7:2.7, samples=120] (\x,{0.82*exp(-\x*\x/2)});
+			\foreach \x/\lab in {-1/{a^*},0/{0},2/{b^*}}{
+				\draw[black!60] (\x,-0.07)--(\x,0.07);
+				\node[below=2pt, font=\scriptsize] at (\x,-0.02) {$\lab$};
+			}
+		\end{scope}
+		\node[font=\bfseries, text=red!65!black] at (9.40,3.72)
+			{非对称：两个端点分别处理};
+		\node[text=red!65!black] at (9.40,0.62)
+			{$P(a^*<Z<b^*)=\Phi(b^*)-\Phi(a^*)$};
+		\node[font=\scriptsize, text=black!60] at (9.40,0.31)
+			{$a^*=(a-\mu)/\sigma,\ b^*=(b-\mu)/\sigma$};
+	\end{tikzpicture}
+\end{center}

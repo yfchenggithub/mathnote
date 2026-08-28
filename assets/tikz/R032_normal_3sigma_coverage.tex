@@ -1,0 +1,50 @@
+% 标准正态分布的 1sigma、2sigma、3sigma 覆盖率示意图
+% 用法：\input{assets/tikz/R032_normal_3sigma_coverage.tex}
+% 本文件为 TikZ 片段，不含 documentclass 与 document 环境。
+
+\begin{center}
+	\pgfmathdeclarefunction{RThirtyTwoGauss}{1}{%
+		\pgfmathparse{exp(-(#1)^2/2)/sqrt(2*pi)}%
+	}
+	\begin{tikzpicture}[
+		x=1.55cm,
+		y=5.4cm,
+		>=Stealth,
+		line cap=round,
+		line join=round,
+		every node/.style={font=\small},
+		curve/.style={draw=CExplanation, line width=1pt},
+		axis/.style={draw=black!65, -Stealth, line width=0.7pt},
+		measure/.style={<->, line width=0.75pt}
+	]
+		\path[use as bounding box] (-3.85,-0.42) rectangle (3.85,0.47);
+
+		% 分段填色：中心最深，向两侧逐渐变浅。
+		\fill[blue!32]
+			(-1,0) -- plot[domain=-1:1, samples=70] (\x,{RThirtyTwoGauss(\x)}) -- (1,0) -- cycle;
+		\fill[blue!19]
+			(-2,0) -- plot[domain=-2:-1, samples=45] (\x,{RThirtyTwoGauss(\x)}) -- (-1,0) -- cycle;
+		\fill[blue!19]
+			(1,0) -- plot[domain=1:2, samples=45] (\x,{RThirtyTwoGauss(\x)}) -- (2,0) -- cycle;
+		\fill[blue!9]
+			(-3,0) -- plot[domain=-3:-2, samples=45] (\x,{RThirtyTwoGauss(\x)}) -- (-2,0) -- cycle;
+		\fill[blue!9]
+			(2,0) -- plot[domain=2:3, samples=45] (\x,{RThirtyTwoGauss(\x)}) -- (3,0) -- cycle;
+
+		\draw[axis] (-3.75,0) -- (3.78,0) node[right] {$z$};
+		\draw[curve] plot[domain=-3.7:3.7, samples=180] (\x,{RThirtyTwoGauss(\x)});
+
+		\foreach \z in {-3,-2,-1,0,1,2,3}{
+			\draw[black!65] (\z,0.006) -- (\z,-0.006);
+			\node[below=1pt] at (\z,-0.003) {$\z$};
+		}
+
+		\node[font=\bfseries, text=CExplanation] at (0,0.435) {标准正态曲线下的嵌套覆盖面积};
+		\draw[measure, blue!70!black] (-1,-0.14) -- (1,-0.14)
+			node[midway, fill=BGExplanation, inner xsep=3pt, inner ysep=1pt] {$|Z|<1:\ 68.27\%$};
+		\draw[measure, blue!55!black] (-2,-0.24) -- (2,-0.24)
+			node[midway, fill=BGExplanation, inner xsep=3pt, inner ysep=1pt] {$|Z|<2:\ 95.45\%$};
+		\draw[measure, blue!40!black] (-3,-0.34) -- (3,-0.34)
+			node[midway, fill=BGExplanation, inner xsep=3pt, inner ysep=1pt] {$|Z|<3:\ 99.73\%$};
+	\end{tikzpicture}
+\end{center}

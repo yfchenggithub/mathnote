@@ -1,0 +1,67 @@
+% 三类典型题型导航图
+% 用法：\input{assets/tikz/R032_example_three_cases.tex}
+
+\begin{center}
+	\begin{tikzpicture}[
+		x=1cm,
+		y=1cm,
+		>=Stealth,
+		line cap=round,
+		line join=round,
+		every node/.style={font=\small},
+		axis/.style={-Stealth, black!60, line width=0.65pt},
+		panel/.style={rounded corners=7pt, line width=0.85pt}
+	]
+		\path[use as bounding box] (0,-0.05) rectangle (12.6,3.95);
+		\node[font=\bfseries\large, text=CExample] at (6.3,3.62)
+			{三类题型，一眼识别概率区域};
+
+		% Panel 1
+		\fill[green!3, rounded corners=7pt] (0.15,0.15) rectangle (4.05,3.25);
+		\draw[green!50!black, panel] (0.15,0.15) rectangle (4.05,3.25);
+		\node[font=\bfseries, text=CExample] at (2.10,2.92) {对称区间};
+		\node[font=\scriptsize, text=black!65] at (2.10,2.58) {例 1：$40<X<60$};
+		\draw[axis] (0.55,1.62) -- (3.65,1.62);
+		\draw[green!65!black, line width=4.5pt] (1.12,1.62) -- (3.08,1.62);
+		\foreach \x/\lab in {1.12/{40},2.10/{50},3.08/{60}}{
+			\draw[black!65] (\x,1.50) -- (\x,1.74);
+			\node[below=2pt, font=\scriptsize] at (\x,1.52) {$\lab$};
+		}
+		\node[font=\scriptsize, text=CExample] at (2.10,0.72)
+			{$\mu\pm\sigma\Rightarrow68.27\%$};
+		\node[font=\scriptsize, text=black!60] at (2.10,0.38)
+			{直接用中央覆盖率};
+
+		% Panel 2
+		\fill[orange!3, rounded corners=7pt] (4.35,0.15) rectangle (8.25,3.25);
+		\draw[orange!70!black, panel] (4.35,0.15) rectangle (8.25,3.25);
+		\node[font=\bfseries, text=orange!80!black] at (6.30,2.92) {单侧尾部};
+		\node[font=\scriptsize, text=black!65] at (6.30,2.58) {例 2：$X>70$};
+		\draw[axis] (4.75,1.62) -- (7.85,1.62);
+		\draw[orange!80!black, -Stealth, line width=4.5pt] (6.95,1.62) -- (7.76,1.62);
+		\foreach \x/\lab in {5.35/{50},6.95/{70}}{
+			\draw[black!65] (\x,1.50) -- (\x,1.74);
+			\node[below=2pt, font=\scriptsize] at (\x,1.52) {$\lab$};
+		}
+		\node[font=\scriptsize, text=orange!80!black] at (6.30,0.72)
+			{$Z>2\Rightarrow1-\Phi(2)$};
+		\node[font=\scriptsize, text=black!60] at (6.30,0.38)
+			{取补集或利用对称性};
+
+		% Panel 3
+		\fill[blue!3, rounded corners=7pt] (8.55,0.15) rectangle (12.45,3.25);
+		\draw[blue!60!black, panel] (8.55,0.15) rectangle (12.45,3.25);
+		\node[font=\bfseries, text=blue!70!black] at (10.50,2.92) {非对称区间};
+		\node[font=\scriptsize, text=black!65] at (10.50,2.58) {例 3：$-1<Z<2$};
+		\draw[axis] (8.95,1.62) -- (12.05,1.62);
+		\draw[blue!65!black, line width=4.5pt] (9.48,1.62) -- (11.56,1.62);
+		\foreach \x/\lab in {9.48/{-1},10.18/{0},11.56/{2}}{
+			\draw[black!65] (\x,1.50) -- (\x,1.74);
+			\node[below=2pt, font=\scriptsize] at (\x,1.52) {$\lab$};
+		}
+		\node[font=\scriptsize, text=blue!70!black] at (10.50,0.72)
+			{$\Phi(2)-\Phi(-1)$};
+		\node[font=\scriptsize, text=black!60] at (10.50,0.38)
+			{分别标准化两个端点};
+	\end{tikzpicture}
+\end{center}

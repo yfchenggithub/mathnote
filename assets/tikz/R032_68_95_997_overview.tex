@@ -1,0 +1,58 @@
+% 正态分布 68-95-99.7 法则总览
+% 用法：\input{assets/tikz/R032_68_95_997_overview.tex}
+
+\begin{center}
+	\begin{tikzpicture}[
+		x=1cm,
+		y=1cm,
+		line cap=round,
+		line join=round,
+		every node/.style={font=\small}
+	]
+		\path[use as bounding box] (0,-0.15) rectangle (12.4,4.25);
+
+		\node[font=\bfseries\large, text=CStatement] at (6.2,3.88)
+			{从 $1\sigma$ 到 $3\sigma$：覆盖率迅速逼近 $100\%$};
+		\draw[dashed, black!30, line width=0.7pt] (6.2,0.52) -- (6.2,3.48);
+		\node[font=\scriptsize, text=black!55, fill=BGStatement, inner sep=1pt]
+			at (6.2,3.46) {均值 $\mu$};
+
+		% 1 sigma
+		\node[font=\bfseries, text=blue!70!black] at (0.72,2.86) {$1\sigma$};
+		\fill[black!6, rounded corners=4pt] (1.45,2.58) rectangle (10.95,3.14);
+		\fill[blue!48, rounded corners=4pt] (2.96,2.58) rectangle (9.44,3.14);
+		\node[font=\scriptsize, text=white] at (6.2,2.86)
+			{$\mu-\sigma<X<\mu+\sigma$};
+		\node[font=\bfseries, text=blue!70!black, anchor=west] at (11.18,2.86)
+			{$68.27\%$};
+
+		% 2 sigma
+		\node[font=\bfseries, text=teal!70!black] at (0.72,1.91) {$2\sigma$};
+		\fill[black!6, rounded corners=4pt] (1.45,1.63) rectangle (10.95,2.19);
+		\fill[teal!47, rounded corners=4pt] (1.66,1.63) rectangle (10.74,2.19);
+		\node[font=\scriptsize, text=white] at (6.2,1.91)
+			{$\mu-2\sigma<X<\mu+2\sigma$};
+		\node[font=\bfseries, text=teal!70!black, anchor=west] at (11.18,1.91)
+			{$95.45\%$};
+
+		% 3 sigma
+		\node[font=\bfseries, text=violet!75!black] at (0.72,0.96) {$3\sigma$};
+		\fill[black!6, rounded corners=4pt] (1.45,0.68) rectangle (10.95,1.24);
+		\fill[violet!42, rounded corners=4pt] (1.46,0.68) rectangle (10.94,1.24);
+		\node[font=\scriptsize, text=white] at (6.2,0.96)
+			{$\mu-3\sigma<X<\mu+3\sigma$};
+		\node[font=\bfseries, text=violet!75!black, anchor=west] at (11.18,0.96)
+			{$99.73\%$};
+
+		\node[
+			draw=CTrap,
+			fill=red!4,
+			text=CTrap,
+			rounded corners=4pt,
+			inner xsep=7pt,
+			inner ysep=3pt,
+			font=\scriptsize
+		] at (6.2,0.15)
+			{$3\sigma$ 区间外仍约有 $0.27\%$，不是绝对不可能};
+	\end{tikzpicture}
+\end{center}

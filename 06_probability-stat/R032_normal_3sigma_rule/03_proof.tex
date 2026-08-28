@@ -1,47 +1,61 @@
+\clearpage
 \begin{proofbox}
 	\textbf{\textcolor{CProof}{思路提示}}
-	利用标准化变换 $Z=\dfrac{X-\mu}{\sigma}\sim N(0,1)$ 将任意区间概率化为标准正态分布的概率，再查表获得数值。
+	先把 $X$ 标准化，再利用标准正态密度关于原点的对称性，把双侧区间概率化成一个分布函数值。
 
 	\medskip
 	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（标准化变换）：}]
-			设 $X\sim N(\mu,\sigma^2)$，令 $Z=\dfrac{X-\mu}{\sigma}$，则 $Z\sim N(0,1)$。
-			\[
-				\begin{aligned}
-					P(\mu-k\sigma<X<\mu+k\sigma) &= P\left(-k<\dfrac{X-\mu}{\sigma}<k\right) \\ &= P(-k<Z<k).
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 标准化不改变概率，只改变随机变量尺度。
-		\item[\textbf{步骤二（转化为单侧概率）：}]
-			利用标准正态分布的对称性 $P(Z<-k)=\Phi(-k)=1-\Phi(k)$，
-			\[
-				\begin{aligned}
-					P(-k<Z<k) &= \Phi(k)-\Phi(-k) \\ &= \Phi(k)-(1-\Phi(k)) \\ &= 2\Phi(k)-1.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 密度函数关于 $0$ 对称，$\Phi(-k)=1-\Phi(k)$。
-		\item[\textbf{步骤三（查表代入 $k$ 值）：}]
-			从标准正态分布表可查得：
-			\[
-				\Phi(1)\approx0.8413,
-				\qquad
-				\Phi(2)\approx0.9772,
-				\qquad
-				\Phi(3)\approx0.99865.
-			\]
-			\par\textbf{理由：} 这些数值是标准正态分布函数已知近似值。
-		\item[\textbf{步骤四（计算原概率）：}]
-			代入 $k=1,2,3$ 得到：
-			\[
-				\begin{aligned}
-					P(\mu-\sigma<X<\mu+\sigma) &\approx 2\times0.8413-1 \\ &= 0.6826 \\ &\approx 0.6827,\\ P(\mu-2\sigma<X<\mu+2\sigma) &\approx 2\times0.9772-1 \\ &= 0.9544 \\ &\approx 0.9545,\\ P(\mu-3\sigma<X<\mu+3\sigma) &\approx 2\times0.99865-1 \\ &= 0.9973.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 利用 $2\Phi(k)-1$ 计算并四舍五入到四位小数。
-	\end{description}
+	设 $X\sim N(\mu,\sigma^{2})$，$\sigma>0$。其密度为
+	\[
+		f_X(x)=\frac{1}{\sigma\sqrt{2\pi}}
+		\exp\!\left[-\frac{(x-\mu)^2}{2\sigma^2}\right].
+	\]
+	对任意 $k>0$，令 $z=(x-\mu)/\sigma$，则 $\mathrm{d}x=\sigma\,\mathrm{d}z$，于是
+	\[
+		\begin{aligned}
+			P(\mu-k\sigma<X<\mu+k\sigma)
+			&=\int_{\mu-k\sigma}^{\mu+k\sigma}f_X(x)\,\mathrm{d}x\\
+			&=\int_{-k}^{k}\frac{1}{\sqrt{2\pi}}e^{-z^{2}/2}\,\mathrm{d}z\\
+			&=\Phi(k)-\Phi(-k).
+		\end{aligned}
+	\]
+	标准正态密度 $\varphi(z)=\dfrac{1}{\sqrt{2\pi}}e^{-z^2/2}$ 是偶函数，因此
+	\[
+		\Phi(-k)=1-\Phi(k),
+	\]
+	从而得到一般公式
+	\[
+		P(\mu-k\sigma<X<\mu+k\sigma)=2\Phi(k)-1.
+	\]
 
 	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-	三个近似概率即为输入结论中的 $\sigma$ 原则及 $3\sigma$ 原则，证明完毕。
+	\textbf{\textcolor{CProof}{代入 $k=1,2,3$}}
+	使用保留足够位数的标准正态分布函数值
+	\[
+		\Phi(1)=0.841344746\ldots,\quad
+		\Phi(2)=0.977249868\ldots,\quad
+		\Phi(3)=0.998650102\ldots,
+	\]
+	可得
+	\[
+		\begin{aligned}
+			2\Phi(1)-1&=0.682689492\ldots\approx0.6827,\\
+			2\Phi(2)-1&=0.954499736\ldots\approx0.9545,\\
+			2\Phi(3)-1&=0.997300204\ldots\approx0.9973.
+		\end{aligned}
+	\]
+	这里先使用足够精确的 $\Phi(k)$ 再统一舍入，避免用四位查表值中途计算而产生末位不一致。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{尾部形式}}
+	取补集并利用对称性，还得到
+	\[
+		P(|X-\mu|\ge k\sigma)=2\bigl[1-\Phi(k)\bigr],\qquad
+		P(X\ge\mu+k\sigma)=1-\Phi(k).
+	\]
+	\input{assets/tikz/R032_three_sigma_tails.tex}
+
+	正态分布在单点处的概率为 $0$，所以上式中的 $>$ 与 $\ge$ 可以互换。
 \end{proofbox}

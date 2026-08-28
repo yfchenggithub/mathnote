@@ -1,0 +1,105 @@
+% 正态区间概率的一图流
+% 用法：\input{assets/tikz/R032_summary_flow.tex}
+
+\begin{center}
+	\begin{tikzpicture}[
+		x=1cm,
+		y=1cm,
+		>=Stealth,
+		line cap=round,
+		line join=round,
+		every node/.style={font=\small},
+		arrow/.style={-Stealth, CSummary, line width=0.9pt, shorten >=2pt, shorten <=2pt},
+		box/.style={
+			draw=CSummary,
+			fill=BGSummary,
+			rounded corners=7pt,
+			line width=0.9pt,
+			align=center,
+			inner xsep=8pt,
+			inner ysep=7pt
+		}
+	]
+		\path[use as bounding box] (0,-0.15) rectangle (12.7,7.35);
+		\node[font=\bfseries\large, text=CSummary] at (6.35,6.98)
+			{一图流：正态区间概率的统一解法};
+
+		\node[box, minimum width=2.95cm, minimum height=1.18cm] (input) at (1.65,5.58)
+			{读参数\\[2pt]$X\sim N(\mu,\sigma^2)$};
+		\node[box, minimum width=3.35cm, minimum height=1.18cm] (standard) at (5.45,5.58)
+			{标准化两个端点\\[2pt]$z=(x-\mu)/\sigma$};
+		\node[
+			draw=CStatement,
+			fill=BGStatement,
+			text=CStatement,
+			rounded corners=7pt,
+			line width=0.9pt,
+			align=center,
+			minimum width=2.90cm,
+			minimum height=1.18cm,
+			font=\small\bfseries
+		] (judge) at (10.45,5.58)
+			{标准化区间\\是否对称？};
+		\draw[arrow] (input.east) -- node[above, font=\scriptsize, text=black!55] {先确认 $\sigma$} (standard.west);
+		\draw[arrow] (standard.east) -- (judge.west);
+
+		\node[
+			draw=CExample,
+			fill=BGExample,
+			text=CExample,
+			rounded corners=7pt,
+			line width=0.9pt,
+			align=center,
+			minimum width=3.10cm,
+			minimum height=1.55cm
+		] (sym) at (6.75,3.25)
+			{{\bfseries 是：$(-k,k)$}\\[4pt]$2\Phi(k)-1$};
+		\node[
+			draw=orange!75!black,
+			fill=orange!5,
+			text=orange!85!black,
+			rounded corners=7pt,
+			line width=0.9pt,
+			align=center,
+			minimum width=3.05cm,
+			minimum height=1.55cm
+		] (asym) at (10.75,3.25)
+			{{\bfseries 否：$(a^*,b^*)$}\\[4pt]$\Phi(b^*)-\Phi(a^*)$};
+		\node[
+			draw=CProof,
+			fill=BGProof,
+			text=CProof,
+			rounded corners=7pt,
+			line width=0.9pt,
+			align=center,
+			minimum width=3.45cm,
+			minimum height=1.55cm
+		] (tail) at (2.15,3.25)
+			{{\bfseries 若求尾部}\\[4pt]取补集，再用对称性};
+
+		% 为三条分支预留独立的走线通道，避免箭头压住节点文字。
+		\draw[arrow] (judge.south) -- ++(0,-0.40) -|
+			node[pos=0.70, above, font=\scriptsize, text=black!55] {是} (sym.north);
+		\draw[arrow] (judge.east) -- ++(0.38,0) |-
+			([yshift=0.34cm]asym.north) --
+			node[midway, right, font=\scriptsize, text=black!55] {否} (asym.north);
+		\draw[arrow] (standard.south) -- ++(0,-0.38) -| ([xshift=1.18cm]tail.north);
+		\draw[arrow] (tail.east) -- node[above, font=\scriptsize, text=black!55] {回到 $\Phi$} (sym.west);
+
+		\node[
+			draw=CTrap,
+			fill=red!4,
+			text=CTrap,
+			rounded corners=7pt,
+			line width=0.9pt,
+			align=center,
+			text width=10.35cm,
+			inner xsep=10pt,
+			inner ysep=7pt
+		] (check) at (6.35,0.68)
+			{{\bfseries 最后检查：}第二参数是方差，且 $0.9973\ne1$；\\[2pt]
+			非正态分布不可直接套用。};
+		\draw[arrow] (sym.south) -- (check.north -| sym.south);
+		\draw[arrow] (asym.south) -- ++(0,-0.30) -| ([xshift=3.65cm]check.north);
+	\end{tikzpicture}
+\end{center}
