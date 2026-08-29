@@ -1,4 +1,4 @@
-% 方差：离均值的距离经过平方后取平均
+% 为什么方差使用平方距离：带符号离差、绝对距离、平方距离三行对照
 % 用法：\input{assets/tikz/R033_variance_distance_squares.tex}
 
 \begin{center}
@@ -7,40 +7,66 @@
 		line cap=round,line join=round,
 		every node/.style={font=\small}
 	]
-		\path[use as bounding box] (0,0) rectangle (12.5,6.45);
-		\fill[teal!3,rounded corners=7pt] (0.2,0.15) rectangle (12.3,6.25);
+		\path[use as bounding box] (0,0) rectangle (12.5,9.15);
+		\fill[teal!3,rounded corners=7pt] (0.2,0.15) rectangle (12.3,8.95);
 		\draw[teal!60!black,rounded corners=7pt,line width=0.85pt]
-			(0.2,0.15) rectangle (12.3,6.25);
-		\node[font=\bfseries\large,text=teal!70!black] at (6.25,5.90)
-			{方差把“离中心多远”变成可相加的平方面积};
+			(0.2,0.15) rectangle (12.3,8.95);
+		\node[font=\bfseries,text=teal!70!black] at (6.25,8.53)
+			{平方不只防止正负抵消，还会放大远处数据的影响};
 
-		\draw[-Stealth,black!65,line width=0.8pt] (0.85,4.12)--(11.75,4.12);
+		% 数据 1,2,3,4,5 与均值 3。
+		\draw[-Stealth,black!65,line width=0.8pt] (0.85,7.05)--(11.75,7.05);
 		\foreach \x/\lab in {1.4/1,3.8/2,6.2/3,8.6/4,11.0/5}{
-			\draw[black!50] (\x,4.02)--(\x,4.22);
-			\fill[blue!70!black] (\x,4.45) circle (4.7pt);
-			\node[below=4pt] at (\x,4.08) {$\lab$};
+			\draw[black!50] (\x,6.95)--(\x,7.15);
+			\fill[blue!70!black] (\x,7.38) circle (4.7pt);
+			\node[below=4pt] at (\x,7.01) {$\lab$};
 		}
-		\draw[red!78!black,dashed,line width=0.9pt] (6.2,3.70)--(6.2,5.05);
-		\node[font=\bfseries,text=red!78!black] at (6.2,5.31) {$\bar x=3$};
-		\draw[<->,orange!85!black,line width=0.8pt] (1.4,4.83)--(6.2,4.83)
-			node[midway,above=1pt,font=\scriptsize] {距离 $2$};
-		\draw[<->,orange!85!black,line width=0.8pt] (6.2,4.83)--(11.0,4.83)
-			node[midway,above=1pt,font=\scriptsize] {距离 $2$};
+		\draw[red!78!black,dashed,line width=0.9pt] (6.2,6.72)--(6.2,7.92);
+		\node[font=\bfseries,text=red!78!black] at (6.2,8.04) {$\bar x=3$};
+		\draw[<->,orange!85!black,line width=0.75pt] (1.4,7.76)--(6.2,7.76)
+			node[midway,above=1pt,font=\scriptsize]{距离 $2$};
+		\draw[<->,orange!85!black,line width=0.75pt] (6.2,7.76)--(11.0,7.76)
+			node[midway,above=1pt,font=\scriptsize]{距离 $2$};
 
-		% 平方面积与实际数值成比例：2^2 用 1.28cm 正方形，1^2 用 0.64cm 正方形。
-		\foreach \x/\side/\area in {1.4/1.28/4,3.8/0.64/1,8.6/0.64/1,11.0/1.28/4}{
-			\fill[orange!16] ({\x-\side/2},1.78) rectangle ({\x+\side/2},{1.78+\side});
-			\draw[orange!80!black,line width=0.75pt]
-				({\x-\side/2},1.78) rectangle ({\x+\side/2},{1.78+\side});
-			\node[font=\bfseries,text=orange!80!black] at (\x,{1.78+\side/2}) {$\area$};
+		% 第一行：带符号离差。
+		\fill[red!4,rounded corners=5pt] (0.55,5.55) rectangle (11.95,6.48);
+		\node[font=\bfseries,text=red!72!black,anchor=west] at (0.78,6.02) {带符号离差};
+		\foreach \x/\lab in {4.15/{-2},5.18/{-1},6.21/0,7.24/{+1},8.27/{+2}}{
+			\node[text=red!72!black] at (\x,6.02) {$\lab$};
 		}
-		\fill[orange!80!black] (6.2,1.86) circle (2.2pt);
-		\node[font=\bfseries,text=orange!80!black] at (6.2,2.30) {$0$};
-		\foreach \x/\lab in {1.4/{(-2)^2},3.8/{(-1)^2},6.2/{0^2},8.6/{1^2},11.0/{2^2}}{
-			\node[font=\scriptsize] at (\x,1.38) {$\lab$};
+		\draw[-Stealth,red!65!black,line width=0.75pt] (8.78,6.02)--(9.35,6.02);
+		\node[font=\bfseries,text=red!72!black,anchor=west] at (9.25,6.13) {总和 $=0$};
+		\node[font=\scriptsize,text=red!65!black,anchor=west] at (9.25,5.78) {抵消后看不出分散};
+
+		% 第二行：绝对距离。
+		\fill[blue!4,rounded corners=5pt] (0.55,4.28) rectangle (11.95,5.25);
+		\node[font=\bfseries,text=blue!72!black,anchor=west] at (0.78,4.77) {绝对距离};
+		\foreach \x/\lab in {4.15/2,5.18/1,6.21/0,7.24/1,8.27/2}{
+			\node[text=blue!72!black] at (\x,4.77) {$\lab$};
 		}
-		\node[font=\bfseries,text=teal!72!black] at (6.2,0.62)
+		\node[font=\scriptsize,align=left,text=blue!65!black,anchor=west] at (9.15,4.77)
+			{不会抵消，\\但对远点的放大较弱};
+
+		% 第三行：平方距离；方块边长按距离绘制，面积为距离平方。
+		\fill[orange!5,rounded corners=5pt] (0.55,2.45) rectangle (11.95,4.02);
+		\node[font=\bfseries,text=orange!82!black,anchor=west] at (0.78,3.26) {平方距离};
+		\foreach \x/\side/\area in {4.15/0.96/4,5.18/0.48/1,7.24/0.48/1,8.27/0.96/4}{
+			\fill[orange!17] ({\x-\side/2},2.76) rectangle ({\x+\side/2},{2.76+\side});
+			\draw[orange!80!black,line width=0.7pt]
+				({\x-\side/2},2.76) rectangle ({\x+\side/2},{2.76+\side});
+			\node[font=\bfseries,text=orange!82!black] at (\x,{2.76+\side/2}) {$\area$};
+		}
+		\fill[orange!82!black] (6.21,3.00) circle (2pt);
+		\node[font=\bfseries,text=orange!82!black] at (6.21,3.48) {$0$};
+		\node[font=\scriptsize,align=left,text=orange!80!black,anchor=west] at (9.15,3.26)
+			{全部非负，\\远点得到更大权重};
+
+		\fill[teal!8,rounded corners=5pt] (1.10,1.27) rectangle (11.40,2.13);
+		\draw[teal!55!black,rounded corners=5pt,line width=0.75pt]
+			(1.10,1.27) rectangle (11.40,2.13);
+		\node[font=\bfseries,text=teal!72!black] at (6.25,1.70)
+			{距离扩大 $2$ 倍 $\Longrightarrow$ 平方距离扩大 $4$ 倍};
+		\node[font=\bfseries,text=teal!72!black] at (6.25,0.62)
 			{$s^2=\dfrac{4+1+0+1+4}{5}=2$};
-		\node[font=\scriptsize,text=black!62,rotate=90] at (0.58,2.42) {平方面积};
 	\end{tikzpicture}
 \end{center}

@@ -1,0 +1,1374 @@
+{
+  "R033": {
+    "id": "R033",
+    "schema_version": 2,
+    "type": "conclusion",
+    "status": "published",
+    "identity": {
+      "slug": "r033",
+      "module": "probability-stat",
+      "knowledge_node": "统计-数据分析-描述统计量",
+      "alt_nodes": [
+        "统计-集中趋势-平均数中位数众数",
+        "统计-离散程度-方差标准差"
+      ]
+    },
+    "meta": {
+      "title": "描述统计量：平均数、方差、中位数、众数",
+      "aliases": [
+        "数据基本统计量",
+        "数字特征",
+        "集中趋势与离散程度",
+        "算术平均数",
+        "方差与标准差"
+      ],
+      "difficulty": 1,
+      "category": "统计",
+      "tags": [
+        "统计",
+        "平均数",
+        "方差",
+        "标准差",
+        "中位数",
+        "众数",
+        "频数"
+      ],
+      "summary": "平均数、中位数、众数分别描述数据的平衡位置、中间位置和最高频位置；方差与标准差描述数据围绕平均数的离散程度。",
+      "is_pro": false,
+      "remarks": "正文使用10幅TikZ教学图。新增中位数排序取中间、平均平方距离抛物线、频数加权跷跷板、统计量选择地图和单位流水线；增强R033_four_statistics_map，以三角支点和左右总距离相等直观呈现平均数平衡；增强R033_variance_distance_squares，以带符号离差、绝对距离、平方距离三行同尺度对照说明平方既防抵消又放大远点。图形替代了误区二、判断顺序、单位说明和频数平衡回验的长段文字；源文件均位于assets/tikz。"
+    },
+    "content": {
+      "render_schema_version": 2,
+      "primary_formula": {
+        "latex": "\\bar{x}=\\frac{1}{n}\\sum_{i=1}^{n}x_i",
+        "type": "math_block",
+        "need_image": "true"
+      },
+      "variables": [],
+      "conditions": [
+        {
+          "id": "cond_1",
+          "title": "条件1",
+          "content": [
+            {
+              "type": "text",
+              "text": "数据x_1,...,x_n为实数且n为正整数；中位数须先排序；频数f_j为非负整数且总频数F>0；方差采用分母n的高中描述统计定义。"
+            }
+          ],
+          "required": true,
+          "scope": null
+        }
+      ],
+      "conclusions": [
+        {
+          "id": "conc_1",
+          "title": "结论1",
+          "content": [
+            {
+              "type": "text",
+              "text": "平均数是使离差平方和最小的唯一位置；中位数由排序后的中间位置决定；众数由最大频数决定且可能不唯一；方差非负，并且方差为0当且仅当全部数据相等；标准差与原数据同量纲。"
+            }
+          ]
+        }
+      ],
+      "sections": [
+        {
+          "key": "core_formula",
+          "title": "核心公式",
+          "block_type": "rich_text",
+          "blocks": [
+            {
+              "id": "core-formula-b1",
+              "type": "math_block",
+              "latex": "\\bar{x}=\\frac{1}{n}\\sum_{i=1}^{n}x_i",
+              "align": "center",
+              "need_image": "true"
+            }
+          ]
+        },
+        {
+          "key": "conditions",
+          "title": "适用条件",
+          "block_type": "rich_text",
+          "blocks": [
+            {
+              "id": "conditions-b1",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "数据x_1,...,x_n为实数且n为正整数；中位数须先排序；频数f_j为非负整数且总频数F>0；方差采用分母n的高中描述统计定义。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "statement",
+          "title": "命题表述",
+          "block_type": "theorem_group",
+          "blocks": [
+            {
+              "id": "statement-b1",
+              "type": "theorem_group",
+              "items": [
+                {
+                  "title": "平均数",
+                  "desc_tokens": [
+                    {
+                      "type": "math_inline",
+                      "latex": "\\bar x=\\frac1n\\sum_{i=1}^{n}x_i.",
+                      "need_image": "true"
+                    },
+                    {
+                      "type": "text",
+                      "text": "它使用每一个数据值，表示这组数据的平衡水平。"
+                    }
+                  ]
+                },
+                {
+                  "title": "中位数",
+                  "desc_tokens": [
+                    {
+                      "type": "math_inline",
+                      "latex": "\\operatorname{Med}=\\begin{cases}\nx_{((n+1)/2)},&n\\text{ 为奇数},\\\\[3pt]\n\\frac{x_{(n/2)}+x_{(n/2+1)}}2,&n\\text{ 为偶数}.\n\\end{cases}",
+                      "need_image": "true"
+                    },
+                    {
+                      "type": "text",
+                      "text": "它只由排序后的中间位置决定。"
+                    }
+                  ]
+                },
+                {
+                  "title": "众数",
+                  "desc_tokens": [
+                    {
+                      "type": "text",
+                      "text": "出现次数达到最大值的数据。众数可能不唯一；若所有数据互不相同，高中统计中通常称“没有众数”。\n离散程度"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "s^2=\\frac1n\\sum_{i=1}^{n}(x_i-\\bar x)^2\n=\\frac1n\\sum_{i=1}^{n}x_i^2-\\bar x^2,\n\\qquad s=\\sqrt{s^2}.",
+                      "need_image": "true"
+                    },
+                    {
+                      "type": "text",
+                      "text": "恒有"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "s^2\\ge0",
+                      "need_image": "true"
+                    },
+                    {
+                      "type": "text",
+                      "text": "；并且"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "s^2=0\\iff x_1=x_2=\\cdots=x_n.",
+                      "need_image": "true"
+                    },
+                    {
+                      "type": "text",
+                      "text": "方差的量纲是原数据量纲的平方，标准差与原数据同量纲。用方差或标准差比较波动时，两组数据应描述同一变量并采用相同单位。\n频数表形式\n若不同取值"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "a_1,\\dots,a_k",
+                      "need_image": "true"
+                    },
+                    {
+                      "type": "text",
+                      "text": "的频数分别为非负整数"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "f_1,\\dots,f_k",
+                      "need_image": "true"
+                    },
+                    {
+                      "type": "text",
+                      "text": "，总频数"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "F=\\sum_{j=1}^{k}f_j>0",
+                      "need_image": "true"
+                    },
+                    {
+                      "type": "text",
+                      "text": "，则"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "\\bar x=\\frac{\\sum_{j=1}^{k}f_ja_j}{F},\n\\qquad\ns^2=\\frac{\\sum_{j=1}^{k}f_j(a_j-\\bar x)^2}{F}.",
+                      "need_image": "true"
+                    },
+                    {
+                      "type": "text",
+                      "text": "这不是另一套定义：它只是把每个"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "a_j"
+                    },
+                    {
+                      "type": "text",
+                      "text": "按频数"
+                    },
+                    {
+                      "type": "math_inline",
+                      "latex": "f_j"
+                    },
+                    {
+                      "type": "text",
+                      "text": "重复写出的简记。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "explanation",
+          "title": "理解与直觉",
+          "block_type": "rich_text",
+          "blocks": [
+            {
+              "id": "explanation-b1",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "一句话直觉\n平均数、中位数、众数分别看“平衡位置、中间位置、最高频位置”，方差与标准差则看数据离中心有多散。\nassets/tikz/R033_four_statistics_map.tex\n图中同一组数据的平均数与中位数恰好都为"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "3"
+                },
+                {
+                  "type": "text",
+                  "text": "，但含义不同；众数为"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "2"
+                },
+                {
+                  "type": "text",
+                  "text": "和"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "4"
+                },
+                {
+                  "type": "text",
+                  "text": "，说明众数还可能不唯一。做题时先问“要描述哪一种特征”，再选统计量。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b2",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "为什么极端值更容易拉动平均数\nassets/tikz/R033_outlier_mean_median.tex\n把"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "5"
+                },
+                {
+                  "type": "text",
+                  "text": "改成"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "20"
+                },
+                {
+                  "type": "text",
+                  "text": "后，总和增加"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "15"
+                },
+                {
+                  "type": "text",
+                  "text": "，所以平均数增加"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "15/5=3",
+                  "need_image": "true"
+                },
+                {
+                  "type": "text",
+                  "text": "；排序后的第"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "3"
+                },
+                {
+                  "type": "text",
+                  "text": "个数没有改变，中位数仍为"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "3"
+                },
+                {
+                  "type": "text",
+                  "text": "。更准确地说，中位数对极端值较稳健：只要改动没有改变中间位置上的数据，它就不变；不能笼统说中位数永远不受数据改动影响。"
+                }
+              ]
+            },
+            {
+              "id": "explanation-b3",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "方差为什么要“平方后再平均”\nassets/tikz/R033_variance_distance_squares.tex\n三行对照表明：平方既避免正负抵消，又比绝对距离更强调远离均值的数据；把平方距离除以数据个数，就得到方差。\nassets/tikz/R033_variance_units_pipeline.tex"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "proof",
+          "title": "证明过程",
+          "block_type": "rich_text",
+          "blocks": [
+            {
+              "id": "proof-b1",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "一、平均数为何是平方距离的唯一最小点\n对数据"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "1,2,3,4,5",
+                  "need_image": "true"
+                },
+                {
+                  "type": "text",
+                  "text": "，把候选中心记作"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "a"
+                },
+                {
+                  "type": "text",
+                  "text": "，平均平方距离是"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "Q(a)=2+(a-3)^2",
+                  "need_image": "true"
+                },
+                {
+                  "type": "text",
+                  "text": "：\nassets/tikz/R033_mean_minimizer_parabola.tex\n任取实数"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "a"
+                },
+                {
+                  "type": "text",
+                  "text": "。由平均数定义，"
+                }
+              ]
+            },
+            {
+              "id": "proof-b2",
+              "type": "math_block",
+              "latex": "\\sum_{i=1}^{n}(x_i-\\bar x)\n=\\sum_{i=1}^{n}x_i-n\\bar x=0",
+              "align": "center",
+              "need_image": "true"
+            },
+            {
+              "id": "proof-b3",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".于是"
+                }
+              ]
+            },
+            {
+              "id": "proof-b4",
+              "type": "math_block",
+              "latex": "\\begin{aligned}\n\\frac1n\\sum_{i=1}^{n}(x_i-a)^2\n&=\\frac1n\\sum_{i=1}^{n}\\bigl[(x_i-\\bar x)+(\\bar x-a)\\bigr]^2\\\\\n&=\\frac1n\\sum_{i=1}^{n}(x_i-\\bar x)^2\n+\\frac{2(\\bar x-a)}n\\sum_{i=1}^{n}(x_i-\\bar x)\n+(\\bar x-a)^2\\\\\n&=s^2+(a-\\bar x)^2\\ge s^2.\n\\end{aligned}",
+              "align": "center",
+              "need_image": "true"
+            },
+            {
+              "id": "proof-b5",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "等号成立当且仅当"
+                }
+              ]
+            },
+            {
+              "id": "proof-b6",
+              "type": "math_block",
+              "latex": "a=\\bar x",
+              "align": "center",
+              "need_image": "true"
+            },
+            {
+              "id": "proof-b7",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "。因此，平均数确实是使离差平方和最小的唯一位置。"
+                }
+              ]
+            },
+            {
+              "id": "proof-b8",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "二、方差等价公式\n从定义展开平方，并使用"
+                }
+              ]
+            },
+            {
+              "id": "proof-b9",
+              "type": "math_block",
+              "latex": "\\sum_{i=1}^{n}x_i=n\\bar x",
+              "align": "center",
+              "need_image": "true"
+            },
+            {
+              "id": "proof-b10",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "："
+                }
+              ]
+            },
+            {
+              "id": "proof-b11",
+              "type": "math_block",
+              "latex": "\\begin{aligned}\ns^2\n&=\\frac1n\\sum_{i=1}^{n}(x_i-\\bar x)^2\\\\\n&=\\frac1n\\left(\\sum_{i=1}^{n}x_i^2\n-2\\bar x\\sum_{i=1}^{n}x_i+n\\bar x^2\\right)\\\\\n&=\\frac1n\\sum_{i=1}^{n}x_i^2-2\\bar x^2+\\bar x^2\\\\\n&=\\frac1n\\sum_{i=1}^{n}x_i^2-\\bar x^2.\n\\end{aligned}",
+              "align": "center",
+              "need_image": "true"
+            },
+            {
+              "id": "proof-b12",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "频数表只是在每个取值前加入重复次数"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "f_j"
+                },
+                {
+                  "type": "text",
+                  "text": "；将每项乘以"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "f_j"
+                },
+                {
+                  "type": "text",
+                  "text": "、把"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "n"
+                },
+                {
+                  "type": "text",
+                  "text": "换成"
+                }
+              ]
+            },
+            {
+              "id": "proof-b13",
+              "type": "math_block",
+              "latex": "F=\\sum f_j",
+              "align": "center",
+              "need_image": "true"
+            },
+            {
+              "id": "proof-b14",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，同样的推导仍成立。"
+                }
+              ]
+            },
+            {
+              "id": "proof-b15",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "三、零方差的等号条件\n因为每一项"
+                }
+              ]
+            },
+            {
+              "id": "proof-b16",
+              "type": "math_block",
+              "latex": "(x_i-\\bar x)^2\\ge0",
+              "align": "center",
+              "need_image": "true"
+            },
+            {
+              "id": "proof-b17",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "，这些非负数的平均为"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "0"
+                },
+                {
+                  "type": "text",
+                  "text": "，当且仅当每一项都为"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "0"
+                },
+                {
+                  "type": "text",
+                  "text": "。因此"
+                }
+              ]
+            },
+            {
+              "id": "proof-b18",
+              "type": "math_block",
+              "latex": "s^2=0\\iff x_1=x_2=\\cdots=x_n=\\bar x",
+              "align": "center",
+              "need_image": "true"
+            },
+            {
+              "id": "proof-b19",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "examples",
+          "title": "例题应用",
+          "block_type": "rich_text",
+          "blocks": [
+            {
+              "id": "examples-b1",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "例 1：一次求全五个统计量\n给定数据"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "2,2,3,4,4",
+                  "need_image": "true"
+                },
+                {
+                  "type": "text",
+                  "text": "，求平均数、中位数、众数、方差和标准差。\n数据已经有序，"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "n=5"
+                },
+                {
+                  "type": "text",
+                  "text": "，所以中位数是第"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "3"
+                },
+                {
+                  "type": "text",
+                  "text": "个数，即"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "3"
+                },
+                {
+                  "type": "text",
+                  "text": "；"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "2"
+                },
+                {
+                  "type": "text",
+                  "text": "与"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "4"
+                },
+                {
+                  "type": "text",
+                  "text": "都出现"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "2"
+                },
+                {
+                  "type": "text",
+                  "text": "次，故它们都是众数。又"
+                }
+              ]
+            },
+            {
+              "id": "examples-b2",
+              "type": "math_block",
+              "latex": "\\bar x=\\frac{2+2+3+4+4}{5}=3",
+              "align": "center",
+              "need_image": "true"
+            },
+            {
+              "id": "examples-b3",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ","
+                }
+              ]
+            },
+            {
+              "id": "examples-b4",
+              "type": "math_block",
+              "latex": "\\begin{aligned}\ns^2\n&=\\frac{(2-3)^2+(2-3)^2+(3-3)^2+(4-3)^2+(4-3)^2}{5}\\\\\n&=\\frac45=0.8,\n\\qquad\ns=\\sqrt{\\frac45}=\\frac{2\\sqrt5}{5}\\approx0.894.\n\\end{aligned}",
+              "align": "center",
+              "need_image": "true"
+            },
+            {
+              "id": "examples-b5",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "用等价公式回验："
+                }
+              ]
+            },
+            {
+              "id": "examples-b6",
+              "type": "math_block",
+              "latex": "\\frac{2^2+2^2+3^2+4^2+4^2}{5}-3^2\n=\\frac{49}{5}-9=\\frac45",
+              "align": "center",
+              "need_image": "true"
+            },
+            {
+              "id": "examples-b7",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ",与定义式一致。"
+                }
+              ]
+            },
+            {
+              "id": "examples-b8",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "例 2：从频数表计算\n某次测验中，"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "60"
+                },
+                {
+                  "type": "text",
+                  "text": "分有"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "3"
+                },
+                {
+                  "type": "text",
+                  "text": "人，"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "70"
+                },
+                {
+                  "type": "text",
+                  "text": "分有"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "5"
+                },
+                {
+                  "type": "text",
+                  "text": "人，"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "80"
+                },
+                {
+                  "type": "text",
+                  "text": "分有"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "2"
+                },
+                {
+                  "type": "text",
+                  "text": "人。总人数"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "F=10"
+                },
+                {
+                  "type": "text",
+                  "text": "，故"
+                }
+              ]
+            },
+            {
+              "id": "examples-b9",
+              "type": "math_block",
+              "latex": "\\bar x=\\frac{3\\times60+5\\times70+2\\times80}{10}=69",
+              "align": "center",
+              "need_image": "true"
+            },
+            {
+              "id": "examples-b10",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".assets/tikz/R033_weighted_mean_seesaw.tex\n频数必须同时进入方差的分子："
+                }
+              ]
+            },
+            {
+              "id": "examples-b11",
+              "type": "math_block",
+              "latex": "\\begin{aligned}\ns^2\n&=\\frac{3(60-69)^2+5(70-69)^2+2(80-69)^2}{10}\\\\\n&=\\frac{243+5+242}{10}=49,\n\\qquad s=7\\text{ 分}.\n\\end{aligned}",
+              "align": "center",
+              "need_image": "true"
+            },
+            {
+              "id": "examples-b12",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "例 3：平均水平相同，谁更稳定\n甲、乙五次成绩分别为"
+                }
+              ]
+            },
+            {
+              "id": "examples-b13",
+              "type": "math_block",
+              "latex": "A:6,7,8,9,10,\n\\qquad\nB:4,6,8,10,12",
+              "align": "center",
+              "need_image": "true"
+            },
+            {
+              "id": "examples-b14",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".assets/tikz/R033_example_same_mean_spread.tex\n两组总和都为"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "40"
+                },
+                {
+                  "type": "text",
+                  "text": "，所以"
+                }
+              ]
+            },
+            {
+              "id": "examples-b15",
+              "type": "math_block",
+              "latex": "\\bar x_A=\\bar x_B=8",
+              "align": "center",
+              "need_image": "true"
+            },
+            {
+              "id": "examples-b16",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "。但"
+                }
+              ]
+            },
+            {
+              "id": "examples-b17",
+              "type": "math_block",
+              "latex": "s_A^2=\\frac{4+1+0+1+4}{5}=2,\n\\qquad\ns_B^2=\\frac{16+4+0+4+16}{5}=8",
+              "align": "center",
+              "need_image": "true"
+            },
+            {
+              "id": "examples-b18",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".因此"
+                }
+              ]
+            },
+            {
+              "id": "examples-b19",
+              "type": "math_block",
+              "latex": "s_A=\\sqrt2<s_B=2\\sqrt2",
+              "align": "center",
+              "need_image": "true"
+            },
+            {
+              "id": "examples-b20",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "。两人的平均水平相同，但甲的数据更集中，成绩更稳定。图中两行采用同一尺度，结论也与数值计算一致。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "traps",
+          "title": "易错提醒",
+          "block_type": "warning_group",
+          "blocks": [
+            {
+              "id": "traps-b1",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "误区一：频数表中把不同取值各算一次\nassets/tikz/R033_frequency_weight_compare.tex\n错误：把"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "60,70,80",
+                  "need_image": "true"
+                },
+                {
+                  "type": "text",
+                  "text": "三种取值各算一次，得到错误平均数"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "70"
+                },
+                {
+                  "type": "text",
+                  "text": "。\n错因：这等于假设三种成绩各出现一次，丢掉了频数。\n替代：按频数重复（或加权）可得"
+                }
+              ]
+            },
+            {
+              "id": "traps-b2",
+              "type": "math_block",
+              "latex": "\\bar x=69",
+              "align": "center",
+              "need_image": "true"
+            },
+            {
+              "id": "traps-b3",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "；计算方差也须使用同一组频数。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b4",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "误区二：不排序就取中间\nassets/tikz/R033_median_sort_middle.tex\n错误：在原书写顺序中直接取“中间”的数。\n错因：中位数的“中间”是大小次序的中间，原书写位置没有统计意义。\n替代：先排序；奇数个取正中一项，偶数个取中间两项的平均。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b5",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "误区三：把众数当成最大的数\n错误：把最大值"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "9"
+                },
+                {
+                  "type": "text",
+                  "text": "当成众数。\n错因：众数比较出现次数，不比较数值大小。\n替代："
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "2"
+                },
+                {
+                  "type": "text",
+                  "text": "出现两次，故众数为"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "2"
+                },
+                {
+                  "type": "text",
+                  "text": "；最高频数并列时可以有多个众数。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b6",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "误区四：混淆离差和、方差与标准差\n错误：由"
+                }
+              ]
+            },
+            {
+              "id": "traps-b7",
+              "type": "math_block",
+              "latex": "\\sum(x_i-\\bar x)=0",
+              "align": "center",
+              "need_image": "true"
+            },
+            {
+              "id": "traps-b8",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "断言方差为"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "0"
+                },
+                {
+                  "type": "text",
+                  "text": "，或把"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "s^2"
+                },
+                {
+                  "type": "text",
+                  "text": "当成标准差。\n错因：离差会正负抵消；方差平均的是离差平方，而且方差不等于标准差。\n替代：先算"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "s^2"
+                },
+                {
+                  "type": "text",
+                  "text": "；若题目问标准差，再取非负平方根"
+                }
+              ]
+            },
+            {
+              "id": "traps-b9",
+              "type": "math_block",
+              "latex": "s=\\sqrt{s^2}",
+              "align": "center",
+              "need_image": "true"
+            },
+            {
+              "id": "traps-b10",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "。"
+                }
+              ]
+            },
+            {
+              "id": "traps-b11",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "误区五：见到“样本”就机械除以"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "n-1"
+                },
+                {
+                  "type": "text",
+                  "text": "错误：见到“样本”就机械地把方差分母改为"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "n-1"
+                },
+                {
+                  "type": "text",
+                  "text": "。\n错因：分母取决于定义和任务语境；"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "n-1"
+                },
+                {
+                  "type": "text",
+                  "text": "是无偏样本方差的口径。\n替代：本结论使用分母"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "n"
+                },
+                {
+                  "type": "text",
+                  "text": "；若题目另给公式，则按题目定义。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "key": "summary",
+          "title": "复盘总结",
+          "block_type": "summary",
+          "blocks": [
+            {
+              "id": "summary-b1",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "一句话核心\n先分清要描述的是平衡位置、中间位置、最高频位置还是离散程度，再分别选平均数、中位数、众数或方差（标准差）。"
+                }
+              ]
+            },
+            {
+              "id": "summary-b2",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "速查公式"
+                }
+              ]
+            },
+            {
+              "id": "summary-b3",
+              "type": "math_block",
+              "latex": "\\bar x=\\frac1n\\sum x_i,\n\\qquad\ns^2=\\frac1n\\sum(x_i-\\bar x)^2\n=\\frac1n\\sum x_i^2-\\bar x^2,\n\\qquad s=\\sqrt{s^2}",
+              "align": "center",
+              "need_image": "true"
+            },
+            {
+              "id": "summary-b4",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": ".频数表中令"
+                }
+              ]
+            },
+            {
+              "id": "summary-b5",
+              "type": "math_block",
+              "latex": "F=\\sum f_j",
+              "align": "center",
+              "need_image": "true"
+            },
+            {
+              "id": "summary-b6",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "："
+                }
+              ]
+            },
+            {
+              "id": "summary-b7",
+              "type": "math_block",
+              "latex": "\\bar x=\\frac{\\sum f_ja_j}{F},\n\\qquad\ns^2=\\frac{\\sum f_j(a_j-\\bar x)^2}{F}",
+              "align": "center",
+              "need_image": "true"
+            },
+            {
+              "id": "summary-b8",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "."
+                }
+              ]
+            },
+            {
+              "id": "summary-b9",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "判断顺序\nassets/tikz/R033_statistic_choice_map.tex"
+                }
+              ]
+            },
+            {
+              "id": "summary-b10",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "最后检查"
+                }
+              ]
+            },
+            {
+              "id": "summary-b11",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "中位数是否已经排序？偶数个数据是否取了中间两数的平均？"
+                }
+              ]
+            },
+            {
+              "id": "summary-b12",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "频数是否进入平均数和方差的分子，分母是否为总频数？"
+                }
+              ]
+            },
+            {
+              "id": "summary-b13",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "方差是否非负？"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "s^2=0",
+                  "need_image": "true"
+                },
+                {
+                  "type": "text",
+                  "text": "是否只在全部数据相同时出现？"
+                }
+              ]
+            },
+            {
+              "id": "summary-b14",
+              "type": "paragraph",
+              "tokens": [
+                {
+                  "type": "text",
+                  "text": "题目问的是方差还是标准差？本题采用分母"
+                },
+                {
+                  "type": "math_inline",
+                  "latex": "n"
+                },
+                {
+                  "type": "text",
+                  "text": "还是题目另给定义？"
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "plain": {
+        "statement": "对象与约定\n给定 n 个实数 x_1,x_2, ,x_n，其中 n in N^*。将它们从小到大排列为\nx_(1) x_(2) * s x_(n)。本结论中的“方差”采用高中描述统计口径，分母为 n；推断统计中分母为 n-1 的无偏样本方差不在此处讨论。\n集中趋势\n- 平均数\nx= 1n _i=1^nx_i.\n它使用每一个数据值，表示这组数据的平衡水平。\n- 中位数\nMed=\nx_((n+1)/2),&n 为奇数,\\\n3pt]\nx_(n/2)+x_(n/2+1)2,&n 为偶数.\n它只由排序后的中间位置决定。\n- 众数\n出现次数达到最大值的数据。众数可能不唯一；若所有数据互不相同，高中统计中通常称“没有众数”。\n离散程度\ns^2= 1n _i=1^n(x_i- x)^2\n= 1n _i=1^nx_i^2- x^2,\ns=sqrt(s^2).\n恒有 s^2 0；并且\ns^2=0 <=> x_1=x_2= * s=x_n.\n方差的量纲是原数据量纲的平方，标准差与原数据同量纲。用方差或标准差比较波动时，两组数据应描述同一变量并采用相同单位。\n频数表形式\n若不同取值 a_1, ,a_k 的频数分别为非负整数 f_1, ,f_k，总频数 F= _j=1^kf_j>0，则\nx=( _j=1^kf_ja_j) / (F),\ns^2=( _j=1^kf_j(a_j- x)^2) / (F).\n这不是另一套定义：它只是把每个 a_j 按频数 f_j 重复写出的简记。",
+        "explanation": "一句话直觉\n平均数、中位数、众数分别看“平衡位置、中间位置、最高频位置”，方差与标准差则看数据离中心有多散。\nassets/tikz/R033_four_statistics_map.tex\n图中同一组数据的平均数与中位数恰好都为 3，但含义不同；众数为 2 和 4，说明众数还可能不唯一。做题时先问“要描述哪一种特征”，再选统计量。\n为什么极端值更容易拉动平均数\nassets/tikz/R033_outlier_mean_median.tex\n把 5 改成 20 后，总和增加 15，所以平均数增加 15/5=3；排序后的第 3 个数没有改变，中位数仍为 3。更准确地说，中位数对极端值较稳健：只要改动没有改变中间位置上的数据，它就不变；不能笼统说中位数永远不受数据改动影响。\n方差为什么要“平方后再平均”\nassets/tikz/R033_variance_distance_squares.tex\n三行对照表明：平方既避免正负抵消，又比绝对距离更强调远离均值的数据；把平方距离除以数据个数，就得到方差。\nassets/tikz/R033_variance_units_pipeline.tex",
+        "proof": "一、平均数为何是平方距离的唯一最小点\n对数据 1,2,3,4,5，把候选中心记作 a，平均平方距离是\nQ(a)=2+(a-3)^2：\nassets/tikz/R033_mean_minimizer_parabola.tex\n任取实数 a。由平均数定义，\n_i=1^n(x_i- x)\n= _i=1^nx_i-n x=0.\n于是\n1n _i=1^n(x_i-a)^2\n&= 1n _i=1^n ^2\\\\\n&= 1n _i=1^n(x_i- x)^2\n+ 2( x-a)n _i=1^n(x_i- x)\n+( x-a)^2\\\\\n&=s^2+(a- x)^2 s^2.\n等号成立当且仅当 a= x。因此，平均数确实是使离差平方和最小的唯一位置。\n二、方差等价公式\n从定义展开平方，并使用 _i=1^nx_i=n x：\ns^2\n&= 1n _i=1^n(x_i- x)^2\\\\\n&= 1n( _i=1^nx_i^2\n-2 x _i=1^nx_i+n x^2)\\\\\n&= 1n _i=1^nx_i^2-2 x^2+ x^2\\\\\n&= 1n _i=1^nx_i^2- x^2.\n频数表只是在每个取值前加入重复次数 f_j；将每项乘以 f_j、把 n 换成 F= f_j，同样的推导仍成立。\n三、零方差的等号条件\n因为每一项 (x_i- x)^2 0，这些非负数的平均为 0，当且仅当每一项都为 0。因此\ns^2=0 <=> x_1=x_2= * s=x_n= x.",
+        "examples": "例 1：一次求全五个统计量\n给定数据 2,2,3,4,4，求平均数、中位数、众数、方差和标准差。\n数据已经有序，n=5，所以中位数是第 3 个数，即 3；2 与 4 都出现 2 次，故它们都是众数。又\nx=(2+2+3+4+4) / (5)=3,\ns^2\n&=((2-3)^2+(2-3)^2+(3-3)^2+(4-3)^2+(4-3)^2) / (5)\\\\\n&= 45=0.8,\ns=sqrt( 45)=(2 5) / (5) 0.894.\n用等价公式回验：\n(2^2+2^2+3^2+4^2+4^2) / (5)-3^2\n=(49) / (5)-9= 45,\n与定义式一致。\n例 2：从频数表计算\n某次测验中，60 分有 3 人，70 分有 5 人，80 分有 2 人。总人数 F=10，故\nx=(3 * 60+5 * 70+2 * 80) / (10)=69.\nassets/tikz/R033_weighted_mean_seesaw.tex\n频数必须同时进入方差的分子：\ns^2\n&=(3(60-69)^2+5(70-69)^2+2(80-69)^2) / (10)\\\\\n&=(243+5+242) / (10)=49,\ns=7 分.\n例 3：平均水平相同，谁更稳定\n甲、乙五次成绩分别为\nA:6,7,8,9,10,\nB:4,6,8,10,12.\nassets/tikz/R033_example_same_mean_spread.tex\n两组总和都为 40，所以 x_A= x_B=8。但\ns_A^2=(4+1+0+1+4) / (5)=2,\ns_B^2=(16+4+0+4+16) / (5)=8.\n因此 s_A= 2<s_B=2 2。两人的平均水平相同，但甲的数据更集中，成绩更稳定。图中两行采用同一尺度，结论也与数值计算一致。",
+        "traps": "误区一：频数表中把不同取值各算一次\nassets/tikz/R033_frequency_weight_compare.tex\n错误：把 60,70,80 三种取值各算一次，得到错误平均数 70。\n错因：这等于假设三种成绩各出现一次，丢掉了频数。\n替代：按频数重复（或加权）可得 x=69；计算方差也须使用同一组频数。\n误区二：不排序就取中间\nassets/tikz/R033_median_sort_middle.tex\n错误：在原书写顺序中直接取“中间”的数。\n错因：中位数的“中间”是大小次序的中间，原书写位置没有统计意义。\n替代：先排序；奇数个取正中一项，偶数个取中间两项的平均。\n误区三：把众数当成最大的数\n错误：把最大值 9 当成众数。\n错因：众数比较出现次数，不比较数值大小。\n替代：2 出现两次，故众数为 2；最高频数并列时可以有多个众数。\n误区四：混淆离差和、方差与标准差\n错误：由 (x_i- x)=0 断言方差为 0，或把 s^2 当成标准差。\n错因：离差会正负抵消；方差平均的是离差平方，而且方差不等于标准差。\n替代：先算 s^2；若题目问标准差，再取非负平方根 s=sqrt(s^2)。\n误区五：见到“样本”就机械除以 n-1\n错误：见到“样本”就机械地把方差分母改为 n-1。\n错因：分母取决于定义和任务语境；n-1 是无偏样本方差的口径。\n替代：本结论使用分母 n；若题目另给公式，则按题目定义。",
+        "summary": "一句话核心\n先分清要描述的是平衡位置、中间位置、最高频位置还是离散程度，再分别选平均数、中位数、众数或方差（标准差）。\n速查公式\nx= 1n x_i,\ns^2= 1n (x_i- x)^2\n= 1n x_i^2- x^2,\ns=sqrt(s^2).\n频数表中令 F= f_j：\nx=( f_ja_j) / (F),\ns^2=( f_j(a_j- x)^2) / (F).\n判断顺序\nassets/tikz/R033_statistic_choice_map.tex\n最后检查\n- 中位数是否已经排序？偶数个数据是否取了中间两数的平均？\n- 频数是否进入平均数和方差的分子，分母是否为总频数？\n- 方差是否非负？s^2=0 是否只在全部数据相同时出现？\n- 题目问的是方差还是标准差？本题采用分母 n 还是题目另给定义？"
+      }
+    },
+    "assets": {
+      "cover": null,
+      "svg": null,
+      "png": null,
+      "pdf": null,
+      "mp4": null,
+      "extra": [
+        {
+          "kind": "tikz_1",
+          "url": "assets/tikz/R033_four_statistics_map.tex",
+          "meta": {}
+        },
+        {
+          "kind": "tikz_2",
+          "url": "assets/tikz/R033_outlier_mean_median.tex",
+          "meta": {}
+        },
+        {
+          "kind": "tikz_3",
+          "url": "assets/tikz/R033_variance_distance_squares.tex",
+          "meta": {}
+        },
+        {
+          "kind": "tikz_4",
+          "url": "assets/tikz/R033_variance_units_pipeline.tex",
+          "meta": {}
+        },
+        {
+          "kind": "tikz_5",
+          "url": "assets/tikz/R033_mean_minimizer_parabola.tex",
+          "meta": {}
+        },
+        {
+          "kind": "tikz_6",
+          "url": "assets/tikz/R033_weighted_mean_seesaw.tex",
+          "meta": {}
+        },
+        {
+          "kind": "tikz_7",
+          "url": "assets/tikz/R033_frequency_weight_compare.tex",
+          "meta": {}
+        },
+        {
+          "kind": "tikz_8",
+          "url": "assets/tikz/R033_median_sort_middle.tex",
+          "meta": {}
+        },
+        {
+          "kind": "tikz_9",
+          "url": "assets/tikz/R033_statistic_choice_map.tex",
+          "meta": {}
+        },
+        {
+          "kind": "tikz_10",
+          "url": "assets/tikz/R033_example_same_mean_spread.tex",
+          "meta": {}
+        }
+      ]
+    },
+    "ext": {
+      "share": {
+        "title": "描述统计量：平均数、中位数、众数、方差与标准差",
+        "desc": "用点图理解平衡位置、中间位置、最高频位置和离散程度，掌握频数表计算、极端值影响及方差口径。"
+      },
+      "relations": {
+        "prerequisites": [
+          "实数运算",
+          "数据排序",
+          "频数"
+        ],
+        "related_ids": [],
+        "similar": "频率分布直方图估计平均数与方差；推断统计中的无偏样本方差"
+      },
+      "exam": {
+        "frequency": 1,
+        "score": 5
+      },
+      "extra": {
+        "usage": {
+          "scenarios": [
+            "成绩与质量数据概括",
+            "频数分布表计算",
+            "比较同一变量的稳定性",
+            "含极端值数据的代表值选择"
+          ],
+          "problem_types": [
+            "求集中趋势统计量",
+            "求方差和标准差",
+            "比较数据波动",
+            "从频数表计算",
+            "选择合适的代表值"
+          ],
+          "exam_frequency": 1.0,
+          "exam_score": 5
+        },
+        "interactive": {
+          "has_diagram": true,
+          "geogebra_id": "",
+          "param_demo": {}
+        },
+        "related_formulas": [
+          "s^2=\\frac{1}{n}\\sum_{i=1}^{n}(x_i-\\bar{x})^2",
+          "s^2=\\frac{1}{n}\\sum_{i=1}^{n}x_i^2-\\bar{x}^2",
+          "s=\\sqrt{s^2}",
+          "\\bar{x}=\\frac{\\sum_{j=1}^{k}f_ja_j}{F}",
+          "s^2=\\frac{\\sum_{j=1}^{k}f_j(a_j-\\bar{x})^2}{F}"
+        ],
+        "legacy_display_version": 2
+      }
+    }
+  }
+}

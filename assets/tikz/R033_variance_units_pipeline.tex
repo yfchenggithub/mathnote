@@ -1,0 +1,32 @@
+% 方差与标准差的单位变化
+% 用法：\input{assets/tikz/R033_variance_units_pipeline.tex}
+
+\begin{center}
+	\begin{tikzpicture}[
+		x=1cm,y=1cm,>=Stealth,
+		line cap=round,line join=round,
+		every node/.style={font=\small},
+		stage/.style={rounded corners=4pt,minimum width=1.75cm,minimum height=0.88cm,align=center,inner sep=2pt}
+	]
+		\path[use as bounding box] (0,0) rectangle (12.5,3.20);
+		\fill[teal!3,rounded corners=7pt] (0.2,0.15) rectangle (12.3,3.00);
+		\draw[teal!58!black,rounded corners=7pt,line width=0.85pt]
+			(0.2,0.15) rectangle (12.3,3.00);
+		\node[font=\bfseries,text=teal!70!black] at (6.25,2.61)
+			{方差保留平方单位，标准差开平方后回到原单位};
+
+		\node[stage,draw=black!38,fill=white] (raw) at (1.25,1.38) {原数据\\\textbf{分}};
+		\node[stage,draw=blue!45!black,fill=blue!5] (dev) at (3.70,1.38) {离差\\\textbf{分}};
+		\node[stage,draw=orange!65!black,fill=orange!7] (sq) at (6.15,1.38) {离差平方\\\textbf{分$^2$}};
+		\node[stage,draw=orange!65!black,fill=orange!7] (var) at (8.60,1.38) {方差\\\textbf{分$^2$}};
+		\node[stage,draw=teal!58!black,fill=teal!7] (sd) at (11.05,1.38) {标准差\\\textbf{分}};
+		\draw[-Stealth,black!55,line width=0.75pt] (raw)--(dev)
+			node[midway,above=2pt,font=\scriptsize]{减均值};
+		\draw[-Stealth,black!55,line width=0.75pt] (dev)--(sq)
+			node[midway,above=2pt,font=\scriptsize]{平方};
+		\draw[-Stealth,black!55,line width=0.75pt] (sq)--(var)
+			node[midway,above=2pt,font=\scriptsize]{平均};
+		\draw[-Stealth,teal!68!black,line width=0.9pt] (var)--(sd)
+			node[midway,above=2pt,font=\scriptsize] {$\sqrt{\phantom{x}}$};
+	\end{tikzpicture}
+\end{center}

@@ -1,0 +1,55 @@
+% 频数加权平均数的跷跷板解释
+% 用法：\input{assets/tikz/R033_weighted_mean_seesaw.tex}
+
+\begin{center}
+	\begin{tikzpicture}[
+		x=1cm,y=1cm,>=Stealth,
+		line cap=round,line join=round,
+		every node/.style={font=\small}
+	]
+		\path[use as bounding box] (0,0) rectangle (12.5,6.65);
+		\fill[green!3,rounded corners=7pt] (0.2,0.15) rectangle (12.3,6.45);
+		\draw[CExample,rounded corners=7pt,line width=0.85pt]
+			(0.2,0.15) rectangle (12.3,6.45);
+		\node[font=\bfseries,text=CExample] at (6.25,6.02)
+			{频数就是重量，平均数就是加权后的平衡点};
+
+		% 数轴式跷跷板。60->1.50, 69->5.775, 70->6.25, 80->11.00，比例完全一致。
+		\draw[black!72,line width=2.2pt] (1.05,2.78)--(11.45,2.78);
+		\foreach \x in {1.50,5.775,6.25,11.00}{
+			\draw[black!50,line width=0.7pt] (\x,2.66)--(\x,2.90);
+		}
+		\node[below=5pt] at (1.50,2.70) {$60$};
+		\node[below=5pt,text=red!78!black,anchor=east] at (5.69,2.70) {$69$};
+		\node[below=5pt,anchor=west] at (6.34,2.70) {$70$};
+		\node[below=5pt] at (11.00,2.70) {$80$};
+		\fill[red!12] (5.775,2.70)--(5.10,1.70)--(6.45,1.70)--cycle;
+		\draw[red!78!black,line width=1.05pt] (5.775,2.70)--(5.10,1.70)--(6.45,1.70)--cycle;
+		\draw[red!78!black,dashed,line width=0.8pt] (5.775,1.58)--(5.775,4.98);
+		\node[font=\bfseries,text=red!78!black,anchor=east] at (5.53,4.94)
+			{支点 $\bar x=69$};
+
+		% 十个相同砝码
+		\foreach \y in {3.16,3.58,4.00}{\fill[green!55!black] (1.50,\y) circle (4.7pt);}
+		\foreach \y in {3.16,3.58,4.00,4.42,4.84}{\fill[green!55!black] (6.25,\y) circle (4.7pt);}
+		\foreach \y in {3.16,3.58}{\fill[green!55!black] (11.00,\y) circle (4.7pt);}
+		\node[font=\bfseries,text=green!50!black] at (1.50,4.48) {$3$ 人};
+		\node[font=\bfseries,text=green!50!black] at (6.25,5.28) {$5$ 人};
+		\node[font=\bfseries,text=green!50!black] at (11.00,4.06) {$2$ 人};
+
+		% 两侧力矩
+		\fill[green!5,rounded corners=5pt] (0.62,0.52) rectangle (4.95,1.78);
+		\draw[green!45!black,rounded corners=5pt,line width=0.7pt]
+			(0.62,0.52) rectangle (4.95,1.78);
+		\node[font=\bfseries,text=green!45!black] at (2.785,1.55) {左侧力矩};
+		\node[text=green!45!black] at (2.785,1.14) {$3\times(69-60)$};
+		\node[text=green!45!black] at (2.785,0.76) {$=3\times9=27$};
+
+		\fill[green!5,rounded corners=5pt] (6.60,0.52) rectangle (11.88,1.78);
+		\draw[green!45!black,rounded corners=5pt,line width=0.7pt]
+			(6.60,0.52) rectangle (11.88,1.78);
+		\node[font=\bfseries,text=green!45!black] at (9.24,1.55) {右侧力矩};
+		\node[text=green!45!black] at (9.24,1.14) {$5\times(70-69)+2\times(80-69)$};
+		\node[text=green!45!black] at (9.24,0.76) {$=5\times1+2\times11=27$};
+	\end{tikzpicture}
+\end{center}

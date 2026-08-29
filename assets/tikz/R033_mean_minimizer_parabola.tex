@@ -1,0 +1,58 @@
+% 平均数是平均平方距离函数的唯一最小点
+% 用法：\input{assets/tikz/R033_mean_minimizer_parabola.tex}
+
+\begin{center}
+	\begin{tikzpicture}[
+		x=1cm,y=1cm,>=Stealth,
+		line cap=round,line join=round,
+		every node/.style={font=\small}
+	]
+		\path[use as bounding box] (0,0) rectangle (12.5,7.05);
+		\fill[purple!3,rounded corners=7pt] (0.2,0.15) rectangle (12.3,6.85);
+		\draw[CProof,rounded corners=7pt,line width=0.85pt]
+			(0.2,0.15) rectangle (12.3,6.85);
+		\node[font=\bfseries,text=CProof,align=center] at (6.25,6.22)
+			{候选中心偏离平均数多少，\\平均平方距离就多出多少平方};
+
+		% 左侧精确抛物线：横坐标 a，纵坐标 Q(a)=2+(a-3)^2。
+		\begin{scope}[shift={(0.35,0.35)},x=1.25cm,y=0.66cm]
+			\draw[-Stealth,black!65,line width=0.8pt] (0.55,0.65)--(5.55,0.65)
+				node[right,font=\small] {候选中心 $a$};
+			\draw[-Stealth,black!65,line width=0.8pt] (0.85,0.35)--(0.85,6.65)
+				node[above,font=\small] {$Q(a)$};
+			\foreach \a in {1,2,3,4,5}{
+				\draw[black!48] (\a,0.55)--(\a,0.75);
+				\node[below=3pt,font=\scriptsize] at (\a,0.62) {$\a$};
+			}
+			\foreach \q in {2,3,6}{
+				\draw[black!48] (0.77,\q)--(0.93,\q);
+				\node[left=3pt,font=\scriptsize] at (0.87,\q) {$\q$};
+			}
+			\draw[purple!78!black,line width=1.25pt,smooth]
+				plot[domain=1:5,samples=90] (\x,{2+(\x-3)*(\x-3)});
+			\draw[red!78!black,dashed,line width=0.8pt] (3,0.65)--(3,2);
+			\draw[red!78!black,dashed,line width=0.8pt] (0.85,2)--(3,2);
+			\fill[red!78!black] (3,2) circle (2.7pt);
+			\node[font=\bfseries,text=red!78!black,anchor=south east] at (2.92,2.12)
+				{顶点 $(3,2)$};
+			\fill[orange!85!black] (4,3) circle (2.6pt);
+			\draw[<->,orange!85!black,line width=0.75pt] (4.18,2)--(4.18,3);
+			\node[font=\scriptsize,text=orange!85!black,anchor=west] at (4.30,2.55)
+				{多出 $1$};
+		\end{scope}
+
+		% 右侧公式卡
+		\fill[purple!6,rounded corners=5pt] (7.45,0.62) rectangle (11.88,5.15);
+		\draw[purple!45!black,rounded corners=5pt,line width=0.75pt]
+			(7.45,0.62) rectangle (11.88,5.15);
+		\node[font=\bfseries,text=CProof] at (9.66,4.78) {数据 $1,2,3,4,5$，$\bar x=3$};
+		\node at (9.66,3.90)
+			{$\displaystyle Q(a)=\frac15\sum_{i=1}^{5}(x_i-a)^2$};
+		\node at (9.66,3.18) {$\displaystyle =2+(a-3)^2$};
+		\draw[red!78!black,line width=0.9pt] (7.92,2.72)--(11.40,2.72);
+		\node[align=center,text=red!78!black] at (9.66,2.13)
+			{$a=\bar x=3$ 时，\\唯一最小值为 $s^2=2$};
+		\node[font=\scriptsize,align=center,text=black!65] at (9.66,1.18)
+			{$a\ne3\Rightarrow(a-\bar x)^2>0$\\不可能取得同一最小值};
+	\end{tikzpicture}
+\end{center}

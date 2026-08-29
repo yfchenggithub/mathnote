@@ -1,0 +1,58 @@
+% 中位数：先排序，再在大小次序中取中间
+% 用法：\input{assets/tikz/R033_median_sort_middle.tex}
+
+\begin{center}
+	\begin{tikzpicture}[
+		x=1cm,y=1cm,>=Stealth,
+		line cap=round,line join=round,
+		every node/.style={font=\small},
+		num/.style={draw=black!38,fill=white,rounded corners=3pt,minimum width=0.58cm,minimum height=0.58cm,inner sep=1pt},
+		mid/.style={draw=blue!78!black,fill=blue!9,rounded corners=3pt,line width=1.1pt,minimum width=0.62cm,minimum height=0.62cm,inner sep=1pt}
+	]
+		\path[use as bounding box] (0,0) rectangle (12.5,5.85);
+		\fill[blue!3,rounded corners=7pt] (0.2,0.15) rectangle (12.3,5.65);
+		\draw[blue!65!black,rounded corners=7pt,line width=0.85pt]
+			(0.2,0.15) rectangle (12.3,5.65);
+		\node[font=\bfseries,text=blue!70!black] at (6.25,5.28)
+			{中位数的“中间”是大小次序的中间：先排序，再定位};
+
+		% 奇数个数据
+		\fill[blue!4,rounded corners=5pt] (0.55,3.02) rectangle (11.95,4.90);
+		\node[font=\bfseries,text=blue!72!black,anchor=west] at (0.82,4.60)
+			{奇数个：正中间只有一个数};
+		\node[anchor=west,text=black!70] at (0.82,3.92) {原顺序};
+		\foreach \x/\v in {2.10/9,2.78/1,3.46/5,4.14/2,4.82/7}{\node[num] at (\x,3.92) {$\v$};}
+		\draw[-Stealth,blue!65!black,line width=0.9pt] (5.28,3.92)--(6.05,3.92)
+			node[midway,above=3pt,font=\scriptsize]{排序};
+		\foreach \x/\v in {6.48/1,7.16/2,7.84/5,8.52/7,9.20/9}{
+			\ifnum\v=5 \node[mid] at (\x,3.92) {$\v$};
+			\else \node[num] at (\x,3.92) {$\v$};\fi
+		}
+		\draw[-Stealth,blue!65!black,line width=0.9pt] (9.67,3.92)--(10.28,3.92);
+		\node[font=\bfseries,text=blue!78!black,anchor=west] at (10.45,3.92)
+			{$\operatorname{Med}=5$};
+		\draw[blue!65!black,-Stealth,line width=0.7pt] (6.48,3.22)--(7.52,3.57);
+		\draw[blue!65!black,-Stealth,line width=0.7pt] (9.20,3.22)--(8.16,3.57);
+		\node[font=\scriptsize,text=blue!70!black] at (7.84,3.18) {从两端向中间收缩};
+
+		% 偶数个数据，使用指定例子
+		\fill[blue!4,rounded corners=5pt] (0.55,0.48) rectangle (11.95,2.82);
+		\node[font=\bfseries,text=blue!72!black,anchor=west] at (0.82,2.50)
+			{偶数个：中间有两个数，取它们的平均};
+		\node[anchor=west,text=black!70] at (0.82,1.80) {原顺序};
+		\foreach \x/\v in {2.10/9,2.78/1,3.46/5,4.14/2}{\node[num] at (\x,1.80) {$\v$};}
+		\draw[-Stealth,blue!65!black,line width=0.9pt] (4.62,1.80)--(5.42,1.80)
+			node[midway,above=3pt,font=\scriptsize]{排序};
+		\foreach \x/\v in {5.86/1,6.54/2,7.22/5,7.90/9}{
+			\ifnum\v=2 \node[mid] at (\x,1.80) {$\v$};
+			\else\ifnum\v=5 \node[mid] at (\x,1.80) {$\v$};
+			\else \node[num] at (\x,1.80) {$\v$};\fi\fi
+		}
+		\draw[blue!72!black,line width=0.8pt] (6.54,1.37)--(6.54,1.17)--(7.22,1.17)--(7.22,1.37);
+		\draw[-Stealth,blue!65!black,line width=0.9pt] (8.37,1.80)--(8.98,1.80);
+		\node[font=\bfseries,text=blue!78!black,anchor=west] at (9.14,1.80)
+			{$\dfrac{2+5}{2}=3.5$};
+		\node[font=\scriptsize,text=black!62] at (6.25,0.75)
+			{$9,1,5,2\ \longrightarrow\ 1,2,5,9\ \longrightarrow\ \operatorname{Med}=3.5$};
+	\end{tikzpicture}
+\end{center}

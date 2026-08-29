@@ -1,0 +1,89 @@
+% 统计量选择地图：四类问题与对应统计量
+% 用法：\input{assets/tikz/R033_statistic_choice_map.tex}
+
+\begin{center}
+	\begin{tikzpicture}[
+		x=1cm,y=1cm,>=Stealth,
+		line cap=round,line join=round,
+		every node/.style={font=\small},
+		branch/.style={-Stealth,line width=0.85pt,black!55}
+	]
+		\path[use as bounding box] (0,0) rectangle (12.5,8.20);
+		\fill[brown!2,rounded corners=7pt] (0.2,0.15) rectangle (12.3,8.00);
+		\draw[CSummary,rounded corners=7pt,line width=0.85pt]
+			(0.2,0.15) rectangle (12.3,8.00);
+		\node[font=\bfseries\large,text=CSummary] at (6.25,7.63)
+			{先看问题在问什么，再选择统计量};
+
+		% 左侧选择入口与分支主干
+		\fill[brown!8,rounded corners=6pt] (0.52,3.14) rectangle (2.55,5.18);
+		\draw[CSummary,rounded corners=6pt,line width=0.8pt]
+			(0.52,3.14) rectangle (2.55,5.18);
+		\node[font=\bfseries,align=center,text=CSummary] at (1.54,4.16)
+			{要描述\\什么？};
+		\draw[black!52,line width=0.8pt] (2.55,4.16)--(3.05,4.16);
+		\draw[black!52,line width=0.8pt] (3.05,1.25)--(3.05,6.58);
+
+		% 平均数分支
+		\draw[branch] (3.05,6.55)--(3.55,6.55);
+		\fill[red!5,rounded corners=5pt] (3.55,5.88) rectangle (11.95,7.18);
+		\draw[red!55!black,rounded corners=5pt,line width=0.75pt]
+			(3.55,5.88) rectangle (11.95,7.18);
+		% 微型跷跷板
+		\draw[black!65,line width=1.2pt] (3.88,6.52)--(5.32,6.52);
+		\fill[red!16] (4.60,6.48)--(4.37,6.05)--(4.83,6.05)--cycle;
+		\draw[red!75!black] (4.60,6.48)--(4.37,6.05)--(4.83,6.05)--cycle;
+		\fill[teal!65!black] (4.04,6.75) circle (2.8pt);
+		\fill[teal!65!black] (5.16,6.75) circle (2.8pt);
+		\node[anchor=west] at (5.62,6.63) {全部数据的\textbf{平衡水平}};
+		\node[font=\bfseries,text=red!75!black,anchor=east] at (11.65,6.45)
+			{$\Longrightarrow$ 平均数};
+
+		% 中位数分支
+		\draw[branch] (3.05,5.05)--(3.55,5.05);
+		\fill[blue!5,rounded corners=5pt] (3.55,4.38) rectangle (11.95,5.68);
+		\draw[blue!55!black,rounded corners=5pt,line width=0.75pt]
+			(3.55,4.38) rectangle (11.95,5.68);
+		\foreach \x in {3.95,4.30,4.65,5.00,5.35}{\fill[blue!55!black] (\x,5.18) circle (2.6pt);}
+		\draw[blue!78!black,rounded corners=2pt,line width=0.8pt] (4.49,4.98) rectangle (4.81,5.38);
+		\node[anchor=west,align=left] at (5.62,5.03)
+			{排序后的\textbf{中间位置}\\或存在明显极端值};
+		\node[font=\bfseries,text=blue!75!black,anchor=east] at (11.65,5.03)
+			{$\Longrightarrow$ 中位数};
+
+		% 众数分支
+		\draw[branch] (3.05,3.55)--(3.55,3.55);
+		\fill[orange!6,rounded corners=5pt] (3.55,2.88) rectangle (11.95,4.18);
+		\draw[orange!70!black,rounded corners=5pt,line width=0.75pt]
+			(3.55,2.88) rectangle (11.95,4.18);
+		\foreach \y in {3.20}{\fill[orange!82!black] (4.02,\y) circle (2.6pt);}
+		\foreach \y in {3.20,3.52,3.84}{\fill[orange!82!black] (4.55,\y) circle (2.6pt);}
+		\foreach \y in {3.20,3.52}{\fill[orange!82!black] (5.08,\y) circle (2.6pt);}
+		\node[anchor=west] at (5.62,3.53) {出现次数\textbf{最多}的取值};
+		\node[font=\bfseries,text=orange!80!black,anchor=east] at (11.65,3.53)
+			{$\Longrightarrow$ 众数};
+
+		% 方差/标准差分支（含单位小分支）
+		\draw[branch] (3.05,1.58)--(3.55,1.58);
+		\fill[teal!5,rounded corners=5pt] (3.55,0.45) rectangle (11.95,2.68);
+		\draw[teal!58!black,rounded corners=5pt,line width=0.75pt]
+			(3.55,0.45) rectangle (11.95,2.68);
+		\draw[black!55,line width=0.65pt] (3.88,1.84)--(5.20,1.84);
+		\draw[red!75!black,dashed,line width=0.65pt] (4.55,1.42)--(4.55,2.24);
+		\fill[teal!68!black] (3.95,2.08) circle (2.7pt);
+		\fill[teal!68!black] (4.35,2.08) circle (2.7pt);
+		\fill[teal!68!black] (5.12,2.08) circle (2.7pt);
+		\draw[<->,teal!68!black,line width=0.65pt] (3.95,1.55)--(5.12,1.55);
+		\node[anchor=west] at (5.62,2.14) {离中心\textbf{多分散}？};
+		\node[font=\bfseries,text=teal!70!black,anchor=east] at (11.65,2.14)
+			{$\Longrightarrow$ 方差或标准差};
+		\fill[white,rounded corners=3pt] (5.62,0.70) rectangle (8.32,1.48);
+		\draw[teal!42!black,rounded corners=3pt] (5.62,0.70) rectangle (8.32,1.48);
+		\node[font=\scriptsize,align=center] at (6.97,1.09)
+			{要与原数据同单位\\$\Longrightarrow$ 标准差};
+		\fill[white,rounded corners=3pt] (8.65,0.70) rectangle (11.65,1.48);
+		\draw[teal!42!black,rounded corners=3pt] (8.65,0.70) rectangle (11.65,1.48);
+		\node[font=\scriptsize,align=center] at (10.15,1.09)
+			{只比较波动大小\\$\Longrightarrow$ 二者均可};
+	\end{tikzpicture}
+\end{center}
