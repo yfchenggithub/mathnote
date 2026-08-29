@@ -1,57 +1,48 @@
+\clearpage
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例1（基础）}}
+	\textbf{\textcolor{CExample}{例 3（期望相同，分布未必相同）}}
 
 	\textbf{\textcolor{CExample}{题目：}}
-	某批产品共20件，其中有5件次品。质检员从中无放回地随机抽取4件检测，求抽到的次品件数 $X$ 的期望。
+	总体有 $N=10$ 个个体，其中 $M=4$ 个为目标个体。若不放回抽取全部 $n=10$ 个，目标个体数记为 $X$；若每次放回并独立抽取 $10$ 次，命中次数记为 $Y$。比较两者。
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（判断分布）：}] 由题意，总体有限（20件）、无放回、关注次品数，故 $X$ 服从超几何分布。
-			\par\textbf{理由：} 超几何分布的四个条件（有限总体、不放回、计数、已知参数）。
-		\item[\textbf{第二步（代入参数）：}] 确定参数：$N=20$, $M=5$, $n=4$。套用公式 $E(X)=\frac{nM}{N}$。
-			\par\textbf{理由：} 超几何期望公式 $E(X)=\frac{nM}{N}$。
-		\item[\textbf{第三步（计算结果）：}] $E(X)=\frac{4\times5}{20}=1$。
-			\par\textbf{理由：} 算术运算。
-	\end{description}
+	\textbf{\textcolor{CExample}{计算：}}
+	\[
+		E(X)=\frac{10\times4}{10}=4,
+		\qquad
+		E(Y)=10\times0.4=4.
+	\]
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{次品数期望为 $1$，即平均抽到 $1$ 件次品。}
+	\input{assets/tikz/R030_distribution_comparison.tex}
 
-	\medskip
-	\textbf{\textcolor{CExample}{例2（稍变形）}}
+	\textbf{\textcolor{CExample}{答案与回验：}}
+	两者期望都为 $4$；但 $X\equiv4$，而 $Y\sim B(10,0.4)$ 会在 $0$ 至 $10$ 间波动，所以二者不同分布。柱高由二项分布公式逐项计算，概率和为 $1$，加权均值为 $4$。
+\end{examplebox}
 
-	\textbf{\textcolor{CExample}{题目：}}
-	某工厂生产一批产品共100件，次品率为0.1。质量部门采用不放回抽样，随机抽取10件检查，求抽到的次品件数的期望。
+\clearpage
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（直接应用与非整数期望）}}
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（求次品总数）：}] 由次品率，$M=100\times0.1=10$。
-			\par\textbf{理由：} 次品率 $\times$ 总数。
-		\item[\textbf{第二步（判断分布）：}] $N=100$, $M=10$, $n=10$，$X$ 服从超几何分布。
-			\par\textbf{理由：} 不放回抽样，总体有限。
-		\item[\textbf{第三步（计算期望）：}] $E(X)=\frac{10\times10}{100}=1$。
-			\par\textbf{理由：} 超几何期望公式 $E(X)=\frac{nM}{N}$。
-	\end{description}
+	一批零件共有 $24$ 件，其中 $7$ 件带有标记。从中等可能地、不放回抽取 $6$ 件，记带标记零件数为 $X$。则
+	\[
+		E(X)=\frac{nM}{N}=\frac{6\times7}{24}=\frac{7}{4}=1.75.
+	\]
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{次品数期望为 $1$ 件。}
+	\input{assets/tikz/R030_noninteger_expectation.tex}
 
-	\medskip
-	\textbf{\textcolor{CExample}{例3（综合应用）}}
+	\textcolor{black!65}{说明：这只是一组帮助理解的示意结果，不表示每 $4$ 次抽样的平均值必然是 $1.75$。}
 
-	\textbf{\textcolor{CExample}{题目：}}
-	已知某批产品共50件，次品率为0.3。现从中不放回抽取15件，记次品数为 $X$；若有放回抽取15件，记次品数为 $Y$。求 $E(X)$ 并比较 $E(X)$ 与 $E(Y)$。
+	\textbf{\textcolor{CExample}{答案与回验：}}
+	$1.75$ 是大量同类抽样中目标个体数的长期平均，不是某一次抽样会出现的件数；且它位于 $X$ 的最小可能值与最大可能值之间。
+\end{examplebox}
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（确定参数与分布）：}] $M=50\times0.3=15$，$N=50$, $n=15$；$X$ 服从超几何分布，$Y$ 服从二项分布 $B(15,0.3)$。
-			\par\textbf{理由：} 超几何与二项分布定义。
-		\item[\textbf{第二步（计算超几何期望）：}] $E(X)=\frac{15\times15}{50}=4.5$。
-			\par\textbf{理由：} 超几何期望公式。
-		\item[\textbf{第三步（计算二项期望并比较）：}] $E(Y)=15\times0.3=4.5$，故 $E(X)=E(Y)=4.5$。
-			\par\textbf{理由：} 二项期望公式 $E(Y)=np$；两者相等。
-	\end{description}
+\medskip
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 2（由期望反求总体参数）}}
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$E(X)=E(Y)=4.5$，超几何与二项期望相同。}
+	总体共有 $60$ 个个体，其中 $M$ 个为目标个体；无放回抽取 $15$ 个，目标个体数为 $X$。若 $E(X)=3$，则
+	\[
+		3=\frac{15M}{60}=\frac{M}{4},
+		\qquad M=12.
+	\]
+	代回得 $15\times(12/60)=3$，且 $M=12$ 是满足 $0\le M\le60$ 的整数，因此答案成立。
 \end{examplebox}

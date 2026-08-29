@@ -1,24 +1,31 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件1（总体参数）：}}] 总体共有 $N$ 件产品，其中次品 $M$ 件。
-		\item[\textbf{\textcolor{CStatement}{条件2（抽取方式）：}}] 从总体中无放回地随机抽取 $n$ 件。
-	\end{description}
+	\textbf{\textcolor{CStatement}{结论主题}}
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论1（期望公式）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			不放回抽样时，抽到的次品数的期望等于抽取数乘以次品率。
-			\[
-				E(X)=\frac{nM}{N}.
-			\]
+	超几何分布研究：从有限总体中等可能地、不放回抽样，并统计样本中的目标个体数。
 
-		\item[\textbf{\textcolor{CStatement}{推广结论（与二项同期望）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			虽然是不放回，但期望与放回抽样的二项分布完全相同。
-			\[
-				E(X)=n\cdot\frac{M}{N}=np,\quad p=\frac{M}{N}.
-			\]
-	\end{description}
+	\medskip
+	\textbf{\textcolor{CStatement}{一般模型}}
+
+	总体共有 $N$ 个个体，其中 $M$ 个为目标个体；不放回抽取 $n$ 个，令 $X$ 为样本中的目标个体数。要求
+	$N\in\mathbb{N}^{+}$，$M,n\in\mathbb{N}$，$0\le M,n\le N$，且每个 $n$ 元子集被抽中的概率相同。
+
+	\input{assets/tikz/R030_population_sample_count.tex}
+
+	图中的重复抽样，是每一轮都从相同组成的总体重新开始。
+
+	\medskip
+	\textbf{\textcolor{CStatement}{核心结论}}
+	若记总体目标比例为 $p=M/N$，则
+	\[
+		\boxed{E(X)=\frac{nM}{N}=np}.
+	\]
+	也就是：\textbf{样本中目标个体数的期望 $=$ 样本量 $\times$ 总体目标比例}。
+
+	\medskip
+	\textbf{\textcolor{CStatement}{取值范围与边界}}
+	\[
+		\max\{0,n-(N-M)\}\le X\le\min\{M,n\},
+		\qquad X\in\mathbb{Z}.
+	\]
+	公式包含 $n=0$、$M=0$、$M=N$ 和 $n=N$ 等退化情形；上下界的来源将在第 $6$ 页用两个极端样本解释。
 \end{statementbox}

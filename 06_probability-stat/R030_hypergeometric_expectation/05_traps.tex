@@ -1,21 +1,33 @@
+\clearpage
 \begin{trapbox}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（混淆期望公式）}}] 认为超几何期望公式为 $E(X)=\frac{M}{N}$ 或 $E(X)=\frac{nM}{N-1}$ 等。
-		\item[\textbf{\textcolor{CTrap}{正确理解（记忆正确公式）：}}] 正确公式为 $E(X)=\frac{nM}{N}$，与二项分布期望形式一致。
-		\item[\textbf{\textcolor{CTrap}{错因分析（公式混淆）：}}] 将期望公式与概率 $p=\frac{M}{N}$ 混淆，或记错分母。
-	\end{description}
+	\textbf{\textcolor{CTrap}{易错点一：只抄取值范围，不理解极端情形}}
+
+	\textbf{错误做法：} 机械写出 max、min 公式，却说不清下界为什么可能大于 $0$、上界为什么同时受 $M$ 与 $n$ 限制。
+
+	\textbf{错误原因：} 忽略了“其他个体不够用”和“目标个体、样本位置都有限”这两个容量约束。
+
+	\input{assets/tikz/R030_support_extremes.tex}
+
+	\textbf{正确替代：} 先分别构造“尽量少拿目标”和“尽量多拿目标”的样本，再写一般上下界；同时检查 $N,M,n$ 都是满足 $0\le M,n\le N$ 的计数参数。
 
 	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（忽略参数范围）}}] 使用公式时不检查 $n\le N$ 或 $M\le N$，导致无意义。
-		\item[\textbf{\textcolor{CTrap}{正确理解（参数限制）：}}] 超几何分布要求 $n\le N$，$M\le N$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（忽略前提）：}}] 仅记公式，忽略公式适用条件。
-	\end{description}
+	\textbf{\textcolor{CTrap}{易错点二：把总体比例当成计数期望}}
+
+	\textbf{错误做法：} 写成 $E(X)=M/N$。\quad
+	\textbf{错误原因：} $M/N$ 只是一个位置的命中概率，$X$ 统计 $n$ 个位置的命中总数。\quad
+	\textbf{正确替代：} 先写 $p=M/N$，再用 $E(X)=np=nM/N$。
 
 	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（误认为期望不同）}}] 认为不放回抽样的期望与放回不同，从而不直接使用公式。
-		\item[\textbf{\textcolor{CTrap}{正确理解（期望相同）：}}] 不放回与放回期望相同均为 $np$，只是方差不同。
-		\item[\textbf{\textcolor{CTrap}{错因分析（直觉误导）：}}] 认为不放回会改变平均次品数，实际对称性保证期望不变。
-	\end{description}
+	\textbf{\textcolor{CTrap}{易错点三：由 $E(X)=np$ 断言 $X\sim B(n,p)$}}
+
+	\textbf{错误做法：} 把不放回抽样直接套成二项分布。\quad
+	\textbf{错误原因：} 各位置一般不独立；期望相同不能推出分布相同。\quad
+	\textbf{正确替代：} 求期望可用 $np$，求具体概率仍应使用超几何分布列。
+
+	\medskip
+	\textbf{\textcolor{CTrap}{易错点四：把非整数期望当成一次抽样结果}}
+
+	\textbf{错误做法：} 由 $E(X)=1.75$ 断言“一次会抽到 $1.75$ 个”。\quad
+	\textbf{错误原因：} 期望是概率加权平均，不必属于 $X$ 的取值集合。\quad
+	\textbf{正确替代：} 把 $1.75$ 解释为大量同类抽样的长期平均，并用第 $5$ 页的整数结果平均图检查直觉。
 \end{trapbox}

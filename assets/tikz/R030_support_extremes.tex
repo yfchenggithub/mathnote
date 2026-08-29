@@ -1,0 +1,73 @@
+% R030：X 取值范围的两个极端样本
+% 左样本 2 橙+6 灰，右样本 4 橙+4 灰；每个样本均恰有 8 个个体。
+
+\begin{center}
+	\begin{tikzpicture}[
+		x=1cm,
+		y=1cm,
+		>=Stealth,
+		line cap=round,
+		line join=round,
+		every node/.style={font=\normalsize},
+		target/.style={
+			circle, draw=orange!85!black, fill=orange!58,
+			line width=0.85pt, minimum size=0.46cm, inner sep=0pt
+		},
+		other/.style={
+			circle, draw=black!55, fill=black!18,
+			line width=0.85pt, minimum size=0.46cm, inner sep=0pt
+		},
+		container/.style={
+			draw=blue!70!black, fill=blue!3, rounded corners=7pt,
+			line width=0.95pt
+		},
+		flow/.style={-Stealth, blue!70!black, line width=1pt}
+	]
+		\path[use as bounding box] (0,0) rectangle (12.4,8.35);
+
+		% 总体：4 橙 + 6 灰。
+		\draw[container] (0.65,6.65) rectangle (11.75,8.22);
+		\node[font=\large\bfseries, text=blue!70!black] at (2.25,7.75)
+			{总体 $N=10$};
+		\foreach \x in {4.35,5.10,5.85,6.60}{\node[target] at (\x,7.47) {};}
+		\foreach \x in {7.45,8.20,8.95,9.70,10.45,11.20}{\node[other] at (\x,7.47) {};}
+		\node[text=orange!85!black] at (5.48,6.97) {$M=4$ 个目标};
+		\node[text=black!65] at (9.33,6.97) {$6$ 个其他};
+
+		% 分成两条独立通道，分别表示两个互斥的极端样本。
+		\draw[flow] (0.95,6.65) -- (0.95,5.83);
+		\draw[flow] (11.45,6.65) -- (11.45,5.83);
+		\node[font=\large\bfseries, text=blue!70!black] at (3.05,6.14)
+			{尽量少拿目标};
+		\node[font=\large\bfseries, text=blue!70!black] at (9.35,6.14)
+			{尽量多拿目标};
+
+		% 左极端：6 灰全部拿走，还差 2 个，只能拿 2 橙。
+		\draw[container] (0.12,2.05) rectangle (6.02,5.78);
+		\node[font=\normalsize\bfseries] at (3.07,5.38)
+			{样本 $=6$ 个其他 $+2$ 个目标};
+		\foreach \x in {1.15,2.10}{\node[target] at (\x,4.42) {};}
+		\foreach \x in {3.05,4.00}{\node[other] at (\x,4.42) {};}
+		\foreach \x in {1.15,2.10,3.05,4.00}{\node[other] at (\x,3.58) {};}
+		\node at (3.07,2.85) {$6$ 个其他全拿后仍差 $2$ 个};
+		\node[font=\large\bfseries, text=orange!85!black] at (3.07,2.34)
+			{$X_{\min}=2$};
+
+		% 右极端：4 个目标全部拿走，再取 4 个其他。
+		\draw[container] (6.38,2.05) rectangle (12.28,5.78);
+		\node[font=\normalsize\bfseries] at (9.33,5.38)
+			{样本 $=4$ 个目标 $+4$ 个其他};
+		\foreach \x in {7.41,8.36,9.31,10.26}{\node[target] at (\x,4.42) {};}
+		\foreach \x in {7.41,8.36,9.31,10.26}{\node[other] at (\x,3.58) {};}
+		\node at (9.33,2.85) {$4$ 个目标已全部拿走};
+		\node[font=\large\bfseries, text=orange!85!black] at (9.33,2.34)
+			{$X_{\max}=4$};
+
+		\draw[draw=blue!70!black, fill=white, rounded corners=7pt, line width=1pt]
+			(0.40,0.10) rectangle (12.00,1.45);
+		\node[font=\large\bfseries, text=blue!70!black] at (6.20,1.02)
+			{$2\le X\le4$};
+		\node[font=\large\bfseries] at (6.20,0.47)
+			{$\max\{0,n-(N-M)\}\le X\le\min\{M,n\}$};
+	\end{tikzpicture}
+\end{center}

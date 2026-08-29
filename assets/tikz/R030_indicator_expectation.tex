@@ -1,0 +1,83 @@
+% R030：指示变量与抽取位置图
+% 每个位置是一个真正的 0/1 计数器；图中“概率”均指边际概率。
+
+\begin{center}
+	\begin{tikzpicture}[
+		x=1cm,
+		y=1cm,
+		>=Stealth,
+		line cap=round,
+		line join=round,
+		every node/.style={font=\normalsize},
+		target/.style={
+			circle, draw=orange!85!black, fill=orange!58,
+			line width=0.9pt, minimum size=0.78cm, inner sep=0pt,
+			font=\large\bfseries
+		},
+		other/.style={
+			circle, draw=black!55, fill=black!18,
+			line width=0.9pt, minimum size=0.78cm, inner sep=0pt,
+			font=\large\bfseries
+		},
+		position/.style={
+			draw=blue!70!black, fill=blue!3, rounded corners=7pt,
+			line width=0.95pt
+		},
+		flow/.style={-Stealth, blue!70!black, line width=1pt}
+	]
+		\path[use as bounding box] (0,0) rectangle (12.4,8.90);
+
+		\draw[draw=blue!70!black, fill=blue!3, rounded corners=7pt, line width=0.95pt]
+			(0.45,7.82) rectangle (11.95,8.75);
+		\node[font=\large\bfseries, text=blue!70!black] at (6.20,8.29)
+			{任一位置的边际命中概率：$P(X_i=1)=M/N$};
+
+		% 第 1 个位置。
+		\draw[position] (0.15,4.55) rectangle (3.45,7.55);
+		\node[font=\large\bfseries, text=blue!70!black] at (1.80,7.18)
+			{第 $1$ 个位置};
+		\node[target] at (1.05,6.20) {1};
+		\node[anchor=west, text=orange!85!black] at (1.55,6.20) {抽中目标};
+		\node[other] at (1.05,5.25) {0};
+		\node[anchor=west, text=black!65] at (1.55,5.25) {未抽中};
+
+		% 第 2 个位置。
+		\draw[position] (3.90,4.55) rectangle (7.20,7.55);
+		\node[font=\large\bfseries, text=blue!70!black] at (5.55,7.18)
+			{第 $2$ 个位置};
+		\node[target] at (4.80,6.20) {1};
+		\node[anchor=west, text=orange!85!black] at (5.30,6.20) {抽中目标};
+		\node[other] at (4.80,5.25) {0};
+		\node[anchor=west, text=black!65] at (5.30,5.25) {未抽中};
+
+		\node[font=\large\bfseries, text=blue!70!black] at (7.87,6.05) {$\cdots$};
+
+		% 第 n 个位置。
+		\draw[position] (8.45,4.55) rectangle (12.25,7.55);
+		\node[font=\large\bfseries, text=blue!70!black] at (10.35,7.18)
+			{第 $n$ 个位置};
+		\node[target] at (9.35,6.20) {1};
+		\node[anchor=west, text=orange!85!black] at (9.85,6.20) {抽中目标};
+		\node[other] at (9.35,5.25) {0};
+		\node[anchor=west, text=black!65] at (9.85,5.25) {未抽中};
+
+		% 三个计数器汇入同一条加法通道。
+		\draw[blue!70!black, line width=0.95pt] (1.80,4.55) -- (1.80,4.05);
+		\draw[blue!70!black, line width=0.95pt] (5.55,4.55) -- (5.55,4.05);
+		\draw[blue!70!black, line width=0.95pt] (10.35,4.55) -- (10.35,4.05);
+		\draw[blue!70!black, line width=0.95pt] (1.80,4.05) -- (10.35,4.05);
+		\draw[flow] (6.20,4.05) -- (6.20,3.48);
+
+		\draw[draw=blue!70!black, fill=white, rounded corners=7pt, line width=1pt]
+			(1.20,2.32) rectangle (11.20,3.45);
+		\node[font=\large\bfseries, text=blue!70!black] at (6.20,2.89)
+			{$X=X_1+X_2+\cdots+X_n$};
+
+		\draw[draw=blue!70!black, fill=blue!4, rounded corners=7pt, line width=1pt]
+			(0.40,0.08) rectangle (12.00,1.96);
+		\node[font=\large\bfseries, text=blue!70!black] at (6.20,1.43)
+			{不放回：位置一般不独立；期望相加不要求独立};
+		\node[font=\large\bfseries] at (6.20,0.57)
+			{$E(X)=\sum_{i=1}^{n}E(X_i)=nM/N$};
+	\end{tikzpicture}
+\end{center}

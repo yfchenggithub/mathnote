@@ -1,19 +1,35 @@
+\clearpage
 \begin{summarybox}
 	\textbf{\textcolor{CSummary}{一句话核心}}
 
-	\textbf{不放回抽样的次品数期望等于抽取数乘以次品率：$E(X)=n\cdot\frac{M}{N}$。}
+	\textbf{有限总体中有 $M$ 个目标个体，等可能地无放回抽取 $n$ 个，则样本内目标个体数 $X$ 的期望为 $E(X)=nM/N$。}
 
 	\medskip
-	\textbf{\textcolor{CSummary}{使用条件}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{条件1（总体有限）：} 总体共 $N$ 件产品，次品 $M$ 件。
-		\item \textbf{条件2（不放回抽样）：} 无放回地随机抽取 $n$ 件。
-	\end{itemize}
+	\textbf{\textcolor{CSummary}{速查关系}}
+	\[
+		p=\frac{M}{N},
+		\qquad
+		E(X)=np=\frac{nM}{N},
+	\]
+	\[
+		\max\{0,n-(N-M)\}\le X\le\min\{M,n\}.
+	\]
+
+	\textbf{\textcolor{CSummary}{六个问题速答}}
+	\begin{enumerate}[leftmargin=*, itemsep=0.48em, topsep=0.35em]
+		\item $N$ 是总体量，$M$ 是总体目标数，$n$ 是样本量，$X$ 是样本内目标数。
+		\item 每个位置贡献 $0$ 或 $1$，且 $E(X_i)=M/N$，所以 $E(X)=\sum E(X_i)=nM/N$。
+		\item 不放回使位置一般不独立，但期望相加不要求独立。
+		\item 非整数期望是多次整数结果的长期平均，不是一次抽样的可取件数。
+		\item 期望相同只说明分布的“平均位置”相同，不说明随机波动相同。
+		\item 下界来自“其他个体是否够用”，上界来自“目标总数与样本位置谁更少”。
+	\end{enumerate}
 
 	\medskip
-	\textbf{\textcolor{CSummary}{关键提醒}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{易错点（混淆期望与方差）：} 期望公式与二项相同，但在方差和概率计算上仍为超几何分布，不可混用。
-		\item \textbf{检查项（参数范围）：} 确保 $n\le N$ 且 $M\le N$。
-	\end{itemize}
+	\textbf{\textcolor{CSummary}{解题流程}}
+	\begin{enumerate}[leftmargin=*, itemsep=0.45em, topsep=0.35em]
+		\item \textbf{识别：} 有限总体、等可能、不放回、统计目标个体数。
+		\item \textbf{代入：} 读出 $N,M,n$，使用 $E(X)=nM/N$。
+		\item \textbf{回验：} 检查参数整数性、取值范围以及期望的长期平均含义。
+	\end{enumerate}
 \end{summarybox}

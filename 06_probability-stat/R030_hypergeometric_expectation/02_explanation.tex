@@ -1,41 +1,14 @@
+\clearpage
 \begin{explanationbox}
 	\textbf{\textcolor{CExplanation}{一句话直觉}}
 
-	不放回抽到次品的期望，等于把次品率当作常数乘上抽取次数，和放回一样。
+	把每个抽取位置看成一个只会贡献 $0$ 或 $1$ 的计数器；把 $n$ 个位置的贡献相加，就得到样本中的目标个体总数 $X$。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（期望线性性）：}] 总期望等于各次抽取期望之和，不论抽取是否独立。
-		\item[\textbf{要点二（对称性）：}] 每次抽取抽到次品的概率都是 $\frac{M}{N}$，与次序无关。
-	\end{description}
+	\input{assets/tikz/R030_indicator_expectation.tex}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（概率对称性）}}
-
-	因为不放回对所有个体公平，所以每个位置抽中次品的机会相等，期望权重相同。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（线性可加性）}}
-
-	设指示变量 $X_i$ 表示第 $i$ 次是否抽到次品，则 $X=\sum X_i$，且 $E(X_i)=\frac{M}{N}$，故 $E(X)=n\cdot\frac{M}{N}$。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（期望快速计算）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（直接套公式）：} 给 $N,M,n$ 直接求期望。
-		\item \textbf{考法二（反求参数）：} 给期望和其他量，求 $M$ 或 $N$。
-	\end{itemize}
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
-
-	超几何分布虽然复杂（概率式含组合数），但期望形式非常简单，因为期望只依赖比例，不依赖不放回带来的相关性。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（总体有限不放回）：} 质量检验、抽样调查（次品数）。
-		\item \textbf{场景二（快速比较期望）：} 需要判断不放回抽样期望时，直接用 $np$ 计算。
+	\textbf{\textcolor{CExplanation}{读图关键}}
+	\begin{itemize}[leftmargin=*, itemsep=0.45em, topsep=0.35em]
+		\item $M/N$ 是任一固定位置命中目标个体的\textbf{边际概率}，不是在已知前面抽取结果后的条件概率。
+		\item 不放回会使位置之间一般不独立，但期望的线性性质对相关的随机变量同样成立，因此仍可逐项相加。
 	\end{itemize}
 \end{explanationbox}

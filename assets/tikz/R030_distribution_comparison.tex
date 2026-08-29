@@ -1,0 +1,93 @@
+% R030：超几何分布与二项分布概率柱状图
+% 二项柱高由程序按 C(10,k)0.4^k0.6^(10-k) 计算并核验：
+% sum_k P(Y=k)=1，sum_k kP(Y=k)=4。
+
+\begin{center}
+	\begin{tikzpicture}[
+		x=1cm,
+		y=1cm,
+		>=Stealth,
+		line cap=round,
+		line join=round,
+		every node/.style={font=\normalsize},
+		panel/.style={
+			draw=blue!70!black, fill=blue!2, rounded corners=7pt,
+			line width=0.95pt
+		},
+		axis/.style={-Stealth, black!65, line width=0.8pt},
+		bar/.style={draw=orange!85!black, fill=orange!62, line width=0.75pt}
+	]
+		\path[use as bounding box] (0,0) rectangle (12.4,7.35);
+
+		\draw[draw=blue!70!black, fill=blue!5, rounded corners=7pt, line width=1pt]
+			(3.15,6.42) rectangle (9.25,7.25);
+		\node[font=\large\bfseries, text=blue!70!black] at (6.20,6.84)
+			{期望相同 $\ne$ 分布相同};
+
+		\draw[panel] (0.10,0.18) rectangle (5.88,6.12);
+		\draw[panel] (6.52,0.18) rectangle (12.30,6.12);
+
+		\node[font=\large\bfseries, text=blue!70!black] at (2.99,5.76)
+			{不放回抽完总体};
+		\node[font=\large\bfseries, text=blue!70!black] at (9.41,5.76)
+			{有放回独立抽取 $10$ 次};
+		\node[font=\normalsize\bfseries] at (2.99,5.12) {$X\equiv4,\quad E(X)=4$};
+		\node[font=\normalsize\bfseries] at (9.41,5.12) {$Y\sim B(10,0.4),\quad E(Y)=4$};
+
+		% 两个面板使用完全相同的纵轴：0 到 1。
+		\draw[axis] (0.72,1.60) -- (5.34,1.60) node[right] {$k$};
+		\draw[axis] (0.72,1.60) -- (0.72,4.46);
+		\draw[axis] (7.14,1.60) -- (11.76,1.60) node[right] {$k$};
+		\draw[axis] (7.14,1.60) -- (7.14,4.46);
+		\node[text=black!65] at (0.38,4.50) {$P$};
+		\node[text=black!65] at (6.80,4.50) {$P$};
+
+		\foreach \base in {0.72,7.14}{
+			\draw[black!55] (\base,1.60) -- ({\base-0.10},1.60);
+			\node[anchor=east] at ({\base-0.14},1.60) {$0$};
+			\draw[black!55] (\base,4.20) -- ({\base-0.10},4.20);
+			\node[anchor=east] at ({\base-0.14},4.20) {$1$};
+		}
+
+		\foreach \k in {0,2,4,6,8,10}{
+			\pgfmathsetmacro{\lx}{0.94+0.40*\k}
+			\pgfmathsetmacro{\rx}{7.36+0.40*\k}
+			\draw[black!55] (\lx,1.60) -- (\lx,1.50);
+			\draw[black!55] (\rx,1.60) -- (\rx,1.50);
+			\node at (\lx,1.20) {$\k$};
+			\node at (\rx,1.20) {$\k$};
+		}
+
+		% 左图：仅 k=4 处概率为 1。
+		\draw[bar] (2.40,1.60) rectangle (2.68,4.20);
+		\node[font=\large\bfseries, text=orange!85!black] at (2.54,4.56) {$1$};
+
+		% 右图：程序计算的 B(10,0.4) 概率；纵向比例为 2.60 cm 对应概率 1。
+		\foreach \k/\p in {
+			0/0.0060466176,
+			1/0.0403107840,
+			2/0.1209323520,
+			3/0.2149908480,
+			4/0.2508226560,
+			5/0.2006581248,
+			6/0.1114767360,
+			7/0.0424673280,
+			8/0.0106168320,
+			9/0.0015728640,
+			10/0.0001048576
+		}{
+			\pgfmathsetmacro{\xx}{7.36+0.40*\k}
+			\pgfmathsetmacro{\yy}{1.60+2.60*\p}
+			\draw[bar] ({\xx-0.135},1.60) rectangle ({\xx+0.135},\yy);
+		}
+		\draw[blue!65!black, densely dashed, line width=0.8pt]
+			(7.14,2.2521) -- (11.62,2.2521);
+		\node[anchor=west, text=blue!70!black] at (8.92,2.58)
+			{$P(Y=4)\approx0.2508$};
+
+		\node[font=\bfseries, text=orange!85!black] at (2.99,0.70)
+			{仅 $X=4$：完全不波动};
+		\node[font=\bfseries, text=orange!85!black] at (9.41,0.70)
+			{$0$ 至 $10$ 均可能，$4$ 附近较大};
+	\end{tikzpicture}
+\end{center}

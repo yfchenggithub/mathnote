@@ -6,85 +6,72 @@
     "alias": [
       "超几何期望",
       "不放回抽样期望",
-      "E(X)=nM/N"
+      "超几何分布均值"
     ],
-    "summary": "不放回抽样时，抽到的次品数的期望等于抽取数乘以次品率。",
+    "summary": "有限总体中有M个目标个体，等可能地无放回抽取n个时，样本内目标个体数X的期望为E(X)=nM/N。",
     "difficulty": 2,
     "category": "概率统计",
     "tags": [
       "超几何分布",
       "数学期望",
-      "概率统计",
       "无放回抽样",
-      "次品问题"
+      "指示变量",
+      "期望线性性"
     ]
   },
   "search": {
     "keywords": [
-      "超几何分布",
-      "数学期望",
-      "不放回抽样",
-      "次品件数",
-      "期望公式",
-      "nM/N",
-      "次品率",
-      "无放回",
-      "E(X)",
-      "总体",
-      "次品数",
-      "抽取件数",
-      "二项分布",
-      "相同期望",
-      "超几何期望"
+      "超几何分布期望",
+      "不放回抽样期望",
+      "抽到目标个体数的平均值",
+      "E(X)=nM/N",
+      "有限总体抽样",
+      "超几何和二项期望",
+      "指示变量求期望",
+      "超几何分布取值范围",
+      "期望是小数怎么理解"
     ],
     "synonyms": [
-      "超几何的期望",
-      "不放回抽样期望怎么算",
-      "超几何期望公式",
-      "无放回期望",
-      "次品期望",
-      "超几何分布期望公式",
-      "E(X)=nM/N"
+      "超几何分布均值",
+      "无放回抽样均值",
+      "样本中次品数期望"
     ],
     "intents": [
-      "求期望",
-      "计算期望",
-      "比较期望",
-      "判断分布"
+      "直接计算超几何期望",
+      "由期望反求总体参数",
+      "证明超几何期望公式",
+      "比较超几何分布与二项分布"
     ],
     "query_templates": [
-      "超几何分布的期望公式",
-      "不放回抽样次品数期望",
-      "E(X)=nM/N怎么来的",
-      "超几何和二项分布期望相等吗",
-      "无放回期望公式"
+      "超几何分布的期望公式是什么",
+      "E(X)=nM/N怎么证明",
+      "不放回抽样为什么期望还是np",
+      "超几何分布和二项分布期望相同吗",
+      "已知超几何期望怎么求M"
     ],
     "ocrKeywords": [
-      "次品",
+      "有限总体",
       "不放回",
-      "抽样",
-      "期望",
+      "目标个体",
+      "数学期望",
       "超几何",
-      "总体",
-      "抽取"
+      "nM/N"
     ],
     "latex_patterns": [
       "E(X)=\\frac{nM}{N}",
       "E(X)=n\\cdot\\frac{M}{N}",
-      "E(X)=np"
+      "P(X=k)=\\frac{\\binom{M}{k}\\binom{N-M}{n-k}}{\\binom{N}{n}}"
     ],
     "formulaTokens": [
       "E(X)",
-      "\\frac{nM}{N}",
-      "nM",
+      "nM/N",
       "M/N",
-      "n\\cdot\\frac{M}{N}",
-      "N",
-      "M",
-      "n"
+      "\\binom{M}{k}",
+      "\\binom{N-M}{n-k}",
+      "\\binom{N}{n}"
     ],
-    "pinyin": "chaogejifenbuqiwanggongshi",
-    "pinyinAbbr": "cjh"
+    "pinyin": "chaogehefenbuqiwanggongshi",
+    "pinyinAbbr": "cjhfbqw"
   },
   "searchmeta": {
     "titleWeight": 10,
@@ -99,86 +86,95 @@
     "success_rate": 0
   },
   "math": {
-    "core_formula": "E(X)=\\frac{nM}{N}",
+    "core_formula": "E(X)=\\frac{nM}{N}=n\\cdot\\frac{M}{N}",
     "related_formulas": [
-      "E(X)=n\\cdot\\frac{M}{N}",
-      "E(X)=np,\\; p=\\frac{M}{N}"
+      "P(X=k)=\\frac{\\binom{M}{k}\\binom{N-M}{n-k}}{\\binom{N}{n}}",
+      "\\max\\{0,n-(N-M)\\}\\le X\\le\\min\\{M,n\\}",
+      "k\\binom{M}{k}=M\\binom{M-1}{k-1}"
     ],
-    "variables": {
-      "N": "总体产品数",
-      "M": "次品数",
-      "n": "抽取件数",
-      "X": "抽到的次品件数",
-      "E(X)": "次品件数的期望",
-      "p": "次品率 M/N"
-    },
-    "conditions": "总体共$N$件产品，其中次品$M$件；无放回随机抽取$n$件。需满足$0\\le M\\le N$且$1\\le n\\le N$。",
-    "conclusions": "超几何分布与二项分布期望相同：$E(X)=np$，其中$p=\\frac{M}{N}$。"
+    "variables": [
+      "$N$：总体个体数，$N\\in\\mathbb{N}^{+}$",
+      "$M$：总体中目标个体数，$M\\in\\mathbb{N}$且$0\\le M\\le N$",
+      "$n$：无放回抽取的样本量，$n\\in\\mathbb{N}$且$0\\le n\\le N$",
+      "$X$：样本中的目标个体数",
+      "$p=M/N$：总体中目标个体所占比例"
+    ],
+    "conditions": "从含N个个体、其中M个为目标个体的有限总体中，等可能地无放回抽取n个；N为正整数，M和n为满足0≤M,n≤N的整数。",
+    "conclusions": "若X为样本中的目标个体数，则E(X)=nM/N=np；公式包含n=0、M=0、M=N和n=N等退化情形。"
   },
   "content": {
-    "statement": "对于超几何分布：总体共$N$件产品，其中次品$M$件，无放回随机抽取$n$件。若记$X$为抽到的次品件数，则$X$的数学期望为$E(X)=\\frac{nM}{N}$。",
+    "statement": "总体共有N个个体，其中M个具有目标特征；等可能地无放回抽取n个，令X为样本中的目标个体数，则E(X)=nM/N。",
     "derivation": [
-      "第一步：$X$的概率分布为$P(X=k)=\\frac{\\mathrm{C}_M^k \\mathrm{C}_{N-M}^{n-k}}{\\mathrm{C}_N^n}$。",
-      "第二步：期望定义$E(X)=\\sum_{k=0}^{n} k\\cdot P(X=k)$。",
-      "第三步：通过组合恒等式化简得$E(X)=\\frac{nM}{N}$。"
+      "对每个抽取位置i定义指示变量X_i；第i个位置抽中目标个体的边际概率为M/N，所以E(X_i)=M/N。",
+      "由X=ΣX_i和期望线性性（不要求X_i相互独立），得到E(X)=ΣE(X_i)=nM/N。",
+      "也可从超几何分布列出发，使用kC(M,k)=M C(M-1,k-1)及范德蒙德恒等式复核同一结果。"
     ],
-    "intuition": "每次抽取抽到次品的概率都是$\\frac{M}{N}$，虽然不放回，但期望具有线性性，总期望等于$n$倍单次期望。",
+    "intuition": "N、M、n分别描述总体量、总体目标数和样本量，X计数样本内目标数。每个抽取位置只贡献0或1，其边际命中概率均为M/N；位置虽一般不独立，期望仍可相加得到nM/N。期望是重复抽样的长期平均，可以是小数；相同期望不代表分布相同。X的上下界分别来自尽量少拿和尽量多拿目标个体的极端样本。",
     "common_tricks": [
-      "快速识别超几何分布：有限总体、不放回、计数次品数。",
-      "直接套用公式$E(X)=\\frac{nM}{N}$，无需计算概率分布。",
-      "注意区分期望与方差：期望与二项相同，但方差不同。",
-      "当$n$远小于$N$时，超几何可近似为二项分布。"
+      "先把N、M、n、X分别对应到总体量、总体目标数、样本量和样本目标数。",
+      "直接求期望时不必先列完整分布列，可用指示变量和期望线性性。",
+      "E(X)=np只表示与相应二项分布期望相同，不表示两者同分布。",
+      "非整数期望表示多次整数结果的长期平均，不是一次抽样的可取值。",
+      "用尽量少拿、尽量多拿目标个体的两个极端样本理解X的上下界。",
+      "反求M或n后必须检查整数性及0≤M,n≤N。"
     ]
   },
   "usage": {
     "scenarios": [
-      "概率统计大题",
-      "期望计算题",
-      "不放回抽样问题"
+      "产品抽检中的次品数期望",
+      "有限总体抽样中的目标个体数期望",
+      "超几何分布与二项分布比较"
     ],
     "problem_types": [
-      "求期望",
-      "比较期望",
-      "判断分布"
+      "直接求期望",
+      "反求总体参数",
+      "公式证明",
+      "模型辨析与边界检验"
     ],
     "exam_frequency": 0.9,
     "exam_score": 5
   },
   "interactive": {
-    "has_diagram": false,
+    "has_diagram": true,
     "geogebra_id": "",
     "param_demo": {}
   },
   "assets": {
-    "svg": "R030.svg",
+    "svg": "",
     "png": "",
     "gif": "",
     "geogebra": "",
     "image_url": ""
   },
   "shareConfig": {
-    "title": "超几何分布期望公式：不放回抽样的期望",
-    "shareDesc": "适合概率统计章节复习和刷题前速查，直接套用公式减少分布列计算，提升期望计算题的稳定性。"
+    "title": "超几何分布期望：为什么不放回抽样仍有E(X)=nM/N",
+    "shareDesc": "用指示变量与组合恒等式两种方法理解超几何分布期望，并辨清它与二项分布期望相同但分布不同。"
   },
   "relations": {
     "prerequisites": [
       "超几何分布",
       "数学期望定义",
-      "组合数"
+      "期望的线性性质",
+      "组合数恒等式"
     ],
-    "related_ids": [],
+    "related_ids": [
+      "R008",
+      "R009",
+      "R029"
+    ],
     "similar": [
-      "二项分布的期望公式$E(X)=np$",
-      "超几何分布的方差公式$D(X)=\\frac{nM}{N}\\left(1-\\frac{M}{N}\\right)\\cdot\\frac{N-n}{N-1}$"
+      "二项分布的期望与方差",
+      "两点分布的期望与方差"
     ]
   },
   "meta": {
-    "version": 1,
-    "source": "AI生成",
-    "created_at": "2026-06-28"
+    "version": 3,
+    "source": "AI生成并校核",
+    "created_at": "2026-06-28",
+    "updated_at": "2026-08-29"
   },
   "isPro": 0,
-  "remarks": "",
+  "remarks": "正文使用5幅TikZ教学图：总体—抽样—计数模型图、0/1指示变量图、超几何与二项分布概率柱状对比图、非整数期望图、取值范围极端样本图。资源依次位于assets/tikz/R030_population_sample_count.tex、assets/tikz/R030_indicator_expectation.tex、assets/tikz/R030_distribution_comparison.tex、assets/tikz/R030_noninteger_expectation.tex、assets/tikz/R030_support_extremes.tex。",
   "knowledgeNode": "概率-随机变量-期望",
   "altNodes": [
     "概率-随机变量-分布列",
