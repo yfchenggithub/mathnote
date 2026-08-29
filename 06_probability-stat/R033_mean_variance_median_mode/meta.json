@@ -8,24 +8,25 @@
       "数字特征",
       "集中趋势与离散程度",
       "算术平均数",
-      "方差标准差"
+      "方差与标准差"
     ],
-    "summary": "平均数、中位数、众数反映数据的集中趋势，方差和标准差反映数据的离散程度，统称描述统计量。",
+    "summary": "平均数、中位数、众数分别描述数据的平衡位置、中间位置和最高频位置；方差与标准差描述数据围绕平均数的离散程度。",
     "difficulty": 1,
     "category": "统计",
     "tags": [
       "统计",
       "平均数",
       "方差",
+      "标准差",
       "中位数",
       "众数",
-      "标准差"
+      "频数"
     ]
   },
   "search": {
     "keywords": [
       "平均数公式",
-      "加权平均数",
+      "频数加权平均",
       "方差计算公式",
       "标准差",
       "中位数定义",
@@ -33,35 +34,35 @@
       "数据波动",
       "集中趋势",
       "离散程度",
-      "样本方差",
       "描述统计",
-      "算术平均数",
       "方差变形",
-      "排序求中位数"
+      "排序求中位数",
+      "极端值影响"
     ],
     "synonyms": [
       "均值",
-      "平均",
-      "方叉",
+      "算术平均",
       "标准偏差",
       "中位值",
-      "出现次数最多的数",
-      "加权平均"
+      "最常出现的数",
+      "频数平均"
     ],
     "intents": [
       "计算平均数",
-      "计算方差",
+      "计算方差和标准差",
       "求中位数",
       "找众数",
       "比较数据波动大小",
-      "分析数据特征"
+      "选择合适的统计量",
+      "处理频数表"
     ],
     "query_templates": [
-      "求一组数据的平均数方差",
+      "求一组数据的平均数和方差",
       "中位数怎么算",
       "众数是什么",
-      "方差计算公式",
-      "加权平均数例题"
+      "方差为什么要平方",
+      "频数表怎么求平均数",
+      "平均数和中位数怎么选"
     ],
     "ocrKeywords": [
       "一组数据",
@@ -70,24 +71,23 @@
       "众数",
       "方差",
       "标准差",
-      "权数",
+      "频数",
       "排序"
     ],
     "latex_patterns": [
-      "\\bar{x} = \\frac{1}{n}\\sum_{i=1}^n x_i",
-      "s^2 = \\frac{1}{n}\\sum_{i=1}^n (x_i-\\bar{x})^2",
-      "s = \\sqrt{s^2}",
-      "\\bar{x} = \\frac{\\sum x_i f_i}{\\sum f_i}",
-      "s^2 = \\frac{1}{n}\\sum x_i^2 - \\bar{x}^2"
+      "\\bar{x}=\\frac{1}{n}\\sum_{i=1}^{n}x_i",
+      "s^2=\\frac{1}{n}\\sum_{i=1}^{n}(x_i-\\bar{x})^2",
+      "s=\\sqrt{s^2}",
+      "\\bar{x}=\\frac{\\sum f_ja_j}{\\sum f_j}",
+      "s^2=\\frac{1}{n}\\sum_{i=1}^{n}x_i^2-\\bar{x}^2"
     ],
     "formulaTokens": [
-      "\\bar{x} = \\frac{1}{n}\\sum_{i=1}^n x_i",
-      "s^2 = \\frac{1}{n}\\sum_{i=1}^n (x_i-\\bar{x})^2",
-      "s = \\sqrt{s^2}",
-      "\\bar{x} = \\frac{\\sum x_i f_i}{\\sum f_i}",
-      "s^2 = \\frac{1}{n}\\sum x_i^2 - \\bar{x}^2",
-      "\\sum_{i=1}^n x_i",
-      "\\sum_{i=1}^n (x_i-\\bar{x})^2"
+      "\\bar{x}",
+      "\\operatorname{Med}",
+      "s^2",
+      "s=\\sqrt{s^2}",
+      "\\sum f_ja_j",
+      "\\sum (x_i-\\bar{x})^2"
     ],
     "pinyin": "miao shu tong ji liang",
     "pinyinAbbr": "msstj"
@@ -105,82 +105,103 @@
     "success_rate": 0
   },
   "math": {
-    "core_formula": "\\bar{x} = \\frac{1}{n}\\sum_{i=1}^n x_i",
+    "core_formula": "\\bar{x}=\\frac{1}{n}\\sum_{i=1}^{n}x_i",
     "related_formulas": [
-      "s^2 = \\frac{1}{n}\\sum_{i=1}^n (x_i-\\bar{x})^2",
-      "s = \\sqrt{s^2}",
-      "s^2 = \\frac{1}{n}\\sum_{i=1}^n x_i^2 - \\bar{x}^2"
+      "s^2=\\frac{1}{n}\\sum_{i=1}^{n}(x_i-\\bar{x})^2",
+      "s^2=\\frac{1}{n}\\sum_{i=1}^{n}x_i^2-\\bar{x}^2",
+      "s=\\sqrt{s^2}",
+      "\\bar{x}=\\frac{\\sum_{j=1}^{k}f_ja_j}{F}",
+      "s^2=\\frac{\\sum_{j=1}^{k}f_j(a_j-\\bar{x})^2}{F}"
     ],
     "variables": {
-      "x_i": "第 i 个数据",
-      "n": "数据个数",
+      "x_i": "第 i 个实数数据",
+      "x_{(i)}": "从小到大排序后的第 i 个数据",
+      "n": "数据个数，n 为正整数",
       "\\bar{x}": "算术平均数",
-      "s^2": "方差",
-      "s": "标准差",
-      "f_i": "第 i 个数据的权重"
+      "s^2": "按高中描述统计口径、分母为 n 的方差",
+      "s": "非负的标准差",
+      "a_j": "频数表中的第 j 个不同取值",
+      "f_j": "取值 a_j 的非负整数频数",
+      "F": "总频数，F=\\sum f_j>0"
     },
-    "conditions": "数据 $x_1, x_2, \\dots, x_n$ 为实数；样本量 $n$ 为正整数；加权平均数中权重 $f_i \\ge 0$ 且 $\\sum f_i > 0$。",
-    "conclusions": "平均数反映数据中心位置；方差越小数据越集中；标准差与原数据量纲一致；中位数不受极端值影响；众数可能不唯一。"
+    "conditions": "数据x_1,...,x_n为实数且n为正整数；中位数须先排序；频数f_j为非负整数且总频数F>0；方差采用分母n的高中描述统计定义。",
+    "conclusions": "平均数是使离差平方和最小的唯一位置；中位数由排序后的中间位置决定；众数由最大频数决定且可能不唯一；方差非负，并且方差为0当且仅当全部数据相等；标准差与原数据同量纲。"
   },
   "content": {
-    "statement": "给定一组数据 $x_1, x_2, \\dots, x_n$，其集中趋势和离散程度用以下统计量描述：算术平均数 $\\bar{x}=\\frac{1}{n}\\sum x_i$，加权平均数 $\\bar{x}=\\frac{\\sum x_i f_i}{\\sum f_i}$；方差 $s^2 = \\frac{1}{n}\\sum (x_i-\\bar{x})^2$，标准差 $s = \\sqrt{s^2}$；中位数是排序后中间位置的数（若 $n$ 为奇数取第 $\\frac{n+1}{2}$ 个，若偶数取中间两个的平均数）；众数是出现次数最多的数值。",
+    "statement": "给定n个实数x_1,...,x_n，平均数为\\bar{x}=\\frac1n\\sum x_i；中位数由排序后的中间位置决定；众数是达到最大频数的取值；方差为s^2=\\frac1n\\sum(x_i-\\bar{x})^2=\\frac1n\\sum x_i^2-\\bar{x}^2，标准差为s=\\sqrt{s^2}。频数表公式等价于按频数重复写出数据。",
     "derivation": [
-      "方差变形公式推导：$s^2 = \\frac{1}{n}\\sum (x_i-\\bar{x})^2 = \\frac{1}{n}\\sum (x_i^2 - 2x_i\\bar{x} + \\bar{x}^2) = \\frac{1}{n}\\sum x_i^2 - 2\\bar{x}\\cdot\\frac{1}{n}\\sum x_i + \\bar{x}^2 = \\frac{1}{n}\\sum x_i^2 - \\bar{x}^2$。"
+      "利用\\sum(x_i-\\bar{x})=0，可得\\frac1n\\sum(x_i-a)^2=s^2+(a-\\bar{x})^2，因此a=\\bar{x}时平方距离和唯一最小。",
+      "展开离差平方并代入\\sum x_i=n\\bar{x}，得到s^2=\\frac1n\\sum x_i^2-\\bar{x}^2。",
+      "因为每个离差平方非负，所以s^2=0当且仅当全部数据都等于\\bar{x}。"
     ],
-    "intuition": "平均值是数据的平衡点；方差度量每个数据与平均值的平均偏离平方，反映波动大小。",
+    "intuition": "在点图上，平均数看平衡点，中位数看排序后的中间位置，众数看最高点列，方差看各点到平均数的平方距离的平均；标准差再把单位还原为原数据单位。",
     "common_tricks": [
-      "计算方差时优先使用变形公式 $s^2 = \\frac{1}{n}\\sum x_i^2 - \\bar{x}^2$ 以减少运算量",
-      "注意加权平均数与算术平均数的区别，分组数据必须用加权公式",
-      "中位数只需排序后定位，无需复杂计算",
-      "众数可能不止一个，也可能不存在（所有数据出现次数相同）"
+      "极端值会通过总和直接拉动平均数；中位数较稳健，但只有中间位置不变时才保持不变。",
+      "频数就是重复次数，平均数和方差都必须使用同一组频数。",
+      "众数比较出现次数，不比较数值大小。",
+      "描述统计方差分母为n；分母n-1的无偏样本方差属于不同定义。",
+      "可用方差等价公式回验定义式计算。"
     ]
   },
   "usage": {
     "scenarios": [
-      "基础计算题",
-      "数据分析初步",
-      "统计描述"
+      "成绩与质量数据概括",
+      "频数分布表计算",
+      "比较同一变量的稳定性",
+      "含极端值数据的代表值选择"
     ],
     "problem_types": [
-      "求统计量",
+      "求集中趋势统计量",
+      "求方差和标准差",
       "比较数据波动",
-      "选择合适统计量描述数据特征"
+      "从频数表计算",
+      "选择合适的代表值"
     ],
     "exam_frequency": 1.0,
     "exam_score": 5
   },
   "interactive": {
-    "has_diagram": false,
+    "has_diagram": true,
     "geogebra_id": "",
     "param_demo": {}
   },
   "assets": {
-    "svg": "R033.svg",
-    "js": "",
-    "css": "",
+    "svg": "",
+    "png": "",
+    "geogebra": "",
     "video": "",
-    "audio": ""
+    "tikz": [
+      "assets/tikz/R033_four_statistics_map.tex",
+      "assets/tikz/R033_outlier_mean_median.tex",
+      "assets/tikz/R033_variance_distance_squares.tex",
+      "assets/tikz/R033_frequency_weight_compare.tex",
+      "assets/tikz/R033_example_same_mean_spread.tex"
+    ]
   },
   "shareConfig": {
-    "title": "描述统计量速查：平均数方差中位数众数定义与计算",
-    "shareDesc": "适合考前回顾和刷题前速记，快速掌握数据集中趋势与离散程度的四个核心统计量的定义、公式和计算技巧，减少计算错误。"
+    "title": "描述统计量：平均数、中位数、众数、方差与标准差",
+    "shareDesc": "用点图理解平衡位置、中间位置、最高频位置和离散程度，掌握频数表计算、极端值影响及方差口径。"
   },
   "relations": {
     "prerequisites": [
       "实数运算",
       "数据排序",
-      "权重的概念"
+      "频数"
     ],
     "related_ids": [],
-    "similar": "频率分布直方图估计平均数、方差；样本标准差与总体标准差"
+    "similar": "频率分布直方图估计平均数与方差；推断统计中的无偏样本方差"
   },
   "meta": {
-    "version": 1,
-    "source": "AI生成",
-    "created_at": "2026-06-28"
+    "version": 2,
+    "source": "AI生成并校核",
+    "created_at": "2026-06-28",
+    "updated_at": "2026-08-29"
   },
   "isPro": 0,
-  "remarks": "",
-  "knowledgeNode": "统计-数据分析-平均数",
-  "altNodes": "统计-数据分析-方差"
+  "remarks": "新增5幅TikZ主教学图：R033_four_statistics_map展示同一数据上的四类统计量；R033_outlier_mean_median用同尺度前后对照替代极端值影响的长段说明；R033_variance_distance_squares把离差平方表示为面积并替代方差定义的重复解释；R033_frequency_weight_compare用错误模型与正确频数模型同尺度对照；R033_example_same_mean_spread在例题中呈现同均值、不同离散程度。源文件均位于assets/tikz。",
+  "knowledgeNode": "统计-数据分析-描述统计量",
+  "altNodes": [
+    "统计-集中趋势-平均数中位数众数",
+    "统计-离散程度-方差标准差"
+  ]
 }

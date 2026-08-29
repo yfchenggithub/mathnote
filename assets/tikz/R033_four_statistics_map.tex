@@ -1,0 +1,56 @@
+% 同一组数据上的平均数、中位数、众数与离散程度
+% 用法：\input{assets/tikz/R033_four_statistics_map.tex}
+
+\begin{center}
+	\begin{tikzpicture}[
+		x=1cm,y=1cm,>=Stealth,
+		line cap=round,line join=round,
+		every node/.style={font=\small}
+	]
+		\path[use as bounding box] (0,0) rectangle (12.5,5.55);
+		\fill[blue!3,rounded corners=7pt] (0.2,0.15) rectangle (12.3,5.35);
+		\draw[CExplanation,rounded corners=7pt,line width=0.85pt]
+			(0.2,0.15) rectangle (12.3,5.35);
+		\node[font=\bfseries\large,text=CExplanation] at (6.25,5.02)
+			{同一组数据，四把“尺子”看不同特征};
+
+		% 数据点图：2,2,3,4,4
+		\draw[-Stealth,black!65,line width=0.8pt] (0.85,2.25) -- (7.55,2.25);
+		\foreach \x/\lab in {2.0/2,4.0/3,6.0/4}{
+			\draw[black!55] (\x,2.15)--(\x,2.35);
+			\node[below=4pt] at (\x,2.20) {$\lab$};
+		}
+		\foreach \x/\y in {2.0/2.58,2.0/3.05,4.0/2.58,6.0/2.58,6.0/3.05}{
+			\fill[teal!65!black] (\x,\y) circle (5pt);
+		}
+		\draw[red!75!black,dashed,line width=0.9pt] (4.0,1.85)--(4.0,3.55);
+		\node[font=\bfseries,text=red!75!black] at (4.0,3.82)
+			{平衡点 $\bar x=3$};
+		\draw[blue!78!black,line width=0.9pt] (4.0,2.58) circle (7.4pt);
+		\node[font=\scriptsize,text=blue!78!black,anchor=west] at (4.35,2.91)
+			{中间位置 $m=3$};
+		\node[font=\bfseries,text=orange!85!black] at (4.0,4.38)
+			{最高的两列在 $2,4$：两个众数};
+		\draw[<->,teal!70!black,line width=0.85pt] (2.0,1.42)--(6.0,1.42);
+		\node[below=2pt,text=teal!70!black] at (4.0,1.42)
+			{点离中心越远，离散程度越大};
+		\node[font=\scriptsize,text=black!62] at (4.0,0.56)
+			{数据：$2,2,3,4,4$};
+
+		% 四个统计量直接回答的问题
+		\fill[red!7,rounded corners=5pt] (8.0,3.88) rectangle (11.92,4.58);
+		\node[anchor=west,text=red!75!black] at (8.24,4.23)
+			{平均数：\textbf{平衡在哪里？}};
+		\fill[blue!7,rounded corners=5pt] (8.0,2.98) rectangle (11.92,3.68);
+		\node[anchor=west,text=blue!75!black] at (8.24,3.33)
+			{中位数：\textbf{中间是谁？}};
+		\fill[orange!9,rounded corners=5pt] (8.0,2.08) rectangle (11.92,2.78);
+		\node[anchor=west,text=orange!80!black] at (8.24,2.43)
+			{众数：\textbf{谁最常出现？}};
+		\fill[teal!7,rounded corners=5pt] (8.0,1.18) rectangle (11.92,1.88);
+		\node[anchor=west,text=teal!70!black] at (8.24,1.53)
+			{方差：\textbf{离中心多散？}};
+		\node[font=\scriptsize,text=black!62,align=center] at (9.96,0.58)
+			{统计量不是互相替代，\\而是回答不同问题};
+	\end{tikzpicture}
+\end{center}

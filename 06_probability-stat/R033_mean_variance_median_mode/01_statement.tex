@@ -1,49 +1,54 @@
 \begin{statementbox}
 
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件1（数据集合）}}] 给定一组数据 $x_1, x_2, \dots, x_n$。
-	\end{description}
+	\textbf{\textcolor{CStatement}{对象与约定}}
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（平均数）}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			数据的平均水平。
+	给定 $n$ 个实数 $x_1,x_2,\dots,x_n$，其中 $n\in\mathbb N^*$。将它们从小到大排列为
+	$x_{(1)}\le x_{(2)}\le\cdots\le x_{(n)}$。本结论中的“方差”采用高中描述统计口径，分母为 $n$；推断统计中分母为 $n-1$ 的无偏样本方差不在此处讨论。
 
-			算术平均：$\bar{x} = \frac{1}{n}\sum_{i=1}^n x_i$。
-
-			加权平均：$\bar{x} = \frac{\sum_{i=1}^n x_i f_i}{\sum_{i=1}^n f_i}$（$f_i$ 为权重）。
-
-		\item[\textbf{\textcolor{CStatement}{结论二（方差与标准差）}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			度量数据波动程度。
-
-			算术方差：$s^2 = \frac{1}{n}\sum_{i=1}^n (x_i-\bar{x})^2$（$\bar{x}$ 为算术平均）。
-
-			加权方差：$s^2 = \frac{\sum_{i=1}^n (x_i-\bar{x})^2 f_i}{\sum_{i=1}^n f_i}$（$\bar{x}$ 为加权平均）。
-
-			标准差：$s = \sqrt{s^2}$。
-
-		\item[\textbf{\textcolor{CStatement}{结论三（中位数）}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			数据中间位置的数值。
-
-			将数据从小到大排序。若样本量 $n$ 为奇数，中位数为第 $\frac{n+1}{2}$ 个数据；若 $n$ 为偶数，中位数为第 $\frac{n}{2}$ 个和第 $\frac{n}{2}+1$ 个数据的平均数。
-
-		\item[\textbf{\textcolor{CStatement}{结论四（众数）}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			出现频率最高的数值。
-
-			数据中出现次数最多的数值。可能存在多个众数。
-
-		\item[\textbf{\textcolor{CStatement}{推广结论（方差等价变形）}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			方差等于数据平方的均值减去均值的平方。
-
+	\medskip
+	\textbf{\textcolor{CStatement}{集中趋势}}
+	\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
+		\item[\textbf{平均数}]
 			\[
-				s^2 = \frac{1}{n}\sum_{i=1}^n x_i^2 - \bar{x}^2.
+				\bar x=\frac1n\sum_{i=1}^{n}x_i.
 			\]
+			它使用每一个数据值，表示这组数据的平衡水平。
+
+		\item[\textbf{中位数}]
+			\[
+				\operatorname{Med}=\begin{cases}
+					x_{((n+1)/2)},&n\text{ 为奇数},\\[3pt]
+					\dfrac{x_{(n/2)}+x_{(n/2+1)}}2,&n\text{ 为偶数}.
+				\end{cases}
+			\]
+			它只由排序后的中间位置决定。
+
+		\item[\textbf{众数}]
+			出现次数达到最大值的数据。众数可能不唯一；若所有数据互不相同，高中统计中通常称“没有众数”。
 	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CStatement}{离散程度}}
+	\[
+		s^2=\frac1n\sum_{i=1}^{n}(x_i-\bar x)^2
+		=\frac1n\sum_{i=1}^{n}x_i^2-\bar x^2,
+		\qquad s=\sqrt{s^2}.
+	\]
+	恒有 $s^2\ge0$；并且
+	\[
+		s^2=0\iff x_1=x_2=\cdots=x_n.
+	\]
+	方差的量纲是原数据量纲的平方，标准差与原数据同量纲。用方差或标准差比较波动时，两组数据应描述同一变量并采用相同单位。
+
+	\medskip
+	\textbf{\textcolor{CStatement}{频数表形式}}
+
+	若不同取值 $a_1,\dots,a_k$ 的频数分别为非负整数 $f_1,\dots,f_k$，总频数 $F=\sum_{j=1}^{k}f_j>0$，则
+	\[
+		\bar x=\frac{\sum_{j=1}^{k}f_ja_j}{F},
+		\qquad
+		s^2=\frac{\sum_{j=1}^{k}f_j(a_j-\bar x)^2}{F}.
+	\]
+	这不是另一套定义：它只是把每个 $a_j$ 按频数 $f_j$ 重复写出的简记。
 
 \end{statementbox}

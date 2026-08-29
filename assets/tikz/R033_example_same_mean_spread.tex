@@ -1,0 +1,39 @@
+% 例题：同均值、不同离散程度
+% 用法：\input{assets/tikz/R033_example_same_mean_spread.tex}
+
+\begin{center}
+	\begin{tikzpicture}[
+		x=1cm,y=1cm,>=Stealth,
+		line cap=round,line join=round,
+		every node/.style={font=\small}
+	]
+		\path[use as bounding box] (0,0) rectangle (12.5,5.20);
+		\fill[green!3,rounded corners=7pt] (0.2,0.15) rectangle (12.3,5.00);
+		\draw[CExample,rounded corners=7pt,line width=0.85pt]
+			(0.2,0.15) rectangle (12.3,5.00);
+		\node[font=\bfseries\large,text=CExample] at (6.25,4.65)
+			{平均数相同，不代表稳定性相同};
+
+		% 两组数据共用横坐标映射：4,6,8,10,12 -> 1.2,3.7,6.2,8.7,11.2
+		\draw[-Stealth,black!62,line width=0.75pt] (0.75,2.92)--(11.85,2.92);
+		\draw[-Stealth,black!62,line width=0.75pt] (0.75,1.25)--(11.85,1.25);
+		\foreach \x/\lab in {1.2/4,3.7/6,6.2/8,8.7/10,11.2/12}{
+			\draw[black!48] (\x,1.15)--(\x,1.35);
+			\draw[black!48] (\x,2.82)--(\x,3.02);
+			\node[below=4pt] at (\x,1.22) {$\lab$};
+		}
+		\foreach \x in {3.7,4.95,6.2,7.45,8.7}{\fill[blue!70!black] (\x,3.27) circle (4.8pt);}
+		\foreach \x in {1.2,3.7,6.2,8.7,11.2}{\fill[orange!82!black] (\x,1.60) circle (4.8pt);}
+		\draw[red!78!black,dashed,line width=0.9pt] (6.2,0.88)--(6.2,3.74);
+		\node[font=\scriptsize,text=red!78!black] at (6.2,4.08)
+			{红虚线：共同均值 $8$};
+		\node[anchor=west,text=blue!75!black] at (0.90,3.63)
+			{甲：$6,7,8,9,10$，$s_A^2=2$};
+		\node[anchor=west,text=orange!82!black] at (0.90,2.05)
+			{乙：$4,6,8,10,12$，$s_B^2=8$};
+		\draw[<->,blue!75!black,line width=0.8pt] (3.7,2.52)--(8.7,2.52);
+		\draw[<->,orange!82!black,line width=0.8pt] (1.2,0.62)--(11.2,0.62);
+		\node[font=\scriptsize,text=black!62,anchor=east] at (11.35,0.33)
+			{乙离均值更远，波动更大};
+	\end{tikzpicture}
+\end{center}

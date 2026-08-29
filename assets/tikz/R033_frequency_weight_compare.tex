@@ -1,0 +1,47 @@
+% 错误的“只看取值”与正确的“按频数展开”同尺度对照
+% 用法：\input{assets/tikz/R033_frequency_weight_compare.tex}
+
+\begin{center}
+	\begin{tikzpicture}[
+		x=1cm,y=1cm,>=Stealth,
+		line cap=round,line join=round,
+		every node/.style={font=\small}
+	]
+		\path[use as bounding box] (0,0) rectangle (12.5,6.05);
+		\fill[red!3,rounded corners=7pt] (0.2,0.15) rectangle (12.3,5.85);
+		\draw[CTrap,rounded corners=7pt,line width=0.85pt]
+			(0.2,0.15) rectangle (12.3,5.85);
+		\node[font=\bfseries\large,text=CTrap] at (6.25,5.50)
+			{频数就是“重复次数”，不能把三种取值各算一次};
+
+		% 错误模型
+		\node[font=\bfseries,text=red!78!black,anchor=west] at (0.72,4.92)
+			{错误模型：只保留 $60,70,80$ 各一次};
+		\draw[-Stealth,black!62,line width=0.75pt] (1.2,3.75)--(11.3,3.75);
+		\foreach \x/\lab in {2.0/60,6.0/70,10.0/80}{
+			\draw[black!48] (\x,3.65)--(\x,3.85);
+			\fill[red!68!black] (\x,4.08) circle (4.7pt);
+			\node[below=4pt] at (\x,3.72) {$\lab$};
+		}
+		\draw[red!78!black,dashed,line width=0.9pt] (6.0,3.35)--(6.0,4.42);
+		\node[text=red!78!black,anchor=west] at (8.0,4.43)
+			{$\bar x_{\text{错}}=70$};
+
+		% 正确模型，与上图同一横向尺度
+		\node[font=\bfseries,text=green!50!black,anchor=west] at (0.72,3.05)
+			{正确模型：$60$ 重复 $3$ 次，$70$ 重复 $5$ 次，$80$ 重复 $2$ 次};
+		\draw[-Stealth,black!62,line width=0.75pt] (1.2,1.05)--(11.3,1.05);
+		\foreach \x/\lab in {2.0/60,6.0/70,10.0/80}{
+			\draw[black!48] (\x,0.95)--(\x,1.15);
+			\node[below=4pt] at (\x,1.02) {$\lab$};
+		}
+		\foreach \y in {1.38,1.75,2.12}{\fill[green!55!black] (2.0,\y) circle (4.4pt);}
+		\foreach \y in {1.38,1.75,2.12,2.49,2.86}{\fill[green!55!black] (6.0,\y) circle (4.4pt);}
+		\foreach \y in {1.38,1.75}{\fill[green!55!black] (10.0,\y) circle (4.4pt);}
+		\draw[green!55!black,dashed,line width=1pt] (5.60,0.65)--(5.60,2.38);
+		\node[font=\bfseries,text=green!50!black,anchor=east] at (5.28,2.55)
+			{$\bar x=69$};
+		\node[font=\scriptsize,text=black!62,anchor=west] at (0.72,0.38)
+			{两行数轴同尺度；均值左移，是因为 $60$ 分人数多于 $80$ 分人数。};
+	\end{tikzpicture}
+\end{center}
