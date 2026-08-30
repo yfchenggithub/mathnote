@@ -1,0 +1,45 @@
+% 频数如何进入方差：每一个人贡献一次平方距离
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,>=Stealth,line cap=round,line join=round,every node/.style={font=\small}]
+  \path[use as bounding box] (0,0) rectangle (12.5,6.55);
+  \fill[teal!3,rounded corners=7pt] (0.2,0.15) rectangle (12.3,6.35);
+  \draw[teal!60!black,rounded corners=7pt,line width=0.85pt] (0.2,0.15) rectangle (12.3,6.35);
+  \node[font=\bfseries\large,text=teal!70!black] at (6.25,5.92)
+    {每一个人都贡献一次平方距离（$\bar x=69$）};
+
+  % 60,69,70,80 在同一线性尺度上的位置
+  \draw[-Stealth,black!65,line width=0.85pt] (1.05,3.15)--(11.50,3.15);
+  \foreach \x/\lab in {1.50/60,5.775/69,6.25/70,11.00/80}{
+    \draw[black!48] (\x,3.03)--(\x,3.27);
+  }
+  \node[below=4pt] at (1.50,3.08) {$60$};
+  \node[below=4pt,text=red!78!black,anchor=east] at (5.69,3.08) {$69$};
+  \node[above=3pt,anchor=west] at (6.34,3.22) {$70$};
+  \node[below=4pt] at (11.00,3.08) {$80$};
+  \draw[red!78!black,dashed,line width=0.9pt] (5.775,2.72)--(5.775,5.08);
+  \foreach \y in {3.52,3.90,4.28}{\fill[teal!68!black] (1.50,\y) circle (4.5pt);}
+  \foreach \y in {3.52,3.90,4.28,4.66,5.04}{\fill[teal!68!black] (6.25,\y) circle (4.5pt);}
+  \foreach \y in {3.52,3.90}{\fill[teal!68!black] (11.00,\y) circle (4.5pt);}
+  \draw[<->,orange!82!black,line width=0.8pt] (1.50,5.22)--(5.62,5.22)
+    node[midway,above=2pt] {距离 $9$};
+  \draw[<->,orange!82!black,line width=0.8pt] (5.93,2.60)--(6.25,2.60)
+    node[midway,below=2pt,font=\scriptsize] {距离 $1$};
+  \draw[<->,orange!82!black,line width=0.8pt] (5.93,5.22)--(11.00,5.22)
+    node[midway,above=2pt] {距离 $11$};
+
+  \fill[orange!5,rounded corners=4pt] (0.55,0.80) rectangle (4.30,1.97);
+  \draw[orange!70!black,rounded corners=4pt,line width=0.75pt] (0.55,0.80) rectangle (4.30,1.97);
+  \node[align=center,text=orange!80!black] at (2.43,1.38)
+    {$3\times(60-69)^2$\\$=3\times9^2=243$};
+  \fill[orange!5,rounded corners=4pt] (4.48,0.80) rectangle (8.15,1.97);
+  \draw[orange!70!black,rounded corners=4pt,line width=0.75pt] (4.48,0.80) rectangle (8.15,1.97);
+  \node[align=center,text=orange!80!black] at (6.32,1.38)
+    {$5\times(70-69)^2$\\$=5\times1^2=5$};
+  \fill[orange!5,rounded corners=4pt] (8.33,0.80) rectangle (11.95,1.97);
+  \draw[orange!70!black,rounded corners=4pt,line width=0.75pt] (8.33,0.80) rectangle (11.95,1.97);
+  \node[align=center,text=orange!80!black] at (10.14,1.38)
+    {$2\times(80-69)^2$\\$=2\times11^2=242$};
+  \node[font=\bfseries,text=teal!70!black] at (6.25,0.45)
+    {$s^2=(243+5+242)/10=49$};
+\end{tikzpicture}
+\end{center}

@@ -1,0 +1,42 @@
+% 零方差的充要条件：全重合与至少一个点离开均值的对照
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,>=Stealth,line cap=round,line join=round,every node/.style={font=\small}]
+  \path[use as bounding box] (0,0) rectangle (12.5,5.70);
+  \fill[teal!3,rounded corners=7pt] (0.2,0.15) rectangle (12.3,5.50);
+  \draw[teal!60!black,rounded corners=7pt,line width=0.85pt] (0.2,0.15) rectangle (12.3,5.50);
+  \node[font=\bfseries\large,text=teal!70!black] at (6.25,5.08)
+    {方差为零，当且仅当每个数据点都与平均数重合};
+
+  \fill[teal!4,rounded corners=5pt] (0.55,1.15) rectangle (5.92,4.42);
+  \draw[teal!52!black,rounded corners=5pt,line width=0.75pt] (0.55,1.15) rectangle (5.92,4.42);
+  \node[font=\bfseries,text=teal!70!black] at (3.24,4.03) {全部重合};
+  \draw[-Stealth,black!58,line width=0.75pt] (1.00,2.45)--(5.45,2.45);
+  \draw[red!78!black,dashed,line width=0.9pt] (3.25,1.75)--(3.25,3.32);
+  \node[text=red!78!black,anchor=south] at (3.25,3.35) {$\bar x$};
+  \foreach \r/\op in {0.18/20,0.14/35,0.10/55,0.06/80}{
+    \fill[teal!70!black,opacity=\op] (3.25,2.72) circle (\r);
+  }
+  \node[font=\scriptsize,text=teal!70!black,align=center] at (2.20,1.98)
+    {$4$ 个点重叠\\每个距离 $=0$};
+  \node[font=\bfseries,text=teal!70!black] at (2.20,1.34)
+    {$s^2=0$};
+
+  \fill[orange!4,rounded corners=5pt] (6.58,1.15) rectangle (11.95,4.42);
+  \draw[orange!65!black,rounded corners=5pt,line width=0.75pt] (6.58,1.15) rectangle (11.95,4.42);
+  \node[font=\bfseries,text=orange!80!black] at (9.26,4.03) {一个点离开均值};
+  \draw[-Stealth,black!58,line width=0.75pt] (7.03,2.45)--(11.48,2.45);
+  \draw[red!78!black,dashed,line width=0.9pt] (8.55,1.75)--(8.55,3.32);
+  \fill[teal!70!black] (8.55,2.72) circle (4.6pt);
+  \fill[teal!70!black] (8.55,3.10) circle (4.6pt);
+  \fill[orange!82!black] (10.70,2.72) circle (4.8pt);
+  \draw[<->,orange!82!black,line width=0.85pt] (8.55,3.58)--(10.70,3.58)
+    node[midway,below=2pt] {非零距离};
+  \node[font=\scriptsize,text=orange!80!black,align=center] at (9.66,1.90)
+    {至少一个\\$(x_i-\bar x)^2>0$};
+  \node[font=\bfseries,text=orange!80!black] at (9.26,1.34)
+    {所以 $s^2>0$};
+
+  \node[font=\bfseries,text=teal!70!black] at (6.25,0.55)
+    {$s^2=0\iff x_1=x_2=\cdots=x_n$};
+\end{tikzpicture}
+\end{center}

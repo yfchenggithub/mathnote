@@ -1,0 +1,44 @@
+% 众数看频数，不看数值大小：唯一、多个、没有众数的并列对照
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,>=Stealth,line cap=round,line join=round,every node/.style={font=\small}]
+  \path[use as bounding box] (0,0) rectangle (12.5,5.95);
+  \fill[orange!3,rounded corners=7pt] (0.2,0.15) rectangle (12.3,5.75);
+  \draw[orange!72!black,rounded corners=7pt,line width=0.85pt] (0.2,0.15) rectangle (12.3,5.75);
+  \node[font=\bfseries\large,text=orange!82!black] at (6.25,5.30)
+    {众数看柱子的高度，不看横坐标谁最大};
+
+  \foreach \xl/\xr/\ttl in {0.55/4.25/{唯一众数},4.45/8.05/{多个众数},8.25/11.95/{没有众数}}{
+    \fill[orange!4,rounded corners=5pt] (\xl,0.72) rectangle (\xr,4.65);
+    \draw[orange!58!black,rounded corners=5pt,line width=0.7pt] (\xl,0.72) rectangle (\xr,4.65);
+    \node[font=\bfseries,text=orange!80!black] at ({(\xl+\xr)/2},4.25) {\ttl};
+  }
+  % 唯一众数：左列最高；最右点的数值最大
+  \draw[black!55,line width=0.65pt] (0.90,1.35)--(3.85,1.35);
+  \foreach \y in {1.75,2.15,2.55}{\fill[orange!82!black] (1.35,\y) circle (3.6pt);}
+  \foreach \y in {1.75,2.15}{\fill[orange!82!black] (2.25,\y) circle (3.6pt);}
+  \fill[orange!82!black] (3.15,1.75) circle (3.6pt);
+  \node[below=3pt] at (1.35,1.35) {$2$};
+  \node[below=3pt] at (2.25,1.35) {$5$};
+  \node[below=3pt] at (3.15,1.35) {$9$};
+  \node[font=\scriptsize,text=orange!82!black,align=center] at (1.35,3.23) {最高列\\$\Rightarrow$ 众数 $2$};
+  \draw[->,black!60,line width=0.65pt] (3.15,2.10)--(3.48,2.75);
+  \node[font=\scriptsize,text=black!78,align=center] at (3.55,3.00) {数值最大\\不是众数};
+  % 多个众数：两列同高
+  \draw[black!55,line width=0.65pt] (4.80,1.35)--(7.70,1.35);
+  \foreach \y in {1.75,2.15,2.55}{\fill[orange!82!black] (5.25,\y) circle (3.6pt);}
+  \foreach \y in {1.75,2.15,2.55}{\fill[orange!82!black] (6.15,\y) circle (3.6pt);}
+  \foreach \y in {1.75,2.15}{\fill[orange!82!black] (7.05,\y) circle (3.6pt);}
+  \node[below=3pt] at (5.25,1.35) {$1$};
+  \node[below=3pt] at (6.15,1.35) {$4$};
+  \node[below=3pt] at (7.05,1.35) {$8$};
+  \node[font=\scriptsize,text=orange!82!black,align=center] at (5.70,3.18) {两列并列最高\\$\Rightarrow$ 众数 $1,4$};
+  % 没有众数：每列等高为1
+  \draw[black!55,line width=0.65pt] (8.60,1.35)--(11.60,1.35);
+  \foreach \x/\lab in {9.00/2,9.90/5,10.80/9}{
+    \fill[orange!82!black] (\x,1.75) circle (3.6pt);
+    \node[below=3pt] at (\x,1.35) {$\lab$};
+  }
+  \node[font=\scriptsize,text=orange!82!black,align=center] at (10.05,2.78)
+    {每个取值只出现一次\\高中统计口径：没有众数};
+\end{tikzpicture}
+\end{center}

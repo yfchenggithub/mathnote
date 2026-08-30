@@ -1,0 +1,44 @@
+% 离差和、方差、标准差三层对照
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,>=Stealth,line cap=round,line join=round,every node/.style={font=\small}]
+  \path[use as bounding box] (0,0) rectangle (12.5,7.15);
+  \fill[teal!3,rounded corners=7pt] (0.2,0.15) rectangle (12.3,6.95);
+  \draw[teal!60!black,rounded corners=7pt,line width=0.85pt] (0.2,0.15) rectangle (12.3,6.95);
+  \node[font=\bfseries\large,text=teal!70!black] at (6.25,6.52)
+    {离差和、方差、标准差不是同一个量};
+  \node[text=black!70] at (6.25,6.05) {数据 $1,3,5$，\quad $\bar x=3$};
+
+  \fill[red!4,rounded corners=4pt] (0.62,4.38) rectangle (11.88,5.60);
+  \node[font=\bfseries,text=red!78!black,anchor=west] at (0.88,5.18) {带符号离差};
+  \draw[<- ,blue!72!black,line width=0.95pt] (5.92,4.88)--(3.52,4.88) node[midway,above=2pt] {$-2$};
+  \fill[blue!70!black] (3.52,4.62) circle (3.8pt);
+  \fill[teal!70!black] (5.92,4.62) circle (3.8pt);
+  \fill[orange!82!black] (8.32,4.62) circle (3.8pt);
+  \draw[->,orange!82!black,line width=0.95pt] (5.92,4.88)--(8.32,4.88) node[midway,above=2pt] {$+2$};
+  \node[text=red!78!black,anchor=west] at (9.15,5.02) {总和 $=0$};
+  \node[font=\scriptsize,text=red!70!black,anchor=west] at (9.15,4.66) {有波动，也会抵消};
+
+  \fill[orange!5,rounded corners=4pt] (0.62,2.63) rectangle (11.88,4.02);
+  \node[font=\bfseries,text=orange!82!black,anchor=west] at (0.88,3.36) {离差平方};
+  \fill[orange!17] (3.15,2.94) rectangle (3.95,3.74);
+  \draw[orange!80!black,line width=0.7pt] (3.15,2.94) rectangle (3.95,3.74);
+  \node[text=orange!82!black] at (3.55,3.34) {$4$};
+  \fill[orange!82!black] (5.92,3.34) circle (2.5pt);
+  \node[text=orange!82!black,above=4pt] at (5.92,3.34) {$0$};
+  \fill[orange!17] (7.92,2.94) rectangle (8.72,3.74);
+  \draw[orange!80!black,line width=0.7pt] (7.92,2.94) rectangle (8.72,3.74);
+  \node[text=orange!82!black] at (8.32,3.34) {$4$};
+  \node[text=orange!82!black,anchor=west] at (9.15,3.46) {$s^2=\dfrac83$};
+  \node[font=\scriptsize,text=orange!80!black,anchor=west] at (9.15,3.04) {平方后不再抵消};
+
+  \fill[teal!5,rounded corners=4pt] (0.62,0.78) rectangle (11.88,2.20);
+  \node[font=\bfseries,text=teal!70!black,anchor=west] at (0.88,1.55) {标准差};
+  \node[text=teal!70!black] at (4.15,1.55) {$s=\sqrt{s^2}=\sqrt{\dfrac83}$};
+  \draw[-Stealth,teal!70!black,line width=0.9pt] (6.45,1.55)--(7.25,1.55);
+  \draw[teal!70!black,line width=1.35pt] (7.55,1.55)--(9.55,1.55);
+  \draw[teal!70!black,line width=0.75pt] (7.55,1.37)--(7.55,1.73) (9.55,1.37)--(9.55,1.73);
+  \node[text=teal!70!black,anchor=west] at (9.82,1.55) {回到原单位};
+  \node[font=\bfseries,text=teal!70!black] at (6.25,0.43)
+    {$\text{离差和}\ne\text{方差},\qquad \text{标准差}=\sqrt{\text{方差}}$};
+\end{tikzpicture}
+\end{center}
