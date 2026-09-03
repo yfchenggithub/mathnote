@@ -1,0 +1,21 @@
+% R038: 线性模型的三个前提情形（同尺度坐标）
+\begin{center}
+	\begin{tikzpicture}[x=1cm,y=1.25cm,>=Stealth,every node/.style={font=\small},axis/.style={->,black!70,thick},pt/.style={circle,fill=blue!75!black,inner sep=2.2pt}]
+		\path[use as bounding box] (0,0) rectangle (12.4,4.8);
+		\node[font=\large\bfseries,text=CStatement] at (6.2,4.45) {先看散点：趋势近似线性且 $x$ 必须有展开};
+		\foreach \X/\title/\note in {0/{适合线性模型}/{散点围绕直线趋势},4.2/{直线会遗漏结构}/{明显弯曲},8.4/{斜率无法估计}/{$x$ 没有横向变化}} {
+		\draw[rounded corners=5pt,fill=blue!2,draw=CStatement] (\X+.1,.25) rectangle (\X+3.9,3.9);
+		\node[font=\bfseries,text=CStatement] at (\X+2,3.55) {\title};
+		\draw[axis] (\X+.55,.75)--(\X+3.55,.75) node[right] {$x$};
+		\draw[axis] (\X+.55,.75)--(\X+.55,3.05) node[above] {$y$};
+		\node[align=center,text=black!70] at (\X+2, .42) {\note};
+		}
+		\draw[CStatement,very thick] (.75,1.05)--(3.35,2.85);
+		\foreach \x/\y in {.9/1.15,1.35/1.45,1.8/1.65,2.25/2.25,2.75/2.42,3.15/2.9}{\node[pt] at (\x,\y) {};}
+		\draw[orange!85!black,very thick] (4.95,1.05).. controls (6.1,1.15) and (6.65,3.0)..(7.65,3.0);
+		\foreach \x/\y in {5.0/1.25,5.45/1.12,5.9/1.48,6.35/2.05,6.8/2.75,7.3/2.9}{\node[pt] at (\x,\y) {};}
+		\draw[red!75!black,densely dashed,thick] (10.25,1.5)--(10.25,3.0);
+		\foreach \y in {1.45,1.9,2.45,2.85}{\node[pt] at (10.25,\y) {};}
+		\node[text=red!75!black,align=center] at (10.75,1.05) {$\sum(x_i-\bar x)^2=0$};
+	\end{tikzpicture}
+\end{center}

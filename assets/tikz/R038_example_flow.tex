@@ -1,0 +1,137 @@
+% R038：例2的统计量计算流程；箭头只连接相邻框。
+\begin{center}
+	\begin{tikzpicture}[
+			x=1cm,
+			y=1cm,
+			>=Stealth,
+			every node/.style={font=\small},
+			box/.style={
+					draw=CExample,
+					fill=green!4,
+					rounded corners=5pt,
+					align=center,
+					font=\scriptsize,
+					inner sep=4pt
+				},
+			givenbox/.style={
+					box,
+					minimum width=2.5cm,
+					minimum height=1.55cm
+				},
+			meanbox/.style={
+					box,
+					minimum width=2.25cm,
+					minimum height=1.05cm
+				},
+			calcbox/.style={
+					box,
+					minimum width=3.15cm,
+					minimum height=1.08cm
+				},
+			resultbox/.style={
+					box,
+					minimum width=2.75cm,
+					minimum height=1.55cm
+				},
+			arr/.style={
+					->,
+					CExample,
+					very thick,
+					rounded corners=3pt
+				}
+		]
+
+		\path[use as bounding box] (0,0) rectangle (12.4,5.6);
+
+		\node[
+			font=\large\bfseries,
+			text=CExample
+		] at (6.2,5.23)
+		{例2：统计量按“均值—离差和—回归系数”顺序计算};
+
+		%==================== 第一列：已知统计量 ====================
+
+		\node[givenbox] (raw) at (1.40,3.25)
+		{
+			$n=5$\\[-2pt]
+			$\sum x_i=15,\quad \sum y_i=20$\\[-2pt]
+			$\sum x_iy_i=70$\\[-2pt]
+			$\sum x_i^2=55$
+		};
+
+		%==================== 第二列：样本均值 ====================
+
+		\node[meanbox] (mean) at (4.10,3.25)
+		{
+			$\bar x=15/5=3$\\
+			$\bar y=20/5=4$
+		};
+
+		%==================== 第三列：两条独立支路 ====================
+
+		\node[calcbox] (sxy) at (7.25,4.08)
+		{
+			$S_{xy}=\sum x_iy_i-n\bar x\bar y$\\
+			$=70-5\cdot3\cdot4=10$
+		};
+
+		\node[calcbox] (sxx) at (7.25,2.42)
+		{
+			$S_{xx}=\sum x_i^2-n\bar x^2$\\
+			$=55-5\cdot3^2=10$
+		};
+
+		%==================== 第四列：回归方程 ====================
+
+		\node[resultbox] (final) at (10.70,3.25)
+		{
+			$\hat b=\dfrac{S_{xy}}{S_{xx}}=1$\\[2pt]
+			$\hat a=\bar y-\hat b\bar x=1$\\[2pt]
+			$\hat y=x+1$
+		};
+
+		%==================== 箭头 ====================
+
+		% 已知统计量 → 均值
+		\draw[arr]
+		(raw.east)--(mean.west);
+
+		% 均值 → Sxy：先水平，再向上，最后水平进入
+		\draw[arr]
+		([yshift=1.8mm]mean.east)
+		-- ++(.24,0)
+		|- (sxy.west);
+
+		% 均值 → Sxx：先水平，再向下，最后水平进入
+		\draw[arr]
+		([yshift=-1.8mm]mean.east)
+		-- ++(.24,0)
+		|- (sxx.west);
+
+		% Sxy → 结果框上部
+		\draw[arr]
+		(sxy.east)
+		-- ++(.24,0)
+		|- ([yshift=4.2mm]final.west);
+
+		% Sxx → 结果框下部
+		\draw[arr]
+		(sxx.east)
+		-- ++(.24,0)
+		|- ([yshift=-4.2mm]final.west);
+
+		%==================== 底部说明 ====================
+
+		\node[
+			font=\scriptsize,
+			text=black!65,
+			text width=11.4cm,
+			align=center
+		] at (6.2,.62)
+		{
+			两条支路分别计算离差乘积和与 $x$ 的离差平方和；\\[-1pt]
+			再合并得到 $\hat b$，最后利用样本中心求出 $\hat a$。
+		};
+
+	\end{tikzpicture}
+\end{center}

@@ -1,0 +1,104 @@
+% R038：纵向残差与最短垂距严格区分；
+% 在 x=1cm、y=1.18cm 的画布尺度下，灰线与回归线严格垂直。
+
+\begin{center}
+	\begin{tikzpicture}[
+			x=1cm,
+			y=1.18cm,
+			>=Stealth,
+			every node/.style={font=\small}
+		]
+
+		\path[use as bounding box] (0,0) rectangle (12.4,5.8);
+
+		\node[font=\large\bfseries,text=CExplanation] at (6.2,5.46)
+		{最小二乘最小化纵向残差平方，不是点到直线的最短距离};
+
+		% -------------------- 左侧：两种距离 --------------------
+		\draw[rounded corners=5pt,fill=blue!2,draw=CExplanation]
+		(.15,.28) rectangle (6.02,4.98);
+
+		\draw[->,black!70] (.72,.82)--(5.56,.82) node[right] {$x$};
+		\draw[->,black!70] (.72,.82)--(.72,4.35) node[above] {$y$};
+
+		% 回归线
+		\draw[CStatement,very thick] (.92,1.25)--(5.28,3.90);
+
+		% 数据点
+		\fill[blue!80!black] (3.65,3.88) circle (3.1pt)
+		node[above=4pt] {数据点 $(x_i,y_i)$};
+
+		% 红线：固定 x_i 后的纵向残差
+		\draw[red!80!black,very thick]
+		(3.65,3.88)--(3.65,2.91);
+
+		\node[
+			anchor=east,
+			text=red!80!black,
+			font=\scriptsize
+		] at (3.50,3.36)
+		{$e_i=y_i-\hat y_i$};
+
+		% 灰线：点到回归线的最短垂距
+		\coordinate (foot) at (4.1925,3.2390);
+
+		\draw[gray!80,very thick]
+		(3.65,3.88)--(foot);
+
+		\node[
+			anchor=west,
+			text=gray!80,
+			font=\scriptsize
+		] at (4.08,2.90)
+		{灰：最短垂距};
+
+		% 直角标记
+		\draw[gray!80,thick]
+		(4.10,3.35)--(3.97,3.27)--(4.06,3.16);
+
+		\node[text=CExplanation,font=\bfseries] at (3.10,.54)
+		{红：固定 $x_i$ 的纵向差};
+
+		% -------------------- 右侧：为什么平方 --------------------
+		\draw[rounded corners=5pt,fill=orange!3,draw=orange!80!black]
+		(6.40,.28) rectangle (12.25,4.98);
+
+		\node[font=\bfseries,text=orange!85!black] at (9.32,4.48)
+		{为什么要平方？};
+
+		% 正负误差分开显示
+		\draw[red!75!black,->,thick]
+		(7.90,3.64)--(9.05,3.64)
+		node[midway,above=2pt] {$+2$};
+
+		\draw[red!75!black,->,thick]
+		(10.74,3.64)--(9.59,3.64)
+		node[midway,above=2pt] {$-2$};
+
+		\node at (9.32,3.08)
+		{$+2+(-2)=0$：会抵消};
+
+		% 三个正方形：边长按 1:2:3，面积按 1:4:9
+		% y 单位为 1.18cm，因此纵坐标高度除以 1.18
+
+		\draw[fill=orange!25,draw=orange!85!black]
+		(7.15,1.42) rectangle (7.65,1.844);
+		\node at (7.40,1.632) {$1$};
+
+		\draw[fill=orange!25,draw=orange!85!black]
+		(8.82,1.42) rectangle (9.82,2.267);
+		\node at (9.32,1.844) {$4$};
+
+		\draw[fill=orange!25,draw=orange!85!black]
+		(10.40,1.42) rectangle (11.90,2.691);
+		\node at (11.15,2.056) {$9$};
+
+		\node at (7.40,1.07) {$1^2=1$};
+		\node at (9.32,1.07) {$2^2=4$};
+		\node at (11.15,1.07) {$3^2=9$};
+
+		\node[font=\small\bfseries] at (9.32,.58)
+		{不抵消，且大误差惩罚更重};
+
+	\end{tikzpicture}
+\end{center}

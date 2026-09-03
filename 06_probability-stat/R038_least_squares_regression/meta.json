@@ -115,11 +115,11 @@
       "$n$",
       "$\\hat{y}$"
     ],
-    "conditions": "成对样本数据$(x_i,y_i)$满足线性相关关系，且$\\sum (x_i-\\bar{x})^2 \\neq 0$（即$x$有变异，分母非零）。",
+    "conditions": "代数上只需$S_{xx}=\\sum (x_i-\\bar{x})^2>0$，最小二乘直线便存在且唯一；散点大致线性是用直线建模是否合适的检查，而非公式的计算前提。",
     "conclusions": "回归直线$\\hat{y}=\\hat{b}x+\\hat{a}$必过样本中心点$(\\bar{x},\\bar{y})$，即$\\bar{y}=\\hat{b}\\bar{x}+\\hat{a}$。"
   },
   "content": {
-    "statement": "给定成对样本数据$(x_i,y_i)$满足线性相关关系且$\\sum (x_i-\\bar{x})^2\\neq 0$，则回归直线$\\hat{y}=\\hat{b}x+\\hat{a}$的斜率与截距的最小二乘估计为$\\hat{b}=\\frac{\\sum (x_i-\\bar{x})(y_i-\\bar{y})}{\\sum (x_i-\\bar{x})^2}$，$\\hat{a}=\\bar{y}-\\hat{b}\\bar{x}$，且回归直线恒过样本中心点$(\\bar{x},\\bar{y})$。",
+    "statement": "只要$S_{xx}=\\sum (x_i-\\bar{x})^2>0$，回归直线$\\hat{y}=\\hat{b}x+\\hat{a}$的最小二乘估计唯一，其中$\\hat{b}=\\frac{\\sum (x_i-\\bar{x})(y_i-\\bar{y})}{\\sum (x_i-\\bar{x})^2}$，$\\hat{a}=\\bar{y}-\\hat{b}\\bar{x}$；它恒过样本中心$(\\bar{x},\\bar{y})$。",
     "derivation": [
       "基于最小二乘原理，定义残差平方和$Q=\\sum (y_i-\\hat{b}x_i-\\hat{a})^2$。",
       "分别对$\\hat{b}$和$\\hat{a}$求偏导并令其为零，得到正规方程组。",
@@ -148,7 +148,7 @@
     "exam_score": 6
   },
   "interactive": {
-    "has_diagram": false,
+    "has_diagram": true,
     "geogebra_id": "",
     "param_demo": {}
   },
@@ -171,10 +171,11 @@
   "meta": {
     "version": 1,
     "source": "AI生成",
-    "created_at": "2026-06-28"
+    "created_at": "2026-06-28",
+    "updated_at": "2026-08-31"
   },
   "isPro": 0,
-  "remarks": "",
+  "remarks": "主图包含：同尺度候选线与纵向残差、完整四象限带符号离差乘积、以(c,b)坐标绘制的准确等高线、精确中心化平移、Sxx=0的全体最优解，以及两种回归的残差方向对照；它们替代了相应的纯文字想象。",
   "knowledgeNode": "统计-数据分析-平均数",
   "altNodes": ""
 }

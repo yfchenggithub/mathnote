@@ -1,26 +1,22 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件1（线性相关假定）：}}] 给定成对样本数据 $(x_i, y_i)\ (i=1,2,\ldots,n)$ 满足线性相关关系，且 $\displaystyle\sum_{i=1}^n (x_i-\bar{x})^2\neq 0$。
-	\end{description}
+\textbf{代数上的唯一性条件}\quad 给定成对样本 $(x_i,y_i)$ $(i=1,\ldots,n)$。只要
+\[
+ S_{xx}=\sum_{i=1}^n(x_i-\bar x)^2>0,
+ \qquad \bar x=\frac1n\sum x_i,\quad\bar y=\frac1n\sum y_i.
+\]
+就存在唯一一条使纵向残差平方和最小的直线。
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（最小二乘公式）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			用样本数据计算回归系数的最小二乘估计。
-			\[
-				\hat{b} = \frac{\sum_{i=1}^n (x_i-\bar{x})(y_i-\bar{y})}{\sum_{i=1}^n (x_i-\bar{x})^2}
-			\]
-			\[
-				\hat{a} = \bar{y} - \hat{b}\bar{x}
-			\]
+\textbf{建模上的适用性检查}\quad 散点整体大致呈线性趋势时，用直线描述才比较合理；这不是计算公式的前提。即使散点明显弯曲，只要 $S_{xx}>0$，仍可计算唯一的最小二乘直线，只是它可能遗漏原数据中的曲线结构。
 
-		\item[\textbf{\textcolor{CStatement}{推广结论（过样本中心）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			回归直线必经过数据点的均值中心。
-			\[
-				\bar{y} = \hat{b}\bar{x} + \hat{a}
-			\]
-	\end{description}
+\input{assets/tikz/R038_model_conditions.tex}
+\textbf{最小二乘结论}\quad 在所有直线 $\hat y=a+bx$ 中，令纵向残差平方和
+\[
+ Q(a,b)=\sum_{i=1}^n\bigl(y_i-a-bx_i\bigr)^2=\sum_{i=1}^n e_i^2
+\]
+最小的直线为
+\[
+ \boxed{\hat b=\frac{\sum(x_i-\bar x)(y_i-\bar y)}{\sum(x_i-\bar x)^2}},
+ \qquad \boxed{\hat a=\bar y-\hat b\bar x},\qquad \hat y=\hat a+\hat b x.
+\]
+这里 $e_i=y_i-\hat y_i$ 是沿 $y$ 轴方向的残差。特别地，回归线恒过样本中心 $(\bar x,\bar y)$。
 \end{statementbox}

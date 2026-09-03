@@ -1,21 +1,18 @@
+\clearpage
 \begin{trapbox}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（分母为零）：}}] 当 $\sum (x_i-\bar{x})^2 = 0$ 时，斜率公式的分母为零，无法计算 $\hat{b}$，但部分学生仍强行代入公式得到无意义结果。
-		\item[\textbf{\textcolor{CTrap}{正确理解（x必须变异）：}}] 使用回归直线的前提是自变量 $x$ 的取值不完全相同，即一定有 $\sum (x_i-\bar{x})^2 > 0$；否则回归直线不存在（斜率未定义）。
-		\item[\textbf{\textcolor{CTrap}{错因分析（忽略假设）：}}] 最小二乘法推导中假设分母非零，实际应用中若 $x$ 无变异则无法拟合，应检查数据质量。
-	\end{description}
+\input{assets/tikz/R038_traps.tex}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（变量混淆）：}}] 计算 $\hat{b}$ 时错误地将分子写成 $\sum (y_i-\bar{y})^2$ 或分母写成 $\sum (y_i-\bar{y})^2$，导致斜率方向或大小错误。
-		\item[\textbf{\textcolor{CTrap}{正确理解（回归方向）：}}] 回归分析中 $y$ 因变量、$x$ 自变量，$\hat{b}$ 公式分子是 $x$ 离差与 $y$ 离差的乘积之和，分母是 $x$ 离差平方和，不可对调。
-		\item[\textbf{\textcolor{CTrap}{错因分析（概念不清）：}}] 混淆了相关系数与回归系数的定义，或是将 $x$ 与 $y$ 的地位等同。
-	\end{description}
+\textbf{误区一：把 $S_{xx}=0$ 说成“回归直线不存在”。}\quad 当所有 $x_i=x_0$ 时，
+\[
+Q(a,b)=\sum_{i=1}^n\left[y_i-(a+bx_0)\right]^2.
+\]
+令 $c=a+bx_0$，则最优预测值为 $c=\bar y$；全部最优解恰为
+\[
+a+bx_0=\bar y,\qquad a=\bar y-bx_0.
+\]
+也就是说，任意选择 $b$，再相应取 $a$，都会得到相同的最小残差平方和。正确结论是\textbf{斜率无法唯一估计}，而不是“回归直线不存在”。
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（过点误解）：}}] 误以为回归直线一定经过某个原始数据点 $(x_i,y_i)$，从而用该点求回归方程。
-		\item[\textbf{\textcolor{CTrap}{正确理解（过中心点）：}}] 回归直线唯一确定经过样本中心 $(\bar{x},\bar{y})$，但不一定经过任意观测点。
-		\item[\textbf{\textcolor{CTrap}{错因分析（直观错觉）：}}] 由于直线拟合数据，学生直觉认为它应穿过数据点，但最小二乘法只保证整体误差最小而非经过某点。
-	\end{description}
+\textbf{误区二：把最小二乘解释成最短垂距。}\quad 错误在于把优化方向换成了垂直于直线的方向。普通 $y$ 对 $x$ 回归最小化的是纵向残差 $\sum(y_i-\hat y_i)^2$；若做 $x$ 对 $y$ 回归，才对应横向残差，得到的直线通常不同。
+
+\textbf{误区三：以为回归线必须穿过某个原始点。}\quad 图中的例1表明，回归线可不穿过任何数据点；它保证经过的是样本中心，保证的是整体平方误差最小，而非逐点误差为零。
 \end{trapbox}

@@ -1,19 +1,21 @@
+\clearpage
 \begin{summarybox}
-	\textbf{\textcolor{CSummary}{一句话核心}}
+\textbf{一句话核心}\quad 在 $x$ 有变化且散点趋势大致线性时，选取使纵向残差平方和最小的直线。
 
-	最小二乘估计公式为 $\hat{b}=\frac{\sum (x_i-\bar{x})(y_i-\bar{y})}{\sum (x_i-\bar{x})^2}$，$\hat{a}=\bar{y}-\hat{b}\bar{x}$，所得回归直线必过样本中心 $(\bar{x},\bar{y})$。
+\textbf{速查公式}
+\[
+ \hat b=\frac{S_{xy}}{S_{xx}},\quad S_{xy}=\sum(x_i-\bar x)(y_i-\bar y),\quad
+ S_{xx}=\sum(x_i-\bar x)^2,\quad \hat a=\bar y-\hat b\bar x.
+\]
 
-	\medskip
-	\textbf{\textcolor{CSummary}{使用条件}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{条件1（线性相关）：} 变量 $x$ 与 $y$ 存在线性相关关系（至少大致呈直线趋势）。
-		\item \textbf{条件2（x有变异）：} 自变量 $x$ 的取值不完全相同，即 $\sum(x_i-\bar{x})^2 > 0$，保证分母非零。
-	\end{itemize}
+\textbf{判断流程}\quad 先看 $S_{xx}>0$；再求 $\bar x,\bar y,S_{xy},S_{xx}$；最后求 $\hat b,\hat a$ 并代入 $(\bar x,\bar y)$ 回验。
 
-	\medskip
-	\textbf{\textcolor{CSummary}{关键提醒}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{易错点（分母非零）：} 使用公式前必须确认 $x$ 有变异，否则回归无意义。
-		\item \textbf{检查项（计算顺序）：} 按“均值→离差积和→$\hat{b}$→$\hat{a}$”顺序计算，避免代错。
-	\end{itemize}
+\textbf{最后检查}
+\begin{itemize}[leftmargin=*,itemsep=0.35em,topsep=0.25em]
+\item 残差是否写成 $y_i-\hat y_i$，而非点到直线的最短距离？
+\item 分母是否是 $x$ 的离差平方和，并且严格大于 $0$？
+\item 分子 $S_{xy}$ 的符号是否与散点总体升降趋势一致？
+\item 回归线是否经过样本中心，而没有误称“必须过原始数据点”？
+\item 预测 $x$ 是否在样本范围内；若在范围外，应说明属于外推？
+\end{itemize}
 \end{summarybox}

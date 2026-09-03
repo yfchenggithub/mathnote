@@ -1,0 +1,179 @@
+% R038：三条候选线采用同一坐标范围、同一单位长度；
+% 数据为 (1,2),(2,3),(3,5),(4,6)
+
+\begin{center}
+	\begin{tikzpicture}[
+			x=1cm,
+			y=1cm,
+			>=Stealth,
+			every node/.style={font=\small},
+			axis/.style={->,black!70,thick},
+			data/.style={
+					circle,
+					fill=blue!80!black,
+					inner sep=2.3pt
+				},
+			res/.style={red!78!black,thick}
+		]
+
+		\path[use as bounding box] (0,0) rectangle (12.4,7.65);
+
+		\node[
+			font=\large\bfseries,
+			text=CExplanation
+		] at (6.2,7.38)
+		{同一坐标尺度下比较：残差平方和最小的候选线最优};
+
+		% 三幅图统一使用相同的横纵坐标缩放
+		\def\xstep{0.66}
+		\def\ystep{0.50}
+		\def\axisY{1.82}
+
+		\foreach \o/\b/\a/\q/\eq/\title in {
+		0/1.0/1.5/1.00/{$\hat y=x+1.5$}/{候选},
+		4.2/1.4/0.5/0.20/{$\hat y=1.4x+0.5$}/{最优},
+		8.4/1.8/-0.5/1.00/{$\hat y=1.8x-0.5$}/{候选}
+		}{
+
+		% 卡片背景
+		\draw[
+			rounded corners=5pt,
+			fill=blue!2,
+			draw=CExplanation,
+			line width=.8pt
+		]
+		(\o+.08,.48) rectangle (\o+3.92,6.88);
+
+		% 突出中间的最优候选线
+		\ifdim\o pt=4.2pt
+			\draw[
+				orange!85!black,
+				line width=1.5pt,
+				rounded corners=5pt
+			]
+			(\o+.08,.48) rectangle (\o+3.92,6.88);
+		\fi
+
+		% 卡片标题
+		\node[
+			font=\bfseries,
+			text=CExplanation
+		] at (\o+2,6.57)
+		{\title：$b=\b$};
+
+		% 回归直线方程
+		\node[
+			font=\normalsize,
+			text=CExplanation
+		] at (\o+2,6.08)
+		{\eq};
+
+		% x 轴
+		\draw[axis]
+		(\o+.62,\axisY)
+		--
+		(\o+3.48,\axisY)
+		node[above right=-1pt] {$x$};
+
+		% y 轴
+		\draw[axis]
+		(\o+.62,\axisY)
+		--
+		(\o+.62,5.55)
+		node[above] {$y$};
+
+		% x 轴刻度
+		\foreach \xx in {1,2,3,4}{
+				\pgfmathsetmacro{\px}{\o+.62+\xstep*\xx}
+
+				\draw
+				(\px,\axisY-.08)
+				--
+				(\px,\axisY+.08);
+
+				\node[below=3pt] at (\px,\axisY)
+				{$\xx$};
+			}
+
+		% y 轴刻度
+		\foreach \yy in {1,2,3,4,5,6,7}{
+				\pgfmathsetmacro{\py}{\axisY+\ystep*\yy}
+
+				\draw
+				(\o+.54,\py)
+				--
+				(\o+.70,\py);
+
+				\node[left=2pt] at (\o+.62,\py)
+				{$\yy$};
+			}
+
+		% 四个原始数据点
+		\foreach \xx/\yy in {1/2,2/3,3/5,4/6}{
+				\pgfmathsetmacro{\px}{\o+.62+\xstep*\xx}
+				\pgfmathsetmacro{\py}{\axisY+\ystep*\yy}
+
+				\node[data] at (\px,\py) {};
+			}
+
+		% 候选回归线的两个端点
+		\pgfmathsetmacro{\xone}{\o+.62+\xstep}
+		\pgfmathsetmacro{\yone}{\axisY+\ystep*(\a+\b)}
+
+		\pgfmathsetmacro{\xfour}{\o+.62+4*\xstep}
+		\pgfmathsetmacro{\yfour}{\axisY+\ystep*(\a+4*\b)}
+
+		% 绘制候选回归线
+		\draw[
+			CStatement,
+			very thick
+		]
+		(\xone,\yone)
+		--
+		(\xfour,\yfour);
+
+		% 绘制纵向残差
+		\foreach \xx/\yy in {1/2,2/3,3/5,4/6}{
+				\pgfmathsetmacro{\px}{\o+.62+\xstep*\xx}
+				\pgfmathsetmacro{\py}{\axisY+\ystep*\yy}
+				\pgfmathsetmacro{\ly}{\axisY+\ystep*(\a+\b*\xx)}
+
+				\draw[res]
+				(\px,\py)
+				--
+				(\px,\ly);
+			}
+
+		% 样本中心点
+		\pgfmathsetmacro{\cx}{\o+.62+2.5*\xstep}
+		\pgfmathsetmacro{\cy}{\axisY+4*\ystep}
+
+		\fill[orange!90!black]
+		(\cx,\cy) circle (3.1pt);
+
+		\node[
+			anchor=south,
+			xshift=-10pt,
+			text=orange!85!black
+		] at (\cx,\cy)
+		{$(2.5,4)$};
+
+		% 残差平方和：单独留出底部空间
+		\node[
+			font=\bfseries\small,
+			text=red!78!black
+		] at (\o+2,.91)
+		{$Q=\sum e_i^2=\q$};
+		}
+
+		% 图下注释
+		\node[
+			text=red!78!black,
+			anchor=west,
+			font=\small
+		] at (.22,.14)
+		{每条红线段均为纵向残差；中图残差为
+			$0.1,-0.3,0.3,-0.1$，平方和为 $0.20$。};
+
+	\end{tikzpicture}
+\end{center}

@@ -1,0 +1,13 @@
+% R038: 例1精确图：y=1.4x+0.5，残差为 0.1,-0.3,0.3,-0.1
+\begin{center}\begin{tikzpicture}[x=.90cm,y=.95cm,>=Stealth,every node/.style={font=\small}]
+		\path[use as bounding box] (0,0) rectangle (12.4,6.4);
+		\node[font=\large\bfseries,text=CExample] at (6.2,6.03) {例1：回归线过样本中心，但不必穿过任何原始数据点};
+		\draw[rounded corners=5pt,fill=green!2,draw=CExample] (.25,.35) rectangle (12.15,5.55);
+		\draw[->,black!70] (1,1)--(11.5,1) node[right] {$x$};\draw[->,black!70] (1,1)--(1,4.9) node[above] {$y$};
+		\foreach \x/\lab in {2/1,3.25/2,4.5/3,5.75/4}{\draw (\x,.92)--(\x,1.08);\node[below] at (\x,1) {$\lab$};}
+		\foreach \y/\lab in {1.78/2,2.56/3,3.34/4,4.12/5,4.9/6}{\draw (.92,\y)--(1.08,\y);\node[left] at (1,\y) {$\lab$};}
+		\draw[CStatement,very thick] (1.7,1.39)--(6.0,5.14) node[right, xshift=1.2cm] {$\hat y=1.4x+0.5$};
+		\foreach \x/\y/\ly/\e in {2/1.78/1.70/0.1,3.25/2.56/2.80/-0.3,4.5/4.12/3.90/0.3,5.75/4.90/4.99/-0.1}{\fill[blue!80!black] (\x,\y) circle (3pt);\draw[red!78!black,thick] (\x,\y)--(\x,\ly);\node[anchor=west,text=red!78!black] at (\x+.1,{(\y+\ly)/2}) {$\e$};}
+		\fill[orange!90!black] (3.875,3.34) circle (4.2pt);\node[above right,xshift=-1.2cm, text=orange!85!black] at (3.875,3.34) {$(2.5,4)$};
+		\node[align=center,text=CExample,font=\bfseries] at (8.8,2.1) {四个纵向残差\\$0.1,-0.3,0.3,-0.1$\\$Q=0.20$};
+	\end{tikzpicture}\end{center}

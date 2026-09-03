@@ -1,0 +1,33 @@
+% R038：分母为零的多解结构，以及同一数据集两种回归的残差方向。
+\begin{center}\begin{tikzpicture}[x=1cm,y=1.05cm,>=Stealth,every node/.style={font=\small}]
+		\path[use as bounding box] (0,0) rectangle (12.4,7.25);
+		\node[font=\large\bfseries,text=CTrap] at (6.2,6.90) {易错对照：$x$ 要展开；回归方向改变时优化方向也改变};
+		\foreach \o/\title in {0/{有横向展开：$S_{xx}>0$},4.15/{$x=x_0$：斜率不唯一},8.3/{同一数据的两种回归}} {\draw[rounded corners=5pt,fill=red!2,draw=CTrap] (\o+.10,.40) rectangle (\o+3.95,6.40);\node[font=\bfseries,text=CTrap,align=center] at (\o+2.02,6.03) {\title};}
+		\draw[->,black!65] (.65,1.22)--(3.50,1.22);\draw[->,black!65] (.65,1.22)--(.65,4.85);\foreach \x/\y in {1.10/1.62,1.60/2.68,2.40/2.28,3.10/3.86}{\fill[blue!80!black] (\x,\y) circle (2.5pt);}
+		\node[font=\scriptsize,align=center] at (2.02,.78) {$S_{xx}>0$，可唯一确定 $\hat b$};
+		\draw[->,black!65] (4.70,1.22)--(7.65,1.22);\draw[->,black!65] (4.70,1.22)--(4.70,4.85);\draw[red!75!black,densely dashed] (6.10,1.35)--(6.10,4.72);\foreach \y in {1.72,2.42,3.25,4.16}{\fill[blue!80!black] (6.10,\y) circle (2.5pt);}
+		\fill[orange!90!black] (6.10,2.90) circle (3.5pt);\node[anchor=south west,xshift=10pt,yshift=5pt,text=orange!85!black] at (6.10,2.90) {$(x_0,\bar y)$};
+		\draw[gray!65,thick] (5.10,1.48)--(7.10,4.25);\draw[CStatement,very thick] (5.00,2.90)--(7.20,2.90);\draw[gray!65,thick] (5.10,4.32)--(7.10,1.55);
+		\node[font=\scriptsize,align=center] at (6.10,.78) {任意 $b$，取 $a=\bar y-bx_0$\\都经过 $(x_0,\bar y)$};
+		\draw[->,black!65] (8.85,1.22)--(11.75,1.22);\draw[->,black!65] (8.85,1.22)--(8.85,4.85);
+		% 数据 (1,1),(2,2),(3,2),(4,4)；中心 (2.5,2.25)，y对x: y=0.9x；x对y: x=0.947y+0.368。
+		\foreach \x/\y in {9.30/1.55,9.92/2.38,10.55/2.38,11.17/4.05}{\fill[blue!80!black] (\x,\y) circle (2.5pt);}
+		\draw[CStatement,very thick] (9.20,1.42)--(11.32,3.90);\draw[orange!85!black,very thick,dashed] (9.26,1.22)--(11.18,4.36);
+		\draw[blue!75!black,thick] (9.92,2.38)--(9.92,2.26);\draw[blue!75!black,thick] (10.55,2.38)--(10.55,2.99);
+		\draw[orange!85!black,thick] (9.30,1.55)--(9.43,1.55);\draw[orange!85!black,thick] (10.55,2.38)--(10.15,2.38);
+		\fill[orange!90!black] (10.24,2.59) circle (3.5pt);\node[above left,text=orange!85!black] at (10.24,2.59) {中心};
+		\node[
+			font=\scriptsize,
+			text=CStatement,
+			anchor=west
+		] at (8.50,5.40)
+		{$y\text{ 对 }x:\ \hat y=0.9x$};
+
+		\node[
+			font=\scriptsize,
+			text=orange!85!black,
+			anchor=west
+		] at (8.50,5.03)
+		{$x\text{ 对 }y:\ \hat x=0.947y+0.368$};
+		\node[font=\scriptsize,align=center] at (10.25,.78) {蓝：纵向残差；橙：横向残差\\优化方向不同};
+	\end{tikzpicture}\end{center}

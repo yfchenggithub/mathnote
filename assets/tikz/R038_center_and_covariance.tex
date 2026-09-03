@@ -1,0 +1,165 @@
+% R038：样本中心与完整四象限的离差乘积符号图。
+\begin{center}
+	\begin{tikzpicture}[
+			x=1cm,
+			y=1.15cm,
+			>=Stealth,
+			every node/.style={font=\small}
+		]
+
+		\path[use as bounding box] (0,0) rectangle (12.4,7.0);
+
+		\node[font=\large\bfseries,text=CExplanation]
+		at (6.2,6.66)
+		{样本中心固定位置；离差乘积和决定斜率方向};
+
+		%==================== 左侧：候选直线 ====================
+
+		\draw[rounded corners=5pt,fill=blue!2,draw=CExplanation]
+		(.15,.28) rectangle (6.02,6.12);
+
+		\node[
+			font=\bfseries\scriptsize,
+			text=CExplanation,
+			text width=4.8cm,
+			align=center,
+			inner sep=0pt
+		] at (3.08,5.67)
+		{确定斜率后，截距由样本中心确定};
+
+		% 坐标图整体上移，给底部说明留出独立空间
+		\draw[->,black!65]
+		(.70,1.35)--(5.45,1.35) node[right] {$x$};
+
+		\draw[->,black!65]
+		(.70,1.35)--(.70,5.25) node[above] {$y$};
+
+		% 三条直线都经过样本中心
+		\draw[gray!70,thick]
+		(.95,3.776)--(4.75,2.216);
+
+		\draw[gray!70,thick]
+		(.87,2.488)--(4.83,3.568);
+
+		\draw[CStatement,very thick]
+		(1.10,1.780)--(4.70,4.390);
+
+		% 样本点
+		\foreach \x/\y in {
+				1.12/1.82,
+				1.70/2.22,
+				2.48/2.96,
+				3.12/2.82,
+				3.80/3.92,
+				4.60/4.35
+			}{
+				\fill[blue!80!black] (\x,\y) circle (2.5pt);
+			}
+
+		\coordinate (c) at (2.8033,3.0150);
+
+		\fill[orange!90!black] (c) circle (4pt);
+
+		\node[
+			font=\scriptsize,
+			text=orange!85!black,
+			anchor=south,
+			fill=blue!2,
+			inner sep=1pt
+		] at (2.8033,3.19)
+		{$(\bar x,\bar y)$};
+
+		\draw[->,orange!85!black,thick]
+		(4.32,1.88) arc (-42:35:1.45);
+
+		\node[
+			font=\scriptsize,
+			text=CExplanation,
+			text width=4.9cm,
+			align=center,
+			inner sep=0pt
+		] at (3.08,.84)
+		{$\hat a=\bar y-\hat b\bar x$\\[-1pt]
+			候选线均绕样本中心转动};
+
+		%==================== 右侧：四象限符号 ====================
+
+		\draw[rounded corners=5pt,fill=green!2,draw=green!55!black]
+		(6.40,.28) rectangle (12.25,6.12);
+
+		\node[
+			font=\bfseries\scriptsize,
+			text=green!45!black,
+			text width=5.2cm,
+			align=center,
+			inner sep=0pt
+		] at (9.32,5.73)
+		{四象限：每个矩形对应一个离差点};
+
+		% 四象限整体上移
+		\coordinate (O) at (9.35,3.68);
+
+		\draw[densely dashed,gray]
+		(6.82,3.68)--(11.82,3.68);
+
+		\draw[densely dashed,gray]
+		(9.35,1.78)--(9.35,5.35);
+
+		\fill[orange!90!black] (O) circle (3.5pt);
+
+		\node[font=\scriptsize,above right,inner sep=1.5pt]
+		at (O) {中心};
+
+		% 四个带符号矩形
+		\fill[green!35] (O) rectangle (10.75,4.95);
+		\draw[black!60] (O) rectangle (10.75,4.95);
+
+		\fill[red!25] (O) rectangle (7.92,4.68);
+		\draw[black!60] (O) rectangle (7.92,4.68);
+
+		\fill[green!35] (O) rectangle (8.08,2.22);
+		\draw[black!60] (O) rectangle (8.08,2.22);
+
+		\fill[red!25] (O) rectangle (10.82,2.15);
+		\draw[black!60] (O) rectangle (10.82,2.15);
+
+		% 四个离差点
+		\fill[blue!80!black] (10.75,4.95) circle (2.7pt);
+		\fill[blue!80!black] (7.92,4.68) circle (2.7pt);
+		\fill[blue!80!black] (8.08,2.22) circle (2.7pt);
+		\fill[blue!80!black] (10.82,2.15) circle (2.7pt);
+
+		% 点名全部放进矩形内部
+		\node[font=\scriptsize,below left=3pt]
+		at (10.75,4.95) {$P_1$};
+
+		\node[font=\scriptsize,below right=3pt]
+		at (7.92,4.68) {$P_2$};
+
+		\node[font=\scriptsize,above right=3pt]
+		at (8.08,2.22) {$P_3$};
+
+		\node[font=\scriptsize,above left=3pt]
+		at (10.82,2.15) {$P_4$};
+
+		% 象限符号
+		\node[font=\bfseries] at (10.05,4.315) {$+$};
+		\node[font=\bfseries] at (8.635,4.18) {$-$};
+		\node[font=\bfseries] at (8.715,2.95) {$+$};
+		\node[font=\bfseries] at (10.085,2.915) {$-$};
+
+		% 底部说明与四象限完全分离
+		\node[
+			font=\scriptsize,
+			align=center,
+			text=green!45!black,
+			text width=5.3cm,
+			inner sep=0pt
+		] at (9.32,.99)
+		{带符号面积：$S_i=(x_i-\bar x)(y_i-\bar y)$\\[-1pt]
+			几何面积：$|S_i|=|x_i-\bar x|\,|y_i-\bar y|$\\[-1pt]
+			正负由象限决定\\[-1pt]
+			“正面积占优”：$\sum_i S_i>0$（代数和为正）};
+
+	\end{tikzpicture}
+\end{center}
