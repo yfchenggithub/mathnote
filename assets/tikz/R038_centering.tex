@@ -1,23 +1,29 @@
-% R038：以数据 (1,1),(2,2),(3,2.5),(4,3),(5,4) 为精确示意；中心为 (3,2.5)。
-\begin{center}\begin{tikzpicture}[x=1cm,y=1.15cm,>=Stealth,every node/.style={font=\small}]
+% R038：复用例1数据 (1,2),(2,3),(3,5),(4,6)，中心为 (2.5,4)。
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,>=Stealth,every node/.style={font=\small}]
 \path[use as bounding box] (0,0) rectangle (12.4,6.35);
-\node[font=\large\bfseries,text=CProof] at (6.2,6.00) {中心化：样本中心移到新原点，散点相对位置保持不变};
-\draw[rounded corners=5pt,fill=purple!2,draw=CProof] (.18,1.18) rectangle (5.82,5.42);
-\node[font=\bfseries,text=CProof] at (3.00,5.05) {原坐标};
-\draw[->,black!65] (.82,1.68)--(5.32,1.68) node[right] {$x$};\draw[->,black!65] (.82,1.68)--(.82,4.55) node[above] {$y$};
-\foreach \x/\y in {1.50/2.03,2.40/2.58,3.30/2.86,4.20/3.14,5.10/3.69}{\fill[blue!80!black] (\x,\y) circle (2.7pt);}
-\fill[orange!90!black] (3.30,2.86) circle (4.1pt);\node[
-    anchor=south,
-    text=orange!85!black,
-    inner sep=1pt
-] at (2.40,3.02)
-{$(\bar x,\bar y)=(3,2.5)$};
-\draw[->,CProof,very thick] (6.03,3.28)--(6.43,3.28) node[midway,above=3pt,font=\scriptsize] {平移};
-\draw[rounded corners=5pt,fill=purple!2,draw=CProof] (6.58,1.18) rectangle (12.22,5.42);
-\node[font=\bfseries,text=CProof] at (9.40,5.05) {中心化后：新坐标轴经过 $O$};
-\coordinate (O) at (9.40,2.86);\draw[->,black!65] (7.18,2.86)--(11.85,2.86) node[right] {$x'$};\draw[->,black!65] (9.40,1.43)--(9.40,4.55) node[above] {$y'$};
-% 点坐标依次为 (-2,-1.5),(-1,-0.5),(0,0),(1,0.5),(2,1.5)，故两坐标和都为零。
-\foreach \x/\y in {7.60/2.00,8.50/2.57,9.40/2.86,10.30/3.15,11.20/3.72}{\fill[blue!80!black] (\x,\y) circle (2.7pt);}
-\draw[orange!90!black,line width=1pt] (9.40,2.86) circle (4.1pt);\node[below right,text=orange!85!black] at (9.40,2.86) {$O=(0,0)$};
-\node[align=center,text=CProof] at (6.2,.64) {$x_i'=x_i-\bar x,\qquad y_i'=y_i-\bar y$\\中心化后 $\sum x_i'=0,\ \sum y_i'=0$；橙色样本中心准确移到 $O$。};
-\end{tikzpicture}\end{center}
+\node[font=\large\bfseries,text=CProof] at (6.2,6.02) {中心化：样本中心移到新原点，样本之间的相对位置不变};
+
+\draw[rounded corners=5pt,fill=purple!2,draw=CProof] (.18,1.25) rectangle (5.82,5.42);
+\node[font=\bfseries,text=CProof] at (3.00,5.04) {原坐标：例1的四个样本点};
+\draw[->,black!65] (.82,1.70)--(5.32,1.70) node[right] {$x$};
+\draw[->,black!65] (.82,1.70)--(.82,4.95) node[above] {$y$};
+\foreach \x/\y in {1.40/2.70,2.40/3.20,3.40/4.20,4.40/4.70}{\fill[blue!80!black] (\x,\y) circle (2.8pt);}
+\fill[orange!90!black] (2.90,3.70) circle (4.0pt);
+\node[anchor=south,text=orange!85!black,fill=purple!2,inner sep=1pt] at (2.90,3.76) {$(\bar x,\bar y)=(2.5,4)$};
+
+\draw[->,CProof,very thick] (6.03,3.63)--(6.43,3.63) node[midway,above=3pt,font=\scriptsize] {平移};
+\node[align=center,text=CProof,font=\scriptsize] at (6.23,2.98) {$(x_i,y_i)\mapsto$\\$(x_i-\bar x,y_i-\bar y)$};
+
+\draw[rounded corners=5pt,fill=purple!2,draw=CProof] (6.58,1.25) rectangle (12.22,5.42);
+\node[font=\bfseries,text=CProof] at (9.40,5.04) {中心化后：新坐标轴经过 $O$};
+\coordinate (O) at (9.40,3.70);
+\draw[->,black!65] (7.18,3.70)--(11.85,3.70) node[right] {$x'$};
+\draw[->,black!65] (9.40,1.72)--(9.40,4.95) node[above] {$y'$};
+\foreach \x/\y in {7.90/2.70,8.90/3.20,9.90/4.20,10.90/4.70}{\fill[blue!80!black] (\x,\y) circle (2.8pt);}
+\draw[orange!90!black,line width=1.1pt] (O) circle (4.0pt);
+\node[below left,text=orange!85!black] at (O) {$O=(0,0)$};
+
+\node[align=center,text=CProof] at (6.2,.66) {中心化后 $\sum x_i'=0,\ \sum y_i'=0$；橙色的样本中心准确移到 $O$，\textbf{它不是原始样本点。}};
+\end{tikzpicture}
+\end{center}

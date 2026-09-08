@@ -7,7 +7,7 @@
 		\foreach \x/\lab in {2/1,3.25/2,4.5/3,5.75/4}{\draw (\x,.92)--(\x,1.08);\node[below] at (\x,1) {$\lab$};}
 		\foreach \y/\lab in {1.78/2,2.56/3,3.34/4,4.12/5,4.9/6}{\draw (.92,\y)--(1.08,\y);\node[left] at (1,\y) {$\lab$};}
 		\draw[CStatement,very thick] (1.7,1.39)--(6.0,5.14) node[right, xshift=1.2cm] {$\hat y=1.4x+0.5$};
-		\foreach \x/\y/\ly/\e in {2/1.78/1.70/0.1,3.25/2.56/2.80/-0.3,4.5/4.12/3.90/0.3,5.75/4.90/4.99/-0.1}{\fill[blue!80!black] (\x,\y) circle (3pt);\draw[red!78!black,thick] (\x,\y)--(\x,\ly);\node[anchor=west,text=red!78!black] at (\x+.1,{(\y+\ly)/2}) {$\e$};}
+\foreach \x/\y/\ly/\e in {2/1.78/1.70/0.1,3.25/2.56/2.80/-0.3,4.5/4.12/3.90/0.3,5.75/4.90/4.99/-0.1}{\fill[blue!80!black] (\x,\y) circle (3pt);\draw[red!78!black,thick] (\x,\y)--(\x,\ly);\fill[red!78!black] (\x,\ly) circle (1.7pt);\node[anchor=west,text=red!78!black,font=\scriptsize] at (\x+.10,{(\y+\ly)/2}) {$e_i=\e$};}
 		\fill[orange!90!black] (3.875,3.34) circle (4.2pt);\node[above right,xshift=-1.2cm, text=orange!85!black] at (3.875,3.34) {$(2.5,4)$};
-		\node[align=center,text=CExample,font=\bfseries] at (8.8,2.1) {四个纵向残差\\$0.1,-0.3,0.3,-0.1$\\$Q=0.20$};
+\node[align=center,text=CExample,font=\bfseries] at (8.8,2.1) {点在线上方：$e_i>0$\\点在线下方：$e_i<0$\\$Q=0.20$};
 	\end{tikzpicture}\end{center}

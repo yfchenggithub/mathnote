@@ -1,13 +1,38 @@
 \clearpage
 \begin{proofbox}
-\textbf{目标函数与全局最小}\quad $Q(a,b)$ 是关于 $(a,b)$ 的凸二次函数；当 $S_{xx}>0$ 时严格凸，所以驻点唯一且就是全局最小点。为准确显示等高线，右图使用 $c=a+\bar x b$ 与 $b$ 为坐标；此时
+\textbf{配方法证明（正文）}\quad 令
+\[
+d=\bar y-a-b\bar x.
+\]
+则
+\[
+y_i-a-bx_i=\bigl[(y_i-\bar y)-b(x_i-\bar x)\bigr]+d.
+\]
+因为 $\sum(x_i-\bar x)=0$、$\sum(y_i-\bar y)=0$，平方展开后的交叉项相消：
+\[
+Q(a,b)=\sum\bigl[(y_i-\bar y)-b(x_i-\bar x)\bigr]^2+nd^2.
+\]
+固定 $b$ 时，第一项不随 $a$ 改变，而 $nd^2\ge0$；故最优时 $d=0$，即 $a=\bar y-b\bar x$。这也解释了回归线必过样本中心：总误差有一笔来自“直线在中心处太高或太低”，先把这笔降到 $0$。
+
+代入后，记 $S_{yy}=\sum(y_i-\bar y)^2$，得到
+\[
+Q(b)=S_{yy}-2bS_{xy}+b^2S_{xx}
+=S_{xx}\left(b-\frac{S_{xy}}{S_{xx}}\right)^2
++S_{yy}-\frac{S_{xy}^2}{S_{xx}}.
+\]
+当 $S_{xx}>0$ 时，平方项仅在 $b=S_{xy}/S_{xx}$ 时为 $0$，所以唯一取得最小值。故
+\[
+\hat b=\frac{S_{xy}}{S_{xx}},\qquad \hat a=\bar y-\hat b\bar x.
+\]
+
+\textbf{拓展阅读：偏导数版本}\quad 下图把同一结论用二元函数的观点表示。右图的横轴只标 $c$，其中 $c=a+\bar x b$；在 $(c,b)$ 坐标中，误差碗的等高线满足
 \[
 Q-Q_{\min}=n(c-\bar y)^2+S_{xx}(b-\hat b)^2.
 \]
 
 \input{assets/tikz/R038_derivatives_and_bowl.tex}
 
-\textbf{求偏导}\quad 令 $e_i=y_i-a-bx_i$。几何上，固定 $b$ 改变 $a$ 是上下平移；固定 $a$ 改变 $b$ 是绕截距点倾斜。由 $\partial Q/\partial a=0$ 与 $\partial Q/\partial b=0$，分别得
+令 $e_i=y_i-a-bx_i$。由 $\partial Q/\partial a=0$ 与 $\partial Q/\partial b=0$，分别得
 \[
  \sum_{i=1}^n e_i=0,\qquad \sum_{i=1}^n x_i e_i=0.
 \]
