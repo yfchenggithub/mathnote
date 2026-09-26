@@ -7,10 +7,17 @@ from pathlib import Path
 from typing import Sequence
 
 if __package__:
+    from .content_package import (
+        PackageBuildResult,
+        PackageDiff,
+        build_package,
+        diff_packages,
+    )
     from .runtime_mapping import RuntimeMappingResult, map_runtime
     from .source_discovery import ScanResult, scan_repository
     from .source_initialization import InitializationResult, initialize_sources
 else:
+    from content_package import PackageBuildResult, PackageDiff, build_package, diff_packages
     from runtime_mapping import RuntimeMappingResult, map_runtime
     from source_discovery import ScanResult, scan_repository
     from source_initialization import InitializationResult, initialize_sources
@@ -28,6 +35,13 @@ def build_parser() -> argparse.ArgumentParser:
         help="ensure images/ and pdfs/ exist for discovered sources",
     )
     subparsers.add_parser("map-runtime", help="map discovered sources to runtime DTOs")
+    build_package_parser = subparsers.add_parser(
+        "build-package", help="build a complete deterministic content package"
+    )
+    build_package_parser.add_argument("--output", type=Path, required=True)
+    diff_parser = subparsers.add_parser("diff", help="compare two content packages")
+    diff_parser.add_argument("previous", type=Path)
+    diff_parser.add_argument("current", type=Path)
     return parser
 
 
@@ -124,6 +138,42 @@ def format_runtime_mapping_result(result: RuntimeMappingResult) -> str:
     return "\n".join(lines)
 
 
+def format_package_build_result(result: PackageBuildResult) -> str:
+    lines = [
+        "Zhishu Content Package",
+        "",
+        f"Output: {result.output_dir}",
+        f"contentVersion: {result.content_version}",
+        f"packageHash: {result.package_hash}",
+        f"Package Size: {result.package_size}",
+    ]
+    for key, value in result.counts.items():
+        lines.append(f"{key}: {value}")
+    lines.extend((f"Errors: {len(result.errors)}", f"Warnings: {len(result.warnings)}"))
+    if result.errors:
+        lines.extend(("", "ERROR"))
+        lines.extend(f"{issue.path.as_posix()}: {issue.message}" for issue in result.errors)
+    return "\n".join(lines)
+
+
+def format_package_diff(result: PackageDiff) -> str:
+    lines = ["Zhishu Content Package Diff"]
+    for entity_type in ("KnowledgeNode", "KnowledgeRelation", "KnowledgeAsset", "SearchDocument"):
+        lines.extend(("", entity_type))
+        for operation in ("ADD", "UPDATE", "DELETE"):
+            matching = [
+                entry for entry in result.entries
+                if entry.entity_type == entity_type and entry.operation == operation
+            ]
+            lines.append(f"  {operation}: {len(matching)}")
+            lines.extend(f"    {entry.entity_id}" for entry in matching)
+    lines.extend(("", f"Changes: {len(result.entries)}", f"Errors: {len(result.errors)}"))
+    if result.errors:
+        lines.extend(("", "ERROR"))
+        lines.extend(f"{issue.path.as_posix()}: {issue.message}" for issue in result.errors)
+    return "\n".join(lines)
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     if args.command == "scan":
@@ -140,6 +190,16 @@ def main(argv: Sequence[str] | None = None) -> int:
         mapping_result = map_runtime(scan_result)
         print(format_runtime_mapping_result(mapping_result))
         return 1 if mapping_result.errors else 0
+    if args.command == "build-package":
+        scan_result = scan_repository(PROJECT_ROOT)
+        mapping_result = map_runtime(scan_result)
+        package_result = build_package(scan_result, mapping_result, args.output)
+        print(format_package_build_result(package_result))
+        return 1 if package_result.errors else 0
+    if args.command == "diff":
+        diff_result = diff_packages(args.previous.resolve(), args.current.resolve())
+        print(format_package_diff(diff_result))
+        return 1 if diff_result.errors else 0
     raise AssertionError(f"unhandled command: {args.command}")
 
 

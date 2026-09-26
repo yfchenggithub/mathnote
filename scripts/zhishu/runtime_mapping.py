@@ -330,16 +330,8 @@ def _build_relations(
                     relation_id, source_id, resolved_target_id, relation_type
                 )
 
-    ordered = sorted(relations.values(), key=lambda item: (item.sourceId, item.type, item.targetId))
     return tuple(
-        KnowledgeRelation(
-            relation.id,
-            relation.sourceId,
-            relation.targetId,
-            relation.type,
-            (index + 1) * 10,
-        )
-        for index, relation in enumerate(ordered)
+        sorted(relations.values(), key=lambda item: (item.sourceId, item.type, item.targetId))
     )
 
 
