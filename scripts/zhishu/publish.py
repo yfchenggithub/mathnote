@@ -7,9 +7,11 @@ from pathlib import Path
 from typing import Sequence
 
 if __package__:
+    from .runtime_mapping import RuntimeMappingResult, map_runtime
     from .source_discovery import ScanResult, scan_repository
     from .source_initialization import InitializationResult, initialize_sources
 else:
+    from runtime_mapping import RuntimeMappingResult, map_runtime
     from source_discovery import ScanResult, scan_repository
     from source_initialization import InitializationResult, initialize_sources
 
@@ -25,6 +27,7 @@ def build_parser() -> argparse.ArgumentParser:
         "init-source",
         help="ensure images/ and pdfs/ exist for discovered sources",
     )
+    subparsers.add_parser("map-runtime", help="map discovered sources to runtime DTOs")
     return parser
 
 
@@ -82,6 +85,45 @@ def format_initialization_result(result: InitializationResult) -> str:
     return "\n".join(lines)
 
 
+def format_runtime_mapping_result(result: RuntimeMappingResult) -> str:
+    lines = [
+        "Zhishu Runtime Mapping",
+        "",
+        f"Source Conclusions: {result.source_conclusion_count}",
+        f"Structural KnowledgeNodes: {result.structural_node_count}",
+        f"Conclusion KnowledgeNodes: {result.conclusion_node_count}",
+        f"Total KnowledgeNodes: {len(result.knowledge_nodes)}",
+        "",
+        "Relations:",
+        "  prerequisite: excluded from this phase",
+        f"  related: {result.relation_count('related')}",
+        f"  next: {result.relation_count('next')}",
+        "Similar Relations: excluded from this phase",
+        "Alternate Classifications: excluded from this phase",
+        "",
+        f"Image Assets: {result.asset_count('image')}",
+        f"PDF Assets: {result.asset_count('pdf')}",
+        f"SearchDocuments: {len(result.search_documents)}",
+        f"Errors: {len(result.errors)}",
+        f"Warnings: {len(result.warnings)}",
+    ]
+    if result.errors:
+        lines.extend(("", "ERROR"))
+        lines.extend(
+            f"{issue.path.as_posix()}: {issue.message}" for issue in result.errors[:20]
+        )
+        if len(result.errors) > 20:
+            lines.append(f"... {len(result.errors) - 20} more errors")
+    if result.warnings:
+        lines.extend(("", "WARNING"))
+        lines.extend(
+            f"{issue.path.as_posix()}: {issue.message}" for issue in result.warnings[:20]
+        )
+        if len(result.warnings) > 20:
+            lines.append(f"... {len(result.warnings) - 20} more warnings")
+    return "\n".join(lines)
+
+
 def main(argv: Sequence[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
     if args.command == "scan":
@@ -93,6 +135,11 @@ def main(argv: Sequence[str] | None = None) -> int:
         initialization_result = initialize_sources(scan_result)
         print(format_initialization_result(initialization_result))
         return 1 if initialization_result.errors else 0
+    if args.command == "map-runtime":
+        scan_result = scan_repository(PROJECT_ROOT)
+        mapping_result = map_runtime(scan_result)
+        print(format_runtime_mapping_result(mapping_result))
+        return 1 if mapping_result.errors else 0
     raise AssertionError(f"unhandled command: {args.command}")
 
 
