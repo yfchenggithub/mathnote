@@ -17,6 +17,7 @@ def meta_record(
     *,
     related_ids: list[str] | None = None,
     keyword: str = "关键词",
+    knowledge_node: str = "解析几何-圆锥曲线-椭圆",
 ) -> dict[str, object]:
     return {
         "id": source_id,
@@ -46,7 +47,7 @@ def meta_record(
             "related_ids": related_ids or [],
             "similar": [],
         },
-        "knowledgeNode": "解析几何-圆锥曲线-椭圆",
+        "knowledgeNode": knowledge_node,
         "altNodes": [],
     }
 
@@ -131,6 +132,46 @@ class ContentPackageTests(unittest.TestCase):
 
         self.assertIn(("KnowledgeNode", "UPDATE", "C001"), {(e.entity_type, e.operation, e.entity_id) for e in diff.entries})
         self.assertIn(("SearchDocument", "UPDATE", "C001"), {(e.entity_type, e.operation, e.entity_id) for e in diff.entries})
+        self.assertNotEqual(previous.package_hash, current.package_hash)
+        self.assertNotEqual(previous.content_version, current.content_version)
+
+    def test_knowledge_path_and_related_ids_changes_are_precise(self) -> None:
+        self.create_source(meta_record("C001", "结论一"))
+        self.create_source(meta_record("C002", "结论二"))
+        source = self.create_source(meta_record("C003", "结论三", related_ids=["C001"]))
+        previous = self.build("previous")
+
+        changed_record = meta_record(
+            "C003",
+            "结论三",
+            related_ids=["C001", "C002"],
+            knowledge_node="解析几何-综合-最值问题",
+        )
+        (source / "meta.json").write_text(
+            json.dumps(changed_record, ensure_ascii=False), encoding="utf-8"
+        )
+        changed = self.build("changed")
+        changed_entries = {
+            (entry.entity_type, entry.operation, entry.entity_id)
+            for entry in diff_packages(previous.output_dir, changed.output_dir).entries
+        }
+
+        self.assertIn(("KnowledgeNode", "UPDATE", "C003"), changed_entries)
+        self.assertIn(("KnowledgeRelation", "ADD", "C003:related:C002"), changed_entries)
+
+        changed_record["relations"]["related_ids"] = ["C002"]
+        (source / "meta.json").write_text(
+            json.dumps(changed_record, ensure_ascii=False), encoding="utf-8"
+        )
+        removed = self.build("removed")
+        removed_entries = {
+            (entry.entity_type, entry.operation, entry.entity_id)
+            for entry in diff_packages(changed.output_dir, removed.output_dir).entries
+        }
+        self.assertIn(
+            ("KnowledgeRelation", "DELETE", "C003:related:C001"),
+            removed_entries,
+        )
 
     def test_asset_content_add_and_delete_diff(self) -> None:
         source = self.create_source(meta_record("C001", "结论"))
@@ -141,21 +182,31 @@ class ContentPackageTests(unittest.TestCase):
         image.write_bytes(b"new")
         added = source / "images" / "02.png"
         added.write_bytes(b"two")
+        pdf = source / "pdfs" / "01.pdf"
+        pdf.write_bytes(b"pdf")
         changed = self.build("changed")
         changed_diff = diff_packages(previous.output_dir, changed.output_dir)
         entries = {(e.operation, e.entity_id) for e in changed_diff.entries if e.entity_type == "KnowledgeAsset"}
         self.assertIn(("UPDATE", "C001:image:01.png"), entries)
         self.assertIn(("ADD", "C001:image:02.png"), entries)
+        self.assertIn(("ADD", "C001:pdf:01.pdf"), entries)
 
         image.unlink()
         added.unlink()
+        pdf.unlink()
         removed = self.build("removed")
         removed_diff = diff_packages(changed.output_dir, removed.output_dir)
         deleted = {(e.operation, e.entity_id) for e in removed_diff.entries if e.entity_type == "KnowledgeAsset"}
-        self.assertEqual(deleted, {("DELETE", "C001:image:01.png"), ("DELETE", "C001:image:02.png")})
+        self.assertEqual(deleted, {
+            ("DELETE", "C001:image:01.png"),
+            ("DELETE", "C001:image:02.png"),
+            ("DELETE", "C001:pdf:01.pdf"),
+        })
 
     def test_add_and_delete_conclusion_and_relation(self) -> None:
         first_source = self.create_source(meta_record("C001", "结论一"))
+        (first_source / "images" / "01.png").write_bytes(b"image")
+        (first_source / "pdfs" / "01.pdf").write_bytes(b"pdf")
         previous = self.build("previous")
         self.create_source(meta_record("C002", "结论二", related_ids=["C001"]))
         added = self.build("added")
@@ -172,7 +223,11 @@ class ContentPackageTests(unittest.TestCase):
         deleted_entries = {(e.entity_type, e.operation, e.entity_id) for e in diff_packages(added.output_dir, deleted.output_dir).entries}
         self.assertIn(("KnowledgeNode", "DELETE", "C001"), deleted_entries)
         self.assertIn(("SearchDocument", "DELETE", "C001"), deleted_entries)
+        self.assertIn(("KnowledgeAsset", "DELETE", "C001:image:01.png"), deleted_entries)
+        self.assertIn(("KnowledgeAsset", "DELETE", "C001:pdf:01.pdf"), deleted_entries)
         self.assertTrue(any(item[0] == "KnowledgeRelation" and item[1] == "DELETE" for item in deleted_entries))
+        self.assertFalse((deleted.output_dir / "resources/images/C001").exists())
+        self.assertFalse((deleted.output_dir / "resources/pdfs/C001").exists())
 
     def test_rebuild_removes_old_resources(self) -> None:
         source = self.create_source(meta_record("C001", "结论"))
