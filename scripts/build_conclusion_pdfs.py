@@ -7,6 +7,7 @@ Examples:
   python scripts/build_conclusion_pdfs.py S001 I001
   python scripts/build_conclusion_pdfs.py --modules 00_set 07_inequality --ids S001 I001
   python scripts/build_conclusion_pdfs.py --modules 00_set --conclusions S001_Subset_Count --pdf-name-mode id
+  python scripts/build_conclusion_pdfs.py S001 --output-to-conclusion-pdfs
 """
 
 from __future__ import annotations
@@ -116,10 +117,19 @@ def parse_args() -> argparse.Namespace:
             "Supports comma and/or space separation."
         ),
     )
-    parser.add_argument(
+    output_group = parser.add_mutually_exclusive_group()
+    output_group.add_argument(
         "--output-dir",
         default=str(DEFAULT_OUTPUT_DIR),
         help=f"Output directory for PDFs (default: {DEFAULT_OUTPUT_DIR.as_posix()}).",
+    )
+    output_group.add_argument(
+        "--output-to-conclusion-pdfs",
+        action="store_true",
+        help=(
+            "Write each PDF to its conclusion directory's pdfs/ subdirectory. "
+            "Without this flag, the existing --output-dir behavior is unchanged."
+        ),
     )
     parser.add_argument(
         "--map-json",
@@ -366,6 +376,16 @@ def build_pdf_name(item: ConclusionItem, mode: str) -> str:
     return f"{item.folder_name}.pdf"
 
 
+def resolve_pdf_output_dir(
+    item: ConclusionItem,
+    central_output_dir: Path,
+    output_to_conclusion_pdfs: bool,
+) -> Path:
+    if output_to_conclusion_pdfs:
+        return item.folder_path / "pdfs"
+    return central_output_dir
+
+
 def ensure_unique_pdf_names(items: list[ConclusionItem], mode: str) -> None:
     name_map: dict[str, list[ConclusionItem]] = {}
     for item in items:
@@ -599,7 +619,10 @@ def main() -> int:
     print(f"[info] Repo root: {repo_root}")
     print(f"[info] Modules ({module_source}): {', '.join(modules)}")
     print(f"[info] Selected conclusions: {len(selected)}")
-    print(f"[info] PDF output dir: {output_dir}")
+    if args.output_to_conclusion_pdfs:
+        print("[info] PDF output mode: each conclusion's pdfs/ directory")
+    else:
+        print(f"[info] PDF output dir: {output_dir}")
     print(f"[info] Map JSON path: {map_json_path}")
     print(f"[info] PDF naming mode: {args.pdf_name_mode}")
 
@@ -607,11 +630,25 @@ def main() -> int:
         print("[dry-run] Planned tasks:")
         for item in selected:
             pdf_name = build_pdf_name(item, args.pdf_name_mode)
-            print(f"  - {item.conclusion_id}: {item.module}/{item.folder_name} -> {pdf_name}")
+            item_output_dir = resolve_pdf_output_dir(
+                item,
+                output_dir,
+                args.output_to_conclusion_pdfs,
+            )
+            target_pdf = item_output_dir / pdf_name
+            try:
+                target_display = target_pdf.relative_to(repo_root).as_posix()
+            except ValueError:
+                target_display = target_pdf.as_posix()
+            print(
+                f"  - {item.conclusion_id}: {item.module}/{item.folder_name} "
+                f"-> {target_display}"
+            )
         print("[dry-run] No files written.")
         return 0
 
-    output_dir.mkdir(parents=True, exist_ok=True)
+    if not args.output_to_conclusion_pdfs:
+        output_dir.mkdir(parents=True, exist_ok=True)
     map_json_path.parent.mkdir(parents=True, exist_ok=True)
 
     mapping: dict[str, str] = {}
@@ -620,10 +657,24 @@ def main() -> int:
 
     for index, item in enumerate(selected, start=1):
         pdf_name = build_pdf_name(item, args.pdf_name_mode)
-        print(f"[build] ({index}/{total}) {item.module}/{item.folder_name} -> {pdf_name}")
+        item_output_dir = resolve_pdf_output_dir(
+            item,
+            output_dir,
+            args.output_to_conclusion_pdfs,
+        )
+        item_output_dir.mkdir(parents=True, exist_ok=True)
+        target_pdf = item_output_dir / pdf_name
+        try:
+            target_display = target_pdf.relative_to(repo_root).as_posix()
+        except ValueError:
+            target_display = target_pdf.as_posix()
+        print(
+            f"[build] ({index}/{total}) {item.module}/{item.folder_name} "
+            f"-> {target_display}"
+        )
         result = compile_one(
             repo_root=repo_root,
-            output_dir=output_dir,
+            output_dir=item_output_dir,
             item=item,
             pdf_name_mode=args.pdf_name_mode,
             overwrite=args.overwrite,

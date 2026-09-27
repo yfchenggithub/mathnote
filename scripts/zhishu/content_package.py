@@ -38,6 +38,19 @@ ENTITY_LABELS = {
     "knowledgeAssets": "KnowledgeAsset",
     "searchDocuments": "SearchDocument",
 }
+MANIFEST_REQUIRED_FIELDS = (
+    "schemaVersion",
+    "contentVersion",
+    "packageHash",
+    "counts",
+    "files",
+)
+ENTITY_REQUIRED_FIELDS = {
+    "knowledgeNodes": ("id", "title", "sortOrder", "type"),
+    "knowledgeRelations": ("id", "sourceId", "targetId", "type"),
+    "knowledgeAssets": ("id", "knowledgeId", "type", "uri", "sortOrder"),
+    "searchDocuments": ("knowledgeNodeId", "title"),
+}
 
 
 @dataclass(frozen=True)
@@ -156,9 +169,83 @@ def _source_index(scan_result: ScanResult) -> dict[str, Path]:
 
 def _resource_path(package_root: Path, uri: str) -> Path:
     logical_path = PurePosixPath(uri)
-    if logical_path.is_absolute() or ".." in logical_path.parts:
+    if not uri or "\\" in uri or logical_path.is_absolute() or ".." in logical_path.parts:
         raise ValueError(f"asset URI is not a safe logical path: {uri}")
     return package_root.joinpath(*logical_path.parts)
+
+
+def _package_file_path(package_root: Path, relative_name: str) -> Path:
+    logical_path = PurePosixPath(relative_name)
+    if (
+        not relative_name
+        or "\\" in relative_name
+        or logical_path.is_absolute()
+        or ".." in logical_path.parts
+    ):
+        raise ValueError(f"package file is not a safe logical path: {relative_name}")
+    return package_root.joinpath(*logical_path.parts)
+
+
+def _is_integer(value: Any) -> bool:
+    return isinstance(value, int) and not isinstance(value, bool)
+
+
+def _validate_entity_shapes(
+    entities: Mapping[str, list[dict[str, Any]]],
+    runtime_files: Mapping[str, str],
+) -> list[PackageIssue]:
+    errors: list[PackageIssue] = []
+    string_fields = {
+        "knowledgeNodes": ("id", "title", "type"),
+        "knowledgeRelations": ("id", "sourceId", "targetId", "type"),
+        "knowledgeAssets": ("id", "knowledgeId", "type", "uri"),
+        "searchDocuments": ("knowledgeNodeId", "title"),
+    }
+    integer_fields = {
+        "knowledgeNodes": ("sortOrder",),
+        "knowledgeAssets": ("sortOrder",),
+    }
+    for group, records in entities.items():
+        issue_path = Path(runtime_files[group])
+        for index, record in enumerate(records):
+            for field in ENTITY_REQUIRED_FIELDS[group]:
+                if field not in record:
+                    errors.append(
+                        PackageIssue(
+                            issue_path,
+                            f"entity {index} missing required field: {field}",
+                        )
+                    )
+            for field in string_fields[group]:
+                if field in record and (
+                    not isinstance(record[field], str) or not record[field]
+                ):
+                    errors.append(
+                        PackageIssue(
+                            issue_path,
+                            f"entity {index} field {field} must be a non-empty string",
+                        )
+                    )
+            for field in integer_fields.get(group, ()):
+                if field in record and not _is_integer(record[field]):
+                    errors.append(
+                        PackageIssue(
+                            issue_path,
+                            f"entity {index} field {field} must be an integer",
+                        )
+                    )
+            if group == "knowledgeNodes" and "parentId" in record:
+                parent_id = record["parentId"]
+                if parent_id is not None and (
+                    not isinstance(parent_id, str) or not parent_id
+                ):
+                    errors.append(
+                        PackageIssue(
+                            issue_path,
+                            f"entity {index} field parentId must be null or a non-empty string",
+                        )
+                    )
+    return errors
 
 
 def _copy_assets(
@@ -218,10 +305,62 @@ def validate_package(package_root: Path) -> tuple[PackageIssue, ...]:
     if not isinstance(manifest, dict):
         return (PackageIssue(Path("manifest.json"), "manifest root must be an object"),)
 
+    for field in MANIFEST_REQUIRED_FIELDS:
+        if field not in manifest:
+            errors.append(
+                PackageIssue(Path("manifest.json"), f"missing required field: {field}")
+            )
+
+    if "schemaVersion" in manifest and not _is_integer(manifest["schemaVersion"]):
+        errors.append(PackageIssue(Path("manifest.json"), "schemaVersion must be an integer"))
+    for field in ("contentVersion", "packageHash"):
+        if field in manifest and not isinstance(manifest[field], str):
+            errors.append(PackageIssue(Path("manifest.json"), f"{field} must be a string"))
+    for field in ("counts", "files"):
+        if field in manifest and not isinstance(manifest[field], dict):
+            errors.append(PackageIssue(Path("manifest.json"), f"{field} must be an object"))
+
+    counts = manifest.get("counts")
+    if isinstance(counts, dict):
+        for count_name in (*JSON_FILES, "imageAssets", "pdfAssets"):
+            if count_name not in counts:
+                errors.append(
+                    PackageIssue(Path("manifest.json"), f"counts missing required field: {count_name}")
+                )
+            elif not _is_integer(counts[count_name]):
+                errors.append(
+                    PackageIssue(Path("manifest.json"), f"counts.{count_name} must be an integer")
+                )
+
+    files = manifest.get("files")
+    runtime_files: dict[str, str] = {}
+    if isinstance(files, dict):
+        for group in JSON_FILES:
+            relative_name = files.get(group)
+            if not isinstance(relative_name, str) or not relative_name:
+                errors.append(
+                    PackageIssue(Path("manifest.json"), f"files.{group} must be a non-empty string path")
+                )
+                continue
+            try:
+                _package_file_path(package_root, relative_name)
+            except ValueError as exc:
+                errors.append(PackageIssue(Path("manifest.json"), str(exc)))
+                continue
+            runtime_files[group] = relative_name
+
+    for field in ("fileHashes", "entityHashes", "assetHashes"):
+        if field not in manifest:
+            errors.append(PackageIssue(Path("manifest.json"), f"missing required field: {field}"))
+        elif not isinstance(manifest[field], dict):
+            errors.append(PackageIssue(Path("manifest.json"), f"{field} must be an object"))
+
+    if len(runtime_files) != len(JSON_FILES):
+        return tuple(errors)
+
     entities: dict[str, list[dict[str, Any]]] = {}
-    for group, default_name in JSON_FILES.items():
-        relative_name = (manifest.get("files") or {}).get(group, default_name)
-        path = package_root / relative_name
+    for group, relative_name in runtime_files.items():
+        path = _package_file_path(package_root, relative_name)
         if not path.is_file():
             errors.append(PackageIssue(Path(relative_name), "package JSON file is missing"))
             continue
@@ -238,6 +377,10 @@ def validate_package(package_root: Path) -> tuple[PackageIssue, ...]:
     if len(entities) != len(JSON_FILES):
         return tuple(errors)
 
+    errors.extend(_validate_entity_shapes(entities, runtime_files))
+    if errors:
+        return tuple(errors)
+
     entity_hashes = _entity_hashes(entities)
     manifest_entity_hashes = manifest.get("entityHashes")
     if manifest_entity_hashes != entity_hashes:
@@ -249,35 +392,35 @@ def validate_package(package_root: Path) -> tuple[PackageIssue, ...]:
         ids = [str(record.get(id_field, "")) for record in records]
         ids_by_group[group] = set(ids)
         if len(ids) != len(set(ids)):
-            errors.append(PackageIssue(Path(JSON_FILES[group]), "entity IDs are not unique"))
+            errors.append(PackageIssue(Path(runtime_files[group]), "entity IDs are not unique"))
 
     nodes = entities["knowledgeNodes"]
     node_ids = ids_by_group["knowledgeNodes"]
     roots = [node for node in nodes if node.get("type") == "root"]
     if len(roots) != 1:
-        errors.append(PackageIssue(Path(JSON_FILES["knowledgeNodes"]), f"expected one root node, found {len(roots)}"))
+        errors.append(PackageIssue(Path(runtime_files["knowledgeNodes"]), f"expected one root node, found {len(roots)}"))
     for node in nodes:
         if node.get("type") != "root" and node.get("parentId") not in node_ids:
-            errors.append(PackageIssue(Path(JSON_FILES["knowledgeNodes"]), f"node {node.get('id')} has unknown parentId"))
+            errors.append(PackageIssue(Path(runtime_files["knowledgeNodes"]), f"node {node.get('id')} has unknown parentId"))
 
     for relation in entities["knowledgeRelations"]:
         if relation.get("sourceId") not in node_ids or relation.get("targetId") not in node_ids:
-            errors.append(PackageIssue(Path(JSON_FILES["knowledgeRelations"]), f"relation {relation.get('id')} has an unknown endpoint"))
+            errors.append(PackageIssue(Path(runtime_files["knowledgeRelations"]), f"relation {relation.get('id')} has an unknown endpoint"))
 
     expected_resources: set[str] = set()
     calculated_asset_hashes: dict[str, str] = {}
     for asset in entities["knowledgeAssets"]:
         asset_id = str(asset.get("id", ""))
         if asset.get("knowledgeId") not in node_ids:
-            errors.append(PackageIssue(Path(JSON_FILES["knowledgeAssets"]), f"asset {asset_id} has unknown knowledgeId"))
+            errors.append(PackageIssue(Path(runtime_files["knowledgeAssets"]), f"asset {asset_id} has unknown knowledgeId"))
         uri = asset.get("uri")
         if not isinstance(uri, str):
-            errors.append(PackageIssue(Path(JSON_FILES["knowledgeAssets"]), f"asset {asset_id} has invalid URI"))
+            errors.append(PackageIssue(Path(runtime_files["knowledgeAssets"]), f"asset {asset_id} has invalid URI"))
             continue
         try:
             resource_path = _resource_path(package_root, uri)
         except ValueError as exc:
-            errors.append(PackageIssue(Path(JSON_FILES["knowledgeAssets"]), str(exc)))
+            errors.append(PackageIssue(Path(runtime_files["knowledgeAssets"]), str(exc)))
             continue
         expected_resources.add(PurePosixPath(uri).as_posix())
         if not resource_path.is_file():
@@ -300,7 +443,7 @@ def validate_package(package_root: Path) -> tuple[PackageIssue, ...]:
 
     for document in entities["searchDocuments"]:
         if document.get("knowledgeNodeId") not in node_ids:
-            errors.append(PackageIssue(Path(JSON_FILES["searchDocuments"]), f"search document {document.get('knowledgeNodeId')} has unknown knowledgeNodeId"))
+            errors.append(PackageIssue(Path(runtime_files["searchDocuments"]), f"search document {document.get('knowledgeNodeId')} has unknown knowledgeNodeId"))
 
     expected_counts = {
         "knowledgeNodes": len(entities["knowledgeNodes"]),
@@ -310,19 +453,19 @@ def validate_package(package_root: Path) -> tuple[PackageIssue, ...]:
         "imageAssets": sum(asset.get("type") == "image" for asset in entities["knowledgeAssets"]),
         "pdfAssets": sum(asset.get("type") == "pdf" for asset in entities["knowledgeAssets"]),
     }
-    if manifest.get("counts") != expected_counts:
+    if counts != expected_counts:
         errors.append(PackageIssue(Path("manifest.json"), "manifest counts do not match package data"))
 
     file_hashes = {
-        group: _sha256_file(package_root / JSON_FILES[group])
-        for group in JSON_FILES
+        group: _sha256_file(_package_file_path(package_root, runtime_files[group]))
+        for group in runtime_files
     }
     if manifest.get("fileHashes") != file_hashes:
         errors.append(PackageIssue(Path("manifest.json"), "file hashes do not match package JSON files"))
 
     calculated_package_hash = _package_hash(entity_hashes, calculated_asset_hashes)
     if manifest.get("packageHash") != calculated_package_hash:
-        errors.append(PackageIssue(Path("manifest.json"), "packageHash is invalid"))
+        errors.append(PackageIssue(Path("manifest.json"), "packageHash mismatch"))
     if manifest.get("contentVersion") != f"sha256:{calculated_package_hash}":
         errors.append(PackageIssue(Path("manifest.json"), "contentVersion is invalid"))
     if manifest.get("schemaVersion") != SCHEMA_VERSION:
@@ -359,12 +502,15 @@ def build_package(
     output_dir = output_dir.resolve()
     if output_dir == Path(output_dir.anchor):
         raise ValueError("refusing to use a filesystem root as package output")
+    runtime_warnings = tuple(
+        PackageIssue(issue.path, issue.message) for issue in runtime_result.warnings
+    )
     if runtime_result.errors:
         issues = tuple(
             PackageIssue(issue.path, f"runtime mapping failed: {issue.message}")
             for issue in runtime_result.errors
         )
-        return PackageBuildResult(output_dir, "", "", 0, {}, issues, ())
+        return PackageBuildResult(output_dir, "", "", 0, {}, issues, runtime_warnings)
 
     output_dir.parent.mkdir(parents=True, exist_ok=True)
     staged = Path(tempfile.mkdtemp(prefix=f".{output_dir.name}.tmp-", dir=output_dir.parent))
@@ -406,12 +552,24 @@ def build_package(
         validation_errors = validate_package(staged)
         if validation_errors:
             return PackageBuildResult(
-                output_dir, content_version, package_hash, 0, counts, validation_errors, ()
+                output_dir,
+                content_version,
+                package_hash,
+                0,
+                counts,
+                validation_errors,
+                runtime_warnings,
             )
         package_size = _package_size(staged)
         _safe_replace_directory(staged, output_dir)
         return PackageBuildResult(
-            output_dir, content_version, package_hash, package_size, counts, (), ()
+            output_dir,
+            content_version,
+            package_hash,
+            package_size,
+            counts,
+            (),
+            runtime_warnings,
         )
     except (OSError, ValueError, json.JSONDecodeError) as exc:
         return PackageBuildResult(
@@ -421,11 +579,11 @@ def build_package(
             0,
             {},
             (PackageIssue(Path("package"), str(exc)),),
-            (),
+            runtime_warnings,
         )
     finally:
         if staged.exists():
-            shutil.rmtree(staged)
+            shutil.rmtree(staged, ignore_errors=True)
 
 
 def _load_manifest(package_dir: Path) -> tuple[dict[str, Any] | None, tuple[PackageIssue, ...]]:

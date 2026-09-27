@@ -91,6 +91,23 @@ class ContentPackageTests(unittest.TestCase):
             if path.is_file()
         }
 
+    @staticmethod
+    def read_json(path: Path):
+        return json.loads(path.read_text(encoding="utf-8"))
+
+    @staticmethod
+    def write_json(path: Path, value) -> None:
+        path.write_text(json.dumps(value, ensure_ascii=False), encoding="utf-8")
+
+    def copy_package(self, source: Path, name: str) -> Path:
+        destination = self.packages / name
+        shutil.copytree(source, destination)
+        return destination
+
+    @staticmethod
+    def error_messages(package: Path) -> list[str]:
+        return [issue.message for issue in validate_package(package)]
+
     def test_repeated_packages_are_byte_identical_and_versions_stable(self) -> None:
         self.create_source(meta_record("C001", "结论一"))
 
@@ -120,6 +137,208 @@ class ContentPackageTests(unittest.TestCase):
         self.assertTrue((root / "resources/images/C006/01.png").is_file())
         self.assertTrue((root / "resources/pdfs/C006/01.pdf").is_file())
         self.assertEqual(validate_package(root), ())
+        assets = self.read_json(root / "knowledge-assets.json")
+        self.assertTrue(all("uri" in asset for asset in assets))
+        self.assertTrue(all("url" not in asset for asset in assets))
+
+    def test_manifest_required_fields_are_explicitly_required(self) -> None:
+        self.create_source(meta_record("C001", "结论"))
+        pristine = self.build("pristine").output_dir
+
+        for field in ("schemaVersion", "contentVersion", "packageHash", "counts", "files"):
+            with self.subTest(field=field):
+                package = self.copy_package(pristine, f"missing-{field}")
+                manifest_path = package / "manifest.json"
+                manifest = self.read_json(manifest_path)
+                del manifest[field]
+                self.write_json(manifest_path, manifest)
+
+                messages = self.error_messages(package)
+
+                self.assertIn(f"missing required field: {field}", messages)
+
+    def test_manifest_field_types_and_count_types_are_validated(self) -> None:
+        self.create_source(meta_record("C001", "结论"))
+        pristine = self.build("pristine-types").output_dir
+        cases = (
+            ("schemaVersion", "1", "schemaVersion must be an integer"),
+            ("contentVersion", 1, "contentVersion must be a string"),
+            ("packageHash", 1, "packageHash must be a string"),
+            ("counts", [], "counts must be an object"),
+            ("files", [], "files must be an object"),
+        )
+        for index, (field, value, expected) in enumerate(cases):
+            with self.subTest(field=field):
+                package = self.copy_package(pristine, f"wrong-type-{index}")
+                manifest_path = package / "manifest.json"
+                manifest = self.read_json(manifest_path)
+                manifest[field] = value
+                self.write_json(manifest_path, manifest)
+
+                self.assertIn(expected, self.error_messages(package))
+
+        package = self.copy_package(pristine, "wrong-count-type")
+        manifest_path = package / "manifest.json"
+        manifest = self.read_json(manifest_path)
+        manifest["counts"]["knowledgeNodes"] = "1"
+        self.write_json(manifest_path, manifest)
+        self.assertIn(
+            "counts.knowledgeNodes must be an integer",
+            self.error_messages(package),
+        )
+
+    def test_manifest_files_requires_every_runtime_entry(self) -> None:
+        self.create_source(meta_record("C001", "结论"))
+        package = self.build("missing-runtime-entry").output_dir
+        manifest_path = package / "manifest.json"
+        manifest = self.read_json(manifest_path)
+        del manifest["files"]["knowledgeAssets"]
+        self.write_json(manifest_path, manifest)
+
+        self.assertIn(
+            "files.knowledgeAssets must be a non-empty string path",
+            self.error_messages(package),
+        )
+
+    def test_runtime_json_top_level_must_be_array_of_objects(self) -> None:
+        self.create_source(meta_record("C001", "结论"))
+        package = self.build("bad-runtime-root").output_dir
+        self.write_json(package / "knowledge-nodes.json", {})
+
+        self.assertIn(
+            "file must contain an array of objects",
+            self.error_messages(package),
+        )
+
+    def test_malformed_manifest_and_runtime_json_return_structured_errors(self) -> None:
+        self.create_source(meta_record("C001", "结论"))
+        pristine = self.build("malformed-json-pristine").output_dir
+
+        bad_manifest = self.copy_package(pristine, "bad-manifest-json")
+        (bad_manifest / "manifest.json").write_text("{", encoding="utf-8")
+        manifest_errors = validate_package(bad_manifest)
+        self.assertTrue(manifest_errors)
+        self.assertIn("manifest is invalid JSON", manifest_errors[0].message)
+
+        bad_runtime = self.copy_package(pristine, "bad-runtime-json")
+        (bad_runtime / "knowledge-nodes.json").write_text("[", encoding="utf-8")
+        runtime_errors = validate_package(bad_runtime)
+        self.assertTrue(runtime_errors)
+        self.assertTrue(any("invalid JSON" in issue.message for issue in runtime_errors))
+
+    def test_runtime_entities_require_identity_and_contract_fields(self) -> None:
+        first = self.create_source(meta_record("C001", "结论一"))
+        (first / "images" / "01.png").write_bytes(b"image")
+        self.create_source(meta_record("C002", "结论二", related_ids=["C001"]))
+        pristine = self.build("entity-pristine").output_dir
+        cases = {
+            "knowledge-nodes.json": ("id",),
+            "knowledge-relations.json": ("id", "sourceId", "targetId", "type"),
+            "knowledge-assets.json": ("id", "knowledgeId", "type", "uri", "sortOrder"),
+            "search-documents.json": ("knowledgeNodeId", "title"),
+        }
+        case_number = 0
+        for file_name, fields in cases.items():
+            for field in fields:
+                with self.subTest(file=file_name, field=field):
+                    package = self.copy_package(pristine, f"entity-{case_number}")
+                    case_number += 1
+                    path = package / file_name
+                    records = self.read_json(path)
+                    del records[0][field]
+                    self.write_json(path, records)
+
+                    messages = self.error_messages(package)
+
+                    self.assertTrue(
+                        any(f"missing required field: {field}" in message for message in messages),
+                        messages,
+                    )
+
+    def test_manifest_counts_tampering_is_detected(self) -> None:
+        self.create_source(meta_record("C001", "结论"))
+        package = self.build("bad-counts").output_dir
+        manifest_path = package / "manifest.json"
+        manifest = self.read_json(manifest_path)
+        manifest["counts"]["knowledgeNodes"] += 1
+        self.write_json(manifest_path, manifest)
+
+        self.assertIn(
+            "manifest counts do not match package data",
+            self.error_messages(package),
+        )
+
+    def test_runtime_file_hash_tampering_is_detected(self) -> None:
+        self.create_source(meta_record("C001", "结论"))
+        package = self.build("bad-runtime-hash").output_dir
+        path = package / "knowledge-nodes.json"
+        records = self.read_json(path)
+        records[-1]["title"] = "篡改标题"
+        self.write_json(path, records)
+
+        self.assertIn(
+            "file hashes do not match package JSON files",
+            self.error_messages(package),
+        )
+
+    def test_asset_hash_tampering_is_detected(self) -> None:
+        source = self.create_source(meta_record("C001", "结论"))
+        (source / "images" / "01.png").write_bytes(b"original")
+        package = self.build("bad-asset-hash").output_dir
+        (package / "resources/images/C001/01.png").write_bytes(b"tampered")
+
+        self.assertIn(
+            "asset hashes do not match resource contents",
+            self.error_messages(package),
+        )
+
+    def test_package_hash_tampering_is_detected(self) -> None:
+        self.create_source(meta_record("C001", "结论"))
+        package = self.build("bad-package-hash").output_dir
+        manifest_path = package / "manifest.json"
+        manifest = self.read_json(manifest_path)
+        manifest["packageHash"] = "0" * 64
+        self.write_json(manifest_path, manifest)
+
+        self.assertIn("packageHash mismatch", self.error_messages(package))
+
+    def test_diff_rejects_invalid_previous_and_current_packages(self) -> None:
+        source = self.create_source(meta_record("C001", "结论"))
+        (source / "images" / "01.png").write_bytes(b"image")
+        pristine = self.build("diff-pristine").output_dir
+
+        invalid_previous = self.copy_package(pristine, "invalid-previous")
+        manifest = self.read_json(invalid_previous / "manifest.json")
+        del manifest["files"]
+        self.write_json(invalid_previous / "manifest.json", manifest)
+        previous_diff = diff_packages(invalid_previous, pristine)
+        self.assertEqual(previous_diff.entries, ())
+        self.assertTrue(previous_diff.errors)
+        self.assertTrue(all(issue.path.parts[0] == "previous" for issue in previous_diff.errors))
+
+        invalid_current = self.copy_package(pristine, "invalid-current")
+        assets_path = invalid_current / "knowledge-assets.json"
+        assets = self.read_json(assets_path)
+        del assets[0]["id"]
+        self.write_json(assets_path, assets)
+        current_diff = diff_packages(pristine, invalid_current)
+        self.assertEqual(current_diff.entries, ())
+        self.assertTrue(current_diff.errors)
+        self.assertTrue(all(issue.path.parts[0] == "current" for issue in current_diff.errors))
+
+    def test_runtime_mapping_warnings_are_preserved_in_build_result(self) -> None:
+        source = self.create_source(meta_record("C001", "结论"))
+        shutil.rmtree(source / "images")
+        shutil.rmtree(source / "pdfs")
+        scan_result = scan_repository(self.project_root)
+        mapping_result = map_runtime(scan_result)
+
+        result = build_package(scan_result, mapping_result, self.packages / "warnings")
+
+        self.assertEqual(result.errors, ())
+        self.assertEqual(len(result.warnings), 2)
+        self.assertTrue(any("images directory is missing" in issue.message for issue in result.warnings))
+        self.assertTrue(any("pdfs directory is missing" in issue.message for issue in result.warnings))
 
     def test_title_and_search_changes_are_updates(self) -> None:
         source = self.create_source(meta_record("C001", "旧标题", keyword="旧关键词"))

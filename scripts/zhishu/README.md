@@ -9,9 +9,14 @@ Mapping → Content Package → Validation/Diff boundary.
 python scripts/zhishu/publish.py scan
 python scripts/zhishu/publish.py init-source
 python scripts/zhishu/publish.py map-runtime
+python scripts/zhishu/publish.py build-package
 python scripts/zhishu/publish.py build-package --output <directory>
 python scripts/zhishu/publish.py diff <previous-package> <current-package>
 ```
+
+Without `--output`, `build-package` writes to
+`<repository>/build/zhishu-content-package`. An explicit `--output` still
+overrides the default.
 
 ## Frozen source boundary
 

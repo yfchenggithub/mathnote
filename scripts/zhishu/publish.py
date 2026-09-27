@@ -24,6 +24,7 @@ else:
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
+DEFAULT_PACKAGE_OUTPUT = PROJECT_ROOT / "build" / "zhishu-content-package"
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -38,7 +39,12 @@ def build_parser() -> argparse.ArgumentParser:
     build_package_parser = subparsers.add_parser(
         "build-package", help="build a complete deterministic content package"
     )
-    build_package_parser.add_argument("--output", type=Path, required=True)
+    build_package_parser.add_argument(
+        "--output",
+        type=Path,
+        default=DEFAULT_PACKAGE_OUTPUT,
+        help=f"package output directory (default: {DEFAULT_PACKAGE_OUTPUT})",
+    )
     diff_parser = subparsers.add_parser("diff", help="compare two content packages")
     diff_parser.add_argument("previous", type=Path)
     diff_parser.add_argument("current", type=Path)
@@ -153,6 +159,9 @@ def format_package_build_result(result: PackageBuildResult) -> str:
     if result.errors:
         lines.extend(("", "ERROR"))
         lines.extend(f"{issue.path.as_posix()}: {issue.message}" for issue in result.errors)
+    if result.warnings:
+        lines.extend(("", "WARNING"))
+        lines.extend(f"{issue.path.as_posix()}: {issue.message}" for issue in result.warnings)
     return "\n".join(lines)
 
 
