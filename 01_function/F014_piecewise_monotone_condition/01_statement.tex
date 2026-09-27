@@ -1,45 +1,40 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件 1（分段定义）：}}]
-			函数 $f(x)$ 写为 $f(x)=
-			\begin{cases}
-				g(x), & x\le x_0, \\ h(x), & x>x_0
-		\end{cases}
-			$，其中 $g$ 在 $(-\infty,x_0]$ 有定义，$h$ 在 $(x_0,+\infty)$ 有定义。
-		\item[\textbf{\textcolor{CStatement}{条件 2（单调方向一致）：}}]
-			各分段在各自子区间上单调方向相同（同增或同减）。
-		\item[\textbf{\textcolor{CStatement}{条件 3（衔接大小关系）：}}]
-			在分界点 $x_0$ 处，左段终点与右段起点极限满足：递增时 $g(x_0)\le \lim\limits_{x\to x_0^+}h(x)$，递减时方向反向。
-	\end{description}
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（整体单调递增）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			两段各自递增且在分界点处左值不超过右端极限。
-			\[
-				f(x)\text{在}\mathbb{R}\text{上单调递增}\iff
-				\begin{cases}
-					g(x)\text{在}(-\infty,x_0]\text{上单调递增},\
-					\[
-						2pt] h(x)\text{在}(x_0,+\infty)\text{上单调递增},\
-						\[
-							2pt] g(x_0)\le\displaystyle\lim_{x\to x_0^+}h(x).
-					\end{cases}
-					\]
-				\item[\textbf{\textcolor{CStatement}{推广结论(单调递减充要):}}]
-					\textbf{\textcolor{CStatement}{直观描述:}}
-					两段各自递减且在分界点处左值不小于右端极限.
-					\[
-						f(x)\text{在}\mathbb{R}\text{上单调递减}\iff
-						\begin{cases}
-							g(x)\text{在}(-\infty,x_0]\text{上单调递减},\
-							\[
-								2pt] h(x)\text{在}(x_0,+\infty)\text{上单调递减},\
-								\[
-									2pt] g(x_0)\ge\displaystyle\lim_{x\to x_0^+}h(x).
-							\end{cases}
-							\]
-					\end{description}
+	\textbf{\textcolor{CStatement}{F14：分段函数在全域上的单调性}}
 
-				\end{statementbox}
+	设
+	\[
+		f(x)=
+		\begin{cases}
+			g(x), & x\le x_0, \\
+			h(x), & x>x_0,
+		\end{cases}
+	\]
+	其中 $g$ 在 $(-\infty,x_0]$ 上有定义，$h$ 在 $(x_0,+\infty)$ 上有定义。本文中“递增、递减”均指\textbf{严格单调}；记右极限
+	$L=\lim_{x\to x_0^+}h(x)$，并要求 $L$ 为有限实数。
+
+	\textbf{\textcolor{CStatement}{结论一：整体严格递增}}
+	\[
+		f\text{ 在 }\mathbb{R}\text{ 上严格递增}
+		\iff
+		\begin{cases}
+			g\text{ 在 }(-\infty,x_0]\text{ 上严格递增}, \\[2pt]
+			h\text{ 在 }(x_0,+\infty)\text{ 上严格递增}, \\[2pt]
+			g(x_0)\le L.
+		\end{cases}
+	\]
+
+	\textbf{\textcolor{CStatement}{结论二：整体严格递减}}
+	\[
+		f\text{ 在 }\mathbb{R}\text{ 上严格递减}
+		\iff
+		\begin{cases}
+			g\text{ 在 }(-\infty,x_0]\text{ 上严格递减}, \\[2pt]
+			h\text{ 在 }(x_0,+\infty)\text{ 上严格递减}, \\[2pt]
+			g(x_0)\ge L.
+		\end{cases}
+	\]
+
+	\textbf{\textcolor{CStatement}{特别注意：}}
+	允许 $g(x_0)=L$；右段不含 $x_0$，所以接口取等仍可能整体\emph{严格}单调。
+	若题目把“单调递增”定义为非严格的 $f(x_1)\le f(x_2)$，以上两条中的“严格”统一改为“非严格”，接口不等号保持不变。
+\end{statementbox}

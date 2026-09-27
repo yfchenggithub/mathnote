@@ -1,21 +1,28 @@
 \begin{trapbox}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（忽略衔接条件）}}] 只验证各段在各自区间上的单调性，没有检查分界点处的不等式，导致参数范围扩大。
-		\item[\textbf{\textcolor{CTrap}{正确理解（衔接不等式）：}}] 整体单调的充要条件包含衔接不等式：递增时 $g(x_0)\le\lim_{x\to x_0^+}h(x)$，递减时反向。
-		\item[\textbf{\textcolor{CTrap}{错因分析（跳变破坏）：}}] 函数在分界点处可能出现“跳变”，若左高右低（递增时）或左低右高（递减时），整体单调性被破坏。
-	\end{description}
+	\textbf{\textcolor{CTrap}{易错点一：只看两段，漏看接口}}
+
+	两段都递增，整体也可能不递增。例如
+	$f(x)=\begin{cases}x+2,&x\le0,\\x,&x>0.\end{cases}$
+	左端值为 $2$，右极限为 $0$；从 $0$ 往右发生向下跳跃。递增须另查 $g(x_0)\le L$。
 
 	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（颠倒不等号方向）}}] 在解决单调递减问题时，错误套用递增的不等号方向，得到 $g(x_0)\le\lim_{x\to x_0^+}h(x)$。
-		\item[\textbf{\textcolor{CTrap}{正确理解（递减方向）：}}] 递减时衔接条件为 $g(x_0)\ge\lim_{x\to x_0^+}h(x)$，与递增严格反向。
-		\item[\textbf{\textcolor{CTrap}{错因分析（符号混淆）：}}] 未根据单调定义推导不等号方向，机械记忆导致错误。
-	\end{description}
+	\textbf{\textcolor{CTrap}{易错点二：把接口不等号误写成严格不等号}}
+
+	虽然要求\emph{严格}递增，接口仍是 $g(x_0)\le L$。
+	例如 $f(x)=x$ 可写成 $g(x)=x\ (x\le0)$、$h(x)=x\ (x>0)$；此时 $g(0)=L=0$，但 $f$ 在全域严格递增。
 
 	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（误用函数值）}}] 当右段定义域为 $(x_0,+\infty)$ 时，错误地直接用 $h(x_0)$ 进行比较（例如 $g(x_0)\le h(x_0)$）。
-		\item[\textbf{\textcolor{CTrap}{正确理解（优先极限）：}}] 此时 $h(x_0)$ 无定义，应使用右极限 $\lim_{x\to x_0^+}h(x)$，不可直接代入 $h(x_0)$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（定义域疏忽）：}}] 忽略分段函数各段的定义域，混淆有定义与无定义点。
-	\end{description}
+	\textbf{\textcolor{CTrap}{易错点三：递减时方向写反}}
+
+	沿着 $x$ 增大的方向往右看，整体递减须“左高右低”，即 $g(x_0)\ge L$。
+
+	\medskip
+	\textbf{\textcolor{CTrap}{易错点四：直接把 $h(x_0)$ 当作右段函数值}}
+
+	右段条件为 $x>x_0$，接口属于左段，$f(x_0)=g(x_0)$。应比较 $g(x_0)$ 与右极限 $L$；即使表达式 $h$ 在 $x_0$ 可代入，也只把代入结果用于\emph{求极限}。
+
+	\medskip
+	\textbf{\textcolor{CTrap}{易错点五：以为接口必须连续}}
+
+	向单调方向的跳跃允许存在。例如 $f(x)=\begin{cases}x,&x\le0,\\x+1,&x>0\end{cases}$ 在全域严格递增，接口却不连续。
 \end{trapbox}
