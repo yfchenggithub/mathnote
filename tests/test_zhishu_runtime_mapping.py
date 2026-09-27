@@ -4,8 +4,13 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
-from scripts.zhishu.runtime_mapping import map_runtime, structural_node_id
+from scripts.zhishu.runtime_mapping import (
+    _canonical_related_pair,
+    map_runtime,
+    structural_node_id,
+)
 from scripts.zhishu.source_discovery import MODULE_NAMES, scan_repository
 
 
@@ -122,7 +127,7 @@ class RuntimeMappingTests(unittest.TestCase):
         self.assertFalse(any(node.id == structural_node_id("解析几何-综合-最值问题") for node in result.knowledge_nodes))
         self.assertEqual(result.errors, ())
 
-    def test_related_ids_resolve_without_reverse_edges(self) -> None:
+    def test_single_related_metadata_is_canonical(self) -> None:
         self.create_source(meta_record("C001", "一", "解析几何-甲"))
         self.create_source(meta_record("C002", "二", "解析几何-乙"))
         self.create_source(
@@ -142,10 +147,111 @@ class RuntimeMappingTests(unittest.TestCase):
         self.assertEqual(
             edges,
             {
-                ("C003", "related", "C002"),
+                ("C002", "related", "C003"),
             },
         )
+        self.assertEqual(result.relations[0].id, "C002:related:C003")
         self.assertEqual(result.errors, ())
+
+    def test_reverse_single_related_metadata_has_same_canonical_identity(self) -> None:
+        first = self.create_source(
+            meta_record("C001", "一", "解析几何-甲", related_ids=["C002"])
+        )
+        second = self.create_source(meta_record("C002", "二", "解析几何-乙"))
+        forward = self.map().relations
+
+        first.joinpath("meta.json").write_text(
+            json.dumps(
+                meta_record("C001", "一", "解析几何-甲"), ensure_ascii=False
+            ),
+            encoding="utf-8",
+        )
+        second.joinpath("meta.json").write_text(
+            json.dumps(
+                meta_record(
+                    "C002", "二", "解析几何-乙", related_ids=["C001"]
+                ),
+                ensure_ascii=False,
+            ),
+            encoding="utf-8",
+        )
+        reverse = self.map().relations
+
+        self.assertEqual(forward, reverse)
+        self.assertEqual(forward[0].id, "C001:related:C002")
+
+    def test_related_metadata_duplicates_collapse_to_one_relation(self) -> None:
+        self.create_source(
+            meta_record(
+                "C001", "一", "解析几何-甲", related_ids=["C002", "C002"]
+            )
+        )
+        self.create_source(
+            meta_record(
+                "C002", "二", "解析几何-乙", related_ids=["C001", "C001"]
+            )
+        )
+
+        result = self.map()
+
+        self.assertEqual(result.errors, ())
+        self.assertEqual(len(result.relations), 1)
+        self.assertEqual(result.relations[0].id, "C001:related:C002")
+
+    def test_distinct_related_pairs_are_not_merged(self) -> None:
+        self.create_source(
+            meta_record(
+                "C001", "一", "解析几何-甲", related_ids=["C002", "C003"]
+            )
+        )
+        self.create_source(
+            meta_record("C002", "二", "解析几何-乙", related_ids=["C003"])
+        )
+        self.create_source(meta_record("C003", "三", "解析几何-丙"))
+
+        result = self.map()
+
+        self.assertEqual(result.errors, ())
+        self.assertEqual(
+            [relation.id for relation in result.relations],
+            [
+                "C001:related:C002",
+                "C001:related:C003",
+                "C002:related:C003",
+            ],
+        )
+
+    def test_related_self_relation_is_rejected(self) -> None:
+        self.create_source(
+            meta_record("C001", "一", "解析几何-甲", related_ids=["C001"])
+        )
+
+        result = self.map()
+
+        self.assertTrue(
+            any("self relation is not allowed" in issue.message for issue in result.errors)
+        )
+
+    def test_directed_relation_endpoints_are_not_canonicalized(self) -> None:
+        self.assertEqual(_canonical_related_pair("C002", "C001"), ("C001", "C002"))
+        self.create_source(meta_record("C001", "一", "解析几何-甲"))
+        self.create_source(
+            meta_record(
+                "C002", "二", "解析几何-乙", prerequisites=["C001"]
+            )
+        )
+
+        with mock.patch(
+            "scripts.zhishu.runtime_mapping.RELATION_FIELDS",
+            (("prerequisites", "prerequisite"),),
+        ):
+            result = self.map()
+
+        self.assertEqual(result.errors, ())
+        self.assertEqual(
+            (result.relations[0].sourceId, result.relations[0].targetId),
+            ("C002", "C001"),
+        )
 
     def test_similar_relation_is_ignored(self) -> None:
         self.create_source(meta_record("C001", "一", "解析几何-甲"))

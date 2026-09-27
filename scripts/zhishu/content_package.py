@@ -403,9 +403,25 @@ def validate_package(package_root: Path) -> tuple[PackageIssue, ...]:
         if node.get("type") != "root" and node.get("parentId") not in node_ids:
             errors.append(PackageIssue(Path(runtime_files["knowledgeNodes"]), f"node {node.get('id')} has unknown parentId"))
 
+    related_pairs: set[tuple[str, str]] = set()
     for relation in entities["knowledgeRelations"]:
         if relation.get("sourceId") not in node_ids or relation.get("targetId") not in node_ids:
             errors.append(PackageIssue(Path(runtime_files["knowledgeRelations"]), f"relation {relation.get('id')} has an unknown endpoint"))
+        if relation.get("sourceId") == relation.get("targetId"):
+            errors.append(PackageIssue(Path(runtime_files["knowledgeRelations"]), f"self relation is not allowed: {relation.get('id')}"))
+        if relation.get("type") == "related":
+            source_id = str(relation["sourceId"])
+            target_id = str(relation["targetId"])
+            pair = (min(source_id, target_id), max(source_id, target_id))
+            if pair in related_pairs:
+                errors.append(
+                    PackageIssue(
+                        Path(runtime_files["knowledgeRelations"]),
+                        "duplicate symmetric related relation: "
+                        f"{pair[0]} <-> {pair[1]}",
+                    )
+                )
+            related_pairs.add(pair)
 
     expected_resources: set[str] = set()
     calculated_asset_hashes: dict[str, str] = {}

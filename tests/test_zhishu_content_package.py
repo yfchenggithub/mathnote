@@ -109,13 +109,23 @@ class ContentPackageTests(unittest.TestCase):
         return [issue.message for issue in validate_package(package)]
 
     def test_repeated_packages_are_byte_identical_and_versions_stable(self) -> None:
-        self.create_source(meta_record("C001", "结论一"))
+        self.create_source(
+            meta_record("C001", "结论一", related_ids=["C002", "C002"])
+        )
+        self.create_source(
+            meta_record("C002", "结论二", related_ids=["C001"])
+        )
 
         first = self.build("first")
         second = self.build("second")
 
         self.assertEqual(first.content_version, second.content_version)
         self.assertEqual(first.package_hash, second.package_hash)
+        self.assertEqual(first.counts["knowledgeRelations"], 1)
+        self.assertEqual(
+            (first.output_dir / "knowledge-relations.json").read_bytes(),
+            (second.output_dir / "knowledge-relations.json").read_bytes(),
+        )
         self.assertEqual(self.package_bytes(first.output_dir), self.package_bytes(second.output_dir))
         self.assertEqual(diff_packages(first.output_dir, second.output_dir).entries, ())
 
@@ -255,6 +265,64 @@ class ContentPackageTests(unittest.TestCase):
                         messages,
                     )
 
+    def test_validation_rejects_reverse_duplicate_related_pair(self) -> None:
+        self.create_source(meta_record("C001", "结论一", related_ids=["C002"]))
+        self.create_source(meta_record("C002", "结论二"))
+        package = self.build("reverse-duplicate").output_dir
+        relations_path = package / "knowledge-relations.json"
+        relations = self.read_json(relations_path)
+        relations.append(
+            {
+                "id": "reverse-related-id",
+                "sourceId": "C002",
+                "targetId": "C001",
+                "type": "related",
+            }
+        )
+        self.write_json(relations_path, relations)
+
+        self.assertIn(
+            "duplicate symmetric related relation: C001 <-> C002",
+            self.error_messages(package),
+        )
+
+    def test_validation_rejects_same_direction_duplicate_related_pair(self) -> None:
+        self.create_source(meta_record("C001", "结论一", related_ids=["C002"]))
+        self.create_source(meta_record("C002", "结论二"))
+        package = self.build("same-direction-duplicate").output_dir
+        relations_path = package / "knowledge-relations.json"
+        relations = self.read_json(relations_path)
+        duplicate = dict(relations[0])
+        duplicate["id"] = "same-direction-related-id"
+        relations.append(duplicate)
+        self.write_json(relations_path, relations)
+
+        self.assertIn(
+            "duplicate symmetric related relation: C001 <-> C002",
+            self.error_messages(package),
+        )
+
+    def test_validation_rejects_self_relation(self) -> None:
+        self.create_source(meta_record("C001", "结论一"))
+        package = self.build("self-relation").output_dir
+        relations_path = package / "knowledge-relations.json"
+        self.write_json(
+            relations_path,
+            [
+                {
+                    "id": "C001:related:C001",
+                    "sourceId": "C001",
+                    "targetId": "C001",
+                    "type": "related",
+                }
+            ],
+        )
+
+        self.assertIn(
+            "self relation is not allowed: C001:related:C001",
+            self.error_messages(package),
+        )
+
     def test_manifest_counts_tampering_is_detected(self) -> None:
         self.create_source(meta_record("C001", "结论"))
         package = self.build("bad-counts").output_dir
@@ -376,7 +444,7 @@ class ContentPackageTests(unittest.TestCase):
         }
 
         self.assertIn(("KnowledgeNode", "UPDATE", "C003"), changed_entries)
-        self.assertIn(("KnowledgeRelation", "ADD", "C003:related:C002"), changed_entries)
+        self.assertIn(("KnowledgeRelation", "ADD", "C002:related:C003"), changed_entries)
 
         changed_record["relations"]["related_ids"] = ["C002"]
         (source / "meta.json").write_text(
@@ -388,7 +456,7 @@ class ContentPackageTests(unittest.TestCase):
             for entry in diff_packages(changed.output_dir, removed.output_dir).entries
         }
         self.assertIn(
-            ("KnowledgeRelation", "DELETE", "C003:related:C001"),
+            ("KnowledgeRelation", "DELETE", "C001:related:C003"),
             removed_entries,
         )
 

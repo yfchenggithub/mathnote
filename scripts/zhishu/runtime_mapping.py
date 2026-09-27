@@ -126,6 +126,12 @@ def structural_node_id(full_path: str) -> str:
     return f"{STRUCTURAL_PREFIX}{full_path}"
 
 
+def _canonical_related_pair(source_id: str, target_id: str) -> tuple[str, str]:
+    """Return the stable endpoint order for one symmetric related relation."""
+
+    return min(source_id, target_id), max(source_id, target_id)
+
+
 def _source_path(source: ConclusionSource, suffix: str = "meta.json") -> Path:
     return Path(source.module_name) / source.conclusion_dir_name / suffix
 
@@ -325,6 +331,10 @@ def _build_relations(
                     )
                     continue
                 source_id, resolved_target_id = mapped.id, target_id
+                if relation_type == "related":
+                    source_id, resolved_target_id = _canonical_related_pair(
+                        source_id, resolved_target_id
+                    )
                 relation_id = f"{source_id}:{relation_type}:{resolved_target_id}"
                 relations[relation_id] = KnowledgeRelation(
                     relation_id, source_id, resolved_target_id, relation_type
@@ -454,6 +464,8 @@ def _validate_runtime(
             errors.append(MappingIssue(Path("runtime/knowledge-relations"), f"invalid relation type: {relation.type}"))
         if relation.sourceId not in node_ids or relation.targetId not in node_ids:
             errors.append(MappingIssue(Path("runtime/knowledge-relations"), f"relation endpoint does not exist: {relation.id}"))
+        if relation.sourceId == relation.targetId:
+            errors.append(MappingIssue(Path("runtime/knowledge-relations"), f"self relation is not allowed: {relation.id}"))
 
     for duplicate in sorted(_duplicate_values(asset.id for asset in assets)):
         errors.append(MappingIssue(Path("runtime/knowledge-assets"), f"duplicate asset id: {duplicate}"))
