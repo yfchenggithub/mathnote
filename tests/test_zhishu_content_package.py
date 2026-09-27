@@ -58,6 +58,7 @@ class ContentPackageTests(unittest.TestCase):
         self.root = Path(self.temp_dir.name)
         self.project_root = self.root / "source"
         self.packages = self.root / "packages"
+        self.prepared_assets = self.root / "prepared"
         for module_name in MODULE_NAMES:
             (self.project_root / module_name).mkdir(parents=True)
 
@@ -76,10 +77,20 @@ class ContentPackageTests(unittest.TestCase):
         return source
 
     def build(self, name: str):
+        shutil.rmtree(self.prepared_assets, ignore_errors=True)
+        for source_image in self.project_root.rglob("images/*.png"):
+            source_id = json.loads(
+                (source_image.parent.parent / "meta.json").read_text(encoding="utf-8")
+            )["id"]
+            output = self.prepared_assets / "images" / source_id / f"{source_image.stem}.webp"
+            output.parent.mkdir(parents=True, exist_ok=True)
+            output.write_bytes(source_image.read_bytes())
         scan_result = scan_repository(self.project_root)
-        mapping_result = map_runtime(scan_result)
+        mapping_result = map_runtime(scan_result, self.prepared_assets)
         self.assertEqual(mapping_result.errors, ())
-        result = build_package(scan_result, mapping_result, self.packages / name)
+        result = build_package(
+            scan_result, mapping_result, self.packages / name, self.prepared_assets
+        )
         self.assertEqual(result.errors, ())
         return result
 
@@ -144,7 +155,7 @@ class ContentPackageTests(unittest.TestCase):
             "search-documents.json",
         )]):
             self.assertTrue((root / name).is_file())
-        self.assertTrue((root / "resources/images/C006/01.png").is_file())
+        self.assertTrue((root / "resources/images/C006/01.webp").is_file())
         self.assertTrue((root / "resources/pdfs/C006/01.pdf").is_file())
         self.assertEqual(validate_package(root), ())
         assets = self.read_json(root / "knowledge-assets.json")
@@ -353,7 +364,7 @@ class ContentPackageTests(unittest.TestCase):
         source = self.create_source(meta_record("C001", "结论"))
         (source / "images" / "01.png").write_bytes(b"original")
         package = self.build("bad-asset-hash").output_dir
-        (package / "resources/images/C001/01.png").write_bytes(b"tampered")
+        (package / "resources/images/C001/01.webp").write_bytes(b"tampered")
 
         self.assertIn(
             "asset hashes do not match resource contents",
@@ -399,9 +410,14 @@ class ContentPackageTests(unittest.TestCase):
         shutil.rmtree(source / "images")
         shutil.rmtree(source / "pdfs")
         scan_result = scan_repository(self.project_root)
-        mapping_result = map_runtime(scan_result)
+        mapping_result = map_runtime(scan_result, self.prepared_assets)
 
-        result = build_package(scan_result, mapping_result, self.packages / "warnings")
+        result = build_package(
+            scan_result,
+            mapping_result,
+            self.packages / "warnings",
+            self.prepared_assets,
+        )
 
         self.assertEqual(result.errors, ())
         self.assertEqual(len(result.warnings), 2)
@@ -474,8 +490,8 @@ class ContentPackageTests(unittest.TestCase):
         changed = self.build("changed")
         changed_diff = diff_packages(previous.output_dir, changed.output_dir)
         entries = {(e.operation, e.entity_id) for e in changed_diff.entries if e.entity_type == "KnowledgeAsset"}
-        self.assertIn(("UPDATE", "C001:image:01.png"), entries)
-        self.assertIn(("ADD", "C001:image:02.png"), entries)
+        self.assertIn(("UPDATE", "C001:image:01.webp"), entries)
+        self.assertIn(("ADD", "C001:image:02.webp"), entries)
         self.assertIn(("ADD", "C001:pdf:01.pdf"), entries)
 
         image.unlink()
@@ -485,8 +501,8 @@ class ContentPackageTests(unittest.TestCase):
         removed_diff = diff_packages(changed.output_dir, removed.output_dir)
         deleted = {(e.operation, e.entity_id) for e in removed_diff.entries if e.entity_type == "KnowledgeAsset"}
         self.assertEqual(deleted, {
-            ("DELETE", "C001:image:01.png"),
-            ("DELETE", "C001:image:02.png"),
+            ("DELETE", "C001:image:01.webp"),
+            ("DELETE", "C001:image:02.webp"),
             ("DELETE", "C001:pdf:01.pdf"),
         })
 
@@ -510,7 +526,7 @@ class ContentPackageTests(unittest.TestCase):
         deleted_entries = {(e.entity_type, e.operation, e.entity_id) for e in diff_packages(added.output_dir, deleted.output_dir).entries}
         self.assertIn(("KnowledgeNode", "DELETE", "C001"), deleted_entries)
         self.assertIn(("SearchDocument", "DELETE", "C001"), deleted_entries)
-        self.assertIn(("KnowledgeAsset", "DELETE", "C001:image:01.png"), deleted_entries)
+        self.assertIn(("KnowledgeAsset", "DELETE", "C001:image:01.webp"), deleted_entries)
         self.assertIn(("KnowledgeAsset", "DELETE", "C001:pdf:01.pdf"), deleted_entries)
         self.assertTrue(any(item[0] == "KnowledgeRelation" and item[1] == "DELETE" for item in deleted_entries))
         self.assertFalse((deleted.output_dir / "resources/images/C001").exists())
@@ -521,12 +537,12 @@ class ContentPackageTests(unittest.TestCase):
         image = source / "images" / "old.png"
         image.write_bytes(b"old")
         first = self.build("package")
-        self.assertTrue((first.output_dir / "resources/images/C001/old.png").exists())
+        self.assertTrue((first.output_dir / "resources/images/C001/old.webp").exists())
 
         image.unlink()
         second = self.build("package")
 
-        self.assertFalse((second.output_dir / "resources/images/C001/old.png").exists())
+        self.assertFalse((second.output_dir / "resources/images/C001/old.webp").exists())
         self.assertEqual(validate_package(second.output_dir), ())
 
     def test_validation_detects_missing_and_unregistered_resources(self) -> None:
@@ -534,11 +550,11 @@ class ContentPackageTests(unittest.TestCase):
         (source / "images" / "01.png").write_bytes(b"image")
         result = self.build("package")
 
-        (result.output_dir / "resources/images/C001/01.png").unlink()
+        (result.output_dir / "resources/images/C001/01.webp").unlink()
         errors = validate_package(result.output_dir)
         self.assertTrue(any("resource is missing" in error.message for error in errors))
 
-        extra = result.output_dir / "resources/images/C001/extra.png"
+        extra = result.output_dir / "resources/images/C001/extra.webp"
         extra.write_bytes(b"extra")
         errors = validate_package(result.output_dir)
         self.assertTrue(any("do not exactly match" in error.message for error in errors))

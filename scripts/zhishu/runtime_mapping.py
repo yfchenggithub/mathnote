@@ -10,8 +10,10 @@ from pathlib import Path, PurePosixPath
 from typing import Any, Iterable, Mapping
 
 if __package__:
+    from .asset_preparation import DEFAULT_OUTPUT as DEFAULT_RUNTIME_ASSET_OUTPUT
     from .source_discovery import ConclusionSource, ScanResult
 else:
+    from asset_preparation import DEFAULT_OUTPUT as DEFAULT_RUNTIME_ASSET_OUTPUT
     from source_discovery import ConclusionSource, ScanResult
 
 
@@ -346,17 +348,29 @@ def _build_relations(
 
 
 def _build_assets(
-    mapped_sources: tuple[_MappedSource, ...], warnings: list[MappingIssue]
+    mapped_sources: tuple[_MappedSource, ...],
+    warnings: list[MappingIssue],
+    prepared_assets_root: Path,
 ) -> tuple[KnowledgeAsset, ...]:
     assets: list[KnowledgeAsset] = []
     for mapped in sorted(mapped_sources, key=lambda item: item.id):
         for directory_name, asset_type in (("images", "image"), ("pdfs", "pdf")):
-            directory = mapped.source.conclusion_path / directory_name
+            directory = (
+                prepared_assets_root / "images" / mapped.id
+                if asset_type == "image"
+                else mapped.source.conclusion_path / "pdfs"
+            )
             if not directory.is_dir():
                 warnings.append(
                     MappingIssue(
-                        _source_path(mapped.source, directory_name),
-                        f"{directory_name} directory is missing; no assets mapped",
+                        (
+                            Path("build/zhishu-runtime-assets/images") / mapped.id
+                            if asset_type == "image"
+                            else _source_path(mapped.source, directory_name)
+                        ),
+                        f"prepared {directory_name} directory is missing; no assets mapped"
+                        if asset_type == "image"
+                        else f"{directory_name} directory is missing; no assets mapped",
                     )
                 )
                 continue
@@ -491,7 +505,10 @@ def _validate_runtime(
         )
 
 
-def map_runtime(scan_result: ScanResult) -> RuntimeMappingResult:
+def map_runtime(
+    scan_result: ScanResult,
+    prepared_assets_root: Path = DEFAULT_RUNTIME_ASSET_OUTPUT,
+) -> RuntimeMappingResult:
     """Map one immutable discovery result into deterministic runtime DTOs."""
 
     errors = [
@@ -508,7 +525,7 @@ def map_runtime(scan_result: ScanResult) -> RuntimeMappingResult:
     nodes = _build_nodes(mapped_sources)
     conclusion_ids = frozenset(mapped.id for mapped in mapped_sources)
     relations = _build_relations(mapped_sources, conclusion_ids, errors)
-    assets = _build_assets(mapped_sources, warnings)
+    assets = _build_assets(mapped_sources, warnings, prepared_assets_root.resolve())
     documents = _build_search_documents(mapped_sources, errors)
     _validate_runtime(scan_result, nodes, relations, assets, documents, errors)
     return RuntimeMappingResult(

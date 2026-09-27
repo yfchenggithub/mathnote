@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import shutil
 import tempfile
 import unittest
 from pathlib import Path
@@ -71,6 +72,7 @@ class RuntimeMappingTests(unittest.TestCase):
     def setUp(self) -> None:
         self.temp_dir = tempfile.TemporaryDirectory()
         self.project_root = Path(self.temp_dir.name)
+        self.prepared_assets = self.project_root / "build/zhishu-runtime-assets"
         for module_name in MODULE_NAMES:
             (self.project_root / module_name).mkdir()
 
@@ -88,8 +90,18 @@ class RuntimeMappingTests(unittest.TestCase):
         )
         return source
 
-    def map(self):
-        return map_runtime(scan_repository(self.project_root))
+    def map(self, scan_result=None):
+        shutil.rmtree(self.prepared_assets, ignore_errors=True)
+        for source_image in self.project_root.rglob("images/*.png"):
+            source_id = json.loads(
+                (source_image.parent.parent / "meta.json").read_text(encoding="utf-8")
+            )["id"]
+            output = self.prepared_assets / "images" / source_id / f"{source_image.stem}.webp"
+            output.parent.mkdir(parents=True, exist_ok=True)
+            output.write_bytes(source_image.read_bytes())
+        return map_runtime(
+            scan_result or scan_repository(self.project_root), self.prepared_assets
+        )
 
     def test_path_splitting_merges_structural_nodes_and_sets_parent(self) -> None:
         self.create_source(meta_record("C001", "结论一", "解析几何-圆锥曲线-椭圆"))
@@ -283,12 +295,12 @@ class RuntimeMappingTests(unittest.TestCase):
         pdf = next(asset for asset in result.assets if asset.type == "pdf")
 
         self.assertEqual([asset.id for asset in images], [
-            "C006:image:1.png",
-            "C006:image:2.png",
-            "C006:image:10.png",
+            "C006:image:1.webp",
+            "C006:image:2.webp",
+            "C006:image:10.webp",
         ])
         self.assertEqual([asset.sortOrder for asset in images], [10, 20, 30])
-        self.assertEqual(images[0].uri, "resources/images/C006/1.png")
+        self.assertEqual(images[0].uri, "resources/images/C006/1.webp")
         self.assertEqual(pdf.uri, "resources/pdfs/C006/01.pdf")
 
     def test_search_document_maps_all_declared_fields(self) -> None:
@@ -328,8 +340,8 @@ class RuntimeMappingTests(unittest.TestCase):
         (source / "images" / "1.png").write_bytes(b"one")
         scan_result = scan_repository(self.project_root)
 
-        first = map_runtime(scan_result)
-        second = map_runtime(scan_result)
+        first = self.map(scan_result)
+        second = self.map(scan_result)
 
         self.assertEqual(first, second)
 
@@ -338,7 +350,7 @@ class RuntimeMappingTests(unittest.TestCase):
         self.create_source(meta_record("C002", "二", "解析几何-乙"))
         scan_result = scan_repository(self.project_root)
 
-        result = map_runtime(scan_result)
+        result = self.map(scan_result)
 
         self.assertEqual(result.source_conclusion_count, 2)
         self.assertEqual(result.conclusion_node_count, 2)

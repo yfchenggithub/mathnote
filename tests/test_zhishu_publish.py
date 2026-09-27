@@ -54,6 +54,7 @@ class ZhishuPublishParserTests(unittest.TestCase):
         output = StringIO()
         with (
             patch.object(publish, "scan_repository", return_value=object()),
+            patch.object(publish, "verify_prepared_runtime_images", return_value={}),
             patch.object(publish, "map_runtime", return_value=object()),
             patch.object(publish, "build_package", return_value=failed),
             redirect_stdout(output),

@@ -252,6 +252,7 @@ def _copy_assets(
     package_root: Path,
     assets: Iterable[dict[str, Any]],
     source_index: Mapping[str, Path],
+    prepared_assets_root: Path,
 ) -> dict[str, str]:
     asset_hashes: dict[str, str] = {}
     for asset in assets:
@@ -267,7 +268,11 @@ def _copy_assets(
         logical_path = PurePosixPath(uri)
         if logical_path.parent != expected_prefix:
             raise ValueError(f"asset {asset_id} URI does not match its identity: {uri}")
-        source_path = source_root / source_directory / logical_path.name
+        source_path = (
+            prepared_assets_root / "images" / knowledge_id / logical_path.name
+            if asset_type == "image"
+            else source_root / source_directory / logical_path.name
+        )
         if not source_path.is_file():
             raise ValueError(f"asset source file is missing: {source_path}")
         destination = _resource_path(package_root, uri)
@@ -512,6 +517,7 @@ def build_package(
     scan_result: ScanResult,
     runtime_result: RuntimeMappingResult,
     output_dir: Path,
+    prepared_assets_root: Path,
 ) -> PackageBuildResult:
     """Build and validate a complete package before replacing the output."""
 
@@ -538,7 +544,12 @@ def build_package(
         (staged / "resources" / "images").mkdir(parents=True)
         (staged / "resources" / "pdfs").mkdir(parents=True)
         source_index = _source_index(scan_result)
-        asset_hashes = _copy_assets(staged, entities["knowledgeAssets"], source_index)
+        asset_hashes = _copy_assets(
+            staged,
+            entities["knowledgeAssets"],
+            source_index,
+            prepared_assets_root.resolve(),
+        )
         entity_hashes = _entity_hashes(entities)
         package_hash = _package_hash(entity_hashes, asset_hashes)
         content_version = f"sha256:{package_hash}"
@@ -653,4 +664,3 @@ def diff_packages(previous_dir: Path, current_dir: Path) -> PackageDiff:
         )
         entries.extend(DiffEntry(label, "DELETE", entity_id) for entity_id in sorted(previous_ids - current_ids))
     return PackageDiff(tuple(entries), ())
-

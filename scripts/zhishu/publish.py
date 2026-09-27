@@ -7,6 +7,12 @@ from pathlib import Path
 from typing import Sequence
 
 if __package__:
+    from .asset_preparation import (
+        DEFAULT_OUTPUT as DEFAULT_RUNTIME_ASSET_OUTPUT,
+        RuntimeAssetPreparationError,
+        prepare_runtime_images,
+        verify_prepared_runtime_images,
+    )
     from .content_package import (
         PackageBuildResult,
         PackageDiff,
@@ -17,6 +23,12 @@ if __package__:
     from .source_discovery import ScanResult, scan_repository
     from .source_initialization import InitializationResult, initialize_sources
 else:
+    from asset_preparation import (
+        DEFAULT_OUTPUT as DEFAULT_RUNTIME_ASSET_OUTPUT,
+        RuntimeAssetPreparationError,
+        prepare_runtime_images,
+        verify_prepared_runtime_images,
+    )
     from content_package import PackageBuildResult, PackageDiff, build_package, diff_packages
     from runtime_mapping import RuntimeMappingResult, map_runtime
     from source_discovery import ScanResult, scan_repository
@@ -35,11 +47,49 @@ def build_parser() -> argparse.ArgumentParser:
         "init-source",
         help="ensure images/ and pdfs/ exist for discovered sources",
     )
-    subparsers.add_parser("map-runtime", help="map discovered sources to runtime DTOs")
+    map_runtime_parser = subparsers.add_parser(
+        "map-runtime", help="map discovered sources to runtime DTOs"
+    )
+    map_runtime_parser.add_argument(
+        "--prepared-assets",
+        type=Path,
+        default=DEFAULT_RUNTIME_ASSET_OUTPUT,
+        help=f"prepared runtime asset directory (default: {DEFAULT_RUNTIME_ASSET_OUTPUT})",
+    )
+    prepare_parser = subparsers.add_parser(
+        "prepare-assets", help="build the generated runtime WebP image mirror"
+    )
+    prepare_parser.add_argument(
+        "--output",
+        type=Path,
+        default=DEFAULT_RUNTIME_ASSET_OUTPUT,
+        help=f"prepared runtime asset directory (default: {DEFAULT_RUNTIME_ASSET_OUTPUT})",
+    )
     build_package_parser = subparsers.add_parser(
-        "build-package", help="build a complete deterministic content package"
+        "build-package", help="build a package from already prepared runtime images"
     )
     build_package_parser.add_argument(
+        "--output",
+        type=Path,
+        default=DEFAULT_PACKAGE_OUTPUT,
+        help=f"package output directory (default: {DEFAULT_PACKAGE_OUTPUT})",
+    )
+    build_package_parser.add_argument(
+        "--prepared-assets",
+        type=Path,
+        default=DEFAULT_RUNTIME_ASSET_OUTPUT,
+        help=f"prepared runtime asset directory (default: {DEFAULT_RUNTIME_ASSET_OUTPUT})",
+    )
+    build_content_parser = subparsers.add_parser(
+        "build-content", help="prepare runtime images, then build the canonical package"
+    )
+    build_content_parser.add_argument(
+        "--prepared-assets",
+        type=Path,
+        default=DEFAULT_RUNTIME_ASSET_OUTPUT,
+        help=f"prepared runtime asset directory (default: {DEFAULT_RUNTIME_ASSET_OUTPUT})",
+    )
+    build_content_parser.add_argument(
         "--output",
         type=Path,
         default=DEFAULT_PACKAGE_OUTPUT,
@@ -165,6 +215,22 @@ def format_package_build_result(result: PackageBuildResult) -> str:
     return "\n".join(lines)
 
 
+def format_asset_preparation_result(manifest: dict[str, object], output: Path) -> str:
+    assets = manifest.get("assets", [])
+    total_bytes = sum(int(asset["bytes"]) for asset in assets)  # type: ignore[index]
+    tool = manifest.get("tool", {})
+    return "\n".join(
+        (
+            "Zhishu Runtime Image Preparation",
+            "",
+            f"Output: {output.resolve()}",
+            f"Images: {len(assets)}",  # type: ignore[arg-type]
+            f"Bytes: {total_bytes}",
+            f"Tool: {tool.get('name')} {tool.get('version')}",  # type: ignore[union-attr]
+        )
+    )
+
+
 def format_package_diff(result: PackageDiff) -> str:
     lines = ["Zhishu Content Package Diff"]
     for entity_type in ("KnowledgeNode", "KnowledgeRelation", "KnowledgeAsset", "SearchDocument"):
@@ -194,15 +260,43 @@ def main(argv: Sequence[str] | None = None) -> int:
         initialization_result = initialize_sources(scan_result)
         print(format_initialization_result(initialization_result))
         return 1 if initialization_result.errors else 0
+    if args.command == "prepare-assets":
+        scan_result = scan_repository(PROJECT_ROOT)
+        try:
+            manifest = prepare_runtime_images(scan_result, args.output)
+        except (RuntimeAssetPreparationError, OSError) as exc:
+            print(f"Runtime image preparation failed: {exc}")
+            return 1
+        print(format_asset_preparation_result(manifest, args.output))
+        return 0
     if args.command == "map-runtime":
         scan_result = scan_repository(PROJECT_ROOT)
-        mapping_result = map_runtime(scan_result)
+        try:
+            verify_prepared_runtime_images(scan_result, args.prepared_assets)
+        except (RuntimeAssetPreparationError, OSError) as exc:
+            print(f"Runtime image preparation is stale: {exc}")
+            return 1
+        mapping_result = map_runtime(scan_result, args.prepared_assets)
         print(format_runtime_mapping_result(mapping_result))
         return 1 if mapping_result.errors else 0
-    if args.command == "build-package":
+    if args.command in ("build-package", "build-content"):
         scan_result = scan_repository(PROJECT_ROOT)
-        mapping_result = map_runtime(scan_result)
-        package_result = build_package(scan_result, mapping_result, args.output)
+        if args.command == "build-content":
+            try:
+                manifest = prepare_runtime_images(scan_result, args.prepared_assets)
+            except (RuntimeAssetPreparationError, OSError) as exc:
+                print(f"Runtime image preparation failed: {exc}")
+                return 1
+            print(format_asset_preparation_result(manifest, args.prepared_assets))
+        try:
+            verify_prepared_runtime_images(scan_result, args.prepared_assets)
+        except (RuntimeAssetPreparationError, OSError) as exc:
+            print(f"Runtime image preparation is stale: {exc}")
+            return 1
+        mapping_result = map_runtime(scan_result, args.prepared_assets)
+        package_result = build_package(
+            scan_result, mapping_result, args.output, args.prepared_assets
+        )
         print(format_package_build_result(package_result))
         return 1 if package_result.errors else 0
     if args.command == "diff":

@@ -9,14 +9,45 @@ Mapping → Content Package → Validation/Diff boundary.
 python scripts/zhishu/publish.py scan
 python scripts/zhishu/publish.py init-source
 python scripts/zhishu/publish.py map-runtime
+python scripts/zhishu/publish.py prepare-assets
 python scripts/zhishu/publish.py build-package
 python scripts/zhishu/publish.py build-package --output <directory>
+python scripts/zhishu/publish.py build-content
+python scripts/zhishu/publish.py build-content --prepared-assets <directory> --output <directory>
 python scripts/zhishu/publish.py diff <previous-package> <current-package>
 ```
 
 Without `--output`, `build-package` writes to
 `<repository>/build/zhishu-content-package`. An explicit `--output` still
 overrides the default.
+
+`build-content` is the formal producer command. It performs a complete Runtime
+Image Preparation rebuild and freshness verification before package assembly.
+`build-package` consumes an already prepared, verified staging directory and
+fails if its manifest, source hashes, output hashes, tool version, or file
+coverage is stale.
+
+## Runtime image preparation contract
+
+Source PNG files remain in each Conclusion `images/` directory and are never
+modified. The generated mirror defaults to
+`build/zhishu-runtime-assets/images/<knowledgeId>/<name>.webp`; the directory is
+fully rebuilt, so source ADD/UPDATE/DELETE operations cannot leave orphan
+runtime files.
+
+- encoder: `sharp` at the version pinned by `package-lock.json` (currently
+  0.34.5)
+- format: real WebP
+- quality: 85
+- maximum width: 1440 px
+- aspect ratio: preserved
+- upscale: forbidden
+- unstable timestamps and source machine paths: excluded from the manifest
+
+The package continues to copy PDFs byte-for-byte from the source `pdfs/`
+directories. Runtime image URIs are emitted truthfully as
+`resources/images/<knowledgeId>/<name>.webp`; PDF URIs remain
+`resources/pdfs/<knowledgeId>/<name>.pdf`.
 
 ## Frozen source boundary
 
@@ -29,7 +60,8 @@ overrides the default.
   `relations.related_ids` for related relations.
 - `altNodes`, `relations.prerequisites`, and `relations.similar` are deliberately
   outside this frozen version and must not affect validation or output.
-- Runtime assets come only from direct files in `images/` and `pdfs/`.
+- Runtime images come only from the generated WebP mirror prepared from direct
+  source files in `images/`; PDFs come directly from `pdfs/` unchanged.
 - Canonical content is not a Publisher input.
 
 ## Frozen runtime compatibility
