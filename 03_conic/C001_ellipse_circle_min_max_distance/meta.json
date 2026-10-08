@@ -2,14 +2,14 @@
   "id": "C001",
   "module": "conic",
   "core": {
-    "title": "椭圆到圆的距离公式",
+    "title": "椭圆与圆周的距离最值",
     "alias": [
       "椭圆与圆距离最值",
       "椭圆到圆最小距离",
       "椭圆外离圆距离",
       "圆包含椭圆距离"
     ],
-    "summary": "椭圆到圆的距离由圆心到椭圆上点的最值以及半径的大小关系决定，分为相离、相交、内包含三种情况。",
+    "summary": "椭圆与圆周的最小距离，是半径到圆心与椭圆上点的距离区间的距离；最大距离是该区间上端点加半径。",
     "difficulty": 3,
     "category": "解析几何",
     "tags": ["椭圆", "圆", "距离最值", "几何转化", "参数方程", "圆锥曲线"]
@@ -75,8 +75,8 @@
       "r-d_{\\max}",
       "\\min_{P\\in E}|PM-r|"
     ],
-    "pinyin": "tuoyuan daoyuan juli gongshi",
-    "pinyinAbbr": "tydyjlg"
+    "pinyin": "tuoyuan yu yuanzhou de juli zuizhi",
+    "pinyinAbbr": "tyyyzdjlzz"
   },
   "searchmeta": {
     "titleWeight": 10,
@@ -93,7 +93,7 @@
   "math": {
     "core_formula": "D_{\\min}=\\min_{P\\in E}|PM-r|,\\quad D_{\\max}=d_{\\max}+r",
     "related_formulas": [
-      "D_{\\min}=\\begin{cases} d_{\\min}-r, & r<d_{\\min} \\\\ r-d_{\\max}, & r>d_{\\max} \\end{cases}",
+      "D_{\\min}=\\begin{cases} d_{\\min}-r, & r<d_{\\min} \\\\ 0, & d_{\\min}\\le r\\le d_{\\max} \\\\ r-d_{\\max}, & r>d_{\\max} \\end{cases}",
       "d_{\\min}=\\min_{P\\in E}PM,\\quad d_{\\max}=\\max_{P\\in E}PM"
     ],
     "variables": {
@@ -104,24 +104,24 @@
       "r": "圆半径",
       "d_min": "椭圆上点到圆心最短距离",
       "d_max": "椭圆上点到圆心最长距离",
-      "D_min": "椭圆到圆的最小距离",
-      "D_max": "椭圆到圆的最大距离"
+      "D_min": "椭圆到圆周的最小距离",
+      "D_max": "椭圆到圆周的最大距离"
     },
-    "conditions": "椭圆方程 $\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1\\;(a>b>0)$；圆方程 $(x-x_0)^2+(y-y_0)^2=r^2\\;(r>0)$",
-    "conclusions": "椭圆 $E$ 到圆 $\\Gamma$ 的最小距离为 $D_{\\min}=\\min_{P\\in E}|PM-r|$，最大距离为 $D_{\\max}=d_{\\max}+r$。当椭圆与圆无公共点时，$D_{\\min}$ 可化简为 $d_{\\min}-r$（圆在椭圆外）或 $r-d_{\\max}$（圆包含椭圆）。"
+    "conditions": "椭圆方程 $\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1\\;(a>b>0)$；圆周方程 $(x-x_0)^2+(y-y_0)^2=r^2\\;(r>0)$",
+    "conclusions": "椭圆 $E$ 到圆周 $\\Gamma$ 的最小距离为 $D_{\\min}=\\min_{P\\in E}|PM-r|$，最大距离为 $D_{\\max}=d_{\\max}+r$。当 $r<d_{\\min}$ 时，两曲线无公共点，$D_{\\min}=d_{\\min}-r$，圆周可能在椭圆内或外；当 $d_{\\min}\\le r\\le d_{\\max}$ 时，$D_{\\min}=0$；当 $r>d_{\\max}$ 时，椭圆位于圆周所围圆盘内部，$D_{\\min}=r-d_{\\max}$。"
   },
   "content": {
-    "statement": "设椭圆 $E:\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1\\;(a>b>0)$ 与圆 $\\Gamma:(x-x_0)^2+(y-y_0)^2=r^2\\;(r>0)$，圆心 $M(x_0,y_0)$。记 $d_{\\min}=\\min_{P\\in E}PM$，$d_{\\max}=\\max_{P\\in E}PM$。则椭圆 $E$ 到圆 $\\Gamma$ 的最小距离 $D_{\\min}=\\min_{P\\in E}|PM-r|$，最大距离 $D_{\\max}=d_{\\max}+r$。特别地，当椭圆与圆无公共点时，$D_{\\min}=\\begin{cases} d_{\\min}-r, & r<d_{\\min} \\\\ r-d_{\\max}, & r>d_{\\max} \\end{cases}$。",
+    "statement": "设椭圆 $E:\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1\\;(a>b>0)$ 与圆周 $\\Gamma:(x-x_0)^2+(y-y_0)^2=r^2\\;(r>0)$，圆心 $M(x_0,y_0)$。记 $d_{\\min}=\\min_{P\\in E}PM$，$d_{\\max}=\\max_{P\\in E}PM$。则椭圆 $E$ 到圆周 $\\Gamma$ 的最小距离 $D_{\\min}=\\min_{P\\in E}|PM-r|$，最大距离 $D_{\\max}=d_{\\max}+r$。特别地，当椭圆与圆周无公共点时，$D_{\\min}=\\begin{cases} d_{\\min}-r, & r<d_{\\min} \\\\ r-d_{\\max}, & r>d_{\\max} \\end{cases}$。",
     "derivation": [
       "第一步：定义椭圆上点到圆心距离的最值 $d_{\\min},d_{\\max}$。",
-      "第二步：椭圆上一点 $P$ 到圆上一点的距离为 $|PM-r|$，故最小距离为 $\\min |PM-r|$，最大距离为 $d_{\\max}+r$。",
-      "第三步：当 $r<d_{\\min}$ 时圆在椭圆外且外离，$D_{\\min}=d_{\\min}-r$；当 $r>d_{\\max}$ 时圆包含椭圆，$D_{\\min}=r-d_{\\max}$；当 $d_{\\min}\\le r\\le d_{\\max}$ 时相交，$D_{\\min}=0$。"
+      "第二步：固定椭圆上一点 $P$，它到圆周上点的最小距离为 $|PM-r|$、最大距离为 $PM+r$；再对 $P$ 取最值，得到 $D_{\\min}=\\min_{P\\in E}|PM-r|$、$D_{\\max}=d_{\\max}+r$。",
+      "第三步：当 $r<d_{\\min}$ 时两曲线无公共点，$D_{\\min}=d_{\\min}-r$；当 $d_{\\min}\\le r\\le d_{\\max}$ 时有公共点，$D_{\\min}=0$；当 $r>d_{\\max}$ 时椭圆位于圆周所围圆盘内部，$D_{\\min}=r-d_{\\max}$。"
     ],
-    "intuition": "把圆看作以圆心为中心、半径为 $r$ 的区域，椭圆上的点到圆心距离减去半径的绝对值即为到圆的距离。",
+    "intuition": "圆周上各点到圆心的距离都是 $r$；固定椭圆上一点 $P$，它到圆周的最短距离为 $|PM-r|$。",
     "common_tricks": [
-      "用椭圆参数方程 $(a\\cos\\theta,b\\sin\\theta)$ 将 $PM^2$ 转化为关于 $\\sin\\theta$ 或 $\\cos\\theta$ 的二次函数求最值。",
+      "用椭圆参数方程 $(a\\cos\\theta,b\\sin\\theta)$ 将 $PM^2$ 写成关于 $\\theta$ 的函数；能化为单变量二次式时用二次函数求最值，否则结合三角函数或导数求最值。",
       "注意分类讨论 $r$ 与 $d_{\\min},d_{\\max}$ 的大小关系，不能直接套用 $|d_{\\min}-r|$。",
-      "当圆心在椭圆内部时，$d_{\\min}=0$（椭圆上存在与圆心重合的点？实际上椭圆是封闭曲线，圆心在椭圆内部时$d_{\\min}$为正，但需注意$d_{\\min}=0$当且仅当圆心在椭圆上）——常见错误，应额外提醒。"
+      "不要把圆心在椭圆内部误认为 $d_{\\min}=0$；$d_{\\min}=0$ 当且仅当圆心在椭圆上。"
     ]
   },
   "usage": {
@@ -142,7 +142,7 @@
     "video": ""
   },
   "shareConfig": {
-    "title": "椭圆到圆的距离最值：圆心到椭圆最值+半径分类",
+    "title": "椭圆到圆周的距离最值：圆心到椭圆最值+半径分类",
     "shareDesc": "适合解析几何最值题型，用参数方程计算圆心到椭圆距离，再结合半径分类讨论，避免直接联立方程复杂运算。"
   },
   "relations": {
@@ -152,14 +152,14 @@
       "二次函数最值",
       "参数方程"
     ],
-    "related_ids": ["P001"],
+    "related_ids": ["P001","C083"],
     "similar": "椭圆到直线的距离公式、点到圆的距离公式"
   },
   "meta": {
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-05",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-10-08"
   },
   "isPro": 0,
   "remarks": "",
