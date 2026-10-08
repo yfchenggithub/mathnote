@@ -1,0 +1,203 @@
+{
+  "id": "C083",
+  "module": "conic",
+  "core": {
+    "title": "椭圆外一点到椭圆的距离极值",
+    "alias": [
+      "椭圆外一点到椭圆的距离极值",
+      "点到椭圆的最近距离",
+      "点到椭圆的最远距离",
+      "椭圆距离最值",
+      "distance extrema from an external point to an ellipse"
+    ],
+    "summary": "外点到椭圆：设 P=(a cosθ,b sinθ)，求距离平方 F(θ) 的驻点并比较，得到最近与最远距离；一般不能套用圆的加减半径公式。",
+    "difficulty": 4,
+    "category": "解析几何",
+    "tags": [
+      "椭圆",
+      "圆锥曲线",
+      "椭圆外一点",
+      "点到椭圆的距离",
+      "距离极值",
+      "三角参数方程",
+      "导数",
+      "万能代换"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "椭圆外一点到椭圆的距离极值",
+      "点到椭圆的最短距离",
+      "点到椭圆的最长距离",
+      "椭圆距离最值",
+      "椭圆三角参数法",
+      "椭圆一般外点",
+      "距离平方",
+      "正切半角代换",
+      "四次方程",
+      "驻点",
+      "a cos theta",
+      "b sin theta"
+    ],
+    "synonyms": [
+      "点到椭圆的距离极值",
+      "椭圆外点的最近点",
+      "ellipse point-to-curve distance extrema",
+      "minimum distance to ellipse",
+      "maximum distance to ellipse"
+    ],
+    "intents": [
+      "求最小距离",
+      "求最大距离",
+      "求最近点坐标",
+      "求最远点坐标",
+      "三角参数法求最值",
+      "求导与参数方程"
+    ],
+    "query_templates": [
+      "椭圆外一点到椭圆的距离极值",
+      "任意点到椭圆最近距离怎么求",
+      "椭圆三角代换求距离最值",
+      "椭圆距离最值的驻点方程"
+    ],
+    "ocrKeywords": [
+      "椭圆外一点到椭圆的距离极值",
+      "椭圆",
+      "外点",
+      "最短距离",
+      "最远距离",
+      "三角参数方程",
+      "a cosθ",
+      "b sinθ",
+      "F(θ)",
+      "tan(θ/2)"
+    ],
+    "latex_patterns": [
+      "P=(a\\cos\\theta,b\\sin\\theta)",
+      "F(\\theta)=(a\\cos\\theta-x_0)^2+(b\\sin\\theta-y_0)^2",
+      "(a^2-b^2)\\sin\\theta\\cos\\theta-ax_0\\sin\\theta+by_0\\cos\\theta=0"
+    ],
+    "formulaTokens": [
+      "a\\cos\\theta",
+      "b\\sin\\theta",
+      "F(\\theta)",
+      "\\tan\\frac{\\theta}{2}",
+      "d_{\\min}",
+      "d_{\\max}"
+    ],
+    "pinyin": "tuo yuan wai yi dian dao tuo yuan de ju li ji zhi",
+    "pinyinAbbr": "tywyddtydjljz"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.0,
+    "hot_score": 0,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "F(\\theta)=(a\\cos\\theta-x_0)^2+(b\\sin\\theta-y_0)^2",
+    "related_formulas": [
+      "d_{\\min}=\\sqrt{\\min F(\\theta)}",
+      "d_{\\max}=\\sqrt{\\max F(\\theta)}",
+      "(a^2-b^2)\\sin\\theta\\cos\\theta-ax_0\\sin\\theta+by_0\\cos\\theta=0",
+      "t=\\tan\\frac{\\theta}{2}"
+    ],
+    "variables": {
+      "a": "椭圆半长轴长度，a>b>0",
+      "b": "椭圆半短轴长度，a>b>0",
+      "x_0": "椭圆外固定点 M 的横坐标",
+      "y_0": "椭圆外固定点 M 的纵坐标",
+      "theta": "椭圆动点的参数，取 0≤θ<2π",
+      "t": "正切半角代换变量，t=tan(θ/2)",
+      "F": "固定点到椭圆动点的距离平方"
+    },
+    "conditions": "E:x^2/a^2+y^2/b^2=1\\ (a>b>0),\\ M(x_0,y_0),\\ x_0^2/a^2+y_0^2/b^2>1",
+    "conclusions": [
+      "令 P(θ)=(a cosθ,b sinθ)，则最小/最大距离为 F(θ) 全局最小/最大值的算术平方根。",
+      "极值候选参数满足 (a²-b²)sinθ cosθ-ax₀sinθ+by₀cosθ=0。",
+      "一般位置外点可用 t=tan(θ/2) 化成四次以内的代数方程；检查遗漏的 θ=π 并比较全部候选点。",
+      "不同于圆，椭圆没有普遍适用的“中心距±半径”距离最值公式。"
+    ]
+  },
+  "content": {
+    "statement": "设椭圆 E:x²/a²+y²/b²=1 (a>b>0)，外点 M(x₀,y₀) 满足 x₀²/a²+y₀²/b²>1。设 P=(a cosθ,b sinθ)，以 F(θ)=MP² 求距离最值。",
+    "derivation": [
+      "F(θ)=(a cosθ-x₀)²+(b sinθ-y₀)²。",
+      "令 F′(θ)=0 得 (a²-b²)sinθcosθ-ax₀sinθ+by₀cosθ=0。",
+      "设 t=tan(θ/2)，得 by₀t⁴+2(a²-b²+ax₀)t³+2(ax₀-a²+b²)t-by₀=0。",
+      "求出所有实根对应的椭圆点，并单独检查 θ=π 对应点 (-a,0)，比较 MP² 后开方。"
+    ],
+    "intuition": "沿椭圆移动的点 P 对应一个角参数 θ；固定点 M 到 P 的距离有最小和最大值，求距离平方比直接求距离方便。",
+    "common_tricks": [
+      "椭圆不能直接用圆的“点到中心距离加减半径”结论。",
+      "必须检查 M 是否在椭圆外：x₀²/a²+y₀²/b²>1。",
+      "求导等于零得到候选点，比较全部候选点才能得到全局极值。",
+      "万能代换不包括 θ=π；不可漏掉 P=(-a,0)。",
+      "轴上外点可以优先化为单个 sinθ/cosθ 的二次函数。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "椭圆 x²/9+y²/4=1，外点 M(4,0)：令 u=cosθ，MP²=5u²-24u+20，求得最近距离 1、最远距离 7。",
+      "椭圆 x²/9+y²/4=1，外点 M(4,6)：用 t=tan(θ/2) 解四次方程，得最近距离 11√5/5，最远距离 4√145/5。"
+    ],
+    "problem_types": [
+      "距离最值",
+      "椭圆三角参数方程",
+      "导数求全局最值",
+      "正切半角代换",
+      "解析几何计算"
+    ],
+    "exam_frequency": 0.0,
+    "exam_score": 0
+  },
+  "interactive": {
+    "has_diagram": false,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "",
+    "png": "",
+    "webp": "",
+    "video": "",
+    "audio": ""
+  },
+  "shareConfig": {
+    "title": "椭圆外一点到椭圆的距离极值：三角参数法与最值比较",
+    "shareDesc": "设椭圆动点，构造距离平方，求导找候选点；轴上外点优先配方，一般外点用半角代换，并注意检验遗漏点。"
+  },
+  "relations": {
+    "prerequisites": [
+      "椭圆的标准方程",
+      "椭圆的三角参数方程",
+      "两点间距离公式",
+      "导数与函数最值",
+      "二倍角与正切半角公式"
+    ],
+    "related_ids": [],
+    "similar": [
+      "点到圆的距离极值",
+      "椭圆上的距离最值问题"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "AI生成（数学内容重新编写）",
+    "created_at": "2026-10-08",
+    "updated_at": "2026-10-08"
+  },
+  "isPro": 0,
+  "remarks": "新节点 UID 尚未分配：发布前需把 id=C_TBD 改为项目内唯一的正式 UID，并核对 module/knowledgeNode 与现有目录及分类树保持一致；图像资源尚未制作。",
+  "knowledgeNode": "解析几何-椭圆-距离问题-距离最值",
+  "altNodes": [
+    "解析几何-圆锥曲线-椭圆",
+    "解析几何-综合-最值问题"
+  ]
+}

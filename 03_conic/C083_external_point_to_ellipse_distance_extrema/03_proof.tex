@@ -1,0 +1,71 @@
+\begin{proofbox}
+\textbf{推导（只用三角参数法）。}
+
+椭圆动点设为
+\[
+P(\theta)=(a\cos\theta,b\sin\theta).
+\]
+由两点距离公式，
+\[
+F(\theta)=(a\cos\theta-x_0)^2
+          +(b\sin\theta-y_0)^2.
+\]
+由于 $F$ 连续且以 $2\pi$ 为周期，
+它在一整周上能取到最大值和最小值。
+
+\textbf{第一步：求导。}
+\[
+\begin{aligned}
+F'(\theta)
+={}&-2a(a\cos\theta-x_0)\sin\theta\\
+   &+2b(b\sin\theta-y_0)\cos\theta.
+\end{aligned}
+\]
+令 $F'(\theta)=0$，整理得
+\[
+(a^2-b^2)\sin\theta\cos\theta
+-ax_0\sin\theta+by_0\cos\theta=0.\tag{1}
+\]
+
+\textbf{第二步：统一消去三角函数。}
+令 $t=\tan\frac{\theta}{2}$（暂不取 $\theta=\pi$），
+则
+\[
+\sin\theta=\frac{2t}{1+t^2},\qquad
+\cos\theta=\frac{1-t^2}{1+t^2}.
+\]
+把它们代入 (1)，并乘以 $(1+t^2)^2$：
+\[
+\begin{aligned}
+0={}&2(a^2-b^2)t(1-t^2)\\
+   &-2ax_0t(1+t^2)\\
+   &+by_0(1-t^2)(1+t^2).
+\end{aligned}
+\]
+展开、整理后得到关于 $t$ 的四次以内方程：
+\[
+\boxed{\begin{aligned}
+0={}&by_0t^4+2(a^2-b^2+ax_0)t^3\\
+   &+2(ax_0-a^2+b^2)t-by_0.
+\end{aligned}}
+\tag{2}
+\]
+
+\textbf{第三步：还原点并比较。}
+对 (2) 的每个\textbf{实根} $t$，
+还原椭圆上的候选点
+\[
+P_t=\left(a\frac{1-t^2}{1+t^2},
+            b\frac{2t}{1+t^2}\right).
+\]
+再\textbf{单独检查}万能代换未覆盖的
+$\theta=\pi$，即 $P_\pi=(-a,0)$。
+比较所有候选点的
+\[
+MP^2=(x-x_0)^2+(y-y_0)^2
+\]
+的最小值和最大值，最后分别开方。
+
+由一元可导周期函数的极值必要条件，
+全局距离最值必在这些候选点中取得，故方法成立。
+\end{proofbox}
