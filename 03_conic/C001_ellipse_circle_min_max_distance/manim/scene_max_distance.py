@@ -61,9 +61,9 @@ class C001MaxDistance(Scene):
             Text("蓝：椭圆 E", font=FONT, font_size=24, color=BLUE_E),
             Text("红：圆周", font=FONT, font_size=24, color=RED_C),
         ).arrange(RIGHT, buff=0.72).move_to([0, 5.75, 0])
-        p_label = MathTex(r"P=(-3,0)", color=GOLD, font_size=27).move_to(
+        p_label = MathTex(r"P=(-3,0)", color=GOLD, font_size=34).move_to(
             axes.c2p(-1.85, 2.55))
-        m_label = MathTex("M", color=INK, font_size=27).move_to(
+        m_label = MathTex("M", color=INK, font_size=34).move_to(
             m_screen + UP * 0.45)
 
         self.add(title, model, legend, axes, ellipse, circle, center_dot, m_label)
@@ -99,10 +99,10 @@ class C001MaxDistance(Scene):
                   rate_func=linear)
 
         q_label = always_redraw(lambda: MathTex(
-            "Q", color=RED_C, font_size=27,
+            "Q", color=RED_C, font_size=34,
         ).move_to(axes.c2p(4 + radius.get_value(), 0) + RIGHT * 0.33 + UP * 0.17))
         q_coordinate = MathTex(r"Q=(4+r,0)", color=RED_C,
-                               font_size=28).move_to([0, -2.85, 0])
+                               font_size=34).move_to([0, -2.85, 0])
         radius_segment = always_redraw(lambda: Line(
             m_screen, axes.c2p(4 + radius.get_value(), 0),
             color=RED_C, stroke_width=6,
@@ -128,15 +128,15 @@ class C001MaxDistance(Scene):
         self.wait(0.8)
 
         # Fixed anchors keep the live numbers from jumping as digits change.
-        r_text = MathTex("r=", color=INK, font_size=34).move_to([-2.9, -3.45, 0])
+        r_text = MathTex("r=", color=INK, font_size=38).move_to([-2.9, -3.45, 0])
         r_number = DecimalNumber(radius.get_value(), num_decimal_places=2,
-                                 color=RED_C, font_size=34).move_to([-1.6, -3.45, 0])
+                                 color=RED_C, font_size=38).move_to([-1.6, -3.45, 0])
         r_number.add_updater(lambda mob: mob.set_value(radius.get_value()))
         d_text = MathTex(r"D_{\max}=", color=INK,
-                         font_size=34).move_to([0.65, -3.45, 0])
+                         font_size=38).move_to([0.65, -3.45, 0])
         d_number = DecimalNumber(maximum_distance(radius.get_value()),
                                  num_decimal_places=2, color=GOLD,
-                                 font_size=34).move_to([2.95, -3.45, 0])
+                                 font_size=38).move_to([2.95, -3.45, 0])
         d_number.add_updater(lambda mob: mob.set_value(
             maximum_distance(radius.get_value())))
         addition = MathTex(r"PQ=PM+MQ=7+r", color=INK,
@@ -157,7 +157,7 @@ class C001MaxDistance(Scene):
         general = MathTex(r"D_{\max}=d_{\max}+r", color=INK,
                           font_size=39).move_to([0, -6.75, 0])
         next_status = Text("本例 dₘₐₓ=7；一般情形先求 dₘₐₓ", font=FONT,
-                           font_size=25, color=MUTED).move_to(status)
+                           font_size=29, color="#42576C").move_to(status)
         self.play(FadeOut(status), run_time=0.2)
         self.play(FadeIn(next_status), FadeIn(general), run_time=0.35)
         status = next_status
