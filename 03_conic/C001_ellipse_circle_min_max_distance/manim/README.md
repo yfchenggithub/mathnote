@@ -71,3 +71,26 @@ Visual QA artifacts from Task 13B.1 are under `build/manim/C001/`, including
 is ignored by Git; regenerate those review artifacts when needed. The existing
 Zhishu asset preparation pipeline accepts `.gif`, validates it and copies it
 byte for byte. Publisher and Sync are outside this pilot.
+
+## Independent maximum-distance animation (Task 13D)
+
+`scene_max_distance.py` renders `C001MaxDistance` separately from the frozen
+minimum-distance scene. It uses the existing exact `math_model.py`: in the
+example, the farthest ellipse point is `P=(-3,0)`, the farthest circle point is
+`Q=(4+r,0)`, and the displayed distance is `D_max=7+r`. The lesson first marks
+`PM=7`, then moves a point along the circumference to `Q`, then grows `r` while
+the full `PQ` span and live value change together. It closes with
+`D_max=d_max+r`, matching the formal TeX.
+
+From the repository root, after setting up the environment above:
+
+```powershell
+.\03_conic\C001_ellipse_circle_min_max_distance\manim\build_max_distance.ps1
+```
+
+The command runs `test_max_distance.py`, renders Manim at 576x1024 and 24 FPS,
+exports a 12 FPS palette GIF with FFmpeg, and runs `verify_gif.py`. It creates
+`build/manim/C001/C001_max_distance.mp4` and
+`images/ellipse_circle_max_distance.gif`. Use `-SkipRender` only to re-export
+the GIF from an existing MP4. The command does not touch the minimum-distance
+MP4, GIF, scene, formal TeX, PDF, or metadata.
