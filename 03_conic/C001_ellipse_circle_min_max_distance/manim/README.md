@@ -1,54 +1,73 @@
-# C001 Manim pilot
+# C001 Manim teaching animation
 
-## Source and geometry
+## Mathematical source
 
-The authoritative conclusion is in `../01_statement.tex` through `../06_summary.tex`.
-This animation illustrates one exact instance:
+The authoritative conclusion is in `../01_statement.tex` through
+`../06_summary.tex`. This GIF illustrates one instance, with **circle circumference**
+rather than the filled disk:
 
-\[
-E:x^2/9+y^2/4=1,\quad M=(4,0),\quad \Gamma:(x-4)^2+y^2=r^2.
-\]
+$$
+E:\frac{x^2}{9}+\frac{y^2}{4}=1,\qquad
+M=(4,0),\qquad \Gamma:(x-4)^2+y^2=r^2\quad(r>0).
+$$
 
-For a point on the ellipse, (PM^2=(5/9)x^2-8x+20), whose derivative is negative on
-([-3,3]). Thus (d_{\min}=1), (d_{\max}=7),
-(D_{\min}=\operatorname{dist}(r,[1,7])), and (D_{\max}=7+r).
-`math_model.py` computes every highlighted point, intersection, and distance shown
-by `scene.py`; no visual approximation is used to place the intersections.
+For a point on this ellipse, $PM^2=(5/9)x^2-8x+20$. Its derivative is negative
+for $-3\le x\le3$. Consequently $A=(3,0)$ is nearest to $M$, with $MA=1$,
+and $B=(-3,0)$ is farthest, with $MB=7$. These endpoint locations are specific
+to this example; they are not a general ellipse rule.
 
-## Storyboard
+For this example, $D_{\min}=\operatorname{dist}(r,[1,7])$. Here
+$\operatorname{dist}(r,[1,7])=\min_{t\in[1,7]}|r-t|$ means the ordinary distance
+from a real number to the closed interval. The general C001 formula is
+$D_{\min}=\operatorname{dist}(r,[d_{\min},d_{\max}])$. The GIF focuses on the
+minimum; the formal TeX also proves $D_{\max}=d_{\max}+r$.
 
-1. Establish a fixed blue ellipse and center (M), then grow a red circle from (r=0.5).
-2. Show the gold gap shrink to zero at the first tangency (r=1).
-3. Keep both true intersections on the moving curves while (1<r<7).
-4. Pause at the second tangency (r=7), then show the gap grow for (r>7).
-5. A fixed, same scale number line shows why the changing answer is the distance from (r) to ([1,7]).
+`math_model.py` independently computes all highlighted points, true
+intersections and displayed distances. The scene uses its results rather than
+placing intersection markers by eye.
 
-The moving geometry and number line replace a long verbal explanation of all three
-branches of the minimum distance formula. The GIF concentrates on (D_{\min});
-the formal TeX also proves (D_{\max}).
+## Storyboard and visual meaning
+
+1. The full ellipse and exact model are visible. Short constructions mark
+   $A$, $B$, $MA=1$ and $MB=7$ to explain the green interval $[1,7]$.
+2. A red circumference grows continuously from $r=0.5$. A gold segment between
+   its nearest point and the ellipse shrinks. The gold number-line segment has
+   the same mathematical length, shown on the number-line scale.
+3. At $r=1$, the curves touch at $(3,0)$; the tangent point is briefly ringed.
+   For $1<r<7$, gold dots are actual intersections, so $D_{\min}=0$.
+4. At $r=7$, the curves touch at $(-3,0)$. Beyond $7$, the gold geometric and
+   number-line gaps grow again.
+5. The changing geometry fades out to the same static composition used at the
+   start, reducing the GIF loop jump.
+
+The large red circumference is kept at a true uniform scale. Only the part in
+the middle geometry viewport is visible; the header and conclusion cover arcs
+outside that viewport.
 
 ## Rebuild on Windows
 
-Prerequisites: Python 3.14 (3.11–3.14 supported by Manim 0.21.0), FFmpeg on PATH,
-and a TeX installation with `latex` and `dvisvgm`. `Microsoft YaHei` is used for
-Chinese labels; change `FONT` in `scene.py` if unavailable. This pilot was verified
-with Python 3.14.3, Manim Community 0.21.0, TeX Live 2025 and the installed FFmpeg.
+Prerequisites: Python 3.14 (Manim 0.21.0 supports Python 3.11–3.14), FFmpeg on
+PATH, and TeX with `latex` and `dvisvgm`. The scene uses `Microsoft YaHei` for
+Chinese labels. This pilot was verified with Python 3.14.3, Manim Community
+0.21.0, TeX Live 2025 and the installed FFmpeg.
 
 From the repository root:
 
 ```powershell
 python -m venv .venv-manim
 .\.venv-manim\Scripts\python.exe -m pip install -r .\scripts\manim\requirements.txt
-python -m unittest discover -s .\03_conic\C001_ellipse_circle_min_max_distance\manim -p test_math_model.py
+python -B -m unittest discover -s .\03_conic\C001_ellipse_circle_min_max_distance\manim -p test_math_model.py
 .\scripts\manim\render.ps1 -Uid C001
 .\scripts\manim\export_gif.ps1 -Uid C001
 ```
 
-The MP4 is `build/manim/C001/C001_distance.mp4` (intermediate). The final GIF is
-`../images/ellipse_circle_distance.gif`. `export_gif.ps1 -Rebuild` renders again.
-The script validates GIF dimensions, timing, distinct frames, and infinite loop
-before copying it into `images/`. It never cleans formal TeX, PDF, or old images.
+The intermediate MP4 is `build/manim/C001/C001_distance.mp4`. The final GIF is
+`../images/ellipse_circle_distance.gif`. The export script validates frame
+count, distinct motion frames, timing, size and infinite loop before copying
+the GIF into `images/`. `-Rebuild` on the export script renders the MP4 again.
 
-The existing Zhishu asset preparation pipeline discovers `.gif` files in `images/`,
-validates them and copies them byte for byte. No Publisher or Sync run is part of
-this pilot.
+Visual QA artifacts from Task 13B.1 are under `build/manim/C001/`, including
+`C001_13B1_contact_sheet.png` and `C001_13B1_before_after.png`. The build folder
+is ignored by Git; regenerate those review artifacts when needed. The existing
+Zhishu asset preparation pipeline accepts `.gif`, validates it and copies it
+byte for byte. Publisher and Sync are outside this pilot.
