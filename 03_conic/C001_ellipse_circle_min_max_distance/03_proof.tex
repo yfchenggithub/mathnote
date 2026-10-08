@@ -1,6 +1,6 @@
 \begin{proofbox}
 
-	\textbf{\textcolor{CProof}{思路提示}}
+	\textbf{\textcolor{CProof}{证明方法一：由距离范围与三角不等式求极值}}\par\smallskip\textbf{思路提示}
 	先把椭圆上点到圆心的距离范围确定为 $[d_{\min},d_{\max}]$；
 	再利用圆周半径恒为 $r$，把椭圆到圆周的最小距离转化为
 	\[
@@ -130,10 +130,152 @@
 
 	\end{description}
 
+
+\bigskip
+
+\textbf{\textcolor{CProof}{证明方法二：双参数三角代换（先消去圆周角，再对椭圆角求导）}}
+
+本方法不预先使用三角不等式的几何结论，而是\textbf{从两点坐标和距离平方直接计算}。
+注意椭圆与圆周上的点是各自独立运动的，必须使用\textbf{两个不同的参数} $\theta$、$\varphi$。
+
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+
+    \item[\textbf{步骤一（分别对两条曲线设点）：}]
+          设椭圆上一点及圆周上一点分别为
+          \[
+              P=(a\cos\theta,b\sin\theta),\qquad
+              Q=(x_0+r\cos\varphi,y_0+r\sin\varphi),
+          \]
+          其中 $\theta,\varphi\in[0,2\pi]$，并定义
+          \[
+              U(\theta)=a\cos\theta-x_0,\qquad
+              V(\theta)=b\sin\theta-y_0,
+          \]
+          \[
+              F(\theta)=U(\theta)^2+V(\theta)^2.
+          \]
+          此处 $F$ 仅用于简化代数式，暂不对它作几何解释。
+
+    \item[\textbf{步骤二（展开距离平方，分离圆周角）：}]
+          根据两点间距离公式，
+          \[
+              \begin{aligned}
+                  PQ^2={}&(U-r\cos\varphi)^2+(V-r\sin\varphi)^2\\
+                  ={}&F(\theta)+r^2\\
+                    &-2r\bigl(U\cos\varphi+V\sin\varphi\bigr).
+              \end{aligned}
+          \]
+          这里 $U,V$ 都只依赖于 $\theta$；对于固定的 $\theta$，它们是常数，
+          因而可\textbf{先对 $\varphi$ 求最值}。
+
+    \item[\textbf{步骤三（用辅助角公式消去 $\varphi$）：}]
+          由辅助角公式（或柯西不等式），
+          \[
+              -\sqrt{U^2+V^2}\le U\cos\varphi+V\sin\varphi
+              \le\sqrt{U^2+V^2}.
+          \]
+          两端均可取到：若 $F(\theta)>0$，分别令
+          \[
+              (\cos\varphi,\sin\varphi)
+              =\pm\frac{(U,V)}{\sqrt{F(\theta)}};
+          \]
+          若 $F(\theta)=0$，则括号中的式子恒为零，结论也成立。
+          因为 $r>0$，所以固定 $\theta$ 后，
+          \[
+              \begin{aligned}
+                  \min_{\varphi}PQ^2
+                      &=F+r^2-2r\sqrt F=(\sqrt F-r)^2,\\
+                  \max_{\varphi}PQ^2
+                      &=F+r^2+2r\sqrt F=(\sqrt F+r)^2.
+              \end{aligned}
+          \]
+          取非负平方根，得到
+          \[
+              \boxed{\min_{\varphi}PQ=\bigl|\sqrt{F(\theta)}-r\bigr|,\qquad
+              \max_{\varphi}PQ=\sqrt{F(\theta)}+r.}
+          \]
+          \textbf{关键：两个角度的最值问题到此变成只含 $\theta$ 的问题。}
+
+    \item[\textbf{步骤四（对剩下的 $F(\theta)$ 求导）：}]
+          为求 $\sqrt{F(\theta)}$ 的取值范围，先求 $F(\theta)$ 的最值。
+          因为平方根函数在 $[0,+\infty)$ 上单调递增，所以二者的最值顺序一致。
+          直接求导：
+          \[
+              \begin{aligned}
+                  F'(\theta)
+                    ={}&-2a(a\cos\theta-x_0)\sin\theta\\
+                       &+2b(b\sin\theta-y_0)\cos\theta\\
+                    ={}&-2\bigl[(a^2-b^2)\sin\theta\cos\theta\\
+                       &\phantom{-2\bigl[}{}-ax_0\sin\theta+by_0\cos\theta\bigr].
+              \end{aligned}
+          \]
+          令 $F'(\theta)=0$，得到驻点方程
+          \[
+              \boxed{(a^2-b^2)\sin\theta\cos\theta
+              -ax_0\sin\theta+by_0\cos\theta=0.}
+          \]
+          求出\textbf{全部}驻点，比较其 $F$ 值；由于 $F$ 可导且以 $2\pi$ 为周期，
+          一整周的全局最大值和最小值一定会在这些驻点中取得。
+
+    \item[\textbf{步骤五（一般位置可用万能代换求驻点）：}]
+          当方程不能直接化简时，令
+          \[
+              t=\tan\frac{\theta}{2},\qquad
+              \sin\theta=\frac{2t}{1+t^2},\quad
+              \cos\theta=\frac{1-t^2}{1+t^2}.
+          \]
+          代入上面的驻点方程，再乘 $(1+t^2)^2$，整理得
+          \[
+              \boxed{\begin{aligned}
+                  0={}&by_0t^4+2(a^2-b^2+ax_0)t^3\\
+                     &+2(ax_0-a^2+b^2)t-by_0.
+              \end{aligned}}
+          \]
+          将各实根还原为椭圆参数，并\textbf{单独检查 $\theta=\pi$}（此时
+          $\tan(\theta/2)$ 无定义），比较全部候选位置的 $F$ 值。
+          若 $x_0=0$ 或 $y_0=0$，通常优先化为关于正弦或余弦的二次式，不必强行解四次方程。
+          最终记
+          \[
+              d_{\min}=\sqrt{\min_{\theta}F(\theta)},\qquad
+              d_{\max}=\sqrt{\max_{\theta}F(\theta)}.
+          \]
+
+    \item[\textbf{步骤六（回到两条曲线，求全局距离极值）：}]
+          因为 $\sqrt{F(\theta)}$ 连续，且 $\theta$ 走完一整周，
+          所以它的取值恰好是区间 $[d_{\min},d_{\max}]$。
+          步骤三的公式因而给出
+          \[
+              \begin{aligned}
+                  D_{\min}
+                      &=\min_{\theta}\bigl|\sqrt{F(\theta)}-r\bigr|
+                       =\min_{s\in[d_{\min},d_{\max}]}|s-r|,\\
+                  D_{\max}
+                      &=\max_{\theta}\bigl(\sqrt{F(\theta)}+r\bigr)
+                       =d_{\max}+r.
+              \end{aligned}
+          \]
+          因此
+          \[
+              \boxed{D_{\min}=
+              \begin{cases}
+                  d_{\min}-r, & r<d_{\min},\\[1mm]
+                  0, & d_{\min}\le r\le d_{\max},\\[1mm]
+                  r-d_{\max}, & r>d_{\max},
+              \end{cases}
+              \qquad D_{\max}=d_{\max}+r.}
+          \]
+          \par\textbf{易错提醒：}
+          当 $d_{\min}\le r\le d_{\max}$ 时，可能在 $F(\theta)=r^2$
+          的位置取得 $D_{\min}=0$；\textbf{这些位置不一定满足 $F'(\theta)=0$}。
+          因此正确顺序是\textbf{先用求导确定 $F$ 的整体值域，再求绝对值的最小值}，
+          不能只把 $F$ 的驻点代入 $|\sqrt F-r|$ 就下结论。
+
+\end{description}
+
 	\medskip
 
 	\textbf{\textcolor{CProof}{结论回扣}}
-	综合步骤四、五，得到
+	两种证明均得到
 	\[
 		D_{\min}=
 		\begin{cases}
