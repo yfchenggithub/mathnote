@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import shutil
 import tempfile
@@ -78,11 +79,14 @@ class ContentPackageTests(unittest.TestCase):
 
     def build(self, name: str):
         shutil.rmtree(self.prepared_assets, ignore_errors=True)
-        for source_image in self.project_root.rglob("images/*.png"):
+        for source_image in self.project_root.rglob("images/*"):
+            if not source_image.is_file() or source_image.suffix.lower() not in {".png", ".gif"}:
+                continue
             source_id = json.loads(
                 (source_image.parent.parent / "meta.json").read_text(encoding="utf-8")
             )["id"]
-            output = self.prepared_assets / "images" / source_id / f"{source_image.stem}.webp"
+            output_suffix = ".webp" if source_image.suffix.lower() == ".png" else ".gif"
+            output = self.prepared_assets / "images" / source_id / f"{source_image.stem}{output_suffix}"
             output.parent.mkdir(parents=True, exist_ok=True)
             output.write_bytes(source_image.read_bytes())
         scan_result = scan_repository(self.project_root)
@@ -161,6 +165,30 @@ class ContentPackageTests(unittest.TestCase):
         assets = self.read_json(root / "knowledge-assets.json")
         self.assertTrue(all("uri" in asset for asset in assets))
         self.assertTrue(all("url" not in asset for asset in assets))
+
+    def test_mixed_webp_and_gif_resources_keep_image_type_and_hashes(self) -> None:
+        source = self.create_source(meta_record("C007", "混合图片"))
+        (source / "images" / "001.png").write_bytes(b"static-source")
+        gif = b"GIF89a-animated-byte-fixture"
+        (source / "images" / "002.gif").write_bytes(gif)
+
+        result = self.build("mixed-images")
+        root = result.output_dir
+        assets = self.read_json(root / "knowledge-assets.json")
+        images = [asset for asset in assets if asset["type"] == "image"]
+
+        self.assertEqual(
+            [asset["uri"] for asset in images],
+            ["resources/images/C007/001.webp", "resources/images/C007/002.gif"],
+        )
+        self.assertEqual((root / "resources/images/C007/002.gif").read_bytes(), gif)
+        manifest = self.read_json(root / "manifest.json")
+        gif_asset = next(asset for asset in images if asset["uri"].endswith(".gif"))
+        self.assertEqual(
+            manifest["assetHashes"][gif_asset["id"]],
+            hashlib.sha256(gif).hexdigest(),
+        )
+        self.assertEqual(validate_package(root), ())
 
     def test_manifest_required_fields_are_explicitly_required(self) -> None:
         self.create_source(meta_record("C001", "结论"))

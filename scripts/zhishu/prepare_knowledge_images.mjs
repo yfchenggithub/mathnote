@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import {
   existsSync,
+  copyFileSync,
   mkdirSync,
   readFileSync,
   readdirSync,
@@ -24,7 +25,7 @@ export const IMAGE_CONTRACT = Object.freeze({
 
 const require = createRequire(import.meta.url);
 const SHARP_VERSION = require('sharp/package.json').version;
-const SOURCE_EXTENSION = '.png';
+const SOURCE_EXTENSIONS = new Set(['.png', '.gif']);
 
 export class RuntimeImagePreparationError extends Error {
   constructor(message) {
@@ -43,6 +44,59 @@ function sha256File(path) {
 
 function canonicalJson(value) {
   return `${JSON.stringify(value, null, 2)}\n`;
+}
+
+async function validateGif(sourcePath, displayPath) {
+  const bytes = readFileSync(sourcePath);
+  if (bytes.length === 0) fail(`source GIF is empty: ${displayPath}`);
+  const header = bytes.subarray(0, 6).toString('ascii');
+  if (header !== 'GIF87a' && header !== 'GIF89a') {
+    fail(`source GIF has an invalid header: ${displayPath}`);
+  }
+
+  let metadata;
+  let decoded;
+  try {
+    metadata = await sharp(sourcePath, { animated: true, failOn: 'error' }).metadata();
+    decoded = await sharp(sourcePath, { animated: true, failOn: 'error' })
+      .raw()
+      .toBuffer({ resolveWithObject: true });
+  } catch (error) {
+    fail(`source GIF cannot be decoded: ${displayPath}: ${error.message}`);
+  }
+
+  const frameCount = metadata.pages ?? 1;
+  const frameHeight = metadata.pageHeight ?? metadata.height;
+  if (metadata.format !== 'gif' || !metadata.width || !frameHeight) {
+    fail(`source is not a decodable GIF: ${displayPath}`);
+  }
+  if (frameCount < 2) fail(`source GIF must contain at least 2 frames: ${displayPath}`);
+  if (
+    decoded.info.pages !== frameCount ||
+    decoded.info.width !== metadata.width ||
+    decoded.info.pageHeight !== frameHeight
+  ) {
+    fail(`source GIF frame decode validation failed: ${displayPath}`);
+  }
+  if (
+    !Array.isArray(metadata.delay) ||
+    metadata.delay.length !== frameCount ||
+    metadata.delay.some((delay) => !Number.isInteger(delay) || delay < 0) ||
+    metadata.delay.reduce((total, delay) => total + delay, 0) <= 0
+  ) {
+    fail(`source GIF has invalid frame timing: ${displayPath}`);
+  }
+  if (metadata.loop !== 0) {
+    fail(`source GIF must explicitly declare infinite looping: ${displayPath}`);
+  }
+
+  return {
+    width: metadata.width,
+    height: frameHeight,
+    frameCount,
+    durationMs: metadata.delay.reduce((total, delay) => total + delay, 0),
+    loop: metadata.loop,
+  };
 }
 
 function validateJobs(value) {
@@ -98,10 +152,11 @@ export async function prepareKnowledgeImages({ jobsPath, outputRoot }) {
       for (const entry of entries) {
         if (entry.name === '.gitkeep') continue;
         if (!entry.isFile()) fail(`unsupported source image entry: ${source.displayDirectory}/${entry.name}`);
-        if (extname(entry.name).toLowerCase() !== SOURCE_EXTENSION) {
+        const sourceExtension = extname(entry.name).toLowerCase();
+        if (!SOURCE_EXTENSIONS.has(sourceExtension)) {
           fail(`unsupported source image extension: ${source.displayDirectory}/${entry.name}`);
         }
-        const outputName = `${parse(entry.name).name}.webp`;
+        const outputName = `${parse(entry.name).name}${sourceExtension === '.png' ? '.webp' : '.gif'}`;
         if (outputNames.has(outputName.toLowerCase())) {
           fail(`runtime image name collision: ${source.knowledgeId}/${outputName}`);
         }
@@ -111,9 +166,36 @@ export async function prepareKnowledgeImages({ jobsPath, outputRoot }) {
         const outputPath = join(staged, 'images', source.knowledgeId, outputName);
         mkdirSync(dirname(outputPath), { recursive: true });
 
+        const displayPath = `${source.displayDirectory}/${entry.name}`.replaceAll('\\', '/');
+        if (sourceExtension === '.gif') {
+          const gif = await validateGif(sourcePath, displayPath);
+          copyFileSync(sourcePath, outputPath);
+          const sourceSha256 = sha256File(sourcePath);
+          const outputSha256 = sha256File(outputPath);
+          if (sourceSha256 !== outputSha256) {
+            fail(`runtime GIF hash mismatch after copy: ${relativeOutput}`);
+          }
+          assets.push({
+            knowledgeId: source.knowledgeId,
+            source: displayPath,
+            output: relativeOutput,
+            sourceSha256,
+            outputSha256,
+            sourceWidth: gif.width,
+            sourceHeight: gif.height,
+            width: gif.width,
+            height: gif.height,
+            frameCount: gif.frameCount,
+            durationMs: gif.durationMs,
+            loop: gif.loop,
+            bytes: statSync(outputPath).size,
+          });
+          continue;
+        }
+
         const inputMetadata = await sharp(sourcePath, { failOn: 'error' }).metadata();
         if (inputMetadata.format !== 'png' || !inputMetadata.width || !inputMetadata.height) {
-          fail(`source is not a decodable PNG: ${source.displayDirectory}/${entry.name}`);
+          fail(`source is not a decodable PNG: ${displayPath}`);
         }
         let pipeline = sharp(sourcePath, { failOn: 'error' });
         if (inputMetadata.width > IMAGE_CONTRACT.maxWidth) {
@@ -140,7 +222,7 @@ export async function prepareKnowledgeImages({ jobsPath, outputRoot }) {
 
         assets.push({
           knowledgeId: source.knowledgeId,
-          source: `${source.displayDirectory}/${entry.name}`.replaceAll('\\', '/'),
+          source: displayPath,
           output: relativeOutput,
           sourceSha256: sha256File(sourcePath),
           outputSha256: sha256File(outputPath),
@@ -192,7 +274,7 @@ function parseArguments(argv) {
 async function main() {
   const result = await prepareKnowledgeImages(parseArguments(process.argv.slice(2)));
   const totalBytes = result.assets.reduce((sum, asset) => sum + asset.bytes, 0);
-  console.log(`Prepared WebP images: ${result.assets.length}`);
+  console.log(`Prepared runtime images: ${result.assets.length}`);
   console.log(`Prepared bytes: ${totalBytes}`);
   console.log(`Tool: ${result.tool.name} ${result.tool.version}`);
 }

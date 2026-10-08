@@ -57,7 +57,7 @@ def build_parser() -> argparse.ArgumentParser:
         help=f"prepared runtime asset directory (default: {DEFAULT_RUNTIME_ASSET_OUTPUT})",
     )
     prepare_parser = subparsers.add_parser(
-        "prepare-assets", help="build the generated runtime WebP image mirror"
+        "prepare-assets", help="build the generated runtime image mirror"
     )
     prepare_parser.add_argument(
         "--output",

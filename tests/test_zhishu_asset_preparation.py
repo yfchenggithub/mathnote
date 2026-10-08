@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import binascii
+import hashlib
 import json
 from pathlib import Path
 import struct
@@ -29,6 +30,23 @@ def write_rgb_png(path: Path, width: int, height: int, color: tuple[int, int, in
     payload += _png_chunk(b"IDAT", zlib.compress(row * height, 9))
     payload += _png_chunk(b"IEND", b"")
     path.write_bytes(payload)
+
+
+def animated_gif(*, delays: tuple[int, ...] = (10, 20), loop_count: int | None = 0) -> bytes:
+    payload = bytearray.fromhex("47494638396101000100800000000000ffffff")
+    if loop_count is not None:
+        payload.extend(bytes.fromhex("21ff0b4e45545343415045322e300301"))
+        payload.extend(struct.pack("<H", loop_count))
+        payload.append(0)
+    frame_pixels = ("4401", "4c01")
+    for index, delay in enumerate(delays):
+        payload.extend(bytes.fromhex("21f90400"))
+        payload.extend(struct.pack("<H", delay))
+        payload.extend(bytes.fromhex("00002c0000000001000100000202"))
+        payload.extend(bytes.fromhex(frame_pixels[index % len(frame_pixels)]))
+        payload.append(0)
+    payload.append(0x3B)
+    return bytes(payload)
 
 
 class RuntimeImagePreparationTests(unittest.TestCase):
@@ -121,6 +139,59 @@ class RuntimeImagePreparationTests(unittest.TestCase):
             verify_prepared_runtime_images(
                 scan_repository(self.root), self.output, project_root=self.root
             )
+
+    def test_mixed_png_and_gif_preserve_formats_hashes_and_basename_identity(self) -> None:
+        png = self.source / "images/001.png"
+        gif = self.source / "images/001.gif"
+        write_rgb_png(png, 10, 5, (20, 40, 200))
+        gif_bytes = animated_gif()
+        gif.write_bytes(gif_bytes)
+
+        manifest = self.prepare()
+        assets = {asset["output"]: asset for asset in manifest["assets"]}
+        gif_output = self.output / "images/C001/001.gif"
+
+        self.assertEqual(set(assets), {"images/C001/001.gif", "images/C001/001.webp"})
+        self.assertEqual(gif_output.read_bytes(), gif_bytes)
+        self.assertEqual(
+            assets["images/C001/001.gif"]["sourceSha256"],
+            hashlib.sha256(gif_bytes).hexdigest(),
+        )
+        self.assertEqual(
+            assets["images/C001/001.gif"]["outputSha256"],
+            assets["images/C001/001.gif"]["sourceSha256"],
+        )
+        self.assertEqual(assets["images/C001/001.gif"]["frameCount"], 2)
+        self.assertEqual(assets["images/C001/001.gif"]["durationMs"], 300)
+        self.assertEqual(assets["images/C001/001.gif"]["loop"], 0)
+        self.assertEqual(assets["images/C001/001.gif"]["width"], 1)
+        self.assertEqual(assets["images/C001/001.gif"]["height"], 1)
+        verify_prepared_runtime_images(
+            scan_repository(self.root), self.output, project_root=self.root
+        )
+
+    def test_invalid_gifs_fail_with_locatable_validation_errors(self) -> None:
+        cases = (
+            ("empty", b"", "empty"),
+            ("wrong-header", b"not-a-gif", "invalid header"),
+            ("truncated", b"GIF89a", "cannot be decoded"),
+            ("single-frame", animated_gif(delays=(10,)), "at least 2 frames"),
+            ("finite-loop", animated_gif(loop_count=1), "infinite looping"),
+            ("zero-duration", animated_gif(delays=(0, 0)), "invalid frame timing"),
+        )
+        path = self.source / "images/invalid.gif"
+        for name, payload, message in cases:
+            with self.subTest(name=name):
+                path.write_bytes(payload)
+                with self.assertRaisesRegex(RuntimeAssetPreparationError, message):
+                    self.prepare()
+        path.unlink()
+
+    def test_non_image_extension_is_still_rejected(self) -> None:
+        (self.source / "images/001.jpg").write_bytes(b"not-supported")
+
+        with self.assertRaisesRegex(RuntimeAssetPreparationError, "unsupported source image extension"):
+            self.prepare()
 
 
 if __name__ == "__main__":

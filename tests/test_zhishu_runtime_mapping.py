@@ -92,11 +92,14 @@ class RuntimeMappingTests(unittest.TestCase):
 
     def map(self, scan_result=None):
         shutil.rmtree(self.prepared_assets, ignore_errors=True)
-        for source_image in self.project_root.rglob("images/*.png"):
+        for source_image in self.project_root.rglob("images/*"):
+            if not source_image.is_file() or source_image.suffix.lower() not in {".png", ".gif"}:
+                continue
             source_id = json.loads(
                 (source_image.parent.parent / "meta.json").read_text(encoding="utf-8")
             )["id"]
-            output = self.prepared_assets / "images" / source_id / f"{source_image.stem}.webp"
+            output_suffix = ".webp" if source_image.suffix.lower() == ".png" else ".gif"
+            output = self.prepared_assets / "images" / source_id / f"{source_image.stem}{output_suffix}"
             output.parent.mkdir(parents=True, exist_ok=True)
             output.write_bytes(source_image.read_bytes())
         return map_runtime(
@@ -302,6 +305,24 @@ class RuntimeMappingTests(unittest.TestCase):
         self.assertEqual([asset.sortOrder for asset in images], [10, 20, 30])
         self.assertEqual(images[0].uri, "resources/images/C006/1.webp")
         self.assertEqual(pdf.uri, "resources/pdfs/C006/01.pdf")
+
+    def test_webp_and_gif_with_the_same_basename_remain_distinct_assets(self) -> None:
+        source = self.create_source(meta_record("C007", "混合图片", "解析几何-椭圆"))
+        (source / "images" / "001.png").write_bytes(b"static")
+        (source / "images" / "001.gif").write_bytes(b"animated")
+
+        result = self.map()
+        images = [asset for asset in result.assets if asset.type == "image"]
+
+        self.assertEqual(result.errors, ())
+        self.assertEqual(
+            {asset.id for asset in images},
+            {"C007:image:001.webp", "C007:image:001.gif"},
+        )
+        self.assertEqual(
+            {asset.uri for asset in images},
+            {"resources/images/C007/001.webp", "resources/images/C007/001.gif"},
+        )
 
     def test_search_document_maps_all_declared_fields(self) -> None:
         self.create_source(meta_record("C006", "离心率", "解析几何-椭圆"))

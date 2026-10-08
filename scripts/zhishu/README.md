@@ -29,11 +29,12 @@ coverage is stale.
 
 ## Runtime image preparation contract
 
-Source PNG files remain in each Conclusion `images/` directory and are never
-modified. The generated mirror defaults to
-`build/zhishu-runtime-assets/images/<knowledgeId>/<name>.webp`; the directory is
-fully rebuilt, so source ADD/UPDATE/DELETE operations cannot leave orphan
-runtime files.
+Source PNG and GIF files remain in each Conclusion `images/` directory and are
+never modified. The generated mirror defaults to
+`build/zhishu-runtime-assets/images/<knowledgeId>/`; PNG inputs become WebP,
+while validated animated GIF inputs are copied byte-for-byte as GIF. The
+directory is fully rebuilt, so source ADD/UPDATE/DELETE operations cannot leave
+orphan runtime files.
 
 - encoder: `sharp` at the version pinned by `package-lock.json` (currently
   0.34.5)
@@ -42,11 +43,13 @@ runtime files.
 - maximum width: 1440 px
 - aspect ratio: preserved
 - upscale: forbidden
+- GIF: at least two decodable frames, valid timing, explicit infinite loop,
+  and identical source/output SHA-256
 - unstable timestamps and source machine paths: excluded from the manifest
 
 The package continues to copy PDFs byte-for-byte from the source `pdfs/`
 directories. Runtime image URIs are emitted truthfully as
-`resources/images/<knowledgeId>/<name>.webp`; PDF URIs remain
+`resources/images/<knowledgeId>/<name>.webp` or `.gif`; PDF URIs remain
 `resources/pdfs/<knowledgeId>/<name>.pdf`.
 
 ## Frozen source boundary
@@ -60,8 +63,9 @@ directories. Runtime image URIs are emitted truthfully as
   `relations.related_ids` for related relations.
 - `altNodes`, `relations.prerequisites`, and `relations.similar` are deliberately
   outside this frozen version and must not affect validation or output.
-- Runtime images come only from the generated WebP mirror prepared from direct
-  source files in `images/`; PDFs come directly from `pdfs/` unchanged.
+- Runtime images come only from the generated PNG-to-WebP/GIF-pass-through
+  mirror prepared from direct source files in `images/`; PDFs come directly
+  from `pdfs/` unchanged.
 - Canonical content is not a Publisher input.
 
 ## Frozen runtime compatibility

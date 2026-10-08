@@ -1,4 +1,4 @@
-"""Prepare deterministic runtime WebP images without modifying source PNGs."""
+"""Prepare deterministic runtime images without modifying source PNGs or GIFs."""
 
 from __future__ import annotations
 
@@ -175,14 +175,15 @@ def verify_prepared_runtime_images(
         for source_path in sorted(source_directory.iterdir(), key=lambda path: path.name):
             if source_path.name == ".gitkeep":
                 continue
-            if not source_path.is_file() or source_path.suffix.lower() != ".png":
+            suffix = source_path.suffix.lower()
+            if not source_path.is_file() or suffix not in {".png", ".gif"}:
                 raise RuntimeAssetPreparationError(
                     f"unsupported source image entry: {job['displayDirectory']}/{source_path.name}"
                 )
             logical_source = f"{job['displayDirectory']}/{source_path.name}"
             expected[logical_source] = (
                 source_path,
-                f"images/{job['knowledgeId']}/{source_path.stem}.webp",
+                f"images/{job['knowledgeId']}/{source_path.stem}{'.webp' if suffix == '.png' else '.gif'}",
             )
 
     assets = manifest.get("assets")
@@ -205,6 +206,8 @@ def verify_prepared_runtime_images(
         output_path = output_dir.joinpath(*expected_output.split("/"))
         if not output_path.is_file() or asset.get("outputSha256") != _sha256_file(output_path):
             raise RuntimeAssetPreparationError(f"prepared image output hash is stale: {expected_output}")
+        if source_path.suffix.lower() == ".gif" and _sha256_file(source_path) != _sha256_file(output_path):
+            raise RuntimeAssetPreparationError(f"prepared GIF is not byte-identical: {expected_output}")
         actual_sources.add(logical_source)
         expected_outputs.add(expected_output)
     if actual_sources != set(expected):
@@ -230,7 +233,7 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(f"Runtime image preparation failed: {exc}", file=sys.stderr)
         return 1
     total_bytes = sum(asset["bytes"] for asset in manifest["assets"])
-    print(f"Prepared WebP images: {len(manifest['assets'])}")
+    print(f"Prepared runtime images: {len(manifest['assets'])}")
     print(f"Prepared bytes: {total_bytes}")
     print(f"Tool: {manifest['tool']['name']} {manifest['tool']['version']}")
     print(f"Output: {args.output.resolve()}")
