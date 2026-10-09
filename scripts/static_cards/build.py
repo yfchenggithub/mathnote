@@ -136,11 +136,13 @@ def main(argv=None):
             item.unlink()
         stage.rmdir()
     report = {
-        "uid": args.uid, "selected_cards": chosen, "status": "PILOT A VISUAL REVIEW PENDING",
+        "uid": args.uid, "selected_cards": chosen,
+        "status": getattr(cards, "REVIEW_STATUS", "PILOT A VISUAL REVIEW PENDING"),
         "content_gate": content_gate, "math_gate": "PASS", "render_gate": "PASS",
         "failure_reason": None,
         "math_checks": checks,
-        "terminology": "REVIEW: formal TeX calls p/2 半通径; for y²=2px the conventional semilatus rectum is p. Cards say p/2.",
+        "terminology": getattr(cards, "TERMINOLOGY_REVIEW",
+                               "REVIEW: formal TeX calls p/2 半通径; for y²=2px the conventional semilatus rectum is p. Cards say p/2."),
         "source_sha256": source_hashes,
         "implementation_sha256": implementation_hashes,
         "versions": {"python": platform.python_version(), "matplotlib": matplotlib.__version__,
