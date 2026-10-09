@@ -31,6 +31,8 @@ def chinese_font(bold: bool = False) -> FontProperties:
 
 class CardCanvas:
     def __init__(self, uid: str, number: str, category: str, title: str, subtitle: str):
+        self.uid, self.number = uid, number
+        self.layout_report = []
         plt.rcParams.update({"svg.fonttype": "none", "svg.hashsalt": "mathnote-static-v1",
                              "mathtext.fontset": "dejavusans", "savefig.pad_inches": 0})
         self.fig = plt.figure(figsize=(10.8, 14.4), dpi=100, facecolor="#f7fbff")
@@ -58,12 +60,17 @@ class CardCanvas:
     def math(self, value, x, y, size=32, color=NAVY, ha="left"):
         return self.ax.text(x, y, f"${value}$", fontsize=size, color=color, ha=ha, va="center")
 
-    def line(self, x1, y1, x2, y2, color=BLUE, width=3, style="-"):
-        self.ax.plot((x1, x2), (y1, y2), color=color, lw=width, ls=style,
-                     solid_capstyle="round", zorder=3)
+    def line(self, x1, y1, x2, y2, color=BLUE, width=3, style="-", name=None):
+        artist, = self.ax.plot((x1, x2), (y1, y2), color=color, lw=width, ls=style,
+                               solid_capstyle="round", zorder=3)
+        artist._mathnote_name = name
+        return artist
 
-    def dot(self, x, y, color=BLUE, r=8):
-        self.ax.add_patch(Circle((x, y), r, facecolor=color, edgecolor="white", lw=2, zorder=5))
+    def dot(self, x, y, color=BLUE, r=8, name=None):
+        artist = Circle((x, y), r, facecolor=color, edgecolor="white", lw=2, zorder=5)
+        artist._mathnote_name = name
+        self.ax.add_patch(artist)
+        return artist
 
     def export(self, png: Path, svg: Path):
         self.fig.canvas.draw()
@@ -87,12 +94,12 @@ class MathFrame:
     def xy(self, x, y):
         return self.x0 + self.scale * x, self.y0 - self.scale * y
 
-    def segment(self, a, b, color=BLUE, width=4, style="-"):
-        self.c.line(*self.xy(*a), *self.xy(*b), color, width, style)
+    def segment(self, a, b, color=BLUE, width=4, style="-", name=None):
+        return self.c.line(*self.xy(*a), *self.xy(*b), color, width, style, name)
 
-    def point(self, point, name, dx=12, dy=-12, color=BLUE):
+    def point(self, point, name, dx=12, dy=-12, color=BLUE, object_name=None):
         x, y = self.xy(*point)
-        self.c.dot(x, y, color)
+        self.c.dot(x, y, color, name=object_name)
         if name:
             self.c.math(name, x + dx, y + dy, 25, color)
 

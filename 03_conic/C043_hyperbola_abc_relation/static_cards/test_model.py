@@ -7,9 +7,41 @@ import unittest
 from model import Hyperbola, validation_results
 from scripts.static_cards.build import ROOT, load_source, verify_sources
 from matplotlib.transforms import Bbox
+from scripts.static_cards.canvas import MathFrame
+from scripts.static_cards.labels import LabelLayout, PointLabel, SegmentLabel
 
 
 class HyperbolaTests(unittest.TestCase):
+    def test_card_002_layout_and_constructed_collisions(self):
+        source = ROOT / "03_conic" / "C043_hyperbola_abc_relation"
+        cards, _ = load_source(source, "C043")
+        canvas = cards.draw_card("002")
+        self.assertEqual({item["label"] for item in canvas.layout_report},
+                         cards.LABEL_GATE_REQUIRED["002"])
+        self.assertTrue(all(item["actual_clearance_px"] >= item["minimum_required_px"]
+                            for item in canvas.layout_report))
+        frame = MathFrame(canvas, 420, 772, 49)
+        gate = LabelLayout(canvas, frame, (103, 479, 978, 1056))
+        canvas.fig.canvas.draw()
+        renderer = canvas.fig.canvas.get_renderer()
+        lines, points = gate._geometry()
+        # A's original placement cuts the right branch and auxiliary edge.
+        ax, ay = frame.xy(3, 0)
+        old_a = PointLabel("A", "point A", (3, 0))
+        old_a.artist = canvas.math("A", ax - 3, ay + 33, 25)
+        old_box = old_a.artist.get_window_extent(renderer)
+        self.assertTrue(any(hit["type"] == "path" for hit in
+                            gate._collisions(old_a, old_box, lines, points, renderer)))
+        old_a.artist.remove()
+        # A label centred on AB is rejected even though its anchor is valid.
+        bx, by = frame.xy(3, 2)
+        blocked_b = SegmentLabel("b", "AB", (3, 0), endpoint=(3, 4))
+        blocked_b.artist = canvas.math("b", bx, by, 25, ha="center")
+        b_box = blocked_b.artist.get_window_extent(renderer)
+        self.assertTrue(any(hit["object"] == "AB" for hit in
+                            gate._collisions(blocked_b, b_box, lines, points, renderer)))
+        canvas.fig.clear()
+
     def test_parameter_gate(self):
         self.assertTrue(all(value == "PASS" for value in validation_results().values()))
         for a, b in ((0, 2), (-1, 2), (2, 0)):

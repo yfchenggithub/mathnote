@@ -1,12 +1,14 @@
 """C043 card copy and geometry derived from the hyperbola model."""
 
 from scripts.static_cards.canvas import CardCanvas, MathFrame, BLUE, GOLD, MUTED, NAVY, PALE, TEAL
+from scripts.static_cards.labels import LabelLayout, LineLabel, PointLabel, SegmentLabel
 
 from .model import Hyperbola
 
 
-REVIEW_STATUS = "TASK 13G.2 - PILOT B VISUAL REVIEW PENDING"
+REVIEW_STATUS = "TASK 13G.2A — VISUAL REVIEW PENDING"
 TERMINOLOGY_REVIEW = "PASS: b labels only auxiliary geometry; the rectangle corners are not curve points."
+LABEL_GATE_REQUIRED = {"002": {"A", "B", "F_2", "O", "a", "b", "c", "x"}}
 
 SPECS = {
     "001": {"uid": "C043", "kind": "快记", "title": "双曲线 a、b、c 的关系",
@@ -47,12 +49,14 @@ def _hyperbola(c: CardCanvas, frame: MathFrame, model: Hyperbola, tmax=1.25,
         points = [model.branch_point(side, -tmax + 2 * tmax * i / 280)
                   for i in range(281)]
         xs, ys = zip(*(frame.xy(x, y) for x, y in points))
-        c.ax.plot(xs, ys, color=color, lw=width, solid_capstyle="round", zorder=4)
+        artist, = c.ax.plot(xs, ys, color=color, lw=width, solid_capstyle="round", zorder=4)
+        artist._mathnote_name = "hyperbola left branch" if side == -1 else "hyperbola right branch"
 
 
-def _axis(c: CardCanvas, frame: MathFrame, extent=7.7):
-    frame.segment((-extent, 0), (extent, 0), "#a5b9ce", 2)
-    c.math("x", *frame.xy(extent - 0.1, 0.45), 20, MUTED)
+def _axis(c: CardCanvas, frame: MathFrame, extent=7.7, label=True):
+    frame.segment((-extent, 0), (extent, 0), "#a5b9ce", 2, name="x axis")
+    if label:
+        c.math("x", *frame.xy(extent - 0.1, 0.45), 20, MUTED)
 
 
 def _point(c: CardCanvas, frame: MathFrame, xy, name, color, dx, dy):
@@ -101,31 +105,43 @@ def _card_002():
     c.label("关系由双曲线定义推得。", 485, 369, 23, NAVY)
     c.box(85, 461, 910, 613, "#f5faff", edge="#d9eafa")
     f = MathFrame(c, 420, 772, 49)
-    _axis(c, f, 6.4)
+    _axis(c, f, 6.4, label=False)
     _hyperbola(c, f, m, 1.18, color="#9ac8f5", width=4)
     corners = m.rectangle
     for i in range(4):
-        f.segment(corners[i], corners[(i + 1) % 4], "#9db2c6", 2, "--")
+        f.segment(corners[i], corners[(i + 1) % 4], "#9db2c6", 2, "--",
+                  name=f"auxiliary rectangle edge {i + 1}")
     for sign in (-1, 1):
         f.segment((-4.5, m.asymptote_y(-4.5, sign)),
-                  (4.5, m.asymptote_y(4.5, sign)), "#c3ad88", 2, "--")
+                  (4.5, m.asymptote_y(4.5, sign)), "#c3ad88", 2, "--",
+                  name=f"asymptote {'positive' if sign == 1 else 'negative'}")
     O, A, B, F = (0, 0), (m.a, 0), (m.a, m.b), (m.c, 0)
-    f.segment(O, A, BLUE, 5)
-    f.segment(A, B, TEAL, 5)
-    f.segment(O, B, TEAL, 3, ":")
-    f.segment(O, F, GOLD, 4)
-    _point(c, f, O, "O", MUTED, -26, 34)
-    _point(c, f, A, "A", BLUE, -3, 33)
-    _point(c, f, F, "F_2", GOLD, 7, 35)
+    f.segment(O, A, BLUE, 5, name="OA")
+    f.segment(A, B, TEAL, 5, name="AB")
+    f.segment(O, B, TEAL, 3, ":", name="OB")
+    f.segment(O, F, GOLD, 4, name="OF₂")
+    f.point(O, "", color=MUTED, object_name="point O")
+    f.point(A, "", color=BLUE, object_name="point A")
+    f.point(F, "", color=GOLD, object_name="point F₂")
     # B is deliberately unfilled: it is an auxiliary rectangle corner.
     bx, by = f.xy(*B)
-    c.ax.plot((bx,), (by,), marker="o", markersize=9, markerfacecolor="white",
-              markeredgecolor=TEAL, markeredgewidth=2, zorder=6)
-    c.math("B", bx + 12, by - 10, 25, TEAL)
-    c.math("a", *f.xy(1.4, -0.55), 25, BLUE)
-    c.math("b", *f.xy(3.25, 2.2), 25, TEAL)
-    c.math("c", *f.xy(1.15, 2.65), 25, TEAL)
+    b_marker, = c.ax.plot((bx,), (by,), marker="o", markersize=9, markerfacecolor="white",
+                          markeredgecolor=TEAL, markeredgewidth=2, zorder=6)
+    b_marker._mathnote_name = "point B"
     c.label("辅助矩形角点不在曲线上", 511, 528, 22, MUTED)
+    layout = LabelLayout(c, f, (103, 479, 978, 1056))
+    for name, point, color, priority in (("A", A, BLUE, 90), ("B", B, TEAL, 80),
+                                         (r"F_2", F, GOLD, 70), ("O", O, MUTED, 60)):
+        layout.add(PointLabel(name, f"point {name}", point, color=color,
+                              priority=priority, clearance=7))
+    for name, start, end, color, priority in (("b", A, B, TEAL, 50),
+                                              ("a", O, A, BLUE, 40),
+                                              ("c", O, B, TEAL, 30)):
+        layout.add(SegmentLabel(name, f"segment {name}", start, endpoint=end,
+                                color=color, priority=priority, clearance=7))
+    layout.add(LineLabel("x", "horizontal axis", (6.2, 0),
+                         color=MUTED, size=20, priority=20, clearance=6))
+    layout.resolve()
     c.box(85, 1109, 910, 199, "#f0fbf8", edge="#c7eee3")
     c.math(SPECS["002"]["formula"], 122, 1158, 30, NAVY)
     c.label("OB 是辅助斜边；OF 才是实际半焦距线段。", 122, 1220, 25, TEAL, bold=True)

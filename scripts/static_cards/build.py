@@ -15,6 +15,7 @@ import matplotlib
 from PIL import Image, ImageOps
 
 from .canvas import HEIGHT, WIDTH
+from .labels import CollisionFailure, save_debug_preview
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -80,6 +81,8 @@ def main(argv=None):
     parser.add_argument("--output", type=Path)
     parser.add_argument("--validate-only", action="store_true")
     parser.add_argument("--replace-preview", action="store_true")
+    parser.add_argument("--debug-layout", action="store_true",
+                        help="write preview-only measured label boxes")
     args = parser.parse_args(argv)
     source_dir = (ROOT / args.source_dir).resolve()
     output = (args.output or ROOT / ".build" / "static_cards" / args.uid).resolve()
@@ -111,9 +114,22 @@ def main(argv=None):
     output.mkdir(parents=True, exist_ok=True)
     stage = output / ("_stage_" + uuid4().hex)
     stage.mkdir()
+    layout_checks = []
     try:
         for number in chosen:
-            cards.draw_card(number).export(stage / f"{number}.png", stage / f"{number}.svg")
+            canvas = cards.draw_card(number)
+            required = getattr(cards, "LABEL_GATE_REQUIRED", {}).get(number, set())
+            found = {item["label"] for item in canvas.layout_report if item["status"] == "PASS"}
+            if required - found:
+                raise CollisionFailure({"uid": args.uid, "card": number,
+                                        "label": ", ".join(sorted(required - found)),
+                                        "collisions": [{"object": "label registration",
+                                                        "type": "missing", "clearance_px": 0}],
+                                        "attempted": [], "status": "COLLISION_FAIL"})
+            layout_checks.extend(canvas.layout_report)
+            if args.debug_layout and canvas.layout_report:
+                save_debug_preview(canvas, stage / f"{number}_layout_debug.png")
+            canvas.export(stage / f"{number}.png", stage / f"{number}.svg")
             with Image.open(stage / f"{number}.png") as image:
                 image.load()
                 if image.size != (WIDTH, HEIGHT):
@@ -131,6 +147,16 @@ def main(argv=None):
             destination = output / item.name
             if not destination.exists() or digest(destination) != digest(item):
                 item.replace(destination)
+    except CollisionFailure as exc:
+        failure_report = {"uid": args.uid, "selected_cards": chosen,
+                          "status": "COLLISION_FAIL", "math_gate": "PASS",
+                          "render_gate": "COLLISION_FAIL", "failure_reason": str(exc),
+                          "label_layout": layout_checks + [exc.report],
+                          "source_sha256": source_hashes,
+                          "implementation_sha256": implementation_hashes}
+        (output / "build_report.json").write_text(
+            json.dumps(failure_report, ensure_ascii=False, indent=2), encoding="utf-8")
+        raise
     finally:
         for item in stage.iterdir():
             item.unlink()
@@ -140,6 +166,7 @@ def main(argv=None):
         "status": getattr(cards, "REVIEW_STATUS", "PILOT A VISUAL REVIEW PENDING"),
         "content_gate": content_gate, "math_gate": "PASS", "render_gate": "PASS",
         "failure_reason": None,
+        "label_layout": layout_checks,
         "math_checks": checks,
         "terminology": getattr(cards, "TERMINOLOGY_REVIEW",
                                "REVIEW: formal TeX calls p/2 半通径; for y²=2px the conventional semilatus rectum is p. Cards say p/2."),
