@@ -5,11 +5,11 @@
     "title": "三角函数图像变换：平移量与伸缩顺序的关系",
     "alias": [
       "图像变换顺序",
-      "先伸后缩平移量",
+      "先缩后移平移量",
       "φ/ω平移量",
       "正弦曲线变换路径"
     ],
-    "summary": "由 $y=\\sin x$ 变换到 $y=A\\sin(\\omega x+\\varphi)$，先伸缩后平移时水平平移量变为 $|\\varphi/\\omega|$，而非 $|\\varphi|$。",
+    "summary": "由 $y=\\sin x$ 到 $y=A\\sin(\\omega x+\\varphi)$：先移后缩平移 $|\\varphi|$，先缩后移平移 $|\\varphi|/\\omega$，最后纵坐标乘以带符号的 $A$；$\\varphi=0$ 或 $\\omega=1$ 时两段距离相等。",
     "difficulty": 2,
     "category": "三角函数",
     "tags": [
@@ -121,21 +121,21 @@
       "x"
     ],
     "conditions": "$A\\neq 0$ 且 $\\omega>0$。",
-    "conclusions": "从 $y=\\sin x$ 到 $y=A\\sin(\\omega x+\\varphi)$ 有两种等价变换路径：\n1. 先平移 $|\\varphi|$，再横缩 $1/\\omega$，最后纵缩 $|A|$；\n2. 先横缩 $1/\\omega$，再平移 $\\left|\\frac{\\varphi}{\\omega}\\right|$，最后纵缩 $|A|$。\n核心区别：先伸缩后平移时平移量为 $\\left|\\dfrac{\\varphi}{\\omega}\\right|$ 而非 $|\\varphi|$。"
+    "conclusions": "从 $y=\\sin x$ 到 $y=A\\sin(\\omega x+\\varphi)$：\n1. 先向左平移有符号距离 $\\varphi$，再将横坐标乘以 $1/\\omega$；\n2. 先将横坐标乘以 $1/\\omega$，再向左平移有符号距离 $\\varphi/\\omega$。\n两条路径最后均将纵坐标乘以 $A$；若 $A<0$，等价于按 $|A|$ 倍伸缩后关于 $x$ 轴对称，振幅为 $|A|$。$\\varphi>0$ 左移，$\\varphi<0$ 右移。距离分别为 $|\\varphi|$ 与 $|\\varphi|/\\omega$，当且仅当 $\\varphi=0$ 或 $\\omega=1$ 时相等；调整距离后的组合结果相同，一般不可直接交换两种操作。"
   },
   "content": {
-    "statement": "设 $A\\neq 0$，$\\omega>0$，由 $y=\\sin x$ 的图像出发，通过平移与伸缩变换得到 $y=A\\sin(\\omega x+\\varphi)$ 的图像，则有两种等价变换路径：\n\n(1) 先水平平移 $|\\varphi|$ 个单位，再将横坐标变为原来的 $\\frac{1}{\\omega}$，最后将纵坐标变为原来的 $|A|$ 倍；\n\n(2) 先将横坐标变为原来的 $\\frac{1}{\\omega}$，再水平平移 $\\left|\\frac{\\varphi}{\\omega}\\right|$ 个单位，最后将纵坐标变为原来的 $|A|$ 倍。",
+    "statement": "设 $A\\neq0$，$\\omega>0$，$\\varphi\\in\\mathbb R$，从 $y=\\sin x$ 出发：\n(1) 先向左平移有符号距离 $\\varphi$，再将横坐标乘以 $1/\\omega$；\n(2) 先将横坐标乘以 $1/\\omega$，再向左平移有符号距离 $\\varphi/\\omega$。\n两条路径最后均将纵坐标乘以 $A$，得到 $y=A\\sin(\\omega x+\\varphi)$。振幅是 $|A|$；$A<0$ 时包含关于 $x$ 轴的翻折。$\\varphi<0$ 表示右移；$\\varphi=0$ 或 $\\omega=1$ 时两段平移距离相等。",
     "derivation": [
       "先平移后伸缩：$y=\\sin x \\to y=\\sin(x+\\varphi) \\to y=\\sin(\\omega x+\\varphi) \\to y=A\\sin(\\omega x+\\varphi)$",
       "先伸缩后平移：$y=\\sin x \\to y=\\sin(\\omega x) \\to y=\\sin\\left[\\omega\\left(x+\\frac{\\varphi}{\\omega}\\right)\\right] = \\sin(\\omega x+\\varphi) \\to y=A\\sin(\\omega x+\\varphi)$",
-      "区别：第二种路径中平移量压缩为 $\\left|\\frac{\\varphi}{\\omega}\\right|$，因为横坐标已经伸缩，平移需在原自变量 $x$ 上调整。"
+      "同一点的最终横坐标为 $(t-\\varphi)/\\omega=t/\\omega-\\varphi/\\omega$，故调整平移距离后的两条路径相同；两种原操作一般不可直接交换。最后纵坐标乘以带符号的 $A$。"
     ],
-    "intuition": "平移操作基于 $x$ 本身，伸缩却改变 $x$ 的系数；先伸缩会把平移量再按系数缩放一次，因此必须用 $\\varphi/\\omega$ 补偿。",
+    "intuition": "先前的水平位移也随横向伸缩而改变，因此先伸缩后平移须用有符号距离 $\\varphi/\\omega$。$\\omega>1$ 横向压缩，$\\omega=1$ 不变，$0<\\omega<1$ 横向拉伸；$A<0$ 时纵坐标乘以 $A$ 包含关于 $x$ 轴的翻折。",
     "common_tricks": [
       "解题时先看清要求的是先移后缩还是先缩后移，再选对应公式。",
-      "先缩后移的平移量计算：$\\text{平移量} = \\left|\\frac{\\varphi}{\\omega}\\right|$，方向由 $\\varphi$ 符号决定（$\\varphi>0$ 左移，$\\varphi<0$ 右移）。",
+      "先缩后移的平移距离为 $|\\varphi|/\\omega$，方向由 $\\varphi$ 符号决定（正左、负右、零不移）；先移后缩的距离为 $|\\varphi|$，两者在 $\\varphi=0$ 或 $\\omega=1$ 时相等。",
       "检验变换结果：代入 $x=0$ 或已知点，看是否与直接得到的 $y=A\\sin(\\omega x+\\varphi)$ 一致。",
-      "若 $\\varphi=0$ 则两种路径平移量均为 0，退化情况可单独记忆。"
+      "振幅为 $|A|$，$A<0$ 时纵坐标乘以 $A$ 可拆成按 $|A|$ 倍伸缩后关于 $x$ 轴对称。"
     ]
   },
   "usage": {
@@ -184,7 +184,7 @@
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-24",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-10-09"
   },
   "isPro": 0,
   "remarks": "",

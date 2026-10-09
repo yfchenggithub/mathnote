@@ -1,45 +1,49 @@
 \begin{proofbox}
 	\textbf{\textcolor{CProof}{思路提示}}
 
-	从函数解析式出发，逐步骤演示两种变换路径，验证最终函数一致，并确认平移量的差异。
+	先验证水平变换如何作用于同一个点，再将纵坐标乘以带符号的 $A$。设 $A\neq0$，$\omega>0$，$\varphi\in\mathbb R$。
 
 	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
+	\textbf{\textcolor{CProof}{两条函数变换链}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[**步骤一（先移后缩）：**]
+		\item[\textbf{先移后缩：}] 向左平移有符号距离 $\varphi$，再将横坐标乘以 $1/\omega$，最后将纵坐标乘以 $A$：
 			\[
-				\begin{aligned}
-					y &= \sin x \\
-					&\to y = \sin(x+\varphi) \\
-					&\to y = \sin(\omega x+\varphi) \\
-					&\to y = A\sin(\omega x+\varphi).
-			\end{aligned}
+				\sin x\ \longrightarrow\ \sin(x+\varphi)
+				\ \longrightarrow\ \sin(\omega x+\varphi)
+				\ \longrightarrow\ A\sin(\omega x+\varphi).
 			\]
-			\par**理由：**
-			先水平平移 $|\varphi|$ 个单位（左加右减），再将 $x$ 替换为 $\omega x$ 实现横向压缩，最后乘以 $|A|$ 实现纵向拉伸。
-
-		\item[**步骤二（先缩后移）：**]
+		\item[\textbf{先缩后移：}] 先将横坐标乘以 $1/\omega$，再向左平移有符号距离 $\varphi/\omega$，最后将纵坐标乘以 $A$：
 			\[
-				\begin{aligned}
-					y &= \sin x \\
-					&\to y = \sin(\omega x) \\
-					&\to y = \sin(\omega x+\varphi) \\
-					&\to y = A\sin(\omega x+\varphi).
-			\end{aligned}
+				\sin x\ \longrightarrow\ \sin(\omega x)
+				\ \longrightarrow\ \sin\!\Big[\omega\Big(x+\frac{\varphi}{\omega}\Big)\Big]
+				\ \longrightarrow\ A\sin(\omega x+\varphi).
 			\]
-			\par**理由：**
-			先横缩 $\frac{1}{\omega}$，再平移 $|\varphi/\omega|$ 个单位（注意方向由 $\varphi$ 符号决定），最后纵缩 $|A|$。
-
-		\item[**步骤三（等价确认）：**]
-			\[
-				A\sin(\omega x+\varphi) = A\sin(\omega x+\varphi).
-			\]
-			\par**理由：**
-			两种路径的最终表达式完全相同，说明变换路径等价。
 	\end{description}
 
 	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
+	\textbf{\textcolor{CProof}{点坐标验证}}
 
-	\textbf{先伸缩后平移的平移量是 $|\varphi/\omega|$，不是 $|\varphi|$，必须牢记。}
+	取基准曲线上的任意点 $P=(t,\sin t)$。第一条路径把它送到
+	\[
+		(t,\sin t)\longrightarrow(t-\varphi,\sin t)
+		\longrightarrow\left(\frac{t-\varphi}{\omega},\sin t\right)
+		\longrightarrow\left(\frac{t-\varphi}{\omega},A\sin t\right).
+	\]
+	第二条路径把同一点送到
+	\[
+		(t,\sin t)\longrightarrow\left(\frac{t}{\omega},\sin t\right)
+		\longrightarrow\left(\frac{t}{\omega}-\frac{\varphi}{\omega},\sin t\right)
+		\longrightarrow\left(\frac{t-\varphi}{\omega},A\sin t\right).
+	\]
+	两条路径的最终点相同。令其横坐标为 $x=(t-\varphi)/\omega$，则 $t=\omega x+\varphi$，纵坐标恰为 $A\sin(\omega x+\varphi)$。由于 $t$ 可取任意实数、$\omega>0$，两条路径都得到整幅目标图像。
+
+	\medskip
+	\textbf{\textcolor{CProof}{符号与顺序}}
+
+	若 $A<0$，最后一步可分解为纵坐标乘以 $|A|$，再关于 $x$ 轴对称；振幅仍为 $|A|$。横向点变换满足
+	\[
+		\frac{t-\varphi}{\omega}=
+		\frac{t}{\omega}-\frac{\varphi}{\omega},
+	\]
+	因此调整平移量后两条路径相同。若先伸缩后仍平移 $\varphi$，一般不能得到同一图像；这不是平移与伸缩的普通交换律。
 \end{proofbox}

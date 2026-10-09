@@ -1,26 +1,18 @@
 \textbf{结论名称：} $y=A\sin(\omega x+\varphi)$ 的图像变换（平移与伸缩的顺序）
 
-\textbf{适用条件：} $A\neq0$，$\omega>0$，由 $y=\sin x$ 出发进行平移与伸缩变换。
+\textbf{适用条件：} $A\neq0$，$\omega>0$，$\varphi\in\mathbb R$，从 $y=\sin x$ 出发。
 
-\textbf{变量说明：} $A$ 为振幅（纵向伸缩倍数）；$\omega$ 为角频率，决定周期 $T=\frac{2\pi}{\omega}$，横向伸缩系数为 $\frac{1}{\omega}$；$\varphi$ 为初相，决定水平平移量。
+\textbf{变量说明：} $A$ 是带符号的纵向系数，振幅为 $|A|$；$\omega$ 是正角频率，周期 $T=2\pi/\omega$，横坐标伸缩倍数为 $1/\omega$；$\varphi$ 是初相参数。$\varphi>0$ 时左移，$\varphi<0$ 时右移，$\varphi=0$ 时不移动。
 
 \textbf{核心公式：}
-将 $y=A\sin(\omega x+\varphi)$ 写成横向平移的规范形式：
 \[
-\boxed{A\sin(\omega x+\varphi)=A\sin\!\big[\omega\big(x+\tfrac{\varphi}{\omega}\big)\big]}
+\boxed{A\sin(\omega x+\varphi)=A\sin\!\Big[\omega\Big(x+\frac{\varphi}{\omega}\Big)\Big]}
 \]
-由 $y=\sin x$ 出发有两种等价路径：
+由 $y=\sin x$ 出发有两条路径：
 \begin{enumerate}
-\item 先平移后伸缩：$\sin x \xrightarrow{\text{左移}\,|\varphi|} \sin(x+\varphi) \xrightarrow{\text{横坐标缩为}\,\frac{1}{\omega}} \sin(\omega x+\varphi) \xrightarrow{\text{纵坐标伸为}\,|A|\text{倍}} A\sin(\omega x+\varphi)$；
-\item 先伸缩后平移：$\sin x \xrightarrow{\text{横坐标缩为}\,\frac{1}{\omega}} \sin(\omega x) \xrightarrow{\text{左移}\,\left|\frac{\varphi}{\omega}\right|} \sin(\omega x+\varphi) \xrightarrow{\text{纵坐标伸为}\,|A|\text{倍}} A\sin(\omega x+\varphi)$。
+\item 先向左平移有符号距离 $\varphi$，再将各点横坐标乘以 $1/\omega$，最后将纵坐标乘以 $A$：$\sin x\to\sin(x+\varphi)\to\sin(\omega x+\varphi)\to A\sin(\omega x+\varphi)$。
+\item 先将各点横坐标乘以 $1/\omega$，再向左平移有符号距离 $\varphi/\omega$，最后将纵坐标乘以 $A$：$\sin x\to\sin(\omega x)\to\sin[\omega(x+\varphi/\omega)]\to A\sin(\omega x+\varphi)$。
 \end{enumerate}
-特别注意：若先横向伸缩再平移，平移量是 $|\varphi/\omega|$ 而非 $|\varphi|$。
+两条路径的平移距离分别为 $|\varphi|$ 和 $|\varphi|/\omega$；当且仅当 $\varphi=0$ 或 $\omega=1$ 时相等。调整平移量后，两种顺序得到同一图像；一般不可直接交换平移与伸缩。若 $A<0$，最后一步可分为按 $|A|$ 倍纵向伸缩，再关于 $x$ 轴对称。$\omega>1$ 时横向压缩，$\omega=1$ 时不变，$0<\omega<1$ 时横向拉伸。
 
-\textbf{使用场景：} 由基本三角函数图像通过平移、伸缩得到 $y=A\sin(\omega x+\varphi)$ 的图像，或已知图像变换求函数解析式，亦可用于确定初相和平移单位。
-
-\textbf{简单例子：} 由 $y=\sin x$ 得到 $y=2\sin\!\big(2x+\frac{\pi}{3}\big)$。
-\begin{itemize}
-\item 法一（先平移后伸缩）：$y=\sin x \to y=\sin(x+\frac{\pi}{3})$（左移 $\frac{\pi}{3}$）$\to y=\sin(2x+\frac{\pi}{3})$（横坐标缩为 $\frac{1}{2}$）$\to y=2\sin(2x+\frac{\pi}{3})$（纵坐标伸为 $2$ 倍）。
-\item 法二（先伸缩后平移）：$y=\sin x \to y=\sin 2x$（横坐标缩为 $\frac{1}{2}$）$\to y=\sin\bigl[2(x+\frac{\pi}{6})\bigr]=\sin(2x+\frac{\pi}{3})$（左移 $\frac{\pi}{6}$）$\to y=2\sin(2x+\frac{\pi}{3})$（纵坐标伸为 $2$ 倍）。
-\end{itemize}
-验证：当 $x=0$ 时，$y=2\sin\frac{\pi}{3}=\sqrt{3}$，两种方法一致。
+\textbf{简单例子：} 取 $A=-2$、$\omega=2$、$\varphi=\pi/4$。先移后缩时左移 $\pi/4$ 再横坐标乘以 $1/2$；先缩后移时先横坐标乘以 $1/2$ 再左移 $\pi/8$。两条路径最后都把纵坐标乘以 $-2$，得到 $y=-2\sin(2x+\pi/4)$；在 $x=\pi/8$ 处取值 $-2$。
