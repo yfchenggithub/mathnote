@@ -345,3 +345,7 @@ R032_normal_3sigma_rule 只可作为字号、间距、箭头走线和渲染质�
 - 存在重叠、裁切、压线、过小标签或错误分页。
 
 本 ID 通过全部质量门后立即停止。不得自动开始下一条结论。
+
+## 15. 动态 GIF 与静态数学卡片的长期架构边界
+
+MathNote 的动态 GIF 与静态数学卡片是两个独立生产模块。动态使用 `scripts/manim/` 和 `<UID>/manim/`；静态使用 `scripts/static_cards/` 和 `<UID>/static_cards/`。禁止跨模块源码导入和构建调用。两者仅允许独立读取正式知识源，并在经过各自的数学及图像验证、审核和显式发布后共享 `<UID>/images/`。不得静默覆盖正式资源或绕过 Publisher。任何例外必须先获得用户批准。此规则适用于未来所有 UID，详见 [正式架构契约](docs/architecture/math-rendering-boundaries.md)。
