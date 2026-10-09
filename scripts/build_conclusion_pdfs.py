@@ -34,6 +34,7 @@ DEFAULT_MODULES = [
     "07_inequality",
     "08_trigonometry",
     "09_geometry-plane",
+    "10_junior_basics",
 ]
 
 DEFAULT_OUTPUT_DIR = Path("build/conclusion_pdfs")
