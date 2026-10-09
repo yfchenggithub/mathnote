@@ -122,30 +122,29 @@ def _card_002():
     f.segment(O, F, GOLD, 4, name="OF₂")
     f.point(O, "", color=MUTED, object_name="point O")
     f.point(A, "", color=BLUE, object_name="point A")
-    f.point(F, "", color=GOLD, object_name="point F₂")
+    f.point(F, "", color=GOLD, object_name="point F_2")
     # B is deliberately unfilled: it is an auxiliary rectangle corner.
     bx, by = f.xy(*B)
     b_marker, = c.ax.plot((bx,), (by,), marker="o", markersize=9, markerfacecolor="white",
                           markeredgecolor=TEAL, markeredgewidth=2, zorder=6)
     b_marker._mathnote_name = "point B"
-    c.label("辅助矩形角点不在曲线上", 511, 528, 22, MUTED)
     layout = LabelLayout(c, f, (103, 479, 978, 1056))
     for name, point, color, priority in (("A", A, BLUE, 90), ("B", B, TEAL, 80),
                                          (r"F_2", F, GOLD, 70), ("O", O, MUTED, 60)):
         layout.add(PointLabel(name, f"point {name}", point, color=color,
                               priority=priority, clearance=7))
-    for name, start, end, color, priority in (("b", A, B, TEAL, 50),
-                                              ("a", O, A, BLUE, 40),
-                                              ("c", O, B, TEAL, 30)):
-        layout.add(SegmentLabel(name, f"segment {name}", start, endpoint=end,
+    for name, object_name, start, end, color, priority in (("b", "AB", A, B, TEAL, 50),
+                                                           ("a", "OA", O, A, BLUE, 40),
+                                                           ("c", "OB", O, B, TEAL, 30)):
+        layout.add(SegmentLabel(name, object_name, start, endpoint=end,
                                 color=color, priority=priority, clearance=7))
     layout.add(LineLabel("x", "horizontal axis", (6.2, 0),
                          color=MUTED, size=20, priority=20, clearance=6))
     layout.resolve()
     c.box(85, 1109, 910, 199, "#f0fbf8", edge="#c7eee3")
     c.math(SPECS["002"]["formula"], 122, 1158, 30, NAVY)
-    c.label("OB 是辅助斜边；OF 才是实际半焦距线段。", 122, 1220, 25, TEAL, bold=True)
-    c.label("二者等长，位置不同；B 不是焦点。", 122, 1272, 23, MUTED)
+    c.label(r"OB 与 $OF_2$ 等长，但不是同一条线段。", 122, 1219, 25, TEAL, bold=True)
+    c.label("B 是辅助矩形角点，不在双曲线上，也不是焦点。", 122, 1271, 23, MUTED)
     return c
 
 

@@ -33,6 +33,8 @@ class CardCanvas:
     def __init__(self, uid: str, number: str, category: str, title: str, subtitle: str):
         self.uid, self.number = uid, number
         self.layout_report = []
+        self.text_coverage_report = []
+        self.label_layout = None
         plt.rcParams.update({"svg.fonttype": "none", "svg.hashsalt": "mathnote-static-v1",
                              "mathtext.fontset": "dejavusans", "savefig.pad_inches": 0})
         self.fig = plt.figure(figsize=(10.8, 14.4), dpi=100, facecolor="#f7fbff")

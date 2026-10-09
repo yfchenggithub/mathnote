@@ -20,6 +20,16 @@ class HyperbolaTests(unittest.TestCase):
                          cards.LABEL_GATE_REQUIRED["002"])
         self.assertTrue(all(item["actual_clearance_px"] >= item["minimum_required_px"]
                             for item in canvas.layout_report))
+        coverage = canvas.label_layout.finalize()
+        plot_text = [item for item in coverage if item["zone"] == "plot"]
+        self.assertEqual(len(plot_text), 8)
+        self.assertTrue(all(item["registered"] and not item["collisions"]
+                            for item in plot_text))
+        b_label = next(item for item in canvas.layout_report if item["label"] == "B")
+        self.assertLessEqual(b_label["anchor_distance_px"], 42)
+        self.assertIsNone(b_label["leader"])
+        self.assertFalse(any("辅助矩形角点不在曲线上" == t.get_text()
+                             for t in canvas.ax.texts))
         frame = MathFrame(canvas, 420, 772, 49)
         gate = LabelLayout(canvas, frame, (103, 479, 978, 1056))
         canvas.fig.canvas.draw()

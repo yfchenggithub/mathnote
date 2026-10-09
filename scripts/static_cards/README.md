@@ -48,6 +48,24 @@ declare `LABEL_GATE_REQUIRED` for cards that must have specific semantic
 labels registered. Intentional contacts may be declared with an object's
 stable `name` in a label's `exceptions` set; avoid broad exclusions.
 
+The point search now visits the shorter offsets first and enforces
+`max_anchor_distance` (42 px by default for point names). Point labels are
+also rejected when they are markedly closer to an unrelated path or point
+than to their own anchor. Segment labels can use the named line object for
+the same association check. Set `allow_leader=True` for a point label only
+when a short leader is acceptable; the leader is checked against paths,
+markers, other labels, and later labels before export. If no position keeps
+the association clear, the builder records `LAYOUT_FAIL`.
+
+For cards with a `LabelLayout`, the builder calls `finalize()` after the card
+has drawn all text. This enumerates every visible Matplotlib text artist in
+`text_coverage`, records whether it is inside the plot and registered, and
+checks all plot text against geometry and other text. An unregistered plot
+text blocks the build even if it does not collide. Use
+`layout.exempt_text(artist, reason)` only for a deliberate nonsemantic plot
+annotation; exemptions remain subject to the collision check. The build
+report's `uncovered_text` must be empty for Rendering PASS.
+
 For a preview-only bounding-box overlay:
 
 ```powershell
@@ -55,9 +73,9 @@ python -m scripts.static_cards.build --uid C043 --source-dir 03_conic/C043_hyper
 ```
 
 This writes `002_layout_debug.png` alongside the clean PNG and SVG under the
-isolated preview directory. The renderer checks registered semantic labels;
-existing UID cards are not silently migrated. Geometry expressed as arbitrary
-patches or raster images requires an adapter before it can enter this gate.
+isolated preview directory. Existing UID cards without a declared plot layout
+are not silently migrated. Geometry expressed as arbitrary patches or raster
+images requires an adapter before it can enter this gate.
 
 Dependencies: Python, Matplotlib, Pillow. Chinese typography uses the local
 Noto Sans SC font when available and Microsoft YaHei as a fallback.

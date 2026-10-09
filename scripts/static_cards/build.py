@@ -115,9 +115,14 @@ def main(argv=None):
     stage = output / ("_stage_" + uuid4().hex)
     stage.mkdir()
     layout_checks = []
+    text_coverage = []
     try:
         for number in chosen:
             canvas = cards.draw_card(number)
+            if canvas.label_layout is not None:
+                canvas.label_layout.finalize()
+                text_coverage.extend({"card": number, **entry}
+                                     for entry in canvas.text_coverage_report)
             required = getattr(cards, "LABEL_GATE_REQUIRED", {}).get(number, set())
             found = {item["label"] for item in canvas.layout_report if item["status"] == "PASS"}
             if required - found:
@@ -148,10 +153,13 @@ def main(argv=None):
             if not destination.exists() or digest(destination) != digest(item):
                 item.replace(destination)
     except CollisionFailure as exc:
+        failure_status = exc.report["status"]
         failure_report = {"uid": args.uid, "selected_cards": chosen,
-                          "status": "COLLISION_FAIL", "math_gate": "PASS",
-                          "render_gate": "COLLISION_FAIL", "failure_reason": str(exc),
+                          "status": failure_status, "math_gate": "PASS",
+                          "render_gate": failure_status, "failure_reason": str(exc),
                           "label_layout": layout_checks + [exc.report],
+                          "text_coverage": exc.report.get("text_coverage", text_coverage),
+                          "uncovered_text": exc.report.get("uncovered_text", []),
                           "source_sha256": source_hashes,
                           "implementation_sha256": implementation_hashes}
         (output / "build_report.json").write_text(
@@ -167,6 +175,10 @@ def main(argv=None):
         "content_gate": content_gate, "math_gate": "PASS", "render_gate": "PASS",
         "failure_reason": None,
         "label_layout": layout_checks,
+        "text_coverage": text_coverage,
+        "uncovered_text": [entry for entry in text_coverage
+                           if entry["zone"] == "plot" and not entry["registered"]
+                           and not entry["exemption"]],
         "math_checks": checks,
         "terminology": getattr(cards, "TERMINOLOGY_REVIEW",
                                "REVIEW: formal TeX calls p/2 半通径; for y²=2px the conventional semilatus rectum is p. Cards say p/2."),
