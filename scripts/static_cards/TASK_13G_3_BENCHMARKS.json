@@ -1,0 +1,60 @@
+{
+  "task": "13G.3",
+  "date": "2026-10-09",
+  "unit": "seconds and bytes",
+  "method": "One sequential subprocess per isolated build on this Windows host; wall-clock includes Python startup, mathematical/content checks, rendering, SVG export, PNG decoding, contact sheet when building all cards, and report writing. No formal assets were written. One sample per command, so these are observations rather than throughput guarantees.",
+  "environment": {
+    "python": "3.14.3",
+    "matplotlib": "3.10.9",
+    "pillow": "12.1.1"
+  },
+  "full_uid_builds": {
+    "C051": {"seconds": 1.549, "cards": 3, "png_formal_sha256_matches": 3},
+    "C043": {"seconds": 2.985, "cards": 3, "png_formal_sha256_matches": 3}
+  },
+  "single_card_builds": [
+    {"uid": "C051", "card": "001", "seconds": 1.022},
+    {"uid": "C051", "card": "002", "seconds": 1.104},
+    {"uid": "C051", "card": "003", "seconds": 1.054},
+    {"uid": "C043", "card": "001", "seconds": 1.083},
+    {"uid": "C043", "card": "002", "seconds": 2.600},
+    {"uid": "C043", "card": "003", "seconds": 1.117}
+  ],
+  "verification_timings": {
+    "C051_model_suite_subprocess_seconds": 1.005,
+    "C043_model_suite_subprocess_seconds": 5.338,
+    "C043_002_label_resolve_seconds": 1.266,
+    "C043_002_text_finalize_seconds": 0.324,
+    "note": "The label measurements instrumented one draw_card(002) call in memory; resolve chooses and collision-checks labels, finalize checks visible plot text. These are one-sample warm-host timings and are included within the corresponding card build, not additive costs."
+  },
+  "sizes_bytes": {
+    "C051": {
+      "png": [103154, 134841, 133212],
+      "svg": [17178, 21162, 17179],
+      "webp_prior_isolated_publisher_run": [48076, 65340, 68288],
+      "contact_sheet_png": 141889
+    },
+    "C043": {
+      "png": [120123, 141575, 146904],
+      "svg": [18946, 22263, 20799],
+      "webp_prior_isolated_publisher_run": [58496, 63954, 71708],
+      "contact_sheet_png": 156605
+    },
+    "two_uid_total": {"png": 779809, "svg": 117527, "webp": 375862},
+    "observed_mean_per_uid": {"png": 389904.5, "svg": 58763.5, "webp": 187931}
+  },
+  "checks": {
+    "C051_model": "8/8 PASS",
+    "C043_model": "7/7 PASS",
+    "shared_label_and_architecture_first_sandbox_run": "2 temporary-directory cleanup errors in 18 label tests and 1 in 2 architecture tests; environment ACL, not assertion failures",
+    "shared_label_and_architecture_outside_sandbox": "20/20 PASS",
+    "formal_png_sha256": "6/6 MATCH"
+  },
+  "unknown": [
+    "UID-specific Codex development time",
+    "human mathematical, teaching, and visual review time",
+    "failure and rework rates",
+    "cold-cache and other-machine throughput",
+    "batch orchestration and recovery cost"
+  ]
+}
