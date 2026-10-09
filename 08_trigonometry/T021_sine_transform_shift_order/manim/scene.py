@@ -139,7 +139,7 @@ class T021TransformOrderLesson(Scene):
         self.wait(0.25)
         p1_progress.set_value(0)
         p1_mode["function"] = first_scale
-        labels("路径一：再横向压缩", "P 在原点不动；整条曲线横坐标 ×1/2",
+        labels("路径一：再横向压缩", "P 在 y 轴上不动；整条曲线横坐标 ×1/2",
                r"x=s(t-\pi/2),\quad s:1\to1/2", ORANGE)
         self.play(p1_progress.animate.set_value(1), run_time=1.55, rate_func=linear)
         self.wait(0.35)
