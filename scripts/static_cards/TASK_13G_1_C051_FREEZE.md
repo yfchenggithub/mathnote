@@ -76,9 +76,11 @@ The exact preview, source, tool versions, and hashes are recorded in
 backups are under `.build/static_cards/C051/publication_13g1b/`.
 The preview report retains its preview-stage status; this manifest records the
 separate publication and final freeze gate. Publisher was checked in isolation
-with `node scripts/zhishu/prepare_knowledge_images.mjs --jobs
-.build/static_cards/C051/publisher_final_jobs.json --output
-.build/static_cards/C051/publisher_final_output`.
+with:
+
+```powershell
+node scripts/zhishu/prepare_knowledge_images.mjs --jobs .build/static_cards/C051/publisher_final_jobs.json --output .build/static_cards/C051/publisher_final_output
+```
 
 ## Independent follow-up
 
