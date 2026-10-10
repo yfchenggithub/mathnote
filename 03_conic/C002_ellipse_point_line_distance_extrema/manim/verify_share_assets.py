@@ -58,6 +58,8 @@ def validate(root: Path = UID_ROOT, registry: Path = REGISTRY, *, data: dict | N
             raise ValueError("display ID does not match source")
         if share_id != f"C002:share-video:{Path(link['shareSource']).name}":
             raise ValueError("share ID does not match source")
+        if link.get("shareAssetUri") != f"resources/videos/C002/{Path(link['shareSource']).name}":
+            raise ValueError("share URI does not match source")
         mp4 = root / link["shareSource"]
         if link.get("shareMimeType") != "video/mp4" or link.get("shareBytes") != mp4.stat().st_size:
             raise ValueError("share metadata mismatch")

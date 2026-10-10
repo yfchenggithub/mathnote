@@ -13,13 +13,18 @@ from typing import Any, Iterable, Mapping
 
 if __package__:
     from .runtime_mapping import RuntimeMappingResult
+    from .share_videos import ShareVideoError, load_share_videos, verify_mp4
     from .source_discovery import ScanResult
 else:
     from runtime_mapping import RuntimeMappingResult
+    from share_videos import ShareVideoError, load_share_videos, verify_mp4
     from source_discovery import ScanResult
 
 
 SCHEMA_VERSION = 1
+VIDEO_SCHEMA_VERSION = 2
+SHARE_FILE = "animation-shares.json"
+SHARE_KEY = "animationShares"
 JSON_FILES = {
     "knowledgeNodes": "knowledge-nodes.json",
     "knowledgeRelations": "knowledge-relations.json",
@@ -31,12 +36,14 @@ ENTITY_ID_FIELDS = {
     "knowledgeRelations": "id",
     "knowledgeAssets": "id",
     "searchDocuments": "knowledgeNodeId",
+    SHARE_KEY: "displayAssetId",
 }
 ENTITY_LABELS = {
     "knowledgeNodes": "KnowledgeNode",
     "knowledgeRelations": "KnowledgeRelation",
     "knowledgeAssets": "KnowledgeAsset",
     "searchDocuments": "SearchDocument",
+    SHARE_KEY: "AnimationShare",
 }
 MANIFEST_REQUIRED_FIELDS = (
     "schemaVersion",
@@ -50,6 +57,7 @@ ENTITY_REQUIRED_FIELDS = {
     "knowledgeRelations": ("id", "sourceId", "targetId", "type"),
     "knowledgeAssets": ("id", "knowledgeId", "type", "uri", "sortOrder"),
     "searchDocuments": ("knowledgeNodeId", "title"),
+    SHARE_KEY: ("displayAssetId", "displayAssetUri", "shareAssetId", "knowledgeId", "uri", "mimeType", "bytes", "sha256"),
 }
 
 
@@ -200,10 +208,12 @@ def _validate_entity_shapes(
         "knowledgeRelations": ("id", "sourceId", "targetId", "type"),
         "knowledgeAssets": ("id", "knowledgeId", "type", "uri"),
         "searchDocuments": ("knowledgeNodeId", "title"),
+        SHARE_KEY: ("displayAssetId", "displayAssetUri", "shareAssetId", "knowledgeId", "uri", "mimeType", "sha256"),
     }
     integer_fields = {
         "knowledgeNodes": ("sortOrder",),
         "knowledgeAssets": ("sortOrder",),
+        SHARE_KEY: ("bytes",),
     }
     for group, records in entities.items():
         issue_path = Path(runtime_files[group])
@@ -285,17 +295,80 @@ def _copy_assets(
 def _package_hash(
     entity_hashes: Mapping[str, Mapping[str, str]],
     asset_hashes: Mapping[str, str],
+    *,
+    schema_version: int = SCHEMA_VERSION,
+    share_asset_hashes: Mapping[str, str] | None = None,
 ) -> str:
     payload = {
-        "schemaVersion": SCHEMA_VERSION,
+        "schemaVersion": schema_version,
         "entityHashes": entity_hashes,
         "assetHashes": asset_hashes,
     }
+    if schema_version == VIDEO_SCHEMA_VERSION:
+        payload["shareAssetHashes"] = share_asset_hashes
     return _sha256_bytes(_canonical_bytes(payload))
 
 
 def _package_size(root: Path) -> int:
     return sum(path.stat().st_size for path in root.rglob("*") if path.is_file())
+
+
+def _validate_share_records(
+    package_root: Path, shares: list[dict[str, Any]],
+    display_assets: list[dict[str, Any]], node_ids: set[str],
+) -> tuple[list[PackageIssue], dict[str, str], set[str]]:
+    issues: list[PackageIssue] = []
+    hashes: dict[str, str] = {}
+    resources: set[str] = set()
+    displays = {asset["id"]: asset for asset in display_assets}
+    seen_display: set[str] = set()
+    for share in shares:
+        display_id = share["displayAssetId"]
+        share_id = share["shareAssetId"]
+        knowledge_id = share["knowledgeId"]
+        uri = share["uri"]
+        display = displays.get(display_id)
+        if display_id in seen_display:
+            issues.append(PackageIssue(Path(SHARE_FILE), f"duplicate GIF association: {display_id}"))
+        seen_display.add(display_id)
+        if (
+            display is None or display.get("type") != "image"
+            or display.get("knowledgeId") != knowledge_id
+            or display.get("uri") != share["displayAssetUri"]
+            or not str(share["displayAssetUri"]).lower().endswith(".gif")
+        ):
+            issues.append(PackageIssue(Path(SHARE_FILE), f"invalid GIF reference: {display_id}"))
+        if knowledge_id not in node_ids:
+            issues.append(PackageIssue(Path(SHARE_FILE), f"unknown knowledge ID: {knowledge_id}"))
+        logical = PurePosixPath(uri)
+        if (
+            "\\" in uri or logical.is_absolute() or ".." in logical.parts
+            or len(logical.parts) != 4 or logical.parts[:3] != ("resources", "videos", knowledge_id)
+            or logical.suffix.lower() != ".mp4"
+            or share_id != f"{knowledge_id}:share-video:{logical.name}"
+            or share["mimeType"] != "video/mp4"
+        ):
+            issues.append(PackageIssue(Path(SHARE_FILE), f"invalid MP4 identity or type: {share_id}"))
+            continue
+        if uri in resources or share_id in hashes:
+            issues.append(PackageIssue(Path(SHARE_FILE), f"duplicate MP4 association: {share_id}"))
+        resources.add(uri)
+        path = _resource_path(package_root, uri)
+        if not path.is_file():
+            issues.append(PackageIssue(Path(uri), f"share video resource is missing: {share_id}"))
+            continue
+        actual_hash = _sha256_file(path)
+        hashes[share_id] = actual_hash
+        if (
+            share["bytes"] <= 0 or path.stat().st_size != share["bytes"]
+            or share["sha256"] != actual_hash
+        ):
+            issues.append(PackageIssue(Path(uri), f"share video size or hash mismatch: {share_id}"))
+        try:
+            verify_mp4(path)
+        except ShareVideoError as exc:
+            issues.append(PackageIssue(Path(uri), str(exc)))
+    return issues, hashes, resources
 
 
 def validate_package(package_root: Path) -> tuple[PackageIssue, ...]:
@@ -309,6 +382,13 @@ def validate_package(package_root: Path) -> tuple[PackageIssue, ...]:
         return (PackageIssue(Path("manifest.json"), f"manifest is invalid JSON: {exc}"),)
     if not isinstance(manifest, dict):
         return (PackageIssue(Path("manifest.json"), "manifest root must be an object"),)
+    schema_version = manifest.get("schemaVersion")
+    video_schema = schema_version == VIDEO_SCHEMA_VERSION
+    if schema_version not in (SCHEMA_VERSION, VIDEO_SCHEMA_VERSION):
+        errors.append(PackageIssue(Path("manifest.json"), "schemaVersion is unsupported"))
+    expected_runtime_files = dict(JSON_FILES)
+    if video_schema:
+        expected_runtime_files[SHARE_KEY] = SHARE_FILE
 
     for field in MANIFEST_REQUIRED_FIELDS:
         if field not in manifest:
@@ -327,7 +407,7 @@ def validate_package(package_root: Path) -> tuple[PackageIssue, ...]:
 
     counts = manifest.get("counts")
     if isinstance(counts, dict):
-        for count_name in (*JSON_FILES, "imageAssets", "pdfAssets"):
+        for count_name in (*expected_runtime_files, "imageAssets", "pdfAssets", *(("videoAssets",) if video_schema else ())):
             if count_name not in counts:
                 errors.append(
                     PackageIssue(Path("manifest.json"), f"counts missing required field: {count_name}")
@@ -340,7 +420,7 @@ def validate_package(package_root: Path) -> tuple[PackageIssue, ...]:
     files = manifest.get("files")
     runtime_files: dict[str, str] = {}
     if isinstance(files, dict):
-        for group in JSON_FILES:
+        for group in expected_runtime_files:
             relative_name = files.get(group)
             if not isinstance(relative_name, str) or not relative_name:
                 errors.append(
@@ -353,14 +433,18 @@ def validate_package(package_root: Path) -> tuple[PackageIssue, ...]:
                 errors.append(PackageIssue(Path("manifest.json"), str(exc)))
                 continue
             runtime_files[group] = relative_name
+        if video_schema and runtime_files.get(SHARE_KEY) != SHARE_FILE:
+            errors.append(PackageIssue(Path("manifest.json"), f"files.{SHARE_KEY} must reference {SHARE_FILE}"))
 
     for field in ("fileHashes", "entityHashes", "assetHashes"):
         if field not in manifest:
             errors.append(PackageIssue(Path("manifest.json"), f"missing required field: {field}"))
         elif not isinstance(manifest[field], dict):
             errors.append(PackageIssue(Path("manifest.json"), f"{field} must be an object"))
+    if video_schema and not isinstance(manifest.get("shareAssetHashes"), dict):
+        errors.append(PackageIssue(Path("manifest.json"), "shareAssetHashes must be an object"))
 
-    if len(runtime_files) != len(JSON_FILES):
+    if len(runtime_files) != len(expected_runtime_files):
         return tuple(errors)
 
     entities: dict[str, list[dict[str, Any]]] = {}
@@ -379,7 +463,7 @@ def validate_package(package_root: Path) -> tuple[PackageIssue, ...]:
             continue
         entities[group] = value
 
-    if len(entities) != len(JSON_FILES):
+    if len(entities) != len(expected_runtime_files):
         return tuple(errors)
 
     errors.extend(_validate_entity_shapes(entities, runtime_files))
@@ -453,6 +537,31 @@ def validate_package(package_root: Path) -> tuple[PackageIssue, ...]:
     if manifest_asset_hashes != calculated_asset_hashes:
         errors.append(PackageIssue(Path("manifest.json"), "asset hashes do not match resource contents"))
 
+    share_hashes: dict[str, str] = {}
+    if video_schema:
+        if not entities[SHARE_KEY]:
+            errors.append(PackageIssue(Path(SHARE_FILE), "v2 package must register a share video"))
+        for asset in entities["knowledgeAssets"]:
+            asset_type = asset["type"]
+            asset_uri = PurePosixPath(asset["uri"])
+            expected_directory = "images" if asset_type == "image" else "pdfs"
+            valid_suffix = asset_uri.suffix.lower() in ({".webp", ".gif"} if asset_type == "image" else {".pdf"})
+            if (
+                asset_type not in {"image", "pdf"} or "\\" in asset["uri"]
+                or asset_uri.is_absolute() or ".." in asset_uri.parts
+                or len(asset_uri.parts) != 4
+                or asset_uri.parts[:3] != ("resources", expected_directory, asset["knowledgeId"])
+                or not valid_suffix
+            ):
+                errors.append(PackageIssue(Path(runtime_files["knowledgeAssets"]), f"invalid v2 display asset type or URI: {asset['id']}"))
+        share_issues, share_hashes, video_resources = _validate_share_records(
+            package_root, entities[SHARE_KEY], entities["knowledgeAssets"], node_ids
+        )
+        errors.extend(share_issues)
+        expected_resources.update(video_resources)
+        if manifest.get("shareAssetHashes") != share_hashes:
+            errors.append(PackageIssue(Path("manifest.json"), "share asset hashes do not match resource contents"))
+
     resources_root = package_root / "resources"
     actual_resources = {
         path.relative_to(package_root).as_posix()
@@ -474,6 +583,9 @@ def validate_package(package_root: Path) -> tuple[PackageIssue, ...]:
         "imageAssets": sum(asset.get("type") == "image" for asset in entities["knowledgeAssets"]),
         "pdfAssets": sum(asset.get("type") == "pdf" for asset in entities["knowledgeAssets"]),
     }
+    if video_schema:
+        expected_counts[SHARE_KEY] = len(entities[SHARE_KEY])
+        expected_counts["videoAssets"] = len(entities[SHARE_KEY])
     if counts != expected_counts:
         errors.append(PackageIssue(Path("manifest.json"), "manifest counts do not match package data"))
 
@@ -484,13 +596,15 @@ def validate_package(package_root: Path) -> tuple[PackageIssue, ...]:
     if manifest.get("fileHashes") != file_hashes:
         errors.append(PackageIssue(Path("manifest.json"), "file hashes do not match package JSON files"))
 
-    calculated_package_hash = _package_hash(entity_hashes, calculated_asset_hashes)
+    calculated_package_hash = _package_hash(
+        entity_hashes, calculated_asset_hashes,
+        schema_version=schema_version if video_schema else SCHEMA_VERSION,
+        share_asset_hashes=share_hashes if video_schema else None,
+    )
     if manifest.get("packageHash") != calculated_package_hash:
         errors.append(PackageIssue(Path("manifest.json"), "packageHash mismatch"))
     if manifest.get("contentVersion") != f"sha256:{calculated_package_hash}":
         errors.append(PackageIssue(Path("manifest.json"), "contentVersion is invalid"))
-    if manifest.get("schemaVersion") != SCHEMA_VERSION:
-        errors.append(PackageIssue(Path("manifest.json"), "schemaVersion is unsupported"))
     return tuple(errors)
 
 
@@ -518,6 +632,8 @@ def build_package(
     runtime_result: RuntimeMappingResult,
     output_dir: Path,
     prepared_assets_root: Path,
+    *,
+    share_video_uid: str | None = None,
 ) -> PackageBuildResult:
     """Build and validate a complete package before replacing the output."""
 
@@ -538,8 +654,16 @@ def build_package(
     staged = Path(tempfile.mkdtemp(prefix=f".{output_dir.name}.tmp-", dir=output_dir.parent))
     try:
         entities = _runtime_entities(runtime_result)
+        shares = load_share_videos(scan_result, runtime_result, share_video_uid) if share_video_uid else ()
+        schema_version = VIDEO_SCHEMA_VERSION if share_video_uid else SCHEMA_VERSION
+        files = dict(JSON_FILES)
+        if shares:
+            entities[SHARE_KEY] = [share.record for share in shares]
+            files[SHARE_KEY] = SHARE_FILE
         for group, file_name in JSON_FILES.items():
             _write_json(staged / file_name, entities[group])
+        if shares:
+            _write_json(staged / SHARE_FILE, entities[SHARE_KEY])
 
         (staged / "resources" / "images").mkdir(parents=True)
         (staged / "resources" / "pdfs").mkdir(parents=True)
@@ -550,8 +674,17 @@ def build_package(
             source_index,
             prepared_assets_root.resolve(),
         )
+        share_hashes: dict[str, str] = {}
+        for share in shares:
+            destination = _resource_path(staged, share.record["uri"])
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(share.source_path, destination)
+            share_hashes[share.record["shareAssetId"]] = _sha256_file(destination)
         entity_hashes = _entity_hashes(entities)
-        package_hash = _package_hash(entity_hashes, asset_hashes)
+        package_hash = _package_hash(
+            entity_hashes, asset_hashes, schema_version=schema_version,
+            share_asset_hashes=share_hashes if shares else None,
+        )
         content_version = f"sha256:{package_hash}"
         counts = {
             "knowledgeNodes": len(entities["knowledgeNodes"]),
@@ -561,20 +694,25 @@ def build_package(
             "imageAssets": runtime_result.asset_count("image"),
             "pdfAssets": runtime_result.asset_count("pdf"),
         }
+        if shares:
+            counts[SHARE_KEY] = len(shares)
+            counts["videoAssets"] = len(shares)
         file_hashes = {
             group: _sha256_file(staged / file_name)
-            for group, file_name in JSON_FILES.items()
+            for group, file_name in files.items()
         }
         manifest = {
-            "schemaVersion": SCHEMA_VERSION,
+            "schemaVersion": schema_version,
             "contentVersion": content_version,
             "counts": counts,
-            "files": JSON_FILES,
+            "files": files,
             "fileHashes": file_hashes,
             "entityHashes": entity_hashes,
             "assetHashes": asset_hashes,
             "packageHash": package_hash,
         }
+        if shares:
+            manifest["shareAssetHashes"] = share_hashes
         _write_json(staged / "manifest.json", manifest)
         validation_errors = validate_package(staged)
         if validation_errors:
@@ -663,4 +801,19 @@ def diff_packages(previous_dir: Path, current_dir: Path) -> PackageDiff:
             if previous_group[entity_id] != current_group[entity_id]
         )
         entries.extend(DiffEntry(label, "DELETE", entity_id) for entity_id in sorted(previous_ids - current_ids))
+    previous_shares = dict(previous_hashes.get(SHARE_KEY, {}))
+    current_shares = dict(current_hashes.get(SHARE_KEY, {}))
+    previous_share_assets = previous.get("shareAssetHashes", {})
+    current_share_assets = current.get("shareAssetHashes", {})
+    for entity_id in sorted(set(current_shares) - set(previous_shares)):
+        entries.append(DiffEntry("AnimationShare", "ADD", entity_id))
+    for entity_id in sorted(set(previous_shares) - set(current_shares)):
+        entries.append(DiffEntry("AnimationShare", "DELETE", entity_id))
+    for entity_id in sorted(set(previous_shares) & set(current_shares)):
+        if (
+            previous_shares[entity_id], previous_share_assets.get(entity_id)
+        ) != (
+            current_shares[entity_id], current_share_assets.get(entity_id)
+        ):
+            entries.append(DiffEntry("AnimationShare", "UPDATE", entity_id))
     return PackageDiff(tuple(entries), ())

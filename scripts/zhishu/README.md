@@ -14,6 +14,7 @@ python scripts/zhishu/publish.py build-package
 python scripts/zhishu/publish.py build-package --output <directory>
 python scripts/zhishu/publish.py build-content
 python scripts/zhishu/publish.py build-content --prepared-assets <directory> --output <directory>
+python scripts/zhishu/publish.py build-content --share-video-uid C002 --prepared-assets <isolated-directory> --output <isolated-directory>
 python scripts/zhishu/publish.py diff <previous-package> <current-package>
 ```
 
@@ -85,3 +86,29 @@ versioning, or diff decisions.
 Diff compares stable entity IDs and content hashes and reports only `ADD`,
 `UPDATE`, and `DELETE`. Package construction validates a complete staged package
 before replacing the requested output directory.
+
+## Optional C002 video package (Task 14C.MP4.1)
+
+The default commands above retain the Task 8A `schemaVersion: 1` package byte
+contract. Video packaging is explicit: `--share-video-uid C002` requires a
+non-default isolated package output; `build-content` also requires a non-default
+prepared-assets output. The selected UID's `videos/share_assets.json` must
+link a real Publisher GIF asset ID and URI to one H.264 MP4, with matching
+source hashes, size, MIME, and explicit video URI. Unregistered video files,
+missing files, wrong MIME/codec, duplicate or cross-animation links fail.
+
+The opt-in package has `schemaVersion: 2`. Its four existing runtime JSON
+files, existing `KnowledgeAsset` image/PDF rows, image sort orders, and search
+documents retain their v1 meaning. It adds `animation-shares.json`,
+`resources/videos/<UID>/<name>.mp4`, `manifest.files.animationShares`,
+`manifest.counts.animationShares` / `videoAssets`, and
+`manifest.shareAssetHashes`. The v2 package hash covers the new relation
+entity hashes and video byte hashes. Validation rejects missing, extra, or
+altered video resources. Diff reports an `AnimationShare` ADD/UPDATE/DELETE.
+
+The existing Zhishu Sync (`D:/work/zhishu/scripts/zhishu/sync_knowledge_content.py`
+as audited on 2026-10-10) requires `schemaVersion == 1`, scans only
+`resources/images` and `resources/pdfs`, and cannot safely consume videos.
+It accepts the unchanged v1 package and rejects v2 before writing. Do not
+point old Sync at a v2 package. Updating Sync and the App's video registry is
+a separate Zhishu task; this Publisher task performs neither operation.

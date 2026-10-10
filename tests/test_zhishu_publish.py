@@ -29,6 +29,22 @@ class ZhishuPublishParserTests(unittest.TestCase):
 
         self.assertEqual(args.output, override)
 
+    def test_video_package_requires_isolated_output(self) -> None:
+        output = StringIO()
+        with redirect_stdout(output):
+            exit_code = publish.main(["build-package", "--share-video-uid", "C002"])
+        self.assertEqual(exit_code, 1)
+        self.assertIn("isolated --output", output.getvalue())
+
+    def test_video_build_content_requires_isolated_preparation(self) -> None:
+        output = StringIO()
+        with redirect_stdout(output):
+            exit_code = publish.main([
+                "build-content", "--share-video-uid", "C002", "--output", "isolated-package",
+            ])
+        self.assertEqual(exit_code, 1)
+        self.assertIn("isolated --prepared-assets", output.getvalue())
+
     def test_diff_invalid_packages_returns_nonzero_without_traceback(self) -> None:
         output = StringIO()
 

@@ -14,6 +14,7 @@
 | `scripts/static_cards/` | 未来静态数学卡片的 UID 中立构建、导出、验证工具。当前不创建实现。 |
 | `<UID>/static_cards/` | 未来该 UID 的静态卡片模型、布局与测试；可选。 |
 | `<UID>/images/` | 审核后显式发布的正式 PNG/GIF 资源；不是临时构建目录。 |
+| `<UID>/videos/` | 经单 UID 审核的可选 MP4 分享资源与显式 GIF 关联源登记；不参与静态卡片或 GIF 渲染。当前仅 C002 有正式配套视频。 |
 
 `manim/` 和 `static_cards/` 是平级可选目录。一个 UID 可有其中一个、两个或都没有；任何一方的存在、成功或产物均不是另一方的前置条件。规则不限于 `03_conic`。
 
@@ -32,6 +33,8 @@
 流程为：生产源码 → 隔离预览资源 → 数学和图像验证 → 人工审核 → 显式发布到 `<UID>/images/`。默认构建不得直接写 `images/`；文件名冲突须阻止发布或要求明确处理，不得静默覆盖 PNG/GIF。发布前须检查 Publisher 的实际命名和资源契约，不得绕过 `scripts/zhishu/publish.py` 所代表的正式发布链路。现有链路从 UID 的 `images/` 发现 PNG/GIF，预处理时 PNG 转 WebP、GIF 原样保留，再映射为 `resources/images/<UID>/...`；不得因静态模块改变既有 GIF 逻辑 URI。
 
 两个模块须分别验证真实数学模型、图形内容及技术格式。曲线点、切点、焦点、准线、标注距离与角度、坐标变换、参数范围和退化情形应按相应结论核验。渲染成功不能替代数学正确性；数学验证失败不得发布。
+
+Task 14C.MP4.1 批准的 Publisher 视频扩展只针对显式选择的 UID。默认 `build-content` 仍生成 Task 8A 的 v1 图片/PDF 包；指定 `--share-video-uid C002` 且使用隔离的资源准备目录和包目录时，生成 v2 包，在 `resources/videos/C002/` 登记 MP4，并以独立的 `animation-shares.json` 将正式 GIF Asset ID 关联到分享视频 Asset ID。MP4 不进入 `images/`、`knowledge-assets.json` 的图片列表、PDF 或 SearchDocuments。旧版 Sync 只接受 v1，v2 包须等新消费端支持后才能同步；不得将隔离 v2 包覆盖默认生产输出。
 
 ## 目录示例
 
