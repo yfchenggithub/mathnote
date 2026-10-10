@@ -1,0 +1,52 @@
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+	\textbf{求公共弦所在的直线，就是先定方向，再找直线上的一个点。} 方向来自“公共弦垂直于连心线”，位置来自“公共弦中点 $M$”。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{要点一（为什么能直接确定方向）：}] $O_1A=O_1B=r_1$，$O_2A=O_2B=r_2$，故两个圆心都位于线段 $AB$ 的垂直平分线上。因此 $O_1O_2\perp AB$。
+		\item[\textbf{要点二（为什么先找中点）：}] 垂直平分线与 $AB$ 相交于 $M$。知道 $AB$ 的方向还不够；只要进一步得到 $M(x_M,y_M)$，直线就唯一确定。
+		\item[\textbf{要点三（为什么用两个勾股定理）：}] 设 $h=AM=BM$，令 $d=|O_1O_2|$，$t$ 是从 $O_1$ 朝 $O_2$ 的有向投影距离。两个直角三角形给出
+		\[
+			r_1^2=t^2+h^2,\qquad r_2^2=(d-t)^2+h^2.
+		\]
+		相减后消去共同的 $h^2$，得到 $t=(d^2+r_1^2-r_2^2)/(2d)$。
+		\item[\textbf{要点四（距离转坐标）：}] 沿着 $O_1O_2$ 走 $t$，就是按比例走 $t/d$ 倍的圆心位移，故
+		\[
+			(x_M,y_M)=(a_1,b_1)+\frac{t}{d}(a_2-a_1,b_2-b_1).
+		\]
+		\item[\textbf{要点五（最后写出直线）：}] 若连心线斜率 $k_0$ 存在且非零，则 $k_{AB}=-1/k_0$，用 $y-y_M=k_{AB}(x-x_M)$；不宜用斜率时，直接使用法向式 $(a_2-a_1)(x-x_M)+(b_2-b_1)(y-y_M)=0$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{几何本质（两个圆心都在同一条垂直平分线上）}}
+
+	每个圆心分别到 $A,B$ 等距，因此两个圆心都在公共弦的垂直平分线上。\textbf{“方向”由垂直关系确定，“位置”由两圆半径之差确定。} 半径不同时，公共弦一般不经过连心线的中点。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{代数意义（同一件事的快捷写法）}}
+
+	直接相减两个圆的方程，公共的 $x^2+y^2$ 被消去，得到一次方程。它与几何法中“两个勾股方程相减，消去 $h^2$”本质一致：\textbf{消去相同部分，留下公共弦的位置条件。}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{考点价值（理解与速度兼得）}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{考法一（求公共弦直线）：} 考场优先将两圆方程相减，直接得到方程。
+		\item \textbf{考法二（求公共弦长度）：} 几何法先求 $t$，再由 $h^2=r_1^2-t^2$ 得 $AB=2h$。
+		\item \textbf{考法三（解释直线位置）：} 几何法能看出半径不同时，公共弦向哪一侧偏移；并能判断中点是否落在两圆心之间。
+	\end{itemize}
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{顿悟点}}
+
+	\textbf{不是先把两个交点 $A,B$ 算出来，再去找直线；而是先抓住直线自己的两个要素：方向和一个已知点。} 这就是“先求中点”的价值。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{使用场景}}
+	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+		\item \textbf{场景一（题目只要直线）：} 使用两圆方程相减，避免联立求出两个交点坐标。
+		\item \textbf{场景二（题目还要长度、位置或几何证明）：} 使用连心线、垂直平分线、勾股定理与中点坐标。
+	\end{itemize}
+\end{explanationbox}

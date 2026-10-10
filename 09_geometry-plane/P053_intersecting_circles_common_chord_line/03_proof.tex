@@ -1,0 +1,89 @@
+\begin{proofbox}
+	\textbf{\textcolor{CProof}{思路提示}}
+
+	先按最直觉的路线证明：\textbf{求直线 $\Rightarrow$ 定方向 $\Rightarrow$ 找中点 $\Rightarrow$ 写方程。} 然后说明为什么两圆方程相减就是同一条直线。记 $\vec v=\overrightarrow{O_1O_2}=(a_2-a_1,b_2-b_1)$，$d=|\vec v|>0$。
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导一：几何法（主线）}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（从两端点的等距关系定方向）：}] 两圆交于 $A,B$，且
+		\[
+			O_1A=O_1B=r_1,\qquad O_2A=O_2B=r_2.
+		\]
+		故 $O_1,O_2$ 都在 $AB$ 的垂直平分线上。因为两个圆心不同，所以直线 $O_1O_2$ 就是这条垂直平分线，记与 $AB$ 的交点为 $M$，于是
+		\[
+			AB\perp O_1O_2,\qquad AM=BM.
+		\]
+		\par\textbf{理由：} 线段的垂直平分线是到两个端点距离相等的点的轨迹。
+
+		\item[\textbf{步骤二（将中点位置变成一个数）：}] 取沿 $O_1\to O_2$ 的单位向量 $\vec e=\vec v/d$，令
+		\[
+			M=O_1+t\vec e,\qquad t\in\mathbb R.
+		\]
+		设 $h=AM=BM>0$。由两个直角三角形 $\triangle O_1MA$ 和 $\triangle O_2MA$，
+		\[
+			\begin{aligned}
+				r_1^2&=t^2+h^2,\\
+				r_2^2&=(d-t)^2+h^2.
+			\end{aligned}
+		\]
+		\par\textbf{理由：} 因 $AM\perp O_1O_2$，即使 $M$ 落在两圆心连线段之外，平方距离仍分别为 $t^2$ 和 $(d-t)^2$。
+
+		\item[\textbf{步骤三（两个勾股方程相减）：}] 消去共同的 $h^2$：
+		\[
+			\begin{aligned}
+				r_1^2-r_2^2
+				&=t^2-(d-t)^2\\
+				&=2dt-d^2.
+			\end{aligned}
+		\]
+		因此
+		\[
+			\boxed{t=\frac{d^2+r_1^2-r_2^2}{2d}}.
+		\]
+		\par\textbf{理由：} 公共的弦半长 $h$ 被消掉，只剩中点沿连心线的位置。
+
+		\item[\textbf{步骤四（由距离求中点坐标）：}] 因 $\vec e=\vec v/d$，
+		\[
+			\boxed{M=(a_1,b_1)+\frac{d^2+r_1^2-r_2^2}{2d^2}(a_2-a_1,b_2-b_1)}.
+		\]
+		\par\textbf{理由：} 从 $O_1$ 沿连心线方向移动有向距离 $t$。
+
+		\item[\textbf{步骤五（过 $M$ 且垂直连心线）：}] 设公共弦上的任意点为 $P(x,y)$。由于 $\overrightarrow{MP}\perp \vec v$，其点积为零：
+		\[
+			\boxed{(a_2-a_1)(x-x_M)+(b_2-b_1)(y-y_M)=0}.
+		\]
+		将 $M$ 的坐标代入，得到无须区分直线是否竖直的形式：
+		\[
+			\boxed{2(a_2-a_1)(x-a_1)+2(b_2-b_1)(y-b_1)=d^2+r_1^2-r_2^2}.
+		\]
+		\par\textbf{理由：} 一条直线由其法向量和所经过的一点唯一确定。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{正式推导二：代数法（快捷验证）}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.5em]
+		\item[\textbf{步骤一（共同交点满足两个方程）：}] 定义
+		\[
+			f_i(x,y)=(x-a_i)^2+(y-b_i)^2-r_i^2\quad(i=1,2).
+		\]
+		因 $A,B$ 都在两个圆上，它们都满足 $f_1=f_2=0$，自然也满足 $f_1-f_2=0$。
+		\item[\textbf{步骤二（相减，二次项消去）：}] 将 $f_1-f_2=0$ 展开：
+		\[
+			\begin{aligned}
+			0={}&2(a_2-a_1)x+2(b_2-b_1)y\\
+			&+a_1^2+b_1^2-a_2^2-b_2^2-r_1^2+r_2^2.
+			\end{aligned}
+		\]
+		整理即得
+		\[
+			2(a_2-a_1)(x-a_1)+2(b_2-b_1)(y-b_1)=d^2+r_1^2-r_2^2.
+		\]
+		\item[\textbf{步骤三（证明它是 $AB$ 所在直线）：}] 由于 $O_1\ne O_2$，一次项系数不全为零，上式确实是一条直线；又因两个不同交点 $A,B$ 均满足该式，所以它恰好就是过 $A,B$ 的唯一直线。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	两种方法得到同一方程。几何法解释了\textbf{为什么公共弦是这个方向、位于这个位置}；代数法则用一次相减完成计算。注意相减所得是\textbf{公共弦所在的整条直线}，不意味着这条直线上的所有点都同时在两个圆上。
+\end{proofbox}

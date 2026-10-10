@@ -1,0 +1,105 @@
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1（几何直觉：半径不同、公共弦倾斜）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	两圆 $C_1:x^2+y^2=25$ 与 $C_2:(x-3)^2+(y-4)^2=16$ 相交于 $A,B$，求公共弦 $AB$ 所在直线的方程。要求先用几何法，再用代数法验证。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（先求方向）：}] $O_1=(0,0)$、$O_2=(3,4)$，圆心距 $d=5$，半径分别为 $r_1=5$、$r_2=4$。连心线斜率为 $4/3$，公共弦与它垂直，故
+		\[
+			k_{AB}=-\frac34.
+		\]
+		\par\textbf{理由：} 公共弦垂直于两圆连心线。
+
+		\item[\textbf{第二步（勾股定理求中点到圆心的距离）：}] 令 $M$ 为弦中点，$t=O_1M$（本题 $M$ 位于两圆心之间），$h=AM$。则
+		\[
+			\begin{cases}
+				t^2+h^2=25,\\
+				(5-t)^2+h^2=16.
+			\end{cases}
+		\]
+		相减得 $t^2-(5-t)^2=9$，即 $10t-25=9$，所以
+		\[
+			\boxed{t=\frac{17}{5}}.
+		\]
+		\par\textbf{理由：} 消去公共弦半长的平方 $h^2$。
+
+		\item[\textbf{第三步（距离转坐标）：}] 沿 $O_1O_2$ 方向移动的比例为 $t/d=17/25$，故
+		\[
+			\boxed{M=\left(\frac{51}{25},\frac{68}{25}\right)}.
+		\]
+		\par\textbf{理由：} $M=O_1+\frac{t}{d}(O_2-O_1)$。
+
+		\item[\textbf{第四步（点斜式）：}] 
+		\[
+			y-\frac{68}{25}=-\frac34\left(x-\frac{51}{25}\right)
+		\]
+		整理得
+		\[
+			\boxed{3x+4y-17=0}.
+		\]
+		\par\textbf{理由：} 已知直线的斜率与线上一点。
+
+		\item[\textbf{第五步（代数快速检验）：}] 两圆方程左端相减：
+		\[
+			\begin{aligned}
+			&(x^2+y^2-25)\\
+			&\quad-\bigl((x-3)^2+(y-4)^2-16\bigr)=0
+			\end{aligned}
+		\]
+		得到 $6x+8y-34=0$，即 $3x+4y-17=0$，与几何法一致。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	$\boxed{3x+4y-17=0}$。斜率 $-3/4$ 决定方向，弦中点 $M$ 决定位置。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 2（特殊方向：公共弦竖直）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	两圆 $C_1:x^2+y^2=25$、$C_2:(x-4)^2+y^2=16$ 相交于两点，求公共弦所在直线。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（看方向）：}] 两圆心为 $(0,0)$、$(4,0)$，连心线水平，公共弦必为竖直线 $x=x_M$，\textbf{不必计算斜率}。
+		\item[\textbf{第二步（求中点横坐标）：}] 圆心距 $d=4$、半径 $r_1=5,r_2=4$，由两勾股方程相减得
+		\[
+			t=\frac{d^2+r_1^2-r_2^2}{2d}
+			=\frac{16+25-16}{8}=\frac{25}{8}.
+		\]
+		因 $O_1=(0,0)$，$O_2=(4,0)$，故 $M=(25/8,0)$。
+		\item[\textbf{第三步（写直线并验证）：}] 公共弦所在直线为
+		\[
+			\boxed{x=\frac{25}{8}}.
+		\]
+		直接相减也得到 $8x-25=0$。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	$\boxed{x=25/8}$。水平连心线对应竖直公共弦，避免使用不存在的斜率。
+
+	\medskip
+	\textbf{\textcolor{CExample}{例 3（进阶：弦中点在两圆心线段之外）}}
+
+	\textbf{\textcolor{CExample}{题目：}}
+	两圆 $C_1:x^2+y^2=64$、$C_2:(x-4)^2+y^2=25$ 相交于两点，求公共弦所在直线，并判断弦中点 $M$ 的位置。
+
+	\textbf{\textcolor{CExample}{解题步骤：}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+		\item[\textbf{第一步（验证两点相交）：}] $r_1=8,r_2=5,d=4$，满足 $|8-5|=3<4<13=8+5$。
+		\item[\textbf{第二步（求中点有向位置）：}] 沿 $O_1\to O_2$ 的有向距离
+		\[
+			t=\frac{4^2+8^2-5^2}{2\cdot 4}=\frac{55}{8}>4=d.
+		\]
+		故 $M=(55/8,0)$，位于 $O_2=(4,0)$ 的外侧，而\textbf{不在两圆心之间}。
+		\item[\textbf{第三步（写方程）：}] 公共弦与水平连心线垂直，所以
+		\[
+			\boxed{x=\frac{55}{8}}.
+		\]
+		两圆左端相减得 $8x-55=0$，验证无误。
+	\end{description}
+
+	\textbf{\textcolor{CExample}{关键结论：}}
+	“连心线垂直平分\emph{公共弦}”并不意味着公共弦中点 $M$ 必须在两圆心\emph{线段}之间；通用公式中的 $t$ 是有向距离。
+\end{examplebox}
