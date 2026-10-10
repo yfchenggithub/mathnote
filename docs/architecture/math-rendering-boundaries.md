@@ -34,7 +34,7 @@
 
 两个模块须分别验证真实数学模型、图形内容及技术格式。曲线点、切点、焦点、准线、标注距离与角度、坐标变换、参数范围和退化情形应按相应结论核验。渲染成功不能替代数学正确性；数学验证失败不得发布。
 
-Task 14C.MP4.1 批准的 Publisher 视频扩展只针对显式选择的 UID。默认 `build-content` 仍生成 Task 8A 的 v1 图片/PDF 包；指定 `--share-video-uid C002` 且使用隔离的资源准备目录和包目录时，生成 v2 包，在 `resources/videos/C002/` 登记 MP4，并以独立的 `animation-shares.json` 将正式 GIF Asset ID 关联到分享视频 Asset ID。MP4 不进入 `images/`、`knowledge-assets.json` 的图片列表、PDF 或 SearchDocuments。旧版 Sync 只接受 v1，v2 包须等新消费端支持后才能同步；不得将隔离 v2 包覆盖默认生产输出。
+Task 14C.MP4.2A 批准单一正式 Publisher：无参数 `build-content` 自动扫描正式知识源中的 `videos/share_assets.json`，始终生成 schema v2 包，默认输出 `build/zhishu-content-package`。有正式视频时在 `resources/videos/<UID>/` 登记 MP4，以独立 `animation-shares.json` 将精确 GIF Asset ID 关联到分享视频 Asset ID；无视频时该文件是空数组，Manifest 中视频计数和哈希集合为空。未登记视频、损坏视频和失效关联使构建失败；已发布视频的移除须显式使用 `--allow-video-removal`。MP4 不进入 `images/`、`knowledge-assets.json` 的图片列表、PDF 或 SearchDocuments。历史 v1 构建只可用于隔离迁移测试。旧版 Sync 只接受 v1，须升级后才能读取新的正式 v2 包；MathNote 任务不执行 Sync。
 
 ## 目录示例
 

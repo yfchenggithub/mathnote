@@ -79,11 +79,9 @@ def verify_mp4(path: Path) -> None:
         raise ShareVideoError(f"cannot verify MP4 video: {path}: {exc}") from exc
 
 
-def load_share_videos(
+def _load_uid_share_videos(
     scan_result: ScanResult, runtime_result: RuntimeMappingResult, uid: str
 ) -> tuple[ShareVideo, ...]:
-    """Read only the explicitly selected UID's registered GIF/MP4 pairs."""
-
     sources = []
     for module in scan_result.modules:
         for source in module.sources:
@@ -172,4 +170,46 @@ def load_share_videos(
     }
     if actual_files != registered_files:
         raise ShareVideoError("videos directory has missing or unregistered assets")
+    return tuple(sorted(result, key=lambda item: item.record["displayAssetId"]))
+
+
+def load_share_videos(
+    scan_result: ScanResult, runtime_result: RuntimeMappingResult
+) -> tuple[ShareVideo, ...]:
+    """Discover every formally registered video in the scanned knowledge sources."""
+
+    result: list[ShareVideo] = []
+    seen_display: set[str] = set()
+    seen_share: set[str] = set()
+    seen_uri: set[str] = set()
+    for module in scan_result.modules:
+        for source in module.sources:
+            root = source.conclusion_path
+            videos = root / "videos"
+            if videos.is_symlink():
+                raise ShareVideoError(f"invalid videos directory: {videos}")
+            if not videos.exists():
+                continue
+            if not videos.is_dir():
+                raise ShareVideoError(f"invalid videos directory: {videos}")
+            entries = tuple(videos.iterdir())
+            if not entries:
+                continue
+            registry = videos / "share_assets.json"
+            if not registry.is_file() or registry.is_symlink():
+                raise ShareVideoError(f"videos directory lacks formal share registry: {videos}")
+            meta = json.loads(source.meta_json_path.read_text(encoding="utf-8"))
+            uid = meta.get("id")
+            if not isinstance(uid, str) or not uid:
+                raise ShareVideoError(f"source has invalid knowledge ID: {root}")
+            for share in _load_uid_share_videos(scan_result, runtime_result, uid):
+                display_id = share.record["displayAssetId"]
+                share_id = share.record["shareAssetId"]
+                uri = share.record["uri"]
+                if display_id in seen_display or share_id in seen_share or uri in seen_uri:
+                    raise ShareVideoError(f"duplicate published video identity: {share_id}")
+                seen_display.add(display_id)
+                seen_share.add(share_id)
+                seen_uri.add(uri)
+                result.append(share)
     return tuple(sorted(result, key=lambda item: item.record["displayAssetId"]))

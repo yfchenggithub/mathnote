@@ -81,8 +81,8 @@ def build_parser() -> argparse.ArgumentParser:
         help=f"prepared runtime asset directory (default: {DEFAULT_RUNTIME_ASSET_OUTPUT})",
     )
     build_package_parser.add_argument(
-        "--share-video-uid", choices=("C002",),
-        help="opt in to the isolated v2 video package for this UID",
+        "--allow-video-removal", action="store_true",
+        help="explicitly approve removal of a video present in the previous output",
     )
     build_content_parser = subparsers.add_parser(
         "build-content", help="prepare runtime images, then build the canonical package"
@@ -100,8 +100,8 @@ def build_parser() -> argparse.ArgumentParser:
         help=f"package output directory (default: {DEFAULT_PACKAGE_OUTPUT})",
     )
     build_content_parser.add_argument(
-        "--share-video-uid", choices=("C002",),
-        help="opt in to the isolated v2 video package for this UID",
+        "--allow-video-removal", action="store_true",
+        help="explicitly approve removal of a video present in the previous output",
     )
     diff_parser = subparsers.add_parser("diff", help="compare two content packages")
     diff_parser.add_argument("previous", type=Path)
@@ -288,13 +288,6 @@ def main(argv: Sequence[str] | None = None) -> int:
         print(format_runtime_mapping_result(mapping_result))
         return 1 if mapping_result.errors else 0
     if args.command in ("build-package", "build-content"):
-        if args.share_video_uid and args.output.resolve() == DEFAULT_PACKAGE_OUTPUT.resolve():
-            print("Video package requires an explicit isolated --output directory")
-            return 1
-        if (args.command == "build-content" and args.share_video_uid
-                and args.prepared_assets.resolve() == DEFAULT_RUNTIME_ASSET_OUTPUT.resolve()):
-            print("Video package requires an explicit isolated --prepared-assets directory")
-            return 1
         scan_result = scan_repository(PROJECT_ROOT)
         if args.command == "build-content":
             try:
@@ -309,9 +302,9 @@ def main(argv: Sequence[str] | None = None) -> int:
             print(f"Runtime image preparation is stale: {exc}")
             return 1
         mapping_result = map_runtime(scan_result, args.prepared_assets)
-        build_kwargs = {"share_video_uid": args.share_video_uid} if args.share_video_uid else {}
         package_result = build_package(
-            scan_result, mapping_result, args.output, args.prepared_assets, **build_kwargs
+            scan_result, mapping_result, args.output, args.prepared_assets,
+            allow_video_removal=args.allow_video_removal,
         )
         print(format_package_build_result(package_result))
         return 1 if package_result.errors else 0

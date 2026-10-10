@@ -1,7 +1,8 @@
-# Zhishu Publisher — Task 8A Freeze
+# Zhishu Publisher — Canonical Content Package v2
 
-Task 8A is frozen at the Source Discovery → Source Initialization → Runtime
-Mapping → Content Package → Validation/Diff boundary.
+The Task 8A source discovery, runtime mapping, and image/PDF DTO meanings stay
+frozen. Task 14C.MP4.2A makes video aware schema v2 the formal default at the
+Content Package → Validation/Diff boundary.
 
 ## Commands
 
@@ -14,7 +15,7 @@ python scripts/zhishu/publish.py build-package
 python scripts/zhishu/publish.py build-package --output <directory>
 python scripts/zhishu/publish.py build-content
 python scripts/zhishu/publish.py build-content --prepared-assets <directory> --output <directory>
-python scripts/zhishu/publish.py build-content --share-video-uid C002 --prepared-assets <isolated-directory> --output <isolated-directory>
+python scripts/zhishu/publish.py build-content --allow-video-removal
 python scripts/zhishu/publish.py diff <previous-package> <current-package>
 ```
 
@@ -77,8 +78,9 @@ interfaces are not modified by this Publisher.
 
 ## Package contract
 
-A package contains `manifest.json`, four stable runtime JSON files, and
-`resources/images/` plus `resources/pdfs/`. Entity hashes, asset-content hashes,
+A package contains `manifest.json`, four stable runtime JSON files,
+`animation-shares.json`, and the registered files under `resources/images/`,
+`resources/pdfs/`, and optionally `resources/videos/`. Entity hashes, asset-content hashes,
 the package hash, and `contentVersion` use SHA-256 over deterministic content.
 No timestamp, random ID, machine path, or file mtime participates in identity,
 versioning, or diff decisions.
@@ -87,17 +89,19 @@ Diff compares stable entity IDs and content hashes and reports only `ADD`,
 `UPDATE`, and `DELETE`. Package construction validates a complete staged package
 before replacing the requested output directory.
 
-## Optional C002 video package (Task 14C.MP4.1)
+## Canonical v2 video package (Task 14C.MP4.2A)
 
-The default commands above retain the Task 8A `schemaVersion: 1` package byte
-contract. Video packaging is explicit: `--share-video-uid C002` requires a
-non-default isolated package output; `build-content` also requires a non-default
-prepared-assets output. The selected UID's `videos/share_assets.json` must
-link a real Publisher GIF asset ID and URI to one H.264 MP4, with matching
-source hashes, size, MIME, and explicit video URI. Unregistered video files,
-missing files, wrong MIME/codec, duplicate or cross-animation links fail.
+The no-argument `build-content` command is the single formal producer. It
+always writes `schemaVersion: 2` to `build/zhishu-content-package` and scans
+the whitelisted knowledge sources for `videos/share_assets.json`. Each source
+registry must link a real Publisher GIF asset ID and URI to H.264 MP4 bytes,
+with matching source hashes, size, MIME, and explicit video URI. No UID is
+hardcoded. Unregistered video files, missing files, wrong MIME/codec, duplicate
+or cross-animation links fail the build without replacing the previous valid
+package. A removal from an existing v2 output also fails unless the operator
+explicitly passes `--allow-video-removal` after reviewing the removed asset IDs.
 
-The opt-in package has `schemaVersion: 2`. Its four existing runtime JSON
+The canonical package has `schemaVersion: 2`. Its four existing runtime JSON
 files, existing `KnowledgeAsset` image/PDF rows, image sort orders, and search
 documents retain their v1 meaning. It adds `animation-shares.json`,
 `resources/videos/<UID>/<name>.mp4`, `manifest.files.animationShares`,
@@ -105,10 +109,14 @@ documents retain their v1 meaning. It adds `animation-shares.json`,
 `manifest.shareAssetHashes`. The v2 package hash covers the new relation
 entity hashes and video byte hashes. Validation rejects missing, extra, or
 altered video resources. Diff reports an `AnimationShare` ADD/UPDATE/DELETE.
+When no video is registered, `animation-shares.json` is `[]`, both video counts
+are `0`, and `shareAssetHashes` is `{}`; the package remains valid v2. The
+historical v1 writer is retained only for isolated migration tests and cannot
+target the formal default output.
 
 The existing Zhishu Sync (`D:/work/zhishu/scripts/zhishu/sync_knowledge_content.py`
 as audited on 2026-10-10) requires `schemaVersion == 1`, scans only
 `resources/images` and `resources/pdfs`, and cannot safely consume videos.
-It accepts the unchanged v1 package and rejects v2 before writing. Do not
-point old Sync at a v2 package. Updating Sync and the App's video registry is
-a separate Zhishu task; this Publisher task performs neither operation.
+It accepts historical v1 packages and rejects v2 before writing. Upgrade Sync
+and its video registry before feeding it the canonical package. This MathNote
+Publisher task does not execute Sync.

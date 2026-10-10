@@ -67,14 +67,96 @@ class ShareVideoPackageTests(unittest.TestCase):
     def write_registry(self, data: dict) -> None:
         (self.uid_root / "videos/share_assets.json").write_text(json.dumps(data), encoding="utf-8")
 
-    def build(self, name: str, *, video: bool = True):
+    def build(self, name: str, *, video: bool = True, allow_video_removal: bool = False):
         scan = scan_repository(self.source_root)
         mapping = map_runtime(scan, self.prepared)
         self.assertEqual(mapping.errors, ())
+        kwargs = {"schema_version": 1} if not video else {}
         return build_package(
             scan, mapping, self.root / name, self.prepared,
-            share_video_uid="C002" if video else None,
+            allow_video_removal=allow_video_removal, **kwargs,
         )
+
+    def test_no_video_default_is_valid_v2_with_empty_registry(self) -> None:
+        (self.uid_root / "videos/first.mp4").unlink()
+        (self.uid_root / "videos/share_assets.json").unlink()
+        package = self.build("no-video")
+        self.assertEqual(package.errors, ())
+        self.assertEqual(validate_package(package.output_dir), ())
+        manifest = json.loads((package.output_dir / "manifest.json").read_text(encoding="utf-8"))
+        self.assertEqual(manifest["schemaVersion"], 2)
+        self.assertEqual(manifest["counts"]["animationShares"], 0)
+        self.assertEqual(manifest["counts"]["videoAssets"], 0)
+        self.assertEqual(manifest["shareAssetHashes"], {})
+        self.assertEqual((package.output_dir / "animation-shares.json").read_text(encoding="utf-8"), "[]\n")
+        self.assertFalse((package.output_dir / "resources/videos").exists())
+
+    def test_second_uid_is_discovered_without_publisher_change(self) -> None:
+        second = self.source_root / "03_conic/C003_fixture"
+        for directory in ("images", "pdfs", "videos"):
+            (second / directory).mkdir(parents=True)
+        (second / "meta.json").write_text(
+            json.dumps(meta_record("C003", "第二组动画"), ensure_ascii=False), encoding="utf-8"
+        )
+        gif = b"GIF89a-c003"
+        (second / "images/other.gif").write_bytes(gif)
+        (self.prepared / "images/C003").mkdir()
+        (self.prepared / "images/C003/other.gif").write_bytes(gif)
+        video = second / "videos/other_share.mp4"
+        shutil.copyfile(REAL_MP4, video)
+        (second / "videos/share_assets.json").write_text(json.dumps({
+            "schemaVersion": 1, "knowledgeId": "C003", "associations": [{
+                "displayAssetId": "C003:image:other.gif",
+                "displayAssetUri": "resources/images/C003/other.gif",
+                "displaySource": "images/other.gif",
+                "displaySha256": hashlib.sha256(gif).hexdigest(),
+                "shareAssetId": "C003:share-video:other_share.mp4",
+                "shareAssetUri": "resources/videos/C003/other_share.mp4",
+                "shareSource": "videos/other_share.mp4",
+                "shareMimeType": "video/mp4", "shareBytes": video.stat().st_size,
+                "shareSha256": hashlib.sha256(video.read_bytes()).hexdigest(),
+            }],
+        }), encoding="utf-8")
+        package = self.build("two-uids")
+        self.assertEqual(package.errors, ())
+        shares = json.loads((package.output_dir / "animation-shares.json").read_text(encoding="utf-8"))
+        self.assertEqual({row["knowledgeId"] for row in shares}, {"C002", "C003"})
+        self.assertTrue((package.output_dir / "resources/videos/C003/other_share.mp4").is_file())
+
+    def test_failed_rebuild_keeps_previous_video_and_requires_explicit_removal(self) -> None:
+        first = self.build("published")
+        self.assertEqual(first.errors, ())
+        original = (first.output_dir / "manifest.json").read_bytes()
+        repeated = self.build("published")
+        self.assertEqual(repeated.errors, ())
+        self.assertEqual((repeated.output_dir / "manifest.json").read_bytes(), original)
+        (self.uid_root / "videos/first.mp4").unlink()
+        missing = self.build("published")
+        self.assertTrue(missing.errors)
+        self.assertEqual((first.output_dir / "manifest.json").read_bytes(), original)
+        self.assertTrue((first.output_dir / "resources/videos/C002/first.mp4").is_file())
+        (self.uid_root / "videos/share_assets.json").unlink()
+        removed = self.build("published")
+        self.assertTrue(any("--allow-video-removal" in issue.message for issue in removed.errors))
+        self.assertEqual((first.output_dir / "manifest.json").read_bytes(), original)
+        approved = self.build("published", allow_video_removal=True)
+        self.assertEqual(approved.errors, ())
+        self.assertEqual(approved.counts["videoAssets"], 0)
+
+    def test_orphan_mp4_without_registry_fails(self) -> None:
+        (self.uid_root / "videos/share_assets.json").unlink()
+        result = self.build("orphan-source")
+        self.assertTrue(any("lacks formal share registry" in issue.message for issue in result.errors))
+        self.assertFalse(result.output_dir.exists())
+
+    def test_legacy_v1_cannot_target_formal_default_output(self) -> None:
+        scan = scan_repository(self.source_root)
+        mapping = map_runtime(scan, self.prepared)
+        with self.assertRaisesRegex(ValueError, "isolated output"):
+            build_package(
+                scan, mapping, PROJECT_ROOT / "build/zhishu-content-package",
+                self.prepared, schema_version=1,
+            )
 
     def test_v2_package_is_registered_and_deterministic(self) -> None:
         first = self.build("first-package")

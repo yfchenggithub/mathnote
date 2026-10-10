@@ -11,7 +11,7 @@
 - 不擅自批量修改、发布、部署、Git 提交或覆盖正式资源；遵守用户明确指定的范围与授权。
 - 不擅自突破[数学渲染架构契约](docs/architecture/math-rendering-boundaries.md)；例外须先向用户说明影响并获得批准。
 - 正式六段 TeX、`meta.json` 与已发布资源各有职责。读取正式知识源不等于获准修改它。
-- Task 14C.MP4.1 授权的 C002 配套 MP4 位于该 UID 的 `videos/`；Publisher 视频包须显式指定 UID 与隔离输出，使用版本化契约。默认 v1 图片/PDF 包、正式 GIF 与其他 UID 仍按原规则处理；不得在 MathNote 任务中执行 Zhishu Sync。
+- Task 14C.MP4.2A 批准 Publisher 自动发现正式 UID 的 `videos/share_assets.json`，无参数 `build-content` 在 `build/zhishu-content-package` 发布唯一正式 v2 包，视频为空时也保持 v2。历史 v1 仅可在隔离目录用于迁移测试；MathNote 发布不得执行 Zhishu Sync。正式 GIF、数学源、PDF 与冻结 Scene 仍按原规则保护。
 
 ## 任务路由：在编辑或构建前读取
 

@@ -539,8 +539,6 @@ def validate_package(package_root: Path) -> tuple[PackageIssue, ...]:
 
     share_hashes: dict[str, str] = {}
     if video_schema:
-        if not entities[SHARE_KEY]:
-            errors.append(PackageIssue(Path(SHARE_FILE), "v2 package must register a share video"))
         for asset in entities["knowledgeAssets"]:
             asset_type = asset["type"]
             asset_uri = PurePosixPath(asset["uri"])
@@ -627,19 +625,45 @@ def _safe_replace_directory(staged: Path, output_dir: Path) -> None:
         shutil.rmtree(backup)
 
 
+def _removed_published_videos(output_dir: Path, shares: tuple[Any, ...]) -> tuple[str, ...]:
+    """Reject accidental deletion of videos already present in a v2 output."""
+
+    manifest_path = output_dir / "manifest.json"
+    if not manifest_path.is_file():
+        return ()
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+    if manifest.get("schemaVersion") != VIDEO_SCHEMA_VERSION:
+        return ()
+    previous_issues = validate_package(output_dir)
+    if previous_issues:
+        raise ValueError(f"existing v2 package is invalid: {previous_issues[0].message}")
+    previous = json.loads((output_dir / SHARE_FILE).read_text(encoding="utf-8"))
+    previous_ids = {row["shareAssetId"] for row in previous}
+    current_ids = {share.record["shareAssetId"] for share in shares}
+    return tuple(sorted(previous_ids - current_ids))
+
+
 def build_package(
     scan_result: ScanResult,
     runtime_result: RuntimeMappingResult,
     output_dir: Path,
     prepared_assets_root: Path,
     *,
-    share_video_uid: str | None = None,
+    schema_version: int = VIDEO_SCHEMA_VERSION,
+    allow_video_removal: bool = False,
 ) -> PackageBuildResult:
     """Build and validate a complete package before replacing the output."""
 
     output_dir = output_dir.resolve()
     if output_dir == Path(output_dir.anchor):
         raise ValueError("refusing to use a filesystem root as package output")
+    if schema_version not in (SCHEMA_VERSION, VIDEO_SCHEMA_VERSION):
+        raise ValueError(f"unsupported package schema version: {schema_version}")
+    if (
+        schema_version == SCHEMA_VERSION
+        and output_dir == Path(__file__).resolve().parents[2] / "build/zhishu-content-package"
+    ):
+        raise ValueError("legacy v1 package requires an isolated output directory")
     runtime_warnings = tuple(
         PackageIssue(issue.path, issue.message) for issue in runtime_result.warnings
     )
@@ -654,15 +678,14 @@ def build_package(
     staged = Path(tempfile.mkdtemp(prefix=f".{output_dir.name}.tmp-", dir=output_dir.parent))
     try:
         entities = _runtime_entities(runtime_result)
-        shares = load_share_videos(scan_result, runtime_result, share_video_uid) if share_video_uid else ()
-        schema_version = VIDEO_SCHEMA_VERSION if share_video_uid else SCHEMA_VERSION
+        shares = load_share_videos(scan_result, runtime_result) if schema_version == VIDEO_SCHEMA_VERSION else ()
         files = dict(JSON_FILES)
-        if shares:
+        if schema_version == VIDEO_SCHEMA_VERSION:
             entities[SHARE_KEY] = [share.record for share in shares]
             files[SHARE_KEY] = SHARE_FILE
         for group, file_name in JSON_FILES.items():
             _write_json(staged / file_name, entities[group])
-        if shares:
+        if schema_version == VIDEO_SCHEMA_VERSION:
             _write_json(staged / SHARE_FILE, entities[SHARE_KEY])
 
         (staged / "resources" / "images").mkdir(parents=True)
@@ -683,7 +706,7 @@ def build_package(
         entity_hashes = _entity_hashes(entities)
         package_hash = _package_hash(
             entity_hashes, asset_hashes, schema_version=schema_version,
-            share_asset_hashes=share_hashes if shares else None,
+            share_asset_hashes=share_hashes if schema_version == VIDEO_SCHEMA_VERSION else None,
         )
         content_version = f"sha256:{package_hash}"
         counts = {
@@ -694,7 +717,7 @@ def build_package(
             "imageAssets": runtime_result.asset_count("image"),
             "pdfAssets": runtime_result.asset_count("pdf"),
         }
-        if shares:
+        if schema_version == VIDEO_SCHEMA_VERSION:
             counts[SHARE_KEY] = len(shares)
             counts["videoAssets"] = len(shares)
         file_hashes = {
@@ -711,7 +734,7 @@ def build_package(
             "assetHashes": asset_hashes,
             "packageHash": package_hash,
         }
-        if shares:
+        if schema_version == VIDEO_SCHEMA_VERSION:
             manifest["shareAssetHashes"] = share_hashes
         _write_json(staged / "manifest.json", manifest)
         validation_errors = validate_package(staged)
@@ -725,6 +748,13 @@ def build_package(
                 validation_errors,
                 runtime_warnings,
             )
+        if schema_version == VIDEO_SCHEMA_VERSION and not allow_video_removal:
+            removed = _removed_published_videos(output_dir, shares)
+            if removed:
+                raise ValueError(
+                    "previously published video removed without --allow-video-removal: "
+                    + ", ".join(removed)
+                )
         package_size = _package_size(staged)
         _safe_replace_directory(staged, output_dir)
         return PackageBuildResult(

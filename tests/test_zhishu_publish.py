@@ -29,21 +29,26 @@ class ZhishuPublishParserTests(unittest.TestCase):
 
         self.assertEqual(args.output, override)
 
-    def test_video_package_requires_isolated_output(self) -> None:
-        output = StringIO()
-        with redirect_stdout(output):
-            exit_code = publish.main(["build-package", "--share-video-uid", "C002"])
-        self.assertEqual(exit_code, 1)
-        self.assertIn("isolated --output", output.getvalue())
+    def test_build_content_defaults_to_canonical_directories_without_video_flag(self) -> None:
+        args = publish.build_parser().parse_args(["build-content"])
+        self.assertEqual(args.output, publish.DEFAULT_PACKAGE_OUTPUT)
+        self.assertEqual(args.prepared_assets, publish.DEFAULT_RUNTIME_ASSET_OUTPUT)
+        self.assertFalse(args.allow_video_removal)
+        self.assertFalse(hasattr(args, "share_video_uid"))
 
-    def test_video_build_content_requires_isolated_preparation(self) -> None:
-        output = StringIO()
-        with redirect_stdout(output):
-            exit_code = publish.main([
-                "build-content", "--share-video-uid", "C002", "--output", "isolated-package",
-            ])
-        self.assertEqual(exit_code, 1)
-        self.assertIn("isolated --prepared-assets", output.getvalue())
+    def test_build_content_passes_automatic_video_policy(self) -> None:
+        completed = PackageBuildResult(Path("package"), "version", "hash", 1, {}, (), ())
+        with (
+            patch.object(publish, "scan_repository", return_value=object()),
+            patch.object(publish, "prepare_runtime_images", return_value={"assets": [], "tool": {}}),
+            patch.object(publish, "verify_prepared_runtime_images", return_value={}),
+            patch.object(publish, "map_runtime", return_value=object()),
+            patch.object(publish, "build_package", return_value=completed) as builder,
+            redirect_stdout(StringIO()),
+        ):
+            exit_code = publish.main(["build-content"])
+        self.assertEqual(exit_code, 0)
+        self.assertEqual(builder.call_args.kwargs, {"allow_video_removal": False})
 
     def test_diff_invalid_packages_returns_nonzero_without_traceback(self) -> None:
         output = StringIO()
