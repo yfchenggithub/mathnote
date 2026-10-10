@@ -18,8 +18,17 @@
 | --- | --- | --- |
 | 六段 TeX、数学结论教学表达、PDF 教学图、PDF 编译或逐页验收 | [PDF 结论完善规范](docs/guidelines/pdf-conclusion-guidelines.md) | 包含单 UID 工作边界、先图后文、R030 特例和交付门槛。 |
 | 静态数学卡片 PNG、静态绘图代码及其构建/测试/预览 | [数学渲染架构契约](docs/architecture/math-rendering-boundaries.md)，以及以后该静态模块适用的内部规范 | 仅把六段 TeX 当知识源读取时，不触发 PDF 专属规范。 |
-| Manim Scene、动态 GIF 及其构建/测试/发布 | [数学渲染架构契约](docs/architecture/math-rendering-boundaries.md)，并按需读 `scripts/manim/README.md`、`scripts/manim/TASK_13F_FREEZE.md` | 仅把六段 TeX 当知识源读取时，不触发 PDF 专属规范。 |
+| Manim Scene、数学 GIF、动画分镜与视觉修改，以及其构建/测试/验收/发布 | [数学渲染架构契约](docs/architecture/math-rendering-boundaries.md)、[数学 GIF 视觉规范](scripts/manim/VISUAL_GUIDELINES.md)、[Manim 生产说明](scripts/manim/README.md)、[Task 13F 冻结报告](scripts/manim/TASK_13F_FREEZE.md) | 仅把六段 TeX 当知识源读取时，不触发 PDF 专属规范。 |
 | Publisher、图像命名/扫描/消费边界或资源发布调整 | [数学渲染架构契约](docs/architecture/math-rendering-boundaries.md)，并核对实际 Publisher 资产契约 | 不能以文档代替现行代码审计。 |
 | 普通 `meta.json` 字段维护或其他局部任务 | 只读任务实际涉及的现有规范和文件 | 不涉及 PDF 完善或数学图像生产时，不强制读取上述两份专属文档。 |
 
 路由依据是任务目的和实际修改范围，不是访问过的文件名。例如 C051 静态卡片读取 TeX，不会自动变成 PDF 完善任务。若同一任务也修改 TeX/PDF 内容或 PDF 教学图，须同时读取 PDF 规范；若同时涉及静态或动态生产，也须读取架构契约。任务范围扩大时，在新增编辑或构建前补读相应规范。
+
+## 数学 GIF 制作规则
+
+- 每条 UID 以自己的正式六段 TeX 和 `meta.json` 为事实源，先做数学审计，再独立建立数学模型与教学分镜。C001、C002、F031、T021 等已有动画只可作工程或视觉参考，不得机械复制其模型、布局或运动；统一视觉语言，不建立固定数学分镜模板。
+- 数学坐标、几何关系、函数、参数、轨迹和适用条件由模型决定；视觉调整不得改变数学含义。动画源码与测试归当前 UID 的 `manim/`，正式 GIF 归当前 UID 的 `images/`。
+- 复用 Task 13F 冻结的发现、渲染、导出与验证工具；不得为单条 UID 随意修改共享工具。正式资源写入、覆盖与发布遵守架构契约及 Manim 生产说明。
+- GIF 验收分别记录数学自动测试与关键状态、真实关键帧、全帧技术检查、教学表达、视觉质量和 Android 真机效果；核对图形、公式、参数与运动轨迹一致。各 Gate 使用 PASS / FAIL / BLOCKED / PENDING，并报告实际证据。
+- Android 真机验收由用户确认；未经确认不得标记 Android PASS 或动画 FINAL FREEZE。区分 LOCAL PRODUCTION PASS、USER VISUAL PASS、ANDROID DEVICE PASS、FINAL FREEZE 与 PUBLISHED / SYNCED。
+- 未经明确授权，不得覆盖已有正式 GIF、修改其他 UID 的冻结数学资产，或执行正式 Publisher、Content Package、Sync 与 APK 构建/发布。

@@ -8,6 +8,10 @@ that conclusion's `images/`. Temporary output belongs under `build/manim/`.
 Publisher discovers direct GIFs in `images/`, validates animation timing and
 infinite loop, and copies them byte-for-byte; PNGs become WebP separately.
 
+Visual guidance for new and refined GIFs is in
+[VISUAL_GUIDELINES.md](VISUAL_GUIDELINES.md). It is a v1.0 candidate pending
+validation across knowledge types and on Android devices.
+
 ## Environment
 
 On Windows, install Python 3.14, FFmpeg, TeX Live (`latex` and `dvisvgm`), and
