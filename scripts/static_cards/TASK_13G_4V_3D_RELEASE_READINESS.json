@@ -1,0 +1,77 @@
+{
+  "task": "13G.4V.3D",
+  "uid": "C043",
+  "theme": "B_rose",
+  "review_date": "2026-10-12",
+  "task_status": "TASK 13G.4V.3D — RELEASE READINESS REVIEW COMPLETE",
+  "code_asset_qa": "PASS",
+  "human_image_review": "PASS_FOR_UNCHANGED_HASHES",
+  "android_device_gate": "PENDING",
+  "release_readiness": "CONDITIONAL",
+  "content_review": "BLOCKED",
+  "content_change_approval_required": true,
+  "mathematics": {
+    "001": "PASS",
+    "002": "PASS",
+    "003": "PASS"
+  },
+  "wording_findings": [
+    {
+      "card": "001",
+      "current": "c 是辅助直角三角形的斜边。",
+      "proposed": "c 是辅助直角三角形的斜边长。",
+      "reason": "c is a length parameter, not a geometric segment",
+      "release_action": "APPROVAL_AND_RERENDER_REQUIRED"
+    },
+    {
+      "card": "002",
+      "current_lines": ["斜边与半焦距等长，", "但它们不是同一线段。"],
+      "proposed_lines": ["OB 与 OF₂ 等长，", "但不是同一条线段。"],
+      "reason": "The comparison of two different segments must name OB and OF₂ explicitly",
+      "release_action": "APPROVAL_AND_RERENDER_REQUIRED"
+    }
+  ],
+  "current_png_sha256": {
+    "001": "664a198eeadc61123d40fa37949494b3d26f95972a0b47bd2ed2c12168da4baa",
+    "002": "85096655f6ff7036c5a0e72a8cbbdb2b805839c2f887714f70cadf00d4552be8",
+    "003": "724dfdf423d098d6911d44590759e9fb9ef09613b76c36677bea1c159d07a99f"
+  },
+  "selected_002_byte_identical": true,
+  "tested": {
+    "c043_model_tests": "7/7 PASS",
+    "rose_tests": "4/4 PASS",
+    "formula_overlap_tests": "2/2 PASS",
+    "common_layout_and_architecture_tests": "20/20 PASS after isolated-permission rerun",
+    "source_model_checks": "11/11 PASS",
+    "mobile_previews": "6/6 decoded and visually inspected",
+    "png_svg": "3 PNG decoded at 1080x1440; 3 SVG parsed",
+    "publisher_webp": "3/3 decoded at 1080x1440, isolated Sharp 0.34.5 quality 85",
+    "single_uid_mapping": "3 image assets + 1 existing PDF asset, 0 errors, 0 warnings",
+    "preflight_snapshot": "212/212 unchanged"
+  },
+  "reported_from_prior_review": {
+    "user_three_card_visual_review": "PASS for unchanged images"
+  },
+  "not_executed": [
+    "Android physical-device validation",
+    "Rose-inclusive canonical content-package build",
+    "formal Publisher publication",
+    "Zhishu Sync",
+    "Zhishu App integration validation",
+    "formal image replacement or rollback",
+    "APK build",
+    "Git commit"
+  ],
+  "gates": {
+    "mathematics": "PASS",
+    "content": "BLOCKED",
+    "visual": "PASS_FOR_UNCHANGED_HASHES",
+    "typography": "PASS",
+    "mobile": "PREVIEW_PASS_DEVICE_PENDING",
+    "regression": "PASS",
+    "publisher": "ISOLATED_CONVERSION_PASS_PACKAGE_PENDING",
+    "release_safety": "PLAN_PASS_EXECUTION_PENDING",
+    "authorization": "PENDING"
+  },
+  "isolated_evidence": ".build/static_cards_rose_release_qa/C043/"
+}
