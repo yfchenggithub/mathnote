@@ -33,7 +33,9 @@
 
 预处理镜像先生成到临时目录，再替换镜像；若此后映射或包构建失败，**图片镜像可能已更新，而旧正式包仍在**。包构建在临时目录验证成功才替换输出；`_safe_replace_directory` 对替换失败有备份恢复（第 609–625 行）。`build_package` 对映射错误返回 `PackageBuildResult.errors`，对包构建中的 `OSError/ValueError/JSONDecodeError` 返回错误；CLI 以非零退出。该审计未在正式输出上实测故障恢复。
 
-只读源扫描实得 572 个 UID、零扫描错误；针对 Publisher 与包的现有 30 项单元测试运行通过。正式 `build/zhishu-content-package` 在当前执行环境读取被拒绝，因此既有产物字节、Manifest 值与安装端兼容性为 **PENDING**。详见库存与交接报告。
+只读源扫描实得 572 个 UID、零扫描错误；针对 Publisher 与包的现有 30 项单元测试运行通过。**补充核验（2026-10-14）**：`build/zhishu-content-package` 确为无参数 `build-content` 的默认输出目录，目录实际存在，Manifest 为 schema v2，`validate_package` 返回 **0 项问题**；包内有 1,031 节点、888 关系、572 搜索文档、683 条资源登记（111 图片、572 PDF）和 1 个 MP4 分享关联，共 684 个资源文件，整个目录 129,980,951 字节。普通沙箱进程访问该目录被拒绝；只读提升权限进程可访问。目录 ACL 关闭继承，仅显式列出 OWNER RIGHTS、SYSTEM、Administrators。提升权限进程与普通进程账户 SID 相同，因此普通进程的拒绝与执行沙箱的有效权限有关，不代表目录或 Manifest 不存在。
+
+**源新鲜度不通过**：当前源图片有 117 个，包登记 111 个；`verify_prepared_runtime_images` 报 `source coverage is stale`。差异是 C079、C080 在 2026-10-13 新增的各 3 张 PNG（共 6 张 WebP 预期 URI），晚于该包 2026-10-12 的最后写入。现有四组 DTO 记录与当前元数据映射相等，视频登记相等，572 份 PDF 与当前源字节一致；包仍是**自洽的旧版快照**，不是当前全部正式图片的完整快照。Android/Sync 消费能力仍为 **PENDING**。详见库存与交接报告。
 
 ## 跨学科适配边界
 

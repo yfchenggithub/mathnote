@@ -23,22 +23,22 @@
 | Gate | 状态 | 本次证据 / 剩余边界 |
 | --- | --- | --- |
 | G1 调用链 | **PASS · VERIFIED** | [`publish.py`](../scripts/zhishu/publish.py#L260) 及各被调模块已追踪。 |
-| G2 输出结构 | **PASS · VERIFIED（源码）** | [`content_package.py`](../scripts/zhishu/content_package.py#L679) 明确 v2 文件和目录；既有产物字节未核。 |
+| G2 输出结构 | **PASS · VERIFIED（源码及既有包）** | [`content_package.py`](../scripts/zhishu/content_package.py#L679) 与既有 schema v2 Manifest 一致；`validate_package` 0 项问题。 |
 | G3 ID 稳定性 | **PASS · VERIFIED（规则）** | [`runtime_mapping.py`](../scripts/zhishu/runtime_mapping.py#L127) 使用 `meta.id` 与 `struct:<路径>`；跨版本实际稳定性待回归。 |
 | G4 模块清单 | **PASS · VERIFIED** | 14 类、572 条、1,031 节点，见库存报告。 |
-| G5 资源与跨分类 | **PASS · VERIFIED（源数据）** | 690 个源资源文件、18 条唯一跨分类关系；发布后 WebP/包大小 UNKNOWN。 |
+| G5 资源与跨分类 | **PASS · VERIFIED（源数据与旧包）/ STALE（当前图片）** | 690 个当前源资源文件、18 条唯一跨分类关系；既有包 684 个资源、129,980,951 字节，缺 C079/C080 的 6 张新图片。 |
 | G6 方案比较 | **PASS · PROPOSED** | A/B/C 已比较；A 未实际实现。 |
 | G7 全集兼容 | **PENDING** | 保持原 v2 入口的方案已给出，未实现模块包、未执行包字节回归。 |
 | G8 跨项目契约 | **PENDING** | MathNote 建议已给出，Zhishu 未审计/确认。 |
 | G9 跨学科问题 | **PASS · VERIFIED/PROPOSED** | 固定 11 数学源目录、数学根、C/G/R 等 UID 惯例与中文结构路径已识别；抽象方案待冻结。 |
 | G10 最小路线 | **PASS · PROPOSED** | 先契约，再只读切片、校验、双模块试点。 |
 
-本次实际运行：只读源扫描与统计；`python -m unittest tests.test_zhishu_publish tests.test_zhishu_content_package`，**30 tests OK**。未运行 `build-content`、正式包校验、模块包生成、Sync 或 Android 真机验收。正式 `build/zhishu-content-package` 在当前沙箱读取被拒绝，其现有 Manifest 与发布字节属于 **BLOCKED（环境权限）**，不影响源码和正式源统计，但阻止声称端到端验证通过。
+本次实际运行：只读源扫描与统计；`python -m unittest tests.test_zhishu_publish tests.test_zhishu_content_package`，**30 tests OK**；补充以提升权限的只读进程对既有正式包运行 `validate_package`，**0 项问题**。未运行 `build-content`、模块包生成、Sync 或 Android 真机验收。普通沙箱进程仍无法读取该目录；目录 ACL 关闭继承。当前预处理镜像的源覆盖校验失败，原因是正式包生成后新增 C079/C080 各 3 张 PNG。
 
 ## 最重要的剩余风险
 
 - 模块包需要新校验语义；当前 v2 强制单根、父节点/关系端点同包。18 条跨分类关系不能无损塞进原格式。
 - 一级分类与 11 个源目录错位；特别是解析几何跨 `03_conic` 和 `09_geometry-plane`。过滤必须基于知识树路径。
 - 固定高中数学根、目录白名单和数学 UID 习惯不适合作为跨学科包格式的永恒约束。保留现行数学生产行为，同时在新包头引入学科/模块 ID。
-- 源文件 270,760,344 字节包含 PNG 和 MP4；转换后包体大小 UNKNOWN。时间/空间预算要在隔离试点测量。
+- 当前源文件 270,760,344 字节包含 PNG 和 MP4；既有旧包目录为 129,980,951 字节，但缺 6 张新图。最新完整包与模块 ZIP 大小仍为 UNKNOWN，时间/空间预算要在隔离试点测量。
 - Zhishu 端 v2 读取、安装/卸载/更新/授权语义未验证；MathNote 不应自行规定 Android 内部实现。

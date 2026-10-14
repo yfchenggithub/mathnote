@@ -1,6 +1,6 @@
 # Task 17A-M：一级模块与资源库存
 
-状态：**VERIFIED（正式源数据）/ PENDING（既有发布包）**；2026-10-14。统计按 `meta.json.knowledgeNode` 的第一个 `-` 分段分组，与 [`runtime_mapping._build_nodes`](../scripts/zhishu/runtime_mapping.py#L256) 一致；11 个被扫描的源目录并不等于 14 个一级知识分类。只读调用 `scan_repository`、`_load_sources`、`_build_nodes`、`_build_relations` 得到 572 条结论、1,031 个节点（含全局根）、888 条 canonical `related` 关系，扫描/映射源数据错误均为 0。资源来自对应 UID 的 `images/*.png|*.gif`、`pdfs/*.pdf`、`videos/*.mp4`；表中大小为这些**正式源文件**字节之和，不是 WebP 转换后模块包或 ZIP 大小。
+状态：**VERIFIED（正式源数据与既有包内部完整性）/ STALE（当前图片源覆盖）**；2026-10-14。统计按 `meta.json.knowledgeNode` 的第一个 `-` 分段分组，与 [`runtime_mapping._build_nodes`](../scripts/zhishu/runtime_mapping.py#L256) 一致；11 个被扫描的源目录并不等于 14 个一级知识分类。只读调用 `scan_repository`、`_load_sources`、`_build_nodes`、`_build_relations` 得到 572 条结论、1,031 个节点（含全局根）、888 条 canonical `related` 关系，扫描/映射源数据错误均为 0。资源来自对应 UID 的 `images/*.png|*.gif`、`pdfs/*.pdf`、`videos/*.mp4`；表中大小为这些**正式源文件**字节之和，不是 WebP 转换后模块包或 ZIP 大小。
 
 | 一级分类 / 试点根 ID | 结构节点¹ | 结论 | 子树节点² | PNG | GIF | PDF | MP4 | 源资源字节 | 跨分类关系端数³ |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
@@ -36,6 +36,6 @@
 | 集合 | `struct:集合` | 24 | 12 | 3 | 12 | 0 | 6,291,093 | 3 |
 | 解析几何 | `struct:解析几何` | 179 | 105 | 100 | 105 | 1 | 162,103,962 | 3 |
 
-推荐试点保留原 `meta.id`、结构节点 ID、原 `sortOrder` 和祖先路径，资源按所属 UID 复制、图片按现行发布方式转 WebP。由于无法读取既有正式包，**实际发布 WebP 字节数、模块 ZIP 大小、现有包中每个记录的字节一致性均为 UNKNOWN**；不能用源资源大小冒充这些值。
+推荐试点保留原 `meta.id`、结构节点 ID、原 `sortOrder` 和祖先路径，资源按所属 UID 复制、图片按现行发布方式转 WebP。补充只读验证：既有正式包目录总计 **129,980,951 字节**，内部验证通过，登记 **111 图片**，比当前源的 117 张少 C079/C080 各 3 张 PNG；当前解析几何应有 100 张图片，既有包只有 94 张。该目录大小不等于任何模块 ZIP 的大小；模块 ZIP 大小仍为 **UNKNOWN**。当前元数据的四组 DTO 和视频登记与包相等，PDF 与源字节一致，图片覆盖已过期；不能将旧包视为当前完整资源基线。
 
 现行 Publisher 没有独立 `moduleId` 字段；本次能从正式数据确认的模块标识是上述 `struct:集合` 与 `struct:解析几何`。建议的新稳定标识分别为 `math.set`、`math.analytic-geometry`，对应包标识 `zhishu.math.set`、`zhishu.math.analytic-geometry`，属于 **PROPOSED**，应经 17A-Z 确认后登记，不从显示标题临时生成。试点原始发布内容来自 `00_set`、`03_conic`、`09_geometry-plane` 中知识路径归属相应分类的 `meta.json`、图片/PDF/视频；解析几何不能只取 `03_conic`。
