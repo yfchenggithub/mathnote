@@ -181,3 +181,133 @@
 		|PQ|=\frac{2b^2}{a}.
 	\]
 \end{proofbox}
+
+% ============================================================
+% 补充证明：椭圆化圆法（新增内容；以上原证明保持原样）
+% ============================================================
+\begin{proofbox}
+    \textbf{\textcolor{CProof}{补充证明：椭圆化圆法}}
+
+    \textbf{\textcolor{CProof}{思路提示}}
+    只做三件事：椭圆变圆，利用圆的弦长公式求对应弦，再把长度还原到椭圆。
+    这里要区分\textbf{斜率的变换}与\textbf{弦长的变换}：
+    二者的比例并不相同。
+
+    \medskip
+
+    \textbf{\textcolor{CProof}{正式推导}}
+    对于椭圆
+    \[
+        \frac{x^2}{a^2}+\frac{y^2}{b^2}=1,
+        \qquad a>b>0,\qquad c^2=a^2-b^2,
+    \]
+    设过右焦点 $F(c,0)$ 的非垂直直线与椭圆交于 $P,Q$，斜率为 $k$。
+
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+        \item[\textbf{步骤一（椭圆化圆，得到新斜率）：}]
+              令
+              \[
+                  X=x,\qquad Y=\frac ab y.
+              \]
+              即横坐标不变、纵坐标放大 $\frac ab$ 倍，原椭圆变为
+              \[
+                  X^2+Y^2=a^2.
+              \]
+              原焦点 $F(c,0)$ 的位置不变，\textbf{但它不是圆心}。
+              原焦点弦所在直线
+              \[
+                  y=k(x-c)
+              \]
+              在圆中变为
+              \[
+                  Y=\frac ab k(X-c)=K(X-c),
+                  \qquad \boxed{K=\frac ab k}.
+              \]
+              记该直线与圆的交点为 $P',Q'$，分别对应原椭圆的 $P,Q$。
+              \par\textbf{理由：}
+              纵坐标拉伸 $\frac ab$ 倍，同一条对应直线的斜率也变为 $\frac ab$ 倍。
+
+        \item[\textbf{步骤二（在圆中求弦长）：}]
+              圆的半径为 $a$，圆心为 $O(0,0)$。
+              直线 $Y=K(X-c)$ 即
+              \[
+                  KX-Y-Kc=0.
+              \]
+              圆心到这条直线的距离为
+              \[
+                  d=\frac{|Kc|}{\sqrt{1+K^2}}.
+              \]
+              由半径、半弦长与弦心距构成的直角三角形，得
+              \[
+                  \begin{aligned}
+                      |P'Q'|
+                       &=2\sqrt{a^2-d^2}\\[0.3em]
+                       &=2\sqrt{a^2-\frac{K^2c^2}{1+K^2}}\\[0.3em]
+                       &=2\sqrt{\frac{a^2+(a^2-c^2)K^2}{1+K^2}}\\[0.3em]
+                       &=\boxed{2\sqrt{\frac{a^2+b^2K^2}{1+K^2}}}.
+                  \end{aligned}
+              \]
+              \par\textbf{理由：}
+              用圆的弦长公式 $2\sqrt{a^2-d^2}$，并代入 $a^2-c^2=b^2$。
+
+        \item[\textbf{步骤三（从圆弦长还原椭圆弦长）：}]
+              由于变换中 $X=x$，对应两条弦的\textbf{横坐标差相同}。
+              记这个差的绝对值为 $|\Delta x|$。
+              原椭圆中直线斜率为 $k$，圆中对应直线斜率为 $K$，因此
+              \[
+                  |PQ|=|\Delta x|\sqrt{1+k^2},\qquad
+                  |P'Q'|=|\Delta x|\sqrt{1+K^2}.
+              \]
+              两式相除，得\textbf{长度还原公式}：
+              \[
+                  \boxed{\frac{|PQ|}{|P'Q'|}
+                    =\sqrt{\frac{1+k^2}{1+K^2}}}.
+              \]
+              代入 $K=\frac ab k$，可分别化简为
+              \[
+                  |P'Q'|
+                  =\frac{2ab\sqrt{1+k^2}}{\sqrt{a^2k^2+b^2}},
+                  \qquad
+                  \sqrt{\frac{1+k^2}{1+K^2}}
+                  =\frac{b\sqrt{1+k^2}}{\sqrt{a^2k^2+b^2}}.
+              \]
+              最后相乘：
+              \[
+                  \begin{aligned}
+                      |PQ|
+                       &=|P'Q'|\sqrt{\frac{1+k^2}{1+K^2}}\\[0.3em]
+                       &=\frac{2ab\sqrt{1+k^2}}{\sqrt{a^2k^2+b^2}}
+                         \cdot\frac{b\sqrt{1+k^2}}{\sqrt{a^2k^2+b^2}}\\[0.3em]
+                       &=\boxed{\frac{2ab^2(1+k^2)}{a^2k^2+b^2}}.
+                  \end{aligned}
+              \]
+              \par\textbf{理由：}
+              对应弦的水平投影长度不变；实际弦长与水平投影的比值是
+              $\sqrt{1+\text{斜率}^2}$，\textbf{不是斜率本身}。
+    \end{description}
+
+    \medskip
+
+    \textbf{\textcolor{CProof}{垂直情形（直接用圆验证）}}
+    若原直线为 $x=c$，则变换后仍为 $X=c$。
+    圆内对应弦长为
+    \[
+        |P'Q'|=2\sqrt{a^2-c^2}=2b.
+    \]
+    该弦竖直，返回椭圆时纵向长度缩小为 $\frac ba$ 倍，所以
+    \[
+        \boxed{|PQ|=\frac ba\cdot 2b=\frac{2b^2}{a}}.
+    \]
+    过左焦点的情况由椭圆关于 $y$ 轴的对称性得到同样结论。
+
+    \medskip
+
+    \textbf{\textcolor{CProof}{方法总结}}
+    \[
+        \begin{aligned}
+            &\text{第一步：}\quad K=\frac ab k;\\
+            &\text{第二步：}\quad |P'Q'|=2\sqrt{a^2-d^2};\\
+            &\text{第三步：}\quad |PQ|=|P'Q'|\sqrt{\frac{1+k^2}{1+K^2}}.
+        \end{aligned}
+    \]
+\end{proofbox}
