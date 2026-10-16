@@ -12,6 +12,7 @@ import re
 import shutil
 import stat
 import tempfile
+import time
 import unicodedata
 import zipfile
 import uuid
@@ -30,11 +31,24 @@ SCHEMA_VERSION = 4
 FILES = {**full.JSON_FILES, full.SHARE_KEY: full.SHARE_FILE,
          "externalRelations": "external-relations.json"}
 ID_FIELDS = {**full.ENTITY_ID_FIELDS, "externalRelations": "id"}
-# Explicit 17A-F registry, checked against the actual chapter and parent chain.
+# Stable publishing registry, checked against actual chapters and parent chains.
+# The two 17B-M identities are immutable; 17G-M adds the remaining chapters.
 MODULES = {
     "sets": ("zhishu.math.set", "math.set", "struct:集合", "集合"),
     "analytic-geometry": ("zhishu.math.analytic-geometry", "math.analytic-geometry",
                           "struct:解析几何", "解析几何"),
+    "trigonometry": ("zhishu.math.trigonometry", "math.trigonometry", "struct:三角函数", "三角函数"),
+    "inequalities": ("zhishu.math.inequalities", "math.inequalities", "struct:不等式", "不等式"),
+    "functions": ("zhishu.math.functions", "math.functions", "struct:函数", "函数"),
+    "prerequisites": ("zhishu.math.prerequisites", "math.prerequisites", "struct:前置知识", "前置知识"),
+    "vectors": ("zhishu.math.vectors", "math.vectors", "struct:向量", "向量"),
+    "plane-geometry": ("zhishu.math.plane-geometry", "math.plane-geometry", "struct:平面几何", "平面几何"),
+    "sequences": ("zhishu.math.sequences", "math.sequences", "struct:数列", "数列"),
+    "probability": ("zhishu.math.probability", "math.probability", "struct:概率", "概率"),
+    "solid-geometry": ("zhishu.math.solid-geometry", "math.solid-geometry", "struct:立体几何", "立体几何"),
+    "statistics": ("zhishu.math.statistics", "math.statistics", "struct:统计", "统计"),
+    "triangle-solving": ("zhishu.math.triangle-solving", "math.triangle-solving", "struct:解三角形", "解三角形"),
+    "logic": ("zhishu.math.logic", "math.logic", "struct:逻辑用语", "逻辑用语"),
 }
 ROOT = "root-high-school-math"
 BASE_CAPABILITIES = {"package-schema-v4", "persistent-content-uri-v1",
@@ -90,18 +104,30 @@ def temporary_directory(parent: Path | None = None, prefix: str = "mathnote-modu
             shutil.rmtree(root)
 
 
+def rename_directory(source: Path, destination: Path) -> None:
+    """Bounded retry for Windows directory handles held briefly by file scanners."""
+    for attempt in range(8):
+        try:
+            os.replace(source, destination)
+            return
+        except OSError as exc:
+            if getattr(exc, 'winerror', None) not in {5, 32, 33} or attempt == 7:
+                raise
+            time.sleep(min(0.1 * 2**attempt, 1.0))
+
+
 def replace_output(staged: Path, output: Path) -> None:
     backup = output.parent / ("." + output.name + ".old-" + uuid.uuid4().hex)
     require(staged.resolve().parent == output.parent.resolve(), "staging/output filesystem mismatch")
     require(backup.resolve().parent == output.parent.resolve(), "unsafe output backup")
     existed = output.exists()
     if existed:
-        os.replace(output, backup)
+        rename_directory(output, backup)
     try:
-        os.replace(staged, output)
+        rename_directory(staged, output)
     except BaseException:
         if existed:
-            os.replace(backup, output)
+            rename_directory(backup, output)
         raise
     if existed:
         shutil.rmtree(backup)
@@ -164,13 +190,23 @@ def _no_links(path: Path) -> None:
         require(not item.is_symlink() and not item.is_junction(), f"link path: {item}")
 
 
+def _walk_entries(root: Path):
+    def fail(exc: OSError) -> None:
+        raise exc
+    # pathlib.rglob may silently omit unreadable subtrees. A production audit
+    # must reject incomplete enumeration, including an unreadable old output.
+    for directory, directories, files in os.walk(root, onerror=fail, followlinks=False):
+        for name in directories + files:
+            yield Path(directory) / name
+
+
 def inventory(root: Path) -> dict[str, Path]:
     _no_links(root)
     require(root.is_dir(), f"package directory missing: {root}")
     result: dict[str, Path] = {}
     aliases: set[str] = set()
     total = 0
-    for path in root.rglob("*"):
+    for path in _walk_entries(root):
         require(not path.is_symlink() and not path.is_junction(), f"link entry: {path}")
         name = safe_name(path.relative_to(root).as_posix())
         alias = unicodedata.normalize("NFC", name).casefold()
@@ -267,6 +303,27 @@ def select(data: dict[str, list[dict[str, Any]]], slug: str) -> dict[str, list[d
             })
     result["externalRelations"].sort(key=lambda r: (r["sourceId"], r["type"], r["targetId"]))
     return result
+
+
+def discover_modules(data: dict[str, list[dict[str, Any]]]) -> list[str]:
+    """Discover every real first-level chapter; fail closed on registry drift."""
+    tree(data["knowledgeNodes"])
+    for column in range(3):
+        values = [row[column] for row in MODULES.values()]
+        require(len(values) == len(set(values)), "duplicate registered module identity")
+    registrations = {row[2]: slug for slug, row in MODULES.items()}
+    chapters = [r for r in data["knowledgeNodes"] if r["type"] == "chapter"]
+    found = []
+    for row in chapters:
+        require(row["id"] in registrations, f"unregistered source chapter: {row['id']}")
+        slug = registrations[row["id"]]
+        require(row.get("parentId") == ROOT and row["title"] == MODULES[slug][3],
+                f"source chapter registration mismatch: {row['id']}")
+        require(any(r["type"] == "knowledge" for r in select(data, slug)["knowledgeNodes"]),
+                f"empty source chapter: {row['id']}")
+        found.append(slug)
+    require(bool(found), "no source chapters")
+    return sorted(found)
 
 
 def hashes(manifest: dict[str, Any]) -> tuple[str, str]:
@@ -495,7 +552,7 @@ def slice_modules(input_root: Path, output_root: Path, modules: list[str],
     require(not project.is_relative_to(output_root), "refusing project/root output")
     require(output_root != project / "build/zhishu-content-package", "refusing formal Full output")
     require(bool(modules) and len(modules) == len(set(modules)) and all(x in MODULES for x in modules),
-            "modules must be unique registered slugs: sets,analytic-geometry")
+            "modules must be unique registered slugs: " + ",".join(sorted(MODULES)))
     source = load_full(input_root)
     before = {name: full._sha256_file(path) for name, path in inventory(input_root).items()}
     output_root.parent.mkdir(parents=True, exist_ok=True)
@@ -508,6 +565,7 @@ def slice_modules(input_root: Path, output_root: Path, modules: list[str],
             shutil.copytree(output_root, staged, dirs_exist_ok=True)
         results = []
         for slug in modules:
+            started = time.perf_counter()
             data = select(source[1], slug)
             root = staged / slug
             old = read_json(root / "manifest.json") if root.exists() else None
@@ -535,7 +593,8 @@ def slice_modules(input_root: Path, output_root: Path, modules: list[str],
             require(not issues, "; ".join(issues))
             results.append({"module": slug, "path": str(output_root / archive.name),
                             "bytes": archive.stat().st_size, "sha256": full._sha256_file(archive),
-                            "contentVersion": m["contentVersion"], "counts": m["counts"]})
+                            "contentVersion": m["contentVersion"], "counts": m["counts"],
+                            "seconds": time.perf_counter() - started})
         after = {name: full._sha256_file(path) for name, path in inventory(input_root).items()}
         require(after == before, "Full v2 input changed during slicing; output not committed")
         replace_output(staged, output_root)

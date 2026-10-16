@@ -1,4 +1,4 @@
-"""Deterministically slice two pilot packages; never invokes Publisher or Sync."""
+"""Deterministically slice registered modules; never invokes Publisher or Sync."""
 from __future__ import annotations
 
 import argparse
@@ -6,9 +6,9 @@ import json
 from pathlib import Path
 
 if __package__:
-    from .module_package import ModuleError, slice_modules
+    from .module_package import ModuleError, discover_modules, load_full, slice_modules
 else:
-    from module_package import ModuleError, slice_modules
+    from module_package import ModuleError, discover_modules, load_full, slice_modules
 
 
 def main() -> int:
@@ -19,7 +19,8 @@ def main() -> int:
     parser.add_argument("--package-version", type=int, default=1)
     args = parser.parse_args()
     try:
-        results = slice_modules(args.input, args.output, args.modules.split(","), args.package_version)
+        modules = discover_modules(load_full(args.input)[1]) if args.modules == "all" else args.modules.split(",")
+        results = slice_modules(args.input, args.output, modules, args.package_version)
     except (ModuleError, OSError, ValueError, TypeError, KeyError) as exc:
         parser.exit(1, f"MODULE PACKAGE FAILED: {exc}\n")
     print(json.dumps(results, ensure_ascii=False, indent=2))

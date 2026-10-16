@@ -1,0 +1,31 @@
+# Task 17G-M — HASH DETERMINISM
+
+日期：2026-10-16（Asia/Shanghai）。
+
+HASH DETERMINISM PASS / EXISTING PILOT COMPATIBILITY PASS。
+
+原 Schema v4 哈希算法未修改：packageHash=H(Manifest去除packageHash/contentVersion)；contentVersion=sha256:H(上述payload再去除sourcePackage/packageVersion)。保留原canonical对象清理/排序/数组顺序、六JSON文件字节规则；来源与模块内容身份分离。
+
+同一696文件冻结输入、最终生产工具、packageVersion，连续两轮构建，第二轮反向模块输入顺序。整个产物目录的文件集合及SHA256映射完全一致，包括14ZIP、Manifest、六JSON、媒体及release-index。每个ZIP字节级一致，packageId/moduleId/contentVersion/packageHash均相同。ZIP按UTF8路径排序、固定1980时间、STORE、无目录项/extra/comment，未仅比较JSON摘要。
+
+| 模块 / ZIP | contentVersion | packageHash | ZIP SHA256 |
+| --- | --- | --- | --- |
+| 解析几何 / analytic-geometry.zip | sha256:4ab3f6304d42752a46d1384766ad56f580f3b93de42266a515c4e0b6a9c34d3c | 6ccef9bd4af704938240d660d0335688c993af56f3bc424cad7b7bb10f4779b8 | d192575d307164b6f2ed19a366315d63be21874c196e7d82945ec79cd97e085e |
+| 函数 / functions.zip | sha256:07e7258db967ca08cc1177a4a58d2f9201ee0a052bf385d5262a37d54d0ae029 | 627d7938516afbff0974a01d67789d3b8e892282aba203a1e42a2b5793242f2c | d262a3b34f83a18c8fff1727ecfb80724e0a486ed337ad60dd9aca68f28be9db |
+| 不等式 / inequalities.zip | sha256:2545b554f9d6773b6157902af5ea58268521f8e5a33e47a26d3006327b3afd6b | 8be53e4a7e90b82ef31fed660751578b6a566ba3b1f7cbca7c00a9de5de36cc7 | f1cb714410ee4306206f253accac9095c8700d8ce3bc554f2c01a9e231c54b1b |
+| 逻辑用语 / logic.zip | sha256:a4de18c1590812c7563c0870375c2269d0d80d39de644dcea59783f2a9dbf02d | f328b46d6f4698b10108f6ecdad6ee71d2051e933e47d39e2f022f753fd6ac24 | dad9b96c627638adf3e01fe5ffacaa06187d003db6074aa48348133586ee6e90 |
+| 平面几何 / plane-geometry.zip | sha256:57c8ba7194914ffbd992c799c9a55a79e78fb910dc3977dc6ec70d7fb43ddfea | ef092ca6a2df3eb9150ee1700b3ad6e8bed100f5a843aaf5a47e292897a8203a | 7f761928e27a6250808204cb257e5af6770b82b2cfec6388fb9706429e74721d |
+| 前置知识 / prerequisites.zip | sha256:ea43e3a661d35cbb26eee5b143477ecd7bc5b5af5e9fbde6d119d464e88fea80 | b7169af6c67dc882a4ed8c3b691ff713417e60e2d9f5607b6837d2008474f729 | 0018de004322b2f3b6d0a980884dcb933c01b5f33d19fdf1f3014dff5c3f071c |
+| 概率 / probability.zip | sha256:42365650ed846d6bfa943e62552c376380e31641ec117ebfa5f6503dde4d0344 | ae5d6db2026fd054b763b953bedd6a63ba8c65b1c7c7587a16c0cd366aa99b60 | 1e93de8795903b7d527e268fc0a6a071f09a975fabfff6f0509d0d038757b12e |
+| 数列 / sequences.zip | sha256:657e9aa5f37a46d7e510b0aaa6698f03379b7a413888bf2de7f4241f2ebd4ad7 | d7f603e901e247c8768ba1f76db485ae738a4a9c855cd9a3520de56800d047a9 | f4e5da0bc2ce0bb1d9cc823c03c406fd30075efc205d54f6291438d3146dcbc6 |
+| 集合 / sets.zip | sha256:863078df25f8e210751df5b8f7256f711233b1fc920bc2911c5677a7b66b0204 | 4854299dc6ba963ec4ec4979342acf9d32508138c1774228bb0d67cc01acc113 | a01be102c036d6807c02e873a0cd840f17ad8a9d97c03668dc1a6289e3b43d4c |
+| 立体几何 / solid-geometry.zip | sha256:d7152ef845089e3d36b9e70e38ec4fb35b43f68bbc5edc5a014d4bccc49b2be3 | fa3d5527b985f5c2d7ce5da63904168f6094b1bb993107c966ee5e0b398a8e20 | 7e3d7b7fd675268f3ba05aa3f73e5dc8e6b6c28bb706d63b66b67a638735e3fa |
+| 统计 / statistics.zip | sha256:82ebe0e7ad810d183dded4b4f4d37f78ee2a7af87a6c26f939de7a0a6a438b5f | 3383901aa37049eb66567de0c7f142e5ce7e08b27998ae9d414ddaae97cde150 | d889e86eadb13ac51b8cc224771c28bc2ec4c84a4bff55ca053dfd6f57fdd444 |
+| 解三角形 / triangle-solving.zip | sha256:dd156ad36d9cdefcb502a816c1214b543da91b426d0e00a5332c2f29f51c9ae5 | f24779930e17512cf3a601f9d3a0fd9acc550387bc069589abd6b70e807b5e2e | 20c4256790c853be0515ff99c362ac0ae38536791dfc02631969fad590867645 |
+| 三角函数 / trigonometry.zip | sha256:f8297a253b1ee0e624aaccd1ae97cf20e822c8d80fb7327206815b24e52694a8 | 9b7a698ef1513f0d7d760f02cc31fc4b506f29064e598c4e84f3a198493e9902 | d94c89bc5763fa3fd90fa6d05578c39a6a5430799e638e881f3ab9f4a14bc1e9 |
+| 向量 / vectors.zip | sha256:7a3d71fceada802273f1978dc2f5d2304762ee65b7678716d2922c918ca7f0b5 | 3ec394179ffb576279455cffd76cf5429276928b2e93e55ff44bbee41363fdea | 3f1ee9fa2b8da47606ec7eba8941e48c6d1baac0c4e9c6a4b8ac8f325bd254ac |
+
+两试点与任务前冻结快照全部237文件逐项哈希相同。集合与解析几何的contentVersion、packageHash和ZIP SHA256均与任务给定历史试点相同；新增/删除/改变节点、知识ID、媒体、关系均为空，可以安全交付，无需提高两试点发行序号，未覆盖不同内容。
+
+未变化模块不因无关Full来源变化而更新contentVersion，由原 test_unrelated_full_change_and_release_ordinal_do_not_change_sets_content 在合成源验证。正式源完全未变，没有用回滚内容或伪造哈希匹配旧版本。
+

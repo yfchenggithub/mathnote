@@ -74,7 +74,8 @@ class ModulePackageTests(unittest.TestCase):
         entities = full._entity_hashes(self.data)
         assets = {row["id"]: full._sha256_file(self.source / row["uri"]) for row in self.data["knowledgeAssets"]}
         counts = {key: len(rows) for key, rows in self.data.items()}
-        counts.update(imageAssets=4, pdfAssets=4, videoAssets=0)
+        counts.update(imageAssets=sum(r['type'] == 'image' for r in self.data['knowledgeAssets']),
+                      pdfAssets=sum(r['type'] == 'pdf' for r in self.data['knowledgeAssets']), videoAssets=0)
         package_hash = full._package_hash(entities, assets, schema_version=2, share_asset_hashes={})
         full._write_json(self.source / "manifest.json", {
             "schemaVersion": 2, "files": files, "counts": counts, "entityHashes": entities,
@@ -122,7 +123,7 @@ class ModulePackageTests(unittest.TestCase):
         return {k: full._sha256_file(v) for k, v in module.inventory(self.output).items()}
 
     def test_both_zip_and_directory_independently_and_against_full(self):
-        for slug in module.MODULES:
+        for slug in ("sets", "analytic-geometry"):
             for path in (self.output / slug, self.output / (slug + ".zip")):
                 self.assertEqual(module.validate_module(path), ())
                 self.assertEqual(module.validate_module(path, self.source), ())
