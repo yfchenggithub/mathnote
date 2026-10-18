@@ -1,6 +1,6 @@
 \begin{explanationbox}
 	\textbf{\textcolor{CExplanation}{一句话直觉}}
-	两条直线垂直等价于它们法向量的数量积为零，即系数交叉项之和等于零。
+	两条直线垂直等价于它们法向量的数量积为零，即两条直线对应系数的乘积之和等于零。
 
 	\medskip
 	\textbf{\textcolor{CExplanation}{核心拆解}}
@@ -10,6 +10,43 @@
 		\item[\textbf{要点二（垂直对应点积零）：}]
 			两直线垂直等价于两法向量垂直；两法向量垂直$\Leftrightarrow$数量积$A_1A_2+B_1B_2=0$。
 	\end{description}
+
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{为什么法向量是 $(A,B)$？（两点代入，相减得到）}}
+	设直线 $l:Ax+By+C=0$（$A,B$ 不同时为零），在直线上任取两个不同的点
+	$P(x_1,y_1)$、$Q(x_2,y_2)$。因为两点都在直线上，所以
+	\[
+	\begin{aligned}
+	Ax_1+By_1+C&=0,\\
+	Ax_2+By_2+C&=0.
+	\end{aligned}
+	\]
+	\textbf{把两个方程相减}，消去常数项 $C$：
+	\[
+	A(x_2-x_1)+B(y_2-y_1)=0.
+	\]
+	而直线的一个方向向量正是 $\overrightarrow{PQ}=(x_2-x_1,\,y_2-y_1)$，
+	因此上式就是数量积
+	\[
+	\underbrace{(A,B)}_{\text{系数向量}}\cdot
+	\underbrace{(x_2-x_1,\,y_2-y_1)}_{\text{直线方向向量}}=0.
+	\]
+	两个非零向量数量积为零，说明它们垂直。因此 $(A,B)$ 垂直于直线 $l$，
+	\textbf{它就是直线的一个法向量}：
+	\[
+	\boxed{Ax+By+C=0\quad\Longrightarrow\quad\vec n=(A,B).}
+	\]
+	这不是人为规定的公式，而是从\textbf{两点代入直线方程、再相减}直接推出来的。
+
+	\medskip
+	\textbf{\textcolor{CExplanation}{为什么需要法向量？（不用斜率也能判垂直）}}
+	判断两直线垂直，也可以用斜率乘积为 $-1$，但竖直直线（如 $x=3$）
+	\textbf{斜率不存在}，需要另外讨论。法向量直接由一般式的 $x,y$ 系数给出：
+	$x=3$ 可写成 $1x+0y-3=0$，其法向量就是 $(1,0)$。
+	所以法向量的作用是：\textbf{把几何上的垂直，转化成向量数量积为零；
+	不需要求斜率，也不需要因竖直线而分类讨论。}
+	对 $l_1,l_2$，只需检验 $(A_1,B_1)\cdot(A_2,B_2)=0$。
 
 	\medskip
 	\textbf{\textcolor{CExplanation}{几何本质（法向量垂直）}}
