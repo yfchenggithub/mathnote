@@ -22,6 +22,30 @@
 	参数方程直接满足 $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$，是三角恒等式的几何体现。
 
 	\medskip
+	\textbf{\textcolor{CExplanation}{双视角理解（椭圆上点到中心的距离）}}
+	设椭圆 $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1\;(a>b>0)$，中心为固定点 $O(0,0)$，$P$ 为椭圆上的动点。研究 $OP$ 的最大值和最小值，可以从两个相反方向观察。
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.5em]
+		\item[\textbf{视角一（由内到外：从不动点 $O$ 出发）：}]
+			先固定 $O$，以 $O$ 为圆心画圆 $x^2+y^2=r^2$，再让半径 $r$ 从小到大变化。$r<b$ 时，圆还碰不到椭圆；$r=b$ 时，圆第一次在 $(0,\pm b)$ 与椭圆相切，故最小距离为 $b$；$b<r<a$ 时，圆与椭圆有四个交点；$r=a$ 时，圆在 $(\pm a,0)$ 与椭圆相切，达到最大距离 $a$；$r>a$ 时不再相交。
+			\par\textbf{直觉：} 不让圆心动，只改变半径；第一次碰到与最后一次碰到椭圆的半径，就是距离的两个边界。
+		\item[\textbf{视角二（由外到内：从动点 $P$ 出发）：}]
+			先让 $P$ 在椭圆上运动，再从 $P$ 连线指向固定的 $O$，把每个位置的距离 $OP$ 写成函数。设 $P(a\cos\theta,b\sin\theta)$，则
+			\[
+				\begin{aligned}
+					OP^2&=(a\cos\theta)^2+(b\sin\theta)^2\\
+					&=b^2+(a^2-b^2)\cos^2\theta.
+				\end{aligned}
+			\]
+			由于 $0\le\cos^2\theta\le1$，得到 $b\le OP\le a$。当 $P=(0,\pm b)$ 时取最小值，当 $P=(\pm a,0)$ 时取最大值。
+			\par\textbf{直觉：} 动的是椭圆上的点，测量方向是从 $P$ 指向不动的 $O$；不要求 $P$ 在整个运动过程中离 $O$ 越来越近。
+	\end{description}
+	\textbf{两种视角的统一：} 第一种从固定圆心寻找与椭圆的临界相切圆，第二种从椭圆动点求距离函数的最值；观察方向相反，结果相同：
+	\[
+		\boxed{OP_{\min}=b,\qquad OP_{\max}=a.}
+	\]
+	\textbf{特别区分：} 半径为 $a$、$b$ 的两个同心圆分别与椭圆相切，并不是这两个圆互相相切；这里不断改变半径的\textbf{距离圆}，也不要与前面用于生成参数方程的\textbf{辅助圆}混为一谈。
+
+	\medskip
 	\textbf{\textcolor{CExplanation}{考点价值（求最值与轨迹）}}
 	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
 		\item \textbf{考法一（最值问题）：} 设点为 $(a\cos\theta,b\sin\theta)$，利用三角有界性求最值。
