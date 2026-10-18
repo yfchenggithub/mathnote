@@ -1,11 +1,125 @@
 \begin{proofbox}
-\textbf{利用正切半角公式推导：}
+\textbf{统一记号。}设 $P(x_0,y_0)$，$F_1(-c,0)$、$F_2(c,0)$，
+$r_1=PF_1$、$r_2=PF_2$，$\theta=\angle F_1PF_2$，
+$e=c/a$。由椭圆定义及焦半径公式，
+\[
+ r_1+r_2=2a,\qquad r_1=a+ex_0,\qquad r_2=a-ex_0,
+ \qquad c^2=a^2-b^2.
+\]
+先在 $y_0\ne0$ 时把 $F_1PF_2$ 视为非退化三角形；
+$y_0=0$ 的两个长轴端点将在最后单独验证。
+
+\medskip
+\textbf{方法一：余弦定理 $\boldsymbol{\to}$ 半角公式（代数通法）。}
 \begin{enumerate}
-    \item 在 $\triangle F_1PF_2$ 中，设 $P(x_0, y_0)$。根据椭圆定义及余弦定理可推导，但最简便方法是利用直角三角形投影：
-    \item $\tan \angle PF_2O = \frac{y_0}{c-x_0}$，$\tan \angle PF_1O = \frac{y_0}{c+x_0}$（假设 $P$ 在第一象限）。
-    \item 利用恒等式 $\tan \theta = \tan(\angle PF_1F_2 + \angle PF_2F_1)$：
-    $\tan \theta = \frac{\frac{y_0}{c+x_0} + \frac{y_0}{c-x_0}}{1 - \frac{y_0^2}{c^2-x_0^2}} = \frac{2cy_0}{c^2 - x_0^2 - y_0^2}$。
-    \item 代入 $x_0^2 = a^2(1 - \frac{y_0^2}{b^2})$，整理得 $\tan \theta = \frac{2cy_0}{b^2 - a^2 + y_0^2(1 - \frac{a^2}{b^2})} = \frac{2cy_0}{y_0^2 \cdot \frac{c^2}{b^2} - c^2}$。
-    \item 进一步分析可知，$\theta$ 随 $y_0$ 的增大而增大，故 $y_0 = b$ 时角度最大。
+  \item 在 $\triangle F_1PF_2$ 中，顶角 $\theta$ 的对边为 $2c$。
+  由余弦定理
+  \[
+  (2c)^2=r_1^2+r_2^2-2r_1r_2\cos\theta,
+  \quad
+  \cos\theta=\frac{r_1^2+r_2^2-4c^2}{2r_1r_2}.
+  \]
+
+  \item 代入 $r_1=a+ex_0$、$r_2=a-ex_0$，得到
+  \[
+  r_1r_2=a^2-e^2x_0^2,\qquad
+  r_1^2+r_2^2=2(a^2+e^2x_0^2),
+  \]
+  从而
+  \[
+  \cos\theta
+  =1-\frac{2(c^2-e^2x_0^2)}{a^2-e^2x_0^2}.
+  \]
+
+  \item 由椭圆方程 $x_0^2=a^2(1-y_0^2/b^2)$ 及 $e=c/a$，
+  \[
+  c^2-e^2x_0^2=\frac{c^2y_0^2}{b^2},\qquad
+  a^2-e^2x_0^2=\frac{b^4+c^2y_0^2}{b^2}.
+  \]
+  因此
+  \[
+  \boxed{\cos\theta=\frac{b^4-c^2y_0^2}{b^4+c^2y_0^2}}.
+  \]
+
+  \item 采用半角恒等式（$0\leq\theta<180^\circ$）
+  \[
+  \tan^2\frac\theta2=\frac{1-\cos\theta}{1+\cos\theta}
+  =\frac{c^2y_0^2}{b^4}.
+  \]
+  由于 $\tan(\theta/2)\geq0$，故
+  \[
+  \boxed{\tan\frac\theta2=\frac{c|y_0|}{b^2}}.
+  \]
 \end{enumerate}
+
+\medskip
+\textbf{方法二：面积 + 内切圆（几何直观法）。}
+\begin{enumerate}
+  \item 令焦点三角形面积为 $S$、半周长为 $s$、内切圆半径为 $\rho$。
+  由于底边 $F_1F_2=2c$，高为 $|y_0|$，
+  \[
+   S=c|y_0|,\qquad
+   s=\frac{r_1+r_2+2c}{2}=a+c,\qquad
+   \rho=\frac S s=\frac{c|y_0|}{a+c}.
+  \]
+
+  \item 设内切圆与边 $PF_1$ 切于 $T$，内心为 $I$。
+  由同一点引圆的切线段相等，
+  \[
+  PT=s-F_1F_2=(a+c)-2c=a-c.
+  \]
+  $PI$ 平分顶角，$IT\perp PF_1$，因此在直角三角形 $PIT$ 中
+  \[
+  \tan\frac\theta2=\frac{IT}{PT}
+  =\frac{\rho}{a-c}
+  =\frac{c|y_0|}{(a+c)(a-c)}
+  =\boxed{\frac{c|y_0|}{b^2}}.
+  \]
+  \item \textbf{本质：}焦点三角形的底边、半周长和切线段 $PT=a-c$
+  都固定；增大 $|y_0|$ 就增大面积 $S$、内切圆半径 $\rho$，
+  从而增大 $\tan(\theta/2)$ 和顶角 $\theta$。
+\end{enumerate}
+
+\medskip
+\textbf{方法三：正弦面积式 + 余弦定理（交叉核验）。}
+\begin{enumerate}
+  \item 对同一焦点三角形，用两边及夹角求面积：
+  \[
+  S=\frac12 r_1r_2\sin\theta=c|y_0|,
+  \quad\Longrightarrow\quad
+  \sin\theta=\frac{2c|y_0|}{r_1r_2}.
+  \]
+  \item 另一方面，余弦定理及 $r_1+r_2=2a$ 给出
+  \[
+  1+\cos\theta
+  =\frac{(r_1+r_2)^2-(2c)^2}{2r_1r_2}
+  =\frac{4(a^2-c^2)}{2r_1r_2}
+  =\frac{2b^2}{r_1r_2}.
+  \]
+  \item 使用 $\tan(\theta/2)=\sin\theta/(1+\cos\theta)$，得
+  \[
+  \boxed{\tan\frac\theta2
+  =\frac{2c|y_0|/(r_1r_2)}{2b^2/(r_1r_2)}
+  =\frac{c|y_0|}{b^2}}.
+  \]
+  此法不需要解出 $x_0$，适合直接把三角形面积、正弦与余弦定理串联。
+\end{enumerate}
+
+\medskip
+\textbf{最大角的确定与端点检验。}
+由椭圆方程 $|y_0|\leq b$，等号当且仅当 $P=(0,\pm b)$。
+又因 $\theta/2\in[0,90^\circ)$，$\tan$ 严格递增，故
+\[
+ \boxed{\theta_{\max}=2\arctan\frac cb}.
+\]
+在 $P=(0,b)$ 时，$PF_1=PF_2=a$，$PO=b$、$OF_2=c$，
+由等腰三角形顶角平分线所形成的直角三角形直接得
+\[
+ \tan\frac{\theta_{\max}}2=\frac cb,\quad
+ \sin\frac{\theta_{\max}}2=\frac ca=e,\quad
+ \cos\theta_{\max}=1-2e^2=\frac{b^2-c^2}{b^2+c^2}.
+\]
+当 $P=(\pm a,0)$ 时，$P,F_1,F_2$ 共线且从 $P$ 发出的两条射线
+方向相同，所以 $\theta=0$，与半角公式（右端为 $0$）一致。
+\textbf{因此结论对椭圆上所有点均成立。}
 \end{proofbox}

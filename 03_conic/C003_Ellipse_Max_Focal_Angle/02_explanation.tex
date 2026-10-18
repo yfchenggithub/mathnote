@@ -1,13 +1,48 @@
 \begin{explanationbox}
-该结论刻画了椭圆几何形态对"视角"的限制：
-\begin{itemize}
-    \item \textbf{几何直观}：将 $F_1, F_2$ 看作定线段，椭圆上的点 $P$ 离 $x$ 轴越近（即纵坐标越小），张角越小；离 $x$ 轴越远，张角越大。短轴端点是椭圆上距离 $x$ 轴最远的点。
-    \item \textbf{结构转化}：通过焦半径公式 $r_1 = a+ex, r_2 = a-ex$ 或正切半角公式，将几何角度转化为代数坐标的函数。
-    \item \textbf{适用场景}：
-    \begin{itemize}
-        \item 求解 $\angle F_1PF_2$ 的取值范围。
-        \item 处理与三角形 $F_1PF_2$ 内切圆、旁切圆相关的极值问题。
-        \item 结合正弦/余弦定理处理复杂的角平分线或向量点积最值。
-    \end{itemize}
-\end{itemize}
+\textbf{视角模型：}把 $F_1F_2$ 想成一根固定长度为 $2c$ 的线段，
+从椭圆上的点 $P$ 看它，两条视线 $PF_1$、$PF_2$ 的夹角就是
+焦角 $\theta$。研究问题不是求某一条焦半径，而是比较这个夹角。
+
+\begin{enumerate}
+  \item \textbf{先抓住一个不变量：}
+  椭圆定义保证
+  \[
+  PF_1+PF_2=r_1+r_2=2a.
+  \]
+  因而焦点三角形 $\triangle PF_1F_2$ 的底边 $2c$、
+  周长 $2a+2c$、半周长 $s=a+c$ 都不变。
+
+  \item \textbf{再抓住一个变量：}
+  以 $F_1F_2$ 为底边，$P$ 到底边所在直线的高为 $|y_0|$，所以
+  \[
+  S_{\triangle PF_1F_2}=\frac12\,(2c)|y_0|=c|y_0|.
+  \]
+  固定周长、固定底边时，三角形面积越大，顶角越大；
+  这一关系将在证明中精确化为
+  \[
+  \tan\frac\theta2=\frac{S}{s(s-2c)}
+  =\frac{c|y_0|}{b^2}.
+  \]
+
+  \item \textbf{为什么是短轴端点？}
+  椭圆方程给出 $0\leq|y_0|\leq b$，
+  且只有 $x_0=0$ 时才有 $|y_0|=b$。
+  由于 $0\leq\theta/2<90^\circ$，正切函数在这一范围内严格递增，
+  因此 $|y_0|$ 越大，焦角就越大。短轴端点是\textbf{距离焦点连线最远}的椭圆点。
+
+  \item \textbf{在短轴端点可以直接看直角三角形：}
+  取 $P=(0,b)$，连结原点 $O$，则 $PO\perp F_1F_2$，
+  $OF_1=OF_2=c$，$OP=b$，两条焦半径相等。
+  $PO$ 平分顶角 $\theta_{\max}$，故
+  \[
+  \tan\frac{\theta_{\max}}2=\frac{OF_2}{OP}=\frac cb,
+  \quad\sin\frac{\theta_{\max}}2=\frac ca=e.
+  \]
+  \textbf{注意：}这个直角三角形的比例是最大角的\textbf{特殊解法}，
+  不能把分母 $b$ 随意换成一般点的 $|y_0|$。
+
+  \item \textbf{题型连接：}
+  求焦角范围、判断直角或钝角是否存在、由角反求点的纵坐标、
+  通过焦半径与余弦定理计算角度，均可优先使用半角公式。
+\end{enumerate}
 \end{explanationbox}

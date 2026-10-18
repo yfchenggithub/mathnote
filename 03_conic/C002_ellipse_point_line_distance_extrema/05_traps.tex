@@ -98,4 +98,29 @@
 		      “顶点”是椭圆坐标轴方向上的特殊点，而本题的距离最值由直线的法向量方向决定。除非直线法向量恰好与坐标轴方向一致，否则取等点通常不是标准顶点。
 	\end{description}
 
+	\medskip
+
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点五（把两条切线的较小距离恒当作最小值）}}]
+		      使用平行切线法后，误以为无论原直线在什么位置，都有
+		      \[
+			      d_{\min}=\min\left\{\frac{|C-R|}{\sqrt{A^2+B^2}},
+			      \frac{|C+R|}{\sqrt{A^2+B^2}}\right\}.
+		      \]
+
+		\item[\textbf{\textcolor{CTrap}{正确理解（先判断原直线的位置）：}}]
+		      两条支撑切线为 \(Ax+By=\pm R\)。
+		      当 \(|C|>R\) 时，原直线位于带状区域外，上式才是正确的最小距离。
+		      当 \(|C|\le R\) 时，原直线与椭圆有交点，必须取
+		      \[
+			      d_{\min}=0.
+		      \]
+		      但是最大距离始终可以取两条支撑切线距离中较大的一个。
+
+		\item[\textbf{\textcolor{CTrap}{错因分析（支撑切点与实际交点混淆）：}}]
+		      平行切点控制的是沿已知法向方向的最外边界；
+		      当原直线已经切到或穿过椭圆时，距离为零的点是切点或交点，
+		      不一定是前面求出的两个法向支撑点。
+	\end{description}
+
 \end{trapbox}

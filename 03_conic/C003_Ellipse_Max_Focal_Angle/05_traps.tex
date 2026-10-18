@@ -1,7 +1,52 @@
 \begin{trapbox}
-\begin{itemize}
-    \item \textbf{离心率敏感性}：当 $e$ 较小时，椭圆接近圆，最大张角较小；当 $e$ 接近 1 时，最大张角趋近于 $180^\circ$。
-    \item \textbf{公式适用性}：$\tan \frac{\theta}{2} = \frac{c}{y_P}$ 仅在长轴位于 $x$ 轴时成立。若椭圆焦点在 $y$ 轴，则公式需对应交换变量。
-    \item \textbf{单调性误区}：注意在第一象限内，随着 $x$ 增大，$y$ 减小，张角 $\theta$ 是单调递减的，不要记反方向。
-\end{itemize}
+\begin{enumerate}
+  \item \textbf{混淆任意点公式与短轴端点公式。}
+  \[
+  \underbrace{\tan\frac\theta2=\frac{c|y_0|}{b^2}}_{\text{椭圆上任意点}}
+  \qquad\ne\qquad
+  \underbrace{\frac c{|y_0|}}_{\text{一般不成立}}.
+  \]
+  只有 $|y_0|=b$ 时，二者同为 $c/b$。
+
+  \item \textbf{误把 $y_0$ 当作有符号纵坐标。}
+  $\theta$ 是非负角，椭圆上下两半关于 $x$ 轴对称；
+  必须使用 $|y_0|$。例如 $P=(0,-b)$ 也取得最大角。
+
+  \item \textbf{滥用正切和角公式。}
+  焦点三角形的三个\textbf{内角}满足
+  $\theta+\angle PF_1F_2+\angle PF_2F_1=180^\circ$，
+  不是 $\theta=\angle PF_1F_2+\angle PF_2F_1$。
+  此外，$\tan\theta$ 在 $\theta=90^\circ$ 时无定义，
+  且在钝角区间为负；不能靠 $\tan\theta$ 在全区间判断角度的增减。
+  应优先使用 $\tan(\theta/2)$。
+
+  \item \textbf{余弦定理漏掉夹角的对边。}
+  $\theta$ 位于 $P$，对边是 $F_1F_2=2c$，故
+  $\cos\theta=(r_1^2+r_2^2-4c^2)/(2r_1r_2)$。
+  不要误把对边写成 $2a$ 或漏掉平方。
+
+  \item \textbf{从椭圆方程消去 $x_0$ 的代数错误。}
+  正确的是
+  \[
+  x_0^2=a^2\left(1-\frac{y_0^2}{b^2}\right),\qquad
+  c^2-e^2x_0^2=\frac{c^2y_0^2}{b^2}.
+  \]
+  原证明的加减号及化简不一致，应以此式核对。
+
+  \item \textbf{坐标轴方向决定使用哪个坐标。}
+  若长轴在 $y$ 轴，即
+  $\frac{x^2}{b^2}+\frac{y^2}{a^2}=1$，焦点为 $(0,\pm c)$，
+  则高是点到 $y$ 轴的距离 $|x_0|$，对应公式为
+  \[
+  \boxed{\tan\frac\theta2=\frac{c|x_0|}{b^2}}.
+  \]
+  更一般地，要取点到\textbf{焦点连线所在直线}的距离 $h$：
+  $\tan(\theta/2)=ch/b^2$。
+
+  \item \textbf{取值端点与离心率。}
+  对本题 $0<e<1$，最大角严格小于 $180^\circ$；
+  $e\to1^-$ 时才有 $\theta_{\max}\to180^\circ$，
+  不能把极限值当作某个非退化椭圆实际取到的角。
+  当 $e\to0^+$ 时，两个焦点趋于重合，最大角趋于 $0$。
+\end{enumerate}
 \end{trapbox}

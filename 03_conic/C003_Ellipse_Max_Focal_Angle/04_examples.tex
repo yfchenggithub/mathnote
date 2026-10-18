@@ -1,17 +1,70 @@
 \begin{examplebox}
-\textbf{例题 1：} 已知椭圆 $C: \frac{x^2}{4} + \frac{y^2}{3} = 1$，点 $P$ 为椭圆上一点，求 $\angle F_1PF_2$ 的最大值。
+\textbf{例题 1（直接求最大焦角）。}
+已知椭圆 $C:\frac{x^2}{4}+\frac{y^2}{3}=1$，
+求 $\angle F_1PF_2$ 的最大值。
 
-\textit{解析：} 
-1. 由方程知 $a=2, b=\sqrt{3}$，则 $c = \sqrt{4-3} = 1$。
-2. 当点 $P$ 为短轴端点 $(0, \sqrt{3})$ 时，张角最大。
-3. 此时 $\tan \frac{\theta_{max}}{2} = \frac{c}{b} = \frac{1}{\sqrt{3}}$。
-4. 故 $\frac{\theta_{max}}{2} = 30^\circ$，即 $\theta_{max} = 60^\circ$。
+\textit{解：} $a=2$、$b=\sqrt3$、$c=1$。
+由 $|y_0|\leq\sqrt3$ 及任意点半角公式，
+\[
+\tan\frac\theta2=\frac{|y_0|}{3}\leq\frac1{\sqrt3}.
+\]
+当且仅当 $P=(0,\pm\sqrt3)$ 时取等号，故
+$\theta_{\max}=2\arctan(1/\sqrt3)=60^\circ$。
+\textbf{余弦定理核验：}短轴端点处 $r_1=r_2=2$，所以
+$\cos\theta_{\max}=(4+4-4)/(2\cdot2\cdot2)=1/2$，
+同样得到 $60^\circ$。
 
-\textbf{例题 2：} 若椭圆 $\frac{x^2}{a^2} + \frac{y^2}{b^2} = 1$ 上存在点 $P$ 使得 $\angle F_1PF_2 = 90^\circ$，求离心率 $e$ 的取值范围。
+\medskip
+\textbf{例题 2（直角焦角存在的离心率条件）。}
+若椭圆 $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$ 上存在
+$P$ 使 $\angle F_1PF_2=90^\circ$，求离心率范围。
 
-\textit{解析：}
-只需满足最大张角 $\theta_{max} \ge 90^\circ$。
-即 $\frac{c}{b} \ge \tan 45^\circ = 1 \implies c \ge b$。
-$c^2 \ge a^2 - c^2 \implies 2c^2 \ge a^2 \implies e^2 \ge \frac{1}{2}$。
-故 $e \in [\frac{\sqrt{2}}{2}, 1)$。
+\textit{解：}焦角从长轴端点的 $0$ 连续变化到短轴端点的
+$\theta_{\max}$，因此存在直角焦角当且仅当
+\[
+ \theta_{\max}\geq90^\circ
+ \iff\tan\frac{\theta_{\max}}2=\frac cb\geq1
+ \iff c\geq b.
+\]
+由 $b^2=a^2-c^2$，得到 $2c^2\geq a^2$，即
+\[
+ \boxed{\frac{\sqrt2}{2}\leq e<1}.
+\]
+等号时直角焦角恰在短轴端点；严格大于时，椭圆上有
+$|y_0|=b^2/c<b$ 的对应点。
+
+\medskip
+\textbf{例题 3（已知焦角反求点）。}
+椭圆 $\frac{x^2}{9}+\frac{y^2}{4}=1$ 上，
+求满足 $\angle F_1PF_2=90^\circ$ 的所有点 $P$。
+
+\textit{解：} $a=3$、$b=2$、$c=\sqrt5$。
+由 $\tan45^\circ=1$，
+\[
+  \frac{\sqrt5\,|y_0|}{4}=1
+  \Longrightarrow |y_0|=\frac4{\sqrt5}.
+\]
+代入椭圆方程，
+\[
+  x_0^2=9\left(1-\frac{(4/\sqrt5)^2}{4}\right)
+       =\frac95.
+\]
+故共有四个点：
+\[
+ \boxed{P\left(\pm\frac3{\sqrt5},\,\pm\frac4{\sqrt5}\right)}
+\]
+其中两个正负号\textbf{独立选取}。
+
+\medskip
+\textbf{例题 4（辨认错误公式的反例）。}
+椭圆 $\frac{x^2}{5}+\frac{y^2}{4}=1$ 上取
+$P(\frac{\sqrt{15}}2,1)$，此时 $c=1$、$b^2=4$。
+正确公式给出
+\[
+ \boxed{\tan\frac\theta2=\frac{1\cdot1}{4}=\frac14}.
+\]
+若误用 $c/|y_0|$，会得到 $\tan(\theta/2)=1$，即
+$\theta=90^\circ$；但此椭圆的最大焦角只有
+$2\arctan(1/2)<90^\circ$，直接矛盾。
+因此 $c/|y_0|$ 不能推广到任意点。
 \end{examplebox}
