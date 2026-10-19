@@ -1,12 +1,91 @@
 \begin{examplebox}
-\textbf{例题 1}: 若椭圆 $\frac{x^2}{a^2} + \frac{y^2}{b^2} = 1$ 上存在点 $P$ 使得 $\angle F_1PF_2 = 90^\circ$, 求离心率 $e$ 的范围.
-\textit{解析}: 
-根据结论 $\sin\frac{\theta_{max}}{2} = e$, 存在性要求 $\theta_{max} \ge 90^\circ$.
-则 $\sin\frac{\theta_{max}}{2} \ge \sin 45^\circ = \frac{\sqrt{2}}{2}$.
-所以 $e \in [\frac{\sqrt{2}}{2}, 1)$.
+\textbf{例 1（存在性反推：高考选择、填空）}
 
-\textbf{例题 2}: 已知椭圆离心率 $e = \frac{\sqrt{3}}{2}$, 求焦张角 $\theta$ 的最大值.
-\textit{解析}:
-由 $\sin\frac{\theta_{max}}{2} = e = \frac{\sqrt{3}}{2}$, 得 $\frac{\theta_{max}}{2} = 60^\circ$.
-故 $\theta_{max} = 120^\circ$.
+已知某椭圆上存在一点 $P$，使
+$\angle F_1PF_2=90^\circ$，求离心率 $e$ 的范围。
+
+\textbf{最快解：} 既然能够出现 $90^\circ$，最大焦张角就不能小于 $90^\circ$：
+\[
+\sin45^\circ\le e<1
+\quad\Longrightarrow\quad
+\boxed{e\in\left[\frac{\sqrt2}{2},1\right)}.
+\]
+\textbf{等号检验：} 当 $e=\sqrt2/2$，恰在短轴顶点取到 $90^\circ$，
+所以左端点\textbf{能够取到}。椭圆离心率始终小于 $1$，所以右端点\textbf{不能取到}。
+
+\medskip
+\textbf{例 2（由离心率秒求最大焦张角）}
+
+椭圆的离心率 $e=\sqrt3/2$，求 $\theta$ 的最大值及取等号的位置。
+
+\textbf{最快解：}
+\[
+\sin\frac{\theta_{\max}}2=e=\frac{\sqrt3}{2}
+\quad\Longrightarrow\quad
+\boxed{\theta_{\max}=120^\circ}.
+\]
+取最大角时 $P$ 为\textbf{两个短轴顶点}，而不是任意顶点。
+
+\medskip
+\textbf{例 3（已知坐标：优先半角正切，不必分别求焦半径）}
+
+在椭圆 $\displaystyle\frac{x^2}{25}+\frac{y^2}{16}=1$ 上，
+取 $P=(3,16/5)$，求 $\tan(\theta/2)$、$\cos\theta$，并判断是否为最大角。
+
+\textbf{核对点在椭圆上：}
+\[
+\frac{3^2}{25}+\frac{(16/5)^2}{16}
+=\frac9{25}+\frac{16}{25}=1.
+\]
+由 $a=5,b=4,c=3$，直接得到
+\[
+\boxed{\tan\frac\theta2=\frac{3(16/5)}{16}=\frac35}.
+\]
+利用 $\cos\theta=(1-\tan^2(\theta/2))/(1+\tan^2(\theta/2))$：
+\[
+\boxed{\cos\theta=\frac{1-9/25}{1+9/25}=\frac8{17}}.
+\]
+由于 $|y_P|=16/5<4=b$，它\textbf{不是}最大角；
+同时 $\sin(\theta/2)=3/\sqrt{34}<3/5=e$，与总不等式一致。
+
+\medskip
+\textbf{例 4（已知角度：反求点的坐标）}
+
+椭圆 $\displaystyle\frac{x^2}{25}+\frac{y^2}{16}=1$ 上，
+求满足 $\angle F_1PF_2=60^\circ$ 的所有点 $P$。
+
+\textbf{第 1 步：由角度求高度。}
+\[
+\tan30^\circ=\frac{3|y_P|}{16}
+\quad\Longrightarrow\quad
+|y_P|=\frac{16}{3\sqrt3}=\frac{16\sqrt3}{9}<4.
+\]
+\textbf{第 2 步：代回椭圆方程。}
+\[
+\frac{x_P^2}{25}=1-\frac{y_P^2}{16}
+=1-\frac{16}{27}=\frac{11}{27},
+\qquad
+|x_P|=\frac{5\sqrt{33}}9.
+\]
+故有\textbf{四个}对称点：
+\[
+\boxed{P=\left(\pm\frac{5\sqrt{33}}9,
+\ \pm\frac{16\sqrt3}9\right)}.
+\]
+两个正负号独立选取。\textbf{存在性先检验：}
+$\sin30^\circ=1/2<3/5=e$，与确有四点相吻合。
+
+\medskip
+\textbf{例 5（反例排错：不能把正切写成倒数）}
+
+仍取 $a=5,b=4,c=3$。
+当 $P=(0,4)$ 时，$PF_1=PF_2=5$，
+焦点三角形为腰长 $5$、半底长 $3$ 的等腰三角形：
+\[
+\sin\frac\theta2=\frac35,\qquad
+\tan\frac\theta2=\frac34.
+\]
+正确公式给出 $c|y_P|/b^2=3\times4/16=3/4$；
+错误的倒写公式却给出 $16/(3\times4)=4/3$。
+这说明 $b^2/(c|y_P|)$ 是\textbf{余切} $\cot(\theta/2)$，而非正切。
 \end{examplebox}

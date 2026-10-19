@@ -1,7 +1,53 @@
 \begin{trapbox}
-\begin{itemize}
-    \item \textbf{计算陷阱}: 很多学生会混淆 $\sin\frac{\theta}{2}$ 与 $\cos\theta$, 在处理不等式方向时务必注意正弦函数在 $(0, \pi/2)$ 的单调性.
-    \item \textbf{符号规范}: 在代码实现或文档编写时, 必须使用英文半角符号, 如 "e >= sin(theta/2)" 而非全角字符, 否则会导致解析器失效.
-    \item \textbf{图形误导}: 不要误以为 $P$ 在顶点时角度最大, 实际上在短轴端点处, $P$ 到两焦点的距离最平衡, 张角才达到巅峰.
-\end{itemize}
+\begin{enumerate}
+  \item \textbf{头号错误：半角正切写反。}
+  正确的是
+  $\displaystyle\boxed{\tan\frac\theta2=\frac{c|y_P|}{b^2}}$；
+  原稿 $b^2/(cy_P)$ 错在\textbf{正切/余切倒置}，并且漏掉绝对值。
+  判断技巧：当 $P$ 接近长轴时 $|y_P|\to0$，张角也应趋向 $0$，
+  因而 $\tan(\theta/2)\to0$，不可能趋向无穷大。
+
+  \item \textbf{最大值与任意值不能混同。}
+  任意 $P$ 只满足 $\sin(\theta/2)\le e$；
+  只有两个短轴顶点才满足 $\sin(\theta/2)=e$。
+  不能见到题设 $\angle F_1PF_2=\theta_0$ 就直接设
+  $e=\sin(\theta_0/2)$。
+
+  \item \textbf{上下半椭圆的符号。}
+  对 $y_P<0$，$\tan(\theta/2)$ 仍然为正；
+  必须写 $|y_P|$，或者写到焦点连线的\textbf{距离} $h$。
+  只有上半椭圆 $y_P>0$ 时才能直接把绝对值去掉。
+
+  \item \textbf{“顶点”不能笼统。}
+  张角最大在\textbf{短轴顶点} $(0,\pm b)$；
+  长轴顶点 $(\pm a,0)$ 是两条焦点射线重合的退化情形，角度按约定为 $0$。
+  原条件排除长轴顶点是为了让焦点三角形非退化，
+  不是因为原不等式在这些点会失效。
+
+  \item \textbf{不等式的方向。}
+  由于 $0<\theta/2<90^\circ$，半角正弦递增；
+  $\theta\le\theta_{\max}$ 对应
+  $\sin(\theta/2)\le e$，不是 $\ge e$。
+
+  \item \textbf{离心率范围必须含边界。}
+  如果某角 $\theta_0\in(0,180^\circ)$ \emph{可以取到}，
+  则 $\boxed{\sin(\theta_0/2)\le e<1}$。
+  等号代表该角正好是最大张角，所以\textbf{左闭右开}。
+  $e=1$ 表示退化极限，不是通常的非退化椭圆。
+
+  \item \textbf{余弦公式分清角与对边。}
+  $\theta$ 是顶点 $P$ 处的角，它的\textbf{对边}是 $F_1F_2=2c$。
+  因而余弦定理应写
+  $4c^2=r_1^2+r_2^2-2r_1r_2\cos\theta$。
+  不要把 $2a$ 误当成三角形的一条边；$2a$ 是两条腰的\textbf{和}。
+
+  \item \textbf{内切圆证明不适用于退化三角形。}
+  内切圆、角平分线与 $\tan(\theta/2)=\rho/(a-c)$ 的推导
+  要求 $P$ 非长轴顶点；在长轴顶点需另用极限或直接约定 $\theta=0$。
+
+  \item \textbf{旋转椭圆不要死记纵坐标。}
+  公式的本质是 $\tan(\theta/2)=ch/b^2$，
+  $h$ 是点 $P$ 到\textbf{焦点连线}的垂距；
+  仅当长轴在 $x$ 轴上时 $h=|y_P|$。
+\end{enumerate}
 \end{trapbox}

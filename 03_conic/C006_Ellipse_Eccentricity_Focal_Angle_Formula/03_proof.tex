@@ -1,12 +1,160 @@
 \begin{proofbox}
-\textbf{利用焦半径与余弦定理推导}:
-\begin{enumerate}
-    \item 根据椭圆定义, $r_1 + r_2 = 2a$. 记 $|F_1F_2| = 2c$.
-    \item 在 $\triangle F_1PF_2$ 中, 由余弦定理得:
-    $4c^2 = r_1^2 + r_2^2 - 2r_1r_2\cos\theta = (r_1+r_2)^2 - 2r_1r_2(1+\cos\theta) = 4a^2 - 4r_1r_2\cos^2\frac{\theta}{2}$.
-    \item 整理得 $r_1r_2\cos^2\frac{\theta}{2} = a^2 - c^2 = b^2$.
-    \item 又由三角形面积公式 $S = \frac{1}{2}r_1r_2\sin\theta = c|y_P|$, 得 $r_1r_2 = \frac{2c|y_P|}{\sin\theta}$.
-    \item 联立消去 $r_1r_2$, 可导出 $\tan\frac{\theta}{2} = \frac{c|y_P|}{b^2}$ (注意此为另一种变形形式).
-    \item 结合 $r_1r_2 \le a^2$, 代入 $\cos\theta$ 公式即可证得 $\sin\frac{\theta}{2} \le e$.
-\end{enumerate}
+\textbf{证明前统一记号：}
+设 $F_1(-c,0)$、$F_2(c,0)$，$P(x_P,y_P)$ 在椭圆上且不为长轴顶点；
+$r_1=PF_1$、$r_2=PF_2$、$\theta=\angle F_1PF_2$。
+必有
+\[
+r_1+r_2=2a,\qquad F_1F_2=2c,\qquad
+b^2=a^2-c^2,\qquad 0<\theta<\pi.
+\]
+
+\textbf{方法一：代数法——余弦定理与面积公式（完整通法）}
+
+\textbf{第 1 步：} 在 $\triangle F_1PF_2$ 中使用余弦定理：
+\[
+4c^2=r_1^2+r_2^2-2r_1r_2\cos\theta.
+\]
+因为 $r_1^2+r_2^2=(r_1+r_2)^2-2r_1r_2$，所以
+\[
+\begin{aligned}
+4c^2
+ &=4a^2-2r_1r_2(1+\cos\theta)\\
+ &=4a^2-4r_1r_2\cos^2\frac\theta2.
+\end{aligned}
+\]
+移项后得到第一个核心恒等式：
+\[
+\boxed{r_1r_2\cos^2\frac\theta2=a^2-c^2=b^2}.\tag{1}
+\]
+\textbf{第 2 步：} 同一个三角形有两种面积写法：
+\[
+S=\frac12r_1r_2\sin\theta
+ =\frac12(2c)|y_P|=c|y_P|.
+\]
+由 $\sin\theta=2\sin(\theta/2)\cos(\theta/2)$，
+\[
+r_1r_2\sin\frac\theta2\cos\frac\theta2=c|y_P|.
+\]
+两边除以式 (1)（非退化时 $\cos(\theta/2)>0$），得
+\[
+\boxed{\tan\frac\theta2=\frac{c|y_P|}{b^2}}.\tag{2}
+\]
+\textbf{第 3 步：} 对式 (1) 使用均值不等式：
+\[
+r_1r_2\le\left(\frac{r_1+r_2}{2}\right)^2=a^2.
+\]
+因此
+\[
+\cos^2\frac\theta2=\frac{b^2}{r_1r_2}\ge\frac{b^2}{a^2},
+\]
+\[
+\sin^2\frac\theta2\le1-\frac{b^2}{a^2}
+=\frac{c^2}{a^2}=e^2.
+\]
+因为 $\sin(\theta/2)>0$，
+\[
+\boxed{\sin\frac\theta2\le e}.
+\]
+等号成立当且仅当 $r_1=r_2=a$；这意味着 $P$ 在
+$F_1F_2$ 的垂直平分线上，故 $x_P=0$；再代入椭圆方程得
+$P=(0,\pm b)$。故
+\[
+\boxed{\theta_{\max}=2\arcsin e}.
+\]
+
+\textbf{方法二：几何法——内切圆、角平分线与切线长（不设坐标求焦半径）}
+
+给焦点三角形作内切圆，设圆心为 $I$，半径为 $\rho$。
+从 $I$ 向边 $PF_1$ 作垂线，垂足为 $T$。
+$PI$ 平分 $\angle F_1PF_2$，因而在直角三角形 $PIT$ 中
+\[
+\tan\frac\theta2=\frac{IT}{PT}=\frac\rho{PT}.\tag{3}
+\]
+三角形的半周长为
+\[
+s=\frac{r_1+r_2+2c}{2}=a+c.
+\]
+利用同一点引圆的两条切线段相等，可知\textbf{顶点 $P$ 的切线段长}
+\[
+PT=\frac{r_1+r_2-2c}{2}=a-c.\tag{4}
+\]
+另一方面，三角形面积既是底乘高的一半，也是内切圆半径乘半周长：
+\[
+S=\frac12(2c)h=ch=\rho s,\qquad h=|y_P|.
+\]
+因此 $\rho=ch/(a+c)$，代入式 (3)、(4)：
+\[
+\tan\frac\theta2
+=\frac{ch/(a+c)}{a-c}
+=\frac{ch}{(a+c)(a-c)}
+=\boxed{\frac{ch}{b^2}}.
+\]
+这是从\textbf{内切圆 + 等切线长 + 面积}直接走到半角正切式的纯几何路线。
+最后，由椭圆几何性质 $0<h\le b$，
+且 $\tan t$ 在 $0<t<90^\circ$ 递增，
+可知 $\theta$ 在 $h=b$ 的两个短轴顶点取得最大值。
+此时 $PF_1=PF_2=a$，等腰三角形的顶角平分线构成直角三角形，
+$\sin(\theta_{\max}/2)=c/a=e$。
+
+\textbf{方法三：直观证明——高度控制视角（先图形，后严格收口）}
+
+固定焦点间距 $2c$，并把 $P$ 看作移动的观察者。
+椭圆定义固定了 $PF_1+PF_2=2a$；点到焦点连线的高度记为 $h$。
+在长轴顶点附近 $h\approx0$，两个焦点在观察者眼中几乎重合，
+$\theta\approx0$；在短轴顶点 $h=b$，视角最张开。
+
+这个图形观察可用方法二得到的\textbf{严格单调关系}封口：
+\[
+\theta=2\arctan\frac{ch}{b^2},\qquad 0<h\le b.
+\]
+因 $c/b^2>0$ 且 $\arctan$ 严格递增，
+\[
+\theta\le2\arctan\frac cb.
+\]
+在 $P=(0,\pm b)$ 时取等号。再由
+$a^2=b^2+c^2$ 和直角三角形，
+\[
+\sin\left(\arctan\frac cb\right)=\frac c{\sqrt{b^2+c^2}}=\frac ca=e.
+\]
+于是 $\sin(\theta/2)\le e$。这也解释了：
+\textbf{最大张角由最大垂直高度控制，而不是由某条焦半径单独控制。}
+
+\textbf{方法四：高考最快法——三行推出最大角}
+
+若只需 $\sin(\theta/2)\le e$ 与等号条件，不必求坐标，也不必求面积：
+\[
+\begin{aligned}
+4c^2
+ &= (r_1+r_2)^2-4r_1r_2\cos^2\frac\theta2\\
+ &=4a^2-4r_1r_2\cos^2\frac\theta2;
+\end{aligned}
+\]
+\[
+\boxed{\cos^2\frac\theta2=\frac{b^2}{r_1r_2}
+\ge\frac{b^2}{a^2}}
+\quad\Longrightarrow\quad
+\boxed{\sin\frac\theta2\le\frac ca=e}.
+\]
+等号 $\Longleftrightarrow r_1=r_2=a
+\Longleftrightarrow P=(0,\pm b)$。
+
+\textbf{补充：解析几何坐标交叉检验（发现正切倒写错误的可靠办法）}
+
+由焦半径公式
+\[
+r_1=a+\frac ca x_P,\qquad
+r_2=a-\frac ca x_P,
+\]
+得到 $r_1r_2=a^2-c^2x_P^2/a^2$，且
+\[
+\tan^2\frac\theta2
+=\frac{r_1r_2-b^2}{b^2}
+=\frac{c^2(a^2-x_P^2)}{a^2b^2}.
+\]
+由椭圆方程 $a^2-x_P^2=a^2y_P^2/b^2$，
+\[
+\tan^2\frac\theta2=\frac{c^2y_P^2}{b^4}.
+\]
+半角在 $(0,90^\circ)$，正切为正，故再次得到
+$\tan(\theta/2)=c|y_P|/b^2$。
 \end{proofbox}

@@ -1,8 +1,50 @@
 \begin{statementbox}
-对于椭圆 $C: \frac{x^2}{a^2} + \frac{y^2}{b^2} = 1$ ($a>b>0$), 设 $P$ 为椭圆上除长轴顶点外的任意一点, 记焦张角 $\angle F_1PF_2 = \theta$. 则该角度与离心率 $e$ 满足以下精确数量关系:
+\textbf{C006\quad 离心率与两焦点角度公式（校正版）}
+
+设椭圆
+\[
+C:\frac{x^2}{a^2}+\frac{y^2}{b^2}=1,
+\qquad a>b>0,\quad c^2=a^2-b^2,\quad e=\frac ca\in(0,1).
+\]
+两焦点为 $F_1(-c,0)$、$F_2(c,0)$。取椭圆上\textbf{非长轴顶点} $P(x_P,y_P)$，令
+\[
+r_1=|PF_1|,\qquad r_2=|PF_2|,\qquad
+\theta=\angle F_1PF_2\in(0,\pi).
+\]
+\textbf{核心结论如下：}
 \begin{enumerate}
-    \item \textbf{万能余弦公式}: $\cos \theta = \frac{r_1^2 + r_2^2 - 4c^2}{2r_1r_2}$, 其中 $r_1, r_2$ 为焦半径;
-    \item \textbf{半角正切公式}: $\tan \frac{\theta}{2} = \frac{b^2}{c y_P}$ (其中 $y_P$ 为点 $P$ 的纵坐标);
-    \item \textbf{离心率不等式关系}: $\sin \frac{\theta}{2} \le e$. 当且仅当 $P$ 为短轴端点时, $\sin \frac{\theta_{max}}{2} = e$.
+  \item \textbf{焦半径和与余弦定理：}
+  \[
+  r_1+r_2=2a,\qquad
+  \boxed{\cos\theta=\frac{r_1^2+r_2^2-4c^2}{2r_1r_2}}.
+  \]
+  \item \textbf{半角恒等式（重点纠错）：}
+  \[
+  \boxed{r_1r_2\cos^2\frac\theta2=b^2},\qquad
+  \boxed{\tan\frac\theta2=\frac{c|y_P|}{b^2}}.
+  \]
+  其中 $|y_P|$ 是 $P$ 到焦点所在直线（长轴）的距离。
+  当 $y_P\ne0$ 时，等价地
+  $\displaystyle\cot\frac\theta2=\frac{b^2}{c|y_P|}$。
+  \textbf{不能将正切与余切颠倒，也不能删去绝对值。}
+  \item \textbf{离心率与最大焦张角：}
+  \[
+  \boxed{\sin\frac\theta2\le e},\qquad
+  \boxed{\theta_{\max}=2\arcsin e}.
+  \]
+  等号\textbf{当且仅当} $P=(0,b)$ 或 $P=(0,-b)$，即两个短轴顶点。
+  \item \textbf{已知角度反推离心率（存在性）：} 对给定
+  $0<\theta_0<\pi$，椭圆上存在非长轴顶点 $P$ 使
+  $\angle F_1PF_2=\theta_0$，\textbf{当且仅当}
+  \[
+  \boxed{\sin\frac{\theta_0}{2}\le e<1}.
+  \]
 \end{enumerate}
+\textbf{边界约定：} 若允许取长轴顶点 $(\pm a,0)$，则两条焦点射线重合，
+可将 $\theta$ 约定为 $0$（退化焦点三角形）。半角正切式按此约定仍成立；
+使用三角形内切圆的证明时须排除该退化情况。
+
+\textbf{方向不变形式：} 若椭圆长轴不与 $x$ 轴重合，把 $|y_P|$
+替换为点 $P$ 到\textbf{焦点连线}的垂直距离 $h$，则
+$\displaystyle\tan(\theta/2)=ch/b^2$，仍然成立。
 \end{statementbox}

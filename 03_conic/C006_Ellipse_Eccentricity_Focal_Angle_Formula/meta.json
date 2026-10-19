@@ -6,17 +6,23 @@
     "alias": [
       "焦点三角形公式",
       "焦张角与离心率",
-      "sin(theta/2)=e"
+      "椭圆最大焦张角",
+      "sin(theta_max/2)=e",
+      "tan(theta/2)=c*h/b^2"
     ],
-    "summary": "离心率与两焦点角度公式，核心关系为 $sin(theta/2) <= e$。",
+    "summary": "椭圆焦点三角形满足 tan(theta/2)=c*h/b^2 和 sin(theta/2)<=e；最大焦张角为 2arcsin(e)，且仅在短轴顶点取得。",
     "difficulty": 3,
     "category": "解析几何",
     "tags": [
       "椭圆",
       "离心率",
+      "焦点三角形",
       "焦张角",
       "最大角",
-      "正弦公式",
+      "半角公式",
+      "余弦定理",
+      "内切圆",
+      "均值不等式",
       "解析几何",
       "三角函数",
       "圆锥曲线"
@@ -27,35 +33,47 @@
       "椭圆",
       "离心率",
       "焦张角",
-      "最大角",
-      "正弦公式",
-      "解析几何",
-      "三角函数",
-      "圆锥曲线"
+      "焦点三角形",
+      "最大焦张角",
+      "短轴顶点",
+      "半角正切",
+      "半角正弦",
+      "内切圆",
+      "角平分线",
+      "余弦定理"
     ],
     "synonyms": [
       "焦点三角形公式",
       "焦张角与离心率",
-      "sin(theta/2)=e"
+      "sin(theta_max/2)=e",
+      "tan(theta/2)=c*h/b^2"
     ],
     "intents": [],
     "query_templates": [
       "椭圆焦张角最大值",
-      "离心率取值范围",
-      "angle F1PF2"
+      "已知焦张角求离心率范围",
+      "半角正切与纵坐标",
+      "angle F1PF2",
+      "椭圆焦点三角形内切圆"
     ],
     "ocrKeywords": [
       "椭圆",
       "离心率",
       "焦张角",
       "最大角",
-      "正弦公式"
+      "正弦公式",
+      "正切公式",
+      "短轴顶点"
     ],
     "latex_patterns": [
-      "sin(theta/2) <= e"
+      "sin(theta/2) <= e",
+      "tan(theta/2) = c*abs(y_P)/b^2",
+      "theta_max = 2*arcsin(e)"
     ],
     "formulaTokens": [
-      "sin(theta/2) <= e"
+      "sin(theta/2) <= e",
+      "tan(theta/2) = c*h/b^2",
+      "sin(theta_max/2) = e"
     ],
     "pinyin": "lixinlvyuliangjiaodianjiaodugongshi",
     "pinyinAbbr": "lxlyljdjdgs"
@@ -74,22 +92,67 @@
   },
   "math": {
     "core_formula": "sin(theta/2) <= e",
-    "related_formulas": [],
-    "variables": [],
-    "conditions": [],
+    "related_formulas": [
+      "r1+r2=2*a",
+      "r1*r2*cos(theta/2)^2=b^2",
+      "tan(theta/2)=c*abs(y_P)/b^2",
+      "theta_max=2*arcsin(e)",
+      "cos(theta)=(r1^2+r2^2-4*c^2)/(2*r1*r2)"
+    ],
+    "variables": [
+      "a: 长半轴，a>b>0",
+      "b: 短半轴，b>0",
+      "c: 半焦距，c^2=a^2-b^2",
+      "e: 离心率，e=c/a，0<e<1",
+      "P=(x_P,y_P): 椭圆上点",
+      "r1=|PF1|, r2=|PF2|",
+      "theta=∠F1PF2: 焦张角",
+      "h: P 到焦点连线的垂直距离，标准横轴椭圆中 h=|y_P|"
+    ],
+    "conditions": [
+      "椭圆 x^2/a^2+y^2/b^2=1 且 a>b>0",
+      "F1=(-c,0), F2=(c,0), c^2=a^2-b^2",
+      "P 在椭圆上；若使用非退化三角形、内切圆证明，排除 P=(±a,0)",
+      "theta∈(0,π)（非长轴顶点）；两长轴顶点可按退化角 theta=0 处理"
+    ],
     "conclusions": [
-      "sin(theta/2) <= e"
+      "sin(theta/2) <= e",
+      "theta_max=2*arcsin(e)",
+      "等号当且仅当 P=(0,±b)",
+      "tan(theta/2)=c*abs(y_P)/b^2",
+      "存在角 theta0∈(0,π) 当且仅当 sin(theta0/2) <= e < 1"
     ]
   },
   "content": {
-    "statement": "离心率与两焦点角度公式，核心关系为 $sin(theta/2) <= e$。",
-    "derivation": [],
-    "intuition": "",
-    "common_tricks": []
+    "statement": "C006 校正版：r1+r2=2a，r1*r2*cos(theta/2)^2=b^2，tan(theta/2)=c*abs(y_P)/b^2，sin(theta/2)<=e；等号恰在两个短轴顶点。",
+    "derivation": [
+      "代数证明：余弦定理与椭圆定义得到 r1*r2*cos(theta/2)^2=b^2；由 AM-GM 得 sin(theta/2)<=e。",
+      "半角推导：三角形面积 S=c*abs(y_P)=r1*r2*sin(theta)/2，结合半角余弦恒等式推出 tan(theta/2)=c*abs(y_P)/b^2。",
+      "几何证明：内切圆半径 rho=S/(a+c)，P 处切线长 a-c，角平分线给 tan(theta/2)=rho/(a-c)=c*h/b^2。",
+      "直观证明：tan(theta/2)=c*h/b^2 严格随高度 h 增长；h<=b，于短轴顶点达到最大。",
+      "高考快解：cos(theta/2)^2=b^2/(r1*r2)>=b^2/a^2，故 sin(theta/2)<=c/a。"
+    ],
+    "intuition": "把 P 看成观察两焦点的观察者。点 P 离焦点连线越高，看到的焦张角越大；短轴端点高度 b 最大，此时三角形等腰且 sin(theta_max/2)=c/a=e。",
+    "common_tricks": [
+      "遇到“存在 P 使焦张角等于 theta0”，直接用 e>=sin(theta0/2)；仅在最大张角题中取等号。",
+      "已知 P 的位置/高度时优先用 tan(theta/2)=c*h/b^2。",
+      "注意原版半角正切写反；b^2/(c*h) 是 cot(theta/2)，不是 tan(theta/2)。",
+      "等号点为两个短轴顶点，非长轴顶点；标准横轴椭圆 h=abs(y_P)。"
+    ]
   },
   "usage": {
-    "scenarios": [],
-    "problem_types": [],
+    "scenarios": [
+      "由焦张角求离心率范围",
+      "由离心率求最大焦张角",
+      "由椭圆上点的高度求焦张角",
+      "焦点三角形面积与内切圆问题"
+    ],
+    "problem_types": [
+      "存在性与离心率范围",
+      "焦张角最值",
+      "坐标反求与三角恒等式",
+      "焦点三角形周长面积综合"
+    ],
     "exam_frequency": 1.0,
     "exam_score": 0
   },
@@ -120,10 +183,10 @@
     "version": 3,
     "source": "旧版元数据结构迁移",
     "created_at": "",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-10-19"
   },
   "isPro": 0,
-  "remarks": "此结论为离心率问题的核心秒杀公式, 尤其在填空选择题中表现卓越.",
+  "remarks": "已核正原稿半角正切倒置错误：tan(theta/2)=c*abs(y_P)/b^2；仅最大焦张角满足 sin(theta_max/2)=e。",
   "knowledgeNode": "解析几何-圆锥曲线-椭圆-离心率与焦点角",
   "altNodes": []
 }
