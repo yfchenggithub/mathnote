@@ -1,11 +1,141 @@
 \begin{proofbox}
-\textbf{利用焦半径公式推导：}
+\textbf{统一记号：}
+\[
+F_1(-c,0),\quad F_2(c,0),\quad
+r_1=PF_1,\quad r_2=PF_2,\quad
+\angle F_1PF_2=\theta.
+\]
+由椭圆定义与焦距公式，
+\[
+r_1+r_2=2a,\qquad F_1F_2=2c,\qquad b^2=a^2-c^2.
+\]
+
+\medskip
+\textbf{证明一：几何投影法（最直观，建议先掌握）。}
+
 \begin{enumerate}
-    \item 在 $\triangle F_1PF_2$ 中，设 $|PF_1|=r_1, |PF_2|=r_2$。由定义知 $r_1+r_2=2a$，底边 $|F_1F_2|=2c$。
-    \item 由余弦定理：$\cos\theta = \frac{r_1^2 + r_2^2 - (2c)^2}{2r_1r_2} = \frac{(r_1+r_2)^2 - 2r_1r_2 - 4c^2}{2r_1r_2} = \frac{4a^2 - 4c^2 - 2r_1r_2}{2r_1r_2} = \frac{2b^2}{r_1r_2} - 1$。
-    \item 由半角公式：$\sin^2 \frac{\theta}{2} = \frac{1-\cos\theta}{2} = 1 - \frac{b^2}{r_1r_2}$。
-    \item 由均值不等式：$r_1r_2 \le (\frac{r_1+r_2}{2})^2 = a^2$，等号在 $r_1=r_2=a$（即短轴端点）时成立。
-    \item 故 $\sin^2 \frac{\theta}{2} \le 1 - \frac{b^2}{a^2} = \frac{c^2}{a^2} = e^2$。
-    \item 开方得 $\sin \frac{\theta}{2} \le e$。
+    \item 作 $\angle F_1PF_2$ 的内部角平分线 $\ell$，取一个与 $\ell$ 垂直的方向。
+    \item 因为 $PF_1,PF_2$ 分居角平分线两侧，所以它们在该垂直方向上的投影方向相反，投影长度分别为
+    $r_1\sin(\theta/2)$、$r_2\sin(\theta/2)$。
+    \item 因此，焦点连线 $F_1F_2$ 在该方向的投影长度为
+    \[
+    r_1\sin\frac\theta2+r_2\sin\frac\theta2
+    =(r_1+r_2)\sin\frac\theta2
+    =2a\sin\frac\theta2.
+    \]
+    \item 任何线段在任意方向上的投影长度都不大于原线段长度，故
+    \[
+    2a\sin\frac\theta2\le F_1F_2=2c
+    \quad\Longrightarrow\quad
+    \boxed{\sin\frac\theta2\le\frac ca=e.}
+    \]
+    \item 等号成立当且仅当 $F_1F_2\perp\ell$。
+    此时两焦点在角平分线方向上的投影相同，即
+    $r_1\cos(\theta/2)=r_2\cos(\theta/2)$。
+    由于 $0\le\theta<\pi$，故 $r_1=r_2$，从而 $x_P=0$、$P=(0,\pm b)$。
 \end{enumerate}
+
+\medskip
+\textbf{证明二：余弦定理 $+$ 基本不等式（保留原证明并补足细节）。}
+
+在焦点三角形中，由余弦定理
+\begin{align*}
+\cos\theta
+&=\frac{r_1^2+r_2^2-(2c)^2}{2r_1r_2}\\
+&=\frac{(r_1+r_2)^2-2r_1r_2-4c^2}{2r_1r_2}\\
+&=\frac{4(a^2-c^2)-2r_1r_2}{2r_1r_2}
+=\frac{2b^2}{r_1r_2}-1.
+\end{align*}
+再利用半角公式，
+\[
+\sin^2\frac\theta2
+=\frac{1-\cos\theta}{2}
+=1-\frac{b^2}{r_1r_2}.
+\]
+由 $r_1+r_2=2a$ 及基本不等式，
+\[
+r_1r_2\le\left(\frac{r_1+r_2}{2}\right)^2=a^2,
+\]
+所以
+\[
+\sin^2\frac\theta2
+=1-\frac{b^2}{r_1r_2}
+\le1-\frac{b^2}{a^2}
+=\frac{c^2}{a^2}=e^2.
+\]
+因 $\sin(\theta/2)\ge0$、$e>0$，开方得
+\[
+\boxed{\sin\frac\theta2\le e.}
+\]
+等号成立当且仅当 $r_1=r_2=a$，也就是 $P=(0,\pm b)$。
+
+\medskip
+\textbf{证明三：余弦定理的半角分解（直接看出“差多少”）。}
+
+从余弦定理出发，但不急着使用基本不等式：
+\begin{align*}
+(2c)^2
+&=r_1^2+r_2^2-2r_1r_2\cos\theta\\
+&=(r_1-r_2)^2+4r_1r_2\sin^2\frac\theta2\\
+&=(r_1-r_2)^2\cos^2\frac\theta2
+ +(r_1+r_2)^2\sin^2\frac\theta2\\
+&=(r_1-r_2)^2\cos^2\frac\theta2
+ +4a^2\sin^2\frac\theta2.
+\end{align*}
+于是得到\textbf{精确恒等式}
+\[
+\boxed{
+ e^2-\sin^2\frac\theta2
+ =\frac{(r_1-r_2)^2}{4a^2}\cos^2\frac\theta2\ge0.
+}
+\]
+右侧非负，立即得证。它还说明：
+\emph{在两焦半径不相等时，非零的“长度差”占用了焦距的一部分，角度就达不到最大值。}
+等号只能在 $r_1=r_2$ 时成立。
+
+\medskip
+\textbf{证明四：焦半径公式 $+$ 坐标单调性（适合解析几何计算）。}
+
+令 $P=(x,y)$。椭圆的焦半径公式为
+\[
+r_1=a+ex,\qquad r_2=a-ex.
+\]
+因此
+\[
+r_1r_2=a^2-e^2x^2.
+\]
+代入证明二中的半角表达式，得到
+\[
+\boxed{
+\sin^2\frac\theta2
+=1-\frac{b^2}{a^2-e^2x^2}.
+}
+\]
+椭圆上 $|x|\le a$，分母满足
+$ a^2-e^2x^2\ge a^2-c^2=b^2>0$。
+随着 $|x|$ 增大，分母减小，分数 $b^2/(a^2-e^2x^2)$ 增大，
+故 $\sin^2(\theta/2)$ 减小。
+于是当且仅当 $x=0$ 时取最大值：
+\[
+\sin^2\frac{\theta_{\max}}2
+=1-\frac{b^2}{a^2}=e^2.
+\]
+从而 $\theta_{\max}=2\arcsin e$，对应 $P=(0,\pm b)$。
+反过来，$x=\pm a$ 时上式等于 $0$，故长轴端点的张角为 $0$。
+
+\medskip
+\textbf{结论的“当且仅当”为什么成立？}
+
+已经证明每一点的 $\theta\le\theta_{\max}=2\arcsin e$。
+沿椭圆的第一象限弧，从 $(a,0)$ 连续移动到 $(0,b)$，
+张角连续地由 $0$ 变为 $\theta_{\max}$。
+由连续性，每个 $0\le\theta_0\le\theta_{\max}$ 都能取到。
+因此对 $0\le\theta_0<\pi$，
+\[
+\exists P:\ \angle F_1PF_2\ge\theta_0
+\quad\Longleftrightarrow\quad
+\theta_{\max}\ge\theta_0
+\quad\Longleftrightarrow\quad
+ e\ge\sin\frac{\theta_0}{2}.
+\]
 \end{proofbox}

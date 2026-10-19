@@ -1,7 +1,53 @@
 \begin{trapbox}
-\begin{itemize}
-    \item \textbf{函数单调性}：注意 $\sin \frac{\theta}{2}$ 在 $(0, \pi)$ 上是单调增函数，因此角度越大，正弦值越大，与 $e$ 的关系是正相关的。
-    \item \textbf{双曲线区别}：双曲线的结论是 $\cos \frac{\theta}{2} \le \frac{1}{e}$，且最大角出现在顶点处，不要混淆。
-    \item \textbf{边界开闭}：若题目要求"存在钝角"，则 $\theta > 90^\circ$，应取 $e > \frac{\sqrt{2}}{2}$ 而非 $\ge$。
-\end{itemize}
+\begin{enumerate}
+    \item \textbf{把最大张角误写成 $2\arcsin(b/a)$。}
+    短轴端点的半角直角三角形中，对边是 $c$，斜边是 $a$，因此
+    \[
+    \sin\frac{\theta_{\max}}2=\frac ca=e,
+    \]
+    而不是 $b/a$。$b/a$ 对应的是该直角三角形的另一个锐角的正弦。
+
+    \item \textbf{误以为“任意点都取等”。}
+    $\sin(\theta/2)\le e$ 对所有椭圆上的点成立，但只有
+    $P=(0,\pm b)$ 取等号；长轴端点 $P=(\pm a,0)$ 反而有 $\theta=0$。
+
+    \item \textbf{忽略三角函数的单调区间。}
+    因为椭圆的两个焦点不同，且 $P$ 在椭圆边界，
+    $0\le\theta<\pi$，所以 $0\le\theta/2<\pi/2$。
+    $\sin(\theta/2)$ 在这个范围内严格随 $\theta$ 增大，
+    才能把半角不等式转成 $\theta\le2\arcsin e$。
+
+    \item \textbf{基本不等式的方向弄反。}
+    和固定时 $r_1r_2\le a^2$，因此
+    \[
+    \frac{b^2}{r_1r_2}\ge\frac{b^2}{a^2},
+    \quad
+    1-\frac{b^2}{r_1r_2}\le1-\frac{b^2}{a^2}.
+    \]
+    分母越大，分数越小；前面还有减号，方向需要特别检查。
+
+    \item \textbf{“存在直角”与“存在钝角”的边界混淆。}
+    \[
+    \begin{array}{ll}
+    \text{存在直角：}&e\ge\sqrt2/2,\\
+    \text{存在钝角：}&e>\sqrt2/2,\\
+    \text{所有点的焦点张角都不大于直角：}&e\le\sqrt2/2.
+    \end{array}
+    \]
+    注意：存在性的条件不能随意改写成“每一个点都满足”。
+
+    \item \textbf{漏掉椭圆离心率本身的范围。}
+    标准非圆椭圆要求 $0<e<1$。例如 $e\ge\sqrt3/2$
+    的最终范围应是 $[\sqrt3/2,1)$，右端的 $1$ 不能取。
+
+    \item \textbf{直接照搬到双曲线。}
+    原文件写“对双曲线有 $\cos(\theta/2)\le1/e$”，
+    这\textbf{不是普遍正确的不等式}，应删除。
+    例如双曲线右支上 $P$ 沿曲线向无穷远移动时，
+    两条指向焦点的视线越来越接近，$\theta\to0$，于是
+    $\cos(\theta/2)\to1$；然而双曲线 $e>1$，所以 $1/e<1$，
+    上述所谓不等式会被违反。
+    椭圆的关键前提是 $PF_1+PF_2=2a$；
+    双曲线使用的是焦半径\emph{差}的绝对值等于 $2a$，不能套同一证明。
+\end{enumerate}
 \end{trapbox}

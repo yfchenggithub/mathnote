@@ -1,13 +1,105 @@
 \begin{examplebox}
-\textbf{例题 1}：若椭圆上存在点 $P$ 满足 $\angle F_1PF_2 = 120^\circ$，求椭圆离心率 $e$ 的取值范围。
-\textit{解析}：
-1. 根据结论，存在性条件为 $\sin \frac{\theta_{max}}{2} \ge \sin \frac{120^\circ}{2}$。
-2. 即 $e \ge \sin 60^\circ = \frac{\sqrt{3}}{2}$。
-3. 结合椭圆定义，得 $e \in [\frac{\sqrt{3}}{2}, 1)$。
+\textbf{例 1（由存在的角度反求离心率）}\quad
+椭圆上存在点 $P$ 满足 $\angle F_1PF_2=120^\circ$，求 $e$ 的范围。
 
-\textbf{例题 2}：已知椭圆的离心率 $e = \frac{1}{2}$，求焦张角 $\theta$ 的最大值。
-\textit{解析}：
-1. 由 $\sin \frac{\theta_{max}}{2} = e = \frac{1}{2}$。
-2. 得 $\frac{\theta_{max}}{2} = 30^\circ$。
-3. 故 $\theta_{max} = 60^\circ$。
+\textbf{解：}存在这样的点，当且仅当最大张角不少于 $120^\circ$：
+\[
+e\ge\sin\frac{120^\circ}{2}
+=\sin60^\circ=\frac{\sqrt3}{2}.
+\]
+结合椭圆 $0<e<1$，得
+\[
+\boxed{e\in\left[\frac{\sqrt3}{2},1\right).}
+\]
+\textbf{点拨：}“存在”允许在短轴端点取到等号，所以下界要包含。
+
+\medskip
+\textbf{例 2（由离心率求最大张角）}\quad
+已知椭圆离心率 $e=\frac12$，求 $\theta$ 的最大值。
+
+\textbf{解：}
+\[
+\sin\frac{\theta_{\max}}2=\frac12
+\quad\Longrightarrow\quad
+\frac{\theta_{\max}}2=30^\circ
+\quad\Longrightarrow\quad
+\boxed{\theta_{\max}=60^\circ.}
+\]
+\textbf{点拨：}在短轴端点才能取到最大值。
+
+\medskip
+\textbf{例 3（结合具体椭圆验证“短轴最大”）}\quad
+设 $\frac{x^2}{25}+\frac{y^2}{16}=1$，比较短轴端点与点
+$P=(3,\frac{16}{5})$ 的焦点张角。
+
+\textbf{解：}这里 $a=5,b=4,c=3,e=\frac35$。
+短轴端点的张角满足
+\[
+\sin\frac{\theta_{\max}}2=\frac35.
+\]
+对于 $P=(3,\frac{16}{5})$，它确实在椭圆上，且
+\[
+r_1=a+ex=5+\frac35\cdot3=\frac{34}{5},
+\qquad
+r_2=a-ex=\frac{16}{5}.
+\]
+所以
+\[
+\sin^2\frac\theta2
+=1-\frac{16}{(34/5)(16/5)}
+=\frac9{34},
+\qquad
+\sin\frac\theta2=\frac3{\sqrt{34}}<\frac35.
+\]
+故该点的张角严格小于短轴端点的最大张角。
+\textbf{点拨：}离开 $x=0$ 后，两焦半径一长一短，张角会变小。
+
+\medskip
+\textbf{例 4（直角、钝角的存在性，一题两问）}\quad
+分别求椭圆上存在焦点张角为直角、存在焦点张角为钝角时 $e$ 的条件。
+
+\textbf{解：}
+\begin{enumerate}
+    \item \textbf{存在直角：}
+    $\theta_{\max}\ge90^\circ$，因此
+    \[
+    \boxed{e\ge\sin45^\circ=\frac{\sqrt2}{2}.}
+    \]
+    \item \textbf{存在钝角：}
+    $\theta_{\max}>90^\circ$，因此
+    \[
+    \boxed{e>\frac{\sqrt2}{2}.}
+    \]
+\end{enumerate}
+两题均还要满足 $e<1$。
+\textbf{点拨：}“直角”可取边界，“钝角”必须严格超过边界。
+
+\medskip
+\textbf{例 5（变式：固定角度反求动点坐标）}\quad
+在椭圆 $\frac{x^2}{25}+\frac{y^2}{9}=1$ 上，求满足
+$\angle F_1PF_2=60^\circ$ 的所有点 $P$。
+
+\textbf{解：}由 $a=5,b=3,c=4,e=\frac45$ 及焦半径形式，
+\[
+\sin^2\frac\theta2
+=1-\frac{b^2}{a^2-e^2x^2}.
+\]
+代入 $\sin^230^\circ=\frac14$，有
+\[
+\frac14=1-\frac{9}{25-\frac{16}{25}x^2}
+\quad\Longrightarrow\quad
+25-\frac{16}{25}x^2=12
+\quad\Longrightarrow\quad
+x^2=\frac{325}{16}.
+\]
+再代入椭圆方程，
+\[
+y^2=9\left(1-\frac{x^2}{25}\right)=\frac{27}{16}.
+\]
+所以共有四个点：
+\[
+\boxed{P=\left(\pm\frac{5\sqrt{13}}4,\ \pm\frac{3\sqrt3}4\right),}
+\]
+两个正负号可以独立选取。
+\textbf{点拨：}本例展示了“不等式判断存在性”之后，还能用焦半径公式精确定位动点。
 \end{examplebox}
