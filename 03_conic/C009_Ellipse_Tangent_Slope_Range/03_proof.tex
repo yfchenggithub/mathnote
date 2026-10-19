@@ -1,11 +1,116 @@
 \begin{proofbox}
-\textbf{利用切线判定式推导}:
-\begin{enumerate}
-    \item 设过点 $M(x_0, y_0)$ 的切线方程为 $y - y_0 = k(x - x_0)$, 即 $y = kx + (y_0 - kx_0)$.
-    \item 根据椭圆切线判定公式 (C07), 直线与椭圆相切需满足 $m^2 = a^2k^2 + b^2$.
-    \item 将 $m = y_0 - kx_0$ 代入得: $(y_0 - kx_0)^2 = a^2k^2 + b^2$.
-    \item 展开方程: $y_0^2 - 2x_0y_0k + x_0^2k^2 = a^2k^2 + b^2$.
-    \item 移项并整理为关于 $k$ 的二次方程: $(x_0^2 - a^2)k^2 - 2x_0y_0k + (y_0^2 - b^2) = 0$.
-    \item 该方程的解即为过点 $M$ 的切线斜率.
-\end{enumerate}
+\textbf{证明一：最快证明（首选，三步，直接调用切线判定式）。}
+
+设经过 $M(x_0,y_0)$ 的\textbf{非竖直}切线为 $y=kx+m$。
+\begin{align*}
+&\text{经过 }M:\quad m=y_0-kx_0;\\
+&\text{与椭圆相切}:\quad m^2=a^2k^2+b^2;\\
+&\text{直接代入}:\quad (y_0-kx_0)^2=a^2k^2+b^2.
+\end{align*}
+展开后即
+\[
+\boxed{(a^2-x_0^2)k^2+2x_0y_0k+b^2-y_0^2=0.}
+\]
+\textbf{速度秘诀：}把“$m=y_0-kx_0$”塞进“$m^2=a^2k^2+b^2$”，不必重新联立椭圆。
+
+\medskip
+\textbf{证明二：纯代数通法（联立直线与椭圆，判别式为零）。}
+
+将 $y=kx+m$ 代入 $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$，两边乘 $a^2b^2$：
+\[
+(b^2+a^2k^2)x^2+2a^2kmx+a^2(m^2-b^2)=0.
+\]
+交点横坐标只有一个实根，当且仅当
+\begin{align*}
+\Delta_x
+&=(2a^2km)^2-4(b^2+a^2k^2)a^2(m^2-b^2)\\
+&=4a^2b^2(a^2k^2+b^2-m^2)=0.
+\end{align*}
+因 $a,b>0$，故 $m^2=a^2k^2+b^2$；再代入 $m=y_0-kx_0$，即得 (C009-1)。此证明不预设 C007，属于可独立使用的通法。
+
+\medskip
+\textbf{证明三：设切点法（几何与代数结合，也能直接找到切点）。}
+
+设切点为 $T(u,v)$，椭圆在 $T$ 处的切线为
+\[
+\frac{ux}{a^2}+\frac{vy}{b^2}=1.
+\]
+若该切线非竖直，则 $v\ne0$。化成斜截式：
+\[
+y=-\frac{b^2u}{a^2v}x+\frac{b^2}{v}=kx+m.
+\]
+所以 $u=-\frac{a^2k}{m},\ v=\frac{b^2}{m}$（这里 $m\ne0$，因为切线不经过椭圆中心）。
+把切点代入椭圆：
+\[
+1=\frac{u^2}{a^2}+\frac{v^2}{b^2}
+=\frac{a^2k^2+b^2}{m^2}
+\Longrightarrow m^2=a^2k^2+b^2.
+\]
+又因切线经过 $M$，有 $m=y_0-kx_0$，故得到 (C009-1)。
+\textbf{顺便得到切点坐标：}
+\[
+\boxed{T\left(-\frac{a^2k}{m},\frac{b^2}{m}\right),\quad m=y_0-kx_0.}
+\]
+
+\medskip
+\textbf{证明四：三角参数与柯西不等式（最直观的数形结合）。}
+
+取椭圆动点 $P(a\cos t,b\sin t)$。固定 $k$，令
+\[
+F(t)=y-kx=b\sin t-ak\cos t.
+\]
+由柯西不等式或辅助角公式，
+\[
+|F(t)|\le\sqrt{(-ak)^2+b^2}\sqrt{\cos^2t+\sin^2t}
+=\sqrt{a^2k^2+b^2}.
+\]
+两个端点值均能取到。直线 $y-kx=m$ 要与椭圆恰好相切，必须且只需
+\[
+m=\pm\sqrt{a^2k^2+b^2}.
+\]
+故任意 $k\in\mathbb R$ 都对应两条平行切线，且把 $m=y_0-kx_0$ 代入又得到 (C009-1)。
+
+\medskip
+\textbf{证明五：化椭圆为圆（几何证明切线存在的条数）。}
+
+作可逆线性变换
+\[
+U=\frac{x}{a},\qquad V=\frac{y}{b}.
+\]
+椭圆变成 $U^2+V^2=1$，$M$ 变成 $M'=(x_0/a,y_0/b)$。可逆线性变换将切线一一映成切线，因此
+\[
+\begin{array}{c|c|c}
+OM'^2<1 & OM'^2=1 & OM'^2>1\\ \hline
+0\text{ 条} &1\text{ 条}&2\text{ 条}
+\end{array}
+\]
+分别对应椭圆内、椭圆上、椭圆外。注意上述判定计数的是\textbf{切线条数}，并非实数斜率的个数。
+
+\medskip
+\textbf{证明六：判别式与韦达定理（最快判断两个有限斜率）。}
+
+记 $S=\frac{x_0^2}{a^2}+\frac{y_0^2}{b^2}$。对 (C009-1)，
+\begin{align*}
+\Delta_k
+&=(2x_0y_0)^2-4(a^2-x_0^2)(b^2-y_0^2)\\
+&=4(a^2y_0^2+b^2x_0^2-a^2b^2)\\
+&=\boxed{4a^2b^2(S-1)}.
+\end{align*}
+当 $a^2-x_0^2\ne0$ 时，$\Delta_k$ 的正、零、负分别对应两个、一个、零个\textbf{实数斜率}；两个不同实根时，
+\[
+k_1+k_2=-\frac{2x_0y_0}{a^2-x_0^2},\qquad
+k_1k_2=\frac{b^2-y_0^2}{a^2-x_0^2}.
+\]
+若 $x_0=\pm a$，须改用竖直切线 $x=x_0$ 单独补齐。$y_0\ne0$ 时另一条斜切线由 $2x_0y_0k+b^2-y_0^2=0$ 给出；$y_0=0$ 时唯一切线是 $x=x_0$。
+
+\medskip
+\textbf{补充：椭圆上某点的切线斜率为什么唯一？}
+
+设 $P(x_0,y_0)$ 在椭圆上。隐函数求导可得
+\[
+\frac{2x}{a^2}+\frac{2y}{b^2}y'=0
+\quad\Longrightarrow\quad
+\boxed{k=-\frac{b^2x_0}{a^2y_0}}\qquad(y_0\ne0).
+\]
+它与 (C009-1) 的重根 $k=-\frac{x_0y_0}{a^2-x_0^2}$ 一致。若 $y_0=0$，则 $P=(\pm a,0)$，唯一切线竖直，没有有限斜率。
 \end{proofbox}
