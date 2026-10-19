@@ -1,15 +1,77 @@
 \begin{examplebox}
-\textbf{例题 1}: 求斜率为 $1$ 且与椭圆 $\frac{x^2}{4} + y^2 = 1$ 相切的直线方程.
-\textit{解析}: 
-1. 由题意知 $a^2=4, b^2=1, k=1$.
-2. 由判定公式 $m^2 = a^2k^2 + b^2 = 4(1)^2 + 1 = 5$.
-3. 故 $m = \pm \sqrt{5}$.
-4. 所求切线方程为 $y = x + \sqrt{5}$ 或 $y = x - \sqrt{5}$.
+\textbf{例1｜已知斜率直接写切线（入门秒解）}\par
+求斜率为 $1$ 且与椭圆 $\frac{x^2}{4}+y^2=1$ 相切的直线。\par
+\textbf{解}：$a^2=4,\ b^2=1,\ k=1$，所以
+\[
+m^2=4\cdot1^2+1=5,\qquad m=\pm\sqrt5.
+\]
+所求为
+\[
+\boxed{y=x+\sqrt5\quad\text{或}\quad y=x-\sqrt5.}
+\]
+\textbf{加深一步}：对 $m=\sqrt5$，切点为 $T(-4/\sqrt5,1/\sqrt5)$；另一条切线的切点是它关于原点的对称点。
 
-\textbf{例题 2}: 过点 $M(3, 0)$ 引椭圆 $x^2 + 2y^2 = 2$ 的切线, 求切线斜率.
-\textit{解析}:
-1. 椭圆标准方程为 $\frac{x^2}{2} + y^2 = 1$, 则 $a^2=2, b^2=1$.
-2. 设切线方程为 $y = k(x-3)$, 即 $y = kx - 3k$, 则 $m = -3k$.
-3. 代入公式 $(-3k)^2 = 2k^2 + 1 \implies 9k^2 = 2k^2 + 1$.
-4. $7k^2 = 1 \implies k = \pm \frac{\sqrt{7}}{7}$.
+\medskip
+\textbf{例2｜过椭圆外定点引切线（保留原题并补全）}\par
+过 $M(3,0)$ 引椭圆 $x^2+2y^2=2$ 的切线，求切线方程与切点。\par
+\textbf{解}：椭圆化为 $\frac{x^2}{2}+y^2=1$，即 $a^2=2,b^2=1$。先设斜率存在的切线
+\[
+y=k(x-3)=kx-3k,
+\]
+故 $m=-3k$，代入相切条件：
+\[
+9k^2=2k^2+1\quad\Longrightarrow\quad
+7k^2=1\quad\Longrightarrow\quad k=\pm\frac1{\sqrt7}.
+\]
+所以
+\[
+\boxed{y=\frac{x-3}{\sqrt7}\quad\text{或}\quad
+       y=-\frac{x-3}{\sqrt7}.}
+\]
+对应切点分别是
+\[
+\boxed{\left(\frac23,-\frac{\sqrt7}{3}\right),\quad
+       \left(\frac23,\frac{\sqrt7}{3}\right).}
+\]
+由于竖直切线仅为 $x=\pm\sqrt2$，均不经过 $M(3,0)$，故没有遗漏。
+
+\medskip
+\textbf{例3｜不求交点，直接判断位置关系}\par
+对椭圆 $\frac{x^2}{9}+\frac{y^2}{4}=1$，判断斜率均为 $\frac12$、截距分别为 $2,\frac52,3$ 的三条直线与椭圆的位置关系。\par
+\textbf{解}：临界值
+\[
+S=a^2k^2+b^2=9\cdot\frac14+4=\frac{25}{4}.
+\]
+\begin{itemize}
+    \item $m=2$：$m^2=4<25/4$，\textbf{相交（两个交点）}；
+    \item $m=5/2$：$m^2=25/4$，\textbf{相切}；
+    \item $m=3$：$m^2=9>25/4$，\textbf{相离}。
+\end{itemize}
+\textbf{识别信号}：同一斜率、不同截距，本质是平行移动直线，无需分别联立。
+
+\medskip
+\textbf{例4｜过定点，两条切线斜率不同}\par
+过 $P(1,2)$ 作椭圆 $\frac{x^2}{9}+\frac{y^2}{4}=1$ 的切线。\par
+\textbf{解}：设 $y-2=k(x-1)$，则 $m=2-k$。由
+\[
+(2-k)^2=9k^2+4
+\]
+得到 $-4k=8k^2$，即 $k=0$ 或 $k=-\frac12$。故
+\[
+\boxed{y=2\quad\text{或}\quad y=-\frac12x+\frac52.}
+\]
+竖直切线为 $x=\pm3$，不经过 $P$，所以答案完整。
+
+\medskip
+\textbf{例5｜通式妙用：竖直切线也能一次判断}\par
+对椭圆 $\frac{x^2}{9}+\frac{y^2}{4}=1$，判断 $2x+y=2\sqrt{10}$ 是否相切，并求切点。\par
+\textbf{解}：将直线写成 $2x+y-2\sqrt{10}=0$，有 $A=2,B=1,C=-2\sqrt{10}$，于是
+\[
+C^2=40=9\cdot2^2+4\cdot1^2,
+\]
+故相切。改写为 $y=-2x+2\sqrt{10}$，利用切点公式得
+\[
+\boxed{T\left(\frac{9\sqrt{10}}{10},\frac{\sqrt{10}}5\right).}
+\]
+同理，对于 $x=3$，取 $A=1,B=0,C=-3$，也有 $C^2=9=a^2A^2+b^2B^2$，它是一条\textbf{竖直切线}。
 \end{examplebox}

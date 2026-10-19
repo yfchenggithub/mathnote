@@ -1,13 +1,142 @@
 \begin{proofbox}
-\textbf{利用判别式法推导}:
-\begin{enumerate}
-    \item 联立直线 $y = kx + m$ 与椭圆 $b^2x^2 + a^2y^2 = a^2b^2$.
-    \item 代入得: $b^2x^2 + a^2(kx + m)^2 = a^2b^2$.
-    \item 展开整理为关于 $x$ 的一元二次方程: $(b^2 + a^2k^2)x^2 + 2a^2kmx + a^2(m^2 - b^2) = 0$.
-    \item 直线与椭圆相切 $\iff \Delta = 0$.
-    \item $\Delta = (2a^2km)^2 - 4(b^2 + a^2k^2) \cdot a^2(m^2 - b^2) = 0$.
-    \item 化简得: $4a^4k^2m^2 - 4a^2(b^2m^2 - b^4 + a^2k^2m^2 - a^2k^2b^2) = 0$.
-    \item 进一步消项得: $b^2m^2 = b^4 + a^2k^2b^2$.
-    \item 同时除以 $b^2$, 最终得证: $m^2 = a^2k^2 + b^2$.
-\end{enumerate}
+\textbf{方法一｜纯代数：联立方程与判别式（严格充要证明）}\par
+直线 $y=kx+m$ 代入椭圆 $b^2x^2+a^2y^2=a^2b^2$，整理为
+\[
+(b^2+a^2k^2)x^2+2a^2kmx+a^2(m^2-b^2)=0.
+\]
+由于首项系数 $b^2+a^2k^2>0$，它始终是真正的一元二次方程。其判别式为
+\[
+\begin{aligned}
+\Delta
+&=(2a^2km)^2-4(b^2+a^2k^2)a^2(m^2-b^2)\\
+&=4a^2\Big[a^2k^2m^2-(b^2+a^2k^2)(m^2-b^2)\Big]\\
+&=\boxed{4a^2b^2(a^2k^2+b^2-m^2)}.
+\end{aligned}
+\]
+因为 $4a^2b^2>0$，故
+\[
+\begin{aligned}
+\Delta=0&\iff m^2=a^2k^2+b^2 &&(\text{相切}),\\
+\Delta>0&\iff m^2<a^2k^2+b^2 &&(\text{两交点}),\\
+\Delta<0&\iff m^2>a^2k^2+b^2 &&(\text{无交点}).
+\end{aligned}
+\]
+这同时证明了\textbf{公式的充分性与必要性}以及全部位置关系。
+
+\medskip
+\textbf{方法二｜纯几何：椭圆伸缩成单位圆（最容易想象）}\par
+作可逆伸缩变换 $x=aX,\ y=bY$。椭圆变成单位圆
+\[
+X^2+Y^2=1,
+\]
+直线变成
+\[
+-akX+bY-m=0.
+\]
+可逆的一一对应变换不会改变交点的个数，所以原直线与椭圆相切，当且仅当新直线与单位圆相切。单位圆的圆心为 $O(0,0)$，半径为 $1$。由点到直线距离公式，
+\[
+d(O,l')=\frac{|m|}{\sqrt{(-ak)^2+b^2}}.
+\]
+因此
+\[
+\text{相切}\iff d(O,l')=1
+\iff |m|=\sqrt{a^2k^2+b^2}
+\iff \boxed{m^2=a^2k^2+b^2}.
+\]
+同理，距离小于 $1$ 为相交，大于 $1$ 为相离。此证明不需要解一元二次方程。
+
+\medskip
+\textbf{方法三｜数形结合：参数方程＋辅助角公式}\par
+令椭圆上动点 $P(a\cos\theta,b\sin\theta)$，$0\le\theta<2\pi$。点 $P$ 在直线 $y=kx+m$ 上，当且仅当
+\[
+m=-ak\cos\theta+b\sin\theta.
+\]
+令 $R=\sqrt{a^2k^2+b^2}>0$。可取角 $\varphi$ 满足
+\[
+\cos\varphi=\frac{b}{R},\qquad
+\sin\varphi=\frac{-ak}{R},
+\]
+于是
+\[
+m=R\sin(\theta+\varphi).
+\]
+因为 $\sin(\theta+\varphi)$ 的值域是 $[-1,1]$，所以：
+\begin{itemize}
+    \item $|m|<R$：一周内有两个不同的 $\theta$，对应两个交点；
+    \item $|m|=R$：一周内仅有一个 $\theta$，对应唯一交点，即相切；
+    \item $|m|>R$：不存在交点。
+\end{itemize}
+所以 $\boxed{m^2=R^2=a^2k^2+b^2}$。\textbf{直观意义}：相切就是 $y-kx$ 取到最大值或最小值。
+
+\medskip
+\textbf{方法四｜从切点反推：椭圆切线方程法}\par
+设有限斜率切线在 $T(x_0,y_0)$ 处与椭圆相切，则 $y_0\ne0$，且
+\[
+\frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1,
+\qquad
+\frac{x_0^2}{a^2}+\frac{y_0^2}{b^2}=1.
+\]
+把切线方程整理成斜截式，得到
+\[
+k=-\frac{b^2x_0}{a^2y_0},\qquad m=\frac{b^2}{y_0}.
+\]
+于是
+\[
+\begin{aligned}
+m^2-a^2k^2
+&=\frac{b^4}{y_0^2}\left(1-\frac{x_0^2}{a^2}\right)\\
+&=\frac{b^4}{y_0^2}\cdot\frac{y_0^2}{b^2}
+=\boxed{b^2}.
+\end{aligned}
+\]
+即 $m^2=a^2k^2+b^2$。这先证明必要性；反过来，若该等式成立，设
+\[
+T\left(-\frac{a^2k}{m},\frac{b^2}{m}\right),
+\]
+则 $m\ne0$，而且
+\[
+\frac{x_T^2}{a^2}+\frac{y_T^2}{b^2}
+=\frac{a^2k^2+b^2}{m^2}=1.
+\]
+在 $T$ 处的切线
+\[
+\frac{x_Tx}{a^2}+\frac{y_Ty}{b^2}=1
+\]
+化为 $-kx+y=m$，正是原直线。故充分性也成立，并且顺便求出了\textbf{切点坐标}。
+
+\medskip
+\textbf{方法五｜最短推导：向量投影／柯西不等式}\par
+椭圆上的点满足
+\[
+\left(\frac xa\right)^2+\left(\frac yb\right)^2=1.
+\]
+由柯西不等式，
+\[
+\begin{aligned}
+(y-kx)^2
+&=\left[(-ak)\frac xa+b\frac yb\right]^2\\
+&\le\big[(ak)^2+b^2\big]
+\left[\left(\frac xa\right)^2+\left(\frac yb\right)^2\right]\\
+&=a^2k^2+b^2.
+\end{aligned}
+\]
+等号当且仅当单位向量 $(x/a,y/b)$ 与向量 $(-ak,b)$ 同向或反向。此时 $y-kx$ 恰好取到两端极值 $\pm\sqrt{a^2k^2+b^2}$，每个极值对应唯一切点。
+因此
+\[
+\boxed{\text{相切}\iff m^2=a^2k^2+b^2.}
+\]
+\textbf{记忆核心}：$y-kx$ 是向量 $(-ak,b)$ 在单位圆上的投影，最大绝对值就是这个向量的长度。
+
+\medskip
+\textbf{拓展｜一次解决所有直线形式}\par
+对 $Ax+By+C=0$，$A,B$ 不同时为零，作同样伸缩 $x=aX,\ y=bY$，得到
+\[
+aAX+bBY+C=0.
+\]
+该直线与单位圆相切，当且仅当
+\[
+\frac{|C|}{\sqrt{a^2A^2+b^2B^2}}=1
+\iff\boxed{C^2=a^2A^2+b^2B^2}.
+\]
+这个公式\textbf{不用区分斜率是否存在}。取 $A=-k,B=1,C=-m$ 就恢复斜率式；取 $B=0$ 就得到竖直切线 $x=\pm a$。
 \end{proofbox}
