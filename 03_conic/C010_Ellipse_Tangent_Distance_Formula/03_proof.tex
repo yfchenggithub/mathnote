@@ -1,23 +1,150 @@
 \begin{proofbox}
-\textbf{1. 焦点距离积的解析证明}:
-\begin{enumerate}
-    \item 设切线方程为 $l: kx - y + m = 0$, 其中满足 $m^2 = a^2k^2 + b^2$.
-    \item 焦点坐标为 $F_1(-c, 0)$ 和 $F_2(c, 0)$.
-    \item $d_1 = \frac{|-kc + m|}{\sqrt{k^2+1}}$, $d_2 = \frac{|kc + m|}{\sqrt{k^2+1}}$.
-    \item $d_1 \cdot d_2 = \frac{|m^2 - k^2c^2|}{k^2+1} = \frac{|a^2k^2 + b^2 - k^2(a^2-b^2)|}{k^2+1} = \frac{b^2k^2 + b^2}{k^2+1} = b^2$.
-\end{enumerate}
+\textbf{预备：切线的一般形式与必要条件}
 
-\textbf{2. 垂足位置性质 (主圆轨迹) 的证明}:
-\begin{enumerate}
-    \item 设切线 $l: y = kx + m$, 垂足为 $H(x, y)$.
-    \item 由于 $H$ 在切线上, 满足方程 (1): $y - kx = m$. 
-    \item 过焦点 $F_2(c, 0)$ 作切线的垂线, 其斜率为 $-1/k$, 方程为 (2): $y - 0 = -\frac{1}{k}(x - c)$, 整理得 $ky + x = c$.
-    \item 将方程 (1) 和 (2) 分别平方后相加:
-    $(y - kx)^2 + (ky + x)^2 = m^2 + c^2$.
-    \item 左边展开化简: $y^2 - 2kxy + k^2x^2 + k^2y^2 + 2kxy + x^2 = (1 + k^2)(x^2 + y^2)$.
-    \item 右边代入切线判定式 $m^2 = a^2k^2 + b^2$:
-    $m^2 + c^2 = a^2k^2 + b^2 + (a^2 - b^2) = a^2k^2 + a^2 = a^2(1 + k^2)$.
-    \item 故 $(1 + k^2)(x^2 + y^2) = a^2(1 + k^2)$, 即 $x^2 + y^2 = a^2$.
-    \item 结论证毕: 垂足 $H$ 的轨迹是以原点为圆心, 长半轴 $a$ 为半径的圆.
-\end{enumerate}
+给定 $A^2+B^2>0$。对椭圆上任意点 $X=(x,y)$，由柯西不等式
+\[
+(Ax+By)^2\le(a^2A^2+b^2B^2)
+\left(\frac{x^2}{a^2}+\frac{y^2}{b^2}\right)
+=a^2A^2+b^2B^2.
+\]
+故直线 $Ax+By=D$ 与椭圆相切，当且仅当
+\[
+\boxed{D^2=a^2A^2+b^2B^2}.
+\]
+等号切点为 $P=(a^2A/D,\ b^2B/D)$。因右端为正，故切线的 $D\ne0$。令 $\boldsymbol n=(u,v)$ 为指向椭圆外侧的单位法向量，切线可写成
+\[
+ux+vy=h,\quad u^2+v^2=1,\quad
+h=\sqrt{a^2u^2+b^2v^2}>0.
+\]
+这套形式同时覆盖水平、竖直和任意斜率。
+
+\medskip
+\textbf{证明一【最快、步骤最少：单位法向量，三行求积】}
+
+焦点 $F_1=(-c,0)$、$F_2=(c,0)$ 都在切线内侧；因为
+$h^2-c^2u^2=b^2>0$，所以 $h>|cu|$。于是
+\[
+\begin{aligned}
+d_1&=h+cu,\qquad d_2=h-cu,\\
+d_1d_2&=h^2-c^2u^2\\
+&=(a^2-c^2)u^2+b^2v^2\\
+&=b^2(u^2+v^2)=\boxed{b^2}.
+\end{aligned}
+\]
+顺带有 $d_1+d_2=2h=2d_0$。\textbf{最快识别链：切线条件 $h^2$ $\to$ 平方差 $\to$ $a^2-c^2=b^2$。}
+
+\medskip
+\textbf{证明二【纯代数：斜率式，保留最熟悉的高考写法】}
+
+对非竖直切线 $l:y=kx+m$，切线判别式条件为 $m^2=a^2k^2+b^2$。由点到直线距离公式
+\[
+d_1=\frac{|m-kc|}{\sqrt{1+k^2}},\qquad
+d_2=\frac{|m+kc|}{\sqrt{1+k^2}}.
+\]
+于是
+\[
+\begin{aligned}
+d_1d_2
+&=\frac{|m^2-c^2k^2|}{1+k^2}
+=\frac{|(a^2-c^2)k^2+b^2|}{1+k^2}
+=\boxed{b^2}.
+\end{aligned}
+\]
+竖直切线必须\textbf{单独}补上：$x=\pm a$ 时，$\{d_1,d_2\}=\{a-c,a+c\}$，乘积 $a^2-c^2=b^2$。原点到非竖直切线距离为 $d_0=|m|/\sqrt{1+k^2}$，代入切线条件即得原心距公式。
+
+\medskip
+\textbf{证明三【设点法：先设切点，再写切线】}
+
+设切点 $P(x_0,y_0)$，满足 $x_0^2/a^2+y_0^2/b^2=1$。切线是
+\[
+l:\ \frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1.
+\]
+设 $S=x_0^2/a^4+y_0^2/b^4$，则
+\[
+\begin{aligned}
+d_1d_2
+&=\frac{\left|1-c^2x_0^2/a^4\right|}{S}\\
+&=\frac{\displaystyle \frac{x_0^2}{a^2}+\frac{y_0^2}{b^2}-\frac{(a^2-b^2)x_0^2}{a^4}}{S}\\
+&=\frac{\displaystyle b^2\frac{x_0^2}{a^4}+\frac{y_0^2}{b^2}}{S}
+=\boxed{b^2}.
+\end{aligned}
+\]
+说明：首行绝对值可在第二行去掉，因为 $1-c^2x_0^2/a^4\ge1-c^2/a^2=b^2/a^2>0$。这个方法适合题目已知切点或给出切线方程 $T=0$ 时使用。
+
+\medskip
+\textbf{证明四【纯几何：光学性质＋余弦定理】}
+
+设切点为 $P$，令 $r_1=PF_1$、$r_2=PF_2$，$\theta=\angle F_1PF_2$。椭圆定义给出 $r_1+r_2=2a$。椭圆的切线平分焦点连线构成的\textbf{外角}，所以焦点到切线的距离为
+\[
+d_1=r_1\cos\frac{\theta}{2},\qquad
+d_2=r_2\cos\frac{\theta}{2}.
+\]
+在三角形 $F_1PF_2$ 中用余弦定理：
+\[
+\begin{aligned}
+(2c)^2
+&=r_1^2+r_2^2-2r_1r_2\cos\theta\\
+&=(r_1+r_2)^2-4r_1r_2\cos^2\frac{\theta}{2}\\
+&=4a^2-4d_1d_2.
+\end{aligned}
+\]
+故 $\boxed{d_1d_2=a^2-c^2=b^2}$。当 $P$ 在长轴端点时，可将 $\theta=0$ 作为极限情形，结论同样成立。
+
+\medskip
+\textbf{证明五【纯几何：焦点反射＋中位线，证明垂足落在主圆】}
+
+设切点为 $P$，把 $F_1$ 关于切线 $l$ 反射到 $M$。先说明所用光学性质并非额外假设：因切线仅在 $P$ 处接触椭圆，对 $l$ 上的任意点 $X$，有 $XF_1+XF_2\ge2a$，且仅在 $X=P$ 时取等号。反射后 $XF_1=XM$，而 $F_2$ 与 $M$ 在 $l$ 的两侧；连接 $F_2M$ 与 $l$ 交于 $R$，则 $RF_2+RM=F_2M\le PF_2+PM=2a$，同时又有 $RF_2+RF_1\ge2a$，故 $R=P$。于是 $F_2,P,M$ 三点共线且 $P$ 在 $F_2M$ 之间；又有 $PM=PF_1$，故
+\[
+F_2M=F_2P+PM=PF_2+PF_1=2a.
+\]
+设 $H_1$ 为 $F_1$ 到 $l$ 的垂足。由轴对称，$H_1$ 是 $F_1M$ 的中点；$O$ 是 $F_1F_2$ 的中点。因此，在三角形 $F_1F_2M$ 中，
+\[
+\boxed{OH_1=\tfrac12F_2M=a}.
+\]
+即 $H_1$ 在主圆 $x^2+y^2=a^2$ 上。交换 $F_1,F_2$，同理有 $OH_2=a$。这是\textbf{最直观、计算量最少的主圆证明}。
+
+\medskip
+\textbf{证明六【几何串联：主圆＋相交弦（点幂），再次证明乘积】}
+
+让 $l'$ 为 $l$ 关于中心 $O$ 的对称直线。固定焦点 $F_1$，向 $l,l'$ 作垂线，垂足分别为 $H,H'$。因两切线平行，$H,F_1,H'$ 共线；由证明五，两垂足都在主圆上。又因 $OF_1=c<a$，焦点位于圆内，所以 $H,F_1,H'$ 的顺序可取为 $H-F_1-H'$（或反序）。中心对称说明
+\[
+F_1H=d_1,\qquad F_1H'=d_2
+\quad\text{（后者等于 $F_2$ 到原切线 $l$ 的距离）}.
+\]
+由主圆内相交弦定理
+\[
+\boxed{d_1d_2=F_1H\cdot F_1H'=a^2-OF_1^2=a^2-c^2=b^2}.
+\]
+\textbf{几何原理链：焦点反射 $\to$ 中位线 $\to$ 主圆 $\to$ 圆内点幂。}
+
+\medskip
+\textbf{证明七【数形结合：点的正交分解，快速验证主圆】}
+
+仍用单位法向量 $\boldsymbol n=(u,v)$ 和切线 $\boldsymbol n\cdot X=h$。任一焦点 $F$ 满足 $|F|^2=c^2$、$F\cdot\boldsymbol n=\pm cu$。垂足向量为
+\[
+H=F+(h-F\cdot\boldsymbol n)\boldsymbol n.
+\]
+直接展开（利用 $|\boldsymbol n|^2=1$）：
+\[
+\begin{aligned}
+|H|^2
+&=|F|^2+h^2-(F\cdot\boldsymbol n)^2\\
+&=c^2+(a^2u^2+b^2v^2)-c^2u^2\\
+&=c^2+b^2(u^2+v^2)=\boxed{a^2}.
+\end{aligned}
+\]
+这其实是把焦点向量拆成\textbf{沿切线方向}和\textbf{垂直切线方向}两个分量，再用勾股关系合成垂足向量。
+
+\medskip
+\textbf{补充【“垂足在主圆”为什么真的是整个圆？】}
+
+只证 $OH=a$ 说明“轨迹包含于圆”，还不能说明“整个圆都取到”。下面证逆命题。固定 $F_2(c,0)$，任取主圆上 $H=(p,q)$，满足 $p^2+q^2=a^2$。过 $H$ 作垂直于 $F_2H$ 的直线
+\[
+l_H:\ (p-c)x+qy=a^2-cp.
+\]
+它到焦点 $F_2$ 的垂足恰为 $H$。又因 $c^2=a^2-b^2$，恒有
+\[
+(a^2-cp)^2=a^2(p-c)^2+b^2q^2.
+\]
+这正是 $l_H$ 的切线判定式，故 $l_H$ 必与椭圆相切。由于 $c<a$，$H\ne F_2$，构造始终有效。\textbf{于是主圆上的每一点都能出现，完整轨迹就是整圆。}
 \end{proofbox}
