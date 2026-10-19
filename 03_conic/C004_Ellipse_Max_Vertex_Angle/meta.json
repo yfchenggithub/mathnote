@@ -6,9 +6,10 @@
     "alias": [
       "长轴端点张角",
       "顶点视角",
-      "斜率乘积定值"
+      "斜率乘积定值",
+      "顶角最值与等角等高"
     ],
-    "summary": "椭圆顶角最大值结论，核心关系为 $tan(alpha) = 2ab/|a^2-b^2|$。",
+    "summary": "长轴两端点顶角恒为钝角，在短轴端点最大：alpha_max=2 arctan(a/b)，tan(alpha_max)=-2ab/(a^2-b^2)。",
     "difficulty": 3,
     "category": "解析几何",
     "tags": [
@@ -20,7 +21,10 @@
       "几何性质",
       "斜率",
       "二级结论",
-      "圆锥曲线"
+      "圆锥曲线",
+      "钝角",
+      "等角等面积",
+      "圆周角"
     ]
   },
   "search": {
@@ -44,7 +48,8 @@
     "query_templates": [
       "椭圆上点对长轴两端点的张角",
       "k1k2=-b^2/a^2",
-      "tan alpha最大值"
+      "顶角最大值 2arctan(a/b)",
+      "顶角与纵坐标 cot(alpha)"
     ],
     "ocrKeywords": [
       "椭圆",
@@ -54,10 +59,14 @@
       "短轴端点"
     ],
     "latex_patterns": [
-      "tan(alpha) = 2ab/|a^2-b^2|"
+      "\\alpha_{\\max}=2\\arctan\\frac{a}{b}",
+      "\\tan\\alpha_{\\max}=-\\frac{2ab}{a^2-b^2}",
+      "k_1k_2=-\\frac{b^2}{a^2}"
     ],
     "formulaTokens": [
-      "tan(alpha) = 2ab/|a^2-b^2|"
+      "alpha_max=2 arctan(a/b)",
+      "tan(alpha_max)=-2ab/(a^2-b^2)",
+      "cot(alpha)=-(a^2-b^2)|y|/(2ab^2)"
     ],
     "pinyin": "tuoyuandingjiaozuidazhijielun",
     "pinyinAbbr": "tydjzdzjl"
@@ -75,23 +84,66 @@
     "success_rate": 0
   },
   "math": {
-    "core_formula": "tan(alpha) = 2ab/|a^2-b^2|",
-    "related_formulas": [],
-    "variables": [],
-    "conditions": [],
+    "core_formula": "\\alpha_{\\max}=2\\arctan\\frac{a}{b}",
+    "related_formulas": [
+      "\\tan\\alpha_{\\max}=-\\frac{2ab}{a^2-b^2}",
+      "\\cot\\alpha=-\\frac{(a^2-b^2)|y_0|}{2ab^2}",
+      "k_1k_2=-\\frac{b^2}{a^2}",
+      "S=a|y_0|"
+    ],
+    "variables": [
+      "a>b>0",
+      "c^2=a^2-b^2",
+      "A1=(-a,0)",
+      "A2=(a,0)",
+      "P=(x0,y0) on ellipse excluding A1,A2",
+      "alpha=angle A1 P A2"
+    ],
+    "conditions": [
+      "非圆椭圆，长轴位于x轴",
+      "P为椭圆上除两长轴端点外的点",
+      "alpha为射线PA1和PA2的普通内角"
+    ],
     "conclusions": [
-      "tan(alpha) = 2ab/|a^2-b^2|"
+      "90°<alpha<=2 arctan(a/b)<180°",
+      "最大值仅在P=(0,+/-b)取得",
+      "不存在最小值，只有下确界90°",
+      "alpha相同、面积相同和|y0|相同在固定椭圆上等价"
     ]
   },
   "content": {
-    "statement": "椭圆顶角最大值结论，核心关系为 $tan(alpha) = 2ab/|a^2-b^2|$。",
-    "derivation": [],
-    "intuition": "",
-    "common_tricks": []
+    "statement": "非圆椭圆的长轴端点张角恒钝，最大值alpha_max=2arctan(a/b)，仅短轴端点取到；最小值不取到，inf alpha=90°。",
+    "derivation": [
+      "向量点积与行列式",
+      "余弦定理与三角形面积",
+      "底角与正切加法",
+      "圆周角与外接圆圆心",
+      "三角参数方程",
+      "斜率乘积定值"
+    ],
+    "intuition": "椭圆位于以长轴为直径的圆内部，故顶角恒钝；在同一椭圆上随|y|增大而增大，短轴端点最大。",
+    "common_tricks": [
+      "最大顶角先定短轴端点",
+      "用tan(alpha-90°)而非错误正号tan(alpha)",
+      "斜率积=-b²/a²",
+      "角度存在性先验90°<alpha<=alpha_max"
+    ]
   },
   "usage": {
-    "scenarios": [],
-    "problem_types": [],
+    "scenarios": [
+      "长轴两端点张角最值",
+      "已知顶角求椭圆离心率",
+      "顶角反求动点坐标",
+      "斜率积与夹角转换",
+      "顶点三角形面积最值"
+    ],
+    "problem_types": [
+      "最值",
+      "范围与存在性",
+      "求参",
+      "几何证明",
+      "多解点数"
+    ],
     "exam_frequency": 0.6,
     "exam_score": 0
   },
@@ -125,7 +177,7 @@
     "updated_at": "2026-09-27"
   },
   "isPro": 0,
-  "remarks": "区分焦角与顶角是解题关键，前者用焦点，后者用顶点。",
+  "remarks": "C004顶角(两长轴顶点)与C003焦角(两焦点)不同。顶角始终钝，tan alpha_max为负；两长轴端点不可作为P，否则角度无定义。",
   "knowledgeNode": "解析几何-圆锥曲线-椭圆-角度最值",
   "altNodes": []
 }

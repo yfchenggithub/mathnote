@@ -1,14 +1,129 @@
 \begin{examplebox}
-\textbf{例题 1}：已知椭圆 $C: \frac{x^2}{4} + y^2 = 1$，求椭圆上一点 $P$ 与长轴两顶点连线夹角的最大值。
-\textit{解析}：
-1. 这里 $a=2, b=1$。
-2. 当 $P$ 为短轴端点 $(0, 1)$ 时，夹角 $\alpha$ 最大。
-3. 此时 $\tan \alpha_{max} = \frac{2ab}{a^2-b^2} = \frac{2 \cdot 2 \cdot 1}{4-1} = \frac{4}{3}$。
-4. 故 $\alpha_{max} = \arctan \frac{4}{3}$。
+\textbf{例 1\quad 数值求最大顶角（原例题纠错）。}
 
-\textbf{例题 2}：若椭圆 $\frac{x^2}{a^2} + \frac{y^2}{b^2} = 1$ 上存在点 $P$ 使得 $\angle A_1PA_2 = 60^\circ$，求离心率 $e$ 的取值范围。
-\textit{解析}：
-1. 存在性问题等价于 $\alpha_{max} \ge 60^\circ$。
-2. 即 $\frac{2ab}{a^2-b^2} \ge \sqrt{3}$。
-3. 利用 $b^2 = a^2(1-e^2)$ 代入，可转化为关于 $e$ 的不等式求解。
+椭圆 $\frac{x^2}{4}+y^2=1$，$a=2,b=1,c^2=3$。
+求 $\alpha=\angle A_1PA_2$ 的最大值。
+
+\textbf{解：}在 $P=(0,\pm1)$ 取到最大值；
+\[
+\boxed{\alpha_{\max}=2\arctan2
+\approx126.87^\circ},\qquad
+\boxed{\tan\alpha_{\max}=-\frac43}.
+\]
+原稿的 $\arctan(4/3)\approx53.13^\circ$ 是\textbf{补角对应的锐角}，
+不是这里的三角形顶角。
+
+\medskip
+\textbf{例 2\quad 角度存在性：为什么 $60^\circ$ 永远不可能？}
+
+问：椭圆上是否存在非端点 $P$，使
+$\angle A_1PA_2=60^\circ$ 或 $120^\circ$？
+
+\textbf{解：}由于 $\alpha>90^\circ$，$60^\circ$ 在任何非圆椭圆上
+\textbf{都不可能}。若要求 $120^\circ$ 存在，等价于
+\[
+2\arctan\frac ab\ge120^\circ
+\iff \frac ab\ge\sqrt3
+\iff \frac ba\le\frac1{\sqrt3}.
+\]
+由 $e=c/a$、$b^2/a^2=1-e^2$，得
+\[
+\boxed{\sqrt{\frac23}\le e<1}.
+\]
+等号时只能在短轴端点取得 $120^\circ$；
+严格大于时则有四个对称的解点。
+
+\medskip
+\textbf{例 3\quad 已知顶角 $120^\circ$，反求 $P$ 的全部坐标。}
+
+仍取椭圆 $\frac{x^2}{4}+y^2=1$，已知
+$\alpha=120^\circ$，求所有可能的 $P$。
+
+\textbf{解：}此时 $\delta=\alpha-90^\circ=30^\circ$，
+利用 $\tan\delta=3|y|/4$，
+\[
+|y|=\frac4{3\sqrt3}=\frac{4\sqrt3}{9},
+\qquad
+|x|=2\sqrt{1-y^2}
+=2\sqrt{1-\frac{16}{27}}
+=\frac{2\sqrt{33}}9.
+\]
+所以\textbf{共有四点}：
+\[
+\boxed{P=\biggl(\pm\frac{2\sqrt{33}}9,\,
+\pm\frac{4\sqrt3}9\biggr)}
+\quad\text{（两处 $\pm$ 独立取号）。}
+\]
+检查 $|y|<1$，符合存在性条件。
+
+\medskip
+\textbf{例 4\quad 给出斜率积，反求最大顶角。}
+
+已知 $k_{PA_1}k_{PA_2}=-\frac14$，
+其中 $P$ 在长轴水平的非圆椭圆上。
+由斜率积定值 $-b^2/a^2=-1/4$，得 $a/b=2$，
+于是
+\[
+\boxed{\alpha_{\max}=2\arctan2\approx126.87^\circ},
+\quad\boxed{e=\sqrt3/2}.
+\]
+\textbf{辨析：}斜率积恒定，\textbf{不代表夹角恒定}；
+两个斜率各自仍随点 $P$ 改变。
+
+\medskip
+\textbf{例 5\quad 面积与角度最值：两题为何同解？}
+
+设 $S$ 为 $\triangle A_1PA_2$ 的面积。
+因为 $S=a|y|$，$0<|y|\le b$，故
+\[
+\boxed{0<S\le ab},\quad
+S_{\max}=ab\text{ 在 }P=(0,\pm b)\text{ 取得}.
+\]
+同时
+\[
+\tan(\alpha-90^\circ)=\frac{c^2}{2a^2b^2}S.
+\]
+因此求 $S$ 最大与求 $\alpha$ 最大，\textbf{本质都是求 $|y|$ 最大}。
+面积无最小值，下确界为零，也不能说长轴端点处取到最小面积
+（因为 $P$ 被题设排除）。
+
+\medskip
+\textbf{例 6\quad 已知最大顶角，反求离心率。}
+
+若 $\alpha_{\max}=120^\circ$，则
+$\arctan(a/b)=60^\circ$，$a/b=\sqrt3$，所以
+\[
+\boxed{e=\sqrt{1-\frac{b^2}{a^2}}
+=\sqrt{\frac23}}.
+\]
+\textbf{迁移：}由最大顶角可反求轴比，
+进而反求离心率；这属于“角度量 $\to$ 形状参数”。
+
+\medskip
+\textbf{例 7\quad 同一椭圆上的等角点个数。}
+
+设已知固定椭圆的 $\alpha_{\max}=130^\circ$，
+研究目标角 $\alpha_0$ 的点数：
+\begin{itemize}
+\item $\alpha_0=100^\circ$：四个对称点；
+\item $\alpha_0=130^\circ$：两个短轴端点；
+\item $\alpha_0=90^\circ$：零个点（只能趋近，不能取到）；
+\item $\alpha_0=135^\circ$：零个点（超过最大值）。
+\end{itemize}
+\textbf{识别信号：}先判断 $90^\circ<\alpha_0\le\alpha_{\max}$，
+再决定是否需要反求坐标。
+
+\medskip
+\textbf{例 8\quad 从 C003 焦角直接联想到 C004 顶角。}
+
+椭圆 $a=2,b=1,c=\sqrt3$；
+若某点 $P$ 的焦角为 $\theta$，则
+\[
+\tan(\alpha-90^\circ)
+=\frac{\sqrt3}{4}\tan\frac\theta2.
+\]
+特别在 $P=(0,\pm1)$，焦角半角正切为 $c/b=\sqrt3$，
+故 $\tan(\alpha-90^\circ)=3/4$，得到
+$\alpha=90^\circ+\arctan(3/4)\approx126.87^\circ$。
+\textbf{提醒：}这里 $\theta$ 与 $\alpha$ 是两个不同的角。
 \end{examplebox}

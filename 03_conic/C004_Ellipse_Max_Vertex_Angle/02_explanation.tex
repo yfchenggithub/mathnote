@@ -1,12 +1,154 @@
 \begin{explanationbox}
-该结论揭示了椭圆上动点对长轴直径的"张角"变化规律：
-\begin{itemize}
-    \item \textbf{几何直观}：由于椭圆相对于长轴具有高度的对称性，点 $P$ 离长轴越远（即纵坐标 $|y|$ 越大），其对两顶点的张角越大。短轴端点是全椭圆中"最高"的点，因此视角最大。
-    \item \textbf{对比圆的性质}：在圆中（$a=b$），斜率乘积为 $-1$，顶角恒为 $90^\circ$。椭圆可看作圆沿轴向压缩，因此顶角大小随位置波动。
-    \item \textbf{应用价值}：
-    \begin{itemize}
-        \item 快速求解分式结构的最值问题。
-        \item 在解析几何压轴题中，利用斜率乘积定值简化运算。
-    \end{itemize}
-\end{itemize}
+\textbf{一、先看清“顶角”究竟是哪一个角。}
+
+本结论研究 $\angle A_1PA_2$，两个定点是\textbf{长轴端点}
+$A_1(-a,0),A_2(a,0)$；不是两焦点 $F_1(-c,0),F_2(c,0)$。
+看图时，把 $A_1A_2$ 当作固定底边，$P$ 当作运动的观察者。
+$P$ 从椭圆上方观察两端点所形成的普通内角就是 $\alpha$。
+别把“两个直线斜率形成的锐角”误认成 $\alpha$。
+
+\medskip
+\textbf{二、为什么顶角一定是钝角？（直径圆的直观图像）}
+
+以长轴 $A_1A_2$ 为直径画圆 $x^2+y^2=a^2$。
+圆上任何不为端点的点对直径张角恰好 $90^\circ$（泰勒斯定理）。
+而椭圆上非端点的 $P$ 满足
+\[
+x_0^2+y_0^2=a^2-\frac{a^2-b^2}{b^2}y_0^2<a^2,
+\]
+即 $P$ \textbf{位于直径圆内部}。在圆内看同一条直径，
+张角就大于 $90^\circ$。
+这是对\textbf{负号}的最好几何解释：$\tan\alpha<0$。
+
+\medskip
+\textbf{三、为什么到长轴越远，张角越大？}
+
+这条规律\textbf{只限定于同一椭圆上的动点}，而不是任意移动的点。
+具体是
+\[
+\underbrace{|y_0|}_{\text{离长轴的距离}}
+\ \uparrow\quad\Longrightarrow\quad
+\underbrace{\tan(\alpha-90^\circ)
+=\frac{(a^2-b^2)|y_0|}{2ab^2}}_{\text{超出直角的幅度}}
+\ \uparrow\quad\Longrightarrow\quad\alpha\ \uparrow.
+\]
+从长轴端点附近出发，$|y_0|\to0$，$\alpha\to90^\circ$；
+沿上半椭圆向短轴端点走，$|y_0|$ 增至 $b$，角度达到最大。
+继续走向另一长轴端点，则角度又减小。下半椭圆完全对称。
+
+\medskip
+\textbf{四、最值位置可以不算公式，直接看短轴端点的三角形。}
+
+当 $P=(0,b)$ 时，三角形 $A_1PA_2$ 是等腰三角形，
+对称轴经过 $P$ 与原点 $O(0,0)$，并且 $PO\perp A_1A_2$。
+在直角三角形 $POA_2$ 中
+\[
+\tan\frac{\alpha_{\max}}2=\frac{OA_2}{PO}=\frac ab>1.
+\]
+因此 $\alpha_{\max}/2>45^\circ$，$\alpha_{\max}>90^\circ$，
+从而 $\alpha_{\max}=2\arctan(a/b)$。
+可把它记为\textbf{“短轴端点作高，顶角平分，转成直角三角形”}。
+
+\medskip
+\textbf{五、圆周角视角：为什么“等角”对应一个圆？}
+
+对固定底边 $A_1A_2$，\textbf{同一侧相同张角}的点处在同一段圆弧上。
+若 $P$ 在上半椭圆上，过 $A_1,A_2,P$ 的圆心必在 $y$ 轴上，
+设为 $Q=(0,h)$，由等距条件得到
+\[
+h=\frac{x_0^2+y_0^2-a^2}{2y_0}
+=-\frac{(a^2-b^2)y_0}{2b^2}<0.
+\]
+点越高，圆心越向下移；这种圆弧对应的圆周角越大。
+在此椭圆上圆心的高低与 $y_0$ 一一对应，从而得到等角、等高关系。
+这提供了\textbf{不用求导}的几何理解。
+
+\medskip
+\textbf{六、“角度确定，就确定点吗？”\quad 不完全。}
+
+由于 $\alpha$ 决定 $|y_0|$，再利用椭圆方程
+\[
+|y_0|=\frac{2ab^2}{a^2-b^2}\tan(\alpha-90^\circ),
+\quad |x_0|=a\sqrt{1-\frac{y_0^2}{b^2}},
+\]
+可以确定 $|x_0|$ 与 $|y_0|$，但无法确定两个坐标的正负。
+当 $90^\circ<\alpha<\alpha_{\max}$ 时，通常有
+$(\pm|x_0|,\pm|y_0|)$ \textbf{四个}可能点；
+在最大角处则变成 $(0,\pm b)$ \textbf{两个}点。
+这四个点对长轴两端点张成全等的三角形，只是翻转或互换两腰。
+
+\medskip
+\textbf{七、和 C003《椭圆焦角最大值》放在一起理解。}
+
+在同一椭圆的同一点 $P$，记焦角 $\theta=\angle F_1PF_2$，
+顶角 $\alpha=\angle A_1PA_2$；两者都随 $|y_0|$ 增大而增大，
+但\textbf{顶角始终钝角}，焦角可为锐角、直角或钝角。
+它们分别满足
+\[
+S_{\triangle A_1PA_2}=a|y_0|,\qquad
+S_{\triangle F_1PF_2}=c|y_0|,
+\]
+\[
+\tan(\alpha-90^\circ)=\frac{c^2|y_0|}{2ab^2},\qquad
+\tan\frac\theta2=\frac{c|y_0|}{b^2}.
+\]
+所以还能直接联系为
+\[
+\boxed{\tan(\alpha-90^\circ)=\frac{c}{2a}\tan\frac\theta2}.
+\]
+\textbf{同一位置可以同时让两个角最大，但两个角不是同一个角，公式不能互换。}
+
+\medskip
+\textbf{八、容易迁移到哪些题？}
+
+看到“长轴两端点对椭圆上一点的张角”，优先锁定短轴端点；
+看到“$PA_1,PA_2$ 两条直线斜率之积”，立刻想到
+$k_1k_2=-b^2/a^2$；看到“给定顶角求坐标或个数”，
+先用 $\tan(\alpha-90^\circ)$ 求 $|y_0|$，再代椭圆方程。
+
+\medskip
+\textbf{九、为什么 $\tan(\alpha-90^\circ)=-\cot\alpha$？两种方法都能理解。}
+
+\textbf{先分清角度：}本题 $90^\circ<\alpha<180^\circ$，
+故 $0^\circ<\alpha-90^\circ<90^\circ$。
+原来的 $\alpha$ 是钝角，$\tan\alpha<0$；
+减去 $90^\circ$ 后成为锐角，正切值必须\textbf{大于零}。
+所以换角时应有一个负号：
+\[
+\boxed{\tan(\alpha-90^\circ)=-\cot\alpha=-\frac{1}{\tan\alpha}}.
+\]
+
+\textbf{方法 A（高中首选）：把正切拆成正弦除以余弦。}
+\[
+\tan(\alpha-90^\circ)
+=\frac{\sin\alpha\cos90^\circ-\cos\alpha\sin90^\circ}
+       {\cos\alpha\cos90^\circ+\sin\alpha\sin90^\circ}
+=\frac{-\cos\alpha}{\sin\alpha}
+=-\cot\alpha.
+\]
+\textbf{直观记忆：}减去 $90^\circ$，正弦变负余弦，余弦变正弦；
+分子分母交换，还要记住负号。
+
+\textbf{方法 B（极限视角）：你的“无穷大主导项”思想。}
+令 $\beta\to90^{\circ-}$，设 $t=\tan\beta\to+\infty$。
+先在 $\beta<90^\circ$ 时使用正切差角公式，然后\textbf{分子分母同除以 $t$}：
+\[
+\begin{aligned}
+\tan(\alpha-90^\circ)
+&=\lim_{\beta\to90^{\circ-}}\tan(\alpha-\beta)\\
+&=\lim_{t\to+\infty}\frac{\tan\alpha-t}{1+t\tan\alpha}\\
+&=\lim_{t\to+\infty}
+\frac{\frac{\tan\alpha}{t}-1}{\frac1t+\tan\alpha}
+=-\frac1{\tan\alpha}=-\cot\alpha.
+\end{aligned}
+\]
+这里 \textbf{$\tan90^\circ$ 无定义，绝不能直接写成 $+\infty$ 代入}。
+正确做法是使 $\beta$ \textbf{从左侧趋近} $90^\circ$，
+再利用极限。因为本题 $\tan\alpha<0$，
+上式分子、分母都趋向负无穷，商反而是正数。
+
+\textbf{图像一句话：}
+$y=\tan(x-90^\circ)$ 是 $y=\tan x$ 向\textbf{右}平移 $90^\circ$，
+而 $y=-\cot x$ 与 $y=\cot x$ 关于 $x$ 轴对称。
+这两条关系结合，便不会把 $-\cot\alpha$ 误记成 $+\cot\alpha$。
 \end{explanationbox}

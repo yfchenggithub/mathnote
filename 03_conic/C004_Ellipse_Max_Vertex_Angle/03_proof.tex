@@ -1,11 +1,266 @@
 \begin{proofbox}
-\textbf{利用斜率角推导：}
-\begin{enumerate}
-    \item 设 $P(x_0, y_0)$，则 $k_1 = k_{PA_1} = \frac{y_0}{x_0+a}$，$k_2 = k_{PA_2} = \frac{y_0}{x_0-a}$。
-    \item $k_1 \cdot k_2 = \frac{y_0^2}{x_0^2-a^2}$。由椭圆方程 $x_0^2-a^2 = -\frac{a^2y_0^2}{b^2}$，代入得 $k_1k_2 = -\frac{b^2}{a^2}$。
-    \item 设直线 $PA_1, PA_2$ 的倾斜角分别为 $\beta_1, \beta_2$，则 $\alpha = \beta_2 - \beta_1$。
-    \item $\tan \alpha = \left| \frac{k_2 - k_1}{1 + k_1k_2} \right| = \left| \frac{\frac{y_0}{x_0-a} - \frac{y_0}{x_0+a}}{1 - \frac{b^2}{a^2}} \right| = \frac{\frac{2ay_0}{a^2-x_0^2}}{\frac{a^2-b^2}{a^2}}$。
-    \item 再次代入 $a^2-x_0^2 = \frac{a^2y_0^2}{b^2}$，整理得 $\tan \alpha = \frac{2ab}{(a^2-b^2)} \cdot \frac{b}{y_0}$。
-    \item 当 $y_0$ 最大（即 $y_0=b$）时，$\frac{b}{y_0}=1$ 为最小值，但在分母位置或其他结构中需注意，此时 $\alpha$ 达到最大。
-\end{enumerate}
+\textbf{统一记号与目标。}
+令 $P=(x,y)$，$y\ne0$，$c^2=a^2-b^2>0$，
+$A_1=(-a,0),A_2=(a,0)$。利用 $x$ 轴对称性，
+不妨先证 $y>0$；下半椭圆只需把 $y$ 换成 $|y|$。
+证明的关键不是直接对角度求导，而是先证明
+\[
+\boxed{\tan(\alpha-90^\circ)=\frac{c^2|y|}{2ab^2}},\tag{$*$}
+\]
+再用 $0<|y|\le b$ 得到最大值。
+
+\medskip
+\textbf{换角公式补证：由 $\cot\alpha$ 到 $\tan(\alpha-90^\circ)$（两种推导）。}
+
+这一步是前面证明用到的\textbf{三角恒等式补证}，不是替代向量法或几何法
+对椭圆本身的证明。以下始终有 $90^\circ<\alpha<180^\circ$，
+所以 $\sin\alpha>0$、$\tan\alpha<0$，函数均有定义。
+
+\textbf{推导 A：正弦、余弦差角公式（直接且严格）。}
+\begin{align*}
+\tan(\alpha-90^\circ)
+&=\frac{\sin(\alpha-90^\circ)}{\cos(\alpha-90^\circ)}\\
+&=\frac{\sin\alpha\cos90^\circ-\cos\alpha\sin90^\circ}
+        {\cos\alpha\cos90^\circ+\sin\alpha\sin90^\circ}\\
+&=\frac{-\cos\alpha}{\sin\alpha}
+=\boxed{-\cot\alpha}.
+\end{align*}
+
+\textbf{推导 B：正切差角公式 $+$ 极限（用主导项）。}
+取 $\gamma\to90^{\circ-}$，令 $t=\tan\gamma\to+\infty$。
+因 $\alpha-90^\circ\in(0,90^\circ)$，正切函数在该点连续，
+所以
+\begin{align*}
+\tan(\alpha-90^\circ)
+&=\lim_{\gamma\to90^{\circ-}}\tan(\alpha-\gamma)\\
+&=\lim_{t\to+\infty}\frac{\tan\alpha-t}{1+t\tan\alpha}\\
+&=\lim_{t\to+\infty}
+\frac{\tan\alpha/t-1}{1/t+\tan\alpha}\\
+&=-\frac{1}{\tan\alpha}=\boxed{-\cot\alpha}.
+\end{align*}
+本题 $\tan\alpha<0$，故分子和分母的主导项
+分别为 $-t$ 和 $t\tan\alpha$，二者同趋负无穷，
+但比值趋于 $-1/\tan\alpha>0$。注意：
+$\tan90^\circ$ \textbf{没有定义}；“无穷大比较”仅是上述\textbf{极限运算}的直观简称。
+
+\textbf{接回椭圆：}由向量法或余弦定理得到
+$\displaystyle\cot\alpha=-\frac{c^2|y|}{2ab^2}$ 后，
+便可严格推出
+\[
+\tan(\alpha-90^\circ)=-\cot\alpha
+=\frac{c^2|y|}{2ab^2}.
+\]
+\textbf{高考书写建议：}正式解答优先用推导 A（也可直接引用恒等式）；
+推导 B 主要帮助理解为何不能把未定义的 $\tan90^\circ$ 生硬代入。
+
+\medskip
+\textbf{证法一：向量点积 $+$ 行列式（最短、最稳的代数证明）。}
+
+从 $P$ 出发的两个向量为
+\[
+\vec u=\overrightarrow{PA_1}=(-a-x,-y),\quad
+\vec v=\overrightarrow{PA_2}=(a-x,-y).
+\]
+它们的点积与平面行列式分别是
+\[
+\vec u\cdot\vec v=x^2+y^2-a^2
+=-\frac{c^2}{b^2}y^2<0,
+\]
+\[
+|\det(\vec u,\vec v)|=2a|y|>0.
+\]
+所以夹角是钝角，而且
+\[
+\cot\alpha=\frac{\vec u\cdot\vec v}
+{|\det(\vec u,\vec v)|}
+=-\frac{c^2|y|}{2ab^2}.
+\]
+由于 $\alpha=90^\circ+\delta$、$\delta\in(0,90^\circ)$，
+$\cot\alpha=-\tan\delta$，于是得到 $(*)$。
+显然 $|y|\le b$，等号仅在 $x=0$ 时成立，故
+\[
+\alpha\le90^\circ+\arctan\frac{c^2}{2ab},
+\]
+且等号仅在 $P=(0,\pm b)$ 时成立。
+
+\medskip
+\textbf{证法二：余弦定理 $+$ 面积公式（不需要向量）。}
+
+设 $r_1=PA_1$、$r_2=PA_2$，底边 $A_1A_2=2a$。
+由余弦定理
+\[
+\cos\alpha=\frac{r_1^2+r_2^2-4a^2}{2r_1r_2}.
+\]
+注意
+\[
+r_1^2+r_2^2=2(x^2+y^2+a^2),
+\]
+故
+\[
+\cos\alpha=\frac{x^2+y^2-a^2}{r_1r_2}
+=-\frac{c^2y^2}{b^2r_1r_2}<0.
+\]
+另一方面，用底边与高求面积，再用两边夹角求面积：
+\[
+a|y|=S_{\triangle A_1PA_2}
+=\frac12r_1r_2\sin\alpha,
+\qquad \sin\alpha=\frac{2a|y|}{r_1r_2}.
+\]
+两式相除，得到
+\[
+\cot\alpha=\frac{\cos\alpha}{\sin\alpha}
+=-\frac{c^2|y|}{2ab^2}.
+\]
+随后利用 $|y|\le b$ 即证最大值。此法强调：
+\textbf{面积给正弦，余弦定理给余弦；一除便得到角度。}
+
+\medskip
+\textbf{证法三：底角 $+$ 正切加法公式（初等几何与三角恒等式）。}
+
+仍设 $y>0$。三角形 $A_1PA_2$ 的两个底角分别为
+$\beta_1=\angle PA_1A_2$、$\beta_2=\angle PA_2A_1$，则
+\[
+\tan\beta_1=\frac{y}{x+a},\qquad
+\tan\beta_2=\frac{y}{a-x}.
+\]
+由椭圆方程
+\[
+\tan\beta_1\tan\beta_2
+=\frac{y^2}{a^2-x^2}=\frac{b^2}{a^2}<1,
+\]
+因此 $0<\beta_1+\beta_2<90^\circ$，这也说明
+$\alpha=180^\circ-(\beta_1+\beta_2)>90^\circ$。
+正切加法公式给出
+\begin{align*}
+\tan(\beta_1+\beta_2)
+&=\frac{\frac{y}{x+a}+\frac{y}{a-x}}
+{1-\frac{y^2}{a^2-x^2}}\\
+&=\frac{2ay}{a^2-x^2}\cdot\frac{a^2}{a^2-b^2}
+=\frac{2ab^2}{c^2y}.
+\end{align*}
+故
+\[
+\tan\alpha=-\frac{2ab^2}{c^2y},\qquad
+\tan(\alpha-90^\circ)=\frac{c^2y}{2ab^2}.
+\]
+式中\textbf{不能}把 $\alpha$ 与 $\beta_1+\beta_2$ 当成同一个角。
+
+\medskip
+\textbf{证法四：圆周角与外接圆圆心（最有几何味道）。}
+
+对上半椭圆的 $P$ 作 $\triangle A_1PA_2$ 外接圆。
+因 $A_1,A_2$ 关于 $y$ 轴对称，圆心必是 $Q=(0,h)$。
+利用 $QA_2=QP$，得
+\[
+a^2+h^2=x^2+(y-h)^2
+\quad\Longrightarrow\quad
+h=\frac{x^2+y^2-a^2}{2y}
+=-\frac{c^2y}{2b^2}<0.
+\]
+设 $\varphi=\arctan(|h|/a)$，由等腰三角形
+$QA_1A_2$，其\textbf{较小圆心角}为
+$\angle A_1QA_2=180^\circ-2\varphi$。
+$P$ 在 $A_1A_2$ 的上方小弧上，$\alpha$ 所对的是下方\textbf{大弧}，
+由圆周角定理
+\[
+\alpha=\frac12\bigl(360^\circ-\angle A_1QA_2\bigr)
+=90^\circ+\varphi
+=90^\circ+\arctan\frac{c^2y}{2ab^2}.
+\]
+圆心 $Q$ 越低，$|h|$ 越大，顶角越大；
+$y\le b$，故最大值只能在短轴端点取得。
+
+\medskip
+\textbf{证法五：三角参数方程（把最值变成 $|\sin t|\le1$）。}
+
+设 $P=(a\cos t,b\sin t)$，排除 $\sin t=0$（长轴端点）。
+由
+\[
+x^2+y^2-a^2
+=a^2\cos^2t+b^2\sin^2t-a^2
+=-c^2\sin^2t,
+\]
+而两向量的行列式绝对值为 $2ab|\sin t|$，有
+\[
+\cot\alpha=-\frac{c^2}{2ab}|\sin t|,
+\qquad
+\alpha=90^\circ+\arctan\biggl(\frac{c^2}{2ab}|\sin t|\biggr).
+\]
+由 $0<|\sin t|\le1$，当且仅当
+$|\sin t|=1$，即 $t=\pi/2$ 或 $3\pi/2$ 时最大，
+对应 $(0,\pm b)$。没有求导，也没有对斜率分类讨论。
+
+\medskip
+\textbf{证法六：原稿的“斜率乘积定值”法（校正符号和角的定义）。}
+
+设
+\[
+k_1=\frac{y}{x+a},\qquad k_2=\frac{y}{x-a},
+\qquad k_1k_2=\frac{y^2}{x^2-a^2}=-\frac{b^2}{a^2}.
+\]
+当 $y>0$ 时，$k_1>0,k_2<0$。设两个\textbf{底角}
+$\beta_1=\arctan k_1$、$\beta_2=\arctan(-k_2)$，则
+$\alpha=180^\circ-(\beta_1+\beta_2)$。
+于是
+\[
+\tan\alpha=-\frac{k_1-k_2}{1+k_1k_2}
+=-\frac{2ab^2}{c^2y}.
+\]
+下半椭圆用 $|y|$ 对称延拓。特别提醒：
+$\tan\alpha_{\max}=-2ab/c^2$，
+绝不能只对其正切取绝对值后，把锐角误作最大顶角。
+
+\medskip
+\textbf{最后一步：短轴端点直接计算最大角（纯直角三角形收尾）。}
+
+由前六种证法，最大值仅在 $P=(0,\pm b)$ 处发生。
+以 $P=(0,b)$ 为例，设 $O=(0,0)$，
+$PO$ 平分顶角且 $PO\perp A_1A_2$，所以
+\[
+\tan\frac{\alpha_{\max}}2=\frac{OA_2}{PO}=\frac ab
+\quad\Longrightarrow\quad
+\boxed{\alpha_{\max}=2\arctan\frac ab}.
+\]
+由正切倍角公式（注意 $\alpha_{\max}>90^\circ$）
+\[
+\tan\alpha_{\max}
+=\frac{2(a/b)}{1-(a/b)^2}
+=\boxed{-\frac{2ab}{a^2-b^2}}.
+\]
+由于 $y\ne0$，恒有 $\alpha>90^\circ$；
+当 $P\to(\pm a,0)$ 时 $|y|\to0$，$\alpha\to90^\circ$，
+但端点处角度无定义，所以\textbf{只有下确界而无最小值}。
+
+\medskip
+\textbf{延伸证明：等角 $\Longleftrightarrow$ 等面积 $\Longleftrightarrow$ 等高。}
+
+由 $(*)$，固定椭圆参数 $a,b$ 时，$\alpha$ 与 $|y|$ 严格一一对应。
+再利用
+\[
+S=\frac12\cdot 2a\cdot|y|=a|y|,
+\qquad |x|=a\sqrt{1-\frac{y^2}{b^2}},
+\]
+得三者互相决定，且角度只能确定 $|x|,|y|$，
+一般有四个轴对称位置。
+
+\medskip
+\textbf{关联 C003：两种角度为什么会同时在短轴最大？}
+
+设 $\theta=\angle F_1PF_2$，焦点 $F_1(-c,0),F_2(c,0)$。
+焦点三角形有 $PF_1+PF_2=2a$；由余弦定理
+\[
+4c^2=4a^2-4(PF_1)(PF_2)\cos^2\frac\theta2
+\quad\Rightarrow\quad
+(PF_1)(PF_2)=\frac{b^2}{\cos^2(\theta/2)}.
+\]
+结合面积
+$\frac12(PF_1)(PF_2)\sin\theta=c|y|$，得
+\[
+\tan\frac\theta2=\frac{c|y|}{b^2}.
+\]
+与顶角公式 $(*)$ 联立：
+\[
+\boxed{\tan(\alpha-90^\circ)=\frac{c}{2a}\tan\frac\theta2}.
+\]
+故二者都随 $|y|$ 增大而增大，但取值范围与三角形含义不同。
 \end{proofbox}

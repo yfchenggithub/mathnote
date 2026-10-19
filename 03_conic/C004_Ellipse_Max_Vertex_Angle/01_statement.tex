@@ -1,8 +1,70 @@
 \begin{statementbox}
-对于椭圆 $C: \frac{x^2}{a^2} + \frac{y^2}{b^2} = 1$ ($a>b>0$)，其左、右顶点分别为 $A_1(-a, 0)$, $A_2(a, 0)$。设 $P(x, y)$ 为椭圆上除顶点外的任意一点，记顶角 $\angle A_1PA_2 = \alpha$，则：
+\textbf{C004\quad 椭圆顶角最大值（长轴两端点的张角）}
+
+设非圆椭圆
+\[
+C:\quad \frac{x^2}{a^2}+\frac{y^2}{b^2}=1,\qquad a>b>0,
+\qquad c^2=a^2-b^2,
+\]
+其长轴两端点为 $A_1(-a,0)$、$A_2(a,0)$。取
+$P(x_0,y_0)\in C\setminus\{A_1,A_2\}$，令
+$\alpha=\angle A_1PA_2$（\textbf{普通内角}，$0<\alpha<180^\circ$）。
+
 \begin{enumerate}
-    \item \textbf{最大值位置}：当点 $P$ 位于椭圆短轴端点 $(0, \pm b)$ 时，顶角 $\alpha$ 取得最大值 $\alpha_{max}$；
-    \item \textbf{斜率乘积恒值}：直线 $PA_1$ 与 $PA_2$ 的斜率乘积满足 $k_{PA_1} \cdot k_{PA_2} = -\frac{b^2}{a^2}$；
-    \item \textbf{正切值公式}：$\tan \alpha = \frac{2ab|y|}{(a^2-b^2)y^2/b^2 + x^2 - a^2}$，在短轴端点处 $\tan \alpha_{max} = \frac{2ab}{a^2-b^2}$。
+\item \textbf{角的范围、最大值与位置（核心结论）}：
+\[
+\boxed{90^\circ<\alpha\le\alpha_{\max}
+=2\arctan\frac{a}{b}<180^\circ.}
+\]
+当且仅当 $P=(0,b)$ 或 $(0,-b)$（\textbf{短轴端点}）时，
+取到最大值。等价地
+\[
+\boxed{\alpha_{\max}=90^\circ+
+\arctan\frac{a^2-b^2}{2ab}},\qquad
+\boxed{\tan\alpha_{\max}=-\frac{2ab}{a^2-b^2}}.
+\]
+注意 $\alpha_{\max}$ 是\textbf{钝角}，故其正切值为\textbf{负}。
+
+\item \textbf{最小值（严格区分“最小值”与“下确界”）}：
+在上述定义域中，$\alpha$ \textbf{没有最小值}；
+当 $P$ 沿椭圆趋近长轴两端点时，$\alpha\to90^\circ$，
+故下确界为 $90^\circ$。在端点处 $\angle A_1PA_2$ 无定义，
+不可说“在长轴端点取得最小值”。
+
+\item \textbf{任意动点的角度--高度关系（最推荐的通式）}：
+\[
+\boxed{\cot\alpha=-\frac{(a^2-b^2)|y_0|}{2ab^2}},
+\qquad
+\boxed{\alpha=90^\circ+
+\arctan\frac{(a^2-b^2)|y_0|}{2ab^2}}.
+\]
+在 $a,b$ 固定时，$\alpha$ 随 $|y_0|$ \textbf{严格增大}。
+特别地（$y_0\ne0$），
+\[
+\boxed{\tan\alpha=-\frac{2ab^2}{(a^2-b^2)|y_0|}}.
+\]
+
+\item \textbf{斜率乘积定值}：
+\[
+\boxed{k_{PA_1}\,k_{PA_2}=-\frac{b^2}{a^2}},\qquad
+k_{PA_1}=\frac{y_0}{x_0+a},\quad
+k_{PA_2}=\frac{y_0}{x_0-a}.
+\]
+由于已排除两个长轴端点，上述斜率均有定义。
+
+\item \textbf{等角、等面积、等高}：
+设 $S=S_{\triangle A_1PA_2}$，则
+\[
+\boxed{S=a|y_0|=\frac{2a^2b^2}{a^2-b^2}
+\tan(\alpha-90^\circ)}.
+\]
+在\textbf{同一椭圆}上，$\alpha$ 相同 $\Longleftrightarrow$
+$S$ 相同 $\Longleftrightarrow$ $|y_0|$ 相同，并且 $|x_0|$ 也确定。
+通常对应四个轴对称点；当 $\alpha=\alpha_{\max}$ 时只有
+两个短轴端点。
 \end{enumerate}
+
+\textbf{圆的边界情形：}若 $a=b$，椭圆退化成圆，
+由直径所对圆周角得 $\alpha\equiv90^\circ$；
+此时 $\tan\alpha$ 不存在，上述含 $a^2-b^2$ 作分母的公式不可套用。
 \end{statementbox}
