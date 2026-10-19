@@ -106,7 +106,52 @@ $y_0=0$ 的两个长轴端点将在最后单独验证。
 \end{enumerate}
 
 \medskip
-\textbf{最大角的确定与端点检验。}
+\textbf{补充推论：由余弦定理直接推出面积公式（固定角决定面积）。}
+这里再换一个解题视角：\textbf{先固定顶角 $\theta$，再考察焦点三角形的面积。}
+由余弦定理和椭圆定义，
+\begin{align*}
+  4c^2
+  &=r_1^2+r_2^2-2r_1r_2\cos\theta\\
+  &=(r_1+r_2)^2-2r_1r_2(1+\cos\theta)\\
+  &=4a^2-4r_1r_2\cos^2\frac\theta2.
+\end{align*}
+整理得（因 $0\leq\theta<180^\circ$，半角余弦不为零）
+\[
+  \boxed{r_1r_2=\frac{a^2-c^2}{\cos^2(\theta/2)}
+  =\frac{b^2}{\cos^2(\theta/2)}}.
+\]
+于是由两边及夹角的面积公式，
+\begin{align*}
+  S
+  &=\frac12r_1r_2\sin\theta\\
+  &=\frac12\cdot\frac{b^2}{\cos^2(\theta/2)}
+  \cdot2\sin\frac\theta2\cos\frac\theta2\\
+  &=\boxed{b^2\tan\frac\theta2}.
+\end{align*}
+又 $S=c|y_0|$，故
+\[
+  \boxed{\theta\ \text{相同}\iff S\ \text{相同}
+  \iff |y_0|\ \text{相同}}.
+\]
+这一等价关系成立的前提是\textbf{同一个固定的椭圆}（$a,b,c$
+不改变），且两腰和 $r_1+r_2=2a$ 始终不变。
+
+\medskip
+\textbf{定角反求点：一般有四个对称点。}
+给定 $0\leq\theta\leq\theta_{\max}$，由上式先得
+\[
+  |y_0|=\frac{b^2}{c}\tan\frac\theta2,
+  \qquad
+  |x_0|=a\sqrt{1-\frac{y_0^2}{b^2}}.
+\]
+当 $0<\theta<\theta_{\max}$ 时，两坐标绝对值都大于零，
+点 $P=(\pm|x_0|,\pm|y_0|)$ 通常有四个（两个正负号独立选取）；
+当 $\theta=0$ 时只有 $P=(\pm a,0)$；
+当 $\theta=\theta_{\max}$ 时只有 $P=(0,\pm b)$。
+这也严格说明了\textbf{焦角决定坐标绝对值，却不唯一决定点的位置}。
+
+\medskip
+\textbf{最大角、最小角的确定与端点检验。}
 由椭圆方程 $|y_0|\leq b$，等号当且仅当 $P=(0,\pm b)$。
 又因 $\theta/2\in[0,90^\circ)$，$\tan$ 严格递增，故
 \[
@@ -121,5 +166,11 @@ $y_0=0$ 的两个长轴端点将在最后单独验证。
 \]
 当 $P=(\pm a,0)$ 时，$P,F_1,F_2$ 共线且从 $P$ 发出的两条射线
 方向相同，所以 $\theta=0$，与半角公式（右端为 $0$）一致。
-\textbf{因此结论对椭圆上所有点均成立。}
+反之，$\theta=0$ 则 $c|y_0|/b^2=0$，由 $c>0$ 得 $y_0=0$，
+椭圆上只能是 $P=(\pm a,0)$。所以最小焦角为
+\[
+  \boxed{\theta_{\min}=0^\circ\quad\Longleftrightarrow\quad
+  P=(\pm a,0)}.
+\]
+\textbf{因此最大值、最小值与半角结论对椭圆上所有点均成立。}
 \end{proofbox}
