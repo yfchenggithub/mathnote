@@ -1,17 +1,61 @@
-% ===== Summary =====
+% C015 椭圆焦点三角形四心坐标性质——一分钟总结
 \begin{summarybox}
-    \begin{enumerate}[label=\protect\circled{\arabic*}, leftmargin=1.5em, itemsep=1ex]
-        \item \textbf{核心特征}: 
-        \begin{quote}
-            \small 四心坐标均可由 $P(x_0, y_0)$ 线性表达. 其中重心 $G$ 是平移缩放, 内心 $I$ 的横坐标由离心率 $e$ 锁定.
-        \end{quote}
-        \item \textbf{实战提醒}: 
-        \begin{quote}
-            \small 遇到“动点 $P$ 运动时四心轨迹”问题, 直接利用坐标变换公式（代入法）即可秒杀, 无需重新推导.
-        \end{quote}
-        \item \textbf{几何直观}: 
-        \begin{quote}
-            \small 垂心与外心的纵坐标通常较大, 反映了焦点三角形在 $y$ 方向上的高度变化特征.
-        \end{quote}
-    \end{enumerate}
+\textbf{1. 先看形状，再套公式}
+
+底边 $F_1(-c,0)F_2(c,0)$ 水平且关于原点对称，
+所以\textbf{重心直接平均、垂心与 $P$ 同横坐标、外心固定在 $y$ 轴}。
+椭圆又满足 $PF_1+PF_2=2a$ 和 $PF_1-PF_2=2ex_0$。
+
+\textbf{2. 四心总表（$y_0\ne0$）}
+\[
+ \boxed{G\left(\frac{x_0}{3},\frac{y_0}{3}\right)},
+ \qquad
+ \boxed{I\left(ex_0,\frac{cy_0}{a+c}\right)},
+\]
+\[
+ \boxed{H\left(x_0,\frac{c^2-x_0^2}{y_0}\right)},
+ \qquad
+ \boxed{O'\left(0,\frac{x_0^2+y_0^2-c^2}{2y_0}\right)}.
+\]
+
+\textbf{3. 最快推导卡片}
+\begin{enumerate}
+ \item \textbf{重心：} $G=(P+F_1+F_2)/3=P/3$。
+ \item \textbf{内心：} 底边切点给
+ $x_I=(PF_1-PF_2)/2=ex_0$；面积给
+ $|y_I|=S/s=c|y_0|/(a+c)$，再按 $y_0$ 定正负号。
+ \item \textbf{外心：} 设 $O'=(0,t)$，用
+ $c^2+t^2=x_0^2+(y_0-t)^2$ 解出 $t$。
+ \item \textbf{垂心：} 直接 $x_H=x_0$，再用点积
+ $(x_0+c)(x_0-c)+y_0y_H=0$；
+ 若已求外心，则\textbf{一步使用} $H=P-2O'$。
+\end{enumerate}
+
+\textbf{4. 四个高价值识别信号}
+\begin{enumerate}
+ \item \textbf{题目问重心或内心轨迹：} 设新点坐标，反解 $P$，代入原椭圆；
+ 两条轨迹分别是轴向比例变换所得的椭圆，且须删除横轴端点。
+ \item \textbf{$x_0=\pm c$：} 三角形在相应焦点处为直角，垂心就是这个焦点。
+ \item \textbf{$OP=c$：} 顶角 $\angle F_1PF_2=90^\circ$，外心等于椭圆中心。
+ \item \textbf{$P=(0,\pm b)$：} 三角形等腰，四心共 $y$ 轴，但通常不重合。
+\end{enumerate}
+
+\textbf{5. 记忆优先级}
+
+\textbf{必须理解：} 水平底边、中垂线、内切圆切线长、面积 $S=sr$。
+
+\textbf{必须会推：} 焦半径的和差、$x_I=ex_0$、$H=P-2O'$。
+
+\textbf{不必硬背：} 垂心和外心的复杂分式；记住几何入口即可现场求出。
+
+\textbf{6. 最后一道自检}
+
+在 $a=5,b=4,c=3$ 的椭圆上取 $P=(3,16/5)$：
+你能否不看答案，在两分钟内得到
+\[
+ G=\left(1,\frac{16}{15}\right),\quad
+ I=\left(\frac95,\frac65\right),\quad
+ H=(3,0),\quad O'=\left(0,\frac85\right)
+\]
+并解释为什么 $H=F_2$？
 \end{summarybox}

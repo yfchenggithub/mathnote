@@ -1,80 +1,276 @@
+% C015 椭圆焦点三角形四心坐标性质——多角度证明
+% 约定：P=(x_0,y_0), y_0\ne0, O=(0,0), F_1=(-c,0), F_2=(c,0)。
 \begin{proofbox}
-\textbf{1. 重心 $G$ 坐标公式的详细推导}
+\textbf{准备：只用一次椭圆定义，推出两个焦半径公式}
 
-\textit{核心思路：重心是中线的交点，其坐标是三角形三个顶点坐标的算术平均值。这是四心公式中最简单的一个。}
-
-\begin{enumerate}
-    \item \textbf{第一步：列出顶点坐标}
-    设椭圆上一点 $P(x_0, y_0)$，左焦点 $F_1(-c, 0)$，右焦点 $F_2(c, 0)$。
-    \item \textbf{第二步：代入重心公式}
-    根据重心公式 $G = \frac{P + F_1 + F_2}{3}$，分量计算：
-    \begin{itemize}
-        \item 横坐标：$x_G = \frac{x_0 + (-c) + c}{3} = \frac{x_0}{3}$；
-        \item 纵坐标：$y_G = \frac{y_0 + 0 + 0}{3} = \frac{y_0}{3}$。
-    \end{itemize}
-    \item \textbf{结论}：重心 $G\left( \frac{x_0}{3}, \frac{y_0}{3} \right)$。这说明重心轨迹是原椭圆缩小到 $\frac{1}{3}$ 后的图形。
-\end{enumerate}
-
-\tcbline
-
-\textbf{2. 内心 $I$ 坐标公式的详细推导}
-
-\textit{核心思路：内心是角平分线的交点。利用内心坐标通用公式（边长加权平均），结合椭圆独有的“焦半径公式”进行化简。}
-
-\begin{enumerate}
-    \item \textbf{第一步：确定三条边的边长}
-    在 $\triangle PF_1F_2$ 中，设角 $P, F_1, F_2$ 所对的边分别为 $p, f_1, f_2$：
-    \begin{itemize}
-        \item 底边 $p = |F_1F_2| = 2c$；
-        \item 侧边 $f_1 = |PF_2| = a - ex_0$（右焦半径公式）；
-        \item 侧边 $f_2 = |PF_1| = a + ex_0$（左焦半径公式）。
-        \item 周长 $L = p + f_1 + f_2 = 2c + (a-ex_0) + (a+ex_0) = 2a + 2c$。
-    \end{itemize}
-    \item \textbf{第二步：代入内心分点公式}
-    横坐标 $x_I = \frac{p \cdot x_0 + f_1 \cdot (-c) + f_2 \cdot c}{L}$。
-    \item \textbf{第三步：分子代数拆解（重点）}
-    将边长代入分子：
-    \[ \text{分子} = (2c)x_0 + (a - ex_0)(-c) + (a + ex_0)c \]
-    逐项展开：$= 2cx_0 - ac + ecx_0 + ac + ecx_0 = 2cx_0 + 2ecx_0 = 2cx_0(1+e)$。
-    \item \textbf{第四步：整体约分}
-    \[ x_I = \frac{2cx_0(1+e)}{2a+2c} = \frac{2cx_0(1+e)}{2a(1+\frac{c}{a})} = \frac{2cx_0(1+e)}{2a(1+e)} = \frac{c}{a}x_0 = ex_0 \]
-    纵坐标同理：$y_I = \frac{p \cdot y_0 + f_1 \cdot 0 + f_2 \cdot 0}{2a+2c} = \frac{2cy_0}{2(a+c)} = \frac{cy_0}{a+c}$。
-\end{enumerate}
+记 $d_1=PF_1$、$d_2=PF_2$。椭圆第一定义给出
+\[
+ d_1+d_2=2a.
+\]
+把两个距离\textbf{平方相减}，不用解根式：
+\begin{align*}
+ d_1^2-d_2^2
+ &=\bigl[(x_0+c)^2+y_0^2\bigr]
+   -\bigl[(x_0-c)^2+y_0^2\bigr]\\
+ &=4cx_0.
+\end{align*}
+利用平方差公式：
+\[
+ (d_1-d_2)(d_1+d_2)=4cx_0
+ \quad\Longrightarrow\quad
+ d_1-d_2=\frac{2cx_0}{a}=2ex_0.
+\]
+由和、差得到
+\[
+ \boxed{PF_1=a+ex_0},\qquad
+ \boxed{PF_2=a-ex_0}.
+\]
+又因为底边 $F_1F_2=2c$，三角形的半周长与面积为
+\[
+ \boxed{s=a+c},\qquad
+ \boxed{S=\frac12(2c)|y_0|=c|y_0|}.
+\]
+\textit{理解：后续所有简化，都来源于两个对称焦点和一个恒定的焦半径之和。}
 
 \tcbline
+\textbf{一、重心 $G$——两种方法}
 
-\textbf{3. 垂心 $H$ 坐标公式的详细推导}
+\textbf{方法 G1（最快：三点坐标平均）。}
+\[
+ G=\frac{P+F_1+F_2}{3}
+ =\left(\frac{x_0-c+c}{3},\frac{y_0}{3}\right)
+ =\boxed{\left(\frac{x_0}{3},\frac{y_0}{3}\right)}.
+\]
 
-\textit{核心思路：垂心是高线的交点。由于底边在 $x$ 轴上，过 $P$ 的高线就是一条垂直于 $x$ 轴的竖直线，这大大简化了计算。}
-
-\begin{enumerate}
-    \item \textbf{找高线1}：底边在 $x$ 轴，所以过 $P(x_0, y_0)$ 的高线是 $x = x_0$。
-    \item \textbf{找高线2}：连接 $PF_2$，斜率 $k_{PF2} = \frac{y_0}{x_0-c}$。
-    \item \textbf{算斜率}：过 $F_1$ 的高线垂直于 $PF_2$，所以斜率 $k_H = -\frac{x_0-c}{y_0}$。
-    \item \textbf{写方程}：高线为 $y - 0 = -\frac{x_0-c}{y_0}(x + c)$。
-    \item \textbf{求交点}：把 $x = x_0$ 代入，得 $y_H = -\frac{(x_0-c)(x_0+c)}{y_0} = -\frac{x_0^2-c^2}{y_0} = \frac{c^2-x_0^2}{y_0}$。
-\end{enumerate}
+\textbf{方法 G2（几何中线：一眼看出比例）。}
+底边中点恰好是 $O=(0,0)$，因此 $PO$ 是中线。
+重心把中线按\textbf{从顶点起 $2:1$} 分割，即 $PG:GO=2:1$。
+所以 $\overrightarrow{OG}=\tfrac13\overrightarrow{OP}$，
+仍得 $G=(x_0/3,y_0/3)$。
 
 \tcbline
+\textbf{二、内心 $I$——三种方法；第一种最值得记忆}
 
-\textbf{4. 外心 $O'$ 坐标公式的详细推导}
+\textbf{方法 I1（最快、最直觉：切线长相等 $+$ 面积）。}
 
-\textit{核心思路：外心是三边中垂线的交点，也是到三个顶点距离相等的点。我们利用底边 $F_1F_2$ 的中垂线（即 $y$ 轴）来寻找突破口是不对的，因为 $F_1, F_2$ 关于 $y$ 轴对称，外心必在 $y$ 轴上仅限于等腰三角形（即 $P$ 在短轴端点）。}
+设内切圆与底边 $F_1F_2$ 相切于 $T$，
+与 $PF_1,PF_2$ 分别相切于 $U,V$。
+由同一点向圆所引的两条切线等长，
+\[
+ F_1T=F_1U,\qquad F_2T=F_2V,\qquad PU=PV.
+\]
+故
+\begin{align*}
+ PF_1-PF_2
+ &=(PU+UF_1)-(PV+VF_2)\\
+ &=F_1T-F_2T.
+\end{align*}
+因 $F_1=(-c,0),F_2=(c,0)$，且 $T$ 在底边内部，
+\[
+ F_1T=c+x_T,\qquad F_2T=c-x_T,
+\]
+两者之差就是 $2x_T$。内心在切点的垂线上，故 $x_I=x_T$，
+\[
+ \boxed{x_I=\frac{PF_1-PF_2}{2}=ex_0}.
+\]
+接着用面积 $S=sr$：
+\[
+ c|y_0|=(a+c)r
+ \quad\Longrightarrow\quad
+ r=\frac{c|y_0|}{a+c}.
+\]
+内心和 $P$ 在底边同侧，所以 $y_I$ 与 $y_0$ 同号，从而
+\[
+ \boxed{y_I=\frac{cy_0}{a+c}}.
+\]
+\textbf{记忆口令：底边切点定横坐标；面积除以半周长定纵坐标。}
 
-\begin{enumerate}
-    \item \textbf{第一步：列出中垂线方程}
-    底边 $F_1F_2$ 的中点是原点 $(0,0)$，其中垂线是 $y$ 轴（$x=0$）。注意：这是错误的思维陷阱！只有当 $P$ 在短轴上时外心才在 $y$ 轴。
-    正确步骤：设外心 $O'(x, y)$。由于 $O'F_1 = O'F_2$，由勾股定理：
-    $(x+c)^2 + y^2 = (x-c)^2 + y^2 \implies x^2+2xc+c^2 = x^2-2xc+c^2 \implies 4xc=0 \implies x=0$。
-    \textbf{修正结论}：无论 $P$ 在哪，$\triangle PF_1F_2$ 的外心 $O'$ 始终在 $y$ 轴上，即 $x_{O'} = 0$。
-    \item \textbf{第二步：利用距离相等求纵坐标}
-    外心到 $F_2(c, 0)$ 的距离等于到 $P(x_0, y_0)$ 的距离：
-    $c^2 + y_{O'}^2 = x_0^2 + (y_0 - y_{O'})^2$
-    展开右边：$c^2 + y_{O'}^2 = x_0^2 + y_0^2 - 2y_0y_{O'} + y_{O'}^2$
-    消去 $y_{O'}^2$ 得：$2y_0y_{O'} = x_0^2 + y_0^2 - c^2$
-    \item \textbf{第三步：化简纵坐标}
-    $y_{O'} = \frac{x_0^2 + y_0^2 - c^2}{2y_0}$。
-    代入 $c^2 = a^2 - b^2$：$y_{O'} = \frac{x_0^2 + y_0^2 - a^2 + b^2}{2y_0}$。
-    再次利用椭圆方程化简，可得到与 $x_0, y_0$ 相关的最终简洁形式。
-\end{enumerate}
+\medskip
+\textbf{方法 I2（代数通法：对边长度加权平均）。}
+
+一般三角形的内心坐标等于\textbf{各顶点坐标乘其对边长，再除以周长}。
+在本题中，顶点 $P,F_1,F_2$ 的对边依次为
+$2c,d_2,d_1$，千万不要颠倒：
+\[
+ I=\frac{2cP+d_2F_1+d_1F_2}{2c+d_1+d_2}.
+\]
+分母为 $2(a+c)$，横坐标为
+\begin{align*}
+ x_I
+ &=\frac{2cx_0-c(a-ex_0)+c(a+ex_0)}{2(a+c)}\\
+ &=\frac{2cx_0(1+e)}{2a(1+e)}
+ =\boxed{ex_0}.
+\end{align*}
+纵坐标为
+\[
+ y_I=\frac{2cy_0}{2(a+c)}
+ =\boxed{\frac{cy_0}{a+c}}.
+\]
+\textit{这是可推广到任意三角形的代数方法；上面的方法 I1 则更容易现场还原。}
+
+\medskip
+\textbf{方法 I3（角平分线定理 $+$ 直线分点）。}
+
+设顶角 $\angle F_1PF_2$ 的内角平分线与底边相交于 $D=(d,0)$。
+由角平分线定理，
+\[
+ \frac{F_1D}{DF_2}=\frac{PF_1}{PF_2}
+ =\frac{a+ex_0}{a-ex_0}.
+\]
+因为 $F_1D=c+d$、$DF_2=c-d$，交叉相乘得到
+\[
+ d=c\frac{PF_1-PF_2}{PF_1+PF_2}
+ =c\frac{2ex_0}{2a}=e^2x_0.
+\]
+于是 $D=(e^2x_0,0)$。内心 $I$ 位于 $PD$ 上；
+由面积法已经知道 $y_I/y_0=c/(a+c)$，故按直线上的同比例分点，
+\begin{align*}
+ x_I
+ &=d+\frac{y_I}{y_0}(x_0-d)\\
+ &=e^2x_0+\frac{c}{a+c}(1-e^2)x_0\\
+ &=\left[e^2+\frac{e}{1+e}(1-e^2)\right]x_0
+ =\boxed{ex_0}.
+\end{align*}
+\textit{额外收获：顶角平分线落到底边的点 $D$ 的横坐标是 $e^2x_0$；
+而内心横坐标是 $ex_0$。两者不要混淆。}
+
+\tcbline
+\textbf{三、垂心 $H$——两种直接证明和一种联动证明}
+
+\textbf{方法 H1（最快直接法：一条竖直高线 $+$ 向量垂直）。}
+
+底边 $F_1F_2$ 在 $x$ 轴上，故过 $P$ 的高线为
+\[
+ \boxed{x=x_0}.
+\]
+设 $H=(x_0,h)$。过 $F_1$ 的高线与 $PF_2$ 垂直，
+也就是向量 $\overrightarrow{F_1H}=(x_0+c,h)$
+与 $\overrightarrow{F_2P}=(x_0-c,y_0)$ 点积为零：
+\[
+ (x_0+c)(x_0-c)+hy_0=0.
+\]
+所以
+\[
+ \boxed{h=\frac{c^2-x_0^2}{y_0}},\qquad
+ \boxed{H=\left(x_0,\frac{c^2-x_0^2}{y_0}\right)}.
+\]
+\textit{这个写法比使用斜率更稳健：当 $x_0=c$ 时，$PF_2$ 竖直、斜率不存在，
+点积法仍能直接使用。}
+
+\medskip
+\textbf{方法 H2（解析几何：垂直斜率法）。}
+
+$PF_2$ 的方向向量是 $(x_0-c,y_0)$，其中 $y_0\ne0$。
+与之垂直且经过 $F_1$ 的高线可写为
+\[
+ y=-\frac{x_0-c}{y_0}(x+c).
+\]
+令 $x=x_0$ 得
+\[
+ y_H=-\frac{(x_0-c)(x_0+c)}{y_0}
+ =\frac{c^2-x_0^2}{y_0}.
+\]
+注意：上式采用的是\textbf{高线的斜率}，不会涉及不存在的 $PF_2$ 斜率。
+
+\medskip
+\textbf{方法 H3（最快联动：欧拉线）。}
+
+一旦外心 $O'=(0,t)$ 已经求得，重心 $G=P/3$ 已知，
+由一般三角形的欧拉线公式
+\[
+ H=3G-2O'=P-2O'
+\]
+立刻得到
+\begin{align*}
+ H
+ &=\left(x_0,y_0-\frac{x_0^2+y_0^2-c^2}{y_0}\right)\\
+ &=\boxed{\left(x_0,\frac{c^2-x_0^2}{y_0}\right)}.
+\end{align*}
+这个公式还可以不依赖记忆直接核验：令 $H=P-2O'$，
+显然 $H$ 与 $P$ 同横坐标；并且
+\[
+ \overrightarrow{F_1H}\cdot\overrightarrow{F_2P}
+ =x_0^2-c^2+y_0^2-2ty_0=0,
+\]
+最后一步正是外心方程 $2ty_0=x_0^2+y_0^2-c^2$。
+两条高线都满足，所以 $H$ 确为垂心。
+
+\tcbline
+\textbf{四、外心 $O'$——两种方法}
+
+\textbf{方法 O1（最快：底边中垂线 $+$ 两段距离相等）。}
+
+$F_1F_2$ 的中点是 $O=(0,0)$，底边是水平线，所以其垂直平分线为 $x=0$。
+因此\textbf{对任意非退化的焦点三角形}，外心必为 $O'=(0,t)$。
+由 $O'F_2=O'P$，
+\[
+ c^2+t^2=x_0^2+(y_0-t)^2.
+\]
+展开、约去 $t^2$：
+\[
+ 2y_0t=x_0^2+y_0^2-c^2.
+\]
+所以
+\[
+ \boxed{O'=\left(0,\frac{x_0^2+y_0^2-c^2}{2y_0}\right)}.
+\]
+\textbf{重要：外心在 $y$ 轴上根本不要求 $PF_1=PF_2$。}
+
+\medskip
+\textbf{方法 O2（圆方程：经过两个焦点的圆）。}
+
+把三角形的外接圆写成一般式
+\[
+ x^2+y^2+Dx+Ey+F=0.
+\]
+代入 $F_1(-c,0)$ 与 $F_2(c,0)$，分别有
+\[
+ c^2-Dc+F=0,\qquad c^2+Dc+F=0.
+\]
+两式相减得 $D=0$，再得 $F=-c^2$。
+将 $P(x_0,y_0)$ 代入，得到
+\[
+ E=\frac{c^2-x_0^2-y_0^2}{y_0}.
+\]
+该圆圆心是 $(-D/2,-E/2)$，恰好为
+\[
+ O'=\left(0,\frac{x_0^2+y_0^2-c^2}{2y_0}\right).
+\]
+\textit{顺便得到外接圆的简洁方程：}
+\[
+ \boxed{x^2+y^2-2y_{O'}y-c^2=0}.
+\]
+
+\tcbline
+\textbf{五、把椭圆方程再用一次：检验与特殊位置}
+
+从
+\[
+ \frac{x_0^2}{a^2}+\frac{y_0^2}{b^2}=1
+ \quad\Longrightarrow\quad
+ x_0^2=a^2-\frac{a^2}{b^2}y_0^2
+\]
+及 $a^2=b^2+c^2$ 可得
+\[
+ \boxed{y_{O'}=\frac{b^2}{2y_0}-\frac{c^2y_0}{2b^2}},
+ \qquad
+ \boxed{y_H=\frac{a^2y_0}{b^2}-\frac{b^2}{y_0}}.
+\]
+这两式不必作为主要记忆对象，但可以用于核对符号或研究极限。
+
+\textbf{位置判断 1：} $x_0=\pm c$ 时 $H=F_2$ 或 $H=F_1$，
+因为相应的焦点处有直角。
+
+\textbf{位置判断 2：} $x_0^2+y_0^2=c^2$ 时 $O'=O$，
+此时 $P$ 在以 $F_1F_2$ 为直径的圆上，$\angle F_1PF_2=90^\circ$。
+
+\textbf{位置判断 3：} 椭圆顶点 $P=(0,\pm b)$ 时，三角形是等腰三角形，
+四心都在 $y$ 轴上：
+\[
+ G=\left(0,\frac{y_0}{3}\right),\quad
+ I=\left(0,\frac{cy_0}{a+c}\right),\quad
+ H=\left(0,\frac{c^2}{y_0}\right),\quad
+ O'=\left(0,\frac{b^2-c^2}{2y_0}\right).
+\]
+四心不一定重合；只有焦点三角形恰为等边三角形时才会重合。
 \end{proofbox}
