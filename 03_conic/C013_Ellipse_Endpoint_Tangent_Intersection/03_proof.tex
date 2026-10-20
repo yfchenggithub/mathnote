@@ -1,19 +1,207 @@
 \begin{proofbox}
-\textbf{1. 乘积定值的证明}:
-\begin{enumerate}
-    \item 设 $P(x_0, y_0)$, 则过 $P$ 的切线为 $l: \frac{x_0x}{a^2} + \frac{y_0y}{b^2} = 1$.
-    \item $A_1$ 处切线方程为 $x = -a$, 代入 $l$ 得 $P_1$ 纵坐标: $\frac{-ax_0}{a^2} + \frac{y_0y_1}{b^2} = 1 \implies y_1 = \frac{b^2(a+x_0)}{ay_0}$.
-    \item $A_2$ 处切线方程为 $x = a$, 代入 $l$ 得 $P_2$ 纵坐标: $\frac{ax_0}{a^2} + \frac{y_0y_2}{b^2} = 1 \implies y_2 = \frac{b^2(a-x_0)}{ay_0}$.
-    \item 则 $|P_1A_1| \cdot |P_2A_2| = |y_1 \cdot y_2| = \frac{b^4(a^2-x_0^2)}{a^2y_0^2}$.
-    \item 由点 $P$ 在椭圆上知 $y_0^2 = \frac{b^2(a^2-x_0^2)}{a^2}$, 代入上式:
-    $|y_1 y_2| = \frac{b^4(a^2-x_0^2)}{a^2 \cdot \frac{b^2(a^2-x_0^2)}{a^2}} = b^2$. 证毕.
-\end{enumerate}
+\textbf{统一约定}：$P(x_0,y_0)$ 在椭圆上，$y_0\ne0$。
+记 $P_1=(-a,y_L)$、$P_2=(a,y_R)$，
+$d_1=|y_L|$、$d_2=|y_R|$。
+以下给出五种思路；其中方法一最适合快速计算，
+方法三最适合几何理解，方法二是稳妥的设点通法。
 
-\textbf{2. 面积最小值的证明}:
-\begin{enumerate}
-    \item 四边形 $A_1P_1P_2A_2$ 为直角梯形, 面积 $S = \frac{1}{2}(|y_1| + |y_2|) \cdot 2a = a(|y_1| + |y_2|)$.
-    \item 由算术-几何平均值不等式: $|y_1| + |y_2| \ge 2\sqrt{|y_1 y_2|}$.
-    \item 代入定值 $|y_1 y_2| = b^2$, 得 $S \ge a \cdot 2\sqrt{b^2} = 2ab$.
-    \item 当且仅当 $|y_1| = |y_2| = b$ 时取等号, 此时 $P$ 为短轴顶点 $(0, \pm b)$.
-\end{enumerate}
+\medskip
+\textbf{方法一：最短代数证明——切线判别式＋平方差（推荐速解）}
+
+\textbf{第1步：} 因 $P\ne A_1,A_2$，其切线不竖直，设
+$l:y=kx+m$。将 $y=kx+m$ 代入椭圆方程，整理成
+\[
+(b^2+a^2k^2)x^2+2a^2kmx+a^2(m^2-b^2)=0.
+\]
+\textbf{第2步：} 相切意味着此二次方程有重根，故
+\[
+\Delta=4a^2b^2\bigl(a^2k^2+b^2-m^2\bigr)=0,
+\quad\Longrightarrow\quad m^2=a^2k^2+b^2.
+\]
+\textbf{第3步：} 两条端点切线为 $x=\pm a$，所以
+\[
+y_L=m-ak,\quad y_R=m+ak,
+\]
+\[
+\boxed{y_Ly_R=(m-ak)(m+ak)=m^2-a^2k^2=b^2.}
+\]
+因 $y_Ly_R>0$，两截点必在 $x$ 轴同侧，故
+$d_1d_2=|y_Ly_R|=b^2$。
+
+\textbf{第4步：} 同号意味着 $|y_L|+|y_R|=|y_L+y_R|=2|m|$，故
+\[
+S=a(d_1+d_2)=2a|m|
+=2a\sqrt{a^2k^2+b^2}\ge2ab.
+\]
+等号当且仅当 $k=0$，对应切线 $y=\pm b$，
+切点是 $P=(0,\pm b)$。
+
+\textbf{速记压缩版}：
+\[
+\boxed{m^2-a^2k^2=b^2}
+\ \Longrightarrow\ 
+\boxed{y_Ly_R=(m-ak)(m+ak)=b^2},
+\quad\boxed{S=2a|m|\ge2ab}.
+\]
+
+\medskip
+\textbf{方法二：设点法——利用标准椭圆切线方程（通法）}
+
+\textbf{第1步：} $P(x_0,y_0)$ 处切线为
+\[
+\frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1.
+\]
+\textbf{第2步：} 分别令 $x=-a$ 和 $x=a$，得到
+\[
+y_L=\frac{b^2(a+x_0)}{ay_0},\qquad
+ y_R=\frac{b^2(a-x_0)}{ay_0}.
+\]
+因为 $-a<x_0<a$，两个分子的符号均为正，
+所以 $y_L,y_R$ 的符号都与 $y_0$ 相同。
+
+\textbf{第3步：} 相乘并使用 $P$ 在椭圆上的条件
+\[
+\frac{x_0^2}{a^2}+\frac{y_0^2}{b^2}=1
+\quad\Longleftrightarrow\quad
+ a^2-x_0^2=\frac{a^2y_0^2}{b^2},
+\]
+得到
+\[
+y_Ly_R=\frac{b^4(a^2-x_0^2)}{a^2y_0^2}
+=\frac{b^4}{a^2y_0^2}\cdot\frac{a^2y_0^2}{b^2}=b^2.
+\]
+\textbf{第4步：} 两式相加，利用同号性，
+\[
+d_1+d_2=|y_L+y_R|
+=\left|\frac{2b^2}{y_0}\right|,
+\quad S=\frac{2ab^2}{|y_0|}.
+\]
+由 $|y_0|\le b$ 得 $S\ge2ab$，
+等号当且仅当 $|y_0|=b$，即 $P=(0,\pm b)$。
+
+\medskip
+\textbf{方法三：纯几何来源——先证明圆，再横向拉成椭圆}
+
+\textbf{第1步（回到圆）：} 取半径为 $b$ 的圆
+$\Gamma:X^2+Y^2=b^2$，左右端点为
+$B_1(-b,0),B_2(b,0)$。其端点切线为 $X=-b,X=b$。
+取圆上非端点 $Q$，其切线分别交上述两直线于 $T_1,T_2$。
+记 $h_1=|T_1B_1|$、$h_2=|T_2B_2|$。
+
+\textbf{第2步（切线长）：} 从圆外点 $T_1$ 引圆的两条切线，
+切点是 $B_1,Q$，故 $|T_1Q|=|T_1B_1|=h_1$。
+同理 $|QT_2|=|B_2T_2|=h_2$。
+由于 $Q$ 的横坐标介于 $-b$ 与 $b$ 之间，
+且 $T_1,Q,T_2$ 共线，$Q$ 在 $T_1T_2$ 线段上，于是
+\[
+|T_1T_2|=|T_1Q|+|QT_2|=h_1+h_2.
+\]
+\textbf{第3步（勾股定理）：} 两条固定竖线相距 $2b$。
+$T_1,T_2$ 的竖坐标同号，所以它们的纵向差的绝对值
+为 $|h_1-h_2|$。于是
+\[
+|T_1T_2|^2=(2b)^2+(h_1-h_2)^2.
+\]
+代入 $|T_1T_2|=h_1+h_2$ 得
+\[
+(h_1+h_2)^2=4b^2+(h_1-h_2)^2
+\ \Longrightarrow\ 4h_1h_2=4b^2.
+\]
+故圆中 $\boxed{h_1h_2=b^2}$。
+
+\textbf{第4步（横向拉伸）：} 作可逆线性变换
+\[
+(x,y)=\left(\frac abX,Y\right).
+\]
+圆 $\Gamma$ 变成椭圆 $C$；$X=\pm b$ 变成 $x=\pm a$；
+$B_1,B_2,Q,T_1,T_2$ 对应变成
+$A_1,A_2,P,P_1,P_2$。可逆线性变换将切线变成切线。
+这个变换只改变横坐标，\textbf{不改变任何竖直线段的长度}，
+因此 $d_1=h_1$、$d_2=h_2$，从而
+\[
+\boxed{d_1d_2=h_1h_2=b^2.}
+\]
+最后由基本不等式
+\[
+S=a(d_1+d_2)\ge2a\sqrt{d_1d_2}=2ab.
+\]
+取等时 $d_1=d_2=b$，对应水平切线及短轴端点。
+
+\medskip
+\textbf{方法四：参数法——半角公式让两截距互为倒数}
+
+\textbf{第1步：} 设 $P=(a\cos\theta,b\sin\theta)$，
+其中 $\sin\theta\ne0$。由标准切线公式，
+\[
+\frac{x\cos\theta}{a}+\frac{y\sin\theta}{b}=1.
+\]
+\textbf{第2步：} 依次代入 $x=-a$、$x=a$，
+\[
+y_L=b\frac{1+\cos\theta}{\sin\theta},\qquad
+ y_R=b\frac{1-\cos\theta}{\sin\theta}.
+\]
+\textbf{第3步：} 由半角恒等式
+$1+\cos\theta=2\cos^2(\theta/2)$、
+$1-\cos\theta=2\sin^2(\theta/2)$、
+$\sin\theta=2\sin(\theta/2)\cos(\theta/2)$，
+得到
+\[
+y_L=b\cot\frac\theta2,\qquad
+ y_R=b\tan\frac\theta2.
+\]
+故 $\boxed{y_Ly_R=b^2}$。
+两数同号，
+\[
+S=ab\left(\left|\tan\frac\theta2\right|
++\left|\cot\frac\theta2\right|\right)\ge2ab.
+\]
+等号为 $|\tan(\theta/2)|=1$，
+即 $\theta=\pi/2$ 或 $3\pi/2$（模 $2\pi$），
+对应 $P=(0,\pm b)$。
+
+\medskip
+\textbf{方法五：辅助角／支持线——从“圆的投影极值”看切线}
+
+\textbf{第1步：} 对任意椭圆点
+$(x,y)=(a\cos\theta,b\sin\theta)$，考虑
+\[
+y-kx=b\sin\theta-ak\cos\theta.
+\]
+由辅助角公式（或柯西不等式），其取值范围为
+\[
+-\sqrt{b^2+a^2k^2}\le y-kx
+\le\sqrt{b^2+a^2k^2}.
+\]
+\textbf{第2步：} 固定斜率 $k$，平行直线族
+$y=kx+m$ 中，只有取上、下两个极端截距
+$m=\pm\sqrt{b^2+a^2k^2}$ 时，
+直线才恰好贴住椭圆而不穿过它，即成为切线。
+因而 $m^2=b^2+a^2k^2$。
+
+\textbf{第3步：} 回到两固定竖线，
+$y_L=m-ak$、$y_R=m+ak$，所以
+\[
+y_Ly_R=m^2-a^2k^2=b^2,\qquad
+S=2a|m|\ge2ab.
+\]
+这种方法把切线理解为：\textbf{平行直线平移到刚好接触曲线的位置}；
+$\sqrt{b^2+a^2k^2}$ 是对应方向上的支持值。
+
+\medskip
+\textbf{补充：结论的逆向验证}
+
+若已知同号的两个竖段高度 $y_L,y_R$，令
+\[
+k=\frac{y_R-y_L}{2a},\qquad m=\frac{y_L+y_R}{2}.
+\]
+则
+\[
+m^2-a^2k^2
+=\frac{(y_L+y_R)^2-(y_R-y_L)^2}{4}
+=y_Ly_R.
+\]
+因此，当且仅当 $y_Ly_R=b^2$ 时，
+连接 $(-a,y_L)$ 与 $(a,y_R)$ 的直线是椭圆切线。
+也就是说，\textbf{同号截距乘积等于 $b^2$ 不仅是必要条件，
+而且足以判定这条直线与椭圆相切}。
 \end{proofbox}
