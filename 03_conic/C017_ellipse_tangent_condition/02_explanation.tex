@@ -1,37 +1,72 @@
 \begin{explanationbox}
 \textbf{\textcolor{CExplanation}{一句话直觉}}
-直线与椭圆相切等价于联立方程后二次判别式为零，导出简洁的 $m^2$ 表达式。
+固定斜率 $k$，把直线 $y=kx+m$ \textbf{平行向上、向下移动}：$|m|$ 小时穿过椭圆，刚好贴住椭圆时相切，再远便相离。临界的截距大小恰好是 $\sqrt{a^2k^2+b^2}$。
 
 \medskip
-\textbf{\textcolor{CExplanation}{核心拆解}}
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{要点一（联立方程）：}] 将直线代入椭圆，得到关于 $x$ 的二次方程。
-    \item[\textbf{要点二（判别式零）：}] 相切时二次方程有重根，故判别式 $\Delta = 0$。
-\end{description}
+\textbf{\textcolor{CExplanation}{为什么出现 $a^2k^2+b^2$？先把椭圆看成圆}}
+令 $x=au,\ y=bv$，椭圆就变成单位圆 $u^2+v^2=1$；直线变成
+\[
+    -ak\,u+bv=m.
+\]
+在新坐标中，圆心到这条直线的距离为
+\[
+    d=\frac{|m|}{\sqrt{a^2k^2+b^2}}.
+\]
+单位圆的切线只需满足 $d=1$，于是立刻得到
+\[
+    |m|=\sqrt{a^2k^2+b^2}.
+\]
+\textbf{记忆法：}直线的法向量由 $(-k,1)$ 经过椭圆的横、纵伸缩变为 $(-ak,b)$，它的长度就是 $\sqrt{a^2k^2+b^2}$。
 
 \medskip
-\textbf{\textcolor{CExplanation}{几何本质（唯一交点）}}
-切线与椭圆仅有一个公共点，且该点处直线斜率与椭圆局部斜率一致，但代数上只需用公共点唯一性刻画。
+\textbf{\textcolor{CExplanation}{另一个直觉：焦点到切线的两个垂距}}
+椭圆两个焦点是 $F_1(-c,0)$、$F_2(c,0)$，满足 $c^2=a^2-b^2$。切线是一条把整个椭圆放在同一侧的支撑直线，所以两个焦点也在它的\textbf{同一侧}。
+
+由点到直线距离公式：
+\[
+ d_1=\frac{|m+kc|}{\sqrt{1+k^2}},\qquad
+ d_2=\frac{|m-kc|}{\sqrt{1+k^2}}.
+\]
+椭圆切线的一个几何性质是 $d_1d_2=b^2$。同侧保证 $(m+kc)(m-kc)>0$，故
+\[
+ \frac{m^2-c^2k^2}{1+k^2}=b^2
+ \ \Longrightarrow\ 
+ m^2=(c^2+b^2)k^2+b^2=a^2k^2+b^2.
+\]
+\textbf{直观记忆：}两个焦点到切线的距离可以一大一小，但\textbf{乘积固定为 $b^2$}，因为焦点与椭圆的长短轴由 $a^2=b^2+c^2$ 联系起来。该距离乘积性质的独立证明见证明文件。
 
 \medskip
-\textbf{\textcolor{CExplanation}{代数意义（重根条件）}}
-联立后的二次方程 $Ax^2+Bx+C=0$ 有相等实根，因此判别式 $B^2-4AC=0$，化简即得 $m^2=a^2k^2+b^2$。
+\textbf{\textcolor{CExplanation}{为什么一定要强调“同侧”？}}
+点到直线距离有绝对值。对任意直线只能得到
+\[
+ d_1d_2=\frac{|m^2-c^2k^2|}{1+k^2}.
+\]
+若忘记绝对值直接去掉，就可能把\textbf{经过椭圆内部的割线}误判为切线。例如 $x^2/9+y^2/4=1$ 与 $y=2x$：两焦点到该直线的距离都是 $2$，乘积是 $4=b^2$，但该直线经过原点，显然是割线！
 
 \medskip
-\textbf{\textcolor{CExplanation}{考点价值（切线问题）}}
-\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-    \item \textbf{考法一（求切线）：} 已知斜率 $k$，直接套公式写出切线方程。
-    \item \textbf{考法二（求参数）：} 已知直线与椭圆相切，反求 $k$ 或 $m$ 的值。
-\end{itemize}
+\textbf{\textcolor{CExplanation}{代数本质（判别式）}}
+联立直线与椭圆，得到关于 $x$ 的二次方程。判别式可整理为
+\[
+ \Delta=4a^2b^2\bigl(a^2k^2+b^2-m^2\bigr).
+\]
+所以 $\Delta>0$ 是两交点，$\Delta=0$ 是相切，$\Delta<0$ 是相离。它与“平移直线到临界位置”的几何图像完全一致。
 
 \medskip
-\textbf{\textcolor{CExplanation}{顿悟点}}
-\textbf{$m^2$ 的表达式中 $a^2k^2$ 与 $b^2$ 相加，形式对称，便于记忆；它本质是判别式为零的紧凑形式。}
+\textbf{\textcolor{CExplanation}{圆的特例和横纵交换}}
+当 $a=b=R$，椭圆退化为圆（虽然不再满足 $a>b$），公式成为
+\[
+ m^2=R^2(1+k^2)
+ \iff \frac{|m|}{\sqrt{1+k^2}}=R,
+\]
+正是\textbf{圆心到切线的距离等于半径}。若椭圆写成 $x^2/A^2+y^2/B^2=1$，即使 $A<B$，同一代数公式 $m^2=A^2k^2+B^2$ 依然成立；但此时焦点位置不再是 $(\pm c,0)$。
 
 \medskip
 \textbf{\textcolor{CExplanation}{使用场景}}
-\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-    \item \textbf{场景一（判断相切）：} 给定直线与椭圆，快速验证是否相切。
-    \item \textbf{场景二（写切线）：} 已知椭圆和斜率，直接写出切线方程。
+\begin{itemize}[leftmargin=*, itemsep=0.4em, topsep=0.3em]
+\item \textbf{已知斜率求切线：}直接写出 $m=\pm\sqrt{a^2k^2+b^2}$。
+\item \textbf{已知截距求斜率：}由 $k^2=(m^2-b^2)/a^2$ 求解，必须有 $|m|\ge b$。
+\item \textbf{判断位置关系：}比较 $m^2$ 与 $a^2k^2+b^2$，无需解交点坐标。
+\item \textbf{求切点：}使用 $P=(-a^2k/m,b^2/m)$，同时检查切线条件。
+\item \textbf{焦点距离题：}利用 $d_1d_2=b^2$，但使用逆命题时必须检查两焦点同侧。
 \end{itemize}
 \end{explanationbox}

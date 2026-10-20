@@ -1,49 +1,266 @@
 \begin{proofbox}
-\textbf{\textcolor{CProof}{思路提示}}
-将直线方程代入椭圆方程，得到关于 $x$ 的二次方程；相切意味着该方程有唯一解，即判别式为零，由此推导 $m$ 与 $k$ 的关系。
+\textbf{\textcolor{CProof}{目标与约定}}
+设 $E:x^2/a^2+y^2/b^2=1$（$a>b>0$），$l:y=kx+m$，$c^2=a^2-b^2$。从六种推导路线证明
+\[
+\boxed{l\text{ 与 }E\text{ 相切}\iff m^2=a^2k^2+b^2.}
+\]
 
 \medskip
-\textbf{\textcolor{CProof}{正式推导}}
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-    \item[\textbf{步骤一（代入消元）：}] 将 $y=kx+m$ 代入椭圆 $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1$。
-    \[
-    \frac{x^2}{a^2} + \frac{(kx+m)^2}{b^2} = 1
-    \]
-    \par\textbf{理由：} 联立直线与椭圆方程，消去 $y$，得到只含 $x$ 的方程。
+\textbf{\textcolor{CProof}{方法一：最快、最直观——椭圆伸缩为单位圆}}
 
-    \item[\textbf{步骤二（整理二次）：}] 两边乘以 $a^2b^2$ 并展开整理。
-    \[
-    \begin{aligned}
-    b^2 x^2 + a^2 (k^2 x^2 + 2km x + m^2) &= a^2 b^2 \\
-    (b^2 + a^2 k^2) x^2 + 2a^2 km \, x + (a^2 m^2 - a^2 b^2) &= 0
-    \end{aligned}
-    \]
-    \par\textbf{理由：} 通分后合并同类项，化为关于 $x$ 的标准二次方程 $Ax^2+Bx+C=0$。
+\textbf{第一步（变圆）：}设 $u=x/a,\ v=y/b$，则椭圆化为 $u^2+v^2=1$，原直线化为
+\[
+ b v=ak\,u+m
+ \iff -ak\,u+bv-m=0.
+\]
+\textbf{第二步（圆心到切线距离）：}原坐标中的可逆伸缩保持直线与曲线的交点个数及相切性。新直线与单位圆相切当且仅当
+\[
+ \frac{|m|}{\sqrt{(-ak)^2+b^2}}=1
+ \iff \boxed{m^2=a^2k^2+b^2}.
+\]
+\textbf{最短记忆：}“\emph{椭圆变圆 $\to$ 圆心距等于 $1$}”，不用展开判别式。
 
-    \item[\textbf{步骤三（令判别式零）：}] 相切时方程有重根，故判别式 $\Delta = B^2 - 4AC = 0$。
-    \[
-    (2a^2 km)^2 - 4(b^2 + a^2 k^2)(a^2 m^2 - a^2 b^2) = 0
-    \]
-    \par\textbf{理由：} 二次方程有唯一解当且仅当 $\Delta=0$，这是相切的代数等价条件。
+\medskip
+\textbf{\textcolor{CProof}{方法二：最通用——联立方程、判别式（保留原证明）}}
 
-    \item[\textbf{步骤四（化简求解）：}] 展开判别式并化简。
-    \[
-    \begin{aligned}
-    4a^4 k^2 m^2 - 4a^2 (b^2 + a^2 k^2)(m^2 - b^2) &= 0 \\
-    a^2 k^2 m^2 - (b^2 + a^2 k^2)(m^2 - b^2) &= 0 \\
-    a^2 k^2 m^2 - (b^2 m^2 - b^4 + a^2 k^2 m^2 - a^2 k^2 b^2) &= 0 \\
-    -b^2 m^2 + b^4 + a^2 k^2 b^2 &= 0
-    \end{aligned}
-    \]
-    整理得：
-    \[
-    b^2 m^2 = b^4 + a^2 k^2 b^2
-    \]
-    因为 $b>0$，两边除以 $b^2$ 得到最终条件。
-    \par\textbf{理由：} 逐步展开、合并同类项，注意消去公共因子，保留 $m^2$ 项。
-\end{description}
+\textbf{第一步（代入）：}将 $y=kx+m$ 代入椭圆方程：
+\[
+ \frac{x^2}{a^2}+\frac{(kx+m)^2}{b^2}=1.
+\]
+
+\textbf{第二步（整理）：}两边乘 $a^2b^2$，逐项展开：
+\[
+\begin{aligned}
+ b^2x^2+a^2(k^2x^2+2kmx+m^2)&=a^2b^2,\\
+ (b^2+a^2k^2)x^2+2a^2kmx+a^2(m^2-b^2)&=0.
+\end{aligned}
+\]
+记 $A=b^2+a^2k^2>0$，$B=2a^2km$，$C=a^2(m^2-b^2)$。
+
+\textbf{第三步（算判别式）：}
+\[
+\begin{aligned}
+ \Delta&=B^2-4AC\\
+ &=4a^4k^2m^2-4a^2(b^2+a^2k^2)(m^2-b^2)\\
+ &=4a^2\left[a^2k^2m^2-b^2m^2+b^4-a^2k^2m^2+a^2b^2k^2\right]\\
+ &=\boxed{4a^2b^2(a^2k^2+b^2-m^2)}.
+\end{aligned}
+\]
+\textbf{第四步（充要性）：}因为 $A>0$ 且 $a,b>0$，直线与椭圆只有一个公共点当且仅当 $\Delta=0$，故
+\[
+ \Delta=0\iff a^2k^2+b^2-m^2=0
+ \iff \boxed{m^2=a^2k^2+b^2}.
+\]
+这同时证明了 $\Delta>0$ 为割线、$\Delta<0$ 为相离。
+
+\medskip
+\textbf{\textcolor{CProof}{方法三：焦点到切线距离的乘积（重点新增）}}
+
+\textbf{第一步（先证明几何性质 $d_1d_2=b^2$）：}
+设 $P(x_0,y_0)$ 是椭圆上的切点，则
+\[
+ \frac{x_0^2}{a^2}+\frac{y_0^2}{b^2}=1,
+ \qquad l_P:\frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1.
+\]
+这里切点式可由柯西不等式得到：椭圆上任一点 $(x,y)$ 满足
+\[
+ \frac{x_0x}{a^2}+\frac{y_0y}{b^2}
+ \le \sqrt{\frac{x_0^2}{a^2}+\frac{y_0^2}{b^2}}
+       \sqrt{\frac{x^2}{a^2}+\frac{y^2}{b^2}}=1,
+\]
+且等号仅在 $(x,y)=(x_0,y_0)$ 时成立，所以此直线确为切线。
+
+对 $F_1(-c,0),F_2(c,0)$ 使用点到直线距离公式：
+\[
+ d_1=\frac{1+cx_0/a^2}{\sqrt{x_0^2/a^4+y_0^2/b^4}},\qquad
+ d_2=\frac{1-cx_0/a^2}{\sqrt{x_0^2/a^4+y_0^2/b^4}}.
+\]
+因为 $|x_0|\le a$ 且 $c<a$，有 $|cx_0/a^2|<1$，所以两分子均为正，无须绝对值。
+
+现在只用椭圆方程和 $c^2=a^2-b^2$：
+\[
+\begin{aligned}
+ 1-\frac{c^2x_0^2}{a^4}
+ &=1-\frac{(a^2-b^2)x_0^2}{a^4}\\
+ &=\frac{y_0^2}{b^2}+\frac{b^2x_0^2}{a^4}\\
+ &=b^2\left(\frac{x_0^2}{a^4}+\frac{y_0^2}{b^4}\right).
+\end{aligned}
+\]
+因此，任意椭圆切线满足
+\[
+\boxed{d_1d_2
+ =\frac{1-c^2x_0^2/a^4}{x_0^2/a^4+y_0^2/b^4}=b^2.}
+\]
+这一步\textbf{独立地证明}了焦点距离乘积性质，没有预先使用待证明的 $m^2$ 公式。
+
+\textbf{第二步（用点到直线距离推导斜截式）：}
+对 $l:y=kx+m$，写成 $kx-y+m=0$。两焦点到它的距离是
+\[
+ d_1=\frac{|m-kc|}{\sqrt{1+k^2}},\qquad
+ d_2=\frac{|m+kc|}{\sqrt{1+k^2}}.
+\]
+切线把椭圆（包括内部的两个焦点）放在同一侧，故
+\[
+ (m-kc)(m+kc)>0
+ \ \Longleftrightarrow\ \ m^2>c^2k^2.
+\]
+从而可将乘积中的绝对值安全去掉：
+\[
+\begin{aligned}
+ b^2=d_1d_2
+ &=\frac{|m-kc|\,|m+kc|}{1+k^2}\\
+ &=\frac{m^2-c^2k^2}{1+k^2}.
+\end{aligned}
+\]
+整理即得
+\[
+ \boxed{m^2=c^2k^2+b^2(1+k^2)
+ =(c^2+b^2)k^2+b^2=a^2k^2+b^2.}
+\]
+\textbf{第三步（检验逆命题）：}若已知 $d_1d_2=b^2$ 且两焦点在直线同侧，那么也可按上述等式反推 $m^2=a^2k^2+b^2$，再由方法二或方法一知直线相切。因此
+\[
+ \boxed{\text{相切}\iff
+ \bigl(d_1d_2=b^2\ \text{且两焦点在直线同侧}\bigr).}
+\]
+特别注意：\textbf{没有“同侧”这一条件，焦点乘积式只有必要性，没有充分性。}
+
+\medskip
+\textbf{\textcolor{CProof}{方法四：切点式——由一个切点反推 $k,m$}}
+设 $P(x_0,y_0)$ 是斜率存在的切线的切点。由切点式
+\[
+ \frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1.
+\]
+因为切线不是竖直线，必有 $y_0\ne0$。化成斜截式：
+\[
+ y=-\frac{b^2x_0}{a^2y_0}\,x+\frac{b^2}{y_0},
+ \qquad k=-\frac{b^2x_0}{a^2y_0},\quad m=\frac{b^2}{y_0}.
+\]
+计算
+\[
+\begin{aligned}
+ m^2-a^2k^2
+ &=\frac{b^4}{y_0^2}-\frac{b^4x_0^2}{a^2y_0^2}\\
+ &=\frac{b^4}{y_0^2}\left(1-\frac{x_0^2}{a^2}\right)
+ =\frac{b^4}{y_0^2}\frac{y_0^2}{b^2}=b^2.
+\end{aligned}
+\]
+故 $m^2=a^2k^2+b^2$。反过来，若此式成立，令
+\[
+ P\left(-\frac{a^2k}{m},\frac{b^2}{m}\right),
+\]
+则
+\[
+ \frac{x_P^2}{a^2}+\frac{y_P^2}{b^2}
+ =\frac{a^2k^2+b^2}{m^2}=1,
+ \qquad
+ \frac{x_Px}{a^2}+\frac{y_Py}{b^2}
+ =\frac{-kx+y}{m}=1.
+\]
+所以 $P$ 在椭圆上，且其切线恰好是 $y=kx+m$，再次证明了充分性。
+
+\medskip
+\textbf{\textcolor{CProof}{方法五：参数方程——用最大最小值理解相切}}
+令 $x=a\cos\theta,\ y=b\sin\theta$，则直线过椭圆点的条件是
+\[
+ m=y-kx=b\sin\theta-ak\cos\theta.
+\]
+由柯西不等式
+\[
+ |m|\le\sqrt{b^2+a^2k^2}\,
+ \sqrt{\sin^2\theta+\cos^2\theta}
+ =\sqrt{a^2k^2+b^2}.
+\]
+对于固定 $k$，当且仅当等号成立时，椭圆上只存在一个对应的点，即相切；严格小于时有两个交点，大于时没有交点。因此
+\[
+ \boxed{\text{相切}\iff |m|=\sqrt{a^2k^2+b^2}.}
+\]
+这个方法把切线理解为 $y-kx$ 在椭圆上的\textbf{最大或最小值}。
+
+\medskip
+
+\medskip
+\textbf{\textcolor{CProof}{方法六：比较系数反求切点——由 $k,m$ 求 $x_0,y_0$（本次新增）}}
+
+\textbf{核心思路：}不必联立二次方程，也不必求判别式。\textbf{同一条切线写成两种形式，比较系数，先把切点坐标用 $k,m$ 表示，再代入椭圆方程。}
+
+\textbf{第一步（写出经过 $P$ 的已知切线式）：}设切点为 $P(x_0,y_0)$，因为 $P$ 在椭圆上，所以
+\[
+ \frac{x_0^2}{a^2}+\frac{y_0^2}{b^2}=1,
+ \qquad \ell_P:\frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1.
+\]
+同时，题目中的切线是 $\ell:y=kx+m$。
+
+\textbf{第二步（对照系数求 $x_0,y_0$）：}切线不可能通过椭圆中心 $(0,0)$，因为过中心的直线必与椭圆有两个交点。因此 $m\ne0$，可把 $y=kx+m$ 改写成
+\[
+ -\frac{k}{m}\,x+\frac1m\,y=1.
+\]
+这与 $\dfrac{x_0}{a^2}x+\dfrac{y_0}{b^2}y=1$ 是同一条直线，而且两边常数项均规范为 $1$，故相应系数相等：
+\[
+ \frac{x_0}{a^2}=-\frac{k}{m},\qquad
+ \frac{y_0}{b^2}=\frac1m.
+\]
+直接解出切点：
+\[
+ \boxed{x_0=-\frac{a^2k}{m},\qquad y_0=\frac{b^2}{m}.}
+\]
+
+\textbf{第三步（切点在椭圆上，代入即可）：}
+\[
+\begin{aligned}
+ \frac{x_0^2}{a^2}+\frac{y_0^2}{b^2}&=1\\
+ \Longrightarrow\quad
+ \frac{(-a^2k/m)^2}{a^2}+\frac{(b^2/m)^2}{b^2}&=1\\
+ \Longrightarrow\quad \frac{a^2k^2}{m^2}+\frac{b^2}{m^2}&=1\\
+ \Longrightarrow\quad \boxed{m^2=a^2k^2+b^2}.&
+\end{aligned}
+\]
+这就证明了\textbf{相切的必要性}。
+
+\textbf{第四步（反过来核验，证明充分性）：}如果 $m^2=a^2k^2+b^2$，则 $m\ne0$。取
+\[
+ P\left(-\frac{a^2k}{m},\frac{b^2}{m}\right).
+\]
+由第三步的等式反向计算可知 $P$ 在椭圆上。再将其坐标放入切点式：
+\[
+ \frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1
+ \iff -\frac{k}{m}x+\frac{1}{m}y=1
+ \iff y=kx+m.
+\]
+因此，给定直线确实是椭圆在 $P$ 处的切线，\textbf{充分性}也成立。
+
+\textbf{与方法四的区别：}方法四从\textbf{切点 $(x_0,y_0)$ 出发求 $k,m$}；本法从\textbf{直线的 $k,m$ 出发反求切点 $(x_0,y_0)$}。虽然用的是同一条切点式，但设未知量的方向相反；本法特别适合“已知直线方程，求相切条件或切点”的题。
+
+\textbf{三行速记：}
+\[
+\begin{gathered}
+ \frac{x_0}{a^2}=-\frac{k}{m},\quad \frac{y_0}{b^2}=\frac1m
+ \quad\Longrightarrow\quad
+ (x_0,y_0)=\left(-\frac{a^2k}{m},\frac{b^2}{m}\right),\\
+ \frac{x_0^2}{a^2}+\frac{y_0^2}{b^2}=1
+ \quad\Longrightarrow\quad
+ \boxed{m^2=a^2k^2+b^2}.
+\end{gathered}
+\]
+
+\textbf{\textcolor{CProof}{几何补充：镜像与勾股，为什么是焦点距离的乘积？}}
+把焦点 $F_1$ 关于切线 $l$ 对称到 $F'_1$。椭圆是点到两焦点距离之和不超过 $2a$ 的区域，切线 $l$ 除切点 $P$ 外均在此区域外。由于 $XF_1=XF'_1$（$X\in l$），而 $F'_1$ 与 $F_2$ 分处 $l$ 两侧，三角不等式告诉我们：$XF'_1+XF_2$ 在 $l$ 上的唯一最小点就是线段 $F'_1F_2$ 与 $l$ 的交点。此最小点必为 $P$，因而 $F'_1,P,F_2$ 共线，且
+\[
+ F'_1F_2=PF'_1+PF_2=PF_1+PF_2=2a.
+\]
+取 $l$ 为新的水平轴，令两焦点在同侧的垂距为 $d_1,d_2$。反射后 $F'_1$ 的有向高度与 $F_1$ 相反；设 $F_1,F_2$ 的沿切线方向坐标差为 $t$，勾股定理给出
+\[
+ \begin{aligned}
+ F'_1F_2^2&=t^2+(d_1+d_2)^2=(2a)^2,\\
+ F_1F_2^2&=t^2+(d_1-d_2)^2=(2c)^2.
+ \end{aligned}
+\]
+两式相减：
+\[
+ 4a^2-4c^2=(d_1+d_2)^2-(d_1-d_2)^2=4d_1d_2,
+\]
+由 $a^2-c^2=b^2$，再得 $\boxed{d_1d_2=b^2}$。这是不依赖斜截式的\textbf{纯几何解释}。
 
 \medskip
 \textbf{\textcolor{CProof}{结论回扣}}
-\textbf{化简后即得 $m^2 = a^2 k^2 + b^2$，这正是直线与椭圆相切的充要条件。}
+最快：\textbf{伸缩成单位圆}；最通用：\textbf{判别式}；连接几何性质：\textbf{焦点垂距乘积（注意同侧）}；已知切点：\textbf{切点式}；已知 $k,m$：\textbf{比较系数反求切点}；理解临界位置：\textbf{参数方程与最值}。
 \end{proofbox}

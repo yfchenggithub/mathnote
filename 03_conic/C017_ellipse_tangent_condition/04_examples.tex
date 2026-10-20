@@ -1,47 +1,85 @@
 \begin{examplebox}
-\textbf{\textcolor{CExample}{例 1（基础）}}
+\textbf{\textcolor{CExample}{例 1（基础判断：由“不相切”进一步判断为割线）}}
 
-\textbf{\textcolor{CExample}{题目：}} 椭圆 $\dfrac{x^2}{4}+\dfrac{y^2}{3}=1$，直线 $y=2x+1$，判断直线与椭圆是否相切。
+\textbf{题目：}椭圆 $x^2/4+y^2/3=1$，直线 $y=2x+1$，判断其位置关系。
 
-\textbf{\textcolor{CExample}{解题步骤：}}
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{第一步（提取参数）：}] 从椭圆方程得 $a^2=4$, $b^2=3$；从直线得 $k=2$, $m=1$。
-    \par\textbf{理由：} 识别公式 $m^2 = a^2 k^2 + b^2$ 所需参数。
+\textbf{最快解法：}读出 $a^2=4,b^2=3,k=2,m=1$，则
+\[
+ m^2=1<4\cdot2^2+3=19.
+\]
+因此\textbf{有两个不同的公共点，是割线}，而不仅仅是“不相切”。
 
-    \item[\textbf{第二步（计算左边）：}] 计算 $m^2 = 1^2 = 1$。
-    \par\textbf{理由：} 公式左边是截距平方。
-
-    \item[\textbf{第三步（计算右边）：}] 计算 $a^2 k^2 + b^2 = 4 \times 2^2 + 3 = 4 \times 4 + 3 = 16 + 3 = 19$。
-    \par\textbf{理由：} 代入公式右边表达式。
-
-    \item[\textbf{第四步（比较判断）：}] 因为 $1 \neq 19$，所以 $m^2 \neq a^2 k^2 + b^2$。
-    \par\textbf{理由：} 充要条件不满足，故直线与椭圆不相切。
-\end{description}
-
-\textbf{\textcolor{CExample}{关键结论：}} \textbf{直接应用公式快速判断：若 $m^2 = a^2 k^2 + b^2$ 成立则相切，否则不相切。}
+\textbf{方法依据：}在判别式公式中 $a^2k^2+b^2-m^2>0$，所以 $\Delta>0$。
 
 \medskip
-\textbf{\textcolor{CExample}{例 2（稍变形）}}
+\textbf{\textcolor{CExample}{例 2（给定截距求斜率：为什么无解？）}}
 
-\textbf{\textcolor{CExample}{题目：}} 椭圆 $\dfrac{x^2}{9}+\dfrac{y^2}{5}=1$，直线 $y=kx+2$ 与椭圆相切，求斜率 $k$ 的值。
+\textbf{题目：}椭圆 $x^2/9+y^2/5=1$，直线 $y=kx+2$ 与椭圆相切，求 $k$。
 
-\textbf{\textcolor{CExample}{解题步骤：}}
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{第一步（代入公式）：}] 由相切条件 $m^2 = a^2 k^2 + b^2$，代入 $a^2=9$, $b^2=5$, $m=2$。
-    \[
-    2^2 = 9 k^2 + 5
-    \]
-    \par\textbf{理由：} 已知相切，直接套用结论建立方程。
+\textbf{代数解法：}若相切，则
+\[
+ 2^2=9k^2+5\ \Longrightarrow\ 9k^2=-1,
+\]
+故\textbf{不存在实数斜率 $k$}。
 
-    \item[\textbf{第二步（解方程）：}] 计算 $4 = 9k^2 + 5$，移项得 $9k^2 = -1$。
-    \par\textbf{理由：} 整理方程求解 $k^2$。
+\textbf{几何解释：}所有这些直线都经过 $(0,2)$，而
+\[
+ \frac{0^2}{9}+\frac{2^2}{5}=\frac45<1,
+\]
+所以 $(0,2)$ 是椭圆\textbf{内部}的点。任何经过椭圆内部的整条直线都与椭圆有两个交点，不可能相切。这里绝对不能说“截距过大”，恰恰是 $|m|=2<\sqrt5=b$。
 
-    \item[\textbf{第三步（分析结果）：}] $9k^2 = -1$ 无实数解，因为平方数非负。
-    \par\textbf{理由：} 实数范围内 $k^2 \ge 0$，右边为负矛盾。
+\medskip
+\textbf{\textcolor{CExample}{例 3（求切线、切点，并核验焦点距离乘积）}}
 
-    \item[\textbf{第四步（结论）：}] 不存在实数 $k$ 使直线与椭圆相切。
-    \par\textbf{理由：} 方程无解意味着给定截距 $m=2$ 下，无法找到斜率 $k$ 使直线相切。
-\end{description}
+\textbf{题目：}求椭圆 $x^2/9+y^2/4=1$ 的斜率为 $1$ 的切线；选上方的一条切线求切点，并核验焦点距离乘积。
 
-\textbf{\textcolor{CExample}{关键结论：}} \textbf{利用公式列方程时，注意实数解的存在性；本例显示截距 $m=2$ 过大，无法与椭圆相切。}
+\textbf{第一步（最快写切线）：}
+\[
+ m^2=9\cdot1^2+4=13,
+ \qquad\boxed{y=x\pm\sqrt{13}}.
+\]
+
+\textbf{第二步（切点）：}对 $y=x+\sqrt{13}$，使用 $P=(-a^2k/m,b^2/m)$：
+\[
+ \boxed{P\left(-\frac9{\sqrt{13}},\frac4{\sqrt{13}}\right)}.
+\]
+验证 $\frac{x_P^2}{9}+\frac{y_P^2}{4}=\frac9{13}+\frac4{13}=1$。
+
+\textbf{第三步（焦点乘积核验）：}这里 $c^2=9-4=5$。两个焦点到 $x-y+\sqrt{13}=0$ 的距离是
+\[
+ d_1=\frac{\sqrt{13}-\sqrt5}{\sqrt2},\qquad
+ d_2=\frac{\sqrt{13}+\sqrt5}{\sqrt2}.
+\]
+于是
+\[
+ \boxed{d_1d_2=\frac{13-5}{2}=4=b^2}.
+\]
+因 $\sqrt{13}>\sqrt5$，两焦点确实在切线同侧。
+
+\medskip
+\textbf{\textcolor{CExample}{例 4（高价值反例：距离乘积相等却不是切线）}}
+
+\textbf{题目：}椭圆 $x^2/9+y^2/4=1$，直线 $y=2x$。已知两焦点到直线的距离乘积等于 $b^2$，能否断言相切？
+
+\textbf{第一步（算焦点距离）：}焦点为 $(\pm\sqrt5,0)$，直线写为 $2x-y=0$。所以
+\[
+ d_1=d_2=\frac{2\sqrt5}{\sqrt{2^2+(-1)^2}}=2,
+ \qquad d_1d_2=4=b^2.
+\]
+\textbf{第二步（看几何）：}直线 $y=2x$ 经过椭圆中心 $(0,0)$，必穿过椭圆，故是割线。
+
+\textbf{第三步（核对相切公式）：}此时 $m^2=0$，而 $a^2k^2+b^2=9\cdot4+4=40$，明显不相等。
+
+\textbf{结论：}两焦点分别位于 $2x-y=0$ 的两侧，恰是绝对值产生的\textbf{伪相切}。\textbf{距离乘积等于 $b^2$ 必须配合“焦点同侧”才能判定相切。}
+
+\medskip
+\textbf{\textcolor{CExample}{例 5（特殊斜率：水平与竖直切线）}}
+
+\textbf{题目：}求椭圆 $x^2/9+y^2/4=1$ 的全部水平、竖直切线。
+
+\textbf{水平：}取 $k=0$，$m^2=b^2=4$，得 $\boxed{y=\pm2}$。
+
+\textbf{竖直：}斜率不存在，不能写成 $y=kx+m$；由椭圆在水平方向的最大、最小坐标为 $\pm3$，得 $\boxed{x=\pm3}$。
+
+\textbf{迁移：}圆 $x^2+y^2=R^2$ 的切线条件是 $m^2=R^2(1+k^2)$，也可以由圆心到直线距离等于 $R$ 直接求出。
 \end{examplebox}
