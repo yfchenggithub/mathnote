@@ -1,14 +1,196 @@
 \begin{proofbox}
-\textbf{利用坐标解析法证明}:
-\begin{enumerate}
-    \item 设 $P(x_0, y_0)$, 切线 $l: \frac{x_0x}{a^2} + \frac{y_0y}{b^2} = 1$. 原点到 $l$ 的距离 $d = \frac{1}{\sqrt{\frac{x_0^2}{a^4} + \frac{y_0^2}{b^4}}}$.
-    \item 整理得 $d^2 = \frac{a^4b^4}{b^4x_0^2 + a^4y_0^2}$. 
-    \item 焦点坐标 $F(\pm c, 0)$, 焦半径公式为 $r_1 = a + ex_0, r_2 = a - ex_0$.
-    \item 乘积 $r_1r_2 = a^2 - e^2x_0^2 = a^2 - \frac{c^2}{a^2}x_0^2 = \frac{a^4 - (a^2-b^2)x_0^2}{a^2}$.
-    \item 利用 $y_0^2 = b^2(1 - \frac{x_0^2}{a^2})$, 代入 $d^2$ 分母:
-    $b^4x_0^2 + a^4 \cdot b^2(1 - \frac{x_0^2}{a^2}) = b^4x_0^2 + a^2b^2(a^2 - x_0^2) = b^2(b^2x_0^2 + a^4 - a^2x_0^2)$.
-    \item 进一步化简分母为 $b^2[a^4 - (a^2-b^2)x_0^2]$.
-    \item 观察发现 $d^2 = \frac{a^4b^4}{b^2(a^2 \cdot r_1r_2)} = \frac{a^2b^2}{r_1r_2}$.
-    \item 两边开方得 $d = \frac{ab}{\sqrt{r_1r_2}}$, 即 $\sqrt{r_1r_2} \cdot d = ab$. 证毕.
-\end{enumerate}
+\textbf{预备: 两个焦半径公式从哪里来?}
+
+设 $c^2=a^2-b^2$, $e=c/a$, $F_1(-c,0),F_2(c,0)$.
+由于 $P(x_0,y_0)$ 在椭圆上,
+\[
+y_0^2=b^2\left(1-\frac{x_0^2}{a^2}\right).
+\]
+于是
+\[
+\begin{aligned}
+r_1^2&=(x_0+c)^2+y_0^2\\
+&=x_0^2+2cx_0+c^2+b^2-\frac{b^2x_0^2}{a^2}\\
+&=a^2+2cx_0+\frac{c^2x_0^2}{a^2}
+=\left(a+\frac{cx_0}{a}\right)^2.
+\end{aligned}
+\]
+因为 $|x_0|\le a$ 且 $a>c$, 故括号内恒为正,
+\[
+\boxed{r_1=a+ex_0},\qquad \boxed{r_2=a-ex_0},
+\qquad\boxed{r_1r_2=a^2-e^2x_0^2}.
+\]
+
+\textbf{方法一: 最短代数推导 (考试首选)}
+
+切线的方程和中心到切线的距离分别是
+\[
+l:\ \frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1,
+\qquad
+\frac1{d^2}=\frac{x_0^2}{a^4}+\frac{y_0^2}{b^4}.
+\]
+\textbf{关键只做一次椭圆代换}: $y_0^2/b^2=1-x_0^2/a^2$, 所以
+\[
+\begin{aligned}
+\frac{a^2b^2}{d^2}
+&=\frac{b^2x_0^2}{a^2}+\frac{a^2y_0^2}{b^2}\\
+&=\frac{b^2x_0^2}{a^2}+a^2-x_0^2\\
+&=a^2-\frac{(a^2-b^2)x_0^2}{a^2}\\
+&=a^2-e^2x_0^2=r_1r_2.
+\end{aligned}
+\]
+于是 $d^2r_1r_2=a^2b^2$.
+因 $a,b,d,r_1,r_2$ 均为正数, 两边取正平方根:
+\[
+\boxed{\sqrt{r_1r_2}\,d=ab}.
+\]
+\textbf{记忆点}: ``写切线 $\to$ 距离取倒数平方 $\to$ 椭圆代换 $\to$ 认出焦半径乘积''.
+
+\medskip
+\textbf{方法二: 纯几何 (反射性质 + 焦点三角形余弦定理)}
+
+记 $\varphi=\angle F_1PF_2$, $\theta$ 为 $PF_1$ 与切线所成的锐角.
+椭圆切线的反射性质保证 $PF_2$ 与切线所成的锐角也为 $\theta$,
+并且 $\theta=90^\circ-\varphi/2$.
+
+为说明这一反射性质为何成立: 设 $F_1'$ 是 $F_1$ 关于切线的对称点.
+椭圆切线上的任意点 $Q$ 都满足
+$QF_1+QF_2\ge PF_1+PF_2=2a$, 等号仅在 $Q=P$.
+又因 $QF_1=QF_1'$, 由三角形两边之和不小于第三边可知,
+直线上的最短折线路径 $F_1'QF_2$ 在 $F_1',Q,F_2$ 共线时取得.
+故 $F_1',P,F_2$ 共线, 两条焦半径与切线所成的角相等.
+
+设 $h_1,h_2$ 分别是焦点 $F_1,F_2$ 到切线的垂距.
+由直角三角形 $h_i=r_i\sin\theta$.
+两焦点与中心同在切线内侧, 且 $O$ 为 $F_1F_2$ 中点, 故
+\[
+\begin{aligned}
+d&=\frac{h_1+h_2}{2}
+=\frac{r_1+r_2}{2}\sin\theta\\
+&=a\cos\frac\varphi2.
+\end{aligned}
+\]
+另一方面, 在 $\triangle F_1PF_2$ 中, 余弦定理给出
+\[
+(2c)^2=r_1^2+r_2^2-2r_1r_2\cos\varphi.
+\]
+整理为
+\[
+\begin{aligned}
+4r_1r_2\cos^2\frac\varphi2
+&=2r_1r_2(1+\cos\varphi)\\
+&=(r_1+r_2)^2-4c^2\\
+&=4a^2-4c^2=4b^2.
+\end{aligned}
+\]
+所以 $\sqrt{r_1r_2}\cos(\varphi/2)=b$.
+与 $d=a\cos(\varphi/2)$ 联立, 得主公式.
+整个证明只用了\textbf{切线的反射性质、中点投影、余弦定理和椭圆定义}.
+
+\medskip
+\textbf{方法三: 纯几何的另一种算法 (正交投影 + 勾股定理)}
+
+仍设焦半径与切线的锐角为 $\theta$.
+沿切线方向和垂线方向分别作投影.
+因为 $PF_1,PF_2$ 的切向投影方向相反,
+$F_1F_2$ 的\textbf{切向投影长度}为 $(r_1+r_2)\cos\theta$;
+而\textbf{法向投影的长度}为 $|r_1-r_2|\sin\theta$.
+根据勾股定理,
+\[
+\begin{aligned}
+(2c)^2
+&=(r_1+r_2)^2\cos^2\theta
+ +(r_1-r_2)^2\sin^2\theta\\
+&=(r_1+r_2)^2
+ -\bigl[(r_1+r_2)^2-(r_1-r_2)^2\bigr]\sin^2\theta\\
+&=4a^2-4r_1r_2\sin^2\theta.
+\end{aligned}
+\]
+因此
+\[
+r_1r_2\sin^2\theta=a^2-c^2=b^2.
+\]
+而由中心是焦点中点,
+\[
+d=\frac{r_1\sin\theta+r_2\sin\theta}{2}
+=a\sin\theta.
+\]
+故 $\sqrt{r_1r_2}\,d
+=\bigl(\sqrt{r_1r_2}\sin\theta\bigr)a=ab$.
+这个证明不需要坐标, 连余弦定理也不需要, 只需要\textbf{投影和勾股}.
+
+\medskip
+\textbf{方法四: 常规解析法 (切线距离公式逐项计算)}
+
+切线化为一般式:
+\[
+b^2x_0x+a^2y_0y-a^2b^2=0.
+\]
+中心到切线的距离为
+\[
+d^2=\frac{a^4b^4}{b^4x_0^2+a^4y_0^2}.
+\]
+利用 $y_0^2=b^2(1-x_0^2/a^2)$,
+\[
+\begin{aligned}
+b^4x_0^2+a^4y_0^2
+&=b^4x_0^2+a^4b^2-a^2b^2x_0^2\\
+&=b^2\left[a^4-(a^2-b^2)x_0^2\right]\\
+&=a^2b^2\left(a^2-\frac{c^2x_0^2}{a^2}\right)\\
+&=a^2b^2r_1r_2.
+\end{aligned}
+\]
+代回即可得 $d^2=a^2b^2/(r_1r_2)$, 从而证得结论.
+此法通用稳妥, 但运算量多于方法一.
+
+\medskip
+\textbf{方法五: 参数法 (把椭圆看成圆的不等比拉伸)}
+
+将椭圆上的点表示为 $P(a\cos t,b\sin t)$, 则切线为
+\[
+\frac{x\cos t}{a}+\frac{y\sin t}{b}=1.
+\]
+点到直线距离给出
+\[
+\begin{aligned}
+d&=\frac1{\sqrt{\cos^2t/a^2+\sin^2t/b^2}}\\
+&=\frac{ab}{\sqrt{b^2\cos^2t+a^2\sin^2t}}.
+\end{aligned}
+\]
+而由焦半径公式
+\[
+\begin{aligned}
+r_1r_2&=(a+c\cos t)(a-c\cos t)\\
+&=a^2-c^2\cos^2t\\
+&=b^2\cos^2t+a^2\sin^2t.
+\end{aligned}
+\]
+两式中的根号内是同一个量, 故 $d\sqrt{r_1r_2}=ab$.
+\textbf{数形联系}: 圆对应 $a=b$ 时, 根号内恒为 $a^2$;
+椭圆因不等比拉伸而使距离变化, 但两处变化恰好抵消.
+
+\medskip
+\textbf{推论: 两个焦点到切线的垂距之积恒为 $b^2$}
+
+沿用方法二、三的 $h_1,h_2,\theta$, 已知
+\[
+h_1=r_1\sin\theta,\qquad h_2=r_2\sin\theta,
+\qquad r_1r_2\sin^2\theta=b^2.
+\]
+故
+\[
+\boxed{h_1h_2=b^2},\qquad
+\boxed{d=\frac{h_1+h_2}{2}},\qquad
+\boxed{\frac{h_1}{h_2}=\frac{r_1}{r_2}}.
+\]
+进一步验证
+\[
+\begin{aligned}
+d^2&=\frac{(h_1+h_2)^2}{4}
+=\frac{(r_1+r_2)^2\sin^2\theta}{4}\\
+&=\frac{a^2h_1h_2}{r_1r_2}
+=\frac{a^2b^2}{r_1r_2}.
+\end{aligned}
+\]
+这提供了从\textbf{焦点到切线的垂距乘积}回到 C012 的另一条证明链.
 \end{proofbox}

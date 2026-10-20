@@ -6,9 +6,12 @@
     "alias": [
       "原点到切线距离公式",
       "焦半径与切线距离",
-      "sqrt(r1r2)d=ab"
+      "sqrt(r1r2)d=ab",
+      "焦半径几何平均数与切线原心距",
+      "椭圆焦点到切线垂距乘积定值",
+      "椭圆切线距离与焦点三角形顶角"
     ],
-    "summary": "椭圆切线原心距性质，核心关系为 $sqrt(r1 * r2) * d = a * b$。",
+    "summary": "对于椭圆中心 O、切点 P 的切线 l、焦半径 r_1=PF_1、r_2=PF_2，中心到切线的垂距 d 满足 $\\sqrt{r_1r_2}\\,d=ab$；且 $b\\le d\\le a$。",
     "difficulty": 4,
     "category": "解析几何",
     "tags": [
@@ -20,7 +23,14 @@
       "解析几何",
       "距离性质",
       "二级结论",
-      "圆锥曲线"
+      "圆锥曲线",
+      "切线反射性质",
+      "焦点三角形",
+      "几何平均数",
+      "点到直线距离",
+      "数形结合",
+      "正交投影",
+      "最值"
     ]
   },
   "search": {
@@ -33,31 +43,63 @@
       "解析几何",
       "距离性质",
       "二级结论",
-      "圆锥曲线"
+      "圆锥曲线",
+      "切线反射",
+      "焦点三角形顶角",
+      "焦点到切线距离",
+      "圆的切线性质",
+      "切线原心距最值"
     ],
     "synonyms": [
       "原点到切线距离公式",
       "焦半径与切线距离",
-      "sqrt(r1r2)d=ab"
+      "sqrt(r1r2)d=ab",
+      "sqrt(r1r2)乘d等于ab",
+      "d=a cos(φ/2)",
+      "h1h2=b²",
+      "椭圆切线原心距最值"
     ],
-    "intents": [],
+    "intents": [
+      "求椭圆中心到切线距离",
+      "求焦半径乘积",
+      "证明椭圆切线距离恒等式",
+      "椭圆切线距离最值",
+      "利用焦点三角形顶角解题",
+      "比较圆与椭圆切线性质"
+    ],
     "query_templates": [
       "椭圆原点到切线距离d与焦半径r1r2",
       "sqrt(r1r2)*d=ab证明",
-      "解析几何二级结论距离公式"
+      "解析几何二级结论距离公式",
+      "椭圆切线原心距的最短证明",
+      "椭圆焦点三角形顶角和切线距离的关系",
+      "椭圆两个焦点到切线垂距乘积为什么是b²",
+      "椭圆与圆的切线距离性质比较"
     ],
     "ocrKeywords": [
       "椭圆",
       "切线",
       "距离",
       "焦半径",
-      "原点"
+      "原点",
+      "切线原心距",
+      "长轴顶点",
+      "短轴顶点",
+      "焦点三角形"
     ],
     "latex_patterns": [
-      "sqrt(r1 * r2) * d = a * b"
+      "\\sqrt{r_1r_2}\\,d=ab",
+      "d=\\frac{ab}{\\sqrt{r_1r_2}}",
+      "r_1r_2=a^2-e^2x_0^2",
+      "d=a\\cos\\frac{\\varphi}{2}",
+      "h_1h_2=b^2"
     ],
     "formulaTokens": [
-      "sqrt(r1 * r2) * d = a * b"
+      "sqrt(r1*r2)*d=a*b",
+      "d=a*b/sqrt(r1*r2)",
+      "r1*r2=a^2-e^2*x0^2",
+      "d=a*cos(phi/2)",
+      "h1*h2=b^2"
     ],
     "pinyin": "tuoyuanqiexianyuanxinjuxingzhi",
     "pinyinAbbr": "tyqxyxjxz"
@@ -75,23 +117,86 @@
     "success_rate": 0
   },
   "math": {
-    "core_formula": "sqrt(r1 * r2) * d = a * b",
-    "related_formulas": [],
-    "variables": [],
-    "conditions": [],
+    "core_formula": "\\sqrt{r_1r_2}\\,d=ab",
+    "related_formulas": [
+      "r_1+r_2=2a",
+      "c^2=a^2-b^2",
+      "e=c/a",
+      "r_1=a+ex_0",
+      "r_2=a-ex_0",
+      "r_1r_2=a^2-e^2x_0^2",
+      "d=ab/\\sqrt{a^2-e^2x_0^2}",
+      "b\\le d\\le a",
+      "d=a\\cos(\\varphi/2)",
+      "r_1r_2\\cos^2(\\varphi/2)=b^2",
+      "h_1h_2=b^2",
+      "d=(h_1+h_2)/2",
+      "S=\\pi ab"
+    ],
+    "variables": [
+      "a: 椭圆半长轴长, a>b>0",
+      "b: 椭圆半短轴长",
+      "c: 半焦距, c^2=a^2-b^2",
+      "e: 离心率 c/a",
+      "O: 椭圆中心 (0,0)",
+      "P(x_0,y_0): 椭圆上切点",
+      "l: P 处切线",
+      "F_1(-c,0), F_2(c,0): 焦点",
+      "r_1=PF_1, r_2=PF_2: 焦半径",
+      "d: 椭圆中心 O 到切线 l 的垂直距离",
+      "varphi: 焦点三角形顶角 ∠F_1PF_2",
+      "h_1,h_2: 两焦点各自到切线 l 的垂距"
+    ],
+    "conditions": [
+      "标准椭圆 x^2/a^2+y^2/b^2=1",
+      "a>b>0, c^2=a^2-b^2",
+      "P 在椭圆上, l 为 P 处切线",
+      "d 是中心到切线的垂距, 不是 OP",
+      "r_1,r_2 均为正数",
+      "对于旋转或平移的椭圆, 以真实椭圆中心为距离起点结论不变"
+    ],
     "conclusions": [
-      "sqrt(r1 * r2) * d = a * b"
+      "\\sqrt{r_1r_2}\\,d=ab",
+      "b\\le d\\le a",
+      "d=a 当且仅当 P 为长轴顶点",
+      "d=b 当且仅当 P 为短轴顶点",
+      "d=a\\cos(\\varphi/2)",
+      "h_1h_2=b^2"
     ]
   },
   "content": {
-    "statement": "椭圆切线原心距性质，核心关系为 $sqrt(r1 * r2) * d = a * b$。",
-    "derivation": [],
-    "intuition": "",
-    "common_tricks": []
+    "statement": "设椭圆 C: x^2/a^2+y^2/b^2=1 (a>b>0), P 为切点, r_1,r_2 为焦半径, d 为中心到切线垂距, 则 $\\sqrt{r_1r_2}\\,d=ab$。",
+    "derivation": [
+      "最短代数: 1/d^2=x_0^2/a^4+y_0^2/b^4, 椭圆代换得 a^2b^2/d^2=a^2-e^2x_0^2=r_1r_2",
+      "几何: d=a cos(varphi/2), r_1r_2 cos^2(varphi/2)=b^2; 结合即得主式",
+      "正交投影与勾股: 4c^2=(r_1+r_2)^2 cos^2(theta)+(r_1-r_2)^2 sin^2(theta), 推得 r_1r_2 sin^2(theta)=b^2",
+      "常规解析: 切线一般式 + 点到直线距离 + 椭圆方程化简",
+      "参数法: P=(a cos t,b sin t), d=ab/sqrt(b^2 cos^2t+a^2 sin^2t), r_1r_2=b^2 cos^2t+a^2 sin^2t"
+    ],
+    "intuition": "圆心到圆切线的距离固定为半径 R；椭圆中心到切线的距离会变化，但切点焦半径的几何平均数与之反向补偿，使其乘积固定为 ab。长轴顶点 d=a, r_1r_2=b^2；短轴顶点 d=b, r_1r_2=a^2。另有两焦点到切线的垂距之积 h_1h_2=b^2。",
+    "common_tricks": [
+      "一式两轴: 长轴顶点 d 最大为 a, 短轴顶点 d 最小为 b",
+      "有 r_1+r_2 和 r_1-r_2 时使用 4r_1r_2=(r_1+r_2)^2-(r_1-r_2)^2",
+      "有焦点三角形顶角 varphi 时用 d=a cos(varphi/2)",
+      "分清 OP、中心到切线垂距 d、焦点到切线垂距 h_i",
+      "由 r_1r_2 的范围 [b^2,a^2] 检查数据是否合理"
+    ]
   },
   "usage": {
-    "scenarios": [],
-    "problem_types": [],
+    "scenarios": [
+      "椭圆切线中心距直接求值",
+      "焦半径和差与切线距离的互相转化",
+      "椭圆切线中心距最值",
+      "已知切线原心距反求切点坐标",
+      "焦点三角形顶角与切线的综合关系",
+      "圆和椭圆切线性质比较"
+    ],
+    "problem_types": [
+      "解析几何选择题和填空题",
+      "椭圆切线证明题",
+      "定值与最值题",
+      "焦点三角形综合题"
+    ],
     "exam_frequency": 0.6,
     "exam_score": 0
   },
@@ -107,8 +212,8 @@
     "pdf": ""
   },
   "shareConfig": {
-    "title": "",
-    "shareDesc": ""
+    "title": "C012 椭圆切线原心距性质",
+    "shareDesc": "一式两轴: sqrt(r1r2)·d=ab；长轴端点 d 最大为 a，短轴端点 d 最小为 b；含纯几何证明与圆的对应。"
   },
   "relations": {
     "prerequisites": [],
@@ -122,10 +227,10 @@
     "version": 3,
     "source": "旧版元数据结构迁移",
     "created_at": "",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-10-20"
   },
   "isPro": 0,
-  "remarks": "已完成英文半角标点校验, 严禁出现 cite, 修正了 traps 中的 LaTeX 环境错误.",
+  "remarks": "C012 校订: 修复原例题2将最大值误写为短轴顶点的问题; 保留原有六个 TeX snippet 的 box 环境格式; 补充最短代数、反射+余弦定理、正交投影+勾股、常规解析、三角参数等证明; 增补焦点到切线垂距恒积 h1h2=b² 与圆的对应; 元数据 schema 仍为 version 3。",
   "knowledgeNode": "解析几何-圆锥曲线-椭圆-切线性质",
   "altNodes": []
 }
