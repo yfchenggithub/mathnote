@@ -1,57 +1,107 @@
 \begin{examplebox}
-\textbf{\textcolor{CExample}{例 1（基础）}}
+\textbf{\textcolor{CExample}{例 1（基础速算：已知切点求切线）}}
 
-\textbf{\textcolor{CExample}{题目：}} 已知椭圆 $C: \frac{x^2}{16}+\frac{y^2}{9}=1$，点 $P(2, \frac{3\sqrt{3}}{2})$ 在 $C$ 上。求椭圆在点 $P$ 处的切线 $l$ 的斜率 $k_l$。
+\textbf{题目：} 椭圆 $\dfrac{x^2}{16}+\dfrac{y^2}{9}=1$ 上有点
+$P\left(2,\dfrac{3\sqrt3}{2}\right)$。
+求 $P$ 处切线的斜率及方程。
 
-\textbf{\textcolor{CExample}{解题步骤：}}
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{第一步（求离心率）：}] 由椭圆方程得 $a^2=16, b^2=9$，故 $c^2 = a^2 - b^2 = 7$，离心率 $e = \frac{\sqrt{7}}{4}$。
-    \par\textbf{理由：} 先确定椭圆的基本参数，为使用结论做准备。
-
-    \item[\textbf{第二步（求 $k_{OP}$）：}] 计算直线 $OP$ 的斜率。
-    \[
-        k_{OP} = \frac{y_0}{x_0} = \frac{3\sqrt{3}/2}{2} = \frac{3\sqrt{3}}{4}.
-    \]
-    \par\textbf{理由：} 直接利用斜率公式。
-
-    \item[\textbf{第三步（用结论求 $k_l$）：}] 由结论 $k_{OP} \cdot k_l = e^2 - 1$ 得
-    \[
-        k_l = \frac{e^2 - 1}{k_{OP}} = \frac{\frac{7}{16} - 1}{\frac{3\sqrt{3}}{4}} = \frac{-\frac{9}{16}}{\frac{3\sqrt{3}}{4}} = -\frac{9}{16} \cdot \frac{4}{3\sqrt{3}} = -\frac{3}{4\sqrt{3}} = -\frac{\sqrt{3}}{4}.
-    \]
-    \par\textbf{理由：} 代入已知量计算。注意 $e^2 = \frac{7}{16}$，$e^2-1 = -\frac{9}{16}$。
-\end{description}
-
-\textbf{\textcolor{CExample}{关键结论：}} \textbf{利用 $k_{OP} \cdot k_l = e^2-1$，可快速求得切线斜率 $k_l = -\frac{\sqrt{3}}{4}$，避免了隐函数求导的步骤。}
+\textbf{解：} 先验点：$\dfrac{2^2}{16}+\dfrac{(3\sqrt3/2)^2}{9}
+=\dfrac14+\dfrac34=1$，确实在椭圆上。
+由 $a^2=16,b^2=9$ 得
+\[
+ e^2-1=-\frac9{16},\qquad
+ k_{OP}=\frac{3\sqrt3/2}{2}=\frac{3\sqrt3}{4}.
+\]
+直接用乘积公式：
+\[
+ k_l=\frac{-9/16}{3\sqrt3/4}=-\frac{\sqrt3}{4}.
+\]
+再用切点式求直线方程：
+\[
+ \frac{2x}{16}+\frac{(3\sqrt3/2)y}{9}=1
+ \quad\Longrightarrow\quad
+ \boxed{3x+4\sqrt3\,y=24}.
+\]
+\textbf{考场技巧：} 只问切线方程时，直接写切点式更快；
+只问斜率时，用 $k_{OP}k_l=-9/16$ 更快。
 
 \medskip
-\textbf{\textcolor{CExample}{例 2（稍变形）}}
+\textbf{\textcolor{CExample}{例 2（逆向应用：已知离心率与切线斜率）}}
 
-\textbf{\textcolor{CExample}{题目：}} 已知椭圆 $C: \frac{x^2}{a^2}+\frac{y^2}{b^2}=1 (a>b>0)$ 的离心率为 $\frac{1}{2}$。过椭圆上一点 $P$ 作切线，若该切线的斜率为 $-\frac{1}{2}$，求直线 $OP$ 的斜率 $k_{OP}$。
+\textbf{题目：} 椭圆离心率 $e=\dfrac12$。椭圆上一非轴点
+$P$ 处切线斜率为 $-\dfrac12$，求 $OP$ 的斜率。
 
-\textbf{\textcolor{CExample}{解题步骤：}}
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{第一步（列出关系）：}] 由已知，$e=\frac{1}{2}$，$k_l = -\frac{1}{2}$。根据结论有
-    \[
-        k_{OP} \cdot k_l = e^2 - 1.
-    \]
-    \par\textbf{理由：} 直接套用结论公式。
+\textbf{解：} $e^2-1=\dfrac14-1=-\dfrac34$，故
+\[
+ k_{OP}=\frac{e^2-1}{k_l}
+       =\frac{-3/4}{-1/2}=\boxed{\frac32}.
+\]
+\textbf{检查：} 两斜率一正一负，与第一、三象限示意相符；
+切点也可能在第三象限，单凭斜率不能确定是哪一个切点。
 
-    \item[\textbf{第二步（计算 $e^2-1$）：}] 计算常数项。
-    \[
-        e^2 - 1 = \left(\frac{1}{2}\right)^2 - 1 = \frac{1}{4} - 1 = -\frac{3}{4}.
-    \]
-    \par\textbf{理由：} 先确定等号右边的值。
+\medskip
+\textbf{\textcolor{CExample}{例 3（求离心率：识别乘积即秒解）}}
 
-    \item[\textbf{第三步（解出 $k_{OP}$）：}] 将 $k_l = -\frac{1}{2}$ 和 $e^2-1 = -\frac{3}{4}$ 代入关系式：
-    \[
-        k_{OP} \cdot \left(-\frac{1}{2}\right) = -\frac{3}{4}.
-    \]
-    \par 解得
-    \[
-        k_{OP} = \frac{-\frac{3}{4}}{-\frac{1}{2}} = \frac{3}{2}.
-    \]
-    \par\textbf{理由：} 简单代数运算。
-\end{description}
+\textbf{题目：} 某标准横轴椭圆上一非轴点 $P$ 满足
+$k_{OP}=2$，其切线斜率为 $k_l=-\dfrac38$。
+求离心率及短长半轴之比。
 
-\textbf{\textcolor{CExample}{关键结论：}} \textbf{直线 $OP$ 的斜率为 $\frac{3}{2}$。本题展示了已知离心率和切线斜率，反求径向斜率的逆向应用。}
+\textbf{解：} 相乘得
+\[
+ k_{OP}k_l=2\left(-\frac38\right)=-\frac34=e^2-1,
+\]
+\[
+ e^2=\frac14,\quad \boxed{e=\frac12},\qquad
+ \frac{b^2}{a^2}=\frac34,\quad
+ \boxed{\frac ba=\frac{\sqrt3}{2}}.
+\]
+\textbf{提醒：} $e$ 是非负数，不能取 $-1/2$。
+
+\medskip
+\textbf{\textcolor{CExample}{例 4（综合变式：直线 $OP$ 已知，反求切点）}}
+
+\textbf{题目：} 椭圆 $\dfrac{x^2}{16}+\dfrac{y^2}{9}=1$，
+在第一象限的切点 $P$ 满足 $OP$ 的斜率为 $1$。
+求切点坐标和切线方程。
+
+\textbf{解：} $k_{OP}=1$ 表示 $P$ 在 $y=x$ 上，设 $P=(t,t)$，$t>0$。
+代入椭圆：
+\[
+ \frac{t^2}{16}+\frac{t^2}{9}=1
+ \quad\Longrightarrow\quad
+ \frac{25t^2}{144}=1
+ \quad\Longrightarrow\quad t=\frac{12}{5}.
+\]
+所以 $P=(12/5,12/5)$。
+斜率不必再求导：
+$k_l=(e^2-1)/k_{OP}=-9/16$。
+切点式给出
+\[
+ \frac{(12/5)x}{16}+\frac{(12/5)y}{9}=1
+ \quad\Longrightarrow\quad \boxed{9x+16y=60}.
+\]
+\textbf{迁移：} 若给 $k_{OP}=r$，可设 $y=rx$ 与椭圆联立，
+求出切点，再用已知切线公式。
+
+\medskip
+\textbf{\textcolor{CExample}{例 5（防误用：坐标轴顶点）}}
+
+\textbf{题目：} 椭圆 $\dfrac{x^2}{16}+\dfrac{y^2}{9}=1$ 在
+$A(4,0)$ 和 $B(0,3)$ 处的切线分别是什么？
+
+\textbf{解：} 直接代入\emph{切点式}：
+\[
+ A:\ \frac{4x}{16}=1\Longrightarrow\boxed{x=4};\qquad
+ B:\ \frac{3y}{9}=1\Longrightarrow\boxed{y=3}.
+\]
+在 $A$ 处切线斜率不存在，在 $B$ 处 $OB$ 斜率不存在，
+所以这两点\textbf{不能直接代入斜率乘积公式}。
+
+\medskip
+\textbf{\textcolor{CExample}{高价值变式（自检）}}
+若某标准横轴椭圆上一非轴点满足
+$k_{OP}k_l=-\dfrac49$，不求切点，能否直接求离心率？
+\textbf{答案：} $e^2=1-4/9=5/9$，故
+$\boxed{e=\sqrt5/3}$。\textbf{识别信号：} 两条斜率的\emph{乘积}给出时，
+不必引入 $x_0,y_0$。
 \end{examplebox}

@@ -1,23 +1,41 @@
 \begin{statementbox}
-
 \textbf{\textcolor{CStatement}{条件}}
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-    \item[\textbf{\textcolor{CStatement}{条件 1（椭圆方程）：}}] 椭圆 $C$ 的方程为 $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1\ (a>b>0)$，点 $P(x_0,y_0)$ 在椭圆 $C$ 上。
-\end{description}
-
-\textbf{\textcolor{CStatement}{结论}}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{\textcolor{CStatement}{结论一（斜率乘积）：}}]
-    \textbf{\textcolor{CStatement}{直观描述：}} 原点与椭圆上点连线的斜率，乘以该点处切线的斜率，结果为离心率平方减一。
-    \[
-    k_{OP} \cdot k_l = e^{2} - 1
-    \]
-
-    \item[\textbf{\textcolor{CStatement}{推广结论（圆特例）：}}]
-    \textbf{\textcolor{CStatement}{直观描述：}} 当椭圆退化为圆时，两斜率乘积为 $-1$，即切线垂直于半径。
-    \[
-    \text{若 } e=0 \text{(即圆)} k_{OP} \cdot k_l = -1.
-    \]
+    \item[\textbf{\textcolor{CStatement}{条件一（标准椭圆）：}}]
+    设椭圆 $C:\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1\ (a>b>0)$，
+    中心为 $O(0,0)$，半焦距 $c$ 满足 $c^2=a^2-b^2$，离心率 $e=\dfrac ca$。
+    \item[\textbf{\textcolor{CStatement}{条件二（点与斜率）：}}]
+    取椭圆上非坐标轴点 $P(x_0,y_0)$，即 $x_0y_0\ne0$。
+    记直线 $OP$ 的斜率为 $k_{OP}$，点 $P$ 处切线 $l$ 的斜率为 $k_l$。
 \end{description}
 
+\medskip
+\textbf{\textcolor{CStatement}{核心结论}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{\textcolor{CStatement}{结论一（斜率乘积定值）：}}]
+    \textbf{直观描述：} 从中心指向切点的直线与该点切线，斜率一正一负；
+    两个斜率相乘，切点坐标消失，只留下椭圆的轴长比。
+    \[
+      \boxed{k_{OP}k_l=-\frac{b^2}{a^2}=e^2-1\in(-1,0).}
+    \]
+    \item[\textbf{\textcolor{CStatement}{结论二（考试速用）：}}]
+    因 $k_{OP}=\dfrac{y_0}{x_0}\ne0$，故
+    \[
+      \boxed{k_l=-\frac{b^2}{a^2}\frac{x_0}{y_0}
+             =\frac{e^2-1}{k_{OP}}.}
+    \]
+    反过来，若已知 $k_{OP}k_l$，则 $\boxed{e=\sqrt{1+k_{OP}k_l}}$。
+    \item[\textbf{\textcolor{CStatement}{结论三（不依赖斜率的切线方程）：}}]
+    对椭圆\emph{上任意一点} $P(x_0,y_0)$（包括四个顶点），均有
+    \[
+      \boxed{l:\ \frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1.}
+    \]
+    此式适用范围比斜率乘积式更广。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CStatement}{与圆比较（特例而非退化）：}}
+当 $a=b=R$，图形就是圆 $x^2+y^2=R^2$，此时 $e=0$。
+在两个斜率都存在时 $k_{OP}k_l=-1$；本质是\textbf{圆的切线垂直于半径}。
+在圆的坐标轴顶点，两条直线仍垂直，但斜率乘积没有定义。
 \end{statementbox}

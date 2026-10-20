@@ -1,21 +1,54 @@
 \begin{trapbox}
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-    \item[\textbf{\textcolor{CTrap}{易错点一（忽略定义域）}}] 直接套用公式 $k_{OP} \cdot k_l = e^2-1$，而忽略点 $P$ 在坐标轴上时 $k_{OP}$ 或 $k_l$ 不存在的情况。
-    \item[\textbf{\textcolor{CTrap}{正确理解（极限意义）：}}] 当点 $P$ 在 $x$ 轴或 $y$ 轴上时，其中一个斜率不存在，但结论在极限意义上仍成立。实际解题时，应优先考虑点 $P$ 不在坐标轴上的情形。
-    \item[\textbf{\textcolor{CTrap}{错因分析（公式盲用）：}}] 未理解公式的推导过程依赖于 $x_0 \neq 0$ 且 $y_0 \neq 0$ 的假设，误以为公式无条件适用于所有点。
-\end{description}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+\item[\textbf{\textcolor{CTrap}{易错一：轴点写成 $0\times\infty$}}]
+在 $P=(\pm a,0)$ 时切线竖直，$k_l$ 不存在；
+在 $P=(0,\pm b)$ 时，$OP$ 竖直，$k_{OP}$ 不存在。
+\textbf{纠正：} 乘积在这些点没有定义，不能规定 $0\times\infty=0$，
+也不能把邻近点的极限直接当成原点处的乘积。
+改用切线方程 $x=\pm a$ 或 $y=\pm b$。
 
-\medskip
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-    \item[\textbf{\textcolor{CTrap}{易错点二（符号记混）}}] 将结论误记为 $k_{OP} \cdot k_l = 1 - e^2$ 或 $k_{OP} \cdot k_l = -\frac{b^2}{a^2}$ 时忘记负号。
-    \item[\textbf{\textcolor{CTrap}{正确理解（乘积为负）：}}] 由于 $0<e<1$，故 $e^2-1 < 0$，即 $k_{OP}$ 与 $k_l$ 异号。正确公式为 $k_{OP} \cdot k_l = e^2 - 1$（负值）。
-    \item[\textbf{\textcolor{CTrap}{错因分析（记忆模糊）：}}] 未结合离心率范围理解乘积的符号，或与双曲线中的类似结论（$k_{OP} \cdot k_l = e^2+1$）混淆。
-\end{description}
+\item[\textbf{\textcolor{CTrap}{易错二：少写负号，或写成 $1-e^2$}}]
+对标准横轴椭圆 $0<e<1$，必有
+$\boxed{-1<k_{OP}k_l=e^2-1<0}$。
+\textbf{纠正：} 从切点式记住
+$k_l=-\dfrac{b^2x_0}{a^2y_0}$；乘积必定为负。
 
-\medskip
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-    \item[\textbf{\textcolor{CTrap}{易错点三（参数求错）}}] 在使用结论前，错误计算椭圆的离心率 $e$，例如误用 $e = \frac{c}{b}$ 或 $e^2 = \frac{a^2-b^2}{b^2}$。
-    \item[\textbf{\textcolor{CTrap}{正确理解（标准定义）：}}] 椭圆离心率 $e = \frac{c}{a}$，且 $c^2 = a^2 - b^2$，因此 $e^2 = 1 - \frac{b^2}{a^2}$。
-    \item[\textbf{\textcolor{CTrap}{错因分析（概念不清）：}}] 对椭圆基本参数 $a, b, c$ 的关系记忆不牢，与双曲线中的关系混淆。
+\item[\textbf{\textcolor{CTrap}{易错三：把横轴椭圆公式硬套竖轴椭圆}}]
+若方程改成
+$\dfrac{x^2}{b^2}+\dfrac{y^2}{a^2}=1\ (a>b>0)$，
+其斜率乘积实际为 $-a^2/b^2=-1/(1-e^2)$，
+\textbf{不是} $e^2-1$。
+\textbf{纠正：} 先辨认 $x^2$、$y^2$ 的分母，
+横轴椭圆才使用本文主公式。
+
+\item[\textbf{\textcolor{CTrap}{易错四：把中心 $O$ 偷换成焦点 $F$}}]
+本结论说的是\textbf{椭圆中心与切点}之间的斜率 $k_{OP}$。
+若是 $FP$，一般不能直接代入。
+\textbf{纠正：} 先确认第一个点为 $O(0,0)$。
+
+\item[\textbf{\textcolor{CTrap}{易错五：误认椭圆切线恒垂直于 $OP$}}]
+圆的切线垂直半径，而非圆椭圆上一般不成立。
+\textbf{纠正：} 圆可看成 $a=b$，这时乘积才是 $-1$；
+对 $a>b$ 的椭圆，乘积在 $(-1,0)$ 内，不等于 $-1$。
+
+\item[\textbf{\textcolor{CTrap}{易错六：将双曲线关系误记为 $e^2+1$}}]
+对标准横轴双曲线
+$\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}=1$，
+同样设 $OP$ 与切线斜率存在，求导可得
+$k_{OP}k_l=\dfrac{b^2}{a^2}=e^2-1>0$
+（双曲线 $e^2=1+b^2/a^2$）。
+\textbf{纠正：} 形式虽然也可写 $e^2-1$，
+但\emph{椭圆为负、双曲线为正}；绝不能记作 $e^2+1$。
+
+\item[\textbf{\textcolor{CTrap}{易错七：示意点未验证在曲线上}}]
+例如对 $a=4,b=3$，$P=(2,1.5)$ 实际满足
+$2^2/16+1.5^2/9=1/2\ne1$，不是椭圆上的切点。
+\textbf{纠正：} 做题先代回方程检查；可以用
+$P=(2,3\sqrt3/2)$ 作为真实例点。
+
+\item[\textbf{\textcolor{CTrap}{易错八：已知切线斜率便唯一确定切点}}]
+对关于中心对称的椭圆，$P$ 与 $-P$ 的切线平行，斜率相同。
+\textbf{纠正：} 斜率条件通常只确定 $OP$ 的\emph{方向}，
+求具体切点还要结合象限或其他条件。
 \end{description}
 \end{trapbox}
