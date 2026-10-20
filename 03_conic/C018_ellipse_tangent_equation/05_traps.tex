@@ -1,21 +1,64 @@
 \begin{trapbox}
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-    \item[\textbf{\textcolor{CTrap}{易错点一（点不在椭圆）}}] 当点 $P(x_0, y_0)$ 不在椭圆上时，直接代入公式 $\dfrac{x_0 x}{a^2} + \dfrac{y_0 y}{b^2} = 1$ 得到的是错误方程。
-    \item[\textbf{\textcolor{CTrap}{正确理解（点必须在椭圆）：}}] 公式仅适用于点 $P$ 在椭圆上的情况；若点不在椭圆上，需先求切点或使用其他方法。
-    \item[\textbf{\textcolor{CTrap}{错因分析（公式前提）：}}] 公式推导基于点 $P$ 在椭圆上，否则几何条件不满足，代数推导无效。
-\end{description}
+\textbf{\textcolor{CTrap}{易错一｜把曲线外点错当切点}}
+
+\textbf{错误做法：} 只要给出 $Q(x_1,y_1)$，就写
+$\dfrac{x_1x}{a^2}+\dfrac{y_1y}{b^2}=1$ 并称其为“在 $Q$ 处的切线”。
+
+\textbf{纠正：} 首先检查 $\dfrac{x_1^2}{a^2}+\dfrac{y_1^2}{b^2}=1$。
+若 $Q$ 在椭圆外，该式其实是 $Q$ 对应的\textbf{切点弦（极线）}方程，通常连结从 $Q$ 引出的两条切线的切点，\textbf{不是}过 $Q$ 的切线。
 
 \medskip
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-    \item[\textbf{\textcolor{CTrap}{易错点二（垂直切线）}}] 当切点 $P$ 的纵坐标 $y_0 = 0$ 时，忽略切线斜率不存在的情况，仍使用斜率公式。
-    \item[\textbf{\textcolor{CTrap}{正确理解（y0=0时垂直）：}}] 当 $y_0 = 0$ 时，切点在椭圆左右顶点，切线方程为 $x = \pm a$，是垂直直线。
-    \item[\textbf{\textcolor{CTrap}{错因分析（斜率无穷大）：}}] 斜率公式 $k = -\dfrac{b^2 x_0}{a^2 y_0}$ 在 $y_0 = 0$ 时分母为零，斜率不存在，对应垂直切线。
-\end{description}
+\textbf{\textcolor{CTrap}{易错二｜端点处分母为零}}
+
+\textbf{错误做法：} 当 $y_0=0$，继续套
+$k=-\dfrac{b^2x_0}{a^2y_0}$。
+
+\textbf{纠正：} 若 $y_0=0$，$P=(\pm a,0)$，竖直切线 $x=\pm a$；
+若 $x_0=0$，$P=(0,\pm b)$，水平切线 $y=\pm b$。
+统一公式 $\dfrac{x_0x}{a^2}+\dfrac{y_0y}{b^2}=1$ 在两种情况下都可以直接使用。
 
 \medskip
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-    \item[\textbf{\textcolor{CTrap}{易错点三（公式记忆错误）}}] 记错切线公式，如将 $\dfrac{x_0 x}{a^2} + \dfrac{y_0 y}{b^2} = 1$ 写成 $\dfrac{x x_0}{a^2} + \dfrac{y y_0}{b^2} = 1$（正确），但可能混淆分母或符号。
-    \item[\textbf{\textcolor{CTrap}{正确理解（标准形式）：}}] 正确形式为 $\dfrac{x_0 x}{a^2} + \dfrac{y_0 y}{b^2} = 1$，其中分子是切点坐标与变量乘积，分母是对应半轴平方。
-    \item[\textbf{\textcolor{CTrap}{错因分析（记忆混淆）：}}] 由于椭圆方程与切线形式相似，易混淆平方项与乘积项，需通过推导或特例加强记忆。
-\end{description}
+\textbf{\textcolor{CTrap}{易错三｜把交换因子次序当成错误}}
+
+$\dfrac{x_0x}{a^2}$ 与 $\dfrac{xx_0}{a^2}$ \textbf{完全相同}，不是两种不同公式。
+真正容易错的是：把分母 $a^2,b^2$ 交换、把椭圆的加号误写成减号，或者把右侧 $1$ 写错。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错四｜把圆的半径直接当椭圆法线}}
+
+圆 $x^2+y^2=r^2$ 在 $P$ 处法向量为 $(x_0,y_0)$；
+椭圆 $x^2/a^2+y^2/b^2=1$ 的法向量却是
+$\left(x_0/a^2,y_0/b^2\right)$。
+只有特殊位置（如轴端点）或圆的情形，$OP$ 才可能恰好沿法线方向。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错五｜只套 $y=kx+m$，漏掉竖直切线}}
+
+非竖直切线满足 $m^2=a^2k^2+b^2$，但\textbf{竖直切线} $x=\pm a$ 无法写成 $y=kx+m$，必须单列。
+此外，$m=0$ 不可能满足上述切线判定，因为 $a^2k^2+b^2>0$。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错六｜截距式除以零、面积漏绝对值}}
+
+只有 $x_0y_0\ne0$ 时才可写
+$\dfrac{x}{a^2/x_0}+\dfrac{y}{b^2/y_0}=1$，并计算有限的两轴截距围成的三角形面积
+\[
+ S=\frac12\left|\frac{a^2}{x_0}\frac{b^2}{y_0}\right|
+ =\frac{a^2b^2}{2|x_0y_0|}.
+\]
+当切线与一条坐标轴平行时，没有通常意义下的有限截距三角形，不能套此面积公式。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错七｜把“平方替换法”机械套到一切二次曲线}}
+
+对椭圆、双曲线的标准方程，平方项分别替换为相应的乘积确实有效；
+对抛物线 $y^2=2px$，正确切线是
+$y_0y=p(x+x_0)$，\textbf{不是} $y_0y=2px$。
+
+\medskip
+\textbf{\textcolor{CTrap}{自检三问}}
+
+\textbf{点真在椭圆上吗？}\quad
+\textbf{是已知切点，还是已知外点／斜率？}\quad
+\textbf{是否遗漏竖直切线？}
 \end{trapbox}

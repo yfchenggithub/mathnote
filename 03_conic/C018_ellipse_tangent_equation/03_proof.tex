@@ -1,84 +1,198 @@
 \begin{proofbox}
-\textbf{\textcolor{CProof}{思路提示}}
+\textbf{\textcolor{CProof}{证明目标与条件}}
 
-通过设切线方程，联立椭圆方程，利用相切时判别式为零，推导切线方程。
+设 $a>b>0$，$P(x_0,y_0)$ 在
+$E:\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1$ 上，即
+$\dfrac{x_0^2}{a^2}+\dfrac{y_0^2}{b^2}=1$。
+证明 $P$ 处切线为
+\[
+\boxed{\frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1.}
+\]
 
 \medskip
-\textbf{\textcolor{CProof}{正式推导}}
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-    \item[\textbf{步骤一（设直线方程）：}] 设切线方程为 $y - y_0 = k(x - x_0)$，其中 $k$ 为待求斜率。
-    \[
-    y = y_0 + k(x - x_0)
-    \]
-    \par\textbf{理由：} 点斜式是直线方程的常见形式。
+\textbf{\textcolor{CProof}{方法一｜最快代数证明：柯西不等式（推荐速证）}}
 
-    \item[\textbf{步骤二（联立椭圆）：}] 将直线方程代入椭圆方程 $\dfrac{x^2}{a^2} + \dfrac{y^2}{b^2} = 1$。
-    \[
-    \frac{x^2}{a^2} + \frac{[y_0 + k(x - x_0)]^2}{b^2} = 1
-    \]
-    \par\textbf{理由：} 联立直线与椭圆方程，求交点。
+\textbf{第一步：} 对椭圆上任意点 $Q(x,y)$，应用柯西不等式：
+\[
+\begin{aligned}
+\frac{x_0x}{a^2}+\frac{y_0y}{b^2}
+&=\frac{x_0}{a}\frac{x}{a}+\frac{y_0}{b}\frac{y}{b}\\
+&\le\sqrt{\frac{x_0^2}{a^2}+\frac{y_0^2}{b^2}}
+\sqrt{\frac{x^2}{a^2}+\frac{y^2}{b^2}}=1.
+\end{aligned}
+\]
+\textbf{第二步：} 等号成立当且仅当
+$\left(\dfrac{x}{a},\dfrac{y}{b}\right)
+=\left(\dfrac{x_0}{a},\dfrac{y_0}{b}\right)$，即 $Q=P$。
+故直线 $\dfrac{x_0x}{a^2}+\dfrac{y_0y}{b^2}=1$
+仅在 $P$ 处与椭圆相遇，且椭圆完全位于其一侧，必为切线。
 
-    \item[\textbf{步骤三（整理方程）：}] 展开并整理成关于 $x$ 的二次方程。
-    \[
-    \begin{aligned}
-    &\frac{x^2}{a^2} + \frac{y_0^2 + 2k y_0 (x - x_0) + k^2 (x - x_0)^2}{b^2} = 1 \\
-    &\Rightarrow \frac{x^2}{a^2} + \frac{y_0^2}{b^2} + \frac{2k y_0 (x - x_0)}{b^2} + \frac{k^2 (x - x_0)^2}{b^2} = 1
-    \end{aligned}
-    \]
-    \par\textbf{理由：} 展开平方项，为化简做准备。
+\textbf{优势：} 两步完成；不分类讨论 $y_0=0$，适合需要迅速核验证明的题目。
 
-    \item[\textbf{步骤四（利用点P）：}] 由于点 $P(x_0, y_0)$ 在椭圆上，有 $\dfrac{x_0^2}{a^2} + \dfrac{y_0^2}{b^2} = 1$，代入上式。
-    \[
-    \frac{x^2}{a^2} + 1 - \frac{x_0^2}{a^2} + \frac{2k y_0 (x - x_0)}{b^2} + \frac{k^2 (x - x_0)^2}{b^2} = 1
-    \]
-    \par\textbf{理由：} 替换 $\dfrac{y_0^2}{b^2} = 1 - \dfrac{x_0^2}{a^2}$，简化常数项。
+\medskip
+\textbf{\textcolor{CProof}{方法二｜几何证明：椭圆伸缩为单位圆（最直观）}}
 
-    \item[\textbf{步骤五（化简）：}] 整理得关于 $x$ 的二次方程。
-    \[
-    \begin{aligned}
-    &\frac{x^2 - x_0^2}{a^2} + \frac{2k y_0 (x - x_0)}{b^2} + \frac{k^2 (x - x_0)^2}{b^2} = 0 \\
-    &\Rightarrow (x - x_0) \left[ \frac{x + x_0}{a^2} + \frac{2k y_0}{b^2} + \frac{k^2 (x - x_0)}{b^2} \right] = 0
-    \end{aligned}
-    \]
-    \par\textbf{理由：} 因式分解，注意到 $x^2 - x_0^2 = (x - x_0)(x + x_0)$。
+\textbf{第一步：} 作坐标伸缩
+\[
+ u=x/a,\quad v=y/b,\quad u_0=x_0/a,\quad v_0=y_0/b.
+\]
+于是椭圆变成单位圆 $u^2+v^2=1$，$P$ 变为 $P'(u_0,v_0)$。
 
-    \item[\textbf{步骤六（判别式为零）：}] 由于相切，直线与椭圆只有一个交点，所以关于 $x$ 的方程有重根，即 $x - x_0$ 是重因子，因此括号内项在 $x = x_0$ 时也为零。
-    \[
-    \left. \frac{x + x_0}{a^2} + \frac{2k y_0}{b^2} + \frac{k^2 (x - x_0)}{b^2} \right|_{x = x_0} = 0
-    \]
-    \par\textbf{理由：} 重根条件意味着 $x = x_0$ 是方程的解，且导数条件满足。
+\textbf{第二步：} 圆在 $P'$ 处的切线垂直于半径 $OP'$，
+故切线上点 $(u,v)$ 满足
+\[
+ u_0(u-u_0)+v_0(v-v_0)=0.
+\]
+展开并用 $u_0^2+v_0^2=1$ 得
+\[
+ u_0u+v_0v=1.
+\]
 
-    \item[\textbf{步骤七（解斜率）：}] 代入 $x = x_0$，得 $\dfrac{2x_0}{a^2} + \dfrac{2k y_0}{b^2} = 0$，解得 $k = -\dfrac{b^2 x_0}{a^2 y_0}$（当 $y_0 \neq 0$）。
-    \[
-    k = -\frac{b^2 x_0}{a^2 y_0}
-    \]
-    \par\textbf{理由：} 直接解出斜率表达式。
+\textbf{第三步：} 代回原坐标得到
+\[
+ \frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1.
+\]
+坐标伸缩为可逆线性变换，直线仍映为直线；圆切线与圆的唯一公共点对应椭圆切线与椭圆的唯一公共点，因而相切关系保留。
 
-    \item[\textbf{步骤八（得切线方程）：}] 将 $k$ 代入点斜式，并化简。
-    \[
-    \begin{aligned}
-    y - y_0 &= -\frac{b^2 x_0}{a^2 y_0} (x - x_0) \\
-    \Rightarrow a^2 y_0 (y - y_0) &= -b^2 x_0 (x - x_0) \\
-    \Rightarrow b^2 x_0 x + a^2 y_0 y &= b^2 x_0^2 + a^2 y_0^2
-    \end{aligned}
-    \]
-    \par\textbf{理由：} 代入斜率，整理方程。
+\medskip
+\textbf{\textcolor{CProof}{方法三｜法向量：已知垂直方向就能写直线}}
 
-    \item[\textbf{步骤九（利用椭圆方程）：}] 由于 $\dfrac{x_0^2}{a^2} + \dfrac{y_0^2}{b^2} = 1$，有 $b^2 x_0^2 + a^2 y_0^2 = a^2 b^2$，代入上式。
-    \[
-    b^2 x_0 x + a^2 y_0 y = a^2 b^2
-    \]
-    \par\textbf{理由：} 将常数项用椭圆方程化简。
+\textbf{第一步：} 把椭圆写作
+\[
+F(x,y)=\frac{x^2}{a^2}+\frac{y^2}{b^2}-1=0.
+\]
+等值曲线的法向量为 $\nabla F$，在 $P$ 处
+\[
+ \nabla F(P)=\left(\frac{2x_0}{a^2},\frac{2y_0}{b^2}\right).
+\]
+这里的法向量也可由方法二的圆切线经过坐标伸缩直接得到。
 
-    \item[\textbf{步骤十（标准化）：}] 两边除以 $a^2 b^2$，得到标准形式。
-    \[
-    \frac{x_0 x}{a^2} + \frac{y_0 y}{b^2} = 1
-    \]
-    \par\textbf{理由：} 除以 $a^2 b^2$ 得到最终切线方程。
-\end{description}
+\textbf{第二步：} 直线过 $P$，方向向量与该法向量垂直：
+\[
+ \frac{x_0}{a^2}(x-x_0)+\frac{y_0}{b^2}(y-y_0)=0.
+\]
+\textbf{第三步：} 移项并利用 $P$ 在椭圆上的条件，
+\[
+ \frac{x_0x}{a^2}+\frac{y_0y}{b^2}
+ =\frac{x_0^2}{a^2}+\frac{y_0^2}{b^2}=1.
+\]
+\textbf{关键认识：} 法向量不是一般意义下的半径向量 $(x_0,y_0)$。
+
+\medskip
+\textbf{\textcolor{CProof}{方法四｜隐函数求导：熟悉的切线斜率法}}
+
+\textbf{第一步：} 对 $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1$ 两边关于 $x$ 求导：
+\[
+ \frac{2x}{a^2}+\frac{2y}{b^2}y'=0.
+\]
+\textbf{第二步：} 当 $y_0\ne0$ 时，切线斜率
+\[
+ k=y'(x_0)=-\frac{b^2x_0}{a^2y_0}.
+\]
+故
+\[
+\begin{aligned}
+ y-y_0&=-\frac{b^2x_0}{a^2y_0}(x-x_0),\\
+ b^2x_0x+a^2y_0y&=b^2x_0^2+a^2y_0^2=a^2b^2,
+\end{aligned}
+\]
+两边除以 $a^2b^2$ 得所证。
+
+\textbf{特殊情况：} 若 $y_0=0$，因 $P$ 在椭圆上，$x_0=\pm a$；
+由椭圆在左右端点处的竖直切线知 $x=\pm a$，也正符合统一切线方程。
+
+\medskip
+\textbf{\textcolor{CProof}{方法五｜保留原思路：联立点斜式，利用重根}}
+
+本方法先取 $y_0\ne0$，在此情况下切线不是竖直直线。
+
+\textbf{第一步：} 设过 $P$ 的直线为 $y=y_0+k(x-x_0)$，代入椭圆：
+\[
+ \frac{x^2}{a^2}+\frac{[y_0+k(x-x_0)]^2}{b^2}=1.
+\]
+\textbf{第二步：} 用 $\dfrac{x_0^2}{a^2}+\dfrac{y_0^2}{b^2}=1$ 消去常数，整理：
+\[
+ \frac{x^2-x_0^2}{a^2}
+ +\frac{2ky_0(x-x_0)}{b^2}
+ +\frac{k^2(x-x_0)^2}{b^2}=0.
+\]
+提取 $x-x_0$：
+\[
+ (x-x_0)\left[
+ \frac{x+x_0}{a^2}+\frac{2ky_0}{b^2}
+ +\frac{k^2(x-x_0)}{b^2}\right]=0.
+\]
+\textbf{第三步：} 相切时 $x_0$ 是二重根，方括号在 $x=x_0$ 时必须为 $0$：
+\[
+ \frac{2x_0}{a^2}+\frac{2ky_0}{b^2}=0
+ \quad\Longrightarrow\quad k=-\frac{b^2x_0}{a^2y_0}.
+\]
+\textbf{第四步：} 把 $k$ 代回点斜式：
+\[
+\begin{aligned}
+ y-y_0&=-\frac{b^2x_0}{a^2y_0}(x-x_0),\\
+ b^2x_0x+a^2y_0y
+ &=b^2x_0^2+a^2y_0^2=a^2b^2,
+\end{aligned}
+\]
+从而 $x_0x/a^2+y_0y/b^2=1$。
+
+\textbf{补全端点：} $y_0=0$ 时单独取 $x=\pm a$。
+\textbf{注：} 上述因式分解是对原证明的完整保留与压缩；“重根”发生在有限斜率直线对应的 $x$ 方程中，不能据此漏掉竖直切线。
+
+\medskip
+\textbf{\textcolor{CProof}{方法六｜先判定直线相切，再反求切点（拓展）}}
+
+\textbf{第一步：} 对非竖直直线 $y=kx+m$，代入椭圆并乘以 $a^2b^2$：
+\[
+ (b^2+a^2k^2)x^2+2a^2kmx+a^2(m^2-b^2)=0.
+\]
+\textbf{第二步：} 判别式为
+\[
+\begin{aligned}
+ \Delta
+ &=4a^4k^2m^2-4a^2(b^2+a^2k^2)(m^2-b^2)\\
+ &=4a^2b^2(a^2k^2+b^2-m^2).
+\end{aligned}
+\]
+相切 $\iff\Delta=0\iff\boxed{m^2=a^2k^2+b^2}$，特别地 $m\ne0$。
+
+\textbf{第三步：} 重根即切点横坐标：
+\[
+ x_0=-\frac{a^2km}{b^2+a^2k^2}
+ =-\frac{a^2k}{m}.
+\]
+将其代回直线得
+\[
+ y_0=kx_0+m=\frac{m^2-a^2k^2}{m}=\frac{b^2}{m}.
+\]
+\textbf{第四步：} 由切点坐标反过来验证切点公式：
+\[
+ \frac{x_0x}{a^2}+\frac{y_0y}{b^2}
+ =-\frac{kx}{m}+\frac{y}{m}=1
+ \iff y=kx+m.
+\]
+\textbf{价值：} 把“已知切点求切线”和“已知斜率求切线”两类题连起来。
+竖直切线 $x=\pm a$ 另行处理。
+
+\medskip
+\textbf{\textcolor{CProof}{补充校验｜平方和恒等式：确认真的只有一个公共点}}
+
+若点 $Q(x,y)$ 同时满足椭圆和上述候选切线，则
+\[
+\begin{aligned}
+&\frac{(x-x_0)^2}{a^2}+\frac{(y-y_0)^2}{b^2}\\
+&=\left(\frac{x^2}{a^2}+\frac{y^2}{b^2}\right)
+ -2\left(\frac{x_0x}{a^2}+\frac{y_0y}{b^2}\right)
+ +\left(\frac{x_0^2}{a^2}+\frac{y_0^2}{b^2}\right)\\
+&=1-2+1=0.
+\end{aligned}
+\]
+两个平方均非负，只能同时为零，所以 $Q=P$。这也直接验证了端点情况。
 
 \medskip
 \textbf{\textcolor{CProof}{结论回扣}}
 
-\textbf{因此，椭圆 $\dfrac{x^2}{a^2} + \dfrac{y^2}{b^2} = 1$ 在点 $P(x_0, y_0)$ 处的切线方程为 $\dfrac{x_0 x}{a^2} + \dfrac{y_0 y}{b^2} = 1$。}
+\textbf{背诵优先级：} 已知切点先记“平方变乘积”；讲清几何本质选“椭圆压成圆”；
+需要最快严格验证用“柯西不等式”；求含 $k,m$ 的切线选“判别式 $\Delta=0$”。
 \end{proofbox}
