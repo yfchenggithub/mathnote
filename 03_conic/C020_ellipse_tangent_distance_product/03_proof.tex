@@ -1,95 +1,192 @@
 \begin{proofbox}
-\textbf{\textcolor{CProof}{思路提示}}
+\textbf{\textcolor{CProof}{证明路线总览}}
 
-从点 $P$ 坐标出发，先写出椭圆在 $P$ 处的切线方程，再计算原点到切线的距离 $d$，同时表达 $r_1$ 和 $r_2$，最后计算乘积 $\sqrt{r_1 r_2} \cdot d$ 并利用椭圆方程化简。
-
-\medskip
-\textbf{\textcolor{CProof}{正式推导}}
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-    \item[\textbf{步骤一（设点与切线）：}] 设椭圆上点 $P(x_0,y_0)$，则椭圆在 $P$ 处的切线 $l$ 方程为 $\dfrac{x_0 x}{a^2} + \dfrac{y_0 y}{b^2} = 1$。
-    \[
-    \dfrac{x_0 x}{a^2} + \dfrac{y_0 y}{b^2} = 1.
-    \]
-    \par\textbf{理由：} 椭圆 $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1$ 在点 $P(x_0,y_0)$ 处的切线公式可直接记忆或由隐函数求导得到。
-
-    \item[\textbf{步骤二（计算距离 $d$）：}] 原点到直线 $l$ 的距离 $d$ 为
-    \[
-    d = \frac{1}{\sqrt{\dfrac{x_0^2}{a^4} + \dfrac{y_0^2}{b^4}}}.
-    \]
-    \par\textbf{理由：} 将切线方程化为一般式 $\dfrac{x_0}{a^2}x + \dfrac{y_0}{b^2}y - 1 = 0$，代入点到直线距离公式 $d = \dfrac{|Ax_0+By_0+C|}{\sqrt{A^2+B^2}}$，注意此处原点 $(0,0)$ 代入得 $|C|=1$，且 $A=\dfrac{x_0}{a^2}, B=\dfrac{y_0}{b^2}$，故分母为 $\sqrt{\left(\dfrac{x_0}{a^2}\right)^2 + \left(\dfrac{y_0}{b^2}\right)^2}$。
-
-    \item[\textbf{步骤三（表达 $r_1 r_2$）：}] 计算 $r_1 r_2$ 的乘积。焦点为 $F_1(-c,0), F_2(c,0)$，其中 $c^2=a^2-b^2$，则
-    \[
-    r_1 r_2 = \sqrt{(x_0+c)^2+y_0^2} \cdot \sqrt{(x_0-c)^2+y_0^2}.
-    \]
-    直接计算平方得
-    \[
-    r_1^2 r_2^2 = \big[(x_0+c)^2+y_0^2\big]\big[(x_0-c)^2+y_0^2\big].
-    \]
-    \par\textbf{理由：} 利用平方差公式和椭圆方程 $\dfrac{x_0^2}{a^2}+\dfrac{y_0^2}{b^2}=1$ 化简。展开后：
-    \[
-    \begin{aligned}
-    r_1^2 r_2^2 &= \big[(x_0^2+y_0^2+c^2)+2cx_0\big]\big[(x_0^2+y_0^2+c^2)-2cx_0\big] \\
-    &= (x_0^2+y_0^2+c^2)^2 - (2cx_0)^2.
-    \end{aligned}
-    \]
-
-    \item[\textbf{步骤四（代入椭圆方程）：}] 由椭圆方程 $\dfrac{x_0^2}{a^2}+\dfrac{y_0^2}{b^2}=1$，可得 $y_0^2 = b^2\left(1-\dfrac{x_0^2}{a^2}\right)$。代入上式并化简：
-    \[
-    \begin{aligned}
-    r_1^2 r_2^2 &= \left(x_0^2 + b^2\left(1-\frac{x_0^2}{a^2}\right) + c^2\right)^2 - 4c^2 x_0^2 \\
-    &= \left(x_0^2\left(1-\frac{b^2}{a^2}\right) + b^2 + c^2\right)^2 - 4c^2 x_0^2.
-    \end{aligned}
-    \]
-    注意到 $1-\dfrac{b^2}{a^2} = \dfrac{c^2}{a^2}$，且 $b^2+c^2=a^2$，所以
-    \[
-    r_1^2 r_2^2 = \left(\frac{c^2}{a^2}x_0^2 + a^2\right)^2 - 4c^2 x_0^2.
-    \]
-    \par\textbf{理由：} 逐步代换以消去 $y_0$，并利用椭圆参数关系。
-
-    \item[\textbf{步骤五（化简乘积）：}] 进一步展开并整理：
-    \[
-    \begin{aligned}
-    r_1^2 r_2^2 &= \frac{c^4}{a^4}x_0^4 + 2c^2 x_0^2 + a^4 - 4c^2 x_0^2 \\
-    &= \frac{c^4}{a^4}x_0^4 - 2c^2 x_0^2 + a^4 \\
-    &= \left(\frac{c^2}{a^2}x_0^2 - a^2\right)^2.
-    \end{aligned}
-    \]
-    因此 $r_1 r_2 = \left|\frac{c^2}{a^2}x_0^2 - a^2\right|$。由于椭圆上 $x_0^2 \le a^2$，且 $c^2=a^2-b^2 < a^2$，可判断符号，但最终乘积为正，故取绝对值不影响。为简化，直接取平方根：
-    \[
-    r_1 r_2 = a^2 - \frac{c^2}{a^2}x_0^2.
-    \]
-    \par\textbf{理由：} 完全平方公式化简，并利用椭圆范围确定符号。
-
-    \item[\textbf{步骤六（计算 $\sqrt{r_1 r_2} \cdot d$）：}] 将 $d$ 和 $r_1 r_2$ 代入：
-    \[
-    \begin{aligned}
-    \sqrt{r_1 r_2} \cdot d &= \sqrt{a^2 - \frac{c^2}{a^2}x_0^2} \cdot \frac{1}{\sqrt{\dfrac{x_0^2}{a^4} + \dfrac{y_0^2}{b^4}}} \\
-    &= \sqrt{a^2 - \frac{c^2}{a^2}x_0^2} \cdot \frac{1}{\sqrt{\dfrac{x_0^2}{a^4} + \dfrac{b^2\left(1-\dfrac{x_0^2}{a^2}\right)}{b^4}}}.
-    \end{aligned}
-    \]
-    化简分母：
-    \[
-    \dfrac{x_0^2}{a^4} + \dfrac{1}{b^2} - \dfrac{x_0^2}{a^2 b^2} = \dfrac{x_0^2}{a^4} - \dfrac{x_0^2}{a^2 b^2} + \dfrac{1}{b^2} = \dfrac{x_0^2(b^2 - a^2)}{a^4 b^2} + \dfrac{1}{b^2}.
-    \]
-    由于 $b^2 - a^2 = -c^2$，代入得
-    \[
-    \frac{1}{b^2} - \frac{c^2 x_0^2}{a^4 b^2} = \frac{1}{b^2}\left(1 - \frac{c^2 x_0^2}{a^4}\right).
-    \]
-    因此
-    \[
-    d = \frac{1}{\sqrt{\dfrac{1}{b^2}\left(1 - \dfrac{c^2 x_0^2}{a^4}\right)}} = \frac{b}{\sqrt{1 - \dfrac{c^2 x_0^2}{a^4}}}.
-    \]
-    同时 $\sqrt{r_1 r_2} = \sqrt{a^2 - \dfrac{c^2}{a^2}x_0^2} = \sqrt{\dfrac{a^4 - c^2 x_0^2}{a^2}}$。
-    故乘积为
-    \[
-    \sqrt{r_1 r_2} \cdot d = \sqrt{\dfrac{a^4 - c^2 x_0^2}{a^2}} \cdot \frac{b}{\sqrt{1 - \dfrac{c^2 x_0^2}{a^4}}} = b \sqrt{\dfrac{a^4 - c^2 x_0^2}{a^2} \cdot \dfrac{a^4}{a^4 - c^2 x_0^2}} = ab.
-    \]
-    \par\textbf{理由：} 代数通分和约分，关键步骤是分子分母同时出现 $a^4 - c^2 x_0^2$ 而抵消。
-\end{description}
+\textbf{首选最快：}几何法（焦点角 + 余弦定理），关键仅两条等式。
+\textbf{最快坐标法：}焦半径一次式 + 切线距离分母，同一个因子立刻消掉。
+另保留\textbf{完整设点法}、\textbf{辅助圆参数法}和\textbf{已知焦点到切线垂距积时的两步法}。
 
 \medskip
-\textbf{\textcolor{CProof}{结论回扣}}
+\textbf{\textcolor{CProof}{方法一：纯几何法｜最直观、考试最快（会光学性质时）}}
 
-\textbf{经过上述逐步推导，我们验证了对于椭圆上任意点 $P$，恒有 $\sqrt{r_1 r_2} \cdot d = ab$，结论成立。}
+设 $\theta=\angle F_1PF_2$，并记 $h_i=\operatorname{dist}(F_i,l)$。
+由椭圆的切线光学性质，$P$ 处\textbf{法线平分焦点内角}，所以在焦点到切线的直角三角形中
+\[
+h_i=r_i\cos\frac{\theta}{2}\quad(i=1,2).
+\]
+因为 $O$ 是 $F_1F_2$ 中点，且 $F_1,F_2$ 在切线同侧，故
+\[
+\boxed{d=\frac{h_1+h_2}{2}
+      =\frac{r_1+r_2}{2}\cos\frac{\theta}{2}
+      =a\cos\frac{\theta}{2}}.\tag{1}
+\]
+再对 $\triangle F_1PF_2$ 用余弦定理：
+\[
+\begin{aligned}
+4c^2
+ &=r_1^2+r_2^2-2r_1r_2\cos\theta\\
+ &=(r_1+r_2)^2-2r_1r_2(1+\cos\theta)\\
+ &=4a^2-4r_1r_2\cos^2\frac{\theta}{2}.
+\end{aligned}
+\]
+于是
+\[
+\boxed{r_1r_2\cos^2\frac{\theta}{2}=a^2-c^2=b^2}.\tag{2}
+\]
+由 (1)(2)，$d^2r_1r_2=a^2b^2$；因为各距离及 $a,b$ 均正，
+\[
+\boxed{\sqrt{r_1r_2}\,d=ab}.
+\]
+\textbf{记忆：}角平分给 $d/a=\cos(\theta/2)$，余弦定理给 $\sqrt{r_1r_2}\cos(\theta/2)=b$。
+
+\medskip
+\textbf{\textcolor{CProof}{方法二：最快坐标法｜最少代数步骤}}
+
+利用已经熟悉的焦半径公式（由椭圆定义与距离公式可得）：
+\[
+\boxed{r_1=a+\frac{cx_0}{a}},\qquad
+\boxed{r_2=a-\frac{cx_0}{a}}
+\]
+（因 $r_1=|PF_1|$，所以 $x_0>0$ 时 $r_1$ 较大）。立刻有
+\[
+\boxed{r_1r_2=a^2-\frac{c^2x_0^2}{a^2}}.\tag{3}
+\]
+切线 $\dfrac{x_0x}{a^2}+\dfrac{y_0y}{b^2}=1$，故
+\[
+\frac1{d^2}=\frac{x_0^2}{a^4}+\frac{y_0^2}{b^4}.
+\]
+利用 $y_0^2=b^2(1-x_0^2/a^2)$ 和 $c^2=a^2-b^2$，只化一次：
+\[
+\begin{aligned}
+\frac{a^2b^2}{d^2}
+ &=\frac{b^2x_0^2}{a^2}+\frac{a^2y_0^2}{b^2}\\
+ &=\frac{b^2x_0^2}{a^2}+a^2-x_0^2\\
+ &=a^2-\frac{c^2x_0^2}{a^2}
+ =r_1r_2.
+\end{aligned}
+\]
+移项即 $r_1r_2d^2=a^2b^2$，得证。
+\textbf{考试速写版：}$r_1r_2=a^2-c^2x_0^2/a^2=a^2b^2/d^2$。
+
+\medskip
+\textbf{\textcolor{CProof}{方法三：完整设点法｜不预先使用焦半径一次式}}
+
+\textbf{第 1 步（切线与垂距）。}
+由 $P(x_0,y_0)$ 在椭圆上，切线为
+\[
+\frac{x_0}{a^2}x+\frac{y_0}{b^2}y-1=0,
+\qquad d=\frac{1}{\sqrt{x_0^2/a^4+y_0^2/b^4}}.
+\]
+\textbf{第 2 步（分别求焦半径的平方）。}
+由两点距离公式
+\[
+r_1^2=(x_0+c)^2+y_0^2,\qquad
+r_2^2=(x_0-c)^2+y_0^2.
+\]
+用 $y_0^2=b^2(1-x_0^2/a^2)$、$c^2=a^2-b^2$：
+\[
+\begin{aligned}
+r_1^2
+ &=x_0^2+2cx_0+c^2+b^2-\frac{b^2x_0^2}{a^2}\\
+ &=a^2+2cx_0+\frac{c^2x_0^2}{a^2}
+ =\left(a+\frac{cx_0}{a}\right)^2,\\
+r_2^2
+ &=\left(a-\frac{cx_0}{a}\right)^2.
+\end{aligned}
+\]
+由于 $|x_0|\le a$ 且 $c<a$，两括号都为正，故
+\[
+r_1=a+\frac{cx_0}{a},\quad r_2=a-\frac{cx_0}{a},\quad
+r_1r_2=a^2-\frac{c^2x_0^2}{a^2}.
+\]
+\textbf{第 3 步（把 $d$ 的分母化成相同因子）。}
+\[
+\begin{aligned}
+\frac1{d^2}
+ &=\frac{x_0^2}{a^4}+\frac{1}{b^2}\left(1-\frac{x_0^2}{a^2}\right)\\
+ &=\frac1{b^2}\left(1-\frac{c^2x_0^2}{a^4}\right)
+ =\frac{a^2-c^2x_0^2/a^2}{a^2b^2}
+ =\frac{r_1r_2}{a^2b^2}.
+\end{aligned}
+\]
+所以 $d^2=a^2b^2/(r_1r_2)$，证毕。
+\textbf{本法优势：}每一步都只依赖两点距离、切线公式、点到直线距离与椭圆方程，不依赖光学性质。
+
+\medskip
+\textbf{\textcolor{CProof}{方法四：辅助圆参数法｜把椭圆看成圆的拉伸}}
+
+设 $P=(a\cos t,b\sin t)$。这等于先在单位圆取 $(\cos t,\sin t)$，再沿 $x,y$ 方向分别伸长 $a,b$ 倍。
+椭圆在 $P$ 的切线是
+\[
+\frac{\cos t}{a}x+\frac{\sin t}{b}y=1
+\quad\Longleftrightarrow\quad
+b\cos t\,x+a\sin t\,y=ab.
+\]
+因此
+\[
+\boxed{d=\frac{ab}{\sqrt{b^2\cos^2t+a^2\sin^2t}}}.\tag{4}
+\]
+又因 $x_0=a\cos t$，两条焦半径为
+\[
+r_1=a+c\cos t,\quad r_2=a-c\cos t.
+\]
+于是
+\[
+\begin{aligned}
+r_1r_2
+ &=a^2-c^2\cos^2t\\
+ &=a^2-(a^2-b^2)\cos^2t\\
+ &=b^2\cos^2t+a^2\sin^2t.
+\end{aligned}
+\]
+该式正好是 (4) 分母根号内的量，立得
+$\sqrt{r_1r_2}\,d=ab$。
+\textbf{本法优势：}切线和焦半径恰好出现同一个 $b^2\cos^2t+a^2\sin^2t$；很适合数形结合和参数题。
+
+\medskip
+\textbf{\textcolor{CProof}{方法五：用已知的“焦点到切线垂距积”两步证明}}
+
+设 $h_1,h_2$ 分别是 $F_1,F_2$ 到切线 $l$ 的距离。
+若已学过并\textbf{独立证明}了椭圆性质
+\[
+\boxed{h_1h_2=b^2},
+\]
+则由切线光学性质知
+\[
+\frac{h_1}{r_1}=\frac{h_2}{r_2}.
+\]
+又因 $O$ 为焦点中点且焦点同在切线内侧，
+\[
+2d=h_1+h_2,\qquad2a=r_1+r_2,
+\]
+从而
+\[
+\frac{h_1}{r_1}=\frac{h_2}{r_2}=\frac{d}{a},\qquad
+h_1=\frac{dr_1}{a},\quad h_2=\frac{dr_2}{a}.
+\]
+两式相乘，$b^2=h_1h_2=d^2r_1r_2/a^2$，整理即得 C020。
+\textbf{前提提醒：}本法是从已知结论推导 C020；如需无前提证明 $h_1h_2=b^2$，参看方法一的余弦定理，不能把 C020 当成证明该前提的依据造成循环论证。
+
+\medskip
+\textbf{\textcolor{CProof}{额外几何连接：垂足为什么在长轴端点所确定的圆上？}}
+
+将 $F_1$ 关于切线 $l$ 对称到 $F_1'$。椭圆反射性质给出 $F_2,P,F_1'$ 共线，且 $P$ 位于 $F_2F_1'$ 上，因此
+\[
+|F_2F_1'|=|F_2P|+|PF_1'|=r_2+r_1=2a.
+\]
+设 $H_1$ 是 $F_1$ 到 $l$ 的垂足，则 $H_1$ 是 $F_1F_1'$ 的中点；$O$ 是 $F_1F_2$ 的中点。
+在三角形 $F_1F_2F_1'$ 中，\textbf{中位线定理}给出
+\[
+OH_1=\frac12|F_2F_1'|=a.
+\]
+故 $H_1$ 在以 $O$ 为圆心、$a$ 为半径的圆上；同理 $OH_2=a$。
+\textbf{与圆联系：}椭圆两焦点向任意切线所作垂足，落在同一个\textbf{长半轴辅助圆}上。此性质是几何延伸，不是 C020 证明必需步骤。
+
+\medskip
+\textbf{\textcolor{CProof}{附：为什么能用切线光学性质？}}
+
+直观地说，椭圆上的点使 $PF_1+PF_2=2a$；而切线上除 $P$ 以外的点均在椭圆外，两个焦点距离之和大于 $2a$。
+若把 $F_1$ 关于切线对称为 $F_1'$，则对切线上的任一点 $Q$，有
+$QF_1+QF_2=QF_1'+QF_2\ge F_1'F_2$。
+直线上这段折线路径在 $Q=P$ 时取到最小值，故 $F_1',P,F_2$ 共线；由反射角相等，可知切线与两条焦半径成相等锐角，即法线平分 $\angle F_1PF_2$。
+在长轴端点等退化夹角处可直接检验等式。
 \end{proofbox}

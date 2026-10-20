@@ -1,55 +1,101 @@
 \begin{examplebox}
-\textbf{\textcolor{CExample}{例 1（基础）}}
+\textbf{\textcolor{CExample}{例 1｜只知横坐标，三行求切线距离（原题纠错精简）}}
 
-\textbf{\textcolor{CExample}{题目：}} 已知椭圆 $\dfrac{x^2}{16}+\dfrac{y^2}{9}=1$，点 $P(2,\frac{3\sqrt{3}}{2})$ 在椭圆上。求椭圆在点 $P$ 处的切线到原点的距离 $d$，并验证 $\sqrt{r_1 r_2} \cdot d = 12$，其中 $r_1, r_2$ 为 $P$ 到两焦点的距离。
+\textbf{题目：}椭圆 $\dfrac{x^2}{16}+\dfrac{y^2}{9}=1$，$P\left(2,\dfrac{3\sqrt3}{2}\right)$，过 $P$ 作切线。求原点到切线距离 $d$，并验证定理。
 
-\textbf{\textcolor{CExample}{解题步骤：}}
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{第一步（求椭圆参数）：}] 由椭圆方程得 $a^2=16$, $b^2=9$，故 $a=4$, $b=3$，焦距 $c=\sqrt{a^2-b^2}=\sqrt{7}$。焦点为 $F_1(-\sqrt{7},0)$, $F_2(\sqrt{7},0)$。
-    \par\textbf{理由：} 标准椭圆参数定义。
-
-    \item[\textbf{第二步（计算 $r_1 r_2$）：}] 点 $P(2,\frac{3\sqrt{3}}{2})$，计算 $r_1 = \sqrt{(2+\sqrt{7})^2 + \left(\frac{3\sqrt{3}}{2}\right)^2}$, $r_2 = \sqrt{(2-\sqrt{7})^2 + \left(\frac{3\sqrt{3}}{2}\right)^2}$。先算平方：
-    \[
-    \begin{aligned}
-    r_1^2 &= (2+\sqrt{7})^2 + \frac{27}{4} = 4+4\sqrt{7}+7+6.75 = 17.75+4\sqrt{7}, \\
-    r_2^2 &= (2-\sqrt{7})^2 + \frac{27}{4} = 4-4\sqrt{7}+7+6.75 = 17.75-4\sqrt{7}.
-    \end{aligned}
-    \]
-    故 $r_1^2 r_2^2 = (17.75+4\sqrt{7})(17.75-4\sqrt{7}) = (17.75)^2 - (4\sqrt{7})^2 = 315.0625 - 112 = 203.0625$。
-    所以 $r_1 r_2 = \sqrt{203.0625} = 14.25$（精确值可保留为 $\frac{57}{4}$）。
-    \par\textbf{理由：} 直接代入距离公式，利用平方差简化计算。
-
-    \item[\textbf{第三步（利用结论求 $d$）：}] 由结论 $\sqrt{r_1 r_2} \cdot d = ab = 4\times3=12$，得
-    \[
-    d = \frac{12}{\sqrt{r_1 r_2}} = \frac{12}{\sqrt{14.25}} = \frac{12}{\frac{\sqrt{57}}{2}} = \frac{24}{\sqrt{57}} = \frac{24\sqrt{57}}{57}.
-    \]
-    \par\textbf{理由：} 直接套用结论，避免计算切线方程和距离公式。
-
-    \item[\textbf{第四步（验证）：}] 计算 $\sqrt{r_1 r_2} = \sqrt{14.25} = \frac{\sqrt{57}}{2}$，则 $\sqrt{r_1 r_2} \cdot d = \frac{\sqrt{57}}{2} \times \frac{24\sqrt{57}}{57} = \frac{24\times57}{2\times57} = 12$，符合 $ab=12$。
-    \par\textbf{理由：} 验证结论自洽，巩固理解。
-\end{description}
-
-\textbf{\textcolor{CExample}{关键结论：}} \textbf{对于给定椭圆和点 $P$，可直接用 $\sqrt{r_1 r_2} \cdot d = ab$ 求 $d$ 或验证定值，节省计算量。}
+\textbf{解：} $a=4,b=3,c=\sqrt7$，且
+\[
+\frac{2^2}{16}+\frac{(3\sqrt3/2)^2}{9}=\frac14+\frac34=1,
+\]
+故 $P$ 确在椭圆上。焦半径直接用一次式（无需开两次平方）：
+\[
+r_1=4+\frac{\sqrt7}{2},\quad
+r_2=4-\frac{\sqrt7}{2},\quad
+r_1r_2=16-\frac74=\frac{57}{4}.
+\]
+由 C020，
+\[
+\boxed{d=\frac{ab}{\sqrt{r_1r_2}}
+=\frac{12}{\sqrt{57}/2}
+=\frac{24}{\sqrt{57}}}.
+\]
+\textbf{独立核对：}切线为 $\dfrac{x}{8}+\dfrac{\sqrt3}{6}y=1$，
+\[
+d=\frac1{\sqrt{1/64+1/12}}
+=\frac{8\sqrt3}{\sqrt{19}}=\frac{24}{\sqrt{57}}.
+\]
+\textbf{方法选择：}只给 $x_0$ 时，用 $r_1r_2=a^2-c^2x_0^2/a^2$ 比开方求两段距离快。
 
 \medskip
-\textbf{\textcolor{CExample}{例 2（稍变形）}}
+\textbf{\textcolor{CExample}{例 2｜反推焦半径并核查是否真有切点}}
 
-\textbf{\textcolor{CExample}{题目：}} 椭圆 $\dfrac{x^2}{25}+\dfrac{y^2}{16}=1$，点 $P$ 在椭圆上，且椭圆在 $P$ 处的切线到原点的距离 $d=2$。求 $\sqrt{r_1 r_2}$ 的值，其中 $r_1, r_2$ 为 $P$ 到焦点的距离。
+\textbf{题目：}椭圆 $\dfrac{x^2}{25}+\dfrac{y^2}{16}=1$ 的一条切线到原点距离为 $d=2\sqrt5$。
+求 $r_1r_2$，并判断可能对应的切点坐标。
 
-\textbf{\textcolor{CExample}{解题步骤：}}
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{第一步（确定参数）：}] 椭圆中 $a^2=25$, $b^2=16$，故 $a=5$, $b=4$，$ab=20$。
-    \par\textbf{理由：} 提取基本量。
+\textbf{解：} $a=5,b=4,c=3$。由于 $4\le2\sqrt5\le5$，条件可实现。
+\[
+r_1r_2=\frac{a^2b^2}{d^2}
+=\frac{25\cdot16}{20}=\boxed{20}.
+\]
+再用 $r_1r_2=25-\dfrac{9x_0^2}{25}$：
+\[
+20=25-\frac{9x_0^2}{25}
+\quad\Longrightarrow\quad x_0^2=\frac{125}{9},
+\quad x_0=\pm\frac{5\sqrt5}{3}.
+\]
+由椭圆方程
+\[
+y_0^2=16\left(1-\frac{x_0^2}{25}\right)
+=16\left(1-\frac59\right)=\frac{64}{9},
+\]
+所以切点为
+\[
+\boxed{P\left(\pm\frac{5\sqrt5}{3},\ \pm\frac83\right)}
+\]
+（两个正负号可独立选择，共四个对称点）。
+\textbf{进一步：} $r_1+r_2=10,\ r_1r_2=20$，故两焦半径为 $5+\sqrt5,5-\sqrt5$（不指定先后顺序）。
 
-    \item[\textbf{第二步（套用结论）：}] 由 $\sqrt{r_1 r_2} \cdot d = ab$，代入 $d=2$, $ab=20$，得
-    \[
-    \sqrt{r_1 r_2} \times 2 = 20 \quad \Rightarrow \quad \sqrt{r_1 r_2} = 10.
-    \]
-    \par\textbf{理由：} 结论直接变形求解。
+\medskip
+\textbf{\textcolor{CExample}{例 3｜条件陷阱：原文件的数值为什么无解？}}
 
-    \item[\textbf{第三步（解释意义）：}] 因此 $\sqrt{r_1 r_2}=10$，即点 $P$ 到两焦点距离的几何均值为 $10$。结合椭圆定义 $r_1+r_2=2a=10$，可进一步求 $r_1, r_2$，但非本题要求。
-    \par\textbf{理由：} 结论给出了焦点距离几何均值与切线距离的关系，无需具体点 $P$ 坐标。
-\end{description}
+\textbf{题目：}椭圆 $\dfrac{x^2}{25}+\dfrac{y^2}{16}=1$，有切线距中心 $d=2$。求 $\sqrt{r_1r_2}$。
 
-\textbf{\textcolor{CExample}{关键结论：}} \textbf{当已知切线距离 $d$ 时，可利用结论反推 $\sqrt{r_1 r_2}$，体现了结论的双向应用价值。}
+\textbf{辨析：}椭圆任何切线都满足 $b\le d\le a$，即 $4\le d\le5$。
+$2<4$，故\textbf{不存在这样的切线}，原题\textbf{无解}。
+若只机械套公式会得 $\sqrt{r_1r_2}=20/2=10$，
+但由 $r_1+r_2=10$ 与均值不等式，
+\[
+\sqrt{r_1r_2}\le\frac{r_1+r_2}{2}=5,
+\]
+形成矛盾。这是非常好的\textbf{考场反检验}。
+
+\medskip
+\textbf{\textcolor{CExample}{例 4｜几何角度：不写坐标也能算}}
+
+\textbf{题目：}椭圆半长轴 $a=5$、半短轴 $b=3$，点 $P$ 的焦点夹角满足 $\cos(\angle F_1PF_2/2)=\dfrac45$。求 $d$ 和 $r_1r_2$。
+
+\textbf{解：}几何推论直接给
+\[
+d=a\cos\frac\theta2=5\cdot\frac45=\boxed{4},
+\]
+\[
+r_1r_2=\frac{b^2}{\cos^2(\theta/2)}
+=\frac9{16/25}=\boxed{\frac{225}{16}}.
+\]
+检验：$r_1r_2d^2=(225/16)\cdot16=225=a^2b^2$。
+\textbf{启发：}题目出现焦点三角形的角时，用几何法比设 $P(x_0,y_0)$ 快。
+
+\medskip
+\textbf{\textcolor{CExample}{例 5｜迁移：焦点距切线之积（知识图谱连接）}}
+
+\textbf{题目：}同一椭圆 $a=5,b=3$，点 $P$ 的切线到中心距离 $d=4$，分别记 $h_1,h_2$ 为两焦点到该切线的距离。求 $h_1h_2$ 和 $r_1r_2$。
+
+\textbf{解：}
+\[
+\boxed{h_1h_2=b^2=9},\qquad
+\boxed{r_1r_2=\frac{a^2b^2}{d^2}
+=\frac{225}{16}}.
+\]
+校验： $h_i/r_i=d/a=4/5$，所以 $h_1h_2=(16/25)r_1r_2=9$。
+\textbf{迁移：}原点距切线与焦点距切线是\textbf{不同的距离}，但可以通过 $O$ 为焦点中点及光学性质联系起来。
 \end{examplebox}

@@ -1,21 +1,67 @@
 \begin{trapbox}
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-    \item[\textbf{\textcolor{CTrap}{易错点一（忽略椭圆方程形式）}}] 误将椭圆方程写成 $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1$ 时未注意 $a>b>0$，导致焦点位置错误或符号混淆。
-    \item[\textbf{\textcolor{CTrap}{正确理解（标准方程前提）：}}] 必须明确椭圆标准方程中 $a$ 为半长轴，$b$ 为半短轴，且焦点在长轴上（此处为 $x$ 轴），$c^2=a^2-b^2$。
-    \item[\textbf{\textcolor{CTrap}{错因分析（概念模糊）：}}] 对椭圆基本参数关系记忆不牢，在计算 $c$ 或焦点坐标时出错，进而影响 $r_1, r_2$ 的表达式。
-\end{description}
+\textbf{\textcolor{CTrap}{易错 1｜题目条件本身无解，却继续套公式}}
+
+\textbf{错法：}在 $a=5,b=4$ 的椭圆上给出 $d=2$，由 $\sqrt{r_1r_2}=ab/d$ 得到 $10$，当成有效答案。
+\textbf{纠正：}先检查 $\boxed{b\le d\le a}$。这里必须有 $4\le d\le5$，故不存在该切线；且 $\sqrt{r_1r_2}\le a=5$ 也能反证数值不可行。
 
 \medskip
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-    \item[\textbf{\textcolor{CTrap}{易错点二（切线方程记错）}}] 写椭圆在点 $P(x_0,y_0)$ 处的切线方程时，误用为 $\dfrac{x_0 x}{a^2} - \dfrac{y_0 y}{b^2} = 1$ 或 $\dfrac{x x_0}{a} + \dfrac{y y_0}{b} = 1$。
-    \item[\textbf{\textcolor{CTrap}{正确理解（切线公式）：}}] 正确切线方程为 $\dfrac{x_0 x}{a^2} + \dfrac{y_0 y}{b^2} = 1$，可通过隐函数求导或记忆标准形式得到。
-    \item[\textbf{\textcolor{CTrap}{错因分析（公式混淆）：}}] 与圆、双曲线或抛物线的切线公式混淆，或未验证点 $P$ 在椭圆上导致方程错误。
-\end{description}
+\textbf{\textcolor{CTrap}{易错 2｜把“焦点距切线”当“中心距切线”}}
+
+\textbf{错法：}把 $h_1$、$h_2$ 误作 $d$，写成 $r_1r_2h_1h_2=a^2b^2$。
+\textbf{纠正：}$d=\operatorname{dist}(O,l)$，$h_i=\operatorname{dist}(F_i,l)$；正确关系是
+\[
+\boxed{h_1h_2=b^2},\qquad
+\boxed{h_i=\frac{r_i}{a}d},\qquad
+\boxed{r_1r_2d^2=a^2b^2}.
+\]
 
 \medskip
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-    \item[\textbf{\textcolor{CTrap}{易错点三（距离计算符号）}}] 计算原点到切线距离 $d$ 时，忽略绝对值或分母开方后的正负，误写 $d = \dfrac{1}{\sqrt{\dfrac{x_0^2}{a^4} + \dfrac{y_0^2}{b^4}}}$ 而未取正值。
-    \item[\textbf{\textcolor{CTrap}{正确理解（距离非负）：}}] 距离 $d$ 始终为非负实数，公式中分母为根式，分子为 $|C|=1$，故 $d = \dfrac{1}{\sqrt{\dfrac{x_0^2}{a^4} + \dfrac{y_0^2}{b^4}}}$ 已自动为正。
-    \item[\textbf{\textcolor{CTrap}{错因分析（公式套用机械）：}}] 对点到直线距离公式理解不透，未注意当直线方程一般式中 $C=-1$ 时，分子绝对值仍为 $1$，且分母根式为正。
-\end{description}
+\textbf{\textcolor{CTrap}{易错 3｜把几何平均误记成算术平均}}
+
+\textbf{错法：}写成 $\dfrac{r_1+r_2}{2}d=ab$。因为 $r_1+r_2=2a$，这会错误推出 $d=b$ 恒成立。
+\textbf{纠正：}$r_1+r_2=2a$ 是定义，而 C020 中是 $\sqrt{r_1r_2}$。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错 4｜焦半径一次式的正负颠倒}}
+
+在 $F_1(-c,0),F_2(c,0)$ 的记号下，正确公式是
+\[
+\boxed{r_1=a+\frac{cx_0}{a}},\qquad
+\boxed{r_2=a-\frac{cx_0}{a}}.
+\]
+当 $x_0>0$ 时，$P$ 更靠近右焦点，故 $r_2$ 更小；也可用 $P=(a,0)$ 立即核对 $r_1=a+c,r_2=a-c$。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错 5｜点到直线距离公式代错点}}
+
+$P$ 处切线为 $\frac{x_0}{a^2}x+\frac{y_0}{b^2}y-1=0$。
+计算的是\textbf{原点}到切线的距离，故分子为 $|0+0-1|=1$，
+\[
+d=\frac1{\sqrt{x_0^2/a^4+y_0^2/b^4}}>0.
+\]
+若把 $P$ 代进去，结果为 $0$，那算的是切点到自身切线的距离。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错 6｜光学角平分方向搞反}}
+
+椭圆\textbf{法线}平分 $\angle F_1PF_2$ 的内角；\textbf{切线}平分与之相邻的外角。对焦点到切线距离用
+\[
+h_i=r_i\cos\frac\theta2,
+\]
+而不是 $r_i\sin(\theta/2)$。可代入最右顶点检验：此时 $\theta=0$、$h_i=r_i$，必须是 $\cos0=1$。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错 7｜证明只验证两个端点}}
+
+在 $(a,0)$、$(0,b)$ 验算乘积都是 $ab$，只能帮助\textbf{发现规律}，不能证明任意动点成立。应补几何法的余弦定理，或坐标法的变量消元。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错 8｜公式适用范围误解}}
+
+\begin{itemize}[leftmargin=*,itemsep=0.3em]
+\item $a$ 始终代表\textbf{半长轴}；若长轴沿 $y$ 轴，改用 $x^2/b^2+y^2/a^2=1$ 及真实焦点即可，主公式仍然是 $ab$，无需换成别的常数。
+\item 平移、旋转椭圆不改变距离与半轴，公式仍成立，但 $d$ 应从\textbf{平移后的椭圆中心}量起，不再自动是坐标原点。
+\item $P$ 必须是切点，$l$ 必须是该点的切线；任意过 $P$ 的割线不满足 C020。
+\item $c$ 是\textbf{半焦距}，两焦点之间的距离为 $2c$；不要把 $c$ 错当完整焦距。
+\end{itemize}
 \end{trapbox}
