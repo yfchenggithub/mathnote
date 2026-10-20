@@ -1,10 +1,68 @@
 \begin{statementbox}
-对于椭圆 $C: \frac{x^2}{a^2} + \frac{y^2}{b^2} = 1$ ($a>b>0$), 设 $P(x_0, y_0)$ 是其上任意一点, $l$ 为点 $P$ 处的切线, $F_1, F_2$ 为左右焦点. 设 $F_1, F_2$ 到 $l$ 的距离分别为 $d_1, d_2$, 射影分别为 $H_1, H_2$, 则有:
+\textbf{C014\quad 椭圆焦点与切线综合性质（修订版）}
+
+设椭圆
+\[
+C:\ \frac{x^2}{a^2}+\frac{y^2}{b^2}=1,
+\qquad a>b>0,\quad c^2=a^2-b^2,
+\]
+焦点为 $F_1(-c,0),F_2(c,0)$，中心为 $O(0,0)$。
+点 $P(x_0,y_0)\in C$，$l$ 为 $P$ 处切线：
+\[
+\boxed{\ l:\ \frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1\ }.
+\]
+$F_i$ 到 $l$ 的垂足记为 $H_i$，距离 $d_i=F_iH_i$（$i=1,2$）；
+四边形 $F_1H_1H_2F_2$ 的面积记为 $S$。
+
 \begin{enumerate}
-    \item \textbf{距离积}: $d_1 d_2 = b^2$;
-    \item \textbf{面积最值}: 四边形 $F_1H_1H_2F_2$ 面积的最大值为 $a^2$;
-    \item \textbf{光学性质}: 切线 $l$ 是 $\angle F_1PF_2$ 的外角平分线, 且内角平分线 $m \perp l$;
-    \item \textbf{共圆性质}: 垂足 $H_1, H_2$ 在主圆 $x^2 + y^2 = a^2$ 上;
-    \item \textbf{截距性质}: 内外角平分线与 $x$ 轴交点 $M, N$ 的横坐标满足 $x_M \cdot x_N = c^2$.
+\item \textbf{焦点到切线的距离积（全椭圆成立）}：
+\[
+\boxed{d_1d_2=b^2}.
+\]
+尤其在长轴右顶点 $P(a,0)$，有 $d_1=a+c,d_2=a-c$，
+故 $(a+c)(a-c)=b^2$，是最直观的记忆锚点。
+
+\item \textbf{垂足共圆（全椭圆成立）}：两个垂足均在长半轴为半径的\textbf{辅助圆（主圆）}上，
+\[
+\boxed{OH_1=OH_2=a},\qquad
+\boxed{x_{H_i}^2+y_{H_i}^2=a^2}.
+\]
+注意辅助圆的半径为 $a$，不是 $b$，也不是焦距 $c$。
+
+\item \textbf{光学反射（非长轴顶点时按通常角平分线理解）}：
+当 $y_0\ne0$ 时，$P$ 与两焦点组成非退化三角形；
+切线 $l$ 平分 $\angle F_1PF_2$ 的\textbf{外角}，
+法线（过 $P$ 垂直 $l$ 的直线）平分其\textbf{内角}。
+因此由 $F_1$ 射向 $P$ 的光，沿椭圆切线反射后通过 $F_2$。
+在 $P=(\pm a,0)$ 处按反射直线的极限位置理解，不把退化角当作普通三角形角平分线。
+
+\item \textbf{角平分线的 $x$ 轴截距积（有条件）}：
+设 $m$ 为内角平分线（法线），$l$ 为外角平分线（切线）。
+若 $x_0y_0\ne0$，记 $M=m\cap Ox$、$N=l\cap Ox$，则
+\[
+\boxed{x_M=\frac{c^2x_0}{a^2}},\qquad
+\boxed{x_N=\frac{a^2}{x_0}},\qquad
+\boxed{x_Mx_N=c^2}.
+\]
+若 $x_0=0$，切线平行 $x$ 轴，$N$ 不存在；若 $y_0=0$，焦点三角形退化，不能使用角平分线表述。
+
+\item \textbf{四边形面积最大值（必须分类）}：
+\[
+\boxed{
+S_{\max}=\begin{cases}
+2bc,&c\le b,\\
+a^2,&c\ge b.
+\end{cases}}
+\]
+两分支在 $c=b$ 时一致。特别地，原先不加条件写成
+``$S_{\max}=a^2$'' \textbf{不正确}。
+更精确地说，$c<b$ 时仅在上下顶点（水平切线）取到 $2bc$；
+$c=b$ 时在上下顶点取到 $a^2$；$c>b$ 时可在四个对称切点取到 $a^2$。
+当切线为长轴端点处的竖直切线时，$H_1=H_2=P$，面积为 $0$。
 \end{enumerate}
+
+\textbf{核心推导链}：椭圆定义 $PF_1+PF_2=2a$
+$\Longrightarrow$ 反射性质
+$\Longrightarrow$ 中位线定理得 $OH_i=a$
+$\Longrightarrow$ 主圆的点幂定理得 $d_1d_2=b^2$。
 \end{statementbox}

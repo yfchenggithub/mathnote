@@ -1,33 +1,278 @@
 \begin{proofbox}
-\textbf{1. 焦点距离积 $d_1 d_2 = b^2$ 的详细代数证明}:
+\textbf{总路线（先记最值得掌握的几何三连）}：
+\[
+\boxed{PF_1+PF_2=2a}
+\Longrightarrow\boxed{\text{切线反射}}
+\Longrightarrow\boxed{OH_1=OH_2=a}
+\Longrightarrow\boxed{d_1d_2=b^2}.
+\]
+以下把几何直觉与代数通法分开，所有特殊切线均说明适用范围。
+
+\medskip
+\textbf{证明 A：光学性质——纯几何（反射与三角不等式）}
 \begin{enumerate}
-    \item 设椭圆方程为 $\frac{x^2}{a^2} + \frac{y^2}{b^2} = 1$, 切线 $l$ 的斜率为 $k$. 则切线方程可设为 $y = kx + m$.
-    \item 根据直线与椭圆相切的判别式 $\Delta = 0$, 得到切线背景下的定值关系: $m^2 = a^2k^2 + b^2$.
-    \item 左右焦点分别为 $F_1(-c, 0), F_2(c, 0)$. 利用点到直线距离公式 $d = \frac{|kx - y + m|}{\sqrt{k^2+1}}$:
-    \begin{itemize}
-        \item $d_1 = \frac{|-kc - 0 + m|}{\sqrt{k^2+1}} = \frac{|m - kc|}{\sqrt{k^2+1}}$;
-        \item $d_2 = \frac{|kc - 0 + m|}{\sqrt{k^2+1}} = \frac{|m + kc|}{\sqrt{k^2+1}}$.
-    \end{itemize}
-    \item 计算乘积 $d_1 \cdot d_2 = \frac{|(m - kc)(m + kc)|}{k^2+1} = \frac{|m^2 - k^2c^2|}{k^2+1}$.
-    \item 代入 $m^2 = a^2k^2 + b^2$ 和 $c^2 = a^2 - b^2$:
-    $d_1 d_2 = \frac{a^2k^2 + b^2 - k^2(a^2 - b^2)}{k^2+1} = \frac{a^2k^2 + b^2 - a^2k^2 + b^2k^2}{k^2+1} = \frac{b^2(1 + k^2)}{k^2+1} = b^2$. 证毕.
+\item 令 $Q$ 为 $F_1$ 关于切线 $l$ 的对称点。
+对任意 $T\in l$，由轴对称知 $TF_1=TQ$，故
+\[
+TF_1+TF_2=TQ+TF_2\ge QF_2.
+\]
+\item 由于 $l$ 是椭圆的切线，直线上的点 $T$ 都不在椭圆内部，
+所以 $TF_1+TF_2\ge2a$，且等号只在切点 $T=P$ 取得。
+因两个焦点都在切线同侧，而 $Q$ 与 $F_1$ 分处切线两侧，
+线段 $QF_2$ 必与 $l$ 交于一点 $T_*$。
+\item 取 $T=T_*$，三角不等式取等号：
+$T_*Q+T_*F_2=QF_2$。
+故 $T_*$ 是 $TF_1+TF_2$ 在切线上的最小点。
+由第二步的唯一性，$T_*=P$，即\textbf{$Q,P,F_2$ 共线，且 $P$ 位于中间}。
+\item 于是
+\[
+F_2Q=F_2P+PQ=F_2P+PF_1=2a.
+\]
+反射保证直线 $PF_1$ 与 $PQ$ 对切线夹角相等，
+而 $PQ$ 与 $PF_2$ 是相反射线。
+故切线平分 $\angle F_1PF_2$ 的外角，垂直于切线的法线平分内角。
+这里要求 $y_0\ne0$ 才有通常意义下的焦点三角形。
 \end{enumerate}
 
-\textbf{2. 垂足 $H_1, H_2$ 在主圆 $x^2 + y^2 = a^2$ 上的证明}:
+\textbf{证明 B：光学性质——最快代数/向量推导}
+
+记 $r_i(X)=|XF_i|$。椭圆是函数
+$f(X)=r_1(X)+r_2(X)=2a$ 的等值曲线。
+在 $P\ne F_i$ 处，
+\[
+\nabla f(P)=\frac{P-F_1}{PF_1}+\frac{P-F_2}{PF_2}.
+\]
+把 $P-F_i$ 看成长度为 $PF_i$ 的向量，右端就是两条单位向量之和。
+\textbf{两个等长向量的和沿夹角平分线}，故 $\nabla f(P)$ 沿焦点角的内角平分线。
+等值曲线的梯度垂直切线，所以法线是内角平分线，切线是外角平分线。
+这是理解光学性质最短的一条思路。
+
+\medskip
+\textbf{证明 C：共圆性质——反射之后一步中位线（最短几何证明）}
 \begin{enumerate}
-    \item 以 $F_2(c, 0)$ 为例, 过 $F_2$ 且垂直于切线 $y = kx + m$ 的直线 (垂线) 方程为: $y = -\frac{1}{k}(x - c)$, 即 $x + ky = c$.
-    \item 切线方程整理为: $kx - y = -m$.
-    \item 将两方程分别平方后相加: $(x + ky)^2 + (kx - y)^2 = c^2 + (-m)^2$.
-    \item 左边展开: $x^2 + 2kxy + k^2y^2 + k^2x^2 - 2kxy + y^2 = (1 + k^2)(x^2 + y^2)$.
-    \item 右边代入 $m^2$: $c^2 + a^2k^2 + b^2 = (a^2 - b^2) + a^2k^2 + b^2 = a^2(1 + k^2)$.
-    \item 约去 $(1 + k^2)$ 得 $x^2 + y^2 = a^2$. 垂足 $H_1, H_2$ 均在圆上. 证毕.
+\item 沿用证明 A 的 $Q$。由于 $l$ 垂直平分 $F_1Q$，垂足 $H_1$ 是 $F_1Q$ 中点。
+\item $O$ 是 $F_1F_2$ 中点。在三角形 $F_1F_2Q$ 中，
+$OH_1$ 是中位线，故
+\[
+OH_1=\frac{F_2Q}{2}=\frac{2a}{2}=a.
+\]
+\item 把 $F_1,F_2$ 对换，完全同理得到 $OH_2=a$。
+因此 $H_1,H_2$ 均在主圆 $x^2+y^2=a^2$ 上。
 \end{enumerate}
 
-\textbf{3. 光学性质 (切线平分 $\angle F_1PF_2$ 外角) 的几何证明}:
+\textbf{证明 D：距离积——共圆 $\Rightarrow$ 点幂（最短几何证明）}
 \begin{enumerate}
-    \item 延长 $F_1P$ 到 $F_1'$, 使得 $PF_1' = PF_1$. 由椭圆定义 $PF_1 + PF_2 = 2a$, 故 $F_2F_1' = 2a$.
-    \item 根据垂足性质, $F_1$ 关于切线 $l$ 的对称点 $Q$ 满足 $F_2, P, Q$ 三点共线 (这是反射定律的几何表达).
-    \item 由于 $H_1$ 是 $F_1$ 在切线上的射影且 $H_1$ 在主圆上, 利用中位线定理可证 $P$ 处法线即为 $\angle F_1PF_2$ 的角平分线.
-    \item 因此, 切线 $l$ 作为法线的垂线, 必为该角的内角平分线的垂线, 即外角平分线. 证毕.
+\item 在主圆上取 $K$ 为 $H_2$ 的对径点：$K=-H_2$。
+由于 $F_1=-F_2$ 且 $F_1H_1\parallel F_2H_2$（都垂直于 $l$），
+$H_1,F_1,K$ 共线，且 $F_1K=F_2H_2=d_2$。
+\item $F_1$ 在主圆内部，且 $H_1,K$ 分居其两侧。
+对过 $F_1$ 的弦 $H_1K$ 使用\textbf{圆内一点的点幂定理}：
+\[
+F_1H_1\cdot F_1K=a^2-OF_1^2.
+\]
+\item 代入 $F_1H_1=d_1,\ F_1K=d_2,\ OF_1=c$，得
+\[
+\boxed{d_1d_2=a^2-c^2=b^2}.
+\]
 \end{enumerate}
+\textbf{这不是把结论硬记成公式，而是把椭圆问题变为圆的点幂问题。}
+
+\medskip
+\textbf{证明 E：距离积——切线的一般式通法（涵盖竖直切线）}
+\begin{enumerate}
+\item 写切线
+\[
+Ax+By=1,\qquad A=\frac{x_0}{a^2},\quad B=\frac{y_0}{b^2},
+\quad D=\sqrt{A^2+B^2}>0.
+\]
+\item 两焦点分别为 $(-c,0)$、$(c,0)$，故
+\[
+d_1=\frac{|1+cA|}{D},\qquad d_2=\frac{|1-cA|}{D}.
+\]
+由于 $|cA|\le c/a<1$，绝对值可以直接去掉。
+于是
+\[
+d_1d_2=\frac{1-c^2A^2}{A^2+B^2}.
+\]
+\item 利用椭圆方程、$a^2=b^2+c^2$：
+\[
+\begin{aligned}
+1-c^2A^2
+&=\frac{x_0^2}{a^2}+\frac{y_0^2}{b^2}-\frac{c^2x_0^2}{a^4}\\
+&=\frac{(a^2-c^2)x_0^2}{a^4}+\frac{y_0^2}{b^2}\\
+&=b^2\left(\frac{x_0^2}{a^4}+\frac{y_0^2}{b^4}\right)
+=b^2(A^2+B^2).
+\end{aligned}
+\]
+所以 $d_1d_2=b^2$。
+\end{enumerate}
+
+\textbf{证明 F：距离积——斜率形式的快速演算（补充，而非通法）}
+
+当切线不是竖直线时，设 $l:y=kx+m$。
+相切判别式给出 $m^2=a^2k^2+b^2$；于是
+\[
+\begin{aligned}
+d_1d_2
+&=\frac{|m-kc|\,|m+kc|}{1+k^2}
+=\frac{m^2-k^2c^2}{1+k^2}\\
+&=\frac{a^2k^2+b^2-k^2(a^2-b^2)}{1+k^2}=b^2.
+\end{aligned}
+\]
+注意 $m^2-k^2c^2=b^2(1+k^2)>0$，去绝对值有依据。
+\textbf{竖直切线} $x=\pm a$ 不可代入有限斜率 $k$；
+直接有 $d_1=a+c,d_2=a-c$（或互换），乘积仍为 $b^2$。
+
+\medskip
+\textbf{证明 G：共圆性质——距离积反推（相互推导）}
+
+令 $\boldsymbol n=(n_x,n_y)$ 为切线指向外侧的单位法向量，
+$h>0$ 为原点到切线的距离，写切线为
+$\boldsymbol n\cdot X=h$。
+焦点在切线同侧，所以
+\[
+d_1=h+cn_x,\qquad d_2=h-cn_x,
+\qquad d_1-d_2=2cn_x.
+\]
+垂足向量是
+$H_1=F_1+d_1\boldsymbol n$、$H_2=F_2+d_2\boldsymbol n$。
+因此
+\[
+\begin{aligned}
+OH_1^2
+&=|F_1+d_1\boldsymbol n|^2
+=c^2+d_1^2-2cd_1n_x\\
+&=c^2+d_1^2-d_1(d_1-d_2)
+=c^2+d_1d_2=a^2.
+\end{aligned}
+\]
+同理 $OH_2^2=c^2+d_1d_2=a^2$。
+故\textbf{距离积与垂足共圆，可以借助垂线投影关系互相推出}。
+
+\medskip
+\textbf{证明 H：角平分线截距积——角平分线定理（初中几何）}
+
+以下假设 $x_0y_0\ne0$，两个截距均存在。
+\begin{enumerate}
+\item 由椭圆定义及焦半径公式（也可平方解出）
+\[
+PF_1=a+\frac{cx_0}{a},\qquad
+PF_2=a-\frac{cx_0}{a}.
+\]
+\item 在三角形 $F_1PF_2$ 中，内角平分线交 $F_1F_2$ 于 $M$。
+角平分线定理给出
+$F_1M:MF_2=PF_1:PF_2$，故
+\[
+\begin{aligned}
+x_M
+&=\frac{(-c)PF_2+cPF_1}{PF_1+PF_2}\\
+&=\frac{c(PF_1-PF_2)}{2a}
+=\frac{c(2cx_0/a)}{2a}
+=\frac{c^2x_0}{a^2}.
+\end{aligned}
+\]
+\item 外角平分线即切线 $l$，令其方程
+$\frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1$ 中 $y=0$，
+得到
+\[
+x_N=\frac{a^2}{x_0}.
+\]
+\item 相乘立得
+\[
+\boxed{x_Mx_N=\frac{c^2x_0}{a^2}\cdot\frac{a^2}{x_0}=c^2}.
+\]
+\end{enumerate}
+
+\textbf{证明 I：截距积——切线法向量（最少步骤代数法）}
+
+切线法向量可取 $\bigl(x_0/a^2,y_0/b^2\bigr)$。
+过 $P$ 的法线为
+\[
+(x,y)=(x_0,y_0)+t\left(\frac{x_0}{a^2},\frac{y_0}{b^2}\right).
+\]
+令 $y=0$ 得 $t=-b^2$，于是
+\[
+x_M=x_0-\frac{b^2x_0}{a^2}=\frac{c^2x_0}{a^2}.
+\]
+切线令 $y=0$ 得 $x_N=a^2/x_0$，乘积即 $c^2$。
+这也是\textbf{内角平分线就是法线}的独立代数检验。
+
+\medskip
+\textbf{证明 J：面积最大值——借助距离积、投影和基本不等式}
+\begin{enumerate}
+\item $F_1H_1\parallel F_2H_2$，故（非退化时）梯形面积为
+\[
+S=\frac{d_1+d_2}{2}\,H_1H_2.
+\]
+切线为竖直线时 $H_1=H_2$，右式仍给 $S=0$。
+\item 将向量 $F_1F_2$（长 $2c$）沿切线、法线方向正交分解：
+\[
+H_1H_2^2+(d_1-d_2)^2=4c^2.
+\]
+再利用 $d_1d_2=b^2$：
+\[
+(d_1+d_2)^2=(d_1-d_2)^2+4b^2,
+\]
+相减得
+\[
+\boxed{H_1H_2^2+(d_1+d_2)^2=4a^2}.
+\]
+\item 对两个非负数 $u=H_1H_2$、$v=d_1+d_2$，
+利用 $2uv\le u^2+v^2$，有
+\[
+S=\frac{uv}{2}\le\frac{u^2+v^2}{4}=a^2.
+\]
+\textbf{等号要求 $u=v=\sqrt2\,a$，还要检查切线能否实现。}
+\item 为检查可取性，设外单位法向量为 $(n_x,n_y)$。
+椭圆的支撑距离
+\[
+h=\sqrt{a^2n_x^2+b^2n_y^2},\qquad b\le h\le a.
+\]
+该式可由参数方程 $(a\cos t,b\sin t)$ 及柯西不等式推出；
+又由两焦点垂距有 $d_1+d_2=2h$。
+因此 $v\in[2b,2a]$。
+\item 等号 $v=\sqrt2\,a$ 可取到，当且仅当
+$2b\le\sqrt2\,a$，即 $b\le c$。
+故 $c\ge b$ 时 $S_{\max}=a^2$。
+若 $c<b$，则 $v>\sqrt2\,a$，
+由
+\[
+S^2=\frac14v^2(4a^2-v^2)
+\]
+可知在 $v\in[2b,2a]$ 上 $S$ 随 $v$ 增大而减小；
+于是最大值在 $v=2b$（水平切线）处取到：
+\[
+S_{\max}=\frac12\,(2b)\sqrt{4a^2-4b^2}=2bc.
+\]
+\end{enumerate}
+最终
+\[
+\boxed{S_{\max}=\begin{cases}2bc,&c\le b,\\a^2,&c\ge b.\end{cases}}
+\]
+
+\textbf{证明 K：面积最大值——切线方向参数化（独立代数核验）}
+
+设单位法向量为 $\boldsymbol n=(n_x,n_y)$，令 $t=n_y^2\in[0,1]$。
+由支撑距离及切线上的投影，
+\[
+d_1+d_2=2\sqrt{a^2n_x^2+b^2n_y^2}
+=2\sqrt{a^2-c^2t},
+\qquad H_1H_2=2c\sqrt t.
+\]
+因此
+\[
+\boxed{S=2c\sqrt{t(a^2-c^2t)}}.
+\]
+配方得
+\[
+\begin{aligned}
+S^2
+&=4c^2t(a^2-c^2t)\\
+&=a^4-4\left(c^2t-\frac{a^2}{2}\right)^2
+\le a^4.
+\end{aligned}
+\]
+顶点 $t_*=a^2/(2c^2)$ 落在 $[0,1]$ 内，当且仅当 $c\ge b$。
+若 $c<b$，该顶点在区间外，最大值发生在 $t=1$，即 $S=2bc$。
+两种证明互相印证。
 \end{proofbox}
