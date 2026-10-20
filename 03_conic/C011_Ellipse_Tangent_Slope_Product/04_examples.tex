@@ -1,10 +1,167 @@
 \begin{examplebox}
-\textbf{例题 1}: 已知椭圆 $C: \frac{x^2}{4} + y^2 = 1$, 点 $P$ 为其上第一象限内一点. 若 $k_{OP} = 1$, 求过点 $P$ 的切线方程.
+\textbf{例1: 已知 $OP$ 的斜率, 求切线方程 (基础母题)}
 
-\textit{解析}: 
-1. 识别参数: $a^2=4, b^2=1$, 则 $k_l \cdot k_{OP} = -1/4$.
-2. 已知 $k_{OP} = 1$, 则 $k_l = -1/4$.
-3. 设点 $P(x_0, y_0)$, 由 $k_{OP} = y_0/x_0 = 1$ 得 $x_0 = y_0$.
-4. 代入椭圆方程: $x_0^2/4 + x_0^2 = 1 \implies \frac{5}{4}x_0^2 = 1 \implies x_0 = \frac{2\sqrt{5}}{5}, y_0 = \frac{2\sqrt{5}}{5}$.
-5. 切线方程为: $y - \frac{2\sqrt{5}}{5} = -\frac{1}{4}(x - \frac{2\sqrt{5}}{5})$, 化简得 $x + 4y - 2\sqrt{5} = 0$.
+已知椭圆 $\frac{x^2}{4}+y^2=1$, $P$ 在第一象限,
+$k_{OP}=1$, 求 $P$ 处的切线方程.
+
+\textbf{解}:
+\begin{enumerate}
+  \item 由 $a^2=4$, $b^2=1$, 得
+  $k_lk_{OP}=-1/4$, 所以 $k_l=-1/4$.
+  \item 因为 $k_{OP}=y_0/x_0=1$, 故 $y_0=x_0$.
+  \item 代入椭圆:
+  \[
+  \frac{x_0^2}{4}+x_0^2=1
+  \ \Longrightarrow\ \frac54x_0^2=1.
+  \]
+  由第一象限条件, 得
+  $x_0=y_0=\frac2{\sqrt5}=\frac{2\sqrt5}{5}$.
+  \item 用点斜式:
+  \[
+  y-\frac{2\sqrt5}{5}
+  =-\frac14\left(x-\frac{2\sqrt5}{5}\right).
+  \]
+  整理得
+  \[
+  \boxed{x+4y-2\sqrt5=0.}
+  \]
+  \item 用切线公式验算:
+  $\frac{x_0x}{4}+y_0y=1$,
+  代入 $x_0=y_0=2/\sqrt5$ 后同样得到 $x+4y=2\sqrt5$.
+\end{enumerate}
+\textbf{方法提醒}: 斜率定值先求 $k_l$ 很快;
+但\textbf{求切线方程还要知道经过哪一点}.
+
+\medskip
+\textbf{例2: 只给切线斜率, 求两条平行切线 (一题两解)}
+
+椭圆 $\frac{x^2}{9}+\frac{y^2}{4}=1$, 求斜率为 $-1/2$ 的全部切线.
+
+\textbf{解法A: 用斜率积}
+\begin{enumerate}
+  \item 由 $k_lk_{OP}=-4/9$、$k_l=-1/2$, 得
+  \[
+  k_{OP}=\frac{-4/9}{-1/2}=\frac89.
+  \]
+  \item 令切点 $P(x_0,y_0)$, 则 $y_0=\frac89x_0$.
+  代入椭圆:
+  \[
+  \frac{x_0^2}{9}+\frac1{4}\left(\frac89x_0\right)^2=1
+  \ \Longrightarrow\ \frac{25x_0^2}{81}=1.
+  \]
+  因而
+  \[
+  P_1=\left(\frac95,\frac85\right),\qquad
+  P_2=\left(-\frac95,-\frac85\right).
+  \]
+  \item 由切线方程 $\frac{x_0x}{9}+\frac{y_0y}{4}=1$,
+  两条切线分别为
+  \[
+  \boxed{x+2y=5},\qquad \boxed{x+2y=-5}.
+  \]
+\end{enumerate}
+\textbf{解法B: 判别式速算}
+
+设切线为 $y=-x/2+t$, 即 $x+2y=2t$.
+代入椭圆并乘以 $36$:
+\[
+4x^2+9\left(-\frac x2+t\right)^2=36.
+\]
+乘以 $4$ 展开:
+\[
+25x^2-36tx+36t^2-144=0.
+\]
+相切时判别式为零:
+\[
+(-36t)^2-4\cdot25(36t^2-144)=0
+\ \Longrightarrow\ 14400-2304t^2=0.
+\]
+所以 $t^2=25/4$, $t=\pm5/2$,
+得到 $x+2y=\pm5$, 与上面一致.
+
+\medskip
+\textbf{例3: 从离心率直接求斜率 (快速应用)}
+
+某椭圆长轴沿 $x$ 轴, 离心率 $e=3/5$.
+若非轴切点满足 $k_{OP}=4/5$, 求切线斜率.
+
+\textbf{解}:
+\[
+k_lk_{OP}=e^2-1=\frac9{25}-1=-\frac{16}{25}.
+\]
+因为 $k_{OP}=4/5$, 所以
+\[
+\boxed{k_l=\frac{-16/25}{4/5}=-\frac45.}
+\]
+\textbf{提醒}: 不需要先求 $a,b$ 的具体长度; 离心率已经决定轴比.
+
+\medskip
+\textbf{例4: 平行弦中点与切线的联系 (高价值变式)}
+
+椭圆 $\frac{x^2}{9}+\frac{y^2}{4}=1$ 与直线 $y=x+1$
+交于两点 $A,B$, 求弦中点 $M$ 及 $OM$ 的斜率.
+
+\textbf{解}:
+\begin{enumerate}
+  \item 联立并乘以 $36$:
+  \[
+  4x^2+9(x+1)^2=36
+  \ \Longrightarrow\ 13x^2+18x-27=0.
+  \]
+  \item 设两根为 $x_1,x_2$, 由韦达定理
+  $x_1+x_2=-18/13$, 所以中点横坐标
+  $u=(x_1+x_2)/2=-9/13$.
+  \item 两端点均满足 $y=x+1$, 故中点纵坐标
+  $v=u+1=4/13$. 因而
+  \[
+  M=\left(-\frac9{13},\frac4{13}\right).
+  \]
+  \item 所以
+  \[
+  \boxed{k_{OM}=\frac{4/13}{-9/13}=-\frac49.}
+  \]
+  验证: 弦斜率 $k_{AB}=1$, 所以
+  $k_{AB}k_{OM}=-4/9=-b^2/a^2$.
+\end{enumerate}
+\textbf{变式识别}: 一组斜率为 $1$ 的平行弦, 只要中点不是中心且 $OM$ 斜率存在,
+其中心连线斜率都等于 $-4/9$; 当弦退化为切线, 同一定值仍成立.
+
+\medskip
+\textbf{例5: 过切点的中心连线与切线垂直, 切点在哪里? (易错反例)}
+
+已知非圆椭圆 $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$ ($a>b>0$),
+在什么位置 $OP$ 与 $P$ 处切线垂直?
+
+\textbf{解}:
+\begin{enumerate}
+  \item 若 $x_0y_0\ne0$, 两斜率存在, 且
+  $k_lk_{OP}=-b^2/a^2\ne-1$. 因此\textbf{不垂直}.
+  \item 若 $P=(\pm a,0)$, $OP$ 水平, 切线为 $x=\pm a$, 竖直; 二者垂直.
+  \item 若 $P=(0,\pm b)$, $OP$ 竖直, 切线为 $y=\pm b$, 水平; 二者垂直.
+\end{enumerate}
+\[
+\boxed{\text{只有四个轴顶点满足 }OP\perp l.}
+\]
+\textbf{重要}: 顶点处不能以 $k_lk_{OP}=-1$ 判断垂直, 因为有一条斜率不存在.
+
+\medskip
+\textbf{例6: 椭圆中心平移后, 应改用中心到切点的连线}
+
+椭圆 $\frac{(x-1)^2}{9}+\frac{(y-2)^2}{4}=1$
+的中心为 $S(1,2)$, $P(x_0,y_0)$ 为非轴切点.
+求切线斜率与 $SP$ 斜率的乘积.
+
+\textbf{解}:
+\begin{enumerate}
+  \item 令 $X=x-1$, $Y=y-2$; 新坐标下椭圆为 $X^2/9+Y^2/4=1$.
+  \item 对应切点为 $P'(x_0-1,y_0-2)$,
+  所以 $k_{SP}=\frac{y_0-2}{x_0-1}$.
+  \item 切线斜率为
+  $k_l=-\frac{4(x_0-1)}{9(y_0-2)}$.
+  \item 相乘得到
+  \[
+  \boxed{k_lk_{SP}=-\frac49.}
+  \]
+\end{enumerate}
+\textbf{提醒}: 平移中心后不能不加区分地使用原点 $O(0,0)$ 到切点的斜率.
 \end{examplebox}

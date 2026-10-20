@@ -1,12 +1,200 @@
 \begin{proofbox}
-\textbf{利用导数与坐标代入证明}:
+\textbf{证明前统一约定}: $P(x_0,y_0)$ 在
+$\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$ 上, $a>b>0$, 且 $x_0y_0\ne0$.
+以下六种方法均要得到 $k_lk_{OP}=-b^2/a^2$.
+
+\textbf{方法一: 最快证明——直接使用切线方程 (推荐考场首选)}
+
 \begin{enumerate}
-    \item 设点 $P(x_0, y_0)$ 在椭圆上, 则满足 $\frac{x_0^2}{a^2} + \frac{y_0^2}{b^2} = 1$, 即 $b^2x_0^2 + a^2y_0^2 = a^2b^2$.
-    \item 对椭圆方程求导得切线斜率: $k_l = -\frac{b^2x_0}{a^2y_0}$.
-    \item 根据斜率定义, 点 $P$ 与原点连线的斜率为: $k_{OP} = \frac{y_0}{x_0}$.
-    \item 计算两斜率之积:
-    $k_l \cdot k_{OP} = \left( -\frac{b^2x_0}{a^2y_0} \right) \cdot \left( \frac{y_0}{x_0} \right) = -\frac{b^2}{a^2}$.
-    \item 又由离心率公式 $e^2 = \frac{c^2}{a^2} = \frac{a^2-b^2}{a^2} = 1 - \frac{b^2}{a^2}$, 可得 $e^2 - 1 = -\frac{b^2}{a^2}$.
-    \item 故 $k_l \cdot k_{OP} = e^2 - 1$ 得证.
+  \item 椭圆在 $P$ 处的切线为
+  \[
+  \frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1.
+  \]
+  移项并除以 $y_0/b^2$:
+  \[
+  y=-\frac{b^2x_0}{a^2y_0}x+\frac{b^2}{y_0},
+  \qquad k_l=-\frac{b^2x_0}{a^2y_0}.
+  \]
+  \item 过 $O(0,0)$、$P(x_0,y_0)$ 的直线斜率是
+  $k_{OP}=\frac{y_0}{x_0}$.
+  \item 两式相乘, $x_0,y_0$ 直接约掉:
+  \[
+  \boxed{k_lk_{OP}=
+  \left(-\frac{b^2x_0}{a^2y_0}\right)
+  \frac{y_0}{x_0}=-\frac{b^2}{a^2}.}
+  \]
+  \item 因为 $c^2=a^2-b^2$, $e=c/a$, 故
+  \[
+  e^2-1=\frac{a^2-b^2}{a^2}-1=-\frac{b^2}{a^2}.
+  \]
 \end{enumerate}
+\textbf{最快记忆}: \textbf{切线斜率含 $x_0/y_0$; 中心连线斜率含 $y_0/x_0$;
+一乘只剩 $-b^2/a^2$.}
+
+\textbf{方法二: 完全不用导数——切点重根 / 判别式思想}
+
+\begin{enumerate}
+  \item 设过 $P$ 的待定斜率直线为
+  \[
+  y-y_0=k(x-x_0).
+  \]
+  令 $t=x-x_0$, 则直线上任意点为
+  $(x,y)=(x_0+t,y_0+kt)$.
+  \item 代入椭圆方程:
+  \[
+  \frac{(x_0+t)^2}{a^2}+
+  \frac{(y_0+kt)^2}{b^2}=1.
+  \]
+  展开并使用 $\frac{x_0^2}{a^2}+\frac{y_0^2}{b^2}=1$, 得
+  \[
+  t^2\left(\frac1{a^2}+\frac{k^2}{b^2}\right)
+  +2t\left(\frac{x_0}{a^2}+\frac{ky_0}{b^2}\right)=0.
+  \]
+  \item $t=0$ 对应已知交点 $P$. 直线与椭圆相切意味着
+  $P$ 是\textbf{二重交点}, 即 $t=0$ 为二重根.
+  由于 $\frac1{a^2}+\frac{k^2}{b^2}>0$, 必须有
+  \[
+  \frac{x_0}{a^2}+\frac{ky_0}{b^2}=0.
+  \]
+  \item 解出
+  \[
+  k=k_l=-\frac{b^2x_0}{a^2y_0}.
+  \]
+  再乘 $k_{OP}=y_0/x_0$, 得
+  \[
+  \boxed{k_lk_{OP}=-\frac{b^2}{a^2}.}
+  \]
+\end{enumerate}
+\textbf{方法价值}: 不必先记切线方程; “已知交点 + 相切 $\Rightarrow$ 重根”
+是圆锥曲线直线相切问题的通用技巧.
+
+\textbf{方法三: 隐函数求导——直接求切线斜率}
+
+\begin{enumerate}
+  \item 对椭圆方程两边关于 $x$ 求导:
+  \[
+  \frac{2x}{a^2}+\frac{2y}{b^2}\frac{dy}{dx}=0.
+  \]
+  \item 解得
+  \[
+  \frac{dy}{dx}=-\frac{b^2x}{a^2y}.
+  \]
+  \item 在 $P(x_0,y_0)$ 处,
+  \[
+  k_l=\left.\frac{dy}{dx}\right|_P
+  =-\frac{b^2x_0}{a^2y_0}.
+  \]
+  \item 由 $k_{OP}=y_0/x_0$, 立即得到
+  \[
+  \boxed{k_lk_{OP}=-\frac{b^2}{a^2}.}
+  \]
+\end{enumerate}
+\textbf{方法价值}: 会求隐函数导数时很快, 还能用于其他隐式曲线的切线题.
+
+\textbf{方法四: 参数法——用一个角同时表示点和切线}
+
+\begin{enumerate}
+  \item 设
+  \[
+  x_0=a\cos\theta,\qquad y_0=b\sin\theta,
+  \qquad \sin\theta\cos\theta\ne0.
+  \]
+  因为 $\cos^2\theta+\sin^2\theta=1$, 该点一定在椭圆上.
+  \item 中心连线斜率为
+  \[
+  k_{OP}=\frac{b\sin\theta}{a\cos\theta}.
+  \]
+  \item 对参数方程求导:
+  \[
+  \frac{dx}{d\theta}=-a\sin\theta,\qquad
+  \frac{dy}{d\theta}=b\cos\theta.
+  \]
+  因而切线斜率为
+  \[
+  k_l=\frac{dy/d\theta}{dx/d\theta}
+  =-\frac{b\cos\theta}{a\sin\theta}.
+  \]
+  \item 相乘:
+  \[
+  k_lk_{OP}=-\frac{b\cos\theta}{a\sin\theta}
+   \frac{b\sin\theta}{a\cos\theta}
+   =\boxed{-\frac{b^2}{a^2}}.
+  \]
+\end{enumerate}
+\textbf{方法价值}: 参数 $\theta$ 全部约去, 直观看出乘积与切点位置无关.
+
+\textbf{方法五: 几何本质——把单位圆拉伸成椭圆}
+
+\begin{enumerate}
+  \item 从单位圆 $u^2+v^2=1$ 出发. 在非轴点 $Q$ 处,
+  圆的半径 $OQ$ 与切线垂直, 因而斜率 $m_r,m_t$ 满足
+  \[
+  m_rm_t=-1.
+  \]
+  \item 对平面作横向放大 $a$ 倍、纵向放大 $b$ 倍的变换:
+  \[
+  (u,v)\longmapsto(x,y)=(au,bv).
+  \]
+  变换后的曲线为 $x^2/a^2+y^2/b^2=1$;
+  $OQ$ 变为 $OP$, 原圆的切线变为椭圆在 $P$ 处的切线.
+  \item 设原直线方向变化量为 $(\Delta u,\Delta v)$,
+  则变换后为 $(a\Delta u,b\Delta v)$, 其斜率从
+  $m=\Delta v/\Delta u$ 变成
+  \[
+  k=\frac{b\Delta v}{a\Delta u}=\frac ba m.
+  \]
+  故 $k_{OP}=\frac ba m_r$, $k_l=\frac ba m_t$.
+  \item 两式相乘:
+  \[
+  \boxed{k_lk_{OP}=\left(\frac ba\right)^2m_tm_r
+  =-\frac{b^2}{a^2}.}
+  \]
+\end{enumerate}
+\textbf{方法价值}: 这是最直观的\textbf{几何解释}.
+注意: 非等比拉伸\textbf{不保持角度}, 所以圆上的垂直关系通常不会在椭圆中保留下来.
+
+\textbf{方法六: 中点弦法——先证明更广的结论, 再让弦趋于切线}
+
+\begin{enumerate}
+  \item 取椭圆上不同两点 $A(x_1,y_1)$、$B(x_2,y_2)$,
+  令弦 $AB$ 的中点为 $M(u,v)$, 即
+  \[
+  u=\frac{x_1+x_2}{2},\qquad v=\frac{y_1+y_2}{2}.
+  \]
+  暂设 $x_1\ne x_2$、$u\ne0$, 以保证下面的斜率存在.
+  \item 分别写出 $A,B$ 的椭圆方程并相减:
+  \[
+  \frac{x_1^2-x_2^2}{a^2}
+  +\frac{y_1^2-y_2^2}{b^2}=0.
+  \]
+  用平方差公式拆开:
+  \[
+  \frac{(x_1-x_2)(x_1+x_2)}{a^2}
+  +\frac{(y_1-y_2)(y_1+y_2)}{b^2}=0.
+  \]
+  \item 代入 $x_1+x_2=2u$, $y_1+y_2=2v$, 两边除以
+  $2(x_1-x_2)$:
+  \[
+  \frac{u}{a^2}
+   +\frac{v}{b^2}\frac{y_1-y_2}{x_1-x_2}=0.
+  \]
+  令 $k_{AB}=\frac{y_1-y_2}{x_1-x_2}$, 得
+  \[
+  k_{AB}\frac vu=-\frac{b^2}{a^2}.
+  \]
+  当 $M\ne O$ 且斜率都存在时, $v/u=k_{OM}$, 因而
+  \[
+  \boxed{k_{AB}k_{OM}=-\frac{b^2}{a^2}.}
+  \]
+  \item 让 $A,B$ 沿椭圆同时趋于同一非轴点 $P$.
+  弦 $AB$ 的方向趋于 $P$ 处的切线方向, 中点 $M$ 趋于 $P$;
+  因此 $k_{AB}\to k_l$, $k_{OM}\to k_{OP}$.
+  取极限得到
+  \[
+  \boxed{k_lk_{OP}=-\frac{b^2}{a^2}.}
+  \]
+\end{enumerate}
+\textbf{方法价值}: 把\textbf{弦的中点定理}与\textbf{切线}联系起来;
+无需微积分就可先获得平行弦中点的定值性质, 再由割线趋于切线得到本题结论.
+弦经过中心时 $M=O$, 不可写 $k_{OM}$; 轴方向的情况也须单独讨论.
 \end{proofbox}
