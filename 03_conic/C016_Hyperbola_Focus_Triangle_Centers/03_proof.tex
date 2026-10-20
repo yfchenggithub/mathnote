@@ -1,32 +1,205 @@
 \begin{proofbox}
-\textbf{1. 内心 $I$ 坐标公式的详细推导（核心）}
+\textbf{准备：统一记号与两个基础事实}
 
-\textit{核心思路：利用角平分线定理及内心分点公式，配合双曲线焦半径公式。}
+记 $r_1=PF_1$、$r_2=PF_2$，$F_1=(-c,0)$、$F_2=(c,0)$，
+$\varepsilon=\operatorname{sgn}(x_0)$。
+由于 $P$ 不在顶点，$|x_0|>a$ 且 $y_0\ne0$。
+对双曲线上一点，有
+\[
+\boxed{r_1-r_2=2\varepsilon a},\qquad
+\boxed{r_1+r_2=2e|x_0|}.
+\tag{1}
+\]
+第一式是双曲线的定义；第二式可由焦半径公式得到，下面还会直接验证。
 
-\begin{enumerate}
-    \item \textbf{第一步：确定边长} (设 $P$ 在右支 $x_0 \ge a$):
-    \begin{itemize}
-        \item 底边 $p = |F_1F_2| = 2c$;
-        \item 侧边 $f_1 = |PF_2| = ex_0 - a$;
-        \item 侧边 $f_2 = |PF_1| = ex_0 + a$.
-        \item 周长 $L = 2c + (ex_0 - a) + (ex_0 + a) = 2c + 2ex_0$.
-    \end{itemize}
-    \item \textbf{第二步：代入内心坐标公式}
-    \[ x_I = \frac{p \cdot x_0 + f_1 \cdot (-c) + f_2 \cdot c}{L} \]
-    \item \textbf{第三步：分子化简}
-    \[ \text{分子} = 2cx_0 - c(ex_0 - a) + c(ex_0 + a) = 2cx_0 - cex_0 + ac + cex_0 + ac = 2cx_0 + 2ac \]
-    \item \textbf{第四步：求值}
-    \[ x_I = \frac{2c(x_0 + a)}{2(c + ex_0)} = \frac{c(x_0 + a)}{c + \frac{c}{a}x_0} = \frac{c(x_0 + a)}{\frac{c}{a}(a + x_0)} = a \]
-    同理可得 $y_I = \frac{2c \cdot y_0 + 0 + 0}{2c + 2ex_0} = \frac{cy_0}{c+ex_0}$。
-\end{enumerate}
+\textbf{方法一（首选最快）：内切圆切线长法——三行求 $x_I$}
+
+设内切圆与 $F_1F_2$ 切于 $T$，与 $PF_1$、$PF_2$ 分别切于 $M,N$。
+因同一点引圆的两条切线相等，
+$F_1T=F_1M$、$F_2T=F_2N$、$PM=PN$。
+把三条边长相加减，即
+\[
+2F_1T=F_1F_2+PF_1-PF_2=2c+(r_1-r_2).
+\]
+由于 $I$ 在 $T$ 的正上方或正下方，
+\[
+\boxed{x_I=x_T=-c+F_1T=\frac{r_1-r_2}{2}}
+\overset{(1)}{=}\boxed{\varepsilon a}.
+\]
+\textbf{三步记法：同点切线等长 $\rightarrow$ 切点横坐标为半个焦距差 $\rightarrow$ 双曲线定义。}
+这条证明不需要设出内心坐标，也不需要解二元方程。
+
+\textbf{方法二（最快补出 $y_I$）：面积除以半周长}
+
+将 $\triangle PF_1F_2$ 用三条连向内心的线段分成三个小三角形。
+它们到原三角形三条边的高都等于内切圆半径 $r$，所以
+\[
+S=\frac12r(r_1+r_2+2c)=rs,\qquad s=c+e|x_0|.
+\]
+另一方面，由底边为 $2c$、高为 $|y_0|$，
+\[
+S=\frac12\cdot2c\cdot|y_0|=c|y_0|.
+\]
+故
+\[
+r=\frac{c|y_0|}{c+e|x_0|},\qquad
+\boxed{y_I=\frac{cy_0}{c+e|x_0|}
+=\frac{ay_0}{a+|x_0|}}.
+\]
+内心一定与 $P$ 处于 $x$ 轴同侧，所以 $y_I$ 与 $y_0$ 同号，不能直接把 $r$ 当作有符号的纵坐标。
+将方法一、二合并，就得到完整的内心坐标。
 
 \tcbline
+\textbf{方法三（代数通法）：对边长加权的内心坐标公式}
 
-\textbf{2. 垂心 $H$ 与外心 $O'$ 的推导简述}
+任意三角形 $ABC$ 中，内心 $I$ 的位置向量为
+\[
+I=\frac{|BC|A+|CA|B+|AB|C}{|BC|+|CA|+|AB|}.
+\]
+理解方法：三个小三角形 $IBC,ICA,IAB$ 的高都等于内切圆半径，面积之比等于三个对边之比，故是上述加权平均。
+令 $A=P$、$B=F_1$、$C=F_2$，得到
+\[
+I=\frac{2cP+r_2F_1+r_1F_2}{2c+r_1+r_2}.
+\]
+逐项取坐标，得到
+\[
+x_I=\frac{2cx_0+c(r_1-r_2)}{2c+r_1+r_2}
+=\frac{c(x_0+\varepsilon a)}{c+e|x_0|}.
+\]
+注意 $x_0=\varepsilon|x_0|$、$e=c/a$，于是
+\[
+x_I=\frac{c\varepsilon(|x_0|+a)}{c(1+|x_0|/a)}
+=\varepsilon a.
+\]
+纵坐标同理：
+\[
+y_I=\frac{2cy_0}{2c+r_1+r_2}
+=\frac{cy_0}{c+e|x_0|}.
+\]
+\textbf{适用场景：} 已知三个顶点和三边长，要求精确内心坐标时，这是最稳的解析几何通法。
 
-\begin{itemize}
-    \item \textbf{垂心}: 过 $P$ 的高线为 $x = x_0$。过 $F_1$ 的高线斜率为 $k = -\frac{1}{k_{PF_2}} = -\frac{x_0-c}{y_0}$。方程为 $y = -\frac{x_0-c}{y_0}(x+c)$。联立得 $y_H = \frac{c^2-x_0^2}{y_0}$。
-    \item \textbf{外心}: 底边中垂线为 $x=0$。设外心 $(0, y_{O'})$, 利用距离相等 $O'F_2^2 = O'P^2$:
-    $c^2 + y_{O'}^2 = x_0^2 + (y_0 - y_{O'})^2 \implies 2y_0y_{O'} = x_0^2 + y_0^2 - c^2$。
-\end{itemize}
+\textbf{方法四（角平分线视角）：先求角平分线交底边的点}
+
+设 $P$ 的内角平分线与 $F_1F_2$ 相交于 $Q$。
+角平分线定理给出
+\[
+\frac{F_1Q}{QF_2}=\frac{PF_1}{PF_2}=\frac{r_1}{r_2},\qquad
+x_Q=\frac{cr_1-cr_2}{r_1+r_2}.
+\]
+代入式 (1)，得
+\[
+\boxed{Q\left(\frac{a^2}{x_0},0\right)}.
+\]
+因为内心 $I$ 在 $PQ$ 上，而方法一已经确定 $x_I=\varepsilon a$，
+由同一直线上纵坐标的线性关系，
+\[
+\frac{y_I}{y_0}=
+\frac{x_I-x_Q}{x_0-x_Q}
+=\frac{\varepsilon a-a^2/x_0}{x_0-a^2/x_0}
+=\frac{a}{a+|x_0|}.
+\]
+于是 $y_I=ay_0/(a+|x_0|)$。
+\textbf{几何画图顺序：} 焦点连线 $\rightarrow$ 内角平分线 $PQ$
+$\rightarrow$ 固定竖线 $x=\varepsilon a$ $\rightarrow$ 两线交点 $I$。
+\textbf{注意：} $Q$ 是\emph{角平分线}与底边的交点，$T$ 是\emph{内切圆切点}，一般 $Q\ne T$！
+
+\textbf{方法五（不直接套焦半径公式）：先从曲线方程推出 $r_1,r_2$}
+
+由双曲线方程
+\[
+y_0^2=\frac{b^2}{a^2}(x_0^2-a^2),\qquad c^2=a^2+b^2,
+\]
+可得
+\begin{align*}
+r_1^2&=(x_0+c)^2+y_0^2
+=\frac{c^2}{a^2}x_0^2+2cx_0+a^2
+=(ex_0+a)^2,\\
+r_2^2&=(x_0-c)^2+y_0^2
+=\frac{c^2}{a^2}x_0^2-2cx_0+a^2
+=(ex_0-a)^2.
+\end{align*}
+所以
+\[
+\boxed{r_1=|ex_0+a|},\qquad
+\boxed{r_2=|ex_0-a|}.
+\]
+当 $x_0>a$ 时，$r_1=ex_0+a$、$r_2=ex_0-a$；
+当 $x_0<-a$ 时，$r_1=-ex_0-a$、$r_2=-ex_0+a$。
+这就严格推出式 (1)，同时解释了为什么\textbf{左支必须处理绝对值}。
+
+\tcbline
+\textbf{方法六（垂心最快）：只联立两条高线}
+
+因为 $F_1F_2$ 在 $x$ 轴上，所以从 $P$ 作出的高线为
+\[x=x_0.\]
+直线 $PF_2$ 的斜率为 $y_0/(x_0-c)$，当 $x_0=c$ 时它是竖直线。
+统一使用\textbf{垂直方向向量}，可直接写出过 $F_1$ 的高线：
+\[
+(x_0-c)(x+c)+y_0y=0.
+\]
+这里该方程对 $x_0=c$ 也成立，不必除以 $x_0-c$。
+代入 $x=x_0$：
+\[
+(x_0-c)(x_0+c)+y_0y_H=0,
+\]
+即
+\[
+\boxed{H\left(x_0,\frac{c^2-x_0^2}{y_0}\right)}.
+\]
+\textbf{特别情形：} 当 $x_0=c$（右支）时，$H=F_2$；
+当 $x_0=-c$（左支）时，$H=F_1$。
+这是三角形在对应焦点处为直角三角形的自然结果。
+
+\textbf{方法七（外心最快）：中垂线加一次平方相等}
+
+由 $F_1F_2$ 的中点为原点且底边水平，可设外心为 $O'=(0,t)$。
+外心到 $F_2$、$P$ 的距离相等：
+\[
+c^2+t^2=x_0^2+(y_0-t)^2.
+\]
+展开、约掉 $t^2$：
+\[
+2y_0t=x_0^2+y_0^2-c^2.
+\]
+故
+\[
+\boxed{O'\left(0,\frac{x_0^2+y_0^2-c^2}{2y_0}\right)}.
+\]
+\textbf{另一种思路：} 圆方程写为
+$x^2+y^2+Dx+Ey+F=0$。
+代入 $F_1,F_2$ 并相减，得 $D=0$；再代入 $P$，
+得 $E=(c^2-x_0^2-y_0^2)/y_0$，
+圆心 $( -D/2,-E/2)$ 就是上式。
+
+\textbf{方法八（垂心第二证）：欧拉线一行推出}
+
+重心直接取三点平均：
+\[
+\boxed{G=\frac{P+F_1+F_2}{3}=
+\left(\frac{x_0}{3},\frac{y_0}{3}\right)}.
+\]
+任意非退化三角形的欧拉线关系是
+\[
+\boxed{H=3G-2O'}.
+\]
+其简单向量证明如下：以外心 $O'$ 为原点，令三个顶点的位置向量为
+$\boldsymbol u,\boldsymbol v,\boldsymbol w$，长度都等于外接圆半径。
+设 $\boldsymbol h=\boldsymbol u+\boldsymbol v+\boldsymbol w$，则
+\[
+(\boldsymbol h-\boldsymbol u)\cdot(\boldsymbol v-\boldsymbol w)
+=(\boldsymbol v+\boldsymbol w)\cdot(\boldsymbol v-\boldsymbol w)
+=|\boldsymbol v|^2-|\boldsymbol w|^2=0.
+\]
+即从顶点 $\boldsymbol u$ 指向 $\boldsymbol h$ 的直线垂直于对边；其余顶点也相同，
+所以 $\boldsymbol h$ 就是垂心向量。
+又重心向量 $\boldsymbol g=(\boldsymbol u+\boldsymbol v+\boldsymbol w)/3$，
+因此 $H=3G-2O'$（还原到通常坐标后仍成立）。
+现在代入已求得的 $G,O'$：
+\[
+3G-2O'=\left(x_0,y_0-\frac{x_0^2+y_0^2-c^2}{y_0}\right)
+=\boxed{\left(x_0,\frac{c^2-x_0^2}{y_0}\right)}.
+\]
+
+\textbf{检验：} 内心必须在三角形内部；四心公式在左右支、$y_0$ 正负两种情况下都成立。
+但 $y_0=0$ 时三角形退化，不能套用任何四心结论。
 \end{proofbox}

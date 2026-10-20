@@ -1,14 +1,131 @@
 \begin{examplebox}
-\textbf{例题 1 (基础)}: 双曲线 $\frac{x^2}{9} - \frac{y^2}{16} = 1$ 上一点 $P$, $F_1, F_2$ 为焦点, 则 $\triangle PF_1F_2$ 的内心横坐标为 \underline{\qquad}.
-\textit{解析}: 直接套用结论, $x_I = \pm a = \pm 3$。
+\textbf{例1｜最快识别：只求内心横坐标}
 
-\textbf{例题 2 (进阶)}: 设 $P(x_0, y_0)$ 是双曲线 $\frac{x^2}{a^2} - \frac{y^2}{b^2} = 1$ 右支上一点, $I$ 为 $\triangle PF_1F_2$ 内心, 证明 $\triangle IF_1F_2$ 的面积与 $\triangle PF_1F_2$ 的面积之比为 $\frac{a}{a+ex_0}$。
-\textit{解析}: 
-面积之比等于高之比（底边相同, 均为 $2c$）。
-$h_I = y_I = \frac{cy_0}{c+ex_0}$, $h_P = y_0$。
-比值 $= \frac{c}{c+ex_0} = \frac{c}{c(1+ex_0/c)} = \frac{1}{1 + \frac{x_0}{a}} = \frac{a}{a+x_0}$? 
-注意: $e = c/a$, 则 $\frac{y_I}{y_0} = \frac{c}{c+ex_0} = \frac{a}{a+ex_0}$。证毕。
+已知双曲线 $\frac{x^2}{9}-\frac{y^2}{16}=1$，焦点为 $F_1,F_2$。
+当 $P$ 在右支或左支时，$\triangle PF_1F_2$ 的内心分别落在哪条直线上？
 
-\textbf{例题 3 (综合)}: 当 $P$ 在双曲线上运动时, 垂心 $H$ 的横坐标轨迹是什么?
-\textit{解析}: 因为 $x_H = x_0$, 所以垂心的横坐标范围与双曲线 $x$ 范围一致, 即 $(-\infty, -a] \cup [a, +\infty)$。
+\textbf{解析：} $a=3$，由 $PF_1-PF_2=\pm2a$ 及
+$x_I=(PF_1-PF_2)/2$，得
+\[
+\boxed{\text{右支 }x_I=3;\qquad \text{左支 }x_I=-3.}
+\]
+\textbf{识别信号：} “焦点三角形内心横坐标”“定直线”“顶点切线”，立即想到\textbf{焦半径差}，不必设内心求方程。
+
+\tcbline
+\textbf{例2｜四心全求，并用欧拉线反向验算}
+
+双曲线 $\frac{x^2}{9}-\frac{y^2}{16}=1$ 上取
+$P\left(5,\frac{16}{3}\right)$，求 $G,I,H,O'$。
+
+\textbf{解析：} $a=3,b=4,c=5,e=5/3$。
+先检验 $25/9-(256/9)/16=1$，因此 $P$ 在右支上。
+\begin{align*}
+G&=\left(\frac53,\frac{16}{9}\right),\\
+I&=\left(3,\frac{3\cdot(16/3)}{3+5}\right)=(3,2),\\
+H&=\left(5,\frac{25-25}{16/3}\right)=(5,0),\\
+O'&=\left(0,\frac{25+256/9-25}{32/3}\right)
+=\left(0,\frac83\right).
+\end{align*}
+检验欧拉线：
+\[
+3G-2O'=(5,16/3)-(0,16/3)=(5,0)=H.
+\]
+\textbf{几何解释：} $x_0=c=5$，直线 $PF_2$ 竖直、底边 $F_1F_2$ 水平，
+三角形在 $F_2$ 处为直角，因此垂心恰好就是 $F_2$。
+
+\textbf{变式：} 保持纵坐标，把 $P$ 换成 $\left(-5,\frac{16}{3}\right)$。
+由关于 $y$ 轴的对称性，内心立即是 $\boxed{(-3,2)}$，
+垂心为 $(-5,0)$，外心仍为 $(0,8/3)$。
+
+\tcbline
+\textbf{例3｜最常见陷阱：面积比的正确结果}
+
+双曲线右支上 $P(x_0,y_0)$ 构成焦点三角形，$I$ 为内心。
+求 $S_{\triangle IF_1F_2}/S_{\triangle PF_1F_2}$。
+
+\textbf{解析：} 两个三角形的底边相同，面积比等于对底边的高之比：
+\[
+\frac{S_{\triangle IF_1F_2}}{S_{\triangle PF_1F_2}}
+=\frac{|y_I|}{|y_0|}
+=\frac{c}{c+ex_0}
+=\boxed{\frac{a}{a+x_0}}.
+\]
+\textbf{注意：} 最后一步用 $e=c/a$，所以
+$c+ex_0=c(a+x_0)/a$，\textbf{并不是} $a+ex_0$。
+若不限定分支，正确统一式为 $\boxed{a/(a+|x_0|)}$。
+
+代入例2的点检验：$|y_I|/|y_0|=2/(16/3)=3/8$，
+且 $a/(a+x_0)=3/(3+5)=3/8$。
+
+\tcbline
+\textbf{例4｜完整轨迹：为什么不是两条无限长直线？}
+
+求双曲线 $\frac{x^2}{a^2}-\frac{y^2}{b^2}=1$ 上
+非顶点动点 $P$ 的焦点三角形内心轨迹。
+
+\textbf{解析：} 已知 $x_I=\pm a$。但还要确定纵坐标的范围。
+设 $u=|x_0|>a$，由双曲线方程
+$|y_0|=\frac ba\sqrt{u^2-a^2}$，于是
+\[
+|y_I|=\frac{a|y_0|}{a+u}
+=b\sqrt{\frac{u-a}{u+a}}.
+\]
+因为 $u>a$，所以 $0<|y_I|<b$。
+而 $u$ 从 $a$ 增大至无穷时，右边连续增大并遍历 $(0,b)$。
+故轨迹准确写成
+\[
+\boxed{x=\pm a,\qquad 0<|y|<b.}
+\]
+\textbf{易错：} 不能把 $x=\pm a$ 全部看成真实轨迹；
+不能包含 $(\pm a,0)$ 或 $(\pm a,\pm b)$。
+
+\tcbline
+\textbf{例5｜逆向思考：已知内心，反求动点}
+
+在 $\frac{x^2}{9}-\frac{y^2}{16}=1$ 上，
+若 $\triangle PF_1F_2$ 的内心是 $I(3,2)$，求 $P$。
+
+\textbf{解析：} $I_x=3=a$ 表明 $P$ 在右支，令 $x_0=u>3$。
+由例4的表达式，
+\[
+2=4\sqrt{\frac{u-3}{u+3}}
+\Longrightarrow\frac14=\frac{u-3}{u+3}
+\Longrightarrow u=5.
+\]
+再由 $y_I=3y_0/(3+u)$，得到
+\[
+y_0=\frac{2(3+5)}3=\frac{16}{3},\qquad
+\boxed{P\left(5,\frac{16}{3}\right)}.
+\]
+\textbf{推广：} 若 $I=(\varepsilon a,t)$、$0<|t|<b$，则
+\[
+\boxed{x_0=\varepsilon a\frac{b^2+t^2}{b^2-t^2}},\qquad
+\boxed{y_0=\frac{2b^2t}{b^2-t^2}}.
+\]
+这是把轨迹结论转化成求动点坐标的反向公式。
+
+\tcbline
+\textbf{例6｜高价值迁移：椭圆与双曲线为什么结果不同？}
+
+设焦点仍为 $F_1(-c,0),F_2(c,0)$，比较下列两种情况：
+\begin{enumerate}
+  \item 椭圆 $x^2/a^2+y^2/b^2=1$，$a>b>0$、$c^2=a^2-b^2$；
+  \item 双曲线 $x^2/a^2-y^2/b^2=1$，$c^2=a^2+b^2$。
+\end{enumerate}
+
+\textbf{解析：} 对任何不退化的焦点三角形，
+\[
+x_I=\frac{PF_1-PF_2}{2},\qquad
+ y_I=\frac{cy_0}{c+(PF_1+PF_2)/2}.
+\]
+椭圆中 $PF_1-PF_2=2ex_0$、$PF_1+PF_2=2a$，所以
+\[
+\boxed{I_{\text{椭圆}}\left(ex_0,\frac{cy_0}{a+c}\right)}.
+\]
+双曲线中 $PF_1-PF_2=\pm2a$、$PF_1+PF_2=2e|x_0|$，所以
+\[
+\boxed{I_{\text{双曲线}}\left(\pm a,\frac{cy_0}{c+e|x_0|}\right)}.
+\]
+\textbf{迁移要点：} 同一几何母公式，先判断固定的是焦半径\textbf{和}还是\textbf{差}，
+就能快速得到不同的内心性质。
 \end{examplebox}
