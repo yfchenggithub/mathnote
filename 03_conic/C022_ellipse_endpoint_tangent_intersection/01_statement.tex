@@ -1,25 +1,55 @@
 \begin{statementbox}
+\textbf{\textcolor{CStatement}{一、条件与点的定义}}
 
-\textbf{\textcolor{CStatement}{条件}}
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-    \item[\textbf{\textcolor{CStatement}{条件 1（椭圆标准方程）：}}] 设椭圆 $C:\frac{x^{2}}{a^{2}}+\frac{y^{2}}{b^{2}}=1\ (a>b>0)$，长轴端点 $A_{1}(-a,0)$、$A_{2}(a,0)$，过 $A_{1}$、$A_{2}$ 的切线分别为 $x=-a$ 和 $x=a$。
+设椭圆
+\[
+C:\ \frac{x^2}{a^2}+\frac{y^2}{b^2}=1,\qquad a>b>0.
+\]
+其长轴端点为 $A_1(-a,0)$、$A_2(a,0)$，过两端点的切线分别为 $l_1:x=-a$、$l_2:x=a$。
+取椭圆上动点 $P(x_0,y_0)$，\textbf{要求 $y_0\ne0$（即 $P\ne A_1,A_2$）}。
+过 $P$ 的切线 $t$ 分别与 $l_1,l_2$ 相交于 $P_1,P_2$。
+记
+\[
+h_1=|A_1P_1|,\qquad h_2=|A_2P_2|,\qquad
+S=S_{A_1P_1P_2A_2}.
+\]
+
+\medskip
+\textbf{\textcolor{CStatement}{二、核心结论：一积一定、一和有界}}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.5em]
+\item[\textbf{结论 1（定值乘积）：}]
+无论切点 $P$ 怎样移动（在规定范围内），两段竖直线段长度的\textbf{乘积恒为短半轴的平方}：
+\[
+\boxed{h_1h_2=b^2.}
+\]
+\item[\textbf{结论 2（面积最小）：}]
+$A_1P_1$ 与 $A_2P_2$ 是梯形的\textbf{两条平行底边}，底间距离为 $2a$，故
+\[
+S=\frac{h_1+h_2}{2}\cdot 2a=a(h_1+h_2)
+\ge\boxed{2ab}.
+\]
+等号成立当且仅当 $h_1=h_2=b$，即 $P=(0,b)$ 或 $P=(0,-b)$；此时梯形成为矩形。
 \end{description}
 
-\textbf{\textcolor{CStatement}{结论}}
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{\textcolor{CStatement}{结论一（距离乘积定值）：}}]
-    \textbf{\textcolor{CStatement}{直观描述：}} 交点距离乘积恒为 $b^{2}$，与 $P$ 点位置无关。
-    \[
-    |P_{1}A_{1}|\cdot|P_{2}A_{2}|=b^{2}
-    \]
+\medskip
+\textbf{\textcolor{CStatement}{三、便于解题的强化表达}}
+切线设成 $y=kx+m$（在本题条件下它不是竖直直线），则
+\[
+\boxed{m^2-a^2k^2=b^2},\qquad
+P_1=(-a,m-ak),\quad P_2=(a,m+ak).
+\]
+由 $|m|>a|k|$ 可知两交点位于 $x$ 轴\textbf{同一侧}，并有
+\[
+\boxed{S=2a|m|=\frac{2ab^2}{|y_0|}},\qquad
+\boxed{S\ge2ab}. 
+\]
+其中 $m=b^2/y_0$。
 
-    \item[\textbf{\textcolor{CStatement}{推广结论（面积最小值）：}}]
-    \textbf{\textcolor{CStatement}{直观描述：}} 四边形面积有最小值 $2ab$，当 $P$ 在短轴端点时取得。
-    \[
-    S_{A_{1}P_{1}P_{2}A_{2}}\ge 2ab
-    \]
-\end{description}
+\medskip
+\textbf{\textcolor{CStatement}{四、对称变式（交换两坐标轴）}}
+若改用短轴端点 $B_1(0,-b),B_2(0,b)$ 的切线 $y=\pm b$，并令动点不在短轴端点，则\textbf{交点到两短轴端点的水平距离乘积恒为 $a^2$}；相应梯形面积仍满足 $S\ge2ab$，等号在 $P=(\pm a,0)$ 处成立。
 
-\textbf{\textcolor{CStatement}{等号/取等条件：}} 当 $P$ 在椭圆短轴端点 $(0,\pm b)$ 时，四边形面积取得最小值 $2ab$。
-
+\medskip
+\textbf{\textcolor{CStatement}{边界说明：}}
+$P=(\pm a,0)$ 时，动点切线与某一条端点切线重合，交点不能按本题方式唯一确定，故不得直接代入。原题所说“任意点”应理解为“除长轴端点外的任意椭圆上点”。
 \end{statementbox}

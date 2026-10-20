@@ -1,21 +1,41 @@
 \begin{trapbox}
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-    \item[\textbf{\textcolor{CTrap}{易错点一（切线方程误写）}}] 写错椭圆在点 $P(x_0,y_0)$ 处的切线方程，误用 $xx_0/a^2+yy_0/b^2=1$ 或忘记除以 $a^2,b^2$。
-    \item[\textbf{\textcolor{CTrap}{正确理解（标准切线公式）：}}] 正确切线方程为 $\frac{x_0 x}{a^2}+\frac{y_0 y}{b^2}=1$，其中 $(x_0,y_0)$ 在椭圆上。
-    \item[\textbf{\textcolor{CTrap}{错因分析（公式记忆混淆）：}}] 将椭圆切线公式与圆切线公式 $xx_0+yy_0=r^2$ 混淆，或未区分 $a^2,b^2$ 的位置。
-\end{description}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.65em]
+\item[\textbf{\textcolor{CTrap}{易错 1：说“任意点”却没排除端点。}}]
+若 $P=(a,0)$，动切线就是 $x=a$，与端点切线重合，$P_2$ 不唯一；若 $P=(-a,0)$ 则与 $x=-a$ 重合。\textbf{正确：必须 $P\notin\{(-a,0),(a,0)\}$，等价于 $y_0\ne0$。}虽然邻近极限仍满足乘积定值，但端点本身不能直接套用有限交点定义。
 
-\medskip
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-    \item[\textbf{\textcolor{CTrap}{易错点二（距离符号忽略）}}] 计算 $|P_1A_1|$ 时，未考虑 $y$ 坐标的符号，直接代入表达式而未取绝对值。
-    \item[\textbf{\textcolor{CTrap}{正确理解（非负距离）：}}] $|P_1A_1|$ 是线段长度，应为非负值，由交点纵坐标与 $A_1$ 纵坐标差的绝对值给出。
-    \item[\textbf{\textcolor{CTrap}{错因分析（几何意义不清）：}}] 忽略距离定义，误将坐标差直接作为距离，导致乘积计算出现负号或错误。
-\end{description}
+\item[\textbf{\textcolor{CTrap}{易错 2：$y_0<0$ 时错误地去掉绝对值。}}]
+原设点法得 $y_1=\frac{b^2}{y_0}(1+x_0/a)$、$y_2=\frac{b^2}{y_0}(1-x_0/a)$。因为 $y_0$ 可为负，不能写 $h_1=y_1,h_2=y_2$。\textbf{正确：$h_1=|y_1|,h_2=|y_2|$，或把分母改成 $|y_0|$。}
 
-\medskip
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-    \item[\textbf{\textcolor{CTrap}{易错点三（最值条件遗漏）}}] 求面积最小值时，未考虑 $y_0$ 的取值范围，或误以为最小值在 $y_0=0$ 时取得。
-    \item[\textbf{\textcolor{CTrap}{正确理解（取等条件）：}}] 面积最小值在 $|y_0|=b$ 即 $P$ 在短轴端点时取得，此时 $x_0=0$。
-    \item[\textbf{\textcolor{CTrap}{错因分析（范围分析不当）：}}] 未利用椭圆方程中 $y_0^2 \le b^2$ 的条件，或错误认为 $y_0$ 可趋于 $0$ 导致面积趋于无穷。
+\item[\textbf{\textcolor{CTrap}{易错 3：把梯形的平行底边认成水平边。}}]
+真正平行的是 $A_1P_1$ 与 $A_2P_2$，均\textbf{竖直}；二者间的\textbf{水平距离}为 $2a$。正确面积：
+\[
+S=\frac{h_1+h_2}{2}\cdot 2a=a(h_1+h_2).
+\]
+不能把动切线 $P_1P_2$ 误当作与长轴 $A_1A_2$ 平行的一条边（通常不平行）。
+
+\item[\textbf{\textcolor{CTrap}{易错 4：原稿把正确切线公式也当成错误写法。}}]
+$\frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1$ 与 $\frac{xx_0}{a^2}+\frac{yy_0}{b^2}=1$ \textbf{完全一样}，只是乘法交换了顺序。真正错误的是漏掉分母、把 $a^2$ 与 $b^2$ 对调，或用一个不在椭圆上的点直接代入切点公式。
+
+\item[\textbf{\textcolor{CTrap}{易错 5：把定积误当成定和。}}]
+定值是 $h_1h_2=b^2$，而不是 $h_1+h_2=2b$。只有水平切线时才有 $h_1=h_2=b$。一般情况下
+\[
+h_1+h_2>2b,\qquad S>2ab.
+\]
+\textbf{记忆：积定，和不定；和最小在两数相等时。}
+
+\item[\textbf{\textcolor{CTrap}{易错 6：忽略相切条件，就用 $m^2-a^2k^2=b^2$。}}]
+这是\textbf{椭圆非竖直切线}的判定式，不是所有 $y=kx+m$ 都满足。正确流程：先证明/确认与椭圆相切，再代 $x=\pm a$ 求 $m\mp ak$。此外本题动点切线不会竖直，因竖直切线仅在排除的两长轴端点发生。
+
+\item[\textbf{\textcolor{CTrap}{易错 7：取等“有解”没有核对。}}]
+基本不等式仅表明 $S\ge2ab$，还应确认 $h_1=h_2=b$ \textbf{实际能达到}。这要求 $k=0$，即切线 $y=\pm b$，切点 $P=(0,\pm b)$，满足题目条件。
+
+\item[\textbf{\textcolor{CTrap}{易错 8：误以为面积存在最大值。}}]
+由 $S=2ab^2/|y_0|$，当切点趋于长轴端点时 $|y_0|\to0^+$，面积 $S\to+\infty$。\textbf{面积有最小值 $2ab$，没有有限最大值。}
+
+\item[\textbf{\textcolor{CTrap}{易错 9：交换端点后仍写 $b^2$。}}]
+若改成过\textbf{短轴端点}的切线 $y=\pm b$，测量的是交点到端点的\textbf{水平}距离，乘积应为 $a^2$ 而不是 $b^2$；两组构造的面积最小值都为 $2ab$。
+
+\item[\textbf{\textcolor{CTrap}{易错 10：将圆的切线段等长直接用于椭圆。}}]
+“同一外点向圆所作的两条切线段等长”对于圆成立，一般不能直接推广到椭圆。可\textbf{先在圆中证明}，再采用 $(u,v)\mapsto(au/b,v)$ 的拉伸映射；只搬运不改变的竖直长度和切线关系。
 \end{description}
 \end{trapbox}

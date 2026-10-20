@@ -1,70 +1,146 @@
 \begin{proofbox}
-\textbf{\textcolor{CProof}{思路提示}}
+\textbf{\textcolor{CProof}{方法一：考场最快法——斜率截距、平方差（优先掌握）}}
 
-设 $P(x_0,y_0)$ 为椭圆上任意一点，写出过 $P$ 的切线方程，求出与直线 $x=-a$ 和 $x=a$ 的交点 $P_1$、$P_2$，计算 $|P_1A_1|$ 和 $|P_2A_2|$ 的乘积，并推导四边形面积表达式，利用椭圆方程化简求最值。
+\textbf{已知常用公式：}椭圆 $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$ 的非竖直切线 $y=kx+m$ 满足
+\[
+\boxed{m^2=a^2k^2+b^2}.
+\]
+令 $x=-a,a$，两交点的纵坐标为
+\[
+y_1=m-ak,\quad y_2=m+ak.
+\]
+于是
+\[
+\boxed{h_1h_2=|y_1y_2|=|m^2-a^2k^2|=b^2.}
+\]
+因 $m^2=a^2k^2+b^2>a^2k^2$，故 $|m|>|ak|$，从而 $y_1,y_2$ 与 $m$ 同号。
+所以 $h_1+h_2=|y_1|+|y_2|=2|m|$，
+\[
+S=a(h_1+h_2)=2a|m|\ge2ab.
+\]
+等号 $\Longleftrightarrow |m|=b\Longleftrightarrow k=0$，即水平切线 $y=\pm b$，切点 $P=(0,\pm b)$。
 
-\medskip
-\textbf{\textcolor{CProof}{正式推导}}
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-    \item[\textbf{步骤一（设点与切线方程）：}] 设 $P(x_0,y_0)$ 在椭圆 $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$ 上，则过 $P$ 的切线方程为
-    \[
-    \frac{x_0 x}{a^2} + \frac{y_0 y}{b^2} = 1.
-    \]
-    \par\textbf{理由：} 椭圆 $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$ 在点 $(x_0,y_0)$ 处的切线公式。
-
-    \item[\textbf{步骤二（求交点坐标）：}] 切线交直线 $x=-a$ 于点 $P_1$，交 $x=a$ 于点 $P_2$。联立方程：
-    \[
-    \begin{cases}
-    x = -a, \\
-    \frac{x_0 x}{a^2} + \frac{y_0 y}{b^2} = 1,
-    \end{cases}
-    \quad\text{解得}\quad
-    P_1\left(-a,\ \frac{b^2}{y_0}\left(1+\frac{x_0}{a}\right)\right).
-    \]
-    类似地，
-    \[
-    P_2\left(a,\ \frac{b^2}{y_0}\left(1-\frac{x_0}{a}\right)\right).
-    \]
-    \par\textbf{理由：} 将 $x=\pm a$ 代入切线方程解出 $y$ 坐标。
-
-    \item[\textbf{步骤三（计算距离）：}] $A_1(-a,0)$，$A_2(a,0)$，故
-    \[
-    |P_1A_1| = \left| \frac{b^2}{y_0}\left(1+\frac{x_0}{a}\right) \right|,\quad
-    |P_2A_2| = \left| \frac{b^2}{y_0}\left(1-\frac{x_0}{a}\right) \right|.
-    \]
-    由于 $P$ 在椭圆上，$x_0\in[-a,a]$，所以 $1+\frac{x_0}{a}\ge 0$，$1-\frac{x_0}{a}\ge 0$，且 $y_0\neq 0$，故绝对值可去掉：
-    \[
-    |P_1A_1| = \frac{b^2}{y_0}\left(1+\frac{x_0}{a}\right),\quad
-    |P_2A_2| = \frac{b^2}{y_0}\left(1-\frac{x_0}{a}\right).
-    \]
-    \par\textbf{理由：} 距离为纵坐标差的绝对值，由椭圆范围知表达式非负。
-
-    \item[\textbf{步骤四（乘积化简）：}] 计算乘积：
-    \[
-    |P_1A_1|\cdot|P_2A_2| = \frac{b^2}{y_0}\left(1+\frac{x_0}{a}\right) \cdot \frac{b^2}{y_0}\left(1-\frac{x_0}{a}\right) = \frac{b^4}{y_0^2}\left(1-\frac{x_0^2}{a^2}\right).
-    \]
-    利用椭圆方程 $\frac{x_0^2}{a^2}+\frac{y_0^2}{b^2}=1$，得 $1-\frac{x_0^2}{a^2} = \frac{y_0^2}{b^2}$，代入：
-    \[
-    |P_1A_1|\cdot|P_2A_2| = \frac{b^4}{y_0^2} \cdot \frac{y_0^2}{b^2} = b^2.
-    \]
-    \par\textbf{理由：} 代入椭圆方程消去 $x_0$，得到定值。
-
-    \item[\textbf{步骤五（面积表达式）：}] 四边形 $A_1P_1P_2A_2$ 是梯形，上下底平行于 $x$ 轴，高为 $2a$，面积
-    \[
-    S = \frac{1}{2}(|P_1A_1|+|P_2A_2|) \cdot 2a = a\left(|P_1A_1|+|P_2A_2|\right).
-    \]
-    代入距离表达式：
-    \[
-    S = a\left[ \frac{b^2}{y_0}\left(1+\frac{x_0}{a}\right) + \frac{b^2}{y_0}\left(1-\frac{x_0}{a}\right) \right] = a \cdot \frac{b^2}{y_0} \cdot 2 = \frac{2ab^2}{y_0}.
-    \]
-    \par\textbf{理由：} 梯形面积公式，并化简。注意 $y_0$ 可正可负，实际面积 $S = \frac{2ab^2}{|y_0|}$。
-
-    \item[\textbf{步骤六（求最小值）：}] 由椭圆方程，$y_0^2 \le b^2$，故 $|y_0| \le b$，且 $y_0 \neq 0$。所以 $S = \frac{2ab^2}{|y_0|} \ge \frac{2ab^2}{b} = 2ab$，等号当 $|y_0| = b$ 即 $y_0 = \pm b$ 时成立，此时 $x_0=0$。
-    \par\textbf{理由：} 利用 $|y_0|$ 的范围求 $S$ 的最小值。
-\end{description}
+\textbf{若忘记“切线判定式”，现场两行恢复：}把 $y=kx+m$ 代入椭圆，得到
+\[
+(b^2+a^2k^2)x^2+2a^2kmx+a^2(m^2-b^2)=0.
+\]
+相切 $\Longleftrightarrow\Delta=0$，而
+\[
+\Delta=4a^2b^2\bigl(a^2k^2+b^2-m^2\bigr),
+\]
+故 $m^2=a^2k^2+b^2$。\textbf{这一步是斜率法的必要依据，不可把任意直线都当成切线。}
 
 \medskip
-\textbf{\textcolor{CProof}{结论回扣}}
+\textbf{\textcolor{CProof}{方法二：设切点法——完全从熟悉的切线公式出发（保留原主线并纠错）}}
 
-\textbf{由此证明了 $|P_1A_1|\cdot|P_2A_2|=b^2$ 恒成立，且四边形 $A_1P_1P_2A_2$ 的面积 $S \ge 2ab$，最小值 $2ab$ 在 $P(0,\pm b)$ 时取得。}
+设 $P(x_0,y_0)$ 为椭圆上点，且 $y_0\ne0$，则
+\[
+\frac{x_0^2}{a^2}+\frac{y_0^2}{b^2}=1,\qquad
+\frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1.
+\]
+令 $x=-a,a$，得
+\[
+P_1=\left(-a,\frac{b^2}{y_0}\left(1+\frac{x_0}{a}\right)\right),\quad
+P_2=\left(a,\frac{b^2}{y_0}\left(1-\frac{x_0}{a}\right)\right).
+\]
+由于 $-a<x_0<a$，两括号都大于 $0$；但 $y_0$ 可以是负数，\textbf{不能直接删去距离的绝对值}。因此
+\[
+\begin{aligned}
+h_1&=\frac{b^2}{|y_0|}\left(1+\frac{x_0}{a}\right),\\
+h_2&=\frac{b^2}{|y_0|}\left(1-\frac{x_0}{a}\right).
+\end{aligned}
+\]
+两式相乘，利用 $1-x_0^2/a^2=y_0^2/b^2$：
+\[
+\begin{aligned}
+h_1h_2
+&=\frac{b^4}{y_0^2}\left(1-\frac{x_0^2}{a^2}\right)
+=\frac{b^4}{y_0^2}\cdot\frac{y_0^2}{b^2}
+=\boxed{b^2}.
+\end{aligned}
+\]
+两式相加：
+\[
+h_1+h_2=\frac{2b^2}{|y_0|},\qquad
+\boxed{S=\frac{2ab^2}{|y_0|}}.
+\]
+椭圆上 $0<|y_0|\le b$，故 $S\ge2ab$，等号恰在 $y_0=\pm b$、$x_0=0$ 时取得。
+
+\textbf{方法二的速记：} \textbf{令 $x=\pm a$，出现 $1\pm x_0/a$；相乘是平方差，相加是 $2$。}
+
+\medskip
+\textbf{\textcolor{CProof}{方法三：三角参数法——半角正切互为倒数}}
+
+写 $P=(a\cos\theta,b\sin\theta)$，$\sin\theta\ne0$，代入切线公式：
+\[
+\frac{x\cos\theta}{a}+\frac{y\sin\theta}{b}=1.
+\]
+令 $x=-a,a$ 得
+\[
+\begin{aligned}
+y_1&=b\frac{1+\cos\theta}{\sin\theta}
+=b\cot\frac{\theta}{2},\\
+y_2&=b\frac{1-\cos\theta}{\sin\theta}
+=b\tan\frac{\theta}{2}.
+\end{aligned}
+\]
+因 $\tan(\theta/2)\cot(\theta/2)=1$，有
+\[
+h_1h_2=|y_1y_2|=b^2.
+\]
+又 $S=ab\bigl(|\tan(\theta/2)|+|\cot(\theta/2)|\bigr)\ge2ab$；当且仅当两项都为 $1$ 时等号成立，即 $\theta=\frac\pi2$ 或 $\frac{3\pi}{2}$（模 $2\pi$），对应 $P=(0,\pm b)$。
+
+\medskip
+\textbf{\textcolor{CProof}{方法四：纯圆几何 + 横向拉伸——理解乘积为什么会出现}}
+
+\textbf{第一步：先证圆。}考虑圆 $u^2+v^2=b^2$，端点 $D_1(-b,0),D_2(b,0)$，其竖直切线 $u=\pm b$。圆上除 $D_1,D_2$ 外的动点 $T$ 的切线交这两条竖线于 $Q_1,Q_2$。先取上半圆情形，记 $s=|D_1Q_1|>0$、$t=|D_2Q_2|>0$。
+
+同一外点引圆的两条切线，切线段相等，所以
+\[
+|Q_1T|=|Q_1D_1|=s,\qquad
+|Q_2T|=|Q_2D_2|=t.
+\]
+因为 $T$ 位于线段 $Q_1Q_2$ 内部（其横坐标在 $-b$ 与 $b$ 之间），所以 $|Q_1Q_2|=s+t$。另一方面，$Q_1Q_2$ 的水平位移是 $2b$，竖直位移是 $t-s$，由勾股定理
+\[
+(s+t)^2=|Q_1Q_2|^2=(2b)^2+(t-s)^2.
+\]
+展开、相消，得到 $4st=4b^2$，即 $st=b^2$。下半圆关于横轴对称，结论相同。
+
+\textbf{第二步：再把圆拉成椭圆。}实施线性变换
+\[
+(u,v)\mapsto(x,y)=\left(\frac ab u,v\right).
+\]
+圆变成椭圆，$D_1,D_2,Q_1,Q_2,T$ 依次变成 $A_1,A_2,P_1,P_2,P$，直线和相切关系保持。\textbf{所有竖直线段长度保持不变}，于是
+\[
+|A_1P_1|\,|A_2P_2|=st=b^2.
+\]
+圆的对应梯形面积 $\ge2b^2$，横向拉伸后面积乘以 $a/b$，故椭圆情形 $S\ge2ab$。等号对应圆的上下端点，变换后仍为 $P=(0,\pm b)$。
+
+\textbf{说明：}“从外点作两条切线，切线段等长”只在\textbf{圆的证明步骤}中使用；横向拉伸后一般不再等长，因此不可直接用于椭圆。
+
+\medskip
+\textbf{\textcolor{CProof}{方法五：只求面积时的最省步骤——定积 + 基本不等式}}
+
+若前面已经求出 $h_1h_2=b^2$，无需再做坐标运算。因为
+\[
+S=a(h_1+h_2)\ge2a\sqrt{h_1h_2}=2ab.
+\]
+取等 $h_1=h_2=b$，对应动切线水平，$P=(0,\pm b)$。
+
+\medskip
+\textbf{\textcolor{CProof}{短轴端点版本（交换 $x,y$）}}
+
+把端点改成 $B_1(0,-b),B_2(0,b)$，并把交点到端点的\textbf{水平距离}记为 $w_1,w_2$，要求 $x_0\ne0$。由切线公式令 $y=\pm b$，得
+\[
+w_1=\frac{a^2}{|x_0|}\left(1+\frac{y_0}{b}\right),\qquad
+w_2=\frac{a^2}{|x_0|}\left(1-\frac{y_0}{b}\right),
+\]
+故 $w_1w_2=a^2$，面积 $S=b(w_1+w_2)\ge2ab$，等号 $P=(\pm a,0)$。
+
+\medskip
+\textbf{\textcolor{CProof}{本题证明路线选择}}
+
+\textbf{选填题：}优先方法一（已知判定式时几步完成）。\quad
+\textbf{不会判定式：}方法二（设点、代 $\pm a$、平方差）。\quad
+\textbf{理解和记忆：}方法三（正切与余切互倒）或方法四（圆的切线段 + 拉伸）。
 \end{proofbox}

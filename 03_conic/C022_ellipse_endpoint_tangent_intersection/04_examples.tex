@@ -1,38 +1,92 @@
 \begin{examplebox}
-\textbf{\textcolor{CExample}{例 1（基础）}}
+\textbf{\textcolor{CExample}{例 1：直接求定值（识别型）}}
 
-\textbf{\textcolor{CExample}{题目：}} 已知椭圆 $C:\frac{x^2}{4}+\frac{y^2}{3}=1$，$A_1(-2,0)$，$A_2(2,0)$，$P$ 为椭圆上一点，过 $P$ 的切线交直线 $x=-2$ 于 $P_1$，交 $x=2$ 于 $P_2$，求 $|P_1A_1|\cdot|P_2A_2|$ 的值。
+\textbf{题目：}椭圆 $\frac{x^2}{4}+\frac{y^2}{3}=1$ 的长轴端点为 $A_1,A_2$。第三条动切线分别交过这两个端点的切线于 $P_1,P_2$，且动切点不是长轴端点。求 $|A_1P_1|\cdot|A_2P_2|$。
 
-\textbf{\textcolor{CExample}{解题步骤：}}
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{第一步（识别结论）：}] 由结论，无论 $P$ 在椭圆上何处，$|P_1A_1|\cdot|P_2A_2|=b^2$。
-    \par\textbf{理由：} 直接应用已知二级结论。
-
-    \item[\textbf{第二步（确定参数）：}] 椭圆中 $a^2=4$，$b^2=3$，故 $b^2=3$。
-    \par\textbf{理由：} 从椭圆方程读取 $a$ 和 $b$。
-
-    \item[\textbf{第三步（写出答案）：}] 所以 $|P_1A_1|\cdot|P_2A_2|=3$。
-    \par\textbf{理由：} 代入结论。
-\end{description}
-
-\textbf{\textcolor{CExample}{关键结论：}} \textbf{对于椭圆 $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$，在给定条件下，$|P_1A_1|\cdot|P_2A_2|=b^2$ 恒成立。}
+\textbf{解：}标准方程中 $a^2=4,b^2=3$，由定值结论
+\[
+\boxed{|A_1P_1|\cdot|A_2P_2|=b^2=3}.
+\]
+\textbf{识别信号：}“长轴两端的切线 + 第三条动切线 + 两段竖直距离相乘”，无需设动点。
 
 \medskip
-\textbf{\textcolor{CExample}{例 2（稍变形）}}
+\textbf{\textcolor{CExample}{例 2：面积最值（基本不等式）}}
 
-\textbf{\textcolor{CExample}{题目：}} 椭圆 $C:\frac{x^2}{9}+\frac{y^2}{4}=1$，$A_1(-3,0)$，$A_2(3,0)$，$P$ 为椭圆上动点，过 $P$ 的切线交 $x=-3$ 于 $P_1$，交 $x=3$ 于 $P_2$，求四边形 $A_1P_1P_2A_2$ 面积的最小值。
+\textbf{题目：}椭圆 $\frac{x^2}{9}+\frac{y^2}{4}=1$，第三条动切线与 $x=\pm3$ 交于 $P_1,P_2$。求四边形 $A_1P_1P_2A_2$ 面积的最小值及切点。
 
-\textbf{\textcolor{CExample}{解题步骤：}}
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{第一步（面积表达式）：}] 由结论，四边形面积 $S \ge 2ab$，且最小值为 $2ab$。
-    \par\textbf{理由：} 直接应用面积最小值结论。
+\textbf{解：}设 $h_1=|A_1P_1|,h_2=|A_2P_2|$。由结论 $h_1h_2=4$，两条竖直平行底边距离为 $6$，故
+\[
+S=3(h_1+h_2)\ge3\cdot2\sqrt{4}=\boxed{12}.
+\]
+等号在 $h_1=h_2=2$ 时成立，即切点 $\boxed{P=(0,2)\ \text{或}\ (0,-2)}$。
 
-    \item[\textbf{第二步（计算参数）：}] 椭圆中 $a=3$，$b=2$，故 $2ab = 2\times 3\times 2 = 12$。
-    \par\textbf{理由：} 从椭圆方程读取 $a$ 和 $b$。
+\medskip
+\textbf{\textcolor{CExample}{例 3：忘记结论时，斜率截距现场恢复（高速计算）}}
 
-    \item[\textbf{第三步（确定取等条件）：}] 当 $P$ 在短轴端点 $(0,\pm 2)$ 时，面积取得最小值 $12$。
-    \par\textbf{理由：} 最小值在 $P(0,\pm b)$ 时取得。
-\end{description}
+\textbf{题目：}对椭圆 $\frac{x^2}{9}+\frac{y^2}{4}=1$，求斜率为 $\frac12$ 且在椭圆上方相切的直线、两交点的纵坐标及相应梯形面积。
 
-\textbf{\textcolor{CExample}{关键结论：}} \textbf{四边形 $A_1P_1P_2A_2$ 面积的最小值为 $2ab$，当且仅当 $P$ 在椭圆短轴端点时取等。}
+\textbf{解：}设切线为 $y=\frac12x+m$。由相切条件
+\[
+m^2=9\left(\frac12\right)^2+4=\frac{25}{4}.
+\]
+上方切线取 $m=\frac52$，所以
+\[
+\boxed{y=\frac12x+\frac52}.
+\]
+代入 $x=-3$ 与 $x=3$，分别得到 $y_1=1,y_2=4$。于是
+\[
+y_1y_2=4=b^2,\qquad
+S=3(1+4)=\boxed{15}.
+\]
+\textbf{检查：} $S=15>12$，符合“非水平切线面积更大”。
+
+\medskip
+\textbf{\textcolor{CExample}{例 4：两段长度之比给定（定积反求）}}
+
+\textbf{题目：}仍取椭圆 $\frac{x^2}{9}+\frac{y^2}{4}=1$，设 $h_1:h_2=9:1$。求 $h_1,h_2$、面积 $S$；若切点在上半椭圆，求 $P$ 坐标。
+
+\textbf{解：}设 $h_1=9t,h_2=t$，由 $h_1h_2=4$ 得 $9t^2=4$，故 $t=\frac23$。因此
+\[
+\boxed{h_1=6,\quad h_2=\frac23},\qquad
+\boxed{S=3\left(6+\frac23\right)=20}.
+\]
+若 $P$ 在上半椭圆，由设点法
+\[
+\frac{h_1}{h_2}=\frac{1+x_0/3}{1-x_0/3}=9
+\quad\Longrightarrow\quad x_0=\frac{12}{5}.
+\]
+再由 $x_0^2/9+y_0^2/4=1$ 且 $y_0>0$，得 $y_0=\frac65$，
+\[
+\boxed{P\left(\frac{12}{5},\frac65\right)}.
+\]
+\textbf{可迁移方法：}正线段的\textbf{积与比同时已知}，先解出两段长度，再用斜率或切点坐标确定位置。
+
+\medskip
+\textbf{\textcolor{CExample}{例 5：迁移到短轴端点切线（轴交换）}}
+
+\textbf{题目：}椭圆 $\frac{x^2}{9}+\frac{y^2}{4}=1$，动切线交 $y=-2$、$y=2$ 于 $Q_1,Q_2$。分别记 $w_1=|B_1Q_1|,w_2=|B_2Q_2|$，其中 $B_1=(0,-2),B_2=(0,2)$。求 $w_1w_2$ 与相应四边形面积的最小值。切点不取 $B_1,B_2$。
+
+\textbf{解：}交换 $x,y$ 后，水平距离的定积为 $a^2=9$，两条水平平行底边之间相距 $2b=4$，故
+\[
+\boxed{w_1w_2=9},\qquad
+S=b(w_1+w_2)\ge2b\sqrt{9}=\boxed{12}.
+\]
+等号当切线竖直，即 $P=(\pm3,0)$ 时成立。
+\textbf{提示：}不是把 $b^2$ 生搬硬套；\textbf{固定的是哪一对端点，定积就等于与这对端点垂直的半轴平方}。
+
+\medskip
+\textbf{\textcolor{CExample}{高价值变式（先自测）：} }
+
+若 $S=\frac52\cdot S_{\min}$，求 $h_1/h_2$ 的所有可能值。
+\textbf{解：}由 $S=a(h_1+h_2)$，$S_{\min}=2ab$，知 $h_1+h_2=5b$；又 $h_1h_2=b^2$。设 $r=h_1/b,s=h_2/b$，则 $r+s=5,rs=1$，所以 $r,s$ 为 $t^2-5t+1=0$ 的两根，
+\[
+\{r,s\}=\left\{\frac{5+\sqrt{21}}2,\frac{5-\sqrt{21}}2\right\}.
+\]
+故
+\[
+\boxed{\frac{h_1}{h_2}=\frac{5+\sqrt{21}}{5-\sqrt{21}}
+\quad\text{或}\quad
+\frac{5-\sqrt{21}}{5+\sqrt{21}}}.
+\]
+两者互为倒数，分别对应切点位于椭圆上半部时的左右两种位置（下半部也可实现相同比例）。
 \end{examplebox}
