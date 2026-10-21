@@ -75,13 +75,13 @@
     "latex_patterns": [
       "\\frac{b^2}{a-c\\cos\\theta}",
       "\\frac{b^2}{a+c\\cos\\theta}",
-      "\\frac{1+e\\cos\\theta}{1-e\\cos\\theta}",
+      "\\frac{1-e\\cos\\theta}{1+e\\cos\\theta}",
       "\\frac{|AF|}{|BF|}"
     ],
     "formulaTokens": [
       "\\frac{b^2}{a-c\\cos\\theta}",
       "\\frac{b^2}{a+c\\cos\\theta}",
-      "\\frac{1+e\\cos\\theta}{1-e\\cos\\theta}",
+      "\\frac{1-e\\cos\\theta}{1+e\\cos\\theta}",
       "a-c\\cos\\theta",
       "a+c\\cos\\theta",
       "1+e\\cos\\theta",
@@ -105,11 +105,11 @@
     "success_rate": 0
   },
   "math": {
-    "core_formula": "\\frac{|AF|}{|BF|}=\\frac{1+e\\cos\\theta}{1-e\\cos\\theta}",
+    "core_formula": "\\frac{AF}{BF}=\\frac{1-e\\cos\\theta}{1+e\\cos\\theta}",
     "related_formulas": [
-      "|AF|=\\frac{b^2}{a-c\\cos\\theta}",
-      "|BF|=\\frac{b^2}{a+c\\cos\\theta}",
-      "|AB|=\\frac{2ab^2}{a^2-c^2\\cos^2\\theta}"
+      "AF=\\frac{b^2}{a+c\\cos\\theta}",
+      "BF=\\frac{b^2}{a-c\\cos\\theta}",
+      "AB=\\frac{2ab^2}{a^2-c^2\\cos^2\\theta}"
     ],
     "variables": {
       "a": "椭圆长半轴",
@@ -120,25 +120,24 @@
       "|AF|": "A到右焦点的焦半径长度",
       "|BF|": "B到右焦点的焦半径长度"
     },
-    "conditions": "椭圆方程 $\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1$ ($a>b>0$)，右焦点 $F(c,0)$，过 $F$ 的弦 $AB$，倾斜角 $\\theta\\in[0,\\pi)$，点 $A$ 对应极角 $\\theta$，点 $B$ 对应 $\\theta+\\pi$。分母 $a-c\\cos\\theta>0$, $a+c\\cos\\theta>0$ 恒成立。",
+    "conditions": "a>b>0, c^2=a^2-b^2, F=(c,0), θ∈[0,π), u=(cosθ,sinθ), A=F+r u, B=F-s u, r,s>0；极轴为x轴正向。",
     "conclusions": [
-      "焦半径长度 $|AF|=\\frac{b^2}{a-c\\cos\\theta}$, $|BF|=\\frac{b^2}{a+c\\cos\\theta}$",
-      "焦点分弦比例 $\\frac{|AF|}{|BF|}=\\frac{1+e\\cos\\theta}{1-e\\cos\\theta}$",
-      "焦点弦总长 $|AB|=\\frac{2ab^2}{a^2-c^2\\cos^2\\theta}$"
+      "AF/BF=(1-e cosθ)/(1+e cosθ)",
+      "θ=0时AF=a-c，BF=a+c；θ=π/2时二者相等。"
     ]
   },
   "content": {
-    "statement": "对于椭圆 $\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1$（$a>b>0$），右焦点 $F(c,0)$，离心率 $e=\\frac{c}{a}$。过 $F$ 的弦 $AB$ 的倾斜角为 $\\theta$（$\\theta\\in[0,\\pi)$），且 $A$ 对应极角 $\\theta$，$B$ 对应 $\\theta+\\pi$。则焦半径长度分别为 $|AF|=\\frac{b^2}{a-c\\cos\\theta}$，$|BF|=\\frac{b^2}{a+c\\cos\\theta}$，且 $\\frac{|AF|}{|BF|}=\\frac{1+e\\cos\\theta}{1-e\\cos\\theta}$。",
+    "statement": "a>b>0, c^2=a^2-b^2, F=(c,0), θ∈[0,π), u=(cosθ,sinθ), A=F+r u, B=F-s u, r,s>0；极轴为x轴正向。 \\frac{AF}{BF}=\\frac{1-e\\cos\\theta}{1+e\\cos\\theta}",
     "derivation": [
-      "第一步：由椭圆极坐标方程 $r=\\frac{b^2}{a-c\\cos\\theta}$，直接得 $|AF|=r(\\theta)$, $|BF|=r(\\theta+\\pi)=\\frac{b^2}{a-c\\cos(\\theta+\\pi)}=\\frac{b^2}{a+c\\cos\\theta}$。",
-      "第二步：利用 $c=ae$，将焦半径表达式转化为 $|AF|=\\frac{a(1-e^2)}{1-e\\cos\\theta}$，$|BF|=\\frac{a(1-e^2)}{1+e\\cos\\theta}$，相除得比值公式。",
-      "第三步：焦点弦长 $|AB|=|AF|+|BF|=\\frac{b^2}{a-c\\cos\\theta}+\\frac{b^2}{a+c\\cos\\theta}=\\frac{2ab^2}{a^2-c^2\\cos^2\\theta}$。"
+      "代入F+t u得 D t²+2b²c cosθ t-b⁴=0，D=a²-c²cos²θ。",
+      "正根b²/(a+c cosθ)对应A；负根−b²/(a−c cosθ)对应B。",
+      "取正长度后相除与相加。"
     ],
-    "intuition": "椭圆在极坐标下焦半径公式为 $r=\\frac{b^2}{a-c\\cos\\theta}$，过焦点的弦两端极角相差 $\\pi$，代入即得。",
+    "intuition": "右焦点沿x轴正向到右顶点只有a-c，反向到左顶点为a+c。",
     "common_tricks": [
-      "将直线斜率 $k$ 转换为倾斜角 $\\theta$：$\\cos\\theta = \\frac{1}{\\sqrt{1+k^2}}$（注意符号，$\\theta\\in[0,\\pi)$ 时 $\\cos\\theta$ 与 $k$ 同号？实际上 $k=\\tan\\theta$，$\\cos\\theta$ 可正可负，需根据 $\\theta$ 范围确定）。",
-      "当直线垂直于 $x$ 轴时，$\\theta=90^\\circ$，$\\cos\\theta=0$，比例 $\\frac{|AF|}{|BF|}=1$。",
-      "左焦点的情况：分母中 $\\pm$ 符号互换，即 $|AF|=\\frac{b^2}{a+c\\cos\\theta}$，$|BF|=\\frac{b^2}{a-c\\cos\\theta}$，比值变为 $\\frac{1-e\\cos\\theta}{1+e\\cos\\theta}$。"
+      "先规定端点与极轴；交换A、B需取倒数。",
+      "k<0时倾斜角余弦为负；k>0时为正；k=0对应θ=0。",
+      "左焦点按同一极轴规定时交换余弦符号。"
     ]
   },
   "usage": {
@@ -173,14 +172,18 @@
       "离心率",
       "直线倾斜角"
     ],
-    "related_ids": ["C049", "C052", "C057"],
+    "related_ids": [
+      "C049",
+      "C052",
+      "C057"
+    ],
     "similar": "双曲线焦点分弦比例（对应符号变化）、抛物线焦点弦性质与坐标法。"
   },
   "meta": {
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-23",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-10-21"
   },
   "isPro": 0,
   "remarks": "",

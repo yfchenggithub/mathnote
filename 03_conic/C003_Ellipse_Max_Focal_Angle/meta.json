@@ -8,7 +8,7 @@
       "短轴端点视角",
       "F1PF2最大角"
     ],
-    "summary": "椭圆焦角最大值结论，核心关系为 $tan(theta/2) = c/y_P$。",
+    "summary": "椭圆焦张角满足 tan(θ/2)=c|yP|/b²，最大值2arcsin(e)，仅在短轴端点取得。",
     "difficulty": 3,
     "category": "解析几何",
     "tags": [
@@ -43,7 +43,7 @@
     "intents": [],
     "query_templates": [
       "椭圆焦角最大值公式",
-      "tan(theta/2)=c/y",
+      "tan(theta/2)=c*abs(y_P)/b^2",
       "角F1PF2范围"
     ],
     "ocrKeywords": [
@@ -54,10 +54,10 @@
       "离心率"
     ],
     "latex_patterns": [
-      "tan(theta/2) = c/y_P"
+      "tan(theta/2) = c*abs(y_P)/b^2"
     ],
     "formulaTokens": [
-      "tan(theta/2) = c/y_P"
+      "tan(theta/2) = c*abs(y_P)/b^2"
     ],
     "pinyin": "tuoyuanjiaojiaozuidazhi",
     "pinyinAbbr": "tyjjzdz"
@@ -75,18 +75,31 @@
     "success_rate": 0
   },
   "math": {
-    "core_formula": "tan(theta/2) = c/y_P",
-    "related_formulas": [],
-    "variables": [],
-    "conditions": [],
+    "core_formula": "\\tan(\\theta/2)=c|y_P|/b^2",
+    "related_formulas": [
+      "\\theta_{max}=2\\arcsin(e)",
+      "\\sin(\\theta/2)\\le e"
+    ],
+    "variables": [
+      "a>b>0",
+      "c²=a²−b²",
+      "e=c/a",
+      "θ=∠F1PF2"
+    ],
+    "conditions": [
+      "椭圆x²/a²+y²/b²=1，焦点(±c,0)，P在椭圆上。"
+    ],
     "conclusions": [
-      "tan(theta/2) = c/y_P"
+      "tan(θ/2)=c|yP|/b²",
+      "最大角仅在P=(0,±b)取得。"
     ]
   },
   "content": {
-    "statement": "椭圆焦角最大值结论，核心关系为 $tan(theta/2) = c/y_P$。",
-    "derivation": [],
-    "intuition": "",
+    "statement": "椭圆焦张角满足 tan(θ/2)=c|yP|/b²，最大值2arcsin(e)，仅在短轴端点取得。",
+    "derivation": [
+      "余弦定理得r1r2 cos²(θ/2)=b²；面积得r1r2 sinθ/2=c|yP|，相除。"
+    ],
+    "intuition": "同一椭圆上，焦张角随离焦轴的高度增加而增大。",
     "common_tricks": []
   },
   "usage": {
@@ -122,7 +135,7 @@
     "version": 3,
     "source": "旧版元数据结构迁移",
     "created_at": "",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-10-21"
   },
   "isPro": 0,
   "remarks": "此结论是处理椭圆视角问题的万能钥匙，配合离心率考查极具辨识度。",
