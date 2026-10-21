@@ -92,4 +92,166 @@
 		(x'-x_0,\ y'-y_0)
 	\]
 	应与法向量 $(A,B)$ 平行。
+
+
+	% ---- 仅追加：新增证明方法二、三；原有中点法（方法四）已覆盖，不重复添加 ----
+	\medskip
+	\textbf{\textcolor{CProof}{方法二（直线方程数值变号法：少计算、易恢复）}}
+
+	\textbf{一句话直觉：} 直线把平面分成两侧。对称前后，两点离直线一样远，却分别在直线两边；所以把点坐标代入同一个直线方程，得到的两个数\textbf{互为相反数}。
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.6em]
+		\item[\textbf{步骤一（把复杂式子记成一个数）：}]
+		      记
+		      \[
+		          f(x,y)=Ax+By+C,\qquad D=f(x_0,y_0)=Ax_0+By_0+C.
+		      \]
+		      直线 $l$ 上的点满足 $f(x,y)=0$；$D$ 的正、负表示点 $P$ 位于直线的哪一侧。
+		      \\[-0.2em]
+		      \textbf{注意：}$D$ \textbf{不是}点到直线的实际距离；实际距离为 $|D|/\sqrt{A^2+B^2}$。
+
+		\item[\textbf{步骤二（对称后为什么是 $-D$）：}]
+		      设 $P'$ 为对称点、$M$ 为 $PP'$ 的中点。轴对称意味着 $M$ 在 $l$ 上，因此
+		      \[
+		          f(M)=0.
+		      \]
+		      由于 $M$ 的两个坐标分别是 $P,P'$ 对应坐标的平均数，代入一次式 $f$ 有
+		      \[
+		          f(M)=\frac{f(P)+f(P')}{2}.
+		      \]
+		      因而
+		      \[
+		          0=\frac{D+f(P')}{2}
+		          \quad\Longrightarrow\quad
+		          \boxed{f(P')=-D}.
+		      \]
+		      \textbf{理由：} 对称点到对称轴距离相等且位于相反侧；上面的中点等式也直接验证了数值变号。
+
+		\item[\textbf{步骤三（只能沿垂直方向移动）：}]
+		      因为 $PP'$ 垂直于 $l$，而 $(A,B)$ 是直线的法向量，所以只需设一个未知数 $k$：
+		      \[
+		          \boxed{P'=(x_0+kA,\ y_0+kB)}.
+		      \]
+		      \textbf{理由：} 沿法向量移动 $k$ 倍，就保证连接两个点的方向垂直于直线；$k$ 可以为正也可以为负。
+
+		\item[\textbf{步骤四（用变号性质求 $k$）：}]
+		      把 $P'$ 的坐标代入 $f(P')=-D$：
+		      \[
+		          \begin{aligned}
+		              A(x_0+kA)+B(y_0+kB)+C&=-D,\\
+		              \underbrace{Ax_0+By_0+C}_{D}
+		                +k(A^2+B^2)&=-D,\\
+		              k(A^2+B^2)&=-2D.
+		          \end{aligned}
+		      \]
+		      因 $A^2+B^2>0$，所以
+		      \[
+		          \boxed{k=-\frac{2D}{A^2+B^2}}.
+		      \]
+		      \textbf{顿悟：} 为什么有一个 $2$？因为直线方程的值从 $D$ 变为 $-D$，总变化量恰好为 $-2D$。
+
+		\item[\textbf{步骤五（代回对称点坐标）：}]
+		      由 $x'=x_0+kA$、$y'=y_0+kB$，得到
+		      \[
+		          \boxed{\begin{cases}
+		              x'=x_0-\dfrac{2A(Ax_0+By_0+C)}{A^2+B^2},\\[7pt]
+		              y'=y_0-\dfrac{2B(Ax_0+By_0+C)}{A^2+B^2}.
+		          \end{cases}}
+		      \]
+	\end{description}
+
+	\textbf{初中水平的快速检查：} 对于直线 $y=0$，取点 $P(3,2)$，有 $A=0,B=1,C=0,D=2$。上式给出 $k=-4$，从而
+	\[
+		P'=(3,2)+(0,-4)=(3,-2),
+	\]
+	正好是关于 $x$ 轴的对称点。若 $P$ 本来就在直线上，则 $D=0$，公式得到 $P'=P$，也正确。
+
+	\medskip
+	\textbf{\textcolor{CProof}{方法三（有向距离法：像照镜子一样理解）}}
+
+	\textbf{一句话直觉：} 要得到镜中的点，先沿垂线走到镜面，再沿同一方向走同样远。总位移就是\textbf{两倍有向距离}，方向由正负号自动决定。
+
+	\medskip
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.6em]
+		\item[\textbf{步骤一（先找到垂直方向）：}]
+		      直线 $l:Ax+By+C=0$ 的法向量是 $(A,B)$，它的长度为
+		      \[
+		          \sqrt{A^2+B^2}.
+		      \]
+		      将法向量除以长度，就得到长度恰好为 $1$ 的\textbf{单位法向量}：
+		      \[
+		          \mathbf n=\frac{(A,B)}{\sqrt{A^2+B^2}}.
+		      \]
+		      \textbf{理由：} $(A,B)$ 只表示方向，长度未必是 $1$；除以自己的长度后，才可以用“走多少个单位长度”来计算位移。
+
+		\item[\textbf{步骤二（把距离写成带正负号的数）：}]
+		      点 $P(x_0,y_0)$ 到直线的普通距离是
+		      \[
+		          \frac{|Ax_0+By_0+C|}{\sqrt{A^2+B^2}}.
+		      \]
+		      为了同时表示“哪一边”和“离多远”，暂时去掉绝对值，定义\textbf{有向距离}：
+		      \[
+		          \boxed{d=\frac{Ax_0+By_0+C}{\sqrt{A^2+B^2}}}.
+		      \]
+		      当 $d>0$ 时，$P$ 位于 $\mathbf n$ 所指的一侧；当 $d<0$ 时，$P$ 位于反方向的一侧。无论哪一侧，实际距离始终是 $|d|$。
+
+		\item[\textbf{步骤三（从原点走到垂足）：}]
+		      设 $H$ 是 $P$ 到 $l$ 的垂足。从 $P$ 走到直线，需要抵消有向距离 $d$，所以
+		      \[
+		          \overrightarrow{PH}=-d\,\mathbf n.
+		      \]
+		      \textbf{理由：} 若 $d>0$，就逆着 $\mathbf n$ 走 $d$；若 $d<0$，负负得正，就顺着 $\mathbf n$ 走 $|d|$。一个式子处理两侧的点。
+
+		\item[\textbf{步骤四（从垂足再走一次）：}]
+		      轴对称的条件是 $H$ 恰好为 $PP'$ 的中点，因此
+		      \[
+		          \overrightarrow{HP'}=\overrightarrow{PH}=-d\,\mathbf n.
+		      \]
+		      把两段位移相加：
+		      \[
+		          \boxed{\overrightarrow{PP'}=-2d\,\mathbf n}.
+		      \]
+		      \textbf{理由：} 这就是公式中系数 $2$ 的几何来源：从 $P$ 到对称轴走一段，还要从对称轴向另一侧再走同样的一段。
+
+		\item[\textbf{步骤五（两个根号相乘，得到平方和）：}]
+		      代入 $d$ 和单位法向量：
+		      \[
+		          \begin{aligned}
+		              \overrightarrow{PP'}
+		              &=-2\,\frac{Ax_0+By_0+C}{\sqrt{A^2+B^2}}
+		                 \cdot\frac{(A,B)}{\sqrt{A^2+B^2}}\\[5pt]
+		              &=-\frac{2(Ax_0+By_0+C)}{A^2+B^2}(A,B).
+		          \end{aligned}
+		      \]
+		      因 $P'=P+\overrightarrow{PP'}$，得到
+		      \[
+		          \boxed{\begin{cases}
+		              x'=x_0-\dfrac{2A(Ax_0+By_0+C)}{A^2+B^2},\\[7pt]
+		              y'=y_0-\dfrac{2B(Ax_0+By_0+C)}{A^2+B^2}.
+		          \end{cases}}
+		      \]
+		      \textbf{顿悟：} 分母为什么是 $A^2+B^2$ 而非根号？因为“有向距离”和“单位法向量”分别有一个 $\sqrt{A^2+B^2}$，相乘后根号消失。
+	\end{description}
+
+	\textbf{方向再检查：} 仍看直线 $y=0$。对 $P(0,2)$，有 $d=2$，从而向下走 $4$ 得 $P'(0,-2)$；对 $P(0,-2)$，有 $d=-2$，公式会自动改成向上走 $4$ 得 $P'(0,2)$。
+
+	\medskip
+	\textbf{\textcolor{CProof}{三种思路如何区分（避免重复背诵）}}
+
+	\begin{itemize}[leftmargin=*, itemsep=0.35em, topsep=0.35em]
+		\item \textbf{原证明（中点条件＋法向量）：} 先设未知比例因子，再把中点代入直线方程。这已经覆盖“方法四：中点＋垂直法”，因此不再重复列一遍。
+		\item \textbf{方法二（数值变号）：} 先记 $D=Ax_0+By_0+C$，抓住\textbf{$D\to-D$}，一行求出比例因子，适合忘记公式时快速恢复。
+		\item \textbf{方法三（有向距离）：} 抓住\textbf{“到镜面一段＋越过镜面一段”}，直接写 $\overrightarrow{PP'}=-2d\mathbf n$，最适合理解几何意义。
+	\end{itemize}
+
+	\textbf{最终三行速记：}
+	\[
+	\begin{gathered}
+	D=Ax_0+By_0+C,\qquad S=A^2+B^2,\\
+	t=\frac{D}{S},\\
+	\boxed{P'=P-2t(A,B)}.
+	\end{gathered}
+	\]
+
 \end{proofbox}
