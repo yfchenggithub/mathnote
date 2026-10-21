@@ -57,6 +57,109 @@
 \end{description}
 
 \medskip
+
+
+\medskip
+\textbf{\textcolor{CProof}{新增方法二：沿 $x$ 轴切成椭圆薄片（异向截面积分）}}
+
+\textbf{思路：} 原证明是垂直于旋转轴 $y$ 切圆片；现在改成垂直于 $x$ 轴切片。在旋转椭球中，$x=x_0$ 截到的不是圆，而是位于 $yz$ 平面的椭圆。面积能算出来，也就能累积出体积。
+
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+  \item[\textbf{步骤一（三维方程）：}]
+  平面椭圆绕 $y$ 轴旋转时，原来的 $x^2$ 对应三维空间中到 $y$ 轴的距离平方 $x^2+z^2$，因此实体为
+  \[
+    E=\left\{(x,y,z):\frac{x^2+z^2}{a^2}+\frac{y^2}{b^2}\le1\right\}.
+  \]
+  \par\textbf{理由：} 绕 $y$ 轴旋转不改变 $y$ 坐标，距 $y$ 轴的距离是 $\sqrt{x^2+z^2}$。
+
+  \item[\textbf{步骤二（确定 $x=x_0$ 的截面）：}]
+  固定 $x=x_0$（$-a<x_0<a$），移项得
+  \[
+     \frac{y^2}{b^2}+\frac{z^2}{a^2}
+     \le 1-\frac{x_0^2}{a^2}.
+  \]
+  记 $q=\sqrt{1-\frac{x_0^2}{a^2}}$，即
+  \[
+     \frac{y^2}{(bq)^2}+\frac{z^2}{(aq)^2}\le1.
+  \]
+  \par\textbf{理由：} 这是 $yz$ 平面内的椭圆区域；其 $y$ 方向半轴为 $bq$，$z$ 方向半轴为 $aq$。
+
+  \item[\textbf{步骤三（计算截面积）：}]
+  根据椭圆面积 $\pi\times\text{长半轴}\times\text{短半轴}$（两个半轴谁长均可），有
+  \[
+     A(x_0)=\pi (bq)(aq)
+        =\pi ab\left(1-\frac{x_0^2}{a^2}\right).
+  \]
+  \par\textbf{理由：} 此处面积是\textbf{椭圆面积} $\pi pq$，不是 $\pi r^2$。
+
+  \item[\textbf{步骤四（沿 $x$ 方向积分）：}]
+  \[
+  \begin{aligned}
+    V_y&=\int_{-a}^{a}A(x)\,dx
+      =\pi ab\int_{-a}^{a}\left(1-\frac{x^2}{a^2}\right)\,dx\\
+    &=\pi ab\left[x-\frac{x^3}{3a^2}\right]_{-a}^{a}\\
+    &=\pi ab\left(\frac{2a}{3}+\frac{2a}{3}\right)
+      =\boxed{\frac43\pi a^2b}.
+  \end{aligned}
+  \]
+  \par\textbf{理由：} 积分区间是 $x\in[-a,a]$；两种不同方向切片给出相同体积。
+\end{description}
+
+\textbf{考试速写（沿 $x$ 轴切）：}
+\[
+   \boxed{A(x)=\pi ab\left(1-\frac{x^2}{a^2}\right)}
+   \quad\Longrightarrow\quad
+   V_y=\pi ab\int_{-a}^{a}\left(1-\frac{x^2}{a^2}\right)\,dx
+      =\frac43\pi a^2b.
+\]
+
+\medskip
+\textbf{\textcolor{CProof}{新增方法三：由球体体积伸缩得到（最少步骤）}}
+
+\textbf{几何思路：} 取一个半径为 $b$ 的球 $B$，其体积 $\frac43\pi b^3$ 已知。将球的 $x$、$z$ 坐标各乘 $a/b$，$y$ 坐标不变；椭球就出现了。面积伸缩为 $\left(\frac ab\right)^2$，长度 $y$ 不变，所以整个体积也乘这个倍数。
+
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+  \item[\textbf{步骤一（从球出发）：}]
+  \[
+      B:\quad u^2+v^2+w^2\le b^2,
+      \qquad V_B=\frac43\pi b^3.
+  \]
+
+  \item[\textbf{步骤二（作空间伸缩）：}]
+  定义
+  \[
+      x=\frac ab\,u,\qquad y=v,\qquad z=\frac ab\,w.
+  \]
+  反代 $u=\frac ba x,\ v=y,\ w=\frac ba z$ 可得
+  \[
+      \frac{x^2+z^2}{a^2}+\frac{y^2}{b^2}\le1.
+  \]
+  \par\textbf{理由：} 恰是绕 $y$ 轴旋转的椭球实体；注意\textbf{要同时改变 $x,z$ 两方向}。
+
+  \item[\textbf{步骤三（体积伸缩）：}]
+  空间线性伸缩把体积乘以三个方向伸缩比的乘积
+  \[
+   \begin{aligned}
+      V_y&=V_B\cdot\frac ab\cdot1\cdot\frac ab
+        =\frac43\pi b^3\cdot\frac{a^2}{b^2}\\
+        &=\boxed{\frac43\pi a^2b}.
+   \end{aligned}
+  \]
+  \par\textbf{理由：} 直观上可先在每个 $y$ 高度把圆截面积放大 $\left(\frac ab\right)^2$，再沿 $y$ 方向叠加；严格表述是线性变换的体积比例 $\lvert\det\mathrm{diag}(a/b,1,a/b)\rvert=(a/b)^2$。
+\end{description}
+
+\begin{center}
+  \resizebox{0.95\linewidth}{!}{\input{./assets/tikz/C026_sphere_stretch.tikz.tex}}
+\end{center}
+
+\textbf{最快记忆／复原法：}
+\[
+   \boxed{\text{球 }\frac43\pi R^3\ \longrightarrow\
+          \text{椭球 }\frac43\pi(\text{半轴}_1)(\text{半轴}_2)(\text{半轴}_3)}
+    =\frac43\pi\cdot a\cdot b\cdot a.
+\]
+这里的推广是\textbf{椭球体积公式}；此题是其中两个半轴相等的旋转椭球，不是任意椭球都能由某个平面椭圆绕轴旋转得到。
+
 \textbf{\textcolor{CProof}{结论回扣}}
 
 \textbf{我们通过积分严格证明了椭圆绕 $y$ 轴旋转所得旋转椭球体积为 $V_y = \frac{4}{3}\pi a^2 b$。}

@@ -1,0 +1,33 @@
+% C026_sphere_stretch.tikz.tex -- 直接 \input，需先 \usepackage{tikz}。
+% 图示为 z=0 的二维母线截面。三维中 x 和 z 必须同步伸缩。
+\begin{tikzpicture}[x=0.79cm,y=0.79cm,>=stealth,every node/.style={font=\small}]
+  \begin{scope}[shift={(0,0)}]
+    \fill[blue!3,rounded corners=8pt] (-3.3,-2.55) rectangle (3.3,2.8);
+    \draw[blue!20,rounded corners=8pt] (-3.3,-2.55) rectangle (3.3,2.8);
+    \draw[->,gray!70] (-2.8,0)--(2.85,0) node[below,font=\scriptsize] {$x$};
+    \draw[->,gray!70] (0,-2.2)--(0,2.42) node[left,font=\scriptsize] {$y$};
+    \fill[blue!15] (0,0) circle [radius=1.7];
+    \draw[blue!75!black,thick] (0,0) circle [radius=1.7];
+    \draw[blue!75!black,line width=1.1pt,->] (0,0)--(1.7,0);
+    \draw[blue!75!black,line width=1.1pt,->] (0,0)--(0,1.7);
+    \node[font=\scriptsize,blue!75!black] at (1.04,-0.35) {$b$};
+    \node[font=\scriptsize,blue!75!black] at (-0.23,1.35) {$b$};
+    \node[font=\scriptsize] at (0,-2.22) {半径 $b$ 的球（母线是圆）};
+  \end{scope}
+  \draw[->,line width=1.5pt,purple!70!black] (3.65,0.45)--(6.4,0.45)
+       node[midway,above,align=center,font=\scriptsize] {$x,z$ 均乘 $a/b$};
+  \begin{scope}[shift={(10.15,0)}]
+    \fill[teal!3,rounded corners=8pt] (-3.3,-2.55) rectangle (3.3,2.8);
+    \draw[teal!20,rounded corners=8pt] (-3.3,-2.55) rectangle (3.3,2.8);
+    \draw[->,gray!70] (-2.95,0)--(2.98,0) node[below,font=\scriptsize] {$x$};
+    \draw[->,gray!70] (0,-2.2)--(0,2.42) node[left,font=\scriptsize] {$y$};
+    \fill[teal!13] (0,0) ellipse [x radius=2.54,y radius=1.7];
+    \draw[teal!75!black,thick] (0,0) ellipse [x radius=2.54,y radius=1.7];
+    \draw[teal!75!black,line width=1.1pt,->] (0,0)--(2.54,0);
+    \draw[teal!75!black,line width=1.1pt,->] (0,0)--(0,1.7);
+    \node[font=\scriptsize,teal!70!black] at (1.44,-0.35) {$a$};
+    \node[font=\scriptsize,teal!70!black] at (-0.23,1.35) {$b$};
+    \node[font=\scriptsize] at (0,-2.22) {绕 $y$ 轴旋转椭球（母线是椭圆）};
+  \end{scope}
+  \node[font=\scriptsize,purple!70!black] at (5.05,-2.25) {体积乘 $(a/b)^2$};
+\end{tikzpicture}

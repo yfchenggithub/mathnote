@@ -41,4 +41,36 @@
 		\item \textbf{场景一（旋转体体积计算）：} 已知椭圆方程，求绕 $y$ 轴旋转体体积。
 		\item \textbf{场景二（椭球体积比较）：} 与其它旋转体（如球、圆柱）体积比较或求比例。
 	\end{itemize}
+
+
+    \medskip
+    \textbf{\textcolor{CExplanation}{新增视角一（换一个方向切片：沿 $x$ 轴累加）}}
+
+    \textbf{切片方向不必等于旋转轴方向。} 原来的方法沿 $y$ 轴累加，切面 $y=y_0$ 垂直于旋转轴，所以截面是\textbf{圆}；现在改沿 $x$ 轴累加，切面 $x=x_0$ 平行于旋转轴，所以截面是\textbf{椭圆}。\textbf{千万不能把后一种截面也当成圆。}
+
+    旋转后立体的三维方程是
+    \[
+      \frac{x^2}{a^2}+\frac{z^2}{a^2}+\frac{y^2}{b^2}\le 1.
+    \]
+    固定 $x=x_0$，设 $q=\sqrt{1-\frac{x_0^2}{a^2}}$，则截面满足
+    \[
+       \frac{y^2}{(bq)^2}+\frac{z^2}{(aq)^2}\le1;
+       \qquad A(x_0)=\pi\,(bq)(aq)=\pi ab\left(1-\frac{x_0^2}{a^2}\right).
+    \]
+    因而 $V_y=\int_{-a}^{a}A(x)\,dx$。这与沿 $y$ 方向的圆盘积分是\textbf{同一立体、两种切法}。
+
+    \begin{center}
+      \resizebox{0.98\linewidth}{!}{\input{./assets/tikz/C026_slices.tikz.tex}}
+    \end{center}
+    \medskip
+    \textbf{\textcolor{CExplanation}{新增视角二（球体伸缩：不用重新积分）}}
+
+    先想象一个半径为 $b$ 的球：$x^2+y^2+z^2\le b^2$。保持 $y$ 方向不动，把\textbf{$x$、$z$ 两个方向同时}按 $a/b$ 倍拉伸（当 $a<b$ 时就是压缩）。球的三条半轴 $b,b,b$ 变成 $a,b,a$，恰好得到绕 $y$ 轴的旋转椭球。
+    \[
+       V_y=\underbrace{\frac43\pi b^3}_{\text{原球体积}}
+       \underbrace{\frac ab\cdot\frac ab\cdot 1}_{\text{三方向伸缩倍数}}
+       =\boxed{\frac43\pi a^2b}.
+    \]
+    \textbf{快记：} 球体积中的三个半径 $R\cdot R\cdot R$，对应换成椭球的三个半轴 $a\cdot a\cdot b$；统一系数 $\frac43\pi$ 不变。
+
 \end{explanationbox}
