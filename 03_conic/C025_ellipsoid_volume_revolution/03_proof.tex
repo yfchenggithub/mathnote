@@ -56,6 +56,92 @@
 	\end{description}
 
 	\medskip
+	\textbf{\textcolor{CProof}{补充证明一（沿 y 方向累加椭圆截面）}}
+	\textbf{核心识别：}这是同一个绕 \(x\) 轴形成的立体，仅仅改用垂直于 \(y\) 轴的平面切片。切片在 \(xz\) 平面内，\textbf{一般是椭圆，不是圆}。
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（三维椭球方程）：}]
+		      绕 \(x\) 轴旋转时，椭圆上一点到旋转轴的距离 \(|y|\) 变为空间中到 \(x\) 轴的距离 \(\sqrt{y^{2}+z^{2}}\)，故所得实体由
+		      \[
+		      \frac{x^{2}}{a^{2}}+\frac{y^{2}}{b^{2}}+\frac{z^{2}}{b^{2}}\leq 1
+		      \]
+		      描述，等号对应外表面。
+		      \par\textbf{理由：}同一旋转半径的空间点满足 \(y^{2}+z^{2}=r^{2}\)，转一周后填满内部。
+
+		\item[\textbf{步骤二（固定高度 y=c）：}]
+		      在 \(-b<c<b\) 固定 \(y=c\)，截面所在平面为 \(y=c\)，截面边界满足
+		      \[
+		      \frac{x^{2}}{a^{2}}+\frac{z^{2}}{b^{2}}=1-\frac{c^{2}}{b^{2}},
+		      \]
+		      等价于
+		      \[
+		      \frac{x^{2}}{a^{2}(1-c^{2}/b^{2})}
+		      +\frac{z^{2}}{b^{2}(1-c^{2}/b^{2})}=1.
+		      \]
+		      \par\textbf{理由：}这是平面 \(xz\) 中的椭圆方程；\(c=\pm b\) 时截面退化成点，不影响积分。
+
+		\item[\textbf{步骤三（求椭圆截面积）：}]
+		      从上式分别读出两个半轴
+		      \[
+		      A(c)=a\sqrt{1-\frac{c^{2}}{b^{2}}},\qquad
+		      B(c)=b\sqrt{1-\frac{c^{2}}{b^{2}}}.
+		      \]
+		      利用椭圆面积公式 \(S=\pi AB\)，可得
+		      \[
+		      S(c)=\pi ab\left(1-\frac{c^{2}}{b^{2}}\right).
+		      \]
+		      \par\textbf{理由：}切片的两条半轴同时乘上 \(\sqrt{1-c^{2}/b^{2}}\)，面积因此乘上 \(1-c^{2}/b^{2}\)。
+
+		\item[\textbf{步骤四（沿 y 积分求体积）：}]
+		      厚度为 \(\Delta y\) 的薄片体积约为 \(S(y)\Delta y\)，累加并取极限，得到
+		      \[
+		      \begin{aligned}
+		      V&=\int_{-b}^{b}S(y)\,dy
+		      =\pi ab\int_{-b}^{b}\left(1-\frac{y^{2}}{b^{2}}\right)\,dy\\
+		       &=\pi ab\left[y-\frac{y^{3}}{3b^{2}}\right]_{-b}^{b}\\
+		       &=\pi ab\left(2b-\frac{2b}{3}\right)
+		       =\boxed{\frac43\pi ab^{2}}.
+		      \end{aligned}
+		      \]
+		      \par\textbf{理由：}虽然切片方向改变，但各薄片仍完整且不重叠地填满同一个椭球，所以总体积不变。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{补充证明二（前述方法四：球体沿 x 方向伸缩，并用方程核对）}}
+	\textbf{最快思路：}半径为 \(b\) 的球体积是 \(\frac43\pi b^{3}\)；仅将 \(x\) 方向由 \(b\) 伸缩成 \(a\)，总体积乘 \(a/b\)。
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（从半径 b 的球出发）：}]
+		      用 \(u\) 表示变换前的第一个坐标，球面方程和体积为
+		      \[
+		      \frac{u^{2}}{b^{2}}+\frac{y^{2}}{b^{2}}+\frac{z^{2}}{b^{2}}=1,
+		      \qquad V_{\text{球}}=\frac43\pi b^{3}.
+		      \]
+
+		\item[\textbf{步骤二（只伸缩第一个坐标）：}]
+		      令 \(x=\frac{a}{b}u\)，而 \(y,z\) 保持不变；反代 \(u=\frac{b}{a}x\)，则
+		      \[
+		      \begin{aligned}
+		      1&=\frac{u^{2}}{b^{2}}+\frac{y^{2}}{b^{2}}+\frac{z^{2}}{b^{2}}\\
+		       &=\frac{(bx/a)^{2}}{b^{2}}+\frac{y^{2}}{b^{2}}+\frac{z^{2}}{b^{2}}\\
+		       &=\frac{x^{2}}{a^{2}}+\frac{y^{2}}{b^{2}}+\frac{z^{2}}{b^{2}}.
+		      \end{aligned}
+		      \]
+		      \par\textbf{理由：}变换后的边界方程正是绕 \(x\) 轴得到的椭球方程，说明这不是凭外形猜测。
+
+		\item[\textbf{步骤三（证明体积为何乘 a/b）：}]
+		      把原球沿 \(u\) 方向切成许多薄圆片。映射 \(x=(a/b)u\) 后，原来位于 \(u\) 的薄圆片被移到 \(x\)，\(y,z\) 均未变化，因此\textbf{截面圆面积不变}；而厚度由 \(\Delta u\) 变成 \(\Delta x=(a/b)\Delta u\)。每个薄片的体积乘上 \(a/b\)，整个球的体积也乘上 \(a/b\)。
+		      \par\textbf{理由：}体积是截面积乘厚度再累加；\(a/b>0\)，伸长或压缩都成立。
+
+		\item[\textbf{步骤四（直接得出公式）：}]
+		      \[
+		      V_{\text{椭球}}=\frac{a}{b}V_{\text{球}}
+		      =\frac{a}{b}\cdot\frac43\pi b^{3}
+		      =\boxed{\frac43\pi ab^{2}}.
+		      \]
+	\end{description}
+	\textbf{延伸记忆：}从单位球 \(u^{2}+v^{2}+w^{2}\leq 1\) 沿三个方向分别按 \(a,b,c\) 倍伸缩，即得到 \(x^{2}/a^{2}+y^{2}/b^{2}+z^{2}/c^{2}\leq 1\)，因而一般椭球体积为 \(V=\frac43\pi abc\)。在本题中第三条半轴也是 \(b\)，代入便得 \(\frac43\pi ab^{2}\)。
+
+	\medskip
+
 	\textbf{\textcolor{CProof}{结论回扣}}
 	\textbf{所得体积公式与结论一致。特别地，当 \(a=b=r\) 时，\(y^{2}=r^{2}(1-x^{2}/r^{2})\)，代入可得 \(V=\frac{4}{3}\pi r^{3}\)，退化为球体积公式。}
 \end{proofbox}
