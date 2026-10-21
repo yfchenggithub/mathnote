@@ -1,0 +1,14 @@
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[width=11.6cm,height=6.2cm,axis lines=middle,
+ xmin=-3,xmax=3,ymin=-3,ymax=3,xlabel={$x$},ylabel={$y$},
+ xtick={-1,1},ytick={-1,1},title={$y=-1/x$：每支递增，跨过缺口却不递增},title style={font=\small}]
+\addplot[blue,very thick,domain=-2.8:-0.36,samples=100]{-1/x};
+\addplot[blue,very thick,domain=0.36:2.8,samples=100]{-1/x};
+\addplot[only marks,orange!85!black] coordinates {(-1,1) (1,-1)};
+\node[font=\small,above left] at (axis cs:-1,1) {$(-1,1)$};
+\node[font=\small,below right] at (axis cs:1,-1) {$(1,-1)$};
+\draw[orange!85!black,dashed,-Stealth] (axis cs:-1,1)--(axis cs:1,-1);
+\end{axis}
+\end{tikzpicture}
+\end{center}

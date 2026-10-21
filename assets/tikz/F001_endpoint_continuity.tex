@@ -1,0 +1,14 @@
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[width=10.8cm,height=5.5cm,axis lines=middle,
+ xmin=-0.3,xmax=1.4,ymin=-0.3,ymax=2.5,
+ xlabel={$x$},ylabel={$y$},xtick={1},ytick={1,2},
+ title={内部斜率为正，端点跳跃仍可破坏递增},title style={font=\small}]
+\addplot[blue,very thick,domain=0:1]{x};
+\addplot[only marks,mark=*,mark options={fill=white,draw=blue},mark size=2.5pt] coordinates {(0,0)};
+\addplot[only marks,mark=*,blue,mark size=2.5pt] coordinates {(0,2) (1,1)};
+\node[font=\small,right] at (axis cs:0,2) {$f(0)=2$};
+\node[font=\small,above left] at (axis cs:1,1) {$f(1)=1$};
+\end{axis}
+\end{tikzpicture}
+\end{center}

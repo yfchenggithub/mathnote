@@ -1,9 +1,16 @@
 \begin{trapbox}
-\paragraph{常见误区}
+\paragraph{错误一：严格递增就必须处处 $f'>0$}
+\input{assets/tikz/F001_zero_slope_comparison.tex}
+反例是 $x^3$：它严格递增，却在 $0$ 处导数为零。
+正确做法是区分充分条件 $f'>0$ 与必要条件 $f'\ge0$；仅有 $f'\ge0$ 时，还须排除常值子区间，常函数就是反例。
 
-\begin{itemize}
-  \item $f'(x)>0$ 是 \textbf{充分条件}，不是必要条件；
-  \item 导数在个别点为 0，不影响整体单调性；
-  \item 单调性结论必须结合 \textbf{区间} 描述，不能只给"递增 / 递减"。
-\end{itemize}
+\paragraph{错误二：导数在整个定义域为正，就能合并所有区间}
+\input{assets/tikz/F001_disconnected_domain.tex}
+取 $h(x)=-1/x$，则 $h'(x)=1/x^2>0$（$x\ne0$），但 $-1<1$ 而 $h(-1)=1>h(1)=-1$。
+正确结论是它分别在 $(-\infty,0)$、$(0,+\infty)$ 上递增。
+
+\newpage
+\paragraph{错误三：纳入端点时不检查连续性}
+\input{assets/tikz/F001_endpoint_continuity.tex}
+若 $f(0)=2$，$f(x)=x$（$0<x\le1$），内部导数恒为 $1$，但 $f(0)>f(1)$。因此闭端点不能只靠内部导数判定，须满足端点连续等前提。
 \end{trapbox}

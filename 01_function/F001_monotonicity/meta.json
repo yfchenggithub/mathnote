@@ -9,7 +9,7 @@
       "导数判定单调性结论",
       "函数常用结论"
     ],
-    "summary": "一句话总结 \"单调性 = 导数符号在区间内是否统一",
+    "summary": "连续且内部可导的区间上，导数非负等价于不减；严格递增允许孤立零导数点。",
     "difficulty": 3,
     "category": "函数",
     "tags": [
@@ -96,31 +96,33 @@
     "success_rate": 0
   },
   "math": {
-    "core_formula": "f(x)=x^3-3x+1",
+    "core_formula": "f(x_2)-f(x_1)=f'(\\xi)(x_2-x_1)",
     "related_formulas": [
-      "f'(x) > 0",
-      "f'(x) < 0",
-      "f'(x) \\ge 0"
+      "f'>0\\Rightarrow\\text{严格递增}",
+      "f'\\ge0\\Longleftrightarrow\\text{不减}"
     ],
     "variables": {
-      "f": "题设变量",
-      "x": "题设变量"
+      "f": "区间 I 上的实值函数",
+      "I": "非退化区间",
+      "x_1,x_2": "I 中任意两点，x_1<x_2",
+      "xi": "两点之间的中值点"
     },
-    "conditions": "结论（单调性判定定理） 设函数 f(x) 在区间 I 上可导",
+    "conditions": "f 在区间 I 上连续，在 I 内部可导；导数符号在整个内部成立",
     "conclusions": [
-      "一句话总结 \"单调性 = 导数符号在区间内是否统一"
+      "连续且内部可导的区间上，导数非负等价于不减；严格递增允许孤立零导数点。"
     ]
   },
   "content": {
-    "statement": "结论（单调性判定定理） 设函数 f(x) 在区间 I 上可导",
+    "statement": "连续且内部可导的区间上，导数非负等价于不减；严格递增允许孤立零导数点。",
     "derivation": [
-      "证明（略述） 由拉格朗日中值定理：对任意 x_1 < x_2 I，存在 (x_1, x_2)，使得 f(x_2)-f(x_1)=f'( )(x_2-x_1). 当 f'(x)>0 时，右端恒为正，因此"
+      "任取两点，应用中值定理；由正的横坐标差确定函数值差的符号。",
+      "不减函数的差商非负，取极限得导数非负；排除常值子区间得严格递增。"
     ],
-    "intuition": "直观理解 导数 f'(x) 表示函数在该点的变化趋势",
+    "intuition": "曲线正斜率与高度增加；分支各自递增不能推出跨缺口递增。",
     "common_tricks": [
-      "f'(x)>0 是 充分条件，不是必要条件",
-      "导数在个别点为 0，不影响整体单调性",
-      "单调性结论必须结合 区间 描述，不能只给\"递增 / 递减"
+      "先分定义域区间，再判导数符号。",
+      "具体多项式可直接作差。",
+      "闭端点须连续，严格递增允许零导数点。"
     ]
   },
   "usage": {
@@ -137,7 +139,7 @@
     "exam_score": 5
   },
   "interactive": {
-    "has_diagram": false,
+    "has_diagram": true,
     "geogebra_id": "",
     "param_demo": {}
   },
@@ -157,7 +159,11 @@
       "导数定义",
       "导数符号与函数变化"
     ],
-    "related_ids": ["F002", "F053", "L039"],
+    "related_ids": [
+      "F002",
+      "F053",
+      "L039"
+    ],
     "similar": [
       "函数中的相近变形结论"
     ]
@@ -166,10 +172,10 @@
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-05-04",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-10-21"
   },
   "isPro": 0,
-  "remarks": "",
+  "remarks": "主图 assets/tikz/F001_positive_slope.tex 展示正斜率与高度变化；F001_cubic_intervals.tex 展示导数符号分段；F001_disconnected_domain.tex 用跨缺口反例替代抽象区间提醒。；补充图：assets/tikz/F001_endpoint_continuity.tex、assets/tikz/F001_zero_slope_comparison.tex。所有图用于替代对应的纯文字关系说明；未修改 images 正式资源。",
   "knowledgeNode": "函数-性质-单调性-判定与讨论",
   "altNodes": [
     "函数-性质-单调性",
