@@ -311,3 +311,186 @@
         \end{aligned}
     \]
 \end{proofbox}
+
+
+% ============================================================
+% 新增证明 A：焦半径公式法（快速恢复公式，含可选的焦半径即时推导）
+% 原韦达证明与椭圆化圆证明均原样保留。
+% ============================================================
+\begin{proofbox}
+    \textbf{\textcolor{CProof}{新增证明一：焦半径公式法（最快推导，首选）}}
+
+    \textbf{\textcolor{CProof}{核心思路}}
+    将焦点弦拆成两条焦半径，分别求长再相加。
+    不必设直线方程联立二次方程，也不必计算交点坐标。
+
+    \medskip
+
+    设椭圆焦点为 $F_1(-c,0),F_2(c,0)$，$c^2=a^2-b^2$。
+    过右焦点 $F_2$ 的直线与椭圆交于 $P,Q$。
+    选取上半平面的交点作为 $P$（若弦为水平长轴，则取右端点为 $P$），
+    令射线 $F_2P$ 与 $x$ 轴正方向的夹角为 $\theta\in[0,\pi]$；
+    $\overrightarrow{F_2Q}$ 的方向角即 $\theta+\pi$。
+
+    \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.55em]
+        \item[\textbf{第一步（用右焦点焦半径公式）：}]
+              对椭圆上任意点 $P(x_P,y_P)$，右焦点焦半径为
+              \[
+                  \boxed{|F_2P|=a-\frac ca x_P}.
+              \]
+              记 $r_+=|F_2P|$。由于从 $F_2(c,0)$ 出发沿方向 $\theta$ 走 $r_+$，
+              \[
+                  x_P=c+r_+\cos\theta.
+              \]
+              代回焦半径公式：
+              \[
+                  \begin{aligned}
+                      r_+&=a-\frac ca(c+r_+\cos\theta),\\
+                      r_+(a+c\cos\theta)&=a^2-c^2=b^2,
+                  \end{aligned}
+              \]
+              因此
+              \[
+                  \boxed{r_+=\frac{b^2}{a+c\cos\theta}}.
+              \]
+              \textbf{理由：}以焦点为起点写横坐标，未知数仅有焦半径 $r_+$。
+
+        \item[\textbf{第二步（方向相反，只换余弦符号）：}]
+              令 $r_-=|F_2Q|$。由于 $Q$ 位于焦点另一侧，
+              \[
+                  x_Q=c-r_-\cos\theta.
+              \]
+              同理得到
+              \[
+                  \boxed{r_-=\frac{b^2}{a-c\cos\theta}}.
+              \]
+              \textbf{理由：}反方向角为 $\theta+\pi$，满足
+              $\cos(\theta+\pi)=-\cos\theta$。
+
+        \item[\textbf{第三步（相加、化为角度或斜率式）：}]
+              因为 $P,F_2,Q$ 共线且焦点位于两交点之间，所以
+              \[
+                  \begin{aligned}
+                  |PQ| &= r_++r_-\\
+                       &=\frac{b^2}{a+c\cos\theta}
+                         +\frac{b^2}{a-c\cos\theta}\\
+                       &=\frac{2ab^2}{a^2-c^2\cos^2\theta}\\
+                       &=\boxed{\frac{2ab^2}{a^2\sin^2\theta+b^2\cos^2\theta}}.
+                  \end{aligned}
+              \]
+              这里用到 $a^2-c^2\cos^2\theta
+              =a^2\sin^2\theta+(a^2-c^2)\cos^2\theta$。
+              非竖直时 $k=\tan\theta$，于是
+              \[
+                  \cos^2\theta=\frac{1}{1+k^2},\qquad
+                  \sin^2\theta=\frac{k^2}{1+k^2},
+              \]
+              最终得到
+              \[
+                  \boxed{|PQ|=\frac{2ab^2(1+k^2)}{a^2k^2+b^2}}.
+              \]
+    \end{description}
+
+    \medskip
+
+    \textbf{\textcolor{CProof}{焦半径公式若忘记：两行即时恢复}}
+    由椭圆定义 $|F_1P|+|F_2P|=2a$，记 $|F_2P|=r$，则
+    $|F_1P|=2a-r$。两距离平方之差一方面等于
+    \[
+        |F_1P|^2-|F_2P|^2
+        =((x_P+c)^2+y_P^2)-((x_P-c)^2+y_P^2)=4cx_P,
+    \]
+    另一方面又等于
+    \[
+        (2a-r)^2-r^2=4a^2-4ar.
+    \]
+    比较两式即 $\boxed{r=a-\frac ca x_P}$，无需硬背。
+    过左焦点的情形由关于 $y$ 轴的对称性得到相同弦长。
+
+    \medskip
+
+    \textbf{\textcolor{CProof}{两条特殊焦点弦（直接带入角度）}}
+    \[
+        \begin{array}{c|c|c}
+        \text{方向}&\text{角度}&\text{焦点弦长}\\ \hline
+        \text{水平长轴}&\theta=0&\boxed{2a}\\[0.35em]
+        \text{竖直通径}&\theta=\frac{\pi}{2}&\boxed{\frac{2b^2}{a}}
+        \end{array}
+    \]
+    角度公式在竖直方向仍成立；斜率公式不能直接给竖直直线赋值。
+\end{proofbox}
+
+% ============================================================
+% 新增证明 B：椭圆定义 + 余弦定理（连焦半径公式都不用预先记）
+% ============================================================
+\begin{proofbox}
+    \textbf{\textcolor{CProof}{新增证明二：椭圆定义与余弦定理法（从零恢复）}}
+
+    \textbf{\textcolor{CProof}{核心思路}}
+    只用椭圆定义 $PF_1+PF_2=2a$ 与初中熟悉的余弦定理，
+    先求右焦点到一个交点的距离，再求反方向，最后相加。
+
+    仍令 $F_1(-c,0),F_2(c,0)$，取椭圆上点 $P$，记
+    \[
+        PF_2=r,\qquad PF_1=2a-r,\qquad F_1F_2=2c.
+    \]
+    取上半平面的交点为 $P$（水平时取右端点），
+    设射线 $F_2P$ 与 $x$ 轴正方向的夹角为 $\theta\in[0,\pi]$。
+    \textbf{特别注意：}在三角形 $F_1F_2P$ 中，
+    $\overrightarrow{F_2F_1}$ 指向 $x$ 轴负方向，
+    故 $F_2$ 处的夹角余弦为 $\cos(\pi-\theta)=-\cos\theta$（方向角按模 $2\pi$ 理解）。
+
+    \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.55em]
+        \item[\textbf{第一步（在焦点三角形中用余弦定理）：}]
+              \[
+                  \begin{aligned}
+                  (2a-r)^2
+                  &=(2c)^2+r^2-2(2c)r\cos(\pi-\theta)\\
+                  &=4c^2+r^2+4cr\cos\theta.
+                  \end{aligned}
+              \]
+              \textbf{理由：}与水平正方向夹角是 $\theta$，与指向左焦点的射线夹角不同，负号不能漏。
+
+        \item[\textbf{第二步（消掉平方，求单段焦半径）：}]
+              \[
+                  \begin{aligned}
+                  4a^2-4ar+r^2&=4c^2+r^2+4cr\cos\theta,\\
+                  r(a+c\cos\theta)&=a^2-c^2=b^2.
+                  \end{aligned}
+              \]
+              因此
+              \[
+                  \boxed{PF_2=r=\frac{b^2}{a+c\cos\theta}}.
+              \]
+              \textbf{理由：}两侧 $r^2$ 正好消去，解的是一次方程。
+
+        \item[\textbf{第三步（对向点换角、两段相加）：}]
+              另一交点 $Q$ 的方向角为 $\theta+\pi$，从而
+              \[
+                  QF_2=\frac{b^2}{a-c\cos\theta}.
+              \]
+              所以
+              \[
+                  \begin{aligned}
+                  |PQ|&=PF_2+QF_2\\
+                      &=\frac{2ab^2}{a^2-c^2\cos^2\theta}\\
+                      &=\frac{2ab^2}{a^2\sin^2\theta+b^2\cos^2\theta}.
+                  \end{aligned}
+              \]
+              当 $k=\tan\theta$ 存在时，这又化为
+              \[
+                  \boxed{|PQ|=\frac{2ab^2(1+k^2)}{a^2k^2+b^2}}.
+              \]
+    \end{description}
+
+    \medskip
+    \textbf{\textcolor{CProof}{考试速记}}
+    \[
+        PF_1+PF_2=2a
+        \ \xrightarrow{\ \text{余弦定理}\ }
+        \ \frac{b^2}{a+c\cos\theta},\ \frac{b^2}{a-c\cos\theta}
+        \ \xrightarrow{\ \text{相加}\ }\ |PQ|.
+    \]
+    两种新证明最终是同一条\textbf{焦半径求和路线}：
+    已记住焦半径公式时，方法一更快；完全忘记公式时，方法二更稳。
+\end{proofbox}
