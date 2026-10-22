@@ -9,7 +9,7 @@
       "椭圆焦点准线距离比",
       "焦半径与准距关系"
     ],
-    "summary": "椭圆上任意点到焦点的距离与到对应准线的距离之比恒等于离心率 e。",
+    "summary": "椭圆到同侧焦点与对应准线的距离比为e=c/a∈(0,1)，且该比例条件反过来刻画整条椭圆。",
     "difficulty": 2,
     "category": "解析几何",
     "tags": [
@@ -113,7 +113,8 @@
     "conditions": [
       "椭圆标准方程 $\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1$ 或 $\\frac{y^2}{a^2}+\\frac{x^2}{b^2}=1$",
       "焦点与准线对应（左对左，右对右）",
-      "分母 $a^2$ 最大，$c^2=a^2-b^2$"
+      "分母 $a^2$ 最大，$c^2=a^2-b^2$",
+      "a>b>0，c=√(a²-b²)>0，0<e=c/a<1，准距非零"
     ],
     "conclusions": [
       "焦半径 $|PF| = e \\cdot d(P,l)$",
@@ -124,9 +125,10 @@
   "content": {
     "statement": "对于椭圆上任一点 $P$，设 $F$ 为椭圆的一个焦点，$l$ 为对应准线，离心率 $e=\\frac{c}{a}\\in(0,1)$，则点 $P$ 到焦点 $F$ 的距离与到准线 $l$ 的距离之比等于 $e$，即 $\\frac{|PF|}{d(P,l)}=e$。当焦点在 $x$ 轴上时，准线方程为 $x=\\pm\\frac{a^2}{c}$；焦点在 $y$ 轴上时，准线方程为 $y=\\pm\\frac{a^2}{c}$。",
     "derivation": [
-      "设 $P(x,y)$ 满足椭圆方程 $\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1$，焦点 $F(c,0)$，准线 $x=\\frac{a^2}{c}$",
-      "计算 $|PF|=\\sqrt{(x-c)^2+y^2}$，$d(P,l)=|x-\\frac{a^2}{c}|$",
-      "代入椭圆方程并化简可得 $|PF| = e \\cdot d(P,l)$，即 $\\frac{|PF|}{d(P,l)}=e$"
+      "第一定义rL+rR=2a与平方差rL²-rR²=4cx，得rR=a-ex、rL=a+ex。",
+      "右准线x=a²/c>a，故e*d(P,ℓR)=e(a²/c-x)=a-ex=rR；左侧同理。",
+      "对任意平面点，PF_R²-e²d(P,ℓR)²=b²(x²/a²+y²/b²-1)。由距离非负和准距非零，得到两个方向的等价。",
+      "一般焦点(q,0)、准线x=0时，平方配方得(1-e²)(x-q/(1-e²))²+y²=q²e²/(1-e²)，0<e<1保证非退化椭圆。"
     ],
     "intuition": "第二定义将椭圆看作到焦点和准线距离比为常数的点集，与第一定义（到两焦点距离和为常数）等价，为处理焦半径问题提供转化工具。",
     "common_tricks": [
@@ -173,7 +175,11 @@
       "离心率概念",
       "焦点与准线"
     ],
-    "related_ids": ["C036", "C044", "C049"],
+    "related_ids": [
+      "C036",
+      "C044",
+      "C049"
+    ],
     "similar": [
       "双曲线的第二定义",
       "抛物线的第二定义",
@@ -184,10 +190,10 @@
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-23",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-10-22"
   },
   "isPro": 0,
-  "remarks": "",
+  "remarks": "PDF图 assets/tikz/C039_focus_directrix_ratio.tex 用精确长度表达比例，替代抽象定义；C039_paired_directrix.tex 同尺度配对/配错对照；C039_vertical_pair.tex 表达纵向焦准对应；C039_nearest_vertex.tex 表达例3最值位置和取等点。验收见 reports/C039_ellipse_second_definition_review_2026-10-22.md。",
   "knowledgeNode": "解析几何-圆锥曲线-椭圆-定义与基本关系",
   "altNodes": "解析几何-圆锥曲线-双曲线,解析几何-圆锥曲线-抛物线"
 }

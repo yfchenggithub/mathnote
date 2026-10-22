@@ -1,45 +1,44 @@
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{方法一：由第一定义作和差，避免根式展开（优先）。}
+设 $P(x,y)$ 在椭圆上，记 $r_L=PF_L,r_R=PF_R$。
+第一定义给出 $r_L+r_R=2a$，距离平方差给出 $r_L^2-r_R^2=4cx$。
+两式相除后解得
+\[
+r_R=a-\frac ca x=a-ex,\qquad r_L=a+ex.
+\]
+又因为 $a^2/c>a\ge x$，右准距为 $a^2/c-x$，所以
+\[
+e\,d(P,\ell_R)=\frac ca\left(\frac{a^2}{c}-x\right)=a-ex=r_R.
+\]
+左边同理。这里准线位置正是把焦半径 $a-ex$ 写成 $e$ 乘一个水平距离所得。
 
-	从椭圆的标准方程出发，设出焦点与准线，直接计算点到焦点的距离与到准线距离的比值，化简后证明恒等于 $e$。
-
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（设椭圆基本量）：}] 设椭圆标准方程 $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1$（$a>b>0$），右焦点 $F(c,0)$，右准线 $l: x=\dfrac{a^2}{c}$，离心率 $e=\dfrac{c}{a}\in(0,1)$。
-			\par\textbf{理由：}
-			确立计算所需的基本代数元素。
-
-		\item[\textbf{步骤二（消 $y^2$ 并化简）：}] 对椭圆上任意点 $P(x,y)$，由椭圆方程得 $y^2 = b^2\left(1-\dfrac{x^2}{a^2}\right)$，代入 $|PF|^2$：
-			\[
-				\begin{aligned}
-					|PF|^2 &= (x-c)^2 + b^2\left(1-\frac{x^2}{a^2}\right) \\
-					&= x^2 - 2cx + c^2 + b^2 - \frac{b^2}{a^2}x^2 \\
-					&= \left(1 - \frac{b^2}{a^2}\right)x^2 - 2cx + (c^2 + b^2) \quad \text{(合并同类项)} \\
-					&= \frac{c^2}{a^2}x^2 - 2cx + a^2 \quad \text{(代入 $c^2 = a^2 - b^2$)} \\
-					&= \frac{c^2}{a^2}\left(x - \frac{a^2}{c}\right)^2.
-			\end{aligned}
-			\]
-			\par\textbf{理由：}
-			利用椭圆方程消去 $y^2$，通过合并与配方将表达式化为完全平方。
-
-		\item[\textbf{步骤三（开方得等比式）：}] 开平方并取正值（距离非负）：
-			\[
-				|PF| = \frac{c}{a} \left|x - \frac{a^2}{c}\right| = e \cdot d(P,l).
-			\]
-			\par\textbf{理由：}
-			开方后直接得到焦半径与对应准距的比例关系。
-
-		\item[\textbf{步骤四（写出定义式）：}] 将上式变形即得第二定义的标准形式：
-			\[
-				\frac{|PF|}{d(P,l)} = e.
-			\]
-			\par\textbf{理由：}
-			代数运算结果恰好是椭圆的第二定义，证毕。
-	\end{description}
-
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-
-	\textbf{从代数运算角度看，利用 $a, b, c$ 的关系可直接从标准方程导出第二定义，说明椭圆第一定义与第二定义完全等价。}
+\textbf{方法二：平方差恒等式，一次核验两个方向。}
+对任意平面点 $P(x,y)$，利用 $c^2=a^2-b^2$ 直接展开：
+\[
+\begin{aligned}
+PF_R^2-e^2d(P,\ell_R)^2
+&=(x-c)^2+y^2-\frac{c^2}{a^2}(x-a^2/c)^2\\
+&=b^2\left(\frac{x^2}{a^2}+\frac{y^2}{b^2}-1\right).
+\end{aligned}
+\]
+右端为零恰是椭圆方程；左端为零又等价于 $PF_R=e\,d(P,\ell_R)$，因为两距离和 $e$ 都非负。
+若准距为零，则此等式会迫使 $P=F_R\in\ell_R$，矛盾，故能除以准距。
+这就补齐了反向验证，而非只证椭圆上的点满足比例。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{一般焦点与准线如何得到椭圆？}
+取焦点在准线上的垂足为原点，准线为 $x=0$，焦点为 $(q,0)$，$q>0$。
+条件等价于
+\[
+(x-q)^2+y^2=e^2x^2.
+\]
+因 $0<e<1$，配方得
+\[
+(1-e^2)\left(x-\frac{q}{1-e^2}\right)^2+y^2
+=\frac{q^2e^2}{1-e^2}.
+\]
+右端为正，两个平方项系数均正，除以右端即得到平移后的椭圆标准方程。
+半轴为 $a=qe/(1-e^2)$，$b=qe/\sqrt{1-e^2}$，半焦距 $c=qe^2/(1-e^2)$，故 $c/a=e$。
+由于 $e>0$，原准线 $x=0$ 上没有点满足距离等式，距离比始终有意义。
 \end{proofbox}
