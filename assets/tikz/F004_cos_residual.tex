@@ -1,0 +1,16 @@
+\begin{center}
+\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (0.5,7.72) {抵消后再除以 $x^4$：留下的系数是 $1/24$};
+\begin{axis}[width=11.2cm,height=6.1cm,at={(2.05cm,1.25cm)},anchor=south west,
+axis lines=left,xlabel={$x$},ylabel={$y$},tick label style={font=\small},label style={font=\small},
+legend style={font=\small,draw=none,fill=white,at={(0.03,0.97)},anchor=north west},
+legend cell align=left,unbounded coords=jump,xmin=-0.8,xmax=0.8,ymin=0.0406,ymax=0.0421,scaled y ticks=false,yticklabel style={/pgf/number format/fixed,/pgf/number format/precision=4},legend columns=2,legend style={draw=none,fill=none,at={(0.5,1.14)},anchor=south,column sep=8pt}]
+\addplot[blue,very thick] table[x=x,y=cr] {assets/tikz/F004_samples.dat};
+\addlegendentry{$(\cos x-1+x^2/2)/x^4$}
+\addplot[purple,densely dotted,domain=-0.8:0.8] {1/24};\addlegendentry{$1/24$}
+\addplot[only marks,mark=o,mark options={fill=white},blue,forget plot] coordinates {(0,0.0416666666667)};
+\end{axis}
+
+\end{tikzpicture}
+\end{center}

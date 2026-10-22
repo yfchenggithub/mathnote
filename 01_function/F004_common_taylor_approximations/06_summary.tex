@@ -1,22 +1,30 @@
 \begin{summarybox}
-	\textbf{\textcolor{CSummary}{一句话核心}}
-	\textbf{当 $x\to0$ 时，常见函数可用关于 $x$ 的多项式近似；系数由函数在 $0$ 处的导数决定，误差由余项阶数控制。}
+\textbf{一句话：} 用导数定系数，用余项管误差；抵消后仍要保留足以决定结果的信息。
 
-	\medskip
-	\textbf{\textcolor{CSummary}{使用条件}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{条件1（小量条件）：} 自变量 $x$ 应接近 $0$，$|x|$ 越小，低阶近似通常越可靠。
-		\item \textbf{条件2（弧度制）：} 涉及 $\sin x,\cos x,\tan x$ 时，$x$ 必须用弧度制表示。
-		\item \textbf{条件3（定义域条件）：} 使用 $\ln(1+x)$ 时需保证 $1+x>0$；使用 $\tan x$ 时需保证 $\cos x\ne0$。
-		\item \textbf{条件4（可导条件）：} 一般函数使用泰勒展开时，需要在 $x=0$ 附近有足够高阶导数。
-	\end{itemize}
+\textbf{四组速查（均为 $x\to0$，三角函数用弧度）：}
+\[
+ e^x=1+x+\frac{x^2}{2}+O(x^3).
+\]
+\[
+ \ln(1+x)=x-\frac{x^2}{2}+\frac{x^3}{3}+O(x^4).
+\]
+\[
+\begin{aligned}
+ \sin x&=x-\frac{x^3}{6}+\frac{x^5}{120}+O(x^7),\\
+ \cos x&=1-\frac{x^2}{2}+\frac{x^4}{24}+O(x^6).
+\end{aligned}
+\]
+\[
+ \tan x=x+\frac{x^3}{3}+O(x^5).
+\]
+\textbf{使用顺序：} 检查定义域和单位 $\to$ 看哪些项会抵消 $\to$ 保留所需阶数
+$\to$ 控制余项 $\to$ 求极限或按误差区间舍入。
 
-	\medskip
-	\textbf{\textcolor{CSummary}{关键提醒}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{范围限制：} 不存在统一的“绝对安全阈值”，应结合 $|x|$ 大小、保留阶数和题目精度要求判断。
-		\item \textbf{项数匹配：} 求极限时，应展开到能判断分子首个非零项的阶数为止。
-		\item \textbf{余项意识：} 正式推导中尽量写成 $O(x^m)$ 或 $o(x^m)$，不要只依赖 $\approx$。
-		\item \textbf{公式记忆：} $\sin x$ 的 $x^3$ 项为负，$\cos x$ 有常数项 $1$，这是最常见的符号错误。
-	\end{itemize}
+\textbf{最后四查：}
+\begin{itemize}[leftmargin=*]
+\item 对数是否满足 $x>-1$？正切是否避开 $\cos x=0$？
+\item 正弦三次项是否为负？余弦常数项是否为 $1$？
+\item 求极限时，余项除以分母后是否确实趋零？
+\item 数值估算是否有具体误差界，且没有提前舍入？
+\end{itemize}
 \end{summarybox}

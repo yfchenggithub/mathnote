@@ -1,0 +1,19 @@
+\begin{center}
+\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (0.5,7.72) {同尺度辨错：正的三次修正把曲线推向相反一侧};
+\begin{axis}[width=11.2cm,height=6.1cm,at={(2.05cm,1.25cm)},anchor=south west,
+axis lines=left,xlabel={$x$},ylabel={$y$},tick label style={font=\small},label style={font=\small},
+legend style={font=\small,draw=none,fill=white,at={(0.03,0.97)},anchor=north west},
+legend cell align=left,unbounded coords=jump,xmin=0,xmax=1.2,ymin=0,ymax=1.6]
+\addplot[blue,very thick] table[x=x,y=sin] {assets/tikz/F004_samples.dat};
+\addlegendentry{$\sin x$}
+\addplot[orange!85!black,thick,dashed] table[x=x,y=s3] {assets/tikz/F004_samples.dat};
+\addlegendentry{$x-x^3/6$}
+\addplot[red!75!black,thick,dashdotted] table[x=x,y=wrong] {assets/tikz/F004_samples.dat};
+\addlegendentry{错误：$x+x^3/6$}
+
+\end{axis}
+
+\end{tikzpicture}
+\end{center}

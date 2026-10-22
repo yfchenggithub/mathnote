@@ -12,7 +12,7 @@
       "cosx近似",
       "tanx近似"
     ],
-    "summary": "当|x|远小于1时，e^x、ln(1+x)、sinx、cosx、tanx可以用简单的多项式近似代替，系数由函数在0处的导数决定。",
+    "summary": "当x趋于0时，五类常见函数可由匹配零点导数的多项式近似；用余项阶数处理极限，用明确误差界保证估值精度，三角函数使用弧度。",
     "difficulty": 3,
     "category": "导数应用",
     "tags": [
@@ -105,25 +105,31 @@
     "success_rate": 0
   },
   "math": {
-    "core_formula": "f(x) \\approx f(0) + f'(0)x + \\frac{f''(0)}{2}x^2 + \\cdots + \\frac{f^{(n)}(0)}{n!}x^n",
+    "core_formula": "f(x)=\\sum_{k=0}^{n}\\frac{f^{(k)}(0)}{k!}x^k+o(x^n)",
     "related_formulas": [
-      "e^x \\approx 1+x+\\frac{x^2}{2}",
-      "\\ln(1+x)\\approx x-\\frac{x^2}{2}+\\frac{x^3}{3}",
-      "\\sin x\\approx x-\\frac{x^3}{6}+\\frac{x^5}{120}",
-      "\\cos x\\approx 1-\\frac{x^2}{2}+\\frac{x^4}{24}",
-      "\\tan x\\approx x+\\frac{x^3}{3}"
+      "e^x=1+x+\\frac{x^2}{2}+O(x^3)",
+      "\\ln(1+x)=x-\\frac{x^2}{2}+\\frac{x^3}{3}+O(x^4)",
+      "\\sin x=x-\\frac{x^3}{6}+\\frac{x^5}{120}+O(x^7)",
+      "\\cos x=1-\\frac{x^2}{2}+\\frac{x^4}{24}+O(x^6)",
+      "\\tan x=x+\\frac{x^3}{3}+O(x^5)"
     ],
     "variables": [
       "x",
       "f(x)",
-      "f(0)",
-      "f'(0)",
-      "f''(0)",
-      "f^{(n)}(0)"
+      "n",
+      "r",
+      "R(x)",
+      "E_2(x)",
+      "L_3(x)",
+      "S_5(x)",
+      "C_4(x)",
+      "T_3(x)"
     ],
     "conditions": [
-      "|x| \\ll 1",
-      "函数在 x=0 处有足够高阶导数"
+      "x\\to0；三角函数的x用弧度",
+      "\\ln(1+x)要求x>-1；正切在零点附近取|x|<\\pi/2",
+      "通式的充分条件：f在含0的开区间上属于C^n；拉格朗日余项使用C^{n+1}",
+      "固定0<r<1、|x|≤r时使用正文所列统一误差界"
     ],
     "conclusions": [
       "可用多项式近似计算函数值",
@@ -132,18 +138,19 @@
     ]
   },
   "content": {
-    "statement": "当 |x| 较小时，以下近似公式成立：e^x ≈ 1+x+\\frac{x^2}{2}，\\ln(1+x)≈ x-\\frac{x^2}{2}+\\frac{x^3}{3}，\\sin x≈ x-\\frac{x^3}{6}+\\frac{x^5}{120}，\\cos x≈ 1-\\frac{x^2}{2}+\\frac{x^4}{24}，\\tan x≈ x+\\frac{x^3}{3}。这些公式来源于泰勒展开在x=0处的截断。",
+    "statement": "e^x=1+x+\\frac{x^2}{2}+O(x^3)；\\ln(1+x)=x-\\frac{x^2}{2}+\\frac{x^3}{3}+O(x^4)；\\sin x=x-\\frac{x^3}{6}+\\frac{x^5}{120}+O(x^7)；\\cos x=1-\\frac{x^2}{2}+\\frac{x^4}{24}+O(x^6)；\\tan x=x+\\frac{x^3}{3}+O(x^5)。均为x趋于0的局部展开；对数要求x>-1，三角函数用弧度。",
     "derivation": [
-      "将函数在x=0处泰勒展开：f(x)=f(0)+f'(0)x+(f''(0)/2)x^2+...",
-      "取前若干项，忽略高阶无穷小，得到多项式近似",
-      "代入具体函数的导数值即得对应公式"
+      "导数匹配给出系数f^(k)(0)/k!；逐次导数比较控制指数、正弦和余弦的余项。",
+      "单位圆面积夹逼解释sin x/x和tan x/x趋于1及弧度的必要性。",
+      "有限恒等式1/(1+x)=1-x+x²-x³/(1+x)证明对数展开、误差界及方向。",
+      "用正弦除以余弦及精确倒数恒等式，得到正切的三次系数与五阶余项。"
     ],
-    "intuition": "函数在零点附近可以用切线（线性近似）加上曲率修正（二次项）等高阶项拟合，多项式是局部最佳逼近。",
+    "intuition": "多项式与原曲线在零点处同高、同斜率并匹配若干高阶导数；误差图分辨重合曲线，缩放残差图显示抵消后留下的首个非零系数。",
     "common_tricks": [
-      "注意|x|要足够小，否则误差急剧增大",
-      "用于极限计算时，分子分母展开到相同次数（分母的阶数）",
-      "记忆近似公式时注意系数规律：分母是阶乘",
-      "可以互相结合，如先近似内层函数再展开外层"
+      "定义域、弧度、展开点先检查；局部展开没有统一的全局安全阈值。",
+      "展开到能够决定抵消后结果的阶数，并检查余项除以分母后的极限。",
+      "估值用具体误差界，整个误差区间须落入同一舍入区间。",
+      "复合展开时先控制内层量阶数，再回代并合并余项。"
     ]
   },
   "usage": {
@@ -161,7 +168,7 @@
     "exam_score": 4
   },
   "interactive": {
-    "has_diagram": false,
+    "has_diagram": true,
     "geogebra_id": "",
     "param_demo": {}
   },
@@ -177,17 +184,19 @@
       "函数导数",
       "极限"
     ],
-    "related_ids": ["F003"],
+    "related_ids": [
+      "F003"
+    ],
     "similar": "麦克劳林公式、线性近似公式"
   },
   "meta": {
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-07",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-10-22"
   },
   "isPro": 0,
-  "remarks": "",
+  "remarks": "F004 PDF精修（2026-10-22）：补齐五条展开的余项证明、四类明确误差界、多个推导角度及舍入回验；图形只用于本UID的PDF。assets/tikz/F004_exp_contact.tex：指数切线与二次项的接触：替代曲线如何弯曲的长段描述；assets/tikz/F004_trig_contact.tex：同尺度显示正弦、余弦起点及局部近似：替代形状和常数项描述；assets/tikz/F004_tan_contact.tex：正切三次修正方向及局部贴合：缩短正切走势描述；assets/tikz/F004_log_boundary.tex：靠近对数边界时偏离：替代定义域边界的想象；assets/tikz/F004_radian_circle.tex：等比例单位圆、扇形和三角形夹逼：替代面积构造的文字脑补；assets/tikz/F004_log_area.tex：真实导数和多项式导数之间面积对应函数误差：替代积分几何说明；assets/tikz/F004_sin_accuracy.tex：同尺度比较三次与五次正弦误差：缩短精度阶数比较；assets/tikz/F004_cos_residual.tex：余弦缩放残差趋于1/24：替代抵消后残留量的描述；assets/tikz/F004_composite.tex：复合函数与二次多项式同轴比较：缩短回代后曲线的描述；assets/tikz/F004_exp_far.tex：指数远离零点时偏离：替代局部与全局差异的想象；assets/tikz/F004_exp_residual.tex：真实残差与错误截断同尺度对照：替代误判为零的长段解释；assets/tikz/F004_wrong_sign.tex：正弦错号模型与正确模型对照：替代符号错向的描述。数值图使用F004_samples.dat，独立检查及再生入口checks/verify_f004.py；数学采样不替代正文证明。",
   "knowledgeNode": "函数-导数与极限-近似与极限-计算方法",
   "altNodes": [
     "函数-综合-函数与方程"
