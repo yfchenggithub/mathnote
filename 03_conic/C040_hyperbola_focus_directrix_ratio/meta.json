@@ -102,7 +102,10 @@
     "core_formula": "\\frac{|PF|}{|PH|}=e",
     "related_formulas": [
       "e=\\frac{c}{a}",
-      "c^2=a^2+b^2"
+      "c^2=a^2+b^2",
+      "PF_R=|ex-a|",
+      "x=\\pm a^2/c",
+      "d(F_R,\\ell_R)=b^2/c"
     ],
     "variables": [
       "P",
@@ -119,7 +122,9 @@
       "F为对应焦点",
       "l为对应准线",
       "PH⊥l",
-      "e>1"
+      "e>1",
+      "a,b>0，c²=a²+b²，e=c/a>1",
+      "一般轨迹定义须F不在准线上，准距非零"
     ],
     "conclusions": [
       "|PF|=e·|PH|",
@@ -131,9 +136,10 @@
   "content": {
     "statement": "对于双曲线，其上任意一点 \\(P\\) 到焦点 \\(F\\) 的距离与到对应准线 \\(l\\) 的距离之比等于离心率 \\(e\\)（\\(e>1\\)），即 \\(\\dfrac{|PF|}{|PH|}=e\\)（其中 \\(PH\\perp l\\) 于 \\(H\\)）。在标准方程 \\(\\dfrac{x^{2}}{a^{2}}-\\dfrac{y^{2}}{b^{2}}=1\\) 下，\\(c^{2}=a^{2}+b^{2}\\)，离心率 \\(e=\\dfrac{c}{a}\\)，右焦点 \\(F(c,0)\\) 对应的准线为 \\(x=\\dfrac{a^{2}}{c}\\)，左焦点 \\(F'(-c,0)\\) 对应的准线为 \\(x=-\\dfrac{a^{2}}{c}\\)。",
     "derivation": [
-      "第一步：设双曲线标准方程为 x^2/a^2 - y^2/b^2 =1，右焦点 F(c,0)，右准线 x=a^2/c，点 P(x0,y0)在双曲线上。",
-      "第二步：计算 |PF| = √[(x0-c)^2+y0^2]，|PH| = |x0 - a^2/c|，代入双曲线方程化简。",
-      "第三步：化简可得 |PF|/|PH| = c/a = e，即第二定义成立。"
+      "第一定义分支作和差：右支PF_R=ex-a，左支PF_R=a-ex，合并为|ex-a|。",
+      "由|ex-a|=e|x-a²/c|，得整条双曲线的焦准比为e，准距非零。",
+      "对任意点，PF_R²-e²d(P,ℓR)²=-b²(x²/a²-y²/b²-1)，非负距离取正根，证明双向等价。",
+      "一般F不在准线上，取F(q,0)、准线x=0，k=e²-1>0，配方为k(x+q/k)²-y²=q²e²/k。"
     ],
     "intuition": "双曲线的形状决定了任意点到焦点的距离与到对应准线的距离比例固定为离心率，反映开口程度。",
     "common_tricks": [
@@ -179,17 +185,21 @@
       "焦点与准线概念",
       "点到直线距离"
     ],
-    "related_ids": ["C037", "C044", "C050"],
+    "related_ids": [
+      "C037",
+      "C044",
+      "C050"
+    ],
     "similar": "椭圆第二定义：|PF|/|PH|=e(0<e<1)；抛物线定义：|PF|=|PH|(e=1)。"
   },
   "meta": {
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-23",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-10-22"
   },
   "isPro": 0,
-  "remarks": "",
+  "remarks": "PDF教学图 assets/tikz/C040_both_branches.tex 展示同一焦准对覆盖两支，替代分支脑补；C040_wrong_pair.tex 同尺度配错对照；C040_vertical_pair.tex 展示纵向焦准；C040_example_two_abscissas.tex 真实圆与双曲线交点验证两横坐标；C040_degenerate_focus.tex 同尺度对照非退化与相交直线。验收见 reports/C040_hyperbola_focus_directrix_ratio_review_2026-10-22.md。",
   "knowledgeNode": "解析几何-圆锥曲线-双曲线-定义与基本关系",
   "altNodes": [
     "解析几何-圆锥曲线-椭圆",

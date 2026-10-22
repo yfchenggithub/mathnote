@@ -1,0 +1,26 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {同一右焦点与右准线：左右两支都满足 $PF_R/PH=5/3$};
+\begin{scope}[shift={(7.2,3.8)},scale=.6]
+\draw[blue,very thick,domain=-4:4,samples=121,variable=\t] plot ({-1*3*sqrt(1+\t*\t/16)},\t);
+\draw[blue,very thick,domain=-4:4,samples=121,variable=\t] plot ({1*3*sqrt(1+\t*\t/16)},\t);
+
+\draw[violet,thick] (1.8,-4.2)--(1.8,4.2);
+\draw[orange!85!black,thick] (5,0)--(3.75,3);
+\draw[orange!85!black,thick,dashed] (5,0)--(-3.75,-3);
+\draw[violet,very thick] (3.75,3)--(1.8,3);
+\draw[violet,very thick,dashed] (-3.75,-3)--(1.8,-3);
+\fill (5,0) circle (2pt) node[right=6pt] {$F_R$};
+\fill (3.75,3) circle (2pt) node[above left=6pt] {$P$};
+\fill (-3.75,-3) circle (2pt) node[left=9pt] {$Q$};
+\draw[black!55] (1.8,2.75)--(2.05,2.75)--(2.05,3);
+\draw[black!55] (1.55,-3)--(1.55,-2.75)--(1.8,-2.75);
+\fill (1.8,3) circle (2pt) node[left=5pt] {$H$};
+\fill (1.8,-3) circle (2pt) node[right=5pt] {$K$};
+\node[below left] at (1.8,0) {$\ell_R$};
+\end{scope}
+\node at (7.2,6.85) {$PF_R=13/4,\ PH=39/20$};
+\node at (7.2,1.0) {$QF_R=37/4,\ QK=111/20$};
+
+\node[anchor=west] at (.7,.55) {$x^2/9-y^2/16=1$；$F_R=(5,0),\ \ell_R:x=9/5$，两点距离比都大于 $1$};
+\end{tikzpicture}\end{center}

@@ -1,0 +1,22 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {配对取决于焦点，不能把左右准线随意交换};
+\begin{scope}[shift={(3.6,4)},scale=.38]
+\draw[blue,very thick,domain=-4:4,samples=121,variable=\t] plot ({-1*3*sqrt(1+\t*\t/16)},\t);
+\draw[blue,very thick,domain=-4:4,samples=121,variable=\t] plot ({1*3*sqrt(1+\t*\t/16)},\t);
+\draw[violet,thick] (1.8,-4.3)--(1.8,4.3);\draw[violet,very thick] (3.75,3)--(1.8,3);
+\draw[orange!85!black,very thick] (3.75,3)--(5,0);\fill (5,0) circle (2pt) node[below] {$F_R$};\fill (3.75,3) circle (2pt) node[above left=5pt] {$P$};
+\end{scope}
+\node at (3.6,6.65) {右焦点配右准线};
+\node at (3.6,1.35) {$(13/4)/(39/20)=5/3$};
+\begin{scope}[shift={(10.8,4)},scale=.38]
+\draw[blue,very thick,domain=-4:4,samples=121,variable=\t] plot ({-1*3*sqrt(1+\t*\t/16)},\t);
+\draw[blue,very thick,domain=-4:4,samples=121,variable=\t] plot ({1*3*sqrt(1+\t*\t/16)},\t);
+\draw[violet,thick] (-1.8,-4.3)--(-1.8,4.3);\draw[violet,very thick] (3.75,3)--(-1.8,3);
+\draw[orange!85!black,very thick] (3.75,3)--(5,0);\fill (5,0) circle (2pt) node[below] {$F_R$};\fill (3.75,3) circle (2pt) node[above left=5pt] {$P$};
+\end{scope}
+\node at (10.8,6.65) {右焦点配左准线};
+\node at (10.8,1.35) {$(13/4)/(111/20)=65/111$};
+
+\node[anchor=west] at (.7,.55) {同一点、同一双曲线、同一尺度；右图比值不等于离心率 $e=5/3$};
+\end{tikzpicture}\end{center}

@@ -1,0 +1,21 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {同取 $e=5/3$：还必须要求焦点不在准线上};
+\node at (3.6,6.6) {$F=(3,0),\ \ell:x=0$};
+\node at (10.8,6.6) {$F=(0,0),\ \ell:x=0$};
+\begin{scope}[shift={(3.6,4)},scale=.33]
+\draw[violet,thick] (0,-5)--(0,5);
+\draw[blue,very thick,domain=-2.5:2.5,samples=121,variable=\t] plot ({-27/16+45/16*sqrt(1+\t*\t/(225/16))},\t);
+\draw[blue,very thick,domain=-2.5:2.5,samples=121,variable=\t] plot ({-27/16-45/16*sqrt(1+\t*\t/(225/16))},\t);
+\fill (3,0) circle (2pt) node[below right=6pt] {$F$};
+\end{scope}
+\begin{scope}[shift={(10.8,4)},scale=.33]
+\draw[violet,thick] (0,-5)--(0,5);
+\draw[blue,very thick] (-2.7,-3.6)--(2.7,3.6);
+\draw[blue,very thick] (-2.7,3.6)--(2.7,-3.6);
+\fill (0,0) circle (2pt) node[right=9pt] {$F$};
+\end{scope}
+\node at (3.6,1.3) {非退化双曲线};\node at (10.8,1.3) {两条相交直线};
+
+\node[anchor=west] at (.7,.55) {同尺度；右图 $\sqrt{x^2+y^2}=\frac53|x|$ 化为 $y=\pm\frac43x$};
+\end{tikzpicture}\end{center}
