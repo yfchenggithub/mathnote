@@ -8,7 +8,7 @@
       "抛物线韦达定理",
       "直线与抛物线联立公式"
     ],
-    "summary": "直线与抛物线联立时，消元后二次方程系数和韦达定理结果可由直线系数和抛物线参数直接写出，避免重复解方程组。",
+    "summary": "保留四种开口的横坐标韦达固定形式，优先沿抛物线函数方向消元；补全实交点、轴向直线及平方投影退化条件，计算弦长和中点。",
     "difficulty": 3,
     "category": "解析几何",
     "tags": [
@@ -104,9 +104,13 @@
   "math": {
     "core_formula": "A^2x^2+(2AC-2B^2p)x+C^2=0, x_1+x_2=-\\frac{2AC-2B^2p}{A^2}, x_1x_2=\\frac{C^2}{A^2}",
     "related_formulas": [
-      "A^2x^2+(2AC+2B^2p)x+C^2=0, x_1+x_2=-\\frac{2AC+2B^2p}{A^2}, x_1x_2=\\frac{C^2}{A^2} \\text{ (开口向左)}",
-      "Bx^2+2Apx+2Cp=0, x_1+x_2=-\\frac{2Ap}{B}, x_1x_2=\\frac{2Cp}{B} \\text{ (开口向上)}",
-      "x_0=-\\frac{AC-B^2p}{A^2}, y_0=-\\frac{Bp}{A} \\text{ (中点坐标, 开口向右)}"
+      "Ay^2+2spBy+2spC=0,\\quad y_1+y_2=-\\frac{2spB}{A},\\quad y_1y_2=\\frac{2spC}{A}",
+      "A^2x^2+(2AC-2spB^2)x+C^2=0,\\quad x_1+x_2=\\frac{2spB^2-2AC}{A^2},\\quad x_1x_2=\\frac{C^2}{A^2}",
+      "Bx^2+2spAx+2spC=0,\\quad x_1+x_2=-\\frac{2spA}{B},\\quad x_1x_2=\\frac{2spC}{B}",
+      "H=p^2B^2-2spAC,\\quad PQ=\\frac{2\\sqrt{(A^2+B^2)H}}{A^2}",
+      "K=p^2A^2-2spBC,\\quad PQ=\\frac{2\\sqrt{(A^2+B^2)K}}{B^2}",
+      "S=\\left(\\frac{spB^2-AC}{A^2},-\\frac{spB}{A}\\right)\\text{（左右开口）}",
+      "S=\\left(-\\frac{spA}{B},\\frac{spA^2-BC}{B^2}\\right)\\text{（上下开口）}"
     ],
     "variables": [
       "A",
@@ -116,32 +120,42 @@
       "x_1",
       "x_2",
       "y_1",
-      "y_2"
+      "y_2",
+      "s",
+      "H",
+      "K",
+      "P",
+      "Q",
+      "S"
     ],
     "conditions": [
-      "(A,B)≠(0,0)，p>0",
-      "左右开口使用关于x的固定方程要求A≠0；上下开口要求B≠0。",
-      "Δx>0判断两个不同横坐标；左右开口竖直弦可有两点而x1=x2，须单独检验。"
+      "p>0，s=±1，(A,B)≠(0,0)。",
+      "左右开口优先纵坐标二次式，A≠0；H=p²B²−2spAC。上下开口优先横坐标二次式，B≠0；K=p²A²−2spBC。",
+      "二次项非零时，H或K正、零、负分别为两实点、相切、无实点。实弦须严格大于零。",
+      "左右开口A=0或上下开口B=0时，轴向直线恰一个交点且非相切。",
+      "左右开口B=0时，平方横坐标方程的重根不能确认实点存在；应回原式或用纵坐标二次式。"
     ],
     "conclusions": [
-      "韦达定理可直接写出 x1+x2, x1x2 (消y) 或 y1+y2, y1y2 (消x)",
-      "可利用韦达定理快速计算弦长",
-      "可利用韦达定理快速得到中点坐标"
+      "四种开口的坐标和、积固定形式；须区分代数投影关系与真实交点。",
+      "合法二次式给出完整实交点分类，中点与弦长包含水平、竖直弦。",
+      "反射及交换坐标推导四种方向，平方后按原直线恢复符号。"
     ]
   },
   "content": {
-    "statement": "直线与抛物线相交时，根据抛物线开口方向，消元后得到的二次方程及韦达定理具有固定形式，可直接用于计算弦长、中点坐标等。",
+    "statement": "直线与四种标准抛物线联立的韦达固定形式；左右开口优先消x，上下开口优先消y。检查实交点及退化条件后求中点和弦长。",
     "derivation": [
-      "联立直线 Ax+By+C=0 与抛物线标准方程",
-      "根据抛物线开口方向选择消去 x 或 y，代入直线方程",
-      "整理成关于 x 或 y 的二次方程，利用韦达定理得到和与积"
+      "沿抛物线的函数方向代入，建立与交点一一对应的二次式；用韦达读和与积。",
+      "配方为(Ay+spB)²=H或(Bx+spA)²=K，解释两点、相切、无点。",
+      "反射时同步变换直线系数，交换坐标时同步交换A/B，覆盖四种开口。",
+      "平方推导固定横坐标关系，明确B=0时可能出现没有实点的横坐标重根。",
+      "两点方程作差短证中点，勾股关系与根差推导弦长。"
     ],
-    "intuition": "因为抛物线标准方程只有二次项和一次项，代入直线后消元结果可表示为直线系数和 p 的线性组合，形式固定。",
+    "intuition": "标准抛物线把一个坐标写成另一个坐标的平方；顺此方向消元，每个实根唯一确定一个交点。平方投影方程在竖直弦等情形会丢失实点信息。",
     "common_tricks": [
-      "先根据抛物线方程确定开口方向，选择对应公式",
-      "注意 p 的正负号，符号影响中间项系数",
-      "中点坐标可直接由韦达定理和的一半得到，省去解直线方程",
-      "弦长公式 |AB|=√(1+k²)·|x1-x2| 配合使用"
+      "先认2p与开口方向，p始终为正，s单独记录方向。",
+      "优先选择系数小、展开短且能唯一恢复交点的消元方向。",
+      "轴向直线先单独处理；二次项非零后才用判别式。",
+      "中点只需在弦所在直线上；候选参数须排除相切。"
     ]
   },
   "usage": {
@@ -161,7 +175,7 @@
     "exam_score": 6
   },
   "interactive": {
-    "has_diagram": false,
+    "has_diagram": true,
     "geogebra_id": "",
     "param_demo": {}
   },
@@ -190,10 +204,10 @@
     "version": 1,
     "source": "AI generated",
     "created_at": "2026-06-07",
-    "updated_at": "2026-10-21"
+    "updated_at": "2026-10-22"
   },
   "isPro": 0,
-  "remarks": "",
+  "remarks": "PDF含9幅等比例精确教学图，依次替代根与交点对应、竖直线三位置、一次交点与切点区别、左右反射、坐标交换、平方丢失符号、弦长及中点构造、中点例题、相切候选筛选的长文字。路径：assets/tikz/C035_roots_projection.tex；assets/tikz/C035_intersection_states.tex；assets/tikz/C035_axis_parallel.tex；assets/tikz/C035_reflection.tex；assets/tikz/C035_coordinate_swap.tex；assets/tikz/C035_squaring_sign.tex；assets/tikz/C035_chord_midpoint.tex；assets/tikz/C035_midpoint_example.tex；assets/tikz/C035_tangent_candidate.tex。数学核验脚本 checks/verify_c035.py。",
   "knowledgeNode": "解析几何-圆锥曲线-抛物线-直线联立与韦达",
   "altNodes": "解析几何-直线-一般式"
 }

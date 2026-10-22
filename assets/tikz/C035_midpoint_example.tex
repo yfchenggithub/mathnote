@@ -1,0 +1,18 @@
+\begin{center}\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {中点先取横坐标平均，再代入弦所在直线};
+% CURVE vertical 4 1
+\begin{scope}[shift={(6,1.65)},scale=0.135]
+\begin{scope}
+\clip (-18,-2) rectangle (18,37);
+\draw[blue,very thick,domain=-18:18,samples=181,variable=\t] plot (\t,{\t*\t/(8)});
+\end{scope}
+\draw[-Stealth,black!45] (-18,0)--(18,0) node[right] {$x$};
+\draw[-Stealth,black!45] (0,-2)--(0,37) node[above] {$y$};
+\draw[orange!85!black,very thick] (-1.5,-2)--(18,37);
+\coordinate (P) at (-0.4852813742,0.0294372515);\node[fill=black,circle,inner sep=2pt] at (P) {};\node[below left=9pt] at (P) {$P$};
+\coordinate (Q) at (16.4852813742,33.9705627485);\node[fill=black,circle,inner sep=2pt] at (Q) {};\node[left=12pt] at (Q) {$Q$};
+\coordinate (S) at (8.0000000000,17.0000000000);\node[fill=violet,circle,inner sep=2pt] at (S) {};\node[left=12pt,text=violet] at (S) {$S$};
+\end{scope}\node[anchor=west] at (.8,6.7) {$x^2=8y$};\node[anchor=west] at (.8,5.7) {$y=2x+1$};\node[anchor=west,violet] at (9.8,4.1) {$S=(8,17)$};
+\node[anchor=west] at (.7,.55) {曲线与坐标等比例绘制；中点 $S$ 在 $PQ$ 上，但 $8^2\ne8\times17$};
+\end{tikzpicture}\end{center}

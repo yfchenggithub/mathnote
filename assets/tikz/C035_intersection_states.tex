@@ -1,0 +1,20 @@
+\begin{center}\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {竖直线的三个位置：横坐标方程都重根，交点数却不同};
+% CURVE lateral 2 1
+\begin{scope}[shift={(6.5,3.7)},scale=0.9]
+\begin{scope}
+\clip (-2,-2.5) rectangle (4,2.5);
+\draw[blue,very thick,domain=-2.5:2.5,samples=181,variable=\t] plot ({\t*\t/(4)},\t);
+\end{scope}
+\draw[-Stealth,black!45] (-2,0)--(4,0) node[right] {$x$};
+\draw[-Stealth,black!45] (0,-2.5)--(0,2.5) node[above] {$y$};
+\draw[red!75!black,thick,dashed] (-1,-2.5)--(-1,2.5);
+\draw[violet,very thick] (0,-2.5)--(0,2.5);
+\draw[orange!85!black,very thick] (1,-2.5)--(1,2.5);
+\coordinate (T) at (0.0000000000,0.0000000000);\fill[black] (T) circle (2pt);
+\coordinate (P) at (1.0000000000,2.0000000000);\fill[black] (P) circle (2pt);
+\coordinate (Q) at (1.0000000000,-2.0000000000);\fill[black] (Q) circle (2pt);
+\end{scope}\node[anchor=west,red!75!black] at (.8,6.8) {$x=-1$：无交点};\node[anchor=west,violet] at (5.0,6.8) {$x=0$：相切};\node[anchor=west,orange!85!black] at (9.0,6.8) {$x=1$：两交点};
+\node[anchor=west] at (.7,.55) {$y^2=4x$；应看 $y^2=4x_0$，不能只看 $(x-x_0)^2=0$};
+\end{tikzpicture}\end{center}

@@ -1,0 +1,18 @@
+\begin{center}\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {先选纵坐标：每个实根唯一确定一个交点};
+% CURVE lateral 2 1
+\begin{scope}[shift={(3.8,5.1)},scale=0.6]
+\begin{scope}
+\clip (-1,-6.2) rectangle (8.3,2.2);
+\draw[blue,very thick,domain=-6.0:2.2,samples=181,variable=\t] plot ({\t*\t/(4)},\t);
+\end{scope}
+\draw[-Stealth,black!45] (-1,0)--(8.3,0) node[right] {$x$};
+\draw[-Stealth,black!45] (0,-6.2)--(0,2.2) node[above] {$y$};
+\draw[orange!85!black,very thick] (-0.2,2.2)--(8.2,-6.2);
+\coordinate (P) at (0.5358983849,1.4641016151);\fill[black] (P) circle (2pt) node[right=10pt] {$P$};
+\coordinate (Q) at (7.4641016151,-5.4641016151);\fill[black] (Q) circle (2pt) node[above right=9pt] {$Q$};
+\draw[teal!70!black,dashed,thick] (P)--(0,1.4641016151);\draw[teal!70!black,dashed,thick] (Q)--(0,-5.4641016151);
+\node[left=9pt] at (0,1.4641016151) {$y_1$};\node[left=9pt] at (0,-5.4641016151) {$y_2$};\end{scope}\node[anchor=west] at (10.1,6.3) {$x=2-y$};\node[anchor=west] at (10.1,5.3) {$y^2+4y-8=0$};\node[anchor=west] at (10.1,4.3) {每个实根对应一点};
+\node[anchor=west] at (.7,.55) {$y^2=4x,\quad x+y-2=0$；先读纵坐标根，再恢复 $x=2-y$};
+\end{tikzpicture}\end{center}

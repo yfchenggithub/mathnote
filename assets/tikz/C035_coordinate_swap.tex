@@ -1,0 +1,28 @@
+\begin{center}\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {交换坐标：右开口变上开口，竖直弦变水平弦};
+% CURVE lateral 2 1
+\begin{scope}[shift={(3.6,3.7)},scale=0.72]
+\begin{scope}
+\clip (-2.6,-2.6) rectangle (2.6,2.6);
+\draw[blue,very thick,domain=-2.6:2.6,samples=181,variable=\t] plot ({\t*\t/(4)},\t);
+\end{scope}
+\draw[-Stealth,black!45] (-2.6,0)--(2.6,0) node[right] {$x$};
+\draw[-Stealth,black!45] (0,-2.6)--(0,2.6) node[above] {$y$};
+\draw[orange!85!black,very thick] (1,-2.6)--(1,2.6);
+\coordinate (P) at (1.0000000000,2.0000000000);\fill[black] (P) circle (2pt) node[right=10pt] {$P$};
+\coordinate (Q) at (1.0000000000,-2.0000000000);\fill[black] (Q) circle (2pt) node[right=10pt] {$Q$};
+\end{scope}% CURVE vertical 2 1
+\begin{scope}[shift={(10.6,3.7)},scale=0.72]
+\begin{scope}
+\clip (-2.6,-2.6) rectangle (2.6,2.6);
+\draw[blue,very thick,domain=-2.6:2.6,samples=181,variable=\t] plot (\t,{\t*\t/(4)});
+\end{scope}
+\draw[-Stealth,black!45] (-2.6,0)--(2.6,0) node[right] {$x$};
+\draw[-Stealth,black!45] (0,-2.6)--(0,2.6) node[above] {$y$};
+\draw[orange!85!black,very thick] (-2.6,1)--(2.6,1);
+\coordinate (P') at (2.0000000000,1.0000000000);\fill[black] (P') circle (2pt) node[above=12pt] {$P'$};
+\coordinate (Q') at (-2.0000000000,1.0000000000);\fill[black] (Q') circle (2pt) node[above=12pt] {$Q'$};
+\end{scope}\node at (3.6,6.7) {$y^2=4x$};\node at (10.6,6.7) {$x^2=4y$};
+\node[anchor=west] at (.7,.55) {$(x,y)\mapsto(y,x)$，同时 $A\leftrightarrow B$；向下开口再作反射};
+\end{tikzpicture}\end{center}

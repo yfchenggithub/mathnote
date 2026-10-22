@@ -1,155 +1,92 @@
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{证明一（优先）：沿抛物线的函数方向代入。}
+对 $y^2=2spx$，由于 $s^2=1$，可以直接写成 $x=sy^2/(2p)$。
+代入直线并乘以非零数 $2sp$：
+\[
+ A\frac{sy^2}{2p}+By+C=0
+ \ \Longleftrightarrow\ Ay^2+2spBy+2spC=0.
+\]
+当 $A\ne0$ 时，由韦达得到纵坐标和、积。反过来，每个实根 $y$ 唯一给出 $x=sy^2/(2p)$，满足原方程组，没有增根或漏点。
+如果忘记韦达，展开 $A(y-y_1)(y-y_2)$，比较一次项和常数项即可。
 
-	把直线与抛物线联立，消去 $y$ 后得到关于 $x$ 的方程；
-	若该方程是真正的二次方程，就可以用韦达定理得到交点横坐标的和与积。
+\textbf{配方再给一种低门槛看法。} 将二次式乘以 $A$ 并配方：
+\[
+ (Ay+spB)^2=p^2B^2-2spAC=H.
+\]
+平方非负，所以 $H<0$ 无实根；$H=0$ 只有一个重根；$H>0$ 得到两个不同实根。
+当 $H>0$ 时还直接读出
+\[
+ y=\frac{-spB\pm\sqrt H}{A},\qquad
+ |y_2-y_1|=\frac{2\sqrt H}{|A|}.
+\]
+$A=0$ 时不能除以 $A$，但原直线直接给出 $y=-C/B$，再求 $x$ 即可。
+沿此水平线，$y^2-2spx$ 关于 $x$ 是斜率非零的一次式，经过交点时变号，直线穿过曲线，非相切。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（联立方程）：}]
-		      以开口向右的抛物线
-		      \[
-			      y^2=2px,\qquad p>0
-		      \]
-		      为例，设直线为
-		      \[
-			      Ax+By+C=0,\qquad (A,B)\neq(0,0).
-		      \]
-		      交点满足方程组
-		      \[
-			      \begin{cases}
-				      y^2=2px, \\
-				      Ax+By+C=0.
-			      \end{cases}
-		      \]
-		      \par\textbf{理由：} 交点坐标必须同时满足直线方程和抛物线方程。
-
-		\item[\textbf{步骤二（平方消 $y$）：}]
-		      由直线方程得
-		      \[
-			      By=-(Ax+C).
-		      \]
-		      两边平方，得
-		      \[
-			      B^2y^2=(Ax+C)^2.
-		      \]
-		      \par\textbf{理由：} 平方后出现 $y^2$，可以代入抛物线方程。
-		      这一步没有除以 $B$，因此即使 $B=0$，等式本身仍可用于记录横坐标关系。
-
-		\item[\textbf{步骤三（代入整理）：}]
-		      将 $y^2=2px$ 代入
-		      \[
-			      B^2y^2=(Ax+C)^2
-		      \]
-		      得
-		      \[
-			      2B^2px=(Ax+C)^2.
-		      \]
-		      展开得
-		      \[
-			      2B^2px=A^2x^2+2ACx+C^2.
-		      \]
-		      \par\textbf{理由：} 这样就把交点问题转化成了关于 $x$ 的方程。
-
-		\item[\textbf{步骤四（标准形式）：}]
-		      移项得
-		      \[
-			      A^2x^2+(2AC-2B^2p)x+C^2=0.
-		      \]
-		      \par\textbf{理由：} 若 $A\neq0$，二次项系数 $A^2\neq0$，该方程才是真正的二次方程。
-		      若 $A=0$，方程会退化，不能直接套用本条韦达公式。
-
-		\item[\textbf{步骤五（韦达定理）：}]
-		      若 $A\neq0$，设该二次方程的两个根为 $x_1,x_2$，则
-		      \[
-			      x_1+x_2=-\frac{2AC-2B^2p}{A^2},\qquad
-			      x_1x_2=\frac{C^2}{A^2}.
-		      \]
-		      \par\textbf{理由：} 根与系数关系直接给出交点横坐标的和与积。
-
-		\item[\textbf{步骤六（开口向左）：}]
-		      对于
-		      \[
-			      y^2=-2px,
-		      \]
-		      同样由
-		      \[
-			      B^2y^2=(Ax+C)^2
-		      \]
-		      代入 $y^2=-2px$，得
-		      \[
-			      -2B^2px=(Ax+C)^2.
-		      \]
-		      整理得
-		      \[
-			      A^2x^2+(2AC+2B^2p)x+C^2=0.
-		      \]
-		      因此当 $A\neq0$ 时，
-		      \[
-			      x_1+x_2=-\frac{2AC+2B^2p}{A^2},\qquad
-			      x_1x_2=\frac{C^2}{A^2}.
-		      \]
-
-		\item[\textbf{步骤七（开口向上）：}]
-		      对于
-		      \[
-			      x^2=2py,
-		      \]
-		      由直线方程得
-		      \[
-			      By=-Ax-C.
-		      \]
-		      两边乘以 $2p$，得
-		      \[
-			      2pBy=-2Apx-2Cp.
-		      \]
-		      又因为 $x^2=2py$，所以
-		      \[
-			      Bx^2=-2Apx-2Cp.
-		      \]
-		      整理得
-		      \[
-			      Bx^2+2Apx+2Cp=0.
-		      \]
-		      因此当 $B\neq0$ 时，
-		      \[
-			      x_1+x_2=-\frac{2Ap}{B},\qquad
-			      x_1x_2=\frac{2Cp}{B}.
-		      \]
-
-		\item[\textbf{步骤八（开口向下）：}]
-		      对于
-		      \[
-			      x^2=-2py,
-		      \]
-		      由 $By=-Ax-C$ 得
-		      \[
-			      -2pBy=2Apx+2Cp.
-		      \]
-		      又因为 $x^2=-2py$，所以
-		      \[
-			      Bx^2=2Apx+2Cp.
-		      \]
-		      整理得
-		      \[
-			      Bx^2-2Apx-2Cp=0.
-		      \]
-		      因此当 $B\neq0$ 时，
-		      \[
-			      x_1+x_2=\frac{2Ap}{B},\qquad
-			      x_1x_2=-\frac{2Cp}{B}.
-		      \]
-
-		\item[\textbf{步骤九（判别式与特例）：}]
-		      本文中的判别式应理解为关于 $x$ 的方程的判别式，记作 $\Delta_x$。
-		      若要求两个不同的横坐标，需 $\Delta_x>0$。
-		      但对于左右开口抛物线的竖直弦，可能有两个不同交点却满足 $x_1=x_2$，此时不能仅用 $\Delta_x>0$ 概括所有两点相交情形。
-	\end{description}
-
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-
-	硬解定理给出了直线与抛物线联立后关于 $x$ 的固定方程形式；
-	在二次项系数非零且交点条件满足时，可直接用韦达定理求横坐标和、积，进而处理弦长、中点和参数问题。
+对 $x^2=2spy$，从 $y=sx^2/(2p)$ 直接代入，得到
+\[
+ Bx^2+2spAx+2spC=0,\qquad (Bx+spA)^2=K.
+\]
+因此上下开口的韦达、判别式和轴向直线分类也全部成立。
 \end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{证明二：用反射减少符号记忆。}
+把右开口图形关于 $y$ 轴反射，设新坐标为 $(X,Y)=(-x,y)$：
+\[
+ y^2=2px\ \Longrightarrow\ Y^2=-2pX,\qquad
+ Ax+By+C=0\ \Longrightarrow\ -AX+BY+C=0.
+\]
+\input{assets/tikz/C035_reflection}
+因此从向右公式得到向左公式时，需同步改变横坐标及直线中的 $A$，纵坐标保持不变。
+例如原横坐标和中的 $B^2p-AC$，变换后给出向左的 $-(B^2p+AC)$；横坐标积仍为 $C^2/A^2$。
+这正是第一部分的两组结果。\textbf{$p>0$ 保持不变，方向用方程中的符号表示。}
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{证明三：交换坐标，左右开口变上下开口。}
+令 $(X,Y)=(y,x)$，则
+\[
+ y^2=2spx\ \Longrightarrow\ X^2=2spY,\qquad
+ Ax+By+C=0\ \Longrightarrow\ BX+AY+C=0.
+\]
+\input{assets/tikz/C035_coordinate_swap}
+同时交换 $x,y$ 与 $A,B$：纵坐标二次式变成横坐标二次式，$H$ 变成 $K$，中点的两个坐标交换。
+向下开口取 $s=-1$；也可以把向上图形关于 $x$ 轴反射，并同步把直线的 $B$ 变号。
+因此四种开口不必分别背一套互不相关的公式。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{横坐标固定形式为什么正确，又有什么限制？}
+由直线得 $By=-(Ax+C)$，平方并代入 $y^2=2spx$：
+\[
+ (Ax+C)^2=2spB^2x
+ \ \Longrightarrow\ A^2x^2+(2AC-2spB^2)x+C^2=0.
+\]
+当 $A\ne0$，韦达立即给出第一部分的左右开口横坐标关系。
+\input{assets/tikz/C035_squaring_sign}
+若 $B\ne0$，对任一实根指定 $y=-(Ax+C)/B$，由上式可反推 $y^2=2spx$，故与原交点完全对应。\textbf{恢复符号要用原直线，不能随意选正负号。}
+若 $B=0$，平方后只保留 $x=-C/A$，而抛物线上的实点还需另行检验。
+例如 $y^2=4x$ 与 $x=-1$：横坐标方程有重根 $-1$，原方程组却无实解。
+对应的 $\Delta_x=4B^2H$ 只有在 $B\ne0$ 时，才能借其符号判断实际交点数。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{中点短证：两点方程作差，少算一遍韦达。}
+对 $y^2=2spx$ 的两个不同交点，必有 $y_1\ne y_2$。
+由两点方程作差、直线方程作差，得到
+\[
+ (y_1-y_2)(y_1+y_2)=2sp(x_1-x_2),\qquad
+ A(x_1-x_2)+B(y_1-y_2)=0.
+\]
+$A\ne0$ 时除以 $y_1-y_2$，立即有 $y_1+y_2=-2spB/A$。
+所以 $y_S=-spB/A$，再代入 $Ax_S+By_S+C=0$，得到中点公式。
+\input{assets/tikz/C035_chord_midpoint}
+\textbf{弦长只需补一个直角三角形。}
+由差分关系 $x_2-x_1=-(B/A)(y_2-y_1)$，勾股定理给出
+\[
+ PQ=\frac{\sqrt{A^2+B^2}}{|A|}\,|y_2-y_1|
+ =\frac{2\sqrt{(A^2+B^2)H}}{A^2}.
+\]
+这里允许 $B=0$，所以竖直弦也已覆盖。上下开口交换坐标即得对应中点和弦长公式。
+\end{proofbox}
+\clearpage

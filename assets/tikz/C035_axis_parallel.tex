@@ -1,0 +1,26 @@
+\begin{center}\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {一个交点有两种原因：平行于轴，或者相切};
+% CURVE lateral 2 1
+\begin{scope}[shift={(2.4,3.6)},scale=0.7]
+\begin{scope}
+\clip (-1,-2.5) rectangle (4,2.5);
+\draw[blue,very thick,domain=-2.5:2.5,samples=181,variable=\t] plot ({\t*\t/(4)},\t);
+\end{scope}
+\draw[-Stealth,black!45] (-1,0)--(4,0) node[right] {$x$};
+\draw[-Stealth,black!45] (0,-2.5)--(0,2.5) node[above] {$y$};
+\draw[orange!85!black,very thick] (-1,1)--(4,1);
+\coordinate (P) at (0.2500000000,1.0000000000);\fill[black] (P) circle (2pt) node[above right=9pt,xshift=12pt] {$P$};
+\end{scope}% CURVE lateral 2 1
+\begin{scope}[shift={(9.4,3.6)},scale=0.7]
+\begin{scope}
+\clip (-1,-2.5) rectangle (4,2.5);
+\draw[blue,very thick,domain=-2.5:2.5,samples=181,variable=\t] plot ({\t*\t/(4)},\t);
+\end{scope}
+\draw[-Stealth,black!45] (-1,0)--(4,0) node[right] {$x$};
+\draw[-Stealth,black!45] (0,-2.5)--(0,2.5) node[above] {$y$};
+\draw[violet,very thick] (0,-2.5)--(0,2.5);
+\coordinate (T) at (0.0000000000,0.0000000000);\fill[black] (T) circle (2pt) node[below left=9pt] {$T$};
+\end{scope}\node at (3.6,6.7) {$y=1$：一次交点};\node at (10.6,6.7) {$x=0$：切点};
+\node[anchor=west] at (.7,.55) {同一抛物线 $y^2=4x$：左图横线穿过曲线；右图在顶点相切};
+\end{tikzpicture}\end{center}

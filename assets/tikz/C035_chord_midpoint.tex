@@ -1,0 +1,21 @@
+\begin{center}\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {根差补成距离；两坐标分别取平均才是弦中点};
+% CURVE lateral 2 1
+\begin{scope}[shift={(3.8,5.1)},scale=0.6]
+\begin{scope}
+\clip (-1,-6.2) rectangle (8.3,2.2);
+\draw[blue,very thick,domain=-6.0:2.2,samples=181,variable=\t] plot ({\t*\t/(4)},\t);
+\end{scope}
+\draw[-Stealth,black!45] (-1,0)--(8.3,0) node[right] {$x$};
+\draw[-Stealth,black!45] (0,-6.2)--(0,2.2) node[above] {$y$};
+\coordinate (P) at (0.5358983849,1.4641016151);\fill[black] (P) circle (2pt) node[above left=9pt,xshift=-16pt] {$P$};
+\coordinate (Q) at (7.4641016151,-5.4641016151);\fill[black] (Q) circle (2pt) node[above right=11pt] {$Q$};
+\coordinate (T) at (7.4641016151,1.4641016151);\fill[black] (T) circle (2pt) node[above right=9pt] {$T$};
+\draw[orange!85!black,very thick] (0.5358983848622456,1.4641016151377544)--(7.464101615137754,-5.464101615137754);
+\draw[teal!70!black,dashed,thick] (P)--(T)--(Q);
+\draw (7.1641016151,1.4641016151)--(7.1641016151,1.1641016151)--(7.4641016151,1.1641016151);
+\coordinate (S) at (4.0000000000,-2.0000000000);\fill[violet] (S) circle (2pt) node[above right=10pt] {$S$};
+\node[above=12pt] at (4,1.4641016151) {$|x_2-x_1|$};\node[anchor=west] at (8.1,-2) {$|y_2-y_1|$};\end{scope}
+\node[anchor=west] at (.7,.55) {$PQ^2=(x_2-x_1)^2+(y_2-y_1)^2$；$S=(4,-2)$ 在弦上，不在抛物线上};
+\end{tikzpicture}\end{center}

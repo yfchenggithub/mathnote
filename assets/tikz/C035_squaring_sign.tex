@@ -1,0 +1,20 @@
+\begin{center}\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {平方后的式子相同，恢复纵坐标仍要用原直线};
+% CURVE lateral 2 1
+\begin{scope}[shift={(4.9,3.9)},scale=0.5]
+\begin{scope}
+\clip (-1,-5.5) rectangle (6.8,5.5);
+\draw[blue,very thick,domain=-5.2:5.2,samples=181,variable=\t] plot ({\t*\t/(4)},\t);
+\end{scope}
+\draw[-Stealth,black!45] (-1,0)--(6.8,0) node[right] {$x$};
+\draw[-Stealth,black!45] (0,-5.5)--(0,5.5) node[above] {$y$};
+\draw[orange!85!black,very thick] (0,-1)--(6.4,5.4);
+\draw[red!75!black,very thick,dashed] (0,1)--(6.4,-5.4);
+\fill[black] (0.1715728753,-0.8284271247) circle (2pt);
+\fill[black] (0.1715728753,0.8284271247) circle (2pt);
+\fill[black] (5.8284271247,4.8284271247) circle (2pt);
+\fill[black] (5.8284271247,-4.8284271247) circle (2pt);
+\end{scope}\node[anchor=west,orange!85!black] at (9.5,6.5) {$y=x-1$};\node[anchor=west,red!75!black] at (9.5,5.5) {$y=1-x$};\node[anchor=west] at (9.5,3.7) {横坐标根相同};\node[anchor=west] at (9.5,2.7) {纵坐标符号相反};
+\node[anchor=west] at (.7,.55) {两条直线都给出 $(x-1)^2=4x$；不能随意选 $y=\pm2\sqrt{x}$};
+\end{tikzpicture}\end{center}
