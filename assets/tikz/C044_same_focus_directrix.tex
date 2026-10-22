@@ -1,0 +1,39 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {同一焦点 $F(2,0)$、同一准线 $l:x=0$，距离比决定曲线类型};
+\begin{scope}[shift={(2.5,4.1)},scale=.34]
+\draw[violet,thick] (0,-5)--(0,5);
+\draw[blue,very thick] (3.125,0) ellipse (1.875 and 1.5);
+\draw[black!60,thick] (0,1.5)--(3.125,1.5);
+\draw[orange!85!black,thick] (2,0)--(3.125,1.5);
+\fill (2,0) circle (4pt) node[right=7pt] {$F$};
+\fill (3.125,1.5) circle (4pt) node[above=10pt] {$P$};
+\fill (0,1.5) circle (4pt) node[left=4pt] {$H$};
+\node[above=3pt] at (0,5) {$l$};
+\end{scope}
+\node at (2.5,1.3) {$e=3/5<1$};
+\begin{scope}[shift={(7.2,4.1)},scale=.34]
+\draw[violet,thick] (0,-5)--(0,5);
+\draw[blue,very thick,domain=-4.3:4.3,samples=121,variable=\t] plot ({1+\t*\t/4},\t);
+\draw[black!60,thick] (0,2)--(2,2);
+\draw[orange!85!black,thick] (2,0)--(2,2);
+\fill (2,0) circle (4pt) node[right=7pt] {$F$};
+\fill (2,2) circle (4pt) node[above=10pt] {$P$};
+\fill (0,2) circle (4pt) node[left=4pt] {$H$};
+\node[above=3pt] at (0,5) {$l$};
+\end{scope}
+\node at (7.2,1.3) {$e=1$};
+\begin{scope}[shift={(11.9,4.1)},scale=.34]
+\draw[violet,thick] (0,-5)--(0,5);
+\draw[blue,very thick,domain=-3.8:3.8,samples=121,variable=\t] plot ({-1.6+-1*2.4*sqrt(1+\t*\t/7.2)},\t);\draw[blue,very thick,domain=-3.8:3.8,samples=121,variable=\t] plot ({-1.6+1*2.4*sqrt(1+\t*\t/7.2)},\t);
+\draw[black!60,thick] (0,3)--(2,3);
+\draw[orange!85!black,thick] (2,0)--(2,3);
+\fill (2,0) circle (4pt) node[right=7pt] {$F$};
+\fill (2,3) circle (4pt) node[above=10pt] {$P$};
+\fill (0,3) circle (4pt) node[left=4pt] {$H$};
+\node[above=3pt] at (0,5) {$l$};
+\end{scope}
+\node at (11.9,1.3) {$e=3/2>1$};
+
+\node[anchor=west] at (.7,.55) {同尺度；$H$ 为垂足，$e=PF/PH$；焦点不在准线上，且 $PH>0$};
+\end{tikzpicture}\end{center}
