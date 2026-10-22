@@ -8,7 +8,7 @@
       "焦准定义",
       "第二定义"
     ],
-    "summary": "到焦点距离等于到定直线距离的点的轨迹是抛物线。",
+    "summary": "焦点不在准线上时，焦半径等于准距（e=1）刻画抛物线；写标准方程须明确顶点原点，焦半径不小于p/2。",
     "difficulty": 2,
     "category": "解析几何",
     "tags": [
@@ -98,7 +98,10 @@
     "related_formulas": [
       "y^2 = -2px",
       "x^2 = 2py",
-      "x^2 = -2py"
+      "x^2 = -2py",
+      "PF=d(P,\\ell)",
+      "PF=x+p/2\\ge p/2\\quad(y^2=2px)",
+      "(y-k)^2=2p(x-h)"
     ],
     "variables": {
       "F": "焦点",
@@ -106,15 +109,15 @@
       "p": "焦准距",
       "P": "动点"
     },
-    "conditions": "定点F不在定直线l上（F \\notin l）；动点P到F的距离等于P到l的距离。",
-    "conclusions": "动点P的轨迹是抛物线；焦点在x轴正半轴时标准方程为y^2=2px，焦点在x轴负半轴时y^2=-2px，焦点在y轴正半轴时x^2=2py，焦点在y轴负半轴时x^2=-2py。"
+    "conditions": "F不在准线ℓ上，PF等于P到ℓ的垂距；p>0为焦准距。y²=2px还须顶点原点、轴为x轴且向右开口。",
+    "conclusions": "PF/d(P,ℓ)=1刻画抛物线；在标准位置y²=2px中PF=x+p/2≥p/2，等号仅在顶点。过F且切ℓ的圆的圆心轨迹也是该抛物线。"
   },
   "content": {
-    "statement": "平面内，一动点P到定点F（焦点）的距离等于它到定直线l（准线）的距离（F \\notin l），则点P的轨迹是抛物线。当焦点在x轴正半轴时，标准方程为y^2=2px，其中p为焦准距。",
+    "statement": "F不在准线ℓ上时，PF=d(P,ℓ)为抛物线的焦准定义。顶点原点、向右开口时方程y²=2px，p为焦准距；其他位置应先定位顶点再平移或反射。",
     "derivation": [
-      "由距离公式建立等式|PF|=d(P,l)",
-      "设焦点F(p/2,0)，准线x=-p/2，代入距离公式化简得y^2=2px",
-      "若焦点在其他位置，类似推导可得对应标准方程"
+      "顶点取焦点与准线垂足的中点，F(p/2,0)、准线x=-p/2。",
+      "PF=PH等价于√((x-p/2)²+y²)=|x+p/2|，非负平方可逆，化简为y²=2px。",
+      "由x≥0得PF=x+p/2≥p/2；用圆心到切线的距离等于半径，给出过焦点且切准线的圆心轨迹解释。"
     ],
     "intuition": "动点到定点和定直线距离相等，体现了抛物线的几何特征，是圆锥曲线统一定义的特例。",
     "common_tricks": [
@@ -155,7 +158,11 @@
       "两点间距离公式",
       "轨迹方程的求法"
     ],
-    "related_ids": ["C038", "C051", "C044"],
+    "related_ids": [
+      "C038",
+      "C051",
+      "C044"
+    ],
     "similar": [
       "椭圆的第一定义",
       "双曲线的第一定义"
@@ -165,10 +172,10 @@
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-23",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-10-22"
   },
   "isPro": 0,
-  "remarks": "",
+  "remarks": "PDF图 assets/tikz/C041_tangent_circle.tex 用真实相切圆替代等距抽象解释；C041_vertex_matters.tex 同尺度对照同焦点不同准线、顶点与开口；C041_focal_radius_range.tex 同尺度三圆解释无点/顶点/两点的焦半径范围；C041_degenerate_pair.tex 同尺度对照退化直线。验收见 reports/C041_parabola_focus_directrix_definition_review_2026-10-22.md。",
   "knowledgeNode": "解析几何-圆锥曲线-抛物线-定义与基本关系",
   "altNodes": "解析几何-圆锥曲线-椭圆,解析几何-圆锥曲线-双曲线"
 }

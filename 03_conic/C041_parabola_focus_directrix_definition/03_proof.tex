@@ -1,45 +1,32 @@
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{方法一：等价平方，只需一步消元（优先）。}
+以顶点为原点建系，设 $P(x,y)$，$F(p/2,0)$，$\ell:x=-p/2$。
+两边为非负距离，平方可逆：
+\[
+\begin{aligned}
+PF=PH&\iff \sqrt{(x-p/2)^2+y^2}=|x+p/2|\\
+&\iff (x-p/2)^2+y^2=(x+p/2)^2\\
+&\iff \boxed{y^2=2px}.
+\end{aligned}
+\]
+由方程 $x\ge0$，所以 $PF=PH=x+p/2\ge p/2>0$。
+这同时验证了反向关系、比值分母不为零及最短焦半径。
 
-	通过建立适当的坐标系，将几何条件$|PF| = d(P,l)$转化为坐标关系，经代数变形得到标准方程$y^2 = 2px$。
-
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（坐标系设定）：}] 以焦点$F$到准线$l$的垂线段中点为原点，$F$在$x$轴正半轴上。
-			\[
-				F\bigl(\frac{p}{2},0\bigr),\quad l:x = -\frac{p}{2},\quad (p>0).
-			\]
-			\par\textbf{理由：}
-			选择对称坐标系可简化代数推导。
-
-		\item[\textbf{步骤二（距离表达式）：}] 设动点$P(x,y)$，写出距离。
-			\[
-				|PF| = \sqrt{\bigl(x-\frac{p}{2}\bigr)^2 + y^2},\quad
-				d(P,l) = \bigl|x + \frac{p}{2}\bigr|.
-			\]
-			\par\textbf{理由：}
-			平面上两点距离公式及点到直线距离公式。
-
-		\item[\textbf{步骤三（代入等式）：}] 根据定义$|PF| = d(P,l)$，两边平方去根号。
-			\[
-				\bigl(x-\frac{p}{2}\bigr)^2 + y^2 = \bigl(x+\frac{p}{2}\bigr)^2.
-			\]
-			\par\textbf{理由：}
-			距离等式，两边平方去掉绝对值。
-
-		\item[\textbf{步骤四（展开化简）：}] 展开并合并。
-			\[
-				\begin{aligned}
-					x^2 - p x + \frac{p^2}{4} + y^2 &= x^2 + p x + \frac{p^2}{4} \\ -p x + y^2 &= p x \\ y^2 &= 2p x.
-			\end{aligned}
-			\]
-			\par\textbf{理由：}
-			移项合并同类项。
-	\end{description}
-
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-
-	\textbf{所得方程$y^2 = 2px$即为焦点在$x$轴正半轴时的抛物线标准方程，满足原定义条件。}
+\textbf{方法二：圆的相切判定（几何角度）。}
+以 $P$ 为圆心、$PF$ 为半径作圆，圆当然经过 $F$。
+直线与圆相切的充要条件是圆心到直线的距离等于半径，
+因此它与 $\ell$ 相切 $\iff d(P,\ell)=PF$。
+反过来，任意过 $F$ 且切 $\ell$ 的圆，其圆心都满足焦准等距。
+所以圆心轨迹与本条抛物线完全相同；无须使用微积分或切线方程。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{顶点为什么必须先定位？}
+顶点到焦点和准线等距，且在焦点与准线垂足连线上，故恰为该线段的中点。
+\input{assets/tikz/C041_vertex_matters}
+右图焦点也为 $(3,0)$，但准线为 $x=5$，顶点为 $(4,0)$，开口向左。
+直接列式 $(x-3)^2+y^2=(x-5)^2$，得 $y^2=-4(x-4)$。
+因此“焦点横坐标为正”不能替代“顶点在原点”这个标准位置条件。
+一般平移后，若 $F=(h+p/2,k)$、$\ell:x=h-p/2$，方程为 $(y-k)^2=2p(x-h)$；
+其他开口方向由反射或交换坐标得到。
 \end{proofbox}
