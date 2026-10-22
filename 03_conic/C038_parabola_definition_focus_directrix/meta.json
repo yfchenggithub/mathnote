@@ -8,7 +8,7 @@
       "PF=PH",
       "离心率e=1"
     ],
-    "summary": "平面内一动点到定点的距离等于它到定直线的距离，则该点轨迹是抛物线。",
+    "summary": "定点F不在定直线ℓ上，到F的距离等于到ℓ的垂距的点集为抛物线；开口从顶点朝焦点，远离准线。",
     "difficulty": 1,
     "category": "解析几何",
     "tags": [
@@ -84,7 +84,10 @@
   "math": {
     "core_formula": "PF=PH",
     "related_formulas": [
-      "\\frac{PF}{PH}=1"
+      "\\frac{PF}{PH}=1",
+      "y^2=2px\\quad(p>0)",
+      "F(p/2,0),\\quad\\ell:x=-p/2",
+      "PF=x+p/2\\quad(y^2=2px)"
     ],
     "variables": {
       "P": "动点",
@@ -92,7 +95,8 @@
       "\\ell": "定直线（准线）",
       "H": "P在\\ell上的垂足",
       "PF": "P到F的距离",
-      "PH": "P到\\ell的距离"
+      "PH": "P到\\ell的距离",
+      "p": "焦点到准线的距离，p>0；顶点到焦点为p/2"
     },
     "conditions": [
       "F为定点，\\ell为定直线，且F\\notin\\ell",
@@ -106,10 +110,11 @@
   "content": {
     "statement": "平面内一动点P到定点F的距离等于它到定直线\\ell（F\\notin\\ell）的距离 \\iff 点P在抛物线上。即PF=PH，其中H为P在\\ell上的垂足。",
     "derivation": [
-      "设P(x,y)，F(0,0)（通过平移可一般化），准线x=-p，则PF=√(x²+y²)，PH=|x+p|，平方得x²+y²=(x+p)²，化简得y²=2px+p²，即顶点在(-p/2,0)的平移抛物线方程（p>0）。",
-      "反之，抛物线上的点必然满足此距离关系，由定义可知。"
+      "令p为焦准距，以焦点与准线垂足的中点为原点，取F(p/2,0)、准线x=-p/2。",
+      "PF=PH等价于√((x-p/2)²+y²)=|x+p/2|，两边非负，平方等价，整理为y²=2px。",
+      "由方程x≥0，故PF=PH=x+p/2>0；准线垂线与FH垂直平分线的交点给出另一种几何构造。"
     ],
-    "intuition": "抛物线是到一定点和一定直线距离相等的点的集合，类似于椭圆（到两定点）和双曲线（到两定点差）的定义，但这里比值为1。",
+    "intuition": "用垂直线段表示到准线的距离，与焦半径相等；开口朝向焦点，准线位于顶点另一侧。",
     "common_tricks": [
       "利用定义将焦半径转化为到准线的距离，常用于最值问题。",
       "求轨迹时先设动点坐标，列距离等式，平方化简。",
@@ -165,10 +170,10 @@
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-23",
-    "updated_at": "2026-10-21"
+    "updated_at": "2026-10-22"
   },
   "isPro": 0,
-  "remarks": "",
+  "remarks": "PDF图 assets/tikz/C038_equal_distance.tex 展示焦准等距与垂足；C038_perpendicular_bisector.tex 展示初中几何构造，替代抽象轨迹文字；C038_horizontal_openings.tex、C038_vertical_openings.tex 同尺度对照四种开口；C038_minimum_broken_path.tex 展示例3折线拉直与取等点；C038_degenerate_focus.tex 同尺度对照退化直线。验收见 reports/C038_parabola_definition_focus_directrix_review_2026-10-22.md。",
   "knowledgeNode": "解析几何-圆锥曲线-抛物线-定义与基本关系",
   "altNodes": "解析几何-轨迹问题"
 }

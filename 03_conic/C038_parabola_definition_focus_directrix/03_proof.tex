@@ -1,64 +1,29 @@
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{方法一：一次平方，直接证明方程等价（优先）。}
+按定义建系，$F(p/2,0)$，$\ell:x=-p/2$，$p>0$。
+设 $P(x,y)$，则 $H(-p/2,y)$。两边都是非负距离，所以平方是等价变形：
+\[
+\begin{aligned}
+PF=PH
+&\iff \sqrt{(x-p/2)^2+y^2}=|x+p/2|\\
+&\iff (x-p/2)^2+y^2=(x+p/2)^2\\
+&\iff \boxed{y^2=2px}.
+\end{aligned}
+\]
+标准方程还给出 $x\ge0$，故 $PH=x+p/2\ge p/2>0$，
+既说明没有点在准线上，也给出焦半径的直接计算式 $PF=x+p/2$。
 
-	通过建立恰当的直角坐标系，将几何条件转化为代数等式，化简得到抛物线标准方程，从而证明等价性。
-
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（建系设点）：}] 以$F$到$\ell$的垂线段的中点为原点$O$，以从$\ell$上垂足指向$F$的方向为$x$轴正方向建立直角坐标系。
-			\[
-				F\!\left(\frac{p}{2},0\right),
-				\qquad
-				\ell:x=-\frac{p}{2},
-			\]
-			其中$p>0$为$F$到$\ell$的距离。
-			\par\textbf{理由：}
-			对称的坐标系使抛物线方程最简。
-
-		\item[\textbf{步骤二（等距条件）：}] 设动点$P(x,y)$，垂足$H(-\frac{p}{2},y)$。由定义$PF=PH$得
-			\[
-				\sqrt{\left(x-\frac{p}{2}\right)^2+y^2}=\left|x+\frac{p}{2}\right|.
-			\]
-			\par\textbf{理由：}
-			点$P$到直线$x=-\frac{p}{2}$的水平距离为$|x+\frac{p}{2}|$。
-
-		\item[\textbf{步骤三（平方化简）：}] 两边平方并展开：
-			\[
-				\begin{aligned}
-					\left(x-\frac{p}{2}\right)^2+y^2 &= \left(x+\frac{p}{2}\right)^2,\\
-					x^2-px+\frac{p^2}{4}+y^2 &= x^2+px+\frac{p^2}{4},\\
-					-px + y^2 &= px.
-			\end{aligned}
-			\]
-			\par\textbf{理由：}
-			平方消去根号和绝对值的分类讨论。
-
-		\item[\textbf{步骤四（标准形式）：}] 移项合并得
-			\[
-				y^2 = 2px.
-			\]
-			该方程是焦点在$x$轴正半轴的标准抛物线方程。
-			\par\textbf{理由：}
-			方程$y^2=2px$表示顶点在原点、开口向右的抛物线。
-
-		\item[\textbf{步骤五（逆推验证）：}] 反之，若点$P$在抛物线$y^2=2px$上，则
-			\[
-				\begin{aligned}
-					PF &= \sqrt{\left(x-\frac{p}{2}\right)^2+y^2} \\
-					&= \sqrt{\left(x-\frac{p}{2}\right)^2+2px} \\
-					&= \sqrt{\left(x+\frac{p}{2}\right)^2} \\
-					&= \left|x+\frac{p}{2}\right| \\
-					&= PH.
-			\end{aligned}
-			\]
-			\par\textbf{理由：}
-			代入$y^2=2px$可消去$y$，并回代得到与$PH$相等的表达式。
-
-	\end{description}
-
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-
-	\textbf{因此，$PF=PH$等价于点$P$在抛物线$y^2=2px$上，即原命题成立。}
+\textbf{方法二：垂直平分线构造（只用初中几何）。}
+在准线上任取 $H$，过 $H$ 作 $\ell$ 的垂线，再作 $FH$ 的垂直平分线；
+两线交于 $P$。因为 $P$ 在垂直平分线上，所以 $PF=PH$，正好满足定义。
+反过来，每个满足定义的点 $P$，取它在准线上的垂足 $H$，也必在 $FH$ 的垂直平分线上。
+因此构造没有漏点或添点。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\input{assets/tikz/C038_perpendicular_bisector}
+图中 $H=(-1,2),F=(1,0)$，中点 $M=(0,1)$，垂直平分线为 $y=x+1$。
+它与 $y=2$ 交于 $P=(1,2)$。
+一般地，$FH$ 的垂直平分线不会平行于过 $H$ 的准线垂线：否则 $FH$ 就平行于准线，与 $F\notin\ell$ 矛盾。
+所以每个 $H$ 都唯一确定一个轨迹点。
 \end{proofbox}
