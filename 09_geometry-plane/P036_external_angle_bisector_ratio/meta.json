@@ -8,7 +8,7 @@
       "外角平分线比例定理",
       "外角平分线性质"
     ],
-    "summary": "三角形外角平分线将对边延长线分成的线段比等于邻边之比。",
+    "summary": "非退化三角形中，AB≠AC时，A处外角平分线与BC所在直线交于外点D，正长度比BD/DC=AB/AC；外分用差，AB=AC时两线平行、无有限交点。",
     "difficulty": 2,
     "category": "平面几何",
     "tags": [
@@ -97,27 +97,35 @@
   "math": {
     "core_formula": "\\frac{BD}{DC} = \\frac{AB}{AC}",
     "related_formulas": [
-      "\\frac{BD}{DC} = \\frac{AB}{AC} \\text{（内角平分线，$D$在$BC$上）}"
+      "|BD-DC|=BC",
+      "BD=\\frac{BC\\cdot AB}{|AB-AC|},\\quad DC=\\frac{BC\\cdot AC}{|AB-AC|}",
+      "AB>AC:\\ B,C,D;\\quad AB<AC:\\ D,B,C",
+      "\\frac{BE}{EC}=\\frac{AB}{AC},\\quad BE+EC=BC\\quad\\text{（E为内角平分线交点）}"
     ],
     "variables": {
       "AB": "边AB的长度",
       "AC": "边AC的长度",
       "BD": "点B到点D的距离",
       "DC": "点D到点C的距离",
-      "D": "外角平分线与BC延长线的交点"
+      "D": "AB≠AC时，外角平分线所在直线与BC所在直线的外部交点",
+      "p": "AB的正长度",
+      "q": "AC的正长度",
+      "a": "BC的正长度",
+      "E": "内角平分线与BC线段内部的交点"
     },
-    "conditions": "在$\\triangle ABC$中，$AD$是$\\angle A$的外角平分线，交$BC$的延长线于点$D$。",
-    "conclusions": "由定理得$\\frac{BD}{DC} = \\frac{AB}{AC}$。"
+    "conditions": "非退化三角形ABC，AB≠AC；A处外角平分线所在直线交BC所在直线于外点D。BD、DC、AB、AC均为普通正长度。AB=AC时平行，无有限交点。",
+    "conclusions": "BD/DC=AB/AC，且|BD-DC|=BC；AB>AC时顺序B,C,D，AB<AC时顺序D,B,C。"
   },
   "content": {
-    "statement": "在三角形ABC中，AD是角A的外角平分线，交BC的延长线于点D，则BD/DC = AB/AC。",
-    "derivation": "过点C作AD的平行线，交AB于点E，利用平行线分线段成比例和角平分线性质可证。",
-    "intuition": "外角平分线将外角平分，通过平行线构造相似三角形，得到线段比例。",
+    "statement": "非退化三角形中，AB≠AC时，A处外角平分线与BC所在直线交于外点D，正长度比BD/DC=AB/AC；外分用差，AB=AC时两线平行、无有限交点。",
+    "derivation": "优先用直角三角形全等证明D到直线AB、AC的距离相等；同一对三角形ABD、ACD的面积比，从A看为BD/DC，从D看为AB/AC。另给平行线等腰与相似证明、正弦定理短证；D处射线DB、DC同向，两个角相等。补证等腰平行边界与非等腰时的交点存在性。",
+    "intuition": "用左右外分实数图定位D；用同一对面积的共同高和相等高解释比例；内分用和、外分用差；邻边接近时外分点远移，等腰时平行。",
     "common_tricks": [
-      "注意区分内角平分线和外角平分线的交点位置。",
-      "设未知数列比例方程求解。",
-      "结合内角平分线定理求线段和或差。",
-      "验证比例时检查点D是否在BC延长线上。"
+      "先比较AB与AC，再判断D在B外侧还是C外侧。",
+      "字母对应：BD对AB，DC对AC；不要把比例倒置。",
+      "外分用|BD-DC|=BC，内分用BE+EC=BC；列式前画出顺序。",
+      "回验比例、长度差、正性及三角形不等式。",
+      "AB=AC时无有限交点；有向线段须明确方向约定。"
     ]
   },
   "usage": {
@@ -151,7 +159,10 @@
       "角平分线定义",
       "平行线分线段成比例定理"
     ],
-    "related_ids": ["P035", "P042"],
+    "related_ids": [
+      "P035",
+      "P042"
+    ],
     "similar": [
       "内角平分线定理",
       "角平分线性质的综合应用"
@@ -161,10 +172,10 @@
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-25",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-10-22"
   },
   "isPro": 0,
-  "remarks": "",
+  "remarks": "P036 PDF精修（2026-10-22）：修正D处两角互补的错误，增加三种证明、有限交点条件、左右外分与等腰边界、有向比约定及例题回验。assets/tikz/P036_left_external.tex：左侧外分实数模型，替代延长方向与相差一整段BC的文字猜测；assets/tikz/P036_right_external.tex：右侧外分实数模型，替代邻边较长时的点序描述；assets/tikz/P036_near_isosceles.tex：外分坐标随邻边比的变化，替代接近等腰时交点远移的想象；assets/tikz/P036_area_from_a.tex：共用A到BC的高，替代面积比第一步的空间脑补；assets/tikz/P036_area_from_d.tex：D到AB、AC的两条等距垂线，替代全等及第二次面积比较的长段构造；assets/tikz/P036_parallel_proof.tex：CF平行AD构造等腰和相似，替代辅助线位置与角关系的文字描述；assets/tikz/P036_sine_angles.tex：A处互补、D处同向射线角相等，替代原稿错误的互补论证；assets/tikz/P036_isosceles.tex：等腰时内角平分线垂直BC、外角平分线平行BC，替代退化边界想象；assets/tikz/P036_inner_outer.tex：内外角平分线同轴定位并用于例3，替代分点间和差结构的描述；assets/tikz/P036_reversed_ratio.tex：同一三角形中正确点与倒置比例错误点的同尺度对照，替代比例倒置后的位置描述。图形均用实际坐标、等比例TikZ生成，核验入口checks/verify_p036.py。",
   "knowledgeNode": "平面几何-三角形-角平分线-内外角平分线",
   "altNodes": ""
 }

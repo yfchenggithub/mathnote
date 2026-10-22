@@ -1,0 +1,35 @@
+\begin{center}
+\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (0.5,7.72) {比例倒置会改变位置：同一三角形的正确点 $D$ 与错误点 $D_*$};
+% MODEL 6 4 5
+\begin{scope}[shift={(5.5,4)},scale=0.43]
+\coordinate (A) at (4.5,3.9686269666);
+\coordinate (B) at (0,0);
+\coordinate (C) at (5,0);
+\coordinate (D) at (15,0);
+\coordinate (W) at (-10,0);
+\draw[black!45] (W)--(D);
+\draw[black!45] (-0.6,0)--(15.6,0);
+\draw[blue,thick] (A)--(B);
+\draw[teal!80!black,thick] (A)--(C);
+\draw[black,thick] (B)--(C);
+\draw[purple,very thick] (A)--(D);
+\fill (A) circle (1.5pt) node[above=4pt] {$A$};
+\fill (B) circle (1.5pt) node[below left=4pt] {$B$};
+\fill (C) circle (1.5pt) node[below right=4pt] {$C$};
+\fill (D) circle (1.5pt) node[below right=4pt] {$D$};
+\draw[red!75!black,thick,dashed] (A)--(W);\fill[red!75!black] (W) circle (1.5pt) node[below=5pt] {$D_*$};
+
+
+\end{scope}
+\node[anchor=west,text=blue] at (1,5.7) {$AB=6$};
+\node[anchor=west,text=teal!80!black] at (10,5.7) {$AC=4$};
+\node[anchor=west,text=red!75!black] at (0.8,6.6) {错误倒置：$10/15=2/3$};
+\node[anchor=west,text=purple] at (8.3,6.6) {正确：$15/10=6/4$};
+\draw[blue,|-|] ($(B)+(0,-1.1)$)--($(D)+(0,-1.1)$) node[midway,below=3pt] {$BD=15$};
+\draw[teal!80!black,|-|] ($(C)+(0,-2.0)$)--($(D)+(0,-2.0)$) node[midway,below=3pt] {$DC=10$};
+\node[anchor=west,text=red!75!black] at (0.8,1.2) {$AD_*$ 不是外角平分线};
+
+\end{tikzpicture}
+\end{center}

@@ -1,0 +1,31 @@
+\begin{center}
+\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (0.5,7.72) {内分看和，外分看差：例 3 的顺序是 $B,E,C,D$};
+% MODEL 4 2 3
+\begin{scope}[shift={(2.4,3)},scale=1.6]
+\coordinate (A) at (3.5,1.9364916731);
+\coordinate (B) at (0,0);
+\coordinate (C) at (3,0);
+\coordinate (D) at (6,0);
+\coordinate (E) at (2,0);
+\draw[black!45] (-0.6,0)--(6.6,0);
+\draw[blue,thick] (A)--(B);
+\draw[teal!80!black,thick] (A)--(C);
+\draw[black,thick] (B)--(C);
+\draw[purple,very thick] (A)--(D);
+\fill (A) circle (1.5pt) node[above=4pt] {$A$};
+\fill (B) circle (1.5pt) node[below left=4pt] {$B$};
+\fill (C) circle (1.5pt) node[below right=4pt] {$C$};
+\fill (D) circle (1.5pt) node[below right=4pt] {$D$};
+\draw[orange!85!black,very thick] (A)--(E);\fill (E) circle (1.5pt) node[below=4pt] {$E$};
+\path (A)--(B) node[midway,above left=3pt] {$AB=4$};
+\path (A)--(C) node[midway,above right=3pt] {$AC=2$};
+\path (C)--(D) node[midway,above=6pt] {$CD=3$};
+\end{scope}
+\draw[orange!85!black,|-|] ($(B)+(0,-1.0)$)--($(E)+(0,-1.0)$) node[midway,below=3pt] {$BE=2$};
+\draw[orange!85!black,|-|] ($(E)+(0,-1.0)$)--($(C)+(0,-1.0)$) node[midway,below=3pt] {$EC=1$};
+\draw[purple,|-|] ($(E)+(0,-2.0)$)--($(D)+(0,-2.0)$) node[midway,below=3pt] {$DE=4$};
+
+\end{tikzpicture}
+\end{center}

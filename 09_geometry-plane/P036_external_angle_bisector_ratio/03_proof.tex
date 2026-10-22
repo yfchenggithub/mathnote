@@ -1,45 +1,92 @@
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{证明一（优先）：同一对三角形，面积算两次。}
+先设外角平分线已与直线 $BC$ 交于有限点 $D$。
+用 $S_{XYZ}$ 表示 $\triangle XYZ$ 的普通正面积。
 
-	利用正弦定理及外角平分线补角性质，通过比例等式变换得到结论。
+\textbf{第一眼，从 $A$ 看底边：} 作 $AH\perp BC$，记 $AH=h>0$。
+$BD$ 与 $DC$ 都在直线 $BC$ 上，所以
+\[
+ \frac{S_{ABD}}{S_{ACD}}
+ =\frac{\tfrac12 BD\cdot h}{\tfrac12 DC\cdot h}
+ =\frac{BD}{DC}.
+\]
+\input{assets/tikz/P036_area_from_a.tex}
+垂足 $H$ 在哪一段上不影响公式：三角形的高是到\textbf{底边所在直线}的距离。
+橙色小三角形 $ACD$ 是大三角形 $ABD$ 的一部分，不是在计算两块互不相交区域的比。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（设角得补角）：}]
-			\[
-				\angle BAD = \beta,\quad \angle CAD = 180^\circ - \beta.
-			\]
-			\par\textbf{理由：} 由$AD$是$\angle A$的外角平分线可知$\angle BAD$与$\angle CAD$互补。
+\tcbbreak
+\textbf{第二眼，从 $D$ 看邻边：} 作 $DM\perp AB$、$DN\perp AC$，垂足落在两条边所在的直线上。
+选择包含射线 $AD$ 的那个外角，两直角三角形 $AMD,AND$ 共有斜边 $AD$，且 $A$ 处锐角相等。
+由直角三角形全等，得 $DM=DN=d>0$。
+\input{assets/tikz/P036_area_from_d.tex}
+以 $AB,AC$ 为底计算同一对面积：
+\[
+ \frac{S_{ABD}}{S_{ACD}}
+ =\frac{\tfrac12 AB\cdot d}{\tfrac12 AC\cdot d}
+ =\frac{AB}{AC}.
+\]
+两次面积比相等，立即得到 $\boxed{BD/DC=AB/AC}$。
+这套论证同时覆盖 $D,B,C$ 与 $B,C,D$ 两种顺序，不需要正弦定理。
 
-		\item[\textbf{步骤二（ABD正弦定理）：}]
-			\[
-				\frac{BD}{\sin\beta} = \frac{AB}{\sin\angle ADB}.
-			\]
-			\par\textbf{理由：} 在$\triangle ABD$中应用正弦定理，将$\sin\angle BAD$替换为$\sin\beta$。
+\tcbbreak
+\textbf{证明二（纯几何）：作平行线，先造等腰再用相似。}
+先看 $B,C,D$ 依次排列的情形。过 $C$ 作 $CF\parallel AD$，交 $BA$ 于 $F$。
+因为 $C$ 在 $BD$ 内部，$F$ 在 $BA$ 内部。
+\input{assets/tikz/P036_parallel_proof.tex}
+设被平分的外角的一半为 $\alpha$。
+由平行线的角关系和外角平分线定义，
+\[
+ \angle AFC=\angle ACF=\alpha,
+ \qquad AF=AC.
+\]
+又因 $\triangle BCF\sim\triangle BDA$，有
+\[
+ \frac{BC}{BD}=\frac{BF}{BA}.
+\]
+两边同时从 $1$ 中减去，得到
+\[
+ \frac{DC}{BD}=\frac{AF}{BA}
+              =\frac{AC}{AB}.
+\]
+各长度都大于零，取倒数即得所需比例。
+若顺序为 $D,B,C$，交换字母 $B,C$ 后执行同一构造，得到
+$DC/BD=AC/AB$，再取倒数即可；因此没有漏掉左侧外分。
 
-		\item[\textbf{步骤三（ACD正弦定理）：}]
-			\[
-				\frac{DC}{\sin(180^\circ-\beta)} = \frac{AC}{\sin\angle ADC},\quad \frac{DC}{\sin\beta} = \frac{AC}{\sin\angle ADC}.
-			\]
-			\par\textbf{理由：} 在$\triangle ACD$中应用正弦定理，并由$\sin(180^\circ-\beta)=\sin\beta$化简。
+\tcbbreak
+\textbf{证明三（已学正弦定理时最快）：分清两处角的关系。}
+令 $\theta=\angle BAD$、$\varphi=\angle CAD$。
+外角平分线使其中一个角等于外角的一半，另一个是它的补角，故
+$\theta+\varphi=180^\circ$，从而 $\sin\theta=\sin\varphi$。
+\input{assets/tikz/P036_sine_angles.tex}
+因为 $D$ 在 $BC$ 外部，$\overrightarrow{DB}$ 与 $\overrightarrow{DC}$ \textbf{同向}，所以
+\[
+ \angle ADB=\angle ADC=\gamma.
+\]
+分别在 $\triangle ABD,ACD$ 中使用正弦定理：
+\[
+ \frac{BD}{AB}=\frac{\sin\theta}{\sin\gamma},\qquad
+ \frac{DC}{AC}=\frac{\sin\varphi}{\sin\gamma}.
+\]
+所有三角形非退化，$\sin\gamma>0$；两右端相等，故 $BD/AB=DC/AC$，交叉相乘即得结论。
+这里 $A$ 处的两个角互补，$D$ 处的两个角相等，不能互换这两个理由。
 
-		\item[\textbf{步骤四（共线正弦相等）：}]
-			\[
-				\angle ADB+\angle ADC=180^\circ,\quad \sin\angle ADB=\sin\angle ADC.
-			\]
-			\par\textbf{理由：} 因为$B,D,C$共线，所以$\angle ADB$与$\angle ADC$互补，从而正弦相等。
+\tcbbreak
+\textbf{存在性、外分位置与等腰边界。}
+设内角平分线交 $BC$ 于 $E$。内、外角平分线所在直线互相垂直，因为相邻内外角的和为 $180^\circ$，其一半之和为 $90^\circ$。
+若 $AB=AC$，两腰关于 $AE$ 对称，$AE\perp BC$，所以 $\ell\parallel BC$。
+\input{assets/tikz/P036_isosceles.tex}
+图中的垂足 $H$ 与此时的内角平分线交点 $E$ 重合。
+反过来，若 $\ell\parallel BC$，则 $AE\perp BC$。
+两个直角三角形 $ABE,ACE$ 共有边 $AE$，且 $\angle BAE=\angle EAC$，由全等得 $AB=AC$。
+因此 $AB\ne AC$ 时 $\ell$ 不平行于 $BC$，确有唯一有限交点。
+这个点不能位于 $BC$ 内部，否则射线 $AD$ 位于内角内部；也不可能等于 $B$ 或 $C$，否则平分线与角的一边重合。
 
-		\item[\textbf{步骤五（相除得比例）：}]
-			\[
-				\frac{BD/\sin\beta}{DC/\sin\beta} = \frac{AB/\sin\angle ADB}{AC/\sin\angle ADC} \ \Longrightarrow\ \frac{BD}{DC} = \frac{AB}{AC}.
-			\]
-			\par\textbf{理由：} 将前两等式相除，约去$\sin\beta$和$\sin\angle ADB=\sin\angle ADC$。
-
-	\end{description}
-
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-
-	\textbf{由此得到外角平分线定理的结论：} $\displaystyle \frac{BD}{DC} = \frac{AB}{AC}$。
+最后，由已证比例，$p>q$ 时 $BD>DC$，故顺序只能是 $B,C,D$；
+$p<q$ 时同理为 $D,B,C$。再用 $|BD-DC|=a$，可得
+\[
+ BD=\frac{ap}{|p-q|},\qquad DC=\frac{aq}{|p-q|}.
+\]
+在坐标 $B=0,C=a$ 下，结合左右方向就是 $x_D=ap/(p-q)$。
+比例、位置、长度以及不相交的边界情形全部得到说明。
 \end{proofbox}

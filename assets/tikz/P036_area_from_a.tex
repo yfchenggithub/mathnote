@@ -1,0 +1,31 @@
+\begin{center}
+\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (0.5,7.72) {从 $A$ 看：底 $BD$ 与 $DC$ 在同一直线上，共用高 $AH$};
+% MODEL 6 4 5
+\begin{scope}[shift={(2.2,2.8)},scale=0.62]
+\coordinate (A) at (4.5,3.9686269666);
+\coordinate (B) at (0,0);
+\coordinate (C) at (5,0);
+\coordinate (D) at (15,0);
+\coordinate (H) at (4.5,0);
+\fill[blue!10] (A)--(B)--(D)--cycle;\fill[orange!25] (A)--(C)--(D)--cycle;
+\draw[black!45] (-0.6,0)--(15.6,0);
+\draw[blue,thick] (A)--(B);
+\draw[teal!80!black,thick] (A)--(C);
+\draw[black,thick] (B)--(C);
+\draw[purple,very thick] (A)--(D);
+\fill (A) circle (1.5pt) node[above=4pt] {$A$};
+\fill (B) circle (1.5pt) node[below left=4pt] {$B$};
+\fill (C) circle (1.5pt) node[below right=4pt] {$C$};
+\fill (D) circle (1.5pt) node[below right=4pt] {$D$};
+\draw[green!45!black,dashed,thick] (A)--(H) node[midway,left=4pt] {$h$};
+\pic[draw,angle radius=3mm] {right angle=A--H--B};
+\node[below left=12pt] at (H) {$H$};
+\path (C)--(D) node[midway,below=16pt] {$DC$};
+\path (B)--(D) node[midway,below=34pt] {$BD$};
+\node at (8.3,1.25) {$\triangle ACD$};
+\end{scope}
+
+\end{tikzpicture}
+\end{center}

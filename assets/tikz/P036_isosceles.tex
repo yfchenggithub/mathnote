@@ -1,0 +1,29 @@
+\begin{center}
+\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (0.5,7.72) {等腰边界：外角平分线 $\ell$ 与 $BC$ 平行，没有有限交点};
+% MODEL 5 5 5
+\begin{scope}[shift={(4.7,1.8)},scale=1]
+\coordinate (A) at (2.5,4.3301270189);
+\coordinate (B) at (0,0);
+\coordinate (C) at (5,0);
+\coordinate (H) at (2.5,0);
+\draw[black!45] (-0.6,0)--(5.6,0);
+\draw[blue,thick] (A)--(B);
+\draw[teal!80!black,thick] (A)--(C);
+\draw[black,thick] (B)--(C);
+\fill (A) circle (1.5pt) node[above=4pt] {$A$};
+\fill (B) circle (1.5pt) node[below left=4pt] {$B$};
+\fill (C) circle (1.5pt) node[below right=4pt] {$C$};
+\draw[orange!85!black,thick] (A)--(H);
+\draw[purple,very thick] (-3.7,4.3301270189)--(8.7,4.3301270189);
+\coordinate (L) at (8.7,4.3301270189);
+\pic[draw,angle radius=3mm] {right angle=L--A--H};\pic[draw,angle radius=3mm] {right angle=A--H--C};
+\node[below=4pt] at (H) {$H$};
+\path (A)--(B) node[midway,above left=3pt] {$AB=5$};
+\path (A)--(C) node[midway,above right=3pt] {$AC=5$};
+\end{scope}
+\node[anchor=west,text=purple] at (10,6.6) {$\ell\parallel BC$};
+
+\end{tikzpicture}
+\end{center}
