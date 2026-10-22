@@ -1,135 +1,99 @@
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{证明一（优先）：距离平方，三步配方。}
+取 $A(-a,0),B(a,0)$，$a>0$，$\lambda>0,\lambda\ne1$。设 $P(x,y)$。
+\[
+\begin{aligned}
+ PA=\lambda PB
+ &\Longleftrightarrow (x+a)^2+y^2
+       =\lambda^2\bigl((x-a)^2+y^2\bigr)\\
+ &\Longleftrightarrow
+ (1-\lambda^2)(x^2+y^2+a^2)+2a(1+\lambda^2)x=0\\
+ &\Longleftrightarrow x^2-2hx+y^2+a^2=0,
+ \quad h=\frac{a(\lambda^2+1)}{\lambda^2-1}.
+\end{aligned}
+\]
+所以
+\[
+ (x-h)^2+y^2=h^2-a^2
+ =\frac{a^2\bigl((\lambda^2+1)^2-(\lambda^2-1)^2\bigr)}{(\lambda^2-1)^2}
+ =\frac{4a^2\lambda^2}{(\lambda^2-1)^2}>0.
+\]
+这就是圆心 $C(h,0)$、半径 $R=2a\lambda/|\lambda^2-1|$ 的圆。
 
-	设点 $P(x,y)$，利用 $PA^2=\lambda^2PB^2$ 列出方程，整理后配方即得圆方程.
+\textbf{轨迹必须反向检查。}
+上述圆上任一点满足平方距离等式。若 $P=B$，等式将变成 $4a^2=0$，矛盾；
+若 $P=A$，将变成 $0=4a^2\lambda^2$，也矛盾。
+故 $PA,PB>0$。取非负平方根得到 $PA=\lambda PB$，再除以 $PB$ 即得原比值。
+于是\textbf{条件与圆方程互相推出}，轨迹既不缺点，也不多点。
+另外 $h^2-R^2=a^2$，故 $|h|>a$，圆心确在线段 $AB$ 外。
 
-	\medskip
+\textbf{数值短证。} 当 $a=1,\lambda=2$ 时，直接算
+\[
+ (x+1)^2+y^2=4\bigl((x-1)^2+y^2\bigr)
+ \Longleftrightarrow
+ (x-5/3)^2+y^2=16/9.
+\]
+数值题可以直接配方，不必先背一般公式。
 
-	\textbf{\textcolor{CProof}{正式推导}}
+\tcbbreak
+\textbf{证明二（几何角度）：内外角平分线给出直径。}
+先在直线 $AB$ 上设点 $(x,0)$。条件 $|x+a|=\lambda|x-a|$ 等价于
+\[
+ x+a=-\lambda(x-a)\quad\text{或}\quad x+a=\lambda(x-a).
+\]
+分别解这两个一次方程，得到内分点与外分点的横坐标
+\[
+ x_D=\frac{a(\lambda-1)}{\lambda+1},\qquad
+ x_E=\frac{a(\lambda+1)}{\lambda-1}.
+\]
+$|x_D|<a$，所以 $D$ 在内部；$\lambda>1$ 时 $E$ 在 $B$ 外侧，
+$0<\lambda<1$ 时 $E$ 在 $A$ 外侧。两点均满足 $DA/DB=EA/EB=\lambda$。
+\input{assets/tikz/C032_bisectors.tex}
+若 $P$ 满足原比值且不在直线 $AB$ 上，在 $\triangle PAB$ 中，
+内角平分线定理说明其内角平分线过 $D$，外角平分线定理说明其外角平分线所在直线过 $E$。
+这是因为在对应的内部或外部位置上，给定正比例的分点各自唯一。
+内角与邻补外角之和为 $180^\circ$，各取一半，故 $PD\perp PE$。
+于是 $\angle DPE=90^\circ$，$P$ 在直径为 $DE$ 的圆上。
+共线时直接解距离比，只得到 $D,E$，它们也属于该圆。
 
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（设点列式）：}]
-		      \[
-			      PA=\sqrt{(x+a)^2+y^2},\qquad
-			      PB=\sqrt{(x-a)^2+y^2}.
-		      \]
-		      \par\textbf{理由：} 两点距离公式.
+\textbf{这条几何路线解释“为什么是这条直径”。}
+完整反向包含关系可由证明一回验：
+\[
+ \frac{x_D+x_E}{2}=h,\qquad
+ \frac{|x_E-x_D|}{2}=\frac{2a\lambda}{|\lambda^2-1|}=R.
+\]
+因此直径圆就是证明一已验证的整个轨迹圆，而不只是一个包含轨迹的圆。
 
-		\item[\textbf{步骤二（平方去根号）：}]
-		      由
-		      \[
-			      \frac{PA}{PB}=\lambda
-		      \]
-		      得
-		      \[
-			      (x+a)^2+y^2
-			      =
-			      \lambda^2\bigl[(x-a)^2+y^2\bigr].
-		      \]
-		      \par\textbf{理由：} 比值 $\dfrac{PA}{PB}$ 有意义，所以 $PB\neq0$；又因为 $\lambda>0$，满足条件的点不可能使 $PA=0$. 因此两边均为非负量，可以平方，且不会引入异号问题.
+\tcbbreak
+\textbf{证明三（已学向量时）：以圆心为原点消去一次项。}
+对一般定点，用位置向量 $\mathbf a,\mathbf b,\mathbf c$ 表示 $A,B,C$，令
+\[
+ \mathbf c=\frac{\mathbf a-\lambda^2\mathbf b}{1-\lambda^2}.
+\]
+则 $\overrightarrow{CA}=\lambda^2\overrightarrow{CB}$。记 $\mathbf u=\overrightarrow{CP}$，
+用 $|\mathbf u-\mathbf v|^2=|\mathbf u|^2-2\mathbf u\cdot\mathbf v+|\mathbf v|^2$ 展开：
+\[
+\begin{aligned}
+ PA^2-\lambda^2PB^2
+ &=(1-\lambda^2)PC^2
+ -2\mathbf u\cdot\bigl(\overrightarrow{CA}-\lambda^2\overrightarrow{CB}\bigr)
+ +CA^2-\lambda^2CB^2\\
+ &=(1-\lambda^2)PC^2+CA^2-\lambda^2CB^2.
+\end{aligned}
+\]
+由上述向量公式，$CB=L/|1-\lambda^2|$、$CA=\lambda^2L/|1-\lambda^2|$，故
+\[
+ CA^2-\lambda^2CB^2=-\frac{\lambda^2L^2}{1-\lambda^2}.
+\]
+因此
+\[
+ PA^2-\lambda^2PB^2
+ =(1-\lambda^2)\left(PC^2-\frac{\lambda^2L^2}{(1-\lambda^2)^2}\right).
+\]
+因 $1-\lambda^2\ne0$，左端为零当且仅当 $PC=\lambda L/|1-\lambda^2|$。
+$A\ne B$ 保证半径为正；与证明一相同，$P=A,B$ 均不满足平方等式，取正平方根可回到原比值。
+按坐标读出 $\mathbf c$ 即得一般坐标圆心公式。
 
-		\item[\textbf{步骤三（展开移项）：}]
-		      \[
-			      \begin{aligned}
-				      x^2+2ax+a^2+y^2
-				       & =
-				      \lambda^2(x^2-2ax+a^2+y^2) \\
-				       & =
-				      \lambda^2x^2-2a\lambda^2x+\lambda^2a^2+\lambda^2y^2.
-			      \end{aligned}
-		      \]
-		      \par\textbf{理由：} 展开平方项.
-
-		\item[\textbf{步骤四（合并同类项）：}]
-		      将所有项移至左边，得
-		      \[
-			      x^2-\lambda^2x^2+2ax+2a\lambda^2x+a^2-\lambda^2a^2+y^2-\lambda^2y^2=0.
-		      \]
-		      合并同类项：
-		      \[
-			      (1-\lambda^2)x^2+2a(1+\lambda^2)x+(1-\lambda^2)y^2+(1-\lambda^2)a^2=0.
-		      \]
-		      \par\textbf{理由：} 将同类项合并，得到关于 $x,y$ 的二次方程.
-
-		\item[\textbf{步骤五（除以系数并配方）：}]
-		      因为 $\lambda\neq1$，所以 $1-\lambda^2\neq0$. 两边除以 $1-\lambda^2$，得
-		      \[
-			      x^2+\frac{2a(1+\lambda^2)}{1-\lambda^2}x+y^2+a^2=0.
-		      \]
-		      注意
-		      \[
-			      \frac{1+\lambda^2}{1-\lambda^2}
-			      =
-			      -\frac{\lambda^2+1}{\lambda^2-1}.
-		      \]
-		      令
-		      \[
-			      M=\frac{\lambda^2+1}{\lambda^2-1}a,
-		      \]
-		      则原方程可写为
-		      \[
-			      x^2-2Mx+y^2+a^2=0.
-		      \]
-		      对 $x$ 项配方：
-		      \[
-			      x^2-2Mx=(x-M)^2-M^2.
-		      \]
-		      因此
-		      \[
-			      (x-M)^2+y^2=M^2-a^2.
-		      \]
-		      计算右边：
-		      \[
-			      \begin{aligned}
-				      M^2-a^2
-				       & =
-				      \left(\frac{\lambda^2+1}{\lambda^2-1}\right)^2a^2-a^2 \\
-				       & =
-				      a^2\left[
-					      \frac{(\lambda^2+1)^2-(\lambda^2-1)^2}{(\lambda^2-1)^2}
-				      \right]                                               \\
-				       & =
-				      a^2\cdot\frac{4\lambda^2}{(\lambda^2-1)^2}.
-			      \end{aligned}
-		      \]
-		      \par\textbf{理由：} 移项、配方，并利用平方差公式
-		      \[
-			      (\lambda^2+1)^2-(\lambda^2-1)^2=4\lambda^2.
-		      \]
-
-		\item[\textbf{步骤六（写出标准方程）：}]
-		      所以
-		      \[
-			      \left(x-\frac{\lambda^2+1}{\lambda^2-1}a\right)^2+y^2
-			      =
-			      \left(\frac{2a\lambda}{\lambda^2-1}\right)^2.
-		      \]
-		      因此圆心为
-		      \[
-			      C\left(\frac{\lambda^2+1}{\lambda^2-1}a,\;0\right),
-		      \]
-		      半径为
-		      \[
-			      R=\left|\frac{2a\lambda}{\lambda^2-1}\right|.
-		      \]
-		      \par\textbf{理由：} 与圆的标准方程
-		      \[
-			      (x-h)^2+(y-k)^2=r^2
-		      \]
-		      对比即可.
-	\end{description}
-
-	\medskip
-
-	\textbf{\textcolor{CProof}{结论回扣}}
-
-	综上，到两定点 $A(-a,0),B(a,0)$ 距离之比为常数 $\lambda>0,\lambda\neq1$ 的点 $P$ 的轨迹，是以
-	\[
-		C\left(\frac{\lambda^2+1}{\lambda^2-1}a,\;0\right)
-	\]
-	为圆心，以
-	\[
-		\left|\frac{2a\lambda}{\lambda^2-1}\right|
-	\]
-	为半径的圆. 由于 $a>0,\lambda>0,\lambda\neq1$，该半径严格为正.
+\textbf{边界不除零。} 若 $\lambda=1$，直接用 $PA^2=PB^2$，得到到两定点等距的中垂线。
 \end{proofbox}

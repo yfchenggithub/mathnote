@@ -8,7 +8,7 @@
       "阿氏圆",
       "Apollonius圆"
     ],
-    "summary": "到两定点距离之比为常数（λ>0且λ≠1）的点的轨迹是一个圆，圆心和半径由定点距离与比值唯一确定。",
+    "summary": "平面内到两不同定点的距离比为正数λ：λ≠1时轨迹是圆周，也是同一比例内外分点的直径圆；λ=1时为中垂线。",
     "difficulty": 3,
     "category": "解析几何",
     "tags": [
@@ -109,30 +109,35 @@
   "math": {
     "core_formula": "\\displaystyle C\\left(\\frac{\\lambda^2+1}{\\lambda^2-1}a,0\\right),\\; R=\\left|\\frac{2a\\lambda}{\\lambda^2-1}\\right|",
     "related_formulas": [
-      "\\left(x-\\frac{\\lambda^2+1}{\\lambda^2-1}a\\right)^2+y^2=\\left(\\frac{2a\\lambda}{\\lambda^2-1}\\right)^2"
+      "\\left(x-\\frac{\\lambda^2+1}{\\lambda^2-1}a\\right)^2+y^2=\\left(\\frac{2a\\lambda}{\\lambda^2-1}\\right)^2",
+      "x_D=\\frac{a(\\lambda-1)}{\\lambda+1},\\quad x_E=\\frac{a(\\lambda+1)}{\\lambda-1}",
+      "C=\\frac{A-\\lambda^2B}{1-\\lambda^2},\\quad R=\\frac{\\lambda AB}{|1-\\lambda^2|}"
     ],
     "variables": [
-      "a: 两定点到原点的距离（a>0）",
-      "λ: 距离比值（λ>0且λ≠1）",
-      "C: 圆心横坐标",
-      "R: 半径"
+      "a: 标准坐标中AB长度的一半，a>0",
+      "λ: PA/PB的正比值",
+      "C: 圆心点",
+      "h: 标准坐标中圆心横坐标",
+      "R: 正半径",
+      "D,E: 同一比例的内分点与外分点",
+      "L: 两不同定点距离AB"
     ],
     "conditions": [
-      "两定点A(-a,0)和B(a,0)，a>0",
-      "λ>0且λ≠1"
+      "P在与不同定点A、B相同的平面自由运动，P≠B",
+      "λ>0；圆公式另要求λ≠1；标准坐标A(-a,0)、B(a,0)且a>0"
     ],
     "conclusions": [
       "动点P的轨迹是以C为圆心、R为半径的圆"
     ]
   },
   "content": {
-    "statement": "平面内给定两点A(-a,0)、B(a,0)（a>0），动点P满足PA/PB=λ（λ>0且λ≠1），则点P的轨迹是一个圆，圆心为C( (λ²+1)/(λ²-1)·a, 0)，半径为|2aλ/(λ²-1)|。",
+    "statement": "平面内到两不同定点的距离比为正数λ：λ≠1时轨迹是圆周，也是同一比例内外分点的直径圆；λ=1时为中垂线。",
     "derivation": [
-      "设P(x,y)，由距离公式得√[(x+a)²+y²] / √[(x-a)²+y²] = λ",
-      "整理得 x²+y²−[2a(λ²+1)/(λ²−1)]x+a²=0，配方即得圆心与半径。",
-      "最终圆心横坐标和半径如结论所示"
+      "优先：平方距离、整理、配方，并排除A/B、取正平方根回验，证明整个圆周恰为轨迹。",
+      "几何：同一比例的内外分点D/E，由内外角平分线垂直得到直径圆；中点和半径与配方法一致，充分性由配方法回验。",
+      "向量：选择C消去距离平方差中的一次项，推导一般坐标圆心与半径。"
     ],
-    "intuition": "距离比平方后，x²和y²系数相等，交叉项消去，故轨迹为圆；圆心在x轴上由对称性和比值决定。",
+    "intuition": "λ=2与1/2的圆关于AB中垂线镜像；λ=1是中垂线。内外分点给出直径，角平分线给出直角；轨迹为圆周，不含圆盘内部。",
     "common_tricks": [
       "若λ=1，轨迹为线段AB的中垂线，不能使用圆公式",
       "半径表达式含绝对值，确保半径为正值",
@@ -186,10 +191,10 @@
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-06",
-    "updated_at": "2026-10-21"
+    "updated_at": "2026-10-22"
   },
   "isPro": 0,
-  "remarks": "",
+  "remarks": "2026-10-22 PDF完善：保留正确公式，补上轨迹充分性、几何直径解释及一般坐标向量证明。assets/tikz/C032_locus.tex：圆周保持定比，替代轨迹位置脑补；assets/tikz/C032_reciprocal.tex：倒数比同尺度镜像对照，替代圆心方向长段描述；assets/tikz/C032_unit_ratio.tex：等距中垂线，替代分界形状说明；assets/tikz/C032_diameter.tex：内外分点构成直径，替代端点和中点位置描述；assets/tikz/C032_bisectors.tex：内外角平分线垂直，替代辅助线构造脑补；assets/tikz/C032_oblique.tex：一般斜置定点，替代旋转坐标与共线关系想象；assets/tikz/C032_intersection.tex：圆与直线两个交点，替代附加限制的脑补；assets/tikz/C032_circle_not_disk.tex：圆周与圆盘同尺度对照，替代错误模型描述。数学核验入口 checks/verify_c032.py。未修改已有images、manim及其冻结资产。",
   "knowledgeNode": "解析几何-圆-标准方程-轨迹问题",
   "altNodes": "解析几何-综合-轨迹问题"
 }
