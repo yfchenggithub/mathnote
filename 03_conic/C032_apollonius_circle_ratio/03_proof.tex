@@ -65,6 +65,59 @@ $0<\lambda<1$ 时 $E$ 在 $A$ 外侧。两点均满足 $DA/DB=EA/EB=\lambda$。
 \]
 因此直径圆就是证明一已验证的整个轨迹圆，而不只是一个包含轨迹的圆。
 
+\medskip
+\textbf{证明二的补充：辅助线是怎样发现的？（只补思路和分点计算，不重复证明）}
+
+\textbf{第 1 步：把“动边比例”转为“定比分点”。}
+设 $P$ 不在直线 $AB$ 上，先在 $\triangle PAB$ 中作内角平分线 $PD$。
+由角平分线定理 $AD:DB=PA:PB=\lambda:1$，又 $AD+DB=2a$，所以
+\[
+ AD=\frac{2a\lambda}{1+\lambda},\qquad DB=\frac{2a}{1+\lambda},
+ \qquad x_D=-a+AD=\frac{a(\lambda-1)}{\lambda+1}.
+\]
+这说明只要 $A,B,\lambda$ 不变，$D$ 就不变。这个步骤是看见
+$PA/PB$ 后优先联想到角平分线定理的\textbf{直接原因}。
+
+\textbf{第 2 步：为了“造直角”，引入外角平分线。}
+一个内分点还不足以确定轨迹圆；我们希望寻找固定点 $E$，使
+$\angle DPE=90^\circ$。作 $\angle APB$ 的外角平分线所在直线，与 $AB$
+所在直线相交于 $E$。外角平分线定理给出 $AE/BE=\lambda$。
+对 $E$ 的位置不能靠背图，应按 $\lambda$ 大小判断：
+\begin{itemize}[leftmargin=*]
+ \item 若 $\lambda>1$，则 $E$ 在 $B$ 的外侧，$AE=AB+BE=2a+BE$。
+       因 $AE=\lambda BE$，故
+       $BE=2a/(\lambda-1)$，
+       $x_E=a+BE=a(\lambda+1)/(\lambda-1)$。
+ \item 若 $0<\lambda<1$，则 $E$ 在 $A$ 的外侧，$BE=BA+AE=2a+AE$。
+       因 $AE=\lambda BE$，故
+       $AE=2a\lambda/(1-\lambda)$，
+       $x_E=-a-AE=a(\lambda+1)/(\lambda-1)$。
+\end{itemize}
+两种情形得到\textbf{同一个外分点公式}，且 $E$ 均为固定点。
+
+\textbf{第 3 步：为什么会出现 $90^\circ$？}
+设 $\angle APB=\theta$。内角平分线和相邻外角平分线各分出的角分别为
+$\theta/2$ 与 $(180^\circ-\theta)/2$，和为 $90^\circ$。
+于是 $PD\perp PE$，根据直径所对的圆周角为直角，$P$ 在以 $DE$
+为直径的圆上。若 $P$ 与 $A,B$ 共线，则不把退化图形当三角形套用角平分线定理，
+而是直接由距离比得到 $P=D$ 或 $P=E$。
+
+\textbf{第 4 步：快速恢复圆心、半径，不必背长公式。}
+一旦算出 $x_D,x_E$，立刻用“中点、半差”：
+\[
+ h=\frac{x_D+x_E}{2},\qquad R=\frac{|x_E-x_D|}{2}.
+\]
+还有一个便于核对的短关系（可直接相乘验证）：
+\[
+ \boxed{x_Dx_E=a^2},\qquad
+ h^2-R^2=\left(\frac{x_D+x_E}{2}\right)^2-
+             \left(\frac{x_E-x_D}{2}\right)^2=x_Dx_E=a^2.
+\]
+\textbf{严谨收尾：} 到这里几何上先证明的是“轨迹包含于直径圆”；
+“直径圆上的点都满足原比值”已在证明一由圆方程反向推出，
+两者合起来才是完整的轨迹证明。这里不再重写证明一。
+
+
 \tcbbreak
 \textbf{证明三（已学向量时）：以圆心为原点消去一次项。}
 对一般定点，用位置向量 $\mathbf a,\mathbf b,\mathbf c$ 表示 $A,B,C$，令
