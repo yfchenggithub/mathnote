@@ -1,67 +1,29 @@
 \begin{proofbox}
+\textbf{方法一：对称加勾股，三行证明（优先）。}
+设 $B$ 是短轴端点，$O$ 是中心。由对称性 $BF_1=BF_2$；由第一定义
+$BF_1+BF_2=2a$，所以 $BF_2=a$。
+又 $BO\perp OF_2$，$BO=b,OF_2=c$，勾股定理立即得到
+\[
+\boxed{a^2=b^2+c^2}.
+\]
+旋转或平移不改变长度与直角，所以该证明不依赖坐标方向。
 
-	\textbf{\textcolor{CProof}{思路提示}}
-
-	取椭圆短轴端点，利用椭圆定义到两焦点距离之和为 $2a$，通过距离公式计算即可得到 $a^{2}=b^{2}+c^{2}$。
-
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（设椭圆方程）：}]
-			设椭圆标准方程为 $\frac{x^{2}}{a^{2}}+\frac{y^{2}}{b^{2}}=1$（$a>b>0$），焦点为 $F_{1}(-c,0)$、$F_{2}(c,0)$。
-			\[
-				\frac{x^{2}}{a^{2}}+\frac{y^{2}}{b^{2}}=1,
-				\qquad
-				F_{1}(-c,0),\;F_{2}(c,0).
-			\]
-			\par\textbf{理由：}
-			这是椭圆标准形式，焦点在 $x$ 轴上（焦点在 $y$ 轴时推导类似）。
-
-		\item[\textbf{步骤二（取特殊点）：}]
-			取椭圆上一点 $P(0,b)$，即短轴上端点（或下端点）。因 $b>0$，代入方程验证：$\frac{0^{2}}{a^{2}}+\frac{b^{2}}{b^{2}}=1$，成立。
-			\[
-				P(0,b).
-			\]
-			\par\textbf{理由：}
-			该点坐标满足椭圆方程，且对称，便于计算距离。
-
-		\item[\textbf{步骤三（利用椭圆定义）：}]
-			由椭圆定义，点 $P$ 到两焦点距离之和等于 $2a$：
-			\[
-				|PF_{1}|+|PF_{2}|=2a.
-			\]
-			\par\textbf{理由：}
-			椭圆定义：平面内到两定点距离之和为常数 $2a$ 的点的轨迹。
-
-		\item[\textbf{步骤四（计算距离）：}]
-			计算 $|PF_{1}|$ 和 $|PF_{2}|$。由距离公式：
-			\[
-				\begin{aligned}
-					|PF_{1}| &= \sqrt{(0-(-c))^{2}+(b-0)^{2}} \\
-					&= \sqrt{c^{2}+b^{2}},\\[4pt]
-					|PF_{2}| &= \sqrt{(0-c)^{2}+(b-0)^{2}} \\
-					&= \sqrt{c^{2}+b^{2}}.
-			\end{aligned}
-			\]
-			\par\textbf{理由:}
-			代入坐标,注意 $P(0,b)$ 与 $F_{1}(-c,0)$、$F_{2}(c,0)$ 的坐标.
-
-		\item[\textbf{步骤五(代入并化简):}]
-			代入定义式:
-			\[
-				\sqrt{c^{2}+b^{2}}+\sqrt{c^{2}+b^{2}}=2a\quad\Longrightarrow\quad 2\sqrt{c^{2}+b^{2}}=2a.
-			\]
-			两边除以 $2$ 并平方:
-			\[
-				\sqrt{c^{2}+b^{2}}=a\quad\Longrightarrow\quad c^{2}+b^{2}=a^{2}.
-			\]
-			\par\textbf{理由:}
-			直接代数运算,平方去掉根号,得到关系.
-
-	\end{description}
-
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-
-	\textbf{因此,对椭圆标准方程,总有 $a^{2}=b^{2}+c^{2}$,该式沟通了椭圆的几何参数,是后续计算离心率、焦点坐标的基础.}
+\textbf{方法二：从方程反向验证焦点（代数角度）。}
+给定 $x^2/a^2+y^2/b^2=1$，先构造候选数 $c_0=\sqrt{a^2-b^2}>0$，
+候选定点为 $(\pm c_0,0)$，不预先把 $c_0$ 当作已知半焦距。
+方程给出 $|x|\le a$ 和 $y^2=b^2(1-x^2/a^2)$，于是
+\[
+(x\pm c_0)^2+y^2=\left(a\pm\frac{c_0x}{a}\right)^2.
+\]
+因为 $c_0<a$，两括号均至少为 $a-c_0>0$。
+取正平方根，两条距离分别为 $a\pm c_0x/a$，距离和恒为 $2a$，
+所以这两个定点确可作焦点，半焦距即 $c=c_0$，得到相同关系。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{构造回看：已知轴长怎样找焦点？}
+\input{assets/tikz/C042_circle_constructs_foci}
+若已知 $a=5,b=3$，以 $B=(0,3)$ 为圆心作半径 $5$ 的圆。
+在长轴 $y=0$ 上，圆方程变成 $x^2+9=25$，所以交点为 $(\pm4,0)$。
+这把 $c=\sqrt{a^2-b^2}$ 变成一次实际作图；前面的代数验证保证这两个交点确能作焦点。
 \end{proofbox}
