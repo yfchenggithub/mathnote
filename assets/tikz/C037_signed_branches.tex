@@ -1,0 +1,19 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {距离差带符号：右支为正，左支为负};
+\begin{scope}[shift={(7.2,3.8)},scale=.63]
+\draw[black!40] (-6,0)--(6,0);
+\draw[blue,very thick,domain=-4:4,samples=121,variable=\t] plot ({3*sqrt(1+\t*\t/16)},\t);
+\draw[blue,very thick,domain=-4:4,samples=121,variable=\t] plot ({-3*sqrt(1+\t*\t/16)},\t);
+\draw[orange!85!black,thick] (-5,0)--(3.75,3)--(5,0);
+\draw[violet,thick,dashed] (-5,0)--(-3.75,-3)--(5,0);
+\fill (-5,0) circle (2pt) node[below left] {$F_1$};
+\fill (5,0) circle (2pt) node[below right] {$F_2$};
+\fill (3.75,3) circle (2pt) node[right=9pt] {$P$};
+\fill (-3.75,-3) circle (2pt) node[left=9pt] {$Q$};
+\end{scope}
+\node at (7.2,6.85) {$PF_1-PF_2=9.25-3.25=6$};
+\node at (7.2,1.0) {$QF_1-QF_2=3.25-9.25=-6$};
+
+\node[anchor=west] at (.7,.55) {$a=3,\ b=4,\ c=5$；蓝色两支一起满足 $|PF_1-PF_2|=6$};
+\end{tikzpicture}\end{center}

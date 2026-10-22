@@ -1,0 +1,22 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {看正项确定实轴：双曲线不用比较分母大小};
+\begin{scope}[shift={(3.6,4.2)},scale=.4]
+\draw[->,black!40] (-6,0)--(6,0) node[right] {$x$};\draw[->,black!40] (0,-6)--(0,6) node[above] {$y$};
+\draw[blue,very thick,domain=-4:4,samples=121,variable=\t] plot ({-1*3*sqrt(1+\t*\t/16)},\t);
+\draw[blue,very thick,domain=-4:4,samples=121,variable=\t] plot ({1*3*sqrt(1+\t*\t/16)},\t);
+\fill (-5,0) circle (2pt) node[below] {$F_1$};
+\fill (5,0) circle (2pt) node[below] {$F_2$};
+\end{scope}
+\node at (3.6,1.3) {$\frac{x^2}{9}-\frac{y^2}{16}=1$};
+\begin{scope}[shift={(10.8,4.2)},scale=.4]
+\draw[->,black!40] (-6,0)--(6,0) node[right] {$x$};\draw[->,black!40] (0,-6)--(0,6) node[above] {$y$};
+\draw[blue,very thick,domain=-4:4,samples=121,variable=\t] plot (\t,{-1*3*sqrt(1+\t*\t/16)});
+\draw[blue,very thick,domain=-4:4,samples=121,variable=\t] plot (\t,{1*3*sqrt(1+\t*\t/16)});
+\fill (0,-5) circle (2pt) node[right] {$F_1$};
+\fill (0,5) circle (2pt) node[right] {$F_2$};
+\end{scope}
+\node at (10.8,1.3) {$\frac{y^2}{9}-\frac{x^2}{16}=1$};
+
+\node[anchor=west] at (.7,.55) {同尺度；两图均取 $a=3,\ b=4,\ c=5$，焦点位于开口方向};
+\end{tikzpicture}\end{center}
