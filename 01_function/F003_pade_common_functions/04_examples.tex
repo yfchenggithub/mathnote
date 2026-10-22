@@ -1,108 +1,48 @@
+\clearpage
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例1（基础）}}
+\paragraph{例1：估算 $e^{0.1}$，并保证四位小数}
+识别 $x=0.1\in[0,1]$，代入指数分式：
+\[
+R_E(0.1)=\frac{1261}{1141}=1.10517090\ldots.
+\]
+由已证误差界，
+\[
+0<e^{0.1}-R_E(0.1)<\frac{3(0.1)^5}{665}<4.52\times10^{-8}.
+\]
+因而 $1.10517090<e^{0.1}<1.10517096$，整个区间都落在舍入到 $1.1052$ 的范围 $(1.10515,1.10525)$ 内，故\textbf{四位小数为 $1.1052$}。
+回验依靠误差区间，不必预先知道计算器中的真实值。
+变式：由 $R_E(-x)=1/R_E(x)$，估算 $e^{-x}$ 时可把指数分式的分子、分母互换；$x>0$ 时，这个分式高估 $e^{-x}$。
 
-	\textbf{\textcolor{CExample}{题目：}} 已知帕德逼近$e^x \approx \dfrac{x^2+6x+12}{x^2-6x+12}$，求$e^{0.1}$的近似值（保留四位小数）。
+\paragraph{例2：估算 $\ln1.1$，并判断高估还是低估}
+这里 $1.1=1+0.1$，因此 $x=0.1$，而不是 $1.1$。
+\[
+R_L(0.1)=\frac{63}{661}=0.09531013\ldots,
+\qquad
+0<\ln1.1-R_L(0.1)<\frac{10^{-5}}{180}.
+\]
+所以 $0.09531013<\ln1.1<0.09531020$，分式是低估，\textbf{四位小数为 $0.0953$}。
+回验也可看面积：矩形总面积接近曲线下面积；其严格偏差方向由方法一保证，不能仅凭肉眼判断。
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（识别变量）：}] 确定逼近公式中的$x=0.1$。
-		      \par\textbf{理由：} 当$x$接近0时逼近有效，$0.1$满足局部近似的使用前提。
-
-		\item[\textbf{第二步（代入公式）：}] 代入$x=0.1$，计算分子：
-		      \[
-			      0.1^2 + 6\times 0.1 + 12 = 0.01 + 0.6 + 12 = 12.61,
-		      \]
-		      分母：
-		      \[
-			      0.1^2 - 6\times 0.1 + 12 = 0.01 - 0.6 + 12 = 11.41.
-		      \]
-		      \par\textbf{理由：} 直接代入公式。
-
-		\item[\textbf{第三步（计算近似值）：}]
-		      \[
-			      e^{0.1} \approx \frac{12.61}{11.41} \approx 1.1052.
-		      \]
-		      \par\textbf{理由：} 完成除法运算，保留四位小数。
-	\end{description}
-
-	\textbf{\textcolor{CExample}{关键结论：}} $e^{0.1}\approx 1.1052$，与真实值$1.10517$非常接近，误差极小。
-
-	\medskip
-	\textbf{\textcolor{CExample}{例2（稍变形）}}
-
-	\textbf{\textcolor{CExample}{题目：}} 利用$\ln(1+x) \approx \dfrac{3x^2+6x}{x^2+6x+6}$，求$\ln(1.1)$的近似值（保留四位小数）。
-
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（确定自变量）：}] 由$\ln(1+x)$得$x=0.1$。
-		      \par\textbf{理由：} 因为$1.1=1+0.1$，所以$x=0.1$；同时$x=0.1>-1$，满足对数定义域。
-
-		\item[\textbf{第二步（代入公式）：}] 将$x=0.1$代入公式右边：
-		      \[
-			      \ln(1.1) \approx \frac{3\times 0.1^2 + 6\times 0.1}{0.1^2 + 6\times 0.1 + 6}
-			      = \frac{3\times 0.01 + 0.6}{0.01 + 0.6 + 6}
-			      = \frac{0.03+0.6}{6.61} = \frac{0.63}{6.61}.
-		      \]
-		      \par\textbf{理由：} 正确代入并计算平方、乘法。
-
-		\item[\textbf{第三步（化简求值）：}]
-		      \[
-			      \frac{0.63}{6.61} \approx 0.0953.
-		      \]
-		      \par\textbf{理由：} 完成除法，保留四位小数。
-	\end{description}
-
-	\textbf{\textcolor{CExample}{关键结论：}} $\ln(1.1)\approx 0.0953$，实际值约为$0.09531$，吻合良好。
-
-	\medskip
-	\textbf{\textcolor{CExample}{例3（综合应用）}}
-
-	\textbf{\textcolor{CExample}{题目：}} 已知$\tan x \approx \dfrac{3x}{3-x^2}$，求$\tan(0.2)$的近似值（保留四位小数）。
-
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（变量确认）：}] 确定$x=0.2$，这里$0.2$表示$0.2$弧度。
-		      \par\textbf{理由：} 三角函数的帕德逼近默认使用弧度制，且$3-0.2^2\ne0$。
-
-		\item[\textbf{第二步（代入公式）：}]
-		      \[
-			      \tan(0.2) \approx \frac{3\times 0.2}{3 - 0.2^2} = \frac{0.6}{3 - 0.04} = \frac{0.6}{2.96}.
-		      \]
-		      \par\textbf{理由：} 计算分子、分母。
-
-		\item[\textbf{第三步（结果化简）：}]
-		      \[
-			      \frac{0.6}{2.96} = 0.2027027\ldots \approx 0.2027.
-		      \]
-		      \par\textbf{理由：} 保留四位小数；实际$\tan0.2\approx0.2027$，公式准确。
-	\end{description}
-
-	\textbf{\textcolor{CExample}{关键结论：}} $\tan(0.2)\approx 0.2027$，验证了帕德逼近在小$x$下的有效性。
-
-	\medskip
-	\textbf{\textcolor{CExample}{例4（余弦修正公式）}}
-
-	\textbf{\textcolor{CExample}{题目：}} 利用$\cos x\approx\dfrac{12-5x^2}{12+x^2}$，求$\cos(0.2)$的近似值（保留四位小数）。
-
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（确认弧度制）：}] $x=0.2$表示$0.2$弧度。
-		      \par\textbf{理由：} 三角函数近似公式必须使用弧度制。
-
-		\item[\textbf{第二步（代入公式）：}]
-		      \[
-			      \cos(0.2)\approx \frac{12-5\times0.2^2}{12+0.2^2}
-			      =\frac{12-0.2}{12.04}
-			      =\frac{11.8}{12.04}.
-		      \]
-		      \par\textbf{理由：} 使用正确的偶函数型余弦逼近公式。
-
-		\item[\textbf{第三步（结果化简）：}]
-		      \[
-			      \frac{11.8}{12.04}\approx0.9801.
-		      \]
-		      \par\textbf{理由：} 保留四位小数；实际$\cos0.2\approx0.9801$，吻合良好。
-	\end{description}
-
-	\textbf{\textcolor{CExample}{关键结论：}} $\cos(0.2)\approx0.9801$。余弦是偶函数，近似式应体现只含$x^2$的结构。
+\newpage
+\paragraph{例3：$\tan0.2$ 的近似与独立夹逼}
+$0.2$ 是弧度数，且位于零点附近。代入得
+\[
+R_T(0.2)=\frac{0.6}{2.96}=\frac{15}{74}=0.2027027\ldots.
+\]
+这提示四位小数可能是 $0.2027$，但代入结果本身还不是精度证明。
+独立回验用 $x=0.2$ 时的正弦、余弦夹逼：
+\[
+s_-=x-\frac{x^3}{6}<\sin x<s_+=x-\frac{x^3}{6}+\frac{x^5}{120},
+\]
+\[
+0<c_-=1-\frac{x^2}{2}<\cos x<c_+=1-\frac{x^2}{2}+\frac{x^4}{24}.
+\]
+这些方向由拉格朗日余项及 $0<\xi<x<\pi/2$ 时 $\sin\xi>0$ 确定。
+分子、分母均为正，故
+\[
+0.20270<\frac{s_-}{c_+}<\tan0.2<\frac{s_+}{c_-}<0.20273.
+\]
+因此四位小数确实为 $0.2027$。注意：这不等于分式给出了更多位的准确数字。
+\input{assets/tikz/F003_trig_error.tex}
+图示 $0.1\le x\le1$ 的误差，三条曲线来自原函数与各自分式的实际差值；在 $x=0.2$ 处，正切分式误差约 $7.33\times10^{-6}$，不能把它输出的所有小数位都当作有效数字。
 \end{examplebox}

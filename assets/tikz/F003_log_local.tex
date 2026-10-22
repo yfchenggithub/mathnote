@@ -1,0 +1,16 @@
+\begin{center}
+\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (0.5,7.72) {对数：曲线贴合，不代表误差为零};
+\begin{axis}[width=11.2cm,height=6.1cm,at={(2.05cm,1.25cm)},anchor=south west,
+axis lines=left,xlabel={$x$},tick label style={font=\small},label style={font=\small},
+legend style={font=\small,draw=none,fill=white,at={(0.03,0.97)},anchor=north west},
+legend cell align=left,unbounded coords=jump,xmin=-0.8,xmax=1,ymin=-1.9,ymax=1,ylabel={$y$},legend style={at={(0.97,0.05)},anchor=south east}]
+\addplot[blue,very thick] table[x=x,y=log] {assets/tikz/F003_samples.dat};
+\addlegendentry{$\ln(1+x)$}
+\addplot[orange!85!black,thick,dashed] table[x=x,y=rl] {assets/tikz/F003_samples.dat};
+\addlegendentry{$R_L(x)$}
+
+\end{axis}
+\end{tikzpicture}
+\end{center}

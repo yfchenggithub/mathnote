@@ -1,0 +1,22 @@
+\begin{center}
+\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (0.5,7.72) {以 $x=3$ 为例：对数分式来自两次高度采样};
+\node[anchor=west] at (0.5,6.95) {原曲线下面积};
+\begin{axis}[width=5.2cm,height=5.3cm,at={(1.85cm,1.25cm)},anchor=south west,axis lines=left,xmin=0,xmax=3.2,ymin=0,ymax=1.15,xlabel={$t$},ylabel={高度},xtick={0,1.5,3},ytick={0,0.5,1}]
+\addplot[draw=none,fill=blue!12,domain=0:3,samples=100]{1/(1+x)} \closedcycle;
+\addplot[blue,very thick,domain=0:3,samples=100]{1/(1+x)};
+\end{axis}
+\node[anchor=west] at (7.5,6.95) {两矩形近似面积};
+\begin{axis}[width=5.2cm,height=5.3cm,at={(8.25cm,1.25cm)},anchor=south west,axis lines=left,xmin=0,xmax=3.2,ymin=0,ymax=1.15,xlabel={$t$},ylabel={高度},xtick={0,1.5,3},ytick={0,0.5,1}]
+\path[fill=orange!20] (axis cs:0,0) rectangle (axis cs:1.5,0.6120046189);
+\path[fill=orange!20] (axis cs:1.5,0) rectangle (axis cs:3,0.2970862902);
+\draw[orange!85!black,thick] (axis cs:0,0)--(axis cs:0,0.6120046189)--(axis cs:1.5,0.6120046189)--(axis cs:1.5,0.2970862902)--(axis cs:3,0.2970862902)--(axis cs:3,0);
+\addplot[only marks,orange!85!black] coordinates {(0.6339745962,0.6120046189) (2.3660254038,0.2970862902)};
+\node[anchor=south west] at (axis cs:0.65,0.73) {$t_-$};
+\node[anchor=south] at (axis cs:2.3,0.42) {$t_+$};
+\addplot[blue,very thick,domain=0:3,samples=100]{1/(1+x)};
+\end{axis}
+
+\end{tikzpicture}
+\end{center}

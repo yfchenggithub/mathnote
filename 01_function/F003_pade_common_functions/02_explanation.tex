@@ -1,39 +1,26 @@
+\clearpage
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
-	帕德逼近就是用简单有理分式“模仿”复杂函数，在某个点附近尽量贴合原函数。
-	\medskip
+\paragraph{一、先看具体曲线：贴合发生在零点附近}
+\input{assets/tikz/F003_exp_local.tex}
+蓝线是 $e^x$，橙虚线是 $R_E$。两线近乎重合，只能说明在当前尺度下差距很小，不能说明相等。
+\input{assets/tikz/F003_exp_error.tex}
+上图将差值单独画出；$T_4=1+x+x^2/2+x^3/6+x^4/24$。
+两种方法都匹配到四次项，但在所画区间内，分式的误差更小。
+这只是当前函数与区间的比较，不能推广成“帕德永远优于泰勒”。
 
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（匹配原理）：}] 通过设置有理分式的系数，使它在$x=0$处的函数值以及若干阶导数值与目标函数一致。
-		\item[\textbf{要点二（展开一致）：}] 有理分式在$x=0$处的泰勒展开前几项与目标函数的泰勒展开相同，从而实现局部逼近。
-		\item[\textbf{要点三（不是恒等）：}] 符号$\approx$表示近似，不表示恒等；离展开中心越远，误差通常越明显。
-	\end{description}
-	\medskip
+\newpage
+\paragraph{二、对数：负数一侧更靠近定义域边界}
+\input{assets/tikz/F003_log_local.tex}
+零点两侧曲线都贴合，但向 $x=-1$ 靠近时要更谨慎；不能只看 $|x|$ 就保证精度。
+\input{assets/tikz/F003_log_error.tex}
+误差为负表示分式高于原函数，误差为正表示分式低于原函数。
+图中纵坐标已乘 $10^4$；实际误差须再除以 $10^4$。
 
-	\textbf{\textcolor{CExplanation}{几何本质（局部重合）}}
-	在$x=0$附近，有理函数的图像与指数、对数、三角函数的图像高度贴合；但它们只是局部近似，不能直接当作全局相等。
-	\medskip
-
-	\textbf{\textcolor{CExplanation}{代数意义（分式逼近）}}
-	用有理分式代替指数、对数、三角函数等复杂形式，可以把近似计算转化为多项式的加减乘除，便于手算估值。
-	\medskip
-
-	\textbf{\textcolor{CExplanation}{考点价值（速算工具）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（近似计算）：} 直接用帕德公式计算函数在$x$接近0时的近似值，快速得到结果。
-		\item \textbf{考法二（放缩辅助）：} 在不等式证明中，帕德分式可以作为构造辅助函数的灵感来源；但若要用于严格放缩，必须额外证明它是目标函数的上界或下界，不能仅凭近似式直接替代。
-	\end{itemize}
-	\medskip
-
-	\textbf{\textcolor{CExplanation}{顿悟点}}
-	帕德逼近由于引入了分母调节，常常能在相近复杂度下获得比普通泰勒多项式更好的局部近似效果；但这种优势不是全局无条件成立的，具体误差仍需结合函数、取值范围和允许误差判断。
-	\medskip
-
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（考场估算）：} 遇到$e^{0.2},\ln1.1$等值，可快速用帕德公式近似，避免复杂计算。
-		\item \textbf{场景二（三角估算）：} 估算$\sin x,\cos x,\tan x$时，必须先确认$x$是弧度制；角度制要先转成弧度制再代入。
-		\item \textbf{场景三（构造辅助函数）：} 在证明与$e^x,\ln(1+x)$有关的不等式时，可以参考帕德分式构造辅助函数，再通过求导或作差判断大小方向。
-	\end{itemize}
+\newpage
+\paragraph{三、三角函数：先保留奇偶结构，再讨论精度}
+\input{assets/tikz/F003_sin_cos_local.tex}
+$R_S$ 为奇函数、$R_C$ 为偶函数，分别保留正弦和余弦的对称性。
+两幅图使用相同的坐标范围和尺度；奇偶性只是必要的结构检查，不能单独证明高阶精度。
+\input{assets/tikz/F003_tan_local.tex}
+$R_T$ 也为奇函数。即使在这幅局部图中，接近左右边缘时仍可看到正切的差距变大。
 \end{explanationbox}

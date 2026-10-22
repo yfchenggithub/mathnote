@@ -1,45 +1,26 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件1（邻域范围）：}}] 帕德逼近是以$x=0$为中心的局部近似，要求$|x|$较小；实际估算时可把$|x|<1$作为粗略经验范围，但具体精度还要结合函数和误差要求判断。
-		\item[\textbf{\textcolor{CStatement}{条件2（定义域）：}}] 使用$\ln(1+x)$的逼近时，必须满足$x>-1$。
-		\item[\textbf{\textcolor{CStatement}{条件3（弧度制）：}}] 涉及$\sin x,\cos x,\tan x$时，$x$必须使用弧度制，不能直接代入角度制数值。
-		\item[\textbf{\textcolor{CStatement}{条件4（分母限制）：}}] 使用正切逼近时，应保证$3-x^2\ne0$，即$x\ne\pm\sqrt3$；实际应用仍以$x$接近0为前提。
-	\end{description}
+\paragraph{用有理分式作局部近似}
+记下列五个分式为 $R_E,R_L,R_S,R_C,R_T$。当 $x\to0$ 时，
+\[
+\begin{aligned}
+e^x&=\underbrace{\frac{x^2+6x+12}{x^2-6x+12}}_{R_E(x)}+O(x^5),\\[4pt]
+\ln(1+x)&=\underbrace{\frac{3x^2+6x}{x^2+6x+6}}_{R_L(x)}+O(x^5),\\[4pt]
+\sin x&=\underbrace{\frac{6x}{x^2+6}}_{R_S(x)}+O(x^5),\\[4pt]
+\cos x&=\underbrace{\frac{12-5x^2}{12+x^2}}_{R_C(x)}+O(x^6),\\[4pt]
+\tan x&=\underbrace{\frac{3x}{3-x^2}}_{R_T(x)}+O(x^5).
+\end{aligned}
+\]
+$O(x^m)$ 表示误差的绝对值在零点某邻域内不超过 $C|x|^m$，其中 $C$ 为与 $x$ 无关的正常数；它本身不提供具体的有效数字保证。
 
-	\textbf{\textcolor{CStatement}{结论}}
+\textbf{定义域与单位：}指数、正弦、余弦的这些分式对所有实数有定义；对数比较要求 $x>-1$，此时其分母也为正。
+正切比较还须 $\cos x\ne0$ 且 $x\ne\pm\sqrt3$，零点附近可取 $|x|<\pi/2$。
+所有三角函数的 $x$ 均为\textbf{弧度数}。
 
-	以下公式均为$x=0$附近的局部近似公式，不是恒等式。
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（指数逼近）：}}]
-		      \textbf{\textcolor{CStatement}{直观描述：}} 用二次有理分式近似指数函数。
-		      \[
-			      e^x \approx \frac{x^2+6x+12}{x^2-6x+12}.
-		      \]
-		\item[\textbf{\textcolor{CStatement}{结论二（对数逼近）：}}]
-		      \textbf{\textcolor{CStatement}{直观描述：}} 用二次有理分式近似对数函数。
-		      \[
-			      \ln(1+x) \approx \frac{3x^2+6x}{x^2+6x+6},\qquad x>-1.
-		      \]
-		\item[\textbf{\textcolor{CStatement}{结论三（正弦逼近）：}}]
-		      \textbf{\textcolor{CStatement}{直观描述：}} 用二次有理分式近似正弦函数，其中$x$为弧度制。
-		      \[
-			      \sin x \approx \frac{6x}{x^2+6}.
-		      \]
-		\item[\textbf{\textcolor{CStatement}{结论四（余弦逼近）：}}]
-		      \textbf{\textcolor{CStatement}{直观描述：}} 用偶函数型二次有理分式近似余弦函数，其中$x$为弧度制。
-		      \[
-			      \cos x \approx \frac{12-5x^2}{12+x^2}.
-		      \]
-		\item[\textbf{\textcolor{CStatement}{结论五（正切逼近）：}}]
-		      \textbf{\textcolor{CStatement}{直观描述：}} 用二次有理分式近似正切函数，其中$x$为弧度制。
-		      \[
-			      \tan x \approx \frac{3x}{3-x^2},\qquad x\ne\pm\sqrt3.
-		      \]
-		\item[\textbf{\textcolor{CStatement}{推广结论（变量替换）：}}]
-		      \textbf{\textcolor{CStatement}{直观描述：}} 将指数逼近中的$x$替换为$-x$，得到$e^{-x}$的逼近。
-		      \[
-			      e^{-x} \approx \frac{x^2-6x+12}{x^2+6x+12}.
-		      \]
-	\end{description}
+\textbf{使用边界：}这些是近似公式，不是恒等式，也不自动给出上界或下界。
+本条另证：$0\le x\le1$ 时，
+\[
+0\le e^x-R_E(x)\le\frac{3x^5}{665},\qquad
+0\le\ln(1+x)-R_L(x)\le\frac{x^5}{180}.
+\]
+两式等号均仅在 $x=0$ 成立。指数在 $x<0$ 时、对数在 $-1<x<0$ 时，误差方向反转。
 \end{statementbox}

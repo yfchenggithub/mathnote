@@ -1,0 +1,16 @@
+\begin{center}
+\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (0.5,7.72) {余弦错式对照：旧错式破坏了偶对称};
+\begin{axis}[width=11.2cm,height=6.1cm,at={(2.05cm,1.25cm)},anchor=south west,
+axis lines=left,xlabel={$x$},tick label style={font=\small},label style={font=\small},
+legend style={font=\small,draw=none,fill=white,at={(0.03,0.97)},anchor=north west},
+legend cell align=left,unbounded coords=jump,xmin=-0.8,xmax=0.8,ymin=0.55,ymax=1.65,ylabel={$y$},legend style={at={(0.97,0.97)},anchor=north east}]
+\addplot[blue,very thick] table[x=x,y=cos] {assets/tikz/F003_samples.dat};
+\addlegendentry{$\cos x$}
+\addplot[orange!85!black,thick,dashed] table[x=x,y=rc] {assets/tikz/F003_samples.dat};
+\addlegendentry{正确 $R_C(x)$}
+\addplot[red!70!black,thick,densely dotted,domain=-0.8:0.8,samples=100]{12/(12+5*x)};\addlegendentry{错误 $12/(12+5x)$}
+\end{axis}
+\end{tikzpicture}
+\end{center}

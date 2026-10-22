@@ -9,7 +9,7 @@
       "Pade逼近",
       "有理分式近似"
     ],
-    "summary": "用有理分式近似复杂函数，在$x=0$附近具有高精度，常用于快速计算小$x$下的函数值。",
+    "summary": "五类函数在零点附近的有理近似：余弦误差为 O(x^6)，其余为 O(x^5)；具体精度须用误差界检验。",
     "difficulty": 3,
     "category": "函数逼近",
     "tags": [
@@ -36,7 +36,14 @@
       "小x近似",
       "e^{0.1}计算",
       "ln1.1计算",
-      "tan0.2计算"
+      "tan0.2计算",
+      "误差界",
+      "多个证明",
+      "求导检验",
+      "数形结合",
+      "两矩形面积",
+      "配系数",
+      "舍入保证"
     ],
     "synonyms": [
       "pade逼近",
@@ -66,44 +73,32 @@
     ],
     "ocrKeywords": [
       "帕德逼近",
-      "e^x ≈",
-      "ln(1+x) ≈",
-      "sin x ≈",
-      "cos x ≈",
-      "tan x ≈",
+      "有理近似",
+      "误差界",
+      "弧度制",
       "x^2+6x+12",
       "x^2-6x+12",
       "3x^2+6x",
       "x^2+6x+6",
-      "6x",
-      "x^2+6",
-      "12",
-      "12+5x"
+      "6x/(x^2+6)",
+      "(12-5x^2)/(12+x^2)",
+      "3x/(3-x^2)"
     ],
     "latex_patterns": [
-      "\\frac{x^2+6x+12}{x^2-6x+12}",
-      "\\frac{3x^2+6x}{x^2+6x+6}",
-      "\\frac{6x}{x^2+6}",
-      "\\frac{12}{12+5x}",
-      "\\frac{3x}{3-x^2}",
-      "e^x \\approx",
-      "\\ln(1+x) \\approx",
-      "\\sin x \\approx",
-      "\\cos x \\approx",
-      "\\tan x \\approx"
+      "e^x=\\frac{x^2+6x+12}{x^2-6x+12}+O(x^5)",
+      "\\ln(1+x)=\\frac{3x^2+6x}{x^2+6x+6}+O(x^5)",
+      "\\sin x=\\frac{6x}{x^2+6}+O(x^5)",
+      "\\cos x=\\frac{12-5x^2}{12+x^2}+O(x^6)",
+      "\\tan x=\\frac{3x}{3-x^2}+O(x^5)"
     ],
     "formulaTokens": [
-      "x^2+6x+12",
-      "x^2-6x+12",
       "(x^2+6x+12)/(x^2-6x+12)",
-      "3x^2+6x",
-      "x^2+6x+6",
       "(3x^2+6x)/(x^2+6x+6)",
-      "6x",
-      "x^2+6",
       "6x/(x^2+6)",
-      "12/(12+5x)",
-      "3x/(3-x^2)"
+      "(12-5x^2)/(12+x^2)",
+      "3x/(3-x^2)",
+      "3x^5/665",
+      "x^5/180"
     ],
     "pinyin": "padebijin",
     "pinyinAbbr": "pdbj"
@@ -121,47 +116,55 @@
     "success_rate": 0
   },
   "math": {
-    "core_formula": "e^x \\approx \\frac{x^{2}+6x+12}{x^{2}-6x+12}",
+    "core_formula": "e^x=\\frac{x^2+6x+12}{x^2-6x+12}+O(x^5)",
     "related_formulas": [
-      "\\ln(1+x) \\approx \\frac{3x^{2}+6x}{x^{2}+6x+6}",
-      "\\sin x \\approx \\frac{6x}{x^{2}+6}",
-      "\\cos x \\approx \\frac{12}{12+5x}",
-      "\\tan x \\approx \\frac{3x}{3-x^{2}}"
+      "\\ln(1+x)=\\frac{3x^2+6x}{x^2+6x+6}+O(x^5)",
+      "\\sin x=\\frac{6x}{x^2+6}+O(x^5)",
+      "\\cos x=\\frac{12-5x^2}{12+x^2}+O(x^6)",
+      "\\tan x=\\frac{3x}{3-x^2}+O(x^5)"
     ],
     "variables": [
       {
         "name": "x",
-        "domain": "实数（要求|x|较小）",
-        "description": "自变量，需在0附近"
+        "domain": "零点附近实数；对数 x>-1；三角变量为弧度",
+        "description": "展开与估算的自变量"
+      },
+      {
+        "name": "R_E,R_L,R_S,R_C,R_T",
+        "domain": "各分母非零处",
+        "description": "指数、对数、正弦、余弦、正切的有理近似"
       }
     ],
     "conditions": [
-      "帕德逼近仅在x=0附近有效，一般要求|x|较小（如|x|<1）",
-      "被逼近函数在x=0处光滑"
+      "所有误差阶数均指 x趋于0，不代表任意区间上的精度保证。",
+      "对数要求 x>-1；正切要求 cos x 非零且 x 不等于正负根号3。",
+      "三角函数自变量必须为弧度数。",
+      "给出的指数与对数显式数值上界适用于 0<=x<=1。"
     ],
     "conclusions": [
-      "可得到e^x、ln(1+x)、sin x、cos x、tan x在小x下的有理分式近似值"
+      "五类函数在零点附近的有理近似：余弦误差为 O(x^6)，其余为 O(x^5)；具体精度须用误差界检验。",
+      "正 x 时指数与对数分式均为低估；负 x 时方向反转（对数仍要求 x>-1）。"
     ]
   },
   "content": {
-    "statement": "常见函数的帕德逼近：\n$e^x \\approx \\dfrac{x^2+6x+12}{x^2-6x+12}$，\n$\\ln(1+x) \\approx \\dfrac{3x^2+6x}{x^2+6x+6}$，\n$\\sin x \\approx \\dfrac{6x}{x^2+6}$，\n$\\cos x \\approx \\dfrac{12}{12+5x}$，\n$\\tan x \\approx \\dfrac{3x}{3-x^2}$。",
+    "statement": "当 x趋于0：e^x=\\frac{x^2+6x+12}{x^2-6x+12}+O(x^5)；\\ln(1+x)=\\frac{3x^2+6x}{x^2+6x+6}+O(x^5)；\\sin x=\\frac{6x}{x^2+6}+O(x^5)；\\cos x=\\frac{12-5x^2}{12+x^2}+O(x^6)；\\tan x=\\frac{3x}{3-x^2}+O(x^5)",
     "derivation": [
-      "帕德逼近通过匹配函数在x=0处的泰勒展开前若干项得到有理分式系数。",
-      "例如，$e^x$的帕德[2,2]逼近即上述公式。",
-      "其他函数类似，通过相同阶数匹配导出。"
+      "优先方法：对 x-ln(R_E) 与 ln(1+x)-R_L 直接求导，证明误差方向与显式界。",
+      "构造方法：交叉相乘配系数，分别导出全部五个公式并核对首个误差项。",
+      "几何方法：单位圆解释奇偶结构；对数分式由两矩形采样面积推导，用精确多项式除法说明 O(x^5) 误差。"
     ],
-    "intuition": "有理分式能更好地拟合函数在原点附近的性态，相比泰勒多项式，有理分式可以在更高阶匹配且收敛域更广。",
+    "intuition": "原函数与分式的局部贴合须结合误差图理解；对数可看成曲线下的面积，三角函数须保持单位圆的奇偶结构。",
     "common_tricks": [
-      "当$|x|$很小时（如$|x|<0.5$），直接用公式计算，误差较小。",
-      "计算$e^{-x}$时，可将指数公式中的$x$替换为$-x$得到$\\dfrac{x^2-6x+12}{x^2+6x+12}$。",
-      "注意$\\cos x$的帕德逼近（$\\frac{12}{12+5x}$）在$x=0$处仅一阶精度，实际使用中可能误差较大，建议谨慎。"
+      "先检查定义域、弧度制及所要求的小数位，再选公式。",
+      "指数与对数可用求导通分直接验证误差方向。",
+      "用误差区间保证舍入，不把计算器回验当作一般证明。"
     ]
   },
   "usage": {
     "scenarios": [
-      "高等数学数值计算低阶近似",
-      "快速估算小量下的函数值",
-      "课后复习记忆特殊函数的有理逼近形式"
+      "估算 e^0.1 与 ln1.1 并用误差界保证四位小数",
+      "用独立正弦余弦夹逼回验 tan0.2",
+      "以曲线、误差和面积理解局部有理近似"
     ],
     "problem_types": [
       "计算近似值（如$e^{0.1}$、$\\ln1.1$、$\\tan0.2$）",
@@ -171,7 +174,7 @@
     "exam_score": 3
   },
   "interactive": {
-    "has_diagram": false,
+    "has_diagram": true,
     "geogebra_id": "",
     "param_demo": {}
   },
@@ -180,24 +183,28 @@
   },
   "shareConfig": {
     "title": "帕德逼近：小x下指数、对数、三角的快速近似",
-    "shareDesc": "适合课后复习或考前速查，掌握5个常用帕德近似公式，直接代入x即可得到高精度结果，减少复杂计算。注意cos公式精度较低。"
+    "shareDesc": "用求导、配系数和面积三个角度理解常见有理近似，结合曲线与误差图检查适用条件，并用误差界保证舍入结果。"
   },
   "relations": {
     "prerequisites": [
-      "泰勒展开",
-      "有理函数"
+      "有理函数与多项式运算",
+      "求导与单调性",
+      "泰勒展开（配系数方法）",
+      "曲线下面积与积分（面积方法选读）"
     ],
-    "related_ids": ["F004"],
+    "related_ids": [
+      "F004"
+    ],
     "similar": "泰勒逼近（多项式逼近）"
   },
   "meta": {
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-07",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-10-22"
   },
   "isPro": 0,
-  "remarks": "",
+  "remarks": "2026-10-22 单UID校验：修正元数据与历史摘录中的旧余弦错式。新增12份PDF专用TikZ/PGFPlots图；图源：assets/tikz/F003_cos_wrong.tex、assets/tikz/F003_exp_error.tex、assets/tikz/F003_exp_far.tex、assets/tikz/F003_exp_local.tex、assets/tikz/F003_log_area.tex、assets/tikz/F003_log_error.tex、assets/tikz/F003_log_local.tex、assets/tikz/F003_sin_cos_local.tex、assets/tikz/F003_tan_local.tex、assets/tikz/F003_tan_poles.tex、assets/tikz/F003_trig_error.tex、assets/tikz/F003_unit_circle.tex。局部曲线替代泛化贴合描述；误差图替代仅列小数；单位圆替代奇偶死记；两矩形图说明对数分式来源；错式、极点与远域图说明适用边界。数据 assets/tikz/F003_samples.dat 由 checks/verify_f003.py 以60位Decimal计算。未写入images或发布资源。",
   "knowledgeNode": "函数-导数与极限-近似与极限-计算方法",
   "altNodes": "函数-特殊函数-指数函数"
 }

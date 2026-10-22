@@ -1,31 +1,28 @@
+\clearpage
 \begin{trapbox}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（适用范围）}}] 直接用帕德逼近公式计算离$x=0$较远的值，例如$x=2$时的$e^2$，误差已经明显。
-		\item[\textbf{\textcolor{CTrap}{正确理解（局部有效）：}}] 帕德逼近只在$x=0$附近精度高；$|x|<1$可作为粗略经验范围，但不是严格边界，具体能否使用要看误差要求。
-		\item[\textbf{\textcolor{CTrap}{错因分析（忽略前提）：}}] 学生误以为逼近公式对所有$x$都成立，忽视了逼近的局部性。
-	\end{description}
+\paragraph{误区一：把旧余弦错式当作低精度的正确公式}
+\input{assets/tikz/F003_cos_wrong.tex}
+错误分式 $W(x)=12/(12+5x)$ 不具备偶对称，且 $W'(0)=-5/12\ne0$，而 $\cos'(0)=0$。
+所以它不是本条的余弦帕德公式，不能以“精度低一些”为由保留。
+正确替代是 $R_C=(12-5x^2)/(12+x^2)$，它保持偶对称并匹配至四次项。
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（公式混淆）}}] 将$e^x$与$\ln(1+x)$的帕德公式记反，或把余弦公式误记成含一次项的分式。
-		\item[\textbf{\textcolor{CTrap}{正确理解（区分特征）：}}] $e^x$的分母含负号$-6x$；$\ln(1+x)$分子含$3x^2,6x$；$\cos x$是偶函数，常用逼近应只含$x^2$：
-		      \[
-			      \cos x\approx\frac{12-5x^2}{12+x^2}.
-		      \]
-		\item[\textbf{\textcolor{CTrap}{错因分析（机械记忆）：}}] 没有理解公式来源，靠死记硬背容易混淆；尤其余弦函数在$x=0$处一阶导数为0，近似式不应出现一次项。
-	\end{description}
+\newpage
+\paragraph{误区二：只排除分式分母为零，就认为原函数也有定义}
+\input{assets/tikz/F003_tan_poles.tex}
+$\tan x$ 在 $\pi/2$ 无定义，但 $R_T$ 在该处仍有定义；$R_T$ 的正极点却是 $\sqrt3$。
+正确做法是\textbf{同时}检查原函数和分式的定义域，并保持在适合局部估算的范围。不同极点位置也直接否定了全局恒等的想法。
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（近似符号误用）}}] 在解题中将$\approx$当作$=$使用，导致后续推导产生累积误差。
-		\item[\textbf{\textcolor{CTrap}{正确理解（近似非恒等）：}}] 帕德逼近是近似等式，不是精确恒等；尤其在进行等式变换、不等式放缩时，要额外控制误差或证明大小方向。
-		\item[\textbf{\textcolor{CTrap}{错因分析（符号意识弱）：}}] 学生不习惯近似符号，忽略了近似与精确的区别。
-	\end{description}
+\newpage
+\paragraph{误区三：分式处处有定义，就能模拟全局变化}
+\input{assets/tikz/F003_exp_far.tex}
+$R_E$ 的分母始终为正，然而其导数
+\[
+R_E'(x)=\frac{12(12-x^2)}{(x^2-6x+12)^2}
+\]
+在 $x>\sqrt{12}$ 时为负，指数函数却始终递增。
+正确替代：先指定区间与容许误差，再用误差界检验；不把“$|x|<1$”当作保证任意精度的万能条件。
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点四（角度制误用）}}] 计算$\sin30^\circ$、$\cos60^\circ$时，直接把$x=30$或$x=60$代入三角函数逼近公式。
-		\item[\textbf{\textcolor{CTrap}{正确理解（先转弧度）：}}] 三角函数的泰勒展开和帕德逼近默认使用弧度制。若要估算$30^\circ$，应先转化为$\dfrac{\pi}{6}$，再判断是否适合代入近似公式。
-		\item[\textbf{\textcolor{CTrap}{错因分析（单位混乱）：}}] 把角度制数字和弧度制数字混为一谈，导致数量级完全错误。
-	\end{description}
+\paragraph{误区四：角度数字直接代入，或把近似当作恒等}
+$30^\circ$ 应代入 $x=\pi/6$，而不是 $30$；单位圆图已显示其弧度对应关系。
+近似式用于证明等式或不等式前，必须另证误差为零或确定误差方向，不能把 $\approx$ 换成 $=$。
 \end{trapbox}

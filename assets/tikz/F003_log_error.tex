@@ -1,0 +1,13 @@
+\begin{center}
+\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (0.5,7.72) {对数：误差在零点两侧改变符号};
+\begin{axis}[width=11.2cm,height=6.1cm,at={(2.05cm,1.25cm)},anchor=south west,
+axis lines=left,xlabel={$x$},tick label style={font=\small},label style={font=\small},
+legend style={font=\small,draw=none,fill=white,at={(0.03,0.97)},anchor=north west},
+legend cell align=left,unbounded coords=jump,xmin=-0.5,xmax=0.5,ymin=-10,ymax=2,ylabel={$10^4[\ln(1+x)-R_L(x)]$},restrict x to domain=-0.5:0.5]
+\addplot[violet,very thick] table[x=x,y expr={10000*\thisrow{el}}] {assets/tikz/F003_samples.dat};
+\addplot[black!50,dashed,domain=-0.5:0.5]{0};
+\end{axis}
+\end{tikzpicture}
+\end{center}
