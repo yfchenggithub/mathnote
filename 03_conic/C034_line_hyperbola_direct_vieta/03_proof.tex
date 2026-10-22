@@ -1,90 +1,330 @@
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{证明一（优先）：代入、展开、韦达。}
+先证横开口情形。若 $B\ne0$，由直线得到 $y=-(Ax+C)/B$，所以
+\[
+ \frac{x^2}{a^2}-\frac{(Ax+C)^2}{b^2B^2}=1
+ \ \Longleftrightarrow\
+ b^2B^2x^2-a^2(Ax+C)^2=a^2b^2B^2.
+\]
+展开并合并得到
+\[
+ Mx^2-2ACa^2x-a^2(C^2+B^2b^2)=0.
+\]
+若 $M\ne0$，由韦达定理直接得到 $x_1+x_2$ 和 $x_1x_2$。
+这是等价变形，每个实根都唯一恢复出 $y=-(Ax+C)/B$，无增根或漏点。
+若忘记韦达，只要展开 $p(x-x_1)(x-x_2)$，比较一次项及常数项即可。
 
-	本证明以焦点在 $x$ 轴的双曲线
-	\[
-		\frac{x^{2}}{a^{2}}-\frac{y^{2}}{b^{2}}=1
-	\]
-	为例。若 $A\neq0$，可由直线方程解出 $x$，代入双曲线后得到关于 $y$ 的方程；若 $B\neq0$，也可解出 $y$，得到关于 $x$ 的方程。二次项系数非零时使用韦达定理；二次项系数为零时，方程退化，需单独讨论。
+若 $A\ne0$，改用 $x=-(By+C)/A$，代入后得到
+\[
+ b^2(By+C)^2-a^2A^2y^2=a^2b^2A^2,
+\]
+展开为 $My^2+2BCb^2y+b^2(C^2-A^2a^2)=0$，再用韦达。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（解出 $x$）：}] 由 $Ax+By+C=0$，若 $A\neq0$，移项得
-		      \[
-			      x=-\frac{By+C}{A}.
-		      \]
-		      \par\textbf{理由：} 将直线写成 $x$ 关于 $y$ 的表达式，便于代入双曲线消去 $x$。
-
-		\item[\textbf{步骤二（代入双曲线）：}] 将 $x$ 代入
-		      \[
-			      \frac{x^{2}}{a^{2}}-\frac{y^{2}}{b^{2}}=1,
-		      \]
-		      得
-		      \[
-			      \frac{1}{a^{2}}\left(-\frac{By+C}{A}\right)^{2}-\frac{y^{2}}{b^{2}}=1.
-		      \]
-		      \par\textbf{理由：} 代入消元，转化为只含 $y$ 的方程。
-
-		\item[\textbf{步骤三（去分母整理）：}] 两边同时乘以 $a^{2}A^{2}b^{2}$，得
-		      \[
-			      b^{2}(By+C)^{2}-A^{2}a^{2}y^{2}=A^{2}a^{2}b^{2}.
-		      \]
-		      \par\textbf{理由：} 消除分母，将方程化为整式。
-
-		\item[\textbf{步骤四（展开移项）：}] 展开 $(By+C)^{2}=B^{2}y^{2}+2BCy+C^{2}$，并移项合并：
-		      \[
-			      (b^{2}B^{2}-A^{2}a^{2})y^{2}+2b^{2}BCy+b^{2}C^{2}-A^{2}a^{2}b^{2}=0.
-		      \]
-		      \par\textbf{理由：} 合并 $y^{2}$、$y$ 项及常数项，整理成关于 $y$ 的方程。
-
-		\item[\textbf{步骤五（写出二次方程）：}] 因此消去 $x$ 后的方程为
-		      \[
-			      (B^{2}b^{2}-A^{2}a^{2})y^{2}+2BCb^{2}\,y+(C^{2}b^{2}-A^{2}a^{2}b^{2})=0.
-		      \]
-		      记
-		      \[
-			      M=B^{2}b^{2}-A^{2}a^{2}.
-		      \]
-		      \par\textbf{理由：} $M$ 是关于 $y$ 的方程的二次项系数，也是判断能否使用二次韦达公式的关键。
-
-		\item[\textbf{步骤六（使用韦达定理）：}] 若 $M\neq0$，则方程为真正的二次方程。由韦达定理得
-		      \[
-			      y_{1}+y_{2}=-\frac{2BCb^{2}}{M},\qquad
-			      y_{1}y_{2}=\frac{C^{2}b^{2}-A^{2}a^{2}b^{2}}{M}.
-		      \]
-		      \par\textbf{理由：} 对二次方程 $py^{2}+qy+r=0$，有 $y_{1}+y_{2}=-\dfrac{q}{p}$，$y_{1}y_{2}=\dfrac{r}{p}$。
-
-		\item[\textbf{步骤七（判别式意义）：}] 在 $M\neq0$ 时，设该二次方程判别式为 $\Delta$。则
-		      \[
-			      \Delta>0
-		      \]
-		      表示直线与双曲线有两个不同实交点；
-		      \[
-			      \Delta=0
-		      \]
-		      表示直线与双曲线相切，只有一个实交点；
-		      \[
-			      \Delta<0
-		      \]
-		      表示没有实交点。
-		      \par\textbf{理由：} 韦达公式是代数关系，几何上是否对应两个不同交点，还要由判别式决定。
-
-		\item[\textbf{步骤八（二次项系数为零）：}] 若 $M=0$，则关于 $y$ 的方程退化，不能使用二次韦达公式。此时直线方向与双曲线的一条渐近线方向平行。
-
-		      若 $C\neq0$，退化后通常得到一次方程，对应一个有限交点；若 $C=0$，直线就是双曲线的一条渐近线，与双曲线没有有限交点。
-		      \par\textbf{理由：} 二次项消失后，原来的“两根之和、两根之积”结构已经不存在。
-
-		\item[\textbf{步骤九（消去 $y$ 的情形）：}] 若 $B\neq0$，同样可从直线解出
-		      \[
-			      y=-\frac{Ax+C}{B},
-		      \]
-		      代入双曲线，得到关于 $x$ 的方程及其韦达关系，结果与定理中公式一致。
-		      \par\textbf{理由：} 推导过程完全类似，只是所选消元变量不同。若 $B=0$，直线为竖直线，不宜用关于 $x$ 的方程判定两个交点，应改用关于 $y$ 的方程。
-	\end{description}
-
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-
-	由此推导验证了焦点在 $x$ 轴时硬解定理中关于 $y$ 的公式。关于 $x$ 的公式，以及焦点在 $y$ 轴时的公式，都可通过同样的代数消元得到。使用时必须记住三件事：先看焦点位置，再看二次项系数是否为零，最后用判别式判断实际交点个数。
+\textbf{交点分类也只需化简一次。} 在 $B\ne0$ 时，
+\[
+ \begin{aligned}
+ \Delta_x
+ &=4A^2C^2a^4+4Ma^2(C^2+B^2b^2)\\
+ &=4a^2\bigl[C^2(A^2a^2+M)+MB^2b^2\bigr]\\
+ &=4a^2b^2B^2(C^2+M)=4a^2b^2B^2H.
+ \end{aligned}
+\]
+在 $A\ne0$ 时，同理 $\Delta_y=4a^2b^2A^2H$。
+选择合法消元方向后，前面的因子为正，故 $H$ 的符号恰好给出三类实交点情况。
+当 $M=0$ 时，$b^2B^2=a^2A^2$ 且 $A,B\ne0$：$C\ne0$ 时一次项不为零，\textbf{恰有}一个实根；$C=0$ 时常数项非零，无解。
 \end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{证明二（少记公式）：交换坐标，一组推出另一组。}
+令 $X=y,Y=x$。纵开口的双曲线变为横开口：
+\[
+ \frac{X^2}{a^2}-\frac{Y^2}{b^2}=1,\qquad BX+AY+C=0.
+\]
+\input{assets/tikz/C034_coordinate_swap}
+在已证公式中，同时作 $x\leftrightarrow y$、$A\leftrightarrow B$。
+原来的 $M$ 变成 $A^2b^2-B^2a^2=N$，$H$ 变成 $K=C^2+N$；横坐标和、积变成纵坐标和、积。
+这就逐项得到纵开口的两条消元方程及四个韦达关系。
+相应判别式仍为 $4a^2b^2B^2K$（消去 $y$）或 $4a^2b^2A^2K$（消去 $x$），故分类及退化结论也全部成立。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{证明三（数形结合）：渐近线因式分解，直接看降次。}
+横开口双曲线可写为
+\[
+ \left(\frac{x}{a}-\frac{y}{b}\right)
+ \left(\frac{x}{a}+\frac{y}{b}\right)=1.
+\]
+记 $u=x/a-y/b$、$v=x/a+y/b$，则 $uv=1$。
+两条渐近线分别是 $u=0$、$v=0$。
+$M=0$ 意味着 $A/B=\pm b/a$，所以直线正好固定其中一个量为常数。
+若固定 $u=d\ne0$，则 $v=1/d$ 被唯一确定，进而
+\[
+ x=\frac a2\left(d+\frac1d\right),\qquad
+ y=\frac b2\left(\frac1d-d\right).
+\]
+因此恰有一个交点；若 $d=0$，则 $uv=1$ 无解。固定 $v$ 的情形相同。
+这解释了前面渐近线平行图中的现象，不需要解二次方程。
+
+\textbf{中点另有一条短证：两点方程作差。}
+设 $M\ne0,H>0$，弦中点为 $S(s,t)$。两点的双曲线方程相减：
+\[
+ \frac{(x_1-x_2)(x_1+x_2)}{a^2}
+ -\frac{(y_1-y_2)(y_1+y_2)}{b^2}=0.
+\]
+两点差向量沿直线方向 $(B,-A)$，所以
+\[
+ \frac{Bs}{a^2}+\frac{At}{b^2}=0,\qquad As+Bt+C=0.
+\]
+不需要除以 $A$ 或 $B$，解这个二元一次方程组就得到
+\[
+ S=\left(\frac{ACa^2}{M},-\frac{BCb^2}{M}\right).
+\]
+这与韦达求平均的结果一致，且覆盖水平、竖直弦；$H=0$ 时直接代入可验证得到切点。
+纵开口情形由交换坐标得到。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{弦长推导：把根差补成真正的距离。}
+当 $B\ne0$，$y_2-y_1=-(A/B)(x_2-x_1)$，因此
+\[
+ PQ=\frac{\sqrt{A^2+B^2}}{|B|}\,|x_2-x_1|.
+\]
+\input{assets/tikz/C034_chord_triangle}
+由韦达或求根公式，$|x_2-x_1|=\sqrt{\Delta_x}/|M|$。
+代入 $\Delta_x=4a^2b^2B^2H$，得
+\[
+ PQ=\frac{2ab\sqrt{(A^2+B^2)H}}{|M|}.
+\]
+$B=0$ 时改用 $y$ 坐标及 $\Delta_y$，得到同一公式；纵开口再交换坐标即可。
+这里绝对值不可去掉，因为 $M$ 可以是负数。
+\end{proofbox}
+\clearpage
+% ===== 新增证明四：两点相减求横坐标和（原证明一至三及 TikZ 均不变）=====
+\begin{proofbox}
+\textbf{证明四（考场速推）：两点相减，不展开消元二次式，直接求 $x_1+x_2$。}
+考虑
+\[
+ \frac{x^2}{a^2}-\frac{y^2}{b^2}=1,\qquad y=kx+m.
+\]
+设两个\textbf{不同}交点为 $P(x_1,y_1),Q(x_2,y_2)$。
+由于直线不是竖直线，两点不同就有 $x_1\ne x_2$。
+两点各自在双曲线上：
+\[
+ \frac{x_1^2}{a^2}-\frac{y_1^2}{b^2}=1\quad(1),\qquad
+ \frac{x_2^2}{a^2}-\frac{y_2^2}{b^2}=1\quad(2).
+\]
+\textbf{第一步：$(1)-(2)$，用平方差。}
+\[
+ \frac{(x_1-x_2)(x_1+x_2)}{a^2}
+ =\frac{(y_1-y_2)(y_1+y_2)}{b^2}.
+\]
+\textbf{第二步：直线的两点纵坐标差为 $y_1-y_2=k(x_1-x_2)$。}
+约去非零的 $x_1-x_2$，立即得到
+\[
+ \boxed{\frac{x_1+x_2}{a^2}=\frac{k(y_1+y_2)}{b^2}}.
+\]
+\textbf{第三步：两点的直线方程相加，$y_1+y_2=k(x_1+x_2)+2m$。}
+代入上式：
+\[
+ \left(\frac1{a^2}-\frac{k^2}{b^2}\right)(x_1+x_2)
+ =\frac{2km}{b^2}.
+\]
+只要 $b^2-a^2k^2\ne0$，便有
+\[
+ \boxed{x_1+x_2=\frac{2a^2km}{b^2-a^2k^2}}.
+\]
+若原直线写为 $Ax+By+C=0$（$B\ne0$），
+令 $k=-A/B$、$m=-C/B$，并记 $M=B^2b^2-A^2a^2$，即恢复
+\[
+ \boxed{x_1+x_2=\frac{2ACa^2}{M}}.
+\]
+\textbf{本法的低门槛所在：} 平方差带出\emph{和}，直线关系把 $y$ 的和换成 $x$ 的和；
+全程不需要完整联立、求根，也不必先写韦达式。
+\end{proofbox}
+\clearpage
+
+% ===== 新增证明五：交叉乘减求横坐标积 =====
+\begin{proofbox}
+\textbf{证明五（考场理解法）：交叉乘减，消一次项，直接求 $x_1x_2$。}
+沿用证明四的双曲线、直线和两个不同交点。由
+\[
+ F(x)=\frac{x^2}{a^2}-\frac{(kx+m)^2}{b^2}-1,
+ \qquad F(x_1)=F(x_2)=0,
+\]
+\textbf{第一个方程乘 $x_2$，第二个方程乘 $x_1$，然后相减：}
+\[
+ \begin{aligned}
+ 0={}&x_2\left[\frac{x_1^2}{a^2}-\frac{(kx_1+m)^2}{b^2}-1\right]\\
+ &-x_1\left[\frac{x_2^2}{a^2}-\frac{(kx_2+m)^2}{b^2}-1\right].
+ \end{aligned}
+\]
+\textbf{关键只看平方内的交叉项：}
+$x_2(2kmx_1)=x_1(2kmx_2)=2kmx_1x_2$，
+所以相减时它们\textbf{完全抵消}。其余部分为
+\[
+ \begin{aligned}
+ &x_2(kx_1+m)^2-x_1(kx_2+m)^2\\
+ &\qquad=k^2x_1x_2(x_1-x_2)+m^2(x_2-x_1).
+ \end{aligned}
+\]
+代回并提取公因子 $x_1-x_2$：
+\[
+ 0=(x_1-x_2)\left[
+ \left(\frac1{a^2}-\frac{k^2}{b^2}\right)x_1x_2
+ +1+\frac{m^2}{b^2}\right].
+\]
+因为 $x_1\ne x_2$，可约去 $x_1-x_2$：
+\[
+ \boxed{\left(\frac1{a^2}-\frac{k^2}{b^2}\right)x_1x_2
+ =-1-\frac{m^2}{b^2}}.
+\]
+若 $b^2-a^2k^2\ne0$，则
+\[
+ \boxed{x_1x_2=-\frac{a^2(b^2+m^2)}{b^2-a^2k^2}}.
+\]
+将 $k=-A/B,m=-C/B$（$B\ne0$）代入，得到原结论
+\[
+ \boxed{x_1x_2=-\frac{a^2(B^2b^2+C^2)}{M}},\qquad
+ M=B^2b^2-A^2a^2.
+\]
+\textbf{为什么想到这一招？} 两点方程直接减可消常数、留下\emph{和}；
+交叉乘减可消一次项、留下\emph{积}。这也是韦达关系的一种原理性推导。
+\end{proofbox}
+\clearpage
+
+% ===== 再补充：证明四、五逐行不跳步版（此前全部证明及 TikZ 原样保留）=====
+\begin{proofbox}
+\textbf{证明四补充（每一步写全）：从“两点相减”得到横坐标和。}
+
+\textbf{已知：} $x^2/a^2-y^2/b^2=1$，直线 $y=kx+m$；
+$P(x_1,y_1)$、$Q(x_2,y_2)$ 为两个不同实交点。
+
+\textbf{第 1 步：} 分别代入双曲线，列出两个等式：
+\[
+\begin{aligned}
+ (1)\quad &\frac{x_1^2}{a^2}-\frac{y_1^2}{b^2}=1,\\
+ (2)\quad &\frac{x_2^2}{a^2}-\frac{y_2^2}{b^2}=1.
+\end{aligned}
+\]
+\textbf{第 2 步：} $(1)-(2)$，先让右侧常数消失：
+\[
+ \frac{x_1^2-x_2^2}{a^2}-\frac{y_1^2-y_2^2}{b^2}=1-1=0.
+\]
+\textbf{第 3 步：} 将两个平方差分别分解：
+\[
+ \frac{(x_1-x_2)(x_1+x_2)}{a^2}
+ =\frac{(y_1-y_2)(y_1+y_2)}{b^2}.
+\]
+\textbf{第 4 步：} 两点分别满足直线方程：
+\[
+ y_1=kx_1+m,\qquad y_2=kx_2+m.
+\]
+这两个式子相减：
+\[
+ y_1-y_2=(kx_1+m)-(kx_2+m)=k(x_1-x_2).
+\]
+代回第 3 步：
+\[
+ \frac{(x_1-x_2)(x_1+x_2)}{a^2}
+ =\frac{k(x_1-x_2)(y_1+y_2)}{b^2}.
+\]
+\textbf{第 5 步：} 非竖直直线上的两个不同点有 $x_1\ne x_2$，
+故两边同除以 $x_1-x_2$，得到
+\[
+ \boxed{\frac{x_1+x_2}{a^2}=\frac{k(y_1+y_2)}{b^2}}.
+\]
+\textbf{第 6 步：} 再把直线方程\emph{相加}：
+\[
+ y_1+y_2=(kx_1+m)+(kx_2+m)=k(x_1+x_2)+2m.
+\]
+代回第 5 步：
+\[
+ \frac{x_1+x_2}{a^2}
+ =\frac{k\,[k(x_1+x_2)+2m]}{b^2}.
+\]
+移项得到
+\[
+ \left(\frac1{a^2}-\frac{k^2}{b^2}\right)(x_1+x_2)
+ =\frac{2km}{b^2}.
+\]
+当 $b^2-a^2k^2\ne0$ 时，解得
+\[
+ \boxed{x_1+x_2=\frac{2a^2km}{b^2-a^2k^2}}.
+\]
+\textbf{速写还原：} 曲线差 $\to$ 平方差 $\to$ 直线差约分
+$\to$ 直线和代入。\textbf{不需要先把两个方程联立展开。}
+\end{proofbox}
+\clearpage
+
+\begin{proofbox}
+\textbf{证明五补充（每一步写全）：为什么交叉乘减产生乘积。}
+
+\textbf{第 1 步：} 将直线 $y=kx+m$ 代入双曲线。
+为方便书写，把等号右端移到左边：
+\[
+ \frac{x^2}{a^2}-\frac{(kx+m)^2}{b^2}-1=0.
+\]
+两个不同交点满足
+\[
+\begin{aligned}
+ (1)\quad &\frac{x_1^2}{a^2}-\frac{(kx_1+m)^2}{b^2}-1=0,\\
+ (2)\quad &\frac{x_2^2}{a^2}-\frac{(kx_2+m)^2}{b^2}-1=0.
+\end{aligned}
+\]
+\textbf{第 2 步：} 把平方先\emph{部分}打开，只看出一次项的形状：
+\[
+ (kx_i+m)^2=k^2x_i^2+2kmx_i+m^2\quad(i=1,2).
+\]
+我们想消掉 $2kmx_i$，因此故意让 $(1)$ 乘 $x_2$、$(2)$ 乘 $x_1$。
+下面直接把\textbf{两个新等式完整写出}：
+\[
+\begin{aligned}
+ (1)\times x_2:\quad
+ &\frac{x_1^2x_2}{a^2}
+ -\frac{k^2x_1^2x_2+2kmx_1x_2+m^2x_2}{b^2}
+ -x_2=0,\\
+ (2)\times x_1:\quad
+ &\frac{x_2^2x_1}{a^2}
+ -\frac{k^2x_2^2x_1+2kmx_2x_1+m^2x_1}{b^2}
+ -x_1=0.
+\end{aligned}
+\]
+\textbf{第 3 步：} 上式第一行减第二行。请特别观察三组：
+\[
+\begin{aligned}
+ &\text{平方项： }x_1^2x_2-x_2^2x_1=x_1x_2(x_1-x_2),\\
+ &\text{一次项： }2kmx_1x_2-2kmx_2x_1=0,\\
+ &\text{常数项： }-x_2-(-x_1)=x_1-x_2.
+\end{aligned}
+\]
+$-m^2x_i/b^2$ 的交叉乘部分为
+$-m^2(x_2-x_1)/b^2=+m^2(x_1-x_2)/b^2$。
+于是整式变成
+\[
+\begin{aligned}
+0={}&\frac{x_1x_2(x_1-x_2)}{a^2}
+ -\frac{k^2x_1x_2(x_1-x_2)}{b^2}\\
+ &+\frac{m^2(x_1-x_2)}{b^2}+(x_1-x_2).
+\end{aligned}
+\]
+\textbf{第 4 步：} 四项\emph{全部}都有公因子 $x_1-x_2$：
+\[
+0=(x_1-x_2)\left[
+ \left(\frac1{a^2}-\frac{k^2}{b^2}\right)x_1x_2
+ +\frac{m^2}{b^2}+1\right].
+\]
+不同交点且直线非竖直，故 $x_1-x_2\ne0$；
+去掉这一因子，剩下
+\[
+\boxed{\left(\frac1{a^2}-\frac{k^2}{b^2}\right)x_1x_2
+=-1-\frac{m^2}{b^2}}.
+\]
+若 $b^2-a^2k^2\ne0$，再解出
+\[
+\boxed{x_1x_2=-\frac{a^2(b^2+m^2)}{b^2-a^2k^2}}.
+\]
+\textbf{动机再说一遍：} 求和时相减，是为了产生\emph{平方差}；
+求积时交叉乘减，是为了使\emph{一次项相等后抵消}。
+两者不是两个需要硬背的复杂公式，而是\textbf{两种有目标的消元动作}。
+\end{proofbox}
+\clearpage

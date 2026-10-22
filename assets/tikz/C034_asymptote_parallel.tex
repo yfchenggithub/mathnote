@@ -1,0 +1,17 @@
+\begin{center}\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {二次项消失：平行于渐近线，不重合时恰有一个交点};
+\begin{scope}[shift={(7.2,3.65)},scale=1.05]
+\begin{scope}
+\clip (-3.1,-2.1) rectangle (3.1,2.1);
+\draw[blue,very thick,domain=-2.1:2.1,samples=161,variable=\t] plot ({1*sqrt(1+(\t/1)^2)},\t);
+\draw[blue,very thick,domain=-2.1:2.1,samples=161,variable=\t] plot ({-1*sqrt(1+(\t/1)^2)},\t);
+\end{scope}
+\draw[-Stealth,black!45] (-3.1,0)--(3.1,0) node[right] {$x$};
+\draw[-Stealth,black!45] (0,-2.1)--(0,2.1) node[above] {$y$};
+\draw[black!55,densely dashed,thick] (-2.1,-2.1)--(2.1,2.1);
+\draw[orange!85!black,very thick] (-3.1,-2.1)--(1.1,2.1);
+\coordinate (P) at (-1.0000000000,0.0000000000);\fill[black] (P) circle (1.8pt) node[above left=10pt] {$P$};
+\node[anchor=west,black!60] at (1.7,1.2) {$y=x$：渐近线};\end{scope}\node[anchor=west,orange!85!black] at (.8,6.6) {$y=x+1$：一个交点};
+\node[anchor=west] at (.7,.55) {$x^2-y^2=(x-y)(x+y)=1$；$y=x+1$ 固定了 $x-y=-1$};
+\end{tikzpicture}\end{center}

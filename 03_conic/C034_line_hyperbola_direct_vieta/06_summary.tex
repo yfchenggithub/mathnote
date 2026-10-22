@@ -1,52 +1,90 @@
 \begin{summarybox}
-	\textbf{\textcolor{CSummary}{一句话核心}}
+\textbf{一句话核心：先看方程是否降次，再用韦达，最后判断实点。}
 
-	直线与双曲线联立后，二次项系数及韦达关系可以由公式直接写出；但使用前必须先检查焦点位置、消元方向、二次项系数和判别式。
+\textbf{横开口速查。} 对 $x^2/a^2-y^2/b^2=1$，记
+$M=B^2b^2-A^2a^2$、$H=C^2+M$。
+\[
+ \begin{aligned}
+ x_1+x_2&=\frac{2ACa^2}{M},&
+ x_1x_2&=-\frac{a^2(C^2+B^2b^2)}{M},\\
+ y_1+y_2&=-\frac{2BCb^2}{M},&
+ y_1y_2&=\frac{b^2(C^2-A^2a^2)}{M}.
+ \end{aligned}
+\]
+消去 $y$ 需 $B\ne0$；消去 $x$ 需 $A\ne0$。二次韦达须 $M\ne0$。
+\[
+ \begin{array}{c|c}
+ \text{条件}&\text{几何结果}\\\hline
+ M\ne0,\ H>0&\text{两个不同交点}\\
+ M\ne0,\ H=0&\text{相切}\\
+ M\ne0,\ H<0&\text{无实交点}\\
+ M=0,\ C\ne0&\text{一个交点，非相切}\\
+ M=0,\ C=0&\text{渐近线，无有限交点}
+ \end{array}
+\]
+\textbf{真正有弦时：}
+\[
+ S=\left(\frac{ACa^2}{M},-\frac{BCb^2}{M}\right),\qquad
+ PQ=\frac{2ab\sqrt{(A^2+B^2)H}}{|M|}.
+\]
+\textbf{纵开口不用重背：} 同时交换 $x,y$ 和 $A,B$，把 $M$ 换成 $N=A^2b^2-B^2a^2$，把 $H$ 换成 $K=C^2+N$。
 
-	\medskip
-	\textbf{\textcolor{CSummary}{使用条件}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{条件 1（直线标准）：} 直线方程为
-		      \[
-			      Ax+By+C=0,\qquad A^{2}+B^{2}>0.
-		      \]
-		      若使用关于 $y$ 的方程，通常要求 $A\neq0$；若使用关于 $x$ 的方程，通常要求 $B\neq0$。
+\textbf{最后四查。}
+\begin{enumerate}[leftmargin=*,itemsep=.4em]
+ \item 标准化：$a^2,b^2$ 是分母；正号所在的轴决定开口方向。
+ \item 消元合法：不除以零；二次项为零先回原方程。
+ \item 几何存在：不要把一次交点当切点，也不要把复根当实交点。
+ \item 长度完整：根差只是投影；分母取绝对值，竖直线换纵坐标。
+\end{enumerate}
+\end{summarybox}
+% ===== 新增：考场两点法速记（原总结完整保留）=====
+\begin{summarybox}
+\textbf{新增：考场最低门槛速记——减法求和，交叉乘减求积。}
+对横开口 $\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}=1$ 和 $y=kx+m$，
+设有两个不同实交点，且 $b^2-a^2k^2\ne0$。
 
-		\item \textbf{条件 2（双曲线标准）：} 双曲线为标准方程
-		      \[
-			      \frac{x^{2}}{a^{2}}-\frac{y^{2}}{b^{2}}=1
-		      \]
-		      或
-		      \[
-			      \frac{y^{2}}{a^{2}}-\frac{x^{2}}{b^{2}}=1,
-		      \]
-		      其中 $a>0,\;b>0$。
+\textbf{一、求和（两个曲线方程直接相减）：}
+\[
+ \frac{x_1+x_2}{a^2}=\frac{k(y_1+y_2)}{b^2},\qquad
+ y_1+y_2=k(x_1+x_2)+2m
+\]
+因此
+\[
+ \boxed{\left(\frac1{a^2}-\frac{k^2}{b^2}\right)(x_1+x_2)
+ =\frac{2km}{b^2}}.
+\]
+\textbf{二、求积（第一个方程乘 $x_2$，第二个乘 $x_1$，再相减）：}
+一次交叉项抵消，因此
+\[
+ \boxed{\left(\frac1{a^2}-\frac{k^2}{b^2}\right)x_1x_2
+ =-1-\frac{m^2}{b^2}}.
+\]
+\textbf{口令：}\fbox{直接减，出和；交叉乘减，出积。}
+这是原来韦达公式的\textbf{低记忆负担推导法}：不用背 $M$ 的长分式，
+但必须先确认有两个不同实交点；竖直线及二次项退化的情形仍按原方法处理。
+\end{summarybox}
 
-		\item \textbf{条件 3（二次项非零）：} 焦点在 $x$ 轴时，核心二次项系数为
-		      \[
-			      B^{2}b^{2}-A^{2}a^{2}.
-		      \]
-		      焦点在 $y$ 轴时，核心二次项系数为
-		      \[
-			      A^{2}b^{2}-B^{2}a^{2}.
-		      \]
-		      只有该系数非零时，才能直接使用二次韦达公式。
-	\end{itemize}
-
-	\medskip
-	\textbf{\textcolor{CSummary}{关键提醒}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{提醒 1（分母为零）：} 分母为零时，直线方向与渐近线方向平行。若 $C\neq0$，通常退化为一次方程；若 $C=0$，直线本身就是渐近线，与双曲线没有有限交点。
-
-		\item \textbf{提醒 2（判别式）：} 真正的二次方程中，$\Delta>0$ 表示两个不同实交点，$\Delta=0$ 表示相切，$\Delta<0$ 表示无实交点。题目要求两点弦长时，必须有 $\Delta>0$。
-
-		\item \textbf{提醒 3（弦长公式）：} 若 $B\neq0$，可用
-		      \[
-			      |AB|=\sqrt{1+k^{2}}\sqrt{(x_{1}+x_{2})^{2}-4x_{1}x_{2}},
-			      \qquad k=-\frac{A}{B}.
-		      \]
-		      若 $B=0$，直线为竖直线，斜率不存在，应改用 $y$ 坐标弦长公式。
-
-		\item \textbf{提醒 4（不要死套）：} 先判断焦点位置，再判断是否退化，最后结合判别式确认几何意义。
-	\end{itemize}
+% ===== 再补充：两点法写题时的四行自检卡 =====
+\begin{summarybox}
+\textbf{新增：把推导过程压缩为“四行考场自检”。}
+\[
+ \frac{x^2}{a^2}-\frac{y^2}{b^2}=1,\qquad y=kx+m.
+\]
+\textbf{求和：} 两点双曲线式相减 $\to$ 平方差
+$\to$ 用 $y_1-y_2=k(x_1-x_2)$ 约分
+$\to$ 用 $y_1+y_2=k(x_1+x_2)+2m$：
+\[
+ \boxed{\left(\frac1{a^2}-\frac{k^2}{b^2}\right)(x_1+x_2)
+ =\frac{2km}{b^2}}.
+\]
+\textbf{求积：} 设 $F(x)=x^2/a^2-(kx+m)^2/b^2-1$，
+用 $x_2F(x_1)-x_1F(x_2)=0$：
+\[
+ \boxed{\left(\frac1{a^2}-\frac{k^2}{b^2}\right)x_1x_2
+ =-1-\frac{m^2}{b^2}}.
+\]
+\textbf{最关键的区别：} 求和利用\emph{平方差}；
+求积利用\emph{一次项抵消}。
+以上作为除法推导要求 $x_1\ne x_2$，且方程二次项非零；
+竖直直线与退化情形仍按前面的条件检查。
 \end{summarybox}

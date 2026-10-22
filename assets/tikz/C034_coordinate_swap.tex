@@ -1,0 +1,26 @@
+\begin{center}\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {交换坐标：第二组公式无需重新背一遍};
+\begin{scope}[shift={(3.7,3.7)},scale=0.57]
+\begin{scope}
+\clip (-3.6,-3.6) rectangle (3.6,3.6);
+\draw[blue,very thick,domain=-3.6:3.6,samples=161,variable=\t] plot ({2*sqrt(1+(\t/1)^2)},\t);
+\draw[blue,very thick,domain=-3.6:3.6,samples=161,variable=\t] plot ({-2*sqrt(1+(\t/1)^2)},\t);
+\end{scope}
+\draw[-Stealth,black!45] (-3.6,0)--(3.6,0) node[right] {$x$};
+\draw[-Stealth,black!45] (0,-3.6)--(0,3.6) node[above] {$y$};
+\draw[orange!85!black,very thick] (-3.6,-1.6)--(.1,2.1);\coordinate (P) at (-3.3333333333,-1.3333333333);\fill[black] (P) circle (1.8pt) node[above left=6pt] {$P$};
+\coordinate (Q) at (-2.0000000000,0.0000000000);\fill[black] (Q) circle (1.8pt) node[below right=9pt] {$Q$};
+\end{scope}\begin{scope}[shift={(10.6,3.7)},scale=0.57]
+\begin{scope}
+\clip (-3.6,-3.6) rectangle (3.6,3.6);
+\draw[blue,very thick,domain=-3.6:3.6,samples=161,variable=\t] plot (\t,{2*sqrt(1+(\t/1)^2)});
+\draw[blue,very thick,domain=-3.6:3.6,samples=161,variable=\t] plot (\t,{-2*sqrt(1+(\t/1)^2)});
+\end{scope}
+\draw[-Stealth,black!45] (-3.6,0)--(3.6,0) node[right] {$x$};
+\draw[-Stealth,black!45] (0,-3.6)--(0,3.6) node[above] {$y$};
+\draw[orange!85!black,very thick] (-1.6,-3.6)--(2.1,.1);\coordinate (P') at (-1.3333333333,-3.3333333333);\fill[black] (P') circle (1.8pt) node[above left=10pt] {$P'$};
+\coordinate (Q') at (0.0000000000,-2.0000000000);\fill[black] (Q') circle (1.8pt) node[above left=11pt] {$Q'$};
+\end{scope}\node at (3.7,6.7) {$x^2/4-y^2=1$};\node at (10.6,6.7) {$y^2/4-x^2=1$};
+\node[anchor=west] at (.7,.55) {左：$y=x+2$；右：$x=y+2$；交点 $(x_i,y_i)$ 对应 $(y_i,x_i)$};
+\end{tikzpicture}\end{center}

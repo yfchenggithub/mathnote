@@ -1,0 +1,24 @@
+\begin{center}\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {只有一个交点，不能直接判定相切};
+\begin{scope}[shift={(3.6,3.8)},scale=1.0]
+\begin{scope}
+\clip (-2.4,-1.8) rectangle (2.4,1.8);
+\draw[blue,very thick,domain=-1.8:1.8,samples=161,variable=\t] plot ({1*sqrt(1+(\t/1)^2)},\t);
+\draw[blue,very thick,domain=-1.8:1.8,samples=161,variable=\t] plot ({-1*sqrt(1+(\t/1)^2)},\t);
+\end{scope}
+\draw[-Stealth,black!45] (-2.4,0)--(2.4,0) node[right] {$x$};
+\draw[-Stealth,black!45] (0,-1.8)--(0,1.8) node[above] {$y$};
+\draw[black!45,densely dashed] (-1.8,-1.8)--(1.8,1.8);\draw[orange!85!black,very thick] (-2.4,-1.4)--(.8,1.8);\coordinate (P) at (-1.0000000000,0.0000000000);\fill[black] (P) circle (1.8pt) node[above left=10pt] {$P$};
+\end{scope}\begin{scope}[shift={(10.7,3.8)},scale=1.0]
+\begin{scope}
+\clip (-2.4,-1.8) rectangle (2.4,1.8);
+\draw[blue,very thick,domain=-1.8:1.8,samples=161,variable=\t] plot ({1*sqrt(1+(\t/1)^2)},\t);
+\draw[blue,very thick,domain=-1.8:1.8,samples=161,variable=\t] plot ({-1*sqrt(1+(\t/1)^2)},\t);
+\end{scope}
+\draw[-Stealth,black!45] (-2.4,0)--(2.4,0) node[right] {$x$};
+\draw[-Stealth,black!45] (0,-1.8)--(0,1.8) node[above] {$y$};
+\draw[violet,very thick] (1,-1.8)--(1,1.8);\coordinate (T) at (1.0000000000,0.0000000000);\fill[black] (T) circle (1.8pt) node[below right=6pt] {$T$};
+\end{scope}\node at (3.6,6.7) {$y=x+1$：一次方程};\node at (10.7,6.7) {$x=1$：二次方程重根};
+\node[anchor=west] at (.7,.55) {同一双曲线 $x^2-y^2=1$：左图不是切线，右图在 $T$ 处相切};
+\end{tikzpicture}\end{center}

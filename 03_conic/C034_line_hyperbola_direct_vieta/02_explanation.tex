@@ -1,80 +1,190 @@
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
-
-	直线与双曲线联立时，无需每次都从头展开消元；只要先判断焦点位置、消元方向和二次项系数是否为零，就可以直接写出二次方程和韦达关系。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（二次项系数）：}] 二次项系数由直线系数 $A,B$ 与双曲线半轴 $a,b$ 组合而成。例如焦点在 $x$ 轴时，核心系数为
-		      \[
-			      B^{2}b^{2}-A^{2}a^{2}.
-		      \]
-		      这个系数是否为零，决定消元后是二次方程还是退化方程；交点个数还要结合判别式 $\Delta$ 判断。
-
-		\item[\textbf{要点二（韦达结构）：}] 当二次项系数非零时，两根之和与积均为 $A,B,C,a,b$ 的分式。分母相同，分子有对称结构，但符号容易混淆，必须先分清焦点在 $x$ 轴还是 $y$ 轴。
-
-		\item[\textbf{要点三（消元方向）：}] 关于 $x$ 的韦达关系适合非竖直线，即 $B\neq0$；关于 $y$ 的韦达关系适合 $A\neq0$。若直线为竖直线，应优先用 $y$ 坐标关系处理弦长和交点个数。
-	\end{description}
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（代数联立）}}
-
-	联立直线与双曲线就是求交点坐标。消元后若得到真正的二次方程，则：
-	\[
-		\Delta>0
-	\]
-	表示两个不同实交点；
-	\[
-		\Delta=0
-	\]
-	表示相切，只有一个实交点，对应二次方程的重根；
-	\[
-		\Delta<0
-	\]
-	表示没有实交点。
-
-	因此，韦达定理本身在 $\Delta=0$ 时仍然可以使用，但若题目要求两点弦长，则必须有 $\Delta>0$。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（系统消除）}}
-
-	硬解公式的作用是把重复的代数消元过程固定下来，减少展开、合并、移项的计算量。但使用前必须检查两个前提：一是二次项系数是否为零；二是所选坐标关系是否适合当前直线。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（核心工具）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（弦长计算）：} 若 $B\neq0$，直线可写成 $y=kx+n$，其中
-		      \[
-			      k=-\frac{A}{B}.
-		      \]
-		      此时可用
-		      \[
-			      |AB|=\sqrt{1+k^{2}}\sqrt{(x_{1}+x_{2})^{2}-4x_{1}x_{2}}.
-		      \]
-		      若 $A\neq0$，也可用 $y$ 坐标计算：
-		      \[
-			      |AB|
-			      =
-			      \frac{\sqrt{A^{2}+B^{2}}}{|A|}
-			      \sqrt{(y_{1}+y_{2})^{2}-4y_{1}y_{2}}.
-		      \]
-		      特别地，当 $B=0$ 时，直线为竖直线，斜率不存在，应使用 $y$ 坐标公式。
-
-		\item \textbf{考法二（位置判定）：} 利用判别式判断直线与双曲线的位置关系：$\Delta>0$ 为相交，$\Delta=0$ 为相切，$\Delta<0$ 为相离。
-	\end{itemize}
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
-
-	\textbf{硬解定理的核心不是死记分式，而是先看二次项系数。} 对焦点在 $x$ 轴的双曲线，核心系数是 $B^{2}b^{2}-A^{2}a^{2}$；对焦点在 $y$ 轴的双曲线，核心系数是 $A^{2}b^{2}-B^{2}a^{2}$。
-
-	其值为零时，不是整个联立方法失效，而是二次韦达公式不再适用。此时应回到退化后的一次方程或原方程组单独求解。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（弦长与中点）：} 已知直线与双曲线相交于两点，需求弦长或中点坐标时，先检查二次项系数和判别式，再套用韦达关系。
-		\item \textbf{场景二（参数分析）：} 含有参数的直线与双曲线相交问题，利用韦达和判别式构造方程或不等式，求解参数范围。
-	\end{itemize}
+\textbf{先看一个具体交弦。} 对 $x^2/4-y^2=1$ 与 $y=x+2$，交点为
+\[
+ P\left(-\frac{10}{3},-\frac43\right),\qquad Q(-2,0).
+\]
+\input{assets/tikz/C034_roots_projection}
+图中的横坐标投影就是消元方程的两个根。它们都为负，两个交点都在左支；因此\textbf{“双曲线有两支”不等于“直线的两交点分居两支”}。
+本例代入只得到 $3x^2+16x+20=0$，不必逐一解根也能读出和与积。
 \end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{二次项非零，只保证可以用韦达。}
+固定 $x^2/2-y^2=1$，只改变直线 $y=x+m$ 的截距。
+这里 $M=1-2=-1\ne0$，而 $H=m^2-1$ 会变号。
+\input{assets/tikz/C034_intersection_states}
+$m=0$ 时无交点；$m=1$ 时在 $(-2,-1)$ 相切；$m=2$ 时出现两个交点。
+这说明\textbf{先检查二次项，再检查实交点}，两步不能合并。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{二次项为零，发生了什么？}
+对 $x^2-y^2=1$，渐近线方向为 $y=\pm x$。沿其中一个方向平移直线：
+\input{assets/tikz/C034_asymptote_parallel}
+$y=x+1$ 代入后，$x^2$ 项抵消，只剩 $-2x-1=1$，所以交点恰为 $(-1,0)$。
+若去掉截距，$y=x$ 代入得到 $0=1$，因此无交点。
+\textbf{这里少一个交点是方程降次，不是出现二重根。}
+渐近线是曲线无限延伸时逐渐靠近的直线；图中曲线与它不相交。
+\end{explanationbox}
+\clearpage
+% ===== 新增：两点相减与交叉乘减的直观理解（原内容保持不变）=====
+\begin{explanationbox}
+\textbf{新增速记：两点相减求和，交叉乘减求积。}
+先只考虑横开口双曲线
+$\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}=1$ 与非竖直直线 $y=kx+m$ 的\textbf{两个不同交点}。
+
+\textbf{求和为什么用相减？} 因为 $x_1^2-x_2^2=(x_1-x_2)(x_1+x_2)$：
+两点方程相减时，平方差直接带出所求的 $x_1+x_2$，而右端的 $1-1$ 自动消失。
+再用直线关系 $y_1-y_2=k(x_1-x_2)$、
+$y_1+y_2=k(x_1+x_2)+2m$，无需完整联立展开。
+
+\textbf{求积为什么要交叉乘减？} 令
+$F(x)=\dfrac{x^2}{a^2}-\dfrac{(kx+m)^2}{b^2}-1$，
+两个交点使 $F(x_1)=F(x_2)=0$。
+把第一个等式乘 $x_2$、第二个等式乘 $x_1$，然后相减：
+\[
+ x_2F(x_1)-x_1F(x_2)=0.
+\]
+此时展开平方所产生的\textbf{一次交叉项}都是 $2kmx_1x_2$，恰好互相抵消；
+留下的平方项含 $x_1x_2(x_1-x_2)$，从而直接导出乘积。
+
+\textbf{记忆口令：} \fbox{直接减，出和；交叉乘减，出积。}
+这里的交叉乘减是理解乘积关系的巧法，不一定比考场直接看二次项系数和常数项更省笔画。
+\end{explanationbox}
+\clearpage
+
+% ===== 再补充：两点法的初学者逐步理解（此前内容和 TikZ 均未修改）=====
+\begin{explanationbox}
+\textbf{深入理解一：为什么“两点相减”专门适合求和？}
+
+\textbf{先别看双曲线，先看普通数字。}
+例如 $7^2-3^2=(7-3)(7+3)$。
+两个平方一相减，不用把 $49-9$ 当成主要计算目标；
+我们真正得到的是“\textbf{两数之差}\,$\times$\,\textbf{两数之和}”。
+因此，如果题目需要 $x_1+x_2$，看到 $x_1^2$ 与 $x_2^2$，
+自然就应想到：\textbf{把两个平方相减，再使用平方差公式}。
+
+\textbf{把这个想法搬到双曲线。} 两个点分别满足
+\[
+\underbrace{\frac{x_1^2}{a^2}-\frac{y_1^2}{b^2}=1}_{\text{点 }P},
+\qquad
+\underbrace{\frac{x_2^2}{a^2}-\frac{y_2^2}{b^2}=1}_{\text{点 }Q}.
+\]
+左式减右式，\textbf{右端先消成 $1-1=0$}：
+\[
+\frac{x_1^2-x_2^2}{a^2}-\frac{y_1^2-y_2^2}{b^2}=0.
+\]
+两个平方差分别拆开：
+\[
+\boxed{\frac{(x_1-x_2)(x_1+x_2)}{a^2}
+=\frac{(y_1-y_2)(y_1+y_2)}{b^2}}.
+\]
+注意这一步不是在求根；\textbf{所需的两个“和”，已经直接露出来了}。
+
+\textbf{还卡着两个“差”，怎么办？} 刚好两点又在同一直线
+$y=kx+m$ 上：
+\[
+ y_1=kx_1+m,\qquad y_2=kx_2+m.
+\]
+两式相减时，截距 $m-m$ 又自动消失：
+\[
+ \boxed{y_1-y_2=k(x_1-x_2)}.
+\]
+用它替换上面的 $y_1-y_2$，两个不同交点保证 $x_1-x_2\ne0$，
+就能约掉共同的“差”，只剩两个“和”：
+\[
+ \boxed{\frac{x_1+x_2}{a^2}=\frac{k(y_1+y_2)}{b^2}}.
+\]
+\textbf{一眼记住：} \fbox{曲线相减，平方变“差$\times$和”；直线相减，消掉那个“差”。}
+\end{explanationbox}
+\clearpage
+
+\begin{explanationbox}
+\textbf{深入理解二：如何从两个坐标和走到 $x_1+x_2$？}
+
+上页已经得到
+\[
+ \frac{x_1+x_2}{a^2}=\frac{k(y_1+y_2)}{b^2}.
+\]
+但是出现了 $y_1+y_2$，别慌，\textbf{直接把两点的直线方程相加}：
+\[
+\begin{aligned}
+ y_1+y_2
+ &= (kx_1+m)+(kx_2+m)\\
+ &=k(x_1+x_2)+2m.
+\end{aligned}
+\]
+注意：\textbf{求差时 $m$ 抵消；求和时 $m$ 变成 $2m$}。
+于是
+\[
+\begin{aligned}
+ \frac{x_1+x_2}{a^2}
+ &=\frac{k\,[k(x_1+x_2)+2m]}{b^2}\\
+ &=\frac{k^2(x_1+x_2)}{b^2}+\frac{2km}{b^2}.
+\end{aligned}
+\]
+把含 $x_1+x_2$ 的项挪到左侧：
+\[
+ \boxed{\left(\frac1{a^2}-\frac{k^2}{b^2}\right)
+ (x_1+x_2)=\frac{2km}{b^2}}.
+\]
+如 $b^2-a^2k^2\ne0$，便能解出
+\[
+ \boxed{x_1+x_2=\frac{2a^2km}{b^2-a^2k^2}}.
+\]
+\textbf{这三步背后的目的：}
+先用曲线相减\emph{制造}坐标和，再用直线之差\emph{消去差}，
+最后用直线之和\emph{把 $y$ 的和换成 $x$ 的和}。
+整个过程没有展开消元后的二次式。
+
+\textbf{额外的几何理解。} 设弦中点为 $S(s,t)$，
+则 $x_1+x_2=2s$、$y_1+y_2=2t$，
+上面的关键等式也就是 $s/a^2=kt/b^2$。
+所以这种“求和法”实际上是在找\textbf{弦的中点}。
+\end{explanationbox}
+\clearpage
+
+\begin{explanationbox}
+\textbf{深入理解三：为什么“交叉乘减”恰好求积？}
+
+先观察一个\textbf{最简单的二次式}，不带双曲线参数：
+\[
+ ux^2+vx+w=0.
+\]
+因为 $x_1,x_2$ 都是根，所以
+\[
+ ux_1^2+vx_1+w=0\quad(1),\qquad
+ ux_2^2+vx_2+w=0\quad(2).
+\]
+\textbf{目标是去掉 $vx_1$ 和 $vx_2$ 这两个一次项。}
+若只是 $(1)-(2)$，留下 $v(x_1-x_2)$，它\emph{并未消失}。
+但如果把 $(1)$ 乘 $x_2$，把 $(2)$ 乘 $x_1$：
+\[
+\begin{array}{rcl}
+ (1)\times x_2: & ux_1^2x_2+\boxed{vx_1x_2}+wx_2=0,\\[3pt]
+ (2)\times x_1: & ux_2^2x_1+\boxed{vx_2x_1}+wx_1=0.
+\end{array}
+\]
+看中间的框：$vx_1x_2=vx_2x_1$。\textbf{它们完全一样！}
+因此第一行减第二行，一次项自动归零：
+\[
+ u\,x_1x_2(x_1-x_2)+w(x_2-x_1)=0.
+\]
+又因为 $x_2-x_1=-(x_1-x_2)$，所以
+\[
+ (x_1-x_2)(ux_1x_2-w)=0.
+\]
+当 $x_1\ne x_2$ 时，得到
+\[
+ \boxed{ux_1x_2=w}.
+\]
+\textbf{这不是硬凑出来的交叉相乘。} 我们从“要消掉一次项”出发，
+倒过来想：\emph{用什么乘数能让 $x_1$ 和 $x_2$ 变成同一个乘积？}
+答案当然是第一个乘 $x_2$、第二个乘 $x_1$。
+
+\textbf{迁移到双曲线时只有一处变化：}
+把二次式中的 $u$ 换成 $1/a^2-k^2/b^2$，
+把常数 $w$ 换成 $-1-m^2/b^2$。
+下一页的详细证明会解释，这两个量如何直接从平方中读出。
+\end{explanationbox}
+\clearpage

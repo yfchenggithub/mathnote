@@ -1,0 +1,16 @@
+\begin{center}\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {纵开口双曲线：两交点分居上下两支};
+\begin{scope}[shift={(7.2,3.65)},scale=0.58]
+\begin{scope}
+\clip (-3.2,-4.1) rectangle (3.2,4.1);
+\draw[blue,very thick,domain=-3.2:3.2,samples=161,variable=\t] plot (\t,{2.23606797749979*sqrt(1+(\t/2)^2)});
+\draw[blue,very thick,domain=-3.2:3.2,samples=161,variable=\t] plot (\t,{-2.23606797749979*sqrt(1+(\t/2)^2)});
+\end{scope}
+\draw[-Stealth,black!45] (-3.2,0)--(3.2,0) node[right] {$x$};
+\draw[-Stealth,black!45] (0,-4.1)--(0,4.1) node[above] {$y$};
+\draw[orange!85!black,very thick] (-2.55,-4.1)--(1.55,4.1);\coordinate (P) at (-2.1356303077,-3.2712606154);\fill[black] (P) circle (1.8pt) node[above left=11pt] {$P$};
+\coordinate (Q) at (0.6810848532,2.3621697063);\fill[black] (Q) circle (1.8pt) node[above left=12pt] {$Q$};
+\end{scope}\node[anchor=west] at (10.4,5.7) {$y=2x+1$};\node[anchor=west] at (10.4,4.7) {$y_1y_2<0$};
+\node[anchor=west] at (.7,.55) {$y^2/5-x^2/4=1$；先识别正号所在的轴，再选对应公式};
+\end{tikzpicture}\end{center}

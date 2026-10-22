@@ -1,0 +1,17 @@
+\begin{center}\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {两个根对应两个交点：它们可以在同一支上};
+\begin{scope}[shift={(7.2,3.65)},scale=0.95]
+\begin{scope}
+\clip (-4.5,-2.1) rectangle (4.5,2.1);
+\draw[blue,very thick,domain=-2.1:2.1,samples=161,variable=\t] plot ({2*sqrt(1+(\t/1)^2)},\t);
+\draw[blue,very thick,domain=-2.1:2.1,samples=161,variable=\t] plot ({-2*sqrt(1+(\t/1)^2)},\t);
+\end{scope}
+\draw[-Stealth,black!45] (-4.5,0)--(4.5,0) node[right] {$x$};
+\draw[-Stealth,black!45] (0,-2.1)--(0,2.1) node[above] {$y$};
+\draw[orange!85!black,very thick] (-4.1,-2.1)--(.1,2.1);
+\coordinate (P) at (-3.3333333333,-1.3333333333);\fill[black] (P) circle (1.8pt) node[above left=10pt] {$P$};
+\coordinate (Q) at (-2.0000000000,0.0000000000);\fill[black] (Q) circle (1.8pt) node[below right=11pt] {$Q$};
+\draw[teal!70!black,dashed,thick] (P)--(-3.3333333333,0);\node[above] at (-3.3333333333,0) {$x_1$};\node[above=16pt] at (Q) {$x_2$};\end{scope}
+\node[anchor=west] at (.7,.55) {$x^2/4-y^2=1,\quad y=x+2$；这里 $x_1x_2>0$，两点都在左支};
+\end{tikzpicture}\end{center}

@@ -1,99 +1,78 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件1（直线方程）：}}] 直线 $l: Ax+By+C=0$，其中 $A^{2}+B^{2}>0$。
-		
-		若要消去 $x$，通常需要 $A\neq0$，可写成
-		\[
-			x=-\frac{By+C}{A}.
-		\]
-		若要消去 $y$，通常需要 $B\neq0$，可写成
-		\[
-			y=-\frac{Ax+C}{B}.
-		\]
-		本结论中关于 $y$ 的方程默认 $A\neq0$；关于 $x$ 的方程默认 $B\neq0$。若遇到竖直线或水平线，应优先选择不退化的坐标关系。
+\textbf{条件。} $a,b>0$，直线 $l:Ax+By+C=0$，$A^2+B^2>0$。
+交点用 $P(x_1,y_1),Q(x_2,y_2)$ 表示，避免与系数 $A,B$ 混用。
+\textbf{消去 $y$ 必须有 $B\ne0$；消去 $x$ 必须有 $A\ne0$。}
 
-		\item[\textbf{\textcolor{CStatement}{条件2（双曲线标准）：}}] 双曲线为 $\dfrac{x^{2}}{a^{2}}-\dfrac{y^{2}}{b^{2}}=1$（焦点在 $x$ 轴）或 $\dfrac{y^{2}}{a^{2}}-\dfrac{x^{2}}{b^{2}}=1$（焦点在 $y$ 轴），且 $a>0,\,b>0$。
-	\end{description}
+\textbf{一、横开口：$\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}=1$。}
+记 $M=B^2b^2-A^2a^2$，$H=C^2+M$。
+在各自消元条件满足时，得到
+\[
+ \begin{aligned}
+ Mx^2-2ACa^2x-a^2(C^2+B^2b^2)&=0,\\
+ My^2+2BCb^2y+b^2(C^2-A^2a^2)&=0.
+ \end{aligned}
+\]
+当 $M\ne0$，韦达关系为
+\[
+ \boxed{x_1+x_2=\frac{2ACa^2}{M}},\qquad
+ \boxed{x_1x_2=-\frac{a^2(C^2+B^2b^2)}{M}},
+\]
+\[
+ \boxed{y_1+y_2=-\frac{2BCb^2}{M}},\qquad
+ \boxed{y_1y_2=\frac{b^2(C^2-A^2a^2)}{M}}.
+\]
+\textbf{交点分类：} $M\ne0$ 时，$H>0$ 为两个不同实交点，$H=0$ 为相切，$H<0$ 为无实交点。此时
+\[
+ \Delta_x=4a^2b^2B^2H\ (B\ne0),\qquad
+ \Delta_y=4a^2b^2A^2H\ (A\ne0).
+\]
+实交点的和、积要求 $H\ge0$；相切时重计切点。
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（焦点在 $x$ 轴）：}}]
-		      \textbf{\textcolor{CStatement}{直观描述：}} 对于双曲线
-		      \[
-			      \frac{x^{2}}{a^{2}}-\frac{y^{2}}{b^{2}}=1,
-		      \]
-		      直线与双曲线联立后，消元方程的二次项系数为
-		      \[
-			      M=B^{2}b^{2}-A^{2}a^{2}.
-		      \]
-		      当 $M\neq0$ 时，可使用二次韦达公式。
-
-		      消去 $y$ 得：
-		      \[
-			      (B^{2}b^{2}-A^{2}a^{2})x^{2}-2ACa^{2}\,x-C^{2}a^{2}-B^{2}a^{2}b^{2}=0.
-		      \]
-		      消去 $x$ 得：
-		      \[
-			      (B^{2}b^{2}-A^{2}a^{2})y^{2}+2BCb^{2}\,y+C^{2}b^{2}-A^{2}a^{2}b^{2}=0.
-		      \]
-		      韦达定理（$x$ 关系）：
-		      \[
-			      x_{1}+x_{2}=\frac{2ACa^{2}}{B^{2}b^{2}-A^{2}a^{2}},\qquad
-			      x_{1}x_{2}=\frac{-C^{2}a^{2}-B^{2}a^{2}b^{2}}{B^{2}b^{2}-A^{2}a^{2}}.
-		      \]
-		      韦达定理（$y$ 关系）：
-		      \[
-			      y_{1}+y_{2}=-\frac{2BCb^{2}}{B^{2}b^{2}-A^{2}a^{2}},\qquad
-			      y_{1}y_{2}=\frac{C^{2}b^{2}-A^{2}a^{2}b^{2}}{B^{2}b^{2}-A^{2}a^{2}}.
-		      \]
-
-		\item[\textbf{\textcolor{CStatement}{结论二（焦点在 $y$ 轴）：}}]
-		      \textbf{\textcolor{CStatement}{直观描述：}} 对于双曲线
-		      \[
-			      \frac{y^{2}}{a^{2}}-\frac{x^{2}}{b^{2}}=1,
-		      \]
-		      直线与双曲线联立后，消元方程的二次项系数为
-		      \[
-			      N=A^{2}b^{2}-B^{2}a^{2}.
-		      \]
-		      当 $N\neq0$ 时，可使用二次韦达公式。
-
-		      消去 $y$ 得：
-		      \[
-			      (A^{2}b^{2}-B^{2}a^{2})x^{2}+2ACb^{2}\,x+C^{2}b^{2}-B^{2}a^{2}b^{2}=0.
-		      \]
-		      消去 $x$ 得：
-		      \[
-			      (A^{2}b^{2}-B^{2}a^{2})y^{2}-2BCa^{2}\,y-C^{2}a^{2}-A^{2}a^{2}b^{2}=0.
-		      \]
-		      韦达定理（$x$ 关系）：
-		      \[
-			      x_{1}+x_{2}=-\frac{2ACb^{2}}{A^{2}b^{2}-B^{2}a^{2}},\qquad
-			      x_{1}x_{2}=\frac{C^{2}b^{2}-B^{2}a^{2}b^{2}}{A^{2}b^{2}-B^{2}a^{2}}.
-		      \]
-		      韦达定理（$y$ 关系）：
-		      \[
-			      y_{1}+y_{2}=\frac{2BCa^{2}}{A^{2}b^{2}-B^{2}a^{2}},\qquad
-			      y_{1}y_{2}=\frac{-C^{2}a^{2}-A^{2}a^{2}b^{2}}{A^{2}b^{2}-B^{2}a^{2}}.
-		      \]
-	\end{description}
-
-	\textbf{\textcolor{CStatement}{推广结论（零系数情形）}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{推广结论（渐近线平行或退化）：}}]
-		      \textbf{\textcolor{CStatement}{直观描述：}} 当二次项系数 $B^{2}b^{2}-A^{2}a^{2}=0$（焦点在 $x$ 轴）或 $A^{2}b^{2}-B^{2}a^{2}=0$（焦点在 $y$ 轴）时，直线方向与双曲线的一条渐近线方向平行。
-
-		      此时不能使用二次韦达公式，应单独讨论：
-		      \[
-			      C\neq0
-			      \quad\Longrightarrow\quad
-			      \text{消元方程退化为一次方程，通常只有一个有限交点；}
-		      \]
-		      \[
-			      C=0
-			      \quad\Longrightarrow\quad
-			      \text{直线本身就是双曲线的一条渐近线，与双曲线没有有限交点。}
-		      \]
-	\end{description}
+\textbf{退化必须另算。} $M=0$ 时 $A,B$ 均非零，直线平行于一条渐近线：
+\[
+ \begin{cases}
+ C\ne0: &\text{恰有一个有限交点，且不是切线；}\\
+ C=0: &\text{直线就是渐近线，没有有限交点。}
+ \end{cases}
+\]
+不能把 $M=0$ 代入韦达分式，也不能用二次方程的判别式分类。
 \end{statementbox}
+\clearpage
+\begin{statementbox}
+\textbf{二、纵开口：$\dfrac{y^2}{a^2}-\dfrac{x^2}{b^2}=1$。}
+记 $N=A^2b^2-B^2a^2$，$K=C^2+N$。
+消去 $y$ 仍需 $B\ne0$，消去 $x$ 仍需 $A\ne0$；相应方程为
+\[
+ \begin{aligned}
+ Nx^2+2ACb^2x+b^2(C^2-B^2a^2)&=0,\\
+ Ny^2-2BCa^2y-a^2(C^2+A^2b^2)&=0.
+ \end{aligned}
+\]
+当 $N\ne0$，得到
+\[
+ \boxed{x_1+x_2=-\frac{2ACb^2}{N}},\qquad
+ \boxed{x_1x_2=\frac{b^2(C^2-B^2a^2)}{N}},
+\]
+\[
+ \boxed{y_1+y_2=\frac{2BCa^2}{N}},\qquad
+ \boxed{y_1y_2=-\frac{a^2(C^2+A^2b^2)}{N}}.
+\]
+位置关系将前页的 $(M,H)$ 换为 $(N,K)$ 即可：$N\ne0$ 时按 $K$ 的正、零、负分别得到两交点、相切、无交点。
+$N=0$ 时，$C\ne0$ 恰有一个有限交点，$C=0$ 则是渐近线、无有限交点。
+
+\textbf{三、中点与弦长（适用于水平、竖直及斜弦）。}
+当存在两个不同实交点时，弦中点 $S$ 与弦长为
+\[
+ \begin{array}{c|c|c}
+ & S & PQ\\[3pt]\hline
+ \text{横开口} & \left(\dfrac{ACa^2}{M},-\dfrac{BCb^2}{M}\right)
+ & \dfrac{2ab\sqrt{(A^2+B^2)H}}{|M|}\\[10pt]
+ \text{纵开口} & \left(-\dfrac{ACb^2}{N},\dfrac{BCa^2}{N}\right)
+ & \dfrac{2ab\sqrt{(A^2+B^2)K}}{|N|}
+ \end{array}
+\]
+横开口须 $M\ne0,H>0$；纵开口须 $N\ne0,K>0$。
+分母要取\textbf{绝对值}，因为二次项系数可以为负。
+相切时中点公式给出切点，长度公式给出 $0$，不再是非零弦。
+\end{statementbox}
+\clearpage

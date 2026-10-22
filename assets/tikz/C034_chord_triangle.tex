@@ -1,0 +1,22 @@
+\begin{center}\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {横坐标根差只是投影：弦长由直角三角形得到};
+\begin{scope}[shift={(7.2,3.65)},scale=1.3]
+\begin{scope}
+\clip (-4.5,-1.9) rectangle (4.5,1.9);
+\draw[blue,very thick,domain=-1.9:1.9,samples=161,variable=\t] plot ({2*sqrt(1+(\t/1)^2)},\t);
+\draw[blue,very thick,domain=-1.9:1.9,samples=161,variable=\t] plot ({-2*sqrt(1+(\t/1)^2)},\t);
+\end{scope}
+\draw[-Stealth,black!45] (-4.5,0)--(4.5,0) node[right] {$x$};
+\draw[-Stealth,black!45] (0,-1.9)--(0,1.9) node[above] {$y$};
+\coordinate (P) at (-3.3333333333,-1.3333333333);\fill[black] (P) circle (1.8pt) node[above left=10pt] {$P$};
+\coordinate (Q) at (-2.0000000000,0.0000000000);\fill[black] (Q) circle (1.8pt) node[above right=7pt] {$Q$};
+\coordinate (T) at (-2.0000000000,-1.3333333333);\fill[black] (T) circle (1.8pt) node[below right=7pt] {$T$};
+\draw[orange!85!black,very thick] (P)--(Q);
+\draw[teal!70!black,dashed,thick] (P)--(T)--(Q);
+\draw (-2.16,-1.3333333333)--(-2.16,-1.1733333333)--(-2,-1.1733333333);
+\node[below=11pt] at (-2.6666666667,-1.3333333333) {$|x_2-x_1|$};
+\node[anchor=west] at (-1.5,-.65) {$|y_2-y_1|$};
+\end{scope}
+\node[anchor=west] at (.7,.55) {$PQ^2=(x_2-x_1)^2+(y_2-y_1)^2$；本例两条直角边都长 $4/3$};
+\end{tikzpicture}\end{center}

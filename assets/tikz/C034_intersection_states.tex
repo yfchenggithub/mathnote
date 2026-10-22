@@ -1,0 +1,20 @@
+\begin{center}\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {固定方向，只改变截距：无交点、相切、两交点};
+\begin{scope}[shift={(7.2,3.65)},scale=0.53]
+\begin{scope}
+\clip (-7,-4.7) rectangle (7,4.7);
+\draw[blue,very thick,domain=-4.7:4.7,samples=161,variable=\t] plot ({1.4142135623730951*sqrt(1+(\t/1)^2)},\t);
+\draw[blue,very thick,domain=-4.7:4.7,samples=161,variable=\t] plot ({-1.4142135623730951*sqrt(1+(\t/1)^2)},\t);
+\end{scope}
+\draw[-Stealth,black!45] (-7,0)--(7,0) node[right] {$x$};
+\draw[-Stealth,black!45] (0,-4.7)--(0,4.7) node[above] {$y$};
+\draw[red!75!black,densely dashed,thick] (-4.7,-4.7)--(4.7,4.7);
+\draw[violet,thick] (-5.7,-4.7)--(3.7,4.7);
+\draw[orange!85!black,very thick] (-6.7,-4.7)--(2.7,4.7);
+\coordinate (T) at (-2.0000000000,-1.0000000000);\fill[black] (T) circle (1.8pt) ;
+\coordinate (P) at (-6.4494897428,-4.4494897428);\fill[black] (P) circle (1.8pt) ;
+\coordinate (Q) at (-1.5505102572,0.4494897428);\fill[black] (Q) circle (1.8pt) ;
+\end{scope}\node[anchor=west,red!75!black] at (11.1,6.4) {$m=0$：无交点};\node[anchor=west,violet] at (11.1,5.4) {$m=1$：相切};\node[anchor=west,orange!85!black] at (11.1,4.4) {$m=2$：两交点};
+\node[anchor=west] at (.7,.55) {$x^2/2-y^2=1,\ y=x+m$；$M=-1$，故比较 $H=m^2-1$ 的符号};
+\end{tikzpicture}\end{center}

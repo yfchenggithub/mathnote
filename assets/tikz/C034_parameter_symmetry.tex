@@ -1,0 +1,18 @@
+\begin{center}\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {两组答案互为中心对称：弦长相同};
+\begin{scope}[shift={(7.2,3.65)},scale=0.5]
+\begin{scope}
+\clip (-7,-4.8) rectangle (7,4.8);
+\draw[blue,very thick,domain=-4.8:4.8,samples=161,variable=\t] plot ({1.4142135623730951*sqrt(1+(\t/1)^2)},\t);
+\draw[blue,very thick,domain=-4.8:4.8,samples=161,variable=\t] plot ({-1.4142135623730951*sqrt(1+(\t/1)^2)},\t);
+\end{scope}
+\draw[-Stealth,black!45] (-7,0)--(7,0) node[right] {$x$};
+\draw[-Stealth,black!45] (0,-4.8)--(0,4.8) node[above] {$y$};
+\draw[orange!85!black,very thick] (-6.8,-4.8)--(2.8,4.8);\draw[red!75!black,dashed,very thick] (-2.8,-4.8)--(6.8,4.8);\coordinate (P) at (-6.4494897428,-4.4494897428);\fill[black] (P) circle (1.8pt) node[above left=7pt] {$P$};
+\coordinate (Q) at (-1.5505102572,0.4494897428);\fill[black] (Q) circle (1.8pt) ;
+\coordinate (P') at (6.4494897428,4.4494897428);\fill[black] (P') circle (1.8pt) node[below right=7pt] {$P'$};
+\coordinate (Q') at (1.5505102572,-0.4494897428);\fill[black] (Q') circle (1.8pt) ;
+\node[anchor=south east] at (-2.8,.5) {$Q$};\node[anchor=north west] at (2.8,-.5) {$Q'$};\end{scope}\node[anchor=west,orange!85!black] at (11.5,6.5) {$m=2$};\node[anchor=west,red!75!black] at (11.1,4.5) {$m=-2$};
+\node[anchor=west] at (.7,.55) {$x^2/2-y^2=1,\ y=x+m$；$(x,y)\mapsto(-x,-y)$ 使 $m\mapsto-m$};
+\end{tikzpicture}\end{center}

@@ -9,7 +9,7 @@
       "韦达直接写",
       "联立双曲线秒算"
     ],
-    "summary": "直接写出直线与标准双曲线联立后二次方程系数和韦达定理，省去消元过程。",
+    "summary": "标准双曲线与一般直线联立的韦达公式；先查消元条件与二次项，再分实交点及渐近线平行退化，并求中点和弦长。",
     "difficulty": 4,
     "category": "解析几何",
     "tags": [
@@ -68,7 +68,7 @@
       "A^2 b^2 - B^2 a^2",
       "\\frac{2ACa^2}{B^2 b^2 - A^2 a^2}",
       "\\frac{-C^2 a^2 - B^2 a^2 b^2}{B^2 b^2 - A^2 a^2}",
-      "\\frac{2BCb^2}{B^2 b^2 - A^2 a^2}",
+      "-\\frac{2BCb^2}{B^2 b^2 - A^2 a^2}",
       "\\frac{C^2 b^2 - A^2 a^2 b^2}{B^2 b^2 - A^2 a^2}"
     ],
     "formulaTokens": [
@@ -101,7 +101,9 @@
     "core_formula": "x_1+x_2 = \\frac{2ACa^2}{B^2 b^2 - A^2 a^2}, \\quad x_1x_2 = \\frac{-C^2 a^2 - B^2 a^2 b^2}{B^2 b^2 - A^2 a^2}",
     "related_formulas": [
       "y_1+y_2 = -\\frac{2BCb^2}{B^2 b^2 - A^2 a^2}, \\quad y_1y_2 = \\frac{C^2 b^2 - A^2 a^2 b^2}{B^2 b^2 - A^2 a^2}",
-      "x_1+x_2 = -\\frac{2ACb^2}{A^2 b^2 - B^2 a^2}, \\quad x_1x_2 = \\frac{C^2 b^2 - B^2 a^2 b^2}{A^2 b^2 - B^2 a^2}"
+      "x_1+x_2 = -\\frac{2ACb^2}{A^2 b^2 - B^2 a^2}, \\quad x_1x_2 = \\frac{C^2 b^2 - B^2 a^2 b^2}{A^2 b^2 - B^2 a^2}",
+      "y_1+y_2=\\frac{2BCa^2}{N},\\quad y_1y_2=-\\frac{a^2(C^2+A^2b^2)}N",
+      "M=B^2b^2-A^2a^2,\\quad H=C^2+M,\\quad PQ=\\frac{2ab\\sqrt{(A^2+B^2)H}}{|M|}"
     ],
     "variables": [
       "A",
@@ -114,19 +116,28 @@
       "x_1",
       "x_2",
       "y_1",
-      "y_2"
+      "y_2",
+      "M",
+      "N",
+      "H",
+      "K",
+      "P",
+      "Q",
+      "S"
     ],
-    "conditions": "直线(A,B)≠(0,0)；消y要求B≠0，消x要求A≠0；双曲线标准形式，a,b>0；二次项系数非零时可用韦达，两不同实交点还须Δ>0。",
-    "conclusions": "可直接得到韦达定理，用于求弦长、中点坐标、面积等。"
+    "conditions": "a,b>0，(A,B)≠(0,0)；消y须B≠0，消x须A≠0。横开口M≠0，H=C²+M≥0才解释实坐标韦达；实弦须H>0。纵开口改用N与K=C²+N。",
+    "conclusions": "二次项非零时给出坐标和、积、中点及弦长（分母取绝对值）；二次项为零且C≠0恰一个有限交点、非切线，C=0为渐近线、无有限交点。"
   },
   "content": {
-    "statement": "给定直线 Ax+By+C=0（A≠0）与标准双曲线方程，消元后所得一元二次方程的系数及韦达定理可直接写出，分为焦点在 x 轴和 y 轴两种情形。",
+    "statement": "直线 (A,B)≠(0,0)，a,b>0；消y须B≠0，消x须A≠0。横开口M=B²b²−A²a²，纵开口N=A²b²−B²a²；分母非零才用二次韦达。",
     "derivation": [
-      "消去y须B≠0，消去x须A≠0；先选择可用方向。",
-      "整理成真正的二次方程；二次项系数为零时转为一次或无解情形。",
-      "二次项非零时用韦达；两不同实交点另须判别式>0。"
+      "优先代入、清分母、展开，再用韦达并检验根与交点的双向对应。",
+      "判别式化简为4a²b²B²H或4a²b²A²H（合法消元方向），横开口H=C²+M；纵开口K=C²+N。",
+      "交换坐标及A/B得到纵开口全部公式。",
+      "用(x/a−y/b)(x/a+y/b)=1解释渐近线平行时恰一个交点或无交点。",
+      "两点方程作差短证中点，根差配合勾股关系推导弦长。"
     ],
-    "intuition": "因为直线方程是线性的，代入双曲线二次方程后，消元结果必然是一个二次方程，且系数由直线和双曲线参数的多项式乘积决定。",
+    "intuition": "代入后至多二次；渐近线平行时二次项抵消。两交点可能同支；一个交点可能来自一次方程，不能直接判相切。",
     "common_tricks": [
       "使用前先判断焦点位置，选择对应公式。",
       "注意分母非零（渐近线平行时不能用）。",
@@ -149,7 +160,7 @@
     "exam_score": 5
   },
   "interactive": {
-    "has_diagram": false,
+    "has_diagram": true,
     "geogebra_id": "",
     "param_demo": {}
   },
@@ -179,10 +190,10 @@
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-07",
-    "updated_at": "2026-10-21"
+    "updated_at": "2026-10-22"
   },
   "isPro": 0,
-  "remarks": "",
+  "remarks": "PDF含9幅精确数学教学图，分别替代投影位置、三类交点、渐近线退化、一次交点与切点区别、坐标交换、弦长辅助三角形、纵开口例题、参数中心对称、竖直弦的脑补描述。图路径：assets/tikz/C034_roots_projection.tex；assets/tikz/C034_intersection_states.tex；assets/tikz/C034_asymptote_parallel.tex；assets/tikz/C034_one_point_not_tangent.tex；assets/tikz/C034_coordinate_swap.tex；assets/tikz/C034_chord_triangle.tex；assets/tikz/C034_vertical_hyperbola_example.tex；assets/tikz/C034_parameter_symmetry.tex；assets/tikz/C034_vertical_chord.tex。核验脚本 checks/verify_c034.py。",
   "knowledgeNode": "解析几何-圆锥曲线-双曲线-直线联立与韦达",
   "altNodes": "解析几何-圆锥曲线-椭圆,解析几何-直线-一般式"
 }
