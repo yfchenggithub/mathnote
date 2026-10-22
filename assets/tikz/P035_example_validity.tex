@@ -1,0 +1,33 @@
+\begin{center}
+\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (0.5,7.72) {例 1：同一长度单位下，正常三角形与退化情形对照};
+% MODEL 9 6 10
+\begin{scope}[shift={(4.2,4.4)},scale=0.4]
+\coordinate (A) at (7.25,5.3326822519);
+\coordinate (B) at (0,0);
+\coordinate (C) at (10,0);
+\coordinate (D) at (6,0);
+\coordinate (A0) at (9,-6.75);
+\coordinate (B0) at (0,-6.75);
+\coordinate (C0) at (15,-6.75);
+\draw[blue,thick] (A)--(B);\draw[teal!80!black,thick] (A)--(C);\draw[thick] (B)--(C);\draw[orange!85!black,very thick] (A)--(D);
+\fill (A) circle (1.3pt) node[above=5pt] {$A$};
+\fill (B) circle (1.3pt) node[below left=5pt] {$B$};
+\fill (C) circle (1.3pt) node[below right=5pt] {$C$};
+\fill (D) circle (1.3pt) node[below=5pt] {$D$};
+\path (A)--(B) node[midway,above left=4pt] {$AB=9$};
+\path (A)--(C) node[midway,above right=4pt] {$AC=6$};
+\draw[red!75!black,thick] (B0)--(C0);
+\fill[red!75!black] (A0) circle (2pt) node[below=6pt] {$A$};
+\fill[red!75!black] (B0) circle (2pt) node[below=6pt] {$B$};
+\fill[red!75!black] (C0) circle (2pt) node[below=6pt] {$C$};
+\end{scope}
+\draw[blue,|-|] ($(B)+(0,-0.85)$)--($(D)+(0,-0.85)$) node[midway,below=3pt] {$BD=6$};
+\draw[teal!80!black,|-|] ($(D)+(0,-0.85)$)--($(C)+(0,-0.85)$) node[midway,below=3pt] {$DC=4$};
+\node[anchor=west] at (.7,6.3) {修正后 $BC=10$};
+\node[anchor=west,text=red!75!black] at (.7,2.2) {原题 $BC=15$};
+\node[anchor=west,text=red!75!black] at (.7,.8) {$9+6=15$：三点共线};
+
+\end{tikzpicture}
+\end{center}

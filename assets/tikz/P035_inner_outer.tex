@@ -1,0 +1,28 @@
+\begin{center}
+\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (0.5,7.72) {逆定理不能漏掉位置：内点 $D$ 与外点 $X$ 的长度比相同};
+% MODEL 6 4 5
+\begin{scope}[shift={(2.1,2.5)},scale=0.68]
+\coordinate (A) at (4.5,3.9686269666);
+\coordinate (B) at (0,0);
+\coordinate (C) at (5,0);
+\coordinate (D) at (3,0);
+\coordinate (X) at (15,0);
+\draw[blue,thick] (A)--(B);\draw[teal!80!black,thick] (A)--(C);\draw[thick] (B)--(C);\draw[orange!85!black,very thick] (A)--(D);
+\fill (A) circle (1.3pt) node[above=5pt] {$A$};
+\fill (B) circle (1.3pt) node[below left=5pt] {$B$};
+\fill (C) circle (1.3pt) node[below right=5pt] {$C$};
+\fill (D) circle (1.3pt) node[below=5pt] {$D$};
+\draw[black!45] (C)--(X);\draw[purple,thick,dashed] (A)--(X);\fill[purple] (X) circle (1.3pt) node[below right=5pt] {$X$};
+\path (A)--(B) node[midway,above left=4pt] {$AB=6$};
+\path (A)--(C) node[midway,above right=4pt] {$AC=4$};
+\path (C)--(X) node[midway,above=6pt] {$XC=10$};
+\end{scope}
+\draw[blue,|-|] ($(B)+(0,-1.1)$)--($(D)+(0,-1.1)$) node[midway,below=3pt] {$BD=3$};
+\draw[teal!80!black,|-|] ($(D)+(0,-1.1)$)--($(C)+(0,-1.1)$) node[midway,below=3pt] {$DC=2$};
+\node[anchor=west,text=purple] at (8.1,6.4) {$BX/XC=15/10=3/2$};
+\node[anchor=west,text=purple] at (8.1,5.6) {$X$ 在外部，$AX$ 平分外角};
+
+\end{tikzpicture}
+\end{center}

@@ -9,7 +9,7 @@
       "角平分线分线段比例",
       "三角形内角平分线性质定理"
     ],
-    "summary": "三角形内角平分线将对边分成的两段与两邻边长度成比例。",
+    "summary": "非退化三角形中，D在BC内部时，AD平分内角当且仅当BD/DC=AB/AC；分段和为BC，按邻边权重分配。角平分线仅在两邻边相等时兼为中线和高。",
     "difficulty": 2,
     "category": "平面几何",
     "tags": [
@@ -97,30 +97,39 @@
   "math": {
     "core_formula": "\\frac{BD}{DC}=\\frac{AB}{AC}",
     "related_formulas": [
-      "若$\\frac{BD}{DC}=\\frac{AB}{AC}$且$D$在$BC$上，则$AD$平分$\\angle BAC$（逆定理）"
+      "BD=\\frac{BC\\cdot AB}{AB+AC},\\quad DC=\\frac{BC\\cdot AC}{AB+AC}",
+      "BD+DC=BC",
+      "\\angle BAD=\\angle DAC\\Longleftrightarrow\\frac{BD}{DC}=\\frac{AB}{AC}",
+      "AD\\text{为内角平分线时：}AB=AC\\Longleftrightarrow BD=DC\\Longleftrightarrow AD\\perp BC"
     ],
     "variables": [
       "AB",
       "AC",
       "BD",
       "DC",
-      "BC"
+      "BC",
+      "p=AB",
+      "q=AC",
+      "a=BC"
     ],
-    "conditions": "在$\\triangle ABC$中，$AD$是$\\angle BAC$的平分线，且点$D$在边$BC$上。",
-    "conclusions": "点$D$将对边$BC$分成的两段与两夹边成比例：$\\frac{BD}{DC}=\\frac{AB}{AC}$。"
+    "conditions": "非退化三角形ABC；D严格位于BC内部；所有线段符号表示普通正长度。正向另给AD平分内角，逆向另给BD/DC=AB/AC。",
+    "conclusions": "\\angle BAD=\\angle DAC\\Longleftrightarrow BD/DC=AB/AC（D在BC内部）；BD+DC=BC。"
   },
   "content": {
-    "statement": "在三角形$ABC$中，若$AD$平分$\\angle BAC$且交$BC$于$D$，则$\\frac{BD}{DC}=\\frac{AB}{AC}$。",
+    "statement": "非退化三角形中，D在BC内部时，AD平分内角当且仅当BD/DC=AB/AC；分段和为BC，按邻边权重分配。角平分线仅在两邻边相等时兼为中线和高。",
     "derivation": [
-      "过$D$作$DE\\parallel AC$交$AB$于$E$，或过$D$作$DF\\parallel AB$交$AC$于$F$，利用平行线分线段成比例与角平分线定义推出比例。",
-      "或过$C$作$CE\\parallel AD$交$BA$延长线于$E$，得到等腰三角形，再由平行线比例得结论。"
+      "面积法优先：直角三角形全等说明D到邻边距离相等，同一面积比按两组底高计算得到结论。",
+      "过C作CE平行AD，E在BA过A的延长线上；等腰ACE给出AE=AC，相似BAD/BEC给出比例。",
+      "正弦短证：A处两角相等，D处两角互补、正弦相等。",
+      "逆定理另作真正角平分线，由同一正比例在BC内部的分点唯一，得到两点重合。"
     ],
-    "intuition": "角平分线将大角分成两个相等的小角，结合三角形相似或平行线，得到对边成比例。",
+    "intuition": "邻边6:4把对边按3:2分配；等角不等长。用同尺度图比较角平分线、中线与高，等腰时三者重合；两次面积比较解释正向比例，唯一分点解释逆向。",
     "common_tricks": [
-      "设参法：设$BD=k\\cdot AB$，$DC=k\\cdot AC$，利用$BC=BD+DC$列方程。",
-      "注意对应关系：$AB$对应$BD$，$AC$对应$DC$，不可颠倒。",
-      "若遇直角三角形，先求斜边再应用定理。",
-      "比例式中可交叉相乘化为整式方程：$BD\\cdot AC = DC\\cdot AB$。"
+      "先检查非退化与三边严格不等式；原例9、6、15为退化配置，已修订为9、6、10。",
+      "BD对AB、DC对AC，较长邻边对应较长分段。",
+      "内分用和；已知两段差时可按比例设参，但不与外分关系混用。",
+      "逆用前先确认分点在BC内部，比例相同的外点不能推出内角平分线。",
+      "直角题先找角A的两条邻边，求斜边后再列比例。"
     ]
   },
   "usage": {
@@ -154,7 +163,11 @@
       "相似三角形的判定与性质",
       "平行线分线段成比例"
     ],
-    "related_ids": ["T034", "P036", "P042"],
+    "related_ids": [
+      "T034",
+      "P036",
+      "P042"
+    ],
     "similar": [
       "三角形外角平分线定理",
       "角平分线性质（点到角两边距离相等）"
@@ -164,10 +177,10 @@
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-25",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-10-22"
   },
   "isPro": 0,
-  "remarks": "",
+  "remarks": "P035 PDF精修（2026-10-22）：修正原例1退化三角形；补齐逆定理证明，提供面积、平行相似、正弦三种正向证明及三线重合等价条件。assets/tikz/P035_weighted_split.tex：实数分配与字母对应，替代等角与等长的混淆描述；assets/tikz/P035_median_altitude.tex：同一三角形中三条线的不同落点，替代位置脑补；assets/tikz/P035_isosceles.tex：等腰时三线重合，替代特殊情形的长段描述；assets/tikz/P035_common_height.tex：共同高沟通分段比与面积比，替代第一组底高构造文字；assets/tikz/P035_equal_distances.tex：两条等距垂线及全等直角三角形，替代第二组底高与等距构造文字；assets/tikz/P035_parallel_proof.tex：延长BA并作CE平行AD，替代等腰及相似构造的想象；assets/tikz/P035_sine_proof.tex：A处相等与D处互补，替代两个位置的角关系描述；assets/tikz/P035_example_validity.tex：例1正常三角形与原题退化形状同尺度对照，替代存在性边界想象；assets/tikz/P035_converse_example.tex：不给等角标记的逆用例题，替代已知与待证关系的混淆；assets/tikz/P035_right_triangle.tex：例3真实5-12-13模型及分段，替代邻边识别的脑补；assets/tikz/P035_reversed_ratio.tex：正确点和倒数错误点同尺度对比，替代分点互换描述；assets/tikz/P035_inner_outer.tex：同一比例的内外分点对照，替代逆定理缺位置条件的反例描述。实际图形坐标及角弧核验入口checks/verify_p035.py；原有已修改PDF另存pdfs/backups/P035_before_review_2026-10-22.pdf，indent.log保持。",
   "knowledgeNode": "平面几何-三角形-角平分线-内外角平分线",
   "altNodes": ""
 }

@@ -1,120 +1,46 @@
+\clearpage
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例 1（基础）}}
+\textbf{例 1：先检查三角形，再按比例分配。}
+在 $\triangle ABC$ 中，$AB=9,AC=6,BC=10$，$AD$ 是内角平分线，求 $BD,DC$。
+三边满足 $|9-6|<10<9+6$，三角形存在。
+由 $BD:DC=9:6=3:2$，设 $BD=3k,DC=2k$，则
+\[
+ 3k+2k=10\quad\Longrightarrow\quad k=2.
+\]
+所以 $\boxed{BD=6,\ DC=4}$。
+\textbf{回验：} $6+4=10$，$6/4=9/6$。
+\input{assets/tikz/P035_example_validity.tex}
+\textbf{原稿勘误：} 原题把 $BC$ 写成 $15$，但 $9+6=15$，三点只能共线。
+形式上列出比例方程不等于几何对象存在；本题已把 $BC$ 修正为 $10$，图中上下两组使用相同长度单位。
 
-	\textbf{\textcolor{CExample}{题目：}}
-	在$\triangle ABC$中，$AD$平分$\angle BAC$，$D$在$BC$上。已知$AB=9$，$AC=6$，$BC=15$，求$BD$的长。
+\tcbbreak
+\textbf{例 2：逆用比例证明角平分线。}
+在非退化 $\triangle ABC$ 中，$AB=15,AC=9$，$D$ 在 $BC$ 内部，且 $BD=10,DC=6$。
+求 $BC$ 并证明 $AD$ 平分 $\angle BAC$。
+\input{assets/tikz/P035_converse_example.tex}
+先看位置：$D$ 在 $B,C$ 之间，所以 $BC=10+6=\boxed{16}$。
+再核比例：
+\[
+ \frac{BD}{DC}=\frac{10}{6}=\frac53=\frac{15}{9}=\frac{AB}{AC}.
+\]
+由逆定理，$\boxed{\angle BAD=\angle DAC}$。
+图中没有预先标等角，等角是推理所得，不能由画图先假定。
+\textbf{回验：} 三边满足 $|15-9|<16<15+9$，分点公式给出 $BD=16\times15/24=10$。
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（写比例）：}] 由角平分线定理
-			\[
-				\begin{aligned}
-					\frac{BD}{DC} &= \frac{AB}{AC} \\
-					&= \frac{9}{6} \\
-					&= \frac{3}{2}.
-			\end{aligned}
-			\]
-			\par\textbf{理由：}
-			直接应用三角形内角平分线定理。
+\textbf{同图变式：} 若改给 $AD$ 已是角平分线、$BD-DC=4$，仍有 $BD:DC=5:3$。
+设 $BD=5t,DC=3t$，由 $2t=4$ 得 $t=2$，故 $BC=8t=16$。
+这里“用差”来自额外已知条件，不表示内部分点满足外分差关系。
 
-		\item[\textbf{第二步（设参数）：}] 设$BD=3k$，$DC=2k$。
-			\par\textbf{理由：}
-			比例可设公共参数$k$表示两段长度。
-
-		\item[\textbf{第三步（列方程）：}] 由$BD+DC=BC$得
-			\[
-				3k+2k=15 \Rightarrow k=3,\; BD=9.
-			\]
-			\par\textbf{理由：}
-			利用线段和条件列方程求解。
-	\end{description}
-
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$BD=9$}。
-
-	\medskip
-	\textbf{\textcolor{CExample}{例 2（稍变形）}}
-
-	\textbf{\textcolor{CExample}{题目：}}
-	在$\triangle ABC$中，$AD$平分$\angle BAC$，$AB=15$，$AC=9$，且$BD-DC=4$，求$BC$的长。
-
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（写比例）：}] 由角平分线定理
-			\[
-				\begin{aligned}
-					\frac{BD}{DC} &= \frac{AB}{AC} \\
-					&= \frac{15}{9} \\
-					&= \frac{5}{3}.
-			\end{aligned}
-			\]
-			\par\textbf{理由：}
-			直接应用定理。
-
-		\item[\textbf{第二步（设参数）：}] 设$BD=5t$，$DC=3t$。
-			\[
-				\begin{aligned}
-					BD-DC &= 5t-3t \\
-					&= 2t \\
-					&= 4,
-			\end{aligned}
-				\quad\implies\quad t=2.
-			\]
-			\par\textbf{理由：}
-			比例设参，利用已知差条件求解。
-
-		\item[\textbf{第三步（求和）：}]
-			由$t=2$得$BD=5t=10$，$DC=3t=6$，故$BC=BD+DC=16$。
-			\par\textbf{理由：}
-			计算各段长，相加得$BC$。
-	\end{description}
-
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$BC=16$}。
-
-	\medskip
-	\textbf{\textcolor{CExample}{例 3（综合应用）}}
-
-	\textbf{\textcolor{CExample}{题目：}}
-	在$\triangle ABC$中，$\angle B=90^\circ$，$AD$平分$\angle BAC$交$BC$于$D$，已知$AB=5$，$BC=12$，求$BD$的长。
-
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（求斜边）：}] 在$Rt\triangle ABC$中，由勾股定理
-			\[
-				\begin{aligned}
-					AC &= \sqrt{AB^2+BC^2} \\
-					&= \sqrt{5^2+12^2} \\
-					&= \sqrt{169} \\
-					&= 13.
-			\end{aligned}
-			\]
-			\par\textbf{理由：}
-			已知两直角边求斜边。
-
-		\item[\textbf{第二步（写比例）：}] 由角平分线定理
-			\[
-				\begin{aligned}
-					\frac{BD}{DC} &= \frac{AB}{AC} \\
-					&= \frac{5}{13}.
-			\end{aligned}
-			\]
-			\par\textbf{理由：}
-			直接应用定理。
-
-		\item[\textbf{第三步（设参求解）：}] 设$BD=5k$，$DC=13k$，由$BC=12$得
-			\[
-				\begin{aligned}
-					5k+13k &= 18k \\
-					&= 12,
-			\end{aligned}
-				\quad\implies\quad k=\frac{2}{3},
-			\]
-			故$BD=5\times\frac{2}{3}=\frac{10}{3}$。
-			\par\textbf{理由：}
-			利用$BC$长度列方程求解。
-	\end{description}
-
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$\displaystyle BD=\frac{10}{3}$}。
+\tcbbreak
+\textbf{例 3：直角三角形，先找齐两邻边。}
+在 $\triangle ABC$ 中，$\angle B=90^\circ$，$AB=5,BC=12$，$AD$ 是内角平分线，求 $BD$。
+\input{assets/tikz/P035_right_triangle.tex}
+勾股定理给出 $AC=\sqrt{5^2+12^2}=13$。
+角 $A$ 的邻边是 $AB,AC$，所以分段比为 $5:13$，不是 $5:12$。
+\[
+ BD=\frac{BC\cdot AB}{AB+AC}
+    =\frac{12\times5}{5+13}
+    =\boxed{\frac{10}{3}}.
+\]
+\textbf{回验：} $DC=12-10/3=26/3>0$，且 $(10/3)/(26/3)=5/13$。
 \end{examplebox}
