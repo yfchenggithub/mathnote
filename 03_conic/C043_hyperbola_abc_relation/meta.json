@@ -115,13 +115,13 @@
   },
   "content": {
     "statement": "设双曲线的标准方程为 $\\frac{x^2}{a^2} - \\frac{y^2}{b^2} = 1$ 或 $\\frac{y^2}{a^2} - \\frac{x^2}{b^2} = 1$（$a>0, b>0$），记半焦距为 $c$，则 $c^2 = a^2 + b^2$，且 $c>a$。",
-    "derivation": "由双曲线定义（点到两焦点距离之差的绝对值为常数 $2a$），结合距离公式可推导出 $c^2=a^2+b^2$。",
-    "intuition": "双曲线的几何特征导致实半轴、虚半轴与半焦距构成一个直角三角形（类似于勾股定理）。",
+    "derivation": "右支两焦半径差2a、平方差4cx，所以和2cx/a；由和差求短焦半径cx/a-a，距离公式平方一次得到标准方程，比较得b²=c²-a²。另从方程构造候选焦点分左右支验证，避免循环。",
+    "intuition": "辅助矩形中心O到角点Q的半对角线长为c；Q不是曲线点。c最大，a,b大小顺序不固定。",
     "common_tricks": [
       "牢记与椭圆区别：椭圆是 $c^2=a^2-b^2$，双曲线是 $c^2=a^2+b^2$。",
       "求 $c$ 时注意平方根只取正数。",
       "焦点在哪个轴，对应 $x^2$ 或 $y^2$ 项系数为正。",
-      "离心率 $e = c/a > 1$ 可用于判断开口大小。"
+      "离心率e=√(1+(b/a)²)>1；开口比较具体指渐近线夹角2arctan(b/a)，须明确方向与尺度。"
     ]
   },
   "usage": {
@@ -160,17 +160,21 @@
       "椭圆的a,b,c关系（对比）",
       "平面直角坐标系"
     ],
-    "related_ids": ["C042", "C044", "C045"],
+    "related_ids": [
+      "C042",
+      "C044",
+      "C045"
+    ],
     "similar": "椭圆的a,b,c关系：$c^2 = a^2 - b^2$，且 $c < a$。"
   },
   "meta": {
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-23",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-10-22"
   },
   "isPro": 0,
-  "remarks": "",
+  "remarks": "PDF配图 assets/tikz/C043_rectangle_diagonal.tex 明确辅助三角形与非曲线点；C043_distance_difference.tex 直接标出两焦半径及距离差；C043_opening_ratio.tex 固定a同尺度比较开口角；C043_positive_term_axis.tex 同尺度横纵对照正项与焦点轴；C043_confocal_comparison.tex 同一坐标中展示同焦点但参数不同的椭圆/双曲线。图代替抽象参数、和差及相似模型混淆的长文。验收见 reports/C043_hyperbola_abc_relation_review_2026-10-22.md。",
   "knowledgeNode": "解析几何-圆锥曲线-双曲线-定义与基本关系",
   "altNodes": "解析几何-圆锥曲线-椭圆,解析几何-圆锥曲线-抛物线,解析几何-圆锥曲线-圆锥曲线综合"
 }

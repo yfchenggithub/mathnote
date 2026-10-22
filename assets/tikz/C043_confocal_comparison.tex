@@ -1,0 +1,17 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {同一对焦点，椭圆与双曲线的 $a,b$ 仍然不同};
+
+\begin{scope}[shift={(7.2,4.5)},scale=.48]
+\draw[black!35,->] (-6,0)--(6,0) node[right] {$x$};
+\draw[blue,very thick] (0,0) ellipse (5 and 3);
+\draw[orange!85!black,very thick,dashed,domain=-4.5:4.5,samples=121,variable=\t] plot ({3*sqrt(1+\t*\t/7)},\t);
+\draw[orange!85!black,very thick,dashed,domain=-4.5:4.5,samples=121,variable=\t] plot ({-3*sqrt(1+\t*\t/7)},\t);
+\fill (-4,0) circle (2pt) node[below=5pt] {$F_1$};
+\fill (4,0) circle (2pt) node[below=5pt] {$F_2$};
+\end{scope}
+\node[blue] at (7.2,1.65) {椭圆：$a=5,b=3$；$c^2=25-9=16$};
+\node[orange!85!black] at (7.2,1.1) {双曲线：$a=3,b=\sqrt7$；$c^2=9+7=16$};
+
+\node[anchor=west] at (.7,.55) {同尺度、共用焦点 $(\pm4,0)$；同焦点只固定 $c$，并不固定 $a,b$};
+\end{tikzpicture}\end{center}

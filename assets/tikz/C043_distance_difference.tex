@@ -1,0 +1,19 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {右支的两条焦半径：先用平方差求和，再由和差求距离};
+
+\begin{scope}[shift={(6.2,3.1)},scale=.58]
+\draw[black!35] (-6,0)--(7,0);
+\draw[blue,very thick,domain=-2.5:5.5,samples=121,variable=\t] plot ({3*sqrt(1+\t*\t/16)},\t);
+\draw[blue,very thick,domain=-2.5:5.5,samples=121,variable=\t] plot ({-3*sqrt(1+\t*\t/16)},\t);
+\draw[orange!85!black,very thick] (-5,0)--(5,5.3333333333);
+\draw[violet,very thick] (5,0)--(5,5.3333333333);
+\fill (-5,0) circle (2pt) node[below=5pt] {$F_1(-5,0)$};
+\fill (5,0) circle (2pt) node[below=5pt] {$F_2(5,0)$};
+\fill (5,5.3333333333) circle (2pt) node[above left=5pt] {$P(5,16/3)$};
+\node[above left=4pt] at (0,2.6666666667) {$r_1=34/3$};
+\node[right=7pt] at (5,2.6) {$r_2=16/3$};
+\end{scope}
+
+\node[anchor=west] at (.7,.55) {$r_1-r_2=6=2a$，$r_1^2-r_2^2=4cx$；故 $r_1+r_2=2cx/a$};
+\end{tikzpicture}\end{center}

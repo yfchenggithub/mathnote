@@ -1,0 +1,21 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {辅助矩形的半对角线长为 $c$；矩形角点不是双曲线上的点};
+
+\begin{scope}[shift={(7.2,4)},scale=.5]
+\draw[black!35] (-5.5,0)--(5.5,0);
+\draw[blue,very thick,domain=-3.7:3.7,samples=121,variable=\t] plot ({3*sqrt(1+\t*\t/16)},\t);
+\draw[blue,very thick,domain=-3.7:3.7,samples=121,variable=\t] plot ({-3*sqrt(1+\t*\t/16)},\t);
+\draw[black!35,dashed] (-3,-4) rectangle (3,4);
+\draw[violet,very thick] (0,0)--(3,0) node[midway,below=3pt] {$a=3$}--(3,4) ;\node[anchor=west] at (5.5,2) {$b=4$};
+\draw[orange!85!black,very thick] (0,0)--(3,4) node[midway,above left=3pt] {$c=5$};
+\draw[black!50] (2.7,0)--(2.7,.3)--(3,.3);
+\draw[orange!85!black,dashed] (0,0) circle (5);
+\fill (0,0) circle (2pt) node[below left=3pt] {$O$};
+\fill (3,4) circle (2pt) node[above right=5pt] {$Q(3,4)$};
+\fill (5,0) circle (2pt);\node[anchor=west] at (6.3,0) {$F_2$};
+\fill (-5,0) circle (2pt);\node[anchor=east] at (-6.3,0) {$F_1$};
+\end{scope}
+
+\node[anchor=west] at (.7,.55) {$OQ=\sqrt{3^2+4^2}=5=OF_2$；虚轴端点不在双曲线上};
+\end{tikzpicture}\end{center}
