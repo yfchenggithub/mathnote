@@ -9,7 +9,7 @@
       "椭圆联立公式",
       "韦达公式（椭圆）"
     ],
-    "summary": "直接给出直线与椭圆联立后二次方程系数及韦达结果，避免繁琐计算。",
+    "summary": "统一分母α、β后，用直线系数直接写出合法消元方程与韦达关系；以H=A²α+B²β−C²判断实交点，并求中点及任意方向弦长。",
     "difficulty": 3,
     "category": "解析几何",
     "tags": [
@@ -111,29 +111,25 @@
     "success_rate": 0
   },
   "math": {
-    "core_formula": "(A^2a^2+B^2b^2)x^2+2ACa^2x+(C^2a^2-B^2a^2b^2)=0",
+    "core_formula": "Dx^2+2AC\\alpha x+\\alpha(C^2-B^2\\beta)=0,\\quad D=A^2\\alpha+B^2\\beta\\quad(B\\ne0)",
     "related_formulas": [
-      "x_1+x_2=-\\frac{2ACa^2}{A^2a^2+B^2b^2},\\quad x_1x_2=\\frac{C^2a^2-B^2a^2b^2}{A^2a^2+B^2b^2}",
-      "y_1+y_2=-\\frac{2BCb^2}{A^2a^2+B^2b^2},\\quad y_1y_2=\\frac{C^2b^2-A^2a^2b^2}{A^2a^2+B^2b^2}",
-      "(A^2b^2+B^2a^2)x^2+2ACb^2x+(C^2b^2-B^2a^2b^2)=0"
+      "x_1+x_2=-2AC\\alpha/D,\\quad x_1x_2=\\alpha(C^2-B^2\\beta)/D",
+      "y_1+y_2=-2BC\\beta/D,\\quad y_1y_2=\\beta(C^2-A^2\\alpha)/D",
+      "H=D-C^2,\\quad\\Delta_x=4\\alpha\\beta B^2H,\\quad\\Delta_y=4\\alpha\\beta A^2H",
+      "M=(-AC\\alpha/D,-BC\\beta/D),\\quad PQ=2\\sqrt{\\alpha\\beta(A^2+B^2)H}/D"
     ],
     "variables": [
-      "A",
-      "B",
-      "C",
-      "a",
-      "b",
-      "x",
-      "y",
-      "x1",
-      "x2",
-      "y1",
-      "y2"
+      "A,B,C: 直线一般式系数，A/B不同时为零",
+      "α,β: x²、y²各自分母，均为正数，是半轴长的平方",
+      "D=A²α+B²β>0",
+      "H=D-C²",
+      "P(x1,y1),Q(x2,y2): 实交点",
+      "M: 弦中点"
     ],
     "conditions": [
-      "直线方程 Ax+By+C=0, A,B不同时为零",
-      "椭圆标准方程：焦点在x轴时x^2/a^2+y^2/b^2=1(a>b>0)；焦点在y轴时x^2/b^2+y^2/a^2=1(a>b>0)",
-      "消去y要求B≠0，消去x要求A≠0"
+      "椭圆中心为原点、坐标轴为对称轴；α,β>0，等分母圆情形也适用",
+      "消去y要求B≠0；消去x要求A≠0",
+      "两不同实交点和非零弦要求H>0；相切H=0时按重根计切点；H<0时无实交点"
     ],
     "conclusions": [
       "直接得到消元后二次方程系数",
@@ -142,18 +138,19 @@
     ]
   },
   "content": {
-    "statement": "对于直线 Ax+By+C=0（A,B不同时为零）与椭圆标准形式（焦点在x轴或y轴）相交，联立后可直接写出消去一个变量所得一元二次方程的系数以及韦达定理，无需重复计算。",
+    "statement": "统一分母α、β后，用直线系数直接写出合法消元方程与韦达关系；以H=A²α+B²β−C²判断实交点，并求中点及任意方向弦长。",
     "derivation": [
-      "将直线代入椭圆方程，合并同类项，得到关于x或y的二次方程。",
-      "公式中的系数由直线系数A,B,C与椭圆半轴a,b的代数组合直接构成。",
-      "韦达定理直接由二次方程系数给出，无需再算判别式（但判别式可由此系数直接计算）。"
+      "最低门槛：解出非零系数对应的变量，代入、清分母、展开一次，用韦达；反向还原坐标确保等价。",
+      "判别式化简为正因子乘H，单位圆坐标缩放给出几何解释及中点公式。",
+      "两交点的椭圆方程相减，用平方差求中点；沿弦方向参数化得到所有方向的弦长。"
     ],
-    "intuition": "直线与椭圆联立本质是二元二次方程组，代入消元后二次项系数、一次项系数、常数项均由直线与椭圆参数的对称组合构成，故可一次性写出。",
+    "intuition": "实根对应交点的坐标；横坐标根差只是弦的水平投影。单位圆缩放保留中点但一般不保角，椭圆弦中点不是一般垂足。",
     "common_tricks": [
-      "先判断椭圆焦点轴，选择对应的公式组（焦点在x轴还是y轴）。",
-      "利用公式直接写出韦达，再结合弦长公式|AB|=√(1+k²)·√Δ/|A²a²+B²b²|快速求弦长。",
-      "注意系数C的符号，代入时带负号。",
-      "若直线斜率不存在（B=0），应消去x而非消去y，使用对应公式。"
+      "按x²和y²各自的分母确定α、β，不必先猜焦点轴。",
+      "先查H决定实交点；竖直线改用纵坐标消元，或直接用H和通用弦长式。",
+      "中点、根差和数量积问题优先整体代换韦达，不必逐个求根。",
+      "同一组系数计算判别式，方程约分前后不能混用。",
+      "固定点若已在椭圆上，先识别一个交点；例3的几何短证优先。"
     ]
   },
   "usage": {
@@ -173,7 +170,7 @@
     "exam_score": 7
   },
   "interactive": {
-    "has_diagram": false,
+    "has_diagram": true,
     "geogebra_id": "",
     "param_demo": {}
   },
@@ -191,7 +188,11 @@
       "韦达定理（一元二次方程根与系数关系）",
       "二次方程判别式与弦长公式"
     ],
-    "related_ids": ["C034", "C035", "C063"],
+    "related_ids": [
+      "C034",
+      "C035",
+      "C063"
+    ],
     "similar": [
       "双曲线硬解定理",
       "抛物线硬解定理",
@@ -202,10 +203,10 @@
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-07",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-10-22"
   },
   "isPro": 0,
-  "remarks": "",
+  "remarks": "2026-10-22 C033 PDF完善；纠正source.tex消元条件，补齐实交点和判别式前提，加入单位圆、平方差与任意方向弦长证明。assets/tikz/C033_roots_projection.tex：根与实交点对应，替代消元的位置脑补；assets/tikz/C033_intersection_states.tex：同椭圆三种交点状态，替代判别式分类文字；assets/tikz/C033_vertical_exception.tex：竖直弦同横坐标反例，替代消元条件的抽象提醒；assets/tikz/C033_chord_triangle.tex：根差与弦长的勾股关系，替代投影脑补；assets/tikz/C033_unit_circle.tex：坐标缩放与圆弦中点，替代第二种解释的变换脑补；assets/tikz/C033_midpoint_example.tex：纵长椭圆弦中点，替代例2模型脑补；assets/tikz/C033_perpendicular_example.tex：固定交点与原点直角，替代例3垂直关系脑补；assets/tikz/C033_denominator_order.tex：同尺度横长与纵长对照，替代分母误换的描述；assets/tikz/C033_line_sign.tex：同尺度原直线与错误直线，替代符号错式的几何差异描述；assets/tikz/C033_midpoint_not_foot.tex：真实弦中点与垂足对照，替代误用垂径定理的反例文字。核验入口 checks/verify_c033.py；未修改共享工具或其他UID。",
   "knowledgeNode": "解析几何-圆锥曲线-椭圆-直线联立与韦达",
   "altNodes": [
     "解析几何-圆锥曲线-双曲线",

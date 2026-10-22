@@ -1,86 +1,42 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件 1（直线方程）}}] $Ax+By+C=0$，其中$A,B$不同时为零.
-		\item[\textbf{\textcolor{CStatement}{条件 2（椭圆形式）}}] 椭圆写成统一形式
-		      \[
-			      \frac{x^2}{\alpha}+\frac{y^2}{\beta}=1
-			      \qquad(\alpha>0,\ \beta>0).
-		      \]
-		      焦点在$x$轴时，$\alpha=a^2,\ \beta=b^2$，且$a>b>0$；
-		      焦点在$y$轴时，$\alpha=b^2,\ \beta=a^2$，且$a>b>0$.
-		\item[\textbf{\textcolor{CStatement}{条件 3（消元前提）}}] 消去$y$需$B\neq0$，消去$x$需$A\neq0$.
-	\end{description}
+\textbf{条件与记号。} 椭圆（圆的情形也适用）及直线为
+\[
+ \frac{x^2}{\alpha}+\frac{y^2}{\beta}=1,\quad \alpha,\beta>0;
+ \qquad Ax+By+C=0,\quad A^2+B^2>0.
+\]
+其中 $\alpha,\beta$ 是\textbf{分母，即半轴长的平方}；不预设谁大。
+定义 $D=A^2\alpha+B^2\beta>0$，$H=D-C^2$。
+交点记为 $P(x_1,y_1),Q(x_2,y_2)$，不与系数 $A,B$ 混用。
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{统一结论}}]
-		      \textbf{\textcolor{CStatement}{直观描述：}} 联立直线与标准椭圆，直接写出消元后二次方程系数及韦达定理.
+\textbf{消去 $y$：要求 $B\ne0$。}
+\[
+ Dx^2+2AC\alpha x+\alpha(C^2-B^2\beta)=0.
+\]
+\[
+ \boxed{x_1+x_2=-\frac{2AC\alpha}{D}},\qquad
+ \boxed{x_1x_2=\frac{\alpha(C^2-B^2\beta)}{D}}.
+\]
+\textbf{消去 $x$：要求 $A\ne0$。}
+\[
+ Dy^2+2BC\beta y+\beta(C^2-A^2\alpha)=0.
+\]
+\[
+ \boxed{y_1+y_2=-\frac{2BC\beta}{D}},\qquad
+ \boxed{y_1y_2=\frac{\beta(C^2-A^2\alpha)}{D}}.
+\]
+以上实交点坐标关系要求 $H\ge0$；相切时按 $P=Q$ 重计切点。
 
-		      若$B\neq0$，消去$y$，得到关于$x$的二次方程
-		      \[
-			      (A^2\alpha+B^2\beta)x^2+2AC\alpha x+(C^2\alpha-B^2\alpha\beta)=0.
-		      \]
-		      因此
-		      \[
-			      x_1+x_2=-\frac{2AC\alpha}{A^2\alpha+B^2\beta},
-			      \qquad
-			      x_1x_2=\frac{C^2\alpha-B^2\alpha\beta}{A^2\alpha+B^2\beta}.
-		      \]
-
-		      若$A\neq0$，消去$x$，得到关于$y$的二次方程
-		      \[
-			      (A^2\alpha+B^2\beta)y^2+2BC\beta y+(C^2\beta-A^2\alpha\beta)=0.
-		      \]
-		      因此
-		      \[
-			      y_1+y_2=-\frac{2BC\beta}{A^2\alpha+B^2\beta},
-			      \qquad
-			      y_1y_2=\frac{C^2\beta-A^2\alpha\beta}{A^2\alpha+B^2\beta}.
-		      \]
-
-		\item[\textbf{\textcolor{CStatement}{对应到两类标准椭圆}}]
-		      焦点在$x$轴时，
-		      \[
-			      \frac{x^2}{a^2}+\frac{y^2}{b^2}=1
-			      \qquad(a>b>0),
-		      \]
-		      只需令
-		      \[
-			      \alpha=a^2,\qquad \beta=b^2.
-		      \]
-
-		      焦点在$y$轴时，
-		      \[
-			      \frac{x^2}{b^2}+\frac{y^2}{a^2}=1
-			      \qquad(a>b>0),
-		      \]
-		      只需令
-		      \[
-			      \alpha=b^2,\qquad \beta=a^2.
-		      \]
-
-		\item[\textbf{\textcolor{CStatement}{判别式与位置关系}}]
-		      设消元后的一元二次方程为
-		      \[
-			      pt^2+qt+r=0,
-		      \]
-		      其中$t$表示$x$或$y$，判别式为
-		      \[
-			      \Delta=q^2-4pr.
-		      \]
-		      则
-		      \[
-			      \Delta>0
-		      \]
-		      等价于直线与椭圆有两个不同交点；
-		      \[
-			      \Delta=0
-		      \]
-		      等价于直线与椭圆相切；
-		      \[
-			      \Delta<0
-		      \]
-		      等价于直线与椭圆没有公共点.
-	\end{description}
+\textbf{位置关系：} $H>0$ 为两个不同交点，$H=0$ 为相切，$H<0$ 为无公共点。
+在各自\textbf{消元条件满足时}，对应的判别式为
+\[
+ \Delta_x=4\alpha\beta B^2H\quad(B\ne0),\qquad
+ \Delta_y=4\alpha\beta A^2H\quad(A\ne0).
+\]
+\textbf{中点与弦长：} 当 $H>0$ 时，水平、竖直及斜弦均有
+\[
+ M=\left(-\frac{AC\alpha}{D},-\frac{BC\beta}{D}\right),\qquad
+ PQ=\frac{2\sqrt{\alpha\beta(A^2+B^2)H}}{D}.
+\]
+$H=0$ 时 $M$ 为切点，上式长度为 $0$，不再是一条非零弦。
+若采用斜率公式 $PQ=\sqrt{1+k^2}\,|x_2-x_1|$，则必须有 $B\ne0$，$k=-A/B$。
 \end{statementbox}
