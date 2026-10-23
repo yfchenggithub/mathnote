@@ -91,7 +91,10 @@
   "math": {
     "core_formula": "S = b^{2}\\tan\\frac{\\theta}{2}",
     "related_formulas": [
-      "S = b^{2}\\cdot\\frac{\\sin\\theta}{1+\\cos\\theta}"
+      "S = b^{2}\\cdot\\frac{\\sin\\theta}{1+\\cos\\theta}",
+      "S=c|y|",
+      "S_{max}=cb",
+      "\\tan(\\theta/2)\\le c/b"
     ],
     "variables": {
       "a": "长半轴",
@@ -100,13 +103,17 @@
       "θ": "∠F1PF2",
       "S": "焦点三角形面积"
     },
-    "conditions": "椭圆标准方程 $\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1$（$a>b>0$），点P在椭圆上且不是长轴端点，$\\theta\\in(0,\\pi)$。",
+    "conditions": "椭圆a>b>0，c²=a²-b²；P在椭圆上且非长轴端点。实际0<θ≤2arctan(c/b)<π；S≤cb。端点退化可延伸S=θ=0。",
     "conclusions": "焦点三角形面积 $S = b^2\\tan(\\theta/2)$。"
   },
   "content": {
     "statement": "设椭圆方程为 $\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1$（$a>b>0$），$F_1,F_2$ 为焦点，$P$ 为椭圆上异于长轴端点的任意一点，记 $\\theta=\\angle F_1PF_2$，则焦点三角形 $\\triangle PF_1F_2$ 的面积 $S = b^2\\tan\\frac{\\theta}{2}$。",
-    "derivation": [],
-    "intuition": "由椭圆定义和余弦定理，结合三角恒等式化简得到面积仅与短半轴平方和半角正切有关。",
+    "derivation": [
+      "几何法：半周长a+c；切线段PD=a-c，半角正切=r/PD；面积分割S=r(a+c)，故S=b²tan(θ/2)。",
+      "余弦定理法：m+n=2a、底边2c，得mn(1+cosθ)=2b²，再代两边夹角面积式。",
+      "底乘高S=c|y|≤cb，结合半角正切递增给顶角上界；短轴端点取等。"
+    ],
+    "intuition": "底边固定2c，面积由高度决定；半角公式能快速消去焦半径，但可实现角度仍受a,b,c限制。",
     "common_tricks": [
       "已知面积求角度时，反解 $\\tan\\frac{\\theta}{2} = \\frac{S}{b^2}$。",
       "注意 $P$ 不能是长轴端点（此时三角形退化，公式仍给出 $S=0$）。",
@@ -131,8 +138,14 @@
     "has_diagram": true,
     "geogebra_id": "",
     "param_demo": {
-      "b": 4,
-      "theta_deg": 60
+      "a": 5,
+      "b": 3,
+      "c": 4,
+      "point": [
+        0,
+        3
+      ],
+      "theta_deg": 106.2602047083
     }
   },
   "assets": {
@@ -151,17 +164,21 @@
       "三角恒等变换",
       "椭圆第一定义"
     ],
-    "related_ids": ["C048", "C003", "C029"],
+    "related_ids": [
+      "C048",
+      "C003",
+      "C029"
+    ],
     "similar": "类似结论有双曲线焦点三角形面积公式（形式不同），椭圆中其他面积公式如顶点三角形等。"
   },
   "meta": {
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-23",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-10-23"
   },
   "isPro": 0,
-  "remarks": "",
+  "remarks": "PDF图 assets/tikz/C047_base_height.tex 独立底高回验钝角；C047_incircle_proof.tex 呈现内切圆、切线段和半角几何证明；C047_area_angle_range.tex 同尺度三态展示退化和极值；C047_angle_feasibility.tex 固定b对照两椭圆可实现角度；C047_equilateral_example.tex 回验反求方程例题的角度面积存在性。图替代面积抽象、几何构造、范围及“不含a”误读。验收见 reports/C047_ellipse_focus_triangle_area_review_2026-10-23.md。",
   "knowledgeNode": "解析几何-圆锥曲线-椭圆-焦点三角形",
   "altNodes": ""
 }
