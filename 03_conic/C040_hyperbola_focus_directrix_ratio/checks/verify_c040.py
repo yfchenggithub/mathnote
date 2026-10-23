@@ -37,3 +37,25 @@ m=json.loads((ROOT/'03_conic/C040_hyperbola_focus_directrix_ratio/meta.json').re
 for uid in m['relations']['related_ids']:assert list((ROOT/'03_conic').glob(uid+'_*'))
 assert r'\subsection{C040 ' in (ROOT/'03_conic/C040_hyperbola_focus_directrix_ratio/main.tex').read_text(encoding='utf-8')
 print('C040 PASS: 3208 two-branch states, 165 identity points, 606 general-model states, four actual figure intersections, examples and degeneration')
+
+# New same-scale panels: shared a, independent distance and asymptote checks.
+for b in [1,2,4]:
+ a=2;c=math.hypot(a,b);e=c/a
+ close(b/a,math.sqrt(e*e-1))
+ for j in range(-80,81):
+  y=j/20
+  for sign in [-1,1]:
+   x=sign*2*math.sqrt(1+y*y/(b*b))
+   close(x*x/4-y*y/(b*b),1)
+   close(math.hypot(x-c,y),e*abs(x-4/c))
+# Second drawing's concrete coordinates: test the original distance condition.
+h=-2/3;left=-2;right=2/3
+close((left+right)/2,h)
+for x in [left,right]:close(abs(x-2)/abs(x),2)
+for j in range(-80,81):
+ y=j/50
+ for sign in [-1,1]:
+  x=-2/3+sign*4/3*math.sqrt(1+3*y*y/16)
+  close(math.hypot(x-2,y),2*abs(x))
+  close((x+2/3)**2/(16/9)-y*y/(16/3),1)
+print('C040 supplementary PASS: 966 shape-panel states, 322 plotted general-model states, vertices and midpoint')

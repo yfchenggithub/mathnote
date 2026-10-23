@@ -35,7 +35,14 @@
       "c",
       "e=c/a",
       "PH垂直",
-      "焦点对应准线"
+      "焦点对应准线",
+      "顶点求准线",
+      "勾股证明",
+      "第一定义推第二定义",
+      "考场速证",
+      "双向等价",
+      "左右两支",
+      "一维轴截点"
     ],
     "synonyms": [
       "双曲第二定义",
@@ -105,7 +112,11 @@
       "c^2=a^2+b^2",
       "PF_R=|ex-a|",
       "x=\\pm a^2/c",
-      "d(F_R,\\ell_R)=b^2/c"
+      "d(F_R,\\ell_R)=b^2/c",
+      "PF_L=|ex+a|",
+      "PF_U=|ey-a|",
+      "b/a=\\sqrt{e^2-1}",
+      "x_1=q/(e+1), x_2=-q/(e-1)"
     ],
     "variables": [
       "P",
@@ -139,14 +150,24 @@
       "第一定义分支作和差：右支PF_R=ex-a，左支PF_R=a-ex，合并为|ex-a|。",
       "由|ex-a|=e|x-a²/c|，得整条双曲线的焦准比为e，准距非零。",
       "对任意点，PF_R²-e²d(P,ℓR)²=-b²(x²/a²-y²/b²-1)，非负距离取正根，证明双向等价。",
-      "一般F不在准线上，取F(q,0)、准线x=0，k=e²-1>0，配方为k(x+q/k)²-y²=q²e²/k。"
+      "一般F不在准线上，取F(q,0)、准线x=0，k=e²-1>0，配方为k(x+q/k)²-y²=q²e²/k。",
+      "最低门槛证明：勾股PF_R²=(x-c)²+y²；从标准式得y²=b²(x²/a²-1)，代入并用c²=a²+b²化为PF_R²=(cx/a-a)²，开非负平方根得PF_R=e|x-a²/c|。",
+      "考场最快证明：设rL=PF_L、rR=PF_R，平方差rL²-rR²=4cx，第一定义分支给rL-rR=±2a，推出rR=|ex-a|。",
+      "严格双向证明：把PF_R=e|x-a²/c|平方，展开后-2cx抵消，利用c²-a²=b²整理成x²/a²-y²/b²=1；两侧均为非负距离，平方可逆。",
+      "忘记准线时用顶点A(a,0)：AF_R=c-a=e(a-t)，解出右准线t=a²/c；该技巧用于找准线而非代替整条曲线的证明。",
+      "焦准轨迹的轴截点法：准线x=0，焦点(q,0)，q>0，e>1时|x-q|=e|x|给出两顶点q/(e+1)与-q/(e-1)；再用配方证明完整双曲线。",
+      "纵向方程y²/a²-x²/b²=1：上焦点(0,c)配上准线y=a²/c，对任意一支PF_U=|ey-a|。"
     ],
-    "intuition": "双曲线的形状决定了任意点到焦点的距离与到对应准线的距离比例固定为离心率，反映开口程度。",
+    "intuition": "双曲线的形状决定了任意点到焦点的距离与到对应准线的距离比例固定为离心率，反映开口程度。 直观理解：固定一点F与一条不过F的直线ℓ，把到点的距离设为到直线最短垂距的e倍，所有合格点组成轨迹；同一焦准对适用于双曲线两支，e>1时轴上有两个顶点。通过e统一三种圆锥曲线：0<e<1椭圆，e=1抛物线，e>1双曲线。",
     "common_tricks": [
       "使用定义时务必采用同侧焦点与准线，并取距离绝对值。",
       "已知|PF|或|PH|时，可直接利用比例关系求另一距离。",
       "联立定义与坐标可求点的横坐标。",
-      "注意离心率 e>1 是双曲线的判定条件。"
+      "注意离心率 e>1 是双曲线的判定条件。",
+      "焦点、准线必须同侧配对，但动点P可以在两支任一支；横向PF_L=|ex+a|与PF_R=|ex-a|。",
+      "由PF_R=|ex-a|解绝对值会得到至多两个x，必须检验|x|≥a；例PF_R=7，a=3，c=5，仅x=6有效。",
+      "由准距得到焦半径要乘以e；焦半径转准距要除以e。",
+      "e>1并且F不在准线上才有整条非退化双曲线；若F在准线上，轨迹可退化成两条相交直线。"
     ]
   },
   "usage": {
@@ -196,10 +217,10 @@
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-23",
-    "updated_at": "2026-10-22"
+    "updated_at": "2026-10-23"
   },
   "isPro": 0,
-  "remarks": "PDF教学图 assets/tikz/C040_both_branches.tex 展示同一焦准对覆盖两支，替代分支脑补；C040_wrong_pair.tex 同尺度配错对照；C040_vertical_pair.tex 展示纵向焦准；C040_example_two_abscissas.tex 真实圆与双曲线交点验证两横坐标；C040_degenerate_focus.tex 同尺度对照非退化与相交直线。验收见 reports/C040_hyperbola_focus_directrix_ratio_review_2026-10-22.md。",
+  "remarks": "PDF教学图 assets/tikz/C040_both_branches.tex 展示同一焦准对覆盖两支，替代分支脑补；C040_wrong_pair.tex 同尺度配错对照；C040_vertical_pair.tex 展示纵向焦准；C040_example_two_abscissas.tex 真实圆与双曲线交点验证两横坐标；C040_degenerate_focus.tex 同尺度对照非退化与相交直线。验收见 reports/C040_hyperbola_focus_directrix_ratio_review_2026-10-22.md。 2026-10-23 追加最低门槛勾股法、考场首选平方差法、严格双向等价、一般配方、顶点找准线、两支一维理解、纵向及反向轨迹例题；全部原TikZ引用原样保留。 2026-10-23 补图：assets/tikz/C040_eccentricity_shape_comparison.tex 固定a同尺度比较三个e，替代开口程度的纯文字；assets/tikz/C040_general_vertices_center.tex 以q=2、e=2显示两顶点、准线与中心位置，缩短轴截点位置说明。验收见 reports/C040_two_figures_review_2026-10-23.md。",
   "knowledgeNode": "解析几何-圆锥曲线-双曲线-定义与基本关系",
   "altNodes": [
     "解析几何-圆锥曲线-椭圆",

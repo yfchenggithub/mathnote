@@ -1,3 +1,4 @@
+\clearpage
 \begin{proofbox}
 \textbf{方法一：由第一定义作和差，直接看分支。}
 记 $r_L=PF_L,r_R=PF_R$。距离平方差为 $r_L^2-r_R^2=4cx$。
@@ -39,4 +40,174 @@ $a=qe/k$，$b=qe/\sqrt{k}$，$c=qe^2/k$，故 $c/a=e$。
 d(F_R,\ell_R)=c-a^2/c=\frac{b^2}{c}>0.
 \]
 准线在顶点内侧，焦点在顶点外侧；这与椭圆准线在椭圆外侧的位置不同。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+
+\textbf{阅读导航：先选合适的方法，不必每道题都重推。}
+\begin{itemize}
+\item \textbf{考场速度优先：} 已会第一定义，直接用前面的\textbf{方法一}的
+“焦半径平方差 $4cx$ + 距离差 $2a$”，几行得到 $PF_R=|ex-a|$。
+\item \textbf{理解门槛最低：} 不借助第一定义，只用\textbf{勾股定理 + 标准方程代入}，
+参看下面\textbf{新增方法三}，从初中代数起步。
+\item \textbf{想证明等价：} 用前面的\textbf{方法二}或\textbf{新增方法四}，
+同时解决“为什么反向也成立”。
+\end{itemize}
+\medskip
+
+\medskip
+\textbf{新增方法三（最低门槛）：勾股定理 + 一次平方整理。}
+\textbf{准备：} 取右焦点 $F_R(c,0)$，双曲线上任一点 $P(x,y)$。
+只需要两个熟悉的式子：
+\[
+PF_R^2=(x-c)^2+y^2,\qquad
+\frac{x^2}{a^2}-\frac{y^2}{b^2}=1.
+\]
+\textbf{第 1 步：} 从标准方程把 $y^2$ 单独拿出来：
+\[
+y^2=\frac{b^2}{a^2}x^2-b^2.
+\]
+\textbf{第 2 步：} 代入勾股定理，先不着急开根号：
+\[
+\begin{aligned}
+PF_R^2
+&=(x-c)^2+\frac{b^2}{a^2}x^2-b^2\\
+&=x^2-2cx+c^2+\frac{b^2}{a^2}x^2-b^2.
+\end{aligned}
+\]
+\textbf{第 3 步：} 只使用一次 $c^2=a^2+b^2$，合并首项和常数项：
+\[
+\begin{aligned}
+PF_R^2
+&=\frac{a^2+b^2}{a^2}x^2-2cx+(c^2-b^2)\\
+&=\frac{c^2}{a^2}x^2-2cx+a^2\\
+&=\left(\frac ca x-a\right)^2.
+\end{aligned}
+\]
+\textbf{第 4 步：} $PF_R$ 本来是长度，必须取\textbf{非负平方根}：
+\[
+PF_R=\left|\frac ca x-a\right|
+=\frac ca\left|x-\frac{a^2}{c}\right|.
+\]
+绝对值内的 $x-a^2/c$ 正好是点 $P$ 到竖直直线
+$\ell_R:x=a^2/c$ 的\textbf{带符号水平差}；绝对值就是垂距。
+因此 $PF_R=e\,d(P,\ell_R)$。左焦点把 $c$ 改成 $-c$ 可同样计算。
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{最低门槛法的考场压缩版：}
+\[
+\boxed{\begin{aligned}
+PF_R^2&=(x-c)^2+b^2\left(\frac{x^2}{a^2}-1\right)\\
+&=\left(\frac ca x-a\right)^2
+=e^2\left(x-\frac{a^2}{c}\right)^2.
+\end{aligned}}
+\]
+记住起手式：\textbf{“先勾股，后代 $y^2$，最后凑平方”。}
+
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{新增方法四（最清楚的双向等价）：从定义平方，逐行回到标准方程。}
+取右焦准对 $F_R(c,0)$、$\ell_R:x=a^2/c$，假设
+\[
+PF_R=e\,d(P,\ell_R).
+\]
+由于两边是非负数，可以平方，得到
+\[
+(x-c)^2+y^2=\frac{c^2}{a^2}\left(x-\frac{a^2}{c}\right)^2.
+\]
+\textbf{左右各自展开}（注意中间的 $-2cx$ 会自动抵消）：
+\[
+\begin{aligned}
+\text{左边}&=x^2-2cx+c^2+y^2,\\
+\text{右边}&=\frac{c^2}{a^2}x^2-2cx+a^2.
+\end{aligned}
+\]
+移项，用 $c^2-a^2=b^2$，得到
+\[
+\left(\frac{c^2}{a^2}-1\right)x^2-y^2=c^2-a^2
+\quad\Longleftrightarrow\quad
+\frac{b^2}{a^2}x^2-y^2=b^2.
+\]
+由于 $b>0$，除以 $b^2$ 恰好得到
+\[
+\boxed{\frac{x^2}{a^2}-\frac{y^2}{b^2}=1}.
+\]
+\textbf{反过来}从双曲线方程沿上述等价式倒推，
+同样可得到 $PF_R^2=e^2d(P,\ell_R)^2$；因距离非负，可开平方恢复距离等式。
+这说明焦准比条件\textbf{不多点、不少点}，恰是整条双曲线。
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\medskip
+\textbf{新增方法五（从最一般的点与直线开始）：不预先知道标准方程。}
+设已知一条准线 $\ell:x=0$，焦点 $F(q,0)$，$q>0$，
+并给定 $e>1$。把 $P(x,y)$ 代入距离等式：
+\[
+\sqrt{(x-q)^2+y^2}=e|x|.
+\]
+两边非负，故可逆地平方：
+\[
+(x-q)^2+y^2=e^2x^2.
+\]
+令 $k=e^2-1>0$，展开、移项、配方：
+\[
+\begin{aligned}
+(x-q)^2+y^2&=e^2x^2\\
+kx^2+2qx-y^2&=q^2\\
+k\left(x+\frac qk\right)^2-y^2&=\frac{q^2e^2}{k}.
+\end{aligned}
+\]
+最后除以右端正数：
+\[
+\boxed{\frac{\left(x+q/k\right)^2}{\left(qe/k\right)^2}
+-\frac{y^2}{\left(qe/\sqrt{k}\right)^2}=1}.
+\]
+这是\textbf{平移后的双曲线标准方程}，中心、半轴、焦距为
+\[
+O\left(-\frac qk,0\right),\qquad
+ a=\frac{qe}{k},\quad b=\frac{qe}{\sqrt{k}},\quad
+ c=\frac{qe^2}{k}.
+\]
+核对 $c^2=a^2+b^2$、$c/a=e$；其右焦点坐标
+$-q/k+c=q$，右准线坐标 $-q/k+a^2/c=0$，恰好还原出最初给的
+$F(q,0)$ 与 $\ell:x=0$。
+任意 $F\notin\ell$ 可通过平移、旋转（必要时反向取轴）转成上述形状，
+所以结论适用于任何方向的焦准对。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{新增方法六（只用一维绝对值看“为什么有两支”）。}
+沿垂直于准线的轴线取点 $P(x,0)$，则
+\[
+|x-q|=e|x|.
+\]
+解绝对值方程：若 $0<x<q$，有 $q-x=ex$，于是
+$x=q/(e+1)>0$；若 $x<0$，有 $q-x=-ex$，于是
+$x=-q/(e-1)<0$。
+其他区间不产生新解。因此两顶点位于准线两侧，其\textbf{中点}为
+\[
+\frac12\left(\frac{q}{e+1}-\frac{q}{e-1}\right)
+=-\frac{q}{e^2-1},
+\]
+即上面配方法中的中心横坐标。这是理解两支与中心位置的捷径，
+\emph{不是仅凭两个顶点就完成整条轨迹证明}；完整证明仍用方法五。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{新增方法七（考场找准线的顶点代入法）。}
+已知 $a,c,e=c/a$ 而突然忘记 $a^2/c$：
+令对应的右准线是 $x=t$。因为 $c>a$ 且准线应位于原点和右顶点之间，
+在右顶点 $A(a,0)$ 上有
+\[
+AF_R=c-a=e(a-t)=\frac ca(a-t)
+\quad\Longrightarrow\quad
+\boxed{t=\frac{a^2}{c}}.
+\]
+它适合\textbf{已经知道第二定义成立、临时忘记准线位置}时迅速重建公式，
+不能用顶点上一个点的等式替代对整条曲线的证明。
 \end{proofbox}

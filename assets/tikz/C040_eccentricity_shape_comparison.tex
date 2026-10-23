@@ -1,0 +1,24 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {固定 $a=2$：离心率增大，渐近线与实轴的夹角增大};
+\node at (7.2,6.9) {三图同尺度，均取 $-4\le x,y\le4$；顶点始终为 $(\pm2,0)$};
+\foreach \pos/\bb/\ee in {2.5/1/{\sqrt5/2},7.2/2/{\sqrt2},11.9/4/{\sqrt5}}{
+\node at (\pos,6.2) {$e=\ee,\quad b=\bb$};
+\begin{scope}[shift={(\pos,3.8)},scale=.46]
+\draw[->,black!60] (-4.2,0)--(4.3,0) node[right] {$x$};
+\draw[->,black!60] (0,-4.2)--(0,4.3) ;
+\node[left] at (0,3.2) {$y$};
+\foreach \xx in {-4,-2,2,4}{\draw[black!50] (\xx,-.12)--(\xx,.12);}
+\begin{scope}
+\clip (-4,-4) rectangle (4,4);
+\draw[black!55,dashed] (-4,{-2*\bb})--(4,{2*\bb});
+\draw[black!55,dashed] (-4,{2*\bb})--(4,{-2*\bb});
+\draw[blue,very thick,domain=-4:4,samples=161,variable=\t] plot ({2*sqrt(1+\t*\t/(\bb*\bb))},\t);
+\draw[blue,very thick,domain=-4:4,samples=161,variable=\t] plot ({-2*sqrt(1+\t*\t/(\bb*\bb))},\t);
+\end{scope}
+\fill (-2,0) circle (2pt);\fill (2,0) circle (2pt);
+\end{scope}
+\node at (\pos,1.25) {$b/a=\bb/2$};
+}
+\node at (7.2,.55) {虚线为渐近线 $y=\pm(b/a)x$，且 $b/a=\sqrt{e^2-1}$};
+\end{tikzpicture}\end{center}

@@ -1,3 +1,4 @@
+\clearpage
 \begin{explanationbox}
 \textbf{同一对焦准，先看两支上的点。} $a=3,b=4,c=5,e=5/3$。
 \input{assets/tikz/C040_both_branches}
@@ -5,3 +6,83 @@
 两条焦半径都比相应准距长，且比值相同。\textbf{“右焦点配右准线”是配对规则，不是对动点所在分支的限制。}
 \end{explanationbox}
 \clearpage
+\clearpage
+\begin{explanationbox}
+\medskip
+\textbf{理解一：把“第二定义”读成生活中的距离比较。}
+想象在地面上固定一个路灯 $F$（\textbf{一个点}），再画一条笔直的警戒线 $\ell$
+（\textbf{一条直线}）。一个人站在 $P$，
+到路灯的直线距离为 $PF$；到警戒线的距离 $PH$ 是\textbf{垂直走过去的最短距离}。
+要求每个站位都满足
+\[
+\underbrace{PF}_{\text{到固定点}}=
+\underbrace{e}_{\text{固定倍数}}\cdot
+\underbrace{PH}_{\text{到固定直线的垂距}}.
+\]
+当 $e>1$ 时，到路灯的距离总比到警戒线远；符合条件的\emph{全部}站位组成双曲线，
+而不是一条直线，也不是只取右边的一支。
+
+\textbf{理解二：为什么数学家还要创造焦点--准线定义？}
+第一定义分别说：椭圆\emph{到两定点距离之和固定}，
+双曲线\emph{到两定点距离之差的绝对值固定}，抛物线\emph{到一点和一条直线的距离相等}。
+形式不同，不利于统一讨论。
+第二定义改成\textbf{同一句话}：固定点 $F$、固定直线 $\ell$，
+寻找满足 $PF=e\,d(P,\ell)$ 的所有点（假定 $F\notin\ell$）。
+\[
+\boxed{0<e<1\ \text{是椭圆},\quad
+ e=1\ \text{是抛物线},\quad
+ e>1\ \text{是双曲线}.}
+\]
+\textbf{它存在的关键价值是用一个距离比统一三种圆锥曲线，}
+不只是为了多记一组公式。
+
+\textbf{理解三：准线为何恰好在 $x=a^2/c$，而不是 $x=a$ 或 $x=c$？}
+不背公式，先只看右顶点 $A(a,0)$：它到右焦点的距离 $AF_R=c-a$。
+设未知右准线 $x=t$，且 $0<t<a$，则顶点到准线距离是 $a-t$。
+若焦准比为 $e=c/a$，顶点也必须满足
+\[
+ c-a=\frac ca(a-t)
+ \quad\Longrightarrow\quad
+ \boxed{t=\frac{a^2}{c}}.
+\]
+\emph{这里是“用顶点快速找准线”的记忆法；整条曲线都成立还需证明，见证明页。}
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{理解四：同一个右焦准对，左支也成立。}
+对于原图中的参数 $a=3,b=4,c=5$，有 $\ell_R:x=9/5$。
+\[
+\begin{array}{c|c|c|c}
+\text{点}&PF_R&d(P,\ell_R)&PF_R/d\\ \hline
+P=(15/4,3)&13/4&39/20&5/3\\
+Q=(-15/4,-3)&37/4&111/20&5/3
+\end{array}
+\]
+无论人在焦点的哪一边，只要仍在双曲线上，同一焦准对的\textbf{比值}不变。
+上表中的距离都可以由坐标与勾股定理独立检查。
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{理解五：$e$ 到底反映什么？先固定 $a$ 比较形状。}
+\input{assets/tikz/C040_eccentricity_shape_comparison}
+顶点不动，渐近线越来越陡，两支相对于实轴张得越开。
+由 $c^2=a^2+b^2$、$e=c/a$ 得 $b/a=\sqrt{e^2-1}$；
+这一步把距离倍数 $e$ 与图中的形状联系起来。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{理解六：先看实轴，定位两顶点和中心。}
+\input{assets/tikz/C040_general_vertices_center}
+图中同一焦准对产生左右两个顶点，中心是两顶点的中点。
+
+把准线移动成 $x=0$，焦点移成 $F(q,0)$（$q>0$）。
+令轨迹与 $x$ 轴交于 $P(x,0)$，条件变为 $|x-q|=e|x|$。
+$e>1$ 时恰有两个解
+\[
+\boxed{x_1=\frac q{e+1}>0},\qquad
+\boxed{x_2=-\frac q{e-1}<0}.
+\]
+两解是两支的顶点，故中心横坐标为 $(x_1+x_2)/2=-q/(e^2-1)$。
+这只能说明交轴位置；严格证明整条轨迹是双曲线见证明页的配方法。
+\end{explanationbox}
