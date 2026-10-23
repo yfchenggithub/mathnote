@@ -45,3 +45,148 @@ $e=0$ 是圆的边界；$e\to1^-$ 时 $b\to0$ 是椭圆扁向线段的极限，\
 双曲线则有 $b/a=\sqrt{e^2-1}$，其朝实轴正方向的渐近线夹角随 $e$ 增大。
 \end{proofbox}
 \clearpage
+
+\begin{proofbox}
+\textbf{方法三：第一定义 $+$ 勾股 $+$ 平方差（门槛最低，独立证明）。}
+这条路线\textbf{不预先使用}准线方程 $x=a^2/c$，也不预先使用“焦准比恒定”；
+从学生已经熟悉的椭圆两焦距\textbf{之和}、双曲线两焦距\textbf{之差}开始。
+
+\medskip
+\textbf{第1步：把点、焦点放到坐标轴上。}
+设 $P=(x,y)$，左、右焦点分别为 $F_L=(-c,0)$、$F_R=(c,0)$，
+记 $u=PF_L,\ v=PF_R$。勾股定理直接给
+\[
+ u^2=(x+c)^2+y^2,\qquad v^2=(x-c)^2+y^2.
+\]
+\textbf{第2步：不展开两个平方，只做一次相减。}
+\[
+ \boxed{u^2-v^2=4cx}\qquad
+ \bigl(\text{因为两个 }y^2\text{ 正好抵消}\bigr).
+\]
+这是一条关键的\textbf{共同关系}：椭圆、双曲线完全一样。
+
+\medskip
+\textbf{第3步A：椭圆。} 第一定义规定 $u+v=2a$。
+利用平方差 $u^2-v^2=(u-v)(u+v)$，得到
+\[
+ u-v=\frac{4cx}{2a}=\frac{2cx}{a}.
+\]
+现在只做“两式相减求 $v$”：
+\[
+ \underbrace{u+v}_{2a}-\underbrace{(u-v)}_{2cx/a}=2v
+ \quad\Longrightarrow\quad \boxed{v=a-\frac ca x}.
+\]
+椭圆上 $|x|\le a$，又 $0<c<a$，所以
+\[
+ v=a-\frac ca x
+ =\frac ca\left(\frac{a^2}{c}-x\right)
+ =\frac ca\,d\bigl(P,\,x=a^2/c\bigr).
+\]
+于是\textbf{从第一定义证明了}右焦点 $(c,0)$ 对应准线为 $x=a^2/c$，
+而且每一个曲线点都满足 $PF_R/PH=c/a$。
+
+\medskip
+\textbf{第3步B：双曲线。} 第一定义规定 $|u-v|=2a$，需按左右支看符号。
+\begin{itemize}
+ \item \textbf{右支} $x\ge a$：$u-v=2a$，由平方差知
+ $u+v=2cx/a$，所以 $v=cx/a-a$。
+ \item \textbf{左支} $x\le-a$：$v-u=2a$，即 $u-v=-2a$；
+ 再由平方差得 $u+v=-2cx/a$，所以 $v=a-cx/a$。
+\end{itemize}
+两支合起来是\textbf{同一个式子}
+\[
+ \boxed{v=\left|a-\frac ca x\right|}
+ =\frac ca\left|x-\frac{a^2}{c}\right|
+ =\frac ca\,d\bigl(P,\,x=a^2/c\bigr).
+\]
+注意双曲线 $c>a$，故 $a^2/c<a$，准线夹在两顶点之间，
+上式在两支的准距均不为零。这样也完整证明了 $e=c/a$。
+
+\medskip
+\textbf{为什么推荐给初学者？} 全程只用勾股、平方差、一次方程；
+椭圆抓住“\textbf{和为 $2a$}”，双曲线抓住“\textbf{差的绝对值为 $2a$}”，
+再用\textbf{平方差 $4cx$} 消掉平方项。无需背一个新的神奇公式。
+\end{proofbox}
+\clearpage
+
+\begin{proofbox}
+\textbf{方法四：只看左右顶点，消掉未知准线（记忆负担最小）。}
+这一法只需\textbf{两个顶点、一个右焦点、一条右准线}，
+\textbf{不必事先背} $x=a^2/c$；但前提是\textbf{已知}圆锥曲线的焦准比 $e$ 在所有曲线点恒定。
+
+\medskip
+\textbf{椭圆：} $0<c<a$。记右准线为 $x=t$，暂时只知道 $t>a$。
+取左右顶点 $A_R=(a,0)$、$A_L=(-a,0)$，
+都对\textbf{同一个}右焦点 $F_R=(c,0)$ 和\textbf{同一条}右准线列比：
+\[
+ \begin{array}{c|cc}
+  & PF_R & PH\\\hline
+  A_R & a-c & t-a\\
+  A_L & a+c & t+a
+ \end{array}
+\qquad
+ \begin{cases}
+ e=\dfrac{a-c}{t-a},\\[5pt]
+ e=\dfrac{a+c}{t+a}.
+ \end{cases}
+\]
+两式先改写为
+\[
+ t-a=\frac{a-c}{e},\qquad t+a=\frac{a+c}{e}.
+\]
+\textbf{后式减前式}：
+\[
+ \boxed{2a=\frac{2c}{e}\ \Longrightarrow\ e=\frac ca}.
+\]
+把 $e=c/a$ 代回任意一式，还顺便\textbf{算出而不是背出}
+$t=a^2/c$。
+
+\medskip
+\textbf{双曲线：} $c>a>0$。仍取右焦点 $(c,0)$ 和右准线 $x=t$，
+此时 $0<t<a$。两个顶点给出的距离为
+\[
+ \begin{array}{c|cc}
+  & PF_R & PH\\\hline
+  A_R & c-a & a-t\\
+  A_L & c+a & a+t
+ \end{array}
+\qquad
+ \begin{cases}
+ e=\dfrac{c-a}{a-t},\\[5pt]
+ e=\dfrac{c+a}{a+t}.
+ \end{cases}
+\]
+改写为 $a-t=(c-a)/e$，$a+t=(c+a)/e$，
+\textbf{两式相加}便有
+\[
+ \boxed{2a=\frac{2c}{e}\ \Longrightarrow\ e=\frac ca},
+ \qquad t=\frac{a^2}{c}.
+\]
+\textbf{记忆口诀：} 椭圆准线在顶点外，\textbf{两式做差}；
+双曲线准线在两顶点内，\textbf{两式做和}。两者最后都是 $2a=2c/e$。
+
+\medskip
+\textbf{逻辑提醒：} 本法是“\textbf{已知焦准比恒定，求该常数}”的极省记忆推法；
+若题目要求\textbf{从第一定义开始独立证明}焦准比恒定，请用方法三，
+不能把仅检查两个顶点当成对任意点的完整证明。
+\end{proofbox}
+\clearpage
+
+\begin{proofbox}
+\textbf{四种方法怎么选（不要四种都背）。}
+\begin{itemize}
+ \item \textbf{考场最快：方法一（顶点速算）。} 已知右准线 $x=a^2/c$、要求迅速得到 $e$，只算
+ $\displaystyle (|a-c|)/\bigl(|a-a^2/c|\bigr)=c/a$。
+ \item \textbf{最低门槛且逻辑独立：方法三（勾股平方差）。} 已知椭圆/双曲线第一定义，
+ 用 $u^2-v^2=4cx$ 与 $u\pm v=2a$ 推出线性焦半径，进而找到准线。
+ \item \textbf{最小额外记忆：方法四（两个顶点消元）。} 已知焦准定义，不想背准线位置，
+ 设 $x=t$ 并消去 $t$；只需两顶点的距离加减。
+ \item \textbf{通用代数核验：方法二（标准方程配方）。} 已有标准方程，
+ 统一算 $PF_R^2=(a-cx/a)^2$，特别适合核查符号及双曲线左右支。
+\end{itemize}
+\textbf{最推荐只保留一条主线：} \underline{两焦距平方差 $4cx$}
+ $\longrightarrow$ \underline{第一定义的和或差 $2a$}
+ $\longrightarrow$ \underline{焦半径随 $x$ 线性变化}
+ $\longrightarrow$ \underline{离心率 $c/a$}。
+\end{proofbox}
+\clearpage
