@@ -1,63 +1,51 @@
 \begin{proofbox}
-
-	\textbf{\textcolor{CProof}{思路提示}}
-
-	椭圆、双曲线、抛物线的标准方程都可以从各自的定义出发，通过距离公式列出等式，再利用代数变形（平方、移项、整理）得到。变形中需注意符号处理和参数代换。
-
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（椭圆方程推导）：}]
-			\[
-				\begin{aligned}
-					\sqrt{(x+c)^2+y^2}+\sqrt{(x-c)^2+y^2}&=2a \\
-					\sqrt{(x+c)^2+y^2}&=2a-\sqrt{(x-c)^2+y^2} \\
-					(x+c)^2+y^2&=4a^2-4a\sqrt{(x-c)^2+y^2} \\
-					&\quad + (x-c)^2+y^2 \\
-					4a\sqrt{(x-c)^2+y^2}&=4a^2-4cx \\
-					a\sqrt{(x-c)^2+y^2}&=a^2-cx \\
-					a^2[(x-c)^2+y^2]&=(a^2-cx)^2 \\
-					(a^2-c^2)x^2+a^2y^2&=a^2(a^2-c^2) \\
-					\frac{x^2}{a^2}+\frac{y^2}{b^2}&=1,\quad b^2=a^2-c^2.
-			\end{aligned}
-			\]
-			\par\textbf{理由：}
-			第一步用距离公式写出和等式；第二步移项使一个根号单独一边；第三步平方消去第一个根号；第四步整理出含一个根号的式子；第五步再次平方消去第二个根号；第六步展开并整理得到只含 $x^2,y^2$ 的等式；第七步用 $b^2=a^2-c^2$ 替换得到标准形式。
-
-
-\item[\textbf{步骤二（双曲线方程推导）：}]
-记 $r_1=\sqrt{(x+c)^2+y^2}$、$r_2=\sqrt{(x-c)^2+y^2}$，
-$U=x^2+y^2+c^2$。由 $|r_1-r_2|=2a$，
+\textbf{方法一：利用和差与平方差，少平方一次。}
+设 $P(x,y)$，$F_1(-c,0),F_2(c,0)$，$r_i=PF_i$。距离公式直接给出
 \[
-\begin{aligned}
-r_1^2+r_2^2-2r_1r_2&=4a^2,\\
-r_1r_2&=U-2a^2,\\
-(r_1r_2)^2&=U^2-4c^2x^2,\\
-(U-2a^2)^2&=U^2-4c^2x^2,\\
-a^2(U-a^2)&=c^2x^2,\\
-(c^2-a^2)x^2-a^2y^2&=a^2(c^2-a^2).
-\end{aligned}
+ r_1^2-r_2^2=(x+c)^2-(x-c)^2=4cx.
 \]
-令 $b^2=c^2-a^2>0$，即得 $x^2/a^2-y^2/b^2=1$。
-这里引入 $r_1,r_2,U$ 只是缩短根式，不改变等式。
-逆向可从标准方程得 $r_1=|cx/a+a|$、$r_2=|cx/a-a|$，
-利用 $|x|\ge a$ 核验距离之差的绝对值为 $2a$。
+\input{assets/tikz/C045_sum_difference}
+\textbf{椭圆。} 由 $r_1+r_2=2a$ 得 $r_1-r_2=2cx/a$，所以 $r_2=a-cx/a$。
+用 $r_2^2=(x-c)^2+y^2$ 平方一次，整理得
+\[
+ (a^2-c^2)x^2+a^2y^2=a^2(a^2-c^2).
+\]
+由于 $a>c>0$，令 $b^2=a^2-c^2$ 并除以 $a^2b^2$，得到椭圆式。
 
-\item[\textbf{步骤三（抛物线方程推导）：}]
-			\[
-				\begin{aligned}
-					\sqrt{\left(x-\frac{p}{2}\right)^2+y^2}&=\left|x+\frac{p}{2}\right| \\
-					\left(x-\frac{p}{2}\right)^2+y^2&=\left(x+\frac{p}{2}\right)^2 \\
-					x^2-px+\frac{p^2}{4}+y^2&=x^2+px+\frac{p^2}{4} \\
-					y^2&=2px.
-			\end{aligned}
-			\]
-			\par\textbf{理由：}
-			第一步根据抛物线的定义（动点到焦点的距离等于到准线的距离）列出等式；第二步两边平方消去根号和绝对值；第三步展开平方项；第四步消去 $x^2$ 和常数项，整理即得 $y^2=2px$。
-	\end{description}
-
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-
-	\textbf{椭圆、双曲线、抛物线的标准方程分别由定义通过代数变形得到。推导过程展示了“距离公式 + 平方消元”的基本方法，同时也明确了参数 $a,b,c,p$ 的几何意义。}
+\textbf{双曲线。} 右支 $r_1-r_2=2a$，故 $r_1+r_2=2cx/a$，$r_2=cx/a-a$。
+距离公式平方一次整理得
+\[
+ (c^2-a^2)x^2-a^2y^2=a^2(c^2-a^2).
+\]
+由 $c>a>0$ 令 $b^2=c^2-a^2$，即得双曲线式。左支由对称性覆盖。
 \end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法二：从方程反验定义，检查平方是否添点。}
+椭圆式给出 $|x|\le a$，代入距离平方后
+\[
+ r_1^2=(a+cx/a)^2,\qquad r_2^2=(a-cx/a)^2.
+\]
+两括号都至少为 $a-c>0$，取正根得 $r_1+r_2=2a$。
+双曲线式给出 $|x|\ge a$，同样计算得
+\[
+ r_1=|cx/a+a|,\qquad r_2=|cx/a-a|.
+\]
+右支两括号均正，左支均负；分别取绝对值均得 $|r_1-r_2|=2a$。
+因此前页所得方程与各自的定义轨迹完全相同。
+
+\medskip
+\textbf{抛物线：一次等价平方最直接。}
+右开口取 $F=(p/2,0)$、$l:x=-p/2$，则
+\[
+ \begin{aligned}
+ PF=d(P,l)&\iff \sqrt{(x-p/2)^2+y^2}=|x+p/2|\\
+ &\iff (x-p/2)^2+y^2=(x+p/2)^2\\
+ &\iff y^2=2px.
+ \end{aligned}
+\]
+两边是非负距离，所以平方等价。将 $x$ 换成 $-x$ 就得到左开口，焦点、准线也同时反射。
+\input{assets/tikz/C045_parabola_both_openings}
+$p>0$ 始终表示长度；用方程中的正负号分别记录左右方向。纵向同理交换坐标。
+\end{proofbox}
+\clearpage

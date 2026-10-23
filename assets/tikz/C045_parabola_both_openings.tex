@@ -1,0 +1,24 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {焦点在横轴，仍须分正负：一次项符号决定左右开口};
+\begin{scope}[shift={(3.6,4.5)},scale=.38]
+\draw[black!35,->] (-5.5,0)--(5.5,0) node[right] {$x$};
+\draw[blue,very thick,domain=-5.2:5.2,samples=121,variable=\t] plot ({1*\t*\t/8},\t);
+\draw[violet,thick] (-2,-5.3)--(-2,5.3);
+\fill (2,0) circle (3pt) node[below=6pt] {$F$};
+\fill (0,0) circle (3pt) node[below left=3pt] {$O$};
+\end{scope}
+\node at (3.6,1.15) {$y^2=8x$，$F=(2,0)$};
+\node at (3.6,1.85) {准线 $x=-2$};
+\begin{scope}[shift={(10.8,4.5)},scale=.38]
+\draw[black!35,->] (-5.5,0)--(5.5,0) node[right] {$x$};
+\draw[blue,very thick,domain=-5.2:5.2,samples=121,variable=\t] plot ({-1*\t*\t/8},\t);
+\draw[violet,thick] (2,-5.3)--(2,5.3);
+\fill (-2,0) circle (3pt) node[below=6pt] {$F$};
+\fill (0,0) circle (3pt) node[below right=3pt] {$O$};
+\end{scope}
+\node at (10.8,1.15) {$y^2=-8x$，$F=(-2,0)$};
+\node at (10.8,1.85) {准线 $x=2$};
+
+\node[anchor=west] at (.7,.55) {同尺度、同 $p=4$；抛物线仅关于自身轴对称，不关于另一条坐标轴对称};
+\end{tikzpicture}\end{center}

@@ -110,7 +110,7 @@
     "core_formula": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1\\quad(b^2=a^2-c^2,\\,a>c>0)",
     "related_formulas": [
       "\\frac{x^2}{a^2}-\\frac{y^2}{b^2}=1\\quad(b^2=c^2-a^2,\\,0<a<c)",
-      "y^2=2px\\quad(p>0)"
+      "y^2=\\pm2px\\quad(p>0)"
     ],
     "variables": [
       "a",
@@ -120,17 +120,17 @@
       "x",
       "y"
     ],
-    "conditions": "椭圆：a>c>0, b^2=a^2-c^2；双曲线：c>a>0, b^2=c^2-a^2；抛物线：p>0",
+    "conditions": "椭圆/双曲线中心原点且焦点横轴；椭圆a>c>0，b²=a²-c²；双曲线c>a>0，b²=c²-a²；抛物线顶点原点且轴横向，p>0，y²=±2px分左右开口。",
     "conclusions": "可求焦点坐标、轴长、准线方程等"
   },
   "content": {
-    "statement": "圆锥曲线以坐标轴为对称轴，中心（椭圆、双曲线）或顶点（抛物线）在原点，焦点在x轴上。椭圆：动点到两定点F1(-c,0),F2(c,0)距离之和为常数2a (a>c>0)，标准方程为x^2/a^2+y^2/b^2=1 (b^2=a^2-c^2)。双曲线：动点到两定点距离之差的绝对值为常数2a (0<a<c)，标准方程为x^2/a^2-y^2/b^2=1 (b^2=c^2-a^2)。抛物线：动点到定点(p/2,0)与准线x=-p/2距离相等 (p>0)，标准方程为y^2=2px。",
+    "statement": "中心原点、焦点横轴的椭圆x²/a²+y²/b²=1，a>c>0、b²=a²-c²；双曲线x²/a²-y²/b²=1，c>a>0、b²=c²-a²，焦点均(±c,0)。顶点原点、轴横向的抛物线y²=±2px，p>0，焦点(±p/2,0)，准线x=∓p/2；抛物线仅以自身轴为对称轴。",
     "derivation": [
-      "设动点P(x,y)，根据椭圆定义|PF1|+|PF2|=2a，代入坐标得sqrt((x+c)^2+y^2)+sqrt((x-c)^2+y^2)=2a",
-      "移项平方并整理，消去根号，得到(a^2-c^2)x^2+a^2y^2=a^2(a^2-c^2)",
-      "令b^2=a^2-c^2，即得标准方程x^2/a^2+y^2/b^2=1"
+      "平方差r1²-r2²=4cx配合椭圆距离和2a或双曲线右支距离差2a，求出r2，再平方一次得到标准式。",
+      "从方程反向计算距离并检查正根、绝对值，覆盖双曲线两支，确保轨迹等价。",
+      "抛物线由非负距离等式一次等价平方，反射x得到左开口。"
     ],
-    "intuition": "椭圆是到两定点距离和为常数的点的轨迹，通过坐标化得到平方和形式。",
+    "intuition": "同一焦点轴下，用距离和、距离差与焦准等距区别三类；方向与中心条件决定能否直接写原点标准式。",
     "common_tricks": [
       "注意椭圆和双曲线中a、b、c关系不同",
       "抛物线标准方程中p的几何意义是焦点到准线的距离",
@@ -153,7 +153,7 @@
     "exam_score": 5
   },
   "interactive": {
-    "has_diagram": false,
+    "has_diagram": true,
     "geogebra_id": "",
     "param_demo": {}
   },
@@ -186,10 +186,10 @@
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-23",
-    "updated_at": "2026-10-21"
+    "updated_at": "2026-10-23"
   },
   "isPro": 0,
-  "remarks": "",
+  "remarks": "PDF图 assets/tikz/C045_three_horizontal_models.tex 同尺度三类模型替代结构记忆；C045_sum_difference.tex 同焦点对照和差与参数范围；C045_parabola_both_openings.tex 同p左右反射替代方向混淆；C045_ellipse_coefficients.tex 同尺度比较系数大小与焦点轴；C045_translated_center.tex 平移对照替代缺中心条件的提醒。修正source.tex原距离差8大于焦距6的不可能示例。验收见 reports/C045_conic_standard_forms_focus_x_review_2026-10-23.md。",
   "knowledgeNode": "解析几何-圆锥曲线-综合-定义与基本关系",
   "altNodes": "解析几何-圆锥曲线-双曲线,解析几何-圆锥曲线-抛物线"
 }

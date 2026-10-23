@@ -1,0 +1,12 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {同一对焦点 $(\pm3,0)$：椭圆用距离和，双曲线用距离差};
+\begin{scope}[shift={(3.6,3.7)},scale=.43]
+\draw[black!35] (-6,0)--(6,0);\draw[blue,very thick] (0,0) ellipse (5 and 4);\draw[orange!85!black,thick] (-3,0)--(0,4)--(3,0);\fill (0,4) circle (3pt) node[above=8pt] {$P(0,4)$};\fill (-3,0) circle (3pt) node[below=5pt] {$F_1$};\fill (3,0) circle (3pt) node[below=5pt] {$F_2$};\end{scope}
+\node at (3.6,1.25) {$5+5=10=2a$};
+\begin{scope}[shift={(10.8,3.7)},scale=.43]
+\draw[black!35] (-6,0)--(6,0);\draw[blue,very thick,domain=-3.6:3.6,samples=121,variable=\t] plot ({-1*2*sqrt(1+\t*\t/5)},\t);\draw[blue,very thick,domain=-3.6:3.6,samples=121,variable=\t] plot ({1*2*sqrt(1+\t*\t/5)},\t);\draw[orange!85!black,thick] (-3,0)--(3,2.5)--(3,0);\fill (3,2.5) circle (3pt) node[above=12pt] {$P(3,5/2)$};\fill (-3,0) circle (3pt) node[below=5pt] {$F_1$};\fill (3,0) circle (3pt) node[below=5pt] {$F_2$};\end{scope}
+\node at (10.8,1.25) {$13/2-5/2=4=2a$};
+
+\node[anchor=west] at (.7,.55) {同尺度；椭圆须 $2a>6$，双曲线须 $0<2a<6$；距离差为 $8$ 不可能};
+\end{tikzpicture}\end{center}

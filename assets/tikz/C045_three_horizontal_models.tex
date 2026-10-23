@@ -1,0 +1,18 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {都以横轴为焦点轴，标准方程却有三种不同结构};
+\begin{scope}[shift={(2.4,4)},scale=.28]
+\draw[black!35,->] (-6,0)--(6,0) node[right] {$x$};
+\draw[blue,very thick] (0,0) ellipse (5 and 4);\fill (-3,0) circle (4pt);\fill (3,0) circle (4pt);\end{scope}
+\node at (2.4,1.4) {$x^2/25+y^2/16=1$};\node at (2.4,2.05) {焦点 $(\pm3,0)$};
+\begin{scope}[shift={(7.2,4)},scale=.28]
+\draw[black!35,->] (-6,0)--(6,0) node[right] {$x$};
+\draw[blue,very thick,domain=-5:5,samples=121,variable=\t] plot ({-1*3*sqrt(1+\t*\t/16)},\t);\draw[blue,very thick,domain=-5:5,samples=121,variable=\t] plot ({1*3*sqrt(1+\t*\t/16)},\t);\fill (-5,0) circle (4pt);\fill (5,0) circle (4pt);\end{scope}
+\node at (7.2,1.4) {$x^2/9-y^2/16=1$};\node at (7.2,2.05) {焦点 $(\pm5,0)$};
+\begin{scope}[shift={(12,4)},scale=.28]
+\draw[black!35,->] (-6,0)--(6,0) node[right] {$x$};
+\draw[blue,very thick,domain=-5:5,samples=121,variable=\t] plot ({\t*\t/8},\t);\draw[violet,thick] (-2,-5.2)--(-2,5.2);\fill (2,0) circle (4pt);\end{scope}
+\node at (12,1.4) {$y^2=8x$};\node at (12,2.05) {焦点 $(2,0)$};
+
+\node[anchor=west] at (.7,.55) {同尺度；黑点为焦点，紫线为抛物线准线；双曲线 $a$ 看正项};
+\end{tikzpicture}\end{center}
