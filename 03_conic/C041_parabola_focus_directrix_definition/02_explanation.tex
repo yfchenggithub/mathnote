@@ -1,3 +1,4 @@
+\clearpage
 \begin{explanationbox}
 \textbf{取 $F(3,0),\ell:x=-3$。} 此时焦准距 $p=6$，顶点为 $(0,0)$。
 \input{assets/tikz/C041_tangent_circle}
@@ -6,3 +7,54 @@
 这一说法要求 $F\notin\ell$，半径为正。
 \end{explanationbox}
 \clearpage
+
+% ===== 以下为 C041 直觉扩充；不改变原有插图 =====
+\begin{explanationbox}
+\textbf{角度一：路灯与围墙（门槛最低）。}
+把焦点 $F$ 想成一盏路灯，准线 $\ell$ 想成一面笔直的墙。
+你站在 $P$，到路灯的距离是 $PF$；到围墙的距离不是任选墙上的一点，而是\textbf{垂直走到墙上的最短路程 $PH$}。
+现在规定“到路灯与到围墙一样远”。符合这个规定的所有站位，自然组成一条曲线。
+这是一个\textbf{点与直线等距的轨迹问题}，不是先有一条抛物线，再硬记一个公式。
+
+\medskip
+\textbf{角度二：为何定义在考题里有用？}
+算 $PF$ 要开平方，算到竖直准线 $x=-p/2$ 的距离只需 $|x+p/2|$：
+\[
+\underbrace{\sqrt{\left(x-\frac p2\right)^2+y^2}}_{\text{到焦点：带根号}}
+\quad\xrightarrow{\ PF=PH\ }\quad
+\underbrace{\left|x+\frac p2\right|}_{\text{到准线：只有横坐标}}.
+\]
+对右开口抛物线，已经知道 $x\ge0$，就进一步变成 $PF=x+p/2$。
+\textbf{定义的实际价值：把不好算的斜距离，换成容易算的垂距。}
+
+\medskip
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{角度三：垂直平分线怎样造出抛物线上的点？}
+\input{assets/tikz/C041_perpendicular_bisector_construction}
+先选准线上的 $H$，再作 $m\perp\ell$ 和 $FH$ 的垂直平分线 $n$。
+交点 $P$ 同时满足“到 $F,H$ 等距”和“$H$ 是垂足”，所以恰在抛物线上。
+反过来，每个等距点也能这样作出；完整证明见方法五。
+
+\medskip
+\textbf{角度四：移动 $H$，为何得到弯曲的轨迹？}
+一般取 $F=(p/2,0)$、$H=(-p/2,t)$，交点 $P=(x,t)$ 满足
+\[
+(x-p/2)^2+t^2=(x+p/2)^2
+\quad\Longrightarrow\quad x=\frac{t^2}{2p}.
+\]
+当 $|t|$ 变成两倍时，轴向距离 $x$ 变成四倍；这正是抛物线 $y^2=2px$。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{考场触发器：什么时候应该第一时间想到焦准定义？}
+不是看到“抛物线”三个字就机械套公式，而是识别下列\textbf{等价结构}：
+\begin{enumerate}
+\item \textbf{焦点距离出现：}题目给 $PF$、求 $PF$、要求焦半径范围或最值；先问能否换成准距。
+\item \textbf{点与直线等距：}给出动点 $P$ 到固定点和固定直线距离相等；直接认定抛物线（先核验点不在线上）。
+\item \textbf{圆同时过点、切线：}一个圆经过固定 $F$，又与固定直线 $\ell$ 相切；让圆心为 $P$，立刻有 $PF=d(P,\ell)$。
+\item \textbf{坐标和开口不明：}给焦点与准线，先画 $FD$、取中点 $V$，再决定向哪边开口；切忌先套 $y^2=2px$。
+\end{enumerate}
+\textbf{反向自问：}题目里有什么长度能被“到准线的垂距”替换？换完是否减少根号、未知数或绝对值？
+\end{explanationbox}

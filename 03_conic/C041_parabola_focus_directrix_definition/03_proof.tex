@@ -1,3 +1,4 @@
+\clearpage
 \begin{proofbox}
 \textbf{方法一：等价平方，只需一步消元（优先）。}
 以顶点为原点建系，设 $P(x,y)$，$F(p/2,0)$，$\ell:x=-p/2$。
@@ -29,4 +30,150 @@ PF=PH&\iff \sqrt{(x-p/2)^2+y^2}=|x+p/2|\\
 因此“焦点横坐标为正”不能替代“顶点在原点”这个标准位置条件。
 一般平移后，若 $F=(h+p/2,k)$、$\ell:x=h-p/2$，方程为 $(y-k)^2=2p(x-h)$；
 其他开口方向由反射或交换坐标得到。
+\end{proofbox}
+
+% ===== 以下为 C041 分层证明；原先两法与 TikZ 代码一字不改 =====
+\clearpage
+\begin{proofbox}
+\textbf{方法三：直角三角形 + 平方差（最低代数门槛）。}
+\input{assets/tikz/C041_pythagoras_two_positions}
+先看图中 $P$ 在 $x=p/2$ 两侧的两种情况。统一写法是
+\[
+PQ=|x-p/2|,\quad QF=|y|,\quad PH=|x+p/2|.
+\]
+勾股给出 $PF^2=PQ^2+QF^2$；即使 $P,Q,F$ 有重合点，这个距离平方式仍成立。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法三续：先写平方，最后再判断符号。}
+设 $P=(x,y)$、$F=(p/2,0)$、$H=(-p/2,y)$、$Q=(p/2,y)$。
+由勾股距离式和焦准等距，
+\[
+\begin{aligned}
+PF^2&=(x-p/2)^2+y^2,\\
+PH^2&=(x+p/2)^2,\\
+PF=PH&\iff y^2=(x+p/2)^2-(x-p/2)^2\\
+&=\bigl[(x+p/2)-(x-p/2)\bigr]
+  \bigl[(x+p/2)+(x-p/2)\bigr]\\
+&=\boxed{2px}.
+\end{aligned}
+\]
+这里是在对\textbf{代数式}作平方差，不能一开始就把 $x-p/2$ 当作长度。
+由方程推出 $x\ge0$ 后，才有 $PH=x+p/2$；
+但 $PQ$ 仍须分为 $p/2-x$ 或 $x-p/2$。
+例如左图 $PH=5/2$、$PQ=3/2$，两长度之差是 $1=2x$、之和是 $4=p$；
+右图才是两长度之差为 $p$、之和为 $2x$。两种位置的平方差都等于 $2px$。
+
+\medskip
+\textbf{考场起手式：}“先勾股，写距离平方，再用平方差”。
+两边非负，平方可逆，故同时证明整个等距轨迹与标准方程等价。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法四：三角形不等式，不建坐标就找最短焦半径。}
+\input{assets/tikz/C041_minimum_radius_equality}
+令 $D,H$ 分别是 $F,P$ 到准线的垂足，$FD=p$。只用两条初中几何事实：
+\[
+p=FD\ \underset{\text{垂线段最短}}{\le}\ FH
+\ \underset{\text{两边和不小于第三边}}{\le}\ FP+PH=2FP.
+\]
+所以 $\boxed{PF\ge p/2}$。图中左侧两处都严格小于，右侧才同时取等号。
+
+\textbf{等号不能漏查：}若 $PF=p/2$，则 $FD=FH$ 迫使 $H=D$；
+$FH=FP+PH$ 迫使 $P$ 在线段 $FH$ 上。再由 $FP=PH$，
+$P$ 只能是 $FD$ 中点 $V$。反过来 $VF=VD=p/2$，故等号恰在顶点。
+
+此法专门证明最短焦半径，无须先求抛物线方程。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法五：垂直平分线构造（纯几何识别轨迹）。}
+已知 $F\notin\ell$。准线上任选 $H$；过 $H$ 作 $m\perp\ell$，
+再作线段 $FH$ 的垂直平分线 $n$，令 $P=m\cap n$。
+
+\textbf{正向：} $P\in n$ 说明 $PF=PH$（垂直平分线性质）；
+$P\in m$ 说明 $PH=d(P,\ell)$（垂足是 $H$）；因此 $P$ 在抛物线上。
+
+\textbf{反向：}若 $P$ 原本满足 $PF=d(P,\ell)$，令 $H$ 为垂足，
+则 $PF=PH$，所以 $P$ 必在 $FH$ 的垂直平分线上，并且必在过 $H$ 的准线垂线上。
+因此上述作图\textbf{既没有漏点，也没有多点}。
+
+\textbf{为什么交点始终存在而且唯一？}
+$F\notin\ell$ 使得线段 $FH$ 在准线的法向上有不为零的分量 $p$。
+其垂直平分线 $n$ 不会与 $m$ 平行，故二者恰有一个交点。
+
+\textbf{补一行代数，和标准方程接上：}
+令 $F=(p/2,0)$、$H=(-p/2,t)$、$P=(x,t)$。
+因 $PF=PH$，有
+\[
+\left(x-\frac p2\right)^2+t^2
+=\left(x+\frac p2\right)^2
+\quad\Longrightarrow\quad
+\boxed{x=\frac{t^2}{2p}}.
+\]
+所以这种折纸构造真的描出了 $y^2=2px$，不是只得到一条“差不多”的曲线。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法六：任意焦点与竖直准线直接列式（考场最快解方程法）。}
+给定 $F(u,v)$、$\ell:x=c$，只要求 $u\ne c$。
+设 $P(x,y)$，\textbf{不必先平移原点}，直接写
+\[
+\begin{aligned}
+PF^2&=d(P,\ell)^2\\
+\Longleftrightarrow\quad (x-u)^2+(y-v)^2&=(x-c)^2\\
+\Longleftrightarrow\quad
+&\boxed{(y-v)^2=(u-c)(2x-u-c)}.
+\end{aligned}
+\]
+设 $h=(u+c)/2$，就得到
+\[
+\boxed{(y-v)^2=2(u-c)(x-h)}.
+\]
+这里 $V=(h,v)$ 是焦点与准线垂足的中点。
+当 $u>c$ 时向右开口，$p=u-c$；当 $u<c$ 时向左开口，$p=c-u$。
+这两个分支\textbf{不要把 $p>0$ 误写成有符号的 $u-c$}。
+
+\textbf{若准线是水平的 $\ell:y=c$：}
+同理，对焦点 $F(u,v)$ 有
+\[
+\boxed{(x-u)^2=(v-c)(2y-v-c)}.
+\]
+\textbf{选法建议：}已知焦点和水平、竖直准线，且只求方程，
+“直接平方，两个平方差相消”通常最省事；
+要讲清图像、开口、顶点时，再先用中点定位。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法七：准线是斜线时的通法（进阶，不要求死记）。}
+设 $\ell:ax+by+c=0$，其中 $a^2+b^2>0$，焦点 $F=(u,v)$ 且 $au+bv+c\ne0$。
+任取 $P=(x,y)$，按两种距离的定义，直接有
+\[
+\boxed{(x-u)^2+(y-v)^2
+=\frac{(ax+by+c)^2}{a^2+b^2}}.
+\tag{1}
+\]
+这是\textbf{不旋转坐标}也能写出的轨迹方程：把点到线公式代进焦准等距，再平方即可。
+两边原来都是非负的距离，因此平方是等价变形，反向没有增根。
+
+\medskip
+若想看清它为什么仍是一条抛物线，可按以下三步旋转思路：
+\begin{enumerate}
+\item 计算焦点在准线上的垂足
+\[
+D=F-\frac{au+bv+c}{a^2+b^2}(a,b),\qquad
+p=\frac{|au+bv+c|}{\sqrt{a^2+b^2}}>0.
+\]
+\item 取顶点 $V=(F+D)/2$；取从准线指向焦点的单位法向量
+\[
+\boldsymbol n=\frac{\operatorname{sgn}(au+bv+c)}{\sqrt{a^2+b^2}}(a,b),
+\qquad \boldsymbol t=(-n_y,n_x).
+\]
+\item 令 $s=(P-V)\cdot\boldsymbol n$（沿开口方向），
+$r=(P-V)\cdot\boldsymbol t$（垂直于轴）。
+在新的直角坐标里，焦点为 $(p/2,0)$、准线为 $s=-p/2$，
+于是 $\boxed{r^2=2ps}$。
+\end{enumerate}
+\textbf{结论：}一般位置的抛物线并非一定能\emph{仅靠平移}写成 $y^2=2px$；
+若准线倾斜，通常还需要旋转坐标。式 (1) 是更通用的速写法。
 \end{proofbox}

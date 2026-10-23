@@ -1,0 +1,25 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {同取 $p=4$：勾股中的 $PQ$ 必须是非负长度};
+
+\node at (3.6,6.7) {$0<x<p/2$：取 $P=(1/2,2)$};
+\node at (10.8,6.7) {$x>p/2$：取 $P=(4,4\sqrt2)$};
+\foreach \pos/\px/\py in {3.6/.5/2,10.8/4/5.6568542495}{
+\begin{scope}[shift={(\pos,2.55)},scale=.55]
+\draw[violet,thick] (-2,-.5)--(-2,6.5);
+\draw[black!50,dashed] (2,0)--(2,6.5);
+\draw[black!60,thick] (\px,\py)--(2,\py)--(2,0);
+\draw[orange!85!black,very thick] (\px,\py)--(2,0);
+\draw[violet,very thick] (-2,\py)--(\px,\py);
+\ifdim\px pt>2pt \def\dx{.25}\else\def\dx{-.25}\fi
+\draw[black!50] ({2+\dx},\py)--({2+\dx},{\py-.25})--(2,{\py-.25});
+\fill (-2,\py) circle (2pt) node[left=6pt] {$H$};
+\fill (\px,\py) circle (2pt) node[above=7pt] {$P$};
+\fill (2,\py) circle (2pt) node[below right=7pt] {$Q$};
+\fill (2,0) circle (2pt) node[below=7pt] {$F$};
+\end{scope}}
+\node at (3.6,1.45) {$PH=x+2,\quad PQ=2-x$};
+\node at (10.8,1.45) {$PH=x+2,\quad PQ=x-2$};
+
+\node at (7.2,.55) {两图同尺度；均有 $PF^2=PQ^2+y^2$，故 $y^2=(x+2)^2-(x-2)^2=8x$};
+\end{tikzpicture}\end{center}

@@ -1,0 +1,32 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {最短焦半径：两处不等式同时取等号，点 $P$ 才能落在顶点};
+
+\node at (3.6,6.7) {一般点：$P=(2,4)$};
+\node at (10.8,6.7) {等号点：$P=V=(0,0)$};
+\foreach \pos in {3.6,10.8}{
+\begin{scope}[shift={(\pos,3)},scale=.65]
+\draw[violet,thick] (-2,-.8)--(-2,4.8);
+\draw[black!55,dashed] (-2,0)--(2,0);
+\fill (2,0) circle (2pt) node[below right=7pt] {$F$};
+\end{scope}}
+\begin{scope}[shift={(3.6,3)},scale=.65]
+\draw[black!60,thick] (-2,4)--(2,0);
+\draw[orange!85!black,very thick] (2,0)--(2,4);
+\draw[violet,very thick] (-2,4)--(2,4);
+\draw[black!55] (-2,.3)--(-1.7,.3)--(-1.7,0);
+\fill (-2,0) circle (2pt) node[below left=7pt] {$D$};
+\fill (-2,4) circle (2pt) node[above left=7pt] {$H$};
+\fill (2,4) circle (2pt) node[above right=7pt] {$P$};
+\end{scope}
+\begin{scope}[shift={(10.8,3)},scale=.65]
+\draw[violet,very thick] (-2,0)--(0,0);
+\draw[orange!85!black,very thick] (0,0)--(2,0);
+\fill (-2,0) circle (2pt) node[below left=7pt] {$H=D$};
+\fill (0,0) circle (2pt) node[above=7pt] {$P=V$};
+\end{scope}
+\node at (3.6,1.55) {$FD=4<FH=4\sqrt2<2PF=8$};
+\node at (10.8,1.55) {$FD=FH=2VF=4$};
+
+\node at (7.2,.55) {两图同尺度，$p=4$；$H=D$ 且 $P$ 是 $FH$ 中点时，$PF=p/2$};
+\end{tikzpicture}\end{center}
