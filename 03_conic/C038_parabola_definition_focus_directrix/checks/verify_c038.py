@@ -36,4 +36,25 @@ for x,y in [(1,2),(4,4)]:close(y*y,4*x)
 m=json.loads((ROOT/'03_conic/C038_parabola_definition_focus_directrix/meta.json').read_text(encoding='utf-8'))
 for uid in m['relations']['related_ids']:assert list((ROOT/'03_conic').glob(uid+'_*'))
 assert r'\subsection{C038 ' in (ROOT/'03_conic/C038_parabola_definition_focus_directrix/main.tex').read_text(encoding='utf-8')
-print('C038 PASS: 3216 directional states, construction, 801 minimum samples, equality, degenerate case, metadata')
+# Read the actual three-panel coordinates and independently measure both distances.
+three=(ROOT/'assets/tikz/C038_three_points_distance.tex').read_text(encoding='utf-8')
+triples=re.search(r'\{2\.1/0,6\.9/1,11\.7/2\}',three)
+assert triples
+comparisons=[]
+for x in [0,1,2]:
+ pf=math.hypot(x-1,2);ph=abs(x+1)
+ comparisons.append((pf>ph)-(pf<ph))
+ close(pf,[math.sqrt(5),2,math.sqrt(5)][x]);close(ph,x+1)
+assert comparisons==[1,0,-1]
+# Equality in AP+PH>=AH requires P to be between A and H.
+attain=(ROOT/'assets/tikz/C038_lower_bound_attainability.tex').read_text(encoding='utf-8')
+assert '{3.6/3,10.8/0}' in attain
+px,py=2**2/4,2
+for ax,attainable in [(3,True),(0,False)]:
+ between=min(-1,ax)<=px<=max(-1,ax)
+ assert between==attainable
+ total=math.hypot(px-ax,py-2)+math.hypot(px-1,py)
+ if attainable:close(total,abs(ax+1))
+ else:assert total>abs(ax+1)
+for ref in m['enhancement']['new_tikz_files']:assert (ROOT/ref).exists()
+print('C038 PASS: 3216 directional states, 801 minimum samples; actual three-point distances and both equality configurations; metadata')

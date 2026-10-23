@@ -105,6 +105,11 @@
     "conclusions": [
       "点P的轨迹是以F为焦点、\\ell为准线的抛物线",
       "离心率e=1"
+    ],
+    "additional_properties": [
+      "右开口y²=2px(p>0) ⇒ x≥0，关于x轴对称，顶点O=(0,0)。",
+      "右开口焦半径PF=x+p/2≥p/2，在顶点处且仅在顶点处取等。",
+      "焦点在准线右侧：F=(a,b)，准线x=c，a>c，则顶点((a+c)/2,b)，方程(y-b)²=2(a-c)(x-(a+c)/2)。"
     ]
   },
   "content": {
@@ -119,6 +124,53 @@
       "利用定义将焦半径转化为到准线的距离，常用于最值问题。",
       "求轨迹时先设动点坐标，列距离等式，平方化简。",
       "注意确定焦点和准线的位置（开口方向）。"
+    ],
+    "intuition_steps": [
+      "两把尺子：PF是点到焦点的线段长度，PH是P到准线的垂距；等长才满足定义。",
+      "用p=2、F(1,0)、准线x=-1：同取y=2时，x=0有PF>PH，x=1有PF=PH，x=2有PF<PH。",
+      "固定y改变x，在每条水平线上找到等距点，所有等距点合起来就是抛物线。",
+      "p=2时x=y²/4；y=0,±2,±4对应x=0,1,4，直观看到关于x轴对称以及开口方向。",
+      "两定点等距的点在中垂线上；把一个定点改为整条准线，并要求垂直距离，就得到弯曲的等距轨迹。"
+    ],
+    "quick_proofs": [
+      "数字模型：p=2时，PF²=(x-1)²+y²，PH²=(x+1)²；平方差得y²=4x。",
+      "一般速证：y²=(x+p/2)²-(x-p/2)²=2px，利用(a²-b²)=(a-b)(a+b)，不必分别展开两个平方。",
+      "顶点：轴上点P到准线垂距等于PD，故PF=PD，推出P为FD中点。",
+      "反向核验：y²=2px且p>0推出x≥0，PF²=(x+p/2)²=PH²，两边非负所以PF=PH。"
+    ],
+    "exam_shortcuts": [
+      "先作焦点到准线的垂线，用其中点定顶点。",
+      "焦点相对顶点在哪边，抛物线就朝哪边开口。",
+      "焦准距p；焦点到顶点p/2；标准方程一次项系数2p，注意与教材y²=4fx的f=p/2对应。",
+      "焦半径PF换成到准线的垂距PH；最值先证下界，再核对折线拉直时的取等点。"
+    ],
+    "additional_examples": [
+      {
+        "title": "移动点比较两种距离",
+        "model": "F=(1,0),准线x=-1",
+        "results": "y=2时，P=(0,2):PF=√5,PH=1；P=(1,2):PF=PH=2；P=(2,2):PF=√5,PH=3。"
+      },
+      {
+        "title": "平移后的抛物线",
+        "model": "F=(1,2),准线x=-3",
+        "results": "顶点(-1,2)，焦准距p=4，方程(y-2)²=8(x+1)。"
+      },
+      {
+        "title": "从方程读几何参数",
+        "model": "y²=-12x",
+        "results": "向左开口，p=6，F=(-3,0)，准线x=3。"
+      },
+      {
+        "title": "下界不一定取到",
+        "model": "P在y²=4x上，A=(0,2)",
+        "results": "PA+PF≥1，但等号点需位于y=2且x∈[-1,0]，与抛物线交点(1,2)不符，故下界不可取。"
+      }
+    ],
+    "additional_traps": [
+      "焦点F不在非退化抛物线上：PF=0，而d(F,ℓ)=p>0。",
+      "只有竖直准线才取水平垂距，水平准线要取竖直垂距；一般直线应使用点到直线距离公式。",
+      "PF、PH均非负，故PF=PH与PF²=PH²等价；不是所有含符号的方程都能安全平方反推。",
+      "由三角不等式得到的最值下界，必须检查相应交点是否位于等号所要求的线段上。"
     ]
   },
   "usage": {
@@ -170,10 +222,37 @@
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-23",
-    "updated_at": "2026-10-22"
+    "updated_at": "2026-10-23"
   },
   "isPro": 0,
-  "remarks": "PDF图 assets/tikz/C038_equal_distance.tex 展示焦准等距与垂足；C038_perpendicular_bisector.tex 展示初中几何构造，替代抽象轨迹文字；C038_horizontal_openings.tex、C038_vertical_openings.tex 同尺度对照四种开口；C038_minimum_broken_path.tex 展示例3折线拉直与取等点；C038_degenerate_focus.tex 同尺度对照退化直线。验收见 reports/C038_parabola_definition_focus_directrix_review_2026-10-22.md。",
+  "remarks": "PDF图 assets/tikz/C038_equal_distance.tex 展示焦准等距与垂足；C038_perpendicular_bisector.tex 展示初中几何构造，替代抽象轨迹文字；C038_horizontal_openings.tex、C038_vertical_openings.tex 同尺度对照四种开口；C038_minimum_broken_path.tex 展示例3折线拉直与取等点；C038_degenerate_focus.tex 同尺度对照退化直线。验收见 reports/C038_parabola_definition_focus_directrix_review_2026-10-22.md。 2026-10-23 补图：assets/tikz/C038_three_points_distance.tex 同尺度比较y=2的三个点，替代逐点文字列举；assets/tikz/C038_lower_bound_attainability.tex 同尺度比较A=(3,2)和A=(0,2)时取等交点在线段内外，解释下界不一定是最小值。验收见 reports/C038_two_figures_review_2026-10-23.md。",
   "knowledgeNode": "解析几何-圆锥曲线-抛物线-定义与基本关系",
-  "altNodes": "解析几何-轨迹问题"
+  "altNodes": "解析几何-轨迹问题",
+  "enhancement": {
+    "revision": "2026-10-23",
+    "principle": "保留既有教学扩充和六个旧TikZ输入；本轮新增两幅图，三点比较段以图配合简短说明。",
+    "teaching_priority": [
+      "初中几何直观",
+      "数值探索",
+      "平方差速推",
+      "逆向证明",
+      "考场速写",
+      "典型误区与最值取等"
+    ],
+    "files": [
+      "01_statement.tex",
+      "02_explanation.tex",
+      "03_proof.tex",
+      "04_examples.tex",
+      "05_traps.tex",
+      "06_summary.tex",
+      "meta.json"
+    ],
+    "tikz_unchanged": true,
+    "tikz_new_images": 2,
+    "new_tikz_files": [
+      "assets/tikz/C038_three_points_distance.tex",
+      "assets/tikz/C038_lower_bound_attainability.tex"
+    ]
+  }
 }

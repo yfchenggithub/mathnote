@@ -6,3 +6,56 @@
 此模型的 $OF=1$，而焦准距 $p=2$；方程中的一次项系数是 $2p=4$。
 \end{explanationbox}
 \clearpage
+
+% ===== C038 补充：原有模型与图像全部保留 =====
+\begin{explanationbox}
+\textbf{直观理解一：让一个点左右移动，观察两段距离何时相等。}
+仍用原来的 $p=2$：$F=(1,0)$，$\ell:x=-1$。
+把动点放在水平线 $y=2$ 上，设 $P=(x,2)$，则 $H=(-1,2)$。
+\input{assets/tikz/C038_three_points_distance}
+三个位置从左到右，依次为 $PF>PH$、$PF=PH$、$PF<PH$；
+这一高度上只有 $P=(1,2)$ 符合定义。
+换成其他高度，再找相应的等距点；所有这些点合起来才形成整条抛物线。
+
+\textbf{这里最容易产生的直觉：}离焦点近，不意味着离准线也近。
+我们要找的是\textbf{两者刚好一样远}的位置。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{直观理解二：利用熟悉的平方数，看到弯曲的轨迹。}
+由 $p=2$ 得到 $y^2=4x$，反过来看就是
+\[
+\boxed{x=\frac{y^2}{4}}.
+\]
+不用作图软件，代入几个最简单的数即可：
+\[
+\begin{array}{c|ccccc}
+y & -4 & -2 & 0 & 2 & 4 \\ \hline
+x=y^2/4 & 4 & 1 & 0 & 1 & 4
+\end{array}
+\]
+得到 $\,(4,-4),(1,-2),(0,0),(1,2),(4,4)\,$。
+\begin{itemize}[leftmargin=*]
+\item $y$ 和 $-y$ 的平方相同，所以\textbf{上下成对出现}，这就是关于 $x$ 轴对称。
+\item 最小的 $x$ 是 $0$，顶点位于原点；$x$ 不会小于 $0$。
+\item $|y|$ 从 $2$ 加倍到 $4$，$x$ 从 $1$ 变成 $4$；它不是直线，而是弯曲的。
+\end{itemize}
+把它记成\textbf{“纵向偏离的平方 = 焦准距的两倍乘前进距离”}，
+比孤立背 $y^2=2px$ 更容易回想。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{直观理解三：把“初中线段中垂线”扩展成“曲线”。}
+初中学过：到\textbf{两个定点} $F,H$ 距离相等的点，在 $FH$ 的垂直平分线上。
+
+现在 $F$ 固定，但 $H$ 可以沿准线 $\ell$ 移动。
+对每个 $H$，先画 $FH$ 的垂直平分线，再画过 $H$ 且垂直准线的直线，
+两条线的交点就是相应的 $P$。
+\begin{enumerate}[leftmargin=*]
+\item 过 $H$ 作准线的垂线，保证 $PH$ 是\textbf{点到直线的真实距离}。
+\item 让 $P$ 落在 $FH$ 的中垂线上，保证 $PF=PH$。
+\item $H$ 沿准线移动，$P$ 的位置跟着变化，便形成一条曲线。
+\end{enumerate}
+\textbf{熟悉知识之间的联系：}“两点等距”给出直线；“一点与一条直线等距”给出抛物线。
+这也是原有垂直平分线示意图的核心逻辑。
+\end{explanationbox}

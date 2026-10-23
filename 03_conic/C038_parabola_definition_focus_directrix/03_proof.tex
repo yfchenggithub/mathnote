@@ -27,3 +27,69 @@ PF=PH
 一般地，$FH$ 的垂直平分线不会平行于过 $H$ 的准线垂线：否则 $FH$ 就平行于准线，与 $F\notin\ell$ 矛盾。
 所以每个 $H$ 都唯一确定一个轨迹点。
 \end{proofbox}
+
+% ===== C038 补充：新增思路，不改变原两种证明及 TikZ =====
+\clearpage
+\begin{proofbox}
+\textbf{方法三：先代入最简单的数字，再认出平方差（忘记公式时最快恢复）。}
+只看 $p=2$，此时 $F(1,0)$，$\ell:x=-1$，设 $P(x,y)$。
+\[
+PF^2=(x-1)^2+y^2,\qquad PH^2=(x+1)^2.
+\]
+因为 $PF=PH$，所以直接令\textbf{平方相等}，而不用计算两个平方根：
+\[
+\begin{aligned}
+(x-1)^2+y^2&=(x+1)^2,\\
+y^2&=(x+1)^2-(x-1)^2\\
+&=\big[(x+1)-(x-1)\big]\big[(x+1)+(x-1)\big]\\
+&=2\cdot2x=\boxed{4x}.
+\end{aligned}
+\]
+\textbf{整个诀窍：两个平方一相减，$x^2$ 自动消掉。}
+
+换回一般情况，只须把上面的 $1$ 换成 $p/2$：
+\[
+\boxed{\ y^2=(x+p/2)^2-(x-p/2)^2
+=\underbrace{p}_{\text{两式之差}}\cdot\underbrace{2x}_{\text{两式之和}}=2px\ }.
+\]
+这是\textbf{考场速写法}：写出左右两个平方，直接用平方差，少一次展开。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法四：只用初中几何，先确定顶点和对称轴。}
+令 $D$ 为焦点 $F$ 在准线上的垂足。
+\begin{enumerate}[leftmargin=*]
+\item \textbf{对称轴为什么是 $FD$？} 关于直线 $FD$ 对称时，焦点 $F$ 不动，准线 $\ell$ 也与自身重合。
+因此，点 $P$ 满足的等距条件在对称后仍成立；轨迹关于 $FD$ 对称。
+\item \textbf{顶点为什么在中点？} 在 $FD$ 上找一个满足定义的点 $O$。
+因 $O$ 到准线的垂距为 $OD$，于是 $OF=OD$，所以 $O$ 是 $FD$ 的中点。
+\item \textbf{为什么开口背离准线？} 按定义求出的标准方程是 $y^2=2px$。
+因为 $p>0$ 且 $y^2\ge0$，所以 $x\ge0$；轨迹位于过顶点、平行于准线的直线的\textbf{焦点一侧}。
+\end{enumerate}
+前两步完全不需要坐标，第三步只需一个平方数非负的事实。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法五：反过来验证方程，一步确认没有多余点。}
+假设 $P(x,y)$ 满足 $y^2=2px$，$p>0$。
+由于 $x\ge0$，有 $x+p/2>0$。于是
+\[
+\begin{aligned}
+PF^2&=(x-p/2)^2+y^2\\
+&=(x-p/2)^2+2px\\
+&=(x+p/2)^2=PH^2.
+\end{aligned}
+\]
+两边是非负的长度，故 $PF=PH$，点 $P$ 必满足定义。
+
+\textbf{意义：}原有“由等距推出方程”说明\textbf{没有漏掉满足定义的点}；
+这里“由方程推出等距”说明\textbf{方程没有引入多余的点}。
+两个方向合起来，才是严格的“当且仅当”。
+
+\textbf{顺手得到的结论：}
+\[
+\boxed{PF=PH=x+\frac p2\ge\frac p2}.
+\]
+所以从抛物线上任意一点到焦点的距离，最小值是 $p/2$，
+并且只有在顶点 $O=(0,0)$ 处取到。
+\end{proofbox}
