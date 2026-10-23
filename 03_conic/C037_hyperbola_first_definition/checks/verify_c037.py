@@ -26,4 +26,15 @@ assert 7+1<10 and abs(13-7)<10<13+7
 m=json.loads((ROOT/'03_conic/C037_hyperbola_first_definition/meta.json').read_text(encoding='utf-8'))
 for uid in m['relations']['related_ids']:assert list((ROOT/'03_conic').glob(uid+'_*'))
 assert r'\subsection{C037 ' in (ROOT/'03_conic/C037_hyperbola_first_definition/main.tex').read_text(encoding='utf-8')
-print('C037 PASS: 3208 sampled states on both branches; actual figure point, both example points, boundaries, metadata')
+# New confocal comparison: independently measure distances from the plotted point.
+comparison=(ROOT/'assets/tikz/C037_confocal_sum_difference.tex').read_text(encoding='utf-8')
+ellipse_b=float(re.search(r'y radius=([\d.]+)',comparison)[1])
+close(ellipse_b**2,11);close(math.hypot(5,ellipse_b),6)
+assert comparison.count('scale=.37')==2
+projection=(ROOT/'assets/tikz/C037_common_height_projection.tex').read_text(encoding='utf-8')
+assert '(3.75,3)' in projection and '(3.75,0)' in projection
+x,y=3.75,3
+r1,r2=math.hypot(x+5,y),math.hypot(x-5,y)
+close(r1,9.25);close(r2,3.25);close(r1-r2,6)
+close(r1*r1-r2*r2,4*5*x);close(x*x/9-y*y/16,1)
+print('C037 PASS: 3208 branch states; existing examples and boundaries; new confocal comparison and common-height projection; metadata')

@@ -1,5 +1,11 @@
 \begin{proofbox}
 \textbf{方法一：平方差配合距离差（优先）。}
+\input{assets/tikz/C037_common_height_projection}
+图中 $P=(15/4,3)$、$H=(15/4,0)$，两条焦半径是两个直角三角形的斜边。
+它们共用高 $PH$，所以勾股式相减时同一个高度平方消去。
+图中虽有 $a<x<c$，下面的 $(x\pm c)^2$ 已自动包含水平距离的绝对值，
+故推导对 $x\ge c$ 及下半支也适用。
+\par\medskip\noindent
 设 $F_1(-c,0),F_2(c,0)$，$r_1=PF_1,r_2=PF_2$。
 右支取 $r_1-r_2=2a$，距离公式给出
 \[
@@ -44,5 +50,81 @@ cx-a^2=\pm ar_2.
 差为零时，两距离相等，点在垂直平分线上；差等于焦距时，只能共线且位于焦点线段外，含两个焦点。
 \input{assets/tikz/C037_difference_boundary}
 差大于焦距时为空集。正常的双曲线须排除以上边界，即 $0<2a<2c$。
+\end{proofbox}
+\clearpage
+
+% ===== C037 扩充区开始：原有方法一、方法二及边界证明全部保留 =====
+\begin{proofbox}
+\textbf{补充方法三：考场“最少步骤”版——差平方，一消一留。}
+设 $F_1(-c,0)$、$F_2(c,0)$，动点 $P(x,y)$。
+若在右支，记 $r_1=PF_1,r_2=PF_2$，且 $r_1-r_2=2a$。
+\textbf{第一步：} 展开两条距离的平方，只保留相减的结果（$y^2$ 自动消掉）：
+\[
+\underbrace{\bigl((x+c)^2+y^2\bigr)}_{r_1^2}
+-\underbrace{\bigl((x-c)^2+y^2\bigr)}_{r_2^2}=4cx.
+\]
+\textbf{第二步：} 利用\textbf{平方差 $=$ 差 $\times$ 和}，
+\[
+(r_1-r_2)(r_1+r_2)=4cx
+\quad\Longrightarrow\quad r_1+r_2=\frac{2cx}{a}.
+\]
+一加一减解出
+\[
+\boxed{r_1=\frac{cx}{a}+a,\qquad r_2=\frac{cx}{a}-a}\quad(x\ge a).
+\]
+\textbf{第三步：} 用第二个距离的勾股式还原 $y^2$：
+\[
+\begin{aligned}
+\left(\frac{cx}{a}-a\right)^2&=(x-c)^2+y^2,\\
+\frac{c^2x^2}{a^2}-2cx+a^2
+ &=x^2-2cx+c^2+y^2,\\
+y^2&=\frac{c^2-a^2}{a^2}x^2-(c^2-a^2)
+   =\frac{b^2}{a^2}(x^2-a^2).
+\end{aligned}
+\]
+由 $b^2>0$ 立即得到 $x^2/a^2-y^2/b^2=1$。
+\textbf{速记顺序：两距离平方相减 $\to$ 平方差 $\to$ 解出一条距离 $\to$ 勾股还原。}
+这和方法一是同一原理，只是将容易漏写的\emph{中间桥梁}独立展开。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{补充方法四：先用数轴找顶点，再证明分支为何从顶点开始。}
+沿焦点所在的 $x$ 轴，取 $-c\le x\le c$，有
+\[
+PF_1=x+c,\qquad PF_2=c-x,
+\quad |PF_1-PF_2|=2|x|.
+\]
+令 $2|x|=2a$，便得两个顶点 $A_1(-a,0),A_2(a,0)$。
+在右支，方法一已算出
+\[
+r_1+r_2=\frac{2cx}{a}.
+\]
+而三角形两边之和至少为焦距 $2c$，故
+\[
+\frac{2cx}{a}\ge 2c
+\quad\Longrightarrow\quad x\ge a.
+\]
+这说明右支没有比右顶点更靠左的点；
+左支镜像可得 $x\le-a$。
+注意：此处等号对应 $P$ 位于焦点连线上，
+所以\textbf{顶点也是焦点三角形允许退化的位置}。
+
+\textbf{补充方法五：从第一定义顺手看见“第二定义”（选学）。}
+方法一配合左右支的距离正号，可统一写为
+\[
+PF_2=\left|\frac{cx}{a}-a\right|
+=\frac ca\left|x-\frac{a^2}{c}\right|.
+\]
+点 $P(x,y)$ 到直线 $x=a^2/c$ 的距离正是 $|x-a^2/c|$。
+因此同一条双曲线也满足
+\[
+\boxed{\frac{PF_2}{d(P,\,x=a^2/c)}=\frac ca>1},
+\]
+其中 $d(P,\,x=a^2/c)$ 表示点到直线的距离。
+这把熟悉的“点到直线距离”与双曲线联系起来；
+初次学习可只掌握前四种角度，不必增加记忆负担。
+
+\textbf{核验提醒：} 凡是平方或去掉绝对值后得到的方程，
+必须再确认距离为非负，并验证左右支的符号；原文的反向验证应保留。
 \end{proofbox}
 \clearpage

@@ -1,0 +1,35 @@
+% Equal units in both panels; foci (-5,0),(5,0).
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {同一对焦点：椭圆固定距离和，双曲线固定距离差};
+\node at (3.6,6.65) {椭圆：$a=6,\ c=5$};
+\node at (10.8,6.65) {双曲线：$a=3,\ c=5$};
+\begin{scope}[shift={(3.6,4.25)},scale=.37]
+\draw[black!40] (-7,0)--(7,0);
+\draw[blue,very thick] (0,0) ellipse [x radius=6,y radius=3.3166247904];
+\draw[orange!85!black,thick] (-5,0)--(0,3.3166247904)--(5,0);
+\fill (-5,0) circle (2pt) node[below right=5pt] {$F_1$};
+\fill (5,0) circle (2pt) node[below left=5pt] {$F_2$};
+\fill (0,3.3166247904) circle (2pt) node[above=5pt] {$P$};
+\node at (-2.5,.75) {$6$};
+\node at (2.5,.75) {$6$};
+\end{scope}
+\begin{scope}[shift={(10.8,4.25)},scale=.37]
+\draw[black!40] (-7,0)--(7,0);
+\draw[blue,very thick,domain=-4.5:4.5,samples=121,variable=\t]
+ plot ({3*sqrt(1+\t*\t/16)},\t);
+\draw[blue,very thick,domain=-4.5:4.5,samples=121,variable=\t]
+ plot ({-3*sqrt(1+\t*\t/16)},\t);
+\draw[orange!85!black,thick] (-5,0)--(3.75,3)--(5,0);
+\fill (-5,0) circle (2pt) node[below=5pt] {$F_1$};
+\fill (5,0) circle (2pt) node[below=5pt] {$F_2$};
+\fill (3.75,3) circle (2pt) node[above left=5pt] {$Q$};
+\node[above left=3pt] at (-.625,1.5) {$9.25$};
+\node[right=6pt] at (4.375,1.5) {$3.25$};
+\end{scope}
+\node at (3.6,2.15) {$PF_1+PF_2=6+6=12>10$};
+\node at (10.8,2.15) {$|QF_1-QF_2|=9.25-3.25=6<10$};
+\node at (3.6,1.35) {和 $2a>2c$，所以 $a>c$};
+\node at (10.8,1.35) {差 $2a<2c$，所以 $a<c$};
+\node[anchor=west] at (.7,.55) {两图同尺度、焦点均为 $(\pm5,0)$；橙色线段是到两焦点的真实距离};
+\end{tikzpicture}\end{center}

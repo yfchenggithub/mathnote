@@ -1,0 +1,28 @@
+% P=(15/4,3), H=(15/4,0); uniform units, a=3,b=4,c=5.
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {两条焦半径共用一条高：平方相减时，高的平方消掉};
+\begin{scope}[shift={(6.9,3.5)},scale=.78]
+\draw[->,black!40] (-6,0)--(6.5,0) node[right] {$x$};
+\draw[blue,very thick,domain=0:4.1,samples=101,variable=\t]
+ plot ({3*sqrt(1+\t*\t/16)},\t);
+\draw[orange!85!black,thick] (-5,0)--(3.75,3)
+ node[pos=.43,above=6pt] {$r_1=9.25$};
+\draw[orange!85!black,thick] (5,0)--(3.75,3)
+ node[midway,right=9pt] {$r_2=3.25$};
+\draw[violet,thick,dashed] (3.75,3)--(3.75,0)
+ ;
+\node[violet] at (1.1,.8) {$PH=3$};
+\draw[violet] (3.47,0)--(3.47,.28)--(3.75,.28);
+\fill (-5,0) circle (2pt) node[above left=4pt] {$F_1(-5,0)$};
+\fill (5,0) circle (2pt) node[below right=4pt] {$F_2(5,0)$};
+\fill (3.75,0) circle (2pt) node[below left=5pt] {$H$};
+\fill (3.75,3) circle (2pt) node[above left=5pt] {$P(3.75,3)$};
+\draw[<->,black!60] (-5,-.85)--(3.75,-.85)
+ node[midway,below=3pt] {$F_1H=8.75$};
+\draw[<->,black!60] (3.75,-1.75)--(5,-1.75)
+ node[midway,below=3pt] {$HF_2=1.25$};
+\end{scope}
+\node[anchor=west] at (.7,1.05) {$r_1^2-r_2^2=(8.75^2+3^2)-(1.25^2+3^2)=75=4\cdot5\cdot3.75$};
+\node[anchor=west] at (.7,.5) {推广：$(x+c)^2+y^2-\bigl((x-c)^2+y^2\bigr)=4cx$；不必先解出 $y$};
+\end{tikzpicture}\end{center}
