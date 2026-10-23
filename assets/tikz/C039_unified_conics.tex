@@ -1,0 +1,90 @@
+% C039 -- 焦点-准线定义统一三种圆锥曲线（数学坐标精确）
+% 三个面板中 F=(2,0), l:x=0；x、y 使用同一比例。
+% 左 e=3/5：圆心 (25/8,0)，a=15/8，b=3/2。
+% 中 e=1：y^2=4(x-1)。
+% 右 e=3/2：双曲线中心(-8/5,0)，a=12/5，b^2=36/5。
+% 所有样例点均由相应曲线方程生成，连接线端点不会偏离曲线。
+\begin{tikzpicture}[x=1cm,y=1cm,line cap=round,line join=round]
+  \definecolor{C039Curve}{RGB}{16,119,159}
+  \definecolor{C039Focal}{RGB}{220,117,47}
+  \definecolor{C039Dist}{RGB}{127,83,174}
+  \definecolor{C039Panel}{RGB}{248,250,252}
+
+  % ---- 左：椭圆，e=3/5 ----
+  \begin{scope}[shift={(0,0)}]
+    \fill[C039Panel,rounded corners=3pt] (0,0) rectangle (4.64,4.22);
+    \draw[black!15,rounded corners=3pt] (0,0) rectangle (4.64,4.22);
+    \node[font=\small\bfseries] at (2.32,3.84) {椭圆：$e=\tfrac35<1$};
+    \begin{scope}[shift={(2.38,2.12)},x=0.40cm,y=0.40cm]
+      \draw[black!28,thin] (-5.2,0)--(5.4,0);
+      \draw[black!52,densely dashed,semithick] (0,-2.65)--(0,2.65);
+      \draw[C039Curve,very thick,samples=180,domain=0:360,variable=\t]
+        plot ({3.125+1.875*cos(\t)},{1.5*sin(\t)});
+      % P=(2,6/5) 在椭圆上；PF=6/5，PH=2，故 PF/PH=3/5
+      \draw[C039Dist,thick,densely dashed] (0,1.2)--(2,1.2);
+      \draw[C039Focal,very thick] (2,0)--(2,1.2);
+      \draw[black!55,thin] (0,0.98)--(0.22,0.98)--(0.22,1.2);
+      \fill[C039Focal] (2,0) circle (2.0pt);
+      \fill[C039Curve] (2,1.2) circle (2.0pt);
+      \fill[C039Dist] (0,1.2) circle (1.35pt);
+      \node[font=\scriptsize,below right=1pt] at (2,0) {$F$};
+      \node[font=\scriptsize,above right=1pt] at (2,1.2) {$P$};
+      \node[font=\scriptsize,above left=1pt] at (0,1.2) {$H$};
+      \node[font=\scriptsize,below left=1pt] at (0,-2.62) {$\ell$};
+    \end{scope}
+    \node[font=\footnotesize,text=C039Curve] at (2.32,0.43) {封闭曲线：$PF<PH$};
+  \end{scope}
+
+  % ---- 中：抛物线，e=1 ----
+  \begin{scope}[shift={(4.85,0)}]
+    \fill[C039Panel,rounded corners=3pt] (0,0) rectangle (4.64,4.22);
+    \draw[black!15,rounded corners=3pt] (0,0) rectangle (4.64,4.22);
+    \node[font=\small\bfseries] at (2.32,3.84) {抛物线：$e=1$};
+    \begin{scope}[shift={(2.38,2.12)},x=0.40cm,y=0.40cm]
+      \draw[black!28,thin] (-5.2,0)--(5.4,0);
+      \draw[black!52,densely dashed,semithick] (0,-2.65)--(0,2.65);
+      \draw[C039Curve,very thick,samples=150,domain=-2.62:2.62,variable=\t]
+        plot ({1+\t*\t/4},{\t});
+      % P=(34/25,6/5)，横坐标 1+(6/5)^2/4=34/25
+      \draw[C039Dist,thick,densely dashed] (0,1.2)--(1.36,1.2);
+      \draw[C039Focal,very thick] (2,0)--(1.36,1.2);
+      \draw[black!55,thin] (0,0.98)--(0.22,0.98)--(0.22,1.2);
+      \fill[C039Focal] (2,0) circle (2.0pt);
+      \fill[C039Curve] (1.36,1.2) circle (2.0pt);
+      \fill[C039Dist] (0,1.2) circle (1.35pt);
+      \node[font=\scriptsize,below right=1pt] at (2,0) {$F$};
+      \node[font=\scriptsize,above right=1pt] at (1.36,1.2) {$P$};
+      \node[font=\scriptsize,above left=1pt] at (0,1.2) {$H$};
+      \node[font=\scriptsize,below left=1pt] at (0,-2.62) {$\ell$};
+    \end{scope}
+    \node[font=\footnotesize,text=C039Curve] at (2.32,0.43) {单支曲线：$PF=PH$};
+  \end{scope}
+
+  % ---- 右：双曲线，e=3/2 ----
+  \begin{scope}[shift={(9.70,0)}]
+    \fill[C039Panel,rounded corners=3pt] (0,0) rectangle (4.64,4.22);
+    \draw[black!15,rounded corners=3pt] (0,0) rectangle (4.64,4.22);
+    \node[font=\small\bfseries] at (2.32,3.84) {双曲线：$e=\tfrac32>1$};
+    \begin{scope}[shift={(2.38,2.12)},x=0.40cm,y=0.40cm]
+      \draw[black!28,thin] (-5.2,0)--(5.4,0);
+      \draw[black!52,densely dashed,semithick] (0,-2.65)--(0,2.65);
+      \draw[C039Curve,very thick,samples=150,domain=-2.55:2.55,variable=\t]
+        plot ({-1.6+2.4*sqrt(1+\t*\t/7.2)},{\t});
+      \draw[C039Curve,very thick,samples=150,domain=-2.55:2.55,variable=\t]
+        plot ({-1.6-2.4*sqrt(1+\t*\t/7.2)},{\t});
+      % P 的横坐标用精确表达式算出，不使用四舍五入后的坐标绘点。
+      \pgfmathsetmacro{\Cxxx}{-1.6+2.4*sqrt(1+1.44/7.2)}
+      \draw[C039Dist,thick,densely dashed] (0,1.2)--(\Cxxx,1.2);
+      \draw[C039Focal,very thick] (2,0)--(\Cxxx,1.2);
+      \draw[black!55,thin] (0,0.98)--(0.22,0.98)--(0.22,1.2);
+      \fill[C039Focal] (2,0) circle (2.0pt);
+      \fill[C039Curve] (\Cxxx,1.2) circle (2.0pt);
+      \fill[C039Dist] (0,1.2) circle (1.35pt);
+      \node[font=\scriptsize,below right=1pt] at (2,0) {$F$};
+      \node[font=\scriptsize,above right=1pt] at (\Cxxx,1.2) {$P$};
+      \node[font=\scriptsize,above left=1pt] at (0,1.2) {$H$};
+      \node[font=\scriptsize,below left=1pt] at (0,-2.62) {$\ell$};
+    \end{scope}
+    \node[font=\footnotesize,text=C039Curve] at (2.32,0.43) {两支曲线：$PF>PH$};
+  \end{scope}
+\end{tikzpicture}

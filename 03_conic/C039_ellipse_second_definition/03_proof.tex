@@ -126,3 +126,40 @@ $PF_R=e\,d(P,\ell_R)$。
 \item \textbf{求轨迹或证反向：} 把 $PF=e\,d$ 写成距离方程，平方化简为椭圆。
 \end{enumerate}
 \end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{补充：为什么一个距离比能统一三种圆锥曲线？（最短代数验证）}
+固定焦点 $F=(2,0)$ 和准线 $\ell:x=0$，只让 $e>0$ 变化。
+设任意点 $P=(x,y)$，到焦点的距离为 $\sqrt{(x-2)^2+y^2}$，
+到准线的垂距为 $|x|$。由于两边都是非负数，
+\[
+\begin{aligned}
+PF=e\,d(P,\ell)
+&\Longleftrightarrow \sqrt{(x-2)^2+y^2}=e|x|\\
+&\Longleftrightarrow (x-2)^2+y^2=e^2x^2\\
+&\Longleftrightarrow
+\boxed{(1-e^2)x^2+y^2-4x+4=0}.
+\end{aligned}
+\]
+\textbf{观察 $x^2$ 的系数 $1-e^2$，三种轨迹自然出现：}
+\begin{enumerate}[leftmargin=*]
+\item \textbf{$0<e<1$：} $1-e^2>0$，配方为
+\[
+(1-e^2)\left(x-\frac{2}{1-e^2}\right)^2+y^2
+=\frac{4e^2}{1-e^2}>0,
+\]
+两个平方项系数均为正，表示椭圆。
+\item \textbf{$e=1$：} $x^2$ 项恰好消失，只剩
+\[\boxed{y^2=4(x-1)},\]
+这是焦点 $(2,0)$、准线 $x=0$ 的抛物线。
+\item \textbf{$e>1$：} 令 $s=e^2-1>0$，配方为
+\[
+s\left(x+\frac2s\right)^2-y^2
+=\frac{4e^2}{s}>0,
+\]
+两个平方项异号，表示双曲线的两支。
+\end{enumerate}
+\textbf{要点：} 我们从始至终\emph{没有改变焦点、准线或距离公式}，只改变常数 $e$。
+这就解释了第二定义为何值得单独学习。
+\end{proofbox}
+
