@@ -1,8 +1,32 @@
 \begin{proofbox}
+\textbf{考场最快证明（已经知道焦半径公式时：两行足够）。}
+设椭圆上点 $P(x,y)$，记 $e=c/a$。右焦半径的熟悉结论是 $PF_R=a-ex$。
+右准线在 $x=a^2/c=a/e$，而 $x\le a<a/e$，因此
+\[
+\boxed{e\,d(P,\ell_R)=e\Bigl(\frac{a}{e}-x\Bigr)=a-ex=PF_R.}
+\]
+左边完全对称：$e\,d(P,\ell_L)=e(a/e+x)=a+ex=PF_L$。
+\textbf{考场可直接写：}“$PF_R=a-ex=e(a/e-x)=e\,d(P,\ell_R)$，左侧同理。”
+但要注意：\textbf{若题目要求从头证明，则不能不加说明地引用尚未证明的焦半径公式}；可用下面的第一定义法或坐标法。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
 \textbf{方法一：由第一定义作和差，避免根式展开（优先）。}
 设 $P(x,y)$ 在椭圆上，记 $r_L=PF_L,r_R=PF_R$。
 第一定义给出 $r_L+r_R=2a$，距离平方差给出 $r_L^2-r_R^2=4cx$。
 两式相除后解得
+\textbf{把容易跳过的运算拆成最小的三步：}
+\[
+\begin{aligned}
+r_L^2-r_R^2
+&=\bigl[(x+c)^2+y^2\bigr]-\bigl[(x-c)^2+y^2\bigr]\\
+&=4cx,\\
+r_L-r_R&=\frac{4cx}{r_L+r_R}=\frac{4cx}{2a}=\frac{2cx}{a},\\
+2r_R&=(r_L+r_R)-(r_L-r_R)=2a-\frac{2cx}{a}.
+\end{aligned}
+\]
+第一行的 $y^2$ 直接抵消，两个平方一减只剩 $4cx$；第二行用已知的“两焦距之和 $2a$”除一下；第三行“和减差”取出右焦半径。
+因此 $r_R=a-cx/a$、$r_L=a+cx/a$。整个过程只用勾股、平方差和加减法，不用展开两个根式。
 \[
 r_R=a-\frac ca x=a-ex,\qquad r_L=a+ex.
 \]
@@ -41,4 +65,64 @@ PF_R^2-e^2d(P,\ell_R)^2
 右端为正，两个平方项系数均正，除以右端即得到平移后的椭圆标准方程。
 半轴为 $a=qe/(1-e^2)$，$b=qe/\sqrt{1-e^2}$，半焦距 $c=qe^2/(1-e^2)$，故 $c/a=e$。
 由于 $e>0$，原准线 $x=0$ 上没有点满足距离等式，距离比始终有意义。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{补充方法三：最基础的坐标法（只用勾股定理和椭圆方程）。}
+\textbf{适合：} 没记住焦半径公式，也不想先用第一定义。
+设 $P(x,y)$ 在 $x^2/a^2+y^2/b^2=1$ 上。先把方程变成
+\[
+y^2=b^2\left(1-\frac{x^2}{a^2}\right).
+\]
+用两点距离公式求右焦半径的\emph{平方}：
+\[
+\begin{aligned}
+PF_R^2&=(x-c)^2+y^2\\
+&=x^2-2cx+c^2+b^2-\frac{b^2}{a^2}x^2\\
+&=\frac{c^2}{a^2}x^2-2cx+a^2
+=\left(a-\frac ca x\right)^2.
+\end{aligned}
+\]
+这里仅用到 $a^2=b^2+c^2$。
+因为 $|x|\le a$、$0<e<1$，有 $a-ex\ge a-ea>0$，所以开方后
+$PF_R=a-ex$，并不是 $|a-ex|$ 带来难题。
+再看准距：$d(P,\ell_R)=a/e-x$，故
+\[
+PF_R=a-ex=e\left(\frac ae-x\right)=e\,d(P,\ell_R).
+\]
+把 $x$ 换成 $-x$ 就得到左焦点版本。
+\textbf{最值得掌握的一步：} 把 $y^2$ 用椭圆方程消掉后，$PF_R^2$ 自动变成一个完全平方。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{补充方法四：从距离比反推椭圆（最直接的逆向证明）。}
+\textbf{适合：} 已知一个焦点、一条对应准线和比例，要证明轨迹就是椭圆。
+取 $F_R=(c,0)$、$\ell_R:x=a^2/c$、$e=c/a$，设任意平面点 $P(x,y)$ 满足
+$PF_R=e\,d(P,\ell_R)$。
+直接写距离，\textbf{两边都是非负长度}，所以平方前后等价：
+\[
+\begin{aligned}
+\sqrt{(x-c)^2+y^2}
+ &=\frac ca\left|x-\frac{a^2}{c}\right|\\
+\Longleftrightarrow\quad (x-c)^2+y^2
+ &=\frac{c^2}{a^2}\left(x-\frac{a^2}{c}\right)^2\\
+\Longleftrightarrow\quad \frac{b^2}{a^2}x^2+y^2&=b^2\\
+\Longleftrightarrow\quad \boxed{\frac{x^2}{a^2}+\frac{y^2}{b^2}=1}.
+\end{aligned}
+\]
+在第二行展开时，\textbf{左右的 $-2cx$ 恰好消掉}，这是运算最省力的地方。
+最后得到的椭圆全部位于 $|x|\le a<a^2/c$，因此不存在准距为零或多出支的问题。
+\textbf{重要区别：}“取一个顶点能确定候选准线”不等于“所有点都满足”；
+上述等价变形才真正证明了轨迹的双向对应。
+
+\medskip
+\textbf{方法怎么选？}
+\begin{enumerate}[leftmargin=*]
+\item \textbf{考场速证：} 已知 $PF_R=a-ex$ 时，直接把它改写为 $e(a/e-x)$。
+\item \textbf{理解门槛最低：} 由第一定义 $r_L+r_R=2a$ 和勾股所得 $r_L^2-r_R^2=4cx$ 求出焦半径。
+\item \textbf{只给标准方程：} 用 $y^2=b^2(1-x^2/a^2)$ 把距离平方化成完全平方。
+\item \textbf{求轨迹或证反向：} 把 $PF=e\,d$ 写成距离方程，平方化简为椭圆。
+\end{enumerate}
 \end{proofbox}

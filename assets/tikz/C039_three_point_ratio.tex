@@ -1,0 +1,33 @@
+% Same ellipse, focus and directrix in all three panels; equal units.
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {同一椭圆上换三个位置：距离改变，焦准比不变};
+\foreach \cx/\px/\py in {2.1/5/0,6.9/0/3,11.7/-5/0} {
+  \node at (\cx,6.65) {$P=(\px,\py)$};
+  \begin{scope}[shift={(\cx,4.6)},scale=.28]
+    \draw[black!35] (-5.5,0)--(6.6,0);
+    \draw[blue,very thick] (0,0) ellipse (5 and 3);
+    \draw[violet,thick] (6.25,-3.7)--(6.25,4.2) node[above=3pt] {$\ell_R$};
+    \draw[orange!85!black,line width=1.6pt] (4,0)--(\px,\py);
+    \draw[violet,dashed,thick] (\px,\py)--(6.25,\py);
+    \fill (4,0) circle (2pt) node[below left=3pt] {$F_R$};
+    \fill[violet] (6.25,\py) circle (2pt) node[right=3pt] {$H$};
+    \fill (\px,\py) circle (2pt);
+    \ifnum\px=5
+      \node[above=20pt] at (\px,\py) {$P$};
+    \else\ifnum\px=-5
+      \node[above=20pt] at (\px,\py) {$P$};
+    \else
+      \node[above=7pt] at (\px,\py) {$P$};
+    \fi\fi
+  \end{scope}
+}
+\node at (2.1,2.85) {$PF_R=1$};
+\node at (6.9,2.85) {$PF_R=5$};
+\node at (11.7,2.85) {$PF_R=9$};
+\node at (2.1,2.1) {$PH=5/4$};
+\node at (6.9,2.1) {$PH=25/4$};
+\node at (11.7,2.1) {$PH=45/4$};
+\foreach \cx in {2.1,6.9,11.7} {\node at (\cx,1.35) {$PF_R/PH=4/5$};}
+\node[anchor=west] at (.7,.55) {同尺度；$F_R=(4,0)$，$\ell_R:x=25/4$；橙实线是焦半径，紫虚线是准距};
+\end{tikzpicture}\end{center}
