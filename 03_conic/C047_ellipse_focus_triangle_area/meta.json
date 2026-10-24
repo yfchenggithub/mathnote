@@ -6,9 +6,11 @@
     "alias": [
       "焦点三角形面积",
       "b方tan半角",
-      "椭圆三角形面积公式"
+      "椭圆三角形面积公式",
+      "半角正切面积公式",
+      "椭圆焦点三角形顶角范围"
     ],
-    "summary": "椭圆上一点与两焦点构成的三角形面积等于短半轴平方乘以顶角半角正切。",
+    "summary": "椭圆焦点三角形面积S=b²tan(θ/2)=c|y|；面积上界cb，顶角上界2arctan(c/b)。",
     "difficulty": 3,
     "category": "解析几何",
     "tags": [
@@ -16,7 +18,10 @@
       "焦点三角形",
       "面积公式",
       "角度关系",
-      "正切"
+      "正切",
+      "内切圆证明",
+      "余弦定理",
+      "存在性检验"
     ]
   },
   "search": {
@@ -30,13 +35,21 @@
       "∠F1PF2面积",
       "椭圆标准方程",
       "短半轴平方",
-      "三角形面积角度"
+      "三角形面积角度",
+      "焦点三角形底乘高",
+      "S=c|y|",
+      "椭圆焦点三角形最快证明",
+      "椭圆焦点三角形内切圆证明",
+      "顶角存在性",
+      "θ最大值"
     ],
     "synonyms": [
       "椭圆焦点三角形面积公式",
       "b方乘以tan半角",
       "tan半角公式",
-      "焦点三角面积"
+      "焦点三角面积",
+      "焦点三角形余弦定理证明",
+      "焦点三角形内切圆切线段证明"
     ],
     "intents": [
       "求面积",
@@ -71,7 +84,11 @@
       "\\theta",
       "\\sin\\theta",
       "1+\\cos\\theta",
-      "\\frac{\\sin\\theta}{1+\\cos\\theta}"
+      "\\frac{\\sin\\theta}{1+\\cos\\theta}",
+      "c|y|",
+      "cb",
+      "2arctan(c/b)",
+      "mn(1+cosθ)=2b²"
     ],
     "pinyin": "tuoyuanjiaodiansanjiaoxingmianjigongshi",
     "pinyinAbbr": "tyjdsjx"
@@ -94,7 +111,12 @@
       "S = b^{2}\\cdot\\frac{\\sin\\theta}{1+\\cos\\theta}",
       "S=c|y|",
       "S_{max}=cb",
-      "\\tan(\\theta/2)\\le c/b"
+      "\\tan(\\theta/2)\\le c/b",
+      "m+n=2a",
+      "mn(1+\\cos\\theta)=2b^2",
+      "S=c\\,d\\quad (d=\\mathrm{dist}(P,F_1F_2))",
+      "\\theta_{\\max}=2\\arctan(c/b)",
+      "\\theta\\ge\\pi/2\\text{ 可取}\\iff c\\ge b"
     ],
     "variables": {
       "a": "长半轴",
@@ -103,21 +125,25 @@
       "θ": "∠F1PF2",
       "S": "焦点三角形面积"
     },
-    "conditions": "椭圆a>b>0，c²=a²-b²；P在椭圆上且非长轴端点。实际0<θ≤2arctan(c/b)<π；S≤cb。端点退化可延伸S=θ=0。",
-    "conclusions": "焦点三角形面积 $S = b^2\\tan(\\theta/2)$。"
+    "conditions": "椭圆标准式x²/a²+y²/b²=1，a>b>0，c²=a²-b²；P在椭圆上且不在长轴端点。0<θ≤2arctan(c/b)<π；0<S≤cb。端点退化按极限延伸S=θ=0。S=c|y|只用于中心原点长轴水平的坐标系，普遍形式S=c·d，d为P到焦点连线的距离。",
+    "conclusions": "S=b²tan(θ/2)=c|y|；Smax=cb；θmax=2arctan(c/b)。指定角度时须检查可实现性。"
   },
   "content": {
-    "statement": "设椭圆方程为 $\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1$（$a>b>0$），$F_1,F_2$ 为焦点，$P$ 为椭圆上异于长轴端点的任意一点，记 $\\theta=\\angle F_1PF_2$，则焦点三角形 $\\triangle PF_1F_2$ 的面积 $S = b^2\\tan\\frac{\\theta}{2}$。",
+    "statement": "椭圆 x²/a²+y²/b²=1 (a>b>0)，c²=a²-b²，焦点F1(-c,0),F2(c,0)。对椭圆上非长轴端点P=(x,y)，θ=∠F1PF2，S=△PF1F2面积，则S=b²tan(θ/2)=b²sinθ/(1+cosθ)=c|y|，0<θ≤2arctan(c/b)，0<S≤cb。退化端点可按极限延伸S=θ=0；平移旋转后底高式须改为S=c·d。",
     "derivation": [
-      "几何法：半周长a+c；切线段PD=a-c，半角正切=r/PD；面积分割S=r(a+c)，故S=b²tan(θ/2)。",
-      "余弦定理法：m+n=2a、底边2c，得mn(1+cosθ)=2b²，再代两边夹角面积式。",
-      "底乘高S=c|y|≤cb，结合半角正切递增给顶角上界；短轴端点取等。"
+      "最快证明：设m=PF1,n=PF2，由m+n=2a与余弦定理(2c)²=(m+n)²−2mn(1+cosθ)，得mn(1+cosθ)=2b²；于是S=mn·sinθ/2=b²tan(θ/2)。",
+      "最低门槛几何证明：内切圆切点D位于PF2，顶点处切线段PD=s−F1F2=(a+c)−2c=a−c。r=(a−c)tan(θ/2)，S=r·s=(a²−c²)tan(θ/2)=b²tan(θ/2)。",
+      "常规坐标法：P(x,y)在椭圆上，PF1=a+cx/a、PF2=a−cx/a；面积S=c|y|。两焦向量叉积绝对值2c|y|，两向量模长之积加内积等于2b²，由半角正切关系得tan(θ/2)=S/b²。",
+      "范围证明：底边2c、高|y|≤b，S=c|y|≤cb；因θ/2∈(0,π/2)且tan单调，θ≤2arctan(c/b)，等号均在P=(0,±b)处取得。"
     ],
-    "intuition": "底边固定2c，面积由高度决定；半角公式能快速消去焦半径，但可实现角度仍受a,b,c限制。",
+    "intuition": "底边是焦距2c，焦点三角形面积=半焦距c乘高；半角正切与面积同步变化。几何法中(a−c)(a+c)=b²解释面积系数来源。",
     "common_tricks": [
       "已知面积求角度时，反解 $\\tan\\frac{\\theta}{2} = \\frac{S}{b^2}$。",
       "注意 $P$ 不能是长轴端点（此时三角形退化，公式仍给出 $S=0$）。",
-      "可与椭圆第一定义、余弦定理联用，但公式本身已化简。"
+      "可与椭圆第一定义、余弦定理联用，但公式本身已化简。",
+      "方法选择：最快用椭圆第一定义加余弦定理；最低门槛用内切圆切线段；坐标型题用S=c|y|。",
+      "当c<b时顶角不可能为直角或钝角；c=b时短轴端点顶角恰为90°；c>b时可以出现钝角。",
+      "中心平移或长轴旋转后，底高法改写S=c·d，其中d是P到焦点所在直线的距离。"
     ]
   },
   "usage": {
@@ -175,10 +201,10 @@
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-23",
-    "updated_at": "2026-10-23"
+    "updated_at": "2026-10-24"
   },
   "isPro": 0,
-  "remarks": "PDF图 assets/tikz/C047_base_height.tex 独立底高回验钝角；C047_incircle_proof.tex 呈现内切圆、切线段和半角几何证明；C047_area_angle_range.tex 同尺度三态展示退化和极值；C047_angle_feasibility.tex 固定b对照两椭圆可实现角度；C047_equilateral_example.tex 回验反求方程例题的角度面积存在性。图替代面积抽象、几何构造、范围及“不含a”误读。验收见 reports/C047_ellipse_focus_triangle_area_review_2026-10-23.md。",
+  "remarks": "PDF图 assets/tikz/C047_base_height.tex 独立底高回验钝角；C047_incircle_proof.tex 呈现内切圆、切线段和半角几何证明；C047_area_angle_range.tex 同尺度三态展示退化和极值；C047_angle_feasibility.tex 固定b对照两椭圆可实现角度；C047_equilateral_example.tex 回验反求方程例题的角度面积存在性。图替代面积抽象、几何构造、范围及“不含a”误读。验收见 reports/C047_ellipse_focus_triangle_area_review_2026-10-23.md。 本次仅扩充并排序文本说明/证明/例题和复测元数据，未改动上述5处 TikZ 引用与资源文件。 2026-10-24 TikZ补图：补全C047_incircle_proof.tex的E、T切点、三条等半径和三块面积分割；新增assets/tikz/C047_half_angle_detail.tex单独放大PID，明确半角对边r、邻边a-c；C047_angle_types.tex固定b=3，同尺度比较c=2、3、4的最大顶角，替换角型判断长文；C047_rotated_height.tex展示转过30度后的紫色垂距d，替换误区七的纯文字提醒。验收记录 reports/C047_tikz_review_2026-10-24.md。 同轮逐图验收还调整C047_base_height.tex、C047_equilateral_example.tex图下注释间距；02_explanation按先图后观察压缩重复文字，03_proof的半角及分割说明改为直接读图。",
   "knowledgeNode": "解析几何-圆锥曲线-椭圆-焦点三角形",
   "altNodes": ""
 }

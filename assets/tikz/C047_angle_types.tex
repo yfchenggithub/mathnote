@@ -1,0 +1,23 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.7);
+\node[anchor=west,font=\small\bfseries] at (.5,8.2) {最大顶角也可能是锐角、直角或钝角：看 $c$ 与 $b$ 谁大};
+\foreach \cx/\cc in {2.4/2,7.2/3,12/4}{
+\begin{scope}[shift={(\cx,4.5)},scale=.39]
+\draw[blue,very thick] (0,0) ellipse ({sqrt(9+\cc*\cc)} and 3);
+\fill[orange!12] (-\cc,0)--(0,3)--(\cc,0)--cycle;
+\draw[orange!85!black,very thick] (-\cc,0)--(0,3)--(\cc,0)--cycle;
+\draw[violet,dashed] (0,0)--(0,3);
+\fill (-\cc,0) circle (3pt);\fill (\cc,0) circle (3pt);
+\fill (0,3) circle (3pt) node[above=8pt] {$P(0,b)$};
+\pgfmathsetmacro{\alpha}{atan(\cc/3)}
+\draw (0,3) ++({-90-\alpha}:.75) arc[start angle={-90-\alpha},end angle={-90+\alpha},radius=.75];
+\end{scope}
+}
+\node at (2.4,2.4) {$c=2<b=3$};
+\node at (7.2,2.4) {$c=b=3$};
+\node at (12,2.4) {$c=4>b=3$};
+\node at (2.4,1.65) {$\theta_{\max}\approx67.38^\circ$};
+\node at (7.2,1.65) {$\theta_{\max}=90^\circ$};
+\node at (12,1.65) {$\theta_{\max}\approx106.26^\circ$};
+\node at (7.2,.6) {同尺度、固定 $b=3$；三图均取短轴端点，故 $\tan(\theta_{\max}/2)=c/b$。};
+\end{tikzpicture}\end{center}

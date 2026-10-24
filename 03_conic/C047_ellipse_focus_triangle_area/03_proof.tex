@@ -1,48 +1,204 @@
+% C047 证明顺序：最快 -> 最低门槛 -> 常规坐标；最后单列范围证明。
+% 本轮补全内切圆图，并增加半角局部图及最大顶角对照图。
 \begin{proofbox}
-\textbf{方法一：内切圆、等切线和面积分割（几何优先）。}
-记 $PF_1=m,PF_2=n$，由第一定义 $m+n=2a$；底边 $F_1F_2=2c$，所以半周长 $s=a+c$。
-设内切圆半径为 $r$、内心为 $I$，与 $PF_2$ 切于 $D$。
+\textbf{方法一（最快证明，考场推荐）：只用第一定义、余弦定理，三行消元。}
+
+设 $m=PF_1$，$n=PF_2$，$\theta=\angle F_1PF_2$。椭圆第一定义立即给
+\[
+ m+n=2a,\qquad F_1F_2=2c,\qquad a^2-c^2=b^2.
+\]
+\textbf{关键只做一次替换：}$m^2+n^2=(m+n)^2-2mn$。对底边使用余弦定理：
+\[
+ \begin{aligned}
+ 4c^2
+ &=m^2+n^2-2mn\cos\theta\\
+ &=(m+n)^2-2mn(1+\cos\theta)\\
+ &=4a^2-2mn(1+\cos\theta).
+ \end{aligned}
+\]
+移项便得到最值得记住的一行
+\[
+ \boxed{mn(1+\cos\theta)=2(a^2-c^2)=2b^2}.
+\]
+\textbf{直接代夹角面积公式}，不求 $m$、$n$：
+\[
+ \boxed{
+ S=\frac12mn\sin\theta
+ =b^2\frac{\sin\theta}{1+\cos\theta}
+ =b^2\tan\frac\theta2}.
+\]
+最后一步只用 $\tan(\theta/2)=\sin\theta/(1+\cos\theta)$。
+\textbf{考场速写顺序：}先 $m+n=2a$，再 $mn(1+\cos\theta)=2b^2$，最后写面积。
+非退化时 $0<\theta<\pi$，故分母 $1+\cos\theta>0$。
+\end{proofbox}
+\clearpage
+
+\begin{proofbox}
+\textbf{方法二（最低门槛，图形理解）：内切圆 + 相等的切线段。}
+
+\textbf{只用三个初中熟悉的事实：}
+从同一点向圆作两条切线，切线段相等；
+半径垂直切线；三角形面积等于底乘高的一半。
+
+在三角形 $PF_1F_2$ 内画内切圆，圆心记为 $I$，半径为 $r$。
+设内切圆分别与 $PF_1$、$PF_2$、$F_1F_2$ 相切于 $E,D,T$。
 \input{assets/tikz/C047_incircle_proof}
-从同一点引圆的两条切线段等长。把三边分成六段并相加可得
+
+\textbf{第一步：先找 $PD$，不要先求内切圆半径。}
+由于切线段相等，可写成
 \[
- PD=s-F_1F_2=(a+c)-2c=a-c>0.
+ PE=PD=t,\quad F_1E=F_1T=u,\quad F_2D=F_2T=v.
 \]
-内心 $I$ 在顶角平分线上，半径 $ID\perp PD$，所以
+沿三条边列长度：
 \[
- r=PD\tan(\theta/2)=(a-c)\tan(\theta/2).
+ PF_1=t+u,\qquad PF_2=t+v,\qquad F_1F_2=u+v=2c.
 \]
-将原三角形分成以三边为底、高都为 $r$ 的三个小三角形，面积相加得
+椭圆第一定义告诉我们 $PF_1+PF_2=2a$，所以
 \[
- S=\tfrac12r(m+n+2c)=r(a+c)
- =(a^2-c^2)\tan(\theta/2)=\boxed{b^2\tan(\theta/2)}.
+ 2a=(t+u)+(t+v)=2t+2c
+ \quad\Longrightarrow\quad\boxed{PD=t=a-c}.
 \]
-该证明只用切线段、角平分线与底乘高；图中数值是一般构造的一个实例。
+\emph{简单记法：顶点处切线段长=半周长-对边
+$=(a+c)-2c=a-c$。}
+
 \end{proofbox}
 \clearpage
 \begin{proofbox}
-\textbf{方法二：余弦定理与两边夹角面积（代数角度）。}
-仍记 $m+n=2a$。余弦定理给出
+\textbf{第二步：把直角三角形 $PID$ 单独放大，看清半角。}
+\input{assets/tikz/C047_half_angle_detail}
+直接读放大图中的对边与邻边：
 \[
- 4c^2=m^2+n^2-2mn\cos\theta
-      =4a^2-2mn(1+\cos\theta).
+ \tan\frac\theta2=\frac{ID}{PD}=\frac{r}{a-c}
+ \quad\Longrightarrow\quad\boxed{r=(a-c)\tan\frac\theta2}.
 \]
-因 $0<\theta<\pi$，$1+\cos\theta>0$，可解出 $mn=2b^2/(1+\cos\theta)$。
-代入面积并用半角恒等式：
+\textbf{第三步：把大三角形面积分成三个小三角形相加。}
+前图三块共用高 $r$，面积相加：
 \[
- S=\frac12mn\sin\theta
-   =b^2\frac{\sin\theta}{1+\cos\theta}
-   =\boxed{b^2\tan(\theta/2)}.
+ \begin{aligned}
+ S&=\frac12r\,PF_1+\frac12r\,PF_2+\frac12r\,F_1F_2\\
+ &=\frac r2(2a+2c)=r(a+c)\\
+ &=(a-c)(a+c)\tan\frac\theta2
+ =\boxed{b^2\tan\frac\theta2}.
+ \end{aligned}
 \]
-无需先求 $m,n$；注意消去的是 $a^2-c^2=b^2$，不是直接把 $a$ 或 $c$ 当面积系数。
+\textbf{理解重点：}半角给 $(a-c)$，面积相加给 $(a+c)$；
+两者相乘 $a^2-c^2=b^2$。这就是 $b^2$ 的由来，不需要背结论。
 
 \medskip
-\textbf{范围的最低门槛证明：固定底边，看高度。}
-以焦距 $2c$ 为底，高是 $|y|$，所以 $S=c|y|\le cb$，等号恰在短轴端点成立。
-又因半角位于 $(0,\pi/2)$，正切严格递增，面积公式给出
+\textbf{带入熟悉的 $3$-$4$-$5$ 例子。}
+$a=5,b=3,c=4$，点 $P=(0,3)$，三边分别是 $5,5,8$。
+半周长 $s=(5+5+8)/2=9$，所以 $PD=s-8=1=a-c$。
+面积 $12$，又 $S=rs$，故 $r=12/9=4/3$，
+进而 $\tan(\theta/2)=r/PD=4/3$；代 $9\cdot4/3=12$，全程可画图检查。
+\end{proofbox}
+\clearpage
+
+\begin{proofbox}
+\textbf{方法三（常规解析几何证明）：设点、算焦半径、用向量夹角。}
+
+这是题目\textbf{已经给出 $P=(x,y)$ 或要求用坐标证明}时可用的规范路线。
+设 $F_1=(-c,0)$、$F_2=(c,0)$，$P=(x,y)$，且
 \[
- \tan(\theta/2)\le c/b,\qquad \theta\le2\arctan(c/b).
+ \frac{x^2}{a^2}+\frac{y^2}{b^2}=1,
+ \qquad c^2=a^2-b^2.
 \]
+\textbf{第一步：设点并把两条焦半径算出。}
+记 $m=PF_1$、$n=PF_2$，由 $y^2=b^2(1-x^2/a^2)$，
+\[
+ \begin{aligned}
+ m^2&=(x+c)^2+y^2
+      =a^2+2cx+\frac{c^2x^2}{a^2}
+      =\left(a+\frac{cx}{a}\right)^2,\\
+ n^2&=(x-c)^2+y^2
+      =a^2-2cx+\frac{c^2x^2}{a^2}
+      =\left(a-\frac{cx}{a}\right)^2.
+ \end{aligned}
+\]
+由于 $|x|\le a$、$c<a$，两个括号都为正，因此
+\[
+ \boxed{m=a+\frac{cx}{a},\qquad n=a-\frac{cx}{a}},
+ \quad mn=a^2-\frac{c^2x^2}{a^2}.
+\]
+\textbf{第二步：先用底乘高，面积立刻得到。}
+\[
+ \boxed{S=\frac12\cdot2c\cdot|y|=c|y|}.
+\]
+\textbf{第三步：用内积和行列式把面积接到半角。}
+从 $P$ 指向两焦点的向量为
+\[
+ \vec u=\overrightarrow{PF_1}=(-c-x,-y),\qquad
+ \vec v=\overrightarrow{PF_2}=(c-x,-y).
+\]
+它们的夹角是 $\theta$，于是
+\[
+ \vec u\cdot\vec v=x^2+y^2-c^2=mn\cos\theta,
+ \qquad |\det(\vec u,\vec v)|=2c|y|=mn\sin\theta.
+\]
+这里不需要真的求出 $\theta$；只整理分母：
+\[
+ \begin{aligned}
+ mn+\vec u\cdot\vec v
+ &=\left(a^2-\frac{c^2x^2}{a^2}\right)
+   +\left(x^2+b^2\Bigl(1-\frac{x^2}{a^2}\Bigr)-c^2\right)\\
+ &=a^2+b^2-c^2=\boxed{2b^2}.
+ \end{aligned}
+\]
+所以
+\[
+ \tan\frac\theta2
+ =\frac{\sin\theta}{1+\cos\theta}
+ =\frac{|\det(\vec u,\vec v)|}{mn+\vec u\cdot\vec v}
+ =\frac{2c|y|}{2b^2}=\frac{S}{b^2},
+\]
+即 $\boxed{S=b^2\tan(\theta/2)}$，证毕。
+\textbf{选法提示：}这套坐标法比较长；若题目\textbf{仅求面积、顶角}，优先选方法一；
+若题目\textbf{特别要求纯几何推导}，优先选方法二。
+\end{proofbox}
+\clearpage
+
+\begin{proofbox}
+\textbf{补充证明：为什么最大面积和最大顶角都在短轴端点？}
+
+\textbf{第一步（只看三角形高度）：}
+$F_1F_2=2c$ 固定，以这条底边计算面积，得
+\[
+ S=c|y|.
+\]
+椭圆上 $|y|\le b$，且等号只在 $P=(0,\pm b)$ 成立，因此
+\[
+ \boxed{0<S\le cb},\qquad S_{\max}=cb.
+\]
+\textbf{第二步（面积与半角一一对应）：}
+对非退化三角形，$0<\theta<\pi$，
+故 $0<\theta/2<\pi/2$，此区间内 $\tan$ 严格递增。
+由已证面积公式，
+\[
+ b^2\tan\frac\theta2=S\le cb
+ \quad\Longrightarrow\quad
+ \boxed{0<\theta\le2\arctan\frac cb<\pi}.
+\]
+当 $P=(0,\pm b)$ 时，$S=cb$ 且 $\tan(\theta/2)=c/b$，两个上界同时取到。
 \input{assets/tikz/C047_area_angle_range}
-从长轴端点沿上半椭圆移向短轴端点，高度由 $0$ 增至 $b$，面积、顶角同时增大；下半椭圆关于横轴对称。
+沿上半椭圆从长轴端点移向短轴端点，$|y|$ 从 $0$ 增至 $b$，
+面积和顶角随之增大；沿下半椭圆的结论关于焦点所在轴对称。
+若 $P=(\pm a,0)$，只按连续延伸约定记 $S=\theta=0$，不对退化图形谈内切圆。
+
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{最大顶角跨过直角的分界：$c=b$。}
+\input{assets/tikz/C047_angle_types}
+三图都取最高点，因此图中角度就是各自的最大顶角。
+固定 $b=3$，两焦点间距逐渐增大，短轴端点处张开的角也随之增大。
+一般地，$\tan(\theta_{\max}/2)=c/b$，所以
+\[
+\begin{array}{c|c|c}
+ c<b & c=b & c>b\\ \hline
+ \theta_{\max}<90^\circ & \theta_{\max}=90^\circ & \theta_{\max}>90^\circ
+\end{array}
+\]
+故 $c<b$ 时顶角只能为锐角；$c=b$ 时仅短轴端点取到直角；
+$c>b$ 时才存在钝角顶角。这里比较的是\textbf{点 $P$ 处的角}。
 \end{proofbox}
 \clearpage

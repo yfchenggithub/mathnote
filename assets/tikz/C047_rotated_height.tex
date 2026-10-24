@@ -1,0 +1,24 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,9.1);
+\node[anchor=west,font=\small\bfseries] at (.5,8.6) {椭圆转过 $30^\circ$：高要垂直于焦点连线，不能直接读 $|y|$};
+\begin{scope}[shift={(5.4,3.7)},scale=.7]
+\draw[->,black!35] (-5.3,0)--(5.7,0) node[right] {$x$};
+\draw[->,black!35] (0,-3.7)--(0,5.2) node[above] {$y$};
+\begin{scope}[rotate=30]
+\draw[blue,very thick] (0,0) ellipse (5 and 3);
+\draw[black!60,dashed] (-5.3,0)--(5.3,0);
+\fill[orange!12] (-4,0)--(0,3)--(4,0)--cycle;
+\draw[orange!85!black,very thick] (-4,0)--(0,3)--(4,0)--cycle;
+\draw[violet,very thick] (0,0)--(0,3);
+\draw[violet] (0,.3)--(.3,.3)--(.3,0);
+\fill (-4,0) circle (3pt);\fill (4,0) circle (3pt);\fill (0,3) circle (3pt);
+\end{scope}
+\node[right=6pt] at ({-2*sqrt(3)},-2) {$F_1$};
+\node[below=6pt] at ({2*sqrt(3)},2) {$F_2$};
+\node[above left=8pt] at (-1.5,{3*sqrt(3)/2}) {$P$};
+\node[below right=5pt] at (0,0) {$O$};
+\node[violet,rotate=-60] at (-1.2,1) {$d=3$};
+\end{scope}
+\node[anchor=west,align=left] at (10,5.4) {$a=5,b=3,c=4$\\[12pt]$\displaystyle |y_P|=\frac{3\sqrt3}{2}$\\[12pt]$d=3\ne |y_P|$\\[12pt]$S=cd=12$};
+\node at (7.2,.6) {橙色底边仍长 $2c=8$；紫色垂线才是高。旋转不改变真实面积。};
+\end{tikzpicture}\end{center}

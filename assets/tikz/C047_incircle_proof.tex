@@ -1,24 +1,32 @@
 \begin{center}\begin{tikzpicture}[font=\small,>=stealth]
 \draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
-\node[anchor=west,font=\small\bfseries] at (.5,7.72) {内切圆把半角变成直角三角形里的正切};
+\node[anchor=west,font=\small\bfseries] at (.5,7.72) {同一内切圆：相等切线段找 $a-c$，三个小三角形共用高 $r$};
 
 \begin{scope}[shift={(4.7,3.4)},scale=.72]
+\fill[blue!12] (-4,0)--(0,3)--(0,1.3333333333)--cycle;
+\fill[orange!18] (4,0)--(0,3)--(0,1.3333333333)--cycle;
+\fill[green!12] (-4,0)--(4,0)--(0,1.3333333333)--cycle;
 \draw[orange!85!black,very thick] (-4,0)--(0,3)--(4,0)--cycle;
 \draw[violet,thick] (0,1.3333333333) circle (1.3333333333);
 \draw[black!55,dashed] (0,3)--(0,1.3333333333);
 \draw[violet,thick] (0,1.3333333333)--(.8,2.4);
+\draw[violet,thick] (0,1.3333333333)--(-.8,2.4);
+\draw[violet,thick] (0,1.3333333333)--(0,0);
+\draw[black!55,dashed] (-4,0)--(0,1.3333333333)--(4,0);
 \draw[black!55] (.96,2.28)--(.84,2.12)--(.68,2.24);
 \fill (0,3) circle (3pt) node[above=9pt] {$P$};
 \fill (-4,0) circle (3pt) node[below=6pt] {$F_1$};
 \fill (4,0) circle (3pt) node[below=6pt] {$F_2$};
 \fill (0,1.3333333333) circle (3pt) node[left=6pt] {$I$};
 \fill (.8,2.4) circle (3pt) node[above right=8pt] {$D$};
+\fill (-.8,2.4) circle (3pt) node[above left=8pt] {$E$};
+\fill (0,0) circle (3pt) node[below=6pt] {$T$};
 \end{scope}
-\node[anchor=west] at (9,5.9) {$PD=a-c=1$};
-\node[anchor=west] at (9,5) {$ID=r=4/3$};
-\node[anchor=west] at (9,4.1) {$\tan(\theta/2)=r/PD$};
-\node[anchor=west] at (9,3.2) {$S=r(a+c)$};
+\node[anchor=west] at (9,5.9) {$PE=PD=1$};
+\node[anchor=west] at (9,5) {$F_1E=F_1T=4$};
+\node[anchor=west] at (9,4.1) {$F_2D=F_2T=4$};
+\node[anchor=west] at (9,3.2) {$IE=ID=IT=r$};
 \node[anchor=west] at (9,2.3) {$a=5,b=3,c=4$};
 
-\node[anchor=west] at (.7,.55) {$I$ 为内心，$D$ 为切点，$PI$ 平分顶角；$S=(a+c)(a-c)\tan(\theta/2)$};
+\node[anchor=west] at (.7,.55) {三块面积相加：$S=\tfrac12r(5+5+8)=9r=(a+c)r$；半径就是各块的高};
 \end{tikzpicture}\end{center}
