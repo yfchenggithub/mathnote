@@ -1,63 +1,254 @@
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
-	通过双曲线定义与余弦定理列出方程，消去边长平方项得到 $|PF_1||PF_2|$，再代入面积公式并利用半角公式化简。
+\textbf{\textcolor{CProof}{统一记号}}
+令 $m=|PF_1|>0$、$n=|PF_2|>0$、$|F_1F_2|=2c$，$\theta=\angle F_1PF_2$，$S=S_{\triangle F_1PF_2}$。始终有
+\[
+|m-n|=2a,\qquad c^2=a^2+b^2,\qquad 0<\theta<\pi.
+\]
+以下五种证明从不同角度组织思路；\textbf{考场计算首选方法一，零余弦定理的几何理解首选方法五，规范设点首选方法三}。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一(设定变量)：}]
-			设 $|PF_1|=r_1$，$|PF_2|=r_2$，焦距 $|F_1F_2|=2c$，且 $c^2=a^2+b^2$。
-			\[
-				|r_1-r_2| = 2a
-			\]
-			\par\textbf{理由：} 双曲线定义：双曲线上任意一点到两焦点距离之差的绝对值为 $2a$。
-		\item[\textbf{步骤二(平方展开)：}]
-			将定义式两边平方：
-			\[
-				r_1^2 + r_2^2 - 2r_1r_2 = 4a^2
-			\]
-			\par\textbf{理由：} 为后续与余弦定理联立，消去平方和项。
-		\item[\textbf{步骤三(余弦定理)：}]
-			在 $\triangle F_1PF_2$ 中，由余弦定理：
-			\[
-				4c^2 = r_1^2 + r_2^2 - 2r_1r_2\cos\theta
-			\]
-			\par\textbf{理由：} 三角形边角关系。
-		\item[\textbf{步骤四(联立求乘积)：}]
-			将步骤二代入步骤三消去 $r_1^2+r_2^2$：
-			\[
-				4c^2 = (4a^2 + 2r_1r_2) - 2r_1r_2\cos\theta
-			\]
-			整理得
-			\[
-				4(c^2-a^2) = 2r_1r_2(1-\cos\theta)
-			\]
-			利用 $c^2-a^2 = b^2$，得
-			\[
-				4b^2 = 2r_1r_2(1-\cos\theta) \quad\Rightarrow\quad r_1r_2 = \frac{2b^2}{1-\cos\theta}
-			\]
-			\par\textbf{理由：} 代数化简，利用 $b^2 = c^2-a^2$ 联系双曲线参数。
-		\item[\textbf{步骤五(面积公式)：}]
-			三角形面积 $S_{\triangle F_1PF_2}$ 可表示为
-			\[
-				S = \frac12 r_1r_2 \sin\theta
-			\]
-			\par\textbf{理由：} 两边及其夹角的正弦面积公式。
-		\item[\textbf{步骤六(代入化简)：}]
-			将步骤四结果代入面积公式：
-			\[
-				\begin{aligned}
-					S &= \frac12 \cdot \frac{2b^2}{1-\cos\theta} \cdot \sin\theta \\\\ &= b^2 \cdot \frac{\sin\theta}{1-\cos\theta}
-			\end{aligned}
-			\]
-			利用半角公式 $\dfrac{\sin\theta}{1-\cos\theta} = \cot\dfrac{\theta}{2}$（或 $\tan$ 关系），得
-			\[
-				S = b^2 \cot\frac{\theta}{2}
-			\]
-			\par\textbf{理由：} 三角恒等变形。
-	\end{description}
+\medskip
+\textbf{\textcolor{CProof}{方法一：最快证明——两个平方一减，立刻得到半角}}
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-	\textbf{由此证明，双曲线焦点三角形面积公式 $S_{\triangle F_1PF_2}=b^2\cot\frac{\theta}{2}$ 成立。}
+\textbf{切入点：} 焦距 $2c$ 和双曲线定义给出的两腰之差 $2a$，正好都可以平方。
+
+\textbf{第1步：} 由余弦定理及双曲线定义，直接整体相减：
+\[
+\begin{aligned}
+4b^2
+&=4c^2-4a^2\\
+&=(m^2+n^2-2mn\cos\theta)-(m-n)^2\\
+&=2mn(1-\cos\theta)\\
+&=4mn\sin^2\frac{\theta}{2}.
+\end{aligned}
+\]
+于是
+\[\boxed{b^2=mn\sin^2\frac{\theta}{2}}.\]
+\textbf{第2步：} 面积公式配上 $\sin\theta=2\sin(\theta/2)\cos(\theta/2)$：
+\[
+\begin{aligned}
+S&=\tfrac12 mn\sin\theta
+=mn\sin\tfrac\theta2\cos\tfrac\theta2\\
+&=\underbrace{mn\sin^2\tfrac\theta2}_{b^2}
+  \frac{\cos(\theta/2)}{\sin(\theta/2)}
+=\boxed{b^2\cot\frac\theta2}.
+\end{aligned}
+\]
+\textbf{速记：$4c^2-4a^2=4b^2$；余弦定理一减；面积配半角。}
+
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法二：最低门槛——垂线把焦点三角形变成勾股问题}}
+\input{assets/tikz/C048_signed_projection}
+先把较远的焦点记为 $F_1$，使 $m>n$；交换焦点名称不改变面积或顶角。
+图中只把三角形平移、旋转（必要时反射），不改变长度或角度。
+记有向投影 $u=n\cos\theta$，垂距 $v=n\sin\theta>0$。
+无论 $H$ 在线段上还是延长线上，$HF_1=m-u>0$，勾股均给出
+\[
+ (2c)^2=(m-u)^2+v^2=m^2+n^2-2mn\cos\theta.
+\]
+减去双曲线定义给出的 $(m-n)^2=4a^2$：
+\[
+ 4b^2=(2c)^2-(m-n)^2
+ =2mn(1-\cos\theta)=4mn\sin^2\frac\theta2.
+\]
+以 $PF_1$ 为底，图中的紫色垂距为高，故
+\[
+ S=\frac12 m\,v=\frac12mn\sin\theta
+ =\boxed{b^2\cot\frac\theta2}.
+\]
+\textbf{读图提醒：}$u$ 可以为负，$v$ 才是始终为正的高度；不能把投影当作无符号长度。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法三：常规解析几何——设 $P(x,y)$，求半角}}
+
+先考虑横向标准式
+$\frac{x^2}{a^2}-\frac{y^2}{b^2}=1$，通过轴对称性只需讨论右支上方的 $P(x,y)$（$x>a,y>0$），焦点为 $F_1(-c,0)$、$F_2(c,0)$。
+
+\textbf{第1步（底高）：}
+\[S=\frac12(2c)y=cy.\]
+\textbf{第2步（两条焦半径的和）：} 记 $m=PF_1$、$n=PF_2$，在右支上 $m-n=2a$；又因为
+\[
+m^2-n^2=((x+c)^2+y^2)-((x-c)^2+y^2)=4cx,
+\]
+所以
+\[
+(m-n)(m+n)=4cx
+\quad\Longrightarrow\quad
+\boxed{m+n=\frac{2cx}{a}}.
+\]
+\textbf{第3步（把半角正切变成边长）：} 由余弦定理与面积公式分别得到
+\[
+1+\cos\theta=\frac{(m+n)^2-(2c)^2}{2mn},
+\qquad \sin\theta=\frac{2S}{mn}.
+\]
+因此
+\[
+\tan\frac\theta2
+=\frac{\sin\theta}{1+\cos\theta}
+=\frac{4S}{(m+n)^2-4c^2}.
+\]
+\textbf{第4步（用双曲线方程消 $x$）：}
+\[
+(m+n)^2-4c^2
+=4c^2\left(\frac{x^2}{a^2}-1\right)
+=\frac{4c^2y^2}{b^2}.
+\]
+于是
+\[
+\tan\frac\theta2
+=\frac{4cy}{4c^2y^2/b^2}
+=\frac{b^2}{cy}
+=\frac{b^2}{S}.
+\]
+整理即 $\boxed{S=b^2\cot(\theta/2)}$。
+\textbf{对称推广：} 另一支或 $y<0$ 时用 $|y|$；纵向标准式交换 $x,y$ 即可。
+
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法四：常规三角形法——完整写出联立消元}}
+
+这是解答题可直接写出的六行规范证明。
+\[
+\begin{aligned}
+&m^2+n^2-2mn=(m-n)^2=4a^2,\\
+&m^2+n^2-2mn\cos\theta=4c^2,\\
+&2mn(1-\cos\theta)=4(c^2-a^2)=4b^2,\\
+&mn=\frac{2b^2}{1-\cos\theta},\\
+&S=\frac12 mn\sin\theta
+=\frac{b^2\sin\theta}{1-\cos\theta},\\
+&\boxed{S=b^2\cot\frac\theta2}.
+\end{aligned}
+\]
+其中最后一步只需记住
+\[
+\frac{\sin\theta}{1-\cos\theta}
+=\frac{2\sin(\theta/2)\cos(\theta/2)}{2\sin^2(\theta/2)}
+=\cot\frac\theta2.
+\]
+\textbf{与方法一的区别：} 方法一直接得到 $b^2=mn\sin^2(\theta/2)$，心算快；方法四先求 $mn$，便于按教材规范书写和检查。
+
+\medskip
+\textbf{\textcolor{CProof}{对照推导：为什么椭圆是 $\tan$，双曲线是 $\cot$？}}
+任意焦点三角形都有
+\[
+(2c)^2=(m-n)^2+4mn\sin^2\frac\theta2
+=(m+n)^2-4mn\cos^2\frac\theta2.
+\]
+\begin{itemize}[leftmargin=*,itemsep=0.3em]
+\item \textbf{椭圆：} $m+n=2a$、$b^2=a^2-c^2$，由右式得 $b^2=mn\cos^2(\theta/2)$；因此 $S=b^2\tan(\theta/2)$。
+\item \textbf{双曲线：} $|m-n|=2a$、$b^2=c^2-a^2$，由左式得 $b^2=mn\sin^2(\theta/2)$；因此 $S=b^2\cot(\theta/2)$。
+\end{itemize}
+\textbf{两条面积公式的区别，根本上来自“和固定”与“差固定”。}
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法五：纯几何法——先认清三个旁切圆（不使用余弦定理）}}
+
+把离 $P$ 较远的焦点记为 $F_1$，较近的记为 $F_2$。设
+\[
+PF_1=m,\quad PF_2=n,\quad m-n=2a,\quad F_1F_2=2c,
+\qquad s=\frac{m+n+2c}{2}.
+\]
+\textbf{先补充旁切圆性质。} 每个非退化三角形\textbf{恰有三个旁切圆}，分别对应三个顶点。
+每个圆与该顶点的\textbf{对边线段}及另外两边的\textbf{延长线}相切。
+圆心位于该顶点的内角平分线及另两个顶点的外角平分线上；到三边所在直线的距离都等于半径。
+同一点向同一圆所引的两条切线段等长，且半径垂直于切线。
+
+\textbf{（1） 本法选 $F_1$ 对应的旁切圆。} 记圆心 $I_1$、半径 $r_1$。
+\input{assets/tikz/C048_excircle_opposite_f1}
+后文简记 $I=I_1,\ r=r_1$，不与另外两个圆的半径混用。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法五（预备知识续）：另外两个旁切圆}}
+
+\textbf{（2） $P$ 对应的旁切圆：} 与边 $F_1F_2$ 相切，圆心记为 $I_P$，半径记为 $r_P$。
+\input{assets/tikz/C048_excircle_opposite_p}
+它的圆心在 $P$ 的\textbf{内角平分线}上；因此不能把本法使用的外半角关系直接套给它。
+
+\textbf{三图均用同一个边长为 $6,4,4$ 的三角形。} 三图缩放不同，各自均等比例绘制；
+比较半径请看数值，不按印在纸上的大小比较。本例等腰，两个旁切圆半径相等，但仍是两个不同的圆。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法五（预备知识续）：第三个旁切圆与面积关系}}
+
+\textbf{（3） $F_2$ 对应的旁切圆：} 与边 $F_1P$ 相切，圆心记为 $I_2$，半径记为 $r_2$。
+\input{assets/tikz/C048_excircle_opposite_f2}
+\textbf{统一记法：} 对边长为 $d$ 的旁切圆半径 $\rho$ 满足 $S=(s-d)\rho$。
+这是把三边作底、半径作高，两个三角形面积相加再减一个得到的（后面画出本法所用的分解）。因此
+\[
+\begin{array}{c|c|c}
+\text{对应顶点}&\text{实际相切的边}&\text{面积关系}\\ \hline
+F_1&PF_2=n&S=(s-n)r_1=(a+c)r_1\\
+P&F_1F_2=2c&S=(s-2c)r_P\\
+F_2&PF_1=m&S=(s-m)r_2=(c-a)r_2
+\end{array}
+\]
+\textbf{选择理由：} 本法用 $I_1$，是为了让切线长得到 $c-a$、面积因子得到 $c+a$，两者相乘恰是 $b^2$。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法五（正式推导）：等切线先给出 $c-a$}}
+
+\textbf{第1步：回到第（1）图，只用同点切线等长。}
+\[
+PT=PU=x,\quad F_2T=F_2V=n-x,\quad F_1U=F_1V.
+\]
+由延长线上的线段相加，
+\[
+\underbrace{m+x}_{F_1U}=\underbrace{2c+n-x}_{F_1V}
+\quad\Longrightarrow\quad
+\boxed{PT=x=c-a}.
+\]
+\textbf{第2步：外角平分线给出半径。} $PU$ 与 $PF_1$ 反向，故外角为 $\pi-\theta$。
+\input{assets/tikz/C048_excircle_half_angle}
+在直角三角形 $PIT$ 中，$\angle IPT=(\pi-\theta)/2$，所以
+\[
+\frac r{PT}=\tan\frac{\pi-\theta}{2}=\cot\frac\theta2,
+\qquad \boxed{r=(c-a)\cot\frac\theta2}.
+\]
+这里用的是\textbf{外角的一半}，不是 $\theta/2$。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法五（完成）：面积“加、加、减”给出 $c+a$}}
+
+\textbf{第3步：同一个四边形，两种分法。} 下面两图的四边形 $PF_1F_2I$ 完全相同、尺度相同，只更换分割线。
+\input{assets/tikz/C048_quadrilateral_split_f1_i}
+\input{assets/tikz/C048_quadrilateral_split_p_f2}
+两种分法的总面积相等，故\textbf{把第二图的红色三角形减去}：
+\[
+S_{PF_1F_2}=S_{PF_1I}+S_{IF_1F_2}-S_{IPF_2}.
+\]
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法五（最后一步）：将面积分解换成底乘高}}
+
+三个底边所在直线到 $I$ 的距离都为 $r$，因此
+\[
+S=\frac12 mr+\frac12(2c)r-\frac12 nr
+ =\frac r2(m-n+2c)=\boxed{(a+c)r}.
+\]
+\textbf{第4步：代入半径，认出 $b^2$。}
+\[
+S=(a+c)(c-a)\cot\frac\theta2
+=(c^2-a^2)\cot\frac\theta2
+=\boxed{b^2\cot\frac\theta2}.
+\]
+\textbf{记忆：} 等切线找 $c-a$，面积分解找 $c+a$，乘起来就是 $b^2$。
+
+\textbf{适用范围：} $P$ 在任一分支且不是实轴顶点时均成立；只需先按距离远近重标 $F_1,F_2$。
+顶点处三角形退化，本旁切圆构造不适用；面积公式仍可按极限延拓为 $0$。
 \end{proofbox}

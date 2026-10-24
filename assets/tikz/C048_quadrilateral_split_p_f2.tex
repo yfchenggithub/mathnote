@@ -1,0 +1,24 @@
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,line cap=round,line join=round,font=\small]
+\draw[black!25,rounded corners=3pt] (0,0) rectangle (14.4,6.8);
+\node[font=\small\bfseries] at (7.2,6.3) {第二种分法：沿 $PF_2$ 分成橙、红两个三角形};
+\begin{scope}[shift={(4.5,1.35)},x=1.05cm,y=1.05cm]
+\coordinate (A) at (-2,0);
+\coordinate (P) at (2.5,{3*sqrt(7)/2});
+\coordinate (B) at (2,0);
+\coordinate (I) at (5,{sqrt(7)});
+\fill[orange!23] (P)--(A)--(B)--cycle;
+\fill[red!23] (I)--(P)--(B)--cycle;
+\draw[red!70!black,line width=1.2pt] (P)--(B);
+\node[orange!60!black] at (.55,1.25) {$S_{PF_1F_2}$};
+\node[red!60!black] at (3.3,2.25) {$S_{IPF_2}$};
+\draw[black!80,line width=1.1pt] (P)--(A)--(B)--(I)--cycle;
+\foreach \q in {A,P,B,I} \fill (\q) circle (1.7pt);
+\node[below left] at (A) {$F_1$};
+\node[above left] at (P) {$P$};
+\node[below] at (B) {$F_2$};
+\node[right] at (I) {$I$};
+\end{scope}
+\node at (7.2,.5) {$S_{\text{四边形}}=\textcolor{orange!60!black}{S_{PF_1F_2}}+\textcolor{red!60!black}{S_{IPF_2}}$};
+\end{tikzpicture}
+\end{center}

@@ -1,50 +1,61 @@
 \begin{explanationbox}
-\begin{minipage}{\linewidth}
+\textbf{先看一个三边都能心算的实际三角形。}
 \begin{center}\input{assets/tikz/C048_math_audit_geometry.tex}\end{center}
-对 $x^2-y^2/3=1$，$P=(2,3)$ 给出面积 $S=6=3\cot(\theta/2)$。角度来自实际三角形，不能把“式中不显含 $a$”理解为曲线条件可以忽略。
-\end{minipage}
-\par\medskip
+图中 $P=(2,3)$ 在 $x^2-y^2/3=1$ 上。焦距为 $4$，高为 $3$，
+所以面积 $S=6$；两条焦半径为 $5$ 和 $3$，差为 $2=2a$。
+此时 $\cos\theta=3/5$、$\sin\theta=4/5$，故
+\[
+ \cot\frac\theta2=\frac{1+\cos\theta}{\sin\theta}=2,
+ \qquad b^2\cot\frac\theta2=3\cdot2=6.
+\]
+\textbf{推广一步：}焦点连线作底，始终有 $S=\tfrac12(2c)h=ch$。
+横向标准式为 $c|y|$，纵向标准式为 $c|x|$。
+半角式与底高式计算的是\textbf{同一个三角形}，可以互相回验。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{把椭圆和双曲线放在同一个尺度下看。}
+\input{assets/tikz/C048_sum_difference_compare}
+两图的焦点、顶点 $P$ 和三条边完全相同，故顶角与面积相同；
+但椭圆用 $5+3=2a$，双曲线用 $5-3=2a$，相应的 $b^2$ 也不同。
+\textbf{不能固定同一个 $b^2$，再机械互换 $\tan$ 与 $\cot$。}
 
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
-	双曲线焦点三角形面积仅依赖于虚半轴 b 和顶角 $\theta$，与 $a$ 无关。
+从数字到一般式：椭圆固定 $m+n$，对应
+$b^2=mn\cos^2(\theta/2)$；双曲线固定 $|m-n|$，对应
+$b^2=mn\sin^2(\theta/2)$。再用
+$S=mn\sin(\theta/2)\cos(\theta/2)$，就分别得到正切与余切。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一(定义应用)：}]
-			利用双曲线定义 $|PF_1|-|PF_2|=\pm 2a$（符号取决于焦点位置），结合余弦定理建立关系。
-		\item[\textbf{要点二(余弦定理)：}]
-			在 $\triangle F_1PF_2$ 中，由余弦定理得 $|F_1F_2|^2 = |PF_1|^2+|PF_2|^2-2|PF_1||PF_2|\cos\theta$。
-		\item[\textbf{要点三(整体代换)：}]
-			将定义式平方后与余弦定理联立，消去 $|PF_1|^2+|PF_2|^2$，得到 $|PF_1||PF_2|$ 表达式。
-		\item[\textbf{要点四(面积公式)：}]
-			三角形面积 $S=\frac12|PF_1||PF_2|\sin\theta$，代入后化简即得 $S=b^2\cot\frac{\theta}{2}$。
-	\end{description}
+\textbf{看变化方向：}例5后的三态图会显示，双曲线上高度越大，面积越大，顶角反而越小。
+由 $\cot(\theta/2)=ch/b^2$，任给 $0<\theta<\pi$，取
+\[
+ h=\frac{b^2}{c}\cot\frac\theta2>0,\qquad
+ P=\left(a\sqrt{1+h^2/b^2},h\right),
+\]
+即可在横向双曲线上实现该角；其他取向由坐标变换得到。
+\end{explanationbox}
+\clearpage
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质(参数无关性)}}
-	焦点三角形面积与 $a$（实半轴长度）无关，只与 $b$（虚半轴长度）和夹角 $\theta$ 有关。这意味着对于给定双曲线，只要 $\theta$ 固定，无论 $P$ 在何处，面积恒为 $b^2\cot\frac{\theta}{2}$。
+\clearpage
+\begin{explanationbox}
+\textbf{为什么双曲线适合用旁切圆？——只追踪“绳子差”。}
+椭圆给的是两根焦半径的\textbf{和}，用内切圆，切线长相等会把这个和整理出来；
+双曲线给的是两根焦半径的\textbf{差}，改用旁切圆，沿直线延长两边，
+切线长相等便把“差”整理成 $PT=c-a$。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义(参数提取)}}
-	$b^2$ 是双曲线方程中的常数项，公式将几何面积直接与代数参数 $b$ 关联，避免了求解坐标的繁琐。
+\textbf{看图的顺序：}
+先找距离 $P$ 较远的焦点 $F_1$、较近的焦点 $F_2$；
+再找\textbf{贴着 $PF_2$ 线段}的旁切圆，不是贴着 $F_1F_2$ 线段的那个。
+圆还要同时贴住 $F_1P$ 直线越过 $P$ 的延长部分、
+以及 $F_1F_2$ 直线越过 $F_2$ 的延长部分。
+三个切点分别记为 $T,U,V$。三个切点和法线请参看方法五中的精确 TikZ 图。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值(套用与反推)}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一(直接套用)：} 已知双曲线方程和 $\theta$，直接代入公式求 $S$，无需计算各边长度。
-		\item \textbf{考法二(逆向求参)：} 已知 $S$ 和 $\theta$（或 $b$），反求 $b$（或 $\theta$），利用 $\cot\frac{\theta}{2}=\frac{S}{b^2}$。
-	\end{itemize}
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
-	面积公式中不出现 $a$，这打破了“焦点三角形与 $a$ 有关”的直觉，是命题人设计题目的关键隐蔽条件。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一(已知夹角)：} 题目给出 $\angle F_1PF_2$ 的大小，要求计算面积，直接套用。
-		\item \textbf{场景二(已知面积)：} 题目给出面积，要求计算 $\theta$ 或 $b$，转化为方程。
-	\end{itemize}
-
+\textbf{一句话理解面积：}
+旁切圆心到三条边所在直线的垂距都等于 $r$，把面积拆成两个三角形面积之和、再减去一个三角形面积，恰好得到
+\[
+ S=\frac r2\bigl(PF_1+F_1F_2-PF_2\bigr)
+   =\frac r2(2a+2c)=(a+c)r.
+\]
+而 $PT=c-a$；外角平分线给 $r/ PT=\cot(\theta/2)$。
+于是面积等于 $(c+a)(c-a)\cot(\theta/2)$，
+最后才用 $c^2-a^2=b^2$，\textbf{没有焦半径平方展开}。
 \end{explanationbox}

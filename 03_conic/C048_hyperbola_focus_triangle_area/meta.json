@@ -7,9 +7,11 @@
       "双曲线面积公式",
       "焦点三角形面积",
       "双曲线焦点三角形",
-      "b²cot(θ/2)公式"
+      "b²cot(θ/2)公式",
+      "双曲线焦点面积余切公式",
+      "双曲线焦点三角形半角公式"
     ],
-    "summary": "双曲线焦点三角形面积等于虚半轴平方乘以半角余切，表达式不显含实半轴，但角度须来自该双曲线的实际焦点三角形。",
+    "summary": "双曲线焦点三角形面积 S=b²cot(θ/2)，配合 |PF1-PF2|=2a 和 c²=a²+b² 可快速证明；注意顶点处 θ=π、三角形退化。",
     "difficulty": 3,
     "category": "解析几何",
     "tags": [
@@ -32,7 +34,13 @@
       "顶点",
       "实轴端点",
       "cot半角",
-      "余弦定理"
+      "余弦定理",
+      "半角余切",
+      "面积底高回验",
+      "S=c|y|",
+      "焦距2c",
+      "双曲线和椭圆面积公式对比",
+      "焦点三角形面积退化"
     ],
     "synonyms": [
       "双曲线焦点三角面积",
@@ -40,7 +48,10 @@
       "b方cot半角",
       "双曲线面积公式",
       "焦点三角面积",
-      "双曲线面积b²cot"
+      "双曲线面积b²cot",
+      "cot θ/2",
+      "焦半径差面积公式",
+      "双曲线 b方cot半角"
     ],
     "intents": [
       "求面积",
@@ -55,7 +66,10 @@
       "双曲线焦点三角形面积公式",
       "双曲线焦点三角形面积怎么求",
       "已知双曲线焦点三角形面积求角",
-      "双曲线 b^2 cot(θ/2) 推导"
+      "双曲线 b^2 cot(θ/2) 推导",
+      "双曲线焦点三角形最快证明",
+      "双曲线焦点三角形勾股定理证明",
+      "双曲线椭圆焦点三角形面积怎么区分"
     ],
     "ocrKeywords": [
       "双曲线",
@@ -66,12 +80,19 @@
       "b²",
       "cot",
       "θ/2",
-      "x²/a² - y²/b² = 1"
+      "x²/a² - y²/b² = 1",
+      "S=c|y|",
+      "c²=a²+b²",
+      "tan θ/2",
+      "θ=π"
     ],
     "latex_patterns": [
       "\\frac{x^2}{a^2} - \\frac{y^2}{b^2} = 1",
       "b^2 \\cot\\frac{\\theta}{2}",
-      "S_{\\triangle F_1PF_2} = b^2 \\cot\\frac{\\theta}{2}"
+      "S_{\\triangle F_1PF_2} = b^2 \\cot\\frac{\\theta}{2}",
+      "S=c\\lvert y\\rvert",
+      "b^2=|PF_1||PF_2|\\sin^2\\frac{\\theta}{2}",
+      "\\frac{\\sin\\theta}{1-\\cos\\theta}"
     ],
     "formulaTokens": [
       "b^2",
@@ -79,7 +100,11 @@
       "\\frac{\\theta}{2}",
       "b^2\\cot\\frac{\\theta}{2}",
       "\\frac{b^2}{\\tan\\frac{\\theta}{2}}",
-      "\\frac{x^2}{a^2} - \\frac{y^2}{b^2} = 1"
+      "\\frac{x^2}{a^2} - \\frac{y^2}{b^2} = 1",
+      "c^2=a^2+b^2",
+      "S=c|y|",
+      "b^2=S tan(θ/2)",
+      "mn sin²(θ/2)"
     ],
     "pinyin": "shuangquxianjiaodiansanjiaoxingmianjigongshi",
     "pinyinAbbr": "sxqjdsjxmjs"
@@ -99,16 +124,20 @@
   "math": {
     "core_formula": "S_{\\triangle F_1PF_2} = b^2 \\cot\\frac{\\theta}{2}",
     "related_formulas": [
-      "S_{\\triangle F_1PF_2} = \\frac{b^2}{\\tan\\frac{\\theta}{2}}"
+      "S_{\\triangle F_1PF_2} = \\frac{b^2}{\\tan\\frac{\\theta}{2}}",
+      "b^2=|PF_1||PF_2|\\sin^2\\frac{\\theta}{2}",
+      "S=c\\,\\operatorname{dist}(P,F_1F_2)",
+      "S=b^2\\frac{\\sin\\theta}{1-\\cos\\theta}",
+      "b^2=S\\tan\\frac{\\theta}{2}"
     ],
     "variables": [
       {
         "name": "a",
-        "description": "实半轴长，双曲线标准方程中的分母"
+        "description": "实半轴长，其平方为标准方程正号项的分母"
       },
       {
         "name": "b",
-        "description": "虚半轴长，决定焦点三角形面积"
+        "description": "虚半轴长，其平方为标准方程负号项的分母"
       },
       {
         "name": "c",
@@ -132,28 +161,34 @@
       }
     ],
     "conditions": [
-      "双曲线方程为标准形式：$\\frac{x^2}{a^2} - \\frac{y^2}{b^2} = 1$ 或 $\\frac{y^2}{a^2} - \\frac{x^2}{b^2} = 1$",
-      "点 P 在双曲线上且不是实轴端点",
-      "$\\theta = \\angle F_1PF_2$ 满足 $0 < \\theta < \\pi$"
+      "双曲线标准式 x²/a²-y²/b²=1 或 y²/a²-x²/b²=1；a>0,b>0,c²=a²+b²。",
+      "P 为双曲线上非实轴顶点，θ=∠F1PF2 满足 0<θ<π，三角形非退化。",
+      "在顶点 θ=π、S=0，原面积式可按连续延拓成立；不将其算作非退化三角形。",
+      "平移旋转不改变内在几何面积关系；底高式需使用到焦点连线的距离。"
     ],
     "conclusions": [
-      "焦点三角形面积 $S = b^2 \\cot\\frac{\\theta}{2}$",
-      "面积也可写为 $S = \\frac{b^2}{\\tan\\frac{\\theta}{2}}$"
+      "焦点三角形面积 S=b²cot(θ/2)=b² sinθ/(1-cosθ)。",
+      "半角关系 b²=|PF1||PF2| sin²(θ/2)，可由两焦点距离与定义快速推出。",
+      "底高关系 S=c h（h 是 P 到 F1F2 直线的距离）；横轴为 c|y|，纵轴为 c|x|。"
     ]
   },
   "content": {
-    "statement": "对于双曲线 $\\frac{x^2}{a^2} - \\frac{y^2}{b^2}=1$（或 $\\frac{y^2}{a^2} - \\frac{x^2}{b^2}=1$），若 $P$ 是双曲线上一点（非实轴端点），$\\theta = \\angle F_1PF_2$，则焦点三角形面积 $S = b^2 \\cot\\frac{\\theta}{2}$。",
+    "statement": "设双曲线 x²/a²-y²/b²=1 或 y²/a²-x²/b²=1（a,b>0，c²=a²+b²），P 为非实轴顶点，θ=∠F1PF2（0<θ<π），则 S=b²cot(θ/2)=b²/tan(θ/2)；标准横向式另有 S=c|y|。顶点 θ=π、S=0 可连续延拓。",
     "derivation": [
-      "设 $|PF_1| = m$，$|PF_2| = n$，由双曲线定义 $|m-n| = 2a$。",
-      "在 $\\triangle F_1PF_2$ 中，由余弦定理 $(2c)^2 = m^2 + n^2 - 2mn\\cos\\theta$，结合 $c^2 = a^2 + b^2$ 可得 $mn = \\frac{2b^2}{1-\\cos\\theta}$。",
-      "面积 $S = \\frac{1}{2} mn \\sin\\theta = \\frac{b^2 \\sin\\theta}{1-\\cos\\theta} = b^2 \\cot\\frac{\\theta}{2}$。"
+      "最快证明：令 m=PF1、n=PF2，|m-n|=2a；余弦定理给 4c²=m²+n²-2mn cosθ，故 4b²=4c²-(m-n)²=4mn sin²(θ/2)。",
+      "最低门槛：从焦点向另一条焦半径所在直线作垂线，用勾股推出 (2c)²=(m-n cosθ)²+(n sinθ)²，再减去 (m-n)²=4a²；得到 b²=mn sin²(θ/2)。",
+      "常规解析几何：横向右支 P(x,y)，r1-r2=2a，r1²-r2²=4cx，得 r1+r2=2cx/a；面积 S=cy，利用 tan(θ/2)=4S/[(r1+r2)²-4c²] 和双曲线方程即得 S=b²cot(θ/2)。",
+      "常规三角法：余弦定理与 (m-n)²=4a² 联立得 mn=2b²/(1-cosθ)，代 S=mn sinθ/2 得 b²cot(θ/2)。",
+      "椭圆对照：椭圆 m+n=2a 给 b²=mn cos²(θ/2)，故 S=b²tan(θ/2)；双曲线 m-n=±2a 对应 sin² 与 cot。",
+      "方法五：按距离远近标记焦点，选F1对应旁切圆；同点切线等长给PT=c-a，外角半角给r=(c-a)cot(θ/2)，面积加加减给S=(a+c)r，合得b²cot(θ/2)。非退化三角形有三个旁切圆，不能混用其半径。"
     ],
-    "intuition": "利用双曲线定义和余弦定理消去未知边长 $m,n$，面积最终仅由虚半轴 $b$ 和顶角 $\\theta$ 表示。",
+    "intuition": "焦距平方与焦半径差平方相减，留下 4b²；结合半角，可将 b² 看成两腰长度之积乘 sin²(θ/2)。横向坐标还有 S=c|y| 的底高回验。公式不显含 a，但几何角度和点的位置受双曲线决定。",
     "common_tricks": [
-      "识别 $b$ 是虚半轴，不是实半轴 $a$，注意标准方程中 $y^2$（或 $x^2$）前的分母。",
-      "当 $\\theta=90^\\circ$ 时 $\\cot45^\\circ=1$，面积 $S=b^2$，可用于快速检验。",
-      "已知面积和 $\\theta$ 可反求 $b^2$，进而结合焦距求双曲线方程。",
-      "注意点 $P$ 不能是实轴端点，否则 $\\theta$ 无意义或退化为平角。"
+      "椭圆 tan，双曲线 cot；口诀“和—余弦平方—tan，差—正弦平方—cot”。",
+      "横向标准式 S=c|y|，纵向式 S=c|x|，平移旋转后用 P 到焦点连线的距离。",
+      "θ=90° 时 S=b²；靠近顶点时 θ→π 且 S→0。",
+      "反求参数：b²=S tan(θ/2)，若给定焦距则 a²=c²-b² 必须大于0。",
+      "顶点处射线相反、θ=π，三角形退化但公式可按连续延拓写为0；不可误记角为0或无意义。"
     ]
   },
   "usage": {
@@ -171,7 +206,7 @@
     "exam_score": 8
   },
   "interactive": {
-    "has_diagram": false,
+    "has_diagram": true,
     "geogebra_id": "",
     "param_demo": {}
   },
@@ -193,16 +228,16 @@
       "C037",
       "C050"
     ],
-    "similar": "椭圆焦点三角形面积公式 $S = b^2 \\tan\\frac{\\theta}{2}$，注意与双曲线余切形式对应相反。"
+    "similar": "椭圆焦点三角形面积 S=b²tan(θ/2)：椭圆焦半径和固定、对应 cos²；双曲线差的绝对值固定、对应 sin² 与 cot。"
   },
   "meta": {
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-23",
-    "updated_at": "2026-10-21"
+    "updated_at": "2026-10-24"
   },
   "isPro": 0,
-  "remarks": "",
+  "remarks": "2026-10-24 内容补强：最快证明、勾股最低门槛证明、设点坐标证明、传统余弦定理证明；纠正“顶点 θ 无意义”和“完全与 a 无关”的表述；新增底高、面积反求及 C047 对照。原有 TikZ 引用 assets/tikz/C048_math_audit_geometry.tex 保持字面不变，未修改 TikZ 绘图资源；实际图片须在原工程复测。 2026-10-24 TikZ补图：C048_math_audit_geometry.tex补全真实3-4-5三角形的长度、顶角及底高回验；新增assets/tikz/C048_sum_difference_compare.tex同尺度同三角形对照距离和/差与tan/cot；C048_signed_projection.tex用同曲线锐角/钝角状态展示有向投影与延长线垂足，替代方法二的纯文字构造；C048_vertex_to_far.tex用同尺度三态展示顶点退化、例5直角点及远处点，替代变化方向脑补。说明按图压缩，原先false的has_diagram同步为true；验收见reports/C048_tikz_review_2026-10-24.md。 同轮补充：投影证明先将较远焦点记为F1以保证m>n，覆盖另一支时可交换焦点名称；精简六段中的重复文字并调整分页，保持品牌样式；四幅图均使用等比例坐标及真实曲线方程。 2026-10-24 方法五内补充三个旁切圆性质与面积关系，新增C048_excircle_opposite_f1/p/f2三图（不同缩放、各自等比例），C048_excircle_half_angle外半角局部图及C048_excircle_area_decomposition面积加加减图；替代原方法五的切点位置列表及纯文字半角、面积说明。原C048_excircle_exact.tex保留。验收见reports/C048_excircles_review_2026-10-24.md。 2026-10-24 按用户反馈，方法五面积分解改为两个同尺度完整四边形：assets/tikz/C048_quadrilateral_split_f1_i.tex沿F1I分为蓝绿两块，C048_quadrilateral_split_p_f2.tex沿PF2分为橙红两块。以同一总面积建立等式，替代旧三面板的相加相减说明。",
   "knowledgeNode": "解析几何-圆锥曲线-双曲线-焦点三角形",
   "altNodes": "解析几何-圆锥曲线-椭圆,解析几何-圆锥曲线-抛物线,解析几何-综合-最值问题"
 }

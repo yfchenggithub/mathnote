@@ -1,0 +1,26 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,9.2);
+\node[anchor=west,font=\small\bfseries] at (.5,8.7) {同一双曲线上：越远离顶点，高越大、面积越大，顶角反而越小};
+\foreach \cx/\hh in {2.4/0,7.2/1.5,12/6}{
+\begin{scope}[shift={(\cx,3.7)},scale=.4]
+\draw[black!35] (-2.5,0)--(4.5,0);
+\pgfmathsetmacro{\px}{sqrt(1+\hh*\hh/3)}
+\fill[orange!12] (-2,0)--(\px,\hh)--(2,0)--cycle;
+\draw[blue,very thick,domain=-1:6.6,samples=101,variable=\t] plot ({sqrt(1+\t*\t/3)},\t);
+\draw[blue,very thick,domain=-1:6.6,samples=101,variable=\t] plot ({-sqrt(1+\t*\t/3)},\t);
+\draw[orange!85!black,very thick] (-2,0)--(\px,\hh)--(2,0)--cycle;
+\draw[violet,dashed,thick] (\px,0)--(\px,\hh);
+\fill (-2,0) circle (3pt);\fill (2,0) circle (3pt);
+\fill (\px,\hh) circle (3pt) node[above left=6pt] {$P$};
+\end{scope}}
+\node at (2.4,7.5) {顶点 $P=(1,0)$};
+\node at (7.2,7.5) {例5：$P=(\sqrt7/2,3/2)$};
+\node at (12,7.5) {较远点 $P=(\sqrt{13},6)$};
+\node at (2.4,2.45) {$h=0,\quad S=0$};
+\node at (7.2,2.45) {$h=3/2,\quad S=3$};
+\node at (12,2.45) {$h=6,\quad S=12$};
+\node at (2.4,1.65) {$\theta=180^\circ$（退化）};
+\node at (7.2,1.65) {$\theta=90^\circ$};
+\node at (12,1.65) {$\theta\approx28.07^\circ$};
+\node at (7.2,.6) {同尺度、同曲线 $x^2-y^2/3=1$；$c=2$，$S=2h=3\cot(\theta/2)$。};
+\end{tikzpicture}\end{center}

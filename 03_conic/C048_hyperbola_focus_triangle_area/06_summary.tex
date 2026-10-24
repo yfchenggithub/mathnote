@@ -1,20 +1,57 @@
+\clearpage
 \begin{summarybox}
-	\textbf{\textcolor{CSummary}{一句话核心}}
-	\textbf{双曲线焦点三角形面积 $S = b^2\cot\frac{\theta}{2}$，只依赖于虚半轴 $b$ 和顶角 $\theta$，表达式不显含实半轴 $a$（角度须取自该双曲线）。}
+\textbf{\textcolor{CSummary}{考场一眼识别}}
+双曲线焦点三角形：焦点 $F_1,F_2$，双曲线上非顶点 $P$，顶角 $\theta=\angle F_1PF_2$。
+\[
+\boxed{\displaystyle S=b^2\cot\frac\theta2}
+\quad\Longleftrightarrow\quad
+\boxed{\displaystyle b^2=S\tan\frac\theta2}.
+\]
+\textbf{记忆搭档：} 椭圆 $S=b^2\tan\frac\theta2$（\emph{和}固定）；双曲线 $S=b^2\cot\frac\theta2$（\emph{差}固定）。
 
-	\medskip
-	\textbf{\textcolor{CSummary}{使用条件}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{条件1(标准方程)：} 双曲线方程必须是标准形式 $\frac{x^2}{a^2}-\frac{y^2}{b^2}=1$ 或 $\frac{y^2}{a^2}-\frac{x^2}{b^2}=1$。
-		\item \textbf{条件2(非顶点)：} 点 $P$ 是双曲线上一点，且不是实轴端点。
-		\item \textbf{条件3(夹角范围)：} $\theta = \angle F_1PF_2$ 满足 $0<\theta<\pi$。
-	\end{itemize}
+\medskip
+\textbf{\textcolor{CSummary}{最快证明：三行}}
+记 $m=PF_1,n=PF_2$，$|m-n|=2a$，$2c=F_1F_2$：
+\[
+\begin{aligned}
+4b^2&=4c^2-4a^2=2mn(1-\cos\theta)
+=4mn\sin^2\tfrac\theta2,\\
+S&=\tfrac12 mn\sin\theta
+=mn\sin\tfrac\theta2\cos\tfrac\theta2,\\
+\therefore\quad S&=\boxed{b^2\cot\tfrac\theta2}.
+\end{aligned}
+\]
 
-	\medskip
-	\textbf{\textcolor{CSummary}{关键提醒}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{易错点(参数识别)：} 公式中的 $b$ 是虚半轴长度，不是实半轴 $a$。
-		\item \textbf{检查项(焦点位置)：} 焦点在 $x$ 轴或 $y$ 轴不影响公式，只需正确对应 $b$。
-	\end{itemize}
+\textbf{\textcolor{CSummary}{最低门槛记法}}
+两根绳子分别长 $m,n$，长度差 $2a$，两焦点间距 $2c$。\textbf{焦距平方减长度差平方}就是 $4b^2$；再用半角把它连到面积。
 
+\medskip
+\textbf{\textcolor{CSummary}{4 个检查项}}
+\begin{itemize}[leftmargin=*,itemsep=0.25em,topsep=0.2em]
+\item $a$ 是实半轴、$b$ 是虚半轴：$c^2=a^2+b^2$；焦点方向不限。
+\item 底高回验：$S=c\,\operatorname{dist}(P,F_1F_2)$；横向为 $c|y|$，纵向为 $c|x|$。
+\item $\theta=90^\circ$ 时 $S=b^2$；趋近顶点时 $\theta\to180^\circ,\ S\to0$。
+\item 已知面积反求参数：$b^2=S\tan(\theta/2)$，结合 $a^2=c^2-b^2>0$。
+\end{itemize}
+\textbf{\textcolor{CSummary}{提示：}} 非顶点 $0<\theta<\pi$；顶点处角为 $\pi$、三角形退化，等式可连续延拓。面积式不显含 $a$，不等于实际夹角与 $a$ 无关。
+\end{summarybox}
+
+\clearpage
+\begin{summarybox}
+\textbf{\textcolor{CSummary}{不碰余弦定理：旁切圆几何速证四句}}
+把离 $P$ 远的焦点标成 $F_1$，近的标成 $F_2$；
+作\textbf{与 $PF_2$ 相切、对应顶点 $F_1$ 的旁切圆}，半径 $r$，切点 $T$。
+\[
+\begin{aligned}
+ &\text{(1) 等切线：}&\quad PT&=c-a,\\
+ &\text{(2) 外角半角：}&r&=(c-a)\cot\frac\theta2,\\
+ &\text{(3) 面积加减：}&S&=(a+c)r,\\
+ &\text{(4) 平方差：}&S&=(c+a)(c-a)\cot\frac\theta2
+                           =\boxed{b^2\cot\frac\theta2}.
+\end{aligned}
+\]
+\textbf{怎么记：} \emph{两焦半径的差}对应旁切圆；
+\emph{切线长相等}先拿下 $c-a$；
+\emph{半径乘剩余半周长}给出 $(c+a)r$。
+旁切圆法是看懂来源的推荐证明；已有的余弦定理法仍是考场快速计算的选择。
 \end{summarybox}

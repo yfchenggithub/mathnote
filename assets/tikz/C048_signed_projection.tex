@@ -1,0 +1,49 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,9.2);
+\node[anchor=west,font=\small\bfseries] at (.5,8.7) {向焦半径所在直线作垂线：钝角时，垂足落在反向延长线上};
+\node at (3.6,7.7) {锐角：$P=(2,3)$};
+\node at (10.8,7.7) {钝角：$P=(2/\sqrt3,1)$};
+% Local orthonormal frames: P=(0,0), PF1 is positive horizontal.
+\begin{scope}[shift={(1.5,4.3)},scale=.75]
+\fill[orange!12] (0,0)--(5,0)--(1.8,2.4)--cycle;
+\draw[orange!85!black,very thick] (0,0)--(5,0)--(1.8,2.4)--cycle;
+\draw[violet,thick] (1.8,0)--(1.8,2.4);
+\draw (1.8,.25)--(2.05,.25)--(2.05,0);
+\fill (0,0) circle (2.5pt) node[below left=6pt] {$P$};
+\fill (5,0) circle (2.5pt) node[right=6pt] {$F_1$};
+\fill (1.8,2.4) circle (2.5pt) node[above=8pt] {$F_2$};
+\fill (1.8,0) circle (2.5pt) node[below right=6pt] {$H$};
+\node[left=7pt] at (.9,1.2) {$n$};
+\node[right=6pt] at (1.8,1.2) {$v$};
+\node[above right=5pt] at (3.4,1.2) {$2c=4$};
+\node at (.9,-1.4) {$u>0$};
+\node at (3.4,-1.4) {$m-u$};
+\draw (.7,0) arc[start angle=0,end angle=53.130102,radius=.7];
+\node at (.85,.45) {$\theta$};
+\end{scope}
+\pgfmathsetmacro{\nn}{4/sqrt(3)-1}
+\pgfmathsetmacro{\mm}{4/sqrt(3)+1}
+\pgfmathsetmacro{\uu}{-5*\nn/13}
+\pgfmathsetmacro{\vv}{12*\nn/13}
+\begin{scope}[shift={(9.8,4.3)},scale=.75]
+\draw[black!45,dashed] (\uu,0)--(0,0);
+\fill[orange!12] (0,0)--(\mm,0)--(\uu,\vv)--cycle;
+\draw[orange!85!black,very thick] (0,0)--(\mm,0)--(\uu,\vv)--cycle;
+\draw[violet,thick] (\uu,0)--(\uu,\vv);
+\draw (\uu,.2)--({\uu+.2},.2)--({\uu+.2},0);
+\fill (0,0) circle (2.5pt) node[below right=6pt] {$P$};
+\fill (\mm,0) circle (2.5pt) node[right=6pt] {$F_1$};
+\fill (\uu,\vv) circle (2.5pt) node[above left=8pt] {$F_2$};
+\fill (\uu,0) circle (2.5pt) node[below left=6pt] {$H$};
+\node[left=6pt] at (\uu,{\vv/2}) {$v$};
+\node[above right=5pt] at ({(\mm+\uu)/2},{\vv/2}) {$2c=4$};
+\node at (-.7,-1.4) {$u<0$};
+\node at (2.4,-1.4) {$HF_1=m-u$};
+\draw (.6,0) arc[start angle=0,end angle=112.619865,radius=.6];
+\node at (.15,.35) {$\theta$};
+\end{scope}
+\node at (3.6,2.5) {$0<u<m$，$H$ 在 $PF_1$ 上};
+\node at (10.8,2.5) {$u<0$，$H$ 在 $P$ 的左侧};
+\node at (7.2,1.5) {$u=n\cos\theta$ 是有向投影，$v=n\sin\theta>0$ 是垂距；两图保持同尺度。};
+\node at (7.2,.6) {勾股统一写成：$(2c)^2=(m-u)^2+v^2=(m-n\cos\theta)^2+n^2\sin^2\theta$。};
+\end{tikzpicture}\end{center}

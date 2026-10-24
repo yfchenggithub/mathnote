@@ -1,0 +1,31 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,9.7);
+\node[anchor=west,font=\small\bfseries] at (.5,9.2) {同一焦点三角形：椭圆固定两腰之和，双曲线固定两腰之差};
+\node at (3.6,8.35) {椭圆：$a=4,\ b^2=12$};
+\node at (10.8,8.35) {双曲线：$a=1,\ b^2=3$};
+\foreach \cx in {3.6,10.8}{
+\begin{scope}[shift={(\cx,4.8)},scale=.55]
+\fill[orange!12] (-2,0)--(2,3)--(2,0)--cycle;
+\draw[orange!85!black,very thick] (-2,0)--(2,3)--(2,0)--cycle;
+\fill (-2,0) circle (2.5pt) node[below=7pt] {$F_1$};
+\fill (2,0) circle (2.5pt) node[below=7pt] {$F_2$};
+\fill (2,3) circle (2.5pt);
+\node[above left=5pt] at (0,1.5) {$5$};
+\node[right=6pt] at (2,1.2) {$3$};
+\draw (2,3) ++(-143.130102:.65) arc[start angle=-143.130102,end angle=-90,radius=.65];
+\end{scope}}
+\begin{scope}[shift={(3.6,4.8)},scale=.55]
+\draw[blue,very thick] (0,0) ellipse (4 and {sqrt(12)});
+\node at (2.7,3.8) {$P$};
+\end{scope}
+\begin{scope}[shift={(10.8,4.8)},scale=.55]
+\draw[blue,very thick,domain=-3.5:4.3,samples=101,variable=\t] plot ({sqrt(1+\t*\t/3)},\t);
+\draw[blue,very thick,domain=-3.5:4.3,samples=101,variable=\t] plot ({-sqrt(1+\t*\t/3)},\t);
+\node at (1.2,3.8) {$P$};
+\end{scope}
+\node at (3.6,2.25) {$5+3=8=2a$};
+\node at (10.8,2.25) {$5-3=2=2a$};
+\node at (3.6,1.5) {$S=12\tan(\theta/2)=12\cdot\tfrac12=6$};
+\node at (10.8,1.5) {$S=3\cot(\theta/2)=3\cdot2=6$};
+\node at (7.2,.6) {同尺度、同焦点 $c=2$、同一 $P=(2,3)$、同一个 $\theta$；两条曲线的 $a,b$ 不同。};
+\end{tikzpicture}\end{center}

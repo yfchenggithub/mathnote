@@ -1,3 +1,22 @@
-\begin{tikzpicture}[scale=0.85,>=stealth]
-\draw[blue,thick,domain=-1.5:1.5,samples=90] plot ({cosh(\x)},{sqrt(3)*sinh(\x)});\draw[blue,thick,domain=-1.5:1.5,samples=90] plot ({-cosh(\x)},{sqrt(3)*sinh(\x)});\draw[gray,thick] (-2,0)--(2,3)--(2,0)--cycle;\fill (2,3) circle (1.7pt) node[above right] {$P$};\fill (-2,0) circle (1.7pt) node[below] {$F_1$};\fill (2,0) circle (1.7pt) node[below] {$F_2$};
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,9.2);
+\node[anchor=west,font=\small\bfseries] at (.5,8.7) {同一个 $3$-$4$-$5$ 三角形：底高法与半角公式都算出面积 $6$};
+\begin{scope}[shift={(4.5,4.2)},scale=.85]
+\draw[black!35] (-3.1,0)--(3.1,0);
+\fill[orange!12] (-2,0)--(2,3)--(2,0)--cycle;
+\draw[blue,very thick,domain=-2.2:4,samples=101,variable=\t] plot ({sqrt(1+\t*\t/3)},\t);
+\draw[blue,very thick,domain=-2.2:4,samples=101,variable=\t] plot ({-sqrt(1+\t*\t/3)},\t);
+\draw[orange!85!black,very thick] (-2,0)--(2,3)--(2,0)--cycle;
+\draw (1.7,0)--(1.7,.3)--(2,.3);
+\fill (-2,0) circle (2.5pt) node[below left=6pt] {$F_1(-2,0)$};
+\fill (2,0) circle (2.5pt) node[below right=6pt] {$F_2(2,0)$};
+\fill (2,3) circle (2.5pt) node[above left=8pt] {$P(2,3)$};
+\node[above=6pt,rotate=36.869898] at (0,1.5) {$m=5$};
+\node[right=7pt] at (2,1.1) {$n=h=3$};
+\draw (2,3) ++(-143.130102:.65) arc[start angle=-143.130102,end angle=-90,radius=.65];
+\node at (1.1,2.7) {$\theta$};
+\node at (0,-.85) {$2c=4$};
+\end{scope}
+\node[anchor=north west,align=left] at (9,7.7) {$a=1,\ b^2=3,\ c=2$\\[12pt]$m-n=5-3=2a$\\[12pt]$\displaystyle S=\frac12\cdot4\cdot3=6$\\[12pt]$\displaystyle\cot\frac\theta2=2$\\[12pt]$S=3\cdot2=6$};
+\node at (7.2,.65) {$P$ 在 $x^2-y^2/3=1$ 上；顶角在 $P$，竖直焦半径同时就是高。};
 \end{tikzpicture}

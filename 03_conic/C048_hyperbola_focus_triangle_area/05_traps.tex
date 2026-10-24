@@ -1,32 +1,82 @@
+\clearpage
 \begin{trapbox}
+\medskip
+\textbf{\textcolor{CTrap}{易错点1：把双曲线写成椭圆的半角正切}}
+\textbf{错误：} $S=b^2\tan(\theta/2)$。
+\textbf{正确：} 双曲线应为 $\boxed{S=b^2\cot(\theta/2)}$；椭圆才是 $b^2\tan(\theta/2)$。
+\textbf{根源：} 见前面的同尺度对照图：椭圆固定两腰之和，双曲线固定差的绝对值，两者的 $a,b$ 含义和数值不能混用。
 
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一(焦点方向)}}]
-			误认为双曲线焦点三角形面积公式只适用于焦点在x轴的情形，当方程为$\frac{y^2}{a^2}-\frac{x^2}{b^2}=1$时不敢直接使用$S=b^2\cot\frac{\theta}{2}$。
-		\item[\textbf{\textcolor{CTrap}{正确理解(形式不变)：}}]
-			对于两种标准形式，公式中的b始终是虚半轴长，即减号项分母的平方根，公式完全一样。
-		\item[\textbf{\textcolor{CTrap}{错因分析(忽视推导)：}}]
-			推导过程中只用了$b^2=c^2-a^2$，并未假定焦点位置，故公式与焦点取向无关。
-	\end{description}
+\medskip
+\textbf{\textcolor{CTrap}{易错点2：把 $b^2$ 当作 $a^2$}}
+\textbf{错误：} 看到双曲线 $x^2/4-y^2/5=1$ 就用 $b^2=4$。
+\textbf{正确：} $a^2=4$（正号项）、$b^2=5$（负号项）；$b$ 是\emph{虚半轴}，无需比较 $a,b$ 哪个更大。
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二(忽视退化)}}]
-			应用公式时没有验证点P不是实轴端点，直接代入公式。
-		\item[\textbf{\textcolor{CTrap}{正确理解(条件限制)：}}]
-			当P为顶点时，三角形退化为线段，不能用此公式；公式推导中假设了$r_1\neq r_2$且$\theta\neq0,\pi$。
-		\item[\textbf{\textcolor{CTrap}{错因分析(无视条件)：}}]
-			解题时只关注面积形式，忽略前提条件。
-	\end{description}
+\medskip
+\textbf{\textcolor{CTrap}{易错点3：以为公式只适用于焦点在 $x$ 轴}}
+\textbf{正确：} 若 $y^2/a^2-x^2/b^2=1$，仍为 $S=b^2\cot(\theta/2)$。旋转、平移不改变焦点三角形的面积和夹角，只是坐标高度的写法要调整。
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三(参数误判)}}]
-			在双曲线方程中，误将实半轴平方$a^2$当作公式中的$b^2$代入计算。
-		\item[\textbf{\textcolor{CTrap}{正确理解(明确参数)：}}]
-			公式中的b是虚半轴，对应方程中减号后面分母的平方根。
-		\item[\textbf{\textcolor{CTrap}{错因分析(概念不清)：}}]
-			未区分实轴与虚轴在公式中的角色。
-	\end{description}
+\medskip
+\textbf{\textcolor{CTrap}{易错点4：把顶点处夹角记成 $0$ 或“无意义”}}
+\textbf{错误：} $P$ 在实轴顶点时两焦点方向相同，因此 $\theta=0$。
+\textbf{正确：} 因 $c>a$，顶点在两焦点之间，向两焦点的射线相反，所以 $\theta=\pi$。三角形退化、$S=0$，公式可连续延拓给出 $0=b^2\cot(\pi/2)$。严格使用非退化三角形的推导时取 $0<\theta<\pi$。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错点5：把 $|m-n|=2a$ 漏写绝对值}}
+同一点位于不同双曲线分支，$m-n$ 的符号可能不同。统一用 $|m-n|=2a$ 或 $(m-n)^2=4a^2$ 最稳妥。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错点6：误以为 $a$ 不显含就完全无关}}
+只要已知\emph{实际形成的} $\theta$ 和 $b$，面积计算确实无须单独代入 $a$；但换一条曲线会改变焦点、点 $P$ 的位置和夹角。不可固定同一坐标 $P$ 后任意更换 $a$ 并宣称面积不变。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错点7：半角恒等式写反}}
+\[
+\boxed{\cot\frac\theta2=\frac{1+\cos\theta}{\sin\theta}
+=\frac{\sin\theta}{1-\cos\theta}}
+\quad(0<\theta<\pi).
+\]
+不要写成 $\sin\theta/(1+\cos\theta)$，后者是 $\tan(\theta/2)$。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错点8：底高法忘绝对值或错认高}}
+横向标准式 $S=c|y|$，纵向标准式 $S=c|x|$；平移、旋转后统一写 $S=c\,\operatorname{dist}(P,F_1F_2)$。\emph{单靠 $c|y|$ 不能处理所有取向。}
+
+\medskip
+\textbf{\textcolor{CTrap}{易错点9：角度和面积的变化方向看反}}
+对照例5后的三态图：顶点处两射线反向、$S=0$；向远处走，高增大、角减小，且 $S\to+\infty$、$\theta\to0$。不可套用椭圆的变化方向。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错点10：反推方程时不检验 $a^2>0$}}
+已知焦距 $2c$、面积 $S$ 与角 $\theta$ 时，先求 $b^2=S\tan(\theta/2)$，再求 $a^2=c^2-b^2$；必须有 $0<b^2<c^2$ 才能得到实双曲线，且方程取向要有依据。
+
+
+\medskip
+\textbf{\textcolor{CTrap}{易错点11：旁切圆选错边、选错焦点}}
+本证明先把离 $P$ 远的焦点叫 $F_1$，离 $P$ 近的叫 $F_2$。
+作的是\textbf{与线段 $PF_2$ 相切}的旁切圆，即\emph{顶点 $F_1$ 对应}的旁切圆。
+换成另一种旁切圆，$PT=c-a$ 的推导便不再是这套对应关系。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错点12：把三条切点都画在三角形边上}}
+$T$ 在边 $PF_2$ 的\textbf{内部}；$U$ 在 $F_1P$ 越过 $P$ 的延长线上；
+$V$ 在 $F_1F_2$ 越过 $F_2$ 的延长线上。
+务必满足 $IT\perp PF_2$、$IU\perp PF_1$、$IV\perp F_1F_2$。
+三个切点不能凭视觉随意放在圆上；尤其不能把圆和双曲线误认为必须相切。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错点13：外角半角误写为内角半角}}
+$PI$ 平分的是 $P$ 处\emph{外角}，所以
+$\angle IPT=\frac{\pi-\theta}{2}$，从而
+$r/PT=\tan((\pi-\theta)/2)=\cot(\theta/2)$。
+写成 $\tan(\theta/2)$ 就会把双曲线公式误变成椭圆公式。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错点14：把旁切圆面积关系写成内切圆的 $S=sr$}}
+$S=sr$ 只适用于\emph{内切圆半径} $r$（$s$ 为半周长）。
+旁切圆（对应 $F_1$）的半径 $r$ 应满足
+\[
+ S=r(s-PF_2)=\tfrac r2(PF_1+F_1F_2-PF_2)=(a+c)r.
+\]
+两者的圆和半径不是同一个，不可混用。
 
 \end{trapbox}

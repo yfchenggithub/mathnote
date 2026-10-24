@@ -1,27 +1,54 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件1(标准方程)：}}]
-			双曲线方程为 $\frac{x^2}{a^2} - \frac{y^2}{b^2}=1$ 或 $\frac{y^2}{a^2} - \frac{x^2}{b^2}=1$，其中 $a>0,b>0$，焦点 $F_1,F_2$ 在坐标轴上。
-		\item[\textbf{\textcolor{CStatement}{条件2(点P位置)：}}]
-			点 $P$ 在双曲线上，且不在实轴端点（即 $P$ 不是顶点）。
-		\item[\textbf{\textcolor{CStatement}{条件3(夹角定义)：}}]
-			记 $\angle F_1PF_2 = \theta$，其中 $0<\theta<\pi$。
-	\end{description}
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一(面积公式)：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			焦点三角形面积等于虚半轴平方乘以半角余切。
-			\[
-				S_{\triangle F_1PF_2} = b^2 \cot\frac{\theta}{2}
-			\]
-		\item[\textbf{\textcolor{CStatement}{推广结论(等价形式)：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			面积也可写为虚半轴平方除以半角正切，便于已知正切时使用。
-			\[
-				S_{\triangle F_1PF_2} = \frac{b^2}{\tan\frac{\theta}{2}}
-			\]
-	\end{description}
+\textbf{条件与记号。}双曲线为
+\[
+ \frac{x^2}{a^2}-\frac{y^2}{b^2}=1\quad\text{或}\quad
+ \frac{y^2}{a^2}-\frac{x^2}{b^2}=1,\qquad a,b>0.
+\]
+$a$ 为实半轴，$b$ 为虚半轴，$c=\sqrt{a^2+b^2}$，焦距为 $2c$。
+$P$ 在曲线上且不是实轴顶点，$\theta=\angle F_1PF_2\in(0,\pi)$，
+$S$ 为整个焦点三角形 $\triangle F_1PF_2$ 的面积。
 
+\medskip
+\textbf{核心结论。}
+\[
+ \boxed{S=b^2\cot\frac\theta2}
+ =\boxed{\frac{b^2}{\tan(\theta/2)}}
+ =\boxed{b^2\frac{\sin\theta}{1-\cos\theta}}.
+\]
+\textbf{辅助关系。}记 $m=PF_1$、$n=PF_2$，$h$ 为 $P$ 到焦点连线的垂距，则
+\[
+ |m-n|=2a,\qquad
+ \boxed{b^2=mn\sin^2\frac\theta2},\qquad
+ \boxed{S=ch}.
+\]
+横向标准式 $h=|y|$，纵向标准式 $h=|x|$；平移、旋转后仍须取到焦点连线的垂距。
+
+\medskip
+\textbf{范围与退化。}固定双曲线上，$0<\theta<\pi$ 均可实现，面积取遍 $(0,+\infty)$。
+趋近顶点时 $\theta\to\pi$、$S\to0$；顶点本身位于两焦点之间，
+向两焦点的射线反向，$\theta=\pi$，三角形退化，面积式可连续延伸为
+$0=b^2\cot(\pi/2)$。
+
+\medskip
+\textbf{旁切圆几何提示（对应方法五）。}
+把离 $P$ 较远的焦点重新记为 $F_1$，较近的记为 $F_2$，
+使 $PF_1-PF_2=2a$。作三角形 $F_1PF_2$ 的
+\textbf{$F_1$ 对边 $PF_2$ 所对应的旁切圆}，半径记为 $r$；
+圆与线段 $PF_2$ 切于 $T$，则
+\[
+ \boxed{PT=c-a},\qquad
+ \boxed{r=(c-a)\cot\frac\theta2},\qquad
+ \boxed{S=(a+c)r}.
+\]
+三个小结论一乘：$S=(c+a)(c-a)\cot(\theta/2)=b^2\cot(\theta/2)$。
+此法不使用余弦定理；原有计算方法仍可使用。
+
+\medskip
+\textbf{与椭圆区分。}
+\[
+ \text{椭圆： }S=b^2\tan\frac\theta2,
+ \qquad \text{双曲线： }S=b^2\cot\frac\theta2.
+\]
+双曲线的 $a,b$ 无大小限制；面积式不显含 $a$，不等于焦点位置、点 $P$ 与实际夹角不受曲线约束。
 \end{statementbox}
+\clearpage
