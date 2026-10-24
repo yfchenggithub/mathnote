@@ -1,0 +1,35 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,9.4);
+\node[anchor=west,font=\small\bfseries] at (.5,8.9) {同一个直角三角形：椭圆看两边之和，双曲线看两边之差};
+\node at (3.6,8.15) {椭圆 $a=5,\ b=\sqrt{15}$};
+\node at (10.8,8.15) {双曲线 $a=2,\ b=\sqrt6$};
+\foreach \s in {3.6,10.8}{
+  \begin{scope}[shift={(\s,4.7)},scale=.48]
+  \draw[black!30] (-5.7,0)--(5.7,0);
+  \fill[orange!12] ({-sqrt(10)},0)--({sqrt(10)},0)--({sqrt(10)},3)--cycle;
+  \draw[black!70,thick] ({-sqrt(10)},0)--({sqrt(10)},3);
+  \draw[black!70,thick] ({-sqrt(10)},0)--({sqrt(10)},0);
+  \draw[orange!85!black,very thick] ({sqrt(10)},-3)--({sqrt(10)},3);
+  \draw ({sqrt(10)-.4},0)--({sqrt(10)-.4},.4)--({sqrt(10)},.4);
+  \fill ({-sqrt(10)},0) circle (2.5pt) node[below=5pt] {$F_1$};
+  \fill ({sqrt(10)},0) circle (2.5pt) node[below right=5pt] {$F_2$};
+  \fill ({sqrt(10)},3) circle (2.5pt);
+  \node[above=5pt] at (0,1.5) {$PF_1=7$};
+  \node[right=6pt] at ({sqrt(10)},1.5) {$h$};
+  \node[below=20pt] at (0,0) {$2c=2\sqrt{10}$};
+  \end{scope}
+}
+\begin{scope}[shift={(3.6,4.7)},scale=.48]
+\draw[blue,very thick] (0,0) ellipse (5 and {sqrt(15)});
+\node at ({sqrt(10)+.7},3.8) {$P$};
+\end{scope}
+\begin{scope}[shift={(10.8,4.7)},scale=.48]
+\draw[blue,very thick,domain=-4.3:4.3,samples=101,variable=\t] plot ({2*sqrt(1+\t*\t/6)},\t);
+\draw[blue,very thick,domain=-4.3:4.3,samples=101,variable=\t] plot ({-2*sqrt(1+\t*\t/6)},\t);
+\node at ({sqrt(10)-.6},4) {$P$};
+\end{scope}
+\node at (3.6,1.85) {$7+3=10=2a$};
+\node at (10.8,1.85) {$7-3=4=2a$};
+\node at (7.2,1.1) {同尺度、同焦点、半通径均为 $h=3$；斜边 $7=\sqrt{(2\sqrt{10})^2+3^2}$};
+\node at (7.2,.55) {换成字母：$\sqrt{4c^2+h^2}\pm h=2a$，两种曲线最终都得 $ah=b^2$。};
+\end{tikzpicture}\end{center}

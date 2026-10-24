@@ -16,12 +16,144 @@
 \[
  y^2=2p\cdot(p/2)=p^2,\quad y=\pm p,\quad L=2p.
 \]
+\textbf{同一最快证明，用更容易记的 $y^2=kx$ 重写：}
+$k\ne0$ 时，焦点 $F=(k/4,0)$，所以通径直线是 $x=k/4$。
+\[
+ y^2=k\cdot\frac{k}{4}=\frac{k^2}{4}
+ \quad\Longrightarrow\quad y=\pm\frac{|k|}{2}
+ \quad\Longrightarrow\quad \boxed{L=|k|}.
+\]
+当 $k>0$，直接得到 $L=k$，并且 $k=2p$；
+当 $k<0$，开口向左，整通径仍是正数 $|k|$。
+纵向 $x^2=ky$ 只需将横、纵坐标交换，结论相同。
 参数均为正，开方得到的正长度分别是 $b^2/a$ 和 $p$。
 对称、反射和交换坐标分别覆盖另一焦点、负向开口和纵向模型。
 \end{proofbox}
 \clearpage
 \begin{proofbox}
-\textbf{方法二：焦准比加对称性（几何角度）。}
+\textbf{方法二：最低门槛证明——先用数字找出规律，再换成字母。}
+\textbf{不预先背通径公式，只用方程、焦点与两点间的距离。}
+
+\textbf{第一步，先算一条具体椭圆：}
+\[
+ \frac{x^2}{25}+\frac{y^2}{9}=1
+ \quad\Rightarrow\quad a=5,\ b=3,\ c=\sqrt{25-9}=4.
+\]
+焦点在 $(4,0)$，它的通径是一条竖线 $x=4$，所以\textbf{只需把 $x=4$ 代进去}：
+\[
+ \frac{16}{25}+\frac{y^2}{9}=1
+ \ \Rightarrow\ \frac{y^2}{9}=\frac{9}{25}
+ \ \Rightarrow\ y^2=\frac{81}{25}
+ \ \Rightarrow\ y=\pm\frac95.
+\]
+上端点 $(4,9/5)$，下端点 $(4,-9/5)$；它们的横坐标相同，
+故整段长度就是纵坐标相减：
+\[
+ L=\frac95-\left(-\frac95\right)=\frac{18}{5}
+ =\frac{2\cdot3^2}{5}.
+\]
+\textbf{第二步，用一样的三步处理双曲线：}
+\[
+ \frac{x^2}{9}-\frac{y^2}{16}=1,
+ \quad a=3,\ b=4,\ c=\sqrt{9+16}=5.
+\]
+焦点 $(5,0)$，所以 $x=5$：
+\[
+ \frac{25}{9}-\frac{y^2}{16}=1
+ \ \Rightarrow\ \frac{y^2}{16}=\frac{16}{9}
+ \ \Rightarrow\ y=\pm\frac{16}{3},
+ \qquad L=\frac{32}{3}=\frac{2\cdot4^2}{3}.
+\]
+\textbf{第三步，抛物线也完全一样：}
+\[
+ y^2=8x,\quad 2p=8,\ p=4,\quad F=(2,0).
+\]
+代 $x=2$，得 $y^2=16$，所以 $y=\pm4$，整弦 $L=4-(-4)=8=2p$。
+
+\medskip
+\textbf{最后才推广：}把上面具体的 $5,3,4$ 换成字母 $a,b,c$。
+椭圆由 $c^2=a^2-b^2$ 得
+\[
+ \frac{y^2}{b^2}=1-\frac{c^2}{a^2}
+ =\frac{b^2}{a^2},\qquad y=\pm\frac{b^2}{a}.
+\]
+双曲线由 $c^2=a^2+b^2$ 得
+\[
+ \frac{y^2}{b^2}=\frac{c^2}{a^2}-1
+ =\frac{b^2}{a^2},\qquad y=\pm\frac{b^2}{a}.
+\]
+两者一正一负的根相差 $2b^2/a$；抛物线一正一负的根相差 $2p$。
+整个过程只用到了\textbf{代数方程、平方根与相减}，这就是最低门槛的通径证明。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法三：常规证明——把“直线与曲线求交点”完整写出来。}
+\textbf{核心思路：}通径本身是一条已知直线；将它和圆锥曲线\textbf{联立}，
+先求两交点 $A,B$，再计算 $AB$。
+
+\textbf{（一）横向椭圆。}设
+\[
+ E:\ \frac{x^2}{a^2}+\frac{y^2}{b^2}=1,\quad
+ a>b>0,\quad c^2=a^2-b^2,
+\]
+选右焦点 $F=(c,0)$。因为通径与 $x$ 轴垂直，它的直线方程就是 $x=c$。
+联立
+\[
+ \begin{cases}
+ \dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1,\\[2pt]
+ x=c,
+ \end{cases}
+ \quad\Rightarrow\quad
+ y^2=b^2\left(1-\frac{c^2}{a^2}\right)
+ =\frac{b^4}{a^2}.
+\]
+故两交点是
+\[
+ A=\left(c,\frac{b^2}{a}\right),\quad
+ B=\left(c,-\frac{b^2}{a}\right),
+\]
+由两点距离公式
+\[
+ AB=\sqrt{(c-c)^2+
+ \left(\frac{b^2}{a}+\frac{b^2}{a}\right)^2}
+ =\boxed{\frac{2b^2}{a}}.
+\]
+左焦点取 $x=-c$，求得相同长度。
+
+\textbf{（二）横向双曲线。}设
+\[
+ H:\ \frac{x^2}{a^2}-\frac{y^2}{b^2}=1,
+ \quad a,b>0,\quad c^2=a^2+b^2.
+\]
+通径直线仍为 $x=c$，联立得到
+\[
+ \frac{y^2}{b^2}=\frac{c^2}{a^2}-1
+ =\frac{b^2}{a^2}
+ \quad\Rightarrow\quad
+ A=\left(c,\frac{b^2}{a}\right),\quad
+ B=\left(c,-\frac{b^2}{a}\right).
+\]
+所以 $AB=\boxed{2b^2/a}$；左支的焦点 $(-c,0)$ 同理。
+
+\textbf{（三）抛物线。}以向右开口的 $y^2=2px\ (p>0)$ 为例。
+它的焦点是 $F=(p/2,0)$，通径直线是 $x=p/2$：
+\[
+ \begin{cases}y^2=2px,\\x=p/2,\end{cases}
+ \quad\Rightarrow\quad y^2=p^2
+ \quad\Rightarrow\quad
+ A=(p/2,p),\ B=(p/2,-p).
+\]
+于是 $AB=\boxed{2p}$。
+对于 $y^2=-2px$，改为联立 $x=-p/2$；
+对于 $x^2=\pm2py$，改为联立 $y=\pm p/2$。
+都可解出另一坐标为 $\pm p$，通径长度不变。
+
+\textbf{常规法的价值：}它适合写完整考试证明，也能自然迁移到\textbf{一般直线与圆锥曲线相交求弦长}的题目；
+但比方法一多写了联立方程与两点距离，临场速算优先用方法一。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法四：焦准比加对称性（几何角度）。}
 设 $A,B$ 是横向椭圆或双曲线右通径端点，$F=(c,0)$，对应准线 $l:x=a^2/c$。
 $AH\perp l$，且 $H$ 为垂足；通径竖直，所以
 \[
@@ -41,5 +173,63 @@ $AH\perp l$，且 $H$ 为垂足；通径竖直，所以
 端点到准线距离为 $p$，由等距定义，端点到焦点距离也为 $p$，再由对称性得 $L=2p$。
 \input{assets/tikz/C046_orientation_invariance}
 这种证明不依赖开口方向；平移、旋转后仍是同样的距离关系。
+\end{proofbox}
+\clearpage
+
+\begin{proofbox}
+\textbf{方法五：第一定义＋勾股定理——最能解释公式为什么相同。}
+这个方法\textbf{不用焦点—准线性质}，只用熟悉的两焦点定义和直角三角形。
+它说明：通径的\textbf{半长}为什么自然地等于 $b^2/a$。
+
+设横向有心曲线的两焦点为 $F_1=(-c,0),F_2=(c,0)$，
+取右通径的上端点 $P=(c,h)$，其中 $h>0$ 待求。
+\input{assets/tikz/C046_two_focus_triangle}
+图中两条直角边分别是焦点间距 $F_1F_2=2c$ 与半通径 $PF_2=h$，
+所以斜边 $PF_1=\sqrt{4c^2+h^2}$。
+左图把斜边与竖边\textbf{相加}，右图把它们\textbf{相减}；下面将数字换成字母。
+
+\textbf{椭圆：到两焦点距离的和为 $2a$。}
+\[
+ PF_1+PF_2=2a
+ \quad\Rightarrow\quad
+ \sqrt{4c^2+h^2}+h=2a.
+\]
+把根式移到一边并平方（$2a-h>0$），
+\[
+ 4c^2+h^2=(2a-h)^2
+ =4a^2-4ah+h^2
+ \quad\Rightarrow\quad
+ ah=a^2-c^2=b^2.
+\]
+因此半通径 $h=b^2/a$，全通径 $2h=2b^2/a$。
+
+\textbf{双曲线右支：到左焦点的距离减去到右焦点的距离为 $2a$。}
+\[
+ PF_1-PF_2=2a
+ \quad\Rightarrow\quad
+ \sqrt{4c^2+h^2}-h=2a.
+\]
+同样移项平方，
+\[
+ 4c^2+h^2=(2a+h)^2
+ =4a^2+4ah+h^2
+ \quad\Rightarrow\quad
+ ah=c^2-a^2=b^2.
+\]
+所以 $h=b^2/a$，全通径也为 $2b^2/a$。
+
+\textbf{为什么结论相同？}
+椭圆的“距离和”给出 $a^2-c^2=b^2$，
+双曲线的“距离差”给出 $c^2-a^2=b^2$。
+符号虽相反，但对应的 $c^2$ 关系也相反；最后都得到
+\[
+ \boxed{a\cdot\text{半通径}=b^2}
+ \quad\Longrightarrow\quad
+ \boxed{L=\frac{2b^2}{a}}.
+\]
+\textbf{抛物线另按自身的第一定义：}
+在 $y^2=2px$ 中，焦点 $F=(p/2,0)$，准线 $x=-p/2$。
+上通径端点 $P=(p/2,h)$ 到准线距离恰是 $p$，
+而 $PF=h$；焦点、准线等距，所以 $h=p$、整通径 $L=2p$。
 \end{proofbox}
 \clearpage

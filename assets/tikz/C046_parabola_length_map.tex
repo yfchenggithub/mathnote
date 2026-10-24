@@ -1,0 +1,23 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,9);
+\node[anchor=west,font=\small\bfseries] at (.5,8.5) {$y^2=8x$：横坐标 $2$、半通径 $4$、整通径 $8$，各指哪里？};
+\begin{scope}[shift={(3.6,4.1)},scale=.65]
+\draw[black!45] (-2,0)--(6,0);
+\draw[violet,thick] (-2,-4.6)--(-2,4.6);
+\draw[blue,very thick,domain=-4.5:4.5,samples=101,variable=\t] plot ({\t*\t/8},\t);
+\draw[orange!85!black,very thick] (2,-4)--(2,4);
+\draw[black!60,dashed] (-2,4)--(2,4);
+\draw[black!65] (1.65,0)--(1.65,.35)--(2,.35);
+\fill (2,4) circle (2.5pt) node[above right=4pt] {$A(2,4)$};
+\fill (2,-4) circle (2.5pt) node[below right=4pt] {$B(2,-4)$};
+\fill (2,0) circle (2.5pt) node[below right=5pt] {$F(2,0)$};
+\fill (0,0) circle (2pt) node[below left=4pt] {$O$};
+\node[right=5pt] at (2,2) {$AF=4$};
+\draw[<->] (-2,5.2)--(2,5.2) node[midway,above=3pt] {焦准距 $p=4$};
+\draw[black!35] (2,4)--(5,4) (2,-4)--(5,-4);
+\draw[<->,orange!85!black,thick] (4.8,-4)--(4.8,4) node[midway,right=4pt] {$AB=8$};
+\end{scope}
+\node[violet,rotate=90] at (1.8,4.1) {准线 $x=-2$};
+\node[align=left,anchor=west] at (9.5,5.8) {$k=8=2p$\\[9pt]$OF=k/4=2$\\[9pt]$AF=p=k/2=4$\\[9pt]$AB=2p=k=8$};
+\node[anchor=west] at (.6,.55) {先看清线段，再记公式；$k<0$ 时坐标带符号，长度用 $|k|$。};
+\end{tikzpicture}\end{center}
