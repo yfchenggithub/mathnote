@@ -1,3 +1,25 @@
-\begin{tikzpicture}[scale=0.8,>=stealth]
-\draw[blue,thick,domain=-1.4:1.4,samples=90] plot ({2*cosh(\x)},{sqrt(5)*sinh(\x)});\draw[blue,thick,domain=-1.4:1.4,samples=90] plot ({-2*cosh(\x)},{sqrt(5)*sinh(\x)});\draw[gray,thick] (-3,0)--(3,2.5)--(3,0);\fill (3,2.5) circle (1.7pt) node[above right] {$P$};\fill (-3,0) circle (1.7pt) node[below] {$F_1$};\fill (3,0) circle (1.7pt) node[below] {$F_2$};
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,line cap=round,line join=round,font=\small]
+\draw[black!25,rounded corners=3pt] (0,0) rectangle (14.4,9.2);
+\node[font=\small\bfseries] at (7.2,8.7) {焦半径就是到焦点的距离：右支同侧短、异侧长};
+\begin{scope}[shift={(4.5,4.3)},x=0.8cm,y=0.8cm]
+\draw[black!30,->] (-4.4,0)--(4.5,0) node[right] {$x$};
+\draw[black!30,->] (0,-3.8)--(0,4.1) node[above] {$y$};
+\draw[black!65,thick,domain=-3.5:3.5,samples=100,variable=\z] plot ({-1*2*sqrt(1+\z*\z/5)},{\z});
+\draw[black!65,thick,domain=-3.5:3.5,samples=100,variable=\z] plot ({1*2*sqrt(1+\z*\z/5)},{\z});
+\coordinate (P) at (3,2.5);
+\coordinate (Fone) at (-3,0);
+\coordinate (Ftwo) at (3,0);
+\draw[blue!70!black,line width=1.1pt] (Fone)--(P);
+\draw[orange!85!black,line width=1.1pt] (Ftwo)--(P);
+\foreach \q in {P,Fone,Ftwo} \fill (\q) circle (1.6pt);
+\node[above left] at (P) {$P(3,\frac52)$};
+\node[below left] at (Fone) {$F_1(-3,0)$};
+\node[below right] at (Ftwo) {$F_2(3,0)$};
+\path (Fone)--(P) node[pos=.34,above,sloped,blue!70!black] {$d_1=\frac{13}{2}$};
+\node[right,orange!85!black] at (3,1) {$d_2=\frac52$};
+\end{scope}
+\node[align=left,anchor=north west] at (9.1,7.7) {$\dfrac{x^2}{4}-\dfrac{y^2}{5}=1$\\[1em]$a=2,\ c=3,\ e=\dfrac32$\\[1em]\textcolor{blue!70!black}{$d_1=ex_0+a$}\\[.7em]\textcolor{orange!85!black}{$d_2=ex_0-a$}\\[1em]$d_1-d_2=4=2a$};
+\node at (7.2,.65) {$F_1$ 始终是左焦点，$F_2$ 始终是右焦点；焦点名称不随支改变。};
 \end{tikzpicture}
+\end{center}

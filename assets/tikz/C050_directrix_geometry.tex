@@ -1,0 +1,35 @@
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,line cap=round,line join=round,font=\small]
+\draw[black!25,rounded corners=3pt] (0,0) rectangle (14.4,10);
+\node[font=\small\bfseries] at (7.2,9.5) {双曲线准线在两顶点之间；右支点位于两准线右侧};
+\begin{scope}[shift={(5.1,4.5)},x=0.9cm,y=0.9cm]
+\draw[black!30,->] (-4.4,0)--(4.5,0) node[right] {$x$};
+\draw[black!65,thick,domain=-3.5:3.5,samples=100,variable=\z] plot ({-1*2*sqrt(1+\z*\z/5)},{\z});
+\draw[black!65,thick,domain=-3.5:3.5,samples=100,variable=\z] plot ({1*2*sqrt(1+\z*\z/5)},{\z});
+\coordinate (P) at (3,2.5);
+\coordinate (Fone) at (-3,0);
+\coordinate (Ftwo) at (3,0);
+\draw[blue!70!black,line width=1.1pt] (Fone)--(P);
+\draw[orange!85!black,line width=1.1pt] (Ftwo)--(P);
+\foreach \q in {P,Fone,Ftwo} \fill (\q) circle (1.6pt);
+\draw[purple!65,dashed] (-1.333333,-3.3)--(-1.333333,3.7);
+\draw[purple!65,dashed] (1.333333,-3.3)--(1.333333,3.7);
+\coordinate (Kone) at (-1.333333,2.5); \coordinate (Ktwo) at (1.333333,2.5);
+\draw[blue!70!black,dashed,line width=2pt] (Kone)--(P);
+\draw[orange!85!black,densely dashed,line width=.8pt] (Ktwo)--(P);
+\draw[purple!65] (-1.333333,2.25)--(-1.083333,2.25)--(-1.083333,2.5);
+\draw[purple!65] (1.333333,2.25)--(1.583333,2.25)--(1.583333,2.5);
+\node[below left] at (Kone) {$K_1$}; \node[below left] at (Ktwo) {$K_2$};
+\node[below right] at (P) {$P$};
+\node[below] at (Fone) {$F_1$}; \node[below] at (Ftwo) {$F_2$};
+\fill (-2,0) circle (1.5pt); \draw[black!40] (-2,0)--(-2.6,-.75) node[below] {$A_-$};
+\fill (2,0) circle (1.5pt); \draw[black!40] (2,0)--(2.6,-.75) node[below] {$A_+$};
+\end{scope}
+\node[purple!65] at (3.9,8.55) {$x=-\dfrac ae$};
+\node[purple!65] at (6.3,8.55) {$x=\dfrac ae$};
+\node[blue!70!black] at (4.95,7.2) {$x_0+\dfrac ae$};
+\node[orange!85!black] at (7.2,7.2) {$x_0-\dfrac ae$};
+\node[align=left,anchor=north west] at (10,7.7) {$d_1=e\,PK_1$\\[1em]$d_2=e\,PK_2$\\[1.3em]右支：\\[.6em]$d_1=ex_0+a$\\[.6em]$d_2=ex_0-a$};
+\node at (7.2,.55) {两条水平距离有重合部分，用蓝粗虚线、橙细虚线区分；左支取距离绝对值。};
+\end{tikzpicture}
+\end{center}

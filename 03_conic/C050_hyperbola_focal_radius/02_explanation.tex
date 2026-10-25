@@ -1,50 +1,27 @@
+\clearpage
 \begin{explanationbox}
-\begin{minipage}{\linewidth}
-\begin{center}\input{assets/tikz/C050_math_audit_geometry.tex}\end{center}
-先确认 $P$ 在双曲线上，再用横坐标正负区分两支。右支上两条焦半径均为正长度；左支须正确处理绝对值。
-\end{minipage}
-\par\medskip
+\textbf{\textcolor{CExplanation}{先看一个真实点：长短相差 $2a$}}
 
+取双曲线 $x^2/4-y^2/5=1$，$a=2,c=3,e=3/2$。
+图中 $P=(3,5/2)$ 在右支，两条焦半径分别是 $13/2,5/2$。
+\input{assets/tikz/C050_math_audit_geometry}
+\textbf{读图：} 连右焦点的橙线较短，连左焦点的蓝线较长，差为 $4=2a$。
+把两长度的平均值记作 $t$，就有“短 $=t-a$，长 $=t+a$”。
+本例 $t=9/2=e|x_0|$，方法二的实长线段图会把这一步展开。
 
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
+\textbf{关键区别：} $F_1,F_2$ 的名称始终按左右定义；“同侧、异侧”才随所在支改变。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{再把点移到左支：左右焦点不换，长短对调}}
+\input{assets/tikz/C050_branch_comparison}
+对任一支，令 $t=e|x_0|$，则
+\[
+\boxed{\text{同侧短}=t-a},\qquad\boxed{\text{异侧长}=t+a}.
+\]
+所以两条距离的差的绝对值为 $2a$，和为 $2t=2e|x_0|$。
+此处 $t\ge ea=c>a$，短的一段仍严格为正。
 
-	焦半径公式告诉我们，双曲线上点到焦点的距离可以简单地用点的横坐标和离心率表示，不需要开平方，就像是一个“距离计算器”。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（定义转化）：}] 双曲线定义 $||PF_1|-|PF_2||=2a$ 和坐标距离公式是推导的基础。
-		\item[\textbf{要点二（代数化简）：}] 将距离平方，代入双曲线方程消去 $y_0$，巧化为完全平方 $(ex_0\pm a)^2$，是推导的关键。
-		\item[\textbf{要点三（符号判定）：}] 由于 $e>1$，$a\pm ex_0$ 的值可能正可能负，必须加绝对值，再根据 $x_0\ge a$ 或 $x_0\le -a$ 决定符号。
-	\end{description}
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（线性距离关系）}}
-
-	焦半径的长度可以写成 $|PF_1|=|ex_0+a|$，这说明距离与 $x_0$ 成线性关系，反映了双曲线上的点到焦点的水平偏移效应。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（单变量转化）}}
-
-	原本开方的距离表达式通过代数变形转化为不含根号的线性绝对值表达式，极大地简化了运算，尤其适合在解析几何问题中转化为关于 $x_0$ 的方程。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（快速计算）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（求焦半径长）：} 已知双曲线方程和点坐标，直接代入公式得出焦半径。
-		\item \textbf{考法二（逆向求参数）：} 已知焦半径或比例关系，利用公式列方程求离心率、坐标或曲线方程。
-	\end{itemize}
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
-
-	双曲线焦半径与椭圆焦半径在形式上仅相差绝对值，这完全由 $e>1$ 导致。记住“双曲线要带绝对值”就能避免混淆。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（已知点求距离）：} 如例1，给出双曲线和点，直接算焦半径。
-		\item \textbf{场景二（焦点三角形问题）：} 结合定义和焦半径公式，可求三角形边长比例或面积。
-	\end{itemize}
-
+图中上下翻折 $P(x_0,y_0)\mapsto P'(x_0,-y_0)$ 不改变到横轴上两焦点的距离；
+公式不依赖 $y_0$ 的正负，但使用前仍须确认点在曲线上。
 \end{explanationbox}

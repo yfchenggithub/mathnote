@@ -1,0 +1,82 @@
+\begin{explanationbox}
+\begin{minipage}{\linewidth}
+\begin{center}\input{assets/tikz/C050_math_audit_geometry.tex}\end{center}
+先确认 $P$ 在双曲线上，再用横坐标正负区分两支。右支上两条焦半径均为正长度；左支须正确处理绝对值。
+\end{minipage}
+\par\medskip
+
+\textbf{\textcolor{CExplanation}{一句话直觉}}
+
+\textbf{两段距离相差固定的 $2a$；它们的中间值却是 $e|x_0|$。}
+所以把两条焦半径直接看作“中间值减 $a$”与“中间值加 $a$”，
+既能理解公式，又不用死记正负号。
+
+\medskip
+\textbf{\textcolor{CExplanation}{从熟悉的线段开始：先看右顶点}}
+
+右顶点 $A(a,0)$ 与两焦点都在 $x$ 轴上，故
+\[
+ |AF_2|=c-a,\qquad |AF_1|=c+a.
+\]
+因为 $ea=c$，把 $c$ 写作 $ex_0$（此时 $x_0=a$），正好得到
+“$ex_0-a$、$ex_0+a$”。这先解释了\textbf{为什么出现 $a$ 的加减}；
+一般位置为什么仍成立，由后面的证明保证。
+
+\medskip
+\textbf{\textcolor{CExplanation}{最直观的拆解：$t-a$ 和 $t+a$}}
+
+想象两条长度一长一短，差恰好 $2a$：
+\[
+ \underbrace{(t+a)}_{\text{较长}}-
+ \underbrace{(t-a)}_{\text{较短}}=2a.
+\]
+这种设法\textbf{只有一个未知量 $t$}。
+再用“两个距离的平方相减，纵坐标自动消失”就可求得
+$t=e|x_0|$。\textbf{不需要先猜焦半径公式。}
+
+\medskip
+\textbf{\textcolor{CExplanation}{为什么纵坐标消失？}}
+
+把 $P$ 关于 $x$ 轴翻折成 $P'(x_0,-y_0)$，
+它到两焦点的距离完全不变；另外，
+\[
+ \begin{aligned}
+ |PF_1|^2-|PF_2|^2
+ &=\bigl[(x_0+c)^2+y_0^2\bigr]
+   -\bigl[(x_0-c)^2+y_0^2\bigr]\\
+ &=4cx_0.
+ \end{aligned}
+\]
+两个 $y_0^2$ \textbf{直接抵消}，只剩下横坐标。
+
+\medskip
+\textbf{\textcolor{CExplanation}{如何做到不背左右支的四个符号？}}
+
+先判 $P$ 在哪一支，再抓住“\textbf{同侧短，异侧长}”：
+\begin{itemize}[leftmargin=*,itemsep=0.35em,topsep=0.35em]
+ \item 右支 $x_0\ge a$：离右焦点 $F_2$ 近；
+ $|PF_2|=ex_0-a$，$|PF_1|=ex_0+a$。
+ \item 左支 $x_0\le-a$：离左焦点 $F_1$ 近；
+ $|PF_1|=-ex_0-a$，$|PF_2|=-ex_0+a$。
+ \item 两支合并：同侧短 $=e|x_0|-a$，异侧长 $=e|x_0|+a$。
+\end{itemize}
+
+\medskip
+\textbf{\textcolor{CExplanation}{与椭圆放在一起理解}}
+
+两者都来自\textbf{焦点距离的和/差为常数}：
+\begin{itemize}[leftmargin=*,itemsep=0.3em,topsep=0.3em]
+ \item 椭圆：两距离的\textbf{和}是 $2a$；适合设 $a+t$、$a-t$。
+ \item 双曲线：两距离的\textbf{差的绝对值}是 $2a$；适合设 $t+a$、$t-a$。
+\end{itemize}
+这两个“一变量设法”只是把定值条件提前用掉了，运算负担很小。
+
+\medskip
+\textbf{\textcolor{CExplanation}{考场切入点}}
+
+题目给出焦半径、焦点三角形边长、焦半径比例或 $x_0$ 时，
+优先想到“\textbf{固定差 $2a$} + \textbf{同侧短、异侧长}”。
+若给 $x_0$，直接代公式；若给两焦半径，先\textbf{加减}得到 $a$ 与 $e|x_0|$，
+常比列两条开方距离式更快。
+
+\end{explanationbox}

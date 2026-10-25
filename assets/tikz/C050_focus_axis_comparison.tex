@@ -1,0 +1,43 @@
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,line cap=round,line join=round,font=\small]
+\draw[black!25,rounded corners=3pt] (0,0) rectangle (14.4,10);
+\node[font=\small\bfseries] at (7.2,9.5) {焦点轴变成纵轴：坐标与分支一起换成 $y_0$};
+\begin{scope}[shift={(3.6,5.3)},x=0.6cm,y=0.6cm]
+\draw[black!30,->] (-4.4,0)--(4.5,0) node[right] {$x$};
+\draw[black!30,->] (0,-3.8)--(0,4.1) node[above] {$y$};
+\draw[black!65,thick,domain=-3.5:3.5,samples=100,variable=\z] plot ({-1*2*sqrt(1+\z*\z/5)},{\z});
+\draw[black!65,thick,domain=-3.5:3.5,samples=100,variable=\z] plot ({1*2*sqrt(1+\z*\z/5)},{\z});
+\coordinate (P) at (3,2.5);
+\coordinate (Fone) at (-3,0);
+\coordinate (Ftwo) at (3,0);
+\draw[blue!70!black,line width=1.1pt] (Fone)--(P);
+\draw[orange!85!black,line width=1.1pt] (Ftwo)--(P);
+\foreach \q in {P,Fone,Ftwo} \fill (\q) circle (1.6pt);
+\node[above left] at (P) {$P$};
+\node[below left] at (Fone) {$F_1$};
+\node[below right] at (Ftwo) {$F_2$};
+\end{scope}
+\node at (3.6,8.9) {左、右焦点；图示右支};
+\node[blue!70!black] at (3.6,1.9) {$d_1=|a+ex_0|$};
+\node[orange!85!black] at (3.6,1.2) {$d_2=|a-ex_0|$};
+\begin{scope}[shift={(10.8,5.3)},x=0.6cm,y=0.6cm]
+\draw[black!30,->] (-4.4,0)--(4.5,0) node[right] {$x$};
+\draw[black!30,->] (0,-3.8)--(0,4.1) node[above] {$y$};
+\draw[black!65,thick,domain=-3.5:3.5,samples=100,variable=\z] plot ({\z},{-1*2*sqrt(1+\z*\z/5)});
+\draw[black!65,thick,domain=-3.5:3.5,samples=100,variable=\z] plot ({\z},{1*2*sqrt(1+\z*\z/5)});
+\coordinate (P) at (-2.5,3);
+\coordinate (Fone) at (0,-3);
+\coordinate (Ftwo) at (0,3);
+\draw[blue!70!black,line width=1.1pt] (Fone)--(P);
+\draw[orange!85!black,line width=1.1pt] (Ftwo)--(P);
+\foreach \q in {P,Fone,Ftwo} \fill (\q) circle (1.6pt);
+\node[above right] at (P) {$P$};
+\node[below left] at (Fone) {$F_1$};
+\node[below right] at (Ftwo) {$F_2$};
+\end{scope}
+\node at (10.8,8.9) {下、上焦点；图示上支};
+\node[blue!70!black] at (10.8,1.9) {$d_1=|a+ey_0|$};
+\node[orange!85!black] at (10.8,1.2) {$d_2=|a-ey_0|$};
+\node at (7.2,.5) {两图等比例、同尺度，右图由左图旋转 $90^\circ$ 得到，两条焦半径长度不变。};
+\end{tikzpicture}
+\end{center}

@@ -1,0 +1,47 @@
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,line cap=round,line join=round,font=\small]
+\draw[black!25,rounded corners=3pt] (0,0) rectangle (14.4,9.7);
+\node[font=\small\bfseries] at (7.2,9.2) {左右支对照：焦点名称不变，长短随所在支交换};
+\begin{scope}[shift={(3.6,5.65)},x=0.5cm,y=0.5cm]
+\draw[black!30,->] (-4.4,0)--(4.5,0) node[right] {$x$};
+\draw[black!30,->] (0,-3.8)--(0,4.1) node[above] {$y$};
+\draw[black!65,thick,domain=-3.5:3.5,samples=100,variable=\z] plot ({-1*2*sqrt(1+\z*\z/5)},{\z});
+\draw[black!65,thick,domain=-3.5:3.5,samples=100,variable=\z] plot ({1*2*sqrt(1+\z*\z/5)},{\z});
+\coordinate (P) at (-3,2.5);
+\coordinate (Fone) at (-3,0);
+\coordinate (Ftwo) at (3,0);
+\draw[blue!70!black,line width=1.1pt] (Fone)--(P);
+\draw[orange!85!black,line width=1.1pt] (Ftwo)--(P);
+\foreach \q in {P,Fone,Ftwo} \fill (\q) circle (1.6pt);
+\node[above right] at (P) {$P_-$};
+\node[below] at (Fone) {$F_1$};
+\node[below] at (Ftwo) {$F_2$};
+\end{scope}
+\node at (3.6,8.65) {$x_0=-3$，左支};
+\node[blue!70!black] at (3.6,3.15) {$d_1=5/2$};
+\fill[blue!45] (1.9000000000000001,2.55) rectangle (3.150000,2.8);
+\node[orange!85!black] at (3.6,1.85) {$d_2=13/2$};
+\fill[orange!50] (1.9000000000000001,1.25) rectangle (5.150000,1.5);
+\begin{scope}[shift={(10.8,5.65)},x=0.5cm,y=0.5cm]
+\draw[black!30,->] (-4.4,0)--(4.5,0) node[right] {$x$};
+\draw[black!30,->] (0,-3.8)--(0,4.1) node[above] {$y$};
+\draw[black!65,thick,domain=-3.5:3.5,samples=100,variable=\z] plot ({-1*2*sqrt(1+\z*\z/5)},{\z});
+\draw[black!65,thick,domain=-3.5:3.5,samples=100,variable=\z] plot ({1*2*sqrt(1+\z*\z/5)},{\z});
+\coordinate (P) at (3,2.5);
+\coordinate (Fone) at (-3,0);
+\coordinate (Ftwo) at (3,0);
+\draw[blue!70!black,line width=1.1pt] (Fone)--(P);
+\draw[orange!85!black,line width=1.1pt] (Ftwo)--(P);
+\foreach \q in {P,Fone,Ftwo} \fill (\q) circle (1.6pt);
+\node[above left] at (P) {$P_+$};
+\node[below] at (Fone) {$F_1$};
+\node[below] at (Ftwo) {$F_2$};
+\end{scope}
+\node at (10.8,8.65) {$x_0=3$，右支};
+\node[blue!70!black] at (10.8,3.15) {$d_1=13/2$};
+\fill[blue!45] (9.100000000000001,2.55) rectangle (12.350000,2.8);
+\node[orange!85!black] at (10.8,1.85) {$d_2=5/2$};
+\fill[orange!50] (9.100000000000001,1.25) rectangle (10.350000,1.5);
+\node at (7.2,.5) {曲线与线段均同尺度；两点互为镜像：同侧距离 $5/2$，异侧距离 $13/2$。};
+\end{tikzpicture}
+\end{center}
