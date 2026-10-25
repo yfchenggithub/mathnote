@@ -1,0 +1,22 @@
+% Exact example 3: P=(4,4), F=(1,0), triangle area 2.
+\begin{tikzpicture}[>=stealth,font=\small]
+\draw[rounded corners=3pt,gray!45] (0,0) rectangle (14.2,8.7);
+\node at (7.1,8.15) {例 3：先由 $PF=5$ 求坐标，再找 $\triangle OFP$ 的底和高};
+\begin{scope}[shift={(2.2,2.3)},scale=1.05]
+ \fill[blue!12] (0,0)--(1,0)--(4,4)--cycle;
+ \draw[->,gray] (-.6,0)--(5.2,0) node[right] {$x$};
+ \draw[->,gray] (0,-.5)--(0,4.8) node[above] {$y$};
+ \draw[teal!75!black,thick,domain=0:4.25,samples=90] plot ({\x*\x/4},\x);
+ \draw[blue!75!black,thick] (0,0)--(4,4)--(1,0);
+ \draw[blue!75!black,very thick] (0,0)--(1,0);
+ \draw[violet,thick,dashed] (4,0)--(4,4) node[midway,right=4pt] {高 $4$};
+ \draw[violet] (3.75,0)--(3.75,.25)--(4,.25);
+ \fill (0,0) circle(2pt) node[below left=3pt] {$O$};
+ \fill (1,0) circle(2pt) node[below=4pt] {$F(1,0)$};
+ \fill (4,0) circle(2pt) node[below=4pt] {$H(4,0)$};
+ \fill (4,4) circle(2pt) node[right=4pt] {$P(4,4)$};
+ \draw[<->,blue!75!black] (0,-.9)--(1,-.9) node[midway,below] {底 $1$};
+\end{scope}
+\node[anchor=west,align=left] at (9.4,5.1) {$x_0=5-1=4$\\[8pt]$|y_0|=4$\\[10pt]$\displaystyle S=\frac12\cdot1\cdot4=2$};
+\node at (7.1,.55) {高落在底边的延长线上也成立；取 $P(4,-4)$，面积仍为 $2$。};
+\end{tikzpicture}

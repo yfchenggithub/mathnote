@@ -1,0 +1,34 @@
+\begin{tikzpicture}[>=stealth,font=\small]
+\draw[rounded corners=3pt,gray!45] (0,0) rectangle (14.2,9.6);
+\node at (7.1,9.05) {横坐标相同，也必须先检查点是否在抛物线上};
+\begin{scope}[shift={(2.2,3.6)},scale=.78]
+\draw[->,gray] (-1.6,0)--(4.6,0) node[right] {$x$};
+\draw[->,gray] (0,-1.2)--(0,4.9) node[above] {$y$};
+\draw[red!75!black,thick] (-1,-1.1)--(-1,4.8);
+\draw[teal!75!black,thick,domain=-1:4.1,samples=90] plot ({\x*\x/4},\x);
+\fill (0,0) circle(1.7pt) node[below left=2pt] {$O$};
+\fill (1,0) circle(2pt) node[below=3pt] {$F$};
+\draw[orange!85!black,very thick] (-1,{sqrt(12)})--(3,{sqrt(12)});
+\draw[blue!75!black,very thick] (1,0)--(3,{sqrt(12)});
+\fill (3,{sqrt(12)}) circle(2pt) node[above right=2pt] {$P$};
+\fill (-1,{sqrt(12)}) circle(2pt) node[left=2pt] {$Q$};
+\draw[gray,dashed] (3,0)--(3,{sqrt(12)});
+\node[below] at (3,0) {$3$};
+\end{scope}
+\node[align=center] at (3.2,1.55) {$P(3,2\sqrt3)$ 在 $y^2=4x$ 上\\[6pt]$PF=PQ=3+1=4$};
+\begin{scope}[shift={(9.2,3.6)},scale=.78]
+\draw[->,gray] (-1.6,0)--(4.6,0) node[right] {$x$};
+\draw[->,gray] (0,-1.2)--(0,4.9) node[above] {$y$};
+\draw[red!75!black,thick] (-1,-1.1)--(-1,4.8);
+\draw[teal!75!black,thick,domain=-1:4.1,samples=90] plot ({\x*\x/4},\x);
+\fill (0,0) circle(1.7pt) node[below left=2pt] {$O$};
+\fill (1,0) circle(2pt) node[below=3pt] {$F$};
+\draw[orange!85!black,very thick] (-1,0)--(3,0);
+\draw[blue!75!black,very thick] (1,0)--(3,0);
+\draw[<->,orange!85!black] (-1,-1.6)--(3,-1.6) node[midway,below] {$RQ=4$};
+\draw[<->,blue!75!black] (1,1)--(3,1) node[midway,above] {$RF=2$};
+\fill (3,0) circle(2pt) node[below right=3pt] {$R(3,0)$};
+\fill (-1,0) circle(2pt) node[below left=2pt] {$Q$};
+\end{scope}
+\node[align=center] at (10.2,1.05) {$R(3,0)$ 不在 $y^2=4x$ 上\\[6pt]$RF\ne RQ$，不能套公式};
+\end{tikzpicture}

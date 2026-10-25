@@ -1,42 +1,63 @@
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+  \textbf{\textcolor{CProof}{共同前提}}
 
-	利用抛物线定义将焦半径转化为点到准线的距离，再通过坐标差直接计算，避免两点间距离公式。
+  设抛物线 $y^2=2px$（$p>0$），$P(x_0,y_0)$ 在曲线上。
+  焦点 $F(\frac p2,0)$，准线 $l:x=-\frac p2$；
+  由于 $y_0^2=2px_0\ge0$，得 $x_0\ge0$。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（明确几何要素）：}]
-			由抛物线标准方程 $y^2=2px$（$p>0$），得焦点 $F$ 和准线 $l$：
-			\[
-				F\left(\frac{p}{2},0\right),\quad l:x=-\frac{p}{2}.
-			\]
-			\par\textbf{理由：}
-			标准方程的几何参数直接对应。
+  \medskip
+  \textbf{\textcolor{CProof}{方法一：最快证明法（定义一步到位，考场首选）}}
 
-		\item[\textbf{步骤二（定义转化）：}]
-			根据抛物线定义，点 $P(x_0,y_0)$ 在抛物线上，则到焦点的距离等于到准线的距离：
-			\[
-				|PF| = d(P,l).
-			\]
-			\par\textbf{理由：}
-			抛物线定义：平面内到定点与定直线距离相等的点的轨迹。
+  \textbf{核心：}焦半径 $=$ 点到准线的距离。故
+  \[
+    \boxed{PF=d(P,l)
+    =\left|x_0-\left(-\frac p2\right)\right|
+    =x_0+\frac p2}.
+  \]
+  \textbf{为什么能去掉绝对值？} $P$ 在 $y^2=2px$ 上，必有 $x_0\ge0$，且 $p/2>0$。
 
-		\item[\textbf{步骤三（代数化简）：}]
-			点到直线 $x=-\frac{p}{2}$ 的距离为横坐标差，即
-			\[
-				d(P,l) = \left|x_0 + \frac{p}{2}\right|.
-			\]
-			因点 $P$ 在抛物线上，$x_0 \ge 0$，所以
-			\[
-				|PF| = x_0 + \frac{p}{2}.
-			\]
-			\par\textbf{理由：}
-			抛物线 $y^2=2px$ 开口向右，抛物线上点横坐标非负，故绝对值可去。
-	\end{description}
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
 
-	\textbf{该证明通过抛物线定义将距离转化，避免了两点间距离公式的复杂运算，说明焦半径公式在求解抛物线问题时的简洁性。}
+  \medskip
+  \textbf{\textcolor{CProof}{方法二：最低门槛证明法（两段路相加，不用根号）}}
+
+
+  直接使用理解说明主图中的 $Q(-p/2,y_0)$、$H(0,y_0)$：
+  $Q,H,P$ 从左至右排列（允许 $H=P$），因此
+  \[
+    PF=PQ=QH+HP=\frac p2+x_0.
+  \]
+  其中 $PF=PQ$ 用抛物线定义，最后一步用两段水平长度相加。
+
+  \medskip
+  \textbf{\textcolor{CProof}{方法三：常规坐标证明法（两点距离公式，完全代数检验）}}
+
+  只利用焦点坐标和曲线上点的方程：
+  \begin{align*}
+    PF
+      &=\sqrt{\left(x_0-\frac p2\right)^2+(y_0-0)^2}\\
+      &=\sqrt{x_0^2-px_0+\frac{p^2}{4}+2px_0}
+          &&\text{（代入 }y_0^2=2px_0\text{）}\\
+      &=\sqrt{x_0^2+px_0+\frac{p^2}{4}}\\
+      &=\sqrt{\left(x_0+\frac p2\right)^2}\\
+      &=\left|x_0+\frac p2\right|
+       =\boxed{x_0+\frac p2}.
+  \end{align*}
+  最后一步使用 $x_0\ge0$、$p>0$。
+  \medskip
+  \textbf{\textcolor{CProof}{拓展验证：四种开口本质相同}}
+
+  向左的 $y^2=-2px$ 上 $x_0\le0$，其准线在 $x=p/2$，
+  因而 $PF=p/2-x_0$。
+  向上的 $x^2=2py$ 上 $y_0\ge0$，其准线在 $y=-p/2$，
+  因而 $PF=p/2+y_0$。
+  向下的 $x^2=-2py$ 上 $y_0\le0$，其准线在 $y=p/2$，
+  因而 $PF=p/2-y_0$。
+  这三式与向右的结果全部统一为
+  \[
+    \boxed{\text{焦半径}=
+      \text{点沿开口方向的坐标距离}+\frac p2}.
+  \]
+
 \end{proofbox}
