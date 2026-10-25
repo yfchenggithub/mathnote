@@ -1,0 +1,41 @@
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,line cap=round,line join=round,font=\small]
+\draw[black!25,rounded corners=3pt] (0,0) rectangle (14.4,10);
+\node[font=\small\bfseries] at (7.2,9.5) {先看焦点轴：横轴用 $x_0$，纵轴用 $y_0$};
+\begin{scope}[shift={(3.6,5.15)},x=0.48cm,y=0.48cm]
+\draw[black!35,->] (-5.7,0)--(5.8,0) node[right] {$x$};
+\draw[black!35,->] (0,-4.5)--(0,4.6) node[above] {$y$};
+\draw[black!65,thick] (0,0) ellipse (5 and 4);
+\coordinate (P) at (3,3.2);
+\coordinate (Fone) at (-3,0);
+\coordinate (Ftwo) at (3,0);
+\draw[blue!70!black,line width=1.1pt] (Fone)--(P);
+\draw[orange!85!black,line width=1.1pt] (Ftwo)--(P);
+\foreach \q in {P,Fone,Ftwo} \fill (\q) circle (1.6pt);
+\node[above right] at (P) {$P$};
+\node[below left] at (Fone) {$F_1$};
+\node[below right] at (Ftwo) {$F_2$};
+\end{scope}
+\node at (3.6,8.65) {焦点在 $x$ 轴};
+\node[blue!70!black] at (3.6,1.8) {$r_1=a+ex_0$};
+\node[orange!85!black] at (3.6,1.15) {$r_2=a-ex_0$};
+\begin{scope}[shift={(10.8,5.15)},x=0.48cm,y=0.48cm]
+\draw[black!35,->] (-4.7,0)--(4.8,0) node[right] {$x$};
+\draw[black!35,->] (0,-5.5)--(0,5.6) node[above] {$y$};
+\draw[black!65,thick] (0,0) ellipse (4 and 5);
+\coordinate (P) at (-3.2,3);
+\coordinate (Fone) at (0,-3);
+\coordinate (Ftwo) at (0,3);
+\draw[blue!70!black,line width=1.1pt] (Fone)--(P);
+\draw[orange!85!black,line width=1.1pt] (Ftwo)--(P);
+\foreach \q in {P,Fone,Ftwo} \fill (\q) circle (1.6pt);
+\node[above left] at (P) {$P$};
+\node[below left] at (Fone) {$F_1$};
+\node[below right] at (Ftwo) {$F_2$};
+\end{scope}
+\node at (10.8,8.65) {焦点在 $y$ 轴};
+\node[blue!70!black] at (10.8,1.8) {$r_1=a+ey_0$};
+\node[orange!85!black] at (10.8,1.15) {$r_2=a-ey_0$};
+\node at (7.2,.45) {同一椭圆旋转 $90^\circ$：左右焦点变为下上焦点，距离保持不变。};
+\end{tikzpicture}
+\end{center}

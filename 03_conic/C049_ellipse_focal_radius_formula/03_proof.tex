@@ -1,59 +1,174 @@
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{\textcolor{CProof}{先定证明路线}}
+\begin{itemize}[leftmargin=*, itemsep=0.3em, topsep=0.3em]
+ \item \textbf{最快：} 已经学过椭圆第二定义，就直接用“焦点距离 $=$ 离心率 $\times$ 准线距离”。
+ \item \textbf{最低门槛（首推理解）：} 只用椭圆第一定义、勾股定理和平方差公式，避开准线与配方。
+ \item \textbf{常规：} 从点到焦点的距离公式出发，代入椭圆方程消元、配方，是完整的标准代数证明。
+\end{itemize}
 
-	从两点距离公式出发，利用椭圆方程消去 $y_0$，通过代数恒等变形得到完全平方式，再开方即得结论。
+\medskip
+\textbf{\textcolor{CProof}{证明一：最快证明——第二定义法}}
+\textbf{切入点：} 第二定义给出“焦半径与对应准线距离成正比”，而准线是竖直线，水平距离一眼可写。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（平方展开）：}] 写出 $|PF_2|$ 的平方：
-			\[
-				|PF_2|^2 = (x_0 - c)^2 + y_0^2.
-			\]
-			\par\textbf{理由：} 两点间距离公式 $|AB| = \sqrt{(x_1-x_2)^2+(y_1-y_2)^2}$。
+椭圆右、左准线分别为 $x=\frac{a^2}{c}$ 与 $x=-\frac{a^2}{c}$。
+由于 $|x_0|\le a<\frac{a^2}{c}$（$0<c<a$），点 $P$ 始终处在两条准线之间。
+\input{assets/tikz/C049_directrix_distances}
+利用第二定义，直接有
+\[
+ \begin{aligned}
+ |PF_2|&=e\left(\frac{a^2}{c}-x_0\right)=a-ex_0,\\
+ |PF_1|&=e\left(x_0+\frac{a^2}{c}\right)=a+ex_0,
+ \end{aligned}
+\]
+其中关键一步是 $e\cdot\frac{a^2}{c}=\frac ca\cdot\frac{a^2}{c}=a$。
+\textbf{考场速记：} 右准线在最右边，右焦半径 $=e(\text{准线横坐标}-x_0)$；左侧反过来。
 
-		\item[\textbf{步骤二（代入消元）：}] 由椭圆方程 $\frac{x_0^2}{a^2}+\frac{y_0^2}{b^2}=1$ 得 $y_0^2 = b^2 - \frac{b^2}{a^2}x_0^2$，其中 $b^2 = a^2 - c^2$。
-			\[
-				|PF_2|^2 = (x_0-c)^2 + a^2 - c^2 - \frac{a^2-c^2}{a^2}x_0^2.
-			\]
-			\par\textbf{理由：} 将 $y_0^2$ 表达式代入，并将 $b^2$ 用 $a^2-c^2$ 替换。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明二：最低门槛——第一定义＋勾股平方差法}}
+\textbf{为什么选这个切入点？} 椭圆第一定义已经告诉我们两条距离的\emph{和}是 $2a$。
+要分别求出它们，只差一个\emph{差}；直接相减两个根式很麻烦，改算\emph{平方差}就能消掉 $y_0^2$。
 
-		\item[\textbf{步骤三（合并化简）：}] 将上式展开并整理：
-			\[
-				\begin{aligned}
-					|PF_2|^2 &= (x_0^2 - 2c x_0 + c^2) + a^2 - c^2 - \left(1-\frac{c^2}{a^2}\right)x_0^2 \\
-					&= x_0^2 - 2c x_0 + a^2 - x_0^2 + \frac{c^2}{a^2}x_0^2 \\
-					&= a^2 - 2c x_0 + \frac{c^2}{a^2}x_0^2.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 合并同类项，注意 $b^2/a^2 = 1-c^2/a^2$。
+设 $r_1=|PF_1|$，$r_2=|PF_2|$。
 
-		\item[\textbf{步骤四（配方开方）：}] 上式可化为完全平方：
-			\[
-				|PF_2|^2 = \left(a - \frac{c}{a} x_0\right)^2 = (a - e x_0)^2,
-			\]
-			因为 $e = c/a$。又因为 $a - e x_0 > 0$（$x_0 \le a$，$e<1$），所以
-			\[
-				|PF_2| = a - e x_0.
-			\]
-			\par\textbf{理由：} 完全平方公式；开方后取正值。
+\textbf{第一步（已知两距离的和）：}
+\[
+ r_1+r_2=2a.
+\]
+这是椭圆第一定义，无须展开椭圆方程。
 
-		\item[\textbf{步骤五（对称类推）：}] 同理计算 $|PF_1|^2 = (x_0 + c)^2 + y_0^2$，可得
-			\[
-				|PF_1|^2 = (a + e x_0)^2 \quad\Rightarrow\quad |PF_1| = a + e x_0.
-			\]
-			\par\textbf{理由：} 对称地将 $c$ 换为 $-c$，得到 $+2c x_0$ 项，配方后为 $(a + e x_0)^2$。
+\textbf{第二步（勾股定理写出平方差）：}
+过 $P$ 向 $x$ 轴作垂足 $H(x_0,0)$。先看垂足的两种位置：
+\input{assets/tikz/C049_pythagoras_foot_positions}
+长度取绝对值，平方后无须分段；勾股定理统一写为：
+\[
+ \begin{aligned}
+ r_1^2&=(x_0+c)^2+y_0^2,\\
+ r_2^2&=(x_0-c)^2+y_0^2.
+ \end{aligned}
+\]
+两式相减，$y_0^2$ 被消去：
+\[
+ \begin{aligned}
+ r_1^2-r_2^2
+ &=(x_0+c)^2-(x_0-c)^2\\
+ &=4cx_0.
+ \end{aligned}
+\]
+注意 $x_0$ 可以为负，使用平方式不受垂足位于哪个区间的影响。
 
-		\item[\textbf{步骤六（验证定义）：}] 检验和：
-			\[
-				|PF_1| + |PF_2| = (a + e x_0) + (a - e x_0) = 2a,
-			\]
-			与椭圆第一定义吻合，确认公式正确。
-			\par\textbf{理由：} 椭圆定义 $|PF_1|+|PF_2|=2a$。
-	\end{description}
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明二（续）：由和、差分别求出两条焦半径}}
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
+\textbf{第三步（平方差除以和，求出差）：}
+\[
+ \underbrace{(r_1-r_2)}_{\text{要找的差}}
+ \underbrace{(r_1+r_2)}_{2a}=4cx_0
+ \quad\Longrightarrow\quad
+ r_1-r_2=\frac{4cx_0}{2a}=2ex_0.
+\]
 
-	\textbf{由此严格推导出椭圆的焦半径公式：$|PF_1| = a + e x_0$，$|PF_2| = a - e x_0$。} 该公式在解决椭圆距离问题时可大幅简化运算。
+\textbf{第四步（和差求两数）：}
+\[
+ \begin{aligned}
+ r_1&=\frac{(r_1+r_2)+(r_1-r_2)}2=a+ex_0,\\
+ r_2&=\frac{(r_1+r_2)-(r_1-r_2)}2=a-ex_0.
+ \end{aligned}
+\]
+因此
+\[
+ \boxed{|PF_1|=a+ex_0,\qquad |PF_2|=a-ex_0}.
+\]
+\textbf{记忆负担最小的版本：}
+\[
+ \boxed{\text{和： }2a\quad\xrightarrow[\text{勾股＋平方差}]{\text{找差}}\quad
+ \text{差： }2ex_0\quad\Longrightarrow\quad a\pm ex_0.}
+\]
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{补充证明：最低门槛优选——单变量 $a+t,\ a-t$ 法}}
+
+\textbf{为什么比设 $r_1,r_2$ 更省事？}
+原来的证明二先设两条距离为 $r_1,r_2$，再求“和”和“差”，最后联立。
+现在利用\emph{和已知}这一条件，直接把两条距离写成 $a+t$ 与 $a-t$：
+\textbf{形式上只有一个未知量 $t$}，而和为 $2a$ 已自动满足。
+无需先求 $r_1-r_2$，也无需最后解二元方程组。
+
+\medskip
+\textbf{第一步：由第一定义，设两条焦半径。}
+椭圆第一定义告诉我们 $|PF_1|+|PF_2|=2a$，所以设
+\[
+ \boxed{|PF_1|=a+t,\qquad |PF_2|=a-t.}
+\]
+这里的 $t$ 是\textbf{带符号的差量}，可以为正、零或负；无需预判哪条更长。
+
+\textbf{第二步：勾股写平方，两式相减。}
+由 $F_1(-c,0)$、$F_2(c,0)$ 和 $P(x_0,y_0)$ 得
+\[
+ \begin{aligned}
+ (a+t)^2&=(x_0+c)^2+y_0^2,\\
+ (a-t)^2&=(x_0-c)^2+y_0^2.
+ \end{aligned}
+\]
+相减时，$y_0^2$ 自动抵消；两边都是平方差：
+\[
+ \underbrace{(a+t)^2-(a-t)^2}_{4at}
+ =\underbrace{(x_0+c)^2-(x_0-c)^2}_{4cx_0}.
+\]
+故 $4at=4cx_0$，于是
+\[
+ \boxed{t=\frac ca x_0=ex_0}.
+\]
+
+\textbf{第三步：代回设法，结论立即得到。}
+\[
+ \boxed{|PF_1|=a+ex_0,\qquad |PF_2|=a-ex_0.}
+\]
+\textbf{补充核验：} 因为 $|x_0|\le a$、$0<e<1$，有
+$|t|=e|x_0|\le c<a$，所以 $a+t>0$、$a-t>0$，确实都是长度。
+
+\medskip
+\textbf{\textcolor{CProof}{考场记忆：和是 $2a$，就设 $a\pm t$；勾股相减得 $4at=4cx_0$。}}
+与原证明二相比，数学原理相同，\textbf{但设元更少、步骤更短}，建议作为首选的最低门槛证明。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明三：常规证明——距离公式＋椭圆方程}}
+
+\textbf{第1步：用椭圆方程消去 $y_0^2$。}
+\[
+y_0^2=b^2\left(1-\frac{x_0^2}{a^2}\right),\qquad b^2=a^2-c^2.
+\]
+\textbf{第2步：展开右焦半径的平方，再配方。}
+\[
+\begin{aligned}
+r_2^2&=(x_0-c)^2+y_0^2\\
+&=x_0^2-2cx_0+c^2+(a^2-c^2)\left(1-\frac{x_0^2}{a^2}\right)\\
+&=a^2-2cx_0+\frac{c^2}{a^2}x_0^2\\
+&=\left(a-\frac ca x_0\right)^2=(a-ex_0)^2.
+\end{aligned}
+\]
+\textbf{第3步：说明正性，再开方。} 因为 $|x_0|\le a$、$e=c/a<1$，
+\[
+a\pm ex_0\ge a-c>0.
+\]
+所以 $r_2=|a-ex_0|=a-ex_0$。将上面的 $c$ 换成 $-c$，同理得到 $r_1=a+ex_0$。
+
+\textbf{回验：} 两式之和为 $2a$，与第一定义相符；
+$x_0=0$ 时 $r_1=r_2=a$；右端点 $P(a,0)$ 处 $r_1=a+c,r_2=a-c$。
+特殊值检查符号，一般性由上面的恒等变形保证。
+
+\medskip
+\textbf{\textcolor{CProof}{三条路线的联系}}
+第一定义给“和”，勾股平方差给“差”；第二定义直接给出每条距离；距离公式则通过消元配方得到同一结果。
+
+\textbf{焦点在纵轴的推广：} 对 $x^2/b^2+y^2/a^2=1$，交换横纵轴，
+下、上焦点依次记为 $F_1,F_2$，便有 $r_1=a+ey_0,r_2=a-ey_0$。
 \end{proofbox}

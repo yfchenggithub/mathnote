@@ -1,41 +1,44 @@
+\clearpage
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
+\textbf{\textcolor{CExplanation}{先认清：焦半径就是两条连向焦点的线段}}
 
-	椭圆上一点到左、右焦点的距离，等于半长轴 $a$ 加上或减去离心率 $e$ 与该点横坐标 $x_0$ 的乘积。
+取椭圆 $x^2/25+y^2/16=1$，$a=5,c=3,e=3/5$。图中 $P=(3,16/5)$ 确实在椭圆上。
+\input{assets/tikz/C049_focal_radius_main}
+\textbf{读图：} 蓝线连左焦点，长 $5+\frac35\cdot3=\frac{34}{5}$；
+橙线连右焦点，长 $5-\frac35\cdot3=\frac{16}{5}$。
+和为 $10$，与椭圆定义相符。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（符号对应）：}] 左焦半径 $|PF_1|$ 取“$+$”号（$a+ex_0$），右焦半径 $|PF_2|$ 取“$-$”号（$a-ex_0$），符号与焦点左右位置一致。
-		\item[\textbf{要点二（范围约束）：}] 由于 $x_0\in[-a,a]$，可得焦半径的取值范围为 $[a-c, a+c]$，其中 $c=ae$。
-	\end{description}
+\textbf{推广到任意椭圆上的点：}
+\[
+\textcolor{blue!70!black}{r_1=a+ex_0},\qquad
+\textcolor{orange!85!black}{r_2=a-ex_0},\qquad r_1+r_2=2a.
+\]
+这里的“加、减”对应\emph{焦点位置}；不是把两条线段的长短永远固定。
+例如 $x_0<0$ 时 $ex_0<0$，左焦半径反而较短。
+\medskip
+\textbf{\textcolor{CExplanation}{补充直觉：两段长度和已知，为什么只设一个 $t$？}}
+既然 $r_1+r_2=2a$，就把 $a$ 看作每条的“平均长度”：
+\[
+ \boxed{r_1=a+t,\qquad r_2=a-t.}
+\]
+这相当于从一条挪出 $t$ 给另一条，\emph{总和自动保持 $2a$}。
+与分别设 $r_1,r_2$ 再求和、差相比，这里\textbf{只需确定 $t$ 一个未知量}；
+而且 $t$ 可正可负，不限定 $P$ 在左侧还是右侧。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{再看变化：一条增、一条减，和保持不变}}
+\input{assets/tikz/C049_focal_radius_three_states}
+端点处两条线段共线，用蓝色粗实线、橙色细虚线区分；长度条显示各自全长。
+三幅真实状态直接检验“左加右减”。随着 $x_0$ 从 $-a$ 增到 $a$，
+$r_1$ 从 $a-c$ 增到 $a+c$，$r_2$ 反向变化，每条都为正。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（第二定义）}}
+\textbf{长度条还告诉我们：} 两条之和相同，长度相等时乘积最大；在两端时乘积最小。
+一般地
+\[
+r_1r_2=a^2-e^2x_0^2\in[b^2,a^2].
+\]
+最大值在 $x_0=0$（两个短轴端点）取得；最小值在 $x_0=\pm a$（两个长轴端点）取得。
 
-	由椭圆第二定义：点 $P$ 到右焦点 $F_2$ 的距离等于到右准线 $x=a^2/c$ 的距离乘以 $e$，即 $|PF_2| = e\cdot\left(\frac{a^2}{c} - x_0\right) = a - ex_0$；左焦点同理，$|PF_1| = e\cdot\left(x_0 + \frac{a^2}{c}\right) = a + ex_0$。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（线性表达）}}
-
-	将原本含平方的根式距离转化为横坐标的线性函数，大大简化计算，使距离与坐标直接对应。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（常见题型）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（直接代入）：} 已知 $P$ 的横坐标，直接代入公式求得 $|PF_1|,|PF_2|$。
-		\item \textbf{考法二（最值问题）：} 利用 $x_0$ 的范围 $-a\le x_0\le a$ 确定焦半径的取值范围，或求相关量的最值。
-	\end{itemize}
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
-
-	\textbf{焦半径公式是椭圆第一定义与第二定义的统一：由 $|PF_1|+|PF_2|=2a$ 结合第二定义可直接推出。}
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（已知坐标计算）：} 给出椭圆上点的坐标，求该点到焦点的距离。
-		\item \textbf{场景二（综合最值问题）：} 在椭圆中涉及线段长度、和差最值时，用焦半径公式简化。
-	\end{itemize}
+\textbf{理解不等于证明：} 三态图用来理解、验算符号；下面用准线或勾股平方差证明\emph{所有点}都成立。
 \end{explanationbox}

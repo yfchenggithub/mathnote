@@ -1,0 +1,33 @@
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,line cap=round,line join=round,font=\small]
+\draw[black!25,rounded corners=3pt] (0,0) rectangle (14.4,9.5);
+\node[font=\small\bfseries] at (7.2,9.0) {准线法：焦半径等于对应水平距离乘以 $e$};
+\begin{scope}[shift={(7.2,4.5)},x=0.55cm,y=0.55cm]
+\draw[black!35,->] (-5.7,0)--(5.8,0) node[right] {$x$};
+\draw[black!35,->] (0,-4.5)--(0,4.6) node[above] {$y$};
+\draw[black!65,thick] (0,0) ellipse (5 and 4);
+\coordinate (P) at (3,3.2);
+\coordinate (Fone) at (-3,0);
+\coordinate (Ftwo) at (3,0);
+\draw[blue!70!black,line width=1.1pt] (Fone)--(P);
+\draw[orange!85!black,line width=1.1pt] (Ftwo)--(P);
+\foreach \q in {P,Fone,Ftwo} \fill (\q) circle (1.6pt);
+\draw[purple!65,dashed] (-8.333333,-5)--(-8.333333,5.4);
+\draw[purple!65,dashed] (8.333333,-5)--(8.333333,5.4);
+\coordinate (Kone) at (-8.333333,3.2); \coordinate (Ktwo) at (8.333333,3.2);
+\draw[blue!65,dashed] (Kone)--(P); \draw[orange!85!black,dashed] (P)--(Ktwo);
+\draw[purple!65] (-8.333333,2.9)--(-8.033333,2.9)--(-8.033333,3.2);
+\draw[purple!65] (8.333333,2.9)--(8.033333,2.9)--(8.033333,3.2);
+\node[above right] at (P) {$P$};
+\node[below left] at (Fone) {$F_1$};
+\node[below right] at (Ftwo) {$F_2$};
+\node[left] at (Kone) {$K_1$}; \node[right] at (Ktwo) {$K_2$};
+\node[blue!70!black,above] at (-3.6,3.45) {$x_0+\dfrac{a^2}{c}$};
+\node[orange!85!black,above] at (6.1,3.45) {$\dfrac{a^2}{c}-x_0$};
+\end{scope}
+\node[purple!65] at (2.62,8.2) {$x=-\dfrac{a^2}{c}$};
+\node[purple!65] at (11.78,8.2) {$x=\dfrac{a^2}{c}$};
+\node at (7.2,1.4) {$-\dfrac{a^2}{c}<-a\le x_0\le a<\dfrac{a^2}{c}$};
+\node at (7.2,.5) {准线在顶点外侧，所以两条水平距离始终为正。};
+\end{tikzpicture}
+\end{center}

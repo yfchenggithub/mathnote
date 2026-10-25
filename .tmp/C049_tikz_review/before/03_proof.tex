@@ -1,0 +1,148 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{先定证明路线}}
+\begin{itemize}[leftmargin=*, itemsep=0.3em, topsep=0.3em]
+ \item \textbf{最快：} 已经学过椭圆第二定义，就直接用“焦点距离 $=$ 离心率 $\times$ 准线距离”。
+ \item \textbf{最低门槛（首推理解）：} 只用椭圆第一定义、勾股定理和平方差公式，避开准线与配方。
+ \item \textbf{常规：} 从点到焦点的距离公式出发，代入椭圆方程消元、配方，是完整的标准代数证明。
+\end{itemize}
+
+\medskip
+\textbf{\textcolor{CProof}{证明一：最快证明——第二定义法}}
+\textbf{切入点：} 第二定义给出“焦半径与对应准线距离成正比”，而准线是竖直线，水平距离一眼可写。
+
+椭圆右、左准线分别为 $x=\frac{a^2}{c}$ 与 $x=-\frac{a^2}{c}$。
+由于 $|x_0|\le a<\frac{a^2}{c}$（$0<c<a$），点 $P$ 始终处在两条准线之间。
+利用第二定义，直接有
+\[
+ \begin{aligned}
+ |PF_2|&=e\left(\frac{a^2}{c}-x_0\right)=a-ex_0,\\
+ |PF_1|&=e\left(x_0+\frac{a^2}{c}\right)=a+ex_0,
+ \end{aligned}
+\]
+其中关键一步是 $e\cdot\frac{a^2}{c}=\frac ca\cdot\frac{a^2}{c}=a$。
+\textbf{考场速记：} 右准线在最右边，右焦半径 $=e(\text{准线横坐标}-x_0)$；左侧反过来。
+
+\medskip
+\textbf{\textcolor{CProof}{证明二：最低门槛——第一定义＋勾股平方差法}}
+\textbf{为什么选这个切入点？} 椭圆第一定义已经告诉我们两条距离的\emph{和}是 $2a$。
+要分别求出它们，只差一个\emph{差}；直接相减两个根式很麻烦，改算\emph{平方差}就能消掉 $y_0^2$。
+
+设 $r_1=|PF_1|$，$r_2=|PF_2|$。
+
+\textbf{第一步（已知两距离的和）：}
+\[
+ r_1+r_2=2a.
+\]
+这是椭圆第一定义，无须展开椭圆方程。
+
+\textbf{第二步（勾股定理写出平方差）：}
+过 $P$ 向 $x$ 轴作垂足 $H(x_0,0)$。对两个直角三角形分别使用勾股定理：
+\[
+ \begin{aligned}
+ r_1^2&=(x_0+c)^2+y_0^2,\\
+ r_2^2&=(x_0-c)^2+y_0^2.
+ \end{aligned}
+\]
+两式相减，$y_0^2$ 被消去：
+\[
+ \begin{aligned}
+ r_1^2-r_2^2
+ &=(x_0+c)^2-(x_0-c)^2\\
+ &=4cx_0.
+ \end{aligned}
+\]
+注意 $x_0$ 可以为负，使用平方式不受垂足位于哪个区间的影响。
+
+\textbf{第三步（平方差除以和，求出差）：}
+\[
+ \underbrace{(r_1-r_2)}_{\text{要找的差}}
+ \underbrace{(r_1+r_2)}_{2a}=4cx_0
+ \quad\Longrightarrow\quad
+ r_1-r_2=\frac{4cx_0}{2a}=2ex_0.
+\]
+
+\textbf{第四步（和差求两数）：}
+\[
+ \begin{aligned}
+ r_1&=\frac{(r_1+r_2)+(r_1-r_2)}2=a+ex_0,\\
+ r_2&=\frac{(r_1+r_2)-(r_1-r_2)}2=a-ex_0.
+ \end{aligned}
+\]
+因此
+\[
+ \boxed{|PF_1|=a+ex_0,\qquad |PF_2|=a-ex_0}.
+\]
+\textbf{记忆负担最小的版本：}
+\[
+ \boxed{\text{和： }2a\quad\xrightarrow[\text{勾股＋平方差}]{\text{找差}}\quad
+ \text{差： }2ex_0\quad\Longrightarrow\quad a\pm ex_0.}
+\]
+
+\medskip
+\textbf{\textcolor{CProof}{证明三：常规证明——距离公式＋椭圆方程}}
+\textbf{思路提示：} 用椭圆方程消去 $y_0^2$，得到完全平方后开方。以下保留原证明的完整展开过程。
+
+\textbf{\textcolor{CProof}{正式推导}}
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+		\item[\textbf{步骤一（平方展开）：}] 写出 $|PF_2|$ 的平方：
+			\[
+				|PF_2|^2 = (x_0 - c)^2 + y_0^2.
+			\]
+			\par\textbf{理由：} 两点间距离公式 $|AB| = \sqrt{(x_1-x_2)^2+(y_1-y_2)^2}$。
+
+		\item[\textbf{步骤二（代入消元）：}] 由椭圆方程 $\frac{x_0^2}{a^2}+\frac{y_0^2}{b^2}=1$ 得 $y_0^2 = b^2 - \frac{b^2}{a^2}x_0^2$，其中 $b^2 = a^2 - c^2$。
+			\[
+				|PF_2|^2 = (x_0-c)^2 + a^2 - c^2 - \frac{a^2-c^2}{a^2}x_0^2.
+			\]
+			\par\textbf{理由：} 将 $y_0^2$ 表达式代入，并将 $b^2$ 用 $a^2-c^2$ 替换。
+
+		\item[\textbf{步骤三（合并化简）：}] 将上式展开并整理：
+			\[
+				\begin{aligned}
+					|PF_2|^2 &= (x_0^2 - 2c x_0 + c^2) + a^2 - c^2 - \left(1-\frac{c^2}{a^2}\right)x_0^2 \\
+					&= x_0^2 - 2c x_0 + a^2 - x_0^2 + \frac{c^2}{a^2}x_0^2 \\
+					&= a^2 - 2c x_0 + \frac{c^2}{a^2}x_0^2.
+			\end{aligned}
+			\]
+			\par\textbf{理由：} 合并同类项，注意 $b^2/a^2 = 1-c^2/a^2$。
+
+		\item[\textbf{步骤四（配方开方）：}] 上式可化为完全平方：
+			\[
+				|PF_2|^2 = \left(a - \frac{c}{a} x_0\right)^2 = (a - e x_0)^2,
+			\]
+			因为 $e = c/a$。又因为 $a - e x_0 > 0$（$x_0 \le a$，$e<1$），所以
+			\[
+				|PF_2| = a - e x_0.
+			\]
+			\par\textbf{理由：} 完全平方公式；开方后取正值。
+
+		\item[\textbf{步骤五（对称类推）：}] 同理计算 $|PF_1|^2 = (x_0 + c)^2 + y_0^2$，可得
+			\[
+				|PF_1|^2 = (a + e x_0)^2 \quad\Rightarrow\quad |PF_1| = a + e x_0.
+			\]
+			\par\textbf{理由：} 对称地将 $c$ 换为 $-c$，得到 $+2c x_0$ 项，配方后为 $(a + e x_0)^2$。
+
+		\item[\textbf{步骤六（验证定义）：}] 检验和：
+			\[
+				|PF_1| + |PF_2| = (a + e x_0) + (a - e x_0) = 2a,
+			\]
+			与椭圆第一定义吻合，确认公式正确。
+			\par\textbf{理由：} 椭圆定义 $|PF_1|+|PF_2|=2a$。
+	\end{description}
+
+	\medskip
+	\textbf{\textcolor{CProof}{结论回扣}}
+
+	\textbf{由此严格推导出椭圆的焦半径公式：$|PF_1| = a + e x_0$，$|PF_2| = a - e x_0$。} 该公式在解决椭圆距离问题时可大幅简化运算。
+
+\medskip
+\textbf{\textcolor{CProof}{三种证明的关系与验算}}
+第一定义告诉我们“和”，勾股平方差给出“差”；第二定义则直接给出每条距离。
+取 $P(a,0)$，应有 $|PF_1|=a+c$、$|PF_2|=a-c$；
+取 $x_0=0$，应有 $|PF_1|=|PF_2|=a$。两处都吻合。
+
+\textbf{焦点在 $y$ 轴：} 对椭圆
+$\frac{x^2}{b^2}+\frac{y^2}{a^2}=1$，把本证明中 $x_0$ 换成 $y_0$，
+并把左、右焦点换成下、上焦点，即得
+$|PF_1|=a+ey_0$，$|PF_2|=a-ey_0$。
+\end{proofbox}

@@ -1,0 +1,25 @@
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,line cap=round,line join=round,font=\small]
+\draw[black!25,rounded corners=3pt] (0,0) rectangle (14.4,9.4);
+\node[font=\small\bfseries] at (7.2,8.9) {两条焦半径：蓝色连左焦点，橙色连右焦点};
+\begin{scope}[shift={(4.7,4.7)},x=0.7cm,y=0.7cm]
+\draw[black!35,->] (-5.7,0)--(5.3,0) node[right] {$x$};
+\draw[black!35,->] (0,-4.5)--(0,4.6) node[above] {$y$};
+\draw[black!65,thick] (0,0) ellipse (5 and 4);
+\coordinate (P) at (3,3.2);
+\coordinate (Fone) at (-3,0);
+\coordinate (Ftwo) at (3,0);
+\draw[blue!70!black,line width=1.1pt] (Fone)--(P);
+\draw[orange!85!black,line width=1.1pt] (Ftwo)--(P);
+\foreach \q in {P,Fone,Ftwo} \fill (\q) circle (1.6pt);
+\node[above right] at (P) {$P(3,\frac{16}{5})$};
+\node[below] at (Fone) {$F_1(-3,0)$};
+\node[below] at (Ftwo) {$F_2(3,0)$};
+\node[below left] at (0,0) {$O$};
+\path (Fone)--(P) node[pos=.28,blue!70!black,above,sloped] {$r_1=\frac{34}{5}$};
+\node[orange!85!black,left] at (3,1.1) {$r_2=\frac{16}{5}$};
+\end{scope}
+\node[anchor=north west,align=left] at (9.1,7.9) {$\dfrac{x^2}{25}+\dfrac{y^2}{16}=1$\\[1em]$a=5,\ c=3,\ e=\dfrac35$\\[1em]\textcolor{blue!70!black}{$r_1=a+ex_0$}\\[.5em]\textcolor{orange!85!black}{$r_2=a-ex_0$}\\[1em]$r_1+r_2=10=2a$};
+\node at (7.2,.65) {“左加右减”指所连焦点的位置；$x_0$ 保留正负号，不换成 $|x_0|$。};
+\end{tikzpicture}
+\end{center}

@@ -1,21 +1,37 @@
+\clearpage
 \begin{trapbox}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（焦点混淆）}}] 若椭圆焦点在 $y$ 轴，仍使用 $|PF|=a\pm e x_0$ 公式。
-		\item[\textbf{\textcolor{CTrap}{正确理解（区分形式）}}] 焦点在 $y$ 轴时，焦半径公式应为 $|PF_1| = a + e y_0$（下焦点），$|PF_2| = a - e y_0$（上焦点）。
-		\item[\textbf{\textcolor{CTrap}{错因分析（记混公式）}}] 记忆公式只记了 $x$ 轴的情形，忽略焦点位置对公式的影响。
-	\end{description}
+\textbf{\textcolor{CTrap}{易错一：焦点换到纵轴，仍机械代入横坐标}}
+\input{assets/tikz/C049_focus_axis_comparison}
+\textbf{错因与纠正：} 横轴图用 $x_0$，纵轴图用 $y_0$；先定位焦点，再写“左加右减”或“下加上减”。
+本图左侧 $P=(3,16/5)$，右侧旋转后 $P'=(-16/5,3)$；两图均有 $r_1=34/5,r_2=16/5$。
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（符号颠倒）}}] 将左、右焦半径公式写反：$|PF_1| = a - e x_0$，$|PF_2| = a + e x_0$。
-		\item[\textbf{\textcolor{CTrap}{正确理解（左加右减）}}] 左焦半径（对应左焦点 $F_1(-c,0)$）为 $|PF_1|=a+e x_0$，右焦半径 $|PF_2|=a-e x_0$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（缺乏推导）}}] 只死记“左加右减”却不理解公式的由来，容易记反。
-	\end{description}
+\textbf{\textcolor{CTrap}{易错二：加减号写反，或擅自把 $x_0$ 换成 $|x_0|$}}
+这样会把左、右两条焦半径对调。用理解页的左右端点检查：
+右端点 $P(a,0)$ 应有 $r_1=a+c,r_2=a-c$；左端点正好反过来。
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错三：只检查坐标范围，就对任意点套公式}}
+例如本例不在椭圆上的点 $(0,0)$ 虽满足 $x_0\in[-5,5]$，但到两焦点的距离均为 $3$，并非公式给出的 $5$。
+\textbf{正确做法：} 必须确认 $P$ 在椭圆上；范围条件只是必要条件。
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（忽略前提）}}] 对任意坐标 $x_0$ 直接使用焦半径公式，不验证点是否在椭圆上。
-		\item[\textbf{\textcolor{CTrap}{正确理解（验证范围）}}] 公式成立的条件是点 $P(x_0,y_0)$ 在椭圆上，即 $x_0^2/a^2 + y_0^2/b^2 = 1$ 且 $x_0\in[-a,a]$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（遗忘条件）}}] 焦半径公式是椭圆上的点的性质，不能用于椭圆外的点。
-	\end{description}
+\medskip
+\textbf{\textcolor{CTrap}{易错四：准线距离直接去绝对值，不说明依据}}
+右准线距离本为 $|x_0-a^2/c|$。因为 $P$ 在椭圆上且 $a^2/c>a$，
+才可写为 $a^2/c-x_0$。准线图中两条准线都在长轴端点外侧。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错五：由平方相等直接开方，漏掉正性}}
+由 $r_2^2=(a-ex_0)^2$ 先得 $r_2=|a-ex_0|$；
+再由 $|x_0|\le a,e<1$ 知 $a\pm ex_0\ge a-c>0$，才能去掉绝对值。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错六：仅用三个特殊位置替代一般证明}}
+三态图可以检查符号、观察极值，但不能证明全椭圆上的公式。
+一般证明仍需准线定义、第一定义加勾股平方差，或代入椭圆方程配方。
+\medskip
+\textbf{\textcolor{CTrap}{易错七：单变量法中误认为 $t$ 一定大于零}}
+设 $|PF_1|=a+t$、$|PF_2|=a-t$ 时，$t$ 是\textbf{带符号的差量}，
+不一定是正数。$x_0<0$ 时 $t=ex_0<0$，此时左焦半径反而短；
+不能擅自改设 $a+|t|,a-|t|$。真正需要保证的是 $a\pm t>0$。
 \end{trapbox}
