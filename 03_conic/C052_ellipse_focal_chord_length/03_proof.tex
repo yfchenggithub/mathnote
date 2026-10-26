@@ -1,89 +1,202 @@
-% 03_proof(77).tex
+\clearpage
+% C052 / 03_proof.tex
+% 四种严格证明：最快 / 最低门槛 / 最直觉 / 常规联立
+% 图形构造见 C052_definition_pythagoras.tex。
 \begin{proofbox}
 
-\textbf{\textcolor{CProof}{思路提示}}
+\textbf{\textcolor{CProof}{共同约定（只设置一次，四法共用）}}
 
-利用直线的参数方程（用倾斜角 $\theta$ 表示），代入椭圆方程转化为关于参数 $t$ 的二次方程，通过韦达定理和弦长公式化简得到结果。
+取 $e=c/a\in(0,1)$，$c^2=a^2-b^2$。下图约定四种证明中的点、长度和方向：
 
-\medskip
+\begin{center}\input{assets/tikz/C052_proof_notation.tex}\end{center}
 
-\textbf{\textcolor{CProof}{正式推导}}
+两端点位于焦点两侧，故 $r,s>0$；取 $u=\cos\theta$，目标是求 $L=r+s$。
+图中取第一象限方向便于认字母；一般推导仍允许任意方向，投影按正负号计算。
+$a>c$ 保证 $a\pm cu>0$。
 
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（参数方程引入）：}]
-			设椭圆右焦点 $F(c,0)$，过 $F$ 且倾斜角为 $\theta$ 的直线参数方程为
-			\[
-				\begin{cases}
-					x = c + t\cos\theta,\\
-					y = t\sin\theta,
-				\end{cases}
-			\]
-			其中 $t$ 为参数，表示点 $P$ 到 $F$ 的有向距离。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明一：最快证明（已会椭圆焦半径时，推荐考场使用）}}
 
-			\par\textbf{理由：} 参数方程能直接表达直线上点的坐标与距离的关系，便于后续计算弦长。
+\textbf{已知工具：}对椭圆上的点 $P(x,y)$，到右焦点的距离为
+$PF_2=a-ex$，其中 $e=c/a$（下文证明二、三均不要求事先记住它）。
 
-		\item[\textbf{步骤二（联立椭圆方程）：}]
-			将参数方程代入椭圆 $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$：
-			\[
-				\frac{(c+t\cos\theta)^2}{a^2}+\frac{(t\sin\theta)^2}{b^2}=1.
-			\]
-			展开并整理，得到关于 $t$ 的二次方程
-			\[
-				\left(\frac{\cos^2\theta}{a^2}+\frac{\sin^2\theta}{b^2}\right)t^2+\frac{2c\cos\theta}{a^2}t+\left(\frac{c^2}{a^2}-1\right)=0.
-			\]
-			由 $c^2=a^2-b^2$ 得常数项 $\frac{c^2}{a^2}-1=-\frac{b^2}{a^2}$。
-
-			\par\textbf{理由：} 通过代入消元得到参数 $t$ 满足的二次方程，为使用韦达定理做准备。
-
-		\item[\textbf{步骤三（韦达定理与判别式）：}]
-			记 $A=\frac{\cos^2\theta}{a^2}+\frac{\sin^2\theta}{b^2}$, $B=\frac{2c\cos\theta}{a^2}$, $C=-\frac{b^2}{a^2}$。
-			\[
-				t_1+t_2=-\frac{B}{A},\quad t_1t_2=\frac{C}{A}.
-			\]
-			计算判别式 $\Delta = B^2-4AC$。
-			\[
-				\begin{aligned}
-					B^2 &= \frac{4c^2\cos^2\theta}{a^4},\\
-					4AC &= 4\cdot\left(\frac{\cos^2\theta}{a^2}+\frac{\sin^2\theta}{b^2}\right)\cdot\left(-\frac{b^2}{a^2}\right) \\
-					&= -\frac{4b^2\cos^2\theta}{a^4}-\frac{4\sin^2\theta}{a^2}.
-				\end{aligned}
-			\]
-			所以
-			\[
-				\begin{aligned}
-					\Delta &= \frac{4c^2\cos^2\theta}{a^4}+\frac{4b^2\cos^2\theta}{a^4}+\frac{4\sin^2\theta}{a^2} \\
-					&= \frac{4\cos^2\theta(a^2-b^2+b^2)}{a^4}+\frac{4\sin^2\theta}{a^2} \\
-					&= \frac{4\cos^2\theta}{a^2}+\frac{4\sin^2\theta}{a^2} \\
-					&= \frac{4}{a^2}.
-				\end{aligned}
-			\]
-
-			\par\textbf{理由：} 韦达定理给出和与积，判别式反映参数差值的平方，直接代入弦长公式。
-
-		\item[\textbf{步骤四（弦长公式化简）：}]
-			弦长 $L$ 等于 $|t_1-t_2|$，即
-			\[
-				L = |t_1-t_2| = \sqrt{(t_1+t_2)^2-4t_1t_2} = \frac{\sqrt{\Delta}}{|A|}.
-			\]
-			代入 $\sqrt{\Delta}=\frac{2}{a}$，$A=\frac{\cos^2\theta}{a^2}+\frac{\sin^2\theta}{b^2}>0$，得
-			\[
-				\begin{aligned}
-					L &= \frac{2/a}{\frac{\cos^2\theta}{a^2}+\frac{\sin^2\theta}{b^2}} \\
-					&= \frac{2ab^2}{b^2\cos^2\theta+a^2\sin^2\theta}.
-				\end{aligned}
-			\]
-			利用 $a^2\sin^2\theta+b^2\cos^2\theta = a^2-(a^2-b^2)\cos^2\theta = a^2-c^2\cos^2\theta$，即得
-			\[
-				L = \frac{2ab^2}{a^2-c^2\cos^2\theta}.
-			\]
-
-			\par\textbf{理由：} 分母恒等变形使表达式更简洁，且突出离心率的影响。
-	\end{description}
+\textbf{第1步 两段各列一个一次方程：}
+\[
+\begin{aligned}
+ r&=a-e(c+ru)
+   &&\Longrightarrow& r(a+cu)&=a^2-c^2=b^2,\\
+ s&=a-e(c-su)
+   &&\Longrightarrow& s(a-cu)&=a^2-c^2=b^2.
+\end{aligned}
+\]
+\textbf{第2步 直接相加，平方差收尾：}
+\[
+\begin{aligned}
+ L=r+s
+ &=\frac{b^2}{a+cu}+\frac{b^2}{a-cu}\\
+ &=\frac{b^2[(a-cu)+(a+cu)]}{(a+cu)(a-cu)}\\
+ &=\boxed{\frac{2ab^2}{a^2-c^2\cos^2\theta}}.
+\end{aligned}
+\]
+\textbf{最快记忆链：}$\displaystyle PF_2=a-ex\;\Rightarrow\;
+\frac{b^2}{a+cu}+\frac{b^2}{a-cu}\;\Rightarrow\;$平方差。
 
 \medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明二：最低门槛证明（只用椭圆定义＋勾股定理，无需预记焦半径或韦达）}}
 
-\textbf{\textcolor{CProof}{结论回扣}}
 
-\textbf{至此，椭圆焦点弦长公式得证。当 $\theta=90^\circ$ 时，$\cos\theta=0$，代入得 $L=\frac{2b^2}{a}$，即为通径长。该公式提供了已知倾斜角直接计算焦点弦长的便捷途径。}
+\begin{center}\input{assets/tikz/C052_definition_pythagoras.tex}\end{center}
+图取 $a=2,b^2=3,c=1,\theta=60^\circ$。一般推导只用图中的水平、竖直分量；即使投影方向改变，平方后的距离表达式仍成立。
+
+
+\textbf{第1步 定义与勾股给出同一个平方：}
+$AF_1=2a-r$，故
+\[
+ (2a-r)^2=(2c+ru)^2+r^2\sin^2\theta=4c^2+4cru+r^2.
+\]
+\textbf{第2步 两边消去 $r^2$：}
+\[
+ 4a^2-4ar=4c^2+4cru
+ \ \Longrightarrow\ \boxed{r(a+cu)=b^2}.
+\]
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明二（续）：补齐另一段 $BF=s$}}
+
+\begin{center}\input{assets/tikz/C052_definition_pythagoras_b.tex}\end{center}
+
+\textbf{第3步 看反方向的直角三角形 $BF_1K$：}
+两图采用同一椭圆、方向和尺度，$K$ 是 $B$ 在 $x$ 轴上的垂足。
+本图中 $K$ 位于两焦点之间，$F_1K=F_1F-KF$；一般位置用绝对值表示长度，平方后同式。
+由椭圆定义 $BF_1=2a-s$，故
+\[
+ (2a-s)^2=(2c-su)^2+s^2\sin^2\theta
+ =4c^2-4csu+s^2.
+\]
+消去 $s^2$，得 $\boxed{s(a-cu)=b^2}$。
+
+\textbf{第4步 把一条弦的两半加起来：}
+\[
+ L=r+s=\frac{b^2}{a+cu}+\frac{b^2}{a-cu}
+ =\boxed{\frac{2ab^2}{a^2-c^2u^2}}.
+\]
+\textbf{最低门槛记忆链：}定义 $2a$ $\to$ 勾股平方 $\to$ $r^2$ 抵消
+$\to$ 两段相加。完全不要求知道焦点极坐标方程。
+
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明三：最直觉证明（整体看“总长”和“两侧差”，直接看出平方的来源）}}
+
+\textbf{先现场推出焦半径，杜绝死记：}
+对椭圆上一点 $P(x,y)$，设 $d_1=PF_1$、$d_2=PF_2$。
+由椭圆定义 $d_1+d_2=2a$。另一方面
+\[
+ d_1^2-d_2^2
+ =[(x+c)^2+y^2]-[(x-c)^2+y^2]=4cx.
+\]
+平方差得 $(d_1-d_2)\cdot2a=4cx$，所以
+\[
+ d_1-d_2=\frac{2cx}{a}
+ \quad\Longrightarrow\quad
+ \boxed{PF_2=d_2=a-\frac ca x=a-ex}.
+\]
+\textbf{这是全程唯一需要的辅助结论：}两焦半径\textbf{和固定、差由横坐标决定}。
+
+\textbf{再用一个总长 $L$、一个差 $D$：}
+设 $L=r+s$，$D=r-s$。对 $A,B$ 分别使用上式：
+\[
+ r=a-e(c+ru),\qquad s=a-e(c-su).
+\]
+两式相加与相减（$h=a-ec=b^2/a$）：
+\[
+ \boxed{L=2h-euD},\qquad
+ \boxed{D=-euL}.
+\]
+\textbf{读懂这两句：}弦两端相对焦点的``不平衡量'' $D$
+恰好是总长 $L$ 的 $-eu$ 倍；总长又受到这个差值的影响。
+代入即可：
+\[
+\begin{aligned}
+ L&=2h-eu(-euL)=2h+e^2u^2L,\\
+ L(1-e^2u^2)&=2h,\\
+ \boxed{L}&=\boxed{\frac{2h}{1-e^2\cos^2\theta}
+ =\frac{2ab^2}{a^2-c^2\cos^2\theta}}.
+\end{aligned}
+\]
+\textbf{直觉关键：}方向只经 $u=\cos\theta$ 进入；相互影响了\textbf{两次}，
+所以必然是 $u^2=\cos^2\theta$，不会是一次方。
+
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明四：常规证明（直线参数方程＋韦达／判别式，保留原方案思路）}}
+
+\textbf{第1步 带有向距离的直线参数方程：}
+\[
+ x=c+t\cos\theta,\qquad y=t\sin\theta.
+\]
+两个交点对应 $t_1>0>t_2$，故弦长 $L=t_1-t_2=|t_1-t_2|$。
+
+\textbf{第2步 联立椭圆，化成标准二次式：}
+\[
+ \frac{(c+t\cos\theta)^2}{a^2}
+ +\frac{t^2\sin^2\theta}{b^2}=1
+ \quad\Longrightarrow\quad
+ \alpha t^2+\beta t+\gamma=0,
+\]
+其中
+\[
+ \alpha=\frac{\cos^2\theta}{a^2}+\frac{\sin^2\theta}{b^2}>0,
+ \quad \beta=\frac{2c\cos\theta}{a^2},
+ \quad \gamma=-\frac{b^2}{a^2}.
+\]
+$\gamma<0$ 与 $\alpha>0$ 保证两个根异号，印证焦点在两交点之间。
+
+\textbf{第3步 判别式出现一个好记的常量：}
+\[
+\begin{aligned}
+ \Delta&=\beta^2-4\alpha\gamma\\
+ &=\frac{4c^2\cos^2\theta}{a^4}
+   +\frac{4b^2\cos^2\theta}{a^4}
+   +\frac{4\sin^2\theta}{a^2}\\
+ &=\frac4{a^2}(\cos^2\theta+\sin^2\theta)
+ =\boxed{\frac4{a^2}}.
+\end{aligned}
+\]
+
+\textbf{第4步 用根差算长度，再变为标准形式：}
+\[
+\begin{aligned}
+ L=|t_1-t_2|
+ &=\frac{\sqrt\Delta}{\alpha}
+ =\frac{2/a}{\frac{\cos^2\theta}{a^2}+\frac{\sin^2\theta}{b^2}}\\
+ &=\frac{2ab^2}{b^2\cos^2\theta+a^2\sin^2\theta}\\
+ &=\boxed{\frac{2ab^2}{a^2-c^2\cos^2\theta}}.
+\end{aligned}
+\]
+此法对 $\theta=90^\circ$ 也适用，\textbf{无需}斜率 $k=\tan\theta$，所以不会遗漏竖直线。
+
+\medskip
+\textbf{\textcolor{CProof}{两个无需背公式的当场核验}}
+
+\begin{itemize}[leftmargin=*,itemsep=0.4em,topsep=0.35em]
+ \item \textbf{竖直通径：}令 $x=c$，由椭圆方程有
+ $y^2=b^2(1-c^2/a^2)=b^4/a^2$，上下端点分别为
+ $\bigl(c,\pm b^2/a\bigr)$，所以 $L=2b^2/a$。
+ \item \textbf{横向长轴弦：}焦点弦与 $x$ 轴重合，两端是 $(-a,0),(a,0)$，所以 $L=2a$。
+\end{itemize}
+
+\textbf{\textcolor{CProof}{关于左焦点：}}
+以上为右焦点 $F_2$ 的证明；左焦点只需关于 $y$ 轴做镜像，
+$\cos\theta$ 变号而 $\cos^2\theta$ 不变，所以\textbf{完全同式}。
 
 \end{proofbox}

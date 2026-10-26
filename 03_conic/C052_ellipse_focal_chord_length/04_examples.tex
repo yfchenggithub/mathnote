@@ -1,115 +1,112 @@
-% 04_examples(73).tex
+\clearpage
+% C052 / 04_examples.tex  保留原有三题并增补：斜率、通径、范围、误用辨析
 \begin{examplebox}
 
-\textbf{\textcolor{CExample}{例 1（基础）}}
+\textbf{\textcolor{CExample}{例1（基础：已知角求焦点弦长）}}
 
-\textbf{\textcolor{CExample}{题目：}} 已知椭圆 $\frac{x^2}{4}+\frac{y^2}{3}=1$，过右焦点且倾斜角为 $60^\circ$ 的直线交椭圆于 $A,B$ 两点，求弦 $AB$ 的长。
 
-\textbf{\textcolor{CExample}{解题步骤：}}
+\textbf{题目：}椭圆 $x^2/4+y^2/3=1$，过右焦点的弦倾斜角为 $60^\circ$，求弦长。
+\textbf{解：}$a=2,b^2=3,c^2=1$，故
+$L=12/(4-1/4)=\boxed{16/5}$。
+\textbf{核验：}主图两段 $6/5+2=16/5$，且通径 $3<L<4$（长轴弦）。
+\par\medskip
+\textbf{\textcolor{CExample}{例2（反求角：注意余弦的正负）}}
 
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（确定参数）：}]
-			由椭圆方程得 $a=2$，$b^2=3$，$c=\sqrt{a^2-b^2}=1$，倾斜角 $\theta=60^\circ$，$\cos\theta=\frac12$。
+\textbf{题目：}上述椭圆的某条焦点弦长为 $16/5$，求倾斜角 $\theta\in[0,\pi)$。
 
-			\par\textbf{理由：} 代入公式需要这些量。
-
-		\item[\textbf{第二步（代入公式）：}]
-			焦点弦长公式 $L=\frac{2ab^2}{a^2-c^2\cos^2\theta}$，代入得
-			\[
-				\begin{aligned}
-					L &= \frac{2\times2\times3}{4-1\times\left(\frac12\right)^2} \\
-					&= \frac{12}{4-\frac14} \\
-					&= \frac{12}{\frac{15}{4}} \\
-					&= \frac{48}{15} \\
-					&= \frac{16}{5}.
-				\end{aligned}
-			\]
-
-			\par\textbf{理由：} 直接计算即得。
-
-		\item[\textbf{第三步（给出结论）：}]
-			所以 $|AB|=\frac{16}{5}$。
-
-			\par\textbf{理由：} 根据计算得到最终答案。
-	\end{description}
-
-\textbf{\textcolor{CExample}{关键结论：}} \textbf{$|AB| = \dfrac{16}{5}$}
+\begin{center}\input{assets/tikz/C052_supplementary_angles.tex}\end{center}
+\textbf{解：}
+\[
+ \frac{16}{5}=\frac{12}{4-\cos^2\theta}
+ \ \Longrightarrow\ \cos^2\theta=\frac14
+ \ \Longrightarrow\ \cos\theta=\pm\frac12.
+\]
+故 $\boxed{\theta=60^\circ\ \text{或}\ 120^\circ}$。
+\textbf{陷阱：}已知的是 $\cos^2\theta$，\textbf{不是} $\cos\theta$。
 
 \medskip
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例3（反求椭圆参数：保留原题）}}
 
-\textbf{\textcolor{CExample}{例 2（稍变形）}}
+\textbf{题目：}椭圆离心率 $e=1/2$，一条倾斜角为 $60^\circ$ 的焦点弦长为 $16/5$，求椭圆方程（长轴在 $x$ 轴）。
 
-\textbf{\textcolor{CExample}{题目：}} 已知椭圆 $\frac{x^2}{4}+\frac{y^2}{3}=1$，过右焦点且倾斜角为 $\theta$ 的焦点弦长等于 $\frac{16}{5}$，求 $\cos\theta$ 的值。
-
-\textbf{\textcolor{CExample}{解题步骤：}}
-
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（代入公式）：}]
-			由公式 $L=\frac{2ab^2}{a^2-c^2\cos^2\theta}$，得 $\frac{16}{5} = \frac{12}{4-\cos^2\theta}$。
-
-			\par\textbf{理由：} 已知 $a=2,b^2=3,c=1$，代入化简。
-
-		\item[\textbf{第二步（解方程）：}]
-			分母乘过去：
-			\[
-				\begin{aligned}
-					16(4-\cos^2\theta) &= 60 \\
-					64 - 16\cos^2\theta &= 60 \\
-					16\cos^2\theta &= 4 \\
-					\cos^2\theta &= \frac14 \\
-					\cos\theta &= \pm\frac12.
-				\end{aligned}
-			\]
-
-			\par\textbf{理由：} 代数变形解出 $\cos^2\theta$，注意开方有正负。
-
-		\item[\textbf{第三步（结论）：}]
-			所以 $\cos\theta = \pm\frac12$。
-
-			\par\textbf{理由：} 倾斜角 $\theta$ 范围 $[0,\pi)$，余弦可正可负，均能使弦长成立。
-	\end{description}
-
-\textbf{\textcolor{CExample}{关键结论：}} \textbf{$\cos\theta = \pm\dfrac12$}
+\textbf{解：}由 $c=a/2$、$b^2=a^2-c^2=3a^2/4$，
+\[
+ L=\frac{2a(3a^2/4)}{a^2-(a^2/4)(1/4)}
+ =\frac{8a}{5}=\frac{16}{5}.
+\]
+得到 $a=2$、$b^2=3$，所以
+$\boxed{\dfrac{x^2}{4}+\dfrac{y^2}{3}=1}$。
 
 \medskip
+\textbf{\textcolor{CExample}{例4（给斜率：不用算角度）}}
 
-\textbf{\textcolor{CExample}{例 3（综合应用）}}
+\textbf{题目：}椭圆 $\dfrac{x^2}{25}+\dfrac{y^2}{9}=1$，过右焦点的直线斜率 $k=1$，求焦点弦长。
 
-\textbf{\textcolor{CExample}{题目：}} 已知椭圆 $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$（$a>b>0$）的离心率 $e=\frac12$，过右焦点且倾斜角为 $60^\circ$ 的直线被椭圆截得的弦长等于 $\frac{16}{5}$，求椭圆方程。
+\textbf{解：}$a=5$，$b^2=9$，$c^2=16$，
+$\cos^2\theta=\dfrac1{1+k^2}=\dfrac12$，故
+\[
+ L=\frac{2\cdot5\cdot9}{25-16\cdot\frac12}
+ =\boxed{\frac{90}{17}}.
+\]
+\textbf{捷径：}直接写 $\displaystyle L=\frac{2ab^2(1+k^2)}{a^2(1+k^2)-c^2}$。
 
-\textbf{\textcolor{CExample}{解题步骤：}}
+\medskip
+\textbf{\textcolor{CExample}{例5（特例：不用背通径，现场算）}}
 
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（利用离心率）：}]
-			由 $e=\frac{c}{a}=\frac12$ 得 $c=\frac a2$，从而 $b^2=a^2-c^2=a^2-\frac{a^2}{4}=\frac{3a^2}{4}$。
+\textbf{题目：}椭圆 $\dfrac{x^2}{25}+\dfrac{y^2}{9}=1$，过右焦点 $F(4,0)$ 作竖直线，求弦长。
 
-			\par\textbf{理由：} 离心率给出 $a,b,c$ 的关系。
+\textbf{解：}令 $x=4$，则 $\dfrac{16}{25}+\dfrac{y^2}{9}=1$，
+所以 $y=\pm\dfrac95$，弦长
+$\boxed{L=\dfrac{18}{5}}$。
+\textbf{核验：}通径公式 $2b^2/a=18/5$。
 
-		\item[\textbf{第二步（代入弦长公式）：}]
-			$\theta=60^\circ$，$\cos\theta=\frac12$，代入公式 $L=\frac{2ab^2}{a^2-c^2\cos^2\theta}$ 得
-			\[
-				\begin{aligned}
-					L &= \frac{2a\cdot\frac{3a^2}{4}}{a^2-\frac{a^2}{4}\cdot\frac14} \\
-					&= \frac{\frac{3a^3}{2}}{a^2-\frac{a^2}{16}} \\
-					&= \frac{\frac{3a^3}{2}}{\frac{15a^2}{16}} \\
-					&= \frac{3a^3}{2}\cdot\frac{16}{15a^2} \\
-					&= \frac{8a}{5}.
-				\end{aligned}
-			\]
+\medskip
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例6（最值：不用求导）}}
 
-			\par\textbf{理由：} 利用 $a$ 表达 $L$，化简为 $8a/5$。
+\textbf{题目：}在椭圆 $\dfrac{x^2}{25}+\dfrac{y^2}{9}=1$ 中，焦点弦长 $L$ 的范围是什么？
 
-		\item[\textbf{第三步（求 $a$）：}]
-			令 $\frac{8a}{5}=\frac{16}{5}$，解得 $a=2$。于是 $c=1$，$b^2=3$。
+\textbf{解：}$0\le\cos^2\theta\le1$，且
+$b^2\le a^2-c^2\cos^2\theta\le a^2$。
+故
+\[
+ \boxed{\frac{18}{5}\le L\le10}.
+\]
+竖直焦点弦取最小值 $18/5$；沿长轴的焦点弦取最大值 $10$。
 
-			\par\textbf{理由：} 由待定系数法求出 $a$，再回代得 $b$。
+\medskip
+\textbf{\textcolor{CExample}{例7（辨析：普通竖直弦不是通径）}}
 
-		\item[\textbf{第四步（结论）：}]
-			椭圆方程为 $\frac{x^2}{4}+\frac{y^2}{3}=1$。
+\textbf{题目：}椭圆 $\dfrac{x^2}{4}+\dfrac{y^2}{3}=1$，比较直线 $x=0$ 与 $x=1$ 的截弦长度。
 
-			\par\textbf{理由：} 代入标准形式即得。
-	\end{description}
+\textbf{解：}焦点为 $(\pm1,0)$。
+\[
+ x=0:\ y=\pm\sqrt3\ \Longrightarrow\ L_0=\boxed{2\sqrt3};\qquad
+ x=1:\ y=\pm\frac32\ \Longrightarrow\ L_1=\boxed{3}.
+\]
+两条都是竖直弦，\textbf{只有 $x=1$ 经过焦点}，因此只有它是通径。
 
-\textbf{\textcolor{CExample}{关键结论：}} \textbf{$\dfrac{x^2}{4}+\dfrac{y^2}{3}=1$}
+\medskip
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例8（推广：长轴转到 $y$ 轴）}}
+
+\textbf{题目：}椭圆 $\dfrac{x^2}{9}+\dfrac{y^2}{25}=1$，过焦点的直线与 $x$ 轴夹角 $30^\circ$，求弦长。
+
+\begin{center}\input{assets/tikz/C052_vertical_major_axis_angle.tex}\end{center}
+\textbf{解：}现在长轴在 $y$ 轴，$a=5,b^2=9,c^2=16$。
+直线与长轴的锐角为 $\varphi=60^\circ$，
+故 $\cos^2\varphi=1/4$，
+\[
+ L=\frac{2\cdot5\cdot9}{25-16/4}
+ =\boxed{\frac{30}{7}}.
+\]
+\textbf{陷阱：}此题若把与 $x$ 轴夹角的 $\cos^230^\circ$ 硬套进原公式，必错。
 
 \end{examplebox}

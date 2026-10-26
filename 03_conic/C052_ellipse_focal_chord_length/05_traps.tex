@@ -1,41 +1,26 @@
-% 05_traps(74).tex
+\clearpage
 \begin{trapbox}
+\textbf{先辨弦：}“垂直长轴”还不够，通径必须经过焦点。
+\begin{center}\input{assets/tikz/C052_ordinary_chord_vs_latus.tex}\end{center}
+左图给 $2\sqrt3$，右图才是通径 $2b^2/a=3$。\textbf{错误做法：}把任意竖直弦代入通径公式。
+\textbf{正确替代：}先检查是否过焦点；普通弦应将直线与椭圆联立。
+\end{trapbox}
+\clearpage
 
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（条件遗漏）}}]
-		      使用公式时未验证椭圆是否满足焦点在 $x$ 轴的标准形式，以及直线是否确实过焦点。
-
-		\item[\textbf{\textcolor{CTrap}{正确理解（条件验证）：}}]
-		      公式仅适用于焦点在 $x$ 轴上的椭圆，且直线过该焦点；若焦点在 $y$ 轴或直线不过焦点，公式不成立。
-
-		\item[\textbf{\textcolor{CTrap}{错因分析（忽视前提）：}}]
-		      学生看到“弦长”“椭圆”等关键字就机械套用公式，忽略公式的适用前提。
-	\end{description}
-
-	\medskip
-
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（平方漏写）}}]
-		      将公式分母误写为 $a^2-c^2\cos\theta$，缺少 $\cos^2\theta$ 中的平方。
-
-		\item[\textbf{\textcolor{CTrap}{正确理解（平方形式）：}}]
-		      分母中的 $\cos^2\theta$ 来源于参数 $t$ 系数中的 $\cos\theta$ 平方，且平方后保证了分母非负。
-
-		\item[\textbf{\textcolor{CTrap}{错因分析（平方缺失）：}}]
-		      学生平时用 $\cos\theta$ 表示方向向量时常忘记平方，导致符号错误。
-	\end{description}
-
-	\medskip
-
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（通径记反）}}]
-		      将通径长记作 $\frac{2a^2}{b}$ 或 $\frac{2a}{b^2}$，混淆 $a$ 与 $b$ 的位置。
-
-		\item[\textbf{\textcolor{CTrap}{正确理解（通径推导）：}}]
-		      由公式当 $\theta=90^\circ$ 时得 $L=\frac{2b^2}{a}$，也可从几何意义：通径是过焦点垂直于长轴的弦，长为 $2b^2/a$。
-
-		\item[\textbf{\textcolor{CTrap}{错因分析（记忆混淆）：}}]
-		      学生未从推导记忆，仅靠机械记忆，导致 $a$、$b$ 位置颠倒。
-	\end{description}
-
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{十个错误，各用一个动作纠正}}
+\begin{enumerate}[leftmargin=*,itemsep=.65em,topsep=.5em]
+\item \textbf{普通弦也套公式：}先验是否过 $(\pm c,0)$。上页对照图中左弦不满足条件，应联立求交点。
+\item \textbf{把 $c$ 当 $a$：}$a$ 是半长轴，$c$ 是半焦距，始终有 $a^2=b^2+c^2$。
+\item \textbf{漏掉余弦平方：}分母来自 $(a+cu)(a-cu)=a^2-c^2u^2$，其中 $u=\cos\theta$。
+\item \textbf{只算一条焦半径：}按分段主图写 $AB=AF+FB$；通常 $AF\ne FB$，也不能直接倍增其中一段。
+\item \textbf{通径系数记反：}令 $x=c$，得 $y=\pm b^2/a$，上下相加为 $2b^2/a$。
+\item \textbf{长轴在 $y$ 轴仍用横轴角：}例8中的橙色角 $\varphi$ 才是公式用角；$\cos^2\varphi=\sin^2\theta$。
+\item \textbf{把斜率 $k$ 当余弦：}有限斜率用 $\cos^2\theta=1/(1+k^2)$；竖直线无有限斜率，用通径。
+\item \textbf{反求角漏一解：}由 $\cos^2\theta=1/4$ 得 $\cos\theta=\pm1/2$，例2两图对应 $60^\circ$、$120^\circ$。
+\item \textbf{担心零分母：}$a^2-c^2\cos^2\theta\ge a^2-c^2=b^2>0$。
+\item \textbf{最长最短颠倒：}三方向图显示长轴弦 $2a$ 最长，通径 $2b^2/a$ 最短；比较范围仅限焦点弦。
+\end{enumerate}
+\medskip
+\textbf{15秒自检：}弦是否过焦点？角度是否相对长轴？两段是否相加？结果是否落在 $[2b^2/a,2a]$？
 \end{trapbox}

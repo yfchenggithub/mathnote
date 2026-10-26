@@ -1,0 +1,22 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[rounded corners=3pt,gray!45] (0,0) rectangle (14.2,10.5);
+\node at (7.1,9.95) {证明二的构造：椭圆定义给斜边，勾股定理给平方};
+\begin{scope}[shift={(4.4,5.4)},scale=1.5]
+\draw[->,gray] (-2.35,0)--(2.15,0) node[above] {$x$};
+\draw[teal!75!black,thick] (0,0) ellipse (2 and 1.7320508);
+\fill[violet!10] (-1,0)--(1.6,0)--(1.6,1.0392305)--cycle;
+\draw[violet,thick] (-1,0)--(1.6,1.0392305);
+\draw[blue!75!black,very thick] (1,0)--(1.6,1.0392305);
+\draw[orange!85!black,thick,dashed] (-1,0)--(1.6,0)--(1.6,1.0392305);
+\draw[orange!85!black] (1.4,0)--(1.4,.2)--(1.6,.2);
+\fill (-1,0) circle(2pt) node[below=4pt] {$F_1$};
+\fill (1,0) circle(2pt) node[below=4pt] {$F$};
+\fill (1.6,0) circle(2pt) node[below=10pt] {$H$};
+\fill (1.6,1.0392305) circle(2pt) node[above right=4pt] {$A$};
+\draw[gray,dotted] (-1,-.7)--(-1,-2.25);
+\draw[gray,dotted] (1.6,-.9)--(1.6,-2.25);
+\draw[<->,orange!85!black] (-1,-2.2)--(1.6,-2.2) node[midway,below] {$F_1H=2c+r\cos\theta$};
+\end{scope}
+\node[anchor=west,align=left] at (9.15,6.5) {$AF=r$\\[8pt]$AF_1=2a-r$\\[8pt]$AH=r\sin\theta$\\[10pt]$AF_1^2=F_1H^2+AH^2$};
+\node at (7.1,.65) {$\displaystyle (2a-r)^2=(2c+r\cos\theta)^2+(r\sin\theta)^2$};
+\end{tikzpicture}

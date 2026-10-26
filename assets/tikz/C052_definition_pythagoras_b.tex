@@ -1,0 +1,36 @@
+% Same ellipse, direction and scale as C052_definition_pythagoras.tex.
+% a=2, b^2=3, c=1, theta=60 degrees: B=(0,-sqrt(3)), s=2.
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[rounded corners=3pt,gray!45] (0,0) rectangle (14.2,10.5);
+\node at (7.1,9.95) {证明二的另一半：沿反方向到 $B$，水平分量由加变减};
+\begin{scope}[shift={(4.4,5.4)},scale=1.5]
+\draw[->,gray] (-2.35,0)--(2.15,0) node[above] {$x$};
+\draw[teal!75!black,thick] (0,0) ellipse (2 and 1.7320508);
+\fill[violet!10] (-1,0)--(0,0)--(0,-1.7320508)--cycle;
+\draw[violet,thick] (-1,0)--(0,-1.7320508);
+\draw[orange!85!black,very thick] (1,0)--(0,-1.7320508);
+\draw[blue!65!black,thick,dashed] (-1,0)--(0,0)--(0,-1.7320508);
+\draw[blue!65!black] (-.18,0)--(-.18,-.18)--(0,-.18);
+\fill (-1,0) circle(2pt) node[below left=4pt] {$F_1$};
+\fill (1,0) circle(2pt) node[above right=4pt] {$F$};
+\fill (0,0) circle(2pt) node[above=5pt] {$K$};
+\fill (0,-1.7320508) circle(2pt) node[below right=5pt] {$B$};
+% The full focal distance above; the remaining horizontal leg below.
+\draw[gray,dotted] (-1,.45)--(-1,2.2);
+\draw[gray,dotted] (1,.45)--(1,2.2);
+\draw[<->,orange!85!black] (-1,2.15)--(1,2.15)
+ node[midway,above] {$F_1F=2c$};
+\draw[gray,dotted] (-1,-.7)--(-1,-2.3);
+\draw[gray,dotted] (0,-2.02)--(0,-2.3);
+\draw[<->,blue!65!black] (-1,-2.25)--(0,-2.25)
+ node[midway,below] {$F_1K=|2c-s\cos\theta|$};
+\end{scope}
+\node[anchor=west,align=left] at (9.15,6.1)
+ {$\textcolor{orange!85!black}{BF=s}$\\[8pt]
+  $BF_1=2a-s$\\[8pt]
+  $BK=|s\sin\theta|$\\[8pt]
+  本图：$KF=s\cos\theta$\\[10pt]
+  $BF_1^2=F_1K^2+BK^2$};
+\node at (7.1,.65)
+ {$\displaystyle (2a-s)^2=(2c-s\cos\theta)^2+(s\sin\theta)^2$};
+\end{tikzpicture}

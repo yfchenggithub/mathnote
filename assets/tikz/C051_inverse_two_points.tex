@@ -1,0 +1,24 @@
+% Exact example 2: y^2=8x, focus=(2,0), P=(4,+/-4sqrt(2)), radius=6.
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[rounded corners=3pt,gray!45] (0,0) rectangle (14.2,11.7);
+\node at (7.1,11.15) {已知 $PF=6$：先确定竖线 $x=4$，再找上下两个交点};
+\begin{scope}[shift={(3.2,5.7)},scale=.72]
+ \draw[->,gray] (-2.6,0)--(6.1,0) node[right] {$x$};
+ \draw[->,gray] (0,-6.5)--(0,6.5) node[above] {$y$};
+ \draw[red!75!black,thick] (-2,-6.1)--(-2,6.1);
+ \draw[teal!75!black,thick,domain=-6.15:6.15,samples=120] plot ({\x*\x/8},\x);
+ \draw[violet,dashed,thick] (4,-6.2)--(4,6.2);
+ \draw[orange!85!black,thick] (-2,{4*sqrt(2)})--(4,{4*sqrt(2)});
+ \draw[orange!85!black,thick] (-2,{-4*sqrt(2)})--(4,{-4*sqrt(2)});
+ \draw[blue!75!black,very thick] (2,0)--(4,{4*sqrt(2)});
+ \draw[blue!75!black,very thick] (2,0)--(4,{-4*sqrt(2)});
+ \fill (0,0) circle(2pt) node[below left=4pt] {$O$};
+ \fill (2,0) circle(2pt) node[above left=5pt] {$F$};
+ \fill (4,{4*sqrt(2)}) circle(2pt) node[below right=4pt] {$P_+$};
+ \fill (4,{-4*sqrt(2)}) circle(2pt) node[above right=4pt] {$P_-$};
+ \node[above right=3pt,violet] at (4,0) {$x=4$};
+ \node[left=3pt,red!75!black] at (-2,2.7) {$x=-2$};
+\end{scope}
+\node[anchor=west,align=left] at (8.7,8.1) {$y^2=8x$，$p/2=2$\\[10pt]$x_0+2=6$\\[5pt]$x_0=4$\\[10pt]$P_+=(4,4\sqrt2)$\\[6pt]$P_-=(4,-4\sqrt2)$\\[10pt]$P_+F=P_-F=6$};
+\node at (7.1,.55) {同一横坐标给出同一焦半径；两点关于 $x$ 轴对称，距离相等。};
+\end{tikzpicture}

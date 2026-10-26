@@ -1,0 +1,23 @@
+% Exact model p=2, P=(4,4), F=(1,0), T=(4,0).
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[rounded corners=3pt,gray!45] (0,0) rectangle (14.2,9.8);
+\node at (7.1,9.25) {坐标法看这个直角三角形：斜边 $PF$，两直角边 $FT$、$PT$};
+\begin{scope}[shift={(2.0,2.8)},scale=1.05]
+ \fill[blue!10] (1,0)--(4,0)--(4,4)--cycle;
+ \draw[->,gray] (-.5,0)--(5.15,0) node[right] {$x$};
+ \draw[->,gray] (0,-.5)--(0,4.7) node[above] {$y$};
+ \draw[teal!75!black,thick,domain=0:4.25,samples=90] plot ({\x*\x/4},\x);
+ \draw[blue!75!black,very thick] (1,0)--(4,4) node[pos=.4,right=4pt] {$PF=5$};
+ \draw[orange!85!black,very thick] (1,0)--(4,0);
+ \draw[violet,very thick] (4,0)--(4,4) node[midway,right=5pt] {$PT=4$};
+ \draw[violet] (3.75,0)--(3.75,.25)--(4,.25);
+ \fill (0,0) circle(2pt) node[below left=3pt] {$O$};
+ \fill (1,0) circle(2pt) node[below=4pt] {$F$};
+ \fill (4,0) circle(2pt) node[below=4pt] {$T$};
+ \fill (4,4) circle(2pt) node[right=4pt] {$P(4,4)$};
+ \draw[<->,orange!85!black] (1,-.8)--(4,-.8) node[midway,below] {$FT=4-1=3$};
+\end{scope}
+\node[anchor=west,align=left] at (9.3,6.4) {$FT=|x_0-p/2|$\\[8pt]$PT=|y_0|$\\[10pt]$PF^2=FT^2+PT^2$\\[8pt]图中：$5^2=3^2+4^2$};
+\node at (7.1,1.05) {一般地，$PF^2=(x_0-p/2)^2+y_0^2=(x_0+p/2)^2$。};
+\node at (7.1,.45) {代入 $y_0^2=2px_0$ 才能合成完全平方；最后用 $x_0+p/2>0$。};
+\end{tikzpicture}

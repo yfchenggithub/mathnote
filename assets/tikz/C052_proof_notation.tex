@@ -1,0 +1,38 @@
+% Exact model: a=3, b^2=5, c=2, theta=60 degrees;
+% r=5/4, s=5/2. Coordinates use one uniform scale.
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[rounded corners=3pt,gray!45] (0,0) rectangle (14.2,10.8);
+\node at (7.1,10.2) {四法共用一张图：先认点，再认两段，最后读坐标};
+\begin{scope}[shift={(4.6,5.6)},scale=1.15]
+\draw[->,gray] (-3.35,0)--(3.5,0) node[above] {$x$};
+\draw[->,gray] (0,-2.65)--(0,2.65) node[left] {$y$};
+\draw[teal!75!black,thick] (0,0) ellipse (3 and 2.23606798);
+% Projections: the same color identifies each endpoint and its coordinates.
+\draw[blue!55!black,densely dashed] (2.625,0)--(2.625,1.08253175)--(0,1.08253175);
+\draw[orange!75!black,densely dashed] (.75,0)--(.75,-2.16506351)--(0,-2.16506351);
+\draw[blue!75!black,very thick] (2,0)--(2.625,1.08253175)
+ node[midway,above left=5pt] {$r$};
+\draw[orange!85!black,very thick] (2,0)--(.75,-2.16506351)
+ node[midway,below right=5pt] {$s$};
+\fill (2.625,1.08253175) circle(2pt) node[above right=5pt] {$A$};
+\fill (.75,-2.16506351) circle(2pt) node[below right=5pt] {$B$};
+\fill (-2,0) circle(2pt) node[below=7pt] {$F_1(-c,0)$};
+\fill (2,0) circle(2pt) node[above left=8pt] {$F=F_2$};
+\node[below left=4pt] at (0,0) {$O$};
+\draw[violet,->] (2.45,0) arc[start angle=0,end angle=60,radius=.45];
+\node[violet] at (2.75,.35) {$\theta$};
+\end{scope}
+\node[anchor=west,align=left] at (9.05,6.4)
+ {$F=(c,0)$\\[11pt]
+  $\textcolor{blue!75!black}{r=FA>0}$\\[8pt]
+  $\textcolor{orange!85!black}{s=FB>0}$\\[11pt]
+  $u=\cos\theta$\\[8pt]
+  正方向：$F\to A$\\[5pt]
+  单位方向\\[3pt]
+  $(\cos\theta,\sin\theta)$};
+\node at (7.1,2.05) {虚线读投影；从 $F(c,0)$ 出发，$A$ 沿正方向，$B$ 沿反方向。};
+\node at (7.1,1.25)
+ {$\textcolor{blue!75!black}{A=(c+ru,\ r\sin\theta)},\qquad
+   \textcolor{orange!85!black}{B=(c-su,\ -s\sin\theta)}$};
+\node at (7.1,.5) {整条弦：$L=AB=r+s$；图取 $a=3,\ b^2=5,\ c=2,\ \theta=60^\circ$。};
+\end{tikzpicture}
