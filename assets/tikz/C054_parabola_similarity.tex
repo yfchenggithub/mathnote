@@ -1,0 +1,47 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[rounded corners=3pt,gray!45] (0,0) rectangle (14.2,12);
+\node at (7.1,11.45) {再认对应：相似关系保留，只补上抛物线的等距定义};
+\begin{scope}[shift={(1.2,4.7)},scale=1.4]
+
+\fill[blue!7] (2,0)--(4,0)--(4,3.464101615)--cycle;
+\fill[orange!10] (2,0)--(1.333333333,0)--(1.333333333,-1.154700538)--cycle;
+
+\draw[teal!75!black,thick,samples=120,domain=-1.9:3.9,variable=\t] plot ({1+\t*\t/4},{\t});
+\draw[violet,densely dashed] (0,-1.9)--(0,3.95);
+\node[violet,rotate=90] at (-.5,1.5) {准线};
+\draw[blue!65!black,dashed] (0,3.464101615)--(4,3.464101615);
+\draw[orange!85!black,dashed] (0,-1.154700538)--(1.333333333,-1.154700538);
+\fill (0,3.464101615) circle(1.5pt) node[left=5pt] {$M$};
+\fill (0,-1.154700538) circle(1.5pt) node[left=5pt] {$N$};
+\fill (0,0) circle(1.5pt) node[left=5pt] {$Q$};
+\draw[gray,dashed] (0,0)--(1.333333333,0);
+\node[above=6pt] at (.6,0) {$p$};
+
+\draw[gray,dashed] (4,3.464101615)--(4,0);
+\draw[gray,dashed] (1.333333333,-1.154700538)--(1.333333333,0);
+\draw[blue!75!black,very thick] (2,0)--(4,3.464101615) node[midway,above left=5pt] {$r$};
+\draw[orange!85!black,very thick] (2,0)--(1.333333333,-1.154700538) ;\node[orange!85!black] at (2.35,-1.12) {$s$};
+\draw[blue!65!black,thick] (2,0)--(4,0) node[midway,below=7pt] {$u$};
+\draw[orange!85!black,thick] (1.333333333,0)--(2,0) node[midway,above=6pt] {$v$};
+\draw[gray!80] (3.8,0)--(3.8,.2)--(4,.2);
+\draw[gray!80] (1.513333333,0)--(1.513333333,-.18)--(1.333333333,-.18);
+\draw[violet] (2.48,0) arc[start angle=0,end angle=60,radius=.48];
+\draw[violet] (1.52,0) arc[start angle=180,end angle=240,radius=.48];
+\node[violet] at (2.76,.28) {$\alpha$};
+\node[violet] at (2.18,-.58) {$\alpha$};
+\fill (4,3.464101615) circle(2pt) node[above=8pt] {$A$};
+\fill (1.333333333,-1.154700538) circle(2pt) node[below left=6pt] {$B$};
+\fill (4,0) circle(1.5pt) node[below right=5pt] {$H$};
+\fill (1.333333333,0) circle(1.5pt) node[above=14pt] {$K$};
+\fill (2,0) circle(2pt) node[below right=5pt] {$F$};
+\end{scope}
+
+\node[anchor=west,align=left] at (8.5,7.1)
+ {普通点 $P\longrightarrow$ 焦点 $F$\\[13pt]
+ 焦准距 $FQ=p$\\[13pt]
+ $\textcolor{blue!75!black}{r=AF=AM=p+u}$\\[10pt]
+ $\textcolor{orange!85!black}{s=BF=BN=p-v}$\\[13pt]
+ 相似比仍是 $u/r=v/s$};
+\node at (7.1,1.55) {几何给出比值相等，抛物线定义把投影换成 $r-p$ 与 $p-s$。};
+\node at (7.1,.6) {$\displaystyle \frac{r-p}{r}=\frac{p-s}{s}\quad\Longrightarrow\quad\frac1r+\frac1s=\frac2p$};
+\end{tikzpicture}

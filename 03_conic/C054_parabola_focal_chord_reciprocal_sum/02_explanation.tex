@@ -1,46 +1,33 @@
+\clearpage
 \begin{explanationbox}
-\begin{minipage}{\linewidth}
-\begin{center}\input{assets/tikz/C054_math_audit_geometry.tex}\end{center}
-取 $p=2$ 的通径，$AF=BF=2$，倒数和为 $1=2/p$。反射或旋转保持长度，改变开口方向不会改变这个倒数和。
-\end{minipage}
-\par\medskip
-
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
-	抛物线焦点弦两段长$|AF|$和$|BF|$的倒数之和始终为$\frac{2}{p}$，与弦的倾斜程度无关，只与抛物线本身参数$p$有关。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（焦半径公式）：}]
-			对于抛物线$y^2=2px$，其上点$A(x_1,y_1)$到焦点$F$的距离$|AF| = x_1 + \frac{p}{2}$，同理$|BF| = x_2 + \frac{p}{2}$。这是后续计算的基础。
-		\item[\textbf{要点二（设线联立）：}]
-			设过焦点直线方程为$x = my + \frac{p}{2}$，联立抛物线并利用韦达定理，可将长度倒数之和化简为常数$\frac{2}{p}$。
-	\end{description}
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（抛物线定义）}}
-	抛物线上任意点到焦点的距离等于其到准线的距离。因此$|AF| = x_1 + \frac{p}{2}$，$|BF| = x_2 + \frac{p}{2}$。倒数和定值反映了焦点弦上两点与准线之间的距离关系，体现了抛物线的几何特征。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（坐标消参）}}
-	通过设直线方程、联立、消元，将长度倒数之和表示为$x_1,x_2$的对称式，利用韦达定理化简，最终消去变量$x_1,x_2$，只留下参数$p$，得到一个与弦无关的定值。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（解题技巧）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（直接套用）：} 已知抛物线方程和一段焦点弦长，直接利用结论求另一段长，节省计算时间。
-		\item \textbf{考法二（反求参数）：} 已知倒数和的值，可以直接求出$p$，从而确定抛物线方程。
-	\end{itemize}
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
-	记住焦半径公式$|AF|=x_1+\frac{p}{2}$，并将过焦点的直线设为$x=my+\frac{p}{2}$，利用韦达定理处理对称量，是此类焦点弦问题的通用处理思路。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（求另一段长）：} 已知$|AF|$，求$|BF|$。
-		\item \textbf{场景二（反求参数）：} 已知$\frac{1}{|AF|}+\frac{1}{|BF|}$的值，求$p$。
-	\end{itemize}
-
+\textbf{第一步，先只看两个熟悉的直角三角形。}
+普通点 $P$ 在斜线段 $AB$ 内；$H,K$ 是两端向过 $P$ 的水平直线所作垂足。
+\begin{center}\input{assets/tikz/C054_pure_similarity.tex}\end{center}
+两个直角相等，$P$ 处两个锐角又是对顶角，所以 $\triangle PAH\sim\triangle PBK$。
+对应的水平边与斜边之比相等：$u/r=v/s$。
+\textbf{先看懂这个比；它来自相似，不需要背新的公式。}
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{第二步，把同一结构放回本题。}图形和尺度保持不变；把普通点 $P$ 对应为焦点 $F$，再补上曲线与准线。
+\begin{center}\input{assets/tikz/C054_parabola_similarity.tex}\end{center}
+准线在左边，焦准距是 $p$。由等距定义，蓝段 $r=p+u$，橙段 $s=p-v$。
+\[
+ \frac ur=\frac vs
+ \ \Longrightarrow\ \frac{r-p}{r}=\frac{p-s}{s}
+ \ \Longrightarrow\ 1-\frac pr=\frac ps-1.
+\]
+于是 $p/r+p/s=2$。\textbf{倒数来自“水平边除以斜边”，再用定义把水平边换掉。}
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{第三步，转动焦点弦，看倒数怎样互相补偿。}这里统一按上下标号：上端为 $A$，下端为 $B$。
+\begin{center}\input{assets/tikz/C054_reciprocal_comparison.tex}\end{center}
+图中蓝、橙两段通常不等，取倒数后也不同；但两块条形合起来始终为 $1$。
+这三条弦用于观察和核验，下一节再给出任意焦点弦的证明。
+\[
+ \frac1r=\frac{1-\cos\theta}{p},\qquad
+ \frac1s=\frac{1+\cos\theta}{p}.
+\]
+一增一减的部分相加抵消，留下固定的 $2/p$。通径只是其中 $r=s=p$ 的对称情形。
 \end{explanationbox}

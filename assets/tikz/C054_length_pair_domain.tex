@@ -1,0 +1,28 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[rounded corners=3pt,gray!45] (0,0) rectangle (14.2,11.5);
+\node at (7.1,10.95) {已知一段，另一段怎样变化？先看长度配对的曲线};
+
+\begin{scope}[shift={(1.1,2.2)},scale=.95]
+\draw[->,gray] (0,0)--(7.8,0) node[below=7pt] {$r=AF$};
+\draw[->,gray] (0,0)--(0,7.8) node[above right] {$s=BF$};
+\draw[violet,densely dashed] (1,0)--(1,7.5);
+\draw[violet,densely dashed] (0,1)--(7.5,1);
+\draw[teal!75!black,very thick,samples=150,domain=1.155:7.5,variable=\t] plot ({\t},{\t/(\t-1)});
+\node[below=5pt] at (0,0) {$0$};
+\node[below=5pt,violet] at (1,0) {$1$};
+\node[left=5pt,violet] at (0,1) {$1$};
+\fill[blue!75!black] (2,2) circle(2.5pt);
+\draw[blue!75!black,->] (3.3,4.4)--(2.05,2.1);
+\node[blue!75!black,above,align=center] at (3.3,4.4) {通径\\$r=s=2$};
+\fill[orange!85!black] (3,1.5) circle(2.5pt);
+\draw[orange!85!black,->] (5.45,3.2)--(3.1,1.55);
+\node[orange!85!black,above,align=center] at (5.45,3.2) {例1\\$r=3,\ s=3/2$};
+\end{scope}
+\node[anchor=west,align=left] at (9.3,6.6)
+ {$p=2$，$\displaystyle s=\frac r{r-1}$\\[14pt]
+ $r>1,\quad s>1$\\[12pt]
+ 一段变长，另一段变短\\[12pt]
+ $r=1$ 没有有限配对\\[10pt]
+ 虚线只可逼近，不可取到};
+\node at (7.1,.8) {图中每个点是一对长度 $(r,s)$，不是抛物线上的端点坐标。};
+\end{tikzpicture}
