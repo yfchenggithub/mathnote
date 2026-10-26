@@ -1,0 +1,32 @@
+% C056: original .tex content referenced this TikZ path but source was not attached.
+% Reconstructed standalone figure, mathematically exact for a=5 b=3 c=4 theta=60deg.
+% F=(4,0), A=(65/14,9sqrt(3)/14), B=(5/2,-3sqrt(3)/2).
+% AF=9/7, BF=3, ellipse x^2/25+y^2/9=1.
+\begin{tikzpicture}[x=0.90cm,y=0.92cm,>=Latex,font=\small]
+\coordinate (O) at (0,0);
+\coordinate (Fl) at (-4,0);
+\coordinate (F) at (4,0);
+\coordinate (A) at ({65/14},{9*sqrt(3)/14});
+\coordinate (B) at ({5/2},{-3*sqrt(3)/2});
+% Ellipse / axes and real right directrix.
+\draw[-{Latex[length=2mm]},gray!65] (-5.9,0) -- (7.25,0) node[right] {$x$};
+\draw[-{Latex[length=2mm]},gray!65] (0,-3.6) -- (0,3.65) node[above] {$y$};
+\draw[thick,blue!78!black,samples=220,smooth,domain=0:360,variable=\t]
+ plot ({5*cos(\t)},{3*sin(\t)});
+\draw[densely dashed,teal!80!black,thick] (6.25,-3.3)--(6.25,3.3);
+\node[teal!78!black,rotate=90,fill=white,inner sep=1.2pt] at (6.46,-1.55)
+ {$x=\frac{25}{4}$（右准线）};
+\draw[orange!85!black,very thick] (B)--(A);
+\draw[densely dashed,gray!75] (F)--(5.0,0);
+\draw[orange!75!black,->] ({4+0.75},0) arc[start angle=0,end angle=60,radius=0.75];
+\node[orange!80!black] at (5.10,0.45) {$60^\circ$};
+% Mark dots.
+\fill (O) circle (1.4pt) node[below left] {$O$};
+\fill (Fl) circle (1.7pt) node[below] {$F_1(-4,0)$};
+\fill[red!70!black] (F) circle (2pt) node[below right] {$F(4,0)$};
+\fill[orange!85!black] (A) circle (2.1pt) node[above right] {$A$};
+\fill[orange!85!black] (B) circle (2.1pt) node[below right] {$B$};
+\node[blue!78!black,fill=white,inner sep=1.5pt] at (-2.95,2.7) {$\frac{x^2}{25}+\frac{y^2}{9}=1$};
+\node[orange!88!black,fill=white,inner sep=1pt] at (3.2,-1.05) {$BF=3$};
+\node[orange!88!black,fill=white,inner sep=1pt] at (3.65,1.8) {$AF=\frac97$};
+\end{tikzpicture}

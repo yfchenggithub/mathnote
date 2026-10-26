@@ -1,0 +1,152 @@
+\begin{proofbox}
+\textbf{方法一｜最快证明：套焦半径公式，设一个长度即解决。}\quad
+\emph{适合考试限时解答；前提是已知右焦半径公式 $PF=a-ex_P$。}
+\par\smallskip\noindent
+取 $q=\cos\theta$。由 $A=F+ru$、$B=F-su$，
+可直接写出 $x_A=c+rq$，$x_B=c-sq$。
+右焦半径公式 $PF=a-ex_P$ 分别给出
+\[
+ \begin{aligned}
+ r&=a-e(c+rq)
+ &&\Longrightarrow\quad r(1+eq)=a-ec=\frac{b^2}{a},\\
+ s&=a-e(c-sq)
+ &&\Longrightarrow\quad s(1-eq)=a-ec=\frac{b^2}{a}.
+ \end{aligned}
+\]
+故\vspace{-5pt}
+\[
+ \boxed{r=\frac{b^2}{a+cq},\qquad
+ s=\frac{b^2}{a-cq}},\qquad
+ \boxed{\frac rs=\frac{1-eq}{1+eq}}.
+\]
+又 $F$ 在 $AB$ 中间，
+\[
+ \boxed{AB=r+s=\frac{2ab^2}{a^2-c^2q^2}}.\qquad\blacksquare
+\]
+\textbf{最快路线关键词：}``$x=c\pm(\text{长度})\cos\theta$
+$\to$ 焦半径 $a-ex$ $\to$ 两个一次方程。''
+\end{proofbox}
+
+\begin{proofbox}
+\textbf{方法二｜最低门槛证明：椭圆第一定义 $+$ 余弦定理。}\quad
+\emph{不需要第二定义、准线，也不需要韦达或参数方程；只用两焦点和一个三角形。}
+\par\smallskip\noindent
+\textbf{第 1 步：为什么只设 $r,s$？}
+我们要求的就是 $AF/BF$，所以直接设
+$AF=r>0$、$BF=s>0$，没有必要再额外设 $x_1,y_1,x_2,y_2$。
+令左焦点 $F_1=(-c,0)$，右焦点为 $F=(c,0)$，则
+$F_1F=2c$。
+\par\smallskip\noindent
+\textbf{第 2 步：用定义，把未知的另一条边写出来。}
+椭圆第一定义：同一点到两焦点的距离之和恒为 $2a$，
+于是
+\[
+ AF_1=2a-r,\qquad BF_1=2a-s.
+\]
+\textbf{第 3 步：在三角形 $F_1FA$ 中只使用一次余弦定理。}
+$FF_1$ 指向左方，$FA$ 与 $x$ 轴正向的夹角为 $\theta$，
+所以 $\angle F_1FA$ 的余弦为 $-\cos\theta$，从而
+\[
+ \begin{aligned}
+ (2a-r)^2
+ &= (2c)^2+r^2-2(2c)r(-\cos\theta)\\
+ &=4c^2+r^2+4cr\cos\theta.
+ \end{aligned}
+\]
+消掉两边的 $r^2$，除以 $4$，只剩下一次方程：
+\[
+ a^2-ar=c^2+cr\cos\theta
+ \ \Longrightarrow\ r(a+c\cos\theta)=a^2-c^2=b^2,
+\]
+\[
+ \boxed{AF=r=\frac{b^2}{a+c\cos\theta}}.
+\]
+\textbf{第 4 步：对点 $B$，只要把方向反过来。}
+$FB$ 与 $FA$ 反向，所以 $\angle F_1FB$ 的余弦变成
+$+\cos\theta$，同理
+\[
+ (2a-s)^2=4c^2+s^2-4cs\cos\theta
+ \ \Longrightarrow\ s(a-c\cos\theta)=b^2,
+\]
+\[
+ \boxed{BF=s=\frac{b^2}{a-c\cos\theta}}.
+\]
+\textbf{第 5 步：相除求比，相加求整条弦。}
+\[
+ \frac{AF}{BF}=\frac{a-c\cos\theta}{a+c\cos\theta}
+ =\frac{1-e\cos\theta}{1+e\cos\theta},
+\quad AB=AF+BF=\frac{2ab^2}{a^2-c^2\cos^2\theta}.
+\qquad\blacksquare
+\]
+\textbf{最低门槛路线关键词：}``设两段 $r,s$ $\to$
+定义补出另外两边 $2a-r,2a-s$ $\to$ 余弦定理 $\to$ 一次方程。''
+\end{proofbox}
+
+\begin{proofbox}
+\textbf{方法三｜常规证明：点参数代入椭圆，解两根。}\quad
+\emph{零依赖焦半径结论，所有方向（水平、竖直、倾斜）统一处理。}
+\par\smallskip\noindent
+\textbf{第 1 步：沿给定直线设点。}
+$u=(\cos\theta,\sin\theta)$ 是单位向量，故
+\[
+ P(t)=F+tu=(c+t\cos\theta,\ t\sin\theta),
+\qquad t\in\mathbb R.
+\]
+$t$ 是\textbf{有向距离}：$t>0$ 对应 $A$，$t<0$ 对应 $B$。
+\par\smallskip\noindent
+\textbf{第 2 步：代入椭圆方程，把两点变成一元二次方程。}
+\[
+ \frac{(c+t\cos\theta)^2}{a^2}
+ +\frac{t^2\sin^2\theta}{b^2}=1.
+\]
+两边乘 $a^2b^2$，令
+$D=b^2\cos^2\theta+a^2\sin^2\theta
+=a^2-c^2\cos^2\theta>0$，整理得
+\[
+ \boxed{Dt^2+2b^2c\cos\theta\,t-b^4=0}.
+\]
+\textbf{第 3 步：求根，并\underline{辨认正负根是谁}。}
+\[
+ \Delta=4b^4\bigl(c^2\cos^2\theta+D\bigr)=4a^2b^4>0.
+\]
+\[
+ \begin{aligned}
+ t_+&=\frac{b^2(a-c\cos\theta)}{D}
+ =\frac{b^2}{a+c\cos\theta}>0,\\
+ t_-&=\frac{-b^2(a+c\cos\theta)}{D}
+ =-\frac{b^2}{a-c\cos\theta}<0.
+ \end{aligned}
+\]
+\textbf{第 4 步：参数有正负，长度永远为正。}
+由端点约定 $A=P(t_+)$、$B=P(t_-)$，因此
+\[
+ AF=t_+,\qquad BF=-t_-,\qquad AB=t_+-t_-.
+\]
+相除和相加便得到全部结论。$\theta=0$、$\theta=\pi/2$
+均已包含，\textbf{不需另设 ``$y=k(x-c)$''，从而也无需单独讨论竖直线}。
+\qquad$\blacksquare$
+\end{proofbox}
+
+\begin{proofbox}
+\textbf{直觉补充｜准线投影法：为什么分母必定是 $a\pm c\cos\theta$？}
+\par\smallskip\noindent
+右焦点对应的右准线为 $\ell:x=a^2/c$，而
+$a^2/c>a$，准线在整个椭圆右侧，因此水平距离不用加绝对值。
+沿着 $FA=r$ 的方向走时，$A$ 的横向投影是 $r\cos\theta$：
+\[
+ d(A,\ell)=\frac{a^2}{c}-(c+r\cos\theta)
+ =\frac{b^2}{c}-r\cos\theta.
+\]
+根据椭圆第二定义（焦点距离 $=$ $e$ 倍准线距离），
+\[
+ r=\frac ca\left(\frac{b^2}{c}-r\cos\theta\right)
+ \Longrightarrow\ r(a+c\cos\theta)=b^2.
+\]
+$B$ 朝反向走 $s$，横向投影变为 $-s\cos\theta$：
+\[
+ s=\frac ca\left(\frac{b^2}{c}+s\cos\theta\right)
+ \Longrightarrow\ s(a-c\cos\theta)=b^2.
+\]
+这条路线不用解二次方程，适合\textbf{理解符号为什么恰好相反}；
+但若尚未学第二定义，就优先使用上面的余弦定理法。
+\end{proofbox}

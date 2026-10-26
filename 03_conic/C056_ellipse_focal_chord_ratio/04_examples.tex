@@ -1,31 +1,99 @@
+\clearpage
 \begin{examplebox}
-\textbf{例1：已知倾斜角求比例。}
-椭圆 $x^2/25+y^2/9=1$，右焦点 $F=(4,0)$，$\theta=60^\circ$。
-各例均按正文约定，$A$ 在 $\theta$ 方向，$B$ 在反方向。
-由 $a=5,b=3,c=4$，
+\textbf{例 1｜基础代入：角度已知，求两段与比例。}
+椭圆 $x^2/25+y^2/9=1$，取右焦点 $F=(4,0)$，
+$\theta=60^\circ$，$A$ 沿 $60^\circ$，$B$ 沿相反方向。
+由 $a=5,b=3,c=4,e=4/5,\cos\theta=1/2$ 得
 \[
-AF=\frac9{5+4/2}=\frac97,\qquad BF=\frac9{5-4/2}=3,
-\qquad \boxed{AF/BF=3/7}.
+ AF=\frac9{5+2}=\frac97,\qquad
+ BF=\frac9{5-2}=3,\qquad
+ \boxed{\frac{AF}{BF}=\frac37},\qquad
+ \boxed{AB=\frac{30}{7}}.
 \]
-对应坐标 $A=(65/14,9\sqrt3/14)$、$B=(5/2,-3\sqrt3/2)$，代回椭圆均为 $1$。
-\par\medskip\noindent
-\textbf{例2：由斜率求比例。}
-同一椭圆中 $k=1$，故 $\theta=45^\circ$，
+\textbf{坐标核验（真正的点，不是随便画的点）：}
 \[
-\boxed{\frac{AF}{BF}=\frac{5-2\sqrt2}{5+2\sqrt2}
-=\frac{33-20\sqrt2}{17}}.
+ A=\left(\frac{65}{14},\frac{9\sqrt3}{14}\right),\qquad
+ B=\left(\frac52,-\frac{3\sqrt3}{2}\right).
 \]
-\par\medskip\noindent
-\textbf{例3：由比例反求直线。}
-椭圆 $x^2/4+y^2/3=1$，$F=(1,0)$，按上述方向规定 $AF/BF=2$。
-因为 $e=1/2$，
+两点代回 $x^2/25+y^2/9$ 都恰好等于 $1$；
+$A-F$ 与 $(1/2,\sqrt3/2)$ 同向，$B-F$ 与之反向。
+\end{examplebox}
+
+\clearpage
+\begin{examplebox}
+\textbf{例 2｜给斜率，先找余弦的符号。}
+仍取 $a=5,b=3,c=4$。过右焦点直线斜率 $k=1$，
+故倾斜角 $\theta=45^\circ$，$\cos\theta=\sqrt2/2$。
 \[
-\frac{1-e\cos\theta}{1+e\cos\theta}=2
-\quad\Longrightarrow\quad \cos\theta=-\frac23.
+ \boxed{\frac{AF}{BF}
+ =\frac{5-2\sqrt2}{5+2\sqrt2}
+ =\frac{33-20\sqrt2}{17}}.
 \]
-$\theta\in[0,\pi)$，故 $\sin\theta=\sqrt5/3$，$k=-\sqrt5/2$，直线为
+如果 $k=-1$，此时 $\theta=135^\circ$，余弦\textbf{是负数}，
+因此比值变为
 \[
-\boxed{y=-\frac{\sqrt5}{2}(x-1)}.
+ \boxed{\frac{AF}{BF}=\frac{5+2\sqrt2}{5-2\sqrt2}>1}.
 \]
-若题目不规定端点命名方向，只给无序长度比，则两条关于 $x$ 轴对称的直线都应讨论。
+\textbf{辨识信号：}相同 $|k|$，斜率符号不同，对应正向端点在左还是右。
+\end{examplebox}
+
+\clearpage
+\begin{examplebox}
+\textbf{例 3｜逆向使用：从比值反求直线。}
+椭圆 $x^2/4+y^2/3=1$，$F=(1,0)$，
+依原端点方向规定，已知 $AF/BF=2$。
+有 $a=2,c=1,e=1/2$，故
+\[
+ \frac{1-\tfrac12\cos\theta}{1+\tfrac12\cos\theta}=2
+ \Longrightarrow\ \cos\theta=-\frac23.
+\]
+$\theta\in[0,\pi)$，所以 $\sin\theta=\sqrt5/3$，
+$k=\tan\theta=-\sqrt5/2$：
+\[
+ \boxed{\ y=-\frac{\sqrt5}{2}(x-1)\ }.
+\]
+核验：$AF=9/4$，$BF=9/8$；两交点分别为
+\[
+ A=\left(-\tfrac12,\tfrac{3\sqrt5}{4}\right),\qquad
+ B=\left(\tfrac74,-\tfrac{3\sqrt5}{8}\right),
+\]
+确实在椭圆上。若只说``两段长度的\emph{无序}比为 $2:1$''，
+未规定哪段叫 $AF$，则关于 $x$ 轴对称的斜率
+$k=\pm\sqrt5/2$ 都需要考虑。
+\end{examplebox}
+
+\clearpage
+\begin{examplebox}
+\begin{center}\input{assets/tikz/C056_chord_extremes.tex}\end{center}
+\textbf{例 4｜转化为弦长最值：斜焦点弦的上、下界。}
+由
+\[
+ AB=\frac{2ab^2}{a^2-c^2\cos^2\theta},\qquad
+ 0\le \cos^2\theta\le1,
+\]
+分母在 $[b^2,a^2]$ 之间，因此
+\[
+ \boxed{\frac{2b^2}{a}\le AB\le2a}.
+\]
+当 $\theta=\pi/2$（通径，竖直）时取最小值
+$2b^2/a$；当 $\theta=0$（长轴，水平）时取最大值 $2a$。
+以 $x^2/25+y^2/9=1$ 为例，$\boxed{18/5\le AB\le10}$。
+\end{examplebox}
+
+\clearpage
+\begin{examplebox}
+\begin{center}\input{assets/tikz/C056_left_right_focus.tex}\end{center}
+\textbf{例 5｜知识迁移：换左焦点，哪些符号改变？}
+同一椭圆若改取\textbf{左焦点} $F_1=(-c,0)$，
+但仍定义 $A=F_1+r(\cos\theta,\sin\theta)$、
+$B=F_1-s(\cos\theta,\sin\theta)$（$r,s>0$），则
+\[
+ \boxed{AF_1=\frac{b^2}{a-c\cos\theta}},\qquad
+ \boxed{BF_1=\frac{b^2}{a+c\cos\theta}},
+\]
+\[
+ \boxed{\frac{AF_1}{BF_1}=\frac{1+e\cos\theta}{1-e\cos\theta}}.
+\]
+记忆不靠新背一套：\textbf{镜像后准线远近对调，所以正负号对调}。
+注意 $AF_1$ 表示点 $A$ 到\emph{左焦点}的距离。
 \end{examplebox}

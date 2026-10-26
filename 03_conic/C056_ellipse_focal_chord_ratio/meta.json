@@ -7,9 +7,11 @@
       "焦点弦比例公式",
       "焦半径比公式",
       "椭圆焦点分弦比",
-      "椭圆焦半径倾斜角公式"
+      "椭圆焦半径倾斜角公式",
+      "椭圆右焦点弦有向分段比",
+      "椭圆焦点弦倾斜角方向约定"
     ],
-    "summary": "过椭圆右焦点的弦，两段焦半径的长度和比值可由倾斜角的余弦与离心率直接表示。",
+    "summary": "过椭圆右焦点的直线按倾斜角正向取A、反向取B，两段焦半径之比为(1-e cosθ)/(1+e cosθ)；方向不可省略。",
     "difficulty": 3,
     "category": "解析几何",
     "tags": [
@@ -37,7 +39,13 @@
       "b^2/(a-c cosθ)",
       "b^2/(a+c cosθ)",
       "过焦点直线",
-      "弦长"
+      "弦长",
+      "端点正向",
+      "cosθ符号",
+      "准线",
+      "余弦定理",
+      "焦半径公式",
+      "左焦点对照"
     ],
     "synonyms": [
       "椭圆焦半径比",
@@ -45,20 +53,25 @@
       "椭圆右焦点弦比例",
       "倾斜角公式",
       "椭圆焦点分线段比",
-      "椭圆交半径比"
+      "椭圆焦半径比"
     ],
     "intents": [
       "求焦半径比",
       "求|AF|/|BF|",
       "求焦半径长度",
       "求焦点弦长",
-      "证明焦点分弦比例"
+      "证明焦点分弦比例",
+      "用椭圆第一定义证明焦点弦比",
+      "求焦点弦长最值",
+      "区别左焦点右焦点公式"
     ],
     "query_templates": [
       "椭圆焦点分弦比例公式",
       "已知椭圆方程和倾斜角求焦半径比",
       "椭圆焦半径公式如何推导",
-      "椭圆右焦点弦比例与离心率关系"
+      "椭圆右焦点弦比例与离心率关系",
+      "椭圆焦点弦最低门槛余弦定理证明",
+      "椭圆焦点弦斜率负数cosθ怎么取"
     ],
     "ocrKeywords": [
       "椭圆",
@@ -76,7 +89,9 @@
       "\\frac{b^2}{a-c\\cos\\theta}",
       "\\frac{b^2}{a+c\\cos\\theta}",
       "\\frac{1-e\\cos\\theta}{1+e\\cos\\theta}",
-      "\\frac{|AF|}{|BF|}"
+      "\\frac{|AF|}{|BF|}",
+      "\\frac{2ab^2}{a^2-c^2\\cos^2\\theta}",
+      "\\frac{2b^2}{a}\\le AB\\le 2a"
     ],
     "formulaTokens": [
       "\\frac{b^2}{a-c\\cos\\theta}",
@@ -87,7 +102,9 @@
       "1+e\\cos\\theta",
       "1-e\\cos\\theta",
       "e\\cos\\theta",
-      "\\frac{2ab^2}{a^2-c^2\\cos^2\\theta}"
+      "\\frac{2ab^2}{a^2-c^2\\cos^2\\theta}",
+      "PF=a-e x_P",
+      "P(t)=F+t(\\cos\\theta,\\sin\\theta)"
     ],
     "pinyin": "tuoyuanjiaodianfenxianbilidingli",
     "pinyinAbbr": "tyjdfxbl"
@@ -105,39 +122,48 @@
     "success_rate": 0
   },
   "math": {
-    "core_formula": "\\frac{AF}{BF}=\\frac{1-e\\cos\\theta}{1+e\\cos\\theta}",
+    "core_formula": "\\frac{|AF|}{|BF|}=\\frac{1-e\\cos\\theta}{1+e\\cos\\theta}",
     "related_formulas": [
-      "AF=\\frac{b^2}{a+c\\cos\\theta}",
-      "BF=\\frac{b^2}{a-c\\cos\\theta}",
-      "AB=\\frac{2ab^2}{a^2-c^2\\cos^2\\theta}"
+      "|AF|=\\frac{b^2}{a+c\\cos\\theta}",
+      "|BF|=\\frac{b^2}{a-c\\cos\\theta}",
+      "|AB|=\\frac{2ab^2}{a^2-c^2\\cos^2\\theta}",
+      "\\frac{2b^2}{a}\\le |AB|\\le2a",
+      "|AF_1|/|BF_1|=\\frac{1+e\\cos\\theta}{1-e\\cos\\theta}\\quad(\\text{左焦点且按同一方向标记})"
     ],
     "variables": {
       "a": "椭圆长半轴",
       "b": "椭圆短半轴",
       "c": "半焦距 (c^2=a^2-b^2)",
       "e": "离心率 e=c/a",
-      "θ": "弦的倾斜角 (0≤θ<π)",
+      "θ": "直线倾斜角 0≤θ<π，以x轴正向为始边，斜率负时cosθ<0",
       "|AF|": "A到右焦点的焦半径长度",
-      "|BF|": "B到右焦点的焦半径长度"
+      "|BF|": "B到右焦点的焦半径长度",
+      "r,s": "r=|AF|>0,s=|BF|>0；A、B分别在倾斜角正向及其反向"
     },
-    "conditions": "a>b>0, c^2=a^2-b^2, F=(c,0), θ∈[0,π), u=(cosθ,sinθ), A=F+r u, B=F-s u, r,s>0；极轴为x轴正向。",
+    "conditions": "椭圆 x²/a²+y²/b²=1，a>b>0，c²=a²-b²，e=c/a，右焦点 F=(c,0)；θ∈[0,π)，u=(cosθ,sinθ)，A=F+ru，B=F-su，r,s>0；正极轴为x轴正方向，AB为穿过焦点的完整弦。",
     "conclusions": [
-      "AF/BF=(1-e cosθ)/(1+e cosθ)",
-      "θ=0时AF=a-c，BF=a+c；θ=π/2时二者相等。"
+      "AF=b²/(a+c cosθ)，BF=b²/(a−c cosθ)；AF/BF=(1−e cosθ)/(1+e cosθ)",
+      "AB=2ab²/(a²−c² cos²θ)；2b²/a≤AB≤2a",
+      "θ=0时AF=a−c，BF=a+c；θ=π/2时AF=BF=b²/a；θ为钝角时AF>BF",
+      "换左焦点且保持相同A、B正向命名时，以上两段分母符号交换。"
     ]
   },
   "content": {
-    "statement": "a>b>0, c^2=a^2-b^2, F=(c,0), θ∈[0,π), u=(cosθ,sinθ), A=F+r u, B=F-s u, r,s>0；极轴为x轴正向。 \\frac{AF}{BF}=\\frac{1-e\\cos\\theta}{1+e\\cos\\theta}",
+    "statement": "设椭圆 $x^2/a^2+y^2/b^2=1$ ($a>b>0$)，右焦点 $F=(c,0)$，$e=c/a$，$A=F+r(\\cos\\theta,\\sin\\theta)$，$B=F-s(\\cos\\theta,\\sin\\theta)$，$r,s>0,\\theta\\in[0,\\pi)$。则 $AF=b^2/(a+c\\cos\\theta)$，$BF=b^2/(a-c\\cos\\theta)$，$AF/BF=(1-e\\cos\\theta)/(1+e\\cos\\theta)$。",
     "derivation": [
-      "代入F+t u得 D t²+2b²c cosθ t-b⁴=0，D=a²-c²cos²θ。",
-      "正根b²/(a+c cosθ)对应A；负根−b²/(a−c cosθ)对应B。",
-      "取正长度后相除与相加。"
+      "最快（已知焦半径）：x_A=c+r cosθ，x_B=c−s cosθ；PF=a−e x_P，得到r(a+c cosθ)=s(a−c cosθ)=b²。",
+      "最低门槛（第一定义+余弦定理）：设AF=r、BF=s，则AF₁=2a−r、BF₁=2a−s；分别在F₁FA、F₁FB中用余弦定理，得到r(a+c cosθ)=b²、s(a−c cosθ)=b²。",
+      "常规（有向参数）：P(t)=F+t(cosθ,sinθ)，代入椭圆得到Dt²+2b²c cosθ·t−b⁴=0，D=a²−c²cos²θ；正根为AF，负根的相反数为BF。",
+      "补充直觉（第二定义+准线投影）：右准线x=a²/c，沿正向的横向位移r cosθ使到准线距离变短，反向则相反。"
     ],
-    "intuition": "右焦点沿x轴正向到右顶点只有a-c，反向到左顶点为a+c。",
+    "intuition": "右焦点到右顶点只有a−c、到左顶点为a+c。A按倾斜角正向、B按反向：cosθ>0时A向右，AF<BF；cosθ=0时两段相等；cosθ<0时AF>BF。只需记同分子b²、右焦点正向端A分母加c cosθ。",
     "common_tricks": [
-      "先规定端点与极轴；交换A、B需取倒数。",
-      "k<0时倾斜角余弦为负；k>0时为正；k=0对应θ=0。",
-      "左焦点按同一极轴规定时交换余弦符号。"
+      "先写方向定义A=F+ru、B=F−su（r,s>0）；没有端点约定时长度比无法唯一指定。",
+      "最快可用PF=a−e x_P；初学优先椭圆第一定义+余弦定理；常规用有向参数统一水平、竖直。",
+      "θ=0校验AF=a−c、BF=a+c；θ=π/2校验AF=BF=b²/a。",
+      "斜率k>0时cosθ=1/√(1+k²)；k<0时cosθ=−1/√(1+k²)；垂直直线cosθ=0。",
+      "只给无序长度比，需考虑A、B交换及轴对称；比值R可反推cosθ=(1−R)/[e(1+R)]。",
+      "弦长AB=AF+BF，满足2b²/a≤AB≤2a；左焦点需交换分母符号。"
     ]
   },
   "usage": {
@@ -183,10 +209,10 @@
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-23",
-    "updated_at": "2026-10-21"
+    "updated_at": "2026-10-26"
   },
   "isPro": 0,
-  "remarks": "",
+  "remarks": "2026-10-26修订：原六个.tex全量补强，证明按最快（焦半径）、最低门槛（第一定义+余弦定理）、常规（有向参数）依序整理，额外补充准线投影；核对60°坐标、负斜率和逆向例题；不更改原有TikZ input路径，原依赖图片未随附件提供，单独重建同名精确配图以便独立编译。保留原JSON顶层结构和meta.version兼容性。 新增七幅独立TikZ：assets/tikz/C056_statement_overview.tex（第一页方向主图）、C056_pure_projection.tex（先看普通线段投影）、C056_directrix_projection.tex（再引入椭圆与准线距离）、C056_two_focal_triangles.tex（AF/BF两次余弦定理完整配图）、C056_angle_comparison.tex（锐角直角钝角同比例比较）、C056_chord_extremes.tex（水平最长竖直最短）、C056_left_right_focus.tex（换焦点的符号变化）。替换原理解图输入并压缩重复空间口述，原图源及source.tex不覆盖；保留三种证明、准线补充和五道例题。",
   "knowledgeNode": "解析几何-圆锥曲线-椭圆-焦点弦",
   "altNodes": ""
 }

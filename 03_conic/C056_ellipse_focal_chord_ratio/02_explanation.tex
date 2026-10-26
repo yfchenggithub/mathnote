@@ -1,11 +1,24 @@
+\clearpage
 \begin{explanationbox}
-\begin{center}\input{assets/tikz/C056_right_focus_oriented_chord.tex}\end{center}
-\textbf{先看方向，再记符号。} 图中 $A$ 在从右焦点沿 $60^\circ$ 出发的射线上，
-离右端边界较近，所以 $AF<BF$，应有 $AF/BF=3/7$。
-当 $\theta=0$ 时，$AF=a-c$、$BF=a+c$，这是检查正负号最快的边界情形。
-\par\medskip\noindent
-由右准线 $x=a^2/c$ 及第二定义，
-$r=e(a^2/c-c-r\cos\theta)$，故 $(a+c\cos\theta)r=b^2$。
-反方向将余弦换成 $-\cos\theta$ 即得 $s$。
-左焦点的公式需交换余弦符号；双曲线还需区分分支和绝对值，不能机械照搬。
+\textbf{第一步，先认普通斜线的水平投影。}暂时拿掉椭圆、焦点和准线，只看从中间点 $P$ 沿相反方向走到两端。\begin{center}\input{assets/tikz/C056_pure_projection.tex}\end{center}
+两段长度 $r,s$ 都为正；向右的水平位移是正数，向左是负数。这里的正负属于位移，不属于长度。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{第二步，再把这个结构放入椭圆。}普通点 $P$ 对应右焦点 $F(c,0)$；先写出横坐标，再看准线距离。\begin{center}\input{assets/tikz/C056_directrix_projection.tex}\end{center}
+右准线在 $x=a^2/c>a$，因此距离是“准线横坐标减端点横坐标”。结合第二定义：
+\[
+ r=e\left(\frac{b^2}{c}-r\cos\theta\right),\quad
+ s=e\left(\frac{b^2}{c}+s\cos\theta\right).
+\]
+代入 $e=c/a$ 后，分别得到 $r(a+c\cos\theta)=b^2$、$s(a-c\cos\theta)=b^2$。尚未学习准线时，可直接使用后面的第一定义证明。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{第三步，看角度变化，不要把 $A$ 固定记成短段。}三图保留同一个椭圆和右焦点，只改变直线方向。\begin{center}\input{assets/tikz/C056_angle_comparison.tex}\end{center}
+锐角时 $\cos\theta>0$，$AF$ 的分母较大，蓝段较短；钝角时余弦为负，蓝段反而较长。
+\[
+ \frac{AF}{BF}=\frac{a-c\cos\theta}{a+c\cos\theta}.
+\]
+图形用于观察和验算，一般证明在下一节给出。水平长轴 $\theta=0$ 是最方便的符号检查：朝右只剩 $a-c$，所以 $AF$ 的分母必须用加号。
 \end{explanationbox}
