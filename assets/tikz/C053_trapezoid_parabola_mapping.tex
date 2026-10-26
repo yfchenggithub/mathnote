@@ -1,0 +1,47 @@
+% Same trapezoid and coordinates as the pure geometry figure, translated
+% from y^2=4x by x -> x+1. Here F=(2,0), directrix x=0 in drawing coordinates.
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[rounded corners=3pt,gray!45] (0,0) rectangle (14.2,11.5);
+\node at (7.1,10.95) {再放回抛物线：只补上 $AM=AF$、$BN=BF$ 两个等量};
+\begin{scope}[shift={(1.6,5)},scale=1.15]
+\fill[blue!7] (2,0)--(2,3.464101615)--(4,3.464101615)--cycle;
+\fill[orange!10] (2,0)--(2,-1.154700538)--(1.333333333,-1.154700538)--cycle;
+\draw[teal!75!black,thick,samples=120,domain=-2.3:4.15,variable=\t]
+ plot ({1+\t*\t/4},{\t});
+\draw[violet,densely dashed] (0,-2.35)--(0,4.2);
+\node[violet,rotate=90] at (-.65,1.5) {准线};
+\draw[gray!80,thick] (0,3.464101615)--(0,-1.154700538);
+\draw[blue!65!black,thick] (0,3.464101615)--(4,3.464101615);
+\draw[orange!85!black,thick] (0,-1.154700538)--(1.333333333,-1.154700538);
+\draw[blue!75!black,very thick] (2,0)--(4,3.464101615)
+ node[midway,below right=5pt] {$r$};
+\draw[orange!85!black,very thick] (2,0)--(1.333333333,-1.154700538)
+ node[midway,above left=5pt] {$s$};
+\draw[gray,dashed] (2,-1.154700538)--(2,3.464101615);
+\draw[gray,dashed] (0,0)--(3.15,0);
+\node[above=5pt] at (.65,0) {$p$};
+\draw[blue!65!black,densely dashed] (1.333333333,-1.154700538)--(2,-1.154700538);
+\draw[gray!80] (0,3.26)--(.2,3.26)--(.2,3.464101615);
+\draw[gray!80] (0,-.95)--(.2,-.95)--(.2,-1.154700538);
+\draw[blue!65!black] (2,3.26)--(2.2,3.26)--(2.2,3.464101615);
+\draw[blue!65!black] (1.8,-1.154700538)--(1.8,-.954700538)--(2,-.954700538);
+\draw[violet,->] (2.55,0) arc[start angle=0,end angle=60,radius=.55];
+\node[violet] at (2.83,.34) {$\theta$};
+\fill (0,3.464101615) circle(2pt) node[left=5pt] {$M$};
+\fill (4,3.464101615) circle(2pt) node[above=8pt] {$A$};
+\fill (1.333333333,-1.154700538) circle(2pt) node[below left=6pt] {$B$};
+\fill (0,-1.154700538) circle(2pt) node[left=5pt] {$N$};
+\fill (0,0) circle(1.5pt) node[left=5pt] {$Q$};
+\fill (2,0) circle(2pt) node[above left=6pt] {$F$};
+\fill (2,3.464101615) circle(1.5pt) node[above left=5pt] {$H$};
+\fill (2,-1.154700538) circle(1.5pt) node[right=5pt] {$K$};
+\end{scope}
+\node[anchor=west,align=left] at (8.6,7)
+ {上一图：$P\longrightarrow F$\\[9pt]$h\longrightarrow p$\\[14pt]
+ 抛物线的等距定义：\\[10pt]
+ $\textcolor{blue!75!black}{AM=AF=r}$\\[10pt]
+ $\textcolor{orange!85!black}{BN=BF=s}$\\[14pt]
+ 梯形的分解仍然成立。};
+\node at (7.1,1.5) {几何关系给“加减”，抛物线定义给“相等”。};
+\node at (7.1,.6) {$\displaystyle r=p+r\cos\theta,\qquad s=p-s\cos\theta$};
+\end{tikzpicture}

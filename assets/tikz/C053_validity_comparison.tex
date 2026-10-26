@@ -1,0 +1,32 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[rounded corners=3pt,gray!45] (0,0) rectangle (14.2,10.8);
+\node at (7.1,10.25) {先检查直线：轴线只有一个交点；竖直弦也必须经过焦点};
+\node at (2.6,9.3) {轴线：不构成焦点弦};
+\begin{scope}[shift={(2,5.3)},scale=.68]
+\draw[->,gray] (-1.5,0)--(4.4,0) node[above] {$x$};
+\draw[teal!75!black,thick,samples=120,domain=-3.7:3.7,variable=\t] plot ({\t*\t/4},{\t});
+\draw[red!75!black,very thick] (-.6,0)--(4.1,0);\fill (0,0) circle(2pt) node[below left=5pt] {$O$};
+\fill (1,0) circle(2pt) node[below right=5pt] {$F$};
+\end{scope}
+\node at (2.6,1.85) {$\theta=0$，仅顶点 $O$};
+\node at (7.0,9.3) {通径：合法且最短};
+\begin{scope}[shift={(6.4,5.3)},scale=.68]
+\draw[->,gray] (-1.5,0)--(4.4,0) node[above] {$x$};
+\draw[teal!75!black,thick,samples=120,domain=-3.7:3.7,variable=\t] plot ({\t*\t/4},{\t});
+\draw[blue!75!black,very thick] (1,-2.0)--(1,2.0);
+\fill (1,2.0) circle(2pt);\fill (1,-2.0) circle(2pt);
+\fill (1,0) circle(2pt) node[below right=5pt] {$F$};
+\end{scope}
+\node at (7.0,1.85) {$x=1,\quad L=4$};
+\node at (11.4,9.3) {普通弦：不能套公式};
+\begin{scope}[shift={(10.8,5.3)},scale=.68]
+\draw[->,gray] (-1.5,0)--(4.4,0) node[above] {$x$};
+\draw[teal!75!black,thick,samples=120,domain=-3.7:3.7,variable=\t] plot ({\t*\t/4},{\t});
+\draw[blue!75!black,very thick] (2,-2.8284271247461903)--(2,2.8284271247461903);
+\fill (2,2.8284271247461903) circle(2pt);\fill (2,-2.8284271247461903) circle(2pt);
+\fill (1,0) circle(2pt) node[above=8pt] {$F$};
+\end{scope}
+\node at (11.4,1.85) {$x=2,\quad L=4\sqrt2$};
+
+\node at (7.1,.65) {三图均为 $y^2=4x$，同尺度；后两条直线同为竖直，只有中图过 $F$。};
+\end{tikzpicture}

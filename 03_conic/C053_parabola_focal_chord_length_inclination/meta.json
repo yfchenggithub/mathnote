@@ -8,7 +8,7 @@
       "焦点弦长公式",
       "倾斜角弦长公式"
     ],
-    "summary": "焦点弦长度等于二倍焦参数除以倾斜角正弦平方，对左右开口均成立；上下开口以x轴倾斜角计时，分母应改为cos²θ。",
+    "summary": "对 y²=±2px(p>0)，倾斜角 θ∈(0,π) 的焦点弦长 L=2p/sin²θ≥2p，竖直通径最短；上下开口、角从 x 轴量时改用 cos²θ。",
     "difficulty": 3,
     "category": "解析几何",
     "tags": [
@@ -17,7 +17,12 @@
       "弦长公式",
       "倾斜角",
       "圆锥曲线",
-      "通径"
+      "通径",
+      "焦半径",
+      "焦点准线定义",
+      "韦达定理",
+      "斜率形式",
+      "最小焦点弦"
     ]
   },
   "search": {
@@ -32,7 +37,12 @@
       "2p/sin^2θ",
       "p>0",
       "过焦点弦",
-      "抛物线的弦"
+      "抛物线的弦",
+      "焦点弦长最值",
+      "最短焦点弦",
+      "焦半径和",
+      "L=2p(1+k²)/k²",
+      "倾斜角互补"
     ],
     "synonyms": [
       "抛物线弦长公式",
@@ -56,7 +66,11 @@
       "已知抛物线方程和倾斜角求弦长",
       "抛物线焦点弦长最小值",
       "通径长公式",
-      "y^2=2px焦点弦怎么求"
+      "y^2=2px焦点弦怎么求",
+      "焦点弦长如何用抛物线定义最快证明",
+      "焦点弦长只用韦达根之和怎样证明",
+      "左开口抛物线焦点弦长是否有负号",
+      "上下开口焦点弦长倾斜角公式"
     ],
     "ocrKeywords": [
       "y^2=2px",
@@ -79,7 +93,10 @@
       "L",
       "p",
       "\\theta",
-      "\\sin\\theta"
+      "\\sin\\theta",
+      "\\cot\\theta",
+      "\\cos^2\\theta",
+      "\\frac{2p(1+k^2)}{k^2}"
     ],
     "pinyin": "paowuxian jiaodianxian chang gongshi qingxiejiao xingshi",
     "pinyinAbbr": "pwxjdx"
@@ -97,39 +114,117 @@
     "success_rate": 0
   },
   "math": {
-    "core_formula": "L = \\frac{2p}{\\sin^2 \\theta}",
+    "core_formula": "L=\\frac{2p}{\\sin^2\\theta}",
     "related_formulas": [
-      "L_{\\min} = 2p \\quad (\\theta = \\frac{\\pi}{2})",
-      "y^2 = 2px \\;\\text{或}\\; y^2 = -2px, \\; p>0"
+      "L_{\\min}=2p\\ \\Longleftrightarrow\\ \\theta=\\frac{\\pi}{2}",
+      "L=\\frac{2p(1+k^2)}{k^2}\\quad(k=\\tan\\theta,\\ k\\neq 0,\\ k\\text{有限})",
+      "L=\\frac{2p}{\\cos^2\\theta}\\quad(x^2=\\pm2py,\\ \\theta\\neq\\frac\\pi2)",
+      "|AB|=|AF|+|BF|=x_A+x_B+p\\quad(y^2=2px)",
+      "|AF|=\\frac{p}{1-\\cos\\theta},\\quad |BF|=\\frac{p}{1+\\cos\\theta}\\quad(y^2=2px)"
     ],
     "variables": [
-      "L: 焦点弦长度",
-      "p: 焦参数 (p>0)",
-      "θ: 倾斜角 (θ≠0,π)"
+      "L: 焦点弦 AB 的长度",
+      "p: y²=±2px 中 x 项系数绝对值的一半，p>0",
+      "θ: 焦点弦所在直线与 x 轴的倾斜角，0<θ<π",
+      "k: 焦点弦斜率，使用斜率式时要求 k 存在且 k≠0"
     ],
     "conditions": [
-      "抛物线为标准形式 y^2=2px 或 y^2=-2px",
-      "p>0",
-      "倾斜角 θ∈(0,π) 且 θ≠0,π"
+      "抛物线为 y²=2px 或 y²=-2px，p>0",
+      "A、B 为过焦点直线与抛物线的两个不同交点",
+      "θ 为该直线的倾斜角，0<θ<π（不含 0）；竖直 θ=π/2 合法"
     ],
     "conclusions": [
-      "焦点弦长度仅由 p 和 θ 决定",
-      "当 θ=π/2 时弦长最小为 2p（通径）"
+      "L=2p/sin²θ，左右开口均适用",
+      "L≥2p，当且仅当 θ=π/2，焦点弦是通径",
+      "互补倾角 θ、π−θ 所得焦点弦长相同",
+      "对上下开口 x²=±2py、以 x 轴计角，L=2p/cos²θ（θ≠π/2）"
     ]
   },
   "content": {
-    "statement": "对于标准形式的抛物线 y^2=2px 或 y^2=-2px（p>0），设过焦点的弦所在直线的倾斜角为 θ（θ≠0,π），则焦点弦的长度 L = 2p / sin^2 θ。",
+    "statement": "对 y²=±2px(p>0)，设过焦点的直线与抛物线相交于 A,B 两个不同点，倾斜角 θ∈(0,π)，则 |AB|=2p/sin²θ≥2p，等号当且仅当 θ=π/2（通径）。",
     "derivation": [
-      "设抛物线 y^2=2px，焦点 F(p/2,0)，直线参数方程 x = p/2 + t cosθ, y = t sinθ",
-      "代入抛物线得关于 t 的二次方程，利用韦达定理和直线参数 t 的几何意义得弦长",
-      "化简得 L = 2p / sin^2 θ"
+      "最快：取 y²=2px，令 r=FA、s=FB，焦点准线定义给出 r=p+r cosθ、s=p−s cosθ，于是 L=r+s=p/(1−cosθ)+p/(1+cosθ)=2p/sin²θ。",
+      "最低门槛：由焦半径和 L=x_A+x_B+p，设 x=p/2+y cotθ，代入抛物线得到 y²−2p cotθ·y−p²=0，韦达得 y_A+y_B=2p cotθ，故 L=2p(1+cot²θ)=2p/sin²θ。",
+      "常规：过 F 的单位方向参数 x=p/2+t cosθ、y=t sinθ，联立得 t²sin²θ−2pt cosθ−p²=0，由 t 根差 L=|t₁−t₂| 得 L=2p/sin²θ。",
+      "左开口：将右开口图形对 y 轴反射，长度不变，θ 替换为 π−θ 而 sin² 不变。"
     ],
-    "intuition": "倾斜角正弦平方反映弦的垂直分量，p 决定抛物线开口大小，两者的组合直接决定焦点弦长度。",
+    "intuition": "焦点弦的两个焦半径来自抛物线“到焦点=到准线”，沿弦方向的水平投影分别是 +r cosθ 与 −s cosθ；合并两段得到 (1−cosθ)(1+cosθ)=sin²θ。越靠近 90° 弦越短。",
     "common_tricks": [
-      "使用前先确认抛物线是否为标准形式，且 p>0",
-      "注意倾斜角范围避免分母为零",
-      "已知弦长反求倾斜角时，sin^2θ 对应两个 θ 值（互补角）",
-      "通径是特殊情况，常考最值"
+      "首看是否“过焦点”；只有焦点弦可直接使用",
+      "读 y²=±2px，先认 2p 是 x 系数绝对值",
+      "只求弦长：直接用 L=2p/sin²θ；斜率有限且非零时 L=2p(1+k²)/k²",
+      "反求倾角：θ∈(0,π)，一般出现 θ 与 π−θ 两解",
+      "θ=π/2 是合法竖直通径，斜率不存在而 L=2p",
+      "左开口仍取 p>0；上下开口且 θ 从 x 轴量改用 cos²θ",
+      "先验 L≥2p，排除低于通径的错误答案"
+    ],
+    "proof_methods": [
+      {
+        "name": "焦点准线 + 两段投影",
+        "priority": 1,
+        "role": "最快推导",
+        "level": "初中几何+基础三角",
+        "file": "03_proof.tex"
+      },
+      {
+        "name": "焦半径求和 + 一元韦达只求和",
+        "priority": 2,
+        "role": "最低门槛",
+        "level": "一元二次方程与根之和",
+        "file": "03_proof.tex"
+      },
+      {
+        "name": "单位方向参数方程 + 韦达根差",
+        "priority": 3,
+        "role": "常规标准",
+        "level": "高中解析几何",
+        "file": "03_proof.tex"
+      },
+      {
+        "name": "斜率 k + 焦半径求和",
+        "priority": 4,
+        "role": "斜率已知时备用",
+        "level": "直线方程与韦达",
+        "file": "03_proof.tex"
+      }
+    ],
+    "examples": [
+      {
+        "type": "角度直接代入",
+        "problem": "y²=4x，θ=30°",
+        "answer": "L=16"
+      },
+      {
+        "type": "反求两个倾斜角",
+        "problem": "y²=8x，L=16",
+        "answer": "θ=π/4 或 3π/4"
+      },
+      {
+        "type": "焦半径和反求 p",
+        "problem": "θ=60°，AF+BF=8",
+        "answer": "p=3"
+      },
+      {
+        "type": "左开口",
+        "problem": "y²=−6x，θ=120°",
+        "answer": "L=8"
+      },
+      {
+        "type": "斜率",
+        "problem": "y²=8x，k=2",
+        "answer": "L=10"
+      },
+      {
+        "type": "几何图坐标校核",
+        "problem": "y²=4x，θ=60°",
+        "answer": "A=(3,2√3)，B=(1/3,−2√3/3)，L=16/3"
+      }
+    ],
+    "common_misconceptions": [
+      "竖直线没有斜率但对应合法通径",
+      "水平轴线仅与抛物线交于顶点，不构成两端不同的焦点弦",
+      "仅对过焦点的弦可使用公式",
+      "倾斜角标准取值 [0,π)，θ=π 是边界讨论而非标准取值"
     ]
   },
   "usage": {
@@ -142,7 +237,11 @@
       "已知方程和倾斜角求弦长",
       "已知弦长求倾斜角",
       "计算通径长",
-      "结合韦达定理的压轴题"
+      "结合韦达定理的压轴题",
+      "利用两焦半径之和求弦长",
+      "给斜率求焦点弦长",
+      "验证焦点弦图像交点坐标",
+      "两焦半径之比"
     ],
     "exam_frequency": 0.8,
     "exam_score": 5
@@ -176,10 +275,10 @@
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-23",
-    "updated_at": "2026-10-21"
+    "updated_at": "2026-10-26"
   },
   "isPro": 0,
-  "remarks": "",
+  "remarks": "2026-10-26补充七幅正式教学TikZ：assets/tikz/C053_focal_chord_notation.tex（焦准距、两段与坐标）、C053_forward_projection.tex（正向投影）、C053_backward_projection.tex（反向投影）、C053_angle_comparison.tex（通径最短与互补角）、C053_opening_reflection.tex（开口镜像）、C053_validity_comparison.tex（轴线、通径与普通弦）、C053_vertical_axis_angle.tex（上下开口计角）。替换原理解说明中条件加载的小型通径图，压缩重复投影文字，四种证明与原有例题均保留。原有两份图源不覆盖。 方法一新增两步几何桥梁：总入口 assets/tikz/C053_method_one_geometry_bridge.tex 调用 C053_trapezoid_geometry.tex（无抛物线、准线、焦点概念的直角梯形）与 C053_trapezoid_parabola_mapping.tex（同形同尺度放回抛物线，用等距定义完成对应）。保留全部原TikZ源及原投影图，先理解平行线和直角三角形中的加减，再引入抛物线概念。",
   "knowledgeNode": "解析几何-圆锥曲线-抛物线-焦点弦",
   "altNodes": "解析几何-综合-最值问题"
 }

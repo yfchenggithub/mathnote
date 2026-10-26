@@ -1,68 +1,113 @@
+\clearpage
+\input{assets/tikz/C053_method_one_geometry_bridge.tex}
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{\textcolor{CProof}{方法一：焦点准线定义＋两端投影（先求正向一段）}}
 
-	利用过焦点的直线参数方程，将弦长转化为参数差的绝对值，通过韦达定理化简即得公式。
-
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（设参数方程）：}] 对于 $y^2=2px$，焦点 $F(p/2,0)$，设过 $F$ 且倾斜角为 $\theta$ 的直线参数方程为
-			\[
-				\begin{cases}
-					x = \dfrac{p}{2} + t\cos\theta,\\[3pt]
-					y = t\sin\theta,
-			\end{cases}
-			\]
-			其中 $t$ 为从焦点到点 $P$ 的有向距离.
-			\par\textbf{理由:}
-			参数方程便于直接表达距离,也容易代入曲线方程.
-
-		\item[\textbf{步骤二(代入抛物线):}] 将 $x,y$ 代入 $y^2=2px$ 得
-			\[
-				(t\sin\theta)^2 = 2p\left(\frac{p}{2}+t\cos\theta\right),
-			\]
-			整理得
-			\[
-				t^2\sin^2\theta - 2p t\cos\theta - p^2 = 0. \tag{1}
-			\]
-			\par\textbf{理由:}
-			代入后得到关于 $t$ 的二次方程,其两根 $t_1,t_2$ 对应两交点的有向距离.
-
-		\item[\textbf{步骤三(韦达定理):}] 由 (1) 得
-			\[
-				t_1+t_2 = \frac{2p\cos\theta}{\sin^2\theta},
-				\qquad
-				t_1t_2 = -\frac{p^2}{\sin^2\theta}.
-			\]
-			\par\textbf{理由:}
-			韦达定理给出根与系数的关系,为计算长度差做准备.
-
-		\item[\textbf{步骤四(弦长计算):}] 焦点弦长 $L = |t_1-t_2|$(由参数 $t$ 的几何意义,$|t_1-t_2|$ 即 $A,B$ 两点间距离).于是
-			\[
-				\begin{aligned}
-					L^2 &= (t_1-t_2)^2 = (t_1+t_2)^2 - 4t_1t_2 \\
-					&= \frac{4p^2\cos^2\theta}{\sin^4\theta} + \frac{4p^2}{\sin^2\theta} \\
-					&= \frac{4p^2(\cos^2\theta + \sin^2\theta)}{\sin^4\theta} \\
-					&= \frac{4p^2}{\sin^4\theta}.
-			\end{aligned}
-			\]
-			\par\textbf{理由:}
-			利用 $|AB| = |t_1-t_2|$ 计算弦长,并将韦达结果代入.
-
-		\item[\textbf{步骤五(开方得公式):}] 取正平方根得
-			\[
-				L = \frac{2p}{\sin^2\theta}.
-			\]
-			\par\textbf{理由:}
-			$L>0$,$\sin^2\theta>0$,直接开方.
-
-		\item[\textbf{步骤六(开口向左情形):}] 对于 $y^2=-2px$,焦点 $F(-p/2,0)$,设直线 $x = -\dfrac{p}{2}+t\cos\theta$,$y=t\sin\theta$,代入 $y^2=-2px$ 得到方程 $t^2\sin^2\theta + 2p t\cos\theta - p^2 = 0$,由韦达定理和距离公式同样可推出 $L = \dfrac{2p}{\sin^2\theta}$.
-			\par\textbf{理由:}
-			仅一次项符号改变,不影响弦长结果.
-	\end{description}
-
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-
-	\textbf{由此证明了:无论抛物线开口向左还是向右,只要 $p>0$,过焦点且倾斜角为 $\theta$($\theta\neq0,\pi$)的弦长均为 $L = \dfrac{2p}{\sin^2\theta}$.}
+取右开口 $y^2=2px$，$F=(p/2,0)$，准线 $x=-p/2$。
+沿 $(\cos\theta,\sin\theta)$ 到 $A$，反向到 $B$，令 $r=FA$、$s=FB$。
+\begin{center}\input{assets/tikz/C053_forward_projection.tex}\end{center}
+\textbf{先看 $AF$：}图中 $H$ 在 $F$ 的正上方，$MH=p$，$HA=r\cos\theta$。
+由抛物线定义 $FA=AM$，一般地按有向投影写成
+\[
+ r=p+r\cos\theta\quad\Longrightarrow\quad
+ \boxed{r=\frac{p}{1-\cos\theta}}.
+\]
+两张投影图取 $p=2,\theta=60^\circ$ 便于观察；公式用有向分量，对任意 $0<\theta<\pi$ 均成立。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法一（续）：补齐反向一段，再把两段相加}}
+\begin{center}\input{assets/tikz/C053_backward_projection.tex}\end{center}
+\textbf{再看 $BF$：}图中 $K$ 在 $F$ 的正下方，$NK=p$，$BK=s\cos\theta$。
+到准线的距离是 $BN=NK-BK$，由 $FB=BN$ 得
+\[
+ s=p-s\cos\theta\quad\Longrightarrow\quad
+ \boxed{s=\frac{p}{1+\cos\theta}}.
+\]
+两分母在 $0<\theta<\pi$ 内均为正；焦点处于两个交点之间，故
+\[
+ L=r+s=\frac p{1-\cos\theta}+\frac p{1+\cos\theta}
+ =\frac{2p}{1-\cos^2\theta}=\boxed{\frac{2p}{\sin^2\theta}}.
+\]
+\textbf{记忆：}正向减余弦，反向加余弦；两段相加，平方差给出正弦平方。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法二（门槛最低，推荐不熟悉三角投影时）：只求一元方程的“根之和”}}\par
+\textbf{优势：一元二次方程，不解根、不求判别式、不算坐标距离。}
+仍以 $y^2=2px$ 为例：
+\begin{enumerate}[leftmargin=*,itemsep=.35em]
+\item \textbf{先把弦长改为横坐标的和。} 抛物线定义给出
+$|AF|=x_A+\frac p2$、$|BF|=x_B+\frac p2$，焦点在两交点之间，故
+\[\boxed{L=x_A+x_B+p}.\]
+\item \textbf{只设一个未知量 $y$。} 设过焦点的直线为
+\[x=\frac p2+y\cot\theta.\]
+这是把 $\Delta x/\Delta y=\cot\theta$ 写成方程；即使竖直 $\theta=\pi/2$ 也成立。
+\item \textbf{代入抛物线，只用韦达定理“根的和”。}
+\[
+y^2=2p\left(\frac p2+y\cot\theta\right)
+\iff y^2-2p\cot\theta\,y-p^2=0.
+\]
+其两根是 $y_A,y_B$，因此
+\[y_A+y_B=2p\cot\theta.\]
+又 $x_A+x_B=p+(y_A+y_B)\cot\theta=p+2p\cot^2\theta$。
+\item \textbf{最后一加。}
+\[
+L=x_A+x_B+p=2p(1+\cot^2\theta)
+=\boxed{\frac{2p}{\sin^2\theta}}.
+\]
+\end{enumerate}
+\textbf{一行复盘：焦半径求和 $\to$ 只求 $y_A+y_B$ $\to$ $1+\cot^2=\csc^2$。}
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法三（常规标准证明）：单位方向参数方程 + 韦达定理}}\par
+设 $F=(p/2,0)$，焦点弦所在直线上点的参数方程为
+\[
+x=\frac p2+t\cos\theta,\qquad y=t\sin\theta.
+\]
+方向向量 $(\cos\theta,\sin\theta)$ 长度为 $1$，故参数 $t$ 是\textbf{有向距离}，
+两个交点对应 $t_1>0>t_2$，与前图一致：$t_1=r$、$t_2=-s$，故 $L=t_1-t_2=r+s$。
+代入 $y^2=2px$：
+\[
+t^2\sin^2\theta-2pt\cos\theta-p^2=0,
+\]
+于是
+\[
+t_1+t_2=\frac{2p\cos\theta}{\sin^2\theta},\qquad
+t_1t_2=-\frac{p^2}{\sin^2\theta}.
+\]
+用恒等式 $(t_1-t_2)^2=(t_1+t_2)^2-4t_1t_2$：
+\[
+\begin{aligned}
+L^2&=\frac{4p^2\cos^2\theta}{\sin^4\theta}
++\frac{4p^2}{\sin^2\theta}\\
+&=\frac{4p^2(\cos^2\theta+\sin^2\theta)}{\sin^4\theta}
+=\frac{4p^2}{\sin^4\theta}.
+\end{aligned}
+\]
+因 $L>0$，故 $\boxed{L=2p/\sin^2\theta}$。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法四（便于笔算的斜率法，供比较）：$k$ 法}}\par
+若直线有非零有限斜率 $k$，则
+$y=k(x-\frac p2)$，即 $x=\frac p2+\frac yk$。
+代入抛物线得到 $y^2-\frac{2p}{k}y-p^2=0$，
+由韦达定理 $y_A+y_B=\frac{2p}k$，所以
+\[
+L=x_A+x_B+p
+=2p+\frac{y_A+y_B}k
+=\boxed{\frac{2p(1+k^2)}{k^2}}.
+\]
+\textbf{适用提醒：}$k=0$ 时不构成两交点的焦点弦；竖直直线斜率不存在，改用 $L=2p$。
+\medskip
+\begin{center}\input{assets/tikz/C053_opening_reflection.tex}\end{center}
+左右开口的图形关于 $y$ 轴镜像；长度不变，倾斜角变为 $\pi-\theta$，正弦平方不变。
+因此左右开口均有 $L=2p/\sin^2\theta$，$p$ 都取正数。
+\par\medskip
+\textbf{\textcolor{CProof}{通径最短的证明}}\par
+$0<\sin^2\theta\le1$，故 $L\ge2p$；
+等号 $\sin^2\theta=1\iff \theta=\frac\pi2$，此时弦与抛物线对称轴垂直。
 \end{proofbox}

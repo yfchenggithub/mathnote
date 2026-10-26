@@ -1,0 +1,32 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[rounded corners=3pt,gray!45] (0,0) rectangle (14.2,12);
+\node at (7.1,11.45) {先看正方向：到准线的距离 $AM=p+r\cos\theta$};
+\begin{scope}[shift={(3.8,5.6)},scale=1.1]
+\draw[->,gray] (-1.5,0)--(4.5,0) node[above] {$x$};
+
+\draw[violet,densely dashed] (-1,-2.3)--(-1,4.2);
+\node[rotate=90,violet] at (-1.4,1.5) {准线};
+\fill[blue!7] (1,0)--(1,3.464101615)--(3,3.464101615)--cycle;
+\draw[teal!75!black,thick,samples=120,domain=-2.3:4.15,variable=\t] plot ({\t*\t/4},{\t});
+\draw[gray,dashed] (1,0)--(1,3.464101615);
+\draw[orange!85!black,thick,dashed] (-1,3.464101615)--(1,3.464101615);
+\draw[blue!75!black,thick,dashed] (1,3.464101615)--(3,3.464101615)
+ node[midway,above=5pt] {$r\cos\theta$};
+\draw[blue!75!black,very thick] (1,0)--(3,3.464101615) node[midway,below right=5pt] {$r$};
+\fill (3,3.464101615) circle(2pt) node[above=8pt] {$A$};
+\fill (-1,3.464101615) circle(1.5pt) node[left=4pt] {$M$};
+\fill (1,3.464101615) circle(1.5pt) node[below left=5pt] {$H$};
+\draw[gray,dotted] (1,3.8)--(1,4.2);
+\draw[<->,orange!85!black] (-1,4.15)--(1,4.15) node[midway,above] {$MH=p$};
+\draw[blue!75!black] (1,3.25)--(1.21,3.25)--(1.21,3.464101615);
+\draw[violet,->] (1.65,0) arc[start angle=0,end angle=60,radius=.65];
+\node[violet] at (1.94,.42) {$\theta$};
+\fill (1,0) circle(2pt) node[below right=5pt] {$F$};
+
+\end{scope}
+\node[anchor=west,align=left] at (9.3,7)
+ {$\textcolor{blue!75!black}{FA=r}$\\[10pt]$AM=FA=r$\\[12pt]
+ $MH=p$\\[9pt]$HA=r\cos\theta$\\[12pt]$AM=MH+HA$};
+\node at (7.1,1.6) {同一模型：$y^2=4x$，$\theta=60^\circ$；蓝色三角形给水平投影。};
+\node at (7.1,.65) {$\displaystyle r=p+r\cos\theta\quad\Longrightarrow\quad r=\frac{p}{1-\cos\theta}$};
+\end{tikzpicture}

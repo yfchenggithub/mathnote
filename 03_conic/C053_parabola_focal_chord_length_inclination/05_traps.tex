@@ -1,21 +1,43 @@
+\clearpage
 \begin{trapbox}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（开口方向误判）}}] 认为公式只对 $y^2=2px$ 成立，对 $y^2=-2px$ 不适用，或需将 $p$ 改为 $-p$。
-		\item[\textbf{\textcolor{CTrap}{正确理解（两种开口均适用）：}}] 当 $y^2=-2px$（$p>0$) 时，焦点为 $(-p/2,0)$，过焦点的弦长仍为 $L = \dfrac{2p}{\sin^2\theta}$，只需 $p$ 取正值。
-		\item[\textbf{\textcolor{CTrap}{错因分析（忽略推导一致性）：}}] 推导中仅焦点坐标符号改变，代入后二次方程的一次项改变符号，但两根之差的绝对值相同，所以弦长公式不变。
-	\end{description}
-
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（忽略倾角范围）}}] 直接使用 $\theta=0$ 或 $\theta=\pi$ 代入公式，导致分母为零，却误认为对应无限长弦。
-		\item[\textbf{\textcolor{CTrap}{正确理解（倾角不能平行于轴）：}}] 当 $\theta=0$ 或 $\pi$ 时直线与 $x$ 轴平行，与抛物线只有一个交点，不存在弦，故公式要求 $\theta \neq 0,\pi$，此时 $\sin^2\theta=0$ 公式无意义。
-		\item[\textbf{\textcolor{CTrap}{错因分析（几何意义缺失）：}}] 忽略了焦点弦的定义要求直线与抛物线相交于两点，而平行于对称轴时只有一交点。
-	\end{description}
-
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（混淆 $\theta$ 与 $k$）}}] 将公式记成 $L = \dfrac{2p}{\tan^2\theta}$ 或直接用斜率 $k$ 代入而忘记转换。
-		\item[\textbf{\textcolor{CTrap}{正确理解（公式仅含 $\sin\theta$）：}}] 原公式是 $L = \dfrac{2p}{\sin^2\theta}$，若已知斜率 $k$，应利用 $\sin^2\theta = \dfrac{k^2}{1+k^2}$ 转换。
-		\item[\textbf{\textcolor{CTrap}{错因分析（记忆混淆）：}}] 焦点弦长还有另一形式 $L = 2p(1+k^2)/k^2$，学生易将两个公式的分子分母记反。
-	\end{description}
+\textbf{先看反例：方向相同，也不能保证弦长相同。}
+\begin{center}\input{assets/tikz/C053_validity_comparison.tex}\end{center}
+左图轴线仅交于顶点，不能当作两端点不同的焦点弦；中、右两图同为竖直弦，右图不经过焦点，所以长度不同。
+\textbf{正确做法：}先验“过焦点、两个不同交点”，再套弦长公式。
+当 $\theta\to0^+$ 或 $\pi^-$ 时弦长趋于无穷大，是极限现象；$\theta=0$ 本身没有这条有限焦点弦。
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{开口方向变了，先看角从哪条轴量。}
+\begin{center}\input{assets/tikz/C053_vertical_axis_angle.tex}\end{center}
+左右开口、角从 $x$ 轴量时用 $\sin^2\theta$；上下开口、角仍从 $x$ 轴量时改用 $\cos^2\theta$。
+图中的弦长是 $16/3$，不能把 $30^\circ$ 直接代进分母 $\sin^2\theta$。
+最短的始终是垂直于对称轴的通径：上下开口时为水平弦。
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\begin{description}[style=nextline,leftmargin=2.5em,itemsep=.5em]
+\item[\textbf{易错一：把方程系数和 $p$ 混为一谈。}]
+$y^2=8x$ 表示 $2p=8$，\textbf{$p=4$}；通径长度 $2p=8$，不是 $16$。若写 $y^2=4ax$，则本结论中 $p=2a$、通径长 $4a$。
+\item[\textbf{易错二：给左开口硬套负号。}]
+$y^2=-2px$ 里的 $p>0$，弦长是\textbf{正长度}：$L=2p/\sin^2\theta$，不是负的。
+\item[\textbf{易错三：用斜率 $k$ 冒充 $\sin\theta$。}]
+$\sin^2\theta=k^2/(1+k^2)$（有限 $k\ne0$），故斜率式是
+$L=2p(1+k^2)/k^2$，\textbf{不能写 $2p/k^2$}。
+\item[\textbf{易错四：漏掉竖直弦。}]
+竖直弦 $\theta=\pi/2$，斜率不存在，却\textbf{完全合法且最短}；直接取 $L=2p$。
+\item[\textbf{易错五：误把轴线看成一条焦点弦。}]
+水平轴线方向 $\theta=0$（$\pi$ 也非标准倾斜角取值），过焦点的轴线\textbf{仅在顶点}与抛物线相交，不形成两端点不同的有限焦点弦；不能将 $\sin\theta=0$ 当作无穷大的实际弦长。只有当 $\theta\to0^+$ 或 $\pi^-$ 时，弦长才趋于 $+\infty$。
+\item[\textbf{易错六：认为角度越大弦越短。}]
+最短是在 $90^\circ$，而 $30^\circ$ 与 $150^\circ$ 的弦长相等；真正规律是\textbf{越靠近 $90^\circ$ 越短}。
+\item[\textbf{易错七：把上下开口仍用 $\sin^2\theta$。}]
+$x^2=\pm2py$ 的轴线竖直；倾角从 $x$ 轴量时用
+$L=2p/\cos^2\theta$，最短焦点弦为\textbf{水平}，$\theta=0$。
+\item[\textbf{易错八：把“过焦点”遗漏。}]
+$L=2p/\sin^2\theta$ \textbf{只用于过焦点的弦}；一般平行弦长度不同，不能只靠角度算。
+\item[\textbf{易错九：焦半径和等于弦长的前提。}]
+本题 $A,F,B$ 共线且焦点\textbf{处于两端点之间}，才有 $|AB|=|AF|+|BF|$；其他三点排列可能需要作差。
+\end{description}
+\medskip
+\textbf{\textcolor{CTrap}{最稳的三项核对：}}$L\ge 2p$？左右开口用的都是正 $p$？竖直弦得的是 $2p$？
 \end{trapbox}

@@ -1,0 +1,47 @@
+% Pure Euclidean geometry only: no conic, focus, directrix or coordinates.
+% Same actual points and scale as C053_trapezoid_parabola_mapping.tex.
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[rounded corners=3pt,gray!45] (0,0) rectangle (14.2,11.5);
+\node at (7.1,10.95) {先看一个直角梯形：上底怎样加，下底怎样减？};
+\begin{scope}[shift={(1.6,5)},scale=1.15]
+\fill[blue!7] (2,0)--(2,3.464101615)--(4,3.464101615)--cycle;
+\fill[orange!10] (2,0)--(2,-1.154700538)--(1.333333333,-1.154700538)--cycle;
+\draw[gray!80,thick] (0,3.464101615)--(0,-1.154700538);
+\draw[blue!65!black,thick] (0,3.464101615)--(4,3.464101615);
+\draw[orange!85!black,thick] (0,-1.154700538)--(1.333333333,-1.154700538);
+\draw[blue!75!black,very thick] (2,0)--(4,3.464101615)
+ node[midway,below right=5pt] {$r$};
+\draw[orange!85!black,very thick] (2,0)--(1.333333333,-1.154700538)
+ node[midway,above left=5pt] {$s$};
+\draw[gray,dashed] (2,-1.154700538)--(2,3.464101615);
+\draw[gray,dashed] (0,0)--(3.15,0);
+\node[above=5pt] at (.65,0) {$h$};
+\draw[blue!65!black,densely dashed] (1.333333333,-1.154700538)--(2,-1.154700538);
+\draw[gray!80] (0,3.26)--(.2,3.26)--(.2,3.464101615);
+\draw[gray!80] (0,-.95)--(.2,-.95)--(.2,-1.154700538);
+\draw[blue!65!black] (2,3.26)--(2.2,3.26)--(2.2,3.464101615);
+\draw[blue!65!black] (1.8,-1.154700538)--(1.8,-.954700538)--(2,-.954700538);
+\draw[violet,->] (2.55,0) arc[start angle=0,end angle=60,radius=.55];
+\node[violet] at (2.83,.34) {$\theta$};
+\fill (0,3.464101615) circle(2pt) node[left=5pt] {$M$};
+\fill (4,3.464101615) circle(2pt) node[above=8pt] {$A$};
+\fill (1.333333333,-1.154700538) circle(2pt) node[below left=6pt] {$B$};
+\fill (0,-1.154700538) circle(2pt) node[left=5pt] {$N$};
+\fill (0,0) circle(1.5pt) node[left=5pt] {$Q$};
+\fill (2,0) circle(2pt) node[above left=6pt] {$P$};
+\fill (2,3.464101615) circle(1.5pt) node[above left=5pt] {$H$};
+\fill (2,-1.154700538) circle(1.5pt) node[right=5pt] {$K$};
+\node[above=6pt,blue!65!black] at (3,3.464101615) {$r\cos\theta$};
+\draw[gray,dotted] (1.333333333,-1.55)--(1.333333333,-2.05);
+\draw[gray,dotted] (2,-1.55)--(2,-2.05);
+\draw[<->,orange!85!black] (1.333333333,-2)--(2,-2)
+ node[midway,below] {$s\cos\theta$};
+\end{scope}
+\node[anchor=west,align=left] at (8.6,7)
+ {$AM\parallel QP\parallel BN$\\[10pt]
+ $AP=r,\quad PB=s$\\[9pt]$PQ=h$\\[13pt]
+ $MH=NK=PQ=h$\\[10pt]
+ $HA=r\cos\theta$\\[9pt]$BK=s\cos\theta$};
+\node at (7.1,1.5) {看平行线和直角三角形：$AM=MH+HA$，$BN=NK-BK$。};
+\node at (7.1,.6) {$\displaystyle AM=h+r\cos\theta,\qquad BN=h-s\cos\theta$};
+\end{tikzpicture}

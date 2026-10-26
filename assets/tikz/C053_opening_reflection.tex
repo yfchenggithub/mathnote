@@ -1,0 +1,29 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[rounded corners=3pt,gray!45] (0,0) rectangle (14.2,10.7);
+\node at (7.1,10.149999999999999) {左右开口互为镜像：焦点换边，弦长保持不变};
+\node at (3.6,9.3) {右开口 $y^2=4x$};
+\begin{scope}[shift={(2.4,5.2)},scale=.85]
+\draw[->,gray] (-1.1,0)--(4.5,0);
+\draw[teal!75!black,thick,samples=120,domain=-2.2:4,variable=\t] plot ({1*\t*\t/4},{\t});
+\draw[blue!75!black,very thick] (1,0)--(3,3.464101615);
+\draw[orange!85!black,very thick] (1,0)--(0.3333333333333333,-1.154700538);
+\fill (1,0) circle(2pt) node[below right=4pt] {$F$};
+\fill (3,3.464101615) circle(2pt) node[above=8pt] {$A$};
+\fill (0.3333333333333333,-1.154700538) circle(2pt) node[below left=6pt] {$B$};
+\end{scope}
+\node at (3.6,2.3) {$\theta=60^\circ,\quad L=16/3$};
+\node at (10.6,9.3) {左开口 $y^2=-4x$};
+\begin{scope}[shift={(11.8,5.2)},scale=.85]
+\draw[->,gray] (-4.5,0)--(1.1,0);
+\draw[teal!75!black,thick,samples=120,domain=-2.2:4,variable=\t] plot ({-1*\t*\t/4},{\t});
+\draw[blue!75!black,very thick] (-1,0)--(-3,3.464101615);
+\draw[orange!85!black,very thick] (-1,0)--(-0.3333333333333333,-1.154700538);
+\fill (-1,0) circle(2pt) node[below left=4pt] {$F$};
+\fill (-3,3.464101615) circle(2pt) node[above=8pt] {$A$};
+\fill (-0.3333333333333333,-1.154700538) circle(2pt) node[below right=6pt] {$B$};
+\end{scope}
+\node at (10.6,2.3) {$\theta=120^\circ,\quad L=16/3$};
+
+\node at (7.1,1.2) {$\sin^2(180^\circ-\theta)=\sin^2\theta$，镜像前后长度相同。};
+\node at (7.1,.5) {两边都取 $p=2>0$；开口向左，不代表长度带负号。};
+\end{tikzpicture}
