@@ -1,0 +1,53 @@
+% C057 | 尽量从看得见的几何位置理解，而非硬背正负号。
+\begin{explanationbox}
+  \textbf{\textcolor{CExplanation}{一句话直觉}}
+
+  焦点固定、直线转动，两段距离会改变；但把距离\textbf{取倒数}后，直线倾斜产生的那部分变化恰好相消。\textbf{同支加，异支减；定值都是 $2a/b^2$。}
+
+  \medskip
+  \textbf{\textcolor{CExplanation}{先看两种站位（最重要的识别信号）}}
+  \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.4em]
+    \item[\textbf{同支：}] 过右焦点 $F$ 的直线先朝一个方向碰到右支上的 $A$，反方向碰到右支上的 $B$，次序是 $A-F-B$；所以\textbf{焦点在中间}，两个倒数相加。
+    \item[\textbf{异支：}] 从右焦点 $F$ 朝左侧的一条射线走，会先遇右支 $A$，再遇左支 $B$，次序是 $F-A-B$；所以\textbf{焦点在外面}，两个倒数相减。若用左焦点，左右镜像即可。
+  \end{description}
+
+  \medskip
+  \textbf{\textcolor{CExplanation}{为什么偏偏是“倒数”？}}
+
+  设右焦点 $F(c,0)$，$e=c/a$，$p=b^2/a$。从 $F$ 出发，沿与 $x$ 正向夹角为 $\theta$ 的\textbf{同一条射线}走 $r$，该点横坐标就是
+  \[
+    x=c+r\cos\theta.
+  \]
+  焦半径公式（右支 $r=ex-a$；左支 $r=a-ex$）马上变为
+  \[
+    \begin{array}{ll}
+      \text{右支：}&\displaystyle\frac1r=\frac{1-e\cos\theta}{p},\\[4pt]
+      \text{左支：}&\displaystyle\frac1r=\frac{-1-e\cos\theta}{p}.
+    \end{array}
+  \]
+  其中 $-e\cos\theta/p$ 就是直线方向带来的变化量。
+  \begin{itemize}[leftmargin=*,itemsep=0.35em,topsep=0.3em]
+    \item \textbf{同支}两点处在\textbf{相反射线}，所以 $\cos\theta$ 一正一负，倒数\textbf{相加}会消掉它。
+    \item \textbf{异支}两点处在\textbf{同一射线}，所以 $\cos\theta$ 完全相同，倒数\textbf{相减}会消掉它。
+  \end{itemize}
+  剩下的都只是两个“$1$”所贡献的 $\dfrac2p=\dfrac{2a}{b^2}$。
+
+  \medskip
+  \textbf{\textcolor{CExplanation}{不想碰三角函数？用相似三角形}}
+
+  两个点都和焦点共线，因此\textbf{横向位移与焦距的比值}沿同一射线相等、沿反向射线互为相反数：
+  \[
+    \frac{x_A-c}{|AF|}=\pm\frac{x_B-c}{|BF|}.
+  \]
+  再用 $|PF|=|ex-a|$ 消掉横坐标，就直接得到倒数的和或差。这里的 $\pm$ 不用死记：\textbf{同向取正、反向取负}。
+
+  \medskip
+  \textbf{\textcolor{CExplanation}{临场使用流程（3 秒识别）}}
+  \begin{enumerate}[leftmargin=*,itemsep=0.35em,topsep=0.3em]
+    \item 确认\textbf{两个有限交点}，且\textbf{所在直线过焦点}。
+    \item 看 $A,B$ 是否在同支：\textbf{同支加、异支减}（异支别漏绝对值）。
+    \item 计算唯一的常数 $\dfrac{2a}{b^2}$，直接求未知焦半径。
+  \end{enumerate}
+
+  \textbf{\textcolor{CExplanation}{迁移认识：}}本定理是\textbf{焦半径公式 + 共线位置}的结果。它不是“每条过焦点的直线都必有两点”的断言，也不是“所有双曲线焦点弦都把焦点夹在中间”。
+\end{explanationbox}

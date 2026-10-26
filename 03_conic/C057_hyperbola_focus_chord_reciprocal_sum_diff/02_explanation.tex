@@ -1,45 +1,31 @@
+\clearpage
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
-
-	对于给定的双曲线，无论过焦点 $F$ 的弦如何倾斜，两段长度 $|AF|,|BF|$ 的倒数和（或差）始终是一个只与 $a,b$ 有关的定值。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（同支异支）：}] 注意 $A,B$ 是否在同一支上，这决定了是用 “加法” 还是 “差的绝对值”。
-		\item[\textbf{要点二（定值特性）：}] $\dfrac{2a}{b^2}$ 与直线的倾斜角无关，只依赖双曲线本身。
-		\item[\textbf{要点三（绝对值意义）：}] 异支时 $|AF|\neq|BF|$，差的绝对值保证结果恒正。
-		\item[\textbf{要点四（对称适用）：}] 定理对左焦点 $F(-c,0)$ 同样成立，形式不变。
-	\end{description}
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（焦半径转化）}}
-
-	双曲线上任意一点 $P$ 到焦点 $F$ 的距离可用横坐标表示为 $|PF| = |ex_P-a|$（取右焦点 $F(c,0)$）。因此焦点弦两段长度的倒数问题化成了关于 $x_1,x_2$ 的对称代数式。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（韦达简化）}}
-
-	定理揭示了 $\dfrac{1}{|AF|}\pm\dfrac{1}{|BF|}$（选择合适的 $\pm$）可以由 $x_1+x_2$ 和 $x_1x_2$ 简洁表达，从而避免直接求 $|AF|,|BF|$，简化运算。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（常见考法）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（求双曲线参数）：} 已知焦点弦两端长度关系，直接代入公式解出 $a,b$ 或 $e$。
-		\item \textbf{考法二（与韦达结合）：} 设直线联立，将 $|AF|,|BF|$ 用韦达定理表达，再代入公式构建方程。
-		\item \textbf{考法三（综合对比）：} 在椭圆与双曲线综合题中，利用两种曲线的焦点弦公式建立等量关系。
-	\end{itemize}
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
-
-	一旦遇到过焦点的弦，优先考虑这个定值关系，可以省去大量联立与化简过程。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（长度比例）：} 已知 $|AF|:|BF|=m:n$，可快速列方程求参数。
-		\item \textbf{场景二（离心率求解）：} 若给出同支焦点弦的倒数和，解方程得 $e$。
-		\item \textbf{场景三（定性判断）：} 无需计算即可判断两段倒数和是否为定值。
-	\end{itemize}
+\textbf{第一步，只看熟悉的线段位置。}用普通点 $P$ 暂代焦点，先分清两端在它的两侧还是同侧。\begin{center}\input{assets/tikz/C057_pure_positions.tex}\end{center}
+不要把“直线经过一个点”理解成“线段一定包含这个点”。上图是两条反向射线，下图是同一条射线。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{第二步，看相似三角形的投影比。}仍然没有双曲线、焦点和新公式；横向位移可以为负，点到点的长度始终为正。\begin{center}\input{assets/tikz/C057_pure_projection.tex}\end{center}
+竖直线的水平位移都是零，比值关系仍成立；水平线虽没有非退化直角三角形，也可直接核对位移与长度的比例。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{第三步，普通点 $P$ 对应右焦点 $F$。先看同支。}两点都在右支，焦点在中间；蓝段与橙段方向相反。\begin{center}\input{assets/tikz/C057_same_branch_sum.tex}\end{center}
+令 $r_A=|AF|$、$r_B=|BF|$，$e=c/a$、$p=b^2/a$。右支焦半径关系 $r=ex-a$ 给出 $x-c=(r-p)/e$。
+把它代入上一页的反向比例，便得到
+\[
+ \frac{r_A-p}{er_A}=-\frac{r_B-p}{er_B}
+ \quad\Longrightarrow\quad \frac1{r_A}+\frac1{r_B}=\frac2p.
+\]
+倒数来自“水平位移除以线段长”；不是额外猜出来的形式。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{第四步，再看异支。}从右焦点向同一方向走，先到右支 $A$，再到左支 $B$。焦点在弦外，不能画成两点夹住焦点。\begin{center}\input{assets/tikz/C057_cross_branch_difference.tex}\end{center}
+两支的焦半径关系不同：右支 $x_A-c=(r_A-p)/e$，左支 $x_B-c=(-r_B-p)/e$。代入同向比例，得到
+\[
+ \frac{r_A-p}{er_A}=\frac{-r_B-p}{er_B}
+ \quad\Longrightarrow\quad \frac1{r_A}-\frac1{r_B}=\frac2p>0.
+\]
+因此右支点 $A$ 更近。若没有规定哪点叫 $A$，倒数差外面保留绝对值。
 \end{explanationbox}

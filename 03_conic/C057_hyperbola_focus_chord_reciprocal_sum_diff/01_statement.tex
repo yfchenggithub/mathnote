@@ -1,32 +1,38 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件1（标准双曲线）：}}] 双曲线 $\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}=1\ (a>0,b>0)$，焦点 $F(\pm c,0)$，其中 $c=\sqrt{a^2+b^2}$。
-		\item[\textbf{\textcolor{CStatement}{条件2（焦点弦）：}}] 过焦点 $F$ 的弦 $AB$ 与双曲线相交。
-	\end{description}
+设双曲线 $x^2/a^2-y^2/b^2=1$，$a,b>0$，$c^2=a^2+b^2$。直线过所选焦点 $F(\pm c,0)$，并有两个不同的有限交点 $A,B$。这里不要求焦点在线段 $AB$ 内。
+\begin{center}\input{assets/tikz/C057_statement_comparison.tex}\end{center}
+\[
+ \boxed{\text{同支：}\ \frac1{|AF|}+\frac1{|BF|}=\frac{2a}{b^2}},\qquad
+ \boxed{\text{异支：}\ \left|\frac1{|AF|}-\frac1{|BF|}\right|=\frac{2a}{b^2}}.
+\]
+同支看两点所在的分支，异支看焦点位于延长线上；所有距离均为正。
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（同支情形）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			同一支上焦点弦的倒数之和为常数。
-			\[
-				\frac{1}{|AF|}+\frac{1}{|BF|}=\frac{2a}{b^2}.
-			\]
+\end{statementbox}\clearpage\begin{statementbox}
+  \textbf{\textcolor{CStatement}{核心结论}}
+  \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
+    \item[\textbf{结论一（同支：倒数相加）：}]
+      当 $A,B$ 同支时，$F$ 位于线段 $AB$ 内，且
+      \[
+        \boxed{\frac1{|AF|}+\frac1{|BF|}=\frac{2a}{b^2}}.
+      \]
+    \item[\textbf{结论二（异支：倒数相减）：}]
+      当 $A,B$ 异支时，$F$ 位于线段 $AB$ 的延长线上，且
+      \[
+        \boxed{\left|\frac1{|AF|}-\frac1{|BF|}\right|=\frac{2a}{b^2}}.
+      \]
+      \textbf{更强的有序式：} 若 $F=F_2(c,0)$，$A$ 在右支、$B$ 在左支，必有 $|AF|<|BF|$，故
+      \[
+        \boxed{\frac1{|AF|}-\frac1{|BF|}=\frac{2a}{b^2}}.
+      \]
+      左焦点时将“右支、左支”互换。
+    \item[\textbf{统一常数（不用背两份）：}]
+      设半通径参数 $p=\dfrac{b^2}{a}$、离心率 $e=\dfrac ca>1$，则
+      \[
+        \boxed{\frac{2a}{b^2}=\frac2p=\frac{2}{a(e^2-1)}}.
+      \]
+  \end{description}
 
-		\item[\textbf{\textcolor{CStatement}{结论二（异支情形）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			两支上焦点弦的倒数之差的绝对值为同一常数。
-			\[
-				\left|\frac{1}{|AF|}-\frac{1}{|BF|}\right|=\frac{2a}{b^2}.
-			\]
-
-		\item[\textbf{\textcolor{CStatement}{推广结论（离心率表达）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			常数用离心率 $e$ 表示，结论形式更统一。
-			\[
-				\frac{2a}{b^2} = \frac{2}{a(e^2-1)},\quad e=\frac{c}{a},\ b^2=a^2(e^2-1).
-			\]
-			因此同支情形可写为 $\displaystyle\frac{1}{|AF|}+\frac{1}{|BF|}=\frac{2}{a(e^2-1)}$，异支情形可写为 $\displaystyle\left|\frac{1}{|AF|}-\frac{1}{|BF|}\right|=\frac{2}{a(e^2-1)}$。
-	\end{description}
+  \medskip
+  \textbf{\textcolor{CStatement}{范围提醒：}}
+  斜率 $k=\pm\dfrac ba$ 的过焦点直线与一条渐近线平行，仅有一个有限交点，\textbf{不构成}上述两交点情形；竖直线 $x=\pm c$ 则有两个同支交点，\textbf{可以使用}结论。
 \end{statementbox}

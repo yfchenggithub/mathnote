@@ -1,89 +1,140 @@
+\clearpage
+% C057 | 三种证明：最快 / 门槛最低 / 常规韦达（相互独立）
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+  \textbf{\textcolor{CProof}{先证一个零门槛小工具：焦半径公式}}
 
-	利用双曲线的焦半径公式 $|PF|=|ex_P - a|$（取右焦点 $F(c,0)$），将 $\frac{1}{|AF|}+\frac{1}{|BF|}$ 及 $\left|\frac{1}{|AF|}-\frac{1}{|BF|}\right|$ 表示为 $x_1,x_2$ 的对称式，再联立直线与双曲线方程，借助韦达定理化简。
+  只证右焦点 $F(c,0)$（左焦点把图左右镜像即可）。双曲线上任取 $P(x,y)$，由
+  $y^2=\dfrac{b^2}{a^2}x^2-b^2$、$c^2=a^2+b^2$ 得
+  \[
+    \begin{aligned}
+      |PF|^2&=(x-c)^2+y^2\\
+      &=\frac{c^2}{a^2}x^2-2cx+a^2
+       =\left(\frac ca x-a\right)^2.
+    \end{aligned}
+  \]
+  设 $e=c/a>1$、$p=b^2/a=ec-a$，于是
+  \[
+    \boxed{|PF|=|ex-a|}
+    \quad\Longrightarrow\quad
+    \begin{cases}
+      |PF|=ex-a,&P\text{ 在右支},\\
+      |PF|=a-ex,&P\text{ 在左支}.
+    \end{cases}
+  \]
+  以下三法都只使用这一个工具（常规法再使用韦达）。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（联立方程）：}] 设双曲线 $\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}=1\ (a>0,b>0)$，右焦点 $F(c,0)$，其中 $c=\sqrt{a^2+b^2}$。过 $F$ 的直线斜率为 $k$（$k$ 存在），方程为 $y=k(x-c)$。代入双曲线并整理得：
-			\[
-				(b^2-a^2k^2)x^2+2a^2ck^2x-a^2(k^2c^2+b^2)=0.
-			\]
-			由韦达定理得
-			\[
-				x_1+x_2=\frac{2a^2ck^2}{a^2k^2-b^2},
-				\qquad
-				x_1x_2=\frac{a^2(k^2c^2+b^2)}{a^2k^2-b^2}.
-			\]
-			\par\textbf{理由：} 将直线代入双曲线并化简，分母移项变号以统一为 $a^2k^2-b^2$。
+  \medskip
+\end{proofbox}\clearpage\begin{proofbox}
+  \textbf{\textcolor{CProof}{证明一（最快：方向余弦，一眼消去角度）}}
 
-		\item[\textbf{步骤二（构造对称式）：}] 记 $N=e(x_1+x_2)-2a$，$M=e^2x_1x_2-ae(x_1+x_2)+a^2$，其中 $e=\dfrac{c}{a}$。将韦达结果代入，并利用 $c^2=a^2+b^2$ 化简可得：
-			\[
-				N=\frac{2ab^2(k^2+1)}{a^2k^2-b^2},\quad
-				M=\frac{b^4(k^2+1)}{a^2k^2-b^2}.
-			\]
-			因此 $\dfrac{N}{M}=\dfrac{2a}{b^2}$。
-			\par\textbf{理由：} 直接代入并化简，注意分子分母中 $k^2+1$ 因子相消。
+  \textbf{切入点：} 两个点都在\textbf{经过 $F$ 的同一条直线}上；以 $F$ 为起点，方向只影响 $\cos\theta$，目标是把它消掉。
 
-		\item[\textbf{步骤三（同支情形）：}] 若 $A,B$ 在双曲线同一支（不妨设都在右支），则 $x_1>0,x_2>0$，且 $ex_1>a,ex_2>a$，故
-			\[
-				|AF|=ex_1-a,\quad |BF|=ex_2-a.
-			\]
-			从而
-			\[
-				\begin{aligned}
-					\frac{1}{|AF|}+\frac{1}{|BF|}
-					&= \frac{1}{ex_1-a}+\frac{1}{ex_2-a} \\
-					&= \frac{e(x_1+x_2)-2a}{e^2x_1x_2-ae(x_1+x_2)+a^2} \\
-					&= \frac{N}{M} \\
-					&= \frac{2a}{b^2}.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 通分后分子即为 $N$，分母即为 $M$，代入步骤二的比值即得。
+  从 $F(c,0)$ 沿某射线走 $r=|FP|$，方向与 $x$ 正向夹角 $\theta$，则 $x=c+r\cos\theta$。记 $u=\cos\theta$。
+  \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.4em]
+    \item[\textbf{一步：写出射线上的倒数。}]
+    若 $P$ 在右支，$r=e(c+ru)-a=p+eru$；若在左支，$r=a-e(c+ru)=-p-eru$。因此
+    \[
+      \boxed{\text{右支： }\frac1r=\frac{1-eu}{p}},\qquad
+      \boxed{\text{左支： }\frac1r=\frac{-1-eu}{p}}.
+    \]
+    \item[\textbf{同支：相反方向，直接加。}]
+    两点必在右支，且 $F$ 处于它们中间，两射线的余弦分别为 $u,-u$：
+    \[
+      \frac1{|AF|}+\frac1{|BF|}
+      =\frac{1-eu}{p}+\frac{1+eu}{p}
+      =\boxed{\frac2p=\frac{2a}{b^2}}.
+    \]
+    \item[\textbf{异支：同一方向，直接减。}]
+    设 $A$ 为右支、$B$ 为左支，两点都在 $F$ 指向左侧的同一射线上，共用一个 $u$：
+    \[
+      \frac1{|AF|}-\frac1{|BF|}
+      =\frac{1-eu}{p}-\frac{-1-eu}{p}
+      =\boxed{\frac2p=\frac{2a}{b^2}}.
+    \]
+  \end{description}
+  \textbf{优势：} 全程不设直线斜率、不解交点、不用韦达；还自动证明异支时右支上的点离右焦点更近。
 
-		\item[\textbf{步骤四（异支情形）：}] 设 $A$ 在右支，$B$ 在左支（由对称性其他情形类似），则 $x_1>0,x_2<0$。此时 $|AF|=ex_1-a$，$|BF|=a-ex_2$（因为 $ex_2<a$）。考虑差的绝对值：
-			\[
-				\left|\frac{1}{|AF|}-\frac{1}{|BF|}\right|
-				=\left|\frac{1}{ex_1-a}-\frac{1}{a-ex_2}\right|.
-			\]
-			由于 $a-ex_2=-(ex_2-a)$，所以
-			\[
-				\frac{1}{ex_1-a}-\frac{1}{a-ex_2}
-				=\frac{2a-e(x_1+x_2)}{-(ex_1-a)(ex_2-a)}.
-			\]
-			又 $(ex_1-a)(ex_2-a)=M$，$2a-e(x_1+x_2)=-N$，因此
-			\[
-				\begin{aligned}
-					\frac{1}{ex_1-a}-\frac{1}{a-ex_2}
-					&= \frac{-N}{-M} \\
-					&= \frac{N}{M}.
-			\end{aligned}
-			\]
-			于是
-			\[
-				\begin{aligned}
-					\left|\frac{1}{|AF|}-\frac{1}{|BF|}\right|
-					&= \left|\frac{N}{M}\right| \\
-					&= \frac{2a}{b^2}.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 利用 $M$ 和 $N$ 的定义，将异支表达式转化为 $N$ 与 $M$ 的比值，取绝对值后得相同常数。
+  \medskip
+\end{proofbox}\clearpage\begin{proofbox}
+  \textbf{\textcolor{CProof}{证明二（最低门槛：只靠共线比例，无三角函数）}}
 
-		\item[\textbf{步骤五（斜率不存在情况）：}] 当 $k$ 不存在时，直线为 $x=c$，代入双曲线得 $y=\pm\dfrac{b^2}{a}$。此时 $A,B$ 都在右支，且 $|AF|=|BF|=\dfrac{b^2}{a}$。直接计算：
-			\[
-				\begin{aligned}
-					\frac{1}{|AF|}+\frac{1}{|BF|}
-					&= \frac{a}{b^2}+\frac{a}{b^2} \\
-					&= \frac{2a}{b^2}.
-			\end{aligned}
-			\]
-			与公式吻合，异支情形在此处不发生。故定理对任意过焦点的直线成立。
-			\par\textbf{理由：} 直接代入验证。
-	\end{description}
+  \textbf{为什么设距离？} 题目要的是 $|AF|,|BF|$ 的倒数，所以\textbf{直接设} $r_A=|AF|,\ r_B=|BF|$；不设 $A(x_1,y_1),B(x_2,y_2)$ 四个未知量。焦半径公式立刻给出各点横坐标：
+  \[
+    \begin{array}{lll}
+      \text{右支：}& r=ex-a,&\displaystyle x-c=\frac{r-p}{e};\\[4pt]
+      \text{左支：}& r=a-ex,&\displaystyle x-c=\frac{-r-p}{e}.
+    \end{array}\tag{*}
+  \]
+  这里仅用到 $ec-a=p$。又因为 $A,F,B$ 共线，\textbf{两条直角三角形的横边与斜边成比例}；同向取等号，反向取相反数。
+  \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
+    \item[\textbf{同支（$A-F-B$）：}]
+    $A,B$ 都在右支，分别把 $(*)$ 代入“\textbf{方向相反}”的关系：
+    \[
+      \frac{x_A-c}{r_A}=-\frac{x_B-c}{r_B}
+      \quad\Longrightarrow\quad
+      \frac{r_A-p}{e r_A}=-\frac{r_B-p}{e r_B}.
+    \]
+    两边乘以 $e$ 并移项：
+    \[
+      1-\frac p{r_A}=-1+\frac p{r_B}
+      \quad\Longrightarrow\quad
+      \boxed{\frac1{r_A}+\frac1{r_B}=\frac2p}.
+    \]
+    \item[\textbf{异支（$F-A-B$）：}]
+    $A$ 在右支、$B$ 在左支，使用“\textbf{方向相同}”的关系：
+    \[
+      \frac{x_A-c}{r_A}=\frac{x_B-c}{r_B}
+      \quad\Longrightarrow\quad
+      \frac{r_A-p}{e r_A}=\frac{-r_B-p}{e r_B}.
+    \]
+    同样只需移项：
+    \[
+      1-\frac p{r_A}=-1-\frac p{r_B}
+      \quad\Longrightarrow\quad
+      \boxed{\frac1{r_A}-\frac1{r_B}=\frac2p}.
+    \]
+  \end{description}
+  \textbf{优势：} 只需要\textbf{设两段长度、焦半径公式、共线比例}三件事；不用记三角函数和二次方程。核心图像是\textbf{同支 $A-F-B$、异支 $F-A-B$}。
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
+  \medskip
+\end{proofbox}\clearpage\begin{proofbox}
+  \textbf{\textcolor{CProof}{证明三（常规：直线联立 + 韦达，完整代数核验）}}
 
-	过焦点的弦 $AB$，当 $A,B$ 同支时 $\frac{1}{|AF|}+\frac{1}{|BF|}=\frac{2a}{b^2}$；当 $A,B$ 异支时 $\left|\frac{1}{|AF|}-\frac{1}{|BF|}\right|=\frac{2a}{b^2}$。若取左焦点 $F(-c,0)$，结论完全类似。
+  设 $F(c,0)$。先取斜率存在的直线 $y=k(x-c)$，\textbf{且 $k\neq\pm b/a$}（否则仅有一个有限交点）。代入双曲线整理：
+  \[
+    (b^2-a^2k^2)x^2+2a^2ck^2x-a^2(c^2k^2+b^2)=0.
+  \]
+  两根 $x_1,x_2$ 对应两个有限交点，韦达给出
+  \[
+    x_1+x_2=\frac{2a^2ck^2}{a^2k^2-b^2},\qquad
+    x_1x_2=\frac{a^2(c^2k^2+b^2)}{a^2k^2-b^2}.
+  \]
+  为避免一边写 $|ex_i-a|$ 一边反复拆绝对值，先计算\textbf{带符号的} $u_i=ex_i-a$：
+  \[
+    \begin{aligned}
+      N:=u_1+u_2&=e(x_1+x_2)-2a
+      =\frac{2ab^2(1+k^2)}{a^2k^2-b^2},\\
+      M:=u_1u_2&=e^2x_1x_2-ae(x_1+x_2)+a^2
+      =\frac{b^4(1+k^2)}{a^2k^2-b^2}.
+    \end{aligned}
+  \]
+  因而（分母不为零）
+  \[
+    \boxed{\frac1{u_1}+\frac1{u_2}=\frac{u_1+u_2}{u_1u_2}
+    =\frac NM=\frac{2a}{b^2}}.\tag{**}
+  \]
+  \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.4em]
+    \item[\textbf{同支：}] 两点均在右支，$u_1,u_2>0$，于是 $r_A=u_1,r_B=u_2$。由 $(**)$ 得 $1/r_A+1/r_B=2a/b^2$。
+    \item[\textbf{异支：}] 若 $A$ 在右支、$B$ 在左支，则 $u_A>0,u_B<0$；因此 $r_A=u_A,r_B=-u_B$，由 $(**)$ 得 $1/r_A-1/r_B=2a/b^2$，交换标签后写绝对值即可。
+    \item[\textbf{斜率不存在：}] $x=c$ 时，$y=\pm b^2/a$，两交点均在右支；$r_A=r_B=b^2/a=p$，故 $1/r_A+1/r_B=2/p$。
+    \item[\textbf{渐近线方向：}] $k=\pm b/a$ 时代入后的\textbf{二次项消失}，方程退化为一次方程，只得到一个有限交点；这两种情况不在定理的“两交点”前提内。
+  \end{description}
+  左焦点 $F(-c,0)$ 的结果由关于 $y$ 轴的对称性立即得到。
+
+  \medskip
+  \textbf{\textcolor{CProof}{三法选择}}
+
+  \textbf{考场秒证：} 证明一；\quad
+  \textbf{第一次理解、最低依赖：} 证明二；\quad
+  \textbf{标准解析几何书面推导：} 证明三。
 \end{proofbox}

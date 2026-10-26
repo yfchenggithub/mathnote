@@ -1,0 +1,34 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[rounded corners=3pt,gray!45] (0,0) rectangle (14.2,15);
+\node at (7.1,14.35) {异支、同向：两点在焦点同侧，较近段的倒数更大};\begin{scope}[shift={(4.5,9.0)},scale=0.37]
+\begin{scope}\clip (-10,-4) rectangle (10,9);
+\draw[teal!75!black,thick,samples=110,domain=-1.9:1.9,variable=\t] plot ({2*cosh(\t)},{4*sinh(\t)});
+\draw[teal!75!black,thick,samples=110,domain=-1.9:1.9,variable=\t] plot ({-2*cosh(\t)},{4*sinh(\t)});
+\end{scope}
+\draw[->,gray] (-10.2,0)--(10.3,0);
+\draw[orange!85!black,very thick] (4.47213595499958,0)--(-4.4721359550,8.0000000000);\draw[blue!75!black,very thick] (4.47213595499958,0)--(2.2360679775,2.0000000000);
+\fill (2.2360679775,2.0000000000) circle(6pt) node[above right=7pt] {$A$};\fill (-4.4721359550,8.0000000000) circle(6pt) node[left=14pt] {$B$};
+\fill (4.47213595499958,0) circle(6pt) node[below right=9pt] {$F$};
+\end{scope}
+
+\node[anchor=west,align=left] at (9.5,10.0)
+ {图取 $a=2,b=4$\\[13pt]$AF=3,\quad BF=12$\\[13pt]$A$ 在右支，$B$ 在左支\\[13pt]顺序是 $F-A-B$\\[13pt]右支点 $A$ 更近};
+
+\node at (7.1,7.15) {把这条斜线展开看长度：$BF=AF+AB=3+9=12$};
+\draw[orange!85!black,very thick] (2.2,6.0)--(8.2,6.0);
+\draw[blue!75!black,very thick] (6.7,6.0)--(8.2,6.0);
+\fill (2.2,6.0) circle(2pt) node[above=8pt] {$B$};
+\fill (6.7,6.0) circle(2pt) node[above=8pt] {$A$};
+\fill (8.2,6.0) circle(2pt) node[above=8pt] {$F$};
+\draw[<->,orange!85!black] (2.2,5.45)--(8.2,5.45);
+\node[orange!85!black] at (5.2,4.9) {整段 $BF=12$};
+\node[anchor=west] at (9.3,6.0) {$AF=3,\ AB=9$};
+\node at (7.1,3.6) {$\displaystyle \frac13-\frac1{12}=\frac14=\frac{2a}{b^2}$};
+\fill[blue!30] (2.8,2.15) rectangle (7.6,2.65);
+\fill[orange!40] (6.4,2.15) rectangle (7.6,2.65);
+\draw[gray] (2.8,2.15) rectangle (7.6,2.65);
+\draw[orange!85!black,thick] (6.4,2.0)--(7.6,2.8) (6.4,2.8)--(7.6,2.0);
+\node[blue!75!black] at (4.6,1.45) {剩下 $1/4$};
+\node[orange!85!black,anchor=west] at (8.2,2.4) {减掉 $1/BF=1/12$};
+\node at (7.1,.6) {整条色条原长是 $1/AF=1/3$；减去橙色部分，留下固定差。};
+\end{tikzpicture}

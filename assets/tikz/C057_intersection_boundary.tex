@@ -1,0 +1,25 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[rounded corners=3pt,gray!45] (0,0) rectangle (14.2,12);
+\node at (7.1,11.45) {先数有限交点：斜率不存在，与仅有一个交点是两回事};\node at (2.35,10.2) {水平：异支两点};\begin{scope}[shift={(2.35,6)},scale=.18]
+\begin{scope}\clip (-10,-9) rectangle (10,9);
+\draw[teal!75!black,thick,samples=110,domain=-1.9:1.9,variable=\t] plot ({3*cosh(\t)},{4*sinh(\t)});
+\draw[teal!75!black,thick,samples=110,domain=-1.9:1.9,variable=\t] plot ({-3*cosh(\t)},{4*sinh(\t)});
+\draw[blue!75!black,very thick] (-10,0)--(10,0);\end{scope}\draw[->,gray] (-10.5,0)--(10.5,0);\fill (5,0) circle(8pt);\node at (1,-1.5) {$F$};\draw[gray] (2.5,-1.0)--(4.8,-.05);\fill[red!75!black] (-3.0000000000,0.0000000000) circle(10pt);\fill[red!75!black] (3.0000000000,0.0000000000) circle(10pt);
+\end{scope}
+\node[align=center] at (2.35,2.7) {$k=0$\\[13pt]可以用倒数差};
+\node at (7.1,10.2) {平行渐近线：仅一点};\begin{scope}[shift={(7.1,6)},scale=.18]
+\begin{scope}\clip (-10,-9) rectangle (10,9);
+\draw[teal!75!black,thick,samples=110,domain=-1.9:1.9,variable=\t] plot ({3*cosh(\t)},{4*sinh(\t)});
+\draw[teal!75!black,thick,samples=110,domain=-1.9:1.9,variable=\t] plot ({-3*cosh(\t)},{4*sinh(\t)});
+\draw[gray,dashed] (-8,-10.6667)--(8,10.6667);\draw[blue!75!black,very thick] (-2,-9.3333333)--(12,9.3333333);\end{scope}\draw[->,gray] (-10.5,0)--(10.5,0);\fill (5,0) circle(8pt);\node at (1,-1.5) {$F$};\draw[gray] (2.5,-1.0)--(4.8,-.05);\fill[red!75!black] (3.4000000000,-2.1333333333) circle(10pt);
+\end{scope}
+\node[align=center] at (7.1,2.7) {$k=b/a=4/3$\\[13pt]不能虚设第二点};
+\node at (11.85,10.2) {竖直：同支两点};\begin{scope}[shift={(11.85,6)},scale=.18]
+\begin{scope}\clip (-10,-9) rectangle (10,9);
+\draw[teal!75!black,thick,samples=110,domain=-1.9:1.9,variable=\t] plot ({3*cosh(\t)},{4*sinh(\t)});
+\draw[teal!75!black,thick,samples=110,domain=-1.9:1.9,variable=\t] plot ({-3*cosh(\t)},{4*sinh(\t)});
+\draw[blue!75!black,very thick] (5,-9)--(5,9);\end{scope}\draw[->,gray] (-10.5,0)--(10.5,0);\fill (5,0) circle(8pt);\node at (1,-1.5) {$F$};\draw[gray] (2.5,-1.0)--(4.8,-.05);\fill[red!75!black] (5.0000000000,5.3333333333) circle(10pt);\fill[red!75!black] (5.0000000000,-5.3333333333) circle(10pt);
+\end{scope}
+\node[align=center] at (11.85,2.7) {$x=c=5$\\[13pt]可以用倒数和};
+\node at (7.1,1.1) {三图同一双曲线、同尺度；红点为有限交点，灰虚线为渐近线。};\node at (7.1,.45) {$k=-b/a$ 与中图上下对称，也只有一个有限交点。};
+\end{tikzpicture}

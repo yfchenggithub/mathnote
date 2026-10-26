@@ -1,0 +1,108 @@
+% C057 | 示例修订：原三题保留题意，第三题换成更快的角度法；增加可行性反例。
+\begin{examplebox}
+  \textbf{\textcolor{CExample}{例1（基础：同支，直接倒数相加）}}
+
+  \textbf{题目：} 双曲线 $\dfrac{x^2}{9}-\dfrac{y^2}{16}=1$ 的右焦点为 $F$，过 $F$ 的一条直线与\textbf{右支}交于不同两点 $A,B$，已知 $|AF|=3$，求 $|BF|$。
+
+  \textbf{解：} $a=3,b^2=16$，同支公式给出
+  \[
+    \frac13+\frac1{|BF|}=\frac{2a}{b^2}=\frac38
+    \quad\Longrightarrow\quad
+    \frac1{|BF|}=\frac38-\frac13=\frac1{24}.
+  \]
+  \[
+    \boxed{|BF|=24}.
+  \]
+  \textbf{核验：} $p=b^2/a=16/3$，$r_A=3>p/2=8/3$，另一段确实可以是正的有限长度。\textbf{识别信号：} “过焦点 + 同支 + 一段长”。
+
+  \medskip
+  \textbf{\textcolor{CExample}{例2（变式：异支，先判断哪段更近）}}
+
+  \textbf{题目：} 双曲线 $\dfrac{x^2}{4}-\dfrac{y^2}{16}=1$ 的右焦点为 $F$。经过 $F$ 的一条直线分别交右支于 $A$、左支于 $B$，已知 $|AF|=3$，求 $|BF|$。
+
+  \textbf{解：} $a=2,b^2=16$，常数为 $2a/b^2=1/4$。对于\textbf{右焦点}，异支时右支交点 $A$ 离 $F$ 较近，因此\textbf{无需猜正负}：
+  \[
+    \frac1{|AF|}-\frac1{|BF|}=\frac14
+    \quad\Longrightarrow\quad
+    \frac1{|BF|}=\frac13-\frac14=\frac1{12}.
+  \]
+  \[
+    \boxed{|BF|=12}.
+  \]
+  \textbf{几何核验：} $c=2\sqrt5$、$e=\sqrt5$。从焦半径得
+  $x_A=\sqrt5,\ x_B=-2\sqrt5$；可取
+  $A(\sqrt5,2)$、$B(-2\sqrt5,8)$，它们与 $F(2\sqrt5,0)$ 共线，且顺序为 $F-A-B$。
+
+  \medskip
+  \textbf{\textcolor{CExample}{例3（综合：先求长度，再求斜率；精简原题）}}
+
+  \textbf{题目：} 双曲线 $\dfrac{x^2}{9}-\dfrac{y^2}{16}=1$ 的右焦点为 $F$，过 $F$ 的一条直线与右支交于 $A,B$，且 $|AF|=2|BF|$。求直线斜率 $k$。
+
+  \textbf{第一步（不用联立，求两段长）：} 设 $|BF|=t$，则 $|AF|=2t$。因两点同支，
+  \[
+    \frac1{2t}+\frac1t=\frac38
+    \quad\Longrightarrow\quad t=4,
+    \qquad\boxed{|AF|=8,\quad |BF|=4}.
+  \]
+  \textbf{第二步（最快：由方向余弦求斜率）：} $e=5/3$，$p=16/3$。取 $F$ 指向 $A$ 的方向与 $x$ 轴正向夹角为 $\theta$，由右支焦半径的倒数式
+  \[
+    \frac18=\frac{1-e\cos\theta}{p}
+    \quad\Longrightarrow\quad
+    e\cos\theta=1-\frac p8=\frac13,
+    \quad \cos\theta=\frac15.
+  \]
+  故直线斜率的绝对值为
+  \[
+    |k|=|\tan\theta|
+       =\frac{\sqrt{1-\cos^2\theta}}{|\cos\theta|}
+       =\frac{\sqrt{24/25}}{1/5}=2\sqrt6.
+  \]
+  由于上下关于 $x$ 轴对称，
+  \[
+    \boxed{k=\pm2\sqrt6}.
+  \]
+  \textbf{第三步（常规坐标复核）：} $r=ex-a$ 给出
+  $x_A=(8+3)/(5/3)=33/5$，$x_B=(4+3)/(5/3)=21/5$。
+  代入双曲线可取
+  \[
+    A\left(\frac{33}{5},\frac{16\sqrt6}{5}\right),\qquad
+    B\left(\frac{21}{5},-\frac{8\sqrt6}{5}\right).
+  \]
+  两点都在双曲线上且 $F=(5,0)$，计算
+  \[
+    \frac{y_A}{x_A-5}=2\sqrt6,
+    \qquad \frac{y_B}{x_B-5}=2\sqrt6.
+  \]
+  故它们与 $F$ 共线；同时将纵坐标全部变号得到另一斜率。\textbf{经验：} 比起逐点解 $y$，求斜率时优先用\textbf{方向余弦}。
+
+  \medskip
+  \textbf{\textcolor{CExample}{例4（迁移：公式求出的“负长度”是在提醒无解）}}
+
+  \textbf{题目：} 在 $\dfrac{x^2}{9}-\dfrac{y^2}{16}=1$ 中，能否找到\textbf{同在右支}的两个焦点直线交点 $A,B$，使 $|AF|=2$？
+
+  \textbf{解：} 同支公式要求
+  \[
+    \frac12+\frac1{|BF|}=\frac38
+    \quad\Longrightarrow\quad
+    \frac1{|BF|}=-\frac18<0,
+  \]
+  与 $|BF|>0$ 矛盾，故\textbf{不存在}。虽然右顶点 $(3,0)$ 到 $F(5,0)$ 的距离正好是 $2$，但它所在的水平焦点直线另一有限交点在\textbf{左支}，而不是右支。
+  \[
+    \boxed{\text{所述同支情形不存在}}.
+  \]
+  \textbf{记忆检查：} 同支时每段必须满足 $r>p/2=b^2/(2a)$（由另一个倒数为正得到）。
+
+  \medskip
+  \textbf{\textcolor{CExample}{例5（边界：渐近线斜率不是双交点）}}
+
+  \textbf{题目：} 对双曲线 $\dfrac{x^2}{9}-\dfrac{y^2}{16}=1$，过右焦点 $F(5,0)$ 的直线 $y=\dfrac43(x-5)$，能否直接应用焦点分弦定理？
+
+  \textbf{解：} 这里 $k=4/3=b/a$，联立后的 $x^2$ 系数 $b^2-a^2k^2=0$，只有一个有限交点
+  \[
+    P\left(\frac{17}{5},-\frac{32}{15}\right).
+  \]
+  因而\textbf{不满足“两个不同的有限交点”}，不能虚设另一交点，也不能机械套用加减公式。
+  \[
+    \boxed{\text{不适用；此直线仅有一个有限交点。}}
+  \]
+\end{examplebox}

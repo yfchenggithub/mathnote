@@ -1,0 +1,30 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[rounded corners=3pt,gray!45] (0,0) rectangle (14.2,12.2);
+\node at (7.1,11.65) {先看站位：双曲线的“过焦点”，说的是整条直线};\node at (3.6,10.45) {同支：焦点在中间};
+\begin{scope}[shift={(3.6,6.1)},scale=0.28]
+\begin{scope}\clip (-10,-9) rectangle (10,9);
+\draw[teal!75!black,thick,samples=110,domain=-1.9:1.9,variable=\t] plot ({3*cosh(\t)},{4*sinh(\t)});
+\draw[teal!75!black,thick,samples=110,domain=-1.9:1.9,variable=\t] plot ({-3*cosh(\t)},{4*sinh(\t)});
+\end{scope}
+\draw[->,gray] (-10.2,0)--(10.3,0);
+\draw[orange!85!black,very thick] (5.0,0)--(4.2000000000,-3.9191835885);\draw[blue!75!black,very thick] (5.0,0)--(6.6000000000,7.8383671769);
+\fill (6.6000000000,7.8383671769) circle(6pt) node[above right=7pt] {$A$};\fill (4.2000000000,-3.9191835885) circle(6pt) node[below=8pt] {$B$};
+\fill (5.0,0) circle(6pt) node[below right=9pt] {$F$};
+\end{scope}
+\node at (3.6,2.6) {$A-F-B$：两条反向射线};
+\node at (3.6,1.55) {倒数\textbf{相加}};
+\node at (10.6,10.45) {异支：焦点在外面};
+\begin{scope}[shift={(10.6,6.1)},scale=0.28]
+\begin{scope}\clip (-10,-9) rectangle (10,9);
+\draw[teal!75!black,thick,samples=110,domain=-1.9:1.9,variable=\t] plot ({3*cosh(\t)},{4*sinh(\t)});
+\draw[teal!75!black,thick,samples=110,domain=-1.9:1.9,variable=\t] plot ({-3*cosh(\t)},{4*sinh(\t)});
+\end{scope}
+\draw[->,gray] (-10.2,0)--(10.3,0);
+\draw[orange!85!black,very thick] (5.0,0)--(-5.4173558340,6.0144631950);\draw[blue!75!black,very thick] (5.0,0)--(3.1096635263,1.0913862719);
+\fill (3.1096635263,1.0913862719) circle(6pt) node[above right=7pt] {$A$};\fill (-5.4173558340,6.0144631950) circle(6pt) node[left=14pt] {$B$};
+\fill (5.0,0) circle(6pt) node[below right=9pt] {$F$};
+\end{scope}
+\node at (10.6,2.6) {$F-A-B$：同一条射线};
+\node at (10.6,1.55) {倒数\textbf{相减}，取绝对值};
+\node at (7.1,.55) {两图同为 $x^2/9-y^2/16=1$、同尺度；$F=(5,0)$。};
+\end{tikzpicture}
