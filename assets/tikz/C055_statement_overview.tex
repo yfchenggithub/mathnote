@@ -1,0 +1,30 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[rounded corners=3pt,gray!45] (0,0) rectangle (14.2,10);
+\node at (7.1,9.45) {先看懂对象：一条弦穿过焦点，两端点分居横轴两侧};
+\begin{scope}[shift={(1.65,3.15)},scale=1.05]
+\draw[->,gray] (-.65,0)--(5.3,0) node[above] {$x$};
+\draw[->,gray] (0,-2.05)--(0,4.95) node[left] {$y$};
+\draw[teal!75!black,thick,samples=140,domain=-1.85:4.55,variable=\t]
+ plot ({\t*\t/4},{\t});
+\draw[blue!65!black,dashed] (0,4)--(4,4)--(4,0);
+\draw[orange!85!black,dashed] (0,-1)--(.25,-1)--(.25,0);
+\draw[blue!75!black,very thick] (4,4)--(1,0);
+\draw[orange!85!black,very thick] (1,0)--(.25,-1);
+\fill (4,4) circle(2pt) node[above left=7pt] {$A$};
+\fill (.25,-1) circle(2pt) node[right=14pt] {$B$};
+\fill (1,0) circle(2pt) node[below right=7pt] {$F$};
+\node[above left=7pt] at (0,0) {$O$};
+\node[blue!75!black,left=8pt] at (0,4) {$y_1$};
+\node[orange!85!black,left=8pt] at (0,-1) {$y_2$};
+\fill (4,0) circle(1.3pt) node[below=8pt,blue!75!black] {$x_1$};
+\fill (.25,0) circle(1.3pt) node[above right=9pt,orange!85!black] {$x_2$};
+\end{scope}
+\node[anchor=west,align=left] at (8.6,6.3)
+ {$\textcolor{blue!75!black}{A(x_1,y_1),\quad y_1>0}$\\[13pt]
+ $\textcolor{orange!85!black}{B(x_2,y_2),\quad y_2<0}$\\[16pt]
+ $A,F,B$ 三点共线\\[13pt]
+ $F\!\left(\dfrac p2,0\right)$ 在弦内\\[16pt]
+ 两端不必上下对称};
+\node at (7.1,1.1) {横坐标同号，积为正；纵坐标异号，积为负。};
+\node at (7.1,.45) {图取 $p=2$ 的一条斜弦；坐标积定值适用于任意有限焦点弦。};
+\end{tikzpicture}

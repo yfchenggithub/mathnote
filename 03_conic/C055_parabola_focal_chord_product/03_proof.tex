@@ -1,62 +1,122 @@
+\clearpage
 \begin{proofbox}
+\textbf{\textcolor{CProof}{方法一：最快证明（考场首选｜设线 + 韦达，约三步）}}\par\smallskip
+\textbf{思路：}直线过焦点，先设 $x=my+\frac p2$；\textbf{只看二次方程的常数项}，再由抛物线方程得到横积。
+\[
+ \begin{aligned}
+ x=my+\frac p2,\quad y^2=2px
+ &\Longrightarrow y^2-2pmy-p^2=0,\\
+ &\overset{\text{韦达}}{\Longrightarrow}
+ \boxed{y_1y_2=-p^2},\\[2pt]
+ x_i=\frac{y_i^2}{2p}
+ &\Longrightarrow
+ \boxed{x_1x_2=\frac{(y_1y_2)^2}{4p^2}=\frac{p^2}{4}}.
+ \end{aligned}
+\]
+\textbf{一句话抓手：}过焦点 $\Rightarrow$ 方程常数项为 $-p^2$
+$\Rightarrow$ 纵积固定 $\Rightarrow$ 横积固定。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法二：最低门槛，相似三角形加因式分解}}
 
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{先沿用前两幅图。}非竖直且正斜率时，把右上端记为 $A$、左下端记为 $B$。令 $u=y_A>0$、$v=-y_B>0$，焦点横坐标为 $p/2$。
+\[
+ x_A=\frac{u^2}{2p},\qquad x_B=\frac{v^2}{2p},\qquad
+ h=x_A-\frac p2,\qquad k=\frac p2-x_B.
+\]
+由于焦点在两端点之间，$h,k>0$。\textbf{第1步，只用相似：}
+\[
+ \frac hu=\frac kv.
+\]
+\textbf{第2步，用抛物线方程替换水平边：}
+\[
+ \frac{u^2-p^2}{2pu}=\frac{p^2-v^2}{2pv}
+ \quad\Longrightarrow\quad v(u^2-p^2)=u(p^2-v^2).
+\]
+\textbf{第3步，移项并提取共同因子：}
+\[
+ u^2v+uv^2=p^2(u+v)
+ \quad\Longrightarrow\quad (u+v)(uv-p^2)=0.
+\]
+$u+v>0$，故 $uv=p^2$。注意 $B$ 的纵坐标是 $-v$，所以
+\[
+ \boxed{y_Ay_B=-uv=-p^2},\qquad
+ \boxed{x_Ax_B=\frac{u^2v^2}{4p^2}=\frac{p^2}{4}}.
+\]
+\textbf{补齐情况。}负斜率时先上下翻折，边长与横积不变；两个纵坐标同时变号，纵积也不变。竖直通径单独代入 $x=p/2$，得 $y=\pm p$，两个积同样成立。
 
-	设直线 $x=my+\dfrac{p}{2}$ 与抛物线 $y^2=2px$ 联立，利用韦达定理先得 $y_1y_2$，再通过 $x=\dfrac{y^2}{2p}$ 转化为 $x_1x_2$．
+\medskip
+\textbf{也可直接用带符号的坐标，不作图形分类。}设 $A(a^2/(2p),a)$、$B(b^2/(2p),b)$，其中 $a,b\ne0$ 且 $a\ne b$。三点共线给
+\[
+ \frac{a^2-p^2}{2pa}=\frac{b^2-p^2}{2pb}
+ \quad\Longrightarrow\quad (a-b)(ab+p^2)=0.
+\]
+约去 $a-b\ne0$，仍得 $ab=-p^2$。这就是前面相似比的带符号写法；不需要韦达定理。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法三：常规证明（点斜式 + 联立 + 韦达｜补齐竖直特例）}}\par\smallskip
+\textbf{情况 1：}直线斜率存在。设 $y=k(x-\frac p2)$。
+若 $k=0$，直线就是 $y=0$，它只交抛物线于顶点，不符合两个不同交点的条件，故此处 $k\ne0$。
+联立得到关于 $x$ 的方程：
+\[
+ k^2\left(x-\frac p2\right)^2=2px
+ \Longrightarrow
+ k^2x^2-(pk^2+2p)x+\frac{p^2k^2}{4}=0.
+\]
+韦达定理直接给出
+\[
+ x_1+x_2=p+\frac{2p}{k^2},\qquad
+ \boxed{x_1x_2=\frac{p^2}{4}}.
+\]
+再由 $y_i=k(x_i-\frac p2)$，
+\[
+ \begin{aligned}
+ y_1y_2&=k^2\left[x_1x_2-\frac p2(x_1+x_2)+\frac{p^2}{4}\right]\\
+ &=k^2\left[\frac{p^2}{4}-\frac p2\left(p+\frac{2p}{k^2}\right)+\frac{p^2}{4}\right]
+ =\boxed{-p^2}.
+ \end{aligned}
+\]
+\textbf{情况 2：}直线斜率不存在。这就是通径 $x=\frac p2$。
+代入 $y^2=2px$ 得 $y^2=p^2$，故
+\[
+ A\!\left(\frac p2,p\right),\quad
+ B\!\left(\frac p2,-p\right),\qquad
+ x_1x_2=\frac{p^2}{4},\quad y_1y_2=-p^2.
+\]
+两种情况合起来，证明完成。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{推广证明：切线垂直，且交点在准线上}}\par\smallskip
+对 $y^2=2px$，在 $P(x_i,y_i)$ 处的切线为
+\[
+ y_iy=p(x+x_i),\qquad k_i=\frac p{y_i}.
+\]
+由于 $y_1y_2=-p^2$，两条切线的斜率积为
+\[
+ \boxed{k_Ak_B=\frac{p^2}{y_1y_2}=-1}.
+\]
+再设两切线交于 $T(X,Y)$。相减两切线方程：
+\[
+ (y_1-y_2)Y=p(x_1-x_2)
+ =\frac{y_1^2-y_2^2}{2}.
+\]
+约去 $y_1-y_2\ne0$，得 $Y=\frac{y_1+y_2}{2}$。
+代回 $y_1Y=p(X+x_1)$，用 $px_1=\frac{y_1^2}{2}$，得到
+\[
+ pX=\frac{y_1(y_1+y_2)}{2}-\frac{y_1^2}{2}
+ =\frac{y_1y_2}{2}=-\frac{p^2}{2}.
+\]
+因此
+\[
+ \boxed{T\!\left(-\frac p2,\frac{y_1+y_2}{2}\right)},
+\]
+横坐标等于准线 $x=-\frac p2$；证毕。
 
-	\medskip
-
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（设线消参）：}] 设过焦点 $F(\frac{p}{2},0)$ 的直线 $l$ 的方程为 $x=my+\dfrac{p}{2}$（$m\in\mathbb{R}$），代入 $y^2=2px$．
-			\[
-				y^2 = 2p\left(my+\frac{p}{2}\right).
-			\]
-			\par\textbf{理由：} 这种设线方式可直接避开讨论斜率不存在的情况，且包含所有实际两点焦点弦的直线；水平轴线只有一个交点，已排除．
-
-		\item[\textbf{步骤二（化简方程）：}] 展开整理得
-			\[
-				y^2 = 2pmy + p^2 \;\Longrightarrow\; y^2 - 2pmy - p^2 = 0.
-			\]
-			\par\textbf{理由：} 该方程是关于 $y$ 的一元二次方程，其两根即为 $A,B$ 的纵坐标 $y_1,y_2$．
-
-		\item[\textbf{步骤三（韦达定理）：}] 由韦达定理，
-			\[
-				y_1 + y_2 = 2pm,
-				\qquad
-				y_1y_2 = -p^2.
-			\]
-			\par\textbf{理由：} 二次项系数为 $1$，一次项系数为 $-2pm$，常数项为 $-p^2$，故两根之积为 $-p^2$，与 $m$ 无关．（注：$y_1y_2=-p^2$ 是核心定值．）
-
-		\item[\textbf{步骤四（横积转化）：}] 利用抛物线方程 $y^2=2px$ 得 $x=\dfrac{y^2}{2p}$，从而
-			\[
-				\begin{aligned}
-					x_1x_2 &= \frac{y_1^2}{2p}\cdot\frac{y_2^2}{2p} \\
-					&= \frac{(y_1y_2)^2}{4p^2}.
-			\end{aligned}
-			\]
-			代入 $y_1y_2=-p^2$，
-			\[
-				\begin{aligned}
-					x_1x_2 &= \frac{(-p^2)^2}{4p^2} \\
-					&= \frac{p^4}{4p^2} \\
-					&= \frac{p^2}{4}.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 利用抛物线方程实现坐标转化，将 $x_1x_2$ 用 $y_1y_2$ 表示，再由已知 $y_1y_2$ 求得 $x_1x_2$．
-
-		\item[\textbf{步骤五（回扣结论）：}] 联立已得
-			\[
-				x_1x_2 = \frac{p^2}{4},
-				\qquad
-				y_1y_2 = -p^2.
-			\]
-			\par\textbf{理由：} 两个定值同时成立，且与直线参数 $m$（即倾斜角）无关．
-	\end{description}
-
-	\medskip
-
-	\textbf{\textcolor{CProof}{结论回扣}}
-
-	焦点弦端点坐标乘积仅与抛物线焦准距 $p$ 有关，与弦的倾斜程度无关；这一结论省去了每次重新联立计算的时间，是抛物线中非常重要的二级结论．
+\medskip
+\textbf{\textcolor{CProof}{证明方法怎么选？}}\par\smallskip
+\textbf{求快}选方法一；\textbf{想看清为什么成立、不想碰韦达}选方法二；
+\textbf{题目已用 $y=k(x-\frac p2)$ 设线}选方法三，并记得补竖直通径。
 \end{proofbox}

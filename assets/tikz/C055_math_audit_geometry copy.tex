@@ -1,0 +1,33 @@
+% C055 辅助配图：原始附件未包含被 input 的 TikZ 源码，特为独立编译补齐。
+% 坐标精确满足 y^2=4x (p=2)，焦点 F(1,0)。
+% x=3y/4+1 与曲线交于 A(4,4)、B(1/4,-1)。
+% 切线在 T(-1,3/2) 相交，且互相垂直。
+\begin{tikzpicture}[x=1.14cm,y=0.91cm,>=stealth, font=\small]
+ \coordinate (O) at (0,0);
+ \coordinate (F) at (1,0);
+ \coordinate (A) at (4,4);
+ \coordinate (B) at (0.25,-1);
+ \coordinate (T) at (-1,1.5);
+ % Coordinate system
+ \draw[->,thin,gray!85] (-1.52,0)--(5.0,0) node[right] {$x$};
+ \draw[->,thin,gray!85] (0,-2.7)--(0,4.6) node[above] {$y$};
+ \draw[densely dashed,gray!80] (-1,-2.6)--(-1,4.35);
+ \node[rotate=90,fill=white,inner sep=1pt,text=gray!75!black] at (-1.13,-1.65) {准线 $x=-1$};
+ % parabola x=y^2/4
+ \draw[very thick,blue!77!black,domain=-2.65:4.45,samples=150,smooth,variable=\t]
+      plot ({\t*\t/4},{\t});
+ % chord and tangents: all exact points
+ \draw[very thick,orange!90!black] (B)--(A);
+ \draw[thick,teal!75!black] (T)--(A);
+ \draw[thick,teal!75!black] (T)--(B);
+ % right-angle mark: TA vector unit (2/sqrt5,1/sqrt5); TB unit (1/sqrt5,-2/sqrt5)
+ \draw[teal!75!black,thin] (-0.7585,1.6207)--(-0.6377,1.3792)--(-0.8793,1.2585);
+ % points
+ \fill[black] (O) circle (1.2pt) node[below left] {$O$};
+ \fill[black] (F) circle (1.7pt) node[below right] {$F(1,0)$};
+ \fill[orange!85!black] (A) circle (2pt) node[right,align=left] {$A(4,4)$};
+ \fill[orange!85!black] (B) circle (2pt) node[below right] {$B(\tfrac14,-1)$};
+ \fill[teal!75!black] (T) circle (2pt) node[above left] {$T(-1,\tfrac32)$};
+ \node[text=blue!75!black] at (3.05,3.0) {$y^2=4x$};
+ \node[text=orange!82!black,fill=white,inner sep=1pt] at (3.3,2.0) {焦点弦 $AB$};
+\end{tikzpicture}

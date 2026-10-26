@@ -1,0 +1,120 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法一：最快证明（考场首选｜设线 + 韦达，约三步）}}\par\smallskip
+\textbf{思路：}直线过焦点，先设 $x=my+\frac p2$；\textbf{只看二次方程的常数项}，再由抛物线方程得到横积。
+\[
+ \begin{aligned}
+ x=my+\frac p2,\quad y^2=2px
+ &\Longrightarrow y^2-2pmy-p^2=0,\\
+ &\overset{\text{韦达}}{\Longrightarrow}
+ \boxed{y_1y_2=-p^2},\\[2pt]
+ x_i=\frac{y_i^2}{2p}
+ &\Longrightarrow
+ \boxed{x_1x_2=\frac{(y_1y_2)^2}{4p^2}=\frac{p^2}{4}}.
+ \end{aligned}
+\]
+\textbf{一句话抓手：}过焦点 $\Rightarrow$ 方程常数项为 $-p^2$
+$\Rightarrow$ 纵积固定 $\Rightarrow$ 横积固定。
+
+\medskip\hrule\medskip
+\textbf{\textcolor{CProof}{方法二：最低门槛证明（只用设点、三点共线｜不用韦达）}}\par\smallskip
+\textbf{为什么采用设点法？}抛物线上的点由\textbf{一个纵坐标}就能表示出来。
+设两端点纵坐标为 $a,b$，则
+\[
+ A\!\left(\frac{a^2}{2p},a\right),\qquad
+ B\!\left(\frac{b^2}{2p},b\right),\qquad
+ F\!\left(\frac p2,0\right).
+\]
+\textbf{第 1 步：}因为 $A,F,B$ 三点共线，所以沿“横向变化/纵向变化”的比相同：
+\[
+ \frac{x_A-\frac p2}{a}
+ =\frac{x_B-\frac p2}{b}.
+\]
+这里 $a,b\ne0$：如果某个端点在 $x$ 轴上，它只能是顶点，而连接焦点的 $x$ 轴没有第二个交点，不满足题设。
+
+\textbf{第 2 步：}只把 $x_A,x_B$ 换成抛物线给出的 $\frac{y^2}{2p}$：
+\[
+ \frac{a^2-p^2}{2pa}=\frac{b^2-p^2}{2pb}
+ \quad\Longrightarrow\quad
+ b(a^2-p^2)=a(b^2-p^2).
+\]
+\textbf{第 3 步：}把等式两边展开，并\textbf{提取共同因子 $a-b$}：
+\[
+ a^2b-bp^2=ab^2-ap^2
+ \quad\Longrightarrow\quad
+ \underbrace{(a-b)}_{\ne0}\,(ab+p^2)=0.
+\]
+因为两端点不同，且一个纵坐标确定抛物线上的唯一一点，所以 $a\ne b$，只能有
+\[
+ \boxed{ab=y_1y_2=-p^2}.
+\]
+再利用 $x_A=\frac{a^2}{2p},\ x_B=\frac{b^2}{2p}$：
+\[
+ \boxed{x_1x_2=\frac{a^2b^2}{4p^2}=\frac{p^2}{4}}.
+\]
+\textbf{本法最重要的不是运算，而是入手顺序：}
+先用抛物线方程\textbf{设点}，再用“\textbf{过焦点 = 三点共线}”，最后只做因式分解；不需要猜任何定值，也不需要先知道直线倾斜角。
+
+\medskip\hrule\medskip
+\textbf{\textcolor{CProof}{方法三：常规证明（点斜式 + 联立 + 韦达｜补齐竖直特例）}}\par\smallskip
+\textbf{情况 1：}直线斜率存在。设 $y=k(x-\frac p2)$。
+若 $k=0$，直线就是 $y=0$，它只交抛物线于顶点，不符合两个不同交点的条件，故此处 $k\ne0$。
+联立得到关于 $x$ 的方程：
+\[
+ k^2\left(x-\frac p2\right)^2=2px
+ \Longrightarrow
+ k^2x^2-(pk^2+2p)x+\frac{p^2k^2}{4}=0.
+\]
+韦达定理直接给出
+\[
+ x_1+x_2=p+\frac{2p}{k^2},\qquad
+ \boxed{x_1x_2=\frac{p^2}{4}}.
+\]
+再由 $y_i=k(x_i-\frac p2)$，
+\[
+ \begin{aligned}
+ y_1y_2&=k^2\left[x_1x_2-\frac p2(x_1+x_2)+\frac{p^2}{4}\right]\\
+ &=k^2\left[\frac{p^2}{4}-\frac p2\left(p+\frac{2p}{k^2}\right)+\frac{p^2}{4}\right]
+ =\boxed{-p^2}.
+ \end{aligned}
+\]
+\textbf{情况 2：}直线斜率不存在。这就是通径 $x=\frac p2$。
+代入 $y^2=2px$ 得 $y^2=p^2$，故
+\[
+ A\!\left(\frac p2,p\right),\quad
+ B\!\left(\frac p2,-p\right),\qquad
+ x_1x_2=\frac{p^2}{4},\quad y_1y_2=-p^2.
+\]
+两种情况合起来，证明完成。
+
+\medskip\hrule\medskip
+\textbf{\textcolor{CProof}{推广证明：切线垂直，且交点在准线上}}\par\smallskip
+对 $y^2=2px$，在 $P(x_i,y_i)$ 处的切线为
+\[
+ y_iy=p(x+x_i),\qquad k_i=\frac p{y_i}.
+\]
+由于 $y_1y_2=-p^2$，两条切线的斜率积为
+\[
+ \boxed{k_Ak_B=\frac{p^2}{y_1y_2}=-1}.
+\]
+再设两切线交于 $T(X,Y)$。相减两切线方程：
+\[
+ (y_1-y_2)Y=p(x_1-x_2)
+ =\frac{y_1^2-y_2^2}{2}.
+\]
+约去 $y_1-y_2\ne0$，得 $Y=\frac{y_1+y_2}{2}$。
+代回 $y_1Y=p(X+x_1)$，用 $px_1=\frac{y_1^2}{2}$，得到
+\[
+ pX=\frac{y_1(y_1+y_2)}{2}-\frac{y_1^2}{2}
+ =\frac{y_1y_2}{2}=-\frac{p^2}{2}.
+\]
+因此
+\[
+ \boxed{T\!\left(-\frac p2,\frac{y_1+y_2}{2}\right)},
+\]
+横坐标等于准线 $x=-\frac p2$；证毕。
+
+\medskip
+\textbf{\textcolor{CProof}{证明方法怎么选？}}\par\smallskip
+\textbf{求快}选方法一；\textbf{想看清为什么成立、不想碰韦达}选方法二；
+\textbf{题目已用 $y=k(x-\frac p2)$ 设线}选方法三，并记得补竖直通径。
+\end{proofbox}

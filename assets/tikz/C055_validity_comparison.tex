@@ -1,0 +1,25 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[rounded corners=3pt,gray!45] (0,0) rectangle (14.2,12.5);
+\node at (7.1,11.95) {先检查结构：经过焦点，并且有两个不同的有限交点};\node at (2.25,10.8) {焦点弦：可用定值};\begin{scope}[shift={(1.6,6)},scale=.65]
+\draw[teal!75!black,thick,samples=120,domain=-4.5:4.5,variable=\t] plot ({\t*\t/4},{\t});
+\draw[->,gray] (-.7,0)--(5.25,0) node[above] {$x$};
+\fill (1,0) circle(2pt) node[below right=5pt] {$F$};
+\draw[blue!75!black,very thick] (1,-2)--(1,2);\fill (1,2) circle(2pt);\fill (1,-2) circle(2pt);
+\end{scope}
+\node[align=center] at (2.25,2.1) {$x_Ax_B=1$\\[10pt]$y_Ay_B=-4$};
+\node at (6.65,10.8) {普通弦：不满足定值};\begin{scope}[shift={(6,6)},scale=.65]
+\draw[teal!75!black,thick,samples=120,domain=-4.5:4.5,variable=\t] plot ({\t*\t/4},{\t});
+\draw[->,gray] (-.7,0)--(5.25,0) node[above] {$x$};
+\fill (1,0) circle(2pt) node[above=10pt] {$F$};
+\draw[blue!75!black,very thick] (2,-2.8284271247461903)--(2,2.8284271247461903);\fill (2,2.8284271247461903) circle(2pt);\fill (2,-2.8284271247461903) circle(2pt);
+\end{scope}
+\node[align=center] at (6.65,2.1) {$x_Ax_B=4$\\[10pt]$y_Ay_B=-8$};
+\node at (11.05,10.8) {轴线：仅一个交点};\begin{scope}[shift={(10.4,6)},scale=.65]
+\draw[teal!75!black,thick,samples=120,domain=-4.5:4.5,variable=\t] plot ({\t*\t/4},{\t});
+\draw[->,gray] (-.7,0)--(5.25,0) node[above] {$x$};
+\fill (1,0) circle(2pt) node[below right=5pt] {$F$};
+\draw[red!80!black,very thick] (-.5,0)--(5,0);\fill (0,0) circle(2pt) node[below left=5pt] {$O$};
+\end{scope}
+\node[align=center] at (11.05,2.1) {只有顶点 $O$\\[10pt]没有两个端点};
+\node at (7.1,.65) {三图均为 $y^2=4x,\ p=2$，坐标尺度相同。};
+\end{tikzpicture}

@@ -1,0 +1,25 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[rounded corners=3pt,gray!45] (0,0) rectangle (14.2,12.5);
+
+\node at (7.1,11.95) {切线推广：两切线成直角，交点恰好落在准线上};
+\begin{scope}[shift={(3.1,4.2)},scale=1.05]
+\draw[->,gray] (-1.65,0)--(4.9,0) node[above] {$x$};
+\draw[->,gray] (0,-2.2)--(0,5.15) node[left] {$y$};
+\draw[violet,dashed] (-1,-2.2)--(-1,5.05);
+\node[violet,rotate=90] at (-1.5,3.8) {准线 $x=-1$};
+\draw[teal!75!black,thick,samples=120,domain=-2.2:4.5,variable=\t] plot ({\t*\t/4},{\t});
+\draw[gray!75,thick] (4,4)--(.25,-1);
+\draw[blue!75!black,very thick] (-1,1.5)--(4,4);
+\draw[orange!85!black,very thick] (-1,1.5)--(.25,-1);
+\draw[black] (-.68695,1.65652)--(-.53043,1.34348)--(-.84348,1.18695);
+\fill (-1,1.5) circle(2pt) node[left=8pt] {$T$};
+\fill (4,4) circle(2pt) node[above left=7pt] {$A$};
+\fill (.25,-1) circle(2pt) node[below left=7pt] {$B$};
+\fill (1,0) circle(2pt) node[below right=6pt] {$F$};
+\end{scope}
+\node[anchor=west,align=left] at (9.1,7.15)
+ {$A(4,4)$\\[12pt]$B(1/4,-1)$\\[12pt]$T(-1,3/2)$\\[16pt]
+ 蓝色切线：$k_A=1/2$\\[12pt]橙色切线：$k_B=-2$\\[14pt]$k_Ak_B=-1$};
+\node at (7.1,1.4) {灰线是焦点弦 $AB$；蓝、橙两线是端点处的切线。};
+\node at (7.1,.55) {$y^2=4x,\quad p=2,\quad y_Ay_B=-4\quad\Longrightarrow\quad k_Ak_B=-1$};
+\end{tikzpicture}
