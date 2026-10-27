@@ -1,0 +1,359 @@
+\clearpage
+\begin{proofbox}
+\textbf{统一记号与前提。}
+
+设 $F_1=(-c,0),\ F_2=(c,0)$，
+$P=(x_0,y_0)\in H$ 且 $y_0\ne0$，
+$M=(m,0)$ 是 $\angle F_1PF_2$ 内角平分线的轴上交点。
+令
+\[
+r_1=PF_1,\qquad r_2=PF_2,\qquad c^2=a^2+b^2.
+\]
+由于 $P$ 非顶点，$x_0>a$ 或 $x_0<-a$，而 $M$ 位于开线段 $F_1F_2$ 上。
+以下给出\textbf{六种方法}：保留原有五种，再增加可独立推导的倒角公式法；
+排序考虑入门负担、考场速度与知识迁移。
+
+\medskip
+\textbf{方法一：最低门槛【角平分线定理＋平方差；首推独立证明】。}
+
+\input{assets/tikz/C084_distance_projections}
+\textbf{第1步：角平分线定理。}
+\[
+\frac{c+m}{c-m}=\frac{r_1}{r_2}
+\quad\Longrightarrow\quad
+r_2(c+m)=r_1(c-m),
+\]
+于是
+\[
+\boxed{m=c\frac{r_1-r_2}{r_1+r_2}}.\tag{1}
+\]
+\textbf{第2步：焦距平方相减。}
+\[
+\begin{aligned}
+r_1^2-r_2^2
+&=(x_0+c)^2+y_0^2-(x_0-c)^2-y_0^2\\
+&=4cx_0.
+\end{aligned}
+\]
+即
+\[
+\boxed{x_0=\frac{(r_1-r_2)(r_1+r_2)}{4c}}.\tag{2}
+\]
+\textbf{第3步：乘起来，使用双曲线第一定义。}
+\[
+\begin{aligned}
+mx_0
+&=\frac{c(r_1-r_2)}{r_1+r_2}
+  \cdot\frac{(r_1-r_2)(r_1+r_2)}{4c}\\
+&=\frac{(r_1-r_2)^2}{4}
+=\frac{(2a)^2}{4}=\boxed{a^2}.
+\end{aligned}
+\]
+\textbf{优势：}完全不必区分左右支；不背焦半径；只用角平分线定理、
+两点距离与平方差公式。\textbf{关键切入：}两个焦距是“和、差”，而 $x_0$ 是“平方差”。
+
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法二：最快代数【角平分线定理＋焦半径】。}
+
+先沿用式 (1)。令 $e=c/a>1$，记
+$\sigma=\operatorname{sgn}(x_0)\in\{1,-1\}$。
+双曲线左右两支的焦半径可以统一写成
+\[
+\boxed{r_1=e|x_0|+\sigma a,\qquad
+r_2=e|x_0|-\sigma a}.
+\]
+核对：右支 $\sigma=1$ 时 $r_1=ex_0+a,\ r_2=ex_0-a$；
+左支 $\sigma=-1$ 时 $r_1=-ex_0-a,\ r_2=-ex_0+a$。
+因此
+\[
+\begin{aligned}
+m
+&=c\frac{2\sigma a}{2e|x_0|}
+=\frac{ca\sigma}{e|x_0|}
+=\frac{a^2\sigma}{|x_0|}
+=\boxed{\frac{a^2}{x_0}}.
+\end{aligned}
+\]
+\textbf{优势：}已熟悉焦半径时只需代入一次。
+\textbf{代价：}若左右焦点匹配或左右支的符号记错，很容易出错。
+
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法三：最快识别【已知切线平分焦点三角形的内角】。}
+
+若已掌握双曲线的\textbf{切线--焦点角平分线性质}，
+$PM$ 就是 $H$ 在 $P$ 处的切线。
+切线方程为
+\[
+\frac{x_0x}{a^2}-\frac{y_0y}{b^2}=1.
+\]
+令 $y=0$，得到
+\[
+\frac{x_0m}{a^2}=1
+\quad\Longrightarrow\quad
+\boxed{m=\frac{a^2}{x_0}}.
+\]
+\textbf{优势：}看出切线后，求值几乎一步完成。
+\textbf{注意：}本方法\emph{调用了已知的切线--角平分线性质}，
+不能再把这一步当作对该性质的独立证明；若还没掌握该性质，用方法一建立它。
+
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法四：几何深化【内切圆切线长＋角平分线定理】。}
+
+\input{assets/tikz/C084_incircle_tangent_lengths}
+作 $\triangle PF_1F_2$ 的内切圆，切 $F_1F_2$ 于 $T(t,0)$，
+切 $PF_1$、$PF_2$ 于 $U,V$。令 $PU=PV=\lambda>0$。
+同一点的两条切线段等长，所以
+\[
+r_1=F_1T+\lambda,\qquad
+r_2=F_2T+\lambda.
+\]
+令 $\sigma=\operatorname{sgn}(x_0)$，故
+\[
+F_1T-F_2T=r_1-r_2=2\sigma a,
+\qquad F_1T+F_2T=2c,
+\]
+\[
+F_1T=c+\sigma a,\qquad
+F_2T=c-\sigma a,
+\qquad\boxed{T=(\sigma a,0)}.
+\]
+这先证明了\textbf{内切圆与焦点轴的切点始终为对应分支顶点}。
+并且
+\[
+r_1=\lambda+c+\sigma a,\qquad
+r_2=\lambda+c-\sigma a,
+\]
+由距离平方差
+\[
+4cx_0=r_1^2-r_2^2
+=(2\sigma a)\cdot2(\lambda+c),
+\]
+得
+\[
+\lambda+c=\frac{c|x_0|}{a}.
+\]
+最后用角平分线定理的式 (1)：
+\[
+m=c\frac{r_1-r_2}{r_1+r_2}
+=c\frac{2\sigma a}{2(\lambda+c)}
+=\boxed{\frac{a^2}{x_0}}.
+\]
+\textbf{优势：}揭示定切点 $T=\pm a$，几何画面非常有记忆点。
+\textbf{代价：}为了进一步求 $M$，还需连接焦距平方差或其他长度关系；
+不如方法一直接。切记 $T$ 与 $M$ 通常不重合。
+
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法五：半角三角函数【单位方向向量的内角平分线】。}
+
+\input{assets/tikz/C084_unit_vector_sum}
+设两条从 $P$ 指向焦点的\textbf{单位方向向量}为
+\[
+\boldsymbol{u}_1=\frac{(-c-x_0,-y_0)}{r_1},
+\qquad
+\boldsymbol{u}_2=\frac{(c-x_0,-y_0)}{r_2}.
+\]
+若顶角 $\gamma=\angle F_1PF_2\in(0,\pi)$，
+两个单位向量相加得到
+\[
+\boldsymbol{u}_1+\boldsymbol{u}_2
+=2\cos\frac{\gamma}{2}\,\boldsymbol{w},
+\]
+其中 $\boldsymbol{w}$ 是\textbf{内角平分线的单位方向}。
+这一等式来自\emph{半角余弦公式}；因此
+$\boldsymbol{v}=\boldsymbol{u}_1+\boldsymbol{u}_2$ 就沿 $PM$。
+
+设 $M=P+k\boldsymbol v$。利用 $M$ 的纵坐标为 $0$，
+\[
+0=y_0-k y_0\Bigl(\frac1{r_1}+\frac1{r_2}\Bigr)
+\quad\Longrightarrow\quad
+k=\frac{r_1r_2}{r_1+r_2}.
+\]
+代入横坐标：
+\[
+\begin{aligned}
+m
+&=x_0+k\Bigl(-\frac{x_0+c}{r_1}+\frac{c-x_0}{r_2}\Bigr)\\
+&=x_0+\frac{-(x_0+c)r_2+(c-x_0)r_1}{r_1+r_2}\\
+&=c\frac{r_1-r_2}{r_1+r_2}.
+\end{aligned}
+\]
+再用 $r_1^2-r_2^2=4cx_0$ 与 $|r_1-r_2|=2a$，
+便得 $mx_0=a^2$。
+\textbf{优势：}直接由\emph{半角方向}建立直线，无需预先调用角平分线定理。
+\textbf{代价：}向量/三角运算更多，不适合追求最低认知负担的首解。
+
+\medskip
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法六：倒角公式法【两直线夹角的正切公式；独立证明】。}
+
+\textbf{目标：}不预先知道“$PM$ 是切线”，也不用角平分线定理；
+直接利用 $\angle F_1PM=\angle MPF_2$，先求角平分线的轴上交点 $M$。
+
+\input{assets/tikz/C084_tangent_angle_two_roots}
+\textbf{看图读式：}上图先固定两个相等半角；下图把另一根命名为 $N$，
+用底边内部／外部区分内、外角平分线。下文仍以 $m$ 表示待求的候选轴截距。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法六（续）：由等角列式，再用位置选根。}
+
+\textbf{第1步：设三条直线的斜率。}
+在斜率均存在的通常情形（$x_0\ne\pm c$、$m\ne x_0$）下，记
+\[
+\boxed{k_1=\frac{y_0}{x_0+c}},\qquad
+\boxed{k_2=\frac{y_0}{x_0-c}},\qquad
+\boxed{k=\frac{y_0}{x_0-m}}.
+\]
+这里分子为 $y_0$ 而不是 $-y_0$：例如
+$k_1=(-y_0)/(-c-x_0)=y_0/(x_0+c)$。
+
+\textbf{第2步：写出相邻两角的正切。}
+由 $\tan(\alpha-\beta)=\dfrac{\tan\alpha-\tan\beta}
+{1+\tan\alpha\tan\beta}$，角平分条件导出
+\[
+\boxed{\frac{k-k_1}{1+kk_1}=\frac{k_2-k}{1+k_2k}}.\tag{6.1}
+\]
+注意：式 (6.1) 是\textbf{有向夹角正切}的等式，
+单凭正切相等可能还包含外角平分线；必须在最后检查 $-c<m<c$。
+
+\textbf{第3步：代入并消去斜率。}
+\[
+\frac{k-k_1}{1+kk_1}
+=\frac{y_0(c+m)}{(x_0-m)(x_0+c)+y_0^2},
+\]
+\[
+\frac{k_2-k}{1+k_2k}
+=\frac{y_0(c-m)}{(x_0-m)(x_0-c)+y_0^2}.
+\]
+记
+\[
+D_1=(x_0-m)(x_0+c)+y_0^2,\qquad
+D_2=(x_0-m)(x_0-c)+y_0^2.
+\]
+因为 $P$ 不是顶点，$y_0\ne0$；对角平分线，两半角均小于 $90^\circ$，
+相应分母不为零。因此交叉相乘得到
+\[
+(c+m)D_2-(c-m)D_1=0.\tag{6.2}
+\]
+
+\textbf{第4步：只用双曲线方程，因式分解。}
+由 $P\in H$ 与 $c^2=a^2+b^2$，
+\[
+\boxed{y_0^2=\frac{b^2}{a^2}(x_0^2-a^2)},\qquad b^2=c^2-a^2.
+\]
+代入式 (6.2) 并整理（可直接按 $m$ 收集同类项）：
+\[
+\begin{aligned}
+0&=(c+m)D_2-(c-m)D_1\\
+ &=2\bigl[c^2(m-x_0)+m(x_0^2-mx_0+y_0^2)\bigr]\\
+ &=\frac{2}{a^2}\underbrace{(mx_0-a^2)}_{\text{内角平分线}}
+                   \underbrace{(c^2x_0-a^2m)}_{\text{外角平分线}}.
+\end{aligned}
+\]
+因此
+\[
+\boxed{m=\frac{a^2}{x_0}}\quad\text{或}\quad
+\boxed{m=\frac{c^2x_0}{a^2}}.
+\]
+
+\textbf{第5步：用“内角平分线交底边内部”筛选。}
+由双曲线非顶点条件 $|x_0|>a$、$c>a$，
+\[
+\left|\frac{a^2}{x_0}\right|<a<c,
+\qquad
+\left|\frac{c^2x_0}{a^2}\right|>\frac{c^2}{a}>c.
+\]
+故只有第一个根落在 $-c<m<c$ 内：
+\[
+\boxed{M=\left(\frac{a^2}{x_0},0\right)},\qquad
+\boxed{x_0m=a^2}.
+\]
+另一个根对应图中的 $N$，位于底边延长线上，应舍去。
+
+\textbf{补充：为什么第二个根是外角平分线？}
+两根分别对应直线斜率
+\[
+ k_{\mathrm{in}}=\frac{y_0}{x_0-a^2/x_0}
+ =\frac{b^2x_0}{a^2y_0},\qquad
+ k_{\mathrm{out}}=\frac{y_0}{x_0-c^2x_0/a^2}
+ =-\frac{a^2y_0}{b^2x_0}.
+\]
+于是 $\boxed{k_{\mathrm{in}}k_{\mathrm{out}}=-1}$：
+两条角平分线互相垂直，正是内、外角平分线的几何特征。
+
+\medskip
+\textbf{特殊情形补全（某条焦点连线竖直时）。}
+当 $x_0=c$ 或 $x_0=-c$ 时，$k_2$ 或 $k_1$ 不存在，
+不能使用式 (6.1) 的斜率形式。但正切差角公式可改用
+\textbf{二维向量的行列式除以点积}，不需任何直线斜率：
+\[
+\boldsymbol u=(-c-x_0,-y_0)=\overrightarrow{PF_1},\quad
+\boldsymbol v=(c-x_0,-y_0)=\overrightarrow{PF_2},\quad
+\boldsymbol w=(m-x_0,-y_0)=\overrightarrow{PM}.
+\]
+对应的两个半角正切分别为
+\[
+\frac{\det(\boldsymbol u,\boldsymbol w)}
+     {\boldsymbol u\cdot\boldsymbol w}
+=\frac{y_0(c+m)}{D_1},\qquad
+\frac{\det(\boldsymbol w,\boldsymbol v)}
+     {\boldsymbol w\cdot\boldsymbol v}
+=\frac{y_0(c-m)}{D_2}.
+\]
+这恰好重复式 (6.2)，且对 $x_0=\pm c$ 仍有效，
+因此本方法覆盖左右两支的全部非顶点点。
+
+\textbf{评价：}这是一种真正独立于角平分线定理、焦半径公式、
+切线性质的解析证明；它揭示了\textbf{两个代数根分别对应内、外角平分线}。
+代价是分母和符号需要仔细处理，因此适合作为补充证明，而非最低门槛首解。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{补充验算：从 $x_0m=a^2$ 独立推出切线方程。}
+
+因 $y_0\ne0$，经过 $P(x_0,y_0)$、$M(a^2/x_0,0)$ 的直线满足
+\[
+y(x_0^2-a^2)=y_0(xx_0-a^2).
+\]
+又因 $P\in H$，
+\[
+\frac{x_0^2}{a^2}-\frac{y_0^2}{b^2}=1
+\quad\Longrightarrow\quad
+x_0^2-a^2=\frac{a^2y_0^2}{b^2}.
+\]
+代回并除以 $a^2y_0$：
+\[
+\frac{y_0y}{b^2}=\frac{x_0x}{a^2}-1,
+\]
+即
+\[
+\boxed{PM:\frac{x_0x}{a^2}-\frac{y_0y}{b^2}=1}.
+\]
+这是双曲线在 $P$ 处的标准切线方程，
+因而\textbf{用方法一不仅证明截距，还独立证明了内角平分线即切线}。
+
+\medskip
+\textbf{选法建议：}需要\emph{最低门槛独立证明}用方法一；
+已熟悉焦半径且追求代数速度用方法二；
+切线性质已是已知结论时用方法三；
+要记住内切圆固定切点用方法四；
+研究内角平分线的半角方向用方法五；
+要用\textbf{两直线夹角正切公式独立代数证明}，或同时研究内、外角平分线，
+用方法六。
+\end{proofbox}

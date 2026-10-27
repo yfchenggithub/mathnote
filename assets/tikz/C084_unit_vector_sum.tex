@@ -1,0 +1,22 @@
+\begin{center}
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!40,rounded corners] (0,0) rectangle (14.2,8);
+\node[font=\small\bfseries] at (7.1,7.35) {方法五：先把两条射线各取一段单位长度};
+
+\begin{scope}[shift={(5,5.6)},scale=2]
+\coordinate (P) at (0,0); \coordinate (E) at (-.945946,-.324324);
+\coordinate (G) at (.384615,-.923077);\coordinate (S) at (-.561331,-1.247401);
+\draw[gray] (0,0)--(-1.55,-.53143);\draw[gray] (0,0)--(.61538,-1.47692);
+\draw[blue!75!black,very thick,->] (P)--(E) node[midway,above left] {$\boldsymbol u_1$};
+\draw[orange!85!black,very thick,->] (P)--(G) node[midway,right] {$\boldsymbol u_2$};
+\draw[dashed] (E)--(S)--(G);
+\draw[magenta!80!black,very thick,->] (P)--(S);
+\foreach \q in {P,E,G,S} \fill (\q) circle(.8pt);
+\node[above] at (P) {$P$};\node[left] at (E) {$E$};\node[right] at (G) {$G$};
+\node[below] at (S) {$S$};
+\end{scope}
+\node[anchor=west,align=left] at (9,4.8) {$PE=PG=1$\\[8pt]平行四边形成为菱形\\[8pt]对角线 $PS$ 平分顶角};
+\node[align=center] at (7.1,1) {$\overrightarrow{PS}=\boldsymbol u_1+\boldsymbol u_2$ 沿内角平分线。\\$PE$ 指向 $F_1$，$PG$ 指向 $F_2$；单位化后才能直接相加。};
+
+\end{tikzpicture}
+\end{center}

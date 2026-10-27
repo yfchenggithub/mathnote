@@ -1,0 +1,23 @@
+\begin{center}
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!40,rounded corners] (0,0) rectangle (14.2,9);
+\node[font=\small\bfseries] at (7.1,8.35) {例1与例2：关于 y 轴对称，截距也跟着变号};
+
+\begin{scope}[shift={(7.1,3.3)},scale=.87]
+\draw[->,gray] (-6,0)--(6,0) node[right] {$x$};
+\draw[->,gray] (0,-1)--(0,4.6) node[above] {$y$};
+\draw[teal!75!black,thick,domain=-.55:.85,samples=70,variable=\t] plot ({3*cosh(\t)},{4*sinh(\t)});
+\draw[teal!75!black,thick,domain=-.55:.85,samples=70,variable=\t] plot ({-3*cosh(\t)},{4*sinh(\t)});
+\draw[blue!60,dashed] (-5,0)--(3.75,3)--(5,0)--(-3.75,3)--cycle;
+\draw[magenta!80!black,very thick] (2.4,0)--(3.75,3);
+\draw[magenta!80!black,very thick] (-2.4,0)--(-3.75,3);
+\fill (3.75,3) circle(2pt) node[above left] {$P(15/4,3)$};
+\fill (-3.75,3) circle(2pt) node[above right] {$Q(-15/4,3)$};
+\fill (2.4,0) circle(2pt) node[below left] {$M$};
+\fill (-2.4,0) circle(2pt) node[below right] {$N$};
+\fill (-5,0) circle(2pt) node[below left] {$F_1$};\fill (5,0) circle(2pt) node[below right] {$F_2$};
+\end{scope}
+\node at (7.1,.75) {$x_0$ 与 $m$ 同号；左右两支都满足 $x_0m=9$。};
+
+\end{tikzpicture}
+\end{center}

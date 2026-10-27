@@ -1,0 +1,65 @@
+% Same Cartesian scale in both panels; a=3, b=4, c=5, P=(15/4,3).
+\begin{center}
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!40,rounded corners] (0,0) rectangle (14.2,13.5);
+\node[font=\small\bfseries] at (7.1,12.8)
+ {倒角公式：先看两个等角，再看两个交点};
+\node[anchor=west] at (.6,11.8) {① 只看普通三角形：紫线把顶角分成两个 $\alpha$};
+\begin{scope}[shift={(4.3,8.6)},scale=.68]
+ \coordinate (L) at (-5,0); \coordinate (R) at (5,0);
+ \coordinate (P) at (3.75,3); \coordinate (M) at (2.4,0);
+ \fill[blue!5] (L)--(P)--(M)--cycle;
+ \fill[orange!8] (M)--(P)--(R)--cycle;
+ \draw[gray] (L)--(R);
+ \draw[blue!75!black,thick] (L)--(P) node[midway,above left] {$k_1$};
+ \draw[orange!85!black,thick] (P)--(R) node[midway,right] {$k_2$};
+ \draw[magenta!80!black,very thick] (M)--(P);
+ \draw[magenta!80!black] (P) ++(-161.075356:1.1)
+   arc (-161.075356:-114.227745:1.1);
+ \draw[magenta!80!black] (P) ++(-114.227745:1.4)
+   arc (-114.227745:-67.380135:1.4);
+ \node at (2.05,1.9) {$\alpha$};
+ \node at (3.85,1.05) {$\alpha$};
+ \foreach \q in {L,R,P,M} \fill (\q) circle(2.6pt);
+ \node[below left] at (L) {$F_1$}; \node[below right] at (R) {$F_2$};
+ \node[above] at (P) {$P$}; \node[below left] at (M) {$M$};
+\end{scope}
+\node[anchor=west,align=left] at (9.35,10.1)
+ {$k_1,k_2$：两腰的斜率\\[8pt]$k$：紫线 $PM$ 的斜率};
+\node[anchor=west,align=left] at (9.35,8.4)
+ {两边都在算\\同一个 $\tan\alpha$};
+\draw[gray!25] (.5,7.5)--(13.7,7.5);
+\node[anchor=west] at (.6,6.9) {② 放回本题：正切等式还会给出外角平分线};
+\begin{scope}[shift={(4.3,3.8)},scale=.68]
+ \coordinate (L) at (-5,0); \coordinate (R) at (5,0);
+ \coordinate (P) at (3.75,3); \coordinate (M) at (2.4,0);
+ \coordinate (N) at (10.416666667,0);
+ \draw[->,gray] (-5.6,0)--(12.2,0) node[right] {$x$};
+ \draw[blue!75!black,thick] (L)--(P);
+ \draw[blue!75!black,densely dotted] (P)--(6.2,3.84);
+ \draw[orange!85!black,thick] (P)--(R);
+ \draw[magenta!80!black,very thick] (M)--(P);
+ \draw[teal!75!black,thick,dashed] (P)--(N);
+ % The outward ray PN is perpendicular to the internal ray PM.
+ \draw[gray] (P) ++(-114.227745:.42)
+   -- ++(-24.227745:.42) -- ++(65.772255:.42);
+ \draw[teal!75!black] (P) ++(-67.380135:1.05)
+   arc (-67.380135:-24.227745:1.05);
+ \draw[teal!75!black] (P) ++(-24.227745:1.4)
+   arc (-24.227745:18.924644:1.4);
+ \node[teal!75!black,fill=white,inner sep=1pt] at (5.05,1.7) {$\beta$};
+ \node[teal!75!black,fill=white,inner sep=1pt] at (6,2.8) {$\beta$};
+ \foreach \q in {L,R,P,M,N} \fill (\q) circle(2.6pt);
+ \node[below right] at (L) {$F_1(-c,0)$};
+ \node[below right] at (R) {$F_2(c,0)$};
+ \node[above left] at (P) {$P$};
+ \node[below left] at (M) {$M$}; \node[below] at (N) {$N$};
+ \node[teal!75!black,above right] at (7.8,1.1) {外角平分线};
+\end{scope}
+\node[magenta!80!black,align=center] at (4.1,1.8)
+ {$M\left(a^2/x_0,0\right)$\\[6pt]底边内部：$-c<m<c$，保留};
+\node[teal!75!black,align=center] at (10.5,1.8)
+ {$N\left(c^2x_0/a^2,0\right)$\\[6pt]底边外部：$|x_N|>c$，舍去};
+\node at (7.1,.55) {图取例6的数据；两幅几何图同尺度，左支情形左右反射。};
+\end{tikzpicture}
+\end{center}

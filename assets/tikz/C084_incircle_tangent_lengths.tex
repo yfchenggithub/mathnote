@@ -1,0 +1,33 @@
+\begin{center}
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!40,rounded corners] (0,0) rectangle (14.2,8.5);
+\node[font=\small\bfseries] at (7.1,7.85) {方法四：先看三角形的等切线段，再代入焦距差};
+
+\begin{scope}[shift={(4.3,3.1)},scale=.68]
+
+\coordinate (L) at (-5,0); \coordinate (R) at (5,0);
+\coordinate (P) at (3.75,3); \coordinate (M) at (2.4,0);
+\draw[blue!75!black,thick] (L)--(P);
+\draw[orange!85!black,thick] (P)--(R);
+\draw[gray] (L)--(R);
+\draw[magenta!80!black,very thick] (M)--(P);
+\foreach \q in {L,R,P,M} \fill (\q) circle (3pt);
+\node[below left] at (L) {$F_1$}; \node[below right] at (R) {$F_2$};
+\node[above left] at (P) {$P$}; \node[below left] at (M) {$M$};
+
+\coordinate (I) at (3,1.333333);\coordinate (T) at (3,0);
+\coordinate (U) at (2.567568,2.594595);\coordinate (V) at (4.230769,1.846154);
+\draw[teal!80!black,thick] (I) circle(1.333333);
+\draw[teal!80!black,dashed] (I)--(T);
+\draw[blue!75!black,very thick] (L)--(U);\draw[blue!75!black,very thick] (L)--(T);
+\draw[orange!85!black,very thick] (R)--(V);\draw[orange!85!black,very thick] (R)--(T);
+\draw[purple,very thick] (U)--(P)--(V);
+\foreach \q in {I,T,U,V} \fill (\q) circle(3pt);
+\node[left] at (I) {$I$}; \draw (T)--(3,-1) node[below] {$T$};
+\node[above left] at (U) {$U$};\node[right] at (V) {$V$};
+\end{scope}
+\node[anchor=west,align=left] at (9,5.5) {$F_1U=F_1T$（蓝）\\[8pt]$F_2V=F_2T$（橙）\\[8pt]$PU=PV=\lambda$（紫）};
+\node[align=center] at (7.1,1) {$r_1-r_2=F_1T-F_2T$，公共的 $\lambda$ 抵消。\\右支差为 $2a$，所以 $T=(a,0)$；而 $M=(a^2/x_0,0)$。};
+
+\end{tikzpicture}
+\end{center}

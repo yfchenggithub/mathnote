@@ -1,0 +1,26 @@
+\begin{center}
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!40,rounded corners] (0,0) rectangle (14.2,8);
+\node[font=\small\bfseries] at (7.1,7.35) {第一步：只有普通三角形，不需要双曲线};
+
+\begin{scope}[shift={(4.5,3.1)},scale=.62]
+\coordinate (A) at (-5,0); \coordinate (B) at (5,0);
+\coordinate (C) at (3.75,3); \coordinate (D) at (2.4,0);
+\fill[blue!8] (A)--(C)--(D)--cycle;
+\fill[orange!12] (B)--(C)--(D)--cycle;
+\draw[blue!75!black,very thick] (A)--(C) node[midway,above left] {$u$};
+\draw[orange!85!black,very thick] (C)--(B) node[midway,right] {$v$};
+\draw[blue!75!black,very thick] (A)--(D) node[midway,below] {$AD$};
+\draw[orange!85!black,very thick] (D)--(B) node[midway,below] {$DB$};
+\draw[magenta!80!black,very thick] (C)--(D);
+\draw (C) ++(-161.075:1) arc (-161.075:-114.228:1);
+\draw (C) ++(-114.228:1.2) arc (-114.228:-67.38:1.2);
+\foreach \q in {A,B,C,D} \fill (\q) circle(3pt);
+\node[below left] at (A) {$A$};\node[below right] at (B) {$B$};
+\node[above] at (C) {$C$};\node[below,yshift=-20pt] at (D) {$D$};
+\end{scope}
+\node[align=left,anchor=west] at (9,5.3) {$\angle ACD=\angle DCB$\\[10pt]$\displaystyle\frac{AD}{DB}=\frac{u}{v}$};
+\node[align=center] at (7.1,1) {同色对应：左边对左段，右边对右段。\\下一步只需换名：$A,B,C,D\ \longrightarrow\ F_1,F_2,P,M$。};
+
+\end{tikzpicture}
+\end{center}

@@ -1,0 +1,210 @@
+\begin{proofbox}
+\textbf{统一记号与前提。}
+
+设 $F_1=(-c,0),\ F_2=(c,0)$，
+$P=(x_0,y_0)\in H$ 且 $y_0\ne0$，
+$M=(m,0)$ 是 $\angle F_1PF_2$ 内角平分线的轴上交点。
+令
+\[
+r_1=PF_1,\qquad r_2=PF_2,\qquad c^2=a^2+b^2.
+\]
+由于 $P$ 非顶点，$x_0>a$ 或 $x_0<-a$，而 $M$ 位于开线段 $F_1F_2$ 上。
+以下给出\textbf{五种方法}，排序考虑入门负担与考场速度。
+
+\medskip
+\textbf{方法一：最低门槛【角平分线定理＋平方差；首推独立证明】。}
+
+\textbf{第1步：角平分线定理。}
+\[
+\frac{c+m}{c-m}=\frac{r_1}{r_2}
+\quad\Longrightarrow\quad
+r_2(c+m)=r_1(c-m),
+\]
+于是
+\[
+\boxed{m=c\frac{r_1-r_2}{r_1+r_2}}.\tag{1}
+\]
+\textbf{第2步：焦距平方相减。}
+\[
+\begin{aligned}
+r_1^2-r_2^2
+&=(x_0+c)^2+y_0^2-(x_0-c)^2-y_0^2\\
+&=4cx_0.
+\end{aligned}
+\]
+即
+\[
+\boxed{x_0=\frac{(r_1-r_2)(r_1+r_2)}{4c}}.\tag{2}
+\]
+\textbf{第3步：乘起来，使用双曲线第一定义。}
+\[
+\begin{aligned}
+mx_0
+&=\frac{c(r_1-r_2)}{r_1+r_2}
+  \cdot\frac{(r_1-r_2)(r_1+r_2)}{4c}\\
+&=\frac{(r_1-r_2)^2}{4}
+=\frac{(2a)^2}{4}=\boxed{a^2}.
+\end{aligned}
+\]
+\textbf{优势：}完全不必区分左右支；不背焦半径；只用角平分线定理、
+两点距离与平方差公式。\textbf{关键切入：}两个焦距是“和、差”，而 $x_0$ 是“平方差”。
+
+\medskip
+\textbf{方法二：最快代数【角平分线定理＋焦半径】。}
+
+先沿用式 (1)。令 $e=c/a>1$，记
+$\sigma=\operatorname{sgn}(x_0)\in\{1,-1\}$。
+双曲线左右两支的焦半径可以统一写成
+\[
+\boxed{r_1=e|x_0|+\sigma a,\qquad
+r_2=e|x_0|-\sigma a}.
+\]
+核对：右支 $\sigma=1$ 时 $r_1=ex_0+a,\ r_2=ex_0-a$；
+左支 $\sigma=-1$ 时 $r_1=-ex_0-a,\ r_2=-ex_0+a$。
+因此
+\[
+\begin{aligned}
+m
+&=c\frac{2\sigma a}{2e|x_0|}
+=\frac{ca\sigma}{e|x_0|}
+=\frac{a^2\sigma}{|x_0|}
+=\boxed{\frac{a^2}{x_0}}.
+\end{aligned}
+\]
+\textbf{优势：}已熟悉焦半径时只需代入一次。
+\textbf{代价：}若左右焦点匹配或左右支的符号记错，很容易出错。
+
+\medskip
+\textbf{方法三：最快识别【已知切线平分焦点三角形的内角】。}
+
+若已掌握双曲线的\textbf{切线--焦点角平分线性质}，
+$PM$ 就是 $H$ 在 $P$ 处的切线。
+切线方程为
+\[
+\frac{x_0x}{a^2}-\frac{y_0y}{b^2}=1.
+\]
+令 $y=0$，得到
+\[
+\frac{x_0m}{a^2}=1
+\quad\Longrightarrow\quad
+\boxed{m=\frac{a^2}{x_0}}.
+\]
+\textbf{优势：}看出切线后，求值几乎一步完成。
+\textbf{注意：}本方法\emph{调用了已知的切线--角平分线性质}，
+不能再把这一步当作对该性质的独立证明；若还没掌握该性质，用方法一建立它。
+
+\medskip
+\textbf{方法四：几何深化【内切圆切线长＋角平分线定理】。}
+
+作 $\triangle PF_1F_2$ 的内切圆，切 $F_1F_2$ 于 $T(t,0)$，
+切 $PF_1$、$PF_2$ 于 $U,V$。令 $PU=PV=\lambda>0$。
+同一点的两条切线段等长，所以
+\[
+r_1=F_1T+\lambda,\qquad
+r_2=F_2T+\lambda.
+\]
+故
+\[
+F_1T-F_2T=r_1-r_2=2\sigma a,
+\qquad F_1T+F_2T=2c,
+\]
+\[
+F_1T=c+\sigma a,\qquad
+F_2T=c-\sigma a,
+\qquad\boxed{T=(\sigma a,0)}.
+\]
+这先证明了\textbf{内切圆与焦点轴的切点始终为对应分支顶点}。
+并且
+\[
+r_1=\lambda+c+\sigma a,\qquad
+r_2=\lambda+c-\sigma a,
+\]
+由距离平方差
+\[
+4cx_0=r_1^2-r_2^2
+=(2\sigma a)\cdot2(\lambda+c),
+\]
+得
+\[
+\lambda+c=\frac{c|x_0|}{a}.
+\]
+最后用角平分线定理的式 (1)：
+\[
+m=c\frac{r_1-r_2}{r_1+r_2}
+=c\frac{2\sigma a}{2(\lambda+c)}
+=\boxed{\frac{a^2}{x_0}}.
+\]
+\textbf{优势：}揭示定切点 $T=\pm a$，几何画面非常有记忆点。
+\textbf{代价：}为了进一步求 $M$，还需连接焦距平方差或其他长度关系；
+不如方法一直接。切记 $T$ 与 $M$ 通常不重合。
+
+\medskip
+\textbf{方法五：半角三角函数【单位方向向量的内角平分线】。}
+
+设两条从 $P$ 指向焦点的\textbf{单位方向向量}为
+\[
+\boldsymbol{u}_1=\frac{(-c-x_0,-y_0)}{r_1},
+\qquad
+\boldsymbol{u}_2=\frac{(c-x_0,-y_0)}{r_2}.
+\]
+若顶角 $\gamma=\angle F_1PF_2\in(0,\pi)$，
+两个单位向量相加得到
+\[
+\boldsymbol{u}_1+\boldsymbol{u}_2
+=2\cos\frac{\gamma}{2}\,\boldsymbol{w},
+\]
+其中 $\boldsymbol{w}$ 是\textbf{内角平分线的单位方向}。
+这一等式来自\emph{半角余弦公式}；因此
+$\boldsymbol{v}=\boldsymbol{u}_1+\boldsymbol{u}_2$ 就沿 $PM$。
+
+设 $M=P+k\boldsymbol v$。利用 $M$ 的纵坐标为 $0$，
+\[
+0=y_0-k y_0\Bigl(\frac1{r_1}+\frac1{r_2}\Bigr)
+\quad\Longrightarrow\quad
+k=\frac{r_1r_2}{r_1+r_2}.
+\]
+代入横坐标：
+\[
+\begin{aligned}
+m
+&=x_0+k\Bigl(-\frac{x_0+c}{r_1}+\frac{c-x_0}{r_2}\Bigr)\\
+&=x_0+\frac{-(x_0+c)r_2+(c-x_0)r_1}{r_1+r_2}\\
+&=c\frac{r_1-r_2}{r_1+r_2}.
+\end{aligned}
+\]
+再用 $r_1^2-r_2^2=4cx_0$ 与 $|r_1-r_2|=2a$，
+便得 $mx_0=a^2$。
+\textbf{优势：}直接由\emph{半角方向}建立直线，无需预先调用角平分线定理。
+\textbf{代价：}向量/三角运算更多，不适合追求最低认知负担的首解。
+
+\medskip
+\textbf{补充验算：从 $x_0m=a^2$ 独立推出切线方程。}
+
+因 $y_0\ne0$，经过 $P(x_0,y_0)$、$M(a^2/x_0,0)$ 的直线满足
+\[
+y(x_0^2-a^2)=y_0(xx_0-a^2).
+\]
+又因 $P\in H$，
+\[
+\frac{x_0^2}{a^2}-\frac{y_0^2}{b^2}=1
+\quad\Longrightarrow\quad
+x_0^2-a^2=\frac{a^2y_0^2}{b^2}.
+\]
+代回并除以 $a^2y_0$：
+\[
+\frac{y_0y}{b^2}=\frac{x_0x}{a^2}-1,
+\]
+即
+\[
+\boxed{PM:\frac{x_0x}{a^2}-\frac{y_0y}{b^2}=1}.
+\]
+这是双曲线在 $P$ 处的标准切线方程，
+因而\textbf{用方法一不仅证明截距，还独立证明了内角平分线即切线}。
+
+\medskip
+\textbf{选法建议：}需要\emph{最低门槛独立证明}用方法一；
+已熟悉焦半径且追求代数速度用方法二；
+切线性质已是已知结论时用方法三；
+要记住内切圆固定切点用方法四；
+研究内角平分线的半角方向用方法五。
+\end{proofbox}

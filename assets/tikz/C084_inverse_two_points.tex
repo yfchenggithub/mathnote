@@ -1,0 +1,21 @@
+\begin{center}
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!40,rounded corners] (0,0) rectangle (14.2,10);
+\node[font=\small\bfseries] at (7.1,9.35) {例3：先固定横坐标，再找上下两个交点};
+
+\begin{scope}[shift={(2.2,5.1)},scale=.48]
+\draw[->,gray] (-1,0)--(9,0) node[right] {$x$};
+\draw[->,gray] (0,-8)--(0,8) node[above] {$y$};
+\draw[teal!75!black,thick,domain=-1.38:1.38,samples=100,variable=\t] plot ({3*cosh(\t)},{4*sinh(\t)});
+\draw[dashed,orange!85!black] (6,-7.7)--(6,7.7);
+\draw[magenta!80!black,thick] (6,6.9282)--(1.5,0)--(6,-6.9282);
+\fill (1.5,0) circle(3pt);\node[below left] at (1.5,0) {$M$};
+\fill (6,6.9282) circle(3pt);\draw (6,6.9282)--(7.1,6.9282) node[right] {$P_+$};
+\fill (6,-6.9282) circle(3pt);\draw (6,-6.9282)--(7.1,-6.9282) node[right] {$P_-$};
+\node[right] at (6,2.4) {$x=6$};
+\end{scope}
+\node[align=left,anchor=west] at (8.8,6) {$m=3/2$\\[8pt]$x_0=9/m=6$\\[12pt]$P_+=(6,4\sqrt3)$\\[8pt]$P_-=(6,-4\sqrt3)$};
+\node at (7.1,.65) {同一个轴交点，通常对应关于 x 轴对称的两个非顶点。};
+
+\end{tikzpicture}
+\end{center}
