@@ -1,0 +1,225 @@
+\clearpage
+\begin{proofbox}
+\textbf{统一前提与选法说明。}
+
+记 $k=b/a>0$，$c^2=a^2+b^2$，$e=c/a>1$。
+由关于 $x$ 轴及 $y$ 轴的对称性，\textbf{只证}右焦点
+$F=(c,0)$、过 $F$ 作斜率 $k$ 的直线
+\[
+\ell:\ y=k(x-c).
+\]
+设 $N$ 为此线与另一条渐近线 $y=-kx$ 的交点，
+$M$ 为此线与右支双曲线的交点。
+下面提供\textbf{最快、最低门槛、常规}三种证明，
+并给出斜坐标补充解释；前三法均可独立完成。
+
+\medskip
+\textbf{方法一：最快证明【双曲线因式分解＋分点线性量】。}
+
+\begin{center}\input{assets/tikz/C085_linear_proof}\end{center}
+
+\textbf{第1步：把曲线写成两个渐近线因子的乘积。}
+\[
+\frac{x^2}{a^2}-\frac{y^2}{b^2}=1
+\quad\Longleftrightarrow\quad
+\left(x-\frac ab y\right)\left(x+\frac ab y\right)=a^2.
+\]
+$\ell$ 上恒有 $x-\tfrac ab y=c$；因此\textbf{在交点 $M$ 处}
+\[
+\boxed{x_M+\frac ab y_M=\frac{a^2}{c}}.
+\]
+
+\textbf{第2步：找一个沿直线均匀变化的量。}
+令 $L(x,y)=x+\tfrac ab y$。图中 $L$ 的等值线互相平行；沿截线的分段比，等于对应 $L$ 的变化量之比（平行线分线段成比例）。
+\[
+L(F)=c,\qquad L(M)=\frac{a^2}{c},\qquad
+L(N)=0
+\quad\bigl(N\in y=-kx\bigr).
+\]
+故线段比\textbf{直接等于} $L$ 的变化量之比：
+\[
+\begin{aligned}
+\frac{FM}{MN}
+&=\frac{L(F)-L(M)}{L(M)-L(N)}\\[2pt]
+&=\frac{c-a^2/c}{a^2/c}
+=\frac{c^2-a^2}{a^2}
+=\boxed{\frac{b^2}{a^2}=e^2-1}.
+\end{aligned}
+\]
+由 $\overrightarrow{FM}=\lambda\overrightarrow{MN}$（$\lambda>0$），
+两向量同向且 $\lambda=FM/MN$，所以
+\[
+\boxed{e=\sqrt{1+\lambda}}.
+\]
+\textbf{为什么最快：}无需算 $M,N$ 的坐标，无需解二次方程，
+用因式分解把曲线交点变成“一次量”。
+\textbf{适用前提：}须理解线性函数沿直线的分点比；新手可先用方法二。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法二：最低门槛【只设 $t$＋平方差；首推初学者】。}
+
+\begin{center}\input{assets/tikz/C085_displacement_proof}\end{center}
+
+\textbf{第1步：先求容易求的点 $N$。}
+\[
+\begin{cases}
+y=k(x-c),\\
+y=-kx
+\end{cases}
+\quad\Longrightarrow\quad
+\boxed{N=\left(\frac c2,-\frac{kc}{2}\right)}.
+\]
+图中两条直线先确定 $N_x=c/2$。
+
+\textbf{第2步：沿已知方向，只设一个数 $t$。}
+依照图中的水平、竖直移动，设向左位移为 $t$（求解后核查 $t>0$）：
+\[
+\boxed{M=(c-t,-kt)}.
+\]
+把点代入双曲线并利用 $k=b/a$：
+\[
+\frac{(c-t)^2}{a^2}-\frac{k^2t^2}{b^2}=1
+\quad\Longrightarrow\quad
+\frac{(c-t)^2-t^2}{a^2}=1.
+\]
+展开\textbf{平方差}即可，二次项完全消失：
+\[
+c^2-2ct=a^2
+\quad\Longrightarrow\quad
+\boxed{t=\frac{c^2-a^2}{2c}=\frac{b^2}{2c}}.
+\]
+因为 $0<b^2<c^2$，故 $0<t<c/2$，
+从而 $F-M-N$ 的位置次序得到严格确认，而非仅凭图猜测。
+
+\textbf{第3步：同一直线，横向差之比就是长度比。}
+\[
+\frac{FM}{MN}
+=\frac{c-(c-t)}{(c-t)-c/2}
+=\frac{t}{c/2-t}
+=\frac{b^2/(2c)}{(c^2-b^2)/(2c)}
+=\boxed{\frac{b^2}{a^2}}.
+\]
+再由 $c^2=a^2+b^2$，得到
+\[
+\lambda=\frac{b^2}{a^2},\qquad
+\boxed{e=\sqrt{1+\lambda}}.
+\]
+
+\textbf{门槛低在哪里：}无需斜坐标、向量技巧或参数方程；
+只用\textbf{两条直线联立、一个 $t$、平方差、共线线段比}。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法三：常规解析几何【写直线＋联立求交点＋距离公式】。}
+
+\begin{center}\input{assets/tikz/C085_coordinate_proof}\end{center}
+
+\textbf{第1步：求 $N$。}
+把 $y=k(x-c)$ 与 $y=-kx$ 联立，得
+\[
+\boxed{N=\left(\frac c2,-\frac{bc}{2a}\right)}.
+\]
+
+\textbf{第2步：求 $M$。}
+将 $y=\tfrac ba(x-c)$ 代入 $H$：
+\[
+\frac{x^2}{a^2}-\frac{(x-c)^2}{a^2}=1
+\quad\Longrightarrow\quad
+2cx-c^2=a^2.
+\]
+所以
+\[
+\boxed{x_M=\frac{a^2+c^2}{2c}
+=c-\frac{b^2}{2c}},
+\]
+\[
+\boxed{y_M=\frac ba(x_M-c)=-\frac{b^3}{2ac}}.
+\]
+并且 $a<x_M<c$：
+\[
+x_M-a=\frac{(c-a)^2}{2c}>0,
+\qquad c-x_M=\frac{b^2}{2c}>0.
+\]
+这是右支上的有效交点；代回直线满足题设。
+
+\textbf{第3步：求线段长。}
+图中两段的水平投影分别为 $c-x_M$、$x_M-c/2$；由勾股定理，两段实际长度都乘 $\sqrt{1+k^2}=c/a$。
+因此
+\[
+\begin{aligned}
+FM&=(c-x_M)\frac ca
+=\frac{b^2}{2c}\frac ca=\boxed{\frac{b^2}{2a}},\\[3pt]
+MN&=(x_M-c/2)\frac ca
+=\frac{a^2}{2c}\frac ca=\boxed{\frac a2},\\[3pt]
+FN&=(c-c/2)\frac ca=\boxed{\frac{c^2}{2a}}.
+\end{aligned}
+\]
+故
+\[
+\boxed{\frac{FM}{MN}=\frac{b^2}{a^2}
+=e^2-1=\lambda},\quad
+\boxed{e=\sqrt{1+\lambda}}.
+\]
+\textbf{为什么保留此法：}是考试中最标准、最容易检查步骤的解法；
+还额外得到三段精确长度。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法四：拓展理解【把双曲线化为 $UV=1$ 的斜坐标法】。}
+
+\textbf{补充原因：}如果想弄清“为什么平行渐近线使难题变简单”，
+这个坐标变化能把几何原因直观地显露出来；
+但它与方法一同源，\textbf{不应当算作完全不同的定理}。
+
+\begin{center}\input{assets/tikz/C085_uv_proof}\end{center}
+
+定义无量纲量
+\[
+U=\frac xa-\frac yb,\qquad V=\frac xa+\frac yb.
+\]
+双曲线立即化为
+\[
+\boxed{UV=1}.
+\]
+过右焦点、斜率 $b/a$ 的直线满足
+\[
+\boxed{U=\frac ca=e}.
+\]
+于是同一直线上三个点的 $V$ 坐标分别是
+\[
+V_F=e,\qquad V_M=\frac1e,\qquad V_N=0.
+\]
+图中竖线 $U=e$ 上直接读出两个 $V$ 差。变换回原图时，因 $U$ 固定，长度只乘一个公共系数，所以分段比保持：
+\[
+\frac{FM}{MN}
+=\frac{V_F-V_M}{V_M-V_N}
+=\frac{e-1/e}{1/e}
+=\boxed{e^2-1}.
+\]
+\textbf{优点：}几乎只有三个数 $e,1/e,0$；非常适合记忆本质。
+\textbf{代价：}要先理解斜坐标变换，对只学过普通直角坐标的学生不是首选。
+
+\medskip
+\textbf{全构型对称性与边界核查。}
+上文取右焦点及正斜率，另一种斜率经关于 $x$ 轴反射得到；
+换成左焦点再关于 $y$ 轴反射得到。
+反射保持线段长度及同向向量倍数，故结论对四种选择均成立。
+并且 $a,b>0$ 保证 $e>1$、$\lambda>0$。
+
+a) 若题目把向量倒过来写为
+$\overrightarrow{MN}=\mu\overrightarrow{FM}$（$\mu>0$），
+则 $\mu=1/\lambda$，必须改用 $e=\sqrt{1+1/\mu}$。
+
+b) 若只是“过焦点任意直线”，不保证平行渐近线，
+则关键因式不再恒定，不能调用本结论。
+
+\medskip
+\textbf{选法建议：}
+\emph{考场最快}用方法一；\emph{最低认知负担}用方法二；
+\emph{规范答卷和求绝对长度}用方法三；
+\emph{理解公式为什么整齐}用方法四。
+\end{proofbox}

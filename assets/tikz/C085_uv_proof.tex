@@ -1,0 +1,23 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,9.5);
+\node at (7.1,8.85) {方法四：在新坐标平面中，固定 U，沿 V 轴方向读分段};
+
+\node[anchor=west,align=left] at (.8,6.8) {$U=x/a-y/b$\\[12pt]$V=x/a+y/b$\\[16pt]双曲线变为 $UV=1$};
+\node[anchor=west,align=left] at (.8,3.5) {$U=e$ 时，三点的 $V$：\\[12pt]$F:e,\quad M:1/e,\quad N:0$};
+\begin{scope}[shift={(8,2)},scale=2]
+\draw[gray,->] (0,0)--(2.65,0) node[right] {$U$};
+\draw[gray,->] (0,0)--(0,2.6) node[above] {$V$};
+\draw[teal!75!black,thick,samples=90,domain=.42:2.45] plot (\x,{1/\x});
+\draw[gray,dashed] (5/3,0)--(5/3,2.4);
+\draw[blue!75!black,very thick] (5/3,5/3)--(5/3,.6);
+\draw[orange!85!black,very thick] (5/3,.6)--(5/3,0);
+\draw[gray,dotted] (0,5/3)--(5/3,5/3) (0,.6)--(5/3,.6);
+\fill (5/3,5/3) circle(1.3pt) node[right=5pt] {$F$};
+\fill (5/3,.6) circle(1.3pt) node[above right=6pt] {$M$};
+\fill (5/3,0) circle(1.3pt) node[below=5pt] {$N$};
+\node[left=4pt] at (0,5/3) {$e$};\node[left=4pt] at (0,.6) {$1/e$};
+\node[above right] at (5/3,2.4) {$U=e$};
+\end{scope}
+\node at (7.1,.65) {图取 $e=5/3$；这是新坐标图，原图长度不照搬，固定 $U$ 后的分段比保留。};
+
+\end{tikzpicture}

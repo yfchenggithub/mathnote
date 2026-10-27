@@ -1,0 +1,34 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,10);
+\node at (7.1,9.35) {先认三点：过焦点作平行线，沿线依次遇到 M、N};
+
+\begin{scope}[shift={(4.4,4.8)},scale=.7]
+\draw[gray,->] (-5.2,0)--(5.8,0) node[right] {$x$};
+\draw[gray,->] (0,-4.6)--(0,4.6) node[above] {$y$};
+\draw[violet,dashed,thick] (-3.2,-64/15)--(3.2,64/15);
+\draw[violet,dash dot,thick] (-3.2,64/15)--(3.2,-64/15);
+
+\draw[teal!75!black,thick,samples=90,domain=-4.2:4.2,variable=\v] plot ({3*sqrt(1+\v*\v/16)},{\v});
+
+\draw[teal!75!black,thick,samples=90,domain=-4.2:4.2,variable=\v] plot ({-3*sqrt(1+\v*\v/16)},{\v});
+
+\coordinate (F) at (5,0);\coordinate (M) at (3.4,-32/15);\coordinate (N) at (2.5,-10/3);
+\draw[blue!75!black,very thick] (F)--(M);
+\draw[orange!85!black,very thick] (M)--(N);
+\foreach \q in {F,M,N}\fill (\q) circle(2.8pt);
+\node[above right=4pt] at (F) {$F$};\node[right=5pt] at (M) {$M$};\node[below left=4pt] at (N) {$N$};
+
+\node[below left] at (0,0) {$O$};
+\node[violet,fill=white,inner sep=2pt] at (-2,3.6) {$y=-kx$};
+\node[violet,fill=white,inner sep=2pt] at (-2,-3.6) {$y=kx$};
+\draw[blue!75!black,->] (5.7,-1)--(4.35,-.87);
+\node[blue!75!black,anchor=west] at (5.8,-1) {$FM$};
+\draw[orange!85!black,->] (4.1,-3.6)--(2.95,-2.73);
+\node[orange!85!black,anchor=west] at (4.2,-3.6) {$MN$};
+\end{scope}
+\node[anchor=west,align=left] at (9.5,6.9) {$k=b/a$\\[10pt]过 $F$ 的线 $\ell$\\[8pt]平行 $y=kx$};
+\node[anchor=west,align=left] at (9.5,4.4) {$M$ 在双曲线上\\[10pt]$N$ 在另一条\\[6pt]渐近线上};
+\node at (7.1,1.1) {本图 $a=3,b=4,c=5$：蓝段 $8/3$，橙段 $3/2$，比为 $16/9$。};
+\node at (7.1,.5) {两段方向相同；$FN=FM+MN$。};
+
+\end{tikzpicture}

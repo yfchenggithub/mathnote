@@ -1,0 +1,28 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,8.5);
+\node at (7.1,7.85) {证明一：同一直线的两端，水平投影一正一负};
+
+\begin{scope}[shift={(2,3.5)},scale=.85]
+
+\coordinate (A) at (4,4);\coordinate (B) at (.25,-1);\coordinate (F) at (1,0);
+\draw[gray,->] (-.3,0)--(5.2,0);
+\draw[teal!75!black,thick,samples=80,domain=-1.6:4.4,variable=\v] plot ({\v*\v/4},{\v});
+\draw[blue!75!black,very thick] (F)--(A);
+\draw[orange!85!black,very thick] (F)--(B);
+\foreach \q in {A,B,F}\fill (\q) circle(2.8pt);
+\node[left=6pt] at (A) {$A$};\node[below left=5pt] at (B) {$B$};
+\node[below right=5pt] at (F) {$F$};
+
+\draw[gray,dashed] (A)--(4,0) (B)--(.25,0);
+\draw[violet,->,thick] (1,-1.8)--(4,-1.8) node[midway,below] {$r\cos\theta$};
+\draw[violet,->,thick] (1,-2.65)--(.25,-2.65);
+\node[anchor=west,violet] at (1.2,-2.65) {$-s\cos\theta$};
+\draw[violet] (1.8,0) arc[start angle=0,end angle=53.130102,radius=.8];
+\node[violet] at (2.15,.55) {$\theta$};
+\node[blue!75!black,left=4pt] at (2.5,2) {$r$};
+\node[orange!85!black,right=5pt] at (.6,-.6) {$s$};
+\end{scope}
+\node[anchor=west,align=left] at (7.5,5.8) {$x_A=x_F+r\cos\theta$\\[12pt]$x_B=x_F-s\cos\theta$};
+\node[anchor=west,align=left] at (7.5,3.5) {焦半径换成横坐标：\\[10pt]$r=x_A+p/2$\\[10pt]$s=x_B+p/2$};
+\node at (7.1,.6) {图取 $p=2$；反向的是投影，$r,s$ 始终是正长度。};
+\end{tikzpicture}

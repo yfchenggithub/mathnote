@@ -1,0 +1,27 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,9.5);
+\node at (7.1,8.85) {方法二：从 F 向左走 t，再向下走 kt，便到达 M};
+
+\begin{scope}[shift={(.3,5.8)},scale=1.05]
+
+\draw[teal!75!black,thick,samples=90,domain=-3:1.6,variable=\v] plot ({3*sqrt(1+\v*\v/16)},{\v});
+
+\coordinate (F) at (5,0);\coordinate (M) at (3.4,-32/15);\coordinate (N) at (2.5,-10/3);
+\draw[blue!75!black,very thick] (F)--(M);
+\draw[orange!85!black,very thick] (M)--(N);
+\foreach \q in {F,M,N}\fill (\q) circle(2.8pt);
+\node[above right=4pt] at (F) {$F$};\node[right=5pt] at (M) {$M$};\node[above left=5pt] at (N) {$N$};
+
+\draw[blue!75!black,dashed,->] (F)--(3.4,0) node[midway,above=4pt] {$t$};
+\draw[blue!75!black,dashed,->] (3.4,0)--(M) node[midway,right=4pt] {$kt$};
+\draw[gray] (3.4,.2)--(3.4,0)--(5.6,0);
+\draw[gray,dotted] (N)--(2.5,-4.2) (M)--(3.4,-4.2) (F)--(5,-4.2);
+\draw[<->,blue!75!black] (3.4,-3.9)--(5,-3.9) node[midway,below] {$t$};
+\draw[<->,orange!85!black] (2.5,-3.9)--(3.4,-3.9);
+\node[orange!85!black,anchor=east] at (2.35,-3.9) {$c/2-t$};
+\end{scope}
+\node[anchor=west,align=left] at (8.4,6.3) {$F=(c,0)$\\[12pt]$M=(c-t,-kt)$\\[12pt]$N_x=c/2$};
+\node[anchor=west,align=left] at (8.4,3.2) {$\displaystyle\frac{FM}{MN}=\frac{t}{c/2-t}$\\[12pt]图中 $t=8/5<c/2$};
+\node at (7.1,.65) {先由方向确定设点；再用双曲线方程求 $t$。};
+
+\end{tikzpicture}

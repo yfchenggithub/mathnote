@@ -1,0 +1,40 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,10);
+\node at (7.1,9.35) {只保留平行还不够：把直线平移，线段比就改变了};
+
+\node at (3.6,8.1) {过焦点：$d=c=5$};
+\node at (10.6,8.1) {未过焦点：$d=4$};
+
+\begin{scope}[shift={(0.5,5.9)},scale=.85]
+
+\draw[teal!75!black,thick,samples=90,domain=-4.2:1.4,variable=\v] plot ({3*sqrt(1+\v*\v/16)},{\v});
+
+\draw[gray] (1,0)--(6,0);
+\draw[violet,dashed] (0,0)--(3.2,-64/15);
+\draw[blue!75!black,very thick] (5,0)--(3.4,-2.1333333333333333);
+\draw[orange!85!black,very thick] (3.4,-2.1333333333333333)--(2.5,-3.3333333333333335);
+\fill (5,0) circle(2.8pt) node[above left=5pt] {$Q$};
+\fill (3.4,-2.1333333333333333) circle(2.8pt) node[right=5pt] {$M$};
+\fill (2.5,-3.3333333333333335) circle(2.8pt) node[below left=5pt] {$N$};
+\fill (5,0) circle(2.8pt) node[above right=5pt] {$F$};
+\end{scope}
+
+\begin{scope}[shift={(7.5,5.9)},scale=.85]
+
+\draw[teal!75!black,thick,samples=90,domain=-4.2:1.4,variable=\v] plot ({3*sqrt(1+\v*\v/16)},{\v});
+
+\draw[gray] (1,0)--(6,0);
+\draw[violet,dashed] (0,0)--(3.2,-64/15);
+\draw[blue!75!black,very thick] (4,0)--(3.125,-1.1666666666666665);
+\draw[orange!85!black,very thick] (3.125,-1.1666666666666665)--(2.0,-2.6666666666666665);
+\fill (4,0) circle(2.8pt) node[above left=5pt] {$Q$};
+\fill (3.125,-1.1666666666666665) circle(2.8pt) node[right=5pt] {$M$};
+\fill (2.0,-2.6666666666666665) circle(2.8pt) node[below left=5pt] {$N$};
+\fill (5,0) circle(2.8pt) node[above right=5pt] {$F$};
+\end{scope}
+
+\node at (3.6,1.9) {$Q=F,\quad QM/MN=16/9$};
+\node at (10.6,1.9) {$Q\ne F,\quad QM/MN=7/9$};
+\node at (7.1,.65) {两图同一双曲线、同一尺度、同一斜率；差别在于直线是否过焦点。};
+
+\end{tikzpicture}

@@ -1,0 +1,24 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,9.5);
+\node at (7.1,8.85) {方法一：三条平行等值线，把截线分成对应的两段};
+
+\begin{scope}[shift={(.9,5.9)},scale=.85]
+\draw[violet,dashed] (0,0)--(3.3,-4.4);
+\draw[violet,dashed] (0,2.4)--(4.8,-4);
+\draw[violet,dashed] (3,8/3)--(6.2,-1.6);
+
+\coordinate (F) at (5,0);\coordinate (M) at (3.4,-32/15);\coordinate (N) at (2.5,-10/3);
+\draw[blue!75!black,very thick] (F)--(M);
+\draw[orange!85!black,very thick] (M)--(N);
+\foreach \q in {F,M,N}\fill (\q) circle(2.8pt);
+\node[above right=4pt] at (F) {$F$};\node[right=5pt] at (M) {$M$};\node[below left=4pt] at (N) {$N$};
+
+\node[anchor=west,violet] at (3.35,-4.4) {$L=0$};
+\node[anchor=west,violet] at (4.85,-4) {$L=a^2/c$};
+\node[anchor=west,violet] at (6.25,-1.6) {$L=c$};
+\end{scope}
+\node[anchor=west,align=left] at (8.6,6.8) {$L=x+\dfrac ab y$\\[14pt]平行等值线\\[7pt]对应同一直线的分段};
+\node[anchor=west,align=left] at (8.6,3.5) {蓝段的 $L$ 差：\\[8pt]$c-a^2/c$\\[10pt]橙段的 $L$ 差：\\[8pt]$a^2/c-0$};
+\node at (7.1,.65) {图取 $a=3,b=4,c=5$；$L(F),L(M),L(N)$ 依次为 $5,9/5,0$。};
+
+\end{tikzpicture}

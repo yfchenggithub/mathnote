@@ -1,0 +1,30 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,8.5);
+\node at (7.1,7.85) {证明四：参数标记端点，倒数对应单位线段的两部分};
+
+\begin{scope}[shift={(1.8,2.3)},scale=.8]
+
+\coordinate (A) at (4,4);\coordinate (B) at (.25,-1);\coordinate (F) at (1,0);
+\draw[gray,->] (-.3,0)--(5.2,0);
+\draw[teal!75!black,thick,samples=80,domain=-1.6:4.4,variable=\v] plot ({\v*\v/4},{\v});
+\draw[blue!75!black,very thick] (F)--(A);
+\draw[orange!85!black,very thick] (F)--(B);
+\foreach \q in {A,B,F}\fill (\q) circle(2.8pt);
+\node[above left=4pt] at (A) {$A$};\node[below left=5pt] at (B) {$B$};
+\node[below right=5pt] at (F) {$F$};
+
+\draw[gray,dashed] (A)--(0,4) (B)--(0,-1);
+\draw[gray,->] (0,-1.5)--(0,4.6);
+\node[blue!75!black,left=5pt] at (0,4) {$pt_1$};
+\node[orange!85!black,left=5pt] at (0,-1) {$pt_2$};
+\end{scope}
+\node[anchor=west,align=left] at (7.2,6.2) {$A=P(t_1),\quad B=P(t_2)$\\[10pt]$t_1t_2=-1$};
+\node[anchor=west] at (7.2,4.8) {先看熟悉的“部分相加得整体”：};
+\fill[blue!65!black] (7.5,3.5) rectangle (8.5,4);
+\fill[orange!85!black] (8.5,3.5) rectangle (12.5,4);
+\draw (7.5,3.5) rectangle (12.5,4);
+\node[blue!75!black,below=9pt] at (8,3.5) {$\frac1{1+t_1^2}$};
+\node[orange!85!black,below=9pt] at (10.5,3.5) {$\frac{t_1^2}{1+t_1^2}$};
+\draw[<->] (7.5,2.2)--(12.5,2.2) node[midway,below] {$1$};
+\node at (7.1,.6) {图取 $p=2,t_1=2,t_2=-1/2$；两块占 $1/5$ 与 $4/5$。};
+\end{tikzpicture}

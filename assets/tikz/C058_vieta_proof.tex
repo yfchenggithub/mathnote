@@ -1,0 +1,35 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,8.5);
+\node at (7.1,7.85) {证明三：交点给出两根；竖直通径也能统一表示};
+
+\node at (3.6,6.9) {一般焦点弦：$x=my+p/2$};
+\node at (10.6,6.9) {通径：$m=0$，即 $x=p/2$};
+\begin{scope}[shift={(1.5,3)},scale=.72]
+
+\coordinate (A) at (4,4);\coordinate (B) at (.25,-1);\coordinate (F) at (1,0);
+\draw[gray,->] (-.3,0)--(5.2,0);
+\draw[teal!75!black,thick,samples=80,domain=-1.6:4.4,variable=\v] plot ({\v*\v/4},{\v});
+\draw[blue!75!black,very thick] (F)--(A);
+\draw[orange!85!black,very thick] (F)--(B);
+\foreach \q in {A,B,F}\fill (\q) circle(2.8pt);
+\node[above left=4pt] at (A) {$A$};\node[below left=5pt] at (B) {$B$};
+\node[below right=5pt] at (F) {$F$};
+
+\draw[gray,->] (0,-1.8)--(0,4.8);
+\draw[blue!75!black,dashed] (A)--(0,4);
+\draw[orange!85!black,dashed] (B)--(0,-1);
+\node[blue!75!black,left=5pt] at (0,4) {$y_1$};
+\node[orange!85!black,left=5pt] at (0,-1) {$y_2$};
+\end{scope}
+\begin{scope}[shift={(9,3)},scale=.72]
+\draw[gray,->] (-.5,0)--(4,0);
+\draw[gray,->] (0,-2.8)--(0,4.8);
+\draw[teal!75!black,thick,samples=80,domain=-2.4:4.4,variable=\v] plot ({\v*\v/4},{\v});
+\draw[blue!75!black,very thick] (1,0)--(1,2);
+\draw[orange!85!black,very thick] (1,0)--(1,-2);
+\fill (1,0) circle(2.8pt) node[right=5pt] {$F$};
+\fill (1,2) circle(2.8pt) node[right=5pt] {$y_1=p$};
+\fill (1,-2) circle(2.8pt) node[right=5pt] {$y_2=-p$};
+\end{scope}
+\node at (7.1,.75) {图取 $p=2$；两图均有 $y_1y_2=-p^2<0$，两根分居 $0$ 两侧。};
+\end{tikzpicture}

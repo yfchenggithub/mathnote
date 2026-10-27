@@ -1,0 +1,29 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,9.5);
+\node at (7.1,8.85) {方法三：坐标作垂足，横向差乘同一系数就是实际长度};
+
+\begin{scope}[shift={(.3,6.1)},scale=1.05]
+
+\draw[teal!75!black,thick,samples=90,domain=-4.2:1.6,variable=\v] plot ({3*sqrt(1+\v*\v/16)},{\v});
+
+\coordinate (F) at (5,0);\coordinate (M) at (3.4,-32/15);\coordinate (N) at (2.5,-10/3);
+\draw[blue!75!black,very thick] (F)--(M);
+\draw[orange!85!black,very thick] (M)--(N);
+\foreach \q in {F,M,N}\fill (\q) circle(2.8pt);
+\node[above right=4pt] at (F) {$F$};\node[right=5pt] at (M) {$M$};\node[below left=4pt] at (N) {$N$};
+
+\draw[gray,->] (1.4,0)--(6,0) node[right] {$x$};
+\draw[gray,dashed] (M)--(3.4,0) (N)--(2.5,0);
+\draw[blue!75!black,thick] (3.4,.5)--(5,.5);
+\draw[orange!85!black,thick] (2.5,.5)--(3.4,.5);
+\node[above=5pt] at (5,.5) {$c$};
+\node[above=5pt] at (3.4,.5) {$x_M$};
+\node[above left=5pt] at (2.5,.5) {$c/2$};
+\draw[blue!75!black,->] (5.2,-1.8)--(4.35,-.87);
+\node[blue!75!black,anchor=west] at (5.25,-1.85) {$FM$};
+\end{scope}
+\node[anchor=west,align=left] at (8.3,6.5) {横向差：\\[10pt]蓝 $b^2/(2c)$\\[10pt]橙 $a^2/(2c)$};
+\node[anchor=west,align=left] at (8.3,3.5) {实际长度都乘\\[12pt]$\sqrt{1+k^2}=c/a$};
+\node at (7.1,.65) {图取 $a=3,b=4,c=5$；横向差 $8/5,9/10$，实长 $8/3,3/2$。};
+
+\end{tikzpicture}

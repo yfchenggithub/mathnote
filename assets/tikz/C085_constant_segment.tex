@@ -1,0 +1,46 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,10);
+\node at (7.1,9.35) {固定 a，改变 b：橙色 MN 的长度不变，位置和方向会变};
+
+\node at (7.1,8.35) {三图坐标尺度相同；取 $a=3$。};
+
+\begin{scope}[shift={(0.6,5.5)},scale=.7]
+\draw[gray,->] (0,0)--(5.7,0);
+\draw[teal!75!black,thick,samples=70,domain=-3.8:1,variable=\v] plot ({3*sqrt(1+\v*\v/5.0625)},{\v});
+\draw[violet,dashed] (0,0)--(3.5,-2.625);
+\draw[blue!75!black,very thick] (3.75,0)--(3.075,-0.50625);
+\draw[orange!85!black,very thick] (3.075,-0.50625)--(1.875,-1.40625);
+\fill (3.75,0) circle(2.8pt) node[above] {$F$};
+\fill (3.075,-0.50625) circle(2.8pt) node[right=4pt] {$M$};
+\fill (1.875,-1.40625) circle(2.8pt) node[below left=4pt] {$N$};
+\end{scope}
+\node at (2.5,7.25) {$b=2.25$};
+\node[orange!85!black] at (2.5,1.65) {$MN=3/2$};
+
+\begin{scope}[shift={(5.1,5.5)},scale=.7]
+\draw[gray,->] (0,0)--(5.7,0);
+\draw[teal!75!black,thick,samples=70,domain=-3.8:1,variable=\v] plot ({3*sqrt(1+\v*\v/9)},{\v});
+\draw[violet,dashed] (0,0)--(3.5,-3.5);
+\draw[blue!75!black,very thick] (4.242640687119285,0)--(3.181980515339464,-1.0606601717798214);
+\draw[orange!85!black,very thick] (3.181980515339464,-1.0606601717798214)--(2.1213203435596424,-2.1213203435596424);
+\fill (4.242640687119285,0) circle(2.8pt) node[above] {$F$};
+\fill (3.181980515339464,-1.0606601717798214) circle(2.8pt) node[right=4pt] {$M$};
+\fill (2.1213203435596424,-2.1213203435596424) circle(2.8pt) node[below left=4pt] {$N$};
+\end{scope}
+\node at (7.0,7.25) {$b=3$};
+\node[orange!85!black] at (7.0,1.65) {$MN=3/2$};
+
+\begin{scope}[shift={(9.6,5.5)},scale=.7]
+\draw[gray,->] (0,0)--(5.7,0);
+\draw[teal!75!black,thick,samples=70,domain=-3.8:1,variable=\v] plot ({3*sqrt(1+\v*\v/16)},{\v});
+\draw[violet,dashed] (0,0)--(3.5,-4.666666666666667);
+\draw[blue!75!black,very thick] (5.0,0)--(3.4,-2.1333333333333333);
+\draw[orange!85!black,very thick] (3.4,-2.1333333333333333)--(2.5,-3.3333333333333335);
+\fill (5.0,0) circle(2.8pt) node[above] {$F$};
+\fill (3.4,-2.1333333333333333) circle(2.8pt) node[right=4pt] {$M$};
+\fill (2.5,-3.3333333333333335) circle(2.8pt) node[below left=4pt] {$N$};
+\end{scope}
+\node at (11.5,7.25) {$b=4$};
+\node[orange!85!black] at (11.5,1.65) {$MN=3/2$};
+\node at (7.1,.65) {定长不等于固定在原处；橙段随构型旋转、平移。};
+\end{tikzpicture}

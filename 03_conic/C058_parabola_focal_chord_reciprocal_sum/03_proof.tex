@@ -1,5 +1,5 @@
 \clearpage
-% C058：按「最快 → 最低门槛 → 常规 → 参数法」组织，教学结构图见理解说明。
+% C058：按「最快 → 最低门槛 → 常规 → 参数法」组织，四种证明分别配图。
 \begin{proofbox}
 \textbf{\textcolor{CProof}{准备：条件与记号}}
 设 $y^2=2px$（$p>0$），$F(\frac p2,0)$；直线 $AB$ 过 $F$ 且与抛物线有两个不同的有限交点，故 $F$ 在 $A,B$ 之间。记 $r=|AF|>0$、$s=|BF|>0$。由抛物线定义，对任一抛物线上点 $P(x,y)$，都有
@@ -9,10 +9,14 @@
 \]
 \textbf{理由：}准线是 $x=-\frac p2$，而抛物线上 $x\ge0$，到准线距离就是 $x+\frac p2$。这是下面全部方法的共同起点。
 
-\bigskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
 \textbf{\textcolor{CProof}{证明一：最快证明（角度法，推荐限时做题）}}
 
 \textbf{为什么选择：}只用\textbf{抛物线定义＋一条直线的正反方向}；两式一加结束，不用韦达、不联立二次方程。适合题中有倾斜角或需要顺便求单段焦半径。
+
+\begin{center}\input{assets/tikz/C058_angle_proof.tex}\end{center}
 
 设射线 $FA$ 与 $x$ 轴正方向的夹角为 $\theta$，$A,B$ 在 $F$ 两侧，故
 \[
@@ -38,11 +42,13 @@
 
 \textbf{为什么选择：}不引入角度、不求根、不用韦达；只用“同一直线、$F$ 在 $A,B$ 之间”以及焦半径公式。适合首次理解或忘记公式时当场重建。
 
+\begin{center}\input{assets/tikz/C058_projection_proof.tex}\end{center}
+
 从 $F$ 向 $A$ 和 $B$ 看，方向相反，因此\textbf{横向位移与实际线段长度之比互为相反数}：
 \[
  \frac{x_A-\frac p2}{r}=-\frac{x_B-\frac p2}{s}.
 \]
-这正是理解说明第一步的两个相似直角三角形；两边的投影方向相反。
+图中两个直角三角形相似；横向位移计入左右方向后出现负号。竖直通径的两侧投影都为零，等式仍成立。
 
 由 $x_A=r-\frac p2$、$x_B=s-\frac p2$，代入便得
 \[
@@ -62,11 +68,13 @@
 
 \textbf{为什么选择：}高考解析几何标准流程，方便迁移到联立直线、韦达、横坐标乘积的综合题；\textbf{直接覆盖通径}，避免漏掉斜率不存在情形。
 
+\begin{center}\input{assets/tikz/C058_vieta_proof.tex}\end{center}
+
 \textbf{步骤 1：}凡是与抛物线有两个不同有限交点的焦点弦，都不是水平直线，可统一写为
 \[
  \boxed{x=my+\frac p2}\qquad(m\in\mathbb R).
 \]
-\textbf{理由：}它经过 $F(\frac p2,0)$；$m=0$ 就是竖直通径 $x=\frac p2$，无需分类。
+图中右侧给出 $m=0$ 的通径；同一方程无需另分斜率不存在的情形。
 
 \textbf{步骤 2：}与 $y^2=2px$ 联立，得
 \[
@@ -102,11 +110,13 @@
 
 \textbf{为什么补充：}当题目使用抛物线参数方程或同时要求两交点坐标时，参数 $t$ 可把焦点弦条件压缩为 $t_1t_2=-1$，代数运算很短；\textbf{但日常记忆优先前两法，不必为此另背一套公式}。
 
+\begin{center}\input{assets/tikz/C058_parameter_proof.tex}\end{center}
+
 设 $P(t)=\bigl(\frac p2t^2,pt\bigr)$（$t\in\mathbb R$），于是
 \[
  |FP(t)|=\frac p2(1+t^2).
 \]
-由证明三所用 $x=my+\frac p2$，代入参数式可得 $t^2-2mt-1=0$，故 $t_1t_2=-1$。又 $t_i\ne0$，从而
+由证明三所用 $x=my+\frac p2$，代入参数式可得 $t^2-2mt-1=0$，故 $t_1t_2=-1$。图中单位线段的两块，分别对应下面括号中的两项。又 $t_i\ne0$，从而
 \[
  \begin{aligned}
  \frac1r+\frac1s

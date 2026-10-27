@@ -1,0 +1,26 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,8.5);
+\node at (7.1,7.85) {证明二：先看相似直角三角形，再认出焦点弦};
+
+\begin{scope}[shift={(2.3,3.6)},scale=.85]
+\coordinate (F) at (0,0);\coordinate (A) at (3,4);\coordinate (B) at (-.75,-1);
+\fill[blue!12] (F)--(3,0)--(A)--cycle;
+\fill[orange!20] (F)--(-.75,0)--(B)--cycle;
+\draw[blue!75!black,thick] (F)--(3,0)--(A)--cycle;
+\draw[orange!85!black,thick] (F)--(-.75,0)--(B)--cycle;
+\draw[gray] (2.8,0)--(2.8,.2)--(3,.2);
+\draw[gray] (-.55,0)--(-.55,-.2)--(-.75,-.2);
+\foreach \q in {A,B,F}\fill (\q) circle(2.8pt);
+\node[right=6pt] at (A) {$A$};\node[below left=5pt] at (B) {$B$};
+\node[below right=5pt] at (F) {$F$};
+\node[blue!75!black,left=5pt] at (1.5,2) {$r$};
+\node[orange!85!black,right=4pt] at (-.5,-.7) {$s$};
+\node[blue!75!black,above] at (1.7,0) {$|x_A-x_F|$};
+\draw[violet,->] (0,-2.2)--(3,-2.2) node[midway,below] {向右};
+\draw[violet,->] (0,-2.2)--(-.75,-2.2) node[midway,below] {向左};
+\draw[gray,dashed] (0,-1.1)--(0,-2.2);
+\end{scope}
+\node[anchor=west,align=left] at (7.8,5.8) {相似：水平直角边比斜边\\[12pt]$\displaystyle\frac{|x_A-x_F|}{r}=\frac{|x_B-x_F|}{s}$};
+\node[anchor=west,align=left] at (7.8,3.2) {再计入方向：\\[12pt]$\displaystyle\frac{x_A-x_F}{r}=-\frac{x_B-x_F}{s}$};
+\node at (7.1,.6) {图取 $r=5,s=5/4$；竖直通径时两侧水平投影都为 $0$。};
+\end{tikzpicture}
