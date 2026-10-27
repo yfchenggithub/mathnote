@@ -1,23 +1,42 @@
+\clearpage
+% C058：陷阱与纠错，特别说明焦点弦必要条件及水平退化。
 \begin{trapbox}
+\textbf{\textcolor{CTrap}{陷阱 1：把 $2/p$ 记成 $p/2$}}
 
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（公式记忆）：}}] 部分学生将结论误记为 $\frac{1}{|AF|}+\frac{1}{|BF|}=\frac{p}{2}$ 或 $|AF|+|BF|=\frac{2}{p}$ 等。
-		\item[\textbf{\textcolor{CTrap}{正确理解（正确公式）：}}] 正确结果为 $\frac{1}{|AF|}+\frac{1}{|BF|}=\frac{2}{p}$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（缺乏推导）：}}] 以机械记忆代替理解推导，出错后无法自行纠正。建议通过通径（$x=\frac{p}{2}$ 时 $|AF|=|BF|=p$ 验证）来加深印象。
-	\end{description}
+\textbf{纠正：}直接代入通径 $x=\frac p2$：两段焦半径都为 $p$，因此倒数和必为 $\frac1p+\frac1p=\frac2p$。\textbf{先用通径复原公式，再做题}，记忆负担最低。
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（垂直弦漏解）：}}] 在设直线为 $y=k(x-\frac{p}{2})$ 时，忽略 $k$ 不存在（即 $AB\perp x$ 轴）的情况，导致证明或解题不够严谨。
-		\item[\textbf{\textcolor{CTrap}{正确理解（通径验证）：}}] 当 $AB$ 垂直 $x$ 轴时，$|AF|=|BF|=p$，仍满足 $\frac{1}{|AF|}+\frac{1}{|BF|}=\frac{2}{p}$，结论依然成立。
-		\item[\textbf{\textcolor{CTrap}{错因分析（遗漏情况）：}}] 习惯性设 $k$ 存在，未考虑特殊情况。解析几何中常常需要对斜率不存在单独验证。
-	\end{description}
+\medskip
+\textbf{\textcolor{CTrap}{陷阱 2：斜率设法漏掉通径}}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（开口方向）：}}] 将 $y^2=2px$（开口向右）的结论直接套用于 $y^2=-2px$ 或 $x^2=2py$ 等形式的抛物线。
-		\item[\textbf{\textcolor{CTrap}{正确理解（条件匹配）：}}] 此结论只适用于开口向右（即标准形式 $y^2=2px$，$p>0$）的抛物线；对于其他形式，焦半径长度公式不同，结论形式需要调整。
-		\item[\textbf{\textcolor{CTrap}{错因分析（忽视前提）：}}] 解题前未仔细确认抛物线方程的形式，盲目套用二级结论。
-	\end{description}
+若写 $y=k(x-\frac p2)$，$k$ 是普通斜率，无法表示竖直直线 $x=\frac p2$，需要单独补通径。\textbf{推荐统一设 $x=my+\frac p2$}，可覆盖所有真实的有限两端点焦点弦，$m=0$ 就是通径。
 
+\medskip
+\textbf{\textcolor{CTrap}{陷阱 3：把过焦点的水平直线也当成“弦”}}
+
+$y=0$ 虽然经过焦点 $F(\frac p2,0)$，但联立 $y^2=2px$ 只有 $x=0$ 这\textbf{一个有限交点}，不能取 $A,B$ 两个不同端点。角度法中 $\cos\theta=\pm1$ 分母为 $0$，反映\textbf{有限焦点弦退化}，绝不是出现一个负焦半径。
+
+\medskip
+\textbf{\textcolor{CTrap}{陷阱 4：把长度当作有向坐标}}
+
+焦半径 $|AF|,|BF|$ 永远是\textbf{正长度}，不能用有向横坐标位移 $x_A-\frac p2$、$x_B-\frac p2$ 直接替代。右开口抛物线必须用 $|PF|=x_P+\frac p2$；方向负号只体现在 $F$ 两侧的\textbf{投影}中。
+
+\medskip
+\textbf{\textcolor{CTrap}{陷阱 5：误以为其他开口方向的定值会变号}}
+
+对于 $y^2=-2px$、$x^2=\pm2py$（统一 $p>0$），通过对称或旋转就回到 $y^2=2px$，\textbf{长度保持不变}，故倒数和仍为 $2/p$。改变的是焦点坐标与焦半径表达式，而不是长度定值。若方程写成 $y^2=-12x$，应取 $p=6$，不是 $p=-6$。
+
+\medskip
+\textbf{\textcolor{CTrap}{陷阱 6：从等式倒推出“必过焦点”}}
+
+\textbf{不可逆！}例如 $y^2=4x$，取 $A(\frac14,1)$、$B(4,4)$，虽有 $|AF|=\frac54$、$|BF|=5$，满足 $\frac1{|AF|}+\frac1{|BF|}=1=2/p$，但直线 $AB$ 不过 $F(1,0)$。$x_1x_2=p^2/4$ 也不能单独逆推过焦点，\textbf{需直接检查三点共线}。
+
+\medskip
+\textbf{\textcolor{CTrap}{陷阱 7：均值不等式只写下界，忘记取等}}
+
+由 $\frac1r+\frac1s=\frac2p$ 可得 $r+s\ge2p$；\textbf{需要进一步指出} $r=s=p$ 在通径 $x=\frac p2$ 时确实成立，因此最小值才能取到。
+
+\medskip
+\textbf{\textcolor{CTrap}{陷阱 8：通径长度与倒数和倍数混乱}}
+
+通径\textbf{整条}长度为 $2p$，每\textbf{半条}长度为 $p$；倒数和 $\frac2p$ 等于整条通径长倒数 $\frac1{2p}$ 的\textbf{四倍}，不是两倍。
 \end{trapbox}

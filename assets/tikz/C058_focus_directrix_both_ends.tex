@@ -1,0 +1,32 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,12);
+\node at (7.1,11.35) {放回抛物线：两端都用定义，把斜边换成到准线的距离};
+
+\begin{scope}[shift={(3.6,4.9)},scale=.95]
+\draw[teal!75!black,thick,samples=90,domain=-2.3:4.5,variable=\v] plot ({\v*\v/4},{\v});
+\draw[gray,dashed,thick] (-1,-2.2)--(-1,5.1);
+\draw[gray] (-1.5,0)--(5.5,0);
+
+\coordinate (A) at (4,4);\coordinate (B) at (.25,-1);\coordinate (F) at (1,0);
+\draw[blue!75!black,very thick] (F)--(A);
+\draw[orange!85!black,very thick] (F)--(B);
+\foreach \q in {A,B,F}\fill (\q) circle(3pt);
+\node[above left=5pt] at (A) {$A$};
+\node[below left=8pt] at (B) {$B$};\node[below right=6pt] at (F) {$F$};
+
+\coordinate (H) at (-1,4);\coordinate (K) at (-1,-1);
+\draw[blue!75!black,thick] (A)--(H);
+\draw[orange!85!black,thick] (B)--(K);
+\draw[gray] (-1,3.8)--(-.8,3.8)--(-.8,4);
+\draw[gray] (-1,-.8)--(-.8,-.8)--(-.8,-1);
+\fill (H) circle(2.5pt) node[left] {$H$};\fill (K) circle(2.5pt) node[left] {$K$};
+\node[above] at (-1,5.1) {$\ell$};
+\draw[gray,dashed] (-1,-2.2)--(-1,-2.7) (F)--(1,-2.7);
+\draw[<->,violet] (-1,-2.6)--(1,-2.6) node[midway,below] {$p$};
+\end{scope}
+\node[anchor=west,align=left] at (9.4,8.2) {$AF=AH$（蓝）\\[12pt]$BF=BK$（橙）};
+\node[anchor=west,align=left] at (9.4,5.8) {$\ell:x=-p/2$\\[12pt]$F=(p/2,0)$};
+\node at (7.1,1.65) {$r=x_A+p/2,\qquad s=x_B+p/2$};
+\node at (7.1,.65) {本图 $p=2$：$AH=AF=5$，$BK=BF=5/4$；两端使用同一条准线。};
+
+\end{tikzpicture}

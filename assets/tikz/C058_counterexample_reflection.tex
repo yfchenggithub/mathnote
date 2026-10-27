@@ -1,0 +1,29 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,10.5);
+\node at (7.1,9.85) {只把近端点翻到 x 轴上方：距离没变，共线关系变了};
+\node at (3.4,8.9) {真正焦点弦：三点共线};
+\begin{scope}[shift={(2.0,4.6)},scale=.82]
+\draw[teal!75!black,thick,samples=90,domain=-1.4:4.5,variable=\v] plot ({\v*\v/4},{\v});
+\coordinate (A) at (.25,-1);\coordinate (B) at (4,4);\coordinate (F) at (1,0);
+\draw[gray] (-.5,0)--(5.5,0);
+\draw[blue!75!black,thick] (F)--(A);
+\draw[orange!85!black,thick] (F)--(B);
+\draw[violet,dashed,thick] (A)--(B);
+\foreach \q in {A,B,F} \fill (\q) circle(3pt);
+\node[left=10pt] at (A) {$A$};\node[above left=6pt] at (B) {$B$};\node[below right=6pt] at (F) {$F$};
+\end{scope}
+\node[align=center] at (3.4,2.4) {$AF=5/4,\ BF=5$\\[10pt]$\displaystyle\frac1{AF}+\frac1{BF}=1$};
+\node at (10.1,8.9) {反例：等式成立，却不共线};
+\begin{scope}[shift={(8.7,4.6)},scale=.82]
+\draw[teal!75!black,thick,samples=90,domain=-1.4:4.5,variable=\v] plot ({\v*\v/4},{\v});
+\coordinate (A) at (.25,1);\coordinate (B) at (4,4);\coordinate (F) at (1,0);
+\draw[gray] (-.5,0)--(5.5,0);
+\draw[blue!75!black,thick] (F)--(A);
+\draw[orange!85!black,thick] (F)--(B);
+\draw[violet,dashed,thick] (A)--(B);
+\foreach \q in {A,B,F} \fill (\q) circle(3pt);
+\node[left=10pt] at (A) {$A$};\node[above left=6pt] at (B) {$B$};\node[below right=6pt] at (F) {$F$};
+\end{scope}
+\node[align=center] at (10.1,2.4) {$AF=5/4,\ BF=5$\\[10pt]$\displaystyle\frac1{AF}+\frac1{BF}=1$};
+\node at (7.1,.65) {右图正是例6：紫虚线 $AB$ 绕开了 $F$；所以不能只凭倒数和反推“过焦点”。};
+\end{tikzpicture}

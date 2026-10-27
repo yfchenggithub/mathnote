@@ -1,0 +1,45 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,14);
+\node at (7.1,13.35) {对称或旋转只改变开口，不改变两段长度};
+\node at (3.6,12.1) {向右：$y^2=2px$};
+\begin{scope}[shift={(3.6,9.6)},scale=.4]
+\draw[->,gray] (-4.9,0)--(4.9,0);
+\draw[->,gray] (0,-4.9)--(0,4.9);
+\draw[teal!75!black,thick,domain=-2.2:4.2,samples=80,variable=\v] plot ({\v*\v/4},{\v});
+\draw[blue!75!black,very thick] (1, 0)--(4, 4);
+\draw[orange!85!black,very thick] (1, 0)--(0.25, -1);
+\fill (1, 0) circle(5pt);\node[below right] at (1, 0) {$F$};
+\fill (4,4) circle(5pt);\fill (.25,-1) circle(5pt);
+\end{scope}
+\node at (10.5,12.1) {向左：$y^2=-2px$};
+\begin{scope}[shift={(10.5,9.6)},scale=.4]
+\draw[->,gray] (-4.9,0)--(4.9,0);
+\draw[->,gray] (0,-4.9)--(0,4.9);
+\draw[teal!75!black,thick,domain=-2.2:4.2,samples=80,variable=\v] plot ({-\v*\v/4},{\v});
+\draw[blue!75!black,very thick] (-1, 0)--(-4, 4);
+\draw[orange!85!black,very thick] (-1, 0)--(-0.25, -1);
+\fill (-1, 0) circle(5pt);\node[below left] at (-1, 0) {$F$};
+\fill (-4,4) circle(5pt);\fill (-.25,-1) circle(5pt);
+\end{scope}
+\node at (3.6,6.1) {向上：$x^2=2py$};
+\begin{scope}[shift={(3.6,3.5999999999999996)},scale=.4]
+\draw[->,gray] (-4.9,0)--(4.9,0);
+\draw[->,gray] (0,-4.9)--(0,4.9);
+\draw[teal!75!black,thick,domain=-2.2:4.2,samples=80,variable=\v] plot ({-\v},{\v*\v/4});
+\draw[blue!75!black,very thick] (0, 1)--(-4, 4);
+\draw[orange!85!black,very thick] (0, 1)--(1, 0.25);
+\fill (0, 1) circle(5pt);\node[above right] at (0, 1) {$F$};
+\fill (-4,4) circle(5pt);\fill (1,.25) circle(5pt);
+\end{scope}
+\node at (10.5,6.1) {向下：$x^2=-2py$};
+\begin{scope}[shift={(10.5,3.5999999999999996)},scale=.4]
+\draw[->,gray] (-4.9,0)--(4.9,0);
+\draw[->,gray] (0,-4.9)--(0,4.9);
+\draw[teal!75!black,thick,domain=-2.2:4.2,samples=80,variable=\v] plot ({\v},{-\v*\v/4});
+\draw[blue!75!black,very thick] (0, -1)--(4, -4);
+\draw[orange!85!black,very thick] (0, -1)--(-1, -0.25);
+\fill (0, -1) circle(5pt);\node[below left] at (0, -1) {$F$};
+\fill (4,-4) circle(5pt);\fill (-1,-.25) circle(5pt);
+\end{scope}
+\node at (7.1,.65) {四图均取正参数 $p=2$；蓝段长 $5$、橙段长 $5/4$，倒数和均为 $1$。};
+\end{tikzpicture}

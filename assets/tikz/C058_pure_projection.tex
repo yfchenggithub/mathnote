@@ -1,0 +1,27 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,12);
+\node at (7.1,11.35) {先不画抛物线：同一直线，反向走，投影比互为相反数};
+
+\begin{scope}[shift={(4.2,5.4)},scale=1.05]
+\coordinate (P) at (0,0);\coordinate (C) at (3,4);\coordinate (D) at (-.75,-1);
+\fill[blue!6] (P)--(C)--(3,0)--cycle;
+\fill[orange!10] (P)--(D)--(-.75,0)--cycle;
+\draw[gray] (-1.6,0)--(3.7,0);
+\draw[blue!75!black,very thick] (P)--(C);
+\draw[orange!85!black,very thick] (P)--(D);
+\draw[dashed,gray] (C)--(3,0) (D)--(-.75,0);
+\draw (2.8,0)--(2.8,.2)--(3,.2);
+\draw (-.55,0)--(-.55,-.2)--(-.75,-.2);
+\foreach \q in {P,C,D}\fill (\q) circle(2pt);
+\node[above] at (C) {$C$};\node[below left] at (D) {$D$};\node[below right] at (P) {$P$};
+\node[blue!75!black,above left] at (1.5,2) {$PC=5$};
+\draw[<->,blue!75!black] (0,-2)--(3,-2) node[midway,fill=white] {$+3$};
+\node[orange!85!black,left] at (-.8,-2) {$-3/4$};
+\draw[<-,orange!85!black] (-.75,-1.6)--(0,-1.6);
+\end{scope}
+\node[anchor=west,align=left] at (9.4,8.4) {$PD=5/4$\\[12pt]向右投影为正\\[8pt]向左投影为负};
+\node at (7.1,2.3) {$\displaystyle\frac{+3}{5}=-\frac{-3/4}{5/4}=\frac35$};
+\node at (7.1,1.25) {长度始终为正，负号只出现在水平位移中。};
+\node at (7.1,.55) {下一步对应：$P\to F,\ C\to A,\ D\to B$；横向比例记作 $t$。};
+
+\end{tikzpicture}

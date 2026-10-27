@@ -1,26 +1,40 @@
+% C058：抛物线焦点弦倒数和定值。此文件为主文档的 statementbox 片段。
 \begin{statementbox}
+\textbf{\textcolor{CStatement}{适用条件}}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.35em]
+  \item[\textbf{条件 1（方程）：}] 抛物线 $y^2=2px$（$p>0$），焦点 $F\bigl(\frac p2,0\bigr)$，准线 $x=-\frac p2$。
+  \item[\textbf{条件 2（真正的焦点弦）：}] 直线 $AB$ 经过 $F$，与抛物线有两个\textbf{不同且有限}的交点 $A(x_1,y_1)$、$B(x_2,y_2)$；焦点 $F$ 在线段 $AB$ 的内部。
+\end{description}
+\medskip
+\textbf{\textcolor{CStatement}{核心结论}}
+\[
+ \boxed{\frac1{|AF|}+\frac1{|BF|}=\frac2p.}
+\]
+\textbf{一句话：}焦点分弦所得两段焦半径，\textbf{倒数相加只看 $p$，不看弦方向}。
 
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件 1（标准方程与焦点）：}}] 抛物线标准方程 $y^2 = 2px$，其中 $p>0$，焦点 $F(\frac{p}{2}, 0)$。
-		\item[\textbf{\textcolor{CStatement}{条件 2（弦过焦点）：}}] 弦 $AB$ 经过焦点 $F$，且 $A,B$ 为抛物线上两个不同的点。
-	\end{description}
+\begin{center}\input{assets/tikz/C058_first_look.tex}\end{center}
+\end{statementbox}
+\clearpage
+\begin{statementbox}
+\medskip
+\textbf{\textcolor{CStatement}{等价形式与伴随性质}}
+令 $r=|AF|$、$s=|BF|$，则
+\[
+ \boxed{\frac{rs}{r+s}=\frac p2}
+ \quad\Longleftrightarrow\quad
+ \boxed{rs=\frac p2|AB|},\qquad (|AB|=r+s).
+\]
+\[
+ \boxed{x_1x_2=\frac{p^2}{4}},\qquad
+ \boxed{|AB|\ge 2p}\quad\text{（等号仅在通径时成立）}.
+\]
+\textbf{提示：}通径所在直线为 $x=\frac p2$，两段焦半径均为 $p$，故 $\frac1p+\frac1p=\frac2p$，是防止把 $\frac2p$ 记反的\textbf{快速自检}。
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（倒数定值）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			焦点分弦所得两段长度 $|AF|$ 与 $|BF|$ 的倒数之和恒等于 $\frac{2}{p}$，与弦的倾斜角无关。
-			\[
-				\frac{1}{|AF|} + \frac{1}{|BF|} = \frac{2}{p}.
-			\]
+\medskip
+\textbf{\textcolor{CStatement}{方向推广（不增加记忆负担）}}
+对 $y^2=\pm2px$ 或 $x^2=\pm2py$（均规定 $p>0$），\textbf{只要 $AB$ 是真实焦点弦}，同样有 $\frac1{|AF|}+\frac1{|BF|}=\frac2p$；仅焦点、准线和焦半径坐标表达式随开口改变。
 
-		\item[\textbf{\textcolor{CStatement}{推广结论（横坐标积为定值）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			设 $A(x_1,y_1)$，$B(x_2,y_2)$，则焦点弦两端点的横坐标之积为常数，与弦斜率无关。
-			\[
-				x_1 x_2 = \frac{p^2}{4}.
-			\]
-	\end{description}
-
+\medskip
+\textbf{\textcolor{CStatement}{必要条件，不是充分条件}}
+$x_1x_2=\frac{p^2}{4}$ 与倒数和定值都\textbf{不能单独反推}直线 $AB$ 经过焦点；判断是否过焦点必须另核查三点共线。
 \end{statementbox}
