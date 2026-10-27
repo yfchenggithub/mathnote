@@ -1,5 +1,5 @@
 \clearpage
-% C057 | 三种证明：最快 / 门槛最低 / 常规韦达（相互独立）
+% C057 | 三种主证明 + 两段角度/有向长度补充证明（保持原有证明完整）
 \begin{proofbox}
   \textbf{\textcolor{CProof}{先证一个零门槛小工具：焦半径公式}}
 
@@ -177,4 +177,96 @@
   \textbf{考场秒证：} 证明一；\quad
   \textbf{第一次理解、最低依赖：} 证明二；\quad
   \textbf{标准解析几何书面推导：} 证明三。
+\end{proofbox}
+
+
+\clearpage
+\begin{proofbox}
+  \textbf{\textcolor{CProof}{补充证明四（有向直线参数：一条公式统一同支和异支）}}
+
+  \textbf{先定清两个不同的角。}本证明用 $\alpha$ 表示过右焦点 $F(c,0)$
+  的\textbf{直线倾斜角}，取 $u=\cos\alpha$、$v=\sin\alpha$，
+  $u^2+v^2=1$。对这条\textbf{整条直线}设
+  \[
+    P(t)=(c+tu,tv),\qquad t\in\mathbb R,\qquad |FP(t)|=|t|.
+  \]
+  这里 $t$ 是\textbf{有向位移}，不是距离；$t<0$ 表示沿方向 $(u,v)$ 的反向走。
+
+  \textbf{直接联立，不用假设点在左支还是右支。}
+  把 $P(t)$ 代入 $x^2/a^2-y^2/b^2=1$，乘以 $a^2b^2$，利用
+  $c^2=a^2+b^2$、$u^2+v^2=1$，得到
+  \[
+  \begin{aligned}
+    0&=b^2(c+tu)^2-a^2t^2v^2-a^2b^2\\
+     &=(c^2u^2-a^2)t^2+2b^2cu\,t+b^4\\
+     &=\bigl((cu-a)t+b^2\bigr)\bigl((cu+a)t+b^2\bigr).
+  \end{aligned}
+  \]
+  因此，只要直线有\textbf{两个有限交点}（即 $cu\ne\pm a$），
+  两个带符号的根为
+  \[
+    \boxed{t_1=\frac{b^2}{a-cu}},\qquad
+    \boxed{t_2=-\frac{b^2}{a+cu}}.
+  \]
+  \textbf{关键：不去绝对值，直接对有向位移的倒数作差。}
+  \[
+    \boxed{\frac1{t_1}-\frac1{t_2}
+      =\frac{a-cu}{b^2}+\frac{a+cu}{b^2}
+      =\frac{2a}{b^2}}.
+  \]
+  下面才按位置\textbf{翻译成正距离}：
+  \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.3em]
+    \item[\textbf{同支（$|cu|<a$）：}]
+    $t_1>0>t_2$，两交点在焦点两边，且都在右支。
+    $r_1=t_1,r_2=-t_2$，因此
+    $\displaystyle\frac1{r_1}+\frac1{r_2}=\frac1{t_1}-\frac1{t_2}=\frac{2a}{b^2}$。
+    \item[\textbf{异支（$cu<-a$）：}]
+    $0<t_1<t_2$，两交点位于同一正向射线上，
+    先遇到右支、再遇到左支。
+    $r_{\rm R}=t_1,r_{\rm L}=t_2$，故
+    $\displaystyle\frac1{r_{\rm R}}-\frac1{r_{\rm L}}=\frac{2a}{b^2}$。
+    \item[\textbf{异支（$cu>a$）：}]
+    $t_1<t_2<0$，两交点都在反向射线上，先遇到右支、再遇到左支。
+    $r_{\rm R}=-t_2,r_{\rm L}=-t_1$，故
+    $\displaystyle\frac1{r_{\rm R}}-\frac1{r_{\rm L}}=\frac{2a}{b^2}$。
+  \end{description}
+  \textbf{边界说明：} $cu=\pm a$ 时有一个根的分母为零，
+  即渐近线方向，只剩一个有限交点；原结论本来就要求两个有限交点。
+  左焦点的版本由左右对称得到。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+  \textbf{\textcolor{CProof}{补充证明五（真正的射线焦半径式：为何分母必须为正）}}
+
+  固定右焦点 $F(c,0)$，这次令 $\varphi$ 为射线 $\overrightarrow{FP}$
+  的方向角，并且 $r=|FP|>0$。设 $w=\cos\varphi$，则
+  $x=c+rw$、$p=b^2/a$、$e=c/a$。
+
+  \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.35em]
+    \item[\textbf{右支点：}]由 $r=ex-a$ 得
+    \[
+      r=e(c+rw)-a=p+erw
+      \ \Longrightarrow\ 
+      \boxed{r=\frac{p}{1-ew}=\frac{b^2}{a-cw}},
+    \]
+    这里\textbf{必须}有 $a-cw>0$ 才能使 $r>0$。
+    \item[\textbf{左支点：}]由 $r=a-ex$ 得
+    \[
+      r=a-e(c+rw)=-p-erw
+      \ \Longrightarrow\ 
+      \boxed{r=-\frac{p}{1+ew}=-\frac{b^2}{a+cw}},
+    \]
+    这里\textbf{必须}有 $a+cw<0$，也就是 $w<-a/c$。
+  \end{description}
+  两个分母的符号限制来自\textbf{实际距离 $r>0$}，不是随便添加的附加条件。
+  当焦点直线水平时，直线倾斜角 $\alpha=0$，
+  但通向两个顶点的射线均朝左，故 $\varphi=\pi$、$w=-1$：
+  \[
+    r_{\rm R}=\frac{b^2}{a+c}=c-a,\qquad
+    r_{\rm L}=-\frac{b^2}{a-c}=c+a.
+  \]
+  特别地 $a=3,b=4,c=5$，分别为 $2$、$8$。若向右选正向来定义
+  \textbf{有向直线参数}，则得到 $t=-2,-8$；
+  其中 $-8$ 可以描述\textbf{反向走 $8$}，却绝不能作为焦半径 $r$。
 \end{proofbox}

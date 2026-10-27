@@ -63,3 +63,53 @@
   只是两支相对右准线的位置不同，去绝对值时正负不同。
   \textbf{做 C057 时始终固定右焦点--右准线，就无需走到左支时临时改焦点。}
 \end{explanationbox}
+
+
+\clearpage
+\begin{explanationbox}
+  \textbf{第六步：为什么把 $\theta=0$ 代入会出现 $-8$？先问“角是给谁的”。}
+
+  仍取 $x^2/9-y^2/16=1$，右焦点 $F=(5,0)$，两个交点为左右顶点。
+  先在图中分清：$\alpha$ 描述整条直线，$\varphi$ 描述从 $F$ 指向交点的射线。
+  \begin{center}\input{assets/tikz/C057_line_angle_vs_ray_angle.tex}\end{center}
+  图中两条目标射线都向左，所以应取 $\varphi=\pi$，即 $\cos\varphi=-1$。
+  对右支点应代入 $\cos\varphi=-1$：
+  \[
+    |FP_{\rm R}|=\frac{16}{3-5(-1)}=2.
+  \]
+  对左支点应使用\textbf{左支对应式}：
+  \[
+    |FP_{\rm L}|=-\frac{16}{3+5(-1)}=8.
+  \]
+  若硬把直线倾斜角 $\alpha=0$ 代进\textbf{右支射线公式}，得到
+  $16/(3-5)=-8$，这违反了该公式要求的\textbf{正分母}条件。
+  \textbf{不要把 $-8$ 写成焦半径，更不能不判断支别就直接取绝对值。}
+\end{explanationbox}
+
+\clearpage
+\begin{explanationbox}
+  \textbf{第七步：把 $-8$ 看懂——它其实是直线的“反向位移”。}
+
+  沿水平直线\textbf{向右}规定正方向，设
+  \[
+    P=(5,0)+t(1,0)=(5+t,0),\qquad -\infty<t<\infty.
+  \]
+  联立得 $t=-8,-2$。图中把同一组交点分别读成“有向位移”和“正距离”：
+  \begin{center}\input{assets/tikz/C057_signed_displacement_vs_distance.tex}\end{center}
+  \textbf{最容易记住的两句话：}“射线有朝向，线只有倾斜角；$t$ 可为负，$|FP|$ 不能负。”
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+  \textbf{第七步（续）：从本例推广到任意方向。}
+
+  令 $u=\cos\alpha$，同一条过 $F$ 的直线联立双曲线得到
+  \[
+    \boxed{t_1=\frac{b^2}{a-cu}},\qquad
+    \boxed{t_2=-\frac{b^2}{a+cu}},\qquad
+    \boxed{\frac1{t_1}-\frac1{t_2}=\frac{2a}{b^2}}.
+  \]
+  \textbf{同支}时两个 $t$ 异号，换成正距离就是\textbf{倒数相加}；
+  \textbf{异支}时两个 $t$ 同号，换成正距离就是\textbf{倒数相减}。
+  注意：只有\textbf{两个不同的有限交点}时，两个有向参数才都有限。
+\end{explanationbox}

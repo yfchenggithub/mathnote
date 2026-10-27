@@ -1,0 +1,32 @@
+% Exact model: a=3, b=4, c=5. Both panels share the same horizontal scale.
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[rounded corners=3pt,gray!45] (0,0) rectangle (14.2,12.5);
+\node at (7.1,11.85) {先问角给谁：整条直线，还是从 $F$ 出发的射线？};
+\node at (7.1,10.8) {① 整条直线水平：倾斜角 $\alpha=0$};
+\begin{scope}[shift={(5.25,8.7)},scale=.85]
+ \draw[teal!75!black,thick,domain=-.45:.45,samples=60,variable=\t]
+  plot ({3*cosh(\t)},{4*sinh(\t)});
+ \draw[teal!75!black,thick,domain=-.45:.45,samples=60,variable=\t]
+  plot ({-3*cosh(\t)},{4*sinh(\t)});
+ \draw[blue!75!black,thick,<->] (-4.5,0)--(7.3,0);
+ \draw[->,gray] (5,.55)--(7.3,.55) node[right] {$x$ 正向};
+ \foreach \x in {-3,3,5} {\fill (\x,0) circle(2.5pt);}
+ \draw[gray] (-3,0)--(-4.2,-1.05) node[left] {$P_{\rm L}$};
+ \draw[gray] (3,0)--(4.1,-1.05) node[right] {$P_{\rm R}$};
+ \node[below=7pt] at (5,0) {$F$};
+ \node[above] at (6.6,1.15) {$\alpha=0$};
+\end{scope}
+\node at (7.1,6.4) {② 从 $F$ 指向交点：两条射线都向左};
+\begin{scope}[shift={(5.25,4.1)},scale=.85]
+ \draw[gray] (-4.5,0)--(7.3,0);
+ \draw[->,gray] (5,0)--(7.3,0) node[right] {$x$ 正向};
+ \draw[->,orange!85!black,very thick] (5,0)--(-3,0);
+ \draw[->,blue!75!black,very thick] (5,0)--(3,0);
+ \draw[->,violet,thick] (5.8,0) arc[start angle=0,end angle=180,radius=.8];
+ \node[violet] at (5,1.4) {$\varphi=\pi$};
+ \foreach \x/\name in {-3/P_{\rm L},3/P_{\rm R},5/F}
+  {\fill (\x,0) circle(2.5pt);\node[below=7pt] at (\x,0) {$\name$};}
+\end{scope}
+\node at (7.1,2.3) {箭头从焦点出发，指向目标；不能用直线的 $\alpha$ 替代 $\varphi$。};
+\node at (7.1,1.05) {$P_{\rm L}=(-3,0),\qquad P_{\rm R}=(3,0),\qquad F=(5,0)$};
+\end{tikzpicture}
