@@ -1,0 +1,27 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=2pt] (0,0) rectangle (14.2,11.4);
+\node at (7.1,10.75) {中点满足 $y_0=1$，但只落在一条开射线上};
+\node at (7.1,9.9) {在 $y^2=4x$ 上画三条斜率均为 $2$ 的实弦。};
+\begin{scope}[shift={(3.2,4)},scale=1]
+\draw[gray,->] (-.5,0)--(5.3,0) node[right] {$x$};
+\draw[gray,->] (0,-2.2)--(0,4.4) node[above] {$y$};
+\draw[blue!75!black,thick,domain=-2.1:4.2,samples=100,variable=\v]
+ plot ({\v*\v/4},\v);
+\foreach \m/\col in {.75/orange!85!black,1.5/purple!80!black,2.5/teal!80!black}{
+ \pgfmathsetmacro{\v}{sqrt(4*\m-1)}
+ \draw[\col,thick] ({\m-\v/2},{1-\v})--({\m+\v/2},{1+\v});
+ \fill[\col] ({\m-\v/2},{1-\v}) circle(1.6pt);
+ \fill[\col] ({\m+\v/2},{1+\v}) circle(1.6pt);
+ \fill[purple!80!black] (\m,1) circle(2.3pt);
+}
+\draw[purple!80!black,very thick,->] (.25,1)--(5.2,1);
+\filldraw[fill=white,draw=purple!80!black,thick] (.25,1) circle(2.5pt)
+ node[left=8pt,text=black] {$T$};
+\end{scope}
+\node[text=blue!75!black] at (10.9,8.2) {$y^2=4x$};
+\node[text=purple!80!black] at (10.9,6.8) {中点在 $y=1$ 上移动};
+\node at (10.9,5.6) {$T=(1/4,1)$ 为空心点};
+\node at (10.9,4.5) {到 $T$ 时两端点重合};
+\node at (10.9,3.2) {三条弦都满足 $k=2$};
+\node at (7.1,1.15) {$\displaystyle \boxed{y_0=1,\quad x_0>\frac14}\qquad$切点边界不取，左侧也不可达。};
+\end{tikzpicture}

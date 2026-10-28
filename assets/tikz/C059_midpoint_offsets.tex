@@ -1,0 +1,20 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=2pt] (0,0) rectangle (14.2,8.5);
+\node at (7.1,7.85) {先只看普通线段：从中点走同样远，一边加，一边减};
+\node at (7.1,7) {图取 $u=2,v=1$；不需要先认识任何圆锥曲线。};
+\begin{scope}[shift={(7.1,4.3)},scale=1.1]
+\coordinate (A) at (2,1);
+\coordinate (B) at (-2,-1);
+\draw[orange!85!black,very thick,->] (0,0)--(A);
+\draw[purple!80!black,very thick,->] (0,0)--(B);
+\draw[orange!85!black,dashed,->] (0,0)--(2,0) node[midway,below=5pt] {$+u$};
+\draw[orange!85!black,dashed,->] (2,0)--(2,1) node[midway,right=5pt] {$+v$};
+\draw[purple!80!black,dashed,->] (0,0)--(-2,0) node[midway,above=5pt] {$-u$};
+\draw[purple!80!black,dashed,->] (-2,0)--(-2,-1) node[midway,left=5pt] {$-v$};
+\fill (A) circle(1.8pt) node[above right=6pt] {$A=M+(u,v)$};
+\fill (B) circle(1.8pt) node[below left=6pt] {$B=M-(u,v)$};
+\fill (0,0) circle(1.8pt) node[below=24pt] {$M(x_0,y_0)$};
+\end{scope}
+\node at (7.1,1.7) {$AM=BM,\qquad \overrightarrow{MA}=(u,v),\quad\overrightarrow{MB}=(-u,-v)$};
+\node at (7.1,.8) {$\displaystyle k=\frac{v-(-v)}{u-(-u)}=\frac vu\quad(u\ne0)$};
+\end{tikzpicture}

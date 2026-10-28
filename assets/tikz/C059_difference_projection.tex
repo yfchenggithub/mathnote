@@ -1,0 +1,24 @@
+% Ellipse x^2/4+y^2/3=1, M=(1,1), u=sqrt(20/21), k=-3/4.
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=2pt] (0,0) rectangle (14.2,10);
+\node at (7.1,9.35) {点差先变成图上的横、竖差，再读出斜率};
+\node at (7.1,8.5) {$M(1,1)$，$A$ 在右下、$B$ 在左上，所以 $\Delta x>0,\ \Delta y<0$};
+\pgfmathsetmacro{\u}{sqrt(20/21)}
+\begin{scope}[shift={(6,4.7)},scale=1.5]
+\coordinate (A) at ({1+\u},{1-.75*\u});
+\coordinate (B) at ({1-\u},{1+.75*\u});
+\coordinate (H) at ({1+\u},{1+.75*\u});
+\draw[gray,->] (-2.3,0)--(2.5,0) node[right] {$x$};
+\draw[blue!75!black,thick] (0,0) ellipse (2 and 1.7320508076);
+\draw[orange!85!black,very thick] (B)--(A);
+\draw[orange!85!black,->] (B)--(H) node[midway,above=5pt] {$\Delta x=x_1-x_2$};
+\draw[purple!80!black,->] (H)--(A) node[midway,right=6pt] {$\Delta y=y_1-y_2$};
+\draw[gray] ({1+\u-.13},{1+.75*\u})--({1+\u-.13},{1+.75*\u-.13})--({1+\u},{1+.75*\u-.13});
+\fill (A) circle(1.5pt) node[right=8pt] {$A(x_1,y_1)$};
+\fill (B) circle(1.5pt) node[above left=5pt] {$B(x_2,y_2)$};
+\fill (H) circle(1.3pt) node[above right=5pt] {$H$};
+\fill[purple!80!black] (1,1) circle(1.7pt) node[below left=5pt] {$M$};
+\end{scope}
+\node at (7.1,1.65) {$x_1+x_2=2x_0,\qquad y_1+y_2=2y_0$};
+\node at (7.1,.8) {$\displaystyle k=\frac{\Delta y}{\Delta x}\quad$；平方差中的“和”由中点替换，“差”留给斜率。};
+\end{tikzpicture}

@@ -1,57 +1,78 @@
+\clearpage
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例 1（基础）}}
+\textbf{\textcolor{CExample}{例 1（椭圆：已知中点求弦方程）}}
 
-	\textbf{\textcolor{CExample}{题目：}}
-	已知椭圆 \(\frac{x^2}{4}+\frac{y^2}{3}=1\)，求以点 \(M(1,1)\) 为中点的弦所在的直线方程。
+\textbf{题目：}已知椭圆 $\dfrac{x^2}{4}+\dfrac{y^2}{3}=1$，求以 $M(1,1)$ 为中点的弦所在直线方程。
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（判定公式）：}] 椭圆标准方程 \(a^2=4, b^2=3\)，中点 \(M(1,1)\)，使用椭圆中点弦公式 \(k = -\frac{b^2 x_0}{a^2 y_0}\)。
-			\par\textbf{理由：} 直接应用公式的前提。
-		\item[\textbf{第二步（代入计算）：}] 代入 \(x_0=1, y_0=1\) 得 \(k = -\frac{3\times1}{4\times1} = -\frac{3}{4}\)。
-			\par\textbf{理由：} 代数运算。
-		\item[\textbf{第三步（写直线方程）：}] 由点斜式 \(y-1 = -\frac{3}{4}(x-1)\)，整理得 \(3x+4y-7=0\)。
-			\par\textbf{理由：} 得到所求直线方程。
-	\end{description}
+\textbf{解：}先确认 $\dfrac{1^2}{4}+\dfrac{1^2}{3}=\dfrac7{12}<1$，中点在椭圆内部，非退化弦存在。
+由 $a^2=4,b^2=3$，
+\[
+k=-\frac{b^2x_0}{a^2y_0}=-\frac34,
+\quad y-1=-\frac34(x-1).
+\]
+\textbf{答案：}$\boxed{3x+4y-7=0}$。
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$3x+4y-7=0$}
+\medskip
+\textbf{\textcolor{CExample}{例 2（双曲线：验两实交点）}}
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+\textbf{题目：}已知双曲线 $\dfrac{x^2}{4}-\dfrac{y^2}{5}=1$，求以 $M(4,3)$ 为中点的弦所在直线方程。
 
-	\textbf{\textcolor{CExample}{题目：}}
-	已知双曲线 \(\frac{x^2}{4}-\frac{y^2}{5}=1\)，求以点 \(M(4,3)\) 为中点的弦所在的直线方程。
+\textbf{解：}先算 $Q=\dfrac{16}{4}-\dfrac95=\dfrac{11}{5}>1$，满足存在条件。
+再用 $a^2=4,b^2=5$，
+\[
+k=\frac{5\cdot4}{4\cdot3}=\frac53,
+\quad y-3=\frac53(x-4).
+\]
+\textbf{答案：}$\boxed{5x-3y-11=0}$。
+代回双曲线得到 $55x^2-440x+664=0$，判别式
+$\Delta=47520>0$ 且根的平均数为 $4$，确为所求实弦。
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（判定公式）：}] 双曲线标准方程 \(a^2=4, b^2=5\)，中点 \(M(4,3)\)，使用双曲线中点弦公式 \(k = \frac{b^2 x_0}{a^2 y_0}\)。
-			\par\textbf{理由：} 直接应用公式的前提。
-		\item[\textbf{第二步（代入计算）：}] 代入 \(x_0=4, y_0=3\) 得 \(k = \frac{5\times4}{4\times3} = \frac{20}{12} = \frac{5}{3}\)。
-			\par\textbf{理由：} 代数运算。
-		\item[\textbf{第三步（写直线方程）：}] 由点斜式 \(y-3 = \frac{5}{3}(x-4)\)，整理得 \(5x-3y-11=0\)。
-			\par\textbf{理由：} 得到所求直线方程。
-	\end{description}
+\tcbbreak
+\textbf{\textcolor{CExample}{例 3（抛物线：斜率已知求中点轨迹）}}
+\begin{center}\input{assets/tikz/C059_parabola_locus}\end{center}
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$5x-3y-11=0$}
+\textbf{题目：}斜率为 $2$ 的直线与抛物线 $y^2=4x$ 交于不同实点 $A,B$，求中点 $M(x_0,y_0)$ 的轨迹。
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+\textbf{解：}在 $y^2=2px$ 中，$p=2$，故
+\[
+k=\frac{p}{y_0}\quad\Longrightarrow\quad
+2=\frac2{y_0}\quad\Longrightarrow\quad y_0=1.
+\]
+\textbf{不能停在 $y=1$：}令两端点纵坐标为 $1+t$ 与 $1-t$（$t>0$），横坐标为
+$\dfrac{(1+t)^2}{4},\dfrac{(1-t)^2}{4}$，因此
+\[
+x_0=\frac{1+t^2}{4}>\frac14.
+\]
+反之每个 $x_0>1/4$ 都可取 $t=\sqrt{4x_0-1}$ 实现。
+\textbf{答案：}$\boxed{\ y=1,\ x>\dfrac14\ }$，不是整条直线。
 
-	\textbf{\textcolor{CExample}{题目：}}
-	斜率为 \(2\) 的直线与抛物线 \(y^2=4x\) 交于 \(A,B\) 两点，求弦 \(AB\) 中点 \(M\) 的轨迹方程。
+\tcbbreak
+\textbf{\textcolor{CExample}{例 4（高价值反例：求出斜率却没有弦）}}
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（点差设关系）：}] 设 \(A(x_1,y_1), B(x_2,y_2)\)，中点 \(M(x_0,y_0)\)。对 \(y^2=4x\) 作差得 \((y_1-y_2)(y_1+y_2)=4(x_1-x_2)\)，即 \(k\cdot y_0 = 2\)（因为 \(y_1+y_2=2y_0\)）。
-			\par\textbf{理由：} 点差法步骤。
-		\item[\textbf{第二步（代斜率求中点）：}] 已知 \(k=2\)，代入 \(2\cdot y_0 = 2\)，解得 \(y_0=1\)。
-			\par\textbf{理由：} 解方程。
-		\item[\textbf{第三步（得轨迹方程）：}] 中点 \(M\) 的纵坐标恒为 \(1\)，轨迹为 \(y=1,\ x>1/4\)，是一条开射线。取端点纵坐标 \(1\pm t\)（\(t>0\)），其中点横坐标为 \((1+t^2)/4>1/4\)，并可取遍此范围。
-			\par\textbf{理由：} 点差法直接得到纵坐标与斜率关系。
-	\end{description}
+\textbf{题目：}双曲线 $\dfrac{x^2}{4}-\dfrac{y^2}{5}=1$，是否存在以 $N(1,1)$ 为中点的实弦？
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$y=1,\ x>1/4$}
+\textbf{解：}点差法先给出候选 $k=\dfrac{5}{4}$，即
+$y-1=\dfrac54(x-1)$；但
+\[
+Q(N)=\frac14-\frac15=\frac1{20}\in(0,1).
+\]
+不满足 $Q<0$ 或 $Q>1$，\textbf{没有这样的非退化实弦}。
+事实上代入直线后判别式为负（或直接用上述存在性判据）。
+\textbf{启示：}“由中点算出斜率”\textbf{不是}“存在符合条件的弦”的充分证明。
+
+\medskip
+\textbf{\textcolor{CExample}{例 5（分母为零：中心弦不能套公式）}}
+
+\textbf{题目：}椭圆 $\dfrac{x^2}{4}+y^2=1$ 中，若弦的中点是 $O(0,0)$，能否断定弦为竖直弦？
+
+\textbf{解：}不能。$y=0$ 交椭圆于 $(-2,0),(2,0)$，是水平中心弦；
+$x=0$ 交椭圆于 $(0,-1),(0,1)$，是竖直中心弦。
+\textbf{结论：}中心对应无穷多条直径方向；此时 $0/0$ 型公式不能使用。
+
+\medskip
+\textbf{\textcolor{CExample}{变式（考场迁移）}}
+
+对圆 $x^2+y^2=25$，已知中点 $M(3,0)$，求弦所在直线。
+此时不能代 $k=-x_0/y_0$；由圆的对称性或无分母点差式
+$3(x-3)=0$ 得 $\boxed{x=3}$，交圆于 $(3,\pm4)$。
 \end{examplebox}

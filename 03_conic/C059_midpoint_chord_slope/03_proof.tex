@@ -1,82 +1,153 @@
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{\textcolor{CProof}{思路提示}}
 
-	点差法通过“设而不求、两式相减”，利用平方差消去二次项，直接建立中点坐标与弦斜率的关系。
+前三种方法的分工：\textbf{最快法}用于考场 2--3 行速写；\textbf{最低门槛法}用对称坐标直观看“平方差”；\textbf{常规法}用联立韦达。第四种用梯度统一公式。
+下面均设 $A\ne B$ 且中点为 $M(x_0,y_0)$，讨论 $y_0\ne0$。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（椭圆设点作差）：}]
-			设点 \(A(x_1,y_1), B(x_2,y_2)\) 在椭圆 \(\frac{x^2}{a^2}+\frac{y^2}{b^2}=1\) 上。代入得：
-			\[
-				\frac{x_1^2}{a^2}+\frac{y_1^2}{b^2}=1,\quad
-				\frac{x_2^2}{a^2}+\frac{y_2^2}{b^2}=1
-			\]
-			两式相减：
-			\[
-				\frac{x_1^2-x_2^2}{a^2}+\frac{y_1^2-y_2^2}{b^2}=0
-			\]
-			\par\textbf{理由：} 点在曲线上，代入作差消去常数项。
+\medskip
+\textbf{\textcolor{CProof}{方法一：最快证明法（点差法，考场首选）}}
+\begin{center}\input{assets/tikz/C059_difference_projection}\end{center}
 
-		\item[\textbf{步骤二（平方差与中点代入）：}]
-			因式分解：
-			\[
-				\frac{(x_1-x_2)(x_1+x_2)}{a^2}+\frac{(y_1-y_2)(y_1+y_2)}{b^2}=0
-			\]
-			代入中点坐标 \(x_1+x_2=2x_0,\; y_1+y_2=2y_0\)：
-			\[
-				\frac{2x_0(x_1-x_2)}{a^2}+\frac{2y_0(y_1-y_2)}{b^2}=0
-			\]
-			\par\textbf{理由：} 平方差公式与中点定义。
+令 $\Delta x=x_1-x_2,\ \Delta y=y_1-y_2$。
+由 $x_1^2-x_2^2=2x_0\Delta x$ 和 $y_1^2-y_2^2=2y_0\Delta y$，直接写
+\[
+\begin{array}{ll}
+\text{椭圆：}&\dfrac{x_0}{a^2}\Delta x+\dfrac{y_0}{b^2}\Delta y=0
+\ \Longrightarrow\ \boxed{k=-\dfrac{b^2x_0}{a^2y_0}},\\[9pt]
+\text{双曲线：}&\dfrac{x_0}{a^2}\Delta x-\dfrac{y_0}{b^2}\Delta y=0
+\ \Longrightarrow\ \boxed{k=\dfrac{b^2x_0}{a^2y_0}},\\[9pt]
+\text{抛物线：}&2y_0\Delta y=2p\Delta x
+\ \Longrightarrow\ \boxed{k=\dfrac{p}{y_0}}.
+\end{array}
+\]
+\textbf{为什么可以除以 $\Delta x$：}上述任何一种曲线若 $\Delta x=0$，
+对两个不同实交点就有 $y_1=-y_2$，从而 $y_0=0$；与已知矛盾。
+因此 $y_0\ne0$ 且实弦存在时，$\Delta x\ne0$，$k=\Delta y/\Delta x$ 有定义。
 
-		\item[\textbf{步骤三（解出斜率）：}]
-			整理得：
-			\[
-				\frac{2x_0}{a^2}(x_1-x_2)=-\frac{2y_0}{b^2}(y_1-y_2)
-			\]
-			两边除以 \(2(x_1-x_2)\)（假设 \(x_1\neq x_2\)，否则弦垂直\(x\)轴），得：
-			\[
-				\frac{x_0}{a^2}=-\frac{y_0}{b^2}\cdot\frac{y_1-y_2}{x_1-x_2}
-			\]
-			即
-			\[
-				\begin{aligned}
-					k &= \frac{y_1-y_2}{x_1-x_2} \\
-					&= -\frac{b^2x_0}{a^2y_0}
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 代数变形，要求 \(y_0\neq0\)。
+\tcbbreak
+\textbf{\textcolor{CProof}{方法二：门槛最低的证明法（以中点为中心，对称设点）}}
+\begin{center}\input{assets/tikz/C059_midpoint_offsets}\end{center}
 
-		\item[\textbf{步骤四（双曲线类似推导）：}]
-			对于双曲线 \(\frac{x^2}{a^2}-\frac{y^2}{b^2}=1\)，同样设点作差得：
-			\[
-				\frac{x_1^2-x_2^2}{a^2}-\frac{y_1^2-y_2^2}{b^2}=0
-			\]
-			因式分解并代入中点、斜率可得：
-			\[
-				k=\frac{b^2x_0}{a^2y_0}
-			\]
-			\par\textbf{理由：} 推导过程与椭圆类似，注意符号变化。
+\textbf{只设一组偏移量：}
+\[
+ A=(x_0+u,y_0+v),\quad B=(x_0-u,y_0-v),\quad u\ne0,\quad k=\frac vu.
+\]
+\textbf{理由：}“中点是 $M$”已被坐标形式自动保证；
+而 $(s+t)^2-(s-t)^2=4st$，代入曲线相减就只剩下 $u,v$ 的一次式。
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
+\item[\textbf{椭圆：}]
+\[
+\frac{4x_0u}{a^2}+\frac{4y_0v}{b^2}=0
+\ \Longrightarrow\ \frac{x_0}{a^2}+\frac{y_0}{b^2}\frac vu=0.
+\]
+\item[\textbf{双曲线：}]
+\[
+\frac{4x_0u}{a^2}-\frac{4y_0v}{b^2}=0
+\ \Longrightarrow\ \frac{x_0}{a^2}-\frac{y_0}{b^2}\frac vu=0.
+\]
+\item[\textbf{抛物线：}]
+\[
+(y_0+v)^2-(y_0-v)^2=2p[(x_0+u)-(x_0-u)]
+\]
+即 $4y_0v=4pu$，所以 $k=v/u=p/y_0$。
+\end{description}
+\textbf{优势：}全程不用“求出 A、B”；中点、平方差、斜率三件事在一个设点里完成。
 
-		\item[\textbf{步骤五（抛物线推导）：}]
-			对于抛物线 \(y^2=2px\)，设点代入：
-			\[
-				y_1^2=2px_1,\; y_2^2=2px_2
-			\]
-			相减得：
-			\[
-				y_1^2-y_2^2=2p(x_1-x_2)
-			\]
-			即 \((y_1-y_2)(y_1+y_2)=2p(x_1-x_2)\)。
-			代入中点 \(y_1+y_2=2y_0\)，斜率定义：
-			\[
-				k\cdot 2y_0=2p \quad\Rightarrow\quad k=\frac{p}{y_0}
-			\]
-			\par\textbf{理由：} 平方差与中点代入。
-	\end{description}
+\tcbbreak
+\textbf{\textcolor{CProof}{方法三：常规证明法（直线联立 + 韦达定理）}}
+\begin{center}\input{assets/tikz/C059_vieta_projection}\end{center}
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
+设割线为 $y=k(x-x_0)+y_0=kx+t$，其中 $t=y_0-kx_0$，
+且其两个交点的横坐标满足 $x_1+x_2=2x_0$。
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
+\item[\textbf{椭圆：}]
+联立 $b^2x^2+a^2y^2=a^2b^2$：
+\[
+(b^2+a^2k^2)x^2+2a^2ktx+a^2t^2-a^2b^2=0.
+\]
+由韦达定理
+\[
+2x_0=-\frac{2a^2kt}{b^2+a^2k^2}
+\ \Longrightarrow\ x_0b^2=-a^2ky_0
+\ \Longrightarrow\ \boxed{k=-\frac{b^2x_0}{a^2y_0}}.
+\]
+\item[\textbf{双曲线：}]
+联立 $b^2x^2-a^2y^2=a^2b^2$：
+\[
+(b^2-a^2k^2)x^2-2a^2ktx-a^2t^2-a^2b^2=0.
+\]
+两实交点保证二次项系数 $b^2-a^2k^2\ne0$，故
+\[
+2x_0=\frac{2a^2kt}{b^2-a^2k^2}
+\ \Longrightarrow\ x_0b^2=a^2ky_0
+\ \Longrightarrow\ \boxed{k=\frac{b^2x_0}{a^2y_0}}.
+\]
+\end{description}
+\tcbbreak
+\textbf{\textcolor{CProof}{方法三续：抛物线的根之和与中点轨迹}}
+\begin{center}\input{assets/tikz/C059_parabola_locus}\end{center}
+图取 $p=2,k=2$ 展示中点纵坐标不变；以下对一般的 $p,k$ 推导。
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
+\item[\textbf{抛物线：}]
+联立 $y^2=2px$：
+\[
+k^2x^2+(2kt-2p)x+t^2=0.
+\]
+两不同实交点要求 $k\ne0$，于是
+\[
+2x_0=\frac{2p-2kt}{k^2}
+\ \Longrightarrow\ k^2x_0=p-k(y_0-kx_0)
+\ \Longrightarrow\ \boxed{k=\frac{p}{y_0}}.
+\]
+\end{description}
+\textbf{对比：}常规法需要展开、整理二次方程、使用根的和；点差法只做一次减法。
 
-	点差法直接建立中点与斜率的关系，不需要联立方程组求解，大幅提高运算效率。注意适用前提：弦与曲线有两个交点，且 \(y_0\neq0\)（避免分母为零），同时对于椭圆和双曲线要求 \(x_1\neq x_2\)（即弦不垂直于 \(x\) 轴）。
+\tcbbreak
+\textbf{\textcolor{CProof}{方法四：补充证明法（一个梯度公式统一三条曲线）}}
+\begin{center}\input{assets/tikz/C059_gradient_level}\end{center}
+
+设一般二次曲线 $F(x,y)=Ax^2+Bxy+Cy^2+Dx+Ey+G=0$。
+写 $A_1=M+h,\ B_1=M-h$（这里 $A_1,B_1$ 表示两端点），二次项展开后
+\[
+F(M+h)-F(M-h)=2\nabla F(M)\cdot h=0.
+\]
+设 $h=(u,v)$，得到
+\[
+(2Ax_0+By_0+D)u+(Bx_0+2Cy_0+E)v=0.
+\]
+若第二个系数不为零、$u\ne0$，则
+\[
+\boxed{\quad k=\frac vu=-\frac{2Ax_0+By_0+D}{Bx_0+2Cy_0+E}\quad}.
+\]
+代入椭圆、双曲线、$F=y^2-2px$，分别回到三种公式。
+\textbf{理解：}弦方向与 $\nabla F(M)$ 正交，是\emph{二次函数在中点处的等值线方向}；
+若 $M$ 不在原曲线上，\textbf{不能}把它误称为“原曲线在 $M$ 处的切线”。
+
+\tcbbreak
+\textbf{\textcolor{CProof}{补充论证：反求弦时的存在性（不能只写候选直线）}}
+\begin{center}\input{assets/tikz/C059_existence_cases}\end{center}
+图中同支的 $M_1$ 与异支的 $M_2$ 都可实现；$N$ 虽能算出候选斜率，却没有实交点。
+
+设对称端点为 $M\pm h$，取椭圆或双曲线的二次型 $Q(x,y)$。
+因为 $Q(M+h)=Q(M-h)=1$，作差与相加分别给出
+\[
+B_Q(M,h)=0,\qquad Q(h)=1-Q(M),
+\]
+其中 $B_Q(M,h)$ 是对应双线性项。
+\begin{itemize}[leftmargin=*,itemsep=0.4em,topsep=0.25em]
+\item 椭圆：$Q(h)>0$（$h\ne0$），所以 $Q(M)<1$；反之 $Q(M)<1$ 可选取合适的非零 $h$。
+\item 双曲线：取 $Q(M)=\dfrac{x_0^2}{a^2}-\dfrac{y_0^2}{b^2}$、且 $y_0\ne0$。
+候选方向满足 $v/u=\dfrac{b^2x_0}{a^2y_0}$，于是
+\[
+Q(h)=u^2\left(\frac1{a^2}-\frac{k^2}{b^2}\right)
+=-\frac{b^2Q(M)}{a^2y_0^2}\,u^2.
+\]
+要有 $u^2>0$ 并满足 $Q(h)=1-Q(M)$，必须且只须
+$\displaystyle \frac{1-Q(M)}{-Q(M)}>0$，即 $Q(M)<0$ 或 $Q(M)>1$。
+\item 抛物线：在 $A=(x_0+u,y_0+v),\ B=(x_0-u,y_0-v)$ 处分别代入 $y^2=2px$，
+相加得 $y_0^2+v^2=2px_0$。两点不同且 $y_0\ne0$ 时 $v\ne0$，故
+$\displaystyle x_0>\frac{y_0^2}{2p}$；反之令 $v^2=2px_0-y_0^2>0$，再取 $u=y_0v/p$ 即得两点。
+\end{itemize}
+
 \end{proofbox}

@@ -1,0 +1,47 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=2pt] (0,0) rectangle (14.2,9);
+\node at (7.1,8.35) {圆的垂直性质，要在伸缩后的坐标中使用};
+\node at (7.1,7.45) {$X=x/2,\quad Y=y/\sqrt3$：椭圆变单位圆，中点仍对应中点。};
+\pgfmathsetmacro{\u}{sqrt(20/21)}
+\foreach \j/\cx in {1/3.5,2/10.5}{
+ \begin{scope}[shift={(\cx,4.1)}]
+ \ifnum\j=1
+  \coordinate (A) at ({1-\u},{1+.75*\u});
+  \coordinate (B) at ({1+\u},{1-.75*\u});
+  \coordinate (M) at (1,1);
+  \draw[blue!75!black,thick] (0,0) ellipse (2 and 1.7320508076);
+  \def\xl{x}\def\yl{y}
+ \else
+  % Display scale 2cm per X/Y unit; actual transformed coordinates are x/2,y/sqrt3.
+  \coordinate (A) at ({1-\u},{2*(1+.75*\u)/sqrt(3)});
+  \coordinate (B) at ({1+\u},{2*(1-.75*\u)/sqrt(3)});
+  \coordinate (M) at (1,{2/sqrt(3)});
+  \draw[blue!75!black,thick] (0,0) circle(2);
+  \def\xl{X}\def\yl{Y}
+ \fi
+ \draw[gray,->] (-2.4,0)--(2.45,0) node[right] {$\xl$};
+ \draw[gray,->] (0,-2.15)--(0,2.3) node[above] {$\yl$};
+ \draw[gray] (2,-.05)--(2,.05);
+ \ifnum\j=1
+  \node[below right=4pt] at (2,0) {$2$};
+ \else
+  \node[below right=4pt] at (2,0) {$1$};
+ \fi
+ \draw[orange!85!black,very thick] (A)--(B);
+ \draw[purple!80!black,thick] (0,0)--(M);
+ \fill (0,0) circle(1.5pt) node[below left=4pt] {$O$};
+ \ifnum\j=1
+  \fill (A) circle(1.6pt) node[above left=5pt] {$A$};
+  \fill (B) circle(1.6pt) node[above right=5pt] {$B$};
+  \fill (M) circle(1.8pt) node[below=8pt] {$M$};
+ \else
+  \draw[gray] (1.151186,1.023770)--(1.020255,.872584)--(.869069,1.003514);
+  \fill (A) circle(1.6pt) node[above left=5pt] {$A'$};
+  \fill (B) circle(1.6pt) node[above right=5pt] {$B'$};
+  \fill (M) circle(1.8pt) node[below=8pt] {$M'$};
+ \fi
+ \end{scope}}
+\node at (3.5,1.4) {原坐标：$k_{OM}=1,\ k_{AB}=-3/4$};
+\node at (10.5,1.4) {伸缩后：$OM'\perp A'B'$};
+\node at (7.1,.55) {非等比伸缩会改变角度，不能把圆中的垂直关系直接搬回椭圆。};
+\end{tikzpicture}

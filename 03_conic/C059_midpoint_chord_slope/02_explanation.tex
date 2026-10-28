@@ -1,47 +1,62 @@
+\clearpage
 \begin{explanationbox}
-\begin{minipage}{\linewidth}
-\begin{center}\input{assets/tikz/C059_math_audit_geometry.tex}\end{center}
-中心弦的中点都是 $O$，图中两个不同方向都可取。因而中点为中心时，不能从 $y_0=0$ 一概推出弦竖直；含 $y_0$ 分母的斜率公式须另行处理。
-\end{minipage}
-\par\medskip
+\textbf{先把曲线拿开，只看学生熟悉的“中点两边各走同样远”。}
+\begin{center}\input{assets/tikz/C059_midpoint_offsets}\end{center}
+把图中的线段放回曲线上，就可设 $A=M+(u,v),\ B=M-(u,v)$；
+中点条件自动满足，方向斜率直接读作 $k=v/u$。
 
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
+\textbf{\textcolor{CExplanation}{一句话直觉}}
 
-	点差法通过设点作差，直接建立中点坐标与弦斜率的关系，避免联立解交点。
+\textbf{同一条二次曲线上的两点，代入后相减：平方变成“差乘和”；差给斜率，和给中点。}
+不需要先求两个交点。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（设点不求值）：}] 设弦两端点坐标为 \((x_1,y_1)\) 和 \((x_2,y_2)\)，但不需要求出具体数值。
-		\item[\textbf{要点二（平方差消元）：}] 将两点坐标代入曲线方程并作差，利用平方差公式消去二次项，得到斜率与中点坐标的关系式。
-	\end{description}
+\medskip
+\textbf{\textcolor{CExplanation}{读题顺序：}}
+有“中点”就找 $x_1+x_2=2x_0,\ y_1+y_2=2y_0$；两点代入同一曲线再相减，常数消掉；
+最后把 $\Delta y/\Delta x$ 整体看成 $k$，不用求出两个端点。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（共轭性质）}}
+\medskip
+\textbf{\textcolor{CExplanation}{为什么三种曲线符号不同}}
+\[
+\begin{array}{ccl}
+\text{椭圆}&:& \dfrac{x_0}{a^2}+\dfrac{y_0}{b^2}k=0
+\quad\Longrightarrow\quad k=-\dfrac{b^2x_0}{a^2y_0};\\[6pt]
+\text{双曲线}&:& \dfrac{x_0}{a^2}-\dfrac{y_0}{b^2}k=0
+\quad\Longrightarrow\quad k=\dfrac{b^2x_0}{a^2y_0};\\[6pt]
+\text{抛物线}&:& y_0k=p
+\quad\Longrightarrow\quad k=\dfrac{p}{y_0}.
+\end{array}
+\]
+\textbf{记忆不靠口诀：}原方程中 $y^2$ 项是“加”还是“减”，作差后就原样保留；移项自然决定斜率符号。
 
-	中点弦的斜率与中点坐标沿曲线的共轭方向，表示实际弦方向与中点的约束；同一方向可以有多个中点，中心点还可能对应多个方向。
+\medskip
+\tcbbreak
+\textbf{\textcolor{CExplanation}{几何本质（从圆迁移到椭圆）}}
+\begin{center}\input{assets/tikz/C059_circle_rescale}\end{center}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（线性化）}}
+圆上，对\textbf{不经过圆心的弦}，圆心到弦中点的连线垂直该弦。
+对椭圆做 $X=x/a,\ Y=y/b$ 的伸缩后，椭圆化成单位圆；在变换后的坐标里沿用“半径垂直弦”，再换回斜率，可得
+\[
+k=\frac ba\left(-\frac{X_0}{Y_0}\right)
+=-\frac{b^2x_0}{a^2y_0}.
+\]
+图中左侧两斜率的乘积为 $-3/4$，并非 $-1$；垂直性发生在右侧的圆中。
 
-	点差法将二次曲线的弦中点问题转化为一次方程的求解，使问题简便。
+\medskip
+\textbf{\textcolor{CExplanation}{充分性：为什么还要判弦存在}}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（速算价值）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（求中点弦方程）：} 已知弦的中点坐标，直接代入公式得斜率，再用点斜式写出直线方程。
-		\item \textbf{考法二（求中点轨迹）：} 已知弦斜率满足条件，通过点差法得到中点坐标的方程，即中点轨迹。
-	\end{itemize}
+\textbf{点差法是“实际弦 $\Rightarrow$ 候选直线”}；反推时，须再检查实交点个数：
+\begin{itemize}[leftmargin=*,itemsep=0.4em,topsep=0.3em]
+  \item 椭圆：$\displaystyle \frac{x_0^2}{a^2}+\frac{y_0^2}{b^2}<1$（中点必须严格位于椭圆内部）。
+  \item 抛物线 $y^2=2px$：$\displaystyle x_0>\frac{y_0^2}{2p}$（中点须在抛物线的开口内部）。
+  \item 双曲线：记 $\displaystyle Q=\frac{x_0^2}{a^2}-\frac{y_0^2}{b^2}$。
+  对 $y_0\ne0$ 的候选弦，\textbf{恰有两个不同实交点}当且仅当 $Q<0$ 或 $Q>1$。
+\end{itemize}
+\textbf{这三个范围是反求中点弦时的存在性条件；}已知直线确实是割线时，直接使用斜率公式即可。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
+\medskip
+\textbf{\textcolor{CExplanation}{顿悟点（一次记住两个动作）}}
 
-	点差法先给出候选方向；反求弦时仍须检查两不同实交点和轨迹范围。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（中点弦直接求）：} 题目直接给出弦的中点坐标，要求弦所在直线方程。
-		\item \textbf{场景二（对称性问题）：} 涉及中点或对称关系时，利用点差法转化条件。
-	\end{itemize}
+看到“中点”先\textbf{点差找方向}；看到“反求弦或轨迹”再\textbf{检查两实交点}。
+前一步是必要关系，后一步才使答案完整。
 \end{explanationbox}

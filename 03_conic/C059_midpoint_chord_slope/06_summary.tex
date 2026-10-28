@@ -1,20 +1,42 @@
 \begin{summarybox}
-	\textbf{\textcolor{CSummary}{一句话核心}}
+\textbf{\textcolor{CSummary}{一句话核心}}
 
-	点差法直接给出中点弦斜率公式，将圆锥曲线弦中点问题转化为代数计算。
+\textbf{同曲线两点相减，平方差的“和”给中点、“差”给斜率：}这是点差法的全部发动机。
 
-	\medskip
-	\textbf{\textcolor{CSummary}{使用条件}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{条件1（方程标准化）：} 曲线方程为标准形式（椭圆 \(\frac{x^2}{a^2}+\frac{y^2}{b^2}=1\)，双曲线 \(\frac{x^2}{a^2}-\frac{y^2}{b^2}=1\)，抛物线 \(y^2=2px\)）。
-		\item \textbf{条件2（纵坐标非零）：} 中点 \(M(x_0,y_0)\) 满足 \(y_0\neq0\)。
-		\item \textbf{条件3（两点相交）：} 弦与曲线有两个交点（弦不退化）。
-	\end{itemize}
+\medskip
+\textbf{\textcolor{CSummary}{最短复现（不依赖死记）}}
+\[
+\begin{array}{rcl}
+\text{椭圆：}&\dfrac{x_0}{a^2}+\dfrac{y_0}{b^2}k=0
+&\Longrightarrow\ k=-\dfrac{b^2x_0}{a^2y_0},\\[6pt]
+\text{双曲线：}&\dfrac{x_0}{a^2}-\dfrac{y_0}{b^2}k=0
+&\Longrightarrow\ k=\dfrac{b^2x_0}{a^2y_0},\\[6pt]
+\text{抛物线：}&y_0k=p
+&\Longrightarrow\ k=\dfrac{p}{y_0},\\[6pt]
+\text{圆：}&x_0+y_0k=0
+&\Longrightarrow\ k=-\dfrac{x_0}{y_0}.
+\end{array}
+\]
+以上斜率公式均须 $y_0\ne0$；默认确实存在两个不同实交点。
 
-	\medskip
-	\textbf{\textcolor{CSummary}{关键提醒}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{易错点（符号与分母）：} 椭圆负号、双曲线正号勿混淆；分母 \(y_0\) 不为零。
-		\item \textbf{检查项（适用验证）：} 确认曲线类型与中点坐标是否满足公式使用前提。
-	\end{itemize}
+\medskip
+\textbf{\textcolor{CSummary}{两步考场检查}}
+\begin{itemize}[leftmargin=*,itemsep=0.4em,topsep=0.3em]
+\item \textbf{第一步（抓信号）：}出现“弦中点、对称、求弦方程、求中点轨迹” $\Rightarrow$ 先点差求候选方向。
+\item \textbf{第二步（看逆推）：}若题目已告知弦存在，直接计算；若给中点\emph{反求}弦，必须确认“两不同实交点”或检查有效范围。
+\end{itemize}
+
+\medskip
+\textbf{\textcolor{CSummary}{最容易忘记的两个反例}}
+
+\textbf{反例一：} $M=O$ 的椭圆中心弦可以水平、竖直或倾斜，不能把 $0/0$ 当作“竖直”。
+\textbf{反例二：} 双曲线 $x^2/4-y^2/5=1$ 的 $M(1,1)$ 可以算出候选斜率 $5/4$，但不存在相应实弦。
+
+\medskip
+\textbf{\textcolor{CSummary}{证明选用顺序}}
+
+\textbf{最快：}两式相减；\quad
+\textbf{门槛最低：}两端点写成 $M\pm(u,v)$；\quad
+\textbf{常规：}联立直线后用韦达；\quad
+\textbf{进阶统一：} $\nabla F(M)\cdot(u,v)=0$。
 \end{summarybox}

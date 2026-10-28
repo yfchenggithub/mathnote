@@ -1,0 +1,56 @@
+% Same midpoint (1,1); every panel uses the same x/y unit, 0.5cm.
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=2pt] (0,0) rectangle (14.2,8);
+\node at (7.1,7.35) {先认清 $A,B$ 是端点，$M$ 是中点，再看弦的方向};
+\pgfmathsetmacro{\u}{sqrt(20/21)}
+\pgfmathsetmacro{\w}{sqrt(28/3)}
+\foreach \s/\cx in {1/2.3,2/7.1,3/11.7}{
+  \begin{scope}[shift={(\cx,3.5)},scale=.5]
+  \draw[gray,->] (-3.7,0)--(3.7,0) node[right] {$x$};
+  \draw[gray,->] (0,-2.3)--(0,3.5) node[above] {$y$};
+  \ifnum\s=1
+    \draw[blue!75!black,thick] (0,0) ellipse (2 and 1.7320508076);
+    \coordinate (A) at ({1-\u},{1+.75*\u});
+    \coordinate (B) at ({1+\u},{1-.75*\u});
+  \else\ifnum\s=2
+    \draw[blue!75!black,thick,domain=-2:2,samples=90,variable=\v]
+      plot ({2*sqrt(1+\v*\v)},\v);
+    \draw[blue!75!black,thick,domain=-2:2,samples=90,variable=\v]
+      plot ({-2*sqrt(1+\v*\v)},\v);
+    \coordinate (A) at ({1-\w},{1-.25*\w});
+    \coordinate (B) at ({1+\w},{1+.25*\w});
+  \else
+    \draw[blue!75!black,thick,domain=-1.8:3.2,samples=90,variable=\v]
+      plot ({\v*\v/4},\v);
+    \coordinate (A) at ({1-sqrt(3)/2},{1-sqrt(3)});
+    \coordinate (B) at ({1+sqrt(3)/2},{1+sqrt(3)});
+  \fi\fi
+  \draw[orange!85!black,very thick] (A)--(B);
+  \ifnum\s=1
+    \fill[orange!85!black] (A) circle(2.4pt) node[above left=4pt,text=black] {$A$};
+    \fill[purple!80!black] (1,1) circle(2.8pt);
+    \node[text=purple!80!black] at (.5,.7) {$M$};
+  \else
+    \ifnum\s=2
+      \fill[orange!85!black] (A) circle(2.4pt) node[above=7pt,text=black] {$A$};
+      \fill[purple!80!black] (1,1) circle(2.8pt) node[above=4pt] {$M$};
+    \else
+      \fill[orange!85!black] (A) circle(2.4pt) node[below left=4pt,text=black] {$A$};
+      \fill[purple!80!black] (1,1) circle(2.8pt) node[right=4pt] {$M$};
+    \fi
+  \fi
+  \ifnum\s=3
+    \fill[orange!85!black] (B) circle(2.4pt) node[right=8pt,text=black] {$B$};
+  \else
+    \fill[orange!85!black] (B) circle(2.4pt) node[above right=4pt,text=black] {$B$};
+  \fi
+  \end{scope}
+}
+\node at (2.3,6.35) {$\dfrac{x^2}{4}+\dfrac{y^2}{3}=1$};
+\node at (7.1,6.35) {$\dfrac{x^2}{4}-y^2=1$};
+\node at (11.7,6.35) {$y^2=4x$};
+\node[text=orange!85!black] at (2.3,1.45) {$k=-3/4$};
+\node[text=orange!85!black] at (7.1,1.45) {$k=1/4$};
+\node[text=orange!85!black] at (11.7,1.45) {$k=2$};
+\node at (7.1,.55) {三图都取 $M(1,1)$：中点相同，曲线不同，弦的方向也不同。};
+\end{tikzpicture}

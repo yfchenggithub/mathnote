@@ -1,0 +1,26 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=2pt] (0,0) rectangle (14.2,9.6);
+\node at (7.1,8.95) {联立后的两个根，就是两端点的横坐标};
+\node at (7.1,8.1) {图取椭圆上半部；中点的横坐标也是两根的平均数。};
+\pgfmathsetmacro{\u}{sqrt(20/21)}
+\begin{scope}[shift={(6,3.9)},scale=1.5]
+\coordinate (A) at ({1-\u},{1+.75*\u});
+\coordinate (B) at ({1+\u},{1-.75*\u});
+\draw[gray,->] (-2.3,0)--(2.6,0) node[right] {$x$};
+\draw[blue!75!black,thick,domain=0:180,samples=100,variable=\t]
+ plot ({2*cos(\t)},{sqrt(3)*sin(\t)});
+\draw[orange!85!black,very thick] (A)--(B);
+\draw[gray,dashed] (A)--({1-\u},0);
+\draw[gray,dashed] (B)--({1+\u},0);
+\draw[purple!80!black,dashed] (1,1)--(1,0);
+\fill (A) circle(1.5pt) node[above left=5pt] {$A$};
+\fill (B) circle(1.5pt) node[above right=5pt] {$B$};
+\fill[purple!80!black] (1,1) circle(1.7pt) node[below left=5pt] {$M$};
+\foreach \x/\lab in {{1-\u}/x_1,1/x_0,{1+\u}/x_2}{
+ \fill (\x,0) circle(1.2pt) node[below=5pt] {$\lab$};}
+\draw[orange!85!black,<->] ({1-\u},-.65)--(1,-.65) node[midway,below=4pt] {$u$};
+\draw[orange!85!black,<->] (1,-.65)--({1+\u},-.65) node[midway,below=4pt] {$u$};
+\end{scope}
+\node at (7.1,1.25) {$x_0-x_1=x_2-x_0\quad\Longrightarrow\quad x_1+x_2=2x_0$};
+\node at (7.1,.5) {韦达定理读取的“根之和”，正好接上中点条件。};
+\end{tikzpicture}
