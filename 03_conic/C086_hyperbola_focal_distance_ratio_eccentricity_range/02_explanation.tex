@@ -1,0 +1,82 @@
+\clearpage
+\begin{explanationbox}
+\textbf{几何直觉一：差固定，按比例分份，求出两边之和。}
+
+把焦点三角形 $\triangle PF_1F_2$ 的两条腰记作
+$r_1=PF_1$、$r_2=PF_2$。双曲线定义规定
+\[
+\boxed{|r_1-r_2|=2a},\qquad \boxed{F_1F_2=2c}.
+\]
+如果题目给 $r_1:r_2=\lambda:1$，就把两条腰分别看成
+“$\lambda$ 份”和“$1$ 份”：\textbf{两腰的差 $|\lambda-1|$ 份恰好等于 $2a$}。
+于是
+\[
+\text{一份}=\frac{2a}{|\lambda-1|},\qquad
+r_1+r_2=\frac{2a(\lambda+1)}{|\lambda-1|}.
+\]
+但三角形两边之和不能小于第三边 $2c$：
+\[
+\frac{2a(\lambda+1)}{|\lambda-1|}\ge2c
+\ \Longrightarrow\ \boxed{e\le\frac{\lambda+1}{|\lambda-1|}}.
+\]
+\textbf{理解优先级：}不必先背最后的分式。只记“\textbf{差 $2a$、底边 $2c$、比值分份}”，
+公式即可现推。
+\end{explanationbox}
+
+\clearpage
+\begin{explanationbox}
+\textbf{几何直觉二：为什么最值恰在顶点？}
+
+当 $P$ 是右顶点 $A=(a,0)$，三个点共线，且 $P$ 位于两焦点之间。
+三角形退化为一条线段，所以
+\[
+\boxed{PF_1+PF_2=F_1F_2=2c}.
+\]
+此时刚好达到不等式的\textbf{等号}；离开顶点，真正组成三角形，便有
+$PF_1+PF_2>2c$，所以同一个 $\lambda$ 下 $e$ 必须\textbf{严格小于}上界。
+
+\begin{center}\input{assets/tikz/C086_vertex}\end{center}
+
+\textbf{几何直觉三：阿波罗尼斯圆（定比轨迹），不是“两焦点圆”。}
+固定 $\lambda>0$，把\emph{平面上所有}满足 $PF_1=\lambda PF_2$ 的点收集起来：
+$\lambda\ne1$ 时构成\textbf{一条圆} $\mathcal A_\lambda$。其圆心在焦点连线所在的 $x$ 轴上：
+\[
+\boxed{C_\lambda\!\left(\frac{c(1+\lambda^2)}{\lambda^2-1},0\right)},\qquad
+\boxed{R_\lambda=\frac{2c\lambda}{|\lambda^2-1|}}.
+\]
+\textbf{推导：}把 $PF_1^2=\lambda^2PF_2^2$ 展开、配方：
+\[
+(x+c)^2+y^2=\lambda^2[(x-c)^2+y^2]
+\iff
+(x-x_C)^2+y^2=R_\lambda^2.
+\]
+因此 C086 的问题实质上是：\textbf{圆 $\mathcal A_\lambda$ 能否与双曲线相交？}
+例如 $\lambda=2$、$a=2,c=4$ 时，圆与右支相交于上下对称的两个点。
+
+\begin{center}\input{assets/tikz/C086_apollonius}\end{center}
+
+\textbf{最直观的圆上长度变化（先看 $\lambda>1$）：}
+右焦点 $F_2$ 在圆内；当 $P$ 沿 $\mathcal A_\lambda$ 走一圈，
+$PF_2$ 最小值和最大值分别是
+\[
+\boxed{\min PF_2=\frac{2c}{\lambda+1}},\qquad
+\boxed{\max PF_2=\frac{2c}{\lambda-1}}.
+\]
+因 $PF_1-PF_2=(\lambda-1)PF_2$，所以距离差在
+\[
+\boxed{\frac{2c(\lambda-1)}{\lambda+1}}
+\ \le\ PF_1-PF_2\ \le\ 2c
+\]
+之间连续变化。双曲线要求\textbf{距离差恰好 $2a$}；由于 $2a<2c$，
+存在交点当且仅当
+$2a\ge 2c(\lambda-1)/(\lambda+1)$，即
+\[
+\boxed{e=\frac ca\le\frac{\lambda+1}{\lambda-1}}.
+\]
+\textbf{等号的几何意义：}圆上距离差取最小值的点在 $x$ 轴上，
+且此时正好是双曲线的右顶点；严格不等时有上、下两个交点。
+当 $0<\lambda<1$，交换 $F_1,F_2$（或将 $\lambda$ 换成 $1/\lambda$）得到同样的绝对值形式。
+
+\textbf{不要混淆：}这里的\textbf{一条阿波罗尼斯圆}是全部定比点的轨迹；
+证明存在性时还可以另作\textbf{两个以焦点为圆心的辅助圆}（见证明方法五）。
+\end{explanationbox}

@@ -1,0 +1,27 @@
+% lambda=2, c=4: center (20/3,0), R=16/3; scale=.525 cm/unit.
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,10.4);
+\node at (7.1,9.75) {方法四：圆内定点到圆周，最近为 $R-d$，最远为 $R+d$};
+\node at (7.1,8.95) {例：$\lambda=2,c=4$，$R=16/3$，$d=CF_2=8/3<R$};
+\begin{scope}[shift={(4,5.5)},scale=.525]
+\coordinate (C) at (6.6666666667,0);
+\coordinate (Ftwo) at (4,0);
+\coordinate (T) at (1.3333333333,0);
+\coordinate (U) at (12,0);
+\draw[orange!85!black,very thick] (C) circle (5.3333333333);
+\draw[gray] (.6,0)--(12.7,0);
+\draw[purple!80!black,line width=2pt] (T)--(Ftwo);
+\draw[teal!75!black,thick] (Ftwo)--(U);
+\draw[orange!85!black,dashed,thick] (C)--(6.6666666667,5.3333333333)
+ node[midway,right=6pt] {$R$};
+\fill (C) circle (2.5pt) node[below=7pt] {$C$};
+\fill (Ftwo) circle (2.5pt) node[below=7pt] {$F_2$};
+\fill[purple!80!black] (T) circle (3pt) node[above left=6pt] {$T$};
+\fill[teal!75!black] (U) circle (3pt) node[above right=6pt] {$U$};
+\node at (5.3333333333,.75) {$d$};
+\end{scope}
+\draw[purple!80!black,<->,thick] (4.7,1.8)--(6.1,1.8)
+ node[midway,above=5pt] {$F_2T=R-d=8/3$};
+\draw[teal!75!black,<->,thick] (6.1,.7)--(10.3,.7)
+ node[midway,above=5pt] {$F_2U=R+d=8$};
+\end{tikzpicture}

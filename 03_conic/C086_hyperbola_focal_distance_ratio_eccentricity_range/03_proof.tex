@@ -1,0 +1,220 @@
+\clearpage
+\begin{proofbox}
+\textbf{统一记号：}沿用结论中的双曲线及焦点，记 $r_1=PF_1>0$、$r_2=PF_2>0$，
+则 $|r_1-r_2|=2a$，$F_1F_2=2c$。
+
+\medskip
+\textbf{方法一：最快证明【定义＋三角形不等式，2--3 步】。}
+\begin{center}\input{assets/tikz/C086_triangle_proof}\end{center}
+\textbf{先认图：} 两腰的差固定为 $2a$，两腰的和至少覆盖底边 $2c$。
+
+\textbf{第1步：}把双曲线定义与三角形条件并排写出：
+\[
+\boxed{|r_1-r_2|=2a},\qquad
+\boxed{r_1+r_2\ge2c}.
+\]
+\textbf{第2步：}两式作比（分母为正），并直接代入 $r_1=\lambda r_2$：
+\[
+\frac ca
+\le\frac{r_1+r_2}{|r_1-r_2|}
+=\frac{\lambda r_2+r_2}{|\lambda r_2-r_2|}
+=\boxed{\frac{1+\lambda}{|1-\lambda|}}.
+\]
+\textbf{第3步：}由 $e>1$ 得
+\[
+\boxed{1<e\le\frac{1+\lambda}{|1-\lambda|}},\qquad \lambda\ne1.
+\]
+若 $\lambda=1$，则 $r_1=r_2$ 与 $|r_1-r_2|=2a>0$ 矛盾。
+
+\textbf{等号及可达性：}等号时 $P$ 在两焦点间的对应顶点：$\lambda>1$ 取右顶点，
+$0<\lambda<1$ 取左顶点。范围内确有点由方法五的两圆构造保证，故为\textbf{充要条件}。
+\textbf{最快的原因：}不设坐标，只把两腰的和与差直接作比。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法二：最低门槛证明【初中分份法：差定求和】。}
+\begin{center}\input{assets/tikz/C086_parts_proof}\end{center}
+\textbf{先从整数份看：} 图中 $2:1$ 的两腰，差一份、和三份；再推广到 $\lambda:1$。
+
+\textbf{第1步：}已知 $r_1:r_2=\lambda:1$，就设
+\[
+r_1=\lambda t,\qquad r_2=t,\qquad t>0.
+\]
+这只引入\textbf{一个未知数} $t$；无需点坐标、参数方程或任何高等技巧。
+
+\textbf{第2步：}双曲线规定\textbf{两腰之差}为 $2a$：
+先排除 $\lambda=1$，因为两腰相等会与 $2a>0$ 矛盾。以下 $\lambda\ne1$。
+\[
+|\lambda t-t|=2a
+\quad\Longrightarrow\quad
+\boxed{t=\frac{2a}{|\lambda-1|}}.
+\]
+例如 $\lambda=2$ 时，腰长比 $2:1$，两腰之差就是“$1$ 份”$=2a$；
+因此两腰之和是“$3$ 份”$=6a$。
+
+\textbf{第3步：}底边是两焦点间距 $2c$，必须满足
+\[
+2c\le r_1+r_2=(\lambda+1)t
+=\frac{2a(\lambda+1)}{|\lambda-1|}.
+\]
+除以 $2a$，得到
+\[
+\boxed{1<e=\frac ca\le\frac{\lambda+1}{|\lambda-1|}}.
+\]
+\textbf{何时等号：}两腰首尾拼成底边，即 $P$ 落在焦点之间的顶点；
+否则 $PF_1+PF_2>F_1F_2$，上界取不到。
+
+\textbf{最低门槛在哪里：}全程只需\textbf{比例、绝对值、三角形两边之和}；
+考场忘了公式也可从最熟悉的“差几份、和几份”当场还原。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法三：常规解析几何【焦半径公式＋坐标范围】。}
+\begin{center}\input{assets/tikz/C086_coordinate_proof}\end{center}
+\textbf{先看图中的竖线：} 横坐标落在相应支的取值范围内，才有真实交点。
+
+在\textbf{右支}上 $x\ge a$，两焦半径为
+\[
+PF_1=ex+a,\qquad PF_2=ex-a.
+\]
+故 $\lambda=(ex+a)/(ex-a)>1$。解得
+\[
+\boxed{x=\frac ae\,\frac{\lambda+1}{\lambda-1}}.
+\]
+而双曲线右支存在点 $P$ 的充要条件正是 $x\ge a$；
+因此
+\[
+\lambda>1:\quad
+\frac{\lambda+1}{\lambda-1}\ge e>1.
+\]
+
+\tcbbreak
+\textbf{方法三续：左支是右支关于 $y$ 轴的镜像。}
+\begin{center}\input{assets/tikz/C086_coordinate_proof}\end{center}
+在\textbf{左支}上写 $x=-t$（$t\ge a$），有
+\[
+PF_1=et-a,\qquad PF_2=et+a,
+\qquad \lambda=\frac{et-a}{et+a}<1.
+\]
+解得
+\[
+\boxed{t=\frac ae\,\frac{1+\lambda}{1-\lambda}}.
+\]
+同理，左支存在点的充要条件为 $t\ge a$，所以
+\[
+0<\lambda<1:\quad
+\frac{1+\lambda}{1-\lambda}\ge e>1.
+\]
+合并两支即
+\[
+\boxed{\lambda\ne1,\quad 1<e\le\frac{1+\lambda}{|1-\lambda|}}.
+\]
+\textbf{充分性不靠猜图：}以上条件成立时，右支的 $x\ge a$ 或左支的
+$t\ge a$，代入
+\[
+\boxed{y=\pm\frac ba\sqrt{x^2-a^2}}
+\]
+得到真实曲线点；当 $|x|>a$ 有\textbf{两个}对称解，$|x|=a$ 只有顶点一解。
+\textbf{常规法优点：}不仅求范围，还能求坐标、判断所在支及交点个数。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法四：阿波罗尼斯圆证明【一条定比轨迹圆的长度最值】。}
+
+\textbf{补充理由：}这是\textbf{独立的几何证明}。
+方法一只看某一点的三角形，本法先找出\emph{所有满足距离比的点}构成的圆，
+再问它能否和双曲线的\emph{定差轨迹}相交。
+
+\textbf{第1步：建立阿波罗尼斯圆。}先设 $\lambda>1$（$0<\lambda<1$ 稍后由对称处理），
+令 $P=(x,y)$，则
+\[
+PF_1=\lambda PF_2
+\iff (x+c)^2+y^2=\lambda^2[(x-c)^2+y^2].
+\]
+整理并配方：
+\[
+\boxed{(x-x_C)^2+y^2=R^2},\qquad
+x_C=\frac{c(\lambda^2+1)}{\lambda^2-1},\quad
+R=\frac{2c\lambda}{\lambda^2-1}.
+\]
+故定比轨迹确是一条阿波罗尼斯圆 $\mathcal A_\lambda$。
+\begin{center}\input{assets/tikz/C086_apollonius}\end{center}
+\textbf{图意：} 橙色圆给出全部定比点，绿色双曲线要求距离差为 $2a$；公共点才是所求点。
+
+\textbf{交点数和相切位置：}当 $2a$ 严格处于下面将求出的距离差最小值与最大值之间，
+圆上恰有上下对称\textbf{两点}满足；等于最小值时只有\textbf{一个}，
+且为右顶点 $A=(a,0)$（$0<\lambda<1$ 时为左顶点），两曲线在顶点处\textbf{相切}。
+$\lambda=1$ 时轨迹是 $x=0$，与双曲线没有交点。
+\textbf{识别记忆：}\emph{定比成圆，定差成双曲线；看两个轨迹能否相交。}
+
+\tcbbreak
+\textbf{第2步：在这条圆上求 $PF_2$ 的最小、最大值。}
+\begin{center}\input{assets/tikz/C086_apollonius_extrema}\end{center}
+因 $x_C>c$，右焦点 $F_2(c,0)$ 到圆心的距离为
+\[
+d=x_C-c=\frac{2c}{\lambda^2-1},\qquad R>d,
+\]
+所以 $F_2$ 在圆内。
+从圆内定点到圆周的距离范围是 $[R-d,R+d]$，因此
+\[
+\boxed{\frac{2c}{\lambda+1}\le PF_2\le\frac{2c}{\lambda-1}}.
+\]
+在此轨迹上 $PF_1-PF_2=(\lambda-1)PF_2$，随之得到
+\[
+\boxed{\frac{2c(\lambda-1)}{\lambda+1}
+\le PF_1-PF_2\le2c}.
+\]
+
+\textbf{第3步：用双曲线的\emph{定差} $2a$ 与该范围相交。}
+由于 $c>a>0$，自动有 $2a<2c$。因此圆上存在点满足
+$PF_1-PF_2=2a$ 当且仅当
+\[
+2a\ge\frac{2c(\lambda-1)}{\lambda+1}
+\iff
+\boxed{1<e\le\frac{\lambda+1}{\lambda-1}}.
+\]
+当 $0<\lambda<1$，把 $F_1,F_2$ 互换并使用 $1/\lambda>1$，
+得到统一结论
+\[
+\boxed{\exists P\in H:\ PF_1=\lambda PF_2
+\iff \lambda\ne1,\quad1<e\le\frac{1+\lambda}{|1-\lambda|}}.
+\]
+
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法五：几何补充【两焦点辅助圆相交，构造充分性】。}
+
+\textbf{构造目的：}以两个焦点分别作圆心、固定两条半径，直接找满足条件的点；
+这与方法四的\textbf{一条定比轨迹圆}不同。
+
+假定 $\lambda>0$ 且 $\lambda\ne1$，并满足
+$1<e\le(1+\lambda)/|1-\lambda|$。
+\begin{center}\input{assets/tikz/C086_circle_proof}\end{center}
+\textbf{先看同尺度的三种状态：} 两圆交点就是满足两条指定焦半径的点。一般地取
+\[
+r_2=\frac{2a}{|\lambda-1|},\qquad
+r_1=\frac{2a\lambda}{|\lambda-1|}.
+\]
+取以 $F_1,F_2$ 为圆心、分别以 $r_1,r_2$ 为半径的两个圆。
+两圆圆心距是 $F_1F_2=2c$，而
+\[
+|r_1-r_2|=2a<2c,\qquad
+r_1+r_2=\frac{2a(1+\lambda)}{|1-\lambda|}\ge2c.
+\]
+这正是两圆有交点的\textbf{充要条件}。任一交点 $P$ 满足
+$PF_1=r_1$、$PF_2=r_2$，故
+\[
+|PF_1-PF_2|=2a,\qquad PF_1=\lambda PF_2,
+\]
+即 $P$ 在所给双曲线上。
+\textbf{对应图中三列：}$r_1+r_2>2c$ 时相交于两个对称点；
+$r_1+r_2=2c$ 时外切于相应顶点；$r_1+r_2<2c$ 时分离、无解。
+\textbf{特别注意：}两圆相切的正确类型是\textbf{外切}，不是内切；
+这是因为 $r_1+r_2=2c$，而 $|r_1-r_2|=2a<2c$。
+
+\end{proofbox}

@@ -1,0 +1,27 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,11.5);
+\node at (7.1,10.85) {方法三：先判左右支，再看竖线能否碰到曲线};
+
+\node at (3.6,9.75) {$\lambda=1/2$：左支};\node at (10.6,9.75) {$\lambda=2$：右支};
+\begin{scope}[shift={(7.1,5.6)},scale=.8]
+\draw[gray,->] (-5.4,0)--(5.4,0) node[right] {$x$};
+\draw[gray,->] (0,-4.7)--(0,5) node[above] {$y$};
+
+\draw[teal!75!black,thick,samples=90,domain=-4.2:4.2,variable=\v] plot ({2*sqrt(1+\v*\v/12)},{\v});
+\draw[teal!75!black,thick,samples=90,domain=-4.2:4.2,variable=\v] plot ({-2*sqrt(1+\v*\v/12)},{\v});
+
+\draw[purple!80!black,dashed,thick] (-3,-4.5)--(-3,4.5);
+\draw[orange!85!black,dashed,thick] (3,-4.5)--(3,4.5);
+\foreach \sgn in {-1,1}{\fill[teal!75!black] ({3*\sgn},{sqrt(15)}) circle(3pt);\fill[teal!75!black] ({3*\sgn},{-sqrt(15)}) circle(3pt);}
+\node[above right=5pt] at (3,{sqrt(15)}) {$P$};\node[above left=5pt] at (-3,{sqrt(15)}) {$Q$};
+\fill (-4,0) circle(2.8pt) node[below left=5pt] {$F_1$};\fill (4,0) circle(2.8pt) node[below right=5pt] {$F_2$};
+\fill (-2,0) circle(2.8pt) node[below right=5pt] {$-a$};\fill (2,0) circle(2.8pt) node[below left=5pt] {$a$};
+\node[purple!80!black,anchor=east] at (-3.2,.8) {$x=-3$};
+\node[orange!85!black,anchor=west] at (3.2,.8) {$x=3$};
+\draw[gray,dotted,<->] (-2.6,{sqrt(15)})--(2.6,{sqrt(15)});
+\node[above=4pt,fill=white,inner sep=2pt] at (0,{sqrt(15)}) {关于 $y$ 轴反射};
+\end{scope}
+\node at (7.1,1.25) {右支要求 $x\ge a$；左支要求 $x\le-a$；等号时竖线只碰到顶点。};
+\node at (7.1,.6) {本图 $a=2,c=4$；$x=\pm3$ 均给出 $y=\pm\sqrt{15}$。};
+
+\end{tikzpicture}

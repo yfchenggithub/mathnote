@@ -1,0 +1,29 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,10.5);
+\node at (7.1,9.85) {先认两条焦半径：长腰与短腰的差固定为 2a};
+
+\begin{scope}[shift={(4.1,5.1)},scale=.62]
+\draw[gray,->] (-5.2,0)--(5.3,0) node[right] {$x$};
+\draw[gray,->] (0,-5.2)--(0,5.2) node[above] {$y$};
+
+\draw[teal!75!black,thick,samples=90,domain=-4.8:4.8,variable=\v] plot ({2*sqrt(1+\v*\v/12)},{\v});
+\draw[teal!75!black,thick,samples=90,domain=-4.8:4.8,variable=\v] plot ({-2*sqrt(1+\v*\v/12)},{\v});
+
+\coordinate (Fone) at (-4,0);\coordinate (Ftwo) at (4,0);\coordinate (P) at (3,{sqrt(15)});
+\draw[orange!85!black,very thick] (Fone)--(P);
+\draw[purple!80!black,very thick] (P)--(Ftwo);
+\draw[gray,dashed] (P)--(3,{-sqrt(15)});
+\fill (Fone) circle(3pt) node[below=6pt] {$F_1$};
+\fill (Ftwo) circle(3pt) node[below right=6pt] {$F_2$};
+\fill (P) circle(3pt) node[above right=5pt] {$P$};
+\fill[teal!75!black] (3,{-sqrt(15)}) circle(3pt) node[below right=5pt] {$P'$};
+\node[orange!85!black] at (-.9,2.8) {$PF_1=8$};
+\node[purple!80!black,anchor=west] at (4.8,2.2) {$PF_2=4$};
+\node[below left] at (0,0) {$O$};
+\end{scope}
+\node[anchor=west,align=left] at (9.1,7.6) {图取 $a=2,c=4$\\[10pt]$e=2,\quad\lambda=2$};
+\node[anchor=west,align=left] at (9.1,5.4) {差：$8-4=4=2a$\\[12pt]和：$8+4>8=2c$};
+\node[anchor=west,align=left] at (9.1,3.2) {上下两点都满足\\[10pt]$PF_1=2PF_2$};
+\node at (7.1,.65) {橙色始终表示 $PF_1$，紫色始终表示 $PF_2$；长度比不是向量比。};
+
+\end{tikzpicture}

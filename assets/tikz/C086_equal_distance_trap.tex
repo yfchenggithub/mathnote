@@ -1,0 +1,22 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,9.5);
+\node at (7.1,8.85) {等距点在中垂线上，但双曲线碰不到这条线};
+
+\begin{scope}[shift={(7.1,4.5)},scale=.75]
+\draw[gray,->] (-5.4,0)--(5.4,0) node[right] {$x$};
+\draw[purple!80!black,very thick] (0,-3.6)--(0,4.8);
+
+\draw[teal!75!black,thick,samples=90,domain=-3.6:4.8,variable=\v] plot ({2*sqrt(1+\v*\v/12)},{\v});
+\draw[teal!75!black,thick,samples=90,domain=-3.6:4.8,variable=\v] plot ({-2*sqrt(1+\v*\v/12)},{\v});
+
+\draw[orange!85!black,dashed,thick] (-4,0)--(0,2);
+\draw[purple!80!black,dashed,thick] (4,0)--(0,2);
+\fill (-4,0) circle(3pt) node[below=6pt] {$F_1$};\fill (4,0) circle(3pt) node[below=6pt] {$F_2$};
+\fill (0,2) circle(3pt) node[right=6pt] {$R$};
+\node[anchor=west] at (.4,4) {$x=0$};
+\node[below right=5pt] at (2,0) {$a$};\node[below left=5pt] at (-2,0) {$-a$};
+\end{scope}
+\node at (7.1,1.2) {$RF_1=RF_2$，但 $R$ 不在双曲线上；曲线上必有 $|x|\ge a>0$。};
+\node at (7.1,.55) {所以 $\lambda=1$ 是无解，不是把公式上界理解成无穷大。};
+
+\end{tikzpicture}

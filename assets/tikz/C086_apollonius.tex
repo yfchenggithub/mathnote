@@ -1,0 +1,42 @@
+% C086 阿波罗尼斯圆与双曲线精确示意（数学坐标，非自由重绘）
+% H:x^2/4-y^2/12=1, a=2, c=4, e=2; lambda=2.
+% F1=(-4,0), F2=(4,0).
+% Apollonius circle center C=(20/3,0), radius R=16/3.
+% H cap A=(2,0); circle leftmost T=(4/3,0).
+% Exact intersections P+/-=(3,+/-sqrt(15)); PF1=8, PF2=4.
+\begin{tikzpicture}[x=0.58cm,y=0.58cm,>=stealth]
+  \draw[->,gray!65] (-4.85,0)--(12.55,0) node[right] {$x$};
+  \draw[->,gray!65] (0,-5.8)--(0,5.8) node[above] {$y$};
+  % Circle locus. The path is constructed from exact center and radius.
+  \draw[orange!85!black,very thick] ({20/3},0) circle [radius={16/3}];
+  % Entire visible hyperbola branches from analytic formula y=+/-sqrt(3(x^2-4)).
+  \draw[teal!80!black,very thick,samples=95,domain=2:3.75,smooth]
+     plot (\x,{sqrt(3*(\x*\x-4))});
+  \draw[teal!80!black,very thick,samples=95,domain=2:3.75,smooth]
+     plot (\x,{-sqrt(3*(\x*\x-4))});
+  \draw[teal!80!black,very thick,samples=95,domain=-3.75:-2,smooth]
+     plot (\x,{sqrt(3*(\x*\x-4))});
+  \draw[teal!80!black,very thick,samples=95,domain=-3.75:-2,smooth]
+     plot (\x,{-sqrt(3*(\x*\x-4))});
+  \coordinate (Fone) at (-4,0);
+  \coordinate (Ftwo) at (4,0);
+  \coordinate (Ap) at (2,0);
+  \coordinate (Cc) at ({20/3},0);
+  \coordinate (T) at ({4/3},0);
+  \coordinate (Pup) at (3,{sqrt(15)});
+  \coordinate (Pdn) at (3,{-sqrt(15)});
+  \draw[dashed,purple!75!black,thin] (Fone)--(Pup)--(Ftwo);
+  \fill[black] (Fone) circle (2pt) node[below left] {$F_1$};
+  \fill[black] (Ftwo) circle (2pt) node[below=5pt] {$F_2$};
+  \fill[teal!75!black] (Ap) circle (2.3pt) node[below right=10pt] {$A$};
+  \fill[orange!85!black] (Cc) circle (2pt) node[below=5pt] {$C_\lambda$};
+  \fill[orange!85!black] (T) circle (2.2pt) node[above left=8pt] {$T$};
+  \fill[red!80!black] (Pup) circle (2.8pt) node[above left] {$P_+$};
+  \fill[red!80!black] (Pdn) circle (2.8pt) node[below left] {$P_-$};
+  \node[fill=white,fill opacity=0.9,text opacity=1,text=orange!80!black]
+    at (8.7,5.65) {$\mathcal A_2$: 定比轨迹圆};
+  \node[fill=white,fill opacity=0.9,text opacity=1,text=teal!75!black]
+    at (-1.3,5.35) {$H$: 定差轨迹};
+  \node[fill=white,fill opacity=0.9,text opacity=1] at (8.6,-4.75)
+    {$P_\pm=(3,\pm\sqrt{15})$};
+\end{tikzpicture}
