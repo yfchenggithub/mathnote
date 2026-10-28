@@ -1,69 +1,78 @@
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
-
-	采用“点差法”：设弦两端点坐标，代入椭圆方程作差，利用中点坐标消去二次项，直接得到斜率与中点坐标的关系。
-
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（设出两点）：}] 设弦的两个端点分别为 $A(x_1,y_1)$、$B(x_2,y_2)$，且 $x_1\neq x_2$（弦不垂直），中点 $M(x_0,y_0)$。
-			\[
-				x_0 = \frac{x_1+x_2}{2},\quad y_0 = \frac{y_1+y_2}{2}.
-			\]
-			\par\textbf{理由：} 引入端点坐标是点差法的起点，中点公式将用于后续化简。
-
-		\item[\textbf{步骤二（代入作差）：}] 将 $A$、$B$ 坐标代入椭圆方程 $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1$，得到：
-			\[
-				\frac{x_1^2}{a^2}+\frac{y_1^2}{b^2}=1,
-				\qquad
-				\frac{x_2^2}{a^2}+\frac{y_2^2}{b^2}=1.
-			\]
-			两式相减：
-			\[
-				\frac{x_1^2-x_2^2}{a^2}+\frac{y_1^2-y_2^2}{b^2}=0.
-			\]
-			\par\textbf{理由：} 相减可以消去常数项，使端点坐标的平方差出现。
-
-		\item[\textbf{步骤三（因式分解）：}] 应用平方差公式 $x_1^2-x_2^2=(x_1-x_2)(x_1+x_2)$、$y_1^2-y_2^2=(y_1-y_2)(y_1+y_2)$，代入上式：
-			\[
-				\frac{(x_1-x_2)(x_1+x_2)}{a^2}+\frac{(y_1-y_2)(y_1+y_2)}{b^2}=0.
-			\]
-			\par\textbf{理由：} 因式分解后，可分离出斜率 $\dfrac{y_1-y_2}{x_1-x_2}$ 的因子。
-
-		\item[\textbf{步骤四（代入中点坐标）：}] 用中点坐标替换 $x_1+x_2=2x_0$、$y_1+y_2=2y_0$：
-			\[
-				\frac{(x_1-x_2)\cdot 2x_0}{a^2}+\frac{(y_1-y_2)\cdot 2y_0}{b^2}=0.
-			\]
-			两边约去 $2$：
-			\[
-				\frac{(x_1-x_2)\,x_0}{a^2}+\frac{(y_1-y_2)\,y_0}{b^2}=0.
-			\]
-			\par\textbf{理由：} 将中点坐标引入，使得式中的 $(x_1-x_2)$ 和 $(y_1-y_2)$ 成为唯一的未知长度。
-
-		\item[\textbf{步骤五（解出斜率）：}] 将含 $y_1-y_2$ 的项移到等式右边：
-			\[
-				\frac{(x_1-x_2)\,x_0}{a^2} = -\frac{(y_1-y_2)\,y_0}{b^2}.
-			\]
-			两边同除以 $(x_1-x_2)\,y_0$（$x_1\neq x_2$，$y_0\neq 0$）：
-			\[
-				\frac{x_0}{a^2\,y_0} = -\frac{y_1-y_2}{b^2\,(x_1-x_2)}.
-			\]
-			两边同时乘以 $b^2$：
-			\[
-				\frac{b^2\,x_0}{a^2\,y_0} = -\frac{y_1-y_2}{x_1-x_2}.
-			\]
-			所以弦的斜率为：
-			\[
-				\begin{aligned}
-					k &= \frac{y_1-y_2}{x_1-x_2} \\
-					&= -\frac{b^2\,x_0}{a^2\,y_0}.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 通过代数变形，直接得到只含中点坐标和椭圆参数的斜率表达式。
-	\end{description}
-
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-
-	\textbf{至此，我们证明了当椭圆方程为 $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1$（$a>b>0$），弦不与 $y$ 轴平行且中点 $M(x_0,y_0)$ 在椭圆内部、$y_0\neq0$ 时，弦的斜率为 $\boxed{k=-\dfrac{b^2 x_0}{a^2 y_0}}$。此结果不依赖于弦的具体端点，只与椭圆参数和中点坐标有关。}
+\textbf{\textcolor{CProof}{证明一｜最快：点差法三步速写（考场首选）}}
+\begin{center}\input{assets/tikz/C060_proof_point_difference.tex}\end{center}
+设 $A(x_1,y_1),B(x_2,y_2)$ 是不同端点，$M=(x_0,y_0)$。
+\begin{enumerate}[leftmargin=*,itemsep=0.25em]
+\item 两个椭圆方程相减，并用平方差：
+\[ \frac{(x_1-x_2)(x_1+x_2)}{a^2}+
+      \frac{(y_1-y_2)(y_1+y_2)}{b^2}=0.\]
+\item 用 $x_1+x_2=2x_0,\ y_1+y_2=2y_0$：
+\[ \boxed{\frac{x_0}{a^2}(x_1-x_2)+\frac{y_0}{b^2}(y_1-y_2)=0.}\]
+\item 若 $y_0\ne0$，则必有 $x_1\ne x_2$（否则上式迫使 $y_1=y_2$，与端点不同矛盾）。故
+\[\frac{x_0}{a^2}+\frac{y_0}{b^2}\underbrace{\frac{y_1-y_2}{x_1-x_2}}_{k}=0
+\ \Longrightarrow\ \boxed{k=-\frac{b^2x_0}{a^2y_0}}.\]
+\end{enumerate}
+\textbf{为何最快：}只用“平方差 $\to$ 中点和 $\to$ 斜率”，不用设直线与椭圆联立，更不用求交点根。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明二｜最低门槛：中点正负位移法（只引入一个位移）}}
+\begin{center}\input{assets/tikz/C060_proof_symmetric_displacement.tex}\end{center}
+先考虑斜率存在的弦。设 $A(x_0+t,y_0+kt)$、$B(x_0-t,y_0-kt)$，其中 $t\ne0$。\textbf{为什么这样设：}“中点”就是两端点关于 $M$ 对称，横坐标是 $x_0\pm t$；同一条直线的纵坐标变化为 $k(\pm t)$。
+把 $A,B$ 代入椭圆并相减：
+\[
+\frac{(x_0+t)^2-(x_0-t)^2}{a^2}+
+\frac{(y_0+kt)^2-(y_0-kt)^2}{b^2}=0.
+\]
+利用 $(u+v)^2-(u-v)^2=4uv$，直接得到
+\[
+4t\left(\frac{x_0}{a^2}+\frac{k y_0}{b^2}\right)=0
+\ \Longrightarrow\ \boxed{k=-\frac{b^2x_0}{a^2y_0}}\quad(y_0\ne0).
+\]
+\textbf{优点：}仅需理解“沿弦向两侧等距离”，无需记 $x_1+x_2$ 之类中间变量；\textbf{局限：}此设法默认斜率存在，竖直弦应使用证明一的无除法式。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明三｜常规法：端点方程、平方差、中点坐标（完整书写）}}
+\begin{center}\input{assets/tikz/C060_proof_axis_cases.tex}\end{center}
+\begin{enumerate}[leftmargin=*,itemsep=0.35em]
+\item \textbf{设点并写中点。} $A(x_1,y_1),B(x_2,y_2)$，
+$2x_0=x_1+x_2,\ 2y_0=y_1+y_2$。
+\item \textbf{分别代入。}
+$\frac{x_1^2}{a^2}+\frac{y_1^2}{b^2}=1$，
+$\frac{x_2^2}{a^2}+\frac{y_2^2}{b^2}=1$。
+\item \textbf{两式相减分解。}
+$\frac{(x_1-x_2)(x_1+x_2)}{a^2}+
+\frac{(y_1-y_2)(y_1+y_2)}{b^2}=0$。
+\item \textbf{代回中点。} $\frac{x_0}{a^2}(x_1-x_2)+\frac{y_0}{b^2}(y_1-y_2)=0$。
+\item \textbf{分情形整理。} 若 $y_0\ne0$，除以 $x_1-x_2\ne0$，得 $k=-b^2x_0/(a^2y_0)$。若 $y_0=0,x_0\ne0$，必有 $x_1=x_2$，是竖直弦；若 $x_0=0,y_0\ne0$，必有 $y_1=y_2$，是水平弦；若 $M=O$，方向不唯一。
+\end{enumerate}
+\textbf{为何保留常规法：}完整交代除法依据和所有边界，适用于书面证明、讲授和自查。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明四｜补充：椭圆拉伸成圆（直观几何法）}}
+\begin{center}\input{assets/tikz/C060_proof_circle_scaling.tex}\end{center}
+坐标变换 $X=x/a,\ Y=y/b$ 将椭圆化为单位圆。设变换后弦端点为 $A',B'$，中点为 $M'=(x_0/a,y_0/b)$。圆心到非中心弦中点的向量与弦方向垂直（中心弦时该向量为零，内积仍为零），故
+\[
+\bigg(\frac{x_0}{a},\frac{y_0}{b}\bigg)\cdot
+\bigg(\frac{x_1-x_2}{a},\frac{y_1-y_2}{b}\bigg)=0.
+\]
+即 $\frac{x_0}{a^2}\Delta x+\frac{y_0}{b^2}\Delta y=0$，以下同证明一。
+\textbf{为什么值得补充：}它解释了“为什么是负号”和“为什么是 $b^2/a^2$”，便于理解、迁移和长期记忆；但在考场上通常慢于点差速写。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{由必要到充分：为何内部非中心点一定对应一条真实弦？}}
+\begin{center}\input{assets/tikz/C060_existence_and_inner_tangent.tex}\end{center}
+设 $0<r^2=\frac{x_0^2}{a^2}+\frac{y_0^2}{b^2}<1$。过 $M$ 取方向向量 $v=(u,v_y)\ne(0,0)$，令它满足
+$\frac{x_0}{a^2}u+\frac{y_0}{b^2}v_y=0$（这样的方向唯一，差非零倍数）。
+直线上的点写成 $(x,y)=(x_0,y_0)+t(u,v_y)$。代入椭圆：
+\[
+ r^2+t^2\bigg(\frac{u^2}{a^2}+\frac{v_y^2}{b^2}\bigg)=1
+ \quad\Longrightarrow\quad
+ t=\pm\sqrt{\frac{1-r^2}{u^2/a^2+v_y^2/b^2}}.
+\]
+两根互为相反数且均非零，所以确实是以 $M$ 为中点的一条\textbf{非退化弦}；若 $M=O$，每个方向都满足垂直条件，故不唯一。\textbf{这也说明：}中点在内部是弦存在性的几何条件，并不是代数“相减”步骤额外要求的条件。
 \end{proofbox}
