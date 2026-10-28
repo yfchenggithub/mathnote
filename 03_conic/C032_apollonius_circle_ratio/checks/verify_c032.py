@@ -24,7 +24,7 @@ def ratio(P,A,B,k):
 
 def verify():
     paths=sorted((ROOT/'assets/tikz').glob('C032_*.tex'))
-    assert len(paths)==8
+    assert len(paths)==13
     for path in paths:
         s=path.read_text(encoding='utf-8')
         m={k:(float(x),float(y)) for k,x,y in re.findall(
@@ -32,15 +32,41 @@ def verify():
         A,B=m['A'],m['B']
         if 'unit_ratio' in path.name:
             ratio(m['P'],A,B,1);continue
+        if 'coordinate_proof' in path.name:
+            P,H=m['P'],m['H']
+            ratio(P,A,B,2)
+            close(P[0],H[0]);close(H[1],0)
+            close(math.dist(P,A)**2,(P[0]+1)**2+P[1]**2)
+            close(math.dist(P,B)**2,(P[0]-1)**2+P[1]**2)
+            assert A[0]<B[0]<H[0] and P[1]>0
+            continue
         C=m['C'];r=math.dist(A,B)*2/3
+        if 'center_radius_quick' in path.name:
+            close(math.dist(C,A)/math.dist(C,B),4)
+            close(r*r,math.dist(C,A)*math.dist(C,B))
+            close((8.4-5.0666666667)/1.25,math.dist(C,A))
+            close((8.4-7.5666666667)/1.25,math.dist(C,B))
         close(C[0],(A[0]-4*B[0])/-3)
         close(C[1],(A[1]-4*B[1])/-3)
         for k in ('P','Q','D','E','U','V'):
             if k in m:
                 ratio(m[k],A,B,2);close(math.dist(m[k],C),r)
         radii=[float(x) for x in re.findall(r'\(C\) circle \(([\d.]+)\)',s)]
-        assert radii
+        if 'projection_proof' not in path.name and 'vector_proof' not in path.name:
+            assert radii
         for value in radii: close(value,r)
+        if 'projection_proof' in path.name:
+            H,P=m['H'],m['P']
+            close(H[0],P[0]);close(H[1],0)
+            t=dot(sub(P,C),sub(A,C))/math.dist(C,A)
+            close(t,math.dist(C,H))
+            close(math.dist(P,A)**2,math.dist(P,C)**2+math.dist(C,A)**2-2*math.dist(C,A)*t)
+            close(math.dist(P,B)**2,math.dist(P,C)**2+math.dist(C,B)**2-2*math.dist(C,B)*t)
+        if 'vector_proof' in path.name:
+            for i in (0,1):
+                close(A[i]-C[i],4*(B[i]-C[i]))
+                close(m['P'][i]-A[i],(m['P'][i]-C[i])-(A[i]-C[i]))
+                close(m['P'][i]-B[i],(m['P'][i]-C[i])-(B[i]-C[i]))
         if 'D' in m and 'E' in m:
             D,E=m['D'],m['E']
             close(math.dist(D,E)/2,r)
@@ -79,6 +105,17 @@ def verify():
                 ratio(P,A,B,k);samples+=1
             for P in [(0,0),(2,3),(-4,1)]:
                 close(norm2(sub(P,A))-k*k*norm2(sub(P,B)),(1-k*k)*(norm2(sub(P,C))-r*r))
+            # Signed projection identities must also hold beyond both endpoints.
+            direction=tuple((A[i]-C[i])/math.dist(A,C) for i in (0,1))
+            for t0 in (-5.,0.,.2,3.,20.):
+                P=tuple(C[i]+t0*direction[i]+.7*(-direction[1] if i==0 else direction[0]) for i in (0,1))
+                t=dot(sub(P,C),direction)
+                close(t,t0)
+                ph2=norm2(sub(P,C))-t*t
+                close(ph2,.49)
+                close(norm2(sub(P,A)),(math.dist(C,A)-t)**2+ph2)
+                close(norm2(sub(P,B)),(math.dist(C,B)-t)**2+ph2)
+                close(-2*math.dist(C,A)*t+2*k*k*math.dist(C,B)*t,0)
             D=tuple((A[i]+k*B[i])/(1+k) for i in (0,1))
             E=tuple((A[i]-k*B[i])/(1-k) for i in (0,1))
             ratio(D,A,B,k);ratio(E,A,B,k)
@@ -90,11 +127,18 @@ def verify():
     k=F(2);a=F(1);D=a*(k-1)/(k+1);E=a*(k+1)/(k-1)
     assert D==F(1,3) and E==3 and (D+E)/2==F(5,3) and (E-D)/2==F(4,3)
     assert F(16,3)**2+F(8,3)**2-F(80,3)==F(80,9)
+    ca,cb,t,ph=F(8,3),F(2,3),F(16,15),F(4,5)
+    assert (ca-t)**2+ph**2==F(16,5)
+    assert (cb-t)**2+ph**2==F(4,5)
+    assert t*t+ph*ph==ca*cb==F(16,9)
     meta=json.loads((UID/'meta.json').read_text(encoding='utf-8'))
     refs=re.findall(r'assets/tikz/C032_[a-z_]+\.tex',meta['remarks'])
-    assert len(refs)==8 and all((ROOT/p).is_file() for p in refs)
-    assert meta['meta']['updated_at']=='2026-10-22' and meta['interactive']['has_diagram'] is True
+    assert len(refs)==13 and all((ROOT/p).is_file() for p in refs)
+    assert meta['meta']['updated_at']=='2026-10-28' and meta['interactive']['has_diagram'] is True
     for rid in meta['relations']['related_ids']: assert len(list((ROOT/'03_conic').glob(rid+'_*')))==1
-    print(f'PASS: 8 actual TikZ models and angle arcs; {samples} sampled circle points; general identity, endpoints, examples, unit ratio and metadata.')
+    proof=(UID/'03_proof.tex').read_text(encoding='utf-8')
+    for name in ['coordinate_proof','projection_proof','bisectors','vector_proof']:
+        assert f'assets/tikz/C032_{name}.tex' in proof
+    print(f'PASS: 13 actual TikZ models, projections, vectors and angle arcs; {samples} sampled circle points; general identity, endpoints, examples, unit ratio, proof coverage and metadata.')
 
 if __name__=='__main__':verify()

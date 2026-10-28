@@ -29,6 +29,7 @@
 
 - 每条 UID 以自己的正式六段 TeX 和 `meta.json` 为事实源，先做数学审计，再独立建立数学模型与教学分镜。C001、C002、F031、T021 等已有动画只可作工程或视觉参考，不得机械复制其模型、布局或运动；统一视觉语言，不建立固定数学分镜模板。
 - 数学坐标、几何关系、函数、参数、轨迹和适用条件由模型决定；视觉调整不得改变数学含义。动画源码与测试归当前 UID 的 `manim/`，正式 GIF 归当前 UID 的 `images/`。
+- 今后新增或重新生成的 GIF，底部全程固定两行：`查结论 · 看图解 · 学证明｜知树 App`、`公众号 ok-shuxue｜获取入口`。具体排版与验收遵守[数学 GIF 视觉规范第 2.4 节](scripts/manim/VISUAL_GUIDELINES.md#24-底部品牌与入口文案)。
 - 复用 Task 13F 冻结的发现、渲染、导出与验证工具；不得为单条 UID 随意修改共享工具。正式资源写入、覆盖与发布遵守架构契约及 Manim 生产说明。
 - GIF 验收分别记录数学自动测试与关键状态、真实关键帧、全帧技术检查、教学表达、视觉质量和 Android 真机效果；核对图形、公式、参数与运动轨迹一致。各 Gate 使用 PASS / FAIL / BLOCKED / PENDING，并报告实际证据。
 - Android 真机验收由用户确认；未经确认不得标记 Android PASS 或动画 FINAL FREEZE。区分 LOCAL PRODUCTION PASS、USER VISUAL PASS、ANDROID DEVICE PASS、FINAL FREEZE 与 PUBLISHED / SYNCED。

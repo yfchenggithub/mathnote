@@ -1,0 +1,18 @@
+% a=3,b=4,c=5,k=4/3; sole finite P=(17/5,-32/15).
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=2pt] (0,0) rectangle (14.2,9.5);
+\node at (7.1,8.85) {边界不是切线：过焦点的直线平行渐近线，只有一个有限交点};
+\begin{scope}[shift={(7.1,4.7)},scale=.48]
+\draw[gray,->] (-7,0)--(7.8,0) node[right] {$x$};
+\draw[gray,->] (0,-6.4)--(0,6.5) node[above] {$y$};
+\draw[blue!75!black,thick,domain=-6:6,samples=100,variable=\v] plot ({3*sqrt(1+\v*\v/16)},\v);
+\draw[blue!75!black,thick,domain=-6:6,samples=100,variable=\v] plot ({-3*sqrt(1+\v*\v/16)},\v);
+\draw[gray,dashed,thick] (-4.5,-6)--(4.5,6);
+\draw[red!75!black,very thick] (.5,-6)--(7.3,{4/3*(7.3-5)});
+\fill (5,0) circle(2pt) node[below right=6pt] {$F_2$};
+\fill (3.4,{-32/15}) circle(2pt) node[left=8pt] {$P$};
+\end{scope}
+\node[anchor=west,text=gray!80!black] at (.8,7.7) {灰虚线：$y=\frac43x$};
+\node[anchor=west,text=red!75!black] at (.8,6.75) {红实线：$y=\frac43(x-5)$};
+\node at (7.1,.65) {联立后二次项消失：$160t+256=0$；不是两根相等，而是只剩一次方程。};
+\end{tikzpicture}

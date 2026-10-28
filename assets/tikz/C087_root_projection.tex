@@ -1,0 +1,28 @@
+% a=3,b=4,c=5,k=5/12. A=(-29/7,-80/21),B=(101/33,-80/99).
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=2pt] (0,0) rectangle (14.2,10.2);
+\node at (7.1,9.55) {根差为何能求弦长：先看弦与横、竖投影组成的直角三角形};
+\node at (7.1,8.65) {示例 $a=3,b=4,c=5,k=5/12$；图中 $t_A<t_B<0$};
+\begin{scope}[shift={(6.1,7)},scale=.8]
+\coordinate (A) at (-4.1428571429,-3.8095238095);
+\coordinate (B) at (3.0606060606,-.8080808081);
+\coordinate (F) at (5,0);
+\coordinate (H) at (3.0606060606,-3.8095238095);
+\draw[gray,->] (-5.4,0)--(6,0) node[right] {$x$};
+\draw[blue!75!black,thick,domain=-4.5:1,samples=90,variable=\v] plot ({3*sqrt(1+\v*\v/16)},\v);
+\draw[blue!75!black,thick,domain=-4.5:1,samples=90,variable=\v] plot ({-3*sqrt(1+\v*\v/16)},\v);
+\draw[red!75!black,dashed] (B)--(F);
+\draw[red!75!black,very thick] (A)--(B) node[midway,above left=4pt] {$L$};
+\draw[orange!85!black,thick] (A)--(H) node[midway,below=6pt] {$|t_A-t_B|$};
+\draw[purple!80!black,thick] (H)--(B);
+\node[anchor=west,text=purple!80!black] at (4.8,-2.3088023088) {$|k|\,|t_A-t_B|$};
+\draw[gray] (2.8606060606,-3.8095238095)--(2.8606060606,-3.6095238095)--(3.0606060606,-3.6095238095);
+\fill (A) circle(2pt) node[left=10pt] {$A$};
+\fill (B) circle(2pt) node[left=10pt] {$B$};
+\fill (F) circle(2pt) node[above right=5pt] {$F_2$};
+\fill (H) circle(2pt) node[below right=5pt] {$H$};
+\end{scope}
+\node at (7.1,2.25) {$\displaystyle L^2=|t_A-t_B|^2+k^2|t_A-t_B|^2$};
+\node at (7.1,1.2) {$\displaystyle L=\sqrt{1+k^2}\,|t_A-t_B|$};
+\node at (7.1,.5) {$t=x-c$ 是横向增量；两根都为负，只说明两个交点都在焦点左侧。};
+\end{tikzpicture}

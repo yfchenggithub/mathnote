@@ -1,0 +1,25 @@
+% a=3,b=4,c=5,q=1/5; r+=8,r-=4; both endpoints on right branch.
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=2pt] (0,0) rectangle (14.2,11.4);
+\node at (7.1,10.75) {同支弦先看两条反向射线：余弦一正一负，距离相加};
+\node at (7.1,9.85) {例 $a=3,b=4,c=5,q=1/5$：$r_+=8,\ r_-=4$};
+\begin{scope}[shift={(4,4.1)},scale=.6]
+\coordinate (A) at (6.6,7.8383671769);
+\coordinate (B) at (4.2,-3.9191835885);
+\coordinate (F) at (5,0);
+\draw[blue!75!black,thick,domain=-4.5:8.3,samples=100,variable=\v] plot ({3*sqrt(1+\v*\v/16)},\v);
+\draw[red!75!black,very thick] (B)--(A);
+\draw[orange!85!black,->,thick] (F)--(5.5,2.4494897428);
+\draw[orange!85!black,->,thick] (F)--(4.6,-1.9595917942);
+\node[right=8pt] at (5.8,3.9191835885) {$r_+=8$};
+\node[right=8pt] at (4.6,-1.9595917942) {$r_-=4$};
+\fill (A) circle(2pt) node[left=8pt] {$A$};
+\fill (B) circle(2pt) node[left=8pt] {$B$};
+\fill (F) circle(2pt) node[below right=6pt] {$F_2$};
+\end{scope}
+\node[anchor=west] at (.8,7.3) {正向：$\cos\varphi=q$};
+\node[anchor=west] at (.8,6.35) {反向：$\cos(\varphi+\pi)=-q$};
+\node[anchor=west] at (.8,4.95) {$\displaystyle r_+=\frac{b^2}{a-cq}$};
+\node[anchor=west] at (.8,3.55) {$\displaystyle r_-=\frac{b^2}{a+cq}$};
+\node at (7.1,.7) {焦点在 $AB$ 内，所以 $L=r_++r_-$；当 $q=0$，两段相等、弦变竖直。};
+\end{tikzpicture}

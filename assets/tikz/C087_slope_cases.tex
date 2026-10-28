@@ -1,0 +1,37 @@
+% 精确解析交点，a=3,b=4,c=5，曲线参数由标准方程求出。
+% 左：k=1/4 (<4/3)，跨两支。右：k=4 (>4/3)，同右支。
+% 对 k=1/4，t 是 (247/16)t^2+160t+256=0 的两实根：(-1280±192sqrt(17))/247。
+% 对 k=4，t 是 -128t^2+160t+256=0 的两实根：(5±3sqrt(17))/8。
+\begin{tikzpicture}[x=0.39cm,y=0.39cm,>=stealth,font=\small]
+\begin{scope}
+  \draw[->,gray] (-7.2,0)--(7.3,0) node[right]{$x$};
+  \draw[->,gray] (0,-7.8)--(0,7.8) node[above]{$y$};
+  \draw[thick,blue!75!black,domain=-7:7,samples=90] plot ({3*sqrt(1+\x*\x/16)},{\x});
+  \draw[thick,blue!75!black,domain=-7:7,samples=90] plot ({-3*sqrt(1+\x*\x/16)},{\x});
+  \draw[densely dashed,gray!75,domain=-7:7] plot ({\x},{4/3*\x});
+  \draw[densely dashed,gray!75,domain=-7:7] plot ({\x},{-4/3*\x});
+  \pgfmathsetmacro{\ta}{(-1280+192*sqrt(17))/247}
+  \pgfmathsetmacro{\tb}{(-1280-192*sqrt(17))/247}
+  \draw[dashed,red!75!black] (5,0)--({5+\tb},{\tb/4});
+  \draw[very thick,red!75!black] ({5+\ta},{\ta/4})--({5+\tb},{\tb/4});
+  \fill[red!75!black] ({5+\ta},{\ta/4}) circle (1.8pt) node[below left=5pt]{$B$};
+  \fill[red!75!black] ({5+\tb},{\tb/4}) circle (1.8pt) node[left=7pt]{$A$};
+  \fill (5,0) circle (2pt) node[above right]{$F_2$};
+  \node at (0,-9.0) {$k=1/4$: 异支};
+\end{scope}
+\begin{scope}[xshift=6.6cm]
+  \draw[->,gray] (-7.2,0)--(8.0,0) node[right]{$x$};
+  \draw[->,gray] (0,-9.6)--(0,9.8) node[above]{$y$};
+  \draw[thick,blue!75!black,domain=-9:9,samples=110] plot ({3*sqrt(1+\x*\x/16)},{\x});
+  \draw[thick,blue!75!black,domain=-9:9,samples=110] plot ({-3*sqrt(1+\x*\x/16)},{\x});
+  \draw[densely dashed,gray!75,domain=-7:7] plot ({\x},{4/3*\x});
+  \draw[densely dashed,gray!75,domain=-7:7] plot ({\x},{-4/3*\x});
+  \pgfmathsetmacro{\tc}{(5+3*sqrt(17))/8}
+  \pgfmathsetmacro{\td}{(5-3*sqrt(17))/8}
+  \draw[very thick,red!75!black] ({5+\tc},{4*\tc})--({5+\td},{4*\td});
+  \fill[red!75!black] ({5+\tc},{4*\tc}) circle (1.8pt) node[above left=6pt]{$A$};
+  \fill[red!75!black] ({5+\td},{4*\td}) circle (1.8pt) node[below left=5pt]{$B$};
+  \fill (5,0) circle (2pt) node[below right]{$F_2$};
+  \node at (0,-11) {$k=4$: 同右支};
+\end{scope}
+\end{tikzpicture}

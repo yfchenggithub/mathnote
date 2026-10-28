@@ -1,0 +1,70 @@
+\clearpage
+\begin{examplebox}
+\textbf{例1｜只求范围：焦点弦同支与异支最短分别是多少？}
+
+对于 $H:x^2/9-y^2/16=1$，有 $a=3,b=4,c=5$。
+\begin{center}\input{assets/tikz/C087_two_minima}\end{center}
+\begin{itemize}
+\item 异支：最短 $2a=6$，在 $y=0$ 取到，交点 $(-3,0),(3,0)$；
+\item 同支：最短 $2b^2/a=32/3$，在 $x=5$ 取到，交点 $(5,\pm16/3)$；
+\item 两条平行渐近线方向的排除斜率是 $k=\pm4/3$。
+\end{itemize}
+\textbf{识别信号：}题目只问最值，不必联立方程；\textbf{先看同支或异支}。
+\end{examplebox}
+
+\clearpage
+\begin{examplebox}
+\textbf{例2｜代入斜率：过右焦点的直线斜率为 $2$，求焦点弦长。}
+
+仍取 $x^2/9-y^2/16=1$，$k=2$，有 $|k|>4/3$，是\textbf{右支同支弦}。
+\[
+L=\frac{2\cdot3\cdot16(1+2^2)}{|9\cdot2^2-16|}
+=\frac{480}{20}=\boxed{24}.
+\]
+\textbf{检查：}$24>32/3$，和同支下界一致。
+\textbf{扩展：}$k=1/2$ 时为异支弦，
+\[
+L=\frac{96(1+1/4)}{16-9/4}=\boxed{\frac{480}{55}=\frac{96}{11}}>6.
+\]
+\end{examplebox}
+
+\clearpage
+\begin{examplebox}
+\textbf{例3｜逆向求斜率：异支焦点弦长为 $8$，求斜率。}
+
+还是 $a=3,b=4$，$0\le u=k^2<16/9$。
+\[
+8=\frac{96(1+u)}{16-9u}
+\Longrightarrow 128-72u=96+96u
+\Longrightarrow u=\frac4{21}.
+\]
+所以 $\boxed{k=\pm\dfrac2{\sqrt{21}}}$。
+\textbf{有效性核验：}$u=4/21<16/9$，确为异支；
+若忘记先判断类型，就容易把分母绝对值误拆成另一支。
+\end{examplebox}
+
+\clearpage
+\begin{examplebox}
+\textbf{例4｜高价值变式：长度给定时，同支/异支可能同时有解吗？}
+
+对 $x^2/9-y^2/16=1$，假设 $L=12$。
+异支公式 $12=96(1+u)/(16-9u)$ 导出
+\[
+192-108u=96+96u\Longrightarrow \boxed{u=\frac8{17}}<\frac{16}{9}.
+\]
+同支公式 $12=96(1+u)/(9u-16)$ 导出
+\[
+108u-192=96+96u\Longrightarrow \boxed{u=24}>\frac{16}{9}.
+\]
+故既有异支直线 $k=\pm\sqrt{8/17}$，也有同支直线 $k=\pm2\sqrt6$。
+\textbf{解释：}同一长度 $L$ 可能对应两类焦点弦，需按 $2a$ 和 $2b^2/a$ 两个下界分别判断。
+
+\textbf{一题多解检查：}给定长度 $L$ 时，可用
+\[
+\begin{aligned}
+\boxed{u_{\text{异支}}=\frac{b^2(L-2a)}{a^2L+2ab^2}},&\quad L\ge2a;\\[4pt]
+\boxed{u_{\text{同支}}=\frac{b^2(L+2a)}{a^2L-2ab^2}},&\quad L>\frac{2b^2}{a}.
+\end{aligned}
+\]
+同支等号 $L=2b^2/a$ 时只有\textbf{竖直线}，不能用第二式求有限斜率。
+\end{examplebox}

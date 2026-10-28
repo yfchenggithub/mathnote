@@ -1,0 +1,26 @@
+% 精确坐标：H: x^2/9-y^2/16=1, c=5, b^2/a=16/3.
+% 两图中蓝色曲线由解析式 x=+-3 sqrt(1+y^2/16) 绘制，非手绘。
+\begin{tikzpicture}[x=0.39cm,y=0.39cm,>=stealth, font=\small]
+\begin{scope}
+  \draw[->,gray] (-6.8,0)--(7.3,0) node[right]{$x$};
+  \draw[->,gray] (0,-7.8)--(0,7.8) node[above]{$y$};
+  \draw[thick,blue!75!black,domain=-7:7,samples=90] plot ({3*sqrt(1+\x*\x/16)},{\x});
+  \draw[thick,blue!75!black,domain=-7:7,samples=90] plot ({-3*sqrt(1+\x*\x/16)},{\x});
+  \draw[very thick,red!75!black] (5,-5.33333333)--(5,5.33333333);
+  \fill (5,0) circle (2.1pt) node[below right]{$F_2$};
+  \fill[red!75!black] (5,5.33333333) circle (1.8pt) node[above left=5pt]{$A$};
+  \fill[red!75!black] (5,-5.33333333) circle (1.8pt) node[below left=5pt]{$B$};
+  \node[align=center] at (0,-9.0) {同支焦点弦\quad $x=c$\\最短 $2b^2/a$};
+\end{scope}
+\begin{scope}[xshift=6.6cm]
+  \draw[->,gray] (-6.8,0)--(7.3,0) node[right]{$x$};
+  \draw[->,gray] (0,-7.8)--(0,7.8) node[above]{$y$};
+  \draw[thick,blue!75!black,domain=-7:7,samples=90] plot ({3*sqrt(1+\x*\x/16)},{\x});
+  \draw[thick,blue!75!black,domain=-7:7,samples=90] plot ({-3*sqrt(1+\x*\x/16)},{\x});
+  \draw[very thick,red!75!black] (-3,0)--(3,0);
+  \fill (5,0) circle (2.1pt) node[above right]{$F_2$};
+  \fill[red!75!black] (-3,0) circle (1.8pt) node[above left=5pt]{$A$};
+  \fill[red!75!black] (3,0) circle (1.8pt) node[above right=5pt]{$B$};
+  \node[align=center] at (0,-9.0) {异支焦点弦\quad $y=0$\\最短 $2a$};
+\end{scope}
+\end{tikzpicture}

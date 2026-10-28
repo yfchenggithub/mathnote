@@ -1,0 +1,31 @@
+% Example a=1, lambda=2, P=(37/15,16/15); equal metric on both axes.
+\begin{center}\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.2);
+\node[anchor=west,font=\small\bfseries] at (.5,7.72)
+  {配方法先看勾股：两个直角三角形，共用一条高};
+\begin{scope}[shift={(3.7,4.1)},scale=2.35]
+\coordinate (A) at (-1.0000000000,0.0000000000);
+\coordinate (B) at (1.0000000000,0.0000000000);
+\coordinate (P) at (2.4666666667,1.0666666667);
+\coordinate (H) at (2.4666666667,0.0000000000);
+\draw[black!50] (-1.25,0)--(2.9,0);
+\draw[blue,very thick] (A)--(P);
+\draw[teal!80!black,very thick] (B)--(P);
+\draw[orange!85!black,dashed,thick] (P)--(H)
+  node[midway,right=5pt] {$y$};
+\draw[black!60] (2.3266666667,0)--(2.3266666667,.14)--(2.4666666667,.14);
+\foreach \q in {A,B,P,H}{\fill (\q) circle (1.3pt);}
+\node[below=6pt] at (A) {$A(-a,0)$};
+\node[below=6pt] at (B) {$B(a,0)$};
+\node[below right=6pt] at (H) {$H(x,0)$};
+\node[above=5pt] at (P) {$P(x,y)$};
+\draw[blue,<->] (-1,-.7)--(2.4666666667,-.7)
+  node[midway,below=3pt] {$x+a$};
+\draw[teal!80!black,<->] (1,-.38)--(2.4666666667,-.38)
+  node[midway,above=2pt] {$x-a$};
+\end{scope}
+\node[anchor=west,text=blue] at (.8,1.15) {$PA^2=(x+a)^2+y^2$};
+\node[anchor=west,text=teal!80!black] at (7,1.15) {$PB^2=(x-a)^2+y^2$};
+\node[anchor=west] at (.8,.5)
+  {图取 $x>a,\ y>0$ 的定比示例；平方距离式对任意 $(x,y)$ 都成立。};
+\end{tikzpicture}\end{center}

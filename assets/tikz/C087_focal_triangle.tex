@@ -1,0 +1,22 @@
+% a=3,b=4,c=5,q=1/5; r=8,P=(33/5,16sqrt(6)/5),PF1=14.
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=2pt] (0,0) rectangle (14.2,9.8);
+\node at (7.1,9.15) {焦半径从哪来：先看底边 $2c$、两腰 $r$ 与 $r+2a$};
+\node at (7.1,8.35) {示例 $a=3,b=4,c=5,\ \cos\varphi=1/5$};
+\begin{scope}[shift={(5,2.6)},scale=.6]
+\coordinate (Fone) at (-5,0);
+\coordinate (Ftwo) at (5,0);
+\coordinate (P) at (6.6,7.8383671769);
+\draw[gray] (-5,0)--(8.3,0);
+\draw[orange!85!black,very thick] (Fone)--(P) node[midway,above left=5pt] {$r+2a=14$};
+\draw[red!75!black,very thick] (Ftwo)--(P) node[midway,right=6pt] {$r=8$};
+\draw[blue!75!black,thick] (Fone)--(Ftwo) node[midway,below=6pt] {$2c=10$};
+\draw[gray] (5.7,0) arc[start angle=0,end angle=78.4630409672,radius=.7];
+\node at (6.1,.8) {$\varphi$};
+\fill (Fone) circle(2pt) node[below left=6pt] {$F_1$};
+\fill (Ftwo) circle(2pt) node[below right=6pt] {$F_2$};
+\fill (P) circle(2pt) node[above left=6pt] {$P$};
+\end{scope}
+\node at (7.1,1.1) {$\angle F_1F_2P=\pi-\varphi$，故余弦定理中的交叉项为 $+4cr\cos\varphi$。};
+\node at (7.1,.45) {$P$ 在右支：$PF_1-PF_2=2a$；$\varphi$ 从向右的水平射线开始量。};
+\end{tikzpicture}

@@ -1,0 +1,23 @@
+% Actual L(theta), a=3,b=4,c=5; horizontal degree/10, vertical .14L.
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=2pt] (0,0) rectangle (14.2,9.2);
+\node at (7.1,8.55) {转动直线看弦长：临界处无界增长，水平和竖直分别取最小值};
+\node at (7.1,7.75) {图取 $a=3,b=4,c=5$，只看 $0\le\theta\le\pi/2$};
+\begin{scope}[shift={(2.3,1.6)}]
+\draw[gray,->] (0,0)--(9.7,0) node[right] {$\theta$};
+\draw[gray,->] (0,0)--(0,5.8) node[above] {$L$};
+\draw[gray,dashed] ({acos(3/5)/10},0)--({acos(3/5)/10},5.8);
+\draw[red!75!black,very thick,->,domain=0:{acos(sqrt((9+96/40)/25))},samples=100,variable=\v]
+ plot ({\v/10},{.14*96/(25*cos(\v)^2-9)});
+\draw[purple!80!black,very thick,<-,domain={acos(sqrt((9-96/40)/25))}:90,samples=100,variable=\v]
+ plot ({\v/10},{.14*96/(9-25*cos(\v)^2)});
+\fill[red!75!black] (0,.84) circle(2.2pt) node[left=6pt] {$2a=6$};
+\fill[purple!80!black] (9,{.14*32/3}) circle(2.2pt) node[above right=5pt] {$2b^2/a=32/3$};
+\node[below=5pt] at (0,0) {$0$};
+\node[below=5pt] at (9,0) {$\pi/2$};
+\node[below=5pt] at ({acos(3/5)/10},0) {$\theta_0=\arccos(3/5)$};
+\node[red!75!black] at (2,2.8) {异支};
+\node[purple!80!black] at (7.4,3.4) {同支};
+\end{scope}
+\node at (7.1,.45) {临界角 $\theta_0$ 对应渐近线方向；实心点说明两个最小值都能取到。};
+\end{tikzpicture}

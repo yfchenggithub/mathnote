@@ -1,0 +1,30 @@
+% Oblique exact model, same as the general-coordinate example; no rotated axes.
+\begin{center}\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,9.2);
+\node[anchor=west,font=\small\bfseries] at (.5,8.72)
+  {向量法先看方向：从 $C$ 出发，$\overrightarrow{CA}=\lambda^2\overrightarrow{CB}$};
+\node[anchor=west] at (.8,7.75) {示例 $\lambda=2$：两向量同向，长向量是短向量的 $4$ 倍};
+\begin{scope}[shift={(2.8,2.4)},scale=.7]
+\coordinate (A) at (0.0000000000,0.0000000000);
+\coordinate (B) at (4.0000000000,2.0000000000);
+\coordinate (C) at (5.3333333333,2.6666666667);
+\coordinate (P) at (5.3333333333,5.6480906367);
+\draw[->,blue,line width=2.3pt] (C)--(A);
+\draw[->,teal!80!black,line width=1pt] (C)--(B);
+\draw[->,orange!85!black,very thick] (C)--(P)
+  node[midway,right=6pt] {$\mathbf u=\overrightarrow{CP}$};
+\draw[blue,dashed,thick] (A)--(P);
+\draw[teal!80!black,dashed,thick] (B)--(P);
+\foreach \q in {A,B,C,P}{\fill (\q) circle (1.4pt);}
+\node[below left=6pt] at (A) {$A$};
+\node[below=7pt] at (B) {$B$};
+\node[below right=8pt] at (C) {$C$};
+\node[above=6pt] at (P) {$P$};
+\node[blue,below right=3pt] at (2.2,1.1) {$\overrightarrow{CA}$};
+\end{scope}
+\node[anchor=west] at (.8,1.25)
+  {$\overrightarrow{AP}=\mathbf u-\overrightarrow{CA},\qquad
+   \overrightarrow{BP}=\mathbf u-\overrightarrow{CB}$};
+\node[anchor=west] at (.8,.55)
+  {展开平方后，一次项含 $\overrightarrow{CA}-\lambda^2\overrightarrow{CB}=\mathbf0$，因此消失。};
+\end{tikzpicture}\end{center}

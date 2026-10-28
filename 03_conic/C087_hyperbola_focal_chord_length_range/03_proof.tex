@@ -1,0 +1,164 @@
+\clearpage
+\begin{proofbox}
+\textbf{方法一：最快证明｜过焦点代入＋韦达/判别式（考场速写）}
+
+\textbf{信号：}题目同时出现“焦点弦长”“直线斜率 $k$”“双曲线”。
+令 $F_2=(c,0)$，\textbf{只设一个未知量} $t=x-c$，于是点为 $(c+t,kt)$。
+\begin{center}\input{assets/tikz/C087_root_projection}\end{center}
+\textbf{先读图中的直角三角形：} 两条直角边分别是横、竖坐标差，故根差先给出横向投影。
+
+\textbf{第1步：}代入双曲线后乘 $a^2b^2$：
+\[
+\boxed{(b^2-a^2k^2)t^2+2cb^2t+b^4=0}.\tag{1}
+\]
+\textbf{第2步：}无需解根，直接算出
+\[
+\Delta=(2cb^2)^2-4(b^2-a^2k^2)b^4
+=\boxed{4a^2b^4(1+k^2)}.
+\]
+\textbf{第3步：}弦长等于“横坐标差乘斜率长度系数”：
+\[
+L=\sqrt{1+k^2}\,|t_1-t_2|
+=\sqrt{1+k^2}\frac{\sqrt\Delta}{|b^2-a^2k^2|}
+=\boxed{\frac{2ab^2(1+k^2)}{|a^2k^2-b^2|}}.
+\]
+前提 $b^2-a^2k^2\ne0$，也即 $k\ne\pm b/a$。
+当该系数为零，(1) 退化为一次方程，只有一个有限交点。
+
+\tcbbreak
+\textbf{方法一续：先看弦长怎样变化，再比较两个下界。}
+\begin{center}\input{assets/tikz/C087_length_range}\end{center}
+图中左、右两段分别是异支、同支；两端实心点对应水平、竖直弦。
+\textbf{最值两行速写：}设 $u=k^2$，$c^2=a^2+b^2$，则
+\[
+\boxed{\begin{aligned}
+0\le u< b^2/a^2:&\quad L-2a=\frac{2ac^2u}{b^2-a^2u}\ge0,\\[3pt]
+u>b^2/a^2:&\quad L-\frac{2b^2}{a}
+=\frac{2b^2c^2}{a(a^2u-b^2)}>0.
+\end{aligned}}
+\]
+第一行等号在 $k=0$；第二行无有限 $k$ 能取等，但竖直线 $x=c$ 取等。
+以上既给出下界，也因趋近 $|k|=b/a$ 时 $L\to\infty$、随 $k$ 连续而覆盖所写的全部范围。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法二：最低门槛｜先看分支，再看「多出来的长度」}
+\begin{center}\input{assets/tikz/C087_two_minima}\end{center}
+
+\textbf{为什么采用：}不用分别求 $A,B$ 坐标，不必求导，适合看到成品公式后马上判断最值。
+
+\textbf{第1步：}记住双曲线自己的分界线斜率 $b/a$。
+较平（$|k|<b/a$）是异支，较陡（$|k|>b/a$）是同支，竖直归同支。
+
+\textbf{第2步：}异支连线必跨越 $x=-a$ 与 $x=a$：
+\[
+\boxed{|AB|\ge|x_A-x_B|\ge2a}.\tag{2}
+\]
+只有 $A=(-a,0),\ B=(a,0)$ 时等号成立。
+\textbf{这一结论完全不需要弦长公式！}
+
+\textbf{第3步：}同支用\textbf{不求导的直接比较}。设 $u=k^2>b^2/a^2$，
+\[
+\begin{aligned}
+L&=\frac{2ab^2(1+u)}{a^2u-b^2}
+=\frac{2b^2}{a}\left(1+\frac{a^2+b^2}{a^2u-b^2}\right)
+>\frac{2b^2}{a}.
+\end{aligned}
+\]
+看似严格大于，\textbf{不代表最小值取不到}：斜率公式遗漏了竖直线，
+在 $x=c$ 上，$A,B=(c,\pm b^2/a)$，故 $L=2b^2/a$ 正好取等。
+
+\textbf{极低记忆负担：}\emph{异支跨实轴，最短 $2a$；同支拉竖线，最短 $2b^2/a$。}
+\textbf{务必区分：}竖直线不是 $k=\infty$ 的代数代入，而是另一个必须核验的几何情形。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法三：常规解析几何｜联立二次方程＋根差＋角度统一}
+\begin{center}\input{assets/tikz/C087_root_projection}\end{center}
+
+过 $F_2$ 的非竖直直线 $y=k(x-c)$，令 $x=c+t$。
+完整展开得到
+\[
+\frac{(c+t)^2}{a^2}-\frac{k^2t^2}{b^2}=1
+\iff (b^2-a^2k^2)t^2+2cb^2t+b^4=0.
+\]
+利用 $c^2-a^2=b^2$，可写
+\[
+A_t=b^2-a^2k^2,\quad B_t=2cb^2,\quad C_t=b^4.
+\]
+由二次方程根与系数关系
+\[
+(t_1-t_2)^2=(t_1+t_2)^2-4t_1t_2
+=\frac{B_t^2-4A_tC_t}{A_t^2}
+=\frac{4a^2b^4(1+k^2)}{(b^2-a^2k^2)^2}.
+\]
+因为 $A,B$ 在同一条斜率为 $k$ 的直线上，
+$|AB|=\sqrt{1+k^2}\,|t_1-t_2|$，得到结论一。
+
+\tcbbreak
+\textbf{方法三续：角度统一，先看斜率式漏掉的竖直弦。}
+\begin{center}\input{assets/tikz/C087_vertical_parameter}\end{center}
+图中的 $\rho$ 是沿直线方向的有向距离，与 $t=x-c$ 不同；
+竖直时 $t_A=t_B=0$，但两端点的 $\rho$ 不同，所以弦长仍为正。
+\textbf{角度统一（补上竖直弦）：}先对 $\cos\theta\ne0$，令 $k=\tan\theta$，
+则
+\[
+\begin{aligned}
+L&=\frac{2ab^2(1+\tan^2\theta)}{|a^2\tan^2\theta-b^2|}
+=\frac{2ab^2}{|a^2\sin^2\theta-b^2\cos^2\theta|}\\
+&=\boxed{\frac{2ab^2}{|a^2-c^2\cos^2\theta|}}.
+\end{aligned}
+\]
+当 $\cos\theta=0$ 时，\textbf{另用} $x=c$ 直接验算 $L=2b^2/a$；
+因此角度表达式确实适用于 $\theta=\pi/2$。
+
+\textbf{分支判别（给出严格的代数依据）：}
+根积 $t_1t_2=b^4/(b^2-a^2k^2)$。
+当 $|k|<b/a$，两根均负（根和也负），两交点位于左右不同支；
+当 $|k|>b/a$，两根异号，焦点位于弦内，两交点在右支。
+仅凭根的正负还不能直接判断左右支；严格的坐标范围由方法四末尾的显式根式验证。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法四：补充｜焦半径＋余弦定理，解释同支最短为何在竖直方向}
+\begin{center}\input{assets/tikz/C087_focal_triangle}\end{center}
+
+\textbf{增补理由：}不用背弦长公式，直接理解为何同支焦点弦的长度有 $2b^2/a$ 这个下界。
+从右焦点 $F_2(c,0)$ 出发，沿与 $x$ 轴正向夹角 $\varphi$ 的射线取右支点 $P$，
+记 $r=PF_2$。双曲线定义为 $PF_1=r+2a$；
+三角形 $F_1F_2P$ 的内角 $\angle F_1F_2P=\pi-\varphi$，所以余弦定理中的交叉项为
+$-4cr\cos(\pi-\varphi)=+4cr\cos\varphi$，得到
+\[
+PF_1^2=r^2+4cr\cos\varphi+4c^2.
+\]
+两式相等、消掉 $r^2$ 并用 $c^2-a^2=b^2$，得到
+\[
+\boxed{r=\frac{b^2}{a-c\cos\varphi}}.\tag{3}
+\]
+（这条式子仅在右支且分母为正时使用；不能无条件给左支套用。）
+
+\tcbbreak
+\textbf{方法四续：同支弦的两条反向射线，距离应当相加。}
+\begin{center}\input{assets/tikz/C087_opposite_rays}\end{center}
+如果焦点 $F_2$ 被同支弦的两端点夹在中间，
+它们沿反向射线，余弦分别是 $q$ 与 $-q$；故
+\[
+\boxed{L=\frac{b^2}{a-cq}+\frac{b^2}{a+cq}}
+=\frac{2ab^2}{a^2-c^2q^2}\ge\frac{2b^2}{a},
+\qquad |cq|<a.
+\]
+等号当且仅当 $q=\cos\varphi=0$，就是两端点都在\textbf{过焦点的竖直线}上。
+这一步还解释了为何同支弦的分母没有负号：此时 $a^2-c^2q^2>0$。
+
+\textbf{等价的根式补充（用于验算分支）：}令 $s=\sqrt{1+k^2}>0$，则二次式的根可分解为
+\[
+t_1=-\frac{b^2}{c+as},\qquad t_2=-\frac{b^2}{c-as},
+\qquad(s\ne c/a).
+\]
+当 $1\le s<c/a$，$t_2\le-(c+a)$，故 $x_2=c+t_2\le-a$，对应左支；
+$s=1$（即 $k=0$）恰好是左顶点。若 $s>c/a$，$t_2>0$，故 $x_2>c>a$，对应右支。
+另有 $t_1\in[-(c-a),0)$，始终对应右支，故分类严格成立。
+\end{proofbox}

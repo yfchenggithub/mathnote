@@ -2,6 +2,8 @@
 \begin{proofbox}
 \textbf{证明一（优先）：距离平方，三步配方。}
 取 $A(-a,0),B(a,0)$，$a>0$，$\lambda>0,\lambda\ne1$。设 $P(x,y)$。
+\input{assets/tikz/C032_coordinate_proof.tex}
+\textbf{看图列式：} 两段距离各自用勾股定理平方，再代入定比条件：
 \[
 \begin{aligned}
  PA=\lambda PB
@@ -21,7 +23,8 @@
 \]
 这就是圆心 $C(h,0)$、半径 $R=2a\lambda/|\lambda^2-1|$ 的圆。
 
-\textbf{轨迹必须反向检查。}
+\tcbbreak
+\textbf{证明一续：轨迹必须反向检查。}
 上述圆上任一点满足平方距离等式。若 $P=B$，等式将变成 $4a^2=0$，矛盾；
 若 $P=A$，将变成 $0=4a^2\lambda^2$，也矛盾。
 故 $PA,PB>0$。取非负平方根得到 $PA=\lambda PB$，再除以 $PB$ 即得原比值。
@@ -43,31 +46,64 @@
 \[
  \boxed{\frac{CA}{CB}=\lambda^2}.
 \]
-这是唯一的外分点：若 $\lambda>1$，$C$ 在 $B$ 外；
-若 $0<\lambda<1$，$C$ 在 $A$ 外。令 $L=AB$，从两线段之差为 $L$ 直接算：
+\input{assets/tikz/C032_projection_proof.tex}
+\textbf{第1步：先弄清 $H$ 和 $t$，只用熟悉的勾股定理。}
+$H$ 是 $P$ 到直线 $AB$ 的垂足。由于 $C$ 在 $AB$ 外，射线 $CA,CB$ 同向；
+把从 $C$ 指向 $A$ 的方向定为正方向，$H$ 在这条直线上的\textbf{有向位置}记为 $t$。
+图中 $H$ 位于该正方向，所以 $t=CH>0$；若 $H$ 在反方向，则 $t=-CH<0$。
+无论正负，都有 $CH^2=t^2$。对直角三角形 $PCH$ 用勾股定理：
 \[
- \begin{array}{ll}
- \lambda>1:& CB=\dfrac{L}{\lambda^2-1},\quad CA=\lambda^2 CB,\\[6pt]
- 0<\lambda<1:& CA=\dfrac{\lambda^2L}{1-\lambda^2},\quad CB=\dfrac{CA}{\lambda^2}.
- \end{array}
+ PC^2=PH^2+t^2
+ \quad\Longrightarrow\quad \boxed{PH^2=PC^2-t^2}.
 \]
-\textbf{为什么一平方就能找到圆心，为什么半径是开方？}
-由于 $C$ 在 $AB$ 外侧，射线 $CA$ 与 $CB$ 同向。
-将 $\overrightarrow{CP}$ 在这条公共方向上的\textbf{有向投影长度}记为 $t$。
-由余弦定理（或勾股定理加投影）得到
+
+\textbf{第2步：把同一条高 $PH$ 分别放进两个直角三角形。}
+沿上述正方向，$A,B,H$ 的有向位置分别是 $CA,CB,t$，所以
+$AH=|CA-t|,\ BH=|CB-t|$。\textbf{这里必须取绝对值：}
+图中 $H$ 在 $B$ 左侧，有 $CB-t<0$，但 $BH$ 仍是正长度。平方后可统一写成
 \[
- \begin{aligned}
- PA^2&=PC^2+CA^2-2CA\,t,\\
- PB^2&=PC^2+CB^2-2CB\,t.
- \end{aligned}
+\begin{aligned}
+ PA^2&=AH^2+PH^2=(CA-t)^2+(PC^2-t^2)\\
+     &=CA^2-2CA\,t+t^2+PC^2-t^2
+      =\boxed{PC^2+CA^2-2CA\,t},\\[3pt]
+ PB^2&=BH^2+PH^2=(CB-t)^2+(PC^2-t^2)\\
+     &=CB^2-2CB\,t+t^2+PC^2-t^2
+      =\boxed{PC^2+CB^2-2CB\,t}.
+\end{aligned}
 \]
-因为 $CA=\lambda^2CB$，两式作差时带 $t$ 的项\textbf{正好抵消}：
+\textbf{到这里没有用新的投影公式：} 只是展开两个平方，再把各自的 $t^2-t^2$ 消去。
+
+\tcbbreak
+\textbf{第3步：为什么要把第二式乘 $\lambda^2$，再相减？}
+原条件 $PA=\lambda PB$ 平方后正是 $PA^2-\lambda^2PB^2=0$，
+因此按这个组合相减。将上一页勾股推得的两式完整代入：
 \[
- \begin{aligned}
+\begin{aligned}
  PA^2-\lambda^2PB^2
+ &=(PC^2+CA^2-2CA\,t)\\
+ &\quad-\lambda^2(PC^2+CB^2-2CB\,t)\\
  &=(1-\lambda^2)PC^2+CA^2-\lambda^2CB^2\\
- &=(1-\lambda^2)\bigl(PC^2-CA\cdot CB\bigr).
- \end{aligned}
+ &\quad+\underbrace{(-2CA\,t+2\lambda^2CB\,t)}_{-2(CA-\lambda^2CB)t=0}.
+\end{aligned}
+\]
+\textbf{抵消的关键不是 $t=0$，而是它前面的系数为零：}
+我们一开始就选了 $CA=\lambda^2CB$，所以两项大小相等、符号相反。
+例如 $\lambda=2$ 时 $CA=4CB$，这两项就是
+\[
+ -2(4CB)t+2\cdot4CB\,t=-8CB\,t+8CB\,t=0.
+\]
+
+\textbf{第4步：剩下的式子为什么给出一个圆？}
+同样利用 $CA=\lambda^2CB$，先处理不含 $P$ 的常数项：
+\[
+ CA^2-\lambda^2CB^2
+ =CA^2-CA\cdot CB
+ =(\lambda^2-1)CA\cdot CB.
+\]
+于是
+\[
+ PA^2-\lambda^2PB^2
+ =(1-\lambda^2)\bigl(PC^2-CA\cdot CB\bigr).
 \]
 因 $\lambda\ne1$，所以
 \[
@@ -78,7 +114,30 @@
 圆上不可能有 $P=A$ 或 $P=B$（代入上式的距离平方等式即矛盾），
 故非负长度取平方根可返回原比值；因此这是\textbf{整个圆周}，而非只证明必要性。
 
-\textbf{考场只用前两框：} 先按 $\lambda^2$ 外分确定 $C$，再算 $\sqrt{CA\cdot CB}$；
+\tcbbreak
+\textbf{速算法数值回验：把每一段长度放回图中。}
+\input{assets/tikz/C032_projection_proof.tex}
+\textbf{用具体数值逐步核对：}
+$CA=8/3,\ CB=2/3,\ t=16/15,\ PH=4/5$，因此
+\[
+\begin{aligned}
+ PA^2&=(8/3-16/15)^2+(4/5)^2=16/5,\\
+ PB^2&=(2/3-16/15)^2+(4/5)^2=4/5.
+\end{aligned}
+\]
+故 $PA^2=4PB^2$，取正平方根得到 $PA=2PB$；
+同时 $PC^2=(16/15)^2+(4/5)^2=16/9=CA\cdot CB$。
+
+\textbf{怎样实际算出 $C$？}
+这是唯一的外分点：若 $\lambda>1$，$C$ 在 $B$ 外；
+若 $0<\lambda<1$，$C$ 在 $A$ 外。令 $L=AB$，从两线段之差为 $L$ 直接算：
+\[
+ \begin{array}{ll}
+ \lambda>1:& CB=\dfrac{L}{\lambda^2-1},\quad CA=\lambda^2 CB,\\[6pt]
+ 0<\lambda<1:& CA=\dfrac{\lambda^2L}{1-\lambda^2},\quad CB=\dfrac{CA}{\lambda^2}.
+ \end{array}
+\]
+\textbf{考场只记两条速算式：} $CA:CB=\lambda^2:1$（外分），$R=\sqrt{CA\cdot CB}$；
 以上投影法只是解释其正确性，不要求每题重推。
 \tcbbreak
 \textbf{证明二（几何角度）：内外角平分线给出直径。}
@@ -168,7 +227,9 @@ $\theta/2$ 与 $(180^\circ-\theta)/2$，和为 $90^\circ$。
 \[
  \mathbf c=\frac{\mathbf a-\lambda^2\mathbf b}{1-\lambda^2}.
 \]
-则 $\overrightarrow{CA}=\lambda^2\overrightarrow{CB}$。记 $\mathbf u=\overrightarrow{CP}$，
+则 $\overrightarrow{CA}=\lambda^2\overrightarrow{CB}$。记 $\mathbf u=\overrightarrow{CP}$。
+\input{assets/tikz/C032_vector_proof.tex}
+\textbf{图中的虚线给出两个向量差。}
 用 $|\mathbf u-\mathbf v|^2=|\mathbf u|^2-2\mathbf u\cdot\mathbf v+|\mathbf v|^2$ 展开：
 \[
 \begin{aligned}

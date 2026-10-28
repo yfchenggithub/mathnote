@@ -1,0 +1,45 @@
+\clearpage
+\begin{explanationbox}
+\textbf{先问三件事：为什么要分类？为什么分界是 $b/a$？为什么有两个不同最小值？}
+
+\textbf{第一件：先画渐近线，再转动过焦点的直线。}
+双曲线的两条渐近线斜率是 $\pm b/a$；它们不仅决定开口的方向，
+也决定过焦点的直线究竟先穿过\textbf{左右两支}，还是\textbf{右支两次}。
+\begin{itemize}
+\item $|k|<b/a$（较平）：两个交点在左右不同支，称\textbf{异支弦}；
+\item $|k|>b/a$（较陡）：两个交点同在右支，称\textbf{同支弦}；
+\item $k=\pm b/a$（临界）：直线平行渐近线，只剩一个有限交点；
+\item 竖直的 $x=c$ 不是斜率有限的 $k$，它是合法的\textbf{同支弦}。
+\end{itemize}
+对于左焦点 $F_1$，对应为\textbf{左支}两次，其他结论不变。
+\begin{center}\input{assets/tikz/C087_slope_cases}\end{center}
+
+\tcbbreak
+\textbf{第二件：把几何分类放到弦长变化图上。}
+\begin{center}\input{assets/tikz/C087_length_range}\end{center}
+两侧曲线都向临界方向升高；水平弦和竖直弦是两类范围各自的最低点。
+\textbf{不要被绝对值吓到，它只表示分母变号。}
+设 $u=k^2$，临界值 $u_0=b^2/a^2$。只须记住
+\[
+\begin{array}{ll}
+0\le u<u_0:& \displaystyle L=\frac{2ab^2(1+u)}{b^2-a^2u}\quad(\text{异支}),\\[5pt]
+u>u_0:& \displaystyle L=\frac{2ab^2(1+u)}{a^2u-b^2}\quad(\text{同支}).
+\end{array}
+\]
+\textbf{第三件：把「最小值」变成「比最小值多多少」。}
+异支时
+\[
+\boxed{L-2a=\frac{2ac^2u}{b^2-a^2u}\ge0}
+\]
+只在 $u=0$ 取等，所以水平弦最短。
+同支、斜率有限时
+\[
+\boxed{L-\frac{2b^2}{a}=
+\frac{2b^2c^2}{a(a^2u-b^2)}>0.}
+\]
+有限斜率不可能取等；必须单独检查竖直线 $x=c$：
+与曲线交于 $\bigl(c,\pm b^2/a\bigr)$，其长\textbf{恰为} $2b^2/a$。
+
+\textbf{极限直觉：}转向平行渐近线时，远处那个交点跑向无限远，
+所以弦长发散；转到竖直时，两个交点关于 $x$ 轴对称，得到同支最短弦。
+\end{explanationbox}
