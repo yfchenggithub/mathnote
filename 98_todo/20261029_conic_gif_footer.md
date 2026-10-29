@@ -1,24 +1,49 @@
-# 03_conic GIF 底部两行文案统一（遗留任务）
+# 03_conic GIF 底部两行文案统一：执行记录
 
-- 登记时间：2026-10-29（北京时间）。
-- 提醒时间：2026-10-29 11:30，Asia/Shanghai；只提醒用户，不自动修改或发布。
-- 状态：暂缓处理，等待用户届时继续；正式覆盖及冻结资源授权尚待明确。
+- 日期：2026-10-29，北京时间。
+- 状态：LOCAL PRODUCTION PASS，正式 images 中的本地文件已更新。
+- 授权：用户引用三种尺寸预览方案，明确授权开始批量覆盖现有 GIF，包含 C001/C002 冻结资源及追加底栏高度。
+- 范围：81 个 UID、105 张 GIF；104 张新增底栏，C087 原有两行文案全程完整，保留原文件。
+- 本任务已执行，原 11:30 提醒待办关闭。
 
-底部全程固定两行：
+底部两行文案：
 
 > 查结论 · 看图解 · 学证明｜知树 App  
 > 公众号 ok-shuxue｜获取入口
 
-已审计 03_conic 的 81 个 UID、105 张正式 GIF。C087 源码已有完整文案；其余需逐图核对。另有六个 UID 尚无 GIF，不因本任务自动新建动画。
+104 张新增底栏使用独立画布区域，不遮挡原图。102 张由 576×1024 变为 576×1132；C044 由 840×1050 变为 840×1172；C048 由 1152×720 变为 1152×842。C087 保持 576×1024。
 
-已制成三种尺寸的隔离底栏预览，原数学区域及显示时序逐帧核验一致；正式 GIF 未改。预览方案会增加画布高度。C001/C002 冻结资源以及现有 GIF 的正式覆盖仍待用户明确授权；用户尚未批准追加底栏高度或覆盖。Android 设备验收保持 PENDING。
+## 验收证据
 
-继续前阅读：
+| 验收项 | 状态 | 实际检查 |
+| --- | --- | --- |
+| 数学画面与时序保持 | PASS | 104 张输出的原图区域逐显示状态 RGB 像素哈希与持续时间序列精确一致；合并连续相同画面后比较，允许 GIF 编码合并相同帧。 |
+| 透明信息 | PASS | C037 含透明像素，额外核对 RGBA 区域及显示时序精确一致；未将透明像素铺底。 |
+| 数学模型自动测试 | PENDING | 未重新运行原 Scene 的数学测试；本任务只追加底栏，通过逐帧等价验证确认原数学画面未改变。 |
+| 全帧技术检查 | PASS | 105 张使用冻结 verify_gif.py 检查完整解码、正时长、无限循环、可见运动、黑帧及尺寸；全部通过。正式文件与已验证候选文件哈希一致。 |
+| 底栏关键帧与视觉检查 | PASS | 105 张首帧、中帧、末帧，共 315 张真实关键帧的底栏联系表已检查；两行完整可读，无裁切或遮挡。 |
+| C087 底栏全程显示 | PASS | 原 Scene 保持底栏，全帧两行文字掩模最小 IoU 为 0.9567；编码存在细微差异，未误判为文案消失。 |
+| 教学表达 | PASS | 原数学区域和播放时序精确保持，底栏追加在独立区域；未改动原分镜。此项不替代既有数学内容审计。 |
+| 原文件备份 | PASS | 全部 105 张原 GIF 已备份并核对原始 SHA-256；104 张原子替换后再次核对正式 SHA-256。 |
+| 其他受保护源文件 | PASS | 基线中的 TeX、meta/JSON、Python、Markdown、PDF、PNG、WebP 哈希均未变化。 |
+| USER VISUAL PASS | PENDING | 用户已批准预览样式；最终 105 张成品尚未逐项由用户确认。 |
+| ANDROID DEVICE PASS | PENDING | 等待用户真机确认。 |
+| FINAL FREEZE | PENDING | 未标记最终冻结。 |
 
-- `build/manim/conic-branding-audit-20261029/REVIEW.md`
-- `build/manim/conic-branding-audit-20261029/inventory.json`
-- `build/manim/conic-branding-audit-20261029/preview_results.json`
-- `scripts/manim/README.md`
-- `scripts/manim/VISUAL_GUIDELINES.md` 第 2.4 节
+未执行 Publisher、Content Package、Sync、APK 构建或 Git 提交。本次记录不修改历史冻结报告的验收结论。
 
-不自动执行 Publisher、Content Package、Sync、APK、Git 提交或发布。
+## 本地证据与回退
+
+全部证据位于 `build/manim/conic-branding-20261029/`：
+
+- `completion.json`：最终状态与数量。
+- `baseline.json`：原 105 张文件路径、尺寸、帧数与 SHA-256。
+- `replacement_journal.json`：正式文件前后哈希、替换/保留状态及备份路径。
+- `backups/<UID>/<文件名>.gif`：105 张原始文件，均已核对哈希；回退时应先核对当前文件，避免覆盖后续改动。
+- `stage_results.json`、`receipts/`：逐图原区域/时序等价与技术验收结果。
+- `keyframes/`、`visual-review/footer-contact-01.png` 至 `07.png`：首、中、末帧及底栏联系表。
+- `batch_footer.py`：此次隔离生产脚本；`replace_formal.py`：本次备份、原子替换及最终校验脚本。
+
+Scene 源码和冻结共享工具未修改。因此今后从原 Scene 重新渲染时，应在覆盖正式资源前重新按当前底栏规范处理与验收，避免底栏丢失。本次脚本以原始哈希基线锁定输入，不能直接对更新后的 GIF 重跑，也不应重复追加底栏。
+
+没有 GIF 的 C006、C021、C024、C033、C034、C035 未新建动画。
