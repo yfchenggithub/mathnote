@@ -1,0 +1,18 @@
+\begin{tikzpicture}[x=1.1cm,y=1.1cm,font=\small,>=stealth]
+\node[font=\small\bfseries] at (0,2.8) {点差法：横纵坐标差确定弦方向};
+\draw[gray,->] (-4.6,0)--(4.7,0) node[right] {$x$};
+\draw[gray,->] (0,-2.05)--(0,2.1) node[above] {$y$};
+\node[below left] at (0,0) {$O$};
+\draw[CStatement,thick,domain=-1.8:1.8,samples=100] plot ({2*sqrt(1+\x*\x)},\x);
+\draw[CStatement,thick,domain=-1.8:1.8,samples=100] plot ({-2*sqrt(1+\x*\x)},\x);
+\coordinate (A) at (10/3,4/3); \coordinate (B) at (-2,0); \coordinate (M) at (2/3,2/3);
+\draw[teal,very thick] (B)--(A);
+\fill (A) circle(1.8pt) node[above left] {$A$};
+\fill (B) circle(1.8pt) node[below left] {$B$};
+\fill[orange!80!black] (M) circle(2pt) node[below right] {$M$};
+\draw[purple,dashed,thick] (B)--(10/3,0)--(A);
+\node[below] at (2/3,-.5) {$x_1-x_2$};
+\node[right] at (3.65,.65) {$y_1-y_2$};
+
+\node[align=center] at (0,-2.65) {$M=\bigl((x_1+x_2)/2,(y_1+y_2)/2\bigr)$；图取 $a=2,b=1$};
+\end{tikzpicture}

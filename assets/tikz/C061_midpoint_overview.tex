@@ -1,0 +1,14 @@
+\begin{tikzpicture}[x=1.1cm,y=1.1cm,font=\small,>=stealth]
+\node[font=\small\bfseries] at (0,2.8) {真实中点弦：$AM=MB$，两端点在不同支};
+\draw[gray,->] (-4.6,0)--(4.7,0) node[right] {$x$};
+\draw[gray,->] (0,-2.05)--(0,2.1) node[above] {$y$};
+\node[below left] at (0,0) {$O$};
+\draw[CStatement,thick,domain=-1.8:1.8,samples=100] plot ({2*sqrt(1+\x*\x)},\x);
+\draw[CStatement,thick,domain=-1.8:1.8,samples=100] plot ({-2*sqrt(1+\x*\x)},\x);
+\coordinate (A) at (10/3,4/3); \coordinate (B) at (-2,0); \coordinate (M) at (2/3,2/3);
+\draw[teal,very thick] (B)--(A);
+\fill (A) circle(1.8pt) node[above left] {$A$};
+\fill (B) circle(1.8pt) node[below left] {$B$};
+\fill[orange!80!black] (M) circle(2pt) node[below right] {$M$};
+\node[align=center] at (0,-2.65) {$x^2/4-y^2=1,\quad A(10/3,4/3),\ B(-2,0),\ M(2/3,2/3)$};
+\end{tikzpicture}

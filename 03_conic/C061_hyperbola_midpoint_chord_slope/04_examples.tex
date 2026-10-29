@@ -1,20 +1,112 @@
+
+\clearpage
 \begin{examplebox}
-\textbf{例1：候选直线未必是弦。}
-对 $x^2/4-y^2/9=1$，能否以 $M=(2,1)$ 为弦中点？
-$S=1-1/9=8/9\in(0,1)$，故\textbf{不存在}。
-点差法仅给候选线 $y-1=(9/2)(x-2)$；代入后判别式为负，不能称为弦。
-\par\medskip\noindent
-\textbf{例2：斜率为 $2$ 的所有弦中点。}
-公式给 $y_0=9x_0/8$，所以 $S=7x_0^2/64\ge0$。
-两交点存在须 $S>1$，故完整轨迹为
+\textbf{五步路线·入门例 A｜先从初中圆的垂径定理出发。}
+圆 $x^2+y^2=25$ 中，给弦的中点 $M=(3,2)$。
+先检验 $3^2+2^2=13<25$，真实非退化弦存在。
+由 $OM\perp AB$，有 $k_{OM}=2/3$，故
 \[
-\boxed{y=\frac98x,\qquad |x|>\frac8{\sqrt7}}.
+\boxed{k_{AB}=-\frac32},\qquad
+\boxed{y-2=-\frac32(x-3)}.
 \]
-它是两条开射线，两个边界点仅对应切线，中点 $O$ 也不对应实弦。
+\textbf{一句话：}在圆里，先想垂径定理，不必先设直线联立。
+\textbf{再问``相加''：}由勾股定理，半弦长度
+\[
+MP=\sqrt{R^2-OM^2}=\sqrt{25-(3^2+2^2)}=2\sqrt3.
+\]
+这一步\textbf{不是再求一次方向}，而是在方向已经确定后，求要沿弦的方向走多远。
 \par\medskip\noindent
-\textbf{例3：过 $Q=(1,2)$，中点在 $y=x$ 上的弦是否存在？}
-非零中点时 $k=9/4$，候选线 $9x-4y-1=0$，
-与 $y=x$ 交于 $M=(1/5,1/5)$，其 $S=1/180\in(0,1)$，无实交点。
-若中点是 $O$，直线只能为 $y=2x$，其斜率绝对值大于渐近线斜率 $3/2$，仍无交点。
-若直线竖直，过 $Q$ 只能是 $x=1$，也无交点。故\textbf{无解}。
+\textbf{五步路线·入门例 B｜同一个中点，比较三条\textbf{真实存在}的弦。}
+取 $M=(\frac12,1)$；椭圆、双曲线均取 $a=2,b=3$，圆取 $R=5$。
+\[
+\begin{array}{c|c|c}
+\text{曲线}&\text{存在性检查}&k_{AB}\\\hline
+x^2+y^2=25 &\frac14+1<25&-\frac12\\[3pt]
+\frac{x^2}{4}+\frac{y^2}{9}=1 &\frac1{16}+\frac19=\frac{25}{144}<1&-\frac98\\[4pt]
+\frac{x^2}{4}-\frac{y^2}{9}=1 & S=\frac1{16}-\frac19=-\frac7{144}<0&+\frac98
+\end{array}
+\]
+\textbf{比较：}圆的斜率来自普通垂直；椭圆多出尺度 $b^2/a^2$；双曲线 $y^2$ 项变号后斜率符号相反。
+三个结果都对应\textbf{实际存在的非退化弦}，不是只代公式算出的假弦。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{新增三联例｜同一双曲线中，方向确定后，为什么还必须相加？}
+统一采用原方程 $\mathcal H:\frac{x^2}{4}-y^2=1$，即 $a^2=4,b^2=1$。
+\begin{enumerate}[leftmargin=2em,topsep=2pt,itemsep=3pt]
+\item \textbf{$S<0$，确有异支弦：}给 $M=(0,1)$，则 $S=-1$。
+相减可知 $u=4t,\ v=0$（水平），相加则给
+$-1-4(-1)t^2=1$，故 $t^2=1/2$。
+取 $t=1/\sqrt2$，得到
+$P=(2\sqrt2,1)$、$Q=(-2\sqrt2,1)$，均在原双曲线上。
+\item \textbf{$0<S<1$，有方向却无弦：}给 $M=(1,0)$，$S=1/4$。
+相减得到 $u=0$（只能竖直）；相加给
+$\frac14-v^2=1$，于是 $v^2=-\frac34$。
+没有实位移，不存在真实端点。等价地，$t^2=(1/4-1)/(4\cdot1\cdot1/4)=-3/4$。
+\item \textbf{$S>1$，确有同支弦：}给 $M=(3,0)$，$S=9/4$。
+相减得 $u=0$（只能竖直）；相加给
+$\frac94-v^2=1$，即 $v=\pm\sqrt5/2$。
+端点 $P=(3,\sqrt5/2)$、$Q=(3,-\sqrt5/2)$ 均在右支。
+\end{enumerate}
+\textbf{一眼迁移：}这三例的差别不是``有没有候选方向''，而是
+\textbf{沿唯一方向需要的半弦位移平方，究竟为正数还是负数}。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{例 1｜会求斜率，不等于真有弦（最小反例）。}
+已知 $\mathcal H:x^2/4-y^2/9=1$，问 $M=(2,1)$ 能否为一条非退化弦的中点？
+\[
+S=\frac{2^2}{4}-\frac{1^2}{9}=\frac89\in(0,1),
+\quad k=\frac{9\cdot 2}{4\cdot 1}=\frac92.
+\]
+虽然候选线为 $y-1=\frac92(x-2)$，但 $0<S<1$，\textbf{没有两个实交点，故不存在。}
+\par\medskip\noindent
+\textbf{例 2｜异支与同支：同一条双曲线上，选中点一眼判断。}
+对于 $\mathcal H:x^2/4-y^2/9=1$：
+\begin{itemize}[leftmargin=2em,topsep=2pt,itemsep=1pt]
+\item $M_1=(0,1)$：$S=-1/9$，候选线 $y=1$，端点
+$A=(-2\sqrt{10}/3,1),\ B=(2\sqrt{10}/3,1)$，\textbf{异支}。
+\item $M_2=(3,1)$：$S=77/36>1$，候选线 $y-1=\frac{27}{4}(x-3)$，\textbf{同支}。
+\end{itemize}
+\par\medskip\noindent
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{例 3｜固定斜率 $k=2$，求所有中点的轨迹（含取值范围）。}
+\begin{center}\input{assets/tikz/C061_example_midpoint_locus.tex}\end{center}
+在 $\mathcal H:x^2/4-y^2/9=1$ 中，$y_0\ne0$ 时
+\[
+2=\frac{9x_0}{4y_0}\ \Longrightarrow\ y_0=\frac98x_0,\qquad
+S=\frac{x_0^2}{4}-\frac1{9}\left(\frac98x_0\right)^2
+=\frac{7x_0^2}{64}.
+\]
+因为 $k=2>b/a=3/2$，原点处不存在斜率为 $2$ 的中心弦；且 $S\ge0$，必须 $S>1$，故
+\[
+\boxed{y=\frac98x,\qquad |x|>\frac8{\sqrt7}.}
+\]
+边界点仅对应切点重合，两条\textbf{开射线}才是完整的中点轨迹。
+\par\medskip\noindent
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{例 4｜无斜率不等于无弦：竖直弦与中心弦。}
+仍取 $x^2/4-y^2/9=1$。
+\begin{itemize}[leftmargin=2em,topsep=2pt,itemsep=1pt]
+\item $M=(3,0)$：$S=9/4>1$，竖直线 $x=3$ 与曲线交于 $(3,\pm 3\sqrt5/2)$，恰以 $M$ 为中点。
+\item $M=(1,0)$：$S=1/4$，不能有非退化弦。
+\item $M=O$：$S=0$，仍可取 $y=x$，因为 $|1|<3/2$；交点互为关于原点的对称点。
+\end{itemize}
+\par\medskip\noindent
+\textbf{例 5｜综合变式：经过已知点且中点被限制在某条直线上。}
+在 $x^2/4-y^2/9=1$ 上，是否存在一条弦过 $Q=(1,2)$，且中点在 $y=x$ 上？
+若 $M=(m,m)$ 且 $m\ne0$，公式给 $k=9/4$。
+过 $Q$ 的候选线 $9x-4y-1=0$ 与 $y=x$ 相交于
+$M=(1/5,1/5)$，此时 $S=1/180\in(0,1)$，\textbf{排除}。
+若 $M=O$，候选中心线只能是 $OQ$，即 $y=2x$，因 $2>3/2$ 无实交点。
+其余竖直线过 $Q$ 只能为 $x=1$，也不与曲线相交。综上\textbf{无解}。
+\par\medskip\noindent
+\textbf{高价值变式（对照椭圆）。}
+对于椭圆 $x^2/4+y^2/9=1$，给定 $M=(1,1)$，
+候选斜率 $k=-9/4$；因为 $1/4+1/9=13/36<1$，实际存在一条非退化中点弦。
+双曲线的斜率\textbf{符号相反}且\textbf{存在区域不能照搬椭圆内部判据}。
 \end{examplebox}

@@ -1,15 +1,71 @@
+\begin{center}\input{assets/tikz/C061_midpoint_overview.tex}\end{center}
 \begin{statementbox}
-\textbf{条件。} 标准双曲线 $x^2/a^2-y^2/b^2=1$，$a,b>0$。
-设实际存在的非退化弦 $AB$ 的中点为 $M(x_0,y_0)$，$y_0\ne0$。
+
+\textbf{五步认知路线（先知其来历，再会用公式）：}
+\begin{center}
+\small
+\fbox{初中垂径定理}\ $\longrightarrow$\ \fbox{圆的中点弦斜率}
+$\longrightarrow$\ \fbox{椭圆的尺度变化}\\[3pt]
+$\longrightarrow$\ \fbox{双曲线的符号变化}
+$\longrightarrow$\ \fbox{点差法统一证明}
+\end{center}
+\textbf{贯穿问题：}弦的中点如何决定弦的\textbf{方向}？在双曲线中，为什么还必须检查弦是否\textbf{存在}？
+\par\smallskip\noindent
+\textbf{新增核心认知｜相减定方向，相加定距离：}
+设端点 $P=M+(u,v)$、$Q=M-(u,v)$。两点满足同一个二次曲线方程：
+\textbf{相减}消去平方项中的公共部分，提取中点与半弦位移的交叉项，决定 $PQ$ 的\textbf{方向}；
+\textbf{相加}消去正负相反的交叉项，分离\textbf{中点位置}与\textbf{半弦位移平方}，
+回答“沿已确定的方向走多远，才能实际到达曲线”。
+圆上相加就是 $OM^2+MP^2=R^2$；双曲线上是它的\textbf{带符号二次型类比}，而非普通勾股定理。
+圆中是普通垂直，椭圆中是经过拉伸的加权方向，双曲线中再发生平方项的符号变化。
+\par\medskip\noindent
+\textbf{适用条件：}标准双曲线
 \[
-\boxed{k=\frac{b^2x_0}{a^2y_0}}.
+\mathcal H:\quad \frac{x^2}{a^2}-\frac{y^2}{b^2}=1\qquad(a,b>0).
 \]
-\textbf{反求弦时的充要条件。} 若只给定点 $M$ 而未保证弦存在，记
-$S=x_0^2/a^2-y_0^2/b^2$。在 $y_0\ne0$ 下，中点弦存在当且仅当
+已知\textbf{两个不同实交点} $A,B\in\mathcal H$，其中点为 $M(x_0,y_0)$。
+\par\medskip\noindent
+\textbf{结论一（中点弦斜率）：}当 $y_0\ne0$ 时，$AB$ 不可能是竖直线，且
 \[
-\boxed{S<0\quad\text{或}\quad S>1}.
+\boxed{k_{AB}=\frac{b^2x_0}{a^2y_0}},\qquad
+\boxed{y-y_0=\frac{b^2x_0}{a^2y_0}(x-x_0)}.
 \]
-$S<0$ 对应两端点异支，$S>1$ 对应同支；$0\le S<1$ 无弦，$S=1$ 仅为切点重合。
-焦点在 $y$ 轴时交换两轴，斜率为 $a^2x_0/(b^2y_0)$，
-存在条件对 $S'=y_0^2/a^2-x_0^2/b^2$ 仍为 $S'<0$ 或 $S'>1$。
+注意：\textbf{未给出实际存在的弦时，上式仅给候选直线，不能直接认定其为弦。}
+\par\medskip\noindent
+\textbf{结论二（统一候选弦方程）：}令
+\[
+S=\frac{x_0^2}{a^2}-\frac{y_0^2}{b^2}.
+\]
+若 $M\ne O$，不论候选直线是否竖直，其方程统一写成
+\[
+\boxed{\frac{x_0x}{a^2}-\frac{y_0y}{b^2}=S.}
+\]
+\begin{minipage}{\linewidth}
+\textbf{结论三（所有中点的存在性充要条件）：}对于任意给定 $M$，
+\[
+\boxed{\exists\,\text{非退化实中点弦}\ \Longleftrightarrow\ S<0\ \text{或}\ S>1\ \text{或}\ M=O.}
+\]
+\textbf{为什么恰好这三类？}对于 $M\ne O$，沿唯一候选方向写
+$P,Q=M\pm t(a^2y_0,b^2x_0)$，相加后得到
+\[
+\boxed{S-a^2b^2St^2=1},\qquad
+\boxed{t^2=\frac{S-1}{a^2b^2S}}\quad(S\ne0).
+\]
+非退化实端点要求 $t^2>0$；故\textbf{只能} $S<0$ 或 $S>1$。
+$0<S<1$ 时 $t^2<0$（不可能）；$S=1$ 时 $t=0$（两端点重合）；
+$S=0,M\ne O$ 时式子成为 $0=1$（矛盾）；$M=O$ 另有无穷多条中心弦。
+下面三图把“中点”和“实际弦”对应起来：$S<0$ 为异支弦，$S>1$ 为同支弦；$M=O$ 虽然满足 $S=0$，仍有无穷多条中心弦。
+\begin{center}\input{assets/tikz/C061_three_existing_chords.tex}\end{center}
+\end{minipage}
+\par\medskip
+\textbf{原点为什么另列：}其他 $S=0$ 的点不能作为非退化实弦中点，原点却可以；但中心弦仍需 $|k|<b/a$。此时统一候选方程为 $0=0$，只给中点，不能唯一确定方向。
+\par\medskip\noindent
+\textbf{特殊位置：}若 $y_0=0$ 且 $x_0\ne0$，只能是\textbf{竖直}候选线 $x=x_0$，当且仅当 $|x_0|>a$ 时有两个实交点；$|x_0|=a$ 只有一个切点。
+\par\medskip\noindent
+\textbf{焦点在 $y$ 轴时：}对 $y^2/a^2-x^2/b^2=1$，当 $y_0\ne0$ 且中点弦存在时，
+\[
+k=\frac{a^2x_0}{b^2y_0},\qquad
+S'=\frac{y_0^2}{a^2}-\frac{x_0^2}{b^2},\qquad
+\text{存在}\iff S'<0\ \text{或}\ S'>1\ \text{或}\ M=O.
+\]
 \end{statementbox}

@@ -1,0 +1,20 @@
+\begin{tikzpicture}[x=.68cm,y=.68cm,font=\small,>=stealth]
+\node[font=\small\bfseries] at (0,3) {椭圆：$x^2/4+y^2=1$};
+\draw[CStatement,thick] (0,0) ellipse (2 and 1);
+\draw[gray,->] (-3.7,0)--(3.8,0);
+\draw[gray,->] (0,-1.9)--(0,2);
+\draw[teal,very thick] (-.983239697,.870809924)--(1.983239697,.129190076);
+\fill[orange!80!black] (.5,.5) circle(2pt); \node[orange!80!black] at (.5,-.55) {$M$};
+\node at (0,-2.3) {$k=-1/4$，弦向右下倾斜};
+\begin{scope}[xshift=6cm]
+\node[font=\small\bfseries] at (0,3) {双曲线：$x^2/4-y^2=1$};
+\draw[CStatement,thick,domain=-1.4:1.4,samples=90] plot ({2*sqrt(1+\x*\x)},\x);
+\draw[CStatement,thick,domain=-1.4:1.4,samples=90] plot ({-2*sqrt(1+\x*\x)},\x);
+\draw[gray,->] (-3.7,0)--(3.8,0);
+\draw[gray,->] (0,-1.9)--(0,2);
+\draw[teal,very thick] (-2.016611478,-.129152870)--(3.016611478,1.129152870);
+\fill[orange!80!black] (.5,.5) circle(2pt); \node[orange!80!black] at (1,1.5) {$M$};
+\node at (0,-2.3) {$k=+1/4$，弦向右上倾斜};
+\end{scope}
+\node at (4.4,-3.6) {相同半轴参数、相同尺度、相同中点 $M(1/2,1/2)$};
+\end{tikzpicture}

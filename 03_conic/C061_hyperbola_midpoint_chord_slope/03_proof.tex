@@ -1,27 +1,193 @@
+
+\clearpage
 \begin{proofbox}
-\textbf{先确定方向。} 将两端点方程相减，得
-\[
-\frac{2x_0(x_1-x_2)}{a^2}-\frac{2y_0(y_1-y_2)}{b^2}=0.
-\]
-若 $x_1=x_2$，因两端点不同必须 $y_1=-y_2$，与 $y_0\ne0$ 矛盾。
-故可除以 $2(x_1-x_2)y_0$，得到 $k=b^2x_0/(a^2y_0)$。
+\textbf{证明前的五步认知桥梁｜不是第四套孤立公式，而是同一条思路。}
 \par\medskip\noindent
-\textbf{再证明存在条件。} 候选方向取 $v=(a^2y_0,b^2x_0)$。
-将 $M+t v$ 代入双曲线，交叉项恰为零，得到
-\[
-S-a^2b^2S t^2=1.
-\]
-$S=0$ 时无解；$S\ne0$ 时，
-\[
-t^2=\frac{S-1}{a^2b^2S}.
-\]
-两个不同实根 $\pm t$ 存在，当且仅当右端严格为正，即 $S<0$ 或 $S>1$。
-此时两个交点确以 $M$ 为中点；$S=1$ 只有重根 $t=0$。
+\textbf{第 1 步｜ 初中垂径定理：}
+\par\nopagebreak\noindent
+在圆中，半径相等且 $AM=MB$，两三角形全等，故非直径弦满足 $OM\perp AB$。
 \par\medskip\noindent
-分支判断：端点横坐标乘积为
+\textbf{第 2 步｜ 圆的斜率：}
+\par\nopagebreak\noindent
+垂直关系给 $k=-x_0/y_0$（此处 $x_0y_0\ne0$）。
+\par\medskip\noindent
+\textbf{第 3 步｜ 椭圆拉伸：}
+\par\nopagebreak\noindent
+单位圆经 $x=au,\ y=bv$ 变为椭圆，
+$k_{xy}=(b/a)k_{uv}$，从而 $k=-b^2x_0/(a^2y_0)$。
+\par\medskip\noindent
+\textbf{第 4 步｜ 双曲线变号：}
+\par\nopagebreak\noindent
+将方程中 $y^2/b^2$ 项系数由 $+1$ 改为 $-1$，
+其对应中点弦斜率符号变为正；\textbf{这一步不是由实数拉伸推出的，必须证明。}
+\par\medskip\noindent
+\textbf{第 5 步｜ 点差统一：}
+\par\nopagebreak\noindent
+对
+$\frac{x^2}{a^2}+\varepsilon\frac{y^2}{b^2}=1$
+（$\varepsilon=1$ 为椭圆，$\varepsilon=-1$ 为双曲线），两端点相减，得
 \[
-x_0^2-t^2a^4y_0^2=a^2S+\frac{a^2y_0^2}{b^2S}.
+\frac{x_0\Delta x}{a^2}+\varepsilon\frac{y_0\Delta y}{b^2}=0
+\ \Longrightarrow\
+\boxed{k=-\varepsilon\frac{b^2x_0}{a^2y_0}}.
 \]
-两项在 $S>1$ 时都为正，在 $S<0$ 时都为负，
-所以分别对应端点同支与异支。
+取 $a=b=R,\varepsilon=1$ 还原圆的斜率结论。
+\par\medskip\noindent
+\textbf{要点：}五步解释“为什么同源、哪里不同”；下列\textbf{方法一}最快、\textbf{方法二}门槛最低、\textbf{方法三}常规，分别解决真实的双曲线问题。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法一｜最快证明：两点代入，直接相减（考场优先，三行）。}
+\begin{center}\input{assets/tikz/C061_proof_point_difference.tex}\end{center}
+设 $A(x_1,y_1)$、$B(x_2,y_2)$ 是两个不同交点，$M(x_0,y_0)$ 为其中点。由
+\[
+\frac{x_1^2}{a^2}-\frac{y_1^2}{b^2}=1,\qquad
+\frac{x_2^2}{a^2}-\frac{y_2^2}{b^2}=1
+\]
+相减，并用 $x_1+x_2=2x_0,\ y_1+y_2=2y_0$，得
+\[
+\underbrace{\frac{2x_0(x_1-x_2)}{a^2}}_{\text{横坐标平方差}}
+=\underbrace{\frac{2y_0(y_1-y_2)}{b^2}}_{\text{纵坐标平方差}}.
+\]
+若 $y_0\ne0$ 且 $x_1=x_2$，则上式推出 $y_1=y_2$，矛盾；因此
+\[
+\boxed{k=\frac{y_1-y_2}{x_1-x_2}=\frac{b^2x_0}{a^2y_0}}.
+\]
+\textbf{为什么最快：}不设直线、不联立求交点，直接利用``平方差 = 差$\times$和''。
+\textbf{定位：}此法只回答``往哪里走''；题目若问\textbf{能否构成实际中点弦}，
+还要用后面的\textbf{相加位移关系}或判别式判定。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法二｜最低门槛：把两个端点关于中点对称，再看``方向 + 距离''。}
+\par\smallskip\noindent
+\textbf{先接上初中圆的经验：}圆的垂径定理给方向 $OM\perp PQ$，勾股定理给半弦长度
+$OM^2+MP^2=R^2$。这是两件不同的事：\textbf{方向正确，还要走得够远，才会到达曲线。}
+双曲线遵循相同的解题逻辑，但``勾股关系''变成\textbf{带符号的二次型等式}。
+\begin{center}\input{assets/tikz/C061_proof_symmetric_offsets.tex}\end{center}
+\textbf{第 1 步｜中点条件先写进坐标。}设两个端点为
+\[
+\boxed{P=(x_0+u,y_0+v),\quad Q=(x_0-u,y_0-v)}.
+\]
+任取 $u,v$，其中点都是 $M(x_0,y_0)$；但端点能否\textbf{真在双曲线上}尚未确定。
+\textbf{第 2 步｜让两个端点同时满足原方程（完整保留 $a,b$）。}
+\[
+\begin{aligned}
+\frac{(x_0+u)^2}{a^2}-\frac{(y_0+v)^2}{b^2}&=1\qquad\text{(1)}\\[3pt]
+\frac{(x_0-u)^2}{a^2}-\frac{(y_0-v)^2}{b^2}&=1\qquad\text{(2)}
+\end{aligned}
+\]
+\textbf{第 3 步｜相减：去掉平方的公共部分，确定半弦方向。}
+\[
+(1)-(2):\quad \frac{4x_0u}{a^2}-\frac{4y_0v}{b^2}=0
+\quad\Longrightarrow\quad
+\boxed{\frac{x_0u}{a^2}=\frac{y_0v}{b^2}}.\qquad\text{(3)}
+\]
+此处只说明\textbf{若有真实端点，$(u,v)$ 必须沿这个方向}；并未保证能走到曲线上。
+当 $y_0\ne0$ 且端点不同，得到 $k_{PQ}=v/u=b^2x_0/(a^2y_0)$。
+\par\smallskip\noindent
+\textbf{第 4 步｜为什么自然想到相加？}
+两个端点的坐标是``$+u,+v$''与``$-u,-v$''：
+\[
+\begin{aligned}
+(x_0+u)^2+(x_0-u)^2&=2x_0^2+2u^2,\\
+(y_0+v)^2+(y_0-v)^2&=2y_0^2+2v^2.
+\end{aligned}
+\]
+\textbf{相加恰好消去交叉项}，把中点的位置与偏移大小分离：
+\[
+\begin{aligned}
+(1)+(2):\quad
+\frac{2x_0^2+2u^2}{a^2}-\frac{2y_0^2+2v^2}{b^2}&=2,\\
+\boxed{\underbrace{\left(\frac{x_0^2}{a^2}-\frac{y_0^2}{b^2}\right)}_{S}
++\underbrace{\left(\frac{u^2}{a^2}-\frac{v^2}{b^2}\right)}_{\text{半弦位移的带符号二次型}}}&=1.\qquad\text{(4)}
+\end{aligned}
+\]
+与圆的 $OM^2+MP^2=R^2$ 是\textbf{同一个``位置 + 位移''结构}，
+但\textbf{双曲线第二项不是 $MP^2$，不能当普通勾股定理使用}。
+\par\smallskip\noindent
+\textbf{第 5 步｜把方向与位移条件合起来，才判断存在性。}
+当 $M\ne O$ 时，式 (3) 的所有方向向量都可写成
+\[
+\boxed{u=a^2y_0t,\quad v=b^2x_0t}\qquad(t\in\mathbb R).
+\]
+将其代入式 (4)，不消去 $a^2,b^2$：
+\[
+\begin{aligned}
+S+\frac{(a^2y_0t)^2}{a^2}-\frac{(b^2x_0t)^2}{b^2}&=1,\\
+S+(a^2y_0^2-b^2x_0^2)t^2&=1,\\
+S-a^2b^2St^2&=1,\\
+\boxed{t^2=\frac{S-1}{a^2b^2S}}&\quad(S\ne0).
+\end{aligned}
+\]
+由于 $a^2b^2>0$，非退化实弦需要 $t\ne0$ 且为实数，即
+\[
+\boxed{t^2>0\iff \frac{S-1}{S}>0\iff S<0\ \text{或}\ S>1}.
+\]
+具体地，$0<S<1$ 时 $t^2<0$，方向虽然算得出却\textbf{没有真实位移}；
+$S=1$ 时 $t=0$、两端点重合；$S=0,M\ne O$ 时 $0=1$，无解。
+$M=O$ 不适用唯一候选方向的设法，单独取 $P=(a,0)$、$Q=(-a,0)$ 即得中心弦。
+\par\smallskip\noindent
+\textbf{反向充分性：}若 $S<0$ 或 $S>1$，可取 $t=\sqrt{(S-1)/(a^2b^2S)}>0$，
+定义上式的 $u,v$ 和 $P,Q$；式 (3)、(4) 同时成立，反推出 (1)、(2)，
+因此端点\textbf{确实存在且不同}。
+\textbf{为什么门槛最低：}中点对称 $\to$ 相减\textbf{方向} $\to$ 相加\textbf{位移} $\to$ 实数平方判定；
+这和初中``垂径定理定方向、勾股定理定长度''是一条认知主线。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法三｜常规证明：设直线，联立二次方程，使用韦达。}
+\begin{center}\input{assets/tikz/C061_proof_vieta_roots.tex}\end{center}
+（讨论 $y_0\ne0$，已知弦确有两个不同交点。）设
+$y=y_0+k(x-x_0)$，令 $t=x-x_0$，代入得
+\[
+\left(\frac1{a^2}-\frac{k^2}{b^2}\right)t^2
++2\left(\frac{x_0}{a^2}-\frac{ky_0}{b^2}\right)t
++(S-1)=0.
+\]
+弦上两个交点的 $t_1,t_2$ 满足 $t_1+t_2=0$。两交点不同且 $y_0\ne0$，所以对应非退化二次方程（若二次项为零，则 $k=\pm b/a$；再令一次项为零，会推出 $S=0$，常数项却为 $-1$，故不可能恒等为零）。韦达给出
+\[
+\frac{x_0}{a^2}-\frac{ky_0}{b^2}=0
+\ \Longrightarrow\ \boxed{k=\frac{b^2x_0}{a^2y_0}}.
+\]
+反过来令 $k$ 取此候选值；$M\ne O$、$S\ne0$ 时，关于 $t$ 的方程化为
+\[
+-\frac{b^2S}{a^2y_0^2}t^2+S-1=0,
+\quad\text{即}\quad
+t^2=\frac{a^2y_0^2(S-1)}{b^2S}.
+\]
+实交点且不重合仍当且仅当 $S<0$ 或 $S>1$。$S=0,M\ne O$ 时原方程成为 $-1=0$；$M=O$ 则须另按中心弦方向讨论，见末节。
+\textbf{为什么保留：}与教材的联立—韦达—判别式体系完全接轨，适合题目已给直线方程的情形，但运算更长。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{补充方法四｜统一方程法：直接从中点与方向的共轭关系读出弦。}
+\begin{center}\input{assets/tikz/C061_proof_endpoint_reflection.tex}\end{center}
+设 $P=(x,y)$ 是弦的一个端点，$M\ne O$ 为中点，则 $2M-P$ 是弦的另一端点。
+两点的双曲线方程相减：
+\[
+\frac{x^2-(2x_0-x)^2}{a^2}-\frac{y^2-(2y_0-y)^2}{b^2}=0
+\quad\Longleftrightarrow\quad
+\boxed{\frac{x_0x}{a^2}-\frac{y_0y}{b^2}=S}.
+\]
+由于两个端点都满足该一次方程，且 $M\ne O$ 使其系数不全为零，它确定的直线就是整条弦所在直线。这里不能将弦上任意点直接当作曲线端点。
+\textbf{为什么值得补充：}一次涵盖斜弦、水平弦、竖直弦；无需先计算斜率，适合求弦方程及轨迹题。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{严格补全｜异支、同支及中心例外。}
+\begin{center}\input{assets/tikz/C061_boundary_and_center.tex}\end{center}
+对 $M\ne O$ 且弦存在的端点 $A=M+t(a^2y_0,b^2x_0)$、$B=M-t(a^2y_0,b^2x_0)$，有
+\[
+x_Ax_B=x_0^2-a^4y_0^2t^2
+=a^2S+\frac{a^2y_0^2}{b^2S}
+=\frac{a^2(S^2+y_0^2/b^2)}{S}.
+\]
+因 $a^2(S^2+y_0^2/b^2)>0$，所以 $x_Ax_B$ 与 $S$ 同号：$S<0$ 为异支，$S>1$ 为同支。
+若 $M=O$，两点取 $(\pm x,\pm y)$，任意 $y=kx$ 代入得
+\[
+x^2\left(\frac1{a^2}-\frac{k^2}{b^2}\right)=1,
+\]
+因而中心弦存在当且仅当 $|k|<b/a$（斜率 $\pm b/a$ 恰是渐近线，不能取）。
+至此，对所有中点 $M$ 的完整存在性判定为 $S<0$ 或 $S>1$ 或 $M=O$。
 \end{proofbox}

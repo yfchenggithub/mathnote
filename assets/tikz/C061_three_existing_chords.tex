@@ -1,0 +1,58 @@
+% Three genuine midpoint-chord examples on the same hyperbola and scale.
+\begin{tikzpicture}[x=.74cm,y=.74cm,font=\small,>=stealth]
+\node[font=\small\bfseries] at (1,2.9) {三种“确实存在”的情形：统一取 $x^2/4-y^2=1$};
+\draw[CStatement,thick,domain=-1.6:1.6,samples=100] plot ({2*sqrt(1+\x*\x)},\x);
+\draw[CStatement,thick,domain=-1.6:1.6,samples=100] plot ({-2*sqrt(1+\x*\x)},\x);
+\draw[gray,->] (-4.05,0)--(4.1,0);
+\draw[gray,->] (0,-1.9)--(0,1.95);
+\draw[teal,very thick] ({-2*sqrt(2)},1)--({2*sqrt(2)},1);
+\fill ({-2*sqrt(2)},1) circle(2pt) node[below left] {$A$};
+\fill ({2*sqrt(2)},1) circle(2pt) node[below right] {$B$};
+\fill[orange!80!black] (0,1) circle(2.2pt);
+\node[orange!80!black] at (.8,1.6) {$M$};
+\node[anchor=west,align=left,text width=5cm] at (4.8,.2) {
+\textbf{情形一：$S<0$：异支弦}\\[4pt]
+$M=(0,1),\quad S=-1<0$。\\[4pt]
+$A=(-2\sqrt2,1)$，$B=(2\sqrt2,1)$。\\[4pt]
+端点在不同支，$AM=MB$。
+};
+\begin{scope}[yshift=-4.5cm]
+\draw[CStatement,thick,domain=-1.6:1.6,samples=100] plot ({2*sqrt(1+\x*\x)},\x);
+\draw[CStatement,thick,domain=-1.6:1.6,samples=100] plot ({-2*sqrt(1+\x*\x)},\x);
+\draw[gray,->] (-4.05,0)--(4.1,0);
+\draw[gray,->] (0,-1.9)--(0,1.95);
+\draw[teal,very thick] (3,{-sqrt(5)/2})--(3,{sqrt(5)/2});
+\fill (3,{sqrt(5)/2}) circle(2pt) node[above left] {$A$};
+\fill (3,{-sqrt(5)/2}) circle(2pt) node[below left] {$B$};
+\fill[orange!80!black] (3,0) circle(2.2pt);
+\node[orange!80!black] at (3.65,.5) {$M$};
+\node[anchor=west,align=left,text width=5cm] at (4.8,.2) {
+\textbf{情形二：$S>1$：同支弦}\\[4pt]
+$M=(3,0),\quad S=9/4>1$。\\[4pt]
+$A=(3,\sqrt5/2)$，\\[4pt]
+$B=(3,-\sqrt5/2)$。\\[4pt]
+端点同支，$AM=MB$；本例为竖直弦。
+};
+\end{scope}
+\begin{scope}[yshift=-9cm]
+\draw[CStatement,thick,domain=-1.6:1.6,samples=100] plot ({2*sqrt(1+\x*\x)},\x);
+\draw[CStatement,thick,domain=-1.6:1.6,samples=100] plot ({-2*sqrt(1+\x*\x)},\x);
+\draw[gray,->] (-4.05,0)--(4.1,0);
+\draw[gray,->] (0,-1.9)--(0,1.95);
+\draw[teal,very thick] (-2,0)--(2,0);
+\draw[CProof,dashed,thick] ({-4/sqrt(3)},{-1/sqrt(3)})--({4/sqrt(3)},{1/sqrt(3)});
+\fill (-2,0) circle(2pt) node[above left] {$A$};
+\fill (2,0) circle(2pt) node[below right] {$B$};
+\fill[CProof] ({-4/sqrt(3)},{-1/sqrt(3)}) circle(1.7pt);
+\fill[CProof] ({4/sqrt(3)},{1/sqrt(3)}) circle(1.7pt);
+\fill[orange!80!black] (0,0) circle(2.2pt);
+\node[orange!80!black] at (1.4,-1.25) {$M=O$};
+\node[anchor=west,align=left,text width=5cm] at (4.8,.2) {
+\textbf{情形三：$M=O$：中心例外}\\[4pt]
+$S=0$，仍能有中心弦。\\[4pt]
+实线 $y=0$，虚线 $y=x/4$，\\[4pt]
+中点均为 $O$，方向不唯一。\\[4pt]
+须有 $|k|<1/2$，并非任意方向。
+};
+\end{scope}
+\end{tikzpicture}

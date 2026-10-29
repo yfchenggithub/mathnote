@@ -1,0 +1,27 @@
+\begin{tikzpicture}[x=.62cm,y=.62cm,font=\small,>=stealth]
+\node[font=\small\bfseries] at (0,4.6) {同一支：无交点、相切、竖直弦};
+\draw[CStatement,thick,domain=-1.8:1.8,samples=100] plot ({2*sqrt(1+\x*\x)},\x);
+\draw[CStatement,thick,domain=-1.8:1.8,samples=100] plot ({-2*sqrt(1+\x*\x)},\x);
+\draw[gray,->] (-4.5,0)--(4.6,0);
+\draw[CTrap,dotted,thick] (1,-1.8)--(1,1.8);
+\draw[purple,dashed,thick] (2,-1.8)--(2,1.8);
+\draw[teal,very thick] (3,-1.11803399)--(3,1.11803399);
+\fill (2,0) circle(2pt);
+\fill[orange!80!black] (3,0) circle(2pt);
+\node[above] at (.9,2.15) {$x=1$};
+\node[above] at (2,2.8) {$x=2$};
+\node[above] at (3.6,2.15) {$x=3$};
+\node[align=center] at (0,-2.9) {$S=1$ 仅有切点\\$S>1$ 才有竖直弦};
+\begin{scope}[xshift=6.8cm]
+\node[font=\small\bfseries] at (0,4.6) {中心例外：只有部分方向可取};
+\draw[CStatement,thick,domain=-1.8:1.8,samples=100] plot ({2*sqrt(1+\x*\x)},\x);
+\draw[CStatement,thick,domain=-1.8:1.8,samples=100] plot ({-2*sqrt(1+\x*\x)},\x);
+\draw[gray,->] (-4.5,0)--(4.6,0);
+\draw[purple,dashed] (-3.8,-1.9)--(3.8,1.9);
+\draw[teal,very thick] (-2.5,-.75)--(2.5,.75);
+\fill[orange!80!black] (0,0) circle(2pt); \node[orange!80!black] at (0,-1.35) {$M=O$};
+\node[align=center] at (0,2.7) {虚线是渐近线：$k=1/2$};
+\node[align=center] at (0,-2.9) {实线中心弦：$k=3/10$\\存在范围 $|k|<1/2$};
+\end{scope}
+\node at (5.5,-4.25) {两图均取 $x^2/4-y^2=1$，相同坐标尺度};
+\end{tikzpicture}

@@ -1,0 +1,45 @@
+% Midpoint parameter plane, normalized coordinates: X=x_0/a, Y=y_0/b.
+% All fills use the exact inequalities for S=X^2-Y^2.
+\begin{tikzpicture}[x=1.85cm,y=1.85cm,font=\small,>=stealth]
+\node[font=\small\bfseries] at (0,3.35) {中点区域总览：$S=X^2-Y^2$};
+\node at (0,2.95) {$X=x_0/a,\quad Y=y_0/b$（归一化坐标，等单位绘制）};
+\begin{scope}
+\clip (-3.2,-2.5) rectangle (3.2,2.5);
+% Start with the two open orange strips 0<S<1, then overwrite other regions.
+\fill[orange!19] (-3.2,-2.5) rectangle (3.2,2.5);
+\fill[teal!20] plot[domain=-2.5:2.5,samples=160] ({sqrt(1+\x*\x)},\x)
+ --(3.2,2.5)--(3.2,-2.5)--cycle;
+\fill[teal!20] plot[domain=-2.5:2.5,samples=160] ({-sqrt(1+\x*\x)},\x)
+ --(-3.2,2.5)--(-3.2,-2.5)--cycle;
+\fill[blue!12] (0,0)--(-2.5,2.5)--(2.5,2.5)--cycle;
+\fill[blue!12] (0,0)--(-2.5,-2.5)--(2.5,-2.5)--cycle;
+\draw[gray,->] (-3.12,0)--(3.12,0) node[above left] {$X$};
+\draw[gray,->] (0,-2.42)--(0,2.42) node[below right] {$Y$};
+% S=1 is the original hyperbola in this midpoint plane.
+\draw[CProof,very thick,domain=-2.5:2.5,samples=160] plot ({sqrt(1+\x*\x)},\x);
+\draw[CProof,very thick,domain=-2.5:2.5,samples=160] plot ({-sqrt(1+\x*\x)},\x);
+% S=0 consists of both asymptotes, not a two-dimensional region.
+\draw[CTrap,dashed,thick] (-2.5,-2.5)--(2.5,2.5);
+\draw[CTrap,dashed,thick] (-2.5,2.5)--(2.5,-2.5);
+\node[teal!60!black] at (2.45,.3) {$S>1$};
+\node[teal!60!black] at (-2.45,.3) {$S>1$};
+\node[blue!65!black] at (.65,1.8) {$S<0$};
+\node[blue!65!black] at (-.65,-1.8) {$S<0$};
+\node[orange!65!black,align=center] at (.63,0) {$0<S$\\$S<1$};
+\node[orange!65!black,align=center] at (-.63,0) {$0<S$\\$S<1$};
+\node[CProof,fill=white,inner sep=2pt] at (2.4,1.3) {$S=1$};
+\draw[CProof,->,thick] (2.03,1.3)--({sqrt(2.44)},1.2);
+\node[CTrap,fill=white,inner sep=2pt] at (-2.8,1.7) {$S=0$};
+\draw[CTrap,->,thick] (-2.5,1.77)--(-1.9,1.9);
+\fill[black] (0,0) circle(2.2pt);
+\end{scope}
+\draw[gray!60] (-3.2,-2.5) rectangle (3.2,2.5);
+\node[anchor=north west,align=left,text width=11cm] at (-3.55,-2.85) {
+\textcolor{teal!60!black}{绿色 $S>1$：同支弦。}\quad
+\textcolor{blue!65!black}{蓝色 $S<0$：异支弦。}\\[4pt]
+\textcolor{orange!65!black}{橙色 $0<S<1$：没有实中点弦。}\\[4pt]
+\textcolor{CProof}{紫色实线 $S=1$：候选线相切，非退化弦不存在。}\\[4pt]
+\textcolor{CTrap}{红色虚线 $S=0$：除原点外，均没有实中点弦。}\\[4pt]
+黑点 $O$ 是例外：$S=0$，仍有中心弦，方向满足 $|k|<b/a$。
+};
+\end{tikzpicture}

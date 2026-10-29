@@ -1,8 +1,149 @@
 \begin{explanationbox}
-\begin{center}\input{assets/tikz/C061_midpoint_chord_existence.tex}\end{center}
-$M_1=(0,1)$ 的 $S=-1/9<0$，对应水平弦 $y=1$，两个端点分属两支。
-$M_2=(2,1)$ 虽满足 $S=8/9<1$，但候选线 $9x-2y-16=0$ 完全不与双曲线相交。
-因此“双曲线内部”不是保证中点弦存在的条件。
-点差法先确定唯一候选方向，再以 $S<0$ 或 $S>1$ 检验是否真有两端点。
-固定斜率时，中点满足过原点的直线关系，并非一般所说的“双曲线轨迹”。
+
+\textbf{从熟悉到陌生，严格按五步认知路线理解。}
+\par\smallskip\noindent
+\textbf{第一步｜初中垂径定理：中点决定方向。}
+\begin{center}\input{assets/tikz/C061_circle_chord.tex}\end{center}
+圆心 $O$，非直径弦 $AB$ 的中点 $M\ne O$。因 $OA=OB$、$AM=MB$、$OM$ 公共，
+$\triangle OAM\cong\triangle OBM$；故 $\angle OMA=\angle OMB=90^\circ$，即
+\[
+\boxed{OM\perp AB}.
+\]
+\textbf{识别信号：}圆 $+$ 弦中点 $\Rightarrow$ 优先想垂径定理。
+\par\smallskip\noindent
+\textbf{更深一层：圆的``相减 + 相加''分别对应垂直与勾股。}
+对圆 $x^2+y^2=R^2$，设端点
+$P=(x_0+u,y_0+v)$、$Q=(x_0-u,y_0-v)$。两端点各代入圆方程：
+\[
+\begin{aligned}
+(x_0+u)^2+(y_0+v)^2&=R^2,\\
+(x_0-u)^2+(y_0-v)^2&=R^2.
+\end{aligned}
+\]
+\textbf{相减}得到 $x_0u+y_0v=0$，即
+$\overrightarrow{OM}\cdot\overrightarrow{MP}=0$（$M\ne O$ 时弦垂直于 $OM$）；
+\textbf{相加}得到
+\[
+\underbrace{x_0^2+y_0^2}_{OM^2}
++\underbrace{u^2+v^2}_{MP^2}=R^2.
+\]
+这正是初中的\textbf{勾股定理}：$OM^2+MP^2=OP^2=R^2$。
+于是 $MP^2=R^2-OM^2$：$OM<R$ 有两端点，$OM=R$ 两点重合，
+$OM>R$ 无实端点。
+\textbf{最本质的问法：}相减告诉我们\textbf{往哪里走}，相加告诉我们\textbf{要走多远、能不能走到圆上}。
+\par\medskip\noindent
+\textbf{第二步｜圆的中点弦斜率：把垂直变成代数。}
+对 $x^2+y^2=R^2$，若真实弦中点 $M=(x_0,y_0)$ 且 $x_0y_0\ne0$，则
+\[
+\frac{y_0}{x_0}\,k_{AB}=-1\quad\Longrightarrow\quad
+\boxed{k_{AB}=-\frac{x_0}{y_0}}.
+\]
+如果 $x_0=0$，弦为水平线；如果 $y_0=0,x_0\ne0$，弦为竖直线；
+如果 $M=O$，圆中的弦是直径，方向并不唯一。\textbf{不对零分母硬套斜率公式。}
+\par\medskip\noindent
+\textbf{第三步｜椭圆的尺度变化：先还原到圆。}
+\begin{center}\input{assets/tikz/C061_ellipse_stretch.tex}\end{center}
+将单位圆 $(u,v)$ 按 $x=au,\ y=bv$ 拉伸，得到椭圆
+$\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$。
+对应的圆中点为 $M'=(x_0/a,y_0/b)$；斜率随坐标缩放满足
+$k_{xy}=(b/a)k_{uv}$，于是
+\[
+\boxed{k_{\text{椭圆}}=\frac ba\left(-\frac{x_0/a}{y_0/b}\right)
+=-\frac{b^2x_0}{a^2y_0}}.
+\]
+\textbf{为什么多出 $b^2/a^2$：}一个 $b/a$ 来自斜率的坐标尺度，另一个来自中点坐标的归一化。
+非等比例拉伸\textbf{不保留一般角度}，故椭圆不能直接断言 $OM\perp AB$。
+\par\medskip\noindent
+\textbf{第四步｜双曲线的符号变化：这是方程变化，不是继续拉伸。}
+\[
+\frac{x^2}{a^2}\ \underbrace{+}_{\text{椭圆}}\ \frac{y^2}{b^2}=1
+\qquad\longrightarrow\qquad
+\frac{x^2}{a^2}\ \underbrace{-}_{\text{双曲线}}\ \frac{y^2}{b^2}=1.
+\]
+代数结论预告：双曲线的中点弦候选斜率变为
+$\boxed{k_{\text{双曲线}}=+\frac{b^2x_0}{a^2y_0}}$。
+\textbf{严谨区分：}实坐标轴缩放能把圆变成椭圆，却不能把圆变成双曲线；
+双曲线的正号须在下一步由点差证明。
+\par\medskip\noindent
+\textbf{第五步｜点差法统一证明：平方差天然产生“和”与“差”。}
+将三类曲线放在一个式子里：
+\[
+\frac{x^2}{a^2}+\varepsilon\frac{y^2}{b^2}=1,
+\qquad\varepsilon=+1\ (\text{椭圆}),\quad\varepsilon=-1\ (\text{双曲线}).
+\]
+弦端点代入后两式相减，记 $\Delta x=x_1-x_2,\ \Delta y=y_1-y_2$，则
+\[
+\frac{(x_1+x_2)\Delta x}{a^2}
++\varepsilon\frac{(y_1+y_2)\Delta y}{b^2}=0
+\quad\Longrightarrow\quad
+\frac{x_0\Delta x}{a^2}+\varepsilon\frac{y_0\Delta y}{b^2}=0.
+\]
+若 $y_0\ne0$ 且真实弦非退化，则 $\Delta x\ne0$，所以
+\[
+\boxed{k=\frac{\Delta y}{\Delta x}=-\varepsilon\frac{b^2x_0}{a^2y_0}}.
+\]
+圆只需取 $a=b=R,\varepsilon=+1$。\textbf{记忆主线：}垂径定理给直觉，坐标拉伸解释比例，点差法真正统一方向。
+\par\medskip\noindent
+\textbf{关键限制：}这个推导以\textbf{已存在两个不同实端点}为前提；
+从给定中点反推时，仍需检查相交与否。双曲线必须另做 $S$ 判定。
+\par\medskip\noindent
+\textbf{先看三个候选中点：方向相同的推法，不保证相同的交点结果。}
+\begin{center}\input{assets/tikz/C061_existence_comparison.tex}\end{center}
+图取 $a=2,b=1$，各面板坐标尺度相同。左图与右图有两交点；中图虽然能算出斜率，却没有实交点。不要用“两支之间”这样的模糊图感代替 $S$ 的判断。
+\par\medskip
+\textbf{方向来自中点对称。}把端点写成 $A=M+(u,v)$、$B=M-(u,v)$，代入作差便得
+\[
+\frac{x_0u}{a^2}=\frac{y_0v}{b^2}.
+\]
+当 $y_0\ne0$ 时，真实弦保证 $u\ne0$，故 $k=v/u=b^2x_0/(a^2y_0)$。
+\par\medskip
+\textbf{为何对双曲线还要``相加''？}圆的勾股定理告诉我们：方向确定之后，半弦位移还必须有\textbf{正确的大小}；
+双曲线也一样，不过计算的是\textbf{带符号的平方差}。
+写出完整的两端点方程：
+\[
+\begin{aligned}
+\frac{(x_0+u)^2}{a^2}-\frac{(y_0+v)^2}{b^2}&=1,\\
+\frac{(x_0-u)^2}{a^2}-\frac{(y_0-v)^2}{b^2}&=1.
+\end{aligned}
+\]
+\textbf{相减}保留交叉项，得到方向条件
+$\frac{x_0u}{a^2}-\frac{y_0v}{b^2}=0$；
+\textbf{相加}消去交叉项，得到\textbf{中点位置 + 半弦位移平方关系}：
+\[
+\boxed{\underbrace{\left(\frac{x_0^2}{a^2}-\frac{y_0^2}{b^2}\right)}_{S}
++\underbrace{\left(\frac{u^2}{a^2}-\frac{v^2}{b^2}\right)}_{\text{带符号的位移二次型}}=1}.
+\]
+\textbf{这里不能写成 $OM^2+MP^2$：}第二项可能为负，不是普通的长度平方。
+\par\medskip\noindent
+\textbf{存在来自代回曲线。}非中心点的唯一候选方向为 $(a^2y_0,b^2x_0)$；沿它从 $M$ 移动，交点参数满足
+\[
+S(1-a^2b^2t^2)=1.
+\]
+\textbf{不必先背不等式，只需看沿方向行走的数值变化：}
+\[
+\underbrace{F(M+t(a^2y_0,b^2x_0))}_{\text{沿候选方向的双曲线左边}}
+=S-a^2b^2St^2,\qquad F(P)=F(Q)=1.
+\]
+\begin{itemize}[leftmargin=2em,topsep=2pt,itemsep=2pt]
+\item $S<0$：$-a^2b^2S>0$，从负值 $S$ 随 $t^2$\textbf{升到} $1$，存在异支弦；
+\item $0<S<1$：$-a^2b^2S<0$，从不足 $1$ 的 $S$ 只会\textbf{继续下降}，永远到不了 $1$；
+\item $S>1$：从超过 $1$ 的 $S$ 随 $t^2$\textbf{降到} $1$，存在同支弦；
+\item $S=1$：只有 $t=0$，端点合并；$S=0,M\ne O$：沿候选方向恒等于 $0$，无法到 $1$；
+\item $M=O$：相减不再限制唯一方向，另可沿 $|k|<b/a$ 的方向形成中心弦。
+\end{itemize}
+\textbf{量化检验：}由 $S-a^2b^2St^2=1$，在 $S\ne0$ 时
+\[
+\boxed{t^2=\frac{S-1}{a^2b^2S}>0
+\iff S<0\ \text{或}\ S>1.}
+\]
+这才是三个允许情形的来历：\textbf{方向要对，沿该方向能到达曲线的实位移也要存在}。
+\par\medskip
+\textbf{与椭圆的区别：}椭圆中点弦斜率为 $-b^2x_0/(a^2y_0)$，双曲线为正号；符号来自平方项系数，而非图形外观。误区部分给出相同中点的同尺度对照图。
+\end{explanationbox}
+
+\clearpage
+\begin{explanationbox}
+\textbf{中点平面的五种情形：三类开区域、两类边界。}
+\begin{center}\input{assets/tikz/C061_midpoint_regions.tex}\end{center}
+图中每个位置表示一个候选中点，而非弦的端点。$S=1$ 是双曲线本身，$S=0$ 是两条渐近线；它们都是边界，不能作为有面积的区域填色。只有 $S<0$、$S>1$ 及原点例外，才能成为非退化实弦的中点。
 \end{explanationbox}

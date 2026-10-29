@@ -1,0 +1,23 @@
+% C061 accurate math diagram; numeric coordinates from given conic.
+
+\begin{tikzpicture}[scale=0.85,>=Stealth]
+\pgfmathsetmacro{\h}{sqrt(6)/2}
+\draw[->,gray!65] (-2.7,0)--(2.7,0) node[right]{$x$};
+\draw[->,gray!65] (0,-2.7)--(0,2.7) node[above]{$y$};
+\draw[CStatement,very thick] (0,0) circle[radius={sqrt(5)}];
+\coordinate (O) at (0,0);
+\coordinate (M) at (1,1);
+\coordinate (A) at ({1-\h},{1+\h});
+\coordinate (B) at ({1+\h},{1-\h});
+\draw[teal,very thick] (A)--(B);
+\draw[blue!70!black,very thick] (O)--(M);
+\draw[gray!70,dashed] (O)--(A) (O)--(B);
+\draw[teal,thick] (0.83,0.83)--(0.66,1.00)--(0.83,1.17);
+\fill (O) circle (1.6pt) node[below left]{$O$};
+\fill[teal] (M) circle (1.8pt) node[above=8pt]{$M$};
+\fill[teal] (A) circle (1.5pt) node[above left]{$A$};
+\fill[teal] (B) circle (1.5pt) node[below right]{$B$};
+\node[font=\small,anchor=west] at (3.4,1.25) {$AM=MB$};
+\node[font=\small,anchor=west] at (3.4,0.70) {$OM\perp AB$};
+\node[font=\scriptsize,anchor=west,text=gray] at (3.4,0.15) {仅圆中普通垂直};
+\end{tikzpicture}
