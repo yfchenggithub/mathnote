@@ -1,38 +1,137 @@
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{\textcolor{CProof}{证明一：最快证明法（考场两步，优先掌握）}}
 
-	弦长公式由两点间距离公式推导而来，关键是将纵坐标差用横坐标差（或反之）通过斜率表示。
+\textbf{适用信号：}直线 $y=kx+b$，目标是 $|AB|$。
+记 $\Delta x=x_1-x_2$、$\Delta y=y_1-y_2$。
+\input{assets/tikz/C063_proof_slope}
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（两点距离）：}] 设 $A(x_1,y_1)$, $B(x_2,y_2)$，由距离公式
-			\[
-				|AB| = \sqrt{(x_1-x_2)^2 + (y_1-y_2)^2}.
-			\]
-			\par\textbf{理由：} 平面内任意两点间的距离公式。
+\begin{enumerate}[leftmargin=*,itemsep=0.25em]
+ \item \textbf{斜率给比例：}$\Delta y=k\Delta x$。
+ \item \textbf{勾股直接合成：}
+ \[
+ |AB|=\sqrt{(\Delta x)^2+(k\Delta x)^2}
+      =\boxed{\sqrt{1+k^2}\,|\Delta x|}.
+ \]
+\end{enumerate}
+\textbf{为什么最快：}只用“斜率关系 $\rightarrow$ 一次勾股”，不必引入倾斜角，不用求两个坐标点。
 
-		\item[\textbf{步骤二（横坐标代换）：}] 由于 $A,B$ 在斜率为 $k$ 的直线上，满足 $y_1-y_2 = k(x_1-x_2)$，代入距离公式：
-			\[
-				\begin{aligned}
-					|AB| &= \sqrt{(x_1-x_2)^2 + k^2(x_1-x_2)^2} \\
-					&= \sqrt{1+k^2}\,|x_1-x_2|.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 公因式 $(x_1-x_2)^2$ 提出后开方，平方根为绝对值。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明二：最低门槛证明法（作垂线，纯几何）}}
 
-		\item[\textbf{步骤三（纵坐标代换）：}] 当 $k\neq 0$ 时，由 $y_1-y_2 = k(x_1-x_2)$ 可得 $x_1-x_2 = \frac1k(y_1-y_2)$，代入距离公式：
-			\[
-				\begin{aligned}
-					|AB| &= \sqrt{\frac1{k^2}(y_1-y_2)^2 + (y_1-y_2)^2} \\
-					&= \sqrt{1+\frac1{k^2}}\,|y_1-y_2|.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 同样提取公因式 $(y_1-y_2)^2$ 后开方。
-	\end{description}
+\input{assets/tikz/C063_proof_geometry}
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
+\textbf{从初中出发：}先画一个圆，连接圆心 $O$ 和弦端点 $A,B$。
+由 $OA=OB=r$ 可知三角形 $OAB$ 等腰。
+取弦中点 $M$，有 $OM\perp AB$，于是
+\[
+ \underbrace{OA^2}_{r^2}=\underbrace{OM^2}_{d^2}
+ +\underbrace{AM^2}_{(|AB|/2)^2}
+ \quad\Longrightarrow\quad
+ |AB|=2\sqrt{r^2-d^2}.
+\]
+\textbf{过渡理由：}这是勾股定理，但严重依赖“圆上每点到圆心等距”。
+换成一般圆锥曲线后，这个圆的半径法无法通用。
+\textbf{我们不抛弃勾股，而是改成坐标差来构造直角三角形。}
 
-	\textbf{所以，弦长公式为 $|AB| = \sqrt{1+k^2}\,|x_1-x_2|$，在 $k\neq0$ 时也可写作 $|AB| = \sqrt{1+\frac1{k^2}}\,|y_1-y_2|$。使用时注意斜率是否为零，以及交点必须存在。}
+\textbf{适用对象：}刚学斜率与距离公式，优先建立直觉。
+过 $A$ 作水平线、过 $B$ 作竖直线，交于 $H$，构造直角三角形 $AHB$：
+两直角边分别为 $|x_1-x_2|$ 和 $|y_1-y_2|$。
+由斜率的意义，后者等于前者的 $|k|$ 倍。
+图中令 $h=|x_1-x_2|$，两直角边是 $h$ 与 $|k|h$。
+勾股定理给出 $|AB|^2=h^2+(|k|h)^2$；$k=0$ 时直接取 $|AB|=h$。因此
+\[
+ \boxed{|AB|=\sqrt{1+k^2}\,|x_1-x_2|}.
+\]
+\textbf{为什么门槛最低：}只有“投影、斜率、勾股／相似”三件事，
+没有复杂代数；容易解释为什么不能丢掉绝对值。
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明三：常规证明法（课本标准坐标推导）}}
+
+\input{assets/tikz/C063_proof_coordinates}
+
+设 $A(x_1,y_1),B(x_2,y_2)$ 是直线 $y=kx+b$ 上不同两点。
+由两点间距离公式
+\[
+ |AB|=\sqrt{(x_1-x_2)^2+(y_1-y_2)^2}.
+\]
+由于 $y_1=kx_1+b$，$y_2=kx_2+b$，相减得
+$y_1-y_2=k(x_1-x_2)$，于是
+\[
+ \begin{aligned}
+ |AB|&=\sqrt{(x_1-x_2)^2+k^2(x_1-x_2)^2}\\
+     &=\sqrt{(1+k^2)(x_1-x_2)^2}\\
+     &=\boxed{\sqrt{1+k^2}\,|x_1-x_2|}.
+ \end{aligned}
+\]
+如果 $k\ne0$，将 $x_1-x_2=(y_1-y_2)/k$ 代回，同理可得
+\[
+ \boxed{|AB|=\sqrt{1+\frac1{k^2}}\,|y_1-y_2|}.
+\]
+\textbf{注意：}最后一步开方用 $\sqrt{u^2}=|u|$，不能直接写成 $u$。
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{补充证明四：韦达 $\rightarrow$ 判别式速算（考场提速）}}
+
+\input{assets/tikz/C063_proof_root_gap}
+
+\textbf{补充理由：}这是求\emph{具体弦长}时比先解出两个交点更快的实用推导。
+若 $\alpha x^2+\beta x+\gamma=0$ 是消元后关于 $x$ 的\textbf{二次方程}，
+$\alpha\ne0$、$\Delta=\beta^2-4\alpha\gamma>0$，
+则
+\[
+ \begin{aligned}
+ (x_1-x_2)^2
+ &=(x_1+x_2)^2-4x_1x_2\\
+ &=\left(-\frac{\beta}{\alpha}\right)^2
+   -4\frac{\gamma}{\alpha}
+ =\frac{\Delta}{\alpha^2}.
+ \end{aligned}
+\]
+所以
+\[
+ \boxed{|AB|=\sqrt{1+k^2}\frac{\sqrt{\Delta}}{|\alpha|}}.
+\]
+\textbf{最小记忆负担：}只记 $\bigl(x_1-x_2\bigr)^2=\text{和}^2-4\text{积}$。
+判别式公式可以现场一行推出，不必额外背诵。
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{补充证明五：统一参数法（斜率不存在也成立）}}
+
+\input{assets/tikz/C063_proof_parameter}
+
+\textbf{补充理由：}横纵两个版本和竖直线其实都是同一个向量长度公式。
+设直线方向向量为 $(u,v)\neq(0,0)$，点的参数表示为
+\[
+ (x,y)=(x_0,y_0)+s(u,v).
+\]
+若两交点对应参数 $s_1,s_2$，则
+\[
+ \begin{aligned}
+ (x_1-x_2,y_1-y_2)&=(s_1-s_2)(u,v),\\
+ |AB|&=\boxed{\sqrt{u^2+v^2}\,|s_1-s_2|}.
+ \end{aligned}
+\]
+取 $(u,v)=(1,k)$，$s=x-x_0$，立即得到横坐标式；
+取 $(u,v)=(t,1)$，$s=y-y_0$，得到
+$|AB|=\sqrt{1+t^2}|y_1-y_2|$。
+其中 $t=0$ 自然覆盖竖直线，\textbf{不需要假设 $k$ 存在}。
+
+\medskip
+\textbf{\textcolor{CProof}{四类常见线路检查}}
+\begin{itemize}[leftmargin=*,itemsep=0.25em]
+ \item $k=0$：用横坐标式，放大系数为 $1$。
+ \item $k\ne0$：横坐标式和纵坐标式都可用，选消元方便的。
+ \item $k$ 不存在：用 $x=c$ 或统一参数法，弦长 $|\Delta y|$。
+ \item 联立方程退化成一次方程：通常只有一个有限交点，\textbf{不能}用二次判别式弦长公式。
+\end{itemize}
 \end{proofbox}

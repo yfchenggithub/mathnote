@@ -1,25 +1,57 @@
 \begin{statementbox}
+\input{assets/tikz/C063_chord_overview}
 
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件 1（斜率存在：）}}] 直线斜率 $k$ 存在，且与圆锥曲线相交于两个不同的点 $A(x_1,y_1)$, $B(x_2,y_2)$。
-	\end{description}
+\textbf{初中知识入口（圆的弦）：}
+圆的半径为 $r$、圆心到弦 $AB$ 的距离为 $d$（$0\le d<r$）时，
+由垂径定理与勾股定理有
+$\displaystyle |AB|=2\sqrt{r^2-d^2}$。
+这是\textbf{圆的专用计算法}。
+推广到圆锥曲线时，改用“坐标投影差 $+$ 勾股定理”构建通式。
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（横坐标形式）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			弦长等于 $\sqrt{1+k^2}$ 乘以横坐标差的绝对值。
-			\[
-				|AB| = \sqrt{1+k^2}\,|x_1-x_2|.
-			\]
+\medskip
+\textbf{\textcolor{CStatement}{条件}}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.4em]
+  \item[\textbf{条件一（两交点）}] 直线 $l$ 与圆锥曲线交于两个\textbf{不同的实点}
+  $A(x_1,y_1)$、$B(x_2,y_2)$。
+  \item[\textbf{条件二（斜率）}] 若 $l:y=kx+b$，则斜率 $k$ 存在；
+  允许 $k=0$，但不包含竖直直线。
+\end{description}
 
-		\item[\textbf{\textcolor{CStatement}{推广结论（纵坐标形式）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			当 $k\neq0$ 时，弦长也可用纵坐标差表示，系数为 $\sqrt{1+\frac{1}{k^2}}$。
-			\[
-				|AB| = \sqrt{1+\frac{1}{k^2}}\,|y_1-y_2|.
-			\]
-	\end{description}
+\textbf{\textcolor{CStatement}{核心结论（横坐标形式）}}
+\[
+  \boxed{|AB|=\sqrt{1+k^2}\,|x_1-x_2|.}
+\]
+\textbf{直观描述：}实际弦长 $=$ 水平投影长度 $\times\sqrt{1+k^2}$。
 
+\medskip
+\textbf{\textcolor{CStatement}{推广结论（纵坐标形式）}}
+当 $k\neq0$ 时，
+\[
+  \boxed{|AB|=\sqrt{1+\frac{1}{k^2}}\,|y_1-y_2|.}
+\]
+\textbf{直观描述：}实际弦长 $=$ 竖直投影长度 $\times\sqrt{1+1/k^2}$。
+
+\medskip
+\textbf{\textcolor{CStatement}{特殊直线与统一形式}}
+\begin{itemize}[leftmargin=*,itemsep=0.3em]
+ \item 水平线 $y=b$（$k=0$）：$\boxed{|AB|=|x_1-x_2|}$。
+ \item 竖直线 $x=c$（$k$ 不存在）：$\boxed{|AB|=|y_1-y_2|}$。
+ \item 更实用的纵坐标写法：只要直线写为 $x=ty+d$（\textbf{包括竖直线} $t=0$），
+ \[
+  \boxed{|AB|=\sqrt{1+t^2}\,|y_1-y_2|.}
+ \]
+ \item 全方向统一：设直线参数式为 $(x,y)=(x_0,y_0)+s(u,v)$，$(u,v)\ne(0,0)$；两交点参数为 $s_1,s_2$，则
+ \[
+  \boxed{|AB|=\sqrt{u^2+v^2}\,|s_1-s_2|.}
+ \]
+\end{itemize}
+
+\textbf{\textcolor{CStatement}{高考速算（判别式形式）}}
+若代入 $y=kx+b$ 后得到
+$\alpha x^2+\beta x+\gamma=0$，其中 $\alpha\ne0$、
+$\Delta=\beta^2-4\alpha\gamma>0$，则
+\[
+ \boxed{|AB|=\frac{\sqrt{1+k^2}\sqrt{\Delta}}{|\alpha|}.}
+\]
+\textbf{注意：}只有确实得到一元\textbf{二次}方程，才能使用此判别式速算式；不得将退化为一次方程的情形误判成两交点。
 \end{statementbox}

@@ -1,21 +1,72 @@
 \begin{trapbox}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（绝对值遗漏）}}] 直接使用 $(x_1-x_2)^2$ 代替 $|x_1-x_2|$ 代入公式，导致结果误差。
-		\item[\textbf{\textcolor{CTrap}{正确理解（符号不可省）：}}] 弦长公式中的差必须取绝对值，因为长度是非负的。
-		\item[\textbf{\textcolor{CTrap}{错因分析（概念混淆）：}}] 将距离计算与代数化简混为一谈，忽略开方后的正号。
-	\end{description}
+\textbf{\textcolor{CTrap}{概念陷阱：把圆的垂径公式生搬到椭圆}}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（斜率不存在）}}] 当直线垂直于 $x$ 轴时，斜率 $k$ 不存在，仍套用 $\sqrt{1+k^2}|x_1-x_2|$ 导致无意义。
-		\item[\textbf{\textcolor{CTrap}{正确理解（垂直情形处理）：}}] 此时弦长直接为 $|y_1-y_2|$，不能用此公式。
-		\item[\textbf{\textcolor{CTrap}{错因分析（机械记忆）：}}] 只记公式形式，忽略公式推导中使用了斜率。
-	\end{description}
+\input{assets/tikz/C063_circle_ellipse_comparison}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（纵版本条件）}}] 当 $k=0$ 时，使用 $|AB|=\sqrt{1+1/k^2}\,|y_1-y_2|$，分母出现 $k=0$ 导致错误。
-		\item[\textbf{\textcolor{CTrap}{正确理解（条件限制）：}}] 该变体仅当 $k\neq0$ 时成立；当 $k=0$ 时，直线水平，弦长即为 $|x_1-x_2|$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（忽略前提）：}}] 未考虑 $k$ 作为分母的前提条件。
-	\end{description}
+错误：对任意椭圆的斜弦仍假定“中心到弦中点连线垂直于弦”，
+或写出 $2\sqrt{r^2-d^2}$ 却没有一个对所有曲线上点恒定的圆半径 $r$。
+正确：\textbf{圆}有 $OA=OB=r$，才可使用垂径定理配合等腰三角形；
+一般圆锥曲线的斜弦要回到两点坐标差与勾股定理。
+\textbf{对照检查：}圆的 $2\sqrt{r^2-d^2}$ 和通用的
+$\sqrt{1+k^2}|x_1-x_2|$，在\emph{同一条圆弦}上求出的值必须一致。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错点一：平方开方忘记绝对值}}
+
+错误：$\sqrt{(x_1-x_2)^2}=x_1-x_2$。
+正确：$\boxed{\sqrt{(x_1-x_2)^2}=|x_1-x_2|}$。
+\textbf{最小反例：}若 $x_1=1,x_2=4$，差为 $-3$，但距离不能为负数。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错点二：把纵坐标式用于 $k=0$}}
+
+错误：对于水平直线使用 $\sqrt{1+1/k^2}|y_1-y_2|$。
+正确：$k=0$ 时 $y_1=y_2$，直接 $|AB|=|x_1-x_2|$。
+\textbf{辨析：}纵坐标公式有 $1/k^2$，必须要求 $k\ne0$，不能把 $0\cdot\infty$ 当作普通乘法。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错点三：竖直线硬套横坐标公式}}
+
+错误：直线 $x=3$ 的两交点横坐标相同，就误算 $|AB|=0$。
+正确：竖直线的 $k$ 不存在，弦长直接 $|y_1-y_2|$。
+\textbf{最小反例：}圆 $x^2+y^2=4$ 与 $x=0$ 的交点是 $(0,2),(0,-2)$，弦长为 $4$ 而非 $0$。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错点四：误用韦达差平方公式}}
+
+错误：把 $|x_1-x_2|$ 写成 $\sqrt{(x_1+x_2)^2+4x_1x_2}$。
+正确：$\boxed{(x_1-x_2)^2=(x_1+x_2)^2-4x_1x_2}$。
+\textbf{核对法：}直接展开两侧：$x_1^2-2x_1x_2+x_2^2$。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错点五：判别式大于零之前忘看二次项}}
+
+只有当 $\alpha\ne0$，消元方程确实是
+$\alpha x^2+\beta x+\gamma=0$ 时，
+$\Delta>0$ 才意味着两个不同实根。
+\textbf{最小反例：}$x^2-y^2=1$ 与 $y=x+1$ 联立后为 $-2x-2=0$，
+实际只有一个交点；不能把它当作一个标准二次方程。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错点六：判别式速算式漏掉 $|\alpha|$}}
+
+正确：由二次方程得
+\[
+ |x_1-x_2|=\frac{\sqrt\Delta}{|\alpha|},\qquad
+ |AB|=\frac{\sqrt{1+k^2}\sqrt\Delta}{|\alpha|}.
+\]
+\textbf{最小反例：}$2x^2-2=0$ 的两根 $\pm1$，根差为 $2$；
+$\sqrt\Delta=\sqrt{16}=4$，必须再除以 $|2|$。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错点七：混淆“有交点”与“有一条非退化弦”}}
+
+切线只有一个重合交点（$\Delta=0$），对应的两点间距离为 $0$，
+不能把它当作题目要求的由\textbf{两个不同点}构成的弦。
+同时排查增根、分母限制以及消元是否等价。
+
+\medskip
+\textbf{\textcolor{CTrap}{一分钟自检}}
+
+\textbf{先交点数，再看方向；选好坐标，再算根差；开方取正，分母验零。}
 \end{trapbox}

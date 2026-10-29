@@ -1,0 +1,21 @@
+\begin{center}
+\begin{tikzpicture}[x=2cm,y=2cm,font=\small]
+ \path[use as bounding box] (-2.7,-1.6) rectangle (2.7,1.9);
+ \node at (0,1.65) {椭圆中的同方向弦：过中心时最长};
+ \draw[->,gray] (-1.65,0)--(1.65,0) node[right] {$x$};
+ \draw[->,gray] (0,-1.25)--(0,1.25) node[above] {$y$};
+ \draw[blue!60!black,thick] (0,0) ellipse ({sqrt(2)} and 1);
+ \foreach \m/\col/\sty in {0/magenta!70!black/solid,.8/teal!70!black/dashed,-.8/orange!80!black/dotted}{
+   \pgfmathsetmacro{\lo}{(-2*\m-sqrt(6-2*\m*\m))/3}
+   \pgfmathsetmacro{\hi}{(-2*\m+sqrt(6-2*\m*\m))/3}
+   \draw[very thick,\col,\sty] (\lo,{\lo+\m})--(\hi,{\hi+\m});
+ }
+ \node[left,teal!70!black] at (-1.6,.9) {$m=0.8$};
+ \draw[teal!70!black,thin] (-1.55,.8)--(-.8,0);
+ \node[right,orange!80!black] at (1.6,-.9) {$m=-0.8$};
+ \draw[orange!80!black,thin] (1.55,-.8)--(.8,0);
+ \node[right,magenta!70!black] at (1.25,1.05) {$m=0$};
+ \draw[magenta!70!black,thin] (1.2,1)--(.65,.65);
+ \node at (0,-1.5) {$|AB|=\frac43\sqrt{3-m^2},\quad |m|<\sqrt3$};
+\end{tikzpicture}
+\end{center}

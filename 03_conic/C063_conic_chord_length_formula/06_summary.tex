@@ -1,19 +1,59 @@
+\clearpage
 \begin{summarybox}
-	\textbf{\textcolor{CSummary}{一句话核心}}
+\textbf{\textcolor{CSummary}{一句话核心}}
 
-	\textbf{弦长公式 $|AB|=\sqrt{1+k^2}\,|x_1-x_2|$（$k$存在时），是直线与圆锥曲线相交弦长的直接计算公式，可极大简化运算。}
+\textbf{弦长 $=$ 坐标投影差 $\times$ 由直线方向决定的放大系数；
+需要求交点时，优先“联立 $\rightarrow$ 根差 $\rightarrow$ 弦长”，不用先解两个点。}
 
-	\medskip
-	\textbf{\textcolor{CSummary}{使用条件}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{条件 1（斜率存在）：} 直线斜率 $k$ 存在。
-		\item \textbf{条件 2（两个交点）：} 直线与圆锥曲线相交于两个不同点，联立后判别式大于0。
-	\end{itemize}
+\medskip
+\textbf{\textcolor{CSummary}{完整认知链（初中 $\rightarrow$ 高中）}}
+\[
+ \underbrace{|AB|=2\sqrt{r^2-d^2}}_{\text{初中：圆的垂径定理}}
+ \quad\xrightarrow{\text{保留勾股，换直角边}}\quad
+ \underbrace{|AB|=\sqrt{(\Delta x)^2+(\Delta y)^2}}_{\text{所有平面线段}}
+\]
+再使用 $\Delta y=k\Delta x$，便得到
+$|AB|=\sqrt{1+k^2}|\Delta x|$。
+\textbf{一句话：}不是从“圆弦公式”死记出新公式，
+而是从“圆弦背后的勾股定理”迁移出通用公式。
 
-	\medskip
-	\textbf{\textcolor{CSummary}{关键提醒}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{易错点（纵版本条件）：} 纵坐标版本仅当 $k\neq0$ 时可用。
-		\item \textbf{检查项（绝对值不可省）：} 计算 $|x_1-x_2|$ 时需通过平方开方或韦达定理取得正值。
-	\end{itemize}
+\medskip
+\textbf{\textcolor{CSummary}{最小公式组}}
+\[
+ \boxed{\begin{aligned}
+ y=kx+b:&\quad |AB|=\sqrt{1+k^2}\,|\Delta x|;\\
+ x=ty+d:&\quad |AB|=\sqrt{1+t^2}\,|\Delta y|;\\
+ \alpha z^2+\beta z+\gamma=0:&\quad
+ |z_1-z_2|=\frac{\sqrt{\beta^2-4\alpha\gamma}}{|\alpha|}.
+ \end{aligned}}
+\]
+第三式\textbf{要求} $\alpha\ne0$、$\Delta>0$。
+水平线优先横差；竖直线优先纵差。
+
+\medskip
+\textbf{\textcolor{CSummary}{三种证明，一次掌握}}
+\begin{itemize}[leftmargin=*,itemsep=0.25em]
+ \item \textbf{最快：}斜率 $\Delta y=k\Delta x$，代入勾股，一步提取 $|\Delta x|$。
+ \item \textbf{门槛最低：}看直角三角形，两直角边比例为 $1:|k|$，斜边比例为 $\sqrt{1+k^2}$。
+ \item \textbf{常规：}坐标距离公式代入直线方程，并强调平方开方取绝对值。
+\end{itemize}
+
+\medskip
+\textbf{\textcolor{CSummary}{考场速写流程}}
+
+\textbf{判断两交点 $\rightarrow$ 看消 $x$ 还是消 $y$ 更简单
+$\rightarrow$ 检查二次项及 $\Delta>0$
+$\rightarrow$ 由韦达或 $\sqrt\Delta/|\alpha|$ 求根差
+$\rightarrow$ 乘方向系数。}
+
+\medskip
+\textbf{\textcolor{CSummary}{两个最小反例}}
+\begin{itemize}[leftmargin=*,itemsep=0.2em]
+ \item $k=0$ 却使用含 $1/k^2$ 的纵坐标公式：\textbf{无定义}。
+ \item $x^2-y^2=1$ 与 $y=x+1$：消元退化一次，\textbf{不能当作两交点弦}。
+\end{itemize}
+
+\textbf{\textcolor{CSummary}{迁移原则}}
+同一套投影公式适用于圆、椭圆、双曲线、抛物线，
+实际上适用于同一直线上的\textbf{任意两点}。
 \end{summarybox}

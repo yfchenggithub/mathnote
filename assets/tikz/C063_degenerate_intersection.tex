@@ -1,0 +1,15 @@
+\begin{center}
+\begin{tikzpicture}[font=\small]
+ \path[use as bounding box] (-4,-3.4) rectangle (4,4.1);
+ \node at (0,3.8) {与渐近线平行：只有一个有限交点};
+ \draw[->,gray] (-3.4,0)--(3.4,0) node[right] {$x$};
+ \draw[->,gray] (0,-2.6)--(0,3.1) node[above] {$y$};
+ \draw[gray,dashed] (-2.8,-2.8)--(2.8,2.8) node[right] {$y=x$};
+ \foreach \sgn in {-1,1} {
+ \draw[blue!60!black,thick,domain=-2.5:2.5,samples=90] plot ({\sgn*sqrt(1+\x*\x)},\x);
+ }
+ \draw[magenta!70!black,thick] (-3.3,-2.3)--(2,3) node[above right] {$y=x+1$};
+ \fill (-1,0) circle (2pt) node[above left] {$(-1,0)$};
+ \node at (0,-3.1) {$x^2-y^2=1\quad\Longrightarrow\quad -2x-2=0$};
+\end{tikzpicture}
+\end{center}

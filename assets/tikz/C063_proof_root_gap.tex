@@ -1,0 +1,17 @@
+\begin{center}
+\begin{tikzpicture}[font=\small]
+ \path[use as bounding box] (-3.3,-3.5) rectangle (4,4.5);
+ \node at (.3,4.2) {两根间距：先看横向距离，再乘方向系数};
+ \draw[->,gray] (-3,0)--(3.5,0) node[right] {$x$};
+ \draw[->,gray] (0,-1)--(0,3.05);
+ \draw[blue!60!black,thick,domain=-2.2:2.2,samples=80] plot (\x,{\x*\x-2});
+ \fill ({-sqrt(2)},0) circle (1.6pt) node[above left] {$x_1$};
+ \fill ({sqrt(2)},0) circle (1.6pt) node[above right] {$x_2$};
+ \draw[teal!70!black,dashed] ({-sqrt(2)},0)--({-sqrt(2)},-2.35);
+ \draw[teal!70!black,dashed] ({sqrt(2)},0)--({sqrt(2)},-2.35);
+ \draw[<->,teal!70!black,thick] ({-sqrt(2)},-2.35)--({sqrt(2)},-2.35)
+ node[midway,below] {$|x_1-x_2|=\sqrt\Delta/|\alpha|$};
+ \node at (0,3.5) {$q(x)=x^2-2$};
+ \node at (.2,-3.15) {图例：$\alpha=1,\ \Delta=8,\quad |x_1-x_2|=2\sqrt2$};
+\end{tikzpicture}
+\end{center}
