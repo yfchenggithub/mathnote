@@ -1,47 +1,185 @@
 \begin{explanationbox}
+\par\par\medskip
 \begin{minipage}{\linewidth}
-\begin{center}\input{assets/tikz/C062_math_audit_geometry.tex}\end{center}
-蓝色为 $y^2=2x$，绿色为中点轨迹 $x=1+y^2$（去掉顶点）。顶点对应的橙色竖直弦实际存在，只因题目限定有限斜率而被排除。
+\noindent
+\textbf{\textcolor{CExplanation}{一句话直觉}}\par\nobreak\smallskip
+\par\noindent\textbf{两个端点的纵坐标以 $y_0$ 为中心，一高一低；抛物线的横坐标是纵坐标的平方。}两端点一作差，平方差立刻留下“和”，而“和”恰好是 $2y_0$。\par
 \end{minipage}
+\par
+
 \par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CExplanation}{先从圆看懂：为什么要相减、为什么要相加？}}\par\nobreak\smallskip
+\par
+\begin{minipage}{\linewidth}
+\begin{center}
+\resizebox{0.78\linewidth}{!}{\input{assets/tikz/C062_circle_add_subtract.tex}}
+\end{center}
+\end{minipage}\par
+\end{minipage}
+\par
 
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
+\par
 
-	弦的两端点坐标代入抛物线方程后相减，利用平方差公式直接得到弦的斜率与中点纵坐标的关系，无需解方程组。
+圆 $x^2+y^2=R^2$ 上的弦设 $A=M+\mathbf v,\ B=M-\mathbf v$，其中
+$M=(x_0,y_0)$，$\mathbf v=(u,t)$。把两点坐标分别代入圆的方程：
+\[
+\begin{aligned}
+ (x_0+u)^2+(y_0+t)^2&=R^2,\\
+ (x_0-u)^2+(y_0-t)^2&=R^2.
+\end{aligned}
+\]
+\par\noindent\textbf{相减（方向）：}平方中的 $u^2,t^2$ 消掉，仅剩
+\[
+\boxed{x_0u+y_0t=0}
+\quad\Longleftrightarrow\quad
+\overrightarrow{OM}\cdot\overrightarrow{MA}=0.
+\]
+因此 $OM\perp AB$（$M\ne O$ 时确定唯一弦方向；$M=O$ 时各条直径都可）。
+\par\noindent\textbf{相加（长度）：}混合项 $x_0u,y_0t$ 消掉，仅剩
+\[
+\boxed{x_0^2+y_0^2+u^2+t^2=R^2}
+\ \Longleftrightarrow\ \boxed{OM^2+AM^2=R^2}.
+\]
+这才是真正的\textbf{勾股定理}：由于 $OM\perp AM$，直角三角形 $OMA$ 决定半弦长。
+例如 $R=5$，$M=(3,0)$，相减得 $u=0$（竖直弦），相加得 $t^2=25-9=16$，所以 $A=(3,4),\ B=(3,-4)$，整弦长为 $8$。
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CExplanation}{再看抛物线：同一思路，另一种几何量}}\par\nobreak\smallskip
+\par
+\begin{minipage}{\linewidth}
+\begin{center}
+\resizebox{0.82\linewidth}{!}{\input{assets/tikz/C062_parabola_add_subtract.tex}}
+\end{center}
+\end{minipage}\par
+\end{minipage}
+\par
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（点差法引入）：}]设$A(x_1,y_1),B(x_2,y_2)$在抛物线上，代入方程后作差，$y_1^2-y_2^2=2p(x_1-x_2)$。
-		\item[\textbf{要点二（平方差消元）：}]左边因式分解为$(y_1-y_2)(y_1+y_2)$，结合中点坐标$y_1+y_2=2y_0$，化简即得$k=\frac{p}{y_0}$。
-	\end{description}
+\par
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（中点弦性质）}}
+设 $A=(x_0+u,y_0+t)$、$B=(x_0-u,y_0-t)$，其中 $u,t$ 是\textbf{有符号半位移}，$t\ne0$。
+\[
+\begin{aligned}
+ (y_0+t)^2&=2p(x_0+u),\\
+ (y_0-t)^2&=2p(x_0-u).
+\end{aligned}
+\]
+\par\noindent\textbf{相减（确定方向）：}把 $y_0^2$、$t^2$ 消去，只留下方向性很强的交叉项：
+\[
+4y_0t=4pu\quad\Longrightarrow\quad
+\boxed{y_0t=pu}.
+\]
+因 $t$ 与 $u$ 同时给出半弦的竖、横分量，所以当 $y_0\ne0$ 时
+$k=t/u=p/y_0$；当 $y_0=0$ 时，$u=0$，弦改为竖直。\textbf{“相减”正是在消去共同的弯曲量，留下位移方向。}
 
-	在抛物线$y^2=2px$中，弦的斜率$k$与中点纵坐标$y_0$成反比：$k=\frac{p}{y_0}$。这表明弦的方向完全由中点纵坐标决定，与横坐标无关。
+\par\noindent\textbf{相加（确定从中点走多远）：}消去 $y_0t$ 和 $pu$ 的交叉项，保留平方量：
+\[
+2y_0^2+2t^2=4px_0\quad\Longrightarrow\quad
+\boxed{t^2=2px_0-y_0^2}.
+\]
+因此 $|t|=\sqrt{2px_0-y_0^2}$ 是\textbf{半弦的纵向展开量}；大于零才有不同实端点，等于零为切点，小于零无实弦。结合“相减”还可以恢复横向展开量
+$u=y_0t/p$，从而确定整条弦的长度和端点。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（点差法结构）}}
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CExplanation}{抛物线的相加能不能叫勾股定理？}}\par\nobreak\smallskip
+\par\noindent\textbf{不能直接这样叫。}令 $T=(y_0^2/(2p),y_0)$ 是曲线上与 $M$ \textbf{同纵坐标}的点。记有符号水平偏移 $x_0-x_T$，那么\par
+\end{minipage}
+\par
 
-	点差法将二次曲线方程转化为线性关系，使得弦的斜率可直接用中点坐标表示，避免了求交点坐标的复杂运算。
+\[
+\boxed{t^2=2p(x_0-x_T)}.
+\]
+对于真实弦，$p(x_0-x_T)>0$，所以改用实际长度 $MT=|x_0-x_T|$ 可写成
+\[
+\boxed{t^2=2|p|\,MT}.
+\]
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（求斜率/中点）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（已知中点求弦）：}给出弦中点坐标，直接代入公式求出斜率，进而写出弦方程。
-		\item \textbf{考法二（已知斜率求中点）：}已知弦斜率，可求中点纵坐标，结合直线与抛物线方程可确定中点轨迹。
-	\end{itemize}
+\par
+\begin{minipage}{\linewidth}
+\begin{center}
+\input{assets/tikz/C062_area_identity.tex}
+\end{center}
+\end{minipage}
+\par
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
+它表示\textbf{边长 $|t|$ 的正方形面积，等于以 $2|p|$ 和 $MT$ 为两边的矩形面积}；不是 $OM^2+AM^2=R^2$ 这样的勾股关系。
+但最终求\textbf{实际半弦长}时，仍然能对水平分量 $u$ 与竖直分量 $t$ 使用真正的勾股定理：
+\[
+\boxed{AM^2=u^2+t^2
+ =(2px_0-y_0^2)\!\left(1+\frac{y_0^2}{p^2}\right)}.
+\]
+\par\noindent\textbf{因此：圆的“相加”本身就是勾股；抛物线先“相加”得展开量，再与“相减”合并，用勾股求弦长。}
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CExplanation}{一加一减的统一原因：奇偶项分离}}\par\nobreak\smallskip
+以中点为中心设成 $M\pm(u,t)$。\textbf{相减}时，含一次位移的奇项不互相抵消、平方位移的偶项抵消；\textbf{相加}则正相反。这不是凑技巧，而是曲线方程在中点两侧的\textbf{对称性}。\par
+\end{minipage}
+\par
 
-	点差法的关键是“设而不求”：设出两端点坐标，但不具体解出，而是利用对称性（中点）直接获得斜率关系。
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CExplanation}{最低门槛的理解（先给纵坐标）}}\par\nobreak\smallskip
+设两端点纵坐标为 $y_0+t$、$y_0-t$（$t\ne0$）。由于 $x=y^2/(2p)$，\par
+\end{minipage}
+\par
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（已知中点）：}已知弦$AB$的中点坐标，求弦$AB$的方程或斜率。
-		\item \textbf{场景二（已知斜率）：}已知过某点的直线与抛物线相交弦的斜率，求中点轨迹。
-	\end{itemize}
+\[
+\underbrace{\Delta y}_{2t}=2t,\qquad
+\underbrace{\Delta x}_{\text{平方差}/(2p)}
+=\frac{(y_0+t)^2-(y_0-t)^2}{2p}
+=\frac{2y_0t}{p}.
+\]
+因此 $\text{斜率}=\Delta y/\Delta x=p/y_0$。\textbf{只设 $t$ 一个未知量，不用解方程组。}
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CExplanation}{为什么没有 $x_0$？}}\par\nobreak\smallskip
+$x_0$ 决定\textbf{弦有多长}，而 $y_0$ 决定\textbf{弦朝哪个方向}。由上面的对称设点可进一步得到\par
+\end{minipage}
+\par
+
+\[
+ x_0=\frac{y_0^2+t^2}{2p}
+ \quad\Longleftrightarrow\quad
+ t^2=2px_0-y_0^2.
+\]
+于是\textbf{有真实弦}必须且只需 $t^2>0$，即 $2px_0>y_0^2$。这也解释了：不能只凭 $k=p/y_0$ 就断言弦存在。
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CExplanation}{一个更深的几何联系（同纵标切线）}}\par\nobreak\smallskip
+在曲线上另取 $T\bigl(y_0^2/(2p),y_0\bigr)$，即\textbf{纵坐标与中点相同的曲线点}，那么在 $y_0\ne0$ 时\par
+\end{minipage}
+\par
+
+\[
+ k_{\mathrm{tan},T}=\frac{p}{y_0}=k_{AB}.
+\]
+所以\textbf{中点弦平行于同纵标处的切线}，但 $M$ 通常不在曲线上，\textbf{不能误说“中点处的切线”}。此性质可由抛物线切线斜率 $\mathrm{d}y/\mathrm{d}x=p/y$ 得到，也可由点差法直接理解。
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CExplanation}{看到这些条件，立即想到什么？}}\par\nobreak\smallskip
+\begin{itemize}[leftmargin=*,itemsep=0.4em]
+ \item \textbf{已知弦中点 $M$、求弦方程：}先查 $2px_0>y_0^2$，再看 $y_0$ 是否为 $0$；最后用点斜式。
+ \item \textbf{已知弦斜率 $k$、求中点的纵坐标：}直接 $y_0=p/k$；但只知道方向，不能唯一确定 $x_0$。
+ \item \textbf{过定点的动弦、中点轨迹：}用“中点在动弦上”再结合 $k=p/y_0$ 消参；最后检查实交及竖直弦是否纳入。
+\end{itemize}\par
+\end{minipage}
+\par
+
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CExplanation}{迁移提示}}\par\nobreak\smallskip
+椭圆、双曲线的点差法往往同时带出 $x_0,y_0$；抛物线 $y^2=2px$ 因一次项只有 $x$，非竖直弦斜率只依赖 $y_0$。\par
+\end{minipage}
+\par
+
 \end{explanationbox}

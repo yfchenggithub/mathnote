@@ -1,21 +1,115 @@
 \begin{trapbox}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（条件忽略）}}]应用公式时，未先确认弦$AB$是否与$y$轴平行，或中点纵坐标$y_0$是否为0。
-		\item[\textbf{\textcolor{CTrap}{正确理解（条件验证）：}}]必须在$AB$不与$y$轴平行（斜率存在）且$y_0\neq0$的条件下才能使用$k=p/y_0$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（死记形式）：}}]只记忆了公式的外形，忽略了公式的推导前提。
-	\end{description}
+\par
+\begin{minipage}{\linewidth}
+\begin{center}
+\input{assets/tikz/C062_proof_existence.tex}
+\par\small 候选直线同样满足形式斜率，实交状态却不同：先查 $D$，再用斜率。
+\end{center}
+\end{minipage}
+\par
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（$p$值误判）}}]从抛物线方程$y^2=4x$直接读取$p=4$，导致斜率计算错误。
-		\item[\textbf{\textcolor{CTrap}{正确理解（标准对照）：}}]标准方程$y^2=2px$中$x$一次项系数为$2p$，故$p$应取系数的一半。例如$y^2=4x$中$p=2$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（生搬硬套）：}}]未将方程化为标准形式对比，盲目代入系数。
-	\end{description}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（符号忽视）}}]只考虑$p>0$的情形，当$p<0$时仍使用$p$的正值，或者认为$k$总为正。
-		\item[\textbf{\textcolor{CTrap}{正确理解（符号一致）：}}]公式中$p$可正可负，$k$的符号由$p$与$y_0$共同决定。
-		\item[\textbf{\textcolor{CTrap}{错因分析（思维定势）：}}]习惯性认为$p$为正数，忽略题设中$p\neq0$包含负数可能。
-	\end{description}
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CTrap}{易错一｜把必要条件当充分条件}}\par\nobreak\smallskip
+\par\noindent\textbf{错法：}已知中点 $M$，写 $k=p/y_0$，立刻说“弦存在”。\par
+\end{minipage}
+\par
+
+\par\noindent\textbf{纠正：}先计算 $D=2px_0-y_0^2$。只有 $D>0$ 才有两个不同实交点；$D=0$ 是切点，$D<0$ 无实弦。
+\par\noindent\textbf{最小反例：}$y^2=4x$、$M(0,1)$，公式看似给出 $k=2$，却没有弦。
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CTrap}{易错二｜把 $y_0=0$ 误判为“无弦”}}\par\nobreak\smallskip
+\par\noindent\textbf{错法：}$k=p/0$ 无意义，因此 $M$ 不可能是弦中点。\par
+\end{minipage}
+\par
+
+\par\noindent\textbf{纠正：}只说明\textbf{有限斜率不存在}；在 $D>0$ 时，$y_0=0$ 对应\textbf{竖直弦} $x=x_0$。例：$y^2=4x$ 上中点 $(1,0)$ 的弦是 $x=1$。
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CTrap}{易错三｜把“斜率不存在”与 $k=0$ 混为一谈}}\par\nobreak\smallskip
+\par\noindent\textbf{错法：}将竖直弦的斜率写为 $0$，或者尝试让 $k=0$ 代入 $y_0=p/k$。\par
+\end{minipage}
+\par
+
+\par\noindent\textbf{纠正：}斜率 $0$ 代表水平线 $y=c$，它与 $y^2=2px$ 只有一个交点，不能成为非退化弦；真正的竖直弦 $x=c$ 斜率\textbf{不存在}。
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CTrap}{易错四｜把系数直接当 $p$}}\par\nobreak\smallskip
+\par\noindent\textbf{错法：}$y^2=4x\Rightarrow p=4$。\par
+\end{minipage}
+\par
+
+\par\noindent\textbf{纠正：}始终与 $y^2=2px$ 对照：$2p=4\Rightarrow p=2$；这里的 $p$ 与其他教材采用 $y^2=4ax$ 的参数 $a$ 不同（对应 $p=2a$）。
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CTrap}{易错五｜认为 $p$ 必须为正}}\par\nobreak\smallskip
+\par\noindent\textbf{错法：}在 $y^2=-4x$ 中取 $p=2$，算出反号斜率。\par
+\end{minipage}
+\par
+
+\par\noindent\textbf{纠正：}本结论允许 $p<0$，把 $2p=-4$ 原样计算，$p=-2$；$k$ 的正负由 $p/y_0$ 决定。若教材将 $p$ 定义为正的焦准参数，应先明确它的标准方程约定。
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CTrap}{易错六｜把弦中点当成切点}}\par\nobreak\smallskip
+\par
+\begin{minipage}{\linewidth}
+\begin{center}
+\input{assets/tikz/C062_proof_tangent.tex}
+\end{center}
+\end{minipage}\par
+\end{minipage}
+\par
+
+\par
+
+
+\par\noindent\textbf{错法：}“中点弦和过中点的切线平行，因此 $M$ 是曲线点”。
+\par\noindent\textbf{纠正：}真正的非退化弦中点满足 $2px_0>y_0^2$，所以\textbf{不在曲线上}。斜率相同的是曲线上另一个点 $T(y_0^2/(2p),y_0)$ 处的切线，\textbf{不是在 $M$ 处的切线}。
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CTrap}{易错七｜轨迹漏掉范围或擅自补点}}\par\nobreak\smallskip
+\par\noindent\textbf{错法：}消去 $k$ 后直接把整条曲线当轨迹。\par
+\end{minipage}
+\par
+
+\par\noindent\textbf{纠正：}检查本题是否限制非竖直、是否允许 $k=0$、判别式是否严格大于零；\textbf{只删除或添加题设允许的点}。例4的无实弦和例3的竖直弦顶点是两个不同性质的问题。
+
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CTrap}{易错八｜把抛物线的“相加”直接叫作勾股定理}}\par\nobreak\smallskip
+\par\noindent\textbf{错法：}看到 $t^2=2px_0-y_0^2$，就说“$y_0$、$t$、$\sqrt{2px_0}$ 是直角三角形三边”。\par
+\end{minipage}
+\par
+
+\par\noindent\textbf{纠正：}数值上三个平方可以凑成关系，但 $\sqrt{2px_0}$ 未必对应图中的某条自然线段；甚至 $p<0$ 时还需明确有实弦才有 $2px_0>0$。\textbf{不能仅凭平方和式就宣称特定几何线段构成直角三角形。}圆的相加式 $OM^2+AM^2=R^2$ 则确有 $OM\perp AM$ 支持。
+\par\noindent\textbf{可用的几何表达：}抛物线有 $t^2=2|p|\,MT$，是\textbf{正方形面积 = 矩形面积}；要用勾股求弦长，应写 $AM^2=u^2+t^2$，并结合 $u=y_0t/p$。
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CTrap}{易错九｜只作差就以为“整条弦都确定了”}}\par\nobreak\smallskip
+\par\noindent\textbf{错法：}由 $y_0t=pu$ 算出 $k$，直接得出端点或弦长。\par
+\end{minipage}
+\par
+
+\par\noindent\textbf{纠正：}相减只确定\textbf{方向/分量比例}，$t$ 的大小并未知；还需\textbf{相加}得 $t^2=2px_0-y_0^2$，然后用 $u=y_0t/p$ 求端点和弦长。同一 $y_0$ 可以对应不同长度的平行弦。
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CTrap}{易错十｜圆心弦的特例照搬成唯一方向}}\par\nobreak\smallskip
+\par\noindent\textbf{错法：}圆上弦中点为圆心 $M=O$，还宣称“相减可以确定唯一弦方向”。\par
+\end{minipage}
+\par
+
+\par\noindent\textbf{纠正：}此时 $x_0u+y_0t=0$ 化为 $0=0$，不限制方向，所有直径均符合条件。\textbf{“相减看方向”是求方向约束，不保证在每个特殊位置都唯一。}
+
 \end{trapbox}

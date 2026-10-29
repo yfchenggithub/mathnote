@@ -1,0 +1,20 @@
+\begin{tikzpicture}[x=.95cm,y=.95cm,>=stealth,font=\small]
+\foreach \s/\m/\d/\title in {0/2/4/{D>0},4.5/1/0/{D=0},9/0/{-4}/{D<0}} {
+ \begin{scope}[shift={(\s,0)}]
+ \path[use as bounding box] (-.5,-.7) rectangle (4.1,5.4);
+ \draw[->,gray!65] (-.3,0)--(3.6,0) node[right] {$x$};
+ \draw[->,gray!65] (0,-.3)--(0,4.9);
+ \draw[blue!75!black,thick,domain=0:4.1,samples=70,variable=\v] plot ({\v*\v/4},\v);
+ \draw[violet!85!black,thick,dashed,domain=0:{2.1+\m},variable=\q] plot ({\q},{\q+2-\m});
+ \fill[orange!85!black] (\m,2) circle(2.5pt) node[below right] {$M$};
+ \node at (1.5,5.1) {$\title$};
+ \node at (1.5,-.6) {$M(\m,2)$};
+ \end{scope}
+}
+\fill[violet!85!black] (0,0) circle(2pt);
+\fill[violet!85!black] (4,4) circle(2pt);
+\fill[violet!85!black] (5.5,2) circle(2pt);
+\node at (1.5,4.4) {两个不同实端点};
+\node at (6,4.4) {两端点重合};
+\node at (10.5,4.4) {无实交点};
+\end{tikzpicture}

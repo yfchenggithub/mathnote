@@ -1,0 +1,20 @@
+\begin{tikzpicture}[x=1.1cm,y=1.1cm,>=stealth,font=\small]
+\path[use as bounding box] (-1,-1) rectangle (7,5.3);
+\draw[->,gray!65] (-.6,0)--(5.8,0) node[right] {$x$};
+\draw[->,gray!65] (0,-.6)--(0,4.9) node[above] {$y$};
+\draw[blue!75!black,very thick,domain=-.5:4.5,samples=100,variable=\v] plot ({\v*\v/4},\v);
+\draw[violet!85!black,very thick] (0,0)--(4,4);
+\fill[violet!85!black] (4,4) circle(2pt) node[above left] {$A$};
+\fill[violet!85!black] (0,0) circle(2pt) node[below left] {$B=O$};
+\fill[orange!85!black] (2,2) circle(2.5pt);
+\node[blue!75!black,right] at (5,4.4) {$y^2=4x$};
+
+\node[below right] at (2,2) {$M(x_0,y_0)$};
+\draw[gray,dashed] (0,2)--(4,2);
+\draw[<->,teal!70!black] (4.4,2)--(4.4,4) node[midway,right] {$t=2$};
+\draw[<->,teal!70!black] (4.4,0)--(4.4,2) node[midway,right] {$t=2$};
+\node[left] at (0,4) {$y_0+t=4$};
+\node[left] at (0,2) {$y_0=2$};
+\draw[gray,dotted] (0,4)--(4,4);
+\node[right] at (4.9,.6) {$y_0-t=0$};
+\end{tikzpicture}

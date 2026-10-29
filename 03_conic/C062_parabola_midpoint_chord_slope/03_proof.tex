@@ -1,50 +1,271 @@
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\par\medskip
+\begin{minipage}{\linewidth}
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CProof}{证明一｜最快证明法（考场速写，推荐）}}\par\nobreak\smallskip
+\par
+\begin{minipage}{\linewidth}
+\begin{center}
+\input{assets/tikz/C062_proof_difference.tex}
+\par\small 横纵差构成斜率；纵标和等于中点纵标的两倍。
+\end{center}
+\end{minipage}\par
+\end{minipage}
+\par
 
-	使用点差法，设出弦端点坐标，利用点在曲线上作差，结合中点坐标公式导出斜率关系。
+\par
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（设点代入）：}]设$A(x_1,y_1)$，$B(x_2,y_2)$在抛物线$y^2=2px$上，则
-			\[
-				y_1^2 = 2px_1,
-				\qquad
-				y_2^2 = 2px_2
-			\]
-			\par\textbf{理由：}点坐标满足抛物线方程。
-		\item[\textbf{步骤二（作差消元）：}]两式相减得
-			\[
-				y_1^2 - y_2^2 = 2p(x_1 - x_2)
-			\]
-			\par\textbf{理由：}消去二次项，保留差关系。
-		\item[\textbf{步骤三（平方差分解）：}]左边分解:
-			\[
-				(y_1 - y_2)(y_1 + y_2) = 2p(x_1 - x_2)
-			\]
-			\par\textbf{理由：}运用平方差公式。
-		\item[\textbf{步骤四（中点坐标代入）：}]由$M(x_0,y_0)$为中点得
-			\[
-				y_1 + y_2 = 2y_0,\quad x_1 + x_2 = 2x_0
-			\]
-			\par\textbf{理由：}中点坐标定义。
-		\item[\textbf{步骤五（导出斜率）：}]当$x_1\neq x_2$（弦不与$y$轴平行）时，在步骤三等式两边同除以$(x_1-x_2)$：
-			\[
-				\frac{(y_1-y_2)(y_1+y_2)}{x_1-x_2} = 2p
-				\;\Longrightarrow\;
-				k\cdot (y_1+y_2) = 2p,
-			\]
-			代入$y_1+y_2=2y_0$即得
-			\[
-				k = \frac{p}{y_0}
-			\]
-			\par\textbf{理由：}代数变形，利用斜率的定义$k=(y_1-y_2)/(x_1-x_2)$。
-		\item[\textbf{步骤六（条件检验）：}]分母$y_0\neq0$，保证$k$有意义；实质上$k\neq0$。
-			\par\textbf{理由：}若$y_0=0$则弦中点纵坐标为0，此时弦必平行于$y$轴（斜率不存在），不满足题设条件，故公式不适用。
-	\end{description}
+\end{minipage}
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
 
-	综上，在题设条件下，弦$AB$的斜率恒为$k = \dfrac{p}{y_0}$，所述公式成立。
+\par\noindent\textbf{识别信号：}“抛物线 + 弦中点 + 求斜率”。
+\par\noindent\textbf{优势：}只用平方差与中点公式，二至三步结束。
+设 $A(x_1,y_1),B(x_2,y_2)$ 为不同的交点，$M(x_0,y_0)$ 为中点。因为两点在 $y^2=2px$ 上，
+\[
+\begin{aligned}
+ (y_1-y_2)(y_1+y_2)&=2p(x_1-x_2),\\
+ k_{AB}=\frac{y_1-y_2}{x_1-x_2}
+ &=\frac{2p}{y_1+y_2}
+ =\boxed{\frac{p}{y_0}}.
+\end{aligned}
+\]
+其中 $x_1\ne x_2$ 才能写有限斜率；原式保证此时 $y_1+y_2=2y_0\ne0$。
+\par\smallskip
+\par\noindent\textbf{记忆负担最小的线索：}“\textbf{两点作差}\ $\to$\ \textbf{平方差}\ $\to$\ \textbf{纵标求和} $2y_0$”。
+\par\medskip
+\begin{minipage}{\linewidth}
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CProof}{证明二｜最低门槛法（中点对称设点，只设一个 $t$）}}\par\nobreak\smallskip
+\par
+\begin{minipage}{\linewidth}
+\begin{center}
+\input{assets/tikz/C062_proof_symmetric.tex}
+\par\small 两端点纵坐标在 $y_0$ 两侧等距展开。
+\end{center}
+\end{minipage}\par
+\end{minipage}
+\par
+
+\par
+
+\end{minipage}
+
+
+\par\noindent\textbf{为什么选它：}不必记抽象公式，更不必同时设 $x_1,x_2,y_1,y_2$；一眼看出中点的作用。
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.35em]
+ \item[\textbf{步骤1（先固定纵坐标）：}] 设 $A,B$ 的纵坐标分别为 $y_0+t$ 与 $y_0-t$，$t\ne0$（不同点，故纵坐标必不同）。
+ \item[\textbf{步骤2（由曲线直接写横坐标）：}] 两个横坐标为
+ \[x_A=\frac{(y_0+t)^2}{2p},\qquad x_B=\frac{(y_0-t)^2}{2p}.\]
+ \item[\textbf{步骤3（只求差，不求端点）：}]
+ \[
+ \Delta y=2t,\qquad
+ \Delta x=\frac{(y_0+t)^2-(y_0-t)^2}{2p}
+ =\frac{2y_0t}{p}.
+ \]
+ \item[\textbf{步骤4（斜率 = 纵差/横差）：}]
+ \[k=\frac{\Delta y}{\Delta x}=\frac{2t}{2y_0t/p}=\boxed{\frac{p}{y_0}}.\]
+\end{description}
+\par\noindent\textbf{理解加分：}$\Delta x\propto y_0$，所以 $y_0=0$ 时两端点的横坐标相同，弦正是\textbf{竖直}的；没有“无穷大斜率”这种实数值可代入公式。
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CProof}{深挖｜相减为何看方向，相加为何看长度？（圆与抛物线同构）}}\par\nobreak\smallskip
+\par\noindent\textbf{第1步：先问我们究竟想求什么。}\par\nobreak\smallskip\par
+\end{minipage}
+\par
+
+已知中点 $M$，端点只能写作 $A=M+(u,t)$、$B=M-(u,t)$。未知 $u,t$ 有两类信息：
+\textbf{方向}由比值 $t/u$ 决定；\textbf{远近}由 $\sqrt{u^2+t^2}$ 决定。因而自然寻找\textbf{一条线性的方向关系}和\textbf{一条平方的长度关系}。
+
+
+\par
+\begin{minipage}{\linewidth}
+\begin{center}
+\input{assets/tikz/C062_circle_add_subtract.tex}
+\par\small 圆中 $OM\perp AB$，直角三角形 $OMA$ 给出半弦长。
+\end{center}
+\end{minipage}
+\par
+
+\par\noindent\textbf{第2步：先用圆作标准参照。}\par\nobreak\smallskip
+圆 $x^2+y^2=R^2$ 上的两端点满足
+\[
+\begin{cases}
+(x_0+u)^2+(y_0+t)^2=R^2,\\
+(x_0-u)^2+(y_0-t)^2=R^2.
+\end{cases}
+\]
+相减得 $4(x_0u+y_0t)=0$，即 $OM\perp AB$（$M\ne O$）；相加得
+$2(x_0^2+y_0^2+u^2+t^2)=2R^2$，即
+\[
+\underbrace{OM^2}_{\text{中点离圆心多远}}
++\underbrace{AM^2}_{\text{半弦长平方}}
+=\underbrace{R^2}_{\text{半径平方}}.
+\]
+
+\par
+\begin{minipage}{\linewidth}
+\begin{center}
+\input{assets/tikz/C062_parabola_add_subtract.tex}
+\par\small 抛物线：半位移 $(u,t)$ 给方向，直角三角形给实际半弦长。
+\end{center}
+\end{minipage}
+\par
+
+\par\noindent\textbf{第3步：换成抛物线。}\par\nobreak\smallskip
+方程 $y^2=2px$ 给出
+\[
+\begin{cases}
+(y_0+t)^2=2p(x_0+u),\\
+(y_0-t)^2=2p(x_0-u).
+\end{cases}
+\]
+\textbf{相减}：$4y_0t=4pu\Rightarrow\boxed{y_0t=pu}$，因此非竖直时 $k=t/u=p/y_0$。
+\textbf{相加}：$2(y_0^2+t^2)=4px_0\Rightarrow\boxed{t^2=2px_0-y_0^2}$，因此判定弦是否存在及纵向半跨度。
+
+\par\noindent\textbf{第4步：补齐真正的弦长。}\par\nobreak\smallskip
+相减给 $u=y_0t/p$，相加给 $t^2$；两者一起代入\textbf{直角三角形的勾股定理}：
+\[
+\boxed{\displaystyle AB=2\sqrt{u^2+t^2}
+ =2\sqrt{(2px_0-y_0^2)\!\left(1+\frac{y_0^2}{p^2}\right)}}.
+\]
+\par\noindent\textbf{辨析：}圆中“相加”直接得到勾股；抛物线中“相加”得到 $t^2$，\textbf{再组合方向信息才得到真正的弦长勾股}，不能把 $t^2=2px_0-y_0^2$ 说成普通三角形勾股。
+
+
+\par
+\begin{minipage}{\linewidth}
+\begin{center}
+\input{assets/tikz/C062_proof_symmetric.tex}
+\par\small 以 $M$ 为中心交换 $A,B$，位移 $+t$ 与 $-t$ 交换，平方不变。
+\end{center}
+\end{minipage}
+\par
+
+\par\noindent\textbf{第5步：用一条式子统一两种运算（进阶可选）。}\par\nobreak\smallskip
+设 $F(x,y)=y^2-2px$，并记
+$F(M\pm(u,t))=0$，则展开为
+\[
+\boxed{F(M\pm(u,t))=
+ \underbrace{(y_0^2-2px_0+t^2)}_{\text{偶项：相加保留}}
+ \ \pm\ \underbrace{(2y_0t-2pu)}_{\text{奇项：相减保留}}}.
+\]
+两个端点都在曲线上意味着两个括号\textbf{分别为零}。这解释了为什么任何这种关于中点的\textbf{二次曲线}，加减两式都有明确的几何分工。
+\par\medskip
+\begin{minipage}{\linewidth}
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CProof}{证明三｜常规方法（联立直线 + 韦达定理）}}\par\nobreak\smallskip
+\par
+\begin{minipage}{\linewidth}
+\begin{center}
+\input{assets/tikz/C062_proof_vieta.tex}
+\par\small 交点的两个纵坐标，就是消去 $x$ 后方程的两个根。
+\end{center}
+\end{minipage}\par
+\end{minipage}
+\par
+
+\par
+
+\end{minipage}
+
+
+\par\noindent\textbf{为什么要有它：}考试如果还要找交点、判别式、弦长或处理中点轨迹，此法直接衔接完整解析几何流程。
+设弦所在直线为 $y=kx+b$。由于非退化水平直线与 $y^2=2px$ 至多只有一个交点，真正的非竖直弦必有 $k\ne0$。写作
+\[x=\frac{y-b}{k},\]
+代入 $y^2=2px$ 得
+\[
+ y^2=\frac{2p}{k}(y-b)
+ \quad\Longleftrightarrow\quad
+ y^2-\frac{2p}{k}y+\frac{2pb}{k}=0.
+\]
+该一元二次方程的两个不同实根是 $y_1,y_2$。由韦达定理
+\[
+ \begin{aligned}
+ y_1+y_2&=\frac{2p}{k},\\
+ y_0=\frac{y_1+y_2}{2}&=\frac{p}{k}
+ \quad\Longrightarrow\quad\boxed{k=\frac{p}{y_0}}.
+ \end{aligned}
+\]
+\par\noindent\textbf{成立条件：}判别式必须 $>0$ 才有两个不同实交点；若判别式 $=0$，得到的是切线而非非退化弦。
+\par\medskip
+\begin{minipage}{\linewidth}
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CProof}{补充四｜存在性的严格证明（“反用公式”时必须补）}}\par\nobreak\smallskip
+\par
+\begin{minipage}{\linewidth}
+\begin{center}
+\input{assets/tikz/C062_proof_existence.tex}
+\par\small 同尺度比较：固定 $y_0=2$，改变 $x_0$；$D=4x_0-4$。
+\end{center}
+\end{minipage}\par
+\end{minipage}
+\par
+
+\par
+
+\end{minipage}
+
+
+沿用方法二中的 $y_A=y_0+t,\;y_B=y_0-t$，由中点横坐标定义：
+\[
+ x_0=\frac{x_A+x_B}{2}
+ =\frac{(y_0+t)^2+(y_0-t)^2}{4p}
+ =\frac{y_0^2+t^2}{2p}.
+\]
+故
+\[\boxed{t^2=2px_0-y_0^2}.\]
+\par\noindent\textbf{必要性：}若 $A\ne B$ 是实点，则 $t\ne0$，故 $2px_0-y_0^2=t^2>0$。
+\par\noindent\textbf{充分性：}若 $2px_0-y_0^2>0$，取 $t=\sqrt{2px_0-y_0^2}>0$，令
+\[
+ A\left(\frac{(y_0+t)^2}{2p},y_0+t\right),\quad
+ B\left(\frac{(y_0-t)^2}{2p},y_0-t\right).
+\]
+它们确实是曲线上\textbf{两个不同实点}，且其中点是 $M(x_0,y_0)$，因此条件充分。这样的两个端点（互换顺序视为相同）也是唯一的。
+\par\smallskip
+\par\noindent\textbf{边界分类：}
+\begin{itemize}[leftmargin=*,itemsep=0.2em]
+ \item $2px_0>y_0^2,\ y_0\ne0$：非竖直弦，$k=p/y_0$。
+ \item $2px_0>y_0^2,\ y_0=0$：竖直弦 $x=x_0$，斜率不存在。
+ \item $2px_0=y_0^2$：$t=0$，只得到重合端点；切线存在，但\textbf{不存在非退化弦}。
+ \item $2px_0<y_0^2$：$t^2<0$，不存在实弦。
+\end{itemize}
+\par\medskip
+\begin{minipage}{\linewidth}
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CProof}{补充五｜导数视角（帮助理解，不作为必背证明）}}\par\nobreak\smallskip
+\par
+\begin{minipage}{\linewidth}
+\begin{center}
+\input{assets/tikz/C062_proof_tangent.tex}
+\par\small 同纵标曲线点 $T$ 处的切线与弦平行；$M$ 不是切点。
+\end{center}
+\end{minipage}\par
+\end{minipage}
+\par
+
+\par
+
+\end{minipage}
+
+
+由 $y^2=2px$ 对 $x$ 求导：$2y\,y'=2p$，故曲线上 $y=y_0\ne0$ 的点 $T$ 处，切线斜率为 $p/y_0$。与方法一的结果相同，所以\textbf{中点弦方向等于曲线上“同纵坐标点”的切线方向}。千万不要把中点 $M$ 当作切点。
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CProof}{最终结论}}\par\nobreak\smallskip
+\[\boxed{\displaystyle k_{AB}=\frac{p}{y_0}\quad\text{（非竖直真实弦）}}\]\par
+\end{minipage}
+\par
+
+考场首选\textbf{证明一}；初学理解首选\textbf{证明二}；涉及交点和判别式首选\textbf{证明三}；由指定中点反求弦要加\textbf{存在性验证}。
 \end{proofbox}

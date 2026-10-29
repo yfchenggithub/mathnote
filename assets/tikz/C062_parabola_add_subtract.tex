@@ -1,0 +1,21 @@
+% 精确数值：y²=4x, p=2, A(9,6), B(1,-2), M(5,2), T(1,2), 半位移 (u,t)=(4,4)
+\begin{tikzpicture}[x=.71cm,y=.71cm,>=stealth,font=\small]
+  \clip (-1.3,-3.15) rectangle (11.1,7.35);
+  \draw[->,gray!60] (-.55,0)--(10.7,0) node[right] {$x$};
+  \draw[->,gray!60] (0,-2.85)--(0,7.0) node[above] {$y$};
+  \draw[blue!75!black,very thick,samples=125,domain=-2.5:6.4,variable=\v,smooth]
+    plot ({\v*\v/4},{\v});
+  \draw[violet!85!black,very thick] (1,-2)--(9,6);
+  \draw[densely dashed,orange!85!black,thick] (1,2)--(5,2);
+  \draw[gray!75,densely dashed] (5,2)--(9,2)--(9,6);
+  \fill[violet!85!black] (9,6) circle (2.6pt) node[above left] {$A(9,6)$};
+  \fill[violet!85!black] (1,-2) circle (2.6pt) node[below right] {$B(1,-2)$};
+  \fill[orange!85!black] (5,2) circle (2.8pt) node[below right,xshift=5pt,yshift=-9pt] {$M(5,2)$};
+  \fill[green!50!black] (1,2) circle (2.6pt) node[above left] {$T(1,2)$};
+  \draw[gray!80,thick] (8.55,2)--(8.55,2.45)--(9,2.45);
+  \node[above,orange!80!black] at (3.0,2.07) {$MT=4$};
+  \node[below,gray!70!black] at (7.0,2) {$u=4$};
+  \node[left,gray!70!black] at (9,4.0) {$t=4$};
+  \node[blue!70!black] at (4.3,-2.2) {$y^2=4x$};
+  \node[below left] at (0,0) {$O$};
+\end{tikzpicture}

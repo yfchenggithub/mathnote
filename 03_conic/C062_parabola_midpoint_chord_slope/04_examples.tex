@@ -1,70 +1,146 @@
+\clearpage
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例1（基础直接应用）}}
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CExample}{例1｜已知中点，求弦方程（基础）}}\par\nobreak\smallskip
+\par\noindent\textbf{题目：} 抛物线 $y^2=4x$ 上弦 $AB$ 的中点为 $M(2,1)$，求弦所在直线，并验证是实弦。
+\par
+\end{minipage}
+\par\smallskip
+\par\noindent\textbf{解：} $2p=4\Rightarrow p=2$。存在性先验：$2px_0-y_0^2=2\cdot2\cdot2-1=7>0$；又 $y_0=1\ne0$，故
+\[
+ k=\frac{2}{1}=2,\qquad
+ \boxed{y-1=2(x-2)\ \Longleftrightarrow\ y=2x-3}.
+\]
+直接验算：代入曲线得 $y^2-2y-6=0$，所以 $y_A=1+\sqrt7,\ y_B=1-\sqrt7$，确有两个不同交点，且纵坐标平均为 $1$。
+\par\noindent\textbf{识别信号：}“给弦中点 $\to$ 查存在 $\to$ 求斜率 $\to$ 点斜式”。
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CExample}{例2｜已知斜率，求中点纵坐标（逆向）}}\par\nobreak\smallskip
+\par\noindent\textbf{题目：} 抛物线 $y^2=8x$ 上某非竖直弦的斜率为 $-2$，求其中点的纵坐标。
+\par
+\end{minipage}
+\par\smallskip
+\par\noindent\textbf{解：} $p=4$，$y_0=p/k=4/(-2)=\boxed{-2}$。
+\par\noindent\textbf{提醒：} 中点的\textbf{横坐标不能仅由斜率唯一确定}；还需要弦经过的定点、截距等信息。不同平行弦可以有同一个 $y_0$。
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CExample}{例3｜动弦中点轨迹（高价值综合）}}\par\nobreak\smallskip
 
-	\textbf{\textcolor{CExample}{题目：}}
-	已知抛物线$y^2=4x$的弦$AB$的中点为$M(2,1)$，求弦$AB$所在直线的方程。
+\par
+\begin{minipage}{\linewidth}
+\begin{center}
+\input{assets/tikz/C062_math_audit_geometry.tex}
+\par\small 蓝色为原抛物线，绿色为中点轨迹；空心顶点仅在允许竖直弦时补回。
+\end{center}
+\end{minipage}
+\par
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（确定参数）：}]将$y^2=4x$与标准方程$y^2=2px$对比，得$2p=4$，故$p=2$。
-			\par\textbf{理由：}为应用公式需明确$p$。
-		\item[\textbf{第二步（套用公式）：}]由中点弦斜率公式$k=\dfrac{p}{y_0}$，代入$p=2,\ y_0=1$得
-			\[
-				k = \frac{2}{1}=2
-			\]
-			\par\textbf{理由：}直接运用结论。
-		\item[\textbf{第三步（点斜式写）：}]利用点斜式，直线过$M(2,1)$，斜率$2$，得
-			\[
-				y-1 = 2(x-2) \quad\Longrightarrow\quad y=2x-3
-			\]
-			\par\textbf{理由：}求得方程即弦所在直线。
-	\end{description}
+\par\noindent\textbf{题目：} 抛物线 $y^2=2x$，过 $P(1,0)$ 的斜率为有限非零实数 $k$ 的直线与抛物线交于不同两点 $A,B$，中点 $M(x_0,y_0)$ 的轨迹是什么？
+\par
+\end{minipage}
+\par\smallskip
+\par\noindent\textbf{解：} $p=1$，直线 $l:y=k(x-1)$，中点在 $l$ 上：
+\[
+ y_0=k(x_0-1),\qquad k=\frac{1}{y_0}
+ \quad\Longrightarrow\quad
+ \boxed{x_0=1+y_0^2,\quad y_0\ne0}.
+\]
+\par\noindent\textbf{别忘查实弦：} $2px_0-y_0^2=2(1+y_0^2)-y_0^2=2+y_0^2>0$，轨迹上每一个 $y_0\ne0$ 都能对应真实非竖直弦。若\textbf{额外允许竖直线} $x=1$，两交点为 $(1,\pm\sqrt2)$，中点为 $(1,0)$，此时轨迹顶点\textbf{应补回}。
+\par\noindent\textbf{答案：}非竖直情形为 $x=1+y^2,\ y\ne0$；若允许竖直弦，则为整条 $x=1+y^2$。
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CExample}{例4｜反例：算出了斜率，为什么没有弦？}}\par\nobreak\smallskip
+\par\noindent\textbf{题目：} 在 $y^2=4x$ 上，能否找到以 $M(0,1)$ 为中点的弦？
+\par
+\end{minipage}
+\par\smallskip
+\par\noindent\textbf{解：} 若只套公式，会得到 $k=2$、候选直线 $y=2x+1$；但
+\[
+ 2px_0-y_0^2=4\cdot0-1=-1<0,
+\]
+故\textbf{不存在}这样的实弦。实际上把 $x=(y-1)/2$ 代入曲线，得到 $y^2-2y+2=0$，判别式 $-4<0$。
+\par\noindent\textbf{考点：}斜率公式\textbf{必要不充分}，必须检查弦存在性。
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CExample}{例5｜相等与竖直两种边界}}\par\nobreak\smallskip
+在 $y^2=4x$ 中：\par
+\end{minipage}
+\par
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	弦$AB$的方程为$y=2x-3$。
+\begin{itemize}[leftmargin=*,itemsep=0.25em]
+ \item $M(1,2)$：$2px_0-y_0^2=4-4=0$，候选直线斜率 $k=1$，即 $y=x+1$；仅在 $(1,2)$ 相切，\textbf{不是两个不同端点的弦}。
+ \item $M(1,0)$：$2px_0-y_0^2=4>0$，存在弦 $x=1$，端点 $(1,2),(1,-2)$；\textbf{弦存在，但斜率不存在}。
+\end{itemize}
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CExample}{例6｜开口向左，保留 $p$ 的符号}}\par\nobreak\smallskip
+\par\noindent\textbf{题目：} 在 $y^2=-4x$ 上，以 $M(-2,2)$ 为中点的弦是什么？
+\par
+\end{minipage}
+\par\smallskip
+\par\noindent\textbf{解：} $p=-2$，$2px_0-y_0^2=(-4)(-2)-4=4>0$；$k=-2/2=-1$。
+\[
+ \boxed{y-2=-(x+2)\Longleftrightarrow y=-x}.
+\]
+交点为 $(0,0),(-4,4)$，其中点正是 $(-2,2)$。
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CExample}{例7｜圆：同一对方程为什么一加一减？}}\par\nobreak\smallskip
+\par\noindent\textbf{题目：}圆 $x^2+y^2=25$ 有一条弦的中点 $M(3,0)$。\textbf{不联立直线}，判断弦方向并求弦长。
 
-	\medskip
-	\textbf{\textcolor{CExample}{例2（稍变形应用）}}
+\par
+\end{minipage}
+\par\smallskip
+\par\noindent\textbf{解：}设两个端点为 $A=(3+u,t),\ B=(3-u,-t)$。代入圆方程：
+\[
+(3+u)^2+t^2=25,\qquad (3-u)^2+t^2=25.
+\]
+相减：$12u=0\Rightarrow u=0$，故弦\textbf{竖直}；相加：$18+2u^2+2t^2=50$，得 $t^2=16$。所以
+\[
+\boxed{A=(3,4),\quad B=(3,-4),\quad AB=8}.
+\]
+\par\noindent\textbf{几何翻译：}相减得到 $OM\perp AB$；相加就是 $3^2+4^2=5^2$，半弦长由\textbf{勾股定理}给出。
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CExample}{例8｜抛物线：相减决定方向，相加求出端点}}\par\nobreak\smallskip
+\par\noindent\textbf{题目：}在 $y^2=4x$ 上，给定弦中点 $M(5,2)$。分别用相减、相加确定方向、半弦长与端点。
 
-	\textbf{\textcolor{CExample}{题目：}}
-	已知抛物线$y^2=8x$的弦$AB$的斜率为$-2$，求弦$AB$中点$M$的纵坐标。
+\par
+\end{minipage}
+\par\smallskip
+\par\noindent\textbf{解：} $p=2$，设 $A=(5+u,2+t)$、$B=(5-u,2-t)$。
+\[
+\begin{aligned}
+\text{相减：}&\quad 2t=2u\ \Longrightarrow\ u=t\ \Longrightarrow\ k=1,\\
+\text{相加：}&\quad t^2=2\cdot2\cdot5-2^2=16
+ \ \Longrightarrow\ |t|=4.
+\end{aligned}
+\]
+取 $t=4$，则 $u=4$：
+\[
+\boxed{A=(9,6),\quad B=(1,-2),\quad AB=2\sqrt{4^2+4^2}=8\sqrt2}.
+\]
+取曲线上 $T=(1,2)$，有 $MT=4$，且 $t^2=16=2p\cdot MT=4\cdot4$；这里是\textbf{正方形与矩形的面积相等}，不是三角形勾股。真正的勾股是最后 $AM^2=4^2+4^2$。
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（确定参数）：}]由$y^2=8x$得$2p=8$，即$p=4$。
-			\par\textbf{理由：}求$p$以代入公式。
-		\item[\textbf{第二步（公式变形）：}]中点弦斜率公式$k=\dfrac{p}{y_0}$可变形为$y_0=\dfrac{p}{k}$（$k\neq0$）。
-			\par\textbf{理由：}已知斜率求中点坐标需使用逆推形式。
-		\item[\textbf{第三步（代入求值）：}]将$p=4,\ k=-2$代入$y_0=\dfrac{p}{k}$得
-			\[
-				y_0 = \frac{4}{-2} = -2
-			\]
-			\par\textbf{理由：}直接计算得中点纵坐标。
-	\end{description}
+\par\noindent\textbf{再比较：}如果中点改成 $M'(2,2)$，斜率\textbf{依旧是 $1$}，但 $t'^2=4$，弦长为 $4\sqrt2$。
+由此看出：\textbf{纵坐标控制方向，横坐标通过相加式控制长度。}
+\par\medskip
+\begin{minipage}{\linewidth}
+\noindent
+\textbf{\textcolor{CExample}{高价值变式｜自己先做}}\par\nobreak\smallskip
+抛物线 $y^2=4x$ 的弦中点为 $M(1,m)$。问：哪些 $m$ 对应真实\textbf{非竖直}弦？写出其斜率。\par
+\end{minipage}
+\par
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	弦$AB$的中点纵坐标为$y_0=-2$。
-
-	\medskip
-	\textbf{\textcolor{CExample}{例3（综合应用）}}
-
-	\textbf{\textcolor{CExample}{题目：}}
-	已知抛物线$y^2=2x$，斜率为$k$（$k\neq0$）的直线$l$过定点$P(1,0)$，与抛物线交于$A$、$B$两点，弦$AB$的中点为$M$。求点$M$的轨迹方程。
-
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（设参表示）：}]设直线$l: y = k(x-1)$，设$M(x_0,y_0)$，则$y_0 = \frac{y_1+y_2}{2}$。
-			\par\textbf{理由：}引入参数表示直线和中点。
-		\item[\textbf{第二步（套用结论）：}]由抛物线$y^2=2x$知$p=1$，根据中点弦斜率公式得$k = \dfrac{p}{y_0} = \dfrac{1}{y_0}$。
-			\par\textbf{理由：}直接应用结论建立$k$与$y_0$的关系。
-		\item[\textbf{第三步（消参得轨）：}]因为$M$在直线$l$上，故$y_0 = k(x_0-1)$。代入$k=\dfrac{1}{y_0}$得
-			\[
-				y_0 = \frac{1}{y_0}(x_0-1) \quad\Longrightarrow\quad y_0^2 = x_0 - 1.
-			\]
-			当$y_0=0$时对应点$P(1,0)$，这时对应竖直弦$x=1$，端点为$(1,\pm\sqrt2)$，实际存在；只是本题设定直线斜率为有限实数$k$，不包含竖直线，故轨迹中应除去该点。
-			\par\textbf{理由：}消去参数$k$，并考虑实际意义。
-	\end{description}
-
-	\textbf{\textcolor{CExample}{关键结论：}}
-	中点$M$的轨迹方程为$y^2 = x - 1$（$y \neq 0$），即除去顶点$(1,0)$后向两端无限延伸的抛物线两部分。
+\par\noindent\textbf{答案与关键：} $2px_0-y_0^2=4-m^2>0$ 且 $m\ne0$，故
+\[\boxed{-2<m<2,\quad m\ne0,\qquad k=\frac{2}{m}}.\]
 \end{examplebox}
