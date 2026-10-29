@@ -1,61 +1,181 @@
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
-	通过“设坐标 $\rightarrow$ 写斜率 $\rightarrow$ 代方程 $\rightarrow$ 消元化简”的标准解析几何流程，逐步推导定值。
+\textbf{\textcolor{CProof}{证明一：最快证明（考场 2--3 步，首选）}}
+\input{assets/tikz/C064_proof_fast}
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（设点表示斜率）：}]
-			设 $P(x_{0},y_{0})$ 为椭圆上一点（$x_{0}\neq\pm a$）。长轴端点为 $A_{1}(-a,0)$，$A_{2}(a,0)$。则
-			\[
-				k_{PA_{1}}=\frac{y_{0}}{x_{0}+a},
-				\qquad
-				k_{PA_{2}}=\frac{y_{0}}{x_{0}-a}.
-			\]
-			\par\textbf{理由：} 直接利用两点间斜率公式 $k=\dfrac{y_{2}-y_{1}}{x_{2}-x_{1}}$。
-		\item[\textbf{步骤二（写出乘积）：}]
-			\[
-				\begin{aligned}
-					k_{PA_{1}}\cdot k_{PA_{2}} &= \frac{y_{0}}{x_{0}+a}\cdot\frac{y_{0}}{x_{0}-a} \\ &= \frac{y_{0}^{2}}{(x_{0}+a)(x_{0}-a)} \\ &= \frac{y_{0}^{2}}{x_{0}^{2}-a^{2}}.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 分母利用平方差公式 $(x_{0}+a)(x_{0}-a)=x_{0}^{2}-a^{2}$。
-		\item[\textbf{步骤三（椭圆方程变形）：}]
-			因为 $P$ 在椭圆上，所以 $\dfrac{x_{0}^{2}}{a^{2}}+\dfrac{y_{0}^{2}}{b^{2}}=1$。移项得
-			\[
-				\begin{aligned}
-					\frac{y_{0}^{2}}{b^{2}} &= 1-\frac{x_{0}^{2}}{a^{2}} \\ &= \frac{a^{2}-x_{0}^{2}}{a^{2}}.
-			\end{aligned}
-			\]
-			两边乘以 $b^{2}$ 得到
-			\[
-				\begin{aligned}
-					y_{0}^{2} &= b^{2}\cdot\frac{a^{2}-x_{0}^{2}}{a^{2}} \\ &= \frac{b^{2}}{a^{2}}(a^{2}-x_{0}^{2}).
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 从椭圆方程中解出 $y_{0}^{2}$，为代入消元做准备。
-		\item[\textbf{步骤四（代入消元）：}]
-			\[
-				\begin{aligned}
-					k_{PA_{1}}\cdot k_{PA_{2}} &= \frac{\dfrac{b^{2}}{a^{2}}(a^{2}-x_{0}^{2})}{x_{0}^{2}-a^{2}} \\ &= \frac{b^{2}}{a^{2}}\cdot\frac{a^{2}-x_{0}^{2}}{x_{0}^{2}-a^{2}}.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 代入并整理因子。
-		\item[\textbf{步骤五（化简得定值）：}]
-			注意到 $a^{2}-x_{0}^{2}=-(x_{0}^{2}-a^{2})$，因此
-			\[
-				\frac{a^{2}-x_{0}^{2}}{x_{0}^{2}-a^{2}} = -1.
-			\]
-			故
-			\[
-				\begin{aligned}
-					k_{PA_{1}}\cdot k_{PA_{2}} &= \frac{b^{2}}{a^{2}}\cdot(-1) \\ &= -\frac{b^{2}}{a^{2}}.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 分子分母互为相反数，约分即得与 $P$ 无关的常数。
-	\end{description}
+\par\textbf{切入信号：}题目要求两条连线的\textbf{斜率乘积}，先乘再化，不分别求具体斜率。
+设 $P(x,y)\in C\setminus\{A_1,A_2\}$，则
+\[
+ \begin{aligned}
+ k_{PA_1}k_{PA_2}
+ &=\frac{y}{x+a}\cdot\frac{y}{x-a}
+ =\frac{y^2}{x^2-a^2},\\
+ y^2&=b^2\Bigl(1-\frac{x^2}{a^2}\Bigr)
+ =-\frac{b^2}{a^2}(x^2-a^2),\\
+ \therefore\quad k_{PA_1}k_{PA_2}&=\boxed{-\frac{b^2}{a^2}}.
+ \end{aligned}
+\]
+\textbf{最关键的一眼：}$y^2$ 与 $x^2-a^2$ 在椭圆方程中\textbf{恰好成比例}，不必再设第二个未知量。
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-	\textbf{至此，我们严格推导了椭圆第三定义：椭圆上任意一点（非长轴端点）与长轴两端点连线的斜率乘积恒等于 $-\dfrac{b^{2}}{a^{2}}$。该结论完全由椭圆方程决定，与点 $P$ 的具体位置无关。}
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明二：最低门槛（圆的直角 $\longrightarrow$ 椭圆的斜率积）}}
+\input{assets/tikz/C064_compression}
+
+\textbf{要回答的三个问题：}点是怎样配对的？为什么比例恰是 $b/a$？缩放后究竟保留了什么？
+
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.55em]
+ \item[\textbf{第 1 步：搭一座共同的桥——固定两端点。}]
+  取圆 $C_0:u^2+v^2=a^2$，以及椭圆
+  $C:\frac{x^2}{a^2}+\frac{y^2}{b^2}=1\ (a>b>0)$。
+  它们的中心都是 $O(0,0)$，左右端点同为 $A_1(-a,0),A_2(a,0)$。
+  选圆上点 $Q(u,v)\ne A_1,A_2$；于是 $v\ne0$，且 $-a<u<a$。
+
+ \item[\textbf{第 2 步：先在圆里得到一个熟悉的 $-1$。}]
+  $A_1A_2$ 是直径，由圆周角定理，$\angle A_1QA_2=90^\circ$。
+  两条斜率存在，因而
+  \[
+    k_{QA_1}=\frac{v}{u+a},\qquad
+    k_{QA_2}=\frac{v}{u-a},\qquad
+    \boxed{k_{QA_1}k_{QA_2}=-1}.
+  \]
+  （也可直接算 $\frac{v^2}{u^2-a^2}=\frac{a^2-u^2}{u^2-a^2}=-1$。）
+
+ \item[\textbf{第 3 步：为什么纵坐标要乘 $b/a$？不是随便猜的。}]
+  我们\textbf{主动选择保持横坐标不变}，令圆上的 $Q(u,v)$ 对应到椭圆上的
+  $P(u,w)$，并要求两点在横轴同侧。由于 $u^2+v^2=a^2$，而
+  $P$ 要满足椭圆方程，故
+  \[
+    \frac{u^2}{a^2}+\frac{w^2}{b^2}=1
+    \ \Longrightarrow\ 
+    \frac{w^2}{b^2}=\frac{v^2}{a^2}
+    \ \Longrightarrow\ 
+    w=\frac ba\,v
+    \quad\text{（同侧取同号）}.
+  \]
+  因此映射只能写成（在上述规则下）
+  \[
+    \boxed{T:\ (u,v)\mapsto\left(u,\frac ba v\right)}.
+  \]
+  \textbf{注意：}并非所有可能的圆椭圆对应都必须如此；我们选这种映射，是因为它\textbf{固定横轴}。
+
+ \item[\textbf{第 4 步：识别不变量与变化量。}]
+  横坐标相同，垂足 $H=(u,0)$ 不动；横轴所有点也固定：
+  $T(A_1)=A_1,\ T(O)=O,\ T(A_2)=A_2$。
+  $Q$ 到横轴的有向高度 $v$ 变成 $\frac ba v$，纵向增量都乘 $b/a$。
+  归一化高度保持 $\frac{y_P}{b}=\frac{v_Q}{a}$。
+  从端点到 $Q$ 的连线经 $T$ 后正好变成从同一端点到 $P$ 的连线。
+
+ \item[\textbf{第 5 步：两条斜率为什么\emph{各自}乘一次 $b/a$？}]
+  对左端点，水平位移仍是 $u+a$，竖直位移由 $v$ 变为 $(b/a)v$，所以
+  \[
+    k_{PA_1}=\frac{(b/a)v}{u+a}
+    =\frac ba\,k_{QA_1}.
+  \]
+  对右端点同理（水平位移是 $u-a$，注意它是负数）：
+  \[
+    k_{PA_2}=\frac{(b/a)v}{u-a}
+    =\frac ba\,k_{QA_2}.
+  \]
+  \textbf{这是核心几何意义：}水平跨度原封不动，高度等比变小，\textbf{斜率也就按比例变小}。
+
+ \item[\textbf{第 6 步：斜率积随之缩放两次。}]
+  \[
+   \begin{aligned}
+    k_{PA_1}k_{PA_2}
+    &=\left(\frac ba\,k_{QA_1}\right)
+      \left(\frac ba\,k_{QA_2}\right)\\
+    &=\left(\frac ba\right)^2(-1)
+      =\boxed{-\frac{b^2}{a^2}}.
+   \end{aligned}
+  \]
+ \item[\textbf{第 7 步：逆向检验——椭圆也能拉回圆。}]
+  反过来给定椭圆点 $P(x,y)$，令 $Q=(x,\frac ab y)$，
+  则 $x^2+(\frac ab y)^2=a^2$，即 $Q$ 在圆上，且 $T(Q)=P$。
+  因而这套对应对每个点都成立，是\textbf{可逆的一一对应}，并非只对图中某个特选点成立。
+\end{description}
+
+\textbf{两条必要提醒：}① 圆里 $QA_1\perp QA_2$，但压缩后的
+$PA_1,PA_2$ \textbf{一般不再垂直}；本证明用的是斜率的\textbf{缩放关系}，
+不是用“压缩后仍为直角”。② 排除端点，是因为端点处一条连线退化、斜率无定义。
+
+\textbf{为什么推荐此法：}初中圆周角定理 $\to$ 统一的纵向缩放 $\to$ 高中斜率乘积，
+不必死记公式，也能理解负号与平方的来源。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明三：常规解析法（步骤完整，适合书面证明）}}
+\input{assets/tikz/C064_proof_coordinates}
+
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.4em]
+ \item[\textbf{第 1 步（设点并检查定义域）：}]
+  设 $P(x_0,y_0)$，$\frac{x_0^2}{a^2}+\frac{y_0^2}{b^2}=1$，$P\ne A_1,A_2$。
+  所以 $x_0\ne\pm a$，两条连线斜率均存在。
+ \item[\textbf{第 2 步（两点斜率公式）：}]
+  \[
+   k_{PA_1}=\frac{y_0}{x_0+a},\qquad k_{PA_2}=\frac{y_0}{x_0-a}.
+  \]
+ \item[\textbf{第 3 步（先乘，平方差结构）：}]
+  \[
+   k_{PA_1}k_{PA_2}=\frac{y_0^2}{(x_0+a)(x_0-a)}
+   =\frac{y_0^2}{x_0^2-a^2}.
+  \]
+ \item[\textbf{第 4 步（椭圆方程消元）：}]
+  \[
+   y_0^2=b^2\Bigl(1-\frac{x_0^2}{a^2}\Bigr)
+   =\frac{b^2}{a^2}(a^2-x_0^2).
+  \]
+ \item[\textbf{第 5 步（约分，判断符号）：}]
+  \[
+   k_{PA_1}k_{PA_2}
+   =\frac{b^2}{a^2}\frac{a^2-x_0^2}{x_0^2-a^2}
+   =-\frac{b^2}{a^2}.
+  \]
+  其中约分合法的原因是 $x_0\ne\pm a$。
+\end{description}
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{补充证明四：长轴在 $y$ 轴时直接检验（防止套错）}}
+\input{assets/tikz/C064_proof_vertical}
+
+对 $\dfrac{y^2}{a^2}+\dfrac{x^2}{b^2}=1$，
+$B_1(0,-a),B_2(0,a)$，$P(x,y)\ne B_1,B_2$，故 $x\ne0$：
+\[
+ \begin{aligned}
+ k_{PB_1}k_{PB_2}
+ &=\frac{y+a}{x}\cdot\frac{y-a}{x}
+ =\frac{y^2-a^2}{x^2}\\
+ &=\frac{-\frac{a^2}{b^2}x^2}{x^2}
+ =\boxed{-\frac{a^2}{b^2}}.
+ \end{aligned}
+\]
+\textbf{作用：}可以从斜率的“分子/分母”重新推出公式，而不是硬记一个倒数。
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{补充证明五：逆命题与轨迹方程（高价值拓展）}}
+\input{assets/tikz/C064_proof_locus}
+
+固定 $A_1(-a,0),A_2(a,0)$，设斜率积为 $-\lambda$（$\lambda>0$）。
+由斜率公式得
+\[
+ \frac{y^2}{x^2-a^2}=-\lambda
+ \quad\Longleftrightarrow\quad
+ \frac{x^2}{a^2}+\frac{y^2}{\lambda a^2}=1,
+ \qquad x\ne\pm a.
+\]
+\textbf{结论：}斜率积为 $-\lambda$ 刻画了一条去掉指定端点的椭圆（$\lambda\ne1$）或圆（$\lambda=1$）；
+$0<\lambda<1$ 才能判定 $A_1,A_2$ 是\textbf{长轴}端点。
+
+\medskip
+\textbf{\textcolor{CProof}{方法选择}}
+\begin{itemize}[leftmargin=*,itemsep=0.2em]
+ \item \textbf{赶时间写答案：}选最快法，直接写 $y^2=-\frac{b^2}{a^2}(x^2-a^2)$。
+ \item \textbf{想真正记住：}选圆 $\to$ 椭圆压缩法，牢记斜率各缩小 $b/a$。
+ \item \textbf{要求严谨分步：}选常规法，先核查 $P$ 不是长轴端点。
+ \item \textbf{反求轨迹或参数：}选逆向法，先用乘积构造方程，再看 $\lambda$ 的范围。
+\end{itemize}
 \end{proofbox}

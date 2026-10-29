@@ -1,0 +1,20 @@
+\begin{center}
+\begin{tikzpicture}[font=\small]
+ \path[use as bounding box] (-3,-3) rectangle (9,3);
+ \foreach \sx/\endpoint in {0/2,6/1}{
+ \begin{scope}[shift={(\sx,0)}]
+ \draw[blue!60!black,thick] (0,0) ellipse (2 and {sqrt(3)});
+ \draw[gray] (-2.4,0)--(2.4,0);
+ \draw[teal!70!black,thick] (-\endpoint,0)--(0,{sqrt(3)});
+ \draw[magenta!70!black,thick] (\endpoint,0)--(0,{sqrt(3)});
+ \fill (-\endpoint,0) circle (1.7pt);\fill (\endpoint,0) circle (1.7pt);
+ \node[above] at (0,{sqrt(3)}) {$P(0,\sqrt3)$};
+ \end{scope}}
+ \node at (0,2.65) {指定长轴顶点};\node at (6,2.65) {换成焦点：定值不适用};
+ \node[below left] at (-2,0) {$A_1$};\node[below right] at (2,0) {$A_2$};
+ \node[below] at (5,0) {$F_1$};\node[below] at (7,0) {$F_2$};
+ \node at (0,-2.3) {$k_{PA_1}k_{PA_2}=-\frac34$};
+ \node at (6,-2.3) {$k_{PF_1}k_{PF_2}=-3$};
+ \node at (3,-2.9) {同一椭圆 $x^2/4+y^2/3=1$；两图单位长度相同};
+\end{tikzpicture}
+\end{center}

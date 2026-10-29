@@ -1,23 +1,55 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件1（椭圆标准形）：}}]
-			椭圆 $\dfrac{x^{2}}{a^{2}}+\dfrac{y^{2}}{b^{2}}=1\;(a>b>0)$，长轴端点为 $A_{1}(-a,0),A_{2}(a,0)$。点 $P$ 在椭圆上，且异于 $A_{1},A_{2}$。
-	\end{description}
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（第三定义）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			椭圆上任何一点（非长轴端点）与长轴两端点连线的斜率乘积是恒定的负值。
-			\[
-				k_{PA_{1}}\cdot k_{PA_{2}} = -\frac{b^{2}}{a^{2}}.
-			\]
-		\item[\textbf{\textcolor{CStatement}{常见变形（焦点在$y$轴）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			若椭圆长轴在 $y$ 轴上（方程 $\dfrac{y^{2}}{a^{2}}+\dfrac{x^{2}}{b^{2}}=1$，$a>b>0$），长轴端点为 $B_{1}(0,-a),B_{2}(0,a)$，则类似结论为
-			\[
-				k_{PB_{1}}\cdot k_{PB_{2}} = -\frac{a^{2}}{b^{2}}.
-			\]
-	\end{description}
+\input{assets/tikz/C064_overview}
+\textbf{\textcolor{CStatement}{条件}}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.35em]
+ \item[\textbf{\textcolor{CStatement}{条件一（长轴在 $x$ 轴）：}}]
+  椭圆 $C:\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1\ (a>b>0)$，
+  长轴端点 $A_1(-a,0),A_2(a,0)$；取 $P(x,y)\in C\setminus\{A_1,A_2\}$。
+ \item[\textbf{\textcolor{CStatement}{条件二（斜率存在）：}}]
+  由于 $P$ 不是两个长轴端点，必有 $-a<x<a$ 且 $y\ne0$，
+  因而 $k_{PA_1},k_{PA_2}$ 都存在且一正一负。
+\end{description}
+\textbf{\textcolor{CStatement}{结论}}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.4em]
+ \item[\textbf{\textcolor{CStatement}{结论一（椭圆第三定义）：}}]
+  动点 $P$ 与\textbf{长轴两端点}连线的斜率乘积恒为负数：
+  \[
+   \boxed{k_{PA_1}\,k_{PA_2}=-\frac{b^2}{a^2}}
+  \]
+  其中 $b^2=a^2-c^2$，故还可写成 $\boxed{k_{PA_1}k_{PA_2}=e^2-1}$（$e=c/a$）。
+ \item[\textbf{\textcolor{CStatement}{结论二（长轴在 $y$ 轴）：}}]
+  若椭圆为 $\dfrac{y^2}{a^2}+\dfrac{x^2}{b^2}=1\ (a>b>0)$，
+  长轴端点 $B_1(0,-a),B_2(0,a)$，且 $P$ 异于两端点，则
+  \[
+    \boxed{k_{PB_1}\,k_{PB_2}=-\frac{a^2}{b^2}}
+  \]
+  此时两条斜率均存在（$x\ne0$）。
+ \item[\textbf{\textcolor{CStatement}{逆向认识（确定轨迹）：}}]
+  固定 $A_1(-a,0),A_2(a,0)$（$a>0$），若动点 $P$ 使
+  $k_{PA_1}k_{PA_2}=-\lambda$（$\lambda>0$），则轨迹位于椭圆
+  \[
+    \frac{x^2}{a^2}+\frac{y^2}{\lambda a^2}=1
+  \]
+  上并需剔除 $A_1,A_2$。只有 $0<\lambda<1$ 时，$A_1A_2$ 才是这条椭圆的\textbf{长轴}；
+  $\lambda=1$ 为圆，$\lambda>1$ 时 $A_1A_2$ 是短轴。
+\end{description}
+\medskip
+\textbf{\textcolor{CStatement}{圆与椭圆的双向坐标对应（理解结论的桥梁）：}}
+取半径为 $a$ 的圆 $C_0:u^2+v^2=a^2$，与椭圆 $C$ 共用中心
+$O(0,0)$ 和横轴端点 $A_1(-a,0),A_2(a,0)$。\textbf{特意选择保持横坐标不变}的纵向缩放：
+\[
+ \boxed{T:\ Q(u,v)\longmapsto P\left(u,\frac ba v\right)},
+ \qquad
+ \boxed{T^{-1}:\ P(x,y)\longmapsto Q\left(x,\frac ab y\right)}.
+\]
+这里 $0<b<a$；两式互逆，圆上每个点与椭圆上一个点一一对应（证明斜率积时须排除 $A_1,A_2$）。
+它不是两条曲线之间\textbf{唯一可能}的对应，而是固定横轴、便于保留两端点并比较斜率的一种\textbf{特选映射}。
+\textbf{不变量：}横坐标 $x=u$，横轴所有点（特别是 $A_1,O,A_2$），
+以及对应点到横轴的垂足 $H=(u,0)$；归一化高度满足
+$\dfrac{y}{b}=\dfrac{v}{a}$。长度和夹角通常不保持。
 
+\medskip
+\textbf{\textcolor{CStatement}{使用范围：}}
+这是建立在椭圆标准方程和指定长轴端点上的\textbf{二级结论}（习惯称“第三定义”），
+不可误作“椭圆上任意两定点均成立”。
 \end{statementbox}

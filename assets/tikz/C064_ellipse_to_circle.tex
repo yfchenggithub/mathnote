@@ -1,0 +1,31 @@
+% Inverse of C064_circle_to_ellipse; identical curves and units.
+\begin{center}
+\begin{tikzpicture}[font=\small,>=Stealth]
+ \path[use as bounding box] (-4,-4.6) rectangle (6.1,4.2);
+ \node at (.8,3.85) {圆与椭圆的双向坐标对应（二）：反向还原};
+ \draw[gray,thick,dashed] (0,0) circle (3);
+ \draw[blue!70!black,very thick] (0,0) ellipse (3 and 1.8);
+ \draw[->,gray] (-3.6,0)--(3.6,0) node[right] {$x$};
+ \coordinate (A) at (-3,0);\coordinate (B) at (3,0);
+ \coordinate (Q) at (1.8,2.4);\coordinate (P) at (1.8,1.44);\coordinate (H) at (1.8,0);
+ \draw[gray!60,thick] (A)--(Q)--(B);
+ \draw[teal!70!black,very thick] (A)--(P);
+ \draw[magenta!70!black,very thick] (P)--(B);
+ \draw[dashed,gray,thick] (H)--(P);
+ \draw[->,orange!90!black,line width=1.6pt] (P)--(Q);
+ \draw[gray,thin] (Q)--(3.7,2.4);
+ \draw[magenta!70!black,thin] (P)--(3.7,1.44);
+ \node[right] at (3.8,2.4) {$Q(x,\frac ab y)$};
+ \node[right] at (3.8,1.44) {$P(x,y)$};
+ \node[right,orange!90!black] at (3.8,.55) {纵坐标乘 $\frac ab>1$};
+ \fill[blue!70!black] (A) circle (2pt) node[below left] {$A_1(-a,0)$};
+ \fill[blue!70!black] (B) circle (2pt) node[below right] {$A_2(a,0)$};
+ \fill[gray] (Q) circle (2.2pt);
+ \fill[magenta!70!black] (P) circle (2.2pt);
+ \fill[gray] (H) circle (1.7pt) node[below] {$H(x,0)$};
+ \node[below left] at (0,0) {$O$};
+ \node at (.6,-3.55) {$\frac{x^2}{a^2}+\frac{y^2}{b^2}=1\quad
+  \xrightarrow{\ T^{-1}(x,y)=(x,\frac ab y)\ }\quad x^2+\left(\frac ab y\right)^2=a^2$};
+ \node at (.6,-4.2) {横坐标不变，端点不动；先压缩再拉伸，回到原来的点};
+\end{tikzpicture}
+\end{center}

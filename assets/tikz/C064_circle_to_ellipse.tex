@@ -1,0 +1,31 @@
+% Equal units on both axes; a=3, b=1.8, Q=(1.8,2.4), P=(1.8,1.44).
+\begin{center}
+\begin{tikzpicture}[font=\small,>=Stealth]
+ \path[use as bounding box] (-4,-4.6) rectangle (6.1,4.2);
+ \node at (.8,3.85) {圆与椭圆的双向坐标对应（一）：纵向压缩};
+ \draw[gray,thick,dashed] (0,0) circle (3);
+ \draw[blue!70!black,very thick] (0,0) ellipse (3 and 1.8);
+ \draw[->,gray] (-3.6,0)--(3.6,0) node[right] {$x$};
+ \coordinate (A) at (-3,0);\coordinate (B) at (3,0);
+ \coordinate (Q) at (1.8,2.4);\coordinate (P) at (1.8,1.44);\coordinate (H) at (1.8,0);
+ \draw[gray!60,thick] (A)--(Q)--(B);
+ \draw[teal!70!black,very thick] (A)--(P);
+ \draw[magenta!70!black,very thick] (P)--(B);
+ \draw[dashed,gray,thick] (H)--(P);
+ \draw[->,orange!90!black,line width=1.6pt] (Q)--(P);
+ \draw[gray,thin] (Q)--(3.7,2.4);
+ \draw[magenta!70!black,thin] (P)--(3.7,1.44);
+ \node[right] at (3.8,2.4) {$Q(u,v)$};
+ \node[right] at (3.8,1.44) {$P(u,\frac ba v)$};
+ \node[right,orange!90!black] at (3.8,.55) {纵坐标乘 $\frac ba<1$};
+ \fill[blue!70!black] (A) circle (2pt) node[below left] {$A_1(-a,0)$};
+ \fill[blue!70!black] (B) circle (2pt) node[below right] {$A_2(a,0)$};
+ \fill[gray] (Q) circle (2.2pt);
+ \fill[magenta!70!black] (P) circle (2.2pt);
+ \fill[gray] (H) circle (1.7pt) node[below] {$H(u,0)$};
+ \node[below left] at (0,0) {$O$};
+ \node at (.6,-3.55) {$u^2+v^2=a^2\quad\xrightarrow{\ T(u,v)=(u,\frac ba v)\ }\quad
+  \frac{x^2}{a^2}+\frac{y^2}{b^2}=1$};
+ \node at (.6,-4.2) {横坐标不变，端点不动；上、下半平面分别对应（$a>b>0$）};
+\end{tikzpicture}
+\end{center}

@@ -1,32 +1,48 @@
 \begin{trapbox}
+\input{assets/tikz/C064_vertex_focus_comparison}
 
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（忽略端点约束）}}]
-			直接在长轴端点 $A_{1},A_{2}$ 上使用斜率公式，误认为结论也成立。
-		\item[\textbf{\textcolor{CTrap}{正确理解（条件必备）：}}]
-			斜率定义要求分母不为零，故点 $P$ 不能与 $A_{1},A_{2}$ 重合；此外，结论推导中也约去了 $a^{2}-x_{0}^{2}$，若 $x_{0}=\pm a$ 则会除以零。
-		\item[\textbf{\textcolor{CTrap}{错因分析（忽视定义域）：}}]
-			将公式记忆为“任意点都成立”，忽略了斜率的自然定义域。
-	\end{description}
-
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（焦点位置混淆）}}]
-			将焦点在 $x$ 轴的结论 $-\dfrac{b^{2}}{a^{2}}$ 机械套用在焦点在 $y$ 轴的椭圆上。
-		\item[\textbf{\textcolor{CTrap}{正确理解（a,b角色互换）：}}]
-			当椭圆长轴在 $y$ 轴上时，方程变为 $\dfrac{y^{2}}{a^{2}}+\dfrac{x^{2}}{b^{2}}=1\;(a>b>0)$，结论相应为 $-\dfrac{a^{2}}{b^{2}}$（$a$ 为半长轴，$b$ 为半短轴）。
-		\item[\textbf{\textcolor{CTrap}{错因分析（符号记忆混乱）：}}]
-			死记结论时未联系 $a,b$ 的几何意义，导致系数位置颠倒。
-	\end{description}
-
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（正负号错误）}}]
-			将乘积结果记为正数 $\dfrac{b^{2}}{a^{2}}$，漏掉负号。
-		\item[\textbf{\textcolor{CTrap}{正确理解（符号确定）：}}]
-			两斜率一正一负（因 $A_{1},A_{2}$ 位于 $P$ 两侧），乘积必然为负，且最终化简得 $-\dfrac{b^{2}}{a^{2}}$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（推导跳步）：}}]
-			化简时忽略分子 $a^{2}-x_{0}^{2}$ 与分母 $x_{0}^{2}-a^{2}$ 互为相反数，直接约分得到 $\dfrac{b^{2}}{a^{2}}$ 而未考虑符号。
-	\end{description}
-
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.4em]
+ \item[\textbf{\textcolor{CTrap}{陷阱 1：忽视斜率存在的范围}}]
+  \textbf{错误：}以为 $P$ 在椭圆上就可无条件套式，包含 $P=A_1,A_2$。\\
+  \textbf{纠正：}端点处某一条连线退化，分母为零，不能写“斜率积”。
+  反向求轨迹时也要从椭圆中删掉这两点。
+ \item[\textbf{\textcolor{CTrap}{陷阱 2：乘积的负号丢失}}]
+  \textbf{错误：}$\frac{y^2}{x^2-a^2}=+\frac{b^2}{a^2}$。\\
+  \textbf{纠正：}$a^2-x^2=-(x^2-a^2)$，两斜率一正一负，结果必为负。
+ \item[\textbf{\textcolor{CTrap}{陷阱 3：横轴与纵轴公式混用}}]
+  \textbf{错误：}竖轴椭圆仍套 $-b^2/a^2$。\\
+  \textbf{纠正：}竖轴端点 $B_{1,2}=(0,\mp a)$，斜率写为 $(y\pm a)/x$，
+  所以结果是 $-a^2/b^2$，不是 $-b^2/a^2$。
+ \item[\textbf{\textcolor{CTrap}{陷阱 4：误把“长轴顶点”当成“焦点”}}]
+  \textbf{错误：}把端点取为 $F_1(-c,0),F_2(c,0)$，仍写相同定值。\\
+  \textbf{纠正：}本结论所用两点为 $A_1(-a,0),A_2(a,0)$，不是 $F_1,F_2$；
+  任意其他两个定点一般不满足同样的斜率积公式。
+ \item[\textbf{\textcolor{CTrap}{陷阱 5：只知斜率积，忘查点是否在椭圆上}}]
+  \textbf{最小反例：}对 $\frac{x^2}{4}+\frac{y^2}{3}=1$，取不在椭圆上的 $P=(0,1)$，
+  斜率积为 $(\frac12)(-\frac12)=-\frac14$，而目标值是 $-\frac34$。
+ \item[\textbf{\textcolor{CTrap}{陷阱 6：逆命题忘查长短轴}}]
+  若 $k_{PA_1}k_{PA_2}=-\lambda$，轨迹为
+  $\frac{x^2}{a^2}+\frac{y^2}{\lambda a^2}=1$（删去端点）。
+  $\lambda>1$ 时，$A_1A_2$ 对应的是\textbf{短轴}，不能再把这两个点叫“长轴端点”。
+ \item[\textbf{\textcolor{CTrap}{陷阱 7：以为坐标轴可以任意旋转}}]
+  \textbf{纠正：}本式使用的是常见 $y$ 对 $x$ 的斜率；
+  椭圆转到倾斜位置后不能机械沿用“$-b^2/a^2$”，须先考虑坐标系或重新计算。
+ \item[\textbf{\textcolor{CTrap}{陷阱 8：把“第三定义”误认为唯一正式定义}}]
+  这里“第三定义”是教材外常用的\textbf{二级结论名称}，
+  正式题目中应交代椭圆标准方程、端点与点的位置，不宜只写名称而不说明条件。
+ \item[\textbf{\textcolor{CTrap}{陷阱 9：认为所有圆点都能“随便”配到椭圆点}}]
+  \textbf{错误：}只说“圆变椭圆”，便把圆上 $Q(u,v)$ 配到椭圆上的任意点 $P$。\\
+  \textbf{纠正：}要先说明\textbf{选用了哪一种映射}。
+  本证明特选“横坐标不变、上下半平面不互换”，再由椭圆方程推出
+  $P=(u,\frac ba v)$。这种映射方便固定 $A_1,A_2$，但不是唯一可能的映射。
+ \item[\textbf{\textcolor{CTrap}{陷阱 10：把纵向压缩当作等比缩放，认为直角还在}}]
+  \textbf{错误：}由 $QA_1\perp QA_2$ 直接推出 $PA_1\perp PA_2$。\\
+  \textbf{纠正：}只在纵方向乘 $b/a$，与横方向的比例不同，\textbf{角度一般不保留}。
+  $PA_1,PA_2$ 的斜率积是 $-(b/a)^2$，一般不等于 $-1$。
+ \item[\textbf{\textcolor{CTrap}{陷阱 11：弄反映射或不注意上下符号}}]
+  \textbf{错误：}圆 $\to$ 椭圆时用 $a/b$，或把上半圆的点映射到下半椭圆。\\
+  \textbf{纠正：}$T(u,v)=(u,\frac ba v)$ 是压缩；
+  $T^{-1}(x,y)=(x,\frac ab y)$ 是拉伸。所选的正比例 $b/a$ 保持 $v$ 与 $y$ 同号；
+  $\frac ya=\frac vb$ 不是本映射的正确归一化关系，正确的是 $\boxed{\frac yb=\frac va}$。
+\end{description}
 \end{trapbox}

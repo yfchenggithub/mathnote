@@ -1,0 +1,26 @@
+\begin{center}
+\begin{tikzpicture}[font=\small]
+ \path[use as bounding box] (-2.8,-3.9) rectangle (9.8,3.3);
+ \foreach \shift/\ry/\name in {0/2/圆,7/1.2/椭圆}{
+ \begin{scope}[shift={(\shift,0)}]
+ \node at (0,2.95) {\name：横坐标保持不变};
+ \draw[->,gray] (-2.4,0)--(2.4,0);
+ \draw[blue!60!black,thick] (0,0) ellipse (2 and \ry);
+ \coordinate (L) at (-2,0);\coordinate (R) at (2,0);\coordinate (T) at (1.2,{.8*\ry});
+ \draw[teal!70!black,thick] (L)--(T);
+ \draw[magenta!70!black,thick] (R)--(T);
+ \draw[dashed] (1.2,0)--(T);
+ \fill (T) circle (1.5pt);
+ \node[below left] at (L) {$A_1$};\node[below right] at (R) {$A_2$};
+ \end{scope}}
+ % Explicit right angle on the circle, with its own coordinates.
+ \coordinate (CL) at (-2,0);\coordinate (CR) at (2,0);\coordinate (Q) at (1.2,1.6);
+ \pic[draw,angle radius=3mm] {right angle=CL--Q--CR};
+ \node[above right] at (Q) {$Q(u,v)$};
+ \node[above right] at (8.2,.96) {$P(u,\frac ba v)$};
+ \node at (0,-2.6) {$k_{QA_1}k_{QA_2}=-1$};
+ \node at (7,-2.6) {$k_{PA_1}k_{PA_2}=-\bigl(\frac ba\bigr)^2$};
+ \draw[->,thick] (2.65,1.95)--(4.35,1.95) node[midway,above] {$y\mapsto\frac ba y$};
+ \node at (3.5,-3.4) {图取 $a=2,b=1.2$，两侧单位长度相同};
+\end{tikzpicture}
+\end{center}

@@ -1,0 +1,16 @@
+\begin{center}
+\begin{tikzpicture}[font=\small]
+ \path[use as bounding box] (-2.1,-3) rectangle (10.1,3);
+ \node at (4,2.65) {固定水平两点：参数决定它们是长轴端点还是短轴端点};
+ \foreach \sx/\ry/\la/\role in {0/.6/{\frac14}/长轴端点,4/1.2/{1}/直径端点,8/1.8/{\frac94}/短轴端点}{
+ \begin{scope}[shift={(\sx,0)}]
+ \draw[gray,->] (-1.6,0)--(1.6,0);
+ \draw[blue!60!black,thick] (0,0) ellipse (1.2 and \ry);
+ \draw[magenta!70!black,fill=BGProof] (-1.2,0) circle (2pt) (1.2,0) circle (2pt);
+ \node at (0,-2.2) {$\lambda=\la$};
+ \node at (0,-2.75) {\role};
+ \end{scope}}
+ \node at (4,1.95) {圆};
+ \node at (4,-3.4) {同尺度；空心端点均须从轨迹中删除};
+\end{tikzpicture}
+\end{center}
