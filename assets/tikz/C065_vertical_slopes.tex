@@ -1,0 +1,20 @@
+\begin{tikzpicture}[x=1cm,y=1cm,>=stealth,font=\small]
+\path[use as bounding box] (-5.4,-3.1) rectangle (5.4,4.1);
+\node[font=\bfseries] at (0,3.8) {纵轴型：共同的水平增量，竖直增量不同};
+\draw[->,black!55] (-3,0)--(4.7,0) node[right] {$x$};
+\draw[->,black!55] (0,-2.7)--(0,3.1) node[left] {$y$};
+\draw[blue!65!black,thick,domain=-2.5:3.5,samples=80,variable=\t] plot (\t,{sqrt(1+\t*\t/4)});
+\draw[blue!65!black,thick,domain=-2.5:3.5,samples=80,variable=\t] plot (\t,{-sqrt(1+\t*\t/4)});
+\coordinate (P) at (3,1.802776);
+\draw[orange!85!black,very thick] (0,-1)--(P);
+\draw[teal!80!black,very thick] (0,1)--(P);
+\fill (0,-1) circle (2pt) node[above left=5pt] {$B_1(0,-a)$};
+\fill (0,1) circle (2pt) node[below left=5pt] {$B_2(0,a)$};
+\fill (P) circle (2pt) node[above left=5pt] {$P(x,y)$};
+\draw[dashed] (P)--(3,-1)--(0,-1);
+\draw[dotted,black!45] (0,1)--(4.3,1) (P)--(4.3,1.802776);
+\draw[<->,teal!80!black] (4.3,1)--(4.3,1.802776) node[midway,right] {$y-a$};
+\node[right=6pt] at (3,.35) {$y+a$};
+\draw[<->] (0,-2.4)--(3,-2.4) node[midway,fill=BGProof] {$x$};
+\node at (0,-3) {图取 $a=1,\ b=2$；斜率始终为 $\Delta y/\Delta x$};
+\end{tikzpicture}

@@ -1,0 +1,26 @@
+\begin{tikzpicture}[x=1cm,y=1cm,>=stealth,font=\small]
+\path[use as bounding box] (-5.4,-1.3) rectangle (5.4,4.3);
+\node[font=\small\bfseries] at (0,4) {作垂足：共同的高，两个不同的底};
+\draw[->,black!55] (-4.5,0)--(4.6,0) node[right] {$x$};
+\draw[->,black!55] (0,-.6)--(0,3.35) node[above] {$y$};
+\draw[blue!65!black,thick,domain=-.5:3.1,samples=70,variable=\t] plot ({sqrt(4+.8*\t*\t)},\t);
+\draw[blue!65!black,thick,domain=-.5:3.1,samples=70,variable=\t] plot ({-sqrt(4+.8*\t*\t)},\t);
+\coordinate (A1) at (-2,0); \coordinate (A2) at (2,0);
+\coordinate (P) at (3,2.5); \coordinate (H) at (3,0);
+\node[below left] at (0,0) {$O$};
+\draw[orange!85!black,very thick] (A1)--(P);
+\draw[teal!80!black,very thick] (A2)--(P);
+\fill[black] (P) circle (2pt) node[right=8pt] {$P$};
+\fill (A1) circle (2pt) node[below right=4pt] {$A_1$};
+\fill (A2) circle (2pt) node[below left=4pt] {$A_2$};
+
+\fill[orange!50,opacity=.15] (A1)--(H)--(P)--cycle;
+\fill[teal!60,opacity=.2] (A2)--(H)--(P)--cycle;
+\draw[dashed,black!70] (P)--(H) node[midway,right=5pt] {$|y|$};
+\draw (2.8,0)--(2.8,.2)--(3,.2);
+\node[below right] at (H) {$H$};
+\draw[<->,orange!85!black] (-2,-.95)--(3,-.95) node[midway,fill=BGProof] {$|x+a|$};
+\draw[<->,teal!80!black] (2,3.15)--(3,3.15) node[midway,above] {$|x-a|$};
+\draw[dotted,black!40] (2,.2)--(2,3.15) (3,2.7)--(3,3.15);
+
+\end{tikzpicture}

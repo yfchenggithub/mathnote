@@ -1,41 +1,195 @@
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
-	用坐标法：设$P(x_0,y_0)$，写出$k_{PA_1},k_{PA_2}$，然后利用$P$在双曲线上满足的方程消去$y_0$，最终得到与$x_0$无关的常数。
+\textbf{\textcolor{CProof}{方法一：最快证明法（考场两步速写）}}
+\begin{center}\input{assets/tikz/C065_proof_fast.tex}\end{center}
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（斜率表示）：}]
-			设$P(x_0,y_0)$，其中$x_0 \neq \pm a$（因为$P$异于$A_1,A_2$）。则
-			\[
-				k_{PA_1}=\frac{y_0}{x_0+a},
-				\qquad
-				k_{PA_2}=\frac{y_0}{x_0-a}.
-			\]
-			所以
-			\[
-				k_{PA_1}\cdot k_{PA_2} = \frac{y_0^2}{(x_0+a)(x_0-a)} = \frac{y_0^2}{x_0^2-a^2}.
-			\]
-			\par\textbf{理由：} 直接利用斜率公式$k = \dfrac{y_2-y_1}{x_2-x_1}$，整理分母为平方差。
-		\item[\textbf{步骤二（曲线代换）：}]
-			因为$P$在双曲线上，所以$\dfrac{x_0^2}{a^2} - \dfrac{y_0^2}{b^2} = 1$。移项得
-			\[
-				\frac{y_0^2}{b^2} = \frac{x_0^2}{a^2} - 1 = \frac{x_0^2-a^2}{a^2},
-			\]
-			即
-			\[
-				y_0^2 = \frac{b^2}{a^2}(x_0^2-a^2).
-			\]
-			\par\textbf{理由：} 利用双曲线标准方程解出$y_0^2$，为下一步代入做准备。
-		\item[\textbf{步骤三（代入化简）：}]
-			将$y_0^2$的表达式代入步骤一中的斜率积：
-			\[
-				k_{PA_1}\cdot k_{PA_2} = \frac{\frac{b^2}{a^2}(x_0^2-a^2)}{x_0^2-a^2} = \frac{b^2}{a^2}.
-			\]
-			\par\textbf{理由：} 这里$x_0^2-a^2$是公因子，直接约去（$x_0\neq\pm a$保证分母非零），即得定值。
-	\end{description}
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-	\textbf{由此证得：对于任意异于$A_1,A_2$的点$P$，总有$k_{PA_1}\cdot k_{PA_2} = \frac{b^2}{a^2}$。若用离心率$e$表示，则$\frac{b^2}{a^2} = e^2-1$，因此$k_{PA_1}k_{PA_2} = e^2-1$。}
+\textbf{识别信号：}题目出现\(P\)到两顶点的斜率积；只求定值，不必求\(P\)坐标。
+设\(P(x,y)\in C\setminus\{A_1,A_2\}\)，则
+\[
+\boxed{k_{PA_1}k_{PA_2}=\frac{y^2}{(x+a)(x-a)}
+ =\frac{y^2}{x^2-a^2}}.
+\]
+而\(\displaystyle\frac{x^2}{a^2}-\frac{y^2}{b^2}=1\)立刻给出
+\[
+\boxed{\frac{y^2}{x^2-a^2}=\frac{b^2}{a^2}}.
+\]
+故\(k_{PA_1}k_{PA_2}=\dfrac{b^2}{a^2}=e^2-1\)。\quad\(\square\)
+
+\textbf{为什么最快：}仅写“\textbf{斜率相乘出现平方差}\(\to\)\textbf{曲线方程整体替换}”，
+无需解出\(x,y\)，也无需联立直线。全程不展开多余式子。
+
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法二：最低门槛证明法（两个直角三角形）}}
+\begin{center}\input{assets/tikz/C065_proof_triangles.tex}\end{center}
+
+
+取\(H=(x,0)\)为\(P(x,y)\)向实轴作垂线的垂足。
+因\(P\)在双曲线上且不在顶点，\(|x|>a\)，\(|y|>0\)。
+观察直角三角形\(\triangle PA_1H\)、\(\triangle PA_2H\)：
+\[
+ |k_{PA_1}|=\frac{|PH|}{|A_1H|}=\frac{|y|}{|x+a|},\qquad
+ |k_{PA_2}|=\frac{|PH|}{|A_2H|}=\frac{|y|}{|x-a|}.
+\]
+\textbf{第一眼能看出：}两条斜率同号，所以斜率积等于绝对值之积。
+因此
+\[
+ k_{PA_1}k_{PA_2}
+ =\frac{|y|^2}{|x+a|\,|x-a|}
+ =\frac{y^2}{x^2-a^2}.
+\]
+\textbf{第二眼使用定义方程：}
+\(\frac{y^2}{b^2}=\frac{x^2-a^2}{a^2}\)，
+即\(\frac{y^2}{x^2-a^2}=\frac{b^2}{a^2}\)。证毕。
+
+\textbf{为什么更容易理解：}从“高÷底”的初中直角三角形斜率出发，
+靠共同的高\(|PH|\)和两段水平距离发现平方差；
+\textbf{先理解符号，再计算比值}，左右两支均适用。
+
+\medskip
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法三：圆幂定理证明（初中知识的几何升级）}}
+\begin{center}\input{assets/tikz/C065_circle_power_bridge.tex}\end{center}
+\textbf{为什么想到作圆：}两斜率相乘，分母会出现两个水平距离
+$HA_1$ 和 $HA_2$ 的乘积；初中\textbf{切割线定理}专门把它变成一个平方。
+
+\textbf{第一步：圆幂。}
+以 $A_1A_2$ 为直径作圆，设 $H(x,0)$ 是 $P$ 在 $x$ 轴上的垂足。
+$|x|>a$ 保证 $H$ 在圆外。从 $H$ 作切线 $HT$，得到
+\[
+ HA_1\cdot HA_2=HT^2=OH^2-a^2=x^2-a^2.
+\]
+这里 $HA_1,HA_2$ 均是\textbf{非负长度}，不是带符号坐标。
+
+\textbf{第二步：斜率积变为长度比平方。}
+两斜率同号，故
+\[
+ k_1k_2=\frac{PH}{HA_1}\cdot\frac{PH}{HA_2}
+ =\boxed{\left(\frac{PH}{HT}\right)^2}.
+\]
+
+\textbf{第三步：用曲线方程固定长度比。}
+$PH^2=y^2$，$HT^2=x^2-a^2$，由 $P\in C$：
+\[
+ \frac{PH^2}{b^2}=\frac{HT^2}{a^2}
+ \quad\Longrightarrow\quad \frac{PH}{HT}=\frac ba,
+ \quad\boxed{k_1k_2=\frac{b^2}{a^2}}.
+\]
+\textbf{价值：}把双曲线第三定义接到初中圆的\textbf{圆幂定理}；
+但最后一步仍使用双曲线方程，不能误称全程纯几何。\quad\(\square\)
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法四：常规解析几何证明（规范三步）}}
+\begin{center}\input{assets/tikz/C065_proof_coordinates.tex}\end{center}
+
+
+\begin{description}[style=nextline,leftmargin=2.8em,itemsep=0.4em]
+ \item[\textbf{步骤1（明确定义域并设点）：}]
+ 设\(P(x_0,y_0)\in C\)，且\(P\ne A_1,A_2\)。
+ 因\(x_0^2/a^2=1+y_0^2/b^2>1\)，有\(x_0\ne\pm a\)。
+ \item[\textbf{步骤2（写斜率）：}]
+ \[
+ k_{PA_1}=\frac{y_0}{x_0+a},\quad
+ k_{PA_2}=\frac{y_0}{x_0-a},\quad
+ k_{PA_1}k_{PA_2}=\frac{y_0^2}{x_0^2-a^2}.
+ \]
+ \item[\textbf{步骤3（代入标准方程）：}]
+ \[
+ \frac{x_0^2}{a^2}-\frac{y_0^2}{b^2}=1
+ \ \Longrightarrow\ 
+ y_0^2=\frac{b^2}{a^2}(x_0^2-a^2).
+ \]
+ 故\(k_{PA_1}k_{PA_2}=\frac{b^2}{a^2}\)。
+ 又由\(c^2=a^2+b^2\)，有
+ \(\frac{b^2}{a^2}=\frac{c^2}{a^2}-1=e^2-1\)。
+\end{description}
+
+\textbf{为什么需要：}有清楚的条件检查、斜率定义与方程代换，适合书面完整证明。
+
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法五：逆向轨迹证明（真正的“第三定义”）}}
+\begin{center}\input{assets/tikz/C065_proof_reverse.tex}\end{center}
+
+
+\textbf{已知：}两固定点\(A_1(-a,0),A_2(a,0)\)（\(a>0\)），
+任意点\(P(x,y)\)与它们的连线斜率均存在，且
+\(k_{PA_1}k_{PA_2}=m>0\)。
+则\(x\ne\pm a\)，于是
+\[
+ \frac{y^2}{(x+a)(x-a)}=m
+ \quad\Longleftrightarrow\quad
+ y^2=m(x^2-a^2)
+ \quad\Longleftrightarrow\quad
+ \boxed{\frac{x^2}{a^2}-\frac{y^2}{a^2m}=1}.
+\]
+反过来，取此双曲线上\textbf{非顶点}\(P\)，按斜率公式可逐步逆推得斜率积\(m\)。
+故轨迹为该双曲线\textbf{去掉两顶点}，不是整条含顶点的双曲线。
+
+\textbf{为什么值得补充：}使“\textbf{曲线上点\(\Rightarrow\)斜率积定值}”升级为
+“\textbf{斜率积定值\(\Longleftrightarrow\)双曲线轨迹}”，
+遇到动点轨迹题可以倒着用。
+
+\medskip
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法六：三角半角参数法（高阶巧证）}}
+% [TikZ待绘] C065_half_angle.tex：x=a sec(theta), y=b tan(theta)，显示两斜率及渐近线。
+\IfFileExists{assets/tikz/C065_half_angle.tex}{%
+ \begin{center}\input{assets/tikz/C065_half_angle.tex}\end{center}
+}{}
+\textbf{为什么值得用参数：}如果 $P$ 在右支，作
+\[
+ x=a\sec\theta,\quad y=b\tan\theta,
+ \qquad -\frac\pi2<\theta<\frac\pi2,\ \theta\ne0.
+\]
+因为 $\sec^2\theta-\tan^2\theta=1$，这个参数化\textbf{自动保证 $P$ 在双曲线上}。
+
+\textbf{第一条斜率：}
+\[
+ k_1=\frac{b\tan\theta}{a(\sec\theta+1)}
+ =\frac ba\frac{\sin\theta}{1+\cos\theta}
+ =\boxed{\frac ba\tan\frac\theta2}.
+\]
+\textbf{第二条斜率：}
+\[
+ k_2=\frac{b\tan\theta}{a(\sec\theta-1)}
+ =\frac ba\frac{\sin\theta}{1-\cos\theta}
+ =\boxed{\frac ba\cot\frac\theta2}.
+\]
+于是
+\[
+ \boxed{k_1k_2=\left(\frac ba\right)^2
+ \tan\frac\theta2\cot\frac\theta2=\frac{b^2}{a^2}}.
+\]
+左支由中心对称 $(x,y)\mapsto(-x,-y)$ 得到；两条\textbf{有序}斜率互换，乘积不变。
+\textbf{理解价值：}原本看似无关的两斜率，分别包含\textbf{互为倒数}的半角因子。
+\textbf{适用边界：}此法需要三角参数化，不如方法一适合限时考试。\quad\(\square\)
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{纵轴型独立核对（防机械套用）}}
+\begin{center}\input{assets/tikz/C065_vertical_slopes.tex}\end{center}
+
+对\(\frac{y^2}{a^2}-\frac{x^2}{b^2}=1\)及
+\(B_1(0,-a), B_2(0,a)\)，非顶点处\(x\ne0\)，
+\[
+ k_{PB_1}k_{PB_2}
+ =\frac{(y+a)(y-a)}{x^2}
+ =\frac{y^2-a^2}{x^2}
+ =\frac{a^2}{b^2}=\frac{1}{e^2-1}.
+\]
 \end{proofbox}

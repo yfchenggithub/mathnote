@@ -1,52 +1,116 @@
+\clearpage
 \begin{explanationbox}
-\begin{minipage}{\linewidth}
-\begin{center}\input{assets/tikz/C065_math_audit_geometry.tex}\end{center}
-正确的两个解 $P_1=(3,5/2)$、$P_2=(-3,-5/2)$ 关于原点对称；交换两条斜率的对应后，斜率和仍为 $3$。关于 $x$ 轴反射则会把斜率和变为 $-3$。
-\end{minipage}
-\par\medskip
+\begin{center}
+ \input{assets/tikz/C065_math_audit_geometry.tex}
+ 
+ {\small\color{black!65}示意：$\frac{x^2}{4}-\frac{y^2}{5}=1$，
+ $P_1(3,\frac52)$、$P_2(-3,-\frac52)$ 均在曲线上；实线是对应顶点连线。}
+\end{center}
+\textbf{\textcolor{CExplanation}{一句话直觉}}
+两条连线的斜率有\textbf{相同的竖直高度} \(y\)，
+分母分别是 \(x+a\) 与 \(x-a\)；相乘后自然出现\textbf{平方差} \(x^2-a^2\)。
+双曲线方程恰好说明 \(y^2\) 就是这一平方差的固定倍数。
 
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
-	无论点$P$在双曲线上何处（左支或右支），它与左顶点$A_1$、右顶点$A_2$连线的斜率乘积始终是一个固定的正数，等于$\dfrac{b^2}{a^2}$。这个常数与$P$的具体位置无关。
+\medskip
+\textbf{符号观察：}双曲线非顶点处 $|x|>a$，$x+a$ 与 $x-a$ 同号，
+两斜率同号，故乘积为正。图中中心对称的两点交换斜率值，乘积仍为 $5/4$。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（斜率表示）：}]
-			设$P(x_0,y_0)$，则
-			\[
-				k_{PA_1}=\frac{y_0}{x_0+a},
-				\qquad
-				k_{PA_2}=\frac{y_0}{x_0-a}.
-			\]
-			乘积$k_{PA_1}k_{PA_2}=\dfrac{y_0^2}{x_0^2-a^2}$。
-		\item[\textbf{要点二（曲线代换）：}]
-			因为$P$在双曲线上，故$\dfrac{x_0^2}{a^2}-\dfrac{y_0^2}{b^2}=1$，即$y_0^2=\dfrac{b^2}{a^2}(x_0^2-a^2)$。代入斜率积表达式立即得到$\dfrac{b^2}{a^2}$。
-	\end{description}
+\textbf{\textcolor{CExplanation}{最省心的代数连接}}
+\[
+ \underbrace{k_{PA_1}k_{PA_2}}_{\text{几何：两条斜率相乘}}
+ =\frac{y^2}{(x+a)(x-a)}
+ =\frac{y^2}{x^2-a^2}
+ \overset{P\in C}{=}\frac{b^2}{a^2}.
+\]
+\textbf{识别信号：}题中同时出现“\textbf{实轴两端点}\(+\)\textbf{曲线上一点}\(+\)\textbf{两条连线的斜率}”，
+优先想第三定义，不要急于设一般直线与双曲线联立。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（第三定义）}}
-	该结论等价于双曲线的第三定义：平面内到两定点$A_1,A_2$连线的斜率之积为常数$\dfrac{b^2}{a^2}$（且不为0）的点的轨迹即为双曲线（除去实轴端点）。该定值反映了双曲线的固有几何特征。
+\medskip
+\textbf{\textcolor{CExplanation}{横纵轴型统一理解（比死记更稳）}}
+\begin{itemize}[leftmargin=*,itemsep=0.35em]
+ \item 横轴型 \(\frac{x^2}{a^2}-\frac{y^2}{b^2}=1\)：
+ 斜率 \(=\Delta y/\Delta x\)，故乘积 \(=b^2/a^2=e^2-1\)。
+ \item 纵轴型 \(\frac{y^2}{a^2}-\frac{x^2}{b^2}=1\)：
+ 斜率 \(=\Delta y/\Delta x\)，故乘积 \(=a^2/b^2=1/(e^2-1)\)。
+ \item \textbf{不用记横纵对调的结果：}先写两条斜率，再用标准方程替换平方差，只需两步。
+\end{itemize}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（消元定值）}}
-	将几何条件（点在双曲线上）转化为代数方程后，通过代入消元把两个斜率的乘积化简为只含基本参数$a,b$的常数，完美体现了解析几何“用坐标代数研究几何关系”的思想。
+\textbf{\textcolor{CExplanation}{与椭圆第三定义的联系}}
+椭圆 \(\frac{x^2}{a^2}+\frac{y^2}{b^2}=1\)（\(a>b>0\)）
+关于实轴端点的斜率积为 \(-b^2/a^2\)（非端点处），
+而双曲线为 \(+b^2/a^2\)。\textbf{关键不是背正负号，而是看}
+\(y^2\) 与 \(x^2-a^2\) 在曲线上是否同号。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（高效解题）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（求离心率）：} 直接套用 $k_1k_2 = e^2-1$，已知斜率积可速求 $e$。
-		\item \textbf{考法二（判定位置）：} 若题目给出两个斜率的乘积等于 $\dfrac{b^2}{a^2}$，可作为点在双曲线上的一个判定条件（需排除端点）。
-	\end{itemize}
+\textbf{\textcolor{CExplanation}{逆向思考的价值}}
+已知\(k_1k_2=m>0\)，就得到
+\(y^2=m(x^2-a^2)\)；这不只是用来计算定值，
+还可\textbf{直接建立点的轨迹方程}。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
-	\textbf{“消去变量$y_0$”是关键一步——不要直接展开，而是利用双曲线方程把$y_0^2$整体替换成$x_0^2-a^2$的倍数，从而消掉$x_0$，得到不依赖$P$的定值。}
+\medskip
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{从初中圆幂定理走到双曲线（新增几何桥梁）}}
+\begin{center}\input{assets/tikz/C065_circle_power_bridge.tex}\end{center}
+图取右支 $P$，$H$ 为垂足；辅助圆以 $A_1A_2$ 为直径，半径为 $a$。
+$|x|>a$ 保证 $H$ 在圆外；图中 $OT\perp HT$，故 $HT$ 是切线。
+\textbf{初中切割线定理}给出
+\[
+ HA_1\cdot HA_2=HT^2=OH^2-a^2=x^2-a^2.
+\]
+两个直角三角形的\textbf{共同高} $PH=|y|$，所以
+\[
+ \underbrace{k_{PA_1}k_{PA_2}}_{\text{两斜率同号}}
+ =\frac{PH^2}{HA_1\,HA_2}
+ =\boxed{\left(\frac{PH}{HT}\right)^2}.
+\]
+而双曲线方程恰好是 $PH^2=(b^2/a^2)HT^2$。
+因此\textbf{斜率积不再只是代数约分，而是“共同高与切线长的比值平方”}。
+\textbf{易懂但不冒充纯几何：}圆幂步骤是几何的，$PH/HT=b/a$ 仍由双曲线标准方程确定。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（定点定值）：} 题目涉及双曲线顶点与动点连线斜率关系，优先考虑第三定义简化。
-		\item \textbf{场景二（离心率计算）：} 已知斜率积或能找到斜率积关系，立即转化为 $e^2-1$ 求解。
-	\end{itemize}
+\medskip
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{一个斜率积，统一圆、椭圆和双曲线}}
+% [TikZ待绘] C065_unified_locus.tex：相同A1,A2，m=-1圆、-1/4椭圆、5/4双曲线。
+\IfFileExists{assets/tikz/C065_unified_locus.tex}{%
+ \begin{center}\input{assets/tikz/C065_unified_locus.tex}\end{center}
+}{}
+对\textbf{任意}动点 $P(x,y)$（仅要求 $x\ne\pm a$），不预设其曲线类型：
+\[
+ k_1k_2=m\iff y^2=m(x^2-a^2).
+\]
+\begin{itemize}[leftmargin=*,itemsep=.22em]
+ \item $m<0$：$\dfrac{x^2}{a^2}+\dfrac{y^2}{a^2|m|}=1$，轨迹是\textbf{椭圆去掉两个端点}；
+ 特别地 $m=-1$ 时，$x^2+y^2=a^2$ 为\textbf{圆（同样去端点）}。
+ \item $m>0$：$\dfrac{x^2}{a^2}-\dfrac{y^2}{a^2m}=1$，轨迹是\textbf{双曲线去端点}。
+ \item $m=0$：$y=0$ 且 $x\ne\pm a$，是\textbf{$x$ 轴去掉两个端点}。
+\end{itemize}
+圆的情况立即联系初中\textbf{直径所对圆周角是直角}：
+\[
+ k_1k_2=-1\iff PA_1\perp PA_2
+ \iff P\text{ 在以 }A_1A_2\text{ 为直径的圆上（非端点）}.
+\]
+由此理解 C064 椭圆斜率积为负、C065 双曲线斜率积为正。
+注意：当 $|m|>1$ 且 $m<0$，椭圆长轴在 $y$ 方向；$A_1,A_2$ 只是 $x$ 轴交点。
+
+\medskip
+\textbf{\textcolor{CExplanation}{半角视角和渐近线：为什么会趋近但取不到等号}}
+右支作三角参数 $x=a\sec\theta,\ y=b\tan\theta$
+（$-\pi/2<\theta<\pi/2$，$\theta\ne0$），
+则两个斜率正好是
+\[
+ k_1=\frac ba\tan\frac\theta2,\qquad
+ k_2=\frac ba\cot\frac\theta2.
+\]
+\textbf{互为倒数的半角因子}使积直接成为 $b^2/a^2$。
+同时当 $|x|\to\infty$ 时，两斜率都趋向同一条渐近线的斜率
+$\pm b/a$，但在有限点处永远不相等。
+因而若 $s=k_1+k_2$、$m=k_1k_2>0$，则
+\[
+ s^2-4m=(k_1-k_2)^2>0,
+\]
+即 $|s|>2\sqrt m$；边界 $|s|=2\sqrt m$ \textbf{只能逼近，不能达到}。
 
 \end{explanationbox}

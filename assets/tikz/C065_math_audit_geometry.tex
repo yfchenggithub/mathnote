@@ -1,3 +1,18 @@
-\begin{tikzpicture}[scale=0.85,>=stealth]
-\draw[blue,thick,domain=-1.15:1.15,samples=90] plot ({2*cosh(\x)},{sqrt(5)*sinh(\x)});\draw[blue,thick,domain=-1.15:1.15,samples=90] plot ({-2*cosh(\x)},{sqrt(5)*sinh(\x)});\draw[orange] (-2,0)--(3,2.5)--(2,0);\draw[teal] (-2,0)--(-3,-2.5)--(2,0);\fill (3,2.5) circle (1.7pt) node[right=8pt] {$P_1$};\fill (-3,-2.5) circle (1.7pt) node[left=8pt] {$P_2$};\fill (-2,0) circle (1.7pt) node[below left=5pt] {$A_1$};\fill (2,0) circle (1.7pt) node[below right=5pt] {$A_2$};
+\begin{tikzpicture}[x=1cm,y=1cm,>=stealth,font=\small]
+\path[use as bounding box] (-5.4,-3.8) rectangle (5.4,4.1);
+\node[font=\bfseries] at (0,3.8) {中心对称：两个斜率交换，乘积不变};
+\draw[->,black!50] (-4.6,0)--(4.6,0) node[right] {$x$};
+\draw[->,black!50] (0,-3.1)--(0,3.2) node[above] {$y$};
+\foreach \s in {-1,1} {\draw[blue!65!black,thick,domain=-3:3,samples=80,variable=\t] plot ({\s*sqrt(4+.8*\t*\t)},\t);}
+\draw[orange!85!black,thick] (-2,0)--(3,2.5) (2,0)--(-3,-2.5);
+\draw[teal!80!black,thick] (2,0)--(3,2.5) (-2,0)--(-3,-2.5);
+\fill (-2,0) circle (2pt) node[above left] {$A_1$};
+\fill (2,0) circle (2pt) node[below right] {$A_2$};
+\fill (3,2.5) circle (2pt) node[right=8pt] {$P_1$};
+\fill (-3,-2.5) circle (2pt) node[left=8pt] {$P_2$};
+\node[orange!85!black,fill=BGExplanation] at (-.9,1.35) {$1/2$};
+\node[teal!80!black,fill=BGExplanation] at (3.6,1.25) {$5/2$};
+\node[teal!80!black,fill=BGExplanation] at (-3.6,-1.25) {$5/2$};
+\node[orange!85!black,fill=BGExplanation] at (.9,-1.35) {$1/2$};
+\node at (0,-3.6) {$P_1=(3,5/2),\quad P_2=(-3,-5/2),\quad k_1k_2=5/4$};
 \end{tikzpicture}

@@ -1,0 +1,39 @@
+% Exact model: a=2, b=sqrt(5), P=(3,5/2), H=(3,0).
+% T=(4/3,-2sqrt(5)/3), so OT^2=4, OT dot HT=0, HT^2=5.
+\begin{tikzpicture}[x=1.1cm,y=1.1cm,>=stealth,font=\small]
+\draw[rounded corners=5pt,black!25] (-3.7,-3.65) rectangle (5.1,4.5);
+\node[font=\bfseries] at (.7,3.9) {圆幂桥梁：共同高 $PH$ 与切线长 $HT$};
+\coordinate (O) at (0,0);
+\coordinate (A1) at (-2,0); \coordinate (A2) at (2,0);
+\coordinate (H) at (3,0); \coordinate (P) at (3,2.5);
+\coordinate (T) at ({4/3},{-2*sqrt(5)/3});
+\draw[->,black!50] (-3.15,0)--(4.55,0) node[right] {$x$};
+\draw[->,black!50] (0,-2.25)--(0,3.25) node[above] {$y$};
+\draw[blue!65!black,thick,domain=0:3.15,samples=80,variable=\t]
+ plot ({sqrt(4+.8*\t*\t)},\t);
+\draw[blue!65!black,thick,domain=0:3.15,samples=80,variable=\t]
+ plot ({-sqrt(4+.8*\t*\t)},\t);
+\draw[violet!75!black,dashed,thick,domain=0:360,samples=120,variable=\t]
+ plot ({2*cos(\t)},{2*sin(\t)});
+\draw[orange!85!black,thick] (A1)--(P);
+\draw[teal!80!black,thick] (A2)--(P);
+\draw[black!75,very thick] (P)--(H);
+\node[right=7pt] at (3,1.25) {$PH=|y|$};
+\draw[red!65!black,very thick] (H)--(T);
+\node[red!65!black] at (2.45,-1.25) {$HT$};
+\draw[violet!75!black,thick] (O)--(T);
+\node[below left=2pt] at (.65,-.72) {$a$};
+\draw[black!60] ($(T)!.18cm!(O)$)--($(T)!.18cm!(O)+(T)!.18cm!(H)-(T)$)--($(T)!.18cm!(H)$);
+\draw (2.82,0)--(2.82,.18)--(3,.18);
+\fill (O) circle (1.6pt) node[above left=3pt] {$O$};
+\fill (A1) circle (1.8pt) node[below left=5pt] {$A_1$};
+\fill (A2) circle (1.8pt) node[below left=5pt] {$A_2$};
+\fill (H) circle (1.8pt) node[below right=5pt] {$H(x,0)$};
+\fill (P) circle (1.8pt) node[right=8pt] {$P(x,y)$};
+\fill (T) circle (1.8pt) node[below right=7pt] {$T$};
+\node[violet!75!black] at (-2.75,-1.7) {辅助圆};
+\draw[dotted,black!35] (-2,-.3)--(-2,-2.6) (3,-.4)--(3,-3.1) (2,-.4)--(2,-3.1);
+\draw[<->,black!70] (-2,-2.6)--(3,-2.6) node[midway,fill=white,inner sep=3pt] {$HA_1=x+a$};
+\draw[<->,black!70] (2,-3.1)--(3,-3.1);
+\node[left=5pt] at (2,-3.1) {$HA_2=x-a$};
+\end{tikzpicture}

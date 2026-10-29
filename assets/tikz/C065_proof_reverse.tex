@@ -1,0 +1,20 @@
+\begin{tikzpicture}[x=1cm,y=1cm,>=stealth,font=\small]
+\path[use as bounding box] (-5.4,-1.3) rectangle (5.4,4.3);
+\node[font=\small\bfseries] at (0,4) {逆向轨迹：曲线保留，两个顶点删除};
+\draw[->,black!55] (-4.5,0)--(4.6,0) node[right] {$x$};
+\draw[->,black!55] (0,-.6)--(0,3.35) node[above] {$y$};
+\draw[blue!65!black,thick,domain=-.5:3.1,samples=70,variable=\t] plot ({sqrt(4+.8*\t*\t)},\t);
+\draw[blue!65!black,thick,domain=-.5:3.1,samples=70,variable=\t] plot ({-sqrt(4+.8*\t*\t)},\t);
+\coordinate (A1) at (-2,0); \coordinate (A2) at (2,0);
+\coordinate (P) at (3,2.5); \coordinate (H) at (3,0);
+\node[below left] at (0,0) {$O$};
+\draw[orange!85!black,very thick] (A1)--(P);
+\draw[teal!80!black,very thick] (A2)--(P);
+\fill[black] (P) circle (2pt) node[right=8pt] {$P$};
+\draw[blue!65!black,fill=white,line width=1pt] (A1) circle (2pt) node[below right=4pt] {$A_1$};
+\draw[blue!65!black,fill=white,line width=1pt] (A2) circle (2pt) node[below left=4pt] {$A_2$};
+
+\node[orange!85!black,fill=BGProof] at (-1.2,1.45) {$k_1$};
+\node[teal!80!black,fill=BGProof] at (3.8,1.4) {$k_2$};
+\node at (0,-1) {空心点不属于轨迹；图取 $a=2,\ m=5/4$};
+\end{tikzpicture}
