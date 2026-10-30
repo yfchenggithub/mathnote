@@ -1,0 +1,26 @@
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small,>=Stealth,
+  every node/.style={inner sep=3pt},line cap=round,line join=round]
+\path[use as bounding box] (-1,-1.6) rectangle (11,5.5);
+\node[font=\small\bfseries,text=CStatement] at (5,5.1) {过 A 作竖直线：交点在 OB 延长线上，面积相减};
+\begin{scope}[shift={(2,0)},scale=0.7]
+\coordinate (O) at (0,0); \coordinate (A) at (3,4);
+\coordinate (B) at (1,2); \coordinate (F) at (3,6);
+\fill[CStatement!18] (O)--(A)--(B)--cycle;
+\fill[CTrap!20] (A)--(B)--(F)--cycle;
+\draw[thick] (O)--(A)--(B)--cycle;
+\draw[dashed,thick] (B)--(F);
+\draw[very thick,CTrap] (A)--(F);
+\draw[dotted] (3,0)--(A);
+\draw[dashed] (O)--(3,0) (B)--(3,2);
+\draw[<->,CProof] (0,-0.35)--node[below] {$3$}(3,-0.35);
+\draw[<->,CProof] (1,1.7)--node[below] {$2$}(3,1.7);
+\node[below left] at (O) {$O(0,0)$};
+\node[right] at (A) {$A(3,4)$};
+\node[left] at (B) {$B(1,2)$};
+\node[above] at (F) {$F_v(3,6)$};
+\end{scope}
+\node[align=left] at (8,2.5) {$AF_v=2$\\[7pt]水平高之差：$3-2=1$\\[7pt]$S=\frac12\cdot2\cdot(3-2)=1$};
+\node[align=center] at (5,-1.15) {$O,B,F_v$ 依次共线；$S_{OAB}=S_{OAF_v}-S_{BAF_v}$。};
+\end{tikzpicture}
+\end{center}

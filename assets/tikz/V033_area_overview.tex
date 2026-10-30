@@ -1,0 +1,22 @@
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small,>=Stealth,
+  every node/.style={inner sep=3pt},line cap=round,line join=round]
+\path[use as bounding box] (-1,-1.6) rectangle (11,5.5);
+\node[font=\small\bfseries,text=CStatement] at (5,5.1) {同一条对角线，把平行四边形分成两半};
+
+\coordinate (O) at (2,0); \coordinate (A) at (6,1);
+\coordinate (B) at (3,3); \coordinate (D) at (7,4);
+\fill[CStatement!17] (O)--(A)--(B)--cycle;
+\fill[CExample!15] (A)--(D)--(B)--cycle;
+\draw[thick] (O)--(A)--(D)--(B)--cycle;
+\draw[very thick,CProof] (A)--(B);
+\draw[->,very thick,CStatement] (O)--(A);
+\draw[->,very thick,CExample] (O)--(B);
+\node[below left] at (O) {$O$}; \node[below right] at (A) {$A(x_1,y_1)$};
+\node[above left] at (B) {$B(x_2,y_2)$};
+\node[above right] at (D) {$D=A+B$};
+\node at (3.65,1.3) {$S$}; \node at (5.35,2.7) {$S$};
+
+\node[align=center] at (5,-1.15) {$S=\frac12|x_1y_2-x_2y_1|$，两片全等，整体面积为 $2S$。};
+\end{tikzpicture}
+\end{center}

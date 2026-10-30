@@ -1,0 +1,29 @@
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small,>=Stealth,
+  every node/.style={inner sep=3pt},line cap=round,line join=round]
+\path[use as bounding box] (-1,-1.6) rectangle (11,5.5);
+\node[font=\small\bfseries,text=CStatement] at (5,5.1) {方向角之差给出平行四边形的高};
+
+\coordinate (O) at (1,0); \coordinate (A) at (6,0.5);
+\coordinate (B) at (3,3); \coordinate (D) at (8,3.5);
+\coordinate (H) at (3.277228,0.227723);
+\fill[CStatement!17] (O)--(A)--(B)--cycle;
+\fill[CExample!15] (A)--(D)--(B)--cycle;
+\draw[thick] (O)--(A)--(D)--(B)--cycle;
+\draw[CProof,thick] (A)--(B);
+\draw[->,gray] (O)--(7,0) node[right] {$x$};
+\draw[->,very thick,CStatement] (O)--(A);
+\draw[->,very thick,CExample] (O)--node[left] {$s$}(B);
+\draw[dashed,CTrap,thick] (B)--(H);
+\pic[draw,angle radius=3mm] {right angle=A--H--B};
+\draw[CProof] (1.995,0.0995) arc[start angle=5.7106,end angle=56.3099,radius=1];
+\node at (2.4,0.65) {$\beta-\alpha$};
+\node[below left] at (O) {$O$}; \node[right] at (A) {$A$};
+\node[above] at (B) {$B$}; \node[right] at (D) {$D$};
+\node at (3.277,-0.4) {$H$};
+\node at (5,-0.45) {$r$};
+\node[align=center] at (8,4.3) {$BH=s|\sin(\beta-\alpha)|$};
+
+\node[align=center] at (5,-1.15) {$\alpha=\arg OA,\ \beta=\arg OB$；整体面积 $r\cdot BH=2S$。};
+\end{tikzpicture}
+\end{center}

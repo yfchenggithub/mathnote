@@ -1,0 +1,21 @@
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small,>=Stealth]
+\path[use as bounding box] (-1,-1.6) rectangle (11,5.5);
+\node[font=\small\bfseries,text=CStatement] at (5,5.1) {固定 OB，面积相同的 A 分处直线 OB 两侧};
+\foreach \shift/\t/\sign/\sx in {0/4/+10/2.2,6.5/-1/-10/0.25}{
+\begin{scope}[shift={(\shift+0.7,0)},scale=0.85]
+\draw[->,gray] (-1.7,0)--(4.9,0) node[right] {$x$};
+\draw[->,gray] (0,-0.4)--(0,4.8) node[above] {$y$};
+\fill[CStatement!17] (0,0)--(\t,3)--(2,4)--cycle;
+\draw[thick] (0,0)--(\t,3)--(2,4)--cycle;
+\draw[very thick,CExample] (0,0)--(2,4);
+\draw[dashed,CProof] (-1.4,3)--(4.5,3);
+\node[below left] at (0,0) {$O$};
+\node[above right] at (2,4) {$B(2,4)$};
+\node[above] at (\t,3) {$A(\t,3)$};
+\node at (\sx,2.5) {$S=5$};
+\node at (2,5.3) {$4t-6=\sign$};
+\end{scope}}
+\node at (5,-1.15) {两图同尺度；$A$ 都在 $y=3$ 上，$t=4$ 或 $t=-1$。};
+\end{tikzpicture}
+\end{center}

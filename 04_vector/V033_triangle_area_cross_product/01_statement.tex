@@ -1,23 +1,30 @@
+% V033 首页包含主教学图；保留四项结论
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件1（顶点坐标）：}}] 三角形的一个顶点为原点 $O(0,0)$，另外两个顶点分别为 $A(x_1,y_1)$、$B(x_2,y_2)$。
-	\end{description}
+\input{assets/tikz/V033_area_overview}
+\textbf{\textcolor{CStatement}{条件与结论}}
+设 $O(0,0)$、$A(x_1,y_1)$、$B(x_2,y_2)$ 为任意平面点，允许负坐标、零坐标及共线退化。
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（原点公式）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			三角形面积等于两向量叉积绝对值的一半。
-			\[
-				S = \frac12\bigl|x_1y_2 - x_2y_1\bigr|.
-			\]
+\textbf{一、原点三角形面积：}
+\[
+\boxed{S_{\triangle OAB}=\frac12|x_1y_2-x_2y_1|.}
+\]
+$x_1y_2-x_2y_1$ 是有向三角形面积的两倍；普通面积必须取绝对值。
 
-		\item[\textbf{\textcolor{CStatement}{常见变形（一般面积）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			对任意三角形，设三个顶点坐标分别为 $(x_1,y_1),(x_2,y_2),(x_3,y_3)$，通过平移转化为原点形式，则面积公式为：
-			\[
-				S = \frac12\bigl| (x_2 - x_1)(y_3 - y_1) - (x_3 - x_1)(y_2 - y_1) \bigr|.
-			\]
-	\end{description}
+\textbf{二、平行四边形面积：} 补点 $D=(x_1+x_2,y_1+y_2)$，则
+\[
+\boxed{S_{OADB}=|x_1y_2-x_2y_1|=2S_{\triangle OAB}.}
+\]
+退化共线时两种面积均为零。
+
+\textbf{三、任意三点面积：} 对 $P(x_1,y_1)$、$Q(x_2,y_2)$、$R(x_3,y_3)$，
+将 $P$ 平移到原点，得到
+\[
+\boxed{S_{\triangle PQR}=\frac12\left|
+(x_2-x_1)(y_3-y_1)-(x_3-x_1)(y_2-y_1)\right|.}
+\]
+\textbf{四、共线判定：}
+\[
+O,A,B\text{ 共线}\iff x_1y_2-x_2y_1=0\iff S_{\triangle OAB}=0.
+\]
+\textbf{学习入口：} 初中底高面积与相似三角形即可推导；过 $A$、过 $B$ 均可作水平或竖直辅助线，四种证明见方法二至五。
 \end{statementbox}

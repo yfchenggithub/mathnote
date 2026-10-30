@@ -1,21 +1,40 @@
+% V033 易错辨析 | 保留 trapbox 环境
 \begin{trapbox}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（缺绝对值）：}}] 只计算 $x_1y_2 - x_2y_1$ 作为面积，忽略绝对值，导致面积出现负值。
-		\item[\textbf{\textcolor{CTrap}{正确理解（必加绝对值）：}}] 面积必须为非负数，公式必须写为 $\frac12|x_1y_2 - x_2y_1|$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（符号误判）：}}] 行列式值表示有向面积，可正可负；忘记绝对值意味着将有向面积当作实际面积，违反非负性。
-	\end{description}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（顺序混淆）：}}] 认为 $S=\frac12|x_1y_2 - x_2y_1|$ 与 $S=\frac12|x_2y_1 - x_1y_2|$ 不同，从而误以为交换两点坐标会改变面积。
-		\item[\textbf{\textcolor{CTrap}{正确理解（顺序无关）：}}] 绝对值运算使得 $|x_1y_2 - x_2y_1| = |x_2y_1 - x_1y_2|$，因此交换两点的顺序不影响面积。
-		\item[\textbf{\textcolor{CTrap}{错因分析（忽略性质）：}}] 忽视绝对值运算的对称性，直接比较表达式不同，导致错误结论。
-	\end{description}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.55em]
+ \item[\textbf{\textcolor{CTrap}{陷阱一：把有向面积当普通面积。}}]
+ 错写 $S=\frac12(x_1y_2-x_2y_1)$。方法一对照图中，右侧行列式为 $-1$，普通面积仍为 $1/2$。
+ \textbf{修正：} 面积非负，必须取 $\frac12|x_1y_2-x_2y_1|$；交换 $A,B$ 只改变符号、不改变面积。
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（公式混淆）：}}] 把公式记作 $S=\frac12|x_1x_2 - y_1y_2|$ 或 $S=\frac12|x_1y_1 - x_2y_2|$。
-		\item[\textbf{\textcolor{CTrap}{正确理解（形如交叉）：}}] 正确公式为 $S=\frac12|x_1y_2 - x_2y_1|$，即交叉相乘后相减。
-		\item[\textbf{\textcolor{CTrap}{错因分析（记忆干扰）：}}] 容易与向量的数量积 $x_1x_2 + y_1y_2$ 混淆，导致符号结构记错。
-	\end{description}
+ \item[\textbf{\textcolor{CTrap}{陷阱二：记成同类坐标相乘。}}]
+ 错式 $\frac12|x_1x_2-y_1y_2|$。
+ \textbf{最小反例：} $A=(1,0)$、$B=(0,1)$，正确面积 $1/2$，错式为 $0$。
+ \textbf{修正：} 第一项取 $A$ 的横坐标 $\times$ $B$ 的纵坐标，第二项相反，交叉后做差。
+
+ \item[\textbf{\textcolor{CTrap}{陷阱三：水平或竖直辅助点落在延长线，却仍将两面积相加。}}]
+ $A=(4,3)$、$B=(2,-1)$；水平法得 $E=(-4/3,-1)$，
+ $S_{\triangle OAB}=S_{\triangle EAB}-S_{\triangle EOB}=5$，不能相加。
+ \textbf{修正：} 先确认 $E$ 是否在线段 $OA$ 内；在延长线上用面积差，统一公式最后取绝对值。
+
+ \item[\textbf{\textcolor{CTrap}{陷阱四：相似比随意写，或者分母为零。}}]
+ 竖直法 $y_E=(x_2/x_1)y_1$ 只在 $x_1\ne0$ 时可写；
+ 水平法 $x_E=(y_2/y_1)x_1$ 只在 $y_1\ne0$ 时可写。
+ \textbf{最小反例：} $A=(0,2)$、$B=(3,1)$，若硬除 $x_1=0$ 出错；直接用竖直底 $OA$ 得 $S=3$。
+ \textbf{修正：} $OA$ 已水平或竖直时直接底乘高，不需要交点；若 $A=O$ 则面积为零。
+
+ \item[\textbf{\textcolor{CTrap}{陷阱五：把平行四边形面积误当三角形面积。}}]
+ $OADB$ 面积 $|x_1y_2-x_2y_1|$，而 $\triangle OAB$ 只有它的一半。
+ \textbf{最小反例：} $A=(1,0), B=(0,1)$，平行四边形面积 $1$，三角形面积 $1/2$。
+
+ \item[\textbf{\textcolor{CTrap}{陷阱六：三个点不含原点，直接套原点公式。}}]
+ $P=(1,2),Q=(4,5),R=(2,7)$；若直接拿 $Q,R$ 求原点三角形是 $\frac12|4\cdot7-2\cdot5|=9$，但真正 $\triangle PQR$ 面积为 $6$。
+ \textbf{修正：} 同时减去同一个顶点坐标，将其平移到原点。
+
+ \item[\textbf{\textcolor{CTrap}{陷阱七：把方法一当成行列式公式的“原始证明”。}}]
+ 若学生尚不知 $[\vec u,\vec v]=u_xv_y-u_yv_x$ 为什么成立，直接说“叉积模等于面积”只是\emph{引用}未解释的性质。
+ \textbf{修正：} 用竖直与水平辅助线分别推导来源，再把行列式作为最快计算工具。
+
+ \item[\textbf{\textcolor{CTrap}{陷阱八：求面积前必须先判断共线。}}]
+ 这是多余步骤。\textbf{修正：} $S=\frac12|x_1y_2-x_2y_1|$ 对共线、非共线都适用；$S=0$ 即已自动判定共线。
+\end{description}
 \end{trapbox}

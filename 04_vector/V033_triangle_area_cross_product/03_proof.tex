@@ -1,52 +1,175 @@
+% V033 证明 | 保留 proofbox 环境
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{\textcolor{CProof}{待证结论}}
+设 $O=(0,0)$、$A=(x_1,y_1)$、$B=(x_2,y_2)$，证明
+\[\boxed{S_{\triangle OAB}=\frac12|x_1y_2-x_2y_1|.}\]
+以下先给考场最快法，再并列保留四种\textbf{仅用初中知识}的最低门槛证明，最后给常规方法与平行四边形方法。
 
-	\textbf{使用向量叉积的几何意义，将三角形面积转化为两个向量叉积模的一半，然后通过坐标运算得到具体的表达式。}
+\medskip
+\textbf{\textcolor{CProof}{方法一：最快证明（向量有向面积，考场两步）}}
+\input{assets/tikz/V033_directed_area}
+\textbf{适用信号：} 已学平面向量的二阶行列式表示，三角形有顶点在原点。
+\begin{enumerate}[leftmargin=*,itemsep=0.25em]
+\item 写 $\vec{OA}=(x_1,y_1)$、$\vec{OB}=(x_2,y_2)$。
+\item 已知二维向量有向面积恒等式 $[\vec{OA},\vec{OB}]=x_1y_2-x_2y_1$，
+故 $2S=|[\vec{OA},\vec{OB}]|$，即得所证公式。
+\end{enumerate}
+\textbf{说明：} 此法\textbf{调用}已建立的向量面积恒等式，是求题最快法；
+不能反过来把“行列式等于面积”当作对该恒等式来源的证明。来源见方法二至七。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（向量设点）：}]
-			设 $\vec{OA} = (x_1, y_1)$，$\vec{OB} = (x_2, y_2)$，则三角形 $OAB$ 的面积 $S$ 满足
-			\[
-				S = \frac12 | \vec{OA} \times \vec{OB} |.
-			\]
-			\par\textbf{理由：}
-			以 $\vec{OA},\vec{OB}$ 为邻边的平行四边形面积等于 $|\vec{OA} \times \vec{OB}|$，而三角形面积是平行四边形面积的一半。
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法二：过 B 作竖直线（初中共底面积法）}}
+\input{assets/tikz/V033_vertical_partition}
+\textbf{图形构造：} 过 $B$ 作竖直线交\emph{直线} $OA$ 于 $E_v$。
+先取 $0<x_2<x_1$ 且 $y_1\ne0$，此时 $E_v$ 在线段 $OA$ 内。
+\begin{enumerate}[leftmargin=*,itemsep=0.25em]
+\item \textbf{为什么用相似？} $O,E_v,A$ 共线，横坐标之比等于纵坐标之比：
+$y_{E_v}=\frac{x_2}{x_1}y_1$，因而 $BE_v=|y_2-\frac{x_2}{x_1}y_1|$。
+\item \textbf{为什么面积相加？} $E_v\in OA$，由竖直公共底边 $BE_v$ 将原三角形分成两个：
+\[
+ S=\tfrac12 BE_v\cdot x_2+\tfrac12 BE_v\cdot(x_1-x_2)
+ =\tfrac12 |x_1|\,BE_v
+ =\tfrac12|x_1y_2-x_2y_1|.
+\]
+\end{enumerate}
+\textbf{位置扩展：} $E_v$ 在 $OA$ 延长线上时，改用大三角形减小三角形；
+令 $t=x_2/x_1$。若 $t<0$，水平高之差为 $|x_1|(1-t)-|x_1|(-t)=|x_1|$；若 $t>1$，差为 $|x_1|t-|x_1|(t-1)=|x_1|$。$t=0,1$ 时一片退化，仍为 $S=\frac12|x_1|BE_v$。
+$ x_1=0$ 时不能除以 $x_1$，而应以竖直 $OA$ 为底，直接得 $S=\tfrac12|y_1x_2|$。
 
-		\item[\textbf{步骤二（叉积运算）：}]
-			计算 $\vec{OA} \times \vec{OB}$ 的坐标：
-			\[
-				\vec{OA} \times \vec{OB} =
-				\begin{vmatrix}
-					x_1 & y_1 \\
-					x_2 & y_2
-			\end{vmatrix}
-				= x_1 y_2 - x_2 y_1,
-			\]
-			因此
-			\[
-				|\vec{OA} \times \vec{OB}| = |x_1 y_2 - x_2 y_1|.
-			\]
-			\par\textbf{理由：}
-			平面向量叉积（有向面积）等于对应二阶行列式的值；取绝对值即得平行四边形面积。
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法三：过 B 作水平线（初中共底面积法）}}
+\input{assets/tikz/V033_horizontal_partition}
+\textbf{图形构造：} 过 $B$ 作水平线交\emph{直线} $OA$ 于 $E_h$。
+先取 $0<y_2<y_1$，此时 $E_h\in OA$。
+\begin{enumerate}[leftmargin=*,itemsep=0.25em]
+\item \textbf{为什么相似换了方向？} 由直线 OA 上的坐标比例
+$x_{E_h}=\frac{y_2}{y_1}x_1$，$BE_h=|x_2-\frac{y_2}{y_1}x_1|$。
+\item \textbf{为什么也能合并？} 以水平线段 $BE_h$ 为共同底边，两个竖直高为 $y_2$、$y_1-y_2$：
+\[
+ S=\tfrac12 BE_h\,y_2+\tfrac12 BE_h(y_1-y_2)
+ =\tfrac12 |y_1|\,BE_h
+ =\tfrac12|x_2y_1-x_1y_2|.
+\]
+\end{enumerate}
+\textbf{位置扩展：} 令 $t=y_2/y_1$。若 $0\le t\le1$，两竖直高之和为 $|y_1|$；若 $t<0$，两高之差为 $|y_1|[(1-t)-(-t)]$；若 $t>1$，两高之差为 $|y_1|[t-(t-1)]$。三种情况均得 $S=\frac12|y_1|BE_h$。
+若 $y_1=0$，$OA$ 已是水平线段，$S=\tfrac12|x_1y_2|$。
+\textbf{两种初中法的共同不变量：} 分割或相减后，两个垂直于公共底的高的\emph{有向合量}，恰好是 $OA$ 的水平或竖直分量。
 
-		\item[\textbf{步骤三（公式代入）：}]
-			将叉积模代入面积公式：
-			\[
-				S = \frac12 |x_1 y_2 - x_2 y_1|.
-			\]
-			\par\textbf{理由：}
-			由步骤一和步骤二直接推导得出。
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法四：过 A 作竖直线（初中共底面积法）}}
+\input{assets/tikz/V033_from_a_vertical}
+\textbf{构造与相似：} 当 $x_2\ne0$，过 $A$ 作竖直线交直线 $OB$ 于 $F_v$。
+由 $O,B,F_v$ 共线的坐标比例，
+\[
+ y_{F_v}=\frac{x_1}{x_2}y_2,\qquad
+ AF_v=\left|y_1-\frac{x_1y_2}{x_2}\right|.
+\]
+\textbf{图中的面积差：} $F_v=(3,6)$ 在射线 $OB$ 上且越过 $B$。
+以 $AF_v$ 为公共底，大三角形 $OAF_v$ 的水平高为 $3$，小三角形 $BAF_v$ 的水平高为 $2$，故
+\[
+ S_{OAB}=S_{OAF_v}-S_{BAF_v}
+ =\frac12\cdot2\cdot(3-2)=1.
+\]
+\textbf{一般化：} 令 $t=x_1/x_2$。$0\le t\le1$ 时 $F_v$ 在线段 $OB$ 内，
+两片面积相加，水平高之和为 $|x_2|$。
+$t<0$ 时水平高之差为 $|x_2|[(1-t)-(-t)]$；
+$t>1$ 时为 $|x_2|[t-(t-1)]$，两者也都等于 $|x_2|$。
+因此无论交点在内部还是延长线上，
+\[
+ S=\frac12|x_2|\,AF_v
+ =\frac12|x_2y_1-x_1y_2|
+ =\boxed{\frac12|x_1y_2-x_2y_1|}.
+\]
+\textbf{零分母：} 若 $x_2=0$，$OB$ 本身竖直，直接以其为底，
+$S=\frac12|y_2x_1|$；若 $B=O$，面积为零。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法五：过 A 作水平线（初中共底面积法）}}
+\input{assets/tikz/V033_from_a_horizontal}
+\textbf{构造与相似：} 当 $y_2\ne0$，过 $A$ 作水平线交直线 $OB$ 于 $F_h$。
+利用纵坐标之比，
+\[
+ x_{F_h}=\frac{y_1}{y_2}x_2,\qquad
+ AF_h=\left|x_1-\frac{y_1x_2}{y_2}\right|.
+\]
+\textbf{图中的面积差：} $F_h=(2,4)$ 在 $OB$ 的延长线上。
+以 $AF_h=1$ 为公共底，$O$ 与 $B$ 到水平底的高分别为 $4$、$2$，所以
+\[
+ S_{OAB}=S_{OAF_h}-S_{BAF_h}
+ =\frac12\cdot1\cdot(4-2)=1.
+\]
+\textbf{一般化：} 令 $t=y_1/y_2$。$0\le t\le1$ 时面积相加，两竖直高之和为 $|y_2|$；
+$t<0$ 时两高之差为 $|y_2|[(1-t)-(-t)]$；
+$t>1$ 时为 $|y_2|[t-(t-1)]$。三种情形都给出
+\[
+ S=\frac12|y_2|\,AF_h
+ =\frac12|x_1y_2-x_2y_1|.
+\]
+\textbf{零分母：} 若 $y_2=0$，直接以水平 $OB$ 为底，$S=\frac12|x_2y_1|$；
+若 $B=O$，面积为零。
+\textbf{四种作法的共同点：} 过 $A$ 或过 $B$、水平或竖直均可；
+由相似求交点，再按交点位置加减共底面积，最终得到同一个公式。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法六：常规证明（底边 $OA$ + 点到直线距离）}}
+\input{assets/tikz/V033_distance_height}
+当 $A\ne O$ 时，直线 $OA$ 为 $y_1x-x_1y=0$。
+\[
+ |OA|=\sqrt{x_1^2+y_1^2},\qquad
+ d(B,OA)=\frac{|y_1x_2-x_1y_2|}{\sqrt{x_1^2+y_1^2}}.
+\]
+用 $S=\tfrac12\,|OA|\,d$，平方根约去：
+\[
+ S=\frac12\sqrt{x_1^2+y_1^2}\,
+ \frac{|y_1x_2-x_1y_2|}{\sqrt{x_1^2+y_1^2}}
+ =\boxed{\frac12|x_1y_2-x_2y_1|}.
+\]
+若 $A=O$，两边均为零，仍成立。
+\textbf{适用信号：} 已知点到直线距离公式，不愿作辅助点。
 
-		\item[\textbf{步骤四（共线情况）：}]
-			若 $O, A, B$ 三点共线，则向量 $\vec{OA}$ 与 $\vec{OB}$ 平行，满足 $x_1 y_2 - x_2 y_1 = 0$，故 $S = 0$。
-			\par\textbf{理由：}
-			共线时存在常数 $\lambda$ 使 $(x_2,y_2)=\lambda(x_1,y_1)$，代入即得行列式为零。
-	\end{description}
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法七：平行四边形 + 正弦差角（独立推导）}}
+\input{assets/tikz/V033_sine_parallelogram}
+令 $D=A+B$；$OADB$ 为平行四边形，故 $S_{OADB}=2S_{\triangle OAB}$。
+若 $OA,OB$ 的方向角分别为 $\alpha,\beta$、长度为 $r,s$，
+那么 $x_1=r\cos\alpha$、$y_1=r\sin\alpha$、
+$x_2=s\cos\beta$、$y_2=s\sin\beta$，而
+\[
+\begin{aligned}
+ 2S_{\triangle OAB}&=S_{OADB}=rs|\sin(\beta-\alpha)|\\
+ &=rs|\cos\alpha\sin\beta-\sin\alpha\cos\beta|\\
+ &=|x_1y_2-y_1x_2|.
+\end{aligned}
+\]
+故结论成立；若 $r=0$ 或 $s=0$，直接为零。
+\textbf{几何意义：} 平行四边形面积 $=$ 底 $\times$ 高，差角公式把“夹角”翻译成“坐标交叉乘减”。
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-
-	\textbf{综上，以原点为顶点的三角形面积公式为 $S = \frac12 |x_1 y_2 - x_2 y_1|$，当三点共线时面积为 $0$。该公式是向量叉积在几何中的直接应用，是解析几何中求三角形面积的基本工具。}
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{推广：任意三点的平移法}}
+\input{assets/tikz/V033_translation}
+设 $P(x_1,y_1)$、$Q(x_2,y_2)$、$R(x_3,y_3)$。
+将三个顶点同时减去 $P$ 的坐标，得到
+$O$、$Q'=(x_2-x_1,y_2-y_1)$、$R'=(x_3-x_1,y_3-y_1)$。
+平移不改变面积，所以
+\[
+ \boxed{S_{\triangle PQR}=\frac12\left|
+ (x_2-x_1)(y_3-y_1)-(x_3-x_1)(y_2-y_1)\right|.}
+\]
 \end{proofbox}

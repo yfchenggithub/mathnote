@@ -1,0 +1,25 @@
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small,>=Stealth,
+  every node/.style={inner sep=3pt},line cap=round,line join=round]
+\path[use as bounding box] (-1,-1.6) rectangle (11,5.5);
+\node[font=\small\bfseries,text=CStatement] at (5,5.1) {辅助点在反向延长线：大面积减去小面积};
+
+\coordinate (E) at (1.166667,0); \coordinate (O) at (2.5,1);
+\coordinate (A) at (6.5,4); \coordinate (B) at (4.5,0);
+\fill[CStatement!17] (E)--(A)--(B)--cycle;
+\fill[CTrap!25] (E)--(O)--(B)--cycle;
+\draw[thick] (E)--(A)--(B)--cycle;
+\draw[very thick,CStatement] (O)--(B);
+\draw[very thick,CTrap] (E)--(B);
+\draw[dashed] (O)--(7.4,1) (A)--(7.4,4) (B)--(7.4,0);
+\draw[<->] (7.1,0)--node[right] {$4$}(7.1,4);
+\draw[<->] (5.2,0)--node[right] {$1$}(5.2,1);
+\node[below] at (E) {$E_h(-\frac43,-1)$};
+\node[left] at (O) {$O(0,0)$};
+\node[above] at (A) {$A(4,3)$}; \node[below right] at (B) {$B(2,-1)$};
+\node at (8.7,4.1) {蓝片：$\triangle OAB$};
+\node[align=center] at (8.7,3.1) {减去红片\\$\triangle E_hOB$};
+
+\node[align=center] at (5,-1.15) {$BE_h=\frac{10}{3}$，$S=\frac12\cdot\frac{10}{3}\cdot(4-1)=5$。};
+\end{tikzpicture}
+\end{center}

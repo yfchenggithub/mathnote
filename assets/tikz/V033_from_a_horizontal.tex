@@ -1,0 +1,25 @@
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small,>=Stealth,
+  every node/.style={inner sep=3pt},line cap=round,line join=round]
+\path[use as bounding box] (-1,-1.6) rectangle (11,5.5);
+\node[font=\small\bfseries,text=CStatement] at (5,5.1) {过 A 作水平线：公共底不变，两竖直高相减};
+\begin{scope}[shift={(2,0)},scale=0.7]
+\coordinate (O) at (0,0); \coordinate (A) at (3,4);
+\coordinate (B) at (1,2); \coordinate (F) at (2,4);
+\fill[CStatement!18] (O)--(A)--(B)--cycle;
+\fill[CTrap!20] (A)--(B)--(F)--cycle;
+\draw[thick] (O)--(A)--(B)--cycle;
+\draw[dashed,thick] (B)--(F);
+\draw[very thick,CTrap] (A)--(F);
+\draw[dashed] (O)--(5.3,0) (B)--(4.3,2) (A)--(5.3,4);
+\draw[<->,CProof] (5,0)--node[right] {$4$}(5,4);
+\draw[<->,CProof] (4,2)--node[right] {$2$}(4,4);
+\node[below left] at (O) {$O(0,0)$};
+\node[above right] at (A) {$A(3,4)$};
+\node[left] at (B) {$B(1,2)$};
+\node[above left] at (F) {$F_h(2,4)$};
+\end{scope}
+\node[align=left] at (8.3,2.5) {$AF_h=1$\\[7pt]竖直高之差：$4-2=2$\\[7pt]$S=\frac12\cdot1\cdot(4-2)=1$};
+\node[align=center] at (5,-1.15) {$O,B,F_h$ 依次共线；减去红片 $\triangle BAF_h$，留下蓝片 $\triangle OAB$。};
+\end{tikzpicture}
+\end{center}

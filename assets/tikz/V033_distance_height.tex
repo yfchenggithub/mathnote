@@ -1,0 +1,21 @@
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small,>=Stealth,
+  every node/.style={inner sep=3pt},line cap=round,line join=round]
+\path[use as bounding box] (-1,-1.6) rectangle (11,5.5);
+\node[font=\small\bfseries,text=CStatement] at (5,5.1) {以斜边 OA 为底：高必须垂直于 OA};
+
+\coordinate (O) at (1,0); \coordinate (A) at (6,1);
+\coordinate (B) at (3,3); \coordinate (H) at (3.5,0.5);
+\fill[CStatement!17] (O)--(A)--(B)--cycle;
+\draw[very thick,CStatement] (O)--(A);
+\draw[thick] (A)--(B)--(O);
+\draw[dashed,very thick,CTrap] (B)--node[right] {$d$}(H);
+\pic[draw,angle radius=3mm] {right angle=A--H--B};
+\node[below left] at (O) {$O$}; \node[right] at (A) {$A$};
+\node[above] at (B) {$B$}; \node[below] at (H) {$H$};
+\node[below] at (4,-0.25) {$|OA|=\sqrt{x_1^2+y_1^2}$};
+\node[align=center] at (8.5,2.8) {$BH\perp OA$\\[8pt]$S=\frac12|OA|\cdot BH$};
+
+\node[align=center] at (5,-1.15) {垂足 $H$ 可以在底边延长线上；距离公式始终取非负值。};
+\end{tikzpicture}
+\end{center}

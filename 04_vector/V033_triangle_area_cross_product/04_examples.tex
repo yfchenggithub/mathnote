@@ -1,66 +1,77 @@
+% V033 例题与变式 | 保留 examplebox 环境
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例1（基础）}}
+\textbf{\textcolor{CExample}{例1：初中起点，四种辅助线分别计算}}
+对照方法二至五的构造图。给定 $O=(0,0)$、$A=(3,4)$、$B=(1,2)$，求面积。
+\begin{itemize}[leftmargin=*,itemsep=0.2em]
+\item \textbf{过 $B$ 作竖直线：} $E_v=(1,4/3)$，$BE_v=2/3$；
+$S=\frac12\cdot\frac23\cdot(1+2)=1$。
+\item \textbf{过 $B$ 作水平线：} $E_h=(3/2,2)$，$BE_h=1/2$；
+$S=\frac12\cdot\frac12\cdot(2+2)=1$。
+\item \textbf{过 $A$ 作竖直线：} $F_v=(3,6)$，$AF_v=2$；
+$S=\frac12\cdot2\cdot(3-2)=1$。
+\item \textbf{过 $A$ 作水平线：} $F_h=(2,4)$，$AF_h=1$；
+$S=\frac12\cdot1\cdot(4-2)=1$。
+\item \textbf{最快核对：} $S=\frac12|3\cdot2-1\cdot4|=\boxed{1}$。
+\end{itemize}
+\textbf{识别信号：} 过 $B$ 的两辅助点在线段 $OA$ 内，用面积和；过 $A$ 的两辅助点在 $OB$ 延长线上，用面积差。
 
-	\textbf{\textcolor{CExample}{题目：}}
-	已知$O(0,0), A(3,4), B(1,2)$，求$\triangle OAB$的面积。
+\medskip
+\textbf{\textcolor{CExample}{例2：水平法遇到延长线——为什么必须相减？}}
+$O=(0,0)$、$A=(4,3)$、$B=(2,-1)$。
+\begin{itemize}[leftmargin=*,itemsep=0.2em]
+\item \textbf{竖直法：} $E_v=(2,3/2)$，$BE_v=5/2$，
+$S=\frac12\cdot\frac52\cdot(2+2)=5$。
+\item \textbf{水平法：} $E_h=(-4/3,-1)$ 在 $OA$ 反向延长线上。
+$BE_h=10/3$，$\triangle E_hAB$ 的高为 $4$，$\triangle E_hOB$ 的高为 $1$，
+\[
+S=\tfrac12\cdot\tfrac{10}{3}\cdot(4-1)=\boxed{5}.
+\]
+\item \textbf{快检：} $\tfrac12|4(-1)-2(3)|=5$。
+\end{itemize}
+\textbf{认识：} 辅助点在延长线上，若套“两个面积相加”会误判。
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（向量表示）：}] 写出向量 $\vec{OA}=(3,4)$，$\vec{OB}=(1,2)$。
-			\par\textbf{理由：} 由点坐标直接得到向量坐标。
-		\item[\textbf{第二步（套用公式）：}] 计算面积
-			\[
-				S = \frac12|3\times2 - 4\times1| = \frac12|6-4| = 1.
-			\]
-			\par\textbf{理由：} 代入原点三角形面积公式 $S=\frac12|x_1y_2 - x_2y_1|$。
-		\item[\textbf{第三步（得出结果）：}] 所以 $\triangle OAB$ 的面积 $S=1$。
-			\par\textbf{理由：} 计算绝对值并取半。
-	\end{description}
+\medskip
+\textbf{\textcolor{CExample}{例3：任意三点先平移，避免硬求高}}
+$P=(1,2)$，$Q=(4,5)$，$R=(2,7)$。取 $P$ 为新原点，
+$\overrightarrow{PQ}=(3,3)$，$\overrightarrow{PR}=(1,5)$，
+\[
+ S_{\triangle PQR}=\frac12|3\cdot5-3\cdot1|=\boxed{6}.
+\]
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	$\boxed{S=1}$.
+\medskip
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例4：面积反求参数（绝对值两个分支）}}
+$O=(0,0)$、$A=(t,3)$、$B=(2,4)$，且 $S_{\triangle OAB}=5$，求 $t$。
+\input{assets/tikz/V033_parameter_branches}
+\[
+ \frac12|4t-6|=5\iff 4t-6=\pm10\iff
+ \boxed{t=4\ \text{或}\ t=-1}.
+\]
 
-	\medskip
-	\textbf{\textcolor{CExample}{例2（稍变形）}}
+\medskip
+\textbf{\textcolor{CExample}{例5：共线无需预检}}
+$O=(0,0)$、$A=(2,3)$、$B=(4,6)$，
+$S=\tfrac12|2\cdot6-4\cdot3|=0$。
+\textbf{结论：} 面积公式本身就能检查三点共线。
 
-	\textbf{\textcolor{CExample}{题目：}}
-	已知 $\triangle ABC$ 顶点为 $A(1,2)$, $B(4,5)$, $C(2,7)$，求其面积。
+\medskip
+\textbf{\textcolor{CExample}{例6：由 V033 直接迁移到 C088}}
+双曲线 $x^2/9-y^2/4=1$ 的渐近线为 $y=\pm\frac23x$。
+选 $A=(6,4)$、$B=(3,-2)$，则
+\[
+ S_{\triangle OAB}=\frac12|6(-2)-3\cdot4|=12
+ =\frac23|6\cdot3|.
+\]
+\textbf{迁移原则：} 把 $y_1=(b/a)x_1$、$y_2=-(b/a)x_2$ 直接代回 V033，得到 $S=\frac ba|x_1x_2|$。
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（平移处理）：}] 将点 $A$ 平移至原点：令 $O'(0,0)=A$，则 $B' = (4-1,5-2) = (3,3)$，$C' = (2-1,7-2) = (1,5)$。
-			\par\textbf{理由：} 三角形平移不改变面积。
-		\item[\textbf{第二步（套用公式）：}] 以 $O'$ 为原点，$B',C'$ 为顶点，面积
-			\[
-				S = \frac12|3\times5 - 3\times1| = \frac12|15-3| = 6.
-			\]
-			\par\textbf{理由：} 应用原点坐标面积公式。
-		\item[\textbf{第三步（得出结论）：}] 故 $\triangle ABC$ 的面积为 $6$。
-			\par\textbf{理由：} 平移后面积不变，直接得到原三角形面积。
-	\end{description}
-
-	\textbf{\textcolor{CExample}{关键结论：}}
-	$\boxed{S=6}$.
-
-	\medskip
-	\textbf{\textcolor{CExample}{例3（综合应用）}}
-
-	\textbf{\textcolor{CExample}{题目：}}
-	已知 $O(0,0)$, $A(a,2)$, $B(3,4)$ 三点构成三角形，且面积为 $5$，求实数 $a$ 的值。
-
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（向量表示）：}] 写出 $\vec{OA}=(a,2)$，$\vec{OB}=(3,4)$。
-			\par\textbf{理由：} 由坐标直接得到。
-		\item[\textbf{第二步（列方程）：}] 由面积公式得
-			\[
-				\frac12|a\times4 - 2\times3| = 5 \quad\Longrightarrow\quad |4a - 6| = 10.
-			\]
-			\par\textbf{理由：} 代入 $S=\frac12|x_1y_2 - x_2y_1|$，等式两边同乘2。
-		\item[\textbf{第三步（解方程）：}] 由 $|4a-6|=10$ 得 $4a-6=10$ 或 $4a-6=-10$。解得 $a=4$ 或 $a=-1$。
-			\par\textbf{理由：} 绝对值方程拆分为两个一次方程求解。
-	\end{description}
-
-	\textbf{\textcolor{CExample}{关键结论：}}
-	$\boxed{a=4}$ 或 $\boxed{a=-1}$.
+\medskip
+\textbf{\textcolor{CExample}{例7：变式（一般过原点两直线，抽象出斜率差）}}
+$A$ 在 $y=m_1x$ 上，$B$ 在 $y=m_2x$ 上，$O=(0,0)$，
+则 $A=(x_1,m_1x_1)$、$B=(x_2,m_2x_2)$。
+\[
+ \boxed{S_{\triangle OAB}=\frac12|m_2-m_1|\,|x_1x_2|.}
+\]
+\textbf{高价值迁移：} C088 是取 $m_1=b/a$、$m_2=-b/a$ 的特例。
 \end{examplebox}
