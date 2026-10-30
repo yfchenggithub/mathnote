@@ -1,28 +1,81 @@
 \clearpage
 \begin{explanationbox}
-\textbf{先看两个位置：切点从顶点移动，三角形形状改变，面积却不改变。}
+\textbf{一、先从初中三角形面积出发：顶点切线是最简单的模型。}
 
 \begin{center}
 \input{assets/tikz/C089_vertex_case}
 \end{center}
-在右顶点 $P=(a,0)$，切线就是 $x=a$，交点 $A=(a,b)$、$B=(a,-b)$。
-故 $AB=2b$，原点到切线的距离为 $a$，立即得到
+在右顶点 $P=(a,0)$ 处，切线是 $x=a$；渐近线上的交点为
+$A=(a,b),\ B=(a,-b)$。这时 $AB=2b$，而 $O$ 到直线 $AB$
+的垂距是 $a$：
 \[
-S_{\triangle AOB}=\frac12(2b)a=ab.
+S_{\triangle AOB}=\frac12\underbrace{(2b)}_{\text{底边}}
+\underbrace{a}_{\text{高}}=ab.
 \]
+\textbf{问题：}换到非顶点以后，$AB$ 会倾斜，底和高都改变。
+为什么面积还能是 $ab$？\emph{不能把顶点的计算当作一般证明。}
+
+\medskip
+\textbf{二、用一个具体数字观察``一长一短''。}
+
+取 $a=3,b=2$，右顶点对应
+$A=(3,2)$、$B=(3,-2)$。如果沿两条渐近线改成
+\[
+A=(6,4)=2(3,2),\qquad
+B=\left(\frac32,-1\right)=\frac12(3,-2),
+\]
+那么一边的长度变成原来的 $2$ 倍，另一边变成 $1/2$ 倍。
+$OA\cdot OB$ 不变；且两条渐近线的\textbf{夹角不变}，面积也应不变。
+注意此时中点为
+\[
+P=\left(\frac{6+3/2}{2},\frac{4-1}{2}\right)
+=\left(\frac{15}{4},\frac32\right),\quad
+\frac{(15/4)^2}{9}-\frac{(3/2)^2}{4}=1.
+\]
+这个 $P$ 的确位于双曲线上；下文将证明 $AB$ 正好是它的切线。
+这一步是从\emph{现象}走向\emph{一般规律}的关键。
+
+
+\medskip
+\pagebreak\noindent\textbf{三、为何恰好是倒数而非任意伸缩？}
+
+把渐近线上的点写成
+\[
+A=(ar,br),\qquad B=(as,-bs),\quad r,s\ne0.
+\]
+若 $P$ 是 $AB$ 中点，则
+$P=(a(r+s)/2,b(r-s)/2)$。由于 $P\in H$，
+\[
+\underbrace{\frac{(r+s)^2}{4}-\frac{(r-s)^2}{4}}_{\text{平方差：展开后只剩 }rs}
+=rs=1.
+\]
+因此 $s=1/r$。\textbf{记住的是关系 $rs=1$，不是记一个神秘的 $1/r$。}
+注意：这里先用中点性质\emph{解释规律}，中点性质会在证明部分先独立证明，
+不能仅凭图把它当成已知。
 
 \begin{center}
 \input{assets/tikz/C089_moving_tangent}
 \end{center}
-比较两图：$P$ 从右顶点向右上方移动时，$A$ 走远、$B$ 走近。
-\textbf{固定的是两条射线上的距离之积：}
+
+\medskip
+\textbf{四、从``乘积恒定''到``面积恒定''。}
+
+设 $c=\sqrt{a^2+b^2}$，$OA=|r|c$、$OB=|s|c$，故
+$OA\cdot OB=|rs|c^2=c^2$。
+令 $\alpha$ 为向量 $(a,b)$ 与 $x$ 轴正向的夹角，
+则 $\cos\alpha=a/c$、$\sin\alpha=b/c$；
+由于 $rs=1>0$，$A,B$ 的有向参数同号，故 $\angle AOB$ 等于 $2\alpha$ 或其补角，
+因此
 \[
-OA\cdot OB=a^2+b^2\quad\text{保持不变}.
+\sin\angle AOB=\sin(2\alpha)
+=2\frac ac\frac bc=\frac{2ab}{a^2+b^2}.
 \]
-两渐近线的夹角也固定，所以用两边及夹角的面积公式
+两边夹角面积公式立即给出
 \[
-S=\frac12\,OA\cdot OB\sin\angle AOB
-=\frac12(a^2+b^2)\cdot\frac{2ab}{a^2+b^2}=ab.
+S_{\triangle AOB}=\frac12\underbrace{OA\cdot OB}_{a^2+b^2}
+\underbrace{\sin\angle AOB}_{2ab/(a^2+b^2)}=ab.
 \]
-切点 $P$ 为 $AB$ 中点及上述长度乘积，均在下一部分严格证明。
+\textbf{一条贯穿全篇的主线：}两渐近线方向固定 $\Rightarrow$ 夹角固定；
+相切强制两个截距参数乘积为 $1$ $\Rightarrow$ 两边长度乘积固定
+$\Rightarrow$ 面积固定。
 \end{explanationbox}

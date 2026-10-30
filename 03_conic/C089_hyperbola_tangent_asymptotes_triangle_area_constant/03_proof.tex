@@ -1,116 +1,230 @@
 \clearpage
 \begin{proofbox}
-\textbf{统一设定：}设 $P=(x_0,y_0)$ 在 $H$ 上；两渐近线分别为
-$\ell_1:y=(b/a)x$ 与 $\ell_2:y=-(b/a)x$，相交于 $O=(0,0)$。
+\textbf{共同准备｜先把需要的工具证明清楚。}
+
+设 $P=(x_0,y_0)\in H$。\textbf{为什么切线可以写成}
+\[
+\boxed{t_P:\ \frac{x_0x}{a^2}-\frac{y_0y}{b^2}=1}\;\text{？}
+\]
+\textbf{初等推导（以 $y_0\ne0$ 为例）：}取曲线上另一点 $Q=(x,y)$，
+将 $P,Q$ 的方程相减，因式分解得
+\[
+\frac{(x-x_0)(x+x_0)}{a^2}
+=\frac{(y-y_0)(y+y_0)}{b^2}.
+\]
+当 $Q$ 趋于 $P$，割线斜率趋于切线斜率：
+\[
+\frac{y-y_0}{x-x_0}
+=\frac{b^2(x+x_0)}{a^2(y+y_0)}
+\longrightarrow\frac{b^2x_0}{a^2y_0}.
+\]
+故 $y-y_0=\frac{b^2x_0}{a^2y_0}(x-x_0)$；
+移项并用 $x_0^2/a^2-y_0^2/b^2=1$ 即得标准式。
+当 $y_0=0$，有 $x_0=\pm a$，曲线在顶点处具有竖直切线
+$x=\pm a$，也正是标准式。
+
+\textbf{为何引入 $u,v$？}令
+\[
+u=\frac{x_0}{a},\quad v=\frac{y_0}{b};\qquad
+u^2-v^2=1\quad\Rightarrow\quad (u-v)(u+v)=1.
+\]
+这等于把双曲线上的``点''翻译成两数的``乘积等于 $1$''；
+$u\pm v$ 均不为零，后续除法合法。
+切线改写为 $u(x/a)-v(y/b)=1$。
 
 \medskip
-\textbf{方法一｜最快证明（约三行：标准切线＋两个交点＋行列式）。}
+\textbf{方法一｜最快证明：代两条渐近线，立刻算面积。}
 \begin{center}
 \input{assets/tikz/C089_proof_coordinates}
 \end{center}
 
-令 $u=x_0/a,\ v=y_0/b$，则 $u^2-v^2=1$。
-切线是 $u(x/a)-v(y/b)=1$，分别代入 $y=\pm(b/a)x$，
-得到图中标注的 $A,B$ 坐标。
-因为 $(u-v)(u+v)=1$，所以
+\textbf{第1步：求 $A$。} $A\in\ell_1$，所以 $y=(b/a)x$。
+代入切线：
 \[
-\boxed{S_{\triangle AOB}=\frac12|x_Ay_B-x_By_A|
-=\frac{ab}{|u^2-v^2|}=ab}.
+u\frac xa-v\frac{(b/a)x}{b}=1
+\quad\Longrightarrow\quad \frac{u-v}{a}x=1.
 \]
-\textbf{优势：}切点在左支、右支或顶点都不用分类；唯一触发信号是
-\emph{切线＋两条渐近线＋面积}。
+从而
+\[
+\boxed{A=\left(\frac{a}{u-v},\frac{b}{u-v}\right)}.
+\]
+\textbf{第2步：求 $B$。} $B\in\ell_2$，所以 $y=-(b/a)x$。
+代入得到 $\frac{u+v}{a}x=1$，故
+\[
+\boxed{B=\left(\frac{a}{u+v},-\frac{b}{u+v}\right)}.
+\]
+\textbf{第3步：面积不是两项相加！}由于 $O=(0,0)$，
+坐标三角形面积是
+$S_{\triangle AOB}=\frac12|x_Ay_B-x_By_A|$。
+代入并保留每一步负号：
+\[
+\begin{aligned}
+2S_{\triangle AOB}
+&=\left|\frac a{u-v}\cdot\frac{-b}{u+v}
+-\frac a{u+v}\cdot\frac b{u-v}\right|\\
+&=\left|\frac{-2ab}{(u-v)(u+v)}\right|
+=\frac{2ab}{|u^2-v^2|}=2ab.
+\end{aligned}
+\]
+\[
+\boxed{S_{\triangle AOB}=ab}.
+\]
+\textbf{考试速写版：}
+$A=(a/(u-v),b/(u-v))$，$B=(a/(u+v),-b/(u+v))$，
+$2S=2ab/|(u-v)(u+v)|=2ab$。
+\textbf{优势：}一套公式处理上下、左右支与竖直顶点切线。
 
 \medskip
-\end{proofbox}
-\clearpage
-\begin{proofbox}
-\textbf{方法二｜最低门槛（先看顶点，再看``一长一短''）。}
+\textbf{方法二｜最低门槛：先证中点，再用两边乘积和夹角。}
 \begin{center}
 \input{assets/tikz/C089_proof_reciprocal}
 \end{center}
 
-顶点 $P=(a,0)$ 时，$AB=2b$，原点到 $AB$ 距离 $a$，故 $S=ab$。
-对一般切线，先利用切线截两渐近线的\emph{中点性质} $P=(A+B)/2$。
-可把两个交点写为
+\textbf{第1步：中点性质不是假设。}因为
+$(u-v)(u+v)=1$，
 \[
-A=(ar,br),\qquad B=(as,-bs)\qquad(r,s\ne0).
+\frac1{u-v}=u+v,\qquad\frac1{u+v}=u-v.
 \]
-于是 $P=(a(r+s)/2,\ b(r-s)/2)$；因 $P\in H$，
+把方法一求得的交点\emph{真正简化}：
 \[
-1=\frac{(r+s)^2}{4}-\frac{(r-s)^2}{4}=rs.
+A=(a(u+v),\,b(u+v)),\quad
+B=(a(u-v),\,-b(u-v)).
 \]
-因此 $A=(ar,br),\ B=(a/r,-b/r)$。图示右支的正参数；
-一般长度分别按 $|r|$ 与 $1/|r|$ 倍变化，进而
+于是
 \[
-S_{\triangle AOB}=
-\frac12\left|ar\cdot\left(-\frac br\right)
--\frac ar\cdot br\right|=ab.
-\]
-\textbf{中点性质不能只凭图猜：}用方法一中两个交点坐标，
-结合 $1/(u-v)=u+v$、$1/(u+v)=u-v$，直接得到
-\[
+\begin{aligned}
 \frac{A+B}{2}
-=\left(\frac a2[(u+v)+(u-v)],\frac b2[(u+v)-(u-v)]\right)
-=(au,bv)=P.
+&=\left(\frac{a[(u+v)+(u-v)]}{2},
+          \frac{b[(u+v)-(u-v)]}{2}\right)\\
+&=(au,bv)=(x_0,y_0)=P.
+\end{aligned}
 \]
-\textbf{优势：}理解形状变化的原因，而不仅是算出一个数；只需``平方差＝乘积''。
+因此\textbf{$P$ 真是 $AB$ 的中点}，不是凭图猜的。
+而 $OP$ 是中线，所以 $S_{\triangle OAP}=S_{\triangle OPB}$。
+
+\textbf{第2步：用最少的新字母表述伸缩。}记
+\[
+r=u+v,\qquad s=u-v,\qquad rs=u^2-v^2=1.
+\]
+那么
+\[
+A=(ar,br),\quad B=(as,-bs),\qquad s=\frac1r.
+\]
+一边在渐近线上放大 $|r|$ 倍，另一边相应缩为 $1/|r|$ 倍；
+\textbf{这里的``倒数''来自双曲线方程的平方差，而非图形猜想。}
+
+\textbf{第3步：转回初中几何。}渐近线方向向量是 $(a,b)$ 和 $(a,-b)$。
+设 $c=\sqrt{a^2+b^2}$，则
+\[
+OA=|r|c,\quad OB=|s|c\ \Rightarrow\ OA\cdot OB=|rs|c^2=c^2.
+\]
+设 $\tan\alpha=b/a$，$\sin\alpha=b/c$、$\cos\alpha=a/c$，
+则 $\sin\angle AOB=\sin2\alpha=2ab/c^2$。于是
+\[
+S=\frac12\,OA\cdot OB\sin\angle AOB
+=\frac12\,c^2\frac{2ab}{c^2}=\boxed{ab}.
+\]
+\textbf{适用价值：}这是``为什么面积不变''的结构性解释；
+左支 $r,s<0$ 时两条线段同时反向，$|rs|=1$，结论照样成立。
 
 \medskip
-\textbf{顺带推出长度乘积：}按方法二，
-$OA=|r|\sqrt{a^2+b^2}$、
-$OB=|r|^{-1}\sqrt{a^2+b^2}$，故
-$\boxed{OA\cdot OB=a^2+b^2}$。
-\end{proofbox}
-\clearpage
-\begin{proofbox}
-\textbf{方法三｜常规解析几何（直线斜截式＋相切判别式）。}
+\textbf{方法三｜常规解析几何：相切判别式与交点横坐标积。}
 \begin{center}
 \input{assets/tikz/C089_proof_slope}
 \end{center}
 
-先看非竖直切线 $y=kx+d$。图中投影给出两交点横坐标；代入双曲线，得到
+先讨论\textbf{非竖直切线} $y=kx+d$。由切线斜率
+$k=(b/a)(u/v)$（$v\ne0$），且 $u^2-v^2=1$，知
+$|u|>|v|$、$|k|>b/a$，因此下文的二次项系数不为零。
+代入曲线并乘以 $a^2b^2$：
 \[
+b^2x^2-a^2(kx+d)^2=a^2b^2
+\]
+\[
+\Downarrow\quad
 (b^2-a^2k^2)x^2-2a^2kdx-a^2(d^2+b^2)=0.
 \]
-有限切点的非竖直切线不平行于渐近线，二次项非零。相切时判别式为零，化简得
+\textbf{为什么判别式为 $0$？}相切时此方程仅有一个重合的横坐标根。
+先算清判别式：
 \[
-\boxed{d^2=a^2k^2-b^2}\qquad
-\left(|k|>\frac ba\right).
+\begin{aligned}
+\Delta
+&=(-2a^2kd)^2
+-4(b^2-a^2k^2)\bigl[-a^2(d^2+b^2)\bigr]\\
+&=4a^2b^2\bigl(d^2+b^2-a^2k^2\bigr).
+\end{aligned}
 \]
-与两渐近线相交，横坐标分别为
+因此
 \[
-x_A=-\frac{d}{k-b/a},\qquad
-x_B=-\frac{d}{k+b/a},\qquad x_Ax_B=a^2.
+\boxed{d^2=a^2k^2-b^2>0},\qquad |k|>b/a.
 \]
-因为 $A=(x_A,(b/a)x_A)$、$B=(x_B,-(b/a)x_B)$，所以
+这里必须排除 $k=\pm b/a$，因为那是\emph{与渐近线平行的退化情况}，
+并不是双曲线的有限切线。
+
+\textbf{求交点不必再解二次方程。}将 $y=kx+d$ 与两条渐近线分别联立：
 \[
-S_{\triangle AOB}=\frac ba|x_Ax_B|=ab.
+\frac ba x_A=kx_A+d
+\Rightarrow x_A=\frac{d}{b/a-k}=-\frac d{k-b/a},
 \]
-\textbf{竖直切线必须单独处理：} $x=\pm a$，相应两交点为
-$(\pm a,\pm b)$、$(\pm a,\mp b)$，面积仍为 $ab$。
-\textbf{优势：}题目先给一条未知切线 $y=kx+d$ 时可直接使用。
+\[
+-\frac ba x_B=kx_B+d
+\Rightarrow x_B=\frac d{-b/a-k}=-\frac d{k+b/a}.
+\]
+相乘（保留分母的平方差）：
+\[
+x_Ax_B=\frac{d^2}{k^2-b^2/a^2}
+=\frac{a^2d^2}{a^2k^2-b^2}=\boxed{a^2}.
+\]
+现在 $A=(x_A,\frac ba x_A)$，$B=(x_B,-\frac ba x_B)$，
+\[
+S=\frac12\left|x_A\left(-\frac ba x_B\right)
+-x_B\left(\frac ba x_A\right)\right|
+=\frac ba|x_Ax_B|=\boxed{ab}.
+\]
+\textbf{不要漏掉竖直切线：}在 $P=(\pm a,0)$ 处，
+$t_P:x=\pm a$，$A=(\pm a,\pm b)$，
+$B=(\pm a,\mp b)$，$AB=2b$，到 $O$ 的垂距是 $a$，
+仍然 $S=ab$。
+\textbf{优势：}题目给出 $y=kx+d$ 并询问何时相切时最适合。
 
 \medskip
-\end{proofbox}
-\clearpage
-\begin{proofbox}
-\textbf{方法四｜补充：渐近线坐标变换（揭示面积不变量）。}
+\textbf{方法四｜进阶扩展：沿渐近线方向换坐标。}
 \begin{center}
 \input{assets/tikz/C089_proof_affine}
 \end{center}
 
-设 $\xi=x/a+y/b,\ \eta=x/a-y/b$，则
+定义两个新变量（相当于把两条渐近线改成坐标轴）：
 \[
-H:\ \xi\eta=1,\qquad \ell_1:\eta=0,\quad\ell_2:\xi=0.
+\xi=\frac xa+\frac yb,\quad
+\eta=\frac xa-\frac yb,
+\quad\text{反解得}\quad
+x=\frac a2(\xi+\eta),\quad y=\frac b2(\xi-\eta).
 \]
-切点为 $(\xi_0,\eta_0)$ 且 $\xi_0\eta_0=1$。
-曲线 $\xi\eta=1$ 在该点的切线为
-$\eta_0\xi+\xi_0\eta=2$，两轴截距为
-$2\xi_0,2\eta_0$，所以新坐标中的三角形面积是
-$\frac12|2\xi_0\cdot2\eta_0|=2$。
-由变换行列式 $\bigl|\partial(\xi,\eta)/\partial(x,y)\bigr|=2/(ab)$，
-原坐标的面积为 $2\cdot ab/2=ab$。
-\textbf{优势：}理解``双曲线＋两渐近线''与 $xy=1$ 是同一结构；
-用于后续研究一般仿射变换与面积比。高考考场优先方法一、二。
-
+注意
+\[
+\xi\eta=\frac{x^2}{a^2}-\frac{y^2}{b^2}=1,
+\quad \ell_1:\eta=0,\quad \ell_2:\xi=0.
+\]
+把点 $P$ 记为 $(\xi_0,\eta_0)$，则
+$\xi_0\eta_0=1$。由于 $\eta=1/\xi$，在 $\xi_0$ 处斜率为
+$-1/\xi_0^2=-\eta_0/\xi_0$；
+切线 $\eta-\eta_0=-(\eta_0/\xi_0)(\xi-\xi_0)$
+整理成 $\eta_0\xi+\xi_0\eta=2$。
+其与两坐标轴的交点分别是 $(2\xi_0,0)$、$(0,2\eta_0)$；
+故\emph{辅助坐标平面}中的三角形面积为
+\[
+S_{\xi\eta}=\frac12|2\xi_0\cdot2\eta_0|=2.
+\]
+\textbf{为什么不能直接说原图面积也是 $2$？}因为坐标变换一般不保面积。
+由反变换的线性矩阵
+\[
+\begin{pmatrix}x\\y\end{pmatrix}
+=\begin{pmatrix}a/2&a/2\\ b/2&-b/2\end{pmatrix}
+\begin{pmatrix}\xi\\\eta\end{pmatrix}
+\]
+可求面积缩放系数 $|\det|=ab/2$。
+原平面面积是 $S_{xy}=(ab/2)\,S_{\xi\eta}=\boxed{ab}$。
+这解释了为何一般双曲线能化成``坐标轴是渐近线''的 $\xi\eta=1$。
+\textbf{适用层次：}作为教师拓展或进阶学生的结构性证明，
+高考常规解题优先用前两法。
 \end{proofbox}

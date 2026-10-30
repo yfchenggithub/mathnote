@@ -1,52 +1,117 @@
 \clearpage
 \begin{examplebox}
-\textbf{例1（顶点切线：十秒口算）。}
+\textbf{例1｜入口题：顶点切线能否不套公式？}
 
-$H:x^2/9-y^2/4=1$，在右顶点作切线，切线与渐近线交于 $A,B$，求面积。
+$H:x^2/9-y^2/4=1$，右顶点处切线与两渐近线交于 $A,B$，求面积。
 
-\textbf{解：} $a=3,b=2$；顶点切线为 $x=3$，交点为
-$A=(3,2)$、$B=(3,-2)$，故
-$S_{\triangle AOB}=\frac12\times4\times3=\boxed{6}$。
+\textbf{解题信号：}给定顶点，优先使用``底乘高''，无需行列式。
+$a=3,b=2$；$P=(3,0)$，$t_P:x=3$，
+$A=(3,2)$，$B=(3,-2)$。$AB=4$，$O$ 到切线的距离为 $3$，
+故 $\boxed{S=\frac12\times4\times3=6}$。
 
 \medskip
-\textbf{例2（反向应用：由面积和长度乘积求半轴）。}
+\textbf{例2｜一般点：交点、面积和中点三重核对。}
 
-某双曲线 $a>b>0$，其切线与两渐近线交于 $A,B$，已知
-$S_{\triangle AOB}=6$，$OA\cdot OB=13$，求 $a,b$。
-
-\textbf{解：} $ab=6$，$a^2+b^2=13$。
-因此 $(a+b)^2=25$、$(a-b)^2=1$，又 $a>b>0$，
-故 $\boxed{a=3,\ b=2}$。
-
-\end{examplebox}
-\clearpage
-\begin{examplebox}
-\textbf{例3（非顶点：交点数值检验中点和面积）。}
-
-同一双曲线，过 $P=(5,8/3)$ 作切线，求 $A,B$ 及 $S_{\triangle AOB}$。
+仍在 $H:x^2/9-y^2/4=1$ 上，取 $P=(5,8/3)$。
+求切线交两渐近线的 $A,B$，再求 $S_{\triangle AOB}$。
 \begin{center}
 \input{assets/tikz/C089_example_median}
 \end{center}
 
-\textbf{解：} $P\in H$，且 $u=5/3,\ v=4/3$。代入交点速式
+\textbf{第1步：确认点在曲线上。}
+$25/9-(8/3)^2/4=25/9-16/9=1$。
+\textbf{第2步：标准化。} $u=5/3$，$v=(8/3)/2=4/3$，
+所以 $u-v=1/3$，$u+v=3$。
+\textbf{第3步：分别代入交点公式。}
 \[
-A=\left(\frac3{u-v},\frac2{u-v}\right)=(9,6),\qquad
-B=\left(\frac3{u+v},-\frac2{u+v}\right)
-=\left(1,-\frac23\right).
+A=\left(\frac3{1/3},\frac2{1/3}\right)=(9,6),\quad
+B=\left(\frac33,-\frac23\right)=\left(1,-\frac23\right).
 \]
-验算中点 $(A+B)/2=(5,8/3)=P$；且
+\textbf{第4步：两个独立核验。}
 \[
+\frac{A+B}{2}=\left(5,\frac83\right)=P;
+\qquad
 S=\frac12\left|9\left(-\frac23\right)-1\cdot6\right|=\boxed6.
 \]
-两条渐近线上的交点位置变化很大，但面积没有变化。
+\textbf{诊断问题：}为什么 $A$ 比 $B$ 离 $O$ 远？
+因为沿渐近线的有向伸缩因子分别为 $u+v=3$、$u-v=1/3$。
 
 \medskip
-\textbf{变式（迁移）：}仍在 $x^2/9-y^2/4=1$ 上取任意点切线。
-若该切线与两渐近线交点是 $A,B$，求
-$S_{\triangle OAP}$、$S_{\triangle OBP}$。
+\textbf{例3｜换到左支：面积是否变号？}
 
-\textbf{答案：}因为 $P$ 是 $AB$ 的中点，$OP$ 为中线，
+若 $P=(-5,8/3)$，则 $u=-5/3$，$v=4/3$，
+$u+v=-1/3$、$u-v=-3$，所以
 \[
-\boxed{S_{\triangle OAP}=S_{\triangle OBP}=\frac{ab}{2}=3}.
+A=(-1,-2/3),\qquad B=(-9,6),\qquad
+\frac{A+B}{2}=(-5,8/3)=P.
 \]
+\[
+2S=\left|(-1)\cdot6-(-9)\cdot\left(-\frac23\right)\right|
+=|-12|=12\ \Rightarrow\ \boxed{S=6}.
+\]
+\textbf{教学要点：}左右支的\emph{有向行列式}可能取负值，
+几何面积始终非负，必须取绝对值。
+
+\medskip
+\textbf{例4｜给出直线：它真的是切线吗？}
+
+在 $H:x^2/9-y^2/4=1$ 上考察 $t:y=x-\sqrt5$。
+判断是否相切；若相切，求 $A,B$ 及面积。
+
+\textbf{解：} $k=1,d=-\sqrt5$，且
+\[
+d^2=5=9\cdot1^2-4=a^2k^2-b^2,
+\]
+因此这是一条非竖直切线。交点横坐标
+\[
+x_A=-\frac{-\sqrt5}{1-2/3}=3\sqrt5,\qquad
+x_B=-\frac{-\sqrt5}{1+2/3}=\frac{3\sqrt5}{5}.
+\]
+故
+\[
+A=(3\sqrt5,2\sqrt5),\qquad
+B=\left(\frac{3\sqrt5}5,-\frac{2\sqrt5}5\right),
+\qquad x_Ax_B=9.
+\]
+\[
+S=\frac ba|x_Ax_B|=\frac23\cdot9=\boxed6.
+\]
+\textbf{信号：}已给 $y=kx+d$ 时，先检查是否满足相切判据，
+不能见到两渐近线交点就直接使用面积定值。
+
+\medskip
+\textbf{例5｜逆向应用：由两个定值反求 $a,b$。}
+
+已知 $a>b>0$，$S_{\triangle AOB}=6$，$OA\cdot OB=13$，求 $a,b$。
+
+由定值得 $ab=6$、$a^2+b^2=13$，所以
+\[
+(a+b)^2=13+12=25,\qquad (a-b)^2=13-12=1.
+\]
+由于 $a>b>0$，有 $a+b=5,a-b=1$，因此
+$\boxed{a=3,\ b=2}$。
+\textbf{注意：}若题目没有给 $a>b$，还应保留 $(a,b)=(2,3)$ 的可能。
+
+\medskip
+\textbf{高价值变式 A｜面积拆分。}
+
+任意切点 $P$ 时，求 $S_{\triangle OAP}$、$S_{\triangle OBP}$。
+\textbf{解：}由于 $P$ 是 $AB$ 中点，$AP=PB$，两个三角形共用
+从 $O$ 到直线 $AB$ 的高，故
+\[
+\boxed{S_{\triangle OAP}=S_{\triangle OBP}=\frac{ab}{2}}.
+\]
+\textbf{高价值变式 B｜辨别逆命题。}
+
+在 $x^2/9-y^2/4=1$ 中，直线 $y=2$ 与两渐近线围成
+$\triangle AOB$ 的面积也是 $6$。能据此断定 $y=2$ 为切线吗？
+\textbf{答：不能。} 两交点为 $A=(3,2)$、$B=(-3,2)$，
+故 $S=\frac12\cdot6\cdot2=6$；
+但代入双曲线得 $x^2/9-1=1$，即 $x=\pm3\sqrt2$，
+有\emph{两个}不同交点，因而是割线而非切线。
+
+\textbf{逆命题为什么失败（值得教师点拨）：}这条割线有
+$x_Ax_B=3\cdot(-3)=-9$，而真正的非竖直切线满足
+$x_Ax_B=+9$。面积公式 $S=(b/a)|x_Ax_B|$ \emph{取了绝对值}，
+把正负信息抹掉了；因此``面积相同''无法判断``是否相切''。
 \end{examplebox}

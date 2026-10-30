@@ -1,0 +1,28 @@
+% C089 reciprocal: a=1.8,b=1.1; A=(ar,br), B=(a/r,-b/r), P midpoint lies H.
+% Every plotted point is computed from the exact parameter r (no freehand geometry).
+\begin{tikzpicture}[>=stealth, every node/.style={font=\footnotesize}]
+\foreach \rr/\dx in {1/0,1.5/4.9,2/9.8}{
+\begin{scope}[xshift=\dx cm,x=0.69cm,y=0.69cm]
+\pgfmathsetmacro{\ax}{1.8*\rr}
+\pgfmathsetmacro{\ay}{1.1*\rr}
+\pgfmathsetmacro{\bx}{1.8/\rr}
+\pgfmathsetmacro{\by}{-1.1/\rr}
+\pgfmathsetmacro{\px}{(\ax+\bx)/2}
+\pgfmathsetmacro{\py}{(\ay+\by)/2}
+\fill[red!8] (0,0)--(\ax,\ay)--(\bx,\by)--cycle;
+\draw[gray!65,->] (-.25,0)--(4.1,0) node[right] {$x$};
+\draw[gray!65,->] (0,-2.75)--(0,2.7) node[above] {$y$};
+\draw[densely dashed,blue!65!black] (0,0)--(4.05,2.475);
+\draw[densely dashed,blue!65!black] (0,0)--(4.05,-2.475);
+\draw[teal!70!black,semithick,domain=-.85:.85,samples=42,variable=\t]
+ plot ({1.8/2*(exp(\t)+exp(-\t))},{1.1/2*(exp(\t)-exp(-\t))});
+\draw[red!75!black,thick] ($(\bx,\by)!-.12!(\ax,\ay)$)--($(\ax,\ay)!-.12!(\bx,\by)$);
+\draw[orange!80!black,semithick] (0,0)--(\ax,\ay)--(\bx,\by)--cycle;
+\fill (0,0) circle (1.2pt) node[below left] {$O$};
+\fill (\ax,\ay) circle (1.3pt) node[above right] {$A$};
+\fill (\bx,\by) circle (1.3pt) node[below right] {$B$};
+\fill (\px,\py) circle (1.3pt) node[above left] {$P$};
+\node[font=\small] at (2,-3.05) {$r=\rr,\quad rs=1$};
+\end{scope}
+}
+\end{tikzpicture}

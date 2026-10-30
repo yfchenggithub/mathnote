@@ -1,39 +1,76 @@
 \clearpage
 \begin{trapbox}
-\textbf{C089 易错点与最小反例。}
+\textbf{C089｜易错辨析：先判断条件，再用结论；每处给最小反例。}
+
+\begin{enumerate}
+\item \textbf{把定理当成充要条件。}
+本定理只保证``相切 $\Rightarrow S=ab$''，不保证反过来。
+在 $x^2/9-y^2/4=1$ 中，\emph{割线} $y=2$ 与两条渐近线交于
+$A=(3,2),B=(-3,2)$，也有 $S_{\triangle AOB}=6=ab$。
+但是它与双曲线有两个交点 $x=\pm3\sqrt2$。
+\textbf{最小反例已说明：面积恰好为 $ab$ 不足以判断切线。}
+
+
+\item \textbf{把行列式面积写成加号或遗漏绝对值。}
+正确公式为
+$S_{\triangle OAB}=\frac12|x_Ay_B-x_By_A|$。
+例如 $A=(3,2),B=(3,-2)$：
+\[
+\frac12|3(-2)-3(2)|=6,
+\quad\text{但误写为}\quad\frac12|3(-2)+3(2)|=0.
+\]
+减号来自\emph{有向面积}，绝对值才转成非负几何面积。
+
+\item \textbf{以任意割线套用公式。}
+同一双曲线，$x=6$ 与渐近线交于 $(6,4)$、$(6,-4)$，
+面积 $\frac12\cdot8\cdot6=24\ne6$。
+可见割线面积既可能等于 $ab$（前例），也可能不等于 $ab$；
+关键始终是\emph{是否相切}。
 \begin{center}
 \input{assets/tikz/C089_trap_secant}
 \end{center}
-\begin{itemize}
-\item \textbf{把``切线''误当作``任意直线''。}
-图中两线分别与 $x^2/9-y^2/4=1$ 相交于一个、两个点。
-割线 $x=6$ 截得面积 $24\ne ab=6$；使用定值前先核对相切条件。
-\end{itemize}
-\end{trapbox}
-\clearpage
-\begin{trapbox}
-\textbf{把 $O$ 错换为焦点。}
-图取 $a=3,b=4,c=5$。同一底边 $AB$，中心 $O$ 与焦点 $F$
-到切线的距离不同；套用 $ab$ 必须选两渐近线交点 $O$。
 
+\item \textbf{误把 $O$ 改成焦点 $F$。}
+若 $a=3,b=4,c=5$，右顶点切线的
+$A=(3,4)$、$B=(3,-4)$，$S_{\triangle OAB}=12$；
+但对右焦点 $F=(5,0)$，以同一底边 $AB$ 算出的面积为
+$S_{\triangle FAB}=\frac12\cdot8\cdot2=8$。
+$O$ 是\textbf{两渐近线交点}，不能任意换第三顶点。
 \begin{center}
 \input{assets/tikz/C089_trap_center_focus}
 \end{center}
-\begin{itemize}
-\item \textbf{误认 $AB$ 或 $OA$、$OB$ 分别恒定。}
-只有 $OA\cdot OB=a^2+b^2$ 恒定；两段长度通常都改变。
-顶点时 $AB=2b$，一般点时 $AB$ 不必等于 $2b$。
-\item \textbf{把 $OA\cdot OB$ 写成 $OA^2+OB^2$。}
-一个是长度之积，一个是平方和；且都不是向量点积。
-\item \textbf{忘记切点可能是顶点。} 
-斜截式 $y=kx+d$ 会遗漏竖直切线 $x=\pm a$；
-用标准切线式 $xx_0/a^2-yy_0/b^2=1$ 最稳妥。
-\item \textbf{只用右支的正参数推出``全曲线成立''。}
-切点在左支时交点横坐标可为负；面积要取绝对值。
-标准切线式中的 $(u-v)(u+v)=1$ 对两支均成立。
-\item \textbf{中点结论不能凭示意图宣称。}
-$P$ 是 $AB$ 的中点由切线方程严格推出，绝非对任意割线成立。
-\end{itemize}
-\textbf{反例诊断：}面积从 $6$ 变成 $24$ 时，第一时间检查：
-这条直线真的与双曲线\textbf{相切}吗？
+
+\item \textbf{误认为 $OA,OB,AB$ 各自固定。}
+只有乘积 $OA\cdot OB=a^2+b^2$ 固定，
+$OA$ 与 $OB$ 随切点变动，$AB$ 也通常变化。
+例如 $a=3,b=2$：顶点时 $AB=4$；取
+$A=(6,4)$、$B=(3/2,-1)$ 后，
+$AB=\sqrt{(9/2)^2+5^2}\ne4$。
+
+\item \textbf{把长度乘积误写成向量点积或平方和。}
+$OA\cdot OB$ 表示两条\emph{长度}相乘；不是
+$OA^2+OB^2$，更不是 $\overrightarrow{OA}\cdot\overrightarrow{OB}$。
+用向量数量积计算还需乘 $\cos\angle AOB$，并不等于 $a^2+b^2$。
+
+\item \textbf{先用中点性质，再忘了证明中点性质。}
+必须从标准切线与渐近线联立得到
+$A=(a(u+v),b(u+v))$、$B=(a(u-v),-b(u-v))$，
+然后才可求 $(A+B)/2=P$。
+普通割线没有这一中点结论。
+
+\item \textbf{切线写成 $y=kx+d$ 就遗漏顶点。}
+顶点切线 $x=\pm a$ 是竖直线，不是有限斜率的斜截式。
+优先用 $xx_0/a^2-yy_0/b^2=1$，它包含所有有限切点。
+
+\item \textbf{只证明了右支正参数，就宣布全曲线成立。}
+右支 $u>0$，$u\pm v>0$；左支 $u<0$，$u\pm v<0$。
+两支都满足 $(u+v)(u-v)=1$；
+面积必须取绝对值，不能把负有向面积当成负几何面积。
+
+\end{enumerate}
+
+\textbf{课后诊断（三个问题）：}
+(1) 面积为 $ab$ 是否必相切？\emph{否。}
+(2) 为什么一定是``减''的坐标面积式？\emph{来自有向行列式。}
+(3) 为什么左支仍成立？\emph{$rs=1$ 且面积取绝对值。}
 \end{trapbox}
