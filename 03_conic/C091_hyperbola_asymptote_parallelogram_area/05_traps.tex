@@ -1,0 +1,107 @@
+\clearpage
+\begin{trapbox}
+\textbf{易错、边界与最小反例（C091 专项核查）。}
+\begin{itemize}
+\item \textbf{把面积错写成 $ab$ 或 $2ab$。}
+必有系数 $\boxed{1/2}$。\textbf{最小核对：}
+$a=3,b=2,P=(3,0)$，由 $Q=(3/2,1),R=(3/2,-1)$ 算出面积 $3$，不是 $6$。
+
+\item \textbf{以为 $P$ 是某个边上的点。}
+$P$ 与两渐近线交点 $O$ 是\textbf{对顶点}；
+另两顶点 $Q,R$ 各自\textbf{落在不同渐近线}上。
+
+\item \textbf{错误地把两组平行线间距的乘积当作面积。}
+一般应是 $S=d_+d_-/\sin\theta$，而非 $d_+d_-$；
+只有两渐近线\textbf{垂直}（$a=b$）时，$\sin\theta=1$。
+
+\item \textbf{把一般平行四边形默认为矩形或菱形。}
+仅 $a=b$ 时两渐近线垂直，得到矩形；
+仅在 $P=(\pm a,0)$ 时相邻两边等长，得到菱形。
+两者兼有时才是正方形。
+
+\item \textbf{菱形、矩形条件只背结论，忽略由来。}
+记 $Q=(u,ku),R=(v,-kv)$，$k=b/a$。
+因 $4uv=a^2>0$，$u,v$ 同号；
+$|OQ|=|u|\sqrt{1+k^2}$，$|OR|=|v|\sqrt{1+k^2}$。
+故\textbf{菱形} $\Leftrightarrow|u|=|v|\Leftrightarrow u=v
+\Leftrightarrow y=k(u-v)=0\Leftrightarrow P=(\pm a,0)$。
+\textbf{矩形} $\Leftrightarrow$ 渐近线垂直 $\Leftrightarrow
+(a,b)\cdot(a,-b)=a^2-b^2=0\Leftrightarrow a=b$。
+\textbf{正方形}需两者同时满足。不要把某个$P$的菱形条件错归因于$a=b$。
+
+\item \textbf{把渐近线写成 $y=\pm a x/b$。}
+对 $x^2/a^2-y^2/b^2=1$，应写
+$\boxed{y=\pm (b/a)x}$；先在方程中取最高次项 $x^2/a^2-y^2/b^2=0$ 即可恢复。
+
+\item \textbf{认为只能在右支或 $y\ge0$ 才成立。}
+左支同样成立。平方和面积的绝对值使 $x,y$ 的符号不影响结果。
+
+\item \textbf{混淆 $a,b$ 与焦距 $c$。}
+这个面积定值只涉及\textbf{两条半轴参数的乘积 $ab$}，
+与 $c=\sqrt{a^2+b^2}$ 不需直接联立。
+
+\item \textbf{误用椭圆公式。}
+同取两条直线 $y=\pm(b/a)x$，若 $P$ 在
+椭圆 $x^2/a^2+y^2/b^2=1$ 上，面积并不恒定：
+$P=(a,0)$ 时为 $ab/2$；$P=(a/\sqrt2,b/\sqrt2)$ 时四边形退化、面积为 $0$。
+
+\item \textbf{反向推断失败。}若仅知道 $S=ab/2$，
+则 $\bigl|x^2/a^2-y^2/b^2\bigr|=1$，
+有 $+1$、$-1$ \textbf{两种情形}，不能唯一推出题设双曲线方程。
+
+\item \textbf{忘记渐近线上是退化情形。}
+当 $P$ 落在 $\ell_+$ 或 $\ell_-$ 上时，
+$u=0$ 或 $v=0$，所谓“四边形”有相邻点重合（或共线），
+只可把它\textbf{看成退化平行四边形}，面积按 $0$ 计。
+不能说它仍是通常意义的非退化平行四边形。
+
+\item \textbf{将固定 $c$ 与固定 $a,b$ 混为一谈。}
+若 $c^2=a^2+b^2$ 固定而 $a,b$ 可以变化，则
+$0<S=ab/2\le c^2/4$，只有上界，面积\textbf{不固定}；
+且 $S=0$ 不可取得。若 $a,b$ 固定，面积才与点 $P$ 的运动位置无关。
+
+\item \textbf{套用一次式乘积推广却忽略独立性。}
+若 $L_1,L_2$ 方向相同（系数行列式 $D=0$），
+两组直线不能围成所需平行四边形；
+公式 $|L_1L_2|/|D|$ 不可使用。
+
+\item \textbf{忘记 $a,b>0$ 或面积非负。}
+方程使用 $a^2,b^2$，约定 $a,b>0$；
+推广 $x^2/a^2-y^2/b^2=t$ 时必须写
+$\boxed{S=ab|t|/2}$ 而不是 $abt/2$。
+
+\item \textbf{拿错两条平行线。}必须\textbf{一条平行 $\ell_+$，另一条平行 $\ell_-$}；
+若两条都平行一条渐近线，无法按题意围成该平行四边形。
+\end{itemize}
+
+\textbf{考场自检：}
+\[
+\boxed{\ell_\pm:y=\pm\frac ba x}\quad
+\boxed{P=Q+R}\quad
+\boxed{S=\frac{ab}{2}}\quad
+\boxed{\text{两支均可}}.
+\]
+\end{trapbox}
+
+\clearpage
+\begin{trapbox}
+\textbf{模型对照：换曲线后，面积还恒定吗？}
+\begin{center}
+\input{assets/tikz/C091_area_counterexamples}
+\end{center}
+三图统一取 $a=3,b=2$、同一比例。左、中两图在同一椭圆上，面积却从 $3$ 变为 $0$；
+右图满足 $x^2/9-y^2/4=-1$，面积也为 $3$。
+所以既不能把双曲线定值搬到椭圆，也不能由面积 $ab/2$ 反推原双曲线。
+
+\medskip
+\textbf{形状对照：矩形与菱形的条件各不相同。}
+\begin{center}
+\input{assets/tikz/C091_shape_comparison}
+\end{center}
+菱形要求 $|OQ|=|OR|$，本题等价于 $P=(\pm a,0)$；
+矩形要求两渐近线垂直，即 $a=b$。两条件同时满足才是正方形。
+\textbf{判定两步：} $|OQ|=|OR|\Leftrightarrow|u|=|v|$，
+而 $uv>0$ 强制 $u=v$，因此 $y=0$；
+另一方面 $(a,b)\cdot(a,-b)=a^2-b^2$，
+正交当且仅当 $a=b$。
+\end{trapbox}

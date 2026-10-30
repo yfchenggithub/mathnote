@@ -1,0 +1,19 @@
+% All panels use the same physical scale. Points are vertices of H.
+\begin{tikzpicture}[x=.95cm,y=.95cm,font=\small]
+\foreach \s/\aa/\bb/\tt in {0/3/2/{菱形},4.7/2/2/{正方形},9.4/2/2/{矩形}}{
+\begin{scope}[shift={(\s,0)}]
+\node at (1.5,2.8) {\tt};
+\ifdim\s pt=9.4pt
+  % a=b=2, lambda=1,mu=1/4; P=(5/2,3/2).
+  \fill[orange!17] (0,0)--(2,2)--(2.5,1.5)--(.5,-.5)--cycle;
+  \draw[orange!85!black,thick] (0,0)--(2,2)--(2.5,1.5)--(.5,-.5)--cycle;
+  \node[right] at (2.5,1.5) {$P$};
+\else
+  \fill[orange!17] (0,0)--(\aa/2,\bb/2)--(\aa,0)--(\aa/2,-\bb/2)--cycle;
+  \draw[orange!85!black,thick] (0,0)--(\aa/2,\bb/2)--(\aa,0)--(\aa/2,-\bb/2)--cycle;
+  \node[right] at (\aa,0) {$P$};
+\fi
+\node[left] at (0,0) {$O$};
+\node at (1.5,-1.65) {$a=\aa,\ b=\bb$};
+\end{scope}}
+\end{tikzpicture}
