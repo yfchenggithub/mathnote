@@ -1,0 +1,59 @@
+% C088 PDF teaching figure; exact coordinates, equal x/y units.
+\begin{tikzpicture}[x=1cm,y=1cm,>=stealth,font=\small]
+\draw[rounded corners=5pt,black!25] (-1.2,-5.05) rectangle (11.1,4.3);
+\node[font=\bfseries] at (4.95,3.7) {两次相似：横坐标比 $\to$ 斜边比 $\to$ 高之比};
+\node at (1.5,2.7) {① 向 $x$ 轴投影，比较 $OB,OC$};
+\node at (7.75,2.7) {② 共底 $OA$，比较两条高};
+\begin{scope}
+\coordinate (O) at (0,0); \coordinate (A) at (3,1.8); \coordinate (C) at (3,-1.8);
+\coordinate (B) at (1.5,-.9); \coordinate (F) at (1.5,0); \coordinate (E) at (3,0);
+\fill[orange!15] (O)--(A)--(C)--cycle;
+\fill[teal!23] (O)--(B)--(F)--cycle;
+\draw[->,black!45] (-.45,0)--(3.95,0) node[right] {$x$};
+\draw[blue!65!black,thick] (O)--(A);
+\draw[violet!75!black,dashed,thick] (O)--(C);
+\draw[orange!85!black,very thick] (A)--(C);
+\node[right=6pt] at (3,.65) {$2kx_1$};
+\draw[teal!80!black,thick,dashed] (B)--(F);
+\draw (1.32,0)--(1.32,-.18)--(1.5,-.18);
+\draw (2.82,0)--(2.82,-.18)--(3,-.18);
+\draw[black!65] (.55,0) arc[start angle=0,end angle=-30.96375653,radius=.55];
+\fill (F) circle (1.3pt) node[above=4pt] {$F$};
+\fill (E) circle (1.3pt) node[below right=3pt] {$E$};
+\fill (B) circle (1.7pt) node[below left=4pt] {$B$};
+\fill (O) circle (1.7pt) node[above left=3pt] {$O$};
+\fill (A) circle (1.7pt) node[above=4pt] {$A$};
+\fill (C) circle (1.7pt) node[right=8pt] {$C$};
+\draw[<->,teal!80!black] (0,-2.35)--(1.5,-2.35) node[midway,fill=white,inner sep=3pt] {$x_2$};
+\draw[<->] (0,-3.0)--(3,-3.0) node[midway,fill=white,inner sep=3pt] {$x_1$};
+\node at (1.5,-3.6) {$\triangle OBF\sim\triangle OCE$};
+\node at (1.5,-4.45) {$\dfrac{OB}{OC}=\dfrac{OF}{OE}=\dfrac{x_2}{x_1}$};
+\end{scope}
+\begin{scope}[shift={(6.2,0)}]
+\coordinate (O) at (0,0); \coordinate (A) at (3,1.8);
+\coordinate (B) at (1.5,-.9); \coordinate (C) at (3,-1.8);
+\coordinate (D) at ({12/17},{36/85}); \coordinate (H) at ({24/17},{72/85});
+\fill[orange!12] (O)--(A)--(C)--cycle;
+\fill[teal!23] (O)--(A)--(B)--cycle;
+\draw[blue!65!black,very thick] (O)--(A);
+\draw[violet!75!black,thick,dashed] (O)--(C);
+\draw[orange!70!black] (A)--(C);
+\draw[teal!80!black,thick] (A)--(B);
+\draw[red!65!black,dashed,thick] (B)--(D) (C)--(H);
+\pic[draw,black!65,angle radius=3mm] {right angle=B--D--A};
+\pic[draw,black!65,angle radius=3mm] {right angle=C--H--A};
+\fill (D) circle (1.3pt) node[above left=3pt] {$D$};
+\fill (H) circle (1.3pt) node[above left=3pt] {$H$};
+\pic[draw,black!65,angle radius=5.5mm] {angle=B--O--A};
+\path (B)--(D) node[midway,sloped,above=4pt,text=red!65!black] {$h_B$};
+\node[red!65!black] at (2.7,-.45) {$h_C$};
+\fill (O) circle (1.7pt) node[above left=3pt] {$O$};
+\fill (A) circle (1.7pt) node[above=4pt] {$A$};
+\fill (B) circle (1.7pt) node[below left=4pt] {$B$};
+\fill (C) circle (1.7pt) node[right=8pt] {$C$};
+\node at (1.55,-2.65) {$BD=h_B,\quad CH=h_C$};
+\node at (1.55,-3.6) {$\triangle OBD\sim\triangle OCH$};
+\node at (1.55,-4.45) {$\dfrac{h_B}{h_C}=\dfrac{BD}{CH}=\dfrac{OB}{OC}$};
+\end{scope}
+
+\end{tikzpicture}

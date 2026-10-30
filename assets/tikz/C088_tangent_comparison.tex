@@ -1,0 +1,36 @@
+% C088 PDF teaching figure; exact coordinates, equal x/y units.
+\begin{tikzpicture}[x=0.73cm,y=0.73cm,>=stealth,font=\small]
+\draw[rounded corners=5pt,black!25] (-1.2,-6) rectangle (16.1,7.6);
+\node[font=\bfseries] at (7.45,6.949999999999999) {切线固定横坐标乘积：$x_1x_2=a^2$，进而 $S=ab$};
+\begin{scope}[shift={(0,0)}]
+\node at (3.3,5.55) {切线 $x=3$：$S=ab=6$};
+\draw[->,black!45] (-0.35,0)--(7.05,0) node[right] {$x$};
+\draw[->,black!45] (0,-4.5)--(0,4.2) node[above] {$y$};
+\draw[blue!65!black,thick] (0,0.0)--(6.65,4.433333333333334);
+\draw[violet!75!black,thick,dashed] (0,-0.0)--(6.65,-4.433333333333334);
+\fill[teal!18] (0,0)--(3,2.0)--(3,-2.0)--cycle;
+\draw[black!65,dotted,very thick,domain=-4:4,samples=90,variable=\t] plot ({3*sqrt(1+\t*\t/4)},\t);
+\draw[orange!85!black,very thick] (3,-4.55)--(3,4.55);
+\fill (0,0) circle (1.7pt) node[below left=4pt] {$O$};
+\fill (3,2.0) circle (1.8pt) node[above left=5pt] {$A$};
+\fill (3,-2.0) circle (1.8pt) node[below left=5pt] {$B$};
+\fill (3,0) circle (1.6pt) node[above left=5pt] {$P$};
+\node at (3.3,-5.3) {顶点切线，$x_1x_2=9=a^2$};
+\end{scope}
+\begin{scope}[shift={(8.5,0)}]
+\node at (3.3,5.55) {割线 $x=6$：$S=24$};
+\draw[->,black!45] (-0.35,0)--(7.05,0) node[right] {$x$};
+\draw[->,black!45] (0,-4.5)--(0,4.2) node[above] {$y$};
+\draw[blue!65!black,thick] (0,0.0)--(6.65,4.433333333333334);
+\draw[violet!75!black,thick,dashed] (0,-0.0)--(6.65,-4.433333333333334);
+\fill[teal!18] (0,0)--(6,4.0)--(6,-4.0)--cycle;
+\draw[black!65,dotted,very thick,domain=-4:4,samples=90,variable=\t] plot ({3*sqrt(1+\t*\t/4)},\t);
+\draw[orange!85!black,very thick] (6,-4.55)--(6,4.55);
+\fill (0,0) circle (1.7pt) node[below left=4pt] {$O$};
+\fill (6,4.0) circle (1.8pt) node[above left=5pt] {$A$};
+\fill (6,-4.0) circle (1.8pt) node[below left=5pt] {$B$};
+\fill (3,0) circle (1.6pt) node[above left=5pt] {$P$};
+\node at (3.3,-5.3) {任意截线未必有 $x_1x_2=a^2$};
+\end{scope}
+
+\end{tikzpicture}

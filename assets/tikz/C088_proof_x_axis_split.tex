@@ -1,0 +1,39 @@
+% C088: x-axis intercept, similar right triangles, and additive areas.
+% Exact model: k=1/2, x1=6, x2=3, c=2*x1*x2/(x1+x2)=4.
+\begin{tikzpicture}[x=1cm,y=1cm,>=stealth,font=\small]
+\draw[rounded corners=5pt,black!25] (-1.0,-3.65) rectangle (11.8,5.3);
+\node[font=\bfseries] at (5.4,4.65) {沿 $x$ 轴拆成两块：先求交点 $C$，再共底相加};
+\node at (5.4,3.95) {$x_1>x_2>0,\quad B_1<C<A_1,\quad \tan\theta=k$};
+\coordinate (O) at (0,0);
+\coordinate (A) at (6,3); \coordinate (B) at (3,-1.5);
+\coordinate (C) at (4,0);
+\coordinate (A1) at (6,0); \coordinate (B1) at (3,0);
+\fill[orange!17] (O)--(C)--(A)--cycle;
+\fill[teal!23] (O)--(B)--(C)--cycle;
+\draw[->,black!45] (-.55,0)--(10.85,0) node[right] {$x$};
+\draw[->,black!45] (0,-1.65)--(0,3.2) node[above] {$y$};
+\draw[blue!65!black,thick] (O)--(A);
+\draw[violet!75!black,dashed,thick] (O)--(B);
+\draw[teal!80!black,very thick] (2.8,-1.8)--(6.2,3.3);
+\draw[red!65!black,very thick] (O)--(C);
+\draw[red!65!black,dashed,thick] (A)--(A1) (B)--(B1);
+\draw[black!65] (5.8,0)--(5.8,.2)--(6,.2);
+\draw[black!65] (3.2,0)--(3.2,-.2)--(3,-.2);
+\pic[draw,black!65,angle radius=8mm] {angle=C--O--A};
+\pic[draw,black!65,angle radius=8mm] {angle=B--O--C};
+\node at (1.2,.27) {$\theta$};
+\node at (1.2,-.27) {$\theta$};
+\fill (O) circle (1.7pt) node[below left=4pt] {$O$};
+\fill (A) circle (1.7pt) node[above left=4pt] {$A$};
+\fill (B) circle (1.7pt) node[right=5pt] {$B$};
+\fill (C) circle (1.7pt) node[below=5pt] {$C$};
+\fill (A1) circle (1.3pt) node[below=5pt] {$A_1$};
+\fill (B1) circle (1.3pt) node[above=5pt] {$B_1$};
+\path (A)--(A1) node[midway,right=5pt,text=red!65!black] {$kx_1$};
+\path (B)--(B1) node[midway,left=5pt,text=red!65!black] {$kx_2$};
+\node[orange!85!black] at (8.95,2.1) {$S_+=\frac12\,OC\cdot kx_1$};
+\node[teal!80!black] at (8.95,-1.05) {$S_-=\frac12\,OC\cdot kx_2$};
+\draw[<->] (0,-2.2)--(4,-2.2)
+ node[midway,fill=white,inner sep=3pt] {$OC=c$};
+\node at (5.4,-2.8) {$\triangle CA_1A\sim\triangle CB_1B$};
+\end{tikzpicture}

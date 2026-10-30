@@ -1,0 +1,39 @@
+% C088: equal-scale boundary diagrams, k=1/2 in both panels.
+\begin{tikzpicture}[x=.85cm,y=.85cm,>=stealth,font=\small]
+\draw[rounded corners=5pt,black!25] (-.7,-2.85) rectangle (15.1,4.25);
+\node[font=\bfseries] at (7.2,3.6) {横坐标异号：同侧作差；水平截线：直接算底高};
+\node at (3,2.7) {$x_1=3,\ x_2=-1,\ c=-3$};
+\node at (11,2.7) {$x_1=3,\ x_2=-3$};
+\begin{scope}
+\coordinate (C) at (0,0); \coordinate (O) at (3,0);
+\coordinate (A) at (6,1.5); \coordinate (B) at (2,.5);
+\fill[orange!17] (O)--(C)--(A)--cycle;
+\fill[teal!23] (O)--(B)--(A)--cycle;
+\draw[->,black!45] (-.35,0)--(6.35,0) node[right] {$x$};
+\draw[blue!65!black,thick] (O)--(A);
+\draw[violet!75!black,dashed,thick] (O)--(B);
+\draw[teal!80!black,thick] (C)--(A);
+\draw[red!65!black,dashed] (B)--(2,0) (A)--(6,0);
+\draw[red!65!black,very thick] (C)--(O);
+\fill (C) circle (1.7pt) node[below=5pt] {$C$};
+\fill (O) circle (1.7pt) node[below=5pt] {$O$};
+\fill (B) circle (1.7pt) node[above left=4pt] {$B$};
+\fill (A) circle (1.7pt) node[above=4pt] {$A$};
+\node at (3,-1.35) {$S_{OAB}=S_{OCA}-S_{OCB}$};
+\end{scope}
+\begin{scope}[shift={(8,0)}]
+\coordinate (O) at (3,0); \coordinate (A) at (6,1.5); \coordinate (B) at (0,1.5);
+\fill[teal!23] (O)--(A)--(B)--cycle;
+\draw[->,black!45] (-.35,0)--(6.35,0) node[right] {$x$};
+\draw[blue!65!black,thick] (O)--(A);
+\draw[violet!75!black,dashed,thick] (O)--(B);
+\draw[orange!85!black,very thick] (-.2,1.5)--(6.2,1.5);
+\draw[red!65!black,dashed] (O)--(3,1.5) node[midway,right=4pt] {$k|x_1|$};
+\draw[black!65] (3,1.3)--(3.2,1.3)--(3.2,1.5);
+\fill (O) circle (1.7pt) node[below=5pt] {$O$};
+\fill (A) circle (1.7pt) node[above=4pt] {$A$};
+\fill (B) circle (1.7pt) node[above=4pt] {$B$};
+\node at (3,-1.25) {$AB\parallel x\text{轴，无交点 }C$};
+\node at (3,-2.05) {$S=\frac12\cdot2|x_1|\cdot k|x_1|$};
+\end{scope}
+\end{tikzpicture}

@@ -1,0 +1,21 @@
+% 精确异号示意图：k=3/5, A=(4,12/5), B=(-3,9/5).
+% 直线 l: y=(3/35)x+72/35, 可穿过 y 轴但不穿过原点。
+\begin{tikzpicture}[scale=0.63,>=stealth]
+\coordinate (O) at (0,0);
+\coordinate (A) at (4,2.4);
+\coordinate (B) at (-3,1.8);
+\fill[purple!13] (O)--(A)--(B)--cycle;
+\draw[->,gray!70] (-5.0,0)--(5.4,0) node[right] {$x$};
+\draw[->,gray!70] (0,-3.35)--(0,3.5) node[above] {$y$};
+\draw[thick,blue!65!black] (-5,-3)--(5.2,3.12);
+\draw[thick,blue!65!black] (-5,3)--(5.2,-3.12);
+\draw[orange!85!black,line width=1.2pt]
+ (-4.4,{(3/35)*(-4.4)+72/35})--(5,{(3/35)*5+72/35});
+\draw[purple!80!black,line width=.85pt] (O)--(A)--(B)--cycle;
+\fill (O) circle(2.4pt) node[below right] {$O$};
+\fill[red!85!black] (A) circle (2.6pt) node[above right] {$A\ (x_1>0)$};
+\fill[red!85!black] (B) circle (2.6pt) node[above left] {$B\ (x_2<0)$};
+\node[orange!85!black,above] at (0.3,2.19) {$\ell$};
+\node[fill=white,fill opacity=.9,text opacity=1] at (0,-2.75)
+ {$S=k|x_1x_2|\quad\text{仍成立}$};
+\end{tikzpicture}

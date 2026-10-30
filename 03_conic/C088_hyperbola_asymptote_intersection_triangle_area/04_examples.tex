@@ -1,0 +1,127 @@
+\clearpage
+\begin{examplebox}
+\textbf{例1（最典型：已知两个交点，直接求面积）。}
+
+设双曲线 $\dfrac{x^2}{9}-\dfrac{y^2}{4}=1$。
+直线 $\ell$ 与 $y=\tfrac23 x$、$y=-\tfrac23x$
+分别交于 $A(6,4)$、$B(3,-2)$，求 $S_{\triangle AOB}$。
+
+\textbf{解：}$a=3,b=2$，$x_1=6,x_2=3$，故
+\[
+\boxed{S=\frac23|6\cdot3|=12}.
+\]
+\textbf{复核：} $2S=|6(-2)-3(4)|=24$。
+
+\medskip
+\textbf{例2（横坐标异号：绝对值不能少）。}
+
+仍取 $a=3,b=2$，令 $A(6,4)$、$B(-3,2)$。
+二点分别在 $y=\tfrac23x$、$y=-\tfrac23x$ 上，且
+\[
+\boxed{S=\frac23|6(-3)|=12}.
+\]
+若误把绝对值去掉就得到 $-12$，这只是有向面积，不是面积。
+
+\medskip
+\textbf{例3（水平截线：两截点在同侧 $y>0$）。}
+
+取 $\ell:y=4$、$a=3,b=2$，则
+$A(6,4)$、$B(-6,4)$，面积为
+\[
+S=\frac12\cdot AB\cdot4=\frac12\cdot12\cdot4=24;
+\qquad\boxed{\frac23|6(-6)|=24}.
+\]
+\textbf{提醒：}水平截线根本不与 $x$ 轴相交，
+所以不能默认用“$x$ 轴截距”作底。
+
+\medskip
+\textbf{例4（竖直截线：两个横坐标相等）。}
+
+取 $\ell:x=3$、$a=3,b=2$，有 $A(3,2)$、$B(3,-2)$，
+\[
+S=\frac12\cdot4\cdot3=6;
+\qquad\boxed{\frac23|3\cdot3|=6}.
+\]
+\textbf{提醒：} $x_1=x_2$ 不代表两点重合：
+它们的\textbf{纵坐标符号相反}。
+
+\medskip
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{例5（反求另一截点的横坐标）。}
+
+已知 $a=5,b=3$，$x_1=10$，$S_{\triangle AOB}=18$，求 $x_2$ 的可能值。
+\[
+18=\frac35\cdot|10x_2|=6|x_2|
+\quad\Longrightarrow\quad\boxed{x_2=3\ \text{或}\ -3}.
+\]
+两种选择都能确定一条与两条渐近线各有一不同交点的直线。
+
+\medskip
+\textbf{例6（高价值变式：只给截线方程）。}
+
+设 $k=b/a>0$，截线 $\ell:y=mx+n$，且
+$n\ne0$、$m\ne\pm k$。
+联立 $y=kx$、$y=-kx$，得到
+\[
+x_1=\frac{n}{k-m},\qquad x_2=-\frac{n}{k+m}.
+\]
+因此
+\[
+\boxed{S_{\triangle AOB}=\frac{k n^2}{|m^2-k^2|}}.
+\]
+例如 $k=\tfrac23$，$\ell:y=2x-8$，
+\[
+S=\frac{(2/3)\cdot64}{|4-4/9|}=\boxed{12}.
+\]
+\textbf{用法：}题目只给截线斜率、截距，先求 $x_1x_2$，
+无需分别写出全部点坐标。$m=\pm k$ 时截线平行某条渐近线，
+不满足“两条都有交点”；$n=0$ 时两个交点合为原点。
+
+\medskip
+
+\textbf{例7（反比例函数的跨章节认知检验）。}
+
+初中反比例函数 $y=6/x$，取 $P=(3,2)$，设 $Q=(3,0)$。
+则 $\triangle OPQ$ 面积为
+\[
+S_{\triangle OPQ}=\frac12\times3\times2=3=\frac{|6|}{2}.
+\]
+请与 C088 的 $\frac ba|x_1x_2|$ 对照：
+\textbf{共同点}是面积转为横纵坐标的乘积；
+\textbf{区别}是 $P$ 在反比例函数图象上，而 C088 的 $A,B$
+在\emph{两条渐近线}上，不能把两个图形当作同一幅图。
+
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{例8（初中面积 $\to$ 高中切线：为什么出面积定值？）。}
+
+设 $P(x_0,y_0)$ 是双曲线 $H:x^2/a^2-y^2/b^2=1$ 上一点，
+其切线与两渐近线分别交于 $A,B$。\textbf{求 $S_{\triangle AOB}$。}
+
+\begin{center}\input{assets/tikz/C088_tangent_comparison}\end{center}
+图取 $a=3,b=2$：同尺度下，顶点切线面积 $6$，普通割线面积 $24$。
+
+切线方程（此处引入的\textbf{新增条件}）是
+\[
+\frac{xx_0}{a^2}-\frac{yy_0}{b^2}=1.
+\]
+分别代入 $y=\pm(b/a)x$，得到
+\[
+x_1=\frac{a^2}{x_0-(a/b)y_0},\qquad
+x_2=\frac{a^2}{x_0+(a/b)y_0}.
+\]
+两式相乘后，\textbf{关键是分母还原为双曲线方程}：
+\[
+ x_1x_2=\frac{a^4}{x_0^2-(a^2/b^2)y_0^2}
+ =\frac{a^4}{a^2}=\boxed{a^2}.
+\]
+代入 C088，立刻有
+\[
+\boxed{S_{\triangle AOB}=\frac ba a^2=ab}.
+\]
+\textbf{考查目的：}切线条件固定了 $x_1x_2=a^2$；一般截线不保证 $S=ab$。
+\end{examplebox}

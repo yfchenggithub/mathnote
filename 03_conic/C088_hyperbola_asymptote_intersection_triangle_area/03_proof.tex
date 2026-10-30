@@ -1,0 +1,214 @@
+\clearpage
+\begin{proofbox}
+\textbf{统一前提：}设 $k=\dfrac ba>0$，$A=(x_1,kx_1)$，
+$B=(x_2,-kx_2)$，$O=(0,0)$。直线 $\ell$ 与两条渐近线各有
+一个截点且 $A\ne B$。以下给出六种证明：行列式、初中共底面积比、
+\textbf{横轴分块}、直角伸缩、点线距离与斜率差推广。
+
+\medskip
+\textbf{方法一：最快证明【行列式面积，考场两步】。}
+\begin{center}\input{assets/tikz/C088_proof_determinant}\end{center}
+
+
+\textbf{第1步（立刻用渐近线写坐标）：}
+\[
+ y_1=kx_1,\qquad y_2=-kx_2.
+\]
+\textbf{第2步（带入以原点为顶点的面积公式）：}
+\[
+\begin{aligned}
+S_{\triangle AOB}
+&=\frac12\big|x_1y_2-x_2y_1\big|\\
+&=\frac12\big|x_1(-kx_2)-x_2(kx_1)\big|\\
+&=\boxed{k|x_1x_2|=\frac ba|x_1x_2|}.
+\end{aligned}
+\]
+\textbf{适用信号：}已知两条直线的斜率与交点横坐标，
+图中 $D=A+B$ 补成平行四边形，$AB$ 将它平分；求面积时\textbf{不必先求 $\ell$ 的方程}。
+
+\medskip
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法二：最低门槛证明【初中共底面积比，无行列式、无伸缩】。}
+\begin{center}\input{assets/tikz/C088_junior_bridge}\end{center}
+
+
+先设 $x_1>0,x_2>0$；令 $C=(x_1,-kx_1)$。
+\textbf{第1步（能直接量出的底和高）：}
+$A=(x_1,kx_1)$，$C=(x_1,-kx_1)$，
+故 $AC=2kx_1$，$O$ 到直线 $AC$ 的距离为 $x_1$，于是
+\[
+S_{\triangle OAC}=\frac12\times 2kx_1\times x_1=kx_1^2.
+\]
+\textbf{第2步（两次相似，再用共底面积比）：}
+左图中，$F=(x_2,0),E=(x_1,0)$ 分别为 $B,C$ 在 $x$ 轴上的垂足。
+$\angle OFB=\angle OEC=90^\circ$，且 $\angle BOF=\angle COE$，所以
+\[
+\triangle OBF\sim\triangle OCE
+\quad\Longrightarrow\quad
+\frac{OB}{OC}=\frac{OF}{OE}=\frac{x_2}{x_1}.
+\]
+右图中，$D,H$ 分别为 $B,C$ 到 $OA$ 所在直线的垂足。当 $k\ne1$ 时，
+$\angle ODB=\angle OHC=90^\circ$，且 $\angle BOD=\angle COH$，所以
+\[
+\triangle OBD\sim\triangle OCH
+\quad\Longrightarrow\quad
+\frac{h_B}{h_C}=\frac{BD}{CH}=\frac{OB}{OC}.
+\]
+若 $k=1$，则 $OA\perp OC$，直接有 $h_B=OB,h_C=OC$。
+$\triangle OAB,\triangle OAC$ 共底 $OA$，故
+\[
+\frac{S_{\triangle OAB}}{S_{\triangle OAC}}
+=\frac{h_B}{h_C}=\frac{OB}{OC}=\frac{OF}{OE}=\frac{x_2}{x_1},
+\qquad S_{\triangle OAB}=kx_1x_2.
+\]
+\textbf{第3步（符号推广）：}其他象限长度比改为 $OB/OC=|x_2/x_1|$，统一为
+\[
+\boxed{S_{\triangle OAB}=k|x_1x_2|=\frac ba|x_1x_2|}.
+\]
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法三：横轴分块法【相似求截距，再把上下两块相加】。}
+\begin{center}\input{assets/tikz/C088_proof_x_axis_split}\end{center}
+
+\textbf{本方法重新记号：}$C=AB\cap x\text{轴}=(c,0)$，不沿用方法二的辅助点 $C$。
+先取图中的 $x_1>x_2>0$；作 $AA_1\perp x$ 轴、$BB_1\perp x$ 轴，
+其中 $A_1=(x_1,0),B_1=(x_2,0)$。令 $\theta$ 为渐近线与 $x$ 轴的锐角，则
+$\tan\theta=k$，故 $AA_1=x_1\tan\theta=kx_1$、$BB_1=kx_2$。
+
+\textbf{第1步（相似求 $C$）：}$A,B$ 分居 $x$ 轴两侧，$C$ 在线段 $AB$ 上，
+且 $x_2<c<x_1$。两个直角三角形在 $C$ 处为对顶角，故
+\[
+\triangle CA_1A\sim\triangle CB_1B
+\quad\Longrightarrow\quad
+\frac{x_1-c}{c-x_2}=\frac{AA_1}{BB_1}=\frac{x_1}{x_2}.
+\]
+交叉相乘，得 $x_2(x_1-c)=x_1(c-x_2)$，所以
+\[
+\boxed{c=\frac{2x_1x_2}{x_1+x_2}},\qquad OC=c.
+\]
+\textbf{第2步（共底相加）：}$OC$ 将 $\triangle OAB$ 分成上方的 $\triangle OCA$
+和下方的 $\triangle OCB$，两块共底 $OC$，于是
+\[
+S_{OAB}=\frac12\,OC\,(kx_1+kx_2)
+=\frac12\cdot\frac{2x_1x_2}{x_1+x_2}\cdot k(x_1+x_2)
+=\boxed{kx_1x_2}.
+\]
+\textbf{同号的其他位置：}$0<x_1<x_2$ 时交换左右位置，同理成立；
+$x_1=x_2=t>0$ 时，$AB$ 竖直，直接有 $OC=t$、$S=\frac12t(2kt)=kt^2$。
+两横坐标均负时，将全图绕 $O$ 旋转 $180^\circ$ 即归入上述情形。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法三的适用边界：同号相加，异号相减，水平截线单独算。}
+\begin{center}\input{assets/tikz/C088_proof_x_axis_boundary}\end{center}
+
+当 $x_1x_2<0$ 时，$A,B$ 在 $x$ 轴的\textbf{同一侧}，不能把两块面积相加。
+若 $x_1+x_2\ne0$，$AB$ 所在直线仍与 $x$ 轴相交于
+\[
+C=(c,0),\qquad c=\frac{2x_1x_2}{x_1+x_2}.
+\]
+此时 $C$ 在线段 $AB$ 的延长线上；同样由竖直投影构成的直角三角形相似，
+结合横轴上点的次序可得上式，也可由直线截距关系
+\[
+\frac{x_1-c}{kx_1}=\frac{x_2-c}{-kx_2}
+\]
+直接解出。$O,C,A,B$ 中两点 $O,C$ 在 $x$ 轴上，
+$\triangle OCA,\triangle OCB$ 共底 $OC$ 且一大一小，故应作\textbf{面积之差}：
+\[
+\begin{aligned}
+S_{OAB}
+&=\bigl|S_{OCA}-S_{OCB}\bigr|
+=\frac12|c|\,k\bigl||x_1|-|x_2|\bigr|\\
+&=\frac12\left|\frac{2x_1x_2}{x_1+x_2}\right|k|x_1+x_2|
+=\boxed{k|x_1x_2|}.
+\end{aligned}
+\]
+若 $x_1+x_2=0$，则 $AB$ 是水平线，\textbf{不存在横轴交点 $C$}，不能使用 $OC$。
+令 $x_1=t\ne0,x_2=-t$，直接取 $AB$ 为底：
+\[
+AB=2|t|,\qquad h=k|t|,\qquad
+S_{OAB}=\frac12\cdot2|t|\cdot k|t|=kt^2=k|x_1x_2|.
+\]
+\textbf{选法提示：}横坐标同号时，沿横轴拆成上下两块最直观；
+异号时若只求面积，可优先使用前面的行列式或共底面积比法。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法四：直观补充【伸缩成直角】。}
+\begin{center}\input{assets/tikz/C088_proof_scaling}\end{center}
+
+
+\textbf{第1步：}纵向伸缩 $Y=y/k$，把 $y=\pm kx$ 变为 $Y=\pm x$。
+于是 $A'=(x_1,x_1)$、$B'=(x_2,-x_2)$。
+
+\textbf{第2步：}新图里 $OA'\perp OB'$，故
+\[
+S'=\frac12\cdot\underbrace{\sqrt2|x_1|}_{OA'}
+\cdot\underbrace{\sqrt2|x_2|}_{OB'}=|x_1x_2|.
+\]
+\textbf{第3步：}新图的纵坐标与面积都变为原图的 $1/k$ 倍：
+\[
+S=kS'=\boxed{k|x_1x_2|}.
+\]
+\textbf{优势：}先看到直角三角形，再乘一个伸缩比例；
+不存在“为什么 $\tfrac12$ 消失”的记忆负担。
+
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法五：常规解析法【一边作底＋点到直线距离】。}
+\begin{center}\input{assets/tikz/C088_proof_distance}\end{center}
+
+
+取 $OA$ 为底，所在直线 $kx-y=0$。由长度公式
+\[
+OA=\sqrt{x_1^2+k^2x_1^2}=|x_1|\sqrt{1+k^2}.
+\]
+由点到直线距离公式，$B(x_2,-kx_2)$ 到 $OA$ 的距离
+\[
+h=\frac{|kx_2-(-kx_2)|}{\sqrt{k^2+1}}
+=\frac{2k|x_2|}{\sqrt{1+k^2}}.
+\]
+底乘高除以二：
+\[
+S_{\triangle AOB}=\frac12\,OA\cdot h
+=\frac12\cdot|x_1|\sqrt{1+k^2}
+\cdot\frac{2k|x_2|}{\sqrt{1+k^2}}
+=\boxed{k|x_1x_2|}.
+\]
+\textbf{优势：}完全遵循高中解析几何的“底边长度＋点线距离”标准做法。
+
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法六（补充）：双直线斜率差的统一面积模板。}
+\begin{center}\input{assets/tikz/C088_proof_slope_difference}\end{center}
+
+
+若 $A=(x_1,m_1x_1)$、$B=(x_2,m_2x_2)$
+分别在过原点的两条直线 $y=m_1x$、$y=m_2x$ 上，
+其中 $m_1,m_2$ 有限且不同，$x_1x_2\ne0$。图中 $Q=(x_2,m_1x_2)$，
+竖直间隔 $BQ=|m_1-m_2|\,|x_2|$，则
+\[
+\boxed{S_{\triangle AOB}=\frac{|m_1-m_2|}{2}|x_1x_2|}.
+\]
+证明仍只需两行：
+\[
+2S=|x_1m_2x_2-x_2m_1x_1|
+=|m_2-m_1|\,|x_1x_2|.
+\]
+令 $m_1=k$、$m_2=-k$，由于 $|k-(-k)|=2k$，立刻得主结论。
+\textbf{补充理由：}把双曲线的公式迁移为\textbf{任意两条过原点直线}的通解，
+做斜率、面积类综合题时可直接复用。
+
+\medskip
+\textbf{必查边界：}水平或竖直截线也满足主公式；方法三须按前述边界分类处理。
+若 $\ell$ 经过 $O$，它与两条渐近线只能同交于 $O$（除非重合，此时截点不唯一），
+与题设的\textbf{两个不同截点}相矛盾。
+\end{proofbox}

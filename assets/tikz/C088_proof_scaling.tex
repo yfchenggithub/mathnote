@@ -1,0 +1,40 @@
+% C088 PDF teaching figure; exact coordinates, equal x/y units.
+\begin{tikzpicture}[x=0.9cm,y=0.9cm,>=stealth,font=\small]
+\draw[rounded corners=5pt,black!25] (-1,-4.7) rectangle (12.6,5.6);
+\node[font=\bfseries] at (5.8,4.95) {只伸缩纵坐标：两条渐近线变成直角};
+\begin{scope}[shift={(0,0)}]
+\node at (2,3.9) {原图：$k=2/3$};
+\draw[->,black!45] (-0.5,0)--(4.3,0) node[right] {$x$};
+\draw[->,black!45] (0,-3.45)--(0,2.6) node[above] {$y$};
+\draw[blue!65!black,thick] (0,0)--(3.3,2.1999999999999997);
+\draw[violet!75!black,thick,dashed] (0,0)--(3.3,-2.1999999999999997);
+\coordinate (A) at (3,2.0); \coordinate (B) at (1.5,-1.0);
+\fill[teal!18] (0,0)--(A)--(B)--cycle;
+\draw[orange!85!black,thick] (A)--(B);
+\draw[dotted,black!45] (A)--(3,0) (B)--(1.5,0);
+\fill (0,0) circle (1.6pt) node[below left=4pt] {$O$};
+\fill (A) circle (1.8pt) node[right=7pt] {$A$};
+\fill (B) circle (1.8pt) node[below left=5pt] {$B$};
+\node[below] at (3,0) {$x_1$}; \node[above] at (1.5,0) {$x_2$};
+\node at (2,-4) {$S=3$};
+\end{scope}
+\begin{scope}[shift={(7,0)}]
+\node at (2,3.9) {新图：$Y=y/k$，纵向放大 $3/2$};
+\draw[->,black!45] (-0.5,0)--(4.3,0) node[right] {$x$};
+\draw[->,black!45] (0,-3.45)--(0,2.6) node[above] {$Y$};
+\draw[blue!65!black,thick] (0,0)--(3.3,3.3);
+\draw[violet!75!black,thick,dashed] (0,0)--(3.3,-3.3);
+\coordinate (A) at (3,3); \coordinate (B) at (1.5,-1.5);
+\fill[teal!18] (0,0)--(A)--(B)--cycle;
+\draw[orange!85!black,thick] (A)--(B);
+\draw[dotted,black!45] (A)--(3,0) (B)--(1.5,0);
+\fill (0,0) circle (1.6pt) node[below left=4pt] {$O$};
+\fill (A) circle (1.8pt) node[right=7pt] {$A'$};
+\fill (B) circle (1.8pt) node[below left=5pt] {$B'$};
+\node[below] at (3,0) {$x_1$}; \node[above] at (1.5,0) {$x_2$};
+\node at (2,-4) {$S'=9/2$，$S=kS'$};
+\coordinate (A) at (3,3); \coordinate (B) at (1.5,-1.5); \coordinate (O) at (0,0);
+\pic[draw,black!70,angle radius=4mm] {right angle=B--O--A};
+\end{scope}
+
+\end{tikzpicture}

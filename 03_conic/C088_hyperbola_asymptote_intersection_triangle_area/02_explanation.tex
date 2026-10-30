@@ -1,0 +1,107 @@
+\clearpage
+\begin{explanationbox}
+\textbf{从初中底高到共底面积比：两个横坐标为什么相乘？}
+\begin{center}\input{assets/tikz/C088_junior_bridge}\end{center}
+先取 $x_1,x_2>0$。图中 $A=(x_1,kx_1)$，$C=(x_1,-kx_1)$，
+$B=(x_2,-kx_2)$。左图直接给出
+\[
+ AC=2kx_1,\qquad S_{OAC}=\frac12\times2kx_1\times x_1=kx_1^2.
+\]
+\textbf{第一次相似（左图）：}作 $BF\perp x$ 轴、$CE\perp x$ 轴，
+则 $OF=x_2,OE=x_1$。直角三角形 $OBF,OCE$ 在 $O$ 处共角，故
+\[
+ \triangle OBF\sim\triangle OCE
+ \quad\Longrightarrow\quad \frac{OB}{OC}=\frac{OF}{OE}=\frac{x_2}{x_1}.
+\]
+\textbf{第二次相似（右图）：}作 $BD\perp OA,CH\perp OA$，
+令 $BD=h_B,CH=h_C$。当 $k\ne1$ 时，直角三角形 $OBD,OCH$ 在 $O$ 处的角相同，故
+\[
+ \frac{h_B}{h_C}=\frac{OB}{OC}=\frac{x_2}{x_1},\qquad
+ S_{OAB}=S_{OAC}\frac{h_B}{h_C}=kx_1x_2.
+\]
+若 $k=1$，则 $OA\perp OC$，直接有 $h_B=OB,h_C=OC$，比值仍成立。
+图取 $k=3/5,x_1=3,x_2=3/2$；当 $B$ 在 $C$ 外侧时，比例大于 $1$，结论同样成立。
+
+\textbf{推广到其他象限：}$S_{OAC}=kx_1^2$ 仍成立，长度比改用
+$OB/OC=|x_2/x_1|$；即使 $B,C$ 在反向射线上，面积比仍是正数。
+\[
+\boxed{S_{OAB}=k|x_1x_2|}\quad\xrightarrow{\ k=b/a\ }\quad
+\boxed{S_{AOB}=\frac ba|x_1x_2|}.
+\]
+一个 $x_1$ 来自水平高；另一个由面积比替换成 $|x_2|$。
+\textbf{这一面积关系先属于两条正比例函数，再用于双曲线渐近线。}
+\end{explanationbox}
+
+\clearpage
+\begin{explanationbox}
+\textbf{纵向伸缩：把两条斜线变成直角。}
+\begin{center}\input{assets/tikz/C088_proof_scaling}\end{center}
+保持横坐标不动，只将纵坐标变成 $Y=y/k$，于是
+\[
+ A'=(x_1,x_1),\qquad B'=(x_2,-x_2).
+\]
+新图中两条直线 $Y=x$、$Y=-x$ 垂直，不依赖截点所在的象限。
+因此
+\[
+ S'=\frac12\bigl(\sqrt2|x_1|\bigr)\bigl(\sqrt2|x_2|\bigr)=|x_1x_2|.
+\]
+图中 $k=2/3,x_1=3,x_2=3/2$：纵向放大 $3/2$ 倍，
+面积也由 $3$ 放大为 $9/2$；恢复原图要乘 $k$：
+\[
+\boxed{S=kS'=k|x_1x_2|}.
+\]
+\textbf{不要直接认定原图的两条渐近线垂直。}
+只有 $a=b$、即 $k=1$ 时，原图就是等轴双曲线的直角配置。
+一般情况下，直角出现在\emph{伸缩后的图}里。
+\end{explanationbox}
+
+\clearpage
+\begin{explanationbox}
+\textbf{深一层的坐标变换：两渐近线变成坐标轴。}
+\begin{center}\input{assets/tikz/C088_coordinates_XY}\end{center}
+设
+\[
+ X=\frac xa+\frac yb,\qquad Y=\frac xa-\frac yb.
+\]
+于是 $XY=x^2/a^2-y^2/b^2$。双曲线变成 $XY=1$；
+$g_+$ 变成 $Y=0$，$g_-$ 变成 $X=0$。注意图中 $A,B$ 始终是渐近线截点：
+\[
+ A'=\left(\frac{2x_1}{a},0\right),\qquad
+ B'=\left(0,\frac{2x_2}{a}\right),\qquad
+ S'=\frac{2|x_1x_2|}{a^2}.
+\]
+\textbf{面积单位不能混用。}逆变换为
+$x=\tfrac a2(X+Y)$、$y=\tfrac b2(X-Y)$，其行列式绝对值为 $ab/2$。
+故
+\[
+ S=\frac{ab}{2}S'=\frac{ab}{2}\cdot\frac{2|x_1x_2|}{a^2}
+ =\boxed{\frac ba|x_1x_2|}.
+\]
+图取 $a=3,b=2,x_1=3,x_2=3/2$，新图面积 $1$，原图面积 $3$；
+两图使用同样的数值刻度，阴影面积的差别正好体现缩放因子 $3$。
+\end{explanationbox}
+
+\clearpage
+\begin{explanationbox}
+\textbf{联系反比例函数，也要分清用了哪个三角形。}
+\begin{center}\input{assets/tikz/C088_reciprocal_comparison}\end{center}
+左图中 $P=(3,2)$ 在 $xy=6$ 上，$Q=(3,0)$。
+轴平行矩形面积为 $|xy|=6$，阴影三角形是它的一半：
+\[
+ S_{OPQ}=\frac12|xy|=\frac{|q|}{2}=3.
+\]
+右图中 $A=(3,2)$、$B=(-3/2,1)$ 分别位于 $y=\pm(2/3)x$，
+它们是两条不同直线上的截点，而非同一反比例函数上的两个点。
+\[
+ S_{OAB}=\frac23\left|3\left(-\frac32\right)\right|=3.
+\]
+两例的面积数值碰巧相同，但\textbf{左图是一个曲线上点到坐标轴的投影，右图是两个渐近线截点}。
+共同的思想是把坐标乘积转化为面积；不能把左图的定值 $|q|/2$ 当成本题的定值。
+
+\textbf{为什么主公式不再乘 $1/2$？}
+在本题中，$y_1=kx_1,y_2=-kx_2$，有向面积的两项为
+\[
+ x_1y_2-x_2y_1=-kx_1x_2-kx_1x_2=-2kx_1x_2.
+\]
+这两份相同的乘积抵消面积公式外的 $1/2$。证明一的平行四边形图可直接核对这一关系。
+\end{explanationbox}
