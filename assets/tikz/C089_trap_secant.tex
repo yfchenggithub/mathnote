@@ -1,0 +1,25 @@
+% Identical axes/scales: tangent x=3 vs secant x=6 for a=3,b=2.
+\begin{tikzpicture}[x=.68cm,y=.68cm,>=stealth,every node/.style={font=\small}]
+\foreach \h/\shift/\title/\area in {3/0/{切线 $x=3$}/6,6/10.1/{割线 $x=6$}/24}{
+\begin{scope}[shift={(\shift,0)}]
+\fill[red!7] (0,0)--(\h,{2*\h/3})--(\h,{-2*\h/3})--cycle;
+\draw[gray!65,->] (-.5,0)--(7.3,0) node[right] {$x$};
+\draw[gray!65,->] (0,-4.6)--(0,4.8) node[above] {$y$};
+\draw[blue!65!black,densely dashed] (-.4,-.2667)--(6.7,4.4667);
+\draw[blue!65!black,densely dashed] (-.4,.2667)--(6.7,-4.4667);
+\draw[teal!70!black,thick,domain=-1.5:1.5,samples=90,variable=\t]
+ plot ({1.5*(exp(\t)+exp(-\t))},{exp(\t)-exp(-\t)});
+\draw[red!75!black,very thick] (\h,-4.4)--(\h,4.4);
+\fill (0,0) circle(1.5pt) node[below left=5pt] {$O$};
+\fill (\h,{2*\h/3}) circle(1.5pt) node[above left=7pt] {$A$};
+\fill (\h,{-2*\h/3}) circle(1.5pt) node[below left=7pt] {$B$};
+\ifnum\h=3
+\fill (3,0) circle(1.8pt) node[below right] {$P$};
+\else
+\fill (6,{sqrt(12)}) circle(1.8pt);
+\fill (6,{-sqrt(12)}) circle(1.8pt);
+\fi
+\node at (3.2,5.65) {\title};
+\node at (3.2,-5.25) {$S=\area$};
+\end{scope}}
+\end{tikzpicture}

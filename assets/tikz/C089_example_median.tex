@@ -1,0 +1,22 @@
+% Exact example: a=3,b=2,r=3; OAP and OPB have equal area 3.
+\begin{tikzpicture}[x=.87cm,y=.87cm,>=stealth,every node/.style={font=\small}]
+\coordinate (O) at (0,0);\coordinate (A) at (9,6);
+\coordinate (B) at (1,-.666667);\coordinate (P) at (5,2.666667);
+\fill[orange!16] (O)--(A)--(P)--cycle;
+\fill[red!10] (O)--(P)--(B)--cycle;
+\draw[gray!65,->] (-.5,0)--(10.2,0) node[right] {$x$};
+\draw[gray!65,->] (0,-1.3)--(0,6.8) node[above] {$y$};
+\draw[blue!65!black,densely dashed] (-.4,-.266667)--(9.6,6.4);
+\draw[blue!65!black,densely dashed] (-.4,.266667)--(1.8,-1.2);
+\draw[teal!70!black,thick,domain=-.5:1.82,samples=90,variable=\t]
+ plot ({1.5*(exp(\t)+exp(-\t))},{exp(\t)-exp(-\t)});
+\draw[red!75!black,very thick] ($(B)!-.04!(A)$)--($(A)!-.04!(B)$);
+\draw[orange!90!black,thick] (A)--(O)--(B);
+\draw[black,thick] (O)--(P);
+\fill (O) circle(1.5pt) node[below left=5pt] {$O$};
+\fill (A) circle(1.5pt) node[above left] {$A(9,6)$};
+\fill (B) circle(1.5pt) node[below=10pt] {$B(1,-\frac23)$};
+\fill (P) circle(1.5pt) node[right=6pt] {$P(5,\frac83)$};
+\node at (7.4,1.3) {$S_{OAP}=3$};
+\node at (7.4,.3) {$S_{OPB}=3$};
+\end{tikzpicture}

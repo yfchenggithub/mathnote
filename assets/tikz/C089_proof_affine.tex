@@ -1,0 +1,20 @@
+% In the transformed plane xi*eta=1, P'=(1.5,2/3).
+\begin{tikzpicture}[x=1.25cm,y=1.25cm,>=stealth,every node/.style={font=\small}]
+\coordinate (O) at (0,0);\coordinate (A) at (3,0);
+\coordinate (B) at (0,1.333333);\coordinate (P) at (1.5,.666667);
+\fill[red!7] (O)--(A)--(B)--cycle;
+\draw[blue!65!black,->] (-.3,0)--(3.85,0) node[right] {$\xi$};
+\draw[blue!65!black,->] (0,-.3)--(0,2.65) node[above] {$\eta$};
+\draw[teal!70!black,thick,domain=.4:3.3,samples=90] plot (\x,{1/\x});
+\draw[red!75!black,very thick] (-.25,1.444444)--(3.3,-.133333);
+\draw[gray,densely dotted] (P)--(1.5,0) node[below] {$\xi_0$};
+\draw[gray,densely dotted] (P)--(0,.666667) node[left] {$\eta_0$};
+\fill (O) circle(1.5pt) node[below left] {$O'$};
+\fill (A) circle(1.5pt) node[below] {$A'(2\xi_0,0)$};
+\fill (B) circle(1.5pt) node[left=8pt] {$B'(0,2\eta_0)$};
+\fill (P) circle(1.5pt) node[above right] {$P'(\xi_0,\eta_0)$};
+\node[anchor=west] at (4.55,2.1) {$\xi\eta=1$};
+\node[anchor=west] at (4.55,1.25) {$\xi_0\eta_0=1$};
+\node[anchor=west] at (4.55,.4) {$S'=\frac12(2\xi_0)(2\eta_0)=2$};
+\node[anchor=west] at (4.55,-.45) {图示右支，左支取绝对值};
+\end{tikzpicture}

@@ -1,0 +1,25 @@
+% Same a,b, coordinate ranges and scale in all three panels.
+\begin{tikzpicture}[x=0.8cm,y=0.8cm,>=stealth,every node/.style={font=\small}]
+\foreach \rr/\shift/\caption in {1/0/{$r=1$},1.4/5.1/{$r=1.4$},1.8/10.2/{$r=1.8$}} {
+\begin{scope}[shift={(\shift,0)}]
+\coordinate (O) at (0,0);
+\coordinate (A) at ({1.8*\rr},{1.1*\rr});
+\coordinate (B) at ({1.8/\rr},{-1.1/\rr});
+\coordinate (P) at ({.9*(\rr+1/\rr)},{.55*(\rr-1/\rr)});
+\fill[red!7] (O)--(A)--(B)--cycle;
+\draw[gray!65,->] (-.4,0)--(4,0);
+\draw[gray!65,->] (0,-1.65)--(0,2.65);
+\draw[blue!65!black,densely dashed] (-.3,-.1833)--(3.7,2.2611);
+\draw[blue!65!black,densely dashed] (-.3,.1833)--(2.5,-1.5278);
+\draw[teal!70!black,thick,domain=-.9:1.15,samples=70,variable=\t]
+ plot ({.9*(exp(\t)+exp(-\t))},{.55*(exp(\t)-exp(-\t))});
+\draw[orange!90!black,thick] (A)--(O)--(B);
+\draw[red!75!black,very thick] ($(B)!-.12!(A)$)--($(A)!-.08!(B)$);
+\fill (O) circle(1.5pt) node[below left=5pt] {$O$};
+\fill (A) circle(1.5pt) node[above left] {$A$};
+\fill (B) circle(1.5pt) node[below=9pt] {$B$};
+\fill (P) circle(1.5pt) node[left] {$P$};
+\node at (1.7,3.45) {\caption};
+\node at (1.7,-2.85) {$S=ab$};
+\end{scope}}
+\end{tikzpicture}

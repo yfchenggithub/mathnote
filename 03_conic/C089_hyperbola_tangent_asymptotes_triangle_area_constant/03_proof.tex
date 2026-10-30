@@ -1,0 +1,116 @@
+\clearpage
+\begin{proofbox}
+\textbf{统一设定：}设 $P=(x_0,y_0)$ 在 $H$ 上；两渐近线分别为
+$\ell_1:y=(b/a)x$ 与 $\ell_2:y=-(b/a)x$，相交于 $O=(0,0)$。
+
+\medskip
+\textbf{方法一｜最快证明（约三行：标准切线＋两个交点＋行列式）。}
+\begin{center}
+\input{assets/tikz/C089_proof_coordinates}
+\end{center}
+
+令 $u=x_0/a,\ v=y_0/b$，则 $u^2-v^2=1$。
+切线是 $u(x/a)-v(y/b)=1$，分别代入 $y=\pm(b/a)x$，
+得到图中标注的 $A,B$ 坐标。
+因为 $(u-v)(u+v)=1$，所以
+\[
+\boxed{S_{\triangle AOB}=\frac12|x_Ay_B-x_By_A|
+=\frac{ab}{|u^2-v^2|}=ab}.
+\]
+\textbf{优势：}切点在左支、右支或顶点都不用分类；唯一触发信号是
+\emph{切线＋两条渐近线＋面积}。
+
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法二｜最低门槛（先看顶点，再看``一长一短''）。}
+\begin{center}
+\input{assets/tikz/C089_proof_reciprocal}
+\end{center}
+
+顶点 $P=(a,0)$ 时，$AB=2b$，原点到 $AB$ 距离 $a$，故 $S=ab$。
+对一般切线，先利用切线截两渐近线的\emph{中点性质} $P=(A+B)/2$。
+可把两个交点写为
+\[
+A=(ar,br),\qquad B=(as,-bs)\qquad(r,s\ne0).
+\]
+于是 $P=(a(r+s)/2,\ b(r-s)/2)$；因 $P\in H$，
+\[
+1=\frac{(r+s)^2}{4}-\frac{(r-s)^2}{4}=rs.
+\]
+因此 $A=(ar,br),\ B=(a/r,-b/r)$。图示右支的正参数；
+一般长度分别按 $|r|$ 与 $1/|r|$ 倍变化，进而
+\[
+S_{\triangle AOB}=
+\frac12\left|ar\cdot\left(-\frac br\right)
+-\frac ar\cdot br\right|=ab.
+\]
+\textbf{中点性质不能只凭图猜：}用方法一中两个交点坐标，
+结合 $1/(u-v)=u+v$、$1/(u+v)=u-v$，直接得到
+\[
+\frac{A+B}{2}
+=\left(\frac a2[(u+v)+(u-v)],\frac b2[(u+v)-(u-v)]\right)
+=(au,bv)=P.
+\]
+\textbf{优势：}理解形状变化的原因，而不仅是算出一个数；只需``平方差＝乘积''。
+
+\medskip
+\textbf{顺带推出长度乘积：}按方法二，
+$OA=|r|\sqrt{a^2+b^2}$、
+$OB=|r|^{-1}\sqrt{a^2+b^2}$，故
+$\boxed{OA\cdot OB=a^2+b^2}$。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法三｜常规解析几何（直线斜截式＋相切判别式）。}
+\begin{center}
+\input{assets/tikz/C089_proof_slope}
+\end{center}
+
+先看非竖直切线 $y=kx+d$。图中投影给出两交点横坐标；代入双曲线，得到
+\[
+(b^2-a^2k^2)x^2-2a^2kdx-a^2(d^2+b^2)=0.
+\]
+有限切点的非竖直切线不平行于渐近线，二次项非零。相切时判别式为零，化简得
+\[
+\boxed{d^2=a^2k^2-b^2}\qquad
+\left(|k|>\frac ba\right).
+\]
+与两渐近线相交，横坐标分别为
+\[
+x_A=-\frac{d}{k-b/a},\qquad
+x_B=-\frac{d}{k+b/a},\qquad x_Ax_B=a^2.
+\]
+因为 $A=(x_A,(b/a)x_A)$、$B=(x_B,-(b/a)x_B)$，所以
+\[
+S_{\triangle AOB}=\frac ba|x_Ax_B|=ab.
+\]
+\textbf{竖直切线必须单独处理：} $x=\pm a$，相应两交点为
+$(\pm a,\pm b)$、$(\pm a,\mp b)$，面积仍为 $ab$。
+\textbf{优势：}题目先给一条未知切线 $y=kx+d$ 时可直接使用。
+
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法四｜补充：渐近线坐标变换（揭示面积不变量）。}
+\begin{center}
+\input{assets/tikz/C089_proof_affine}
+\end{center}
+
+设 $\xi=x/a+y/b,\ \eta=x/a-y/b$，则
+\[
+H:\ \xi\eta=1,\qquad \ell_1:\eta=0,\quad\ell_2:\xi=0.
+\]
+切点为 $(\xi_0,\eta_0)$ 且 $\xi_0\eta_0=1$。
+曲线 $\xi\eta=1$ 在该点的切线为
+$\eta_0\xi+\xi_0\eta=2$，两轴截距为
+$2\xi_0,2\eta_0$，所以新坐标中的三角形面积是
+$\frac12|2\xi_0\cdot2\eta_0|=2$。
+由变换行列式 $\bigl|\partial(\xi,\eta)/\partial(x,y)\bigr|=2/(ab)$，
+原坐标的面积为 $2\cdot ab/2=ab$。
+\textbf{优势：}理解``双曲线＋两渐近线''与 $xy=1$ 是同一结构；
+用于后续研究一般仿射变换与面积比。高考考场优先方法一、二。
+
+\end{proofbox}

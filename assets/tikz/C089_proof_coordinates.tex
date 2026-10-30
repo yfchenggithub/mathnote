@@ -1,0 +1,25 @@
+\begin{tikzpicture}[x=1.12cm,y=1.12cm,>=stealth,every node/.style={font=\small}]
+\coordinate (O) at (0,0);
+\coordinate (A) at (3.24,1.98);
+\coordinate (B) at (1,-0.611111);
+\coordinate (P) at (2.12,0.684444);
+\fill[red!7] (O)--(A)--(B)--cycle;
+\draw[gray!65,->] (-0.65,0)--(4.15,0) node[right] {$x$};
+\draw[gray!65,->] (0,-1.35)--(0,2.6) node[above] {$y$};
+\draw[blue!65!black,densely dashed] (-0.65,-0.3972)--(3.8,2.3222);
+\draw[blue!65!black,densely dashed] (-0.65,0.3972)--(2.05,-1.2528);
+\draw[teal!70!black,thick,domain=-0.9:1.22,samples=90,variable=\t]
+ plot ({1.8/2*(exp(\t)+exp(-\t))},{1.1/2*(exp(\t)-exp(-\t))});
+\draw[red!75!black,very thick] ($(B)!-0.15!(A)$)--($(A)!-0.12!(B)$);
+\draw[orange!90!black,thick] (A)--(O)--(B);
+\fill (O) circle(1.5pt) node[below left=5pt] {$O$};
+\fill (A) circle(1.5pt) node[above left] {$A$};
+\fill (B) circle(1.5pt) node[below=9pt] {$B$};
+\fill (P) circle(1.5pt) node[left=4pt] {$P$};
+
+\draw[gray,densely dotted] (A)--(3.24,0);
+\draw[gray,densely dotted] (B)--(1,0);
+\node[anchor=west] at (4.55,2.05) {$A=\left(\frac a{u-v},\frac b{u-v}\right)$};
+\node[anchor=west] at (4.55,0.85) {$B=\left(\frac a{u+v},-\frac b{u+v}\right)$};
+\node[anchor=west] at (4.55,-0.35) {$2S=|x_Ay_B-x_By_A|$};
+\end{tikzpicture}
