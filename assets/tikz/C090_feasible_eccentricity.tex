@@ -1,0 +1,13 @@
+\begin{tikzpicture}[every node/.style={font=\small}]
+\begin{axis}[width=11cm,height=6cm,xmin=.44,xmax=1.08,ymin=.7,ymax=5,
+ axis lines=left,xlabel={$e_1$},ylabel={$e_2$},xtick={.5,1},ytick={1,2,3,4},clip=false]
+\addplot[blue!70!black,very thick,domain=.508:1,samples=160] {sqrt(3)/2/sqrt(1-1/(4*x*x))};
+\addplot[red!70!black,dashed] coordinates {(.5,.7)(.5,5)};
+\addplot[gray,dashed] coordinates {(.5,1)(1.05,1)};
+\addplot[only marks,mark=o,mark size=3pt,thick] coordinates {(1,1)};
+\node[anchor=west] at (axis cs:.66,3.8) {$\theta=60^\circ$（固定）};
+\node[anchor=west] at (axis cs:.66,3.1) {$\frac12<e_1<1,\quad e_2>1$};
+\node[anchor=west] at (axis cs:.53,4.65) {$e_1\to\frac12^+:\ e_2\to+\infty$};
+\node[anchor=west] at (axis cs:.73,1.7) {空心点 $(1,1)$ 不取};
+\end{axis}
+\end{tikzpicture}

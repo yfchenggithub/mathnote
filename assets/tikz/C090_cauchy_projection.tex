@@ -1,0 +1,16 @@
+% alpha=30 deg, e1=.9; q=(5/9,sqrt(56)/9), |q|=1.
+\begin{tikzpicture}[x=4.3cm,y=4.3cm,>=stealth,every node/.style={font=\small}]
+\path[use as bounding box] (-.35,-.25) rectangle (2.25,1.15);
+\coordinate (O) at (0,0); \coordinate (Q) at ({5/9},{sqrt(56)/9});
+\pgfmathsetmacro{\k}{sqrt(3)/2*5/9+sqrt(56)/18}
+\coordinate (K) at ({\k*sqrt(3)/2},{\k/2});
+\draw[->,gray] (O)--(1.15,0); \draw[->,gray] (O)--(0,1.12);
+\draw[gray,dotted,domain=0:90,samples=61] plot ({cos(\x)},{sin(\x)});
+\draw[->,very thick,teal!70!black] (O)--(Q) node[above right] {$\mathbf q=(s/e_1,t/e_2)$};
+\draw[->,thick,blue!70!black] (O)--({sqrt(3)/2},.5) node[right] {$\mathbf n=(t,s)$};
+\draw[red!70!black,dashed,thick] (Q)--(K);
+\draw[red!70!black,very thick] (O)--(K);
+\node[below right] at (.36,.18) {$k=st(u+v)$};
+\node[anchor=west,align=left] at (1.22,.85) {$|\mathbf q|=|\mathbf n|=1$\\[7pt] $k=\mathbf q\cdot\mathbf n\le1$\\[7pt] 等号：两箭头重合};
+\node[below] at (0,0) {$O$};
+\end{tikzpicture}

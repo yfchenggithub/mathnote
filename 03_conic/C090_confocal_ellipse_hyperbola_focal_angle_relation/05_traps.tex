@@ -1,0 +1,74 @@
+\clearpage
+\begin{trapbox}
+\textbf{C090\quad 易错清单、边界与最小反例}
+
+\begin{center}
+\input{assets/tikz/C090_focal_vs_tangent_angles}
+\end{center}
+\begin{itemize}
+\item \textbf{混淆两曲线的半长轴。}椭圆 $a_E=c/e_1>c$，双曲线 $a_H=c/e_2<c$。
+不能把两处的 $a$ 当成同一个参数。最稳妥是记作 $A$ 与 $T$。
+
+\item \textbf{焦半径差忘记绝对值。}双曲线定义是
+$|PF_1-PF_2|=2a_H$，左支与右支交换正负号；主公式只含差的平方，
+因此不受支别影响。
+
+\item \textbf{余弦项符号颠倒。}正确的是
+\[
+ \boxed{(1-\cos\theta)/e_1^2+(1+\cos\theta)/e_2^2=2}.
+\]
+记忆：\emph{和}对应 $1-\cos\theta$（椭圆），\emph{差}对应 $1+\cos\theta$（双曲线）。
+
+\item \textbf{把两种夹角混为一谈。}$\theta$ 是 $\angle F_1PF_2$，
+图中实线为焦半径，虚线与点划线为两条切线；后者正交不代表前者正交。
+
+\item \textbf{误判柯西等号条件。}向量配比要求
+$\sin^2(\theta/2)/e_1=\cos^2(\theta/2)/e_2$，
+不是 $e_1=e_2$；由于一小于 $1$ 一大于 $1$，$e_1=e_2$ 根本不可能。
+
+\item \textbf{误以为任意角度都能取到推论的等号。}等号对应
+$e_1=\tan(\theta/2)<1$、$e_2=\cot(\theta/2)>1$，
+要求 $\theta<90^\circ$；$\theta=120^\circ$ 时不等式严格。
+
+\item \textbf{误用 $\theta=0$ 或 $\pi$。}公共点不在两焦点所在直线上，
+所以 $0<\theta<\pi$ 且 $\sin\theta>0$。推论不能允许端点角度。
+
+\item \textbf{对固定角度漏掉可行边界。}必须
+$\sin(\theta/2)<e_1<1$；例如 $\theta=60^\circ$ 时
+$e_1=1/2$ 不可行；此时第一项已等于 $1$，却还有正的第二项。
+
+\item \textbf{误把四个交点认成一个。}对任意 $0<e_1<1<e_2$ 的标准共焦
+椭圆、双曲线，公共点有四个，坐标分别为 $(\pm X,\pm Y)$（$X,Y>0$）；
+四点的焦角相同，正交对称性不能被误作只在右支成立。
+\end{itemize}
+\end{trapbox}
+
+\clearpage
+\begin{trapbox}
+\textbf{从学生最常见的疑问出发：四组最小反例与边界。}
+\begin{itemize}
+\item \textbf{错误：看到示意图有直角，就假设所有共焦交点都形成直角三角形。}
+反例：取 $A=5,T=2,c=3$，焦点三角形三边是 $7,3,6$，
+$\cos\theta=11/21\ne0$。\emph{一般证明须使用一般三角形}；
+$3,4,5$ 直角图只用于演示特殊的等号情况。
+
+\item \textbf{错误：把 $e_1e_2=1$ 当作“$\theta=90^\circ$”。}
+正确的是：在共焦、有公共点前提下，$e_1e_2=1$
+等价于焦角不等式取到等号；而\emph{直角位于一个焦点}，
+$\theta=\angle F_1PF_2$ 实际是\emph{锐角}。
+以焦点为 $(\pm c,0)$，由 $x^2=A^2T^2/c^2$ 可见
+$AT=c^2$ 时 $x=\pm c$，公共点就在过某个焦点的垂线上。
+
+\item \textbf{错误：$\theta=120^\circ$ 时也认为
+$2/\sin120^\circ$ 是可取到的最大值。}
+这是\emph{有效但不紧的上界}。当 $\theta\ge90^\circ$，
+实际上 $1/e_1+1/e_2<2$，可无限接近 $2$ 而不能取到；
+详见例6。\emph{“有上界”不等于“存在最大值”。}
+
+\item \textbf{错误：用曲线切线的 $90^\circ$ 代替焦角 $\theta$。}
+共焦椭圆与双曲线在公共点处确实正交，
+但它们的切线夹角与 $\angle F_1PF_2$ 是不同的角。
+对于例1，切线夹角是 $90^\circ$，焦角却满足
+$\cos\theta=3/5$。
+\end{itemize}
+\end{trapbox}

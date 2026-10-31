@@ -1,0 +1,16 @@
+% Same q as projection figure; orthonormal basis n=(t,s), w=(-s,t).
+\begin{tikzpicture}[x=5cm,y=5cm,>=stealth,every node/.style={font=\small}]
+\path[use as bounding box] (-.2,-.27) rectangle (2.1,.95);
+\pgfmathsetmacro{\k}{sqrt(3)/2*5/9+sqrt(56)/18}
+\pgfmathsetmacro{\h}{-5/18+sqrt(3)*sqrt(56)/18}
+\coordinate (O) at (0,0); \coordinate (K) at (\k,0); \coordinate (Q) at (\k,\h);
+\draw[->,gray] (O)--(1.12,0) node[below] {$\mathbf n$};
+\draw[->,gray] (O)--(0,.8) node[left] {$\mathbf w$};
+\draw[very thick,teal!70!black] (O)--node[above left] {$1$} (Q);
+\draw[very thick,blue!70!black] (O)--node[below] {$k=st(u+v)$} (K);
+\draw[very thick,red!70!black] (K)--(Q);
+\draw (\k-.06,0)--(\k-.06,.06)--(\k,.06);
+\fill (Q) circle(.4pt) node[above] {$\mathbf q$};
+\node[anchor=west,align=left] at (1.2,.5) {$h=t^2v-s^2u$\\[7pt] $1-k^2=h^2\ge0$\\[7pt] 等号：高 $h=0$};
+\node[anchor=west] at (0,.9) {以单位正交基 $\mathbf n,\mathbf w$ 观察同一向量};
+\end{tikzpicture}
