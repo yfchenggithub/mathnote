@@ -1,0 +1,18 @@
+% Identical axis scales; right panel translates H one unit.
+\begin{tikzpicture}[x=.43cm,y=.43cm,font=\small]
+\foreach \shift/\dx/\title in {0/0/同一对焦点,14/1/仅焦半距相同} {
+\begin{scope}[shift={(\shift,0)}]
+\node at (0,4.6) {\title};
+\draw[gray] (-4.8,0)--(5,0);
+\draw[blue!70!black,thick] (0,0) ellipse (4 and {sqrt(12)});
+\foreach \s in {-1,1} {
+\draw[orange!80!black,thick,dashed,domain=-3.5:3.5,samples=80,variable=\t]
+ plot ({\dx+\s*sqrt(1+\t*\t/3)},\t);}
+\foreach \f in {-2,2} {
+\fill[blue!70!black] (\f,0) circle (3pt);
+\draw[orange!80!black,thick] ({\f+\dx},0) circle (5pt);
+\node[orange!80!black,above=6pt] at ({\f+\dx},0) {$\pgfmathparse{int(\f+\dx)}\pgfmathresult$};}
+\end{scope}}
+\node[blue!70!black] at (0,-4.6) {两图实点：$(\pm2,0)$};
+\node[orange!80!black] at (14,-4.6) {空圈：双曲线焦点};
+\end{tikzpicture}

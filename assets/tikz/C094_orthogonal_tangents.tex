@@ -1,0 +1,16 @@
+% At P=(2,3), slopes -1/2 and 2. Same scale on both axes.
+\begin{tikzpicture}[x=.75cm,y=.75cm,>=stealth,font=\small]
+\draw[->,gray] (-2.7,0)--(5.6,0) node[right] {$x$};
+\draw[blue!70!black,thick,domain=15:105,samples=70,variable=\t]
+ plot ({4*cos(\t)},{sqrt(12)*sin(\t)});
+\draw[orange!80!black,thick,domain=.3:4.9,samples=70,variable=\t]
+ plot ({sqrt(1+\t*\t/3)},\t);
+\draw[blue!70!black,dashed] (-.5,4.25)--(5.2,1.4) node[right] {$k_E=-1/2$};
+\draw[orange!80!black,dashed] (.6,.2)--(3,5) node[above right] {$k_H=2$};
+\draw[gray] (-2,0)--(2,3)--(2,0);
+\draw[thick] (2.358,2.821)--(2.537,3.179)--(2.179,3.358);
+\fill[red!75!black] (2,3) circle (2.5pt) node[above left=5pt] {$P$};
+\fill (-2,0) circle (2pt) node[below] {$F_1$};
+\fill (2,0) circle (2pt) node[below] {$F_2$};
+\node at (0,-1.3) {切线夹角 $90^\circ$，焦角 $\cos\theta=3/5$};
+\end{tikzpicture}
