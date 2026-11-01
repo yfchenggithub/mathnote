@@ -1,0 +1,26 @@
+% C093：左右同尺度的错误/正确配对对照；几何长度始终为3和5。
+% 公共点位于左支，F1=(0,0),F2=(4,0),P=(0,3) (局部平移坐标)
+\begin{tikzpicture}[scale=0.82,>=stealth]
+ \begin{scope}
+  \coordinate (L) at (0,0); \coordinate (R) at (4,0); \coordinate (P) at (0,3);
+  \draw[gray,thick] (L)--(R);
+  \draw[teal!70!black,very thick] (L)--(P);
+  \draw[orange!85!black,very thick] (R)--(P);
+  \foreach \q/\loc/\t in {L/below/F_1,R/below/F_2,P/above/P}{\fill (\q) circle(1.8pt) node[\loc]{$\t$};}
+  \node[red!75!black,above] at (2,3.65) {\textbf{错误：数值配反}};
+  \node[red!75!black,left] at (-0.08,1.5) {$PF_1=5\;\times$};
+  \node[red!75!black,above right] at (2.2,1.8) {$PF_2=3\;\times$};
+  \node[below] at (2,-0.85) {$P$ 在左支，近 $F_1$};
+ \end{scope}
+ \begin{scope}[xshift=7cm]
+  \coordinate (L) at (0,0); \coordinate (R) at (4,0); \coordinate (P) at (0,3);
+  \draw[gray,thick] (L)--(R);
+  \draw[teal!70!black,very thick] (L)--(P);
+  \draw[orange!85!black,very thick] (R)--(P);
+  \foreach \q/\loc/\t in {L/below/F_1,R/below/F_2,P/above/P}{\fill (\q) circle(1.8pt) node[\loc]{$\t$};}
+  \node[teal!70!black,above] at (2,3.65) {\textbf{正确：按实际长度}};
+  \node[teal!70!black,left] at (-0.08,1.5) {$PF_1=3$};
+  \node[orange!85!black,above right] at (2.2,1.8) {$PF_2=5$};
+  \node[below] at (2,-0.85) {$3^2-5^2<0$};
+ \end{scope}
+\end{tikzpicture}

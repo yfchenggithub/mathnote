@@ -1,0 +1,139 @@
+\clearpage
+\begin{proofbox}
+\textbf{方法一：最快证明（考场三步速写）}
+
+\begin{center}
+\input{assets/tikz/C093_confocal_focal_radii}
+\end{center}
+图中同一个 $P$ 同时在蓝色椭圆与红色双曲线上，
+两条彩色焦半径同时受“定和”与“定差”约束。
+
+\textbf{第1步，写定义：}设 $r_1=PF_1,r_2=PF_2$，由同一个公共点满足两条曲线的定义，
+\[r_1+r_2=2a,\qquad |r_1-r_2|=2A.\]
+\textbf{第2步，解和差：}较长、较短焦半径分别为
+\[
+\frac{(2a)+(2A)}2=a+A,\qquad
+\frac{(2a)-(2A)}2=a-A.
+\]
+\textbf{第3步，判支别：}右支距离左焦点更远，左支距离右焦点更远，所以
+\[
+\boxed{\begin{array}{ll}
+x_P>0:&r_1=a+A,\quad r_2=a-A,\\[2pt]
+x_P<0:&r_1=a-A,\quad r_2=a+A.
+\end{array}}
+\]
+\textbf{识别信号：}一看到“共焦＋公共点”求焦半径，先写定义，
+不必先联立两条标准方程。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法二：最低门槛证明（平均值＋一半差）}
+
+\begin{center}
+\input{assets/tikz/C093_length_decomposition}
+\end{center}
+
+\textbf{第一步：}椭圆规定两条焦半径总长 $2a$，
+所以每条长度的\emph{平均值}是 $a$。
+
+\textbf{第二步：}双曲线规定两条长度相差 $2A$，
+一条比平均值多 $A$，另一条比平均值少 $A$。
+因此不论公共点在哪里，长短两条的长度都是
+\[\boxed{a+A\quad\text{和}\quad a-A}.\]
+
+\textbf{第三步：}右支点离左焦点远，把长的分配给 $PF_1$；
+左支点离右焦点远，把长的分配给 $PF_2$。
+也可由
+\[PF_1^2-PF_2^2=4cx_P\]
+检验远近。$a>c>A>0$ 保证短的一条也严格大于 $0$。
+
+\textbf{这套方法的价值：}即使一时忘记代数加减消元，
+仍可用“平均数与偏离量”重新想出公式。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法三：常规坐标法（联立标准方程＋距离公式）}
+
+\begin{center}
+\input{assets/tikz/C093_coordinate_projection}
+\end{center}
+过 $P$ 向 $x$ 轴作垂线，垂足为 $Q$。图中两个直角三角形
+共用高度 $|y_P|$，分别给出距离平方 $(x_P+c)^2+y_P^2$、
+$(x_P-c)^2+y_P^2$；一般位置的水平距离应取绝对值。
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法三（续）：先求坐标平方，再还原正长度。}
+
+\textbf{第1步：}由共焦条件，写出同一个公共点的两条方程：
+\[
+\boxed{\frac{x^2}{a^2}+\frac{y^2}{b^2}=1},\qquad
+\boxed{\frac{x^2}{A^2}-\frac{y^2}{B^2}=1},
+\]
+其中 $a>b>0$、$A,B>0$，且
+\[\boxed{a^2-b^2=A^2+B^2=c^2}.\]
+两式分别整理为
+\[
+ y^2=b^2\left(1-\frac{x^2}{a^2}\right),\qquad
+ y^2=B^2\left(\frac{x^2}{A^2}-1\right).
+\]
+\textbf{第2步：}同一个公共点的纵坐标平方 $y^2$ 相同，
+因此让两式相等，消去 $y^2$：
+\[
+ b^2+B^2=x^2\left(\frac{b^2}{a^2}+\frac{B^2}{A^2}\right).
+\]
+用共焦条件 $b^2=a^2-c^2$、$B^2=c^2-A^2$ 代入：
+\[
+ a^2-A^2
+ =c^2x^2\left(\frac1{A^2}-\frac1{a^2}\right)
+ =\frac{c^2x^2(a^2-A^2)}{a^2A^2}.
+\]
+因为 $a>c>A>0$，所以 $a^2-A^2>0$，可以约去，得到
+\[
+\boxed{x^2=\frac{a^2A^2}{c^2}}.
+\]
+将其代入椭圆方程，再利用 $c^2-A^2=B^2$，得到
+\[
+y^2=b^2\left(1-\frac{A^2}{c^2}\right)
+=\boxed{\frac{b^2B^2}{c^2}}>0.
+\]
+\textbf{第3步：}由距离公式和已求得的 $x^2,y^2$，
+\[
+\begin{aligned}
+PF_1^2&=(x+c)^2+y^2=a^2+A^2+2cx,\\
+PF_2^2&=(x-c)^2+y^2=a^2+A^2-2cx.
+\end{aligned}
+\]
+当 $x=aA/c>0$ 时，两式为
+$(a+A)^2$、$(a-A)^2$；当 $x<0$ 时交换。
+因为焦半径是正长度，取正平方根就得到主结论。
+
+\textbf{方法定位：}坐标法较慢，但适合题目还要求验证公共点位置时使用；
+若主要目标是求四个公共点的坐标，转入 C094。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{补充：两点距离平方相减，快速检查左右支。}
+
+\begin{center}
+\input{assets/tikz/C093_coordinate_projection}
+\end{center}
+观察共用的垂线 $PQ$：两条距离平方相减时，高度平方 $y_P^2$ 抵消。
+
+把 $PF_1$ 和 $PF_2$ 平方相减，
+\[
+PF_1^2-PF_2^2=4cx_P
+=(PF_1-PF_2)(PF_1+PF_2).
+\]
+右支 $x_P>0$，故左边大于零，$PF_1-PF_2=2A$；
+左支 $x_P<0$，故左边小于零，$PF_1-PF_2=-2A$。
+利用 $PF_1+PF_2=2a$，两个支别的公式便得到独立核查。
+
+\textbf{关键意义：}相减不是机械消元；它让两次出现的 $y_P^2$
+消失，直接读出点在左侧还是右侧。若只为求焦半径，
+无需进一步求交点坐标。
+\end{proofbox}

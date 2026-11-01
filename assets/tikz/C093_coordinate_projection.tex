@@ -1,0 +1,30 @@
+% Exact representative: c=3, a=5, A=2,
+% P=(10/3,4sqrt(5)/3), PF1=7, PF2=3.
+% Both right triangles share PQ; horizontal legs are x_P+c and x_P-c.
+\begin{tikzpicture}[x=0.95cm,y=0.95cm,>=stealth,font=\small]
+ \coordinate (L) at (-3,0);
+ \coordinate (R) at (3,0);
+ \coordinate (P) at ({10/3},{4*sqrt(5)/3});
+ \coordinate (Q) at ({10/3},0);
+ \draw[->,gray!65] (-3.9,0)--(4.55,0) node[right]{$x$};
+ \draw[->,gray!65] (0,-0.35)--(0,3.85) node[above]{$y$};
+ \draw[orange!85!black,very thick] (L)--(P)
+   node[pos=0.46,above left,fill=white,inner sep=2pt]{$r_1=PF_1$};
+ \draw[teal!70!black,very thick] (R)--(P)
+   node[pos=0.55,right=5pt]{$r_2=PF_2$};
+ \draw[densely dashed,gray!80] (P)--(Q);
+ \draw[gray!80] ({10/3-0.17},0)--({10/3-0.17},0.17)--({10/3},0.17);
+ \node[anchor=west] at (3.7,3.42) {$P(x_P,y_P)$};
+ \node[anchor=east,fill=white,inner sep=2pt] at (2.72,1.02) {$PQ=|y_P|$};
+ \draw[gray!70] (2.77,1.02)--({10/3},1.02);
+ \fill (L) circle (2pt) node[below=4pt]{$F_1(-c,0)$};
+ \fill (R) circle (2pt) node[below left=4pt]{$F_2(c,0)$};
+ \fill (P) circle (2pt);
+ \fill (Q) circle (1.6pt) node[below right=4pt]{$Q(x_P,0)$};
+ \draw[<->,orange!85!black] (-3,-0.95)--({10/3},-0.95)
+   node[midway,below]{$F_1Q=x_P+c$};
+ \node[teal!70!black,anchor=west] at (0.4,-2.05) {$F_2Q=x_P-c$（此图 $x_P>c$）};
+ \draw[teal!70!black] ({19/6},-0.1)--(4.3,-1.65)--(4.3,-1.82);
+ \node[anchor=west] at (-3.6,4.55) {\textbf{两条距离共用同一高度 $PQ$}};
+ \node[anchor=west] at (-3.6,-2.85) {一般情形水平距离取绝对值，平方后仍为 $(x_P\pm c)^2$。};
+\end{tikzpicture}

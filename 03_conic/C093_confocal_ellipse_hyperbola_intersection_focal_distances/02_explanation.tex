@@ -1,0 +1,81 @@
+\clearpage
+\begin{explanationbox}
+\textbf{第一层：先看两段长度——为什么是 $a\pm A$？}
+
+\textbf{先看具体数值：}若两条焦半径总长是 $14$，长短之差是 $4$，
+则平均长度是 $7$，较长的比平均值多 $2$，较短的比平均值少 $2$。
+
+\begin{center}
+\input{assets/tikz/C093_length_decomposition}
+\end{center}
+
+\textbf{再从图推广到字母：}设 $r_1=PF_1$，$r_2=PF_2$。
+椭圆定义告诉我们\emph{两条焦半径加起来有多长}：
+\[r_1+r_2=2a.\]
+双曲线定义告诉我们\emph{两条焦半径相差多长}：
+\[|r_1-r_2|=2A.\]
+所以两条长度的平均值是 $a$，长短之间差 $2A$；
+较长的一条高于平均值 $A$，较短的一条低于平均值 $A$。
+\[
+\boxed{\text{长焦半径}=a+A},\qquad
+\boxed{\text{短焦半径}=a-A}.
+\]
+这里的“相加、相减”是从\emph{总长与长度差还原每一条长度}，
+不是要求先解两条曲线的交点坐标。
+\end{explanationbox}
+
+\clearpage
+\begin{explanationbox}
+\textbf{第二层：左右支交换的是焦点的对应关系，长度本身不变。}
+
+\begin{center}
+\input{assets/tikz/C093_branch_swap}
+\end{center}
+
+在右支，点 $P$ 靠近右焦点 $F_2$，所以
+$PF_1=a+A$、$PF_2=a-A$；
+在左支，点 $P$ 靠近左焦点 $F_1$，两个公式交换。
+
+\textbf{为什么远近只由 $x_P$ 的正负决定？}
+因为 $F_1=(-c,0)$、$F_2=(c,0)$，距离公式给出
+\[
+\begin{aligned}
+PF_1^2-PF_2^2
+&=(x_P+c)^2+y_P^2-\bigl[(x_P-c)^2+y_P^2\bigr]\\
+&=\boxed{4cx_P}.
+\end{aligned}
+\]
+两边都出现的 $y_P^2$ 被减掉，结果只剩 $x_P$。
+$c>0$，所以 $x_P>0$ 时 $PF_1>PF_2$；
+$x_P<0$ 时 $PF_1<PF_2$。
+改变 $y_P$ 的正负不会改变任一焦半径。
+
+\textbf{判断顺序：}先算出 $a+A$、$a-A$；
+再判断公共点位于左支还是右支，最后给 $PF_1,PF_2$ 分配长度。
+\end{explanationbox}
+
+\clearpage
+\begin{explanationbox}
+\textbf{第三层：跟离心率和其他二级结论衔接。}
+
+\textbf{题目若只给离心率：}从
+\[
+e_1=\frac c{a},\quad e_2=\frac c{A}
+\quad\Longrightarrow\quad a=\frac c{e_1},\quad A=\frac c{e_2}
+\]
+先求两种半轴，再按“平均值加减偏离量”即可。
+
+\textbf{为什么长度都大于零？}由 $c^2=a^2-b^2=A^2+B^2$ 知 $a>c>A>0$，
+必有 $a-A>0$，不会得到负长度。
+
+\textbf{联系初中的三角形不等式：}
+\begin{center}
+\input{assets/tikz/C093_triangle_conditions}
+\end{center}
+由图中的 $2<4<8$ 推广：两条焦半径之差 $2A$ 小于焦距 $2c$，
+它们的和 $2a$ 大于焦距，即 $a>c>A$。
+
+\textbf{内容分工：}C093 的重点是\emph{不先求坐标就求出焦半径}；
+C094 专门研究\emph{四个公共点的坐标}；
+C090 在已知焦半径的基础上，继续用余弦定理研究焦角。
+\end{explanationbox}
