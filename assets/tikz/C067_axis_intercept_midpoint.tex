@@ -1,0 +1,33 @@
+% C067：切线在 x 轴上的截距与中点性质
+% 几何精确示例：p=1，P(2,2)，H(2,0)，T(-2,0)，O(0,0)
+% P 所在曲线 y^2=2x；P 处切线 y=(x+2)/2；中点关系 TO=OH。
+\begin{tikzpicture}[scale=1.0, line cap=round, line join=round,
+  every node/.style={font=\small}]
+  % 坐标轴
+  \draw[->,thin,gray] (-2.8,0)--(5.1,0) node[right] {$x$};
+  \draw[->,thin,gray] (0,-2.55)--(0,3.65) node[above] {$y$};
+  % 精确抛物线：x = y^2/2
+  \draw[blue!72!black,very thick,samples=130,smooth,domain=-2.35:2.35,variable=\t]
+    plot ({\t*\t/2},{\t});
+  % 精确切线：P(2,2) -> y=(x+2)/2
+  \draw[orange!90!black,very thick] (-2.5,-0.25)--(3.6,2.8);
+  % 切点垂足及直角标记
+  \draw[densely dashed,thick,gray!75!black] (2,2)--(2,0);
+  \draw[gray!75!black] (2,0.18)--(2.18,0.18)--(2.18,0);
+  % 中点的对称分段标识
+  \draw[magenta!80!black,very thick] (-2,0)--(0,0);
+  \draw[magenta!80!black,very thick] (0,0)--(2,0);
+  \draw[magenta!80!black,thick] (-1,0.10)--(-1,-0.10);
+  \draw[magenta!80!black,thick] (1,0.10)--(1,-0.10);
+  % 点标签
+  \fill[orange!90!black] (2,2) circle (2pt);
+  \draw[orange!90!black,thin] (2,2.15)--(2,2.90);
+  \node[orange!90!black,above] at (2,3.05) {$P(x_0,y_0)$};
+  \fill[magenta!80!black] (-2,0) circle (2pt)
+    node[below left=8pt] {$T(-x_0,0)$};
+  \fill[black] (0,0) circle (2pt) node[above left=7pt] {$O$};
+  \fill[magenta!80!black] (2,0) circle (2pt)
+    node[below right=8pt] {$H(x_0,0)$};
+  % 长度关系单独放在曲线下方，避免与坐标标签、纵轴或曲线交叠。
+  \node[magenta!80!black] at (0.6,-3.15) {$TO=OH=x_0$};
+\end{tikzpicture}

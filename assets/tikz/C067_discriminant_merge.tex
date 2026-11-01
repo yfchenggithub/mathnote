@@ -1,0 +1,16 @@
+\begin{tikzpicture}[>=stealth,font=\small]
+\foreach \shift/\b/\title in {0/0/割线：两个不同交点,6.2/-1/切线：两个根重合}{
+\begin{scope}[xshift=\shift cm]
+\node[anchor=west,font=\small\bfseries] at (-.5,4.8) {\title};
+\draw[->,gray] (-.5,0)--(4.5,0) node[right] {$x$};
+\draw[->,gray] (0,-.8)--(0,4.6);\node[left] at (0,3.3) {$y$};
+\draw[blue,very thick,domain=-.7:4.2,samples=100] plot ({\x*\x/4},\x);
+\draw[orange!80!black,very thick] ({-.5+\b},-.5)--({4.3+\b},4.3);
+\node at (2,-1.4) {\ifnum\b=0 $x=y$\else $x=y-1$\fi};
+\end{scope}}
+\fill (0,0) circle (2pt) node[below right=6pt] {$O$};
+\fill (4,4) circle (2pt) node[below right=6pt] {$(4,4)$};
+\fill (7.2,2) circle (2pt) node[below right=7pt] {$P(1,2)$};
+\node at (2,-2.2) {$y(y-4)=0$};
+\node at (8.2,-2.2) {$(y-2)^2=0$，$\Delta=0$};
+\end{tikzpicture}

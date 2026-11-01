@@ -1,47 +1,31 @@
 \begin{explanationbox}
-\begin{minipage}{\linewidth}
-\begin{center}\input{assets/tikz/C067_math_audit_geometry.tex}\end{center}
-水平线 $y=2$ 只有一个交点 $Q=(1,2)$，却不是切线；顶点的实际切线为 $x=0$。所以“一个公共点”不能作为抛物线切线的定义。
-\end{minipage}
-\par\medskip
+\begin{center}\input{assets/tikz/C067_secant_difference.tex}\end{center}
+图中固定 $P$，让 $Q$ 沿蓝色抛物线靠近 $P$，虚线割线的方向趋向橙色切线。
+坐标增量满足
+\[
+ \frac{x_1-x_0}{y_1-y_0}=\frac{y_1+y_0}{2p}\longrightarrow\frac{y_0}{p}.
+\]
+这里取 $x$ 的变化量除以 $y$ 的变化量，顶点处也不必除以 $y_0$。
 
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
+\textbf{为什么出现 $x+x_0$？}
+切线方向给出 $p(x-x_0)=y_0(y-y_0)$；再用切点条件 $y_0^2=2px_0$，便得
+\[
+ px-px_0=y_0y-2px_0\quad\Longrightarrow\quad y_0y=p(x+x_0).
+\]
+\medskip
+\textbf{新推论：切线与$x$轴交在哪里？}
+\begin{center}\input{assets/tikz/C067_axis_intercept_midpoint.tex}\end{center}
+在切点$P(x_0,y_0)$处，作$PH\perp x$轴，得到$H(x_0,0)$；
+切线与$x$轴交于$T$。由于$T$的纵坐标为$0$，切点式直接变为
+\[
+    0=p(x_T+x_0)\quad(p>0)\quad\Longrightarrow\quad x_T=-x_0.
+\]
+于是$T(-x_0,0)$、$H(x_0,0)$关于原点对称。
+\textbf{为什么$O$是中点？}因为$P\ne O$时$x_0>0$，
+$TO=x_0=OH$，而且$T,O,H$同在$x$轴上。
+\textbf{考场反向用：}若已知切线在$x$轴上的截距为$t$，则切点横坐标$x_0=-t$。
+注意这里的$T$是\textbf{切线与$x$轴的交点}，不是切点$P$。
 
-	抛物线$y^2=2px$上点$(x_0,y_0)$处的切线方程$y_0y=p(x+x_0)$可以看作将原方程中的$y^2$替换为$y_0y$，将$2px$替换为$p(x+x_0)$，本质是将二次项线性化。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（斜率推导）：}] 对$y^2=2px$两边求导得$2y y'=2p$，故斜率$k=\frac{p}{y_0}$（$y_0\neq0$）。当$y_0=0$时，切线为$x=0$。
-		\item[\textbf{要点二（方程化简）：}] 切线方程$y-y_0=k(x-x_0)$代入$k$并利用$y_0^2=2px_0$化简为$y_0y=p(x+x_0)$。
-	\end{description}
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（点线唯一交点）}}
-
-	切线是割线趋近切点时的极限方向；本条参数导向量给出该方向。水平线也可与抛物线只有一个公共点，因此唯一交点并不是切线的定义。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（代换法则）}}
-
-	切线方程可由原方程通过“半代换”得到：将$y^2$换成$y_0y$，将$x$换成$\frac{x+x_0}{2}$，系数$2p$对应$p$。这种代换对一般二次曲线也适用。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（常见考法）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（直接写切线）：}已知切点坐标$(x_0,y_0)$和抛物线方程，直接代入公式得切线方程。
-		\item \textbf{考法二（求切点坐标）：}已知切线经过某点或斜率，设切点$(x_0,y_0)$，利用切线公式和点在抛物线上联立求解。
-	\end{itemize}
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
-
-	\textbf{公式的对称性：}$y_0y$和$x+x_0$体现了点$(x_0,y_0)$的“一半”替换。当$y_0=0$时公式仍给出$x=0$，说明顶点处的切线为垂直于$x$轴的直线。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（切点已知）：}直接代公式，快速写出切线，不需要判别式法。
-		\item \textbf{场景二（切线已知）：}已知某直线与抛物线相切，可设切点并用切线方程表示直线，联立条件求解。
-	\end{itemize}
+\textbf{选择方法：}平方差法观察割线方向；导数法直接求方向；判别式法观察交点对应的两个根合并。
+已知切点先验点；已知非顶点处斜率可用 $k=p/y_0$ 反求切点；已知切线经过外点时须另设切点。
 \end{explanationbox}

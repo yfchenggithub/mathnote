@@ -1,33 +1,50 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件1（点在线上）：}}] 点$P(x_0,y_0)$在抛物线$C: y^2=2px$（$p>0$）上，即$y_0^2=2px_0$成立。
-	\end{description}
+\begin{center}\input{assets/tikz/C067_tangent_overview.tex}\end{center}
+    \textbf{\textcolor{CStatement}{条件}}
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+        \item[\textbf{\textcolor{CStatement}{条件1（抛物线及切点）：}}]
+        抛物线$C:y^2=2px$，其中$p>0$，开口向右；
+        点$P(x_0,y_0)$在抛物线上，故$y_0^2=2px_0$。
+        \item[\textbf{\textcolor{CStatement}{条件2（切点与过点的区别）：}}]
+        $P$是切点，不只是切线经过的一个已知点；切点未知时要先设$P$并求出它。
+    \end{description}
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（切线方程）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			切线方程可视为将原方程中的$y^2$换为$y_0y$，$2px$换为$p(x+x_0)$。
-			\[
-				y_0 y = p(x + x_0).
-			\]
+    \textbf{\textcolor{CStatement}{结论}}
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+        \item[\textbf{\textcolor{CStatement}{结论一（切点式）：}}]
+        抛物线在$P(x_0,y_0)$处的切线为
+        \[
+            \boxed{y_0y=p(x+x_0)}.
+        \]
+        \textbf{速写方法：}把$y^2$改成$y_0y$，把$2px$改成$p(x+x_0)$；
+        这是\textbf{已经证明后可用的记法}，不能代替验证切点在曲线上。
 
-		\item[\textbf{\textcolor{CStatement}{推广结论（其他开口）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			对其他方向的标准抛物线，切线公式可由类似替换得到。
+        \item[\textbf{\textcolor{CStatement}{结论二（斜率与顶点）：}}]
+        当$y_0\ne0$时，切线可写为$y=\dfrac{p}{y_0}x+\dfrac{px_0}{y_0}$，
+        故切线斜率$k=\dfrac{p}{y_0}$；当$y_0=0$时，$x_0=0$，切线为$x=0$。
+        \textbf{切点式对顶点仍然有效}，但斜率公式不能除以零。
 
-			（1）开口向左（$y^2=-2px$）：
-			\[
-				y_0 y = -p(x + x_0).
-			\]
-			（2）开口向上（$x^2=2py$）：
-			\[
-				x_0 x = p(y + y_0).
-			\]
-			（3）开口向下（$x^2=-2py$）：
-			\[
-				x_0 x = -p(y + y_0).
-			\]
-	\end{description}
+        \item[\textbf{\textcolor{CStatement}{结论三（切线的轴上截距与中点）：}}]
+        设切线与$x$轴交于$T$，过切点$P$作$PH\perp x$轴，垂足为$H$。
+        将$y=0$代入切点式（$p>0$），可得
+        \[
+            \boxed{T(-x_0,0)},\qquad H(x_0,0).
+        \]
+        因此，\textbf{切线在$x$轴上的截距为$-x_0$}；当$P\ne O$时，
+        \[
+            \boxed{TO=OH=x_0},\qquad\boxed{O\text{是线段}TH\text{的中点}}.
+        \]
+        \textbf{顶点说明：}当$P=O$时，$x_0=0$，三个点$T,O,H$重合；
+        截距公式仍成立，只是不再有一条长度大于零的线段$TH$。
+        \textbf{几何记忆：}切点投影在正半轴，切线交点在负半轴，二者关于原点对称。
+
+        \item[\textbf{\textcolor{CStatement}{推广结论（其他开口方向，均取$p>0$）：}}]
+        \begin{center}\input{assets/tikz/C067_opening_directions.tex}\end{center}
+        \begin{align*}
+            y^2=-2px&\quad\Longrightarrow\quad y_0y=-p(x+x_0),\\
+            x^2= 2py&\quad\Longrightarrow\quad x_0x= p(y+y_0),\\
+            x^2=-2py&\quad\Longrightarrow\quad x_0x=-p(y+y_0).
+        \end{align*}
+        每种情况均要求$(x_0,y_0)$在对应抛物线上。
+    \end{description}
 \end{statementbox}

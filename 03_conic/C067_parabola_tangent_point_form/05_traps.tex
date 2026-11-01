@@ -1,25 +1,68 @@
 \begin{trapbox}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（错用公式条件）}}] 将不在抛物线上的点代入切线公式求切线。
-		\item[\textbf{\textcolor{CTrap}{正确理解（公式前提）：}}] 切线公式$y_0 y = p(x+x_0)$中的$(x_0,y_0)$必须是切点，即点在抛物线上。在使用前应先验证点是否满足抛物线方程。
-		\item[\textbf{\textcolor{CTrap}{错因分析（概念混淆）：}}] 混淆了“切点”与“直线经过的任意点”。公式来源于切点满足的特定关系，若点不在抛物线上，该公式不成立。
-	\end{description}
+\begin{center}\input{assets/tikz/C067_horizontal_counterexample.tex}\end{center}
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.38em]
+        \item[\textbf{\textcolor{CTrap}{易错点一（把过点当切点）}}]
+        题目说“切线经过$A(4,5)$”，就直接令$x_0=4,y_0=5$。
+        \item[\textbf{\textcolor{CTrap}{正确理解：}}]
+        切点式里的$P(x_0,y_0)$必须在抛物线上。比如对$y^2=4x$，
+        $5^2\ne4\times4$，所以$A(4,5)$不是切点；应另设切点并联立条件求解。
+    \end{description}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（混淆开口公式）}}] 直接套用$y_0 y = p(x+x_0)$于开口向上或向左的抛物线，导致符号或变量错误。
-		\item[\textbf{\textcolor{CTrap}{正确理解（区分开口形式）：}}] 不同开口的标准抛物线公式不同：
-			$y^2=-2px$（向左）对应$y_0 y = -p(x+x_0)$；
-			$x^2=2py$（向上）对应$x_0 x = p(y+y_0)$；
-			$x^2=-2py$（向下）对应$x_0 x = -p(y+y_0)$。
-			必须根据方程形式选用正确公式。
-		\item[\textbf{\textcolor{CTrap}{错因分析（记忆混淆）：}}] 只记住了一种形式而忽视了抛物线的方向对公式的影响。建议通过导数推导理解公式来源，避免死记。
-	\end{description}
+    \medskip
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.38em]
+        \item[\textbf{\textcolor{CTrap}{易错点二（记错开口方向）}}]
+        把$y^2=2px$的公式直接用到$x^2=2py$或$y^2=-2px$。
+        \item[\textbf{\textcolor{CTrap}{正确理解：}}]
+        横开口时对应$y_0y=\pm p(x+x_0)$，竖开口时对应$x_0x=\pm p(y+y_0)$；
+        $\pm$与标准方程同号。四种情况都需检验切点在对应曲线上。
+    \end{description}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（忽视顶点情况）}}] 当$y_0=0$时，认为公式不适用，另外讨论切线导致出错。
-		\item[\textbf{\textcolor{CTrap}{正确理解（顶点切线统一）：}}] 当$y_0=0$时，点$(x_0,0)$在抛物线$y^2=2px$上必有$x_0=0$（顶点），此时切线为$x=0$，代入公式$y_0 y = p(x+x_0)$得$0 = p(x+0)$即$x=0$，公式仍然成立。故无需单独讨论。
-		\item[\textbf{\textcolor{CTrap}{错因分析（从斜率公式误解）：}}] 由$k = \dfrac{p}{y_0}$认为$y_0=0$时斜率不存在，便误以为切线公式失效。实际上切线公式本身就是垂直情况$x=0$，与公式结果一致。
-	\end{description}
+    \medskip
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.38em]
+        \item[\textbf{\textcolor{CTrap}{易错点三（顶点除以零）}}]
+        用$k=p/y_0$代入$y_0=0$，误判顶点切线不存在。
+        \item[\textbf{\textcolor{CTrap}{正确理解：}}]
+        $y_0=0$时$x_0=0$，切点式给出$x=0$。\textbf{切线存在，但斜率不存在。}
+        若采用导数法，对$x=\dfrac{y^2}{2p}$求导，不会漏掉竖直切线。
+    \end{description}
+
+    \medskip
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.38em]
+        \item[\textbf{\textcolor{CTrap}{易错点四（一个交点就等于相切）}}]
+        认为“联立后只有一组坐标”就证明直线相切。
+        \item[\textbf{\textcolor{CTrap}{最小反例：}}]
+        抛物线$y^2=4x$与水平线$y=2$仅有公共点$(1,2)$，
+        但在该点的切线是$y=x+1$，不是$y=2$。
+        \item[\textbf{\textcolor{CTrap}{正确理解：}}]
+        通用证明中先设$x=my+b$，消去$x$后得到\textbf{关于$y$的一元二次方程}，
+        这时用$\Delta=0$判断相切；不能把$y=c$代入得到的\textbf{一次方程只有一个解}误当成判别式为零。
+    \end{description}
+
+    \medskip
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.38em]
+        \item[\textbf{\textcolor{CTrap}{易错点五（设直线漏掉顶点）}}]
+        只设$y=kx+b$，因斜率不存在而遗漏竖直直线$x=0$。
+        \item[\textbf{\textcolor{CTrap}{正确理解：}}]
+        在$y^2=2px$中使用$x=my+b$可统一处理顶点；或直接使用切点式。
+    \end{description}
+
+
+    \medskip
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.38em]
+        \item[\textbf{\textcolor{CTrap}{易错点六（把截距误写成$x_0$）}}]
+        认为切线与$x$轴交点是$(x_0,0)$，把切点在$x$轴上的投影$H$误当成截点$T$。
+        \item[\textbf{\textcolor{CTrap}{正确理解：}}]
+        $H(x_0,0)$是切点的投影，$T(-x_0,0)$才是切线与$x$轴的交点。
+        对非顶点切点，$T,O,H$依次在$x$轴上，且$TO=OH=x_0$。
+    \end{description}
+
+    \medskip
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.38em]
+        \item[\textbf{\textcolor{CTrap}{易错点七（忽略顶点与开口方向）}}]
+        把$P=O$时的$T=H=O$当成长度大于零的线段，或认为任意抛物线的截距都必须在$x$轴。
+        \item[\textbf{\textcolor{CTrap}{正确理解：}}]
+        顶点处仍有$x$轴截距$0=-x_0$，但$T,H,O$重合。
+        对$y^2=\pm2px$，相关截距在$x$轴上，等于$-x_0$；
+        对$x^2=\pm2py$，应当看\textbf{$y$轴截距}，等于$-y_0$。
+    \end{description}
 \end{trapbox}
