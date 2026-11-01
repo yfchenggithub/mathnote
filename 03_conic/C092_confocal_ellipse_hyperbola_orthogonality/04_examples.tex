@@ -1,0 +1,146 @@
+\clearpage
+\begin{examplebox}
+\textbf{例1（基础母题：给方程，证明相交处正交）。}
+
+已知
+\[
+E:\ \frac{x^2}{16}+\frac{y^2}{12}=1,\qquad
+H:\ x^2-\frac{y^2}{3}=1.
+\]
+求全部公共点，并证明每个交点处两曲线的切线相互垂直。
+
+\textbf{识别信号：}本例 $a^2=16,b^2=12,A^2=1,B^2=3$，有
+$a^2-A^2=16-1=15=b^2+B^2=12+3$，\textbf{一眼确认共焦}；
+若题目要求展示计算，再求斜率。
+
+\textbf{解：}联立 $x^2=4,y^2=9$，四个交点为
+\[
+\boxed{(2,3),(2,-3),(-2,3),(-2,-3)}.
+\]
+两条切线的斜率为 $k_E=-3x/(4y)$、$k_H=3x/y$，
+所以在四个交点都满足
+\[
+k_Ek_H=-\frac{9x^2}{4y^2}
+=-\frac{9\cdot4}{4\cdot9}=-1.
+\]
+\textbf{结果：}四个交点处全部正交。
+
+\textbf{直观数值核验：}在 $P=(2,3)$，
+$t_E:x+2y=8$，$t_H:2x-y=1$，斜率为 $-1/2$ 和 $2$。
+\end{examplebox}
+
+\clearpage
+\begin{examplebox}
+\textbf{例2（迁移母题：只给焦距与轴长，不给公共点）。}
+
+已知共焦的椭圆半长轴为 $a=5$，双曲线实半轴为 $A=2$，
+公共焦半距 $c=3$。求所有交点坐标，并写出第一象限交点处的切线方程。
+
+\textbf{解：}由 $c^2=a^2-b^2=A^2+B^2=9$，得
+$b^2=25-9=16$、$B^2=9-4=5$，并核对
+$a^2-A^2=25-4=21=b^2+B^2=16+5$。故椭圆、双曲线分别为
+\[
+\frac{x^2}{25}+\frac{y^2}{16}=1,\qquad
+\frac{x^2}{4}-\frac{y^2}{5}=1.
+\]
+由统一的交点坐标式 $x^2=a^2A^2/c^2$、$y^2=b^2B^2/c^2$，
+\[
+x^2=\frac{25\cdot4}{9}=\frac{100}{9},\qquad
+ y^2=\frac{16\cdot5}{9}=\frac{80}{9}.
+\]
+四交点为 $\left(\pm\frac{10}{3},\pm\frac{4\sqrt5}{3}\right)$。
+第一象限点 $P=(10/3,4\sqrt5/3)$，两切线为
+\[
+\frac{2x}{15}+\frac{\sqrt5\,y}{12}=1,\qquad
+\frac{5x}{6}-\frac{4\sqrt5\,y}{15}=1.
+\]
+对应法向量点积为
+\[
+\frac{2}{15}\cdot\frac56
++\frac{\sqrt5}{12}\cdot\left(-\frac{4\sqrt5}{15}\right)
+=\frac19-\frac19=0.
+\]
+\textbf{结果：}这两条切线垂直，而整个求解过程不需要计算焦角。
+\end{examplebox}
+
+\clearpage
+\begin{examplebox}
+\textbf{例3（辨析：焦角不等于切线夹角）。}
+
+仍取例1的曲线，设 $P=(2,3)$，求 $\angle F_1PF_2$，
+并与椭圆、双曲线切线的夹角比较。
+
+\textbf{解：}焦点 $F_1=(-2,0),F_2=(2,0)$，
+所以 $PF_1=5,PF_2=3,F_1F_2=4$，由余弦定理
+\[
+\boxed{\cos\angle F_1PF_2=\frac35},\qquad
+\angle F_1PF_2\ne90^\circ.
+\]
+而 $k_E=-1/2$、$k_H=2$，故切线交角是
+\[
+\boxed{\angle(t_E,t_H)=90^\circ}.
+\]
+\begin{center}
+\input{assets/tikz/C092_angle_bisectors}
+
+{\small 例1的焦角满足 $\cos\theta=3/5$；直角标记属于两条切线。}
+\end{center}
+\textbf{方法迁移：}出现“夹角”先问：到底是\emph{焦角}还是\emph{切线交角}？
+前者依赖离心率，后者在共焦条件下恒定为直角。
+\end{examplebox}
+
+
+\clearpage
+\begin{examplebox}
+\textbf{例4（两步判断共焦：把平方关系逆向使用）。}
+
+已知两条同中心、同坐标轴的曲线
+\[
+ E:\ \frac{x^2}{36}+\frac{y^2}{20}=1,\qquad
+ H:\ \frac{x^2}{9}-\frac{y^2}{7}=1.
+\]
+不求交点，判断它们在公共点处是否正交。
+
+\textbf{第一步（辨认参数）：}
+$a^2=36,b^2=20,A^2=9,B^2=7$，所以
+\[
+ a^2-A^2=36-9=27,\qquad b^2+B^2=20+7=27.
+\]
+\textbf{第二步（判断焦点）：}
+\[
+ c_E^2=36-20=16,\qquad c_H^2=9+7=16.
+\]
+两条曲线共享焦点 $(\pm4,0)$，因此所有公共点处切线都垂直。
+\textbf{迁移：}标准式已共轴时，比较“平方差与平方和”
+能够更快看出是否共焦；\emph{无须先求四个交点}。
+\end{examplebox}
+
+\clearpage
+\begin{examplebox}
+\textbf{高价值变式（去掉“共焦”这个关键条件）。}
+
+椭圆 $E:x^2/16+y^2/12=1$ 与双曲线
+$H_1:x^2/2-y^2/9=1$ 都经过 $P=(2,3)$。
+这两条曲线在 $P$ 处仍然正交吗？请说明理由。
+
+\textbf{先独立判断（建议限时2分钟）：}不要把“同轴”误看作“共焦”。
+
+\textbf{解：}椭圆 $c_E^2=4$，双曲线 $c_{H_1}^2=2+9=11$，
+所以\textbf{不同焦}。切线斜率
+\[
+k_E=-\frac12,\qquad
+k_{H_1}=\frac{9x}{2y}\bigg|_{(2,3)}=3.
+\]
+于是
+\[
+\boxed{k_Ek_{H_1}=-\frac32\ne-1},
+\]
+故\textbf{两切线不垂直}。
+\begin{center}
+\input{assets/tikz/C092_confocal_counterexample}
+
+{\small 同尺度对照：同过 $P$，改变双曲线参数后，切线不再垂直。}
+\end{center}
+\textbf{反例价值：}两条曲线有相同中心、焦轴，甚至有公共点，
+仍不能替代“两个焦点完全相同”这一条件。
+\end{examplebox}

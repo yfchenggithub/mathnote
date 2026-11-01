@@ -1,0 +1,15 @@
+\begin{tikzpicture}[x=.8cm,y=.8cm,font=\small]
+\draw[gray!60] (-4.5,0)--(4.5,0) (0,-4.1)--(0,4.1);
+\draw[blue!75!black,thick] (0,0) ellipse (4 and {sqrt(12)});
+\foreach \s in {-1,1} {
+\draw[red!75!black,thick,domain=-3.9:3.9,samples=100,variable=\t]
+ plot ({\s*sqrt(1+\t*\t/3)},\t);}
+\foreach \sx in {-1,1} {\foreach \sy in {-1,1} {
+\begin{scope}[shift={({2*\sx},{3*\sy})}]
+\draw[teal!85!black,dashed,thick] (-.7,{.35*\sx*\sy})--(.7,{-.35*\sx*\sy});
+\draw[orange!80!black,dashed,thick] (-.35,{-.7*\sx*\sy})--(.35,{.7*\sx*\sy});
+\draw (.2,{-.1*\sx*\sy})--(.3,{.1*\sx*\sy})--(.1,{.2*\sx*\sy});
+\fill (0,0) circle (2.4pt);
+\end{scope}}}
+\node at (0,-4.65) {$(\pm2,\pm3)$：四处均正交};
+\end{tikzpicture}

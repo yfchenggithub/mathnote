@@ -1,0 +1,185 @@
+\clearpage
+\begin{proofbox}
+\textbf{共同前提：}椭圆与双曲线有相同的两个焦点，
+参数满足 $a>c>A>0$（记号见前文），$P$ 为公共点，
+$\mathbf u_i=\overrightarrow{F_iP}/PF_i$（$i=1,2$）。
+以下按\textbf{最快证明、最低门槛证明、常规坐标法}依次给出，
+另附一种完整的切线方程证明。不同方法各有教学价值。
+
+\medskip
+\textbf{方法一：最快证明【单位向量的和差，三步】。}
+
+\begin{center}
+\input{assets/tikz/C092_vector_sum_difference}
+
+{\small 把单位向量平移到 $P$ 出发，等长使和、差方向垂直。}
+\end{center}
+
+
+\textbf{第1步（识别信号）：}椭圆上两段焦半径之和不变，双曲线同一支上两段焦半径之差不变。
+由前文对距离求导得到的关系，垂直于切线的两个向量可分别取为
+\[
+\mathbf n_E=\mathbf u_1+\mathbf u_2,\qquad
+\mathbf n_H=\mathbf u_1-\mathbf u_2.
+\]
+（左支改变差的符号，不影响法线的方向直线。）
+
+\textbf{第2步（关键计算）：}单位向量长度同为 $1$，因此
+\[
+\mathbf n_E\cdot\mathbf n_H
+=(\mathbf u_1+\mathbf u_2)\cdot(\mathbf u_1-\mathbf u_2)
+=1-1=0.
+\]
+\textbf{第3步（回到目标）：}两个法线方向垂直，
+把它们各自转 $90^\circ$ 得到切线，故两切线仍垂直：
+\[
+\boxed{t_E\perp t_H}.
+\]
+\textbf{为什么这法最快？}不用解交点、不用繁琐斜率，也无须分左、右支。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法二：最低门槛证明【焦角的内外角平分线】。}
+
+\begin{center}
+\input{assets/tikz/C092_angle_bisectors}
+
+{\small 焦角的内外角平分线分别是 $t_H,t_E$，不是两条焦半径。}
+\end{center}
+
+
+\textbf{第1步（初中已知）：}连接 $PF_1,PF_2$。设夹角为 $\theta$。
+它的内角平分线与外角平分线必互相垂直。
+
+\textbf{第2步（解释切线方向）：}让点沿曲线运动，在 $P$ 处的运动方向就是切线方向。
+记两条焦半径的瞬时变化率为 $r_1',r_2'$。
+椭圆上 $r_1+r_2$ 不变，故 $r_1'+r_2'=0$；
+双曲线上 $|r_1-r_2|$ 不变且所在支固定，
+故 $r_1'-r_2'=0$。
+因此椭圆切线沿\emph{一段增长、一段缩短}的方向，
+恰是焦角外角平分线；双曲线切线沿\emph{两段变化相同}的方向，
+恰是焦角内角平分线。
+
+\textbf{第3步（几何结论）：}内、外角平分线垂直，
+于是 $t_E\perp t_H$。
+
+\textbf{严谨性补充：}第2步中的“恰是角平分线”并非凭观察猜测。
+两条单位焦半径方向为 $\mathbf u_1,\mathbf u_2$，
+在它们的\emph{内}角平分线上两个投影相等，
+在\emph{外}角平分线上两个投影互为相反数；
+这恰好实现 $r_1'-r_2'=0$ 与
+$r_1'+r_2'=0$。
+\textbf{适用理由：}先用角平分线唤醒初中知识，再用距离的变化率说明切线方向。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法三：常规坐标法【统一 $a,b,A,B$，联立＋斜率】。}
+
+\begin{center}
+\input{assets/tikz/C092_tangent_slopes}
+
+{\small 图取 $P=(2,3)$；一般交点的斜率积也为 $-1$。}
+\end{center}
+
+
+设焦点 $F_1=(-c,0),F_2=(c,0)$（$c>0$），分别写为
+\[
+ E:\ \frac{x^2}{a^2}+\frac{y^2}{b^2}=1,\qquad
+ H:\ \frac{x^2}{A^2}-\frac{y^2}{B^2}=1.
+\]
+其中 $a>b>0$，$A,B>0$，\textbf{共焦先给出}
+\[
+\boxed{a^2-b^2=A^2+B^2=c^2},\qquad
+\boxed{a^2-A^2=b^2+B^2}.
+\]
+\textbf{第1步（为何联立）：}交点 $P=(x_0,y_0)$ 同时满足两个方程。
+令 $U=x_0^2,V=y_0^2$，变为线性方程组
+\[
+\begin{cases}
+ U/a^2+V/b^2=1,\\
+ U/A^2-V/B^2=1.
+\end{cases}
+\]
+由第一式得 $V=b^2(1-U/a^2)$，第二式得
+$V=B^2(U/A^2-1)$，令两式相等：
+\[
+ b^2+B^2=U\left(\frac{b^2}{a^2}+\frac{B^2}{A^2}\right).
+\]
+\textbf{为什么此时用共焦条件？}右侧系数的分子可因式分解：
+\[
+ A^2b^2+a^2B^2
+ =A^2(b^2+B^2)+B^2(a^2-A^2)
+ =c^2(b^2+B^2).
+\]
+于是 $b^2+B^2>0$ 可消去，得到
+\[
+\boxed{x_0^2=\frac{a^2A^2}{c^2}},\qquad
+\boxed{y_0^2=\frac{b^2B^2}{c^2}}.
+\]
+\textbf{几何信息：}两个平方严格大于 $0$，因此恰有
+$P=(\pm aA/c,\pm bB/c)$ 四个不同交点；两正负号独立。
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法三（续）：从交点坐标走向切线方向。}
+
+\textbf{第2步（隐函数求导）：}椭圆、双曲线的切线斜率为
+\[
+\boxed{k_E=-\frac{b^2x_0}{a^2y_0}},\qquad
+\boxed{k_H=\frac{B^2x_0}{A^2y_0}}.
+\]
+这里 $x_0y_0\ne0$，所以两条斜率均存在。
+
+\textbf{第3步（代入交点关系，立即消去）：}
+\[
+\begin{aligned}
+ k_Ek_H
+ &=-\frac{b^2B^2x_0^2}{a^2A^2y_0^2}\\
+ &=-\frac{b^2B^2}{a^2A^2}\cdot
+ \frac{a^2A^2}{b^2B^2}=\boxed{-1}.
+\end{aligned}
+\]
+故两条切线垂直。
+\textbf{条件分工：}共焦控制参数，公共点控制坐标，求导控制切线方向。
+\textbf{为什么需要公共点条件？}仅凭参数平方恒等式不能代入任意点的
+$x^2/y^2$；恰恰是“同一点同时在两曲线上”给出了上述比值。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法四：补充证明【切线方程＋法向量点积】。}
+
+\begin{center}
+\input{assets/tikz/C092_tangent_normals}
+
+{\small 箭头按正比例缩放，两法向量分别垂直于各自切线。}
+\end{center}
+
+
+沿用方法三中 $P=(x_0,y_0)$ 和共焦参数。
+两条切线方程为
+\[
+ t_E:\ \frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1,\qquad
+ t_H:\ \frac{x_0x}{A^2}-\frac{y_0y}{B^2}=1.
+\]
+对应法向量可取
+\[
+\mathbf N_E=\left(\frac{x_0}{a^2},\frac{y_0}{b^2}\right),\qquad
+\mathbf N_H=\left(\frac{x_0}{A^2},-\frac{y_0}{B^2}\right).
+\]
+用交点坐标平方式 $x_0^2=a^2A^2/c^2$、
+$y_0^2=b^2B^2/c^2$，直接求得
+\[
+\begin{aligned}
+\mathbf N_E\cdot\mathbf N_H
+ &=\frac{x_0^2}{a^2A^2}-\frac{y_0^2}{b^2B^2}\\
+ &=\frac1{c^2}-\frac1{c^2}=\boxed{0}.
+\end{aligned}
+\]
+法向量垂直，故切线也垂直。
+\textbf{为什么保留此法：}写切线方程时无需先求斜率；
+它也能迁移到斜率不存在的其他曲线问题。
+\end{proofbox}

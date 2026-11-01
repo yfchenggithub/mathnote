@@ -1,0 +1,29 @@
+% Same coordinate scales/ranges. H0:x²-y²/3=1; H1:x²/2-y²/9=1.
+% Both pass through P=(2,3), slopes 2 and 3 respectively.
+\begin{tikzpicture}[x=.65cm,y=.65cm,font=\small]
+\foreach \offset/\case/\title in {0/0/共焦：正交,10/1/非共焦：不正交} {
+\begin{scope}[shift={(\offset,0)}]
+\node at (1.3,5.8) {\title};
+\draw[blue!75!black,thick,domain=10:105,samples=80,variable=\t]
+ plot ({4*cos(\t)},{sqrt(12)*sin(\t)});
+\ifnum\case=0
+\draw[red!75!black,thick,domain=.2:5,samples=80,variable=\t]
+ plot ({sqrt(1+\t*\t/3)},\t);
+\draw[orange!80!black,dashed,thick] (1,1)--(3,5);
+\draw (2.358,2.821)--(2.537,3.179)--(2.179,3.358);
+\node at (.5,5.1) {$90^\circ$};
+\node at (1.4,-.65) {$k_Ek_H=-1$};
+\else
+\draw[red!75!black,thick,domain=.2:5,samples=80,variable=\t]
+ plot ({sqrt(2+2*\t*\t/9)},\t);
+\draw[orange!80!black,dashed,thick] (1.3,.9)--(2.7,5.1);
+\draw[gray] ({2+.7*cos(71.56505118)},{3+.7*sin(71.56505118)})
+ arc[start angle=71.56505118,end angle=153.43494882,radius=.7];
+\node at (.5,5.1) {$\approx81.9^\circ$};
+\node at (1.4,-.65) {$k_Ek_{H_1}=-\tfrac32$};
+\fi
+\draw[teal!85!black,dashed,thick] (-1,4.5)--(4.5,1.75);
+\fill (2,3) circle (2.5pt);
+\node[anchor=east] at (1.1,2.35) {$P(2,3)$};
+\end{scope}}
+\end{tikzpicture}
