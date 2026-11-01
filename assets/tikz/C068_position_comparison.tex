@@ -1,0 +1,20 @@
+\begin{center}
+\begin{tikzpicture}[x=.88cm,y=.88cm,font=\small,
+  every node/.style={inner sep=3pt},line cap=round]
+
+\foreach \s/\p/\h/\title in {0/4/1/{外点 $P(4,0)$：$S=4$},6.6/1/4/{内点 $P(1,0)$：$S=\frac14$}}{
+\begin{scope}[shift={(\s,0)}]
+\draw[->,gray!65] (-2.4,0)--(4.6,0);
+\draw[CStatement,very thick] (0,0) ellipse [x radius=2,y radius=1];
+\draw[CTrap,very thick] (\h,-1.45)--(\h,1.45);
+\fill (\p,0) circle (1.6pt) node[below] {$P$};
+\node at (1,2) {\title};
+\node[CTrap] at (\h,-1.9) {$x=\h$};
+\end{scope}}
+\draw[orange!85!black,thick] (1,.866025)--(4,0)--(1,-.866025);
+\fill (1,.866025) circle (1.6pt); \fill (1,-.866025) circle (1.6pt);
+
+\end{tikzpicture}
+
+{\small 同尺度比较 $\frac{x^2}{4}+y^2=1$：外点有切点弦，内点的形式代换线不交椭圆。}
+\end{center}
