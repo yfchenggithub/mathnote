@@ -1,10 +1,14 @@
 \begin{statementbox}
-\textbf{几何定义。} 设 $F$ 不在准线 $l$ 上，$P$ 在非退化圆锥曲线上，$H$ 是 $P$ 到 $l$ 的垂足，$PH=d(P,l)>0$。
+\textbf{几何定义。} 这里讨论椭圆（$a>b>0$）、双曲线（$a>0,b>0$）和抛物线。
+取曲线上任意一点 $P$，$F$ 是这条曲线的一个焦点，$l$ 是与 $F$ 对应的准线；
+过 $P$ 向准线 $l$ 作垂线，垂足为 $H$，于是 $PH=d(P,l)>0$。
 对\textbf{相互对应}的焦点、准线，恒定比值
 \[
  \boxed{e=\frac{PF}{PH}}
 \]
-称为离心率。椭圆、双曲线的代数公式为
+称为离心率。
+\input{assets/tikz/C044_definition_first_page}
+椭圆、双曲线的代数公式为
 \[
  \boxed{e=\frac ca},\qquad
  \begin{cases}
@@ -13,13 +17,33 @@
  \end{cases}
 \]
 $a$ 为长半轴或实半轴，$b$ 为短半轴或虚半轴，$c$ 为半焦距。
+
+\medskip
+\textbf{几何意义：以 $a$ 为一个单位，比较中心到焦点的距离（这就叫“归一化”）。}
+椭圆、双曲线的中心记为 $O$，任取一个焦点 $F$，都有 $OF=c$；
+即 $c$ 是\textbf{中心到一个焦点的距离}，不是两个焦点之间的距离（后者是 $2c$）。
+$a$ 是椭圆的\textbf{长半轴}或双曲线的\textbf{实半轴}，也是比较时采用的\textbf{基准长度}，不能任意选。
+因此
+\[
+ \boxed{e=\frac{OF}{a}=\frac ca}
+ \quad\Longleftrightarrow\quad
+ \text{以 }a\text{ 为一个单位时，焦点距中心 }e\text{ 个单位。}
+\]
+若以中心为原点、焦点轴为 $x$ 轴，并把横坐标除以 $a$，
+原顶点 $x=\pm a$ 变为 $X=\pm1$，原焦点 $x=\pm c$ 变为 $X=\pm e$。
+\input{assets/tikz/C044_normalized_focus_positions}
+
+圆是 $a=b>0$ 的特殊情况，此时 $c=0,e=0$；椭圆 $0<e<1$ 时焦点位于中心与顶点之间；
+双曲线 $e>1$ 时焦点位于顶点外侧。
+\textbf{抛物线没有中心，不能用这一种 $c/a$ 解释；其离心率由焦准距离比定义。}
+
 抛物线由 $PF=PH$ 直接得到 $\boxed{e=1}$，不能套用 $c/a$。
 \[
  e_{\text{椭}}=\sqrt{1-b^2/a^2},\qquad
  e_{\text{双}}=\sqrt{1+b^2/a^2}.
 \]
 中心在原点、焦点在 $x$ 轴时，$(c,0)$ 与 $x=a^2/c=a/e$ 对应，负号一侧同理；纵向时交换 $x,y$。
-圆可另约定 $e=0$，但不属于这里有限焦点、有限准线的距离比模型。
+圆的离心率记为 $e=0$；不能用上述“点到焦点的距离除以点到准线的距离”直接计算圆的离心率。
 
 
 \medskip
@@ -28,4 +52,30 @@ $e$ 是\textbf{同一焦点配同侧对应准线}得到的恒定比例。
 求数值时首选 $e=c/a$；若要从头说明为什么成立，可以从第一定义推出
 $PF_R=|a-(c/a)x|$，再读出准线 $x=a^2/c$。
 \textbf{最少记忆：} 不必死记准线位置，也可以用左右两个顶点的焦准比消元推出 $e=c/a$（证明详见后文）。
+
+
+\medskip
+\textbf{补充结论：双曲线离心率与图像形状。}
+对横向双曲线
+\[
+ \frac{x^2}{a^2}-\frac{y^2}{b^2}=1,\qquad
+ e=\frac ca=\sqrt{1+\frac{b^2}{a^2}}>1,
+\]
+可直接得到
+\[
+ \boxed{\frac ba=\sqrt{e^2-1}},\qquad
+ \boxed{y=\pm\sqrt{e^2-1}\sqrt{x^2-a^2}\quad(|x|\ge a)}.
+\]
+\textbf{固定 $a$ 比较不同的双曲线：} $e$ 增大 $\Leftrightarrow$ $b$ 增大；
+渐近线 $y=\pm(b/a)x$ 向 $y$ 轴方向转动；固定同一个 $|x|>a$ 时，
+曲线点的 $|y|$ 增大；固定同一个 $|y|>0$ 时，曲线点的 $|x|$ 减小。
+\input{assets/tikz/C044_hyperbola_fixed_a}
+因此可以准确描述为“\textbf{曲线相对实轴更陡}”，不宜只说“开口更大”。
+
+\textbf{固定 $c$ 比较：} $e=c/a$ 增大意味着 $a$ 减小、两顶点向原点靠近；
+由 $|PF_1-PF_2|=2a$ 可知两焦距之差减小。
+\input{assets/tikz/C044_hyperbola_fixed_c}
+\textbf{两种比较的前提不同，不能混用。}
+若 $a$、$c$ 都不固定，只能确定 $b/a$ 随 $e$ 增大，不能直接断言 $a,b,c$ 某一个必增或必减。
+
 \end{statementbox}

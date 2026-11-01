@@ -1,0 +1,28 @@
+\begin{center}
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.5);
+\node[anchor=west,font=\small\bfseries] at (.5,7.95) {始终固定右焦点、右准线：看两顶点准距怎样相减或相加};
+
+\node[anchor=west] at (.6,7.0) {椭圆：$-a<c<a<t$，两段准距之差为 $2a$};
+\begin{scope}[shift={(3.3,5.5)},x=.54cm]
+\draw[black!45] (-5.6,0)--(9,0);
+\foreach \x/\s in {-5/{A_L},3/{F_R},5/{A_R}}
+ {\fill (\x,0) circle (2pt) node[below=5pt] {$\s$};}
+\draw[violet,thick] (8.333,-.35)--(8.333,.4) node[right=5pt] {$x=t$};
+\draw[<->,violet] (-5,.65)--(8.333,.65) node[midway,above] {$t+a$};
+\draw[<->,orange!85!black] (5,-.85)--(8.333,-.85) node[midway,below] {$t-a$};
+\end{scope}
+\node[anchor=west,align=left] at (10.7,5.4) {$A_LF_R=a+c$\\[6pt]$A_RF_R=a-c$};
+\node[anchor=west] at (.6,3.7) {双曲线：$-a<t<a<c$，两段准距之和为 $2a$};
+\begin{scope}[shift={(4.5,2.1)},x=.8cm]
+\draw[black!45] (-3.6,0)--(5.6,0);
+\foreach \x/\s in {-3/{A_L},3/{A_R},5/{F_R}}
+ {\fill (\x,0) circle (2pt) node[below=5pt] {$\s$};}
+\draw[violet,thick] (1.8,-.35)--(1.8,.4) node[right=5pt] {$x=t$};
+\draw[<->,violet] (-3,.65)--(1.8,.65) node[midway,above] {$a+t$};
+\draw[<->,orange!85!black] (1.8,-.75)--(3,-.75) node[midway,below] {$a-t$};
+\end{scope}
+\node[anchor=west,align=left] at (10.7,2.0) {$A_LF_R=c+a$\\[6pt]$A_RF_R=c-a$};
+
+\end{tikzpicture}
+\end{center}

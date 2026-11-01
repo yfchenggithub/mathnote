@@ -17,7 +17,8 @@
 \textbf{方法二：一般点配方，两类曲线一次写清。}
 横向标准椭圆有 $y^2=b^2(1-x^2/a^2)$、$c^2=a^2-b^2$；
 横向标准双曲线有 $y^2=b^2(x^2/a^2-1)$、$c^2=a^2+b^2$。
-两种情况下分别代入并展开，结果相同：
+\input{assets/tikz/C044_general_point_triangles}
+图中取 $v=PF_R$。两种情况下分别代入并展开，结果相同：
 \[
  \begin{aligned}
  PF^2&=(x-c)^2+y^2\\
@@ -38,10 +39,10 @@
 \medskip
 \textbf{范围与形状。} 椭圆 $0<c<a$，故 $0<e<1$；双曲线 $c>a$，故 $e>1$。
 抛物线由定义 $PF=PH>0$ 得 $e=1$。
-两种参数平方关系除以 $a^2$，就得到结论中的根式公式。
+将椭圆的 $c^2=a^2-b^2$ 与双曲线的 $c^2=a^2+b^2$ 分别除以 $a^2$，就得到上述离心率公式。
 \input{assets/tikz/C044_ellipse_shape_boundary}
 固定长半轴时，$e$ 越大，$b$ 越小，椭圆越扁。
-$e=0$ 是圆的边界；$e\to1^-$ 时 $b\to0$ 是椭圆扁向线段的极限，\textbf{不能把固定 $a$ 的这个极限直接说成抛物线}。
+当 $a=b>0$ 时是圆，$e=0$；固定 $a$，当椭圆的 $e$ 从小于 $1$ 的一侧越来越接近 $1$ 时，$b$ 越来越接近 $0$，椭圆越来越扁，\textbf{不能因此说它变成了抛物线}。
 双曲线则有 $b/a=\sqrt{e^2-1}$，其朝实轴正方向的渐近线夹角随 $e$ 增大。
 \end{proofbox}
 \clearpage
@@ -54,7 +55,9 @@ $e=0$ 是圆的边界；$e\to1^-$ 时 $b\to0$ 是椭圆扁向线段的极限，\
 \medskip
 \textbf{第1步：把点、焦点放到坐标轴上。}
 设 $P=(x,y)$，左、右焦点分别为 $F_L=(-c,0)$、$F_R=(c,0)$，
-记 $u=PF_L,\ v=PF_R$。勾股定理直接给
+记 $u=PF_L,\ v=PF_R$。
+\input{assets/tikz/C044_general_point_triangles}
+图中两直角三角形共用竖直边 $PK$，勾股定理直接给
 \[
  u^2=(x+c)^2+y^2,\qquad v^2=(x-c)^2+y^2.
 \]
@@ -66,6 +69,9 @@ $e=0$ 是圆的边界；$e\to1^-$ 时 $b\to0$ 是椭圆扁向线段的极限，\
 这是一条关键的\textbf{共同关系}：椭圆、双曲线完全一样。
 
 \medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
 \textbf{第3步A：椭圆。} 第一定义规定 $u+v=2a$。
 利用平方差 $u^2-v^2=(u-v)(u+v)$，得到
 \[
@@ -115,55 +121,24 @@ $e=0$ 是圆的边界；$e\to1^-$ 时 $b\to0$ 是椭圆扁向线段的极限，\
 \textbf{不必事先背} $x=a^2/c$；但前提是\textbf{已知}圆锥曲线的焦准比 $e$ 在所有曲线点恒定。
 
 \medskip
-\textbf{椭圆：} $0<c<a$。记右准线为 $x=t$，暂时只知道 $t>a$。
-取左右顶点 $A_R=(a,0)$、$A_L=(-a,0)$，
-都对\textbf{同一个}右焦点 $F_R=(c,0)$ 和\textbf{同一条}右准线列比：
-\[
- \begin{array}{c|cc}
-  & PF_R & PH\\\hline
-  A_R & a-c & t-a\\
-  A_L & a+c & t+a
- \end{array}
-\qquad
- \begin{cases}
- e=\dfrac{a-c}{t-a},\\[5pt]
- e=\dfrac{a+c}{t+a}.
- \end{cases}
-\]
-两式先改写为
+\input{assets/tikz/C044_two_vertices_elimination}
+\textbf{椭圆：} $0<c<a<t$。由图中距离对同一个 $F_R$、$x=t$ 列式：
 \[
  t-a=\frac{a-c}{e},\qquad t+a=\frac{a+c}{e}.
 \]
-\textbf{后式减前式}：
+\textbf{后式减前式}，准线位置 $t$ 消去：
 \[
- \boxed{2a=\frac{2c}{e}\ \Longrightarrow\ e=\frac ca}.
+ 2a=\frac{2c}{e}\quad\Longrightarrow\quad \boxed{e=c/a}.
 \]
-把 $e=c/a$ 代回任意一式，还顺便\textbf{算出而不是背出}
-$t=a^2/c$。
+代回任一式，得到 $t=a^2/c$，因此不必预先背准线位置。
 
 \medskip
-\textbf{双曲线：} $c>a>0$。仍取右焦点 $(c,0)$ 和右准线 $x=t$，
-此时 $0<t<a$。两个顶点给出的距离为
+\textbf{双曲线：} $0<t<a<c$。由图中距离得
 \[
- \begin{array}{c|cc}
-  & PF_R & PH\\\hline
-  A_R & c-a & a-t\\
-  A_L & c+a & a+t
- \end{array}
-\qquad
- \begin{cases}
- e=\dfrac{c-a}{a-t},\\[5pt]
- e=\dfrac{c+a}{a+t}.
- \end{cases}
+ a-t=\frac{c-a}{e},\qquad a+t=\frac{c+a}{e}.
 \]
-改写为 $a-t=(c-a)/e$，$a+t=(c+a)/e$，
-\textbf{两式相加}便有
-\[
- \boxed{2a=\frac{2c}{e}\ \Longrightarrow\ e=\frac ca},
- \qquad t=\frac{a^2}{c}.
-\]
-\textbf{记忆口诀：} 椭圆准线在顶点外，\textbf{两式做差}；
-双曲线准线在两顶点内，\textbf{两式做和}。两者最后都是 $2a=2c/e$。
+\textbf{两式相加}，同样有 $2a=2c/e$，所以 $\boxed{e=c/a}$，并得 $t=a^2/c$。
+椭圆的两准距做差、双曲线的两准距做和，结果都是两顶点间距 $2a$。
 
 \medskip
 \textbf{逻辑提醒：} 本法是“\textbf{已知焦准比恒定，求该常数}”的极省记忆推法；
@@ -178,7 +153,7 @@ $t=a^2/c$。
  \item \textbf{考场最快：方法一（顶点速算）。} 已知右准线 $x=a^2/c$、要求迅速得到 $e$，只算
  $\displaystyle (|a-c|)/\bigl(|a-a^2/c|\bigr)=c/a$。
  \item \textbf{最低门槛且逻辑独立：方法三（勾股平方差）。} 已知椭圆/双曲线第一定义，
- 用 $u^2-v^2=4cx$ 与 $u\pm v=2a$ 推出线性焦半径，进而找到准线。
+ 用 $u^2-v^2=4cx$，再结合椭圆的 $u+v=2a$ 或双曲线的 $|u-v|=2a$，求出焦点距离关于 $x$ 的一次式，进而找到准线。
  \item \textbf{最小额外记忆：方法四（两个顶点消元）。} 已知焦准定义，不想背准线位置，
  设 $x=t$ 并消去 $t$；只需两顶点的距离加减。
  \item \textbf{通用代数核验：方法二（标准方程配方）。} 已有标准方程，
@@ -186,7 +161,131 @@ $t=a^2/c$。
 \end{itemize}
 \textbf{最推荐只保留一条主线：} \underline{两焦距平方差 $4cx$}
  $\longrightarrow$ \underline{第一定义的和或差 $2a$}
- $\longrightarrow$ \underline{焦半径随 $x$ 线性变化}
+ $\longrightarrow$ \underline{焦点距离是 $x$ 的一次式}
  $\longrightarrow$ \underline{离心率 $c/a$}。
+\end{proofbox}
+\clearpage
+
+\begin{proofbox}
+\textbf{补充推导：为什么 $e=c/a$ 就是“以 $a$ 为单位的焦点位置”？}
+\textbf{第1步：选择比较用的单位长度。}
+对中心在 $O=(0,0)$、焦点在 $x$ 轴的椭圆或双曲线，
+其两顶点 $A_1=(-a,0),A_2=(a,0)$，两焦点 $F_1=(-c,0),F_2=(c,0)$。
+把 $a$ 当成 $1$ 个长度单位（也叫“归一化”），将图中每个点的横、纵坐标都除以 $a$：
+\[
+ X=\frac xa,\qquad Y=\frac ya.
+\]
+\input{assets/tikz/C044_normalized_focus_positions}
+\textbf{第2步：看同一坐标单位下的中心、顶点、焦点。}
+中心仍为 $(0,0)$；顶点变成 $(\pm1,0)$；焦点变成
+\[
+ \left(\pm\frac ca,0\right)=\boxed{(\pm e,0)}.
+\]
+因此 \textbf{$e$ 就是以半轴长 $a$ 为一个单位时的焦点横坐标绝对值}。
+这也说明 $e$ 是长度与长度的比，放大或缩小整幅图并不改变 $e$。
+
+\medskip
+\textbf{第3步：把形状也写成只含 $e$ 的方程。}
+对椭圆 $c^2=a^2-b^2$，所以 $b^2/a^2=1-e^2$；
+对双曲线 $c^2=a^2+b^2$，所以 $b^2/a^2=e^2-1$。
+把 $x=aX,\ y=aY$ 分别代入标准方程，可得
+\[
+\boxed{\text{椭圆： }X^2+\frac{Y^2}{1-e^2}=1\quad(0<e<1)}
+\]
+\[
+\boxed{\text{双曲线： }X^2-\frac{Y^2}{e^2-1}=1\quad(e>1)}.
+\]
+\textbf{结论：} 在把 $a$ 当作共同单位之后，焦点在 $\pm e$，
+曲线形状也由 $e$ 决定；这才是“\textbf{离心率衡量形状，不衡量大小}”的严格理由。
+以上解释适用于有中心的椭圆、双曲线，不可照搬给抛物线。
+\end{proofbox}
+\clearpage
+
+
+
+\begin{proofbox}
+\textbf{新增专题：离心率增大时，双曲线形状怎样变化？}
+以下都讨论横向标准双曲线，纵向情形交换 $x,y$ 即可。
+
+\medskip
+\textbf{判断法 A：渐近线法（考场最快）。}
+由 $c^2=a^2+b^2$、$e=c/a$ 可得
+\[
+ \boxed{\frac{b}{a}=\sqrt{e^2-1}}.
+\]
+渐近线 $y=\pm\frac ba x$ 的斜率绝对值为 $\sqrt{e^2-1}$，
+所以 $e$ 增大时，两条渐近线逐渐向 $y$ 轴方向转动。
+\input{assets/tikz/C044_hyperbola_fixed_a}
+这里说的是\textbf{方向变化}，不是“直线长度变短”（直线本来无限长）。
+
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{判断法 B：固定坐标法（最低门槛，直接说明曲线点的移动）。}
+先\textbf{固定 $a$}。
+\input{assets/tikz/C044_hyperbola_fixed_a}
+图中竖线、横线分别固定 $x$、$y$，从方程直接整理得到
+\[
+ |y|=\frac ba\sqrt{x^2-a^2}
+ =\sqrt{e^2-1}\sqrt{x^2-a^2},\qquad |x|\ge a.
+\]
+\textbf{固定 $|x|>a$：} 第二个根式不变，$e$ 越大，$|y|$ 越大。
+再把同一个方程整理为
+\[
+ |x|=a\sqrt{1+\frac{y^2}{b^2}}
+ =a\sqrt{1+\frac{y^2}{a^2(e^2-1)}}.
+\]
+\textbf{固定 $|y|>0$：} $b$ 越大，分式 $y^2/b^2$ 越小，$|x|$ 越小。
+在相同的水平高度，左右两支都更靠近 $y$ 轴；
+在相同的竖直线上，上、下两侧都更远离 $x$ 轴。
+这两个判断与渐近线法一致，且不需要先知道渐近线方程。
+
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{判断法 C：固定焦点与距离差（从第一定义理解）。}
+改为\textbf{固定 $c$}。由 $a=c/e$ 可知 $e$ 越大，$a$ 越小，
+\input{assets/tikz/C044_hyperbola_fixed_c}
+因此 $2a=|PF_1-PF_2|$ 越小，两顶点 $(\pm a,0)$ 越靠近原点。
+若还想严格确认同一高度处两支的位置，可写
+\[
+ |x|=a\sqrt{1+\frac{y^2}{c^2-a^2}}.
+\]
+在固定 $c$ 与 $y$ 的条件下，当 $a$ 变小时，
+前面的因子 $a$ 变小，根式中的 $a^2$ 变小而 $c^2-a^2$ 变大，
+所以整个 $|x|$ 变小。这说明曲线的左右两支确实向 $y$ 轴靠近。
+\end{proofbox}
+\clearpage
+
+\begin{proofbox}
+\textbf{补充视角：用通径检查图形。}
+经过右焦点 $F_2=(c,0)$ 作竖直线 $x=c$，
+将 $c^2=a^2+b^2$ 代入双曲线方程，得到
+\[
+ \frac{y^2}{b^2}=\frac{c^2}{a^2}-1
+ =\frac{b^2}{a^2},\qquad
+ |y|=\frac{b^2}{a}.
+\]
+\input{assets/tikz/C044_hyperbola_latus_rectum}
+上下两个交点之间的通径长为
+\[
+ \boxed{L=\frac{2b^2}{a}=2a(e^2-1)}.
+\]
+\textbf{固定 $a$} 时，$e$ 越大，通径 $L$ 越长；
+这与“曲线更陡”的结论相互印证。
+注意焦点 $x=c$ 本身在移动，因此不能把通径长增加误说成
+“同一条固定竖线上的弦长一定增加”；固定竖线应使用前一页的判断法 B。
+
+\medskip
+\textbf{方法选择：}
+\begin{itemize}
+ \item \textbf{最快：} $b/a=\sqrt{e^2-1}$，看渐近线转向。
+ \item \textbf{最低门槛：} 固定 $x$ 看 $|y|$，或固定 $y$ 看 $|x|$。
+ \item \textbf{更深一层：} 固定焦点，结合两焦距差 $2a$ 看两支为何靠近垂直平分线。
+ \item \textbf{结果核验：} 固定 $a$ 时，通径 $2b^2/a$ 随 $e$ 增大。
+\end{itemize}
+\textbf{总检查：} 不能在同一个推导中，前半段默认固定 $a$，后半段又默认固定 $c$。
 \end{proofbox}
 \clearpage

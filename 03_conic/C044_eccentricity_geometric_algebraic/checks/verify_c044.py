@@ -36,3 +36,30 @@ r=ROOT/'03_conic/C044_eccentricity_geometric_algebraic';m=json.loads((r/'meta.js
 for uid in m['relations']['related_ids']:assert list((ROOT/'03_conic').glob(uid+'_*'))
 assert r'\subsection{C044 ' in (r/'main.tex').read_text(encoding='utf-8')
 print(f'C044 PASS: {n} independent focal ratios and vertex states; 603 shared-focus/directrix states; actual example/shape coordinates, scaling, boundary and metadata')
+
+# New diagrams: actual plotted point, both vertices and the two distinct controls.
+diagram=(ROOT/'assets/tikz/C044_general_point_triangles.tex').read_text(encoding='utf-8')
+x,y=map(float,re.search(r'coordinate \(P\) at \(([0-9.]+),([0-9.]+)\)',diagram).groups())
+a,b,c=3,2.4,1.8
+close(x*x/(a*a)+y*y/(b*b),1)
+u,v=math.hypot(x+c,y),math.hypot(x-c,y)
+close(u+v,2*a);close(u*u-v*v,4*c*x)
+close(v/abs(a*a/c-x),c/a)
+for a,c in [(5,3),(3,5),(.7,.2),(.4,2.3)]:
+ t=a*a/c;e=c/a
+ left_ratio=(a+c)/(a+t)
+ right_ratio=abs(a-c)/abs(t-a)
+ close(left_ratio,e);close(right_ratio,e)
+ if c<a:close((t+a)-(t-a),2*a)
+ else:close((a+t)+(a-t),2*a)
+for yy in [.01,.5,2,4,10]:
+ # fixed a: increasing b moves a point left at any given positive height.
+ xx1=2*math.sqrt(1+yy*yy);xx2=2*math.sqrt(1+yy*yy/4)
+ assert xx2<xx1
+ # fixed c: (a,b)=(4,3) -> (3,4), with the same two foci.
+ assert 3*math.sqrt(1+yy*yy/16)<4*math.sqrt(1+yy*yy/9)
+for a,b in [(2,1),(2,2)]:
+ c=math.hypot(a,b);half=b*b/a
+ close(c*c/(a*a)-half*half/(b*b),1)
+ close(2*half,2*a*((c/a)**2-1))
+print('C044 diagram geometry PASS: common-height triangles, paired vertices, fixed-a/fixed-c comparisons and latus rectum endpoints')

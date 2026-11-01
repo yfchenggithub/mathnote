@@ -1,0 +1,24 @@
+\begin{center}
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,9.2);
+\node[anchor=west,font=\small\bfseries] at (.5,8.65) {通径是过焦点、垂直实轴的弦；它所在的竖线会移动};
+
+\begin{scope}[shift={(2.4,4.7)},x=1.5cm,y=1.5cm]
+\draw[->,black!45] (0,0)--(5.9,0) node[right] {$x$};
+\foreach \b/\col/\cc in {1/blue/2.2360679775,2/orange!85!black/2.8284271247}{
+ \draw[\col,very thick,domain={-ln(2.1/\b+sqrt(1+4.41/\b^2))}:{ln(2.1/\b+sqrt(1+4.41/\b^2))},samples=90] plot ({2*cosh(\x)},{\b*sinh(\x)});
+ \draw[\col,very thick] (\cc,{-\b*\b/2})--(\cc,{\b*\b/2});
+ \fill[\col] (\cc,0) circle (2pt);
+}
+\node[blue,anchor=east] at (2.1,.7) {$L_1=1$};
+\node[orange!85!black,anchor=west] at (3.6,1.0) {$L_2=4$};
+\draw[blue,->] (1,-1.5)--(2.2360679775,-.15);
+\node[blue,anchor=east] at (1,-1.5) {$c_1=\sqrt5$};
+\draw[orange!85!black,->] (4,-1.5)--(2.8284271247,-.15);
+\node[orange!85!black,anchor=west] at (4,-1.5) {$c_2=2\sqrt2$};
+\end{scope}
+\node[anchor=west] at (.6,1) {固定 $a=2$；蓝线 $b=1$，橙线 $b=2$；$L=2b^2/a$。};
+\node[anchor=west] at (.6,.42) {两条通径分别在 $x=\sqrt5$ 与 $x=2\sqrt2$，不能当作同一竖线上的比较。};
+
+\end{tikzpicture}
+\end{center}

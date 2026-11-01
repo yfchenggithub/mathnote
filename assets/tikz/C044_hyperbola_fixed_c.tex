@@ -1,0 +1,25 @@
+\begin{center}
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,7.8);
+\node[anchor=west,font=\small\bfseries] at (.5,7.25) {固定 $c=5$：焦点不动；$e$ 从 $5/4$ 增至 $5/3$ 时顶点内移};
+
+\begin{scope}[shift={(7.2,2)},x=.74cm,y=.74cm]
+\draw[->,black!45] (-8.1,0)--(8.1,0) node[right] {$x$};
+\draw[->,black!45] (0,-.6)--(0,5.8) node[above] {$y$};
+\foreach \a/\b/\col in {4/3/blue,3/4/orange!85!black}{
+ \foreach \s in {-1,1}{\draw[\col,very thick,domain=0:1.15,samples=70] plot ({\s*\a*cosh(\x)},{\b*sinh(\x)});}
+ \fill[\col] (\a,0) circle (2pt) node[below=5pt] {$\a$};
+ \fill[\col] (-\a,0) circle (2pt) node[below=5pt] {$-\a$};
+}
+\fill (-5,0) circle (2.5pt) node[above left=5pt] {$F(-5,0)$};
+\fill (5,0) circle (2.5pt) node[above right=5pt] {$F(5,0)$};
+\draw[violet,densely dotted] (-7.5,4)--(7.5,4);
+\fill[blue] (6.66666667,4) circle (2pt) node[above=5pt] {$20/3$};
+\fill[orange!85!black] (4.242640687,4) circle (2pt) node[above left=5pt] {$3\sqrt2$};
+\draw[->,thick] (6.3,3.7)--(4.6,3.7);
+\end{scope}
+\node[anchor=west] at (.6,1) {蓝线：$a=4,b=3$；橙线：$a=3,b=4$。上半图，关于 $x$ 轴对称。};
+\node[anchor=west] at (.6,.42) {两焦距差 $2a$ 从 $8$ 减为 $6$；在同一高度 $y=4$，两支更靠近 $y$ 轴。};
+
+\end{tikzpicture}
+\end{center}

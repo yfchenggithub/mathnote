@@ -1,0 +1,28 @@
+\begin{center}
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,8.3);
+\node[anchor=west,font=\small\bfseries] at (.5,7.750000000000001) {固定 $a=2$：蓝线 $b=1$，橙线 $b=2$，顶点保持不动};
+
+\begin{scope}[shift={(1.6,2.1)},x=1.7cm,y=1.7cm]
+\draw[->,black!45] (0,0)--(5.4,0) node[right] {$x$};
+\draw[->,black!45] (0,0)--(0,2.5) node[above] {$y$};
+\foreach \b/\col in {1/blue,2/orange!85!black}{
+ \draw[\col,very thick,domain=0:{ln(2.5/\b+sqrt(1+6.25/\b^2))},samples=80] plot ({2*cosh(\x)},{\b*sinh(\x)});
+ \draw[\col,dashed] (0,0)--({5/\b},2.5);
+}
+\draw[teal,densely dotted,thick] (2.828427,0)--(2.828427,2.5);
+\draw[violet,densely dotted,thick] (0,2)--(4.9,2);
+\fill[blue] (2.828427,1) circle (2pt) node[below right=6pt] {$y=1$};
+\fill[orange!85!black] (2.828427,2) circle (2pt) ;
+\node[above right=5pt] at (0,2) {$y=2$};
+\fill[blue] (4.472136,2) circle (2pt) node[below right=8pt] {$x=2\sqrt5$};
+\fill (2,0) circle (2pt) node[below=4pt] {$a=2$};
+\node[below=4pt] at (2.828427,0) {$2\sqrt2$};
+\draw[->,black,thick] (3.02,1.15)--(3.02,1.82);
+\draw[->,black,thick] (4.25,1.8)--(3.2,1.8);
+\end{scope}
+\node[anchor=west] at (.7,1.05) {虚线是渐近线；橙线斜率较大。只画右上部分，其余部分关于两坐标轴对称。};
+\node[anchor=west] at (.7,.45) {同一竖线 $x=2\sqrt2$ 上点更高；同一水平线 $y=2$ 上点向左移。};
+
+\end{tikzpicture}
+\end{center}

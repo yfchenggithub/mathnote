@@ -1,0 +1,19 @@
+\begin{center}
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,5.6);
+\node[anchor=west,font=\small\bfseries] at (.5,5.05) {把半轴 $a$ 作为一个单位：顶点在 $\pm1$，焦点在 $\pm e$};
+
+\node[anchor=west] at (.6,3.95) {椭圆 $e=3/5$：焦点在顶点内侧};
+\node[anchor=west] at (.6,1.95) {双曲线 $e=5/3$：焦点在顶点外侧};
+\foreach \yy/\ee in {3/.6,1/1.666666667}{
+ \begin{scope}[shift={(7.2,\yy)},x=3cm]
+ \draw[->,black!45] (-1.95,0)--(1.95,0) node[right] {$X$};
+ \foreach \v in {-1,1}{\draw[blue,thick] (\v,-.13)--(\v,.13) node[above=5pt] {$\v$};}
+ \fill (0,0) circle (2pt) node[below=5pt] {$O$};
+ \fill[orange!85!black] (-\ee,0) circle (2.5pt) node[below=5pt] {$-e$};
+ \fill[orange!85!black] (\ee,0) circle (2.5pt) node[below=5pt] {$e$};
+ \end{scope}
+}
+
+\end{tikzpicture}
+\end{center}
