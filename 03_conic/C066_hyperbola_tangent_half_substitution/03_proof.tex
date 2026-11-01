@@ -1,57 +1,118 @@
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{方法一（最低门槛）：平方差公式 $+$ 割线逼近（不使用导数）}
 
-	利用隐函数求导得到双曲线在任意点的切线斜率，再写出切线方程，最后利用切点在双曲线上化简为统一形式。需要单独讨论 $y_0=0$ 的特殊情况。
+\textbf{看图理解：}割线 $PQ$ 上的点 $Q$ 沿曲线靠近 $P$，
+割线 $PQ$ 的方向就逐渐靠近 $P$ 处切线的方向。
+\begin{center}
+\textbf{用两点坐标相减求割线斜率}\par\medskip
+\input{assets/tikz/C066_derivative_secants.tex}
+\end{center}
+图取 $a^2=4,b^2=3$，$P=(4,3)$，$Q=(5,\sqrt{63}/2)$；
+$\Delta x,\Delta y$ 是两点坐标之差。下列证明适用于一般的 $a,b>0$。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（隐函数求导）：}] 对双曲线方程 $\frac{x^{2}}{a^{2}}-\frac{y^{2}}{b^{2}}=1$ 两边关于 $x$ 求导：
-			\[
-				\frac{2x}{a^{2}}-\frac{2y}{b^{2}}\cdot y' = 0,
-			\]
-			解得
-			\[
-				y' = \frac{b^{2}x}{a^{2}y} \quad (y \neq 0).
-			\]
-			\par\textbf{理由：} 导数即为切线斜率；$y=0$ 时单独讨论。
+\textbf{第 1 步：}取双曲线上不同的两点 $P(x_0,y_0)$、$Q(x,y)$：
+\[
+\frac{x^2}{a^2}-\frac{y^2}{b^2}=1,\qquad
+\frac{x_0^2}{a^2}-\frac{y_0^2}{b^2}=1.
+\]
+两式相减，利用平方差公式 $u^2-v^2=(u-v)(u+v)$，得
+\[
+\frac{(x-x_0)(x+x_0)}{a^2}
+=\frac{(y-y_0)(y+y_0)}{b^2}.
+\]
+\textbf{第 2 步：}若 $y_0\ne0$，令 $Q$ 在 $P$ 附近且 $Q\ne P$。
+此时可以写出割线斜率
+\[
+ k_{PQ}=\frac{y-y_0}{x-x_0}
+ =\frac{b^2(x+x_0)}{a^2(y+y_0)}.
+\]
+$Q$ 越来越靠近 $P$ 时，$x\to x_0,\ y\to y_0$，
+所以割线斜率趋向
+\[
+ k=\frac{b^2(2x_0)}{a^2(2y_0)}
+ =\boxed{\frac{b^2x_0}{a^2y_0}}.
+\]
+这就是切线斜率。\textbf{注意：}这一步是让两点\emph{逐渐靠近}，
+不是在割线斜率 $0/0$ 中直接代入 $Q=P$。
 
-		\item[\textbf{步骤二（求点 $P$ 处的斜率）：}] 将 $P(x_0,y_0)$ 代入导数式，得切线斜率
-			\[
-				k = \frac{b^{2}x_0}{a^{2}y_0} \quad (y_0 \neq 0).
-			\]
-			\par\textbf{理由：} 导数值即为曲线在该点切线的斜率。
+\textbf{第 3 步：}切线经过 $P$，由点斜式得
+\[
+ y-y_0=\frac{b^2x_0}{a^2y_0}(x-x_0)
+ \iff
+ \frac{x_0x}{a^2}-\frac{y_0y}{b^2}
+ =\underbrace{\frac{x_0^2}{a^2}-\frac{y_0^2}{b^2}}_{=1}.
+\]
+故切线为 $\boxed{\frac{x_0x}{a^2}-\frac{y_0y}{b^2}=1}$。
 
-		\item[\textbf{步骤三（写出切线方程）：}] 利用点斜式，切线方程为
-			\[
-				y - y_0 = \frac{b^{2}x_0}{a^{2}y_0}(x - x_0).
-			\]
-			\par\textbf{理由：} 直线方程的点斜式。
+\textbf{顶点不能漏：}若 $y_0=0$，由双曲线方程知 $x_0=\pm a$。
+用第 1 步的相减结果，得到
+\[
+ \frac{x-x_0}{y}=\frac{a^2y}{b^2(x+x_0)}\longrightarrow0
+ \qquad (Q\to P,\ Q\ne P).
+\]
+即割线越来越接近竖直方向，所以顶点切线为 $x=x_0$；
+代入切点式同样得到 $x_0x/a^2=1$，即 $x=x_0$。
 
-		\item[\textbf{步骤四（化简并利用在曲线上条件）：}] 两边乘以 $a^{2}y_0$，移项：
-			\[
-				\begin{aligned}
-					a^{2}y_0(y - y_0) &= b^{2}x_0(x - x_0) \\\\
-					a^{2}y_0y - a^{2}y_0^{2} &= b^{2}x_0x - b^{2}x_0^{2} \\\\
-					b^{2}x_0x - a^{2}y_0y &= b^{2}x_0^{2} - a^{2}y_0^{2}.
-			\end{aligned}
-			\]
-			两边同除以 $a^{2}b^{2}$：
-			\[
-				\frac{x_0x}{a^{2}} - \frac{y_0y}{b^{2}} = \frac{x_0^{2}}{a^{2}} - \frac{y_0^{2}}{b^{2}}.
-			\]
-			因为点 $P$ 在双曲线上，$\frac{x_0^{2}}{a^{2}} - \frac{y_0^{2}}{b^{2}} = 1$，故
-			\[
-				\frac{x_0x}{a^{2}} - \frac{y_0y}{b^{2}} = 1.
-			\]
-			\par\textbf{理由：} 利用点在曲线上化简得到最终形式。
+\medskip
+\textbf{方法二（最快）：导数 $+$ 点斜式}
 
-		\item[\textbf{步骤五（讨论 $y_0=0$ 情形）：}] 当 $y_0=0$ 时，点 $P$ 为顶点，切线垂直，方程为 $x = x_0$（$x_0=\pm a$）。代入公式 $\frac{x_0x}{a^{2}} - \frac{0\cdot y}{b^{2}} = 1$ 得 $\frac{x_0x}{a^{2}} = 1$，即 $x = \frac{a^{2}}{x_0} = \pm a$，与上述一致。因此统一公式仍成立。
-			\par\textbf{理由：} 斜率不存在时直接验证。
-	\end{description}
+\textbf{适用信号：}熟悉导数，且切点 $y_0\ne0$ 时，写两步就够。
+在 $P$ 附近，根据 $y_0$ 的正负取对应一段曲线：
+\[
+ y=\pm\frac{b}{a}\sqrt{x^2-a^2}
+ \ \Longrightarrow\ 
+ y'=\frac{b^2x}{a^2y},\qquad
+ k=\frac{b^2x_0}{a^2y_0}.
+\]
+立即写切线并整理（$P$ 在双曲线上）：
+\[
+ y-y_0=\frac{b^2x_0}{a^2y_0}(x-x_0)
+ \ \Longrightarrow\ 
+ \boxed{\frac{x_0x}{a^2}-\frac{y_0y}{b^2}=1}.
+\]
+\textbf{例外：}$y_0=0$ 时，不能给含 $y_0$ 的分母代入零；
+此时 $x_0=\pm a$，顶点处切线为 $x=x_0$，仍与切点式相符。
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
+\medskip
+\textbf{方法三（常规）：直线与双曲线联立 $+$ 判别式}
 
-	\textbf{综上，过双曲线 $\frac{x^{2}}{a^{2}}-\frac{y^{2}}{b^{2}}=1$ 上一点 $P(x_0,y_0)$ 的切线方程为 $\frac{x_0x}{a^{2}}-\frac{y_0y}{b^{2}}=1$。}
+\textbf{第 1 步：}当 $y_0\ne0$ 时，设过 $P$ 的非竖直直线为
+$y=kx+t$，其中 $t=y_0-kx_0$。
+代入双曲线并乘以 $a^2b^2$：
+\[
+ (b^2-a^2k^2)x^2-2a^2ktx-a^2(t^2+b^2)=0.
+\]
+若 $b^2-a^2k^2\ne0$，这才是关于 $x$ 的一元二次方程。
+直线在 $P$ 处相切，$x=x_0$ 应是\textbf{二重根}，因此
+\[
+ \begin{aligned}
+ \Delta
+ &=(-2a^2kt)^2+4a^2(b^2-a^2k^2)(t^2+b^2)\\
+ &=4a^2b^2(t^2+b^2-a^2k^2)=0.
+ \end{aligned}
+\]
+\textbf{第 2 步：}代入 $t=y_0-kx_0$，再用
+$x_0^2-a^2=\frac{a^2y_0^2}{b^2}$、
+$y_0^2+b^2=\frac{b^2x_0^2}{a^2}$，得到
+\[
+ \begin{aligned}
+ 0&=(y_0-kx_0)^2+b^2-a^2k^2\\
+  &=\frac{a^2y_0^2}{b^2}k^2-2x_0y_0k+\frac{b^2x_0^2}{a^2}\\
+  &=\left(\frac{ay_0}{b}k-\frac{bx_0}{a}\right)^2.
+ \end{aligned}
+\]
+故 $\displaystyle k=\frac{b^2x_0}{a^2y_0}$，
+与前两法一致，代入点斜式即得切点式。
+此时 $b^2-a^2k^2=-b^4/y_0^2\ne0$，
+也核实了第 1 步使用判别式的前提。
+
+\textbf{顶点单独讨论：}若 $y_0=0$、$x_0=\pm a$，
+任何非竖直直线均不能使上述判别式为零；
+竖直直线 $x=x_0$ 才是切线，仍满足切点式。
+
+\textbf{结论：}三种方法都得到
+$\boxed{\frac{x_0x}{a^2}-\frac{y_0y}{b^2}=1}$。
+对于 $\frac{y^2}{a^2}-\frac{x^2}{b^2}=1$，交换 $x$、$y$ 即得
+$\boxed{\frac{y_0y}{a^2}-\frac{x_0x}{b^2}=1}$。
 \end{proofbox}

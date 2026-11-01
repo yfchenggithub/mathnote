@@ -1,0 +1,14 @@
+\begin{tikzpicture}[x=2.3cm,y=2.3cm,>=Stealth,font=\small]
+\draw[->,gray] (2.8,1.7)--(5.5,1.7) node[right] {$x$};
+\draw[->,gray] (2.8,1.7)--(2.8,4.6) node[above] {$y$};
+\draw[blue,very thick,domain=3:5.4,samples=90] plot (\x,{sqrt(3*(\x*\x/4-1))});
+\draw[orange!85!black,thick] (3,2)--(5.4,4.4);
+\draw[teal!75!black,dashed,thick] plot[domain=3:5.35] (\x,{3+(sqrt(63)/2-3)*(\x-4)});
+\draw[gray,dotted] (4,3)--(5,3)--(5,{sqrt(63)/2});
+\fill (4,3) circle (1pt) node[above left=5pt] {$P(4,3)$};
+\fill (5,{sqrt(63)/2}) circle (1pt) node[above left=4pt] {$Q$};
+\node[below] at (4.5,3) {$\Delta x$};
+\node[right] at (5,3.5) {$\Delta y$};
+\node[orange!85!black,anchor=west] at (3.05,1.86) {切线：$k=1$};
+\node[teal!75!black,anchor=west] at (3.05,4.5) {割线 $PQ$：$\Delta y/\Delta x$};
+\end{tikzpicture}

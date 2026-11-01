@@ -1,21 +1,45 @@
+\clearpage
 \begin{trapbox}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（点不在线上）}}] 误将不满足曲线方程的点代入切线公式，当作切线方程。
-		\item[\textbf{\textcolor{CTrap}{正确理解（先验点）}}] 切线公式仅当点 $P$ 在双曲线上时才成立；必须先验证该点是否满足曲线方程。
-		\item[\textbf{\textcolor{CTrap}{错因分析（公式滥用）}}] 学生常忽略前提条件，直接将任意点的坐标代换，导致方程并非切线。
-	\end{description}
+\textbf{误区一：把任意给定点当作切点}
+\begin{center}
+\textbf{$Q$ 不在曲线上，误套所得直线甚至不经过 $Q$}\par\medskip
+\input{assets/tikz/C066_off_curve_warning.tex}
+\end{center}
+\textbf{错误做法：}对 $x^2/4-y^2/3=1$，将 $Q(1,0)$ 代入切点式，
+得到 $x=4$ 并称它为 $Q$ 处的切线。
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（焦点混淆）}}] 对于双曲线 $\frac{y^2}{a^2}-\frac{x^2}{b^2}=1$，仍错误地使用 $\frac{x_0x}{a^2}-\frac{y_0y}{b^2}=1$ 作为切线方程。
-		\item[\textbf{\textcolor{CTrap}{正确理解（形式对应）}}] 焦点在 $y$ 轴时，切线应为 $\frac{y_0y}{a^2}-\frac{x_0x}{b^2}=1$；注意原方程中 $y^2$ 项在前，切线方程中 $y_0y$ 也应在前。
-		\item[\textbf{\textcolor{CTrap}{错因分析（机械记忆）}}] 只记公式外形，不区别双曲线开口方向，导致位置颠倒。
-	\end{description}
+\textbf{为什么错：}$1^2/4-0^2/3=1/4\ne1$，所以 $Q$ 不在曲线上。
+图中红色虚线与曲线交于 $(4,3)$、$(4,-3)$，是割线，也不经过 $Q$。
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（漏掉竖直切线）}}] 在求切线时，若通过导数或斜率公式求解，易忽略 $y_0=0$ 时斜率不存在的情况，从而遗漏竖直切线。
-		\item[\textbf{\textcolor{CTrap}{正确理解（完整分类）}}] 当 $y_0=0$ 时，点 $P$ 为双曲线顶点，切线垂直于 $x$ 轴，方程为 $x = \pm a$；该结果仍包含在统一公式中。
-		\item[\textbf{\textcolor{CTrap}{错因分析（分母为零）}}] 利用 $k = \frac{b^2x_0}{a^2y_0}$ 时默认 $y_0 \neq 0$，不讨论 $y_0=0$ 导致漏解。
-	\end{description}
+\textbf{正确替代：}先验点；若题目给的是切线经过的点，应另设切点，
+像例 3 那样同时列出“切点在曲线上”与“切线经过给定点”两个条件。
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{误区二：记住外形，却颠倒了正负项}
+\begin{center}
+\textbf{同一双曲线 $y^2/4-x^2/3=1$，同一切点 $P(3,4)$}\par\medskip
+\input{assets/tikz/C066_vertical_axis_comparison.tex}
+\end{center}
+\textbf{错误做法：}写成 $3x/4-4y/3=1$，把正负项和分母机械套反。
+代入 $P$，左边为 $-37/12\ne1$，连切点都不经过。
+
+\textbf{正确替代：}原式的 $y^2/4$ 为正项，故替换为 $4y/4$；
+$x^2/3$ 为负项，故替换为 $3x/3$，得到 $y-x=1$。
+
+\textbf{误区三：漏掉竖直切线}
+
+错误地给 $k=b^2x_0/(a^2y_0)$ 代入 $y_0=0$，会造成除以零。
+应回到切点式，得到 $x=\pm a$；顶点图已经显示这两条竖直切线。
+
+\medskip
+\textbf{误区四：把“仅有一个公共点”当作相切的充分条件}
+
+对 $x^2/4-y^2/3=1$，直线 $y=(\sqrt3/2)x+1$
+与双曲线联立时，$x^2$ 项恰好抵消，只剩一次方程，
+因此只有一个公共点 $(-4/\sqrt3,-1)$。
+但该点处真正的切线斜率为 $\sqrt3$，与所给直线的斜率 $\sqrt3/2$ 不同，
+所以它\textbf{不是切线}。
+\textbf{正确做法：}判别式 $\Delta=0$ 只适用于联立后\textbf{二次项系数不为零}的情形；
+若二次项消失，不能把“一次方程只有一个解”当作重根相切。
 \end{trapbox}

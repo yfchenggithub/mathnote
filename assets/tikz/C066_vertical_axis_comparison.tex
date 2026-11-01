@@ -1,0 +1,17 @@
+\begin{tikzpicture}[x=.68cm,y=.68cm,>=Stealth,font=\small]
+\foreach \shift/\kind in {0/0,9/1}{
+\begin{scope}[shift={(\shift,0)}]
+\draw[->,gray] (-3.7,0)--(3.9,0) node[right] {$x$};
+\draw[->,gray] (0,-4.8)--(0,5.2) node[above] {$y$};
+\draw[blue,very thick,domain=-1.5:1.5,samples=90] plot ({sqrt(3)*sinh(\x)},{2*cosh(\x)});
+\draw[blue,very thick,domain=-1.5:1.5,samples=90] plot ({sqrt(3)*sinh(\x)},{-2*cosh(\x)});
+\fill (3,4) circle (2pt) node[above left=2pt] {$P(3,4)$};
+\ifnum\kind=0
+\draw[red!75!black,dashed,thick] (-3.5,-2.71875)--(3.5,1.21875);
+\node[align=center] at (0,-6) {错误：颠倒正负项\\$\frac{3x}{4}-\frac{4y}{3}=1$};
+\else
+\draw[orange!85!black,thick] (-3.5,-2.5)--(3.7,4.7);
+\node[align=center] at (0,-6) {正确：保留正负项\\$y-x=1$};
+\fi
+\end{scope}}
+\end{tikzpicture}
