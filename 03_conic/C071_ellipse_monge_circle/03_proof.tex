@@ -11,6 +11,48 @@
   原有四种方法分别强调\textbf{几何理解、考场速度、书写步数、完整通用过程}；新增方法五从\textbf{切点弦与两切点坐标}出发，展示韦达定理如何减少运算。为避免反复使用很长的判别式计算，先说明一个可由高中知识验证的小工具。
 
   \medskip
+  \begin{minipage}{\linewidth}
+  \textbf{\textcolor{CProof}{前置几何证明｜先证明圆的类似结论（不计入椭圆五种证明）}}
+  \input{assets/tikz/C071_circle_tangent_square}
+  \end{minipage}\par\medskip
+  \textbf{已知：}圆 $x^2+y^2=r^2$，$r>0$，外点 $P$ 向圆作切线 $PA,PB$，切点为 $A,B$，圆心为 $O$。
+  \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.36em]
+    \item[\textbf{第 1 步（正向：从垂直切线看四边形）：}]
+      已知 $PA\perp PB$。因为半径与经过切点的切线垂直，有
+      \[
+        OA\perp PA,\qquad OB\perp PB.
+      \]
+      所以四边形 $OAPB$ 的 $\angle OAP$、$\angle APB$、$\angle PBO$ 都是 $90^\circ$。四边形内角和是 $360^\circ$，故 $\angle AOB=90^\circ$，于是 $OAPB$ 是矩形。
+    \item[\textbf{第 2 步（利用半径相等得到正方形）：}]
+      $OA=OB=r$，它们是矩形的两条相邻边，因此 $OAPB$ 为正方形。于是
+      \[
+        OA=AP=PB=BO=r.
+      \]
+      在直角三角形 $OAP$ 中使用勾股定理：
+      \[
+        OP^2=OA^2+AP^2=r^2+r^2=2r^2.
+      \]
+      因而 $\boxed{x_0^2+y_0^2=2r^2}$，这里 $P=(x_0,y_0)$，$O=(0,0)$。
+    \item[\textbf{第 3 步（反向：圆上每一个点都能引出直角切线）：}]
+      已知 $OP^2=2r^2$。因为 $OP>r$，所以 $P$ 在原圆外，可向圆作两条不同的切线。切点为 $A,B$，并有 $OA\perp PA$、$OB\perp PB$。
+      \[
+        PA^2=OP^2-OA^2=2r^2-r^2=r^2,\qquad PA=r.
+      \]
+      因 $OA=PA$，直角三角形 $OAP$ 的两个锐角都是 $45^\circ$，所以 $\angle APO=45^\circ$；同样 $\angle OPB=45^\circ$。两条切线分居直线 $OP$ 两侧，于是
+      \[
+        \angle APB=\angle APO+\angle OPB=90^\circ.
+      \]
+      故反过来两条切线也垂直。\textbf{结论：}交点轨迹恰好是整个圆 $\boxed{x^2+y^2=2r^2}$。
+    \item[\textbf{第 4 步（连接切点弦 $AB$）：}]
+      正方形的对角线是 $OP$ 和 $AB$，对角线长度相等、互相垂直且互相平分。因此
+      \[
+        \boxed{AB=OP=\sqrt2\,r},\qquad \boxed{AB\perp OP}.
+      \]
+      这里的“正方形—对角线”关系仅是圆的特殊情形；换成一般椭圆后不能直接使用。
+  \end{description}
+  \textbf{为什么适合作为椭圆证明的前奏？}圆是 $a=b=r$ 的情况，出现 $OP^2=r^2+r^2$；椭圆目标是 $OP^2=a^2+b^2$。前者帮我们看见\textbf{勾股定理与平方和}，但后者必须继续证明“任意方向的两条垂直椭圆切线也有相同的平方和”，不能把正方形直接当成椭圆图形。
+
+  \medskip
   \textbf{\textcolor{CProof}{共同准备：切线的一般式条件}}
   对 $A,B$ 不同时为零的直线 $Ax+By=C$，直线与椭圆相切当且仅当
   \[
