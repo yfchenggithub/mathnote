@@ -1,40 +1,122 @@
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
-	椭圆外一点 $P$ 如果向椭圆引两条互相垂直的切线，那么 $P$ 一定在固定圆 $x^2+y^2=a^2+b^2$ 上；反过来，圆上任意一点向椭圆引两条切线，它们必然垂直。
+  \textbf{\textcolor{CExplanation}{一句话直觉}}
+  把两条互相垂直的切线看成一个直角的两条边，交点是 $P$。原点 $O$ 到这两条边的距离分别是 $d_1,d_2$。由勾股定理，$OP^2=d_1^2+d_2^2$；椭圆的特殊性质使这个和始终等于 $a^2+b^2$。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（切线存在条件）：}]
-			设过 $P(x_0,y_0)$ 的切线方程为 $y-y_0 = k(x-x_0)$，与椭圆联立后令判别式 $\Delta=0$，得到关于斜率 $k$ 的二次方程；根的存在性保证 $k$ 有两个值，对应两条切线。
-		\item[\textbf{要点二（垂直条件推导）：}]
-			两条切线斜率 $k_1,k_2$ 满足 $k_1k_2=-1$。利用上一步得到的 $k_1k_2$ 表达式（由 $x_0,y_0$ 表示），代入 $k_1k_2=-1$ 即可消去 $k$，得到 $x_0^2+y_0^2=a^2+b^2$。
-	\end{description}
+  \medskip
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（对称性解析）}}
-	蒙日圆的圆心是椭圆的中心，半径平方 $a^2+b^2$ 恰好是椭圆长半轴与短半轴的平方和。这反映了椭圆对称轴方向上的等量关系：当两条切线垂直时，它们的倾斜角相差 $90^\circ$，几何上对应着切点弦的某种正交性质。
+\input{assets/tikz/C071_perpendicular_distances}
+  图中矩形把两条垂距与 $OP$ 连接起来；轴向特例见首页。接下来只需证明垂距的平方和不随方向变化。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（消参求轨迹）}}
-	通过“设切线——联立——判别式——垂直条件”四步，最终消去参数斜率，得到仅含 $P$ 点坐标的关系式。本质上是一个“参数消去”的典型范例，也是解析几何中“交轨法”求轨迹的体现。
+  \medskip
+  \textbf{\textcolor{CExplanation}{工具一：椭圆切线的一般式条件（高中判别式即可证明）}}
+  对 $A,B$ 不同时为 $0$ 的直线 $Ax+By=C$，有
+  \[
+    \boxed{\text{直线与椭圆相切}\ \Longleftrightarrow\ C^2=a^2A^2+b^2B^2.}
+  \]
+  \textbf{为什么成立？}当 $B\ne0$ 时，把 $y=(C-Ax)/B$ 代入椭圆，得到
+  \[
+    (b^2B^2+a^2A^2)x^2-2a^2ACx+a^2(C^2-b^2B^2)=0.
+  \]
+  这是一元二次方程。直线与椭圆只有一个交点时，判别式为零：
+  \[
+    \Delta=4a^2b^2B^2\bigl(a^2A^2+b^2B^2-C^2\bigr)=0.
+  \]
+  因为 $a,b>0$ 且 $B\ne0$，故 $C^2=a^2A^2+b^2B^2$。当 $B=0$ 时，直线为 $x=C/A$，它与椭圆相切当且仅当 $x=\pm a$，条件仍是 $C^2=a^2A^2$。因此公式对\textbf{竖直、水平、倾斜}三种方向都适用。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（运算优化）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（轨迹快速判断）：} 见到椭圆外一点引两条垂直切线，直接说明该点在蒙日圆上，立即写出轨迹方程，省去联立推导。
-		\item \textbf{考法二（垂直性质应用）：} 已知点 $P$ 在蒙日圆上，则过 $P$ 的椭圆切线互相垂直，可借此构建等量关系解决后续问题。
-	\end{itemize}
+  \medskip
+  \textbf{\textcolor{CExplanation}{工具二：两条垂直线怎样把勾股定理带进来}}
+  假设第一条切线为
+  \[
+    l_1:\ x\cos\theta+y\sin\theta=c,
+  \]
+  与它垂直并且过同一点 $P$ 的第二条直线可写成
+  \[
+    l_2:\ -x\sin\theta+y\cos\theta=d.
+  \]
+  因为 $\cos^2\theta+\sin^2\theta=1$，点 $O$ 到这两条直线的距离分别是 $|c|$ 和 $|d|$。它们互相垂直并交于 $P$，所以
+  \[
+    OP^2=c^2+d^2.
+  \]
+  两条直线都与椭圆相切时，由工具一可得
+  \[
+    \begin{aligned}
+       c^2&=a^2\cos^2\theta+b^2\sin^2\theta,\\
+       d^2&=a^2\sin^2\theta+b^2\cos^2\theta.
+    \end{aligned}
+  \]
+  两式相加，$\sin^2\theta+\cos^2\theta=1$ 出现两次，于是
+  \[
+    OP^2=c^2+d^2=a^2+b^2.
+  \]
+  \textbf{几何意义：}单独看，原点到某一条切线的距离会随方向改变；但当另一条切线始终与它垂直时，一条垂距的平方增加，另一条相应减少，\textbf{总和不变}。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
-	\textbf{垂直条件 $k_1k_2=-1$ 是连接点坐标与切线斜率的关键桥梁；最终消参时不需要分别求出 $k_1,k_2$，而是直接使用韦达定理得到 $k_1k_2$，简化计算。}
+  \medskip
+  \textbf{\textcolor{CExplanation}{工具三：从“垂直”转成“斜率”}}
+  斜率存在的切线 $y=kx+m$，由工具一取 $A=-k$、$B=1$、$C=m$，得到
+  \[
+    \boxed{m^2=a^2k^2+b^2}.
+  \]
+  若它经过 $P(x_0,y_0)$，则 $m=y_0-kx_0$，即
+  \[
+    \boxed{(x_0^2-a^2)k^2-2x_0y_0k+(y_0^2-b^2)=0.}
+  \]
+  \textbf{几何意义：}这个方程的每个实根代表一条\emph{斜率存在}的过 $P$ 切线。两条斜率都存在时，利用韦达定理计算 $k_1k_2$，再使用垂直条件 $k_1k_2=-1$，不必分别求出切线。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（垂直验证）：} 给定椭圆外一点，问它引出的两条切线是否垂直？只要代入蒙日圆方程检验即可。
-		\item \textbf{场景二（定值计算）：} 涉及椭圆切线上某点到原点的距离或垂直关系时，可利用蒙日圆快速确定变量关系。
-	\end{itemize}
+  \medskip
+  \textbf{\textcolor{CExplanation}{为什么必须讨论竖直切线}}
+  切线 $x=\pm a$ 的斜率不存在，不能代入 $k_1k_2=-1$。它的垂线必然是水平线 $y=\pm b$，交点就是 $(\pm a,\pm b)$，仍满足 $x^2+y^2=a^2+b^2$。因此\textbf{用直线的一般式可避免遗漏；用斜率法时必须补充这一类}。
 
+  \medskip
+
+  \medskip
+  \textbf{\textcolor{CExplanation}{工具四：从切点弦出发，只求两组乘积}}
+  设 $P(x_0,y_0)$ 在椭圆外，两切点分别为 $A(x_1,y_1)$、$B(x_2,y_2)$。椭圆在切点 $A$ 处的切线方程为
+  \[
+    \frac{x_1x}{a^2}+\frac{y_1y}{b^2}=1;
+  \]
+  在切点 $B$ 处同理。两条切线都经过 $P$，故两个切点都在直线
+  \[
+    \boxed{\frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1}
+  \]
+  上。这条经过两切点的直线叫\textbf{切点弦 $AB$}。\textbf{注意：}$AB$ 是连接两个切点的直线，本身通常不是切线。
+
+  \medskip
+  \textbf{为什么不必求四组和与积？}两条切线的一般式分别是
+  \[
+    \frac{x_1}{a^2}x+\frac{y_1}{b^2}y=1,\qquad
+    \frac{x_2}{a^2}x+\frac{y_2}{b^2}y=1.
+  \]
+  对一般式 $A_1x+B_1y=C_1$ 与 $A_2x+B_2y=C_2$，垂直条件为
+  \[
+    A_1A_2+B_1B_2=0.
+  \]
+  因此
+  \[
+    \boxed{PA\perp PB\ \Longleftrightarrow\
+    \frac{x_1x_2}{a^4}+\frac{y_1y_2}{b^4}=0}.
+  \]
+  \textbf{几何意义：}判断垂直需要的是\emph{两条切线的方向}。在切线的一般式中，$x,y$ 的系数已经确定了直线方向，所以\textbf{只需求 $x_1x_2$ 与 $y_1y_2$，不用求四组和与积}。
+
+  \medskip
+  \textbf{联立后的速用结果（详细推导见证明方法五）：}记
+  \[
+    D=b^2x_0^2+a^2y_0^2>0,
+  \]
+  则
+  \[
+    \boxed{\frac{x_1x_2}{a^4}=\frac{b^2-y_0^2}{D}},\qquad
+    \boxed{\frac{y_1y_2}{b^4}=\frac{a^2-x_0^2}{D}}.
+  \]
+  把这两式相加恰好得到 $(a^2+b^2-x_0^2-y_0^2)/D$。\textbf{前面出现平方和，是两条切线相互垂直；最后出现分子为零，就是蒙日圆方程。}
+
+  \medskip
+  \textbf{两种方法对照：}原本用 $PA$、$PB$ 的斜率乘积 $-1$，要先算 $x_1+x_2$、$x_1x_2$、$y_1+y_2$、$y_1y_2$，还需要担心分母为 $0$；改用直线一般式后，只需要两个乘积，并且水平切线、竖直切线都能包含。
+
+  \textbf{\textcolor{CExplanation}{考场识别信号}}
+  \begin{itemize}[leftmargin=*, itemsep=0.3em]
+    \item 题目出现“椭圆外一点所引两条切线互相垂直”，优先写 $OP^2=a^2+b^2$。
+    \item 已知切点弦并要用韦达定理证明垂直时，先看最终需要的量：只求 $x_1x_2$、$y_1y_2$，不用先求两组坐标和。
+    \item 题目要求逆向判断，先看 $P$ 是否满足蒙日圆方程，再说明两条切线存在且垂直。
+    \item 出现一条竖直切线时，直接用 $x=\pm a$、$y=\pm b$ 验证，切勿使用不存在的斜率。
+  \end{itemize}
 \end{explanationbox}

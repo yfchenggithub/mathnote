@@ -1,32 +1,83 @@
 \begin{trapbox}
 
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（椭圆外条件）}}]
-			认为椭圆内部点也可以引两条垂直切线。
-		\item[\textbf{\textcolor{CTrap}{正确理解（切线存在前提）：}}]
-			只有椭圆外的点才能作两条实切线，椭圆内点不能作切线。
-		\item[\textbf{\textcolor{CTrap}{错因分析（忽略位置）：}}]
-			忽略了切线存在要求点不在椭圆内部。
-	\end{description}
+\input{assets/tikz/C071_model_comparison}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（参数混淆）}}]
-			在蒙日圆公式中误写为 $x^2+y^2=a^2-b^2$ 或 $x^2+y^2=b^2-a^2$。
-		\item[\textbf{\textcolor{CTrap}{正确理解（公式记忆）：}}]
-			蒙日圆方程为 $x^2+y^2=a^2+b^2$，其中 $a,b$ 分别为椭圆长半轴和短半轴。
-		\item[\textbf{\textcolor{CTrap}{错因分析（概念混淆）：}}]
-			对 $a,b$ 的意义不清晰，或与其他结论混淆。
-	\end{description}
+  \textbf{\textcolor{CTrap}{易错点一｜直接写 $k_1k_2=-1$，漏掉竖直切线}}
+  \textbf{错法：}认为所有垂直切线都能用两个斜率的乘积表达。
+  \textbf{改正：}一条切线竖直时，另一条必水平。对标准椭圆，竖直切线 $x=\pm a$、水平切线 $y=\pm b$，交点 $(\pm a,\pm b)$ 全部在蒙日圆上。\textbf{只有两条直线的斜率都存在时，才能写 $k_1k_2=-1$。}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（遗漏特例）}}]
-			只考虑切线斜率存在的情形，认为点 $P$ 不能在 $x$ 轴或 $y$ 轴上。
-		\item[\textbf{\textcolor{CTrap}{正确理解（包含特例）：}}]
-			当一条切线斜率不存在时，另一条斜率为 $0$，此时点 $P$ 仍在蒙日圆上，公式依然成立。
-		\item[\textbf{\textcolor{CTrap}{错因分析（思维不全）：}}]
-			未能对斜率不存在的情况进行验证。
-	\end{description}
+  \medskip
+  \textbf{\textcolor{CTrap}{易错点二｜把“二次方程”一直当成二次方程}}
+  \textbf{错法：}写出
+  \[
+    (x_0^2-a^2)k^2-2x_0y_0k+(y_0^2-b^2)=0
+  \]
+  后不检查 $x_0^2-a^2$ 是否为零，就直接用韦达定理。
+  \textbf{改正：}先判断 $x_0^2\ne a^2$，才可以使用关于 $k$ 的二次方程韦达公式。若 $x_0^2=a^2$，说明有竖直切线，应单独检查。
+
+  \medskip
+  \textbf{\textcolor{CTrap}{易错点三｜只证明正向，不证明逆向}}
+  \textbf{错法：}由两切线垂直推出 $x_0^2+y_0^2=a^2+b^2$，就直接宣布“轨迹是整个圆”。
+  \textbf{改正：}还需证明\textbf{圆上任意一点}确实能够引两条垂直切线。可利用“点在圆上 $\Rightarrow$ 点在椭圆外 $\Rightarrow$ 切线存在”，再用斜率乘积或一般式完成反向证明。
+
+  \medskip
+  \textbf{\textcolor{CTrap}{易错点四｜把半轴平方和错写为平方差}}
+  \textbf{错法：}写成 $x^2+y^2=a^2-b^2$，把它与焦距关系 $c^2=a^2-b^2$ 混淆。
+  \textbf{改正：}此处是两条互相垂直的切线，背后对应\textbf{勾股定理的平方和}，所以 $OP^2=a^2+b^2$。可用矩形角点 $(a,b)$ 当场检查。
+
+  \medskip
+  \textbf{\textcolor{CTrap}{易错点五｜误以为蒙日圆与椭圆有公共点}}
+  \textbf{错法：}认为蒙日圆的一部分在椭圆内部，导致切线不存在。
+  \textbf{改正：}椭圆上任何点满足
+  \[
+    x^2+y^2\le a^2,
+  \]
+  蒙日圆上任何点满足 $x^2+y^2=a^2+b^2>a^2$。因此\textbf{整个蒙日圆都在椭圆外}，不是只有某段圆弧有效。
+
+  \medskip
+  \textbf{\textcolor{CTrap}{易错点六｜相切条件里的符号写反}}
+  \textbf{错法：}将 $y=kx+m$ 的相切条件写成 $m^2=b^2-a^2k^2$。
+  \textbf{改正：}用直线一般式 $-kx+y=m$，对应 $A=-k$、$B=1$，应得
+  \[
+    \boxed{m^2=a^2k^2+b^2}.
+  \]
+  这说明只要 $k$ 为实数，相切直线的纵截距绝对值至少是 $b$。$k=0$ 时恰为 $y=\pm b$，与图形吻合。
+
+  \medskip
+  \textbf{\textcolor{CTrap}{易错点七｜为了用斜率垂直条件，盲目求四组和与积}}
+  \textbf{错法：}从切点弦联立椭圆后，立即求 $x_1+x_2$、$x_1x_2$、$y_1+y_2$、$y_1y_2$，再代入
+  \[
+    \frac{y_1-y_0}{x_1-x_0}\cdot\frac{y_2-y_0}{x_2-x_0}=-1.
+  \]
+  \textbf{改正：}先看目标，两条切线的方程为 $\frac{x_i}{a^2}x+\frac{y_i}{b^2}y=1$，因此垂直只需要
+  \[
+    \boxed{\frac{x_1x_2}{a^4}+\frac{y_1y_2}{b^4}=0}.
+  \]
+  只算两组乘积，运算量更少，且不怕切线竖直。
+
+  \medskip
+  \textbf{\textcolor{CTrap}{易错点八｜把切点弦当成两条切线中的一条}}
+  \textbf{错法：}写出 $\frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1$ 后，把它当作 $PA$ 或 $PB$。
+  \textbf{改正：}此式表示\textbf{连接两切点 $A,B$ 的直线}。真正的两条切线分别是
+  \[
+    PA:\ \frac{x_1x}{a^2}+\frac{y_1y}{b^2}=1,\qquad
+    PB:\ \frac{x_2x}{a^2}+\frac{y_2y}{b^2}=1.
+  \]
+  切点弦用于确定\textbf{两个切点的位置关系}；两条切线的一般式用于判断\textbf{两条切线的方向关系}。
+
+  \medskip
+  \textbf{\textcolor{CTrap}{易错点九｜平方消元出现重根，就误判只有一个切点}}
+  \textbf{错法：}当 $y_0=0$ 时，求横坐标得到二重根，就以为外点只引一条切线。
+  \textbf{改正：}同一横坐标可以对应椭圆上的上、下两个不同点。例如 $P(\sqrt{13},0)$ 对椭圆 $\frac{x^2}{9}+\frac{y^2}{4}=1$，两个切点的横坐标同为 $9/\sqrt{13}$，纵坐标却分别为 $4/\sqrt{13}$ 和 $-4/\sqrt{13}$。\textbf{横坐标相同不等于两个点相同。}
+
+  \medskip
+  \textbf{\textcolor{CTrap}{易错点十｜没有检查韦达公式的分母}}
+  \textbf{错法：}写出 $D=b^2x_0^2+a^2y_0^2$ 后直接除以 $D$，却没有说明为什么允许。
+  \textbf{改正：}本题 $P$ 在椭圆外，故
+  \[
+    \frac{x_0^2}{a^2}+\frac{y_0^2}{b^2}>1
+    \Longrightarrow D=b^2x_0^2+a^2y_0^2>a^2b^2>0.
+  \]
+  所以可放心使用韦达定理并约去 $D$，而且\textbf{全程不需要除以 $x_0$ 或 $y_0$}。
 
 \end{trapbox}

@@ -1,38 +1,437 @@
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
-	本证明通过设切线方程，将几何垂直条件转化为代数关系，利用判别式和韦达定理消去斜率参数，导出点 $P$ 坐标满足的圆方程。
+  \textbf{\textcolor{CProof}{证明目标与阅读顺序}}
+  设椭圆 $C:\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$（$a>b>0$），两条不同切线交于 $P(x_0,y_0)$。需要同时证明：
+  \[
+    l_1\perp l_2\ \Longrightarrow\ x_0^2+y_0^2=a^2+b^2,
+  \]
+  以及
+  \[
+    x_0^2+y_0^2=a^2+b^2\ \Longrightarrow\ l_1\perp l_2.
+  \]
+  原有四种方法分别强调\textbf{几何理解、考场速度、书写步数、完整通用过程}；新增方法五从\textbf{切点弦与两切点坐标}出发，展示韦达定理如何减少运算。为避免反复使用很长的判别式计算，先说明一个可由高中知识验证的小工具。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（设切线方程）：}]
-			设过点 $P(x_0,y_0)$ 且斜率存在的切线斜率为 $k$，则切线方程为 $y-y_0 = k(x-x_0)$。
-			\par\textbf{理由：} 点斜式表示直线。
-		\item[\textbf{步骤二（联立判别式）：}]
-			将切线写为 $y = kx + m$（其中 $m = y_0 - kx_0$），代入椭圆方程 $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$，整理得 $(b^2 + a^2k^2)x^2 + 2a^2km\,x + a^2(m^2 - b^2)=0$。相切时判别式 $\Delta=0$，即
-			\[
-				(2a^2km)^2 - 4(b^2+a^2k^2)a^2(m^2-b^2)=0,
-			\]
-			化简得 $m^2 = b^2 + a^2k^2$。
-			\par\textbf{理由：} 判别式为零是直线与椭圆相切的充要条件。
-		\item[\textbf{步骤三（消去 $m$ 得 $k$ 方程）：}]
-			将 $m = y_0 - kx_0$ 代入 $m^2 = b^2 + a^2k^2$，展开得 $(y_0 - kx_0)^2 = b^2 + a^2k^2$，即 $y_0^2 - 2x_0y_0k + x_0^2k^2 = b^2 + a^2k^2$。移项合并得关于 $k$ 的二次方程
-			\[
-				(x_0^2 - a^2)k^2 - 2x_0y_0k + (y_0^2 - b^2) = 0.
-			\]
-			\par\textbf{理由：} 该方程的两个根即两条切线的斜率。
-		\item[\textbf{步骤四（韦达定理）：}]
-			当 $x_0^2 \neq a^2$ 时，由韦达定理，两根 $k_1,k_2$ 满足 $k_1k_2 = \frac{y_0^2 - b^2}{x_0^2 - a^2}$。
-			\par\textbf{理由：} 根与系数的关系。
-		\item[\textbf{步骤五（垂直条件）：}]
-			两条切线互相垂直，故 $k_1k_2 = -1$。代入得 $\frac{y_0^2 - b^2}{x_0^2 - a^2} = -1$，即 $y_0^2 - b^2 = -x_0^2 + a^2$，整理得 $x_0^2 + y_0^2 = a^2 + b^2$。
-			\par\textbf{理由：} 化简后显示 $P$ 坐标满足圆的方程。
-		\item[\textbf{步骤六（特殊情况）：}]
-			当 $x_0^2 = a^2$ 时，上述二次方程二次项系数为零。此时一条切线斜率不存在（垂直于 $x$ 轴），另一条斜率必为 $0$（垂直条件）。以 $P(a,y_0)$ 为例，切线 $x=a$ 与椭圆切于 $(a,0)$；切线 $y=y_0$ 与椭圆相切要求 $y_0^2 = b^2$，故 $P(a,\pm b)$，满足 $a^2 + b^2 = x_0^2+y_0^2$。同理可验证 $x_0=-a$ 情况。
-			\par\textbf{理由：} 直接验证可知仍满足蒙日圆方程。
-	\end{description}
+  \medskip
+  \textbf{\textcolor{CProof}{共同准备：切线的一般式条件}}
+  对 $A,B$ 不同时为零的直线 $Ax+By=C$，直线与椭圆相切当且仅当
+  \[
+    \boxed{C^2=a^2A^2+b^2B^2}.\tag{*}
+  \]
+  \textbf{详细验证：}当 $B\ne0$，代入 $y=(C-Ax)/B$ 得
+  \[
+    (a^2A^2+b^2B^2)x^2-2a^2ACx+a^2(C^2-b^2B^2)=0.
+  \]
+  因为 $a^2A^2+b^2B^2>0$，这确实是关于 $x$ 的一元二次方程；其判别式是
+  \[
+  \begin{aligned}
+    \Delta
+     &=(-2a^2AC)^2-4(a^2A^2+b^2B^2)a^2(C^2-b^2B^2)\\
+     &=4a^2\bigl[a^2A^2C^2-(a^2A^2+b^2B^2)(C^2-b^2B^2)\bigr]\\
+     &=4a^2b^2B^2(a^2A^2+b^2B^2-C^2).
+  \end{aligned}
+  \]
+  故 $\Delta=0$ 等价于 $(*)$。若 $B=0$，则 $A\ne0$，直线是 $x=C/A$，与椭圆相切当且仅当 $C/A=\pm a$，仍等价于 $(*)$。这就证明了工具对所有方向都有效。
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-	\textbf{综上，椭圆外一点 $P$ 到椭圆的两条互相垂直的切线的交点轨迹是圆 $x^2+y^2=a^2+b^2$；反之，若点 $P$ 在此圆上，则过 $P$ 的两条切线必互相垂直。}
+  \medskip
+  \begin{minipage}{\linewidth}
+  \textbf{\textcolor{CProof}{方法一｜门槛最低：从两条垂距到勾股定理}}
+
+\input{assets/tikz/C071_perpendicular_distances}
+  \end{minipage}\par\medskip
+  \textbf{识别信号：}两条直线垂直，第一反应先找直角和勾股定理，不急于求两条切线的斜率。
+  \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.48em]
+    \item[\textbf{第 1 步（先看特殊图形）：}]
+      过椭圆最右端点 $(a,0)$ 与最上端点 $(0,b)$ 的切线分别是 $x=a$ 与 $y=b$。它们垂直，交于 $(a,b)$。由勾股定理 $OP^2=a^2+b^2$。这只是一个例子，还需要证明无论切线如何转动，结果都一样。
+    \item[\textbf{第 2 步（表示一组垂直直线）：}]
+      设第一条切线为 $l_1:x\cos\theta+y\sin\theta=c$。与它垂直的第二条切线一定能写成 $l_2:-x\sin\theta+y\cos\theta=d$，其中 $c,d$ 可以为正或负。两条直线都经过 $P$，因此
+      \[
+        x_0\cos\theta+y_0\sin\theta=c,\quad
+        -x_0\sin\theta+y_0\cos\theta=d.
+      \]
+      \textbf{理由：}两条直线的系数分别为 $(\cos\theta,\sin\theta)$ 和 $(-\sin\theta,\cos\theta)$，相乘相加为 $0$，代表两条直线互相垂直。
+    \item[\textbf{第 3 步（先用勾股定理）：}]
+      因为系数平方和为 $1$，$|c|$ 与 $|d|$ 正好分别是原点 $O$ 到 $l_1,l_2$ 的垂直距离。两线在 $P$ 处成直角，故
+      \[
+        OP^2=c^2+d^2.
+      \]
+      也可直接将上一步的两式分别平方再相加：
+      \[
+        c^2+d^2=(x_0\cos\theta+y_0\sin\theta)^2
+        +(-x_0\sin\theta+y_0\cos\theta)^2=x_0^2+y_0^2.
+      \]
+      \textbf{几何意义：}两个平方是 $OP$ 在一对互相垂直方向上得到的两段长度的平方。
+    \item[\textbf{第 4 步（利用两条直线都与椭圆相切）：}]
+      由共同准备中的切线条件 $(*)$，分别得到
+      \[
+        c^2=a^2\cos^2\theta+b^2\sin^2\theta,
+      \]
+      \[
+        d^2=a^2\sin^2\theta+b^2\cos^2\theta.
+      \]
+      \textbf{理由：}对于第二条直线，$x,y$ 的系数只是将第一条的两项交换并改变符号；平方后符号不会影响结果。
+    \item[\textbf{第 5 步（相加，得到固定半径）：}]
+      \[
+      \begin{aligned}
+        OP^2&=c^2+d^2\\
+        &=a^2(\cos^2\theta+\sin^2\theta)
+          +b^2(\sin^2\theta+\cos^2\theta)\\
+        &=a^2+b^2.
+      \end{aligned}
+      \]
+      \textbf{几何意义：}切线转动会改变两条垂距的大小，但是它们平方的和始终不变，故交点只能在同一个圆上。
+    \item[\textbf{第 6 步（反向证明）：}]
+      现在已知 $x_0^2+y_0^2=a^2+b^2$。椭圆上任意点 $Q(x,y)$ 都满足
+      \[
+        x^2+y^2=a^2\frac{x^2}{a^2}+b^2\frac{y^2}{b^2}
+        \le a^2\left(\frac{x^2}{a^2}+\frac{y^2}{b^2}\right)=a^2.
+      \]
+      因而 $OP^2=a^2+b^2>a^2$，点 $P$ 在椭圆外，可以引切线。任取其中一条 $l_1$，按第 2 步写出方程。作过 $P$ 且与 $l_1$ 垂直的直线 $l_2$，令它的常数为 $d=-x_0\sin\theta+y_0\cos\theta$。由第 3 步与 $P$ 的圆方程，
+      \[
+      \begin{aligned}
+        d^2&=x_0^2+y_0^2-c^2\\
+           &=a^2+b^2-(a^2\cos^2\theta+b^2\sin^2\theta)\\
+           &=a^2\sin^2\theta+b^2\cos^2\theta.
+      \end{aligned}
+      \]
+      根据 $(*)$，$l_2$ 也与椭圆相切。因此过 $P$ 的两条切线互相垂直，逆命题成立。\textbf{此方法也包含竖直切线，无需讨论斜率是否存在。}
+  \end{description}
+
+  \medskip
+  \begin{minipage}{\linewidth}
+  \textbf{\textcolor{CProof}{方法二｜速度最快：韦达定理求斜率乘积}}
+
+\input{assets/tikz/C071_slope_roots}
+  \end{minipage}\par\medskip
+  \textbf{识别信号：}题目要求两条切线垂直，但并不要求写出两条切线本身。
+  \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.46em]
+    \item[\textbf{第 1 步（直接写切线斜率方程）：}]
+      由切线条件 $(*)$，过 $P(x_0,y_0)$ 的非竖直切线 $y-y_0=k(x-x_0)$ 满足
+      \[
+        \boxed{(x_0^2-a^2)k^2-2x_0y_0k+(y_0^2-b^2)=0}.\tag{1}
+      \]
+      \textbf{理由：}写成 $-kx+y=y_0-kx_0$ 并使用 $(*)$，得到 $(y_0-kx_0)^2=a^2k^2+b^2$，展开后即为 (1)。
+    \item[\textbf{第 2 步（韦达速写）：}]
+      当 $x_0^2\ne a^2$ 时，(1) 的两个实根 $k_1,k_2$ 对应两条切线。韦达定理直接给出
+      \[
+        k_1k_2=\frac{y_0^2-b^2}{x_0^2-a^2}.
+      \]
+      \textbf{几何意义：}只提取两条直线是否垂直所需的“斜率乘积”，不浪费时间解出单独的斜率。
+    \item[\textbf{第 3 步（代入垂直条件）：}]
+      若两线垂直，则 $k_1k_2=-1$，所以
+      \[
+        \frac{y_0^2-b^2}{x_0^2-a^2}=-1
+        \Longrightarrow y_0^2-b^2=a^2-x_0^2
+        \Longrightarrow\boxed{x_0^2+y_0^2=a^2+b^2}.
+      \]
+    \item[\textbf{第 4 步（逆命题及特殊情况）：}]
+      反过来，若 $x_0^2+y_0^2=a^2+b^2$ 且 $x_0^2\ne a^2$，则 $P$ 在椭圆外。关于 $k$ 的方程 (1) 的判别式是
+      \[
+        \Delta_k=4(b^2x_0^2+a^2y_0^2-a^2b^2)>0,
+      \]
+      因为椭圆外点满足 $\frac{x_0^2}{a^2}+\frac{y_0^2}{b^2}>1$。故两条非竖直切线确实存在，且韦达乘积为 $-1$，两线垂直。
+      若 $x_0^2=a^2$，由圆方程必有 $y_0^2=b^2$，即 $P=(\pm a,\pm b)$；过 $P$ 的 $x=\pm a$、$y=\pm b$ 两条切线互相垂直。\textbf{这一步不能用斜率乘积代替。}
+  \end{description}
+  \textbf{考场速写（已确认两条切线斜率都存在时）：}
+  \[
+    \begin{aligned}
+    &(x_0^2-a^2)k^2-2x_0y_0k+(y_0^2-b^2)=0\\
+    &\Longrightarrow\ k_1k_2=\frac{y_0^2-b^2}{x_0^2-a^2}=-1\\
+    &\Longrightarrow\ x_0^2+y_0^2=a^2+b^2.
+    \end{aligned}
+  \]
+
+  \medskip
+  \begin{minipage}{\linewidth}
+  \textbf{\textcolor{CProof}{方法三｜步骤最少：一般式两式相加}}
+
+\input{assets/tikz/C071_normal_directions}
+  \end{minipage}\par\medskip
+  \textbf{识别信号：}希望完全避开求根，并且不遗漏竖直切线。
+  \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{第 1 步（一次写出两条垂直切线）：}]
+      \[
+        l_1:Ax+By=C,\qquad l_2:Bx-Ay=D,\qquad A^2+B^2>0.
+      \]
+      这两条直线垂直；因为都过 $P$，有 $C=Ax_0+By_0$、$D=Bx_0-Ay_0$。
+    \item[\textbf{第 2 步（相切条件一写一加）：}]
+      根据 $(*)$，
+      \[
+        C^2=a^2A^2+b^2B^2,\qquad D^2=a^2B^2+b^2A^2.
+      \]
+      \[
+      \begin{aligned}
+        (A^2+B^2)(x_0^2+y_0^2)
+        &=(Ax_0+By_0)^2+(Bx_0-Ay_0)^2\\
+        &=C^2+D^2\\
+        &=(A^2+B^2)(a^2+b^2).
+      \end{aligned}
+      \]
+    \item[\textbf{第 3 步（约去非零项）：}]
+      因为 $A^2+B^2>0$，约去即得 $\boxed{x_0^2+y_0^2=a^2+b^2}$。
+      反过来，若 $P$ 满足圆方程，任取过 $P$ 的切线 $Ax+By=C$，作过 $P$ 的垂线 $Bx-Ay=D$。由上面平方和的恒等式倒推，
+      \[
+        D^2=(A^2+B^2)(a^2+b^2)-C^2=a^2B^2+b^2A^2,
+      \]
+      于是第二条直线也与椭圆相切，逆命题成立。
+  \end{description}
+  \textbf{几何意义：}平方展开后的交叉项 $2ABx_0y_0$ 与 $-2ABx_0y_0$ 恰好抵消，正是因为两条直线垂直。此方法只需要“相切、垂直、相加”三步。
+
+  \medskip
+  \begin{minipage}{\linewidth}
+  \textbf{\textcolor{CProof}{方法四｜常规通用：联立方程、判别式、韦达定理}}
+
+\input{assets/tikz/C071_tangent_discriminant}
+  \end{minipage}\par\medskip
+  \textbf{识别信号：}需要从零推导，或需要同时掌握“如何求椭圆外一点的切线斜率”。
+  \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.49em]
+    \item[\textbf{第 1 步（设非竖直直线）：}]
+      设过 $P(x_0,y_0)$ 的一条非竖直切线为 $y=kx+m$，其中 $m=y_0-kx_0$。这是因为 $P$ 在直线上，故 $y_0=kx_0+m$。
+    \item[\textbf{第 2 步（代入椭圆）：}]
+      \[
+      \begin{aligned}
+        \frac{x^2}{a^2}+\frac{(kx+m)^2}{b^2}&=1\\
+        b^2x^2+a^2(k^2x^2+2kmx+m^2)&=a^2b^2\\
+        (b^2+a^2k^2)x^2+2a^2kmx+a^2(m^2-b^2)&=0.
+      \end{aligned}
+      \]
+      \textbf{理由：}直线与椭圆的交点横坐标，必须满足这个一元二次方程。
+    \item[\textbf{第 3 步（判别式等于零）：}]
+      相切表示只有一个交点，故
+      \[
+      \begin{aligned}
+        0=\Delta_x&=(2a^2km)^2-4(b^2+a^2k^2)a^2(m^2-b^2)\\
+        &=4a^2b^2\bigl(b^2+a^2k^2-m^2\bigr).
+      \end{aligned}
+      \]
+      因 $a,b>0$，得到
+      \[
+        m^2=a^2k^2+b^2.
+      \]
+      \textbf{理由：}这是一个直接求出“什么直线与椭圆相切”的条件，而不是背公式。
+    \item[\textbf{第 4 步（用过 $P$ 消去 $m$）：}]
+      将 $m=y_0-kx_0$ 代入：
+      \[
+      \begin{aligned}
+        (y_0-kx_0)^2&=a^2k^2+b^2\\
+        y_0^2-2x_0y_0k+x_0^2k^2&=a^2k^2+b^2\\
+        (x_0^2-a^2)k^2-2x_0y_0k+(y_0^2-b^2)&=0.
+      \end{aligned}
+      \]
+      \textbf{几何意义：}曲线上相切的要求已经转成“从同一点 $P$ 出发可以选择哪些斜率”的方程。
+    \item[\textbf{第 5 步（确认有两条真实切线）：}]
+      对椭圆外点，
+      \[
+        \frac{x_0^2}{a^2}+\frac{y_0^2}{b^2}>1
+        \Longleftrightarrow b^2x_0^2+a^2y_0^2>a^2b^2.
+      \]
+      若 $x_0^2\ne a^2$，上一步是二次方程，其判别式
+      \[
+      \begin{aligned}
+        \Delta_k&=(-2x_0y_0)^2-4(x_0^2-a^2)(y_0^2-b^2)\\
+        &=4(b^2x_0^2+a^2y_0^2-a^2b^2)>0.
+      \end{aligned}
+      \]
+      故有两条不同的非竖直切线，其斜率为 $k_1,k_2$。
+    \item[\textbf{第 6 步（韦达定理与垂直）：}]
+      \[
+        k_1k_2=\frac{y_0^2-b^2}{x_0^2-a^2}.
+      \]
+      若两条切线互相垂直，则 $k_1k_2=-1$，所以
+      \[
+        y_0^2-b^2=-(x_0^2-a^2)
+        \Longrightarrow x_0^2+y_0^2=a^2+b^2.
+      \]
+      \textbf{理由：}先消去斜率再求交点轨迹，运算更少，也避免求根时出现复杂的根号。
+    \item[\textbf{第 7 步（竖直切线另外证明）：}]
+      如果出现竖直切线，它必为 $x=a$ 或 $x=-a$，因为只有这两条竖直直线与椭圆相切。要与它垂直，另一条必须为水平切线 $y=b$ 或 $y=-b$，因此交点坐标为 $(\pm a,\pm b)$，依然满足圆方程。
+    \item[\textbf{第 8 步（逆命题）：}]
+      若 $P$ 满足 $x_0^2+y_0^2=a^2+b^2$，那么 $x_0^2+y_0^2>a^2$，而椭圆上任一点满足 $x^2+y^2\le a^2$，故 $P$ 确实在椭圆外。
+      当 $x_0^2\ne a^2$，由第 5 步知存在两条非竖直切线，且第 6 步的乘积等于 $-1$，所以互相垂直。当 $x_0^2=a^2$，圆方程给出 $y_0^2=b^2$，此时第 7 步的竖直与水平切线构成直角。\textbf{正反两个方向全部得证。}
+  \end{description}
+
+  \medskip
+
+  \medskip
+  \begin{minipage}{\linewidth}
+  \textbf{\textcolor{CProof}{方法五｜切点弦 $+$ 韦达定理：从两切点坐标出发（新增）}}
+  \input{assets/tikz/C071_contact_chord}
+  \end{minipage}\par\medskip
+  \textbf{识别信号：}图中虚线 $AB$ 确定两切点的位置，实线 $PA,PB$ 用于判断垂直；本方法用韦达定理把两切点坐标的乘积转成 $P$ 的坐标。
+  \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.53em]
+    \item[\textbf{第 1 步（写两条切线和切点弦）：}]
+      设两切点是 $A(x_1,y_1)$、$B(x_2,y_2)$，交点是 $P(x_0,y_0)$。因为 $A$ 在椭圆上，
+      \[
+        \frac{x_1^2}{a^2}+\frac{y_1^2}{b^2}=1.
+      \]
+      切线 $PA$ 的方程为
+      \[
+        l_A:\ \frac{x_1x}{a^2}+\frac{y_1y}{b^2}=1;
+      \]
+      同理，切线 $PB$ 的方程为
+      \[
+        l_B:\ \frac{x_2x}{a^2}+\frac{y_2y}{b^2}=1.
+      \]
+      \textbf{为什么这确实是切线？}以 $l_A$ 为例：若椭圆上另一点 $T(x,y)$ 也在这条直线上，则
+      \[
+      \begin{aligned}
+        \frac{(x-x_1)^2}{a^2}+\frac{(y-y_1)^2}{b^2}
+        &=\left(\frac{x^2}{a^2}+\frac{y^2}{b^2}\right)
+         +\left(\frac{x_1^2}{a^2}+\frac{y_1^2}{b^2}\right)
+         -2\left(\frac{x_1x}{a^2}+\frac{y_1y}{b^2}\right)\\
+        &=1+1-2=0.
+      \end{aligned}
+      \]
+      两个平方都不小于 $0$，和为 $0$ 只能是 $x=x_1$、$y=y_1$，说明直线与椭圆只有 $A$ 一个公共点，所以 $l_A$ 是切线。$l_B$ 同理。
+      因为两条切线都过 $P$，分别代入 $P$ 得
+      \[
+        \frac{x_0x_1}{a^2}+\frac{y_0y_1}{b^2}=1,\qquad
+        \frac{x_0x_2}{a^2}+\frac{y_0y_2}{b^2}=1.
+      \]
+      因而两个切点都在直线
+      \[
+        \boxed{AB:\ \frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1}.
+      \]
+      \textbf{看图核对：}切点弦与椭圆相交于 $A,B$；它与 $PA,PB$ 是三条不同的直线。
+
+    \item[\textbf{第 2 步（先确定韦达定理真正需要的量）：}]
+      两条切线的一般式中，$x,y$ 的系数分别为
+      \[
+        \left(\frac{x_1}{a^2},\frac{y_1}{b^2}\right),\qquad
+        \left(\frac{x_2}{a^2},\frac{y_2}{b^2}\right).
+      \]
+      高中直线知识告诉我们：
+      \[
+        A_1x+B_1y=C_1,\quad A_2x+B_2y=C_2
+        \quad\Longrightarrow\quad
+        l_1\perp l_2\ \Longleftrightarrow\ A_1A_2+B_1B_2=0.
+      \]
+      \textbf{理由：}若两条直线都不竖直，斜率分别为 $-A_1/B_1$、$-A_2/B_2$，斜率乘积等于 $-1$ 恰好等价于 $A_1A_2+B_1B_2=0$；若其中一条竖直（$B_1=0$），该式要求 $A_2=0$，即另一条水平，也正确。
+      所以本题的垂直条件正好是
+      \[
+        \boxed{PA\perp PB\ \Longleftrightarrow\
+          \frac{x_1x_2}{a^4}+\frac{y_1y_2}{b^4}=0}.\tag{5-1}
+      \]
+      \textbf{这一步决定后面的运算量：}只需要 $x_1x_2$、$y_1y_2$ 两个乘积，完全不需要求出 $x_1+x_2$、$y_1+y_2$，也不需要除以 $x_i-x_0$。
+
+    \item[\textbf{第 3 步（联立切点弦与椭圆，先求 $x_1x_2$）：}]
+      由 $AB$ 方程，先移项：
+      \[
+        \frac{y_0y}{b^2}=1-\frac{x_0x}{a^2}.
+      \]
+      两边平方，\textbf{不除以 $y_0$}：
+      \[
+        \frac{y_0^2y^2}{b^4}
+        =\left(1-\frac{x_0x}{a^2}\right)^2.
+      \]
+      又因为切点在椭圆上，
+      \[
+        y^2=b^2\left(1-\frac{x^2}{a^2}\right),
+      \]
+      代入前式，右边展开：
+      \[
+        \frac{y_0^2}{b^2}\left(1-\frac{x^2}{a^2}\right)
+        =1-\frac{2x_0x}{a^2}+\frac{x_0^2x^2}{a^4}.
+      \]
+      两边乘以 $a^4b^2$：
+      \[
+        a^4y_0^2-a^2y_0^2x^2
+        =a^4b^2-2a^2b^2x_0x+b^2x_0^2x^2.
+      \]
+      把所有项移到右边并按 $x$ 的次数排列：
+      \[
+        \boxed{(b^2x_0^2+a^2y_0^2)x^2
+          -2a^2b^2x_0x+a^4(b^2-y_0^2)=0}.\tag{5-2}
+      \]
+      两个切点的横坐标 $x_1,x_2$ 都满足 (5-2)。记
+      \[
+        D=b^2x_0^2+a^2y_0^2.
+      \]
+      因为 $P$ 在椭圆外，
+      \[
+        \frac{x_0^2}{a^2}+\frac{y_0^2}{b^2}>1
+        \ \Longrightarrow\ D>a^2b^2>0,
+      \]
+      所以 (5-2) 的二次项系数不为 $0$，可以使用韦达定理：
+      \[
+        \boxed{x_1x_2=\frac{a^4(b^2-y_0^2)}{D}}.\tag{5-3}
+      \]
+      \textbf{几何意义：}切点弦与椭圆的两个交点就是 $A,B$；把交点条件整理成二次方程后，韦达定理直接给出两个切点横坐标的乘积，不必求出两点的具体位置。
+
+    \item[\textbf{第 4 步（同样计算 $y_1y_2$，不跳步）：}]
+      再从切点弦换一种移项方式：
+      \[
+        \frac{x_0x}{a^2}=1-\frac{y_0y}{b^2}.
+      \]
+      两边平方，并利用椭圆方程 $x^2=a^2(1-y^2/b^2)$：
+      \[
+        \frac{x_0^2}{a^2}\left(1-\frac{y^2}{b^2}\right)
+        =1-\frac{2y_0y}{b^2}+\frac{y_0^2y^2}{b^4}.
+      \]
+      两边乘以 $a^2b^4$：
+      \[
+        b^4x_0^2-b^2x_0^2y^2
+        =a^2b^4-2a^2b^2y_0y+a^2y_0^2y^2.
+      \]
+      移项并按 $y$ 的次数整理：
+      \[
+        \boxed{(b^2x_0^2+a^2y_0^2)y^2
+          -2a^2b^2y_0y+b^4(a^2-x_0^2)=0}.\tag{5-4}
+      \]
+      它的两个根为 $y_1,y_2$，故韦达定理给出
+      \[
+        \boxed{y_1y_2=\frac{b^4(a^2-x_0^2)}{D}}.\tag{5-5}
+      \]
+      \textbf{特别提醒：}如果 $y_0=0$，两个切点可能有相同横坐标，(5-2) 出现重根，但两个切点仍可以有不同纵坐标；同理 $x_0=0$ 时也可能有相同纵坐标。\textbf{坐标重合不等于两个切点重合。}
+
+    \item[\textbf{第 5 步（只代两个乘积，直接得到蒙日圆）：}]
+      由 (5-3)、(5-5)，
+      \[
+        \frac{x_1x_2}{a^4}=\frac{b^2-y_0^2}{D},\qquad
+        \frac{y_1y_2}{b^4}=\frac{a^2-x_0^2}{D}.
+      \]
+      如果 $PA\perp PB$，由 (5-1) 得
+      \[
+      \begin{aligned}
+        0&=\frac{x_1x_2}{a^4}+\frac{y_1y_2}{b^4}\\
+         &=\frac{b^2-y_0^2}{D}+\frac{a^2-x_0^2}{D}\\
+         &=\frac{a^2+b^2-x_0^2-y_0^2}{D}.
+      \end{aligned}
+      \]
+      因 $D>0$，分子必为 $0$，因此
+      \[
+        \boxed{x_0^2+y_0^2=a^2+b^2}.
+      \]
+      \textbf{几何意义：}切点弦负责找到 $A,B$ 之间的关系；韦达定理负责把两切点的坐标乘积变成 $P$ 的坐标；切线系数的垂直条件再把它们合并成\textbf{交点到中心的距离平方不变}。
+
+    \item[\textbf{第 6 步（逆命题：证明圆上每一点都成立）：}]
+      反过来，已知 $x_0^2+y_0^2=a^2+b^2$。椭圆上任意点 $Q(x,y)$ 有
+      \[
+        x^2+y^2=a^2\frac{x^2}{a^2}+b^2\frac{y^2}{b^2}
+        \le a^2\left(\frac{x^2}{a^2}+\frac{y^2}{b^2}\right)=a^2.
+      \]
+      但 $OP^2=a^2+b^2>a^2$，所以 $P$ 一定在椭圆外，能引两条不同切线。具体地，若 $y_0\ne0$，由 (5-2) 可算出判别式
+      \[
+        \Delta_x=4a^4y_0^2(D-a^2b^2)>0,
+      \]
+      因而切点弦与椭圆有两个不同交点；若 $y_0=0$，圆方程给出 $x_0^2=a^2+b^2>a^2$，切点弦为 $x=a^2/x_0$，且 $|a^2/x_0|<a$，代入椭圆可得两个不同的纵坐标，仍有两切点。
+      对这两个切点，前面的 (5-3)、(5-5) 仍成立，故
+      \[
+        \frac{x_1x_2}{a^4}+\frac{y_1y_2}{b^4}
+        =\frac{a^2+b^2-x_0^2-y_0^2}{D}=0.
+      \]
+      由 (5-1) 得 $PA\perp PB$。逆命题成立，因而\textbf{整个圆}都是轨迹，不只是其中一段圆弧。
+  \end{description}
+
+  \textbf{方法五的考场优化：}想证明两条切线垂直，\textbf{先看直线一般式的系数，不要先写斜率差的分式}。切点弦和椭圆联立后，只提取 $x_1x_2$、$y_1y_2$ 两个乘积即可；完整计算虽然比方法二、三长，但能把“切点弦”和“蒙日圆”连接起来，也适合迁移到其他圆锥曲线问题。
+
+  \textbf{\textcolor{CProof}{五法对比与最终结论}}
+  \begin{itemize}[leftmargin=*, itemsep=0.3em]
+    \item \textbf{最低门槛：}看懂两条垂距与 $OP$ 的勾股关系，核心是距离的平方和。
+    \item \textbf{最快：}已知过点切线的斜率方程，韦达乘积直接等于 $-1$。
+    \item \textbf{最少步骤：}两条垂直切线写一般式，直接相加，竖直切线也包含在内。
+    \item \textbf{常规：}完整联立、判别式、韦达、正反论证，适合从基础讲清楚。
+    \item \textbf{切点弦＋韦达：}从切点 $A,B$ 入手，只求 $x_1x_2,y_1y_2$，利用直线一般式的垂直条件，不必算两组和。
+  \end{itemize}
+  \[
+    \boxed{l_1\perp l_2\ \Longleftrightarrow\ P\text{ 在 }x^2+y^2=a^2+b^2\text{ 上}.}
+  \]
 \end{proofbox}

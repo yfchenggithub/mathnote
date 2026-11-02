@@ -1,25 +1,40 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件 1（椭圆标准型）：}}]
-			已知椭圆 $C:\frac{x^{2}}{a^{2}}+\frac{y^{2}}{b^{2}}=1$，其中 $a>b>0$。
-		\item[\textbf{\textcolor{CStatement}{条件 2（外部垂直型）：}}]
-			点 $P(x,y)$ 在椭圆 $C$ 外部。
-	\end{description}
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（蒙日圆定义）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			点 $P$ 在蒙日圆上时，过 $P$ 的两条切线互相垂直；反之，若两切线垂直，则 $P$ 必在蒙日圆上。
-			\[
-				x^{2}+y^{2}=a^{2}+b^{2}
-			\]
-		\item[\textbf{\textcolor{CStatement}{常见变形（圆化特例）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			当椭圆退化为圆时，蒙日圆变为同心圆，半径扩大至 $\sqrt{2}$ 倍。
-			\[
-				a=b\;\Longrightarrow\; x^{2}+y^{2}=2a^{2}
-			\]
-	\end{description}
+  两条互相垂直的椭圆切线，交点到中心的距离恒为 $\sqrt{a^2+b^2}$。
+
+\input{assets/tikz/C071_monge_overview}
+
+  \textbf{\textcolor{CStatement}{条件与结论}}
+  \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{条件（椭圆）：}]
+      已知椭圆 $C:\frac{x^{2}}{a^{2}}+\frac{y^{2}}{b^{2}}=1$，其中 $a>b>0$，中心为 $O(0,0)$。
+    \item[\textbf{条件（两条切线）：}]
+      从椭圆外一点 $P(x_0,y_0)$ 向椭圆作两条不同的切线 $l_1,l_2$。
+    \item[\textbf{结论一（正向）：}]
+      若 $l_1\perp l_2$，则
+      \[
+        \boxed{x_0^2+y_0^2=a^2+b^2}.
+      \]
+    \item[\textbf{结论二（反向）：}]
+      若 $P(x_0,y_0)$ 满足 $x_0^2+y_0^2=a^2+b^2$，则 $P$ 一定在椭圆外，而且过 $P$ 的两条椭圆切线互相垂直。
+    \item[\textbf{补充方法（切点弦与韦达定理）：}]
+      设两切点为 $A(x_1,y_1)$、$B(x_2,y_2)$，则切点弦 $AB$ 的方程是
+      \[
+        \boxed{\frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1}.
+      \]
+      联立椭圆求两组坐标乘积，再利用两条切线的一般式判断垂直：
+      \[
+        PA\perp PB\ \Longleftrightarrow\
+        \boxed{\frac{x_1x_2}{a^4}+\frac{y_1y_2}{b^4}=0}.
+      \]
+      \textbf{提醒：}这里不必计算 $x_1+x_2$、$y_1+y_2$，也不必分别求出两条切线的斜率。
+    \item[\textbf{轨迹（蒙日圆）：}]
+      两条垂直切线的交点 $P$ 的轨迹是
+      \[
+        \boxed{x^2+y^2=a^2+b^2},\qquad OP=\sqrt{a^2+b^2}.
+      \]
+      圆心为椭圆中心 $O$，半径为 $\sqrt{a^2+b^2}$。
+    \item[\textbf{延伸（当原曲线是圆）：}]
+      若 $a=b=r>0$，原曲线为 $x^2+y^2=r^2$，对应的轨迹圆为 $x^2+y^2=2r^2$，半径是原半径的 $\sqrt2$ 倍。
+  \end{description}
 
 \end{statementbox}

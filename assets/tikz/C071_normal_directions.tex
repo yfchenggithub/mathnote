@@ -1,0 +1,29 @@
+\begin{center}
+\begin{minipage}{\linewidth}
+\centering
+\textbf{方法三：两条垂直切线的系数方向也垂直}\par\smallskip
+\begin{tikzpicture}[scale=1.1, every node/.style={font=\small}, line cap=round]
+\draw[->,gray] (-4,0)--(4.2,0) node[right] {$x$};
+\draw[->,gray] (0,-3.8)--(0,4) node[above] {$y$};
+\draw[CStatement,thick] (0,0) ellipse [x radius=3,y radius=2];
+\node[below left] at (0,0) {$O$};
+\coordinate (H) at (2.5805066,1.2033100);
+\coordinate (K) at (-0.9348399,2.0047706);
+\coordinate (P) at (1.6456667,3.2080806);
+\coordinate (T) at (2.8647647,0.5937163);
+\coordinate (U) at (-1.7194984,1.6388784);
+\draw[CProof,thick] ($(H)!-1.15!(P)$)--(P);
+\draw[CProof,thick] ($(K)!-.9!(P)$)--(P);
+\fill (T) circle (1.7pt); \fill (U) circle (1.7pt);
+\fill (P) circle (2pt) node[above right] {$P(x_0,y_0)$};
+\draw ($(P)!.09!(H)$)--($(P)!.09!(H)+.09*(K)-.09*(P)$)--($(P)!.09!(K)$);
+
+\draw[->,CExample,very thick] (0,0)--(1.36,.63) node[right] {$(A,B)$};
+\draw[->,CExample,very thick] (0,0)--(.63,-1.36) node[right] {$(B,-A)$};
+\node[fill=white] at (0,-2.65) {$l_1:Ax+By=C$};
+\node[fill=white] at (0,-3.3) {$l_2:Bx-Ay=D$};
+
+\end{tikzpicture}
+\par 图取 $(A,B)=(\cos25^\circ,\sin25^\circ)$；箭头分别垂直于对应切线。
+\end{minipage}
+\end{center}
