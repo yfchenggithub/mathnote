@@ -1,0 +1,19 @@
+\begin{tikzpicture}[x=.88cm,y=.88cm,>=Stealth,font=\small]
+\path[use as bounding box] (-1.8,-3.5) rectangle (13.2,4.2);
+\foreach \shift/\px/\title/\value in {0/-1/两条实切线/4,5/0/一条实切线/0,10/1/无实切线/-4}{
+\begin{scope}[shift={(\shift,0)}]
+\node[font=\small\bfseries] at (.5,3.7) {\title};
+\draw[->,gray] (-1.5,0)--(2.4,0) node[right] {$x$};
+\draw[->,gray] (0,-2.8)--(0,2.9);
+\draw[blue,thick,domain=-2.8:2.8,samples=61] plot ({\x*\x/4},\x);
+\draw[red!75!black,very thick] ({-\px},-2.7)--({-\px},2.7);
+\fill (\px,0) circle(2pt) node[below right,yshift=-6pt] {$P$};
+\node[align=center] at (.4,-3.2) {$P(\px,0)$\\$y_0^2-4x_0=\value$};
+\end{scope}}
+\draw[orange!85!black,thick] (-1,0)--(1.6,2.6);
+\draw[orange!85!black,thick] (-1,0)--(1.6,-2.6);
+\fill (1,2) circle(2pt) node[below right] {$A$};
+\fill (1,-2) circle(2pt) node[above right] {$B$};
+\node[red!75!black,fill=white,inner sep=2pt] at (4,2.5) {$x=0$};
+\node[red!75!black,fill=white,inner sep=2pt] at (8,2.5) {$x=-1$};
+\end{tikzpicture}

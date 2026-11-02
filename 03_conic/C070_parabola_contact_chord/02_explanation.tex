@@ -1,50 +1,87 @@
 \begin{explanationbox}
-\begin{minipage}{\linewidth}
-\begin{center}\input{assets/tikz/C070_math_audit_geometry.tex}\end{center}
-对 $x^2=6y$，点 $P=(-1,1)$ 位于抛物线凸侧内部。红色极线 $x+3y+3=0$ 不与曲线相交，没有实切点弦。
-\end{minipage}
-\par\medskip
+\textbf{\textcolor{CExplanation}{先看图：弦中点与切线交点有什么关系}}
+\begin{center}\input{assets/tikz/C070_chord_midpoint.tex}\end{center}
+图中 $P$ 是两条橙色切线的交点，$M$ 是红弦 $AB$ 的中点。虚线 $PM$ 水平，直接区分了“中点与 $P$ 同高”和“$P$ 在弦上”。
 
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
+\textbf{\textcolor{CExplanation}{一、从已有知识出发：先认切线，再认切点弦}}
+\begin{enumerate}[leftmargin=*,itemsep=0.4em]
+\item $y^2=2px$ 上任一点 $Q(u,v)$ 满足 $v^2=2pu$；该点处切线为
+\[\boxed{\ vy=p(x+u)\ }.\]
+\item 若这条切线经过已知点 $P(x_0,y_0)$，那么 $vy_0=p(x_0+u)$。
+\item 这个等式的特殊之处：\textbf{把 $Q(u,v)$ 看作变化的切点时，它的坐标必须满足同一个一次方程} $y_0y=p(x+x_0)$。两个切点自然落在同一条直线上。
+\end{enumerate}
 
-	过抛物线外一点作两条切线，切点连线的方程可以直接将点坐标代入抛物线方程的一次项得到。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（切点弦定义）：}] 从给定点所作两条实切线的两个切点之间的弦叫做切点弦（不经过给定点）。
-		\item[\textbf{要点二（公式记忆法）：}] 对比切线方程，将 $y^2$ 换成 $y_0 y$，将 $2px$ 换成 $p(x+x_0)$（或 $x^2$ 换成 $x_0 x$，$2py$ 换成 $p(y+y_0)$）。
-	\end{description}
+\medskip
+\textbf{\textcolor{CExplanation}{二、从“一个点和一个斜率”求直线：相减与相加各做什么}}
+这是一条\textbf{不需要先背切点弦公式}的理解路线：\textbf{直线 $AB$ 已知两个切点，就尝试求它的斜率；若用中点 $M$ 写点斜式，则只需找到中点坐标满足的等式。}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（两切点连线）}}
+设 $A(x_1,y_1),B(x_2,y_2)$，其中点为 $M(x_m,y_m)$。两切点处的切线都经过 $P$，于是
+\[
+ \begin{cases}
+ y_0y_1=p(x_0+x_1),\\
+ y_0y_2=p(x_0+x_2).
+ \end{cases}
+\]
+\textbf{相减：} 消掉公共的 $x_0$，只留下两切点坐标的差：
+\[
+ y_0(y_1-y_2)=p(x_1-x_2).
+\]
+当 $y_0\ne0$ 时，\(k_{AB}=\dfrac{y_1-y_2}{x_1-x_2}=\dfrac p{y_0}\)，\textbf{这是弦的方向}。
 
-	切点弦本质就是两个切点确定的直线。推导时，利用两切点处的切线方程，并结合点 $P$ 同时在两条切线上，得到两个等式，这两个等式恰好说明两个切点在同一条直线上。
+\textbf{相加：} 通过 $x_1+x_2=2x_m$、$y_1+y_2=2y_m$ 把两个端点联系到中点：
+\[
+ y_0y_m=p(x_0+x_m).
+\]
+\textbf{注意这只是中点坐标的一个关系，不是已经求出 $M$ 的具体坐标。}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（同构法）}}
+\textbf{点斜式：} 以 $M$ 为已知点写直线：
+\[
+ y-y_m=\frac p{y_0}(x-x_m)
+ \ \Longrightarrow\ y_0y=p(x+x_0).
+\]
+中点坐标虽然还没有单独算出，但代入时 $x_m,y_m$ 恰好可以消去。
 
-	设两切点，利用切线方程代入点 $P$ 得到两个等式，这两个等式的形式完全一致，表明两个切点的坐标均满足直线方程 $y_0 y = p(x + x_0)$，从而直接得到切点弦方程。
+\textbf{特殊情况：} 若 $y_0=0$，上面不能除以 $y_0$；两切线方程都给出 $x_1=x_2=-x_0$，所以弦为竖直线 $x=-x_0$，同样满足最终公式。\textbf{“相减求方向，相加找中点关系”要先判断斜率能否表示。}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（快速得分）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（选择填空）：} 直接套公式求切点弦，速度快。
-		\item \textbf{考法二（解答题先证后用）：} 先写出结论再证明，节省思考时间。
-	\end{itemize}
+\textbf{\textcolor{CExplanation}{三、为什么平方要变成“两坐标相乘”}}
+抛物线方程中的 $y^2$ 只描述点在曲线上；而切线方程中的 $vy$ 同时包含\textbf{切点的纵坐标 $v$}与\textbf{直线上动点的纵坐标 $y$}。切点弦又把已知交点 $P$ 的纵坐标 $y_0$ 固定，因此出现 $y_0y$。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
+\medskip
+\textbf{\textcolor{CExplanation}{四、为什么 $2px$ 变成 $p(x+x_0)$}}
+当动点与切点重合，即 $(x,y)=(u,v)$ 时，切线公式自动变为 $v^2=p(u+u)=2pu$，恰好回到抛物线方程。这说明\textbf{系数必须是 $p$，横坐标必须相加}。
 
-	将切点弦方程与切线方程对比：切线 $y_1 y = p(x+x_1)$ 与切点弦 $y_0 y = p(x+x_0)$ 形式完全相同，只是将切点坐标换成了已知点坐标。这说明结论可由切线方程直接“转移”得到。
+\medskip
+\textbf{\textcolor{CExplanation}{五、判断存在条件：先算，再画}}
+用切点纵坐标 $t$ 表示切点 $Q(t^2/(2p),t)$。因为其切线经过 $P$，所以
+\[
+ t y_0=p\left(x_0+\frac{t^2}{2p}\right)
+ \iff t^2-2y_0t+2px_0=0.
+\]
+这是关于 $t$ 的一元二次方程：
+\[
+\Delta=(-2y_0)^2-4\cdot 1\cdot 2px_0
+=4(y_0^2-2px_0).
+\]
+因此判断 $y_0^2-2px_0$ 的正负，恰好是在判断\textbf{能不能得到两个不同的实切点}。不能只凭口头所说的“外部点”来判断。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（求切点弦）：} 已知抛物线外一点，求切点弦方程。
-		\item \textbf{场景二（反求点坐标）：} 已知切点弦方程，求对应的点。
-	\end{itemize}
-\textbf{存在条件应写成不等式。}
-对 $y^2=2px$，两不同实切点要求 $y_0^2-2px_0>0$；
-对 $x^2=2py$，要求 $x_0^2-2py_0>0$（$p>0$）。等于零仅一条切线，小于零无实切线。
+\medskip
+\textbf{\textcolor{CExplanation}{六、从切点弦还能看出一个几何关系}}
+设切点纵坐标是 $y_1,y_2$，上面的二次方程给出
+\[
+ y_1+y_2=2y_0,\qquad y_1y_2=2px_0.
+\]
+与图中两端点纵坐标的平均数对应，弦中点 $M$ 的纵坐标为 $\dfrac{y_1+y_2}{2}=y_0$，即\textbf{切点弦的中点与点 $P$ 在同一条水平线上}。再由 $x_i=y_i^2/(2p)$，可算得
+\[
+ x_M=\frac{x_1+x_2}{2}=\frac{y_0^2}{p}-x_0.
+\]
+注意：\textbf{中点与 $P$ 同高，不代表 $P$ 在切点弦上}。
+
+\medskip
+\textbf{\textcolor{CExplanation}{七、考场使用顺序}}
+\begin{enumerate}[leftmargin=*,itemsep=0.3em]
+\item 认开口：$y^2=2px$ 还是 $x^2=2py$。
+\item 算正负：$y_0^2-2px_0$ 或 $x_0^2-2py_0$。
+\item 若大于零，直接写切点弦方程；需要切点时再与抛物线联立。
+\end{enumerate}
 \end{explanationbox}

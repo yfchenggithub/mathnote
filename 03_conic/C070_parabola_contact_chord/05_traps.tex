@@ -1,24 +1,53 @@
 \begin{trapbox}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（点位置条件）：}}] 认为抛物线内部点也适用切点弦公式。
-		\item[\textbf{\textcolor{CTrap}{正确理解（点在外部）：}}] 公式仅当 $P$ 在抛物线外部时才成立，内部点无法引两条切线。
-		\item[\textbf{\textcolor{CTrap}{错因分析（混淆内外部）：}}] 没有区分点在内部或外部的几何含义，盲目套用公式。
-	\end{description}
+\textbf{\textcolor{CTrap}{易错一｜不判断是否存在两条实切线}}
+\par\smallskip\begin{center}\input{assets/tikz/C070_tangent_count_comparison.tex}\end{center}\par\smallskip
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（形式混淆）：}}] 将 $y^2=2px$ 与 $x^2=2py$ 对应的切点弦方程记反。
-		\item[\textbf{\textcolor{CTrap}{正确理解（区分开口）：}}] $y^2$ 型：$y_0 y = p(x+x_0)$；$x^2$ 型：$x_0 x = p(y+y_0)$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（未记忆对应关系）：}}] 只记了一种形式，忽视抛物线开口方向对方程结构的影响。
-	\end{description}
+上图固定 $y^2=4x$，只改变 $P$ 的位置。三幅红线均由公式得到，但只有左图红线连接两个不同切点；中图红线是顶点切线，右图红线与曲线无实交点。把三者都称为“切点弦”是错误的。
+\par\textbf{纠正：} 对 $y^2=2px$，必须先查 $y_0^2-2px_0>0$；对 $x^2=2py$，必须先查 $x_0^2-2py_0>0$。等于零是\textbf{单条切线}，小于零\textbf{无实切点}。不能只说“外部”而不说明具体不等式。
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（系数错误）：}}] 将右边错误写成 $2p(x+x_0)$ 或 $p(x-x_0)$。
-		\item[\textbf{\textcolor{CTrap}{正确理解（系数为p）：}}] 右边是 $p(x+x_0)$，不是 $2p(x+x_0)$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（混淆p与2p）：}}] 受抛物线标准方程 $y^2=2px$ 中 $2p$ 的影响，误以为系数是 $2p$。
-	\end{description}
-\textbf{存在条件应写成不等式。}
-对 $y^2=2px$，两不同实切点要求 $y_0^2-2px_0>0$；
-对 $x^2=2py$，要求 $x_0^2-2py_0>0$（$p>0$）。等于零仅一条切线，小于零无实切线。
+\medskip
+\textbf{\textcolor{CTrap}{易错二｜把 $P$ 当作切点弦上的点}}
+切点弦经过两个\textbf{切点} $A,B$，一般不经过两切线的\textbf{交点} $P$。
+\par\textbf{最小反例：} $y^2=4x$、$P(-1,0)$，切点弦为 $x=1$，而 $P$ 的横坐标为 $-1$。$P$ 明显不在弦上。
+\par\textbf{进一步判断：} 若 $P$ 也满足 $y_0y=p(x+x_0)$，代入 $P$ 得 $y_0^2=2px_0$，这恰恰是\textbf{只有一条切线}的情形，而不是两个不同切点的情形。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错三｜开口方向与公式混淆}}
+\[
+\begin{aligned}
+ y^2=2px &:\quad \boxed{y_0y=p(x+x_0)},\\
+ x^2=2py &:\quad \boxed{x_0x=p(y+y_0)}.
+\end{aligned}
+\]
+\textbf{理解方法：} 哪个字母有平方，切点弦左边就由那个字母的两个坐标相乘，不用背一大段口诀。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错四｜忘记系数减半或误写减号}}
+把 $y_0y=p(x+x_0)$ 错写成 $y_0y=2p(x+x_0)$ 或 $y_0y=p(x-x_0)$。
+\par\textbf{检查：} 若切点就是 $Q(u,v)$，切线 $vy=p(x+u)$ 代回 $Q$ 时右侧必须变成 $2pu$，与 $v^2=2pu$ 一致。
+
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CTrap}{易错五｜将“直线有一个交点”一概叫作切线}}
+\begin{center}\input{assets/tikz/C070_horizontal_secant_comparison.tex}\end{center}\end{minipage}\par
+判断切线时必须注意所用的方程形式。例如对 $y^2=2px$，采用 $x=x_0+m(y-y_0)$ 联立后是\textbf{关于 $y$ 的一元二次方程}，以判别式为零判相切；不能把水平直线 $y=c$ 与抛物线只有一个交点，就错误地当作抛物线切线。
+\par\textbf{理由：} 如图，水平线虽只有一个实交点，却横穿曲线；右图切线与曲线在接触处方向一致。$y^2=2px$ 的真实切线都可写成 $vy=p(x+u)$（包括顶点处 $x=0$）。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错六｜由弦方程反求 $P$ 时直接比较未经整理的系数}}
+两直线方程可整体乘同一个非零数，故必须先把两边整理成同样的形式，再比较系数。
+\par\textbf{例：} $y=x-1$ 与 $y_0y=2(x+x_0)$ 比较时，先写 $y=(2/y_0)x+2x_0/y_0$，得 $P(-1,2)$，而不是随意把 $y_0$ 读成 $1$。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错七｜相加只得到中点关系，却误当作已求出中点坐标}}
+两切点处切线代入 $P$ 后相加得到的是
+\[y_0y_m=p(x_0+x_m),\]
+这\textbf{只有一个等式、两个未知的中点坐标}，不能仅凭它就直接断言 $M$ 的坐标。
+\par\textbf{纠正：} 用点斜式求弦时，只需这个关系即可消去中点坐标；如果题目要求 $M$ 的\textbf{具体坐标}，还应利用抛物线上两切点的方程相减，先得 $y_m=y_0$，再解得 $x_m=y_0^2/p-x_0$。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错八｜默认 $k=p/y_0$ 永远可用，漏掉竖直切点弦}}
+若 $y_0=0$，斜率式 $p/y_0$ 无意义，这不代表没有切点弦。
+\par\textbf{最小反例：} $y^2=4x$、$P(-1,0)$，有两个切点 $(1,\pm 2)$，弦是 $x=1$，恰为竖直直线。
+\par\textbf{纠正：} 保留没有除法的式子 $y_0(y_1-y_2)=p(x_1-x_2)$；当 $y_0=0$ 时，立即得到 $x_1=x_2=-x_0$，使用 $x=-x_0$，不再用点斜式。
 \end{trapbox}

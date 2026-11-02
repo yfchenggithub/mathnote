@@ -1,39 +1,170 @@
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
-
-	设两个切点坐标，利用切线方程，通过点在线上得到两个关系式，从而发现两个切点在同一直线上，即得切点弦方程。
-
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（设切点写切线）：}] 设抛物线 $y^2=2px$ 上两切点为 $A(x_1,y_1)$, $B(x_2,y_2)$，则过 $A$ 的切线方程为 $y_1y = p(x+x_1)$，过 $B$ 的切线方程为 $y_2y = p(x+x_2)$。
-			\par\textbf{理由：} 由导数或判别式可得 $y^2=2px$ 上点 $(x_1,y_1)$ 处的切线公式。
-
-		\item[\textbf{步骤二（代入点P）：}] 因为 $P(x_0,y_0)$ 在两条切线上，代入得
-			\[
-				y_1 y_0 = p(x_0 + x_1),
-				\qquad
-				y_2 y_0 = p(x_0 + x_2).
-			\]
-			\par\textbf{理由：} 点在直线上，坐标满足方程。
-
-		\item[\textbf{步骤三（构造直线方程）：}] 观察上述两式，$A$ 和 $B$ 均满足方程 $y_0 y = p(x + x_0)$。事实上，将 $A(x_1,y_1)$ 代入得 $y_0 y_1 = p(x_1 + x_0)$，正是步骤二的结果。同理对 $B$ 成立。
-			\par\textbf{理由：} 等式对称性说明 $A,B$ 共线。
-
-		\item[\textbf{步骤四（回扣y平方型）：}] 因此直线 $y_0 y = p(x + x_0)$ 经过 $A,B$，即为所求切点弦方程。
-			\par\textbf{理由：} 两点确定一条直线。
-
-		\item[\textbf{步骤五（推广x平方型）：}] 对于 $x^2 = 2py$，设切点为 $C(x_3,y_3)$，则切线 $x_3 x = p(y + y_3)$，代入 $P$ 得 $x_3 x_0 = p(y_0 + y_3)$，故 $C$ 在直线 $x_0 x = p(y + y_0)$ 上。同理另一端点也在此直线上，所以切点弦方程为 $x_0 x = p(y + y_0)$。
-			\par\textbf{理由：} 完全平行于步骤一至四的推理。
-	\end{description}
-
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-
-	综上，抛物线 $y^2=2px$ 的切点弦方程为 $y_0 y = p(x+x_0)$；$x^2=2py$ 的切点弦方程为 $x_0 x = p(y+y_0)$。
+\textbf{\textcolor{CProof}{证明目标}}
+对 $C:y^2=2px\ (p>0)$，$P(x_0,y_0)$ 满足 $y_0^2-2px_0>0$，证明过 $P$ 所引两切线的切点弦为
+\[\boxed{y_0y=p(x+x_0)}.\]
+以下四法全部只用高中数学中的\textbf{点斜式、切线方程、方程相加与相减、二次方程和判别式}；第四法不把切点弦公式当作已知结论。
 
 \medskip
-切点记为 $(t^2/(2p),t)$，其切线经过 $P$ 当且仅当
-$t^2-2y_0t+2px_0=0$，判别式为 $4(y_0^2-2px_0)$。
-因此两个不同实切点的条件恰为 $y_0^2-2px_0>0$；纵轴形式交换 $x,y$ 即得。
+
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{方法一｜门槛最低：相减求斜率、相加找中点关系、点斜式还原（学生自推法）}}
+\par\smallskip\begin{center}\input{assets/tikz/C070_chord_midpoint.tex}\end{center}\par\smallskip
+\end{minipage}\par
+\textbf{思路：} 求直线只需一个点和一个斜率。两切线有公共点 $P$，恰好可以列出两式；\textbf{相减找方向，相加找中点的关系}，最后使用点斜式。
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.5em]
+\item[\textbf{第1步：列出公共点 $P$ 满足的两个等式。}]
+设切点 $A(x_1,y_1),B(x_2,y_2)$，弦中点 $M(x_m,y_m)$。
+因为 $A,B$ 处的切线均经过 $P$，所以
+\[
+ \begin{cases}
+ y_0y_1=p(x_0+x_1), &(1)\\
+ y_0y_2=p(x_0+x_2). &(2)
+ \end{cases}
+\]
+\textbf{理由：} 切点 $A$ 处切线为 $y_1y=p(x+x_1)$，把 $P$ 的坐标代入即可；另一点同理。
+\item[\textbf{第2步：两式相减，得到弦的斜率。}]
+\[
+ (1)-(2):\quad y_0(y_1-y_2)=p(x_1-x_2).
+\]
+若 $y_0\ne0$，又因为 $A,B$ 为不同切点，所以 $x_1\ne x_2$，于是
+\[
+ \boxed{k_{AB}=\frac{y_1-y_2}{x_1-x_2}=\frac p{y_0}}.
+\]
+\textbf{几何意义：} 两式相减消去共同的 $x_0$，得到两端点坐标之差，即\textbf{弦的方向}。
+\item[\textbf{第3步：两式相加，得到中点坐标之间的关系。}]
+\[
+ (1)+(2):\quad y_0(y_1+y_2)=p(2x_0+x_1+x_2).
+\]
+由于 $x_1+x_2=2x_m$、$y_1+y_2=2y_m$，所以
+\[
+ \boxed{y_0y_m=p(x_0+x_m)}.
+\]
+\textbf{提醒：} 此处\textbf{没有分别算出 $x_m,y_m$}，而是找到了中点坐标满足的等式，这已经足够。
+\item[\textbf{第4步：使用点斜式，消去中点坐标。}]
+在 $y_0\ne0$ 的情况下，直线 $AB$ 经过 $M$ 且斜率已知：
+\[
+ \begin{aligned}
+ y-y_m&=\frac p{y_0}(x-x_m)\\
+ \Longrightarrow\quad y_0y-y_0y_m&=p(x-x_m)\\
+ \Longrightarrow\quad y_0y-p(x_0+x_m)&=p(x-x_m)\\
+ \Longrightarrow\quad &\boxed{y_0y=p(x+x_0)}.
+ \end{aligned}
+\]
+\textbf{观察：} 中点横坐标 $x_m$ 在最后一步恰好抵消。
+\item[\textbf{第5步：补上 $y_0=0$ 的竖直弦。}]
+此时从 (1)、(2) 直接得到 $x_1=x_2=-x_0$，两切点在同一条竖直直线上，故
+\[\boxed{AB:\ x=-x_0}\]
+这也正是 $y_0y=p(x+x_0)$ 在 $y_0=0$ 时的结果。不能写 $p/y_0$。
+\end{description}
+
+\textbf{继续挖掘：能否真的求出中点 $M$？} 两切点还满足 $y_1^2=2px_1$、$y_2^2=2px_2$。两式相减：
+\[
+ (y_1+y_2)(y_1-y_2)=2p(x_1-x_2).
+\]
+代入第2步的 $p(x_1-x_2)=y_0(y_1-y_2)$，且两切点不同所以 $y_1\ne y_2$，得到
+\[
+ y_1+y_2=2y_0\quad\Longrightarrow\quad\boxed{y_m=y_0}.
+\]
+再代入第3步 $y_0y_m=p(x_0+x_m)$，得到
+\[
+ \boxed{M\left(\frac{y_0^2}{p}-x_0,\,y_0\right)}.
+\]
+\textbf{几何意义：} 弦中点与两切线交点 $P$ 的纵坐标相同。\textbf{这一步不是证明切点弦方程所必需的，而是高价值推论。}
+
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{方法二｜速度最快：相减求斜率，直接使用切点的点斜式（考场速写）}}
+\par\smallskip\begin{center}\input{assets/tikz/C070_proof_arbitrary_contact.tex}\end{center}\par\smallskip
+\end{minipage}\par
+当 $y_0\ne0$，由两切点处切线都经过 $P$，相减即得
+\[
+ k_{AB}=\frac{y_1-y_2}{x_1-x_2}=\frac p{y_0}.
+\]
+直接取弦上已有的切点 $A(x_1,y_1)$，写点斜式：
+\[
+ \begin{aligned}
+ y-y_1&=\frac p{y_0}(x-x_1)\\
+ \Longrightarrow\quad y_0y-y_0y_1&=p(x-x_1)\\
+ \overset{y_0y_1=p(x_0+x_1)}{\Longrightarrow}\quad
+ \boxed{y_0y=p(x+x_0)}.
+ \end{aligned}
+\]
+\textbf{为何更快：} 与方法一相比，\textbf{无需相加、无需设置中点}，斜率求出后直接使用切点 $A$。若 $y_0=0$，由两切线过 $P$ 的等式得 $x_1=x_2=-x_0$，直接写竖直弦。
+
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{方法三｜步骤最少：两个切点都满足同一个一次方程（两步）}}
+\par\smallskip\begin{center}\input{assets/tikz/C070_proof_point_substitution.tex}\end{center}\par\smallskip
+\end{minipage}\par
+\textbf{第1步：} 对任意切点 $Q(u,v)$，其切线 $vy=p(x+u)$ 经过 $P$，所以
+\[
+ vy_0=p(x_0+u)\quad\Longleftrightarrow\quad y_0v=p(u+x_0).
+\]
+\textbf{第2步：} 这对不同切点 $A,B$ 都成立，因此两点都在直线 $y_0y=p(x+x_0)$ 上，故
+\[\boxed{AB:\ y_0y=p(x+x_0)}.\]
+\textbf{优势：} 不需计算斜率，不会遇到除以 $y_0$ 的问题；从已有切线公式出发，真正只用两步。
+
+\textbf{补充反向检验（原有思路保留）：} 若先写候选直线 $L:y_0y=p(x+x_0)$，联立 $x=y^2/(2p)$，得
+\[
+ y^2-2y_0y+2px_0=0,
+\]
+由已知 $y_0^2-2px_0>0$ 知它有两个不同实交点。任一交点 $Q(u,v)$ 都满足 $vy_0=p(x_0+u)$，说明 $Q$ 处切线经过 $P$，因此这两个交点确实就是切点。\textbf{这是验证，不是再增加一种必背的证明法。}
+\par\smallskip\begin{center}\input{assets/tikz/C070_proof_candidate_chord.tex}\end{center}
+
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{方法四｜常规通用：设直线、联立、判别式（完整代数法）}}
+\par\smallskip\begin{center}\input{assets/tikz/C070_proof_discriminant.tex}\end{center}\par\smallskip
+\end{minipage}\par
+
+此法不预先调用\textbf{切点弦}结论，也不需要导数。
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.5em]
+\item[\textbf{第1步：设经过 $P$ 的切线。}]
+把待求切线写成
+\[\ell:\ x=x_0+m(y-y_0).\]
+\textbf{理由：} 这样设可包含 $x=\text{常数}$ 的竖直切线，尤其不会漏掉顶点处的切线 $x=0$。对 $y^2=2px$，切线不会是水平直线。
+\item[\textbf{第2步：联立抛物线。}] 把 $\ell$ 代入 $y^2=2px$：
+\[
+ y^2-2pmy-2p(x_0-my_0)=0.
+\]
+\item[\textbf{第3步：利用相切条件。}]
+直线与抛物线相切时，联立所得关于 $y$ 的一元二次方程有两个相等的实根，因此判别式为零：
+\[
+ \Delta=(-2pm)^2+8p(x_0-my_0)=0
+ \iff\boxed{pm^2-2y_0m+2x_0=0}.
+\]
+这也是关于 $m$ 的二次方程。其判别式
+\[\Delta_m=4y_0^2-8px_0=4(y_0^2-2px_0)>0,\]
+故存在两个不同实数 $m_1,m_2$，对应两条不同切线。
+\item[\textbf{第4步：找出切点坐标。}]
+判别式为零时，$y$ 的二次方程有重根 $y=pm$；再代入抛物线，切点为
+\[Q=\left(\frac{pm^2}{2},\,pm\right).\]
+\item[\textbf{第5步：证明每个切点落在同一条直线上。}]
+由第3步的 $pm^2-2y_0m+2x_0=0$ 得
+\[
+ y_0(pm)=p\left(x_0+\frac{pm^2}{2}\right).
+\]
+即切点 $Q$ 满足 $y_0y=p(x+x_0)$。两个不同的 $m$ 分别产生不同切点，故两切点所在直线就是
+\[\boxed{y_0y=p(x+x_0)}.\]
+\end{description}
+\textbf{方法价值：} 遇到不方便直接套切点弦公式的题，也可以依靠\textbf{直线设法 $\to$ 联立 $\to$ 判别式为零 $\to$ 回代切点}解决。
+
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{推广：$x^2=2py$ 的情况}}
+\begin{center}\input{assets/tikz/C070_vertical_contact_chord.tex}\end{center}\end{minipage}\par
+交换上述各式中的 $x,y$ 即可。已知 $P(x_0,y_0)$ 且 $x_0^2-2py_0>0$，切点处切线为
+\[u x=p(y+v),\qquad Q(u,v)\in C,\]
+因为经过 $P$，所以 $u x_0=p(y_0+v)$。两个切点都在同一条直线
+\[\boxed{x_0x=p(y+y_0)}\]
+上，故它就是该抛物线的切点弦所在直线。
+
+\medskip
+\textbf{\textcolor{CProof}{条件为什么恰好是大于零（快速自查）}}
+设切点 $Q(t^2/(2p),t)$，由该点处切线经过 $P$ 得
+\[
+ t^2-2y_0t+2px_0=0,\qquad
+ \Delta=4(y_0^2-2px_0).
+\]
+大于零才有两个不同的实数 $t$（也就是两个不同切点）；等于零只有一个切点，小于零没有实切点。纵轴形式同理。
 \end{proofbox}

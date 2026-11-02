@@ -1,0 +1,16 @@
+\begin{tikzpicture}[x=1cm,y=1cm,>=Stealth,font=\small]
+\path[use as bounding box] (-2,-1.8) rectangle (10,6.4);
+\node[anchor=west,font=\small\bfseries] at (-1.8,6) {斜弦的中点仍与 $P$ 同高，而 $P$ 不在弦上};
+\draw[->,gray] (-1.6,0)--(6.6,0) node[right] {$x$};
+\draw[->,gray] (0,-1.3)--(0,5.1) node[right] {$y$};
+\draw[blue,thick,domain=-1.2:5.1,samples=81] plot ({\x*\x/4},\x);
+\draw[orange!85!black,thick] (-1,2)--({3+2*sqrt(2)},{2+2*sqrt(2)});
+\draw[orange!85!black,thick] (-1,2)--({3-2*sqrt(2)},{2-2*sqrt(2)});
+\draw[red!75!black,very thick] ({3-2*sqrt(2)},{2-2*sqrt(2)})--({3+2*sqrt(2)},{2+2*sqrt(2)});
+\draw[teal!80!black,dashed,thick] (-1.5,2)--(3.7,2);
+\fill (-1,2) circle(2pt) node[above left] {$P(-1,2)$};
+\fill (3,2) circle(2pt) node[below right] {$M(3,2)$};
+\fill ({3+2*sqrt(2)},{2+2*sqrt(2)}) circle(2pt) node[above left] {$A$};
+\fill ({3-2*sqrt(2)},{2-2*sqrt(2)}) circle(2pt) node[below left,xshift=-4pt] {$B$};
+\node[anchor=north west,align=left,text width=3cm] at (7,4.8) {$y^2=4x$\\[6pt]红弦：$y=x-1$\\[10pt]$y_A=2+2\sqrt2$\\$y_B=2-2\sqrt2$\\[10pt]$y_M=\dfrac{y_A+y_B}{2}$\\[4pt]$\phantom{y_M}=2=y_0$};
+\end{tikzpicture}

@@ -1,0 +1,17 @@
+\begin{tikzpicture}[x=1cm,y=0.86cm,>=Stealth,font=\small]
+\path[use as bounding box] (-2,-3.5) rectangle (10,4.2);
+\node[anchor=west,font=\small\bfseries] at (-1.8,3.8) {方法二：把注意力从切线上点 $P$ 转向切点 $Q$};
+\draw[->,gray] (-1.7,0)--(3.3,0) node[right] {$x$};
+\draw[->,gray] (0,-3.1)--(0,3.1) node[above] {$y$};
+\node[below left] at (0,0) {$O$};
+\draw[blue,thick,domain=-3:3,samples=81] plot ({\x*\x/4},\x);
+\draw[orange!85!black,thick] (-1.4,-.4)--(1.8,2.8);
+\draw[orange!85!black,thick] (-1.4,.4)--(1.8,-2.8);
+\draw[red!75!black,very thick] (1,-2.7)--(1,2.7);
+\fill (-1,0) circle (2pt) node[above left,yshift=12pt] {$P(x_0,y_0)$};
+\fill (1,2) circle (2pt) node[below right,xshift=5pt,yshift=-3pt] {$Q(u,v)$};
+\fill (1,-2) circle (2pt) node[above right,xshift=5pt,yshift=3pt] {$B$};
+
+\node[anchor=north west,align=left,text width=5.7cm] at (4,2.7) {观察上方切点 $Q$：\\[6pt]橙线过 $P$，所以\\$vy_0=p(x_0+u)$。\\[6pt]交换因子、加数次序：\\$y_0v=p(u+x_0)$。\\[6pt]这说明 $Q$ 在红线上。};
+\node[anchor=west,blue] at (-1.6,-3.25) {$y^2=4x$（精确示例，$p=2$）};
+\end{tikzpicture}

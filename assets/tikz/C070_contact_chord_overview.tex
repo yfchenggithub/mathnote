@@ -1,0 +1,17 @@
+\begin{tikzpicture}[x=1cm,y=0.86cm,>=Stealth,font=\small]
+\path[use as bounding box] (-2,-3.5) rectangle (10,4.2);
+\node[anchor=west,font=\small\bfseries] at (-1.8,3.8) {两切线交于 $P$，红线连接两个切点};
+\draw[->,gray] (-1.7,0)--(3.3,0) node[right] {$x$};
+\draw[->,gray] (0,-3.1)--(0,3.1) node[above] {$y$};
+\node[below left] at (0,0) {$O$};
+\draw[blue,thick,domain=-3:3,samples=81] plot ({\x*\x/4},\x);
+\draw[orange!85!black,thick] (-1.4,-.4)--(1.8,2.8);
+\draw[orange!85!black,thick] (-1.4,.4)--(1.8,-2.8);
+\draw[red!75!black,very thick] (1,-2.7)--(1,2.7);
+\fill (-1,0) circle (2pt) node[above left,yshift=12pt] {$P(-1,0)$};
+\fill (1,2) circle (2pt) node[below right,xshift=5pt,yshift=-3pt] {$A(1,2)$};
+\fill (1,-2) circle (2pt) node[above right,xshift=5pt,yshift=3pt] {$B(1,-2)$};
+
+\node[anchor=north west,align=left,text width=5.7cm] at (4,2.7) {橙线：$PA,PB$ 是两条切线。\\[6pt]红线：$AB:x=1$ 是切点弦所在直线。\\[6pt]$P\notin AB$；切点弦连接的是 $A,B$。};
+\node[anchor=west,blue] at (-1.6,-3.25) {$y^2=4x$（精确示例，$p=2$）};
+\end{tikzpicture}

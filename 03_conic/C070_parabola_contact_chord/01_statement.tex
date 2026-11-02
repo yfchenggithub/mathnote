@@ -1,26 +1,49 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件1（抛物线标准型）：}}] 抛物线 $C: y^2 = 2px$ ($p>0$)，点 $P(x_0, y_0)$ 在 $C$ 的外部。
-	\end{description}
+\par\smallskip\begin{center}\input{assets/tikz/C070_contact_chord_overview.tex}\end{center}\par\smallskip
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（y平方型）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			切点弦方程为 $y_0 y = p(x + x_0)$，形式与切线方程类似。
-			\[
-				\boxed{y_0 y = p(x + x_0)}
-			\]
+\textbf{\textcolor{CStatement}{一、已知条件与基本结论}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.4em]
+  \item[\textbf{条件：}] 抛物线 $C:y^2=2px\ (p>0)$，已知点 $P(x_0,y_0)$。从 $P$ 向抛物线作两条不同的实切线，切点为 $A,B$；直线 $AB$ 称为\textbf{切点弦所在直线}。
+  \item[\textbf{两切点存在的充要条件：}] $y_0^2-2px_0>0$。
+  \item[\textbf{结论一（$y^2$ 型）：}]
+  \[
+     \boxed{\ y_0y=p(x+x_0)\ }.
+  \]
+  \item[\textbf{结论二（$x^2$ 型）：}] 对 $C:x^2=2py\ (p>0)$，若 $x_0^2-2py_0>0$，则
+  \[
+     \boxed{\ x_0x=p(y+y_0)\ }.
+  \]
+\end{description}
 
-		\item[\textbf{\textcolor{CStatement}{推广结论（x平方型）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			若抛物线开口向上，切点弦方程为 $x_0 x = p(y + y_0)$。
-			\[
-				\boxed{x_0 x = p(y + y_0)}
-			\]
-	\end{description}
-\textbf{存在条件应写成不等式。}
-对 $y^2=2px$，两不同实切点要求 $y_0^2-2px_0>0$；
-对 $x^2=2py$，要求 $x_0^2-2py_0>0$（$p>0$）。等于零仅一条切线，小于零无实切线。
+\medskip
+\textbf{\textcolor{CStatement}{二、使用公式之前，先判断有没有两条实切线}}
+\[
+\begin{array}{c|c|c}
+\text{判断值} & \text{实切线条数} & \text{公式的实际含义}\\ \hline
+>0 & 2 & \text{两个不同切点，存在切点弦}\\
+=0 & 1 & \text{两个切点重合，所得直线是该点切线}\\
+<0 & 0 & \text{无实切点，所得直线不是切点弦}
+\end{array}
+\]
+对 $y^2=2px$，判断值取 $y_0^2-2px_0$；对 $x^2=2py$，判断值取 $x_0^2-2py_0$。
+
+\medskip
+\textbf{\textcolor{CStatement}{三、便于理解的附加结论}}
+对 $y^2=2px$，当两切点存在且其中点为 $M$ 时，\textbf{$M$ 与 $P$ 的纵坐标相等}：
+\[
+  \boxed{\ y_M=y_0,\qquad x_M=\frac{y_0^2}{p}-x_0\ }.
+\]
+对于 $x^2=2py$，相应地有 $x_M=x_0$、$y_M=x_0^2/p-y_0$。
+
+\medskip
+\textbf{\textcolor{CStatement}{四、从直线的“一个点和斜率”理解公式}}
+设 $A(x_1,y_1),B(x_2,y_2)$，$M(x_m,y_m)$ 为弦中点。两条切线都经过 $P$，分别列式后：
+\[
+\begin{aligned}
+ \text{两式相减：}\quad& y_0(y_1-y_2)=p(x_1-x_2),\\
+ \text{两式相加：}\quad& y_0y_m=p(x_0+x_m).
+\end{aligned}
+\]
+当 $y_0\ne0$ 时，\textbf{相减确定方向} $k_{AB}=p/y_0$；\textbf{相加建立中点关系}，再由点斜式还原切点弦方程。当 $y_0=0$ 时，弦是竖直线 $x=-x_0$，不可强行使用斜率公式。
+
 \end{statementbox}

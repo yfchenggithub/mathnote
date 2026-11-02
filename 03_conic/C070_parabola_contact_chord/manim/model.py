@@ -26,6 +26,11 @@ def polar(P,Q):
     if KIND in ('ellipse','monge'):return x*X/a**2+y*Y/b**2-1
     if KIND=='hyperbola':return x*X/a**2-y*Y/b**2-1
     return y*Y-p*(X+x)
+def chord_midpoint(t):
+    """Compute M from the contacts, independently of the invariant."""
+    _, A, B = state(t)
+    return ((A[0] + B[0]) / 2, (A[1] + B[1]) / 2)
+
 def angle(t):
     P,A,B=state(t);u=(A[0]-P[0],A[1]-P[1]);v=(B[0]-P[0],B[1]-P[1])
     return acos(max(-1,min(1,(u[0]*v[0]+u[1]*v[1])/(hypot(*u)*hypot(*v)))))*180/3.141592653589793

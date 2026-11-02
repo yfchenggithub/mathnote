@@ -1,0 +1,17 @@
+\begin{tikzpicture}[x=1cm,y=0.86cm,>=Stealth,font=\small]
+\path[use as bounding box] (-2,-3.5) rectangle (10,4.2);
+\node[anchor=west,font=\small\bfseries] at (-1.8,3.8) {方法三：先找红线交点，再检验两条橙色切线};
+\draw[->,gray] (-1.7,0)--(3.3,0) node[right] {$x$};
+\draw[->,gray] (0,-3.1)--(0,3.1) node[above] {$y$};
+\node[below left] at (0,0) {$O$};
+\draw[blue,thick,domain=-3:3,samples=81] plot ({\x*\x/4},\x);
+\draw[orange!85!black,thick] (-1.4,-.4)--(1.8,2.8);
+\draw[orange!85!black,thick] (-1.4,.4)--(1.8,-2.8);
+\draw[red!75!black,very thick] (1,-2.7)--(1,2.7);
+\fill (-1,0) circle (2pt) node[above left,yshift=12pt] {$P$};
+\fill (1,2) circle (2pt) node[below right,xshift=5pt,yshift=-3pt] {$A$};
+\fill (1,-2) circle (2pt) node[above right,xshift=5pt,yshift=3pt] {$B$};
+
+\node[anchor=north west,align=left,text width=5.7cm] at (4,2.7) {先画候选直线\\$L:y_0y=p(x+x_0)$，\\与抛物线交于 $A,B$。\\[8pt]再在 $A,B$ 处作切线，\\验证两条切线都经过 $P$。\\[8pt]顺序：交点 $\to$ 切点。};
+\node[anchor=west,blue] at (-1.6,-3.25) {$y^2=4x$（精确示例，$p=2$）};
+\end{tikzpicture}
