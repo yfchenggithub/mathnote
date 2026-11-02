@@ -1,0 +1,22 @@
+% Exact model: P=(2,2); tangent points (2,0), (-10/3,-4/3).
+\begin{tikzpicture}[x=1.25cm,y=1.25cm,>=Stealth,font=\small]
+\path[use as bounding box] (-4.6,-2.7) rectangle (4.6,3.15);
+\node[font=\small\bfseries] at (0,2.9) {方法三：一般直线式同时覆盖斜切线与竖直切线};
+\draw[->,gray!55] (-4.2,0)--(4.2,0) node[right] {$x$};
+\draw[->,gray!55] (0,-2)--(0,2.4) node[right] {$y$};
+\node[below left] at (0,0) {$O$};
+\draw[blue,thick,domain=-1.45:1.45,samples=100] plot ({2*cosh(\x)},{sinh(\x)});
+\draw[blue,thick,domain=-1.45:1.45,samples=100] plot ({-2*cosh(\x)},{sinh(\x)});
+\draw[teal!80!black,very thick] (-4,-1.5)--(3,.25);
+\node[teal!80!black,below=5pt,fill=white,inner sep=2pt] at (-.8,-.7) {切点弦 $l$};
+\draw[red!75!black,thick] (-4,-1.75)--(2,2);
+\draw[red!75!black,thick,dashed] (2,-1.8)--(2,2.4);
+\fill (2,2) circle (1.8pt) node[above right=3pt] {$P(x_0,y_0)$};
+\fill (-10/3,-4/3) circle (1.8pt);
+\node[fill=white,inner sep=2pt] at (-2.2,-1.85) {$T(a^2u,-b^2v)$};
+\fill (2,0) circle (1.8pt);
+\node[fill=white,inner sep=2pt] at (2.8,.35) {$(a,0)$};
+\node[red!75!black,fill=white,inner sep=2pt] at (-1.4,1.35) {$L:\ ux+vy=1$};
+\node[red!75!black,fill=white,inner sep=2pt] at (3.4,-.5) {$v=0:\ x=a$};
+\node[blue,fill=white,inner sep=2pt] at (0,-2.45) {$C:\ x^2/4-y^2=1,\quad P=(2,2)$};
+\end{tikzpicture}

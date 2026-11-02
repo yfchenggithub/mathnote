@@ -1,51 +1,39 @@
 \begin{explanationbox}
-\begin{minipage}{\linewidth}
-\begin{center}\input{assets/tikz/C069_math_audit_geometry.tex}\end{center}
-$P_1=(3,1)$ 的红色极线没有实交点；$P_2=(0,2)$ 的绿色极线 $y=-1/2$ 才是实际切点弦。二者不能只凭“外点”一词混同。
-\end{minipage}
-\par\medskip
+\textbf{\textcolor{CExplanation}{先比较：同样能写代换式，切点数却不同}}
+\begin{center}
+\input{assets/tikz/C069_contact_existence_cases.tex}
+\end{center}
+观察绿色直线与蓝色曲线的公共点：左上有两个，右上、左下各有一个，右下没有。
+\textbf{只有左上能把绿色直线称为切点弦。}红色虚线才是经过 $P$ 的切线。
 
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
-	过双曲线外一点作两条切线，两个切点的连线（切点弦）的方程可以由该点的坐标直接代入一个固定形式得到，无需求出切点坐标。
+\textbf{\textcolor{CExplanation}{一、从初中熟悉的“两点确定直线”出发}}
+\begin{enumerate}[leftmargin=*,itemsep=0.45em]
+\item 先想一条切线 $PA$。它在 $A(x_1,y_1)$ 处与双曲线相切，切线方程是
+\[\frac{x_1x}{a^2}-\frac{y_1y}{b^2}=1.\]
+\item $P(x_0,y_0)$ 在这条切线上，所以把 $x=x_0,y=y_0$ 代进去：
+\[\frac{x_1x_0}{a^2}-\frac{y_1y_0}{b^2}=1.\]
+\item 乘法交换顺序不改变等式，于是 $A(x_1,y_1)$ 满足
+\[\frac{x_0x}{a^2}-\frac{y_0y}{b^2}=1.\]
+\item 对另一个切点 $B$ 重复同样的步骤。这样 $A,B$ 同在这条直线上；由两点确定一条直线，它就是 $AB$。
+\end{enumerate}
+\textbf{关键一步：} $P$ 在“$A$ 点处切线”上，等价于 $A$ 在“由 $P$ 坐标代换得到的直线”上。这只是乘法交换律，不需要大学数学知识。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（代换规则）：}]
-			切点弦方程与对应标准方程下的切线方程形式相同，只需将切线方程中的切点坐标替换为 $P(x_0,y_0)$ 即可。
-		\item[\textbf{要点二（结构特征）：}]
-			方程左侧为 $\frac{x_0 x}{a^2} - \frac{y_0 y}{b^2}$ 或 $\frac{y_0 y}{a^2} - \frac{x_0 x}{b^2}$，右侧恒为 $1$，与双曲线标准方程右端一致。
-	\end{description}
+\medskip
+\textbf{\textcolor{CExplanation}{二、为什么叫“代一半”}}
+\[
+\frac{\color{CExplanation}x^2}{a^2}-\frac{\color{CExplanation}y^2}{b^2}=1
+\quad\longrightarrow\quad
+\frac{x_0x}{a^2}-\frac{y_0y}{b^2}=1.
+\]
+把每个平方中的一个字母换为已知点的对应坐标，\textbf{分母、减号、右边的 $1$ 全部不动}。这是一种算式的速写方法，证明依据仍是上面的切线与切点关系。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（两点连线）}}
-	切点弦本质是两切点的连线，它通过 $P$ 点关于双曲线的极性关系确定。$P$ 是外部点，两切点的坐标满足双曲线方程，它们的连线恰好由该方程决定。
+\medskip
+\textbf{\textcolor{CExplanation}{三、先检查是否有两个切点}}
+对焦点在 $x$ 轴的标准双曲线，先算
+\[q=\frac{x_0^2}{a^2}-\frac{y_0^2}{b^2}.\]
+只有 $q<1$ 且 $q\ne0$，代换所得直线才真正是两个不同实切点的连线。比如 $P=(3,1)$ 时，$q=\frac54>1$，就不存在切点弦。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（代换规则）}}
-	将双曲线标准方程 $\frac{x^2}{a^2} - \frac{y^2}{b^2} = 1$ 中的 $x^2$ 替换为 $x_0 x$，$y^2$ 替换为 $y_0 y$，其余不变，即得到切点弦方程。这种“代一半”规则是二次曲线切线与切点弦的共性。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（直接应用）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（求切点弦方程）：} 给出双曲线方程和外部点坐标，直接套用公式写出切点弦方程。
-		\item \textbf{考法二（逆向求点）：} 给出切点弦方程和双曲线方程，反解外部点 $P$ 的坐标。
-	\end{itemize}
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
-	核心是记住代换模式：$x^2 \to x_0 x$，$y^2 \to y_0 y$，常数项 $1$ 不变。这种代换对椭圆和双曲线都适用，但双曲线的符号差异要注意（中间是减号）。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（已知点求弦）：} 已知双曲线外一点 $P$，直接写出过 $P$ 的两切线的切点弦方程。
-		\item \textbf{场景二（已知弦求点）：} 已知切点弦直线方程，通过比较系数求出 $P$ 点坐标。
-	\end{itemize}
-
-\textbf{两有限实切点的存在条件。}
-记 $q=x_0^2/a^2-y_0^2/b^2$，则恰有两个不同的有限实切点当且仅当
-$q<1$ 且 $q\ne0$。$q=1$ 是一个切点，$q>1$ 无实切点；
-$q=0$ 的非中心点在渐近线上，只有一个有限切点，另一方向为渐近线；中心点没有实切线。
-纵轴形式使用 $q=y_0^2/a^2-x_0^2/b^2$。
+\medskip
+\textbf{\textcolor{CExplanation}{四、教师讲解建议}}
+先问学生：“$P$ 在切线 $PA$ 上，能写出什么等式？”再问：“同一个等式为什么也适用于 $B$？”最后才展示代换口诀。这样顺序是\textbf{位置关系 $\to$ 代数等式 $\to$ 两点共线 $\to$ 公式}，学生不必靠死记。
 \end{explanationbox}

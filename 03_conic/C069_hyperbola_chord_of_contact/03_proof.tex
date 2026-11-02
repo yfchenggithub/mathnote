@@ -1,58 +1,133 @@
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
-	本证明基于双曲线上一点切线方程的代换形式。通过两切线均经过点 $P$，可推出两切点坐标满足同一个关于 $x_0, y_0$ 的方程，该方程即为切点弦方程。
+\textbf{\textcolor{CProof}{证明对象}}
+以下先证明焦点在 $x$ 轴时的公式，设
+\[
+C:\frac{x^2}{a^2}-\frac{y^2}{b^2}=1,\quad a,b>0,\quad P(x_0,y_0).
+\]
+若有两条不同的实切线 $PA,PB$，记切点 $A(x_1,y_1), B(x_2,y_2)$。最后给出两个实切点存在条件的高中代数证明。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（设切点坐标）：}]
-			设 $A(x_1,y_1)$ 和 $B(x_2,y_2)$ 为两切点，均位于双曲线 $\frac{x^2}{a^2} - \frac{y^2}{b^2}=1$（焦点在 $x$ 轴）上，则有
-			\[
-				\frac{x_1^2}{a^2} - \frac{y_1^2}{b^2}=1,\quad \frac{x_2^2}{a^2} - \frac{y_2^2}{b^2}=1.
-			\]
-			\par\textbf{理由：} 切点满足双曲线方程。
-		\item[\textbf{步骤二（写出切线方程）：}]
-			过双曲线上点 $A(x_1,y_1)$ 的切线方程为
-			\[
-				\frac{x_1 x}{a^2} - \frac{y_1 y}{b^2}=1,
-			\]
-			同样过点 $B(x_2,y_2)$ 的切线方程为
-			\[
-				\frac{x_2 x}{a^2} - \frac{y_2 y}{b^2}=1.
-			\]
-			\par\textbf{理由：} 双曲线上一点切线方程可由求导或判别式法得到，其形式与标准方程代换一致。
-		\item[\textbf{步骤三（利用 $P$ 在切线上）：}]
-			点 $P(x_0,y_0)$ 既在切线 $l_A$ 上，也在切线 $l_B$ 上，代入得
-			\[
-				\frac{x_1 x_0}{a^2} - \frac{y_1 y_0}{b^2}=1,
-				\qquad
-				\frac{x_2 x_0}{a^2} - \frac{y_2 y_0}{b^2}=1.
-			\]
-			\par\textbf{理由：} 点的坐标满足直线方程。
-		\item[\textbf{步骤四（确定切点弦方程）：}]
-			观察上两式，$A$ 和 $B$ 的坐标均满足方程
-			\[
-				\frac{x_0 x}{a^2} - \frac{y_0 y}{b^2}=1,
-			\]
-			且该方程是直线方程，因此直线 $AB$ 的方程为
-			\[
-				\frac{x_0 x}{a^2} - \frac{y_0 y}{b^2}=1.
-			\]
-			\par\textbf{理由：} 过两点 $A,B$ 的直线有且仅有一条，而该直线方程被 $A,B$ 同时满足，故它就是切点弦 $AB$ 的方程。
-		\item[\textbf{步骤五（推广至 $y$ 轴情形）：}]
-			若双曲线方程为 $\frac{y^2}{a^2} - \frac{x^2}{b^2}=1$，过双曲线上一点切线方程为 $\frac{y_1 y}{a^2} - \frac{x_1 x}{b^2}=1$，同理可证切点弦方程为
-			\[
-				\frac{y_0 y}{a^2} - \frac{x_0 x}{b^2}=1.
-			\]
-			\par\textbf{理由：} 证明过程完全类似，只需交换 $x$ 与 $y$ 的角色。
-	\end{description}
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{方法一：最低门槛——切线式 + 两点确定直线}}
+\textit{适用信号：已学过双曲线上一点的切线方程；优先用于课堂首次讲解。}
+\begin{center}
+\input{assets/tikz/C069_proof_two_points.tex}
+\end{center}
+看图：$P$ 分别在两条红色切线上；代入两次，就把 $A,B$ 都放到绿色直线 $l$ 上。
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-	过双曲线外一点 $P$ 的两切线的切点弦方程，与过该点的切线方程具有相同的代换结构，区别仅在于把切点坐标换成了 $P$ 点坐标。这一规律对两种标准位置的双曲线都成立。
+\end{minipage}
+\begin{enumerate}[leftmargin=*,itemsep=0.4em]
+\item \textbf{在切点 $A$ 处写切线：}
+\[PA:\quad \frac{x_1x}{a^2}-\frac{y_1y}{b^2}=1.\]
+\textbf{为什么：}这是双曲线在曲线上一点 $A(x_1,y_1)$ 处的切线方程。
+\item \textbf{用 $P$ 在这条切线上：}
+\[\frac{x_1x_0}{a^2}-\frac{y_1y_0}{b^2}=1.\]
+把乘法顺序交换，说明 $A(x_1,y_1)$ 落在直线
+\[l:\quad \frac{x_0x}{a^2}-\frac{y_0y}{b^2}=1\]
+上。
+\item \textbf{对 $B$ 重复：}由 $P\in PB$ 得
+\[\frac{x_2x_0}{a^2}-\frac{y_2y_0}{b^2}=1,\]
+所以 $B$ 也在 $l$ 上。$A\ne B$，于是由两点确定一条直线，\textbf{$AB=l$}。证毕。
+\end{enumerate}
+\textbf{直观回扣：}由“$P$ 在切线 $PA$ 上”变为“$A$ 在 $l$ 上”，只用了一次代入和一次乘法交换。
 
-将点和切点分别缩放为 $U=(x_0/a,y_0/b)$、$X=(x/a,y/b)$。
-若 $q\ne0$，极线上的点可写为 $X=U/q+t(U_y,U_x)$，从而
-$X_x^2-X_y^2=1/q-qt^2=1$，即 $t^2=(1-q)/q^2$。
-有两个不同实解恰好要求 $q<1$。$q=0$ 单独联立得到至多一个有限交点。
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{方法二：最快——先写候选直线，再反向验证}}
+\textit{适用信号：已知 $P$，要求迅速写出并证明切点弦方程；已确认存在两个实切点。}
+\begin{center}
+\input{assets/tikz/C069_proof_reverse_check.tex}
+\end{center}
+看图：先取绿色直线上的交点 $T$，再检查 $T$ 处的红色切线是否经过 $P$。
+
+\end{minipage}
+\begin{enumerate}[leftmargin=*,itemsep=0.3em]
+\item \textbf{先写：} $l:\ \dfrac{x_0x}{a^2}-\dfrac{y_0y}{b^2}=1$。
+\item \textbf{反查切线：}任取 $l$ 与 $C$ 的交点 $T(u,v)$，则 $\dfrac{x_0u}{a^2}-\dfrac{y_0v}{b^2}=1$。而 $C$ 在 $T$ 处的切线是 $\dfrac{ux}{a^2}-\dfrac{vy}{b^2}=1$，代入 $P$ 恰好成立，故 $PT$ 是切线。
+\item \textbf{收尾：}若 $l$ 与 $C$ 交于两个不同实点 $A,B$，它们正是从 $P$ 引出的两个切点，故 $l=AB$。交点确有两个的条件由后面的附证独立核验；反过来，任一切点也满足 $l$ 的方程，因此不会漏掉切点。证毕。
+\end{enumerate}
+
+
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{方法三：常规通用——设一般直线、用判别式证明}}
+\textit{适用信号：学生尚未掌握切线式，或教师希望从高中二次方程知识完整推出结论；包含竖直切线。}
+\begin{center}
+\input{assets/tikz/C069_proof_general_tangent.tex}
+\end{center}
+看图：斜切线和竖直切线都能写成 $ux+vy=1$；它们的切点同在绿色直线上。
+
+\end{minipage}
+\begin{enumerate}[leftmargin=*,itemsep=0.42em]
+\item \textbf{设一条切线：}双曲线的有限切线都不经过原点（过原点的直线与双曲线若相交，则交点成中心对称的一对，不可能只有一个切点）。因此可把切线化为
+\[L:\quad ux+vy=1.\]
+这里 $u\ne0$：若 $u=0$，则 $y$ 是常数，代入双曲线得到成对的 $x$ 值；没有恰为一个有限交点的相切情形。
+\item \textbf{与双曲线联立：}由 $x=(1-vy)/u$，代入 $x^2/a^2-y^2/b^2=1$，整理得
+\[
+(b^2v^2-a^2u^2)y^2-2b^2vy+b^2(1-a^2u^2)=0.
+\]
+它是关于 $y$ 的方程。若二次项系数为零，方程只剩一次项，所得唯一交点不是相切的重合交点，须先排除。真正相切时二次项系数不为零，且两个交点重合，因此判别式为零：
+\[
+\begin{aligned}
+\Delta&=(-2b^2v)^2-4(b^2v^2-a^2u^2)b^2(1-a^2u^2)\\
+&=4a^2b^2u^2(1-a^2u^2+b^2v^2)=0.
+\end{aligned}
+\]
+因 $a,b>0$ 且 $u\ne0$，可得
+\[\boxed{a^2u^2-b^2v^2=1}.\]
+此时二次项系数等于 $-1$，确实是有重根的二次方程，不会把一次方程误认为切线。
+\item \textbf{求切点坐标：}二次方程的重根为
+\[y_T=\frac{-(-2b^2v)}{2(-1)}=-b^2v.\]
+再代回 $ux+vy=1$，得到
+\[x_T=\frac{1+b^2v^2}{u}=a^2u.\]
+所以切点 $T=(a^2u,-b^2v)$，也即 $u=x_T/a^2,\ v=-y_T/b^2$。
+\item \textbf{利用切线经过 $P$：}因为 $ux_0+vy_0=1$，故
+\[
+\frac{x_0x_T}{a^2}-\frac{y_0y_T}{b^2}=ux_0+vy_0=1.
+\]
+于是任意切点 $T$ 都在直线 $l:\ \dfrac{x_0x}{a^2}-\dfrac{y_0y}{b^2}=1$ 上。对两个不同切点 $A,B$ 都成立，因此 $l=AB$。证毕。
+\end{enumerate}
+\textbf{补充：}当 $v=0$ 时，上面的推导仍成立，给出 $x=\pm a$ 的竖直切线；不必用斜率式 $y=kx+d$，因而不会漏掉这一特殊情形。
+
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{附证：两个不同的有限实切点何时存在？}}
+\begin{center}
+\input{assets/tikz/C069_contact_existence_cases.tex}
+\end{center}
+\end{minipage}
+上图把候选直线的交点数直接呈现出来；下面用代数证明这些分界。
+为看清条件，仅在这一小段令
+\[
+X=\frac{x}{a},\quad Y=\frac{y}{b},\quad U=\frac{x_0}{a},\quad V=\frac{y_0}{b},\quad q=U^2-V^2.
+\]
+双曲线变为 $X^2-Y^2=1$，候选直线变为 $UX-VY=1$。
+
+\textbf{第1步（$q\ne0$）：}候选直线上所有点都可写为
+\[
+X=\frac{U}{q}+Vt,\qquad Y=\frac{V}{q}+Ut\qquad(t\in\mathbb R).
+\]
+因为 $UX-VY=(U^2-V^2)/q=1$，且方向 $(V,U)$ 沿着这条直线。代回双曲线，交叉项抵消：
+\[
+X^2-Y^2=\frac{1}{q}-qt^2=1
+\quad\Longleftrightarrow\quad
+\boxed{t^2=\frac{1-q}{q^2}}.
+\]
+因此：$q<1$ 时有两个不同实数 $t$（两个有限交点）；$q=1$ 时只有一个；$q>1$ 时无实数解。结合方法二，两个交点就对应两个切点。
+
+\textbf{第2步（$q=0$）：}此时 $U=V$ 或 $U=-V$。若 $U=V=0$，直线方程为 $0=1$，不可能有切点。若 $U=V\ne0$，则
+\[U(X-Y)=1,\quad (X-Y)(X+Y)=1,\]
+从而 $X-Y=1/U,\ X+Y=U$，只确定\textbf{一个}有限交点；$U=-V\ne0$ 的情形相同（交换 $X-Y$ 与 $X+Y$）。故 $q=0$ 不能产生两个不同有限切点。
+
+综上，\textbf{存在两个不同有限实切点的充要条件为 $q<1$ 且 $q\ne0$}。整个附证只用直线方程、平方差公式和一元二次方程的实数解。
+
+\medskip
+\textbf{\textcolor{CProof}{焦点在 $y$ 轴的推广}}
+把以上推导中的 $x$ 与 $y$ 对调，即得
+\[
+\frac{y^2}{a^2}-\frac{x^2}{b^2}=1
+\quad\Longrightarrow\quad
+\boxed{AB:\ \frac{y_0y}{a^2}-\frac{x_0x}{b^2}=1},
+\]
+其中 $q=y_0^2/a^2-x_0^2/b^2$，仍须 $q<1$ 且 $q\ne0$。
 \end{proofbox}

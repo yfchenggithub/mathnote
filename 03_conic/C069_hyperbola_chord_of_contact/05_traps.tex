@@ -1,37 +1,66 @@
 \begin{trapbox}
+\begin{minipage}{\linewidth}
+\textbf{先用同尺度图纠错：能写出绿色直线，不等于它就是切点弦。}
+\begin{center}
+\input{assets/tikz/C069_contact_existence_cases.tex}
+\end{center}\end{minipage}
 
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（焦点混淆）：}}]
-			当双曲线焦点在 $y$ 轴时，错误地使用焦点在 $x$ 轴的公式 $\frac{x_0 x}{a^2} - \frac{y_0 y}{b^2}=1$。
-		\item[\textbf{\textcolor{CTrap}{正确理解（区分焦点）：}}]
-			焦点在 $y$ 轴时双曲线方程为 $\frac{y^2}{a^2} - \frac{x^2}{b^2}=1$，对应的切点弦方程为 $\frac{y_0 y}{a^2} - \frac{x_0 x}{b^2}=1$，注意 $y_0 y$ 项放在分子前面且分母为 $a^2$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（记忆混乱）：}}]
-			未根据焦点位置调整公式，死记硬背形式，导致 $x$ 与 $y$ 位置颠倒。
-	\end{description}
+检查黑点个数，再看红色切线是否经过 $P$；只有两个不同切点时才使用切点弦公式。
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（位置忽视）：}}]
-			不对点 $P$ 是否在双曲线外部进行验证，直接使用切点弦公式。
-		\item[\textbf{\textcolor{CTrap}{正确理解（使用前提）：}}]
-			公式仅在点 $P$ 位于双曲线外部且可引两条实切线时成立。必须按上述 $q$ 条件检查；不能只凭含混的“内、外部”称呼作判断。
-		\item[\textbf{\textcolor{CTrap}{错因分析（忽略条件）：}}]
-			未注意定理前提，机械套用，导致结论错误。
-	\end{description}
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CTrap}{易错1：“双曲线外一点”一定能作两条切线}}
+\begin{itemize}[leftmargin=*,itemsep=0.25em]
+\item \textbf{错误：}看到 $P$ 不在曲线上，就直接套用切点弦公式。
+\item \textbf{为什么错：}双曲线与椭圆不同，平面中不同区域的点能引出的实切线条数不同。比如 $x^2/4-y^2=1$ 的 $P=(3,1)$ 有 $q=5/4>1$，一条实切线也没有。
+\item \textbf{正确做法：}先计算 $q$；\textbf{必须 $q<1$ 且 $q\ne0$}，才有两个不同的有限实切点。
+\end{itemize}\end{minipage}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（符号错误）：}}]
-			切点弦方程中间符号写为加号 $+$，误用椭圆中的规律。
-		\item[\textbf{\textcolor{CTrap}{正确理解（保持减号）：}}]
-			双曲线方程中间是减号，切点弦方程也是减号，形式为 $\frac{x_0 x}{a^2} - \frac{y_0 y}{b^2}=1$ 或 $\frac{y_0 y}{a^2} - \frac{x_0 x}{b^2}=1$，不可改为加号。
-		\item[\textbf{\textcolor{CTrap}{错因分析（类比混淆）：}}]
-			椭圆切点弦方程为加号，学生类比时默认改成加号，未注意双曲线符号差异。
-	\end{description}
 
-\textbf{两有限实切点的存在条件。}
-记 $q=x_0^2/a^2-y_0^2/b^2$，则恰有两个不同的有限实切点当且仅当
-$q<1$ 且 $q\ne0$。$q=1$ 是一个切点，$q>1$ 无实切点；
-$q=0$ 的非中心点在渐近线上，只有一个有限切点，另一方向为渐近线；中心点没有实切线。
-纵轴形式使用 $q=y_0^2/a^2-x_0^2/b^2$。
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CTrap}{易错2：忽略 $q=0$ 这个特殊情形}}
+\begin{itemize}[leftmargin=*,itemsep=0.25em]
+\item \textbf{错误：}把“$q<1$”误当成完整条件。
+\item \textbf{反例：}$x^2/4-y^2=1$，$P=(2,1)$，$q=0$；只有一个有限切点 $(2,0)$，没有两个不同切点。
+\item \textbf{正确做法：}必须同时检查 $q\ne0$。若 $P=O$，连代换直线都不存在（会得到 $0=1$）。
+\end{itemize}\end{minipage}
+
+
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CTrap}{易错3：以为切点弦一定经过 $P$}}
+\begin{itemize}[leftmargin=*,itemsep=0.25em]
+\item \textbf{错误：}把 $AB$ 画成经过 $P$ 的直线。
+\item \textbf{纠正：}经过 $P$ 的是\textbf{两条切线 $PA,PB$}。$AB$ 是两个切点连成的另一直线，通常不经过 $P$。
+\item \textbf{最小反例：}$P=(0,2)$ 时，$AB:y=-1/2$，明显不经过 $P$。
+\end{itemize}\end{minipage}
+
+
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CTrap}{易错4：焦点位置与符号混乱}}
+\begin{itemize}[leftmargin=*,itemsep=0.25em]
+\item 焦点在 $x$ 轴：$\frac{x_0x}{a^2}-\frac{y_0y}{b^2}=1$。
+\item 焦点在 $y$ 轴：$\frac{y_0y}{a^2}-\frac{x_0x}{b^2}=1$。
+\item \textbf{检查：}双曲线中间为减号，不能直接照搬椭圆的加号；分母应与相应坐标的平方项一一对应。
+\end{itemize}\end{minipage}
+
+
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CTrap}{易错5：只用斜率式求切线，漏掉竖直切线}}
+\begin{itemize}[leftmargin=*,itemsep=0.25em]
+\item \textbf{错误：}一律设 $y=kx+d$，以为求得的斜率覆盖全部切线。
+\item \textbf{反例：}$x^2/4-y^2=1$ 在 $(2,0)$ 处的切线为 $x=2$。
+\item \textbf{正确做法：}可用一般直线 $ux+vy=1$ 的判别式证明，或对竖直线单独讨论。
+\end{itemize}\end{minipage}
+
+
+\medskip
+\textbf{\textcolor{CTrap}{易错6：逆向比较系数前忘记把右端化为 $1$}}
+例如 $x-4y=2$ 应先写成 $x/2-2y=1$，再与 $\frac{x_0x}{4}-y_0y=1$ 比较，得到 $P=(2,2)$；直接把 $x$ 的系数 $1$ 当成 $x_0/4$ 会错。
+
+\medskip
+\textbf{\textcolor{CTrap}{课堂纠错问句}}
+“你写出的直线是否真的与双曲线交于两个不同的实点？这两个点的切线是否都经过 $P$？”两问都成立，才能称它为切点弦。
 \end{trapbox}

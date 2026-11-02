@@ -1,30 +1,43 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件1（双曲线方程）：}}]
-			双曲线标准方程为 $\frac{x^2}{a^2} - \frac{y^2}{b^2} = 1$（焦点在 $x$ 轴）或 $\frac{y^2}{a^2} - \frac{x^2}{b^2} = 1$（焦点在 $y$ 轴）。
-		\item[\textbf{\textcolor{CStatement}{条件2（点P外部）：}}]
-			点 $P(x_0,y_0)$ 在双曲线外部，且可引两条实切线。
-	\end{description}
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（焦点x轴）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			焦点在 $x$ 轴时，切点弦所在直线方程形式为
-			\[
-				\frac{x_0 x}{a^2} - \frac{y_0 y}{b^2} = 1
-			\]
-		\item[\textbf{\textcolor{CStatement}{推广结论（焦点y轴）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			焦点在 $y$ 轴时，切点弦所在直线方程形式为
-			\[
-				\frac{y_0 y}{a^2} - \frac{x_0 x}{b^2} = 1
-			\]
-	\end{description}
+\begin{center}
+\input{assets/tikz/C069_contact_overview.tex}
+\end{center}
+\textbf{\textcolor{CStatement}{一、适用条件与结论}}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.4em]
+\item[\textbf{条件1（曲线）：}]
+$a>0,\ b>0$，双曲线为标准方程。设 $P(x_0,y_0)$ 为已知点，从 $P$ 向双曲线作切线，切点分别记为 $A,B$。
+\item[\textbf{条件2（两个不同的实切点）：}]
+只有当切点 $A,B$ 都真实存在、坐标有限且 $A\ne B$ 时，才把直线 $AB$ 称作此处的\textbf{切点弦所在直线}。
+\end{description}
 
-\textbf{两有限实切点的存在条件。}
-记 $q=x_0^2/a^2-y_0^2/b^2$，则恰有两个不同的有限实切点当且仅当
-$q<1$ 且 $q\ne0$。$q=1$ 是一个切点，$q>1$ 无实切点；
-$q=0$ 的非中心点在渐近线上，只有一个有限切点，另一方向为渐近线；中心点没有实切线。
-纵轴形式使用 $q=y_0^2/a^2-x_0^2/b^2$。
+\textbf{\textcolor{CStatement}{结论一：焦点在 $x$ 轴}}
+\[
+\frac{x^2}{a^2}-\frac{y^2}{b^2}=1
+\quad\Longrightarrow\quad
+\boxed{\frac{x_0x}{a^2}-\frac{y_0y}{b^2}=1}.
+\]
+令 $q=\dfrac{x_0^2}{a^2}-\dfrac{y_0^2}{b^2}$，存在两个不同的有限实切点的充要条件是
+\[
+\boxed{q<1\quad\text{且}\quad q\ne0}.
+\]
+
+\textbf{\textcolor{CStatement}{结论二：焦点在 $y$ 轴}}
+\[
+\frac{y^2}{a^2}-\frac{x^2}{b^2}=1
+\quad\Longrightarrow\quad
+\boxed{\frac{y_0y}{a^2}-\frac{x_0x}{b^2}=1}.
+\]
+这时改记 $q=\dfrac{y_0^2}{a^2}-\dfrac{x_0^2}{b^2}$，存在条件仍是 $q<1$ 且 $q\ne0$。
+
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CStatement}{必须区分的四种情形}}
+\begin{itemize}[leftmargin=*,itemsep=0.3em]
+\item $q<1$ 且 $q\ne0$：两个不同的有限实切点，确有切点弦 $AB$。
+\item $q=1$：$P$ 本身在双曲线上，只有一个切点；代换式是该点的切线，不是两切点的连线。
+\item $q>1$：从 $P$ 不能作出实切线；代换所得直线不与双曲线相交。
+\item $q=0$：$P=O$ 时没有切线；$P\ne O$ 时只有一个有限实切点，不能称作两切点的连线。
+\end{itemize}\end{minipage}
+
+\textbf{注意：}“点在双曲线外部”不是精确条件。应当计算 $q$，不可单凭图形的内外位置判断。
 \end{statementbox}
