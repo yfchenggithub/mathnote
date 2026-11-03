@@ -1,0 +1,40 @@
+% Exact model: p=2, A=(1,-2), B=(4,4), M=(-2,1), N=(5/2,1).
+\begin{tikzpicture}[x=1.15cm,y=0.85cm,>=stealth,font=\small]
+\path[use as bounding box] (-3.1,-3.5) rectangle (6.1,5.2);
+\draw[->,gray] (-2.9,0)--(5.7,0) node[right] {$x$};
+\draw[->,gray] (0,-2.8)--(0,4.9) node[above] {$y$};
+\node[below left] at (0,0) {$O$};
+\draw[blue,thick,domain=-2.5:4.5,samples=100] plot ({\x*\x/4},\x);
+\node[blue,right] at (5.1,4.2) {$y^2=4x$};
+\draw[orange,thick] (-2.6,1.6)--(1.6,-2.6);
+\draw[orange,thick] (-2.6,.7)--(5,4.5);
+\draw[gray,thick] (1,-2)--(4,4);
+\draw[red,very thick] (-2,1)--(2.5,1);
+\ifnum\Cmode=1
+  \draw[dashed,gray] (1,-2)--(-.55,-2) (4,4)--(-.55,4);
+  \draw[<->,blue] (-.55,-2)--(-.55,1) node[midway,left,fill=white,inner sep=2pt] {$3$};
+  \draw[<->,blue] (-.55,1)--(-.55,4) node[midway,left,fill=white,inner sep=2pt] {$3$};
+  \fill[red] (0,1) circle (2pt) node[above left=2pt] {$H$};
+\fi
+\ifnum\Cmode=2
+  \draw[dashed,blue] (1,-2)--(4,-2)--(4,4);
+  \node[below,blue] at (2.5,-2.7) {$\Delta x=3$};
+  \node[right,blue,fill=white,inner sep=2pt] at (4,-.6) {$\Delta y=6$};
+  \node[fill=white,inner sep=3pt] at (2.8,4.85) {$AB:\ x=\tfrac12y+2,\quad pt=1$};
+\fi
+\ifnum\Cmode=3
+  \node[fill=white,inner sep=3pt] at (2.7,4.85) {$AB:\ y=2(x-2)$};
+  \node[anchor=west,fill=white,inner sep=3pt] at (3.4,2) {$y_1=-2,\ y_2=4$};
+\fi
+\ifnum\Cmode=4
+  \draw[dashed,red] (-2,1)--(-2,-.7) (2.5,1)--(2.5,-.7);
+  \draw[<->,red] (-2,-.6)--(2.5,-.6) node[pos=1,below right,fill=white,inner sep=3pt] {$x_N-x_M=\tfrac92>0$};
+\fi
+\fill (1,-2) circle (2pt) node[right=10pt] {$A(1,-2)$};
+\fill (4,4) circle (2pt) node[above left] {$B(4,4)$};
+\fill[red] (-2,1) circle (2pt) node[below left] {$M(-2,1)$};
+\fill[red] (2.5,1) circle (2pt) node[below right,fill=white,inner sep=2pt] {$N(\tfrac52,1)$};
+\ifnum\Cmode=0
+  \node[red,above,fill=white,inner sep=3pt] at (.6,1) {$y_M=y_N=1$};
+\fi
+\end{tikzpicture}

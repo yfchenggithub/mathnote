@@ -1,23 +1,61 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件 1（抛物线上两点）：}}]
-			抛物线 $y^2=2px$（$p\neq0$）上两个不同的点 $A(x_1,y_1), B(x_2,y_2)$；记两点处切线交点为 $M$，弦 $AB$ 中点为 $N$。
-	\end{description}
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（切线交点性质）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			切线交点与弦中点纵坐标相同，连线平行于 $x$ 轴。
-			\[
-				y_M=y_N=\frac{y_1+y_2}{2}.
-			\]
-		\item[\textbf{\textcolor{CStatement}{推广结论（对称形式）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			对于 $x^2=2py$ 型抛物线，切线交点与弦中点横坐标相同，连线平行于 $y$ 轴。
-			\[
-				x_M=x_N=\frac{x_1+x_2}{2}.
-			\]
-	\end{description}
+\textbf{\textcolor{CStatement}{一、条件与图形}}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.4em]
+  \item[\textbf{条件一（横轴方向的抛物线）：}]
+  抛物线 $y^2=2px$（$p\ne0$）上取两个\textbf{不同}的点
+  $A(x_1,y_1)$、$B(x_2,y_2)$；过 $A,B$ 分别作切线，交于 $M$；弦 $AB$ 的中点为 $N$。
+  \item[\textbf{条件二（纵轴方向的抛物线）：}]
+  抛物线 $x^2=2py$（$p\ne0$）上的两个不同点同样记为 $A,B$，对应的切线交点、中点仍记为 $M,N$。
+\end{description}
 
+\par\noindent\begin{minipage}{\linewidth}
+\begin{center}
+\input{assets/tikz/C073_core_horizontal.tex}
+
+图取 $p=2$：两切线（橙）交于 $M$，弦（灰）中点为 $N$；红色 $MN$ 水平。
+\end{center}
+\end{minipage}\par
+
+\textbf{\textcolor{CStatement}{二、核心结论}}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
+  \item[\textbf{结论一（$y^2=2px$）：}]
+  切线交点与弦中点\textbf{纵坐标相同}：
+  \[
+    \boxed{y_M=y_N=\frac{y_1+y_2}{2}}.
+  \]
+  因为 $M\ne N$，直线 $MN$ 是水平直线：
+  当 $y_1+y_2\ne0$ 时，$MN\parallel x$ 轴；
+  当 $y_1+y_2=0$ 时，$MN$ \textbf{与 $x$ 轴重合}。
+  \item[\textbf{结论二（$x^2=2py$）：}]
+  切线交点与弦中点\textbf{横坐标相同}：
+  \[
+    \boxed{x_M=x_N=\frac{x_1+x_2}{2}}.
+  \]
+  直线 $MN$ 是竖直直线：当 $x_1+x_2\ne0$ 时，与 $y$ 轴平行；
+  当 $x_1+x_2=0$ 时，\textbf{与 $y$ 轴重合}。
+\end{description}
+
+\par\noindent\begin{minipage}{\linewidth}
+\begin{center}
+\input{assets/tikz/C073_core_vertical.tex}
+
+交换横、纵坐标后，红色 $MN$ 变为竖直方向。
+\end{center}
+\end{minipage}\par
+
+\textbf{\textcolor{CStatement}{三、进一步的精确坐标（便于验算和做题）}}
+对于 $y^2=2px$，还有
+\[
+\boxed{M\left(\frac{y_1y_2}{2p},\frac{y_1+y_2}{2}\right),\quad
+N\left(\frac{y_1^2+y_2^2}{4p},\frac{y_1+y_2}{2}\right).}
+\]
+\[
+\boxed{x_N-x_M=\frac{(y_1-y_2)^2}{4p}\ne0,\qquad
+|MN|=\frac{(y_1-y_2)^2}{4|p|}>0.}
+\]
+当 $p>0$ 时，$N$ 在 $M$ 右侧；当 $p<0$ 时，$N$ 在 $M$ 左侧。
+
+\medskip
+\textbf{\textcolor{CStatement}{使用提醒}}
+两个切点可以在对称轴的两侧，也可以有一个是顶点；不需要假定切点处切线的斜率存在。
 \end{statementbox}
