@@ -1,0 +1,24 @@
+\begin{center}
+\begin{tikzpicture}[x=.72cm,y=.72cm,font=\small,>=Stealth]
+\foreach \sh/\v/\ttl/\desc in {0/-.75/{两个切点}/{x_0^2-2py_0>0},5/.25/{一个切点}/{x_0^2-2py_0=0},10/1.25/{没有实切点}/{x_0^2-2py_0<0}} {
+\begin{scope}[xshift=\sh cm]
+\node at (1,3.3) {\ttl};
+\draw[->,gray] (-1.8,0)--(3.6,0) node[right] {$x$};
+\draw[->,gray] (0,-1.4)--(0,2.8);
+\draw[blue!70!black,thick,domain=-1.6:3.2,samples=80] plot (\x,{\x*\x/4});
+\ifdim\v pt<0pt
+\draw[thick] (-1,.25)--(1,-.75)--(3,2.25);
+\fill (-1,.25) circle (1.6pt); \node[anchor=east] at (-1.3,-.35) {$A$};
+\fill (3,2.25) circle (1.6pt) node[above left] {$B$};
+\node[orange!80!black,anchor=west] at (1.4,-.65) {$P$};
+\else\ifdim\v pt<1pt
+\draw[thick,domain=-1:3.1] plot (\x,{.5*\x-.25});
+\node[orange!80!black,above] at (1,.65) {$P$};
+\else
+\node[orange!80!black,right] at (1,1.25) {$P$};
+\fi\fi
+\fill[orange!80!black] (1,\v) circle (2pt);
+\node at (1,-1.9) {$\desc$};
+\end{scope}}
+\end{tikzpicture}
+\end{center}

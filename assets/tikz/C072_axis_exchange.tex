@@ -1,0 +1,27 @@
+\begin{center}
+\begin{tikzpicture}[x=.9cm,y=.9cm,font=\small,>=Stealth]
+\foreach \shift/\swap/\title in {0/0/{$x^2=4y$：竖直中线},7/1/{$y^2=4x$：水平中线}} {
+\begin{scope}[xshift=\shift cm]
+\node[anchor=south] at (2,5) {\title};
+\draw[->,gray] (-.4,0)--(4.9,0) node[right] {$x$};
+\draw[->,gray] (0,-.4)--(0,4.7) node[above] {$y$};
+\ifnum\swap=0
+\coordinate (A) at (2,1); \coordinate (B) at (4,4);
+\coordinate (P) at (3,2); \coordinate (M) at (3,2.5);
+\draw[blue!70!black,thick,domain=0:4.2,samples=70] plot (\x,{\x*\x/4});
+\node at (3.5,1.8) {$P$}; \node at (2.5,2.7) {$M$};
+\else
+\coordinate (A) at (1,2); \coordinate (B) at (4,4);
+\coordinate (P) at (2,3); \coordinate (M) at (2.5,3);
+\draw[blue!70!black,thick,domain=0:4.2,samples=70] plot ({\x*\x/4},\x);
+\node at (1.6,3.4) {$P$}; \node at (2.8,2.7) {$M$};
+\fi
+\fill[blue!12] (P)--(A)--(B)--cycle;
+\draw[thick] (P)--(A)--(B)--cycle;
+\draw[orange!80!black,very thick] (P)--(M);
+\foreach \pt/\pos in {A/below right,B/above left}
+  \fill (\pt) circle (1.5pt) node[\pos] {$\pt$};
+\fill (P) circle (1.5pt); \fill (M) circle (1.5pt);
+\end{scope}}
+\end{tikzpicture}
+\end{center}

@@ -1,102 +1,475 @@
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+    \textbf{\textcolor{CProof}{统一题设与证明目标}}
 
-	先利用导数写出两条切线方程，联立求得点 $P$ 坐标；再求出底边 $AB$ 的方程及弦长与点 $P$ 到 $AB$ 的距离，从而计算面积；最后验证中线与对称轴平行。
+    已知抛物线 $x^2=2py\;(p>0)$，$A(x_1,y_1)$、$B(x_2,y_2)$ 为曲线上两个不同点，
+    过 $A,B$ 的切线交于 $P$；$M$ 为 $AB$ 中点。
+    需要证明
+    \[
+        P\left(\frac{x_1+x_2}{2},\frac{x_1x_2}{2p}\right),\qquad
+        PM\parallel y\text{轴},\qquad
+        S_{\triangle PAB}=\frac{|x_1-x_2|^3}{8p}.
+    \]
+    以下四种方法均只使用高中范围内的直线方程、二次函数、平方差公式、
+    中点坐标、三角形面积等知识；最后补充切点弦及附加几何性质。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（求切线方程）:}]
-			对抛物线 $x^2=2py$ 求导得 $y'=\dfrac{x}{p}$。在点 $A(x_1,y_1)$ 处切线斜率为 $\dfrac{x_1}{p}$，故切线方程为
-			\[
-				y-y_1=\frac{x_1}{p}(x-x_1)
-			\]
-			利用 $y_1=\dfrac{x_1^2}{2p}$ 化简得
-			\[
-				xx_1 = p(y+y_1)
-			\]
-			同理，过 $B(x_2,y_2)$ 的切线为 $xx_2 = p(y+y_2)$。
-			\par\textbf{理由：}导数几何意义及抛物线方程。
+    \medskip
 
-		\item[\textbf{步骤二（求交点 $P$）:}]
-			联立两条切线方程：
-			\[
-				\begin{cases}
-					xx_1 = p(y+y_1),\\
-					xx_2 = p(y+y_2)
-			\end{cases}
-			\]
-			两式相减得 $x(x_1-x_2)=p(y_1-y_2)$。由 $y_i=\dfrac{x_i^2}{2p}$ 得 $y_1-y_2=\dfrac{x_1^2-x_2^2}{2p}=\dfrac{(x_1-x_2)(x_1+x_2)}{2p}$，代入得
-			\[
-				x(x_1-x_2)=p\cdot\frac{(x_1-x_2)(x_1+x_2)}{2p}=\frac{(x_1-x_2)(x_1+x_2)}{2}
-			\]
-			因为 $x_1\neq x_2$（$A,B$ 不同），两边除以 $x_1-x_2$ 得
-			\[
-				x=\frac{x_1+x_2}{2}
-			\]
-			代回任意一条切线方程得
-			\[
-				\frac{x_1+x_2}{2}\,x_1 = p(y+y_1)\quad\Rightarrow\quad y = \frac{x_1x_2}{2p}
-			\]
-			故 $P\!\left(\dfrac{x_1+x_2}{2},\,\dfrac{x_1x_2}{2p}\right)$。
-			\par\textbf{理由：}解二元一次方程组。
+    \textbf{\textcolor{CProof}{证明前的初中铺垫：先知道为什么要找中线}}
 
-		\item[\textbf{步骤三（求 $AB$ 方程及 $P$ 到 $AB$ 距离）:}]
-			由 $A,B$ 坐标得 $AB$ 斜率
-			\[
-				k_{AB}= \frac{y_2-y_1}{x_2-x_1}= \frac{\dfrac{x_2^2}{2p}-\dfrac{x_1^2}{2p}}{x_2-x_1}= \frac{x_1+x_2}{2p}
-			\]
-			$AB$ 的方程可写为
-			\[
-				y-y_1 = \frac{x_1+x_2}{2p}(x-x_1)
-			\]
-			化为一般式：
-			\[
-				(x_1+x_2)x - 2py - x_1x_2 = 0
-			\]
-			点 $P$ 到此直线的距离为
-			\[
-				d = \frac{\left|(x_1+x_2)\cdot\frac{x_1+x_2}{2} - 2p\cdot\frac{x_1x_2}{2p} - x_1x_2\right|}{\sqrt{(x_1+x_2)^2 + (2p)^2}}
-			\]
-			化简分子：
-			\[
-				\frac{(x_1+x_2)^2}{2} - x_1x_2 - x_1x_2 = \frac{(x_1+x_2)^2}{2} - 2x_1x_2 = \frac{x_1^2+2x_1x_2+x_2^2 - 4x_1x_2}{2} = \frac{(x_1-x_2)^2}{2}
-			\]
-			故
-			\[
-				d = \frac{\dfrac{|x_1-x_2|^2}{2}}{\sqrt{(x_1+x_2)^2 + 4p^2}}
-			\]
-			\par\textbf{理由：}点到直线距离公式。
+    \textbf{普通三角形：}若 $M$ 是 $AB$ 中点，且 $P,M$ 在同一条竖直线上，
+    则 $AM=MB$，$PM$ 将整个三角形分成两块。
+    以 $PM$ 为共同底边，两块三角形的高分别为
+    $|x_A-x_P|$、$|x_B-x_P|$（注意：这是\textbf{水平距离}）。因此
+    \[
+        S_{\triangle PAB}
+        =\frac12 PM\,|x_A-x_P|+\frac12 PM\,|x_B-x_P|.
+    \]
+    又因为 $x_P=x_M=(x_A+x_B)/2$，所以
+    \[
+        |x_A-x_P|=|x_B-x_P|=\frac{|x_A-x_B|}{2},
+        \quad\Longrightarrow\quad
+        \boxed{S_{\triangle PAB}=\frac12 PM\,|x_A-x_B|}.
+    \]
+    \textbf{圆的切线三角形：}由 $PA=PB$ 可得 $PM\perp AB$，
+    所以圆可以直接以 $AB$ 为底、$PM$ 为高。
+    \textbf{抛物线的切线三角形：}一般不是等腰三角形，
+    这里先要用代数\textbf{证明 $PM$ 竖直}，然后才可使用上面的分割面积方法。
+    这样，“为什么相减求 $x_P$”“为什么求中点 $M$”就有了清楚的目标。
 
-		\item[\textbf{步骤四（求弦长 $|AB|$）:}]
-			弦长公式：
-			\[
-				|AB| = \sqrt{1+k_{AB}^2}\cdot|x_1-x_2| = \sqrt{1+\left(\frac{x_1+x_2}{2p}\right)^2}\,|x_1-x_2|
-			\]
-			\par\textbf{理由：}两点间距离公式。
+    \medskip
 
-		\item[\textbf{步骤五（计算三角形面积）:}]
-			\[
-				S_{\triangle PAB} = \frac12\,|AB|\, d = \frac12\cdot\sqrt{1+\frac{(x_1+x_2)^2}{4p^2}}\,|x_1-x_2|\cdot\frac{|x_1-x_2|^2}{2\sqrt{(x_1+x_2)^2+4p^2}}
-			\]
-			注意 $\sqrt{1+\frac{(x_1+x_2)^2}{4p^2}} = \sqrt{\frac{4p^2+(x_1+x_2)^2}{4p^2}} = \frac{\sqrt{(x_1+x_2)^2+4p^2}}{2|p|}$，因为 $p>0$，故为 $\frac{\sqrt{(x_1+x_2)^2+4p^2}}{2p}$。
-			代入得
-			\[
-				S_{\triangle PAB} = \frac12\cdot\frac{\sqrt{(x_1+x_2)^2+4p^2}}{2p}\,|x_1-x_2|\cdot\frac{|x_1-x_2|^2}{2\sqrt{(x_1+x_2)^2+4p^2}} = \frac{|x_1-x_2|^3}{8p}
-			\]
-			\par\textbf{理由：}分子分母约分。
+    \par\noindent\begin{minipage}{\linewidth}
+    \textbf{\textcolor{CProof}{方法一：门槛最低——竖直中线分成两个三角形}}
 
-		\item[\textbf{步骤六（验证中线平行对称轴）:}]
-			$AB$ 的中点 $M$ 坐标为
-			\[
-				M\!\left(\frac{x_1+x_2}{2},\,\frac{y_1+y_2}{2}\right)
-			\]
-			$P$ 的横坐标为 $\dfrac{x_1+x_2}{2}$，与 $M$ 横坐标相同，故 $PM$ 垂直于 $x$ 轴，而抛物线的对称轴为 $y$ 轴，所以 $PM$ 平行于对称轴。
-			\par\textbf{理由：}坐标计算。
-	\end{description}
+    \input{assets/tikz/C072_split_area}
+    \end{minipage}\par
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
+    \textbf{思路：}不用点到斜线的距离公式。先求 $P$，再求中点 $M$；
+    把 $PM$ 作为\textbf{竖直的底边}，左右两块三角形分别按“底乘高除以二”计算。
 
-	由上，阿基米德三角形的三个主要性质全部得证：点 $P$ 坐标公式、面积公式 $S_{\triangle PAB}=\dfrac{|x_1-x_2|^3}{8p}$ 以及底边 $AB$ 上的中线平行于抛物线的对称轴。
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+        \item[\textbf{第一步（写出两条切线）：}]
+        因为 $A,B$ 在抛物线上，
+        \[
+            y_1=\frac{x_1^2}{2p},\qquad y_2=\frac{x_2^2}{2p}.
+        \]
+        使用抛物线在 $(x_i,y_i)$ 处的切线点式 $x_ix=p(y+y_i)$，得
+        \[
+            \ell_A:\ x_1x=p(y+y_1),\qquad
+            \ell_B:\ x_2x=p(y+y_2).
+        \]
+        \textbf{为什么它是切线？}以 $A$ 为例，直线可改写为
+        \[
+            y=\frac{x_1}{p}x-\frac{x_1^2}{2p}.
+        \]
+        同一横坐标处，抛物线的纵坐标减去直线的纵坐标为
+        \[
+            \frac{x^2}{2p}-\left(\frac{x_1}{p}x-\frac{x_1^2}{2p}\right)
+            =\frac{(x-x_1)^2}{2p}\ge 0.
+        \]
+        只有 $x=x_1$ 才等号成立，说明直线恰在 $A$ 处与抛物线接触。
+        对 $B$ 同理。这也提供了一个\textbf{不需要导数}的切线检验方法。
+
+        \item[\textbf{第二步（两式相减，求交点横坐标）：}]
+        设 $P=(x_P,y_P)$。因为 $P$ 在两条切线上，
+        \[
+            x_1x_P=p(y_P+y_1),\qquad
+            x_2x_P=p(y_P+y_2).
+        \]
+        \textbf{为什么相减？}两式中都有 $py_P$，相减可把未知的纵坐标消去：
+        \[
+        \begin{aligned}
+            (x_1-x_2)x_P
+            &=p(y_1-y_2)\\
+            &=p\left(\frac{x_1^2}{2p}-\frac{x_2^2}{2p}\right)\\
+            &=\frac{x_1^2-x_2^2}{2}\\
+            &=\frac{(x_1-x_2)(x_1+x_2)}2.
+        \end{aligned}
+        \]
+        由于 $A\ne B$，故 $x_1\ne x_2$，可以除以 $x_1-x_2$，得到
+        \[
+            \boxed{x_P=\frac{x_1+x_2}{2}}.
+        \]
+        \textbf{几何意义：}交点 $P$ 的横坐标是两切点横坐标的平均数。
+
+        \item[\textbf{第三步（回代，求交点纵坐标）：}]
+        将 $x_P=(x_1+x_2)/2$ 代入 $x_1x_P=p(y_P+y_1)$：
+        \[
+        \begin{aligned}
+            py_P
+            &=x_1\frac{x_1+x_2}{2}-py_1\\
+            &=\frac{x_1^2+x_1x_2}{2}-\frac{x_1^2}{2}\\
+            &=\frac{x_1x_2}{2},
+        \end{aligned}
+        \]
+        因 $p>0$，可除以 $p$，于是
+        \[
+            \boxed{P\left(\frac{x_1+x_2}{2},\frac{x_1x_2}{2p}\right)}.
+        \]
+
+        \item[\textbf{第四步（找中点与竖直中线）：}]
+        中点公式给出
+        \[
+        \begin{aligned}
+            x_M&=\frac{x_1+x_2}{2}=x_P,\\
+            y_M&=\frac{y_1+y_2}{2}
+            =\frac12\left(\frac{x_1^2}{2p}+\frac{x_2^2}{2p}\right)
+            =\frac{x_1^2+x_2^2}{4p}.
+        \end{aligned}
+        \]
+        $P$ 和 $M$ 的横坐标相等，所以 $PM$ 竖直，平行于 $y$ 轴。
+        \[
+        \begin{aligned}
+            y_M-y_P
+            &=\frac{x_1^2+x_2^2}{4p}-\frac{x_1x_2}{2p}\\
+            &=\frac{x_1^2-2x_1x_2+x_2^2}{4p}\\
+            &=\frac{(x_1-x_2)^2}{4p}>0.
+        \end{aligned}
+        \]
+        因此 $M$ 在 $P$ 上方，且
+        \[
+            \boxed{PM=\frac{(x_1-x_2)^2}{4p}}.
+        \]
+
+        \item[\textbf{第五步（把三角形分成左右两块求面积）：}]
+        以竖直线段 $PM$ 为底，点 $A$ 到这条\textbf{竖直直线}的高为水平距离
+        \[
+            |x_1-x_P|=\left|x_1-\frac{x_1+x_2}{2}\right|
+            =\frac{|x_1-x_2|}{2}.
+        \]
+        同理，点 $B$ 到直线 $PM$ 的高也是 $|x_1-x_2|/2$。
+        由于 $M$ 在 $AB$ 上，$\triangle PAM$ 与 $\triangle PMB$ 恰好拼成 $\triangle PAB$，故
+        \[
+        \begin{aligned}
+            S_{\triangle PAB}
+            &=\frac12 PM\cdot|x_1-x_P|
+             +\frac12 PM\cdot|x_2-x_P|\\
+            &=\frac12\cdot\frac{(x_1-x_2)^2}{4p}
+                \left(\frac{|x_1-x_2|}{2}+\frac{|x_1-x_2|}{2}\right)\\
+            &=\boxed{\frac{|x_1-x_2|^3}{8p}}.
+        \end{aligned}
+        \]
+        \textbf{几何意义：}“水平宽度”贡献一次方，“竖直中线”贡献平方，
+        相乘便是三次方。\textbf{$PM$ 并不是一般意义下 $AB$ 边上的高。}
+    \end{description}
+
+    \medskip
+    \par\noindent\begin{minipage}{\linewidth}
+    \textbf{\textcolor{CProof}{方法二：速度最快——切线相减 $\to$ 中线 $\to$ 面积}}
+
+    \input{assets/tikz/C072_coordinate_median}
+    \end{minipage}\par
+
+    \textbf{使用时机：}题目给出了 $x_1,x_2$，并且可以直接使用已证明的切线点式。
+    保留考场上最有效的运算，不再重复切线公式的证明。
+
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.5em]
+        \item[\textbf{第一步（相减确定 $P$）：}]
+        交点满足 $x_1x_P=p(y_P+y_1)$、$x_2x_P=p(y_P+y_2)$。于是
+        \[
+            (x_1-x_2)x_P=p(y_1-y_2)
+            =\frac{x_1^2-x_2^2}{2},
+        \]
+        即 $x_P=(x_1+x_2)/2$。代回第一式，得
+        \[
+            y_P=\frac{x_1x_P}{p}-\frac{x_1^2}{2p}
+            =\frac{x_1x_2}{2p}.
+        \]
+        \item[\textbf{第二步（平方差求中线）：}]
+        \[
+            y_M=\frac{x_1^2+x_2^2}{4p},\qquad
+            PM=y_M-y_P=\frac{(x_1-x_2)^2}{4p}.
+        \]
+        \textbf{原因：}$x_M=x_P$，所以中线竖直；$PM$ 的长度就是两纵坐标之差。
+        \item[\textbf{第三步（代一次面积公式）：}]
+        两个小三角形都以 $PM$ 为底，水平高之和为 $|x_1-x_2|$：
+        \[
+            \boxed{S=\frac12 PM\cdot|x_1-x_2|
+            =\frac12\cdot\frac{(x_1-x_2)^2}{4p}|x_1-x_2|
+            =\frac{|x_1-x_2|^3}{8p}}.
+        \]
+    \end{description}
+    \textbf{考场识别信号：}看见“两切线交点 + 求面积”，优先用此法；
+    省掉求 $AB$ 长度和点到 $AB$ 距离的根式运算。
+
+    \medskip
+    \par\noindent\begin{minipage}{\linewidth}
+    \textbf{\textcolor{CProof}{方法三：步骤最少——以横坐标中点作对称代换}}
+
+    \input{assets/tikz/C072_symmetric_parameters}
+    \end{minipage}\par
+
+    \textbf{思路：}不妨交换 $A,B$ 的名称使 $x_1<x_2$。令
+    \[
+        x_1=x_0-t,\qquad x_2=x_0+t,\qquad t>0.
+    \]
+    于是 $x_0=(x_1+x_2)/2$、$2t=x_2-x_1$。
+    \textbf{几何意义：}$x_0$ 是底边中点的横坐标，$t$ 是两个切点水平距离的一半。
+
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.5em]
+        \item[\textbf{第一步（用对称形式一次求出顶点与中点）：}]
+        两条切线为
+        \[
+        \begin{cases}
+            y=\dfrac{x_0-t}{p}x-\dfrac{(x_0-t)^2}{2p},\\[3pt]
+            y=\dfrac{x_0+t}{p}x-\dfrac{(x_0+t)^2}{2p}.
+        \end{cases}
+        \]
+        相减可得
+        \[
+            0=-\frac{2t}{p}x+\frac{2x_0t}{p},
+            \quad t>0\ \Longrightarrow\ x=x_0.
+        \]
+        把 $x=x_0$ 代入任一切线：
+        \[
+        \begin{aligned}
+            y_P
+            &=\frac{(x_0-t)x_0}{p}-\frac{(x_0-t)^2}{2p}\\
+            &=\frac{2x_0(x_0-t)-(x_0-t)^2}{2p}\\
+            &=\frac{x_0^2-t^2}{2p}.
+        \end{aligned}
+        \]
+        另由中点公式
+        \[
+            y_M=\frac{(x_0-t)^2+(x_0+t)^2}{4p}
+            =\frac{x_0^2+t^2}{2p}.
+        \]
+        因而
+        \[
+            P\left(x_0,\frac{x_0^2-t^2}{2p}\right),\qquad
+            M\left(x_0,\frac{x_0^2+t^2}{2p}\right).
+        \]
+        对照 $x_0=(x_1+x_2)/2$ 和
+        $x_0^2-t^2=(x_0-t)(x_0+t)=x_1x_2$，同时得到顶点坐标公式。
+
+        \item[\textbf{第二步（两个量相乘，直接出面积）：}]
+        \[
+            PM=y_M-y_P=\frac{t^2}{p},\qquad
+            |x_2-x_1|=2t.
+        \]
+        以竖直中线为底、以两侧水平距离之和为高，得
+        \[
+            \boxed{S=\frac12\cdot\frac{t^2}{p}\cdot2t
+            =\frac{t^3}{p}=\frac{|x_1-x_2|^3}{8p}}.
+        \]
+    \end{description}
+    \textbf{方法特点：}只有“求 $P,M$”和“算面积”两个主要步骤；
+    对称代换令平方和与平方差自然出现，但写出代换需要一点熟练度。
+
+    \medskip
+    \par\noindent\begin{minipage}{\linewidth}
+    \textbf{\textcolor{CProof}{方法四：常规通用——切线方程、弦长、点线距离}}
+
+    \input{assets/tikz/C072_chord_altitude}
+    \end{minipage}\par
+
+    \textbf{思路：}这一路线适用于许多解析几何面积题：
+    \textbf{求交点 $\to$ 求底边直线与长度 $\to$ 求顶点到该直线的距离 $\to$ 底乘高除以二。}
+    它计算较长，但每一步都可迁移到其他题型。
+
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+        \item[\textbf{第一步（从相切条件推导切线方程）：}]
+        设某条非竖直直线为 $y=kx+b$。将其代入抛物线方程，得到
+        \[
+            x^2=2p(kx+b)
+            \ \Longleftrightarrow\ x^2-2pkx-2pb=0.
+        \]
+        切线与抛物线恰有一个公共点，所以此二次方程只有一个实数解，
+        判别式为零：
+        \[
+            (-2pk)^2-4\cdot1\cdot(-2pb)
+            =4p^2k^2+8pb=0.
+        \]
+        解得 $b=-pk^2/2$，且唯一解为
+        \[
+            x=\frac{2pk}{2}=pk.
+        \]
+        在 $A$ 处相切时 $x_1=pk$，即 $k=x_1/p$，于是
+        \[
+            y=\frac{x_1}{p}x-\frac{x_1^2}{2p},
+            \quad\text{也就是}\quad x_1x=p(y+y_1).
+        \]
+        在 $B$ 处同理可得 $x_2x=p(y+y_2)$。
+        \textbf{几何意义：}判别式等于零对应“直线只在一个位置碰到抛物线”。
+
+        \item[\textbf{第二步（联立求两切线交点）：}]
+        \[
+            \begin{cases}
+                x_1x_P=p(y_P+y_1),\\
+                x_2x_P=p(y_P+y_2).
+            \end{cases}
+        \]
+        两式相减：
+        \[
+            x_P=\frac{p(y_1-y_2)}{x_1-x_2}
+            =\frac{x_1^2-x_2^2}{2(x_1-x_2)}
+            =\frac{x_1+x_2}{2}.
+        \]
+        回代：
+        \[
+            y_P=\frac{x_1x_P}{p}-y_1
+            =\frac{x_1(x_1+x_2)-x_1^2}{2p}
+            =\frac{x_1x_2}{2p}.
+        \]
+        故 $P\left((x_1+x_2)/2,\ x_1x_2/(2p)\right)$。
+
+        \item[\textbf{第三步（两点确定底边 $AB$ 的方程）：}]
+        因 $x_2\ne x_1$，弦 $AB$ 的斜率为
+        \[
+        \begin{aligned}
+            k_{AB}
+            &=\frac{y_2-y_1}{x_2-x_1}
+              =\frac{x_2^2-x_1^2}{2p(x_2-x_1)}\\
+            &=\frac{x_1+x_2}{2p}.
+        \end{aligned}
+        \]
+        过 $A$ 写点斜式：
+        \[
+            y-\frac{x_1^2}{2p}
+            =\frac{x_1+x_2}{2p}(x-x_1).
+        \]
+        两边乘以 $2p$，并移项化简：
+        \[
+            2py-x_1^2=(x_1+x_2)x-x_1(x_1+x_2),
+        \]
+        \[
+            \boxed{(x_1+x_2)x-2py-x_1x_2=0}.
+        \]
+
+        \item[\textbf{第四步（求底边长度）：}]
+        两点间距离公式给出
+        \[
+        \begin{aligned}
+            |AB|
+            &=\sqrt{(x_2-x_1)^2+(y_2-y_1)^2}\\
+            &=|x_2-x_1|\sqrt{1+
+              \left(\frac{y_2-y_1}{x_2-x_1}\right)^2}\\
+            &=|x_2-x_1|\sqrt{1+
+              \frac{(x_1+x_2)^2}{4p^2}}\\
+            &=\boxed{\frac{|x_2-x_1|}{2p}
+              \sqrt{(x_1+x_2)^2+4p^2}}.
+        \end{aligned}
+        \]
+        最后一行用到了 $p>0$，因此 $\sqrt{4p^2}=2p$。
+
+        \item[\textbf{第五步（求顶点到 $AB$ 的垂直距离）：}]
+        对直线 $ax+by+c=0$，点 $(u,v)$ 到该直线的距离为
+        $|au+bv+c|/\sqrt{a^2+b^2}$。代入 $P$ 与 $AB$：
+        \[
+            d=\frac{\left|(x_1+x_2)\dfrac{x_1+x_2}{2}
+              -2p\dfrac{x_1x_2}{2p}-x_1x_2\right|}
+              {\sqrt{(x_1+x_2)^2+4p^2}}.
+        \]
+        分子逐项化简：
+        \[
+        \begin{aligned}
+            \left|\frac{(x_1+x_2)^2}{2}-2x_1x_2\right|
+            &=\left|\frac{x_1^2+2x_1x_2+x_2^2-4x_1x_2}{2}\right|\\
+            &=\frac{(x_1-x_2)^2}{2}.
+        \end{aligned}
+        \]
+        因为平方非负，取绝对值后数值不变，所以
+        \[
+            \boxed{d=\frac{(x_1-x_2)^2}
+              {2\sqrt{(x_1+x_2)^2+4p^2}}}.
+        \]
+        \textbf{几何意义：}这里的 $d$ 才是以斜边 $AB$ 为底时真正的高，
+        与前面作为竖直中线的 $PM$ 通常不同。
+
+        \item[\textbf{第六步（底乘高求面积并验证中线）：}]
+        \[
+        \begin{aligned}
+            S_{\triangle PAB}
+            &=\frac12\cdot|AB|\cdot d\\
+            &=\frac12\cdot\frac{|x_2-x_1|}{2p}
+               \sqrt{(x_1+x_2)^2+4p^2}\cdot
+               \frac{(x_1-x_2)^2}{2\sqrt{(x_1+x_2)^2+4p^2}}\\
+            &=\boxed{\frac{|x_1-x_2|^3}{8p}}.
+        \end{aligned}
+        \]
+        中点 $M$ 的横坐标是 $(x_1+x_2)/2=x_P$，故 $PM$ 平行 $y$ 轴。
+    \end{description}
+
+    \medskip
+    \par\noindent\begin{minipage}{\linewidth}
+    \textbf{\textcolor{CProof}{补充一：切点弦方程与切线存在条件}}
+
+    \input{assets/tikz/C072_tangent_conditions}
+    \end{minipage}\par
+
+    设 $P=(x_0,y_0)$。因为 $P$ 在 $A$ 处的切线上，
+    \[
+        x_0x_1=p(y_0+y_1)
+        =py_0+\frac{x_1^2}{2}.
+    \]
+    移项得 $x_1^2-2x_0x_1+2py_0=0$，同理
+    $x_2^2-2x_0x_2+2py_0=0$。因此 $x_1,x_2$ 是
+    \[
+        \boxed{x^2-2x_0x+2py_0=0}
+    \]
+    的两个不同实数解，根与系数的关系给出
+    \[
+        x_1+x_2=2x_0,\qquad x_1x_2=2py_0.
+    \]
+    将 $AB$ 的方程
+    $(x_1+x_2)x-2py-x_1x_2=0$ 中的和与积替换，得
+    \[
+        2x_0x-2py-2py_0=0
+        \ \Longrightarrow\ \boxed{x_0x=p(y+y_0)}.
+    \]
+    二次方程有两个不同实数解，当且仅当
+    \[
+        \Delta=(-2x_0)^2-4(2py_0)
+        =4(x_0^2-2py_0)>0,
+    \]
+    即 $x_0^2-2py_0>0$。此时
+    \[
+        x_{1,2}=x_0\pm\sqrt{x_0^2-2py_0},
+        \qquad |x_1-x_2|=2\sqrt{x_0^2-2py_0}.
+    \]
+    于是还能得到只含交点坐标的面积式
+    \[
+        \boxed{S_{\triangle PAB}
+        =\frac{(x_0^2-2py_0)\sqrt{x_0^2-2py_0}}{p}}.
+    \]
+    \textbf{几何意义：}$x_0^2-2py_0>0$ 与
+    $y_0<x_0^2/(2p)$ 等价，意味着 $P$ 位于抛物线的\textbf{下方}。
+    $P$ 恰在曲线上时只有一个切点，两条切线三角形不再成立；
+    $P$ 在曲线上方时不存在所需的两个实切点。
+
+    \medskip
+    \par\noindent\begin{minipage}{\linewidth}
+    \textbf{\textcolor{CProof}{补充二：竖直中线被抛物线交点平分}}
+
+    \input{assets/tikz/C072_median_bisection}
+    \end{minipage}\par
+
+    由 $x_M=x_P=(x_1+x_2)/2$，取抛物线上同横坐标的点
+    \[
+        N\left(\frac{x_1+x_2}{2},\frac{(x_1+x_2)^2}{8p}\right).
+    \]
+    $P,M,N$ 的横坐标相同。再计算
+    \[
+    \begin{aligned}
+        y_N-y_P
+        &=\frac{(x_1+x_2)^2-4x_1x_2}{8p}
+          =\frac{(x_1-x_2)^2}{8p},\\
+        y_M-y_N
+        &=\frac{2(x_1^2+x_2^2)-(x_1+x_2)^2}{8p}
+          =\frac{(x_1-x_2)^2}{8p}.
+    \end{aligned}
+    \]
+    两者相等且为正，故点的顺序为 $P,N,M$，并且
+    \[
+        \boxed{PN=NM=\frac{PM}{2}}.
+    \]
+
+    \medskip
+    \textbf{\textcolor{CProof}{四法比较（用于教师讲解与学生选择）}}
+    \begin{itemize}[leftmargin=*, itemsep=0.4em, topsep=0.35em]
+        \item \textbf{门槛最低：}切线点式 + 中点 + 两个普通三角形面积；最适合首次理解。
+        \item \textbf{速度最快：}切线相减、平方差、中线面积三步；最适合考场直接代数计算。
+        \item \textbf{步骤最少：}令横坐标为 $x_0\pm t$，两大步完成；适合总结对称结构。
+        \item \textbf{常规通用：}从相切条件到“弦长$\times$点线距离”；适合迁移到一般直线与曲线的面积题。
+    \end{itemize}
 \end{proofbox}

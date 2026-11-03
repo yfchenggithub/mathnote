@@ -1,42 +1,162 @@
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
 
-	阿基米德三角形将抛物线两条切线与对应切点围成一个便于计算的模型，顶点坐标和面积可直接用切点横坐标表示，避免求具体切线过程。
+    \textbf{\textcolor{CExplanation}{先从初中最熟悉的图形入手}}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（坐标公式原理）:}] 两条切线方程联立求解，交点横坐标为两端点横坐标平均，纵坐标为两端点横坐标乘积除以 $2p$。
-		\item[\textbf{要点二（面积公式推导）:}] 利用弦长公式与点到直线距离，面积表达为 $|x_1-x_2|^3/(8p)$，计算时只需 $x_1,x_2,p$。
-		\item[\textbf{要点三（中线平行性质）:}] $AB$ 中点与 $P$ 横坐标相同，故 $PM$ 平行于对称轴（$y$ 轴）。
-	\end{description}
+    \textbf{场景一：普通三角形——不需要知道斜边有多长，也能求面积。}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（中点平行对称）}}
+    设 $A(0,2)$、$B(4,6)$、$P(2,0)$，$M$ 为 $AB$ 的中点。
+    由中点公式，
+    \[
+        M\left(\frac{0+4}{2},\frac{2+6}{2}\right)=(2,4).
+    \]
+    点 $P,M$ 的横坐标同为 $2$，所以 $PM$ 竖直，$PM=4$。
+    \input{assets/tikz/C072_junior_area_bridge}
+    点 $A$ 到直线 $PM$ 的\textbf{水平距离}是 $|0-2|=2$；
+    点 $B$ 到这条直线的\textbf{水平距离}是 $|4-2|=2$。
+    把三角形分成 $\triangle PAM$ 和 $\triangle PMB$，分别应用初中的
+    “底乘高除以二”：
+    \[
+    \begin{aligned}
+        S_{\triangle PAB}
+        &=S_{\triangle PAM}+S_{\triangle PMB}\\
+        &=\frac12\times4\times2+\frac12\times4\times2
+          =\boxed{8}.
+    \end{aligned}
+    \]
+    \textbf{理解：}虽然 $AB$ 倾斜，$PM$ 并不垂直于 $AB$，
+    仍然可以把 $PM$ 当作\textbf{两个小三角形共同的底边}。
+    因为这时的高是左右两点到竖直直线的\textbf{水平距离}。
 
-	抛物线对称性使得两切线与切点构成的三角形中，顶点与底边中点的连线平行于对称轴，这是抛物线切线性质的直接体现。
+    \medskip
+    \textbf{场景二：初中圆——从圆外一点作两条切线。}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（坐标运算高效）}}
+    设 $P$ 是圆外一点，$PA,PB$ 分别切圆于 $A,B$，
+    $O$ 为圆心，$M$ 为 $AB$ 的中点。
+    \input{assets/tikz/C072_circle_tangents_bridge}
+    由\textbf{半径垂直于切线}，得 $OA\perp PA$、$OB\perp PB$。
+    两个直角三角形 $\triangle OAP$、$\triangle OBP$ 中，
+    $OP$ 是共同的斜边，$OA=OB$ 是半径，于是根据勾股定理，
+    \[
+        PA^2=OP^2-OA^2=OP^2-OB^2=PB^2.
+    \]
+    因为 $PA,PB$ 都是正的线段长度，得 $PA=PB$。
+    所以 $\triangle PAB$ 是\textbf{等腰三角形}，
+    从顶点 $P$ 到底边中点 $M$ 的中线也垂直于 $AB$，因而
+    \[
+        \boxed{S_{\triangle PAB}=\frac12 AB\cdot PM}
+        \qquad\text{（这里 $PM$ 真的是 $AB$ 上的高）}.
+    \]
 
-	所有性质可化为横坐标的代数运算，纵坐标由 $y=x^2/(2p)$ 自动满足，无需单独考虑。
+    \textbf{场景三：换成抛物线——保留“两切线交于一点”的图形。}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（切线问题秒杀）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（求顶点坐标）:} 直接给出 $A,B$ 坐标，代入公式得 $P$。
-		\item \textbf{考法二（求三角形面积）:} 已知 $|x_1-x_2|$ 和 $p$，直接计算面积；或已知面积反求 $|x_1-x_2|$。
-	\end{itemize}
+    仍设切点为 $A,B$，切线交于 $P$，$M$ 为 $AB$ 中点。
+    \textbf{相同点：}都要找“两切线交点 $P$、切点弦 $AB$、中点 $M$”。
+    \textbf{不同点：}对 $x^2=2py$，能证明的是
+    $x_P=x_M$，即 $PM$\textbf{平行于 $y$ 轴}；
+    一般不能证明 $PA=PB$，也不能证明 $PM\perp AB$。
+    因此不能照搬圆的“$AB\times PM/2$”，
+    而要回到场景一的\textbf{分成两个小三角形}：
+    \[
+        \boxed{S_{\triangle PAB}
+        =\frac12 PM\bigl(|x_1-x_P|+|x_2-x_P|\bigr)
+        =\frac12 PM\,|x_1-x_2|}.
+    \]
+    最后一个等号成立的原因是
+    $x_P=x_M=(x_1+x_2)/2$，所以 $x_P$ 恰好位于 $x_1,x_2$ 的中间。
+    \textbf{这一步就是初中三角形面积与高中抛物线面积公式之间的桥梁。}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
+    \medskip
+    \textbf{\textcolor{CExplanation}{进入高中结论}}
 
-	面积公式中不含 $y_1,y_2$，只依赖横坐标差，这极大简化了计算量，是阿基米德三角形最吸引人的性质。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（切线三角形计算）:} 涉及 $x^2=2py$ 的切线三角形面积或顶点坐标问题。
-		\item \textbf{场景二（最值问题）:} 当 $x_1,x_2$ 满足某种约束或参数变化时，利用面积函数求最值。
-	\end{itemize}
+    \textbf{\textcolor{CExplanation}{一句话抓住本质}}
+
+    \textbf{两切线交点 $P$ 正好位于底边 $AB$ 的中点 $M$ 的正下方。}
+    这样就不用先求斜边 $AB$ 的长度、再求点到直线的距离；
+    直接把 $PM$ 当成一条竖直的底边，利用水平距离求面积即可。
+
+    \medskip
+
+    \input{assets/tikz/C072_split_area}
+    图中蓝、橙两块共用竖直底边 $PM$，水平高分别为 $h_A,h_B$。
+    它们相加等于 $|x_1-x_2|$，所以
+    \[
+        S=\frac12 PM(h_A+h_B)=\frac12 PM\,|x_1-x_2|.
+    \]
+    \medskip
+    \textbf{\textcolor{CExplanation}{为什么横坐标会出现“平均数”？}}
+
+    过切点 $A(x_1,y_1)$ 的切线为
+    $x_1x=p(y+y_1)$；过 $B$ 的切线为 $x_2x=p(y+y_2)$。
+    因为 $P$ 同时在这两条切线上，
+    \[
+        x_1x_P=p(y_P+y_1),\qquad
+        x_2x_P=p(y_P+y_2).
+    \]
+    \textbf{相减的目的：}消去两式里相同的 $py_P$，从而求出交点横坐标。
+    \[
+    \begin{aligned}
+        (x_1-x_2)x_P
+        &=p(y_1-y_2)\\
+        &=p\frac{x_1^2-x_2^2}{2p}\\
+        &=\frac{(x_1-x_2)(x_1+x_2)}{2}.
+    \end{aligned}
+    \]
+    消去非零的 $x_1-x_2$，就得到 $x_P=(x_1+x_2)/2$。
+    \textbf{几何意义：}顶点恰好落在经过底边中点的竖直线上。
+
+    \medskip
+    \par\noindent\begin{minipage}{\linewidth}
+    \textbf{\textcolor{CExplanation}{为什么面积中是“三次方”？}}
+
+    中点 $M$ 和顶点 $P$ 的纵坐标分别是
+    \end{minipage}\par
+    \[
+        y_M=\frac{x_1^2+x_2^2}{4p},\qquad
+        y_P=\frac{x_1x_2}{2p}.
+    \]
+    因此
+    \[
+        PM=y_M-y_P
+        =\frac{x_1^2+x_2^2-2x_1x_2}{4p}
+        =\frac{(x_1-x_2)^2}{4p}.
+    \]
+    \textbf{几何意义：}两个切点在水平方向分得越开，竖直中线的长度
+    按“横坐标差的平方”增加；而三角形的水平宽度又正比于“横坐标差”。
+    面积把这两项相乘，于是出现三次方：
+    \[
+        \underbrace{\frac12}_{\text{面积系数}}
+        \cdot\underbrace{|x_1-x_2|}_{\text{水平宽度}}
+        \cdot\underbrace{\frac{(x_1-x_2)^2}{4p}}_{\text{竖直中线}}
+        =\frac{|x_1-x_2|^3}{8p}.
+    \]
+
+    \medskip
+    \textbf{\textcolor{CExplanation}{更进一步：中线为何被抛物线平分？}}
+
+
+    \input{assets/tikz/C072_median_bisection}
+
+    设 $N$ 与 $P,M$ 横坐标相同且在抛物线上，则
+    \[
+        y_N=\frac{((x_1+x_2)/2)^2}{2p}
+        =\frac{(x_1+x_2)^2}{8p}.
+    \]
+    另一方面，线段 $PM$ 中点的纵坐标是
+    \[
+        \frac{y_P+y_M}{2}
+        =\frac{\dfrac{x_1x_2}{2p}+\dfrac{x_1^2+x_2^2}{4p}}2
+        =\frac{(x_1+x_2)^2}{8p}=y_N.
+    \]
+    所以 $N$ 正是 $PM$ 的中点。
+    \textbf{注意：}这里说的是\textbf{线段 $PM$ 的中点}，不是说抛物线弧长被平分。
+
+    \medskip
+    \textbf{\textcolor{CExplanation}{画图与解题时的识别信号}}
+    \begin{itemize}[leftmargin=*, itemsep=0.4em, topsep=0.35em]
+        \item 题目出现“抛物线上两点的切线交于一点”：优先想切线点式及切点弦。
+        \item 题目问面积：先找底边中点 $M$，再找竖直线段 $PM$，不要一开始就算斜边和点到斜线的距离。
+        \item 题目已知切线交点 $P(x_0,y_0)$：先看 $x_0^2-2py_0$ 的正负，以判断能否作出两条不同的切线。
+        \item 题目已知面积：只能先反求 $|x_1-x_2|$，不能仅凭面积确定两个切点各自的横坐标。
+    \end{itemize}
 \end{explanationbox}

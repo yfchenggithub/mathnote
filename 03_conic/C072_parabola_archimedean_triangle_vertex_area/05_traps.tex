@@ -1,21 +1,118 @@
 \begin{trapbox}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（面积系数）}}] $S_{\triangle PAB}$ 的分母错误记为 $8p^2$ 或 $4p$，导致计算结果出错。
-		\item[\textbf{\textcolor{CTrap}{正确理解（面积系数）}}] 正确公式为 $S = \dfrac{|x_1-x_2|^3}{8p}$，分母是 $8p$，系数 $1/8$ 与 $p$ 一次方。
-		\item[\textbf{\textcolor{CTrap}{错因分析（面积系数）}}] 推导过程中距离与弦长化简时容易忽略一个 $p$ 的幂次，需从推导中强化记忆。
-	\end{description}
+    \par\noindent\begin{minipage}{\linewidth}
+    \textbf{\textcolor{CTrap}{易错一：把竖直中线 $PM$ 当成底边 $AB$ 的高}}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（纵坐标分母）}}] 误将 $P$ 的纵坐标 $y_P$ 写成 $\dfrac{x_1x_2}{p}$ 或 $\dfrac{x_1x_2}{4p}$。
-		\item[\textbf{\textcolor{CTrap}{正确理解（纵坐标分母）}}] $P\!\left(\dfrac{x_1+x_2}{2},\,\dfrac{x_1x_2}{2p}\right)$，纵坐标分母为 $2p$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（纵坐标分母）}}] 解方程时代入错误，或混淆了二次项系数。
-	\end{description}
+    \input{assets/tikz/C072_chord_altitude}
+    \end{minipage}\par
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（适用范围）}}] 将该结论直接用于 $y^2=2px$ 或其他标准形式的抛物线，未调整公式。
-		\item[\textbf{\textcolor{CTrap}{正确理解（适用范围）}}] 结论只针对抛物线 $x^2=2py\;(p>0)$。若抛物线为 $y^2=2px$，需将 $x,y$ 互换或改写为 $x^2=2py$ 后再推导相应公式。
-		\item[\textbf{\textcolor{CTrap}{错因分析（适用范围）}}] 机械套用结论，忽略方程形式差异导致坐标关系和面积公式不同。
-	\end{description}
+    \textbf{错法：} $PM$ 竖直，于是直接写
+    $S=\frac12|AB|\cdot PM$。
+    \textbf{错误原因：}中线只要求经过边的中点，\textbf{不要求垂直于边}。
+    以 $A(2,1),B(4,4),P(3,2)$ 为反例：
+    $AB$ 斜率为 $3/2$，故竖直的 $PM$ 不与 $AB$ 垂直。
+    \textbf{正确做法：}以\textbf{竖直中线 $PM$} 为底，
+    点 $A,B$ 到 $PM$ 的水平距离相加等于 $|x_1-x_2|$，所以
+    \[
+        \boxed{S=\frac12 PM\cdot|x_1-x_2|}.
+    \]
+    只有 $x_1+x_2=0$ 时，$AB$ 水平，此时 $PM$ 才同时是 $AB$ 上的高。
+
+    \medskip
+    \textbf{\textcolor{CTrap}{易错二：误记系数和绝对值}}
+
+    \textbf{错法：}写成 $S=|x_1-x_2|^3/(8p^2)$ 或
+    $S=(x_1-x_2)^3/(8p)$。
+    \textbf{正确做法：}
+    \[
+        \boxed{S=\frac{|x_1-x_2|^3}{8p}},\qquad p>0.
+    \]
+    例如 $x_1=0,x_2=2,p=1$，面积应为 $8/8=1$；
+    不加绝对值并取相反次序 $x_1=0,x_2=2$，直接算
+    $(0-2)^3/8=-1$，出现“不可能的负面积”。
+    \textbf{原因：}面积为非负量，且横坐标差的次序可互换。
+
+    \medskip
+    \par\noindent\begin{minipage}{\linewidth}
+    \textbf{\textcolor{CTrap}{易错三：把顶点纵坐标写成横坐标的平方}}
+
+    \input{assets/tikz/C072_median_bisection}
+    \end{minipage}\par
+
+    \textbf{错法：}误以为 $P$ 在抛物线上，写
+    $y_P=x_P^2/(2p)$。
+    \textbf{正确做法：}
+    \[
+        x_P=\frac{x_1+x_2}{2},\qquad
+        y_P=\frac{x_1x_2}{2p}.
+    \]
+    当 $x_1\ne x_2$ 时，
+    \[
+        \frac{x_P^2}{2p}-y_P
+        =\frac{(x_1-x_2)^2}{8p}>0,
+    \]
+    即 $P$ 严格位于抛物线的下方，\textbf{并不在抛物线上}。
+    这也解释了为什么不能直接把 $P$ 当成第三个曲线上点。
+
+    \medskip
+    \textbf{\textcolor{CTrap}{易错四：两切点重合仍套用三角形}}
+
+    \textbf{错法：}没有确认 $x_1\ne x_2$ 就在“相减后的方程”中
+    除以 $x_1-x_2$。
+    \textbf{正确做法：}题设必须是两个不同切点。
+    如果 $x_1=x_2$，两条所谓切线其实是同一条切线，
+    既不能通过两条不同直线确定唯一交点，三角形也不成立。
+    已知 $P(x_0,y_0)$ 反求切点时，应先检查
+    \[
+        x_0^2-2py_0>0.
+    \]
+    等于零时只有一个切点；小于零时不存在实切点。
+
+    \medskip
+    \par\noindent\begin{minipage}{\linewidth}
+    \textbf{\textcolor{CTrap}{易错五：忽视开口方向}}
+
+    \input{assets/tikz/C072_axis_exchange}
+    \end{minipage}\par
+
+    \textbf{错法：}把 $x^2=2py$ 的公式原封不动用于 $y^2=2px$。
+    \textbf{正确做法：}坐标交换后应写为
+    \[
+        P\left(\frac{y_1y_2}{2p},\frac{y_1+y_2}{2}\right),\qquad
+        S=\frac{|y_1-y_2|^3}{8p}.
+    \]
+    这时是\textbf{水平}中线，而不是竖直中线。
+
+    \medskip
+    \textbf{\textcolor{CTrap}{易错六：把“中线被平分”理解成“弧长被平分”}}
+
+    令竖直线 $x=x_P$ 与抛物线交于 $N$，正确性质是
+    \[
+        PN=NM=\frac{PM}{2}.
+    \]
+    它只说明 $N$ 是\textbf{线段 $PM$ 的中点}，
+    不能据此断言抛物线从 $A$ 到 $N$ 与从 $N$ 到 $B$ 的弧长相等。
+    \textbf{提醒：}坐标平均与曲线弧长相等是两回事。
+
+    \medskip
+    \textbf{\textcolor{CTrap}{易错七：把圆的切线三角形性质直接套用到抛物线}}
+
+    \textbf{圆的情况：}同一圆外一点引出的两条切线段 $PA=PB$，
+    故 $\triangle PAB$ 为等腰三角形，底边中线 $PM$ 也是高。
+
+    \textbf{抛物线的情况：}两切线虽然同样交于 $P$，
+    但 $PA$、$PB$ 一般\textbf{不相等}。以
+    $x^2=4y$ 上 $A(2,1),B(4,4)$ 为例，切线交点为 $P(3,2)$，
+    用两点间距离公式：
+    \[
+        PA=\sqrt{(3-2)^2+(2-1)^2}=\sqrt2,
+        \quad PB=\sqrt{(3-4)^2+(2-4)^2}=\sqrt5.
+    \]
+    因而 $PA\ne PB$。实际可证明的是 $PM$ 竖直，
+    \textbf{不是} $PM\perp AB$。
+    \textbf{正确面积：}
+    \[
+        \boxed{S=\frac12 PM\,|x_1-x_2|},
+    \]
+    这里 $|x_1-x_2|$ 是\textbf{两切点的水平距离}，并不是斜边 $AB$ 的长度。
+
 \end{trapbox}

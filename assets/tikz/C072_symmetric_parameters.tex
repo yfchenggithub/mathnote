@@ -1,0 +1,35 @@
+\begin{center}
+\begin{tikzpicture}[x=1.05cm,y=1.05cm,font=\small,>=Stealth]
+\path (-2,-2.1) rectangle (9,3.6);
+\coordinate (A) at (-1,.25); \coordinate (B) at (3,2.25);
+\coordinate (P) at (1,-.75); \coordinate (M) at (1,1.25);
+\coordinate (N) at (1,.25); \coordinate (H) at (.2,.85);
+\fill[blue!12] (P)--(A)--(M)--cycle;
+\fill[orange!20] (P)--(M)--(B)--cycle;
+\draw[->,gray] (-1.8,0)--(3.8,0) node[right] {$x$};
+\draw[->,gray] (0,-1.35)--(0,3.2) node[above] {$y$};
+\draw[blue!70!black,thick,domain=-1.6:3.45,samples=100] plot (\x,{\x*\x/4});
+\draw[gray!80,domain=-1.7:1.5] plot (\x,{-.5*\x-.25});
+\draw[gray!80,domain=.7:3.4] plot (\x,{1.5*\x-2.25});
+\draw[very thick] (A)--(B);
+\draw[thick] (A)--(P)--(B);
+\draw[orange!80!black,very thick] (P)--(M);
+\foreach \pt/\pos in {B/above left,M/above left}
+  \fill (\pt) circle (1.6pt) node[\pos] {$\pt$};
+\fill (A) circle (1.6pt); \node[anchor=east] at (-1.3,-.35) {$A$};
+\fill (P) circle (1.6pt); \node[anchor=west] at (1.4,-.65) {$P$};
+
+\draw[dashed] (A)--(-1,-1.65) (B)--(3,-1.65) (P)--(1,-1.65);
+\draw[<->] (-1,-1.55)--(1,-1.55) node[midway,below] {$t$};
+\draw[<->] (1,-1.55)--(3,-1.55) node[midway,below] {$t$};
+
+
+
+\node[anchor=north west,align=left,text width=4.7cm] at (4.1,3.1) {\textbf{对称的是横坐标}\\[8pt]
+$x_P=x_M=x_0,\quad t>0$\\[8pt]
+$y_M=\dfrac{x_0^2+t^2}{2p}$\\[8pt]
+$y_P=\dfrac{x_0^2-t^2}{2p}$\\[8pt]
+$PM=\dfrac{t^2}{p},\quad S=\dfrac{t^3}{p}$\\[8pt]
+$A,B$ 的高度通常不同，\\并非关于 $x=x_0$ 镜像对称。};
+\end{tikzpicture}
+\end{center}

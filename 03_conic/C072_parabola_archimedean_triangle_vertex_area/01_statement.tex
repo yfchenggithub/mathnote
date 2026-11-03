@@ -1,33 +1,87 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件 1（抛物线阿基米德）:}}] 给定抛物线 $x^2=2py\;(p>0)$ 上两个不同的点 $A(x_1,y_1),\,B(x_2,y_2)$，分别过 $A,B$ 作抛物线的切线，两条切线交于点 $P$。
-	\end{description}
+    设 $x^2=2py$（$p>0$）上两个不同切点为 $A,B$，两切线交于 $P$；
+    $M$ 为弦 $AB$ 中点。核心关系如下图。
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（切点坐标公式）:}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			交点坐标是两端点横坐标平均和横坐标乘积除以 $2p$。
-			\[
-				P\Bigl(\frac{x_1+x_2}{2},\,\frac{x_1x_2}{2p}\Bigr)
-			\]
+    \input{assets/tikz/C072_core_triangle}
 
-		\item[\textbf{\textcolor{CStatement}{结论二（面积公式）:}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			三角形面积等于横坐标差的立方除以 $8p$。
-			\[
-				S_{\triangle PAB}=\frac{|x_1-x_2|^3}{8p}
-			\]
+    \textbf{\textcolor{CStatement}{条件}}
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.4em]
+        \item[\textbf{\textcolor{CStatement}{条件一（曲线与切点）：}}]
+        设抛物线为 $x^2=2py\;(p>0)$，取其上两个\textbf{不同}的点
+        \[
+            A(x_1,y_1),\qquad B(x_2,y_2),\qquad
+            y_1=\frac{x_1^2}{2p},\quad y_2=\frac{x_2^2}{2p}.
+        \]
+        分别在 $A,B$ 处作切线，两切线交于 $P(x_0,y_0)$。
+        因为抛物线上的点由横坐标唯一确定，所以 $A\ne B$ 等价于 $x_1\ne x_2$。
+        \item[\textbf{\textcolor{CStatement}{条件二（三角形）：}}]
+        以切点弦 $AB$ 为底边、两切线交点 $P$ 为顶点，构成三角形 $PAB$。
+        本结论沿用项目中的名称“抛物线阿基米德三角形”。
+    \end{description}
 
-		\item[\textbf{\textcolor{CStatement}{结论三（中线性质）:}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			底边中点到顶点的连线与对称轴平行。
-			底边 $AB$ 上的中线平行于抛物线的对称轴（即 $y$ 轴）。
+    \textbf{\textcolor{CStatement}{四个主结论}}
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+        \item[\textbf{\textcolor{CStatement}{结论一（两切线交点）：}}]
+        \[
+            \boxed{P\left(\frac{x_1+x_2}{2},\,\frac{x_1x_2}{2p}\right).}
+        \]
+        横坐标是两切点横坐标的平均数；纵坐标与其乘积有关。
 
-		\item[\textbf{\textcolor{CStatement}{常见变形（切点弦方程）:}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			已知切点弦交点坐标，可写出切点弦所在直线方程。
-			若设 $P(x_0,y_0)$，则直线 $AB$ 的方程为 $x_0x = p(y+y_0)$。
-	\end{description}
+        \item[\textbf{\textcolor{CStatement}{结论二（中线与长度）：}}]
+        设 $M$ 是 $AB$ 的中点，则
+        \[
+            M\left(\frac{x_1+x_2}{2},\,\frac{x_1^2+x_2^2}{4p}\right),
+            \qquad \boxed{PM=\frac{(x_1-x_2)^2}{4p}.}
+        \]
+        $P$ 与 $M$ 横坐标相同，所以 $PM$ 是\textbf{竖直线段}，
+        与抛物线的对称轴（$y$ 轴）平行；且 $M$ 位于 $P$ 上方。
+
+        \item[\textbf{\textcolor{CStatement}{结论三（面积）：}}]
+        \[
+            \boxed{S_{\triangle PAB}=\frac{|x_1-x_2|^3}{8p}.}
+        \]
+        几何理解：\textbf{面积 = 竖直中线 $PM$ 的一半 $\times$ 底边的水平投影长度}，即
+        \[
+            S_{\triangle PAB}=\frac12\,PM\cdot |x_1-x_2|.
+        \]
+        注意：此处\textbf{不是}把 $PM$ 当作 $AB$ 上的高。
+
+        \item[\textbf{\textcolor{CStatement}{结论四（切点弦）：}}]
+        若 $P(x_0,y_0)$，则
+        \[
+            \boxed{AB:\quad x_0x=p(y+y_0).}
+        \]
+        由此可反求切点横坐标，它们是方程
+        \[
+            x^2-2x_0x+2py_0=0
+        \]
+        的两个实数解。存在两个\textbf{不同}切点的条件为
+        \[
+            \boxed{x_0^2-2py_0>0.}
+        \]
+    \end{description}
+
+    \textbf{\textcolor{CStatement}{一个附加的几何性质}}
+
+    过 $P$ 作平行于 $y$ 轴的直线，与抛物线交于 $N$，则
+    \[
+        \boxed{PN=NM=\frac{(x_1-x_2)^2}{8p}.}
+    \]
+    换句话说：\textbf{抛物线在竖直中线上的交点 $N$，恰好是线段 $PM$ 的中点。}
+
+
+    \textbf{\textcolor{CStatement}{与初中知识的连接}}
+
+    在普通三角形中，\textbf{中线不一定是高}：如果一条中线恰好竖直，
+    可以把它当作两个小三角形共同的底边，以水平距离作高。
+    本结论先证明 $PM$ 竖直，再用同样的初中面积方法，
+    不需要先求斜边 $AB$ 的长度。
+    详细的初中例子及与圆的两切线三角形的比较，见“理解”和“例题”。
+
+    \medskip
+
+    \textbf{\textcolor{CStatement}{适用提醒}}
+
+    所有坐标和系数均按 $x^2=2py\;(p>0)$ 写出。对于 $y^2=2px$，应交换
+    $x,y$ 的位置重新使用相应公式，不得直接照抄。
 \end{statementbox}

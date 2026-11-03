@@ -1,75 +1,147 @@
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例 1（基础）}}
 
-	\textbf{\textcolor{CExample}{题目：}}
-	已知抛物线 $x^2=4y$（$p=2$）上两点 $A(2,1)$, $B(4,4)$，求阿基米德三角形 $\triangle PAB$ 的顶点 $P$ 坐标和三角形面积。
+    \textbf{\textcolor{CExample}{例零（初中衔接：先学会选一条方便的底边）}}
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（求 $P$ 坐标）:}] 由 $P$ 坐标公式 $P\!\left(\dfrac{x_1+x_2}{2},\,\dfrac{x_1x_2}{2p}\right)$，代入 $x_1=2,x_2=4,p=2$ 得
-			\[
-				P\!\left(\frac{2+4}{2},\,\frac{2\times 4}{2\times 2}\right) = (3,2)
-			\]
-			\par\textbf{理由：}直接套用结论（1）。
-		\item[\textbf{第二步（求三角形面积）:}] 利用面积公式 $S_{\triangle PAB}=\dfrac{|x_1-x_2|^3}{8p}$，代入得
-			\[
-				S = \frac{|2-4|^3}{8\times 2} = \frac{8}{16} = \frac{1}{2}
-			\]
-			\par\textbf{理由：}直接套用结论（2）。
-	\end{description}
+    \textbf{题目：}已知 $A(0,2)$、$B(4,6)$、$P(2,0)$，$M$ 为 $AB$ 中点，
+    不求 $AB$ 的长度，求 $S_{\triangle PAB}$。
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	$P(3,2)$，$S_{\triangle PAB}=\dfrac12$。
+    \input{assets/tikz/C072_junior_area_bridge}
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+    \textbf{第一步（中点）：}
+    $M\left((0+4)/2,(2+6)/2\right)=(2,4)$，
+    所以 $PM$ 是竖直线段，$PM=4$。
 
-	\textbf{\textcolor{CExample}{题目：}}
-	已知抛物线 $x^2=2y$（$p=1$）的某阿基米德三角形面积为 $1$，求两个切点的横坐标之差的绝对值 $|x_1-x_2|$。
+    \textbf{第二步（两侧的水平高）：}
+    $h_A=|0-2|=2$，$h_B=|4-2|=2$。
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（套用面积公式）:}] 面积公式 $S=\dfrac{|x_1-x_2|^3}{8p}$，此处 $p=1,S=1$，代入得
-			\[
-				1 = \frac{|x_1-x_2|^3}{8}
-			\]
-			\par\textbf{理由：}已知条件中的面积对应结论（2）。
-		\item[\textbf{第二步（解绝对值方程）:}] 两边乘以 $8$ 得 $|x_1-x_2|^3 = 8$，开立方（实数立方唯一）得 $|x_1-x_2| = 2$。
-			\par\textbf{理由：}正实数立方根唯一。
-	\end{description}
+    \textbf{第三步（分块面积）：}
+    \[
+       S_{\triangle PAB}
+       =\frac12\cdot4\cdot2+\frac12\cdot4\cdot2
+       =\boxed{8}.
+    \]
+    \textbf{迁移：}这一题不涉及抛物线，但已经用到了 C072 里
+    \textbf{最关键的面积思路}：先找竖直中线，再用水平距离作高。
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	$|x_1-x_2| = 2$。
+    \medskip
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+    \par\noindent\begin{minipage}{\linewidth}
+    \textbf{\textcolor{CExample}{例一（基础：顶点、中线与面积一起求）}}
 
-	\textbf{\textcolor{CExample}{题目：}}
-	已知抛物线 $x^2=4y$（$p=2$）外一点 $Q(4,1)$，过 $Q$ 引抛物线的两条切线，切点为 $A,B$，求 $\triangle QAB$ 的面积。
+    \textbf{题目：}抛物线 $x^2=4y$ 上有 $A(2,1)$、$B(4,4)$，
+    两切线交于 $P$，$M$ 为 $AB$ 中点。求 $P,M,PM$ 及 $S_{\triangle PAB}$。
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（判断顶点条件）:}] 由切线定义，$Q$ 即为两条切线的交点 $P$，所以 $Q$ 是阿基米德三角形 $\triangle PAB$ 的顶点 $P$。设 $Q(x_0,y_0)=(4,1)$。
-			\par\textbf{理由：}阿基米德三角形定义。
-		\item[\textbf{第二步（坐标公式逆用）:}] 由 $P$ 的坐标公式得
-			\[
-				\frac{x_1+x_2}{2}=4,
-				\qquad
-				\frac{x_1x_2}{2p}=1
-			\]
-			代入 $p=2$ 得 $x_1+x_2=8$，$x_1x_2 = 4$。
-			\par\textbf{理由：}结论（1）的逆用。
-		\item[\textbf{第三步（计算差值面积）:}]
-			\[
-				|x_1-x_2| = \sqrt{(x_1+x_2)^2-4x_1x_2} = \sqrt{8^2-4\times4} = \sqrt{64-16}= \sqrt{48}=4\sqrt{3}
-			\]
-			代入面积公式 $S_{\triangle PAB}=\dfrac{|x_1-x_2|^3}{8p}$ 得
-			\[
-				S = \frac{(4\sqrt{3})^3}{8\times 2} = \frac{64\times 3\sqrt{3}}{16} = 12\sqrt{3}
-			\]
-			\par\textbf{理由：}结论（2）求面积。
-	\end{description}
+    \end{minipage}\par
+    \textbf{第一步（核对曲线与参数）：} $x^2=4y=2py$，故 $p=2$。
+    $2^2=4\times1$、$4^2=4\times4$，两点均在曲线上。
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	$\triangle QAB$ 的面积为 $12\sqrt{3}$。
+    \textbf{第二步（交点与中点）：}
+    \[
+        P\left(\frac{2+4}{2},\frac{2\times4}{2\times2}\right)=(3,2),
+        \quad M\left(\frac{2+4}{2},\frac{1+4}{2}\right)
+        =\left(3,\frac52\right).
+    \]
+    因两点横坐标都为 $3$，所以 $PM$ 竖直，
+    \[
+        PM=\frac52-2=\frac12.
+    \]
+
+    \textbf{第三步（不用点线距离就求面积）：}
+    以 $PM$ 为底，左右两侧的水平高分别为 $|2-3|=1$ 和 $|4-3|=1$，
+    \[
+        S=\frac12\times\frac12\times1
+          +\frac12\times\frac12\times1=\boxed{\frac12}.
+    \]
+    用公式核对：$|2-4|^3/(8\times2)=8/16=1/2$。
+    \textbf{提醒：}这里 $AB$ 的斜率为 $(4-1)/(4-2)=3/2$，
+    故竖直的 $PM$ 并不垂直 $AB$，不能把它说成“$AB$ 上的高”。
+
+    \medskip
+    \textbf{\textcolor{CExample}{例二（逆向：已知面积求水平距离）}}
+
+    \textbf{题目：}在 $x^2=2y$（$p=1$）中，某两切线三角形面积为 $1$。
+    求 $|x_1-x_2|$。
+
+    \textbf{第一步（把条件代入面积公式）：}
+    \[
+        1=\frac{|x_1-x_2|^3}{8\times1}
+        \quad\Longrightarrow\quad |x_1-x_2|^3=8.
+    \]
+    \textbf{第二步（开立方）：} 因 $|x_1-x_2|>0$，
+    \[
+        \boxed{|x_1-x_2|=2}.
+    \]
+    \textbf{容易忽略的地方：}只能得到\textbf{两横坐标之差的绝对值}，
+    不能据此断定两个切点就是 $x_1=-1,x_2=1$。
+    例如 $(x_1,x_2)=(0,2)$ 也满足此条件。
+
+    \medskip
+    \textbf{\textcolor{CExample}{例三（综合：给出两切线交点求面积）}}
+
+    \textbf{题目：}从 $Q(4,1)$ 向抛物线 $x^2=4y$ 作两条切线，
+    切点为 $A,B$，求 $S_{\triangle QAB}$。
+
+    \textbf{第一步（先核对确有两条切线）：}
+    此处 $p=2$、$(x_0,y_0)=(4,1)$，
+    \[
+        x_0^2-2py_0=4^2-2\times2\times1=12>0.
+    \]
+    所以存在两个不同的实切点。
+
+    \textbf{第二步（反求两个切点的横坐标）：}
+    \[
+        x^2-2x_0x+2py_0=0
+        \quad\Longrightarrow\quad x^2-8x+4=0.
+    \]
+    用配方法：
+    \[
+        (x-4)^2=12
+        \quad\Longrightarrow\quad
+        x_1=4-2\sqrt3,\quad x_2=4+2\sqrt3.
+    \]
+    所以
+    \[
+        |x_1-x_2|=4\sqrt3.
+    \]
+
+    \textbf{第三步（计算面积）：}
+    \[
+    \begin{aligned}
+        S_{\triangle QAB}
+        &=\frac{(4\sqrt3)^3}{8\times2}\\
+        &=\frac{64\times3\sqrt3}{16}
+         =\boxed{12\sqrt3}.
+    \end{aligned}
+    \]
+    \textbf{更快的核对：}
+    $S=(x_0^2-2py_0)\sqrt{x_0^2-2py_0}/p
+    =12\sqrt{12}/2=12\sqrt3$。
+
+    \medskip
+    \textbf{\textcolor{CExample}{例四（迁移：开口方向互换）}}
+
+    \textbf{题目：}抛物线 $y^2=4x$ 上有 $A(1,2)$、$B(4,4)$，
+    两切线交于 $P$，求 $P$ 与三角形面积。
+
+
+    \input{assets/tikz/C072_axis_exchange}
+
+    \textbf{第一步（明确不能直接照抄）：}
+    $y^2=4x$ 的对称轴是 $x$ 轴，不是 $y$ 轴。
+    在公式中将 $x,y$ 互换，且仍有 $p=2$，得到
+    \[
+        P\left(\frac{y_1y_2}{2p},\frac{y_1+y_2}{2}\right)
+        =\left(\frac{2\times4}{4},\frac{2+4}{2}\right)=(2,3).
+    \]
+
+    \textbf{第二步（把水平与竖直的角色互换）：}
+    $AB$ 中点 $M=((1+4)/2,(2+4)/2)=(5/2,3)$，
+    故 $PM$ 水平，$PM=1/2$；两个切点的竖直距离是 $|4-2|=2$。
+    \[
+        S=\frac12\times PM\times|y_2-y_1|
+        =\frac12\times\frac12\times2=\boxed{\frac12}.
+    \]
+    用互换后的面积公式核对：$|y_1-y_2|^3/(8p)=8/16=1/2$。
+    \textbf{迁移信号：}抛物线方向互换时，凡涉及“横坐标差”“竖直中线”
+    的叙述，都要对应换成“纵坐标差”“水平中线”。
 \end{examplebox}
