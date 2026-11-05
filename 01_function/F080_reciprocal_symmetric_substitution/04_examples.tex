@@ -1,0 +1,153 @@
+\begin{examplebox}
+    \textbf{\textcolor{CExample}{例一（基础：四次首尾对称方程降为二次）}}
+    \textbf{\textcolor{CExample}{题目：}}
+    解方程 $t^4-3t^3+4t^2-3t+1=0$。
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.5em]
+        \item[\textbf{第一步（识别并确认 $t\ne0$）：}]
+            系数为 $1,-3,4,-3,1$，首尾成对相同；且 $t=0$ 不是根。
+        \item[\textbf{第二步（除以 $t^2$）：}]
+            \[
+               \left(t^2+\frac1{t^2}\right)-3\left(t+\frac1t\right)+4=0.
+            \]
+        \item[\textbf{第三步（整体换元，验范围）：}]
+            令 $u=t+1/t$，则 $|u|\ge2$，原式变为
+            \[
+              u^2-2-3u+4=(u-1)(u-2)=0.
+            \]
+            所以 $u=1$ 或 $u=2$；但 $u=1$ 不在允许范围内。
+        \item[\textbf{第四步（回代）：}]
+            \[
+              t+\frac1t=2\Longleftrightarrow t^2-2t+1=0
+              \Longleftrightarrow\boxed{t=1}.
+            \]
+            \textbf{理由：} 换元解 $u$ 不等于原方程解完，必须回代检查。
+    \end{description}
+
+    \end{examplebox}
+\clearpage
+\begin{examplebox}
+    \textbf{\textcolor{CExample}{例二（最值：选择更短的二次倒数和换元）}}
+    \textbf{\textcolor{CExample}{题目：}}
+    设实数 $t\ne0$，求
+    \[
+      P=t^4+\frac1{t^4}-3\left(t^2+\frac1{t^2}\right)
+    \]
+    的最小值。
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.52em]
+        \item[\textbf{第一步（只含偶数次，直接换二次整体）：}]
+            令 $z=t^2+1/t^2$。由 $(t-1/t)^2\ge0$，得 $z\ge2$。
+        \item[\textbf{第二步（降次并整理）：}]
+            \[
+              t^4+\frac1{t^4}=z^2-2,\qquad
+              P=z^2-3z-2.
+            \]
+        \item[\textbf{第三步（在允许范围内比较）：}]
+            \input{assets/tikz/F080_restricted_minimum.tex}
+            \[
+              P+4=z^2-3z+2=(z-1)(z-2)\ge0,
+            \]
+            因为 $z\ge2$，两因式均不小于零。
+        \item[\textbf{第四步（验取等条件）：}]
+            $P=-4$ 当且仅当 $z=2$，即 $(t-1/t)^2=0$，所以 $t=\pm1$。故
+            \[
+               \boxed{P_{\min}=-4\quad (t=\pm1)}.
+            \]
+            \textbf{理由：} 直接设 $z=t^2+t^{-2}$ 比先设 $u=t+t^{-1}$ 少一次替换。
+    \end{description}
+
+    \end{examplebox}
+\clearpage
+\begin{examplebox}
+    \textbf{\textcolor{CExample}{例三（圆锥曲线迁移：抛物线两条垂线的中点距离）}}
+    \textbf{\textcolor{CExample}{题目：}}
+    对抛物线 $y^2=8x$，焦点为 $F(2,0)$，准线为 $l:x=-2$。过焦点的两条互相垂直的直线与抛物线分别交于 $A,B$ 和 $D,E$，两条焦点弦中点为 $M,N$。已知通过联立方程与根的平均值，设非零斜率为 $t$ 时有
+    \[
+      M\left(2+\frac4{t^2},\frac4t\right),\qquad
+      N(2+4t^2,-4t).
+    \]
+    求 $|MN|$ 的最小值，并判断取最小时 $MN$ 与准线的关系。
+    \input{assets/tikz/F080_parabola_equality.tex}
+    图示 $t=1$ 的等号状态：两条焦点弦互相垂直，$MN$ 与准线同为竖直。一般 $t$ 的最小性仍由下列计算证明。
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+        \item[\textbf{第一步（先化为坐标差）：}]
+            \[
+              \begin{aligned}
+              |MN|^2&=\left(4t^2-\frac4{t^2}\right)^2
+                         +\left(-4t-\frac4t\right)^2\\
+                 &=16\left[\left(t^2-\frac1{t^2}\right)^2
+                    +\left(t+\frac1t\right)^2\right].
+              \end{aligned}
+            \]
+        \item[\textbf{第二步（发现倒数和整体）：}]
+            令 $u=t+1/t$，则 $u^2\ge4$，且
+            \[
+              \left(t^2-\frac1{t^2}\right)^2
+              =\left(t-\frac1t\right)^2\left(t+\frac1t\right)^2
+              =(u^2-4)u^2.
+            \]
+        \item[\textbf{第三步（用二次式证明最小）：}]
+            令 $z=u^2\ge4$，则
+            \[
+              |MN|^2=16z(z-3),\quad
+              |MN|^2-64=16(z-4)(z+1)\ge0.
+            \]
+            因此 $|MN|\ge8$。
+        \item[\textbf{第四步（验等号并检查方向）：}]
+            $z=4$ 等价于 $t=1$ 或 $t=-1$。图中 $t=1$ 时两点横坐标相同、纵坐标相差 $8$；$t=-1$ 时两点上下交换，方向和长度不变。
+            \[
+              \boxed{|MN|_{\min}=8,\qquad MN\parallel l.}
+            \]
+            \textbf{理由：} 最小值为 $8$，不是 $0$；两点横坐标相等时，纵坐标仍相差 $8$。
+    \end{description}
+    \textbf{考场更快的比较法：} $|MN|\ge|\Delta y|=4|t+1/t|\ge8$，等号在 $t=\pm1$ 时两步同时成立。整体换元法适合整理复杂平方，坐标差下界法通常更快。
+
+    \end{examplebox}
+\clearpage
+\begin{examplebox}
+    \textbf{\textcolor{CExample}{例四（倒数差：根据表达式选换元）}}
+    \textbf{\textcolor{CExample}{题目：}}
+    解方程
+    \[
+       t^2+\frac1{t^2}-3\left(t-\frac1t\right)=0,\qquad t\ne0.
+    \]
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.48em]
+        \item[\textbf{第一步（令差为一个整体）：}]
+            令 $v=t-1/t$，则 $v\in\mathbb R$，$t^2+1/t^2=v^2+2$。
+        \item[\textbf{第二步（解二次方程）：}]
+            \[
+              v^2-3v+2=(v-1)(v-2)=0\Longrightarrow v=1\text{ 或 }2.
+            \]
+        \item[\textbf{第三步（回代）：}]
+            若 $v=1$，则 $t^2-t-1=0$，得 $t=\dfrac{1\pm\sqrt5}{2}$；若 $v=2$，则 $t^2-2t-1=0$，得 $t=1\pm\sqrt2$。
+        \item[\textbf{第四步（列全答案）：}]
+            \[
+               \boxed{t=\frac{1\pm\sqrt5}{2}\quad\text{或}\quad t=1\pm\sqrt2.}
+            \]
+            \textbf{理由：} 若误用 $|v|\ge2$，会错误舍去 $v=1$ 的两个根。
+    \end{description}
+
+    \end{examplebox}
+\clearpage
+\begin{examplebox}
+    \textbf{\textcolor{CExample}{例五（指数迁移：先把指数看作倒数变量）}}
+    \textbf{\textcolor{CExample}{题目：}}
+    解 $4^x+4^{-x}=2^x+2^{-x}+4$。
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.48em]
+        \item[\textbf{第一步（设正数）：}]
+            设 $t=2^x>0$，则 $4^x=t^2$、$4^{-x}=t^{-2}$。
+        \item[\textbf{第二步（再设倒数和）：}]
+            令 $u=t+1/t\ge2$，则 $u^2-2=u+4$，即
+            \[
+               (u-3)(u+2)=0.
+            \]
+            因 $u\ge2$，取 $u=3$。
+        \item[\textbf{第三步（回代到 $x$）：}]
+            $t+1/t=3\Longrightarrow t^2-3t+1=0$，故 $t=(3+\sqrt5)/2$ 或 $t=(3-\sqrt5)/2$，均为正数。
+            \[
+              \boxed{x=\log_2\frac{3+\sqrt5}{2}\quad\text{或}\quad x=\log_2\frac{3-\sqrt5}{2}.}
+            \]
+            \textbf{理由：} 指数换元使 $t>0$，因而 $u$ 只取 $[2,+\infty)$。
+    \end{description}
+\end{examplebox}
+
+\clearpage

@@ -1,0 +1,19 @@
+\begin{center}
+\begin{tikzpicture}[font=\small]
+\begin{axis}[at={(0,0)},width=6.3cm,height=6cm,axis lines=middle,
+ xmin=-3.5,xmax=3.5,ymin=-4.5,ymax=4.5,xtick={-1,1},ytick={-2,2},
+ yticklabel style={anchor=west,xshift=4pt},
+ xlabel={$t$},title={和型 $u=t+t^{-1}$}]
+\addplot[CStatement,very thick,domain=.24:3.4,samples=130] {x+1/x};
+\addplot[CStatement,very thick,domain=-3.4:-.24,samples=130] {x+1/x};
+\addplot[only marks,CStatement] coordinates {(1,2) (-1,-2)};
+\end{axis}
+\begin{axis}[at={(6.5cm,0)},width=6.3cm,height=6cm,axis lines=middle,
+ xmin=-3.5,xmax=3.5,ymin=-4.5,ymax=4.5,xtick=\empty,ytick=\empty,
+ xlabel={$t$},title={差型 $v=t-t^{-1}$}]
+\addplot[CExample,very thick,domain=.22:3.4,samples=130] {x-1/x};
+\addplot[CExample,very thick,domain=-3.4:-.22,samples=130] {x-1/x};
+\addplot[only marks,CExample] coordinates {(1,0) (-1,0)};
+\end{axis}
+\end{tikzpicture}
+\end{center}

@@ -1,0 +1,16 @@
+\begin{center}
+\begin{tikzpicture}[font=\small]
+\begin{axis}[width=11.8cm,height=6cm,axis lines=middle,
+ xmin=0,xmax=4.1,ymin=-5.1,ymax=3.5,xtick={1.5,2,3},ytick={-4.25,-4},
+ yticklabels={},xlabel={$z$},ylabel={$P$},clip=false]
+\addplot[gray,dashed,domain=.15:2,samples=60] {x^2-3*x-2};
+\addplot[CStatement,very thick,domain=2:4,samples=80] {x^2-3*x-2};
+\addplot[only marks,mark=o,gray,mark size=2.5pt] coordinates {(1.5,-4.25)};
+\addplot[only marks,CExample,mark size=3pt] coordinates {(2,-4)};
+\node[anchor=east,text=gray] at (axis cs:1.25,-2.4) {顶点不允许};
+\node[anchor=west,text=CExample] at (axis cs:2.2,-4.35) {$(2,-4)$ 可取};
+\node at (axis cs:1.6,2.6) {$P=z^2-3z-2$};
+\node at (axis cs:1.6,1.5) {实线只保留 $z\ge2$};
+\end{axis}
+\end{tikzpicture}
+\end{center}

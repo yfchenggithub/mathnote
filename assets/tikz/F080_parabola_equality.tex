@@ -1,0 +1,26 @@
+\begin{center}
+\begin{tikzpicture}[font=\small]
+\begin{axis}[width=10cm,height=11.3cm,scale only axis,axis equal image,axis lines=middle,
+ xmin=-3,xmax=13,ymin=-11,ymax=11,xtick=\empty,ytick={-4,4},
+ xlabel={$x$},ylabel={$y$},clip=false]
+\addplot[CStatement,very thick,domain=-10.2:10.2,samples=180,variable=\s] ({\s^2/8},{\s});
+\addplot[CTrap,dashed,thick] coordinates {(-2,-10.5) (-2,10.5)};
+\addplot[gray,domain=.34314575:11.65685425] {x-2};
+\addplot[gray,domain=.34314575:11.65685425] {-x+2};
+\addplot[CExample,very thick] coordinates {(6,-4) (6,4)};
+\addplot[only marks,CExample,mark size=2.5pt] coordinates {(6,4) (6,-4)};
+\addplot[only marks,CStatement] coordinates {(2,0) (11.65685425,9.65685425) (.34314575,-1.65685425) (11.65685425,-9.65685425) (.34314575,1.65685425)};
+\draw (axis cs:2.4,.4)--(axis cs:2.8,0)--(axis cs:2.4,-.4);
+\node[anchor=west] at (axis cs:6.35,4.35) {$M(6,4)$};
+\node[anchor=west] at (axis cs:6.35,-4.35) {$N(6,-4)$};
+\node[anchor=west] at (axis cs:3.3,-.65) {$F$};
+\node[anchor=west] at (axis cs:6.4,1.5) {$|MN|=8$};
+\node[anchor=south] at (axis cs:11.65,9.9) {$A$};
+\node[anchor=north] at (axis cs:11.65,-9.9) {$D$};
+\node[anchor=east] at (axis cs:0,-2.3) {$B$};
+\node[anchor=east] at (axis cs:0,2.3) {$E$};
+\node[rotate=90,text=CTrap] at (axis cs:-3.5,6) {$l:x=-2$};
+\node at (axis cs:6,10.3) {$y^2=8x$，$t=1$};
+\end{axis}
+\end{tikzpicture}
+\end{center}

@@ -1,0 +1,89 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法一：展开平方与立方}}
+设 $t\ne0$ 为实数，$u=t+t^{-1}$。
+\input{assets/tikz/F080_square_partition.tex}
+图中 $t=2>0$，面积分割显示
+\[
+u^2=t^2+2+t^{-2}\quad\Longrightarrow\quad t^2+t^{-2}=u^2-2.
+\]
+对任意非零实数 $t$，即使 $t<0$ 不能直接作边长，同一等式仍由完全平方公式成立。再展开立方：
+\[
+u^3=t^3+3t+3t^{-1}+t^{-3},
+\]
+故 $t^3+t^{-3}=u^3-3u$。将二次倒数和再平方，得
+\[
+t^4+t^{-4}=(u^2-2)^2-2=u^4-4u^2+2.
+\]
+\textbf{范围的必要性与充分性：}
+$u^2-4=(t-t^{-1})^2\ge0$，故 $|u|\ge2$。反过来，任意 $|u|\ge2$ 使 $t^2-ut+1=0$ 的判别式 $u^2-4\ge0$；两根乘积为 $1$，均非零，故每个这样的 $u$ 都能取得。边界 $u=\pm2$ 分别对应 $t=\pm1$；$t>0$ 时 $u\ge2$，$t<0$ 时 $u\le-2$。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法二：乘后减去多余的一组}}
+\input{assets/tikz/F080_cubic_product.tex}
+乘法格直接给出
+\[
+u(t^2+t^{-2})=(t^3+t^{-3})+(t+t^{-1}).
+\]
+代入方法一的 $t^2+t^{-2}=u^2-2$，减去绿色交叉格的和 $u$，得
+\[
+\boxed{t^3+t^{-3}=u(u^2-2)-u=u^3-3u.}
+\]
+四次同样不用展开四次二项式，只需对二次整体平方，再扣去两个交叉项：
+\[
+\boxed{t^4+t^{-4}=(t^2+t^{-2})^2-2=(u^2-2)^2-2.}
+\]
+本法利用已知的低次整体，适合快速推式；$t\ne0$ 与 $|u|\ge2$ 的条件仍须保留。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法三：首尾对称四次方程降次}}
+设 $a,b\in\mathbb R$。方程 $t^4+at^3+bt^2+at+1=0$ 的常数项为 $1$，故 $t=0$ 不是根，可以同除 $t^2$。
+\input{assets/tikz/F080_power_pairing.tex}
+图中两对正负幂次各自合并，中央保留常数 $b$，于是
+\[
+(t^2+t^{-2})+a(t+t^{-1})+b=0
+\]
+化为
+\[
+\boxed{u^2+au+b-2=0,\qquad |u|\ge2.}
+\]
+先求这个二次方程的根，舍去 $(-2,2)$ 内的值；对剩下的每个 $u$ 解
+\[
+t^2-ut+1=0,\qquad t=\frac{u\pm\sqrt{u^2-4}}2.
+\]
+当 $|u|>2$ 时对应两个互为倒数的不同实根；当 $u=2$ 或 $-2$ 时，两个回代值重合为 $t=1$ 或 $-1$。全部变形在 $t\ne0$ 下等价，因此回代后不会漏解或引入新解。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法四：指数移动得到通用递推}}
+记 $S_n=t^n+t^{-n}$（整数 $n\ge0$），$S_0=2$、$S_1=u$。
+\input{assets/tikz/F080_exponent_steps.tex}
+按图中指数的移动，乘积的四项恰好组成两组：
+\[
+\begin{aligned}
+uS_n&=(t+t^{-1})(t^n+t^{-n})\\
+&=t^{n+1}+t^{n-1}+t^{-n+1}+t^{-n-1}\\
+&=S_{n+1}+S_{n-1}\qquad(n\ge1).
+\end{aligned}
+\]
+所以 $\boxed{S_{n+1}=uS_n-S_{n-1}}$。依次算得
+\[
+S_2=u^2-2,\quad S_3=u^3-3u,\quad S_4=u^4-4u^2+2.
+\]
+从常数 $S_0$ 与一次式 $S_1$ 出发，每次仅乘 $u$ 并减去已知多项式，故所有 $S_n$ 都是 $u$ 的多项式。$n=1$ 时两项 $t^0$ 均须保留，因此减的是 $S_0=2$。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{补充：倒数差的恒等式与范围}}
+令 $v=t-t^{-1}$，则展开得
+\[
+v^2=t^2-2+t^{-2},\qquad v^3=t^3-3t+3t^{-1}-t^{-3},
+\]
+即 $t^2+t^{-2}=v^2+2$、$t^3-t^{-3}=v^3+3v$。
+\input{assets/tikz/F080_sum_difference_ranges.tex}
+两幅图的坐标范围与尺度相同。左图正支最低为 $2$、负支最高为 $-2$；右图每条分支从一端趋向另一端，均覆盖全部纵坐标。
+
+严格地说，任给实数 $v$，回代方程 $t^2-vt-1=0$ 的判别式为 $v^2+4>0$，两根乘积为 $-1$，均非零，故 $v$ 的范围确为 $\mathbb R$。
+\end{proofbox}
+\clearpage

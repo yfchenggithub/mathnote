@@ -1,0 +1,18 @@
+\begin{center}
+\begin{tikzpicture}[font=\small,x=1cm,y=1cm]
+\node[font=\bfseries] at (5.5,4.2) {乘 $t$ 指数加 $1$；乘 $t^{-1}$ 指数减 $1$};
+\draw[-Stealth] (.3,0)--(10.7,0) node[anchor=west] {指数};
+\foreach \x/\k in {1/{-n-1},2.5/{-n},4/{-n+1},7/{n-1},8.5/{n},10/{n+1}} {
+\draw (\x,-.1)--(\x,.1);\node[anchor=north] at (\x,-.25) {$\k$};}
+\foreach \x in {2.5,8.5} {\fill[CStatement] (\x,0) circle (2pt);}
+\draw[-Stealth,CExample,thick] (2.5,.25) to[bend left=35] (4,.25);
+\draw[-Stealth,CExample,thick] (8.5,.25) to[bend left=35] (10,.25);
+\draw[-Stealth,CTrap,thick,dashed] (2.5,.25) to[bend right=35] (1,.25);
+\draw[-Stealth,CTrap,thick,dashed] (8.5,.25) to[bend right=35] (7,.25);
+\node at (5.5,1.45) {绿色实线：乘 $t$；红色虚线：乘 $t^{-1}$};
+\draw[CStatement,thick] (1,1.95)--(1,2.9)--(10,2.9)--(10,1.95);
+\node[fill=BGProof] at (5.5,2.9) {两端组成 $S_{n+1}$};
+\node at (5.5,3.55) {内侧 $n-1$ 与 $-n+1$ 组成 $S_{n-1}$};
+\node at (5.5,-1.05) {位置为指数示意，中央省略间隔；$n=1$ 时内侧两项都为 $1$。};
+\end{tikzpicture}
+\end{center}

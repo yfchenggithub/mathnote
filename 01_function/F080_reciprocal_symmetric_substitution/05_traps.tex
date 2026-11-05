@@ -1,0 +1,78 @@
+\begin{trapbox}
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.36em]
+      \item[\textbf{\textcolor{CTrap}{易错点一（换元后忘记新变量的范围）}}]
+        把 $u=t+1/t$ 当作任意实数，解出 $u=1$ 后直接回代。
+      \item[\textbf{\textcolor{CTrap}{正确理解（先写 $|u|\ge2$）}}]
+        对非零实数 $t$，$u^2-4=(t-1/t)^2\ge0$；取 $u=1$ 会产生方程 $t^2-t+1=0$，无实根。
+      \item[\textbf{\textcolor{CTrap}{错因分析}}]
+        整体换元是把原变量映射到一个更小的取值集合；如果扩大新变量的范围，会出现不属于原题的假解。
+    \end{description}
+
+    \medskip
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.36em]
+      \item[\textbf{\textcolor{CTrap}{易错点二（把倒数和与倒数差的取值范围混用）}}]
+        令 $v=t-1/t$ 后，也写成 $|v|\ge2$。
+      \item[\textbf{\textcolor{CTrap}{正确理解（差型可以取零）}}]
+        \input{assets/tikz/F080_sum_difference_ranges.tex}
+        看同尺度曲线：和型缺少中间纵坐标，差型却经过 $(1,0)$、$(-1,0)$。任意实数 $v$ 都可取得，理由见证明补充。
+      \item[\textbf{\textcolor{CTrap}{错因分析}}]
+        $t+1/t$ 的两项同号，$t-1/t$ 的两项可能抵消；不能套用相同的基本不等式条件。
+    \end{description}
+
+    \medskip
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.36em]
+      \item[\textbf{\textcolor{CTrap}{易错点三（错误的高次展开）}}]
+        写成 $t^2+t^{-2}=u^2$，或写成 $t^3+t^{-3}=u^3$。
+      \item[\textbf{\textcolor{CTrap}{正确理解（交叉项不能漏）}}]
+        \[
+          t^2+t^{-2}=u^2-2,\quad t^3+t^{-3}=u^3-3u.
+        \]
+        例如 $t=1$ 时，左边均为 $2$，而 $u=2$；$u^2=4$、$u^3=8$ 显然不等于 $2$。
+      \item[\textbf{\textcolor{CTrap}{错因分析}}]
+        将 $(a+b)^n$ 误当成 $a^n+b^n$。用 $t=1$ 检验是最小反例。
+    \end{description}
+
+    \medskip
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.36em]
+      \item[\textbf{\textcolor{CTrap}{易错点四（看到首尾系数一样，就断定一定可换）}}]
+        只看最高次和常数项相等，没有检查中间各项成对的系数。
+      \item[\textbf{\textcolor{CTrap}{正确理解（完整系数都要成对相同）}}]
+        \input{assets/tikz/F080_coefficient_comparison.tex}
+        同一高度单位表示同一系数大小；下行虽首尾都是 $1$，但 $t^3$ 与 $t$ 的系数 $2,5$ 不同，配对失败。
+      \item[\textbf{\textcolor{CTrap}{错因分析}}]
+        除以 $t^2$ 后，有 $2t+5/t$，不是 $2(t+1/t)$；只匹配首尾不足以保证整体配对。
+    \end{description}
+
+    \medskip
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.36em]
+      \item[\textbf{\textcolor{CTrap}{易错点五（仅凭倒数和决定倒数差的符号）}}]
+        看到 $t^2-t^{-2}$，用 $u=t+1/t$ 后直接把它写成 $u\sqrt{u^2-4}$。
+      \item[\textbf{\textcolor{CTrap}{正确理解（平方可以，符号要单独判断）}}]
+        \[
+          (t^2-t^{-2})^2=u^2(u^2-4),
+        \]
+        但 $t^2-t^{-2}=u(t-1/t)$，其中 $t-1/t$ 的符号随 $t$ 改变。理解页两根虚线段给出了 $t=2$ 与 $t=1/2$ 的反号例子。
+      \item[\textbf{\textcolor{CTrap}{错因分析}}]
+        同一个 $u$ 可能对应 $t$ 与 $1/t$ 两个不同的原变量；平方后符号信息被消去，开平方不能擅自取正。
+    \end{description}
+
+    \medskip
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.36em]
+      \item[\textbf{\textcolor{CTrap}{易错点六（除以 $t^n$ 前没检查 $t=0$）}}]
+        对任何高次方程直接除以 $t^n$，可能漏掉 $t=0$ 的解。
+      \item[\textbf{\textcolor{CTrap}{正确理解（先验证零根）}}]
+        例如 $t^5+t^3=0$ 有根 $t=0$，不能未经检查就除以 $t^3$。本节四次首尾对称例子常数项为 $1$，所以 $t=0$ 本来就不可能是根。
+      \item[\textbf{\textcolor{CTrap}{错因分析}}]
+        除以变量的幂等于排除了该变量为零的情况，必须先验证是否会丢解。
+    \end{description}
+
+    \medskip
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.36em]
+      \item[\textbf{\textcolor{CTrap}{易错点七（只求出换元后的最值，没有检验能否取得）}}]
+        把 $z=t^2+t^{-2}$ 当作任意实数，对 $z^2-3z-2$ 使用顶点 $z=3/2$ 求最小值。
+      \item[\textbf{\textcolor{CTrap}{正确理解（顶点不在允许区间）}}]
+        $z\ge2$，故最小值在 $z=2$，为 $-4$，由 $t=\pm1$ 取得。不能用不在取值范围内的顶点。
+      \item[\textbf{\textcolor{CTrap}{错因分析}}]
+        降次只是改变式子的外观，不会扩大新变量实际允许的范围。
+    \end{description}
+\end{trapbox}
