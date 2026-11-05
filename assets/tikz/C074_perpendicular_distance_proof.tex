@@ -1,0 +1,28 @@
+\begin{tikzpicture}[>=stealth,font=\small]
+\begin{scope}
+\coordinate(P) at (1,1.5); \coordinate(A) at (-1,0); \coordinate(B) at (1,0); \coordinate(J) at (0,2); \coordinate(K) at (1.6,1.2);
+\draw[orange,thick] (-1.5,2.75)--(2.5,.75) node[right] {$l$};
+\draw[gray,thick] (A)--(P)--(B);
+\draw[teal,dashed,thick] (A)--(J) node[midway,left] {$d_1$};
+\draw[teal,dashed,thick] (B)--(K) node[midway,right] {$d_2$};
+\foreach \v/\pos/\lab in {P/above right/P,A/below/F_1,B/below/F_2,J/above/H_1,K/above right/H_2}
+ {\fill(\v) circle(1.5pt) node[\pos] {$\lab$};}
+\pic[draw,angle radius=2.5mm] {right angle=A--J--P};
+\pic[draw,angle radius=2.5mm] {right angle=B--K--P};
+\node at (.3,3.5) {椭圆：两焦点在切线同侧};
+\node at (.3,-.8) {$d_1/PF_1=d_2/PF_2$};
+\end{scope}
+\begin{scope}[xshift=7cm]
+\coordinate(P) at (2,3); \coordinate(A) at (-2,0); \coordinate(B) at (2,0); \coordinate(J) at (0,-1); \coordinate(K) at (.8,.6);
+\draw[orange,thick] (-.2,-1.4)--(2.3,3.6) node[right] {$l$};
+\draw[gray,thick] (A)--(P)--(B);
+\draw[teal,dashed,thick] (A)--(J) node[midway,below left] {$d_1$};
+\draw[teal,dashed,thick] (B)--(K) node[midway,below right] {$d_2$};
+\foreach \v/\pos/\lab in {P/above left/P,A/left/F_1,B/right/F_2,J/below right/H_1,K/above left/H_2}
+ {\fill(\v) circle(1.5pt) node[\pos] {$\lab$};}
+\pic[draw,angle radius=2.5mm] {right angle=A--J--P};
+\pic[draw,angle radius=2.5mm] {right angle=B--K--P};
+\node at (.3,4.2) {双曲线：两焦点在切线异侧};
+\node at (.3,-2) {$d_1/PF_1=d_2/PF_2$};
+\end{scope}
+\end{tikzpicture}

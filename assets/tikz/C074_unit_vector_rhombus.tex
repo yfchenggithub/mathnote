@@ -1,0 +1,11 @@
+\begin{tikzpicture}[>=stealth,font=\small,scale=2]
+\coordinate(P) at (0,0); \coordinate(U) at (-.8,-.6); \coordinate(V) at (0,-1); \coordinate(S) at (-.8,-1.6);
+\draw[teal,thick,->] (P)--(U) node[midway,above left] {$u$};
+\draw[gray,thick,->] (P)--(V) node[midway,right] {$v$};
+\draw[gray,dashed] (U)--(S)--(V); \draw[gray,dashed] (U)--(V);
+\draw[red,very thick,->] (P)--(S) node[below] {$u+v$};
+\node[above] at(P) {$P$}; \node[left] at(U) {$U$}; \node[right] at(V) {$V$}; \node[left] at(S) {$S$};
+\pic[draw,red,angle radius=9mm] {angle=U--P--S};
+\pic[draw,red,angle radius=9mm] {angle=S--P--V};
+\node[anchor=west,align=left] at (.6,-.7) {$|u|=|v|=1$\\菱形对角线 $PS$ 平分内角\\$(u+v)\perp(u-v)$};
+\end{tikzpicture}

@@ -1,0 +1,12 @@
+\begin{tikzpicture}[>=stealth,font=\small]
+\draw[blue,thick,domain=-.4:1.4,samples=80] plot ({cosh(\x)},{sqrt(3)*sinh(\x)});
+\coordinate(P) at (2,3); \coordinate(A) at (-2,0); \coordinate(B) at (2,0); \coordinate(M) at (.5,0);
+\draw[gray,->,thick] (P)--(A); \draw[gray,->,thick] (P)--(B);
+\draw[teal,thick] (A)--(B); \draw[orange,thick,->] (2.4,3.8)--(.2,-.6) node[left] {$l$};
+\foreach \v/\pos/\lab in {P/above left/P,A/below/F_1,B/below/F_2}
+ {\fill(\v) circle(1.5pt) node[\pos] {$\lab$};}
+\fill(M) circle(1.5pt) node[below,yshift=-4mm] {$M$};
+\pic[draw,orange,angle radius=7mm] {angle=A--P--M};
+\pic[draw,orange,angle radius=7mm] {angle=M--P--B};
+\node[anchor=west,align=left] at (3,1.5) {切线交焦点轴于内部点 $M$\\$MF_1:MF_2=5:3$\\$PF_1:PF_2=5:3$};
+\end{tikzpicture}

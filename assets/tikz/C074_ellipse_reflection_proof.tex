@@ -1,0 +1,12 @@
+\begin{tikzpicture}[>=stealth,font=\small]
+\draw[blue,thick] (0,0) ellipse (2 and {sqrt(3)});
+\coordinate(P) at (1,1.5); \coordinate(A) at (-1,0); \coordinate(B) at (1,0); \coordinate(R) at (1,4); \coordinate(Q) at (2,1);
+\draw[orange,thick] (-1,2.5)--(3,.5) node[right] {$l$};
+\draw[gray,thick] (A)--(P)--(B);
+\draw[teal,thick] (B)--(R); \draw[gray,dashed] (A)--(R);
+\draw[red,dashed] (R)--(Q)--(B); \draw[gray,dashed] (A)--(Q);
+\foreach \v/\pos/\lab in {P/above left/P,A/below left/F_1,B/below/F_2,R/above/F'_1}
+ {\fill(\v) circle(1.5pt) node[\pos] {$\lab$};}
+\fill(Q) circle(1.5pt) node[right,xshift=2mm,yshift=-5mm] {$Q$};
+\node[anchor=west,align=left] at (3.3,3) {$F_1\leftrightarrow F'_1$ 关于 $l$ 对称\\$F'_1,P,F_2$ 共线\\$QF'_1+QF_2>F'_1F_2$};
+\end{tikzpicture}

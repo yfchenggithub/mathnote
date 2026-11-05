@@ -1,23 +1,421 @@
 \begin{proofbox}
-\textbf{单位向量给出内角平分方向。}
-两条非相反的单位向量 $u,v$ 之和 $u+v$ 与两者夹角相等，并位于内部；
-这是等腰三角形的对角线性质。
-\par\medskip\noindent
-\textbf{椭圆。} 令 $r_i=|P-F_i|$，$u=(F_1-P)/r_1$，$v=(F_2-P)/r_2$。
-椭圆为 $r_1+r_2=2a$ 的等值线，其梯度 $-(u+v)$ 垂直切线，
-所以内角平分射线 $u+v$ 沿法线。
-\par\medskip\noindent
-\textbf{双曲线。} 在任一分支，$r_1-r_2$ 为常数，梯度为 $v-u$。
-由于 $(u+v)\cdot(v-u)=|v|^2-|u|^2=0$，
-内角平分方向 $u+v$ 沿切线；非顶点保证 $u+v\ne0$。
-\par\medskip\noindent
-\textbf{抛物线。} 以 $y^2=2px$（$p>0$）为例，$F=(p/2,0)$，
-$P=(x,y)$，$r=PF=x+p/2$。开口方向单位向量为 $h=(1,0)$。
+\textbf{证明目标。} 对椭圆、双曲线分别证明 $PF_1,PF_2$ 的内角平分线是
+法线、切线；对抛物线证明 $PF$ 与开口方向射线 $PH$ 的内角平分线是法线。
+四种方法按“最低门槛、最快、步骤最少、常规”排序。
+\textbf{前三种和第四种均只使用高中阶段的知识。}
+
+\medskip\noindent
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法一：门槛最低——对称、三角形不等式（纯几何）。}
+\textbf{核心想法：} 把焦点关于一条待验证的直线对称过去，
+用距离不等式证明候选直线上除 $P$ 外的点都严格落在同一距离区域，
+从而验证它在 $P$ 处与曲线相切。
+\emph{本法只需几何关系。}
+
+\par\medskip\begin{minipage}{\linewidth}
+\textbf{（一）椭圆。}
+\begin{center}\input{assets/tikz/C074_ellipse_reflection_proof.tex}\end{center}
+\end{minipage}\par
+
+\begin{enumerate}
+\item 由椭圆定义，任意椭圆上点 $X$ 都满足
+$XF_1+XF_2=2a$。在所选点 $P$，作 $\angle F_1PF_2$ 的内角平分线 $n$，
+再过 $P$ 作 $l\perp n$。
+\item 将 $F_1$ 关于 $l$ 对称到 $F'_1$。
+因为 $l$ 是 $\angle F_1PF_2$ 的\textbf{外角平分线}，
+对称后 $PF'_1$ 与 $PF_2$ 在同一条直线上、方向相反，
+所以 $P$ 位于线段 $F'_1F_2$ 上。
+因此
 \[
-u=\frac{(p/2-x,-y)}r,\qquad
-u+h=\frac{(p,-y)}r.
+F'_1F_2=PF'_1+PF_2=PF_1+PF_2=2a.
 \]
-曲线 $y^2-2px=0$ 的法向量为 $(-p,y)$，故 $u+h$ 沿法线。
-切向量 $(y,p)$ 与它垂直，所以切线平分外角。
-其他开口由旋转或反射得到；关键始终是 $h$ 指向实际开口。
+\item 在直线 $l$ 上任取 $Q\ne P$。
+由于 $F_1,F'_1$ 关于 $l$ 对称，所以 $QF_1=QF'_1$。
+三角形两边之和大于第三边，得
+\[
+QF_1+QF_2=QF'_1+QF_2>F'_1F_2=2a.
+\]
+这里是\textbf{严格大于}：要取等号，$Q$ 必须在线段 $F'_1F_2$ 上；
+这条线段与 $l$ 只有交点 $P$，而 $Q\ne P$。
+\item 上述严格不等式说明 $l$ 除 $P$ 外都在椭圆外部，
+故 $l$ 在 $P$ 处与椭圆相切；
+与它垂直的 $n$ 为法线。结论成立。
+\end{enumerate}
+\textbf{几何意义：} 椭圆要求“到两焦点的距离\textbf{之和}不变”，
+对称后恰好出现三角形\textbf{两边之和}的不等式。
+
+\par\medskip\begin{minipage}{\linewidth}
+\textbf{（二）双曲线。}
+\begin{center}\input{assets/tikz/C074_hyperbola_reflection_proof.tex}\end{center}
+\end{minipage}\par
+
+\begin{enumerate}
+\item 由双曲线定义，任意曲线上点 $X$ 满足
+$|XF_1-XF_2|=2a$。
+先看右支：$PF_1>PF_2$，且 $PF_1-PF_2=2a$。
+过 $P$ 作 $\angle F_1PF_2$ 的内角平分线 $l$。
+\item 将距离较远的焦点 $F_1$ 关于 $l$ 对称到 $F'_1$。
+因为 $l$ 平分内角，对称后的射线 $PF'_1$ 与 $PF_2$ 同向；
+又 $PF'_1=PF_1>PF_2$，故三点的顺序是 $P,F_2,F'_1$。
+于是
+\[
+F'_1F_2=PF'_1-PF_2=PF_1-PF_2=2a.
+\]
+\item 在 $l$ 上任取 $Q\ne P$，有 $QF_1=QF'_1$。
+根据三角形任意两边之差不大于第三边，
+\[
+|QF_1-QF_2|=|QF'_1-QF_2|<F'_1F_2=2a.
+\]
+严格小于是因为要取等号，$Q,F'_1,F_2$ 必须在同一直线上，
+而直线 $F'_1F_2$ 与 $l$ 只相交于 $P$。
+\item 所以 $Q$ 不在双曲线上。并且直线 $l$ 上的其余点
+均满足焦点距离之差的绝对值严格小于 $2a$，
+可见 $l$ 从曲线的同一侧贴住 $P$ 而不穿过曲线，正是切线；
+垂直于它的法线就是外角平分线。
+\end{enumerate}
+\textbf{左支如何处理：} 左支上 $PF_2>PF_1$，只需将较远的 $F_2$
+关于内角平分线对称，重复以上四步，完全相同。
+\textbf{几何意义：} 双曲线保持“到两焦点的距离\textbf{之差的绝对值}不变”，
+因此要用三角形\textbf{两边之差}的不等式；这正是它与椭圆角色交换的原因。
+
+\par\medskip\begin{minipage}{\linewidth}
+\textbf{（三）抛物线。}
+\begin{center}\input{assets/tikz/C074_parabola_reflection_proof.tex}\end{center}
+\end{minipage}\par
+
+\begin{enumerate}
+\item 取 $y^2=2px$（$p>0$），焦点 $F(\tfrac p2,0)$，
+准线 $d:x=-\tfrac p2$。从曲线上点 $P$ 向准线作垂线，垂足为 $D$。
+由抛物线定义，$PF=PD$；$PD$ 水平向左，而开口方向射线 $PH$ 向右。
+\item 在等腰三角形 $PFD$ 中，过 $P$ 作 $\angle FPD$ 的内角平分线 $l$。
+它同时垂直平分 $FD$，所以关于 $l$ 对称时，$F$ 正好变成 $D$。
+\item 任取 $Q\in l$ 且 $Q\ne P$，由对称性得 $QF=QD$。
+设 $E$ 为 $Q$ 到准线的垂足，则 $QE$ 是 $Q$ 到准线的距离，故
+\[
+QF=QD>QE=\operatorname{dist}(Q,d).
+\]
+为什么严格大于？只有 $D=E$ 时才可能相等，即 $Q$ 与 $P$ 在同一条
+水平线上；但 $l$ 是线段 $FD$ 的垂直平分线，且 $F,D$ 横坐标相差 $p>0$，
+所以 $l$ 不可能是水平线，因而 $Q\ne P$ 时 $D\ne E$。
+\item 抛物线上的点必须满足“到焦点的距离＝到准线的距离”，
+所以 $l$ 除 $P$ 外都在“焦点距离大于准线距离”的一侧，
+在 $P$ 处与抛物线相切。
+又 $PD$ 与 $PH$ 方向相反，故平分 $\angle FPD$ 内角的 $l$，
+恰好平分 $\angle FPH$ 的外角；法线 $n\perp l$ 平分 $\angle FPH$ 的内角。
+\end{enumerate}
+\textbf{几何意义：} 抛物线把“焦点距离＝准线距离”变成
+“对称后点到固定的准线上一点的距离 $\ge$ 点到准线的最短距离”。
+
+\medskip\noindent
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法二：速度最快——角平分线定理，算与焦点连线的交点。}
+\textbf{判断信号：} 题目给出切线或法线方程，要求证明它平分焦点夹角。
+三角形 $F_1PF_2$ 中，若一条从 $P$ 出发的直线交 $F_1F_2$ 于内部点 $M$，
+只要证
+\[
+\frac{MF_1}{MF_2}=\frac{PF_1}{PF_2},
+\]
+便可直接由\textbf{角平分线定理的逆定理}判定它是内角平分线。
+
+\textbf{焦半径公式先说明来历（后面的两种方法也会用到）。}
+椭圆满足 $y_0^2=b^2(1-x_0^2/a^2)$，$b^2+c^2=a^2$。
+因此
+\[
+\begin{aligned}
+PF_1^2&=(x_0+c)^2+y_0^2
+=x_0^2+2cx_0+c^2+b^2-\frac{b^2x_0^2}{a^2}
+=\left(a+\frac{cx_0}{a}\right)^2,\\
+PF_2^2&=(x_0-c)^2+y_0^2
+=\left(a-\frac{cx_0}{a}\right)^2.
+\end{aligned}
+\]
+由于 $|x_0|<a$、$c<a$，括号中均为正，
+故 $PF_1=a+cx_0/a$、$PF_2=a-cx_0/a$。
+双曲线满足 $y_0^2=b^2(x_0^2/a^2-1)$，$a^2+b^2=c^2$，同样有
+\[
+\begin{aligned}
+PF_1^2&=(x_0+c)^2+y_0^2
+=\left(\frac{cx_0}{a}+a\right)^2,\\
+PF_2^2&=(x_0-c)^2+y_0^2
+=\left(\frac{cx_0}{a}-a\right)^2.
+\end{aligned}
+\]
+所以双曲线的 $PF_1,PF_2$ 分别是两个括号的\textbf{绝对值}。
+至于抛物线，代入 $y_0^2=2px_0$ 得
+$PF^2=(x_0-p/2)^2+y_0^2=(x_0+p/2)^2$；
+因 $x_0\ge0$，故 $PF=x_0+p/2$。
+
+\par\medskip\begin{minipage}{\linewidth}
+\textbf{（一）椭圆。}
+\begin{center}\input{assets/tikz/C074_ellipse_internal_division.tex}\end{center}
+\end{minipage}\par
+
+设 $P(x_0,y_0)$ 且 $y_0\ne0$，$c^2=a^2-b^2$。
+常用切线式为 $\tfrac{x_0x}{a^2}+\tfrac{y_0y}{b^2}=1$；
+法线方向与向量 $(\tfrac{x_0}{a^2},\tfrac{y_0}{b^2})$ 相同。
+所以法线与 $x$ 轴交于
+\[
+M\left(x_0-\frac{b^2x_0}{a^2},0\right)
+=M\left(\frac{c^2x_0}{a^2},0\right).
+\]
+因为 $|x_0|<a$ 且 $c<a$，故 $M$ 位于 $F_1F_2$ 内部。
+由椭圆定义和坐标计算，两个焦半径为
+\[
+PF_1=a+\frac{cx_0}{a},\qquad PF_2=a-\frac{cx_0}{a}.
+\]
+因此
+\[
+\frac{MF_1}{MF_2}
+=\frac{c+c^2x_0/a^2}{c-c^2x_0/a^2}
+=\frac{a^2+cx_0}{a^2-cx_0}
+=\frac{PF_1}{PF_2}.
+\]
+角平分线定理的逆定理说明\textbf{法线平分内角}。
+
+\par\medskip\begin{minipage}{\linewidth}
+\textbf{（二）双曲线。}
+\begin{center}\input{assets/tikz/C074_hyperbola_internal_division.tex}\end{center}
+\end{minipage}\par
+
+设 $P(x_0,y_0)$，$y_0\ne0$，$|x_0|>a$，$c^2=a^2+b^2$。
+切线为 $\tfrac{x_0x}{a^2}-\tfrac{y_0y}{b^2}=1$，
+令 $y=0$，得
+\[
+M\left(\frac{a^2}{x_0},0\right),\qquad
+\left|\frac{a^2}{x_0}\right|<a<c.
+\]
+因此 $M$ 也位于 $F_1F_2$ 内部。
+右支有 $PF_1=\tfrac{cx_0}{a}+a$，$PF_2=\tfrac{cx_0}{a}-a$；
+左支则两式同时取相反数，\textbf{所以两支的距离比都等于}
+\[
+\frac{PF_1}{PF_2}=\frac{cx_0+a^2}{cx_0-a^2}.
+\]
+同时
+\[
+\frac{MF_1}{MF_2}
+=\frac{c+a^2/x_0}{c-a^2/x_0}
+=\frac{cx_0+a^2}{cx_0-a^2}.
+\]
+两比相等，故\textbf{切线平分内角}。这里把左支也明确检验了。
+
+\par\medskip\begin{minipage}{\linewidth}
+\textbf{（三）抛物线。}
+\begin{center}\input{assets/tikz/C074_parabola_midpoint_proof.tex}\end{center}
+\end{minipage}\par
+
+令 $P(x_0,y_0)$，$y_0\ne0$，$y_0^2=2px_0$，
+$F(\tfrac p2,0)$，准线垂足 $D(-\tfrac p2,y_0)$。
+切线方程为 $y_0y=p(x+x_0)$。
+\begin{enumerate}
+\item $FD$ 的中点为 $N(0,\tfrac{y_0}{2})$。
+把 $N$ 代入切线：左边 $y_0^2/2$，右边 $px_0$，由 $y_0^2=2px_0$，两边相等；故 $N$ 在切线上。
+\item 直线 $FD$ 的斜率为 $-y_0/p$，切线斜率为 $p/y_0$，乘积为 $-1$，故切线垂直 $FD$。
+\item 切线经过 $FD$ 中点又垂直 $FD$，是 $FD$ 的垂直平分线。
+由 $PF=PD$，它也是等腰三角形 $PFD$ 顶角 $\angle FPD$ 的内角平分线。
+由于 $PD$ 向左、$PH$ 向右，法线才是 $\angle FPH$ 的内角平分线。
+\end{enumerate}
+
+\textbf{这一路线为何快？} 椭圆与双曲线都可以用
+“\textbf{交 $x$ 轴得到 $M$ $\rightarrow$ 比较 $MF_1/MF_2$ 和 $PF_1/PF_2$}”完成；
+抛物线则找 $FD$ 的中点，一眼识别等腰三角形的顶角平分线。
+
+\medskip\noindent
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法三：步骤最少——两个等长方向向量相加。}
+\begin{center}\input{assets/tikz/C074_unit_vector_rhombus.tex}\end{center}
+\textbf{共同事实：} 设 $u,v$ 都是长度为 $1$ 的向量，方向分别为 $PF_1,PF_2$。
+若两射线不相反，则 $u+v$ 指向内角平分线。
+原因是 $u,v$ 构成一个邻边等长的平行四边形，它的对角线平分夹角；
+且
+\[
+(u+v)\cdot(u-v)=|u|^2-|v|^2=1-1=0.
+\]
+所以内、外角平分线互相垂直。
+
+\textbf{（一）椭圆：两焦点方向相加，直接出现法线方向。}
+记 $r_1=PF_1,r_2=PF_2$，取
+\[
+u=\frac{(-c-x_0,-y_0)}{r_1},\qquad
+v=\frac{(c-x_0,-y_0)}{r_2}.
+\]
+由 $r_1+r_2=2a$，$r_1-r_2=2cx_0/a$，分别合并横、纵坐标：
+\[
+\begin{aligned}
+(u+v)_x
+&=\frac{c(r_1-r_2)-x_0(r_1+r_2)}{r_1r_2}
+=-\frac{2b^2x_0}{ar_1r_2},\\
+(u+v)_y
+&=-\frac{y_0(r_1+r_2)}{r_1r_2}
+=-\frac{2ay_0}{r_1r_2}.
+\end{aligned}
+\]
+因此只需记住这一行：
+\[
+\boxed{u+v=-\frac{2ab^2}{r_1r_2}
+\left(\frac{x_0}{a^2},\frac{y_0}{b^2}\right)}.
+\]
+括号内向量与椭圆切线
+$\tfrac{x_0x}{a^2}+\tfrac{y_0y}{b^2}=1$ 垂直，
+所以 $u+v$ 在法线上；法线是内角平分线。
+
+\textbf{（二）双曲线：两焦点方向相加，直接出现切线方向。}
+先看右支 $x_0>a$，
+$r_1=cx_0/a+a$，$r_2=cx_0/a-a$，仍取上面的 $u,v$。
+将 $r_1-r_2=2a$、$r_1+r_2=2cx_0/a$ 代入同样的横、纵坐标合并式：
+\[
+\begin{aligned}
+(u+v)_x
+&=\frac{2ac-2cx_0^2/a}{r_1r_2}
+=-\frac{2ac\,y_0^2}{b^2r_1r_2},\\
+(u+v)_y
+&=-\frac{2cx_0y_0}{ar_1r_2}.
+\end{aligned}
+\]
+其中用到了 $x_0^2-a^2=a^2y_0^2/b^2$。于是
+\[
+\boxed{u+v=-\frac{2cy_0}{ab^2r_1r_2}
+(a^2y_0,b^2x_0)}.
+\]
+而 $(a^2y_0,b^2x_0)$ 平行于切线
+$\tfrac{x_0x}{a^2}-\tfrac{y_0y}{b^2}=1$，
+因为
+$\tfrac{x_0}{a^2}(a^2y_0)-\tfrac{y_0}{b^2}(b^2x_0)=0$。
+故\textbf{切线是内角平分线}。
+左支可将图形关于 $y$ 轴对称，并交换两焦点的名称；
+对称不会改变“切线平分内角”这一事实。
+
+\textbf{（三）抛物线：焦点方向 $+$ 开口方向。}
+取 $y^2=2px$、$F(\tfrac p2,0)$、$P(x_0,y_0)$，
+$r=PF=x_0+\tfrac p2$。
+沿 $PF$ 的单位向量为 $u=(\tfrac p2-x_0,-y_0)/r$，
+沿开口方向的单位向量为 $h=(1,0)$。相加只有一行：
+\[
+\boxed{u+h
+=\frac{(\tfrac p2-x_0+r,-y_0)}r
+=\frac{(p,-y_0)}r}.
+\]
+而抛物线切线 $y_0y=p(x+x_0)$ 的方向向量可以取 $(y_0,p)$；
+$(p,-y_0)\cdot(y_0,p)=py_0-py_0=0$。
+故 $u+h$ 在法线上，法线平分内角。
+
+\medskip\noindent
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法四：常规法——先求切线，再比较焦点到切线的距离。}
+\textbf{高中工具：} 导数求切线、点到直线距离公式、直角三角形中的正弦。
+设过 $P$ 的直线为 $Ax+By+C=0$。
+若 $PF$ 与该直线夹锐角为 $\theta$，焦点到直线距离为 $d$，
+则从 $F$ 向直线作垂线，得到
+\[
+\sin\theta=\frac{d}{PF}
+=\frac{|AF_x+BF_y+C|}{PF\sqrt{A^2+B^2}}.
+\]
+\textbf{所以}：两个焦点的上述比值相等，表明切线与两焦点射线成相等的较小夹角；
+再看两个焦点在切线\textbf{同侧还是异侧}：同侧时切线平分外角，
+异侧时切线平分内角。抛物线则把第二个焦点换成准线垂足 $D$。
+
+\begin{center}\input{assets/tikz/C074_perpendicular_distance_proof.tex}\end{center}
+\pagebreak
+\textbf{先推出三类切线方程（以 $y_0\ne0$ 为例，绝不跳步）。}
+\begin{enumerate}
+\item 椭圆：对 $x^2/a^2+y^2/b^2=1$ 两边关于 $x$ 求导，
+$2x/a^2+(2y/b^2)y'=0$，故
+$y'=-b^2x/(a^2y)$。
+在 $P$ 处 $k=-b^2x_0/(a^2y_0)$，
+$y-y_0=k(x-x_0)$；移项并用
+$x_0^2/a^2+y_0^2/b^2=1$，得到
+\[
+\boxed{\frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1}.
+\]
+\item 双曲线：$2x/a^2-(2y/b^2)y'=0$，
+故 $k=b^2x_0/(a^2y_0)$。
+由 $y-y_0=k(x-x_0)$ 及
+$x_0^2/a^2-y_0^2/b^2=1$，得到
+\[
+\boxed{\frac{x_0x}{a^2}-\frac{y_0y}{b^2}=1}.
+\]
+\item 抛物线：$2yy'=2p$，故 $k=p/y_0$。
+由 $y-y_0=(p/y_0)(x-x_0)$，乘以 $y_0$：
+$y_0y-y_0^2=p(x-x_0)$；
+再用 $y_0^2=2px_0$，得到
+\[
+\boxed{y_0y=p(x+x_0)}.
+\]
+\end{enumerate}
+
+\textbf{（一）椭圆：焦点同侧，切线平分外角。}
+记切线左边减右边为
+$L(x,y)=x_0x/a^2+y_0y/b^2-1$。
+在两个焦点代入：
+\[
+L(F_1)=-1-\frac{cx_0}{a^2}<0,\qquad
+L(F_2)=-1+\frac{cx_0}{a^2}<0.
+\]
+因 $|x_0|<a$ 且 $c<a$，两个不等号确实成立。
+由焦半径公式
+\[
+r_1=\frac{a^2+cx_0}{a},\quad
+r_2=\frac{a^2-cx_0}{a},
+\]
+于是
+\[
+\frac{|L(F_1)|}{r_1}
+=\frac{(a^2+cx_0)/a^2}{(a^2+cx_0)/a}
+=\frac1a,
+\qquad
+\frac{|L(F_2)|}{r_2}=\frac1a.
+\]
+两焦点到切线的距离与焦半径之比相等，而且两焦点在切线同侧。
+因此\textbf{切线平分外角，法线平分内角}。
+
+\textbf{（二）双曲线：焦点异侧，切线平分内角。}
+记 $L(x,y)=x_0x/a^2-y_0y/b^2-1$，则
+\[
+L(F_1)=-\frac{cx_0+a^2}{a^2},\qquad
+L(F_2)=\frac{cx_0-a^2}{a^2}.
+\]
+由于 $|x_0|>a$、$c>a$，两数一正一负。
+再由双曲线焦半径公式
+\[
+r_1=\frac{|cx_0+a^2|}{a},\quad
+r_2=\frac{|cx_0-a^2|}{a},
+\]
+可得
+\[
+\frac{|L(F_1)|}{r_1}=\frac1a
+=\frac{|L(F_2)|}{r_2}.
+\]
+两焦点对应的正弦相等，而且在切线\textbf{异侧}，
+所以\textbf{切线平分内角、法线平分外角}。这一计算同时覆盖左右两支。
+
+\textbf{（三）抛物线：与准线垂足比较，再转回开口方向。}
+$P(x_0,y_0)$，$F(\tfrac p2,0)$，$D(-\tfrac p2,y_0)$，
+$r=PF=PD=x_0+\tfrac p2$。
+令 $L(x,y)=y_0y-px-px_0$，即切线 $L=0$。
+分别代入得
+\[
+L(F)=-p\left(x_0+\frac p2\right)=-pr,
+\qquad
+L(D)=y_0^2+\frac{p^2}{2}-px_0
+=p\left(x_0+\frac p2\right)=pr.
+\]
+其中最后一步用了 $y_0^2=2px_0$。
+可见 $F,D$ 在切线异侧，且
+\[
+\frac{|L(F)|}{PF}=p=\frac{|L(D)|}{PD}.
+\]
+所以切线平分 $\angle FPD$ 的内角；但 $PD$ 与指向开口的 $PH$ 反向，
+因此\textbf{法线平分 $\angle FPH$ 的内角}。
+
+\medskip\noindent
+\textbf{考场选择建议。} 已知切线式、焦半径时优先方法二；
+只想快速核对方向时方法三；需要从零解释几何原因时方法一；
+面对常规解析几何证明题可用方法四。
 \end{proofbox}

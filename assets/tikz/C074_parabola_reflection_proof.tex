@@ -1,0 +1,15 @@
+\begin{tikzpicture}[>=stealth,font=\small]
+\draw[blue,thick,domain=-1:3,samples=80] plot ({\x*\x/4},\x);
+\coordinate(P) at (1,2); \coordinate(F) at (1,0); \coordinate(D) at (-1,2); \coordinate(N) at (0,1); \coordinate(Q) at (1.8,2.8); \coordinate(E) at (-1,2.8);
+\draw[gray,dashed] (-1,-.3)--(-1,3.6) node[above] {$d$};
+\draw[orange,thick] (-.8,.2)--(2.5,3.5) node[right] {$l$};
+\draw[gray,thick] (F)--(P)--(D)--cycle;
+\draw[teal,dashed] (F)--(Q)--(D); \draw[red,thick] (Q)--(E);
+\draw[->,teal,thick] (P)--(3,2) node[right] {$H$};
+\foreach \v/\pos/\lab in {P/above left/P,F/below/F,D/above left/D,N/left/N,E/above left/E}
+ {\fill(\v) circle(1.4pt) node[\pos] {$\lab$};}
+\fill(Q) circle(1.4pt) node[right,xshift=3mm,yshift=-2mm] {$Q$};
+\pic[draw,angle radius=2.5mm] {right angle=F--N--P};
+\pic[draw,angle radius=2mm] {right angle=Q--E--D};
+\node[anchor=west,align=left] at (3.5,1) {$PF=PD$，$FN=ND$\\$l\perp FD$，$F\leftrightarrow D$\\$QF=QD>QE$};
+\end{tikzpicture}
