@@ -1,0 +1,200 @@
+{
+  "id": "F079",
+  "module": "function",
+  "core": {
+    "title": "有理根定理与试根分解法",
+    "alias": [
+      "有理根定理",
+      "试根分解法",
+      "有理数根定理",
+      "整系数多项式有理根",
+      "试根与多项式除法"
+    ],
+    "summary": "整数系数多项式的最简有理根p/q满足p整除常数项、q整除最高次项系数；验出根后提取qx-p降次分解。",
+    "difficulty": 3,
+    "category": "函数与方程",
+    "tags": [
+      "有理根",
+      "整数系数",
+      "因式定理",
+      "试根",
+      "多项式除法",
+      "高次方程",
+      "整除",
+      "降次分解"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "有理根定理",
+      "试根分解",
+      "有理数根",
+      "整系数多项式",
+      "分子整除常数项",
+      "分母整除最高次项系数",
+      "p|a0",
+      "q|an",
+      "p/q",
+      "qx-p",
+      "多项式长除法",
+      "试根",
+      "因式定理",
+      "高次多项式",
+      "有理根候选",
+      "商式",
+      "有理根与整数根",
+      "首一多项式"
+    ],
+    "synonyms": [
+      "有理根判定",
+      "整系数多项式有理根定理",
+      "试根法",
+      "候选有理根",
+      "高次方程降次",
+      "有理数根定理"
+    ],
+    "intents": [
+      "列出有理根候选",
+      "求多项式有理根",
+      "高次方程试根",
+      "用长除法分解多项式",
+      "判断是否存在有理根",
+      "证明有理根定理",
+      "试根后提取因式"
+    ],
+    "query_templates": [
+      "有理根定理怎么用",
+      "为什么p整除常数项q整除最高次系数",
+      "如何给高次多项式试根",
+      "整数系数多项式没有有理根怎么判断",
+      "qx-p是因式怎么做多项式除法"
+    ],
+    "ocrKeywords": [
+      "有理根",
+      "试根",
+      "整除",
+      "p/q",
+      "p|a0",
+      "q|an",
+      "最高次项",
+      "常数项",
+      "多项式除法",
+      "qx-p",
+      "互质"
+    ],
+    "latex_patterns": [
+      "p\\mid a_0",
+      "q\\mid a_n",
+      "f\\!\\left(\\frac pq\\right)=0",
+      "f(x)=(qx-p)g(x)",
+      "a_np^n+a_{n-1}p^{n-1}q+\\cdots+a_0q^n=0"
+    ],
+    "formulaTokens": [
+      "p\\mid a_0",
+      "q\\mid a_n",
+      "\\frac pq",
+      "qx-p",
+      "f\\!\\left(\\frac pq\\right)=0",
+      "a_0",
+      "a_n",
+      "p",
+      "q",
+      "f(x)",
+      "x-1"
+    ],
+    "pinyin": "youligendingli_yushigenfenjiefa",
+    "pinyinAbbr": "ylgdlysgfjf"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.82,
+    "hot_score": 76,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "f\\!\\left(\\frac pq\\right)=0,\\;\\gcd(|p|,q)=1,\\;q>0\\;\\Longrightarrow\\;p\\mid a_0,\\;q\\mid a_n",
+    "related_formulas": [
+      "f(x)=(qx-p)g(x),\\quad g(x)\\in\\mathbb Z[x]",
+      "a_np^n+a_{n-1}p^{n-1}q+\\cdots+a_0q^n=0",
+      "a_n=\\pm1\\Longrightarrow q=1"
+    ],
+    "variables": [
+      "a_0,...,a_n为整数系数，a_n不为0",
+      "p为有理根最简分数的非零整数分子",
+      "q为有理根最简分数的正整数分母",
+      "p与q互质",
+      "g(x)为整数系数商式"
+    ],
+    "conditions": "f(x)为n次整数系数多项式（n>=1，最高次项系数a_n不为0）；若常数项a_0=0先提出因式x。讨论非零有理根p/q时要求q>0且p,q互质。",
+    "conclusions": "若p/q是f(x)=0的有理根，则p整除a_0且q整除a_n（必要非充分）；若代入验证为根，则qx-p是因式且剩余商式可取整数系数。若a_n=±1，则有理根只能是整数。"
+  },
+  "content": {
+    "statement": "对整数系数多项式f(x)=a_nx^n+...+a_0（a_n≠0，a_0≠0），若p/q为最简非零有理根（q>0），则p|a_0且q|a_n。试出根后，qx-p为因式，可以通过多项式长除法降次。若a_0=0应先提出x。",
+    "derivation": [
+      "代入p/q并乘以q^n，得到整数等式a_np^n+...+a_0q^n=0。",
+      "除常数项外均含p，利用p,q互质得到p|a_0；除最高次项外均含q，得到q|a_n。",
+      "由f(p/q)=0可以逐次消去最高次项，证明f(x)=(qx-p)g(x)，其中g(x)的系数均为整数。"
+    ],
+    "intuition": "整数系数限制了有理根：分子只能从常数项约数里找，分母只能从最高次项系数约数里找；找出一个根就可降一次。",
+    "common_tricks": [
+      "先判断常数项是否为零，防止漏掉根0。",
+      "最高次项系数为±1时，只需试常数项的整数约数。",
+      "先验±1，再验其他整数，最后验最简真分数。",
+      "候选值不一定是真根，必须代入并经长除法确认。",
+      "若无有理根，不能直接断言无实根或无法分解成高次因式。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "选择题",
+      "填空题",
+      "高次方程求根",
+      "多项式因式分解"
+    ],
+    "problem_types": [
+      "列出有理根候选值",
+      "多项式试根及降次",
+      "多项式是否有有理根",
+      "利用因式定理求全部根"
+    ],
+    "exam_frequency": 0.66,
+    "exam_score": 5
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": ""
+  },
+  "shareConfig": {
+    "title": "有理根定理与试根分解法：分子看常数项，分母看最高次项",
+    "shareDesc": "先用整数系数限制有理根候选，再代入验根、长除法降次；附四种证明思路、教材型例题和常见误区。"
+  },
+  "relations": {
+    "prerequisites": [
+      "因式定理",
+      "整除与互质",
+      "多项式除法"
+    ],
+    "related_ids": [],
+    "similar": "因式定理说明验证为根后有一次因式；有理根定理进一步限制整数系数多项式可能的有理根。"
+  },
+  "meta": {
+    "version": 1,
+    "source": "根据用户提供的教材图示与原始文件框架重新编写",
+    "created_at": "2026-11-05",
+    "updated_at": "2026-11-05"
+  },
+  "isPro": 0,
+  "remarks": "F079；新增六幅 TikZ 教学图：assets/tikz/F079_candidate_grid.tex（首页分子分母候选格，缩短必要条件说明）；F079_irrational_intercept.tex（理解页无有理根仍有实根，替代纯文字横轴交点说明）；F079_factor_incidence.tex（方法一逐项因子分布）；F079_divisibility_groups.tex（方法二整数分组整除）；F079_product_grid.tex（方法三乘法格首尾系数来源）；F079_degree_elimination.tex（方法四逐列消元，缩短例二除法叙述）。后三种证明与第一法互相联系，方法三的整数系数前提由方法四保证。",
+  "knowledgeNode": "函数-函数与方程-多项式方程-有理根定理与试根分解法",
+  "altNodes": "代数-因式分解-试根法,函数-零点与方程-高次方程"
+}

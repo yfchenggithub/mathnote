@@ -1,0 +1,19 @@
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+\node[font=\bfseries] at (5.5,3.6) {清分母后：每一列是一项（以三次为例）};
+\foreach \x/\t in {2.4/{$a_3p^3$},4.8/{$a_2p^2q$},7.2/{$a_1pq^2$},9.6/{$a_0q^3$}} {
+\node at (\x,2.65) {\t};
+}
+\node at (0.55,1.65) {含 $p$};
+\node at (0.55,0.65) {含 $q$};
+\foreach \x in {2.4,4.8,7.2,9.6} {
+\draw[gray!50] (\x-0.8,0.2) rectangle (\x+0.8,2.1);
+}
+\foreach \x in {2.4,4.8,7.2} {\fill[CStatement] (\x,1.65) circle (0.13);}
+\foreach \x in {4.8,7.2,9.6} {\fill[CExample] (\x,0.65) circle (0.13);}
+\node at (9.6,1.65) {未必};\node at (2.4,0.65) {未必};
+\draw[CStatement,thick] (1.6,2.2)--(8,2.2);
+\draw[CExample,thick] (4,-0.05)--(10.4,-0.05);
+\node at (5.5,-0.65) {总和为零：另三项有公因子，剩下一项也必须有。};
+\end{tikzpicture}
+\end{center}

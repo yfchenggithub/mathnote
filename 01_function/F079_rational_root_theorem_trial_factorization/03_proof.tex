@@ -1,0 +1,96 @@
+\begin{proofbox}
+    \textbf{\textcolor{CProof}{证明目标与前提}}
+    设 $n\ge1$、$a_n\ne0$、$a_0\ne0$，且 $\dfrac pq$ 为 $f(x)=0$ 的有理根，其中 $p\ne0$、$q>0$、$p,q$ 互质。证明
+    \[
+        p\mid a_0,\qquad q\mid a_n.
+    \]
+    前三法着重证明有理根定理；第四法进一步严格证明试根后可以提出整数系数的一次因式。
+
+    \medskip
+    \textbf{\textcolor{CProof}{方法一（门槛最低：清分母，逐项观察）}}
+\input{assets/tikz/F079_factor_incidence.tex}
+
+    将 $f(p/q)=0$ 两边同乘 $q^n$，得整数等式
+    \[
+      a_np^n+a_{n-1}p^{n-1}q+\cdots+a_1pq^{n-1}+a_0q^n=0.\tag{1}
+    \]
+    图中把三次情形各项包含的公因子逐列标出；一般 $n$ 次时规律相同。
+    \begin{enumerate}[leftmargin=*,itemsep=0.6em]
+    \item \textbf{看分子：} 除最后一项外均含 $p$。移项后得到 $p\mid a_0q^n$。因 $p,q$ 互质，$|p|$ 的全部质因子及相应次数只能由 $a_0$ 提供，故 $p\mid a_0$。若 $|p|=1$，该结论直接成立。
+    \item \textbf{看分母：} 除第一项外均含 $q$。同理 $q\mid a_np^n$；由 $q,p^n$ 互质，得 $q\mid a_n$。若 $q=1$，该结论直接成立。
+    \end{enumerate}
+    因此 $\boxed{p\mid a_0,\ q\mid a_n}$。负分子的整除关系按绝对值判断；\textbf{互质}是去掉 $q^n$ 或 $p^n$ 的关键。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+    \textbf{\textcolor{CProof}{方法二（速度最快：两端移项法）}}
+\input{assets/tikz/F079_divisibility_groups.tex}
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.48em]
+        \item[\textbf{步骤一（抓住整数等式）：}]
+            由 $f(p/q)=0$ 清分母，立即写出
+            \[
+               a_np^n+qU=0,\qquad pV+a_0q^n=0,
+            \]
+            其中 $U,V$ 均为整数。\textbf{理由：} 第一式把除首项外的项合并；第二式把除末项外的项合并。
+        \item[\textbf{步骤二（一步判定）：}]
+            由 $a_np^n=-qU$ 得 $q\mid a_np^n$，因 $p,q$ 互质，得 $q\mid a_n$；由 $a_0q^n=-pV$ 得 $p\mid a_0q^n$，同理得 $p\mid a_0$。
+            \[
+               \boxed{q\mid a_n,\quad p\mid a_0.}
+            \]
+            \textbf{理由：} 省去逐项书写，直接利用两端的整除关系。
+    \end{description}
+
+    \medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+    \textbf{\textcolor{CProof}{方法三（步骤最少：已知整数系数一次因式时）}}
+\input{assets/tikz/F079_product_grid.tex}
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.48em]
+        \item[\textbf{步骤一（利用整数系数分解）：}]
+            利用\textbf{方法四将证明}的事实：若 $p/q$ 是整数系数多项式的最简有理根，则存在整数 $b_0,\ldots,b_{n-1}$ 使
+            \[
+             f(x)=(qx-p)(b_{n-1}x^{n-1}+\cdots+b_0).
+            \]
+            \textbf{理由：} 此处把“商式是整数系数”当作已经证明的结论，不能仅由因式定理擅自假定。
+        \item[\textbf{步骤二（只比首尾两项）：}]
+            乘开后比较最高次项与常数项，得
+            \[
+               a_n=qb_{n-1},\qquad a_0=-pb_0.
+            \]
+            由于 $b_{n-1},b_0$ 是整数，立即得到
+            \[
+               \boxed{q\mid a_n,\qquad p\mid a_0.}
+            \]
+            \textbf{理由：} 两项系数直接呈现“整数倍”关系，证明最短。
+    \end{description}
+
+    \medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+    \textbf{\textcolor{CProof}{方法四（常规通用：证明整数系数因式确实存在）}}
+\input{assets/tikz/F079_degree_elimination.tex}
+
+    \textbf{图中每次消去一项，所有系数仍为整数。一般证明如下。}
+    \begin{enumerate}[leftmargin=*,itemsep=0.65em]
+    \item 对任意整数系数多项式 $P(x)=c_mx^m+\cdots+c_0$（$m\ge1$），若 $P(p/q)=0$，清分母得 $c_mp^m+qW=0$，其中 $W\in\mathbb Z$。由互质性得 $q\mid c_m$。
+    \item 取整数 $b=c_m/q$，作差
+    \[
+      R(x)=P(x)-(qx-p)bx^{m-1}.
+    \]
+    因 $qb=c_m$，最高次项恰好消去。$R$ 仍为整数系数多项式，且 $R(p/q)=P(p/q)-0=0$。
+    \item 从 $P=f$ 开始，若余下多项式次数仍至少为 $1$，重复前两步；每次次数严格下降，故有限次后只剩常数 $C$（也可能提前得到零多项式）。于是
+    \[
+      f(x)=(qx-p)(b_{n-1}x^{n-1}+\cdots+b_0)+C,
+    \]
+    所有 $b_j,C$ 都是整数；跳过的次数对应 $b_j=0$。
+    \item 代入 $x=p/q$，得 $0=C$，所以确实存在整数系数商式。再比较首尾项：
+    \[
+      a_n=qb_{n-1},\qquad a_0=-pb_0
+      \quad\Longrightarrow\quad q\mid a_n,\ p\mid a_0.
+    \]
+    \end{enumerate}
+    本法独立使用清分母与互质性，不依赖方法三；因此也补足了方法三所需的整数系数前提。\textbf{只有验出根后才能提出 $qx-p$}，不能把候选值直接当作根。
+\end{proofbox}
+\clearpage

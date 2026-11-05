@@ -1,0 +1,13 @@
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=0.85cm,font=\small]
+\node[font=\bfseries] at (5.6,5.8) {除以 $2x-1$：逐列消去最高次项};
+\foreach \x/\v in {4/{$x^3$},6/{$x^2$},8/{$x$},10/{$1$}} {\node at (\x,4.9) {\v};}
+\foreach \y/\lab in {4/{原式},3/{减去 $(2x-1)3x^2$},2/{减去 $(2x-1)5x$},1/{减去 $(2x-1)2$}} {\node[anchor=east] at (2.8,\y) {\lab};}
+\foreach \x/\y/\v in {4/4/6,6/4/7,8/4/-1,10/4/-2,4/3/0,6/3/10,8/3/-1,10/3/-2,4/2/0,6/2/0,8/2/4,10/2/-2,4/1/0,6/1/0,8/1/0,10/1/0} {
+\draw[gray!40] (\x-0.85,\y-0.42) rectangle (\x+0.85,\y+0.42);
+\node at (\x,\y) {$\v$};
+}
+\foreach \x/\y in {4/4,6/3,8/2} {\draw[CStatement,very thick] (\x-0.65,\y-0.34)--(\x+0.65,\y-0.34);}
+\node at (5.6,-0.1) {每行记录相减后的系数；商为 $3x^2+5x+2$，余数为 $0$。};
+\end{tikzpicture}
+\end{center}
