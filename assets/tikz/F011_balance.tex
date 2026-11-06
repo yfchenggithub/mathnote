@@ -1,0 +1,25 @@
+\begin{center}
+\begin{minipage}{0.98\linewidth}
+\centering
+\textbf{一项增，一项减：和在相等处最低}\par\medskip
+\begin{tikzpicture}[font=\small,>=Stealth]
+
+\begin{scope}[x=2.1cm,y=0.95cm]
+\draw[->] (0,0)--(3.65,0) node[right] {$x$};
+\draw[->] (0,0)--(0,4.5) node[above] {数值};
+\draw[CStatement,very thick,domain=0.26:3.3,samples=90] plot (\x,{\x+1/\x});
+\draw[CProof,thick,dashed,domain=0.26:3.3] plot (\x,\x);
+\draw[CExample,thick,dotted,domain=0.26:3.3,samples=90] plot (\x,{1/\x});
+\draw[gray,dashed] (1,0)--(1,2);
+\fill[CProof] (1,1) circle (2.5pt); \fill[CStatement] (1,2) circle (2.5pt);
+\node[below] at (1,0) {$1$};
+\node[right] at (2.6,3.85) {$x+1/x$};
+\node[right] at (3.1,2.85) {$x$};
+\node[right] at (3.1,0.55) {$1/x$};
+\node[above right,fill=white] at (1,2) {和为 $2$};
+\node[below right,fill=white] at (1.1,1.15) {两项均为 $1$};
+\end{scope}
+\end{tikzpicture}\par\smallskip
+先看 $x+1/x$：两项的乘积始终为 $1$。推广到 $Ax$ 与 $B/x$，乘积为 $AB$，相等处的和为 $2\sqrt{AB}$。
+\end{minipage}
+\end{center}

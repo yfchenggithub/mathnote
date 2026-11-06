@@ -1,4 +1,6 @@
 \begin{proofbox}
+\input{assets/tikz/F011_amgm_area}
+
 	\textbf{\textcolor{CProof}{思路提示}}
 	对 $x>0$ 部分直接用均值不等式；对 $x<0$ 部分通过换元 $x=-t$ 化为正数情形，再利用不等式方向反转得到上界。
 
@@ -38,4 +40,102 @@
 	\medskip
 	\textbf{\textcolor{CProof}{结论回扣}}
 	至此，我们严格证明了 $f(x)=Ax+\frac{B}{x}$（$A,B>0$）在 $x>0$ 时最小值为 $2\sqrt{AB}$，在 $x<0$ 时最大值为 $-2\sqrt{AB}$，并得到值域为 $(-\infty,-2\sqrt{AB}]\cup[2\sqrt{AB},+\infty)$. 同时给出了取等条件 $x=\pm\sqrt{\frac{B}{A}}$.
+
+
+\medskip
+\textbf{\textcolor{CProof}{拓展证明：$y=\frac{k}{x}$ 两支间最短距离（四种方法）}}
+统一设 $k>0$，$P(a,\frac{k}{a})$、$Q(-b,-\frac{k}{b})$，$a,b>0$。记 $d=PQ$。
+
+\begin{minipage}{\linewidth}
+\par\medskip\textbf{方法一（门槛最低：两次基本不等式）}
+\input{assets/tikz/F011_distance_triangle}
+\end{minipage}
+
+\begin{enumerate}[leftmargin=*,itemsep=0.35em]
+\item 由两点间距离公式，
+\[
+d^2=(a+b)^2+\left(\frac{k}{a}+\frac{k}{b}\right)^2.
+\]
+\item 两个括号均为正数，因此由 $u^2+v^2\ge2uv$，
+\[
+\begin{aligned}
+d^2&\ge 2(a+b)\left(\frac{k}{a}+\frac{k}{b}\right)\\
+&=2k\left(2+\frac{a}{b}+\frac{b}{a}\right).
+\end{aligned}
+\]
+\item 因 $\frac{a}{b}>0$、$\frac{b}{a}>0$，且二者乘积为 $1$，故
+\[
+\frac{a}{b}+\frac{b}{a}\ge2,
+\qquad d^2\ge8k.
+\]
+\item 所以 $d\ge2\sqrt{2k}$。第二次取等需 $a=b$；第一次取等需 $a+b=\frac{k}{a}+\frac{k}{b}$。合起来得到 $a=b=\sqrt{k}$，此时两点确在曲线上，最小值可取到。
+\end{enumerate}
+
+\begin{minipage}{\linewidth}
+\par\medskip\textbf{方法二（速度最快：对勾函数 $x+\frac{k}{x}$）}
+\input{assets/tikz/F011_projection}
+\end{minipage}
+
+\begin{enumerate}[leftmargin=*,itemsep=0.35em]
+\item 记 $u=a+b$、$v=\frac{k}{a}+\frac{k}{b}$，显然 $u,v>0$。
+\item 用 $u^2+v^2\ge\frac12(u+v)^2$ 与 $t+\frac{k}{t}\ge2\sqrt{k}$（$t>0$），可得
+\[
+\begin{aligned}
+d&=\sqrt{u^2+v^2}\ge\frac{u+v}{\sqrt2}\\
+&=\frac{(a+k/a)+(b+k/b)}{\sqrt2}\\
+&\ge\frac{4\sqrt{k}}{\sqrt2}=2\sqrt{2k}.
+\end{aligned}
+\]
+\item 当 $a=b=\sqrt{k}$ 时，两次取等，故即为最小距离。
+\end{enumerate}
+\par\textbf{意义：} 先优化每一个点的坐标和，再用勾股关系将“坐标和”还原成真实距离；这是从本节对勾函数结论迁移到几何题的最快路线。
+
+\begin{minipage}{\linewidth}
+\par\medskip\textbf{方法三（步骤最少：两点坐标先合并）}
+\input{assets/tikz/F011_product_balance}
+\end{minipage}
+
+\begin{enumerate}[leftmargin=*,itemsep=0.35em]
+\item 提取共同因子：
+\[
+\frac{k}{a}+\frac{k}{b}=\frac{k(a+b)}{ab},
+\quad d=(a+b)\sqrt{1+\frac{k^2}{a^2b^2}}.
+\]
+\item 因 $(a+b)^2\ge4ab$，得
+\[
+\begin{aligned}
+d^2&=(a+b)^2\left(1+\frac{k^2}{a^2b^2}\right)\\
+&\ge4\left(ab+\frac{k^2}{ab}\right)\ge8k.
+\end{aligned}
+\]
+最后一个不等式是对正数 $ab$、$\frac{k^2}{ab}$ 用基本不等式。
+\item 等号要求 $a=b$ 且 $ab=k$，因此 $a=b=\sqrt{k}$。
+\end{enumerate}
+
+\begin{minipage}{\linewidth}
+\par\medskip\textbf{方法四（常规几何：两条平行直线夹住曲线）}
+\input{assets/tikz/F011_support_lines}
+\end{minipage}
+
+\begin{enumerate}[leftmargin=*,itemsep=0.35em]
+\item 对第一象限的任意点 $P(x,y)$，有 $xy=k$，于是
+\[
+x+y\ge2\sqrt{xy}=2\sqrt{k}.
+\]
+第一象限分支全部位于直线 $\ell_1:x+y=2\sqrt{k}$ 的同一侧，且在 $(\sqrt{k},\sqrt{k})$ 与这条直线相接。
+\item 对第三象限的任意点 $Q(x,y)$，令 $u=-x>0,v=-y>0$，则 $uv=k$，
+\[
+-(x+y)=u+v\ge2\sqrt{k},\quad x+y\le-2\sqrt{k}.
+\]
+第三象限分支位于 $\ell_2:x+y=-2\sqrt{k}$ 的另一侧，且在 $(-\sqrt{k},-\sqrt{k})$ 与该直线相接。
+\item 因两条直线平行，间距为
+\[
+\frac{|2\sqrt{k}-(-2\sqrt{k})|}{\sqrt{1^2+1^2}}
+=2\sqrt{2k}.
+\]
+处在两侧的 $P,Q$ 的距离不小于该间距；取上述两个相接点时，连线垂直于两条直线，刚好取得这个距离。
+\end{enumerate}
+
+\textbf{结论：} 四法均得 $\boxed{d_{\min}=2\sqrt{2k}}$，当且仅当 $P=(\sqrt{k},\sqrt{k})$、$Q=(-\sqrt{k},-\sqrt{k})$。特别地 $k=1$ 时 $d_{\min}=2\sqrt2$。
+
 \end{proofbox}

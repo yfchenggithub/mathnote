@@ -8,7 +8,7 @@
       "Nike函数",
       "双勾函数"
     ],
-    "summary": "利用均值不等式直接得到$f(x)=Ax+\\frac{B}{x}$（$A,B>0$）在$x>0$和$x<0$时的最值，从而确定整个值域。",
+    "summary": "利用均值不等式直接得到$f(x)=Ax+\\frac{B}{x}$（$A,B>0$）在$x>0$和$x<0$时的最值，从而确定整个值域；几何拓展：利用 $x+y=x+\\frac{k}{x}$ 推出 $y=\\frac{k}{x}$（$k>0$）第一、第三象限两支之间的最短距离 $2\\sqrt{2k}$。",
     "difficulty": 2,
     "category": "函数",
     "tags": [
@@ -16,7 +16,11 @@
       "基本不等式",
       "值域",
       "分式函数",
-      "函数性质"
+      "函数性质",
+      "反比例函数两支间距",
+      "两点间最短距离",
+      "反比例函数",
+      "几何最值"
     ]
   },
   "search": {
@@ -34,7 +38,14 @@
       "正数",
       "负数",
       "值域并集",
-      "(-∞,-2√AB]∪[2√AB,+∞)"
+      "(-∞,-2√AB]∪[2√AB,+∞)",
+      "反比例函数两支最短距离",
+      "y=k/x",
+      "y=1/x",
+      "2√(2k)",
+      "两支曲线最短距离",
+      "两点间距离",
+      "第一象限第三象限"
     ],
     "synonyms": [
       "对勾函数求最值",
@@ -49,13 +60,17 @@
       "求最大值",
       "证明",
       "判断",
-      "化简"
+      "化简",
+      "两支间最短距离",
+      "求两点间距离最小值"
     ],
     "query_templates": [
       "对勾函数值域怎么求",
       "形如ax+b/x的值域",
       "分式函数化为对勾函数求值域",
-      "对勾函数最小值公式"
+      "对勾函数最小值公式",
+      "y=1/x第一象限第三象限两点最短距离是多少",
+      "反比例函数y=k/x两支曲线间距离的最小值"
     ],
     "ocrKeywords": [
       "Ax+B/x",
@@ -63,20 +78,29 @@
       "x<0",
       "2√(AB)",
       "等号成立",
-      "√(B/A)"
+      "√(B/A)",
+      "2√(2k)",
+      "x+y",
+      "第一象限",
+      "第三象限"
     ],
     "latex_patterns": [
       "Ax+\\frac{B}{x}",
       "2\\sqrt{AB}",
       "x=\\sqrt{\\frac{B}{A}}",
-      "(-\\infty,-2\\sqrt{AB}]\\cup[2\\sqrt{AB},+\\infty)"
+      "(-\\infty,-2\\sqrt{AB}]\\cup[2\\sqrt{AB},+\\infty)",
+      "y=\\frac{k}{x}",
+      "2\\sqrt{2k}",
+      "x+\\frac{k}{x}"
     ],
     "formulaTokens": [
       "Ax+\\frac{B}{x}",
       "2\\sqrt{AB}",
       "\\sqrt{\\frac{B}{A}}",
       "-\\sqrt{\\frac{B}{A}}",
-      "(-\\infty,-2\\sqrt{AB}]\\cup[2\\sqrt{AB},+\\infty)"
+      "(-\\infty,-2\\sqrt{AB}]\\cup[2\\sqrt{AB},+\\infty)",
+      "2\\sqrt{2k}",
+      "y=\\frac{k}{x}"
     ],
     "pinyin": "duigouhanshu zhiquan gongshi",
     "pinyinAbbr": "dghs"
@@ -96,7 +120,9 @@
   "math": {
     "core_formula": "f(x)=Ax+\\frac{B}{x}\\;(A,B>0,\\;x\\neq 0)\\\\ \\text{值域:}\\;(-\\infty,-2\\sqrt{AB}]\\cup[2\\sqrt{AB},+\\infty)",
     "related_formulas": [
-      "\\frac{dx^2+ex+f}{gx+h}\\xrightarrow{t=gx+h} At+\\frac{B}{t}+C"
+      "\\frac{dx^2+ex+f}{gx+h}\\xrightarrow{t=gx+h} At+\\frac{B}{t}+C",
+      "y=\\frac{k}{x}\\ (k>0),\\quad d_{\\min}=2\\sqrt{2k}",
+      "P(\\sqrt{k},\\sqrt{k}),\\quad Q(-\\sqrt{k},-\\sqrt{k})"
     ],
     "variables": [
       "A",
@@ -105,56 +131,70 @@
       "t"
     ],
     "conditions": "$A>0$, $B>0$, $x\\neq 0$；需分$x>0$和$x<0$两类应用。",
-    "conclusions": "当$x>0$时，$f(x)\\ge 2\\sqrt{AB}$，等号当$x=\\sqrt{\\frac{B}{A}}$；当$x<0$时，$f(x)\\le -2\\sqrt{AB}$，等号当$x=-\\sqrt{\\frac{B}{A}}$。值域为$(-\\infty,-2\\sqrt{AB}]\\cup[2\\sqrt{AB},+\\infty)$。"
+    "conclusions": "当$x>0$时，$f(x)\\ge 2\\sqrt{AB}$，等号当$x=\\sqrt{\\frac{B}{A}}$；当$x<0$时，$f(x)\\le -2\\sqrt{AB}$，等号当$x=-\\sqrt{\\frac{B}{A}}$。值域为$(-\\infty,-2\\sqrt{AB}]\\cup[2\\sqrt{AB},+\\infty)$。 几何应用：在 $y=\\frac{k}{x}$（$k>0$）的第一、第三象限两支分别取点，最短距离为 $2\\sqrt{2k}$，等号于两点 $(\\sqrt{k},\\sqrt{k})$、$(-\\sqrt{k},-\\sqrt{k})$ 成立。"
   },
   "content": {
-    "statement": "对于$f(x)=Ax+\\frac{B}{x}$（$A,B>0$，$x\\neq 0$），当$x>0$时有$f(x)\\ge 2\\sqrt{AB}$，等号成立当且仅当$x=\\sqrt{\\frac{B}{A}}$；当$x<0$时有$f(x)\\le -2\\sqrt{AB}$，等号成立当且仅当$x=-\\sqrt{\\frac{B}{A}}$。因此函数在$\\mathbb{R}\\setminus\\{0\\}$上的值域为$(-\\infty,-2\\sqrt{AB}]\\cup[2\\sqrt{AB},+\\infty)$。可通过对分式函数换元化为该形式求值域。",
+    "statement": "对于$f(x)=Ax+\\frac{B}{x}$（$A,B>0$，$x\\neq 0$），当$x>0$时有$f(x)\\ge 2\\sqrt{AB}$，等号成立当且仅当$x=\\sqrt{\\frac{B}{A}}$；当$x<0$时有$f(x)\\le -2\\sqrt{AB}$，等号成立当且仅当$x=-\\sqrt{\\frac{B}{A}}$。因此函数在$\\mathbb{R}\\setminus\\{0\\}$上的值域为$(-\\infty,-2\\sqrt{AB}]\\cup[2\\sqrt{AB},+\\infty)$。可通过对分式函数换元化为该形式求值域。 几何拓展：$y=\\frac{k}{x}$（$k>0$）两支最近点为 $(\\sqrt{k},\\sqrt{k})$ 与 $(-\\sqrt{k},-\\sqrt{k})$，间距 $2\\sqrt{2k}$。",
     "derivation": [
       "由均值不等式$Ax+\\frac{B}{x}\\ge 2\\sqrt{Ax\\cdot\\frac{B}{x}}=2\\sqrt{AB}$（$x>0$），等号当$Ax=\\frac{B}{x}$即$x=\\sqrt{\\frac{B}{A}}$。",
       "当$x<0$时，令$t=-x>0$，则$Ax+\\frac{B}{x}=-\\left(At+\\frac{B}{t}\\right)\\le -2\\sqrt{AB}$，等号当$t=\\sqrt{\\frac{B}{A}}$即$x=-\\sqrt{\\frac{B}{A}}$。",
-      "综上可得值域为两段并集。"
+      "综上可得值域为两段并集。",
+      "设 $P(a,k/a)$、$Q(-b,-k/b)$（$a,b>0$），则 $PQ\\ge\\frac{(a+k/a)+(b+k/b)}{\\sqrt2}\\ge2\\sqrt{2k}$，等号当且仅当 $a=b=\\sqrt{k}$。"
     ],
     "intuition": "对勾函数是奇函数，$x>0$时直接由均值不等式得最小值为$2\\sqrt{AB}$；$x<0$时利用奇函数性质（$f(-x)=-f(x)$）得最大值为$-2\\sqrt{AB}$。",
     "common_tricks": [
       "检验$A,B$是否同号且大于0，否则不能直接套用。",
       "分式函数$\\frac{dx^2+ex+f}{gx+h}$先通过多项式除法或换元$t=gx+h$化为$At+\\frac{B}{t}+C$形式，再用法则。",
       "注意$x$的正负分类讨论，取等条件必须落在对应区间内才能取到。",
-      "若区间不包含取等点，则值域端点开放。"
+      "若定义域限制排除了原取等点，不能直接照搬原最值或端点：应在新的定义域内重新求最值，并判断端点是否可取。",
+      "反比例函数 $y=k/x$ 与对勾函数不同；构造 $x+y=x+k/x$ 才能迁移基本不等式。",
+      "两支间距离不能只凭原点对称就假设两点互为相反数；应先证明，再检查等号同时成立。"
     ]
   },
   "usage": {
     "scenarios": [
       "求最值问题",
       "分式函数值域",
-      "压轴题中分段函数"
+      "压轴题中分段函数",
+      "反比例函数两支的最短距离"
     ],
     "problem_types": [
       "求值域",
       "求最值",
-      "不等式证明"
+      "不等式证明",
+      "解析几何两点最短距离"
     ],
     "exam_frequency": 0.8,
     "exam_score": 7
   },
   "interactive": {
-    "has_diagram": false,
+    "has_diagram": true,
     "geogebra_id": "",
     "param_demo": {
       "A": 3,
       "B": 12,
       "x>0_min": 2,
       "value": 12
+    },
+    "branch_distance_demo": {
+      "file": "F011_branch_distance_interactive.html",
+      "k_default": 1,
+      "a_default": 1,
+      "b_default": 1,
+      "distance_min": "2\\sqrt{2k}"
     }
   },
   "assets": {
     "svg": "F011.svg",
     "png": "",
     "gif": "",
-    "pdf": ""
+    "pdf": "",
+    "branch_distance_html": "F011_branch_distance_interactive.html",
+    "branch_distance_png": "assets/F011_branch_distance.png"
   },
   "shareConfig": {
     "title": "对勾函数值域公式：直接利用均值不等式",
-    "shareDesc": "适合课后复习和考前速查，求对勾函数及可化为对勾函数的分式函数值域问题时，直接套用公式减少推导，避免分类讨论错误。"
+    "shareDesc": "适合课后复习和考前速查，求对勾函数及可化为对勾函数的分式函数值域问题时，直接套用公式减少推导，避免分类讨论错误。 附反比例函数两支最短距离的几何迁移及交互图解。"
   },
   "relations": {
     "prerequisites": [
@@ -162,17 +202,20 @@
       "基本不等式",
       "函数值域概念"
     ],
-    "related_ids": ["F010", "F012"],
+    "related_ids": [
+      "F010",
+      "F012"
+    ],
     "similar": "形如$f(x)=ax+\\frac{b}{x}$（$ab>0$）的值域与取等条件。"
   },
   "meta": {
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-26",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-11-06"
   },
   "isPro": 0,
-  "remarks": "",
+  "remarks": "原F011值域结论保持不变；新增 y=k/x(k>0) 两支间距几何应用、四法证明、带限制变式、交互HTML。 本轮补充 assets/tikz/F011_{range,balance,amgm_area,distance_triangle,projection,product_balance,support_lines,restricted_domain}.tex：首页值域、两项平衡、基本不等式与四法证明、定义域限制。理解段删去重复形态描述，以真实曲线代替；各证明图在方法位置引入。",
   "knowledgeNode": "函数-定义域与值域-值域-常见值域模型",
   "altNodes": [
     "不等式-经典不等式-均值不等式",

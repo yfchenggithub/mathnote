@@ -1,4 +1,7 @@
 \begin{statementbox}
+设 $f(x)=Ax+\frac Bx$，其中 $A,B>0$，$x\ne0$。
+\input{assets/tikz/F011_range}
+
 	\textbf{\textcolor{CStatement}{条件}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
 		\item[\textbf{\textcolor{CStatement}{条件1（参数及定义域：）}}] $A>0$, $B>0$, $x\neq0$.
@@ -31,13 +34,30 @@
 
 		\item[\textbf{\textcolor{CStatement}{推广结论（分式化对勾）：}}]
 			\textbf{\textcolor{CStatement}{直观描述：}}
-			通过线性换元可将形如 $\frac{dx^2+ex+f}{gx+h}$ 的分式函数化为对勾函数形式再求值域.
+			当 $g\ne0$ 时，通过线性换元可将形如 $\frac{dx^2+ex+f}{gx+h}$ 的分式函数化为对勾函数形式再求值域.
 			\[
 				\frac{dx^2+ex+f}{gx+h}\;\xrightarrow{t=gx+h}\; At+\frac{B}{t}+C,
 			\]
-			然后对 $At+\frac{B}{t}$ 部分应用上述最值结论，最后加上常数 $C$ 即得原函数值域.
+			如果换元后的系数 $A,B$ 仍满足 $A>0,B>0$，并且新变量 $t$ 的范围允许相应取等点，则可对 $At+\frac{B}{t}$ 部分应用上述最值结论，再加常数 $C$；若系数正负或 $t$ 的范围不符合条件，不能直接套公式，应另外讨论.
 	\end{description}
 
 	\textbf{\textcolor{CStatement}{等号/取等条件：}}
 	在 $x>0$ 时，基本不等式 $Ax+\frac{B}{x}\ge 2\sqrt{AB}$ 等号成立当且仅当 $Ax=\frac{B}{x}$，即 $x=\sqrt{\frac{B}{A}}$；在 $x<0$ 时，$Ax+\frac{B}{x}\le -2\sqrt{AB}$ 等号成立条件同样是 $Ax=\frac{B}{x}$，解出 $x=-\sqrt{\frac{B}{A}}$. 两种情形均由均值不等式取等条件决定.
+
+
+\medskip
+\textbf{\textcolor{CStatement}{结论四（几何应用：反比例函数两支的最短距离）}}
+\input{assets/tikz/F011_support_lines}
+设 $k>0$，在反比例函数 $y=\frac{k}{x}$ 的第一象限分支取点 $P$，第三象限分支取点 $Q$，则
+\[
+\boxed{PQ\ge 2\sqrt{2k}},\qquad
+\boxed{PQ_{\min}=2\sqrt{2k}}.
+\]
+等号成立当且仅当
+\[
+P(\sqrt{k},\sqrt{k}),\qquad Q(-\sqrt{k},-\sqrt{k}).
+\]
+特别地，当 $k=1$ 时，$PQ_{\min}=2\sqrt2$，两点为 $(1,1)$ 与 $(-1,-1)$.
+\par\textbf{与本节主结论的联系：} 反比例函数 $y=\frac{k}{x}$ 本身\textbf{不是}标准的 $Ax+\frac Bx$（$A,B>0$）形式；但曲线上一点的坐标和 $x+y=x+\frac{k}{x}$ 正是对勾函数，其最小值 $2\sqrt{k}$ 可以用来估计两支间的距离。这里 $k>0$ 是两支分别落在第一、第三象限的必要条件。
+
 \end{statementbox}

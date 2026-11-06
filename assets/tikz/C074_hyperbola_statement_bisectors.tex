@@ -1,0 +1,46 @@
+% x^2-y^2/3=1, F_1=(-2,0), F_2=(2,0), P=(+-2,3).
+% Each panel uses the same physical x and y scale.
+\begin{tikzpicture}[x=.8cm,y=.8cm,font=\small,>=stealth]
+\begin{scope}
+\node at (.5,4.65) {右支：切线 $l$ 平分内角};
+\draw[blue,thick,domain=-1:3.5,samples=100,variable=\s]
+  plot ({sqrt(1+\s*\s/3)},\s);
+\draw[blue,thick,domain=-1:3.5,samples=100,variable=\s]
+  plot ({-sqrt(1+\s*\s/3)},\s);
+\coordinate(P) at (2,3);
+\coordinate(A) at (-2,0);\coordinate(B) at (2,0);
+\coordinate(T) at (.5,0);\coordinate(N) at (3.6,2.2);
+\draw[gray,thick,->] (P)--(A);
+\draw[gray,thick,->] (P)--(B);
+\draw[orange,thick] (.1,-.8)--(2.4,3.8);
+\draw[orange,very thick,->] (P)--(T);
+\node[orange,anchor=east] at (.05,-.75) {$l$};
+\draw[red,thick,->] (P)--(N) node[right] {$n$};
+\pic[draw,orange,angle radius=6mm] {angle=A--P--T};
+\pic[draw,orange,angle radius=6mm] {angle=T--P--B};
+\foreach \v/\pos/\lab in {P/above left/P,A/below/F_1,B/below/F_2}
+  {\fill (\v) circle (1.5pt) node[\pos] {$\lab$};}
+\end{scope}
+\begin{scope}[xshift=7cm]
+\node at (-.5,4.65) {左支：切线 $l$ 仍平分内角};
+\draw[blue,thick,domain=-1:3.5,samples=100,variable=\s]
+  plot ({sqrt(1+\s*\s/3)},\s);
+\draw[blue,thick,domain=-1:3.5,samples=100,variable=\s]
+  plot ({-sqrt(1+\s*\s/3)},\s);
+\coordinate(P) at (-2,3);
+\coordinate(A) at (-2,0);\coordinate(B) at (2,0);
+\coordinate(T) at (-.5,0);\coordinate(N) at (-3.6,2.2);
+\draw[gray,thick,->] (P)--(A);
+\draw[gray,thick,->] (P)--(B);
+\draw[orange,thick] (-.1,-.8)--(-2.4,3.8);
+\draw[orange,very thick,->] (P)--(T);
+\node[orange,anchor=west] at (-.05,-.75) {$l$};
+\draw[red,thick,->] (P)--(N) node[left] {$n$};
+\pic[draw,orange,angle radius=6mm] {angle=A--P--T};
+\pic[draw,orange,angle radius=6mm] {angle=T--P--B};
+\foreach \v/\pos/\lab in {P/above right/P,A/below/F_1,B/below/F_2}
+  {\fill (\v) circle (1.5pt) node[\pos] {$\lab$};}
+\end{scope}
+\node at (4.375,-1.85)
+  {$x^2-y^2/3=1$；等角弧之间的橙色射线在焦点夹角内部。};
+\end{tikzpicture}

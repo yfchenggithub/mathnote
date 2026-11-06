@@ -1,41 +1,39 @@
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
+\input{assets/tikz/F011_balance}
 
-	对勾函数 $f(x)=Ax+\frac{B}{x}\ (A,B>0)$ 的图像分为两支，形似“对勾”。在正值区间上，函数有最小值；在负值区间上，函数有最大值，整体值域为两段区间。
+图中 $x$ 增大时，$x$ 增大而 $1/x$ 减小，乘积保持为 $1$；两项相等时，和最低。
+一般情形的取等条件为 $Ax=B/x$，正数解为 $x=\sqrt{B/A}$。
+负半轴利用 $f(-x)=-f(x)$，把正半轴的最低点映到负半轴的最高点。
+求值域前先检查 $A,B>0$，以及定义域是否允许取等；分式换元后也要重新检查新变量的范围。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（结构对称性）：}] 函数由正比例项 $Ax$ 与反比例项 $\frac{B}{x}$ 组成。两项互为“乘积恒定”，导致当 $x>0$ 与 $x<0$ 时，函数单调性与最值相反。
-		\item[\textbf{要点二（最值触发条件）：}] 利用基本不等式，当 $Ax=\frac{B}{x}$ 时两项相等，此时取得最值。解出 $x=\pm\sqrt{\frac{B}{A}}$，最值为 $\pm2\sqrt{AB}$.
-	\end{description}
+\medskip
+\textbf{\textcolor{CExplanation}{几何迁移：由对勾最值到两支曲线的最短距离}}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（对勾形态）}}
+\textbf{题目：} $k>0$，点 $P$ 在 $y=\frac{k}{x}$ 第一象限部分，点 $Q$ 在第三象限部分，求 $PQ$ 的最小值。
 
-	图像关于原点对称，两支分别位于第一、第三象限。在第一象限，曲线先减后增，最低点对应最小值；在第三象限，曲线先增后减，最高点对应最大值。那个转折点正是最值点。
+\input{assets/tikz/F011_distance_triangle}
+设 $P(a,\frac{k}{a})$、$Q(-b,-\frac{k}{b})$，其中 $a>0$、$b>0$。这样取 $b>0$，可避免第三象限坐标的符号混乱。
+\[
+\Delta x=a+b>0,\qquad
+\Delta y=\frac{k}{a}+\frac{k}{b}>0.
+\]
+\textbf{关键观察：} 与其直接求最小距离，不如先看两坐标差之和：
+\[
+\Delta x+\Delta y
+=\underbrace{\left(a+\frac{k}{a}\right)}_{\ge2\sqrt{k}}
++\underbrace{\left(b+\frac{k}{b}\right)}_{\ge2\sqrt{k}}
+\ge4\sqrt{k}.
+\]
+因为 $2(\Delta x^2+\Delta y^2)-(\Delta x+\Delta y)^2=(\Delta x-\Delta y)^2\ge0$，所以
+\[
+PQ=\sqrt{\Delta x^2+\Delta y^2}
+\ge\frac{\Delta x+\Delta y}{\sqrt2}
+\ge2\sqrt{2k}.
+\]
+\textbf{几何意义：} $\frac{\Delta x+\Delta y}{\sqrt2}$ 是连接线段沿 $y=x$ 方向走过的长度；只有线段本身也平行 $y=x$，这部分长度才等于整段线段的长度。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（均值不等式）}}
+\textbf{两次等号同时成立：} $a+\frac{k}{a}=2\sqrt{k}$ 与 $b+\frac{k}{b}=2\sqrt{k}$ 要求 $a=b=\sqrt{k}$；此时 $\Delta x=\Delta y=2\sqrt{k}$，所以确实取得 $PQ=2\sqrt{2k}$.
 
-	直接运用均值不等式 $Ax+\frac{B}{x}\ge 2\sqrt{AB}$ 时，要求 $Ax$ 与 $\frac{B}{x}$ 均为正数，所以只能用于 $x>0$；对于 $x<0$，先提取负号化为正数再用不等式，得到 $f(x)\le -2\sqrt{AB}$.
+\textbf{识别信号：} 两点分处第一、第三象限；函数满足 $xy=k>0$；题目求两支间的\textbf{欧氏距离}。先想到 $x+y=x+\frac{k}{x}$，再结合勾股定理；切忌把某一点到原点的最小距离直接当作两支间距离的一半，而不说明理由。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（工具性迁移）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（直接求值域）：} 给定具体 $A,B$，直接套用结论得出函数值域，无需每一步推导。
-		\item \textbf{考法二（换元转化）：} 对于形如 $\frac{dx^2+ex+f}{gx+h}$ 的函数，通过代数换元 $t=gx+h$ 可化为 $At+\frac{B}{t}+C$ 形式，从而使用对勾函数结论。
-	\end{itemize}
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
-
-	对勾函数求最值的核心是让两项相等。不论系数如何，最值点始终是 $x=\sqrt{\frac{B}{A}}$（正）或 $x=-\sqrt{\frac{B}{A}}$（负），最值大小仅由 $AB$ 乘积决定。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（基础求值域）：} 直接求 $y=2x+\frac{8}{x}$ 的值域。
-		\item \textbf{场景二（分子二次分式）：} 求 $y=\frac{x^2+3x+5}{x+1}$ 的值域，先通过多项式除法并换元化为对勾函数。
-	\end{itemize}
 \end{explanationbox}

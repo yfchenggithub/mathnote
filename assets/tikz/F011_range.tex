@@ -1,0 +1,29 @@
+\begin{center}
+\begin{minipage}{0.98\linewidth}
+\centering
+\textbf{两支曲线，留下中间的空档}\par\medskip
+\begin{tikzpicture}[font=\small,>=Stealth]
+
+\begin{scope}[x=1.08cm,y=0.63cm]
+\fill[gray!10] (-3.8,-2) rectangle (3.8,2);
+\draw[->] (-3.9,0)--(4,0) node[right] {$x$};
+\draw[->] (0,-4.7)--(0,4.8) node[above] {$y$};
+\draw[CStatement,very thick,domain=0.24:3.6,samples=100] plot (\x,{\x+1/\x});
+\draw[CStatement,very thick,domain=-3.6:-0.24,samples=100] plot (\x,{\x+1/\x});
+\draw[dashed] (-3.6,2)--(3.6,2) (-3.6,-2)--(3.6,-2);
+\fill[CStatement] (1,2) circle (2.4pt) (-1,-2) circle (2.4pt);
+\node[above right,fill=white,inner sep=2pt] at (1,2) {$(1,2)$ 最低点};
+\node[below left,fill=white,inner sep=2pt] at (-1,-2) {$(-1,-2)$ 最高点};
+\node[fill=white] at (2.1,0.8) {$-2<y<2$ 取不到};
+\node[above left] at (-1.1,4.1) {$y=x+\frac1x$};
+\node[below left] at (0,0) {$O$};
+\draw[very thick,CStatement,->] (4.8,2)--(4.8,4.6);
+\draw[very thick,CStatement,->] (4.8,-2)--(4.8,-4.6);
+\fill[CStatement] (4.8,2) circle (2.4pt) (4.8,-2) circle (2.4pt);
+\node[right] at (4.8,2) {$2$}; \node[right] at (4.8,-2) {$-2$};
+\node[above] at (4.8,4.8) {值域};
+\end{scope}
+\end{tikzpicture}\par\smallskip
+图取 $A=B=1$；一般情形的两端为 $\pm2\sqrt{AB}$，横坐标为 $\pm\sqrt{B/A}$。实心点表示端点能取到。
+\end{minipage}
+\end{center}

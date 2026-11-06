@@ -108,4 +108,90 @@
 
 	\textbf{\textcolor{CExample}{关键结论：}}
 	\textbf{最小值为 $3$，此时 $x=0$}.
+
+
+\medskip
+\textbf{\textcolor{CExample}{例 4（几何应用：两支反比例曲线之间的最短距离）}}
+
+\textbf{题目：} 在 $y=\frac1x$ 的第一、第三象限各取一点 $P,Q$，求 $PQ$ 的最小值，并写出取等时的两点坐标。
+\input{assets/tikz/F011_support_lines}
+
+
+\textbf{解题步骤：}
+\begin{enumerate}[leftmargin=*,itemsep=0.4em]
+\item 设 $P(a,\frac1a)$、$Q(-b,-\frac1b)$（$a,b>0$），这是\textbf{不同分支}的两个任意点。
+\item 由两点间距离公式，
+\[
+PQ^2=(a+b)^2+\left(\frac1a+\frac1b\right)^2.
+\]
+\item 由基本不等式，
+\[
+\begin{aligned}
+PQ^2&\ge2(a+b)\left(\frac1a+\frac1b\right)\\
+&=2\left(2+\frac{a}{b}+\frac{b}{a}\right)\ge8.
+\end{aligned}
+\]
+\item 两次等号都成立须 $a=b=1$，所以
+\[
+\boxed{PQ_{\min}=2\sqrt2},\quad
+\boxed{P(1,1),\ Q(-1,-1)}.
+\]
+\end{enumerate}
+\textbf{考场识别：} “第一、第三象限各一点 + 两点距离最小”直接设正参数，避免第三象限漏写负号。
+
+\medskip
+\textbf{\textcolor{CExample}{例 5（参数变式：直接迁移）}}
+
+\textbf{题目：} 在 $y=\frac9x$ 的两支曲线上分别取一点，求两点的最短距离。
+
+\textbf{解：} 此处 $k=9>0$，由例 4 的推广，
+\[
+PQ_{\min}=2\sqrt{2k}=2\sqrt{18}=6\sqrt2.
+\]
+等号时 $P(3,3)$、$Q(-3,-3)$；这两点满足 $xy=9$，且 $PQ=\sqrt{6^2+6^2}=6\sqrt2$，故最小值可取到。
+
+\medskip
+\textbf{\textcolor{CExample}{例 6（高价值变式：附加限制打破原取等点）}}
+
+\textbf{题目：} 在 $y=\frac1x$ 的第一、第三象限各取一点 $P,Q$，已知 $P$ 的横坐标为 $2$，求 $PQ$ 的最小值。
+
+\textbf{解：} 此时 $P=(2,\frac12)$ 固定，不能直接套用 $2\sqrt2$ 的取等点 $P(1,1)$。设 $Q=(-b,-\frac1b)$，$b>0$，则
+\[
+\begin{aligned}
+PQ^2&=(2+b)^2+\left(\frac12+\frac1b\right)^2\\
+&=\frac{(b+2)^2(4b^2+1)}{4b^2}.
+\end{aligned}
+\]
+求最小值可用配方或一元函数方法：
+\[
+\begin{aligned}
+PQ^2
+&=\left(b^2+\frac1{b^2}\right)+4b+\frac1b+\frac{17}{4}\\
+&\ge\left(b^2+\frac1{b^2}\right)+2\sqrt{4b\cdot\frac1b}+\frac{17}{4},
+\end{aligned}
+\]
+但这两个下界一般\textbf{不能同时取等}，故不能由此直接认定最小值。使用下一种更有效的整理：
+\[
+PQ^2=(2+b)^2+\frac{(b+2)^2}{4b^2}
+=(b+2)^2\left(1+\frac{1}{4b^2}\right).
+\]
+令 $h(b)=PQ^2$，由乘积求导法则（高中导数法）得
+\[
+\begin{aligned}
+h'(b)
+&=2(b+2)\left(1+\frac1{4b^2}\right)
+ -(b+2)^2\frac1{2b^3}\\
+&=\frac{(b+2)(2b^3-1)}{b^3}.
+\end{aligned}
+\]
+因为 $b>0$，所以 $h'(b)$ 的正负取决于 $2b^3-1$。当 $0<b<\sqrt[3]{\frac12}$ 时 $h'(b)<0$，当 $b>\sqrt[3]{\frac12}$ 时 $h'(b)>0$，故 $h$ 先减后增，在 $b_0=\sqrt[3]{\frac12}$ 取到最小值。
+
+注意 $b_0^3=\frac12$，从而 $\frac1{4b_0^2}=\frac{b_0}{2}$。因此
+\[
+\boxed{PQ_{\min}=
+\left(2+\sqrt[3]{\frac12}\right)
+\sqrt{1+\frac12\sqrt[3]{\frac12}}}.
+\]
+\textbf{变式价值：} 附加限制可能排除原来的取等点，\textbf{不能直接套原最短距离公式}；必须重新优化。
+
 \end{examplebox}
