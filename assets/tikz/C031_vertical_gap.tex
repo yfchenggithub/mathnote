@@ -1,0 +1,31 @@
+\begin{center}
+\begin{minipage}{0.98\linewidth}
+\begin{tcolorbox}[colback=white,colframe=CStatement!25,boxrule=0.4pt,
+  arc=1mm,left=3mm,right=3mm,top=3mm,bottom=3mm]
+\centering
+\textbf{同横坐标的点 R，不一定是垂足 H}\par\medskip
+\begin{tikzpicture}[font=\small,>=Stealth]
+
+\begin{scope}[x=1.4cm,y=1.4cm]
+\coordinate (P) at (0,3);\coordinate (R) at (0,0);\coordinate (H) at (1.44,1.08);
+\coordinate (E) at (1.05,0);
+\fill[CStatement!6] (R)--(P)--(H)--cycle;
+\draw[CStatement,thick] (-.7,-.525)--(3.6,2.7) node[above left] {$l:y=kx+b$};
+\draw[CProof,very thick] (R)--(P);
+\draw[CExample,very thick] (P)--(H);
+\draw[gray,dashed] (R)--(E);
+\draw[CExample] (1.296,1.272)--(1.104,1.128)--(1.248,.936);
+\pic[draw,angle radius=7mm,angle eccentricity=1.45,"$\theta$"] {angle=E--R--H};
+\pic[draw,angle radius=7mm,angle eccentricity=1.45,"$\theta$"] {angle=R--P--H};
+\fill (P) circle (2pt) (R) circle (2pt) (H) circle (2pt);
+\node[above left] at (P) {$P(x_0,y_0)$};
+\node[below right,align=left] at (R) {$R$\\$(x_0,kx_0+b)$};
+\node[right] at (1.6,.85) {$H$};
+\node[left,text=CProof] at (-.1,1.55) {$PR=\Delta$};
+\node[above right,text=CExample] at (.72,2.04) {$PH$};
+\end{scope}
+\end{tikzpicture}\par\medskip
+图示 $k>0$、$\Delta=y_0-kx_0-b>0$。$PR$ 是竖直线段，$PH$ 才垂直于 $l$；在直角三角形 $PHR$ 中，$PH=PR\cos\theta$。
+\end{tcolorbox}
+\end{minipage}
+\end{center}

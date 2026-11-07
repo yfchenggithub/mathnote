@@ -30,7 +30,10 @@
       "一般式",
       "绝对值",
       "平方根",
-      "解析几何"
+      "解析几何",
+      "点到直线距离公式证明",
+      "竖直差与垂直距离",
+      "一般式几何证明"
     ],
     "synonyms": [
       "点到线的距离",
@@ -84,7 +87,9 @@
     "core_formula": "d = \\frac{|Ax_0+By_0+C|}{\\sqrt{A^2+B^2}}",
     "related_formulas": [
       "若 $B=0$，则 $d = \\left|x_0 + \\frac{C}{A}\\right|$",
-      "若 $A=0$，则 $d = \\left|y_0 + \\frac{C}{B}\\right|$"
+      "若 $A=0$，则 $d = \\left|y_0 + \\frac{C}{B}\\right|$",
+      "B\\ne0:\\quad R\\left(x_0,-\\frac{Ax_0+C}{B}\\right)",
+      "PR=\\frac{|Ax_0+By_0+C|}{|B|},\\quad \\cos\\theta=\\frac{|B|}{\\sqrt{A^2+B^2}}"
     ],
     "variables": [
       "A",
@@ -99,7 +104,12 @@
   },
   "content": {
     "statement": "若直线方程为一般式 $Ax+By+C=0$（$A,B$ 不同时为零），点 $P(x_0,y_0)$ 为平面内任意一点，则点 $P$ 到直线的距离 $d = \\frac{|Ax_0+By_0+C|}{\\sqrt{A^2+B^2}}$。",
-    "derivation": [],
+    "derivation": [
+      "保留原法向量与垂足坐标证明：设 PH=t(A,B)，由垂足在线求 t，再计算垂线段长。",
+      "新增一般式几何证明：B≠0 时，同横坐标的线上点为 R(x0,-(Ax0+C)/B)，竖直长度 PR=|Ax0+By0+C|/|B|。",
+      "由直线方向向量 (B,-A) 的分量构造直角三角形，余弦系数为 |B|/sqrt(A²+B²)。",
+      "在 PHR 中 PH=PR cosθ，约去 |B| 得一般式距离公式；另验水平、竖直直线及点在线上的情形。"
+    ],
     "intuition": "距离就是点坐标代入直线方程取绝对值后除以法向量的模。",
     "common_tricks": [
       "使用公式前必须将直线化为一般式。",
@@ -140,7 +150,10 @@
       "绝对值",
       "算术平方根"
     ],
-    "related_ids": ["P016", "P018"],
+    "related_ids": [
+      "P016",
+      "P018"
+    ],
     "similar": [
       "两平行直线间距离公式"
     ]
@@ -149,10 +162,10 @@
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-24",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-11-07"
   },
   "isPro": 0,
-  "remarks": "",
+  "remarks": "2026-11-07：保留原法向量证明，新增完全从 Ax+By+C=0 出发的同横坐标竖直差几何证明。P015 独立图源：assets/tikz/P015_perpendicular_distance.tex（首页及原证明）；assets/tikz/P015_vertical_gap.tex（复制 C031 图后按 A,B,C 改写，区分 PR 与 PH）；assets/tikz/P015_coefficient_triangle.tex（复制方向三角形后改为 |B|、|A| 与根号平方和）。P015 不跨 UID 引用 C031 图源；C031 原文件未改。理解段由真实图形替代重复文字，补充特殊直线与非负距离说明。",
   "knowledgeNode": "解析几何-直线-距离-点线距与平行线距",
   "altNodes": [
     "解析几何-直线-点斜式",

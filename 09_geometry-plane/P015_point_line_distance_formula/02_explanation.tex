@@ -1,40 +1,31 @@
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
-	点到直线的距离，可以看作过点作直线的垂线，垂线段的长度。
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExplanation}{竖直线段不一定垂直于直线}}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（分子几何意义）：}]
-			分子 $|Ax_0+By_0+C|$ 表示将点坐标代入直线方程后得到的绝对值；当点在直线上时该值为 $0$，点离直线越远绝对值越大。
-		\item[\textbf{要点二（分母归一化因子）：}]
-			分母 $\sqrt{A^2+B^2}$ 是直线法向量 $(A,B)$ 的模长，起“归一化”作用，保证距离与直线系数尺度无关。
-	\end{description}
+始终从一般式 $l:Ax+By+C=0$ 出发。当 $B\ne0$ 时，取与 $P$ 同横坐标、又在 $l$ 上的点
+\[
+ R\left(x_0,-\frac{Ax_0+C}{B}\right).
+\]
+\input{assets/tikz/P015_vertical_gap}
+\end{minipage}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（法向量投影）}}
-	点 $P$ 到直线的距离等于向量 $\overrightarrow{PP_0}$（$P_0$ 为直线上任意一点）在直线法向量方向上的投影长度。公式正好是这个投影的绝对值。
+记 $D=Ax_0+By_0+C$，竖直坐标差为
+\[
+ y_0-\left(-\frac{Ax_0+C}{B}\right)=\frac{D}{B},
+ \qquad PR=\frac{|D|}{|B|}.
+\]
+图中 $PH$ 与 $l$ 垂直，$PR$ 沿竖直方向，二者不能混淆。由直角三角形，
+\[
+ PH=PR\cos\theta.
+\]
+\textbf{这个余弦系数为什么是 $|B|/\sqrt{A^2+B^2}$？} 后面的几何证明将直接用 $A,B$ 构造方向三角形，约去竖直长度中的 $|B|$，得到距离公式。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（条件约束）}}
-	公式提供了一个统一的方法，不需要将直线化为斜截式，只需一般式系数即可计算距离，体现了解析几何中代数化的思想。
+\medskip
+\textbf{\textcolor{CExplanation}{分子要与分母一起看}}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（计算基础）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（直接求距离）：} 给出直线与点，直接代入公式求距离。
-		\item \textbf{考法二（求参数或范围）：} 已知距离反求直线系数或点坐标，建立含绝对值的方程。
-	\end{itemize}
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
-	\textbf{距离公式的分母 $\sqrt{A^2+B^2}$ 与法向量长度挂钩，分子体现点的“偏离程度”。}
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（点线距计算）：} 任意给定直线一般式和点坐标，求点到直线的距离。
-		\item \textbf{场景二（平行线距转化）：} 求两平行直线间距离时，可转化为一条直线上的一点到另一条直线的距离。
-	\end{itemize}
-
+对同一条固定直线，代入值的绝对值越大，点离直线越远。但将直线方程整体乘以非零常数，分子也会随之改变；分母同步改变后，比值才保持为实际距离。
+\[
+ \frac{|\lambda(Ax_0+By_0+C)|}{\sqrt{(\lambda A)^2+(\lambda B)^2}}
+ =\frac{|Ax_0+By_0+C|}{\sqrt{A^2+B^2}},\quad \lambda\ne0.
+\]
 \end{explanationbox}

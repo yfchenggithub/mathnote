@@ -1,92 +1,43 @@
 \begin{trapbox}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（公式符号错误）}}]
-		      使用公式时，将
-		      \[
-			      x' = x_0 - 2At
-		      \]
-		      错误写成
-		      \[
-			      x' = x_0 + 2At.
-		      \]
+\textbf{\textcolor{CTrap}{误区一：把竖直差直接当作点到直线的距离}}
 
-		\item[\textbf{\textcolor{CTrap}{正确理解（符号来源）：}}]
-		      公式中的减号来自向量式
-		      \[
-			      P' = P - 2\cdot\frac{Ax_0+By_0+C}{A^2+B^2}(A,B).
-		      \]
-		      由于分子 $Ax_0+By_0+C$ 可正可负，实际移动方向会自动调整，不能把减号机械理解成固定向某一侧移动。
+错误：写成 $PH=y_0-kx_0-b$。右侧可能为负，而且描述的是竖直方向，不一定垂直于斜线。
+正确：先取 $R(x_0,kx_0+b)$，$PR=|y_0-kx_0-b|$；再由直角三角形换算
+\[
+ PH=\frac{|y_0-kx_0-b|}{\sqrt{1+k^2}}.
+\]
+理解页中的 $PR$ 与 $PH$ 已画在同一个三角形中：点不在直线上时，仅 $k=0$ 才有 $R=H$；点在直线上时则 $P=R=H$。
 
-		\item[\textbf{\textcolor{CTrap}{错因分析（机械记忆）：}}]
-		      只记住 ``$-2At$'' 的形式，却没有理解
-		      \[
-			      k=-2t
-		      \]
-		      是带符号的比例因子；$k$ 本身不一定为负，方向由 $t$ 的符号决定。
-	\end{description}
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CTrap}{误区二：把对称公式的减号改成加号}}
+\input{assets/tikz/C031_sign_error}
+\end{minipage}
+错误：将 $P'=P-2t(A,B)$ 写成 $P+2t(A,B)$，会朝错误方向走。
+正确：保留减号，再根据 $t$ 的正负决定实际方向。它并不表示横纵坐标都一定减小。
 
-	\medskip
+\medskip
+\textbf{\textcolor{CTrap}{误区三：把距离 $PH$、有向距离 $d$ 与比例 $t$ 混为一谈}}
+\[
+ PH=\frac{|Ax_0+By_0+C|}{\sqrt{A^2+B^2}},\qquad
+ d=\frac{Ax_0+By_0+C}{\sqrt{A^2+B^2}},
+\]
+\[
+ t=\frac{Ax_0+By_0+C}{A^2+B^2}
+   =\frac{d}{\sqrt{A^2+B^2}}.
+\]
+错因：忘记 $(A,B)$ 未必长 $1$。正确：距离乘单位方向，或比例乘原方向向量，二者选一，不混用。
 
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（分母平方和缺失）}}]
-		      计算 $t$ 时，分母误用 $A+B$ 或 $A^2+B$ 等，例如
-		      \[
-			      t = \dfrac{Ax_0+By_0+C}{A+B}.
-		      \]
+\medskip
+\textbf{\textcolor{CTrap}{误区四：斜截式系数或符号读错}}
 
-		\item[\textbf{\textcolor{CTrap}{正确理解（平方和）：}}]
-		      分母必须是
-		      \[
-			      A^2+B^2,
-		      \]
-		      来源于法向量模长的平方。
+对 $y=kx+b$，一般式为 $kx-y+b=0$，故 $A=k,B=-1,C=b$。
+若用 $\Delta=y_0-kx_0-b$、$s=\Delta/(1+k^2)$，则\textbf{$t=-s$}；
+因此斜截式公式是 $P'=(x_0+2ks,y_0-2s)$，不能把 $s$ 不加区别地代入一般式中的 $t$。
 
-		\item[\textbf{\textcolor{CTrap}{错因分析（混淆距离公式）：}}]
-		      点到直线距离公式的分母是
-		      \[
-			      \sqrt{A^2+B^2},
-		      \]
-		      而 $t$ 的分母是
-		      \[
-			      A^2+B^2,
-		      \]
-		      两者不同。
-	\end{description}
+\medskip
+\textbf{\textcolor{CTrap}{误区五：中点在线上就认定对称}}
 
-	\medskip
-
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（非一般式直接套用）}}]
-		      直线方程以斜截式
-		      \[
-			      y=kx+b
-		      \]
-		      给出时，未化为
-		      \[
-			      kx-y+b=0
-		      \]
-		      就直接套用公式。
-
-		\item[\textbf{\textcolor{CTrap}{正确理解（先化一般式）：}}]
-		      公式中的 $A,B,C$ 来自一般式
-		      \[
-			      Ax+By+C=0,
-		      \]
-		      使用前必须将直线化为一般式。
-
-		\item[\textbf{\textcolor{CTrap}{错因分析（忽视形式统一）：}}]
-		      由
-		      \[
-			      y=kx+b
-		      \]
-		      应移项得到
-		      \[
-			      kx-y+b=0,
-		      \]
-		      所以对应
-		      \[
-			      A=k,\qquad B=-1,\qquad C=b.
-		      \]
-		      若直接取 $A=k,\ B=1$，则符号错误。
-	\end{description}
+中点在直线上只保证“两侧代入值变号”，仍可能沿斜向连线。
+正确：还须检查 $(x'-x_0,y'-y_0)$ 与 $(A,B)$ 平行。若点本就在直线上，则对称点就是它本身。
 \end{trapbox}

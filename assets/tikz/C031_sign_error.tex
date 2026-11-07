@@ -1,0 +1,25 @@
+\begin{center}
+\begin{minipage}{0.98\linewidth}
+\begin{tcolorbox}[colback=white,colframe=CStatement!25,boxrule=0.4pt,
+  arc=1mm,left=3mm,right=3mm,top=3mm,bottom=3mm]
+\centering
+\textbf{把减号写成加号，会向远离对称轴的一侧走}\par\medskip
+\begin{tikzpicture}[font=\small,>=Stealth]
+
+\foreach \shift/\sgn in {0/1,6/-1} {
+\begin{scope}[shift={(\shift,0)},x=1cm,y=.65cm]
+\draw[CStatement,thick] (-1,0)--(1.5,0) node[right] {$y=0$};
+\draw[CExample,thick,->] (0,\sgn)--(0,{-1*\sgn});
+\draw[CTrap,dashed,thick,->] (0,\sgn)--(0,{3*\sgn});
+\fill[CExample] (0,\sgn) circle (2pt) (0,{-1*\sgn}) circle (2pt);
+\fill[CTrap] (0,{3*\sgn}) circle (2pt);
+\node[left] at (0,\sgn) {$P(0,\sgn)$};
+\node[left,text=CExample] at (0,{-1*\sgn}) {$P'(0,\pgfmathparse{-1*\sgn}\pgfmathprintnumber{\pgfmathresult})$};
+\node[left,text=CTrap] at (0,{3*\sgn}) {$W(0,\pgfmathparse{3*\sgn}\pgfmathprintnumber{\pgfmathresult})$};
+\end{scope}}
+
+\end{tikzpicture}\par\medskip
+同尺度取 $A=0,B=1,C=0$。实线是正确位移 $-2t(A,B)$，虚线是错误位移 $+2t(A,B)$。减号保证走向对称轴；实际向上还是向下由 $t$ 的正负决定。
+\end{tcolorbox}
+\end{minipage}
+\end{center}

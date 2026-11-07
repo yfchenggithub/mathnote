@@ -1,169 +1,52 @@
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例1（基础）}}
+\textbf{\textcolor{CExample}{例 1：一般式直接计算，并做几何回验}}
 
-	\textbf{\textcolor{CExample}{题目：}} 求点 $P(1,2)$ 关于直线 $l:2x+3y+1=0$ 的对称点 $P'$ 的坐标。
+求 $P(1,2)$ 关于 $l:2x+3y+1=0$ 的对称点。
+\[
+ t=\frac{2\cdot1+3\cdot2+1}{2^2+3^2}=\frac9{13},
+\]
+\[
+ \boxed{P'\left(1-\frac{36}{13},\ 2-\frac{54}{13}\right)
+ =P'\left(-\frac{23}{13},-\frac{28}{13}\right)}.
+\]
+\textbf{回验：} 中点为 $H(-5/13,-1/13)$，代入得
+$2(-5/13)+3(-1/13)+1=0$；位移
+\[
+ \overrightarrow{PP'}=\left(-\frac{36}{13},-\frac{54}{13}\right)
+ =-\frac{18}{13}(2,3),
+\]
+与法向量平行，故方向和中点均正确。
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
+\medskip
+\textbf{\textcolor{CExample}{例 2：反求对称轴参数，两个条件都要检查}}
 
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（求对称因子）：}]
-		      计算
-		      \[
-			      t = \dfrac{Ax_0+By_0+C}{A^2+B^2}
-			      = \dfrac{2\times1+3\times2+1}{2^2+3^2}
-			      = \dfrac{2+6+1}{13}
-			      = \dfrac{9}{13}.
-		      \]
-		      \par\textbf{理由：} 直接代入公式中的对称因子计算式。
+已知 $Q(2,3)$ 关于 $l:ax+y+1=0$ 的对称点为 $Q'(4,1)$，求 $a$。
 
-		\item[\textbf{第二步（算横坐标）：}]
-		      \[
-			      x' = x_0 - 2At
-			      = 1 - 2\times2\times\dfrac{9}{13}
-			      = 1 - \dfrac{36}{13}
-			      = -\dfrac{23}{13}.
-		      \]
-		      \par\textbf{理由：} 利用 $x' = x_0 - 2At$，将 $t$ 代入。
+中点 $M(3,2)$ 在直线上，故 $3a+2+1=0$，得到 $a=-1$。
+此时 $l:-x+y+1=0$，法向量为 $(-1,1)$，而
+\[
+ \overrightarrow{QQ'}=(2,-2)=-2(-1,1),
+\]
+确与法向量平行，因此 $\boxed{a=-1}$。
+再用公式回验：$t=(-2+3+1)/2=1$，故 $(2,3)-2(-1,1)=(4,1)$。
 
-		\item[\textbf{第三步（算纵坐标）：}]
-		      \[
-			      y' = y_0 - 2Bt
-			      = 2 - 2\times3\times\dfrac{9}{13}
-			      = 2 - \dfrac{54}{13}
-			      = -\dfrac{28}{13}.
-		      \]
-		      \par\textbf{理由：} 同理，代入 $y'$ 公式计算。
-	\end{description}
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExample}{例 3：圆的对称，先移动圆心}}
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\[
-		\boxed{P'\left(-\dfrac{23}{13},-\dfrac{28}{13}\right)}
-	\]
+求圆 $C:(x-1)^2+(y-2)^2=9$ 关于 $l:x+2y-3=0$ 的对称圆。
+\input{assets/tikz/C031_circle_reflection}
+\end{minipage}
 
-	\medskip
-
-	\textbf{\textcolor{CExample}{例2（稍变形）}}
-
-	\textbf{\textcolor{CExample}{题目：}} 已知点 $Q(2,3)$ 关于直线 $l:ax+y+1=0$ 的对称点为 $Q'(4,1)$，求实数 $a$ 的值。
-
-	\textbf{\textcolor{CExample}{解题步骤：}}
-
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（写出对称因子）：}]
-		      对直线 $ax+y+1=0$，有
-		      \[
-			      A=a,\qquad B=1,\qquad C=1.
-		      \]
-		      因为 $Q(2,3)$，所以
-		      \[
-			      t=\dfrac{2a+3+1}{a^2+1}
-			      =\dfrac{2a+4}{a^2+1}.
-		      \]
-		      \par\textbf{理由：} 先把 $t$ 写清楚，再代入横纵坐标公式。
-
-		\item[\textbf{第二步（横坐标方程）：}]
-		      由 $x' = x_0 - 2At$，得
-		      \[
-			      4 = 2 - 2a\cdot\frac{2a+4}{a^2+1}.
-		      \]
-		      \par\textbf{理由：} 代入 $x_0=2,\ x'=4,\ A=a$。
-
-		\item[\textbf{第三步（纵坐标方程）：}]
-		      由 $y' = y_0 - 2Bt$，得
-		      \[
-			      1 = 3 - 2\cdot\frac{2a+4}{a^2+1}.
-		      \]
-		      \par\textbf{理由：} 代入 $y_0=3,\ y'=1,\ B=1$。
-
-		\item[\textbf{第四步（参数求解）：}]
-		      由横式得
-		      \[
-			      2 = -2a\cdot\frac{2a+4}{a^2+1},
-		      \]
-		      化简为
-		      \[
-			      3a^2+4a+1=0,
-		      \]
-		      解得
-		      \[
-			      a=-1\quad\text{或}\quad a=-\frac13.
-		      \]
-		      由纵式得
-		      \[
-			      -2 = -2\cdot\frac{2a+4}{a^2+1},
-		      \]
-		      化简为
-		      \[
-			      a^2-2a-3=0,
-		      \]
-		      解得
-		      \[
-			      a=-1\quad\text{或}\quad a=3.
-		      \]
-		      取公共解得
-		      \[
-			      a=-1.
-		      \]
-		      \par\textbf{理由：} 点的横纵坐标必须同时满足对称公式，因此取两组结果的交集。
-	\end{description}
-
-	\textbf{\textcolor{CExample}{快速检验：}}
-	$Q(2,3)$ 与 $Q'(4,1)$ 的中点为
-	\[
-		M(3,2).
-	\]
-	代入直线 $ax+y+1=0$，得
-	\[
-		3a+2+1=0,
-	\]
-	所以
-	\[
-		a=-1,
-	\]
-	与上面结果一致。
-
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\[
-		\boxed{a=-1}
-	\]
-
-	\medskip
-
-	\textbf{\textcolor{CExample}{例3（综合应用）}}
-
-	\textbf{\textcolor{CExample}{题目：}} 求圆 $C: (x-1)^2+(y-2)^2=9$ 关于直线 $l: x+2y-3=0$ 对称的圆 $C'$ 的方程。
-
-	\textbf{\textcolor{CExample}{解题步骤：}}
-
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（求圆心对称）：}]
-		      圆心 $C(1,2)$ 关于 $l$ 的对称点 $C'$ 坐标：
-		      \[
-			      t = \frac{1\times1+2\times2-3}{1^2+2^2}
-			      = \frac{2}{5},
-		      \]
-		      \[
-			      \begin{cases}
-				      x' = 1 - 2\cdot1\cdot\frac{2}{5} = \frac{1}{5}, \\[4pt]
-				      y' = 2 - 2\cdot2\cdot\frac{2}{5} = \frac{2}{5}.
-			      \end{cases}
-		      \]
-		      \par\textbf{理由：} 圆关于直线对称等价于圆心关于直线对称，半径不变。
-
-		\item[\textbf{第二步（半径确定）：}]
-		      原圆半径 $R=3$，对称后圆的半径不变，仍为 $3$。
-		      \par\textbf{理由：} 对称是等距变换，保持距离不变。
-
-		\item[\textbf{第三步（写出方程）：}]
-		      对称圆 $C'$ 的方程为
-		      \[
-			      \left(x-\frac{1}{5}\right)^2+\left(y-\frac{2}{5}\right)^2=9.
-		      \]
-		      \par\textbf{理由：} 以 $C'\left(\frac15,\frac25\right)$ 为圆心，半径 $3$ 写标准方程。
-	\end{description}
-
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\[
-		\boxed{\left(x-\frac{1}{5}\right)^2+\left(y-\frac{2}{5}\right)^2=9}
-	\]
+圆心为 $C(1,2)$，计算
+\[
+ t=\frac{1+4-3}{1+4}=\frac25,
+ \qquad C'=\left(1-\frac45,\ 2-\frac85\right)=\left(\frac15,\frac25\right).
+\]
+对称保持距离，所以半径仍为 $3$，对称圆为
+\[
+ \boxed{\left(x-\frac15\right)^2+\left(y-\frac25\right)^2=9}.
+\]
+\textbf{回验：} 两圆心中点 $(3/5,6/5)$ 满足 $x+2y-3=0$；
+$\overrightarrow{CC'}=(-4/5,-8/5)=-\frac45(1,2)$，确与法向量平行，半径也未改变。
 \end{examplebox}

@@ -1,0 +1,29 @@
+\begin{center}
+\begin{minipage}{0.98\linewidth}
+\begin{tcolorbox}[colback=white,colframe=CStatement!25,boxrule=0.4pt,
+  arc=1mm,left=3mm,right=3mm,top=3mm,bottom=3mm]
+\centering
+\textbf{两侧都适用：走向直线，再走同样远}\par\medskip
+\begin{tikzpicture}[font=\small,>=Stealth]
+
+\foreach \shift/\sgn/\heading in {0/1/{$d>0$},6/-1/{$d<0$}} {
+\begin{scope}[shift={(\shift,0)},x=1cm,y=1cm]
+\draw[CStatement,thick] (-1.5,0)--(1.7,0) node[right] {$y=0$};
+\draw[gray,->] (1.2,-.7)--(1.2,.7) node[right] {$\mathbf n=(0,1)$};
+\draw[CExample,very thick,->] (0,{1.6*\sgn})--(0,0);
+\draw[CTrap,very thick,->] (0,0)--(0,{-1.6*\sgn});
+\fill[CExample] (0,{1.6*\sgn}) circle (2pt);
+\fill[CTrap] (0,{-1.6*\sgn}) circle (2pt);
+\node[left] at (0,{1.6*\sgn}) {$P$};
+\node[left] at (0,{-1.6*\sgn}) {$P'$};
+\node[below left] at (0,0) {$H$};
+\node[right,text=CExample] at (0,{.9*\sgn}) {$-d\mathbf n$};
+\node[right,text=CTrap] at (0,{-1.0*\sgn}) {$-d\mathbf n$};
+\node[above] at (.1,2.3) {\heading};
+\end{scope}}
+
+\end{tikzpicture}\par\medskip
+两图同尺度。单位法向量固定向上；$d>0$ 时两段位移向下，$d<0$ 时两段位移向上。两段相加均为 $\overrightarrow{PP'}=-2d\mathbf n$。
+\end{tcolorbox}
+\end{minipage}
+\end{center}

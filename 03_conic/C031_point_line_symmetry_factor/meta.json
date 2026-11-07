@@ -9,7 +9,7 @@
       "点对称公式",
       "点关于直线对称快速公式"
     ],
-    "summary": "通过对称因子 t 直接计算对称点坐标，避免解方程组。",
+    "summary": "利用垂足与中点关系，通过对称因子 t 直接计算点关于直线的对称点；补充从竖直坐标差推导点到直线距离及斜截式对称公式。",
     "difficulty": 3,
     "category": "解析几何",
     "tags": [
@@ -34,7 +34,11 @@
       "Ax+By+C",
       "A^2+B^2",
       "x'=x0-2At",
-      "y'=y0-2Bt"
+      "y'=y0-2Bt",
+      "点到直线距离公式推导",
+      "竖直差与垂直距离",
+      "斜截式对称公式",
+      "y=kx+b"
     ],
     "synonyms": [
       "点关于直线对称点公式",
@@ -97,7 +101,10 @@
   "math": {
     "core_formula": "x' = x_0 - 2A \\cdot \\frac{Ax_0+By_0+C}{A^2+B^2}, \\quad y' = y_0 - 2B \\cdot \\frac{Ax_0+By_0+C}{A^2+B^2}",
     "related_formulas": [
-      "t = \\frac{Ax_0+By_0+C}{A^2+B^2}"
+      "t = \\frac{Ax_0+By_0+C}{A^2+B^2}",
+      "PH=\\frac{|y_0-kx_0-b|}{\\sqrt{1+k^2}}",
+      "s=\\frac{y_0-kx_0-b}{1+k^2}=-t",
+      "P'=(x_0+2ks,y_0-2s)"
     ],
     "variables": [
       "P(x_0,y_0)",
@@ -115,8 +122,14 @@
   },
   "content": {
     "statement": "点 P(x_0,y_0) 关于直线 l: Ax+By+C=0 (A,B 不同时为零) 的对称点 P'(x',y') 可通过对称因子 t = \\frac{Ax_0+By_0+C}{A^2+B^2} 计算：x' = x_0 - 2At, \\ y' = y_0 - 2Bt。",
-    "derivation": [],
-    "intuition": "对称点与原点连线中点落在直线上，且连线方向与直线法向量平行。",
+    "derivation": [
+      "中点条件与法向量：设 P'=P+λ(A,B)，代入中点在线条件得 λ=-2t。",
+      "数值变号：f(P')=-f(P)，并结合垂直方向求位移。",
+      "对 y=kx+b，取 R(x0,kx0+b)，Δ=y0-kx0-b；由直角三角形及斜率方向三角形得 PH=|Δ|/sqrt(1+k²)。",
+      "设 PH 的向量为 s(k,-1)，把 H 代入直线得 s=Δ/(1+k²)，故 H=(x0+ks,y0-s)，P'=(x0+2ks,y0-2s)，且 t=-s。",
+      "有向距离与单位法向量：P'=P-2dn，两个根号相乘形成 A²+B²。"
+    ],
+    "intuition": "先沿垂线从 P 走到垂足 H，再沿同一方向走同样远到 P'；H 是中点。竖直坐标差需除以根号 sqrt(1+k²) 才是点到斜线的实际距离。",
     "common_tricks": [
       "注意直线需化为一般式 Ax+By+C=0",
       "公式中的减号不要写成加号",
@@ -158,7 +171,9 @@
       "中点坐标公式",
       "两直线垂直条件"
     ],
-    "related_ids": ["C074"],
+    "related_ids": [
+      "C074"
+    ],
     "similar": [
       "点关于点对称",
       "直线关于直线对称",
@@ -169,10 +184,10 @@
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-06",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-11-06"
   },
   "isPro": 0,
-  "remarks": "",
+  "remarks": "2026-11-06：assets/tikz/C031_reflection_overview.tex（首页及中点法，垂足与等距）；C031_vertical_gap.tex（同横坐标点R与垂足H的区别）；C031_slope_ratio.tex（根号分母来源）；C031_sign_reversal.tex（方法二数值变号）；C031_signed_normal.tex（方法四两侧位移）；C031_circle_reflection.tex（圆心对称、半径不变）；C031_sign_error.tex（错误加号与正确减号对照）。理解段改为先图后文；补充斜截式几何推导为方法三，保留并整理原三种推导；位移比例统一用λ，斜率用k；补全距离绝对值与s=-t。",
   "knowledgeNode": "解析几何-直线-位置关系-对称问题",
   "altNodes": "解析几何-直线-一般式"
 }

@@ -1,22 +1,28 @@
 \begin{proofbox}
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{方法一：法向量与垂足坐标（原证明）}}
+\input{assets/tikz/P015_perpendicular_distance}
+\end{minipage}
+若点 $P$ 在 $l$ 上，代入值为 $0$，距离公式直接成立。下面先讨论点不在直线上的情形。
+
 	\textbf{\textcolor{CProof}{思路提示}}
-	利用法向量构造直角三角形，通过向量投影或坐标运算求出距离。
+	利用法向量表示垂线方向，再由垂足在线求出参数。
 
 	\medskip
 	\textbf{\textcolor{CProof}{正式推导}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
 		\item[\textbf{步骤一（设垂足坐标）：}]
-			设直线 $l: Ax+By+C=0$，点 $P(x_0,y_0)$。过 $P$ 作 $l$ 的垂线，垂足为 $Q(x_1,y_1)$。则向量 $\overrightarrow{PQ}$ 与直线法向量 $\vec{n}=(A,B)$ 平行。
+			设直线 $l: Ax+By+C=0$，点 $P(x_0,y_0)$。过 $P$ 作 $l$ 的垂线，垂足为 $H(x_1,y_1)$。则向量 $\overrightarrow{PH}$ 与直线法向量 $\vec{n}=(A,B)$ 平行。
 			\[
 				\exists t\in\mathbb{R},\quad (x_1-x_0,\,y_1-y_0)=t(A,B).
 			\]
-			\par\textbf{理由：} 垂线方向与法向量同向。
+			\par\textbf{理由：} 垂线方向与法向量平行，比例因子可正可负。
 		\item[\textbf{步骤二（坐标表示）：}]
 			由上式得 $x_1=x_0+At,\ y_1=y_0+Bt$。代入直线方程 $Ax_1+By_1+C=0$：
 			\[
 				A(x_0+At)+B(y_0+Bt)+C=0.
 			\]
-			\par\textbf{理由：} 垂足 $Q$ 在直线 $l$ 上。
+			\par\textbf{理由：} 垂足 $H$ 在直线 $l$ 上。
 		\item[\textbf{步骤三（解参数）：}]
 			展开得 $Ax_0+By_0+C + t(A^2+B^2)=0$。
 			\[
@@ -24,13 +30,13 @@
 			\]
 			\par\textbf{理由：} 解一次方程，注意分母非零（$A,B$ 不同时为零）。
 		\item[\textbf{步骤四（求距离）：}]
-			点 $P$ 到直线的距离 $d$ 等于 $|\overrightarrow{PQ}|$：
+			点 $P$ 到直线的距离 $d$ 等于 $|\overrightarrow{PH}|$：
 			\[
 				\begin{aligned}
 					d &= \sqrt{{(x_1-x_0)}^2+{(y_1-y_0)}^2} \\ &= \sqrt{t^2(A^2+B^2)} \\ &= |t|\sqrt{A^2+B^2}.
 			\end{aligned}
 			\]
-			\par\textbf{理由：} 利用 $\overrightarrow{PQ}=t(A,B)$，其模为 $|t|\sqrt{A^2+B^2}$。
+			\par\textbf{理由：} 利用 $\overrightarrow{PH}=t(A,B)$，其模为 $|t|\sqrt{A^2+B^2}$。
 		\item[\textbf{步骤五（代入 $t$）：}]
 			将 $t$ 的表达式代入：
 			\[
@@ -44,4 +50,78 @@
 	\medskip
 	\textbf{\textcolor{CProof}{结论回扣}}
 	\textbf{距离公式 $d=\frac{|Ax_0+By_0+C|}{\sqrt{A^2+B^2}}$ 成立，且与垂足具体位置无关，仅与直线一般式和点坐标有关。}
+
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{方法二：同横坐标的竖直差＋直角三角形}}
+\input{assets/tikz/P015_vertical_gap}
+\end{minipage}
+
+设直线为 $l:Ax+By+C=0$（$A,B$ 不同时为零），给定点为 $P(x_0,y_0)$。记
+\[
+ D=Ax_0+By_0+C.
+\]
+
+若 $D=0$，点就在直线上，距离为零。下面设 $D\ne0$，先取 $A\ne0,B\ne0$。
+
+\textbf{第一步：求同横坐标点 $R$，得到竖直长度。}
+
+把 $x=x_0$ 代入直线方程，得到
+\[
+ Ax_0+By_R+C=0,
+ \qquad y_R=-\frac{Ax_0+C}{B}.
+\]
+因此
+\[
+ R\left(x_0,-\frac{Ax_0+C}{B}\right),
+ \qquad PR=|y_0-y_R|
+ =\left|y_0+\frac{Ax_0+C}{B}\right|
+ =\frac{|D|}{|B|}.
+\]
+这是竖直方向的长度，\textbf{还不是点到斜直线的距离}。
+
+\begin{minipage}{\linewidth}
+\textbf{第二步：从 $A,B$ 直接读出余弦系数。}
+\input{assets/tikz/P015_coefficient_triangle}
+\end{minipage}
+
+直线的一个方向向量为 $(B,-A)$，因为它与法向量 $(A,B)$ 的点积为 $AB-AB=0$。
+它的水平、竖直分量的长度分别为 $|B|,|A|$。取直线与水平方向的锐角为 $\theta$，由方向三角形，
+\[
+ \cos\theta=\frac{|B|}{\sqrt{A^2+B^2}}.
+\]
+
+\textbf{第三步：把竖直长度换算成垂直距离。}
+
+过 $P$ 作 $l$ 的垂线，垂足为 $H$。$PH\perp RH$，$PR$ 为直角三角形 $PHR$ 的斜边。
+竖直方向与水平方向垂直，$PH$ 与 $l$ 垂直，所以 $\angle RPH=\theta$。
+图画的是直线上升且 $P$ 在 $R$ 上方的一种位置；其他方向或另一侧的点，取对应锐角后关系相同。
+于是
+\[
+ \begin{aligned}
+ d=PH&=PR\cos\theta\\[3pt]
+ &=\frac{|Ax_0+By_0+C|}{|B|}
+   \cdot\frac{|B|}{\sqrt{A^2+B^2}}\\[3pt]
+ &=\boxed{\frac{|Ax_0+By_0+C|}{\sqrt{A^2+B^2}}}.
+ \end{aligned}
+\]
+\textbf{关键：} 竖直长度中的 $|B|$ 被余弦系数中的 $|B|$ 约去，整个过程直接使用一般式系数。
+
+\textbf{第四步：补齐水平与竖直直线。}
+\begin{itemize}[leftmargin=*,itemsep=.4em]
+\item 若 $A=0$（因此 $B\ne0$），直线为 $y=-C/B$，竖直线段就是垂线段，
+\[
+ d=\left|y_0+\frac CB\right|
+ =\frac{|By_0+C|}{|B|}
+ =\frac{|Ax_0+By_0+C|}{\sqrt{A^2+B^2}}.
+\]
+\item 若 $B=0$（因此 $A\ne0$），直线为 $x=-C/A$，直接取水平距离，
+\[
+ d=\left|x_0+\frac CA\right|
+ =\frac{|Ax_0+C|}{|A|}
+ =\frac{|Ax_0+By_0+C|}{\sqrt{A^2+B^2}}.
+\]
+\end{itemize}
+两种证明都得到同一个一般式距离公式，并且覆盖点在直线上、水平直线与竖直直线。
+
 \end{proofbox}
