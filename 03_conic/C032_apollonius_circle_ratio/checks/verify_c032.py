@@ -24,9 +24,21 @@ def ratio(P,A,B,k):
 
 def verify():
     paths=sorted((ROOT/'assets/tikz').glob('C032_*.tex'))
-    assert len(paths)==13
+    assert len(paths)==15
     for path in paths:
         s=path.read_text(encoding='utf-8')
+        if 'continued_ratio' in path.name:
+            bars=re.findall(r'line width=5pt\] \(([\d.]+),([\d.]+)\)--\(([\d.]+),([\d.]+)\)',s)
+            assert len(bars)==3
+            lengths=[]
+            for x1,y1,x2,y2 in bars:
+                close(float(y1),float(y2))
+                close(float(x1),3.4)
+                lengths.append(float(x2)-float(x1))
+            close(lengths[1]/lengths[0],2)
+            close(lengths[2]/lengths[1],2)
+            close(lengths[1]**2,lengths[0]*lengths[2])
+            continue
         m={k:(float(x),float(y)) for k,x,y in re.findall(
             r'\\coordinate \((\w+)\) at \(([-\d.]+),([-\d.]+)\);',s)}
         A,B=m['A'],m['B']
@@ -121,6 +133,14 @@ def verify():
             ratio(D,A,B,k);ratio(E,A,B,k)
             close(math.dist(D,E),2*r)
             for i in (0,1): close((D[i]+E[i])/2,C[i])
+            close(math.dist(C,A)/r,k)
+            close(r/math.dist(C,B),k)
+            if k>1:
+                # Endpoint sums/differences, independently of the center formula.
+                ad,ae,db,eb=(math.dist(D,A),math.dist(E,A),math.dist(D,B),math.dist(E,B))
+                close(ad+ae,2*math.dist(C,A));close(db+eb,2*r)
+                close(ae-ad,2*r);close(eb-db,2*math.dist(C,B))
+                close((ad+ae)/(db+eb),k);close((ae-ad)/(eb-db),k)
         midpoint=tuple((A[i]+B[i])/2 for i in (0,1));v=sub(B,A)
         for t in (-2,0,3):
             P=(midpoint[0]-t*v[1],midpoint[1]+t*v[0]);ratio(P,A,B,1)
@@ -133,12 +153,12 @@ def verify():
     assert t*t+ph*ph==ca*cb==F(16,9)
     meta=json.loads((UID/'meta.json').read_text(encoding='utf-8'))
     refs=re.findall(r'assets/tikz/C032_[a-z_]+\.tex',meta['remarks'])
-    assert len(refs)==13 and all((ROOT/p).is_file() for p in refs)
-    assert meta['meta']['updated_at']=='2026-10-28' and meta['interactive']['has_diagram'] is True
+    assert len(refs)==15 and all((ROOT/p).is_file() for p in refs)
+    assert meta['meta']['updated_at']=='2026-11-07' and meta['interactive']['has_diagram'] is True
     for rid in meta['relations']['related_ids']: assert len(list((ROOT/'03_conic').glob(rid+'_*')))==1
     proof=(UID/'03_proof.tex').read_text(encoding='utf-8')
     for name in ['coordinate_proof','projection_proof','bisectors','vector_proof']:
         assert f'assets/tikz/C032_{name}.tex' in proof
-    print(f'PASS: 13 actual TikZ models, projections, vectors and angle arcs; {samples} sampled circle points; general identity, endpoints, examples, unit ratio, proof coverage and metadata.')
+    print(f'PASS: 15 actual TikZ models including continued-ratio bars; {samples} sampled circle points; endpoint sums/differences, continued ratios, projections, vectors, angle arcs, examples, unit ratio, proof coverage and metadata.')
 
 if __name__=='__main__':verify()

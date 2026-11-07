@@ -1,0 +1,47 @@
+% Exact example A=-1, B=1, lambda=2; all line lengths use one metric.
+\begin{center}\begin{tikzpicture}[font=\small]
+\draw[black!30,rounded corners=2pt] (0,0) rectangle (14.4,11.5);
+\node[anchor=west,font=\small\bfseries] at (.55,10.95)
+ {两个端点一起看：相加露出圆心距离，相减露出半径};
+\node[anchor=west] at (.65,9.7) {$AD=2DB$};
+\node[anchor=west] at (.65,8.95) {$AE=2EB$};
+\node[anchor=west] at (.65,8.2) {$CD=CE=R$};
+\begin{scope}[shift={(6.4,8.4)},scale=1.35]
+\coordinate (A) at (-1.0000000000,0.0000000000);
+\coordinate (B) at (1.0000000000,0.0000000000);
+\coordinate (C) at (1.6666666667,0.0000000000);
+\coordinate (D) at (0.3333333333,0.0000000000);
+\coordinate (E) at (3.0000000000,0.0000000000);
+\draw[black!45] (-1.25,0)--(3.3,0);
+\draw[blue,very thick] (C) circle (1.3333333333);
+\draw[orange!85!black,very thick] (D)--(C)--(E);
+\node[above=5pt] at (1,0) {$R$};
+\node[above=5pt] at (2.3333333333,0) {$R$};
+\fill (A) circle (1.4pt) node[below=5pt] {$A$};
+\fill (D) circle (1.4pt) node[below left=5pt] {$D$};
+\fill (B) circle (1.4pt) node[below=16pt] {$B$};
+\fill (C) circle (1.4pt) node[below=5pt] {$C$};
+\fill (E) circle (1.4pt) node[below right=5pt] {$E$};
+\end{scope}
+\node[anchor=west,font=\small\bfseries] at (.6,5.85) {相加：两行的每一段仍为 $2:1$};
+% One bar unit is 2/3, represented by .9 cm.
+\draw[blue,line width=3pt] (3,5.05)--(4.8,5.05)--(10.2,5.05);
+\draw[blue] (4.8,4.9)--(4.8,5.2);
+\node[above=3pt] at (3.9,5.05) {$AD$};
+\node[above=3pt] at (7.5,5.05) {$AE$};
+\node[anchor=west] at (10.7,5.05) {$=2CA$};
+\draw[orange!85!black,line width=3pt] (3,4.05)--(3.9,4.05)--(6.6,4.05);
+\draw[orange!85!black] (3.9,3.9)--(3.9,4.2);
+\node[above=3pt] at (3.45,4.05) {$DB$};
+\node[above=3pt] at (5.25,4.05) {$EB$};
+\node[anchor=west] at (10.7,4.05) {$=2R$};
+\node[anchor=west,font=\small\bfseries] at (.6,2.95) {相减：虚线扣去的两段也为 $2:1$};
+\draw[black!50,dashed,thick] (3,2.15)--(4.8,2.15);
+\draw[orange!85!black,line width=3pt] (4.8,2.15)--(8.4,2.15);
+\node[above=3pt] at (3.9,2.15) {$AD$};
+\node[above=3pt] at (6.6,2.15) {$AE-AD=2R$};
+\draw[black!50,dashed,thick] (3,1.1)--(3.9,1.1);
+\draw[teal!80!black,line width=3pt] (3.9,1.1)--(5.7,1.1);
+\node[above=3pt] at (3.45,1.1) {$DB$};
+\node[anchor=west] at (6.2,1.1) {$EB-DB=2CB$};
+\end{tikzpicture}\end{center}

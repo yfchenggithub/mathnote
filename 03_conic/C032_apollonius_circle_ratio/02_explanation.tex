@@ -24,7 +24,50 @@ $AB=2$，圆心在 $B$ 的外侧，$CA:CB=4:1$，又 $CA-CB=AB=2$，
  C=(5/3,0),\qquad R=\sqrt{\frac83\cdot\frac23}=\frac43.
 \]
 \textbf{心在外、比分平方、半径开方。} 这三件事就够快速写圆了；
-如果需要证明为什么成立，请看后面的“速算法简证”。
+下面先用两个端点解释为什么会出现平方比；完整轨迹的证明见后面的“速算法简证”。
+\tcbbreak
+\textbf{补充直觉：平方比来自连续两次相同的比例。}
+已知轨迹是以 $DE$ 为直径的圆，$C$ 为圆心，$R=CD=CE$。
+先看 $\lambda>1$，点的顺序为 $A,D,B,C,E$；$D,E$ 都满足原距离比。
+\input{assets/tikz/C032_endpoint_sums.tex}
+\textbf{图中取 $\lambda=2$；一般情形把 $2$ 换成 $\lambda$。}
+由 $AD=\lambda DB$、$AE=\lambda EB$，相加、相减分别得到
+\[
+\begin{aligned}
+ \underbrace{AD+AE}_{2CA}
+ &=\lambda\underbrace{(DB+EB)}_{2R}
+ &&\Longrightarrow\quad CA=\lambda R,\\[4pt]
+ \underbrace{AE-AD}_{2R}
+ &=\lambda\underbrace{(EB-DB)}_{2CB}
+ &&\Longrightarrow\quad R=\lambda CB.
+\end{aligned}
+\]
+\textbf{观察图中的线段拼接与扣除：} 同比例的两组长度，相加或相减后仍为同一比例；
+而直径中点 $C$ 恰好把这些和、差变成两倍的圆心距离或半径。
+
+\tcbbreak
+\textbf{半径为什么是几何平均？把三段长度排成连续比例。}
+\input{assets/tikz/C032_continued_ratio.tex}
+图中 $CB=2/3$，放大 $2$ 倍得到 $R=4/3$，再放大 $2$ 倍得到 $CA=8/3$。
+一般地，上页两式合起来就是
+\[
+ \boxed{\frac{CA}{R}=\frac{R}{CB}=\lambda},\qquad
+ CB\ \xrightarrow{\times\lambda}\ R\ \xrightarrow{\times\lambda}\ CA.
+\]
+\textbf{两次同倍率，合起来就是平方倍率；中间的半径就是比例中项。}
+将两个比相乘，或将等比关系交叉相乘，分别得到
+\[
+ \frac{CA}{CB}=\lambda\cdot\lambda=\lambda^2,
+ \qquad R^2=CA\cdot CB,
+ \qquad R=\sqrt{CA\cdot CB}\quad(R>0).
+\]
+所以不必孤立地记两条速算式：\textbf{从 $CB$ 到 $R$，再从 $R$ 到 $CA$，每次都乘 $\lambda$。}
+
+\textbf{比值小于 $1$ 时：} 交换 $A,B$，将上页论证用于 $PB/PA=1/\lambda>1$，
+得到 $CB/R=R/CA=1/\lambda$；取倒数仍有 $CA/R=R/CB=\lambda$，
+只是连续两步都变为缩小。若 $\lambda=1$，轨迹为中垂线，不存在这里的有限圆心和半径。
+\textbf{论证范围：} 本补充在已知直径圆之后解释圆心与半径的比例；
+仅检查 $D,E$ 两点，不能代替整个圆周满足原条件的证明。
 \tcbbreak
 \textbf{找圆不一定先背公式：先找直线 $AB$ 上的两个特殊点。}
 \input{assets/tikz/C032_diameter.tex}
