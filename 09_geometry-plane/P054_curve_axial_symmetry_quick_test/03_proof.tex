@@ -1,0 +1,106 @@
+\begin{proofbox}
+\textbf{\textcolor{CProof}{思路提示}}
+
+本节严格区分\textbf{四种证明路线}：\textbf{一、门槛最低（只用初中几何与乘法）}；\textbf{二、考场最快（特殊轴直接换坐标）}；\textbf{三、步骤最少（函数左右等值）}；\textbf{四、常规通用（任意直线的对称点公式）}。证明的对象都是\emph{曲线上全部点}，不是单独的一两个点。
+
+\medskip
+\textbf{\textcolor{CProof}{证明一：门槛最低法——垂直平分线与初中几何}}
+
+\input{assets/tikz/P054_perpendicular_bisector}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+  \item[\textbf{步骤一（用初中语言解释轴对称）：}] 取曲线上的任意一点 $P$，向候选直线 $\ell$ 作垂线，垂足为 $H$；在垂线另一侧取 $P'$，使 $HP'=HP$。于是 $\ell$ 是线段 $PP'$ 的\textbf{垂直平分线}，$P'$ 就是 $P$ 的轴对称点。若 $P$ 恰在 $\ell$ 上，则 $P'=P$。
+  \item[\textbf{步骤二（说明为什么必须检查所有点）：}] 如果曲线真的以 $\ell$ 为轴，那么对每个 $P$ 都能在曲线上找到对应的 $P'$；反过来，如果任意 $P$ 的 $P'$ 都还在曲线上，将整条曲线翻折后每一个点都落在原曲线上。由于翻折两次回到原点，原曲线也不会漏掉任何点。这就是轴对称的判据。
+  \item[\textbf{步骤三（初中实例：$xy=1$ 关于 $y=x$）：}] 设 $P(a,b)$ 是曲线上\textbf{任意点}，那么 $ab=1$。取 $H((a+b)/2,(a+b)/2)$，则 $H$ 在 $y=x$ 上，且是 $P(a,b)$ 与 $P'(b,a)$ 的中点。$PP'$ 的方向为 $(b-a,a-b)$，与 $y=x$ 垂直（$a=b$ 时两点重合），故对称点确为 $P'(b,a)$。而
+  \[
+     b\cdot a=a\cdot b=1.
+  \]
+因此 $P'$ 仍在 $xy=1$ 上。由于 $P$ 是任意取的，\textbf{整条曲线}关于 $y=x$ 对称。
+  \item[\textbf{步骤四（再看 $y=-x$）：}] 仍取 $P(a,b)$，关于 $y=-x$ 的对称点是 $P''(-b,-a)$；其中点 $((a-b)/2,(b-a)/2)$ 在 $y=-x$ 上；连线方向为 $(-a-b,-a-b)$，与该轴垂直（$a=-b$ 时两点重合）。检验
+  \[
+     (-b)(-a)=ab=1.
+  \]
+  所以整条曲线也关于 $y=-x$ 对称。两条轴证明完成，\textbf{只用到了垂直平分线、坐标与乘法}。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{证明二：速度最快法——特殊轴一行代换}}
+
+\input{assets/tikz/P054_coordinate_swap}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.5em]
+  \item[\textbf{步骤一（先识别轴）：}] 对 $xy=1$，候选轴 $y=x$ 的对称代换是 $(x,y)\to(y,x)$；候选轴 $y=-x$ 的代换是 $(x,y)\to(-y,-x)$。
+  \item[\textbf{步骤二（直接看方程有没有变）：}] 对两种代换分别得到
+  \[
+    xy=1\ \longmapsto\ yx=1,\qquad
+    xy=1\ \longmapsto\ (-y)(-x)=1.
+  \]
+  都与原方程等价。
+  \item[\textbf{步骤三（补齐证明而不是只背口诀）：}] 任取 $P(x,y)$ 满足 $xy=1$，代换所得对称点满足相同方程，故还在曲线上；再对称一次返回原点。于是两条候选轴都被证明。\textbf{这就是考场的最快判定法。}
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{证明三：步骤最少法——左右等值判定函数图像}}
+
+\input{assets/tikz/P054_equal_heights}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.5em]
+  \item[\textbf{步骤一（选左右两点）：}] 对函数 $y=f(x)$，欲证 $x=h$ 是对称轴，就选横坐标 $h+t$ 和 $h-t$，它们到 $x=h$ 的水平距离都是 $|t|$。
+  \item[\textbf{步骤二（同高就关于竖直线对称）：}] 若定义域在 $h$ 两侧成对出现，且
+  \[
+    f(h+t)=f(h-t)\quad\text{对每一对允许的 }t\text{ 都成立},
+  \]
+  则曲线上 $(h+t,f(h+t))$ 的对称点 $(h-t,f(h+t))$ 与 $(h-t,f(h-t))$ 相同，也在曲线上。反之若图像关于 $x=h$ 对称，两点同高，故等式成立。
+  \item[\textbf{步骤三（对抛物线一行完成）：}] 对 $f(x)=(x-2)^2+1$，取 $h=2$：
+  \[
+    \boxed{f(2+t)=t^2+1=f(2-t)}.
+  \]
+  定义域是全部实数，故 $\boxed{x=2}$ 为对称轴。\textbf{这一题真正落笔只需这一行。}
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{证明四：常规通用法——推导任意直线的反射坐标}}
+
+\input{assets/tikz/P054_normal_reflection}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+  \item[\textbf{步骤一（写候选轴与法线方向）：}] 设 $\ell:Ax+By+C=0$，其中 $A^2+B^2>0$。对任意点 $P(x,y)$，直线的垂直方向可取 $(A,B)$。因此从 $P$ 到垂足 $H$ 的坐标变化可写成
+  \[
+    H=(x-sA,\ y-sB),
+  \]
+  其中 $s$ 待求。理由：$Ax+By+C$ 的两系数 $A,B$ 给出垂直于该直线的方向；也可用斜率乘积为 $-1$（包括水平、竖直特例）检验。
+  \item[\textbf{步骤二（把垂足放在直线上）：}] 因 $H$ 在 $\ell$ 上，有
+  \[
+    A(x-sA)+B(y-sB)+C=0.
+  \]
+  移项得 $s(A^2+B^2)=Ax+By+C$，所以
+  \[
+    \boxed{s=\frac{Ax+By+C}{A^2+B^2}}.
+  \]
+  \item[\textbf{步骤三（用中点关系得到对称点）：}] 轴对称时，$H$ 正好是 $PP'$ 的中点，故 $P'=2H-P$：
+  \[
+    \boxed{\begin{aligned}
+      x'&=x-\frac{2A(Ax+By+C)}{A^2+B^2},\\
+      y'&=y-\frac{2B(Ax+By+C)}{A^2+B^2}.
+    \end{aligned}}
+  \]
+  \item[\textbf{步骤四（说明可以对整条曲线进行代换）：}] 令 $L=Ax+By+C$。代入上式可求
+  \[
+    Ax'+By'+C=L-2\frac{A^2+B^2}{A^2+B^2}L=-L.
+  \]
+  因而从 $P'$ 再按同一公式对称，新的系数是 $-s$，坐标回到 $(x,y)$。所以这个代换确实是一次可逆的轴对称。
+  \item[\textbf{步骤五（得到严格判据）：}] 若对所有满足 $F(x,y)=0$ 的点，代入上式算出的 $P'$ 都满足 $F(x',y')=0$，整条曲线即关于 $\ell$ 对称；反之如图像对称，任一点的对称点必然满足原方程。这就是
+  \[
+    \boxed{F(x,y)=0\ \Longleftrightarrow\ F(x',y')=0}.
+  \]
+  \textbf{特别注意：} 更强的 $F(x',y')=F(x,y)$ 虽然好用，却不是必须。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{渐近线角平分线为什么适用于双曲线（补充证明）}}
+
+\input{assets/tikz/P054_hyperbola_axes}
+
+取标准双曲线 $\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}=1$（$a,b>0$）。分别用 $(-x,y)$ 和 $(x,-y)$ 代入，因平方不变，原方程不变，故 $x=0,y=0$ 都是对称轴。其两条渐近线 $y=\pm\dfrac ba x$ 关于 $x$ 轴互成镜像，两条线在 $x$ 轴两侧的夹角相等，因此 $x$ 轴是其中一条角平分线；另一个角的两边同样关于 $y$ 轴互成镜像，故 $y$ 轴是另一条角平分线。\textbf{先用方程证明轴对称，再发现这两条轴恰好平分渐近线的夹角，逻辑不能倒置。}
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+
+四种方法分工明确：\textbf{初中法}用于理解镜像的本质；\textbf{最快法}用于 $x=h$、$y=k$、$y=\pm x$ 等轴；\textbf{最少步骤法}用于竖直对称轴的函数；\textbf{通用法}用于任意 $Ax+By+C=0$。找不到证明时先想能否找一个反例点直接否定。
+\end{proofbox}

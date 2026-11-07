@@ -1,0 +1,24 @@
+\begin{center}
+\begin{tikzpicture}[font=\small,>=Stealth,line cap=round,line join=round]
+\path[use as bounding box] (-6.5,-3.55) rectangle (6.5,3.55);
+\draw[black!20,rounded corners=3pt] (-6.5,-3.55) rectangle (6.5,3.55);
+\node[font=\small\bfseries] at (0,3.08) {双曲线 $x^2/9-y^2/4=1$：两轴平分渐近线夹角};
+
+\begin{scope}[x=.9cm,y=.9cm]
+\draw[->,CProof,thick] (-5,0)--(5,0) node[right] {$x$};
+\draw[->,CProof,thick] (0,-2.65)--(0,2.65);
+\node[right=3pt] at (0,2.45) {$y$};
+\draw[black!55,dashed] (-3.9,-2.6)--(3.9,2.6);
+\draw[black!55,dashed] (-3.9,2.6)--(3.9,-2.6);
+\node at (1.4,2.25) {$y=\frac23x$};
+\node at (1.4,-2.25) {$y=-\frac23x$};
+\draw[CExplanation,very thick,domain=-1.03:1.03,samples=90] plot ({3*cosh(\x)},{2*sinh(\x)});
+\draw[CExplanation,very thick,domain=-1.03:1.03,samples=90] plot ({-3*cosh(\x)},{2*sinh(\x)});
+\draw[CProof] (1,0) arc (0:33.69:1);
+\draw[CProof] (1,0) arc (0:-33.69:1);
+\node at (1.45,.43) {$\alpha$}; \node at (1.45,-.43) {$\alpha$};
+\end{scope}
+
+\node[align=center] at (0,-3.05) {蓝色实线是双曲线，灰色虚线是渐近线；两坐标轴平分夹角。};
+\end{tikzpicture}
+\end{center}

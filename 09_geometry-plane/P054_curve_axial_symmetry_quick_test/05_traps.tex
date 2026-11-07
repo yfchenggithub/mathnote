@@ -1,0 +1,53 @@
+\begin{trapbox}
+\input{assets/tikz/P054_asymptote_counterexample}
+
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+  \item[\textbf{\textcolor{CTrap}{易错点一（把几个对称点当成整条曲线对称）：}}] 找到曲线上两三个点照镜子以后还在曲线上，就直接宣称有对称轴。
+  \item[\textbf{\textcolor{CTrap}{正确理解：}}] 证明轴对称必须对\textbf{任意点}成立；否定对称只需\textbf{一个反例点}。例如 $y=1/x+1/x^2$ 的 $(1,2)$ 足以否定 $y=\pm x$。
+  \item[\textbf{\textcolor{CTrap}{错因分析：}}] 把“存在某个点符合”错误当成“所有点都符合”。
+\end{description}
+
+\medskip
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+  \item[\textbf{\textcolor{CTrap}{易错点二（有两条渐近线就认定角平分线是轴）：}}] 看到渐近线 $x=0,y=0$ 就立即断言曲线关于 $y=\pm x$ 对称。
+  \item[\textbf{\textcolor{CTrap}{正确理解：}}] 对\textbf{双曲线}可以这样寻找轴；一般曲线不能这样推出。反例 $y=1/x+1/x^2$ 有相同两条渐近线，却不关于 $y=\pm x$ 对称。
+  \item[\textbf{\textcolor{CTrap}{错因分析：}}] 渐近线描述曲线向远处延伸时的方向，不能决定曲线上所有点的位置。
+\end{description}
+
+\medskip
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+  \item[\textbf{\textcolor{CTrap}{易错点三（混淆 $y=x$ 与 $y=-x$）：}}] 关于两条斜线对称都只交换 $x,y$，或者都只换符号。
+  \item[\textbf{\textcolor{CTrap}{正确理解：}}] 关于 $y=x$：$(x,y)\to(y,x)$；关于 $y=-x$：$(x,y)\to(-y,-x)$。关于原点中心对称才是 $(x,y)\to(-x,-y)$。
+  \item[\textbf{\textcolor{CTrap}{错因分析：}}] 对 $P(2,\frac12)$，前文两幅坐标交换图的镜像分别是 $(\frac12,2)$、$(-\frac12,-2)$；关于原点的中心对称点则是 $(-2,-\frac12)$。三者位置不同，不能混用。
+\end{description}
+
+\medskip
+\input{assets/tikz/P054_domain_pair}
+
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+  \item[\textbf{\textcolor{CTrap}{易错点四（只代换表达式，不检查定义域）：}}] 只算出 $f(h+t)=f(h-t)$ 的形式相同，却忘记一个自变量可能不在定义域内。
+  \item[\textbf{\textcolor{CTrap}{正确理解：}}] 对于函数图像，$x\in D$ 当且仅当 $2h-x\in D$，并且成对的函数值相等。分式需检查分母不为零；只取半支曲线时不能擅自补上另一半。
+  \item[\textbf{\textcolor{CTrap}{错因分析：}}] 轴对称判断的是\textbf{实际存在的点的集合}，不是只看展开后的符号。
+\end{description}
+
+\medskip
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+  \item[\textbf{\textcolor{CTrap}{易错点五（认为只有方程完全一样才算对称）：}}] 把 $F(x',y')=F(x,y)$ 当成对称的必要条件。
+  \item[\textbf{\textcolor{CTrap}{正确理解：}}] 必要且充分的是 $F(x,y)=0\Longleftrightarrow F(x',y')=0$。例如 $F=(x^2+y^2-1)(x^2+2)$，表示的仍是单位圆；关于 $y=x$ 交换后因第二因子不同，两个\emph{表达式}通常不等，但两方程的解集一样。
+  \item[\textbf{\textcolor{CTrap}{错因分析：}}] 忽视“方程的表达式”和“方程表示的曲线”是两个不同概念。
+\end{description}
+
+\medskip
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+  \item[\textbf{\textcolor{CTrap}{易错点六（以为一条曲线一定只有零条、一条或两条轴）：}}] 看到正比例函数，就照抛物线思路只找出一条轴。
+  \item[\textbf{\textcolor{CTrap}{正确理解：}}] 一条\textbf{完整直线}关于自身对称，也关于任一条与它垂直且相交的直线对称，所以有无数条对称轴。标准圆也有无数条经过圆心的对称轴。
+  \item[\textbf{\textcolor{CTrap}{错因分析：}}] 不同图形的对称轴数量不能机械类比。
+\end{description}
+
+\medskip
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+  \item[\textbf{\textcolor{CTrap}{易错点七（套法向量时漏掉常数或分母）：}}] 对 $Ax+By+C=0$ 直接写 $(x',y')=(x-2A L,y-2B L)$，漏掉 $A^2+B^2$。
+  \item[\textbf{\textcolor{CTrap}{正确理解：}}] 先算 $s=(Ax+By+C)/(A^2+B^2)$，再写 $(x',y')=(x-2As,y-2Bs)$。只有 $A^2+B^2=1$ 时才可省去分母。
+  \item[\textbf{\textcolor{CTrap}{错因分析：}}] 法线方向 $(A,B)$ 未必长度为 $1$，不能把方程代入值直接当作垂直距离。
+\end{description}
+\end{trapbox}

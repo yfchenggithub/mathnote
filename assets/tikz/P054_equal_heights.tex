@@ -1,0 +1,23 @@
+\begin{center}
+\begin{tikzpicture}[font=\small,>=Stealth,line cap=round,line join=round]
+\path[use as bounding box] (-6.5,-3.55) rectangle (6.5,3.55);
+\draw[black!20,rounded corners=3pt] (-6.5,-3.55) rectangle (6.5,3.55);
+\node[font=\small\bfseries] at (0,3.08) {函数法：到竖直轴等距的两点必须同高};
+
+\begin{scope}[x=1.35cm,y=.8cm,shift={(-2,-2.3)}]
+\draw[->,black!40] (-1.5,0)--(4.5,0) node[right] {$x$};
+\draw[CProof,dashed] (2,0)--(2,5.1);
+\node[right=4pt] at (2,4.7) {$x=h$};
+\draw[CExplanation,very thick,domain=.1:3.9,samples=100] plot (\x,{(\x-2)^2+1});
+\draw[dotted] (.6,2.96)--(.6,0) (3.4,2.96)--(3.4,0);
+\draw[<->,CProof] (.6,2.96)--(3.4,2.96);
+\fill[CExplanation] (.6,2.96) circle(2pt) node[below left=4pt] {$f(h-t)$};
+\fill[CExplanation] (3.4,2.96) circle(2pt) node[below right=4pt] {$f(h+t)$};
+\node[below] at (.6,0) {$h-t$}; \node[below] at (3.4,0) {$h+t$};
+\draw[<->] (.6,.45)--(2,.45) node[midway,above] {$t$};
+\draw[<->] (2,.45)--(3.4,.45) node[midway,above] {$t$};
+\end{scope}
+
+\node[align=center] at (0,-3.05) {图取 $t>0$；一般判定还须检查定义域左右成对出现。};
+\end{tikzpicture}
+\end{center}

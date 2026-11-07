@@ -1,0 +1,26 @@
+\begin{center}
+\begin{tikzpicture}[font=\small,>=Stealth,line cap=round,line join=round]
+\path[use as bounding box] (-6.5,-3.55) rectangle (6.5,3.55);
+\draw[black!20,rounded corners=3pt] (-6.5,-3.55) rectangle (6.5,3.55);
+\node[font=\small\bfseries] at (0,3.08) {平移后：对称轴必须经过新中心};
+
+\begin{scope}[x=.73cm,y=.73cm]
+
+
+\draw[dashed,black!55] (0,-3.4)--(0,3.4);
+\node[fill=white,anchor=east] at (-.15,2.8) {$x=2$};
+
+\draw[dashed,black!55] (-5,0)--(5,0);
+\node[fill=white] at (-4.3,.3) {$y=3$};
+\draw[CProof,thick] (-3,-3)--(3,3);
+\node[anchor=west] at (3.5,2.8) {$y=x+1$};
+\draw[CStatement,thick] (-3,3)--(3,-3) node[right] {$y=-x+5$};
+\draw[CExplanation,very thick,domain=.3:4.8,samples=100] plot (\x,{1/\x});
+\draw[CExplanation,very thick,domain=-4.8:-.3,samples=100] plot (\x,{1/\x});
+\fill (0,0) circle(2pt);
+\node[anchor=west] at (1.4,-.55) {$O'(2,3)$};
+\end{scope}
+
+\node[align=center] at (0,-3.05) {以 $O'$ 为中心看 $u=x-2,v=y-3$，即恢复 $uv=1$ 的结构。};
+\end{tikzpicture}
+\end{center}

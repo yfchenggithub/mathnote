@@ -1,0 +1,27 @@
+\begin{center}
+\begin{tikzpicture}[font=\small,>=Stealth,line cap=round,line join=round]
+\path[use as bounding box] (-6.5,-3.55) rectangle (6.5,3.55);
+\draw[black!20,rounded corners=3pt] (-6.5,-3.55) rectangle (6.5,3.55);
+\node[font=\small\bfseries] at (0,3.08) {特殊轴：交换坐标与交换后取负};
+
+\foreach \dx/\sign/\ttl in {-3.25/1/{$y=x$},3.25/-1/{$y=-x$}} {
+\begin{scope}[shift={(\dx,0)},x=.7cm,y=.7cm]
+\draw[->,black!40] (-3.4,0)--(3.4,0) node[right] {$x$};
+\draw[->,black!40] (0,-3.4)--(0,3.4) node[above] {$y$};
+\draw[CProof,dashed] (-3,{-3*\sign})--(3,{3*\sign});
+\node[fill=white,inner sep=1pt] at (-2.2,{-2.2*\sign}) {\ttl};
+\draw[CExplanation,thick,domain=.34:3.15,samples=80] plot (\x,{1/\x});
+\draw[CExplanation,thick,domain=-3.15:-.34,samples=80] plot (\x,{1/\x});
+\fill[CExplanation] (2,.5) circle(2pt) node[above right] {$(2,\frac12)$};
+\fill[CStatement] ({.5*\sign},{2*\sign}) circle(2pt);
+\draw[CStatement,<->] (2,.5)--({.5*\sign},{2*\sign});
+\ifnum\sign=1
+\node[above left] at (.5,2) {$(\frac12,2)$};
+\else
+\node[below left=3pt] at (-.5,-2) {$(-\frac12,-2)$};
+\fi
+\end{scope}}
+
+\node[align=center] at (0,-3.05) {两图均为 $xy=1$：$(x,y)\mapsto(y,x)$；$(x,y)\mapsto(-y,-x)$。};
+\end{tikzpicture}
+\end{center}

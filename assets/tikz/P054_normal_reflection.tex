@@ -1,0 +1,20 @@
+\begin{center}
+\begin{tikzpicture}[font=\small,>=Stealth,line cap=round,line join=round]
+\path[use as bounding box] (-6.5,-3.55) rectangle (6.5,3.55);
+\draw[black!20,rounded corners=3pt] (-6.5,-3.55) rectangle (6.5,3.55);
+\node[font=\small\bfseries] at (0,3.08) {通用法：沿垂直方向走两段相同的位移};
+
+\draw[CProof,thick] (-4,-1.8)--(3,1.7);
+\node[above] at (2.8,1.9) {$\ell:Ax+By+C=0$};
+\coordinate (H) at (0,.2); \coordinate (P) at (-1,2.2); \coordinate (Q) at (1,-1.8);
+\draw[->,very thick,CStatement] (P)--(H) node[midway,left=5pt] {$-s(A,B)$};
+\draw[->,very thick,CStatement] (H)--(Q) node[midway,left=5pt] {$-s(A,B)$};
+\draw (0.27,.335)--(.405,.065)--(.135,-.07);
+\fill[CExplanation] (P) circle(2pt) node[left=5pt] {$P(x,y)$};
+\fill (H) circle(2pt) node[below left=3pt] {$H$};
+\fill[CExplanation] (Q) circle(2pt) node[below right] {$P'(x',y')$};
+\node[align=left,anchor=west] at (2.4,-1.25) {$H=P-s(A,B)$\\[5pt]$P'=P-2s(A,B)$};
+
+\node[align=center] at (0,-3.05) {$H\in\ell$ 决定 $s$；$H$ 为中点决定第二段位移。};
+\end{tikzpicture}
+\end{center}

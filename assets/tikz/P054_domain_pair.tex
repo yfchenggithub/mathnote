@@ -1,0 +1,28 @@
+\begin{center}
+\begin{tikzpicture}[font=\small,>=Stealth,line cap=round,line join=round]
+\path[use as bounding box] (-6.5,-3.55) rectangle (6.5,3.55);
+\draw[black!20,rounded corners=3pt] (-6.5,-3.55) rectangle (6.5,3.55);
+\node[font=\small\bfseries] at (0,3.08) {定义域也要对称：只留半支就会缺少镜像};
+
+\foreach \dx/\mode/\ttl in {-3.25/0/{完整抛物线},3.25/1/{只取 $x\ge2$}} {
+\begin{scope}[shift={(\dx,-1.8)},x=.9cm,y=.85cm]
+\draw[->,black!40] (-2.5,0)--(2.5,0);
+\draw[CProof,dashed] (0,0)--(0,4.2);
+\node[right=3pt] at (0,3.9) {$x=2$};
+\ifnum\mode=0
+\draw[CExplanation,very thick,domain=-1.65:1.65,samples=80] plot (\x,{\x*\x+1});
+\fill[CExplanation] (-1,2) circle(2pt);
+\else
+\draw[black!25,dotted,domain=-1.65:0,samples=40] plot (\x,{\x*\x+1});
+\draw[CExplanation,very thick,domain=0:1.65,samples=40] plot (\x,{\x*\x+1});
+\draw[CTrap,fill=white,thick] (-1,2) circle(3pt);
+\fi
+\fill[CExplanation] (1,2) circle(2pt);
+\draw[<->,CProof] (-1,2)--(1,2);
+\node[below] at (-1,0) {$1$}; \node[below] at (1,0) {$3$};
+\node at (0,4.9) {\ttl};
+\end{scope}}
+
+\node[align=center] at (0,-3.05) {公式同为 $y=(x-2)^2+1$；右图的 $(1,2)$ 不属于实际图像。};
+\end{tikzpicture}
+\end{center}
