@@ -1,49 +1,109 @@
 \begin{explanationbox}
-\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExplanation}{阅读顺序：先圆，后公式；先知道为什么有用，再记名称。}}
+
+\medskip
+\textbf{\textcolor{CExplanation}{一、为什么会发明“点配一条直线”这种做法？}}
+
+先看圆 $x^2+y^2=4$。在圆外取 $P(4,0)$，从 $P$ 作两条切线，分别与圆相切于 $T,T'$。圆心 $O(0,0)$ 到切点的半径垂直于切线，因此两个切点都满足
+\[
+\underbrace{4x_{T}+0y_{T}}_{\text{把切点坐标代入}}=4,
+\qquad\text{即}\quad x_T=1.
+\]
+所以两切点的连线是 $x=1$。把这一条直线与原来的点 $P$ 对应起来，就有了最初的直观认识：\textbf{圆外点的极线，就是两个切点的连线。}
+
+\begin{center}
+\input{assets/tikz/C076_tangent_triangle}
+\end{center}
+\textbf{看图要注意：} $T,T'$ 位于圆上；$PT,PT'$ 才是切线段；红色虚线 $TT'$ 是\textbf{切点弦}，不是从 $P$ 引出的切线。这个区别很重要。
+
+\medskip
+\textbf{\textcolor{CExplanation}{二、圆外、圆上、圆内，为什么能用同一条公式？}}
+
+对任何\textbf{不是圆心}的点 $R(u,v)$，先写出同一个方程
+\[
+\boxed{l_R:\ ux+vy=4}.
+\]
+不要一开始纠结“为什么必须叫极线”。先把它当成\textbf{一条按相同规则得到的直线}，分别看三种情况：
+
+\begin{center}
+\input{assets/tikz/C076_three_positions}
+\end{center}
+\textbf{沿图比较：} $R$ 从 $(4,0)$ 移至 $(2,0)$、$(1,0)$ 时，极线依次为 $x=1,2,4$；它与圆依次有两个、一个、零个交点。\textbf{变的是位置与几何含义，配线公式没有变。}
+
+这里的“统一”是\textbf{用同一个代数方程处理不同位置的点}，不等于说圆内点也能作两条切线。这正是新概念值得引入的原因：\textbf{几何图形的情况会变，方程却保持一个样子。}
+
+\medskip
+\textbf{\textcolor{CExplanation}{三、最值得理解的发现：点在线上动，线却经过定点}}
+
+继续取圆 $x^2+y^2=4$ 和固定点 $P(4,0)$。已经知道
+\[
+ l_P:x=1.
+\]
+在 $x=1$ 上任取 $Q(1,t)$，$t$ 可以是任何实数。按照上面的统一规则，点 $Q$ 配出的直线为
+\[
+\boxed{l_Q:\ x+ty=4}.
+\]
+\textbf{检验：} 把固定点 $P(4,0)$ 代入 $l_Q$ 的左边，得到 $4+t\cdot0=4$，对任意 $t$ 都成立。因此 $l_Q$ 始终经过 $P$，哪怕 $Q$ 处在圆内、圆上或圆外。
+
+\begin{center}
+\input{assets/tikz/C076_line_pencil}
+\end{center}
+\textbf{画图说明：} 紫色 $l_{Q_1}$ 为 $x=4$；青色 $l_{Q_2}$ 为 $x+\sqrt3y=4$；橙色 $l_{Q_3}$ 为 $x+2y=4$。三条直线都经过 $P$。切点弦所对应的直线一般\textbf{并不经过动点 $Q_3$ 本身}。
+
+\textbf{进一步观察：}
+\begin{itemize}[leftmargin=*,itemsep=0.38em]
+\item $Q_1=(1,0)$ 在圆内；$l_{Q_1}:x=4$ 与圆没有交点。
+\item $Q_2=(1,\sqrt3)$ 在圆上；$l_{Q_2}:x+\sqrt3y=4$ 是此处的切线。
+\item $Q_3=(1,2)$ 在圆外；$l_{Q_3}:x+2y=4$ 是从 $Q_3$ 作两条切线时两个切点的连线。
+\end{itemize}
+所以：“极线”的价值并非又多记一个名字，而是\textbf{把三种画法完全不同的点统一到一条简单公式，并由此发现动线过定点。}
+
+\medskip
+\textbf{\textcolor{CExplanation}{四、为什么交换 $P$、$Q$ 一定成立？}}
+
+设圆上统一方程为 $x^2+y^2=r^2$，$P(x_1,y_1)$ 与 $Q(x_2,y_2)$ 均不是圆心。
+\[
+\begin{aligned}
+Q\in l_P &\iff x_1x_2+y_1y_2=r^2,\\
+P\in l_Q &\iff x_2x_1+y_2y_1=r^2.
+\end{aligned}
+\]
+左边两式只是乘法顺序颠倒：$x_1x_2=x_2x_1$、$y_1y_2=y_2y_1$。因此两者必然同时成立或同时不成立。\textbf{这只是乘法交换律，不是高深理论。}
+
+\medskip
+\textbf{\textcolor{CExplanation}{五、椭圆、双曲线、抛物线也一样吗？}}
+
+是的。只看每一类曲线判断 $Q$ 在 $l_P$ 上需要满足什么等式：
+\begin{itemize}[leftmargin=*,itemsep=0.4em]
+\item 椭圆：$\displaystyle \frac{x_1x_2}{a^2}+\frac{y_1y_2}{b^2}=1$；交换下标 $1,2$ 不变。
+\item 双曲线：$\displaystyle \frac{x_1x_2}{A^2}-\frac{y_1y_2}{B^2}=1$；减号不影响乘法交换律。
+\item 抛物线：$\displaystyle y_1y_2=p(x_1+x_2)$；左边乘法可交换，右边加法也可交换。
+\end{itemize}
+
+\begin{center}
+\input{assets/tikz/C076_coordinate_scaling}
+\end{center}
+\textbf{由图推广：} 对 $x^2/a^2+y^2/b^2=1$，令 $X=x/a,Y=y/b$，就得到单位圆；点也同时改坐标。将单位圆极线 $X_1X+Y_1Y=1$ 改回原坐标，便得
+\[
+\boxed{\frac{x_1x}{a^2}+\frac{y_1y}{b^2}=1}.
+\]
+图中直线 $x=2$ 变成 $X=1$，点仍在对应直线上。这正是配线公式随坐标一起改变的含义。
+
+遇到这些题目，一般\textbf{没有必要}先记住一个新的字母 $S_P$；看原来曲线的具体方程，把对应点坐标放进去就够了。
+
+\medskip
+\par\medskip\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExplanation}{六、同一点坐标，换曲线就要换公式}}
 \begin{center}\input{assets/tikz/C076_math_audit_geometry.tex}\end{center}
-$Q=(1,1)$ 在 $P=(4,0)$ 的极线 $x=1$ 上；$P$ 也在 $Q$ 的极线 $x/4+y=1$ 上。这个互换来自双线性式的对称性。
-\end{minipage}
-\par\medskip
+这里使用的是椭圆 $\dfrac{x^2}{4}+y^2=1$，不是上面半径为 $2$ 的圆。$P=(4,0)$ 的极线是 $x=1$，$Q=(1,1)$ 的极线是 $\dfrac{x}{4}+y=1$。验证：$Q$ 满足 $x=1$；把 $P$ 代入 $\frac{x}{4}+y=1$，得 $\frac44+0=1$。\textbf{圆的公式与椭圆的公式不可混用。}
+\end{minipage}\par
 
-
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
-
-	极线与点的关系是“你中有我，我中有你”：如果点 $P$ 落在 $Q$ 的极线上，那么 $Q$ 必然也落在 $P$ 的极线上，相互绑定。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（极线定义）：}] 对于非退化二次曲线 $\Gamma: S(x,y)=0$，点 $P(x_1,y_1)$ 的极线定义为方程 $S_P(x,y)=0$ 所代表的直线。
-		\item[\textbf{要点二（对称共轭）：}] 共轭性表明，将 $P$ 和 $Q$ 互换，极线关系不变，即 $S_P(x_2,y_2)=0$ 与 $S_Q(x_1,y_1)=0$ 等价。
-	\end{description}
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（配极对应）}}
-
-	极点与极线构成一个对合变换（配极对应）。共轭性正是该变换的对合性质：连续做两次配极对应回到自身。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（对称表达）}}
-
-	极线方程表达式中，$S_P(x,y)$ 关于 $P$ 的坐标 $(x_1,y_1)$ 和变量 $(x,y)$ 完全对称，因此交换 $P$ 与 $Q$ 的结果相同，即 $S_P(x_2,y_2)=S_Q(x_1,y_1)$。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（命题视角）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（直接代入判断）：} 给定点 $P,Q$，计算 $S_P(x_2,y_2)$ 是否为零即可判断共轭性，无需写出极线方程。
-		\item \textbf{考法二（定点定值转化）：} 在圆锥曲线综合题中，常利用共轭性将“点在直线上”条件转化为对称代数式，简化运算。
-	\end{itemize}
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
-
-	共轭性的核心数学表达是“$P$ 在 $Q$ 的极线上 $\iff$ $S_P(x_2,y_2)=0$”，这一代数条件可替代几何定义，便于代数操作。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（验证共轭点对）：} 问题中给出两个点，要判断它们关于某曲线的共轭关系，直接代入曲线左侧表达式 $S$ 再计算 $S_P(x_2,y_2)$。
-		\item \textbf{场景二（极线方程互求）：} 已知一条直线是某点的极线，可以利用共轭性反向寻找极点和极线关系。
-	\end{itemize}
-
+\medskip
+\textbf{\textcolor{CExplanation}{七、考场上怎么决定用不用？}}
+\begin{itemize}[leftmargin=*,itemsep=0.4em]
+\item \textbf{识别信号：} 两条切线、两个切点、切点弦、某点在固定直线上运动、某条动直线是否经过固定点。
+\item \textbf{最先做的检查：} 这条动直线能否写成“某个动点的极线”？如果能，再查动点是否在某个固定点的极线上。
+\item \textbf{没有上述结构时：} 普通的点差法、韦达定理、切线方程可能更直接，不要为用新术语而强行使用。
+\end{itemize}
+\textbf{教学定位：} 这属于\textbf{提高拓展}，不是普通学生应机械背诵的高频必会公式。先学会圆外点的切点弦，再理解圆内统一方程，最后才讨论“交换点和线”的性质。
 \end{explanationbox}

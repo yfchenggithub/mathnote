@@ -1,0 +1,14 @@
+\begin{tikzpicture}[x=.52cm,y=.52cm,every node/.style={font=\small}]
+\foreach \shift/\u/\v/\title/\eq in {0/4/1/圆外：切点弦/{x=1},8.6/2/2/圆上：切线/{x=2},17.2/1/4/圆内：对应直线/{x=4}} {
+\begin{scope}[xshift=\shift*.52cm]
+\draw[->,gray!60] (-2.4,0)--(4.7,0);
+\draw[blue!75!black,thick] (0,0) circle (2);
+\draw[red!75!black,dashed,thick] (\v,-2.5)--(\v,2.5);
+\fill (\u,0) circle (2pt);
+\node[align=center] at (1,3.8) {\title\\$R(\u,0)$};
+\node[red!75!black] at (1,-4.2) {$l_R:\eq$};
+\end{scope}}
+\draw[orange!80!black,thick] (4,0)--(1,{sqrt(3)}) (4,0)--(1,{-sqrt(3)});
+\fill (1,{sqrt(3)}) circle (1.7pt); \fill (1,{-sqrt(3)}) circle (1.7pt);
+\node at (9.5,-5.8) {同一圆、同一尺度：$ux+vy=4$；圆内点不能引出真实切线。};
+\end{tikzpicture}
