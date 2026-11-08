@@ -1,46 +1,81 @@
 \begin{explanationbox}
+\textbf{\textcolor{CExplanation}{同一个椭圆：极线存在，不等于有切点弦}}
+
+\begin{center}
+\input{assets/tikz/C075_inside_outside_comparison.tex}
+\end{center}
+
+两图均为 $x^2/4+y^2=1$，且坐标尺度相同。
+左图 $P(4,0)$ 的极线 $x=1$ 经过两个切点；
+右图 $P(1,0)$ 的极线 $x=4$ 却在椭圆之外，因为椭圆上 $|x|\le2$。
+\textbf{先检查是否成直线，再检查是否有两个不同实切点。}
+
+\medskip
+\textbf{\textcolor{CExplanation}{一句话理解}}
+\textbf{先从切点写切线，再把“切点”和“给定点”的坐标交换位置。}
+能交换，是因为公式中的 $x_0x$、$y_0y$、$x_0y+y_0x$ 本来就是左右交换后不变的组合。
+
+\medskip
 \begin{minipage}{\linewidth}
-\begin{center}\input{assets/tikz/C075_math_audit_geometry.tex}\end{center}
-非中心点 $P=(4,0)$ 有有限极线 $x=1$；中心 $O$ 的代换式没有任何有限点，不能说是普通平面中的一条直线。
+\textbf{\textcolor{CExplanation}{一、圆为什么能产生这种直线？}}
+圆 $x^2+y^2=R^2$ 上一点 $T(u,v)$，半径 $OT$ 与过 $T$ 的切线垂直。
+设切线上任一点为 $Q(x,y)$，则
+\[
+ \overrightarrow{OT}=(u,v),\qquad
+ \overrightarrow{TQ}=(x-u,y-v),
+\]
+两向量垂直，故
+\[
+ u(x-u)+v(y-v)=0
+ \ \Longrightarrow\ ux+vy=u^2+v^2=R^2.
+\]
+若从 $P(x_0,y_0)$ 引切线，切点 $T$ 就必须满足 $ux_0+vy_0=R^2$。
+把 $T(u,v)$ 看作待求点 $(x,y)$，便得到 $x_0x+y_0y=R^2$：\textbf{它是所有切点的共同直线}。
+椭圆可以将单位圆的横坐标乘 $a$、纵坐标乘 $b$ 得到，故圆的这个规律也变成椭圆公式。
+
 \end{minipage}
-\par\medskip
+\par
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExplanation}{二、为什么 $xy$、$x$、$y$ 项要除以 $2$？}}
+设切点坐标为 $(u,v)$，一般二次曲线的切线中有下列对称组合：
+\[
+ x^2\longrightarrow ux,\quad
+ y^2\longrightarrow vy,\quad
+ xy\longrightarrow\frac{uy+vx}{2},\quad
+ x\longrightarrow\frac{x+u}{2}.
+\]
+例如把 $Q$ 取成切点 $T$，就有
+\[
+ \left.\frac{uy+vx}{2}\right|_{(x,y)=(u,v)}=uv,
+ \qquad
+ \left.\frac{x+u}{2}\right|_{x=u}=u.
+\]
+因此，\textbf{在两个点重合时，每一项都还原成原曲线方程中的对应项}。
+这既能检验公式，也能防止交叉项漏写一半；完整理由见第四种证明。
 
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
-	极点极线是圆锥曲线的一种对偶规则：给定曲线和一点，可以直接写出一条直线（极线）；点在曲线上时极线就是切线，确有两不同有限实切点时极线才是切点弦。
+\end{minipage}
+\par
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExplanation}{三、别把“有极线”误解成“有切点弦”}}
+\begin{itemize}[leftmargin=*,itemsep=0.35em]
+ \item \textbf{椭圆内点：}如本页右图，极线在椭圆之外，没有真实切点。
+ \item \textbf{双曲线上的特殊外点：}$x^2-y^2=1$、$P(1,1)$ 只有一个实切点，见例 4 的构造图；不能叫两切点连线。
+ \item \textbf{中心例外：}例如椭圆或双曲线的中心 $O(0,0)$，替换后得到 $0=1$，不是直线。
+\end{itemize}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（替换法则）：}]
-			替换二次曲线方程中的变量：$x^2 \rightarrow x_0x$，$y^2 \rightarrow y_0y$，$x \rightarrow \frac{x+x_0}{2}$，$y \rightarrow \frac{y+y_0}{2}$，$xy \rightarrow \frac{x_0y+y_0x}{2}$，即得极线方程。
-		\item[\textbf{要点二（点线对偶）：}]
-			极线上的具有有限极线的点 $Q$，其极线经过 $P$；更一般的点线一一对应需在射影平面中表述。这种对应称为配极对应。
-	\end{description}
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（配极对应）}}
-	对于二次曲线，一点 $P$ 的极线是所有与 $P$ 共轭的点 $Q$ 的轨迹。当从 $P$ 存在两条具有不同有限实切点的切线时，极线恰好是通过 $P$ 的两条切线的切点连线（切点弦）。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（对称替换）}}
-	极线方程可由曲线方程 $F(x,y)=0$ 通过对称替换得到：二次项 $x^2$ 换成 $x_0x$，交叉项 $xy$ 换成 $\frac{x_0y+y_0x}{2}$，一次项 $x$ 换成 $\frac{x+x_0}{2}$，常数项不变。这个替换保持了双线性形式。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（解题用途）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（直接求极线）：}已知圆锥曲线和一点（有心曲线须排除中心），直接代入公式得到极线方程，常用于求切线或切点弦。
-		\item \textbf{考法二（逆用求极点）：}已知某直线是极线，可通过比较系数求出对应极点（解线性方程组）。
-	\end{itemize}
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
-	极线方程就是曲线方程的“一次化”形式，本质是对二次方程作对称极化，曲线本身并未退化。掌握替换法则比记忆具体公式更本质。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（求切线或切点弦）：}点在曲线上，极线即为切线；确有两不同有限实切点时，极线才为切点弦。
-		\item \textbf{场景二（解析几何证明）：}利用极点极线的对偶性，将共点问题转化为共线问题。
-	\end{itemize}
-
+\end{minipage}
+\par
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExplanation}{四、解题时怎么识别？}}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.35em]
+ \item[\textbf{信号一：已知曲线上一点，求切线。}] 直接把该点的坐标写入极线公式；它就是切线。
+ \item[\textbf{信号二：已知曲线外一点，求两个切点连线。}] 先写极线，再与原曲线联立，确认有两个不同的实切点。
+ \item[\textbf{信号三：给出一般二次方程。}] 注意 $xy$、$x$、$y$ 三类项的“平均写法”，最后检验所得等式确为直线。
+ \item[\textbf{信号四：求定点或轨迹。}] 把极线整理成 $Lx+Ny+K=0$，通过对比系数，寻找定点坐标之间的关系。
+\end{description}
+\end{minipage}
+\par
 \end{explanationbox}

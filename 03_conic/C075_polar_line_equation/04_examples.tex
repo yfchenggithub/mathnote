@@ -1,61 +1,100 @@
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例 1（基础）}}
-	\textbf{\textcolor{CExample}{题目：}}
-	已知椭圆 $\frac{x^2}{9}+\frac{y^2}{4}=1$，点 $P(3,1)$。求点 $P$ 关于椭圆的极线方程。
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（识别曲线类型）：}]
-			观察曲线为标准椭圆，适用公式 $\frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1$。
-			\par\textbf{理由：} 由结论一，椭圆 $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$ 对应极线 $\frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1$。
-		\item[\textbf{第二步（代入坐标与参数）：}]
-			此处 $a^2=9,b^2=4$，$x_0=3,y_0=1$，代入得 $\frac{3x}{9}+\frac{1y}{4}=1$，即 $\frac{x}{3}+\frac{y}{4}=1$。
-			\par\textbf{理由：} 将点坐标直接代入公式。
-		\item[\textbf{第三步（化简得直线方程）：}]
-			整理为 $4x+3y=12$。
-			\par\textbf{理由：} 两边乘以12去分母。
-	\end{description}
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{极线方程为 $4x+3y=12$。}
+\par
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExample}{例 1｜标准椭圆：求极线并核对两切点}}\par\smallskip
+\textbf{题目：}椭圆 $x^2/9+y^2/4=1$，$P(3,1)$，求极线并说明是否为切点弦。
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 2（稍变形）}}
-	\textbf{\textcolor{CExample}{题目：}}
-	已知抛物线 $y^2=8x$ 上一点 $P(2,4)$。求点 $P$ 关于抛物线的极线方程。
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（化为标准形式）：}]
-			抛物线 $y^2=8x$ 对应 $2p=8$，即 $p=4$。
-			\par\textbf{理由：} 标准抛物线 $y^2=2px$。
-		\item[\textbf{第二步（代入极线公式）：}]
-			根据结论二，极线方程为 $y_0y=p(x+x_0)$。代入 $y_0=4,p=4,x_0=2$ 得 $4y=4(x+2)$。
-			\par\textbf{理由：} $P$ 在抛物线上，此即切线方程。
-		\item[\textbf{第三步（化简求结果）：}]
-			两边除以 $4$ 得 $y=x+2$。
-			\par\textbf{理由：} 代数化简。
-	\end{description}
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{切线方程为 $y=x+2$。}
+\begin{center}
+\input{assets/tikz/C075_example_ellipse.tex}
+\end{center}
+图中一条切线竖直，故直接写极线比先设两条斜率更稳妥。
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 3（综合应用）}}
-	\textbf{\textcolor{CExample}{题目：}}
-	已知圆锥曲线 $\Gamma: x^2+xy+y^2-2x-2y+1=0$，点 $P(2,0)$ 在 $\Gamma$ 外部。求点 $P$ 关于 $\Gamma$ 的极线方程。
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（提取系数）：}]
-			对照一般式 $Ax^2+Bxy+Cy^2+Dx+Ey+F=0$，得 $A=1,B=1,C=1,D=-2,E=-2,F=1$。
-			\par\textbf{理由：} 正确识别系数以便代入。
-		\item[\textbf{第二步（代入替换公式）：}]
-			极线方程为 $A x_0 x+\frac{B}{2}(x_0 y+y_0 x)+C y_0 y+\frac{D}{2}(x+x_0)+\frac{E}{2}(y+y_0)+F=0$。代入 $x_0=2,y_0=0$，得
-			\[
-				1\cdot2\cdot x+\frac{1}{2}(2\cdot y+0\cdot x)+1\cdot0\cdot y+\frac{-2}{2}(x+2)+\frac{-2}{2}(y+0)+1=0,
-			\]
-			即 $2x + y - (x+2) - y + 1 = 0$。
-			\par\textbf{理由：} 逐项带入，注意系数 $\frac{B}{2}$ 等。
-		\item[\textbf{第三步（合并化简）：}]
-			整理得 $2x+y-x-2-y+1=0$，即 $x-1=0$，故 $x=1$。
-			\par\textbf{理由：} 合并同类项后得到。
-	\end{description}
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{极线方程为 $x=1$。}
+\end{minipage}
+\par
+\textbf{解：}代入椭圆公式：
+\[
+ \frac{3x}{9}+\frac{y}{4}=1
+ \quad\Longleftrightarrow\quad\boxed{4x+3y=12}.
+\]
+\textbf{不要在这里停下：}要称为切点弦，还要确认这条线与椭圆有两个不同实交点。
+\par\medskip
+由直线得 $x=(12-3y)/4$，代入椭圆：
+\begin{align*}
+ &\frac{(12-3y)^2}{16\cdot9}+\frac{y^2}{4}=1,\\
+ &144-72y+9y^2+36y^2=144,\\
+ &9y(5y-8)=0,
+\end{align*}
+所以 $y=0$ 或 $y=8/5$，相应 $x=3$ 或 $x=9/5$。
+两个切点分别是
+\[
+ T_1(3,0),\qquad T_2\left(\frac95,\frac85\right).
+\]
+验算：在 $T_1$ 处的切线为 $x=3$，含 $P(3,1)$；
+在 $T_2$ 处的切线为 $x/5+2y/5=1$，即 $x+2y=5$，也含 $P(3,1)$。
+因此 $4x+3y=12$ 确为切点弦所在直线。
+
+\medskip
+\textbf{\textcolor{CExample}{例 2｜抛物线：曲线上一点的切线}}\par\smallskip
+\textbf{题目：}抛物线 $y^2=8x$ 上一点 $P(2,4)$，求切线。
+
+\textbf{解：}$2p=8$，故 $p=4$。先验算 $4^2=8\cdot2$，点确实在曲线上。
+代入 $y_0y=p(x+x_0)$：
+\[
+ 4y=4(x+2)\quad\Longrightarrow\quad\boxed{y=x+2}.
+\]
+检查相切：代入曲线得到
+\[
+ (x+2)^2=8x\quad\Longleftrightarrow\quad(x-2)^2=0.
+\]
+$x=2$ 是重根，切点正是 $(2,4)$。
+
+\medskip
+\textbf{\textcolor{CExample}{例 3｜含 $xy$ 的一般二次方程：代换与几何核对}}\par\smallskip
+\textbf{题目：}$\Gamma:x^2+xy+y^2-2x-2y+1=0$，$P(2,0)$，求极线和切点。
+
+\textbf{解：}对照一般式，
+$A=B=C=1,\ D=E=-2,\ F=1$。逐项代入：
+\begin{align*}
+ 0={}&2x+\frac{2y}{2}+0-(x+2)-y+1\\
+  ={}&x-1.
+\end{align*}
+故 $\boxed{x=1}$。
+将 $x=1$ 代入 $\Gamma$，得到
+\[
+ 1+y+y^2-2-2y+1=0
+ \quad\Longleftrightarrow\quad y(y-1)=0.
+\]
+切点为 $T_1(1,0)$、$T_2(1,1)$。
+分别求切线：在 $T_1$ 处是 $y=0$；在 $T_2$ 处是 $x+y=2$。
+两条切线都经过 $P(2,0)$，再次确认 $x=1$ 是切点弦。
+
+\medskip
+\par
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExample}{例 4｜双曲线：有极线但只有一个实切点}}\par\smallskip
+\textbf{题目：}双曲线 $x^2-y^2=1$，$P(1,1)$。能否把极线称为切点弦？
+
+\begin{center}
+\input{assets/tikz/C075_hyperbola_single_contact.tex}
+\end{center}
+极线平行于渐近线 $y=x$，只交曲线于 $T$；橙色竖线才是从 $P$ 引出的切线。
+
+\end{minipage}
+\par
+\textbf{解：}极线方程为
+\[
+ \boxed{x-y=1}.
+\]
+因为曲线上 $x^2-y^2=(x-y)(x+y)=1$，同时又有 $x-y=1$，故必有 $x+y=1$。
+解得唯一实交点 $T(1,0)$。
+双曲线在 $T$ 处的切线是 $x=1$，的确经过 $P(1,1)$。
+\textbf{结论：}这条极线存在，但只有一个不同的实切点，\textbf{不能称为两切点的连线}。
+
+\medskip
+\textbf{\textcolor{CExample}{例 5｜最小反例：椭圆内点与中心}}\par\smallskip
+对椭圆 $x^2/9+y^2/4=1$：
+\begin{itemize}[leftmargin=*,itemsep=0.35em]
+ \item $P(1,0)$ 的极线是 $x=9$。椭圆上 $|x|\le3$，所以它没有实交点，也没有实切点弦。
+ \item $P(0,0)$ 的代换结果是 $0=1$，不能写作一条直线，更不能叫切点弦。
+\end{itemize}
 \end{examplebox}

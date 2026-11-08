@@ -1,32 +1,62 @@
 \begin{trapbox}
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CTrap}{易错一｜把“极线”一律理解成“切点弦”}}
 
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（适用条件忽视）}}]
-			认为极线只适用于点在曲线外时求切点弦，忽略点在曲线上或内部也可写极线。
-		\item[\textbf{\textcolor{CTrap}{正确理解（极线统一性）：}}]
-			在有限平面中，极线方程要求一次项系数不同时为零；有心曲线须排除中心点；点在曲线上时极线就是切线。
-		\item[\textbf{\textcolor{CTrap}{错因分析（概念不全）：}}]
-			只记住切点弦结论，未理解极线的一般定义。
-	\end{description}
+\begin{center}
+\input{assets/tikz/C075_inside_outside_comparison.tex}
+\end{center}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（系数替换错误）}}]
-			对一般二次曲线，直接套用 $Bx_0y$、$Dx$ 等，忘记系数减半。
-		\item[\textbf{\textcolor{CTrap}{正确理解（对称替换规则）：}}]
-			$xy$ 项系数应变为 $\frac{B}{2}(x_0y+y_0x)$，$x$ 项系数应变为 $\frac{D}{2}(x+x_0)$，$y$ 项同理。
-		\item[\textbf{\textcolor{CTrap}{错因分析（记忆偏差）：}}]
-			未理解极线方程来自于二次型 $x^TAx$ 的替换，对称化导致系数折半。
-	\end{description}
+\textbf{错误想法：}写出极线，就必有两个实切点。
+\textbf{看图纠正：}左图有两切点，右图极线无实交点；两图的椭圆与尺度相同。
+先联立检查，有两个不同实交点才可称为切点弦。
+\end{minipage}
+\par
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（椭圆双曲线符号）}}]
-			混淆椭圆和双曲线的极线符号，认为都是正号。
-		\item[\textbf{\textcolor{CTrap}{正确理解（按曲线类型区分）：}}]
-			椭圆使用 $+$，双曲线使用 $-$，因为双曲线标准方程为 $\frac{x^2}{a^2}-\frac{y^2}{b^2}=1$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（机械记忆）：}}]
-			未注意双曲线 $y^2$ 项为负，代入替换时符号要一致。
-	\end{description}
 
+\medskip
+\textbf{\textcolor{CTrap}{易错二｜忘记中心点没有普通极线}}
+\begin{itemize}[leftmargin=*,itemsep=0.35em]
+ \item 标准椭圆或双曲线的中心 $O(0,0)$ 对应 $0=1$，\textbf{它不是一条直线}。
+ \item 对一般式，极线是直线须满足
+ \[
+ (2Ax_0+By_0+D,\ Bx_0+2Cy_0+E)\ne(0,0).
+ \]
+ \item 计算出只含常数的等式时，应停止，不要硬写成“直线方程”。
+\end{itemize}
+
+\medskip
+\textbf{\textcolor{CTrap}{易错三｜$xy$ 项与一次项漏除以 $2$}}
+\[
+ \begin{array}{c|c|c}
+ \text{原项}&\text{正确替换}&\text{常见错误}\\
+ Bxy &\frac B2(x_0y+y_0x)&Bx_0y\\
+ Dx &\frac D2(x+x_0)&Dx\\
+ Ey &\frac E2(y+y_0)&Ey
+ \end{array}
+\]
+\textbf{自检：}令 $x=x_0,y=y_0$，替换式必须还原为原曲线方程值。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错四｜混淆椭圆、双曲线的符号}}
+\[
+ \text{椭圆：}\ \frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1;
+ \qquad
+ \text{双曲线：}\ \frac{x_0x}{a^2}-\frac{y_0y}{b^2}=1.
+\]
+负号来自双曲线原方程本身，不能因记住椭圆公式就把它丢掉。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错五｜只看到一个交点便称其为两切点连线}}
+回看例 4 的图：极线 $x-y=1$ 只交曲线于 $T(1,0)$，橙色 $x=1$ 仍是切线。
+\textbf{一个实切点既不等于没有切线，也不构成两切点连线。}
+
+\medskip
+\textbf{\textcolor{CTrap}{易错六｜误把任何二次方程都当作圆锥曲线}}
+例如 $x^2-y^2=0$ 表示两条直线 $x=\pm y$。
+使用前须确认方程确实表示椭圆、双曲线或抛物线。
+
+\medskip
+\textbf{\textcolor{CTrap}{考场检查顺序}}
+\textbf{确认曲线种类 $\to$ 写出替换式 $\to$ 判断是否真是一条直线 $\to$
+若题目要求切点弦，再联立检查是否有两个不同实切点。}
 \end{trapbox}

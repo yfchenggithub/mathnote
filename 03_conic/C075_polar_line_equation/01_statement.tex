@@ -1,39 +1,90 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件1（圆锥曲线非退化）：}}]
-			给定非退化的圆锥曲线 $\Gamma$（标准椭圆/双曲线/抛物线，或一般二次曲线 $Ax^2+Bxy+Cy^2+Dx+Ey+F=0$）。
-		\item[\textbf{\textcolor{CStatement}{条件2（给定一点P）：}}]
-			平面上一点 $P(x_0,y_0)$，可在曲线外、上或内。
-	\end{description}
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（标准椭圆双曲线）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			将点的坐标代入曲线方程中的平方项一次化。
-			\[
-				\frac{x_0x}{a^2}\pm\frac{y_0y}{b^2}=1.
-			\]
-			其中椭圆取 $+$，双曲线取 $-$。
-		\item[\textbf{\textcolor{CStatement}{结论二（抛物线情形）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			将点坐标代入抛物线方程中的变量一次化。
-			\[
-				y_0y=p(x+x_0).
-			\]
-		\item[\textbf{\textcolor{CStatement}{结论三（一般二次曲线）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			对二次项和一次项分别做对称替换。
-			\[
-				A x_0 x + \frac{B}{2}(x_0 y + y_0 x) + C y_0 y + \frac{D}{2}(x+x_0) + \frac{E}{2}(y+y_0) + F = 0.
-			\]
-	\end{description}
-	\textbf{\textcolor{CStatement}{推广结论（切点弦应用）}}
-	\textbf{\textcolor{CStatement}{直观描述：}}
-	当从 $P$ 存在两条具有不同有限实切点的切线时，极线恰为切点弦所在直线（即从 $P$ 所作两条切线的切点连线）。
+\textbf{\textcolor{CStatement}{先看核心情形：极线是两切点的连线}}
+
+\begin{center}
+\input{assets/tikz/C075_polar_chord_overview.tex}
+\end{center}
+对图中椭圆，$P(4,0)$ 的极线为 $4x/4=1$，即 $x=1$。
+它经过两切点 $T_1,T_2$；橙色两线是从 $P$ 引出的切线。
+\par\medskip
+\textbf{\textcolor{CStatement}{条件与名称}}
+\begin{itemize}[leftmargin=*,itemsep=0.35em]
+  \item 给定一条真正的椭圆、双曲线或抛物线 $\Gamma$（也可以经过平移、旋转）；给定点 $P(x_0,y_0)$。
+  \item “$P$ 的极线”是按照下列规则与 $P$ 对应的\textbf{直线}；$P$ 不必位于曲线上。
+  \item 计算后必须核对 $x,y$ 的系数\textbf{不同时为零}；否则所得等式并非一条普通直线。
+\end{itemize}
 
 \medskip
-\textbf{有限平面中的定义域。} 有心曲线的中心须排除；在标准式中 $P=(0,0)$ 给出 $0=1$，
-不是有限直线。一般式要求一次项系数不同时为零。
-极线可没有实交点；只有确有两不同有限实切点时，才能把它称作实切点弦。
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CStatement}{结论一：标准椭圆与双曲线}}
+\begin{align*}
+\text{椭圆 }\frac{x^2}{a^2}+\frac{y^2}{b^2}=1
+ &\quad\Longrightarrow\quad \boxed{\frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1},\qquad a>b>0;\\
+\text{双曲线 }\frac{x^2}{a^2}-\frac{y^2}{b^2}=1
+ &\quad\Longrightarrow\quad \boxed{\frac{x_0x}{a^2}-\frac{y_0y}{b^2}=1},\qquad a,b>0.
+\end{align*}
+\begin{center}
+\input{assets/tikz/C075_standard_conics_polar.tex}
+\end{center}
+两图同取 $a=2,b=1,P(0,2)$，坐标尺度相同。正、负号不同，
+使极线分别成为 $y=\tfrac12$ 与 $y=-\tfrac12$；各自经过图中的两个切点。
+\par\smallskip
+椭圆和双曲线的中心均为 $O(0,0)$。当 $P=O$ 时，上式变成 $0=1$，\textbf{不是一条直线}。
+\end{minipage}
+\par\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CStatement}{结论二：抛物线}}
+\[
+  \Gamma:y^2=2px\quad(p>0)
+  \quad\Longrightarrow\quad
+  \boxed{y_0y=p(x+x_0)}.
+\]
+\begin{center}
+\input{assets/tikz/C075_parabola_polar.tex}
+\end{center}
+图取 $p=2$、$P(-1,0)$：$0=2(x-1)$ 给出极线 $x=1$，
+经过两切点 $(1,2)$ 与 $(1,-2)$。图中橙线才是从 $P$ 引出的切线。
+\par\smallskip
+因为 $x$ 的系数是 $-p\ne0$，所以\textbf{抛物线对任意点 $P$ 都能写出一条极线}。
+\end{minipage}
+\par\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CStatement}{结论三：一般二次方程}}
+若
+\[
+  \Gamma:\; Ax^2+Bxy+Cy^2+Dx+Ey+F=0
+\]
+确实表示一条椭圆、双曲线或抛物线，则 $P$ 对应的等式是
+\[
+ \boxed{\begin{aligned}
+  &Ax_0x+\frac{B}{2}(x_0y+y_0x)+Cy_0y\\
+  &\qquad+\frac{D}{2}(x+x_0)+\frac{E}{2}(y+y_0)+F=0.
+ \end{aligned}}
+\]
+\begin{center}
+\input{assets/tikz/C075_general_conic_polar.tex}
+\end{center}
+图中 $\Gamma:x^2+xy+y^2-2x-2y+1=0$，$P(2,0)$。
+按一般公式代入得到
+\[
+  2x+y-(x+2)-y+1=0\quad\Longleftrightarrow\quad x=1.
+\]
+这条极线经过 $T_1(1,0)$、$T_2(1,1)$；它们的切线 $y=0$、$x+y=2$ 都经过 $P$。
+\par\smallskip
+判定它能否表示直线，只需检查
+\[
+ \boxed{2Ax_0+By_0+D\quad\text{与}\quad Bx_0+2Cy_0+E\quad\text{不同时为 }0.}
+\]
+\textbf{替换规则：}
+$\;x^2\to x_0x,\quad y^2\to y_0y,\quad
+xy\to (x_0y+y_0x)/2,\quad
+x\to(x+x_0)/2,\quad y\to(y+y_0)/2$；常数不变。
+\end{minipage}
+\par\medskip
+\textbf{\textcolor{CStatement}{结论四：几何意义（不可混淆）}}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.3em]
+ \item[\textbf{点 $P$ 在曲线上：}] 极线就是曲线在 $P$ 处的\textbf{切线}。
+ \item[\textbf{从 $P$ 有两个不同的实切点 $T_1,T_2$：}] 极线就是\textbf{切点弦 $T_1T_2$ 所在直线}。
+ \item[\textbf{没有两个不同的实切点：}] 仍可能有极线，但\textbf{不能称为切点弦}；极线甚至可能与原曲线没有实交点。
+\end{description}
 \end{statementbox}

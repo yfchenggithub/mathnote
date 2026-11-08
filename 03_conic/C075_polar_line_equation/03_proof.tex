@@ -1,37 +1,311 @@
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
-	极线方程是切线方程的推广。我们先考虑标准椭圆，分别推导 $P$ 在曲线上和曲线外的情况，然后推广到抛物线、双曲线及一般二次曲线。
+\textbf{\textcolor{CProof}{四种证明要解决同一件事}}\par\smallskip
+已知曲线上一切点 $T$，先证明过 $T$ 的切线有规定的形式；
+再说明：若给定点 $P$ 在这条切线上，那么 $T$ 必位于 $P$ 的极线上。
+这样，若有两个不同的切点，就得到切点弦。
+\textbf{对于没有真实切点的点，极线仍是按式子给出的直线，并不是从切点弦推出来的。}
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（曲线上切线）：}]
-			设椭圆 $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$ 上一点 $P(x_0,y_0)$。则过 $P$ 的切线方程为
-			\[
-				\frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1.
-			\]
-			\par\textbf{理由：} 椭圆的切线方程是其标准形式下“替换”得到的，可用判别式法或导数法验证。
-		\item[\textbf{步骤二（曲线外切点弦）：}]
-			设 $P(x_0,y_0)$ 在椭圆外，过 $P$ 作椭圆的两条切线，切点分别为 $A(x_1,y_1), B(x_2,y_2)$。则切线 $PA$ 和 $PB$ 的方程分别为
-			\[
-				\frac{x_1x}{a^2}+\frac{y_1y}{b^2}=1,
-				\qquad
-				\frac{x_2x}{a^2}+\frac{y_2y}{b^2}=1.
-			\]
-			因为 $P$ 在两条切线上，所以
-			\[
-				\frac{x_1x_0}{a^2}+\frac{y_1y_0}{b^2}=1,
-				\qquad
-				\frac{x_2x_0}{a^2}+\frac{y_2y_0}{b^2}=1.
-			\]
-			这表明 $A$ 和 $B$ 都满足直线方程 $\frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1$，故该直线即为切点弦 $AB$。
-			\par\textbf{理由：} 点 $A,B$ 的坐标满足方程，且两点确定一条直线。
-		\item[\textbf{步骤三（统一与推广）：}]
-			比较步骤一和步骤二，得到完全相同的直线形式。因此，不论 $P$ 在椭圆上还是椭圆外，该直线都称为极线。类似地，对双曲线（$-$号）、抛物线（$y_0y=p(x+x_0)$）也可得到对应公式。对于任意非退化二次曲线 $Ax^2+Bxy+Cy^2+Dx+Ey+F=0$，通过替换法则 $x^2\to x_0x$，$y^2\to y_0y$，$xy\to\frac{x_0y+y_0x}{2}$，$x\to\frac{x+x_0}{2}$，$y\to\frac{y+y_0}{2}$，即得极线方程 $A x_0x+\frac{B}{2}(x_0y+y_0x)+C y_0y+\frac{D}{2}(x+x_0)+\frac{E}{2}(y+y_0)+F=0$。
-			\par\textbf{理由：} 这种替换保持了二次曲线的双线性形式，是配极变换的代数体现。
-	\end{description}
+\medskip
+\par
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{第一法｜门槛最低：圆的垂直关系 + 逐条代入检验}}\par\smallskip
+\textbf{所用知识：}垂直、坐标、平方展开；不使用导数。
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-	\textbf{综上，对于非退化圆锥曲线和具有有限极线的点 $P$，极线方程均可通过上述规律直接写出；当从 $P$ 存在两条具有不同有限实切点的切线时，极线即是切点弦。}
+\begin{center}
+\input{assets/tikz/C075_circle_tangent_scaling.tex}
+\end{center}
+左图 $T'=(u/a,v/b)$、$Q'=(x/a,y/b)$ 是伸缩前的点；
+只有圆图使用半径垂直切线，椭圆图保留的是相切关系。
+
+\end{minipage}
+\par
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.55em]
+ \item[\textbf{步骤 1（从圆出发，看到“坐标相乘”）：}]
+ 圆 $x^2+y^2=R^2$ 的切点为 $T(u,v)$，则 $u^2+v^2=R^2$。
+ 切线上的任一点 $Q(x,y)$ 满足 $OT\perp TQ$，因此
+ \[
+ u(x-u)+v(y-v)=0
+ \Longleftrightarrow ux+vy=R^2.
+ \]
+ \textbf{几何意义：}切线与半径垂直，使原先的平方项变成“切点坐标乘活动点坐标”。
+
+ \item[\textbf{步骤 2（由圆到椭圆）：}]
+ 对椭圆 $x^2/a^2+y^2/b^2=1$，令 $X=x/a,\ Y=y/b$，
+ 则 $X^2+Y^2=1$。椭圆上切点 $T(u,v)$ 对应圆上点 $(u/a,v/b)$。
+ 圆的切线为
+ \[
+ \frac{u}{a}X+\frac{v}{b}Y=1.
+ \]
+ 将 $X=x/a,Y=y/b$ 代回，得
+ \[
+ \boxed{\frac{ux}{a^2}+\frac{vy}{b^2}=1.}
+ \]
+ \textbf{看图核对：}伸缩保持直线和交点个数，所以圆的切线变为椭圆的切线；垂直关系一般不保留。
+
+ \item[\textbf{步骤 3（双曲线：把候选切线代回去检查）：}]
+ 设 $T(u,v)$ 在 $x^2/a^2-y^2/b^2=1$ 上，即
+ $u^2/a^2-v^2/b^2=1$。考虑过 $T$ 的直线
+ \[
+ \ell:\ \frac{ux}{a^2}-\frac{vy}{b^2}=1.
+ \]
+ 它上面的点都可以写成
+ \[
+ x=u+a^2vt,\qquad y=v+b^2ut
+ \quad(t\text{ 为实数}).
+ \]
+ 因为 $t=0$ 给出 $T$，且把这组坐标代入 $\ell$ 左边得
+ \[
+ \frac{u(u+a^2vt)}{a^2}-\frac{v(v+b^2ut)}{b^2}
+ =\frac{u^2}{a^2}-\frac{v^2}{b^2}+uvt-uvt=1,
+ \]
+ 所以确实写出了 $\ell$ 上所有的点。再代入双曲线：
+ \begin{align*}
+ &\frac{(u+a^2vt)^2}{a^2}
+       -\frac{(v+b^2ut)^2}{b^2}-1\\
+ &=(\tfrac{u^2}{a^2}-\tfrac{v^2}{b^2}-1)
+    +(2uvt-2uvt)+(a^2v^2-b^2u^2)t^2\\
+ &=-a^2b^2t^2.
+ \end{align*}
+ 最后一步用到了
+ $b^2u^2-a^2v^2=a^2b^2$。
+ 由于 $a,b>0$，只有 $t=0$ 时才落在双曲线上，所以 $\ell$ 与双曲线只在 $T$ 接触，确为切线。
+ \textbf{几何意义：}沿这条直线离开 $T$，曲线方程左边减去右边的值始终是负数；接触只发生在 $T$。
+
+ \item[\textbf{步骤 4（抛物线：同样只用平方展开）：}]
+ 设 $T(u,v)$ 在 $y^2=2px$ 上，故 $v^2=2pu$。
+ 考虑过 $T$ 的直线 $vy=p(x+u)$。
+ 它上面的点都可以写成
+ \[
+ x=u+vt,\qquad y=v+pt.
+ \]
+ 一方面
+ $v(v+pt)=v^2+pvt=p(2u+vt)=p((u+vt)+u)$，
+ 说明这些点在候选直线上；另一方面
+ \begin{align*}
+ y^2-2px
+  &=(v+pt)^2-2p(u+vt)\\
+  &=v^2+2vpt+p^2t^2-2pu-2pvt\\
+  &=p^2t^2.
+ \end{align*}
+ 因为 $p>0$，只有 $t=0$ 时同时在抛物线上，故
+ \[
+ \boxed{vy=p(x+u)}
+ \]
+ 是切线。\textbf{特别地，顶点 $T(0,0)$ 的切线是 $x=0$，并没有被斜率形式漏掉。}
+
+ \item[\textbf{步骤 5（把切线转成切点弦）：}]
+ 以椭圆为例，若从 $P(x_0,y_0)$ 作两条切线，切点为
+ $T_1(u_1,v_1)$、$T_2(u_2,v_2)$，
+ 因为 $P$ 在这两条切线上，所以
+ \[
+ \frac{u_1x_0}{a^2}+\frac{v_1y_0}{b^2}=1,
+ \qquad
+ \frac{u_2x_0}{a^2}+\frac{v_2y_0}{b^2}=1.
+ \]
+ 把 $(u_1,v_1),(u_2,v_2)$ 看成待求点 $(x,y)$，便知两个切点都位于
+ \[
+ \boxed{\frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1.}
+ \]
+ 两个\textbf{不同的点}确定一条直线，因此此线就是切点弦。
+ 双曲线和抛物线只需把本法步骤 3、4 的切线公式作同样的坐标交换即可。
+\end{description}
+
+\medskip\hrule\medskip
+\par
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{第二法｜速度最快：已知切线公式，直接交换两组坐标}}\par\smallskip
+\textbf{适用场景：}考试中已经知道曲线上一点的切线方程，题目要从外点求切点弦。
+
+\begin{center}
+\input{assets/tikz/C075_coordinate_exchange.tex}
+\end{center}
+观察橙色两切线都过 $P$：分别代入 $P$，便得到两个切点满足的同一个方程。
+\end{minipage}
+\par
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
+ \item[\textbf{步骤 1（切点是未知的）：}]
+ 设切点 $T(u,v)$，外点 $P(x_0,y_0)$。标准椭圆在 $T$ 处的切线为
+ $ux/a^2+vy/b^2=1$。
+ \item[\textbf{步骤 2（因为 $P$ 在切线上）：}]
+ 立即写出
+ \[
+ \frac{ux_0}{a^2}+\frac{vy_0}{b^2}=1.
+ \]
+ 此式没有求出 $u,v$，但已给出\textbf{所有可能切点}必须满足的条件。
+ \item[\textbf{步骤 3（把 $u,v$ 改写成 $x,y$）：}]
+ \[
+ \boxed{\frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1}.
+ \]
+ 双曲线直接把 $+$ 换成 $-$；抛物线由切线 $vy=p(x+u)$
+ 和 $P$ 在切线上得到 $v y_0=p(x_0+u)$，即
+ \[
+ \boxed{y_0y=p(x+x_0)}.
+ \]
+ 对一般二次曲线，同样使用第四法证明的切线公式，
+ 交换 $P,T$ 的坐标后就得到结论三的等式。
+\end{description}
+\textbf{速度来自哪里：}只写一次“切线经过 $P$”，不用先联立求两个切点。
+\textbf{限制：}这种做法证明的是\textbf{有真实切点时}的切点弦，不能据此断言任何点都有两条切线。
+
+\medskip\hrule\medskip
+\par
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{第三法｜步骤最少：把相切看作二次方程出现重根}}\par\smallskip
+\textbf{特点：}只用一个一元二次式，同时适用于含 $xy$ 项的一般曲线。
+
+\begin{center}
+\input{assets/tikz/C075_double_root_parameter.tex}
+\end{center}
+左图用圆 $G=x^2+y^2-1$ 演示：$P=(2,1)$、$T=(0,1)$，
+故 $Q(t)=(2-2t,1)$，$f(t)=4(t-1)^2$。右图画 $f(t)/\alpha$，
+让“切点对应 $t=1$ 的重根”直接可见。
+\end{minipage}
+\par
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.5em]
+ \item[\textbf{步骤 1（用 $t$ 表示 $P$ 到切点 $T$ 的直线）：}]
+ 记
+ \[
+ G(x,y)=Ax^2+Bxy+Cy^2+Dx+Ey+F,
+ \quad T(u,v),\ P(x_0,y_0).
+ \]
+ 当 $P\ne T$，直线 $PT$ 上一点写成
+ \[
+ (x,y)=(x_0+t(u-x_0),\ y_0+t(v-y_0)).
+ \]
+ 代入曲线方程，可整理为
+ \[
+ f(t)=\alpha t^2+\beta t+\gamma,
+ \]
+ 其中
+ \[
+ \begin{aligned}
+ \gamma={}&G(x_0,y_0),\\
+ \beta={}&(2Ax_0+By_0+D)(u-x_0)\\
+             &+(Bx_0+2Cy_0+E)(v-y_0).
+ \end{aligned}
+ \]
+ \item[\textbf{步骤 2（切点就是重根 $t=1$）：}]
+ 因为 $PT$ 在 $T$ 处相切，$t=1$ 为二次方程的重根，故
+ \[
+ f(t)=\alpha(t-1)^2=\alpha t^2-2\alpha t+\alpha.
+ \]
+ 比较系数：$\beta=-2\alpha,\ \gamma=\alpha$，从而
+ \[
+ \boxed{\gamma+\frac{\beta}{2}=0}.
+ \]
+ \item[\textbf{步骤 3（把该式整理为极线）：}]
+ 将第一步中的 $\gamma,\beta$ 代入左边：
+ \begin{align*}
+ \gamma+\frac{\beta}{2}
+ ={}&Ax_0^2+Bx_0y_0+Cy_0^2+Dx_0+Ey_0+F\\
+ &+\left(Ax_0+\frac{By_0}{2}+\frac D2\right)(u-x_0)\\
+ &+\left(\frac{Bx_0}{2}+Cy_0+\frac E2\right)(v-y_0)\\
+ ={}&Ax_0u+\frac B2(x_0v+y_0u)+Cy_0v\\
+ &+\frac D2(x_0+u)+\frac E2(y_0+v)+F.
+ \end{align*}
+ 因此切点 $T(u,v)$ 满足
+ \[
+ Ax_0u+\frac B2(x_0v+y_0u)+Cy_0v
+ +\frac D2(x_0+u)+\frac E2(y_0+v)+F=0.
+ \]
+ 令 $(u,v)$ 为待求切点 $(x,y)$，即为极线方程。
+\end{description}
+\textbf{边界说明：}如果 $P=T$，不需作参数代入：$P$ 位于曲线上，
+ 所以把 $(x,y)=(x_0,y_0)$ 代入极线等式，就还原为 $G(P)=0$；
+ 该直线确为切线，由第四法直接证明。
+
+\medskip\hrule\medskip
+\par
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{第四法｜常规通用：设过切点的直线，联立并比较重根}}\par\smallskip
+\textbf{优点：}从头推导一般二次曲线的切线公式，不必事先记住任何一种圆锥曲线的切线。
+
+\begin{center}
+\input{assets/tikz/C075_tangent_direction.tex}
+\end{center}
+图中用圆上的切点演示一般关系；$\boldsymbol n$ 是垂直于切线的向量。
+沿方向 $(r,s)$ 移动时，一次项消失，对应切点 $t=0$ 为重根。
+\end{minipage}
+\par
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.55em]
+ \item[\textbf{步骤 1（设定切点和直线方向）：}]
+ 在 $\Gamma:G(x,y)=0$ 上取点 $T(u,v)$，则
+ \[
+ Au^2+Buv+Cv^2+Du+Ev+F=0.
+ \]
+ 过 $T$ 的一条直线可表示为
+ \[
+ x=u+rt,\qquad y=v+st,
+ \quad (r,s)\ne(0,0).
+ \]
+ 这里 $(r,s)$ 只表示沿直线向前走的方向，\textbf{没有用斜率}，因此竖直线也包含在内。
+
+ \item[\textbf{步骤 2（代入曲线，逐项展开）：}]
+ \begin{align*}
+ 0={}&A(u+rt)^2+B(u+rt)(v+st)\\
+    &+C(v+st)^2+D(u+rt)+E(v+st)+F\\
+  ={}&\underbrace{(Au^2+Buv+Cv^2+Du+Ev+F)}_{=0}\\
+   &+t\bigl[(2Au+Bv+D)r+(Bu+2Cv+E)s\bigr]\\
+   &+t^2(Ar^2+Brs+Cs^2).
+ \end{align*}
+ \textbf{几何意义：}上式就是“直线与曲线的交点”所满足的一元二次方程。
+ 切点对应 $t=0$；相切时两个交点重合为 $t=0$，所以一次项必须消失。
+
+ \item[\textbf{步骤 3（让 $t=0$ 成为重根）：}]
+ 因为一次项系数为零，故切线的方向 $(r,s)$ 满足
+ \[
+ \boxed{(2Au+Bv+D)r+(Bu+2Cv+E)s=0}.
+ \]
+ 过切点 $T$ 的任一点 $Q(x,y)$ 与 $T$ 的坐标差为
+ $(x-u,y-v)$，也沿着这条切线，于是可以把
+ $r,s$ 分别换成 $x-u,y-v$，得到
+ \[
+ (2Au+Bv+D)(x-u)+(Bu+2Cv+E)(y-v)=0.
+ \]
+ \textbf{几何意义：}系数对 $(2Au+Bv+D,\ Bu+2Cv+E)$
+ 与切线方向垂直，就是这条切线的一个法向量。
+
+ \item[\textbf{步骤 4（展开并利用切点在曲线上）：}]
+ 上式展开为
+ \[
+ (2Au+Bv+D)x+(Bu+2Cv+E)y
+ -(2Au^2+2Buv+2Cv^2+Du+Ev)=0.
+ \]
+ 由 $G(u,v)=0$ 得
+ \[
+ Au^2+Buv+Cv^2=-Du-Ev-F,
+ \]
+ 所以
+ \[
+ 2Au^2+2Buv+2Cv^2+Du+Ev=-Du-Ev-2F.
+ \]
+ 代回并把各项除以 $2$：
+ \[
+ \boxed{\begin{aligned}
+ &Aux+\frac B2(uy+vx)+Cvy\\
+ &\qquad+\frac D2(x+u)+\frac E2(y+v)+F=0.
+ \end{aligned}}
+ \]
+ 这就是一般二次曲线在 $T$ 处的切线方程。
+
+ \item[\textbf{步骤 5（由切线推出 $P$ 的极线）：}]
+ 若 $P(x_0,y_0)$ 在上述切线上，就有
+ \[
+ Ax_0u+\frac B2(uy_0+vx_0)+Cy_0v
+ +\frac D2(x_0+u)+\frac E2(y_0+v)+F=0.
+ \]
+ 它与把 $T=(u,v)$ 代入 $P$ 的极线公式得到的式子完全相同。
+ 因此所有从 $P$ 引出的真实切线的切点都在 $P$ 的极线上；
+ \textbf{若有两个不同切点，极线就是过这两个点的直线}。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{最后统一检查}}\par\smallskip
+\begin{enumerate}[leftmargin=*,itemsep=0.3em]
+ \item $P$ 的极线为普通直线，当且仅当
+ $2Ax_0+By_0+D$ 与 $Bx_0+2Cy_0+E$ 不同时为零。
+ \item 若 $P$ 在曲线上，以上第四法证明：极线就是 $P$ 处切线。
+ \item 若 $P$ 的极线与曲线有两个\textbf{不同的实交点}，第五步反过来说明 $P$ 落在这两个交点各自的切线上，所以它们正是切点。
+ \item 若极线没有两个不同的实交点，就不能称它为实切点弦；对于根本不能形成直线的特殊点，更不能套用“切点弦”结论。
+\end{enumerate}
 \end{proofbox}

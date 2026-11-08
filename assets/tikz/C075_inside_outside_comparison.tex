@@ -1,0 +1,22 @@
+\begin{tikzpicture}[x=.85cm,y=.85cm,>=Stealth,font=\small]
+ \path[use as bounding box] (-2.6,-2) rectangle (12.3,2.15);
+ % Both panels use exactly the same coordinate scale and ellipse.
+ \begin{scope}
+  \node at (1,1.8) {外点：两个实切点};
+  \draw[->,gray] (-2.3,0)--(4.5,0) node[right] {$x$};
+  \draw[CStatement,thick] (0,0) ellipse (2 and 1);
+  \draw[orange!80!black,thick] (1,.8660254)--(4,0)--(1,-.8660254);
+  \draw[teal!80!black,very thick] (1,-1.25)--(1,1.25);
+  \fill (4,0) circle(2pt) node[below] {$P(4,0)$};
+  \fill (1,.8660254) circle(2pt); \fill (1,-.8660254) circle(2pt);
+  \node[teal!80!black] at (.7,-1.6) {极线 $x=1$};
+ \end{scope}
+ \begin{scope}[shift={(7.5,0)}]
+  \node at (1,1.8) {内点：没有实切点};
+  \draw[->,gray] (-2.3,0)--(4.5,0) node[right] {$x$};
+  \draw[CStatement,thick] (0,0) ellipse (2 and 1);
+  \draw[teal!80!black,very thick] (4,-1.25)--(4,1.25);
+  \fill (1,0) circle(2pt) node[below] {$P(1,0)$};
+  \node[teal!80!black] at (3,-1.6) {极线 $x=4$};
+ \end{scope}
+\end{tikzpicture}
