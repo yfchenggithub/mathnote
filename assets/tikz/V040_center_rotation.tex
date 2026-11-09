@@ -1,0 +1,25 @@
+\begin{center}\begin{tikzpicture}[x=1cm,y=1cm,>=Stealth,font=\small]
+\path[use as bounding box] (-6.6,-0.6) rectangle (6.6,4.9);
+
+\begin{scope}[shift={(-2.7,1.1)},scale=0.78]
+\draw[->,gray] (-1,0)--(6.4,0) node[right] {$x$};
+\draw[->,gray] (0,-0.5)--(0,4.5) node[above] {$y$};
+\coordinate (B) at (2,1); \coordinate (P) at (5,2);
+\coordinate (Q) at ({2+sqrt(2)},{1+2*sqrt(2)});
+\draw[blue!75!black,very thick,->] (B)--(P);
+\draw[teal!75!black,very thick,->] (B)--(Q);
+\draw[gray,dashed] (B)--(5,1)--(P);
+\node[below] at (3.5,1) {$u=x_1-a$};
+\node[right] at (5,1.5) {$v$};
+\draw[orange!85!black,thick,->] ($(B)+(18.435:1.05)$) arc (18.435:63.435:1.05);
+\node[orange!85!black] at (3.45,2.35) {$\theta$};
+\fill (B) circle(2pt) node[below left] {$B(a,b)$};
+\fill[blue!75!black] (P) circle(2pt) node[above right] {$P(x_1,y_1)$};
+\fill[teal!75!black] (Q) circle(2pt) node[above] {$Q(x_2,y_2)$};
+\node[below left] at (0,0) {$O$};
+\end{scope}
+\node[align=left,anchor=east] at (-3.05,3.15) {旋转中心是 $B$\\不是原点 $O$};
+\node[align=left,anchor=west] at (3.6,3.7) {$BP=BQ$\\逆时针：$\theta>0$\\顺时针：$\theta<0$};
+\node at (0,0) {先看 $\overrightarrow{BP}=(u,v)$，旋转后再加回 $(a,b)$};
+
+\end{tikzpicture}\end{center}

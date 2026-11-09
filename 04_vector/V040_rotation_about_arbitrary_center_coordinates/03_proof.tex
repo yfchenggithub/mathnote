@@ -1,0 +1,95 @@
+\begin{proofbox}
+\textbf{方法一：几何投影法——看清四项从哪里来}
+
+先以 $B$ 为局部原点，取 $u,v>0,\ 0^\circ<\theta<90^\circ$。
+令 $H$ 为水平段旋转后的终点，旋转前后的两段始终垂直。
+\input{assets/tikz/V040_component_projection}
+蓝色段长度为 $u$，与水平方向夹角为 $\theta$，故横、纵变化为
+$u\cos\theta,u\sin\theta$。橙色段长度为 $v$，与竖直方向夹角为 $\theta$，
+故向左走 $v\sin\theta$、向上走 $v\cos\theta$。于是
+\[
+s=u\cos\theta-v\sin\theta,\qquad
+t=u\sin\theta+v\cos\theta.
+\]
+\textbf{如何覆盖所有角与坐标？}
+由任意角三角函数的坐标定义，长度为 $1$、方向角为 $\theta$ 的有向线段坐标为
+$(\cos\theta,\sin\theta)$；与其逆时针垂直的单位线段方向角为 $\theta+90^\circ$，
+坐标为 $(-\sin\theta,\cos\theta)$。两段分别乘以带符号的 $u,v$ 后相加，仍得上式。
+因此不需要把超出锐角的转动猜成正长度投影。最后加回 $(a,b)$，即得原结论。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法二：拆箭头法——旋转两个单位方向}
+\input{assets/tikz/V040_unit_arrows}
+设旋转前的两个单位方向为 $\mathbf e_1=(1,0),\ \mathbf e_2=(0,1)$。
+由单位圆定义，它们转后分别为
+\[
+\mathbf f_1=(\cos\theta,\sin\theta),\quad
+\mathbf f_2=(\cos(\theta+90^\circ),\sin(\theta+90^\circ))
+=(-\sin\theta,\cos\theta).
+\]
+原来 $\overrightarrow{BP}=u\mathbf e_1+v\mathbf e_2$。
+\textbf{刚性旋转保持平行、长度和首尾相接关系}，所以原来的两段移动转后分别为
+$u\mathbf f_1$ 和 $v\mathbf f_2$，包括 $u,v$ 为负或零的情形。故
+\[
+\begin{aligned}
+\overrightarrow{BQ}&=u\mathbf f_1+v\mathbf f_2\\
+&=(u\cos\theta-v\sin\theta,\ u\sin\theta+v\cos\theta).
+\end{aligned}
+\]
+再加上中心坐标，得到 $Q$。此法用两支单位箭头概括了方法一的两段投影。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法三：向量坐标法——两个垂直方向给出两条等式}
+
+记 $(u,v)=\overrightarrow{BP},\ (s,t)=\overrightarrow{BQ}$，先设 $BP=BQ=r>0$。
+\input{assets/tikz/V040_vector_resolution}
+以 $\mathbf p=(u,v)$ 为第一个方向，以 $\mathbf n=(-v,u)$ 为第二个方向。
+两者垂直且长度都是 $r$。图中沿两个方向的有向投影分别为 $r\cos\theta,r\sin\theta$，故由数量积得
+\[
+\mathbf p\cdot(s,t)=us+vt=r^2\cos\theta,\qquad
+\mathbf n\cdot(s,t)=ut-vs=r^2\sin\theta.
+\]
+第二式也可由 $\mathbf n$ 的方向比 $\mathbf p$ 多 $90^\circ$ 看出：
+$\cos(\theta-90^\circ)=\sin\theta$，因此适用于任意角。
+
+第一式乘 $u$，减去第二式乘 $v$，得
+$(u^2+v^2)s=r^2(u\cos\theta-v\sin\theta)$；
+第一式乘 $v$，加上第二式乘 $u$，得
+$(u^2+v^2)t=r^2(v\cos\theta+u\sin\theta)$。
+因 $u^2+v^2=r^2>0$，除去 $r^2$ 即得 $s,t$，且解唯一。
+$r=0$ 时 $P=B=Q$，公式直接成立。最后加回中心即可。
+
+\textbf{反向使用：} 两条数量积等式除以 $r^2$，就是反求 $\cos\theta,\sin\theta$ 的公式。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法四：三角函数法——方向角相加}
+\input{assets/tikz/V040_direction_angles}
+若 $r=BP>0$，设 $\overrightarrow{BP}$ 的方向角为 $\alpha$，则
+\[
+u=r\cos\alpha,\quad v=r\sin\alpha,\qquad
+s=r\cos(\alpha+\theta),\quad t=r\sin(\alpha+\theta).
+\]
+使用两角和公式展开：
+\[
+\begin{aligned}
+s&=r\cos\alpha\cos\theta-r\sin\alpha\sin\theta
+=u\cos\theta-v\sin\theta,\\
+t&=r\sin\alpha\cos\theta+r\cos\alpha\sin\theta
+=v\cos\theta+u\sin\theta.
+\end{aligned}
+\]
+角 $\alpha,\theta$ 可以任意，故展开不受象限限制。若 $r=0$，两组相对坐标都为零，
+公式仍成立；最后加回 $(a,b)$ 即完成证明。顺时针只需令 $\theta<0$。
+
+\textbf{补充验算（不是另一种独立证明）：}
+将所得 $s,t$ 代入并展开，有
+\[
+s^2+t^2=u^2+v^2,\quad
+us+vt=(u^2+v^2)\cos\theta,\quad
+ut-vs=(u^2+v^2)\sin\theta.
+\]
+三式依次核对长度、余弦和有向角的正弦。仅检验长度不能排除转向写反。
+\end{proofbox}

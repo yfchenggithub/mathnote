@@ -1,0 +1,22 @@
+\begin{center}\begin{tikzpicture}[x=1cm,y=1cm,>=Stealth,font=\small]
+\path[use as bounding box] (-6.6,-0.6) rectangle (6.6,5.3);
+
+\node at (0,4.9) {沿 $\overrightarrow{BP}$ 与其逆时针垂直方向分解 $\overrightarrow{BQ}$};
+\begin{scope}[shift={(-3.8,0.6)},scale=0.85]
+\coordinate (P) at (4,0); \coordinate (Q) at (50:4); \coordinate (F) at ({4*cos(50)},0);
+\draw[->,gray] (-0.6,0)--(5.5,0);
+\draw[->,gray] (0,-0.3)--(0,4.2) node[above left] {$(-v,u)$方向};
+\draw[blue!75!black,very thick,->] (0,0)--(P) node[below] {$P$};
+\draw[teal!75!black,very thick,->] (0,0)--(Q) node[above] {$Q$};
+\draw[orange!85!black,dashed,thick] (Q)--(F);
+\node[below] at (1.28,0) {$r\cos\theta$};
+\node[right] at (2.57,1.6) {$r\sin\theta$};
+\draw ($(F)+(-0.2,0)$)--($(F)+(-0.2,0.2)$)--($(F)+(0,0.2)$);
+\draw[->] (0.7,0) arc(0:50:0.7); \node at (25:1.05) {$\theta$};
+\node[below left] at (0,0) {$B$};
+\node[blue!75!black] at (4.4,-0.65) {$(u,v)$方向};
+\end{scope}
+\node[anchor=west,align=left] at (1.8,3.5) {图中 $BP=BQ=r$\\两条轴为局部方向\\不一定是原 $x,y$ 轴};
+\node[anchor=west,align=left] at (1.8,1.4) {沿原向量：$us+vt$\\沿垂直方向：$ut-vs$};
+
+\end{tikzpicture}\end{center}

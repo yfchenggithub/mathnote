@@ -1,0 +1,79 @@
+\begin{examplebox}
+  \textbf{\textcolor{CExample}{例1（45°入门：先理解坐标和与差）}}
+  已知 $O(0,0),\ P(3,1)$，求 $P$ 绕 $O$ \textbf{逆时针}旋转 $45^\circ$ 后的点 $Q$。
+  \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.33em]
+    \item[\textbf{第1步（中心为原点）}] 相对坐标就是 $(u,v)=(3,1)$。
+    \item[\textbf{第2步（代入45°）}] $\cos45^\circ=\sin45^\circ=1/\sqrt2$，故
+      \[
+        s=\frac{3-1}{\sqrt2}=\sqrt2,\qquad
+        t=\frac{3+1}{\sqrt2}=2\sqrt2.
+      \]
+    \item[\textbf{第3步（检验长度）}] $OP^2=3^2+1^2=10$，$OQ^2=(\sqrt2)^2+(2\sqrt2)^2=2+8=10$。
+  \end{description}
+  \textbf{答案：}$\boxed{Q(\sqrt2,2\sqrt2)}$。
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+  \textbf{\textcolor{CExample}{例2（绕非原点旋转45°：严格先减中心）}}
+  已知 $B(2,-1),\ P(5,3)$，求 $P$ 绕 $B$ 逆时针旋转 $45^\circ$ 后的 $Q$。
+\input{assets/tikz/V040_example_nonorigin}
+  \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.33em]
+    \item[\textbf{第1步（求相对坐标）}] $(u,v)=(5-2,3-(-1))=(3,4)$。
+    \item[\textbf{第2步（旋转相对坐标）}]
+      \[
+        s=\frac{3-4}{\sqrt2}=-\frac{\sqrt2}{2},\qquad
+        t=\frac{3+4}{\sqrt2}=\frac{7\sqrt2}{2}.
+      \]
+    \item[\textbf{第3步（加回中心）}] $x_2=2+s=2-\sqrt2/2$，$y_2=-1+t=-1+7\sqrt2/2$。
+    \item[\textbf{第4步（简单验算）}] $s^2+t^2=\frac12+\frac{49}{2}=25=3^2+4^2$。
+  \end{description}
+  \textbf{答案：}$\boxed{Q(2-\tfrac{\sqrt2}{2},\,-1+\tfrac{7\sqrt2}{2})}$。
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+  \textbf{\textcolor{CExample}{例3（顺时针60°：负角不要代错）}}
+  已知 $B(-1,2),\ P(3,2)$，求 $P$ 绕 $B$ \textbf{顺时针}旋转 $60^\circ$ 后的 $Q$。
+  \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.33em]
+    \item[\textbf{第1步}] $(u,v)=(4,0)$，旋转角用 $\theta=-60^\circ$。
+    \item[\textbf{第2步}] $s=4\cos(-60^\circ)=2$，$t=4\sin(-60^\circ)=-2\sqrt3$。
+    \item[\textbf{第3步}] 加回 $(-1,2)$，得到 $Q=(-1+2,\,2-2\sqrt3)$。
+  \end{description}
+  \textbf{答案：}$\boxed{Q(1,2-2\sqrt3)}$；旋转前后距离均为 $4$。
+
+  \medskip
+  \textbf{\textcolor{CExample}{例4（逆向：已知两点，求旋转方向和角度）}}
+  已知 $B(2,-1),\ P(5,3),\ Q(6,2)$，且 $Q$ 是 $P$ 绕 $B$ 旋转所得。求 $\cos\theta,\sin\theta$，并取 $-180^\circ<\theta\le180^\circ$ 判断最短转动的方向。
+  \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.33em]
+    \item[\textbf{第1步}] $(u,v)=(3,4)$，$(s,t)=(4,3)$；$u^2+v^2=s^2+t^2=25$，可由旋转得到。
+    \item[\textbf{第2步（数量积求余弦）}]
+      \[\cos\theta=\frac{us+vt}{25}=\frac{3\cdot4+4\cdot3}{25}=\frac{24}{25}.\]
+    \item[\textbf{第3步（横、纵变化求正弦）}]
+      \[\sin\theta=\frac{ut-vs}{25}=\frac{3\cdot3-4\cdot4}{25}=-\frac7{25}.\]
+    \item[\textbf{第4步（判断转向）}] 余弦为正、正弦为负，对应从 $BP$ 到 $BQ$ \textbf{顺时针旋转一个锐角}。$\cos^2\theta+\sin^2\theta=(576+49)/625=1$，计算一致。
+  \end{description}
+  \textbf{答案：}$\boxed{\cos\theta=24/25,\ \sin\theta=-7/25}$，最短转动为顺时针锐角；\textbf{不要只看正切就判断象限}。
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+  \textbf{\textcolor{CExample}{例5（V039特例：2020年全国III卷椭圆面积题）}}
+  椭圆 $C:\ x^2+16y^2=25$，左右顶点为 $A(-5,0),B(5,0)$。点 $P(x_1,y_1)$ 在椭圆上，点 $Q(6,y_2)$ 在直线 $x=6$ 上，且 $BP=BQ$、$BP\perp BQ$。求 $\triangle APQ$ 面积。
+\input{assets/tikz/V040_ellipse_rotation}
+  \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.33em]
+    \item[\textbf{第1步（识别旋转角）}] 两线段同从 $B$ 出发、垂直等长，所以 $P$ 绕 $B$ 转 $\pm90^\circ$ 得 $Q$。这是本结论取 $\theta=\pm90^\circ$ 的情形。
+    \item[\textbf{第2步（只看一个坐标消元）}] 因 $\overrightarrow{BQ}$ 的横向变化为 $6-5=1$，转直角时这个变化量等于原竖向变化的正负，故 $|y_1|=1$。
+    \item[\textbf{第3步（椭圆给出另一个坐标）}] $x_1^2+16y_1^2=25$，所以 $x_1^2=9$。并且 $y_2=(5-x_1)/y_1$（把旋转两种方向统一写入，因 $y_1=\pm1$）。
+    \item[\textbf{第4步（用坐标面积公式）}]
+      \[
+      \begin{aligned}
+        S_{\triangle APQ}
+        &=\frac12\left|(x_1+5)y_2-11y_1\right|\\
+        &=\frac1{2|y_1|}\left|25-x_1^2-11y_1^2\right|\\
+        &=\frac1{2|y_1|}\left|16y_1^2-11y_1^2\right|=\frac52.
+      \end{aligned}
+      \]
+  \end{description}
+  \textbf{答案：}$\boxed{S_{\triangle APQ}=\frac52}$。这道题无需先展开斜率与距离联立式，也不需要求出 $P,Q$ 的全部坐标。
+\end{examplebox}
