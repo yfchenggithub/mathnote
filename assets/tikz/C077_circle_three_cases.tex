@@ -1,0 +1,30 @@
+% 新增精确示意图；不改动已有的 C077_math_audit_geometry.tex。
+\begin{tikzpicture}[scale=0.86, font=\small, >=stealth]
+\foreach \sx/\d/\ttl in {0/0.65/圆内,5.1/1.1/圆上,10.2/2/圆外}{
+  \pgfmathsetmacro{\h}{1.1*1.1/\d}
+  \begin{scope}[xshift=\sx cm]
+  \draw[gray!75, line width=0.8pt] (0,0) circle (1.1);
+  \draw[gray!45] (-1.25,0)--(2.35,0);
+  \coordinate (O) at (0,0);
+  \coordinate (P) at (\d,0);
+  \coordinate (H) at (\h,0);
+  \draw[blue!65!black, dashed, line width=0.9pt] (\h,-1.15)--(\h,1.15);
+  \fill (O) circle (1.5pt) node[below left] {$O$};
+  \ifdim\d pt=1.1pt
+    \fill[orange!85!black] (P) circle (1.8pt) node[right] {$P=H$};
+  \else
+    \fill[orange!85!black] (P) circle (1.8pt) node[below] {$P$};
+    \fill[blue!65!black] (H) circle (1.6pt) node[above left] {$H$};
+  \fi
+  \node[font=\bfseries] at (0.5,-1.65) {\ttl};
+  \end{scope}
+}
+% 圆外点 d=2，切点横坐标 R^2/d=0.605，纵坐标由圆方程精确求得。
+\pgfmathsetmacro{\tx}{1.1*1.1/2}
+\pgfmathsetmacro{\ty}{sqrt(1.1*1.1-\tx*\tx)}
+\begin{scope}[xshift=10.2cm]
+ \draw[orange!75!black, line width=1pt] (2,0)--(\tx,\ty) (2,0)--(\tx,-\ty);
+ \fill[red!75!black] (\tx,\ty) circle (1.75pt) node[above right,xshift=1mm] {$T_1$};
+ \fill[red!75!black] (\tx,-\ty) circle (1.75pt) node[below right,xshift=1mm] {$T_2$};
+\end{scope}
+\end{tikzpicture}

@@ -1,24 +1,51 @@
 \begin{summarybox}
-	\textbf{\textcolor{CSummary}{一句话核心}}
-	\textbf{极线方程由曲线方程替换得到：平方变乘积，一次变平均；配极原理刻画了极点与极线的对称对应关系。}
-
-	\medskip
-	\textbf{\textcolor{CSummary}{使用条件}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{条件 1（标准方程）：} 曲线必须是椭圆 $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1$、双曲线 $\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}=1$ 或抛物线 $y^2=2px$ 的标准形式，且非退化。
-		\item \textbf{条件 2（已知点）：} 需要已知点 $P(x_0,y_0)$ 的坐标，代入公式时注意对应项。
-	\end{itemize}
-
-	\medskip
-	\textbf{\textcolor{CSummary}{关键提醒}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{易错点（切线切点弦）：} 点在曲线上时极线是切线，确有两不同有限实切点时极线才是切点弦，不可混淆。
-		\item \textbf{检查项（符号系数）：} 双曲线极线方程是减号，抛物线极线方程中 $p$ 的系数是 $p$ 而非 $2p$。
-	\end{itemize}
-
+\textbf{\textcolor{CSummary}{一句话总结}}
+\textbf{给一个点 $P$ 和一条二次曲线，极线就是它对应的一条直线。点在曲线上，它是切线；从点能引出两条不同的实切线时，它是两切点的连线；两个点的“在极线上”关系还可以互换。}
 
 \medskip
-\textbf{有限平面中的定义域。} 有心曲线的中心须排除；在标准式中 $P=(0,0)$ 给出 $0=1$，
-不是有限直线。一般式要求一次项系数不同时为零。
-极线可没有实交点；只有确有两不同有限实切点时，才能把它称作实切点弦。
+\textbf{\textcolor{CSummary}{为什么值得学？}}
+\begin{itemize}[leftmargin=*,itemsep=0.25em]
+\item 原本求切点弦要\textbf{设两条切线、求两个切点、再写连线}；现在可以\textbf{直接写出候选连线}，再检查切点是否真的存在。
+\item 已知一个点在另一个点的极线上，可以\textbf{调换点的角色}，让已知坐标更容易代入，少做无用计算。
+\item 用一个圆的例子同时理解\textbf{圆内、圆上、圆外}，避免见到极线就想当然地画实切线。
+\end{itemize}
+
+\medskip
+\textbf{\textcolor{CSummary}{四个方程：先看曲线原来的符号}}
+\[
+\begin{array}{ll}
+\text{圆 }x^2+y^2=R^2:&\boxed{x_0x+y_0y=R^2},\\[0.45em]
+\text{椭圆 }\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1:&\boxed{\dfrac{x_0x}{a^2}+\dfrac{y_0y}{b^2}=1},\\[1.0em]
+\text{双曲线 }\dfrac{x^2}{A^2}-\dfrac{y^2}{B^2}=1:&\boxed{\dfrac{x_0x}{A^2}-\dfrac{y_0y}{B^2}=1},\\[1.0em]
+\text{抛物线 }y^2=2px:&\boxed{y_0y=p(x+x_0)}.
+\end{array}
+\]
+
+\medskip
+\textbf{\textcolor{CSummary}{三个证明方法怎么选？}}
+\begin{description}[style=nextline,leftmargin=2em,itemsep=0.3em]
+\item[方法一（门槛最低）：]用\textbf{初中相似三角形}证明圆的 $OP\cdot OH=R^2$，再用勾股定理推 $x_0x+y_0y=R^2$。适合第一次真正理解。
+\item[方法二（最快）：]已知切点 $T$ 的切线方程，把 $P$ 代进去，马上得到切点满足的极线；两个切点满足同一条直线。适合考场。
+\item[方法三（常规完整）：]把候选切线写成含 $t$ 的点坐标，代回曲线并证明 $t^2=0$。适合弄清公式为什么正确，且没有用导数。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CSummary}{实切点数量速查（有需要再用）}}
+\begin{itemize}[leftmargin=*,itemsep=0.3em]
+\item \textbf{圆：} $d=OP$，$d>R$ 有两实切点，$d=R$ 为该点处切线，$0<d<R$ 无实切点，$d=0$ 无有限极线。
+\item \textbf{椭圆：} $q=x_0^2/a^2+y_0^2/b^2$。$q>1$ 两点，$q=1$ 一点相切，$0<q<1$ 无实切点，$q=0$ 无有限极线。
+\item \textbf{双曲线：} $q=x_0^2/A^2-y_0^2/B^2$。$q<1$ 且 $q\ne0$ 有两不同有限实切点；$q=1$ 切线；$q>1$ 无实切点；$q=0$ 且 $P\ne O$ 极线仍存在但只有一个有限交点，不能当作切点弦；$P=O$ 无有限极线。
+\item \textbf{抛物线：} $D=y_0^2-2px_0$。$D>0$ 两点，$D=0$ 切线，$D<0$ 无实切点；顶点的极线 $x=0$ 是合法切线。
+\end{itemize}
+
+\medskip
+\textbf{\textcolor{CSummary}{配极原理一句话}}
+\[
+\boxed{Q\in l_P\iff P\in l_Q}\qquad\text{（两条极线均存在时）}.
+\]
+\textbf{不是轴对称，不是求对称点，而是把“点在直线上”的条件互换。}
+
+\medskip
+\textbf{\textcolor{CSummary}{考场判断顺序}}
+\textbf{（1）看曲线标准方程}\ $\longrightarrow$ \textbf{（2）看给定点位置和特殊情况}\ $\longrightarrow$ \textbf{（3）写极线}\ $\longrightarrow$ \textbf{（4）若题目要切点弦，则检查两个不同的实切点是否存在}。遇到点线条件不便计算时，再用配极原理反向改写。
 \end{summarybox}

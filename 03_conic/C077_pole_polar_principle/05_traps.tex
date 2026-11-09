@@ -1,32 +1,69 @@
 \begin{trapbox}
+\textbf{\textcolor{CTrap}{使用前的五秒检查：先问三个问题}}
+\begin{itemize}[leftmargin=*,itemsep=0.25em]
+\item 曲线到底是哪一类？写对标准方程和符号了吗？
+\item 点 $P$ 是否为圆、椭圆、双曲线的中心？如果是，不能硬写出一条有限直线。
+\item 题目要的是\textbf{极线方程}，还是\textbf{实际的切点弦}？若要后者，必须证明有两不同有限实切点。
+\end{itemize}
 
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（位置混淆）}}]
-			误认为极线总是切线，当点 $P$ 在曲线外时，也将极线当作切线使用。
-		\item[\textbf{\textcolor{CTrap}{正确理解（区分内外）：}}]
-			点 $P$ 在曲线上时极线是切线；存在两不同有限实切点时极线才是切点弦（连接两切点的直线）。
-		\item[\textbf{\textcolor{CTrap}{错因分析（忽视位置）：}}]
-			对极线的定义理解不完整，未根据点与曲线的位置关系区分几何意义。
-	\end{description}
+\medskip
+\textbf{\textcolor{CTrap}{易错 1：把极线、切线、切点弦当成同一条线。}}
+\textbf{错：}外点 $P$ 的极线就是从 $P$ 作出的其中一条切线。
+\textbf{对：}当有两个切点 $T_1,T_2$ 时，极线是\textbf{连结切点的那条线} $T_1T_2$；从 $P$ 出发的两条切线是 $PT_1,PT_2$，通常为另外两条线。点 $P$ 本身在曲线上时，极线才是它处的切线。
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（符号混淆）}}]
-			在写双曲线的极线方程时，误写为加号，即 $\dfrac{x_0x}{a^2}+\dfrac{y_0y}{b^2}=1$。
-		\item[\textbf{\textcolor{CTrap}{正确理解（符号匹配）：}}]
-			双曲线极线方程应为 $\dfrac{x_0x}{a^2}-\dfrac{y_0y}{b^2}=1$，中间为减号。
-		\item[\textbf{\textcolor{CTrap}{错因分析（机械记忆）：}}]
-			只记忆了椭圆极线方程的形式，未注意双曲线标准方程的符号差异。
-	\end{description}
+\medskip
+\textbf{\textcolor{CTrap}{易错 2：圆内点没有切线，所以没有极线。}}
+\textbf{错：}圆 $x^2+y^2=4$、$P(1,0)$ 没有极线。
+\textbf{对：}代入 $x_0x+y_0y=4$ 得 $x=4$。它不与圆相交，却仍是合法的极线；注意圆心 $(0,0)$ 另当别论。
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（系数错误）}}]
-			对抛物线 $y^2=2px$，误将极线方程写成 $y_0y=2p(x+x_0)$ 或 $y_0y=p(x_0x)$。
-		\item[\textbf{\textcolor{CTrap}{正确理解（系数对应）：}}]
-			抛物线 $y^2=2px$ 的极线方程为 $y_0y=p(x+x_0)$，右侧一次项系数直接为 $p$，括号内为 $x+x_0$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（记忆偏差）：}}]
-			混淆了抛物线标准形式中 $2p$ 与极线方程中 $p$ 的关系，或未正确替换 $x$。
-	\end{description}
+\medskip
+\textbf{\textcolor{CTrap}{易错 3：在双曲线外一定能作两条实切线。}}
+\textbf{错：}双曲线 $x^2-y^2/3=1$、$P(2,1)$ 一定有两个实切点。
+\textbf{对：}极线 $6x-y=3$ 与双曲线联立的判别式 $\Delta=-32<0$，没有实际切点。双曲线不同于圆，不能只靠“图上看着在外面”判断。
 
+\medskip
+\begin{samepage}
+\textbf{\textcolor{CTrap}{易错 4：极线与双曲线只有一个有限交点，就一定是切线。}}
+
+\begin{center}\input{assets/tikz/C077_hyperbola_one_intersection.tex}\end{center}
+\textbf{反例：} $x^2-y^2/3=1$、$P(1,\sqrt3)$，极线为 $x-y/\sqrt3=1$，只交于 $T(1,0)$；但 $T$ 处切线为 $x=1$，二者不同。\textbf{正确方法：}把候选切线代回曲线，检查是否形成二次方程重根，不能只数有限交点。
+\end{samepage}
+
+\medskip
+\textbf{\textcolor{CTrap}{易错 5：平方项替换了，原方程符号却丢了。}}
+\textbf{对照：}
+\[
+\begin{aligned}
+\text{椭圆：}&\quad \frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1;\\
+\text{双曲线：}&\quad \frac{x_0x}{A^2}-\frac{y_0y}{B^2}=1.
+\end{aligned}
+\]
+\textbf{原因：}圆锥曲线方程本来是加号还是减号，极线就保留原符号。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错 6：把抛物线的 $2p$ 完整搬到右边。}}
+\textbf{错：} $y^2=2px$ 的极线写成 $y_0y=2p(x+x_0)$。
+\textbf{对：}一次项要把 $x$ 换成 $(x+x_0)/2$，于是 $2p\cdot (x+x_0)/2=p(x+x_0)$。\textbf{结果是} $\boxed{y_0y=p(x+x_0)}$。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错 7：把配极原理当成轴对称或中心对称。}}
+\textbf{错：} $Q\in l_P$ 就说明 $P,Q$ 关于某条直线对称。
+\textbf{对：}它只说明 $P\in l_Q$。这是把两点代入同一个“乘积可以换序”的等式，\textbf{不涉及}点坐标的镜像变化。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错 8：忘记处理特殊点。}}
+\textbf{有心曲线的中心：}圆、椭圆、双曲线的 $P=(0,0)$ 代入后成为 $0=R^2$ 或 $0=1$，不能称为一条有限直线。
+\textbf{抛物线顶点：} $P=(0,0)$ 却得到 $0=p x$，即 $x=0$，是正常切线。不要把圆的例外强加给抛物线。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错 9：对双曲线只看判别式而漏掉一次方程。}}
+令 $q=x_0^2/A^2-y_0^2/B^2$。只有 $q<1$ 且 $q\ne0$ 时，双曲线极线与曲线有两个不同有限实交点；$q=1$ 为切线，$q>1$ 没有实交点；\textbf{$q=0$ 且 $P\ne O$ 时可能化为一次方程，只剩一个有限交点，却不是该点处的切线}。详细推导见 03 节。
+
+\medskip
+\textbf{\textcolor{CTrap}{最小反例（考试前 20 秒）}}
+\begin{itemize}[leftmargin=*,itemsep=0.25em]
+\item “有极线就有切点”：圆 $x^2+y^2=4$、$P(1,0)$，极线 $x=4$ 不交圆。
+\item “圆心也有极线”：圆 $x^2+y^2=4$、$P(0,0)$，得到 $0=4$，不是直线。
+\item “有一个有限交点就是切线”：双曲线 $x^2-y^2/3=1$、$P(1,\sqrt3)$，极线与真正切线不同。
+\end{itemize}
 \end{trapbox}

@@ -1,43 +1,263 @@
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
-	配极原理的证明基于极线方程的代数对称性：将点 $Q$ 的坐标代入点 $P$ 的极线方程，结果等于将点 $P$ 的坐标代入点 $Q$ 的极线方程。只需验证代数等式即可，无需复杂的几何推理。
+\textbf{\textcolor{CProof}{证明总目标}}
+要说明的不是一句“平方变乘积”，而是以下\textbf{三个问题}：
+\begin{itemize}[leftmargin=*,itemsep=0.3em]
+\item 为什么点 $P$ 在曲线上，公式表示的直线就是切线？
+\item 为什么从 $P$ 引出两条切线时，\textbf{两个切点}会落在同一条公式给出的直线上？
+\item 为什么 $Q\in l_P$ 能换成 $P\in l_Q$？
+\end{itemize}
+下面给出\textbf{三种思路}。第一种只用初中常见的直角三角形、相似三角形和坐标距离，\textbf{严格证明圆的情形}；其他曲线需要高中解析几何知识。第二种是考场最快的使用方法；第三种把三类圆锥曲线的切线方程从头推出来，不用求导、不跳步。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（极线回顾）：}]
-			对于椭圆 $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1$，点 $P(x_0,y_0)$ 的极线方程为
-			\[
-				\frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1.
-			\]
-			\par\textbf{理由：} 极线的定义即为此形式。
-		\item[\textbf{步骤二（代入条件）：}]
-			设点 $Q(u,v)$ 在点 $P$ 的极线上，则
-			\[
-				\frac{x_0u}{a^2}+\frac{y_0v}{b^2}=1.
-			\]
-			\par\textbf{理由：} 将 $Q$ 坐标代入步骤一的极线方程。
-		\item[\textbf{步骤三（交换对称）：}]
-			考虑点 $P$ 相对于以 $Q$ 为极点的极线方程：$\dfrac{u x_0}{a^2}+\dfrac{v y_0}{b^2}$。由乘法交换律 $x_0u=u x_0$ 和 $y_0v=v y_0$，该表达式等于步骤二中的左边，因此也等于 $1$。故 $P$ 在点 $Q$ 的极线上。
-			\[
-				\frac{u x_0}{a^2}+\frac{v y_0}{b^2}=1.
-			\]
-			\par\textbf{理由：} 代数对称性。
-		\item[\textbf{步骤四（双曲线情形）：}]
-			对于双曲线 $\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}=1$，极线方程为 $\dfrac{x_0x}{a^2}-\dfrac{y_0y}{b^2}=1$。类似地，若 $Q(u,v)$ 在 $P$ 的极线上，则 $\dfrac{x_0u}{a^2}-\dfrac{y_0v}{b^2}=1$；交换 $P$ 与 $Q$ 的角色，$\dfrac{u x_0}{a^2}-\dfrac{v y_0}{b^2}=1$ 同样成立，因此 $P$ 在 $Q$ 的极线上。
-			\[
-				\frac{x_0u}{a^2}-\frac{y_0v}{b^2}=1 \quad\Longrightarrow\quad \frac{u x_0}{a^2}-\frac{v y_0}{b^2}=1.
-			\]
-			\par\textbf{理由：} 乘法交换律使得左右两边相等。
-		\item[\textbf{步骤五（抛物线情形）：}]
-			对于抛物线 $y^2=2px$，极线方程为 $y_0y=p(x+x_0)$。若 $Q(u,v)$ 在 $P$ 的极线上，则 $y_0v=p(u+x_0)$。交换 $P$ 与 $Q$ 得到的方程是 $v y_0=p(x_0+u)$。由乘法交换律和加法交换律，两边相等，故 $P$ 在 $Q$ 的极线上。
-			\[
-				y_0v=p(u+x_0) \;\Longrightarrow\; v y_0=p(x_0+u).
-			\]
-			\par\textbf{理由：} 等式两边交换下标即得，代数运算保证成立。
-	\end{description}
+\medskip
+\begin{samepage}
+\textbf{\textcolor{CProof}{方法一：最低门槛——从圆的两条切线出发（初中几何）}}
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-	\textbf{综上所述，对于椭圆、双曲线、抛物线等非退化二次曲线，配极原理均成立：若点 $Q$ 在点 $P$ 的极线上，则点 $P$ 也在点 $Q$ 的极线上。}
+
+\begin{center}\input{assets/tikz/C077_circle_similar_triangles.tex}\end{center}
+\noindent\textbf{读图：}蓝色小三角形与橙色大三角形共用 $O$ 处的角；两个直角的位置不同。
+\end{samepage}
+
+\textbf{第 1 步：先只看外点。}圆心为 $O$，半径为 $R$，$P$ 在圆外。过 $P$ 向圆作两条切线 $PT_1,PT_2$，切点是 $T_1,T_2$。由“半径垂直于切线”，有
+\[
+OT_1\perp PT_1,\qquad OT_2\perp PT_2.
+\]
+
+\textbf{第 2 步：让 $T_1$ 向 $OP$ 作垂线，垂足为 $H_1$。}因为 $H_1$ 在 $OP$ 上，所以 $\angle T_1OH_1=\angle T_1OP$；又有 $\angle OH_1T_1=\angle OT_1P=90^\circ$。因此
+\[
+\triangle OT_1H_1\sim\triangle OPT_1.
+\]
+由对应边成比例，
+\[
+\frac{OH_1}{OT_1}=\frac{OT_1}{OP}.
+\]
+用 $OT_1=R$，得
+\[
+\boxed{OP\cdot OH_1=R^2},\qquad OH_1=\frac{R^2}{OP}.
+\]
+
+\textbf{第 3 步：对另一个切点做完全相同的事。}从 $T_2$ 向 $OP$ 作垂线，垂足为 $H_2$；同理
+\[
+OP\cdot OH_2=R^2,\qquad OH_2=\frac{R^2}{OP}.
+\]
+所以 $OH_1=OH_2$。两垂足都在从 $O$ 指向 $P$ 的同一条射线上，故 $H_1=H_2=H$。
+
+\textbf{第 4 步：得出两切点所在直线。}既然 $T_1H\perp OP$ 且 $T_2H\perp OP$，两点 $T_1,T_2$ 都在\textbf{过 $H$ 且垂直 $OP$ 的直线}上。因此
+\[
+\boxed{T_1T_2\perp OP,\qquad OP\cdot OH=R^2.}
+\]
+这一步已经用初中几何证明了：\textbf{求切点弦不必分别求两个切点，先求 $H$ 就够了。}
+
+\textbf{第 5 步：把同一条线写成坐标方程。}令 $O=(0,0)$，$P=(x_0,y_0)$，任一切点 $T=(x,y)$。由直角三角形 $OTP$ 的勾股定理，
+\[
+OP^2=OT^2+PT^2.
+\]
+代入两点距离公式并完整展开，
+\[
+\begin{aligned}
+x_0^2+y_0^2
+ &=R^2+(x-x_0)^2+(y-y_0)^2\\
+ &=R^2+x^2-2xx_0+x_0^2+y^2-2yy_0+y_0^2.
+\end{aligned}
+\]
+消去两边的 $x_0^2+y_0^2$，再利用 $T$ 在圆上满足 $x^2+y^2=R^2$，得
+\[
+0=2R^2-2xx_0-2yy_0,
+\quad\Longrightarrow\quad
+\boxed{x_0x+y_0y=R^2}.
+\]
+所以 $T_1,T_2$ 都满足这个一次方程。它正是过两个切点的直线方程。
+
+\textbf{第 6 步：圆上与圆内如何理解？}若 $P$ 在圆上，$OP=R$，则 $OH=R$，所以 $H=P$；极线是过 $P$ 且垂直 $OP$ 的切线。若 $0<OP<R$，仍可以按 $OH=R^2/OP$ 在射线 $OP$ 上找到 $H$，但是 $OH>R$，过 $H$ 的垂线位于圆外，不会有两个实切点。我们把它继续称为 $P$ 的\textbf{极线}，而不是切点弦。
+
+\textbf{第 7 步：圆的配极性质也可以用初中代数看到。}设 $Q=(u,v)$。如果 $Q$ 在 $P$ 的极线上，就有 $x_0u+y_0v=R^2$。因为 $x_0u=ux_0$、$y_0v=vy_0$，于是 $ux_0+vy_0=R^2$，说明 $P$ 也在 $Q$ 的极线上（两点均非圆心）。\textbf{只靠乘法交换律就证明了关系可以互换。}
+
+\medskip
+\begin{samepage}
+\textbf{\textcolor{CProof}{方法二：考场最快——先写切线，再交换点的角色}}
+\textbf{前提：}已知或已证明“曲线上一点 $T(u,v)$ 的切线方程”。这些式子会在方法三逐一从头验证。
+
+
+\begin{center}\input{assets/tikz/C077_ellipse_contact_roles.tex}\end{center}
+\noindent\textbf{读图：}以椭圆为例，先固定外点 $P$，再让切点 $T$ 满足“其切线经过 $P$”；蓝线收集这样的切点。
+\end{samepage}
+
+\textbf{第 1 步：写出曲线上任意切点 $T(u,v)$ 的切线。}
+\begin{itemize}[leftmargin=*,itemsep=0.25em]
+\item 圆 $x^2+y^2=R^2$：$ux+vy=R^2$。
+\item 椭圆 $x^2/a^2+y^2/b^2=1$：$\dfrac{ux}{a^2}+\dfrac{vy}{b^2}=1$。
+\item 双曲线 $x^2/A^2-y^2/B^2=1$：$\dfrac{ux}{A^2}-\dfrac{vy}{B^2}=1$。
+\item 抛物线 $y^2=2px$：$vy=p(x+u)$。
+\end{itemize}
+
+\textbf{第 2 步：切线要经过已知点 $P(x_0,y_0)$。}把 $P$ 的坐标代入上面的切线，得到对\textbf{切点 $T$ 坐标}的限制：
+\[
+\begin{array}{ll}
+\text{圆：}&ux_0+vy_0=R^2,\\[0.2em]
+\text{椭圆：}&\dfrac{ux_0}{a^2}+\dfrac{vy_0}{b^2}=1,\\[0.5em]
+\text{双曲线：}&\dfrac{ux_0}{A^2}-\dfrac{vy_0}{B^2}=1,\\[0.5em]
+\text{抛物线：}&vy_0=p(x_0+u).
+\end{array}
+\]
+抛物线的切线方程中 $v$ 是切点纵坐标，代入的 $y_0$ 是已知点纵坐标，二者不能弄反。
+
+\textbf{第 3 步：把 $u,v$ 当作待求切点的坐标。}刚才的四个式子分别是
+\[
+\begin{array}{ll}
+\text{圆：}&x_0u+y_0v=R^2,\\[0.2em]
+\text{椭圆：}&\dfrac{x_0u}{a^2}+\dfrac{y_0v}{b^2}=1,\\[0.5em]
+\text{双曲线：}&\dfrac{x_0u}{A^2}-\dfrac{y_0v}{B^2}=1,\\[0.5em]
+\text{抛物线：}&y_0v=p(u+x_0).
+\end{array}
+\]
+将 $(u,v)$ 改写为普通直线动点 $(x,y)$，立刻就是第 01 节的极线方程。\textbf{推理关键：}“$P$ 在 $T$ 的切线上”\textbf{等价于}“$T$ 在 $P$ 的极线上”。
+
+\textbf{第 4 步：为什么叫切点弦？}如果能从 $P$ 作两条不同实切线，其切点为 $T_1,T_2$，则这两个点都满足第 3 步同一条直线方程；\textbf{经过两个不同点有且只有一条直线}，所以它恰好就是 $T_1T_2$。若没有两个这样的切点，只能叫极线，不应硬叫切点弦。
+
+\textbf{第 5 步：一句话证明配极原理。}对任意 $Q(u,v)$，把 $Q$ 代入 $l_P$ 的方程，再交换 $P,Q$ 的字母位置；由于 $x_0u=ux_0$、$y_0v=vy_0$ 和 $x_0+u=u+x_0$，所得就是“$P$ 在 $l_Q$ 上”。反过来也一样。
+
+\medskip
+\begin{samepage}
+\textbf{\textcolor{CProof}{方法三：常规完整证明——把切线代回曲线，检查出现重根}}
+这部分\textbf{不用导数}。设曲线上一个已知点 $T(u,v)$。先写过 $T$ 的候选直线；再用 $t$ 表示沿这条直线走多远，将点坐标代回曲线。如果最后只得到 $t^2=0$，说明两个交点合在 $T$ 这一处，就是切线。\textbf{关键是展示 $t^2$ 如何出现，而不只说“显然相切”。}
+
+\textbf{（一）椭圆：}\; $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1$，其中 $\dfrac{u^2}{a^2}+\dfrac{v^2}{b^2}=1$。
+\begin{center}\input{assets/tikz/C077_tangent_parameter_ellipse.tex}\end{center}
+\noindent\textbf{读图：}橙色点沿候选切线移动；只有 $t=0$ 对应的蓝色点 $T$ 同时在曲线上。图中取标准曲线上的代表点，下面证明覆盖一般的 $T(u,v)$。
+\end{samepage}
+
+\textbf{第 1 步：}考察直线 $\dfrac{ux}{a^2}+\dfrac{vy}{b^2}=1$。由于 $T$ 在椭圆上，代入 $(x,y)=(u,v)$ 恰得 $1=1$，所以直线经过 $T$。
+
+\textbf{第 2 步：}直线上其他点可以写作
+\[
+x=u-a^2vt,\qquad y=v+b^2ut.
+\]
+确实，代入直线左边得到
+\[
+\frac{u(u-a^2vt)}{a^2}+\frac{v(v+b^2ut)}{b^2}
+=\frac{u^2}{a^2}-uvt+\frac{v^2}{b^2}+uvt=1.
+\]
+由于 $a,b>0$ 且 $T$ 不可能为原点，这个方向不为零；所以 $t$ 的所有实数值可以走遍该直线。
+
+\textbf{第 3 步：}把这一点代回椭圆方程：
+\[
+\begin{aligned}
+\frac{x^2}{a^2}+\frac{y^2}{b^2}
+&=\frac{(u-a^2vt)^2}{a^2}+\frac{(v+b^2ut)^2}{b^2}\\
+&=\frac{u^2}{a^2}-2uvt+a^2v^2t^2+\frac{v^2}{b^2}+2uvt+b^2u^2t^2\\
+&=1+(a^2v^2+b^2u^2)t^2.
+\end{aligned}
+\]
+注意
+\[
+a^2v^2+b^2u^2=a^2b^2\left(\frac{v^2}{b^2}+\frac{u^2}{a^2}\right)=a^2b^2>0.
+\]
+于是交点必须满足 $1+a^2b^2t^2=1$，即 $a^2b^2t^2=0$，只能 $t=0$。它是\textbf{二次方程的重根}，对应点 $T$，所以候选直线确实是椭圆在 $T$ 的切线。
+
+\begin{samepage}
+\textbf{（二）双曲线：}\; $\dfrac{x^2}{A^2}-\dfrac{y^2}{B^2}=1$，其中 $\dfrac{u^2}{A^2}-\dfrac{v^2}{B^2}=1$。
+\begin{center}\input{assets/tikz/C077_tangent_parameter_hyperbola.tex}\end{center}
+\noindent\textbf{读图：}橙色点沿候选切线移动；只有 $t=0$ 对应的蓝色点 $T$ 同时在曲线上。图中取标准曲线上的代表点，下面证明覆盖一般的 $T(u,v)$。
+\end{samepage}
+
+\textbf{第 1 步：}考察 $\dfrac{ux}{A^2}-\dfrac{vy}{B^2}=1$；代入 $T$ 即 $\dfrac{u^2}{A^2}-\dfrac{v^2}{B^2}=1$，说明它经过 $T$。
+
+\textbf{第 2 步：}沿直线取
+\[
+x=u+A^2vt,\qquad y=v+B^2ut.
+\]
+代入直线左边，
+\[
+\frac{u(u+A^2vt)}{A^2}-\frac{v(v+B^2ut)}{B^2}
+=\frac{u^2}{A^2}+uvt-\frac{v^2}{B^2}-uvt=1.
+\]
+
+\textbf{第 3 步：}代回双曲线：
+\[
+\begin{aligned}
+\frac{x^2}{A^2}-\frac{y^2}{B^2}
+&=\frac{(u+A^2vt)^2}{A^2}-\frac{(v+B^2ut)^2}{B^2}\\
+&=\frac{u^2}{A^2}+2uvt+A^2v^2t^2-\frac{v^2}{B^2}-2uvt-B^2u^2t^2\\
+&=1+(A^2v^2-B^2u^2)t^2.
+\end{aligned}
+\]
+而
+\[
+A^2v^2-B^2u^2=-A^2B^2\left(\frac{u^2}{A^2}-\frac{v^2}{B^2}\right)=-A^2B^2.
+\]
+故交点方程为 $1-A^2B^2t^2=1$，得到 $t^2=0$。所以直线确实在 $T$ 处与双曲线相切。\textbf{提示：}双曲线上某条直线只有一个有限交点，并不自动说明相切，必须像这里一样核对是重根；见 05 节的反例。
+
+\begin{samepage}
+\textbf{（三）抛物线：}\; $y^2=2px$，$p\ne0$，已知 $T(u,v)$ 满足 $v^2=2pu$。
+\begin{center}\input{assets/tikz/C077_tangent_parameter_parabola.tex}\end{center}
+\noindent\textbf{读图：}橙色点沿候选切线移动；只有 $t=0$ 对应的蓝色点 $T$ 同时在曲线上。图中取标准曲线上的代表点，下面证明覆盖一般的 $T(u,v)$。
+\end{samepage}
+
+\textbf{第 1 步：}考察直线 $vy=p(x+u)$。代入 $T$ 左边为 $v^2$，右边为 $p(2u)=2pu$，所以它经过 $T$。
+
+\textbf{第 2 步：}沿这条直线取
+\[
+x=u+vt,\qquad y=v+pt.
+\]
+代入直线：$v(v+pt)=v^2+vpt$，而 $p[(u+vt)+u]=2pu+pvt$；因为 $v^2=2pu$，两边相等。方向 $(v,p)$ 不为零，因为 $p\ne0$。
+
+\textbf{第 3 步：}代入抛物线：
+\[
+\begin{aligned}
+y^2-2px
+&=(v+pt)^2-2p(u+vt)\\
+&=v^2+2vpt+p^2t^2-2pu-2pvt\\
+&=(v^2-2pu)+p^2t^2=p^2t^2.
+\end{aligned}
+\]
+因为 $p\ne0$，要使 $y^2=2px$，只能 $t^2=0$，直线在 $T$ 处相切。\textbf{特别地：}顶点 $T=(0,0)$ 给出 $0=p x$，即 $x=0$，依然是有效的切线。
+
+\textbf{（四）统一收尾。}三种曲线的切线方程都已从头验证。当切线经过已知的 $P(x_0,y_0)$ 时，把 $P$ 代入切线，再将切点 $(u,v)$ 当作未知的动点，就得到相应极线方程。因此，若有两个不同的有限实切点，它们必然共线；若已知点恰在曲线上，极线就是该点的切线。
+
+\medskip
+\textbf{\textcolor{CProof}{附：先检查切点数量，避免把不存在的弦写成答案}}
+这里只用直线与曲线联立、配方或二次方程判别式。
+
+\textbf{1. 椭圆。}令 $\alpha=x_0/a$、$\beta=y_0/b$，$q=\alpha^2+\beta^2$。设 $X=x/a,Y=y/b$。椭圆为 $X^2+Y^2=1$，极线为 $\alpha X+\beta Y=1$。当 $q>0$ 时，线上点可写成
+\[
+X=\frac{\alpha}{q}-\beta t,\qquad Y=\frac{\beta}{q}+\alpha t.
+\]
+因为 $\alpha X+\beta Y=(\alpha^2+\beta^2)/q=1$，所有点均在线上。代入椭圆：
+\[
+X^2+Y^2=\frac{\alpha^2+\beta^2}{q^2}+(\alpha^2+\beta^2)t^2
+=\frac1q+qt^2=1.
+\]
+因此 $t^2=(q-1)/q^2$：$q>1$ 两个不同实切点，$q=1$ 一个重合切点，$0<q<1$ 没有实切点；$q=0$ 即中心，极线不存在。
+
+\textbf{2. 双曲线。}令 $\alpha=x_0/A$、$\beta=y_0/B$，$q=\alpha^2-\beta^2$，$X=x/A,Y=y/B$。双曲线 $X^2-Y^2=1$，极线 $\alpha X-\beta Y=1$。若 $q\ne0$，取
+\[
+X=\frac{\alpha}{q}+\beta t,\qquad Y=\frac{\beta}{q}+\alpha t.
+\]
+代入直线左边为 $q/q=1$；代入曲线则
+\[
+X^2-Y^2=\frac1q-qt^2=1,
+\qquad t^2=\frac{1-q}{q^2}.
+\]
+所以 $q<1$ 且 $q\ne0$ 有两个不同有限实切点，$q=1$ 是曲线上点的切线，$q>1$ 无实切点。\textbf{$q=0$ 要单独看：}若 $P\ne O$，极线仍存在，但只会与双曲线有一个有限交点，一般不是切线，不能叫两实切点的连线；若 $P=O$，连有限极线都没有。
+
+\textbf{3. 抛物线。}把极线整理为 $x=\dfrac{y_0}{p}y-x_0$，代入 $y^2=2px$ 得
+\[
+y^2=2y_0y-2px_0,\qquad y^2-2y_0y+2px_0=0.
+\]
+把左边配方：
+\[
+(y-y_0)^2=y_0^2-2px_0.
+\]
+因此 $y_0^2-2px_0>0$ 时有两个不同实切点；等于零时，$P$ 在抛物线上，只有重合的一点；小于零时没有实切点。
+
+\medskip
+\textbf{\textcolor{CProof}{配极原理的完整核对（椭圆、双曲线、抛物线）}}
+
+\begin{center}\input{assets/tikz/C077_reciprocity_incidence.tex}\end{center}
+取 $P(x_0,y_0)$、$Q(u,v)$，假定两点的极线都是有限直线。
+\begin{description}[style=nextline,leftmargin=2em,itemsep=0.28em]
+\item[椭圆：] $Q\in l_P$ 等价于 $x_0u/a^2+y_0v/b^2=1$。因乘法交换律，它等价于 $ux_0/a^2+vy_0/b^2=1$，即 $P\in l_Q$。把等号从右往左推，同样成立。
+\item[双曲线：] $Q\in l_P$ 等价于 $x_0u/A^2-y_0v/B^2=1$。交换乘法顺序就是 $ux_0/A^2-vy_0/B^2=1$，即 $P\in l_Q$。\textbf{减号不变。}
+\item[抛物线：] $Q\in l_P$ 等价于 $y_0v=p(u+x_0)$。交换乘法和加法顺序得 $vy_0=p(x_0+u)$，恰是 $P\in l_Q$。反向同理。
+\end{description}
+故 $Q\in l_P\iff P\in l_Q$。这一结论与是否存在两实切点无关，\textbf{只要求讨论的极线确实存在}。
 \end{proofbox}

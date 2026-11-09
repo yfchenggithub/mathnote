@@ -1,36 +1,77 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件 1（曲线与点）：}}]
-			已知非退化圆锥曲线的标准方程（椭圆 $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1$、双曲线 $\dfrac{x^2}{a^2}-\dfrac{y^2}{b^2}=1$、抛物线 $y^2=2px$）和平面内一点 $P(x_0,y_0)$。
-	\end{description}
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（极线方程）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			将曲线方程中的平方项替换为乘积项、一次项替换为平均值，即得极线方程。当点 $P$ 在曲线上时，该极线为切线；当存在两不同有限实切点时，该极线才为切点弦。具体形式如下：\textbf{椭圆：}
-			\[
-				\frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1
-			\]
-			\textbf{双曲线：}
-			\[
-				\frac{x_0x}{a^2}-\frac{y_0y}{b^2}=1
-			\]
-			\textbf{抛物线：}
-			\[
-				y_0y=p(x+x_0)
-			\]
-		\item[\textbf{\textcolor{CStatement}{推广结论（配极原理）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			极点与极线的对称关系：若点 $Q$ 在点 $P$ 的极线上，则点 $P$ 也在点 $Q$ 的极线上，反之亦然。
-			\[
-				Q\in l_P \iff P\in l_Q .
-			\]
-	\end{description}
+\textbf{要解决的问题：}给定点 $P$，怎样直接写出对应的极线，判断它是切线、切点弦所在直线，还是不含实切点的直线？
 
+\textbf{先认清对象：} $P$ 叫\textbf{极点}，对应直线记为 $l_P$；若从 $P$ 引出两条不同的实切线，切点为 $T_1,T_2$，则 $T_1T_2$ 是\textbf{切点弦所在直线}。
 
 \medskip
-\textbf{有限平面中的定义域。} 有心曲线的中心须排除；在标准式中 $P=(0,0)$ 给出 $0=1$，
-不是有限直线。一般式要求一次项系数不同时为零。
-极线可没有实交点；只有确有两不同有限实切点时，才能把它称作实切点弦。
+\textbf{\textcolor{CStatement}{结论一：四种常见曲线的极线——公式旁边直接看图}}
+
+设 $P(x_0,y_0)$，极线上动点为 $(x,y)$。\textbf{各图取一组具体数值}：灰色是曲线，橙色切线经过 $P$，蓝色极线连结两个切点。一般点未必有两个实切点，须再看结论二。
+
+\begin{samepage}
+\textbf{1. 圆：} $x^2+y^2=R^2$，$R>0$。
+\[\boxed{l_P:\ x_0x+y_0y=R^2}\]
+\begin{center}\input{assets/tikz/C077_formula_circle.tex}\end{center}
+\noindent\textbf{读图代入：} $R=2,\ P(4,0)$，故 $4x=4$，蓝线为 $x=1$。
+\end{samepage}
+
+\medskip
+\begin{samepage}
+\textbf{2. 椭圆：} $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1$，$a>b>0$。
+\[\boxed{l_P:\ \frac{x_0x}{a^2}+\frac{y_0y}{b^2}=1}\]
+\begin{center}\input{assets/tikz/C077_formula_ellipse.tex}\end{center}
+\noindent\textbf{读图代入：} $a=2,b=1,\ P(4,0)$，故 $4x/4=1$，蓝线仍为 $x=1$。
+\end{samepage}
+
+\medskip
+\begin{samepage}
+\textbf{3. 双曲线：} $\dfrac{x^2}{A^2}-\dfrac{y^2}{B^2}=1$，$A,B>0$。
+\[\boxed{l_P:\ \frac{x_0x}{A^2}-\frac{y_0y}{B^2}=1}\]
+\begin{center}\input{assets/tikz/C077_formula_hyperbola.tex}\end{center}
+\noindent\textbf{读图代入：} $A=1,B=\sqrt3,\ P(0,2)$，故 $-2y/3=1$，蓝线为 $y=-3/2$。\textbf{原方程的减号必须保留。}
+\end{samepage}
+
+\medskip
+\begin{samepage}
+\textbf{4. 抛物线：} $y^2=2px$，$p>0$。
+\[\boxed{l_P:\ y_0y=p(x+x_0)}\]
+\begin{center}\input{assets/tikz/C077_formula_parabola.tex}\end{center}
+\noindent\textbf{读图代入：} $p=2,\ P(0,1)$，故 $y=2x$。蓝线经过两切点；橙色两切线经过 $P$。
+\end{samepage}
+
+\medskip
+\textbf{参数说明：}椭圆用 $a,b$，双曲线用 $A,B$，避免混淆。抛物线若 $p<0$，同一代数公式仍成立，但开口向左。
+\end{statementbox}
+
+\begin{statementbox}
+\begin{samepage}
+\textbf{\textcolor{CStatement}{结论二：极线何时是切线，何时是切点弦？}}
+
+\begin{center}\input{assets/tikz/C077_statement_three_meanings.tex}\end{center}
+\noindent\textbf{先读三种状态：}以同一个圆为例，给定点的位置改变，蓝色极线的几何意义也改变。对其他曲线，仍按下面的条件判断。
+\end{samepage}
+
+\begin{itemize}[leftmargin=*,itemsep=0.35em]
+\item \textbf{$P$ 在曲线上：}$l_P$ 是曲线在 $P$ 点的\textbf{切线}。
+\item \textbf{有两个不同的有限实切点 $T_1,T_2$：}$l_P$ 是\textbf{直线 $T_1T_2$}，不是从 $P$ 出发的那两条切线。
+\item \textbf{不满足上述条件：}即使极线存在，也不能直接称作实切点弦；双曲线尤其要联立方程核对。
+\end{itemize}
+
+\textbf{特殊点另查：}圆、椭圆、双曲线的中心 $P=(0,0)$ 代入后只得到 $0=R^2$ 或 $0=1$，\textbf{无有限极线}；抛物线顶点 $(0,0)$ 则有极线 $x=0$，就是顶点切线。
+\end{statementbox}
+
+\begin{statementbox}
+\begin{samepage}
+\textbf{\textcolor{CStatement}{结论三：配极原理——两点分别落在对方的极线上}}
+
+\begin{center}\input{assets/tikz/C077_reciprocity_incidence.tex}\end{center}
+\noindent\textbf{一眼看两处：}$Q(1,1)$ 在蓝色 $l_P$ 上，$P(4,0)$ 在橙色 $l_Q$ 上；两点都不需要在椭圆上。
+\end{samepage}
+
+若 $P,Q$ 都有有限极线，则
+\[\boxed{Q\in l_P\quad\Longleftrightarrow\quad P\in l_Q.}\]
+这是\textbf{点与直线的所属条件互换}，不要求 $P,Q$ 关于某条直线对称。
+
+\medskip
+\textbf{识别信号：}求曲线上一点的切线、两实切点的连线，或转换“$Q$ 在 $P$ 的极线上”的条件时，考虑本结论。\textbf{写出极线后，还要核对题目要求的几何对象是否存在。}
 \end{statementbox}

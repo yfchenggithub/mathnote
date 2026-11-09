@@ -1,47 +1,80 @@
 \begin{explanationbox}
-\begin{minipage}{\linewidth}
-\begin{center}\input{assets/tikz/C077_math_audit_geometry.tex}\end{center}
-$x^2-y^2/3=1$ 与点 $P=(2,1)$：红色极线为 $6x-y=3$，但它与双曲线没有实交点，所以原例题的实切点弦不存在。
-\end{minipage}
-\par\medskip
+\textbf{\textcolor{CExplanation}{一、为什么要引入“极线”？先从圆看起}}
 
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
-	极线是点关于圆锥曲线的“对应直线”：点在曲线上时极线是切线，确有两不同有限实切点时极线才是切点弦。
+给定点 $P$ 后，能否不分别求两切点，就直接写出它们的连线？先看圆：同一条对应规则可以覆盖三个位置。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（定义替换）：}]
-			极线方程由曲线方程通过替换得到：椭圆 $\dfrac{x^2}{a^2}+\dfrac{y^2}{b^2}=1$ 的极线方程为 $\dfrac{x_0x}{a^2}+\dfrac{y_0y}{b^2}=1$，双曲线和抛物线类似。口诀：平方变乘积，一次变平均。
-		\item[\textbf{要点二（对称关系）：}]
-			配极原理指出：若点 $Q$ 在点 $P$ 的极线上，则点 $P$ 也在点 $Q$ 的极线上，形成点与直线的对偶关系。
-	\end{description}
+\medskip
+\begin{center}
+\input{assets/tikz/C077_circle_three_cases.tex}
+\end{center}
+\noindent\textbf{读图：}三幅图的圆大小一样。虚线经过点 $H$ 且垂直 $OP$。左：$P$ 在圆内，$H$ 反而在圆外，没有两条实切线；中：$P$ 在圆上，$H=P$，虚线是切线；右：$P$ 在圆外，虚线穿过两个切点 $T_1,T_2$。三种情况统一满足
+\[
+OP\cdot OH=R^2\quad(P\ne O).
+\]
+\textbf{这才是极线值得引入的原因：}不是又起一个复杂名字，而是把原本分开讨论的圆内、圆上、圆外三种情况，用同一条“与 $OP$ 垂直的直线”来表示。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（射影对偶）}}
-	极点与极线是射影几何中配极变换的实例，本质上是将点映射为直线，且映射是双向的。在解析几何中，这种对偶性通过代数对称性体现。
+\medskip
+\textbf{\textcolor{CExplanation}{二、用最容易算的数字亲自看一遍}}
+取圆 $x^2+y^2=4$，圆心 $O(0,0)$、半径 $R=2$。
+\begin{description}[style=nextline,leftmargin=2em,itemsep=0.35em]
+\item[外点 $P(4,0)$：] $OP=4$，故 $OH=R^2/OP=1$，极线是 $x=1$。它与圆交于 $\bigl(1,\sqrt3\bigr)$、$\bigl(1,-\sqrt3\bigr)$，正好是两切点。
+\item[圆上点 $P(2,0)$：] $OP=2$，所以 $OH=2$，极线是 $x=2$，正好是圆在 $P$ 的切线。
+\item[内点 $P(1,0)$：] $OP=1$，于是 $OH=4$，极线是 $x=4$。圆最右端只有 $x=2$，这条线不与圆相交；但对应直线仍然可以写出。
+\item[圆心 $P(0,0)$：] $OP=0$，无法满足 $OP\cdot OH=4$。不能凭空给圆心画一条有限的极线。
+\end{description}
+\textbf{注意：}对圆来说，“圆外”就能作两条实切线；\textbf{对双曲线不能直接照搬这句话}，具体见例题与易错点。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（线性替换）}}
-	极线来自对称极化：二次项作双线性替换，一次项取变量与定点坐标的平均值。它不是外点处的一阶泰勒近似；对二次多项式 $S$，极线左端为 $S(P)+\tfrac12\nabla S(P)\cdot(X-P)$。
+\medskip
+\textbf{\textcolor{CExplanation}{三、极线公式从哪儿来？不是硬记的}}
+把圆心放在原点，设 $P(x_0,y_0)$，圆上一个切点为 $T(x,y)$。因为半径 $OT$ 垂直切线 $PT$，直角三角形 $OTP$ 满足
+\[
+OP^2=OT^2+PT^2.
+\]
+分别写成坐标距离：
+\[
+\begin{aligned}
+x_0^2+y_0^2&=R^2+(x_0-x)^2+(y_0-y)^2\\
+&=R^2+x_0^2+y_0^2+x^2+y^2-2x_0x-2y_0y.
+\end{aligned}
+\]
+切点在圆上，$x^2+y^2=R^2$；两边去掉相同的部分，得到
+\[
+\boxed{x_0x+y_0y=R^2.}
+\]
+它是关于 $(x,y)$ 的\textbf{直线方程}；所以两个切点一旦存在，都自动在这条线上。对圆内点虽然不能作实切线，我们仍然用同样的方程定义其对应直线。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（快速求弦）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（直接求线）：} 已知点 $P$ 和曲线，直接写出极线方程，作为切线（点在曲线上）或切点弦（点在曲线外），避免联立判别式。
-		\item \textbf{考法二（对称转化）：} 利用配极原理，通过已知点在另一点的极线上，反向得到新关系，用于求点坐标或直线方程。
-	\end{itemize}
+\medskip
+\textbf{\textcolor{CExplanation}{四、从圆推广到其他曲线：究竟替换了什么}}
+\begin{itemize}[leftmargin=*,itemsep=0.4em]
+\item 椭圆：$x^2$ 对应成 $x_0x$，$y^2$ 对应成 $y_0y$，得到 $\dfrac{x_0x}{a^2}+\dfrac{y_0y}{b^2}=1$。
+\item 双曲线：形式相似，但原方程的\textbf{减号保留}，得到 $\dfrac{x_0x}{A^2}-\dfrac{y_0y}{B^2}=1$。
+\item 抛物线：从 $y^2=2px$ 出发，$y^2$ 变成 $y_0y$；右边的 $x$ 取 $x,x_0$ 的平均数：$2p\cdot\dfrac{x+x_0}{2}=p(x+x_0)$。
+\end{itemize}
+这些不是随便改写。\textbf{理由是：}如果 $T$ 在曲线上，把 $T$ 的坐标放到对应公式里，得到的直线恰好是\textbf{曲线在 $T$ 的切线}；反过来，凡是从 $P$ 引出的切点 $T$，都满足“$P$ 在 $T$ 的切线上”，所以 $T$ 一定在 $P$ 的极线上。第 03 节会逐项证明，不只给结论。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
-	极线方程不用死背，只要记住“平方变乘积，一次变平均”即可；配极原理本质是等式左右对称交换，结果不变。
+\medskip
+\textbf{\textcolor{CExplanation}{五、配极原理到底有什么用？}}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（切线情形）：} 点在曲线上，直接写出切线方程。
-		\item \textbf{场景二（切点弦）：} 先验证两不同有限实切点存在，再写出切点弦方程。
-		\item \textbf{场景三（对称转化）：} 利用配极原理将点与线的关系互相推导，简化计算。
-	\end{itemize}
+\begin{center}\input{assets/tikz/C077_reciprocity_incidence.tex}\end{center}
+图中 $P(4,0)$ 对应蓝色竖线，$Q(1,1)$ 对应橙色斜线：$Q$ 在蓝线上，$P$ 在橙线上。一般地，若 $P(x_0,y_0)$、$Q(u,v)$，那么
+\[
+Q\in l_P\ \Longleftrightarrow\ \frac{x_0u}{a^2}+\frac{y_0v}{b^2}=1.
+\]
+把乘法的先后顺序调一下，完全相同的等式又表示
+\[
+\frac{ux_0}{a^2}+\frac{vy_0}{b^2}=1\ \Longleftrightarrow\ P\in l_Q.
+\]
+\textbf{使用价值：}题目给“$Q$ 在 $P$ 的极线上”，但 $Q$ 的坐标未知而 $P$ 更容易代入时，可以立即把它改写成“$P$ 在 $Q$ 的极线上”，选择计算量更小的方向。\textbf{这是条件互换，不是平面中的镜面对称。}
 
+\medskip
+\textbf{\textcolor{CExplanation}{六、最重要的边界：极线与切点弦不是同义词}}
+举一个双曲线的反例：
+\[
+\frac{x^2}{1}-\frac{y^2}{3}=1,\qquad P(2,1).
+\]
+点 $P$ 的极线为 $6x-y=3$。把 $y=6x-3$ 代入双曲线得到 $11x^2-12x+4=0$，判别式为 $(-12)^2-4\cdot11\cdot4=-32<0$。因此\textbf{没有两个实际的切点}。极线存在，但不能称它为实切点弦。
+
+
+\begin{center}\input{assets/tikz/C077_hyperbola_existence_compare.tex}\end{center}
+\noindent\textbf{读图：}同一双曲线、同一尺度下，左边有极线却无实切点；右边换一个 $P$，才出现两实切点。判断依据是联立方程，而非“看起来在外面”。
 \end{explanationbox}

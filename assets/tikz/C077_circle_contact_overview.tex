@@ -1,0 +1,22 @@
+% R=2, OP=4, H=(1,0), T=(1,+/-sqrt(3)); all lengths use equal scales.
+\begin{tikzpicture}[x=1.4cm,y=1.4cm,font=\small,>=stealth]
+\coordinate (O) at (0,0); \coordinate (P) at (4,0);
+\coordinate (H) at (1,0); \coordinate (T1) at (1,{sqrt(3)});
+\coordinate (T2) at (1,{-sqrt(3)});
+\draw[gray!75,thick] (O) circle (2);
+\draw[gray!55] (-2.3,0)--(4.4,0);
+\draw[orange!85!black,thick] (T1)--(P)--(T2);
+\draw[blue!65!black,very thick] (1,-2.25)--(1,2.3);
+\draw[gray!65,dashed] (O)--(T1) (O)--(T2);
+\draw[gray!75] (1.14,0)--(1.14,0.14)--(1,0.14);
+\pic[draw,angle radius=2.3mm] {right angle=O--T1--P};
+\fill (O) circle (1.4pt) node[below left] {$O$};
+\fill[orange!85!black] (P) circle (1.6pt) node[right] {$P$（极点）};
+\fill (H) circle (1.4pt) node[below right] {$H$};
+\fill (T1) circle (1.6pt) node[above left,yshift=1mm] {$T_1$};
+\fill (T2) circle (1.6pt) node[below right,xshift=1mm] {$T_2$};
+\node[blue!65!black,anchor=south] at (1,2.4) {$l_P=T_1T_2$（极线）};
+\node[orange!85!black,rotate=-30] at (2.9,1.0) {切线 $PT_1$};
+\node[orange!85!black,rotate=30] at (2.9,-1.0) {切线 $PT_2$};
+\node at (1,-2.65) {$T_1T_2\perp OP,\qquad OP\cdot OH=R^2$};
+\end{tikzpicture}

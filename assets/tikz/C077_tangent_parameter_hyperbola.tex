@@ -1,0 +1,14 @@
+\begin{tikzpicture}[x=1.45cm,y=1.45cm,font=\small,>=stealth]
+\draw[gray!75,thick,domain=-1.1:1.1,samples=80] plot ({cosh(\x)},{sinh(\x)}) plot ({-cosh(\x)},{sinh(\x)});
+\coordinate (T) at (1.25,0.75);
+\coordinate (M) at (0.7625,-0.0625);
+\coordinate (N) at (1.7375,1.5625);
+
+\draw[orange!85!black,thick] (M)--(N);
+\draw[orange!85!black,->,very thick] (T)--(N);
+\fill (M) circle (1.5pt) node[below left] {$t<0$};
+\fill (N) circle (1.5pt) node[above right] {$t>0$};
+\fill[blue!65!black] (T) circle (2pt) node[below right] {$T(u,v),\ t=0$};
+\path (-2,-1.65) rectangle (2.9,2);
+\node at (0,-2.1) {双曲线：方向 $(A^2v,B^2u)$，代回得 $-A^2B^2t^2=0$};
+\end{tikzpicture}

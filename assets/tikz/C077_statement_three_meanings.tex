@@ -1,0 +1,27 @@
+% Same R=1 in all panels, same length scale. P distance d; H distance 1/d.
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+\foreach \sx/\d/\ttl in {0/1/圆上点,4.5/1.8/圆外点,9/0.6/圆内点}{
+\begin{scope}[xshift=\sx cm]
+\pgfmathsetmacro{\h}{1/\d}
+\draw[gray!45] (-1.2,0)--(2.15,0);
+\draw[gray!75,thick] (0,0) circle (1);
+\draw[blue!65!black,very thick] (\h,-1.25)--(\h,1.25);
+\fill (0,0) circle (1.3pt) node[below left] {$O$};
+\ifdim\d pt=.6pt
+\fill[orange!85!black] (\d,0) circle (1.6pt) node[below left] {$P$};
+\else
+\fill[orange!85!black] (\d,0) circle (1.6pt) node[below right] {$P$};
+\fi
+\node[font=\bfseries] at (.4,1.75) {\ttl};
+\end{scope}}
+\begin{scope}[xshift=4.5cm]
+\pgfmathsetmacro{\tx}{1/1.8}\pgfmathsetmacro{\ty}{sqrt(1-\tx*\tx)}
+\draw[orange!85!black,thick] (\tx,\ty)--(1.8,0)--(\tx,-\ty);
+\fill (\tx,\ty) circle (1.6pt) node[above right,xshift=1mm] {$T_1$};
+\fill (\tx,-\ty) circle (1.6pt) node[below right,xshift=1mm] {$T_2$};
+\end{scope}
+\node[align=center] at (.4,-1.9) {蓝线在 $P$ 处相切\\极线就是切线};
+\node[align=center] at (4.9,-1.9) {蓝线连结 $T_1,T_2$\\极线是切点弦所在直线};
+\node[align=center] at (9.4,-1.9) {蓝线不与圆相交\\有极线，无实切点};
+\draw[CStatement!35,rounded corners=2mm] ([xshift=-3.5mm,yshift=-3.5mm]current bounding box.south west) rectangle ([xshift=3.5mm,yshift=3.5mm]current bounding box.north east);
+\end{tikzpicture}
