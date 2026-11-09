@@ -1,0 +1,41 @@
+\begin{statementbox}
+    \textbf{\textcolor{CStatement}{条件}}
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+        \item[\textbf{\textcolor{CStatement}{条件1（有公共端点）}}]
+            平面直角坐标系中，$B(a,b)$、$P(x_1,y_1)$、$Q(x_2,y_2)$ 是三个点；两条线段 $BP$ 与 $BQ$ 都从点 $B$ 出发。
+        \item[\textbf{\textcolor{CStatement}{条件2（垂直并且等长）}}]
+            $\boxed{BP\perp BQ,\qquad BP=BQ>0}$。长度大于 $0$ 是为了排除点重合后无法确定方向的情况。
+    \end{description}
+
+\input{assets/tikz/V039_rotation_overview}
+    \medskip
+    \textbf{\textcolor{CStatement}{结论}}
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+        \item[\textbf{\textcolor{CStatement}{结论一（以原点为中心）}}]
+            \textbf{\textcolor{CStatement}{直观描述：}} 水平、竖直两个坐标交换位置，其中一个变号。
+            \[
+            \boxed{\begin{array}{ll}
+              \text{逆时针 }90^\circ:&(x,y)\longmapsto(-y,x),\\[3pt]
+              \text{顺时针 }90^\circ:&(x,y)\longmapsto(y,-x).
+            \end{array}}
+            \]
+        \item[\textbf{\textcolor{CStatement}{结论二（以任意点为中心）}}]
+            设 $u=x_1-a,\ v=y_1-b$。以 $B(a,b)$ 为中心，把 $P$ 旋转 $90^\circ$ 后：
+            \[
+            \boxed{\begin{aligned}
+              \text{逆时针：}\quad Q&=(a-v,\ b+u)=(a+b-y_1,\ b+x_1-a),\\
+              \text{顺时针：}\quad Q&=(a+v,\ b-u)=(a+y_1-b,\ b+a-x_1).
+            \end{aligned}}
+            \]
+            由于 $BP\perp BQ$ 且 $BP=BQ>0$，$Q$ 必是上面两点中的一个；反过来，任意一种坐标关系都保证上述两个几何条件。
+        \item[\textbf{\textcolor{CStatement}{结论三（优先使用的消元关系）}}]
+            不论顺、逆时针，恒有
+            \[
+              \boxed{|x_2-a|=|y_1-b|,\qquad |y_2-b|=|x_1-a|.}
+            \]
+            \textbf{特别有用：} 如果 $Q$ 位于直线 $x=a+d$，立即得到 $\boxed{|y_1-b|=|d|}$；若 $Q$ 位于 $y=b+d$，立即得到 $\boxed{|x_1-a|=|d|}$。
+    \end{description}
+    \input{assets/tikz/V039_fixed_horizontal_offset}
+    \medskip
+    \textbf{\textcolor{CStatement}{严格区分}} 只有 $BP\perp BQ$、没有 $BP=BQ$ 时，只能判断方向垂直，不能直接用以上等长旋转公式。
+\end{statementbox}

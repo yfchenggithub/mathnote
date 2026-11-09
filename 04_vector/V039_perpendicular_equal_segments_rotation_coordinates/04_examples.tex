@@ -1,0 +1,92 @@
+\begin{examplebox}
+    \textbf{\textcolor{CExample}{例1（入门：绕原点旋转）}}
+    \textbf{\textcolor{CExample}{题目：}} $B(0,0)$、$P(3,2)$。求 $P$ 分别绕 $B$ 顺时针和逆时针旋转 $90^\circ$ 得到的点，并验证垂直、等长。
+
+    \textbf{\textcolor{CExample}{解题步骤：}}
+    \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.4em]
+        \item[\textbf{第一步（读出相对坐标）}]
+          $\overrightarrow{BP}=(3,2)$，即从 $B$ 向右走 $3$、向上走 $2$。
+        \item[\textbf{第二步（旋转）}]
+          逆时针为 $(-2,3)$，顺时针为 $(2,-3)$；由于中心为原点，直接得到 $Q_1(-2,3)$、$Q_2(2,-3)$。
+        \item[\textbf{第三步（验算两个条件）}]
+          $\overrightarrow{BP}\cdot\overrightarrow{BQ_1}=3(-2)+2(3)=0$，$\overrightarrow{BP}\cdot\overrightarrow{BQ_2}=3(2)+2(-3)=0$。而 $BP^2=3^2+2^2=13$，$BQ_1^2=(-2)^2+3^2=13$，$BQ_2^2=2^2+(-3)^2=13$。
+    \end{description}
+    \textbf{\textcolor{CExample}{关键结论：}} 从原点旋转，直接交换坐标，并按转向改变符号。
+
+    \medskip
+    \textbf{\textcolor{CExample}{例2（平移中心：不能直接旋转绝对坐标）}}
+    \textbf{\textcolor{CExample}{题目：}} 已知 $B(2,-1)$、$P(5,3)$，求满足 $BP\perp BQ$、$BP=BQ$ 的所有点 $Q$。
+
+    \textbf{\textcolor{CExample}{解题步骤：}}
+    \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.4em]
+        \item[\textbf{第一步（先减旋转中心）}]
+          $(u,v)=(5-2,3-(-1))=(3,4)$。
+        \item[\textbf{第二步（两种旋转方向）}]
+          逆时针相对坐标为 $(-4,3)$；顺时针相对坐标为 $(4,-3)$。
+        \item[\textbf{第三步（加回旋转中心）}]
+          逆时针 $Q_1=(2-4,-1+3)=(-2,2)$；顺时针 $Q_2=(2+4,-1-3)=(6,-4)$。
+        \item[\textbf{第四步（检验距离）}]
+          $BP^2=3^2+4^2=25$；$BQ_1^2=(-4)^2+3^2=25$，$BQ_2^2=4^2+(-3)^2=25$，且对应数量积均为 $0$。
+    \end{description}
+    \textbf{\textcolor{CExample}{关键结论：}} $\boxed{Q=(-2,2)\text{ 或 }Q=(6,-4)}$，不能把原点公式直接用在 $P(5,3)$ 上。
+
+    \medskip
+    \newpage
+    \textbf{\textcolor{CExample}{例3（2020全国III卷：椭圆、定直线、面积定值）}}
+    \textbf{\textcolor{CExample}{题目：}} 椭圆
+    $\displaystyle C:\frac{x^2}{25}+\frac{y^2}{m^2}=1\ (0<m<5)$ 的离心率为 $\sqrt{15}/4$。左右顶点分别为 $A,B$。$P$ 在椭圆上，$Q$ 在 $x=6$ 上，且 $BP=BQ>0$、$BP\perp BQ$。求 $S_{\triangle APQ}$。
+
+    \textbf{\textcolor{CExample}{解题步骤（优先旋转）}}
+\input{assets/tikz/V039_ellipse_application}
+    \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.4em]
+        \item[\textbf{第一步（先求椭圆）}]
+          由 $e^2=1-m^2/25=15/16$ 得 $m^2=25/16$，于是
+          \[
+             C:x^2+16y^2=25,\qquad A(-5,0),\ B(5,0).
+          \]
+        \item[\textbf{第二步（看见“垂直＋等长”，先交换坐标）}]
+          设 $P(x_1,y_1)$、$Q(6,y_2)$。由于 $Q$ 相对 $B$ 的水平变化量是 $6-5=1$，而 $P$ 相对 $B$ 的竖直变化量为 $y_1$，立即有
+          \[
+             \boxed{|y_1|=|6-5|=1},\quad\text{即 } y_1=\pm1.
+          \]
+          再由椭圆方程 $x_1^2+16y_1^2=25$ 得 $x_1^2=9$，$x_1=\pm3$。
+        \item[\textbf{第三步（同时确定 $Q$ 的纵坐标）}]
+          若 $y_1=1$，只能顺时针旋转，$\overrightarrow{BQ}=(1,5-x_1)$，于是 $y_2=5-x_1$。若 $y_1=-1$，只能逆时针旋转，$\overrightarrow{BQ}=(1,x_1-5)$，于是 $y_2=x_1-5$。两种情况合写为
+          \[
+            \boxed{y_1y_2=5-x_1},\qquad\boxed{y_1^2=1}.
+          \]
+          因而无须把 $Q$ 的四个可能坐标一一代入面积公式。
+        \item[\textbf{第四步（用坐标面积公式，保留整体结构）}]
+          以 $A(-5,0)$ 为公共起点，可得
+          \[
+          \begin{aligned}
+            S_{\triangle APQ}
+            &=\frac12\left|(x_1+5)y_2-11y_1\right|\\
+            &=\frac1{2|y_1|}\left|(x_1+5)(5-x_1)-11y_1^2\right|\\
+            &=\frac1{2|y_1|}\left|25-x_1^2-11y_1^2\right|.
+          \end{aligned}
+          \]
+          因为 $25-x_1^2=16y_1^2$，所以
+          \[
+            S_{\triangle APQ}=\frac1{2|y_1|}|5y_1^2|
+             =\frac52|y_1|=\boxed{\frac52}.
+          \]
+    \end{description}
+    \textbf{\textcolor{CExample}{回看原本的常规路线：}} 斜率条件得到 $y_2=(5-x_1)/y_1$；随后 $BQ^2=1+(5-x_1)^2/y_1^2=BP^2/y_1^2$，联立 $BP=BQ>0$ 才推出 $y_1^2=1$。旋转法直接越过了这段运算。
+
+    \medskip
+    \textbf{\textcolor{CExample}{例4（迁移：正方形相邻两边）}}
+    \textbf{\textcolor{CExample}{题目：}} 正方形 $BPQR$ 按 $B\to P\to Q\to R$ 的次序排列，$B(1,2)$、$P(4,3)$。求其余顶点（注意有两种位置）。
+
+    \textbf{\textcolor{CExample}{解题步骤：}}
+\input{assets/tikz/V039_square_positions}
+    \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.4em]
+        \item[\textbf{第一步（识别相邻边）}]
+          在正方形中 $BP\perp BR$ 且 $BP=BR$，所以把 $\overrightarrow{BP}=(3,1)$ 绕 $B$ 转 $90^\circ$ 得到 $\overrightarrow{BR}$。
+        \item[\textbf{第二步（求 $R$ 的两个位置）}]
+          逆时针时 $\overrightarrow{BR}=(-1,3)$，$R_1=(0,5)$；顺时针时 $\overrightarrow{BR}=(1,-3)$，$R_2=(2,-1)$。
+        \item[\textbf{第三步（利用平行四边形求 $Q$）}]
+          正方形也是平行四边形，$\overrightarrow{PQ}=\overrightarrow{BR}$，于是 $Q_1=(4,3)+(-1,3)=(3,6)$；$Q_2=(4,3)+(1,-3)=(5,0)$。
+    \end{description}
+    \textbf{\textcolor{CExample}{关键结论：}} $\boxed{(Q,R)=((3,6),(0,5))\text{ 或 }((5,0),(2,-1))}$。适用的是\textbf{相邻两边} $BP,BR$，不是两条对角线。
+\end{examplebox}

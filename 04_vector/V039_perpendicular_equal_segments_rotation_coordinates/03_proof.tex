@@ -1,0 +1,113 @@
+\newpage
+\begin{proofbox}
+    \textbf{\textcolor{CProof}{证明目标与记号}}
+    已知 $B(a,b),\ P(x_1,y_1),\ Q(x_2,y_2)$，且 $BP\perp BQ$、$BP=BQ>0$。记
+    \[
+       u=x_1-a,\quad v=y_1-b,\quad s=x_2-a,\quad t=y_2-b.
+    \]
+    要证明：$(s,t)=(-v,u)$ 或 $(s,t)=(v,-u)$。其中前者是逆时针 $90^\circ$，后者是顺时针 $90^\circ$。以下四种方法都证明这个完整结论，不只证明一个坐标的绝对值关系。
+
+    \medskip
+    \textbf{\textcolor{CProof}{方法一：初中几何法（门槛最低：直角三角形旋转）}}
+\input{assets/tikz/V039_component_triangles}
+    \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.42em]
+        \item[\textbf{第1步（认出等腰直角三角形）}]
+            因为 $BP\perp BQ$，所以 $\angle PBQ=90^\circ$；又因为 $BP=BQ>0$，所以 $\triangle PBQ$ 是以 $B$ 为直角顶点的等腰直角三角形。即从 $B$ 发出的两条等长线段恰好相差一个直角方向。
+        \item[\textbf{第2步（把 $B$ 当成临时的起点）}]
+            过 $P$ 分别向过 $B$ 的水平线、竖直线作垂线。所得直角三角形的两条直角边，其\textbf{带方向的}水平、竖直长度分别是 $u,v$。若 $u,v$ 有负号，只表示向左或向下。
+        \item[\textbf{第3步（旋转整个小直角三角形）}]
+            如图，把整个小直角三角形绕 $B$ 旋转，得到全等三角形；同色直角边的长度保持不变、水平与竖直方向互换。逆时针时，\textbf{向右}变成\textbf{向上}，\textbf{向上}变成\textbf{向左}，所以 $(u,v)\mapsto(-v,u)$。顺时针时，向右变向下、向上变向右，所以 $(u,v)\mapsto(v,-u)$。
+        \item[\textbf{第4步（为什么终点就是 $Q$）}]
+            旋转后的线段从 $B$ 出发，长度仍为 $BP=BQ$，而方向正好与 $BP$ 垂直。在 $BP$ 两侧各有一个这样的终点；题设的 $Q$ 必为其中一个。因此 $(s,t)=(-v,u)$ 或 $(v,-u)$。即便 $u=0$ 或 $v=0$，上述向左、向右、向上、向下的变化仍然成立。
+    \end{description}
+
+    \medskip
+    \newpage
+    \textbf{\textcolor{CProof}{方法二：最直观法（先减中心、交换变号、再加中心）}}
+\input{assets/tikz/V039_translated_center}
+    \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.42em]
+        \item[\textbf{第1步（移动观察起点，不移动图形）}]
+            从 $B(a,b)$ 走到 $P(x_1,y_1)$，需沿水平方向走 $x_1-a=u$，沿竖直方向走 $y_1-b=v$。因此 $\overrightarrow{BP}=(u,v)$。
+        \item[\textbf{第2步（分别旋转水平与竖直方向）}]
+            逆时针 $90^\circ$：水平变化 $u$ 变为竖直变化 $u$；竖直变化 $v$ 变为水平变化 $-v$，所以 $\overrightarrow{BQ}=(-v,u)$。顺时针时两项变为 $(v,-u)$。
+        \item[\textbf{第3步（将终点还原为绝对坐标）}]
+            从 $B(a,b)$ 出发加上上述变化量，逆时针时
+            \[
+                Q=(a-v,b+u)=(a+b-y_1,b+x_1-a),
+            \]
+            顺时针时
+            \[
+                Q=(a+v,b-u)=(a+y_1-b,b+a-x_1).
+            \]
+        \item[\textbf{第4步（反向检查）}]
+            两式的水平分量均取自原来的 $v$，竖直分量均取自原来的 $u$，故 $|s|=|v|,\ |t|=|u|$；而 $us+vt=0$、$s^2+t^2=u^2+v^2$，分别说明垂直和等长，检查完毕。
+    \end{description}
+
+    \medskip
+    \newpage
+    \textbf{\textcolor{CProof}{方法三：高中向量坐标法（数量积＋模，完整推导）}}
+\input{assets/tikz/V039_perpendicular_line}
+    \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.42em]
+        \item[\textbf{第1步（用数量积表达垂直）}]
+            $\overrightarrow{BP}=(u,v)$，$\overrightarrow{BQ}=(s,t)$。题设给出
+            \[
+                \overrightarrow{BP}\cdot\overrightarrow{BQ}=us+vt=0.
+            \]
+            这是两个向量垂直的坐标条件，不涉及任何斜率除法。
+        \item[\textbf{第2步（找到与 $(u,v)$ 垂直的方向）}]
+            考虑 $(-v,u)$。它与 $(u,v)$ 的数量积是
+            \[
+              u(-v)+v\,u=-uv+uv=0.
+            \]
+            在平面内，所有与非零向量 $(u,v)$ 垂直的向量，都沿这条直线，所以可以写成
+            \[
+              (s,t)=k(-v,u),\qquad k\ne0.
+            \]
+            \textbf{不跳步说明：} 若 $u\ne0$，从 $us+vt=0$ 得 $s=-vt/u$，取 $k=t/u$ 即得 $(s,t)=(-kv,ku)$；若 $u=0$，则 $v\ne0$ 且 $t=0$，取 $k=-s/v$ 也成立。
+        \item[\textbf{第3步（把等长条件代进去）}]
+            $BP=BQ>0$ 等价于
+            \[
+              u^2+v^2=s^2+t^2=k^2v^2+k^2u^2=k^2(u^2+v^2).
+            \]
+            因为 $u^2+v^2=BP^2>0$，两边除以它，得到 $k^2=1$，即 $k=1$ 或 $k=-1$。
+        \item[\textbf{第4步（分清正反方向）}]
+            $k=1$：$(s,t)=(-v,u)$，逆时针；$k=-1$：$(s,t)=(v,-u)$，顺时针。这也证明了\textbf{必要条件与充分条件}：满足任一坐标式，代回数量积与模的等式，便得到垂直且等长。
+    \end{description}
+
+    \medskip
+    \newpage
+    \textbf{\textcolor{CProof}{方法四：常规解析几何法（斜率＋距离，说明特殊情况）}}
+\input{assets/tikz/V039_slope_cases}
+    \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.42em]
+        \item[\textbf{第1步（先处理斜率可用的情形）}]
+            假设 $u\ne0$ 且 $v\ne0$。因为 $BP$ 既不水平也不竖直，垂直于它的 $BQ$ 也既不水平也不竖直，故 $s\ne0$。利用斜率乘积为 $-1$：
+            \[
+              \frac vu\cdot\frac ts=-1\quad\Longrightarrow\quad vt=-us.
+            \]
+        \item[\textbf{第2步（把 $t$ 用 $s$ 表示）}]
+            因为 $v\ne0$，可写成 $t=-us/v$。等长给出
+            \[
+              u^2+v^2=s^2+t^2
+                  =s^2+\frac{u^2s^2}{v^2}
+                  =\frac{s^2(u^2+v^2)}{v^2}.
+            \]
+            \textbf{关键：} 最右边保留共同因子 $u^2+v^2$，不要把它展开。
+        \item[\textbf{第3步（整体消去）}]
+            $u^2+v^2>0$，所以 $1=s^2/v^2$；于是 $s=v$ 或 $s=-v$。再代回 $t=-us/v$，分别得到
+            \[
+              (s,t)=(v,-u)\quad\text{或}\quad(s,t)=(-v,u).
+            \]
+        \item[\textbf{第4步（补齐斜率不能用的特殊情况）}]
+            若 $u=0$，则 $v\ne0$，$BP$ 竖直，$BQ$ 必水平，故 $t=0$；由等长得 $|s|=|v|$，依然得到上述两个坐标式。若 $v=0$，则 $u\ne0$，$BP$ 水平、$BQ$ 竖直，故 $s=0$，由等长得 $|t|=|u|$，结论也成立。
+    \end{description}
+
+    \medskip
+    \textbf{\textcolor{CProof}{四法对比与结论回扣}}
+    \begin{itemize}[leftmargin=*,itemsep=0.35em,topsep=0.2em]
+      \item \textbf{初中几何法：} 看直角与等长，用三角形旋转理解坐标交换，入门最容易。
+      \item \textbf{最直观坐标法：} 考场最快，直接\textbf{减中心 $\to$ 交换并变号 $\to$ 加中心}。
+      \item \textbf{高中向量法：} 垂直写数量积为零，等长写模相等，代数关系完整而且没有斜率例外。
+      \item \textbf{常规解析几何法：} 能与熟悉的斜率、两点距离公式衔接；但必须先检查水平、竖直情形。
+    \end{itemize}
+    共同结论：$\boxed{\overrightarrow{BQ}=(-v,u)\ \text{或}\ (v,-u)}$，所以 $\boxed{|x_2-a|=|y_1-b|}$。
+\end{proofbox}
