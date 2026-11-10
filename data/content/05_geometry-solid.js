@@ -4935,5 +4935,3272 @@ module.exports = {
         ]
       }
     ]
+  },
+  "G057": {
+    "id": "G057",
+    "title": "椭圆绕x轴旋转椭球体积公式",
+    "module": "geometry-solid",
+    "alias": [
+      "椭球体积",
+      "椭圆旋转体体积",
+      "椭圆旋转椭球体积"
+    ],
+    "difficulty": 3,
+    "category": "立体几何",
+    "tags": [
+      "椭圆",
+      "旋转体",
+      "椭球体",
+      "体积",
+      "旋转椭球"
+    ],
+    "core_summary": "椭圆绕x轴旋转所得旋转体体积等于三分之四π乘以x方向半轴长a，再乘以y方向半轴长b的平方。",
+    "core_formula": "V=\\frac{4}{3}\\pi a b^2",
+    "related_formulas": [
+      "V=\\frac{4}{3}\\pi r^3 \\text{（当} a=b=r \\text{时）}"
+    ],
+    "variables": [
+      {
+        "latex": "a"
+      },
+      {
+        "latex": "b"
+      },
+      {
+        "latex": "V"
+      }
+    ],
+    "conditions": [
+      "椭圆方程为 \\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1，其中 a>0, b>0",
+      "旋转轴为 x 轴"
+    ],
+    "conclusions": [
+      "旋转椭球体体积 V=\\frac{4}{3}\\pi a b^2"
+    ],
+    "usage": {
+      "scenarios": [
+        "立体几何综合题",
+        "选填题快速计算体积"
+      ],
+      "problem_types": [
+        "计算题",
+        "填空题"
+      ],
+      "exam_frequency": 0.4,
+      "exam_score": 5
+    },
+    "interactive": {
+      "has_diagram": false,
+      "geogebra_id": "",
+      "param_demo": {}
+    },
+    "assets": {
+      "svg": "G057.svg",
+      "image": "",
+      "video": "",
+      "audio": ""
+    },
+    "shareConfig": {
+      "title": "椭圆旋转椭球体积公式：直接套用简化计算",
+      "shareDesc": "适合课后复盘和考前回顾，直接给出旋转椭球体积公式，避免积分推导，适合选填题快速计算。"
+    },
+    "relations": {
+      "prerequisites": [
+        "椭圆标准方程",
+        "旋转体体积概念"
+      ],
+      "related_ids": [],
+      "similar": ""
+    },
+    "isPro": 0,
+    "remarks": "",
+    "knowledgeNode": "立体几何-体积与面积-体积",
+    "altNodes": "解析几何-圆锥曲线-椭圆",
+    "statement": "条件\n- 条件 1（椭圆标准方程）： 椭圆方程为 (x^2) / (a^2)+(y^2) / (b^2)=1，其中 a>0，b>0，且将该椭圆绕 x 轴旋转一周。\n结论\n- 结论一（旋转椭球体积）：\n直观描述： 体积等于三分之四 乘 x 半轴再乘 y 半轴的平方。\nV=(4) / (3) a b^2.\n- 推广结论（球体退化特例）：\n直观描述： 当 a=b=r 时，椭圆退化为圆；该圆绕 x 轴旋转一周得到球，体积公式退化为。\nV=(4) / (3) r^3.\nassets/tikz/G057_fig01_overview.tex\n0.4em\n图：椭圆绕 x 轴旋转形成旋转椭球体的示意图\n使用提醒：\n公式中的 a 为 x 方向半轴长，b 为 y 方向半轴长，切勿交换；旋转轴必须为 x 轴。",
+    "explanation": "一句话直觉\n椭圆绕轴扫出的椭球体，就像被均匀拉伸的球，体积仍然带着熟悉的 (4) / (3) ，只是半径被两个半轴“分工合作”。\n核心拆解\n- 要点一（截面圆盘）： 用垂直于 x 轴的平面去截旋转体，截面是圆，半径为当时椭圆纵坐标的绝对值 |y|，因此截面面积为 y^2。\n- 要点二（积分累加）： 将 x 从 -a 到 a 上所有薄圆盘的体积加总，得到定积分 V= in t_-a^a y^2\\,dx。\n- 要点三（代数化简）： 利用椭圆方程 y^2=b^2 (1-(x^2) / (a^2) ) 消去 y，积分后自然得到 V=(4) / (3) a b^2。\n几何本质（祖暅原理）\n从截面积分的角度看，旋转体体积等于各个位置截面面积的累积：V = in t_-a^a S(x)\\,dx。这与祖暅原理的思想一致：若两个立体在同一高度处的截面积处处相等，则它们体积相等。椭圆旋转体的每个截面圆半径按椭圆规律变化，但总面积累积后仍保持与球体相同的结构系数。\n代数意义（对称简化）\n积分利用了区间对称性和被积函数的偶函数性质，使计算化简为 b^2 * 2 (a-(a) / (3) )，最终 (4) / (3) 来自 2(1-(1) / (3)) 的乘积。\n考点价值\n- 考法一（直接套用公式）： 给出标准椭圆方程，直接识别 a,b，代入体积公式。\n- 考法二（逆向求参数）： 已知旋转椭球体积和其中一个半轴，反求另一半轴或椭圆方程。\n顿悟点\n球体积是 (4) / (3) r^3，而椭球体积是 (4) / (3) a b^2。为什么 b 出现平方？因为旋转垂直于 x 轴的方向是二维的，所以 y 方向的尺度对体积的影响是平方关系，而 x 方向只沿旋转轴拉伸，体积与它成正比。\nassets/tikz/G057_fig07_why_b_squared.tex\n使用场景\n- 场景一（求旋转体体积）： 题目给出椭圆的标准方程，要求计算绕 x 轴旋转所得立体体积。\n- 场景二（物理建模）： 在物理问题中，计算椭球形容器的容积或椭球天体的大致体积。",
+    "proof": "思路提示\n采用旋转体体积的圆盘法：体积等于截面面积沿旋转轴的定积分。先由椭圆方程用 x 表示截面半径平方 y^2，再计算积分 in t_-a^a y^2\\,dx。\n正式推导\n- 步骤一（写出截面面积）：\n由椭圆方程 (x^2) / (a^2)+(y^2) / (b^2)=1 解出\ny^2=b^2 (1-(x^2) / (a^2) ).\n绕 x 轴旋转时，垂直于 x 轴的截面是圆，半径 r=|y|，故截面面积函数为\nS(x)= y^2= b^2 (1-(x^2) / (a^2) ), x in [-a,a].\n理由： 旋转体圆盘法，截面半径由曲线到旋转轴的距离确定。\nassets/tikz/G057_fig02_disk_method.tex\n0.4em\n图：圆盘法截面示意图\n- 步骤二（建立积分式）：\n旋转体体积为截面面积沿 x 轴的积分，并利用对称性：\nV= in t_-a^a S(x)\\,dx = 2 in t_0^a b^2 (1-(x^2) / (a^2) )\\,dx.\n理由： 被积函数为偶函数，积分区间关于原点对称，可简化为正半轴积分的两倍。\n- 步骤三（计算原函数）：\n提出常数，计算不定积分：\nin t (1-(x^2) / (a^2) )\\,dx = x - (x^3) / (3a^2) + C.\n理由： 幂函数积分公式 in t x^n\\,dx = (x^n+1) / (n+1)。\n- 步骤四（代入上下限）：\n计算定积分：\nin t_0^a (1-(x^2) / (a^2) )\\,dx\n& = _0^a \\\\\n& = (a - (a^3) / (3a^2) ) - 0 \\\\\n& = a - (a) / (3) = (2a) / (3).\n理由： 牛顿-莱布尼茨公式，代入上限减下限。\n- 步骤五（得出体积）：\n将积分结果代回体积表达式：\nV = 2 b^2 * (2a) / (3) = (4) / (3) a b^2.\n理由： 合并常数因子，即得所需公式。\n结论回扣\n所得体积公式与结论一致。特别地，当 a=b=r 时，y^2=r^2(1-x^2/r^2)，代入可得 V=(4) / (3) r^3，退化为球体积公式。",
+    "examples": "例 1（基础）\n题目： 椭圆方程为 (x^2) / (16)+(y^2) / (9)=1，将其绕 x 轴旋转一周，求所得旋转体的体积。\n解题步骤：\n- 第一步（识别半轴）： 由标准方程直接读出 a^2=16，b^2=9，故 a=4，b=3。\n理由： 标准形式 (x^2) / (a^2)+(y^2) / (b^2)=1 中分母即为半轴平方。\n- 第二步（套用公式）： 旋转椭球体积公式为 V=(4) / (3) a b^2，代入 a=4，b=3：\nV=(4) / (3) * 4 * 3^2.\n理由： 绕 x 轴旋转时适用该公式。\n- 第三步（计算结果）： 计算数值：\nV=(4) / (3) * 4 * 9 = (4) / (3) * 36 = 48 .\n理由： 先算指数，再约分相乘。\n关键结论： 所求体积为 48 （体积单位）。\n例 2（稍变形）\n题目： 已知椭圆方程为 9x^2+25y^2=225，将该椭圆绕 x 轴旋转，求旋转椭球体积。\n解题步骤：\n- 第一步（化为标准式）： 方程两边同除以 225，得 (x^2) / (25)+(y^2) / (9)=1。\n理由： 必须化为 (x^2) / (a^2)+(y^2) / (b^2)=1 的标准形式才能准确识别 a,b。\n- 第二步（提取半轴）： 由此知 a^2=25，b^2=9，即 a=5，b=3。\n理由： a,b>0。\n- 第三步（代入体积公式）：\nV=(4) / (3) a b^2 = (4) / (3) * 5 * 3^2 = (4) / (3) * 5 * 9 = 60 .\n理由： 套用公式直接计算。\n关键结论： 旋转椭球体积为 60 。\n例 3（综合应用）\n题目： 一椭圆绕 x 轴旋转一周所得椭球体积为 (16 ) / (3)，已知椭圆在 x 轴上的半轴长为 2，求椭圆标准方程。\n解题步骤：\n- 第一步（设未知数列方程）： 设椭圆标准方程为 (x^2) / (a^2)+(y^2) / (b^2)=1，已知 a=2，体积 V=(16 ) / (3)。由体积公式\nV=(4) / (3) a b^2,\n代入得 (4) / (3) * 2 * b^2 = (16 ) / (3)。\n理由： 逆用公式建立关于 b^2 的方程。\n- 第二步（化简求解）： 两边消去 并化简：\n(8) / (3) b^2 = (16) / (3) b^2=2.\n理由： 等式两边同乘 (3) / (8)，或交叉相乘。\n- 第三步（写出方程）： 将 a^2=4，b^2=2 代回标准形式：\n(x^2) / (4)+(y^2) / (2)=1.\n理由： 半轴平方 a^2=2^2=4，b^2=2。\n关键结论： 所求椭圆方程为 (x^2) / (4)+(y^2) / (2)=1。",
+    "traps": "- 易错点一（旋转轴混淆） 记错公式，将绕 x 轴旋转的体积公式误用于绕 y 轴旋转。\n- 正确理解（轴决定截面半径）： 绕哪条轴旋转，截面半径就由垂直该轴的坐标决定。绕 x 轴时，半径是 |y|，体积公式含 b^2；若绕 y 轴，则应使用 x 的表达式积分，公式结构会互换 a,b 的角色。\n- 错因分析（死记硬背）： 只记忆体积公式的外形，不思考公式中 a,b 的几何意义与旋转轴的关系。\nassets/tikz/G057_fig04_axis_compare.tex\n0.4em\n图：椭圆分别绕 x 轴与 y 轴旋转的体积公式对比示意图\n- 易错点二（未化标准形式） 遇到非标准方程如 4x^2+9y^2=36 时，直接取 a=2,b=3 代入计算。\n- 正确理解（先归一化）： 必须先将方程化为 (x^2) / (9)+(y^2) / (4)=1，确定正确的半轴 a=3,b=2。\n- 错因分析（系数处理疏忽）： 误以为方程中 x^2,y^2 项的系数就是 (1) / (a^2),(1) / (b^2)，忘记等式右边必须为 1。\nassets/tikz/G057_fig05_standardize.tex\n0.4em\n图：非标准方程先化标准式流程图\n- 易错点三（半轴与轴长混淆） 将轴长（如长轴长 10）直接作为 a=10 代入公式。\n- 正确理解（半轴长定义）： 椭圆标准方程中的 a 是半轴长，即轴长的一半。长轴长为 2a，故 a=5。\n- 错因分析（概念模糊）： 对椭圆几何参数定义记忆不清，混淆了“轴”与“半轴”。\nassets/tikz/G057_fig06_semiaxis_warning.tex\n0.4em\n图：半轴长不是轴长示意图",
+    "summary": "椭圆绕x轴旋转所得旋转体体积等于三分之四π乘以x方向半轴长a，再乘以y方向半轴长b的平方。",
+    "display_version": 2,
+    "sections": [
+      {
+        "key": "core_formula",
+        "title": "核心公式",
+        "layout": "text",
+        "items": [
+          {
+            "latex": "V=\\frac{4}{3}\\pi a b^2"
+          }
+        ]
+      },
+      {
+        "key": "variables",
+        "title": "涉及变量",
+        "layout": "text",
+        "items": [
+          {
+            "latex": "a"
+          },
+          {
+            "latex": "b"
+          },
+          {
+            "latex": "V"
+          }
+        ]
+      },
+      {
+        "key": "statement",
+        "title": "命题表述",
+        "layout": "theorem-list",
+        "items": [
+          {
+            "title": "条件 1（椭圆标准方程）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "椭圆方程为"
+              },
+              {
+                "type": "math",
+                "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+              },
+              {
+                "type": "text",
+                "text": "，其中"
+              },
+              {
+                "type": "math",
+                "latex": "a>0"
+              },
+              {
+                "type": "text",
+                "text": "，"
+              },
+              {
+                "type": "math",
+                "latex": "b>0"
+              },
+              {
+                "type": "text",
+                "text": "，且将该椭圆绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转一周。"
+              }
+            ]
+          },
+          {
+            "title": "结论一（旋转椭球体积）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "体积等于三分之四"
+              },
+              {
+                "type": "math",
+                "latex": "\\pi"
+              },
+              {
+                "type": "text",
+                "text": "乘"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "半轴再乘"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "半轴的平方。"
+              },
+              {
+                "type": "math",
+                "latex": "V=\\frac{4}{3}\\pi a b^{2}."
+              }
+            ]
+          },
+          {
+            "title": "推广结论（球体退化特例）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "当"
+              },
+              {
+                "type": "math",
+                "latex": "a=b=r"
+              },
+              {
+                "type": "text",
+                "text": "时，椭圆退化为圆；该圆绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转一周得到球，体积公式退化为。"
+              },
+              {
+                "type": "math",
+                "latex": "V=\\frac{4}{3}\\pi r^{3}."
+              },
+              {
+                "type": "text",
+                "text": "assets/tikz/G057_fig01_overview.tex\n0.4em\n图：椭圆绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转形成旋转椭球体的示意图\n使用提醒：\n公式中的"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "为"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "方向半轴长，"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "为"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "方向半轴长，切勿交换；旋转轴必须为"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴。"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "explanation",
+        "title": "理解与直觉",
+        "layout": "text",
+        "items": [
+          {
+            "text": "一句话直觉\n椭圆绕轴扫出的椭球体，就像被均匀拉伸的球，体积仍然带着熟悉的"
+          },
+          {
+            "latex": "\\frac{4}{3}\\pi"
+          },
+          {
+            "text": "，只是半径被两个半轴“分工合作”。"
+          },
+          {
+            "text": "核心拆解"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "要点一（截面圆盘）：\n用垂直于"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴的平面去截旋转体，截面是圆，半径为当时椭圆纵坐标的绝对值"
+              },
+              {
+                "type": "math",
+                "latex": "|y|"
+              },
+              {
+                "type": "text",
+                "text": "，因此截面面积为"
+              }
+            ]
+          },
+          {
+            "latex": "\\pi y^{2}"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "要点二（积分累加）：\n将"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "从"
+              },
+              {
+                "type": "math",
+                "latex": "-a"
+              },
+              {
+                "type": "text",
+                "text": "到"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "上所有薄圆盘的体积加总，得到定积分"
+              }
+            ]
+          },
+          {
+            "latex": "V=\\int_{-a}^{a} \\pi y^{2}\\,dx"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "要点三（代数化简）：\n利用椭圆方程"
+          },
+          {
+            "latex": "y^{2}=b^{2}\\bigl(1-\\frac{x^{2}}{a^{2}}\\bigr)"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "消去"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "，积分后自然得到"
+              }
+            ]
+          },
+          {
+            "latex": "V=\\frac{4}{3}\\pi a b^{2}"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "几何本质（祖暅原理）\n从截面积分的角度看，旋转体体积等于各个位置截面面积的累积："
+          },
+          {
+            "latex": "V = \\int_{-a}^{a} S(x)\\,dx"
+          },
+          {
+            "text": "。这与祖暅原理的思想一致：若两个立体在同一高度处的截面积处处相等，则它们体积相等。椭圆旋转体的每个截面圆半径按椭圆规律变化，但总面积累积后仍保持与球体相同的结构系数。"
+          },
+          {
+            "text": "代数意义（对称简化）\n积分利用了区间对称性和被积函数的偶函数性质，使计算化简为"
+          },
+          {
+            "latex": "\\pi b^{2}\\cdot 2\\bigl(a-\\frac{a}{3}\\bigr)"
+          },
+          {
+            "text": "，最终"
+          },
+          {
+            "latex": "\\frac{4}{3}"
+          },
+          {
+            "text": "来自"
+          },
+          {
+            "latex": "2(1-\\frac{1}{3})"
+          },
+          {
+            "text": "的乘积。"
+          },
+          {
+            "text": "考点价值"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "考法一（直接套用公式）： 给出标准椭圆方程，直接识别"
+              },
+              {
+                "type": "math",
+                "latex": "a,b"
+              },
+              {
+                "type": "text",
+                "text": "，代入体积公式。"
+              }
+            ]
+          },
+          {
+            "text": "考法二（逆向求参数）： 已知旋转椭球体积和其中一个半轴，反求另一半轴或椭圆方程。"
+          },
+          {
+            "text": "顿悟点\n球体积是"
+          },
+          {
+            "latex": "\\frac{4}{3}\\pi r^{3}"
+          },
+          {
+            "text": "，而椭球体积是"
+          },
+          {
+            "latex": "\\frac{4}{3}\\pi a b^{2}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "。为什么"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "出现平方？因为旋转垂直于"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴的方向是二维的，所以"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "方向的尺度对体积的影响是平方关系，而"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "方向只沿旋转轴拉伸，体积与它成正比。\nassets/tikz/G057_fig07_why_b_squared.tex"
+              }
+            ]
+          },
+          {
+            "text": "使用场景"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "场景一（求旋转体体积）： 题目给出椭圆的标准方程，要求计算绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转所得立体体积。"
+              }
+            ]
+          },
+          {
+            "text": "场景二（物理建模）： 在物理问题中，计算椭球形容器的容积或椭球天体的大致体积。"
+          }
+        ]
+      },
+      {
+        "key": "proof",
+        "title": "证明过程",
+        "layout": "text",
+        "items": [
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "思路提示\n采用旋转体体积的圆盘法：体积等于截面面积沿旋转轴的定积分。先由椭圆方程用"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "表示截面半径平方"
+              },
+              {
+                "type": "math",
+                "latex": "y^{2}"
+              },
+              {
+                "type": "text",
+                "text": "，再计算积分"
+              }
+            ]
+          },
+          {
+            "latex": "\\int_{-a}^{a} \\pi y^{2}\\,dx"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "正式推导"
+          },
+          {
+            "text": "步骤一（写出截面面积）：\n由椭圆方程"
+          },
+          {
+            "latex": "\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1"
+          },
+          {
+            "text": "解出"
+          },
+          {
+            "latex": "y^{2}=b^{2}\\Bigl(1-\\frac{x^{2}}{a^{2}}\\Bigr)"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转时，垂直于"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴的截面是圆，半径"
+              },
+              {
+                "type": "math",
+                "latex": "r=|y|"
+              },
+              {
+                "type": "text",
+                "text": "，故截面面积函数为"
+              }
+            ]
+          },
+          {
+            "latex": "S(x)=\\pi y^{2}=\\pi b^{2}\\Bigl(1-\\frac{x^{2}}{a^{2}}\\Bigr),\\quad x\\in[-a,a]"
+          },
+          {
+            "text": ".理由： 旋转体圆盘法，截面半径由曲线到旋转轴的距离确定。\nassets/tikz/G057_fig02_disk_method.tex\n0.4em\n图：圆盘法截面示意图"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "步骤二（建立积分式）：\n旋转体体积为截面面积沿"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴的积分，并利用对称性："
+              }
+            ]
+          },
+          {
+            "latex": "V=\\int_{-a}^{a} S(x)\\,dx = 2\\int_{0}^{a} \\pi b^{2}\\Bigl(1-\\frac{x^{2}}{a^{2}}\\Bigr)\\,dx"
+          },
+          {
+            "text": ".理由： 被积函数为偶函数，积分区间关于原点对称，可简化为正半轴积分的两倍。"
+          },
+          {
+            "text": "步骤三（计算原函数）：\n提出常数，计算不定积分："
+          },
+          {
+            "latex": "\\int \\Bigl(1-\\frac{x^{2}}{a^{2}}\\Bigr)\\,dx = x - \\frac{x^{3}}{3a^{2}} + C"
+          },
+          {
+            "text": ".理由： 幂函数积分公式"
+          },
+          {
+            "latex": "\\int x^{n}\\,dx = \\frac{x^{n+1}}{n+1}"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "步骤四（代入上下限）：\n计算定积分："
+          },
+          {
+            "latex": "\\begin{aligned}\n\\int_{0}^{a} \\Bigl(1-\\frac{x^{2}}{a^{2}}\\Bigr)\\,dx\n& = \\Bigl[x - \\frac{x^{3}}{3a^{2}}\\Bigr]_{0}^{a} \\\\\n& = \\Bigl(a - \\frac{a^{3}}{3a^{2}}\\Bigr) - 0 \\\\\n& = a - \\frac{a}{3} = \\frac{2a}{3}.\n\\end{aligned}"
+          },
+          {
+            "text": "理由： 牛顿-莱布尼茨公式，代入上限减下限。"
+          },
+          {
+            "text": "步骤五（得出体积）：\n将积分结果代回体积表达式："
+          },
+          {
+            "latex": "V = 2\\pi b^{2} \\cdot \\frac{2a}{3} = \\frac{4}{3}\\pi a b^{2}"
+          },
+          {
+            "text": ".理由： 合并常数因子，即得所需公式。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "结论回扣\n所得体积公式与结论一致。特别地，当"
+              },
+              {
+                "type": "math",
+                "latex": "a=b=r"
+              },
+              {
+                "type": "text",
+                "text": "时，"
+              },
+              {
+                "type": "math",
+                "latex": "y^{2}=r^{2}(1-x^{2}/r^{2})"
+              },
+              {
+                "type": "text",
+                "text": "，代入可得"
+              }
+            ]
+          },
+          {
+            "latex": "V=\\frac{4}{3}\\pi r^{3}"
+          },
+          {
+            "text": "，退化为球体积公式。"
+          }
+        ]
+      },
+      {
+        "key": "examples",
+        "title": "例题应用",
+        "layout": "text",
+        "items": [
+          {
+            "text": "例 1（基础）\n题目： 椭圆方程为"
+          },
+          {
+            "latex": "\\frac{x^{2}}{16}+\\frac{y^{2}}{9}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，将其绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转一周，求所得旋转体的体积。\n解题步骤："
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "第一步（识别半轴）：\n由标准方程直接读出"
+              },
+              {
+                "type": "math",
+                "latex": "a^{2}=16"
+              },
+              {
+                "type": "text",
+                "text": "，"
+              },
+              {
+                "type": "math",
+                "latex": "b^{2}=9"
+              },
+              {
+                "type": "text",
+                "text": "，故"
+              },
+              {
+                "type": "math",
+                "latex": "a=4"
+              },
+              {
+                "type": "text",
+                "text": "，"
+              },
+              {
+                "type": "math",
+                "latex": "b=3"
+              },
+              {
+                "type": "text",
+                "text": "。\n理由： 标准形式"
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1"
+          },
+          {
+            "text": "中分母即为半轴平方。"
+          },
+          {
+            "text": "第二步（套用公式）：\n旋转椭球体积公式为"
+          },
+          {
+            "latex": "V=\\frac{4}{3}\\pi a b^{2}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，代入"
+              },
+              {
+                "type": "math",
+                "latex": "a=4"
+              },
+              {
+                "type": "text",
+                "text": "，"
+              },
+              {
+                "type": "math",
+                "latex": "b=3"
+              },
+              {
+                "type": "text",
+                "text": "："
+              }
+            ]
+          },
+          {
+            "latex": "V=\\frac{4}{3}\\pi \\times 4 \\times 3^{2}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".理由： 绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转时适用该公式。"
+              }
+            ]
+          },
+          {
+            "text": "第三步（计算结果）：\n计算数值："
+          },
+          {
+            "latex": "V=\\frac{4}{3}\\pi \\times 4 \\times 9 = \\frac{4}{3}\\pi \\times 36 = 48\\pi"
+          },
+          {
+            "text": ".理由： 先算指数，再约分相乘。\n关键结论： 所求体积为"
+          },
+          {
+            "latex": "48\\pi"
+          },
+          {
+            "text": "（体积单位）。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "例 2（稍变形）\n题目： 已知椭圆方程为"
+              },
+              {
+                "type": "math",
+                "latex": "9x^{2}+25y^{2}=225"
+              },
+              {
+                "type": "text",
+                "text": "，将该椭圆绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转，求旋转椭球体积。\n解题步骤："
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "第一步（化为标准式）：\n方程两边同除以"
+              },
+              {
+                "type": "math",
+                "latex": "225"
+              },
+              {
+                "type": "text",
+                "text": "，得"
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{x^{2}}{25}+\\frac{y^{2}}{9}=1"
+          },
+          {
+            "text": "。\n理由： 必须化为"
+          },
+          {
+            "latex": "\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "的标准形式才能准确识别"
+              },
+              {
+                "type": "math",
+                "latex": "a,b"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "第二步（提取半轴）：\n由此知"
+              },
+              {
+                "type": "math",
+                "latex": "a^{2}=25"
+              },
+              {
+                "type": "text",
+                "text": "，"
+              },
+              {
+                "type": "math",
+                "latex": "b^{2}=9"
+              },
+              {
+                "type": "text",
+                "text": "，即"
+              },
+              {
+                "type": "math",
+                "latex": "a=5"
+              },
+              {
+                "type": "text",
+                "text": "，"
+              },
+              {
+                "type": "math",
+                "latex": "b=3"
+              },
+              {
+                "type": "text",
+                "text": "。\n理由："
+              },
+              {
+                "type": "math",
+                "latex": "a,b>0"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "text": "第三步（代入体积公式）："
+          },
+          {
+            "latex": "V=\\frac{4}{3}\\pi a b^{2} = \\frac{4}{3}\\pi \\times 5 \\times 3^{2} = \\frac{4}{3}\\pi \\times 5 \\times 9 = 60\\pi"
+          },
+          {
+            "text": ".理由： 套用公式直接计算。\n关键结论： 旋转椭球体积为"
+          },
+          {
+            "latex": "60\\pi"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "例 3（综合应用）\n题目： 一椭圆绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转一周所得椭球体积为"
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{16\\pi}{3}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，已知椭圆在"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴上的半轴长为"
+              },
+              {
+                "type": "math",
+                "latex": "2"
+              },
+              {
+                "type": "text",
+                "text": "，求椭圆标准方程。\n解题步骤："
+              }
+            ]
+          },
+          {
+            "text": "第一步（设未知数列方程）：\n设椭圆标准方程为"
+          },
+          {
+            "latex": "\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，已知"
+              },
+              {
+                "type": "math",
+                "latex": "a=2"
+              },
+              {
+                "type": "text",
+                "text": "，体积"
+              }
+            ]
+          },
+          {
+            "latex": "V=\\frac{16\\pi}{3}"
+          },
+          {
+            "text": "。由体积公式"
+          },
+          {
+            "latex": "V=\\frac{4}{3}\\pi a b^{2}"
+          },
+          {
+            "text": ",代入得"
+          },
+          {
+            "latex": "\\frac{4}{3}\\pi \\times 2 \\times b^{2} = \\frac{16\\pi}{3}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "。\n理由： 逆用公式建立关于"
+              },
+              {
+                "type": "math",
+                "latex": "b^{2}"
+              },
+              {
+                "type": "text",
+                "text": "的方程。"
+              }
+            ]
+          },
+          {
+            "text": "第二步（化简求解）：\n两边消去"
+          },
+          {
+            "latex": "\\pi"
+          },
+          {
+            "text": "并化简："
+          },
+          {
+            "latex": "\\frac{8}{3} b^{2} = \\frac{16}{3} \\quad\\Longrightarrow\\quad b^{2}=2"
+          },
+          {
+            "text": ".理由： 等式两边同乘"
+          },
+          {
+            "latex": "\\frac{3}{8}"
+          },
+          {
+            "text": "，或交叉相乘。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "第三步（写出方程）：\n将"
+              },
+              {
+                "type": "math",
+                "latex": "a^{2}=4"
+              },
+              {
+                "type": "text",
+                "text": "，"
+              },
+              {
+                "type": "math",
+                "latex": "b^{2}=2"
+              },
+              {
+                "type": "text",
+                "text": "代回标准形式："
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{x^{2}}{4}+\\frac{y^{2}}{2}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": ".理由： 半轴平方"
+              },
+              {
+                "type": "math",
+                "latex": "a^{2}=2^{2}=4"
+              },
+              {
+                "type": "text",
+                "text": "，"
+              },
+              {
+                "type": "math",
+                "latex": "b^{2}=2"
+              },
+              {
+                "type": "text",
+                "text": "。\n关键结论： 所求椭圆方程为"
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{x^{2}}{4}+\\frac{y^{2}}{2}=1"
+          },
+          {
+            "text": "。"
+          }
+        ]
+      },
+      {
+        "key": "traps",
+        "title": "易错提醒",
+        "layout": "text",
+        "items": [
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "易错点一（旋转轴混淆）\n记错公式，将绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转的体积公式误用于绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "正确理解（轴决定截面半径）：\n绕哪条轴旋转，截面半径就由垂直该轴的坐标决定。绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴时，半径是"
+              },
+              {
+                "type": "math",
+                "latex": "|y|"
+              },
+              {
+                "type": "text",
+                "text": "，体积公式含"
+              },
+              {
+                "type": "math",
+                "latex": "b^{2}"
+              },
+              {
+                "type": "text",
+                "text": "；若绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴，则应使用"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "的表达式积分，公式结构会互换"
+              },
+              {
+                "type": "math",
+                "latex": "a,b"
+              },
+              {
+                "type": "text",
+                "text": "的角色。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "错因分析（死记硬背）：\n只记忆体积公式的外形，不思考公式中"
+              },
+              {
+                "type": "math",
+                "latex": "a,b"
+              },
+              {
+                "type": "text",
+                "text": "的几何意义与旋转轴的关系。\nassets/tikz/G057_fig04_axis_compare.tex\n0.4em\n图：椭圆分别绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴与"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转的体积公式对比示意图"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "易错点二（未化标准形式）\n遇到非标准方程如"
+              },
+              {
+                "type": "math",
+                "latex": "4x^{2}+9y^{2}=36"
+              },
+              {
+                "type": "text",
+                "text": "时，直接取"
+              },
+              {
+                "type": "math",
+                "latex": "a=2,b=3"
+              },
+              {
+                "type": "text",
+                "text": "代入计算。"
+              }
+            ]
+          },
+          {
+            "text": "正确理解（先归一化）：\n必须先将方程化为"
+          },
+          {
+            "latex": "\\frac{x^{2}}{9}+\\frac{y^{2}}{4}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，确定正确的半轴"
+              },
+              {
+                "type": "math",
+                "latex": "a=3,b=2"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "错因分析（系数处理疏忽）：\n误以为方程中"
+              },
+              {
+                "type": "math",
+                "latex": "x^{2},y^{2}"
+              },
+              {
+                "type": "text",
+                "text": "项的系数就是"
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{1}{a^{2}},\\frac{1}{b^{2}}"
+          },
+          {
+            "text": "，忘记等式右边必须为 1。\nassets/tikz/G057_fig05_standardize.tex\n0.4em\n图：非标准方程先化标准式流程图"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "易错点三（半轴与轴长混淆）\n将轴长（如长轴长 10）直接作为"
+              },
+              {
+                "type": "math",
+                "latex": "a=10"
+              },
+              {
+                "type": "text",
+                "text": "代入公式。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "正确理解（半轴长定义）：\n椭圆标准方程中的"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "是半轴长，即轴长的一半。长轴长为"
+              },
+              {
+                "type": "math",
+                "latex": "2a"
+              },
+              {
+                "type": "text",
+                "text": "，故"
+              },
+              {
+                "type": "math",
+                "latex": "a=5"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "text": "错因分析（概念模糊）：\n对椭圆几何参数定义记忆不清，混淆了“轴”与“半轴”。\nassets/tikz/G057_fig06_semiaxis_warning.tex\n0.4em\n图：半轴长不是轴长示意图"
+          }
+        ]
+      },
+      {
+        "key": "summary",
+        "title": "复盘总结",
+        "layout": "text",
+        "items": [
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "一句话核心\n椭圆绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转一周所得椭球体积为"
+              }
+            ]
+          },
+          {
+            "latex": "V=\\frac{4}{3}\\pi a b^{2}"
+          },
+          {
+            "text": "，系数"
+          },
+          {
+            "latex": "\\frac{4}{3}\\pi"
+          },
+          {
+            "text": "与球体相同，只是半径被两半轴“分工”。"
+          },
+          {
+            "text": "使用条件"
+          },
+          {
+            "text": "条件 1（标准方程）： 椭圆方程必须为"
+          },
+          {
+            "latex": "\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "的形式，且"
+              },
+              {
+                "type": "math",
+                "latex": "a>0,b>0"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "条件 2（明确旋转轴）： 旋转轴为"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴，此时截面半径由"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "坐标确定，公式中"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "带平方。"
+              }
+            ]
+          },
+          {
+            "text": "关键提醒"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "易错点（半轴与轴长）："
+              },
+              {
+                "type": "math",
+                "latex": "a,b"
+              },
+              {
+                "type": "text",
+                "text": "是半轴长（即轴长的一半），切勿将全长直接代入。"
+              }
+            ]
+          },
+          {
+            "text": "检查项（先化标准）： 若方程非标准形式，务必先变形为"
+          },
+          {
+            "latex": "\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，再读取"
+              },
+              {
+                "type": "math",
+                "latex": "a,b"
+              },
+              {
+                "type": "text",
+                "text": "。\nassets/tikz/G057_fig08_summary_flow.tex"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "G058": {
+    "id": "G058",
+    "title": "椭圆绕y轴旋转体积公式",
+    "module": "geometry-solid",
+    "alias": [
+      "椭球体积公式",
+      "旋转椭球体积",
+      "V_y=4/3πa²b",
+      "椭圆旋转体体积"
+    ],
+    "difficulty": 3,
+    "category": "立体几何",
+    "tags": [
+      "旋转体体积",
+      "椭圆",
+      "椭球",
+      "定积分应用",
+      "体积公式"
+    ],
+    "core_summary": "椭圆绕y轴旋转一周所得旋转椭球的体积等于(4/3)π乘以x轴半轴长的平方再乘以y轴半轴长",
+    "core_formula": "V_y=\\frac{4}{3}\\pi a^2 b",
+    "related_formulas": [
+      "V_x=\\frac{4}{3}\\pi a b^2",
+      "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+    ],
+    "variables": [],
+    "conditions": [
+      "椭圆方程标准形式",
+      "a>0, b>0",
+      "绕y轴旋转一周"
+    ],
+    "conclusions": [
+      "旋转椭球体积V_y = (4/3)πa²b",
+      "绕x轴旋转体积V_x = (4/3)πab²"
+    ],
+    "usage": {
+      "scenarios": [
+        "旋转体体积计算",
+        "定积分应用",
+        "椭球体积相关综合题"
+      ],
+      "problem_types": [
+        "直接代入公式计算体积",
+        "已知体积反求参数",
+        "比较绕不同轴体积大小",
+        "与离心率结合"
+      ],
+      "exam_frequency": 0.6,
+      "exam_score": 5
+    },
+    "interactive": {
+      "has_diagram": true,
+      "geogebra_id": "",
+      "param_demo": {}
+    },
+    "assets": {
+      "svg": "G058.svg"
+    },
+    "shareConfig": {
+      "title": "椭圆绕y轴旋转体积公式：直接计算旋转椭球体积",
+      "shareDesc": "适合立体几何旋转体体积计算，避免每次用积分推导，直接套用公式V_y=4/3πa²b，提升计算速度和准确性，讲评课或刷题前速查。"
+    },
+    "relations": {
+      "prerequisites": [
+        "椭圆标准方程",
+        "旋转体体积的定积分理解"
+      ],
+      "related_ids": [],
+      "similar": [
+        "绕x轴体积公式V_x=4/3πab²",
+        "球体体积公式（当a=b=R时）"
+      ]
+    },
+    "isPro": 0,
+    "remarks": "",
+    "knowledgeNode": "立体几何-体积与面积-体积",
+    "altNodes": [
+      "解析几何-圆锥曲线-椭圆",
+      "立体几何-体积与面积-表面积"
+    ],
+    "statement": "条件\n- 条件1（椭圆与旋转轴）： 椭圆 (x^2) / (a^2)+(y^2) / (b^2)=1（a>0, b>0）绕 y 轴旋转一周。\n结论\n- 结论一（旋转椭球体积）：\n直观描述： 以 a 为赤道半径、b 为极半径的旋转椭球，体积与 a^2b 成正比。\nV_y = (4) / (3) a^2 b ,\n其中 a 是椭圆在 x 轴方向的半轴长，b 是椭圆在 y 轴方向的半轴长。\n- 推广结论（绕x轴体积）：\n直观描述： 绕 x 轴旋转时，体积与 ab^2 成正比，公式呈对称形式。\nV_x = (4) / (3) a b^2",
+    "explanation": "一句话直觉\n椭圆绕 y 轴旋转后形成旋转椭球。它的横向半径为 a，竖直半径为 b。当 b>a 时像橄榄球，当 a>b 时像扁球,它的体积等于 a^2 b 乘以一个常数 (4) / (3) ，即体积与赤道半径的平方乘以极半径成正比。\n核心拆解\n- 要点一（旋转体体积公式）： 旋转体体积可由积分 V= in t x^2\\,dy 计算，其中 x 是截面半径。\n- 要点二（椭圆与半径关系）： 椭圆方程 (x^2) / (a^2)+(y^2) / (b^2)=1 给出 x^2=a^2(1-(y^2) / (b^2))，截面半径随 y 变化。\n- 要点三（定积分与常数）： 积分 in t_-b^b(1-(y^2) / (b^2))dy 计算得 (4) / (3)b，乘以 a^2 即得 V_y。\n几何本质（截面累加原理）\n旋转椭球可以看作一系列垂直于旋转轴的圆盘叠加而成。每个圆盘半径 r(y)=|x|，其中 |x|=(a) / (b)sqrt(b^2-y^2)，其面积 r^2 在 y 方向上积分即得体积。\n代数意义（公式对称性）\n绕哪条轴，哪条轴方向的半轴只出现一次；垂直于旋转轴的半轴要平方。绕 y 轴体积正比于 a^2b，绕 x 轴体积正比于 ab^2，体现出公式对半轴的对称性。\n考点价值（高考常考点）\n- 考法一（直接计算体积）： 给出椭圆方程，直接代入公式求旋转体体积。\n- 考法二（反求参数）： 利用已知体积与部分半轴，通过方程求解另一半轴。\n顿悟点\n体积由a^2b这个乘积决定，与a、b具体比例无关，只有当a^2b相同的时候，体积才相同。\n使用场景\n- 场景一（旋转体体积计算）： 已知椭圆方程，求绕 y 轴旋转体体积。\n- 场景二（椭球体积比较）： 与其它旋转体（如球、圆柱）体积比较或求比例。",
+    "proof": "思路提示\n利用旋转体体积公式 V= in t_-b^bx^2\\,dy，其中 x 为椭圆上对应 y 处的 x 坐标。由椭圆方程解出 x^2 并积分。\n正式推导\n- 步骤一（建立积分表达式）：\n将旋转体视为垂直 y 轴的圆盘叠加，圆盘半径 r(y)=|x|，体积微元 dV= x^2\\,dy。沿 y 从 -b 到 b 积分：\nV = in t_-b^b x^2 \\,dy\n理由： 旋转体由平面曲线绕轴旋转生成，可用微元法。\n- 步骤二（写出 x^2 表达式）：\n由椭圆方程 a^2+b^2=1，解出 x^2：\nx^2 = a^2(1-(y^2) / (b^2))\n理由： a>0，两边同乘 a^2 得。\n- 步骤三（代入并积分）：\n将 x^2 代入积分式：\nV = in t_-b^b a^2(1-(y^2) / (b^2)) dy\n提出常数 a^2：\nV = a^2 in t_-b^b (1-(y^2) / (b^2)) dy\n理由： a^2 为常数，可提出积分号。\n- 步骤四（计算定积分）：\n先求不定积分，再代入上下限：\nin t_-b^b (1-(y^2) / (b^2)) dy\n&= [ y - (y^3) / (3b^2) ]_-b^b \\\\\n&= (b - (b) / (3)) - (-b + (b) / (3)) \\\\\n&= 2(b - (b) / (3)) \\\\\n&= (4) / (3)b\n理由： 牛顿-莱布尼茨公式，注意 (-b)^3=-b^3。\n- 步骤五（得体积公式）：\n将积分结果代入：\nV &= a^2 * (4) / (3)b \\\\\n&= (4) / (3) a^2 b\n理由： 化简乘积得到最终体积公式。\n结论回扣\n我们通过积分严格证明了椭圆绕 y 轴旋转所得旋转椭球体积为 V_y = (4) / (3) a^2 b。",
+    "examples": "例1（基础）\n题目： 已知椭圆 (x^2) / (25)+(y^2) / (9)=1 绕 y 轴旋转一周，求所得旋转体的体积。\n解题步骤：\n- 第一步（识别半轴）： 由椭圆方程得 a^2=25, b^2=9，所以 a=5, b=3。\na=5, b=3\n理由： 椭圆标准方程 (x^2) / (a^2)+(y^2) / (b^2)=1 中分母对应半轴平方。\n- 第二步（套用体积公式）： 旋转体积公式 V_y=(4) / (3) a^2 b，代入数值：\nV_y &= (4) / (3) a^2 b \\\\\n&= (4) / (3) * 25 * 3 \\\\\n&= (4) / (3) * 75 \\\\\n&= 100\n理由： 直接应用椭圆绕 y 轴旋转的体积公式。\n- 第三步（得出结论）： 旋转体的体积为 V_y = 100 。\nV_y = 100\n理由： 计算无误，结果为最简形式。\n关键结论： 旋转椭球体积为 100 。\n例2（稍变形）\n题目： 已知椭圆 (x^2) / (a^2)+(y^2) / (9)=1 绕 y 轴旋转所得体积为 48 ，求 a 的值（a>0）。\n解题步骤：\n- 第一步（确定已知半轴）： 由椭圆方程得 b^2=9，所以 b=3；设 a 为未知正数。\nb=3\n理由： 椭圆标准方程中 y^2 项分母为 b^2。\n- 第二步（写出体积表达式）： 利用公式 V_y=(4) / (3) a^2 b，代入 b=3 得 V_y = (4) / (3) a^2 * 3 = 4 a^2。\nV_y = 4 a^2\n理由： (4) / (3) * 3 = 4，简化系数。\n- 第三步（列方程并求解）： 由已知 V_y=48 得：\n4 a^2 = 48\n解得：\na^2 &= 12, \\\\\na &= 2sqrt(3)\n理由： 代入体积值，解一元二次方程，取正根。\n关键结论： a = 2sqrt(3)。\n例3（综合应用）\n题目： 椭圆 (x^2) / (a^2)+(y^2) / (b^2)=1（a>b>0）绕 y 轴旋转的体积是绕 x 轴旋转体积的 2 倍，求椭圆的离心率 e。\n解题步骤：\n- 第一步（写出两个体积公式）： 根据椭圆绕坐标轴旋转的体积公式：\nV_y &= (4) / (3) a^2 b, \\\\\nV_x &= (4) / (3) a b^2\n理由： 绕 y 轴时 x 轴半轴 a 起平方作用，绕 x 轴时 b 起平方作用。\n- 第二步（根据条件列方程）： 由 V_y = 2V_x 得：\n(4) / (3) a^2 b = 2 * (4) / (3) a b^2\n理由： 直接代入条件。\n- 第三步（化简得 a 与 b 关系）： 两边同时除以 (4) / (3) a b（a,b>0）：\na = 2b\n理由： 除法化简，a != 0,\\ b != 0。\n- 第四步（求离心率）： 椭圆离心率 e = (c) / (a)，其中 c = sqrt(a^2 - b^2)。先计算 c：\nc &= sqrt(a^2 - b^2) \\\\\n&= sqrt((2b)^2 - b^2) \\\\\n&= sqrt(4b^2 - b^2) \\\\\n&= sqrt(3)\\,b\n再计算 e：\ne &= (c) / (a) \\\\\n&= (sqrt(3)\\,b) / (2b) \\\\\n&= (sqrt(3)) / (2)\n理由： 离心率定义，代入 a=2b 计算。\n关键结论： 椭圆的离心率 e = (sqrt(3)) / (2)。",
+    "traps": "- 易错点一（混淆旋转轴） 乱用公式 V=(4) / (3) a^2 b 和 V=(4) / (3) a b^2，不考虑旋转轴。\n- 正确理解（轴与平方对应）： 绕 y 轴时 a（x 轴半轴）平方，绕 x 轴时 b（y 轴半轴）平方。\n- 错因分析（记忆方法）： 死记硬背未理解来源。通过积分推导可发现平方永远出现在垂直于旋转轴的半轴上。\n- 易错点二（半轴长短混淆） 忽视 a、b 与坐标轴的对应关系，误认为 a 是长半轴、b 是短半轴并代入公式。\n- 正确理解（坐标定义明确）： a 始终是 x 轴方向半轴长，b 是 y 轴方向半轴长，无论长短。\n- 错因分析（习惯固化）： 椭圆通常有长、短半轴概念，但体积公式直接使用方程参数，与长短无关。\n- 易错点三（系数记错） 将 V_y 记成 (4) / (3) a b^2 或 (4) / (3) a b 等。\n- 正确理解（公式系数精准）： V_y = (4) / (3) a^2 b，系数 (4) / (3)， ，a^2 b 缺一不可。\n- 错因分析（类比不当）： 常与球体积 (4) / (3) R^3 混淆，需通过积分或记忆结构区分。",
+    "summary": "一句话核心\n椭圆绕 y 轴旋转形成的旋转椭球体积公式为 V_y = (4) / (3) a^2 b。\n使用条件\n- 条件1（椭圆标准形式）： 椭圆方程为 (x^2) / (a^2)+(y^2) / (b^2)=1，且有 a>0,\\ b>0。\n- 条件2（绕 y 轴旋转）： 旋转轴为 y 轴，旋转一周。\n关键提醒\n- 易错点（区分旋转轴）： 绕 y 轴用 V_y = (4) / (3) a^2 b，绕 x 轴时用 V_x = (4) / (3) a b^2。\n- 检查项（半轴与坐标对应）： 注意 a 是 x 轴半轴长，b 是 y 轴半轴长，不要混用。",
+    "display_version": 2,
+    "sections": [
+      {
+        "key": "core_formula",
+        "title": "核心公式",
+        "layout": "text",
+        "items": [
+          {
+            "latex": "V_y=\\frac{4}{3}\\pi a^2 b"
+          }
+        ]
+      },
+      {
+        "key": "statement",
+        "title": "命题表述",
+        "layout": "theorem-list",
+        "items": [
+          {
+            "title": "条件1（椭圆与旋转轴）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "椭圆"
+              },
+              {
+                "type": "math",
+                "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+              },
+              {
+                "type": "text",
+                "text": "（"
+              },
+              {
+                "type": "math",
+                "latex": "a>0, b>0"
+              },
+              {
+                "type": "text",
+                "text": "）绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转一周。"
+              }
+            ]
+          },
+          {
+            "title": "结论一（旋转椭球体积）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "以"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "为赤道半径、"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "为极半径的旋转椭球，体积与"
+              },
+              {
+                "type": "math",
+                "latex": "a^2b"
+              },
+              {
+                "type": "text",
+                "text": "成正比。"
+              },
+              {
+                "type": "math",
+                "latex": "V_y = \\frac{4}{3}\\pi a^2 b ,"
+              },
+              {
+                "type": "text",
+                "text": "其中"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "是椭圆在"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴方向的半轴长，"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "是椭圆在"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴方向的半轴长。"
+              }
+            ]
+          },
+          {
+            "title": "推广结论（绕x轴体积）：",
+            "segments": [
+              {
+                "type": "text",
+                "text": "绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转时，体积与"
+              },
+              {
+                "type": "math",
+                "latex": "ab^2"
+              },
+              {
+                "type": "text",
+                "text": "成正比，公式呈对称形式。"
+              },
+              {
+                "type": "math",
+                "latex": "V_x = \\frac{4}{3}\\pi a b^2"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "key": "explanation",
+        "title": "理解与直觉",
+        "layout": "text",
+        "items": [
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "一句话直觉\n椭圆绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转后形成旋转椭球。它的横向半径为"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "，竖直半径为"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "。当"
+              },
+              {
+                "type": "math",
+                "latex": "b>a"
+              },
+              {
+                "type": "text",
+                "text": "时像橄榄球，当"
+              },
+              {
+                "type": "math",
+                "latex": "a>b"
+              },
+              {
+                "type": "text",
+                "text": "时像扁球,它的体积等于"
+              },
+              {
+                "type": "math",
+                "latex": "a^2 b"
+              },
+              {
+                "type": "text",
+                "text": "乘以一个常数"
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{4}{3}\\pi"
+          },
+          {
+            "text": "，即体积与赤道半径的平方乘以极半径成正比。"
+          },
+          {
+            "text": "核心拆解"
+          },
+          {
+            "text": "要点一（旋转体体积公式）：\n旋转体体积可由积分"
+          },
+          {
+            "latex": "V=\\pi\\int x^2\\,dy"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "计算，其中"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "是截面半径。"
+              }
+            ]
+          },
+          {
+            "text": "要点二（椭圆与半径关系）：\n椭圆方程"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
+            "text": "给出"
+          },
+          {
+            "latex": "x^2=a^2\\left(1-\\frac{y^2}{b^2}\\right)"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，截面半径随"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "变化。"
+              }
+            ]
+          },
+          {
+            "text": "要点三（定积分与常数）：\n积分"
+          },
+          {
+            "latex": "\\int_{-b}^{b}\\left(1-\\frac{y^2}{b^2}\\right)dy"
+          },
+          {
+            "text": "计算得"
+          },
+          {
+            "latex": "\\frac{4}{3}b"
+          },
+          {
+            "text": "，乘以"
+          },
+          {
+            "latex": "\\pi a^2"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "即得"
+              },
+              {
+                "type": "math",
+                "latex": "V_y"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "几何本质（截面累加原理）\n旋转椭球可以看作一系列垂直于旋转轴的圆盘叠加而成。每个圆盘半径"
+              },
+              {
+                "type": "math",
+                "latex": "r(y)=|x|"
+              },
+              {
+                "type": "text",
+                "text": "，其中"
+              }
+            ]
+          },
+          {
+            "latex": "|x|=\\frac{a}{b}\\sqrt{b^2-y^2}"
+          },
+          {
+            "text": "，其面积"
+          },
+          {
+            "latex": "\\pi r^2"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "在"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "方向上积分即得体积。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "代数意义（公式对称性）\n绕哪条轴，哪条轴方向的半轴只出现一次；垂直于旋转轴的半轴要平方。绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴体积正比于"
+              },
+              {
+                "type": "math",
+                "latex": "a^2b"
+              },
+              {
+                "type": "text",
+                "text": "，绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴体积正比于"
+              },
+              {
+                "type": "math",
+                "latex": "ab^2"
+              },
+              {
+                "type": "text",
+                "text": "，体现出公式对半轴的对称性。"
+              }
+            ]
+          },
+          {
+            "text": "考点价值（高考常考点）"
+          },
+          {
+            "text": "考法一（直接计算体积）： 给出椭圆方程，直接代入公式求旋转体体积。"
+          },
+          {
+            "text": "考法二（反求参数）： 利用已知体积与部分半轴，通过方程求解另一半轴。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "顿悟点\n体积由"
+              },
+              {
+                "type": "math",
+                "latex": "a^2b"
+              },
+              {
+                "type": "text",
+                "text": "这个乘积决定，与"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "、"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "具体比例无关，只有当"
+              },
+              {
+                "type": "math",
+                "latex": "a^2b"
+              },
+              {
+                "type": "text",
+                "text": "相同的时候，体积才相同。"
+              }
+            ]
+          },
+          {
+            "text": "使用场景"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "场景一（旋转体体积计算）： 已知椭圆方程，求绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转体体积。"
+              }
+            ]
+          },
+          {
+            "text": "场景二（椭球体积比较）： 与其它旋转体（如球、圆柱）体积比较或求比例。"
+          }
+        ]
+      },
+      {
+        "key": "proof",
+        "title": "证明过程",
+        "layout": "text",
+        "items": [
+          {
+            "text": "思路提示\n利用旋转体体积公式"
+          },
+          {
+            "latex": "V=\\pi\\int_{-b}^{b}x^2\\,dy"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，其中"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "为椭圆上对应"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "处的"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "坐标。由椭圆方程解出"
+              },
+              {
+                "type": "math",
+                "latex": "x^2"
+              },
+              {
+                "type": "text",
+                "text": "并积分。"
+              }
+            ]
+          },
+          {
+            "text": "正式推导"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "步骤一（建立积分表达式）：\n将旋转体视为垂直"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴的圆盘叠加，圆盘半径"
+              },
+              {
+                "type": "math",
+                "latex": "r(y)=|x|"
+              },
+              {
+                "type": "text",
+                "text": "，体积微元"
+              }
+            ]
+          },
+          {
+            "latex": "dV=\\pi x^2\\,dy"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "。沿"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "从"
+              },
+              {
+                "type": "math",
+                "latex": "-b"
+              },
+              {
+                "type": "text",
+                "text": "到"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "积分："
+              }
+            ]
+          },
+          {
+            "latex": "V = \\pi \\int_{-b}^{b} x^2 \\,dy"
+          },
+          {
+            "text": "理由： 旋转体由平面曲线绕轴旋转生成，可用微元法。"
+          },
+          {
+            "text": "步骤二（写出 表达式）：\n由椭圆方程"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，解出"
+              },
+              {
+                "type": "math",
+                "latex": "x^2"
+              },
+              {
+                "type": "text",
+                "text": "："
+              }
+            ]
+          },
+          {
+            "latex": "x^2 = a^2\\left(1-\\frac{y^2}{b^2}\\right)"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "理由："
+              },
+              {
+                "type": "math",
+                "latex": "a>0"
+              },
+              {
+                "type": "text",
+                "text": "，两边同乘"
+              },
+              {
+                "type": "math",
+                "latex": "a^2"
+              },
+              {
+                "type": "text",
+                "text": "得。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "步骤三（代入并积分）：\n将"
+              },
+              {
+                "type": "math",
+                "latex": "x^2"
+              },
+              {
+                "type": "text",
+                "text": "代入积分式："
+              }
+            ]
+          },
+          {
+            "latex": "V = \\pi \\int_{-b}^{b} a^2\\left(1-\\frac{y^2}{b^2}\\right) dy"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "提出常数"
+              },
+              {
+                "type": "math",
+                "latex": "a^2"
+              },
+              {
+                "type": "text",
+                "text": "："
+              }
+            ]
+          },
+          {
+            "latex": "V = \\pi a^2 \\int_{-b}^{b} \\left(1-\\frac{y^2}{b^2}\\right) dy"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "理由："
+              },
+              {
+                "type": "math",
+                "latex": "a^2"
+              },
+              {
+                "type": "text",
+                "text": "为常数，可提出积分号。"
+              }
+            ]
+          },
+          {
+            "text": "步骤四（计算定积分）：\n先求不定积分，再代入上下限："
+          },
+          {
+            "latex": "\\begin{aligned}\n\\int_{-b}^{b} \\left(1-\\frac{y^2}{b^2}\\right) dy\n&= \\left[ y - \\frac{y^3}{3b^2} \\right]_{-b}^{b} \\\\\n&= (b - \\frac{b}{3}) - (-b + \\frac{b}{3}) \\\\\n&= 2\\left(b - \\frac{b}{3}\\right) \\\\\n&= \\frac{4}{3}b\n\\end{aligned}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "理由： 牛顿-莱布尼茨公式，注意"
+              },
+              {
+                "type": "math",
+                "latex": "(-b)^3=-b^3"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "text": "步骤五（得体积公式）：\n将积分结果代入："
+          },
+          {
+            "latex": "\\begin{aligned}\nV &= \\pi a^2 \\cdot \\frac{4}{3}b \\\\\n&= \\frac{4}{3}\\pi a^2 b\n\\end{aligned}"
+          },
+          {
+            "text": "理由： 化简乘积得到最终体积公式。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "结论回扣\n我们通过积分严格证明了椭圆绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转所得旋转椭球体积为"
+              }
+            ]
+          },
+          {
+            "latex": "V_y = \\frac{4}{3}\\pi a^2 b"
+          },
+          {
+            "text": "。"
+          }
+        ]
+      },
+      {
+        "key": "examples",
+        "title": "例题应用",
+        "layout": "text",
+        "items": [
+          {
+            "text": "例1（基础）\n题目： 已知椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{25}+\\frac{y^2}{9}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转一周，求所得旋转体的体积。\n解题步骤："
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "第一步（识别半轴）：\n由椭圆方程得"
+              },
+              {
+                "type": "math",
+                "latex": "a^2=25"
+              },
+              {
+                "type": "text",
+                "text": ","
+              },
+              {
+                "type": "math",
+                "latex": "b^2=9"
+              },
+              {
+                "type": "text",
+                "text": "，所以"
+              },
+              {
+                "type": "math",
+                "latex": "a=5"
+              },
+              {
+                "type": "text",
+                "text": ","
+              },
+              {
+                "type": "math",
+                "latex": "b=3"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "latex": "a=5,\\quad b=3"
+          },
+          {
+            "text": "理由： 椭圆标准方程"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
+            "text": "中分母对应半轴平方。"
+          },
+          {
+            "text": "第二步（套用体积公式）：\n旋转体积公式"
+          },
+          {
+            "latex": "V_y=\\frac{4}{3}\\pi a^2 b"
+          },
+          {
+            "text": "，代入数值："
+          },
+          {
+            "latex": "\\begin{aligned}\nV_y &= \\frac{4}{3}\\pi a^2 b \\\\\n&= \\frac{4}{3}\\pi \\cdot 25 \\cdot 3 \\\\\n&= \\frac{4}{3}\\pi \\cdot 75 \\\\\n&= 100\\pi\n\\end{aligned}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "理由： 直接应用椭圆绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转的体积公式。"
+              }
+            ]
+          },
+          {
+            "text": "第三步（得出结论）：\n旋转体的体积为"
+          },
+          {
+            "latex": "V_y = 100\\pi"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "latex": "V_y = 100\\pi"
+          },
+          {
+            "text": "理由： 计算无误，结果为最简形式。\n关键结论： 旋转椭球体积为"
+          },
+          {
+            "latex": "100\\pi"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "例2（稍变形）\n题目： 已知椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{9}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转所得体积为"
+              }
+            ]
+          },
+          {
+            "latex": "48\\pi"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，求"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "的值（"
+              },
+              {
+                "type": "math",
+                "latex": "a>0"
+              },
+              {
+                "type": "text",
+                "text": "）。\n解题步骤："
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "第一步（确定已知半轴）：\n由椭圆方程得"
+              },
+              {
+                "type": "math",
+                "latex": "b^2=9"
+              },
+              {
+                "type": "text",
+                "text": "，所以"
+              },
+              {
+                "type": "math",
+                "latex": "b=3"
+              },
+              {
+                "type": "text",
+                "text": "；设"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "为未知正数。"
+              },
+              {
+                "type": "math",
+                "latex": "b=3"
+              },
+              {
+                "type": "text",
+                "text": "理由： 椭圆标准方程中"
+              },
+              {
+                "type": "math",
+                "latex": "y^2"
+              },
+              {
+                "type": "text",
+                "text": "项分母为"
+              },
+              {
+                "type": "math",
+                "latex": "b^2"
+              },
+              {
+                "type": "text",
+                "text": "。"
+              }
+            ]
+          },
+          {
+            "text": "第二步（写出体积表达式）：\n利用公式"
+          },
+          {
+            "latex": "V_y=\\frac{4}{3}\\pi a^2 b"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，代入"
+              },
+              {
+                "type": "math",
+                "latex": "b=3"
+              },
+              {
+                "type": "text",
+                "text": "得"
+              }
+            ]
+          },
+          {
+            "latex": "V_y = \\frac{4}{3}\\pi a^2 \\cdot 3 = 4\\pi a^2"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "latex": "V_y = 4\\pi a^2"
+          },
+          {
+            "text": "理由："
+          },
+          {
+            "latex": "\\frac{4}{3} \\times 3 = 4"
+          },
+          {
+            "text": "，简化系数。"
+          },
+          {
+            "text": "第三步（列方程并求解）：\n由已知"
+          },
+          {
+            "latex": "V_y=48\\pi"
+          },
+          {
+            "text": "得："
+          },
+          {
+            "latex": "4\\pi a^2 = 48\\pi"
+          },
+          {
+            "text": "解得："
+          },
+          {
+            "latex": "\\begin{aligned}\na^2 &= 12, \\\\\na &= 2\\sqrt{3}\n\\end{aligned}"
+          },
+          {
+            "text": "理由： 代入体积值，解一元二次方程，取正根。\n关键结论："
+          },
+          {
+            "latex": "a = 2\\sqrt{3}"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "例3（综合应用）\n题目： 椭圆"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "（"
+              },
+              {
+                "type": "math",
+                "latex": "a>b>0"
+              },
+              {
+                "type": "text",
+                "text": "）绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转的体积是绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转体积的"
+              },
+              {
+                "type": "math",
+                "latex": "2"
+              },
+              {
+                "type": "text",
+                "text": "倍，求椭圆的离心率"
+              },
+              {
+                "type": "math",
+                "latex": "e"
+              },
+              {
+                "type": "text",
+                "text": "。\n解题步骤："
+              }
+            ]
+          },
+          {
+            "text": "第一步（写出两个体积公式）：\n根据椭圆绕坐标轴旋转的体积公式："
+          },
+          {
+            "latex": "\\begin{aligned}\nV_y &= \\frac{4}{3}\\pi a^2 b, \\\\\nV_x &= \\frac{4}{3}\\pi a b^2\n\\end{aligned}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "理由： 绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴时"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴半轴"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "起平方作用，绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴时"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "起平方作用。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "第二步（根据条件列方程）：\n由"
+              },
+              {
+                "type": "math",
+                "latex": "V_y = 2V_x"
+              },
+              {
+                "type": "text",
+                "text": "得："
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{4}{3}\\pi a^2 b = 2 \\cdot \\frac{4}{3}\\pi a b^2"
+          },
+          {
+            "text": "理由： 直接代入条件。"
+          },
+          {
+            "text": "第三步（化简得 与 关系）：\n两边同时除以"
+          },
+          {
+            "latex": "\\frac{4}{3}\\pi a b"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "（"
+              },
+              {
+                "type": "math",
+                "latex": "a,b>0"
+              },
+              {
+                "type": "text",
+                "text": "）："
+              },
+              {
+                "type": "math",
+                "latex": "a = 2b"
+              },
+              {
+                "type": "text",
+                "text": "理由： 除法化简，"
+              }
+            ]
+          },
+          {
+            "latex": "a\\neq0,\\ b\\neq0"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "第四步（求离心率）：\n椭圆离心率"
+          },
+          {
+            "latex": "e = \\frac{c}{a}"
+          },
+          {
+            "text": "，其中"
+          },
+          {
+            "latex": "c = \\sqrt{a^2 - b^2}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "。先计算"
+              },
+              {
+                "type": "math",
+                "latex": "c"
+              },
+              {
+                "type": "text",
+                "text": "："
+              }
+            ]
+          },
+          {
+            "latex": "\\begin{aligned}\nc &= \\sqrt{a^2 - b^2} \\\\\n&= \\sqrt{(2b)^2 - b^2} \\\\\n&= \\sqrt{4b^2 - b^2} \\\\\n&= \\sqrt{3}\\,b\n\\end{aligned}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "再计算"
+              },
+              {
+                "type": "math",
+                "latex": "e"
+              },
+              {
+                "type": "text",
+                "text": "："
+              }
+            ]
+          },
+          {
+            "latex": "\\begin{aligned}\ne &= \\frac{c}{a} \\\\\n&= \\frac{\\sqrt{3}\\,b}{2b} \\\\\n&= \\frac{\\sqrt{3}}{2}\n\\end{aligned}"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "理由： 离心率定义，代入"
+              },
+              {
+                "type": "math",
+                "latex": "a=2b"
+              },
+              {
+                "type": "text",
+                "text": "计算。\n关键结论： 椭圆的离心率"
+              }
+            ]
+          },
+          {
+            "latex": "e = \\frac{\\sqrt{3}}{2}"
+          },
+          {
+            "text": "。"
+          }
+        ]
+      },
+      {
+        "key": "traps",
+        "title": "易错提醒",
+        "layout": "text",
+        "items": [
+          {
+            "text": "易错点一（混淆旋转轴）\n乱用公式"
+          },
+          {
+            "latex": "V=\\frac{4}{3}\\pi a^2 b"
+          },
+          {
+            "text": "和"
+          },
+          {
+            "latex": "V=\\frac{4}{3}\\pi a b^2"
+          },
+          {
+            "text": "，不考虑旋转轴。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "正确理解（轴与平方对应）：\n绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴时"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "（"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴半轴）平方，绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴时"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "（"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴半轴）平方。"
+              }
+            ]
+          },
+          {
+            "text": "错因分析（记忆方法）：\n死记硬背未理解来源。通过积分推导可发现平方永远出现在垂直于旋转轴的半轴上。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "易错点二（半轴长短混淆）\n忽视"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "、"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "与坐标轴的对应关系，误认为"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "是长半轴、"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "是短半轴并代入公式。"
+              }
+            ]
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "正确理解（坐标定义明确）："
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "始终是"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴方向半轴长，"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "是"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴方向半轴长，无论长短。"
+              }
+            ]
+          },
+          {
+            "text": "错因分析（习惯固化）：\n椭圆通常有长、短半轴概念，但体积公式直接使用方程参数，与长短无关。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "易错点三（系数记错）\n将"
+              },
+              {
+                "type": "math",
+                "latex": "V_y"
+              },
+              {
+                "type": "text",
+                "text": "记成"
+              }
+            ]
+          },
+          {
+            "latex": "\\frac{4}{3}\\pi a b^2"
+          },
+          {
+            "text": "或"
+          },
+          {
+            "latex": "\\frac{4}{3}\\pi a b"
+          },
+          {
+            "text": "等。"
+          },
+          {
+            "text": "正确理解（公式系数精准）："
+          },
+          {
+            "latex": "V_y = \\frac{4}{3}\\pi a^2 b"
+          },
+          {
+            "text": "，系数"
+          },
+          {
+            "latex": "\\frac{4}{3}"
+          },
+          {
+            "text": "，"
+          },
+          {
+            "latex": "\\pi"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，"
+              },
+              {
+                "type": "math",
+                "latex": "a^2 b"
+              },
+              {
+                "type": "text",
+                "text": "缺一不可。"
+              }
+            ]
+          },
+          {
+            "text": "错因分析（类比不当）：\n常与球体积"
+          },
+          {
+            "latex": "\\frac{4}{3}\\pi R^3"
+          },
+          {
+            "text": "混淆，需通过积分或记忆结构区分。"
+          }
+        ]
+      },
+      {
+        "key": "summary",
+        "title": "复盘总结",
+        "layout": "text",
+        "items": [
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "一句话核心\n椭圆绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转形成的旋转椭球体积公式为"
+              }
+            ]
+          },
+          {
+            "latex": "V_y = \\frac{4}{3}\\pi a^2 b"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "text": "使用条件"
+          },
+          {
+            "text": "条件1（椭圆标准形式）： 椭圆方程为"
+          },
+          {
+            "latex": "\\frac{x^2}{a^2}+\\frac{y^2}{b^2}=1"
+          },
+          {
+            "text": "，且有"
+          },
+          {
+            "latex": "a>0,\\ b>0"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "条件2（绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴旋转）： 旋转轴为"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴，旋转一周。"
+              }
+            ]
+          },
+          {
+            "text": "关键提醒"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "易错点（区分旋转轴）： 绕"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴用"
+              }
+            ]
+          },
+          {
+            "latex": "V_y = \\frac{4}{3}\\pi a^2 b"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "，绕"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴时用"
+              }
+            ]
+          },
+          {
+            "latex": "V_x = \\frac{4}{3}\\pi a b^2"
+          },
+          {
+            "text": "。"
+          },
+          {
+            "segments": [
+              {
+                "type": "text",
+                "text": "检查项（半轴与坐标对应）： 注意"
+              },
+              {
+                "type": "math",
+                "latex": "a"
+              },
+              {
+                "type": "text",
+                "text": "是"
+              },
+              {
+                "type": "math",
+                "latex": "x"
+              },
+              {
+                "type": "text",
+                "text": "轴半轴长，"
+              },
+              {
+                "type": "math",
+                "latex": "b"
+              },
+              {
+                "type": "text",
+                "text": "是"
+              },
+              {
+                "type": "math",
+                "latex": "y"
+              },
+              {
+                "type": "text",
+                "text": "轴半轴长，不要混用。"
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
-}
+};

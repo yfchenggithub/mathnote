@@ -87,3 +87,51 @@ v^2=t^2-2+t^{-2},\qquad v^3=t^3-3t+3t^{-1}-t^{-3},
 严格地说，任给实数 $v$，回代方程 $t^2-vt-1=0$ 的判别式为 $v^2+4>0$，两根乘积为 $-1$，均非零，故 $v$ 的范围确为 $\mathbb R$。
 \end{proofbox}
 \clearpage
+
+\begin{proofbox}
+\textbf{\textcolor{CProof}{补充推导：三角函数的和、积如何整体换元}}
+\textbf{适用条件：} $0\le\theta\le\pi/2$，设
+$t=\sin\theta+\cos\theta$。这里的 $t$ 与前面倒数型题目的原变量无关。
+
+\textbf{第一步（平方，不跳项）：}
+\[
+\begin{aligned}
+t^2&=(\sin\theta+\cos\theta)^2\\
+&=\sin^2\theta+2\sin\theta\cos\theta+\cos^2\theta\\
+&=1+2\sin\theta\cos\theta.
+\end{aligned}
+\]
+把式子移项并除以 $2$：
+\[
+\boxed{\sin\theta\cos\theta=\frac{t^2-1}{2}}.
+\]
+\textbf{第二步（先展开目标式，再代换）：}
+\[
+\begin{aligned}
+(1+\sin\theta)(1+\cos\theta)
+&=1+\sin\theta+\cos\theta+\sin\theta\cos\theta\\
+&=1+t+\frac{t^2-1}{2}\\
+&=\frac{t^2+2t+1}{2}
+=\boxed{\frac{(t+1)^2}{2}}.
+\end{aligned}
+\]
+\textbf{第三步（证明范围和等号）：}
+由于 $\sin\theta,\cos\theta\ge0$，有
+$t^2=1+2\sin\theta\cos\theta\ge1$，且 $t\ge0$，故 $t\ge1$。
+另一方面，
+\[
+0\le(\sin\theta-\cos\theta)^2
+=1-2\sin\theta\cos\theta
+\]
+说明 $2\sin\theta\cos\theta\le1$，于是 $t^2\le2$，得到
+\[
+\boxed{1\le t\le\sqrt2}.
+\]
+$t=\sqrt2$ 当且仅当 $\sin\theta=\cos\theta$；在给定角度范围内即
+$\theta=\pi/4$。在这个区间 $t+1>0$，故 $(t+1)^2/2$
+随 $t$ 增大而增大，最大值为 $\frac{(1+\sqrt2)^2}{2}$。
+
+\textbf{关键区别：} 倒数型利用两项\emph{乘积固定为 $1$}；本题利用两项
+\emph{平方和固定为 $1$}。共同思路是先识别重复出现的整体，再检查新变量范围。
+\end{proofbox}
+\clearpage

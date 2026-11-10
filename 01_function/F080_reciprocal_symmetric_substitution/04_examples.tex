@@ -151,3 +151,94 @@
 \end{examplebox}
 
 \clearpage
+
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例六（2023 全国甲卷理科第20题第二问：三角整体换元）}}
+\textbf{题目：} 抛物线 $C:y^2=4x$ 的焦点为 $F(1,0)$。
+$M,N$ 在抛物线上，且 $FM\perp FN$。求 $\triangle MFN$ 面积的最小值。
+
+\textbf{思路：} 不预先断定 $M,N$ 关于 $x$ 轴对称。
+先对任意一对垂直的 $FM,FN$ 证明下界，再找到确实能取等号的点。
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.55em]
+\item[\textbf{第一步（焦点到准线：把线段长与水平方向联系起来）：}]
+准线为 $x=-1$，所以 $FM=x_M+1$、$FN=x_N+1$。
+记 $FM$ 从 $F$ 指向 $M$ 时\textbf{水平方向的单位分量}为 $a$，
+$FN$ 对应的单位分量为 $b$，即
+\[
+a=\frac{x_M-1}{FM},\qquad b=\frac{x_N-1}{FN}.
+\]
+由 $x_M=1+aFM$、$FM=x_M+1$，逐步得到
+\[
+FM=2+aFM,\quad FM(1-a)=2,\quad
+\boxed{FM=\frac2{1-a}}.
+\]
+同理 $FN=2/(1-b)$。因为 $M,N$ 都是抛物线上的有限点，所以
+$1-a>0$、$1-b>0$。
+\item[\textbf{第二步（垂直意味着两个水平分量的平方和为 $1$）：}]
+若 $FM$ 与 $x$ 轴正向夹角为 $\varphi$，则两条垂直射线的水平方向分量
+分别可写成 $\cos\varphi$ 和 $\pm\sin\varphi$，因此
+\[
+\boxed{a^2+b^2=1}.
+\]
+于是存在 $0\le\theta\le\pi/2$，使
+$|a|=\cos\theta$、$|b|=\sin\theta$。
+\item[\textbf{第三步（先处理所有方向，不能只凭图默认射线朝左）：}]
+\[
+\begin{aligned}
+S_{\triangle MFN}
+&=\frac12FM\cdot FN
+=\frac2{(1-a)(1-b)}.
+\end{aligned}
+\]
+由于 $1-a\le1+|a|$、$1-b\le1+|b|$，且这些数都为正，故
+\[
+S_{\triangle MFN}\ge\frac2{(1+|a|)(1+|b|)}
+=\frac2{(1+\cos\theta)(1+\sin\theta)}.
+\]
+这说明：在相同水平投影绝对值下，两条射线都朝左时才可能最短。
+\item[\textbf{第四步（把正弦加余弦看成一个整体）：}]
+\[
+\begin{aligned}
+(1+\cos\theta)(1+\sin\theta)
+&=1+(\cos\theta+\sin\theta)+\cos\theta\sin\theta.
+\end{aligned}
+\]
+\textbf{另令} $t=\cos\theta+\sin\theta$。
+因为 $\cos^2\theta+\sin^2\theta=1$，所以
+\[
+t^2=1+2\cos\theta\sin\theta,
+\qquad \cos\theta\sin\theta=\frac{t^2-1}{2}.
+\]
+代入刚才的乘积：
+\[
+(1+\cos\theta)(1+\sin\theta)
+=1+t+\frac{t^2-1}{2}=\boxed{\frac{(t+1)^2}{2}}.
+\]
+\item[\textbf{第五步（范围决定面积最小值）：}]
+因 $0\le\theta\le\pi/2$，有 $1\le t\le\sqrt2$。
+于是
+\[
+S_{\triangle MFN}\ge\frac4{(t+1)^2}
+\ge\frac4{(1+\sqrt2)^2}
+=\boxed{12-8\sqrt2}.
+\]
+\item[\textbf{第六步（验证两步不等式能同时取等）：}]
+令 $a=b=-1/\sqrt2$，对应 $FM,FN$ 分别斜向左上和左下，
+两射线互相垂直，此时 $\theta=\pi/4$、$t=\sqrt2$。
+在抛物线上取
+\[
+M=(3-2\sqrt2,\ 2\sqrt2-2),\qquad
+N=(3-2\sqrt2,\ 2-2\sqrt2).
+\]
+代入可验证 $y_M^2=4x_M$、$y_N^2=4x_N$；
+两个向量从 $F$ 出发，水平分量相同、竖直分量互为相反数，且斜率分别为 $-1$、$1$，所以确有 $FM\perp FN$。
+因此上述下界能够取得：
+\[
+\boxed{S_{\min}=12-8\sqrt2}.
+\]
+\end{description}
+\textbf{考场比较：} 如果已沿坐标法推出
+$S=(y_1y_2+4)^2/16$，继续用平方和限制乘积通常更省时；
+这里的三角整体换元用于理解\textbf{为什么最优位置对应两个 $45^\circ$}。
+\end{examplebox}
+\clearpage
