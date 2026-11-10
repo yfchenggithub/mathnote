@@ -6,6 +6,7 @@ import hashlib
 import json
 from pathlib import Path
 import subprocess
+from PIL import Image
 
 
 UID_ROOT = Path(__file__).resolve().parents[1]
@@ -71,12 +72,18 @@ def validate(root: Path = UID_ROOT, registry: Path = REGISTRY, *, data: dict | N
         )
         media = json.loads(probe.stdout)
         streams = media["streams"]
-        if len(streams) != 1 or streams[0] != {
-            "codec_name": "h264", "codec_type": "video", "width": 576, "height": 1024,
-            "pix_fmt": "yuv420p", "r_frame_rate": "24/1",
-        }:
+        with Image.open(root / link["displaySource"]) as gif:
+            dimensions = gif.size
+            duration_ms = 0
+            for index in range(gif.n_frames):
+                gif.seek(index)
+                duration_ms += gif.info.get("duration", 0)
+        if len(streams) != 1 or any(streams[0].get(key) != value for key, value in {
+            "codec_name": "h264", "codec_type": "video", "width": dimensions[0],
+            "height": dimensions[1], "pix_fmt": "yuv420p",
+        }.items()):
             raise ValueError("MP4 video specification mismatch")
-        if "mp4" not in media["format"]["format_name"] or not 13.3 < float(media["format"]["duration"]) < 13.5:
+        if "mp4" not in media["format"]["format_name"] or abs(float(media["format"]["duration"]) - duration_ms / 1000) > 0.11:
             raise ValueError("MP4 container or duration mismatch")
         atoms = mp4.read_bytes()
         if not 0 < atoms.find(b"moov") < atoms.find(b"mdat"):
