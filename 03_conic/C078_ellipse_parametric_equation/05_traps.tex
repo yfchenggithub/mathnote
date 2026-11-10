@@ -1,32 +1,88 @@
 \begin{trapbox}
+\textbf{\textcolor{CTrap}{易错 1：只代入验证，就说“整个椭圆都能表示”}}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.35em]
+\item[\textbf{常见说法：}] $\cos^2\theta+\sin^2\theta=1$，所以证明完成。
+\item[\textbf{问题在哪里：}] 这样只证明设出的点在椭圆上，还没证明椭圆上任何点都能设出来。
+\item[\textbf{正确补充：}] 给椭圆上的 $P(x,y)$，看 $Q(\frac xa,\frac yb)$，它在单位圆上，故有一个角 $\theta$ 满足 $Q=(\cos\theta,\sin\theta)$。
+\end{description}
 
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（混淆离心角极角）}}]
-			错误认为参数方程中的 $\theta$ 就是 $OP$ 与 $x$ 轴的正向夹角。
-		\item[\textbf{\textcolor{CTrap}{正确理解（区分两种角）：}}]
-			离心角 $\theta$ 与极角 $\varphi$ 的关系是 $\tan\varphi=\frac{b}{a}\tan\theta$，二者一般不相等。
-		\item[\textbf{\textcolor{CTrap}{错因分析（概念不清）：}}]
-			将参数方程与极坐标方程混淆，忽视离心角来自辅助圆。
-	\end{description}
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CTrap}{易错 2：把 $\theta$ 当成直线 $OP$ 的方向}}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（忽视$\theta$范围）}}]
-			求解具体问题时忽略 $\theta$ 的取值范围，导致多解或漏解。
-		\item[\textbf{\textcolor{CTrap}{正确理解（根据象限定范围）：}}]
-			通常 $\theta\in[0,2\pi)$，但需根据点所在象限选择适当的 $\theta$ 范围。
-		\item[\textbf{\textcolor{CTrap}{错因分析（忽视周期性）：}}]
-			参数 $\theta$ 与三角函数的周期相关，需结合题目限制确定范围。
-	\end{description}
+\input{assets/tikz/C078_angle_comparison}
+\end{minipage}\par
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.35em]
+\item[\textbf{错在哪里：}] $P=(a\cos\theta,b\sin\theta)$ 中，横坐标和纵坐标前面的数不同，所以从 $O$ 指向 $P$ 的方向一般不是 $\theta$。
+\item[\textbf{正确理解：}] $\theta$ 是辅助圆上 $Q=(a\cos\theta,a\sin\theta)$ 的方向。若 $x\ne0$，$OP$ 的斜率为
+\[
+\frac{y}{x}=\frac ba\frac{\sin\theta}{\cos\theta}
+=\frac ba\tan\theta\qquad(\cos\theta\ne0).
+\]
+$P$ 在椭圆上下端点时 $x=0$，直线 $OP$ 竖直，不能强行使用斜率或正切公式。
+\end{description}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（忽略有界性）}}]
-			在求最值时直接令表达式等于某值，忽视 $\sin\theta,\cos\theta$ 有界。
-		\item[\textbf{\textcolor{CTrap}{正确理解（利用有界性）：}}]
-			使用 $|\sin\theta|\le1,|\cos\theta|\le1$ 作为最值依据。
-		\item[\textbf{\textcolor{CTrap}{错因分析（思维定势）：}}]
-			习惯用代数方法求解最值，忘记三角函数的有界约束。
-	\end{description}
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CTrap}{易错 3：写反 $a$ 和 $b$}}
 
+\input{assets/tikz/C078_axis_assignment}
+\end{minipage}\par
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.35em]
+\item[\textbf{检查方法：}] 看椭圆横向最远能走多远、纵向最远能走多远。例如 $\frac{x^2}{4}+\frac{y^2}{9}=1$ 横向最多 $2$、纵向最多 $3$，就应写
+\[
+P(2\cos\theta,3\sin\theta),
+\]
+不是 $P(3\cos\theta,2\sin\theta)$。
+\end{description}
+
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CTrap}{易错 4：忽略只走半个椭圆或一段弧的条件}}
+
+\input{assets/tikz/C078_restricted_arc}
+\end{minipage}\par
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.35em]
+\item[\textbf{举例：}] 若 $P$ 只能在上半椭圆，必须有 $y=b\sin\theta\ge0$，可选 $0\le\theta\le\pi$。
+\item[\textbf{后果：}] 若求最值仍允许 $\theta$ 在 $[0,2\pi)$ 任取，就把下半椭圆的点错误地算进去了。
+\item[\textbf{再提醒：}] 若只在第一象限且不含坐标轴，就用 $0<\theta<\frac\pi2$，区间端点不能随便取到。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CTrap}{易错 5：把平方开出来时忘了正负}}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.35em]
+\item[\textbf{错误跳步：}] $y^2=b^2\sin^2\theta$，直接说 $y=b\sin\theta$，却没说明选哪个角。
+\item[\textbf{正确做法：}] 先有 $|y|=b|\sin\theta|$，再选与 $y$ 正负一致的正弦值。若 $y=0$，对应左右端点。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CTrap}{易错 6：求最值时，只看公式范围，不检查等号能否取到}}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.35em]
+\item[\textbf{例子：}] $S=12\sin2\theta\le12$，是否最大真的等于 $12$？应看 $\theta=\frac\pi4$ 是否符合题设的点所在范围。
+\item[\textbf{推广：}] 从 $-1\le\cos\theta\le1$ 换成 $t=\cos\theta$ 后，二次函数的顶点可能不在 $[-1,1]$ 内，必须检查区间端点。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CTrap}{易错 7：点到直线距离忘记绝对值}}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.35em]
+\item[\textbf{距离公式：}] $d=\frac{|Ax+By+C|}{\sqrt{A^2+B^2}}$，必须保留绝对值。
+\item[\textbf{正确顺序：}] 先找 $Ax+By+C$ 的取值范围，再判断符号是否固定；如果可能跨过 $0$，则最小距离可能是 $0$（表示直线与椭圆有交点）。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CTrap}{易错 8：把“向外扩圆”和“辅助圆”当成同一个圆}}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.35em]
+\item[\textbf{区别：}] 讲参数方程的辅助圆半径固定为 $a$，它用来把圆压成椭圆；讲 $OP$ 最值的同心圆半径 $r$ 会不断变化，目的是看什么时候第一次、最后一次碰到椭圆。
+\item[\textbf{不是：}] “大圆和小圆互相相切”；这里说的是\textbf{某个圆与椭圆}接触的位置。
+\end{description}
+
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CTrap}{易错 9：题目已经很简单，仍强行套参数}}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.35em]
+\item[\textbf{先做选择：}] 若已知 $y=x$ 求交点，直接联立常常比令 $2\sin\theta=3\cos\theta$ 更快。\textbf{二级结论的价值是省运算，不是增加必须使用的步骤。}
+\end{description}
+\end{minipage}\par
+\medskip
+\textbf{术语补充（可跳过）：}辅助圆上的参数角 $\theta$ 也称“离心角”；解题只需记住它是 $OQ$ 的角。
 \end{trapbox}

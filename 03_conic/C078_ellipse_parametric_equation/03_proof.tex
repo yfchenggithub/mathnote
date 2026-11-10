@@ -1,37 +1,123 @@
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
-	直接代入椭圆方程，利用三角恒等式验证。
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{证明目标与要注意的地方}}
+已知 $a>b>0$，证明椭圆
+\[
+\frac{x^2}{a^2}+\frac{y^2}{b^2}=1
+\]
+上所有点都能写作 $P(a\cos\theta,b\sin\theta)$，反过来这样写出的点也一定在椭圆上。\textbf{只证明“代入后等于 1”还不够}，因为那只能说明写出的点都对，不能说明椭圆上的点一个没漏。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（参数假设）：}]
-			对任意 $\theta$，设点 $P(a\cos\theta,b\sin\theta)$。
-			\par\textbf{理由：} 这是待验证的参数表示。
-		\item[\textbf{步骤二（代入方程）：}]
-			代入 $\frac{x^2}{a^2}+\frac{y^2}{b^2}$：
-			\[
-				\frac{(a\cos\theta)^2}{a^2}+\frac{(b\sin\theta)^2}{b^2}.
-			\]
-			\par\textbf{理由：} 检验是否满足椭圆方程。
-		\item[\textbf{步骤三（化简结果）：}]
-			化简得 $\cos^2\theta+\sin^2\theta=1$。
-			\[
-				\begin{aligned}
-					\frac{a^2\cos^2\theta}{a^2}+\frac{b^2\sin^2\theta}{b^2} &= \cos^2\theta+\sin^2\theta \\ &= 1.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 运用三角恒等式。
-		\item[\textbf{步骤四（参遍性说明）：}]
-			$\theta\in[0,2\pi)$ 时，$(a\cos\theta,b\sin\theta)$ 恰好取遍椭圆上所有点。
-			\par\textbf{理由：} $\cos\theta,\sin\theta$ 有界且连续，覆盖整个椭圆。
-	\end{description}
+\medskip
+\end{minipage}\par
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{方法一：门槛最低——初中直角三角形、圆和压扁图形}}
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-	\textbf{因此参数方程 $
-	\begin{cases}
-		x=a\cos\theta\\ y=b\sin\theta
-	\end{cases}
-	$ 是椭圆 $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$ 的一种等价表示。}
+\input{assets/tikz/C078_proof_compression}
+\end{minipage}\par
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.55em]
+\item[\textbf{步骤 1：先画一个半径为 $a$ 的圆。}]
+圆的方程是 $x^2+y^2=a^2$。取圆上一点 $Q$，从 $Q$ 向 $x$ 轴作垂线。如果在第一象限，按直角三角形里正弦、余弦的定义，
+\[
+x_Q=a\cos\theta,\qquad y_Q=a\sin\theta.
+\]
+其他象限把横、纵坐标的正负号对应处理，仍然是这个式子。
+\item[\textbf{步骤 2：把 $Q$ 上下压到 $P$。}]
+横坐标保持不变，纵坐标变成原来的 $\frac ba$，所以
+\[
+x_P=x_Q=a\cos\theta,\qquad
+y_P=\frac ba y_Q=b\sin\theta.
+\]
+\textbf{这一步的意义：} 横向最大长度仍是 $a$，纵向最大长度从 $a$ 变成 $b$。
+\item[\textbf{步骤 3：确认 $P$ 在椭圆上。}]
+\[
+\frac{x_P^2}{a^2}+\frac{y_P^2}{b^2}
+=\cos^2\theta+\sin^2\theta=1.
+\]
+\item[\textbf{步骤 4：倒着走，确认没有漏点。}]
+任取椭圆上的点 $P(x,y)$，把它的纵坐标放大 $\frac ab$ 倍，得 $Q(x,\frac ab y)$。因为
+\[
+x^2+\left(\frac ab y\right)^2
+=a^2\left(\frac{x^2}{a^2}+\frac{y^2}{b^2}\right)=a^2,
+\]
+所以 $Q$ 在原来的圆上，必能找到一个 $\theta$，使 $Q=(a\cos\theta,a\sin\theta)$。再上下压扁便回到 $P=(a\cos\theta,b\sin\theta)$。
+\end{description}
+\textbf{结论：} 圆上的全部点上下压扁，恰好得到椭圆上的全部点。
+
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{方法二：考场速度最快——两个分数拼成单位圆}}
+
+\input{assets/tikz/C078_proof_unit_circle}
+\end{minipage}\par
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
+\item[\textbf{步骤 1：先看椭圆方程。}]
+它说的是 $\left(\frac xa\right)^2+\left(\frac yb\right)^2=1$。
+\item[\textbf{步骤 2：想到半径为 $1$ 的圆。}]
+在单位圆上，点的两个坐标可写成 $\cos\theta,\sin\theta$。因此能取一个角，使
+\[
+\frac xa=\cos\theta,\qquad \frac yb=\sin\theta.
+\]
+这一步有依据：$(\frac xa,\frac yb)$ 的两个坐标平方和等于 $1$，确实位于单位圆上。
+\item[\textbf{步骤 3：乘回去。}]
+得到 $x=a\cos\theta,y=b\sin\theta$。反过来代入椭圆方程，又有 $\cos^2\theta+\sin^2\theta=1$。
+\end{description}
+\textbf{考场识别信号：} 方程中出现\textbf{两个平方相加等于 $1$}，就试着把它们看成单位圆上一个点的横、纵坐标。
+
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{方法三：步骤最少——只选一个坐标，再把另一个补出来}}
+
+\input{assets/tikz/C078_proof_sign_choice}
+\end{minipage}\par
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
+\item[\textbf{步骤 1：确定横坐标可以怎样写。}]
+从 $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$ 得 $0\le\frac{x^2}{a^2}\le1$，所以 $-a\le x\le a$。于是总可以找一个角 $\theta$，使 $x=a\cos\theta$。
+\item[\textbf{步骤 2：用方程补出纵坐标的大小。}]
+\[
+\frac{y^2}{b^2}=1-\cos^2\theta=\sin^2\theta,
+\qquad |y|=b|\sin\theta|.
+\]
+\item[\textbf{步骤 3：别忘了纵坐标有正负。}]
+同一个 $\cos\theta$（除左右端点外）通常对应圆上、下两个角。若 $y>0$，选 $\sin\theta>0$ 的角；若 $y<0$，选 $\sin\theta<0$ 的角；若 $y=0$，选 $\theta=0$ 或 $\pi$。因此总可以让 $y=b\sin\theta$。
+\item[\textbf{步骤 4：代回检查。}]
+直接得到 $\frac{(a\cos\theta)^2}{a^2}+\frac{(b\sin\theta)^2}{b^2}=1$。
+\end{description}
+\textbf{这条路的好处：} 从横坐标范围直接出发；\textbf{最容易漏掉的地方：} 从 $y^2=b^2\sin^2\theta$ 直接写成 $y=b\sin\theta$，却不交代怎样选角使符号一致。
+
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{方法四：常规证明——先验证，再证明每个点都可取到}}
+
+\input{assets/tikz/C078_proof_arbitrary_point}
+\end{minipage}\par
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.55em]
+\item[\textbf{步骤 1：验证设出来的点。}]
+任取 $0\le\theta<2\pi$，代入可得
+\[
+\begin{aligned}
+\frac{(a\cos\theta)^2}{a^2}+\frac{(b\sin\theta)^2}{b^2}
+&=\cos^2\theta+\sin^2\theta\\
+&=1.
+\end{aligned}
+\]
+因此设出的每个点都在椭圆上。
+\item[\textbf{步骤 2：反向任取椭圆上一点 $P(x_0,y_0)$。}]
+由椭圆方程可知
+\[
+\left(\frac{x_0}{a}\right)^2+\left(\frac{y_0}{b}\right)^2=1.
+\]
+把数对 $\left(\frac{x_0}{a},\frac{y_0}{b}\right)$ 画到平面中，它距原点的距离为 $1$，所以就在单位圆上。
+\item[\textbf{步骤 3：找到对应的角。}]
+从 $x$ 轴正方向转到这个单位圆上的点，总有一个角 $\theta\in[0,2\pi)$，使
+\[
+\cos\theta=\frac{x_0}{a},\qquad \sin\theta=\frac{y_0}{b}.
+\]
+于是 $P=(a\cos\theta,b\sin\theta)$，也就是说椭圆上的任何一点都能取到。
+\item[\textbf{步骤 4：两边合在一起。}]
+已证明“设出来的一定在椭圆上”和“椭圆上的都能设出来”，所以两种表示完全对应。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{四种方法怎样选？}}
+方法一适合\textbf{第一次理解为什么这样设}；方法二适合\textbf{考场快速识别}；方法三适合\textbf{从代数方程自己推出来}；方法四适合\textbf{写完整的书面证明}。它们并不是四个彼此无关的结论，而是同一件事从不同起点来说明。
 \end{proofbox}

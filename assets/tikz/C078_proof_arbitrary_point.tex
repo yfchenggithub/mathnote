@@ -1,0 +1,30 @@
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small,>=Stealth]
+\draw[rounded corners=3pt,gray!45] (-6.3,-3.6) rectangle (6.3,3.6);
+\node[font=\small\bfseries] at (0,3.15) {方法四：从任意 P 出发，反找单位圆上的 U};
+
+\begin{scope}[shift={(-2.9,0)},scale=.72]
+\draw[->,gray] (-3.4,0)--(3.5,0) node[right] {$x$};
+\draw[->,gray] (0,-2.1)--(0,2.2) node[right] {$y$};
+\draw[CStatement,thick] (0,0) ellipse (3 and 1.8);
+\fill[CStatement] (-1.8,-1.44) circle (2.5pt) ;\node at (-1.8,-2.3) {$P(x_0,y_0)$};
+\node at (0,2.85) {任取椭圆上一点};
+\end{scope}
+\begin{scope}[shift={(3.2,0)}]
+\draw[->,gray] (-1.7,0)--(1.8,0) node[right] {$u$};
+\draw[->,gray] (0,-1.7)--(0,1.8) node[right] {$v$};
+\draw[orange!80!black,thick] (0,0) circle (1.4);
+\draw[CStatement,thick] (0,0)--(-.84,-1.12);
+\draw[->] (.5,0) arc (0:233.130102:.5);
+\node at (-.75,.55) {$\theta$};
+\fill[CStatement] (-.84,-1.12) circle (2pt) ;\node at (-.5,-1.95) {$U(x_0/a,y_0/b)$};
+\node at (0,2.05) {必在单位圆上};
+\end{scope}
+\draw[->,CProof,thick] (-.4,.6)--(1.1,.6);
+\node[above,align=center] at (.35,.7) {分别除以\\$a,b$};
+\draw[->,teal!80!black,thick] (1.1,-.5)--(-.4,-.5);
+\node[below] at (.35,-.6) {乘回 $a,b$};
+\node at (0,-2.65) {图取第三象限：其他象限及轴上点同样能找到 $\theta\in[0,2\pi)$};
+
+\end{tikzpicture}
+\end{center}

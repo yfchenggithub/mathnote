@@ -1,27 +1,46 @@
 \begin{summarybox}
-	\textbf{\textcolor{CSummary}{一句话核心}}
-	\textbf{椭圆参数方程将坐标用三角函数表示，便于计算最值和轨迹。}
+\textbf{\textcolor{CSummary}{最后把这件事讲透}}
+\textbf{椭圆参数方程不是新的图形，也不是新的条件。}它只是把原来需要同时顾及的 $x,y$，写成由同一个角控制的两个数，让某些距离、面积和取值范围题更好算。
 
-	\medskip
-	\textbf{\textcolor{CSummary}{使用条件}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{条件 1（标准形式）：} 椭圆方程为 $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1\;(a>b>0)$，中心在原点，焦点在 $x$ 轴。
-		\item \textbf{条件 2（参数范围）：} 参数 $\theta$ 通常取 $[0,2\pi)$，实际问题中根据要求选定。
-	\end{itemize}
+\medskip
+\textbf{\textcolor{CSummary}{一、只需记住一条来路}}
+\[
+\underbrace{Q(a\cos\theta,a\sin\theta)}_{\text{圆上的点}}
+\quad\xrightarrow{\text{纵坐标乘 }\frac ba}\quad
+\underbrace{P(a\cos\theta,b\sin\theta)}_{\text{椭圆上的点}}.
+\]
+把纵坐标乘 $\frac ba$ 叫不叫“变换”不重要，重要的是\textbf{圆压扁了、横坐标没动、纵坐标变短了}。
 
-	\medskip
-	\textbf{\textcolor{CSummary}{距离最值的两种观察方向}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{由内到外（固定点 $O$ $\to$ 椭圆）：} 固定圆心 $O$，使距离圆 $x^2+y^2=r^2$ 的半径逐渐增大；在 $r=b$ 时首次与椭圆相切，在 $r=a$ 时最后一次相切。
-		\item \textbf{由外到内（椭圆动点 $P$ $\to$ 固定点 $O$）：} 设 $P(a\cos\theta,b\sin\theta)$，计算 $OP^2=b^2+(a^2-b^2)\cos^2\theta$，由三角函数有界性求最值。
-	\end{itemize}
-	\textbf{共同结论：} $\boxed{OP_{\min}=b,\quad OP_{\max}=a}$；一个从距离圆找临界相切，一个从动点求距离函数最值。
+\medskip
+\textbf{\textcolor{CSummary}{二、考场三步}}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.42em]
+\item[\textbf{看题：}] 椭圆上只有一个动点吗？要求距离或面积的最值吗？
+\item[\textbf{设点：}] $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1$ 就设 $P(a\cos\theta,b\sin\theta)$，并写明允许的 $\theta$ 范围。
+\item[\textbf{化简：}] 遇到 $A\cos\theta+B\sin\theta$，用三角函数合成一个余弦；遇到 $\sin^2\theta+\cos^2\theta$，化成一个变量；遇到二次式，换成 $t=\cos\theta\in[-1,1]$ 后再求最值。
+\end{description}
 
-	\medskip
-	\textbf{\textcolor{CSummary}{关键提醒}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{易错点（离心角非极角）：} 离心角 $\theta$ 与极角 $\varphi$ 不同，关系为 $\tan\varphi=\frac{b}{a}\tan\theta$。
-		\item \textbf{检查项（有界性验证）：} 使用 $\sin\theta,\cos\theta$ 有界性求最值时，需验证取等条件。
-	\end{itemize}
+\medskip
+\textbf{\textcolor{CSummary}{三、什么时候可以一眼看出答案}}
+对于中心 $O(0,0)$，椭圆 $\frac{x^2}{a^2}+\frac{y^2}{b^2}=1\;(a>b>0)$：
+\[
+\boxed{OP_{\min}=b\ (P=(0,\pm b)),\qquad
+OP_{\max}=a\ (P=(\pm a,0)).}
+\]
+看图时，以 $O$ 为圆心\textbf{向外扩圆}；计算时，直接写
+\[
+OP^2=b^2+(a^2-b^2)\cos^2\theta.
+\]
+图形直觉和计算结果可以相互检查。
 
+\tcbbreak
+\textbf{\textcolor{CSummary}{四、最值得防的三个错误}}
+\begin{itemize}[leftmargin=*,itemsep=0.35em,topsep=0.4em]
+\item \textbf{角看错：} $\theta$ 是辅助圆的角，一般不是椭圆中 $OP$ 的方向。
+\item \textbf{范围漏掉：} 只走上半椭圆、第一象限时，必须收紧 $\theta$ 的范围；求最大最小要核对等号能否取得。
+\item \textbf{一味套用：} 求两个交点、求交点坐标等题目，直接联立有时更省时。
+\end{itemize}
+
+\medskip
+\textbf{\textcolor{CSummary}{五、这条结论值不值得掌握？}}
+\textbf{值得，但不值得死背复杂术语。}它真正帮助我们解决三个局部困难：\textbf{（1）椭圆上动点怎么设；（2）含两个坐标的距离和面积怎样减少计算；（3）怎样用圆的直观图形检查椭圆最值。}只要理解“圆压扁成椭圆”，能正反两个方向证明表示没有漏点，并能完成一两道最值题，就已经掌握了这条结论。
 \end{summarybox}

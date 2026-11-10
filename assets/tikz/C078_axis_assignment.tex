@@ -1,0 +1,19 @@
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small,>=Stealth]
+\draw[rounded corners=3pt,gray!45] (-6.3,-3.8) rectangle (6.3,3.8);
+\node[font=\small\bfseries] at (0,3.3499999999999996) {同尺度对照：系数对应横、纵半轴，不能对调};
+
+\foreach \cx/\rx/\ry/\tit in {-3.1/1.3/1.95/正确：横向 2、纵向 3,3.1/1.95/1.3/写反后：横向 3、纵向 2}{
+\begin{scope}[shift={(\cx,0)}]
+\draw[->,gray] (-2.4,0)--(2.5,0) node[right] {$x$};
+\draw[->,gray] (0,-2.3)--(0,2.4) node[right] {$y$};
+\draw[CStatement,very thick] (0,0) ellipse [x radius=\rx cm,y radius=\ry cm];
+\node at (0,2.9) {\tit};
+\end{scope}}
+\node[below right] at (-1.74,-.06) {$2$};\node[above left] at (-3.16,2.01) {$3$};
+\node[below right] at (5.11,-.06) {$3$};\node[above left] at (3.04,1.36) {$2$};
+\node at (-3.1,-2.8) {$P(2\cos\theta,3\sin\theta)$};
+\node at (3.1,-2.8) {$P(3\cos\theta,2\sin\theta)$};
+
+\end{tikzpicture}
+\end{center}

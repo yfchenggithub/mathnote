@@ -1,108 +1,159 @@
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例 1（基础）}}
-	\textbf{\textcolor{CExample}{题目：}}
-	已知椭圆 $C:\frac{x^2}{9}+\frac{y^2}{4}=1$，求椭圆上一点 $P$ 到 $x$ 轴距离的最大值。
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（设点参数化）：}]
-			设 $P(3\cos\theta,2\sin\theta)$，$\theta\in\mathbb{R}$。
-			\par\textbf{理由：} 利用椭圆参数方程设点。
-		\item[\textbf{第二步（表达距离）：}]
-			距离 $d=|2\sin\theta|$。
-			\par\textbf{理由：} $x$ 轴距离即纵坐标绝对值。
-		\item[\textbf{第三步（求最值）：}]
-			由 $|\sin\theta|\leq1$ 得 $d_{\max}=2$，当 $\sin\theta=\pm1$ 时取得。
-			\par\textbf{理由：} 正弦函数有界性。
-	\end{description}
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{最大距离为 $2$，对应点 $(0,\pm2)$。}
+\textbf{\textcolor{CExample}{例 1：最小问题——一个坐标就能做（基础）}}
+\textbf{题目：} 点 $P$ 在椭圆 $\frac{x^2}{9}+\frac{y^2}{4}=1$ 上，求点 $P$ 到 $x$ 轴距离的最大值。
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.4em]
+\item[\textbf{第 1 步：设点。}] 写 $P(3\cos\theta,2\sin\theta)$。
+\item[\textbf{第 2 步：表达距离。}] 点到 $x$ 轴的距离是纵坐标的绝对值，所以 $d=|2\sin\theta|$。
+\item[\textbf{第 3 步：找最大值。}] 因为 $|\sin\theta|\le1$，有 $d\le2$。当 $\theta=\frac\pi2$ 或 $\frac{3\pi}2$，$P=(0,\pm2)$，等号能取到。
+\end{description}
+\textbf{答案：} $\boxed{d_{\max}=2}$。\textbf{补充：} 本题直接观察椭圆的上下顶点也能秒做，没必要为了用公式而用公式。
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 2（稍变形）}}
-	\textbf{\textcolor{CExample}{题目：}}
-	已知椭圆 $C:\frac{x^2}{25}+\frac{y^2}{9}=1$ 与直线 $l:3x+4y-20=0$，求椭圆上一点 $P$ 到直线 $l$ 距离的最大值。
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（设点参数化）：}]
-			设 $P(5\cos\theta,3\sin\theta)$。
-			\par\textbf{理由：} 参数方程表示椭圆上点。
-		\item[\textbf{第二步（建立距离表达式）：}]
-			由点到直线距离公式，
-			\[
-				\begin{aligned}
-					d &= \frac{|3x_P+4y_P-20|}{\sqrt{3^2+4^2}} \\ &= \frac{|3\cdot5\cos\theta+4\cdot3\sin\theta-20|}{5} \\ &= \frac{|15\cos\theta+12\sin\theta-20|}{5}.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 代入 $x_P=5\cos\theta,y_P=3\sin\theta$，并简化常数。
-		\item[\textbf{第三步（辅助角求最值）：}]
-			令 $M=15\cos\theta+12\sin\theta$。则
-			\[
-				\begin{aligned}
-					M &= \sqrt{15^2+12^2}\sin(\theta+\varphi) \\ &= 3\sqrt{41}\sin(\theta+\varphi),
-			\end{aligned}
-			\]
-			其中 $\varphi$ 由 $\cos\varphi=\frac{12}{\sqrt{369}},\sin\varphi=\frac{15}{\sqrt{369}}$ 决定。由于 $20>3\sqrt{41}$，故 $|15\cos\theta+12\sin\theta-20| = 20-M$，所以 $d=\frac{20-M}{5}$。当 $M=-3\sqrt{41}$ 时，$d_{\max}=\frac{20+3\sqrt{41}}{5}$。
-			\par\textbf{理由：} 三角函数有界性及绝对值处理。
-	\end{description}
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{最大距离为 $\frac{20+3\sqrt{41}}{5}$。}
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExample}{例 2：点到直线的距离——参数方程真正省运算（中等）}}
+\textbf{题目：} $P$ 在椭圆 $\frac{x^2}{25}+\frac{y^2}{9}=1$ 上运动，求 $P$ 到直线 $3x+4y-20=0$ 的最大、最小距离。
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 3（综合应用）}}
-	\textbf{\textcolor{CExample}{题目：}}
-	已知椭圆 $C:\frac{x^2}{9}+\frac{y^2}{4}=1$ 和定点 $A(1,0)$，点 $P$ 在椭圆上运动，求 $|PA|$ 的最大值和最小值。
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（参数设点）：}]
-			设 $P(3\cos\theta,2\sin\theta)$。
-			\par\textbf{理由：} 参数方程表示椭圆上点。
-		\item[\textbf{第二步（表达距离平方）：}]
-			\[
-				\begin{aligned}
-					|PA|^2 &= (3\cos\theta-1)^2+(2\sin\theta)^2 \\ &= 9\cos^2\theta-6\cos\theta+1+4\sin^2\theta \\ &= 5\cos^2\theta-6\cos\theta+5.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 展开并利用 $\sin^2\theta=1-\cos^2\theta$ 化简。
-		\item[\textbf{第三步（换元求最值）：}]
-			令 $t=\cos\theta\in[-1,1]$，则 $|PA|^2=5t^2-6t+5$。对称轴 $t=\frac{3}{5}\in[-1,1]$。 最小值：当 $t=\frac{3}{5}$ 时，
-			\[
-				\begin{aligned}
-					|PA|^2_{\min} &= 5\cdot\left(\frac{3}{5}\right)^2-6\cdot\frac{3}{5}+5 \\ &= \frac{16}{5}.
-			\end{aligned}
-			\]
-			最大值：当 $t=-1$ 时，
-			\[
-				\begin{aligned}
-					|PA|^2_{\max} &= 5\cdot(-1)^2-6\cdot(-1)+5 \\ &= 16.
-			\end{aligned}
-			\]
-			因此 $|PA|_{\min} = \sqrt{\frac{16}{5}}$，即 $|PA|_{\min} = \frac{4\sqrt5}{5}$； $|PA|_{\max}=4$。
-			\par\textbf{理由：} 二次函数在闭区间上的最值。
-	\end{description}
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$|PA|_{\min}=\frac{4\sqrt5}{5}$，$|PA|_{\max}=4$。}
+\input{assets/tikz/C078_line_distance}
+\end{minipage}\par
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.5em]
+\item[\textbf{第 1 步：用一个角设点。}]
+$P(5\cos\theta,3\sin\theta)$。
+\item[\textbf{第 2 步：代入点到直线距离公式。}]
+\[
+\begin{aligned}
+d&=\frac{|3x+4y-20|}{\sqrt{3^2+4^2}}\\
+&=\frac{|15\cos\theta+12\sin\theta-20|}{5}.
+\end{aligned}
+\]
+\item[\textbf{第 3 步：先研究前面两个三角函数相加的范围。}]
+设 $M=15\cos\theta+12\sin\theta$。因为 $15^2+12^2=369$，可找一个角 $\alpha$ 使
+\[
+\cos\alpha=\frac{15}{\sqrt{369}},\qquad
+\sin\alpha=\frac{12}{\sqrt{369}}.
+\]
+于是
+\[
+M=\sqrt{369}(\cos\alpha\cos\theta+\sin\alpha\sin\theta)
+=3\sqrt{41}\cos(\theta-\alpha).
+\]
+所以 $-3\sqrt{41}\le M\le3\sqrt{41}$。以上只用了高中三角函数的两角差公式以及余弦的范围。
+\item[\textbf{第 4 步：处理绝对值。}]
+因为 $3\sqrt{41}<20$（平方比较：$369<400$），所以始终有 $M-20<0$，故
+\[
+|M-20|=20-M,\quad d=\frac{20-M}{5}.
+\]
+$M$ 最小时距离最大，$M$ 最大时距离最小。
+\item[\textbf{第 5 步：确认两端都能取到。}]
+$\cos(\theta-\alpha)$ 可以等于 $1$ 或 $-1$，因此两个边界都能取到。
+\end{description}
+\textbf{答案：}
+\[
+\boxed{d_{\max}=\frac{20+3\sqrt{41}}5,\qquad d_{\min}=\frac{20-3\sqrt{41}}5.}
+\]
+\textbf{识别信号：} 椭圆上一点到\textbf{固定直线}的距离；代入后只出现 $A\cos\theta+B\sin\theta$。
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 4（同题双视角：到椭圆中心的距离）}}
-	\textbf{\textcolor{CExample}{题目：}}
-	已知椭圆 $C:\frac{x^2}{25}+\frac{y^2}{9}=1$，中心为 $O(0,0)$，点 $P$ 在椭圆上运动，求 $OP$ 的最大值与最小值，并用两种视角解释。
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{方法一（由内到外：从固定点 $O$ 出发）：}]
-			以 $O$ 为圆心画圆 $x^2+y^2=r^2$，逐渐增大 $r$。当 $r=3$ 时，圆首次在 $(0,\pm3)$ 与椭圆相切；当 $3<r<5$ 时有四个交点；当 $r=5$ 时，圆在 $(\pm5,0)$ 与椭圆最后一次相切。故 $OP_{\min}=3$，$OP_{\max}=5$。
-			\par\textbf{理由：} 圆上所有点到 $O$ 的距离都是 $r$；圆与椭圆首次、最后一次接触，对应距离的最小值、最大值。
-		\item[\textbf{方法二（由外到内：从椭圆动点 $P$ 出发）：}]
-			设 $P(5\cos\theta,3\sin\theta)$，从 $P$ 连向不动点 $O$，计算
-			\[
-				\begin{aligned}
-					OP^2&=(5\cos\theta)^2+(3\sin\theta)^2\\
-					&=9+16\cos^2\theta.
-				\end{aligned}
-			\]
-			因为 $0\le\cos^2\theta\le1$，所以 $9\le OP^2\le25$，即 $3\le OP\le5$。
-			\par\textbf{理由：} 点 $P$ 在动而 $O$ 不动，利用参数方程将距离转化为三角函数的取值范围。
-	\end{description}
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$OP_{\min}=3$，在 $P=(0,\pm3)$ 处取得；$OP_{\max}=5$，在 $P=(\pm5,0)$ 处取得。}
-	两种方法只是观察方向不同：\textbf{从中心向外扩圆}，或\textbf{从椭圆动点向内量距离}。
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExample}{例 3：到一个固定点的距离——不能只用 $|\sin\theta|\le1$（中等）}}
+\textbf{题目：} 椭圆 $\frac{x^2}{9}+\frac{y^2}{4}=1$ 上的点 $P$ 到 $A(1,0)$ 的距离，求最大、最小值。
+
+\input{assets/tikz/C078_fixed_point_distance}
+\end{minipage}\par
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
+\item[\textbf{第 1 步：设点。}] $P(3\cos\theta,2\sin\theta)$。
+\item[\textbf{第 2 步：先算距离的平方。}]
+\[
+\begin{aligned}
+PA^2&=(3\cos\theta-1)^2+(2\sin\theta)^2\\
+&=9\cos^2\theta-6\cos\theta+1+4\sin^2\theta\\
+&=5\cos^2\theta-6\cos\theta+5.
+\end{aligned}
+\]
+\item[\textbf{第 3 步：只换一个量。}]
+令 $t=\cos\theta$，必须同时记住 $-1\le t\le1$，则
+\[
+PA^2=5t^2-6t+5=5\left(t-\frac35\right)^2+\frac{16}{5}.
+\]
+\item[\textbf{第 4 步：求最小值。}]
+在 $t=\frac35$ 时，平方项为 $0$，所以 $PA^2_{\min}=\frac{16}{5}$。因为 $\frac35\in[-1,1]$，这个取值确实存在。
+\item[\textbf{第 5 步：求最大值。}]
+二次项系数为正，图像开口向上，区间最大值在端点取得。比较端点：$t=-1$ 时 $PA^2=16$；$t=1$ 时 $PA^2=4$。因此最大值为 $16$，发生在 $t=-1$ 即 $P=(-3,0)$。
+\end{description}
+\textbf{答案：}
+\[
+\boxed{PA_{\min}=\frac{4\sqrt5}{5},\qquad PA_{\max}=4.}
+\]
+\textbf{回验：} 最近点为 $(9/5,\pm8/5)$，代回椭圆有 $9/25+16/25=1$，到 $A$ 的距离平方为 $16/5$；最远点 $(-3,0)$ 到 $A$ 的距离为 $4$。
+\textbf{最关键的一步：} 距离平方化成关于 $\cos\theta$ 的\textbf{二次函数}；这时不需要再使用复杂的三角公式。
+
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExample}{例 4：从中心扩圆，和直接算距离对照（中等）}}
+\textbf{题目：} $P$ 在 $\frac{x^2}{25}+\frac{y^2}{9}=1$ 上，$O=(0,0)$，求 $OP$ 的最短、最长距离，并解释它为什么如此。
+
+\input{assets/tikz/C078_radial_bounds}
+\end{minipage}\par
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.5em]
+\item[\textbf{方法 A：先看图。}] 以 $O$ 为圆心画圆，半径 $r$ 从 $0$ 向外增加。$r<3$，碰不到椭圆；$r=3$，最先碰到 $(0,3)$ 和 $(0,-3)$；$r=5$，最后碰到 $(5,0)$ 和 $(-5,0)$。于是最短 $3$，最长 $5$。
+\item[\textbf{方法 B：再计算。}] 设 $P(5\cos\theta,3\sin\theta)$，
+\[
+OP^2=25\cos^2\theta+9\sin^2\theta=9+16\cos^2\theta.
+\]
+$0\le\cos^2\theta\le1$，所以 $9\le OP^2\le25$，即 $3\le OP\le5$。
+\end{description}
+\textbf{答案：} $\boxed{OP_{\min}=3,\;OP_{\max}=5}$。\textbf{意义：} 看图找端点，计算来验证，两种方式互相检查，避免画图偏差。
+
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExample}{例 5：面积最值——多个点由同一个动点确定（提升）}}
+\textbf{题目：} 在椭圆 $\frac{x^2}{9}+\frac{y^2}{4}=1$ 上取第一象限一点 $P(x,y)$，以 $(\pm x,\pm y)$ 为顶点作边平行于坐标轴的长方形，求它的最大面积。
+
+\input{assets/tikz/C078_inscribed_rectangle}
+\end{minipage}\par
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
+\item[\textbf{第 1 步：看长和宽。}] 长方形横向长 $2x$，纵向长 $2y$，面积 $S=(2x)(2y)=4xy$。第一象限保证 $x>0,y>0$。
+\item[\textbf{第 2 步：设点。}] $x=3\cos\theta,y=2\sin\theta$，其中 $0<\theta<\frac\pi2$。
+\item[\textbf{第 3 步：化成一个三角函数。}]
+\[
+S=4\cdot3\cos\theta\cdot2\sin\theta
+=24\sin\theta\cos\theta=12\sin2\theta.
+\]
+\item[\textbf{第 4 步：求最大值并说明可取。}]
+$\sin2\theta\le1$，故 $S\le12$；当 $\theta=\frac\pi4$ 时，$\sin2\theta=1$，且 $\frac\pi4$ 确实在第一象限对应的范围内。
+\end{description}
+\textbf{答案：} $\boxed{S_{\max}=12}$；此时 $P=(\frac{3\sqrt2}{2},\sqrt2)$。
+
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExample}{例 6：由椭圆上的点生成一个新轨迹（拓展）}}
+\textbf{题目：} 已知 $P(x,y)$ 在 $\frac{x^2}{9}+\frac{y^2}{4}=1$ 上。点 $T(X,Y)$ 的坐标满足 $X=2x,\;Y=\frac12y$。求 $T$ 走出的图形。
+
+\input{assets/tikz/C078_transformed_ellipse}
+\end{minipage}\par
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.4em]
+\item[\textbf{第 1 步：设 $P$。}] $P=(3\cos\theta,2\sin\theta)$。
+\item[\textbf{第 2 步：得到 $T$。}] $X=6\cos\theta,\;Y=\sin\theta$。
+\item[\textbf{第 3 步：消掉角。}] $\frac X6=\cos\theta,\;Y=\sin\theta$，两式平方相加：
+\[
+\boxed{\frac{X^2}{36}+Y^2=1.}
+\]
+\item[\textbf{第 4 步：说明没有漏点。}] 这个新椭圆上的点可以写为 $(6\cos\theta,\sin\theta)$，对应原椭圆上的 $(3\cos\theta,2\sin\theta)$，所以新椭圆被完整走遍。
+\end{description}
+\textbf{意义：} 参数不仅能求最值，还能直观看出\textbf{“横向拉长、纵向缩短”}之后是什么图形。
+
+\medskip
+\textbf{\textcolor{CExample}{例 7：反面选择——并非所有椭圆题都适合参数法}}
+\textbf{题目：} 求椭圆 $\frac{x^2}{9}+\frac{y^2}{4}=1$ 与直线 $y=x$ 的交点。
+\textbf{更直接的方法：} 将 $y=x$ 代入，
+\[
+\frac{x^2}{9}+\frac{x^2}{4}=1
+\quad\Longrightarrow\quad \frac{13x^2}{36}=1
+\quad\Longrightarrow\quad x=\pm\frac6{\sqrt{13}}.
+\]
+又因为 $y=x$，交点为
+\[
+\boxed{\left(\frac6{\sqrt{13}},\frac6{\sqrt{13}}\right),
+\left(-\frac6{\sqrt{13}},-\frac6{\sqrt{13}}\right).}
+\]
+\textbf{本题不必强行设 $\theta$：} 两方程直接联立，比引入三角函数更短。
 \end{examplebox}

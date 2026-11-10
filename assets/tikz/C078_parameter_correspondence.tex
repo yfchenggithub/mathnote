@@ -1,0 +1,20 @@
+\begin{center}
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small,>=Stealth]
+\draw[rounded corners=3pt,gray!45] (-6.3,-4.05) rectangle (6.3,4.05);
+\node[font=\small\bfseries] at (0,3.5999999999999996) {同一横坐标：圆上的点压到椭圆上};
+\draw[->,gray] (-3.5,0)--(3.7,0) node[right] {$x$};\draw[->,gray] (0,-3.15)--(0,3.15) node[right] {$y$};\node[below left] at (0,0) {$O$};\draw[orange!80!black,dashed,thick] (0,0) circle (3);\draw[CStatement,very thick] (0,0) ellipse (3 and 1.8);
+\coordinate (Q) at ({3*cos(55)},{3*sin(55)});
+\coordinate (P) at ({3*cos(55)},{1.8*sin(55)});
+\draw[orange!80!black,thick] (0,0)--(Q);
+\draw[->,CProof,thick] (Q)--(P);
+\draw[densely dotted] (P)--({3*cos(55)},0);
+\draw[->,orange!80!black] (.7,0) arc (0:55:.7);
+\node at (.95,.45) {$\theta$};
+\fill[orange!80!black] (Q) circle (2pt) node[above right] {$Q(a\cos\theta,a\sin\theta)$};
+\fill[CStatement] (P) circle (2pt) node[above right] {$P$};\node[anchor=west,align=left] at (3.25,-1.4) {$P$ 的坐标\\$(a\cos\theta,b\sin\theta)$};
+\node[below right] at (3.08,-.08) {$a$};\node[above left] at (0,1.8) {$b$};
+\node[anchor=east,align=right] at (-3.45,1.6) {虚线：辅助圆\\半径 $a$};
+\node[anchor=east,align=right,text=CStatement] at (-3.45,-1.4) {实线：椭圆\\纵坐标乘 $b/a$};
+
+\end{tikzpicture}
+\end{center}
