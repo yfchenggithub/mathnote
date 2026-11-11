@@ -1,24 +1,63 @@
+\input{assets/tikz/P033_incenter_diagrams}
+\input{assets/tikz/P033_tangent_segments}
+\input{assets/tikz/P033_special_triangles}
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件1（三角形定义）：}}] 在非退化$\triangle ABC$中，设$BC=a, CA=b, AB=c$，内心为$I$，内切圆半径为$r$，面积为$S$。
-	\end{description}
+\textbf{先看图：内心到三边的垂线段，就是三个相等的半径。}
+\PIncenterFigure{2}{4}{6}{1.05}{a}{b}{c}{0}{$ID=IE=IF=r$；距离沿垂线测量，不是连向顶点。}
+\medskip
+\textbf{\textcolor{CStatement}{条件和符号}}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.35em]
+  \item[\textbf{条件1（三角形确实存在）：}] $\triangle ABC$ 的三个顶点不在同一直线上，
+  $BC=a,\ CA=b,\ AB=c$，并且 $a,b,c>0$，任意两边之和大于第三边。
+  \item[\textbf{条件2（内心和内切圆）：}] 三条\textbf{内角平分线}交于 $I$，
+  过 $I$ 向三边 $BC,CA,AB$ 分别作垂线，垂足为 $D,E,F$。
+  内切圆以 $I$ 为圆心，半径为 $r$。
+  \item[\textbf{约定：}] 原三角形面积为 $S$，周长为 $L=a+b+c$，
+  半周长为 $p=\dfrac{a+b+c}{2}$。
+\end{description}
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（内心性质）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			内心到三角形三边的垂线长度相等，均为内切圆半径。
-			\[
-				d(I,BC)=d(I,CA)=d(I,AB)=r.
-			\]
+\medskip
+\textbf{\textcolor{CStatement}{四个直接可用的结论}}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
+  \item[\textbf{结论一（到三边距离相同）：}]
+  \[
+    ID=IE=IF=r.
+  \]
+  \textbf{注意：}这里的距离是\textbf{垂直距离}，不是 $IA,IB,IC$。
+  \item[\textbf{结论二（半径、面积、周长互相换算）：}]
+  \[
+    \boxed{S=\frac12r(a+b+c)=rp=\frac12rL},\qquad
+    \boxed{r=\frac{2S}{a+b+c}=\frac Sp}.
+  \]
+  \item[\textbf{结论三（三小块面积比等于对应底边比）：}]
+  \[
+    S_{\triangle IBC}:S_{\triangle ICA}:S_{\triangle IAB}=a:b:c.
+  \]
+\end{description}
 
-		\item[\textbf{\textcolor{CStatement}{常见变形（面积转化）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			三角形面积等于内切圆半径乘以半周长$p$。
-			\[
-				S = r p.
-			\]
-			其中$p = \dfrac{a+b+c}{2}$是半周长。
-	\end{description}
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CStatement}{结论四：已知三边，求各顶点到切点的距离}}
+
+$D,E,F$ 也是内切圆与 $BC,CA,AB$ 的切点。沿三角形的边量取：
+\[
+ x=AE=AF,\qquad y=BF=BD,\qquad z=CD=CE.
+\]
+\PTangentFigure{x}{y}{z}
+\end{minipage}\par
+仍约定 $a=BC,b=CA,c=AB$，$p=(a+b+c)/2$，则
+\[
+\boxed{x=p-a=\frac{b+c-a}{2}},\qquad
+\boxed{y=p-b=\frac{a+c-b}{2}},
+\]
+\[
+\boxed{z=p-c=\frac{a+b-c}{2}}.
+\]
+\textbf{记法：}从哪个顶点出发，就用半周长减去该顶点的\textbf{对边长}。
+三边满足三角形不等式，故 $x,y,z$ 均为正数。
+
+\textbf{\textcolor{CStatement}{使用提示：}}
+若只知道三边长度，可先求面积，再求半径；若已知半径和周长，可直接求面积；
+若题目要求内心分出的三块面积比，甚至无需计算 $r$；
+若只求切点分段，直接用半周长减对边，无需求面积或半径。
 \end{statementbox}

@@ -1,0 +1,77 @@
+% P033 only. Coordinates and incircle are calculated from the actual triangle.
+% Arguments: A_x,A_y,C_x,scale,BC label,CA label,AB label,mode,caption.
+% B=(0,0), C=(C_x,0). mode 0: circle; 1: areas; 2: congruence.
+\providecommand{\PIncenterFigure}[9]{%
+\begin{center}
+\begin{tikzpicture}[scale=#4,font=\small,line join=round]
+\coordinate (A) at (#1,#2); \coordinate (B) at (0,0); \coordinate (C) at (#3,0);
+\pgfmathsetmacro{\pa}{#3}
+\pgfmathsetmacro{\pb}{sqrt((#1-#3)^2+#2^2)}
+\pgfmathsetmacro{\pc}{sqrt(#1^2+#2^2)}
+\pgfmathsetmacro{\px}{(\pa*#1+\pc*#3)/(\pa+\pb+\pc)}
+\pgfmathsetmacro{\pr}{\pa*#2/(\pa+\pb+\pc)}
+\coordinate (I) at (\px,\pr);
+\coordinate (D) at ($(B)!(I)!(C)$);
+\coordinate (E) at ($(C)!(I)!(A)$);
+\coordinate (F) at ($(A)!(I)!(B)$);
+\ifnum#8=1
+  \fill[blue!13] (I)--(B)--(C)--cycle;
+  \fill[orange!20] (I)--(C)--(A)--cycle;
+  \fill[green!17!white] (I)--(A)--(B)--cycle;
+\fi
+\ifnum#8=2
+  \fill[orange!20] (A)--(E)--(I)--cycle;
+  \fill[green!17!white] (A)--(F)--(I)--cycle;
+  \draw[very thick,CProof] (A)--(I);
+  \draw[CProof,dashed] (B)--(I);
+  \pic[draw,CProof,angle radius=9mm] {angle=F--A--I};
+  \pic[draw,CProof,angle radius=11mm] {angle=I--A--E};
+\fi
+\ifnum#8=0 \draw[CStatement,thick] (I) circle[radius=\pr];\fi
+\draw[thick] (A)--node[pos=.30,left=5pt] {$#7$} (B)
+ --node[midway,below=15pt] {$#5$} (C)
+ --node[pos=.85,right=5pt] {$#6$} cycle;
+\ifdim#1pt=0pt
+  \pic[draw,angle radius=3mm] {right angle=C--B--A};
+\fi
+\ifdim#1pt=#3pt
+  \pic[draw,angle radius=3mm] {right angle=A--C--B};
+\fi
+\ifnum#8=1
+  \draw[gray,dashed] (I)--(A) (I)--(B) (I)--(C);
+\fi
+\draw[very thick,CStatement] (I)--node[midway,right=2pt,fill=white,inner sep=1pt] {$r$} (D);
+\draw[very thick,CStatement] (I)--(E) (I)--(F);
+\pic[draw,angle radius=2mm] {right angle=I--D--C};
+\pic[draw,angle radius=2mm] {right angle=I--E--A};
+\pic[draw,angle radius=2mm] {right angle=I--F--B};
+\foreach \p/\where in {A/above,B/below left,C/below right,D/below,E/above right,F/above left}
+ {\fill (\p) circle[radius=1.3pt]; \node[\where=3pt] at (\p) {$\p$};}
+\fill[CStatement] (I) circle[radius=1.8pt];
+\node[above=3pt,fill=white,inner sep=1pt] at (I) {$I$};
+\node[anchor=north,align=center,text width=11cm] at (#3/2,-1.25/#4) {#9};
+\end{tikzpicture}
+\end{center}}
+
+% A local angle isolates the two right triangles; no distant legend is needed.
+\providecommand{\PAngleFigure}{%
+\begin{center}
+\begin{tikzpicture}[font=\small,line join=round]
+\coordinate (A) at (0,0); \coordinate (E) at (4.5,2.598076);
+\coordinate (F) at (4.5,-2.598076); \coordinate (I) at (6,0);
+\fill[orange!18] (A)--(E)--(I)--cycle;
+\fill[green!17!white] (A)--(F)--(I)--cycle;
+\draw[thick] (A)--(5.5,3.175426) (A)--(5.5,-3.175426);
+\draw[very thick,CProof] (A)--node[midway,above=3pt] {共同斜边 $AI$} (I);
+\draw[very thick,CStatement] (E)--node[midway,right=3pt] {$IE$} (I)
+ --node[midway,right=3pt] {$IF$} (F);
+\pic[draw,angle radius=3mm] {right angle=A--E--I};
+\pic[draw,angle radius=3mm] {right angle=I--F--A};
+\pic[draw,angle radius=12mm] {angle=I--A--E};
+\pic[draw,angle radius=14mm] {angle=F--A--I};
+\foreach \p/\where in {A/left,E/above,F/below,I/right}
+ {\fill (\p) circle[radius=1.5pt];\node[\where=4pt] at (\p) {$\p$};}
+\node[align=center] at (3,-3.8) {两角相等、斜边共用 $\Longrightarrow$ 两直角三角形全等\\[3pt]
+ 对应的垂线段相等：$IE=IF$};
+\end{tikzpicture}
+\end{center}}

@@ -1,0 +1,28 @@
+% P033: exact 13-14-15 triangle, A=(9,12), B=(0,0), C=(14,0).
+% Optional values are labels only: x,y,z or the corresponding 7,8,6.
+\providecommand{\PTangentFigure}[3]{%
+\begin{center}
+\begin{tikzpicture}[scale=.52,font=\small,line join=round]
+\coordinate (A) at (9,12); \coordinate (B) at (0,0);
+\coordinate (C) at (14,0); \coordinate (I) at (8,4);
+\coordinate (D) at (8,0);
+\coordinate (E) at ({152/13},{72/13});
+\coordinate (F) at (4.8,6.4);
+\draw[CStatement,thick,fill=blue!4] (I) circle[radius=4];
+\draw[gray,dashed] (I)--(D) (I)--(E) (I)--(F);
+\draw[CStatement,very thick] (A)--node[midway,left=5pt] {$#1$} (F)
+ (A)--node[midway,right=5pt] {$#1$} (E);
+\draw[CExample,very thick] (B)--node[midway,left=5pt] {$#2$} (F)
+ (B)--node[midway,below=5pt] {$#2$} (D);
+\draw[CProof,very thick] (C)--node[midway,right=5pt] {$#3$} (E)
+ (C)--node[midway,below=5pt] {$#3$} (D);
+\pic[draw,angle radius=2mm] {right angle=I--D--C};
+\pic[draw,angle radius=2mm] {right angle=I--E--A};
+\pic[draw,angle radius=2mm] {right angle=I--F--B};
+\foreach \p/\where in {A/above,B/below left,C/below right,D/below,E/above right,F/above left}
+ {\fill (\p) circle[radius=1.5pt];\node[\where=4pt] at (\p) {$\p$};}
+\fill (I) circle[radius=1.6pt]; \node[above=4pt] at (I) {$I$};
+\node[align=center,anchor=north,text width=11cm] at (7,-1.6)
+ {同一顶点引出的两条切线段等长：每一对用同一种颜色标出。};
+\end{tikzpicture}
+\end{center}}

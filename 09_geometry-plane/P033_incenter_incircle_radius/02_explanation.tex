@@ -1,42 +1,132 @@
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExplanation}{三块底不同，高却相同}}
+\PIncenterFigure{2}{4}{6}{1.05}{a}{b}{c}{1}{蓝块 $IBC$、橙块 $ICA$、绿块 $IAB$：\\[3pt]对应底为 $a,b,c$，蓝色垂线段的长度都为 $r$。}
+\end{minipage}\par
+只看三块的底与高：每块面积都含有共同因子 $r/2$，所以合并面积时只需相加底边。
 
-	内心是三角形内切圆的圆心，因此它到三边的垂线段都是圆的半径，所以长度必然相等。
+\textbf{\textcolor{CExplanation}{把图形翻译成算式}}
+\[
+\underbrace{S_{\triangle IBC}}_{\frac12 ar}
++\underbrace{S_{\triangle ICA}}_{\frac12 br}
++\underbrace{S_{\triangle IAB}}_{\frac12 cr}
+= S.
+\]
+\[
+ S=\frac12r(a+b+c)=rp,\qquad r=\frac Sp.
+\]
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（定义基础）：}]内心是三条角平分线的交点，也是唯一到三边等距的点。
-		\item[\textbf{要点二（等距结论）：}]该等距长度就是内切圆半径$r$。
-		\item[\textbf{要点三（代数联系）：}]由面积分割$S = \frac{1}{2}r(a+b+c)$，可导出$r = \frac{2S}{a+b+c}$。
-	\end{description}
+\medskip
+\textbf{\textcolor{CExplanation}{做题时的识别信号与作用}}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
+  \item[\textbf{信号一：给了面积和周长，求内切圆半径。}]
+  直接 $r=2S/L$。\textbf{省去：}作角平分线、求内心坐标、再求点到直线距离。
+  \item[\textbf{信号二：给了半径和周长，求面积。}]
+  直接 $S=rL/2$。\textbf{省去：}寻找哪条边作底以及对应的高。
+  \item[\textbf{信号三：给了三边，求半径。}]
+  先判断是不是直角三角形；是就用直角边求面积，
+  否则可用已学的面积方法（例如海伦公式），最后用 $r=S/p$。
+  \item[\textbf{信号四：出现内心连接顶点、求面积比。}]
+  三块小三角形\textbf{高相同}，面积比直接为 $a:b:c$，\textbf{不必先求面积或半径}。
+  \item[\textbf{信号五：给了三边和内切圆半径，核对图形。}]
+  先算 $S=rp$，再和勾股定理、海伦公式得到的面积比较，检查条件能否同时成立。
+\end{description}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（图形解释）}}
+\medskip
+\textbf{\textcolor{CExplanation}{特殊三角形：先约定摆放方式，再写内心坐标}}
 
-	内心是内切圆圆心，故到三边距离相等且等于半径，这是内切圆定义的等价表述。
+以下均用大写 $X,Y$ 表示坐标轴，避免与切线段长 $x,y,z$ 混淆。
+\textbf{同一三角形平移或旋转后，内心坐标会改变，但半径和切线段长不变。}
+这里的“等腰直角三角形”指两条直角边相等；等边三角形三个角均为 $60^\circ$，不会同时是直角三角形。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（周长面积）}}
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExplanation}{情形一：等边三角形——内心、重心、外心、垂心重合}}
 
-	半径公式将几何量（距离）与代数量（边长、面积）联系起来，可用于计算。
+设边长为 $\ell>0$，取
+\[
+ B=(0,0),\quad C=(\ell,0),\quad
+ A=\left(\frac\ell2,\frac{\sqrt3\ell}{2}\right).
+\]
+\PSpecialTriangle{0}
+\end{minipage}\par
+由对称性，内心在底边中垂线上，且四心重合。设高为 $h=\sqrt3\ell/2$，则
+\[
+ \boxed{r=\frac{\sqrt3\ell}{6}=\frac h3},\qquad
+ \boxed{I=\left(\frac\ell2,\frac{\sqrt3\ell}{6}\right)}.
+\]
+\textbf{为什么是高的三分之一？}面积 $S=\ell h/2$，半周长 $p=3\ell/2$，
+所以 $r=S/p=h/3$。内心到顶点 $A$ 的距离为 $AI=h-r=2h/3=2r$。
+三个切点都是各边中点，因此
+\[
+ \boxed{x=y=z=\ell/2}.
+\]
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（高考应用）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（直接求半径）：}已知三边长，先求面积（海伦公式），再代$r = \frac{2S}{a+b+c}$。
-		\item \textbf{考法二（面积转化）：}利用$S = rp$，由半径和周长求面积。
-	\end{itemize}
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExplanation}{情形二：直角三角形——坐标等于两个正的垂直距离}}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
+把直角顶点 $B$ 放在原点，两条直角边沿正坐标轴：
+\[
+ B=(0,0),\quad C=(u,0),\quad A=(0,v),\qquad u,v>0,
+\]
+斜边 $w=\sqrt{u^2+v^2}$。图取 $u=3,v=4,w=5$，表示一般直角三角形的结构。
+\PSpecialTriangle{1}
+\end{minipage}\par
+内心在第一象限，到两条坐标轴的距离都为 $r$；
+所以横、纵坐标分别都是 $r$，内心落在直角的角平分线 $Y=X$ 上：
+\[
+ \boxed{I=(r,r)},\qquad
+ \boxed{r=\frac{uv}{u+v+w}=\frac{u+v-w}{2}}.
+\]
+\textbf{半径公式的来由：}$S=uv/2$，故 $r=S/p=uv/(u+v+w)$；
+再利用 $w^2=u^2+v^2$，有
+\[
+ (u+v-w)(u+v+w)=(u+v)^2-w^2=2uv,
+\]
+便得到后一种写法。\textbf{从直角顶点 $B$ 引出的两条切线段恰好等于半径}，即 $BD=BF=y=r$。
+沿用本篇 $x,y,z$ 的顶点对应，另有
+\[
+ x=\frac{v+w-u}{2},\qquad z=\frac{u+w-v}{2}.
+\]
+注意：一般直角三角形的内心\textbf{不是斜边中点}，斜边中点是外心。
 
-	内心性质本质上就是内切圆的定义，公式只是面积分割的代数结果。不要与重心、垂心混淆。
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExplanation}{情形三：等腰直角三角形——半径只需一个边长}}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（边长已知）：}已知三角形三边长，要求内切圆半径。
-		\item \textbf{场景二（半径已知）：}已知内切圆半径和周长，要求面积。
-	\end{itemize}
+在上一种摆放方式中令 $u=v=t>0$，即
+\[
+ B=(0,0),\quad C=(t,0),\quad A=(0,t),\quad AC=\sqrt2t.
+\]
+\PSpecialTriangle{2}
+\end{minipage}\par
+内心在对称轴 $Y=X$ 上。把 $u=v=t,w=\sqrt2t$ 代入直角三角形公式：
+\[
+ \boxed{r=\frac{2-\sqrt2}{2}t},\qquad
+ \boxed{I=\left(\frac{2-\sqrt2}{2}t,\frac{2-\sqrt2}{2}t\right)}.
+\]
+此时 $p=(2+\sqrt2)t/2$，所以各顶点的切线段长为
+\[
+ \boxed{x=z=\frac{t}{\sqrt2}},\qquad \boxed{y=r=\frac{2-\sqrt2}{2}t}.
+\]
+\textbf{若给的是斜边 $w$：}先用 $t=w/\sqrt2$，也可直接记
+\[
+ \boxed{r=\frac{\sqrt2-1}{2}w},\qquad \boxed{x=z=w/2}.
+\]
+只有两条直角边相等时才能用本小节的单边长公式；普通直角三角形用上一节的 $u,v,w$ 公式。
+
+\medskip
+\textbf{\textcolor{CExplanation}{数值回验：看清“边长”指哪条边}}
+
+等边三角形边长为 $6$ 时，$I=(3,\sqrt3)$、$r=\sqrt3$，三组切线段长均为 $3$。
+直角三角形按图取 $u=3,v=4$ 时，$I=(1,1)$、$r=1$，$(x,y,z)=(3,1,2)$。
+等腰直角三角形若直角边 $t=2$，则 $I=(2-\sqrt2,2-\sqrt2)$、$r=2-\sqrt2$，
+而 $x=z=\sqrt2$，不是把 $t$ 当成斜边代入。
+
+\medskip
+\textbf{\textcolor{CExplanation}{容易忽略的一点}}
+
+“到三边距离相等”一定要和“\textbf{点在三角形内部}”一起理解。
+三角形外部还有到三条边所在直线距离相等的点，因此不能只凭“等距”就说任意位置的点都是内心。
 \end{explanationbox}

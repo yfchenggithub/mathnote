@@ -1,46 +1,182 @@
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{\textcolor{CProof}{证明目标}}
 
-	本题证明分为两步：先由内心定义确定等距，再利用面积分割导出半径公式。
+证明以下两件事：
+\[
+ \boxed{ID=IE=IF=r},\qquad
+ \boxed{S=\frac12r(a+b+c)=rp}.
+\]
+其中 $D,E,F$ 依次是 $I$ 向 $BC,CA,AB$ 作垂线的垂足，
+$a=BC,b=CA,c=AB$，$p=(a+b+c)/2$。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（等距性质）：}]
-			由$I$是三条角平分线的交点，根据角平分线性质，$I$到各边距离相等。设该公共距离为$r$。
-			\[
-				d(I,BC)=d(I,CA)=d(I,AB)=r.
-			\]
-			\par\textbf{理由：}
-			角平分线上的点到角的两边距离相等，$I$在三个角平分线上，故到三边等距。
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{方法一：门槛最低（初中全等三角形 + 面积拼接）}}
 
-		\item[\textbf{步骤二（面积分割）：}]
-			连接$I$与三个顶点$A,B,C$，将$\triangle ABC$分成三个小三角形$\triangle IBC,\triangle ICA,\triangle IAB$。它们分别以$a,b,c$为底，高都是$r$。
-			\[
-				\begin{aligned}
-					S_{\triangle IBC}&=\frac{1}{2} a r,\\
-					S_{\triangle ICA}&=\frac{1}{2} b r,\\
-					S_{\triangle IAB}&=\frac{1}{2} c r.
-			\end{aligned}
-			\]
-			\par\textbf{理由：}
-			小三角形的底分别为$a,b,c$，高为内心到对应边的距离$r$，面积等于底乘高的一半。
+\PAngleFigure
+\end{minipage}\par
+\textbf{核心想法：}先不用记“角平分线上的点到两边距离相等”，
+而是\textbf{亲手证明这个等距性质}，再把三块面积相加。
+\begin{enumerate}[leftmargin=*,itemsep=0.7em]
+ \item \textbf{证明 $IE=IF$。}
+ 因为 $I$ 在 $\angle BAC$ 的角平分线上，所以
+ $\angle EAI=\angle IAF$。由作图，
+ $\angle AEI=\angle AFI=90^\circ$，两直角三角形 $\triangle AEI$ 和
+ $\triangle AFI$ 的斜边都是 $AI$。因此它们有两个对应角相等、
+ 一条对应边相等，可判定全等，于是对应边
+ \[
+  IE=IF.
+ \]
+ \textbf{为什么做这一步？}先确定内心到 $CA$、$AB$ 的\textbf{垂直距离}相等。
 
-		\item[\textbf{步骤三（求和公式）：}]
-			三个小三角形的面积之和等于原三角形的面积$S$，因此
-			\[
-				\frac{1}{2} r (a+b+c) = S,
-			\]
-			解得
-			\[
-				r = \frac{2S}{a+b+c}.
-			\]
-			\par\textbf{理由：}
-			整体等于部分和；两边同乘2并除以$a+b+c$（$a+b+c>0$）得到$r$。
-	\end{description}
+ \item \textbf{证明 $IF=ID$。}
+ 因为 $I$ 也在 $\angle ABC$ 的角平分线上，
+ 同理，$\triangle BFI$ 与 $\triangle BDI$ 都是直角三角形，
+ 斜边同为 $BI$，且 $\angle FBI=\angle IBD$，所以它们全等，
+ \[
+  IF=ID.
+ \]
+ 连同上一步，得到 $ID=IE=IF$。把这个共同长度记作 $r$。
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
+ \item \textbf{理解为什么这就是内切圆半径。}
+ 以 $I$ 为圆心、$r$ 为半径画圆，
+ 它到三条边的\textbf{垂直距离都恰好是 $r$}，
+ 因而与三边分别在 $D,E,F$ 处相切；
+ 因 $I$ 在三角形内部，这就是内切圆。所以共同距离为内切圆半径。
 
-	以上推导表明：内心到三边的距离相等（都等于$r$），且该距离$r$正好满足$r = \dfrac{2S}{a+b+c}$，因此$r$就是内切圆的半径。\textbf{证毕}。
+ \item \textbf{把大三角形分成三块。}
+\PIncenterFigure{2}{4}{6}{0.95}{a}{b}{c}{1}{连三个顶点分成三块；三条实线垂线分别给出对应的高。}
+
+ 连接 $IA,IB,IC$。这三条线段把原三角形无重叠地分为
+ $\triangle IBC,\triangle ICA,\triangle IAB$。
+ 它们分别以 $BC=a,CA=b,AB=c$ 为底，
+ 对应的高是 $ID=IE=IF=r$，于是
+ \[
+   S_{\triangle IBC}=\frac12 ar,\quad
+   S_{\triangle ICA}=\frac12 br,\quad
+   S_{\triangle IAB}=\frac12 cr.
+ \]
+ \textbf{为什么可以用这些高？}三角形的高是顶点到\textbf{底边所在直线的垂线段}，不是 $IA,IB,IC$。
+
+ \item \textbf{将三块面积相加。}
+ \[
+ \begin{aligned}
+ S&=S_{\triangle IBC}+S_{\triangle ICA}+S_{\triangle IAB}\\
+  &=\frac12 ar+\frac12 br+\frac12 cr\\
+  &=\frac12 r(a+b+c)=rp.
+ \end{aligned}
+ \]
+ 由于 $a+b+c>0$，两边同除以 $(a+b+c)/2$ 得
+ \[
+  \boxed{r=\frac{2S}{a+b+c}=\frac Sp}.
+ \]
+\end{enumerate}
+\textbf{门槛：}仅使用角平分线、直角三角形全等、面积公式、等式变形，初中生可以逐步理解。
+
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{方法二：步骤最少（考场直接写的面积法）}}
+
+\PIncenterFigure{2}{4}{6}{1}{a}{b}{c}{1}{面积直接相加：$S=ar/2+br/2+cr/2$。}
+\end{minipage}\par
+\textbf{前提：}已经学过“内心到三边的距离都是内切圆半径”。
+\begin{enumerate}[leftmargin=*,itemsep=0.55em]
+ \item 连接 $IA,IB,IC$；因为 $I$ 是内心，所以
+ $ID=IE=IF=r$。
+ \item 三块面积相加，\textbf{一行完成核心计算}：
+ \[
+  S=\frac12ar+\frac12br+\frac12cr
+   =\frac12r(a+b+c).
+ \]
+ \item 等式两边除以 $(a+b+c)/2$，得到
+ \[
+   \boxed{r=\frac{2S}{a+b+c}}.
+ \]
+\end{enumerate}
+\textbf{考场价值：}如果题目只求 $r$ 或 $S$，这是建议优先采用的写法；
+不用计算 $I$ 的具体位置。
+
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{方法三：常规证明（角平分线性质 + 垂足 + 分别求面积）}}
+
+\PIncenterFigure{2}{4}{6}{1}{a}{b}{c}{2}{观察角平分线 $AI$ 两旁的直角三角形：$IE=IF$；\\[3pt]在顶点 $B$ 处同理得到 $IF=ID$。}
+\end{minipage}\par
+\textbf{核心想法：}先规范地推出各条高相等，再按三角形面积公式逐项计算。
+\begin{enumerate}[leftmargin=*,itemsep=0.65em]
+ \item \textbf{作垂线。}过内心 $I$ 作
+ $ID\perp BC$、$IE\perp CA$、$IF\perp AB$。
+ 由角平分线上的点到角两边距离相等：
+ 因 $AI$ 平分 $\angle BAC$，所以 $IE=IF$；
+ 因 $BI$ 平分 $\angle ABC$，所以 $IF=ID$。
+ 于是 $ID=IE=IF=r$。
+ \item \textbf{计算三个小三角形。}由三角形面积等于底乘高的一半，
+ \[
+ \begin{aligned}
+ S_{\triangle IBC}&=\frac12\,BC\cdot ID=\frac12ar,\\
+ S_{\triangle ICA}&=\frac12\,CA\cdot IE=\frac12br,\\
+ S_{\triangle IAB}&=\frac12\,AB\cdot IF=\frac12cr.
+ \end{aligned}
+ \]
+ \item \textbf{合并并变形。}
+ 三块恰好组成 $\triangle ABC$，故
+ \[
+  S=\frac12ar+\frac12br+\frac12cr
+   =\frac12r(a+b+c)=rp,
+  \qquad \boxed{r=\frac Sp}.
+ \]
+ \item \textbf{顺便得到面积比。}
+ 三块面积都含有相同的系数 $r/2$，
+ \[
+   \boxed{S_{\triangle IBC}:S_{\triangle ICA}:S_{\triangle IAB}=a:b:c}.
+ \]
+ 这说明求三小块面积比时连 $r$ 也不用求。
+\end{enumerate}
+
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{补充：反过来判断某点是不是内心}}
+
+\PAngleFigure
+\end{minipage}\par
+图中把 $I$ 换成待判断的点 $P$：若两条垂线段相等，由共同斜边和一条直角边相等推出全等，再得两角相等。
+
+若 $P$ \textbf{在三角形内部}，且它到 $AB,AC,BC$ 的垂直距离相等，
+则 $P$ 是内心。理由是：从 $P$ 向 $AB,AC$ 作垂线，
+两个直角三角形以 $AP$ 为共同斜边，另一条对应直角边又相等，
+所以它们全等，推出 $AP$ 平分 $\angle BAC$；
+对顶点 $B$ 同理，$BP$ 也平分 $\angle ABC$。
+因此 $P$ 是两条内角平分线交点，即内心。
+\textbf{特别强调：}“在内部”不能省去。
+
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{切线段长的推导：三边拆成三对等长线段}}
+
+\PTangentFigure{x}{y}{z}
+\end{minipage}\par
+先说明为什么同一顶点引出的两段相等：$IE\perp AE$、$IF\perp AF$，
+两个直角三角形 $\triangle AEI$、$\triangle AFI$ 共用斜边 $AI$，
+且 $IE=IF=r$，由斜边及一条直角边相等可知全等，故 $AE=AF=x$。
+在 $B,C$ 处同理，$BF=BD=y$、$CD=CE=z$。
+
+从图上沿每条边相加，得到
+\[
+ \underbrace{y+z}_{BC}=a,\qquad
+ \underbrace{x+z}_{CA}=b,\qquad
+ \underbrace{x+y}_{AB}=c.
+\]
+三式相加得 $2(x+y+z)=a+b+c=2p$，所以 $x+y+z=p$。
+再分别减去 $y+z=a$、$x+z=b$、$x+y=c$，即得
+\[
+ \boxed{x=p-a},\qquad \boxed{y=p-b},\qquad \boxed{z=p-c}.
+\]
+因此三边已知时，\textbf{不必求半径或内心坐标}，就能确定切点把各边分成的长度。
+
+\medskip
+\textbf{\textcolor{CProof}{三种面积证明怎样选？}}
+
+第一次学或者不理解等距性质时，用\textbf{方法一}；
+考试中直接求面积、半径时，用\textbf{方法二}；
+书面完整证明或需要同时说明面积比时，用\textbf{方法三}。
 \end{proofbox}

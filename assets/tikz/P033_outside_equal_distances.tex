@@ -1,0 +1,22 @@
+\begin{center}
+\begin{tikzpicture}[scale=.75,font=\small,line join=round]
+\coordinate (A) at (0,3); \coordinate (B) at (0,0); \coordinate (C) at (4,0);
+\coordinate (I) at (1,1); \coordinate (J) at (6,6);
+\draw[gray,dashed] (0,3)--(0,6.7) (4,0)--(6.7,0);
+\draw[thick] (A)--(B)--(C)--cycle;
+\draw[CStatement,thick] (I) circle[radius=1];
+\draw[CStatement] (I)--(1,0) (I)--(0,1) (I)--(.4,1.8);
+\draw[CTrap,thick,dashed] (J)--node[midway,right] {$6$} (6,0)
+ (J)--node[midway,above] {$6$} (0,6)
+ (J)--node[pos=.55,right=4pt] {$6$} (2.4,1.2);
+\draw (5.75,0)--(5.75,.25)--(6,.25);
+\draw (0,5.75)--(.25,5.75)--(.25,6);
+\coordinate (H) at (2.4,1.2);
+\pic[draw,angle radius=3mm] {right angle=J--H--C};
+\foreach \p/\where in {A/left,B/below left,C/below,I/above right,J/above right}
+ {\fill (\p) circle[radius=1.5pt];\node[\where=3pt] at (\p) {$\p$};}
+\node[anchor=west,align=left] at (8,5.2) {$I$ 在内部\\[4pt]到三边距离均为 $1$};
+\node[anchor=west,align=left,text=CTrap] at (8,2.2) {$J$ 在外部\\[4pt]到三边所在直线\\[4pt]距离均为 $6$};
+\node[align=center] at (6,-1) {同一个 $3$、$4$、$5$ 三角形：等距还要看点是否在内部};
+\end{tikzpicture}
+\end{center}

@@ -1,0 +1,56 @@
+% P033: coordinates use capital X,Y to distinguish axes from tangent lengths x,y,z.
+% 0 equilateral (side 6); 1 right (legs 3,4); 2 isosceles right (legs 4,4).
+\providecommand{\PSpecialTriangle}[1]{%
+\begin{center}
+\begin{tikzpicture}[font=\small,line join=round,scale=1.05]
+\ifnum#1=0
+ \def\su{6}\def\sv{5.196152423}\def\sx{3}\def\si{3}\def\sr{1.732050808}
+\else
+ \def\sx{0}
+ \ifnum#1=1
+  \def\su{3}\def\sv{4}\def\si{1}\def\sr{1}
+ \else
+  \def\su{4}\def\sv{4}\def\si{1.171572875}\def\sr{1.171572875}
+ \fi
+\fi
+\coordinate (B) at (0,0); \coordinate (C) at (\su,0);
+\coordinate (A) at (\sx,\sv); \coordinate (I) at (\si,\sr);
+\coordinate (D) at (\si,0); \coordinate (F) at (0,\sr);
+\draw[gray,-{Stealth}] (-.7,0)--({\su+1},0) node[right] {$X$};
+\draw[gray,-{Stealth}] (0,-.6)--(0,{\sv+1}) node[above] {$Y$};
+\draw[CStatement,thick,fill=blue!5] (I) circle[radius=\sr];
+\draw[thick] (A)--(B)--(C)--cycle;
+\ifnum#1=0
+ \draw[CProof,dashed] (A)--(D);
+ \draw[CStatement,very thick] (I)--node[right=3pt] {$r$} (D);
+ \node[below=6pt] at (D) {$\ell/2$};
+ \node[below=6pt] at (C) {$\ell$};
+ \node[left=5pt] at (0,\sv) {$h$};
+ \draw[gray,dotted] (0,\sv)--(A);
+ \node[left=5pt] at ($(A)!.48!(B)$) {$\ell$};
+ \node[right=5pt] at ($(A)!.48!(C)$) {$\ell$};
+ \node[above=5pt] at (A) {$A$};
+ \node[above right=3pt] at (I) {$I$};
+\else
+ \draw[CStatement,very thick] (I)--(D) (I)--(F);
+ \node[below=5pt] at (D) {$r$};
+ \node[left=5pt] at (F) {$r$};
+ \node[above left=4pt] at (I) {$I$};
+ \pic[draw,angle radius=3mm] {right angle=C--B--A};
+ \ifnum#1=1
+  \node[below=6pt] at (C) {$u$};
+  \node[left=5pt] at (A) {$v$};
+  \node[right=5pt] at ($(A)!.32!(C)$) {$w$};
+ \else
+  \node[below=6pt] at (C) {$t$};
+  \node[left=5pt] at (A) {$t$};
+  \node[right=5pt] at ($(A)!.32!(C)$) {$\sqrt2t$};
+  \draw[CProof,dashed] (B)--({\su/2},{\sv/2});
+ \fi
+ \node[above right=3pt] at (A) {$A$};
+\fi
+\node[below left=4pt] at (B) {$B=O$};
+\node[above right=4pt] at (C) {$C$};
+\foreach \p in {A,B,C,I} \fill (\p) circle[radius=1.5pt];
+\end{tikzpicture}
+\end{center}}

@@ -1,21 +1,81 @@
 \begin{trapbox}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（公式记忆）：}}] 误记内切圆半径公式为$r=\frac{S}{a+b+c}$或$r=\frac{S}{2(a+b+c)}$。
-		\item[\textbf{\textcolor{CTrap}{正确理解（正确公式）：}}] 正确公式为$r=\frac{2S}{a+b+c}$，注意分子有系数$2$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（类比干扰）：}}] 由面积公式$S=\frac12 ah$联想，错误类比到周长分割中忘记乘以$2$。
-	\end{description}
+\textbf{\textcolor{CTrap}{特殊三角形的坐标与边长不能混用}}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（概念混淆）：}}] 将“内心到三边距离相等”误记为“内心到三顶点距离相等”。
-		\item[\textbf{\textcolor{CTrap}{正确理解（区别明确）：}}] 内心是角平分线交点，到三边距离相等；外心是中垂线交点，到三顶点距离相等。
-		\item[\textbf{\textcolor{CTrap}{错因分析（概念混淆）：}}] 混淆内心与外心的性质，导致解题中应用错误。
-	\end{description}
+写 $I=(r,r)$ 的前提是：直角顶点在原点，两直角边沿正坐标轴。若平移、旋转图形，
+应相应改变内心坐标，不能照抄 $(r,r)$。等腰直角三角形中，直角边 $t$ 与斜边 $w=\sqrt2t$
+对应不同的半径公式；等边三角形三个角都是 $60^\circ$，不存在“直角等边三角形”。
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（条件忽略）：}}] 在三角形三边不满足三角形不等式时（如退化三角形）仍使用公式。
-		\item[\textbf{\textcolor{CTrap}{正确理解（使用前提）：}}] 公式适用于任意非退化三角形，即任意两边之和大于第三边。
-		\item[\textbf{\textcolor{CTrap}{错因分析（条件缺失）：}}] 忽略三角形存在条件，在边长不能构成三角形时盲目代入导致无意义。
-	\end{description}
+\medskip
+\textbf{\textcolor{CTrap}{切线段长的两个提醒}}
+
+$x=AE=AF$ 是从 $A$ \textbf{沿边到切点}的长度，不是半径 $r$，也不是 $AI$。
+要用 $x=p-a$，其中 $a=BC$ 是 $A$ 的对边；不能把它误写成 $p-AB$。
+同理，$y$ 对应 $B$ 的对边 $CA$，$z$ 对应 $C$ 的对边 $AB$。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错点一：到三边等距，不等于到三个顶点等距}}
+
+\PIncenterFigure{2}{4}{6}{1}{a}{b}{c}{1}{蓝色实线垂直于各底边，是高；灰色虚线连到顶点，不是这些高。}
+内心 $I$ 到三边的\textbf{垂直距离}相等，即 $ID=IE=IF$；
+一般没有 $IA=IB=IC$。到三个顶点距离相等的是\textbf{外心}，不能混用。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错点二：漏掉面积公式中的 $\frac12$}}
+
+三个小三角形面积分别是 $ar/2,br/2,cr/2$，所以
+\[
+ S=\frac12r(a+b+c)=rp,\qquad r=\frac{2S}{a+b+c}.
+\]
+当使用\textbf{半周长 $p$} 时，$r=S/p$；当使用\textbf{整个周长 $L$} 时，$r=2S/L$。
+两种写法只是分母表示不同。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错点三：把连接内心到顶点的线段当作高}}
+
+以 $BC$ 为底的 $\triangle IBC$，高是 $ID$，\textbf{不是} $IB$ 或 $IC$；
+其他两块同理。只有垂线段才能当相应的高。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错点四：只给“到三条边所在直线等距”就断定是内心}}
+
+\input{assets/tikz/P033_outside_equal_distances}
+三角形\textbf{外部}也可能有到三条边所在直线距离相等的点；
+只有再加“\textbf{点在三角形内部}”这一条件，才能据此判定它是内心。
+作图题尤其要区分内角平分线与外角平分线。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错点五：题目数据本身可能互相矛盾}}
+
+原例题写“周长 $24$、内切圆半径 $3$”，直接套式子得到
+$S=3\times12=36$，\textbf{但这是不存在的三角形，不能当成真实例题}。
+下面给出一个只用高中知识的检查：
+设半周长 $p=12$，由海伦公式，
+\[
+ S^2=12(12-a)(12-b)(12-c).
+\]
+令 $x=12-a,y=12-b,z=12-c$，则 $x,y,z>0$，且
+\[
+ x+y+z=36-(a+b+c)=12.
+\]
+三个正数的和固定为 $12$ 时，乘积在三数相等时最大（基本不等式），所以
+\[
+ xyz\le4^3=64,\qquad S^2\le12\times64=768,
+ \qquad S\le16\sqrt3<36.
+\]
+于是与 $S=36$ 矛盾。例2现改为\textbf{$r=2,L=24,S=24$}，
+并用 $6$、$8$、$10$ 直角三角形验证其确实存在。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错点六：三边不能围成三角形}}
+
+例如 $2,3,5$，虽然看起来给出了三边长度，
+但 $2+3=5$，三点落在同一直线上，没有真正的内切圆。
+使用本结论前必须确认任意两边之和\textbf{严格大于}第三边。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错点七：看见三边就机械套海伦公式}}
+
+若三边满足勾股定理，\textbf{先用直角三角形面积}通常更省步骤。
+例如 $5,12,13$，直接 $S=5\times12/2=30$，
+再代 $r=2S/(5+12+13)=2$。
 \end{trapbox}

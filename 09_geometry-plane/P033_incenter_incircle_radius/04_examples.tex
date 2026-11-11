@@ -1,100 +1,111 @@
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例1（基础）}}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExample}{例1：知道三边，求半径（先看能否用勾股定理）}}
 
-	\textbf{\textcolor{CExample}{题目：}}
-	在$\triangle ABC$中，$a=5,b=12,c=13$，求内切圆半径$r$。
+\textbf{题目：}三边长为 $5,12,13$ 的三角形，求内切圆半径。
+\PIncenterFigure{0}{12}{5}{0.43}{5}{13}{12}{0}{例1：两直角边 $5,12$，斜边 $13$；圆的半径 $r$ 待求。}
+\end{minipage}\par
+\begin{enumerate}[leftmargin=*,itemsep=0.45em]
+ \item $5^2+12^2=13^2$，所以它是直角三角形，两条直角边是 $5,12$。
+ \item 面积 $S=\frac12\times5\times12=30$，周长 $L=5+12+13=30$。
+ \item $r=\dfrac{2S}{L}=\dfrac{60}{30}=\boxed{2}$。
+\end{enumerate}
+\textbf{再快一步：}直角三角形专用式
+$r=(5+12-13)/2=2$。\textbf{识别信号：}三边满足勾股定理。
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CExample}{第一步（判定形状）：}}] 因为$5^2+12^2=13^2$，所以$\triangle ABC$是直角三角形，两直角边为$5$和$12$。
-			\par\textbf{理由：} 勾股定理逆定理。
-		\item[\textbf{\textcolor{CExample}{第二步（求面积）：}}]
-			\[
-				\begin{aligned}
-					S &= \frac{1}{2} \times 5 \times 12 \\
-					&= 30.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 直角三角形面积公式。
-		\item[\textbf{\textcolor{CExample}{第三步（求半径）：}}]
-			\[
-				\begin{aligned}
-					r &= \frac{2S}{a+b+c} \\
-					&= \frac{2\times30}{5+12+13} \\
-					&= \frac{60}{30} \\
-					&= 2.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 内心半径公式。
-	\end{description}
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExample}{例2：知道半径和周长，求面积（可实现的数据）}}
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$r=2$}
+\textbf{题目：}一个三角形的内切圆半径为 $r=2$，周长为 $L=24$，求面积。
+\PIncenterFigure{0}{8}{6}{0.58}{6}{10}{8}{0}{例2的一种可行图形：$L=24$，$r=2$；所求是整个三角形面积。}
+\end{minipage}\par
+\begin{enumerate}[leftmargin=*,itemsep=0.4em]
+ \item 半周长 $p=L/2=12$。
+ \item $S=rp=2\times12=\boxed{24}$。
+ \item \textbf{验证题目确实可能成立：}例如两直角边为 $6,8$、斜边为 $10$ 的三角形：
+ 周长 $6+8+10=24$，面积 $6\times8/2=24$，
+ 半径 $2\times24/24=2$，全部吻合。
+\end{enumerate}
+\textbf{注意：}半径、周长必须来自真实三角形；数据可行性检查见“易错点”。
 
-	\medskip
-	\textbf{\textcolor{CExample}{例2（稍变形）}}
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExample}{例3：不是直角三角形，三边求半径（海伦公式）}}
 
-	\textbf{\textcolor{CExample}{题目：}}
-	已知$\triangle ABC$的内切圆半径$r=3$，周长$L=24$，求面积$S$。
+\textbf{题目：}三边长为 $13,14,15$ 的三角形，求内切圆半径。
+\PIncenterFigure{9}{12}{14}{0.43}{14}{13}{15}{0}{例3：$BC=14,CA=13,AB=15$；先算面积，再求蓝色半径。}
+\end{minipage}\par
+\begin{enumerate}[leftmargin=*,itemsep=0.45em]
+ \item 先算半周长：$p=(13+14+15)/2=21$。
+ \item 用海伦公式：
+ \[
+ \begin{aligned}
+ S&=\sqrt{p(p-13)(p-14)(p-15)}\\
+  &=\sqrt{21\times8\times7\times6}
+   =\sqrt{7056}=84.
+ \end{aligned}
+ \]
+ \item 因而 $r=S/p=84/21=\boxed{4}$。
+\end{enumerate}
+\textbf{路线判断：}不是直角三角形时，不要硬猜高；三边已知可用海伦公式。
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CExample}{第一步（公式变形）：}}] 由$r = \frac{2S}{a+b+c}$变形得$S = \frac{r(a+b+c)}{2}$。
-			\par\textbf{理由：} 等式两边同乘$a+b+c$再除以$2$。
-		\item[\textbf{\textcolor{CExample}{第二步（代入数据）：}}] 将$r=3$, $a+b+c=24$代入，得$S = \frac{3\times24}{2}$。
-			\par\textbf{理由：} 直接代入。
-		\item[\textbf{\textcolor{CExample}{第三步（计算结果）：}}]
-			\[
-				\begin{aligned}
-					S &= \frac{72}{2} \\
-					&= 36.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 数值计算。
-	\end{description}
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExample}{例3变式：同样的三边，直接求切点分段}}
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$S=36$}
+\textbf{题目：}仍取 $BC=14,CA=13,AB=15$，内切圆切 $BC,CA,AB$
+于 $D,E,F$。求 $AE,AF,BF,BD,CD,CE$。
+\PTangentFigure{7}{8}{6}
+\end{minipage}\par
+半周长为 $p=21$，每个顶点的切线段长等于 $p$ 减去其对边长：
+\[
+\begin{aligned}
+ AE=AF&=p-BC=21-14=\boxed{7},\\
+ BF=BD&=p-CA=21-13=\boxed{8},\\
+ CD=CE&=p-AB=21-15=\boxed{6}.
+\end{aligned}
+\]
+\textbf{回验：}$BD+DC=8+6=14$，$AE+EC=7+6=13$，
+$AF+FB=7+8=15$，恰好还原三边。
+\textbf{与上一问的区别：}求这些沿边的长度，不需要先用海伦公式求面积，也不用计算半径。
 
-	\medskip
-	\textbf{\textcolor{CExample}{例3（综合应用）}}
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExample}{例4：不求半径，直接求面积比}}
 
-	\textbf{\textcolor{CExample}{题目：}}
-	在$\triangle ABC$中，$a=13,b=14,c=15$，求内切圆半径$r$。
+\textbf{题目：}在 $\triangle ABC$ 中，$BC=6,CA=8,AB=10$，
+内心为 $I$。求
+$S_{\triangle IBC}:S_{\triangle ICA}:S_{\triangle IAB}$。
+\PIncenterFigure{6}{8}{6}{0.62}{6}{8}{10}{1}{例4：蓝、橙、绿三块的高同为 $r$；面积比直接读对应底边比。}
+\end{minipage}\par
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CExample}{第一步（求半周长）：}}]
-			\[
-				\begin{aligned}
-					p &= \frac{a+b+c}{2} \\
-					&= \frac{13+14+15}{2} \\
-					&= 21.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 半周长定义。
-		\item[\textbf{\textcolor{CExample}{第二步（海伦公式求面积）：}}]
-			\[
-				\begin{aligned}
-					S &= \sqrt{p(p-a)(p-b)(p-c)} \\
-					&= \sqrt{21\times8\times7\times6} \\
-					&= \sqrt{7056} \\
-					&= 84.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 海伦公式。
-		\item[\textbf{\textcolor{CExample}{第三步（求半径）：}}]
-			\[
-				\begin{aligned}
-					r &= \frac{2S}{a+b+c} \\
-					&= \frac{2\times84}{13+14+15} \\
-					&= \frac{168}{42} \\
-					&= 4.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 内切圆半径公式。
-	\end{description}
+\begin{enumerate}[leftmargin=*,itemsep=0.4em]
+ \item 连接 $IA,IB,IC$ 后，三个小三角形到底边的高都是内切圆半径 $r$。
+ \item 因而面积比分别为
+ \[
+  \frac{6r}{2}:\frac{8r}{2}:\frac{10r}{2}
+  =6:8:10=\boxed{3:4:5}.
+ \]
+\end{enumerate}
+\textbf{为何更快：}题目只问比值，$r$ 相同会约去，不需要计算半径。
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$r=4$}
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExample}{例5：反过来用面积比找边长}}
+
+\textbf{题目：}在 $\triangle ABC$ 中，$I$ 是内心，已知
+$S_{\triangle IBC}:S_{\triangle ICA}=3:5$，并且 $BC=9$，求 $CA$。
+\PIncenterFigure{0}{12}{9}{0.43}{9}{15}{12}{1}{例5的一种可行形状（$AB$ 不是题目给定量）：\\[3pt]蓝块与橙块同高，面积比 $3:5$ 对应底边比 $BC:CA=3:5$。}
+\end{minipage}\par
+
+\begin{enumerate}[leftmargin=*,itemsep=0.4em]
+ \item 因两块小三角形的高都是 $r$，
+ $S_{\triangle IBC}:S_{\triangle ICA}=BC:CA=3:5$。
+ \item 代入 $BC=9$，得到 $9:CA=3:5$，因此
+ \[
+  CA=\frac{9\times5}{3}=\boxed{15}.
+ \]
+\end{enumerate}
+\textbf{核心作用：}把面积比变成边长比，不必求出两个面积。
 \end{examplebox}
