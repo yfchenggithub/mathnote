@@ -1,97 +1,243 @@
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\par\noindent\begin{minipage}{\linewidth}
+  \textbf{\textcolor{CProof}{证明一：门槛最低——只有勾股定理、平方差（初中知识）}}
 
-	海伦公式的代数证明源于面积公式与余弦定理的结合，通过平方差和因式分解得到关于三边的对称形式。
+  \textbf{目标：}不使用正弦、余弦、正切，也不使用任何超出初中知识的定理。
+  设 $BC=a$、$CA=b$、$AB=c$。由于三边在公式里的地位相同，可以把\textbf{最长的边}记为 $c$。
+  从 $C$ 向 $AB$ 作垂线，垂足为 $D$，令 $CD=h$、$AD=x$，则 $DB=c-x$。
+  \textbf{为什么 $D$ 在边 $AB$ 上？} 因为 $AB$ 最长：如果垂足落在 $A$ 的左边，直角三角形 $BCD$ 的斜边 $BC$ 就比 $BD$ 还长，而 $BD>BA$，于是 $BC>AB$，与最长边为 $AB$ 矛盾；落在 $B$ 的右边同理。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[{\textbf{步骤一（正弦面积）：}}]
-		      设边 $a$ 与边 $b$ 的夹角为 $C$，边 $c$ 与角 $C$ 相对，则
-		      \[
-			      S=\frac12 ab\sin C.
-		      \]
-		      \par\textbf{理由：} 三角形面积公式：两边及其夹角确定面积。
+  \input{assets/tikz/T037_altitude_figure.tex}
+\end{minipage}\par
 
-		\item[{\textbf{步骤二（余弦代换）：}}]
-		      由余弦定理
-		      \[
-			      c^2=a^2+b^2-2ab\cos C,
-		      \]
-		      得
-		      \[
-			      \cos C = \frac{a^2+b^2-c^2}{2ab}.
-		      \]
-		      于是
-		      \[
-			      \begin{aligned}
-				      \sin^2 C
-				       & = 1-\cos^2 C                               \\
-				       & = 1-\left(\frac{a^2+b^2-c^2}{2ab}\right)^2 \\
-				       & = 1-\frac{(a^2+b^2-c^2)^2}{4a^2b^2}.
-			      \end{aligned}
-		      \]
-		      \par\textbf{理由：} 使用恒等式 $\sin^2 C+\cos^2 C=1$。
+  \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.55em]
+    \item[\textbf{第 1 步：对左右两个直角三角形分别用勾股定理。}]
+    \[
+      \begin{cases}
+       b^2=x^2+h^2, &\text{在 }\triangle ACD\text{ 中},\\
+       a^2=(c-x)^2+h^2, &\text{在 }\triangle BCD\text{ 中}.
+      \end{cases}
+    \]
+    \textbf{为什么这样做？}两式都有相同的 $h^2$，相减就可以把不知道的高消掉。
 
-		\item[{\textbf{步骤三（代入化简）：}}]
-		      \[
-			      \begin{aligned}
-				      S^2
-				       & = \frac14 a^2b^2\sin^2 C                            \\
-				       & = \frac14 a^2b^2
-				      \left(1-\frac{(a^2+b^2-c^2)^2}{4a^2b^2}\right)         \\
-				       & = \frac14 a^2b^2-\frac{1}{16}(a^2+b^2-c^2)^2        \\
-				       & = \frac{1}{16}\left[4a^2b^2-(a^2+b^2-c^2)^2\right].
-			      \end{aligned}
-		      \]
-		      \par\textbf{理由：} 将 $\sin^2 C$ 代入面积平方公式。
+    \item[\textbf{第 2 步：两式相减，先求出 $x$。}]
+    \[
+      \begin{aligned}
+        b^2-a^2
+        &=x^2-(c-x)^2\\
+        &=x^2-(c^2-2cx+x^2)\\
+        &=2cx-c^2.
+      \end{aligned}
+    \]
+    所以
+    \[
+      2cx=b^2+c^2-a^2,
+      \qquad x=\frac{b^2+c^2-a^2}{2c}.
+    \]
+    \textbf{关键：}没有求出高，却已经把底边的分段 $x$ 表示成了三边。
 
-		\item[{\textbf{步骤四（平方差分解）：}}]
-		      \[
-			      \begin{aligned}
-				      S^2
-				       & =\frac{1}{16}\left[(2ab)^2-(a^2+b^2-c^2)^2\right] \\
-				       & =\frac{1}{16}
-				      (2ab+a^2+b^2-c^2)(2ab-a^2-b^2+c^2)                   \\
-				       & =\frac{1}{16}
-				      \left[(a+b)^2-c^2\right]\left[c^2-(a-b)^2\right]     \\
-				       & =\frac{1}{16}(a+b+c)(a+b-c)(a-b+c)(-a+b+c).
-			      \end{aligned}
-		      \]
-		      \par\textbf{理由：} 使用平方差公式和完全平方公式。
+    \item[\textbf{第 3 步：面积用底乘高，先算面积的平方。}]
+    因为 $S=\tfrac12 ch$，所以 $4S^2=c^2h^2$。
+    又因为 $h^2=b^2-x^2$，故
+    \[
+      \begin{aligned}
+        16S^2&=4c^2h^2\\
+        &=4c^2(b^2-x^2)\\
+        &=4b^2c^2-(2cx)^2\\
+        &=4b^2c^2-(b^2+c^2-a^2)^2.
+      \end{aligned}
+    \]
+    \textbf{为什么算 $S^2$ 而不是 $S$？}这样可以不急着开根号，先把式子变成两个平方的差。
 
-		\item[{\textbf{步骤五（半周长代换）：}}]
-		      令
-		      \[
-			      p=\frac{a+b+c}{2}.
-		      \]
-		      则
-		      \[
-			      \begin{aligned}
-				      a+b+c  & = 2p,     \\
-				      a+b-c  & = 2(p-c), \\
-				      a-b+c  & = 2(p-b), \\
-				      -a+b+c & = 2(p-a).
-			      \end{aligned}
-		      \]
-		      代入 $S^2$ 得
-		      \[
-			      \begin{aligned}
-				      S^2
-				       & = \frac{1}{16}\cdot 2p\cdot 2(p-c)\cdot 2(p-b)\cdot 2(p-a) \\
-				       & = p(p-a)(p-b)(p-c).
-			      \end{aligned}
-		      \]
-		      因此
-		      \[
-			      S=\sqrt{p(p-a)(p-b)(p-c)}.
-		      \]
-		      \par\textbf{理由：} 面积为正，取算术平方根。
+    \item[\textbf{第 4 步：先用一次平方差，再连续用平方差。}]
+    \[
+      \begin{aligned}
+       16S^2
+       &=(2bc)^2-(b^2+c^2-a^2)^2\\
+       &=[\,2bc+b^2+c^2-a^2\,]
+         [\,2bc-b^2-c^2+a^2\,]\\
+       &=[\,(b+c)^2-a^2\,]
+         [\,a^2-(b-c)^2\,]\\
+       &=(b+c+a)(b+c-a)\\[-1mm]
+       &\qquad\cdot(a+b-c)(a-b+c).
+      \end{aligned}
+    \]
+    \textbf{为什么突然出现四个括号？}因为
+    $(b+c)^2-a^2=(b+c-a)(b+c+a)$，
+    $a^2-(b-c)^2=(a-b+c)(a+b-c)$。
+    每次都只是初中学过的 ``$u^2-v^2=(u-v)(u+v)$''。
 
-	\end{description}
+    \item[\textbf{第 5 步：将四个括号改写成半周长。}]
+    令 $p=(a+b+c)/2$，逐个对应：
+    \[
+      \begin{array}{ll}
+       a+b+c=2p,&b+c-a=2(p-a),\\
+       a+b-c=2(p-c),&a-b+c=2(p-b).
+      \end{array}
+    \]
+    于是
+    \[
+      \begin{aligned}
+       16S^2
+       &=2p\cdot2(p-a)\cdot2(p-b)\cdot2(p-c)\\
+       &=16p(p-a)(p-b)(p-c).
+      \end{aligned}
+    \]
+    两边除以 $16$，得到 $S^2=p(p-a)(p-b)(p-c)$。
+    因为三角形面积 $S>0$，所以
+    \[
+      \boxed{S=\sqrt{p(p-a)(p-b)(p-c)}}.
+    \]
+  \end{description}
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
+  \medskip
+\par\noindent\begin{minipage}{\linewidth}
+  \textbf{\textcolor{CProof}{证明二：关键步骤最少——内切圆＋两个半角（高中三角函数）}}
 
-	\textbf{由正弦面积公式、余弦定理和因式分解，可以把面积完全表示成三边长的形式，这就是海伦公式。}
+  \textbf{目标：}用三个关键环节直接推出 $S^2=p(p-a)(p-b)(p-c)$，看清半周长三个差从哪里来。
+  设内切圆圆心为 $I$、半径为 $r>0$，与 $BC$、$CA$、$AB$ 分别切于 $D$、$E$、$F$。
+  记 $AF=AE=x$、$BF=BD=y$、$CD=CE=z$。这些相等是因为，从同一个顶点向圆作的两条切线段等长；也可用勾股定理证明，如 $AF^2=AI^2-r^2=AE^2$。
+
+  \input{assets/tikz/T037_incircle_figure.tex}
+\end{minipage}\par
+  \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.5em]
+    \item[\textbf{第 1 步：用三个切线段表示三边。}]
+    \[
+      a=y+z,\quad b=z+x,\quad c=x+y,\quad p=x+y+z.
+    \]
+    故
+    \[
+      x=p-a,\quad y=p-b,\quad z=p-c.
+    \]
+    连接 $IA$、$IB$、$IC$，三个以 $a,b,c$ 为底、以 $r$ 为高的小三角形恰好拼成原三角形，因此
+    \[
+      S=\frac{ar}{2}+\frac{br}{2}+\frac{cr}{2}=pr.
+    \]
+
+    \item[\textbf{第 2 步：用两角和的正切公式，只求一条等式。}]
+\input{assets/tikz/T037_half_angle_triangles}
+    因 $AI$、$BI$、$CI$ 分别平分三个角，在直角三角形 $AIF$、$BIF$、$CIE$ 中，
+    \[
+      \tan\frac A2=\frac r x,\quad
+      \tan\frac B2=\frac r y,\quad
+      \tan\frac C2=\frac r z.
+    \]
+    又由 $A+B+C=180^\circ$，有 $\tfrac A2+\tfrac B2=90^\circ-\tfrac C2$。
+    利用高中学过的两角和公式
+    \[
+     \tan(\alpha+\beta)=\frac{\tan\alpha+\tan\beta}{1-\tan\alpha\tan\beta},
+    \]
+    因 $0<A/2+B/2<90^\circ$，正切存在，且两角和公式的分母为正；下面的除法都有意义。
+    左边先计算成
+    \[
+      \tan\left(\frac A2+\frac B2\right)
+      =\frac{\frac r x+\frac r y}{1-\frac{r^2}{xy}}
+      =\frac{r(x+y)}{xy-r^2}.
+    \]
+    而右边同一个角的正切是
+    \[
+      \tan\left(90^\circ-\frac C2\right)
+       =\frac1{\tan(C/2)}=\frac z r.
+    \]
+    两个结果相等：
+    \[
+      \frac{r(x+y)}{xy-r^2}=\frac z r
+      \Longrightarrow r^2(x+y)=xyz-zr^2
+      \Longrightarrow \boxed{r^2(x+y+z)=xyz}.
+    \]
+
+    \item[\textbf{第 3 步：把 $S=pr$ 代回去。}]
+    因 $p=x+y+z$，有 $r^2p=xyz$，从而
+    \[
+      S^2=p^2r^2=p\cdot xyz
+       =p(p-a)(p-b)(p-c).
+    \]
+    面积取正平方根，得到海伦公式。
+  \end{description}
+  \textbf{适用提醒：}这种证明很适合理解 ``$p-a$ 就是切线段'' 的来源；若尚未学过正切两角和公式，\textbf{不要把它当作初中证明}。
+
+  \medskip
+  \textbf{\textcolor{CProof}{补充：如果只比书写行数，下面三行更短。}}
+
+  已经学过正弦面积公式和余弦定理时，可以把\textbf{后面的常规证明}压缩为
+  \[
+   \begin{aligned}
+    16S^2
+    &=4a^2b^2-(a^2+b^2-c^2)^2\\
+    &=[(a+b)^2-c^2][c^2-(a-b)^2]\\
+    &=(a+b+c)(a+b-c)(a-b+c)(-a+b+c)\\
+    &=16p(p-a)(p-b)(p-c).
+   \end{aligned}
+  \]
+  这里第一行来自 ``$S=\tfrac12 ab\sin C$ 加余弦定理''，第二行是\textbf{平方差}；\textbf{它不是另一种新定理}，而是把证明三缩写成考场上的少量步骤。若不清楚第一行为什么成立，请紧接着看完整的常规证明。
+
+  \medskip
+\par\noindent\begin{minipage}{\linewidth}
+  \textbf{\textcolor{CProof}{证明三：常规证明——正弦面积公式＋余弦定理（高中方法）}}
+
+\THeronFigure{13}{14}{15}{0.48}{3}{a}{b}{c}{两边 $a,b$ 的夹角在顶点 $C$；对应高 $h_a=b\sin C$。}
+\end{minipage}\par
+  \textbf{第 1 步：先把面积写成两边与夹角。}
+  由于 $a=BC$ 与 $b=CA$ 的夹角为 $C$，故
+  \[
+    S=\frac12 ab\sin C,\qquad S^2=\frac14a^2b^2\sin^2 C.
+  \]
+  \textbf{第 2 步：余弦定理消去角 $C$。}
+  \[
+   c^2=a^2+b^2-2ab\cos C
+   \quad\Longrightarrow\quad
+   \cos C=\frac{a^2+b^2-c^2}{2ab}.
+  \]
+  由 $\sin^2 C+\cos^2 C=1$，
+  \[
+   \sin^2C=1-\left(\frac{a^2+b^2-c^2}{2ab}\right)^2.
+  \]
+  \textbf{第 3 步：代回面积平方，把它拆成两个平方的差。}
+  \[
+    \begin{aligned}
+     16S^2
+      &=4a^2b^2\left(1-\frac{(a^2+b^2-c^2)^2}{4a^2b^2}\right)\\
+      &=4a^2b^2-(a^2+b^2-c^2)^2\\
+      &=(2ab)^2-(a^2+b^2-c^2)^2.
+    \end{aligned}
+  \]
+  \textbf{第 4 步：两次平方差分解，不跳步。}
+  \[
+    \begin{aligned}
+     16S^2
+     &=[\,2ab+(a^2+b^2-c^2)\,]
+       [\,2ab-(a^2+b^2-c^2)\,]\\
+     &=[\,(a+b)^2-c^2\,][\,c^2-(a-b)^2\,]\\
+     &=(a+b+c)(a+b-c)(c-a+b)(c+a-b).
+    \end{aligned}
+  \]
+  \textbf{第 5 步：使用 $2p=a+b+c$，把四项分别改写成 $2p$、$2(p-c)$、$2(p-a)$、$2(p-b)$：}
+  \[
+    16S^2=16p(p-a)(p-b)(p-c).
+  \]
+  两边除以 $16$，再取正平方根，
+  \[
+    \boxed{S=\sqrt{p(p-a)(p-b)(p-c)}}.
+  \]
+
+  \medskip
+\par\noindent\begin{minipage}{\linewidth}
+  \textbf{\textcolor{CProof}{延伸结论的证明：为什么内切圆半径 $r=S/p$？}}
+\THeronFigure{13}{14}{15}{0.45}{5}{a}{b}{c}{蓝、橙、绿三块分别以 $a,b,c$ 为底，对应高都为 $r$。}
+\end{minipage}\par
+  连接内心 $I$ 与 $A,B,C$，内心到每条边的垂直距离均为半径 $r$。
+  三块小三角形面积分别为 $\tfrac12 ar$、$\tfrac12 br$、$\tfrac12 cr$，所以
+  \[
+   S=\frac{ar+br+cr}{2}=\frac{a+b+c}{2}r=pr,
+   \qquad\boxed{r=\frac Sp}.
+  \]
+  \textbf{补充：}这只是 ``面积拆成三个同高三角形''，与是否使用海伦公式无关；海伦公式负责\textbf{由三边求 $S$}，$S=pr$ 负责\textbf{由面积与半周长求 $r$}。
+
+  \medskip
+  \textbf{\textcolor{CProof}{三种证明怎样选？}}
+  \begin{itemize}[leftmargin=*,itemsep=0.25em]
+    \item \textbf{想彻底弄懂：}选证明一——只用初中勾股定理和因式分解。
+    \item \textbf{想看到半周长差的几何来源：}选证明二——切线段 $x,y,z$ 一眼对应 $p-a,p-b,p-c$。
+    \item \textbf{课堂里已学余弦定理：}选证明三——是教材常见的证明路线。
+  \end{itemize}
 \end{proofbox}

@@ -1,27 +1,60 @@
 \begin{trapbox}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[{\textbf{\textcolor{CTrap}{易错点一（忽略三角不等式）：}}}] 未验证三角形不等式，直接将三边代入海伦公式。
-		\item[{\textbf{\textcolor{CTrap}{正确理解（检查不等式）：}}}] 使用海伦公式前必须检查 $a+b>c$, $b+c>a$, $c+a>b$，确保三边能构成三角形。
-		\item[{\textbf{\textcolor{CTrap}{错因分析（缺乏检验）：}}}] 海伦公式根号内的 $p-a$, $p-b$, $p-c$ 必须为正，这与三角形不等式本质一致。
-	\end{description}
+  \textbf{\textcolor{CTrap}{易错 1：把不能组成三角形的三个数硬代入。}}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[{\textbf{\textcolor{CTrap}{易错点二（半周长公式记错）：}}}] 误记半周长 $p=a+b+c$，忘记除以 $2$。
-		\item[{\textbf{\textcolor{CTrap}{正确理解（半周长定义）：}}}] 半周长是周长的一半：
-		      \[
-			      p=\frac{a+b+c}{2}.
-		      \]
-		\item[{\textbf{\textcolor{CTrap}{错因分析（概念混淆）：}}}] 将半周长与周长混淆，会导致后续所有计算都出错。
-	\end{description}
+\input{assets/tikz/T037_triangle_boundaries}
+  如图，$3+4<8$ 时，两段即使拉直也不够长，不能围成三角形。
+  公式不是判断三边能否组成三角形的替代品；\textbf{先检查最小两边之和是否大于最大边}。
+  特别地，$2,3,5$ 虽然能在公式中算出 $S=0$，但这三段只能首尾排成直线，\textbf{不是真正的三角形}。
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[{\textbf{\textcolor{CTrap}{易错点三（面积符号与开方）：}}}] 错误写成 $S=p(p-a)(p-b)(p-c)$，或者写成 $S=\pm\sqrt{\cdots}$。
-		\item[{\textbf{\textcolor{CTrap}{正确理解（算术平方根）：}}}] 面积为正，应取算术平方根：
-		      \[
-			      S=\sqrt{p(p-a)(p-b)(p-c)}.
-		      \]
-		\item[{\textbf{\textcolor{CTrap}{错因分析（忽略平方根含义）：}}}] 从 $S^2$ 推到 $S$ 时，既不能漏掉根号，也不能取负值。
-	\end{description}
+  \medskip
+  \textbf{\textcolor{CTrap}{易错 2：把半周长当作周长。}}
+
+  $p=(a+b+c)/2$，不是 $a+b+c$。计算时先单独写一行 $p=\cdots$，后面再算 $p-a,p-b,p-c$。
+
+  \medskip
+  \textbf{\textcolor{CTrap}{易错 3：漏根号，或把面积取负值。}}
+
+  是 $S^2=p(p-a)(p-b)(p-c)$，因此
+  \[
+    S=\sqrt{p(p-a)(p-b)(p-c)}>0.
+  \]
+  由于是\textbf{面积}，不取负根。
+
+  \medskip
+  \textbf{\textcolor{CTrap}{易错 4：误以为只要题目出现“三角形面积”，海伦就一定最快。}}
+
+  直角三角形知道两条直角边：直接 $S=\tfrac12 ab$。
+  知道两边与夹角：直接 $S=\tfrac12 ab\sin C$。
+  海伦公式真正适合的是\textbf{三边已知，角或高反而不方便}。
+
+  \medskip
+  \textbf{\textcolor{CTrap}{易错 5：把半周长的差写错。}}
+
+  例如 $p-a=\dfrac{b+c-a}{2}$；它不是 $\dfrac{a+b-c}{2}$。
+  可用 $a=y+z,b=z+x,c=x+y$ 重新检查：$p-a=x$，其余同理。
+
+  \medskip
+  \textbf{\textcolor{CTrap}{易错 6：求内切圆半径时，和外接圆半径混淆。}}
+
+  $r=S/p$ 说的是\textbf{内切圆}，来自 $S=\tfrac12ar+\tfrac12br+\tfrac12cr$。
+  它不能随便拿来当作外接圆半径公式。
+
+  \medskip
+  \textbf{\textcolor{CTrap}{易错 7：反求边长时，只解方程，不检查有没有三角形。}}
+
+  面积方程有时会产生不合条件的根。必须把解代回\textbf{三边为正、两边之和大于第三边、周长及面积符合题意}三项条件中核对。
+
+  \medskip
+  \textbf{\textcolor{CTrap}{易错 8：记住公式却不理解平方差从哪里来。}}
+
+  在证明中出现
+  \[
+   4a^2b^2-(a^2+b^2-c^2)^2
+  \]
+  不要全部展开成四次多项式。直接看成 $u^2-v^2$，先变成两个括号，再各做一次平方差，才会得到四个边长和差。
+
+  \medskip
+  \textbf{\textcolor{CTrap}{易错 9：把证明二误认为初中方法。}}
+
+  证明二包含 ``正切两角和公式''，属于\textbf{高中三角函数}；初中阶段想独立证明海伦公式，请使用\textbf{证明一：勾股定理＋平方差}。
 \end{trapbox}

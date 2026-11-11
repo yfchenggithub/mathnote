@@ -1,23 +1,41 @@
+\input{assets/tikz/T037_triangle_diagrams}
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[{\textbf{\textcolor{CStatement}{条件 1（三边条件）：}}}] 三角形三边长 $a,b,c$ 必须为正数，并满足三角形不等式：$a+b>c$, $b+c>a$, $c+a>b$。
-	\end{description}
+  \textbf{\textcolor{CStatement}{这个结论解决什么问题？}}
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[{\textbf{\textcolor{CStatement}{结论一（海伦公式）：}}}]
-		      \textbf{\textcolor{CStatement}{直观描述：}}
-		      已知三边长直接求三角形面积，避免作高或求角。
-		      \[
-			      S = \sqrt{p(p-a)(p-b)(p-c)},\quad p=\frac{a+b+c}{2}.
-		      \]
+  题目只告诉你三角形的\textbf{三条边长}，却没有告诉你高、角度或坐标，怎样直接求出面积？
+  海伦公式把原本需要求高或角度的题，变成\textbf{加、减、乘、开平方}。
 
-		\item[{\textbf{\textcolor{CStatement}{推广结论（内切圆半径）：}}}]
-		      \textbf{\textcolor{CStatement}{直观描述：}}
-		      海伦公式可进一步得到三角形内切圆半径。
-		      \[
-			      r = \frac{S}{p} = \sqrt{\frac{(p-a)(p-b)(p-c)}{p}}.
-		      \]
-	\end{description}
+\THeronFigure{13}{14}{15}{0.58}{0}{a}{b}{c}{三边确定，面积 $S$ 就确定；不必把未知的高或角先算出来。}
+  \medskip
+  \textbf{\textcolor{CStatement}{条件与字母含义}}
+  \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.35em]
+    \item[\textbf{条件一：}] $ABC$ 是一个真正的三角形；$a=BC>0$，$b=CA>0$，$c=AB>0$。
+    \item[\textbf{条件二：}] $a+b>c$，$b+c>a$，$c+a>b$（任意两边之和大于第三边）。
+    \item[\textbf{记号：}] 面积记为 $S>0$，半周长记为 $p=\dfrac{a+b+c}{2}$。
+  \end{description}
+
+  \textbf{\textcolor{CStatement}{结论一：已知三边，直接求面积（核心）}}
+  \[
+    \boxed{\displaystyle S=\sqrt{p(p-a)(p-b)(p-c)},\qquad p=\frac{a+b+c}{2}.}
+  \]
+  四个量依次是\textbf{半周长}、\textbf{半周长减第一边}、\textbf{减第二边}、\textbf{减第三边}。
+
+  \textbf{\textcolor{CStatement}{结论二：不设半周长的等价写法}}
+  \[
+   \boxed{\displaystyle 16S^2=(a+b+c)(a+b-c)(a-b+c)(-a+b+c).}
+  \]
+  \textbf{用途：}在推导中看见 ``两个平方相减'' 时，上面这四个因式会自然出现；它们不是需要另外死记的一套公式。
+
+\par\noindent\begin{minipage}{\linewidth}
+  \textbf{\textcolor{CStatement}{结论三：求内切圆半径（延伸）}}
+  设内切圆半径为 $r$，连接内心 $I$ 与三个顶点：
+\THeronFigure{13}{14}{15}{0.44}{5}{a}{b}{c}{三块面积相加：$S=ar/2+br/2+cr/2=pr$。}
+\end{minipage}\par
+  因为 $S=pr$，所以
+  \[
+    \boxed{\displaystyle r=\frac{S}{p}=\sqrt{\frac{(p-a)(p-b)(p-c)}{p}}.}
+  \]
+
+  \textbf{\textcolor{CStatement}{最重要的适用范围：}}
+  \textbf{三边都能确定而高、角不方便求}时优先考虑；\textbf{直角三角形已经有两条直角边}时，直接用 ``底$\times$高$\div 2$'' 往往更快。
 \end{statementbox}

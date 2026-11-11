@@ -1,0 +1,15 @@
+\begin{center}
+\begin{tikzpicture}[scale=1.15,font=\small,line join=round]
+\coordinate (A) at (0,0);\coordinate (B) at (6,0);\coordinate (C) at (3,4);\coordinate (D) at (3,0);
+\fill[blue!12] (A)--(C)--(D)--cycle;
+\fill[orange!18] (B)--(C)--(D)--cycle;
+\draw[thick] (A)--node[above left=5pt] {$5$} (C)--node[above right=5pt] {$5$} (B)--cycle;
+\draw[thick,CProof] (C)--node[midway,right=5pt] {$h$} (D);
+\pic[draw,angle radius=3mm] {right angle=C--D--B};
+\path (A)--node[midway,below=12pt] {$3$} (D)--node[midway,below=12pt] {$3$} (B);
+\foreach \p/\where in {A/below left,B/below right,C/above,D/below}
+ {\fill (\p) circle[radius=1.3pt];\node[\where=4pt] at (\p) {$\p$};}
+\node[anchor=north,align=center,text width=11cm] at (3,-1.25)
+ {等腰三角形的高平分底边：$AD=DB=3$，$h^2+3^2=5^2$。};
+\end{tikzpicture}
+\end{center}

@@ -1,53 +1,115 @@
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
+	\textbf{\textcolor{CExplanation}{先想一道题：只知道 $5,6,7$，高在哪里？}}
 
-	海伦公式把“三角形面积”转化为“半周长与三边差的积的平方根”，避免作高或求角度。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[{\textbf{要点一（半周长引入）：}}] 设 $p=\frac{a+b+c}{2}$，将三边和的一半作为中间量，简化公式形式。
-		\item[{\textbf{要点二（三边差乘积）：}}] 根号内是 $p(p-a)(p-b)(p-c)$，其中 $p-a$, $p-b$, $p-c$ 都由三角形不等式保证为正。
-	\end{description}
+\THeronFigure{5}{6}{7}{1}{0}{5}{6}{7}{已知三边 $5,6,7$；高和角都没有给出，直接用海伦公式求 $S$。}
+	图中三边已足够确定面积；与其另设高或先求角，不如直接使用已有边长。
 
 	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（与内切圆关系）}}
-
-	三角形面积也可以写成
-	\[
-		S=pr.
-	\]
-	其中 $r$ 是内切圆半径，$p$ 是半周长。因此海伦公式还可以推出
-	\[
-		r=\frac{S}{p}
-		=\sqrt{\frac{(p-a)(p-b)(p-c)}{p}}.
-	\]
-	这体现了“面积—半周长—内切圆半径”之间的联系。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（对称性）}}
-
-	公式关于三边 $a,b,c$ 完全对称，不依赖于哪一条边作底，也不需要知道哪个角的大小。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（求面积与代换）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（已知三边求面积）：} 直接代入海伦公式，是解三角形中的基本题型。
-		\item \textbf{考法二（求内切圆半径）：} 先由海伦公式求面积，再由 $r=\frac{S}{p}$ 求半径。
+\par\noindent\begin{minipage}{\linewidth}
+	\textbf{\textcolor{CExplanation}{第一眼应该看什么？}}
+	\begin{itemize}[leftmargin=*,itemsep=0.35em]
+		\item 三条边\textbf{已经知道}，但高或夹角\textbf{不知道}：优先考虑海伦公式。
+		\item 已知\textbf{两边和它们的夹角}：先考虑 $S=\tfrac12 ab\sin C$，不必强求第三边。
+		\item 已知\textbf{直角边}或等腰三角形的高\textbf{很容易作出}：先用 $S=\tfrac12\times\text{底}\times\text{高}$。
+		\item 已知\textbf{面积、周长，并含未知边}：把海伦公式平方，建立一元二次方程，可能反求未知边。
 	\end{itemize}
+\end{minipage}\par
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
+	\textbf{\textcolor{CExplanation}{为什么要用半周长 $p$？}}
+	\[
+		p-a=\frac{b+c-a}{2},\quad p-b=\frac{c+a-b}{2},\quad p-c=\frac{a+b-c}{2}.
+	\]
+	这些量都是正数：例如 $p-a>0$，就来自 ``$b+c>a$''。所以根号里的四个数都为正，面积算出来才合理。
 
-	\textbf{海伦公式是“边到面积”的直接转化：只要三边确定，面积就确定。}
+	\textbf{\textcolor{CExplanation}{真正值得理解的来源：把未知的高消掉}}
+	以一条较长的边作底，作出高 $h$，垂足把底边分成两段。
+	对高左右的两个直角三角形分别使用\textbf{勾股定理}；把两式相减，$h^2$ 会消失。
+	再利用\textbf{平方差公式}，面积平方就能拆成四个只含三边的因式。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（直接求面积）：} 已知三边长，直接代入公式。
-		\item \textbf{场景二（求内切圆半径）：} 先求面积，再用 $r=\frac{S}{p}$；也可以直接使用
-		      \[
-			      r=\sqrt{\frac{(p-a)(p-b)(p-c)}{p}}.
-		      \]
+	\begin{center}
+		\input{assets/tikz/T037_altitude_figure.tex}
+	\end{center}
+
+\par\noindent\begin{minipage}{\linewidth}
+	\textbf{\textcolor{CExplanation}{另一个令人容易记住的理解：内切圆}}
+	同一顶点引出的两条切线段等长，图中同色两段对应同一个字母。
+\input{assets/tikz/T037_incircle_figure}
+\end{minipage}\par
+	把三对切线段长分别记为 $x,y,z$，沿边相加：
+	\[
+		a=y+z,\qquad b=z+x,\qquad c=x+y,\qquad p=x+y+z.
+	\]
+	因而 $x=p-a$、$y=p-b$、$z=p-c$。
+	内心到三边的距离都是 $r$，三块小三角形面积相加就是
+	\[
+		S=\tfrac12 ar+\tfrac12 br+\tfrac12 cr=pr.
+	\]
+	高中三角函数还能推出 $r^2=\dfrac{xyz}{x+y+z}$，于是
+	\[
+		S^2=p^2r^2=pxyz=p(p-a)(p-b)(p-c).
+	\]
+	\textbf{说明：}上面的等式不是要求初中生凭空相信；完整推导放在第三部分的第二种证明，包含每步理由。
+
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExplanation}{特殊情形一：等边三角形，海伦公式变回熟悉的公式}}
+
+设等边三角形边长为 $\ell>0$，即 $a=b=c=\ell$。
+\THeronFigure{4}{4}{4}{1.45}{0}{\ell}{\ell}{\ell}{三条边都相等，三个半周长差也相等：$p-a=p-b=p-c=\ell/2$。}
+\end{minipage}\par
+先代入半周长，再逐个计算根号中的四项：
+\[
+ p=\frac{3\ell}{2},\qquad
+ p-a=p-b=p-c=\frac\ell2.
+\]
+于是海伦公式直接给出
+\[
+ \begin{aligned}
+ S&=\sqrt{\frac{3\ell}{2}\cdot\frac\ell2\cdot\frac\ell2\cdot\frac\ell2}
+   =\sqrt{\frac{3\ell^4}{16}}
+   =\boxed{\frac{\sqrt3}{4}\ell^2}.
+ \end{aligned}
+\]
+\textbf{回验：}等边三角形作高得 $h=\sqrt3\ell/2$，底乘高的一半也是
+$\ell h/2=\sqrt3\ell^2/4$。例如边长 $6$，海伦公式算得 $S=9\sqrt3$。
+这说明等边三角形面积公式正是海伦公式的一种特殊情形。
+
+\medskip
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExplanation}{特殊情形二：直角三角形，海伦公式变成两直角边乘积的一半}}
+
+设 $\angle C=90^\circ$，两直角边为 $a=BC,b=CA>0$，斜边为 $c=AB$，则 $c^2=a^2+b^2$。
+\THeronFigure{3}{4}{5}{1.35}{7}{a}{b}{c}{这里的 $c$ 是斜边；勾股关系 $c^2=a^2+b^2$ 是化简的关键。}
+\end{minipage}\par
+仍令 $p=(a+b+c)/2$。把海伦公式的四个因子配成两对：
+\[
+ \begin{aligned}
+ p(p-c)&=\frac{(a+b+c)(a+b-c)}4
+ =\frac{(a+b)^2-c^2}{4}=\frac{ab}{2},\\
+ (p-a)(p-b)&=\frac{(b+c-a)(a+c-b)}4
+ =\frac{c^2-(a-b)^2}{4}=\frac{ab}{2}.
+ \end{aligned}
+\]
+两处最后一步都用到了 $c^2=a^2+b^2$。因此
+\[
+ S=\sqrt{p(p-c)(p-a)(p-b)}
+   =\sqrt{\frac{ab}{2}\cdot\frac{ab}{2}}
+   =\boxed{\frac{ab}{2}},
+\]
+最后一步利用 $a,b>0$，面积取正值。
+例如 $3,4,5$ 直角三角形，$p=6$，直接代入为
+\[
+ S=\sqrt{6(6-3)(6-4)(6-5)}=\sqrt{36}=6
+  =\frac12\times3\times4.
+\]
+\textbf{记忆要点：}海伦公式也适用于直角三角形；结果与底乘高的一半完全一致。
+实际解题时，直角边已经给出就直接用 $ab/2$，这里的代入主要用于理解和验证公式。
+
+	\textbf{\textcolor{CExplanation}{为什么说这个结论有用？}}
+	\begin{itemize}[leftmargin=*,itemsep=0.35em]
+		\item \textbf{少设未知数：}有三边，就无需再设高 $h$ 或角 $C$ 来求面积。
+		\item \textbf{方便求其他量：}面积求出后，可求某边上的高 $h=2S/\text{该边长}$，或内切圆半径 $r=S/p$。
+		\item \textbf{反过来求边：}题目给出面积和周长时，海伦公式能转成关于未知边的方程。
+		\item \textbf{方便判断方法是否划算：}若需要先费力求出第三边才能套公式，它未必比常规面积公式快。
 	\end{itemize}
 \end{explanationbox}

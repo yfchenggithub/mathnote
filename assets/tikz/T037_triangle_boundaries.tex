@@ -1,0 +1,20 @@
+\begin{center}
+\begin{tikzpicture}[scale=.9,font=\small,line join=round]
+\coordinate (A) at (0,0);\coordinate (B) at (5,0);\coordinate (C) at (3.2,2.4);
+\fill[blue!10] (A)--(B)--(C)--cycle;
+\draw[thick] (A)--node[midway,below=5pt] {$5$} (B)
+ --node[midway,right=5pt] {$3$} (C)--node[midway,left=5pt] {$4$} cycle;
+\node[anchor=west,align=left] at (6.1,1.1) {$3+4>5$\\[4pt]能围成三角形};
+\draw[very thick,CStatement] (0,-2)--node[midway,above=6pt] {$2$} (2,-2);
+\draw[very thick,CExample] (2,-2)--node[midway,above=6pt] {$3$} (5,-2);
+\foreach \x in {0,2,5}\fill (\x,-2) circle[radius=1.5pt];
+\node[below=6pt] at (2.5,-2) {第三边长 $5$};
+\node[anchor=west,align=left] at (6.1,-2) {$2+3=5$\\[4pt]只能排成直线};
+\draw[very thick,CStatement] (0,-4.4)--node[midway,above=6pt] {$3$} (3,-4.4);
+\draw[very thick,CExample] (3,-4.4)--node[midway,above=6pt] {$4$} (7,-4.4);
+\draw[very thick,CTrap,dashed] (7,-4.4)--node[midway,above=6pt] {差 $1$} (8,-4.4);
+\draw[thin] (0,-5)--(8,-5);
+\node[below=6pt] at (4,-5) {第三边长 $8$};
+\node[anchor=west,align=left] at (0,-6.4) {$3+4<8$：另外两段即使拉直，仍够不到第三边的两端。};
+\end{tikzpicture}
+\end{center}

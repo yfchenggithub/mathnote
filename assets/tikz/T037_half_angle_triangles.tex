@@ -1,0 +1,19 @@
+\begin{center}
+\begin{tikzpicture}[font=\small,line join=round]
+\foreach \origin/\leg/\vertex/\foot/\base/\angle in {0/8/A/F/x/A,4/7/B/F/y/B,8/6/C/E/z/C}{
+ \begin{scope}[shift={(\origin,0)}]
+  \coordinate (V) at (0,0);\coordinate (H) at ({.32*\leg},0);
+  \coordinate (J) at ({.32*\leg},1.28);
+  \fill[blue!8] (V)--(H)--(J)--cycle;
+  \draw[thick] (V)--node[midway,below=6pt] {$\base$} (H)
+    --node[midway,right=6pt] {$r$} (J)--cycle;
+  \pic[draw,angle radius=2mm] {right angle=V--H--J};
+  \pic[draw,CProof,angle radius=7mm] {angle=H--V--J};
+  \node[left=4pt] at (V) {$\vertex$};\node[below right=4pt] at (H) {$\foot$};
+  \node[above right=4pt] at (J) {$I$};
+  \node at (1.25,2.05) {顶点处半角 $\angle/2$};
+  \node at (1.25,-1.05) {$\tan(\angle/2)=r/\base$};
+ \end{scope}
+}
+\end{tikzpicture}
+\end{center}

@@ -1,0 +1,98 @@
+% T037: exact side-length model, A=(0,0), B=(c,0).
+% Arguments a=BC,b=CA,c=AB,scale,mode,BC label,CA label,AB label,caption.
+% Modes 0 area, 1 common altitude, 2 tangent pairs, 3 angle, 4 altitude example, 5 area pieces.
+\providecommand{\THeronFigure}[9]{%
+\begin{center}
+\begin{tikzpicture}[scale=#4,font=\small,line join=round,line cap=round]
+\pgfmathsetmacro{\tq}{((#2)^2+(#3)^2-(#1)^2)/(2*(#3))}
+\pgfmathsetmacro{\th}{sqrt((#2)^2-\tq^2)}
+\pgfmathsetmacro{\tp}{((#1)+(#2)+(#3))/2}
+\pgfmathsetmacro{\tr}{(#3)*\th/(2*\tp)}
+\pgfmathsetmacro{\tix}{((#2)*(#3)+(#3)*\tq)/(2*\tp)}
+\coordinate (A) at (0,0);\coordinate (B) at (#3,0);
+\coordinate (C) at (\tq,\th);\coordinate (H) at (\tq,0);
+\coordinate (I) at (\tix,\tr);
+\coordinate (D) at ($(B)!(I)!(C)$);
+\coordinate (E) at ($(C)!(I)!(A)$);
+\coordinate (F) at ($(A)!(I)!(B)$);
+\ifnum#5=0
+ \fill[blue!10] (A)--(B)--(C)--cycle;
+ \node at ({(#3+\tq)/3},{\th/3}) {$S$};
+\fi
+\ifnum#5=7
+ \fill[blue!10] (A)--(B)--(C)--cycle;
+ \pic[draw,angle radius=3mm] {right angle=A--C--B};
+\fi
+\ifnum#5=1
+ \fill[blue!13] (A)--(H)--(C)--cycle;
+ \fill[orange!18] (B)--(H)--(C)--cycle;
+\fi
+\ifnum#5=5
+ \fill[blue!13] (I)--(B)--(C)--cycle;
+ \fill[orange!18] (I)--(C)--(A)--cycle;
+ \fill[green!15!white] (I)--(A)--(B)--cycle;
+\fi
+\draw[thick] (A)--(B)--(C)--cycle;
+\ifnum#5=2\else
+ \path (B)--node[pos=.82,right=5pt] {$#6$} (C);
+ \path (C)--node[pos=.25,left=5pt] {$#7$} (A);
+ \ifnum#5=1\else
+  \ifnum#5=4
+   \path (A)--node[midway,below=28pt] {$#8$} (B);
+  \else
+   \ifnum#5=5
+    \path (A)--node[midway,below=28pt] {$#8$} (B);
+   \else
+    \path (A)--node[midway,below=12pt] {$#8$} (B);
+   \fi
+  \fi
+ \fi
+\fi
+\foreach \v/\where in {A/below left,B/below right,C/above}
+ {\fill (\v) circle[radius=1.4pt];\node[\where=4pt] at (\v) {$\v$};}
+\ifnum#5=1
+ \draw[very thick,CProof] (C)--node[midway,right=4pt] {$h$} (H);
+ \pic[draw,angle radius=2.8mm] {right angle=C--H--B};
+ \fill (H) circle[radius=1.2pt];\node[below=4pt] at (H) {$D$};
+ \path (A)--node[midway,below=16pt] {$x$} (H);
+ \path (H)--node[midway,below=16pt] {$c-x$} (B);
+\fi
+\ifnum#5=4
+ \draw[very thick,CProof] (C)--node[midway,right=4pt] {$h$} (H);
+ \pic[draw,angle radius=2.8mm] {right angle=C--H--B};
+ \fill (H) circle[radius=1.2pt];\node[below=4pt] at (H) {$D$};
+\fi
+\ifnum#5=3
+ \coordinate (K) at ($(B)!(A)!(C)$);
+ \draw[CProof,dashed,thick] (A)--node[pos=.55,above=6pt] {$h_a$} (K);
+ \pic[draw,angle radius=2.8mm] {right angle=A--K--C};
+ \pic[draw,CProof,angle radius=9mm] {angle=A--C--B};
+\fi
+\ifnum#5=2\THeronIncircleDetails{2}\fi
+\ifnum#5=5\THeronIncircleDetails{5}\fi
+\ifnum#5=0
+ \node[anchor=north,align=center,text width=11cm] at (#3/2,{-1.25/#4}) {#9};
+\else
+ \node[anchor=north,align=center,text width=11cm] at (#3/2,{-1.65/#4}) {#9};
+\fi
+\end{tikzpicture}
+\end{center}}
+
+\providecommand{\THeronIncircleDetails}[1]{%
+\draw[CStatement,thick] (I) circle[radius=\tr];
+\draw[gray,dashed] (I)--(A) (I)--(B) (I)--(C);
+\draw[very thick,CStatement] (I)--(D) (I)--(E) (I)--node[midway,right=3pt] {$r$} (F);
+\pic[draw,angle radius=2mm] {right angle=I--D--C};
+\pic[draw,angle radius=2mm] {right angle=I--E--A};
+\pic[draw,angle radius=2mm] {right angle=I--F--B};
+\foreach \v/\where in {D/above right,E/above left,F/below}
+ {\fill (\v) circle[radius=1.3pt];\node[\where=4pt] at (\v) {$\v$};}
+\fill (I) circle[radius=1.6pt];\node at ($(I)+(1.3,0)$) {$I$};
+\ifnum#1=2
+ \draw[very thick,CStatement] (A)--node[midway,left=6pt] {$x$} (E)
+  (A)--node[midway,below=16pt] {$x$} (F);
+ \draw[very thick,CExample] (B)--node[midway,right=6pt] {$y$} (D)
+  (B)--node[midway,below=16pt] {$y$} (F);
+ \draw[very thick,CProof] (C)--node[midway,left=6pt] {$z$} (E)
+  (C)--node[midway,right=6pt] {$z$} (D);
+\fi}

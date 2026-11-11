@@ -1,124 +1,148 @@
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例 1（基础）}}
+\par\noindent\begin{minipage}{\linewidth}
+  \textbf{\textcolor{CExample}{例 1（最基本的识别）：三边 $5,6,7$，没有高和角}}
 
-	\textbf{\textcolor{CExample}{题目：}}
-	已知三角形三边长分别为 $5,6,7$，求面积 $S$。
+  \textbf{题目：}三角形的三边长为 $5,6,7$，求面积。
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[{\textbf{第一步（计算半周长）：}}] 半周长
-		      \[
-			      p=\frac{5+6+7}{2}=9.
-		      \]
-		      \par\textbf{理由：} 半周长定义 $p=\frac{a+b+c}{2}$。
+\THeronFigure{5}{6}{7}{1}{0}{5}{6}{7}{例1：只给三边，不先求高或角，直接求阴影面积。}
+\end{minipage}\par
+  \textbf{方法选择：}三边齐全，没必要另设高。
+  \[
+   p=\frac{5+6+7}{2}=9,
+  \]
+  \[
+   S=\sqrt{9(9-5)(9-6)(9-7)}
+     =\sqrt{9\cdot4\cdot3\cdot2}=\boxed{6\sqrt6}.
+  \]
+  \textbf{检查：}$5+6>7$，三边确实能围成三角形；答案是正数。
 
-		\item[{\textbf{第二步（代入公式）：}}]
-		      \[
-			      S=\sqrt{9(9-5)(9-6)(9-7)}
-			      =\sqrt{9\cdot 4\cdot 3\cdot 2}.
-		      \]
-		      \par\textbf{理由：} 海伦公式 $S=\sqrt{p(p-a)(p-b)(p-c)}$。
+  \medskip
+\par\noindent\begin{minipage}{\linewidth}
+  \textbf{\textcolor{CExample}{例 2（直接带出两个新量）：三边 $13,14,15$}}
 
-		\item[{\textbf{第三步（开方得结果）：}}]
-		      \[
-			      S=\sqrt{216}=6\sqrt{6}.
-		      \]
-		      \par\textbf{理由：} 化简根式。
-	\end{description}
+  \textbf{题目：}三角形三边长分别为 $13,14,15$，求面积、内切圆半径以及最长边上的高。
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	面积为 $6\sqrt{6}$。
+\THeronFigure{13}{14}{15}{0.45}{4}{13}{14}{15}{例2：最长边 $AB=15$，它对应的高是 $CD=h$。}
+\end{minipage}\par
+  \textbf{第一步：半周长}
+  \[
+   p=\frac{13+14+15}{2}=21.
+  \]
+  \textbf{第二步：面积}
+  \[
+   S=\sqrt{21\cdot8\cdot7\cdot6}=\sqrt{7056}=\boxed{84}.
+  \]
+\THeronFigure{13}{14}{15}{0.43}{5}{13}{14}{15}{面积 $S$ 已求出；三块同高面积给出 $S=pr$，再求半径。}
+  \textbf{第三步：内切圆半径}
+  \[
+   r=\frac Sp=\frac{84}{21}=\boxed4.
+  \]
+  \textbf{第四步：以最长边 $15$ 为底的高}
+  \[
+   84=\frac12\cdot15\cdot h
+   \quad\Longrightarrow\quad h=\frac{168}{15}=\boxed{\frac{56}{5}}.
+  \]
+  \textbf{作用：}一旦面积已知，\textbf{内切圆半径和任意一边上的高}都可以直接求。
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+  \medskip
+\par\noindent\begin{minipage}{\linewidth}
+  \textbf{\textcolor{CExample}{例 3（反着用）：已知面积和周长，反求两条边}}
 
-	\textbf{\textcolor{CExample}{题目：}}
-	已知三角形三边长分别为 $13,14,15$，求该三角形的面积和内切圆半径。
+  \textbf{题目：}三角形面积为 $6$，周长为 $12$，其中一边为 $5$，求另外两边。
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[{\textbf{第一步（计算半周长）：}}]
-		      \[
-			      p=\frac{13+14+15}{2}=21.
-		      \]
-		      \par\textbf{理由：} 半周长定义。
+\THeronFigure{3}{4}{5}{1.35}{0}{x}{7-x}{5}{例3：面积为 $6$，另两边之和为 $7$；图示一种满足条件的形状。}
+\end{minipage}\par
+  \textbf{第一步：设另外两边为 $x,y$，把周长用上。}
+  \[
+    x+y=12-5=7,\quad y=7-x,\quad p=6.
+  \]
+  此时三边需满足三角形不等式：
+  \[
+    x+5>7-x\Longrightarrow x>1,\qquad
+    (7-x)+5>x\Longrightarrow x<6.
+  \]
+  所以 $1<x<6$，并且 $y=7-x>0$。
 
-		\item[{\textbf{第二步（海伦公式求面积）：}}]
-		      \[
-			      S=\sqrt{21(21-13)(21-14)(21-15)}
-			      =\sqrt{21\cdot 8\cdot 7\cdot 6}
-			      =\sqrt{7056}=84.
-		      \]
-		      \par\textbf{理由：} 直接代入海伦公式。
+  \textbf{第二步：海伦公式写成方程。}
+  \[
+    6^2=6(6-5)(6-x)(6-y).
+  \]
+  因为 $6-y=6-(7-x)=x-1$，故
+  \[
+    36=6(6-x)(x-1)
+    \quad\Longrightarrow\quad(6-x)(x-1)=6.
+  \]
+  \textbf{第三步：解一元二次方程。}
+  \[
+    6x-6-x^2+x=6
+    \Longleftrightarrow x^2-7x+12=0
+    \Longleftrightarrow (x-3)(x-4)=0.
+  \]
+  得 $x=3$ 或 $x=4$；分别对应 $y=4$ 或 $y=3$。
+  两组数均满足 $1<x<6$，且由 $3^2+4^2=5^2$ 可核对面积确为 $\tfrac12\cdot3\cdot4=6$。
 
-		\item[{\textbf{第三步（求内切圆半径）：}}]
-		      \[
-			      r=\frac{S}{p}=\frac{84}{21}=4.
-		      \]
-		      \par\textbf{理由：} 由 $S=pr$ 得 $r=\frac{S}{p}$。
-	\end{description}
+  \textbf{答案：}另外两边为 $\boxed{3\text{ 和 }4}$。
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	面积 $S=84$，内切圆半径 $r=4$。
+  \medskip
+\par\noindent\begin{minipage}{\linewidth}
+  \textbf{\textcolor{CExample}{例 4（方法对照）：不是遇到三边就必须套海伦公式}}
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+  \textbf{题目：}等腰三角形三边为 $5,5,6$，求面积。
 
-	\textbf{\textcolor{CExample}{题目：}}
-	已知三角形的面积为 $6$，周长为 $12$，其中一边长为 $5$，求该三角形的另外两条边长。
+\input{assets/tikz/T037_isosceles_figure}
+\end{minipage}\par
+  \textbf{方法一（初中方法，运算更直观）：}底边取 $6$，顶点向底边作高，底边分成 $3$ 和 $3$，由勾股定理
+  \[
+   h=\sqrt{5^2-3^2}=4,\qquad S=\frac12\cdot6\cdot4=\boxed{12}.
+  \]
+  \textbf{方法二（海伦公式核对）：}
+  \[
+   p=8,\quad S=\sqrt{8(8-5)(8-5)(8-6)}
+    =\sqrt{8\cdot3\cdot3\cdot2}=\boxed{12}.
+  \]
+  \textbf{比较：}两种都对；等腰三角形作高能立刻一分为二时，直接底乘高可能更省事。\textbf{海伦公式是一条选择，不是强制步骤。}
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[{\textbf{第一步（设未知边）：}}] 设另外两边为 $x,y$。由周长得
-		      \[
-			      x+y+5=12,
-		      \]
-		      所以
-		      \[
-			      x+y=7,\quad y=7-x.
-		      \]
-		      由三角形不等式还需满足 $1<x<6$。
-		      \par\textbf{理由：} 三边 $x,y,5$ 必须构成三角形。
+  \medskip
+\par\noindent\begin{minipage}{\linewidth}
+  \textbf{\textcolor{CExample}{例 5（数字大也可能很快）：三边 $9,10,17$}}
 
-		\item[{\textbf{第二步（列出面积方程）：}}] 半周长 $p=6$，由海伦公式
-		      \[
-			      6=\sqrt{6(6-5)(6-x)(6-y)}.
-		      \]
-		      代入 $y=7-x$，得
-		      \[
-			      6-y=6-(7-x)=x-1.
-		      \]
-		      所以
-		      \[
-			      6=\sqrt{6(6-x)(x-1)}.
-		      \]
-		      两边平方，得
-		      \[
-			      (6-x)(x-1)=6.
-		      \]
-		      \par\textbf{理由：} 用已知面积建立方程。
+  \textbf{题目：}求三角形面积和内切圆半径。
 
-		\item[{\textbf{第三步（解方程得边长）：}}]
-		      \[
-			      (6-x)(x-1)=6.
-		      \]
-		      展开得
-		      \[
-			      -x^2+7x-6=6,
-		      \]
-		      即
-		      \[
-			      x^2-7x+12=0.
-		      \]
-		      因式分解：
-		      \[
-			      (x-3)(x-4)=0.
-		      \]
-		      所以 $x=3$ 或 $x=4$。对应 $y=4$ 或 $y=3$。
-		      \par\textbf{理由：} 解一元二次方程，并检验三角形不等式。
+\THeronFigure{9}{10}{17}{0.45}{0}{9}{10}{17}{例5：三角形较扁，但 $9+10>17$；$p-17=1$ 仍为正数。}
+\end{minipage}\par
+  \textbf{第一步：}检查 $9+10>17$，成立。
+  \[
+   p=\frac{9+10+17}{2}=18,
+   \quad (p-9,p-10,p-17)=(9,8,1).
+  \]
+  \textbf{第二步：}先利用整数乘积开方：
+  \[
+   S=\sqrt{18\cdot9\cdot8\cdot1}
+    =\sqrt{1296}=\boxed{36},
+   \qquad r=\frac{36}{18}=\boxed2.
+  \]
+  \textbf{观察：}虽然 $17$ 很长，但它离另外两边之和 $19$ 很近，$p-17=1$，实际计算反而简单。
 
-	\end{description}
+  \medskip
+\par\noindent\begin{minipage}{\linewidth}
+  \textbf{\textcolor{CExample}{例 6（判断不要乱用）：已知两边和夹角}}
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	另外两边分别为 $3$ 和 $4$，即三角形为 $3-4-5$ 直角三角形。
+  \textbf{题目：}三角形有两边长 $8,10$，夹角为 $30^\circ$，求面积。
+
+\input{assets/tikz/T037_sas_figure}
+\end{minipage}\par
+  因为夹角已经给出，直接用高中面积公式：
+  \[
+   S=\frac12\cdot8\cdot10\cdot\sin30^\circ
+    =40\cdot\frac12=\boxed{20}.
+  \]
+  \textbf{为什么不先用海伦？}它需要三边，如果先用余弦定理求第三边、再套海伦，计算量明显增加。
+
+  \medskip
+  \textbf{\textcolor{CExample}{小练习（附答案）}}
+  \begin{enumerate}[leftmargin=*,itemsep=0.2em]
+   \item 三边 $4,5,6$，求面积。\quad\textbf{答案：}$\displaystyle \frac{15\sqrt7}{4}$（$p=15/2$）。
+   \item 三边 $3,4,8$，能否用海伦公式求真实三角形面积？\quad\textbf{答案：不能，$3+4<8$，三边不能组成三角形。}
+   \item 面积 $24$、半周长 $12$，求内切圆半径。\quad\textbf{答案：}$r=24/12=2$（已知确有这样的三角形时）。
+  \end{enumerate}
 \end{examplebox}

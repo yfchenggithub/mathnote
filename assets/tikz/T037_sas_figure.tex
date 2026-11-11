@@ -1,0 +1,18 @@
+\begin{center}
+\begin{tikzpicture}[scale=.7,font=\small,line join=round]
+\coordinate (C) at (0,0);\coordinate (B) at (8,0);
+\coordinate (A) at ({5*sqrt(3)},5);\coordinate (H) at ({5*sqrt(3)},0);
+\fill[blue!10] (A)--(B)--(C)--cycle;
+\draw[thick] (A)--(B)--node[midway,below=12pt] {$8$} (C)
+ --node[midway,above left=5pt] {$10$} cycle;
+\draw[gray,dashed] (B)--(H);
+\draw[CProof,thick,dashed] (A)--node[midway,right=6pt] {$h=10\sin30^\circ$} (H);
+\pic[draw,angle radius=3mm] {right angle=C--H--A};
+\pic[draw,CProof,angle radius=10mm] {angle=B--C--A};
+\node at (2,.55) {$30^\circ$};
+\foreach \p/\where in {A/above,B/below left,C/below left,H/below right}
+ {\fill (\p) circle[radius=1.4pt];\node[\where=4pt] at (\p) {$\p$};}
+\node[anchor=north,align=center,text width=11cm] at (4.6,-1.7)
+ {已知两边及其夹角：$S=\tfrac12\times8\times10\sin30^\circ$，无需先求第三边。};
+\end{tikzpicture}
+\end{center}
