@@ -35,6 +35,7 @@ class KnowledgeNode:
     sortOrder: int
     type: str
     shortTitle: str | None = None
+    shareConfig: dict[str, str] | None = None
 
 
 @dataclass(frozen=True)
@@ -122,6 +123,7 @@ class _MappedSource:
     id: str
     title: str
     primary_path: str
+    share_config: dict[str, str] | None
 
 
 def structural_node_id(full_path: str) -> str:
@@ -189,6 +191,27 @@ def _optional_string(value: Any, field_name: str, source: ConclusionSource, erro
     return value
 
 
+def parse_share_config(value: Any) -> dict[str, str] | None:
+    """Select optional App sharing text without normalizing or inventing copy.
+
+    Missing/null fields are omitted; every string, including blank strings,
+    survives unchanged. Other source metadata (e.g. imageUrl) is not exported.
+    """
+    if value is None:
+        return None
+    if not isinstance(value, dict):
+        raise ValueError("shareConfig must be an object or null")
+    result: dict[str, str] = {}
+    for field in ("title", "shareDesc"):
+        text = value.get(field)
+        if text is None:
+            continue
+        if not isinstance(text, str):
+            raise ValueError(f"shareConfig.{field} must be a string or null")
+        result[field] = text
+    return result or None
+
+
 def _number(value: Any, field_name: str, source: ConclusionSource, errors: list[MappingIssue]) -> int | float | None:
     if value is None:
         return None
@@ -240,6 +263,12 @@ def _load_sources(scan_result: ScanResult, errors: list[MappingIssue]) -> tuple[
                 errors.append(MappingIssue(_source_path(source), "knowledgeNode contains an empty path component"))
                 continue
 
+            try:
+                share_config = parse_share_config(data.get("shareConfig"))
+            except ValueError as exc:
+                errors.append(MappingIssue(_source_path(source), str(exc)))
+                continue
+
             seen_ids.add(source_id)
             mapped.append(
                 _MappedSource(
@@ -248,12 +277,14 @@ def _load_sources(scan_result: ScanResult, errors: list[MappingIssue]) -> tuple[
                     id=source_id,
                     title=title,
                     primary_path=primary_path,
+                    share_config=share_config,
                 )
             )
     return tuple(mapped)
 
 
 def _build_nodes(mapped_sources: tuple[_MappedSource, ...]) -> tuple[KnowledgeNode, ...]:
+    share_configs = {mapped.id: mapped.share_config for mapped in mapped_sources}
     structural_paths: set[str] = set()
     for mapped in mapped_sources:
         structural_paths.update(_path_prefixes(mapped.primary_path))
@@ -297,6 +328,7 @@ def _build_nodes(mapped_sources: tuple[_MappedSource, ...]) -> tuple[KnowledgeNo
             parentId=parent_id,
             sortOrder=sort_orders[node_id],
             type=node_type,
+            shareConfig=share_configs.get(node_id),
         )
         for node_id, name, parent_id, node_type in (
             *structural_specifications,

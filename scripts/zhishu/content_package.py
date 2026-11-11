@@ -12,11 +12,11 @@ from pathlib import Path, PurePosixPath
 from typing import Any, Iterable, Mapping
 
 if __package__:
-    from .runtime_mapping import RuntimeMappingResult
+    from .runtime_mapping import RuntimeMappingResult, parse_share_config
     from .share_videos import ShareVideoError, load_share_videos, verify_mp4
     from .source_discovery import ScanResult
 else:
-    from runtime_mapping import RuntimeMappingResult
+    from runtime_mapping import RuntimeMappingResult, parse_share_config
     from share_videos import ShareVideoError, load_share_videos, verify_mp4
     from source_discovery import ScanResult
 
@@ -255,6 +255,11 @@ def _validate_entity_shapes(
                             f"entity {index} field parentId must be null or a non-empty string",
                         )
                     )
+            if group == "knowledgeNodes":
+                try:
+                    parse_share_config(record.get("shareConfig"))
+                except ValueError as exc:
+                    errors.append(PackageIssue(issue_path, f"entity {index} {exc}"))
     return errors
 
 

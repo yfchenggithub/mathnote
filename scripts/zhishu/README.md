@@ -76,6 +76,26 @@ Publisher DTOs match the existing Zhishu App fields for `KnowledgeNode`,
 `KnowledgeRelation`, and `KnowledgeAsset`. The App domain model and repository
 interfaces are not modified by this Publisher.
 
+### Optional knowledge sharing text
+
+`meta.json.shareConfig.title` and `meta.json.shareConfig.shareDesc` are optional
+strings on the corresponding knowledge node. `runtime_mapping.parse_share_config`
+validates them, and the `KnowledgeNode.shareConfig` DTO passes through the normal
+Full v2 JSON writer and Schema v4 module slicer. Structural nodes do not acquire
+sharing defaults. The existing entity/file/package hashes and `contentVersion`
+include this metadata; no schema version or capability flag changes are required.
+
+Missing/null objects and fields are omitted. Empty strings, whitespace, Unicode
+and punctuation are preserved exactly; fallback copy and whitespace handling
+belong to the App. Non-object configurations and non-string, non-null values in
+the two text fields are source-qualified mapping errors and block construction.
+Package validation applies the same type rule. Other source-only keys such as
+`imageUrl` are not copied into this text contract. No promotional suffix is added.
+
+Re-export via `publish.py build-content` and `slice_modules.py`; never edit final
+JSON/ZIPs and reseal them by hand. Use a higher `--package-version` when replacing
+an installed module with changed content, even though the schema stays at v4.
+
 ## Package contract
 
 A package contains `manifest.json`, four stable runtime JSON files,
