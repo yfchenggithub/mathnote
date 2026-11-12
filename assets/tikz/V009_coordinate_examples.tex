@@ -1,0 +1,97 @@
+% V009 examples: each branch uses the exact vertices of that exercise.
+\providecommand{\VIncenterExample}[1]{%
+\begin{center}
+\begin{tikzpicture}[font=\small,>=Stealth,line cap=round,line join=round]
+\ifnum#1=1
+ \begin{scope}[scale=1.35]
+ \coordinate (A) at (0,3);\coordinate (B) at (4,0);\coordinate (C) at (0,0);\coordinate (I) at (1,1);
+ \coordinate (X) at (1,0);\coordinate (Y) at (0,1);
+ \draw[->,gray!75] (-.6,0)--(4.8,0) node[right] {$x$};
+ \draw[->,gray!75] (0,-.5)--(0,3.8) node[above] {$y$};
+ \fill[blue!7] (A)--(B)--(C)--cycle;\draw[thick] (A)--(B)--(C)--cycle;
+ \draw[blue!70!black,thick] (I) circle[radius=1];
+ \draw[blue!70!black,dashed] (I)--(1,0) (I)--(0,1);
+ \pic[draw,angle radius=2.5mm] {right angle=I--X--B};
+ \pic[draw,angle radius=2.5mm] {right angle=I--Y--A};
+ \node[above left=3pt] at (A) {$A(0,3)$};\node[below=5pt] at (B) {$B(4,0)$};
+ \node[below left=4pt] at (C) {$C(0,0)$};
+ \path (A)--node[midway,above right=4pt] {$c=5$} (B);
+ \path (C)--node[midway,below=7pt] {$a=4$} (B);
+ \path (A)--node[midway,left=7pt] {$b=3$} (C);
+ \fill[blue!70!black] (I) circle[radius=2pt];\node[above right=5pt] at (I) {$I$};
+ \end{scope}
+\fi
+\ifnum#1=2
+ \begin{scope}[scale=1.3]
+ \coordinate (A) at (0,0);\coordinate (B) at (3,0);\coordinate (C) at (0,4);\coordinate (P) at (1,1);
+ \draw[thick] (A)--(B)--(C)--cycle;
+ \draw[blue!70!black] (P) circle[radius=1];
+ \draw[->,blue!70!black,thick] (P)--(A);
+ \draw[->,orange!80!black,thick] (P)--(B);
+ \draw[->,violet!80!black,thick] (P)--(C);
+ \node[below left=4pt,blue!70!black] at (A) {$A$};
+ \node[below right=4pt,orange!80!black] at (B) {$B$};
+ \node[above left=4pt,violet!80!black] at (C) {$C$};
+ \draw[very thick,blue!70!black] (B)--node[midway,right=5pt] {$a=5$} (C);
+ \draw[very thick,orange!80!black] (C)--node[midway,left=6pt] {$b=4$} (A);
+ \draw[very thick,violet!80!black] (A)--node[midway,below=6pt] {$c=3$} (B);
+ \fill (P) circle[radius=2pt];\node[right=7pt] at (P) {$P$};
+ \end{scope}
+\fi
+\ifnum#1=3
+ \begin{scope}[scale=1.4]
+ \coordinate (A) at (0,0);\coordinate (B) at (4,0);\coordinate (C) at (0,3);\coordinate (D) at (12/7,12/7);
+ \draw[->,gray!75] (-.6,0)--(4.8,0) node[right] {$x$};
+ \draw[->,gray!75] (0,-.6)--(0,3.8) node[above] {$y$};
+ \draw[thick] (A)--(B)--(C)--cycle;
+ \draw[very thick,blue!70!black] (B)--node[midway,above right=5pt] {$BD$} (D);
+ \draw[very thick,orange!80!black] (D)--node[midway,above right=5pt] {$DC$} (C);
+ \draw[->,green!45!black,thick] (A)--(D);
+ \node[below left=3pt] at (A) {$A(0,0)$};\node[below=5pt] at (B) {$B(4,0)$};
+ \node[above left=3pt] at (C) {$C(0,3)$};
+ \fill (D) circle[radius=2pt];\node[above right=8pt] at (D) {$D(12/7,12/7)$};
+ \pic[draw,angle radius=8mm] {angle=B--A--D};\pic[draw,angle radius=8mm] {angle=D--A--C};
+ \end{scope}
+\fi
+\ifnum#1=4
+ \begin{scope}[scale=1.4]
+ \coordinate (A) at (0,0);\coordinate (B) at (4,0);\coordinate (C) at (0,3);\coordinate (I) at (1,1);
+ \draw[->,gray!75] (-.6,0)--(4.8,0) node[right] {$x$};
+ \draw[->,gray!75] (0,-.6)--(0,3.8) node[above] {$y$};
+ \draw[thick] (A)--(B)--(C)--cycle;
+ \draw[blue!70!black] (I) circle[radius=1];
+ \draw[->,green!45!black,thick] (A)--(3.3,3.3) node[above right=4pt] {$y=x$};
+ \draw[->,blue!70!black,very thick] (A)--(1,0) node[below=6pt] {$\vec u$};
+ \draw[->,orange!80!black,very thick] (A)--(0,1) node[left=6pt] {$\vec v$};
+ \fill[blue!70!black] (I) circle[radius=2pt];\node[below right=5pt] at (I) {$I$};
+ \fill[gray!85] (2.5,2.5) circle[radius=2pt];\node[right=5pt] at (2.5,2.5) {$Q$};
+ \node[below left=3pt] at (A) {$A$};\node[below=5pt] at (B) {$B(4,0)$};
+ \node[above left=3pt] at (C) {$C(0,3)$};
+ \end{scope}
+\fi
+\ifnum#1=5
+ \begin{scope}[scale=.8]
+ \coordinate (A) at (0,0);\coordinate (B) at (6,0);\coordinate (C) at (0,8);
+ \coordinate (I) at (2,2);\coordinate (G) at (2,8/3);\coordinate (M) at (3,4);
+ \draw[->,gray!75] (-.7,0)--(7,0) node[right] {$x$};
+ \draw[->,gray!75] (0,-.7)--(0,8.8) node[above] {$y$};
+ \draw[thick] (A)--(B)--(C)--cycle;
+ \draw[blue!70!black] (I) circle[radius=2];
+ \draw[blue!70!black,dashed] (A)--(24/7,24/7);
+ \draw[orange!85!black,dashed] (A)--(M) (C)--(3,0);
+ \fill[blue!70!black] (I) circle[radius=2pt];\node[below=8pt,blue!70!black] at (I) {$I$};
+ \fill[orange!85!black] (G) circle[radius=2pt];\node[left=10pt,orange!85!black] at (G) {$G$};
+ \node[below left=3pt] at (A) {$A(0,0)$};\node[below=5pt] at (B) {$B(6,0)$};
+ \node[above left=3pt] at (C) {$C(0,8)$};
+ \fill (M) circle[radius=1.5pt];\node[right=4pt] at (M) {$M$};
+ \end{scope}
+\fi
+\end{tikzpicture}
+\par\smallskip{\small
+\ifcase#1\or 内切圆与两坐标轴相切，$I=(r,r)=(1,1)$；第三边也必须与圆相切。
+\or 三边与顶点同色配对：$10:8:6=2(5:4:3)$；约去整体倍数后，定位同一内心 $P=I$。
+\or $D$ 从 $B$ 向 $C$ 走全程的 $4/7$；$BD:DC=4:3$，不是 $3:4$。
+\or $I(1,1)$ 与 $Q$ 都在 $y=x$ 上；方向相同，位置可以不同。
+\or 蓝色角平分线定位 $I(2,2)$，橙色中线相交于 $G(2,8/3)$；$M$ 是 $BC$ 的中点。
+\fi}
+\end{center}}

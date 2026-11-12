@@ -1,7 +1,28 @@
 \begin{trapbox}
-\begin{itemize}
-    \item \textbf{系数对应错误}：内心公式中 $\vec{IA}$ 前面的系数必须是 $A$ 的对边 $a$（即 $BC$ 的长度）。学生常错记为 $b$ 或 $c$。
-    \item \textbf{单位向量陷阱}：角平分线方向常表示为 $\frac{\vec{AB}}{|\vec{AB}|} + \frac{\vec{AC}}{|\vec{AC}|}$，这本质上是利用单位向量构造菱形，其结果与内心结论相通，需注意区分。
-    \item \textbf{未化简等式}：若给出的等式右边不是 $\vec{0}$，务必先进行移项。
-\end{itemize}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{容易犯的错误不是“公式太难”，而是没有分清边、点和方向。}
+\begin{enumerate}
+\item \textbf{系数与顶点配错。}误写 $b\vec{IA}+c\vec{IB}+a\vec{IC}=\vec0$。\textbf{正确：}$A$ 对应 $BC=a$，$B$ 对应 $CA=b$，$C$ 对应 $AB=c$。核对方法：系数来自\textbf{不包含该顶点}的小三角形底边。
+\input{assets/tikz/V009_coefficient_mismatch}
+图中若把系数错排为 $b,c,a$，坐标式就给出 $J=(bA+cB+aC)/(a+b+c)$；它不是内心。
+\end{enumerate}
+\end{minipage}\par
+\begin{enumerate}[start=2]
+\item \textbf{把内心当重心。} $\vec{OI}=(\vec{OA}+\vec{OB}+\vec{OC})/3$ 通常是重心公式，不是内心公式。只有特殊情况才重合。
+\item \begin{minipage}[t]{\linewidth}\textbf{把角平分线方向当作内心坐标。} $\vec{AB}/c+\vec{AC}/b$ 仅确定\textbf{从 $A$ 出发的角平分线方向}，不直接说明 $I=A+\vec{AB}/c+\vec{AC}/b$。还必须知道在该方向走多远。
+\input{assets/tikz/V009_direction_position}
+\end{minipage}
+\item \textbf{忘记向量起点。}自由向量本身不能说“经过内心”。准确说法是\textbf{过顶点 $A$、与该向量平行的直线}经过内心。
+\item \textbf{角平分线分点系数写反。}若 $BD:DC=c:b$，则
+\[\vec{BD}=\frac c{b+c}\vec{BC},\quad
+\vec{AD}=\frac b{b+c}\vec{AB}+\frac c{b+c}\vec{AC}.\]
+$\vec{AD}$ 中 $\vec{AB}$ 前的系数是 $b$，不是 $c$：由 $\vec{AD}=\vec{AB}+\vec{BD}$ 重新推一次即可校验。
+\item \textbf{把向量大小比直接当作向量等式。} $AI:ID=(b+c):a$ 只是长度比；因为 $\vec{IA},\vec{ID}$ 反向，必须有\[\vec{IA}=-\frac{b+c}{a}\vec{ID}.\]
+\item \textbf{反向判断时没有检验系数。} $2\vec{PA}+3\vec{PB}+4\vec{PC}=0$ 不会对所有三角形都说明 $P$ 是内心。需要先计算 $a:b:c$，确认比例一致；若出现负系数，也不能直接使用内心结论。
+\item \begin{minipage}[t]{\linewidth}\textbf{把“内心在三角形内”漏掉。}单靠“到三条边所在直线的距离相等”，还可能出现\textbf{三角形外部的等距点}。如果用距离相等的办法验证，必须同时证明点在三角形内部。
+\input{assets/tikz/V009_outside_equal_distances}
+\end{minipage}
+\item \textbf{内外角平分线搞混。} $\vec u+\vec v$ 与 $\vec u-\vec v$（$\vec u,\vec v$ 为长度为 $1$ 的两边方向向量）分别表示内、外角平分线方向；减法得到的直线通常\textbf{不经过内心}。
+\item \textbf{没有检查三角形是否真的存在。} 边长需要满足任意两边之和大于第三边；三点不能共线。否则\textbf{内心与内切圆}的讨论没有通常意义。
+\end{enumerate}
 \end{trapbox}

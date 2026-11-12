@@ -1,0 +1,18 @@
+% M=A+b/(b+c)(B-A), N=A+c/(b+c)(C-A); A,M,D,N is a parallelogram.
+\begin{center}
+\begin{tikzpicture}[scale=.52,font=\small,>=Stealth,line cap=round,line join=round]
+\coordinate (A) at (5,12);\coordinate (B) at (0,0);\coordinate (C) at (14,0);
+\coordinate (D) at (6.5,0);
+\coordinate (M) at ($(A)!{15/28}!(B)$);\coordinate (N) at ($(A)!{13/28}!(C)$);
+\draw[gray!70] (A)--(B)--(C)--cycle;
+\fill[blue!6] (A)--(M)--(D)--(N)--cycle;
+\draw[dashed,gray!80] (M)--(D)--(N);
+\draw[->,blue!70!black,thick] (A)--(M);
+\draw[->,orange!80!black,thick] (A)--(N);
+\draw[->,green!45!black,thick] (A)--node[midway,left=7pt] {$\vec{AD}$} (D);
+\node[left=7pt] at ($(A)!.5!(M)$) {$\dfrac b{b+c}\vec{AB}$};
+\node[right=7pt] at ($(A)!.5!(N)$) {$\dfrac c{b+c}\vec{AC}$};
+\foreach \Q/\pos in {A/above,B/below left,C/below right,D/below,M/left,N/right}{\fill (\Q) circle[radius=1.5pt];\node[\pos=5pt] at (\Q) {$\Q$};}
+\end{tikzpicture}
+\par\smallskip{\small $\vec{AM}=\frac b{b+c}\vec{AB}$，$\vec{AN}=\frac c{b+c}\vec{AC}$；平行四边形法则把两段相加为 $\vec{AD}$。}
+\end{center}

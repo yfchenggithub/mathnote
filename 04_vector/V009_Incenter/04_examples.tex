@@ -1,27 +1,141 @@
 \begin{examplebox}
-\textbf{例题：} 在 $\triangle ABC$ 中，$AB=3, AC=4, BC=5$，点 $I$ 满足 $5\vec{IA} + 4\vec{IB} + 3\vec{IC} = \vec{0}$，判断 $I$ 的几何名称。
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{例1：最简单的坐标题——不求角平分线方程}
 
-\textit{解析：} 
-注意到向量系数分别为 $5, 4, 3$。
-根据题目给出边长：$a=BC=5, b=AC=4, c=AB=3$。
-代入发现系数恰好满足 $a\vec{IA} + b\vec{IB} + c\vec{IC} = \vec{0}$。
-由内心向量特性的逆命题可知，点 $I$ 为 $\triangle ABC$ 的内心。
+\textbf{题目：} $A(0,3),B(4,0),C(0,0)$，求 $\triangle ABC$ 的内心 $I$。
+\VIncenterExample{1}
+
+\end{minipage}\par
+\textbf{解：}
+\begin{enumerate}
+\item 先算\textbf{对边}：$a=BC=4$，$b=CA=3$，$c=AB=\sqrt{4^2+3^2}=5$。
+\item 分母是周长 $a+b+c=12$。逐项代入：
+\[
+\begin{aligned}
+x_I&=\frac{4\cdot0+3\cdot4+5\cdot0}{12}=1,\\
+y_I&=\frac{4\cdot3+3\cdot0+5\cdot0}{12}=1.
+\end{aligned}
+\]
+\item \textbf{检验：} 这是两条直角边分别在坐标轴上的直角三角形；内切圆圆心应形如 $(r,r)$。由面积 $S=3\cdot4/2=6$ 和半周长 $p=6$，得 $r=S/p=1$，与 $(1,1)$ 一致。
+\end{enumerate}
+\textbf{答案：}$\boxed{I(1,1)}$。\textbf{省掉的工作：}不用分别求两条角平分线的方程再联立。
 \end{examplebox}
 
 \begin{examplebox}
-\textbf{例题 2：} 已知 $\triangle ABC$ 三个顶点的坐标分别为 $A(0, 3), B(4, 0), C(0, 0)$，求其内心 $I$ 的坐标。
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{例2：反向识别——系数是边长的倍数也可以}
 
-\textit{解析：}
+\textbf{题目：}已知 $AB=3,AC=4,BC=5$，点 $P$ 满足
+\[
+10\vec{PA}+8\vec{PB}+6\vec{PC}=\vec0.
+\]
+判断点 $P$。
+\VIncenterExample{2}
+
+\end{minipage}\par
+\textbf{解：}
 \begin{enumerate}
-    \item \textbf{计算边长}：
-    $c = AB = \sqrt{(4-0)^2 + (0-3)^2} = 5$；
-    $b = AC = \sqrt{(0-0)^2 + (0-3)^2} = 3$；
-    $a = BC = \sqrt{(0-4)^2 + (0-0)^2} = 4$。
-    \item \textbf{代入坐标公式}：
-    已知 $A(0, 3), B(4, 0), C(0, 0)$，边长 $a=4, b=3, c=5$。 [cite: 2]
-    \[ x_I = \frac{4 \times 0 + 3 \times 4 + 5 \times 0}{4+3+5} = \frac{12}{12} = 1 \]
-    \[ y_I = \frac{4 \times 3 + 3 \times 0 + 5 \times 0}{4+3+5} = \frac{12}{12} = 1 \]
-    \item \textbf{结论}：内心 $I$ 的坐标为 $(1, 1)$。
-    \textit{(注：由于该三角形为直角三角形，内切圆半径 $r = \frac{a+b-c}{2} = \frac{4+3-5}{2} = 1$，坐标 $(1,1)$ 符合几何直观。)}
+\item 检查三个\textbf{对边}：$a=5,b=4,c=3$。
+\item 题目中的系数 $10:8:6=5:4:3=a:b:c$。将题目等式两边除以 $2$，得到
+\[5\vec{PA}+4\vec{PB}+3\vec{PC}=\vec0.\]
+\item 内心 $I$ 满足同一个等式。将任意参考点 $O$ 引入，解出
+\[
+\vec{OP}=\frac{5\vec{OA}+4\vec{OB}+3\vec{OC}}{12}
+=\vec{OI}.
+\]
+同一参考点到两点的向量相等，说明 $P=I$。
 \end{enumerate}
+\textbf{答案：}$\boxed{P\text{ 是内心}}$。\textbf{关键：}必须用对边配对，不能仅凭“三个系数不相等”就判断。
+\end{examplebox}
+
+\begin{examplebox}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{例3：只求角平分线与边的交点——不用先求内心}
+
+\textbf{题目：} $A(0,0),B(4,0),C(0,3)$，$AD$ 为 $\angle A$ 的角平分线且 $D\in BC$，求 $D$ 及 $\vec{AD}$。
+\VIncenterExample{3}
+
+\end{minipage}\par
+\textbf{解：}
+\begin{enumerate}
+\item $AB=c=4$，$AC=b=3$。由角平分线定理 $BD:DC=4:3$，所以 $BD/BC=4/7$。
+\item 从 $B$ 沿 $\vec{BC}=(-4,3)$ 走 $4/7$，可得
+\[
+D=B+\frac47(C-B)=(4,0)+\frac47(-4,3)=\left(\frac{12}{7},\frac{12}{7}\right).
+\]
+\item 因为 $A=(0,0)$，$\vec{AD}=(12/7,12/7)$。也可直接用
+\[
+\vec{AD}=\frac37(4,0)+\frac47(0,3)=\left(\frac{12}{7},\frac{12}{7}\right).
+\]
+\end{enumerate}
+\textbf{答案：}$\boxed{D(12/7,12/7)}$。
+\textbf{解题选择：}只需要角平分线交点 $D$，就用角平分线定理；不要绕路先求内心。
+\end{examplebox}
+
+\begin{examplebox}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{例4：角平分线方向——单位向量相加有什么用？}
+
+\textbf{题目：} 在例3的三角形中，直接写出从 $A$ 出发的内角平分线方向，并说明它是否能单独确定内心坐标。
+\VIncenterExample{4}
+
+\end{minipage}\par
+\textbf{解：}
+\begin{enumerate}
+\item $\vec{AB}=(4,0)$，$|\vec{AB}|=4$，所以 $\vec{AB}/|\vec{AB}|=(1,0)$。
+\item $\vec{AC}=(0,3)$，$|\vec{AC}|=3$，所以 $\vec{AC}/|\vec{AC}|=(0,1)$。
+\item 相加得到 $(1,1)$，因此从 $A$ 出发的内角平分线就是方向为 $(1,1)$ 的直线，即 $y=x$。
+\item 但 $y=x$ 上有无数个点，\textbf{不能单独确定内心}。再求三边 $a=5,b=3,c=4$，代入内心坐标式：
+\[
+I=\frac{5(0,0)+3(4,0)+4(0,3)}{12}=(1,1).
+\]
+\end{enumerate}
+\textbf{结论：}单位向量之和用来找\textbf{方向}；对边长乘顶点坐标才可直接找\textbf{位置}。
+\end{examplebox}
+
+\begin{examplebox}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{例5：同一道题，内心与重心不是同一点}
+
+\textbf{题目：} $A(0,0), B(6,0), C(0,8)$，比较内心 $I$ 与重心 $G$ 的坐标。
+\VIncenterExample{5}
+
+\end{minipage}\par
+\textbf{解：}
+\begin{enumerate}
+\item $a=BC=10,\ b=CA=8,\ c=AB=6$。
+\item 内心按\textbf{对边长}计算：
+\[
+I=\frac{10(0,0)+8(6,0)+6(0,8)}{24}=(2,2).
+\]
+\item 重心对三个顶点\textbf{一视同仁}：
+\[
+G=\frac{(0,0)+(6,0)+(0,8)}{3}=\left(2,\frac83\right).
+\]
+\end{enumerate}
+\textbf{比较：}两者横坐标恰好相同，纵坐标不同。不能把内心坐标误写成三个顶点坐标的算术平均。
+\end{examplebox}
+
+\begin{examplebox}
+\par\noindent\begin{minipage}{\linewidth}
+\textbf{例6：面积比可以先于向量使用}
+
+\textbf{题目：}三角形三边 $BC=13,CA=14,AB=15$，内心为 $I$。求三个小三角形面积之比，并在已知原面积为 $84$ 时分别求其面积。
+\VIncenterFigure{5}{.47}{13}{14}{15}{图内数字是三块面积，边上的数字是边长；同高 $r=4$，所以面积分别为 $26,28,30$。}
+
+\end{minipage}\par
+\textbf{解：}
+\begin{enumerate}
+\item 三块三角形从内心到对应边的高都相同，故
+\[
+S_{IBC}:S_{ICA}:S_{IAB}=13:14:15.
+\]
+\item 三个比数之和为 $42$，原面积为 $84$，每一份为 $84/42=2$。
+\item 因此
+\[
+\boxed{S_{IBC}=26,\quad S_{ICA}=28,\quad S_{IAB}=30.}
+\]
+\item 验算：$26+28+30=84$。还可得内切圆半径 $r=2S/(a+b+c)=168/42=4$，例如 $S_{IBC}=13\cdot4/2=26$。
+\end{enumerate}
+\textbf{解题启示：}如果题目只问面积比，连向量都不需要引入。
 \end{examplebox}

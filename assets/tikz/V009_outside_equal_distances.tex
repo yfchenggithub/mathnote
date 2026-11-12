@@ -1,0 +1,23 @@
+% A=(0,0), B=(4,0), C=(0,3); I=(1,1), exterior equidistant point J=(-2,2).
+\begin{center}
+\begin{tikzpicture}[scale=.9,font=\small,line cap=round,line join=round]
+\coordinate (A) at (0,0);\coordinate (B) at (4,0);\coordinate (C) at (0,3);
+\coordinate (I) at (1,1);\coordinate (J) at (-2,2);
+\coordinate (X) at (-2,0);\coordinate (Y) at (0,2);
+\coordinate (F) at ($(C)!(J)!(B)$);
+\fill[blue!6] (A)--(B)--(C)--cycle;\draw[thick] (A)--(B)--(C)--cycle;
+\draw[dashed,gray!75] (-4.5,0)--(A) (C)--(-1.8,4.35);
+\draw[blue!70!black,thick] (I) circle[radius=1];
+\draw[orange!85!black,thick] (J) circle[radius=2];
+\draw[orange!85!black,thick] (J)--node[midway,left=5pt] {$2$} (X);
+\draw[orange!85!black,thick] (J)--node[midway,below=5pt] {$2$} (Y);
+\draw[orange!85!black,thick] (J)--node[pos=.6,above left=4pt] {$2$} (F);
+\pic[draw,angle radius=2.5mm] {right angle=J--F--B};
+\pic[draw,angle radius=2.5mm] {right angle=J--X--B};
+\pic[draw,angle radius=2.5mm] {right angle=J--Y--A};
+\fill (I) circle[radius=2pt];\node[above right=5pt,blue!70!black] at (I) {$I$};
+\fill (J) circle[radius=2pt];\node[above left=5pt,orange!85!black] at (J) {$J$};
+\node[below left=4pt] at (A) {$A$};\node[right=5pt] at (B) {$B(4,0)$};\node[above right=7pt] at (C) {$C(0,3)$};
+\end{tikzpicture}
+\par\smallskip{\small 内心 $I(1,1)$ 在内部；$J(-2,2)$ 到三条边所在直线均距 $2$，到 $AB,BC$ 的垂足在延长线上。}
+\end{center}

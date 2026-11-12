@@ -1,0 +1,164 @@
+% V009 only: B=(0,0), C=(a,0), A=(u,h), a=BC,b=CA,c=AB.
+% Arguments: mode,scale,a,b,c,caption. Exact geometry, equal x/y scales.
+% 0 opposite-edge coefficients; 1 equal-height areas; 2 two bisectors;
+% 3 common-base height ratio; 4 coordinate-distance check; 5 numeric areas; 6 two divisions.
+\providecommand{\VIncenterFigure}[6]{%
+\begin{center}
+\begin{tikzpicture}[scale=#2,font=\small,line cap=round,line join=round,>=Stealth]
+\pgfmathsetmacro{\va}{#3}\pgfmathsetmacro{\vb}{#4}\pgfmathsetmacro{\vc}{#5}
+\pgfmathsetmacro{\vL}{\va+\vb+\vc}
+\pgfmathsetmacro{\vu}{(\vc*\vc+\va*\va-\vb*\vb)/(2*\va)}
+\pgfmathsetmacro{\vh}{sqrt(\vc*\vc-\vu*\vu)}
+\pgfmathsetmacro{\vix}{\va*(\vu+\vc)/\vL}
+\pgfmathsetmacro{\vr}{\va*\vh/\vL}
+\pgfmathsetmacro{\vd}{\va*\vc/(\vb+\vc)}
+\pgfmathsetmacro{\vsa}{\va*\vr/2}
+\pgfmathsetmacro{\vsb}{\vb*\vr/2}
+\pgfmathsetmacro{\vsc}{\vc*\vr/2}
+\coordinate (A) at (\vu,\vh);\coordinate (B) at (0,0);
+\coordinate (C) at (\va,0);\coordinate (I) at (\vix,\vr);
+\coordinate (D) at (\vd,0);
+\coordinate (X) at ($(B)!(I)!(C)$);
+\coordinate (Y) at ($(C)!(I)!(A)$);
+\coordinate (Z) at ($(A)!(I)!(B)$);
+\ifnum#1=1
+ \fill[blue!14] (I)--(B)--(C)--cycle;
+ \fill[orange!18] (I)--(C)--(A)--cycle;
+ \fill[violet!13] (I)--(A)--(B)--cycle;
+\fi
+\ifnum#1=5
+ \fill[blue!14] (I)--(B)--(C)--cycle;
+ \fill[orange!18] (I)--(C)--(A)--cycle;
+ \fill[violet!13] (I)--(A)--(B)--cycle;
+\fi
+\ifnum#1=2
+ \fill[blue!9] (A)--(B)--(D)--cycle;
+\fi
+\ifnum#1=3
+ \fill[blue!13] (I)--(B)--(C)--cycle;
+\fi
+\draw[thick] (A)--(B)--(C)--cycle;
+\ifnum#1=0
+ \draw[blue!70!black,very thick] (B)--node[midway,below=6pt] {$a$} (C);
+ \draw[orange!80!black,very thick] (C)--node[midway,right=6pt] {$b$} (A);
+ \draw[violet!80!black,very thick] (A)--node[midway,left=6pt] {$c$} (B);
+ \draw[->,blue!70!black,thick] (I)--(A);
+ \draw[->,orange!80!black,thick] (I)--(B);
+ \draw[->,violet!80!black,thick] (I)--(C);
+ \node[above=5pt,blue!70!black] at (A) {$A$};
+ \node[below left=4pt,orange!80!black] at (B) {$B$};
+ \node[below right=4pt,violet!80!black] at (C) {$C$};
+\else
+ \ifnum#1=4
+  \draw[->,gray!75] (-1.5,0)--({\va+1.8},0) node[right] {$x$};
+  \draw[->,gray!75] (0,-1.2)--(0,{\vh+1.5}) node[above] {$y$};
+  \node[above=5pt] at (A) {$A(u,h)$};
+  \node[below left=6pt] at (B) {$B(0,0)$};
+  \node[below right=6pt] at (C) {$C(a,0)$};
+ \else
+  \node[above=5pt] at (A) {$A$};
+  \node[below left=4pt] at (B) {$B$};
+  \node[below right=4pt] at (C) {$C$};
+ \fi
+ \ifnum#1=2
+  \path (A)--node[midway,left=6pt] {$c$} (B);
+  \path (C)--node[midway,right=6pt] {$b$} (A);
+ \else
+  \ifnum#1=5
+   \path (B)--node[midway,below=7pt] {$a=#3$} (C);
+   \path (C)--node[pos=.65,right=5pt] {$b=#4$} (A);
+   \path (A)--node[pos=.35,left=5pt] {$c=#5$} (B);
+  \else
+   \ifnum#1=6\else
+    \path (B)--node[pos=.85,below=7pt] {$a$} (C);
+   \fi
+   \path (C)--node[pos=.7,right=5pt] {$b$} (A);
+   \path (A)--node[pos=.3,left=5pt] {$c$} (B);
+  \fi
+ \fi
+\fi
+\ifnum#1=1
+ \foreach \T in {A,B,C}{\draw[dashed,gray!65] (I)--(\T);}
+ \draw[blue!60!black] (I) circle[radius=\vr];
+ \foreach \F/\T in {X/C,Y/A,Z/B}{%
+  \draw[blue!75!black,thick] (I)--(\F);
+  \pic[draw,angle radius=2.7mm] {right angle=I--\F--\T};}
+ \path (I)--node[midway,right=4pt] {$r$} (X);
+ \path (I)--node[midway,above left=2pt] {$r$} (Z);
+ \path (I)--node[pos=.4,above left=4pt] {$r$} (Y);
+\fi
+\ifnum#1=5
+ \foreach \T in {A,B,C}{\draw[dashed,gray!65] (I)--(\T);}
+ \foreach \F/\T in {X/C,Y/A,Z/B}{%
+  \draw[blue!75!black] (I)--(\F);
+  \pic[draw,angle radius=2.7mm] {right angle=I--\F--\T};}
+ \node at ({\va/4},{\vr/3}) {$\pgfmathprintnumber[fixed,precision=0]{\vsa}$};
+ \node at ({(\vix+2*\va+\vu)/4},{(\vr+\vh)/4}) {$\pgfmathprintnumber[fixed,precision=0]{\vsb}$};
+ \node at ({(\vix+\vu)/4},{(\vr+\vh)/4}) {$\pgfmathprintnumber[fixed,precision=0]{\vsc}$};
+\fi
+\ifnum#1=2
+ \draw[->,orange!80!black,thick] (I)--(A);
+ \draw[->,blue!70!black,thick] (I)--(D);
+ \draw[thick,violet!65!black] (B)--(I);
+ \draw[blue!65!black,very thick] (B)--(D);
+ \draw[orange!75!black,very thick] (D)--(C);
+ \node[below=6pt] at (D) {$D$};
+ \path (B)--node[midway,below=6pt] {$BD$} (D);
+ \path (D)--node[midway,below=6pt] {$DC$} (C);
+ \pic[draw,violet!65!black,angle radius=10mm] {angle=I--B--A};
+ \pic[draw,violet!65!black,angle radius=10mm] {angle=D--B--I};
+ \pic[draw,orange!75!black,angle radius=9mm] {angle=B--A--D};
+ \pic[draw,orange!75!black,angle radius=9mm] {angle=D--A--C};
+\fi
+\ifnum#1=3
+ \coordinate (H) at (\vu,0);\coordinate (K) at (\vix,0);
+ \draw[orange!80!black,thick] (A)--(D);
+ \draw[dashed,orange!80!black,thick] (A)--(H);
+ \draw[blue!75!black,thick] (I)--(K);
+ \pic[draw,angle radius=2.5mm] {right angle=A--H--D};
+ \pic[draw,angle radius=2.5mm] {right angle=I--K--C};
+ \node[below left=5pt] at (H) {$H$};
+ \node[below=18pt] at (K) {$K$};
+ \node[below right=5pt] at (D) {$D$};
+ \fill (D) circle[radius=1.6pt];
+ \path (A)--node[pos=.55,left=4pt,orange!80!black] {$AH$} (H);
+ \path (I)--node[midway,right=12pt,blue!75!black] {$IK$} (K);
+\fi
+\ifnum#1=6
+ \draw[orange!80!black,very thick] (A)--(I);
+ \draw[blue!70!black,very thick] (I)--(D);
+ \draw[blue!70!black,very thick] (B)--(D);
+ \draw[orange!80!black,very thick] (D)--(C);
+ \fill (D) circle[radius=1.6pt];\node[below=6pt] at (D) {$D$};
+ \path (B)--node[midway,below=6pt] {$BD=13/2$} (D);
+ \path (D)--node[midway,below=6pt] {$DC=15/2$} (C);
+ \node[left=6pt] at ($(A)!.45!(I)$) {$AI$};
+ \node[right=6pt] at ($(I)!.5!(D)$) {$ID$};
+\fi
+\ifnum#1=4
+ \foreach \F/\T in {X/C,Y/A,Z/B}{%
+  \draw[blue!75!black,thick] (I)--(\F);
+  \pic[draw,angle radius=2.7mm] {right angle=I--\F--\T};}
+ \path (I)--node[midway,right=9pt] {$d_{BC}$} (X);
+ \path (I)--node[pos=.35,above=7pt] {$d_{AB}$} (Z);
+ \path (I)--node[pos=.4,above=8pt] {$d_{AC}$} (Y);
+ \draw[dashed,gray!65] (A)--(D);
+ \fill (D) circle[radius=1.5pt];\node[below=18pt] at (D) {$D$};
+\fi
+\fill (I) circle[radius=2pt];
+\ifnum#1=4
+ \node[right=16pt] at (I) {$P$};
+\else
+ \ifnum#1=2
+  \node[left=6pt] at (I) {$I$};
+ \else
+  \ifnum#1=3
+   \node[above right=5pt] at (I) {$I$};
+  \else
+   \node[right=16pt] at (I) {$I$};
+  \fi
+ \fi
+\fi
+\end{tikzpicture}
+\par\smallskip{\small #6}
+\end{center}}

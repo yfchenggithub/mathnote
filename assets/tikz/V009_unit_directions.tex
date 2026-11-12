@@ -1,0 +1,23 @@
+% Equal unit vectors u=(1,0),v=(1/2,sqrt(3)/2), drawn with one common scale.
+\begin{center}
+\begin{tikzpicture}[scale=4,font=\small,>=Stealth,line cap=round,line join=round]
+\coordinate (A) at (0,0);\coordinate (U) at (1,0);
+\coordinate (V) at (.5,{sqrt(3)/2});\coordinate (W) at (1.5,{sqrt(3)/2});
+\coordinate (Z) at (.5,{-sqrt(3)/2});\coordinate (K) at (.75,{sqrt(3)/4});
+\fill[blue!7] (A)--(U)--(W)--(V)--cycle;
+\draw[dashed,gray!70] (U)--(W)--(V);
+\draw[->,blue!75!black,thick] (A)--node[midway,below=5pt] {$\vec u$} (U);
+\draw[->,orange!80!black,thick] (A)--node[midway,left=5pt] {$\vec v$} (V);
+\draw[->,green!50!black,thick] (A)--node[pos=.8,above=6pt] {$\vec u+\vec v$} (W);
+\draw[gray!75,dashed] (V)--(U);
+\draw[->,violet!75!black,thick] (A)--node[midway,right=7pt] {$\vec u-\vec v$} (Z);
+\pic[draw,angle radius=3mm] {right angle=A--K--U};
+\pic[draw,green!50!black,angle radius=9mm] {angle=U--A--W};
+\pic[draw,green!50!black,angle radius=9mm] {angle=W--A--V};
+\node[left=5pt] at (A) {$A$};
+\node[below right=4pt] at (U) {$U$};\node[above left=4pt] at (V) {$V$};
+\node[above=4pt] at (W) {$W$};
+\node[below=5pt] at (Z) {外角平分线方向};
+\end{tikzpicture}
+\par\smallskip{\small $|\vec u|=|\vec v|=1$，四边形 $AUWV$ 是菱形；两条对角线垂直，和向量平分内角。}
+\end{center}

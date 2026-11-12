@@ -1,5 +1,47 @@
+\par\noindent\begin{minipage}{\linewidth}
 \begin{summarybox}
-1. \textbf{核心特征}：系数与边长成正比（$a:b:c$）是内心的向量标签,其坐标公式是顶点坐标的边长加权平均。
-2. \textbf{秒杀技巧}：看到向量系数含有边长或三角函数（如 $\sin A$）时，优先联想内心。
-3. \textbf{延伸}：内心的向量表示是解决角平分线、内切圆半径以及三角形中"点线距离"综合问题的基础工具。
+\textbf{核心问题：}已知顶点坐标，怎么最快求内心？已知向量等式，怎么识别内心？
+
+\medskip
+\textbf{一、最少记忆量：只记住对应关系}
+\[
+\underbrace{BC}_{a}\longleftrightarrow A,\qquad
+\underbrace{CA}_{b}\longleftrightarrow B,\qquad
+\underbrace{AB}_{c}\longleftrightarrow C.
+\]
+\[
+\boxed{a\vec{IA}+b\vec{IB}+c\vec{IC}=\vec0},\quad
+\boxed{I=\frac{aA+bB+cC}{a+b+c}\ \text{（表示坐标逐项计算）}}.
+\]
+第二个框里的 $A,B,C,I$ 仅是\textbf{坐标的简写}；正式向量写法是
+\[
+\vec{OI}=\frac{a\vec{OA}+b\vec{OB}+c\vec{OC}}{a+b+c}.
+\]
+
+\textbf{二、看见什么，用什么}
+\begin{enumerate}
+\item \textbf{已知三顶点求内心：}先算三条对边，再做两次按边长乘坐标的加法。
+\item \textbf{向量等式系数是对边长：}检查次序，直接识别内心；若系数是同一倍数，先约去倍数。
+\item \textbf{只求角平分线交点：}先用 $BD:DC=c:b$，不必先求整个内心。
+\item \textbf{只求角平分线方向：}两条边的单位向量相加；求位置还要增加条件。
+\item \textbf{问三个小三角形面积比：}同高，直接得到 $a:b:c$。
+\end{enumerate}
+
+\textbf{三、三种主要证明怎么选择}
+\begin{itemize}
+\item \textbf{想真正弄懂：}先读“初中面积和比例”证明，理解两次沿线段定位。
+\item \textbf{考场追求书写少：}掌握面积定位的小结论后，两步从面积比得到向量式。
+\item \textbf{常规且稳妥：}两次角平分线定理，再用向量分点公式。
+\end{itemize}
+文中另有\textbf{坐标距离独立验证}，用来确认结果没有靠图猜测。
+
+\textbf{四、关联知识}
+
+角平分线定理 $\to$ 线段比例 $\to$ 向量分点；
+内切圆半径相等 $\to$ 三块面积比例 $\to$ 内心坐标；
+重心公式的三个相同系数 $\leftrightarrow$ 内心公式的三个对边系数。
+
+\medskip
+\textbf{最后提醒：}不要靠“内心权重”四个字硬记。\textbf{每个系数来自该顶点对面的边长}，这是最不容易记错的根由。
 \end{summarybox}
+\end{minipage}\par
