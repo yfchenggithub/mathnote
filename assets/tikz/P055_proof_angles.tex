@@ -1,0 +1,24 @@
+% alpha=30 degrees, theta=-15 degrees, theta'=75 degrees.
+\begin{tikzpicture}[x=1cm,y=1cm]
+\draw[p055 frame] (0,0) rectangle (13.8,7.6);
+\node[anchor=west,font=\small\bfseries] at (.4,7.1) {方法三：镜面两侧等角，所以 $\theta'=2\alpha-\theta$};
+\begin{scope}[shift={(3.1,2.55)}]
+  \draw[p055 axis] (-1,0)--(6.5,0) node[right] {$x$ 轴正向};
+  \draw[p055 mirror] (210:1.2)--(30:6.1) node[right] {$l$};
+  \draw[p055 original,-Stealth] (0,0)--(-15:5.6) node[right] {$r$};
+  \draw[p055 image,-Stealth] (0,0)--(75:3.6) node[above] {$r'$};
+  \draw[CStatement,-Stealth] (0:1.2) arc (0:-15:1.2);
+  \node[CStatement] at (-15:2.05) [below] {$\theta$};
+  \draw[teal!70!black] (0:2.6) arc (0:30:2.6);
+  \node[teal!70!black] at (15:3) {$\alpha$};
+  \draw[orange!85!black] (0:3.6) arc (0:75:3.6);
+  \node[orange!85!black] at (56:4.05) {$\theta'$};
+  \draw[thick] (-15:.7) arc (-15:30:.7);
+  \draw[thick] (30:.85) arc (30:75:.85);
+  \node at (7.5,2.3) {$\alpha-\theta=\theta'-\alpha$};
+  \node[align=center] at (7.5,1.2) {黑色小圆弧\\表示两个夹角相等};
+  \fill (0,0) circle (1.8pt);
+  \node[anchor=east] at (-.4,.6) {$P\in l$};
+\end{scope}
+\node at (6.9,.45) {图取 $\alpha=30^\circ,\ \theta=-15^\circ,\ \theta'=75^\circ$；一般方向允许相差 $180^\circ$。};
+\end{tikzpicture}

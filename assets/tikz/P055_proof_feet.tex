@@ -1,0 +1,33 @@
+\begin{tikzpicture}[x=1cm,y=1cm]
+\draw[p055 frame] (0,0) rectangle (13.8,7.6);
+\node[anchor=west,font=\small\bfseries] at (.4,7.1) {方法四：垂足 $H_i$ 是每一对 $Q_i,Q_i'$ 的中点};
+\begin{scope}[shift={(2.1,2.9)},scale=.92]
+  \coordinate (Q1) at (0,3); \coordinate (Q2) at (2,3.5);
+  \coordinate (H1) at (1.2,.6); \coordinate (H2) at (3,1.5);
+  \coordinate (R1) at (2.4,-1.8); \coordinate (R2) at (4,-.5);
+  \draw[p055 mirror] (-.8,-.4)--(6,3) node[right] {$l$};
+  \draw[p055 original,-Stealth] (Q1)--(Q2);
+  \draw[p055 image,-Stealth] (R1)--(R2);
+  \draw[p055 helper] (Q1)--(R1) (Q2)--(R2);
+  \draw[gray] ($(H1)+(.2,.1)$)--($(H1)+(.1,.3)$)--($(H1)+(-.1,.2)$);
+  \draw[gray] ($(H2)+(.2,.1)$)--($(H2)+(.1,.3)$)--($(H2)+(-.1,.2)$);
+  \foreach \u/\v in {Q1/H1,H1/R1}{
+    \draw[gray] ($ (\u)!.5!(\v) +(-.13,-.065)$)--($ (\u)!.5!(\v) +(.13,.065)$);
+  }
+  % Distinct tick codes: only each reflected pair has equal halves.
+  \foreach \u/\v in {Q2/H2,H2/R2}{
+    \foreach \t in {.46,.54}{
+      \draw[gray] ($ (\u)!\t!(\v) +(-.13,-.065)$)--($ (\u)!\t!(\v) +(.13,.065)$);
+    }
+  }
+  \foreach \p/\label/\pos in {Q1/Q_1/above left,Q2/Q_2/above,R1/Q_1'/left,R2/Q_2'/right}{
+    \fill (\p) circle (1.8pt) node[\pos] {$\label$};
+  }
+  \fill (H1) circle (1.8pt); \node at (.4,1) {$H_1$};
+  \fill (H2) circle (1.8pt); \node at (3.3,2.2) {$H_2$};
+  \node[CStatement,anchor=west] at (7.2,3.5) {原方向 $(1,k)$};
+  \node[orange!85!black,below right] at (3.4,-1.2) {$(\Delta x',\Delta y')$};
+  \node[align=left,anchor=west] at (7.2,1.8) {$Q_iH_i\perp l$\\[5pt]$Q_iH_i=H_iQ_i'$\\[5pt]$Q_i'=2H_i-Q_i$};
+\end{scope}
+\node at (6.9,.45) {图取 $l:y=\frac12x$；虚线是垂线，短刻线表示两半等长。};
+\end{tikzpicture}

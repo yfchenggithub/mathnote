@@ -1,0 +1,35 @@
+\begin{tikzpicture}[x=1cm,y=1cm]
+\draw[p055 frame] (0,0) rectangle (13.8,10.6);
+\node[anchor=west,font=\small\bfseries] at (.4,10.1) {方法二：只跟踪一根方向箭头（图取 $p=2,\ q=1$）};
+\foreach \xx/\yy/\kind in {3.5/7.8/1,10.2/7.8/2,3.5/2.9/3,10.2/2.9/4}{
+\begin{scope}[shift={(\xx,\yy)}]
+  \draw[p055 axis] (-2.6,0)--(2.6,0);
+  \draw[p055 axis] (0,-1.65)--(0,1.65);
+  \draw[p055 original,-Stealth] (0,0)--(2,1);
+  \node[CStatement,above] at (2,1) {$(p,q)$};
+  \ifnum\kind=1
+    \draw[p055 mirror] (0,-1.65)--(0,1.65);
+    \draw[p055 image,-Stealth] (0,0)--(-2,1);
+    \node[orange!85!black,above] at (-2,1) {$(-p,q)$};
+    \node at (0,-1.95) {$x=a:\quad k'=-q/p$};
+  \fi
+  \ifnum\kind=2
+    \draw[p055 mirror] (-2.6,0)--(2.6,0);
+    \draw[p055 image,-Stealth] (0,0)--(2,-1);
+    \node[orange!85!black,below] at (2,-1) {$(p,-q)$};
+    \node at (0,-1.95) {$y=b:\quad k'=-q/p$};
+  \fi
+  \ifnum\kind=3
+    \draw[p055 mirror] (-1.5,-1.5)--(1.65,1.65);
+    \draw[p055 image,-Stealth] (0,0)--(1,2);
+    \node[orange!85!black,above left] at (1,2) {$(q,p)$};
+    \node at (0,-2.3) {$y=x+c:\quad k'=p/q$};
+  \fi
+  \ifnum\kind=4
+    \draw[p055 mirror] (-1.65,1.65)--(1.5,-1.5);
+    \draw[p055 image,-Stealth] (0,0)--(-1,-2);
+    \node[orange!85!black,left] at (-1.1,-1.3) {$(-q,-p)$};
+    \node at (0,-2.3) {$y=-x+c:\quad k'=p/q$};
+  \fi
+\end{scope}}
+\end{tikzpicture}

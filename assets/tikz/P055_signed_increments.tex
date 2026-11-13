@@ -1,0 +1,20 @@
+\begin{tikzpicture}[x=1cm,y=1cm]
+\draw[p055 frame] (0,0) rectangle (13.8,7.5);
+\node[anchor=west,font=\small\bfseries] at (.4,7) {竖直镜面：左右反号，上下不变};
+\begin{scope}[shift={(6.9,5.45)},scale=1.1]
+  \draw[p055 mirror] (0,-3.65)--(0,.6);
+  \node[teal!70!black,right] at (.15,-2.1) {$x=2$};
+  \coordinate (P) at (0,0); \coordinate (A) at (-2,-3); \coordinate (B) at (2,-3);
+  \draw[p055 original,-Stealth] (P)--(A);
+  \draw[p055 image,-Stealth] (P)--(B);
+  \draw[CStatement,-Stealth] (P)--(-2,0) node[midway,above] {$\Delta x=-2$};
+  \draw[CStatement,-Stealth] (-2,0)--(A) node[midway,left] {$\Delta y=-3$};
+  \draw[orange!85!black,-Stealth] (P)--(2,0) node[midway,above] {$\Delta x'=2$};
+  \draw[orange!85!black,-Stealth] (2,0)--(B) node[midway,right] {$\Delta y'=-3$};
+  \node[above] at (0,.55) {$P(2,1)$};
+  \fill (P) circle (1.7pt);
+  \fill[CStatement] (A) circle (1.7pt) node[below left] {$A(0,-2)$};
+  \fill[orange!85!black] (B) circle (1.7pt) node[below right] {$A'(4,-2)$};
+\end{scope}
+\node at (6.9,.75) {$k=\dfrac{-3}{-2}=\dfrac32\qquad\longrightarrow\qquad k'=\dfrac{-3}{2}=-\dfrac32$};
+\end{tikzpicture}

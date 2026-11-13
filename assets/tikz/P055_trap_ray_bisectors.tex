@@ -1,0 +1,27 @@
+\begin{tikzpicture}[x=1cm,y=1cm]
+\draw[p055 frame] (0,0) rectangle (13.8,8.5);
+\node[anchor=west,font=\small\bfseries] at (.4,8) {相同的两条延长线，选择不同射线，内角就会改变};
+\foreach \xx/\kind in {3.5/1,10.3/2}{
+\begin{scope}[shift={(\xx,4.75)},scale=.95]
+  \draw[p055 helper] (-1.6,-2.4)--(1.6,2.4) (-1.6,2.4)--(1.6,-2.4);
+  \draw[p055 mirror] (0,-2.3)--(0,2.3);
+  \draw[p055 original,-Stealth] (0,0)--(-1.5,-2.25);
+  \node[CStatement,left] at (-1.5,-2.25) {$A$};
+  \ifnum\kind=1
+    \fill[teal!70!black,opacity=.10] (0,0)--(-1.5,-2.25)--(1.5,-2.25)--cycle;
+    \draw[p055 image,-Stealth] (0,0)--(1.5,-2.25);
+    \node[orange!85!black,right] at (1.5,-2.25) {$B$};
+    \node[above right] at (0,-1.35) {$I$}; \fill (0,-1.35) circle (1.6pt);
+    \node[align=center] at (0,-3) {$A,B$ 在轴两侧\\竖直轴平分内角};
+  \else
+    \fill[orange!85!black,opacity=.08] (0,0)--(-1.5,-2.25)--(-1.5,2.25)--cycle;
+    \draw[p055 image,-Stealth] (0,0)--(-1.5,2.25);
+    \node[orange!85!black,left] at (-1.5,2.25) {$B$};
+    \draw[gray,thick] (0,0)--(-2.4,0) node[left] {内角轴};
+    \node[align=center] at (0,-3) {$A,B$ 在轴同侧\\竖直轴平分外角};
+  \fi
+  \fill (0,0) circle (1.8pt);
+  \node at (.65,.25) {$P$};
+\end{scope}}
+\node at (6.9,.6) {两图都有 $k_{PA}=\frac32,\ k_{PB}=-\frac32$；只有左图的边射线关于竖直轴互为镜像。};
+\end{tikzpicture}

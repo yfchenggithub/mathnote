@@ -1,0 +1,204 @@
+{
+  "id": "P055",
+  "module": "geometry-plane",
+  "core": {
+    "title": "直线反射与斜率变换规律",
+    "alias": [
+      "轴对称与直线斜率",
+      "直线镜面反射斜率公式",
+      "关于坐标轴的斜率对称",
+      "反射斜率变号与倒数",
+      "角平分线斜率关系"
+    ],
+    "summary": "水平或竖直镜面使斜率变为相反数；45度镜面使斜率变为倒数；任意方向镜面可由统一公式求像直线方向，并区分直线位置和射线内角。",
+    "difficulty": 2,
+    "category": "解析几何",
+    "tags": [
+      "轴对称",
+      "直线斜率",
+      "镜面反射",
+      "角平分线",
+      "方向增量",
+      "解析几何",
+      "内心"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "直线反射与斜率变换",
+      "直线关于直线对称",
+      "斜率关于x轴对称",
+      "斜率关于y轴对称",
+      "水平镜面斜率",
+      "竖直镜面斜率",
+      "斜率变号",
+      "斜率变倒数",
+      "关于y=x对称的直线",
+      "关于y=-x对称的直线",
+      "任意对称轴斜率公式",
+      "内心角平分线斜率",
+      "镜面对称斜率",
+      "斜率反射通式"
+    ],
+    "synonyms": [
+      "两直线关于水平线对称斜率",
+      "两直线关于竖直线对称斜率",
+      "镜子翻折斜率",
+      "对称直线斜率关系",
+      "对称轴反射后的斜率",
+      "斜率取负号",
+      "直线斜率取倒数"
+    ],
+    "intents": [
+      "求反射后直线斜率",
+      "判断两直线是否关于给定轴对称",
+      "由角平分线推出斜率关系",
+      "用方向增量快速求斜率",
+      "计算任意斜镜面对称直线的斜率"
+    ],
+    "query_templates": [
+      "直线关于x=a对称斜率变成多少",
+      "直线关于y=b对称斜率变成多少",
+      "关于y=x+c反射斜率是多少",
+      "关于y=-x+c反射斜率是多少",
+      "y=mx+c反射直线的斜率公式",
+      "内心在x=a上为什么PA与PB斜率和为零"
+    ],
+    "ocrKeywords": [
+      "k'=-k",
+      "k'=1/k",
+      "y=mx+c",
+      "1-m^2+2mk",
+      "kPA=-kPB",
+      "delta x",
+      "delta y"
+    ],
+    "latex_patterns": [
+      "k'=-k",
+      "k'=\\frac{1}{k}",
+      "k'=\\frac{2m+(m^2-1)k}{1-m^2+2mk}"
+    ],
+    "formulaTokens": [
+      "k'=-k",
+      "k'=1/k",
+      "(2m+(m^2-1)k)/(1-m^2+2mk)",
+      "(-Delta x,Delta y)",
+      "(Delta x,-Delta y)",
+      "(Delta y,Delta x)",
+      "k_PA=-k_PB"
+    ],
+    "pinyin": "zhi xian fan she yu xie lv bian huan gui lv",
+    "pinyinAbbr": "zxfsyxlbhgl"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.81,
+    "hot_score": 0,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "\\begin{cases}k'=-k,&l:x=a\\text{ 或 }y=b,\\\\ k'=\\frac1k\\;(k\\ne0),&l:y=x+c\\text{ 或 }y=-x+c,\\\\ k'=\\frac{2m+(m^2-1)k}{1-m^2+2mk},&l:y=mx+c,\\;1-m^2+2mk\\ne0.\\end{cases}",
+    "related_formulas": [
+      "(\\Delta x,\\Delta y)\\overset{x=a}{\\longmapsto}(-\\Delta x,\\Delta y)",
+      "(\\Delta x,\\Delta y)\\overset{y=b}{\\longmapsto}(\\Delta x,-\\Delta y)",
+      "(\\Delta x,\\Delta y)\\overset{y=x+c}{\\longmapsto}(\\Delta y,\\Delta x)",
+      "(\\Delta x,\\Delta y)\\overset{y=-x+c}{\\longmapsto}(-\\Delta y,-\\Delta x)",
+      "k'=\\tan(2\\alpha-\\theta),\\ \\tan\\alpha=m,\\ \\tan\\theta=k"
+    ],
+    "variables": [
+      "k",
+      "k'",
+      "m",
+      "a",
+      "b",
+      "c",
+      "\\Delta x",
+      "\\Delta y",
+      "\\alpha",
+      "\\theta"
+    ],
+    "conditions": "把直线关于镜面反射；特殊轴公式需按水平、竖直及45度镜面分类。任意斜轴通式要求镜面非竖直，原直线斜率k有限；分母不为零才存在有限像斜率。",
+    "conclusions": "对称轴x=a或y=b时k'=-k；对称轴y=x+c或y=-x+c时k'=1/k（非零有限k）；一般镜面y=mx+c时按通式求像方向，需另检查直线位置、内外角。"
+  },
+  "content": {
+    "statement": "令原线有限斜率为$k$，像直线斜率为$k'$。关于$x=a$或$y=b$反射：$k'=-k$；关于$y=x+c$或$y=-x+c$反射：$k'=1/k$（$k\\ne0$）；关于$y=mx+c$反射：$k'=\\dfrac{2m+(m^2-1)k}{1-m^2+2mk}$，分母为$0$表示像直线竖直。",
+    "derivation": [
+      "对两点差$\\Delta x,\\Delta y$观察镜面反射：水平镜面使$\\Delta y$反号，竖直镜面使$\\Delta x$反号，故$k'=-k$。",
+      "45度镜面使两个坐标差互换（或互换后同时反号），故$k'=1/k$；水平、竖直特例单独判断。",
+      "一般轴$y=mx+c$：方向角由$\\theta$反射为$2\\alpha-\\theta$，以$\\tan\\alpha=m$、$\\tan\\theta=k$和差角公式得到统一斜率表达式。",
+      "或用镜面对称点的垂足与中点关系，分别计算两点反射后的坐标差，求其比值；截距$c$在坐标差中相消。"
+    ],
+    "intuition": "一根小箭头照镜子：水平翻折上下反号，竖直翻折左右反号；两种45度镜面横纵交换。斜率是上下变化量除以左右变化量。",
+    "common_tricks": [
+      "遇到内心与顶点同在水平或竖直直线上，优先识别内角平分线，再写两边斜率互为相反数。",
+      "求斜率先看方向增量；求反射直线方程还必须寻找经过的点。",
+      "k=0经过45度镜面变为竖直线；通式分母为零也意味着竖直，不能硬套分式。",
+      "斜率互为相反数不足以断定关于某条指定轴对称；注意交点、位置及内外角。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "内心在定直线上与角平分线题",
+      "两直线轴对称判定",
+      "折线反射与直线方向转化",
+      "圆锥曲线对称割线与斜率关系",
+      "不求对称点直接确定像直线方向"
+    ],
+    "problem_types": [
+      "选择题",
+      "填空题",
+      "解析几何解答题"
+    ],
+    "exam_frequency": 0,
+    "exam_score": 0
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "",
+    "image": "",
+    "gif": "",
+    "video": ""
+  },
+  "shareConfig": {
+    "title": "直线照镜子：横竖变号，45°取倒数",
+    "shareDesc": "直线关于水平或竖直轴反射，斜率直接变成相反数；关于45度斜轴，斜率变倒数。内心落在过顶点的坐标轴方向直线上，迅速推出两边斜率对称；任意镜面也有通式。注意不能仅凭斜率断定具体直线对称，竖直线需单独判断。"
+  },
+  "relations": {
+    "prerequisites": [
+      "平面直角坐标系",
+      "直线斜率与坐标差",
+      "初中轴对称与垂直平分线",
+      "三角形内角平分线"
+    ],
+    "related_ids": [
+      "P018",
+      "P054"
+    ],
+    "similar": [
+      "点关于直线的对称点坐标公式",
+      "直线的对称轴判断",
+      "角平分线与两边斜率",
+      "直线方向角和斜率"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "P018原模板结构重写，初高中几何及坐标证明",
+    "created_at": "2026-11-13",
+    "updated_at": "2026-11-13"
+  },
+  "isPro": 0,
+  "remarks": "P055 PDF 教学图已补齐：assets/tikz/P055_core_mirrors.tex 为首页核心图；P055_signed_increments.tex 以带符号增量替代行走长描述；P055_proof_triangles、P055_proof_directions、P055_proof_angles、P055_proof_feet.tex 分别服务四种证明；P055_example_incenter、P055_example_shifted_diagonal、P055_example_vertical_image.tex 分别解释边射线不等长、方向与定位、像线竖直；P055_trap_wrong_slopes、P055_trap_position、P055_trap_ray_bisectors.tex 替代错误方向、位置及内外角的纯文字脑补。共12幅 TikZ，原线蓝色、像线橙色、镜面青绿色、错误方向红色虚线。assets 媒体字段保持空白，未生产或发布独立 PNG/GIF。",
+  "knowledgeNode": "解析几何-直线-对称-直线反射与斜率",
+  "altNodes": ""
+}

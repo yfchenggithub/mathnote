@@ -1,0 +1,18 @@
+\begin{tikzpicture}[x=1cm,y=1cm]
+\draw[p055 frame] (0,0) rectangle (13.8,7.3);
+\node[anchor=west,font=\small\bfseries] at (.4,6.8) {方向相同的两条线，位置仍可能不同};
+\begin{scope}[shift={(4.5,3.3)},scale=.95]
+  \draw[p055 axis] (-2.4,0)--(3.2,0) node[right] {$x$};
+  \draw[p055 mirror] (0,-1.8)--(0,2.6) node[above] {$x=0$};
+  \draw[p055 original] (-1.7,-1.7)--(2.35,2.35);
+  \draw[p055 image] (-2.3,2.3)--(1.7,-1.7);
+  \draw[p055 wrong] (-.4,2.4)--(3.1,-1.1);
+  \fill (0,0) circle (1.8pt);
+  \fill[red!75!black] (1,1) circle (1.8pt);
+  \node[red!75!black,anchor=west] at (1.5,1) {$(1,1)$};
+  \node[CStatement,anchor=west] at (4,2) {原线：$y=x$};
+  \node[orange!85!black,anchor=west] at (4,1) {真正的像：$y=-x$};
+  \node[red!75!black,anchor=west] at (4,0) {错认的像：$y=-x+2$};
+\end{scope}
+\node[align=center] at (6.9,.65) {两条下降直线斜率同为 $-1$，却不是同一条线。\\红线与原线的交点不在镜面上，无法关于该镜面互为反射。};
+\end{tikzpicture}

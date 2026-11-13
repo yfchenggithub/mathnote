@@ -1,0 +1,23 @@
+\begin{tikzpicture}[x=1cm,y=1cm]
+\draw[p055 frame] (0,0) rectangle (13.8,7.8);
+\node[anchor=west,font=\small\bfseries] at (.4,7.3) {例1：边射线互为镜像，不要求两条边等长};
+\begin{scope}[shift={(3.3,1.45)},scale=.78]
+  \coordinate (P) at (2,6); \coordinate (A) at (0,3); \coordinate (B) at (6,0);
+  \coordinate (Ap) at (4,3); \coordinate (I) at (2,{5+(5-9*sqrt(13))/(5+3*sqrt(13))});
+  \draw[p055 mirror] (2,-.3)--(2,6.5);
+  \node[teal!70!black,left] at (2,.5) {$x=2$};
+  \draw[gray] (A)--(B);
+  \draw[p055 original] (P)--(A);
+  \draw[p055 image] (P)--(B);
+  \draw[p055 helper] (A)--(Ap);
+  \fill (P) circle (2pt) node[above left] {$P(2,1)$};
+  \fill[CStatement] (A) circle (2pt) node[left] {$A(0,-2)$};
+  \fill[orange!85!black] (B) circle (2pt) node[right] {$B(6,-5)$};
+  \fill[orange!85!black] (Ap) circle (2pt) node[right] {$A'(4,-2)$};
+  \fill (I) circle (2pt) node[left] {$I$};
+  \draw[gray] (P)--(I);
+  \node[anchor=west,align=left] at (7.1,4.3) {$A'$ 在射线 $PB$ 上\\[5pt]$PA=PA'$\\[5pt]$PB=2PA$};
+  \node[anchor=west,align=left] at (7.1,1.5) {$I$ 在内角平分线上\\[5pt]$k_{PA}=\frac32,\ k_{PB}=-\frac32$};
+\end{scope}
+\node at (6.9,.45) {虚线连接真正互为镜像的点 $A,A'$；$B$ 只需落在像射线上。};
+\end{tikzpicture}

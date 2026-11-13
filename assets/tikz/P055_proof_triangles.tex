@@ -1,0 +1,35 @@
+\begin{tikzpicture}[x=1cm,y=1cm]
+\draw[p055 frame] (0,0) rectangle (13.8,6.9);
+\node[anchor=west,font=\small\bfseries] at (.4,6.4) {方法一：看直角三角形的边怎样翻折};
+\begin{scope}[shift={(1.6,3.35)},scale=.95]
+  \draw[p055 mirror] (-.65,0)--(4.7,0) node[right] {$y=0$};
+  \coordinate (U) at (0,1); \coordinate (V) at (3,2);
+  \coordinate (Up) at (0,-1); \coordinate (Vp) at (3,-2);
+  \draw[p055 original] (U)--(V);
+  \draw[p055 image] (Up)--(Vp);
+  \draw[p055 helper] (U)--(3,1)--(V) (Up)--(3,-1)--(Vp);
+  \draw[gray] (2.82,1)--(2.82,1.18)--(3,1.18);
+  \draw[gray] (2.82,-1)--(2.82,-1.18)--(3,-1.18);
+  \node[left] at (U) {$U$}; \node[above right] at (V) {$V$};
+  \node[left] at (Up) {$U'$}; \node[below right] at (Vp) {$V'$};
+  \node[below] at (1.5,1) {$\Delta x=3$};
+  \node[right] at (3,1.5) {$\Delta y=1$};
+  \node[above] at (1.5,-1) {$\Delta x'=3$};
+  \node[right] at (3,-1.5) {$\Delta y'=-1$};
+\end{scope}
+\begin{scope}[shift={(8.65,1.45)},scale=1.05]
+  \draw[p055 mirror] (0,0)--(3.5,3.5) node[above] {$y=x$};
+  \coordinate (U) at (0,0); \coordinate (V) at (3,1); \coordinate (Vp) at (1,3);
+  \draw[p055 original] (U)--(V); \draw[p055 image] (U)--(Vp);
+  \draw[p055 helper] (U)--(3,0)--(V) (U)--(0,3)--(Vp);
+  \draw[gray] (2.82,0)--(2.82,.18)--(3,.18);
+  \draw[gray] (0,2.82)--(.18,2.82)--(.18,3);
+  \node[below left] at (U) {$U=U'$};
+  \node[right] at (V) {$V(3,1)$};
+  \node[above left] at (Vp) {$V'(1,3)$};
+  \node[below] at (1.5,0) {$3$}; \node[right] at (3,.5) {$1$};
+  \node[left] at (0,1.5) {$3$}; \node[below] at (.5,3) {$1$};
+\end{scope}
+\node at (3.6,.55) {水平边同向，竖直边反向};
+\node at (10.3,.55) {水平、竖直两条直角边互换};
+\end{tikzpicture}

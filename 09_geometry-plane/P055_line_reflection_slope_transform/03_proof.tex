@@ -1,0 +1,106 @@
+\clearpage
+\begin{proofbox}
+\textbf{方法一：初中轴对称与直角三角形}
+\begin{center}
+\input{assets/tikz/P055_proof_triangles}
+\end{center}
+在原线上取不同两点 $U,V$，坐标差为 $\Delta x,\Delta y$。图中的水平、竖直直角边显示坐标差的绝对值；斜率还须保留方向的正负号。
+
+\medskip
+\textbf{水平、竖直镜面：} 关于 $y=b$，点变换为
+\[
+(x,y)\mapsto(x,2b-y),\qquad
+(\Delta x',\Delta y')=(\Delta x,-\Delta y).
+\]
+关于 $x=a$，点变换为
+\[
+(x,y)\mapsto(2a-x,y),\qquad
+(\Delta x',\Delta y')=(-\Delta x,\Delta y).
+\]
+因此当 $\Delta x\ne0$ 时，两种镜面都给出 $k'=-k$。
+
+\medskip
+\textbf{镜面 $y=x+c$：} 先向下平移 $c$，镜面成为 $y=x$。$(s,t)$ 与 $(t,s)$ 的中点在 $y=x$ 上，连线与镜面垂直，所以它们互为对称点（点在轴上时保持不动）。平移回去得到
+\[
+(x,y)\mapsto(y-c,x+c),\qquad
+(\Delta x',\Delta y')=(\Delta y,\Delta x).
+\]
+图右侧的两条直角边因此互换，$k'=\Delta x/\Delta y=1/k$。
+
+\medskip
+\textbf{镜面 $y=-x+c$：} 对称点为 $(c-y,c-x)$，因为两点中点满足 $x+y=c$；不在镜面上时，连接两点的方向为 $(1,1)$，垂直于镜面；在镜面上时点保持不动。故增量变成 $(-\Delta y,-\Delta x)$，商仍为 $1/k$。
+
+两种倒数规则都要求 $\Delta x\Delta y\ne0$；若其中一个增量为零，直接判断水平、竖直互换。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法二：只跟踪方向增量}
+\begin{center}
+\input{assets/tikz/P055_proof_directions}
+\end{center}
+\textbf{图怎样读：} 蓝色箭头是原增量 $(p,q)$，橙色箭头是像增量；细灰线只作横、纵方向参照。各小图把镜面上的一点移到局部原点，未把 $a,b,c$ 假设为零。平移不会改变方向增量。
+
+\medskip
+由轴对称对横向、纵向分量的作用（方法一已由点的反射验证），直接读得
+\[
+\begin{array}{c|c|c}
+\text{镜面}&\text{像增量}&k'\\ \hline
+x=a&(-p,q)&-q/p\\
+y=b&(p,-q)&-q/p\\
+y=x+c&(q,p)&p/q\\
+y=-x+c&(-q,-p)&p/q
+\end{array}
+\]
+原斜率为 $q/p$，所以前两类变号，后两类取倒数。这里不必计算任何点的实际位置。若像横增量为零，先报告像直线竖直；若原横增量为零，也应直接用增量判断，不写 $k$。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法三：高中三角函数处理任意镜面}
+\begin{center}
+\input{assets/tikz/P055_proof_angles}
+\end{center}
+设镜面 $y=mx+c$ 的方向角为 $\alpha$，原方向角为 $\theta$，像方向角为 $\theta'$，其中 $\tan\alpha=m,\ \tan\theta=k$。图中两个黑色小圆弧相等，因此
+\[
+\theta'=2\alpha-\theta\pmod{180^\circ}.
+\]
+可取 $\cos\alpha=1/\sqrt{1+m^2}$、$\sin\alpha=m/\sqrt{1+m^2}$，同样取 $\cos\theta=1/\sqrt{1+k^2}$、$\sin\theta=k/\sqrt{1+k^2}$。于是
+\[
+\sin2\alpha=\frac{2m}{1+m^2},\qquad
+\cos2\alpha=\frac{1-m^2}{1+m^2}.
+\]
+若像方向不竖直，差角公式给出
+\[
+\begin{aligned}
+k'&=\frac{\sin2\alpha\cos\theta-\cos2\alpha\sin\theta}
+{\cos2\alpha\cos\theta+\sin2\alpha\sin\theta}\\[3pt]
+&=\boxed{\frac{2m+(m^2-1)k}{1-m^2+2mk}}.
+\end{aligned}
+\]
+分母为零正好对应 $\cos(2\alpha-\theta)=0$，所以像直线竖直。$m=0$ 给出 $-k$；$m=\pm1$ 且 $k\ne0$ 给出 $1/k$。镜面或原线竖直时，不套有限斜率通式，改用方向判断。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法四：垂足与中点的坐标法}
+\begin{center}
+\input{assets/tikz/P055_proof_feet}
+\end{center}
+\textbf{先求一个点：} 对 $Q(x,y)$ 与镜面 $y=mx+c$，垂线方向可取 $(-m,1)$，它与镜面方向 $(1,m)$ 的数量积为 $0$。设垂足 $H=(x-mt,y+t)$，代入镜面得
+\[
+t=\frac{mx+c-y}{1+m^2},\qquad Q'=2H-Q=(x-2mt,y+2t).
+\]
+记 $d=y-mx-c$，则
+\[
+Q'=\left(x+\frac{2md}{1+m^2},\ y-\frac{2d}{1+m^2}\right).
+\]
+\textbf{再对两个点相减：} 在原线上取 $Q_1,Q_2$，使 $x_2-x_1=1,\ y_2-y_1=k$。此时 $d_2-d_1=k-m$，所以
+\[
+\begin{aligned}
+\Delta x'&=1+\frac{2m(k-m)}{1+m^2}=\frac{1-m^2+2mk}{1+m^2},\\
+\Delta y'&=k-\frac{2(k-m)}{1+m^2}=\frac{2m+(m^2-1)k}{1+m^2}.
+\end{aligned}
+\]
+横增量不为零时，两式相除即得通式；为零时像直线竖直。反射保持两点距离，故两个像增量不可能同时为零。$c$ 在相减时消去，只说明方向与截距无关，不能据此忽略位置。
+\end{proofbox}
