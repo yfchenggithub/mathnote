@@ -1,0 +1,24 @@
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+\draw[gray!45,rounded corners=3pt,fill=white] (0,0) rectangle (13.8,8);
+\node[anchor=west,font=\small\bfseries] at (.4,7.5) {两种不同的失效原因：相切，与平行渐近线};
+\begin{scope}[shift={(1,3.3)},scale=.9]
+\begin{scope}\clip (0,-2.1) rectangle (5,3);
+\draw[cncurve,samples=120,domain=-2:2.9,variable=\t] plot ({sqrt(2*(1+\t*\t))},\t);
+\draw[cnsec] (0,-1)--(5,4);
+\end{scope}
+\fill (2,1) circle(2pt) node[below right=7pt] {$P$};
+\end{scope}
+\node at (3.2,6.9) {$m=1$};
+\node[align=center] at (3.2,.85) {切线：重根仍是 $P$\\没有不同于 $P$ 的交点};
+\begin{scope}[shift={(7.7,3.3)},scale=.9]
+\begin{scope}\clip (0,-2.1) rectangle (5,3);
+\draw[cncurve,samples=120,domain=-2:2.9,variable=\t] plot ({sqrt(2*(1+\t*\t))},\t);
+\draw[cnsec] (0,-0.41421356237309515)--(5,3.121320343559643);
+\draw[gray,dashed] (0,0)--(5,{5/sqrt(2)});
+\end{scope}
+\fill (2,1) circle(2pt) node[below right=7pt] {$P$};
+\end{scope}
+\node at (9.9,6.9) {$m=1/\sqrt2$};
+\node[align=center] at (9.9,.85) {平行渐近线\\二次项消失，仅剩 $P$};
+
+\end{tikzpicture}

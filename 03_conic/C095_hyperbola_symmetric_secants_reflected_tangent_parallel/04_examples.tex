@@ -1,0 +1,91 @@
+\clearpage
+\begin{examplebox}
+\textbf{例1：独立核验首页图中的两条平行线}
+
+已知 $C:x^2/2-y^2=1$、$P(2,1)$，两割线斜率为 $2,-2$。求第二交点并验证结论。
+
+\textbf{先算交点：} 设 $x=2+h$。第一条直线 $y=1+2h$ 代入得
+\[
+h\left(-2-\frac72h\right)=0.
+\]
+舍去 $h=0$（旧点 $P$），得 $h=-4/7$，所以 $M=(10/7,-1/7)$。第二条直线 $y=1-2h$ 同理给出
+\[
+h\left(6-\frac72h\right)=0,
+\]
+第二个根为 $12/7$，所以 $N=(26/7,-17/7)$。
+
+\textbf{再查方向和位置：}
+\[
+x_M+y_M=x_N+y_N=\frac97,
+\qquad MN:\ x+y=\frac97.
+\]
+镜像点 $Q=(2,-1)$ 的切线为 $x+y=1$。两条直线斜率都为 $-1$，截距不同，确实平行。用结论只求方向时，就能省去前面求两点的计算。
+\end{examplebox}
+
+\clearpage
+\begin{examplebox}
+\textbf{例2：内心在竖直线上，截距为什么是开区间？}
+
+$C:x^2/2-y^2=1$，$P(2,1)$，直线 $l$ 与 $C$ 交于不同的 $M,N$。若 $\triangle PMN$ 的内心在 $x=2$ 上，求 $l$ 在 $y$ 轴上的截距范围。
+
+\textbf{识别：} 内心与顶点同在 $x=2$ 上，故两边射线关于它对称，割线斜率为 $m,-m$。由 C095，$l$ 平行于 $Q(2,-1)$ 点切线，因此设 $l:x+y=t$。
+
+联立得交点横坐标方程 $f(x)=x^2-4tx+2t^2+2=0$。
+\begin{center}
+\input{assets/tikz/C095_incenter_range}
+\end{center}
+
+内心在三角形内部，其横坐标 $2$ 必须严格夹在两根之间，所以
+\[
+f(2)=2(t-1)(t-3)<0\quad\Rightarrow\quad 1<t<3.
+\]
+\end{examplebox}
+
+\clearpage
+\begin{examplebox}
+\textbf{例2（续）：区间内的每个值都能取到吗？}
+
+当 $1<t<3$ 时，$f(2)<0$，二次函数开口向上，故有两个不同实根 $x_M<2<x_N$。由韦达定理，
+\[
+x_M+x_N=4t,\qquad
+(x_M-2)(x_N-2)=2(t-1)(t-3).
+\]
+两条边的斜率分别为
+\[
+k_{PM}=\frac{t-x_M-1}{x_M-2}=\frac{t-3}{x_M-2}-1,
+\quad
+k_{PN}=\frac{t-3}{x_N-2}-1.
+\]
+因此
+\[
+\begin{aligned}
+k_{PM}+k_{PN}
+&=(t-3)\frac{x_M+x_N-4}{(x_M-2)(x_N-2)}-2\\
+&=(t-3)\frac{4(t-1)}{2(t-1)(t-3)}-2=0.
+\end{aligned}
+\]
+两根位于 $2$ 两侧，故这两条边射线关于竖直轴互为镜像，$x=2$ 是内角平分线。三点不共线（$t\ne3$），内心确实在 $x=2$ 上，所以所有 $1<t<3$ 均可取到。
+
+\medskip
+\textbf{答案与端点回验：} 截距范围为 $\boxed{(1,3)}$。$t=1$ 时两交点合并为 $Q$；$t=3$ 时一个交点回到 $P$，均不能形成题设三角形。图中的两端都必须排除。
+\end{examplebox}
+
+\clearpage
+\begin{examplebox}
+\textbf{例3：顶点处不用有限斜率，照样判断平行}
+
+$C:x^2/2-y^2=1$、$P(\sqrt2,0)$，两割线斜率为 $2,-2$。求弦方向。
+
+\begin{center}
+\input{assets/tikz/C095_vertex_vertical}
+\end{center}
+
+\textbf{直接判断：} $Q=P$，此处切线为 $x=\sqrt2$，所以 $MN$ 竖直。
+
+\textbf{独立回验：} 令 $x=\sqrt2+h$、$y=\pm2h$，代入并舍去 $h=0$，得 $h=2\sqrt2/7$。因此
+\[
+M=\left(\frac{9\sqrt2}{7},\frac{4\sqrt2}{7}\right),\quad
+N=\left(\frac{9\sqrt2}{7},-\frac{4\sqrt2}{7}\right).
+\]
+两点横坐标相同，弦确实竖直；不能把不存在的有限斜率写成“无穷大”。
+\end{examplebox}

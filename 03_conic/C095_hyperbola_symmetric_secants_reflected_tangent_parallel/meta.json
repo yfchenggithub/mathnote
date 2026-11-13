@@ -1,0 +1,190 @@
+{
+  "id": "C095",
+  "module": "conic",
+  "core": {
+    "title": "双曲线对称割线的弦与镜像点切线平行",
+    "alias": [
+      "双曲线对称割线与镜像切线",
+      "对称割线的定向弦",
+      "双曲线镜像点切线与弦平行",
+      "双曲线对称割线斜率不变"
+    ],
+    "summary": "双曲线上从P出发两条关于竖直线对称的割线，其另外两个交点连成的弦，始终平行于P关于x轴镜像点处的切线；无需先求交点坐标即可确定弦方向。",
+    "difficulty": 3,
+    "category": "解析几何",
+    "tags": [
+      "双曲线",
+      "割线",
+      "切线",
+      "轴对称",
+      "弦",
+      "定向弦",
+      "镜像点",
+      "斜率",
+      "速解"
+    ]
+  },
+  "search": {
+    "keywords": [
+      "双曲线对称割线",
+      "镜像点切线",
+      "对称割线弦切线平行",
+      "两个割线斜率互为相反数",
+      "双曲线第二交点",
+      "对称割线弦斜率",
+      "弦方向不变",
+      "平行弦",
+      "x=u角平分线",
+      "C095"
+    ],
+    "synonyms": [
+      "过双曲线一点作对称直线",
+      "斜率m和负m与双曲线交点",
+      "双曲线定向弦",
+      "弦与镜像点切线平行"
+    ],
+    "intents": [
+      "不求交点直接求弦斜率",
+      "判断弦与切线平行",
+      "利用角平分线求双曲线弦",
+      "双曲线弦的方向"
+    ],
+    "query_templates": [
+      "双曲线两条对称割线的另外两个交点连线斜率",
+      "双曲线P点两条斜率相反直线的弦方向",
+      "双曲线镜像点Q切线与弦平行证明"
+    ],
+    "ocrKeywords": [
+      "C095",
+      "x^2/a^2-y^2/b^2=1",
+      "P(u,v)",
+      "Q(u,-v)",
+      "m,-m",
+      "ux/a^2+vy/b^2=t",
+      "k_MN=-b^2u/(a^2v)"
+    ],
+    "latex_patterns": [
+      "\\frac{x^2}{a^2}-\\frac{y^2}{b^2}=1",
+      "\\frac{ux}{a^2}+\\frac{vy}{b^2}=t",
+      "k_{MN}=-\\frac{b^2u}{a^2v}"
+    ],
+    "formulaTokens": [
+      "x^2/a^2-y^2/b^2=1",
+      "ux/a^2+vy/b^2=t",
+      "k=-b^2*u/(a^2*v)",
+      "y-v=m(x-u)",
+      "y-v=-m(x-u)"
+    ],
+    "pinyin": "shuang qu xian dui chen ge xian de xian yu jing xiang dian qie xian ping xing",
+    "pinyinAbbr": "sqxdcgxdyjxdqxpx"
+  },
+  "searchmeta": {
+    "titleWeight": 10,
+    "keywordWeight": 8,
+    "synonymWeight": 6,
+    "formulaWeight": 7
+  },
+  "ranking": {
+    "search_boost": 0.75,
+    "hot_score": 0,
+    "click_rate": 0,
+    "success_rate": 0
+  },
+  "math": {
+    "core_formula": "MN\\parallel\\ell_Q,\\quad Q(u,-v),\\quad \\ell_Q:\\frac{ux}{a^2}+\\frac{vy}{b^2}=1",
+    "related_formulas": [
+      "MN:\\frac{ux}{a^2}+\\frac{vy}{b^2}=t",
+      "v\\ne0\\Rightarrow k_{MN}=-\\frac{b^2u}{a^2v}",
+      "v=0\\Rightarrow MN\\text{ 是竖直线}",
+      "D=\\frac1{a^2}-\\frac{m^2}{b^2}\\ne0"
+    ],
+    "variables": [
+      "a",
+      "b",
+      "u",
+      "v",
+      "m",
+      "t",
+      "P",
+      "Q",
+      "M",
+      "N",
+      "D"
+    ],
+    "conditions": "a,b>0；P(u,v)在双曲线x²/a²-y²/b²=1上；过P作两条斜率m与-m的不同割线，m≠0，每条均有不同于P的第二个有限交点M、N；若v=0不用普通斜率公式。",
+    "conclusions": "MN与双曲线在Q(u,-v)处的切线ux/a²+vy/b²=1平行；若v≠0则MN斜率为-b²u/(a²v)，若v=0则MN竖直。"
+  },
+  "content": {
+    "statement": "过P(u,v)作两条斜率为m,-m的不同割线，另交M、N；若条件满足，则MN∥Q(u,-v)处的切线，故MN:ux/a²+vy/b²=t。",
+    "derivation": [
+      "最低门槛：设M=(u+r,v+mr)、N=(u+s,v-ms)，代入双曲线并减去P方程。",
+      "得到D(r-s)=4vm/b²、D(r+s)=-4u/a²，所以u(xM-xN)/a²+v(yM-yN)/b²=0。",
+      "最快：第二交点Rk=P-2(u/a²-vk/b²)/(1/a²-k²/b²)·(1,k)，对k=m,-m相减。",
+      "常规：两条直线分别联立双曲线，韦达定理求两交点横坐标，再算差与切线方向。"
+    ],
+    "intuition": "两条关于过P的竖直线对称的割线像剪刀一样开合；其两个“第二交点”连成的弦可以滑动，但始终与P关于x轴镜像点Q的切线平行。反射的是线方向，不是两个交点。",
+    "common_tricks": [
+      "先判断角平分线与竖直线重合，得到两割线斜率相反，再用C095。",
+      "只求方向时设ux/a²+vy/b²=t，截距留给后续条件。",
+      "m=0、m=±b/a、切线重根情况不能当作两条真实割线。",
+      "v=0时弦竖直；不要除以v。",
+      "椭圆对应性质另立结论，此处只整理双曲线。"
+    ]
+  },
+  "usage": {
+    "scenarios": [
+      "双曲线内心落在过P的竖直线：两边割线对称，直接得弦斜率。",
+      "已知双曲线P与斜率±m：不求两交点，确定弦方向。",
+      "判断某条弦是否平行双曲线另一点处的切线。"
+    ],
+    "problem_types": [
+      "选择题",
+      "填空题",
+      "解析几何综合题"
+    ],
+    "exam_frequency": 0.0,
+    "exam_score": 0
+  },
+  "interactive": {
+    "has_diagram": true,
+    "geogebra_id": "",
+    "param_demo": {}
+  },
+  "assets": {
+    "svg": "",
+    "png": "",
+    "webp": "",
+    "video": "",
+    "audio": ""
+  },
+  "shareConfig": {
+    "title": "双曲线对称割线：两条线转动，弦始终平行一条切线",
+    "shareDesc": "当过双曲线上P的两割线关于竖直线对称时，连另外两个交点得到的弦，直接平行于P关于x轴镜像点处的切线。不必先联立求两个交点；注意保证第二个交点真实存在，平行并不等于重合。"
+  },
+  "relations": {
+    "prerequisites": [
+      "双曲线标准方程与点在曲线上",
+      "直线斜率与轴对称",
+      "双曲线切线方程",
+      "二次方程与韦达定理"
+    ],
+    "related_ids": [
+      "P055"
+    ],
+    "similar": [
+      "椭圆对称割线的相应性质（建议另建相关结论）",
+      "双曲线弦与切线平行判定",
+      "双曲线点关于x轴的对称"
+    ]
+  },
+  "meta": {
+    "version": 1,
+    "source": "基于2024皖豫名校联考双曲线内心题与用户C095独立收录要求；严格限定双曲线，三种高中知识内证明。",
+    "created_at": "2026-11-13",
+    "updated_at": "2026-11-13"
+  },
+  "isPro": 0,
+  "remarks": "首页、三种证明均配精确等比例 TikZ。图源位于 assets/tikz/C095_*.tex：核心构型、两组割线比较、横增量、向量方向、韦达根对应、内心截距范围、顶点竖直弦、假镜像点、无第二交点的两种边界及内外角射线，共10幅教学图；C095_plot_common.tex 为本 UID 私有绘图辅助。图文减少对位置、增量和边界的纯文字想象。逐图理由与验收见本目录 C095_TIKZ_REVIEW.md。",
+  "knowledgeNode": "解析几何-双曲线-弦与切线-对称割线镜像切线",
+  "altNodes": ""
+}

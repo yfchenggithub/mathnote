@@ -1,0 +1,17 @@
+
+\tikzset{cncurve/.style={blue!75!black,thick},cnsec/.style={green!50!black,thick},cnmirror/.style={green!45!black,thick,dashed},cnchord/.style={red!78!black,very thick},cntangent/.style={orange!85!black,thick},cnhelp/.style={gray!65,densely dotted},cnaxis/.style={gray!65,-Stealth,thin}}
+\newcommand{\CNCurve}{\draw[cncurve,samples=120,domain=-2.7:1.2,variable=\t] plot ({sqrt(2*(1+\t*\t))},\t);}
+\newcommand{\CNBase}{
+ \coordinate (P) at (2,1); \coordinate (Q) at (2,-1);
+ \coordinate (M) at ({10/7},{-1/7}); \coordinate (N) at ({26/7},{-17/7});
+ \CNCurve
+ \draw[cnmirror] (2,-2.7)--(2,2);
+ \draw[cnsec] (M)--(P)--(N);
+ \draw[cntangent] (-.15,1.15)--(3.7,-2.7);
+ \draw[cnchord] (M)--(N);
+ \fill (P) circle(1.8pt); \node[anchor=west] at (2.6,1) {$P$};
+ \fill[orange!85!black] (Q) circle(1.8pt); \node[anchor=east] at (1.8,-1.15) {$Q$};
+ \fill[blue!75!black] (M) circle(1.8pt); \node at (1,-.55) {$M$};
+ \fill[blue!75!black] (N) circle(1.8pt); \node[anchor=west] at (3.85,-2.4) {$N$};
+}
+

@@ -1,0 +1,26 @@
+% P=(0,0), A=(4,2), B=(4,-2); theta=atan(1/2).
+\begin{tikzpicture}[x=1cm,y=1cm]
+\draw[p055 frame] (0,0) rectangle (13.8,7.6);
+\node[anchor=west,font=\small\bfseries] at (.4,7.1) {水平对称：下方射线的锐角不是直线的倾斜角};
+\begin{scope}[shift={(3.2,3.55)}]
+  \coordinate (P) at (0,0); \coordinate (A) at (4,2); \coordinate (B) at (4,-2);
+  \draw[p055 axis] (0,-2.5)--(0,2.7) node[above] {$y$};
+  \draw[p055 mirror,-Stealth] (-1.5,0)--(5,0) node[right] {$x$};
+  \draw[p055 helper] (A)--(B);
+  \draw[p055 original] (P)--(A);
+  \draw[p055 image] (P)--(B);
+  \fill (P) circle (1.8pt) node[below left=4pt] {$P=O$};
+  \fill[CStatement] (A) circle (1.8pt) node[above right] {$A(s,t)$};
+  \fill[orange!85!black] (B) circle (1.8pt) node[below right] {$B(s,-t)$};
+  \draw (0:.85) arc (0:26.565051:.85);
+  \draw (0:1.05) arc (0:-26.565051:1.05);
+  \node at (1.35,.35) {$\theta$};
+  \node at (1.5,-.35) {$\theta$};
+  \draw[p055 axis] (B)--(5.8,-2);
+  \draw[orange!85!black,-Stealth] (B) ++(0:.75) arc (0:153.434949:.75);
+  \node[orange!85!black] at (4.35,-.95) {$\beta$};
+  \node[teal!70!black,anchor=east] at (-.2,.35) {$y=0$};
+\end{scope}
+\node[anchor=west,align=left] at (9.8,4.5) {$s,t>0$\\[9pt]$\tan\theta=t/s$\\[9pt]$\beta=\pi-\theta$};
+\node at (6.9,.6) {$PA$ 的倾斜角为 $\theta$，$PB$ 的倾斜角为 $\pi-\theta$。};
+\end{tikzpicture}

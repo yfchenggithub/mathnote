@@ -1,0 +1,148 @@
+\clearpage
+\begin{proofbox}
+\textbf{方法一：两个横坐标增量，用平方差建立关系}
+
+沿用结论中的 $C,P,Q,M,N$。记 $D=1/a^2-m^2/b^2\ne0$、$m\ne0$，目标是证明 $M,N$ 在同一条 $ux/a^2+vy/b^2=t$ 上，从而平行于 $\ell_Q:ux/a^2+vy/b^2=1$。
+\begin{center}
+\input{assets/tikz/C095_proof_increments}
+\end{center}
+\textbf{第1步：} 只设两个横增量：
+\[
+M=(u+r,v+mr),\qquad N=(u+s,v-ms),\quad r,s\ne0.
+\]
+\textbf{第2、3步：} 分别把 $M,N$ 代入双曲线，减去 $u^2/a^2-v^2/b^2=1$，展开平方并提取增量，得到
+\[
+\begin{aligned}
+r\left(2u/a^2-2vm/b^2+Dr\right)&=0,\\
+s\left(2u/a^2+2vm/b^2+Ds\right)&=0.
+\end{aligned}
+\]
+因为 $r,s\ne0$（第二交点不是旧点 $P$），约去它们后分别有
+\begin{align}
+Dr&=-\frac{2u}{a^2}+\frac{2vm}{b^2},\tag{1}\\
+Ds&=-\frac{2u}{a^2}-\frac{2vm}{b^2}.\tag{2}
+\end{align}
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法一（续）：把两种增量组合成弦的方向}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.48em]
+  \item[\textbf{第 4 步：先减后加，正好把两种量分开。}]
+  用 (1) 减 (2)，再用 (1) 加 (2)：
+  \[
+   \boxed{D(r-s)=\frac{4vm}{b^2}},\qquad
+   \boxed{D(r+s)=-\frac{4u}{a^2}}.\tag{3}
+  \]
+  为什么要加减？因为 $M,N$ 的横坐标差是 $r-s$，纵坐标差是 $m(r+s)$。
+
+  \item[\textbf{第 5 步：不求斜率，也能判断平行。}]
+  由坐标表示，
+  \[
+   x_M-x_N=r-s,\qquad y_M-y_N=m(r+s).
+  \]
+  把 (3) 代入下式的两项，发现恰好抵消：
+  \[
+  \begin{aligned}
+  D\left[\frac{u(x_M-x_N)}{a^2}
+    +\frac{v(y_M-y_N)}{b^2}\right]
+    &=\frac{u}{a^2}\frac{4vm}{b^2}
+      +\frac{vm}{b^2}\left(-\frac{4u}{a^2}\right)\\
+    &=0.
+  \end{aligned}
+  \]
+  $D\ne0$，于是
+  \[
+    \frac{ux_M}{a^2}+\frac{vy_M}{b^2}
+    =\frac{ux_N}{a^2}+\frac{vy_N}{b^2}.
+  \]
+  所以 $M,N$ 在同一条 $\frac{ux}{a^2}+\frac{vy}{b^2}=t$ 上，与 $Q$ 点切线 $\ell_Q$ 平行。
+\end{description}
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法二：最快（一次求出“第二个交点”的增量）}}
+
+\begin{center}
+\input{assets/tikz/C095_proof_vectors}
+\end{center}
+
+\textbf{想法：} 先记住这一条简单的结果。直线 $y-v=k(x-u)$ 与双曲线交于 $P$ 和另一个点 $R_k$，令 $R_k=(u+h,v+kh)$，代入并减去 $P$ 的方程：
+\[
+ h\left[\left(\frac1{a^2}-\frac{k^2}{b^2}\right)h
+       +2\left(\frac{u}{a^2}-\frac{vk}{b^2}\right)\right]=0.
+\]
+排除 $h=0$（对应旧点 $P$），得到
+\[
+ \boxed{R_k=P-\frac{2\left(u/a^2-vk/b^2\right)}{1/a^2-k^2/b^2}(1,k)}.
+\]
+把 $k=m$ 和 $k=-m$ 分别代入，即得
+\[
+\begin{aligned}
+ M-N
+ &=\left(\frac{4vm}{b^2D},-\frac{4um}{a^2D}\right)\\
+ &=\frac{4m}{D}\left(\frac{v}{b^2},-\frac{u}{a^2}\right).
+\end{aligned}
+\]
+而 $\left(\frac{v}{b^2},-\frac{u}{a^2}\right)$ 的方向沿着 $\ell_Q$，因为顺着这个方向走时，$\frac{ux}{a^2}+\frac{vy}{b^2}$ 不变。所以 $MN\parallel\ell_Q$。
+
+\textbf{考场最省力之处：} 只对称替换 $m\mapsto-m$，直接把割线斜率 $m$ 从最终方向中消掉；不必把 $M,N$ 两套坐标全部写出来。
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法三：常规法（分别联立直线，用韦达定理）}}
+
+\begin{center}
+\input{assets/tikz/C095_proof_vieta}
+\end{center}
+
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
+ \item[\textbf{第 1 步：求第一条割线的两交点横坐标之和。}]
+ 直线 $PM$ 是 $y=mx+(v-mu)$。代入双曲线：
+ \[
+ Dx^2-\frac{2m(v-mu)}{b^2}x
+       -\frac{(v-mu)^2}{b^2}-1=0.
+ \]
+ 已知一个根是 $u$，另一个根是 $x_M$。由韦达定理：
+ \[
+  \boxed{x_M+u=\frac{2m(v-mu)}{b^2D}}.\tag{4}
+ \]
+
+ \item[\textbf{第 2 步：第二条割线同理。}]
+ 直线 $PN$ 是 $y=-mx+(v+mu)$，与双曲线联立，其两根是 $u,x_N$：
+ \[
+ \boxed{x_N+u=-\frac{2m(v+mu)}{b^2D}}.\tag{5}
+ \]
+
+ \item[\textbf{第 3 步：横坐标相减、相加。}]
+ 由 (4)、(5)，
+ \[
+ x_M-x_N=\frac{4vm}{b^2D},\qquad
+ x_M+x_N=-2u-\frac{4m^2u}{b^2D}.
+ \]
+
+ \item[\textbf{第 4 步：求纵坐标差，消去 $m^2$。}]
+ 因为 $y_M=v+m(x_M-u)$、$y_N=v-m(x_N-u)$，
+ \[
+ \begin{aligned}
+ y_M-y_N
+ &=m(x_M+x_N-2u)\\
+ &=m\left(-4u-\frac{4m^2u}{b^2D}\right)\\
+ &=-4um\frac{D+m^2/b^2}{D}
+ =-\frac{4um}{a^2D}.
+ \end{aligned}
+ \]
+ 最后一步使用了 $D+m^2/b^2=1/a^2$。
+
+ \item[\textbf{第 5 步：写出弦的方向。}]
+ 因为 $M\ne N$ 且 $m,D\ne0$，上面两个坐标差不能同时为零。它们与 $\left(v/b^2,-u/a^2\right)$ 成相同比例，因此弦 $MN$ 与 $\ell_Q$ 平行。
+ \end{description}
+
+\medskip
+\textbf{\textcolor{CProof}{补充：$v=0$ 为什么不能直接用斜率？}}
+
+$v=0$ 时，(3) 给出 $r-s=0$，即 $x_M=x_N$，所以 $MN$ 竖直；此时 $P=(\pm a,0)$，$Q=P$ 点切线是 $x=\pm a$，也竖直。\textbf{平行结论照样成立；只是斜率不存在。}
+
+\textbf{\textcolor{CProof}{三个证明共同说明的事实：}} $m$ 只能改变 $M,N$ 在哪儿，改变不了 $MN$ 的方向。证明并没有假定 $M$ 与 $N$ 是对称点，也没有提前猜出弦所在的具体直线。
+\end{proofbox}

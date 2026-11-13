@@ -1,0 +1,27 @@
+\begin{tikzpicture}[x=1cm,y=1cm,font=\small]
+\draw[gray!45,rounded corners=3pt,fill=white] (0,0) rectangle (13.8,7.8);
+\node[anchor=west,font=\small\bfseries] at (.4,7.3) {固定 C 与 P，只改变割线斜率：两条弦仍具有同一方向};
+\begin{scope}[shift={(1.2,4.8)},scale=.68]
+\draw[cncurve,samples=140,domain=-4.7:1.5,variable=\t] plot ({sqrt(2*(1+\t*\t))},\t);
+\draw[cnmirror] (2,-4.7)--(2,1.6);
+\coordinate (P) at (2,1); \coordinate (M) at (1.4285714285714286,-0.1428571428571428); \coordinate (N) at (3.7142857142857144,-2.4285714285714284);
+\draw[cnsec] (M)--(P)--(N); \draw[cnchord] (M)--(N);
+\fill (P) circle(2pt) node[above left] {$P$};
+\fill (M) circle(2pt) node[left=4pt] {$M$};
+\fill (N) circle(2pt) node[right=4pt] {$N$};
+\end{scope}
+\node at (3.3,6.65) {$m=2$};
+\node[red!78!black] at (3.3,.8) {$MN:\ x+y=9/7$};
+\begin{scope}[shift={(7.9,4.8)},scale=.68]
+\draw[cncurve,samples=140,domain=-4.7:1.5,variable=\t] plot ({sqrt(2*(1+\t*\t))},\t);
+\draw[cnmirror] (2,-4.7)--(2,1.6);
+\coordinate (P) at (2,1); \coordinate (M) at (1.5294117647058822,0.4117647058823529); \coordinate (N) at (6.235294117647059,-4.294117647058823);
+\draw[cnsec] (M)--(P)--(N); \draw[cnchord] (M)--(N);
+\fill (P) circle(2pt) node[above left] {$P$};
+\fill (M) circle(2pt) node[left=4pt] {$M$};
+\fill (N) circle(2pt) node[right=4pt] {$N$};
+\end{scope}
+\node at (10.0,6.65) {$m=1.25$};
+\node[red!78!black] at (10.0,.8) {$MN:\ x+y=33/17$};
+
+\end{tikzpicture}

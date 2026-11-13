@@ -1,0 +1,28 @@
+% P=(0,3), A=(-2,0), B=(2,0); theta=atan(2/3).
+\begin{tikzpicture}[x=1cm,y=1cm]
+\draw[p055 frame] (0,0) rectangle (13.8,7.6);
+\node[anchor=west,font=\small\bfseries] at (.4,7.1) {竖直对称：两个倾斜角关于 $\frac\pi2$ 对称};
+\begin{scope}[shift={(5.2,2)},scale=1.15]
+  \coordinate (P) at (0,3); \coordinate (A) at (-2,0); \coordinate (B) at (2,0);
+  \draw[p055 axis] (-3.4,0)--(3.6,0) node[right] {$x$};
+  \draw[p055 mirror] (0,-.5)--(0,3.8);
+  \node[teal!70!black,anchor=west] at (.2,3.65) {$x=0$};
+  \draw[p055 original] (A)--(P);
+  \draw[p055 image] (P)--(B);
+  \draw[gray] (.18,0)--(.18,.18)--(0,.18);
+  \fill (P) circle (1.8pt) node[above left] {$P$};
+  \fill[CStatement] (A) circle (1.8pt) node[below] {$A$};
+  \fill[orange!85!black] (B) circle (1.8pt) node[below] {$B$};
+  \node[below left] at (0,0) {$H$};
+  \draw (P) ++(236.309932:.7) arc (236.309932:270:.7);
+  \draw (P) ++(270:.85) arc (270:303.690068:.85);
+  \node at (-.36,1.95) {$\theta$};
+  \node at (.4,1.95) {$\theta$};
+  \draw[CStatement,-Stealth] (A) ++(0:.7) arc (0:56.309932:.7);
+  \node[CStatement] at (-1.05,.48) {$\alpha$};
+  \draw[orange!85!black,-Stealth] (B) ++(0:.8) arc (0:123.690068:.8);
+  \node[orange!85!black] at (2.55,1.05) {$\beta$};
+\end{scope}
+\node[anchor=west,align=left] at (9.65,4.9) {$0<\theta<\frac\pi2$\\[9pt]$\alpha=\frac\pi2-\theta$\\[9pt]$\beta=\frac\pi2+\theta$};
+\node at (6.9,.65) {从水平正向逆时针量倾斜角：$\alpha+\beta=\pi$。};
+\end{tikzpicture}
