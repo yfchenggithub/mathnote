@@ -1,0 +1,236 @@
+\clearpage
+\begin{proofbox}
+\textbf{共同准备：弦方程和相切方程，都从基础公式推出来}
+
+设
+\[
+A_1=P(a),\quad A_2=P(b),\quad A_3=P(c),\quad
+P(t)=\left(\frac{t^2}{k},t\right).
+\]
+三点两两不同，故 $a,b,c$ 也两两不同。
+
+\textbf{第 1 步：写弦，不用斜率。} 对任意 $u\ne v$，把 $P(u),P(v)$ 分别代入
+\[
+kx-(u+v)y+uv=0
+\]
+都得到 $0$，所以它就是过两点的直线。此式没有除以 $u+v$，竖直弦也包括在内。
+
+\textbf{第 2 步：直线和圆何时相切？} 圆心 $M(h,0)$ 到上述直线的距离是
+\[
+d=\frac{|kh+uv|}{\sqrt{k^2+(u+v)^2}}.
+\]
+因此直线与半径为 $r$ 的圆相切，当且仅当
+\begin{equation}
+\boxed{(kh+uv)^2=r^2[k^2+(u+v)^2].}\tag{T}
+\end{equation}
+\begin{center}
+\input{assets/tikz/C096_chord_distance}
+\end{center}
+图中用同一三角形的两种面积求距离：在弦上取 $Q=(-uv/k,0)$，另取 $R=Q+(u+v,k)$；由 $\triangle MQR$ 的两种“底乘高除以二”的算法，分别以 $MQ$ 和 $QR$ 为底，就得到上面的 $d$。
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{共同准备（续）：把两条相切条件写成代数式}
+
+\textbf{第 3 步：用圆心条件整理成同一种二次式。} 因为 $kh=kr+r^2$，把 $u=a,v=b$ 代入 (T) 并展开，得到
+\begin{equation}
+(a^2-r^2)b^2+2kra b+r^2(2kr+r^2-a^2)=0.\tag{1}
+\end{equation}
+把 $v$ 改成 $c$，同理
+\begin{equation}
+(a^2-r^2)c^2+2kra c+r^2(2kr+r^2-a^2)=0.\tag{2}
+\end{equation}
+以下四种方法都只用到这两个式子。\textbf{注意：}硬算方法不要求预先认出“同一个方程的两根”。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法一：最低门槛——你熟悉的硬算，相减求和、相加求积}
+
+\begin{center}
+\input{assets/tikz/C096_proof_sum_product}
+\end{center}
+图中第三条弦由和、积确定；下面只求这两个量，不逐个解点。
+
+\textbf{第 1 步：两式相减。} (1) 减 (2)，相同常数自动消掉：
+\[
+(a^2-r^2)(b^2-c^2)+2kra(b-c)=0.
+\]
+用平方差公式 $b^2-c^2=(b-c)(b+c)$，且 $b\ne c$，可以约去 $b-c$：
+\begin{equation}
+\boxed{(a^2-r^2)(b+c)=-2kra.}\tag{3}
+\end{equation}
+由此还能确认 $a^2\ne r^2$：否则左边等于 $0$，右边 $-2kra\ne0$（$k,r>0$，$a=\pm r\ne0$），矛盾。
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法一（续）：已有和，再求积}
+
+\textbf{第 2 步：两式相加。} (1) 加 (2)：
+\[
+\begin{aligned}
+&(a^2-r^2)(b^2+c^2)+2kra(b+c)\\
+&\qquad+2r^2(2kr+r^2-a^2)=0.
+\end{aligned}
+\]
+我们\textbf{已经有和，目标缺积}，所以写
+\[
+\boxed{b^2+c^2=(b+c)^2-2bc}.
+\]
+代入后，$ (a^2-r^2)(b+c)^2 $ 由 (3) 正好等于 $-2kra(b+c)$，与原有的 $+2kra(b+c)$ 抵消，剩下
+\[
+-2(a^2-r^2)bc+2r^2(2kr+r^2-a^2)=0.
+\]
+所以
+\begin{equation}
+\boxed{(a^2-r^2)bc=r^2(2kr+r^2-a^2).}\tag{4}
+\end{equation}
+这一步是本题硬算的\textbf{关键突破}：\textbf{相减得到和，相加利用平方和得到积}，不用解出 $b,c$。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法一（续）：把“和、积”放回第三条弦}
+
+因为 $A_2A_3$ 是 $kx-(b+c)y+bc=0$，只需按 (T) 检查。
+
+由 (4) 和 $kh=kr+r^2$，
+\[
+\begin{aligned}
+kh+bc&=kr+r^2+\frac{r^2(2kr+r^2-a^2)}{a^2-r^2}\\
+&=\frac{kr(a^2+r^2)}{a^2-r^2}.
+\end{aligned}
+\]
+由 (3) 算出
+\[
+\begin{aligned}
+k^2+(b+c)^2
+&=k^2+\frac{4k^2r^2a^2}{(a^2-r^2)^2}\\
+&=\frac{k^2\bigl[(a^2-r^2)^2+4r^2a^2\bigr]}{(a^2-r^2)^2}\\
+&=\frac{k^2(a^2+r^2)^2}{(a^2-r^2)^2}.
+\end{aligned}
+\]
+于是
+\[
+\boxed{(kh+bc)^2=r^2[k^2+(b+c)^2]}
+\]
+恰好符合 (T)，所以\textbf{$A_2A_3$ 与 $\Gamma$ 相切}。
+
+\medskip
+\textbf{回看方法一配图：}求出的和、积确定第三条弦；上式说明圆心到它的距离正好是 $r$，完成闭合。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法二：最快——把两个相切条件看成同一个方程的两根}}
+
+\begin{center}
+\input{assets/tikz/C096_proof_quadratic_roots}
+\end{center}
+图把两条切圆弦对应的参数画成同一条函数图像的两个零点；不必分别求根。
+
+\textbf{识别信号：}固定 $A_1=P(a)$，不同的 $A_2,A_3$ 满足\textbf{同一条相切条件}。将 (1)、(2) 写成同一个未知数 $t$ 的方程：
+\[
+(a^2-r^2)t^2+2krat+r^2(2kr+r^2-a^2)=0.
+\]
+这个方程的两个不同的根是 $b,c$。如果 $a^2=r^2$，二次项消失而一次项 $2kra\ne0$，方程最多只有一个根，与 $b\ne c$ 矛盾。因此 $a^2-r^2\ne0$，可以用韦达定理一次得到
+\[
+\boxed{b+c=-\frac{2kra}{a^2-r^2}},\qquad
+\boxed{bc=\frac{r^2(2kr+r^2-a^2)}{a^2-r^2}}.
+\]
+再算
+\[
+kh+bc=\frac{kr(a^2+r^2)}{a^2-r^2},\quad
+k^2+(b+c)^2=\frac{k^2(a^2+r^2)^2}{(a^2-r^2)^2}.
+\]
+故满足 (T)，$A_2A_3$ 与圆相切。
+
+\textbf{回看本方法配图：}两个零点对应 $b,c$；韦达定理把两点的信息压缩成第三条弦所需的和与积。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法三：步骤最少——相减后回代，不再相加}}
+
+\begin{center}
+\input{assets/tikz/C096_proof_substitution_area}
+\end{center}
+先看图中“正方形减矩形”的剩余面积，再把同一个恒等式用于一般参数。
+
+由 (1) 减 (2) 已得
+\[
+(a^2-r^2)(b+c)=-2kra.
+\]
+将 $2kra=-(a^2-r^2)(b+c)$ 乘以 $b$，代回 (1)：
+\[
+\begin{aligned}
+&(a^2-r^2)b^2-(a^2-r^2)b(b+c)\\
+&\qquad+r^2(2kr+r^2-a^2)=0.
+\end{aligned}
+\]
+利用最基础的恒等式
+\[
+\boxed{b^2-b(b+c)=-bc},
+\]
+立即得到
+\[
+(a^2-r^2)bc=r^2(2kr+r^2-a^2).
+\]
+和、积齐全，代入 (T) 即可（完整的最后验算见方法一续）。
+
+\textbf{作用：}少写一条相加方程；但它并不一定比“相减再相加”更容易在考场想到。\textbf{两者都属于纯代数硬算。}
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法四：常规——直接联立第三条直线和圆，判别式等于零}}
+
+\begin{center}
+\input{assets/tikz/C096_proof_discriminant}
+\end{center}
+图中固定同一个圆，只平移直线；本方法要证明交点数恰好是中间的一。
+
+由 (3)、(4) 记
+\[
+S=b+c=-\frac{2kra}{a^2-r^2},\qquad
+T=bc=\frac{r^2(2kr+r^2-a^2)}{a^2-r^2}.
+\]
+第三条弦为 $kx-Sy+T=0$，故 $x=(Sy-T)/k$。将其代入圆 $(x-h)^2+y^2=r^2$，两边同乘 $k^2$：
+\[
+(Sy-T-kh)^2+k^2y^2=k^2r^2.
+\]
+展开后得到
+\[
+(S^2+k^2)y^2-2S(T+kh)y+(T+kh)^2-k^2r^2=0.
+\]
+此方程的判别式为
+\[
+\begin{aligned}
+\Delta&=4S^2(T+kh)^2\\
+&\quad-4(S^2+k^2)\bigl[(T+kh)^2-k^2r^2\bigr]\\
+&=4k^2\bigl[r^2(S^2+k^2)-(T+kh)^2\bigr].
+\end{aligned}
+\]
+方法一末尾已经算出 $(T+kh)^2=r^2(S^2+k^2)$，所以 $\Delta=0$。因 $S^2+k^2>0$，交点只有一个，第三条弦确实与圆相切。
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{补充另一圆心位置（仍是整条直线）：}若 $h=r^2/k-r$，相切式 (T) 对应
+\[
+(a^2-r^2)t^2-2krat+r^2(r^2-2kr-a^2)=0.
+\]
+其两个不同的解 $b,c$ 满足
+\[
+ b+c=\frac{2kra}{a^2-r^2},\quad
+ bc=\frac{r^2(r^2-2kr-a^2)}{a^2-r^2}.
+\]
+直接计算得
+\[
+kh+bc=-\frac{kr(a^2+r^2)}{a^2-r^2},\quad
+k^2+(b+c)^2=\frac{k^2(a^2+r^2)^2}{(a^2-r^2)^2};
+\]
+仍满足 (T)。注意该分支中切点可能在\textbf{线段延长线}上，不能直接说是三角形内切圆。
+\end{proofbox}

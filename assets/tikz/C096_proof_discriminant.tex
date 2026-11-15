@@ -1,0 +1,14 @@
+% All three circles have center (2,0), radius 1, equal coordinate scales.
+\begin{tikzpicture}[x=1cm,y=1cm,>=Stealth,font=\small]
+\foreach \shift/\line/\title/\disc in {0/2.6/两个交点/\Delta>0,4/3/一个交点/\Delta=0,8/3.4/没有交点/\Delta<0}{
+\begin{scope}[xshift=\shift cm]
+\draw[teal!75!black,thick,fill=teal!9] (2,0) circle(1);
+\draw[orange!85!black,very thick] (\line,-1.5)--(\line,1.5);
+\fill[teal!75!black] (2,0) circle(1.6pt) node[left] {$M$};
+\node at (2,2) {\title};
+\node at (2,-2) {$\disc$};
+\end{scope}}
+\fill[orange!85!black] (2.6,.8) circle(2pt) (2.6,-.8) circle(2pt) (7,0) circle(2pt);
+\node[right] at (7,0) {$H$};
+\node[align=center] at (6,-2.95) {中图是 $a=0$ 的闭合例：第三条弦 $x=3$\\[5pt]代入 $(x-2)^2+y^2=1$ 得 $y^2=0$，唯一交点 $H=(3,0)$};
+\end{tikzpicture}

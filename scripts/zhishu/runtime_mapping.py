@@ -36,6 +36,7 @@ class KnowledgeNode:
     type: str
     shortTitle: str | None = None
     shareConfig: dict[str, str] | None = None
+    isPro: int | None = None
 
 
 @dataclass(frozen=True)
@@ -124,6 +125,7 @@ class _MappedSource:
     title: str
     primary_path: str
     share_config: dict[str, str] | None
+    is_pro: int | None
 
 
 def structural_node_id(full_path: str) -> str:
@@ -212,6 +214,13 @@ def parse_share_config(value: Any) -> dict[str, str] | None:
     return result or None
 
 
+def parse_is_pro(value: Any) -> int:
+    """Preserve the source integer; bool and coercible strings are not flags."""
+    if type(value) is not int or value not in (0, 1):
+        raise ValueError("isPro must be the integer 0 or 1")
+    return value
+
+
 def _number(value: Any, field_name: str, source: ConclusionSource, errors: list[MappingIssue]) -> int | float | None:
     if value is None:
         return None
@@ -265,6 +274,10 @@ def _load_sources(scan_result: ScanResult, errors: list[MappingIssue]) -> tuple[
 
             try:
                 share_config = parse_share_config(data.get("shareConfig"))
+                # Preserve legacy records with no field without inventing a value.
+                # The production selection validator requires every current UID
+                # to supply an explicit flag; malformed explicit values fail here.
+                is_pro = parse_is_pro(data["isPro"]) if "isPro" in data else None
             except ValueError as exc:
                 errors.append(MappingIssue(_source_path(source), str(exc)))
                 continue
@@ -278,6 +291,7 @@ def _load_sources(scan_result: ScanResult, errors: list[MappingIssue]) -> tuple[
                     title=title,
                     primary_path=primary_path,
                     share_config=share_config,
+                    is_pro=is_pro,
                 )
             )
     return tuple(mapped)
@@ -285,6 +299,7 @@ def _load_sources(scan_result: ScanResult, errors: list[MappingIssue]) -> tuple[
 
 def _build_nodes(mapped_sources: tuple[_MappedSource, ...]) -> tuple[KnowledgeNode, ...]:
     share_configs = {mapped.id: mapped.share_config for mapped in mapped_sources}
+    pro_flags = {mapped.id: mapped.is_pro for mapped in mapped_sources}
     structural_paths: set[str] = set()
     for mapped in mapped_sources:
         structural_paths.update(_path_prefixes(mapped.primary_path))
@@ -329,6 +344,7 @@ def _build_nodes(mapped_sources: tuple[_MappedSource, ...]) -> tuple[KnowledgeNo
             sortOrder=sort_orders[node_id],
             type=node_type,
             shareConfig=share_configs.get(node_id),
+            isPro=pro_flags.get(node_id),
         )
         for node_id, name, parent_id, node_type in (
             *structural_specifications,

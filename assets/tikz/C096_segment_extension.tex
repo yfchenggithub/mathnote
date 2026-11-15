@@ -1,0 +1,21 @@
+% 第二分支：固定 a=3/2, b,c=(6±sqrt101)/5；第三弦5x-12y-13=0。
+% 这里只画靠近A3的局部，突出A3外侧的切点，未画到远处的A2。
+\begin{tikzpicture}[x=1.65cm,y=1.65cm,>=Stealth,font=\small]
+\pgfmathsetmacro{\ccc}{(6-sqrt(101))/5}
+\draw[gray!50,->] (-1.15,0)--(3.05,0) node[right] {$x$};
+\draw[gray!50,->] (0,-1.45)--(0,1.50) node[above] {$y$};
+\draw[blue!70!black,thick,domain=-1.22:1.22,samples=110,variable=\t] plot ({\t*\t},{\t});
+\draw[teal!80!black,thick,fill=teal!8] (0,0) circle(1);
+\coordinate (C) at ({\ccc*\ccc},\ccc);
+\coordinate (T) at ({5/13},{-12/13});
+\coordinate (E) at (2.8, { (5*2.8-13)/12 });
+\draw[orange!85!black,very thick,->] (C)--(E) node[above right,black,font=\scriptsize] {沿线段趋向 $A_2$};
+\draw[red!75!black,very thick,densely dashed] (T)--(C);
+\draw[teal!80!black,densely dashed] (0,0)--(T);
+\fill[red!75!black] (T) circle (1.8pt);
+\fill[orange!85!black] (C) circle (1.8pt);
+\node[below left,red!75!black] at (T) {$T$};
+\node[right] at (1.15,-.94) {$A_3$};
+\node[above left] at (0,0) {$M=O$};
+\node[font=\small,red!75!black] at (1.2,-1.72) {红虚线：切点在边的延长线};
+\end{tikzpicture}

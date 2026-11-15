@@ -1,0 +1,14 @@
+% k=r=1: leftmost point L=(r^2/k,0), M=L+(r,0).
+\begin{tikzpicture}[x=1.35cm,y=1.35cm,>=Stealth,font=\small]
+\draw[gray!55,->] (-.35,0)--(4,0) node[right] {$x$};
+\draw[gray!55,->] (0,-1.35)--(0,1.4) node[above] {$y$};
+\draw[blue!70!black,thick,domain=-1.15:1.15,samples=80,variable=\t] plot ({\t*\t},\t);
+\draw[teal!75!black,thick,fill=teal!9] (2,0) circle(1);
+\draw[gray!55,->] (-.35,0)--(4,0);
+\foreach \p/\lab in {0/O,1/L,2/M} {\fill (\p,0) circle(1.5pt);\node[above=3pt] at (\p,0) {$\lab$};}
+\draw[<->] (0,-1.55)--(1,-1.55) node[midway,below] {$r^2/k$};
+\draw[<->] (1,-1.55)--(2,-1.55) node[midway,below] {$r$};
+\draw[gray,dotted] (0,-.1)--(0,-1.7) (1,-.1)--(1,-1.7) (2,-.1)--(2,-1.7);
+\node[anchor=west,align=left] at (3.35,.9) {$OM=OL+LM$\\[4pt]$h=r^2/k+r$};
+\node[align=center] at (2,-2.85) {圆的最左点 $L$ 的横坐标为 $h-r=r^2/k$\\[5pt]图取 $k=r=1$，坐标等比例};
+\end{tikzpicture}

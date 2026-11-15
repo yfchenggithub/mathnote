@@ -1,0 +1,14 @@
+% f(t)=-3t^2/4+t+11/4; roots c,b and axis (b+c)/2=2/3.
+\begin{tikzpicture}[x=1.45cm,y=.75cm,>=Stealth,font=\small]
+\pgfmathsetmacro{\bb}{(2+sqrt(37))/3}
+\pgfmathsetmacro{\cc}{(2-sqrt(37))/3}
+\draw[gray!55,->] (-2,0)--(3.3,0) node[right] {$t$};
+\draw[gray!55,->] (0,-1.7)--(0,4.1);
+\draw[blue!70!black,very thick,domain=-1.75:3.08,samples=100,variable=\t] plot (\t,{-.75*\t*\t+\t+2.75});
+\draw[teal!75!black,dashed] ({2/3},-.55)--({2/3},{37/12});
+\fill[orange!85!black] (\bb,0) circle(2pt) node[above right=4pt] {$b$};
+\fill[orange!85!black] (\cc,0) circle(2pt) node[above left=4pt] {$c$};
+\node[below,align=center] at ({2/3},-.6) {对称轴 $t=\dfrac{b+c}{2}$};
+\node[align=center] at (.6,5) {固定 $a=\frac12$，取 $k=r=1$\\[4pt]$f(t)=-\frac34t^2+t+\frac{11}{4}$};
+\node[align=center] at (.6,-3.4) {两个横轴交点 $\longleftrightarrow$ 两个不同参数 $b,c$\\[7pt]韦达定理直接给出 $b+c=\frac43,\ bc=-\frac{11}{3}$};
+\end{tikzpicture}

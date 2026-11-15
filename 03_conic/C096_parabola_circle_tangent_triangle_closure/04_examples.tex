@@ -1,0 +1,85 @@
+\clearpage
+\begin{examplebox}
+\textbf{例1：原题 2021 全国甲卷（理）第20题，第一问怎样确定圆？}
+
+抛物线顶点 $O$ 在原点、焦点在 $x$ 轴上，写作 $y^2=kx$（$k>0$）。直线 $x=1$ 与抛物线交于 $P=(1,\sqrt{k})$、$Q=(1,-\sqrt{k})$。由 $OP\perp OQ$，
+\[
+\overrightarrow{OP}\cdot\overrightarrow{OQ}
+=1\times1+\sqrt{k}(-\sqrt{k})=1-k=0.
+\]
+所以 $k=1$，抛物线为 $\boxed{y^2=x}$。圆心 $M(2,0)$，与 $x=1$ 相切，所以半径 $r=|2-1|=1$，圆为
+\[
+\boxed{(x-2)^2+y^2=1}.
+\]
+\textbf{识别第二问：} $k=r=1$ 且 $h=2=1+1^2/1$，恰好满足 C096 主分支，故两条共顶点的弦切圆时，第三条弦也切圆。
+\end{examplebox}
+
+\clearpage
+\begin{examplebox}
+\textbf{例1（续）：不用同构、不用韦达，把第二问硬算完}
+
+设 $A_i=(y_i^2,y_i)$。$A_iA_j$ 的方程是 $x-(y_i+y_j)y+y_iy_j=0$。
+已知 $A_1A_2,A_1A_3$ 与圆相切，分别整理成
+\[
+\begin{cases}
+(y_1^2-1)y_2^2+2y_1y_2+3-y_1^2=0,\\
+(y_1^2-1)y_3^2+2y_1y_3+3-y_1^2=0.
+\end{cases}
+\]
+\textbf{相减}并除以 $y_2-y_3\ne0$：
+\[
+(y_1^2-1)(y_2+y_3)=-2y_1.
+\]
+\textbf{相加}，用 $y_2^2+y_3^2=(y_2+y_3)^2-2y_2y_3$，利用刚求的和把一次项消去：
+\[
+(y_1^2-1)y_2y_3=3-y_1^2.
+\]
+从差式可知 $y_1^2\ne1$。因此
+\[
+2+y_2y_3=\frac{y_1^2+1}{y_1^2-1},\quad
+1+(y_2+y_3)^2=\frac{(y_1^2+1)^2}{(y_1^2-1)^2}.
+\]
+圆心到 $A_2A_3$ 的距离平方是
+\[
+\frac{(2+y_2y_3)^2}{1+(y_2+y_3)^2}=1=r^2.
+\]
+所以 $A_2A_3$ 与圆相切。\textbf{整条路线都是普通硬算。}
+\end{examplebox}
+
+\clearpage
+\begin{examplebox}
+\textbf{例2：移动公共顶点，独立算出第三条直线}
+
+仍取 $y^2=x$ 和 $(x-2)^2+y^2=1$，固定 $A_1=(1/4,1/2)$。从该点作两条切圆弦，其余交点的纵坐标 $b,c$ 满足
+\[
+-\frac34t^2+t+\frac{11}{4}=0
+\quad\Longleftrightarrow\quad 3t^2-4t-11=0.
+\]
+所以 $b,c=(2\pm\sqrt{37})/3$。直接相加、相乘得
+\[
+b+c=\frac43,\qquad bc=-\frac{11}{3}.
+\]
+第三条弦：
+\[
+A_2A_3:\ x-\frac43y-\frac{11}{3}=0
+\quad\Longleftrightarrow\quad \boxed{3x-4y-11=0}.
+\]
+圆心 $(2,0)$ 到它的距离为 $|6-11|/5=1$，确实切圆。\textbf{对照第 02 节右图：}它不是固定直线 $x=3$，但相切的性质没变。
+\end{examplebox}
+
+\clearpage
+\begin{examplebox}
+\textbf{例3：参数推广及反例，分清“特殊圆心”}
+
+\textbf{推广：}若 $C:y^2=2x$、圆半径 $r=2$，主分支要求
+\[
+h=2+\frac{2^2}{2}=4.
+\]
+从 $O$ 作圆 $(x-4)^2+y^2=4$ 的两条切线，再与抛物线相交。设第二交点 $B=(b^2/2,b)$，直线 $OB$ 为 $2x-by=0$，相切条件给出 $|8|/\sqrt{4+b^2}=2$，即 $b^2=12$。因此另外两点为 $(6,\pm2\sqrt3)$，其连线 $x=6$ 到圆心 $(4,0)$ 的距离是 $2$，相切。
+
+\medskip
+\textbf{反例：} 若把原题圆改成 $(x-3)^2+y^2=1$，从 $O$ 向该圆作两条切线，第二交点为 $(8,\pm2\sqrt2)$，其连线 $x=8$ 到圆心的距离为 $5\ne1$。因此\textbf{普通轴上圆不能套 C096}。
+\begin{center}
+\input{assets/tikz/C096_compare_circle_positions}
+\end{center}
+\end{examplebox}

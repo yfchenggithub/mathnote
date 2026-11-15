@@ -1,0 +1,28 @@
+% Accurate coordinates: parabola x=y^2, circle center (2,0) radius 1;
+% A=(0,0), B=(3,sqrt3), C=(3,-sqrt3).
+\begin{tikzpicture}[scale=1.00,>=Stealth,font=\small]
+\draw[gray!55,->] (-0.45,0)--(4.45,0) node[right] {$x$};
+\draw[gray!55,->] (0,-2.28)--(0,2.28) node[above] {$y$};
+\draw[blue!70!black,very thick,domain=-2.05:2.05,samples=120,smooth,variable=\t] plot ({\t*\t},{\t});
+\draw[teal!75!black,thick,fill=teal!9] (2,0) circle[radius=1];
+\coordinate (A) at (0,0);
+\coordinate (B) at (3,{sqrt(3)});
+\coordinate (C) at (3,{-sqrt(3)});
+\draw[orange!85!black,very thick] (A)--(B)--(C)--cycle;
+\coordinate (T1) at (1.5,{sqrt(3)/2});
+\coordinate (T2) at (1.5,{-sqrt(3)/2});
+\coordinate (T3) at (3,0);
+\draw[teal!75!black,densely dashed] (2,0)--(T1) (2,0)--(T2) (2,0)--(T3);
+\foreach \p in {A,B,C} \fill[orange!80!black] (\p) circle (1.7pt);
+\foreach \p in {T1,T2,T3} \fill[teal!70!black] (\p) circle (1.45pt);
+\fill[teal!70!black] (2,0) circle (1.6pt);
+\node[below left] at (A) {$A=O$};
+\node[above right] at (B) {$B$};
+\node[below right] at (C) {$C$};
+\node[below left] at (2,0) {$M$};
+\node[above left,blue!70!black] at (0.8,2.02) {$y^2=x$};
+\node[above right] at (T1) {\scriptsize $T_1$};
+\node[below right] at (T2) {\scriptsize $T_2$};
+\node[right] at (T3) {\scriptsize $T_3$};
+\node[above,orange!75!black] at (3.8,-1.25) {\scriptsize $BC:x=3$};
+\end{tikzpicture}

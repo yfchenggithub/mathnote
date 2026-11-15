@@ -98,6 +98,23 @@ an installed module with changed content, even though the schema stays at v4.
 
 ## Package contract
 
+### Conclusion classification metadata
+
+Source `meta.json.isPro` is copied without coercion to the corresponding
+`type: "knowledge"` record in `knowledge-nodes.json`: integer `0` is free and
+integer `1` is licensed content. Boolean, string, null, float and other explicit
+values fail mapping and package validation. Structural nodes do not acquire the
+field. Full v2 serialization and v4 module slicing retain the same field; the
+existing entity/file/package hashes cover it without changing envelopes or
+media references. This is content metadata only.
+
+For compatibility, legacy sources/packages with no field remain readable and
+no default is invented by Export. The current production selection audit is
+stricter: `scripts/check_free_knowledge_selection.py` requires explicit integer
+flags on every current conclusion, checks the editorial list in
+`data/content/free-knowledge-selection.json`, and compares Full and module ZIPs.
+The list is an editorial audit input, not a runtime permission mechanism.
+
 A package contains `manifest.json`, four stable runtime JSON files,
 `animation-shares.json`, and the registered files under `resources/images/`,
 `resources/pdfs/`, and optionally `resources/videos/`. Entity hashes, asset-content hashes,

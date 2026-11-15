@@ -1,0 +1,25 @@
+% 两个面板的坐标单位完全相同（各自 x=0...8.5, y=-3...3）。
+\begin{tikzpicture}[x=.50cm,y=.50cm,>=Stealth,font=\scriptsize]
+\begin{scope}
+\draw[gray!50,->] (-.3,0)--(8.5,0) node[right] {$x$};
+\draw[gray!50,->] (0,-3.15)--(0,3.15) node[above] {$y$};
+\draw[blue!75!black,thick,domain=-2.85:2.85,samples=120,variable=\t] plot ({\t*\t},{\t});
+\draw[teal!75!black,thick,fill=teal!8] (2,0) circle(1);
+\draw[orange!85!black,very thick] (0,0)--(3,{sqrt(3)})--(3,{-sqrt(3)})--cycle;
+\fill[teal!80!black](2,0)circle(1.8pt) node[below]{$M$};
+\fill[orange!85!black](0,0)circle(1.5pt) node[above left]{$O$};
+\node[font=\small] at (4,3.55) {$h=2$: 第三条切圆};
+\node[orange!80!black,right] at (3.5,1.35) {$x=3$};
+\end{scope}
+\begin{scope}[xshift=5.7cm]
+\draw[gray!50,->] (-.3,0)--(8.5,0) node[right] {$x$};
+\draw[gray!50,->] (0,-3.15)--(0,3.15) node[above] {$y$};
+\draw[blue!75!black,thick,domain=-2.85:2.85,samples=120,variable=\t] plot ({\t*\t},{\t});
+\draw[teal!75!black,thick,fill=teal!8] (3,0) circle(1);
+\draw[orange!85!black,very thick] (0,0)--(8,{sqrt(8)})--(8,{-sqrt(8)})--cycle;
+\fill[teal!80!black](3,0)circle(1.8pt) node[below]{$M$};
+\fill[orange!85!black](0,0)circle(1.5pt) node[above left]{$O$};
+\node[font=\small] at (4,3.55) {$h=3$: 第三条不切圆};
+\node[orange!80!black,right] at (8,1.8) {$x=8$};
+\end{scope}
+\end{tikzpicture}

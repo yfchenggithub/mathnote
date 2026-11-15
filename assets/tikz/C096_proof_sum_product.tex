@@ -1,0 +1,22 @@
+% Exact non-symmetric example a=1/2, b,c=(2+-sqrt37)/3.
+\begin{tikzpicture}[x=.9cm,y=.9cm,>=Stealth,font=\small]
+\pgfmathsetmacro{\bb}{(2+sqrt(37))/3}
+\pgfmathsetmacro{\cc}{(2-sqrt(37))/3}
+\coordinate (A1) at (.25,.5);\coordinate (A2) at ({\bb*\bb},\bb);
+\coordinate (A3) at ({\cc*\cc},\cc);\coordinate (M) at (2,0);\coordinate (H) at (2.6,-.8);
+\draw[gray!55,->] (-.5,0)--(8.1,0) node[right] {$x$};
+\draw[gray!55,->] (0,-1.8)--(0,3.2) node[above] {$y$};
+\draw[blue!70!black,thick,domain=-1.65:2.78,samples=110,variable=\t] plot ({\t*\t},\t);
+\draw[teal!75!black,thick,fill=teal!9] (M) circle(1);
+\draw[orange!85!black,thick] (A2)--(A1)--(A3);
+\draw[orange!85!black,very thick] (A2)--(A3);
+\draw[teal!75!black,dashed] (M)--(H) node[midway,above right] {$r$};
+\draw pic[draw,angle radius=5pt] {right angle=M--H--A2};
+\foreach \p in {A1,A2,A3} \fill[orange!85!black] (\p) circle(1.8pt);
+\fill[teal!75!black] (M) circle(1.5pt) node[above] {$M$};
+\node[above left] at (A1) {$A_1=P(a)$};
+\node[above left] at (A2) {$A_2=P(b)$};
+\node[below left] at (A3) {$A_3=P(c)$};
+\node[anchor=west,align=left] at (5,-.7) {第三条弦只需要\\[4pt]和 $b+c$、积 $bc$};
+\node[align=center] at (4,-3.05) {$a=\frac12,\ b+c=\frac43,\ bc=-\frac{11}{3}$\\[7pt]$A_2A_3:\ x-\frac43y-\frac{11}{3}=0$};
+\end{tikzpicture}
