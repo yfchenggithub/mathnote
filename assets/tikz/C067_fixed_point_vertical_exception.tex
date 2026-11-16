@@ -1,0 +1,20 @@
+% Exact model: p=2, A=(0,2); x=0 and y=x/2+2, T=(4,4).
+\begin{tikzpicture}[>=stealth,font=\small,x=.9cm,y=.9cm]
+\node[anchor=west,font=\small\bfseries] at (-2,6.4)
+  {定点在 $y$ 轴上：有限斜率之外，别漏掉竖直切线};
+\draw[->,gray] (-1,0)--(6.2,0) node[right] {$x$};
+\draw[->,gray] (0,-1)--(0,5.3) node[above] {$y$};
+\draw[blue,very thick,domain=-.8:4.65,samples=100]
+  plot ({\x*\x/4},\x);
+\draw[orange!80!black,very thick] (0,-.7)--(0,4.9);
+\draw[teal,very thick] (-.8,1.6)--(5.7,4.85);
+\fill (0,0) circle (2pt) node[below left=5pt] {$O$};
+\fill (0,2) circle (2.3pt) node[above left=6pt] {$A(0,2)$};
+\fill[teal] (4,4) circle (2.3pt) node[below right=7pt,text=black] {$T(4,4)$};
+\node[orange!80!black,anchor=east] at (-.3,4.6) {$x=0$};
+\node[blue,anchor=west] at (6.5,4.6) {$y^2=4x$};
+\node[teal,anchor=west] at (6.5,3.3) {$k=\dfrac12$};
+\node[teal,anchor=west] at (6.5,2.1) {$y=\dfrac12x+2$};
+\node[anchor=west] at (6.5,.8) {两条切线都经过 $A$};
+\node[anchor=west] at (6.5,-.3) {竖直切线的切点是 $O$};
+\end{tikzpicture}
