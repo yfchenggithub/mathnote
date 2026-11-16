@@ -56,7 +56,7 @@ class ModulePackageTests(unittest.TestCase):
                 if kind == "image":
                     Image.new("RGB", (2, 3), "white").save(path, format="WEBP")
                 else:
-                    path.write_bytes(b"%PDF-1.4\n% synthetic fixture, not a teaching PDF\n")
+                    Image.new("RGB", (2, 3), "white").save(path, format="PDF")
                 self.data["knowledgeAssets"].append({"id": f"{uid}:{kind}:fixture{extension}",
                                                      "knowledgeId": uid, "type": kind,
                                                      "uri": uri, "sortOrder": 10})
@@ -130,6 +130,57 @@ class ModulePackageTests(unittest.TestCase):
         a = {r["id"] for r in module.read_json(self.output / "sets/knowledge-nodes.json") if r["type"] == "knowledge"}
         b = {r["id"] for r in module.read_json(self.output / "analytic-geometry/knowledge-nodes.json") if r["type"] == "knowledge"}
         self.assertFalse(a & b)
+
+    def test_content_stats_real_pages_gif_unique_ids_and_final_selection(self):
+        path = self.source / "resources/pdfs/S001/fixture.pdf"
+        pages = [Image.new("RGB", (5, 5), color) for color in ("red", "green", "blue")]
+        pages[0].save(path, format="PDF", save_all=True, append_images=pages[1:])
+        gif = self.source / "resources/images/S001/demo.gif"
+        pages[0].save(gif, format="GIF", save_all=True, append_images=pages[1:])
+        row = dict(id="S001:image:demo.gif", knowledgeId="S001", type="image",
+                   uri="resources/images/S001/demo.gif", sortOrder=20)
+        self.data["knowledgeAssets"].append(row)
+        Image.new("RGB", (2, 2)).save(self.source / "cover.png")
+        selected = module.select(self.data, "sets")
+        selected["knowledgeAssets"].append(copy.deepcopy(row))
+        expected = dict(schemaVersion=1, knowledgeCount=1, imageCount=1, gifCount=1, pdfPageCount=3)
+        self.assertEqual(module.content_stats.calculate(self.source, selected), expected)
+        (self.source / "cover.png").unlink()
+        self.write_full()
+        module.slice_modules(self.source, self.output, ["sets"], package_version=2)
+        self.assertEqual(self.manifest()["contentStats"], expected)
+        self.assertEqual(module.validate_module(self.output / "sets.zip", self.source), ())
+
+    def test_content_stats_tampering_even_with_resealed_hash_is_rejected(self):
+        for value in (True, "1", -1, None, 1.0, 2):
+            original = self.manifest()
+            changed = copy.deepcopy(original)
+            changed["contentStats"]["knowledgeCount"] = value
+            changed["packageHash"], changed["contentVersion"] = module.hashes(changed)
+            module.write_json(self.output / "sets/manifest.json", changed)
+            self.assertTrue(module.validate_module(self.output / "sets"), repr(value))
+            module.write_json(self.output / "sets/manifest.json", original)
+
+    def test_content_stats_missing_rejected_unless_explicit_historical_reader(self):
+        value = self.manifest()
+        del value["contentStats"]
+        value["packageHash"], value["contentVersion"] = module.hashes(value)
+        module.write_json(self.output / "sets/manifest.json", value)
+        self.assertTrue(module.validate_module(self.output / "sets"))
+        self.assertEqual(module.validate_module(self.output / "sets", allow_legacy_content_stats=True), ())
+
+    def test_content_stats_malformed_pdf_blocks_transaction(self):
+        before = self.output_hashes()
+        (self.source / "resources/pdfs/S001/fixture.pdf").write_bytes(b"%PDF-1.4\nbroken\n")
+        self.write_full()
+        with self.assertRaisesRegex(ValueError, "PDF page parsing failed"):
+            module.slice_modules(self.source, self.output, ["sets"], package_version=2)
+        self.assertEqual(before, self.output_hashes())
+
+    def test_content_stats_missing_pdf_parser_fails_closed(self):
+        with patch.object(module.content_stats.shutil, "which", return_value=None):
+            with self.assertRaisesRegex(ValueError, "requires Poppler"):
+                module.content_stats.calculate(self.source, module.select(self.data, "sets"))
 
     def test_external_canonical_source_outside_and_core_dedup(self):
         a = module.read_json(self.output / "sets/external-relations.json")

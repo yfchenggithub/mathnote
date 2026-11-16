@@ -165,3 +165,35 @@ as audited on 2026-10-10) requires `schemaVersion == 1`, scans only
 It accepts historical v1 packages and rejects v2 before writing. Upgrade Sync
 and its video registry before feeding it the canonical package. This MathNote
 Publisher task does not execute Sync.
+
+## Module content statistics (Schema v4)
+
+Every newly exported module manifest includes `contentStats` with integer
+`schemaVersion: 1`, `knowledgeCount`, `imageCount`, `gifCount`, and `pdfPageCount`.
+The existing `counts.imageAssets` still includes GIFs; `contentStats.imageCount`
+counts static images only. Knowledge IDs and formal KnowledgeAsset IDs are
+deduplicated. Only selected knowledge owners and their packaged resources count;
+structural nodes, share videos, previews and unregistered files do not count.
+
+Install Poppler `pdfinfo` on PATH (or set `PDFINFO_BINARY` to its executable).
+Actual PDF page trees are parsed after resource selection/copying. Missing tools,
+invalid PDFs, parser diagnostics, absent fields and invalid numeric types fail
+the staged export before output replacement. ZIP validation reparses its PDFs
+and compares the complete manifest, including statistics and integrity hashes.
+Statistics participate in both packageHash and contentVersion; no new required
+App capability or directory layout is introduced. `shareConfig` is unchanged.
+
+Historical Schema v4 envelopes remain readable only through the explicit
+`validate_module(..., allow_legacy_content_stats=True)` compatibility option;
+new exports and production release audits always require the statistics.
+
+Audit all ZIPs against their Full snapshot, including unique cross-module
+ownership/coverage and aggregate statistics:
+
+```powershell
+python scripts/check_content_stats.py --full build/<release>/full --modules build/<release>/modules --output reports/CONTENT_STATS_VALIDATION.json
+```
+
+The audit rejects duplicate knowledge/media ownership across modules. Aggregate
+counts are recalculated from the unique Full entity union and compared with the
+per-module totals, so shared directory/root nodes never inflate the result.

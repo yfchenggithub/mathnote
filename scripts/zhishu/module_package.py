@@ -24,8 +24,10 @@ from PIL import Image
 
 if __package__:
     from . import content_package as full
+    from . import content_stats
 else:
     import content_package as full
+    import content_stats
 
 SCHEMA_VERSION = 4
 FILES = {**full.JSON_FILES, full.SHARE_KEY: full.SHARE_FILE,
@@ -63,7 +65,7 @@ MANIFEST_FIELDS = {
     "packageVersion", "rootNodeId", "moduleRootNodeId", "minAppContentApi",
     "requiredCapabilities", "dependencies", "sourcePackage", "files", "counts",
     "fileHashes", "entityHashes", "assetHashes", "shareAssetHashes", "resources",
-    "packageHash", "contentVersion",
+    "packageHash", "contentVersion", "contentStats",
 }
 # Host validator limits, not an assertion about Android capacity.
 MAX_FILES = 20000
@@ -342,7 +344,7 @@ def hashes(manifest: dict[str, Any]) -> tuple[str, str]:
 
 
 def make_manifest(root: Path, data: dict[str, list[dict[str, Any]]], slug: str,
-                  source_version: str, package_version: int) -> dict[str, Any]:
+                  source_version: str, package_version: int, *, _legacy_stats: bool = False) -> dict[str, Any]:
     require(type(package_version) is int and 0 < package_version <= 2**53 - 1, "invalid packageVersion")
     package_id, module_id, module_root, _ = MODULES[slug]
     resources: dict[str, Any] = {}
@@ -381,14 +383,21 @@ def make_manifest(root: Path, data: dict[str, list[dict[str, Any]]], slug: str,
                          for key, rows in data.items()},
         "assetHashes": asset_hashes, "shareAssetHashes": share_hashes, "resources": resources,
     }
+    if not _legacy_stats:
+        manifest["contentStats"] = content_stats.calculate(root, data)
     manifest["packageHash"], manifest["contentVersion"] = hashes(manifest)
     return manifest
 
 
-def _validate_directory(root: Path, source: tuple[dict[str, Any], dict[str, Any]] | None = None) -> dict[str, Any]:
+def _validate_directory(root: Path, source: tuple[dict[str, Any], dict[str, Any]] | None = None,
+                        *, allow_legacy_content_stats: bool = False) -> dict[str, Any]:
     actual = inventory(root)
     m = read_json(root / "manifest.json")
-    require(isinstance(m, dict) and set(m) == MANIFEST_FIELDS, "Manifest missing/unknown fields")
+    legacy = isinstance(m, dict) and "contentStats" not in m and allow_legacy_content_stats
+    require(isinstance(m, dict) and set(m) == MANIFEST_FIELDS - ({"contentStats"} if legacy else set()),
+            "Manifest missing/unknown fields (contentStats required for new packages)")
+    if not legacy:
+        content_stats.validate(m["contentStats"])
     require(type(m["schemaVersion"]) is int and m["schemaVersion"] == SCHEMA_VERSION,
             "unsupported module schemaVersion (expected 4)")
     require(m["packageKind"] == "module" and m["subjectId"] == "math.high-school", "invalid package type/subject")
@@ -470,7 +479,7 @@ def _validate_directory(root: Path, source: tuple[dict[str, Any], dict[str, Any]
         else:
             with path.open("rb") as stream:
                 require(stream.read(5) == b"%PDF-", "PDF MIME/format mismatch")
-    expected = make_manifest(root, data, slug, src["contentVersion"], m["packageVersion"])
+    expected = make_manifest(root, data, slug, src["contentVersion"], m["packageVersion"], _legacy_stats=legacy)
     require(m == expected, "Manifest counts, capabilities, metadata or integrity hash mismatch")
     if source is not None:
         source_manifest, source_data = source
@@ -520,16 +529,17 @@ def _extract(zip_path: Path, root: Path) -> None:
             require(written == info.file_size, "ZIP size mismatch")
 
 
-def validate_module(path: Path, source_root: Path | None = None) -> tuple[str, ...]:
+def validate_module(path: Path, source_root: Path | None = None, *,
+                    allow_legacy_content_stats: bool = False) -> tuple[str, ...]:
     """Validate a directory or ZIP alone; optional source adds exhaustive provenance checks."""
     try:
         source = load_full(source_root) if source_root is not None else None
         if path.is_dir():
-            _validate_directory(path, source)
+            _validate_directory(path, source, allow_legacy_content_stats=allow_legacy_content_stats)
         else:
             with temporary_directory() as root:
                 _extract(path, root)
-                _validate_directory(root, source)
+                _validate_directory(root, source, allow_legacy_content_stats=allow_legacy_content_stats)
         return ()
     except (OSError, ValueError, TypeError, KeyError, UnicodeError, RecursionError, Image.DecompressionBombError,
             zipfile.BadZipFile, RuntimeError) as exc:
@@ -601,6 +611,7 @@ def slice_modules(input_root: Path, output_root: Path, modules: list[str],
             results.append({"module": slug, "path": str(output_root / archive.name),
                             "bytes": archive.stat().st_size, "sha256": full._sha256_file(archive),
                             "contentVersion": m["contentVersion"], "counts": m["counts"],
+                            "contentStats": m["contentStats"],
                             "seconds": time.perf_counter() - started})
         after = {name: full._sha256_file(path) for name, path in inventory(input_root).items()}
         require(after == before, "Full v2 input changed during slicing; output not committed")
