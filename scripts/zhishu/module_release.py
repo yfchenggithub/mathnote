@@ -163,7 +163,7 @@ def validate_index(source_root: Path, packages: Path) -> dict:
 
 
 def produce_release(source_root: Path, staging: Path, output: Path | None = None,
-                    expected_count: int = 14) -> dict:
+                    expected_count: int | None = None) -> dict:
     source_root, staging = source_root.resolve(), staging.resolve()
     m._no_links(staging)
     m.require(not staging.is_relative_to(source_root) and not source_root.is_relative_to(staging),
@@ -180,6 +180,8 @@ def produce_release(source_root: Path, staging: Path, output: Path | None = None
     frozen = fingerprint(source_root)
     source = m.load_full(source_root)
     slugs = m.discover_modules(source[1])
+    if expected_count is None:
+        expected_count = 13 if 'probability-statistics' in slugs else 14
     m.require(len(slugs) == expected_count, f'expected {expected_count} real modules, found {len(slugs)}')
     staging.mkdir(parents=True)
     runs = []

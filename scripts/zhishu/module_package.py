@@ -45,6 +45,10 @@ MODULES = {
     "plane-geometry": ("zhishu.math.plane-geometry", "math.plane-geometry", "struct:平面几何", "平面几何"),
     "sequences": ("zhishu.math.sequences", "math.sequences", "struct:数列", "数列"),
     "probability": ("zhishu.math.probability", "math.probability", "struct:概率", "概率"),
+    # Current combined chapter. Keep the old two identities readable for
+    # historical package validation; current source discovery selects this one.
+    "probability-statistics": ("zhishu.math.probability-statistics", "math.probability-statistics",
+                               "struct:概率与统计", "概率与统计"),
     "solid-geometry": ("zhishu.math.solid-geometry", "math.solid-geometry", "struct:立体几何", "立体几何"),
     "statistics": ("zhishu.math.statistics", "math.statistics", "struct:统计", "统计"),
     "triangle-solving": ("zhishu.math.triangle-solving", "math.triangle-solving", "struct:解三角形", "解三角形"),
@@ -323,6 +327,9 @@ def discover_modules(data: dict[str, list[dict[str, Any]]]) -> list[str]:
                 f"empty source chapter: {row['id']}")
         found.append(slug)
     require(bool(found), "no source chapters")
+    require(not ('probability-statistics' in found and
+                 ({'probability', 'statistics'} & set(found))),
+            "merged and split probability/statistics chapters cannot coexist")
     return sorted(found)
 
 

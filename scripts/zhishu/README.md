@@ -96,6 +96,14 @@ Re-export via `publish.py build-content` and `slice_modules.py`; never edit fina
 JSON/ZIPs and reseal them by hand. Use a higher `--package-version` when replacing
 an installed module with changed content, even though the schema stays at v4.
 
+The current `06_probability-stat` source chapter is `概率与统计`. Export it as
+one `probability-statistics` module (`math.probability-statistics`, package ID
+`zhishu.math.probability-statistics`, root `struct:概率与统计`). The old
+`probability` and `statistics` registrations remain unchanged for historical
+package validation. Current merged sources discover 13 chapters; the complete
+release helper retains its 14-chapter expectation for historical split sources.
+This registry change does not migrate installed packages or invoke Sync.
+
 ## Package contract
 
 ### Conclusion classification metadata

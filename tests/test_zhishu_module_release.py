@@ -18,6 +18,9 @@ class ModuleReleaseTests(unittest.TestCase):
     def expand(self):
         roots = {r['id'] for r in self.data['knowledgeNodes']}
         for i, (slug, registration) in enumerate(m.MODULES.items()):
+            # This fixture retains the historical 14-chapter profile.
+            if slug == 'probability-statistics':
+                continue
             _, _, root, title = registration
             if root in roots:
                 continue
@@ -40,8 +43,8 @@ class ModuleReleaseTests(unittest.TestCase):
 
     def test_all_chapters_discovered_and_stable_unique_identity(self):
         self.expand()
-        self.assertEqual(set(m.discover_modules(self.data)), set(m.MODULES))
-        self.assertEqual(len(m.MODULES), 14)
+        self.assertEqual(set(m.discover_modules(self.data)), set(m.MODULES) - {'probability-statistics'})
+        self.assertEqual(len(m.MODULES), 15)
         self.assertEqual(m.MODULES['sets'][:2], ('zhishu.math.set', 'math.set'))
         self.assertEqual(m.MODULES['analytic-geometry'][:2],
                          ('zhishu.math.analytic-geometry', 'math.analytic-geometry'))
@@ -67,7 +70,7 @@ class ModuleReleaseTests(unittest.TestCase):
         self.assertEqual([r['packageId'] for r in rows], sorted(r['packageId'] for r in rows))
         self.assertEqual(release.fingerprint(self.root / 'staging/round-1'),
                          release.fingerprint(self.root / 'staging/round-2'))
-        for slug in m.MODULES:
+        for slug in m.discover_modules(self.data):
             self.assertEqual(m.validate_module(published / (slug + '.zip'), self.source), ())
 
     def test_prerequisite_section_and_chinese_search_preserved(self):
@@ -103,6 +106,46 @@ class ModuleReleaseTests(unittest.TestCase):
         with self.assertRaisesRegex(m.ModuleError, 'expected 14 real modules, found 3'):
             self.produce(self.output)
         self.assertEqual(before, release.fingerprint(self.output))
+
+    def test_merged_probability_statistics_is_one_module_and_old_profile_stays_readable(self):
+        self.expand()
+        old = {r['id'] for r in self.data['knowledgeNodes'] if r.get('parentId') in ('struct:概率', 'struct:统计')}
+        self.data['knowledgeNodes'] = [r for r in self.data['knowledgeNodes'] if r['id'] not in ('struct:概率','struct:统计')]
+        self.data['knowledgeNodes'].append({'id':'struct:概率与统计','title':'概率与统计',
+                                           'type':'chapter','parentId':m.ROOT,'sortOrder':300})
+        for row in self.data['knowledgeNodes']:
+            if row['id'] in old:
+                row['parentId']='struct:概率与统计'
+                row['isPro']=0 if row['id']==min(old) else 1
+        self.write_full()
+        slugs=m.discover_modules(self.data)
+        self.assertEqual(len(slugs),13)
+        self.assertIn('probability-statistics',slugs)
+        self.assertNotIn('probability',slugs)
+        self.assertNotIn('statistics',slugs)
+        output=self.root/'combined'
+        m.slice_modules(self.source,output,['probability-statistics'],6)
+        archive=output/'probability-statistics.zip'
+        self.assertEqual(m.validate_module(archive,self.source),())
+        rows=m.read_json(output/'probability-statistics'/'knowledge-nodes.json')
+        self.assertEqual({r['id'] for r in rows if r['type']=='knowledge'},old)
+        self.assertEqual({r['isPro'] for r in rows if r['type']=='knowledge'},{0,1})
+        self.assertEqual(m.read_json(output/'probability-statistics'/'manifest.json')['moduleRootNodeId'],'struct:概率与统计')
+        result=release.produce_release(self.source,self.root/'merged-staging')
+        self.assertEqual(len(result['index']['modules']),13)
+        self.assertTrue(result['byteIdentical'])
+
+    def test_mixed_merged_and_split_probability_chapters_are_rejected(self):
+        self.expand()
+        self.data['knowledgeNodes'].extend([
+            {'id':'struct:概率与统计','title':'概率与统计','type':'chapter',
+             'parentId':m.ROOT,'sortOrder':300},
+            {'id':'Z999','title':'merged fixture','type':'knowledge',
+             'parentId':'struct:概率与统计','sortOrder':10},
+        ])
+        self.data['searchDocuments'].append({'knowledgeNodeId':'Z999','title':'merged fixture'})
+        with self.assertRaisesRegex(m.ModuleError,'cannot coexist'):
+            m.discover_modules(self.data)
 
     def test_failed_later_module_preserves_accepted_pilots(self):
         self.expand()
