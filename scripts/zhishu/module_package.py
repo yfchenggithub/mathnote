@@ -65,7 +65,7 @@ MANIFEST_FIELDS = {
     "packageVersion", "rootNodeId", "moduleRootNodeId", "minAppContentApi",
     "requiredCapabilities", "dependencies", "sourcePackage", "files", "counts",
     "fileHashes", "entityHashes", "assetHashes", "shareAssetHashes", "resources",
-    "packageHash", "contentVersion", "contentStats",
+    "packageHash", "contentVersion", "contentStats", "freeContentStats",
 }
 # Host validator limits, not an assertion about Android capacity.
 MAX_FILES = 20000
@@ -344,7 +344,8 @@ def hashes(manifest: dict[str, Any]) -> tuple[str, str]:
 
 
 def make_manifest(root: Path, data: dict[str, list[dict[str, Any]]], slug: str,
-                  source_version: str, package_version: int, *, _legacy_stats: bool = False) -> dict[str, Any]:
+                  source_version: str, package_version: int, *, _legacy_stats: bool = False,
+                  _legacy_free_stats: bool = False) -> dict[str, Any]:
     require(type(package_version) is int and 0 < package_version <= 2**53 - 1, "invalid packageVersion")
     package_id, module_id, module_root, _ = MODULES[slug]
     resources: dict[str, Any] = {}
@@ -385,6 +386,8 @@ def make_manifest(root: Path, data: dict[str, list[dict[str, Any]]], slug: str,
     }
     if not _legacy_stats:
         manifest["contentStats"] = content_stats.calculate(root, data)
+    if not _legacy_free_stats:
+        manifest["freeContentStats"] = content_stats.calculate(root, data, free_only=True)
     manifest["packageHash"], manifest["contentVersion"] = hashes(manifest)
     return manifest
 
@@ -394,10 +397,14 @@ def _validate_directory(root: Path, source: tuple[dict[str, Any], dict[str, Any]
     actual = inventory(root)
     m = read_json(root / "manifest.json")
     legacy = isinstance(m, dict) and "contentStats" not in m and allow_legacy_content_stats
-    require(isinstance(m, dict) and set(m) == MANIFEST_FIELDS - ({"contentStats"} if legacy else set()),
-            "Manifest missing/unknown fields (contentStats required for new packages)")
+    legacy_free = isinstance(m, dict) and "freeContentStats" not in m and allow_legacy_content_stats
+    omitted = ({"contentStats"} if legacy else set()) | ({"freeContentStats"} if legacy_free else set())
+    require(isinstance(m, dict) and set(m) == MANIFEST_FIELDS - omitted,
+            "Manifest missing/unknown fields (contentStats and freeContentStats required for new packages)")
     if not legacy:
         content_stats.validate(m["contentStats"])
+    if not legacy_free:
+        content_stats.validate(m["freeContentStats"])
     require(type(m["schemaVersion"]) is int and m["schemaVersion"] == SCHEMA_VERSION,
             "unsupported module schemaVersion (expected 4)")
     require(m["packageKind"] == "module" and m["subjectId"] == "math.high-school", "invalid package type/subject")
@@ -479,7 +486,8 @@ def _validate_directory(root: Path, source: tuple[dict[str, Any], dict[str, Any]
         else:
             with path.open("rb") as stream:
                 require(stream.read(5) == b"%PDF-", "PDF MIME/format mismatch")
-    expected = make_manifest(root, data, slug, src["contentVersion"], m["packageVersion"], _legacy_stats=legacy)
+    expected = make_manifest(root, data, slug, src["contentVersion"], m["packageVersion"],
+                             _legacy_stats=legacy, _legacy_free_stats=legacy_free)
     require(m == expected, "Manifest counts, capabilities, metadata or integrity hash mismatch")
     if source is not None:
         source_manifest, source_data = source
@@ -612,6 +620,7 @@ def slice_modules(input_root: Path, output_root: Path, modules: list[str],
                             "bytes": archive.stat().st_size, "sha256": full._sha256_file(archive),
                             "contentVersion": m["contentVersion"], "counts": m["counts"],
                             "contentStats": m["contentStats"],
+                            "freeContentStats": m["freeContentStats"],
                             "seconds": time.perf_counter() - started})
         after = {name: full._sha256_file(path) for name, path in inventory(input_root).items()}
         require(after == before, "Full v2 input changed during slicing; output not committed")

@@ -112,6 +112,7 @@ def audit_modules(source_root: Path, packages: Path) -> tuple[dict, dict]:
                 'bytes': archive.stat().st_size, 'sha256': m.full._sha256_file(archive),
                 'contentVersion': manifest['contentVersion'], 'packageHash': manifest['packageHash'],
                 'contentStats': manifest['contentStats'],
+                'freeContentStats': manifest['freeContentStats'],
                 'packageVersion': manifest['packageVersion'], 'knowledgeCount': len(local['searchDocuments']),
                 'nodeCount': len(local['knowledgeNodes']), 'searchDocumentCount': len(local['searchDocuments']),
                 'mediaCount': len(manifest['resources']), 'imageCount': manifest['counts']['imageAssets'],
@@ -137,13 +138,17 @@ def audit_modules(source_root: Path, packages: Path) -> tuple[dict, dict]:
     # module. Recalculate the union, rather than counting shared root nodes or
     # summing potentially repeated files from arbitrary directories.
     content_stats = m.content_stats.calculate(source_root, data)
+    free_content_stats = m.content_stats.calculate(source_root, data, free_only=True)
     for field in m.content_stats.FIELDS - {'schemaVersion'}:
         m.require(sum(r['contentStats'][field] for r in entries) == content_stats[field],
                   f'cross-module contentStats coverage mismatch: {field}')
+        m.require(sum(r['freeContentStats'][field] for r in entries) == free_content_stats[field],
+                  f'cross-module freeContentStats coverage mismatch: {field}')
     index = {'sourceContentVersion': source[0]['contentVersion'], 'modules': entries}
     audit = {
         'sourceManifest': source[0], 'sourceFileHashes': fingerprint(source_root),
         'contentStats': content_stats,
+        'freeContentStats': free_content_stats,
         'moduleCount': len(entries), 'knowledgeCount': len(m.tree(data['knowledgeNodes'])),
         'nodeCount': len(nodes), 'searchDocumentCount': len(merged['searchDocuments']),
         'missingKnowledge': [], 'duplicateKnowledge': [], 'unresolvedRelations': [], 'invalidTargets': [],

@@ -24,6 +24,8 @@ def sample_zip(archive: Path) -> dict:
         nodes = m.read_json(root / "knowledge-nodes.json")
         assets = m.read_json(root / "knowledge-assets.json")
         knowledge = {n["id"] for n in nodes if n["type"] == "knowledge"}
+        free = {n["id"] for n in nodes if n["type"] == "knowledge"
+                and type(n.get("isPro")) is int and n["isPro"] == 0}
         images, gifs, pdfs = set(), set(), {}
         for row in assets:
             if row["knowledgeId"] not in knowledge:
@@ -37,7 +39,13 @@ def sample_zip(archive: Path) -> dict:
         observed = dict(schemaVersion=1, knowledgeCount=len(knowledge), imageCount=len(images),
                         gifCount=len(gifs), pdfPageCount=sum(pdfs.values()))
         m.require(observed == manifest["contentStats"], f"sample statistics mismatch: {archive.name}")
+        free_assets = {r["id"] for r in assets if r["knowledgeId"] in free}
+        free_observed = dict(schemaVersion=1, knowledgeCount=len(free),
+                             imageCount=len(images & free_assets), gifCount=len(gifs & free_assets),
+                             pdfPageCount=sum(p for id, p in pdfs.items() if id in free_assets))
+        m.require(free_observed == manifest["freeContentStats"], f"sample free statistics mismatch: {archive.name}")
         return {"zip": archive.name, "status": "PASS", "contentStats": observed,
+                "freeContentStats": free_observed,
                 "pdfPagesByAssetId": pdfs}
 
 
@@ -52,12 +60,14 @@ def main() -> int:
         archives = sorted(args.modules.glob("*.zip"))
         samples = [sample_zip(path) for path in random.SystemRandom().sample(archives, min(3, len(archives)))]
         result = {"status": "PASS", "modules": index["modules"],
-                  "contentStats": audit["contentStats"], "audit": audit, "randomSamples": samples}
+                  "contentStats": audit["contentStats"], "freeContentStats": audit["freeContentStats"],
+                  "audit": audit, "randomSamples": samples}
     except (ValueError, OSError, KeyError, TypeError) as exc:
         result = {"status": "FAIL", "error": str(exc)}
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    print(json.dumps({k: v for k, v in result.items() if k in {"status", "error", "contentStats"}}, ensure_ascii=True))
+    print(json.dumps({k: v for k, v in result.items()
+                     if k in {"status", "error", "contentStats", "freeContentStats"}}, ensure_ascii=True))
     return 0 if result["status"] == "PASS" else 1
 
 

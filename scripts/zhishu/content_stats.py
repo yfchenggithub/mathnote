@@ -35,8 +35,18 @@ def pdf_pages(path: Path) -> int:
     return int(match[1])
 
 
-def calculate(root: Path, data: dict) -> dict[str, int]:
+def calculate(root: Path, data: dict, *, free_only: bool = False) -> dict[str, int]:
     knowledge = {r["id"] for r in data["knowledgeNodes"] if r["type"] == "knowledge"}
+    selected = knowledge
+    if free_only:
+        selected = set()
+        for row in data["knowledgeNodes"]:
+            if row["type"] != "knowledge" or "isPro" not in row:
+                continue
+            if type(row["isPro"]) is not int or row["isPro"] not in (0, 1):
+                raise ValueError(f"freeContentStats invalid isPro: {row['id']}")
+            if row["isPro"] == 0:
+                selected.add(row["id"])
     assets = {}
     for row in data["knowledgeAssets"]:
         if row["knowledgeId"] not in knowledge:
@@ -46,6 +56,8 @@ def calculate(root: Path, data: dict) -> dict[str, int]:
             raise ValueError(f"contentStats conflicting asset ID: {row['id']}")
     images = gifs = pages = 0
     for row in assets.values():
+        if row["knowledgeId"] not in selected:
+            continue
         path = root / row["uri"]
         if row["type"] == "pdf":
             pages += pdf_pages(path)
@@ -58,7 +70,7 @@ def calculate(root: Path, data: dict) -> dict[str, int]:
                 images += 1
         else:
             raise ValueError(f"contentStats unknown asset type: {row['type']}")
-    result = dict(schemaVersion=1, knowledgeCount=len(knowledge), imageCount=images,
+    result = dict(schemaVersion=1, knowledgeCount=len(selected), imageCount=images,
                   gifCount=gifs, pdfPageCount=pages)
     validate(result)
     return result

@@ -182,6 +182,59 @@ class ModulePackageTests(unittest.TestCase):
             with self.assertRaisesRegex(ValueError, "requires Poppler"):
                 module.content_stats.calculate(self.source, module.select(self.data, "sets"))
 
+    def test_free_stats_follow_explicit_owner_flags_and_actual_resources(self):
+        for row in self.data["knowledgeNodes"]:
+            if row["type"] == "knowledge":
+                row["isPro"] = 0 if row["id"] == "C001" else 1
+        pages = [Image.new("RGB", (5, 5), color) for color in ("red", "green", "blue")]
+        pages[0].save(self.source / "resources/pdfs/C001/fixture.pdf", format="PDF",
+                      save_all=True, append_images=pages[1:])
+        for uid in ("C001", "C002"):
+            uri = f"resources/images/{uid}/demo.gif"
+            pages[0].save(self.source / uri, format="GIF", save_all=True, append_images=pages[1:])
+            self.data["knowledgeAssets"].append(dict(id=f"{uid}:image:demo.gif", knowledgeId=uid,
+                                                    type="image", uri=uri, sortOrder=20))
+        self.write_full()
+        module.slice_modules(self.source, self.output, ["sets", "analytic-geometry"], package_version=2)
+        manifest = self.manifest("analytic-geometry")
+        self.assertEqual(manifest["freeContentStats"], dict(schemaVersion=1, knowledgeCount=1,
+                         imageCount=1, gifCount=1, pdfPageCount=3))
+        self.assertEqual(manifest["contentStats"], dict(schemaVersion=1, knowledgeCount=2,
+                         imageCount=2, gifCount=2, pdfPageCount=4))
+        self.assertEqual(self.manifest()["freeContentStats"], dict(schemaVersion=1,
+                         knowledgeCount=0, imageCount=0, gifCount=0, pdfPageCount=0))
+        selected = module.select(self.data, "analytic-geometry")
+        selected["knowledgeAssets"].append(copy.deepcopy(selected["knowledgeAssets"][0]))
+        self.assertEqual(module.content_stats.calculate(self.source, selected, free_only=True),
+                         manifest["freeContentStats"])
+        self.assertEqual(module.validate_module(self.output / "analytic-geometry.zip", self.source), ())
+
+    def test_free_stats_missing_tampered_and_legacy(self):
+        original = self.manifest()
+        for value in (True, "0", -1, None, 0.0, 1):
+            changed = copy.deepcopy(original)
+            changed["freeContentStats"]["knowledgeCount"] = value
+            changed["packageHash"], changed["contentVersion"] = module.hashes(changed)
+            module.write_json(self.output / "sets/manifest.json", changed)
+            self.assertTrue(module.validate_module(self.output / "sets"), repr(value))
+        for fields in (("freeContentStats",), ("contentStats", "freeContentStats")):
+            changed = copy.deepcopy(original)
+            for field in fields:
+                del changed[field]
+            changed["packageHash"], changed["contentVersion"] = module.hashes(changed)
+            module.write_json(self.output / "sets/manifest.json", changed)
+            self.assertTrue(module.validate_module(self.output / "sets"))
+            self.assertEqual(module.validate_module(self.output / "sets", allow_legacy_content_stats=True), ())
+
+    def test_free_stats_missing_flags_are_excluded_and_invalid_flags_fail(self):
+        selected = module.select(self.data, "sets")
+        self.assertEqual(module.content_stats.calculate(self.source, selected, free_only=True)["knowledgeCount"], 0)
+        node = next(r for r in selected["knowledgeNodes"] if r["type"] == "knowledge")
+        for value in (False, True, "0", None, 0.0, 2):
+            node["isPro"] = value
+            with self.assertRaisesRegex(ValueError, "invalid isPro"):
+                module.content_stats.calculate(self.source, selected, free_only=True)
+
     def test_external_canonical_source_outside_and_core_dedup(self):
         a = module.read_json(self.output / "sets/external-relations.json")
         b = module.read_json(self.output / "analytic-geometry/external-relations.json")

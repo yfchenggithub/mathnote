@@ -65,8 +65,11 @@ class ModuleReleaseTests(unittest.TestCase):
         self.assertEqual(audit['duplicateEndpointDeclarations'], 2)
         self.assertEqual(audit['sharedCategories'], {m.ROOT: 14})
         self.assertEqual(audit['physicalMediaFiles'], 8)
+        self.assertEqual(audit['freeContentStats'], dict(schemaVersion=1, knowledgeCount=0,
+                         imageCount=0, gifCount=0, pdfPageCount=0))
         self.assertEqual(before, release.fingerprint(self.source))
         rows = result['index']['modules']
+        self.assertTrue(all('freeContentStats' in row for row in rows))
         self.assertEqual([r['packageId'] for r in rows], sorted(r['packageId'] for r in rows))
         self.assertEqual(release.fingerprint(self.root / 'staging/round-1'),
                          release.fingerprint(self.root / 'staging/round-2'))

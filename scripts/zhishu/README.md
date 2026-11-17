@@ -170,6 +170,12 @@ Publisher task does not execute Sync.
 
 Every newly exported module manifest includes `contentStats` with integer
 `schemaVersion: 1`, `knowledgeCount`, `imageCount`, `gifCount`, and `pdfPageCount`.
+It also includes `freeContentStats` with the same five fields, restricted to
+knowledge nodes explicitly marked integer `isPro: 0` and their registered assets.
+The App can display the free and complete sets using these two objects. Missing
+legacy classifications do not qualify as free; explicit invalid flags fail
+validation. Current production sources have explicit classifications, checked by
+`check_free_knowledge_selection.py`.
 The existing `counts.imageAssets` still includes GIFs; `contentStats.imageCount`
 counts static images only. Knowledge IDs and formal KnowledgeAsset IDs are
 deduplicated. Only selected knowledge owners and their packaged resources count;
@@ -185,7 +191,10 @@ App capability or directory layout is introduced. `shareConfig` is unchanged.
 
 Historical Schema v4 envelopes remain readable only through the explicit
 `validate_module(..., allow_legacy_content_stats=True)` compatibility option;
-new exports and production release audits always require the statistics.
+this covers missing total statistics, missing free statistics, or both.
+New exports and production release audits always require both statistics objects.
+The release index and audit JSON expose both objects per module and in the audit
+aggregate. Both objects participate in package hashes and content versions.
 
 Audit all ZIPs against their Full snapshot, including unique cross-module
 ownership/coverage and aggregate statistics:
