@@ -1,6 +1,7 @@
 \clearpage
 \begin{proofbox}
 \textbf{\textcolor{CProof}{方法一：最快证明（考场首选｜设线 + 韦达，约三步）}}\par\smallskip
+\begin{center}\input{assets/tikz/C055_statement_overview.tex}\end{center}
 \textbf{思路：}直线过焦点，先设 $x=my+\frac p2$；\textbf{只看二次方程的常数项}，再由抛物线方程得到横积。
 \[
  \begin{aligned}
@@ -19,6 +20,7 @@ $\Rightarrow$ 纵积固定 $\Rightarrow$ 横积固定。
 \clearpage
 \begin{proofbox}
 \textbf{\textcolor{CProof}{方法二：最低门槛，相似三角形加因式分解}}
+\begin{center}\input{assets/tikz/C055_coordinate_mapping.tex}\end{center}
 
 \textbf{先沿用前两幅图。}非竖直且正斜率时，把右上端记为 $A$、左下端记为 $B$。令 $u=y_A>0$、$v=-y_B>0$，焦点横坐标为 $p/2$。
 \[
@@ -29,6 +31,10 @@ $\Rightarrow$ 纵积固定 $\Rightarrow$ 横积固定。
 \[
  \frac hu=\frac kv.
 \]
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法二（续）：将相似比换成坐标积}}\par\smallskip
 \textbf{第2步，用抛物线方程替换水平边：}
 \[
  \frac{u^2-p^2}{2pu}=\frac{p^2-v^2}{2pv}
@@ -57,6 +63,7 @@ $u+v>0$，故 $uv=p^2$。注意 $B$ 的纵坐标是 $-v$，所以
 \clearpage
 \begin{proofbox}
 \textbf{\textcolor{CProof}{方法三：常规证明（点斜式 + 联立 + 韦达｜补齐竖直特例）}}\par\smallskip
+\begin{center}\input{assets/tikz/C055_product_comparison.tex}\end{center}
 \textbf{情况 1：}直线斜率存在。设 $y=k(x-\frac p2)$。
 若 $k=0$，直线就是 $y=0$，它只交抛物线于顶点，不符合两个不同交点的条件，故此处 $k\ne0$。
 联立得到关于 $x$ 的方程：
@@ -89,7 +96,70 @@ $u+v>0$，故 $uv=p^2$。注意 $B$ 的纵坐标是 $-v$，所以
 \end{proofbox}
 \clearpage
 \begin{proofbox}
+\textbf{\textcolor{CProof}{新增推论证明：顶点对焦点弦的两侧张角正切积为 $4$}}
+\begin{center}\input{assets/tikz/C055_vertex_angles.tex}\end{center}
+
+设 $O(0,0)$ 为顶点，$F(\frac p2,0)$ 为焦点，$A$ 在 $x$ 轴上方、$B$ 在下方；
+令 $\alpha=\angle AOF$、$\beta=\angle FOB$（均为锐角）。
+\textbf{直接套用前面已经证得的横、纵坐标积：}
+\[
+ \begin{aligned}
+ \tan\alpha\tan\beta
+ &=\frac{y_1}{x_1}\cdot\frac{-y_2}{x_2}
+ =-\frac{y_1y_2}{x_1x_2}\\[3pt]
+ &=-\frac{-p^2}{p^2/4}=\boxed{4}.
+ \end{aligned}
+\]
+\textbf{另一种等价记法：}直线 $OA,OB$ 的斜率分别为
+$k_{OA}=\frac{y_1}{x_1}$、$k_{OB}=\frac{y_2}{x_2}$，所以
+\[
+ \boxed{k_{OA}k_{OB}=-4}.
+\]
+两个锐角的正切都取正值，因而\textbf{正切积为 $+4$}；
+两直线的斜率一正一负，因而\textbf{斜率积为 $-4$}。两者不矛盾。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{一般化证明：过轴上定点 $P(a,0)$ 的弦，正切积为 $2p/a$}}
+\begin{center}\input{assets/tikz/C055_axis_point_angles.tex}\end{center}
+
+\textbf{条件：}$y^2=2px$（$p>0$），$a>0$，直线过 $P(a,0)$ 与抛物线相交于 $A,B$，
+按 $y_1>0>y_2$ 编号。令 $\alpha=\angle AOP$、$\beta=\angle POB$。
+
+\textbf{第 1 步（最快）：设线。}用 $x=my+a$ 而不是点斜式，\textbf{竖直弦也包含在内}（$m=0$）。
+代入 $y^2=2px$：
+\[
+ y^2=2p(my+a)\quad\Longrightarrow\quad
+ y^2-2pmy-2pa=0.
+\]
+\textbf{第 2 步：韦达定理求纵积，再求横积。}
+\[
+ \boxed{y_1y_2=-2pa},\qquad
+ x_i=\frac{y_i^2}{2p}
+ \Longrightarrow
+ \boxed{x_1x_2=\frac{(y_1y_2)^2}{4p^2}=a^2}.
+\]
+因 $a>0$，有 $y_1y_2<0$，故两端点分居轴两侧，
+而 $x_1,x_2>0$，两个张角确为锐角。
+
+\textbf{第 3 步：用角的正切定义，一行结束。}
+\[
+ \boxed{\tan\alpha\tan\beta
+ =\frac{y_1}{x_1}\cdot\frac{-y_2}{x_2}
+ =-\frac{-2pa}{a^2}=\frac{2p}{a}}.
+\]
+相应地，\textbf{带符号的顶点连线斜率积}为
+$\boxed{k_{OA}k_{OB}=-\frac{2p}{a}}$。
+
+\textbf{推回焦点弦：}令 $a=\frac p2$，
+便依次得到 $y_1y_2=-p^2$、$x_1x_2=\frac{p^2}{4}$、
+$\tan\alpha\tan\beta=4$。
+这说明\textbf{焦点弦结论不是孤立定值，而是轴上定点弦规律的特殊位置}。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
 \textbf{\textcolor{CProof}{推广证明：切线垂直，且交点在准线上}}\par\smallskip
+\begin{center}\input{assets/tikz/C055_tangent_right_angle.tex}\end{center}
 对 $y^2=2px$，在 $P(x_i,y_i)$ 处的切线为
 \[
  y_iy=p(x+x_i),\qquad k_i=\frac p{y_i}.
@@ -98,6 +168,10 @@ $u+v>0$，故 $uv=p^2$。注意 $B$ 的纵坐标是 $-v$，所以
 \[
  \boxed{k_Ak_B=\frac{p^2}{y_1y_2}=-1}.
 \]
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{推广证明（续）：由两切线方程求交点}}\par\smallskip
 再设两切线交于 $T(X,Y)$。相减两切线方程：
 \[
  (y_1-y_2)Y=p(x_1-x_2)

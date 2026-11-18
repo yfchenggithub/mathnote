@@ -1,0 +1,35 @@
+% Exact model: p=2, A=(4,4), B=(1/4,-1), F=(1,0).
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[rounded corners=3pt,gray!45] (0,0) rectangle (14.2,8.8);
+\node at (7.1,8.25) {从顶点看焦点弦：两个锐角的正切积为正};
+\begin{scope}[shift={(1.5,3.0)},scale=.9]
+\fill[blue!6] (0,0)--(4,0)--(4,4)--cycle;
+\fill[orange!9] (0,0)--(.25,0)--(.25,-1)--cycle;
+\draw[->,gray] (-.6,0)--(5.8,0) node[above] {$x$};
+\draw[->,gray] (0,-1.8)--(0,4.8) node[left] {$y$};
+\draw[teal!75!black,thick,samples=120,domain=-1.65:4.6,variable=\t]
+ plot ({\t*\t/4},\t);
+\draw[gray!70,dashed,thick] (4,4)--(.25,-1);
+\draw[blue!75!black,very thick] (0,0)--(4,4);
+\draw[orange!85!black,very thick] (0,0)--(.25,-1);
+\draw[blue!75!black,dashed] (4,4)--(4,0);
+\draw[violet,thick] (.85,0) arc[start angle=0,end angle=45,radius=.85];
+\node[violet] at (1.7,.4) {$\alpha$};
+\draw[violet,thick] (1.5,0) arc[start angle=0,end angle=-75.9637565,radius=1.5];
+\node[violet] at (1.48,-1.13) {$\beta$};
+\fill (0,0) circle(2pt) node[above left=7pt] {$O$};
+\fill (1,0) circle(2pt) node[below=8pt] {$F$};
+\fill (4,4) circle(2pt) node[above left=6pt] {$A(4,4)$};
+\fill (.25,-1) circle(2pt);
+\node[anchor=east] at (-.35,-1.45) {$B$};
+\draw[gray,thin] (-.3,-1.25)--(.18,-1.03);
+\end{scope}
+\node[anchor=west,align=left] at (8.0,4.5)
+ {$y^2=4x,\quad F(1,0)$\\[12pt]
+ $B(\frac14,-1)$\\[12pt]
+ $\alpha=\angle AOF,\ \beta=\angle FOB$\\[14pt]
+ $\tan\alpha=1,\quad\tan\beta=4$\\[14pt]
+ $\tan\alpha\tan\beta=4$\\[14pt]
+ $k_{OA}=1,\quad k_{OB}=-4$};
+\node at (7.1,.65) {蓝、橙实线从顶点出发；灰色虚线是过焦点的弦 $AB$。};
+\end{tikzpicture}

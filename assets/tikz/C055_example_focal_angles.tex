@@ -1,0 +1,31 @@
+% Exact example 5: p=2, A=(16,8), B=(1/16,-1/2), F=(1,0).
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[rounded corners=3pt,gray!45] (0,0) rectangle (14.2,10.0);
+\node at (7.1,9.45) {例 5：上侧正切为 $1/2$，下侧正切为 $8$};
+\begin{scope}[shift={(1.1,3.7)},scale=.5]
+\draw[->,gray] (-.7,0)--(17.6,0) node[above] {$x$};
+\draw[->,gray] (0,-4.1)--(0,9.0) node[left] {$y$};
+\draw[teal!75!black,thick,samples=140,domain=-3.8:8.2,variable=\t]
+ plot ({\t*\t/4},\t);
+\draw[gray!75,dashed,thick] (.0625,-.5)--(16,8);
+\draw[blue!75!black,very thick] (0,0)--(16,8);
+\draw[orange!85!black,very thick] (0,0)--(.0625,-.5);
+\draw[orange!85!black,densely dotted,thick] (.0625,-.5)--(.475,-3.8);
+\draw[violet,thick] (2.3,0) arc[start angle=0,end angle=26.5650512,radius=2.3];
+\node[violet] at (4.8,.9) {$\alpha$};
+\draw[violet,thick] (3.5,0) arc[start angle=0,end angle=-82.8749837,radius=3.5];
+\node[violet] at (3.65,-2.45) {$\beta$};
+\fill (0,0) circle(2pt) node[above left=7pt] {$O$};
+\fill (1,0) circle(2pt) node[above=10pt] {$F$};
+\fill (16,8) circle(2pt) node[above left=7pt] {$A(16,8)$};
+\fill (.0625,-.5) circle(2pt);
+\node[anchor=east] at (-.5,-2.5) {$B$};
+\draw[gray,thin] (-.45,-2.05)--(.04,-.58);
+\end{scope}
+\node[anchor=west,align=left] at (10.0,6.3)
+ {$y^2=4x$\\[12pt]$F(1,0)$\\[14pt]
+ $\tan\alpha=\dfrac8{16}=\dfrac12$\\[15pt]
+ $\tan\beta=8$};
+\node at (7.1,1.05) {$B(\frac1{16},-\frac12)$ 靠近顶点；橙色点线沿射线 $OB$ 延长，方便观察 $\beta$。};
+\node at (7.1,.4) {图中两轴单位长度相同；$\alpha=\angle AOF,\ \beta=\angle FOB$。};
+\end{tikzpicture}

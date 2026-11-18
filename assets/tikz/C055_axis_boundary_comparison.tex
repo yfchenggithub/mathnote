@@ -1,0 +1,43 @@
+% Same axes and scale: a=2 (vertical), a=0 (through O), a=-1 (two upper points).
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[rounded corners=3pt,gray!45] (0,0) rectangle (14.2,10.5);
+\node at (7.1,9.95) {核对定点位置：两端分居轴两侧，需要 $a>0$};
+\foreach \dx in {1.4,5.8,10.2}{
+ \begin{scope}[shift={(\dx,4.2)},scale=.62]
+ \draw[->,gray] (-1.65,0)--(4.9,0) node[above] {$x$};
+ \draw[->,gray] (0,-2.7)--(0,5.5);
+ \draw[teal!75!black,thick,samples=100,domain=-2.4:4.3,variable=\t]
+  plot ({\t*\t/4},\t);
+ \end{scope}
+}
+\node at (2.1,8.95) {$a=2>0$};
+\begin{scope}[shift={(1.4,4.2)},scale=.62]
+\draw[gray!75,dashed,thick] (2,-2.828427)--(2,2.828427);
+\draw[blue!75!black,very thick] (0,0)--(2,2.828427);
+\draw[orange!85!black,very thick] (0,0)--(2,-2.828427);
+\fill (2,2.828427) circle(2pt) node[above left=7pt] {$A$};
+\fill (2,-2.828427) circle(2pt) node[left=7pt] {$B$};
+\fill (2,0) circle(2pt) node[right=7pt] {$P$};
+\node[above left=5pt] at (0,0) {$O$};
+\end{scope}
+\node[align=center] at (2.1,1.35) {两端一上一下\\[6pt]两侧锐角均有定义};
+\node at (6.5,8.95) {$a=0$};
+\begin{scope}[shift={(5.8,4.2)},scale=.62]
+\draw[gray!75,dashed,thick] (0,0)--(4,4);
+\fill (4,4) circle(2pt) node[above left=6pt] {$A$};
+\fill (0,0) circle(2pt) node[below right=7pt] {$B=O=P$};
+\end{scope}
+\node[align=center] at (6.5,1.35) {一个端点为顶点\\[6pt]射线 $OB$ 无法定义};
+\node at (10.9,8.95) {$a=-1<0$};
+\begin{scope}[shift={(10.2,4.2)},scale=.62]
+\draw[gray!75,dashed,thick] (-1,0)--(4,4);
+\draw[blue!75!black,very thick] (0,0)--(4,4);
+\draw[orange!85!black,very thick] (0,0)--(.25,1);
+\fill (4,4) circle(2pt) node[above left=5pt] {$A$};
+\fill (.25,1) circle(2pt) node[above left=7pt] {$B$};
+\fill (-1,0) circle(2pt) node[below=8pt] {$P$};
+\node[below right=7pt] at (0,0) {$O$};
+\end{scope}
+\node[align=center] at (10.9,1.35) {两交点都在轴上方\\[6pt]图中 $y_Ay_B=4>0$};
+\node at (7.1,.4) {三图均为 $y^2=4x$，使用相同坐标范围与单位长度。};
+\end{tikzpicture}

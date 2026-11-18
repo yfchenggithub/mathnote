@@ -1,0 +1,24 @@
+% Same scale in all panels; vertical chords x=a on y^2=4x.
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[rounded corners=3pt,gray!45] (0,0) rectangle (14.2,10.3);
+\node at (7.1,9.75) {同一抛物线、同一尺度：定点离顶点越远，正切积越小};
+\foreach \a/\dx/\head/\product in {.5/1.05/{$a=\frac12$}/8,1/5.45/{$a=1$（焦点）}/4,2/9.85/{$a=2$}/2}{
+ \node at ({\dx+1.05},8.85) {\head};
+ \pgfmathsetmacro{\height}{sqrt(4*\a)}
+ \begin{scope}[shift={(\dx,5.1)},scale=.64]
+ \draw[->,gray] (-.6,0)--(5.4,0) node[above] {$x$};
+ \draw[->,gray] (0,-4.6)--(0,4.6);
+ \draw[teal!75!black,thick,samples=100,domain=-4.3:4.3,variable=\t]
+  plot ({\t*\t/4},\t);
+ \draw[gray!75,dashed,thick] (\a,-\height)--(\a,\height);
+ \draw[blue!75!black,very thick] (0,0)--(\a,\height);
+ \draw[orange!85!black,very thick] (0,0)--(\a,-\height);
+ \fill (\a,\height) circle(2pt) node[above=12pt] {$A$};
+ \fill (\a,-\height) circle(2pt) node[below=12pt] {$B$};
+ \fill (\a,0) circle(2pt) node[right=7pt] {$P$};
+ \node[above left=6pt] at (0,0) {$O$};
+ \end{scope}
+ \node at ({\dx+1.05},1.55) {$\tan\alpha\tan\beta=\product$};
+}
+\node at (7.1,.6) {图取 $y^2=4x$ 的竖直弦 $x=a$；过同一 $P$ 的其他两点弦，正切积仍为 $4/a$。};
+\end{tikzpicture}
