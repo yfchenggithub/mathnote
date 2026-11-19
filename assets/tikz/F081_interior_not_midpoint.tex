@@ -1,0 +1,20 @@
+% F081: precise mathematical teaching diagram.
+\begin{tikzpicture}[x=1cm,y=1cm,>=stealth,font=\small]
+\draw[rounded corners=3pt,gray!40] (0,0) rectangle (14.2,9.0);
+\begin{scope}[yshift=1cm]
+\node at (7.1,7.4) {易错七：内部的水平切线不必位于正中间};
+\begin{scope}[shift={(3.2,5.4)},x=7cm,y=16cm]
+\draw[->,gray!65] (-0.08,0)--(1.2,0) node[right] {$x$};
+\draw[->,gray!65] (0,-0.19)--(0,0.06) node[above] {$y$};
+\draw[blue!75!black,line width=1.15pt,,domain=0:1,samples=160] plot (\x,{(\x)*(\x)*(\x-1)});
+\fill[blue!75!black] (0,0) circle (1.8pt);\node[above left] at (0,0) {$a=0$};
+\fill[blue!75!black] (1,0) circle (1.8pt);\node[above right] at (1,0) {$b=1$};
+\fill[orange!85!black] (0.6666666666666666,-0.14814814814814814) circle (1.8pt);
+\draw[orange!85!black,line width=1.2pt] (0.5266666666666666,-0.14814814814814814)--(0.8066666666666666,-0.14814814814814814);
+\draw[dashed,gray] (.5,0)--(.5,-.16);\draw[dashed,orange!85!black] (.6666667,0)--(.6666667,-.1481481);
+\node[above] at (.5,0) {$\frac12$};\node[below] at (.6666667,-.155) {$c=\frac23$};
+\end{scope}
+\node[] at (7.1,1.25) {$f^{\prime}(x)=x(3x-2)$；端点 $0$ 的导数也为零，但不能作为内部的 $c$。};
+\end{scope}
+\node[text width=13cm,align=center] at (7.1,.9) {$f(x)=x^2(x-1)$ 在 $[0,1]$ 满足罗尔条件，内部位置为 $c=2/3$。};
+\end{tikzpicture}

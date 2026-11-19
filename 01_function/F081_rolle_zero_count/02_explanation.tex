@@ -1,0 +1,85 @@
+\clearpage
+\begin{explanationbox}
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\paragraph{从同一高度的 A 点出发，回到 B 点，会经过什么？}
+\begin{center}\input{assets/tikz/F081_three_paths.tex}\end{center}
+\end{minipage}\par\medskip
+
+记 $A(a,f(a))$、$B(b,f(b))$，且 $a<b$、$f(a)=f(b)$。图中有三种最容易想象的走法：
+\begin{itemize}
+\item \textbf{先上升再下降：}内部有最高处，那里切线水平；
+\item \textbf{一直平着走到 B：}内部每一点的导数都是 $0$；
+\item \textbf{先下降再上升：}内部有最低处，那里切线水平。
+\end{itemize}
+这三种图形是\textbf{典型情形，不是说所有函数只能这样单调分成两段}。下面还可以反复起伏。
+
+\textbf{从图像中抓住不变的东西：}起点 $A$ 和终点 $B$ 同高，所以连接它们的 $AB$ 是一条水平线。无论曲线中间怎样起伏，只要符合罗尔定理的条件，\textbf{总能找到一处切线与 $AB$ 平行}。这比只背“导数等于零”更容易想象。
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\paragraph{组合起来也成立：起伏再多，至少有一处走平}
+\begin{center}\input{assets/tikz/F081_combined_paths.tex}\end{center}
+\end{minipage}\par\medskip
+
+
+\paragraph{再看一幅关键的图：等高的两点与中间的水平切线}
+\begin{center}\input{assets/tikz/F081_horizontal_chord_parallel_tangent.tex}\end{center}
+
+图中两点 $A(1,2)$、$B(3,2)$ 同高，连接它们得到一条水平线；中间的 $C(2,1)$ 比两端低，但是\textbf{$C$ 处的切线与 $AB$ 一样水平}。因此罗尔定理说的是\textbf{切线方向一样}，不是\textbf{这三个点高度一样}。
+
+\textbf{真正不变的理由：}只要中间不是处处与端点等高，就有一点高于或低于端点。闭区间连续保证函数能取到最高值和最低值；其中至少一个必须在内部。再用这里的可导性，就能证明该处导数为 $0$。
+
+不能只凭图形上的“转弯”就认定导数为零；如果是尖角，导数可能不存在。\textbf{在 $[a,b]$ 上连续、在 $(a,b)$ 内处处可导}，两项缺一不可。
+
+\textbf{两端不一定是零。}例如 $f(a)=f(b)=5$，结论同样成立。把“等高”取成“都为零”，就得到两个不同零点之间必有导数零点。
+
+\textbf{把 $x$ 轴向上或向下平移，也一样能用。}例如一条水平线 $y=h$ 与曲线有三个交点，就把这三个交点按从左到右排好。前两个交点之间至少有一处水平切线，后两个之间也至少有一处；\textbf{因此至少有两处不同的水平切线位置}。$x$ 轴其实只是 $h=0$ 的一种特殊情况。
+
+\textbf{走平不一定就是山顶或谷底。}例如 $f(x)=x^3$ 在 $x=0$ 处切线水平，但图像依然从左向右不断升高。罗尔定理保证的是\textbf{存在水平切线}，不能把它误记成“一定要拐头”。
+
+
+\textbf{怎样用来数根？}每一对相邻零点都要夹出一个不同的导数零点。因此先数导数的零点，可以限制原方程的解的个数；再用连续性与异号函数值证明解确实存在。这个顺序比硬解高次方程更直接。
+\end{explanationbox}
+
+
+% -------- 新增独立小节：导数为零的九种走向 --------
+\clearpage
+\begin{explanationbox}
+\paragraph{导数为零的九种走向：水平切线不等于曲线掉头}
+
+\textbf{先分清两件事：}在 $x=c$ 处 $f'(c)=0$，只说明\textbf{这一点的切线水平}；
+图像到这里是继续上升、掉头下降，还是变成一段平路，\textbf{不能只看这一点}，还要看它\textbf{左边与右边}。
+
+为方便比较，先假设在 $c$ 左右各取一小段，\textbf{每一侧的导数分别始终大于 $0$、始终等于 $0$，或始终小于 $0$}。
+于是左侧有三种，右侧也有三种，一共 $3\times3=9$ 种基本组合。
+注意：表中的 ``$=0$'' 指\textbf{这一侧的一整小段都等于 $0$}，不是只在 $c$ 这一点等于 $0$。
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{c|c|c|c}
+\textbf{左侧\textbackslash 右侧} & \textbf{$f'>0$（升）} & \textbf{$f'=0$（平）} & \textbf{$f'<0$（降）} \\ \hline
+\textbf{$f'>0$（升）} & \textcircled{\raisebox{-0.1ex}{\scalebox{0.72}{1}}} 升 $\to$ 升 & \textcircled{\raisebox{-0.1ex}{\scalebox{0.72}{2}}} 升 $\to$ 平 & \textcircled{\raisebox{-0.1ex}{\scalebox{0.72}{3}}} 升 $\to$ 降 \\ \hline
+\textbf{$f'=0$（平）} & \textcircled{\raisebox{-0.1ex}{\scalebox{0.72}{4}}} 平 $\to$ 升 & \textcircled{\raisebox{-0.1ex}{\scalebox{0.72}{5}}} 平 $\to$ 平 & \textcircled{\raisebox{-0.1ex}{\scalebox{0.72}{6}}} 平 $\to$ 降 \\ \hline
+\textbf{$f'<0$（降）} & \textcircled{\raisebox{-0.1ex}{\scalebox{0.72}{7}}} 降 $\to$ 升 & \textcircled{\raisebox{-0.1ex}{\scalebox{0.72}{8}}} 降 $\to$ 平 & \textcircled{\raisebox{-0.1ex}{\scalebox{0.72}{9}}} 降 $\to$ 降
+\end{tabular}
+\end{center}
+
+\begin{center}\input{assets/tikz/F081_nine_directions.tex}\end{center}
+
+\textbf{怎样读这九种？}
+\begin{itemize}
+ \item \textbf{\textcircled{\raisebox{-0.1ex}{\scalebox{0.72}{3}}}、\textcircled{\raisebox{-0.1ex}{\scalebox{0.72}{7}}}是真正的掉头：}先升后降，有局部最高处；先降后升，有局部最低处。
+ \item \textbf{\textcircled{\raisebox{-0.1ex}{\scalebox{0.72}{1}}}、\textcircled{\raisebox{-0.1ex}{\scalebox{0.72}{9}}}没有掉头：}左右仍朝同一个方向走，只是在 $c$ 这一点切线水平。
+ \item \textbf{\textcircled{\raisebox{-0.1ex}{\scalebox{0.72}{2}}}、\textcircled{\raisebox{-0.1ex}{\scalebox{0.72}{4}}}、\textcircled{\raisebox{-0.1ex}{\scalebox{0.72}{6}}}、\textcircled{\raisebox{-0.1ex}{\scalebox{0.72}{8}}}是进出平路：}可以从上升或下降变平，也可以从平路重新上升或下降。
+ \item \textbf{\textcircled{\raisebox{-0.1ex}{\scalebox{0.72}{5}}}两侧都平：}附近整段保持同一高度，当然也满足 $f'(c)=0$。
+\end{itemize}
+
+\textbf{一句话：导数为零，看的是这一点；曲线会不会掉头，看的是左右两边。}
+\textbf{与罗尔定理的区别：}罗尔定理在两端同高等条件下\textbf{保证至少有一处水平切线}，
+却\textbf{没有说找到的每一处水平切线都要掉头}。
+\end{explanationbox}

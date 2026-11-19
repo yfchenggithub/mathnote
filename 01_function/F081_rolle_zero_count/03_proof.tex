@@ -1,0 +1,158 @@
+\clearpage
+\begin{proofbox}
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\paragraph{证明一：最直接的想法——两头等高，中间总有一处走平}
+\begin{center}\input{assets/tikz/F081_extremum_quotients.tex}\end{center}
+\end{minipage}\par\medskip
+
+用闭区间连续函数的最大、最小值及导数定义，给出\textbf{一般证明}。
+
+\textbf{第1步：先想最简单的情况。}
+如果从 $a$ 到 $b$ 的函数值一直不变，那么中间任一点的导数都是 $0$，结论成立。
+
+\textbf{第2步：如果中间不是一直保持同一个高度。}
+令两端的共同高度为 $L$。由闭区间连续性，函数能取得最大值和最小值。若内部有点高于 $L$，最大值就大于两端的值，故在内部取得；若有点低于 $L$，同理最小值在内部取得。不恒为 $L$ 时，两种情况至少有一种发生。记相应位置为 $c$，则 $a<c<b$。
+
+\textbf{第3步：为什么这个位置的导数等于 $0$？}
+先看 $c$ 是最高位置。取很小的 $h$，只要 $c+h$ 仍在区间里，就有
+\[
+f(c+h)-f(c)\le0.
+\]
+因此：
+\[
+\begin{array}{ll}
+h>0:&\displaystyle\frac{f(c+h)-f(c)}{h}\le0,\\[6pt]
+h<0:&\displaystyle\frac{f(c+h)-f(c)}{h}\ge0.
+\end{array}
+\]
+\textbf{因为在 $c$ 可导，两侧差商趋于同一个数。这个数既不小于 $0$ 又不大于 $0$，只能等于 $0$。}
+
+于是 $f'(c)=0$。如果 $c$ 是最低位置，不等号的方向反过来，同样得到 $f'(c)=0$。
+
+\textbf{把刚才的证明翻译成几何语言：}两端的连线斜率是
+\[
+\frac{f(b)-f(a)}{b-a}=0;
+\]
+证明已经找到一个内部位置 $c$，它的切线斜率 $f'(c)$ 也为 $0$。\textbf{所以在这两点之间，至少有一条切线与两端连线平行。}这是罗尔定理要表达的图形关系。
+
+\textbf{结论：}恒定或不恒定的情形都能找到内部的 $c$，满足 $f'(c)=0$。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\paragraph{证明二：用初中二次函数亲手验算——看清水平切线在哪里}
+\begin{center}\input{assets/tikz/F081_quadratic_verification.tex}\end{center}
+\end{minipage}\par\medskip
+
+这是一种\textbf{特别容易看懂的具体例子}，用来帮助理解证明一；它并不是对所有函数的另一份一般证明。
+
+取任意两个数 $a<b$，构造
+\[
+f(x)=(x-a)(x-b).
+\]
+很容易看出：
+\[
+f(a)=0,\qquad f(b)=0.
+\]
+把式子展开：
+\[
+f(x)=x^2-(a+b)x+ab.
+\]
+求导得到：
+\[
+f'(x)=2x-(a+b).
+\]
+令导数等于 $0$，得到
+\[
+\boxed{\ c=\frac{a+b}{2}\ }.
+\]
+因为 $a<b$，所以
+\[
+a<\frac{a+b}{2}<b.
+\]
+它恰好位于两端的\textbf{中间}。从图像上看，这就是抛物线的最低位置，切线刚好水平。
+
+\textbf{别误会：}一般函数中的 $c$ \textbf{不一定是两个端点的中点}。本例的对称性保证了中点处导数为零，不能把它当作一般结论。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\paragraph{证明三：不用求出原方程的解，也能知道它最多有几个}
+\begin{center}\input{assets/tikz/F081_four_zero_interlacing.tex}\end{center}
+\end{minipage}\par\medskip
+
+现在证明\textbf{零点个数与导数零点个数的关系}。
+
+\textbf{第1步：}假设 $f(x)$ 有四个不同零点：
+\[
+x_1<x_2<x_3<x_4.
+\]
+\textbf{第2步：}分别在三对相邻零点上使用罗尔定理：
+\[
+\begin{aligned}
+(x_1,x_2)&\text{ 内有 }c_1,\quad f'(c_1)=0,\\
+(x_2,x_3)&\text{ 内有 }c_2,\quad f'(c_2)=0,\\
+(x_3,x_4)&\text{ 内有 }c_3,\quad f'(c_3)=0.
+\end{aligned}
+\]
+它们分别位于三个\textbf{互不重叠}的小区间，因此 $c_1,c_2,c_3$ 是三个不同的数。
+
+\textbf{第3步：}所以只要原函数有四个不同零点，导数就至少要有三个不同零点。如果我们已经算出导数\textbf{最多只有两个零点}，那么原函数有四个零点就不可能发生。
+
+同理，若导数最多有 $k$ 个零点，原函数最多只能有 $k+1$ 个不同零点。
+
+\textbf{再进一步：数与任意水平直线的交点。}若想知道图像与 $y=h$ 有几个交点，只需把方程写成
+\[
+ f(x)=h\quad\Longleftrightarrow\quad g(x)=f(x)-h=0.
+\]
+因为减去一个固定数字不会改变导数，$g'(x)=f'(x)$，所以刚才的推理原样成立：\textbf{水平切线位置最多有 $k$ 个，图像与任何一条水平直线的不同交点就最多有 $k+1$ 个}。
+
+
+
+\textbf{还可以再往下数一次：}
+\begin{center}\input{assets/tikz/F081_derivative_interlacing.tex}\end{center}
+如果 $f(x)$ 有三个不同零点，那么 $f'(x)$ 至少有两个不同零点；接着对 $f'(x)$ 再用一次罗尔定理，就知道 $f''(x)$ 至少有一个零点。
+
+这里设 $f$ 在同一个区间 $I$ 上连续，在其内部二阶可导（即内部每一点都能求出 $f^{\prime\prime}$）。若原函数有三个零点，第一次夹出的 $u,v$ 都在 $I$ 内部；$f^{\prime}$ 在 $[u,v]$ 上连续，在 $(u,v)$ 内可导，可以再次使用罗尔定理。因此，
+\[
+\boxed{\ f''(x)\text{ 在区间内没有零点}\ \Longrightarrow\ f(x)\text{ 在该区间内最多有两个不同零点}\ }.
+\]
+\textbf{这个方法的用处：}有些原方程很难解，导数或再求一次导数却很简单；这时“反过来数”比硬解方程快得多。
+\end{proofbox}
+
+
+% -------- 新增验证：九种基本组合都有具体的函数 --------
+\clearpage
+\begin{proofbox}
+\paragraph{补充验证：九种走向真的都能出现吗？}
+
+\textbf{只用一个容易算的式子，就能造出全部九种。}令
+\[
+ f(x)=
+ \begin{cases}
+   ax^3,&x<0,\\
+   bx^3,&x\ge 0,
+ \end{cases}
+ \qquad a,b\text{ 各从 }-1,0,1\text{ 中任选一个}.
+\]
+\textbf{第一步：检查中间的切线是否水平。}无论 $a,b$ 怎样取，$f(0)=0$，而
+\[
+\frac{f(h)-f(0)}{h}=
+\begin{cases}ah^2,&h<0,\\bh^2,&h>0.\end{cases}
+\]
+当 $h$ 越来越接近 $0$ 时，两侧的值都越来越接近 $0$，所以\textbf{$f'(0)=0$}。
+
+\textbf{第二步：分别看左右怎样走。}在 $x\ne0$ 时，
+\[
+ f'(x)=\begin{cases}3ax^2,&x<0,\\3bx^2,&x>0.\end{cases}
+\]
+因为 $x^2>0$，左边导数的正负由 $a$ 决定，右边由 $b$ 决定：
+$a,b$ 取正数就上升，取 $0$ 就平着走，取负数就下降。
+这样选 $a,b$，\textbf{九种组合全部可以实现}。
+
+\textbf{要点：}九宫格是\textbf{左右各自保持一种导数符号}时的九种基本走法。
+如果某一侧的导数还会反复变号，这一侧就不能简单标成一个``升''或``降''，需要继续分段研究。
+\end{proofbox}

@@ -1,0 +1,61 @@
+\begin{statementbox}
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\paragraph{F081 罗尔定理与零点个数关系}
+\begin{center}\input{assets/tikz/F081_rolle_overview.tex}\end{center}
+\end{minipage}\par\medskip
+\textbf{一句话先记住：两头一样高，中间至少有一处走平。}
+
+设 $a<b$，如果函数 $f(x)$ 满足：
+\begin{enumerate}
+  \item 从 $a$ 到 $b$ 的图像\textbf{连在一起，没有断开}（在 $[a,b]$ 上连续）；
+  \item 在 $a$ 与 $b$ 之间，每一点\textbf{都能求导}（在 $(a,b)$ 内可导）；
+  \item 两端的函数值相等，即 $f(a)=f(b)$；
+\end{enumerate}
+那么一定能在两端之间找到至少一个 $c$，使
+\[
+\boxed{\ a<c<b,\qquad f'(c)=0\ }.
+\]
+
+\textbf{用图形语言说：}令 $h=f(a)=f(b)$，取
+\[
+A(a,h),\qquad B(b,h),\qquad C(c,f(c)).
+\]
+因为 $A,B$ 同高，直线 $AB$ 是水平的，其斜率为
+\[
+ k_{AB}=\frac{f(b)-f(a)}{b-a}=0.
+\]
+而 $f'(c)=0$ 的几何意思是：\textbf{点 $C$ 处的切线也水平}，所以
+\[
+\boxed{\ \text{点 }C\text{ 处的切线}\ \parallel\ AB\ \parallel\ x\text{ 轴}\ }.
+\]
+\textbf{注意：}切线与 $AB$ 平行，不代表切点 $C$ 一定和 $A,B$ 一样高。
+
+这就是\textbf{罗尔定理}。
+
+\textbf{它和零点有什么关系？}如果 $f(a)=f(b)=0$，那么曲线在 $a,b$ 两处碰到或穿过 $x$ 轴，中间必有一处切线水平。
+\end{statementbox}
+\clearpage
+\begin{statementbox}
+\paragraph{真正实用的结论：零点越多，导数为零的位置越多}
+设 $f$ 在一个区间 $I$ 上连续，在 $I$ 的内部可导，并且有 $m\ge2$ 个\textbf{互不相同}的零点：
+\[
+x_1<x_2<\cdots<x_m,\qquad f(x_1)=\cdots=f(x_m)=0.
+\]
+\begin{center}\input{assets/tikz/F081_four_zero_interlacing.tex}\end{center}
+在每一对相邻零点之间，至少有一个导数为 $0$ 的位置。
+这些位置分处不同的小区间，因此\textbf{互不相同}。于是
+\[
+\boxed{\ f(x)\text{ 有 }m\text{ 个不同零点}\ \Longrightarrow\ f'(x)\text{ 至少有 }m-1\text{ 个不同零点}\ }.
+\]
+\textbf{反过来用往往更快：}设 $k$ 为非负整数，则
+\[
+\boxed{\ f'(x)\text{ 最多有 }k\text{ 个零点}\ \Longrightarrow\ f(x)\text{ 最多有 }k+1\text{ 个零点}\ }.
+\]
+特别地，若 $f'(x)$ 在该区间内\textbf{没有零点}，则 $f(x)=0$ 在该区间内\textbf{最多只有一个解}。
+
+\textbf{注意：}“最多”并不等于“一定有”。想证明\textbf{恰好}几个零点，还必须找到确实存在这些零点的理由。
+
+\textbf{眼前一亮的推广：不只是数与 $x$ 轴的交点。}把 $x$ 轴换成\textbf{任意水平直线 $y=h$}，结论仍然成立。如果图像与 $y=h$ 有 $m$ 个不同交点，中间至少有 $m-1$ 处水平切线；如果整个区间最多只有 $k$ 个水平切线位置，那么\textbf{任意一条水平直线最多与图像相交 $k+1$ 次}。这里的数量都按不同的横坐标计算。
+
+\end{statementbox}

@@ -1,0 +1,24 @@
+% F081: precise mathematical teaching diagram.
+\begin{tikzpicture}[x=1cm,y=1cm,>=stealth,font=\small]
+\draw[rounded corners=3pt,gray!40] (0,0) rectangle (14.2,9.2);
+\begin{scope}[yshift=1cm]
+\node at (7.1,7.6) {四个不同零点，夹出三个不同的导数零点};
+\begin{scope}[shift={(7.1,4.2)},x=1.65cm,y=0.16cm]
+\draw[->,gray!65] (-3.6,0)--(3.6,0) node[right] {$x$};
+\draw[->,gray!65] (0,-19)--(0,14) node[above] {$y$};
+\draw[blue!75!black,line width=1.15pt,,domain=-3.12:3.12,samples=160] plot (\x,{(\x)*(\x)*(\x)*(\x)-10*(\x)*(\x)+9});
+\fill[blue!75!black] (-3,0) circle (1.8pt);\node[above right] at (-3,0) {$x_1$};
+\fill[blue!75!black] (-1,0) circle (1.8pt);\node[above left] at (-1,0) {$x_2$};
+\fill[blue!75!black] (1,0) circle (1.8pt);\node[above right] at (1,0) {$x_3$};
+\fill[blue!75!black] (3,0) circle (1.8pt);\node[above left] at (3,0) {$x_4$};
+\draw[orange!85!black,line width=1.2pt] (-2.5560679774997896,-16.000000000000004)--(-1.9160679774997897,-16.000000000000004);
+\fill[orange!85!black] (-2.23606797749979,-16.000000000000004) circle (1.8pt);\node[below] at (-2.23606797749979,-16.000000000000004) {$c_1$};
+\draw[orange!85!black,line width=1.2pt] (-0.32,9)--(0.32,9);
+\fill[orange!85!black] (0,9) circle (1.8pt);\node[above left] at (0,9) {$c_2$};
+\draw[orange!85!black,line width=1.2pt] (1.9160679774997897,-16.000000000000004)--(2.5560679774997896,-16.000000000000004);
+\fill[orange!85!black] (2.23606797749979,-16.000000000000004) circle (1.8pt);\node[below] at (2.23606797749979,-16.000000000000004) {$c_3$};
+\end{scope}
+\node[] at (7.1,.65) {$x_1<c_1<x_2<c_2<x_3<c_3<x_4$};
+\end{scope}
+\node[text width=13cm,align=center] at (7.1,.9) {图例 $f(x)=(x^2-1)(x^2-9)$；每个开区间各给一个，位置不会重复。};
+\end{tikzpicture}

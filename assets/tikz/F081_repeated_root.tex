@@ -1,0 +1,17 @@
+% F081: precise mathematical teaching diagram.
+\begin{tikzpicture}[x=1cm,y=1cm,>=stealth,font=\small]
+\draw[rounded corners=3pt,gray!40] (0,0) rectangle (14.2,9.0);
+\begin{scope}[yshift=1cm]
+\node at (7.1,7.4) {易错六：重复因式不会增加零点的位置数};
+\begin{scope}[shift={(6.6,3.5)},x=1.8cm,y=0.7cm]
+\draw[->,gray!65] (-2.6,0)--(2,0) node[right] {$x$};
+\draw[->,gray!65] (0,-2.8)--(0,4.4) node[left] {$y$};
+\draw[blue!75!black,line width=1.15pt,,domain=-2.15:1.8,samples=160] plot (\x,{(\x-1)*(\x-1)*(\x+2)});
+\fill[blue!75!black] (-2,0) circle (1.8pt);\node[below left] at (-2,0) {$-2$};
+\fill[blue!75!black] (1,0) circle (1.8pt);\node[below] at (1,0) {$1$};
+\draw[orange!85!black,line width=1.2pt] (0.65,0)--(1.35,0);
+\end{scope}
+\node[] at (7.1,1.1) {$x=-2$ 穿过横轴；$x=1$ 接触横轴；总共只有两个不同位置。};
+\end{scope}
+\node[text width=13cm,align=center] at (7.1,.9) {$(x-1)^2(x+2)=0$：数轴上 $x=1$ 只占一个位置。};
+\end{tikzpicture}

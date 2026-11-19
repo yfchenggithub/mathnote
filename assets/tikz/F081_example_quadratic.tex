@@ -1,0 +1,18 @@
+% F081: precise mathematical teaching diagram.
+\begin{tikzpicture}[x=1cm,y=1cm,>=stealth,font=\small]
+\draw[rounded corners=3pt,gray!40] (0,0) rectangle (14.2,9.0);
+\begin{scope}[yshift=1cm]
+\node at (7.1,7.4) {例1：两个零点之间找到水平切线};
+\begin{scope}[shift={(5.4,6)},x=1.55cm,y=0.8cm]
+\draw[->,gray!65] (-2.4,0)--(2.45,0) node[right] {$x$};
+\draw[->,gray!65] (0,-4.8)--(0,0.7) node[above] {$y$};
+\draw[blue!75!black,line width=1.15pt,,domain=-2:2,samples=160] plot (\x,{(\x)*(\x)-4});
+\fill[blue!75!black] (-2,0) circle (1.8pt);\node[above left] at (-2,0) {$a=-2$};
+\fill[blue!75!black] (2,0) circle (1.8pt);\node[above right] at (2,0) {$b=2$};
+\fill[blue!75!black] (0,-4) circle (1.8pt);\node[below right] at (0,-4) {$c=0$};
+\draw[orange!85!black,line width=1.2pt] (-0.65,-4)--(0.65,-4);
+\end{scope}
+\node[] at (10.8,3.5) {$f^{\prime}(c)=0$};
+\end{scope}
+\node[text width=13cm,align=center] at (7.1,.9) {$f(x)=x^2-4$，两零点 $-2,2$ 夹着 $c=0$。};
+\end{tikzpicture}

@@ -1,0 +1,165 @@
+\clearpage
+\begin{trapbox}
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\paragraph{易错一：看到 $f'(c)=0$，就以为原函数一定有两个零点}
+\begin{center}\input{assets/tikz/F081_stationary_not_two_zeros.tex}\end{center}
+\end{minipage}\par\medskip
+
+\textbf{错误想法：}导数在某个位置等于 $0$，所以曲线一定会有两次与 $x$ 轴相交。
+
+\textbf{反例：}
+\[
+f(x)=x^2+1,\qquad f'(0)=0.
+\]
+但 $x^2+1>0$，原函数一个零点也没有。
+
+\textbf{记住：}\textbf{两个零点能推出中间有导数为零的位置；反过来不能直接推出两个零点。}
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\paragraph{易错二：把“最多三个”写成“恰好三个”}
+\begin{center}\input{assets/tikz/F081_upper_bound_not_exact.tex}\end{center}
+\end{minipage}\par\medskip
+
+若 $f'(x)$ 只有两个不同零点，罗尔定理只能保证 $f(x)$ \textbf{最多三个零点}，不能保证确实有三个。
+
+比如
+\[
+f(x)=x^3-3x+5,
+\]
+导数同样在 $-1,1$ 处等于 $0$，但 $f(-1)=7>0$、$f(1)=3>0$，整条曲线只有左侧一次穿过 $x$ 轴，实际只有\textbf{一个}零点。
+
+\textbf{正确做法：}上限由导数控制；要说明实际有几个，还需检查连续图像在某些位置是否从负变正或从正变负。
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\paragraph{易错三：只检查两端相等，忘记中间可能有尖角}
+\begin{center}\input{assets/tikz/F081_corner_vs_smooth.tex}\end{center}
+\end{minipage}\par\medskip
+
+看
+\[
+f(x)=|x|-1,\qquad -1\le x\le1.
+\]
+两端都有 $f(-1)=f(1)=0$，图像也连着，但在 $x=0$ 是一个尖角，\textbf{那里不能求导}。其他内部位置的导数只可能是 $-1$ 或 $1$，从不等于 $0$。
+
+\textbf{正确做法：}先检查内部每一点是否可导，再使用结论。罗尔定理要求\textbf{中间每一点都能求导}，这里不满足。
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\paragraph{易错四：忽略端点是否连得上}
+\begin{center}\input{assets/tikz/F081_endpoint_jump.tex}\end{center}
+\end{minipage}\par\medskip
+
+在 $[0,1]$ 上定义
+\[
+f(x)=\begin{cases}x,&0\le x<1,\\0,&x=1.\end{cases}
+\]
+虽然 $f(0)=f(1)=0$，且在 $0<x<1$ 时 $f'(x)=1$，但 $x=1$ 处函数值突然从靠近 $1$ 跳到 $0$，\textbf{端点处不连续}。
+
+因此不能套用罗尔定理。\textbf{在整个闭区间连续}和\textbf{中间能求导}，两项都要检查。
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\paragraph{易错五：两个零点不在同一段连续的区间里}
+\begin{center}\input{assets/tikz/F081_disconnected_zeros.tex}\end{center}
+\end{minipage}\par\medskip
+
+考虑
+\[
+f(x)=\begin{cases}x+1,&-2\le x<0,\\x-1,&0<x\le2.\end{cases}
+\]
+$x=-1$ 和 $x=1$ 都是零点，但 $x=0$ 没有定义。虽然在两边各自的区间里导数都是 $1$，也\textbf{不能跨过断开的地方}使用罗尔定理。
+
+\textbf{正确做法：}选定两个零点后，先核对它们之间的每个位置都有定义、连续且内部可导。
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\paragraph{易错六：把相同的解重复计算}
+\begin{center}\input{assets/tikz/F081_repeated_root.tex}\end{center}
+\end{minipage}\par\medskip
+
+方程
+\[
+(x-1)^2(x+2)=0
+\]
+只有 $x=1$ 和 $x=-2$ 两个\textbf{不同的解}。虽然因式里 $(x-1)$ 出现两次，但在数轴上 $x=1$ 还是只有一个位置。
+
+\textbf{零点个数关系数的是“不同位置”，不是某个因式出现多少次。}
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\paragraph{易错七：把 $c$ 当成两端的正中点，或把端点算进去}
+\begin{center}\input{assets/tikz/F081_interior_not_midpoint.tex}\end{center}
+\end{minipage}\par\medskip
+
+罗尔定理只保证存在
+\[
+\boxed{\ a<c<b,\qquad f'(c)=0\ }.
+\]
+\textbf{它没说 $c=(a+b)/2$，也没说可以取 $c=a$ 或 $c=b$。}对称的二次函数会在中点取得这个位置；一般函数须依据导数求解，不能预先指定。图中 $f(x)=x^2(x-1)$ 的内部位置为 $2/3$，不是中点 $1/2$；虽然端点 $0$ 的导数也为零，它仍不属于所要求的开区间。
+\end{trapbox}
+
+\clearpage
+\begin{trapbox}
+\paragraph{易错八：认为水平切线一定出现在最高处或最低处}
+
+\textbf{错误想法：}曲线只有先升后降、或先降后升时，才能有水平切线。
+
+看 $f(x)=x^3$，它从左到右始终增大，但
+\[
+ f'(x)=3x^2,\qquad f'(0)=0.
+\]
+原点处切线就是水平的，图像却没有在这里从上升变为下降。
+
+\textbf{正确理解：}罗尔定理的\textbf{结论只要求切线水平}；它并不承诺每条水平切线都位于最高点或最低点。
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\paragraph{易错九：认为水平切线一定与两端的连线重合}
+
+取 $f(x)=(x-2)^2+1$，有
+\[
+ A(1,2),\quad B(3,2),\quad C(2,1).
+\]
+直线 $AB$ 是 $y=2$，而点 $C$ 处的水平切线是 $y=1$。\textbf{它们平行，却不是同一条直线}。
+
+\textbf{正确理解：}两端相同的是\textbf{高度}；中间找到的是\textbf{切线方向}。不能把“切线与两端连线平行”误读成“切点一定与两端同高”。
+\end{trapbox}
+
+
+% -------- 新增易错：九种是有条件的基本分类 --------
+\clearpage
+\begin{trapbox}
+\paragraph{易错十：把九种走向当成所有函数的全部情况}
+
+\textbf{误区一：}看到 $f'(c)=0$，就把它当成``左右两边导数都等于零''。
+实际上这只说明\textbf{在 $c$ 这一点}导数是 $0$。表中某一侧写``平''，要求\textbf{那一侧的一整小段导数都为 $0$}。
+
+\textbf{误区二：}以为九宫格可以不加条件地套在所有函数上。
+九种组合的前提是：\textbf{左右每一侧紧邻 $c$ 的一小段里，导数的符号各自固定不变}。
+若一侧还有反复上升、下降的变化，就先把那侧继续分段，不能硬归成一个符号。
+
+\textbf{误区三：}把``一处水平切线''当作``一定有最高点或最低点''。
+例如 $f(x)=x^3$ 在 $0$ 处的切线水平，但左右两侧的导数均为正，\textbf{图像并未掉头}。
+
+\textbf{答题顺序：}\textbf{先查是否可导 $\to$ 看左右导数符号 $\to$ 判断是否掉头}；
+不要只凭 $f'(c)=0$ 就判断曲线走向。
+\end{trapbox}

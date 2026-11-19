@@ -1,0 +1,26 @@
+% F081: precise mathematical teaching diagram.
+\begin{tikzpicture}[x=1cm,y=1cm,>=stealth,font=\small]
+\draw[rounded corners=3pt,gray!40] (0,0) rectangle (14.2,8.5);
+\begin{scope}[yshift=1cm]
+\node at (7.1,6.9) {易错四：端点函数值相等，不代表图像接得上};
+\node[] at (3.7,6.2) {右端点跳开：不能套用};
+\begin{scope}[shift={(2.0,2.8)},x=3.3cm,y=2.2cm]
+\draw[->,gray!65] (-0.15,0)--(1.35,0) node[right] {$x$};
+\draw[->,gray!65] (0,-0.6)--(0,1.2) node[above] {$y$};
+\draw[blue!75!black,line width=1.15pt,,domain=0:1,samples=160] plot (\x,{\x});
+\draw[blue!75!black,fill=white,line width=1pt] (1,1) circle (2.2pt);
+\fill[blue!75!black] (1,0) circle (1.8pt);\node[below right] at (1,0) {$(1,0)$};
+\fill[blue!75!black] (0,0) circle (1.8pt);\node[below left] at (0,0) {$(0,0)$};
+\end{scope}
+\node[] at (10.2,6.2) {两端连上：可以套用};
+\begin{scope}[shift={(8.5,2.8)},x=3.3cm,y=2.2cm]
+\draw[->,gray!65] (-0.15,0)--(1.35,0) node[right] {$x$};
+\draw[->,gray!65] (0,-0.6)--(0,1.2) node[above] {$y$};
+\draw[blue!75!black,line width=1.15pt,,domain=0:1,samples=160] plot (\x,{(\x)*(\x-1)});
+\fill[blue!75!black] (1,0) circle (1.8pt);\node[above right] at (1,0) {$(1,0)$};
+\draw[orange!85!black,line width=1.2pt] (0.3,-0.25)--(0.7,-0.25);
+\fill[blue!75!black] (0,0) circle (1.8pt);\node[below left] at (0,0) {$(0,0)$};
+\end{scope}
+\end{scope}
+\node[text width=13cm,align=center] at (7.1,.9) {两图同尺度；左图 $f(1)=0$，但左侧趋近值为 $1$；右图为 $x(x-1)$。};
+\end{tikzpicture}

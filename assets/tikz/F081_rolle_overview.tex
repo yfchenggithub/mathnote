@@ -1,0 +1,21 @@
+% F081: equal endpoint heights and an interior horizontal tangent.
+\begin{tikzpicture}[x=1cm,y=1cm,>=stealth,font=\small]
+\draw[rounded corners=3pt,gray!40] (0,0) rectangle (14.2,5.5);
+\node at (7.1,4.9) {两端等高，内部至少有一条水平切线};
+\begin{scope}[shift={(3.7,1.5)},x=2cm,y=1.7cm]
+\draw[->,gray!65] (-1.4,0)--(1.5,0) node[right] {$x$};
+\draw[->,gray!65] (0,-.25)--(0,1.45) node[above] {$y$};
+\draw[blue!75!black,line width=1.15pt,domain=-1:1,samples=120] plot (\x,{1-(\x)*(\x)});
+\fill[blue!75!black] (-1,0) circle (1.8pt) (1,0) circle (1.8pt);
+\node[below] at (-1,0) {$A(a,f(a))$};
+\node[below] at (1,0) {$B(b,f(b))$};
+\draw[orange!85!black,line width=1.2pt] (-.35,1)--(.35,1);
+\fill[orange!85!black] (0,1) circle (1.8pt);
+\node[above left] at (0,1) {$C$};
+\draw[dashed,gray!60] (0,0)--(0,1);\node[below right] at (0,0) {$c$};
+\end{scope}
+\node at (10.5,3.6) {$f(a)=f(b)$};
+\node at (10.5,2.6) {$a<c<b$};
+\node[orange!85!black] at (10.5,1.6) {$f'(c)=0$};
+\node at (7.1,.5) {前提：在 $[a,b]$ 连续，在 $(a,b)$ 可导。};
+\end{tikzpicture}

@@ -1,0 +1,16 @@
+% F081: same-height endpoints, horizontal tangent in the middle.
+\begin{tikzpicture}[x=1.65cm,y=1.35cm,>=stealth]
+  \draw[->,gray!65] (-1.42,0)--(1.47,0) node[right] {$x$};
+  \draw[->,gray!65] (0,-0.43)--(0,1.45) node[above] {$y$};
+  \draw[line width=1.15pt,blue!70!black,domain=-1.18:1.18,samples=100] plot (\x,{1-\x*\x});
+  \draw[dashed,gray!65] (-1,0)--(-1,-0.22);
+  \draw[dashed,gray!65] (1,0)--(1,-0.22);
+  \fill[blue!70!black] (-1,0) circle (1.6pt) (1,0) circle (1.6pt);
+  \draw[line width=1.1pt,orange!80!black] (-0.42,1)--(0.42,1);
+  \fill[orange!80!black] (0,1) circle (1.8pt);
+  \node[below left,font=\small] at (-1,0) {$a$};
+  \node[below right,font=\small] at (1,0) {$b$};
+  \node[above right,font=\small,orange!80!black] at (0.04,1.06) {$f'(c)=0$};
+  \node[below right,font=\small] at (0,0.8) {$c$};
+  \node[font=\footnotesize,gray!70!black] at (0,-0.35) {两端一样高，中间至少有一处水平};
+\end{tikzpicture}

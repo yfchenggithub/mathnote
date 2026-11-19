@@ -1,0 +1,223 @@
+\clearpage
+\begin{examplebox}
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\paragraph{例1：两个零点之间，直接找到导数等于零的位置}
+\begin{center}\input{assets/tikz/F081_example_quadratic.tex}\end{center}
+\end{minipage}\par\medskip
+
+已知
+\[
+f(x)=x^2-4.
+\]
+\textbf{先找零点：}解 $x^2-4=0$，得 $x=-2$ 或 $x=2$。
+
+\textbf{再用罗尔定理：}函数图像连续，区间内部处处可导，又有
+\[
+f(-2)=f(2)=0,
+\]
+所以在 $(-2,2)$ 内至少有一个 $c$ 使 $f'(c)=0$。
+
+\textbf{直接算一遍：}
+\[
+f'(x)=2x,\qquad f'(0)=0.
+\]
+因此可以取 $c=0$。
+
+\textbf{一道题记住：}有两个不同零点 $\Longrightarrow$ 中间至少一个导数等于零的位置；但这个位置不一定是两个零点的正中间。
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\paragraph{例2：根本不用解三次方程，就能判断恰好三个零点}
+\begin{center}\input{assets/tikz/F081_cubic_three_roots.tex}\end{center}
+\end{minipage}\par\medskip
+
+判断
+\[
+f(x)=x^3-3x+1
+\]
+有几个不同的实数零点。
+
+\textbf{第一步，先求最多有几个。}
+\[
+f'(x)=3(x+1)(x-1).
+\]
+导数等于 $0$ 的位置只有 $x=-1$、$x=1$ 两个，所以根据罗尔定理，$f(x)$ \textbf{最多只有三个不同零点}。
+
+\textbf{第二步，再证明至少有三个。}计算：
+\[
+\begin{array}{c|rrrr}
+x&-2&-1&1&2\\ \hline
+f(x)&-1&3&-1&3
+\end{array}
+\]
+从 $-2$ 到 $-1$，函数值由负变正；从 $-1$ 到 $1$，由正变负；从 $1$ 到 $2$，由负变正。因为函数图像连续，所以这三个小区间内\textbf{各至少有一个零点}。
+
+因此\textbf{至少三个、最多三个}，得到
+\[
+\boxed{\ f(x)=0\text{ 恰好有三个不同实数解}\ }.
+\]
+\textbf{最值得学的思路：}\textbf{先用导数管住上限，再用函数值的正负变化凑足数量。}
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\paragraph{例3：导数没有零点，原方程最多一个解}
+\begin{center}\input{assets/tikz/F081_quintic_unique_root.tex}\end{center}
+\end{minipage}\par\medskip
+
+判断
+\[
+f(x)=x^5+x-3
+\]
+有几个实数零点。
+
+\textbf{先看导数：}
+\[
+f'(x)=5x^4+1>0.
+\]
+因为导数无论在什么位置都不等于 $0$，所以根据罗尔定理，原函数在整个实数范围内\textbf{不可能有两个不同零点}。
+
+\textbf{再找是否有解：}
+\[
+f(1)=-1<0,\qquad f(2)=31>0.
+\]
+函数图像连续，$x=1$ 到 $x=2$ 之间一定会与 $x$ 轴相交一次。
+
+所以
+\[
+\boxed{\ f(x)=0\text{ 恰好有一个实数解，且在 }(1,2)\text{ 内}\ }.
+\]
+\textbf{小提示：}这里的“最多一个”，既可以从导数始终大于 $0$ 看出，也可以由罗尔定理直接得出。
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\paragraph{例4：有参数时，不用求三次方程的通用解法}
+\begin{center}\input{assets/tikz/F081_parameter_nonnegative.tex}\end{center}
+\end{minipage}\par\medskip
+
+求方程
+\[
+x^3-3x+t=0\qquad (t\text{ 为实数})
+\]
+的\textbf{不同实数解个数}。
+
+令 $f(x)=x^3-3x+t$，则
+\[
+f'(x)=3(x+1)(x-1).
+\]
+无论 $t$ 取什么值，导数都只在 $-1,1$ 两处等于 $0$，所以\textbf{最多三个不同解}。
+
+再算出两个容易算的位置的函数值：
+\[
+f(-1)=t+2,\qquad f(1)=t-2.
+\]
+导数的正负号说明函数先升、再降、再升；当 $x$ 足够小时函数值为负，足够大时为正。因此：
+\[
+\boxed{
+\begin{array}{c|c}
+t\text{ 的范围}&\text{不同实数解个数}\\ \hline
+-2<t<2&3\\
+t=-2\text{ 或 }t=2&2\\
+t<-2\text{ 或 }t>2&1
+\end{array}}
+\]
+\begin{center}\input{assets/tikz/F081_parameter_nonpositive.tex}\end{center}
+
+\textbf{等号为什么是两个？}例如 $t=2$ 时
+\[
+x^3-3x+2=(x-1)^2(x+2),
+\]
+只有 $x=1$ 和 $x=-2$ 两个\textbf{不同}解；$t=-2$ 时同理，只有 $x=-1$ 和 $x=2$。
+
+\textbf{这一题的亮点：}求导后导数里没有 $t$，意味着不论参数怎样变化，\textbf{零点的最多数量始终是三个}；参数只改变实际出现一个、两个还是三个。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\paragraph{例5：连续用两次罗尔定理，可以省下大量计算}
+\begin{center}\input{assets/tikz/F081_second_derivative_contradiction.tex}\end{center}
+\end{minipage}\par\medskip
+
+已知 $f$ 在同一个区间 $I$ 上连续，在其内部二阶可导，且内部处处有
+\[
+f''(x)>0.
+\]
+问 $f(x)=0$ 最多有几个不同解？
+
+\textbf{假设有三个：}记为 $a<b<c$。
+
+由罗尔定理，在 $(a,b)$ 和 $(b,c)$ 内至少各有一个 $f'(x)=0$ 的位置，记为 $u<v$。
+
+再对 $f'(x)$ 在 $[u,v]$ 上用一次罗尔定理，就得到某个 $w\in(u,v)$ 满足
+\[
+f''(w)=0.
+\]
+这和 $f''(x)>0$ 矛盾。
+
+所以
+\[
+\boxed{\ f(x)=0\text{ 最多只有两个不同解}\ }.
+\]
+\textbf{记忆方法：}原函数有三个零点 $\Rightarrow$ 第一次求导至少两个 $0$ $\Rightarrow$ 第二次求导至少一个 $0$。如果最后那个 $0$ 根本不可能出现，最初也就不可能有三个零点。
+\end{examplebox}
+
+\clearpage
+\begin{examplebox}
+\paragraph{例6：两点不在 $x$ 轴上，罗尔定理照样成立}
+
+设
+\[
+ f(x)=(x-2)^2+1.
+\]
+\textbf{第一步，找出两个同高的位置：}
+\[
+ f(1)=2,\qquad f(3)=2.
+\]
+于是曲线上有 $A(1,2)$ 和 $B(3,2)$，直线 $AB$ 水平，其斜率为 $0$。
+
+\textbf{第二步，找中间与 $AB$ 平行的切线：}
+\[
+ f'(x)=2(x-2),\qquad f'(2)=0.
+\]
+所以切点是 $C(2,1)$，其切线为 $y=1$，与 $AB$ 所在的 $y=2$ \textbf{平行}。
+
+\textbf{第三步，理解两层意思：}虽然 $C$ 比 $A,B$ 低，罗尔定理仍然成立；而把 $y=2$ 看成“横向划过图像的一条线”，它与图像有两个交点，中间就必定夹着至少一处水平切线。
+
+\[
+\boxed{\ \text{两点同高}\ \Longrightarrow\ \text{中间存在与连线平行的水平切线}\ }
+\]
+\textbf{提示：}如果把 $y=2$ 改为任意 $y=h$，求交点个数仍可以使用“先数水平切线位置，再限制交点数量”的方法。
+\end{examplebox}
+
+
+% -------- 新增例题：一点导数为零，不同走向 --------
+\clearpage
+\begin{examplebox}
+\paragraph{例7：同样在原点切线水平，为什么有的掉头、有的不断向前？}
+
+四个函数在 $x=0$ 都满足 $f'(0)=0$，但左右走向不同：
+\[
+\begin{array}{c|c|c|c}
+\text{函数}&x<0\text{ 时的导数}&x>0\text{ 时的导数}&\text{结果}\\ \hline
+-x^2&-2x>0&-2x<0&\text{先升后降（最高处）}\\
+\phantom{-}x^2&2x<0&2x>0&\text{先降后升（最低处）}\\
+\phantom{-}x^3&3x^2>0&3x^2>0&\text{一直上升（不掉头）}\\
+-x^3&-3x^2<0&-3x^2<0&\text{一直下降（不掉头）}
+\end{array}
+\]
+
+\textbf{最快判断：}先算 $f'(0)$，再挑 $0$ 左边与右边各一个小范围，
+分别看导数是正还是负；\textbf{正变负才是从升到降，负变正才是从降到升}。
+
+\textbf{联系罗尔定理：}两端同高可以确保中间找到水平切线；
+但如果只给你一个 $f'(c)=0$，\textbf{不能反过来认定两端同高，也不能断言一定掉头}。
+\end{examplebox}

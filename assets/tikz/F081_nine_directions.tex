@@ -1,0 +1,99 @@
+% F081: 九种导数走向。每个小图在 x=0 处导数都为0。
+% 左右分别取 f(x)=a x^3、f(x)=b x^3 (a,b∈{1,0,-1})。
+\begin{tikzpicture}[font=\footnotesize, line cap=round, line join=round]
+\node[font=\bfseries] at (5.0,9.28) {右侧的走向：上升／平路／下降};
+\begin{scope}[shift={(1.75,7.55)},x=.80cm,y=.69cm]
+  \draw[gray!35,rounded corners=2pt] (-1.63,-1.98) rectangle (1.63,1.43);
+  \draw[gray!55,thin] (-1.28,0)--(1.30,0);
+  \draw[gray!55,thin] (0,-1.24)--(0,1.14);
+  \draw[blue!70!black,line width=1.2pt,smooth] plot[domain=-1.09:0,samples=26] (\x,{1*\x*\x*\x});
+  \draw[blue!70!black,line width=1.2pt,smooth] plot[domain=0:1.09,samples=26] (\x,{1*\x*\x*\x});
+  \draw[orange!85!black,thick] (-.34,0)--(.34,0);
+  \fill[orange!85!black] (0,0) circle (1.6pt);
+  \node[font=\scriptsize] at (0,-1.35) {\textcircled{\raisebox{-0.1ex}{\scalebox{0.72}{1}}} 升→升};
+\end{scope}
+\begin{scope}[shift={(4.98,7.55)},x=.80cm,y=.69cm]
+  \draw[gray!35,rounded corners=2pt] (-1.63,-1.98) rectangle (1.63,1.43);
+  \draw[gray!55,thin] (-1.28,0)--(1.30,0);
+  \draw[gray!55,thin] (0,-1.24)--(0,1.14);
+  \draw[blue!70!black,line width=1.2pt,smooth] plot[domain=-1.09:0,samples=26] (\x,{1*\x*\x*\x});
+  \draw[blue!70!black,line width=1.2pt,smooth] plot[domain=0:1.09,samples=26] (\x,{0*\x*\x*\x});
+  \draw[orange!85!black,thick] (-.34,0)--(.34,0);
+  \fill[orange!85!black] (0,0) circle (1.6pt);
+  \node[font=\scriptsize] at (0,-1.35) {\textcircled{\raisebox{-0.1ex}{\scalebox{0.72}{2}}} 升→平};
+\end{scope}
+\begin{scope}[shift={(8.21,7.55)},x=.80cm,y=.69cm]
+  \draw[gray!35,rounded corners=2pt] (-1.63,-1.98) rectangle (1.63,1.43);
+  \draw[gray!55,thin] (-1.28,0)--(1.30,0);
+  \draw[gray!55,thin] (0,-1.24)--(0,1.14);
+  \draw[blue!70!black,line width=1.2pt,smooth] plot[domain=-1.09:0,samples=26] (\x,{1*\x*\x*\x});
+  \draw[blue!70!black,line width=1.2pt,smooth] plot[domain=0:1.09,samples=26] (\x,{-1*\x*\x*\x});
+  \draw[orange!85!black,thick] (-.34,0)--(.34,0);
+  \fill[orange!85!black] (0,0) circle (1.6pt);
+  \node[font=\scriptsize] at (0,-1.35) {\textcircled{\raisebox{-0.1ex}{\scalebox{0.72}{3}}} 升→降};
+\end{scope}
+\begin{scope}[shift={(1.75,5.03)},x=.80cm,y=.69cm]
+  \draw[gray!35,rounded corners=2pt] (-1.63,-1.98) rectangle (1.63,1.43);
+  \draw[gray!55,thin] (-1.28,0)--(1.30,0);
+  \draw[gray!55,thin] (0,-1.24)--(0,1.14);
+  \draw[blue!70!black,line width=1.2pt,smooth] plot[domain=-1.09:0,samples=26] (\x,{0*\x*\x*\x});
+  \draw[blue!70!black,line width=1.2pt,smooth] plot[domain=0:1.09,samples=26] (\x,{1*\x*\x*\x});
+  \draw[orange!85!black,thick] (-.34,0)--(.34,0);
+  \fill[orange!85!black] (0,0) circle (1.6pt);
+  \node[font=\scriptsize] at (0,-1.35) {\textcircled{\raisebox{-0.1ex}{\scalebox{0.72}{4}}} 平→升};
+\end{scope}
+\begin{scope}[shift={(4.98,5.03)},x=.80cm,y=.69cm]
+  \draw[gray!35,rounded corners=2pt] (-1.63,-1.98) rectangle (1.63,1.43);
+  \draw[gray!55,thin] (-1.28,0)--(1.30,0);
+  \draw[gray!55,thin] (0,-1.24)--(0,1.14);
+  \draw[blue!70!black,line width=1.2pt,smooth] plot[domain=-1.09:0,samples=26] (\x,{0*\x*\x*\x});
+  \draw[blue!70!black,line width=1.2pt,smooth] plot[domain=0:1.09,samples=26] (\x,{0*\x*\x*\x});
+  \draw[orange!85!black,thick] (-.34,0)--(.34,0);
+  \fill[orange!85!black] (0,0) circle (1.6pt);
+  \node[font=\scriptsize] at (0,-1.35) {\textcircled{\raisebox{-0.1ex}{\scalebox{0.72}{5}}} 平→平};
+\end{scope}
+\begin{scope}[shift={(8.21,5.03)},x=.80cm,y=.69cm]
+  \draw[gray!35,rounded corners=2pt] (-1.63,-1.98) rectangle (1.63,1.43);
+  \draw[gray!55,thin] (-1.28,0)--(1.30,0);
+  \draw[gray!55,thin] (0,-1.24)--(0,1.14);
+  \draw[blue!70!black,line width=1.2pt,smooth] plot[domain=-1.09:0,samples=26] (\x,{0*\x*\x*\x});
+  \draw[blue!70!black,line width=1.2pt,smooth] plot[domain=0:1.09,samples=26] (\x,{-1*\x*\x*\x});
+  \draw[orange!85!black,thick] (-.34,0)--(.34,0);
+  \fill[orange!85!black] (0,0) circle (1.6pt);
+  \node[font=\scriptsize] at (0,-1.35) {\textcircled{\raisebox{-0.1ex}{\scalebox{0.72}{6}}} 平→降};
+\end{scope}
+\begin{scope}[shift={(1.75,2.51)},x=.80cm,y=.69cm]
+  \draw[gray!35,rounded corners=2pt] (-1.63,-1.98) rectangle (1.63,1.43);
+  \draw[gray!55,thin] (-1.28,0)--(1.30,0);
+  \draw[gray!55,thin] (0,-1.24)--(0,1.14);
+  \draw[blue!70!black,line width=1.2pt,smooth] plot[domain=-1.09:0,samples=26] (\x,{-1*\x*\x*\x});
+  \draw[blue!70!black,line width=1.2pt,smooth] plot[domain=0:1.09,samples=26] (\x,{1*\x*\x*\x});
+  \draw[orange!85!black,thick] (-.34,0)--(.34,0);
+  \fill[orange!85!black] (0,0) circle (1.6pt);
+  \node[font=\scriptsize] at (0,-1.35) {\textcircled{\raisebox{-0.1ex}{\scalebox{0.72}{7}}} 降→升};
+\end{scope}
+\begin{scope}[shift={(4.98,2.51)},x=.80cm,y=.69cm]
+  \draw[gray!35,rounded corners=2pt] (-1.63,-1.98) rectangle (1.63,1.43);
+  \draw[gray!55,thin] (-1.28,0)--(1.30,0);
+  \draw[gray!55,thin] (0,-1.24)--(0,1.14);
+  \draw[blue!70!black,line width=1.2pt,smooth] plot[domain=-1.09:0,samples=26] (\x,{-1*\x*\x*\x});
+  \draw[blue!70!black,line width=1.2pt,smooth] plot[domain=0:1.09,samples=26] (\x,{0*\x*\x*\x});
+  \draw[orange!85!black,thick] (-.34,0)--(.34,0);
+  \fill[orange!85!black] (0,0) circle (1.6pt);
+  \node[font=\scriptsize] at (0,-1.35) {\textcircled{\raisebox{-0.1ex}{\scalebox{0.72}{8}}} 降→平};
+\end{scope}
+\begin{scope}[shift={(8.21,2.51)},x=.80cm,y=.69cm]
+  \draw[gray!35,rounded corners=2pt] (-1.63,-1.98) rectangle (1.63,1.43);
+  \draw[gray!55,thin] (-1.28,0)--(1.30,0);
+  \draw[gray!55,thin] (0,-1.24)--(0,1.14);
+  \draw[blue!70!black,line width=1.2pt,smooth] plot[domain=-1.09:0,samples=26] (\x,{-1*\x*\x*\x});
+  \draw[blue!70!black,line width=1.2pt,smooth] plot[domain=0:1.09,samples=26] (\x,{-1*\x*\x*\x});
+  \draw[orange!85!black,thick] (-.34,0)--(.34,0);
+  \fill[orange!85!black] (0,0) circle (1.6pt);
+  \node[font=\scriptsize] at (0,-1.35) {\textcircled{\raisebox{-0.1ex}{\scalebox{0.72}{9}}} 降→降};
+\end{scope}
+\node[font=\scriptsize,anchor=east] at (.27,7.55) {左升};
+\node[font=\scriptsize,anchor=east] at (.27,5.03) {左平};
+\node[font=\scriptsize,anchor=east] at (.27,2.51) {左降};
+\node[font=\scriptsize] at (5.0,.45) {蓝线：曲线走向；橙线：在中间的水平切线};
+\end{tikzpicture}
