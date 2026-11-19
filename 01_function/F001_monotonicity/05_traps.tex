@@ -47,15 +47,52 @@ x,&0<x\le1.
 \]
 因此它\textbf{不能说在 $[0,1]$ 上递增}。
 
-\textbf{原因：}在 $x=0$ 处，函数值突然跳到了 $2$。若要把端点也放入单调区间，必须确认端点处与内部衔接连续。
+\textbf{原因：}在 $x=0$ 处，函数值突然跳到了 $2$，破坏了端点与内部的大小顺序。要用前述导数判据直接判断闭区间的单调性，应核对端点连续；若端点不连续，就要另行比较端点与内部函数值。\textbf{不能反过来说严格递增一定要求端点连续。}
 
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
 \paragraph{易错四：导数等于 $0$，就认定有最高点或最低点}
-$f(x)=x^3$ 在 $x=0$ 处导数等于 $0$，但左边的函数值小于 $0$，右边的函数值大于 $0$，它没有在这里由升转降，也没有由降转升。
+\begin{center}\input{assets/tikz/F001_stationary_extrema_contrast.tex}\end{center}
+\end{minipage}\par\medskip
+图中 $x^3$ 在 $0$ 处导数为零，却始终递增；$-x^2$ 与 $x^2$ 则分别在 $0$ 处形成极大值、极小值。\textbf{单凭零导数，不能区分这三种情形。}
 
-\textbf{正确做法：}先找 $f'(x)=0$ 的位置，再看该点左右两侧的导数是正还是负。由正变负，才说明那里是附近的最高位置；由负变正，才说明那里是附近的最低位置。
+\textbf{正确做法：}找出候选点后，先确认函数在该点连续、左右邻域可导。若左右两侧的导数各自保持固定的正负号，则左正右负可判断为\textbf{极大值}，左负右正可判断为\textbf{极小值}；两侧同号就不能用它判断为极值。这里说的是附近的极值，不是整个定义域的最大值或最小值。
 
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
 \paragraph{易错五：$f'(x)\ge0$ 就一定严格递增}
-$f(x)=2$ 满足 $f'(x)=0\ge0$，可它的函数值从来不变。
+\begin{center}\input{assets/tikz/F001_constant_not_strict.tex}\end{center}
+\end{minipage}\par\medskip
+图中 $f(x)=2$ 满足 $f'(x)=0\ge0$，但两个不同位置的函数值相等，不满足严格递增的定义。
 
-\textbf{正确做法：}先得出``不会下降''；想进一步得到``严格递增''，还要确认没有整段不变。如果导数等于 $0$ 的点只有有限个，就可以放心写严格递增。
+\textbf{正确做法：}在前述区间的连续、可导条件下，$f'(x)\ge0$ 先说明``不会下降''。若还没有任何一整段保持不变，才能进一步得到严格递增。\textbf{特别地：全区间导数非负，且零导数点只有有限个，就能保证严格递增。}
+
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\paragraph{易错六：认为某点导数不存在，函数就不能严格递增}
+\begin{center}\input{assets/tikz/F001_cube_root_nondifferentiable.tex}\end{center}
+\end{minipage}\par\medskip
+
+\textbf{错误想法：}要在整段上严格递增，导数就必须在每一个位置都存在。
+
+\textbf{反例：}考虑
+\[
+f(x)=\sqrt[3]{x}.
+\]
+它在整个实数范围内严格递增。因为任取 $a<b$，都有
+\[
+\sqrt[3]{a}<\sqrt[3]{b}.
+\]
+理由可用前面已证明的三次函数严格递增：若 $\sqrt[3]a\ge\sqrt[3]b$，取三次方便得到 $a\ge b$，与 $a<b$ 矛盾。
+
+但在 $x=0$ 处，用导数的定义计算：
+\[
+\frac{f(0+h)-f(0)}{h}
+=\frac{\sqrt[3]{h}}{h}
+=\frac{1}{\bigl(\sqrt[3]{h}\bigr)^2}\qquad(h\ne0).
+\]
+当 $h$ 越来越接近 $0$ 时，右边会无限增大，不会靠近某个确定的有限数，所以 $x=0$ 处\textbf{导数不存在}。
+
+\textbf{正确理解：}在前述连续区间和端点条件下，内部导数处处大于 $0$，足以保证函数严格递增；但要证明一个函数严格递增，\textbf{并不必须要求它处处有导数}。如果导数在个别点不存在，可以尝试直接比较两个函数值，或结合图像分段判断，不能机械地套用导数规则。
 \end{trapbox}

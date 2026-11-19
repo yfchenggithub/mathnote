@@ -43,7 +43,14 @@
       "x^3-3x+1",
       "f'(x)>0",
       "f'(x)<0",
-      "f'(x)\\ge0"
+      "f'(x)\\ge0",
+      "恰好一个零点",
+      "零点唯一性",
+      "两端异号",
+      "立方根函数",
+      "导数不存在仍递增",
+      "F081",
+      "罗尔定理"
     ],
     "synonyms": [
       "monotonicity",
@@ -125,15 +132,17 @@
       "导数处处大于零，函数严格递增；处处小于零，函数严格递减。",
       "导数处处不小于零，当且仅当函数不会下降；不大于零与不会上升同理。",
       "导数处处不小于零，且没有整段函数值不变，则严格递增；只有有限个零导数点时尤其成立。",
-      "严格递增允许某些点导数为零；不同的定义域区间不可直接合并。"
+      "严格递增允许某些点导数为零；不同的定义域区间不可直接合并。",
+      "在闭区间连续、内部严格单调且两端函数值异号时，区间内部恰好有一个零点。",
+      "严格递增不要求处处可导，例如立方根函数在实数范围严格递增但在0处导数不存在。"
     ]
   },
   "content": {
-    "statement": "导数在同一连续区间内为正则严格递增，为负则严格递减；不小于零只能先得到不会下降。若没有整段保持不变，仍可严格递增。",
+    "statement": "导数在同一连续区间内为正则严格递增，为负则严格递减；不小于零只能先得到不会下降。若没有整段保持不变，仍可严格递增。 严格单调配合连续和两端异号，可判断恰好一个零点。",
     "derivation": [
-      "方法一：高中常规导数符号法，按零导数点分段判断。",
-      "方法二：初中代数作差，用b^3-a^3证明x^3严格递增。",
-      "方法三：若函数不会下降但有两点函数值相同，那么中间整段都不变，从而说明没有水平长段时必严格递增；再由差商说明不会下降对应导数不小于零。"
+      "方法一（做题最快）：直接应用高中导数规则，通过导数正负号划分增减区间。",
+      "方法二（门槛最低）：两点作差，直接比较x^3的函数值大小。",
+      "方法三（理解原因）：用反向推理说明导数非负且没有恒定区间时仍严格递增，并解释反向关系。"
     ],
     "intuition": "把函数图像想成一条连续的路：导数为正是上坡，为负是下坡；一点切线水平不等于有整段水平路。",
     "common_tricks": [
@@ -141,7 +150,9 @@
       "导数等于零的点不一定破坏严格递增。",
       "求含参数递增题时，不要漏掉允许导数为零的边界参数。",
       "严格单调可说明方程在同一区间最多只有一个解。",
-      "看最高点或最低点要检查两边的导数符号是否改变。"
+      "看最高点或最低点要检查两边的导数符号是否改变。",
+      "证明方程恰好一个根：先用连续与两端异号证明至少一个，再用严格单调证明最多一个。",
+      "导数在个别点不存在，不代表函数不严格单调；例如立方根函数在0处无导数但始终递增。"
     ]
   },
   "usage": {
@@ -149,7 +160,8 @@
       "例1：f(x)=x^3-3x+1，导数符号为正、负、正，分段求单调区间。",
       "例2：x^3在x=0处导数为零，但仍严格递增。",
       "例3：f(x)=x^3-3ax在实数范围内严格递增，当且仅当a<=0。",
-      "例4：严格递增函数在同一区间中最多有一个零点。"
+      "例4：严格递增函数在同一区间中最多有一个零点。",
+      "例5：f(x)=x^3+x-1，先用两端异号和连续性证明有零点，再用导数始终为正证明仅一个零点。"
     ],
     "problem_types": [
       "导数与单调性",
@@ -171,14 +183,12 @@
     "webp": "",
     "video": "",
     "audio": "",
-    "tikz": "assets/tikz/F001_positive_slope.tex",
     "additional_tikz": [
-      "assets/tikz/F001_cubic_intervals.tex",
-      "assets/tikz/F001_two_point_difference.tex",
-      "assets/tikz/F001_equal_endpoints_plateau.tex",
-      "assets/tikz/F001_zero_slope_comparison.tex",
-      "assets/tikz/F001_disconnected_domain.tex",
-      "assets/tikz/F001_endpoint_continuity.tex"
+      "assets/tikz/F001_cubic_zero_derivative.tex",
+      "assets/tikz/F001_unique_zero_bracket.tex",
+      "assets/tikz/F001_stationary_extrema_contrast.tex",
+      "assets/tikz/F001_constant_not_strict.tex",
+      "assets/tikz/F001_cube_root_nondifferentiable.tex"
     ]
   },
   "shareConfig": {
@@ -193,7 +203,8 @@
     "related_ids": [
       "F002",
       "F053",
-      "L039"
+      "L039",
+      "F081"
     ],
     "similar": [
       "函数中的相近变形结论"
@@ -206,7 +217,7 @@
     "updated_at": "2026-11-19"
   },
   "isPro": 0,
-  "remarks": "保留并引用原有5张TikZ图：F001_positive_slope.tex、F001_cubic_intervals.tex、F001_zero_slope_comparison.tex、F001_disconnected_domain.tex、F001_endpoint_continuity.tex。图片文件未随本次上传，须沿用原项目assets/tikz下的现有资源；不修改TikZ图。文字仅用高中课程可直接使用的导数规则、代数作差、两点比较与差商解释，不使用超纲定理名称。 2026-11-19 TikZ完善：首页复用正切线示意；证明一复用分段增减曲线；新增两点作差图、等高端点强制水平段图，分别服务证明二、三。保留已有正文改动及五幅旧图。",
+  "remarks": "保留本版TeX中全部原有TikZ引用，不修改图文件；当前引用资源为F001_positive_slope、F001_cubic_intervals、F001_two_point_difference、F001_equal_endpoints_plateau、F001_zero_slope_comparison、F001_disconnected_domain、F001_endpoint_continuity（共7个）。源图未随本次上传，须依赖项目现有assets/tikz目录。此次新增唯一零点例题、导数不存在反例，完善三种方法的定位，并与F081建立related_ids关联。 2026-11-19：针对例2、例5及易错四至六新增五幅TikZ：三次函数及导数对照、唯一零点、驻点峰谷对照、常函数等高两点、立方根与割线/竖直切线。缩短重复口述，补全变号判据与有限零导数点推论的条件；原有图和GIF保持不变。",
   "knowledgeNode": "函数-性质-单调性-判定与讨论",
   "altNodes": [
     "函数-性质-单调性",

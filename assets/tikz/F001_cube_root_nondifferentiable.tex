@@ -1,0 +1,25 @@
+\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,8.8);
+\node at (7.1,8.2) {竖直切线处没有有限导数，仍可严格递增};
+
+\begin{scope}[shift={(3.8,4.4)},scale=1.4]
+\draw[->,gray] (-2.1,0)--(2.1,0) node[below] {$x$};
+\draw[->,gray] (0,-1.65)--(0,1.65) node[left] {$y$};
+\draw[blue!75!black,very thick,samples=140,domain=-1.25:1.25,variable=\t] plot ({(\t)*(\t)*(\t)},\t);
+\draw[orange!85!black,dashed,thick] (0,-1.4)--(0,1.4);
+\draw[green!45!black,thick] (-.4,-.4)--(1.25,1.25);
+\draw[purple!80!black,thick] (-.32,-1.28)--(.32,1.28);
+\fill (0,0) circle(1.8pt);\node at (-.35,.2) {$O$};
+\fill[green!45!black] (1,1) circle(2pt);
+\fill[purple!80!black] (.125,.5) circle(2pt);
+\end{scope}
+\node[anchor=west,align=left] at (8.5,4.8)
+{$f(x)=\sqrt[3]{x}$\\[15pt]
+$\dfrac{f(h)-f(0)}h=\dfrac1{(\sqrt[3]h)^2}$\\[17pt]
+$\textcolor{green!45!black}{h=1:\quad\text{差商}=1}$\\[12pt]
+$\textcolor{purple!80!black}{h=\tfrac18:\quad\text{差商}=4}$\\[12pt]
+$h=\tfrac1{64}:\quad\text{差商}=16$};
+\node[text width=13.2cm,align=center] at (7.1,1.2) {绿、紫两条割线越来越陡；从左右趋近 $0$ 时，差商都没有有限极限。};
+\node[text width=13.2cm,align=center] at (7.1,.55) {橙色虚线为竖直切线；$f'(0)$ 不存在，不能写成一个有限数。};
+
+\end{tikzpicture}

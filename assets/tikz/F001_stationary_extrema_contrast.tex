@@ -1,0 +1,38 @@
+\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,8.8);
+\node at (7.1,8.2) {同样导数为零，三种图像给出不同结论};
+
+\begin{scope}[shift={(2.5,4.6)},scale=1.05]
+\draw[->,gray] (-1.4,0)--(1.45,0) node[below] {$x$};
+\draw[->,gray] (0,-1.9)--(0,2) node[left] {$y$};
+\draw[blue!75!black,very thick,samples=90,domain=-1.17:1.17] plot (\x,{(\x)*(\x)*(\x)});
+\draw[orange!85!black,dashed,thick] (-.65,0)--(.65,0);
+\fill (0,0) circle(2pt);
+\end{scope}
+\node at (2.5,7.3) {$f(x)=x^3$};
+\node at (2.5,1.95) {$f':\ +\quad0\quad+$};
+\node at (2.5,1.25) {没有极值};
+
+\begin{scope}[shift={(7.1,4.6)},scale=1.05]
+\draw[->,gray] (-1.4,0)--(1.45,0) node[below] {$x$};
+\draw[->,gray] (0,-1.9)--(0,2) node[left] {$y$};
+\draw[blue!75!black,very thick,samples=90,domain=-1.17:1.17] plot (\x,{-1*(\x)*(\x)});
+\draw[orange!85!black,dashed,thick] (-.65,0)--(.65,0);
+\fill (0,0) circle(2pt);
+\end{scope}
+\node at (7.1,7.3) {$f(x)=-x^2$};
+\node at (7.1,1.95) {$f':\ +\quad0\quad-$};
+\node at (7.1,1.25) {极大值};
+
+\begin{scope}[shift={(11.7,4.6)},scale=1.05]
+\draw[->,gray] (-1.4,0)--(1.45,0) node[below] {$x$};
+\draw[->,gray] (0,-1.9)--(0,2) node[left] {$y$};
+\draw[blue!75!black,very thick,samples=90,domain=-1.17:1.17] plot (\x,{(\x)*(\x)});
+\draw[orange!85!black,dashed,thick] (-.65,0)--(.65,0);
+\fill (0,0) circle(2pt);
+\end{scope}
+\node at (11.7,7.3) {$f(x)=x^2$};
+\node at (11.7,1.95) {$f':\ -\quad0\quad+$};
+\node at (11.7,1.25) {极小值};
+\node[text width=13.2cm,align=center] at (7.1,.55) {图中三点导数均为 $0$；左图不转向，后两图分别形成峰与谷。};
+\end{tikzpicture}

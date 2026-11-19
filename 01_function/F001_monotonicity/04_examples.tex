@@ -12,7 +12,11 @@ f'(x)=3(x+1)(x-1).
 \input{assets/tikz/F001_cubic_intervals.tex}
 \textbf{检查一下：}$f(-1)=3$，$f(1)=-1$，确实从 $x=-1$ 到 $x=1$ 在下降。
 
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
 \paragraph{例2：只有一个位置导数为零，仍然严格递增}
+\begin{center}\input{assets/tikz/F001_cubic_zero_derivative.tex}\end{center}
+\end{minipage}\par\medskip
 判断 $g(x)=x^3$ 的单调性。
 \[
 g'(x)=3x^2\ge0,
@@ -23,7 +27,7 @@ g'(x)=3x^2\ge0,
 \[
 b^3-a^3=(b-a)(a^2+ab+b^2)>0.
 \]
-\textbf{亮点：}导数为 $0$ 的点\textbf{不一定是最高点或最低点}。这里 $x=0$ 只是切线水平，函数仍然从左往右上升。
+\textbf{回看配图：}导数在原点接触横轴，并未变号；函数没有掉头。
 
 \paragraph{例3：含参数题，等于号不能丢}
 已知
@@ -54,4 +58,37 @@ f'(x)=3x^2-3a=3(x^2-a).
 
 理由很简单：如果有 $a<b$ 两个解，就同时有 $f(a)=0$ 和 $f(b)=0$，与严格递增要求的 $f(a)<f(b)$ 矛盾。
 \textbf{注意：}最多一个不等于一定有一个。想证明``恰好一个''，还要先想办法说明确实存在一个解。
+
+
+\par\medskip
+\noindent\begin{minipage}{\linewidth}
+\paragraph{例5：怎样证明一个方程恰好有一个实数根？}
+\begin{center}\input{assets/tikz/F001_unique_zero_bracket.tex}\end{center}
+\end{minipage}\par\medskip
+证明方程
+\[
+x^3+x-1=0
+\]
+在 $0$ 与 $1$ 之间\textbf{恰好有一个解}。
+
+\textbf{第1步：先证明至少有一个解。}
+设 $f(x)=x^3+x-1$。它是多项式函数，在 $[0,1]$ 上连续，而且
+\[
+f(0)=-1<0,\qquad f(1)=1>0.
+\]
+由连续性和两端异号，依据零点存在定理，$(0,1)$ 内至少有一个零点；图中的 $\alpha$ 就表示这个交点。
+
+\textbf{第2步：再证明最多只有一个解。}
+\[
+f'(x)=3x^2+1>0.
+\]
+所以 $f(x)$ 在整个实数范围内严格递增，在 $[0,1]$ 上当然也严格递增。假设有两个不同的零点 $a<b$，则严格递增要求 $f(a)<f(b)$，但两者都等于 $0$，矛盾。因此最多只有一个零点。
+
+\textbf{第3步：合起来得出结论。}
+\[
+\boxed{\text{至少一个}+\text{最多一个}=\text{恰好一个}}
+\]
+所以方程在 $(0,1)$ 内恰好有一个实数根；事实上，由于 $f'(x)>0$ 对所有实数成立，它在整个实数范围内也只有这一个根。
+
+\textbf{一眼就会用：}只凭导数判断严格单调，只能得到``最多一个零点''；还要检查两端函数值一正一负，并且中间连续，才能说``恰好一个零点''。
 \end{examplebox}
