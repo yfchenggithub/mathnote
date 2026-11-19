@@ -1,25 +1,47 @@
 \begin{statementbox}
 
-\textbf{\textcolor{CStatement}{条件}}
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-    \item[\textbf{\textcolor{CStatement}{条件1（极限同时为零）：}}] 当 $x\to a$ 时，$\displaystyle\lim_{x\to a}f(x)=0$ 且 $\displaystyle\lim_{x\to a}g(x)=0$；
-    \item[\textbf{\textcolor{CStatement}{条件2（可导分母非零）：}}] 在 $a$ 的某去心邻域内 $f'(x),g'(x)$ 存在，且 $g'(x)\neq0$；
-    \item[\textbf{\textcolor{CStatement}{条件3（导数比极限存在）：}}] 极限 $\displaystyle\lim_{x\to a}\frac{f'(x)}{g'(x)}$ 存在或为无穷大。
-\end{description}
+\textbf{\textcolor{CStatement}{它要解决什么问题？}}
 
-\textbf{\textcolor{CStatement}{结论}}
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{\textcolor{CStatement}{结论一（$\frac{0}{0}$型法则）：}}]
-    \textbf{\textcolor{CStatement}{直观描述：}} 分子分母同时导，极限不变。
-    \[
-    \lim_{x\to a}\frac{f(x)}{g(x)} = \lim_{x\to a}\frac{f'(x)}{g'(x)}.
-    \]
+有些分式在某个位置附近，分子越来越接近 $0$，分母也越来越接近 $0$。
+此时不能把 $\frac00$ 当作答案：两者接近 $0$ 的快慢不同，最终比值也可能不同。
+洛必达法则提供一种计算办法：\textbf{在条件满足时，把分子、分母分别求导，再比较求导后的结果。}
 
-    \item[\textbf{\textcolor{CStatement}{推广结论（$\frac{\infty}{\infty}$型法则）：}}]
-    \textbf{\textcolor{CStatement}{直观描述：}} 若分子分母均趋于无穷大，同样可用洛必达法则直接对分子分母分别求导。
-    \[
-    \lim_{x\to a}\frac{f(x)}{g(x)} = \lim_{x\to a}\frac{f'(x)}{g'(x)}.
-    \]
-\end{description}
+\medskip
+\begin{center}\input{assets/tikz/F005_zero_rates.tex}\end{center}
+\end{statementbox}
+\clearpage
+\begin{statementbox}
+\textbf{\textcolor{CStatement}{主要结论：分子、分母都趋近于 $0$}}
+
+
+设 $x$ 越来越接近 $a$（但 $x\ne a$），且
+\[
+\lim_{x\to a}f(x)=0,\qquad \lim_{x\to a}g(x)=0.
+\]
+还需要满足：
+\begin{enumerate}[leftmargin=*, itemsep=0.25em, topsep=0.25em]
+    \item 在 $a$ 附近、但不取 $a$ 的地方，$f(x)$ 和 $g(x)$ 都能求导，且 $g'(x)\ne0$；
+    \item $\displaystyle\lim_{x\to a}\frac{f'(x)}{g'(x)}$ 能确定为一个数，或确定地趋向 $+\infty$、$-\infty$。
+\end{enumerate}
+那么
+\[
+\boxed{\displaystyle
+\lim_{x\to a}\frac{f(x)}{g(x)}
+=\lim_{x\to a}\frac{f'(x)}{g'(x)}.}
+\]
+这里的 $f'(x)$、$g'(x)$ 表示\textbf{分别对分子、分母求导}，不是对整个分式求导。
+
+\medskip
+\textbf{\textcolor{CStatement}{另一个可用情况}}
+
+如果分子、分母的大小都越来越大、没有上界，满足相应的求导条件，并且求导后的比值有确定的极限，也可用同样的办法。
+例如 $x\to+\infty$ 时，$\frac{2x^2+x}{x^2+1}$ 的分子、分母都越来越大。
+
+\medskip
+\textbf{\textcolor{CStatement}{高中学习提醒}}
+
+这个名称所指的一般结论，完整证明超出了通常的高中课堂推导范围。
+下面只用高中范围内的导数定义、因式分解、三角关系，\textbf{严格解释几类常见情况}；
+不把这些例子的证明说成整个法则的完整证明。遇到学校要求的常规解法时，应优先使用因式分解、有理化等方法。
 
 \end{statementbox}

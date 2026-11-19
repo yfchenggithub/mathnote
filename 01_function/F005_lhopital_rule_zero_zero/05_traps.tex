@@ -1,21 +1,81 @@
+\clearpage
 \begin{trapbox}
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-    \item[\textbf{\textcolor{CTrap}{易错点一（未先验型）}}] 求极限时未检查是否为 $\frac{0}{0}$ 或 $\frac{\infty}{\infty}$，直接对分子分母求导。
-    \item[\textbf{\textcolor{CTrap}{正确理解（判定在先）：}}] 只有未定式才能使用洛必达法则，其他形式（如 $\frac{1}{0}$、$\frac{\text{常数}}{0}$ 等）不能用法则。
-    \item[\textbf{\textcolor{CTrap}{错因分析（条件缺漏）：}}] 忽略法则前提，误以为所有分式极限都能通过求导简化。例如 $\lim_{x\to1}\frac{x}{x-1}$ 为 $\frac{1}{0}$ 型，若用洛必达得 $1$，但实际极限为无穷大，错误。
-\end{description}
+
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CTrap}{易错一：一代入不能算，就马上分别求导}}
+\begin{center}\input{assets/tikz/F005_invalid_nonzero_numerator.tex}\end{center}
+\end{minipage}
+
+
+
+错误写法：
+\[
+\lim_{x\to1}\frac{x}{x-1}
+\overset{\text{错}}{=}\lim_{x\to1}\frac11=1.
+\]
+实际当 $x\to1^+$ 时原式趋向 $+\infty$，当 $x\to1^-$ 时趋向 $-\infty$。
+\textbf{改正：}先看分子、分母到底分别趋于什么；$\frac10$ 不是 $\frac00$。
 
 \medskip
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-    \item[\textbf{\textcolor{CTrap}{易错点二（忽略非零）}}] 使用前未验证分母导数在去心邻域内是否恒不为零，就盲目应用。
-    \item[\textbf{\textcolor{CTrap}{正确理解（导数非零）：}}] 必须确保 $g'(x)\neq0$（在 $a$ 的去心邻域内），否则法则失效。
-    \item[\textbf{\textcolor{CTrap}{错因分析（条件缺失）：}}] 若 $g'(x)$ 在某点为零，则柯西中值定理的条件被破坏，导致结论不成立。例如 $g(x)=x^2\sin\frac1x$ 在 $0$ 附近导数有零点，不能轻易使用法则。
-\end{description}
+\textbf{\textcolor{CTrap}{易错二：把“分别求导”写成“整个分式求导”}}
+
+\[
+\underbrace{\frac{f'(x)}{g'(x)}}_{\text{法则里比较的式子}}
+\qquad\text{与}\qquad
+\underbrace{\left(\frac{f(x)}{g(x)}\right)'}_{\text{整个分式的导数}}
+\]
+通常\textbf{不是同一回事}。例如 $\frac{x^2}{x}=x$，整个分式的导数是 $1$，
+分别求导后的比值是 $\frac{2x}{1}=2x$。
 
 \medskip
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-    \item[\textbf{\textcolor{CTrap}{易错点三（无限滥用）}}] 认为可以无限次使用洛必达法则，或认为导数比极限不存在时原极限也不存在。
-    \item[\textbf{\textcolor{CTrap}{正确理解（逐步验证）：}}] 每次使用后都须检查是否为未定式；若导数比极限不存在（非无穷），则原极限可能存在也可能不存在。
-    \item[\textbf{\textcolor{CTrap}{错因分析（判断误区）：}}] 例如 $\lim_{x\to\infty}\frac{x+\sin x}{x}$，洛必达得 $\frac{1+\cos x}{1}$，该极限不存在，但原极限为 $1$，因此不能盲目下结论。
-\end{description}
+\textbf{\textcolor{CTrap}{易错三：一次求导后不重新检查}}
+
+例如求 $\displaystyle\lim_{x\to0}\frac{x^2}{x}$：
+\[
+\lim_{x\to0}\frac{x^2}{x}
+=\lim_{x\to0}\frac{2x}{1}=0.
+\]
+此时已经算出 $0$，\textbf{不能再次硬求导}。
+每次再用，都必须重新确认新式子满足条件。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错四：没有确认分母的导数可以放在分母}}
+
+若 $g'(x)=0$，就不能随意写 $\frac{f'(x)}{g'(x)}$。
+例如 $g(x)=5$ 时 $g'(x)=0$，此时本来就不属于“$0$ 比 $0$”或“两边都无限增大”的情形。
+\textbf{改正：}确认在目标位置附近（不包括目标位置本身）$g'(x)\ne0$，并确认求导后的比值有确定结果。
+
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CTrap}{易错五：求导后的极限不存在，就认定原式也不存在}}
+\begin{center}\input{assets/tikz/F005_oscillating_derivative_ratio.tex}\end{center}
+\end{minipage}
+
+
+
+\[
+\frac{x+\sin x}{x}=1+\frac{\sin x}{x}\longrightarrow1
+\qquad(x\to+\infty).
+\]
+但分别求导后为 $1+\cos x$，它没有极限。
+\textbf{改正：}这说明求导法在此不能给出答案，不是原式没有极限。原式可由 $|\sin x|\le1$ 直接判断。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错六：忘了左右两边可能不同}}
+
+\[
+\frac{x-1}{(x-1)^2}=\frac1{x-1}.
+\]
+$x\to1^+$ 时趋向 $+\infty$，$x\to1^-$ 时趋向 $-\infty$，所以不能说双侧极限等于 $+\infty$。
+题目若只问从右边或左边靠近，要按对应方向作答。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错七：为了用法则，反而把简单题做复杂}}
+
+\[
+\frac{x^2-9}{x-3}=x+3\quad(x\ne3).
+\]
+这类题目因式分解更快。含根号先考虑有理化，含三角函数可考虑已知基本极限。
+\textbf{考试提醒：}若课堂尚未正式学习洛必达法则，书面证明与考试作答应以课程允许的方法为准。
+
 \end{trapbox}

@@ -1,0 +1,13 @@
+\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,9.4);
+\node at (7.1,8.8) {减去任意目标高度，问题变成寻找横轴交点};
+
+\begin{scope}[shift={(2.9,4.1)},x=2cm,y=1.3cm]
+\draw[->] (-.4,0)--(2.6,0) node[right]{$x$};\draw[->] (0,-1.5)--(0,2.4) node[above]{$g(x)$};
+\draw[teal!80!black,thick,domain=0:2,samples=70] plot(\x,{\x+.1*\x^3-1.1});
+\fill[blue] (0,-1.1) circle(2pt);\fill[blue] (2,1.7) circle(2pt);\fill[orange!90!black] (1,0) circle(2pt);\draw[dashed] (2,0)--(2,1.7);
+\node[below left] at (0,-1.1){$g(a)<0$};\node[above right] at (2,1.7){$g(b)>0$};\node[below right] at (1,0){$c$};\node[below] at (2,0){$b$};\node[above left] at (0,0){$a$};
+\end{scope}
+\node[align=left,anchor=west] at (8.7,5.1){$f(a)<t<f(b)$\\[10pt] $g(x)=f(x)-t$ 连续\\[10pt] $g(a)<0<g(b)$\\[10pt] 存在 $c$：$g(c)=0$\\[8pt] 即 $f(c)=t$};
+\node[text width=13.2cm,align=center] at (7.1,.65) {从横轴下方连续走到上方，必经过横轴；这个交点实现了目标值。};
+\end{tikzpicture}

@@ -1,32 +1,54 @@
+\clearpage
 \begin{trapbox}
+  \textbf{\textcolor{CTrap}{易错 1：$\Delta(y)\ge0$ 解出了闭区间，就直接把两端都写进去。}}
 
-	\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（忽略系数退化）}}]
-			只解判别式不等式，不检验二次项系数 $a-dy=0$ 的情况。
-		\item[\textbf{\textcolor{CTrap}{正确理解（单独验证）：}}]
-			必须将 $a-dy=0$ 对应的 $y$ 代入原函数或原方程，检查是否存在定义域内的 $x$，若存在则须添加，若不存在则剔除。
-		\item[\textbf{\textcolor{CTrap}{错因分析（分类遗漏）：}}]
-			误以为判别式法自动覆盖所有情况，缺少分类讨论意识。
-	\end{description}
+  \medskip
+  \textbf{错在哪里：}当 $a-dy=0$ 时，方程已经不是二次方程；这个 $y$ 即使满足写出来的 $\Delta(y)\ge0$，也不一定取到。
+  例如 $y=\dfrac{2x^2+3}{x^2+1}$，照搬判别式会得到 $[2,3]$，但 $y=2$ 时要求 $1=0$，不可能成立。
+  \par\textbf{正确做法：}先用判别式求候选范围，再另查 $y=\dfrac ad$；正确答案是 $(2,3]$。
 
-	\medskip
-	\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（定义域误判）}}]
-			使用判别式法前未验证分母的判别式 $\Delta_d$，默认定义域为 $\mathbb{R}$，导致当 $\Delta_d\ge0$ 时得出错误值域。
-		\item[\textbf{\textcolor{CTrap}{正确理解（先判分母）：}}]
-			先计算 $\Delta_d$，若 $\Delta_d<0$ 可直接用判别式法；若 $\Delta_d\ge0$，需排除分母零点，再结合判别式法求值域。
-		\item[\textbf{\textcolor{CTrap}{错因分析（条件遗忘）：}}]
-			忽略定义域对值域的限制，只考虑方程有解，未考虑解必须使分母非零。
-	\end{description}
+  \bigskip
+  \textbf{\textcolor{CTrap}{易错 2：分母可能等于 $0$，还认为“方程有解就一定行”。}}
 
-	\medskip
-	\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（展开符号错误）}}]
-			展开判别式 $\Delta(y)=(b-ey)^2-4(a-dy)(c-fy)$ 时，多项式乘法符号处理出错，导致二次不等式错误。
-		\item[\textbf{\textcolor{CTrap}{正确理解（细心展开）：}}]
-			展开时注意 $-(a-dy)(c-fy)=-(ac-afy-cdy+dfy^2)=-ac+afy+cdy-dfy^2$，再合并同类项。
-		\item[\textbf{\textcolor{CTrap}{错因分析（运算不过关）：}}]
-			基础运算功底不扎实，可代入具体值检验。
-	\end{description}
+  \medskip
+  \textbf{错在哪里：}分式分母不能为 $0$，乘过去以后有时会出现原来不允许的 $x$。
+  例如
+  \[
+    y=\frac{x^2-1}{x^2-1},\qquad x\ne\pm1.
+  \]
+  真正的函数值始终是 $1$。但若只写 $(1-y)(x^2-1)=0$，误把 $x=\pm1$ 当成解，就会错误地说任意 $y$ 都能取到。
+  \par\textbf{正确做法：}先查分母。若分母始终不为 $0$，可以放心用本结论；否则每个找到的 $x$ 都要确认没有让原分母等于 $0$。
 
+  \bigskip
+  \textbf{\textcolor{CTrap}{易错 3：看见 $x^2$ 就套判别式。}}
+
+  \medskip
+  \textbf{错在哪里：}判断 $\Delta\ge0$ 只适用于二次项系数\textbf{不为 $0$}的一元二次方程。
+  \par\textbf{正确做法：}先看 $(a-dy)x^2$ 前面的 $a-dy$。如果它等于 $0$，就改成解一次方程，或者检查有没有出现 $0=0$ 与 $1=0$ 这种情况。
+
+  \bigskip
+  \textbf{\textcolor{CTrap}{易错 4：把“越来越接近”当成“能够等于”。}}
+
+  \medskip
+  对于 $d\ne0$ 的二次分式，$|x|$ 越来越大时，函数值越来越接近 $\dfrac ad$，但这个数未必能取到。
+  \par\textbf{快速检查：}直接看
+  \[
+    \frac{ax^2+bx+c}{dx^2+ex+f}-\frac ad
+    =\frac{(bd-ae)x+(cd-af)}{d(dx^2+ex+f)}.
+  \]
+  分母始终不为 $0$ 时，只需问分子能不能等于 $0$；这正好回到方法一中的方程 (3)。
+
+  \bigskip
+  \textbf{\textcolor{CTrap}{易错 5：展开 $\Delta(y)$ 时丢掉负号。}}
+
+  \medskip
+  建议保留中间一步：
+  \[
+    \begin{aligned}
+      &(b-ey)^2-4(a-dy)(c-fy)\\
+      &=(b^2-2bey+e^2y^2)\\
+      &\quad-4(ac-afy-cdy+dfy^2).
+    \end{aligned}
+  \]
+  最终 $y^2$ 的系数应该是 $e^2-4df$。若题目已知 $e^2-4df<0$，算出来的系数却是正数，就该重新检查符号。
 \end{trapbox}

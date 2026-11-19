@@ -1,0 +1,24 @@
+% x^2=2y, m=1,n=-1/2; A=(2,2), B=(-1,1/2).
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,9.0);
+\node at (7.1,8.45) {纵向模型：直线斜率直接决定另一个交点的横坐标};
+\begin{scope}[shift={(3.1,2.7)},scale=1.25]
+\draw[->,gray] (-1.8,0)--(3.1,0) node[above] {$x$};
+\draw[->,gray] (0,-.8)--(0,3.2) node[left] {$y$};
+\draw[teal!65!black,thick,samples=100,domain=-1.6:2.4,variable=\t] plot (\t,{\t*\t/2});
+\draw[blue!75!black,very thick] (0,0)--(2.5,2.5);
+\draw[orange!85!black,very thick] (-1.6,.8)--(0,0);
+\draw[green!45!black,thick] (-1,.5)--(2,2);
+\node[blue!75!black] at (1.4,2.65) {$y=mx$};
+\node[orange!85!black] at (-1.0,1.7) {$y=nx$};
+\fill (0,0) circle(2.5pt) node[below left=8pt] {$O$};
+\fill (2,2) circle(2pt) node[below right=8pt] {$A$};
+\fill (-1,.5) circle(2pt) node[above=14pt] {$B$};
+\end{scope}
+\node[anchor=west,align=left] at (8.2,5.0)
+ {图取 $p=1,\ m=1,\ n=-\frac12$\\[15pt]
+ $\textcolor{blue!75!black}{A=(2pm,\ 2pm^2)}$\\[15pt]
+ $\textcolor{orange!85!black}{B=(2pn,\ 2pn^2)}$\\[16pt]
+ $k_{AB}=m+n=\dfrac12$};
+\node at (7.1,.6) {两条顶点连线是蓝、橙直线；连接另外两个交点得到绿色弦 $AB$。};
+\end{tikzpicture}

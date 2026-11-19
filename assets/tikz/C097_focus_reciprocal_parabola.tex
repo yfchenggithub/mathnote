@@ -1,0 +1,32 @@
+% p=2; y^2=4x. Left chord x=1; right A=(4,4),B=(1/4,-1).
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,11.0);
+\node at (7.1,10.45) {同一条抛物线，焦点弦方向改变，长度倒数和不变};
+\node at (3.55,9.55) {竖直焦点弦};
+\node at (10.65,9.55) {倾斜焦点弦};
+\begin{scope}[shift={(1.6,4.9)},scale=.85]
+\draw[->,gray] (-.5,0)--(5.2,0) node[above] {$x$};
+\draw[->,gray] (0,-2.9)--(0,4.5) node[left] {$y$};
+\draw[teal!65!black,thick,samples=100,domain=-2.7:4.25,variable=\t] plot ({\t*\t/4},\t);
+\draw[blue!75!black,very thick] (1,0)--(1,2);
+\draw[orange!85!black,very thick] (1,0)--(1,-2);
+\fill (1,2) circle(2pt) node[right=12pt] {$A$};
+\fill (1,-2) circle(2pt) node[right=12pt] {$B$};
+\fill (1,0) circle(2pt) node[below right=12pt] {$F$};
+\end{scope}
+\begin{scope}[shift={(8.7,4.9)},scale=.85]
+\draw[->,gray] (-.5,0)--(5.2,0) node[above] {$x$};
+\draw[->,gray] (0,-2.9)--(0,4.5) node[left] {$y$};
+\draw[teal!65!black,thick,samples=100,domain=-2.7:4.25,variable=\t] plot ({\t*\t/4},\t);
+\draw[blue!75!black,very thick] (1,0)--(4,4);
+\draw[orange!85!black,very thick] (1,0)--(.25,-1);
+\fill (4,4) circle(2pt) node[above left=9pt] {$A$};
+\fill (.25,-1) circle(2pt) node[right=14pt] {$B$};
+\fill (1,0) circle(2pt) node[below right=12pt] {$F$};
+\end{scope}
+\node at (3.55,2.1) {$FA=FB=2$};
+\node at (10.65,2.1) {$FA=5,\quad FB=\frac54$};
+\node at (3.55,1.2) {$\frac12+\frac12=1$};
+\node at (10.65,1.2) {$\frac15+\frac45=1$};
+\node at (7.1,.6) {两图同尺度：$y^2=4x,\ p=2,\ F(1,0)$；相加的是长度倒数。};
+\end{tikzpicture}

@@ -1,0 +1,25 @@
+% y^2=2x and AB:y=2x-2, roots y=-1,2.
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,10.0);
+\node at (7.1,9.45) {横向开口消去 $x$：两个交点的纵坐标就是二次方程的两根};
+\begin{scope}[shift={(2.3,4.0)},scale=1.25]
+\draw[->,gray] (-.75,0)--(3.1,0) node[above] {$x$};
+\draw[->,gray] (0,-2.25)--(0,3.0) node[left] {$y$};
+\draw[teal!65!black,thick,samples=100,domain=-2.0:2.4,variable=\t] plot ({\t*\t/2},\t);
+\draw[blue!75!black,thin] (0,0)--(2,2);
+\draw[orange!85!black,thin] (0,0)--(.5,-1);
+\draw[green!45!black,very thick] (0,-2)--(2.3,2.6);
+\fill (0,0) circle(1.8pt) node[above left=7pt] {$O$};
+\fill (2,2) circle(2pt) node[above left=7pt] {$A$};
+\fill (.5,-1) circle(2pt) node[below=16pt] {$B$};
+\end{scope}
+\draw[->,gray] (9.15,1.4)--(9.15,7.7);
+\node at (10.8,8.05) {$y$ 的两根};
+\draw[blue!65,dashed] (4.8,6.5)--(9.15,6.5);
+\draw[orange!80!black,dashed] (2.925,2.75)--(9.15,2.75);
+\fill[blue!75!black] (9.15,6.5) circle(2pt);
+\fill[orange!85!black] (9.15,2.75) circle(2pt);
+\node[anchor=west,blue!75!black] at (9.6,6.5) {$y_A=2$};
+\node[anchor=west,orange!85!black] at (9.6,2.75) {$y_B=-1$};
+\node at (7.1,.65) {图取 $p=1,\ AB:y=2x-2$；联立得 $y^2-y-2=0$，根之和为 $1=2p/k$。};
+\end{tikzpicture}

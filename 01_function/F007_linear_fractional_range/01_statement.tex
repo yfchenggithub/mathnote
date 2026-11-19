@@ -1,31 +1,42 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件 1（前提条件）：}}]
-			函数为 $y=\dfrac{ax+b}{{cx+d}}$，其中 $a,b,c,d\in\mathbb{R}$，$c\neq0$ 且 $ad\neq bc$。
-		\item[\textbf{\textcolor{CStatement}{条件 2（定义域限制）：}}]
-			分母不为零，即 $x\neq -\dfrac{d}{c}$。
-	\end{description}
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（分离常数）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			将分式化为常数与反比例函数之和。
-			\[
-				y = \frac{a}{c} + \frac{bc-ad}{{c(cx+d)}}.
-			\]
-		\item[\textbf{\textcolor{CStatement}{结论二（值域）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			函数值可取除 $\dfrac{a}{c}$ 外的一切实数。
-			\[
-				\{y\in\mathbb{R}\mid y\neq\frac{a}{c}\}.
-			\]
-		\item[\textbf{\textcolor{CStatement}{常见变形（对称中心）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			函数图像关于点 $\left(-\dfrac{d}{c},\dfrac{a}{c}\right)$ 对称。
-			\[
-				\left(-\frac{d}{c},\frac{a}{c}\right).
-			\]
-	\end{description}
+    \textbf{\textcolor{CStatement}{这个结论解决什么问题？}}
+    遇到“分子、分母都是一次式”的函数，题目常问：\textbf{函数值到底能取哪些数，有没有一个数永远取不到？}
+    如果每次都代入许多 $x$ 去猜，既慢又不完整。把分子拆成“分母的若干倍 $+$ 一个数”，就能很快找到答案。
 
+    \medskip
+    \begin{center}\input{assets/tikz/F007_shifted_hyperbola.tex}\end{center}
+\end{statementbox}
+\clearpage
+\begin{statementbox}
+\textbf{\textcolor{CStatement}{适用条件}}
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+        \item[\textbf{条件 1（函数的形式）：}]
+            \(y=\dfrac{ax+b}{cx+d}\)，其中 $a,b,c,d$ 都是实数，$c\ne0$，$ad\ne bc$。
+        \item[\textbf{条件 2（$x$ 的范围）：}]
+            题目没有额外限制 $x$；只要求分母不为 $0$，即 $x\ne-\dfrac dc$。
+    \end{description}
+
+    \textbf{\textcolor{CStatement}{三个结论}}
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+        \item[\textbf{结论一（拆开分式）：}]
+            \[
+                \boxed{y=\frac ac+\frac{bc-ad}{c(cx+d)}}.
+            \]
+            右边第一项是固定的数，第二项永远不为 $0$。
+        \item[\textbf{结论二（求值域）：}]
+            \[
+                \boxed{y\ne\frac ac}\qquad
+                \text{即值域为 }\left\{y\in\mathbb R\mid y\ne\frac ac\right\}.
+            \]
+            这里不只是说“取不到 $a/c$”，而是说\textbf{除它以外，其余实数都能取到}。
+        \item[\textbf{结论三（看图像）：}]
+            图像围绕点
+            \[
+                \boxed{\left(-\frac dc,\frac ac\right)}
+            \]
+            成中心对称；直线 $x=-d/c$ 上没有图像上的点，函数值也不会等于 $a/c$。
+    \end{description}
+
+    \textbf{\textcolor{CStatement}{不能直接套用的情况}}
+    若 $ad=bc$，函数实际上是常数函数，值域只有 $\{a/c\}$；若题目再规定 $x>0$、$x\ge2$ 等，值域还要按新的 $x$ 范围重新判断。
 \end{statementbox}

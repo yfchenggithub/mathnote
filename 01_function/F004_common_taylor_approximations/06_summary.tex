@@ -1,30 +1,36 @@
+\clearpage
 \begin{summarybox}
-\textbf{一句话：} 用导数定系数，用余项管误差；抵消后仍要保留足以决定结果的信息。
+\textbf{一句话记住：}
+\textbf{把难算的函数换成好算的式子；若前面的项会抵消，就继续留后面的项，直到不会影响答案为止。}
 
-\textbf{四组速查（均为 $x\to0$，三角函数用弧度）：}
-\[
- e^x=1+x+\frac{x^2}{2}+O(x^3).
-\]
-\[
- \ln(1+x)=x-\frac{x^2}{2}+\frac{x^3}{3}+O(x^4).
-\]
+\textbf{五条公式速记（$x$ 接近 $0$，三角函数用弧度）：}
 \[
 \begin{aligned}
- \sin x&=x-\frac{x^3}{6}+\frac{x^5}{120}+O(x^7),\\
- \cos x&=1-\frac{x^2}{2}+\frac{x^4}{24}+O(x^6).
+ e^x&\approx1+x+\frac{x^2}{2},\\
+ \ln(1+x)&\approx x-\frac{x^2}{2}+\frac{x^3}{3},\\
+ \sin x&\approx x-\frac{x^3}{6}+\frac{x^5}{120},\\
+ \cos x&\approx1-\frac{x^2}{2}+\frac{x^4}{24},\\
+ \tan x&\approx x+\frac{x^3}{3}.
 \end{aligned}
 \]
-\[
- \tan x=x+\frac{x^3}{3}+O(x^5).
-\]
-\textbf{使用顺序：} 检查定义域和单位 $\to$ 看哪些项会抵消 $\to$ 保留所需阶数
-$\to$ 控制余项 $\to$ 求极限或按误差区间舍入。
 
-\textbf{最后四查：}
-\begin{itemize}[leftmargin=*]
-\item 对数是否满足 $x>-1$？正切是否避开 $\cos x=0$？
-\item 正弦三次项是否为负？余弦常数项是否为 $1$？
-\item 求极限时，余项除以分母后是否确实趋零？
-\item 数值估算是否有具体误差界，且没有提前舍入？
-\end{itemize}
+\textbf{三步使用法：}
+\begin{enumerate}[leftmargin=*]
+\item \textbf{先检查：} $x$ 是否接近 $0$，角度是不是弧度，原函数有没有定义。
+\item \textbf{再看抵消：} 分子减掉了哪些项，就把近似式多写到下一项。
+\item \textbf{最后查误差：} 求极限时，省略部分除以分母必须趋于 $0$；
+估小数时，误差要小到不改变最终保留的位数。
+\end{enumerate}
+
+\textbf{两个“看到就想起”的结果：}
+\[
+ \lim_{x\to0}\frac{1-\cos x}{x^2}=\frac12,
+ \qquad
+ \lim_{x\to0}\frac{\tan x-\sin x}{x^3}=\frac12.
+\]
+它们可以只用单位圆与三角恒等式说明，特别适合先理解，再记忆。
+
+\textbf{额外提醒：}
+$\ln(1+x)\le x-x^2/2+x^3/3$ 对一切 $x>-1$ 都成立；
+这比“两个式子差不多”更有用，因为还告诉了我们\textbf{大小方向}。
 \end{summarybox}

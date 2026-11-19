@@ -6,9 +6,11 @@
     "alias": [
       "换元求值域",
       "根式换元",
-      "三角换元求值域"
+      "根式值域",
+      "三角换元求值域",
+      "平方差化根号"
     ],
-    "summary": "通过代数换元或三角换元，将含根号的函数转化为整式或三角函数，再利用常规方法求值域。",
+    "summary": "求含根号函数的值域时，把整个根号或根号与 x 的组合换成新字母，化成容易求范围的二次式、三角函数或分式；换元时必须保留原题的取值限制。",
     "difficulty": 3,
     "category": "函数",
     "tags": [
@@ -16,7 +18,8 @@
       "求值域",
       "根式函数",
       "三角换元",
-      "函数值域"
+      "平方差公式",
+      "二次函数"
     ]
   },
   "search": {
@@ -35,14 +38,21 @@
       "辅助角公式",
       "二次函数",
       "正弦函数",
-      "有界性"
+      "平方差公式",
+      "角度范围",
+      "根号非负",
+      "根式乘法化简",
+      "根式平方和",
+      "根式平方差"
     ],
     "synonyms": [
       "换元法求值域",
       "根号换元",
       "三角换元求值域",
       "含根式函数值域",
-      "换元法求范围"
+      "换元法求范围",
+      "根式求范围",
+      "乘平方差求值域"
     ],
     "intents": [
       "求值域",
@@ -56,7 +66,9 @@
       "根式函数值域怎么求",
       "sqrt(a^2-x^2)换元",
       "三角换元求值域",
-      "含根号函数值域"
+      "含根号函数值域",
+      "根式求值域如何换元",
+      "根式换元为什么要限制范围"
     ],
     "ocrKeywords": [
       "sqrt",
@@ -65,24 +77,27 @@
       "值域"
     ],
     "latex_patterns": [
-      "\\sqrt{ax+b}",
+      "\\sqrt{mx+n}",
       "\\sqrt{a^2-x^2}",
       "\\sqrt{x^2+a^2}",
       "\\sqrt{x^2-a^2}",
       "\\sin\\theta",
       "\\cos\\theta",
       "\\tan\\theta",
-      "\\sec\\theta"
+      "\\sqrt{x^2+a^2}-x",
+      "x-\\sqrt{x^2-a^2}"
     ],
     "formulaTokens": [
-      "t=\\sqrt{ax+b}",
-      "x=(t^2-b)/a",
+      "t=\\sqrt{mx+n}",
+      "x=(t^2-n)/m",
       "x=a\\sin\\theta",
       "\\sqrt{a^2-x^2}=a\\cos\\theta",
       "x=a\\tan\\theta",
-      "x=a\\sec\\theta",
+      "\\sqrt{x^2+a^2}=a/\\cos\\theta",
+      "\\sqrt{x^2+a^2}-x=a^2/(\\sqrt{x^2+a^2}+x)",
+      "x-\\sqrt{x^2-a^2}=a^2/(x+\\sqrt{x^2-a^2})",
       "y=2t^2+t+2",
-      "y=2\\sqrt{2}\\sin(\\theta+\\pi/4)"
+      "y=2\\sqrt2\\sin(\\theta+\\pi/4)"
     ],
     "pinyin": "huanyuanfa qiu zhivu han han genshi hanshu",
     "pinyinAbbr": "hyfqzv"
@@ -100,27 +115,31 @@
     "success_rate": 0
   },
   "math": {
-    "core_formula": "对于含根式函数，令 $t=\\sqrt{ax+b}\\ (t\\ge0)$ 或 $x=a\\sin\\theta$ 等，转化为整式或三角函数。",
+    "core_formula": "$t=\\sqrt{mx+n}\\ge0\\ (m\\ne0)\\Rightarrow x=\\frac{t^2-n}{m}$；若 $a>0$ 且 $-a\\le x\\le a$，令 $x=a\\sin\\theta$、$\\theta\\in[-\\frac\\pi2,\\frac\\pi2]$，则 $\\sqrt{a^2-x^2}=a\\cos\\theta$。",
     "related_formulas": [
-      "二次函数 $y=At^2+Bt+C$ 的值域（配方法）",
-      "三角函数 $y=A\\sin(\\omega\\theta+\\varphi)+B$ 的值域"
+      "$\\sqrt{u^2}=|u|$",
+      "$(U+V)(U-V)=U^2-V^2$",
+      "$\\sin^2\\theta+\\cos^2\\theta=1$",
+      "$y=At^2+Bt+C$ 的配方法"
     ],
-    "variables": "a,b,x,t,\\theta",
-    "conditions": "$a\\neq 0$；根式内部非负；三角换元时 $\\theta$ 的取值范围需保证开方后符号正确。",
-    "conclusions": "换元后新函数的值域即为原函数的值域，但需考虑新变量的取值范围。"
+    "variables": "m,n,a,x,t,\\theta",
+    "conditions": "$m\\ne0$；涉及 $a$ 的三角或平方差换元一律取 $a>0$；根号内非负；若有分母则分母不为零；换元后保留原题所有取值限制。",
+    "conclusions": "换元只是重新写出同一组函数值：新字母必须确实能够取遍所写范围。特别注意根号非负、平方根开方符号、x²−a² 的正负两个区间，以及值域端点能否取到。"
   },
   "content": {
-    "statement": "对于含有根式的函数，可通过换元法转化为整式或三角函数求值域：\n(1) 若含 $\\sqrt{ax+b}$，令 $t=\\sqrt{ax+b}(t\\ge0)$，则 $x=\\frac{t^2-b}{a}$；\n(2) 若含 $\\sqrt{a^2-x^2}$，令 $x=a\\sin\\theta$，$\\theta\\in[-\\frac{\\pi}{2},\\frac{\\pi}{2}]$，则 $\\sqrt{a^2-x^2}=a\\cos\\theta$；\n(3) 若含 $\\sqrt{x^2+a^2}$，可令 $x=a\\tan\\theta$；\n(4) 若含 $\\sqrt{x^2-a^2}$，可令 $x=a\\sec\\theta$。",
+    "statement": "换元求根式函数值域的核心是“换式子，不换允许的取值”。\n(1) $t=\\sqrt{mx+n}\\ge0$，$x=\\frac{t^2-n}{m}$（$m\\ne0$）；\n(2) $a>0$、$-a\\le x\\le a$ 时，可令 $x=a\\sin\\theta$、$\\theta\\in[-\\frac\\pi2,\\frac\\pi2]$，$\\sqrt{a^2-x^2}=a\\cos\\theta$；\n(3) $a>0$ 时，$x=a\\tan\\theta$、$\\theta\\in(-\\frac\\pi2,\\frac\\pi2)$，$\\sqrt{x^2+a^2}=a/\\cos\\theta$；\n(4) 若 $a>0$，可利用平方差公式：$\\sqrt{x^2+a^2}-x=\\frac{a^2}{\\sqrt{x^2+a^2}+x}$；$x\\ge a$ 时，$x-\\sqrt{x^2-a^2}=\\frac{a^2}{x+\\sqrt{x^2-a^2}}$，而 $x\\le-a$ 时需要另行考虑。",
     "derivation": [
-      "第一步：识别根式类型，确定对应换元形式。",
-      "第二步：进行换元，并用新变量表示原函数，注意新变量的取值范围。",
-      "第三步：用常规方法（配方法、三角函数有界性等）求新函数的值域，即得原函数值域。"
+      "先确定 x 的范围：根号内非负，分母非零，题目额外条件一并保留。",
+      "观察能否直接把根号设成 t；或用正弦、余弦；或使用平方差公式。",
+      "求出新字母的准确范围，再算函数能取到哪些值，并核对端点是否真正取到。"
     ],
-    "intuition": "换元法引入新变量消除根号，将复杂函数转化为熟悉函数，利用已知方法求值域。",
+    "intuition": "根号不是坏东西，只是遮住了熟悉的函数形状：把整块根号设成新字母，就可能看见二次函数；把圆上的两段长度改写成正弦和余弦，就可能看见三角函数；利用平方差公式，根号加减 x 还可能直接变成分式。",
     "common_tricks": [
-      "换元后必须同步确定新变量范围，否则值域结果无效。",
-      "三角换元后开方时注意符号，保证根式结果与原式一致。",
-      "若根式嵌套，可能需多次换元。"
+      "t=根号必须 t≥0；如果原题限定 x 在区间内，t 的范围要更严格。",
+      "先看平方差公式能否直接把根式加减变成分式，有时比三角换元更省步骤。",
+      "开平方要注意绝对值：√(u²)=|u|。",
+      "遇到 √(x²−a²) 而题目未限制 x 的正负时，两段 x≥a 和 x≤−a 都要考虑。",
+      "能够无限接近端点不代表真正取到端点。"
     ]
   },
   "usage": {
@@ -137,16 +156,24 @@
     "exam_score": 5
   },
   "interactive": {
-    "has_diagram": false,
+    "has_diagram": true,
     "geogebra_id": "",
     "param_demo": {}
   },
   "assets": {
-    "svg": ""
+    "svg": "",
+    "tikz": "assets/tikz/F009_root_input_mapping.tex",
+    "additional_tikz": [
+      "assets/tikz/F009_upper_semicircle.tex",
+      "assets/tikz/F009_tangent_triangles.tex",
+      "assets/tikz/F009_positive_conjugate_parameter.tex",
+      "assets/tikz/F009_square_difference_two_branches.tex",
+      "assets/tikz/F009_restricted_quadratic.tex"
+    ]
   },
   "shareConfig": {
-    "title": "根式函数值域：先换元再带上范围",
-    "shareDesc": "根号反复出现，直接研究原式不容易。用根式本身作新变量，把式子转成熟悉的整式；先写新变量非负及题设限制，再求值域，避免换元后多取了原题达不到的值。"
+    "title": "换元求根式值域：先想为什么换，再守住范围",
+    "shareDesc": "含根号的函数为什么要换元？因为换成新字母后，常能用初高中熟悉的二次函数、三角函数或平方差公式求值域。重点是根号非负、原题范围和端点能否取到。"
   },
   "relations": {
     "prerequisites": [
@@ -154,17 +181,20 @@
       "二次函数值域",
       "三角函数值域"
     ],
-    "related_ids": ["F007", "F008"],
-    "similar": "类似方法：利用单调性直接求值域，或平方消去根号。"
+    "related_ids": [
+      "F007",
+      "F008"
+    ],
+    "similar": "类似思路：平方差公式先化简；直接比较大小求最值；配方法；在给定范围内考察三角函数。"
   },
   "meta": {
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-26",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-11-19"
   },
   "isPro": 1,
-  "remarks": "",
+  "remarks": " 2026-11-19 TikZ完善：首页根式换元对应图；各证明配根号变量、上半圆、三角形、共轭正参数与平方差双支图；例题标明限制区间。",
   "knowledgeNode": "函数-定义域与值域-值域-常见值域模型",
   "altNodes": "函数-性质-有界性,不等式-解法-函数法"
 }

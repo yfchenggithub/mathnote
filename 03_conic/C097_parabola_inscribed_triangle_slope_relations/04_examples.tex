@@ -1,0 +1,176 @@
+\clearpage
+\begin{examplebox}
+\textbf{例1：横向开口，直接验证倒斜率关系。}
+
+抛物线 $y^2=4x$，取 $A=(1,2)$、$B=(4,-4)$，$O=(0,0)$。先核对两点都在曲线上：$2^2=4\cdot1$，$(-4)^2=4\cdot4$。
+\[
+k_{OA}=\frac21=2,\qquad
+k_{OB}=\frac{-4}{4}=-1,\qquad
+k_{AB}=\frac{-4-2}{4-1}=-2.
+\]
+于是
+\[
+\boxed{\frac12+\frac1{-1}=-\frac12=\frac1{-2}}.
+\]
+\textbf{反向应用：}不需要计算 $A,B$ 的具体坐标。若已知 $k_{OA}=2$、$k_{OB}=6$，则
+\[
+\frac1{k_{AB}}=\frac12+\frac16=\frac23
+\quad\Longrightarrow\quad\boxed{k_{AB}=\frac32}.
+\]
+\end{examplebox}
+
+\clearpage
+\begin{examplebox}
+\textbf{例2：纵向开口，开口向下也成立。}
+\begin{center}\input{assets/tikz/C097_example_downward}\end{center}
+
+设 $x^2=-4y$，即 $p=-2$。取 $A=(2,-1)$、$B=(-4,-4)$，它们均在抛物线上。于是
+\[
+k_{OA}=\frac{-1}{2}=-\frac12,\qquad
+k_{OB}=\frac{-4}{-4}=1.
+\]
+按照 C097，无须先写弦方程，直接得到
+\[
+\boxed{k_{AB}=-\frac12+1=\frac12}.
+\]
+核验：
+\[
+k_{AB}=\frac{-4-(-1)}{-4-2}
+=\frac{-3}{-6}=\frac12.
+\]
+\textbf{要点：}公式对所有 $p\ne0$ 成立，不要求抛物线一定向右或向上开口。
+\end{examplebox}
+
+\clearpage
+\begin{examplebox}
+\textbf{例3：对称弦——一个不能乱写，另一个完全能用。}
+\begin{center}\input{assets/tikz/C097_boundary_cases}\end{center}
+
+\textbf{横向：}对 $y^2=2x$，取
+\[
+A=\left(\frac12,1\right),\qquad B=\left(\frac12,-1\right).
+\]
+此时 $k_{OA}=2$，$k_{OB}=-2$，故
+\[
+\frac1{k_{OA}}+\frac1{k_{OB}}=\frac12-\frac12=0.
+\]
+但 $AB:\ x=1/2$ 为\textbf{竖直直线}，$k_{AB}$ 不存在，因此不允许写 $1/k_{AB}=0$。应使用加强式
+\[
+\frac{x_B-x_A}{y_B-y_A}=\frac0{-2}=0.
+\]
+
+\medskip
+\textbf{纵向：}对 $x^2=2y$，取 $A=(1,1/2), B=(-1,1/2)$，则
+\[
+k_{OA}=\frac12,\qquad k_{OB}=-\frac12,
+\qquad\boxed{k_{AB}=0}.
+\]
+这里 $AB$ 是水平直线，斜率 $0$ \textbf{确实存在}，所以原公式直接成立。
+\end{examplebox}
+
+\clearpage
+\begin{examplebox}
+\textbf{例4：已知三角形两边斜率，求第三边，并判断例外。}
+
+\textbf{(1)} 对 $y^2=6x$，若 $k_{OA}=3$、$k_{OB}=-6$，则
+\[
+\frac1{k_{AB}}=\frac13-\frac16=\frac16
+\quad\Longrightarrow\quad\boxed{k_{AB}=6}.
+\]
+若改为 $k_{OA}=3$、$k_{OB}=-3$，则两条射线的倒斜率和为 $0$，说明 $AB$ 是竖直弦；此时\textbf{不能}说 $k_{AB}$ 等于无穷大，因为通常的斜率定义中竖直线斜率不存在。
+
+\medskip
+\textbf{(2)} 对 $x^2=6y$，若 $k_{OA}=3$、$k_{OB}=-3$，则
+\[
+\boxed{k_{AB}=3-3=0},
+\]
+弦 $AB$ 水平，这是完全正常的情况。
+
+\textbf{解题选择：}知道两条射线斜率，优先直接使用公式；知道两点坐标，优先使用平方差；知道弦方程，优先考虑联立和韦达。
+\end{examplebox}
+
+\clearpage
+\begin{examplebox}
+\textbf{例5：顶点不在原点，照样用顶点连线斜率和。}
+\begin{center}\input{assets/tikz/C097_vertex_translation}\end{center}
+在 $y=(x-2)^2+1$ 上，取顶点 $V(2,1)$、$A(3,2)$、$B(1/2,13/4)$。代入可核对两端点在曲线上，且均不同于顶点。
+\[
+k_{VA}=\frac{2-1}{3-2}=1,\qquad
+k_{VB}=\frac{13/4-1}{1/2-2}=-\frac32.
+\]
+直接应用推广，得 $\boxed{k_{AB}=1-3/2=-1/2}$。
+两点式回验：
+\[
+\frac{13/4-2}{1/2-3}=\frac{5/4}{-5/2}=-\frac12.
+\]
+\textbf{识别依据：}必须连接实际顶点 $V$，不能仍把坐标原点当成顶点。
+\end{examplebox}
+
+\clearpage
+\begin{examplebox}
+\textbf{例6：只知道两端切线斜率，也能直接求弦斜率。}
+\begin{center}\input{assets/tikz/C097_tangent_mean_vertical}\end{center}
+\textbf{纵向：}对 $x^2=2y$，两端切线斜率为 $-1,2$，则
+\[
+\boxed{k_{AB}=\frac{-1+2}{2}=\frac12}.
+\]
+回验：由切线斜率 $k=x$，两点为 $A(-1,1/2),B(2,2)$；两点式得 $(2-1/2)/(2+1)=1/2$。
+
+\textbf{横向变式：}对 $y^2=2x$，若切线斜率为 $-1,1/2$，则
+\[
+\frac1{k_{AB}}=\frac12\left(-1+2\right)=\frac12,
+\qquad\boxed{k_{AB}=2}.
+\]
+回验两点为 $(1/2,-1),(2,2)$，弦斜率 $3/(3/2)=2$。
+\textbf{关键：}先辨开口，再辨题目给的是顶点连线还是切线。
+\end{examplebox}
+
+\clearpage
+\begin{examplebox}
+\textbf{例7：同一条抛物线，两种焦点弦的长度倒数和。}
+\begin{center}\input{assets/tikz/C097_focus_reciprocal_parabola}\end{center}
+对 $y^2=4x$，$p=2$、$F(1,0)$，所以任何有限两点焦点弦都满足
+\[
+\boxed{\frac1{FA}+\frac1{FB}=1}.
+\]
+\textbf{最简单的验证：}$x=1$ 的端点为 $(1,\pm2)$，两段均长 $2$。
+
+\textbf{一般位置的数值回验：}$A(4,4),B(1/4,-1)$ 的坐标满足曲线方程；连线为 $y=\frac43(x-1)$，确过焦点。距离分别为 $5,5/4$，故倒数和为 $1/5+4/5=1$。
+这里 $AB$ 竖直也能使用\textbf{长度}倒数和，不能把这个结论误换成弦的\textbf{斜率}倒数。
+\end{examplebox}
+
+\clearpage
+\begin{examplebox}
+\textbf{例8：乘积除以和，先看分母是否为零。}
+\begin{center}\input{assets/tikz/C097_boundary_cases}\end{center}
+对 $y^2=2x$，给出两组顶点连线斜率。
+
+\textbf{正例：}$k_{OA}=2,k_{OB}=6$。和为 $8\ne0$，故
+\[
+\boxed{k_{AB}=\frac{2\cdot6}{2+6}=\frac32}.
+\]
+由 $y=2x,y=6x$ 与曲线的另一交点得 $A(1/2,1),B(1/18,1/3)$，回验弦斜率为 $(-2/3)/(-4/9)=3/2$。
+
+\textbf{边界例：}$k_{OA}=2,k_{OB}=-2$。分母为 $0$，不可计算 $-4/0$；两点为 $(1/2,\pm1)$，弦是 $x=1/2$，普通斜率不存在。
+若换成纵向 $x^2=2y$，顶点连线斜率为 $2,-2$ 时，弦斜率直接为 $0$，不需要除以斜率和。
+\end{examplebox}
+
+\clearpage
+\begin{examplebox}
+\textbf{短例9：另外两种“倒数相加”，各用各的条件。}
+
+\textbf{(1) 椭圆焦点弦。}椭圆 $x^2/25+y^2/9=1$ 的半轴为 $a=5,b=3$，右焦点为 $F(4,0)$，所以长度倒数和为
+\[
+\boxed{\frac{2a}{b^2}=\frac{10}{9}}.
+\]
+沿长轴的两端点为 $(5,0),(-5,0)$，距离为 $1,9$，倒数和 $1+1/9=10/9$。
+垂直长轴的焦点弦两端点为 $(4,\pm9/5)$，代入椭圆方程得 $16/25+9/25=1$；倒数和也是 $5/9+5/9=10/9$。
+
+\medskip
+\textbf{(2) $3,4,5$ 直角三角形。}面积为 $3\cdot4/2=6$，斜边为 $5$，斜边上的高为 $h=2\cdot6/5=12/5$。于是
+\[
+\frac1{h^2}=\frac{25}{144},\qquad
+\frac1{3^2}+\frac1{4^2}=\frac{16+9}{144}=\frac{25}{144}.
+\]
+长度平方的倒数对应勾股定理，不能改写成 $1/h=1/3+1/4$；实际 $5/12\ne7/12$。
+\end{examplebox}

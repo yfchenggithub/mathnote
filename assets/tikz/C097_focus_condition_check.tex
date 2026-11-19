@@ -1,0 +1,30 @@
+% p=2; focal chord x=1 vs nonfocal chord x=4, identical scale.
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,10.5);
+\node at (7.1,9.95) {只改变弦的位置：经过焦点这个条件不能省};
+\node at (3.55,9.05) {$AB:x=1$，经过 $F$};
+\node at (10.65,9.05) {$AB:x=4$，不经过 $F$};
+\foreach \offset in {1.5,8.6}{
+\begin{scope}[shift={(\offset,5.0)},scale=.7]
+\draw[->,gray] (-.5,0)--(5.7,0) node[above] {$x$};
+\draw[->,gray] (0,-4.6)--(0,4.6) node[left] {$y$};
+\draw[teal!65!black,thick,samples=100,domain=-4.4:4.4,variable=\t] plot ({\t*\t/4},\t);
+\end{scope}}
+\begin{scope}[shift={(1.5,5.0)},scale=.7]
+\draw[green!45!black,very thick] (1,-2)--(1,2);
+\fill (1,2) circle(2pt) node[right=12pt] {$A$};
+\fill (1,-2) circle(2pt) node[right=12pt] {$B$};
+\fill (1,0) circle(2pt) node[below right=12pt] {$F$};
+\end{scope}
+\begin{scope}[shift={(8.6,5.0)},scale=.7]
+\draw[blue!75!black,dashed,thick] (1,0)--(4,4);
+\draw[orange!85!black,dashed,thick] (1,0)--(4,-4);
+\draw[green!45!black,very thick] (4,-4)--(4,4);
+\fill (4,4) circle(2pt) node[right=12pt] {$A$};
+\fill (4,-4) circle(2pt) node[right=12pt] {$B$};
+\fill (1,0) circle(2pt) node[above=14pt] {$F$};
+\end{scope}
+\node at (3.55,1.55) {$FA=FB=2,\quad \frac1{FA}+\frac1{FB}=1$};
+\node at (10.65,1.55) {$FA=FB=5,\quad \frac1{FA}+\frac1{FB}=\frac25$};
+\node at (7.1,.55) {两图同尺度：$y^2=4x,\ F(1,0)$；普通弦不能套用焦点弦定值。};
+\end{tikzpicture}

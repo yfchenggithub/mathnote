@@ -1,0 +1,24 @@
+% Exact example 2: p=-2, A=(2,-1), B=(-4,-4), k_AB=1/2.
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,9.6);
+\node at (7.1,9.05) {开口向下，仍然是三条边的普通斜率关系};
+\begin{scope}[shift={(5.0,7.0)},scale=.9]
+\draw[->,gray] (-4.7,0)--(3.2,0) node[above] {$x$};
+\draw[->,gray] (0,-5.0)--(0,.8) node[left] {$y$};
+\draw[teal!65!black,thick,samples=110,domain=-4.5:2.8,variable=\t] plot (\t,{-\t*\t/4});
+\fill[blue!4] (0,0)--(2,-1)--(-4,-4)--cycle;
+\draw[blue!75!black,very thick] (0,0)--(2,-1);
+\draw[orange!85!black,very thick] (0,0)--(-4,-4);
+\draw[green!45!black,very thick] (2,-1)--(-4,-4);
+\fill (0,0) circle(2pt) node[above left=8pt] {$O$};
+\fill (2,-1) circle(2pt) node[above right=8pt] {$A$};
+\fill (-4,-4) circle(2pt) node[below left=7pt] {$B$};
+\end{scope}
+\node[anchor=west,align=left] at (8.9,5.7)
+ {$x^2=-4y,\quad p=-2$\\[12pt]
+ $A(2,-1)$\\[12pt]$B(-4,-4)$\\[15pt]
+ $\textcolor{blue!75!black}{k_{OA}=-\frac12}$\\[12pt]
+ $\textcolor{orange!85!black}{k_{OB}=1}$\\[12pt]
+ $\textcolor{green!45!black}{k_{AB}=\frac12}$};
+\node at (7.1,.7) {$\displaystyle -\frac12+1=\frac12$；$p$ 的正负改变开口方向，公式仍然成立。};
+\end{tikzpicture}

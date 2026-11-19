@@ -1,0 +1,12 @@
+\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,9.4);
+\node at (7.1,8.8) {换元后的二次函数，只能在允许的新范围上求最值};
+
+\begin{scope}[shift={(4,2.4)},x=1.4cm,y=1cm]
+\draw[->] (-.8,0)--(2.9,0) node[right]{$t$};\draw[->] (0,-.3)--(0,5.2) node[above]{$y$};
+\draw[gray!50,thick,domain=-.2:2.6,samples=70] plot(\x,{(\x-2)*(\x-2)});\draw[blue,very thick,domain=1:2] plot(\x,{(\x-2)*(\x-2)});
+\fill[blue] (1,1) circle(2pt);\fill[blue] (2,0) circle(2pt);\draw[dashed] (1,0)--(1,1)--(0,1);\node[below] at (1,0){$1$};\node[below] at (2,0){$2$};\node[left] at (0,1){$1$};
+\end{scope}
+\node[align=left,anchor=west] at (8.3,5.1){$2\le x\le5$\\[9pt] $t=\sqrt{x-1}\in[1,2]$\\[9pt] $y=(t-2)^2$\\[9pt] 值域 $[0,1]$};
+\node[text width=13.2cm,align=center] at (7.1,.65) {只保留粗蓝段；灰色曲线属于二次式，却不都属于原题。};
+\end{tikzpicture}

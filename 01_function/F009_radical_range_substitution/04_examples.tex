@@ -1,102 +1,167 @@
+\clearpage
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例 1（基础）}}
+  \textbf{\textcolor{CExample}{例 1：根号当成一个数，二次函数立刻出现（基础）}}
 
-	\textbf{\textcolor{CExample}{题目：}}
-	求函数 $y=2x+\sqrt{x-1}$ 的值域。
+  \textbf{题目：} 求 $y=2x+\sqrt{x-1}$ 的值域。
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（识别根式形式）：}] 表达式含 $\sqrt{x-1}$，属于 $\sqrt{ax+b}$ 型（$a=1,\,b=-1$）。
-			\par\textbf{理由：} 符合换元条件，使用代数换元消去根号。
+  \textbf{第一步：找出 $x$ 的范围。} 根号内 $x-1\ge0$，所以 $x\ge1$。
 
-		\item[\textbf{第二步（进行换元）：}] 令 $t=\sqrt{x-1}$，则 $t\ge0$，且 $x=t^2+1$。原函数化为
-			\[
-				\begin{aligned}
-					y &= 2(t^2+1)+t \\
-					&= 2t^2+t+2
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 将 $x$ 用 $t$ 表示并代入，得到关于 $t$ 的二次函数。
+  \textbf{第二步：整个根号设成 $t$。} 令 $t=\sqrt{x-1}$，则 $t\ge0$、$x=t^2+1$，因此
+  \[
+    y=2(t^2+1)+t=2t^2+t+2.
+  \]
 
-		\item[\textbf{第三步（求值域）：}] 对 $y=2t^2+t+2$（$t\ge0$），配方得
-			\[
-				y=2\left(t+\frac{1}{4}\right)^2+\frac{15}{8}
-			\]
-			由 $t\ge0$，$y$ 在 $t=0$ 处取最小值 $2$，故值域为 $[2,+\infty)$。
-			\par\textbf{理由：} 二次函数在给定区间上单调递增，最小值在左端点取得。
-	\end{description}
+  \textbf{第三步：直接比较大小。} 因为 $t\ge0$，所以 $2t^2\ge0$、$t\ge0$，从而
+  \[
+    y=2+2t^2+t\ge2.
+  \]
+  当 $t=0$（即 $x=1$）时，恰好取到 $y=2$；随着 $t$ 增大，$y$ 不断增大，没有上限。
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	$y=2x+\sqrt{x-1}$ 的值域为 \textbf{$[2,+\infty)$}。
+  \textbf{答案：}\ $\boxed{[2,+\infty)}$。
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+  \textbf{特别提醒：} 这里不必先配方。看到 $2t^2+t$ 的两项都不小于 $0$，比配方法更快。
 
-	\textbf{\textcolor{CExample}{题目：}}
-	求函数 $y=x+\sqrt{4-x^2}$ 的值域。
+  \medskip
+  \textbf{\textcolor{CExample}{例 2：根号里是 $4-x^2$，用圆和三角函数（常规）}}
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（识别根式形式）：}] 含有 $\sqrt{4-x^2}=\sqrt{2^2-x^2}$，属于 $\sqrt{a^2-x^2}$ 型。
-			\par\textbf{理由：} 适合三角换元，利用正弦或余弦消去根号。
+  \textbf{题目：} 求 $y=x+\sqrt{4-x^2}$ 的值域。
 
-		\item[\textbf{第二步（三角换元）：}] 令 $x=2\sin\theta$，$\theta\in[-\frac{\pi}{2},\frac{\pi}{2}]$，则
-			\[
-				\begin{aligned}
-					y &= 2\sin\theta+\sqrt{4-4\sin^2\theta} \\
-					&= 2\sin\theta+2\cos\theta
-			\end{aligned}
-			\]
-			\par\textbf{理由：} $\sqrt{4-x^2}=2\sqrt{1-\sin^2\theta}=2\cos\theta$（在给定区间内 $\cos\theta\ge0$）。
+  \textbf{第一步：先定范围。} $4-x^2\ge0$，所以 $-2\le x\le2$。
 
-		\item[\textbf{第三步（合并求值）：}] 用辅助角公式：
-			\[
-				\begin{aligned}
-					y &= 2\sin\theta+2\cos\theta \\
-					&= 2\sqrt{2}\sin\left(\theta+\frac{\pi}{4}\right)
-			\end{aligned}
-			\]
-			由 $\theta\in[-\frac{\pi}{2},\frac{\pi}{2}]$，得 $\theta+\frac{\pi}{4}\in[-\frac{\pi}{4},\frac{3\pi}{4}]$，$\sin\left(\theta+\frac{\pi}{4}\right)\in[-\frac{\sqrt{2}}{2},1]$，故 $y\in[-2,2\sqrt{2}]$。
-			\par\textbf{理由：} 利用正弦函数的有界性求出值域。
-	\end{description}
+  \textbf{第二步：用正弦表示 $x$。} 令
+  \[
+    x=2\sin\theta,\qquad
+    -\frac{\pi}{2}\le\theta\le\frac{\pi}{2}.
+  \]
+  这一段 $\cos\theta\ge0$，所以
+  \[
+    \sqrt{4-x^2}=2\cos\theta,
+    \qquad y=2\sin\theta+2\cos\theta.
+  \]
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	$y=x+\sqrt{4-x^2}$ 的值域为 \textbf{$[-2,2\sqrt{2}]$}。
+  \textbf{第三步：把两项合成一项。}
+  \[
+    y=2\sqrt2\sin\left(\theta+\frac{\pi}{4}\right).
+  \]
+  由于 $-\frac\pi4\le\theta+\frac\pi4\le\frac{3\pi}{4}$，这段正弦的最小值为 $-\frac{\sqrt2}{2}$，最大值为 $1$。所以
+  \[
+    -2\le y\le2\sqrt2.
+  \]
+  左端 $-2$ 在 $x=-2$ 时取到；右端 $2\sqrt2$ 在 $x=\sqrt2$ 时取到，中间的值也都能取到。
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+  \textbf{答案：}\ $\boxed{[-2,\,2\sqrt2]}$。
 
-	\textbf{\textcolor{CExample}{题目：}}
-	求函数 $y=\frac{\sqrt{x^2+1}}{x-1}$（$x>1$）的值域。
+  \textbf{眼前一亮：} 因为 $\sqrt{4-x^2}\ge0$，所以 $y\ge x\ge-2$，下界无需计算；上界还可用
+  \[
+    0\le\left(x-\sqrt{4-x^2}\right)^2
+      =4-2x\sqrt{4-x^2}
+  \]
+  得 $x\sqrt{4-x^2}\le2$，继而
+  \[
+    y^2=x^2+(4-x^2)+2x\sqrt{4-x^2}\le8.
+  \]
+  因此 $y\le2\sqrt2$，和三角函数方法的答案一致。
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（识别根式形式）：}] 分子含 $\sqrt{x^2+1}=\sqrt{x^2+1^2}$，属于 $\sqrt{x^2+a^2}$ 型。
-			\par\textbf{理由：} 采用正切换元，消去根号。
+  \medskip
+  \textbf{\textcolor{CExample}{例 3：原稿中的综合题，换个角度看更简单}}
 
-		\item[\textbf{第二步（正切换元）：}] 令 $x=\tan\theta$，$\theta\in(-\frac{\pi}{2},\frac{\pi}{2})$ 且由 $x>1$ 取 $\theta\in(\frac{\pi}{4},\frac{\pi}{2})$。
-			\[
-				\begin{aligned}
-					y &= \frac{\sqrt{\tan^2\theta+1}}{\tan\theta-1} \\
-					&= \frac{|\sec\theta|}{\tan\theta-1}
-			\end{aligned}
-			\]
-			\par\textbf{理由：} $1+\tan^2\theta=\sec^2\theta$，在 $\theta\in(\frac{\pi}{4},\frac{\pi}{2})$ 上 $\sec\theta>0$，故 $y=\frac{\sec\theta}{\tan\theta-1}$。
+  \textbf{题目：} 求 $y=\dfrac{\sqrt{x^2+1}}{x-1}$（$x>1$）的值域。
 
-		\item[\textbf{第三步（化为正余弦）：}] 将 $\sec\theta=\frac{1}{\cos\theta}$，$\tan\theta=\frac{\sin\theta}{\cos\theta}$ 代入：
-			\[
-				\begin{aligned}
-					y &= \frac{\frac{1}{\cos\theta}}{\frac{\sin\theta}{\cos\theta}-1} \\
-					&= \frac{1}{\sin\theta-\cos\theta}
-			\end{aligned}
-			\]
-			用辅助角公式：$\sin\theta-\cos\theta=\sqrt{2}\sin\left(\theta-\frac{\pi}{4}\right)$。
-			\par\textbf{理由：} 消去 $\cos\theta$，使表达式简化。
+  \textbf{方法 A（使用三角函数）。} 设 $x=\tan\theta$。由于 $x>1$，可取
+  \[
+    \frac{\pi}{4}<\theta<\frac{\pi}{2}.
+  \]
+  这段角的余弦为正，于是
+  \[
+    \begin{aligned}
+      y&=\frac{\sqrt{1+\tan^2\theta}}{\tan\theta-1}
+         =\frac{1/\cos\theta}{\sin\theta/\cos\theta-1}\\
+       &=\frac{1}{\sin\theta-\cos\theta}.
+    \end{aligned}
+  \]
+  当 $\theta$ 从 $\frac\pi4$ 向 $\frac\pi2$ 增大时，$\sin\theta-\cos\theta$ 从接近 $0$（但大于 $0$）增至接近 $1$（但小于 $1$）。因此 $y>1$，且任意大于 $1$ 的值都能取得。
 
-		\item[\textbf{第四步（求值域）：}] $\theta\in(\frac{\pi}{4},\frac{\pi}{2})$ 时，$\theta-\frac{\pi}{4}\in(0,\frac{\pi}{4})$，$\sin\left(\theta-\frac{\pi}{4}\right)\in(0,\frac{\sqrt{2}}{2})$。故 $\sqrt{2}\sin\left(\theta-\frac{\pi}{4}\right)\in(0,1)$，从而 $y=\frac{1}{\sqrt{2}\sin\left(\theta-\frac{\pi}{4}\right)}\in(1,+\infty)$。
-			\par\textbf{理由：} 分母为正且单调递增，函数值单调递减，值域可直接得出。
-	\end{description}
+  \textbf{方法 B（更快，不必换三角函数）。} 令 $t=\dfrac{1}{x-1}>0$，则 $x=1+\dfrac1t$。注意 $y>0$，两边平方：
+  \[
+    \begin{aligned}
+      y^2&=\frac{x^2+1}{(x-1)^2}
+      =1+\frac{2x}{(x-1)^2}\\
+      &=1+2t+2t^2.
+    \end{aligned}
+  \]
+  因为 $t>0$，所以 $y^2>1$、$y>1$。而 $1+2t+2t^2$ 随正数 $t$ 从接近 $0$ 不断增大到没有上限，能够取遍所有大于 $1$ 的数，因此 $y$ 也能取遍所有大于 $1$ 的数。
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	函数 $y=\frac{\sqrt{x^2+1}}{x-1}$（$x>1$）的值域为 \textbf{$(1,+\infty)$}.
+  \textbf{答案：}\ $\boxed{(1,+\infty)}$。
+
+  \textbf{提醒：} $x$ 永远大于 $1$，不能等于 $1$；即使函数值可以无限接近 $1$，也不能把 $1$ 写入值域。
+
+  \medskip
+  \textbf{\textcolor{CExample}{例 4：平方和中，乘一下就能去掉根号（巧妙）}}
+
+  \textbf{题目：} 求 $y=\sqrt{x^2+1}-x$（$x\in\mathbb{R}$）的值域。
+
+  \textbf{第一步：用平方差公式。}
+  \[
+    y=\frac{(\sqrt{x^2+1}-x)(\sqrt{x^2+1}+x)}{\sqrt{x^2+1}+x}
+     =\frac{1}{\sqrt{x^2+1}+x}.
+  \]
+  因为 $\sqrt{x^2+1}>|x|$，分母始终为正。
+
+  \textbf{第二步：把分母设成 $t$。} 令 $t=\sqrt{x^2+1}+x>0$，于是 $y=\dfrac1t$。
+
+  \textbf{第三步：确认正数 $t$ 全都能取到。} 根据平方差公式，
+  \[
+    \sqrt{x^2+1}-x=\frac1t,
+    \qquad x=\frac{t-1/t}{2}.
+  \]
+  右式说明每个 $t>0$ 都对应一个实数 $x$，没有遗漏。既然 $t$ 能取遍正数，$\dfrac1t$ 也能取遍正数。
+
+  \textbf{答案：}\ $\boxed{(0,+\infty)}$。
+
+  \textbf{记住：} $\sqrt{x^2+1}-x$ 看起来有减法，结果却始终为正；\textbf{关键就在于根号比 $|x|$ 大。}
+
+  \medskip
+  \textbf{\textcolor{CExample}{例 5：平方差根式，反手变成分式（提高）}}
+
+  \textbf{题目：} 求 $y=x-\sqrt{x^2-4}$（$x\ge2$）的值域。
+
+  \textbf{第一步：乘上相加的一半。}
+  \[
+    y=\frac{\bigl(x-\sqrt{x^2-4}\bigr)\bigl(x+\sqrt{x^2-4}\bigr)}{x+\sqrt{x^2-4}}
+     =\frac{4}{x+\sqrt{x^2-4}}.
+  \]
+
+  \textbf{第二步：设 $t=x+\sqrt{x^2-4}$。} 因为 $x\ge2$，所以 $t\ge2$，于是 $y=\dfrac4t$。
+
+  \textbf{第三步：检查 $t\ge2$ 是否全部能取到。} 根据两式相加可得
+  \[
+    x=\frac{t^2+4}{2t}\quad(t\ge2).
+  \]
+  这个 $x$ 始终不小于 $2$，所以每个 $t\ge2$ 都合法。
+
+  \textbf{第四步：求值域。} 因为 $t\ge2$，故 $0<\dfrac4t\le2$；$t=2$（即 $x=2$）时取到 $2$，而 $0$ 永远取不到。
+
+  \textbf{答案：}\ $\boxed{(0,2]}$。
+
+  \textbf{注意：} 这一题已经给出 $x\ge2$，只需考虑正半边；若原题只写 $\sqrt{x^2-4}$ 的定义域，就还要考虑 $x\le-2$。
+
+  \medskip
+  \begin{minipage}{\linewidth}
+\textbf{\textcolor{CExample}{例 6：原题限制会缩小换元后的范围（防错）}}
+\begin{center}\input{assets/tikz/F009_restricted_quadratic.tex}\end{center}
+\end{minipage}
+
+
+
+  \textbf{题目：} 求 $y=(\sqrt{x-1}-2)^2$，其中 $2\le x\le5$，的值域。
+
+  令 $t=\sqrt{x-1}$。由于 $2\le x\le5$，有
+  \[
+    1\le t\le2,\qquad y=(t-2)^2.
+  \]
+  此时 $-1\le t-2\le0$，所以 $0\le(t-2)^2\le1$。在 $t=2$ 时取 $0$，在 $t=1$ 时取 $1$。
+
+  \textbf{答案：}\ $\boxed{[0,1]}$。
+
+  \textbf{对照：} 如果只写 $t\ge0$，把题目中的 $2\le x\le5$ 忘掉，就会得出完全错误的结果。
 \end{examplebox}

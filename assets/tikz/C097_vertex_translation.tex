@@ -1,0 +1,33 @@
+% Exact translation: Y=X^2 -> y=(x-2)^2+1; equal x/y units.
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,10.0);
+\node at (7.1,9.45) {只平移图形，三条边的方向都不变};
+\node at (3.55,8.55) {$Y=X^2$};
+\node at (10.65,8.55) {$y=(x-2)^2+1$};
+\begin{scope}[shift={(3.2,3.8)},scale=1.15]
+\draw[->,gray] (-2.1,0)--(2.1,0) node[above] {$X$};
+\draw[->,gray] (0,-.75)--(0,3.4) node[left] {$Y$};
+\draw[teal!65!black,thick,samples=80,domain=-1.7:1.7,variable=\t] plot (\t,{\t*\t});
+\draw[blue!75!black,very thick] (0,0)--(1,1);
+\draw[orange!85!black,very thick] (0,0)--(-1.5,2.25);
+\draw[green!45!black,very thick] (1,1)--(-1.5,2.25);
+\fill (0,0) circle(2pt) node[below left=8pt] {$V$};
+\fill (1,1) circle(2pt) node[right=12pt] {$A$};
+\fill (-1.5,2.25) circle(2pt) node[right=14pt] {$B$};
+\end{scope}
+\begin{scope}[shift={(8.1,2.65)},scale=1.15]
+\draw[->,gray] (-.25,0)--(4.5,0) node[above] {$x$};
+\draw[->,gray] (0,-.3)--(0,4.4) node[left] {$y$};
+\draw[teal!65!black,thick,samples=80,domain=.3:3.7,variable=\t] plot (\t,{(\t-2)*(\t-2)+1});
+\draw[blue!75!black,very thick] (2,1)--(3,2);
+\draw[orange!85!black,very thick] (2,1)--(.5,3.25);
+\draw[green!45!black,very thick] (3,2)--(.5,3.25);
+\draw[gray!55,dashed] (2,0)--(2,1)--(0,1);
+\fill (2,1) circle(2pt) node[below right=10pt] {$V(2,1)$};
+\fill (3,2) circle(2pt) node[right=12pt] {$A$};
+\fill (.5,3.25) circle(2pt) node[right=14pt] {$B$};
+\end{scope}
+\node at (3.55,1.8) {$k_{VA}=1,\quad k_{VB}=-\frac32$};
+\node at (10.65,1.8) {$k_{VA}=1,\quad k_{VB}=-\frac32$};
+\node at (7.1,.65) {两图同尺度：横、纵坐标差保持不变，故 $k_{AB}=1-\frac32=-\frac12$。};
+\end{tikzpicture}

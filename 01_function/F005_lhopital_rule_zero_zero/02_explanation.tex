@@ -1,43 +1,81 @@
+\clearpage
 \begin{explanationbox}
 
-\textbf{\textcolor{CExplanation}{一句话直觉}}
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExplanation}{一、为什么会出现这个方法？}}
+\begin{center}\input{assets/tikz/F005_zero_rates.tex}\end{center}
+\end{minipage}
 
-洛必达法则的核心是：当分式极限为 $\frac{0}{0}$ 或 $\frac{\infty}{\infty}$ 时，可以分别对分子分母求导，再用求导后的极限代替原极限，通常能简化计算。
+
+
+图中令 $t=x-1$：四条曲线都经过原点，但蓝、紫、绿线与橙线的比值分别趋于 $2,0,3$。
+因此“分子、分母都趋于零”仍不能决定答案，必须比较它们的变化比例。
 
 \medskip
-\textbf{\textcolor{CExplanation}{核心拆解}}
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{要点一（未定式判定）：}] 使用前必须确认极限是 $\frac{0}{0}$ 或 $\frac{\infty}{\infty}$ 型，否则直接使用会得到错误结果。
-    \item[\textbf{要点二（可导与非零检查）：}] 在 $a$ 的去心邻域内，$f(x),g(x)$ 必须可导，且 $g'(x)\neq0$，这是法则成立的前提。
-    \item[\textbf{要点三（极限存在性）：}] 极限 $\displaystyle\lim_{x\to a}\frac{f'(x)}{g'(x)}$ 必须存在（或为无穷大），若这个极限不存在（非无穷震荡），则法则失效。
+\textbf{\textcolor{CExplanation}{二、为什么想到求导？}}
+
+导数能描述函数在某个位置附近的变化快慢。
+当 $f(a)=g(a)=0$ 时，如果两个函数在 $a$ 处都能求导，而且 $g'(a)\ne0$，那么
+\[
+\frac{f(x)}{g(x)}
+=\frac{\frac{f(x)-f(a)}{x-a}}{\frac{g(x)-g(a)}{x-a}}
+\quad(x\ne a).
+\]
+当 $x$ 很接近 $a$ 时，上下两个“小分式”分别接近 $f'(a)$、$g'(a)$。
+于是原来的比值接近 $\frac{f'(a)}{g'(a)}$。
+
+\textbf{眼前一亮的地方：}原本是在比两个函数的\emph{数值}，转个角度后，变成比它们的\emph{变化快慢}。
+对于某些计算，变化快慢反而更容易求。
+
+\medskip
+\textbf{\textcolor{CExplanation}{三、为什么不能随时分别求导？}}
+
+\[
+\lim_{x\to1}\frac{x}{x-1}
+\]
+不能代入，但它是“$\frac10$”，不是“$\frac00$”。
+若生硬地分别求导，会得到 $\frac11=1$；而原分式从右边靠近 $1$ 时越来越大，
+从左边靠近时越来越小，根本没有双侧的确定极限。
+\textbf{所以：不能代入，绝不等于可以用洛必达法则。}
+
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExplanation}{四、考试中如何选择最快路线？}}
+
+\begin{description}[style=nextline, leftmargin=2.5em, labelsep=0.4em, itemsep=0.35em]
+    \item[\textbf{先直接代入：}] 若分母不为 $0$，通常直接算，不必求导。
+    \item[\textbf{有共同因子：}] 像 $\frac{x^2-1}{x-1}$，先拆成 $(x-1)(x+1)$，约掉更快。
+    \item[\textbf{含根号：}] 像 $\frac{\sqrt{x}-2}{x-4}$，先乘 $\sqrt{x}+2$，往往一步化简。
+    \item[\textbf{拆不开、难化简：}] 检查是否为“$0$ 比 $0$”或“两边都无限增大”，并逐项确认求导条件，再考虑分别求导。
+    \item[\textbf{求导一次还不能算：}] 若仍是允许的情况，可再求一次；若已不是允许的情况，立即停止，改用正常运算。
 \end{description}
+\end{minipage}
 
 \medskip
-\textbf{\textcolor{CExplanation}{几何本质（斜率比近似）}}
+\textbf{\textcolor{CExplanation}{五、两个容易忽略的发现}}
 
-当 $x$ 趋近于 $a$ 时，$f(x)$ 和 $g(x)$ 都趋近于 $0$，它们的比值可看作 $x$ 的增量很小的情况下，$f$ 和 $g$ 在 $a$ 处的切线斜率之比。因此，求导后的比值更简单。
+\textbf{发现一：同样趋于 $0$，结果不一定是有限数。}
+例如 $\frac{x-1}{(x-1)^2}=\frac1{x-1}$，从右侧接近 $1$ 时会越来越大，
+从左侧接近时会越来越小。左右方向可能给出不同结果。
+
+\textbf{发现二：求导后的比值没有极限，不代表原式也没有。}
+例如
+\[
+\frac{x+\sin x}{x}=1+\frac{\sin x}{x}\longrightarrow1
+\qquad(x\to+\infty),
+\]
+因为 $-1\le\sin x\le1$；但分别求导后得到 $1+\cos x$，它一直变化，不能接近一个固定值。
+此时只是\textbf{这条计算捷径走不通}，不是原题没有答案。
+
+
+
+\textbf{\textcolor{CProof}{先说明证明的范围}}
+
+洛必达法则可以处理比下面更复杂的情况，例如 $f'(a)=g'(a)=0$，甚至在 $a$ 处根本没有函数值。
+这些情况的一般证明不能只凭高中导数定义直接推出。
+这里不用超出高中范围的定理硬凑完整证明，而是用\textbf{三条可以亲手检查的路线}：
+前两条证明两类常见的分式，第三条证明一个常用的三角函数极限。
 
 \medskip
-\textbf{\textcolor{CExplanation}{代数意义（极限转化简化）}}
 
-洛必达法则将原极限 $\displaystyle\lim_{x\to a}\frac{f(x)}{g(x)}$ 转化为其导数之比的极限 $\displaystyle\lim_{x\to a}\frac{f'(x)}{g'(x)}$，往往能消去零因子或无穷大因子，从而简化计算。
-
-\medskip
-\textbf{\textcolor{CExplanation}{考点价值（导数求限）}}
-\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-    \item \textbf{考法一（直接求极限）：} 出现 $\frac{0}{0}$ 或 $\frac{\infty}{\infty}$ 型的分式极限时，直接用洛必达法则将分子分母同时求导，再代值或进一步变形。
-    \item \textbf{考法二（参数范围确定）：} 通过洛必达求出参数影响下的极限值，再结合函数连续性或单调性确定参数取值范围。
-\end{itemize}
-
-\medskip
-\textbf{\textcolor{CExplanation}{顿悟点}}
-
-洛必达法则是针对未定式极限的“调整工具”，不是普通求导再相加。记住：必须先验型，后求导，再代值。若一次求导后仍是未定式，可继续使用。
-
-\medskip
-\textbf{\textcolor{CExplanation}{使用场景}}
-\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-    \item \textbf{场景一（分式未定式）：} 如 $\displaystyle\lim_{x\to0}\frac{\sin x}{x}$、$\displaystyle\lim_{x\to0}\frac{e^x-1}{x}$ 等典型 $\frac{0}{0}$ 极限。
-    \item \textbf{场景二（无穷小量比值）：} 当分子分母均为无穷小或无穷大，且含有对数、指数、三角函数时，优先考虑洛必达法则。
-\end{itemize}
 \end{explanationbox}

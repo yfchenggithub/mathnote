@@ -1,20 +1,40 @@
 \clearpage
 \begin{summarybox}
-\paragraph{一句话核心}
-先用结构与配系数得到分式，再用误差决定能否使用；曲线贴合只是直观证据。
+\paragraph{为什么需要这个结论？}
+\textbf{把不好手算的指数、对数、三角函数值，换成容易计算的分式；
+再用导数和不等式决定估算的可信程度。}
+它是\textbf{接近 $0$ 时的计算工具}，不是新的函数恒等式。
+
+\paragraph{五式速记}
 \[
-R_E=\frac{x^2+6x+12}{x^2-6x+12},\qquad
-R_L=\frac{3x^2+6x}{x^2+6x+6}.
+\begin{aligned}
+e^x&\approx\frac{x^2+6x+12}{x^2-6x+12},&
+\ln(1+x)&\approx\frac{3x^2+6x}{x^2+6x+6},\\
+\sin x&\approx\frac{6x}{x^2+6},&
+\cos x&\approx\frac{12-5x^2}{12+x^2},\\
+\tan x&\approx\frac{3x}{3-x^2}.
+\end{aligned}
 \]
+
+\paragraph{在 $0\le x\le1$ 时，偏大偏小一眼看懂}
 \[
-(R_S,R_C,R_T)=\left(\frac{6x}{x^2+6},\frac{12-5x^2}{12+x^2},\frac{3x}{3-x^2}\right).
+\begin{array}{c|c|c}
+\text{函数}&\text{分式和真正函数值相比}&\text{误差不超过}\\\hline
+ e^x&\text{偏小}&3x^5/665\\
+ \ln(1+x)&\text{偏小}&x^5/180\\
+ \sin x&\text{偏大}&x^5/36\\
+ \cos x&\text{偏小}&x^6/288\\
+ \tan x&\text{偏小}&x^5/15
+\end{array}
 \]
-当 $x\to0$，余弦误差为 $O(x^6)$，其余四式为 $O(x^5)$。
-在 $0\le x\le1$：
-\[
-0\le e^x-R_E\le\frac{3x^5}{665},\qquad
-0\le\ln(1+x)-R_L\le\frac{x^5}{180}.
-\]
-\textbf{四项检查：}定义域是否同时满足？三角自变量是否已转弧度？
-近似是否误写为恒等或直接放缩？误差区间是否全部落在要求的舍入范围内？
+\textbf{再记两个有用的结构：}
+$E(-x)=1/E(x)$；$L\bigl(-x/(1+x)\bigr)=-L(x)$（$x>-1$）。
+
+\paragraph{做题四步}
+\textbf{找 $x$}：对数特别注意 $\ln(1+x)$；
+\textbf{看条件}：正切的分母和原函数都要有定义，角度用弧度；
+\textbf{算分式}：先求容易计算的估计值；
+\textbf{查误差}：确认整个可能范围都能得到同一个舍入结果。
+
+\textbf{一句话收尾：}分式帮你算得快，误差范围帮你算得稳。
 \end{summarybox}

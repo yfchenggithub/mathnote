@@ -1,41 +1,58 @@
+\clearpage
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
-	单调函数在闭区间上的值域，由两端点函数值直接确定，因为函数值随自变量单向变化，既无回头也无跳跃。
+    \textbf{\textcolor{CExplanation}{一、为什么会出现这个结论？}}
+    例如 $y=2x+1$，规定 $0\le x\le3$。题目问的是：$y$ 最小是多少、最大是多少、
+    中间又能取到哪些数？如果每次都代入许多 $x$ 去试，既慢又不可能试完。
+    注意到 $x$ 越大，$2x+1$ 也越大，于是直接计算
+    \[
+        f(0)=1,\qquad f(3)=7.
+    \]
+    这样就不用一个一个地试值了。一次函数图像是一条不断开的直线，
+    从高度 $1$ 走到高度 $7$，中间的高度也都会经过，所以值域是 $[1,7]$。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（端点即最值）：}]
-			单调递增时最小值在左端点，最大值在右端点；单调递减时反之。
-		\item[\textbf{要点二（闭区间保证取值）：}]
-			闭区间保证端点函数值有定义，因此值域的上下界都能取到。
-	\end{description}
+    \medskip
+    \textbf{\textcolor{CExplanation}{二、先分清两个不同的问题}}
+    \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
+        \item[\textbf{问题一（谁最大、谁最小？）：}]
+            只要知道在闭区间上一直上升或一直下降，答案就藏在两个端点里。
+            这一步只需要\textbf{单调}，不要求图像一定连起来。
+        \item[\textbf{问题二（中间每个数都能取到吗？）：}]
+            这一步还要检查\textbf{连续}。图像没有断开，才能确定最大值和最小值之间的高度都不会漏掉。
+    \end{description}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（区间连续映照）}}
-	单调函数的图像从左到右只上升或下降，在 $x$ 从 $a$ 到 $b$ 的过程中，$y$ 从 $f(a)$ 到 $f(b)$ 单向移动，覆盖整个竖条区间。
+    \medskip
+    \textbf{\textcolor{CExplanation}{三、从图像上怎么理解？}}
+    首页蓝色高度带显示连续递增时的完整值域；易错图的浅橙色带显示跳跃后缺少的高度。
+“单调”确定两端的最值，“连续”保证两端之间不缺值。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（不等式传递）}}
-	由定义，对 $a \le x_1<x_2\le b$，有 $f(x_1)\le f(x_2)$（递增）或 $f(x_1)\ge f(x_2)$（递减），从而任意 $x$ 的函数值均介于 $f(a)$ 与 $f(b)$ 之间。
+    \medskip
+    \textbf{\textcolor{CExplanation}{四、考场上为什么有用？}}
+    \begin{itemize}[leftmargin=*,itemsep=0.35em,topsep=0.35em]
+        \item \textbf{直接求值域：}一次函数、指定区间内的二次函数、指数函数等，确认单调后代入端点。
+        \item \textbf{求最大值或最小值：}不用把整个函数解出来，只需比较两端。
+        \item \textbf{有字母的题：}先看字母让函数上升还是下降，再决定端点排列顺序。
+        \item \textbf{分段求范围：}二次函数跨过对称轴、绝对值函数遇到转折点时，先拆后合并。
+    \end{itemize}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（简化运算）}}
-	利用单调性求值域只需计算两个端点值，避免遍历所有点，常用于一次函数、指数函数、对数函数等单调函数。
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（直接求值域）：}给出单调区间，直接代入端点得值域。
-		\item \textbf{考法二（含参单调分析）：}先判断参数对单调性的影响，再求最值。
-	\end{itemize}
+    \medskip
+    \textbf{\textcolor{CExplanation}{五、两个容易让人眼前一亮的发现}}
+    \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
+        \item[\textbf{发现一（先比较大小，再写值域）：}]
+            对连续且单调的函数，可以直接记
+            \[
+                \boxed{\text{值域}=
+                [\min\{f(a),f(b)\},\ \max\{f(a),f(b)\}]}.
+            \]
+            这里 $\min$ 表示取较小的数，$\max$ 表示取较大的数。
+            这样即使暂时忘了递增、递减的公式，也不容易写反。
+        \item[\textbf{发现二（两个端点相等时要警惕）：}]
+            如果整个区间上单调且 $f(a)=f(b)$，那么区间内的函数值只能都等于这个数。
+            可是如果函数中途改变了方向，两端相等\textbf{不代表}中间也一样。
+            例如 $f(x)=x^2$ 在 $[-1,1]$ 上两端都等于 $1$，最小值却是 $0$。
+    \end{description}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
-	值域问题转化为端点问题，核心在于“单调”保证函数值不重复、不回头，一次对应。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（已知单调求值域）：}明确告知函数在区间上单调，如一次函数、反比例函数在指定区间。
-		\item \textbf{场景二（先证单调再求值）：}未知单调性，用定义或导数证明单调后，再用结论求值域。
-	\end{itemize}
-
+    \medskip
+    \textbf{\textcolor{CExplanation}{做题顺序}}
+    \textbf{先看区间是否包含端点 $\longrightarrow$ 再看升降方向
+    $\longrightarrow$ 算端点值 $\longrightarrow$ 检查有没有跳跃或转折 $\longrightarrow$ 写完整值域。}
 \end{explanationbox}

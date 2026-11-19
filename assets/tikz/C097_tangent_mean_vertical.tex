@@ -1,0 +1,27 @@
+% x^2=2y, p=1; A=(-1,1/2), B=(2,2); slopes -1,2,1/2.
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,10.0);
+\node at (7.1,9.45) {纵向：两端切线的斜率取平均，得到弦的斜率};
+\begin{scope}[shift={(3.8,3.1)},scale=1.15]
+\draw[->,gray] (-2.4,0)--(3.4,0) node[above] {$x$};
+\draw[->,gray] (0,-1.3)--(0,4.3) node[left] {$y$};
+\draw[teal!65!black,thick,samples=100,domain=-2.2:2.8,variable=\t] plot (\t,{\t*\t/2});
+\draw[blue!75!black,dashed,thick] (0,0)--(-1,.5);
+\draw[orange!85!black,dashed,thick] (0,0)--(2,2);
+\draw[blue!75!black,very thick] (-2.2,1.7)--(.6,-1.1);
+\draw[orange!85!black,very thick] (.6,-.8)--(2.8,3.6);
+\draw[green!45!black,very thick] (-1,.5)--(2,2);
+\fill (0,0) circle(2pt) node[below left=10pt] {$O$};
+\fill (-1,.5) circle(2pt) node[above=14pt] {$A$};
+\fill (2,2) circle(2pt) node[right=14pt] {$B$};
+\node[blue!75!black] at (-1.6,2.1) {$t_A$};
+\node[orange!85!black] at (3.25,3.25) {$t_B$};
+\end{scope}
+\node[anchor=west,align=left] at (8.9,5.7)
+ {$x^2=2y,\quad p=1$\\[13pt]
+ $A(-1,\frac12),\ B(2,2)$\\[15pt]
+ $k_A=-1,\quad k_B=2$\\[15pt]
+ $k_{AB}=\dfrac{-1+2}{2}=\dfrac12$};
+\node at (7.1,1.3) {虚线是顶点连线，实线 $t_A,t_B$ 是切线；二者不能混淆。};
+\node at (7.1,.6) {$k_{OA}=-\frac12,\ k_{OB}=1$，切线斜率分别是顶点连线斜率的 $2$ 倍。};
+\end{tikzpicture}

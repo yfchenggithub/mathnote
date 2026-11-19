@@ -1,0 +1,24 @@
+% F002 新增原始示意图：闭区间端点与不连续的反例
+\begin{center}
+\begin{tikzpicture}[>=stealth,scale=0.92,font=\small]
+  \begin{scope}[shift={(-3.0,0)}]
+  \draw[->,gray] (-0.45,0)--(2.15,0) node[right] {$x$};
+  \draw[->,gray] (0,-0.5)--(0,1.75) node[above] {$y$};
+  \draw[very thick,blue!70!black] (0,0)--(1,1);
+  \fill[blue!70!black] (0,0) circle (2pt) node[below left] {$0$};
+  \fill[blue!70!black] (1,1) circle (2pt) node[above right] {$1$};
+  \node[below] at (0.75,-0.70) {$y=x$（仅 $0\le x\le1$）};
+  \end{scope}
+  \begin{scope}[shift={(3.2,0.7)}]
+  \draw[->,gray] (-1.65,0)--(1.65,0) node[right] {$x$};
+  \draw[->,gray] (0,-1.25)--(0,0.6) node[above] {$y$};
+  \draw[very thick,teal!80!black,domain=-1.15:-0.05,samples=40] plot (\x,{-\x*\x});
+  \draw[very thick,teal!80!black,domain=0.05:1.15,samples=40] plot (\x,{-\x*\x});
+  \draw[thick,teal!80!black,fill=white] (0,0) circle (2.4pt);
+  \fill[teal!80!black] (0,-1) circle (2.4pt);
+  \node at (0,-1.5) {$f(0)=-1$};
+  \node[above right] at (0,0) {空点};
+  \node[below] at (0,-1.92) {两侧虽先增后减，$0$ 仍是极小值点};
+  \end{scope}
+\end{tikzpicture}
+\end{center}

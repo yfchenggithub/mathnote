@@ -1,26 +1,46 @@
 \begin{statementbox}
-\paragraph{用有理分式作局部近似}
-记下列五个分式为 $R_E,R_L,R_S,R_C,R_T$。当 $x\to0$ 时，
+\paragraph{这个结论要解决什么问题？}
+有些数很难直接手算，例如 $e^{0.1}$、$\ln1.1$、$\sin0.2$。
+而考试中的近似计算，往往只需要知道它们大约是多少、偏大还是偏小，以及保留几位小数是否可靠。
+\textbf{这一组公式的作用，就是把难算的函数值变成可以直接进行加、减、乘、除的分式。}
+它们特别适合自变量\textbf{接近 $0$} 的情况。
+
+
+\begin{center}\input{assets/tikz/F003_exp_local.tex}\end{center}
+\end{statementbox}
+\clearpage
+\begin{statementbox}
+\paragraph{五个可以直接代入的分式}
+为方便下面讲解，记右侧五个分式分别为 $E(x),L(x),S(x),C(x),T(x)$：
 \[
 \begin{aligned}
-e^x&=\underbrace{\frac{x^2+6x+12}{x^2-6x+12}}_{R_E(x)}+O(x^5),\\[4pt]
-\ln(1+x)&=\underbrace{\frac{3x^2+6x}{x^2+6x+6}}_{R_L(x)}+O(x^5),\\[4pt]
-\sin x&=\underbrace{\frac{6x}{x^2+6}}_{R_S(x)}+O(x^5),\\[4pt]
-\cos x&=\underbrace{\frac{12-5x^2}{12+x^2}}_{R_C(x)}+O(x^6),\\[4pt]
-\tan x&=\underbrace{\frac{3x}{3-x^2}}_{R_T(x)}+O(x^5).
+e^x&\approx\underbrace{\frac{x^2+6x+12}{x^2-6x+12}}_{E(x)},\\[3pt]
+\ln(1+x)&\approx\underbrace{\frac{3x^2+6x}{x^2+6x+6}}_{L(x)},\\[3pt]
+\sin x&\approx\underbrace{\frac{6x}{x^2+6}}_{S(x)},\\[3pt]
+\cos x&\approx\underbrace{\frac{12-5x^2}{12+x^2}}_{C(x)},\\[3pt]
+\tan x&\approx\underbrace{\frac{3x}{3-x^2}}_{T(x)}.
 \end{aligned}
 \]
-$O(x^m)$ 表示误差的绝对值在零点某邻域内不超过 $C|x|^m$，其中 $C$ 为与 $x$ 无关的正常数；它本身不提供具体的有效数字保证。
+\textbf{请把 $\approx$ 看作“差不多”，不要写成等号。}
 
-\textbf{定义域与单位：}指数、正弦、余弦的这些分式对所有实数有定义；对数比较要求 $x>-1$，此时其分母也为正。
-正切比较还须 $\cos x\ne0$ 且 $x\ne\pm\sqrt3$，零点附近可取 $|x|<\pi/2$。
-所有三角函数的 $x$ 均为\textbf{弧度数}。
+\paragraph{最实用的使用条件}
+\begin{itemize}
+\item $x$ 越靠近 $0$，通常越准确。以下有严格证明的误差范围为 $0\le x\le1$。
+\item $\ln(1+x)$ 必须满足 $x>-1$；对于 $\tan x$，要同时保证 $\cos x\ne0$、$3-x^2\ne0$。
+\item 代入正弦、余弦、正切的数字时，必须使用\textbf{弧度数}，例如 $30^\circ=\pi/6$，不能直接代入 $30$。
+\end{itemize}
 
-\textbf{使用边界：}这些是近似公式，不是恒等式，也不自动给出上界或下界。
-本条另证：$0\le x\le1$ 时，
+\paragraph{不仅知道接近，还知道最多能差多少}
+下面五个结论在 $0\le x\le1$ 时成立：
 \[
-0\le e^x-R_E(x)\le\frac{3x^5}{665},\qquad
-0\le\ln(1+x)-R_L(x)\le\frac{x^5}{180}.
+\boxed{\begin{aligned}
+0&\le e^x-E(x)\le\frac{3x^5}{665},\\
+0&\le\ln(1+x)-L(x)\le\frac{x^5}{180},\\
+0&\le S(x)-\sin x\le\frac{x^5}{36},\\
+0&\le\cos x-C(x)\le\frac{x^6}{288},\\
+0&\le\tan x-T(x)\le\frac{x^5}{15}.
+\end{aligned}}
 \]
-两式等号均仅在 $x=0$ 成立。指数在 $x<0$ 时、对数在 $-1<x<0$ 时，误差方向反转。
+前两式及余弦、正切分式都\textbf{偏小}，正弦分式\textbf{偏大}（在 $x>0$ 时均为严格不等）。
+这些具体数字的由来见证明部分，并非凭图像猜出来的。
 \end{statementbox}

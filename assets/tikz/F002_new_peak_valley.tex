@@ -1,0 +1,22 @@
+% F002 新增原始示意图：峰顶与谷底（不覆盖旧 TikZ）
+\begin{center}
+\begin{tikzpicture}[>=stealth,scale=0.9,font=\small]
+  \begin{scope}[shift={(-3.0,0)}]
+  \draw[->,gray] (-1.85,0)--(1.85,0) node[right] {$x$};
+  \draw[->,gray] (0,-0.2)--(0,2.35) node[above] {$y$};
+  \draw[thick,blue!70!black,domain=-1.5:1.5,samples=60] plot (\x,{1.75-0.65*\x*\x});
+  \fill[blue!70!black] (0,1.75) circle (2pt);
+  \node[above right] at (0,1.75) {峰顶};
+  \node[below] at (0,-0.32) {$-(x)^2$ 的形状};
+  \end{scope}
+  \begin{scope}[shift={(3.0,0)}]
+  \draw[->,gray] (-1.85,0)--(1.85,0) node[right] {$x$};
+  \draw[->,gray] (0,-0.2)--(0,2.35) node[above] {$y$};
+  \draw[thick,teal!80!black,domain=-1.5:1.5,samples=60] plot (\x,{0.20+0.65*\x*\x});
+  \fill[teal!80!black] (0,0.2) circle (2pt);
+  \node[above right] at (0,1.5) {谷底};
+  \draw[->,gray] (.35,1.4)--(.05,.35);
+  \node[below] at (0,-0.32) {$x^2$ 的形状};
+  \end{scope}
+\end{tikzpicture}
+\end{center}

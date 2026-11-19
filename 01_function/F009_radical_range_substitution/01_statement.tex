@@ -1,34 +1,69 @@
 \begin{statementbox}
+  \textbf{\textcolor{CStatement}{这个结论解决什么问题？}}
 
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件 1（含根式求值域）：}}] 函数表达式含有根式，且直接求解值域困难。
-	\end{description}
+  一道函数值域题里，如果 $x$ 既出现在根号内，又出现在根号外，直接观察最高值、最低值往往很难。换元就是\textbf{把反复出现的一整块式子当成一个新字母}，把题目变成学过的二次函数或三角函数问题。
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（换元化整式）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			通过变量替换，将根号下整体设为新变量，消去根号。
-			\begin{enumerate}
-			\item 若含 $\sqrt{ax+b}$（$a\neq 0$），令 $t=\sqrt{ax+b}\ (t\ge 0)$，则 $x=\frac{t^2-b}{a}$。
-		\end{enumerate}
+  \medskip
+  \begin{center}\input{assets/tikz/F009_root_input_mapping.tex}\end{center}
+\end{statementbox}
+\clearpage
+\begin{statementbox}
+\textbf{\textcolor{CStatement}{使用前先检查}}
+  \begin{itemize}[leftmargin=*,itemsep=0.35em]
+    \item 根号里的数必须大于或等于 $0$；分母不能为 $0$。
+    \item 换元后，新字母能取哪些值，必须从原题条件推出来。
+    \item 下文写 $a>0$；若题中给出 $a<0$，先把相关平方中的 $a$ 换成 $|a|$。
+  \end{itemize}
 
-		\item[\textbf{\textcolor{CStatement}{结论二（三角换元）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			利用三角恒等式设角，将根式转化为三角函数形式。
-			\begin{enumerate}
-			\item 若含 $\sqrt{a^2-x^2}$，令 $x=a\sin\theta$，$\theta\in\bigl[-\frac{\pi}{2},\frac{\pi}{2}\bigr]$，则 $\sqrt{a^2-x^2}=a\cos\theta$。
-			\item 若含 $\sqrt{x^2+a^2}$，令 $x=a\tan\theta$。
-			\item 若含 $\sqrt{x^2-a^2}$，令 $x=a\sec\theta$。
-		\end{enumerate}
+  \medskip
+  \textbf{\textcolor{CStatement}{结论一：根号里是一次式，直接设整个根号}}
 
-		\item[\textbf{\textcolor{CStatement}{常见变形（换元后求值域）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			换元后函数转化为整式或三角函数，使用常规方法求值域。
-	\end{description}
+  对于 $\sqrt{mx+n}$（$m\ne0$），令
+  \[
+    t=\sqrt{mx+n}\quad(t\ge0),\qquad x=\frac{t^2-n}{m}.
+  \]
+  用 $t$ 表示原式，再在 $t$ 的实际范围内求值域。\textbf{注意：若题目另有限制，$t\ge0$ 还不够。}
 
-	\textbf{\textcolor{CStatement}{适用范围：}}
-	适用于形如 $\sqrt{ax+b}$、$\sqrt{a^2-x^2}$、$\sqrt{x^2+a^2}$、$\sqrt{x^2-a^2}$ 的根式函数求值域问题。
+  \medskip
+  \textbf{\textcolor{CStatement}{结论二：根号里是两个平方的差，像一个圆}}
 
+  当 $a>0$、$-a\le x\le a$ 时，令
+  \[
+    x=a\sin\theta,\quad -\frac{\pi}{2}\le\theta\le\frac{\pi}{2},
+    \qquad\sqrt{a^2-x^2}=a\cos\theta.
+  \]
+  于是 $x$ 与根号可以同时写成正弦、余弦，适合处理它们相加、相减的题。
+
+  \medskip
+  \textbf{\textcolor{CStatement}{结论三：根号里是两个平方的和}}
+
+  当 $a>0$、$x$ 为任意实数时，可令
+  \[
+    x=a\tan\theta,\quad-\frac{\pi}{2}<\theta<\frac{\pi}{2},
+    \qquad \sqrt{x^2+a^2}=\frac{a}{\cos\theta}.
+  \]
+  也可以不用三角函数：令 $t=\sqrt{x^2+a^2}+x>0$，则
+  \[
+    x=\frac{t^2-a^2}{2t},\qquad
+    \sqrt{x^2+a^2}=\frac{t^2+a^2}{2t}.
+  \]
+
+  \medskip
+  \textbf{\textcolor{CStatement}{结论四：根号里是 $x^2-a^2$，先分正负}}
+
+  当 $a>0$ 时，必须有 $x\ge a$ 或 $x\le-a$。
+  \begin{itemize}[leftmargin=*,itemsep=0.35em]
+    \item 若 $x\ge a$，令 $t=x+\sqrt{x^2-a^2}\ge a$，则
+      \[
+        x=\frac{t^2+a^2}{2t},\qquad
+        \sqrt{x^2-a^2}=\frac{t^2-a^2}{2t}.
+      \]
+    \item 若 $x\le-a$，令 $t=-x+\sqrt{x^2-a^2}\ge a$，则
+      \[
+        x=-\frac{t^2+a^2}{2t},\qquad
+        \sqrt{x^2-a^2}=\frac{t^2-a^2}{2t}.
+      \]
+  \end{itemize}
+
+  \textbf{\textcolor{CStatement}{最重要的一句话：}}\textbf{换元可以改写式子，但不能改掉原题允许的取值。}
 \end{statementbox}

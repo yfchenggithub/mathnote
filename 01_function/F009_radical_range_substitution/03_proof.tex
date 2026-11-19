@@ -1,56 +1,127 @@
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+  \textbf{\textcolor{CProof}{证明方法一：把根号当作一个数（最容易理解）}}
+\begin{center}\input{assets/tikz/F009_root_input_mapping.tex}\end{center}
 
-	只需验证每个换元操作后，原根式表达式与新变量或三角函数的等式关系成立，且新变量的取值范围与原变量一一对应。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（$\sqrt{ax+b}$ 换元）：}] 令 $t=\sqrt{ax+b}$（$t\ge0$），由 $t^2=ax+b$ 解出 $x=\frac{t^2-b}{a}$。
-			\[
-				t\ge0,\quad \text{且 }x=\frac{t^2-b}{a}
-			\]
-			\par\textbf{理由：} 根式的非负性保证 $t\ge0$，平方后得到线性关系，直接反解即可。
+  \textbf{要说明什么？} 设 $t=\sqrt{mx+n}$ 不是随便改名字；要确认原来的每个 $x$ 都有对应的 $t$，而且新范围内每个 $t$ 也能找到原来的 $x$。
 
-		\item[\textbf{步骤二（$\sqrt{a^2-x^2}$ 换元）：}] 设 $x=a\sin\theta$，$\theta\in[-\frac{\pi}{2},\frac{\pi}{2}]$。
-			\[
-				\begin{aligned}
-					\sqrt{a^2-x^2}
-					&= \sqrt{a^2-a^2\sin^2\theta} \\
-					&= a\sqrt{1-\sin^2\theta} \\
-					&= a\cos\theta
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 在 $\theta\in[-\frac{\pi}{2},\frac{\pi}{2}]$ 上 $\cos\theta\ge0$，故 $\sqrt{a^2-x^2}=a\cos\theta$ 成立，且 $x$ 与 $\theta$ 一一对应。
+  \begin{enumerate}[leftmargin=*,itemsep=0.5em]
+    \item 根号有意义时 $mx+n\ge0$，所以 $t=\sqrt{mx+n}\ge0$。
+    \item 两边平方，得到 $t^2=mx+n$。因为 $m\ne0$，可解出
+      \[
+        x=\frac{t^2-n}{m}.
+      \]
+    \item 反过来，随便取一个 $t\ge0$，按照上式算出 $x$，就有
+      \[
+        mx+n=t^2,\qquad \sqrt{mx+n}=\sqrt{t^2}=t.
+      \]
+      因此，如果原题只有根号本身的限制，$t\ge0$ 中的每个数都确实可以取到。
+    \item 若原题还给出 $x$ 的范围，就把 $x=\frac{t^2-n}{m}$ 代回那些条件，进一步缩小 $t$ 的范围。
+  \end{enumerate}
 
-		\item[\textbf{步骤三（$\sqrt{x^2+a^2}$ 换元）：}] 设 $x=a\tan\theta$，则
-			\[
-				\begin{aligned}
-					\sqrt{x^2+a^2}
-					&= \sqrt{a^2\tan^2\theta+a^2} \\
-					&= a\sqrt{\tan^2\theta+1} \\
-					&= a\sqrt{\sec^2\theta} \\
-					&= a|\sec\theta|
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 常用 $1+\tan^2\theta=\sec^2\theta$，开平方取绝对值。一般取 $\theta\in(-\frac{\pi}{2},\frac{\pi}{2})$ 则 $\sec\theta>0$，此时 $\sqrt{x^2+a^2}=a\sec\theta$。
+  \textbf{这就证明了：} 把表达式全部改成 $t$ 后，只要正确保留 $t$ 的范围，最后能得到的函数值不会改变。
 
-		\item[\textbf{步骤四（$\sqrt{x^2-a^2}$ 换元）：}] 设 $x=a\sec\theta$，则
-			\[
-				\begin{aligned}
-					x^2-a^2 &= a^2\sec^2\theta-a^2 \\
-					&= a^2(\sec^2\theta-1) \\
-					&= a^2\tan^2\theta
-			\end{aligned}
-			\]
-			\[
-				\sqrt{x^2-a^2}=a|\tan\theta|
-			\]
-			\par\textbf{理由：} 由 $\sec^2\theta-1=\tan^2\theta$ 得到。需注意 $x$ 的定义域 $|x|\ge a$，同时根据 $\theta$ 范围确定 $\tan\theta$ 的正负，可选择适当区间使 $\sqrt{x^2-a^2}=a\tan\theta$（如 $\theta\in[0,\frac{\pi}{2})$ 时 $\tan\theta\ge0$）。
-	\end{description}
+  \medskip
+  \end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明方法二：用学过的三角函数去掉根号（常规方法）}}
+\begin{center}\input{assets/tikz/F009_upper_semicircle.tex}\end{center}
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
 
-	以上四种换元均通过代数或三角恒等式消去根号，新变量与原变量满足双射关系，因此原函数的值域与换元后函数的值域完全一致。
+  \textbf{情形 A：$\sqrt{a^2-x^2}$，其中 $a>0$。}
+
+  根号有意义要求 $-a\le x\le a$。对每个这样的 $x$，都能选出一个 $\theta\in[-\frac{\pi}{2},\frac{\pi}{2}]$，使 $x=a\sin\theta$。于是
+  \[
+    \begin{aligned}
+      \sqrt{a^2-x^2}
+        &=\sqrt{a^2-a^2\sin^2\theta}\\
+        &=a\sqrt{1-\sin^2\theta}\\
+        &=a\sqrt{\cos^2\theta}\\
+        &=a\cos\theta.
+    \end{aligned}
+  \]
+  最后一步成立，是因为所选的角满足 $\cos\theta\ge0$。反过来，这个角度范围内每个 $\theta$ 都给出一个合法的 $x$，所以没有漏掉原题允许的值。
+
+  \begin{center}\input{assets/tikz/F009_tangent_triangles.tex}\end{center}
+\textbf{情形 B：$\sqrt{x^2+a^2}$，其中 $a>0$。}
+
+  任意实数 $x$ 都能写成 $x=a\tan\theta$，取 $-\frac{\pi}{2}<\theta<\frac{\pi}{2}$。因为这一段 $\cos\theta>0$，
+  \[
+    \begin{aligned}
+      \sqrt{x^2+a^2}
+        &=a\sqrt{1+\tan^2\theta}
+         =a\sqrt{\frac{1}{\cos^2\theta}}
+         =\frac{a}{\cos\theta}.
+    \end{aligned}
+  \]
+  这里只用了 $1+\tan^2\theta=\frac1{\cos^2\theta}$，不需要额外学习新三角函数名称。
+
+  \textbf{情形 C：$\sqrt{x^2-a^2}$，其中 $a>0$。}
+
+  先考虑 $x\ge a$，令
+  \[
+    x=\frac{a}{\cos\theta},\qquad 0\le\theta<\frac{\pi}{2}.
+  \]
+  由于 $\cos\theta>0$、$\tan\theta\ge0$，
+  \[
+    \begin{aligned}
+      \sqrt{x^2-a^2}
+        &=a\sqrt{\frac{1}{\cos^2\theta}-1}
+         =a\sqrt{\tan^2\theta}
+         =a\tan\theta.
+    \end{aligned}
+  \]
+  如果 $x\le-a$，则改用 $x=-\frac{a}{\cos\theta}$，仍取同样的角度范围，根号也等于 $a\tan\theta$。\textbf{两边都要考虑，不能只算 $x\ge a$。}
+
+  \medskip
+  \end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明方法三：只用平方差公式，不必使用三角函数（快捷方法）}}
+\begin{center}\input{assets/tikz/F009_positive_conjugate_parameter.tex}\end{center}
+
+
+  \textbf{情形 A：$\sqrt{x^2+a^2}$，其中 $a>0$。}
+
+  设 $t=\sqrt{x^2+a^2}+x$。因为 $\sqrt{x^2+a^2}>|x|$，所以 $t>0$。又因为
+  \[
+    (\sqrt{x^2+a^2}+x)(\sqrt{x^2+a^2}-x)=a^2,
+  \]
+  可得
+  \[
+    \sqrt{x^2+a^2}-x=\frac{a^2}{t}.
+  \]
+  把“加”的等式和“减”的等式分别相加、相减：
+  \[
+    \boxed{\sqrt{x^2+a^2}=\frac{t^2+a^2}{2t}},\qquad
+    \boxed{x=\frac{t^2-a^2}{2t}}.
+  \]
+  反过来，对任意 $t>0$，用第二个式子算出的 $x$，都会使第一个式子成立；因此 $t$ 确实能够取遍所有正数。
+
+  \begin{center}\input{assets/tikz/F009_square_difference_two_branches.tex}\end{center}
+\textbf{情形 B：$\sqrt{x^2-a^2}$，其中 $a>0$、$x\ge a$。}
+
+  设 $t=x+\sqrt{x^2-a^2}\ge a$。平方差公式给出
+  \[
+    (x+\sqrt{x^2-a^2})(x-\sqrt{x^2-a^2})=a^2,
+    \qquad x-\sqrt{x^2-a^2}=\frac{a^2}{t}.
+  \]
+  把两式相加、相减，得到
+  \[
+    \boxed{x=\frac{t^2+a^2}{2t}},\qquad
+    \boxed{\sqrt{x^2-a^2}=\frac{t^2-a^2}{2t}}\quad(t\ge a).
+  \]
+  对任意 $t\ge a$，上述第二式非负，第一式满足 $x\ge a$，所以没有引入原题不能取的数。
+
+  若 $x\le-a$，把上面推导中的 $x$ 换成 $-x\ge a$ 即可：令 $t=-x+\sqrt{x^2-a^2}\ge a$，得到
+  \[
+    x=-\frac{t^2+a^2}{2t},\qquad
+    \sqrt{x^2-a^2}=\frac{t^2-a^2}{2t}.
+  \]
+
+  \medskip
+  \textbf{\textcolor{CProof}{证明结束，回到解题时的三件事：}}
+  \textbf{写清原题限制、换对新字母、验证新范围内的数都能取到。} 这三件事做好，换元前后所求的值域才真正相同。
 \end{proofbox}

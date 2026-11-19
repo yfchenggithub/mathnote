@@ -1,46 +1,175 @@
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
-	将函数式中 $y$ 视为参数，通过去分母将原式转化为关于 $x$ 的二次方程，则值域问题等价于该方程有实数解时 $y$ 的取值范围。
+  \textbf{\textcolor{CProof}{方法一：把 $y$ 当成已知数，完整证明通用结论（最重要）}}
+\begin{center}\input{assets/tikz/F008_discriminant_band.tex}\end{center}
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.55em]
-		\item[\textbf{步骤一（构造方程）：}]
-			把 $y$ 看作常数，将原式两边同乘分母 $dx^2+ex+f$（已知该式恒正或恒负，不影响方程同解性），移项整理：
-			\[
-				y(dx^2+ex+f)=ax^2+bx+c\quad\Longrightarrow\quad (a-dy)x^2+(b-ey)x+(c-fy)=0.
-			\]
-			\par\textbf{理由：}将分式方程化为整式方程，建立 $x$ 与 $y$ 的二次关系。
-		\item[\textbf{步骤二（区分类型）：}]
-			根据二次项系数是否为零分情况讨论。\par 若 $a-dy=0$（即 $y=\dfrac{a}{d}$），方程退化为一次或常数方程，此时需单独检验（步骤六）。\par 若 $a-dy\neq0$，方程为二次方程，继续下一步。
-			\par\textbf{理由：}判别式法只适用于真正的二次方程。
-		\item[\textbf{步骤三（有实根条件）：}]
-			对于二次方程，其有实数解等价于判别式非负：
-			\[
-				\Delta(y)=(b-ey)^2-4(a-dy)(c-fy)\ge0.
-			\]
-			\par\textbf{理由：}实系数二次方程 $Ax^2+Bx+C=0$ 有实根的充要条件是 $B^2-4AC\ge0$。
-		\item[\textbf{步骤四（展开判别式）：}]
-			将 $\Delta(y)$ 展开并整理成关于 $y$ 的二次不等式：
-			\[
-				\begin{aligned}
-					\Delta(y) &= (b-ey)^2-4(a-dy)(c-fy) \\ &= b^2-2bey+e^2y^2 -4(ac-afy-cdy+dfy^2) \\ &= b^2-2bey+e^2y^2 -4ac+4afy+4cdy-4dfy^2 \\ &= (e^2-4df)y^2 + (4af+4cd-2be)y + (b^2-4ac).
-			\end{aligned}
-			\]
-			因此条件 $\Delta(y)\ge0$ 即为：
-			\[
-				(e^2-4df)y^2 + (4af+4cd-2be)y + (b^2-4ac) \ge 0.
-			\]
-			\par\textbf{理由：}展开合并同类项，得到显式的不等式形式，便于求解范围。
-		\item[\textbf{步骤五（解不等式）：}]
-			解上述关于 $y$ 的二次不等式。\par 若二次项系数 $e^2-4df>0$，则 $y$ 取两边；若 $e^2-4df<0$，则 $y$ 取中间；若 $e^2-4df=0$，则退化为一次不等式。\par 该不等式解集即为当 $a-dy\neq0$ 时 $y$ 的取值范围。
-			\par\textbf{理由：}二次不等式的解法取决于开口方向和判别式，这里最终得到 $y$ 的取值范围。
-		\item[\textbf{步骤六（检验退化）：}]
-			令 $y=\dfrac{a}{d}$，代入原方程或直接代入原函数。\par 若 $a-dy=0$，原方程变为 $(b-ey)x+(c-fy)=0$。如果该方程有实数解 $x$（即 $b-ey\neq0$ 时 $x=\dfrac{fy-c}{b-ey}$；若 $b-ey=0$ 且 $c-fy=0$ 则恒成立），则 $y=\dfrac{a}{d}$ 可取，应添加至值域。\par 若所得 $x$ 不在定义域内（这里定义域为 $\mathbb{R}$，故只需检查分母是否为零，因 $\Delta_d<0$ 分母恒不为零，所以 $x$ 总是有效），实际上只需判断方程是否有解。
-			\par\textbf{理由：}补充二次项系数为零时遗漏的可能值，保证值域的完整性。
-	\end{description}
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-	综合步骤三至六，函数的值域为 $\{y\mid \Delta(y)\ge0\}$（$a-dy\neq0$ 时）与可能补入的 $y=\dfrac{a}{d}$（若存在）的并集。该证明展示了“化分式为方程”的核心思想，也体现了分类讨论的必要性。
+  \medskip
+  \textbf{第 1 步：先确认分母能不能为 $0$。}
+  设 $Q(x)=dx^2+ex+f$，其中 $d\ne0$，并已知 $e^2-4df<0$。
+  由
+  \[
+    Q(x)=d\left(x+\frac{e}{2d}\right)^2+\frac{4df-e^2}{4d}
+  \]
+  可知 $Q(x)$ 始终与 $d$ 同号，所以对任意实数 $x$，$Q(x)\ne0$。
+  这样两边同乘 $Q(x)$ 不会凭空添出不允许的 $x$。
+
+  \medskip
+  \textbf{第 2 步：把函数变成关于 $x$ 的方程。}
+  \[
+    y=\frac{ax^2+bx+c}{dx^2+ex+f}
+    \quad\Longleftrightarrow\quad
+    y(dx^2+ex+f)=ax^2+bx+c,
+  \]
+  移项，得到
+  \[
+    \boxed{(a-dy)x^2+(b-ey)x+(c-fy)=0.}\tag{1}
+  \]
+  这一步的意思是：指定一个 $y$ 后，就去找能让它成立的 $x$。
+
+  \medskip
+  \textbf{第 3 步：先处理真正的二次方程。}
+  当 $a-dy\ne0$ 时，令
+  \[
+    A=a-dy,\qquad B=b-ey,\qquad C=c-fy.
+  \]
+  方程 (1) 就是 $Ax^2+Bx+C=0$。求根公式给出
+  \[
+    x=\frac{-B\pm\sqrt{B^2-4AC}}{2A}.
+  \]
+  因为 $A\ne0$，要找到实数 $x$，就必须且只需
+  \[
+    B^2-4AC\ge0,
+  \]
+  也就是
+  \[
+    \boxed{(b-ey)^2-4(a-dy)(c-fy)\ge0.}\tag{2}
+  \]
+  这既说明\textbf{为什么必须满足这个不等式}，也说明\textbf{满足它就一定能找到实数 $x$}。
+
+  \medskip
+  \textbf{第 4 步：整理成只含 $y$ 的不等式。}
+  \[
+    \begin{aligned}
+      \Delta(y)
+      &=(b-ey)^2-4(a-dy)(c-fy)\\
+      &=b^2-2bey+e^2y^2\\
+      &\quad-4\bigl(ac-afy-cdy+dfy^2\bigr)\\
+      &=(e^2-4df)y^2\\
+      &\quad+(4af+4cd-2be)y+(b^2-4ac).
+    \end{aligned}
+  \]
+  解 $\Delta(y)\ge0$，得到候选范围；这里二次项 $e^2-4df<0$，因此对应的是二次式开口向下时的中间一段。
+
+  \medskip
+  \textbf{第 5 步：单独检查 $y=\dfrac ad$。}
+  当 $y=\dfrac ad$ 时，方程 (1) 不再含 $x^2$，而变成
+  \[
+    \left(b-\frac{ae}{d}\right)x+\left(c-\frac{af}{d}\right)=0.
+  \]
+  把两边乘以 $d$，得到更容易判断的一次方程：
+  \[
+    \boxed{(bd-ae)x+(cd-af)=0.}\tag{3}
+  \]
+  于是恰好有以下三种情况：
+  \begin{itemize}[leftmargin=*,itemsep=0.35em]
+    \item 若 $bd-ae\ne0$，可取 $x=\dfrac{af-cd}{bd-ae}$，所以 $y=\dfrac ad$ \textbf{能取到}。
+    \item 若 $bd-ae=0$ 且 $cd-af\ne0$，方程变成一个非零常数等于 $0$，不可能成立，所以 $y=\dfrac ad$ \textbf{取不到}。
+    \item 若 $bd-ae=0$ 且 $cd-af=0$，方程变成 $0=0$，任意 $x$ 都可以；这时整个函数恒等于 $\dfrac ad$，值域只有这一个数。
+  \end{itemize}
+  \textbf{特别注意：}即使把 $y=\dfrac ad$ 代入 (2) 得到 $\Delta(y)=0$，也\textbf{不能因此就认定它能取到}；因为此时已不是二次方程。
+
+  \medskip
+  \textbf{第 6 步：合并答案。}
+  保留满足 (2) 且 $a-dy\ne0$ 的所有 $y$，再按照第 5 步决定是否加入 $\dfrac ad$。
+  这样既没有漏掉真正能取到的值，也不会把不能取到的值算进去。
+
+  \bigskip
+  \end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法二：先拆开分式，用 $x^2\ge0$ 求范围（初中也能理解）}}
+\begin{center}\input{assets/tikz/F008_missing_lower_endpoint.tex}\end{center}
+
+
+  \medskip
+  下面用一个典型题说明：
+  \[
+    y=\frac{2x^2+3}{x^2+1}.
+  \]
+  直接把分子写成 $2(x^2+1)+1$：
+  \[
+    y=2+\frac1{x^2+1}.
+  \]
+  因为 $x^2\ge0$，所以 $x^2+1\ge1$；同时分母始终是正数，故
+  \[
+    0<\frac1{x^2+1}\le1.
+  \]
+  两边同时加 $2$，就得到
+  \[
+    \boxed{2<y\le3.}
+  \]
+  $x=0$ 时 $y=3$，所以右端点能取到；无论 $x$ 取什么实数，$\dfrac1{x^2+1}$ 都大于 $0$，因此左端点 $2$ 永远取不到。
+  这道题\textbf{拆分法比判别式更快}。并且它也解释了为什么“越来越接近 $2$”不等于“能等于 $2$”。
+
+  \bigskip
+  \end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法三：利用平方不小于 $0$，同时锁定最大值和最小值}}
+\begin{center}\input{assets/tikz/F008_square_boundary_residuals.tex}\end{center}
+
+
+  \medskip
+  对稍复杂的题
+  \[
+    F(x)=\frac{x^2+1}{x^2+2x+2},\qquad
+    x^2+2x+2=(x+1)^2+1>0,
+  \]
+  我们想证明它的值始终夹在两个数之间。
+  设
+  \[
+    L=\frac{3-\sqrt5}{2},\qquad
+    U=\frac{3+\sqrt5}{2}.
+  \]
+  先把 $F(x)-L$ 通分，再把分子配成平方：
+  \[
+    \begin{aligned}
+      F(x)-L
+      &=\frac{(1-L)x^2-2Lx+(1-2L)}{x^2+2x+2}\\
+      &=\frac{(1-L)\left(x-\dfrac{\sqrt5-1}{2}\right)^2}
+      {x^2+2x+2}\ge0.
+    \end{aligned}
+  \]
+  因为 $1-L>0$，所以上式确实不小于 $0$，即 $F(x)\ge L$。
+  当 $x=\dfrac{\sqrt5-1}{2}$ 时，平方恰好是 $0$，因此最小值 $L$ 真能取到。
+
+  \medskip
+  同样地，
+  \[
+    \begin{aligned}
+      U-F(x)
+      &=\frac{(U-1)x^2+2Ux+(2U-1)}{x^2+2x+2}\\
+      &=\frac{(U-1)\left(x+\dfrac{\sqrt5+1}{2}\right)^2}
+      {x^2+2x+2}\ge0.
+    \end{aligned}
+  \]
+  所以 $F(x)\le U$。当 $x=-\dfrac{\sqrt5+1}{2}$ 时等号成立，最大值 $U$ 也确实能取到。
+  因此
+  \[
+    \boxed{\frac{3-\sqrt5}{2}\le F(x)\le\frac{3+\sqrt5}{2}.}
+  \]
+  \textbf{为什么中间不会缺值？}因为分母始终不为 $0$，函数图像不会中途断开；从取得最小值的那个 $x$ 连续移动到取得最大值的那个 $x$，中间的高度也都会经过。
+
+  \medskip
+  \textbf{这两个数从哪里来？}它们并不是靠猜的：用方法一列出
+  \[
+    (1-y)x^2-2yx+(1-2y)=0
+  \]
+  并令 $\Delta(y)=0$，就得到 $y^2-3y+1=0$，解出的两个数恰好是 $L$ 与 $U$。
+  方法一善于\textbf{找到边界}，方法三则能用平方\textbf{直接解释为什么越不过边界、什么时候取到边界}。
+
+  \medskip
+  \textbf{\textcolor{CProof}{结论回扣}}
+  三种方法不是每题都要用：\textbf{能拆就拆，拆不开用判别式；想进一步解释最值为什么成立，可以配平方验证。}
 \end{proofbox}

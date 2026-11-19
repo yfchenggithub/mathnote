@@ -1,0 +1,312 @@
+\clearpage
+\begin{proofbox}
+\textbf{共同准备：先确认所有分母是否可以约掉。}
+
+设 $p\ne0$。对 $y^2=2px$，令
+\[
+A=\left(\frac{a^2}{2p},a\right),\qquad
+B=\left(\frac{b^2}{2p},b\right).
+\]
+$A,B$ 是不同的非顶点，等价于 $a\ne b$ 且 $ab\ne0$；因此 $k_{OA}=2p/a$、$k_{OB}=2p/b$ 均存在且非零。只有当 $a+b=0$ 时，$AB$ 才是竖直直线，普通斜率 $k_{AB}$ 不存在。
+
+对 $x^2=2py$，令
+\[
+A=\left(a,\frac{a^2}{2p}\right),\qquad
+B=\left(b,\frac{b^2}{2p}\right).
+\]
+同样有 $a\ne b$ 且 $ab\ne0$。这时三个斜率均存在，因为 $x_B-x_A=b-a\ne0$；但 $k_{AB}=0$ 完全可能。
+
+\textbf{证明路线：}方法一只用初中平方差；方法二用过原点的直线斜率作参数；方法三用关于 $y=x$ 的对称理解两式；方法四用高中常规的联立与韦达定理。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法一：门槛最低——初中平方差公式 + 两点斜率。}
+\begin{center}\input{assets/tikz/C097_difference_horizontal}\end{center}
+
+\textbf{(1) 横向开口。}设 $y^2=2px$，并采用上面的 $a,b$。由两点间横、纵坐标差，
+\[
+\begin{aligned}
+x_B-x_A
+ &=\frac{b^2-a^2}{2p}
+ =\frac{(b-a)(b+a)}{2p},\\
+y_B-y_A&=b-a.
+\end{aligned}
+\]
+因为 $b-a\ne0$，所以
+\[
+\frac{x_B-x_A}{y_B-y_A}=\frac{a+b}{2p}.
+\]
+另一方面，$k_{OA}=y_A/x_A=2p/a$、$k_{OB}=2p/b$，于是
+\[
+\frac1{k_{OA}}+\frac1{k_{OB}}
+ =\frac{a}{2p}+\frac{b}{2p}
+ =\frac{a+b}{2p}
+ =\frac{x_B-x_A}{y_B-y_A}.
+\]
+\textbf{若 $a+b\ne0$，}那么 $x_B\ne x_A$，可写为普通斜率形式
+\[
+\boxed{\frac1{k_{OA}}+\frac1{k_{OB}}=\frac1{k_{AB}}}.
+\]
+\textbf{若 $a+b=0$，}则 $AB$ 竖直，只保留上述不含 $1/k_{AB}$ 的加强式；左边和右边同为 $0$。
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法一（续）：纵向开口的平方差。}
+\begin{center}\input{assets/tikz/C097_difference_vertical}\end{center}
+\textbf{(2) 纵向开口。}设 $x^2=2py$，交换横、纵坐标的角色：
+\[
+\begin{aligned}
+k_{AB}
+&=\frac{y_B-y_A}{x_B-x_A}
+ =\frac{(b^2-a^2)/(2p)}{b-a}\\
+&=\frac{a+b}{2p}
+ =\underbrace{\frac a{2p}}_{k_{OA}}
+  +\underbrace{\frac b{2p}}_{k_{OB}}.
+\end{aligned}
+\]
+故
+\[
+\boxed{k_{OA}+k_{OB}=k_{AB}}.
+\]
+\textbf{用到的知识：}代入抛物线方程、平方差公式、直线两点斜率，初中代数即可理解。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法二：步骤最少——先设 $OA,OB$ 的斜率。}
+\begin{center}\input{assets/tikz/C097_slope_horizontal}\end{center}
+
+\textbf{(1) 横向开口。}设 $k_{OA}=m$、$k_{OB}=n$，则 $m,n\ne0$。直线 $OA$ 是 $y=mx$，与 $y^2=2px$ 联立：
+\[
+m^2x^2=2px\quad\Longrightarrow\quad
+O=(0,0),\qquad A=\left(\frac{2p}{m^2},\frac{2p}{m}\right).
+\]
+同理 $B=(2p/n^2,2p/n)$。当 $AB$ 非竖直时，$m+n\ne0$，从而
+\[
+\begin{aligned}
+k_{AB}
+&=\frac{2p/n-2p/m}{2p/n^2-2p/m^2}
+ =\frac{(m-n)/(mn)}{(m-n)(m+n)/(m^2n^2)}\\
+&=\frac{mn}{m+n}.
+\end{aligned}
+\]
+这里 $m\ne n$，因为 $A\ne B$。于是仅需取倒数：
+\[
+\boxed{\frac1{k_{AB}}=\frac{m+n}{mn}=\frac1m+\frac1n}.
+\]
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法二（续）：纵向开口用斜率确定交点。}
+\begin{center}\input{assets/tikz/C097_slope_vertical}\end{center}
+\textbf{(2) 纵向开口。}同样设 $k_{OA}=m$、$k_{OB}=n$。因 $OA:y=mx$，代入 $x^2=2py$ 得另一个交点
+\[
+A=(2pm,2pm^2),\qquad B=(2pn,2pn^2).
+\]
+因此
+\[
+k_{AB}=\frac{2p(n^2-m^2)}{2p(n-m)}=m+n,
+\]
+即
+\[
+\boxed{k_{AB}=k_{OA}+k_{OB}}.
+\]
+\textbf{优点：}已知 $OA,OB$ 的斜率时，可以直接得到 $AB$ 斜率，而不必先求任意点参数；这也是处理“已知两条射线斜率，求弦斜率”题型最快的计算路线。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法三：数形结合——关于 $y=x$ 对称，一次理解两个结论。}
+\begin{center}\input{assets/tikz/C097_reflection}\end{center}
+
+\textbf{第 1 步：镜像关系。}图中 $O$ 不动，$A,B$ 分别映到 $A',B'$。
+每个点 $(x,y)$ 变为 $(y,x)$，所以 $y^2=2px$ 变为 $x^2=2py$。
+
+\textbf{第 2 步：镜像怎样改变斜率？}对一条原斜率 $k$ 存在且不为 $0$ 的非竖直直线，其镜像的斜率是
+\[
+\boxed{k'=\frac{\Delta x}{\Delta y}=\frac1k}.
+\]
+\textbf{第 3 步：使用纵向结论。}方法一已证明镜像后的三条边满足
+\[
+k_{OA'}+k_{OB'}=k_{A'B'}.
+\]
+如果原来三条斜率都存在，这个式子就逐项变成
+\[
+\boxed{\frac1{k_{OA}}+\frac1{k_{OB}}=\frac1{k_{AB}}}.
+\]
+\textbf{读图：}对应线段的横、纵位移交换，普通斜率与倒斜率随之互换。
+
+\textbf{边界：}原图的竖直弦在镜像后是水平弦。横向公式在该处不能写 $1/k_{AB}$，但方法一中的加强式仍成立。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法四：常规解析几何——直线与抛物线联立，使用韦达定理。}
+\begin{center}\input{assets/tikz/C097_vieta_horizontal}\end{center}
+
+\textbf{(1) 横向开口。}设 $AB:y=kx+t$，其中 $k\ne0$ 且直线不是竖直线。把 $x=(y-t)/k$ 代入 $y^2=2px$：
+\[
+ky^2-2py+2pt=0.
+\]
+它的两个根正是 $y_A,y_B$，故由韦达定理
+\[
+y_A+y_B=\frac{2p}{k}.
+\]
+又因 $OA,OB$ 的斜率非零，
+\[
+\frac1{k_{OA}}+\frac1{k_{OB}}
+=\frac{x_A}{y_A}+\frac{x_B}{y_B}
+=\frac{y_A+y_B}{2p}
+=\frac1k=\frac1{k_{AB}}.
+\]
+\textbf{为什么 $k\ne0$？}若横向抛物线上的两个点有相同的纵坐标，则横坐标也相同，二点重合；所以不同点不能有水平弦。
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法四（续）：纵向开口的两个横坐标根。}
+\begin{center}\input{assets/tikz/C097_vieta_vertical}\end{center}
+\textbf{(2) 纵向开口。}设 $AB:y=kx+t$（$k=0$ 也允许），将其代入 $x^2=2py$ 得
+\[
+x^2-2pkx-2pt=0.
+\]
+由韦达定理，$x_A+x_B=2pk$；由于 $k_{OA}=x_A/(2p)$，$k_{OB}=x_B/(2p)$，故
+\[
+\boxed{k_{OA}+k_{OB}=\frac{x_A+x_B}{2p}=k=k_{AB}}.
+\]
+\textbf{适合场景：}题目先给出弦 $AB$ 的直线方程，或需要同时研究两个交点的和、积时，韦达定理可以和原题其他条件直接衔接。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{关联结论证明与推导一：一般二次函数的顶点平移。}
+\begin{center}\input{assets/tikz/C097_vertex_translation}\end{center}
+要判断顶点不在原点时能否使用斜率和，先配方：对 $y=ax^2+bx+c$，$a\ne0$，记
+\[
+h=-\frac b{2a},\qquad k=c-\frac{b^2}{4a},\qquad V=(h,k).
+\]
+令 $X=x-h,\ Y=y-k$，方程变成 $Y=aX^2$。坐标同时减去常数不改变两点的坐标差，因此不改变斜率。
+设 $A,B$ 的新横坐标为 $X_1,X_2$，则 $X_1X_2\ne0$、$X_1\ne X_2$。于是
+\[
+k_{VA}=\frac{aX_1^2}{X_1}=aX_1,\qquad k_{VB}=aX_2,
+\]
+\[
+k_{AB}=\frac{a(X_2^2-X_1^2)}{X_2-X_1}
+=a(X_1+X_2)=\boxed{k_{VA}+k_{VB}}.
+\]
+\textbf{适用范围：}所有 $a\ne0$ 的二次函数图像都成立，向上、向下开口均可；$A,B$ 必须是不同的非顶点。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{推导二：纵向弦斜率是两端切线斜率的平均值。}
+\begin{center}\input{assets/tikz/C097_tangent_mean_vertical}\end{center}
+本段只用联立方程的\textbf{重根}求切线，不以求导为前提。设 $x^2=2py$，$p\ne0$，端点 $A$ 的横坐标为 $u$。直线 $y=kx+d$ 与抛物线联立，得到
+\[
+x^2-2pkx-2pd=0.
+\]
+在 $A$ 处相切时，两根都等于 $u$，所以左边是 $(x-u)^2$。比较系数，得
+\[
+k_A=\frac up,\qquad d=-\frac{u^2}{2p}.
+\]
+同理，若 $B$ 的横坐标为 $v$，则 $k_B=v/p$。$A\ne B$ 保证 $u\ne v$，平方差给出
+\[
+k_{AB}=\frac{v^2-u^2}{2p(v-u)}
+=\frac{u+v}{2p}=\boxed{\frac{k_A+k_B}{2}}.
+\]
+端点为顶点时对应切线斜率为 $0$，公式仍成立。
+对一般二次函数，平移到顶点后，切线斜率为 $2aX_i$。由 $X_i=x_i+b/(2a)$，还原为 $2ax_i+b$；弦斜率为 $a(x_1+x_2)+b$，仍是两端切线斜率的平均值。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{推导二（续）：横向切线取倒斜率的平均值。}
+\begin{center}\input{assets/tikz/C097_tangent_mean_horizontal}\end{center}
+对 $y^2=2px$，$p\ne0$，用 $x=qy+d$ 表示切线。代入得到
+\[
+y^2-2pqy-2pd=0.
+\]
+在纵坐标为 $u$ 的 $A$ 处相切，令其等于 $(y-u)^2$，比较系数得 $q=u/p$。若 $u\ne0$，普通切线斜率 $k_A=1/q=p/u$；同理 $k_B=p/v$。
+
+两个不同端点满足 $u\ne v$；再要求 $uv\ne0$、$u+v\ne0$，才能写
+\[
+\frac1{k_{AB}}=\frac{x_B-x_A}{y_B-y_A}
+=\frac{u+v}{2p}
+=\boxed{\frac12\left(\frac1{k_A}+\frac1{k_B}\right)}.
+\]
+\textbf{边界：}$u+v=0$ 时弦竖直；$u=0$ 或 $v=0$ 时有一条切线竖直。相应普通斜率不存在，原倒斜率式不能使用。
+重根判定还避免了一个误解：横向抛物线与水平直线可能只有一个交点，但那条水平线并非切线。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{推导三：抛物线焦点弦的长度倒数和。}
+\begin{center}\input{assets/tikz/C097_focus_reciprocal_parabola}\end{center}
+对 $y^2=2px$，$p>0$，焦点 $F(p/2,0)$。设过 $F$ 的直线有两个不同有限交点 $A,B$，记 $r_i=FP_i$，$P_i=(x_i,y_i)$。用距离公式，
+\[
+r_i^2=(x_i-p/2)^2+y_i^2=(x_i+p/2)^2.
+\]
+曲线上 $x_i\ge0$，所以 $r_i=x_i+p/2>0$。
+焦点弦不能是 $y=0$，故可写为 $x=my+p/2$。代入得
+\[
+y^2-2pmy-p^2=0\quad\Longrightarrow\quad y_1y_2=-p^2.
+\]
+由 $x_i=y_i^2/(2p)$，得 $x_1x_2=p^2/4$。因此
+\[
+r_1r_2=\left(x_1+\frac p2\right)\left(x_2+\frac p2\right)
+=\frac p2(x_1+x_2+p)=\frac p2(r_1+r_2).
+\]
+除以正数 $r_1r_2$，得 $\boxed{1/FA+1/FB=2/p}$。
+竖直焦点弦是 $m=0$ 的正常情形，两段长均为 $p$，倒数和就是 $2/p$。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{推导四：椭圆焦点弦的长度倒数和（关联阅读）。}
+\begin{center}\input{assets/tikz/C097_focus_reciprocal_ellipse}\end{center}
+设椭圆 $x^2/a^2+y^2/b^2=1$，$a>b>0$；$a,b$ 是长、短半轴长，$c=\sqrt{a^2-b^2}$，取右焦点 $F(c,0)$。
+对椭圆上的 $P(x,y)$，代入 $y^2=b^2(1-x^2/a^2)$ 得
+\[
+FP^2=(x-c)^2+y^2=\left(a-\frac ca x\right)^2.
+\]
+因为 $|x|\le a$，括号内至少为 $a-c>0$，所以 $FP=a-cx/a$。
+设弦方向角为 $\theta$，焦点在弦内。令 $r=FA>0,s=FB>0$，则
+\[
+x_A=c+r\cos\theta,\qquad x_B=c-s\cos\theta.
+\]
+分别代入距离式并移项：
+\[
+r(a+c\cos\theta)=b^2,\qquad s(a-c\cos\theta)=b^2.
+\]
+两分母都不小于 $a-c>0$，所以
+\[
+\frac1{FA}+\frac1{FB}
+=\frac{a+c\cos\theta}{b^2}+\frac{a-c\cos\theta}{b^2}
+=\boxed{\frac{2a}{b^2}}.
+\]
+左焦点的情形由关于 $y$ 轴对称得到。这里使用的是\textbf{焦半径长度}，不是 C097 的斜率公式。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{推导五：直角三角形的倒数平方和（初中证明）。}
+\begin{center}\input{assets/tikz/C097_right_triangle_reciprocal}\end{center}
+设 $\angle C=90^\circ$，直角边 $BC=a>0,CA=b>0$，斜边 $AB=c$，$CD\perp AB$，$CD=h>0$。
+
+同一个三角形的面积，既可用两条直角边计算，也可用斜边和高计算：
+\[
+\frac12ab=\frac12ch\quad\Longrightarrow\quad h=\frac{ab}{c}.
+\]
+平方并取倒数，再用勾股定理 $c^2=a^2+b^2$，得
+\[
+\frac1{h^2}=\frac{c^2}{a^2b^2}
+=\frac{a^2+b^2}{a^2b^2}
+=\boxed{\frac1{a^2}+\frac1{b^2}}.
+\]
+\textbf{为什么是平方的倒数？}面积关系先给出乘积比 $h=ab/c$；消去斜边时，勾股定理涉及的是平方，所以最后相加的是 $1/a^2,1/b^2$。
+
+本段的 $a,b,c$ 是三边长，与椭圆参数无关；它是\textbf{代数结构类比}，不是抛物线结论的直接推论。
+\end{proofbox}

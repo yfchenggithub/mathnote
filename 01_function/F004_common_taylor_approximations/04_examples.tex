@@ -1,60 +1,106 @@
+\clearpage
 \begin{examplebox}
-\textbf{例 1：估算 $\sin0.2$，四舍五入到小数点后四位。}
-这里 $0.2$ 是弧度。仅说“$x$ 小”不能保证最后一位；应先算多项式，再给出误差。
+\textbf{例 1：不按计算器，估计 $\sin0.2$ 到小数点后四位。}
+$0.2$ 必须是弧度。保留到五次项：
 \[
- S_5(0.2)=\frac15-\frac{(1/5)^3}{6}+\frac{(1/5)^5}{120}
-        =\frac{74501}{375000}=0.1986693333\ldots
+ \sin0.2\approx0.2-\frac{0.2^3}{6}+\frac{0.2^5}{120}
+ =0.1986693333\ldots
 \]
-由严格误差界，
+由误差不等式，实际值与上面结果相差不超过
 \[
- |\sin0.2-S_5(0.2)|\le\frac{0.2^7}{5040}<2.54\times10^{-9}.
+ \frac{0.2^7}{5040}<0.00000000254.
 \]
-所以真值落在 $(0.1986693307,\,0.1986693359)$ 内。
-该区间完全位于会舍入成 $0.1987$ 的区间
-$[0.19865,0.19875)$ 中，故答案为 $\boxed{0.1987}$。
-用更高精度独立计算，$\sin0.2=0.198669330795\ldots$，与误差界一致。
-
-下图记三次近似为 $S_3(x)=x-x^3/6$，五次近似仍为 $S_5(x)$。
+因此真实值一定落在
+$\bigl(0.1986693307,\,0.1986693359\bigr)$ 之内，
+都可以四舍五入为 $\boxed{0.1987}$。
+\textbf{对比一下：} 只用 $\sin x\approx x$，会估成 $0.2$；
+加上 $-x^3/6$ 已经接近很多；再加 $x^5/120$，误差缩得更小。
 \input{assets/tikz/F004_sin_accuracy.tex}
-图中误差来自真实函数与各多项式之差，纵轴为对数尺度。
-虚点线是半个 $0.0001$；真正保证四舍五入仍须像本题一样，检查整个误差区间没有跨过舍入分界。
 
-\textbf{例 2：抵消后的首个非零项决定极限。}
-求 $\displaystyle\lim_{x\to0}\frac{\cos x-1+x^2/2}{x^4}$。
+\textbf{例 2：为什么求极限时不能提前丢掉某一项？}
+求
 \[
-\begin{aligned}
- \cos x-1+\frac{x^2}{2}&=\frac{x^4}{24}+R(x),\\
- |R(x)|&\le\frac{|x|^6}{720}.
-\end{aligned}
+ \lim_{x\to0}\frac{\cos x-1+x^2/2}{x^4}.
 \]
-对 $x\ne0$，除以 $x^4$ 后的误差满足
+如果只记 $\cos x\approx1-x^2/2$，分子会被看成 $0$；
+但这恰好漏掉了题目真正要考的部分。
+因为
 \[
- \left|\frac{\cos x-1+x^2/2}{x^4}-\frac1{24}\right|
- \le\frac{x^2}{720}\longrightarrow0.
+ \cos x=1-\frac{x^2}{2}+\frac{x^4}{24}+R(x),\qquad
+ |R(x)|\le\frac{|x|^6}{720},
 \]
-故极限为 $\boxed{1/24}$。这一不等式同时回验左右极限，无须把一个很小的浮点差值当成精确的零。
-
+所以对 $x\ne0$，
+\[
+ \frac{\cos x-1+x^2/2}{x^4}
+ =\frac1{24}+\frac{R(x)}{x^4},\qquad
+ \left|\frac{R(x)}{x^4}\right|\le\frac{x^2}{720}\to0.
+\]
+答案是 $\boxed{\frac1{24}}$。
 \input{assets/tikz/F004_cos_residual.tex}
-空心点表示原商在 $x=0$ 无定义，而左右都趋向 $1/24$。
-若只用 $\cos x\approx1-x^2/2$，图中的整条残差曲线就会被错误地抹去。
+\textbf{同类快练：}
+$\displaystyle\lim_{x\to0}\frac{e^x-1-x}{x^2}=\boxed{\frac12}$。
+理由是指数函数的二次项为 $x^2/2$，其余部分除以 $x^2$ 后趋于 $0$。
 
-\textbf{例 3：复合函数的二次近似与另一方法回验。}
-求 $f(x)=\ln(1+\sin x)$ 在零点附近的二次近似。
-取 $|x|\le1/2$，由 $|\sin x|\le|x|$ 得 $1+\sin x\ge1/2>0$，定义域安全。
-设 $u=\sin x$，则 $u=x+O(x^3)=O(x)$，且 $u^2=x^2+O(x^4)$。
+\textbf{例 3：对数的三次项什么时候非留不可？}
+求
+\[
+ \lim_{x\to0}\frac{\ln(1+x)-x+x^2/2}{x^3}.
+\]
+由证明中的结果，
+\[
+ \ln(1+x)=x-\frac{x^2}{2}+\frac{x^3}{3}+R(x),
+ \qquad |R(x)|\le\frac{|x|^4}{2}\quad(|x|\le\tfrac12).
+\]
+因此原式等于 $\displaystyle\frac13+\frac{R(x)}{x^3}$。
+又因 $|R(x)/x^3|\le|x|/2\to0$，答案是 $\boxed{\frac13}$。
+\textbf{提醒：} 本题中的 $x$、$-x^2/2$ 都会消失，真正留下的是 $x^3/3$。
+
+\textbf{例 4（眼前一亮）：$\sin x$ 和 $\tan x$ 都接近 $x$，两者相差多少？}
+求
+\[
+ \lim_{x\to0}\frac{\tan x-\sin x}{x^3}.
+\]
+不用记正切的三次公式，直接变形：
 \[
 \begin{aligned}
- \ln(1+u)&=u-\frac{u^2}{2}+O(u^3),\\
- \ln(1+\sin x)&=x-\frac{x^2}{2}+O(x^3).
+\frac{\tan x-\sin x}{x^3}
+&=\frac{\sin x}{x}\cdot
+  \frac{1-\cos x}{x^2}\cdot\frac1{\cos x}\\
+&\longrightarrow1\times\frac12\times1
+=\boxed{\frac12}.
 \end{aligned}
 \]
-答案为 $\boxed{x-x^2/2}$。
-\textbf{回验：} 直接求导得
-\[
- f(0)=0,\quad f'(x)=\frac{\cos x}{1+\sin x},\quad
- f''(x)=-\frac1{1+\sin x}.
-\]
-因而 $f'(0)=1,f''(0)=-1$，且 $f$ 在零点附近三阶连续可导，确实得到相同系数与 $O(x^3)$ 余项。
+所以 $x$ 靠近 $0$ 时，$\tan x-\sin x$ 的大小大约是 $x^3/2$。
+\textbf{亮点：} 只记住最基本的 $\sin x/x\to1$，再用倍角公式，
+就能知道两个三角函数之间更细微的差别。
 
+\textbf{例 5：函数套函数，怎样保证近似不乱？}
+估计 $\ln(1+\sin x)$ 在 $x=0$ 附近的前两项。
+先记 $u=\sin x$。由 $|\sin x-x|\le|x|^3/6$，可把 $u$ 看作 $x$；
+并且当 $|x|\le1/2$ 时，$|u|\le|x|\le1/2$，所以 $1+u>0$。
+
+对数保留到二次项时，利用同样的导数比较办法可得
+\[
+ \left|\ln(1+u)-\left(u-\frac{u^2}{2}\right)\right|
+ \le\frac{|u|^3}{3(1-|u|)}
+ \le\frac23|x|^3.
+\]
+同时
+\[
+ |u-x|\le\frac{|x|^3}{6},\qquad
+ |u^2-x^2|=|u-x|\,|u+x|\le\frac{|x|^4}{3}.
+\]
+把三处可能出现的误差加起来：
+\[
+\begin{aligned}
+\left|\ln(1+\sin x)-\left(x-\frac{x^2}{2}\right)\right|
+&\le\frac23|x|^3+\frac{|x|^3}{6}+\frac{|x|^4}{6}\\
+&\le|x|^3\qquad(|x|\le\tfrac12).
+\end{aligned}
+\]
+所以 $\boxed{\ln(1+\sin x)\approx x-x^2/2}$；
+特别地，误差除以 $x^2$ 后趋于 $0$。
+这就是“\textbf{先估里面，再代回外面}”的稳妥做法。
 \input{assets/tikz/F004_composite.tex}
+
 \end{examplebox}

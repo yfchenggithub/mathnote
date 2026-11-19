@@ -1,0 +1,12 @@
+\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,9.4);
+\node at (7.1,8.8) {任取区间内的目标值，都能反解出合法自变量};
+
+\begin{scope}[shift={(2.5,2.1)},x=2cm,y=1.25cm]
+\draw[->] (-.2,0)--(2.8,0) node[right]{$x$};\draw[->] (0,-.2)--(0,4.8) node[above]{$y$};\draw[blue,thick,domain=0:2] plot(\x,{\x*\x});
+\draw[orange!90!black,dashed] (0,2.25)--(1.5,2.25)--(1.5,0);\fill[orange!90!black] (1.5,2.25) circle(2pt);\fill[blue] (2,4) circle(2pt);\fill[blue] (0,0) circle(2pt);
+\node[left] at (0,2.25){$y$};\node[below] at (1.5,0){$\sqrt y$};\node[below] at (2,0){$2$};\node[left] at (0,4){$4$};\draw[dashed] (2,0)--(2,4)--(0,4);
+\end{scope}
+\node[align=left,anchor=west] at (8.5,5.1){$f(x)=x^2,\ x\in[0,2]$\\[12pt] 任取 $y\in[0,4]$\\[10pt] $x=\sqrt y\in[0,2]$\\[10pt] $f(\sqrt y)=y$};
+\node[text width=13.2cm,align=center] at (7.1,.65) {这里的水平线与竖直线给出“从输出找输入”的实际对应。};
+\end{tikzpicture}

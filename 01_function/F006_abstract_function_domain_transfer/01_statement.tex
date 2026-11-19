@@ -1,22 +1,47 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件1（对应法则）：}}] 函数$f$的对应法则保持不变。
-		\item[\textbf{\textcolor{CStatement}{条件2（自变量身份）：}}] 定义域始终是自变量$x$的取值范围。
-	\end{description}
+\textbf{\textcolor{CStatement}{这条结论解决什么问题？}}
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（已知$f$求复合）：}}]
-			若 $f(x)$ 的定义域为 $D$，则 $f[g(x)]$ 的定义域为
-			\[
-				\{x \mid g(x)\in D\}.
-			\]
+题目没有告诉我们 $f$ 的具体计算式子，只给出一个函数的定义域，
+却让我们求 $f(2x+1)$、$f(x+1)$ 或 $f(x^2)$ 的定义域。
+\textbf{不用猜出 $f$ 的式子，也可以判断哪些 $x$ 能代入。}
 
-		\item[\textbf{\textcolor{CStatement}{结论二（已知复合求$f$）：}}]
-			若 $f[g(x)]$ 的定义域为 $A$，则 $f(x)$ 的定义域为
-			\[
-				\{g(x)\mid x\in A\}.
-			\]
-	\end{description}
+\medskip
+
+\begin{center}\input{assets/tikz/F006_affine_input_band.tex}\end{center}
+\textbf{\textcolor{CStatement}{先认清两个数}}
+\begin{itemize}[leftmargin=*,itemsep=0.3em]
+  \item $x$：题目要求我们找范围的数，也是 $f[g(x)]$ 的自变量。
+  \item $g(x)$：先用 $x$ 算出来，再放进 $f$ 括号里的数。
+\end{itemize}
+
+\end{statementbox}
+\clearpage
+\begin{statementbox}
+\textbf{\textcolor{CStatement}{结论一：知道 $f$ 能接收哪些数，求 $f[g(x)]$ 的定义域}}
+
+设 $f(t)$ 的定义域为 $D$。要使 $f[g(x)]$ 有意义，必须先能算出 $g(x)$，
+并且算出的数属于 $D$。所以
+\[
+ \boxed{\ f[g(x)]\text{的定义域}=\{x\mid g(x)\text{有意义且 }g(x)\in D\}\ }.
+\]
+如果 $g(x)$ 对每个实数 $x$ 都有意义，就直接解 $g(x)\in D$。
+
+\medskip
+\textbf{\textcolor{CStatement}{结论二：知道 $f(ax+b)$ 的定义域，反求 $f(x)$ 的定义域}}
+
+如果 $a\ne0$，而且题目给出的是 $f(ax+b)$ 的\textbf{完整定义域} $A$，
+那么先让 $x$ 在 $A$ 中取值，算出 $ax+b$ 能得到的所有数，这些数恰好就是 $f$ 能接收的数：
+\[
+ \boxed{\ f(t)\text{的定义域}=\{ax+b\mid x\in A\},\quad a\ne0\ }.
+\]
+例如，$f(2x-1)$ 的定义域是 $[1,4]$，则 $f(t)$ 的定义域是 $[1,7]$。
+
+\medskip
+\textbf{\textcolor{CStatement}{一定要看清的限制}}
+
+第二条\textbf{不能不加判断地换成任意 $g(x)$}。
+例如 $x^2$ 永远不可能是负数：知道 $f(x^2)$ 的定义域，
+仍可能不知道 $f$ 能否接收负数。
+因此，只有当 $x$ 在括号内式子本身允许的全部范围中变化时，该式子\textbf{能够取遍所有实数}，
+才能仅凭复合函数的完整定义域，确定 $f$ 的完整定义域。
 \end{statementbox}

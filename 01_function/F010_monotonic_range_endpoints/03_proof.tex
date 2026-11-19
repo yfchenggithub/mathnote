@@ -1,31 +1,92 @@
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
-	利用单调定义得函数值范围，再结合端点值可达，即得值域为两端点构成的闭区间。
+    \textbf{\textcolor{CProof}{要证明的到底是什么？}}
+    先证明所有函数值\textbf{不会超过}两个端点的范围；
+    再证明这两个端点之间的\textbf{每一个数都能取到}。
+    只做第一步不够，因为“不会超过”不等于“每个都能取到”。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（递增得范围）：}]
-			设 $f$ 在 $[a,b]$ 递增。对任意 $x\in[a,b]$，由 $a\le x\le b$ 得
-			\[
-				f(a) \le f(x) \le f(b).
-			\]
-			\par\textbf{理由：} 增函数定义：自变量增大函数值增大。
-		\item[\textbf{步骤二（递减得范围）：}]
-			若 $f$ 递减，则
-			\[
-				f(b) \le f(x) \le f(a).
-			\]
-			\par\textbf{理由：} 减函数定义。
-		\item[\textbf{步骤三（端点可达）：}]
-			因为 $a,b\in[a,b]$，所以 $f(a),f(b)$ 都是函数值，属于值域。
-			\par\textbf{理由：} 定义域包含端点。
-		\item[\textbf{步骤四（值域确定）：}]
-			对于递增情况，由步骤一知值域 $\subseteq [f(a),f(b)]$，步骤三知 $f(a),f(b)$ 在值域中，因此值域就是 $[f(a),f(b)]$。递减时同理可得值域 $[f(b),f(a)]$。
-			\par\textbf{理由：} 值域既被该区间包含又包含其端点，故相等。
-	\end{description}
+    \medskip
+    \textbf{\textcolor{CProof}{方法一：从大小关系和图像理解（门槛最低）}}
+\begin{center}\input{assets/tikz/F010_endpoint_range.tex}\end{center}
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-	因此，命题成立。
+    假设 $f(x)$ 在 $[a,b]$ 上连续且单调递增。
+    \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.48em]
+        \item[\textbf{第一步：先排出 $x$ 的顺序。}]
+            取区间内任意一个 $x$，都有 $a\le x\le b$。
+        \item[\textbf{第二步：让函数值跟着排列。}]
+            因为函数递增，所以
+            \[
+                f(a)\le f(x)\le f(b).
+            \]
+            这表明函数值不可能小于 $f(a)$，也不可能大于 $f(b)$。
+        \item[\textbf{第三步：看有没有漏掉的高度。}]
+            图像从 $(a,f(a))$ 连续走到 $(b,f(b))$，中途没有跳跃。
+            因此两端高度之间每个高度都能走到。
+        \item[\textbf{第四步：写出值域。}]
+            两端点本身又在定义域里，所以 $f(a)$ 和 $f(b)$ 也能取到。
+            故值域为 $[f(a),f(b)]$。
+    \end{description}
+    如果函数单调递减，只需把第二步的不等号方向调过来，得到
+    $f(b)\le f(x)\le f(a)$，其值域为 $[f(b),f(a)]$。
+
+    \medskip
+    \end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法二：挑出任意一个中间值来证明（高中常规）}}
+\begin{center}\input{assets/tikz/F010_intermediate_zero.tex}\end{center}
+
+    仍设 $f(x)$ 在 $[a,b]$ 上连续且单调递增。
+    \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.48em]
+        \item[\textbf{第一步：先确定不会超出端点。}]
+            由单调性，仍有 $f(a)\le f(x)\le f(b)$。
+        \item[\textbf{第二步：随意挑一个目标高度。}]
+            任取满足 $f(a)<t<f(b)$ 的数 $t$。
+            我们要证明：一定存在某个 $x$，使得 $f(x)=t$。
+        \item[\textbf{第三步：把问题变成寻找零点。}]
+            令 $g(x)=f(x)-t$，则
+            \[
+                g(a)=f(a)-t<0,\qquad g(b)=f(b)-t>0.
+            \]
+            由于 $f$ 连续，减去一个固定的数 $t$ 后，$g$ 也连续。
+            图像从横轴下方走到横轴上方，中间必然经过横轴，
+            所以存在 $c\in(a,b)$，使得 $g(c)=0$。
+        \item[\textbf{第四步：还原成函数值。}]
+            $g(c)=0$ 就是 $f(c)=t$。
+            由于 $t$ 是随意挑选的，说明两端之间的每个数都能取到；
+            再加上两个端点，值域便是 $[f(a),f(b)]$。
+    \end{description}
+    递减时可以把 $g(a)$ 和 $g(b)$ 的正负关系对调，证明完全相同。
+    如果 $f(a)=f(b)$ 且整个区间单调，则函数始终等于这个数，
+    值域为只含一个数的区间 $[f(a),f(a)]$。
+
+    \medskip
+    \end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法三：从答案倒着找 $x$（适合可以直接解出 $x$ 的函数）}}
+\begin{center}\input{assets/tikz/F010_square_inverse.tex}\end{center}
+
+    这种办法不用先依赖图像：\textbf{给出一个目标函数值，反过来构造能得到它的 $x$。}
+    以 $f(x)=x^2$、$0\le x\le2$ 为例。
+    \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.48em]
+        \item[\textbf{第一步：确定函数值不会超出范围。}]
+            因为 $0\le x\le2$，所以 $0\le x^2\le4$。
+        \item[\textbf{第二步：任取范围内的数。}]
+            随便给定 $0\le y\le4$，我们想找 $x$ 让 $x^2=y$。
+        \item[\textbf{第三步：直接把 $x$ 找出来。}]
+            取 $x=\sqrt{y}$。由于 $0\le y\le4$，可知 $0\le\sqrt y\le2$，
+            这个 $x$ 确实在题目规定的区间内。
+        \item[\textbf{第四步：代回核对。}]
+            $f(\sqrt y)=(\sqrt y)^2=y$。
+            所以 $[0,4]$ 内每个 $y$ 都有对应的 $x$，值域恰为 $[0,4]$。
+    \end{description}
+    \textbf{说明：}第三种是在常见的具体函数上直接证明“中间没有漏值”，
+    尤其适合一次函数和能通过开平方解出 $x$ 的二次函数；
+    它不是对任意函数都能直接套用的通用方法。
+
+    \medskip
+    \textbf{\textcolor{CProof}{最后再检查一个反面情况}}
+    若只知道单调，不知道连续，前两种方法中“中间每个高度都能经过”这一步就没有保证。
+    因此原来仅凭“单调 $+$ 闭区间”就认定完整值域是端点区间的证明，并不充分。
 \end{proofbox}

@@ -1,40 +1,59 @@
+\clearpage
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
-	一次分式函数通过分离常数可化为“常数 + 反比例”形式，值域由常数项唯一决定，图像由反比例函数平移得到。
+    \textbf{\textcolor{CExplanation}{一、这个方法为什么会出现？}}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（分离常数）：}]
-			利用多项式除法或配拆法，将分子中含 $x$ 项系数与分母保持一致，从而得到一项常数和一项含分母的一次式。
-		\item[\textbf{要点二（值域推导）：}]
-			常数项 $a/c$ 是反比例部分的垂直平移量；反比例部分可取任意非零实数，故原函数值域排除 $a/c$。
-	\end{description}
+    先看 $y=\dfrac{2x+1}{x-1}$。直接代入 $x$，会得到许多不同的 $y$，但是试再多数值，也不能确定是否漏掉了某一个数。
+    注意到分子 $2x+1=2(x-1)+3$，所以
+    \[
+        y=\frac{2(x-1)+3}{x-1}=2+\frac3{x-1}\qquad(x\ne1).
+    \]
+    这一下问题就清楚了：$3/(x-1)$ 不可能是 $0$，因此 $y$ 不可能是 $2$；反过来，要得到任何一个不等于 $2$ 的数 $t$，只需取 $x=1+3/(t-2)$。
+    \textbf{这就是“分离常数法”：把难看清的分式，变成一个固定的数加上一个简单的分式。}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（双曲线）}}
-	一次分式函数 $y=\dfrac{ax+b}{{cx+d}}$ 的图像是等轴双曲线，其对称中心为 $\left(-\dfrac{d}{c},\dfrac{a}{c}\right)$，渐近线为 $x=-\dfrac{d}{c}$ 和 $y=\dfrac{a}{c}$。
+    \medskip
+    \textbf{\textcolor{CExplanation}{二、为什么固定的数恰好是 $a/c$？}}
+    \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+        \item[\textbf{第一眼（先看 $x$ 前面的数）：}]
+            分子有 $ax$，分母有 $cx$。要凑出一整份分母，必须乘 $a/c$，因为 $\dfrac ac\cdot cx=ax$。
+        \item[\textbf{第二眼（把多余的数算出来）：}]
+            \[
+                ax+b=\frac ac(cx+d)+\left(b-\frac{ad}{c}\right).
+            \]
+            所以原式等于
+            \[
+                \frac ac+\frac{bc-ad}{c(cx+d)}.
+            \]
+        \item[\textbf{第三眼（为什么总差一个数）：}]
+            当 $ad\ne bc$ 时，后面那一项的分子不是 $0$，分母也不是 $0$，所以它不等于 $0$。因此整个函数\textbf{永远不能刚好等于 $a/c$}。
+    \end{description}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（恒等变形）}}
-	分离常数实现了将分式函数拆分为多项式函数与真分式之和，便于研究值域、单调性及图像变换。
+    \medskip
+    \textbf{\textcolor{CExplanation}{三、为什么其他的数都能取到？}}
+    把想得到的函数值记成 $t$。如果 $t\ne a/c$，令
+    \[
+        x=\frac{b-dt}{ct-a}.
+    \]
+    此时分母 $ct-a\ne0$，并且
+    \[
+        cx+d=\frac{bc-ad}{ct-a}\ne0.
+    \]
+    所以这个 $x$ 合法，代回原式就能得到 $y=t$。\textbf{这一步保证了“只缺一个数”，而不是“至少缺一个数”。}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（常考题型）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（值域问题）：} 直接套用值域公式 $y\neq a/c$，避免分类讨论。
-		\item \textbf{考法二（对称性质）：} 由 $(-d/c,a/c)$ 直接得对称中心，用于图像变换或求单调区间。
-	\end{itemize}
+    \medskip
+    \textbf{\textcolor{CExplanation}{四、从反比例函数图像看它}}
+    记 $X=x+\dfrac dc$，$Y=y-\dfrac ac$，便有
+    \[
+        XY=\frac{bc-ad}{c^2},\qquad
+        Y=\frac{bc-ad}{c^2X}.
+    \]
+    这就是熟悉的 $Y=k/X$（$k\ne0$）：把图像向左或向右、向上或向下移动，便得到原函数的图像。
+    证明三的平移图用 $(X,Y)$ 与 $(-X,-Y)$ 直接显示中心对称；换回原坐标，中心为 $\bigl(-d/c,\,a/c\bigr)$。
+    注意：\textbf{对称中心本身不在图像上}。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
-	分离常数后，看到 $y-\dfrac{a}{c} = \dfrac{bc-ad}{c}\cdot\dfrac{1}{{c(x+\frac{d}{c})}}$，本质上就是反比例函数 $Y=\dfrac{k}{X}$，其中 $Y=y-\dfrac{a}{c}$，$X=x+\dfrac{d}{c}$，$k=\dfrac{bc-ad}{{c^2}}$。因此所有性质可直接沿用反比例函数结论。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（求值域）：} 已知一次分式函数，直接得值域。
-		\item \textbf{场景二（图像变换）：} 求对称中心、渐近线或平移关系。
-	\end{itemize}
-
+    \medskip
+    \textbf{\textcolor{CExplanation}{五、两个容易让人眼前一亮的发现}}
+    \begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
+        \item \textbf{一眼记住两个关键数：} $x$ 不能取 $-d/c$，$y$ 不能取 $a/c$。它们放在一起，就是图像的对称中心。
+        \item \textbf{不用求导也能判断增减：} 只在 $x=-d/c$ 的同一侧，若 $ad-bc>0$，$x$ 增大时 $y$ 增大；若 $ad-bc<0$，$x$ 增大时 $y$ 减小。原因在证明部分用普通分式运算说明。
+    \end{itemize}
 \end{explanationbox}

@@ -1,41 +1,46 @@
+\clearpage
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
+\textbf{\textcolor{CExplanation}{为什么会有这个问题？}}
 
-	抽象函数定义域问题中，定义域始终是自变量$x$的取值范围，与复合形式无关。
+平常求 $f(x)$ 的定义域，先看哪些 $x$ 能让计算式有意义。
+但是题目有时不写出 $f$ 的计算式，只说“$f(x)$ 的定义域为 $[1,3]$”，
+接着问“$f(2x-1)$ 的定义域是什么”。
+这时不能展开 $f$，也没有必要展开：\textbf{我们已经知道 $f$ 只接受哪些输入数。}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（定义域本质）：}] 定义域是自变量$x$的允许取值范围，不是中间变量的范围。
-		\item[\textbf{要点二（变换规则）：}] 已知$f(x)$定义域求$f[g(x)]$定义域，解不等式；已知$f[g(x)]$定义域求$f(x)$定义域，求值域。
-	\end{description}
+\medskip
+\textbf{\textcolor{CExplanation}{把 $f$ 想成只接受指定号码的机器}}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（投影关系）}}
+首页图把外层允许的蓝色纵向区间 $[1,3]$，沿 $t=2x-1$ 对应到橙色横向区间 $[1,2]$。
+这就是 $1\le2x-1\le3$ 的图形解法，全程不需要知道 $f$ 的计算式。
 
-	定义域对应函数图像在$x$轴上的投影区间。
+\medskip
+\textbf{\textcolor{CExplanation}{正着问与反着问，究竟差在哪里？}}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
+ \item[\textbf{正着问：}] 已经知道机器能接受哪些号码，问“哪些 $x$ 能送出合格号码”？
+ 解 $g(x)$ 必须满足的不等式，\textbf{最后写 $x$ 的范围}。
+ \item[\textbf{反着问：}] 已经知道哪些 $x$ 可以使用，问“机器到底接受哪些号码”？
+ 先算 $g(x)$ 在这些 $x$ 中能取到的所有数。
+ 对 $2x+1$ 这样的式子，由于它能取遍所有实数，这些号码就能确定 $f$ 的完整定义域。
+\end{description}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（变量代换）}}
+\medskip
+\textbf{\textcolor{CExplanation}{眼前一亮：同一个 $f$，定义域却可能不同}}
 
-	通过$t=g(x)$进行变量转换，将复合函数定义域问题转化为简单不等式或值域问题。
+$f(t)$ 的定义域是 $[1,3]$，并不表示 $f(2x-1)$ 的定义域也是 $[1,3]$。
+前者问“送进 $f$ 的数是多少”，后者问“为送进合格的数，$x$ 可以是多少”。
+\textbf{问的不是同一个数，答案当然可能不同。}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（解题关键）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（直接套用）：} 直接利用规则求复合函数定义域。
-		\item \textbf{考法二（逆向推导）：} 借助规则反求参数或原函数定义域。
-	\end{itemize}
+\medskip
+\textbf{\textcolor{CExplanation}{再往前想一步：为什么反推有时不行？}}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
+$x^2$ 只能得到非负数。
+即使我们观察了 $f(x^2)$ 在所有 $x$ 下有没有意义，
+也无法试出 $f$ 接收负数会怎样。
+\textbf{没被送进去过的数，就不能仅凭这些观察作判断。}
 
-	\textbf{始终问自己：哪个是自变量$x$？不要被括号内表达式迷惑。}
+\medskip
+\textbf{\textcolor{CExplanation}{考场上最有用的一句话}}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（抽象函数题）：} 如已知$f(x+1)$定义域求$f(2x)$定义域。
-		\item \textbf{场景二（参数问题）：} 已知复合定义域限制，求参数范围。
-	\end{itemize}
+\textbf{已知 $f$ 的输入范围，就让括号里的式子满足这个范围；
+已知 $x$ 的范围，就先求括号里的式子能取哪些值，并检查有没有遗漏的输入数。}
 \end{explanationbox}

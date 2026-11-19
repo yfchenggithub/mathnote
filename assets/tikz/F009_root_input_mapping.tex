@@ -1,0 +1,13 @@
+\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,9.4);
+\node at (7.1,8.8) {整个根号作新变量：沿曲线读出对应范围};
+
+\begin{scope}[shift={(2.3,2.5)},x=1cm,y=1.7cm]
+\draw[->] (0,0)--(5.7,0) node[right]{$x$};\draw[->] (0,-.2)--(0,2.8) node[above]{$t$};
+\draw[teal!80!black,thick,domain=0:2.15,samples=70] plot({\x*\x+1},\x);\draw[blue,very thick,domain=1:2,samples=50] plot({\x*\x+1},\x);
+\foreach \x/\y in {2/1,5/2}{\draw[dashed] (\x,0)--(\x,\y)--(0,\y);\fill[blue] (\x,\y) circle(1.7pt);\node[below] at (\x,0){$\x$};\node[left] at (0,\y){$\y$};}
+\node[below] at (1,0){$1$};\fill (1,0) circle(1.5pt);
+\end{scope}
+\node[align=left,anchor=west] at (8.5,5.1){$t=\sqrt{x-1}\ge0$\\[10pt] $x=t^2+1$\\[12pt] 全部：$x\ge1\iff t\ge0$\\[10pt] 限制：$2\le x\le5$\\[5pt] $\phantom{限制：}\iff1\le t\le2$};
+\node[text width=13.2cm,align=center] at (7.1,.65) {粗蓝线表示额外限制后的部分；换元必须同时保留它的实际范围。};
+\end{tikzpicture}

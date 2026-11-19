@@ -1,21 +1,41 @@
+\clearpage
 \begin{trapbox}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（忽略新元范围）}}] 在换元后，未明确新变量的取值范围，导致值域扩大或缩小。
-		\item[\textbf{\textcolor{CTrap}{正确理解（同步确定范围）}}] 每一步换元都必须根据原变量和新变量的对应关系，同步写出新变量的范围。例如 $t=\sqrt{ax+b}$ 必须注明 $t\ge0$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（忘记限制条件）}}] 学生常直接代入表达式求值域，却忽略根式本身的非负性或三角函数的定义区间，造成值域错误。
-	\end{description}
+  \textbf{\textcolor{CTrap}{易错一：换元后把新字母当成任意实数}}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（三角换元的角域选取）}}] 对于 $\sqrt{a^2-x^2}$ 采用 $x=a\sin\theta$ 时，若选取 $\theta$ 范围不当，可能导致 $\cos\theta$ 符号不定，根式开方出现正负混淆。
-		\item[\textbf{\textcolor{CTrap}{正确理解（为保证非负选取合适角域）}}] 规定 $\theta\in[-\frac{\pi}{2},\frac{\pi}{2}]$，此时 $\cos\theta\ge0$，保证 $\sqrt{a^2-x^2}=a\cos\theta$ 成立。
-		\item[\textbf{\textcolor{CTrap}{错因分析（未固定符号盲目开方）}}] 学生不熟悉恒等变形后的开方规则，直接写 $\sqrt{1-\sin^2\theta}=\cos\theta$ 而未考虑符号，导致结果正负号错误。
-	\end{description}
+  \textbf{错误示范：} $t=\sqrt{x-1}$，却直接把 $t$ 放到全体实数里求 $2t^2+t+2$ 的最小值，算出 $\frac{15}{8}$。
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（正切与正割换元混淆）}}] 对于 $\sqrt{x^2+a^2}$ 与 $\sqrt{x^2-a^2}$ 两种形式，学生容易混淆使用的换元方式。
-		\item[\textbf{\textcolor{CTrap}{正确理解（区分平方和与平方差）}}] $\sqrt{x^2+a^2}$ 使用 $x=a\tan\theta$；$\sqrt{x^2-a^2}$ 使用 $x=a\sec\theta$。记忆方法：和用正切，差用正割。
-		\item[\textbf{\textcolor{CTrap}{错因分析（没有抓住恒等式特征）}}] 关键在于识别根号内是“平方相加”还是“平方相减”。相加用 $1+\tan^2\theta=\sec^2\theta$，相减用 $\sec^2\theta-1=\tan^2\theta$，混淆则导致推理错误。
-	\end{description}
+  \textbf{正确做法：} 根号不为负，必须写 $t\ge0$。此时 $2t^2+t+2\ge2$，最小值是 $2$。
+
+  \medskip
+  \textbf{\textcolor{CTrap}{易错二：只写 $t\ge0$，忘记题目另给的 $x$ 范围}}
+
+  如 $2\le x\le5$ 且 $t=\sqrt{x-1}$，实际是 $1\le t\le2$。\textbf{先找原范围，再换成新范围。}
+
+  \medskip
+  \textbf{\textcolor{CTrap}{易错三：根号内有平方，开方时随意去掉符号}}
+
+  \[
+    \sqrt{u^2}=|u|,\quad\text{不是永远等于 }u.
+  \]
+  如 $\sqrt{a^2\cos^2\theta}=a|\cos\theta|$（$a>0$）。只有确认 $\cos\theta\ge0$，才能进一步写成 $a\cos\theta$。
+
+  \medskip
+  \textbf{\textcolor{CTrap}{易错四：没有说明 $a>0$ 就写 $\sqrt{a^2-x^2}=a\cos\theta$}}
+
+  若 $a<0$，右边可能是负数，根号却不可能为负。统一先把 $a$ 当成正数，或将平方中的 $a$ 改写为 $|a|$。
+
+  \medskip
+  \textbf{\textcolor{CTrap}{易错五：$\sqrt{x^2-a^2}$ 只考虑 $x\ge a$}}
+
+  正确的取值要求是 $x\ge a$ \textbf{或} $x\le-a$（$a>0$）。如果没有额外限制，只研究右半边会漏掉左半边的函数值。
+
+  \medskip
+  \textbf{\textcolor{CTrap}{易错六：把“无限接近”误认为“能够等于”}}
+
+  例如 $y=\sqrt{x^2+1}-x>0$，$y$ 可以很接近 $0$，却永远不等于 $0$。值域应写 $(0,+\infty)$，不能写 $[0,+\infty)$。
+
+  \medskip
+  \textbf{\textcolor{CTrap}{易错七：见根号就套固定公式}}
+
+  例如 $\sqrt{x^2+a^2}-x$ 可直接用平方差公式处理；不一定需要先引入角。\textbf{先看能否一两步化简，再决定要不要换元。}
 \end{trapbox}

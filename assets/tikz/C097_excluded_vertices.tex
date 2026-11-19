@@ -1,0 +1,21 @@
+% Identical coordinate ranges; y^2=2x in both panels.
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,9.5);
+\node at (7.1,8.95) {先检查点是否不同、是否离开顶点，再讨论三条边};
+\node at (3.55,7.95) {$A=O$};
+\node at (10.65,7.95) {$A=B$};
+\foreach \dx in {1.8,8.9}{
+ \begin{scope}[shift={(\dx,3.1)},scale=1.15]
+ \draw[->,gray] (-.6,0)--(3.1,0) node[above] {$x$};
+ \draw[->,gray] (0,-.6)--(0,3.1) node[left] {$y$};
+ \draw[teal!65!black,thick,samples=100,domain=-.7:2.35,variable=\t] plot ({\t*\t/2},\t);
+ \draw[blue!75!black,very thick] (0,0)--(2,2);
+ \end{scope}
+}
+\fill (1.8,3.1) circle(2.5pt) node[below right=8pt] {$A=O$};
+\fill (4.1,5.4) circle(2.5pt) node[above left=8pt] {$B$};
+\fill (8.9,3.1) circle(2.5pt) node[below right=8pt] {$O$};
+\fill (11.2,5.4) circle(2.5pt) node[above left=8pt] {$A=B$};
+\node[align=center] at (3.55,1.25) {两个重合点 $O,A$\\[8pt]不能确定直线 $OA$};
+\node[align=center] at (10.65,1.25) {两个端点重合\\[8pt]不能确定弦 $AB$};
+\end{tikzpicture}

@@ -1,0 +1,19 @@
+% F002 新增原始示意图：导数等于零但非极值、不可导却有极值
+\begin{center}
+\begin{tikzpicture}[>=stealth,scale=1.0,font=\small]
+  \begin{scope}[shift={(-3,0)}]
+  \draw[->,gray] (-1.5,0)--(1.5,0) node[right] {$x$};
+  \draw[->,gray] (0,-1.35)--(0,1.35) node[above] {$y$};
+  \draw[very thick,blue!70!black,domain=-1.18:1.18,samples=80] plot (\x,{0.66*\x*\x*\x});
+  \fill (0,0) circle (1.8pt);
+  \node[below] at (0,-1.65) {$y=x^3$：$0$ 处不转头};
+  \end{scope}
+  \begin{scope}[shift={(3,0)}]
+  \draw[->,gray] (-1.5,0)--(1.5,0) node[right] {$x$};
+  \draw[->,gray] (0,-0.25)--(0,1.45) node[above] {$y$};
+  \draw[very thick,teal!80!black] (-1.15,1.15)--(0,0)--(1.15,1.15);
+  \fill (0,0) circle (1.8pt);
+  \node[below] at (0,-0.55) {$y=|x|$：尖角也是最低点};
+  \end{scope}
+\end{tikzpicture}
+\end{center}

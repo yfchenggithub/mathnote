@@ -1,84 +1,129 @@
 \begin{examplebox}
 
-\textbf{\textcolor{CExample}{例 1（基础）}}
+\textbf{\textcolor{CExample}{例1：最简单的 $0$ 比 $0$，先约分更快}}
 
-\textbf{\textcolor{CExample}{题目：}} 计算 $\displaystyle\lim_{x\to0}\frac{\sin x}{x}$。
+\textbf{题目：} $\displaystyle\lim_{x\to2}\frac{x^2-4}{x-2}$。
 
-\textbf{\textcolor{CExample}{解题步骤：}}
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{第一步（未定式判定）：}] 当 $x\to0$ 时，$\sin x\to0$，$x\to0$，故为 $\frac{0}{0}$ 型。
-    \par\textbf{理由：} 符合洛必达法则使用前提。
-    \item[\textbf{第二步（应用洛必达）：}] 
-    \[
-    \lim_{x\to0}\frac{\sin x}{x} = \lim_{x\to0}\frac{\cos x}{1}.
-    \]
-    \par\textbf{理由：} 分子分母分别求导，$\sin x$导数为$\cos x$，$x$导数为$1$。
-    \item[\textbf{第三步（求值）：}] 
-    \[
-    \lim_{x\to0}\cos x = 1.
-    \]
-    \par\textbf{理由：} $\cos x$ 在 $x=0$ 连续。
-\end{description}
+\textbf{解法一（推荐，因式分解）：}
+\[
+\lim_{x\to2}\frac{(x-2)(x+2)}{x-2}
+=\lim_{x\to2}(x+2)=4.
+\]
 
-\textbf{\textcolor{CExample}{关键结论：}} $\displaystyle\lim_{x\to0}\frac{\sin x}{x}= \textbf{1}$。
+\textbf{解法二（分别求导，作对照）：}
+\[
+\lim_{x\to2}\frac{x^2-4}{x-2}
+=\lim_{x\to2}\frac{2x}{1}=4.
+\]
+\textbf{为什么能用？} 分子、分母都趋于 $0$，在 $2$ 附近能求导，分母导数为 $1$，求导后的比值有极限。
 
 \medskip
-\textbf{\textcolor{CExample}{例 2（稍变形）}}
+\textbf{\textcolor{CExample}{例2：根号式，高中更推荐有理化}}
 
-\textbf{\textcolor{CExample}{题目：}} 计算 $\displaystyle\lim_{x\to0}\frac{\ln(1+x)-x}{x^2}$。
+\textbf{题目：} $\displaystyle\lim_{x\to4}\frac{\sqrt{x}-2}{x-4}$。
 
-\textbf{\textcolor{CExample}{解题步骤：}}
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{第一步（未定式判定）：}] $x\to0$ 时，分子 $\ln(1+x)-x\to0$，分母 $x^2\to0$，为 $\frac{0}{0}$ 型。
-    \par\textbf{理由：} 未定式识别。
-    \item[\textbf{第二步（应用洛必达并化简）：}] 分子求导得 $\frac{1}{1+x}-1 = -\frac{x}{1+x}$，分母求导得 $2x$，于是
-    \[
-    \begin{aligned}
-    \lim_{x\to0}\frac{\ln(1+x)-x}{x^2}
-    &= \lim_{x\to0}\frac{\frac{1}{1+x}-1}{2x} \\
-    &= \lim_{x\to0}\frac{-\frac{x}{1+x}}{2x} \\
-    &= \lim_{x\to0}\frac{-1}{2(1+x)}.
-    \end{aligned}
-    \]
-    \par\textbf{理由：} 化简后分母非零，可直接代入。
-    \item[\textbf{第三步（求值）：}] 
-    \[
-    \lim_{x\to0}\frac{-1}{2(1+x)} = -\frac12.
-    \]
-    \par\textbf{理由：} 连续函数代值。
-\end{description}
+\textbf{解法一（推荐）：} 分子、分母都趋于 $0$。分子分母同乘 $\sqrt{x}+2$：
+\[
+\begin{aligned}
+\frac{\sqrt{x}-2}{x-4}
+&=\frac{(\sqrt{x}-2)(\sqrt{x}+2)}{(x-4)(\sqrt{x}+2)}\\
+&=\frac{x-4}{(x-4)(\sqrt{x}+2)}
+=\frac1{\sqrt{x}+2}.
+\end{aligned}
+\]
+所以极限为 $\frac14$。
 
-\textbf{\textcolor{CExample}{关键结论：}} $\displaystyle\lim_{x\to0}\frac{\ln(1+x)-x}{x^2}= \textbf{$-\frac12$}$。
+\textbf{解法二（求导对照）：}
+\[
+\lim_{x\to4}\frac{\sqrt{x}-2}{x-4}
+=\lim_{x\to4}\frac{\frac1{2\sqrt{x}}}{1}
+=\frac14.
+\]
+\textbf{提醒：} 已经能用有理化一步算出，不必刻意使用新法则。
 
 \medskip
-\textbf{\textcolor{CExample}{例 3（综合应用）}}
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExample}{例3：对数与平方，求导明显省力}}
 
-\textbf{\textcolor{CExample}{题目：}} 计算 $\displaystyle\lim_{x\to0}\frac{x-\sin x}{x^3}$。
+\textbf{题目：} $\displaystyle\lim_{x\to0}\frac{\ln(1+x)-x}{x^2}$，其中 $x>-1$。
+\end{minipage}
 
-\textbf{\textcolor{CExample}{解题步骤：}}
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-    \item[\textbf{第一步（未定式判定）：}] $x\to0$ 时，分子 $x-\sin x\to0$，分母 $x^3\to0$，为 $\frac{0}{0}$ 型。
-    \par\textbf{理由：} 符合洛必达前提。
-    \item[\textbf{第二步（连续两次洛必达）：}] 第一次求导得 $\frac{1-\cos x}{3x^2}$，仍为 $\frac{0}{0}$ 型；第二次求导得 $\frac{\sin x}{6x}$，仍为 $\frac{0}{0}$ 型。因此
-    \[
-    \begin{aligned}
-    \lim_{x\to0}\frac{x-\sin x}{x^3}
-    &= \lim_{x\to0}\frac{1-\cos x}{3x^2} \\
-    &= \lim_{x\to0}\frac{\sin x}{6x}.
-    \end{aligned}
-    \]
-    \par\textbf{理由：} 每一步均满足洛必达条件。
-    \item[\textbf{第三步（第三次洛必达求值）：}] 第三次洛必达得 $\frac{\cos x}{6}$，或直接利用 $\frac{\sin x}{x}\to1$，得极限值。
-    \[
-    \begin{aligned}
-    \lim_{x\to0}\frac{\sin x}{6x}
-    &= \lim_{x\to0}\frac{\cos x}{6} \\
-    &= \frac16.
-    \end{aligned}
-    \]
-    \par\textbf{理由：} 第三次洛必达后分母非零，直接代入。
-\end{description}
+\textbf{第1步：} $x\to0$ 时，$\ln(1+x)-x\to0$，$x^2\to0$。
+\textbf{第2步：} 分子导数为
+\[
+\bigl[\ln(1+x)-x\bigr]'=\frac1{1+x}-1=-\frac{x}{1+x},
+\]
+分母导数为 $2x$，当 $x$ 接近 $0$ 但不等于 $0$ 时 $2x\ne0$。
+\textbf{第3步：} 求导后先约去 $x$：
+\[
+\begin{aligned}
+\lim_{x\to0}\frac{\ln(1+x)-x}{x^2}
+&=\lim_{x\to0}\frac{-\frac{x}{1+x}}{2x}\\
+&=\lim_{x\to0}\left(-\frac1{2(1+x)}\right)
+=\boxed{-\frac12}.
+\end{aligned}
+\]
+\textbf{关键：} 一次求导后虽表面上还是 $0$ 比 $0$，但能直接约分，没有必要再求一次导。
 
-\textbf{\textcolor{CExample}{关键结论：}} $\displaystyle\lim_{x\to0}\frac{x-\sin x}{x^3}= \textbf{$\frac16$}$。
+\medskip
+\textbf{\textcolor{CExample}{例4：求导一次不够，就继续检查}}
 
+\textbf{题目：} $\displaystyle\lim_{x\to0}\frac{x-\sin x}{x^3}$。
+
+\textbf{第一次：} 分子、分母都趋于 $0$，分别求导：
+\[
+\lim_{x\to0}\frac{x-\sin x}{x^3}
+=\lim_{x\to0}\frac{1-\cos x}{3x^2}.
+\]
+\textbf{第二次：} 新分式仍是 $0$ 比 $0$，并满足求导条件：
+\[
+\lim_{x\to0}\frac{1-\cos x}{3x^2}
+=\lim_{x\to0}\frac{\sin x}{6x}.
+\]
+\textbf{第三次：} 又是 $0$ 比 $0$，再分别求导：
+\[
+\lim_{x\to0}\frac{\sin x}{6x}
+=\lim_{x\to0}\frac{\cos x}{6}
+=\boxed{\frac16}.
+\]
+\textbf{更快的最后一步：} 已知 $\lim_{x\to0}\frac{\sin x}{x}=1$ 时，第二次后也可直接得 $\frac16$。
+\textbf{提醒：} 每一次都需要重新检查，不能只写“连续求导三次”却不管条件。
+
+\medskip
+\textbf{\textcolor{CExample}{例5：两边都越来越大，先比最高次项}}
+
+\textbf{题目：} $\displaystyle\lim_{x\to+\infty}\frac{2x^2+3x+1}{x^2+1}$。
+
+\textbf{解法一（推荐）：} 分子分母同除以 $x^2$：
+\[
+\lim_{x\to+\infty}\frac{2+\frac3x+\frac1{x^2}}{1+\frac1{x^2}}=\boxed{2}.
+\]
+\textbf{解法二（求导对照）：}
+\[
+\lim_{x\to+\infty}\frac{2x^2+3x+1}{x^2+1}
+=\lim_{x\to+\infty}\frac{4x+3}{2x}
+=2.
+\]
+\textbf{思考：} 对多项式分式，比较最高次数通常比求导还快；方法是为解题服务的。
+
+\medskip
+\textbf{\textcolor{CExample}{例6：有参数时，先看系数}}
+
+\textbf{题目：} 已知
+\[
+\lim_{x\to1}\frac{x^2+(k-1)x-k}{x-1}=5,
+\]
+求 $k$。
+
+\textbf{解：} 分子在 $x=1$ 时等于 $1+(k-1)-k=0$，
+\[
+ x^2+(k-1)x-k=(x-1)(x+k).
+\]
+因此
+\[
+\lim_{x\to1}\frac{(x-1)(x+k)}{x-1}=1+k=5,
+\]
+所以 $\boxed{k=4}$。
+
+\textbf{另一种检查：} 分子导数为 $2x+k-1$，分母导数为 $1$，代入 $x=1$ 同样得到 $1+k$。
 \end{examplebox}

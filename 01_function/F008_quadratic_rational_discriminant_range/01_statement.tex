@@ -1,23 +1,41 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件1（分母无实根）：}}]
-			分母二次式 $dx^2+ex+f$ 满足 $d\neq0$ 且判别式 $\Delta_d=e^2-4df<0$，从而分母恒正或恒负，函数自然定义域为 $\mathbb{R}$。
-	\end{description}
+  \textbf{\textcolor{CStatement}{这条结论解决什么问题？}}
 
-	\medskip
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（判别式法）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			将函数化为关于 $x$ 的二次方程，利用方程有实根的判别式条件解出 $y$ 的取值范围。
-			\[
-				(a-dy)x^2+(b-ey)x+(c-fy)=0.
-			\]
-			当 $a-dy\neq0$ 时，由 $\Delta(y)=(b-ey)^2-4(a-dy)(c-fy)\ge0$ 解出 $y$ 的范围；当 $a-dy=0$ 时，代入检验是否存在实数 $x$ 满足原式，若存在则将该 $y$ 并入值域。
-	\end{description}
+  \medskip
+  当分子和分母都含有 $x^2$ 时，直接观察分式往往看不出 $y$ 最小能是多少、最大能是多少。
+  这时可以把问题\textbf{反过来问}：\textbf{先指定一个 $y$，有没有实数 $x$ 能使函数恰好等于它？}
+  有，这个 $y$ 就能取到；没有，这个 $y$ 就不能取到。
 
-	\medskip
-	\textbf{\textcolor{CStatement}{适用范围：}}
-	仅适用于分子、分母均为二次的多项式分式函数，且分母二次式必须非退化（$d\neq0$）；若分子次数高于或低于二次，不能直接使用本方法。
+  \medskip
+  \begin{center}\input{assets/tikz/F008_horizontal_range.tex}\end{center}
+\end{statementbox}
+\clearpage
+\begin{statementbox}
+\textbf{\textcolor{CStatement}{适用条件}}
+  \begin{itemize}[leftmargin=*,itemsep=0.3em]
+    \item 对于函数
+    \[
+      y=\frac{ax^2+bx+c}{dx^2+ex+f},\qquad d\ne0,
+    \]
+    其中 $a,b,c,d,e,f$ 是固定的实数，分子也允许没有 $x^2$ 项。
+    \item 先看分母：若 $e^2-4df<0$，分母对任何实数 $x$ 都不为 $0$，所以 $x$ 可以取任意实数。本结论先讨论这一最省心的情况。
+  \end{itemize}
+
+  \medskip
+  \textbf{\textcolor{CStatement}{核心结论}}
+  把上式的分母乘过去并移项，得到
+  \[
+    \boxed{(a-dy)x^2+(b-ey)x+(c-fy)=0.}
+  \]
+  \begin{enumerate}[leftmargin=*,itemsep=0.4em]
+    \item 当 $a-dy\ne0$ 时，它是真正的二次方程。某个 $y$ 能取到，\textbf{恰好等于}下面的式子不小于 $0$：
+    \[
+      \boxed{\Delta(y)=(b-ey)^2-4(a-dy)(c-fy)\ge0.}
+    \]
+    \item 当 $a-dy=0$，即 $y=\dfrac ad$ 时，$x^2$ 消失了。此时\textbf{不能只看 $\Delta(y)$}，必须把这个 $y$ 代回方程，检查是否真的能找到 $x$。
+  \end{enumerate}
+
+  \medskip
+  \textbf{\textcolor{CStatement}{最后一步不能省}}
+  解出 $\Delta(y)\ge0$ 给出的范围后，只保留其中 $a-dy\ne0$ 的值；再单独决定 $y=\dfrac ad$ 是否能够取到。两部分合起来才是完整值域。
 \end{statementbox}

@@ -1,0 +1,24 @@
+\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,9.4);
+\node at (7.1,8.8) {内三角形、扇形、外三角形：面积逐层增大};
+\begin{scope}[shift={(2.0,2.5)},scale=3.6]
+\fill[orange!12] (0,0)--(1,0)--(1,.6841368)--cycle;
+\fill[blue!10] (0,0)--(1,0) arc[start angle=0,end angle=34.37747,radius=1]--cycle;
+\fill[green!15] (0,0)--(1,0)--(.8253356,.5646425)--cycle;
+\draw[teal!65!black,thick] (1,0) arc[start angle=0,end angle=90,radius=1];
+\draw[thick] (0,0)--(1,0)--(1,.6841368)--cycle;
+\draw[blue!75!black,thick] (1,0)--(.8253356,.5646425);
+\draw[gray] (.23,0) arc[start angle=0,end angle=34.37747,radius=.23];
+\node at (.35,.1) {$x$};
+\node[below left=10pt] at (0,0) {$O$};
+\node[below=10pt] at (1,0) {$A$};
+\node[below=18pt] at (.8253356,.5646425) {$B$};
+\node[right=12pt] at (1,.6841368) {$T$};
+\end{scope}
+\node[anchor=west,align=left] at (8.7,5.1)
+{半径 $1$，角 $x$ 用弧度\\[15pt]
+$S_{OAB}=\frac12\sin x$\\[15pt]
+$S_{\text{扇形}}=\frac12x$\\[15pt]
+$S_{OAT}=\frac12\tan x$};
+\node[text width=13.2cm,align=center] at (7.1,.65) {图取 $x=0.6$ 弧度；当 $0<x<\pi/2$，三种面积的包含关系给出夹逼。};
+\end{tikzpicture}

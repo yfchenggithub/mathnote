@@ -1,0 +1,12 @@
+\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,9.4);
+\node at (7.1,8.8) {平方差根式有左右两支，根号值都保持非负};
+
+\begin{scope}[shift={(4.1,2.6)},scale=1.4]
+\draw[->] (-2.5,0)--(2.7,0) node[right]{$x$};\draw[->] (0,-.4)--(0,2.9) node[above]{$z$};
+\draw[blue,thick,domain=0:2.1,samples=70] plot({sqrt(1+\x*\x)},\x);\draw[orange!90!black,thick,domain=0:2.1,samples=70] plot({-sqrt(1+\x*\x)},\x);
+\fill[blue] (1,0) circle(1.6pt);\fill[orange!90!black] (-1,0) circle(1.6pt);\node[below] at (1,0){$a$};\node[below] at (-1,0){$-a$};
+\end{scope}
+\node[align=left,anchor=west] at (8.4,5.1){$z=\sqrt{x^2-a^2}$\\[10pt] 右支：$t=x+z\ge a$\\[10pt] 左支：$t=-x+z\ge a$\\[10pt] 两支均有\\[5pt] $z=(t^2-a^2)/(2t)\ge0$};
+\node[text width=13.2cm,align=center] at (7.1,.65) {图形按 $a=1$ 绘制；仅给出根式定义域时，两支都不能漏。};
+\end{tikzpicture}

@@ -1,26 +1,53 @@
 \clearpage
 \begin{explanationbox}
-\paragraph{一、先看具体曲线：贴合发生在零点附近}
-\input{assets/tikz/F003_exp_local.tex}
-蓝线是 $e^x$，橙虚线是 $R_E$。两线近乎重合，只能说明在当前尺度下差距很小，不能说明相等。
-\input{assets/tikz/F003_exp_error.tex}
-上图将差值单独画出；$T_4=1+x+x^2/2+x^3/6+x^4/24$。
-两种方法都匹配到四次项，但在所画区间内，分式的误差更小。
-这只是当前函数与区间的比较，不能推广成“帕德永远优于泰勒”。
+\paragraph{一、为什么会想到这样的公式？}
+假设题目要估算 $e^{0.1}$。只记住 $e^0=1$，只能猜它在 $1$ 附近，没法确定四位小数。
+但用本结论的分式，立即得到
+\[
+E(0.1)=\frac{0.01+0.6+12}{0.01-0.6+12}
+=\frac{1261}{1141}=1.1051709\ldots
+\]
+整个计算只用小学、初中就熟悉的四则运算。
+\textbf{问题并不是“分式为什么看起来漂亮”，而是“为何能靠它算得准”。}
+后面要用导数检查分式与真正函数值之间的差距。
 
-\newpage
-\paragraph{二、对数：负数一侧更靠近定义域边界}
-\input{assets/tikz/F003_log_local.tex}
-零点两侧曲线都贴合，但向 $x=-1$ 靠近时要更谨慎；不能只看 $|x|$ 就保证精度。
-\input{assets/tikz/F003_log_error.tex}
-误差为负表示分式高于原函数，误差为正表示分式低于原函数。
-图中纵坐标已乘 $10^4$；实际误差须再除以 $10^4$。
+\paragraph{二、为什么特别强调“接近 $0$”？}
+这五个分式不是要在所有地方代替原函数，而是专门照顾 $0$ 附近的一小段。
+在 $x=0$ 时，五个分式与原函数的数值都完全相同；
+在 $x$ 稍微偏离 $0$ 时，经过精心选择的系数，会让差距增加得很慢。
+但 $x$ 远离 $0$，差距可能变得明显，甚至出现两者变化方向不相同的情况。
 
-\newpage
-\paragraph{三、三角函数：先保留奇偶结构，再讨论精度}
-\input{assets/tikz/F003_sin_cos_local.tex}
-$R_S$ 为奇函数、$R_C$ 为偶函数，分别保留正弦和余弦的对称性。
-两幅图使用相同的坐标范围和尺度；奇偶性只是必要的结构检查，不能单独证明高阶精度。
-\input{assets/tikz/F003_tan_local.tex}
-$R_T$ 也为奇函数。即使在这幅局部图中，接近左右边缘时仍可看到正切的差距变大。
+\IfFileExists{assets/tikz/F003_exp_local.tex}{\input{assets/tikz/F003_exp_local.tex}}{}
+\IfFileExists{assets/tikz/F003_exp_error.tex}{\input{assets/tikz/F003_exp_error.tex}}{}
+\textbf{看图时注意：}两条线画在一起很接近，不表示它们相等。
+判断能否保留四位小数，应看两者\textbf{最多相差多少}。
+
+\paragraph{三、分式为什么要长成“这个样子”？}
+比如正弦满足 $\sin(-x)=-\sin x$：把角换成相反数，函数值也跟着变号。
+所以近似它的 $S(x)=6x/(x^2+6)$ 也保持同一性质。
+余弦满足 $\cos(-x)=\cos x$，分式 $C(x)$ 也一样。
+\textbf{先让分式保留函数原有的对称特点，再把里面的数字选准，估算效果才好。}
+
+\IfFileExists{assets/tikz/F003_unit_circle.tex}{\input{assets/tikz/F003_unit_circle.tex}}{}
+\IfFileExists{assets/tikz/F003_sin_cos_local.tex}{\input{assets/tikz/F003_sin_cos_local.tex}}{}
+\IfFileExists{assets/tikz/F003_tan_local.tex}{\input{assets/tikz/F003_tan_local.tex}}{}
+
+\paragraph{四、两个容易记住的有趣规律}
+\textbf{规律1：指数分式倒过来就能估算负指数。}直接代入可得
+\[
+E(-x)=\frac{x^2-6x+12}{x^2+6x+12}=\frac1{E(x)}.
+\]
+这正好对应 $e^{-x}=1/e^x$；分式并不是随意拼出来的。
+
+\textbf{规律2：对数分式也照顾到了“取倒数”。}
+当 $x>-1$，把 $y=-x/(1+x)$ 代入，分式计算可验证
+\[
+L\!\left(-\frac{x}{1+x}\right)=-L(x).
+\]
+它模仿了 $\ln\frac1{1+x}=-\ln(1+x)$，
+因此估算小于 $1$ 的正数的对数时，也可以先利用倒数关系。
+这两个规律是\textbf{分式自身的准确等式}，不表示分式与原函数完全相等。
+
+\IfFileExists{assets/tikz/F003_log_local.tex}{\input{assets/tikz/F003_log_local.tex}}{}
+\IfFileExists{assets/tikz/F003_log_error.tex}{\input{assets/tikz/F003_log_error.tex}}{}
 \end{explanationbox}

@@ -1,12 +1,42 @@
 \begin{statementbox}
-\paragraph{导数判定单调性}
-设 $I$ 为非退化区间，$f$ 在 $I$ 上连续、在其内部可导。以下导数条件均指 $I$ 的内部：
-\begin{itemize}
-\item $f'>0$ 恒成立，则 $f$ 在 $I$ 上严格递增；$f'<0$ 恒成立，则严格递减。
-\item $f'\ge0$ 恒成立，当且仅当 $f$ 在 $I$ 上单调不减；$f'\le0$ 恒成立，当且仅当单调不增。
-\end{itemize}
-严格递增指任意 $x_1<x_2$（$x_1,x_2\in I$）都有 $f(x_1)<f(x_2)$；不减则将末尾的 $<$ 换成 $\le$。严格递减、不增相应反向。
+\paragraph{F001 导数怎样判断函数是增还是减}
+\begin{center}\input{assets/tikz/F001_positive_slope.tex}\end{center}
+在同一段区间内，内部可导、所含端点连续时：
+\[
+ f'(x)>0\ \Longrightarrow\ \text{严格递增},\qquad
+ f'(x)<0\ \Longrightarrow\ \text{严格递减}.
+\]
+若只知道 $f'(x)\ge0$，先得到“不下降”；还要排除整段水平线，才能进一步得到严格递增。
 
-\textbf{零导数的边界：}$f'>0$ 是严格递增的充分条件，并非必要条件。
-若 $f'\ge0$ 且 $I$ 中不存在 $f$ 恒为常数的非退化子区间，则 $f$ 严格递增。特别地，$f'\ge0$ 且零点只有有限个时，$f$ 仍严格递增。
+\end{statementbox}
+\clearpage
+\begin{statementbox}
+
+设函数 $f(x)$ 在一段连续的取值范围 $I$ 上有定义：在这段范围内没有断开，中间的点都能求导；如果包含左右端点，还要求函数在端点处连续。下面说的导数条件，都指这段范围内部的点。
+
+\textbf{一、最常用的四条规则}
+\begin{enumerate}
+  \item 若 $f'(x)>0$ 始终成立，那么 $x$ 从小到大时，$f(x)$\textbf{严格递增}（一直往上走）。
+  \item 若 $f'(x)<0$ 始终成立，那么 $f(x)$\textbf{严格递减}（一直往下走）。
+  \item 若 $f'(x)\ge 0$ 始终成立，那么 $f(x)$\textbf{不会下降}，也就是函数值可以升高，也可以暂时保持不变。
+  \item 若 $f'(x)\le 0$ 始终成立，那么 $f(x)$\textbf{不会上升}，也就是函数值可以降低，也可以暂时保持不变。
+\end{enumerate}
+
+\textbf{二、``不会下降''和``严格递增''有什么区别？}
+任意取 $x_1<x_2$：
+\[
+\begin{aligned}
+\text{严格递增}&:\quad f(x_1)<f(x_2),\\
+\text{不会下降}&:\quad f(x_1)\le f(x_2).
+\end{aligned}
+\]
+一个区别：\textbf{严格递增不允许两个不同位置的函数值相等；不会下降允许出现一整段水平线。}
+
+\textbf{三、最容易忽略的重要补充}
+\begin{enumerate}
+  \item $f'(x)>0$ 是严格递增的\textbf{好用条件}，但不是必须处处满足的条件。例如 $f(x)=x^3$ 严格递增，却有 $f'(0)=0$。
+  \item 若 $f'(x)\ge0$，并且\textbf{没有任何一小段区间让函数值始终不变}，那么 $f(x)$ 仍严格递增。
+  \item 特别好用的判断：若 $f'(x)\ge0$，而且导数等于 $0$ 的位置\textbf{只有有限个}，那么 $f(x)$ 一定严格递增。
+\end{enumerate}
+\textbf{递减时同样成立：}把上面的 $\ge0$ 改为 $\le0$，把``严格递增''改为``严格递减''。
 \end{statementbox}

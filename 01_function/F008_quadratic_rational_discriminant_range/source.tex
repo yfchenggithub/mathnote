@@ -1,31 +1,18 @@
-\textbf{结论名称：} 函数值域——判别式法（二次分式型）
-
-\textbf{适用条件：} 形如 $y=\dfrac{a x^2+b x+c}{d x^2+e x+f}$（$d\neq0$）且分母在实数范围内无零点（即分母的判别式 $\Delta_d=e^2-4df<0$），或定义域已剔除分母零点后仍可考虑整式化求解。
-
-\textbf{变量说明：} $a,b,c$ 为分子二次项、一次项系数和常数项；$d,e,f$ 为分母相应系数；$x\in\mathbb{R}$ 且满足 $d x^2+e x+f\neq0$。
-
-\textbf{核心公式：}
-将 $y$ 视为参数，去分母化为关于 $x$ 的二次方程：
+% F008：简单 LaTeX 数学表述（不依赖页面样式）
+% 核心问题：已知 y，能否找到实数 x 使函数等于 y？
 \[
-(a-d y)x^2+(b-e y)x+(c-f y)=0.
+  y=\frac{ax^2+bx+c}{dx^2+ex+f},\qquad
+  d\neq0,\quad e^2-4df<0.
 \]
-当二次项系数 $a-d y\neq0$ 时，由该方程有实根得到判别式非负：
 \[
-\boxed{\Delta(y)=(b-e y)^2-4(a-d y)(c-f y)\ge 0}
+  (a-dy)x^2+(b-ey)x+(c-fy)=0.
 \]
-解此不等式即得 $y$ 的取值范围（值域）。若 $a-d y=0$ 可单独检验对应的 $x$ 是否在定义域内。
-
-\textbf{使用场景：} 求分子、分母均为二次多项式的分式函数值域，在小题中可直接用判别式构建关于 $y$ 的不等式，省去求导过程。
-
-\textbf{简单例子：}
-求 $y=\dfrac{x^2+2x+2}{x^2+1}$ 的值域。
-\begin{itemize}
-\item 去分母得 $(1-y)x^2+2x+(2-y)=0$。
-\item 当 $y=1$ 时，得 $2x+1=0$，$x=-\frac12$ 存在。
-\item 当 $y\neq1$ 时，由 $\Delta\geq0$：
-  \[
-  4-4(1-y)(2-y)\ge0 \;\Longrightarrow\; 1-(y^2-3y+2)\ge0,
-  \]
-  即 $y^2-3y+1\leq0$，解得 $\frac{3-\sqrt5}{2}\leq y\leq\frac{3+\sqrt5}{2}$。
-\item 因 $y=1$ 落在上述区间内，故值域为 $\left[\dfrac{3-\sqrt5}{2},\,\dfrac{3+\sqrt5}{2}\right]$。
-\end{itemize}
+\[
+  a-dy\neq0\quad\Longrightarrow\quad
+  \Delta(y)=(b-ey)^2-4(a-dy)(c-fy)\ge0.
+\]
+% 对 y=a/d 的情形，不能套二次方程判别式，需单独检验。
+\[
+  y=\frac ad:\qquad (bd-ae)x+(cd-af)=0.
+\]
+% 本题值域 = 满足判别式且 a-dy!=0 的 y，与检查后可取的 a/d 合并。

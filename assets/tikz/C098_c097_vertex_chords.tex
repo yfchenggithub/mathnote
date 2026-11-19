@@ -1,0 +1,33 @@
+\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,9.4);
+\node at (7.1,8.8) {连接顶点 $O$，看清三次使用 C097 的连线};
+\begin{scope}[shift={(2.7,4.8)}]
+  \draw[->,gray] (-.8,0)--(3.5,0) node[above] {$x$};
+  \draw[->,gray] (0,-3.65)--(0,3.1) node[left] {$y$};
+  \draw[teal!65!black,thick,samples=120,domain=-3.45:2.8,variable=\t]
+    plot ({\t*\t/4},\t);
+  \coordinate (O) at (0,0);
+  \coordinate (A) at (1,2);
+  \coordinate (M) at (.25,-1);
+  \coordinate (N) at (2.25,-3);
+  \draw[gray!75,dashed,thick] (O)--(A) (O)--(M) (O)--(N);
+  \draw[blue!75!black,very thick] (A)--(M);
+  \draw[orange!85!black,very thick] (A)--(N);
+  \draw[green!45!black,very thick] (M)--(N);
+  \fill (O) circle(2pt) node[above left=7pt] {$O$};
+  \fill (A) circle(2pt) node[above left=10pt] {$A$};
+  \fill (M) circle(2pt) node[below=11pt] {$M$};
+  \fill (N) circle(2pt) node[below left=10pt] {$N$};
+\end{scope}
+\node[anchor=west] at (7.1,7.7) {$y^2=4x,\quad p=2,\quad A(1,2)$};
+\node[anchor=west] at (7.1,6.9) {$M(\tfrac14,-1),\quad N(\tfrac94,-3)$};
+\node[anchor=west,text=blue!75!black] at (7.1,5.6)
+  {$\dfrac1{k_{AM}}=\dfrac12-\dfrac14=\dfrac14$};
+\node[anchor=west,text=orange!85!black] at (7.1,4.25)
+  {$\dfrac1{k_{AN}}=\dfrac12-\dfrac34=-\dfrac14$};
+\node[anchor=west,text=green!45!black] at (7.1,2.9)
+  {$\dfrac1{k_{MN}}=-\dfrac14-\dfrac34=-1$};
+\node[anchor=west] at (7.1,1.7) {$k_{OA}=2,\quad k_{OM}=-4,\quad k_{ON}=-\tfrac43$};
+\node[text width=13.2cm,align=center] at (7.1,.65)
+  {灰色虚线连接顶点 $O$；前两式相加时，$OA$ 的倒斜率被计入两次。};
+\end{tikzpicture}

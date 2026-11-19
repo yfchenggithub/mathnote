@@ -1,0 +1,95 @@
+\clearpage
+\begin{explanationbox}
+\textbf{第一眼：两条抛物线为什么有两种加法？}
+\begin{center}\input{assets/tikz/C097_difference_horizontal}\end{center}
+图中的两次有向位移给出 $\Delta x/\Delta y$；平方差正好出现在横坐标差中。
+
+抛物线 $y^2=2px$ 的\textbf{横坐标由纵坐标的平方决定}。若
+\[
+A=\left(\frac{a^2}{2p},a\right),\qquad
+B=\left(\frac{b^2}{2p},b\right),
+\]
+则 $1/k_{OA}=x_A/y_A=a/(2p)$，$1/k_{OB}=b/(2p)$；而 $1/k_{AB}$ 恰好也等于 $(a+b)/(2p)$（只要 $AB$ 非竖直）。
+
+换成 $x^2=2py$，\textbf{纵坐标由横坐标的平方决定}：
+\[
+A=\left(a,\frac{a^2}{2p}\right),\qquad
+B=\left(b,\frac{b^2}{2p}\right),
+\]
+则 $k_{OA}=a/(2p)$，$k_{OB}=b/(2p)$，同时 $k_{AB}=(a+b)/(2p)$。
+
+\textbf{核心原因只有一个：} $a^2-b^2=(a-b)(a+b)$，不是一个需要背诵的孤立巧合。
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{第二眼：把公式看成三角形三条边的方向关系。}
+\begin{center}\input{assets/tikz/C097_core_slope_diagrams}\end{center}
+
+两条从顶点 $O$ 发出的射线 $OA,OB$ 一旦确定，弦 $AB$ 的方向不是随意的：
+\[
+\text{纵向开口： }k_{AB}=k_{OA}+k_{OB};
+\qquad
+\text{横向开口： }\frac1{k_{AB}}=\frac1{k_{OA}}+\frac1{k_{OB}}.
+\]
+蓝、橙两边确定后，绿色弦的方向随之确定。横向图读取 $\Delta x/\Delta y$；纵向图读取 $\Delta y/\Delta x$。
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{第三眼：对称弦是最值得记住的边界。}
+\begin{center}
+\input{assets/tikz/C097_boundary_cases}
+\end{center}
+两点关于轴对称时，横向开口的弦\textbf{竖直}，普通 $k_{AB}$ 不存在；纵向开口的弦\textbf{水平}，$k_{AB}=0$。这两种情况不能混淆。
+\end{explanationbox}
+
+\clearpage
+\begin{explanationbox}
+\textbf{直接推广一：为什么顶点不在原点也成立？}
+\begin{center}\input{assets/tikz/C097_vertex_translation}\end{center}
+把左图向右移 $2$、向上移 $1$，顶点和两个端点一起移动。
+每条边两端的横坐标都加 $2$、纵坐标都加 $1$，所以相减时新增常数抵消，斜率不变。
+
+一般地，顶点为 $V(h,k)$ 的二次函数可写为 $y=a(x-h)^2+k$。
+令 $X=x-h,\ Y=y-k$，得到 $Y=aX^2$。顶点连线斜率分别是 $aX_1,aX_2$，弦斜率是 $a(X_1+X_2)$。
+\textbf{规律来自平方差，顶点的位置不影响它。}
+\end{explanationbox}
+
+\clearpage
+\begin{explanationbox}
+\textbf{直接推广二：同一端点，两种直线为什么差一个 $2$？}
+\begin{center}\input{assets/tikz/C097_tangent_mean_vertical}\end{center}
+图中虚线连接顶点与端点，实线在端点处与曲线相切。对 $x^2=2py$ 上的非顶点 $P(u,u^2/(2p))$，$u\ne0$，顶点连线斜率为 $u/(2p)$，切线斜率为 $u/p$。
+
+因此两条切线斜率之和，是两条顶点连线斜率之和的 $2$ 倍。\textbf{弦斜率要取切线斜率的平均值}，不能把切线斜率直接相加。
+已知两端切线方向时，无须分别求出两端点，也能算出弦的方向。
+\end{explanationbox}
+
+\clearpage
+\begin{explanationbox}
+\textbf{横向为什么改成倒斜率取平均？}
+\begin{center}\input{assets/tikz/C097_tangent_mean_horizontal}\end{center}
+与纵向图交换横、纵坐标后，非零有限斜率变成倒数。也可直接读横向位移：对非顶点 $P(u^2/(2p),u)$，$u\ne0$，顶点连线的倒斜率是 $u/(2p)$，切线的倒斜率是 $u/p$。
+
+图中 $\frac12(-1+2)=\frac12$ 给出的是\textbf{弦的倒斜率}，所以普通弦斜率为 $2$。
+若两端纵坐标互为相反数，平均值为 $0$，实际弦竖直；此时只能用坐标差说明，不能写成普通斜率的倒数。
+\end{explanationbox}
+
+\clearpage
+\begin{explanationbox}
+\textbf{核心技巧：看到倒数相加，就想到“乘积除以和”。}
+\begin{center}\input{assets/tikz/C097_boundary_cases}\end{center}
+对非零实数 $u,v$，通分恒有
+\[
+\frac1u+\frac1v=\frac{u+v}{uv}.
+\]
+若它还等于 $1/w$（$w\ne0$），则 $u+v\ne0$，取倒数得
+\[
+\boxed{w=\frac{uv}{u+v}}.
+\]
+\textbf{正例：}$u=2,v=6$ 时，$w=12/8=3/2$。
+\textbf{边界：}$u=2,v=-2$ 时，倒数和为 $0$，没有有限非零实数 $w$ 满足 $1/w=0$；用于横向抛物线，就是图中的竖直弦。
+
+\textbf{辨析：}二次函数平移和切线平均关系来自同一个平方差结构；焦点弦倒数和来自焦点位置与距离公式，直角三角形倒数平方和来自面积与勾股。它们只有代数形式相似，不能互相代入。
+\end{explanationbox}

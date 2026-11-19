@@ -1,0 +1,26 @@
+% p=1, A=(1/2,1), B=(9/8,-3/2), exact reflection in y=x.
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,12.0);
+\node at (7.1,11.45) {关于 $y=x$ 翻转：每个点的横、纵坐标交换};
+\begin{scope}[shift={(7.1,6.0)},scale=1.65]
+\draw[->,gray] (-2.0,0)--(2.4,0) node[above] {$x$};
+\draw[->,gray] (0,-2.0)--(0,2.4) node[left] {$y$};
+\draw[gray!70,dashed] (-1.85,-1.85)--(2.25,2.25);
+\draw[blue!65!black,thick,samples=110,domain=-1.85:2.05,variable=\t] plot ({\t*\t/2},\t);
+\draw[orange!85!black,thick,samples=110,domain=-1.85:2.05,variable=\t] plot (\t,{\t*\t/2});
+\draw[blue!75!black,very thick] (0,0)--(.5,1)--(1.125,-1.5)--cycle;
+\draw[orange!85!black,very thick,dashed] (0,0)--(1,.5)--(-1.5,1.125)--cycle;
+\draw[violet!55,densely dotted] (.5,1)--(1,.5) (1.125,-1.5)--(-1.5,1.125);
+\fill (.5,1) circle(1.8pt) node[above left=9pt,blue!75!black] {$A$};
+\fill (1.125,-1.5) circle(1.8pt) node[below=14pt,blue!75!black] {$B$};
+\fill (1,.5) circle(1.8pt) node[below right=9pt,orange!85!black] {$A'$};
+\fill (-1.5,1.125) circle(1.8pt) node[above left=8pt,orange!85!black] {$B'$};
+\fill (0,0) circle(1.8pt);
+\node at (-.65,-.3) {$O$};
+\end{scope}
+\node[blue!75!black] at (12.2,8.9) {$y^2=2x$};
+\node[orange!85!black] at (3.1,10.3) {$x^2=2y$};
+\node[gray!80!black] at (11.3,10.3) {$y=x$};
+\node at (7.1,1.6) {蓝色实线三角形映成橙色虚线三角形；$O$ 保持不动。};
+\node at (7.1,.65) {$\displaystyle k_{AB}=-4\quad\longleftrightarrow\quad k_{A'B'}=-\frac14$，横纵位移交换，斜率变倒数。};
+\end{tikzpicture}

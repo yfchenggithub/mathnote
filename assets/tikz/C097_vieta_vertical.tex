@@ -1,0 +1,26 @@
+% x^2=2y, AB:y=x/2+1, roots x=-1,2.
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,9.0);
+\node at (7.1,8.45) {纵向开口消去 $y$：改看两个交点的横坐标};
+\begin{scope}[shift={(3.3,2.6)},scale=1.25]
+\draw[->,gray] (-1.8,0)--(3.0,0) node[above] {$x$};
+\draw[->,gray] (0,-.6)--(0,3.5) node[left] {$y$};
+\draw[teal!65!black,thick,samples=100,domain=-1.6:2.5,variable=\t] plot (\t,{\t*\t/2});
+\draw[blue!75!black,thin] (0,0)--(2,2);
+\draw[orange!85!black,thin] (0,0)--(-1,.5);
+\draw[green!45!black,very thick] (-1.6,.2)--(2.8,2.4);
+\draw[blue!65,dashed] (2,2)--(2,0);
+\draw[orange!80!black,dashed] (-1,.5)--(-1,0);
+\fill (0,0) circle(1.8pt) node[below left=7pt] {$O$};
+\fill (2,2) circle(2pt) node[above left=7pt] {$A$};
+\fill (-1,.5) circle(2pt) node[above=14pt] {$B$};
+\fill (2,0) circle(1.8pt) node[below=9pt,blue!75!black] {$2$};
+\fill (-1,0) circle(1.8pt) node[below=9pt,orange!85!black] {$-1$};
+\end{scope}
+\node[anchor=west,align=left] at (8.3,4.9)
+ {图取 $p=1,\ k=\dfrac12$\\[14pt]
+ $AB:\ y=\dfrac12x+1$\\[15pt]
+ $x^2-x-2=0$\\[15pt]
+ $x_A+x_B=1=2pk$};
+\node at (7.1,.6) {两个投影落在横轴的 $-1,2$ 处；根之和正是计算 $k_{OA}+k_{OB}$ 所需的量。};
+\end{tikzpicture}

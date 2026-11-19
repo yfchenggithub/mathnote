@@ -1,38 +1,48 @@
 \begin{statementbox}
-\textbf{条件与记号。} 本条均讨论实变量 $x\to0$；三角函数的 $x$ 用弧度表示。
-对数要求 $x>-1$，正切在零点附近取 $|x|<\pi/2$。
-下列展开是局部结论，不表示截断多项式在整个定义域内都准确。
+\textbf{这条结论解决什么问题？}
+有些函数（如 $e^x$、$\sin x$、$\ln(1+x)$）直接算起来不方便。
+当 $x$ 很接近 $0$ 时，我们能不能用加减乘除和乘方，算出它们的近似值？
+如果题目里还有相互抵消的项，又该多保留几项，才不会算错极限？
+本条就是为了解决这两个问题。
 
-\textbf{五条常用展开（余项均指 $x\to0$）：}
+
+\begin{center}\input{assets/tikz/F004_exp_contact.tex}\end{center}
+\end{statementbox}
+\clearpage
+\begin{statementbox}
+\textbf{先记住五个常用公式。}
+当 $x$ 非常接近 $0$ 时：
+\[
+\boxed{\begin{aligned}
+ e^x&\approx1+x+\frac{x^2}{2},\\[2pt]
+ \ln(1+x)&\approx x-\frac{x^2}{2}+\frac{x^3}{3},\\[2pt]
+ \sin x&\approx x-\frac{x^3}{6}+\frac{x^5}{120},\\[2pt]
+ \cos x&\approx1-\frac{x^2}{2}+\frac{x^4}{24},\\[2pt]
+ \tan x&\approx x+\frac{x^3}{3}.
+\end{aligned}}
+\]
+这里的 $\approx$ 表示\textbf{接近，不表示完全相等}。
+三角函数必须使用\textbf{弧度}；$\ln(1+x)$ 要求 $x>-1$；
+$\tan x$ 要求 $\cos x\ne0$。本条主要讨论 $x\to0$。
+
+\textbf{究竟能接近到什么程度？}
+用“实际函数值减去右边近似式”的绝对值表示误差。
+当 $|x|\le\frac12$ 时，下面五条都成立：
 \[
 \begin{aligned}
- e^x&=\underbrace{1+x+\frac{x^2}{2}}_{E_2(x)}+O(x^3),\\
- \ln(1+x)&=\underbrace{x-\frac{x^2}{2}+\frac{x^3}{3}}_{L_3(x)}+O(x^4),\\
- \sin x&=\underbrace{x-\frac{x^3}{6}+\frac{x^5}{120}}_{S_5(x)}+O(x^7),\\
- \cos x&=\underbrace{1-\frac{x^2}{2}+\frac{x^4}{24}}_{C_4(x)}+O(x^6),\\
- \tan x&=\underbrace{x+\frac{x^3}{3}}_{T_3(x)}+O(x^5).
+ \left|e^x-\left(1+x+\frac{x^2}{2}\right)\right|
+ &\le\frac{e^{1/2}}6|x|^3,\\
+ \left|\ln(1+x)-\left(x-\frac{x^2}{2}+\frac{x^3}{3}\right)\right|
+ &\le\frac{|x|^4}{2},\\
+ \left|\sin x-\left(x-\frac{x^3}{6}+\frac{x^5}{120}\right)\right|
+ &\le\frac{|x|^7}{5040},\\
+ \left|\cos x-\left(1-\frac{x^2}{2}+\frac{x^4}{24}\right)\right|
+ &\le\frac{|x|^6}{720},\\
+ \left|\tan x-\left(x+\frac{x^3}{3}\right)\right|
+ &\le\frac{|x|^5}{3}.
 \end{aligned}
 \]
-这里 $R(x)=O(x^m)$ 指存在常数 $C,\delta>0$，使
-$0<|x|<\delta$ 时 $|R(x)|\le C|x|^m$；
-$R(x)=o(x^m)$ 指 $R(x)/x^m\to0$。例如 $O(x^{m+1})$ 必为 $o(x^m)$，反向不成立。
-
-\textbf{估值时可直接使用的误差界。} 固定 $0<r<1$，对 $|x|\le r$ 有
-\[
-\begin{aligned}
- |e^x-E_2(x)|&\le\frac{e^r|x|^3}{6},&
- |\ln(1+x)-L_3(x)|&\le\frac{|x|^4}{4(1-r)},\\
- |\sin x-S_5(x)|&\le\frac{|x|^7}{5040},&
- |\cos x-C_4(x)|&\le\frac{|x|^6}{720}.
-\end{aligned}
-\]
-后两界实际上对所有实数 $x$ 都成立，但大 $|x|$ 时上界未必小。
-正切在本条只使用局部阶数，不把 $O(x^5)$ 当成数值误差界。
-
-\textbf{通式的一个明确充分条件。} 若整数 $n\ge1$，且 $f$ 在含 $0$ 的开区间上有连续的 $n$ 阶导数，则
-\[
- f(x)=\sum_{k=0}^{n}\frac{f^{(k)}(0)}{k!}x^k+o(x^n).
-\]
-若还满足 $f\in C^{n+1}$，则对 $x\ne0$，在 $0$ 与 $x$ 之间有一点 $\xi$，使余项等于
-$f^{(n+1)}(\xi)x^{n+1}/(n+1)!$。这是可调用的泰勒定理，不是“只要可导一次”就能展开任意阶。
+这些不等式会在证明中逐一说明。
+比如 $\cos x$ 的近似式后面，遗漏部分的绝对值最多是 $|x|^6/720$。
+因此除以 $x^4$ 后，这部分仍会趋于 $0$，不会影响四次项的结果。
 \end{statementbox}

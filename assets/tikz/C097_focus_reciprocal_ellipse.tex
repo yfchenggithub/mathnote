@@ -1,0 +1,32 @@
+% a=5,b=3,c=4. Exact major-axis and vertical focal chords, same scale.
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,9.5);
+\node at (7.1,8.95) {椭圆焦点弦：两段长度改变，倒数和仍为同一个数};
+\node at (3.55,8.0) {沿长轴的焦点弦};
+\node at (10.65,8.0) {垂直长轴的焦点弦};
+\begin{scope}[shift={(3.55,5.1)},scale=.52]
+\draw[->,gray] (-5.7,0)--(5.7,0) node[above] {$x$};
+\draw[->,gray] (0,-3.5)--(0,3.7) node[left] {$y$};
+\draw[teal!65!black,thick] (0,0) ellipse (5 and 3);
+\draw[blue!75!black,very thick] (4,0)--(5,0);
+\draw[orange!85!black,very thick] (4,0)--(-5,0);
+\fill (5,0) circle(2pt) node[above=20pt] {$A$};
+\fill (-5,0) circle(2pt) node[above=20pt] {$B$};
+\fill (4,0) circle(2pt) node[below left=10pt] {$F$};
+\end{scope}
+\begin{scope}[shift={(10.65,5.1)},scale=.52]
+\draw[->,gray] (-5.7,0)--(5.7,0) node[above] {$x$};
+\draw[->,gray] (0,-3.5)--(0,3.7) node[left] {$y$};
+\draw[teal!65!black,thick] (0,0) ellipse (5 and 3);
+\draw[blue!75!black,very thick] (4,0)--(4,1.8);
+\draw[orange!85!black,very thick] (4,0)--(4,-1.8);
+\fill (4,1.8) circle(2pt) node[above right=9pt] {$A$};
+\fill (4,-1.8) circle(2pt) node[below right=9pt] {$B$};
+\fill (4,0) circle(2pt) node[below left=12pt] {$F$};
+\end{scope}
+\node at (3.55,2.65) {$FA=1,\quad FB=9$};
+\node at (10.65,2.65) {$FA=FB=\frac95$};
+\node at (3.55,1.65) {$1+\frac19=\frac{10}9$};
+\node at (10.65,1.65) {$\frac59+\frac59=\frac{10}9$};
+\node at (7.1,.55) {两图同尺度：$\frac{x^2}{25}+\frac{y^2}{9}=1,\ F(4,0)$，定值 $\frac{2a}{b^2}=\frac{10}9$。};
+\end{tikzpicture}

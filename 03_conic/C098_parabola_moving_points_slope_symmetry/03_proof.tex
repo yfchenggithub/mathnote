@@ -1,0 +1,147 @@
+\clearpage
+\begin{proofbox}
+\textbf{方法一：最低门槛——直接用两点斜率公式}
+\begin{center}\input{assets/tikz/C098_core_slope_symmetry.tex}\end{center}
+
+
+设
+\[
+ M=\left(\frac{u^2}{2p},u\right),\qquad
+ N=\left(\frac{v^2}{2p},v\right),
+\]
+其中 $u\neq v$，$u\neq p$，$v\neq p$，且题设保证 $AM,AN$ 的斜率存在。
+
+\textbf{第 1 步：求 $AM,AN$ 的斜率。} 因为 $A=(\frac p2,p)$，
+\[
+\begin{aligned}
+ k_{AM}&=\frac{u-p}{\frac{u^2}{2p}-\frac p2}
+ =\frac{2p(u-p)}{(u-p)(u+p)}=\frac{2p}{u+p},\\[3pt]
+ k_{AN}&=\frac{2p}{v+p}.
+\end{aligned}
+\]
+这里约去 $u-p$、$v-p$ 合法，因为 $M,N$ 均不等于 $A$；题设还保证 $u+p\ne0$、$v+p\ne0$。
+
+\textbf{第 2 步：用斜率相反求纵坐标的和。}
+\[
+ \frac{2p}{u+p}=-\frac{2p}{v+p}
+ \quad\Longrightarrow\quad \boxed{u+v=-2p}.
+\]
+\textbf{第 3 步：求弦 $MN$ 的斜率。} 由于 $u\ne v$，且 $u+v=-2p\ne0$，直线 $MN$ 的斜率存在，于是
+\[
+\begin{aligned}
+ k_{MN}&=\frac{v-u}{\frac{v^2-u^2}{2p}}
+ =\frac{2p}{u+v}
+ =\boxed{-1}.
+\end{aligned}
+\]
+\textbf{关键：}从两条斜率条件得到 $u+v$，再代入第三条弦；没有必要解出 $u,v$。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法二：最快——斜率倒数恒等式（一行结束）}
+\begin{center}\input{assets/tikz/C098_reciprocal_chords.tex}\end{center}
+
+
+对于抛物线上纵坐标为 $s,t$ 的两个\textbf{不同点}，只要斜率有限、非零，就有
+\[
+ k=\frac{2p}{s+t}\qquad\Longleftrightarrow\qquad
+ \frac1k=\frac{s+t}{2p}.
+\]
+因此
+\[
+ \frac1{k_{AM}}=\frac{p+u}{2p},\qquad
+ \frac1{k_{AN}}=\frac{p+v}{2p}.
+\]
+先相加并利用题设：
+\[
+ \frac{u+v}{2p}=
+ \frac1{k_{AM}}+\frac1{k_{AN}}-1=0-1=-1.
+\]
+于是 $u+v=-2p\ne0$，说明 $k_{MN}$ 确实存在；随后
+\[
+ \boxed{\frac1{k_{MN}}=
+ \frac1{k_{AM}}+\frac1{k_{AN}}-1=-1}
+ \quad\Longrightarrow\quad\boxed{k_{MN}=-1}.
+\]
+\textbf{记忆式：}
+\[
+ \boxed{\frac1{k_{MN}}=\frac1{k_{AM}}+\frac1{k_{AN}}-1}.
+\]
+该式以本题的 $A(\frac p2,p)$ 为定点，且只在三条相关斜率有限、非零时直接书写。它可视为抛物线两点弦斜率关系的一次直接应用。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法三：常规联立——两条直线分别与抛物线求交}
+\begin{center}\input{assets/tikz/C098_intersection_roots.tex}\end{center}
+
+
+记 $k_{AM}=t$。抛物线上两不同点构成的非竖直弦斜率不为 $0$，故 $t\ne0$。题设给出 $k_{AN}=-t$。
+
+\textbf{第 1 步：过 $A$ 的第一条直线。}
+\[
+ AM:\quad y-p=t\left(x-\frac p2\right).
+\]
+代入 $x=\frac{y^2}{2p}$，整理并因式分解：
+\[
+ 2p(y-p)=t(y^2-p^2)
+ \quad\Longleftrightarrow\quad
+ (y-p)\,[\,2p-t(y+p)\,]=0.
+\]
+其中 $y=p$ 对应已知交点 $A$；另外一点 $M$ 的纵坐标为
+\[
+ \boxed{u=\frac{2p}{t}-p}.
+\]
+\textbf{第 2 步：第二条直线用斜率 $-t$。} 同理 $AN:y-p=-t(x-p/2)$，
+代入抛物线得到另一交点 $N$ 的纵坐标
+\[
+ \boxed{v=-\frac{2p}{t}-p}.
+\]
+\textbf{第 3 步：相加，求第三条弦。}
+\[
+ u+v=\left(\frac{2p}{t}-p\right)
+ +\left(-\frac{2p}{t}-p\right)=-2p,
+\]
+\[
+ \boxed{k_{MN}=\frac{2p}{u+v}=-1}.
+\]
+\textbf{几何意义：}两条连线的斜率 $t,-t$ 可以变化，但产生的两个新交点纵坐标之和固定为 $-2p$，所以第三条弦始终\textbf{平行于直线 $y=-x$}。
+\end{proofbox}
+
+
+\clearpage
+\begin{proofbox}
+\begin{minipage}{\linewidth}
+\textbf{补充证明：直接利用 C097，几步推出 C098}
+
+记抛物线顶点为 $O$。先假设 $M,N$ 均不是 $O$，并且下面各条直线的斜率存在。
+\begin{center}\input{assets/tikz/C098_c097_vertex_chords.tex}\end{center}
+\end{minipage}
+
+对图中三组连线应用 \textbf{C097（右开口抛物线两点弦的斜率倒数关系）}，得到
+\[
+\begin{aligned}
+ \frac1{k_{AM}}&=\frac1{k_{OA}}+\frac1{k_{OM}},\\[3pt]
+ \frac1{k_{AN}}&=\frac1{k_{OA}}+\frac1{k_{ON}},\\[3pt]
+ \frac1{k_{MN}}&=\frac1{k_{OM}}+\frac1{k_{ON}}.
+\end{aligned}
+\]
+\textbf{前两式相加，再利用第三式：}
+\[
+ \boxed{\frac1{k_{MN}}=\frac1{k_{AM}}+\frac1{k_{AN}}-\frac2{k_{OA}}}.
+\]
+由 $k_{AM}=-k_{AN}$，两项倒数相加为零，故
+\[
+ \frac1{k_{MN}}=-\frac2{k_{OA}}.
+\]
+原题 $A=(p/2,p)$，所以 $k_{OA}=\frac p{p/2}=2$，因此
+\[
+ \frac1{k_{MN}}=-1\quad\Longrightarrow\quad\boxed{k_{MN}=-1}.
+\]
+\textbf{顺手推广：}若把 $A$ 换成任意非顶点定点 $A_0=(\frac{a^2}{2p},a)$（$a\ne0$），上述三式仍成立。由于 $k_{OA_0}=\frac{2p}a$，所以
+\[
+ \boxed{\quad k_{MN}=-\frac12 k_{OA_0}=-\frac pa\quad}.
+\]
+\textbf{边界补充（不漏特殊点）：}C097 的上述倒数式不能直接用于 $M=O$ 或 $N=O$。例如 $M=O$ 时，$k_{A_0M}=\frac{2p}a$；令 $N=(\frac{v^2}{2p},v)$，由 $\frac{2p}{a+v}=-\frac{2p}a$ 得 $v=-2a$，从而 $k_{MN}=\frac{2p}{v}=-\frac pa$。$N=O$ 同理。另若 $MN$ 竖直则两点纵坐标之和为 $0$，而斜率对称必给出 $u+v=-2a\ne0$，矛盾。故本题的 $MN$ 斜率一定存在。
+\end{proofbox}

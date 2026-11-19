@@ -1,0 +1,36 @@
+% p=1. Right panel is the exact x/y interchange of left panel.
+\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,10.5);
+\node at (7.1,9.95) {看同一个三角形的三条边：蓝 $OA$，橙 $OB$，绿 $AB$};
+\node at (3.55,9.05) {$y^2=2x$：横向开口};
+\node at (10.65,9.05) {$x^2=2y$：纵向开口};
+\begin{scope}[shift={(2.0,5.0)},scale=1.05]
+\draw[->,gray] (-1.35,0)--(3.0,0) node[above] {$x$};
+\draw[->,gray] (0,-1.65)--(0,3.0) node[left] {$y$};
+\draw[teal!65!black,thick,samples=100,domain=-1.45:2.3,variable=\t] plot ({\t*\t/2},\t);
+\fill[blue!4] (0,0)--(2,2)--(.5,-1)--cycle;
+\draw[blue!75!black,very thick] (0,0)--(2,2);
+\draw[orange!85!black,very thick] (0,0)--(.5,-1);
+\draw[green!45!black,very thick] (2,2)--(.5,-1);
+\fill (0,0) circle(2pt) node[below left=7pt] {$O$};
+\fill (2,2) circle(2pt) node[below right=8pt] {$A$};
+\fill (.5,-1) circle(2pt) node[right=8pt] {$B$};
+\end{scope}
+\begin{scope}[shift={(9.1,5.0)},scale=1.05]
+\draw[->,gray] (-1.65,0)--(3.0,0) node[above] {$x$};
+\draw[->,gray] (0,-1.35)--(0,3.0) node[left] {$y$};
+\draw[teal!65!black,thick,samples=100,domain=-1.45:2.3,variable=\t] plot (\t,{\t*\t/2});
+\fill[blue!4] (0,0)--(2,2)--(-1,.5)--cycle;
+\draw[blue!75!black,very thick] (0,0)--(2,2);
+\draw[orange!85!black,very thick] (0,0)--(-1,.5);
+\draw[green!45!black,very thick] (2,2)--(-1,.5);
+\fill (0,0) circle(2pt) node[below left=7pt] {$O$};
+\fill (2,2) circle(2pt) node[below right=8pt] {$A$};
+\fill (-1,.5) circle(2pt) node[above=14pt] {$B$};
+\end{scope}
+\node at (3.55,2.65) {$\textcolor{blue!75!black}{k_{OA}=1},\quad\textcolor{orange!85!black}{k_{OB}=-2},\quad\textcolor{green!45!black}{k_{AB}=2}$};
+\node at (10.65,2.65) {$\textcolor{blue!75!black}{k_{OA}=1},\quad\textcolor{orange!85!black}{k_{OB}=-\frac12},\quad\textcolor{green!45!black}{k_{AB}=\frac12}$};
+\node at (3.55,1.55) {$\displaystyle\frac11+\frac1{-2}=\frac12$};
+\node at (10.65,1.55) {$\displaystyle 1+\left(-\frac12\right)=\frac12$};
+\node at (7.1,.55) {两图同取 $p=1$，坐标互换且单位长度相同；三条边的颜色一一对应。};
+\end{tikzpicture}

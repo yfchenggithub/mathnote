@@ -1,0 +1,16 @@
+\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,9.4);
+\node at (7.1,8.8) {原比值趋于一个数，求导后的比值却可能一直振荡};
+\begin{scope}[shift={(1.4,2.6)},x=.36cm,y=2.0cm]
+\draw[->,gray] (0,0)--(16.5,0) node[above] {$x$};
+\draw[->,gray] (0,0)--(0,2.5) node[left] {$y$};
+\draw[gray,dotted] (0,1)--(16,1);\node[left=10pt] at (0,1) {$1$};
+\draw[blue!75!black,thick,domain=2:16,samples=160] plot (\x,{1+sin(deg(\x))/\x});
+\draw[orange!85!black,dashed,thick,domain=2:16,samples=160] plot (\x,{1+cos(deg(\x))});
+\end{scope}
+\node[anchor=west,align=left] at (8.6,5.1)
+{蓝：$1+\dfrac{\sin x}{x}\to1$\\[18pt]
+橙：$1+\cos x$ 无极限\\[18pt]
+原式偏离 $1$ 的幅度\\[8pt]不超过 $1/x$。};
+\node[text width=13.2cm,align=center] at (7.1,.65) {蓝线越靠右越贴近高度 $1$；橙线仍在 $0$ 与 $2$ 之间反复变化。};
+\end{tikzpicture}

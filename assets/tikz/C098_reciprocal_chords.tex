@@ -1,0 +1,22 @@
+\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,9.4);
+\node at (7.1,8.8) {同一个三角形：倒斜率给出横移与纵移之比};
+\begin{scope}[shift={(2.4,5.0)},scale=.85]
+\draw[->,gray] (-.65,0)--(5.5,0) node[above] {$x$};
+\draw[->,gray] (0,-4.8)--(0,3.3) node[left] {$y$};
+\draw[teal!65!black,thick,samples=120,domain=-4.5:3.1,variable=\t] plot ({\t*\t/4},\t);
+\draw[blue!75!black,very thick] (0,0)--(1,2);
+\draw[orange!85!black,very thick] (1,2)--(4,-4);
+\draw[green!45!black,very thick] (0,0)--(4,-4);
+\fill (1,2) circle(2pt) node[above left=10pt] {$A$};
+\fill (0,0) circle(2pt) node[above left=9pt] {$M=O$};
+\fill (4,-4) circle(2pt) node[above right=12pt] {$N$};
+\fill (1,0) circle(1.8pt) node[below right=10pt] {$F$};
+\end{scope}
+\node[anchor=west,align=left] at (8.7,5.3)
+{$\dfrac1{k_{AM}}=\dfrac12$\\[20pt]
+$\dfrac1{k_{AN}}=-\dfrac12$\\[20pt]
+$\dfrac1{k_{MN}}=-1$\\[20pt]
+$\dfrac12-\dfrac12-1=-1$};
+\node[text width=13.2cm,align=center] at (7.1,.65) {三条弦使用同一组端点；定点纵坐标 $p$ 被相加两次，需减去 $1$。};
+\end{tikzpicture}

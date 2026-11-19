@@ -1,0 +1,21 @@
+\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,9.4);
+\node at (7.1,8.8) {可导极大值点：左侧差商非负，右侧差商非正};
+\begin{scope}[shift={(3.7,3.5)},scale=1.5]
+\draw[->,gray] (-1.9,0)--(2.1,0) node[above] {$x$};
+\draw[->,gray] (0,-1.2)--(0,2.4) node[left] {$y$};
+\draw[teal!65!black,very thick,samples=80,domain=-1.45:1.45] plot (\x,{1-\x*\x});
+\draw[blue!75!black,thick] (-1,0)--(0,1);
+\draw[orange!85!black,thick] (0,1)--(1,0);
+\draw[gray,dashed] (-1.4,1)--(1.4,1);
+\fill (0,1) circle(2pt) node[above=14pt] {$(x_0,f(x_0))$};
+\fill (-1,0) circle(2pt) node[below left=10pt] {$h<0$};
+\fill (1,0) circle(2pt) node[below right=10pt] {$h>0$};
+\end{scope}
+\node[anchor=west,align=left] at (8.8,5.0)
+{图取 $f(x)=1-x^2$\\[14pt]$x_0=0$\\[16pt]
+$\textcolor{blue!75!black}{\text{左差商}\ge0}$\\[15pt]
+$\textcolor{orange!85!black}{\text{右差商}\le0}$\\[16pt]
+共同极限只能是 $0$。};
+\node[text width=13.2cm,align=center] at (7.1,.65) {割线两端都在同一曲线上；函数在极值点可导，才能让左右趋向同一个导数。};
+\end{tikzpicture}

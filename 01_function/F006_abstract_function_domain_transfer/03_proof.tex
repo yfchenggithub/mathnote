@@ -1,29 +1,111 @@
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{\textcolor{CProof}{方法一：像检查入场券一样推出来（最容易理解）}}
+\begin{center}\input{assets/tikz/F006_affine_input_band.tex}\end{center}
 
-	从函数定义域的基本定义出发，通过复合关系分析自变量$x$必须满足的条件，推导两个方向规则。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（正向规则证明）：}]
-			设 $f(x)$ 的定义域为 $D$。对于 $f[g(x)]$，其自变量是 $x$，复合有意义当且仅当 $g(x)\in D$。因此 $x$ 的取值范围 $C =\{x\mid g(x)\in D\}$ 即为 $f[g(x)]$ 的定义域。
-			\par\textbf{理由：}
-			定义域是自变量的取值集合，必须使函数有意义；复合函数要求内层函数值属于外层函数定义域。
+设 $f$ 只允许接收 $[1,3]$ 内的数。现在要研究 $f(2x-1)$。
 
-		\item[\textbf{步骤二（逆向规则必要性）：}]
-			设 $f[g(x)]$ 的定义域为 $A$。令 $t = g(x)$，则对任意 $x\in A$，$f(t)$ 有意义，故 $t$ 必须在 $f$ 的定义域内。因此 $f$ 的定义域 $D_f$ 必须包含集合 $B =\{g(x)\mid x\in A\}$。
-			\par\textbf{理由：}
-			若 $t$ 不在 $D_f$ 中，则 $f(t)$ 无定义，与复合有意义矛盾。
+\begin{enumerate}[leftmargin=*,itemsep=0.42em]
+ \item \textbf{先看最后一步。} 只有送进 $f$ 的数在 $[1,3]$ 内，函数值才有意义。
+ \item \textbf{再看中间一步。} 送进 $f$ 的是 $2x-1$，所以它必须满足
+ \[
+ 1\le2x-1\le3.
+ \]
+ \item \textbf{找到最开始的数。} 三个部分同时加 $1$，再除以 $2$：
+ \[
+ 2\le2x\le4\quad\Longleftrightarrow\quad1\le x\le2.
+ \]
+ 因此 $f(2x-1)$ 的定义域是 $[1,2]$。
+ \item \textbf{倒过来检查。} 如果已知 $f(2x-1)$ 的完整定义域就是 $[1,2]$，
+ 那么 $2x-1$ 从 $1$ 变化到 $3$，中间的数也全部取到。
+ 而给定任何实数 $t$，总能取 $x=(t+1)/2$ 使 $2x-1=t$。
+ 所以没有“永远无法送进 $f$ 的实数”，便可断定 $f(t)$ 的完整定义域是 $[1,3]$。
+\end{enumerate}
 
-		\item[\textbf{步骤三（逆向规则结论）：}]
-			在高中范围内，通常 $g(x)$ 是连续函数，$B$ 是一个区间，且题设隐含 $f$ 的定义域就是使 $f$ 有意义的 $t$ 的集合，而已知条件仅能确定 $B$ 中的 $t$ 有意义，故 $D_f = B$，即 $f(x)$ 的定义域为 $\{g(x)\mid x\in A\}$。
-			\par\textbf{理由：}
-			若 $D_f$ 包含不在 $B$ 中的值，则这些值对应的 $x$ 不包含在 $A$ 中，无法通过已知条件验证，故实际解题中取 $D_f = B$。
-	\end{description}
+\textbf{为什么成立？}\quad 一个数是否可以使用，不取决于 $f$ 长什么样，
+只取决于真正送进去的数是否被允许。
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法二：换一个字母，给出通用推导（常规方法）}}
+\begin{center}\input{assets/tikz/F006_affine_bijection.tex}\end{center}
 
-	\textbf{以上两条规则完整描述了抽象函数定义域的互推关系，掌握后可直接套用求解。}
+
+\textbf{第一部分：已知 $f(t)$ 的定义域，求 $f[g(x)]$。}
+
+设 $f(t)$ 能接收的全部数构成 $D$，把 $g(x)$ 记成 $t$。
+当 $g(x)$ 有意义时，
+\[
+ f[g(x)]\text{有意义}
+ \quad\Longleftrightarrow\quad
+ f(t)\text{有意义}
+ \quad\Longleftrightarrow\quad t\in D.
+\]
+把 $t=g(x)$ 放回去，就得到
+\[
+ \boxed{\ g(x)\text{有意义，且 }g(x)\in D\ }.
+\]
+最后解出 $x$ 的范围，就是所求定义域。
+
+\textbf{第二部分：已知 $f(ax+b)$ 的完整定义域 $A$，反求 $f(t)$，其中 $a\ne0$。}
+
+要说明 $f$ 能接收的数\textbf{恰好}是 $\{ax+b\mid x\in A\}$，需要检查两个方向。
+\begin{enumerate}[leftmargin=*,itemsep=0.35em]
+ \item 只要 $x\in A$，题目就保证 $f(ax+b)$ 有意义，
+ 所以 $t=ax+b$ 一定是 $f$ 能接收的数。
+ \item 反过来，任取一个 $f$ 能接收的数 $t$。
+ 因为 $a\ne0$，可以解出唯一的
+ \[
+ x=\frac{t-b}{a},\qquad ax+b=t.
+ \]
+ 此时 $f(ax+b)=f(t)$ 有意义，因此这个 $x$ 必须在题目给出的\textbf{完整定义域} $A$ 中。
+ 于是 $t=ax+b$ 一定来自某个 $x\in A$。
+\end{enumerate}
+两个方向合起来，没有多，也没有少：
+\[
+ \boxed{\ f(t)\text{的定义域}=\{ax+b\mid x\in A\}\quad(a\ne0).\ }
+\]
+\textbf{特别注意：} $a\ne0$ 非常重要；若 $a=0$，$ax+b$ 永远只有 $b$ 一个数，
+我们不能由 $f(b)$ 是否有意义推断 $f$ 对其他数如何。
+
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法三：用两个具体函数检验反推的限制（辨别误用）}}
+\begin{center}\input{assets/tikz/F006_square_unreachable_inputs.tex}\end{center}
+
+
+假设有人说：“已知 $f(x^2)$ 的定义域是 $[-2,2]$，
+所以 $f(t)$ 的定义域必为 $[0,4]$。”
+我们来找两个完全符合题目、却有不同定义域的函数。
+
+\textbf{第一种：}
+\[
+ f_1(t)=\sqrt{t(4-t)}.
+\]
+根号里的数必须不小于 $0$，所以 $f_1(t)$ 的定义域是 $[0,4]$。
+代入 $t=x^2$，有意义的条件是 $0\le x^2\le4$，即 $-2\le x\le2$。
+
+\textbf{第二种：}
+\[
+ f_2(t)=\sqrt{4-t}.
+\]
+只需 $4-t\ge0$，所以 $f_2(t)$ 的定义域是 $(-\infty,4]$。
+代入 $t=x^2$，有意义的条件还是 $x^2\le4$，
+即 $-2\le x\le2$。
+
+两种函数的 $f(x^2)$ 定义域\textbf{完全相同}，
+但 $f(t)$ 的定义域\textbf{不同}！
+原因很简单：$x^2$ 不可能是负数，负数有没有被 $f$ 接受，从来没有被试出来。
+
+\medskip
+\textbf{\textcolor{CProof}{最终判断}}
+
+正着求：检查送进去的数是否被允许，始终成立。
+反着求完整定义域：必须确保括号里的式子能够取遍所有实数；
+否则通常只能知道 $f$ 在\textbf{实际送得到的那些数}上有没有意义。
 \end{proofbox}

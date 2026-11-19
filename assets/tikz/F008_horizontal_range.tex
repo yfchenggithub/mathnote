@@ -1,0 +1,15 @@
+\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,9.4);
+\node at (7.1,8.8) {求值域，就是寻找能够碰到曲线的水平线};
+
+\begin{scope}[shift={(4.3,2.2)},x=.9cm,y=1.6cm]
+\draw[->] (-3.9,0)--(3.2,0) node[right]{$x$};\draw[->] (0,-.2)--(0,3.25) node[above]{$y$};
+\fill[blue!6] (-3.7,.381966) rectangle(3,2.618034);
+\draw[teal!80!black,thick,domain=-3.6:2.9,samples=130] plot(\x,{(\x*\x+1)/(\x*\x+2*\x+2)});
+\draw[dashed,blue] (-3.7,.381966)--(3,.381966);\draw[dashed,blue] (-3.7,2.618034)--(3,2.618034);
+\fill[blue] (.618034,.381966) circle(1.5pt);\fill[blue] (-1.618034,2.618034) circle(1.5pt);
+\node[right] at (3,.381966){$L$};\node[right] at (3,2.618034){$U$};\draw[orange!90!black,thick] (-3.7,3)--(3,3) node[right]{$y=3$};
+\end{scope}
+\node[align=left,anchor=west] at (8.4,5.1){$F(x)=\dfrac{x^2+1}{x^2+2x+2}$\\[12pt] $L=\dfrac{3-\sqrt5}{2}$\\[10pt] $U=\dfrac{3+\sqrt5}{2}$\\[12pt] 值域 $[L,U]$};
+\node[text width=13.2cm,align=center] at (7.1,.65) {蓝色边界都能取到；橙色水平线在值域之外。};
+\end{tikzpicture}

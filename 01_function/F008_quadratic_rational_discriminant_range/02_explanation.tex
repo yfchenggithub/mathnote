@@ -1,38 +1,70 @@
+\clearpage
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
-	函数值域就是使关于 $x$ 的二次方程有实数解的 $y$ 的集合。
+  \textbf{\textcolor{CExplanation}{一、为什么会想到这种方法？}}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
-		\item[\textbf{要点一（构造方程）：}]
-			将 $y$ 视为参数，通过去分母整理成关于 $x$ 的二次方程 $(a-dy)x^2+(b-ey)x+(c-fy)=0$。
-		\item[\textbf{要点二（判别式条件）：}]
-			若 $x$ 有实数解，则二次方程判别式 $\Delta(y)\ge0$。
-		\item[\textbf{要点三（退化处理）：}]
-			当 $a-dy=0$ 时，方程退化为一次或常数，需单独判断是否存在 $x$。
-	\end{description}
+  \medskip
+  先看一道不难的题：
+  \[
+    y=\frac{2x^2+3}{x^2+1}.
+  \]
+  它可以拆成 $y=2+\dfrac1{x^2+1}$，因此很容易看出 $2<y\le3$。
+  可是换成
+  \[
+    y=\frac{x^2+1}{x^2+2x+2},
+  \]
+  分子、分母都带着 $x$，不容易像前一道题那样直接拆开。
+  \textbf{困难不在于算出某个 $x$ 对应的 $y$，而在于找出所有可能的 $y$。}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（水平线交点）}}
-	函数 $y=f(x)$ 的图像与水平直线 $y=y_0$ 相交的充要条件是存在 $x$ 使 $f(x)=y_0$。判别式法正是将这一几何条件转化为关于 $x$ 的二次方程有实根。
+  \medskip
+  既然求的是 $y$ 的范围，不妨\textbf{暂时把 $y$ 当成一个已知数}，反过来解 $x$：
+  \[
+    \frac{x^2+1}{x^2+2x+2}=y
+    \quad\Longleftrightarrow\quad
+    (1-y)x^2-2yx+(1-2y)=0.
+  \]
+  如果这个方程找不到实数 $x$，说明原来的函数不可能等于这个 $y$。
+  如果找得到，说明这个 $y$ 确实可以出现。
+  这就把\textbf{求函数值域}变成了\textbf{判断方程有没有实数解}。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（方程有解条件）}}
-	通过引入参数 $y$，将分式函数的值域问题转化为含参二次方程有实根的条件，进而用判别式非负得到关于 $y$ 的不等式，解得值域。
+  \medskip
+  \textbf{\textcolor{CExplanation}{二、为什么会出现判别式？}}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（中档高频）}}
-	判别式法是求二次分式函数值域的经典方法，常出现在高考选择题填空题中，也常与不等式、函数单调性结合考查。
+  \medskip
+  初中学过，一元二次方程 $Ax^2+Bx+C=0$（$A\ne0$）的求根公式是
+  \[
+    x=\frac{-B\pm\sqrt{B^2-4AC}}{2A}.
+  \]
+  要算出实数 $x$，根号里的 $B^2-4AC$ 就不能小于 $0$。
+  因此只需要计算一个关于 $y$ 的式子 $\Delta(y)$，再解 $\Delta(y)\ge0$。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
-	关键在于将分式看成一个方程，而不是先研究单调性。一旦构造出二次方程，值域问题就变成了二次不等式求解。
+  \medskip
+  \textbf{\textcolor{CExplanation}{三、从图像上怎样理解？}}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*,itemsep=0.5em,topsep=0.4em]
-		\item\textbf{场景一（分母无实根）：}当分母 $\Delta_d<0$ 时可直接使用，无需考虑定义域漏洞。\item\textbf{场景二（分子分母都二次）：}仅当分子分母均为二次且 $d\neq0$ 时适用；若次数不匹配，需先变形。
-	\end{itemize}
+  \medskip
+  首页图中，蓝色边界水平线都能碰到曲线，橙色 $y=3$ 不能碰到。
+水平线有交点才表示该输出值能取到；边界切触常对应 $\Delta=0$，但仍须确认二次项没有消失。
 
+  \medskip
+  \textbf{\textcolor{CExplanation}{四、两个值得记住的发现}}
+
+  \medskip
+  \textbf{发现 1：}若分母 $dx^2+ex+f$ 满足 $e^2-4df<0$，那么
+  \[
+    \Delta(y)=(e^2-4df)y^2+(4af+4cd-2be)y+(b^2-4ac)
+  \]
+  是一个关于 $y$ 的\textbf{开口向下的二次式}。所以解出的候选值总是一段连续的范围，而不是两头分开的范围。
+  这段范围可能两端都能取到，也可能有一个端点取不到。
+
+  \medskip
+  \textbf{发现 2：}当 $x$ 的绝对值越来越大时，分子、分母主要由 $ax^2$ 与 $dx^2$ 决定，于是
+  \[
+    y\text{ 会越来越接近 }\frac ad.
+  \]
+  但是\textbf{越来越接近，不等于一定能够取到}。
+  因此 $y=\dfrac ad$ 正好是我们必须另查的特殊值。
+
+  \medskip
+  \textbf{\textcolor{CExplanation}{五、什么时候优先用？}}
+  分母始终不为 $0$、分子分母都是至多二次的式子，直接拆分又不明显时，可以优先把 $y$ 当成已知数，利用一元二次方程的实数解条件。
+  如果能像第一道题那样很快拆成 $2+\dfrac1{x^2+1}$，就不必硬套判别式，选择更短的方法即可。
 \end{explanationbox}

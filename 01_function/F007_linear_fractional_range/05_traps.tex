@@ -1,32 +1,47 @@
+\clearpage
 \begin{trapbox}
+    \textbf{\textcolor{CTrap}{易错点一：只证明“某个数取不到”，就直接写完整值域}}
 
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（渐近线误解）}}]
-			认为 $y=\dfrac{a}{c}$ 能被取到，或以为值域为 $\mathbb{R}$。
-		\item[\textbf{\textcolor{CTrap}{正确理解（水平渐近线）：}}]
-			$y=\dfrac{a}{c}$ 是函数的水平渐近线，函数值无限接近但永远不取，故值域排除 $\dfrac{a}{c}$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（未分离常数）：}}]
-			没有通过分离常数得到 $y=\dfrac{a}{c}+$非零反比例形式，误以为分子分母都是线性因此可取所有实数。
-	\end{description}
+    \textbf{错误想法：} 既然 $y\ne a/c$，其他数一定都能取到。
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（漏用条件）}}]
-			忽略 $ad\neq bc$ 条件，直接在 $ad=bc$ 时也使用值域结论。
-		\item[\textbf{\textcolor{CTrap}{正确理解（常数区分）：}}]
-			当 $ad=bc$ 时，函数化为常数 $y=\dfrac{a}{c}$，值域为单点集，而不是排除该点。
-		\item[\textbf{\textcolor{CTrap}{错因分析（适用范围不明）：}}]
-			结论推导过程中要求 $ad\neq bc$ 以保证分式不是常数，否则分离常数后反比例部分系数为零。
-	\end{description}
+    \textbf{正确做法：} 还要说明“任给 $t\ne a/c$，都能找到合法的 $x$”。本结论已用 $x=(b-dt)/(ct-a)$ 证明；若题目另外限制 $x$，就必须重新分析，不能照搬。
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（分离错误）}}]
-			分离常数时配凑出错，比如将 $y=\frac{ax+b}{{cx+d}}$ 错误化为 $y=\frac{a}{c}+\frac{b}{{cx+d}}$。
-		\item[\textbf{\textcolor{CTrap}{正确理解（正确分离形式）：}}]
-			正确结果应为 $y=\frac{a}{c}+\frac{bc-ad}{{c(cx+d)}}$，余项分子是 $bc-ad$ 而非 $b$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（计算粗心）：}}]
-			配凑时未将分子按分母倍数展开，忽略了常数项对齐。
-	\end{description}
+    \medskip
+    \begin{minipage}{\linewidth}
+\textbf{\textcolor{CTrap}{易错点二：忘记检查 $ad\ne bc$}}
+\begin{center}\input{assets/tikz/F007_constant_hole.tex}\end{center}
+\end{minipage}
 
+
+
+    \textbf{反例：} $\dfrac{2x+4}{x+2}=2$（$x\ne-2$）。这时分子就是分母的 $2$ 倍，值域是 $\{2\}$，\textbf{不是} $y\ne2$。
+
+    \textbf{记法：} 分离常数后，如果“剩下的数”恰好为 $0$，答案立即变成常数值域。
+
+    \medskip
+    \textbf{\textcolor{CTrap}{易错点三：把分子拆错，或写错符号}}
+
+    \textbf{常见错误：} $\dfrac{ax+b}{cx+d}=\dfrac ac+\dfrac{b}{cx+d}$。
+
+    \textbf{正确写法：}
+    \[
+        ax+b=\frac ac(cx+d)+\frac{bc-ad}{c},\qquad
+        y=\frac ac+\frac{bc-ad}{c(cx+d)}.
+    \]
+    \textbf{自检：} 把右边通分，还原不出原分式，就说明拆错了。
+
+    \medskip
+    \textbf{\textcolor{CTrap}{易错点四：把函数的定义域和完整值域混淆}}
+
+    \textbf{记住两件不同的事：} $x=-d/c$ 让分母为 $0$，所以不能作为输入；$y=a/c$ 是这类函数无法得到的输出。两者的符号和位置不能颠倒。
+
+    \medskip
+    \textbf{\textcolor{CTrap}{易错点五：题目只允许一部分 $x$，仍直接套公式}}
+
+    \textbf{反例：} $y=2+\dfrac3{x-1}$，若 $x\ge2$，则 $0<3/(x-1)\le3$，因此 $2<y\le5$，并非除 $2$ 外的全部实数。
+
+    \medskip
+    \textbf{\textcolor{CTrap}{易错点六：把 $c=0$ 的情况也当作本结论}}
+
+    \textbf{注意：} 如果 $c=0$、$d\ne0$，原式变成 $y=(ax+b)/d$，是一次函数（$a\ne0$）或常数函数（$a=0$），不能使用 $a/c$；如果 $c=d=0$，分母一直为 $0$，根本没有合法的 $x$。
 \end{trapbox}

@@ -1,0 +1,27 @@
+% Coordinate interchange of the vertical tangent diagram; identical units.
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,10.0);
+\node at (7.1,9.45) {横向：坐标互换后，改为两端切线的倒斜率取平均};
+\begin{scope}[shift={(2.6,4.4)},scale=1.15]
+\draw[->,gray] (-1.3,0)--(4.3,0) node[above] {$x$};
+\draw[->,gray] (0,-2.4)--(0,3.4) node[left] {$y$};
+\draw[teal!65!black,thick,samples=100,domain=-2.2:2.8,variable=\t] plot ({\t*\t/2},\t);
+\draw[blue!75!black,dashed,thick] (0,0)--(.5,-1);
+\draw[orange!85!black,dashed,thick] (0,0)--(2,2);
+\draw[blue!75!black,very thick] (1.7,-2.2)--(-1.1,.6);
+\draw[orange!85!black,very thick] (-.8,.6)--(3.6,2.8);
+\draw[green!45!black,very thick] (.5,-1)--(2,2);
+\fill (0,0) circle(2pt) node[below left=12pt] {$O$};
+\fill (.5,-1) circle(2pt) node[right=14pt] {$A$};
+\fill (2,2) circle(2pt) node[above=15pt] {$B$};
+\node[blue!75!black] at (2.8,-1.7) {$t_A$};
+\node[orange!85!black] at (3.6,1.95) {$t_B$};
+\end{scope}
+\node[anchor=west,align=left] at (8.9,5.7)
+ {$y^2=2x,\quad p=1$\\[13pt]
+ $A(\frac12,-1),\ B(2,2)$\\[15pt]
+ $k_A=-1,\quad k_B=\frac12$\\[15pt]
+ $\dfrac1{k_{AB}}=\dfrac{-1+2}{2}=\dfrac12$};
+\node at (7.1,1.3) {同一对照模型交换 $x,y$；绿色弦的普通斜率变为 $k_{AB}=2$。};
+\node at (7.1,.6) {这里的 $A,B$ 都不是顶点，弦不竖直，所有倒斜率才可按实数计算。};
+\end{tikzpicture}
