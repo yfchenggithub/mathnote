@@ -2,7 +2,7 @@
 \begin{explanationbox}
 
 \begin{minipage}{\linewidth}
-\textbf{\textcolor{CExplanation}{一、为什么会出现这个方法？}}
+\textbf{\textcolor{CExplanation}{第一部分：$0/0$ 型——为什么会出现这个方法？}}
 \begin{center}\input{assets/tikz/F005_zero_rates.tex}\end{center}
 \end{minipage}
 
@@ -46,7 +46,7 @@
     \item[\textbf{先直接代入：}] 若分母不为 $0$，通常直接算，不必求导。
     \item[\textbf{有共同因子：}] 像 $\frac{x^2-1}{x-1}$，先拆成 $(x-1)(x+1)$，约掉更快。
     \item[\textbf{含根号：}] 像 $\frac{\sqrt{x}-2}{x-4}$，先乘 $\sqrt{x}+2$，往往一步化简。
-    \item[\textbf{拆不开、难化简：}] 检查是否为“$0$ 比 $0$”或“两边都无限增大”，并逐项确认求导条件，再考虑分别求导。
+    \item[\textbf{拆不开、难化简：}] 对这一部分，先确认是否为“$0$ 比 $0$”，再逐项确认求导条件，最后才考虑分别求导。
     \item[\textbf{求导一次还不能算：}] 若仍是允许的情况，可再求一次；若已不是允许的情况，立即停止，改用正常运算。
 \end{description}
 \end{minipage}
@@ -54,18 +54,10 @@
 \medskip
 \textbf{\textcolor{CExplanation}{五、两个容易忽略的发现}}
 
-\textbf{发现一：同样趋于 $0$，结果不一定是有限数。}
+\textbf{发现：同样趋于 $0$，结果不一定是有限数。}
 例如 $\frac{x-1}{(x-1)^2}=\frac1{x-1}$，从右侧接近 $1$ 时会越来越大，
 从左侧接近时会越来越小。左右方向可能给出不同结果。
 
-\textbf{发现二：求导后的比值没有极限，不代表原式也没有。}
-例如
-\[
-\frac{x+\sin x}{x}=1+\frac{\sin x}{x}\longrightarrow1
-\qquad(x\to+\infty),
-\]
-因为 $-1\le\sin x\le1$；但分别求导后得到 $1+\cos x$，它一直变化，不能接近一个固定值。
-此时只是\textbf{这条计算捷径走不通}，不是原题没有答案。
 
 
 
@@ -74,8 +66,65 @@
 洛必达法则可以处理比下面更复杂的情况，例如 $f'(a)=g'(a)=0$，甚至在 $a$ 处根本没有函数值。
 这些情况的一般证明不能只凭高中导数定义直接推出。
 这里不用超出高中范围的定理硬凑完整证明，而是用\textbf{三条可以亲手检查的路线}：
-前两条证明两类常见的分式，第三条证明一个常用的三角函数极限。
+前两条证明两类常见的分式，第三条独立证明一个常用的三角函数极限。
 
 \medskip
 
+\end{explanationbox}
+
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{第二部分：$\infty/\infty$ 型——为什么会出现这个方法？}}
+
+\textbf{一、两边都越来越大，结果为什么还不确定？}
+
+想象两个学生都在不停地往前跑：一个跑了 $100$ 米，另一个也跑了很多米，\textbf{只知道两人都越跑越远，并不知道两人的路程之比。}
+函数也是一样：$x$ 很大时，$x$、$x^2$、$x^3$ 都很大，但它们增长的快慢不同。
+\[
+\frac{x}{x^2}=\frac1x\to0,\qquad
+\frac{3x^2}{2x^2}=\frac32,\qquad
+\frac{x^3}{x^2}=x\to+\infty.
+\]
+\textbf{因此：}所谓“无穷比无穷”，是提醒我们\emph{仅凭代入还判断不出来}，并不表示结果必须是某一种数。
+
+\medskip
+\textbf{\textcolor{CExplanation}{二、为什么在符合条件时可以想到分别求导？}}
+
+\textbf{导数表示眼前这一小段路走得有多快。} 如果两个函数都已变得非常大，并且在后面各个位置，分子的变化快慢与分母的变化快慢之比越来越接近某个固定数，那么它们\emph{整体数值的比值}也会趋向这个数——但这一步只有在前面所列条件成立时才能使用。
+
+例如 $f(x)=3x^2$、$g(x)=2x^2$。它们的比值始终为 $\frac32$；它们的导数之比也始终为
+\[
+\frac{f'(x)}{g'(x)}=\frac{6x}{4x}=\frac32\qquad (x\ne0).
+\]
+\textbf{眼前一亮的地方：} 多项式一求导，最高次数一起降低 $1$，\emph{谁比谁多长了几次方}这一关系没有改变。这就是多项式比值可以用最高次项快速判断的原因。
+
+\medskip
+\textbf{\textcolor{CExplanation}{三、无穷大不一定要等到 $x$ 越来越大}}
+
+当 $x\to1^+$ 时，$\frac{2}{x-1}$ 和 $\frac{5}{x-1}$ 也都趋向 $+\infty$。虽然 $x$ 只是在接近 $1$，它们的比值依然是 $\frac25$。
+\textbf{所以判断类型时要看函数值，不是看 $x$ 是否趋于无穷大。}
+
+\medskip
+\textbf{\textcolor{CExplanation}{四、这类题先选什么方法最快？}}
+
+\begin{description}[style=nextline, leftmargin=2.5em, labelsep=0.4em, itemsep=0.35em]
+\item[\textbf{两个多项式：}] 先比较最高次数；能同时除以 $x$ 的最高次幂，就别急着求导。
+\item[\textbf{带有根号：}] 可先提出最高次幂；特别注意 $\sqrt{x^2}=|x|$。
+\item[\textbf{靠近某点时两边变大：}] 看是否能约去 $\frac1{x-a}$ 等公共部分。
+\item[\textbf{对数等不便直接比较的函数：}] 在条件满足时分别求导，往往省力；但也可用高中导数知识直接作不等式比较。
+\end{description}
+
+\medskip
+\textbf{\textcolor{CExplanation}{五、求导后的比值没有极限，原式仍可能有极限}}
+
+\[
+\frac{x+\sin x}{x}=1+\frac{\sin x}{x}\longrightarrow1
+\qquad(x\to+\infty),
+\]
+因为 $-1\le\sin x\le1$。但若分别求导，得到 $1+\cos x$，它没有极限。\textbf{这只能说明无法用这条捷径，不能说明原题无解。}
+
+\medskip
+\textbf{\textcolor{CProof}{第二部分的证明范围}}
+
+后面先用\textbf{多项式的最高次项}严格验证一大类 $\infty/\infty$ 型；再用\textbf{根号化简和高中导数不等式}分别核对两个具体例子。对于任意复杂函数，不能把这些具体证明冒充整个法则的完整证明。
 \end{explanationbox}

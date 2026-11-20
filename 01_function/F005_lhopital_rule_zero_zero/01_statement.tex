@@ -11,7 +11,7 @@
 \end{statementbox}
 \clearpage
 \begin{statementbox}
-\textbf{\textcolor{CStatement}{主要结论：分子、分母都趋近于 $0$}}
+\textbf{\textcolor{CStatement}{第一部分：$0/0$ 型——分子、分母都趋近于 $0$}}
 
 
 设 $x$ 越来越接近 $a$（但 $x\ne a$），且
@@ -32,16 +32,54 @@
 这里的 $f'(x)$、$g'(x)$ 表示\textbf{分别对分子、分母求导}，不是对整个分式求导。
 
 \medskip
-\textbf{\textcolor{CStatement}{另一个可用情况}}
+\textbf{第一部分的特点：} 两个数都越来越小、趋向 $0$；它们缩小得是否一样快，决定了比值。
 
-如果分子、分母的大小都越来越大、没有上界，满足相应的求导条件，并且求导后的比值有确定的极限，也可用同样的办法。
-例如 $x\to+\infty$ 时，$\frac{2x^2+x}{x^2+1}$ 的分子、分母都越来越大。
+\textbf{对照提醒：} 下面把“无穷比无穷”单独作为第二部分，不与 $0/0$ 型的条件混在一起。
 
 \medskip
 \textbf{\textcolor{CStatement}{高中学习提醒}}
 
 这个名称所指的一般结论，完整证明超出了通常的高中课堂推导范围。
-下面只用高中范围内的导数定义、因式分解、三角关系，\textbf{严格解释几类常见情况}；
+下面分别用高中范围内的导数定义、因式分解、三角关系和多项式运算，\textbf{严格解释几类常见情况}；
 不把这些例子的证明说成整个法则的完整证明。遇到学校要求的常规解法时，应优先使用因式分解、有理化等方法。
 
+\end{statementbox}
+
+\clearpage
+\begin{statementbox}
+\textbf{\textcolor{CStatement}{第二部分：$\infty/\infty$ 型——分子、分母的大小都无界地增加}}
+
+\textbf{它要解决什么问题？} 当分子和分母的绝对值都越来越大时，不能把“无穷大除以无穷大”当作普通除法。谁增长得更快，才决定最后的比值。
+例如 $x\to+\infty$ 时，
+\[
+ \frac{x}{x^2}\to0,\qquad \frac{x^2}{x^2}\to1,\qquad \frac{x^3}{x^2}\to+\infty.
+\]
+可见：\textbf{两边都无穷大，答案仍可能是 $0$、一个非零常数，或无穷大。}
+
+\medskip
+\textbf{\textcolor{CStatement}{使用条件（与第一部分分别检查）}}
+
+设 $x$ 沿题目指定的方向接近一个位置 $b$，或趋向 $+\infty$、$-\infty$。要求：
+\begin{enumerate}[leftmargin=*, itemsep=0.28em, topsep=0.28em]
+\item 分子、分母的\textbf{绝对值}都无限增大：$|f(x)|\to+\infty$ 且 $|g(x)|\to+\infty$；
+\item 在接近目标位置、但不取目标位置的地方，$f,g$ 都能求导，并且 $g'(x)\ne0$；
+\item 求导后的比值 $\frac{f'(x)}{g'(x)}$ 趋于一个确定的数，或确定地趋于 $+\infty$、$-\infty$。
+\end{enumerate}
+这时可以得到
+\[
+\boxed{\displaystyle
+\lim_{x\to b}\frac{f(x)}{g(x)}
+=\lim_{x\to b}\frac{f'(x)}{g'(x)}.}
+\]
+这里 $b$ 也可表示 $+\infty$ 或 $-\infty$；如果只从一侧接近某点，就应在两边使用\textbf{相同的方向}。
+
+\medskip
+\textbf{\textcolor{CStatement}{必须区分的两件事}}
+
+\begin{itemize}[leftmargin=*, itemsep=0.25em]
+\item “无穷”\textbf{不是可以拿来约分的一个数字}；上下都趋于无穷，不能断言极限为 $1$。
+\item $f(x)$ 可以趋于 $+\infty$ 或 $-\infty$，$g(x)$ 也一样；判断的是两者的绝对值是否都无限增大，最后的\textbf{正负号}不能丢。
+\end{itemize}
+
+\textbf{证明范围：} 本节将严格验证多项式比值，并用根式、对数的具体例子作独立核对。它们能解释\emph{为什么可用}，但不是法则全部情形的一般证明。
 \end{statementbox}

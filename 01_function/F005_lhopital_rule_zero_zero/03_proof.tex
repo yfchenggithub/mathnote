@@ -1,5 +1,6 @@
 \clearpage
 \begin{proofbox}
+\textbf{\textcolor{CProof}{第一部分：$0/0$ 型的证明范围}}\par\medskip
 \textbf{\textcolor{CProof}{证明一：最基础的一类——直接从导数定义出发}}
 \begin{center}\input{assets/tikz/F005_derivative_secants.tex}\end{center}
 
@@ -143,7 +144,108 @@
 \medskip
 \textbf{\textcolor{CProof}{结论回扣}}
 
-三条路线分别说明：\textbf{导数定义能解释最简单的一类、因式分解能验证多项式的一大类、几何比较能独立解决一个经典三角式。}
+第一部分的三条路线分别说明：\textbf{导数定义能解释最简单的一类、因式分解能验证多项式的一大类、几何比较能独立解决一个经典三角式。}
 它们都不等于对洛必达法则所有情况的完整证明；本页只讲高中范围内真正能够说明白的内容。
 
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{第二部分：$\infty/\infty$ 型的证明范围}}
+
+下面只证明几类\textbf{高中知识能够完整说清的具体情况}。我们不使用超出高中范围的一般证明。
+
+\medskip
+\textbf{\textcolor{CProof}{证明四：多项式除以多项式——为什么最高次项最重要？}}
+
+\textbf{适用情况：} 设 $x\to+\infty$，分子 $f(x)$、分母 $g(x)$ 都是次数至少为 $1$ 的多项式，最高次项分别是 $Ax^m$、$Bx^n$，其中 $A,B\ne0$，$m,n$ 为正整数。
+
+\begin{description}[style=nextline, leftmargin=2.5em, labelsep=0.4em, itemsep=0.48em]
+\item[\textbf{第1步：把最高次幂提出。}]
+将分子、分母写成
+\[
+ f(x)=x^m\bigl(A+u(x)\bigr),\qquad
+ g(x)=x^n\bigl(B+v(x)\bigr),
+\]
+这里 $u(x)$、$v(x)$ 是低次项除以对应最高次幂后剩下的式子；因为每项都含 $\frac1x$ 或它的更高次幂，所以 $u(x)\to0$、$v(x)\to0$。
+因此
+\[
+\frac{f(x)}{g(x)}
+=x^{m-n}\frac{A+u(x)}{B+v(x)}.
+\]
+\textbf{第2步：分别求导，看看它会变成什么。}
+求导后最高次项分别是 $mAx^{m-1}$、$nBx^{n-1}$，所以同样可以写成
+\[
+\frac{f'(x)}{g'(x)}
+=x^{m-n}\frac{mA+u_1(x)}{nB+v_1(x)},
+\]
+其中 $u_1(x)\to0$、$v_1(x)\to0$；并且对足够大的 $x$，分母导数不会为 $0$。
+\item[\textbf{第3步：按最高次数比较。}]
+\begin{itemize}[leftmargin=*, itemsep=0.2em]
+\item $m<n$：$x^{m-n}\to0$，两种比值的极限都为 $0$；
+\item $m=n$：原比值 $\to\frac AB$，导数比值 $\to\frac{mA}{nB}=\frac AB$；
+\item $m>n$：$x^{m-n}\to+\infty$。两种比值都无限增大，且正负号都由 $\frac AB$ 决定，因为 $\frac mn>0$。
+\end{itemize}
+\end{description}
+
+\textbf{得到的结论：}对于这类多项式分式，只用高中代数与求导就能严格说明，两种方法算出的极限相同（包括确定趋向 $+\infty$ 或 $-\infty$ 的情况）。
+
+\textbf{最快做法：}事实上第一步往往就可以直接算完；在高考常规解题中，这通常比使用洛必达法则更省步骤。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明五：根号与 $x$——先处理绝对值再比较导数}}
+
+考虑
+\[\lim_{x\to+\infty}\frac{\sqrt{x^2+4}}{x}.\]
+\textbf{第1步：直接化简。} 当 $x>0$，$\sqrt{x^2}=x$，于是
+\[
+\frac{\sqrt{x^2+4}}{x}=\sqrt{1+\frac4{x^2}}\longrightarrow1.
+\]
+\textbf{第2步：再验证分别求导的结果。}
+\[
+\lim_{x\to+\infty}\frac{\bigl(\sqrt{x^2+4}\bigr)'}{(x)'}
+=\lim_{x\to+\infty}\frac{x}{\sqrt{x^2+4}}=1.
+\]
+两种结果一致，且分母导数恒为 $1$。
+
+\textbf{眼前一亮的延伸：} 如果改为 $x\to-\infty$，就不能把 $\sqrt{x^2}$ 直接写成 $x$，因为 $\sqrt{x^2}=|x|=-x$。这时
+\[
+\lim_{x\to-\infty}\frac{\sqrt{x^2+4}}{x}=-1,
+\qquad
+\lim_{x\to-\infty}\frac{x}{\sqrt{x^2+4}}=-1.
+\]
+即使分子趋向 $+\infty$、分母趋向 $-\infty$，也属于两边\textbf{绝对值都无限增大}的情况，且要保留负号。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明六：$\ln x$ 与 $x$——不用一般法则也能严谨比较快慢}}
+
+\textbf{要证：} $\displaystyle\lim_{x\to+\infty}\frac{\ln x}{x}=0$。
+
+\begin{description}[style=nextline, leftmargin=2.5em, labelsep=0.4em, itemsep=0.45em]
+\item[\textbf{第1步：构造一个更容易比较的式子。}]
+在 $x\ge1$ 时，设
+\[h(x)=2\sqrt{x}-\ln x.\]
+\item[\textbf{第2步：只用高中求导比较它的大小。}]
+\[
+ h'(x)=\frac1{\sqrt{x}}-\frac1x
+=\frac{\sqrt{x}-1}{x}\ge0\qquad(x\ge1).
+\]
+所以 $h(x)$ 随 $x$ 增大不会减小；又因为 $h(1)=2$，故 $h(x)\ge2>0$，也就是
+\[\ln x\le2\sqrt{x}\qquad(x\ge1).\]
+\item[\textbf{第3步：把分子分母一起除以 $x$。}]
+当 $x\ge1$ 时，$\ln x\ge0$，因此
+\[
+ 0\le\frac{\ln x}{x}\le\frac2{\sqrt{x}}\longrightarrow0.
+\]
+由此严格得到 $\displaystyle\lim_{x\to+\infty}\frac{\ln x}{x}=0$。
+\item[\textbf{第4步：对照求导后的比值。}]
+\[
+ \lim_{x\to+\infty}\frac{(\ln x)'}{(x)'}
+ =\lim_{x\to+\infty}\frac{1/x}{1}=0.
+\]
+\end{description}
+
+\textbf{这里到底证明了什么？}我们独立证明了这个\emph{具体例子}，并验证求导法给出相同结果；\textbf{没有因此证明任意两个无穷大函数都可以直接分别求导。}
 \end{proofbox}

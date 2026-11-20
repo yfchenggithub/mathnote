@@ -1,9 +1,9 @@
 \clearpage
 \begin{summarybox}
 
-\textbf{\textcolor{CSummary}{它解决什么问题？}}
+\textbf{\textcolor{CSummary}{第一部分：$0/0$ 型——它解决什么问题？}}
 
-当分子、分母都越来越接近 $0$（或者都越来越大）时，仅凭代入无法判断比值；
+当分子、分母都越来越接近 $0$ 时，仅凭代入无法判断比值；
 这时可以比较它们的\textbf{变化快慢}，在满足条件时用分别求导来简化计算。
 
 \medskip
@@ -19,7 +19,7 @@
 \medskip
 \textbf{\textcolor{CSummary}{三步判断}}
 \begin{enumerate}[leftmargin=*, itemsep=0.3em, topsep=0.3em]
-  \item \textbf{先代入看情况：}是不是分子、分母都趋于 $0$，或两边大小都越来越大？
+  \item \textbf{先代入看情况：}是不是分子、分母都趋于 $0$？
   \item \textbf{再检查能否求导：}附近能求导、分母导数不为 $0$，并且求导后的比值有确定的极限。
   \item \textbf{最后求值：}约分或直接代入；若还满足同样的情况，才考虑再求一次导。
 \end{enumerate}
@@ -39,7 +39,50 @@
 \lim_{x\to0}\frac{x-\sin x}{x^3}=\frac16.
 \]
 
-\textbf{最后提醒：}本页的高中推导严格覆盖若干常见情况，并不声称完整证明了所有洛必达法则的情况。
+\textbf{第一部分证明范围：}导数定义、共同零因子的多项式、单位圆比较，严格覆盖若干特定情况；不是一般法则的全部证明。
 求导后的比值没有极限，也\textbf{不能}据此断言原式没有极限。
 
+\end{summarybox}
+
+\clearpage
+\begin{summarybox}
+\textbf{\textcolor{CSummary}{第二部分：$\infty/\infty$ 型——它解决什么问题？}}
+
+当分子、分母的\textbf{绝对值}都无限增大时，只知道“两边都大”仍无法计算比值；答案由\textbf{谁增长得更快}决定。
+\[
+\boxed{\displaystyle
+\lim_{x\to b}\frac{f(x)}{g(x)}=\lim_{x\to b}\frac{f'(x)}{g'(x)}
+\quad\text{（同一方向、使用条件满足时）}.}
+\]
+这里 $b$ 可以表示有限位置（可取单侧）或 $+\infty$、$-\infty$；两个极限必须沿\textbf{题目指定的同一方向}计算。
+
+\medskip
+\textbf{\textcolor{CSummary}{三步判断}}
+\begin{enumerate}[leftmargin=*, itemsep=0.3em, topsep=0.3em]
+\item \textbf{先看类型：} $|f(x)|$、$|g(x)|$ 是否都无限增大？（可能是趋向正无穷，也可能是负无穷。）
+\item \textbf{再验条件：} 附近都能求导、$g'(x)\ne0$，而且导数之比有确定的极限（含确定的正、负无穷）。
+\item \textbf{最后求值：} 分别求导后能算就结束；若想继续用，需要重新检查新式子。
+\end{enumerate}
+
+\medskip
+\textbf{\textcolor{CSummary}{三个典型答案}}
+\[
+\lim_{x\to+\infty}\frac{x}{x^2}=0,\qquad
+\lim_{x\to+\infty}\frac{3x^2}{2x^2}=\frac32,\qquad
+\lim_{x\to+\infty}\frac{x^3}{x^2}=+\infty.
+\]
+
+\medskip
+\textbf{\textcolor{CSummary}{眼前一亮：两个小提醒}}
+
+\textbf{一是：} $\infty/\infty$ 型不要求 $x$ 一定趋向无穷大；$x$ 接近有限位置时，函数值也可能都趋向无穷大。
+
+\textbf{二是：} $x\to-\infty$ 时，$\sqrt{x^2}=|x|=-x$，不能直接写成 $x$。
+
+\medskip
+\textbf{\textcolor{CSummary}{高中最省时的方法与证明范围}}
+
+\textbf{先比较最高次项 $\rightarrow$ 再约分、化根号 $\rightarrow$ 不好直接化简且满足条件时考虑分别求导。}
+
+本部分\textbf{严格验证}了多项式分式，以及具体的根式、对数式；不宣称它们就是一般法则的完整证明。即便导数比值不存在，原式的极限也可能存在。
 \end{summarybox}

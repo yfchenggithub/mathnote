@@ -1,5 +1,8 @@
 \clearpage
 \begin{trapbox}
+\textbf{\textcolor{CTrap}{第一部分：$0/0$ 型常见错误}}
+
+
 
 \begin{minipage}{\linewidth}
 \textbf{\textcolor{CTrap}{易错一：一代入不能算，就马上分别求导}}
@@ -46,8 +49,46 @@
 \textbf{改正：}确认在目标位置附近（不包括目标位置本身）$g'(x)\ne0$，并确认求导后的比值有确定结果。
 
 \medskip
+\textbf{\textcolor{CTrap}{易错五：忘了左右两边可能不同}}
+
+\[
+\frac{x-1}{(x-1)^2}=\frac1{x-1}.
+\]
+$x\to1^+$ 时趋向 $+\infty$，$x\to1^-$ 时趋向 $-\infty$，所以不能说双侧极限等于 $+\infty$。
+题目若只问从右边或左边靠近，要按对应方向作答。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错六：为了用法则，反而把简单题做复杂}}
+
+\[
+\frac{x^2-9}{x-3}=x+3\quad(x\ne3).
+\]
+这类题目因式分解更快。含根号先考虑有理化，含三角函数可考虑已知基本极限。
+\textbf{考试提醒：}若课堂尚未正式学习洛必达法则，书面证明与考试作答应以课程允许的方法为准。
+
+\end{trapbox}
+
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{第二部分：$\infty/\infty$ 型常见错误}}
+
+\textbf{\textcolor{CTrap}{易错七：把“无穷除以无穷”当作 $1$}}
+
+\[
+\frac{x}{x^2}\to0,\qquad \frac{2x^2}{x^2}\to2,\qquad\frac{x^3}{x^2}\to+\infty
+\quad(x\to+\infty).
+\]
+\textbf{改正：}无穷大不是一个能直接约掉的数；应当比较增长快慢。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错八：以为只有 $x\to\infty$ 才叫无穷比无穷}}
+
+$x\to1^+$ 时，$\frac2{x-1}\to+\infty$，$\frac5{x-1}\to+\infty$，所以它们也是 $\infty/\infty$ 型。
+\textbf{改正：}看上下函数值是否都无限增大，而不是看自变量是否跑向无穷大。
+
+\medskip
 \begin{minipage}{\linewidth}
-\textbf{\textcolor{CTrap}{易错五：求导后的极限不存在，就认定原式也不存在}}
+\textbf{\textcolor{CTrap}{易错九：求导后的极限不存在，就认定原式也不存在}}
 \begin{center}\input{assets/tikz/F005_oscillating_derivative_ratio.tex}\end{center}
 \end{minipage}
 
@@ -61,21 +102,29 @@
 \textbf{改正：}这说明求导法在此不能给出答案，不是原式没有极限。原式可由 $|\sin x|\le1$ 直接判断。
 
 \medskip
-\textbf{\textcolor{CTrap}{易错六：忘了左右两边可能不同}}
-
-\[
-\frac{x-1}{(x-1)^2}=\frac1{x-1}.
-\]
-$x\to1^+$ 时趋向 $+\infty$，$x\to1^-$ 时趋向 $-\infty$，所以不能说双侧极限等于 $+\infty$。
-题目若只问从右边或左边靠近，要按对应方向作答。
 
 \medskip
-\textbf{\textcolor{CTrap}{易错七：为了用法则，反而把简单题做复杂}}
+\textbf{\textcolor{CTrap}{易错十：忘了负无穷和绝对值}}
 
 \[
-\frac{x^2-9}{x-3}=x+3\quad(x\ne3).
+\sqrt{x^2}=|x|\ne x\quad(x<0).
 \]
-这类题目因式分解更快。含根号先考虑有理化，含三角函数可考虑已知基本极限。
-\textbf{考试提醒：}若课堂尚未正式学习洛必达法则，书面证明与考试作答应以课程允许的方法为准。
+因此 $x\to-\infty$ 时，$\frac{\sqrt{x^2+4}}{x}\to-1$，不是 $1$。
+\textbf{改正：}分子、分母的绝对值都变大才是本型的判断重点；计算时不能删掉负号。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错十一：分母导数为零，也强行用新法则}}
+
+设 $f(x)=x$，$g(x)=x+\sin x$。当 $x\to+\infty$ 时，上下绝对值都无限增大，而且
+\[
+\frac{x}{x+\sin x}=\frac1{1+\sin x/x}\longrightarrow1.
+\]
+但 $g'(x)=1+\cos x$，在 $x=\pi,3\pi,5\pi,\ldots$ 等位置为 $0$；求导后的比值 $\frac1{1+\cos x}$ 也没有可用的极限。
+\textbf{改正：}不能用“同为无穷大”跳过分母导数条件；直接把原式分母除以 $x$ 更快更稳。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错十二：求导一次之后继续盲目求导}}
+
+例如 $x\to+\infty$ 时，$\frac{2x^2+x}{x^2+1}$ 分别求导得到 $\frac{4x+1}{2x}$，仍是 $\infty/\infty$ 型，可以再使用；但再次求导得到 $\frac42=2$，已经可以结束。\textbf{每多求导一次，都必须重新判断新的分式是否仍满足条件。}
 
 \end{trapbox}
