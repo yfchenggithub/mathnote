@@ -1,0 +1,34 @@
+% F003: R1 versus exp(x), followed by its actual absolute error.
+% All samples use 70-digit Decimal arithmetic; no error cancellation in PGF.
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,15.6);
+\node[font=\small\bfseries] at (7.1,15.0)
+  {一次分式：同一个点、同一条切线，不表示两条曲线完全相同};
+\begin{axis}[scale only axis,width=11.8cm,height=4.6cm,at={(1.5cm,9.0cm)},anchor=south west,
+ axis lines=left,xmin=-1,xmax=1,ymin=.2,ymax=3.2,
+ xlabel={$x$},ylabel={$y$},xtick={-1,-.5,0,.5,1},ytick={.5,1,2,3},
+ tick label style={font=\small},label style={font=\small},
+ legend style={font=\small,draw=none,fill=none,at={(.04,.96)},anchor=north west},
+ legend cell align=left]
+\addplot[blue!75!black,very thick] table[x=x,y=exp] {assets/tikz/F003_exp_design_samples.dat};
+\addlegendentry{$e^x$}
+\addplot[orange!85!black,thick,dashed] table[x=x,y=r1] {assets/tikz/F003_exp_design_samples.dat};
+\addlegendentry{$R_1(x)=(2+x)/(2-x)$}
+\addplot[gray!80!black,thick,densely dotted,domain=-1:1] {1+x};
+\addlegendentry{共同切线 $y=1+x$}
+\addplot[only marks,black,mark=*,mark size=2pt] coordinates {(0,1)};
+\node[font=\small,above left=6pt] at (axis cs:0,1) {$(0,1)$};
+\end{axis}
+\node at (7.1,7.5) {$R_1(0)=e^0=1,\qquad R_1'(0)=(e^x)'_{x=0}=1$};
+\begin{axis}[scale only axis,width=11.8cm,height=4.0cm,at={(1.5cm,2.0cm)},anchor=south west,
+ axis lines=left,xmin=0,xmax=1,ymin=0,ymax=.30,
+ xlabel={$x$},ylabel={绝对误差},xtick={0,.5,1},ytick={0,.1,.2,.3},
+ tick label style={font=\small},label style={font=\small},scaled ticks=false,
+ title={$\varepsilon_1(x)=|R_1(x)-e^x|$：把真实差距单独画出来},title style={font=\small}]
+\addplot[orange!85!black,very thick] table[x=x,y=err1] {assets/tikz/F003_exp_design_samples.dat};
+\addplot[only marks,orange!85!black,mark=*,mark size=2pt] coordinates {(1,.281718171541)};
+\node[font=\small,anchor=west] at (axis cs:.1,.23) {$\varepsilon_1(1)\approx0.281718$};
+\draw[gray,->] (axis cs:.68,.235)--(axis cs:.985,.278);
+\end{axis}
+\node at (7.1,.55) {曲线图取 $-1\le x\le1$；误差图取 $0\le x\le1$，一次分式的极点 $x=2$ 不在图内。};
+\end{tikzpicture}

@@ -43,7 +43,10 @@
       "数形结合",
       "两矩形面积",
       "配系数",
-      "舍入保证"
+      "舍入保证",
+      "x=0处函数值与导数匹配",
+      "一次二次指数分式比较",
+      "e^x导数等于自身"
     ],
     "synonyms": [
       "pade逼近",
@@ -121,7 +124,9 @@
       "\\ln(1+x)=\\frac{3x^2+6x}{x^2+6x+6}+O(x^5)",
       "\\sin x=\\frac{6x}{x^2+6}+O(x^5)",
       "\\cos x=\\frac{12-5x^2}{12+x^2}+O(x^6)",
-      "\\tan x=\\frac{3x}{3-x^2}+O(x^5)"
+      "\\tan x=\\frac{3x}{3-x^2}+O(x^5)",
+      "R_2(0)=1,\\ R_2'(0)=2a=1\\Rightarrow a=1/2",
+      "0\\le e^x-R_2(x)\\le(R_1(x)-e^x)/49\\quad(0\\le x\\le1)"
     ],
     "variables": [
       {
@@ -133,6 +138,11 @@
         "name": "R_E,R_L,R_S,R_C,R_T",
         "domain": "各分母非零处",
         "description": "指数、对数、正弦、余弦、正切的有理近似"
+      },
+      {
+        "name": "R_1,R_2",
+        "domain": "R1在x不等于2时有定义；R2=E在实数范围有定义；两版误差比较取0<=x<=1",
+        "description": "指数函数的一次与二次有理分式；R1=(2+x)/(2-x)，R2=E"
       }
     ],
     "conditions": [
@@ -193,7 +203,9 @@
       "assets/tikz/F003_tan_local.tex",
       "assets/tikz/F003_tan_poles.tex",
       "assets/tikz/F003_trig_error.tex",
-      "assets/tikz/F003_unit_circle.tex"
+      "assets/tikz/F003_unit_circle.tex",
+      "assets/tikz/F003_exp_first_design_comparison.tex",
+      "assets/tikz/F003_exp_second_design_comparison.tex"
     ]
   },
   "shareConfig": {
@@ -216,10 +228,10 @@
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-07",
-    "updated_at": "2026-11-19"
+    "updated_at": "2026-11-20"
   },
   "isPro": 1,
-  "remarks": "2026-10-22 单UID校验：修正元数据与历史摘录中的旧余弦错式。新增12份PDF专用TikZ/PGFPlots图；图源：assets/tikz/F003_cos_wrong.tex、assets/tikz/F003_exp_error.tex、assets/tikz/F003_exp_far.tex、assets/tikz/F003_exp_local.tex、assets/tikz/F003_log_area.tex、assets/tikz/F003_log_error.tex、assets/tikz/F003_log_local.tex、assets/tikz/F003_sin_cos_local.tex、assets/tikz/F003_tan_local.tex、assets/tikz/F003_tan_poles.tex、assets/tikz/F003_trig_error.tex、assets/tikz/F003_unit_circle.tex。局部曲线替代泛化贴合描述；误差图替代仅列小数；单位圆替代奇偶死记；两矩形图说明对数分式来源；错式、极点与远域图说明适用边界。数据 assets/tikz/F003_samples.dat 由 checks/verify_f003.py 以60位Decimal计算。未写入images或发布资源。 2026-11-19 TikZ完善：首页直接展示局部函数与有理式；三种证明分别配误差、三角误差、系数对照图；指数和对数误差各在对应推导处呈现。新增系数对照图，其余复用现有准确图源。",
+  "remarks": "2026-10-22 单UID校验：修正元数据与历史摘录中的旧余弦错式。新增12份PDF专用TikZ/PGFPlots图；图源：assets/tikz/F003_cos_wrong.tex、assets/tikz/F003_exp_error.tex、assets/tikz/F003_exp_far.tex、assets/tikz/F003_exp_local.tex、assets/tikz/F003_log_area.tex、assets/tikz/F003_log_error.tex、assets/tikz/F003_log_local.tex、assets/tikz/F003_sin_cos_local.tex、assets/tikz/F003_tan_local.tex、assets/tikz/F003_tan_poles.tex、assets/tikz/F003_trig_error.tex、assets/tikz/F003_unit_circle.tex。局部曲线替代泛化贴合描述；误差图替代仅列小数；单位圆替代奇偶死记；两矩形图说明对数分式来源；错式、极点与远域图说明适用边界。数据 assets/tikz/F003_samples.dat 由 checks/verify_f003.py 以60位Decimal计算。未写入images或发布资源。 2026-11-19 TikZ完善：首页直接展示局部函数与有理式；三种证明分别配误差、三角误差、系数对照图；指数和对数误差各在对应推导处呈现。新增系数对照图，其余复用现有准确图源。 2026-11-20指数证明局部完善：二次式单独验证R2(0)=1、R2′(0)=2a=1，指出b不能由这两个条件单独确定。新增一次/二次分式与e^x的两幅教学图，含同点同切线、同尺度真实绝对误差及明确50倍纵向放大。数据F003_exp_design_samples.dat由本UID checks/verify_exp_design.py以70位Decimal产生；用e^(-x)加权偏差求导严格证明[0,1]上二次误差不超过一次的1/49。原有六段其他内容与既有数学资产保留，不覆盖原PDF或images资源。",
   "knowledgeNode": "函数-导数与极限-近似与极限-计算方法",
   "altNodes": "函数-特殊函数-指数函数"
 }

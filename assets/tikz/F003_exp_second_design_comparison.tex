@@ -1,0 +1,46 @@
+% F003: the fitted quadratic rational function and the exponential.
+% Lower left: SAME error scale as the first figure. Lower right: explicit 50x zoom.
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,16.8);
+\node[font=\small\bfseries] at (7.1,16.2)
+  {二次分式：保留 $x=0$ 处的匹配，再利用导数等于自身的特点提高精度};
+\begin{axis}[scale only axis,width=11.8cm,height=4.6cm,at={(1.5cm,10.3cm)},anchor=south west,
+ axis lines=left,xmin=-1,xmax=1,ymin=.2,ymax=3.2,
+ xlabel={$x$},ylabel={$y$},xtick={-1,-.5,0,.5,1},ytick={.5,1,2,3},
+ tick label style={font=\small},label style={font=\small},
+ legend style={font=\small,draw=none,fill=none,at={(.04,.96)},anchor=north west},
+ legend cell align=left]
+\addplot[blue!75!black,very thick] table[x=x,y=exp] {assets/tikz/F003_exp_design_samples.dat};
+\addlegendentry{$e^x$}
+\addplot[teal!75!black,thick,dashed] table[x=x,y=r2] {assets/tikz/F003_exp_design_samples.dat};
+\addlegendentry{$R_2(x)=(x^2+6x+12)/(x^2-6x+12)$}
+\addplot[gray!80!black,thick,densely dotted,domain=-1:1] {1+x};
+\addlegendentry{共同切线 $y=1+x$}
+\addplot[only marks,black,mark=*,mark size=2pt] coordinates {(0,1)};
+\node[font=\small,above left=6pt] at (axis cs:0,1) {$(0,1)$};
+\end{axis}
+\node at (7.1,8.7) {$a=\tfrac12,\ b=\tfrac1{12}$：$R_2(0)=1,\ R_2'(0)=1$；主图接近重合，误差仍不为零。};
+\begin{axis}[scale only axis,width=4.9cm,height=4.2cm,at={(1.5cm,2.5cm)},anchor=south west,
+ axis lines=left,xmin=0,xmax=1,ymin=0,ymax=.30,
+ xlabel={$x$},ylabel={绝对误差},xtick={0,.5,1},ytick={0,.1,.2,.3},
+ tick label style={font=\small},label style={font=\small},scaled ticks=false,
+ title={\shortstack{同一纵轴：一次（橙）、二次（绿）}},title style={font=\small}]
+\addplot[orange!85!black,thick,dashed] table[x=x,y=err1] {assets/tikz/F003_exp_design_samples.dat};
+\addplot[teal!75!black,very thick] table[x=x,y=err2] {assets/tikz/F003_exp_design_samples.dat};
+\addplot[only marks,teal!75!black,mark=*,mark size=2pt] coordinates {(1,.00399611417333)};
+\node[font=\small,anchor=west,align=left] at (axis cs:.08,.23) {$x=1$ 时\\$\varepsilon_1\approx0.281718$};
+\node[font=\small,anchor=west,align=left] at (axis cs:.06,.095) {$\varepsilon_2\approx0.003996$};
+\draw[gray,->] (axis cs:.66,.075)--(axis cs:.985,.006);
+\end{axis}
+\begin{axis}[scale only axis,width=4.9cm,height=4.2cm,at={(8.5cm,2.5cm)},anchor=south west,
+ axis lines=left,xmin=0,xmax=1,ymin=0,ymax=.006,
+ xlabel={$x$},ylabel={$\varepsilon_2$},xtick={0,.5,1},ytick={0,.002,.004,.006},
+ tick label style={font=\small},label style={font=\small},scaled ticks=false,
+ yticklabel style={/pgf/number format/fixed,/pgf/number format/precision=3},
+ title={\shortstack{二次误差：纵向放大 $50$ 倍\\注意本图纵轴刻度}},title style={font=\small}]
+\addplot[teal!75!black,very thick] table[x=x,y=err2] {assets/tikz/F003_exp_design_samples.dat};
+\addplot[only marks,teal!75!black,mark=*,mark size=2pt] coordinates {(1,.00399611417333)};
+\end{axis}
+\node at (7.1,1.1) {左下纵轴仍为 $0$ 到 $0.30$；右下改为 $0$ 到 $0.006$，只放大误差，不改函数。};
+\node at (7.1,.5) {$x=1$ 时误差约缩小 $70.5$ 倍；整个 $0\le x\le1$ 上的严格比较见正文。};
+\end{tikzpicture}
