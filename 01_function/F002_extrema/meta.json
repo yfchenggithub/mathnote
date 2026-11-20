@@ -31,7 +31,17 @@
       "不可导",
       "尖点极小值",
       "附近函数值",
-      "函数最值"
+      "函数最值",
+      "极大值与最大值",
+      "极小值与最小值",
+      "极值与最值",
+      "极大值小于极小值",
+      "立方根函数",
+      "不可导没有极值",
+      "导数不为零不是极值",
+      "x^(2/3)",
+      "分数次幂极值",
+      "不可导的极小值"
     ],
     "synonyms": [
       "局部极值",
@@ -87,14 +97,18 @@
     "related_formulas": [
       "+\\to-:\\text{极大值}",
       "-\\to+:\\text{极小值}",
-      "f(x)-f(a)=(x-a)^2A(x)"
+      "f(x)-f(a)=(x-a)^2A(x)",
+      "m\\le f(x)\\le M\\quad(x\\in D,\\ m,M\\text{ 分别为最小值、最大值})"
     ],
     "variables": {
       "f": "函数",
       "x_0": "函数定义域内部的判断点",
-      "a": "待判断的横坐标"
+      "a": "待判断的横坐标",
+      "D": "求最大值、最小值时事先指定的比较范围",
+      "M": "在D上确实取到的最大值（若存在）",
+      "m": "在D上确实取到的最小值（若存在）"
     },
-    "conditions": "若内部极值点处可导，则该点导数为零；用两侧导数判断极值时，要求函数在该点连续、在左右足够近的两段上可导，且导数各侧保持相应正负号。",
+    "conditions": "若内部极值点处可导，则该点导数为零；用两侧导数判断极值时，要求函数在该点连续、在左右足够近的两段上可导，且导数各侧保持相应正负号。 本条采用严格极值，且只讨论区间内部的极值点；最值按指定范围D与全部函数值比较，须实际取得。内部最值只有在附近除该点外严格更低或更高时，才符合本文相应的严格极值定义。",
     "conclusions": [
       "内部极值点处可导，必有 f'(x_0)=0；反之不一定成立。",
       "在判断点连续、左右足够近且可导时，左正右负为极大值，左负右正为极小值。",
@@ -145,7 +159,25 @@
       "assets/tikz/F002_left_right_secants.tex",
       "assets/tikz/F002_new_stationary_corner.tex",
       "assets/tikz/F002_new_endpoint_jump.tex",
-      "assets/tikz/F001_cubic_intervals.tex"
+      "assets/tikz/F001_cubic_intervals.tex",
+      "assets/tikz/F002_continuity_comparison.tex",
+      "assets/tikz/F002_cubic_quartic_comparison.tex",
+      "assets/tikz/F002_derivative_root_parity.tex",
+      "assets/tikz/F002_endpoints.tex",
+      "assets/tikz/F002_four_derivative_cases.tex",
+      "assets/tikz/F002_local_vs_global.tex",
+      "assets/tikz/F002_shifted_corner.tex",
+      "assets/tikz/F002_shifted_peak_coordinates.tex",
+      "assets/tikz/F002_shifted_valley_coordinates.tex",
+      "assets/tikz/F002_square_factor_neighborhood.tex",
+      "assets/tikz/F002_sign_change_extrema.tex",
+      "assets/tikz/F002_stationary_cubic_values.tex",
+      "assets/tikz/F002_candidate_counterexamples.tex",
+      "assets/tikz/F002_endpoint_corner_candidates.tex",
+      "assets/tikz/F002_internal_global_extrema.tex",
+      "assets/tikz/F002_constant_global_not_strict.tex",
+      "assets/tikz/F002_local_max_below_local_min.tex",
+      "assets/tikz/F002_nondifferentiable_shapes.tex"
     ]
   },
   "shareConfig": {
@@ -170,10 +202,10 @@
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-05-04",
-    "updated_at": "2026-11-19"
+    "updated_at": "2026-11-20"
   },
   "isPro": 0,
-  "remarks": "本次完善：保留 F002 标识及六段框架；用初中可理解的平方比较、高中导数正负、导数定义三个方法展开；补充分解平方因子等速解提示。附带三张独立新增 TikZ 示意图 F002_new_*.tex，不修改既有 TikZ。 2026-11-19 TikZ完善：首页和两种比较/变号证明引用峰谷对照；必要条件证明新增左右割线差商图。例题复用相同三次函数的现有曲线图，不修改被复用的图源。",
+  "remarks": "本次完善：保留 F002 标识及六段框架；用初中可理解的平方比较、高中导数正负、导数定义三个方法展开；补充分解平方因子等速解提示。附带三张独立新增 TikZ 示意图 F002_new_*.tex，不修改既有 TikZ。 2026-11-19 TikZ完善：首页和两种比较/变号证明引用峰谷对照；必要条件证明新增左右割线差商图。例题复用相同三次函数的现有曲线图，不修改被复用的图源。 本轮补充12幅精确TikZ：四种导数符号同尺度曲线、局部与整体比较、点和值的坐标投影、平方因子附近比较、平移尖角、三次与四次函数、连续性对照、端点以及导数零因子奇偶。三种证明均就近配图；第一种使用具体平移抛物线，第二种使用正负变号的峰谷对照曲线，第三种保留左右割线差商图。纠正旧图将0.66x^3误标为x^3的问题。原GIF、PNG和原PDF保留，编译输出隔离预览。 割线差商图的坐标标注移到右上方，避开纵轴。 在结论处“导数零未必有极值、不可导也可能有极值”之后就近新增同尺度x³与|x|对照图，直接标出水平切线、左右斜率和极值判断。 2026-11-20：易错四就近引入坐标投影图，易错五新增端点与尖角对照，易错六就近引入四种导数走向图并各自独立分页。新增内部极值与全局最值、常数函数严格比较例外、不同位置极大值小于极小值的三幅关系图。解释与小结明确固定比较范围、最值必须取到、端点约定和严格极值条件；保留既有PDF/PNG/GIF，仅构建隔离预览。 2026-11-20补充四种对照情况：结论处同尺度绘制x³、x、|x|、实立方根，分别对应导数零无极值、导数非零无极值、不可导有极值、不可导无极值。保留内部点条件；解释处另以尖角和竖直切线对照，计算立方根差商趋于正无穷，明确不存在有限导数。立方根图按(x,y)=(t³,t)精确参数绘制，避免负数分数次幂渲染错误。 根据后续补充，将解释部分的不可导主图改为x^(1/3)与x^(2/3)同尺度对照，分别用(t³,t)和(t³,t²)参数曲线绘制；前面的四种总览仍保留|x|。补充两侧差商及极值比较，并置于直觉说明开头。",
   "knowledgeNode": "函数-性质-单调性-判定与讨论",
   "altNodes": [
     "函数-性质-单调性",

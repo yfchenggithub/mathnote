@@ -1,0 +1,18 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\node at (5.7,4.0) {$h(x)=x^3$：两侧一小一大，原点不是极值点};
+\begin{scope}[shift={(5.7,1.5)},x=3cm,y=1.5cm]
+\draw[gray,->] (-1.35,0)--(1.4,0) node[right] {$x$};
+\draw[gray,->] (0,-1.35)--(0,1.2) node[below left=4pt] {$y$};
+\draw[blue!70!black,very thick,domain=-1.05:1.05,samples=81] plot (\x,{\x*\x*\x});
+\draw[orange!85!black,thick] (-.45,0)--(.45,0);
+\fill[orange!85!black] (0,0) circle(2pt);
+\fill[blue!70!black] (-.8,-.512) circle(2pt);
+\fill[blue!70!black] (.8,.512) circle(2pt);
+\node at (-.78,.70) {$x<0,\ h(x)<0$};
+\node at (.78,-.70) {$x>0,\ h(x)>0$};
+\node[below right=5pt] at (0,0) {$O$};
+\draw[gray,->] (-.8,.47)--(-.8,-.43);
+\draw[gray,->] (.8,-.47)--(.8,.43);
+\end{scope}
+\node at (5.7,-1.45) {橙线水平，但函数从左向右仍然一直增大。};
+\end{tikzpicture}

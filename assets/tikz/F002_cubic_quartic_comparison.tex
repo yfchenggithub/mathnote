@@ -1,0 +1,17 @@
+% F002: exact mathematical teaching diagram.
+\begin{tikzpicture}[font=\small,>=stealth]
+\node at (6.2,4.45) {同样 $f'(0)=0$，比较附近函数值才能判断极值};
+\foreach \offset/\power/\formula in {0/3/x^3,6.5/4/x^4}{
+\begin{scope}[shift={(\offset,0)}]
+\node at (2.9,3.7) {$y=\formula$};
+\begin{scope}[shift={(2.9,1.5)},x=1.65cm,y=1.35cm]
+\draw[gray,->] (-1.28,0)--(1.35,0) node[right] {$x$};
+\draw[gray,->] (0,-1.35)--(0,1.2) node[below left=4pt] {$y$};
+\draw[blue!70!black,very thick,domain=-1.03:1.03,samples=81] plot (\x,{(\x)^\power});
+\draw[orange!85!black,thick] (-.4,0)--(.4,0);
+\fill[orange!85!black] (0,0) circle(1.8pt);
+\end{scope}
+\end{scope}}
+\node at (2.9,-.85) {左小右大：不是极值};
+\node at (9.4,-.85) {两侧都大：极小值为 $0$};
+\end{tikzpicture}

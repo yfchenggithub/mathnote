@@ -1,29 +1,118 @@
 \clearpage
 \begin{explanationbox}
-\begin{minipage}{\linewidth}
-\paragraph{把函数图像想成一段山路}
-\input{assets/tikz/F002_new_peak_valley.tex}
-\end{minipage}
-
-图左先增后减，图右先减后增，分别形成极大值与极小值；导数的正、负对应递增、递减。
-
-\paragraph{为什么导数为零，不等于一定有山顶或谷底？}
-导数在一个点等于 $0$，只能说明函数在那一点的变化很平缓；它可能在那里转头，也可能停缓一下后继续上升。
-例如 $y=x^3$ 在 $x=0$ 处导数为 $0$，但 $x$ 从负变正时，函数值始终增大，所以没有极大值或极小值。
-
-\paragraph{为什么有些尖角也能是最低点？}
-$y=|x|$ 在 $x=0$ 处折成一个尖角。虽然这里不能求导，但 $|x|\ge0$，并且只有 $x=0$ 时等于 $0$，所以 $0$ 是极小值点。
-因此，\textbf{不能只解 $f'(x)=0$，还要留意不能求导的位置}。
-
-\paragraph{极值点和极值不是同一个东西}
-例如 $f(x)=-(x-2)^2+5$，峰顶在 $x=2$，所以\textbf{极大值点是 $2$，极大值是 $5$}。
-答题时要看题目问的是“点”还是“值”。
-
-\paragraph{一个实用的观察}
-如果发现
+\paragraph{同样在原点不可导：$x^{1/3}$ 与 $x^{2/3}$ 的极值为什么不同？}
+这里对负数也按实立方根理解：
 \[
-f(x)-f(a)=(x-a)^2\,A(x),
+ r(x)=x^{1/3}=\sqrt[3]{x},\qquad q(x)=x^{2/3}=(\sqrt[3]{x})^2.
 \]
-并且在 $a$ 附近 $A(x)>0$，那么只要 $x\ne a$ 且靠近 $a$，就有 $f(x)>f(a)$，因此 $a$ 是极小值点；
-如果附近 $A(x)<0$，它就是极大值点。这是\textbf{先减去函数值，再寻找平方因子}的小技巧。
+\begin{center}\input{assets/tikz/F002_nondifferentiable_shapes.tex}\end{center}
+
+\textbf{左图：不可导，没有极值。}当 $h\ne0$ 时，
+\[
+\frac{r(h)-r(0)}{h}=\frac{1}{(\sqrt[3]{h})^2}
+\ \longrightarrow\ +\infty\qquad(h\to0).
+\]
+它在 $0$ 处没有有限导数，切线为竖直方向；但曲线仍从左向右一直增大。
+特别地，原点左侧函数值小于 $0$、右侧大于 $0$，所以 $0$ 不是极值点。
+
+\textbf{右图：不可导，却有极小值。}因为
+\[
+q(x)=(\sqrt[3]{x})^2>0=q(0)\qquad(x\ne0),
+\]
+所以 $0$ 是极小值点，极小值为 $0$，同时也是整个实数范围的最小值。
+另一方面，
+\[
+\frac{q(h)-q(0)}{h}=\frac{1}{\sqrt[3]{h}}
+\ \longrightarrow\
+\begin{cases}-\infty,&h\to0^-,\\+\infty,&h\to0^+,\end{cases}
+\]
+也不能得到有限导数。左右两支在原点汇成尖点，曲线先降后升。
+
+\textbf{结论：}两图都在原点不可导，但是否有极值仍由附近函数值决定；
+$+\infty$ 或 $-\infty$ 都不能当作普通导数值。
+前面四种情况中的 $|x|$，则是更简单的“不可导但有极小值”例子。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\paragraph{极值只看附近，不要求在整个定义域最高或最低}
+
+\begin{center}\input{assets/tikz/F002_local_vs_global.tex}\end{center}
+
+图中 $x=-1$ 附近先增后减，$f(-1)=3$ 是极大值；右侧远处却有更高的函数值。
+因此，\textbf{极大值是附近的最高值，不一定是整体最大值}；极小值也只和附近比较。
+
+\paragraph{先固定比较范围：极值与最值用的尺子不同}
+最大值、最小值统称\textbf{最值}；极大值、极小值统称\textbf{极值}。
+设所讨论的比较范围为 $D$：极值只和判断点\textbf{附近}比较，最值要和\textbf{$D$ 中所有位置}比较，而且必须真正取到。
+
+若 $D$ 上存在最大值 $M$、最小值 $m$，则
+\[
+ m\le f(x)\le M\qquad(\text{每一个 }x\in D).
+\]
+因此，\textbf{极大值不超过最大值，极小值不低于最小值}；它们可能相等，也可能不同。
+上图的极大值 $3$ 就不是整个实数范围的最大值；实际上这条三次函数在整个实数范围内\textbf{既无最大值，也无最小值}。
+
+\textbf{水平切线不等于转头。}上一节四图中，$x^3$ 和 $-x^3$ 在原点的切线也水平，
+但一个一直增、一个一直减，都没有极值。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\paragraph{内部的最值与极值可以重合，端点最值须另看}
+\begin{center}\input{assets/tikz/F002_internal_global_extrema.tex}\end{center}
+
+图中两个内部的最值点，都比附近其他点\textbf{严格}更高或更低，所以同时是相应的极值点。
+两个端点虽然取得最值，但本条只把\textbf{区间内部、左右都能比较}的位置称为极值点，因此不把端点算进去。
+
+\textbf{不能省掉严格比较这个条件。}本文前面采用“附近其他点总比它小或大”的严格约定。
+若最大值在内部取到，且附近其他点都\textbf{严格更小}，才同时是本文的极大值；最小值的说法相反。
+\begin{center}\input{assets/tikz/F002_constant_global_not_strict.tex}\end{center}
+常数函数内部也处处取得最值，但附近有同高点，所以\textbf{不符合本文采用的严格极值定义}。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\paragraph{极大值一定比极小值大吗？不同位置不能这样比}
+\begin{center}\input{assets/tikz/F002_local_max_below_local_min.tex}\end{center}
+
+图中取 $f(x)=x+2\sin x$，有 $f'(x)=1+2\cos x$。在 $x=2\pi/3$ 处，导数由正变负，取得极大值
+\[
+ f(2\pi/3)=2\pi/3+\sqrt3\approx3.826;
+\]
+在 $x=10\pi/3$ 处，导数由负变正，取得极小值
+\[
+ f(10\pi/3)=10\pi/3-\sqrt3\approx8.740.
+\]
+这里\textbf{前一个极大值反而小于后一个极小值}。
+这些数分别只和\textbf{各自附近}比较，不是同一范围里的整体最高、最低。
+数值由上述精确式计算，四舍五入到小数点后三位。
+\end{explanationbox}
+
+
+\clearpage
+\begin{explanationbox}
+\paragraph{极值点说“在哪里”，极值说“多大”}
+
+\begin{center}\input{assets/tikz/F002_shifted_peak_coordinates.tex}\end{center}
+
+图中峰顶是曲线上的点 $(2,5)$：\textbf{极大值点的横坐标是 $2$，极大值是 $5$}。
+虚线分别把位置与高度投影到两条坐标轴上。答题时不能把它们混写。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\paragraph{一个实用的观察：减去函数值，再寻找平方因子}
+
+\begin{center}\input{assets/tikz/F002_square_factor_neighborhood.tex}\end{center}
+
+先看具体例子 $q(x)=x^2(x+3)$。在 $0$ 附近，除了 $x=0$ 本身，
+平方因子为正，$x+3$ 也为正，因此附近的曲线都在 $q(0)=0$ 上方。
+远处即使出现更小的函数值，也不影响 $0$ 是极小值点。
+
+一般地，如果
+\[
+f(x)-f(a)=(x-a)^2A(x),
+\]
+只要在 $a$ 附近 $A(x)>0$，就有 $f(x)>f(a)$（$x\ne a$），因此 $a$ 是极小值点；
+若附近 $A(x)<0$，则是极大值点。\textbf{不必证明整个定义域内都更大或更小。}
+
+\textbf{尖角也可能是最低处。}例如 $|x|$ 在 $0$ 处不可导，却在这里取得极小值；
+后面的例4与易错一会直接画出这种情况。因此还要留意不能求导的内部点。
 \end{explanationbox}

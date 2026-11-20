@@ -1,0 +1,50 @@
+% F002: four derivative/extremum cases, all at the interior point x=0.
+\begin{tikzpicture}[font=\small,>=stealth,line cap=round]
+\begin{scope}[shift={(0,6.1)}]
+\node at (2.9,4.5) {$f(x)=x^3$};
+\begin{scope}[shift={(2.9,2.2)},x=1.65cm,y=1.3cm]
+  \draw[gray,->] (-1.35,0)--(1.4,0) node[right] {$x$};
+  \draw[gray,->] (0,-1.3)--(0,1.2) node[below left=4pt] {$y$};
+  \draw[blue!70!black,very thick,domain=-1.05:1.05,samples=81] plot (\x,{\x*\x*\x});
+\draw[orange!85!black,thick] (-.42,0)--(.42,0);
+  \fill[orange!85!black] (0,0) circle(2pt);
+  \node[below right=5pt] at (0,0) {$O$};
+\end{scope}
+\node[align=center] at (2.9,-.6) {$f'(0)=0$：水平切线\\[5pt]导数为零，但 $0$ 不是极值点};
+\end{scope}
+\begin{scope}[shift={(6.4,6.1)}]
+\node at (2.9,4.5) {$f(x)=x$};
+\begin{scope}[shift={(2.9,2.2)},x=1.65cm,y=1.3cm]
+  \draw[gray,->] (-1.35,0)--(1.4,0) node[right] {$x$};
+  \draw[gray,->] (0,-1.3)--(0,1.2) node[below left=4pt] {$y$};
+  \draw[blue!70!black,very thick] (-1.05,-1.05)--(1.05,1.05);
+\draw[orange!85!black,thick] (-.42,-.42)--(.42,.42);
+  \fill[orange!85!black] (0,0) circle(2pt);
+  \node[below right=5pt] at (0,0) {$O$};
+\end{scope}
+\node[align=center] at (2.9,-.6) {$f'(0)=1\ne0$：斜切线\\[5pt]导数不为零，$0$ 不是极值点};
+\end{scope}
+\begin{scope}[shift={(0,0)}]
+\node at (2.9,4.5) {$f(x)=|x|$};
+\begin{scope}[shift={(2.9,2.2)},x=1.65cm,y=1.3cm]
+  \draw[gray,->] (-1.35,0)--(1.4,0) node[right] {$x$};
+  \draw[gray,->] (0,-1.3)--(0,1.2) node[below left=4pt] {$y$};
+  \draw[blue!70!black,very thick] (-1.05,1.05)--(0,0)--(1.05,1.05);
+  \fill[orange!85!black] (0,0) circle(2pt);
+  \node[below right=5pt] at (0,0) {$O$};
+\end{scope}
+\node[align=center] at (2.9,-.6) {左斜率 $-1$，右斜率 $1$\\[5pt]不可导，但 $0$ 是极小值点};
+\end{scope}
+\begin{scope}[shift={(6.4,0)}]
+\node at (2.9,4.5) {$f(x)=\sqrt[3]{x}$};
+\begin{scope}[shift={(2.9,2.2)},x=1.65cm,y=1.3cm]
+  \draw[gray,->] (-1.35,0)--(1.4,0) node[right] {$x$};
+  \draw[gray,->] (0,-1.3)--(0,1.2) node[below left=4pt] {$y$};
+  \draw[blue!70!black,very thick,variable=\t,domain=-1.05:1.05,samples=121] plot ({\t*\t*\t},\t);
+\draw[orange!85!black,thick] (0,-.42)--(0,.42);
+  \fill[orange!85!black] (0,0) circle(2pt);
+  \node[below right=5pt] at (0,0) {$O$};
+\end{scope}
+\node[align=center] at (2.9,-.6) {橙线为竖直切线：没有有限导数\\[5pt]仍一直增，$0$ 不是极值点};
+\end{scope}
+\end{tikzpicture}

@@ -1,0 +1,16 @@
+% F002: exact mathematical teaching diagram.
+\begin{tikzpicture}[font=\small,>=stealth]
+\node at (5.7,5.4) {$g(x)=(x-2)^2+3$};
+\begin{scope}[x=2.4cm,y=.72cm]
+\draw[gray,->] (-.25,0)--(4.3,0) node[right] {$x$};
+\draw[gray,->] (0,-.3)--(0,6.1) node[above] {$y$};
+\draw[blue!70!black,very thick,domain=.5:3.5,samples=80] plot (\x,{(\x-2)^2+3});
+\draw[gray,dashed] (2,0)--(2,3)--(0,3);
+\fill[orange!85!black] (2,3) circle(2pt);
+\node[above=10pt] at (2,3) {$(2,3)$};
+\node[below=5pt,align=center] at (2,0) {$2$\\极小值点：横坐标};
+\node[left=8pt] at (0,3) {$3$};
+\end{scope}
+\node[anchor=west] at (9.1,4.0) {极小值为 $3$};
+\node at (5.7,-1.9) {$x\ne2$ 时，$g(x)-g(2)=(x-2)^2>0$};
+\end{tikzpicture}

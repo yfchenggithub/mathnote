@@ -1,0 +1,16 @@
+% F002: exact mathematical teaching diagram.
+\begin{tikzpicture}[font=\small,>=stealth]
+\node at (6.2,4.1) {观察导数曲线：穿过 $x$ 轴才变号，接触后返回则不变号};
+\foreach \offset/\power/\formula in {0/1/x,6.5/2/x^2}{
+\begin{scope}[shift={(\offset,0)}]
+\node at (2.9,3.35) {$f'(x)=\formula$};
+\begin{scope}[shift={(2.9,1.3)},x=1.55cm,y=1.2cm]
+\draw[gray,->] (-1.3,0)--(1.35,0) node[right] {$x$};
+\draw[gray,->] (0,-1.35)--(0,1.2) node[below left=4pt] {$f'$};
+\draw[teal!70!black,very thick,domain=-1.05:1.05,samples=81] plot (\x,{(\x)^\power});
+\fill[orange!85!black] (0,0) circle(1.8pt);
+\end{scope}
+\end{scope}}
+\node[align=center] at (2.9,-1.0) {一个 $x$：负变正\\例如 $f(x)=x^2/2$，在 $0$ 处极小};
+\node[align=center] at (9.4,-1.0) {两个 $x$：两侧均正\\例如 $f(x)=x^3/3$，在 $0$ 处无极值};
+\end{tikzpicture}

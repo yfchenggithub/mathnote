@@ -1,0 +1,27 @@
+% F002: two reasons a global minimum need not have a zero derivative.
+\begin{tikzpicture}[font=\small,>=stealth,line cap=round]
+\node at (2.9,4.5) {$f(x)=x$，只在 $[0,1]$ 上比较};
+\node at (9.3,4.5) {$g(x)=|x|$，在 $[-1,1]$ 上比较};
+\foreach \cx in {2.9,9.3}{
+  \begin{scope}[shift={(\cx,2)},x=1.65cm,y=1.65cm]
+    \draw[gray,->] (-1.28,0)--(1.35,0) node[right] {$x$};
+    \draw[gray,->] (0,-.45)--(0,1.2) node[below left=4pt] {$y$};
+  \end{scope}
+}
+\begin{scope}[shift={(2.9,2)},x=1.65cm,y=1.65cm]
+  \draw[blue!70!black,very thick] (0,0)--(1,1);
+  \fill[orange!85!black] (0,0) circle(2pt);
+  \fill[orange!85!black] (1,1) circle(2pt);
+  \node[below right=5pt] at (0,0) {$0$};
+  \node[below right=6pt] at (1,1) {$(1,1)$};
+\end{scope}
+\begin{scope}[shift={(9.3,2)},x=1.65cm,y=1.65cm]
+  \draw[blue!70!black,very thick] (-1,1)--(0,0)--(1,1);
+  \fill[orange!85!black] (0,0) circle(2pt);
+  \node[below right=5pt] at (0,0) {$O$};
+\end{scope}
+\node[align=center] at (2.9,.25)
+  {原函数在实数范围有 $f'(x)=1$\\[5pt]区间端点仍取得最小值 $0$、最大值 $1$};
+\node[align=center] at (9.3,.25)
+  {原点左右斜率 $-1\ne1$，不可导\\[5pt]却同时取得极小值和最小值 $0$};
+\end{tikzpicture}

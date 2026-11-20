@@ -1,0 +1,19 @@
+% F002: exact trig model, radians converted explicitly for PGF trigonometry.
+\begin{tikzpicture}[font=\small,>=stealth]
+\node at (6,7.5) {$f(x)=x+2\sin x$：较早的极大值，可以小于较后的极小值};
+\begin{scope}[shift={(.45,.65)},x=.88cm,y=.45cm]
+  \draw[gray,->] (-.2,0)--(13.1,0) node[right] {$x$};
+  \draw[gray,->] (0,-.6)--(0,13.6) node[below left=4pt] {$y$};
+  \draw[blue!70!black,very thick,domain=0:12.5663706144,samples=201]
+    plot (\x,{\x+2*sin(deg(\x))});
+  \coordinate (A) at ({2*pi/3},{2*pi/3+sqrt(3)});
+  \coordinate (B) at ({10*pi/3},{10*pi/3-sqrt(3)});
+  \fill[orange!85!black] (A) circle(2.2pt);
+  \fill[orange!85!black] (B) circle(2.2pt);
+  \node[align=center] at ({2*pi/3},6.5) {极大值约 $3.826$\\$x=2\pi/3$};
+  \draw[gray,->] ({2*pi/3},5.2)--({2*pi/3},4.05);
+  \node[align=center] at ({10*pi/3},5.2) {极小值约 $8.740$\\$x=10\pi/3$};
+  \draw[gray,->] ({10*pi/3},6.6)--({10*pi/3},8.5);
+\end{scope}
+\node at (6,-.55) {只与各自附近比较，不能把不同位置的极大值、极小值统一排序。};
+\end{tikzpicture}

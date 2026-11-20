@@ -8,9 +8,12 @@
 左图 $y=x^3$ 在 $0$ 处导数为 $0$，但它始终递增，不存在极值；右图 $y=|x|$ 在 $0$ 处没有导数，却有极小值。
 \textbf{纠正：}先找导数为零的点，再检查导数不能求的位置；最后\textbf{逐个判断}，不是列出候选点就做完了。
 
+\end{trapbox}
+\clearpage
+\begin{trapbox}
 \begin{minipage}{\linewidth}
-\paragraph{易错二：忘记函数在判断点处是否连续}
-\input{assets/tikz/F002_new_endpoint_jump.tex}
+\paragraph{易错二：导数变号法不能漏掉连续条件}\mbox{}\par
+\input{assets/tikz/F002_continuity_comparison.tex}
 \end{minipage}
 
 看右图的函数：
@@ -25,20 +28,47 @@ f(x)=\begin{cases}
 其实当 $0<|x|<1$ 时，$-x^2>-1=f(0)$，所以\textbf{$0$ 是极小值点}！
 关键原因：函数在 $0$ 处不连续，不能使用前面“先增后减”的结论。
 
+\end{trapbox}
+\clearpage
+\begin{trapbox}
 \paragraph{易错三：把闭区间两端的最大、最小值与内部极值混淆}
-看左图的 $y=x$，只考虑 $0\le x\le1$，最小值是 $f(0)=0$，最大值是 $f(1)=1$。
+\begin{center}\input{assets/tikz/F002_endpoints.tex}\end{center}
+
+考虑 $y=x$，只考虑 $0\le x\le1$，最小值是 $f(0)=0$，最大值是 $f(1)=1$。
 但本条用“左右都能比较”的约定讨论极值，端点 $0$ 和 $1$ 不算内部极值点。
 \textbf{纠正：}求闭区间上的最大值、最小值，要同时检查\textbf{内部候选点和两个端点}。
 
+\end{trapbox}
+\clearpage
+\begin{trapbox}
 \paragraph{易错四：只报横坐标，没求函数值}
-“极大值点是 $x=a$”说的是\textbf{在哪里}；“极大值是 $f(a)$”说的是\textbf{多大}。
-例如 $f(x)=-(x-2)^2+5$，极大值点为 $2$，极大值为 $5$，不能混写。
+\begin{center}\input{assets/tikz/F002_shifted_peak_coordinates.tex}\end{center}
 
-\paragraph{易错五：以为某点的导数不为零，就完全不能成为最值点}
-只有\textbf{定义域内部且可导}的极值点，才必须满足 $f'(a)=0$。
-闭区间端点可能是最大值或最小值点，尖角处也可能取到最小值；它们都不需要满足这条必要条件。
+\textbf{错误：}题目问极大值，却只答 $x=2$。
+\textbf{看图纠正：}横轴上的 $2$ 回答“在哪里”，是极大值点；纵轴上的 $5$ 回答“多大”，才是极大值。
+先找位置，再代回原函数求值，不能把 $a$ 和 $f(a)$ 混写。
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\paragraph{易错五：以为导数不为零，就完全不能取到最值}
+\begin{center}\input{assets/tikz/F002_endpoint_corner_candidates.tex}\end{center}
 
+\textbf{错误：}把“内部极值点且可导 $\Rightarrow f'(a)=0$”，扩大成“凡是最值点，导数都必须为零”。
+
+左图的原函数 $f(x)=x$ 在实数范围内有 $f'(x)=1$，但如果\textbf{只在 $[0,1]$ 上求最值}，
+最小值与最大值仍分别在端点 $0,1$ 取得。右图的 $|x|$ 在内部的 $0$ 处不可导，却取得最小值 $0$。
+
+\textbf{纠正：}求闭区间上的最值，要检查\textbf{端点、内部导数为零的点、内部不可导的点}。
+“导数必须为零”只适用于\textbf{区间内部且可导}的极值点，不能拿它排除端点或尖角。
+\end{trapbox}
+\clearpage
+\begin{trapbox}
 \paragraph{易错六：死记正负号，不联系图像}
-导数为正时函数增，为负时函数减；从左往右看，\textbf{正变负是山顶，负变正是谷底}。
-如果左右导数都正或都负（且函数在判断点连续），函数没有在该点转头，不能判极值。
+\begin{center}\input{assets/tikz/F002_four_derivative_cases.tex}\end{center}
+
+\textbf{错误：}只看到 $f'(0)=0$，或只背符号，没有检查左右实际怎样变化。
+\textbf{看图纠正：}四图在原点的切线全都水平，但只有正变负、负变正的两图发生增减反向，分别是极大值、极小值。
+两侧都正的 $x^3$ 一直增，两侧都负的 $-x^3$ 一直减，都没有在原点取得极值。
+
+使用这种符号判断时，仍要先确认：函数在判断点\textbf{连续}，两侧足够近的地方\textbf{可导}，并且\textbf{各侧导数保持所写的正负号}。
 \end{trapbox}

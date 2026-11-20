@@ -1,0 +1,23 @@
+% F002: exact mathematical teaching diagram.
+\begin{tikzpicture}[font=\small,>=stealth]
+\node at (6.2,4.5) {同样左正右负，改变判断点的函数值，结论可以相反};
+\foreach \offset in {0,6.4}{
+\begin{scope}[shift={(\offset,0)}]
+\begin{scope}[shift={(2.9,2.8)},x=1.8cm,y=1.8cm]
+\draw[gray,->] (-1.18,0)--(1.25,0) node[right] {$x$};
+\draw[gray,->] (0,-1.25)--(0,.35) node[below left=4pt] {$y$};
+\draw[blue!70!black,very thick,domain=-.85:0,samples=40] plot (\x,{-\x*\x});
+\draw[blue!70!black,very thick,domain=0:.85,samples=40] plot (\x,{-\x*\x});
+\end{scope}
+\node at (1.55,3.6) {$f'>0$};\node at (4.25,3.6) {$f'<0$};
+\end{scope}}
+\fill[orange!85!black] (2.9,2.8) circle(2pt);
+\node[anchor=west] at (3.3,1.0) {$f(0)=0$};
+\draw[blue!70!black,fill=white,thick] (9.3,2.8) circle(2.5pt);
+\fill[orange!85!black] (9.3,1.0) circle(2pt);
+\draw[gray,dashed] (7.6,1.0)--(11,1.0);
+\node[below right=7pt] at (9.3,1.0) {$f(0)=-1$};
+\node at (2.9,-.5) {连续：$0$ 是极大值点};
+\node at (9.3,-.5) {不连续：$0$ 反而是极小值点};
+\node at (6.2,-1.25) {图取 $|x|<1$；右图实点低于左右所有足够近的曲线点。};
+\end{tikzpicture}

@@ -1,30 +1,44 @@
 \begin{statementbox}
-\paragraph{判断极大值、极小值，先看一个点的左右}
-\begin{center}\input{assets/tikz/F002_new_peak_valley.tex}\end{center}
+	\paragraph{判断极大值、极小值，先看一个点的左右}
+	\begin{center}\input{assets/tikz/F002_new_peak_valley.tex}\end{center}
 
-设 $x_0$ 是函数定义域内部的一个点，$x_0$ 左右都有可以取到的自变量。
-只要在它左右\textbf{足够近}的地方（不包括 $x_0$ 本身），函数值总比 $f(x_0)$ 小，就说 $x_0$ 是\textbf{极大值点}，$f(x_0)$ 是\textbf{极大值}；
-若附近的函数值总比 $f(x_0)$ 大，就说 $x_0$ 是\textbf{极小值点}，$f(x_0)$ 是\textbf{极小值}。
-\textbf{这里比的是附近，不是拿整个定义域的所有点来比较。}
+	设 $x_0$ 是函数定义域内部的一个点，$x_0$ 左右都有可以取到的自变量。
+	只要在它左右\textbf{足够近}的地方（不包括 $x_0$ 本身），函数值总比 $f(x_0)$ 小，就说 $x_0$ 是\textbf{极大值点}，$f(x_0)$ 是\textbf{极大值}；
+	若附近的函数值总比 $f(x_0)$ 大，就说 $x_0$ 是\textbf{极小值点}，$f(x_0)$ 是\textbf{极小值}。
+	\textbf{这里比的是附近，不是拿整个定义域的所有点来比较。}
 
-\paragraph{考场上最常用的三个判断}
-\begin{enumerate}
-\item \textbf{先找可能的位置：}如果某一点是极大值点或极小值点，而且函数在那里\textbf{可以求导}，那么该点的导数一定等于 $0$：
-\[
-\boxed{\text{在内部取到极值且该点可导}\ \Longrightarrow\ f'(x_0)=0.}
-\]
-但\textbf{导数等于 $0$，不一定有极值}；即使不能求导，也可能有极值。
-\item \textbf{看导数左右的正负：}如果函数在 $x_0$ 处\textbf{连续}，在 $x_0$ 左右足够近的两段都可以求导，且导数在每一侧都保持所说的正负号，那么
-\[
-\begin{array}{c|c|c}
-\text{左边的导数} & \text{右边的导数} & \text{结论}\\ \hline
-+&-&\text{极大值（先增后减）}\\
--&+&\text{极小值（先减后增）}\\
-+&+&\text{不是极值（一直增）}\\
--&-&\text{不是极值（一直减）}
-\end{array}
-\]
-\item \textbf{不会看导数时，直接比大小：}如果能证明 $f(x)-f(x_0)$ 在 $x_0$ 附近恒为正或恒为负，也能直接判断极小值或极大值，不必求导。
-\end{enumerate}
-\textbf{特别说明：}上面的“总比它大或小”采用严格比较；若函数在一段上完全不变，不能直接套用“先增后减”的结论。
+	\end{statementbox}
+\clearpage
+\begin{statementbox}
+\paragraph{第一步：先找可能的极值点}
+	\textbf{先找可能的位置：}如果某一点是极大值点或极小值点，而且函数在那里\textbf{可以求导}，那么该点的导数一定等于 $0$：
+	\[
+		\boxed{\text{在内部取到极值且该点可导}\ \Longrightarrow\ f'(x_0)=0.}
+	\]
+\textbf{导数等于 $0$，不一定有极值；导数存在且不等于 $0$，一定不是内部极值点。}
+\textbf{不能求导时，既可能有极值，也可能没有极值。}
+下面四图都以定义域内部的 $0$ 为判断点，采用相同坐标尺度。
+	\begin{center}\input{assets/tikz/F002_candidate_counterexamples.tex}\end{center}
+
+\end{statementbox}
+\clearpage
+\begin{statementbox}
+	\paragraph{四种导数符号，对应四种曲线走向}
+	\textbf{看导数左右的正负：}如果函数在 $x_0$ 处\textbf{连续}，在 $x_0$ 左右足够近的两段都可以求导，且导数在每一侧都保持所说的正负号，那么
+	\[
+		\begin{array}{c|c|c}
+			\text{左边的导数} & \text{右边的导数} & \text{结论}        \\ \hline
+			+            & -            & \text{极大值（先增后减）} \\
+			-            & +            & \text{极小值（先减后增）} \\
+			+            & +            & \text{不是极值（一直增）} \\
+			-            & -            & \text{不是极值（一直减）}
+		\end{array}
+	\]
+
+	\begin{center}\input{assets/tikz/F002_four_derivative_cases.tex}\end{center}
+	\textbf{不会看导数时，直接比大小：}如果能证明 $f(x)-f(x_0)$ 在 $x_0$ 附近（$x\ne x_0$）恒为正或恒为负，也能直接判断极小值或极大值，不必求导。
+
+	\textbf{四图都满足 $f'(0)=0$：}导数等于零只能说明切线水平；是否转头，要看左右。
+
+	\textbf{特别说明：}上面的“总比它大或小”采用严格比较；若函数在一段上完全不变，不能直接套用“先增后减”的结论。
 \end{statementbox}
