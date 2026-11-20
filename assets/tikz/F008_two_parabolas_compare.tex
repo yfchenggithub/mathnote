@@ -1,0 +1,14 @@
+
+\begin{tikzpicture}[x=1.2cm,y=.65cm,>=stealth]
+  \draw[->,gray!65] (-2.0,0)--(2.6,0) node[right] {$x$};
+  \draw[->,gray!65] (0,-.15)--(0,6.8) node[above] {$Y$};
+  \draw[blue!80!black,thick,domain=-1.9:2.2,samples=110] plot (\x,{\x*\x+1});
+  \draw[orange!90!black,thick,domain=-1.9:2.2,samples=110] plot (\x,{(3-sqrt(5))/2*(\x*\x+2*\x+2)});
+  \coordinate (T) at ({(sqrt(5)-1)/2},{((sqrt(5)-1)/2)*((sqrt(5)-1)/2)+1});
+  \fill[red!80!black] (T) circle(1.9pt);
+  \draw[dashed,gray!70] (T)--({(sqrt(5)-1)/2},0);
+  \node[blue!80!black,anchor=west] at (1.26,5.95) {$Y=x^2+1$};
+  \node[orange!90!black,anchor=west,scale=.86] at (.88,.62) {$Y=k(x^2+2x+2)$};
+  \node[red!75!black,anchor=west,scale=.85] at (.7,2.5) {相切点};
+  \node[scale=.74,anchor=west] at (-1.7,6.15) {$k=(3-\sqrt5)/2$};
+\end{tikzpicture}

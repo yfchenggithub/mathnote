@@ -1,6 +1,6 @@
 \clearpage
 \begin{proofbox}
-  \textbf{\textcolor{CProof}{方法一：把 $y$ 当成已知数，完整证明通用结论（最重要）}}
+  \textbf{\textcolor{CProof}{方法一：判别式法（通用主方法）}}
 \begin{center}\input{assets/tikz/F008_discriminant_band.tex}\end{center}
 
 
@@ -93,7 +93,7 @@
   \end{proofbox}
 \clearpage
 \begin{proofbox}
-\textbf{\textcolor{CProof}{方法二：先拆开分式，用 $x^2\ge0$ 求范围（初中也能理解）}}
+\textbf{\textcolor{CProof}{额外简便法 A：拆开分式，用 $x^2\ge0$ 求范围（初中也能理解）}}
 \begin{center}\input{assets/tikz/F008_missing_lower_endpoint.tex}\end{center}
 
 
@@ -121,7 +121,7 @@
   \end{proofbox}
 \clearpage
 \begin{proofbox}
-\textbf{\textcolor{CProof}{方法三：利用平方不小于 $0$，同时锁定最大值和最小值}}
+\textbf{\textcolor{CProof}{额外验证法 B：利用平方不小于 $0$，核对最大值和最小值}}
 \begin{center}\input{assets/tikz/F008_square_boundary_residuals.tex}\end{center}
 
 
@@ -172,18 +172,139 @@
     (1-y)x^2-2yx+(1-2y)=0
   \]
   并令 $\Delta(y)=0$，就得到 $y^2-3y+1=0$，解出的两个数恰好是 $L$ 与 $U$。
-  方法一善于\textbf{找到边界}，方法三则能用平方\textbf{直接解释为什么越不过边界、什么时候取到边界}。
+  方法一善于\textbf{找到边界}，平方验证还能用平方\textbf{直接解释为什么越不过边界、什么时候取到边界}。
 
   \medskip
   \textbf{\textcolor{CProof}{结论回扣}}
-  三种方法不是每题都要用：\textbf{能拆就拆，拆不开用判别式；想进一步解释最值为什么成立，可以配平方验证。}
+  这些方法不是每题都要用：\textbf{能拆就拆，拆不开用判别式；想进一步解释最值为什么成立，可以配平方验证。}
 \end{proofbox}
 
+
+
+% ===== 新增主方法二 =====
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法二：两条抛物线比较法（直接把判别式看成相切）}}
+
+\textbf{从哪里想到？}分子、分母分别是熟悉的二次函数。求
+\[
+ F(x)=\frac{x^2+1}{x^2+2x+2},\qquad x^2+2x+2>0
+\]
+的值域，不妨问：哪一个数 $k$ 能让下面两条抛物线相交？
+\[
+  Y=x^2+1,\qquad Y=k(x^2+2x+2).
+\]
+只要有交点，它们的纵坐标就相等，说明 $F(x)=k$。
+
+\begin{center}\input{assets/tikz/F008_two_parabolas_compare.tex}\end{center}
+
+\textbf{第 1 步：找交点。}
+\[
+  x^2+1=k(x^2+2x+2)
+  \quad\Longleftrightarrow\quad
+  (1-k)x^2-2kx+(1-2k)=0.
+\]
+
+\textbf{第 2 步：判断何时相交。}当 $k\ne1$，这是二次方程，必须满足
+\[
+  \begin{aligned}
+  \Delta(k)&=(-2k)^2-4(1-k)(1-2k)\\
+  &=4(-k^2+3k-1)\ge0.
+  \end{aligned}
+\]
+因此候选范围是
+\[
+ \boxed{\frac{3-\sqrt5}{2}\le k\le\frac{3+\sqrt5}{2}}.
+\]
+
+\textbf{第 3 步：解释边界为什么是相切。}
+在边界处 $\Delta(k)=0$ 且 $k\ne1$，两个抛物线的纵坐标之差是
+$(1-k)(x-x_0)^2$ 的形式。
+这时差在 $x_0$ 等于 $0$，并且两条曲线在该点的斜率也相同，所以恰好相切。
+两个边界的交点横坐标分别为
+\[
+  x=\frac{\sqrt5-1}{2}\quad\text{和}\quad x=-\frac{\sqrt5+1}{2},
+\]
+原分母都大于 $0$，故端点都能取到。
+
+\textbf{第 4 步：别漏掉 $k=1$。}此时方程降为 $-2x-1=0$，有解 $x=-\frac12$。
+两抛物线在该处\textbf{相交却不相切}：它们的导数分别是 $2x=-1$ 与 $2x+2=1$。
+因此 $k=1$ 也在值域里，但不能用“只有一个交点就是相切”来解释。
+
+\textbf{与方法一的关系：}两种计算几乎相同，但这一法先画出两条现成的二次函数，
+\textbf{让学生看见判别式的来历}，而不是再机械套一次公式。
+\end{proofbox}
+
+
+% ===== 新增主方法三 =====
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法三：距离平方比法（从勾股定理走到圆）}}
+
+\textbf{第 1 步：从原式自然发现距离。}
+\[
+  F(x)=\frac{x^2+1}{x^2+2x+2}
+  =\frac{x^2+1^2}{(x+1)^2+1^2}.
+\]
+取动点 $P(x,0)$ 与固定点 $A(0,1)$、$B(-1,1)$，由勾股定理：
+\[
+   PA^2=x^2+1,\qquad PB^2=(x+1)^2+1.
+\]
+因而
+\[
+  \boxed{F(x)=\frac{PA^2}{PB^2}.}
+\]
+\begin{center}\input{assets/tikz/F008_distance_square_geometry.tex}\end{center}
+
+\textbf{第 2 步：固定距离平方比，问能否找到这样的 $P$。}
+设 $F(x)=k$。因为 $PA,PB$ 都大于 $0$，所以 $k>0$。
+先想象点不只在 $x$ 轴上，而是平面中的任意点 $T(s,t)$。
+条件 $TA^2=kTB^2$ 写成
+\[
+   s^2+(t-1)^2=k\bigl[(s+1)^2+(t-1)^2\bigr].
+\]
+对 $k\ne1$，移项并配方：
+\[
+  \boxed{\left(s-\frac{k}{1-k}\right)^2+(t-1)^2
+    =\frac{k}{(1-k)^2}.}
+\]
+它表示一个圆，圆心为 $\bigl(\frac{k}{1-k},1\bigr)$，
+半径为 $r=\frac{\sqrt{k}}{|1-k|}$。
+
+\textbf{第 3 步：原题要求点 $P$ 留在 $x$ 轴。}
+圆心到 $x$ 轴的距离恰好为 $1$。
+圆能够与 $x$ 轴相交，当且仅当 $r\ge1$：
+\[
+  \frac{\sqrt{k}}{|1-k|}\ge1
+  \quad\Longleftrightarrow\quad k\ge(1-k)^2
+  \quad\Longleftrightarrow\quad k^2-3k+1\le0.
+\]
+所以
+\[
+  \boxed{\frac{3-\sqrt5}{2}\le k\le\frac{3+\sqrt5}{2}}.
+\]
+
+\textbf{第 4 步：补查 $k=1$ 和两端。}
+当 $k=1$，$TA=TB$ 的点组成直线 $s=-\frac12$，
+它与 $x$ 轴相交于 $P(-\frac12,0)$，因此 $k=1$ 能取到。
+在上下端点处，圆与 $x$ 轴恰好相切，
+切点横坐标为 $x=\frac{k}{1-k}$，分别得到
+\[
+ x=\frac{\sqrt5-1}{2},\qquad x=-\frac{\sqrt5+1}{2}.
+\]
+所以两端\textbf{都能取到}。
+
+\medskip
+\textbf{适用范围与推广：}本题分子、分母恰好都是距离的平方。
+更一般地，若两者都是\textbf{始终大于 $0$、二次项系数也为正}的二次式，
+配方后也可以写成“某个正数乘以距离平方”，再研究两段距离的比。
+但分子可能为负、或者不能配成正的平方和时，不能强行套这张几何图。
+\end{proofbox}
 
 % ==== 新增：直接用原来的 x 的两种数形结合证明，不删除原三种证明 ====
 \clearpage
 \begin{proofbox}
-  \textbf{\textcolor{CProof}{几何补充一：抛物线斜率法（从分式本身自然想到）}}
+  \textbf{\textcolor{CProof}{方法四：抛物线斜率法（从分式本身自然想到）}}
 
   \medskip
   \textbf{问题：}不用先求导、不改变原来的自变量，求
@@ -247,7 +368,7 @@
 
 \clearpage
 \begin{proofbox}
-  \textbf{\textcolor{CProof}{几何补充二：单位圆法（从平方差自然找到勾股关系）}}
+  \textbf{\textcolor{CProof}{方法五：单位圆法（从平方差自然找到勾股关系）}}
 
   \medskip
   还是研究同一个函数，完全保留原来的 $x$：
@@ -334,3 +455,108 @@
   \textbf{不能为了用圆而先凭空设两个分式，也不能忽略圆上的缺口。}
 \end{proofbox}
 
+
+% ===== 新增主方法六 =====
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法六：倒数对称法（一端算出，另一端立即得到）}}
+
+\textbf{第 1 步：观察两个平方和。}
+\[
+ F(x)=\frac{x^2+1}{(x+1)^2+1}.
+\]
+分子对应 $x$，分母对应 $x+1$。希望把分子、分母交换，
+就试着找另一个横坐标，使新式中的平方分别变成 $(x+1)^2$ 和 $x^2$。
+直接取原式中已有的对称位置 $-x-1$，验算：
+\[
+ \begin{aligned}
+ F(-x-1)
+ &=\frac{(-x-1)^2+1}{(-x)^2+1}\\
+ &=\frac{(x+1)^2+1}{x^2+1}
+ =\frac1{F(x)}.
+ \end{aligned}
+\]
+故
+\[
+ \boxed{F(x)F(-x-1)=1.}
+\]
+
+\textbf{第 2 步：找出图像成对出现的点。}
+$x$ 与 $-x-1$ 的中点恒为 $-\frac12$，两者在直线 $x=-\frac12$ 两侧成对。
+若 $F(x)=k$，则 $F(-x-1)=1/k$。
+例如 $x=0$ 时 $F(0)=1/2$，而 $x=-1$ 时 $F(-1)=2$。
+
+\textbf{第 3 步：如何帮助求值域？}
+这道题的函数始终大于 $0$，而且确实存在最大、最小值（可用方法一、三、七确认）。
+既然每个函数值都有倒数与它配对，便有
+\[
+ \boxed{F_{\min}=\frac1{F_{\max}}.}
+\]
+比如先由任意一种完整方法求得
+\[
+  F_{\max}=\frac{3+\sqrt5}{2},
+\]
+便立即得到
+\[
+  F_{\min}=\frac{2}{3+\sqrt5}=\frac{3-\sqrt5}{2}.
+\]
+
+\textbf{特别说明：}这是\textbf{特殊结构的提速办法}，并不能单凭
+$F(x)F(-x-1)=1$ 就算出最大值的数字；必须先用其他方法确定一端。
+一般二次分式也不一定具有这个关系。
+\end{proofbox}
+
+
+% ===== 新增主方法七 =====
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法七：导数法（高中常规最值路线）}}
+
+研究
+\[
+ F(x)=\frac{x^2+1}{x^2+2x+2},\qquad x^2+2x+2>0.
+\]
+
+\textbf{第 1 步：求导，判断函数怎样变化。}
+由分式求导公式：
+\[
+ \begin{aligned}
+ F'(x)
+ &=\frac{2x(x^2+2x+2)-(x^2+1)(2x+2)}{(x^2+2x+2)^2}\\
+ &=\boxed{\frac{2(x^2+x-1)}{(x^2+2x+2)^2}}.
+ \end{aligned}
+\]
+分母平方始终大于 $0$，所以导数正负只看 $x^2+x-1$。
+它等于 $0$ 的两个数是
+\[
+  x_1=\frac{-1-\sqrt5}{2},\qquad x_2=\frac{-1+\sqrt5}{2},\qquad x_1<x_2.
+\]
+当 $x<x_1$，$F'>0$；当 $x_1<x<x_2$，$F'<0$；
+当 $x>x_2$，$F'>0$。
+于是函数\textbf{先升、后降、再升}：$x_1$ 是最高点，$x_2$ 是最低点的候选。
+
+\textbf{第 2 步：计算两个候选值。}
+由于 $x_1,x_2$ 都满足 $x^2+x-1=0$，所以在这两个位置
+\[
+ x^2=1-x,\qquad
+ F(x)=\frac{2-x}{3+x}.
+\]
+分别代入得到
+\[
+  F(x_1)=\frac{3+\sqrt5}{2},\qquad
+  F(x_2)=\frac{3-\sqrt5}{2}.
+\]
+
+\textbf{第 3 步：判断是否真是整个函数的最大、最小值。}
+当 $x$ 的绝对值越来越大时，$F(x)$ 越来越接近 $1$；
+而上面的一个值大于 $1$，另一个小于 $1$。
+结合三段上的增减方向，可知这两点就是整个实数范围的最值点。
+因此
+\[
+  \boxed{F(x)\in\left[\frac{3-\sqrt5}{2},\,\frac{3+\sqrt5}{2}\right].}
+\]
+
+\textbf{与几何法的联系：}导数等于 $0$，表示函数图像在最值处的切线水平；
+在两条抛物线比较法中，则是 $Y=x^2+1$ 与 $Y=k(x^2+2x+2)$ 在同一点切线斜率相同。
+两种“切线”所在的图像不同，但都描述了函数达到边界时的特殊位置。
+\end{proofbox}
