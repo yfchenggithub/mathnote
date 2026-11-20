@@ -1,5 +1,66 @@
 \clearpage
 \begin{explanationbox}
+
+    \textbf{\textcolor{CExplanation}{先连起旧知识：一次分式其实是“搬过家的反比例函数”}}
+
+    \textbf{第一步：从初中的 $y=\dfrac{3}{x}$ 出发。}
+    对于 $x\ne0$，$y=3/x$ 的图像上任何点的横坐标、纵坐标都不等于 $0$：
+    分母不能是 $0$，而 $3$ 除以非零数也不可能等于 $0$。
+    图像关于原点 $(0,0)$ 成中心对称，\textbf{但图像不经过原点}。
+    再进一步说，图像上\textbf{没有任何点落在 $x=0$ 或 $y=0$ 这两条直线上}。
+
+    \textbf{第二步：整张图向右移动 $1$。}
+    原来点 $(x,y)$ 移到 $(x+1,y)$，因此原式中的 $x$ 改成 $x-1$：
+    \[
+       y=\frac3x\quad\longrightarrow\quad y=\frac3{x-1}.
+    \]
+    原来的中心 $(0,0)$ 移到 $(1,0)$；碰不到的竖线变为 $x=1$，碰不到的横线还是 $y=0$。
+    \textbf{注意：右移 $1$ 是把 $x$ 换成 $x-1$，并不是换成 $x+1$。}
+
+    \textbf{第三步：整张图再向上移动 $2$。}
+    每个点的纵坐标都加上 $2$，于是
+    \[
+       y=\frac3{x-1}\quad\longrightarrow\quad
+       y=2+\frac3{x-1}=\frac{2x+1}{x-1}.
+    \]
+    中心从 $(1,0)$ 移到 $(1,2)$；竖线 $x=1$ 仍碰不到，横线则从 $y=0$ 移到 $y=2$。
+    \textbf{所以这个函数缺少的函数值是 $2$，不是因为只缺少 $(1,2)$ 这一个点，而是整条水平线 $y=2$ 都没有图像上的点。}
+
+    \begin{center}
+        \input{assets/tikz/F007_translation_three_steps.tex}
+    \end{center}
+
+    \textbf{第四步：倒过来看，为什么会想到“分离常数”？}
+    题目给的是 $\dfrac{2x+1}{x-1}$，外表看不出平移。
+    但只要把分子凑成 $2(x-1)+3$，就找回
+    \[
+        \frac{2x+1}{x-1}=2+\frac3{x-1}.
+    \]
+    这样就看清了：\textbf{$x-1$ 表示从原来的 $y=3/x$ 向右移 $1$；前面的 $+2$ 表示向上移 $2$。}
+    分离常数并非凭空创造一种算法，而是\textbf{为了看出原来已经学过的反比例函数及其平移}。
+
+    \textbf{第五步：换成字母，所有同类题都能这样看。}
+    当 $c\ne0$、$ad\ne bc$ 时，
+    \[
+    \begin{aligned}
+      y=\frac{ax+b}{cx+d}
+        &=\frac ac+\frac{bc-ad}{c(cx+d)}\\
+        &=\frac ac+\frac{\dfrac{bc-ad}{c^2}}{x+\dfrac dc}.
+    \end{aligned}
+    \]
+    它就是 $y=v+\dfrac{k}{x-h}$，其中
+    \[
+        \boxed{h=-\frac dc,\quad v=\frac ac,\quad
+               k=\frac{bc-ad}{c^2}\ne0}.
+    \]
+    这三个数各有任务：$h$ 告诉你左右移多少，$v$ 告诉你上下移多少，$k$ 决定两支曲线的方向与伸展程度。
+    特别是：\textbf{左右平移决定不能代入的 $x$，上下平移决定取不到的 $y$。}
+    因为平移只是把原来整张图搬走，原图中每个非零的函数值都会一起搬过去，故在 $x$ 不另受限制时，\textbf{$y$ 除了 $v$ 之外，其余实数仍都能取到}。
+
+    \medskip
+    \hrule
+    \medskip
+
     \textbf{\textcolor{CExplanation}{一、这个方法为什么会出现？}}
 
     先看 $y=\dfrac{2x+1}{x-1}$。直接代入 $x$，会得到许多不同的 $y$，但是试再多数值，也不能确定是否漏掉了某一个数。

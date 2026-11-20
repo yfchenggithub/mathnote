@@ -1,0 +1,14 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!40,rounded corners] (0,0) rectangle (14,6.8);
+\node at (7,6.25) {$f(t)=\sin(3\pi t)$：平移 $1$ 变号，但 $2$ 不是最小正周期};
+\begin{scope}[shift={(1.4,3.1)},x=4.9cm,y=1.3cm]
+\draw[->,gray] (0,0)--(2.25,0) node[right]{$t$};
+\draw[->,gray] (0,-1.2)--(0,1.8) node[above]{$y$};
+\draw[blue,very thick,domain=0:2,samples=200] plot(\x,{sin(540*\x)});
+% Horizontal distances are labeled by the two period arrows.
+\draw[<->,orange!85!black] (0,1.45)--(.6666666667,1.45) node[midway,above]{$T_0=\tfrac23$};
+\draw[<->,teal!80!black] (0,-1.5)--(2,-1.5) node[midway,below]{$T=2=3T_0$};
+\node[below left=4pt] at (0,0){$0$};
+\end{scope}
+\node at (7,.45) {连续代入能证明“一个周期”；最小正周期还要另作判断};
+\end{tikzpicture}

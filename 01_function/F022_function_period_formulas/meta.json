@@ -2,15 +2,16 @@
   "id": "F022",
   "module": "function",
   "core": {
-    "title": "抽象函数周期公式（加常数、反号、倒数、差值型）",
+    "title": "抽象函数周期公式（含分式型）",
     "alias": [
       "周期公式",
       "周期结论",
       "函数周期性质",
       "周期判断方法",
-      "f(x+a)=f(x)型周期"
+      "f(x+a)=f(x)型周期",
+      "抽象函数周期公式（加常数、反号、倒数、差值型）"
     ],
-    "summary": "根据函数方程中的常数加减关系，直接套用周期公式得到周期。",
+    "summary": "由平移、反号、倒数、差值及两类分式关系求一个周期；连续代入两次还原时，2|a|是一个正周期，但不保证最小。",
     "difficulty": 2,
     "category": "函数",
     "tags": [
@@ -38,7 +39,11 @@
       "差值型",
       "T=|a|",
       "T=2|a|",
-      "T=|a-b|"
+      "T=|a-b|",
+      "分式型周期",
+      "两次分式还原",
+      "f(x+a)=(f(x)+1)/(f(x)-1)",
+      "f(x+a)=(1-f(x))/(1+f(x))"
     ],
     "synonyms": [
       "周期怎么求",
@@ -114,19 +119,25 @@
     "related_formulas": [
       "f(x+a)=-f(x) \\Rightarrow T=2|a|",
       "f(x+a)=\\pm\\frac{1}{f(x)} \\; (f(x)\\neq 0) \\Rightarrow T=2|a|",
-      "f(x+a)=f(x+b) \\; (a\\neq b) \\Rightarrow T=|a-b|"
+      "f(x+a)=f(x+b) \\; (a\\neq b) \\Rightarrow T=|a-b|",
+      "f(x+a)=\\frac{f(x)+1}{f(x)-1}\\ (f(x)\\ne1)\\Rightarrow f(x+2a)=f(x)",
+      "f(x+a)=\\frac{1-f(x)}{1+f(x)}\\ (f(x)\\ne-1)\\Rightarrow f(x+2a)=f(x)"
     ],
     "variables": "f: 函数; x: 自变量; a, b: 非零实常数; T: 周期; k: 非零整数",
-    "conditions": "定义域对平移常数封闭（若 $x\\in D$，则 $x\\pm a, x\\pm b \\in D$）；$a,b$ 为非零实常数；倒数型要求 $f(x)\\neq 0$；差值型要求 $a\\neq b$。",
-    "conclusions": "加常数型：$T=|a|$；反号型：$T=2|a|$；倒数型：$T=2|a|$；差值型：$T=|a-b|$。若 $T$ 是一个周期，则 $kT (k\\in\\mathbb{Z}, k\\neq 0)$ 也是周期。"
+    "conditions": "定义域对平移常数封闭（若 $x\\in D$，则 $x\\pm a, x\\pm b \\in D$）；$a,b$ 为非零实常数；倒数型要求 $f(x)\\neq 0$；差值型要求 $a\\neq b$。 新增两类分式型分别要求处处f(x)≠1或处处f(x)≠−1，a≠0，定义域非空且允许加减a；两类等式分别处处成立。",
+    "conclusions": "加常数型：$T=|a|$；反号型：$T=2|a|$；倒数型：$T=2|a|$；差值型：$T=|a-b|$。若 $T$ 是一个周期，则 $kT (k\\in\\mathbb{Z}, k\\neq 0)$ 也是周期。 两类新增分式型均推出2|a|是一个正周期。上述周期均不保证最小。"
   },
   "content": {
-    "statement": "一般地，若函数 $f(x)$ 满足 $f(x+T)=f(x)$（$T\\neq 0$），且定义域关于 $x$ 平移 $T$ 不变，则 $T$ 是 $f$ 的一个周期。由此可得以下常见结论（$a,b$ 为非零实常数）：\n(1) $f(x+a)=f(x)$ ⇒ $T=|a|$；\n(2) $f(x+a)=-f(x)$ ⇒ $T=2|a|$；\n(3) $f(x+a)=\\pm\\frac{1}{f(x)}$（此时 $f(x)\\neq0$）⇒ $T=2|a|$；\n(4) $f(x+a)=f(x+b)$（$a\\neq b$）⇒ $T=|a-b|$。\n以上 $T$ 均指函数的一个周期，通常为最小正周期。",
-    "derivation": [],
+    "statement": "一般地，若函数 $f(x)$ 满足 $f(x+T)=f(x)$（$T\\neq 0$），且定义域关于 $x$ 平移 $T$ 不变，则 $T$ 是 $f$ 的一个周期。由此可得以下常见结论（$a,b$ 为非零实常数）：\n(1) $f(x+a)=f(x)$ ⇒ $T=|a|$；\n(2) $f(x+a)=-f(x)$ ⇒ $T=2|a|$；\n(3) $f(x+a)=\\pm\\frac{1}{f(x)}$（此时 $f(x)\\neq0$）⇒ $T=2|a|$；\n(4) $f(x+a)=f(x+b)$（$a\\neq b$）⇒ $T=|a-b|$。\n以上 $T$ 均指函数的一个周期，不保证是最小正周期。 新增两类分式型：f(x+a)=(f(x)+1)/(f(x)-1)，或f(x+a)=(1-f(x))/(1+f(x))；满足对应非零分母及平移条件时，2|a|是一个正周期。",
+    "derivation": [
+      "令u=f(x)，将x替换为x+a，再将原分式完整代回。",
+      "分别核验第二次分母为2/(u-1)或2/(1+u)，均非零。",
+      "分子分母通分后相除还原u，得到f(x+2a)=f(x)。"
+    ],
     "intuition": "反号型：两次应用 $f(x+a)=-f(x)$ 得 $f(x+2a)= -f(x+a)= -(-f(x))=f(x)$，故周期为 $2|a|$；倒数型同理；差值型通过变量替换令 $u=x+a$ 或令 $x$ 为 $x-b$ 转化为加常数型。",
     "common_tricks": [
       "识别条件类型：加常数型、反号型、倒数型、差值型，对应不同周期公式。",
-      "反号型和倒数型周期是 $2|a|$，不是 $|a|$；差值型注意 $a,b$ 含符号，$T=|a-b|$。",
+      "反号型和倒数型保证 $2|a|$ 是周期，不能直接断定 $|a|$ 是周期；差值型注意 $a,b$ 含符号，$T=|a-b|$。",
       "使用倒数型前必须确认 $f(x)\\neq 0$；差值型需保证 $a\\neq b$。",
       "若条件为 $f(x+a)=c-f(x)$ 等变形，可先转化为标准形式再求周期。"
     ]
@@ -148,7 +159,7 @@
     "exam_score": 6
   },
   "interactive": {
-    "has_diagram": false,
+    "has_diagram": true,
     "geogebra_id": "",
     "param_demo": {}
   },
@@ -157,7 +168,13 @@
     "png": "",
     "cover": "",
     "icon": "",
-    "others": {}
+    "others": {},
+    "tikz": [
+      "assets/tikz/F022_period_translation.tex",
+      "assets/tikz/F022_fraction_plus_cycle.tex",
+      "assets/tikz/F022_fraction_minus_cycle.tex",
+      "assets/tikz/F022_period_not_minimum.tex"
+    ]
   },
   "shareConfig": {
     "title": "抽象函数周期：连续代入看何时还原",
@@ -170,17 +187,23 @@
       "平移变换",
       "周期定义"
     ],
-    "related_ids": ["F023", "F024", "F025", "F028", "L040"],
+    "related_ids": [
+      "F023",
+      "F024",
+      "F025",
+      "F028",
+      "L040"
+    ],
     "similar": "函数对称性结论（轴对称、中心对称）、函数奇偶性判断。"
   },
   "meta": {
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-26",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-11-20"
   },
   "isPro": 1,
-  "remarks": "",
+  "remarks": "2026-11-20：补入两类分式型周期关系、两篇完整证明及求值例题；新增首页反号平移图、两张具体阶梯函数往返图、一个周期与最小正周期反例图；修正元数据对最小正周期的无依据措辞。仅修改F022。",
   "knowledgeNode": "函数-性质-周期性-周期判定与对称性",
   "altNodes": "函数-图像-对称性"
 }

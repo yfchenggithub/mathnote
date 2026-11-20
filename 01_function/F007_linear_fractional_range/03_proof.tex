@@ -1,5 +1,30 @@
 \clearpage
 \begin{proofbox}
+
+    \textbf{\textcolor{CProof}{证明前先看旧知识：为什么“平移”会把一个值整个搬走？}}
+
+    从 $y=\dfrac{k}{x}$（$k\ne0$）出发。
+    原图上任何一个点 $(u,k/u)$，横坐标、纵坐标都不为 $0$。
+    若整张图先向右移 $h$，再向上移 $v$，这个点就变成
+    \[
+       \left(u+h,\,\frac{k}{u}+v\right).
+    \]
+    因为 $u\ne0$，新点横坐标 $u+h\ne h$；因为 $k/u\ne0$，新点纵坐标 $k/u+v\ne v$。
+    反过来，给定任意 $t\ne v$，取 $u=\dfrac{k}{t-v}$，就能得到纵坐标为 $t$ 的新点。
+    因此平移后的函数\textbf{不可能取到 $v$，但能取到其余每个实数}。
+    这就从初中学过的反比例函数出发，直接解释了为什么最后的值域“只少一个数”。
+
+    \medskip
+    \textbf{如何接上一般的一次分式？}
+    把 $\dfrac{ax+b}{cx+d}$ 拆成
+    \[
+       y=\underbrace{\frac ac}_{v}+
+          \frac{\overbrace{(bc-ad)/c^2}^{k}}{x-\underbrace{(-d/c)}_{h}}.
+    \]
+    由于 $k\ne0$，上面的平移解释可以直接使用，于是取不到的纵坐标是 $v=a/c$。
+    下面的三个正式证明，再分别用凑分母、反解 $x$、图像与代数运算把结论算清楚。
+
+    \medskip
     \textbf{\textcolor{CProof}{证明一：凑出一个分母（最容易理解，推荐先学）}}
 \begin{center}\input{assets/tikz/F007_shifted_hyperbola.tex}\end{center}
 
@@ -101,6 +126,14 @@
     换回原来的 $x,y$，中心就是 $\left(-d/c,\,a/c\right)$。
 
     \medskip
+
+    \medskip
+    \textbf{\textcolor{CProof}{再向前一步：不能只盯着“中心不在曲线上”。}}
+    原反比例函数的对称中心 $(0,0)$ 不在图像上；更重要的是，
+    \textbf{$y=0$ 这条横线上的任何点都不在图像上}。
+    平移后，中心变成 $(-d/c,\,a/c)$，而整条没有图像点的横线变成 $y=a/c$，
+    所以 $a/c$ 才是取不到的函数值。\textbf{仅凭某一个点不在图像上，不能推出它的纵坐标取不到。}
+
     \textbf{\textcolor{CProof}{补充：不用求导，怎样看增减？}}
     在 $x=-d/c$ 同一侧取 $x_1<x_2$。直接通分可得
     \[

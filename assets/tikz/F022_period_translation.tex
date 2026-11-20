@@ -1,0 +1,14 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[gray!40,rounded corners] (0,0) rectangle (14,7.3);
+\node at (7,6.75) {例：$f(t)=\cos(\pi t)$，平移 $1$ 变号，平移 $2$ 恢复};
+\begin{scope}[shift={(1.6,3.2)},x=2.2cm,y=1.6cm]
+\draw[->,gray] (-.15,0)--(4.8,0) node[right]{$t$};
+\draw[->,gray] (0,-1.25)--(0,1.3) node[left]{$y$};
+\draw[blue,very thick,domain=0:4.4,samples=150] plot(\x,{cos(180*\x)});
+\foreach \x/\y in {0/1,1/-1,2/1,3/-1,4/1}{\fill[orange!85!black] (\x,\y) circle(1.7pt);\ifnum\x>0\node[below=4pt] at (\x,0){$\x$};\fi}
+\node[above right=5pt] at (0,1){$1$};\node[below=5pt] at (1,-1){$-1$};
+\draw[<->,teal!80!black,thick] (.05,1.6)--(1.95,1.6) node[midway,above]{$T=2$};
+\node[below left=4pt] at (0,0){$0$};
+\end{scope}
+\node at (7,.6) {$f(t+1)=-f(t)$，$f(t+2)=f(t)$；图中取 $a=1$};
+\end{tikzpicture}

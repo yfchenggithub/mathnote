@@ -1,0 +1,44 @@
+% 新增示意图（不改动原有 TikZ）：从 y=3/x 经两次平移得到一次分式函数。
+% 需要 TikZ 宏包；仅使用基础 tikz 绘图指令。
+\begingroup
+\begin{tikzpicture}[x=0.64cm,y=0.64cm,>=stealth, font=\scriptsize]
+  % Three small graph windows are spaced evenly horizontally.
+  \foreach \shift/\step/\vc/\titletext in {
+     0/0/0/{原图 $y=3/x$},
+     6.65/1/0/{向右移 $1$},
+     13.30/1/2/{再向上移 $2$}
+  }{
+    \begin{scope}[shift={(\shift,0)}]
+      \draw[->,gray!75] (-2.1,0) -- (3.4,0) node[below right] {$x$};
+      \draw[->,gray!75] (0,-2.5) -- (0,4.2) node[above left] {$y$};
+      \draw[dashed,blue!70!black,thick] (\step,-2.4) -- (\step,4.05);
+      \draw[dashed,orange!90!black,thick] (-2,\vc) -- (3.3,\vc);
+      \node[red!70!black, inner sep=0pt] at (\step,\vc) {$\times$};
+      \node[above left, text=red!70!black, inner sep=1pt] at (\step,\vc) {\ifnum\step=0 $(0,0)$\else\ifnum\vc=0 $(1,0)$\else $(1,2)$\fi\fi};
+      \node[align=center] at (0.68,4.60) {\titletext};
+    \end{scope}
+  }
+  % reciprocal branch in a clipped window; each graph is translated without changing shape.
+  \begin{scope}
+    \clip (-2.05,-2.5) rectangle (3.28,4.06);
+    \draw[very thick, teal!75!black, samples=60, domain=-2.05:-0.1, smooth, variable=\x] plot (\x,{3/\x});
+    \draw[very thick, teal!75!black, samples=60, domain=0.1:3.28, smooth, variable=\x] plot (\x,{3/\x});
+  \end{scope}
+  \begin{scope}[shift={(6.65,0)}]
+    \clip (-2.05,-2.5) rectangle (3.28,4.06);
+    \draw[very thick,teal!75!black,samples=60,domain=-2.05:0.9,smooth,variable=\x] plot (\x,{3/(\x-1)});
+    \draw[very thick,teal!75!black,samples=60,domain=1.1:3.28,smooth,variable=\x] plot (\x,{3/(\x-1)});
+  \end{scope}
+  \begin{scope}[shift={(13.30,0)}]
+    \clip (-2.05,-2.5) rectangle (3.28,4.06);
+    \draw[very thick,teal!75!black,samples=60,domain=-2.05:0.9,smooth,variable=\x] plot (\x,{2+3/(\x-1)});
+    \draw[very thick,teal!75!black,samples=60,domain=1.1:3.28,smooth,variable=\x] plot (\x,{2+3/(\x-1)});
+  \end{scope}
+  \draw[->,black!75,thick] (3.70,1.0) -- (4.37,1.0);
+  \node[above,align=center] at (4.03,1.1) {右移};
+  \draw[->,black!75,thick] (10.35,1.0) -- (11.02,1.0);
+  \node[above] at (10.68,1.1) {上移};
+  \node[teal!75!black,align=center] at (16.0,-3.06) {最终：$y=2+\dfrac{3}{x-1}$，$x\ne1$，$y\ne2$};
+  \node[red!70!black,align=center] at (7.25,-3.06) {$\times$ 表示中心（不在曲线上）};
+\end{tikzpicture}
+\endgroup
