@@ -1,5 +1,33 @@
 \clearpage
 \begin{proofbox}
+\textbf{\textcolor{CProof}{先发现规律：从具体函数一步一步走到抽象函数}}
+
+取 $f(t)=\sqrt{t-1}+\sqrt{3-t}$。先不谈新规则，
+只做初中就学过的“根号里的数不能为负”。
+\[
+ t-1\ge0,\quad3-t\ge0
+ \quad\Longleftrightarrow\quad1\le t\le3.
+\]
+把 $t$ 换成 $2x-1$，仍然满足原来的两条要求：
+\[
+\left\{\begin{aligned}
+ &(2x-1)-1\ge0,\\
+ &3-(2x-1)\ge0
+\end{aligned}\right.
+\quad\Longleftrightarrow\quad 1\le x\le2.
+\]
+把上面的两条根号条件合并来看，恰好就是
+\[
+ 1\le \underbrace{2x-1}_{\text{实际送进 }f\text{ 的数}}\le3.
+\]
+\textbf{观察：}我们没有改变 $f$ 的计算方法，
+只改变了送进计算方法的数。
+现在即便不告诉你 $f$ 的式子，只告诉你 $f$ 能接收 $[1,3]$，
+同样可以直接解 $1\le2x-1\le3$。
+从具体计算归纳出来的做法，正是下一节方法一、方法二的依据。
+
+\medskip
+
 \textbf{\textcolor{CProof}{方法一：像检查入场券一样推出来（最容易理解）}}
 \begin{center}\input{assets/tikz/F006_affine_input_band.tex}\end{center}
 
@@ -22,6 +50,15 @@
  而给定任何实数 $t$，总能取 $x=(t+1)/2$ 使 $2x-1=t$。
  所以没有“永远无法送进 $f$ 的实数”，便可断定 $f(t)$ 的完整定义域是 $[1,3]$。
 \end{enumerate}
+
+\textbf{还能直接看懂反过来的道理：}
+如果已经知道 $f(2x-1)$ 的\textbf{完整}定义域是 $[1,2]$，
+那么它实际送出的数是 $[1,3]$。
+对任何实数 $t$，都能用 $x=(t+1)/2$ 造出 $2x-1=t$。
+这样就没有遗漏的输入数，因而可以把 $[1,3]$ 当作 $f$ 的完整定义域。
+如果括号里是 $x^2$，负数永远造不出来，这一步便不能照搬。
+
+\medskip
 
 \textbf{为什么成立？}\quad 一个数是否可以使用，不取决于 $f$ 长什么样，
 只取决于真正送进去的数是否被允许。

@@ -5,18 +5,87 @@
 却让我们求 $f(2x+1)$、$f(x+1)$ 或 $f(x^2)$ 的定义域。
 \textbf{不用猜出 $f$ 的式子，也可以判断哪些 $x$ 能代入。}
 
-\medskip
-
 \begin{center}\input{assets/tikz/F006_affine_input_band.tex}\end{center}
 \textbf{\textcolor{CStatement}{先认清两个数}}
 \begin{itemize}[leftmargin=*,itemsep=0.3em]
   \item $x$：题目要求我们找范围的数，也是 $f[g(x)]$ 的自变量。
   \item $g(x)$：先用 $x$ 算出来，再放进 $f$ 括号里的数。
 \end{itemize}
-
+下面把一个具体函数完整展开，看看图中的 $[1,3]$ 为什么对应 $[1,2]$。
 \end{statementbox}
 \clearpage
 \begin{statementbox}
+\textbf{\textcolor{CStatement}{规则到底从哪来？把整个式子展开。}}
+
+\textbf{先看原函数：}
+\[
+ f(x)=\sqrt{x-1}+\sqrt{3-x}.
+\]
+两个根号里的数都不能为负：
+\[
+ \begin{cases}
+ x-1\ge0,\\
+ 3-x\ge0
+ \end{cases}
+ \quad\Longleftrightarrow\quad
+ \begin{cases}
+ x\ge1,\\
+ x\le3
+ \end{cases}
+ \quad\Longleftrightarrow\quad
+ \boxed{1\le x\le3}.
+\]
+所以 $f$ 只接受 $[1,3]$ 内的输入数。
+
+\medskip
+\textbf{现在求 $f(2x-1)$：原式每一处 $x$，全部换成 $2x-1$。}
+\[
+ \begin{aligned}
+ f(2x-1)
+ &=\sqrt{(2x-1)-1}
+   +\sqrt{3-(2x-1)}\\[8pt]
+ &=\sqrt{2x-2}+\sqrt{4-2x}.
+ \end{aligned}
+\]
+新式子仍要求两个根号里的数都不能为负：
+\[
+ \begin{cases}
+ 2x-2\ge0,\\
+ 4-2x\ge0
+ \end{cases}
+ \quad\Longleftrightarrow\quad
+ \begin{cases}
+ x\ge1,\\
+ x\le2
+ \end{cases}
+ \quad\Longleftrightarrow\quad
+ \boxed{1\le x\le2}.
+\]
+
+\medskip
+\textbf{把同一个过程写成“输入范围”的形式：}
+\[
+ \begin{aligned}
+ \begin{cases}(2x-1)-1\ge0,\\3-(2x-1)\ge0\end{cases}
+ &\quad\Longleftrightarrow\quad 1\le2x-1\le3\\[6pt]
+ &\quad\Longleftrightarrow\quad 2\le2x\le4\\[6pt]
+ &\quad\Longleftrightarrow\quad 1\le x\le2.
+ \end{aligned}
+\]
+\textbf{原来的计算要求没变；变的是送进去的数。}
+因此，即使不知道两个根号，只知道 $f$ 的定义域为 $[1,3]$，
+也能直接列出 $1\le2x-1\le3$。
+\end{statementbox}
+\clearpage
+\begin{statementbox}
+\textbf{\textcolor{CStatement}{把刚才的过程抽掉具体的根号}}
+
+即使擦去 $\sqrt{t-1}+\sqrt{3-t}$，只记住“$f$ 接受 $[1,3]$ 内的数”，
+仍然能求 $f(2x-1)$ 的定义域：\textbf{要让送进去的 $2x-1$ 落在 $[1,3]$ 中。}
+这便是下面一般规则的由来，而不是需要死记的口诀。
+
+\medskip
+
 \textbf{\textcolor{CStatement}{结论一：知道 $f$ 能接收哪些数，求 $f[g(x)]$ 的定义域}}
 
 设 $f(t)$ 的定义域为 $D$。要使 $f[g(x)]$ 有意义，必须先能算出 $g(x)$，
