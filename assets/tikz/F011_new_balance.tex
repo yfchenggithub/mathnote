@@ -1,0 +1,17 @@
+\begin{center}
+\begin{tikzpicture}[x=0.83cm,y=0.37cm,>=stealth]
+  \begin{scope}
+    \clip (-0.25,-0.3) rectangle (8.0,15.3);
+    \draw[very thick,teal!80!black,domain=0.65:7.6,samples=125,smooth,variable=\t] plot ({\t},{\t+9/\t});
+  \end{scope}
+  \draw[->,gray!75!black] (0,0)--(8.2,0) node[right] {$x$};
+  \draw[->,gray!75!black] (0,0)--(0,15.5) node[above] {$y$};
+  \draw[dashed,red!65!black] (3,0)--(3,6)--(0,6);
+  \fill[red!80!black] (3,6) circle (2.4pt) node[above right] {$\left(3,6\right)$};
+  \node[below] at (3,0) {$3$};
+  \node[left] at (0,6) {$6$};
+  \node[anchor=west] at (4.5,12.8) {$y=x+\frac9x$};
+\end{tikzpicture}
+
+{\footnotesize 图：$x$ 先逐渐接近 $3$，两项越来越平衡；过了 $3$，总和又开始变大。}
+\end{center}

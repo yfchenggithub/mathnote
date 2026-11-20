@@ -1,30 +1,50 @@
+% F012 双根号函数值域：几何意义法（距离型）
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{参数与定义域：}}]
-		$a>0$，$b>0$，$m,n\in\mathbb{R}$，$x\in\mathbb{R}$，且
-		\[
-			f(x)=\sqrt{(x-m)^2+a^2}+\sqrt{(x-n)^2+b^2}.
-		\]
-	\end{description}
+\textbf{\textcolor{CStatement}{它解决什么问题？}}
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{距离和的最小值：}}]
-		取 $A(m,-a)$、$B(n,b)$、$P(x,0)$，则
-		\[
-			f(x)=|PA|+|PB|
-			\geq |AB|
-			=\sqrt{(m-n)^2+(a+b)^2}.
-		\]
-		由于 $A$、$B$ 分居 $x$ 轴两侧，线段 $AB$ 必与 $x$ 轴相交。
-		当 $P$ 为交点时取等号，此时
-		\[
-			x=\frac{bm+an}{a+b}.
-		\]
-		因此 $f(x)$ 的值域为
-		\[
-			\left[\sqrt{(m-n)^2+(a+b)^2},+\infty\right).
-		\]
-	\end{description}
+遇到两个根号相加，例如
+\[
+  \sqrt{(x-1)^2+4}+\sqrt{(x-3)^2+9},
+\]
+想知道它最小能等于多少，或者所有可能的值有哪些。一个一个拆根号很难，直接求导也不够省事。本结论把两个根号变成\textbf{两段路程}，利用\textbf{两点之间线段最短}解决。
+
+\medskip
+\textbf{\textcolor{CStatement}{使用条件}}
+\[
+  f(x)=\sqrt{(x-m)^2+a^2}+\sqrt{(x-n)^2+b^2},
+\]
+其中 $a>0$，$b>0$，$m,n$ 是固定的实数，$x$ 可以取任意实数。
+\input{assets/tikz/F012_path_straightening}
+
+
+\medskip
+\end{statementbox}
+\clearpage
+\begin{statementbox}
+\textbf{\textcolor{CStatement}{核心结论}}
+
+取三个点
+\[
+ A(m,-a),\qquad B(n,b),\qquad P(x,0).
+\]
+由两点间距离公式，
+\[
+  f(x)=|PA|+|PB|\geq |AB|
+  =\boxed{\sqrt{(m-n)^2+(a+b)^2}}.
+\]
+因为 $A$ 在 $x$ 轴下方、$B$ 在上方，线段 $AB$ 一定穿过 $x$ 轴。让 $P$ 正好落在交点上，两段路就连成了一段直线，所以等号\textbf{一定能够成立}。
+
+最小值恰在
+\[
+ \boxed{x_0=\frac{bm+an}{a+b}}
+\]
+处取得。因此完整值域为
+\[
+ \boxed{\left[\sqrt{(m-n)^2+(a+b)^2},\ +\infty\right)}.
+\]
+
+\textbf{一句话记忆：} 两个根号是两段距离；把定点放在轴的两侧，折线拉直就是最短。
+
+\medskip
+\textbf{\textcolor{CStatement}{注意：}} 上面的完整值域以 $x\in\mathbb R$ 为前提。若题目限制了 $x$，必须重新检查最短位置 $x_0$ 是否允许取到。
 \end{statementbox}

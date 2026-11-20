@@ -1,0 +1,6 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,9.0);
+\node at (7.1,8.4) {例6：右段无有限起始高度，直接找逆序点};
+\begin{scope}[shift={(3.4,6.8)},x=0.55cm,y=0.55cm]\draw[->,gray] (-3,0)--(3.3,0) node[right]{$x$};\draw[->,gray] (0,-10.5)--(0,1.8) node[above]{$y$};\begin{scope}\clip (-3,-10.5) rectangle (3,1.5);\draw[blue,thick,domain=-3:0,samples=80] plot(\x,{\x});\draw[orange!85!black,thick,domain=0.095:3,samples=100] plot(\x,{-1/\x});\end{scope}\draw[draw=blue,fill=blue] (0,0) circle(2pt);\end{scope}\begin{scope}[shift={(3.4,6.8)},x=.55cm,y=.55cm]\fill[red!70!black] (.1,-10) circle(2.5pt);\draw[red!70!black,->] (1.3,-8.7)--(.1,-10);\end{scope}\node[align=left,anchor=west] at (7.2,4.5) {$f(0)=0$，$f(0.1)=-10$\\[12pt]$0<0.1$，函数值却变小\\[12pt]右段在 $x>0$ 上仍严格增\\[10pt]$x\to0^+$ 时 $-1/x\to-\infty$\\[12pt]没有有限的接口高度 $L$};
+\node[text width=12.8cm,align=center] at (7.1,.65) {蓝段 $x$，橙段 $-1/x$；橙色曲线在 $x=0$ 无端点，图中下方只是视窗裁切。};
+\end{tikzpicture}\end{center}

@@ -1,0 +1,16 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,8.8);
+\node at (7.1,8.200000000000001) {配成平方后，分母的正负决定差值的正负};
+
+\begin{scope}[shift={(4.1,4.5)},x=.78cm,y=.70cm]
+\draw[->,gray] (-4,0)--(4.2,0) node[right]{$x$};
+\draw[->,gray] (0,-3.6)--(0,3.6) node[above]{差值};
+\draw[blue,very thick,domain=.2:3.8,samples=130] plot(\x,{(\x-1)^2/\x});
+\draw[orange!85!black,very thick,domain=-3.8:-.2,samples=130] plot(\x,{(\x+1)^2/\x});
+\fill[blue] (1,0) circle(2.3pt);\fill[orange!85!black] (-1,0) circle(2.3pt);
+\node[below right=5pt] at (1,0){$1$};\node[above left=5pt] at (-1,0){$-1$};
+\end{scope}
+\node[align=left,anchor=west] at (8.2,5.0){图取 $A=B=1$\\[14pt]\textcolor{blue}{$\displaystyle f(x)-2=\frac{(x-1)^2}{x}\ge0$}\\[8pt]\hspace{1em}$(x>0)$\\[14pt]\textcolor{orange!85!black}{$\displaystyle f(x)+2=\frac{(x+1)^2}{x}\le0$}\\[8pt]\hspace{1em}$(x<0)$};
+
+\node[text width=13cm,align=center] at (7.1,.6) {两条差函数只在取等点触到横轴，不会穿到另一侧。};
+\end{tikzpicture}\end{center}

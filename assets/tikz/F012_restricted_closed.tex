@@ -1,0 +1,12 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,9.5);
+\node at (7.1,8.9) {例4：只允许 $0\le x\le1$，最小值换到右端点};
+\begin{scope}[shift={(2.0,1.65)},x=1.0cm,y=.72cm]
+\draw[->,gray] (-1,0)--(5.6,0) node[right]{$x$};\draw[->,gray] (0,0)--(0,8.4) node[above]{$y$};
+\foreach \v/\lab in {2/6,4/8,6/10}{\node[left=4pt] at (0,\v){$\lab$};}\node[below left=5pt] at (0,0){$4$};
+\draw[gray,dashed,domain=-1:5.3,samples=150] plot(\x,{sqrt((\x-1)^2+4)+sqrt((\x-3)^2+9)-4});
+\draw[blue,very thick,domain=0:1,samples=130] plot(\x,{sqrt((\x-1)^2+4)+sqrt((\x-3)^2+9)-4});
+\fill[orange!85!black] (0,{sqrt(5)+sqrt(18)-4}) circle(2.2pt) (1,{2+sqrt(13)-4}) circle(2.2pt);\draw[gray,dotted] (1,0)--(1,{2+sqrt(13)-4});\node[below=5pt] at (1,0){$1$};\end{scope}
+\node[align=left,anchor=west] at (8.3,4.9){$0\le x\le1$\\[12pt]原最短位置 $9/5$ 不可用\\[12pt]在这段上一直下降\\[12pt]最大值 $f(0)=\sqrt5+3\sqrt2$\\[10pt]最小值 $f(1)=2+\sqrt{13}$};
+\node[text width=12.8cm,align=center] at (7.1,.65) {纵轴从 $4$ 起显示，刻度为原函数值；图取 $m=1,n=3,a=2,b=3$。};
+\end{tikzpicture}\end{center}

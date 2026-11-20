@@ -1,63 +1,65 @@
 \begin{statementbox}
-设 $f(x)=Ax+\frac Bx$，其中 $A,B>0$，$x\ne0$。
+\textbf{先说它解决什么问题。} 遇到 $x+\frac9x$、$3x+\frac{12}{x}$，或者把分式整理成“一个数乘 $x$，再加一个数除以 $x$”的形式时，我们往往需要求最小值、最大值或值域。\textbf{对勾函数的作用，就是不必每次求导，也能立刻找出它能取到的最大或最小边界。}
+
+\medskip
+\textbf{为什么会出现它？} 当 $x>0$ 时，$Ax$ 随 $x$ 增大而增大，$\frac Bx$ 却随 $x$ 增大而减小。要让两项相加尽可能小，必须找到两边恰好合适的平衡位置。这种形式还会从“面积一定，长方形周长什么时候最短”等实际问题中自然出现。
+
+\medskip
+\textbf{适用的基本条件：}
+\[
+\boxed{f(x)=Ax+\frac Bx,\qquad A>0,\ B>0,\ x\ne0.}
+\]
 \input{assets/tikz/F011_range}
 
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件1（参数及定义域：）}}] $A>0$, $B>0$, $x\neq0$.
-	\end{description}
+\textbf{结论一：只看正数 $x$。} 当 $x>0$ 时，
+\[
+\boxed{f(x)\ge2\sqrt{AB}}.
+\]
+\textbf{最小值}是 $2\sqrt{AB}$，且\textbf{只有} $Ax=\frac Bx$，即 $x=\sqrt{\frac BA}$ 时能取到。
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（正数最小值）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			当 $x>0$ 时，函数有最小值 $2\sqrt{AB}$.
-			\[
-				f(x)\ge 2\sqrt{AB},\quad x>0,
-			\]
-			等号成立当且仅当 $x=\sqrt{\frac{B}{A}}$.
+\medskip
+\textbf{结论二：只看负数 $x$。} 当 $x<0$ 时，
+\[
+\boxed{f(x)\le-2\sqrt{AB}}.
+\]
+\textbf{最大值}是 $-2\sqrt{AB}$，且\textbf{只有} $x=-\sqrt{\frac BA}$ 时能取到。这里不可以把正数范围里的不等号照搬过来。
 
-		\item[\textbf{\textcolor{CStatement}{结论二（负数最大值）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			当 $x<0$ 时，函数有最大值 $-2\sqrt{AB}$.
-			\[
-				f(x)\le -2\sqrt{AB},\quad x<0,
-			\]
-			等号成立当且仅当 $x=-\sqrt{\frac{B}{A}}$.
+\medskip
+\textbf{结论三：$x$ 取所有非零实数。} 正数一侧的函数值只能从 $2\sqrt{AB}$ 往上取；负数一侧只能从 $-2\sqrt{AB}$ 往下取。两端之间有一整段取不到：
+\[
+\boxed{\text{值域}=(-\infty,-2\sqrt{AB}]\cup[2\sqrt{AB},+\infty).}
+\]
+方括号表示端点\textbf{取得到}。注意：如果题目另外限制了 $x$，必须重新检查这两个取等的 $x$ 是否仍然允许。
 
-		\item[\textbf{\textcolor{CStatement}{结论三（值域并集）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			函数在 $\mathbb{R}\setminus\{0\}$ 上的取值构成两段区间.
-			\[
-				(-\infty,-2\sqrt{AB}\,]\cup[\,2\sqrt{AB},+\infty).
-			\]
+\medskip
+\textbf{结论四：稍作变形也能用。} 若能把原式化成
+\[
+\boxed{y=At+\frac Bt+C},\qquad A,B>0,
+\]
+先求 $At+\frac Bt$ 的范围，再把所有结果加上 $C$。关键不是看它长得像不像，而是\textbf{先求清楚 $t$ 的取值范围}。例如二次式除以一次式，常能通过除法及 $t=gx+h$ 变成这种形式。
 
-		\item[\textbf{\textcolor{CStatement}{推广结论（分式化对勾）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			当 $g\ne0$ 时，通过线性换元可将形如 $\frac{dx^2+ex+f}{gx+h}$ 的分式函数化为对勾函数形式再求值域.
-			\[
-				\frac{dx^2+ex+f}{gx+h}\;\xrightarrow{t=gx+h}\; At+\frac{B}{t}+C,
-			\]
-			如果换元后的系数 $A,B$ 仍满足 $A>0,B>0$，并且新变量 $t$ 的范围允许相应取等点，则可对 $At+\frac{B}{t}$ 部分应用上述最值结论，再加常数 $C$；若系数正负或 $t$ 的范围不符合条件，不能直接套公式，应另外讨论.
-	\end{description}
-
-	\textbf{\textcolor{CStatement}{等号/取等条件：}}
-	在 $x>0$ 时，基本不等式 $Ax+\frac{B}{x}\ge 2\sqrt{AB}$ 等号成立当且仅当 $Ax=\frac{B}{x}$，即 $x=\sqrt{\frac{B}{A}}$；在 $x<0$ 时，$Ax+\frac{B}{x}\le -2\sqrt{AB}$ 等号成立条件同样是 $Ax=\frac{B}{x}$，解出 $x=-\sqrt{\frac{B}{A}}$. 两种情形均由均值不等式取等条件决定.
+\medskip
+\textbf{结论五：意想不到的几何用途。} 在 $k>0$ 时，分别从 $y=\frac{k}{x}$ 的第一象限和第三象限两支上任意取一点，点与点的最小距离是
+\[
+\boxed{d_{\min}=2\sqrt{2k}}.
+\]
+最近的两点恰好是 $(\sqrt{k},\sqrt{k})$ 与 $(-\sqrt{k},-\sqrt{k})$。
+\input{assets/tikz/F011_support_lines}
+这里 $y=\frac{k}{x}$ \textbf{本身不是}上面的 $Ax+\frac Bx$；真正用到对勾函数的是曲线上一个点的\textbf{横坐标与纵坐标的和}：$x+y=x+\frac{k}{x}$。
 
 
 \medskip
-\textbf{\textcolor{CStatement}{结论四（几何应用：反比例函数两支的最短距离）}}
-\input{assets/tikz/F011_support_lines}
-设 $k>0$，在反比例函数 $y=\frac{k}{x}$ 的第一象限分支取点 $P$，第三象限分支取点 $Q$，则
+\textbf{结论六｜对勾函数本身的两支最近距离（与结论五不同）。}
+若曲线为 $y=x+\frac1x$，分别在第一、第三象限任选一点 $P,Q$，则
 \[
-\boxed{PQ\ge 2\sqrt{2k}},\qquad
-\boxed{PQ_{\min}=2\sqrt{2k}}.
+\boxed{PQ_{\min}=2\sqrt{2+2\sqrt2}.}
 \]
-等号成立当且仅当
+最近两点是
 \[
-P(\sqrt{k},\sqrt{k}),\qquad Q(-\sqrt{k},-\sqrt{k}).
+\boxed{P\left(\frac1{\sqrt[4]{2}},\frac{1+\sqrt2}{\sqrt[4]{2}}\right),\qquad
+Q\left(-\frac1{\sqrt[4]{2}},-\frac{1+\sqrt2}{\sqrt[4]{2}}\right).}
 \]
-特别地，当 $k=1$ 时，$PQ_{\min}=2\sqrt2$，两点为 $(1,1)$ 与 $(-1,-1)$.
-\par\textbf{与本节主结论的联系：} 反比例函数 $y=\frac{k}{x}$ 本身\textbf{不是}标准的 $Ax+\frac Bx$（$A,B>0$）形式；但曲线上一点的坐标和 $x+y=x+\frac{k}{x}$ 正是对勾函数，其最小值 $2\sqrt{k}$ 可以用来估计两支间的距离。这里 $k>0$ 是两支分别落在第一、第三象限的必要条件。
+\textbf{为什么值得单独讨论？} 距离由两个点的位置一起决定，天然有两个未知数：一条路线是\textbf{固定横坐标的差，用不等式把两个未知数变为一个}；另一条路线是\textbf{不提前去掉未知数，轮流固定一个、对另一个求导，最后联立}。两条路线都会\textbf{算出}最近两点关于原点对称，而不是提前假设。
 
+\textbf{千万不要混淆：} 结论五针对 $y=k/x$，当 $k=1$ 时最短距离是 $2\sqrt2$；本结论针对 $y=x+1/x$，最短距离是 $2\sqrt{2+2\sqrt2}$，两条曲线不是一回事。
 \end{statementbox}

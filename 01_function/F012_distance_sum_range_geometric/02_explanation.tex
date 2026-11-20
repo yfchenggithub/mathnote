@@ -1,43 +1,95 @@
+\clearpage
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
+\textbf{\textcolor{CExplanation}{一、为什么需要这个结论？}}
 
-	把两个根式看作点 $P(x,0)$ 到两个定点的距离；
-	将定点放在 $x$ 轴两侧，折线拉直时最短。
+求 $x^2+4$ 的最小值很容易：$x^2\geq0$，所以最小值是 $4$。可是遇到
+\[
+ f(x)=\sqrt{(x-1)^2+4}+\sqrt{(x-3)^2+9}
+\]
+就不能简单地把\textbf{两个根号分别取最小值再相加}：第一个根号在 $x=1$ 时最小，第二个却在 $x=3$ 时最小，而同一个 $x$ 不可能同时等于 $1$ 和 $3$。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{根式就是距离：}]
-		$\sqrt{(x-m)^2+a^2}$ 是 $P(x,0)$ 到
-		$A(m,-a)$ 的距离；同理，
-		$\sqrt{(x-n)^2+b^2}$ 是 $P$ 到 $B(n,b)$ 的距离。
+这说明困难并不在某一个根号上，而在于：\textbf{两个根号都由同一个 $x$ 决定，必须一起考虑。}
+\input{assets/tikz/F012_component_minima}
 
-		\item[\textbf{为什么把两点放在异侧：}]
-		距离公式中的纵坐标差要平方，因此 $a$ 与 $-a$
-		对应的距离相同。选取异侧的 $A$、$B$ 后，
-		线段 $AB$ 必穿过 $x$ 轴。
 
-		\item[\textbf{什么时候最短：}]
-		$P$ 可以在整条 $x$ 轴上移动。
-		当它恰好位于线段 $AB$ 与 $x$ 轴的交点时，
-		折线 $A\to P\to B$ 变成直线段 $AB$，距离和最小。
-	\end{description}
+\medskip
+\textbf{\textcolor{CExplanation}{二、为什么会想到“距离”？}}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{算出的是什么}}
+初中学过勾股定理：直角三角形两条直角边分别是 $u$、$v$，斜边就是 $\sqrt{u^2+v^2}$。所以看到
+\[
+ \sqrt{(x-m)^2+a^2}
+\]
+时，可以想象一个点 $P(x,0)$ 在水平直线上移动；固定点 $A(m,-a)$ 不动。它们的水平距离是 $|x-m|$，竖直距离是 $a$，两点的直线距离恰好是这个根号。
 
-	此时纵向距离合计为 $a+b$，横向距离为 $|m-n|$，
-	所以最短距离为
-	\[
-		|AB|=\sqrt{(m-n)^2+(a+b)^2}.
-	\]
+第二个根号也一样：取 $B(n,b)$，就有
+\[
+ |PA|=\sqrt{(x-m)^2+a^2},\qquad
+ |PB|=\sqrt{(x-n)^2+b^2}.
+\]
+原题于是变成：\textbf{从 $A$ 出发，必须经过水平直线上的 $P$，再到 $B$，怎样走路程最短？}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item 两个根式相加，且每个根号内都能配成
-		$(x-\text{常数})^2+\text{正常数}$ 时，可尝试距离法。
-		\item 若题目限制了 $x$ 的取值范围，应检查交点对应的
-		$x$ 是否仍在允许范围内。
-	\end{itemize}
+\medskip
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{三、为什么要把 $A$、$B$ 放在轴的两侧？}}
+
+距离公式要把竖直距离平方，所以 $A(m,a)$ 和 $A(m,-a)$ 到 $P(x,0)$ 的距离完全一样：
+\[
+ (0-a)^2=(0+a)^2=a^2.
+\]
+也就是说，\textbf{把一个固定点上下翻过来，不会改变原来的根号。} 我们就选 $A(m,-a)$ 和 $B(n,b)$，让两点分别站在轴的下方、上方。
+
+这样安排的好处是：连接 $A$ 和 $B$ 的直线段一定要穿过 $x$ 轴。那个交点刚好可以作为经过的 $P$，于是“先走 $AP$，再走 $PB$”可以连成一条直路 $AB$。这时不可能再短了。
+
+
+\input{assets/tikz/F012_reflection}
+
+
+\medskip
+\textbf{\textcolor{CExplanation}{四、为什么公式里是 $a+b$，不是 $a-b$？}}
+
+因为两点在轴的两侧：$A$ 在下方 $a$，$B$ 在上方 $b$。从 $A$ 到 $B$，竖直方向要先上升 $a$ 才到轴，再上升 $b$ 才到 $B$，总共是 $a+b$。水平方向总共相隔 $|m-n|$。用一次勾股定理，
+\[
+ |AB|=\sqrt{(m-n)^2+(a+b)^2}.
+\]
+\textbf{眼前一亮的地方：} 让一个点翻到另一侧，原来两个根号\textbf{一个都没变}，却把难算的最小值变成了一条线段的长度。
+
+\medskip
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{五、最短时 $x$ 为什么是一个“按高度分配”的位置？}}
+\input{assets/tikz/F012_height_ratio}
+
+
+先假设 $m<n$。最短时，$P_0$ 落在 $A$、$B$ 之间。由两边对应的直角三角形相似可知，
+\[
+ \frac{x_0-m}{n-x_0}=\frac{a}{b}.
+\]
+这句话用普通语言说，就是：\textbf{上下高度之比是多少，交点把水平距离分成的两段之比就是多少。}
+
+交叉相乘得到 $b(x_0-m)=a(n-x_0)$，于是
+\[
+ x_0=\frac{bm+an}{a+b}.
+\]
+当 $m>n$ 时，交换两点看，道理完全相同；当 $m=n$ 时，两点在同一条竖线上，交点的横坐标当然是 $m$，公式也给出 $x_0=m$。
+
+由于 $a,b$ 都是正数，$x_0$ 一定在 $m$ 与 $n$ 之间（两者相等时就等于它们），不会跑到外面去。
+
+\medskip
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{六、为什么能得到整个值域？}}
+
+当 $x=x_0$ 时，函数取到最小值；当 $x$ 从 $x_0$ 一直向右移动，路程和会连续增大，而且 $x$ 越往右走，两段距离最终都会越来越长，没有最大值。因此，从最小值开始，所有更大的值都可以取到，值域就是“左端包含最小值、右端无限增大”的区间。
+
+\medskip
+\textbf{\textcolor{CExplanation}{七、何时优先想到这一招？}}
+\begin{itemize}[leftmargin=*,itemsep=.35em]
+\item 看到\textbf{两个根号相加}，且每个根号里都能写成“$(x-\text{固定数})^2+\text{正数}$”，先想勾股定理，不必急着求导。
+\item 若原式是 $\sqrt{x^2+px+q}$，先\textbf{配方}再判断是否符合这一形状。
+\item 若题目加上 $x\geq c$ 或 $L\leq x\leq R$，先算 $x_0$，再检查它是否在允许范围内。
+\end{itemize}
 \end{explanationbox}

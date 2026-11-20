@@ -1,21 +1,72 @@
+\clearpage
 \begin{trapbox}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（忽略值域）}}] 使用规则前未检查 $g(I)\subseteq U$，导致复合函数在部分区间无定义，单调性结论错误。
-		\item[\textbf{\textcolor{CTrap}{正确理解（条件验证）：}}] 必须先确认内层函数的值域在外层定义域内，才能对整体使用同增异减。
-		\item[\textbf{\textcolor{CTrap}{错因分析（知识漏洞）：}}] 学生只记口诀，不清楚规则成立的前提条件，忽略定义域约束。
-	\end{description}
+\textbf{\textcolor{CTrap}{易错一：把“外层有定义”当成“外层一直同向变化”}}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（区间错位）}}] 求单调区间时，将内层函数的单调区间直接当作复合函数的单调区间，未转换到自变量 $x$ 的区间。
-		\item[\textbf{\textcolor{CTrap}{正确理解（区间对应）：}}] 复合后，需在定义域内根据内外层单调性，通过 $g(x)$ 映射确定 $x$ 的区间：该区间既要使内层单调，又要使内层值域落在外层的同一单调区间内，而不是简单地将内层单调区间与定义域取交集。
-		\item[\textbf{\textcolor{CTrap}{错因分析（映射混淆）：}}] 没有明确内外层变量关系，将 $t$ 的单调区间误写为 $x$ 的区间。
-	\end{description}
+\textbf{错误想法：}只要 $g(x)$ 的结果能代入 $f$，就能直接用口诀。
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（符号误用）}}] 误认为“同增异减”是指复合函数与内层函数单调性相同或相反，忽略外层作用。
-		\item[\textbf{\textcolor{CTrap}{正确理解（两层叠加）：}}] “同增异减”比较的是内层与外层的单调性，而不是与复合结果直接比。
-		\item[\textbf{\textcolor{CTrap}{错因分析（概念模糊）：}}] 对复合结构理解不深，难以区分内层、外层、复合三者的单调关系。
-	\end{description}
+\textbf{为什么错：} $f(t)=t^2$ 对所有 $t$ 都有定义，但负数段递减、正数段递增。
+例如 $(x-1)^2$ 就必须在 $x=1$ 分开判断。
+
+\textbf{正确做法：}检查两件事：\textbf{能不能代入；代进去的那些数，外层是不是始终同一个增减方向。}
+
+\medskip
+\textbf{\textcolor{CTrap}{易错二：忘了先求定义域}}
+
+例如 $\ln(x^2-2x-3)$ 并非对所有 $x$ 都有定义。
+只有 $x<-1$ 或 $x>3$ 才能计算。
+\textbf{正确顺序：}先求定义域，再分段，再套同增异减。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错三：把中间变量 $t$ 的区间写成 $x$ 的区间}}
+
+外层 $f(t)=t^2$ 的分界位置是 $t=0$；
+若 $t=x-1$，对应的自变量分界位置\textbf{是 $x=1$，不是 $x=0$}。
+做题最后要把所有区间写回 $x$。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错四：以为两层都递减，整体就递减}}
+
+拿最简单的 $10-(10-x)=x$ 检查：两层递减，整体反而递增。
+正确理解不是“负面的变化叠加”，而是\textbf{比较大小的方向被反转了两次}。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错五：随意合并两段单调区间}}
+
+在 $(-\infty,-1)$ 上递减，并不意味着和 $(3,+\infty)$ 可以合成一整段，
+因为中间的函数值根本不存在。
+同样，一个函数先减后增，不能把两侧直接说成“整段都增”或“整段都减”。
+
+\medskip
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错六：只知道“单调”，就声称“严格单调”}}
+\input{assets/tikz/F013_strict_vs_flat}
+
+
+例如 $g(x)=x$ 递增，$f(t)=3$ 在所有 $t$ 上都保持不变，
+得到 $f(g(x))=3$。它不会随着 $x$ 的增大而严格增大。
+因此：\textbf{口诀对严格增减，须有严格单调的前提；允许相等时，只能相应地判断不减或不增。}
+
+\medskip
+\textbf{\textcolor{CTrap}{易错七：导数为零就断言“停止递增”}}
+
+例如 $x^3$ 在 $x=0$ 处的导数等于 $0$，
+但 $x^3$ 在整个实数范围内仍严格递增。
+\textbf{导数法是可选的快速检查，最根本的依据仍是任意两点函数值的比较。}
+
+\medskip
+\textbf{\textcolor{CTrap}{易错八：参数题只管增减，不管能否取值}}
+
+比如 $\ln(x^2-ax+1)$ 在 $(2,+\infty)$ 上递增，
+除了内层二次函数在这段递增，还必须保证每个 $x>2$ 时真数都大于 $0$。
+漏掉这一点可能错误地得到 $a\le4$；正确结果是 $a\le\frac52$。
+
+\medskip
+\textbf{\textcolor{CTrap}{考前逐项自查}}
+
+\textbf{有定义吗？} \quad
+\textbf{内层同向吗？} \quad
+\textbf{外层在这些输入上同向吗？} \quad
+\textbf{区间写回 $x$ 了吗？}
 \end{trapbox}

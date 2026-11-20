@@ -1,0 +1,13 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,9.5);
+\node at (7.1,8.9) {整段不变与某一点切线水平，不能混为一谈};
+
+\begin{scope}[shift={(4.0,4.4)},x=1.7cm,y=.85cm]
+\draw[->,gray] (-1.7,0)--(1.9,0) node[right]{$x$};\draw[->,gray] (0,-3.2)--(0,3.8) node[above]{$y$};
+\draw[blue,very thick,domain=-1.4:1.4,samples=140] plot(\x,{\x^3});\draw[violet,dashed,thick] (-1.5,3)--(1.5,3);
+\draw[orange!85!black,thick] (-.4,0)--(.4,0);\fill[orange!85!black] (0,0) circle(2.2pt);
+\end{scope}
+\node[align=left,anchor=west] at (8.3,5){\textcolor{blue}{$y=x^3$：仍严格递增}\\[10pt]$f'(0)=0$ 只是一点水平\\[16pt]\textcolor{violet}{$y=3$：整段不变}\\[10pt]不能称为严格递增\\[14pt]严格单调要看整个区间};
+
+\node[text width=12.8cm,align=center] at (7.1,.65) {“导数为零”与“不再递增”并不等价；常函数与孤立的水平切线也不能等同。};
+\end{tikzpicture}\end{center}

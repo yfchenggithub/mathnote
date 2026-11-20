@@ -1,38 +1,76 @@
+\clearpage
 \begin{trapbox}
-\input{assets/tikz/F011_restricted_domain}
+\textbf{易错一｜把 $x<0$ 当成 $x>0$。}
 
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（正负区间混淆）}}] 误以为 $x<0$ 时也有 $f(x)\ge2\sqrt{AB}$，将最大值当成最小值.
-		\item[\textbf{\textcolor{CTrap}{正确理解（不等号方向）}}] $x<0$ 时，$Ax<0,\frac{B}{x}<0$，利用基本不等式时需提取负号，得到 $f(x)\le-2\sqrt{AB}$，此为最大值.
-		\item[\textbf{\textcolor{CTrap}{错因分析（忽视符号）}}] 受正数区间思维定势，未考虑正负改变不等号方向.
-	\end{description}
+错误写法：$x<0$ 时仍写 $Ax+B/x\ge2\sqrt{AB}$。
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（换元定义域忽略）}}] 换元后直接使用对勾结论，不考虑新变量的正负.
-		\item[\textbf{\textcolor{CTrap}{正确理解（先定范围）}}] 对 $t$ 的范围需分类：$t>0$ 时用 $f(t)\ge2\sqrt{AB}$，$t<0$ 时用 $f(t)\le-2\sqrt{AB}$.
-		\item[\textbf{\textcolor{CTrap}{错因分析（缺乏分类意识）}}] 换元后未养成先求定义域再套用公式的习惯.
-	\end{description}
+\textbf{为什么错：} 此时 $Ax$ 与 $B/x$ 都是负数，不能直接对它们用“两个正数相加”的基本不等式。正确办法是\textbf{先提负号}，结果为 $Ax+B/x\le-2\sqrt{AB}$。
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（等号条件缺失）}}] 求出最值 $2\sqrt{AB}$ 后直接写进值域，不检验是否取得到.
-		\item[\textbf{\textcolor{CTrap}{正确理解（验证取等）}}] 必须检查 $x=\pm\sqrt{\frac{B}{A}}$ 是否在定义域内；若取等点被限制条件排除，原来的最值不再能直接照搬，须在新定义域内重新求值域，并判断端点能否取到.
-		\item[\textbf{\textcolor{CTrap}{错因分析（忽视取等条件）}}] 只记住结论形式，未理解等号成立需要 $Ax=\frac{B}{x}$ 有解.
-	\end{description}
+\medskip
+\textbf{易错二｜把“这一边的最大值”说成“整个函数的最大值”。}
+
+$x<0$ 时的最大值是 $-2\sqrt{AB}$；但在 $x\ne0$ 的整个范围上，正数这一支还可以无限增大，所以\textbf{整个函数没有最大值，也没有最小值}。只能谈完整值域和两侧各自的最值。
+
+\medskip
+\textbf{易错三｜只看 $A,B$ 的大小，不看它们的正负。}
+
+基本公式要求 $A>0,B>0$。例如 $y=x-1/x$（$x>0$），一项正一项负：当 $x$ 从右侧接近 $0$ 时函数值越来越负，当 $x$ 不断增大时函数值向正方向不断变大，而且中间所有数都能取到。所以它的值域是\textbf{全体实数}，不是把 $AB=-1$ 塞进 $2\sqrt{AB}$。如果 $A,B$ 同为负数，也应该先整体提负号，再判断最值方向。
+
+\medskip
+\textbf{易错四｜认为“凑成相等”就一定允许。}
+
+原本 $x=\sqrt{B/A}$ 使两项相等，但若题目写 $x\ge4$ 或 $x>3$，原取等点可能已经不在允许范围。尤其在不含端点的区间上，\textbf{不能把永远达不到的边界写成最小值}。
+
+\medskip
+\textbf{易错五｜换元后忘记新字母的范围。}
+
+例如 $t=x+1$：当 $x>-1$，必须写出 $t>0$，不能误用 $t<0$ 那一支。若 $y=At+B/t+C$，\textbf{常数 $C$ 只改变函数值，不改变取等时的 $t$}，但必须最后把 $t$ 还原成 $x$。
+
+\medskip
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{易错六｜只算出不等式，没说明值域里的每个数都能取到。}
+
+从 $Ax+B/x\ge2\sqrt{AB}$ 只能立即知道正数一边“不会低于某个数”。要写成完整值域 $[2\sqrt{AB},+\infty)$，还要说明所有更大的数都能得到。\textbf{方法三的一元二次方程}恰好能直接完成这一步。
+
+\medskip
+\textbf{易错七｜把 $y=k/x$ 与 $x+k/x$ 当成同一个函数。}
+
+$y=k/x$ 是反比例函数；$x+k/x$ 是这个曲线上点的横、纵坐标\textbf{相加}得到的式子。后者可以用对勾结论，但不能因此把两者的图像混为一谈。
+
+\medskip
+\textbf{易错八｜距离题直接假设两点关于原点对称。}
+
+两支曲线虽然关于原点对称，但题目只说 $P,Q$ 分别在两支上，不代表\textbf{任意选的} $P,Q$ 都互为相反数。必须先设 $P(a,k/a)$ 和 $Q(-b,-k/b)$，证明最小距离后，才能推出最近时恰有 $a=b=\sqrt{k}$。
+
+\medskip
+\textbf{易错九｜以为横坐标差加纵坐标差就是两点距离。}
+
+设两坐标差为 $u,v>0$，真实距离是 $\sqrt{u^2+v^2}$，\textbf{不是} $u+v$。本节用的是
+\[
+\sqrt{u^2+v^2}\ge\frac{u+v}{\sqrt2},
+\]
+只有 $u=v$ 时等号才能成立。对距离题，所有不等式的\textbf{取等条件要同时满足}。
+
+\medskip
+\textbf{易错十｜忘记 $k>0$ 和“整条分支可自由选点”。}
+
+只有 $k>0$ 时，曲线 $y=k/x$ 才位于第一、第三象限。如果题目限定 $P$ 或 $Q$ 的坐标，$2\sqrt{2k}$ 仍是下界，却\textbf{不一定是可以取到的最短距离}。
 
 
 \medskip
-\input{assets/tikz/F011_projection}
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.4em]
-\item[\textbf{\textcolor{CTrap}{易错点四（反比例函数与对勾函数混为一谈）}}]
-误认为 $y=\frac{k}{x}$ 本身就是 $Ax+\frac Bx$（$A,B>0$）。正确说法是：在曲线上取点时，坐标和 $x+y=x+\frac{k}{x}$ 才是可用的对勾函数。
-\item[\textbf{\textcolor{CTrap}{易错点五（把坐标和当成线段长度）}}]
-$\Delta x+\Delta y$ 不是两点间距离，$\frac{\Delta x+\Delta y}{\sqrt2}$ 也只是距离的下界；只有 $\Delta x=\Delta y$ 时，后者才等于实际距离。必须把勾股不等式和取等条件写完整。
-\item[\textbf{\textcolor{CTrap}{易错点六（对称图形不等于任意点都关于原点对称）}}]
-题意只保证 $P$、$Q$ 分别位于两支曲线上，不能一开始就未经证明地设 $Q=-P$。可先设 $P(a,k/a)$、$Q(-b,-k/b)$（$a,b>0$），证明最小值后再发现最优两点关于原点对称。
-\item[\textbf{\textcolor{CTrap}{易错点七（忽略参数及额外限制）}}]
-结论 $2\sqrt{2k}$ 只适用于 $k>0$ 且两点能在两条完整分支上自由选取。若限制点的横坐标或可选范围，原取等点可能被排除；若 $k<0$，曲线位于第二、第四象限，题设“第一、第三象限各一点”就不成立。
-\end{description}
+\textbf{易错十一｜把 $y=1/x$ 两支的答案搬到 $y=x+1/x$ 上。}
 
+虽然两者都关于原点对称，但不是同一条曲线。对于 $y=1/x$，最短距离是 $2\sqrt2$；对于 $y=x+1/x$，则是 $2\sqrt{2+2\sqrt2}$。\textbf{对称只告诉我们可能在哪里找，不会自动给出最近两点。}
+
+\medskip
+\textbf{易错十二｜固定 $a+b$ 后直接写 $a=b$，没有证明为什么可以。}
+
+应说明：对任何 $a,b>0$，令 $s=a+b$，由 $ab\le s^2/4$ 得 $1/a+1/b\ge4/s$。\textbf{横向距离不变时，把两数改成相等，纵向距离不会增加；原先不相等则严格变小。} 只有做了这一步，才能推出最短距离必在 $a=b$ 中找到。
+
+\medskip
+\textbf{易错十三｜分别求导等于零，就直接宣布最小值。}
+
+\textbf{真正的理由：} 如果整体已达到最小，单独改变任意一个独立未知数，也\textbf{不可能让距离更小}；在内部且可以求导时，相应导数必须为零。反过来，\textbf{两个导数都为零不一定是最小值}。例如 $h(x,y)=x^2-y^2$ 在 $(0,0)$ 沿两个方向分别求导都为零，但让 $y$ 从 $0$ 变为 $1$，函数值就从 $0$ 降到 $-1$。因此联立求解之后还要验证。\textbf{“不能变小”也不等于“必须变大”}，有时可能保持不变。
 \end{trapbox}

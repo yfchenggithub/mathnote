@@ -1,0 +1,24 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,15.3);
+\node at (7.1,14.700000000000001) {取 $A=B=1$：远处靠近直线，近零靠近反比例曲线};
+
+\begin{scope}[shift={(4.2,10.6)},x=.45cm,y=.45cm]
+\draw[->,gray] (-6.8,0)--(6.8,0) node[right]{$x$};\draw[->,gray] (0,-7)--(0,7) node[above]{$y$};
+\draw[orange!85!black,dashed,thick] (-6.4,-6.4)--(6.4,6.4);
+\draw[blue,very thick,domain=.15:6.4,samples=180] plot(\x,{\x+1/\x});
+\draw[blue,very thick,domain=-6.4:-.15,samples=180] plot(\x,{\x+1/\x});
+\end{scope}
+\node[align=left,anchor=west] at (8.4,11.2){\textcolor{blue}{$f(x)=x+1/x$}\\[12pt]\textcolor{orange!85!black}{虚线 $y=x$ 是斜渐近线}\\[12pt]$f(x)-x=1/x\to0$\\[10pt]当 $x\to\pm\infty$\\[12pt]竖直差的绝对值 $1/|x|$\\[8pt]越来越小};
+\draw[gray!25] (.7,7.3)--(13.5,7.3);
+\begin{scope}[shift={(1.4,1.7)},x=8cm,y=.40cm]
+\draw[->,gray] (0,0)--(.72,0) node[right]{$x$};
+\draw[red!75!black,dashed,thick] (0,0)--(0,12) node[above]{$x=0$};
+\draw[blue,very thick,domain=.09:.65,samples=180] plot(\x,{\x+1/\x});
+\draw[violet,dashed,thick,domain=.09:.65,samples=180] plot(\x,{1/\x});
+\draw[orange!85!black,thick] (.5,2)--(.5,2.5);\fill[orange!85!black] (.5,2) circle(1.5pt) (.5,2.5) circle(1.5pt);
+\draw[gray] (.5,0)--(.5,-.2);\node[below=4pt] at (.5,0){$1/2$};
+\end{scope}
+\node[align=left,anchor=west] at (8.4,4.5){下图放大 $x\to0^+$ 一侧\\[11pt]\textcolor{violet}{虚线 $y=1/x$ 是对照曲线}\\[11pt]$f(x)-1/x=x\to0$\\[11pt]\textcolor{red!75!black}{竖直渐近线是 $x=0$}\\[11pt]$x\to0^-$ 时同样靠近 $1/x$};
+
+\node[text width=13cm,align=center] at (7.1,.6) {两种“靠近”分别发生在无穷远和零附近；$y=1/x$ 不是直线渐近线。};
+\end{tikzpicture}\end{center}

@@ -1,39 +1,47 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件1（定义域对称）：}}] 函数$f(x)$的定义域$D$关于原点对称，即对任意$x\in D$，都有$-x\in D$。
-	\end{description}
+\textbf{这条结论解决什么问题？}
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（偶函数判定）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			对于定义域内任意$x$，函数值在自变量取相反数时保持不变。
-			\[
-				f(-x)=f(x).
-			\]
 
-		\item[\textbf{\textcolor{CStatement}{结论二（奇函数判定）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			对于定义域内任意$x$，函数值在自变量取相反数时变为相反数。
-			\[
-				f(-x)=-f(x).
-			\]
+\begin{center}
+\input{assets/tikz/F015_parity_point_pairs.tex}
+\end{center}
 
-		\item[\textbf{\textcolor{CStatement}{推广结论（等价变形）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			通过移项得到判定式的等价形式，便于代数运算。
 
-			偶函数：
-			\[
-				f(x)-f(-x)=0.
-			\]
 
-			奇函数：
-			\[
-				f(x)+f(-x)=0.
-			\]
-	\end{description}
+
+同一个式子，为什么有时是偶函数，有时却不是？原因是判断奇偶性要看\textbf{整个函数}：既看允许输入哪些$x$，也看输入$x$与$-x$时的结果。
+
 \medskip
-\begin{center}\input{assets/tikz/F015_parity_point_pairs}\end{center}
+\textbf{第一步：先看能不能成对。}
+
+设函数$f(x)$的定义域为$D$。不论挑出哪一个允许输入的$x$，它的相反数$-x$也必须允许输入，即
+\[
+\boxed{\text{只要 }x\in D,\text{ 就有 }-x\in D.}
+\]
+这叫做\textbf{定义域关于原点对称}。如果做不到，函数\textbf{一定既不是奇函数，也不是偶函数}，到这里即可停止。
+
+\medskip
+\end{statementbox}
+\clearpage
+\begin{statementbox}
+\textbf{第二步：再看这一对输入的结果。}
+\begin{itemize}[leftmargin=*,itemsep=0.35em]
+\item \textbf{偶函数：}输入$x$与$-x$，得到的数\textbf{相同}。对定义域内每个$x$都有
+\[\boxed{f(-x)=f(x).}\]
+图像上的点$(x,y)$与$(-x,y)$总是配对，整个图像关于$y$轴对称。
+\item \textbf{奇函数：}输入$x$与$-x$，得到的数\textbf{互为相反数}。对定义域内每个$x$都有
+\[\boxed{f(-x)=-f(x).}\]
+图像上的点$(x,y)$与$(-x,-y)$总是配对，整个图像关于原点对称。
+\end{itemize}
+
+\textbf{计算时也可以这样写：}
+\[
+\begin{array}{ll}
+\text{偶函数：}&f(x)-f(-x)=0,\\[2pt]
+\text{奇函数：}&f(x)+f(-x)=0.
+\end{array}
+\]
+\textbf{提醒：}以上等式必须对\textbf{所有}允许输入的$x$成立，检查一对数字并不能证明整个函数有奇偶性。
+
+
 \end{statementbox}

@@ -1,69 +1,151 @@
+\clearpage
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例 1（基础）}}
+\textbf{\textcolor{CExample}{例 1（最基础：两次递减，为什么最后递增？）}}
+\input{assets/tikz/F013_double_reversal}
 
-	\textbf{\textcolor{CExample}{题目：}}
-	判断函数 $h(x)=(\frac13)^{x^2-2x}$ 的单调区间。
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（函数分解）：}] 令 $t=g(x)=x^2-2x$，则 $h(x)=f(t)=(\frac13)^t$。
-			\par\textbf{理由：} 分解为基本初等函数。
+\textbf{题目：}判断 $H(x)=10-(10-x)$ 的单调性，不要先化简。
 
-		\item[\textbf{第二步（内层分析）：}] $g(x)=x^2-2x=(x-1)^2-1$，在 $(-\infty,1)$ 递减，在 $(1,+\infty)$ 递增。
-			\par\textbf{理由：} 二次函数开口向上，对称轴 $x=1$。
+\textbf{解：}令 $g(x)=10-x$，$f(t)=10-t$。
+当 $x$ 增大，$g(x)$ 减小，所以内层递减；当 $t$ 增大，$f(t)$ 减小，所以外层递减。
+两次递减，整体递增。再化简检查：
+\[
+ H(x)=10-10+x=x,
+\]
+确实递增。\textbf{此例教会的是为什么“减减得增”，但不能代替一般证明。}
 
-		\item[\textbf{第三步（复合判断）：}] 外层 $f(t)=(\frac13)^t$ 在 $(-\infty,+\infty)$ 上递减（底数 $\frac13<1$）。由同增异减：$(-\infty,1)$ 内层减、外层减，故复合增；$(1,+\infty)$ 内层增、外层减，故复合减。
-			\par\textbf{理由：} 同增异减规则。
-	\end{description}
+\medskip
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 2（常见高考题：指数套二次函数）}}
+\input{assets/tikz/F013_exponential_turn}
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	单调递增区间 $(-\infty,1)$，单调递减区间 $(1,+\infty)$。
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+\textbf{题目：}求 $H(x)=\left(\frac13\right)^{x^2-2x}$ 的单调区间，并求最大值。
 
-	\textbf{\textcolor{CExample}{题目：}}
-	判断函数 $f(x)=\ln(x^2-2x-3)$ 的单调区间。
+\textbf{第一步：}底数为正且不等于 $1$，指数可以是任意实数，所以定义域为 $\mathbb R$。
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（求定义域）：}] 由 $x^2-2x-3>0$，解得 $x<-1$ 或 $x>3$。
-			\par\textbf{理由：} 对数真数必须大于零。
+\textbf{第二步：}令
+\[
+ t=x^2-2x=(x-1)^2-1,\qquad H(x)=\left(\frac13\right)^t.
+\]
+内层是一条开口向上的抛物线：在 $x\le1$ 这一侧递减，在 $x\ge1$ 这一侧递增。
 
-		\item[\textbf{第二步（分解函数）：}] 令 $t=g(x)=x^2-2x-3$，则 $f(x)=\ln t$，外层 $\ln t$ 在 $(0,+\infty)$ 递增。
-			\par\textbf{理由：} 对数函数单调性。
+\textbf{第三步：}外层 $\left(\frac13\right)^t$ 对所有实数 $t$ 都递减。
+因此左边“减、减、增”，右边“增、减、减”。
+\[
+\boxed{H(x)\text{ 在 }(-\infty,1]\text{ 上递增，在 }[1,+\infty)\text{ 上递减。}}
+\]
 
-		\item[\textbf{第三步（内层单调性）：}] $g(x)=(x-1)^2-4$，在 $(-\infty,1)$ 递减，在 $(1,+\infty)$ 递增。结合定义域，在 $(-\infty,-1)$ 上 $g$ 递减，在 $(3,+\infty)$ 上 $g$ 递增。
-			\par\textbf{理由：} 二次函数性质。
+\textbf{第四步（亮点）：}内层在 $x=1$ 取最小值 $-1$，
+外层递减，故整体在这里取\textbf{最大值}
+\[
+ H(1)=\left(\frac13\right)^{-1}=3.
+\]
+\textbf{顺带记住：}外层递减时，里面的最小值往往对应外面的最大值。
 
-		\item[\textbf{第四步（复合判断）：}] 外层递增，故 $f(x)$ 在 $(-\infty,-1)$ 上（$g$ 减外层增，异减）递减；在 $(3,+\infty)$ 上（$g$ 增外层增，同增）递增。
-			\par\textbf{理由：} 同增异减。
-	\end{description}
+\medskip
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 3（先查定义域：对数套二次函数）}}
+\input{assets/tikz/F013_log_domain}
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	单调递减区间 $(-\infty,-1)$，单调递增区间 $(3,+\infty)$。
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+\textbf{题目：}求 $H(x)=\ln(x^2-2x-3)$ 的单调区间。
 
-	\textbf{\textcolor{CExample}{题目：}}
-	已知函数 $f(x)=\ln(x^2-ax+1)$ 在 $(2,+\infty)$ 上单调递增，求实数 $a$ 的取值范围。
+\textbf{第一步：}对数里面必须大于 $0$：
+\[
+ x^2-2x-3=(x-3)(x+1)>0
+ \quad\Longrightarrow\quad x<-1\ \text{或}\ x>3.
+\]
+原函数只在 $(-\infty,-1)\cup(3,+\infty)$ 有定义。
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（分解转化）：}] 令 $t=h(x)=x^2-ax+1$，则 $f(x)=\ln t$。外层 $\ln t$ 在 $(0,+\infty)$ 递增。由同增异减，要使 $f(x)$ 在 $(2,+\infty)$ 递增，需内层 $h(x)$ 在 $(2,+\infty)$ 也递增且 $h(x)>0$。
-			\par\textbf{理由：} 外层增，复合增需内层增（同增）；且定义域要求真数正。
+\textbf{第二步：}令 $t=(x-1)^2-4$。
+内层以 $x=1$ 为分界：左边递减，右边递增。
+但能用的区间只有前面求出的两段。
 
-		\item[\textbf{第二步（递增条件）：}] $h(x)=x^2-ax+1$ 开口向上，对称轴 $x=\frac{a}{2}$。在 $(2,+\infty)$ 递增等价于 $\frac{a}{2}\le 2$，即 $a\le 4$。
-			\par\textbf{理由：} 二次函数在对称轴右侧递增。
+\textbf{第三步：}外层 $\ln t$ 在 $t>0$ 时递增。
+因此在 $(-\infty,-1)$ 上“减、增、减”；
+在 $(3,+\infty)$ 上“增、增、增”。
+\[
+\boxed{\text{递减区间 }(-\infty,-1),\qquad
+       \text{递增区间 }(3,+\infty).}
+\]
+\textbf{提醒：}不要把中间没定义的一段也算进去，更不能把两侧无定义地连成一个大区间。
 
-		\item[\textbf{第三步（恒正条件）：}] $h(x)>0$ 在 $(2,+\infty)$ 恒成立。由于 $h$ 在 $(2,+\infty)$ 递增，只需 $h(2)=5-2a\ge 0$，得 $a\le\frac{5}{2}$。此时对称轴自动满足 $\frac{a}{2}<\frac{5}{4}<2$，故 $a\le4$ 自动成立。
-			\par\textbf{理由：} 递增函数最小值在左端点，保证真数在 $(2,+\infty)$ 上恒正。
+\medskip
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 4（逆向应用：含参数时两个条件都不能漏）}}
+\input{assets/tikz/F013_parameter_positivity}
 
-		\item[\textbf{第四步（综合）：}] 取 $a\le\frac{5}{2}$ 即可。
-			\par\textbf{理由：} 满足递增和正数条件。
-	\end{description}
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	$a\le\frac{5}{2}$。
+\textbf{题目：}已知 $H(x)=\ln(x^2-ax+1)$ 在 $(2,+\infty)$ 上有定义，
+且严格递增，求实数 $a$ 的范围。
+
+\textbf{第一步：}设 $t=x^2-ax+1$。因为 $\ln t$ 在 $t>0$ 时严格递增，
+要使整体在 $(2,+\infty)$ 上递增，里面的二次函数也要在这段上递增，
+同时必须处处满足 $t>0$。
+
+\textbf{第二步（递增条件）：}内层对称轴是 $x=\frac a2$。
+开口向上，要使 $(2,+\infty)$ 位于其递增的一侧，需要
+\[
+ \frac a2\le2\quad\Longrightarrow\quad a\le4.
+\]
+
+\textbf{第三步（有定义条件）：}当内层在 $(2,+\infty)$ 递增时，
+要使每个 $x>2$ 都有 $x^2-ax+1>0$，必须且只需紧靠左端点时不出现负值。
+代入左端点的数值作检查：
+\[
+ 2^2-2a+1=5-2a\ge0
+ \quad\Longrightarrow\quad a\le\frac52.
+\]
+注意 $(2,+\infty)$ \textbf{不含} $x=2$，所以这里允许 $5-2a=0$。
+此时由于二次函数随后严格增大，所有 $x>2$ 的真数仍然大于 $0$。
+
+\textbf{第四步：}因为 $a\le\frac52$ 自动满足 $a\le4$，结果是
+\[
+ \boxed{a\in\left(-\infty,\frac52\right].}
+\]
+\textbf{验算边界：}当 $a=\frac52$，真数
+$=(x-2)\left(x-\frac12\right)>0$（$x>2$），且随 $x$ 严格增大，故边界可以取到。
+
+\medskip
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 5（反例提醒：外层跨过掉头点，口诀会失效）}}
+\input{assets/tikz/F013_square_outer_turn}
+
+
+\textbf{题目：}判断 $H(x)=(x-1)^2$ 的增减性。
+
+设 $g(x)=x-1$、$f(t)=t^2$。$g$ 在所有实数上递增；
+可是外层 $f(t)=t^2$ 在 $t<0$ 时递减，在 $t>0$ 时递增。
+因为 $t=x-1$，应当在 $x=1$ 处分开：
+\[
+\boxed{H(x)\text{ 在 }(-\infty,1]\text{ 上递减，在 }[1,+\infty)\text{ 上递增。}}
+\]
+\textbf{关键：}内层递增并不代表整体一定递增，得先看外层在\emph{内层实际输出}的范围内是增还是减。
+
+\medskip
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 6（多层推广：三个递减，最终怎样？）}}
+\input{assets/tikz/F013_triple_reversal}
+
+
+\textbf{题目：}不展开式子，判断 $H(x)=10-\bigl[10-(10-x)\bigr]$ 的单调性。
+
+从里向外看：$10-x$ 递减；$10-t$ 递减；最外面的 $10-u$ 也递减。
+一共反转三次（奇数次），所以\textbf{整体递减}。
+展开检查：
+\[
+ 10-\bigl[10-(10-x)\bigr]=10-x,
+\]
+答案一致。\textbf{多层的快速技巧：只数递减出现了几层，前提是每层所在范围都单调。}
 \end{examplebox}

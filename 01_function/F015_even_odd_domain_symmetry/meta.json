@@ -8,7 +8,7 @@
       "奇偶性必要条件",
       "奇偶函数判定"
     ],
-    "summary": "判断函数奇偶性必须先看定义域是否关于原点对称，再验证$f(-x)=f(x)$或$f(-x)=-f(x)$。",
+    "summary": "先检查定义域中每个x的相反数-x是否也在其中；再用f(-x)=f(x)或f(-x)=-f(x)判定偶函数、奇函数。",
     "difficulty": 2,
     "category": "函数",
     "tags": [
@@ -34,7 +34,14 @@
       "函数输出唯一性",
       "竖直线检验",
       "曲线与函数的区别",
-      "零函数关于x轴对称"
+      "零函数关于x轴对称",
+      "偶函数和奇函数区别",
+      "一个x只能对应一个y",
+      "既奇又偶",
+      "奇偶分解",
+      "奇函数f(0)=0的条件",
+      "定义域必须对称",
+      "关于x轴对称的函数"
     ],
     "synonyms": [
       "奇偶性判断",
@@ -68,7 +75,9 @@
       "f(-x)=f(x)",
       "f(-x)=-f(x)",
       "f(x)-f(-x)=0",
-      "f(x)+f(-x)=0"
+      "f(x)+f(-x)=0",
+      "(f(x)+f(-x))/2",
+      "(f(x)-f(-x))/2"
     ],
     "pinyin": "han shu qi ou xing de bi yao tiao jian yu pan ding",
     "pinyinAbbr": "hsqox"
@@ -89,7 +98,9 @@
     "core_formula": "偶函数：$f(-x)=f(x)$；奇函数：$f(-x)=-f(x)$",
     "related_formulas": [
       "$f(x)-f(-x)=0$（偶函数）",
-      "$f(x)+f(-x)=0$（奇函数）"
+      "$f(x)+f(-x)=0$（奇函数）",
+      "$A(x)=(f(x)+f(-x))/2$（偶函数部分，前提是定义域对称）",
+      "$B(x)=(f(x)-f(-x))/2$（奇函数部分，前提是定义域对称）"
     ],
     "variables": [
       "x",
@@ -99,17 +110,19 @@
     "conclusions": "若定义域对称且$f(-x)=f(x)$，则$f(x)$为偶函数；若$f(-x)=-f(x)$，则$f(x)$为奇函数。"
   },
   "content": {
-    "statement": "函数具有奇偶性的必要条件是定义域关于原点对称。若该条件满足，则可按关系式判定：偶函数满足f(-x)=f(x)，奇函数满足f(-x)=-f(x)。",
+    "statement": "先检查定义域：每个允许的x，其相反数-x也必须允许输入。然后比较函数值：对所有x都有f(-x)=f(x)是偶函数；对所有x都有f(-x)=-f(x)是奇函数。",
     "derivation": [
-      "第一步：检查定义域是否关于原点对称；若不满足，则函数必非奇非偶。",
-      "第二步：在定义域对称前提下，计算$f(-x)$并与$f(x)$比较：若相等则为偶函数，若互为相反数则为奇函数。"
+      "先写定义域。若存在某个x能输入、-x却不能输入，直接判定既非奇也非偶。",
+      "若定义域对称，计算并化简f(-x)，比较它与f(x)或-f(x)是否对所有x一致。",
+      "在定义域对称时，(f(x)+f(-x))/2是偶函数，(f(x)-f(-x))/2是奇函数，两者相加等于f(x)。"
     ],
-    "intuition": "奇偶性定义要求自变量取相反数时函数值有对称关系，定义域对称是进行这种对应操作的前提。",
+    "intuition": "奇偶性想知道图像左边与右边是不是能互相照应：偶函数左右同高，奇函数左右高度互为相反数。左右两边先得都有对应的点，所以定义域必须对称。",
     "common_tricks": [
-      "判断奇偶性前先检查定义域对称性，避免忽略必要条件",
-      "对于含参数函数，先确定参数范围使定义域对称",
-      "若函数由多个部分构成，可先分离出奇偶部分",
-      "利用奇偶性可简化含有$f(-x)$的方程求解"
+      "先写定义域，再判断x和-x是否能同时输入",
+      "用一对不符合的点可以否定奇偶性；证明则要对所有x成立",
+      "已知奇函数在0处有定义，可以立即写f(0)=0",
+      "把函数分成(f(x)+f(-x))/2和(f(x)-f(-x))/2两部分",
+      "已知f(x)-c为奇函数时，利用对称点函数值之和为2c"
     ]
   },
   "usage": {
@@ -139,12 +152,26 @@
       "assets/tikz/F015_parity_point_pairs.tex",
       "assets/tikz/F015_function_unique_output.tex",
       "assets/tikz/F015_curve_vs_function.tex",
-      "assets/tikz/F015_x_axis_symmetry_exception.tex"
-    ]
+      "assets/tikz/F015_x_axis_symmetry_exception.tex",
+      "assets/tikz/F015_domain_compare.tex",
+      "assets/tikz/F015_domain_sets.tex",
+      "assets/tikz/F015_odd_cubic.tex",
+      "assets/tikz/F015_odd_hole.tex",
+      "assets/tikz/F015_neither_parabola.tex",
+      "assets/tikz/F015_shifted_odd.tex",
+      "assets/tikz/F015_parameter_even.tex",
+      "assets/tikz/F015_decomposition.tex",
+      "assets/tikz/F015_one_pair_fails.tex",
+      "assets/tikz/F015_zero_domain.tex",
+      "assets/tikz/F015_sqrt_domain.tex"
+    ],
+    "other": {
+      "gif": "images/parity_symmetry_partners.gif"
+    }
   },
   "shareConfig": {
     "title": "判断奇偶性：先查定义域是否成对",
-    "shareDesc": "看到解析式里都是偶次幂，就能判偶函数吗？先检查每个自变量的相反数是否也在定义域内，再比较对应函数值；把范围检查放在代入之前，避免式子对称而定义域不对称。"
+    "shareDesc": "同一个x²，为什么定义域改成x≥0后就不再是偶函数？判断奇偶性先看x与-x能否同时输入，再看输出相同还是相反。附函数与曲线区别、三种推导及常见误区。"
   },
   "relations": {
     "prerequisites": [
@@ -169,7 +196,7 @@
     "updated_at": "2026-11-20"
   },
   "isPro": 1,
-  "remarks": "2026-11-20：理解说明前新增“为什么函数要求一个x只能对应一个y”小节；用平方函数、侧向抛物线和横轴反射/零函数三图替代冗长概念描述。首页和定义证明复用奇偶点对图，明确单对示例不能代替全称检验。正式images与既有PDF不作替换。",
+  "remarks": "2026-11-20：理解说明前新增“为什么函数要求一个x只能对应一个y”小节；用平方函数、侧向抛物线和横轴反射/零函数三图替代冗长概念描述。首页和定义证明复用奇偶点对图，明确单对示例不能代替全称检验。正式images与既有PDF不作替换。；2026-11-20：补充结论的产生动机、对称定义域反例、三种推导、7个例题、9项误区和奇偶拆分；保留原有4个TikZ引用，新增4幅独立回退示意图供缺失原图时预览。；本批补全三种证明和七例配图，核对并保留原有四图，移除不存在的回退资源清单。；补图复查：修正首页引用居中及点标签避让，将横轴反射图的零函数公式移开纵轴。新增GIF已放本UID images，Android与用户视觉确认待完成。",
   "knowledgeNode": "函数-性质-奇偶性-判定与运算",
   "altNodes": ""
 }

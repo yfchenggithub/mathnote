@@ -1,19 +1,36 @@
+\clearpage
 \begin{summarybox}
-	\textbf{\textcolor{CSummary}{F14 速记：段内同向，接口不逆向}}
+\textbf{\textcolor{CSummary}{F014｜一分钟掌握}}
 
-	设 $f(x)=\begin{cases}g(x),&x\le x_0,\\h(x),&x>x_0,\end{cases}$
-	且 $L=\lim_{x\to x_0^+}h(x)$ 为有限实数。
+\textbf{一句话：两段自己走得对，还要在交接处接得对。}
 
-	\begin{itemize}[leftmargin=*, itemsep=0.4em]
-		\item \textbf{严格递增：} $g$、$h$ 在各自区间严格递增，且 $g(x_0)\le L$。
-		\item \textbf{严格递减：} $g$、$h$ 在各自区间严格递减，且 $g(x_0)\ge L$。
-		\item \textbf{接口可取等：} 左值等于右极限，仍可保持整体严格单调。
-		\item \textbf{不用强求连续：} 只禁止向错误方向跳跃。
-	\end{itemize}
+对于 $f(x)=\begin{cases}g(x),&x\le x_0,\\h(x),&x>x_0,\end{cases}$ 设 $L$ 是右边靠近 $x_0$ 时的\textbf{有限}高度：
+\[
+ \boxed{\begin{array}{l}
+ \text{严格递增：左段严格增＋右段严格增＋}g(x_0)\le L,\\[3pt]
+ \text{严格递减：左段严格减＋右段严格减＋}g(x_0)\ge L.
+ \end{array}}
+\]
 
-	\textbf{\textcolor{CSummary}{做题顺序：}}
-	先判两段的严格单调方向，再算 $g(x_0)$ 与右极限 $L$，最后把所有参数条件取交集。
+\textbf{考场三步：}
+\begin{enumerate}[leftmargin=*,itemsep=0.2em]
+\item \textbf{看左段：}斜率、底数或导数满足什么条件？
+\item \textbf{看右段：}增减方向与左段是否一致？
+\item \textbf{看接口：}递增不准往下跳，递减不准往上跳；把条件合起来求参数范围。
+\end{enumerate}
 
-	\textbf{\textcolor{CSummary}{约定：}}
-	这里“递增、递减”指严格单调；若题目采用非严格定义，把两段的严格单调相应改为非严格，接口不等号不变。
+\textbf{最容易丢分的三句话：}
+\begin{itemize}[leftmargin=*,itemsep=0.2em]
+\item 严格递增的接口\textbf{可以取等}（$\le$），严格递减也可以（$\ge$）。
+\item 整体单调\textbf{不要求图象一定连起来}；向正确方向跳也允许。
+\item 若右边没有有限的起始高度，别硬用 $L$，改成\textbf{直接比较每一个右边点}：递增 $g(x_0)<h(x)$；递减 $g(x_0)>h(x)$（$x>x_0$）。
+\end{itemize}
+
+\textbf{延伸一眼看懂：}三段、四段的函数也一样处理：\textbf{每一段方向一致，每一道分界都不能反向跳跃。}某段没包括分界点，就比较它\emph{靠近分界点时的高度}。
+
+\end{summarybox}
+\clearpage
+\begin{summarybox}
+\input{assets/tikz/F014_linear_parameter.tex}
+\textbf{速练：}若 $f(x)=\begin{cases}(a-1)x+2,&x\le1,\\3x+1,&x>1,\end{cases}$ 严格递增，则左段 $a>1$，接口 $a+1\le4$，故 $\boxed{1<a\le3}$。
 \end{summarybox}

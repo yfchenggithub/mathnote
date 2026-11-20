@@ -1,31 +1,63 @@
+\clearpage
 \begin{summarybox}
-	\textbf{\textcolor{CSummary}{一句话核心}}
+\textbf{一句话理解：} 一个数往上长，另一个数往下变；\textbf{两项都是正数、乘积又固定时，恰好相等使和最小。} 这就是对勾函数的核心。
 
-	对勾函数 $f(x)=Ax+\frac{B}{x}$（$A,B>0$）的值域为 $(-\infty,-2\sqrt{AB}]\cup[2\sqrt{AB},+\infty)$，在 $x>0$ 取得最小值 $2\sqrt{AB}$，$x<0$ 取得最大值 $-2\sqrt{AB}$，取等条件分别为 $x=\pm\sqrt{\frac{B}{A}}$.
+\medskip
+\textbf{基本公式：} $A,B>0$，$x\ne0$：
+\[
+\boxed{f(x)=Ax+\frac Bx}.
+\]
+\[
+\begin{array}{c|c|c}
+\text{自变量}&\text{能够确定的最值}&\text{取等时的 }x\\\hline
+x>0&\min f=2\sqrt{AB}&\sqrt{B/A}\\[3pt]
+x<0&\max f=-2\sqrt{AB}&-\sqrt{B/A}
+\end{array}
+\]
+\[
+\boxed{\text{完整值域}=(-\infty,-2\sqrt{AB}]\cup[2\sqrt{AB},+\infty)}.
+\]
 
-	\medskip
-	\textbf{\textcolor{CSummary}{使用条件}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{条件1（参数正性）：} $A>0$, $B>0$.
-		\item \textbf{条件2（正负分区）：} 必须按 $x>0$ 和 $x<0$ 分类应用结论.
-	\end{itemize}
+\textbf{怎样最快想起公式？} 看到 $Ax+B/x$，先检查 $A,B>0$ 与 $x$ 的范围；观察两项相乘得到常数 $AB$；写出 $Ax=B/x$ 找取等位置；再判断边界能否取到。
 
-	\medskip
-	\textbf{\textcolor{CSummary}{关键提醒}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{易错点（不等号方向）：} $x<0$ 时 $f(x)\le -2\sqrt{AB}$，勿写成 $\ge$.
-		\item \textbf{检查项（取等条件）：} 确认 $x=\pm\sqrt{\frac{B}{A}}$ 属于定义域，才能写闭区间.
-	\end{itemize}
+\medskip
+\textbf{三条证明线索：}
+\begin{enumerate}[leftmargin=*,itemsep=0.25em]
+\item \textbf{平方不小于零：} $\frac{(\sqrt A\,x-\sqrt B)^2}{x}\ge0$（$x>0$）。
+\item \textbf{基本不等式：} $Ax+B/x\ge2\sqrt{AB}$（$x>0$）。
+\item \textbf{一元二次方程：} $Ax^2-yx+B=0$ 有实数解，须 $y^2\ge4AB$；这能解释为什么中间的数取不到。
+\end{enumerate}
+
+\medskip
+\textbf{几何迁移：} $k>0$，分别从 $y=k/x$ 第一、第三象限两支取点：
+\[
+\boxed{d_{\min}=2\sqrt{2k}}.
+\]
+最近点为 $(\sqrt{k},\sqrt{k})$ 和 $(-\sqrt{k},-\sqrt{k})$。\textbf{记住思路：} 点的\textbf{坐标和}是 $x+k/x$；先给坐标和找下界，再利用勾股定理求两点实际距离。
+
+\medskip
+\textbf{考前最后提醒：} 正负分开；换元要写范围；不要漏掉取等条件；\textbf{整个函数没有全局最大值和最小值}；只要额外限制挡住取等点，最值与值域就要重算。
 
 
 \medskip
-\textbf{\textcolor{CSummary}{几何迁移速查：反比例函数两支间距离}}
+\textbf{新增几何问题：对勾函数 $y=x+1/x$ 两支的最近距离。}
 \[
-\boxed{y=\frac{k}{x}\ (k>0)}\quad\Longrightarrow\quad
-\boxed{d_{\min}=2\sqrt{2k}}.
+\boxed{d_{\min}=2\sqrt{2+2\sqrt2}}.
 \]
-第一、第三象限的最近点为 $(\sqrt{k},\sqrt{k})$ 与 $(-\sqrt{k},-\sqrt{k})$；当 $k=1$ 时为 $(1,1)$、$(-1,-1)$，最短距离 $2\sqrt2$.
+\textbf{不等式路线：} $P=(a,a+1/a)$、$Q=(-b,-b-1/b)$，设 $s=a+b>0$：
+\[
+\begin{aligned}
+d^2&=s^2+\left(s+\frac1a+\frac1b\right)^2\\
+&\ge s^2+\left(s+\frac4s\right)^2
+=2s^2+8+\frac{16}{s^2}\ge8+8\sqrt2.
+\end{aligned}
+\]
+两处取等要求 $a=b=s/2$、$s^4=8$。
 
-\textbf{记忆线索：} 对勾函数给\textbf{坐标和下界}，勾股关系给\textbf{真实距离下界}；两处等号必须同时成立。
+\textbf{分别求导路线：} 保留 $x_0>0,x_1<0$ 两个未知数。\textbf{如果整体最短，单独改变其中任何一个也不能让距离再小。} 固定 $x_1$ 对 $x_0$ 求导为零；固定 $x_0$ 对 $x_1$ 求导为零；联立得 $x_1=-x_0$、$x_0^4=1/2$。\textbf{求导为零只是找候选点，仍须验证最小值。}
 
+\textbf{两个公式不要混：} $y=k/x$ 两支为 $2\sqrt{2k}$；$y=x+1/x$ 两支为 $2\sqrt{2+2\sqrt2}$。选学统一公式：$y=Ax+B/x$（$A\ge0,B>0$）两支为
+\[
+\boxed{d_{\min}=2\sqrt{2B\bigl(A+\sqrt{1+A^2}\bigr)}}.
+\]
 \end{summarybox}

@@ -1,0 +1,16 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,9.6);
+\node at (7.1,9.0) {指定一个高度：有交点，才有对应的自变量};
+
+\begin{scope}[shift={(1.4,2.0)},x=1.4cm,y=1.15cm]
+\draw[->,gray] (0,0)--(4.4,0) node[right]{$x$};\draw[->,gray] (0,0)--(0,5) node[above]{$y$};
+\draw[blue,very thick,domain=.24:4,samples=150] plot(\x,{\x+1/\x});
+\draw[teal!80!black,dashed] (0,3)--(4,3);\draw[orange!85!black,dashed] (0,2)--(4,2);\draw[gray,dashed] (0,1)--(4,1);
+\fill[teal!80!black] ({(3-sqrt(5))/2},3) circle(2pt) ({(3+sqrt(5))/2},3) circle(2pt);
+\fill[orange!85!black] (1,2) circle(2.3pt);
+\node[left=4pt] at (0,3){$3$};\node[left=4pt] at (0,2){$2$};\node[left=4pt] at (0,1){$1$};
+\end{scope}
+\node[align=left,anchor=west] at (8.3,5.2){图取 $A=B=1$，先看正支\\[12pt]$x^2-yx+1=0$\\[8pt]$\Delta=y^2-4$\\[14pt]\textcolor{teal!80!black}{$y=3$：两个实根}\\[10pt]\textcolor{orange!85!black}{$y=2$：一个二重实根}\\[10pt]$y=1$：没有实根};
+
+\node[text width=13cm,align=center] at (7.1,.6) {负支由原点对称得到；一般情形要检查 $y^2-4AB\ge0$，且所得根非零。};
+\end{tikzpicture}\end{center}

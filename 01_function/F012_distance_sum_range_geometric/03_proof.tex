@@ -1,50 +1,167 @@
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{\textcolor{CProof}{证明一：画一条直线就够了（最容易懂，优先使用）}}
+\input{assets/tikz/F012_path_straightening}
 
-	构造点 $A(m,-a)$、$B(n,b)$、$P(x,0)$，
-	把 $f(x)$ 化为 $|PA|+|PB|$，再用两点之间线段最短。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（对应距离）：}]
-		由两点间距离公式，
-		\[
-			|PA|=\sqrt{(x-m)^2+a^2},\qquad
-			|PB|=\sqrt{(x-n)^2+b^2}.
-		\]
-		因此 $f(x)=|PA|+|PB|$。
+\textbf{第 1 步：把根号变成长度。} 设 $A(m,-a)$、$B(n,b)$、$P(x,0)$。按两点间距离公式，
+\[
+ |AP|=\sqrt{(x-m)^2+a^2},\qquad
+ |PB|=\sqrt{(x-n)^2+b^2}.
+\]
+因此 $f(x)=|AP|+|PB|$。
 
-		\item[\textbf{步骤二（找到最短路径）：}]
-		由三角形不等式，
-		\[
-			f(x)=|PA|+|PB|\geq |AB|.
-		\]
-		因为 $a,b>0$，$A$、$B$ 分居 $x$ 轴两侧，
-		线段 $AB$ 必与 $x$ 轴相交。
-		取 $P$ 为这一交点，就有 $P$ 在线段 $AB$ 上，
-		故等号确实能够成立。
+\textbf{第 2 步：比较弯路与直路。} 两点间线段最短，因此
+\[
+ f(x)=|AP|+|PB|\geq |AB|.
+\]
 
-		\item[\textbf{步骤三（计算最小值）：}]
-		\[
-			\begin{aligned}
-				|AB|
-				&=\sqrt{(m-n)^2+\bigl((-a)-b\bigr)^2}\\
-				&=\sqrt{(m-n)^2+(a+b)^2}.
-			\end{aligned}
-		\]
-		线段 $AB$ 与 $x$ 轴的交点横坐标为
-		\[
-			x=m+\frac{a}{a+b}(n-m)
-			 =\frac{bm+an}{a+b}.
-		\]
+\textbf{第 3 步：检查能否取等。} $a,b>0$ 保证两点分居轴的两侧。线段 $AB$ 与轴交于 $P_0$，且 $P_0$ 在线段上，所以
+\[
+ |AP_0|+|P_0B|=|AB|.
+\]
+因此这个下界确实能取到。
 
-		\item[\textbf{步骤四（确定值域）：}]
-		$f$ 在 $\mathbb{R}$ 上连续，最小值能够取得；
-		且当 $x\to+\infty$ 时，$f(x)\to+\infty$。
-		因此其值域为
-		\[
-			\left[\sqrt{(m-n)^2+(a+b)^2},+\infty\right).
-		\]
-	\end{description}
+\textbf{第 4 步：算直线长度。} $A$、$B$ 的水平间距是 $|m-n|$，竖直间距是 $a+b$，故
+\[
+ \boxed{f_{\min}=|AB|=\sqrt{(m-n)^2+(a+b)^2}}.
+\]
+
+\textbf{第 5 步：找到最短时的 $x$。} 横向的两段与竖向的两段成同一比例，
+\[
+ \frac{x_0-m}{n-m}=\frac{a}{a+b}\qquad(m\ne n).
+\]
+由此
+\[
+ \boxed{x_0=m+\frac{a(n-m)}{a+b}=\frac{bm+an}{a+b}}.
+\]
+这里的比例式允许 $n-m$ 为负；如果 $m=n$，交点直接为 $x_0=m$，最终公式仍成立。
+
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明二：只用展开平方（不需要求导，配图看清等号）}}
+\input{assets/tikz/F012_algebra_segments}
+
+
+这个方法适合需要纯计算证明时使用。我们的目标是把两段“横向变化”相加得到 $n-m$，两段“竖向变化”相加得到 $a+b$。
+
+\textbf{第 1 步：先把式子写短一点。} 令
+\[
+ u=x-m,\quad v=n-x,\quad
+ U=\sqrt{u^2+a^2},\quad V=\sqrt{v^2+b^2}.
+\]
+于是 $u+v=n-m$，原式为 $U+V$。注意：$u,v$ 可以是负数，但 $U,V$ 一定不小于 $0$。
+
+\textbf{第 2 步：把两个关键的平方展开。} 直接计算：
+\[
+ \begin{aligned}
+ (UV)^2-(uv+ab)^2
+ &=(u^2+a^2)(v^2+b^2)-(uv+ab)^2\\
+ &=b^2u^2+a^2v^2-2abuv\\
+ &=(bu-av)^2\geq0.
+ \end{aligned}
+\]
+因此 $UV\geq|uv+ab|\geq uv+ab$。
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{第 3 步：合并成一个大平方。} 因为 $U+V\geq0$，
+\[
+ \begin{aligned}
+ (U+V)^2
+ &=u^2+a^2+v^2+b^2+2UV\\
+ &\geq u^2+v^2+2uv+a^2+b^2+2ab\\
+ &=(u+v)^2+(a+b)^2\\
+ &=(n-m)^2+(a+b)^2.
+ \end{aligned}
+\]
+两边取非负平方根，得到
+\[
+ \boxed{U+V\geq\sqrt{(n-m)^2+(a+b)^2}}.
+\]
+
+\textbf{第 4 步：等号能否成立？} 上面的关键是 $(bu-av)^2\geq0$。当 $bu=av$ 时，
+\[
+ b(x-m)=a(n-x)
+ \quad\Longleftrightarrow\quad
+ x=\frac{bm+an}{a+b}.
+\]
+此时 $u/a=v/b$，因此 $uv\geq0$，也有 $UV=uv+ab$。所以不等式中每一步的等号\textbf{确实能同时成立}，最小值与证明一相同。
+
+\textbf{小提示：} 这里虽然平方的式子较长，但核心只是一句初中数学：\textbf{任何实数的平方都不小于 $0$。}
+
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明三：用导数判断先减小、后增大（高中常规方法）}}
+\input{assets/tikz/F012_derivative_shape}
+
+
+直接求导得
+\[
+ f'(x)=\frac{x-m}{\sqrt{(x-m)^2+a^2}}
+        +\frac{x-n}{\sqrt{(x-n)^2+b^2}}.
+\]
+因为交换两个根号不会改变总和，不妨先设 $m<n$。
+
+\textbf{第 1 步：判断两侧。} 当 $x\leq m$ 时，两个分子的符号分别为非正和负，所以 $f'(x)<0$；当 $x\geq n$ 时，两个分子的符号分别为正和非负，所以 $f'(x)>0$。
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{第 2 步：判断 $m<x<n$。} 在这个区间设 $u=x-m>0$、$v=n-x>0$，那么
+\[
+ f'(x)=\frac{u}{\sqrt{u^2+a^2}}-\frac{v}{\sqrt{v^2+b^2}}.
+\]
+两项都是正数，比较它们的大小时可以平方。先看导数什么时候不小于 $0$：
+\[
+ \begin{aligned}
+ f'(x)\geq0
+ &\Longleftrightarrow
+ \frac{u}{\sqrt{u^2+a^2}}\geq\frac{v}{\sqrt{v^2+b^2}}\\
+ &\Longleftrightarrow u^2(v^2+b^2)\geq v^2(u^2+a^2)\\
+ &\Longleftrightarrow b^2u^2\geq a^2v^2\\
+ &\Longleftrightarrow bu\geq av.
+ \end{aligned}
+\]
+由于 $a,b,u,v$ 都是正数，把上述“不小于”改成“等于”或“小于”，对应关系也完全一样。于是
+\[
+ \begin{cases}
+ f'(x)<0,& b(x-m)<a(n-x),\\
+ f'(x)=0,& b(x-m)=a(n-x),\\
+ f'(x)>0,& b(x-m)>a(n-x).
+ \end{cases}
+\]
+也就是以 $x_0=(bm+an)/(a+b)$ 为界，$x<x_0$ 时函数减小，$x>x_0$ 时函数增大。
+
+\textbf{第 3 步：计算最低点的值。} 代入 $x_0$，
+\[
+ x_0-m=\frac{a(n-m)}{a+b},\qquad
+ x_0-n=-\frac{b(n-m)}{a+b}.
+\]
+因此
+\[
+ \begin{aligned}
+ f(x_0)
+ &=a\sqrt{1+\frac{(n-m)^2}{(a+b)^2}}
+   +b\sqrt{1+\frac{(n-m)^2}{(a+b)^2}}\\
+ &=(a+b)\sqrt{1+\frac{(n-m)^2}{(a+b)^2}}\\
+ &=\boxed{\sqrt{(n-m)^2+(a+b)^2}}.
+ \end{aligned}
+\]
+如果 $m>n$，交换两项即可；如果 $m=n$，
+\[
+ f'(x)=(x-m)\left(\frac1{\sqrt{(x-m)^2+a^2}}+\frac1{\sqrt{(x-m)^2+b^2}}\right),
+\]
+因此仍在 $x=m$ 处最小，最小值为 $a+b$，与总公式相同。
+
+\medskip
+\textbf{\textcolor{CProof}{值域为什么没有缺口？}} 以上证明了函数在 $x_0$ 左边减小、右边增大。它的值随 $x$ 连续改变，而且 $x\to+\infty$ 时 $f(x)\to+\infty$，所以所有不小于最小值的数都能取到：
+\[
+ \boxed{\text{值域}=\left[\sqrt{(m-n)^2+(a+b)^2},+\infty\right)}.
+\]
 \end{proofbox}

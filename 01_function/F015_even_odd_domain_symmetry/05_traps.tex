@@ -1,21 +1,84 @@
+\clearpage
 \begin{trapbox}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（忽略定义域检查）}}] 判断奇偶性时，直接计算$f(-x)$，而不先检查定义域是否关于原点对称。
-		\item[\textbf{\textcolor{CTrap}{正确理解（定义域必须对称）}}] 必须先验证定义域对称。若不对称，函数必为非奇非偶，无需继续。
-		\item[\textbf{\textcolor{CTrap}{错因分析（对称是前提）}}] 奇偶性的定义要求对任意$x\in D$都有$-x\in D$，否则$f(-x)$无意义。
-	\end{description}
+\textbf{易错点1｜只看表达式，不看定义域}
+\input{assets/tikz/F015_domain_compare.tex}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（忽视关系验证）}}] 认为只要定义域对称，函数就一定是奇函数或偶函数。
-		\item[\textbf{\textcolor{CTrap}{正确理解（还需关系式成立）}}] 定义域对称只是必要条件，必须验证$f(-x)=\pm f(x)$对所有$x$成立。
-		\item[\textbf{\textcolor{CTrap}{错因分析（定义不完整）}}] 只记住对称条件，忘记关系式，导致误判。
-	\end{description}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（误用特殊值）}}] 用$f(0)=0$直接判定函数为奇函数。
-		\item[\textbf{\textcolor{CTrap}{正确理解（特殊值不充分）}}] $f(0)=0$仅是奇函数在$0$点有定义时的性质，不能作为奇函数的判据。
-		\item[\textbf{\textcolor{CTrap}{错因分析（范围缩小）}}] 将个别点的值当成整体性质，忽略了定义的普遍性。
-	\end{description}
+$f(x)=x^2$若只在$x\geq0$上定义，\textbf{不是偶函数}。右边有$2$，左边却没有$-2$，图像不可能关于$y$轴对称。
+
+\medskip
+\textbf{易错点2｜定义域对称，就急着判断是奇还是偶}
+
+$f(x)=x+1$在全体实数上有定义，但$f(-x)=1-x$，既不恒等于$f(x)$，也不恒等于$-f(x)$。\textbf{定义域对称只是第一关。}
+
+\medskip
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{易错点3｜检查一对数字就下结论}
+\input{assets/tikz/F015_one_pair_fails.tex}
+
+
+$f(x)=x^2+x(x^2-1)$满足$f(1)=f(-1)=1$，但$f(2)=10$、$f(-2)=-2$，所以它不是偶函数。\textbf{证明成立，要对所有$x$检查；推翻结论，找到一对不符合的就够了。}
+
+\medskip
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{易错点4｜把$f(0)=0$误认为奇函数的充分证据}
+\input{assets/tikz/F015_neither_parabola.tex}
+
+
+$f(x)=x^2+x$有$f(0)=0$，仍然既非奇也非偶。奇函数\textbf{若在$0$处有定义}，才一定有$f(0)=0$；但反过来不成立。
+
+\medskip
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{易错点5｜认为奇函数一定经过原点}
+\input{assets/tikz/F015_odd_hole.tex}
+
+
+$f(x)=\dfrac1x$的定义域是$x\ne0$，它是奇函数，却没有$(0,0)$这个点。应当说：\textbf{奇函数若有$x=0$这个输入，就必须经过原点。}
+
+\medskip
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{易错点6｜认为图像关于$x$轴对称的曲线就是函数}
+
+
+\begin{center}
+\input{assets/tikz/F015_x_axis_symmetry_exception.tex}
+\end{center}
+
+
+
+
+$y^2=2px$（$p>0$）关于$x$轴对称，但$x>0$时有两个$y$，不是$y$关于$x$的函数。\textbf{处处为$0$的函数是特别的例外}：它关于$x$轴对称，也不违反一个$x$对应一个$y$的规定。
+
+\medskip
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{易错点7｜认为零函数在任何定义域上都既奇又偶}
+\input{assets/tikz/F015_zero_domain.tex}
+
+
+规定$f(x)=0$但只允许$x\geq0$，其图像虽在$x$轴上，定义域却不对称，\textbf{仍然既非奇也非偶}。要同时是奇、偶函数，\textbf{还需要定义域对称}。
+
+\medskip
+\textbf{易错点8｜认为偶函数只能有偶次幂，奇函数只能有奇次幂}
+
+$f(x)=|x|$是偶函数，但式子里没有$x^2$一类的偶次幂；$f(x)=\dfrac1x$是奇函数，也不是普通的正整数奇次幂多项式。\textbf{按$f(-x)$验证最可靠，别只靠外形猜。}
+
+\medskip
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{易错点9｜只计算$f(-x)$，忘了它是否真有意义}
+\input{assets/tikz/F015_sqrt_domain.tex}
+
+
+例如$f(x)=\sqrt{x+1}$的定义域为$[-1,+\infty)$，$x=2$能代入，而$-2$不能代入。不能仅凭写出$\sqrt{1-x}$就继续讨论奇偶性；\textbf{先检查输入范围}。
 \end{trapbox}

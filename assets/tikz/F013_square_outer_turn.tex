@@ -1,0 +1,12 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,9.4);
+\node at (7.1,8.8) {例5：内层跨过零，外层平方要分成两边判断};
+
+\begin{scope}[shift={(2.5,2.3)},x=1.2cm,y=.85cm]
+\draw[->,gray] (-1.5,0)--(3.8,0) node[right]{$x$};\draw[->,gray] (0,-.3)--(0,5.3) node[above]{$H$};
+\draw[blue,very thick,domain=-1.2:3.2,samples=140] plot(\x,{(\x-1)^2});\draw[gray,dotted] (1,0)--(1,4.8);\fill[orange!85!black] (1,0) circle(2.4pt);\node[below=6pt] at (1,0){$1$};
+\end{scope}
+\node[align=left,anchor=west] at (8.3,5){$t=x-1$：内层一直增\\[12pt]$t<0$ 时平方递减\\[9pt]$t>0$ 时平方递增\\[14pt]$x\le1$：整体减\\[9pt]$x\ge1$：整体增};
+
+\node[text width=12.8cm,align=center] at (7.1,.65) {外层转折发生在 $t=0$，换回原来的自变量位置就是 $x=1$。};
+\end{tikzpicture}\end{center}

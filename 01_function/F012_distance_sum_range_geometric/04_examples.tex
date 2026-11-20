@@ -1,87 +1,160 @@
+\clearpage
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例 1（直接识别）}}
+\textbf{\textcolor{CExample}{例 0：先看最简单的情况（初中水平）}}
+\input{assets/tikz/F012_vertical_case}
 
-	求
-	$f(x)=\sqrt{(x-1)^2+4}+\sqrt{(x-3)^2+9}$
-	的最小值及取等时的 $x$。
 
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{识别与构造：}]
-		      $m=1$，$n=3$，$a=2$，$b=3$。
-		      取 $A(1,-2)$、$B(3,3)$、$P(x,0)$，
-		      则 $f(x)=|PA|+|PB|$。
+求 $f(x)=\sqrt{x^2+4}+\sqrt{x^2+9}$ 的最小值。
 
-		\item[\textbf{求最小值：}]
-		      \[
-			      f(x)\geq |AB|
-			      =\sqrt{(1-3)^2+(2+3)^2}
-			      =\sqrt{29}.
-		      \]
+\textbf{分析：} 两个根号都在 $x=0$ 时最小，所以
+\[
+ f(x)\geq\sqrt4+\sqrt9=2+3=5.
+\]
+此时两项的最小值刚好可以同时取到，故最小值为 $\boxed5$，对应 $x=0$。
 
-		\item[\textbf{求取等位置：}]
-		      \[
-			      x=\frac{3\cdot1+2\cdot3}{2+3}
-			      =\frac95.
-		      \]
-	\end{description}
-	\textbf{\textcolor{CExample}{答案：}}
-	最小值为 $\sqrt{29}$，此时 $x=\dfrac95$。
+\textbf{为什么还需要 F012？} 当两个根号内分别出现 $(x-m)^2$、$(x-n)^2$，且 $m\ne n$ 时，它们各自最小的位置不同，就不能再把两个最小值直接加起来了。
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 2（先配方）}}
+\medskip
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 1：直接识别两个距离（原例保留并补足理解）}}
+\input{assets/tikz/F012_path_straightening}
 
-	求
-	$f(x)=\sqrt{x^2-4x+5}+\sqrt{x^2+2x+5}$
-	的最小值。
 
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{配方：}]
-		      \[
-			      x^2-4x+5=(x-2)^2+1^2,\qquad
-			      x^2+2x+5=(x+1)^2+2^2.
-		      \]
-		      所以 $m=2$，$n=-1$，$a=1$，$b=2$。
+求
+\[
+ f(x)=\sqrt{(x-1)^2+4}+\sqrt{(x-3)^2+9}
+\]
+的最小值及此时的 $x$。
 
-		\item[\textbf{求最小值与取等位置：}]
-		      \[
-			      f_{\min}
-			      =\sqrt{(2-(-1))^2+(1+2)^2}
-			      =3\sqrt2,
-		      \]
-		      \[
-			      x=\frac{2\cdot2+1\cdot(-1)}{1+2}=1.
-		      \]
-	\end{description}
-	\textbf{\textcolor{CExample}{答案：}}
-	最小值为 $3\sqrt2$，此时 $x=1$。
+\textbf{第 1 步（先看结构）：} $m=1$、$n=3$、$a=2$、$b=3$。注意第一个根号单独的最小值 $2$ 在 $x=1$ 取到；第二个根号单独的最小值 $3$ 在 $x=3$ 取到。因此\textbf{不能把 $2+3=5$ 当成原式的最小值}。
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 3（含参数）}}
+\textbf{第 2 步（放置三个点）：} 取 $A(1,-2)$、$B(3,3)$、$P(x,0)$。两点分在轴的两侧，线段 $AB$ 穿过轴，最短时 $AP+PB=AB$。
+\[
+ f_{\min}=\sqrt{(3-1)^2+(2+3)^2}
+ =\boxed{\sqrt{29}}.
+\]
 
-	已知 $k>0$，
-	\[
-		f(x)=\sqrt{(x-2)^2+k^2}
-		+\sqrt{(x-5)^2+9}
-	\]
-	的最小值为 $5$。求 $k$ 及取等时的 $x$。
+\textbf{第 3 步（求交点的位置）：}
+\[
+ x_0=\frac{3\cdot1+2\cdot3}{2+3}=\boxed{\frac95}.
+\]
+因为 $1<\dfrac95<3$，此位置恰好在两个定点的横坐标之间。答案：最小值 $\sqrt{29}$，$x=9/5$。
 
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{确定参数：}]
-		      $m=2$，$n=5$，$a=k$，$b=3$。
+\medskip
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 2：隐藏在二次式中的距离（原例保留）}}
+\input{assets/tikz/F012_example2_coordinates}
 
-		\item[\textbf{利用最小值求 $k$：}]
-		      \[
-			      \sqrt{(2-5)^2+(k+3)^2}=5,
-		      \]
-		      故 $(k+3)^2=16$。由于 $k>0$，
-		      有 $k+3=4$，即 $k=1$。
 
-		\item[\textbf{求取等位置：}]
-		      \[
-			      x=\frac{3\cdot2+1\cdot5}{1+3}
-			      =\frac{11}{4}.
-		      \]
-	\end{description}
-	\textbf{\textcolor{CExample}{答案：}}
-	$k=1$，此时 $x=\dfrac{11}{4}$。
+求 $f(x)=\sqrt{x^2-4x+5}+\sqrt{x^2+2x+5}$ 的最小值及此时的 $x$。
+
+\textbf{第 1 步（分别配方）：}
+\[
+ \begin{aligned}
+ x^2-4x+5&=(x-2)^2+1^2,\\
+ x^2+2x+5&=(x+1)^2+2^2.
+ \end{aligned}
+\]
+因此 $m=2$、$n=-1$、$a=1$、$b=2$。
+
+\textbf{第 2 步（直接算两点距离）：}
+\[
+ f_{\min}=\sqrt{\bigl(2-(-1)\bigr)^2+(1+2)^2}
+ =\sqrt{18}=\boxed{3\sqrt2}.
+\]
+
+\textbf{第 3 步（求 $x$ 并代入检查）：}
+\[
+ x_0=\frac{2\cdot2+1\cdot(-1)}{1+2}=\boxed1.
+\]
+代回原式：$\sqrt{1-4+5}+\sqrt{1+2+5}=\sqrt2+\sqrt8=3\sqrt2$，正确。
+
+\medskip
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 3：已知最小值，反过来求参数（原例保留）}}
+\input{assets/tikz/F012_example3_parameter}
+
+
+已知 $k>0$，
+\[
+ f(x)=\sqrt{(x-2)^2+k^2}+\sqrt{(x-5)^2+9}
+\]
+的最小值为 $5$，求 $k$ 及取到最小值时的 $x$。
+
+\textbf{第 1 步（认出参数）：} $m=2$、$n=5$、$a=k$、$b=3$。
+
+\textbf{第 2 步（由最小值列式）：}
+\[
+ \sqrt{(2-5)^2+(k+3)^2}=5
+ \Longrightarrow (k+3)^2=16.
+\]
+因为 $k>0$，所以 $k+3>0$，只能有 $k+3=4$，故 $\boxed{k=1}$。
+
+\textbf{第 3 步（取等时的 $x$）：}
+\[
+ x_0=\frac{3\cdot2+1\cdot5}{1+3}=\boxed{\frac{11}{4}}.
+\]
+
+\medskip
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 4：题目限制 $0\leq x\leq1$，不能照搬公式}}
+\input{assets/tikz/F012_restricted_closed}
+
+
+仍考虑例 1 的函数，但现在要求 $0\leq x\leq1$ 时的值域。
+
+先按完整实数范围求出最佳位置 $x_0=9/5$。由于 $9/5>1$，这次\textbf{根本不允许走到原来的最短位置}。
+
+由证明三可知，函数在 $x<9/5$ 时一直减小。所以在 $[0,1]$ 上，$x=1$ 时最小，$x=0$ 时最大。
+\[
+ \begin{aligned}
+ f(1)&=\sqrt4+\sqrt{4+9}=2+\sqrt{13},\\
+ f(0)&=\sqrt{1+4}+\sqrt{9+9}=\sqrt5+3\sqrt2.
+ \end{aligned}
+\]
+因此限制后的\textbf{完整值域}为
+\[
+ \boxed{\left[2+\sqrt{13},\ \sqrt5+3\sqrt2\right]}.
+\]
+这个例子说明：\textbf{完整实数范围的最小值公式正确，不代表限制范围后还能取到。}
+
+\medskip
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 5：开放的端点，最小值可能根本取不到}}
+\input{assets/tikz/F012_restricted_open}
+
+
+仍取例 1 的函数，改为 $x>2$。原来最短位置 $9/5$ 不在范围内，且函数在 $x>9/5$ 时递增。因此 $x$ 越靠近 $2$，函数越小，但因为\textbf{$x=2$ 不允许}，始终不能等于
+\[
+ f(2)=\sqrt{(2-1)^2+4}+\sqrt{(2-3)^2+9}
+ =\sqrt5+\sqrt{10}.
+\]
+所以这里\textbf{没有最小值}；所有函数值都严格大于 $\sqrt5+\sqrt{10}$，值域为
+\[
+ \boxed{\left(\sqrt5+\sqrt{10},\ +\infty\right)}.
+\]
+
+\medskip
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{快练：对称的特殊情况}}
+\input{assets/tikz/F012_vertical_case}
+
+
+若 $m=n=c$，则
+\[
+ f(x)=\sqrt{(x-c)^2+a^2}+\sqrt{(x-c)^2+b^2}\geq a+b,
+\]
+两项同时在 $x=c$ 时达到各自的最小值，因此 $f_{\min}=a+b$。总公式给出的也是 $\sqrt{0+(a+b)^2}=a+b$，两种看法完全一致。
 \end{examplebox}

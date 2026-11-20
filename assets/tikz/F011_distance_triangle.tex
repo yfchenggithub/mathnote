@@ -1,23 +1,18 @@
-\begin{center}
-\begin{minipage}{0.98\linewidth}
-\centering
-\textbf{先分清水平差、竖直差与真实距离}\par\medskip
-\begin{tikzpicture}[font=\small,>=Stealth]
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,9.6);
+\node at (7.1,9.0) {先分清两个坐标差与真正的两点距离};
 
-\begin{scope}[x=1.65cm,y=1.65cm]
-\draw[->,gray] (-1.7,0)--(2.7,0) node[right] {$x$};
-\draw[->,gray] (0,-1.6)--(0,1.7) node[above] {$y$};
-\draw[CProof,very thick] (-1,-1)--(2,0.5);
-\draw[CExample,thick] (-1,-1)--(2,-1)--(2,0.5);
-\draw (1.85,-1)--(1.85,-0.85)--(2,-0.85);
-\fill (-1,-1) circle (1.7pt) (2,0.5) circle (1.7pt);
-\node[above right] at (2,0.5) {$P(a,k/a)$};
-\node[below left] at (-1,-1) {$Q(-b,-k/b)$};
-\node[below] at (0.5,-1) {$u=a+b$};
-\node[right] at (2,-0.45) {$v=k/a+k/b$};
-\node[above,rotate=26.565] at (0.6,0.25) {$d=PQ$};
+\begin{scope}[shift={(3.1,4.7)},x=1.65cm,y=1.65cm]
+\draw[->,gray] (-1.5,0)--(2.4,0) node[right]{$x$};\draw[->,gray] (0,-1.45)--(0,1.5) node[above]{$y$};
+\draw[blue,very thick] (-1,-1)--(2,.5);
+\draw[orange!85!black,thick] (-1,-1)--(2,-1)--(2,.5);
+\draw (1.85,-1)--(1.85,-.85)--(2,-.85);
+\fill (-1,-1) circle(2pt) (2,.5) circle(2pt);
+\node[above=12pt] at (2,.5){$P$};\node[below=12pt] at (-1,-1){$Q$};
+\node[below=7pt] at (.5,-1){$u=a+b$};\node[right=6pt] at (2,-.4){$v$};
+\node[below=8pt] at (.6,-.2){$d=PQ$};
 \end{scope}
-\end{tikzpicture}\par\smallskip
-图取 $k=1,a=2,b=1$。两条直角边为坐标差，斜边才是距离；$d^2\ge2uv$ 的取等要求是 $u=v$。
-\end{minipage}
-\end{center}
+\node[align=left,anchor=west] at (8.4,5.1){$P=(a,k/a)$\\[9pt]$Q=(-b,-k/b)$\\[12pt]$u=a+b>0$\\[9pt]$v=k/a+k/b>0$\\[12pt]$d^2=u^2+v^2\ge2uv$\\[9pt]再用 $a/b+b/a\ge2$};
+
+\node[text width=13cm,align=center] at (7.1,.6) {图取 $k=1,a=2,b=1$，横纵坐标等比例；两次等号同时要求 $a=b=\sqrt{k}$。};
+\end{tikzpicture}\end{center}

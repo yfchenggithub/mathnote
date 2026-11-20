@@ -1,43 +1,109 @@
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{\textcolor{CProof}{方法一：任取两个数比较（最推荐，初中不等式知识就够）}}
+\input{assets/tikz/F013_four_order_cases}
 
-	用单调性定义：在定义域内任取 $x_1<x_2$，通过 $g$ 的单调性得到 $g(x_1),g(x_2)$ 的大小关系，再通过 $f$ 的单调性得到 $f(g(x_1)),f(g(x_2))$ 的大小关系，从而判断 $f\circ g$ 的增减性。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（设定变量）：}] 任取 $x_1,x_2\in I$，且 $x_1<x_2$。
-			\[
-				x_1<x_2\quad (x_1,x_2\in I).
-			\]
-			\par\textbf{理由：} 函数单调性是通过比较任意两点函数值大小来定义的，所以先锁定两个点。
+\textbf{为什么选这个方法？} 判断一个函数是不是递增，按定义就是：
+在区间内随便取两个数 $x_1<x_2$，看后者的函数值是否总比前者大。
+这个方法\textbf{不用求导、没有额外假设}，最能解释口诀从哪里来。
 
-		\item[\textbf{步骤二（同增情形）：}] 设 $f\nearrow,\; g\nearrow$。由 $g$ 单调递增得 $g(x_1)<g(x_2)$；再由 $f$ 单调递增得 $f(g(x_1))<f(g(x_2))$。故 $f\circ g$ 在 $I$ 上单调递增。
-			\[
-				x_1<x_2 \xrightarrow{g\nearrow} g(x_1)<g(x_2)\xrightarrow{f\nearrow} f(g(x_1))<f(g(x_2)).
-			\]
-			\par\textbf{理由：} 内层递增保证自变量大小顺序在 $g$ 下的像保持同向；外层递增使像的大小顺序进一步保持不变号。因此复合函数递增。
+\textbf{第一步：}设 $H(x)=f(g(x))$，任取 $x_1,x_2\in I$，且 $x_1<x_2$。
+记 $t_1=g(x_1)$，$t_2=g(x_2)$。
+因为 $g$ 在 $I$ 上严格单调，所以 $t_1,t_2$ 的大小一定能确定；
+又因为这两个数都落在 $f$ 保持同一增减方向的范围内，
+可以继续比较 $f(t_1)$ 和 $f(t_2)$。
 
-		\item[\textbf{步骤三（异减情形）：}] 设 $f\nearrow,\; g\searrow$。由 $g$ 递减得 $g(x_1)>g(x_2)$；再由 $f$ 递增得 $f(g(x_1))>f(g(x_2))$。故 $f\circ g$ 在 $I$ 上单调递减。
-			\[
-				x_1<x_2 \xrightarrow{g\searrow} g(x_1)>g(x_2)\xrightarrow{f\nearrow} f(g(x_1))>f(g(x_2)).
-			\]
-			\par\textbf{理由：} 内层递减翻转了自变量的大小方向，外层递增保持这个翻转后的方向，所以最终比较结果与 $x_1<x_2$ 反向，复合单调递减。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{第二步：逐种比较。}
+\begin{enumerate}[leftmargin=*, itemsep=0.5em]
+\item \textbf{里增、外增。} 由 $x_1<x_2$ 得 $t_1<t_2$；
+外层递增，所以 $f(t_1)<f(t_2)$，即 $H(x_1)<H(x_2)$。整体递增。
+\[
+ x_1<x_2\ \Longrightarrow\ g(x_1)<g(x_2)
+ \ \Longrightarrow\ f(g(x_1))<f(g(x_2)).
+\]
+\item \textbf{里减、外减。} 内层先把不等号反过来，得到 $t_1>t_2$；
+外层也递减，因此输入更大的 $t_1$，输出反而更小：$f(t_1)<f(t_2)$。
+整体仍递增。
+\[
+ x_1<x_2\ \Longrightarrow\ g(x_1)>g(x_2)
+ \ \Longrightarrow\ f(g(x_1))<f(g(x_2)).
+\]
+\item \textbf{里增、外减。} 先得到 $t_1<t_2$，外层递减会把不等号反过来：
+$f(t_1)>f(t_2)$。整体递减。
+\[
+ x_1<x_2\ \Longrightarrow\ g(x_1)<g(x_2)
+ \ \Longrightarrow\ f(g(x_1))>f(g(x_2)).
+\]
+\item \textbf{里减、外增。} 先得到 $t_1>t_2$，外层递增不会改变这两个
+$t$ 对应的大小顺序：$f(t_1)>f(t_2)$。整体递减。
+\[
+ x_1<x_2\ \Longrightarrow\ g(x_1)>g(x_2)
+ \ \Longrightarrow\ f(g(x_1))>f(g(x_2)).
+\]
+\end{enumerate}
+\textbf{第三步：}由于 $x_1,x_2$ 是在区间内\textbf{任意}取的，
+结果就对整段区间都成立。这才是证明，不是只试了几个数。
 
-		\item[\textbf{步骤四（同减与异增）：}]
-			\quad\textbf{同减情形：} $f\searrow,\;g\searrow$。由 $g$ 递减得 $g(x_1)>g(x_2)$，再由 $f$ 递减得 $f(g(x_1))<f(g(x_2))$，故复合递增。
-			\[
-				x_1<x_2\xrightarrow{g\searrow} g(x_1)>g(x_2)\xrightarrow{f\searrow} f(g(x_1))<f(g(x_2))\;\Rightarrow\; f\circ g\nearrow.
-			\]
-			\quad\textbf{异增情形：} $f\searrow,\;g\nearrow$。由 $g$ 递增得 $g(x_1)<g(x_2)$，再由 $f$ 递减得 $f(g(x_1))>f(g(x_2))$，故复合递减。
-			\[
-				x_1<x_2\xrightarrow{g\nearrow} g(x_1)<g(x_2)\xrightarrow{f\searrow} f(g(x_1))>f(g(x_2))\;\Rightarrow\; f\circ g\searrow.
-			\]
-			\par\textbf{理由：} 内外单调性符号相乘得正为增，得负为减。这两类均可由前两步类推得到。
-	\end{description}
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法二：看两次“变化量”的正负（只用初中代数）}}
+\input{assets/tikz/F013_secant_product}
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
 
-	综上所述，复合函数的单调性完全由 $f$ 和 $g$ 的单调性决定：当 $f$ 与 $g$ 单调性相同时，$f\circ g$ 单调递增；当 $f$ 与 $g$ 单调性相反时，$f\circ g$ 单调递减。这就是“同增异减”法则。
+这种写法把口诀变成一条能算出来的式子，不需要导数。
+仍任取 $x_1<x_2$，记 $t_i=g(x_i)$，$H(x)=f(g(x))$。
+因为 $g$ 严格单调，$t_2-t_1\ne0$。把下式右边乘开：
+\[
+\boxed{\frac{H(x_2)-H(x_1)}{x_2-x_1}
+ =\underbrace{\frac{f(t_2)-f(t_1)}{t_2-t_1}}_{\text{看外层}}
+ \cdot
+ \underbrace{\frac{t_2-t_1}{x_2-x_1}}_{\text{看内层}}.}
+\]
+右式约去非零的 $t_2-t_1$ 就得到左式；这里是两点的差商，不是导数。
+
+\textbf{再看正负：}
+\begin{itemize}[leftmargin=*, itemsep=0.3em]
+\item 内层递增，则右边第二个分式为正；内层递减则为负。
+\item 外层递增，则右边第一个分式为正；外层递减则为负。
+\item 正数乘正数或负数乘负数，都是正数；正负相乘是负数。
+\end{itemize}
+而 $x_2-x_1>0$，所以左边分式的正负就是 $H(x_2)-H(x_1)$ 的正负。
+于是两层方向相同则整体递增，不同则整体递减。
+
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法三：学过导数以后，一行判断（高中方法，可选）}}
+\input{assets/tikz/F013_exponential_turn}
+
+
+\textbf{使用前提：}内层 $g$ 和外层 $f$ 在有关位置都能求导，且区间内相关导数
+始终为正或始终为负。如果有导数等于 $0$ 的点，不能单凭“全程大于或小于 $0$”这条简便判断，
+需要结合具体情况；\textbf{不能把“导数某点为零”误认为函数一定掉头。}
+
+对于 $H(x)=f(g(x))$，求导时先对外层求导，里面保留 $g(x)$，
+再乘里面的导数：
+\[
+\boxed{H'(x)=f'(g(x))\,g'(x).}
+\]
+当 $g'(x)>0$，说明里面随 $x$ 增大而增大；$g'(x)<0$ 则相反。
+同样，$f'(g(x))>0$ 说明外层在这些输入处递增，$<0$ 说明递减。
+因此
+\[
+\begin{array}{c|c|c}
+ g'(x)&f'(g(x))&H'(x)\\ \hline
+ +&+&+\\ -&-&+\\ +&-&-\\ -&+&-
+\end{array}
+\]
+导数在整段上为正则函数递增，为负则递减，恰好又得到“同增异减”。
+
+\textbf{注意：}方法一适用得更广，因为有些严格递增的函数在个别点导数可以为 $0$，
+还有些函数在某点不能求导，却仍可能单调。
 \end{proofbox}

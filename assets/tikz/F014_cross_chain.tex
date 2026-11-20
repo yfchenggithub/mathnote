@@ -1,0 +1,6 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,9.2);
+\node at (7.1,8.6) {跨段证明：用分界点串起左右两点的高度};
+\begin{scope}[shift={(3.2,3.5)},x=0.9cm,y=0.9cm]\draw[->,gray] (-2,0)--(2.3,0) node[right]{$x$};\draw[->,gray] (0,-2)--(0,4.3) node[above]{$y$};\begin{scope}\clip (-2,-2) rectangle (2,4);\draw[blue,thick,domain=-2:0,samples=80] plot(\x,{\x});\draw[orange!85!black,thick,domain=0.0001:2,samples=100] plot(\x,{\x+2});\end{scope}\draw[draw=blue,fill=blue] (0,0) circle(2pt);\draw[draw=orange!85!black,fill=white] (0,2) circle(2pt);\end{scope}\begin{scope}[shift={(3.2,3.5)},x=.9cm,y=.9cm]\fill[blue] (-1,-1) circle(2pt) node[below right]{$(u,g(u))$};\fill[orange!85!black] (1,3) circle(2pt) node[above left]{$(v,h(v))$};\draw[gray,dotted] (-1,-1)--(2.4,-1) (0,0)--(2.4,0) (0,2)--(2.4,2) (1,3)--(2.4,3);\end{scope}\node[align=left,anchor=west] at (7.3,4.4) {示例：$g(x)=x,\ h(x)=x+2$\\[10pt]$u=-1\le x_0=0<v=1$\\[12pt]$g(u)=-1\le g(0)=0$\\[10pt]$g(0)=0\le L=2<h(v)=3$\\[12pt]一般链：\\[6pt]$g(u)\le g(x_0)\le L<h(v)$};
+\node[text width=12.8cm,align=center] at (7.1,.65) {图是具体模型；证明中的 $u,v$ 为任意左右两点，递减时把不等号反向。};
+\end{tikzpicture}\end{center}

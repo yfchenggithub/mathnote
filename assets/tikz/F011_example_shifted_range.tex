@@ -1,0 +1,18 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,9.8);
+\node at (7.1,9.200000000000001) {例2：换元后再还原，边界点回到原来的横坐标};
+
+\begin{scope}[shift={(5.0,4.6)},x=.95cm,y=.37cm]
+\draw[->,gray] (-4.3,0)--(2.9,0) node[right]{$x$};\draw[->,gray] (0,-8.5)--(0,10) node[above]{$y$};
+\draw[dashed,gray] (-1,-8.5)--(-1,10);\node[above] at (-1,10){$x=-1$};
+\begin{scope}\clip (-4.2,-8.5) rectangle (2.7,9.4);
+\draw[blue,very thick,domain=-4.2:-1.08,samples=130] plot(\x,{2*\x+1+2/(\x+1)});
+\draw[blue,very thick,domain=-.92:2.7,samples=130] plot(\x,{2*\x+1+2/(\x+1)});\end{scope}
+\draw[teal!80!black,dashed] (-4.1,3)--(2.6,3) (-4.1,-5)--(2.6,-5);
+\fill[orange!85!black] (0,3) circle(2.2pt) (-2,-5) circle(2.2pt);
+\draw[gray,thin] (0,3)--(.6,6.1);\node at (1.0,6.8){$(0,3)$};\node[above=12pt] at (-2,-5){$(-2,-5)$};
+\end{scope}
+\node[align=left,anchor=west] at (8.4,5.2){$t=x+1$\\[10pt]$y=2t+2/t-1$\\[14pt]$t=1\ \Rightarrow\ x=0$\\[9pt]$t=-1\ \Rightarrow\ x=-2$\\[14pt]$x>-1$ 时只留右支\\[9pt]最小值 $3$};
+
+\node[text width=13cm,align=center] at (7.1,.6) {完整值域 $(-\infty,-5]\cup[3,+\infty)$；虚线 $x=-1$ 处原函数无定义。};
+\end{tikzpicture}\end{center}

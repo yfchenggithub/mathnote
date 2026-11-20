@@ -1,29 +1,101 @@
+\clearpage
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例 1：求严格递增的参数范围}}
+\textbf{\textcolor{CExample}{例 1｜典型高考题：两段直线，求参数范围}}
+\input{assets/tikz/F014_linear_parameter.tex}
 
-	设 $f(x)=\begin{cases}(a-1)x+2,&x\le1,\\3x+1,&x>1.\end{cases}$
-	求 $f$ 在 $\mathbb{R}$ 上严格递增时 $a$ 的范围。
 
-	左段斜率 $a-1>0$，故 $a>1$；右段斜率 $3>0$。
-	接口处 $g(1)=a+1$，$L=\lim_{x\to1^+}(3x+1)=4$，故 $a+1\le4$，即 $a\le3$。
-	\textbf{答案：$1<a\le3$。} 当 $a=3$ 时接口取等，整体依旧严格递增。
+\[
+ f(x)=\begin{cases}(a-1)x+2,&x\le1,\\3x+1,&x>1.\end{cases}
+\]
+问：$f(x)$ 在 $\mathbb R$ 上\textbf{严格递增}，$a$ 取什么值？
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 2：求严格递减的参数范围}}
+三关完整展开：
+\[
+\begin{aligned}
+\text{左段：}\quad &a-1>0\quad\Longrightarrow\quad a>1;\\
+\text{右段：}\quad &3>0\quad\text{（自动通过）};\\
+\text{接口：}\quad &g(1)=(a-1)\cdot1+2=a+1,\quad L=3\cdot1+1=4,\\
+&a+1\le4\quad\Longrightarrow\quad a\le3.
+\end{aligned}
+\]
+两关合起来：\[\boxed{1<a\le3}.\]
+\textbf{检查端点：}$a=1$ 时左段变成水平线，不再严格递增，必须去掉；$a=3$ 时两边的高度正好相接，\emph{仍严格递增}，所以可以保留。
 
-	设 $f(x)=\begin{cases}-2x+a,&x\le0,\\-x+3,&x>0.\end{cases}$
-	求 $f$ 在 $\mathbb{R}$ 上严格递减时 $a$ 的范围。
+\medskip
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 2｜整体严格递减：不等号要反向}}
+\input{assets/tikz/F014_decreasing_parameter.tex}
 
-	两段斜率分别为 $-2,-1$，均小于 $0$。接口处 $g(0)=a$，$L=\lim_{x\to0^+}(-x+3)=3$。
-	严格递减要求 $a\ge3$。\textbf{答案：$a\in[3,+\infty)$。}
+\[
+ f(x)=\begin{cases}-2x+a,&x\le0,\\-x+3,&x>0.\end{cases}
+\]
+两段斜率 $-2,-1$ 都是负数，所以两段各自严格递减。接口处左边的函数值是 $a$，右边刚开始接近 $3$。递减需要左边不低于右边：
+\[
+ a\ge3.\qquad\boxed{a\in[3,+\infty)}.
+\]
+\textbf{检查：}$a=3$ 也可以，不能误写成 $a>3$。
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 3：指数函数与对数函数拼接}}
+\medskip
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 3｜“跳起来”也能严格递增}}
+\input{assets/tikz/F014_three_joins.tex}
 
-	设 $f(x)=\begin{cases}a\,3^x,&x\le0,\\\ln(1+x)+b,&x>0.\end{cases}$
-	求 $f$ 在 $\mathbb{R}$ 上严格递增时 $a,b$ 应满足的条件。
+\[
+ f(x)=\begin{cases}x,&x\le0,\\x+2,&x>0.\end{cases}
+\]
+左右斜率都是 $1>0$；左值 $g(0)=0$，右边刚开始的高度是 $2$，满足 $0<2$。因此整个函数仍然\textbf{严格递增}，虽然在 $0$ 处图象断开。
 
-	$3^x$ 严格递增，乘以 $a$ 后仍严格递增须 $a>0$；$\ln(1+x)+b$ 在 $x>0$ 上始终严格递增。
-	接口处 $g(0)=a$，$L=\lim_{x\to0^+}(\ln(1+x)+b)=b$，故 $a\le b$。
-	\textbf{答案：$a>0$ 且 $b\ge a$。}
+相反，若两段换成 $x+2\ (x\le0)$ 和 $x\ (x>0)$，则左值 $2$ 大于右边刚开始的 $0$，不满足接口条件，\textbf{整体不递增}。
+
+\medskip
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 4｜指数与对数拼接：三关一次写完}}
+\input{assets/tikz/F014_exponential_log_join.tex}
+
+\[
+ f(x)=\begin{cases}a\,3^x,&x\le0,\\\ln(1+x)+b,&x>0.\end{cases}
+\]
+题目要求整体严格递增。
+
+\textbf{左段：}$3^x$ 本来严格递增，乘上 $a$ 后仍严格递增须 $a>0$。
+
+\textbf{右段：}$1+x$ 随 $x$ 增大而增大，$\ln(1+x)$ 也随之严格增大；加上 $b$ 只会整体上下移动，不改变增减方向。
+
+\textbf{接口：}左值 $g(0)=a$，右边靠近 $0$ 的高度是 $\ln 1+b=b$，故 $a\le b$。
+
+答案：\[\boxed{a>0,\qquad b\ge a}.\]
+
+\medskip
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 5｜等号写在哪一侧，先看清楚}}
+\input{assets/tikz/F014_endpoint_ownership.tex}
+
+\[
+ f(x)=\begin{cases}x-2,&x<0,\\x+1,&x\ge0.\end{cases}
+\]
+这里 $f(0)=1$，\emph{等号属于右段}。左边靠近 $0$ 时函数值接近 $-2$；右边从 $1$ 开始，函数仍严格递增。
+
+判法：左右各自递增，且\textbf{左边最后接近的高度} $-2$ \textbf{不高于} $f(0)=1$。不能照搬“比较 $g(0)$ 与右边高度”的形式，因为本题 $x=0$ 不属于左段。
+
+\medskip
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 6｜公式不能直接用时，回到最朴素的比较}}
+\input{assets/tikz/F014_infinite_boundary.tex}
+
+\[
+ f(x)=\begin{cases}x,&x\le0,\\-\dfrac1x,&x>0.\end{cases}
+\]
+左段严格递增；右段 $-1/x$ 在 $x>0$ 也严格递增。但在 $x=0$，函数值是 $0$，到 $x=0.1$ 时却变成 $-10$，因此整体不递增。
+
+这里右段靠近 $0$ 时函数值不停往更小的方向走，\textbf{没有有限的起始高度 $L$}。所以不能套用 $g(0)\le L$ 的有限数公式；直接比较 $f(0)$ 与 $f(0.1)$，马上就知道答案。
 \end{examplebox}

@@ -9,7 +9,7 @@
       "分段函数单调性求参数范围",
       "分段函数递增递减条件"
     ],
-    "summary": "分段函数单调递增要求每段递增且在分界点处左端值≤右端极限；递减相反。",
+    "summary": "两段各自递增还不够，跨过分界点不能下降；递增要左段末值不高于右边刚开始的高度，递减反过来。接口允许取等，整体单调也允许向正确方向跳跃。",
     "difficulty": 2,
     "category": "函数",
     "tags": [
@@ -17,7 +17,10 @@
       "函数单调性",
       "充要条件",
       "参数范围",
-      "单调性求参"
+      "单调性求参",
+      "接口取等",
+      "严格单调",
+      "跳跃与单调"
     ]
   },
   "search": {
@@ -36,7 +39,11 @@
       "递减反向",
       "分段单调性",
       "衔接不等式",
-      "递增条件"
+      "递增条件",
+      "接口可以取等",
+      "两段都递增为什么整体不递增",
+      "向上跳仍递增",
+      "分界点等号归属"
     ],
     "synonyms": [
       "分段函数单调性判断",
@@ -57,7 +64,10 @@
       "分段函数单调递增求参数",
       "分段函数单调递减条件",
       "分段函数整体单调例题",
-      "分段函数分界点不等式"
+      "分段函数分界点不等式",
+      "为什么两段都递增分段函数整体不递增",
+      "严格递增分界点为什么可以取等",
+      "分段函数单调一定连续吗"
     ],
     "ocrKeywords": [
       "已知函数f(x)=...在R上单调递增",
@@ -65,7 +75,7 @@
       "单调递增",
       "求a的取值范围",
       "分界点",
-      "g(x0)≤h(x0)"
+      "g(x0)≤lim h(x)"
     ],
     "latex_patterns": [
       "f(x)=\\begin{cases} g(x), & x\\le x_0 \\\\ h(x), & x>x_0 \\end{cases}",
@@ -81,7 +91,9 @@
       "a>1",
       "a\\le3",
       "1<a\\le3",
-      "a\\ge3"
+      "a\\ge3",
+      "g(x_0)<h(x)\\ (x>x_0)",
+      "g(x_0)>h(x)\\ (x>x_0)"
     ],
     "pinyin": "fenduan hanshu zhengti dandiao tiaojian",
     "pinyinAbbr": "fdhs ztdd tj"
@@ -99,9 +111,10 @@
     "success_rate": 0
   },
   "math": {
-    "core_formula": "f(x)\\text{在}\\mathbb{R}\\text{上单调递增}\\iff\\begin{cases}g(x)\\text{在}(-\\infty,x_0]\\text{上单调递增},\\\\ h(x)\\text{在}(x_0,+\\infty)\\text{上单调递增},\\\\ g(x_0)\\le\\displaystyle\\lim_{x\\to x_0^+}h(x).\\end{cases}",
+    "core_formula": "f\\text{在}\\mathbb{R}\\text{上严格递增}\\iff\\begin{cases}g\\text{在}(-\\infty,x_0]\\text{上严格递增},\\\\h\\text{在}(x_0,+\\infty)\\text{上严格递增},\\\\g(x_0)\\le L,\\ L=\\lim_{x\\to x_0^+}h(x)\\in\\mathbb{R}.\\end{cases}",
     "related_formulas": [
-      "f(x)\\text{在}\\mathbb{R}\\text{上单调递减}\\iff\\begin{cases}g(x)\\text{在}(-\\infty,x_0]\\text{上单调递减},\\\\ h(x)\\text{在}(x_0,+\\infty)\\text{上单调递减},\\\\ g(x_0)\\ge\\displaystyle\\lim_{x\\to x_0^+}h(x).\\end{cases}"
+      "f\\text{在}\\mathbb{R}\\text{上严格递减}\\iff\\begin{cases}g\\text{在}(-\\infty,x_0]\\text{上严格递减},\\\\h\\text{在}(x_0,+\\infty)\\text{上严格递减},\\\\g(x_0)\\ge L,\\ L=\\lim_{x\\to x_0^+}h(x)\\in\\mathbb{R}.\\end{cases}",
+      "\\text{不用极限：严格递增}\\iff g,h\\text{分别严格递增，且}\\forall x>x_0,\\ g(x_0)<h(x)"
     ],
     "variables": [
       "$f(x)$",
@@ -110,21 +123,23 @@
       "$x_0$",
       "$a$"
     ],
-    "conditions": "函数 $f(x)$ 分段定义为 $f(x)=\\begin{cases}g(x), & x\\le x_0,\\\\ h(x), & x>x_0\\end{cases}$；各分段在各自子区间上单调方向一致；在分界点 $x_0$ 处，左段终点与右段起点极限满足大小关系：递增时 $g(x_0)\\le \\displaystyle\\lim_{x\\to x_0^+}h(x)$，递减时 $g(x_0)\\ge \\displaystyle\\lim_{x\\to x_0^+}h(x)$。",
-    "conclusions": "若满足上述条件，则 $f(x)$ 在 $\\mathbb{R}$ 上整体单调（递增或递减）。可用于求参数范围时建立不等式组。"
+    "conditions": "设 f(x)=g(x)(x≤x0)、h(x)(x>x0)，g、h 分别在各自区间有定义。严格递增的无极限判定：g、h 各自严格递增且任意 x>x0 均有 g(x0)<h(x)；严格递减相反。若右边靠近 x0 时 h(x) 趋近一个有限数 L，则严格递增的接口条件等价于 g(x0)≤L，严格递减等价于 g(x0)≥L。",
+    "conclusions": "左右各自严格同向变化、交接处不反向跳跃，当且仅当整体严格递增/递减。接口可以取等且无需连续；含参数题将左段、右段、接口三组限制取交集。"
   },
   "content": {
-    "statement": "分段函数 $f(x)=\\begin{cases}g(x)&x\\le x_0\\\\h(x)&x>x_0\\end{cases}$ 在 $\\mathbb{R}$ 上单调递增的充要条件是：$g$ 在 $(-\\infty,x_0]$ 递增，$h$ 在 $(x_0,+\\infty)$ 递增，且 $g(x_0)\\le\\displaystyle\\lim_{x\\to x_0^+}h(x)$；单调递减时条件类似，不等号反向。",
+    "statement": "分段函数整体严格递增，必须同时满足：左段严格递增、右段严格递增、交界处不向下跳。若右段靠近分界点 x0 时有有限高度 L，则还需 g(x0)≤L；递减时不等号相反。接口取等仍可严格单调。",
     "derivation": [
-      "必要性：整体单调则各段必须单调，且分界点处若左端值大于右端极限（递增时）则会出现 $x_1<x_0<x_2$ 但 $f(x_1)>f(x_2)$，故大小关系必成立。",
-      "充分性：各段单调且衔接满足大小关系，对任意 $x_1<x_2$，分三种情况（同在左段、同右段、跨分界点）均可推出 $f(x_1)\\le f(x_2)$，从而整体单调。"
+      "最直观：左侧任何 u≤x0 均有 g(u)≤g(x0)；若 g(x0)<h(v) 对每个右侧 v>x0 成立，则所有跨段比较均递增。整体递增时，取 x0 与任意右侧 v，也必有 g(x0)<h(v)。",
+      "分三种位置：两点都在左段、都在右段、分别落在两侧。跨段时 g(x1)≤g(x0)≤L<h(x2)，由此证明整体严格递增，递减时方向反过来。",
+      "反过来：如果递增时 g(x0)>L，则可在 x0 的右边取足够近的点 x2，使 h(x2)<g(x0)，和整体递增矛盾。"
     ],
-    "intuition": "区间内单调保证局部，分界点处大小关系保证整体不出现下降（递增时左段最大值≤右段最小值），从而整体单调。",
+    "intuition": "想象两截坡道：每截自己都向上还不够，交接处不能突然下落。允许向上跳，也允许无跳跃；严格递增时交界比较仍然能取等。",
     "common_tricks": [
-      "先判断每段单调性，确定参数对斜率/指数底数等的影响。",
-      "在分界点处正确使用不等式：注意右段可能不含分界点，要用右极限，勿直接用$h(x_0)$。",
-      "递减时不等号方向相反，易错为同向。",
-      "若右段在分界点有定义且连续，则极限值等于函数值，可简化条件。"
+      "按“左段是否增减—右段是否增减—交界处有没有反向跳跃”三关求参，最后取交集。",
+      "严格递增的接口仍用 g(x0)≤L，不是 g(x0)<L；严格递减用 g(x0)≥L。",
+      "分界点等号落在左段，真正的 f(x0)=g(x0)，不能误认成右段表达式的代入值。",
+      "若右段靠近分界点没有有限高度，不要硬套 L 的公式，可直接检查所有 x>x0 的 g(x0)<h(x)（严格递增）或相反。",
+      "整体单调不等于交接处必须连续；允许沿着单调方向向上或向下跳。"
     ]
   },
   "usage": {
@@ -141,16 +156,31 @@
     "exam_score": 6
   },
   "interactive": {
-    "has_diagram": false,
+    "has_diagram": true,
     "geogebra_id": "",
     "param_demo": {}
   },
   "assets": {
-    "svg": ""
+    "svg": "",
+    "tikz": [
+      "assets/tikz/F014_three_joins.tex",
+      "assets/tikz/F014_cross_chain.tex",
+      "assets/tikz/F014_three_positions.tex",
+      "assets/tikz/F014_downward_counterexample.tex",
+      "assets/tikz/F014_linear_parameter.tex",
+      "assets/tikz/F014_decreasing_parameter.tex",
+      "assets/tikz/F014_exponential_log_join.tex",
+      "assets/tikz/F014_endpoint_ownership.tex",
+      "assets/tikz/F014_infinite_boundary.tex",
+      "assets/tikz/F014_flat_segment.tex"
+    ],
+    "other": {
+      "gif": "images/piecewise_moving_join.gif"
+    }
   },
   "shareConfig": {
     "title": "分段函数单调：每段递增为何还不够",
-    "shareDesc": "左右两段都递增，接起来仍可能在分界处向下跳。除检查各段外，还要比较左段终点与右侧衔接值；把跨分界的大小关系补上，避免含参单调题漏掉关键限制。"
+    "shareDesc": "左右两段各自递增，拼接后仍可能突然下降。判断整体单调要过三关：左段、右段和交接点；严格递增时交接处可以取等，也允许向上跳。"
   },
   "relations": {
     "prerequisites": [
@@ -158,7 +188,10 @@
       "分段函数",
       "极限（右极限）"
     ],
-    "related_ids": ["F013", "F019"],
+    "related_ids": [
+      "F013",
+      "F019"
+    ],
     "similar": [
       "函数连续性与单调性",
       "分式函数单调性求参",
@@ -166,10 +199,10 @@
     ]
   },
   "meta": {
-    "version": 1,
+    "version": 2,
     "source": "AI生成",
     "created_at": "2026-06-26",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-11-20"
   },
   "isPro": 1,
   "remarks": "",

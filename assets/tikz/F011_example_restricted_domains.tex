@@ -1,0 +1,19 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,12.1);
+\node at (7.1,11.5) {例4：同一条曲线，闭端点与开端点给出不同答案};
+
+\foreach \cy/\lo/\lab in {7.2/4/A,2.8/3/B}{
+\begin{scope}[shift={(1.1,\cy)},x=.92cm,y=.70cm]
+\draw[->,gray] (0,0)--(7.3,0) node[right]{$x$};\draw[->,gray] (0,0)--(0,4) node[above]{$y$};\foreach \yy/\vv in {0/5,1/6,2/7,3/8}{\draw[gray] (0,\yy)--(-.07,\yy);\node[left=4pt] at (0,\yy){$\vv$};}
+\draw[gray,dashed,domain=1.5:7,samples=120] plot(\x,{\x+9/\x-5});
+\draw[blue,very thick,domain=\lo:7,samples=100] plot(\x,{\x+9/\x-5});
+\draw[dotted,gray] (3,0)--(3,1);\node[below] at (3,0){$3$};
+\end{scope}}
+\fill[orange!85!black] (4.78,8.075) circle(2.5pt);
+\node[above=15pt] at (4.78,8.075){$(4,25/4)$};
+\node[align=left,anchor=west] at (8.4,8.4){A：$x\ge4$\\[12pt]$x=3$ 已被排除\\[12pt]最小值 $25/4$\\[8pt]在 $x=4$ 取得};
+\draw[blue,fill=white,thick] (3.86,3.5) circle(2.8pt);\node[above=15pt] at (3.86,3.5){$(3,6)$ 不取};
+\node[align=left,anchor=west] at (8.4,3.9){B：$x>3$\\[12pt]只能接近 $6$\\[12pt]没有最小值\\[8pt]值域 $(6,+\infty)$};
+
+\node[text width=13cm,align=center] at (7.1,.6) {纵轴从 $5$ 起绘制；两图比例相同，蓝线为允许范围，空心点不取。};
+\end{tikzpicture}\end{center}

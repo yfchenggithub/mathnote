@@ -1,31 +1,76 @@
+\clearpage
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
+\textbf{\textcolor{CExplanation}{一、为什么会想到这个结论？——从一个反例开始}}
+\input{assets/tikz/F014_downward_counterexample.tex}
 
-	从左往右看，两段各自向上走，跨过分界点也不能往下掉，整条图象才会递增；递减时全部反过来。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{要检查的两件事}}
-	\begin{enumerate}[leftmargin=*, itemsep=0.35em]
-		\item \textbf{段内方向：} $g$ 与 $h$ 分别在自己的定义区间内严格递增（或严格递减）。
-		\item \textbf{跨段衔接：} 递增时检查 $g(x_0)\le L$；递减时检查 $g(x_0)\ge L$，其中 $L=\lim_{x\to x_0^+}h(x)$。
-	\end{enumerate}
+先看
+\[
+ f(x)=\begin{cases}x+2,&x\le0,\\x,&x>0.\end{cases}
+\]
+左边的直线斜率是 $1$，右边的直线斜率也是 $1$。乍看两段都在向上走。
+但是 $f(0)=2$，$f(0.1)=0.1$；虽然 $0<0.1$，却有 $2>0.1$。\textbf{从左段走到右段，函数值突然降低了。}
 
-	\textbf{\textcolor{CExplanation}{为什么接口可以取等？}}
+因此，光看每段的斜率、导数或增减方向是不够的。要补上的正是\textbf{跨过分界点时的大小比较}。
 
-	设 $x_1\le x_0<x_2$。严格递增时，$g(x_1)\le g(x_0)\le L<h(x_2)$，所以 $f(x_1)<f(x_2)$。
-	右段从 $x_0$ 的右边才开始，即使左端函数值恰好等于右极限，任意真正属于右段的点仍严格高于这个极限。递减时有
-	$g(x_1)\ge g(x_0)\ge L>h(x_2)$。
+\medskip
+\textbf{\textcolor{CExplanation}{二、把图象想成沿道路向右行走}}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{图象提醒}}
+两截路各自都上坡，衔接时仍可能从更低处开始；要检查跨段时有没有下降。
+所以真正的口诀只有八个字：\textbf{段内同向，跨段不反向。}
 
-	接口可以向单调方向\textbf{跳跃}，不要求连续，更不要求光滑。递增时只禁止向下跳；递减时只禁止向上跳。
+设分界点是 $x_0$。如果左段递增，左段到分界点的最高高度就是 $g(x_0)$；右段从 $x_0$ 的右侧开始，越往右越高。因此只要右段刚靠近分界点时的高度 $L$ 不低于 $g(x_0)$，就不会出现向下跳。
 
-	\textbf{\textcolor{CExplanation}{怎样处理 $h(x_0)$？}}
+递减时反过来：左段到分界点的高度要\textbf{不低于}右边刚开始时的高度，才不会向上跳。
 
-	$x_0$ 不属于右段。应先求 $L$；如果右段表达式在 $x_0$ 可代入，且它在该点可连续延拓，那么代入得到的数值恰好等于 $L$。代入只是\textbf{计算极限的方法}，并不改变 $f(x_0)=g(x_0)$。
+\medskip
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{三、最反直觉的地方：为什么允许取等？}}
+\input{assets/tikz/F014_three_joins.tex}
 
-	\textbf{\textcolor{CExplanation}{常见考法}}
 
-	含参题先分别求出两段严格单调的参数条件，再列接口不等式，最后取交集。
+考虑最普通的 $f(x)=x$，写成两段：
+\[
+ f(x)=\begin{cases}x,&x\le0,\\x,&x>0.\end{cases}
+\]
+左段在 $x=0$ 时是 $0$；右段从右边靠近 $0$ 时也越来越接近 $0$。两边的高度恰好相等，但 $x>0$ 时函数值\emph{一定大于} $0$，整个函数仍然严格递增。
+
+这是因为“右边刚开始时接近的高度”不等于“右边真的取到了那个点”。右段写的是 $x>x_0$，\textbf{没有 $x=x_0$ 这个位置}。所以严格递增也能允许 $g(x_0)=L$。
+
+\medskip
+\textbf{\textcolor{CExplanation}{四、跳一下也可以单调；单调不等于必须连起来}}
+
+看两种拼接：
+\[
+\begin{array}{ll}
+\text{向上跳：}&f(x)=\begin{cases}x,&x\le0,\\x+2,&x>0;\end{cases}\\[8pt]
+\text{向下跳：}&f(x)=\begin{cases}x+2,&x\le0,\\x,&x>0.\end{cases}
+\end{array}
+\]
+第一种从 $0$ 的高度向右跳到靠近 $2$ 的高度，仍然严格递增；第二种从高度 $2$ 向右跳到靠近 $0$，整体就不递增了。
+
+\textbf{结论：}判断单调性，看大小顺序；判断图象是不是连起来，看另一件事。\textbf{不能把“整体递增”误认为“交界处必须没有跳跃”。}
+
+\medskip
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{五、为什么常常直接把 $x_0$ 代进右段表达式？}}
+\input{assets/tikz/F014_linear_parameter.tex}
+
+
+如右段为 $h(x)=3x+1$，分界点是 $x_0=1$。虽然真正的函数在 $x=1$ 用的是左段，但右侧 $3x+1$ 越接近 $x=1$，函数值越接近 $4$。所以可直接算 $3\times1+1=4$ 来得到 $L$。
+
+\textbf{注意：}这个 $4$ 是右边靠近分界点时的高度，\emph{不一定等于}整个函数的 $f(1)$。如果右段公式不能在分界点直接代入（如 $1/(x-1)$），就不能硬代。
+
+\medskip
+\textbf{\textcolor{CExplanation}{六、做含参数题时为什么有用？}}
+
+题目常给“函数在 $\mathbb R$ 上严格递增，求 $a$”。过去容易只算两个分段的斜率，漏掉一条限制。现在统一拆成三问：
+\[
+ \boxed{\ \text{左段是否递增？}\;\longrightarrow\;\text{右段是否递增？}\;\longrightarrow\;\text{跨段是否下降？}\ }
+\]
+得到三个关于 $a$ 的条件后\textbf{同时满足}即可。递减题完全同理。
 \end{explanationbox}

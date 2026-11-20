@@ -1,25 +1,17 @@
-\begin{center}
-\begin{minipage}{0.98\linewidth}
-\centering
-\textbf{一项增，一项减：和在相等处最低}\par\medskip
-\begin{tikzpicture}[font=\small,>=Stealth]
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,9.8);
+\node at (7.1,9.200000000000001) {与数表一致：$x+9/x$ 在两项同为 $3$ 时最低};
 
-\begin{scope}[x=2.1cm,y=0.95cm]
-\draw[->] (0,0)--(3.65,0) node[right] {$x$};
-\draw[->] (0,0)--(0,4.5) node[above] {数值};
-\draw[CStatement,very thick,domain=0.26:3.3,samples=90] plot (\x,{\x+1/\x});
-\draw[CProof,thick,dashed,domain=0.26:3.3] plot (\x,\x);
-\draw[CExample,thick,dotted,domain=0.26:3.3,samples=90] plot (\x,{1/\x});
-\draw[gray,dashed] (1,0)--(1,2);
-\fill[CProof] (1,1) circle (2.5pt); \fill[CStatement] (1,2) circle (2.5pt);
-\node[below] at (1,0) {$1$};
-\node[right] at (2.6,3.85) {$x+1/x$};
-\node[right] at (3.1,2.85) {$x$};
-\node[right] at (3.1,0.55) {$1/x$};
-\node[above right,fill=white] at (1,2) {和为 $2$};
-\node[below right,fill=white] at (1.1,1.15) {两项均为 $1$};
+\begin{scope}[shift={(1.4,1.8)},x=.76cm,y=.35cm]
+\draw[->,gray] (0,0)--(8.6,0) node[right]{$x$};\draw[->,gray] (0,0)--(0,17) node[above]{$y$};
+\draw[blue,very thick,domain=.6:8,samples=140] plot(\x,{\x+9/\x});
+\draw[orange!85!black,dashed,thick] (0,0)--(8,8);
+\draw[violet,dotted,very thick,domain=.6:8,samples=120] plot(\x,{9/\x});
+\draw[gray,dashed] (3,0)--(3,6);\fill[orange!85!black] (3,6) circle(2.2pt);
+\node[above=12pt] at (3,6){$(3,6)$};\node[below=5pt] at (3,0){$3$};
+\fill (3,3) circle(2pt);
 \end{scope}
-\end{tikzpicture}\par\smallskip
-先看 $x+1/x$：两项的乘积始终为 $1$。推广到 $Ax$ 与 $B/x$，乘积为 $AB$，相等处的和为 $2\sqrt{AB}$。
-\end{minipage}
-\end{center}
+\node[align=left,anchor=west] at (8.5,5.1){\textcolor{blue}{实线 $y=x+9/x$}\\[12pt]\textcolor{orange!85!black}{虚线 $y=x$}\\[12pt]\textcolor{violet}{点线 $y=9/x$}\\[14pt]$x=3$：两项都是 $3$\\[10pt]最小和为 $6$};
+
+\node[text width=13cm,align=center] at (7.1,.6) {两项乘积始终为 $9$；$x=3$ 是平衡点，不是所有题都在 $x=1$ 取等。};
+\end{tikzpicture}\end{center}

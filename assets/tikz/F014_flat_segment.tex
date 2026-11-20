@@ -1,0 +1,6 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,9.0);
+\node at (7.1,8.4) {易错：接口正确也不能挽救一整段水平线};
+\begin{scope}[shift={(3.2,2.5)},x=0.7cm,y=0.7cm]\draw[->,gray] (-2,0)--(2.3,0) node[right]{$x$};\draw[->,gray] (0,0)--(0,7.3) node[above]{$y$};\begin{scope}\clip (-2,0) rectangle (2,7);\draw[blue,thick,domain=-2:1,samples=80] plot(\x,{2});\draw[orange!85!black,thick,domain=1.0001:2,samples=100] plot(\x,{3*\x+1});\end{scope}\draw[draw=blue,fill=blue] (1,2) circle(2pt);\draw[draw=orange!85!black,fill=white] (1,4) circle(2pt);\end{scope}\node[align=left,anchor=west] at (7.3,4.5) {$a=1$ 时左段恒为 $2$\\[12pt]任取 $u<v\le1$\\[9pt]都有 $f(u)=f(v)=2$\\[12pt]不下降，但不是严格递增};
+\node[text width=12.8cm,align=center] at (7.1,.65) {严格单调要求每一段内部都严格变化；不能只检查接口。};
+\end{tikzpicture}\end{center}

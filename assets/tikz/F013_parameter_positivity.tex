@@ -1,0 +1,16 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,9.8);
+\node at (7.1,9.200000000000001) {例4：递增还不够，真数也必须始终大于零};
+
+\begin{scope}[shift={(-2.2,2.9)},x=2.0cm,y=.48cm]
+\draw[->,gray] (1.8,0)--(4.7,0) node[right]{$x$};\draw[->,gray] (2,-2)--(2,10.5) node[above]{真数};
+\draw[gray,dashed] (2,-2)--(2,10);\node[below left=6pt] at (2,0){$2$};
+\draw[blue,thick,domain=2:4.3,samples=100] plot(\x,{\x*\x-2*\x+1});
+\draw[teal!80!black,very thick,domain=2:4.3,samples=100] plot(\x,{\x*\x-2.5*\x+1});
+\draw[orange!85!black,dashed,thick,domain=2:4.3,samples=100] plot(\x,{\x*\x-3*\x+1});
+\draw[blue,fill=white] (2,1) circle(2.4pt);\draw[teal!80!black,fill=white] (2,0) circle(2.4pt);\draw[orange!85!black,fill=white] (2,-1) circle(2.4pt);
+\end{scope}
+\node[align=left,anchor=west] at (8.1,5){$t=x^2-ax+1,\ x>2$\\[12pt]\textcolor{blue}{$a=2$：真数恒正}\\[12pt]\textcolor{teal!80!black}{$a=5/2$：端点趋于0，允许}\\[12pt]\textcolor{orange!85!black}{$a=3$：靠近2时真数为负}\\[14pt]最终 $a\le5/2$};
+
+\node[text width=12.8cm,align=center] at (7.1,.65) {三条线均递增，只有蓝、绿线的真数恒正；空心点不取。};
+\end{tikzpicture}\end{center}

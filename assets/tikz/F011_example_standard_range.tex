@@ -1,0 +1,20 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,9.8);
+\node at (7.1,9.200000000000001) {例1：代入真实系数，找到两侧的取等点};
+\begin{scope}[shift={(4.2,4.6)},x=0.5727272727272728cm,y=0.13695652173913042cm]
+\fill[blue!5] (-5.5,-12) rectangle (5.5,12);
+\draw[->,gray] (-5.5,0)--(5.9,0) node[right]{$x$};
+\draw[->,gray] (0,-23)--(0,23.8) node[above]{$y$};
+\begin{scope}\clip (-5.5,-23) rectangle (5.5,23);
+\draw[blue,very thick,domain=-5.5:-.08,samples=180] plot(\x,{3*\x+12/\x});
+\draw[blue,very thick,domain=.08:5.5,samples=180] plot(\x,{3*\x+12/\x});\end{scope}
+\draw[dashed,teal!80!black] (-5.5,12)--(5.5,12);
+\draw[dashed,teal!80!black] (-5.5,-12)--(5.5,-12);
+\fill[orange!85!black] (2,12) circle(2.3pt) (-2,-12) circle(2.3pt);
+\node[below=12pt] at (2,12) {$(2,12)$};
+\node[above=12pt,xshift=-6pt] at (-2,-12) {$(-2,-12)$};
+\node[above left=3pt] at (0,0) {$O$};
+\end{scope}
+\node[align=left,anchor=west] at (8.5,5.1) {$\displaystyle f(x)=3x+12/x$\\[15pt]正数侧最低：$12$\\[10pt]负数侧最高：$-12$\\[15pt]中间 $(-12,12)$ 取不到\\[12pt]取等位置：$x=\pm2$};
+\node[text width=13cm,align=center] at (7.1,.6) {橙色实心点表示边界能取到；浅色带内没有曲线。};
+\end{tikzpicture}\end{center}

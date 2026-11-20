@@ -1,29 +1,20 @@
-\begin{center}
-\begin{minipage}{0.98\linewidth}
-\centering
-\textbf{两支曲线，留下中间的空档}\par\medskip
-\begin{tikzpicture}[font=\small,>=Stealth]
-
-\begin{scope}[x=1.08cm,y=0.63cm]
-\fill[gray!10] (-3.8,-2) rectangle (3.8,2);
-\draw[->] (-3.9,0)--(4,0) node[right] {$x$};
-\draw[->] (0,-4.7)--(0,4.8) node[above] {$y$};
-\draw[CStatement,very thick,domain=0.24:3.6,samples=100] plot (\x,{\x+1/\x});
-\draw[CStatement,very thick,domain=-3.6:-0.24,samples=100] plot (\x,{\x+1/\x});
-\draw[dashed] (-3.6,2)--(3.6,2) (-3.6,-2)--(3.6,-2);
-\fill[CStatement] (1,2) circle (2.4pt) (-1,-2) circle (2.4pt);
-\node[above right,fill=white,inner sep=2pt] at (1,2) {$(1,2)$ 最低点};
-\node[below left,fill=white,inner sep=2pt] at (-1,-2) {$(-1,-2)$ 最高点};
-\node[fill=white] at (2.1,0.8) {$-2<y<2$ 取不到};
-\node[above left] at (-1.1,4.1) {$y=x+\frac1x$};
-\node[below left] at (0,0) {$O$};
-\draw[very thick,CStatement,->] (4.8,2)--(4.8,4.6);
-\draw[very thick,CStatement,->] (4.8,-2)--(4.8,-4.6);
-\fill[CStatement] (4.8,2) circle (2.4pt) (4.8,-2) circle (2.4pt);
-\node[right] at (4.8,2) {$2$}; \node[right] at (4.8,-2) {$-2$};
-\node[above] at (4.8,4.8) {值域};
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,9.8);
+\node at (7.1,9.200000000000001) {正、负两支分别在边界外侧};
+\begin{scope}[shift={(4.2,4.6)},x=0.7cm,y=0.5431034482758621cm]
+\fill[blue!5] (-4.5,-2) rectangle (4.5,2);
+\draw[->,gray] (-4.5,0)--(4.9,0) node[right]{$x$};
+\draw[->,gray] (0,-5.8)--(0,6.6) node[above]{$y$};
+\begin{scope}\clip (-4.5,-5.8) rectangle (4.5,5.8);
+\draw[blue,very thick,domain=-4.5:-.08,samples=180] plot(\x,{\x+1/\x});
+\draw[blue,very thick,domain=.08:4.5,samples=180] plot(\x,{\x+1/\x});\end{scope}
+\draw[dashed,teal!80!black] (-4.5,2)--(4.5,2);
+\draw[dashed,teal!80!black] (-4.5,-2)--(4.5,-2);
+\fill[orange!85!black] (1,2) circle(2.3pt) (-1,-2) circle(2.3pt);
+\node[below=12pt] at (1,2) {$(1,2)$};
+\node[above=12pt,xshift=-6pt] at (-1,-2) {$(-1,-2)$};
+\node[above left=3pt] at (0,0) {$O$};
 \end{scope}
-\end{tikzpicture}\par\smallskip
-图取 $A=B=1$；一般情形的两端为 $\pm2\sqrt{AB}$，横坐标为 $\pm\sqrt{B/A}$。实心点表示端点能取到。
-\end{minipage}
-\end{center}
+\node[align=left,anchor=west] at (8.5,5.1) {$\displaystyle f(x)=x+1/x$\\[15pt]正数侧最低：$2$\\[10pt]负数侧最高：$-2$\\[15pt]中间 $(-2,2)$ 取不到\\[12pt]一般边界：$\pm2\sqrt{AB}$};
+\node[text width=13cm,align=center] at (7.1,.6) {橙色实心点表示边界能取到；浅色带内没有曲线。};
+\end{tikzpicture}\end{center}

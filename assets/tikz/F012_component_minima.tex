@@ -1,0 +1,16 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,9.5);
+\node at (7.1,8.9) {同一个 $x$，不能同时站在两个不同的最低位置};
+
+\begin{scope}[shift={(2,1.65)},x=1.0cm,y=.66cm]
+\draw[->,gray] (-1,0)--(5.6,0) node[right]{$x$};\draw[->,gray] (0,0)--(0,9.2) node[above]{$y$};
+\draw[orange!85!black,thick,domain=-1:5.3,samples=120] plot(\x,{sqrt((\x-1)^2+4)});
+\draw[violet,thick,domain=-1:5.3,samples=120] plot(\x,{sqrt((\x-3)^2+9)});
+\draw[blue,very thick,domain=-1:5.3,samples=120] plot(\x,{sqrt((\x-1)^2+4)+sqrt((\x-3)^2+9)});
+\fill[orange!85!black] (1,2) circle(2pt);\fill[violet] (3,3) circle(2pt);
+\draw[dotted,gray] (1,0)--(1,2) (3,0)--(3,3);\node[below=5pt] at (1,0){$1$};\node[below=5pt] at (3,0){$3$};
+\end{scope}
+\node[align=left,anchor=west] at (8.3,4.9){\textcolor{orange!85!black}{第一项在 $x=1$ 最小}\\[12pt]\textcolor{violet}{第二项在 $x=3$ 最小}\\[12pt]\textcolor{blue}{总和的最小值是 $\sqrt{29}$}\\[12pt]$\sqrt{29}>2+3$\\[10pt]两项不能同时取各自最小值};
+
+\node[text width=12.8cm,align=center] at (7.1,.65) {橙、紫两条曲线最低点的横坐标不同；蓝色总和不能直接把两个最低值相加。};
+\end{tikzpicture}\end{center}

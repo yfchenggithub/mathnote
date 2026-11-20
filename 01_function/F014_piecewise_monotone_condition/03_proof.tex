@@ -1,27 +1,96 @@
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{证明：严格递增的充要条件}}
+\textbf{\textcolor{CProof}{方法一｜初中生也能懂：抓住分界点，直接比大小（优先掌握）}}
+\input{assets/tikz/F014_cross_chain.tex}
 
-	记 $L=\lim_{x\to x_0^+}h(x)\in\mathbb{R}$。
 
-	\textbf{必要性。} 若 $f$ 在 $\mathbb{R}$ 上严格递增，将定义限制到两段，各自必严格递增。
-	又对每个 $x>x_0$，有 $g(x_0)=f(x_0)<f(x)=h(x)$。令 $x\to x_0^+$，得到 $g(x_0)\le L$。
-	注意取极限后只能保证\emph{不大于}，不能保证严格小于。
+先证明严格递增。已知左段 $g$、右段 $h$ 分别严格递增，且
+\[
+ g(x_0)<h(x)\quad\text{对每个 }x>x_0\text{ 都成立}.
+\]
+我们从左边任意取一个数 $u\le x_0$，从右边任意取一个数 $v>x_0$：
 
-	\medskip
-	\textbf{充分性。} 假设 $g,h$ 在各自区间严格递增，且 $g(x_0)\le L$。
-	任取 $x_1<x_2$，分三种情况：
-	\begin{enumerate}[leftmargin=*, itemsep=0.35em]
-		\item 若 $x_1<x_2\le x_0$，由 $g$ 严格递增，得 $f(x_1)<f(x_2)$。
-		\item 若 $x_0<x_1<x_2$，由 $h$ 严格递增，得 $f(x_1)<f(x_2)$。
-		\item 若 $x_1\le x_0<x_2$，则 $g(x_1)\le g(x_0)\le L$。取 $t\in(x_0,x_2)$，由 $h$ 严格递增且 $L\le h(t)<h(x_2)$，得 $L<h(x_2)$。因此
-		      \[
-			      f(x_1)=g(x_1)\le g(x_0)\le L<h(x_2)=f(x_2).
-		      \]
-	\end{enumerate}
-	三种情况均有 $f(x_1)<f(x_2)$，故 $f$ 在 $\mathbb{R}$ 上严格递增。
+\textbf{第一步：}左段递增，所以越往右越大，得到 $g(u)\le g(x_0)$。
 
-	\medskip
-	\textbf{\textcolor{CProof}{严格递减：}}
-	同理，将段内方向与全部不等号反向；跨段时利用 $h(x_2)<L$，得到
-	$f(x_1)=g(x_1)\ge g(x_0)\ge L>h(x_2)=f(x_2)$。
+\textbf{第二步：}跨段没有往下掉，由题设 $g(x_0)<h(v)$。
+
+\textbf{第三步：}两句话接起来：
+\[
+ \underbrace{g(u)}_{\text{左边任一点}}
+ \;\le\;\underbrace{g(x_0)}_{\text{左边最后一点}}
+ \;<\;\underbrace{h(v)}_{\text{右边任一点}}.
+\]
+这就说明：\textbf{所有左边的点，都比所有右边的点低。}再加上每一段内部都递增，整段自然严格递增。
+
+为什么这个条件还\emph{必须}满足呢？如果整个函数严格递增，那么 $x_0<x$ 时一定有
+\[
+ f(x_0)<f(x),\quad\text{即}\quad g(x_0)<h(x).
+\]
+所以少了这一步，绝不可能整体严格递增。这就是判断条件的来历。
+
+\textbf{严格递减：}原理完全一样，左边任一点 $u\le x_0$、右边任一点 $v>x_0$ 满足 $g(u)\ge g(x_0)>h(v)$。
+
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法二｜高中常规证明：分三种位置，一次说清楚}}
+\input{assets/tikz/F014_three_positions.tex}
+
+
+这里假设右边靠近分界点时有一个有限高度
+\[
+ L=\lim_{x\to x_0^+}h(x).
+\]
+\textbf{先证明条件够用。}已知 $g,h$ 各自在自己的区间严格递增，且 $g(x_0)\le L$。任取 $x_1<x_2$：
+\begin{enumerate}[leftmargin=*,itemsep=0.4em]
+\item \textbf{两点都在左边：}若 $x_1<x_2\le x_0$，由左段严格递增，$f(x_1)<f(x_2)$。
+\item \textbf{两点都在右边：}若 $x_0<x_1<x_2$，由右段严格递增，$f(x_1)<f(x_2)$。
+\item \textbf{一左一右：}若 $x_1\le x_0<x_2$，左段给出 $g(x_1)\le g(x_0)$。由于右段严格递增，固定 $x_2$ 后，右边在 $x_2$ 之前的函数值都小于 $h(x_2)$，更严谨地，在 $x_0$ 与 $x_2$ 之间再取一点 $t$，则 $L\le h(t)<h(x_2)$，所以 $L<h(x_2)$。于是
+\[
+ f(x_1)=g(x_1)\le g(x_0)\le L<h(x_2)=f(x_2).
+\]
+\end{enumerate}
+三种位置无一例外，所以整体严格递增。
+
+\textbf{再证明条件必需。}若 $f$ 整体严格递增，随便在左段或右段取两个点，必分别严格递增；又对任意 $x>x_0$ 都有 $g(x_0)=f(x_0)<f(x)=h(x)$。当 $x$ 从右侧越来越靠近 $x_0$，便得到 $g(x_0)\le L$。\textbf{注意：这里最后是 $\le$，而不是 $<$。}
+
+若整体严格递减，将上面大于、小于的方向全部反过来，得到 $g(x_0)\ge L$。
+
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法三｜反过来检查：少了交接条件会怎样（找矛盾）}}
+\input{assets/tikz/F014_downward_counterexample.tex}
+
+
+仍看严格递增，设左右两段都严格递增，但分界点错误地满足
+\[
+ g(x_0)>L.
+\]
+那么右边刚开始时的函数值接近 $L$，而 $L$ 比 $g(x_0)$ 小。只要选一个\textbf{足够靠近 $x_0$ 的右边点} $x_2>x_0$，就有
+\[
+ h(x_2)<g(x_0).
+\]
+于是 $x_0<x_2$，却出现
+\[
+ f(x_0)=g(x_0)>h(x_2)=f(x_2),
+\]
+和“越往右函数值越大”直接冲突。
+
+所以\textbf{接口不能向下跳}是必需的；至于段内也必须严格递增，只需在某一段内选两个点就能看出来。反过来如果三条都满足，方法二已经说明，不可能找到一对“往右却变小或不变”的点。递减题照样检查向上跳即可。
+
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{附：为什么公式中的 $g(x_0)\le L$ 与方法一的 $g(x_0)<h(x)$ 不矛盾？}}
+\input{assets/tikz/F014_cross_chain.tex}
+
+
+当右段严格递增且右边有有限的起始高度 $L$ 时，每一个真正属于右段的点 $x>x_0$ 都满足 $h(x)>L$。因此
+\[
+ g(x_0)\le L<h(x)
+\]
+就自动给出方法一的严格小于。反过来，若 $g(x_0)<h(x)$ 对所有 $x>x_0$ 成立，让 $x$ 越来越接近 $x_0$，就得到 $g(x_0)\le L$。两种写法说的是同一件事。
 \end{proofbox}

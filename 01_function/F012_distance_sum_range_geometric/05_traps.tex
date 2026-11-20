@@ -1,37 +1,75 @@
+\clearpage
 \begin{trapbox}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CTrap}{易错点一：两点放在同侧}}]
-		      若取 $A(m,a)$、$B(n,b)$，两点都在 $x$ 轴上方。
-		      线段 $AB$ 不经过 $x$ 轴，不能让
-		      $P(x,0)$ 在线段 $AB$ 上，因此不能直接把最小值写成 $|AB|$。
+\textbf{\textcolor{CTrap}{易错一：把两个根号分别取最小值，再把结果相加}}
 
-		      \textbf{改法：} 把其中一点关于 $x$ 轴对称。
-		      例如取 $A(m,-a)$、$B(n,b)$，
-		      对应的 $|PA|$、$|PB|$ 不变，但 $A$、$B$ 分居异侧。
+例如 $\sqrt{(x-1)^2+4}$ 的最小值是 $2$，$\sqrt{(x-3)^2+9}$ 的最小值是 $3$，但二者不能在同一个 $x$ 上同时取得，原式的最小值不是 $5$，而是 $\sqrt{29}$。
 
-		\item[\textbf{\textcolor{CTrap}{易错点二：只写“共线”}}]
-		      三角形不等式的等号条件是 $P$ 在线段 $AB$ 上。
-		      如果 $P$ 位于线段的延长线上，即使三点共线，
-		      仍有 $|PA|+|PB|>|AB|$。
+\textbf{检查办法：} 每次把两个数的最小值相加之前，先问自己：“\textbf{它们的最小位置是同一个 $x$ 吗？}”
 
-		      \textbf{本题为何能取等：} $a,b>0$，
-		      所以线段 $AB$ 必穿过 $x$ 轴；令 $P$ 为交点即可。
+\medskip
+\textbf{\textcolor{CTrap}{易错二：把两个固定点放在同一侧，还直接用 $AB$ 当最小值}}
 
-		\item[\textbf{\textcolor{CTrap}{易错点三：纵坐标差算错}}]
-		      $A$、$B$ 的纵坐标分别为 $-a$、$b$，
-		      所以纵向距离是
-		      \[
-			      |b-(-a)|=a+b,
-		      \]
-		      不是 $|a-b|$。
+如果选 $A(m,a)$、$B(n,b)$，二者都在轴上方，线段 $AB$ 不经过 $x$ 轴；尽管 $AP+PB\geq AB$ 没错，却不一定能取到等号。
 
-		\item[\textbf{\textcolor{CTrap}{易错点四：忽略定义域限制}}]
-		      公式给出的取等位置是
-		      \[
-			      x_0=\frac{bm+an}{a+b}.
-		      \]
-		      当 $x\in\mathbb{R}$ 时一定能够取到；
-		      若题目另有限制，例如 $x\geq c$，
-		      应先检查 $x_0$ 是否属于允许范围。
-	\end{description}
+\textbf{改法：} 对一个点做上下翻转，改为 $A(m,-a)$、$B(n,b)$；从 $P(x,0)$ 到该点的距离没有变，但线段 $AB$ 现在一定穿过 $x$ 轴。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错三：只记得“三点共线”，忘了 $P$ 要在线段中间}}
+
+只有 $P$ 在线段 $AB$ \textbf{上}，才有 $AP+PB=AB$。若 $A$、$B$、$P$ 在同一条直线上，但 $P$ 跑到 $A$ 或 $B$ 外面，折返的路仍然更长。
+
+\textbf{本题不必另外猜测：} $a,b>0$ 保证 $A$、$B$ 分居轴的两侧。取它们与轴的交点，就自动满足“在中间”。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错四：把 $(a+b)^2$ 错写成 $(a-b)^2$}}
+
+从 $A(m,-a)$ 到 $B(n,b)$，竖直距离是
+\[
+ |b-(-a)|=a+b,
+\]
+不是 $|a-b|$。因此用的是 $\sqrt{(m-n)^2+(a+b)^2}$，不是 $\sqrt{(m-n)^2+(a-b)^2}$。
+
+\medskip
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错五：无条件地套取等位置}}
+
+完整实数范围内，
+\[
+ x_0=\frac{bm+an}{a+b}
+\]
+总能取到。\textbf{但若题目限制 $x$ 的范围，则不一定。}
+
+\begin{itemize}[leftmargin=*,itemsep=.3em]
+\item 如果 $x\in[L,R]$，且 $x_0\in[L,R]$，原来的最小值仍成立。
+\item 如果 $x\in[L,R]$，且 $x_0<L$，最小值改在 $x=L$；若 $x_0>R$，最小值改在 $x=R$。
+\item 如果端点不允许取到，例如 $x>2$，而函数在这个范围内一直增大，那么函数值能不断靠近 $f(2)$，却\textbf{没有最小值}。
+\end{itemize}
+
+这些判断的理由是：原函数在 $x_0$ 左侧一直减小，在右侧一直增大，见证明三。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错六：见到两个根号就直接用公式}}
+
+只有两个根号都能写成
+\[
+ \sqrt{(x-m)^2+a^2},\quad\sqrt{(x-n)^2+b^2}
+\]
+的形式，并且 $a,b>0$，才能直接按本结论使用。若配方后出现 $(x-m)^2-4$，不能把负的 $-4$ 硬看作“某段长度的平方”。若两个根号前另有不同系数，也不能简单照搬本公式。
+
+\medskip
+\textbf{\textcolor{CTrap}{易错七：遇到 $m=n$，还强行除以 $n-m$}}
+
+求交点的比例式有时需要除以 $n-m$；如果 $m=n$，这样的除法不允许。此时直接看图：两个点在同一条竖直线上，最短的位置就是 $x=m$，最小值是 $a+b$，总公式仍正确。
+
+\medskip
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{补充：根号内本来写的是 $a^2$，$a$ 可以是负数吗？}}
+\input{assets/tikz/F012_zero_heights}
+
+
+只看原式，$a^2=(-a)^2$，实际距离对应的是 $|a|$。如果题目没有要求 $a,b>0$，可以先把它们换成 $|a|,|b|$。但当 $a=b=0$ 时，原式退化为 $|x-m|+|x-n|$，从 $m$ 到 $n$ 之间的每个 $x$ 都取得最小值，不能再套含 $a+b$ 分母的取等位置公式。
 \end{trapbox}

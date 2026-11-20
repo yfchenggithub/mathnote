@@ -1,40 +1,52 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{F14：分段函数在全域上的单调性}}
+\textbf{\textcolor{CStatement}{F014｜分段函数怎样才算整体递增或递减}}
+\input{assets/tikz/F014_three_joins.tex}
 
-	设
-	\[
-		f(x)=
-		\begin{cases}
-			g(x), & x\le x_0, \\
-			h(x), & x>x_0,
-		\end{cases}
-	\]
-	其中 $g$ 在 $(-\infty,x_0]$ 上有定义，$h$ 在 $(x_0,+\infty)$ 上有定义。本文中“递增、递减”均指\textbf{严格单调}；记右极限
-	$L=\lim_{x\to x_0^+}h(x)$，并要求 $L$ 为有限实数。
 
-	\textbf{\textcolor{CStatement}{结论一：整体严格递增}}
-	\[
-		f\text{ 在 }\mathbb{R}\text{ 上严格递增}
-		\iff
-		\begin{cases}
-			g\text{ 在 }(-\infty,x_0]\text{ 上严格递增}, \\[2pt]
-			h\text{ 在 }(x_0,+\infty)\text{ 上严格递增}, \\[2pt]
-			g(x_0)\le L.
-		\end{cases}
-	\]
+\textbf{要解决的问题：}两条分别向上走的曲线，拼接后不一定还在向上走。\textbf{不仅要检查每一段，还要检查两段交接的地方。}
 
-	\textbf{\textcolor{CStatement}{结论二：整体严格递减}}
-	\[
-		f\text{ 在 }\mathbb{R}\text{ 上严格递减}
-		\iff
-		\begin{cases}
-			g\text{ 在 }(-\infty,x_0]\text{ 上严格递减}, \\[2pt]
-			h\text{ 在 }(x_0,+\infty)\text{ 上严格递减}, \\[2pt]
-			g(x_0)\ge L.
-		\end{cases}
-	\]
+设
+\[
+ f(x)=\begin{cases}g(x),&x\le x_0,\\ h(x),&x>x_0.\end{cases}
+\]
+这里 $x_0$ 是分界点；$f(x_0)=g(x_0)$，因为等号放在左段。
 
-	\textbf{\textcolor{CStatement}{特别注意：}}
-	允许 $g(x_0)=L$；右段不含 $x_0$，所以接口取等仍可能整体\emph{严格}单调。
-	若题目把“单调递增”定义为非严格的 $f(x_1)\le f(x_2)$，以上两条中的“严格”统一改为“非严格”，接口不等号保持不变。
+\textbf{先记最容易懂、又最不容易用错的版本：}
+\begin{enumerate}[leftmargin=*,itemsep=0.25em]
+\item \textbf{整体严格递增：}左段严格递增；右段严格递增；而且\emph{任意一个}右段的函数值，都必须\emph{大于}左段在分界点的值：
+\[
+  \boxed{\ g(x_0)<h(x)\quad (\text{对所有 }x>x_0)\ }.
+\]
+\item \textbf{整体严格递减：}左段严格递减；右段严格递减；而且
+\[
+  \boxed{\ g(x_0)>h(x)\quad (\text{对所有 }x>x_0)\ }.
+\]
+\end{enumerate}
+上面两个判断，在已知左右两段分别严格递增或递减的情况下，既是必须满足的，也是足够保证整体严格单调的。\textbf{这个版本不用求极限，始终可以直接理解。}
+
+\medskip
+\end{statementbox}
+\clearpage
+\begin{statementbox}
+\textbf{高考题最常用的快速写法：}
+如果右段 $h(x)$ 在 $x$ 从右边接近 $x_0$ 时，函数值会接近某个\textbf{有限的数} $L$，可记为
+\[
+ L=\lim_{x\to x_0^+}h(x)
+ \quad\text{（就是“右边刚靠近分界点时的高度”）}.
+\]
+于是
+\[
+\boxed{\begin{aligned}
+\text{整体严格递增}\quad&\Longleftrightarrow\quad
+\begin{cases}\text{左段严格递增},\\\text{右段严格递增},\\g(x_0)\le L;\end{cases}\\[5pt]
+\text{整体严格递减}\quad&\Longleftrightarrow\quad
+\begin{cases}\text{左段严格递减},\\\text{右段严格递减},\\g(x_0)\ge L.\end{cases}
+\end{aligned}}
+\]
+
+\textbf{特别容易混淆的地方：}要求\emph{严格}递增，交接处却用 $\le$，\textbf{允许等号}；递减时用 $\ge$，也允许等号。这不矛盾，因为右段\emph{不包含}分界点，且右段本身在严格变化。
+
+\textbf{适用范围：}左右两段在各自区间都有定义；若使用 $L$ 的快捷写法，还要求这个 $L$ 是有限数。若求不出有限的 $L$，直接使用上面的“和所有右段函数值比较”版本，不要硬套接口公式。
+
+\textbf{用词约定：}本讲义把“严格递增”理解为：只要 $x_1<x_2$，必有 $f(x_1)<f(x_2)$。若题目只要求“不下降”（允许出现水平的一段），左右两段分别改成“不下降”，交接处的 $\le$ 不变；递减同理。
 \end{statementbox}

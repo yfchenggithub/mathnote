@@ -1,32 +1,60 @@
 \begin{statementbox}
+\textbf{\textcolor{CStatement}{这条结论解决什么问题？}}
 
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件1（内层单调）：}}] 内层函数 $g$ 在区间 $I$ 上单调。
-		\item[\textbf{\textcolor{CStatement}{条件2（外层单调）：}}] 外层函数 $f$ 在区间 $U$ 上单调。
-		\item[\textbf{\textcolor{CStatement}{条件3（值域包含）：}}] 内层函数的值域 $g(I)\subseteq U$，即复合函数 $f\circ g$ 在 $I$ 上有定义。
-	\end{description}
+遇到 $y=f(g(x))$ 这样“函数里面还有函数”的式子，怎样不用把式子展开，
+也不必一上来求导，就能判断它随 $x$ 的增大是增大还是减小？
+答案是：\textbf{先看里面怎样变化，再看外面会不会把大小关系反过来。}
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（同增异减规则）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			内外单调性一致则复合递增，内外单调性相异则复合递减。
-			\[
-				\begin{cases}
-					f\nearrow,\; g\nearrow \implies f\circ g \nearrow,\\
-					f\searrow,\; g\searrow \implies f\circ g \nearrow,\\
-					f\nearrow,\; g\searrow \implies f\circ g \searrow,\\
-					f\searrow,\; g\nearrow \implies f\circ g \searrow.
-			\end{cases}
-			\]
+\medskip
+\textbf{\textcolor{CStatement}{从哪里来？}}
 
-		\item[\textbf{\textcolor{CStatement}{推广结论（多层复合）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			对于多层复合，每层依次应用同增异减，总单调性由各层单调性符号的乘积决定：乘积为正则递增，乘积为负则递减。
-			\[
-				s_{h} = \prod_{i=1}^n s_i,\quad s_i\in\{+1,-1\}.
-			\]
-	\end{description}
+例如先算 $10-x$，再把结果代入 $10-t$：
+\[
+ x\longrightarrow 10-x\longrightarrow 10-(10-x)=x.
+\]
+第一次让数“越往右越小”，第二次又把大小关系反过来，
+最后反而随 $x$ 增大而增大。\textbf{两次反向，方向恢复；一次反向，方向相反。}
+这就是“同增异减”产生的原因，而不只是一个要背的口诀。
 
+\medskip
+
+\input{assets/tikz/F013_double_reversal}
+\end{statementbox}
+\clearpage
+\begin{statementbox}
+\textbf{\textcolor{CStatement}{适用条件（先检查这三项）}}
+\begin{enumerate}[leftmargin=*, itemsep=0.25em]
+\item 先选定一个自变量区间 $I$，使 $g(x)$ 在这段上始终递增，或始终递减。
+\item 对 $x\in I$，$g(x)$ 得到的每个值，都必须能代入外层 $f$。
+\item \textbf{最容易漏：}外层 $f(t)$ 对这些实际得到的 $t=g(x)$，也必须始终递增，或始终递减；仅仅“有定义”并不够。
+\end{enumerate}
+
+\textbf{\textcolor{CStatement}{核心结论：同增异减}}
+
+在以上条件下，若两层均为\textbf{严格}递增或严格递减，则
+\[
+\begin{array}{c|c|c}
+\text{内层 }g & \text{外层 }f & \text{整体 }f(g(x))\\ \hline
+\text{增} & \text{增} & \text{增}\\
+\text{减} & \text{减} & \text{增}\\
+\text{增} & \text{减} & \text{减}\\
+\text{减} & \text{增} & \text{减}
+\end{array}
+\]
+其中“外层增或减”必须针对\textbf{内层实际输出的数值范围}来判断，
+不是只看 $f$ 在某个无关区间上的增减。
+
+\medskip
+\textbf{\textcolor{CStatement}{多层推广：数一数反向的次数}}
+
+三层、四层也一样：每经过一层\textbf{递减}，大小关系就反转一次。
+只要每层在上一层实际给它的数值范围内都保持同一种增减方向，
+\textbf{递减层数是偶数，整体递增；是奇数，整体递减。}
+也可把增记为 $+1$、减记为 $-1$，逐层相乘：
+\[
+ s_{\text{整体}}=s_1s_2\cdots s_n,\qquad s_i\in\{+1,-1\}.
+\]
+
+\textbf{边界提醒：}如果允许“保持不变”这样的情况，只能相应判断\emph{不减或不增}，
+不能保证\emph{严格}增减；若有某层在有关范围内是常数，后续各层都有定义时，整体就是常数。
 \end{statementbox}

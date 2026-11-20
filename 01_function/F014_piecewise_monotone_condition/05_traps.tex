@@ -1,28 +1,65 @@
+\clearpage
 \begin{trapbox}
-	\textbf{\textcolor{CTrap}{易错点一：只看两段，漏看接口}}
+\textbf{\textcolor{CTrap}{错误 1｜两段各自递增，就断定整体递增}}
+\input{assets/tikz/F014_three_joins.tex}
 
-	两段都递增，整体也可能不递增。例如
-	$f(x)=\begin{cases}x+2,&x\le0,\\x,&x>0.\end{cases}$
-	左端值为 $2$，右极限为 $0$；从 $0$ 往右发生向下跳跃。递增须另查 $g(x_0)\le L$。
 
-	\medskip
-	\textbf{\textcolor{CTrap}{易错点二：把接口不等号误写成严格不等号}}
+错在漏掉\textbf{跨分界点}。例如左段 $x+2\ (x\le0)$、右段 $x\ (x>0)$，两段都往上走，但 $f(0)=2>f(0.1)=0.1$。\textbf{纠正：一定做完“左段、右段、接口”三关。}
 
-	虽然要求\emph{严格}递增，接口仍是 $g(x_0)\le L$。
-	例如 $f(x)=x$ 可写成 $g(x)=x\ (x\le0)$、$h(x)=x\ (x>0)$；此时 $g(0)=L=0$，但 $f$ 在全域严格递增。
+\medskip
+\textbf{\textcolor{CTrap}{错误 2｜要求“严格递增”，把接口误写成 $g(x_0)<L$}}
 
-	\medskip
-	\textbf{\textcolor{CTrap}{易错点三：递减时方向写反}}
+正确是 $g(x_0)\le L$。如 $f(x)=x$，$x=0$ 时两边高度都为 $0$，仍然严格递增。
 
-	沿着 $x$ 增大的方向往右看，整体递减须“左高右低”，即 $g(x_0)\ge L$。
+\textbf{原因：}右段没有取到分界点；其内部严格递增保证真正右侧任一点都高于 $L$。
 
-	\medskip
-	\textbf{\textcolor{CTrap}{易错点四：直接把 $h(x_0)$ 当作右段函数值}}
+\medskip
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{错误 3｜递减题也写 $g(x_0)\le L$}}
+\input{assets/tikz/F014_decreasing_parameter.tex}
 
-	右段条件为 $x>x_0$，接口属于左段，$f(x_0)=g(x_0)$。应比较 $g(x_0)$ 与右极限 $L$；即使表达式 $h$ 在 $x_0$ 可代入，也只把代入结果用于\emph{求极限}。
 
-	\medskip
-	\textbf{\textcolor{CTrap}{易错点五：以为接口必须连续}}
+递减从左往右越来越低，必须是 $g(x_0)\ge L$。\textbf{记法：递增左低右高；递减左高右低。}
 
-	向单调方向的跳跃允许存在。例如 $f(x)=\begin{cases}x,&x\le0,\\x+1,&x>0\end{cases}$ 在全域严格递增，接口却不连续。
+\medskip
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{错误 4｜把右段公式代入 $x_0$ 得到的数，当成 $f(x_0)$}}
+\input{assets/tikz/F014_endpoint_ownership.tex}
+
+
+若写 $x\le x_0$ 给左段，则真正的 $f(x_0)=g(x_0)$，而\emph{不是}右段的值。把 $x_0$ 代进 $h$，只是当右边公式允许这样计算时，用于求右侧\textbf{接近的高度}。\textbf{先看等号在哪边。}
+
+\medskip
+\textbf{\textcolor{CTrap}{错误 5｜以为整体单调一定要在分界点连成一条线}}
+
+错。$x\ (x\le0)$ 与 $x+2\ (x>0)$ 接成的函数在分界点向上跳，但整体严格递增。\textbf{单调看顺序，不要求图象一定相连。}
+
+\medskip
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{错误 6｜把 $a=1$ 这类“水平段”也算严格递增}}
+\input{assets/tikz/F014_flat_segment.tex}
+
+
+若某段变为常数，如 $(a-1)x+2$ 中 $a=1$，该段两点函数值相等，不符合\emph{严格}递增。求参时应先确认题目要求“严格增加”还是只要求“不下降”。
+
+\medskip
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{错误 7｜右边表达式在分界点无法直接代入，却硬算一个 $h(x_0)$}}
+\input{assets/tikz/F014_infinite_boundary.tex}
+
+
+例如右段 $-1/x\ (x>0)$，在 $x=0$ 不能直接代入，也没有有限的起始高度。\textbf{处理办法：回到 $g(x_0)<h(x)$（对每一个 $x>x_0$）的直接比较，必要时挑具体点反驳。}
+
+\medskip
+\textbf{\textcolor{CTrap}{错误 8｜分界点等号换了边，仍机械使用旧公式}}
+
+若左段是 $x<x_0$、右段是 $x\ge x_0$，就应比较\textbf{左边靠近分界点时的高度}与\textbf{右段真正的 $h(x_0)$}。递增应前者 $\le$ 后者，递减则 $\ge$；切勿把属于右段的点当成左段点。
 \end{trapbox}

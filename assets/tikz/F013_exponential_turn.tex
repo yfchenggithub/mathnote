@@ -1,0 +1,17 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,11.3);
+\node at (7.1,10.700000000000001) {例2：外层递减，内层最低点变成整体最高点};
+
+\begin{scope}[shift={(2,7.3)},x=1.2cm,y=.55cm]
+\draw[->,gray] (-1.5,0)--(3.6,0) node[right]{$x$};\draw[->,gray] (0,-1.6)--(0,4.5) node[above]{$t$};
+\draw[blue,very thick,domain=-1:3,samples=100] plot(\x,{(\x-1)^2-1});\fill[orange!85!black] (1,-1) circle(2pt);\draw[gray,dotted] (1,-1)--(1,3.7);
+\end{scope}
+\begin{scope}[shift={(2,2.1)},x=1.2cm,y=1.0cm]
+\draw[->,gray] (-1.5,0)--(3.6,0) node[right]{$x$};\draw[->,gray] (0,0)--(0,3.7) node[above]{$H$};
+\draw[violet,very thick,domain=-1.3:3.3,samples=150] plot(\x,{pow(3,1-(\x-1)^2)});\fill[orange!85!black] (1,3) circle(2pt);\draw[gray,dotted] (1,0)--(1,3);\node[below=5pt] at (1,0){$1$};
+\end{scope}
+\node[align=left,anchor=west] at (8.3,8.1){$g(x)=(x-1)^2-1$\\[12pt]$x=1$：内层最小 $-1$\\[12pt]$g'(x)=2(x-1)$};
+\node[align=left,anchor=west] at (8.3,3.9){$H(x)=3^{-g(x)}$\\[12pt]外层 $3^{-t}$ 递减\\[12pt]内层的谷，对应整体的峰\\[12pt]$H(1)=3$ 为最大值};
+
+\node[text width=12.8cm,align=center] at (7.1,.65) {两图共享相同的 $x$ 刻度；纵轴分别为内层 $t$ 与整体函数值 $H$。};
+\end{tikzpicture}\end{center}

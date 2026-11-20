@@ -1,197 +1,221 @@
+\clearpage
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例 1（基础）}}
+\textbf{例1｜看到标准形式，30 秒内求完}
+\input{assets/tikz/F011_example_standard_range}
 
-	\textbf{\textcolor{CExample}{题目：}}
-	求函数 $f(x)=3x+\frac{12}{x}$（$x>0$）的最小值，并求出相应的 $x$ 值；再求 $x<0$ 时 $f(x)$ 的最大值及相应 $x$ 值。
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（识别结构）：}] 确定函数为对勾函数标准形式 $3x+\frac{12}{x}$，其中 $A=3$, $B=12$, 且 $A,B>0$.
-			\[
-				f(x)=3x+\frac{12}{x}
-			\]
-			\par\textbf{理由：} 标准对勾结构可直接套用结论.
+\textbf{题目：} 求 $f(x)=3x+\frac{12}{x}$ 在 $x>0$ 时的最小值、在 $x<0$ 时的最大值，再求 $x\ne0$ 时的完整值域。
 
-		\item[\textbf{第二步（正数最小值）：}] 当 $x>0$ 时，由结论
-			\[
-				\begin{aligned}
-					f(x) &\ge 2\sqrt{AB} \\
-					&= 2\sqrt{3\cdot12} \\
-					&= 12,
-			\end{aligned}
-			\]
-			等号成立当且仅当 $x=2$.
-			\par\textbf{理由：} 直接应用 $x>0$ 时 $f(x)\ge 2\sqrt{AB}$ 公式.
+\textbf{第一步：} $A=3,B=12$，两个数都大于零。
+\[
+2\sqrt{AB}=2\sqrt{36}=12,\qquad
+\sqrt{\frac BA}=\sqrt4=2.
+\]
+\textbf{第二步：} $x>0$ 时，$f(x)\ge12$，且 $x=2$ 时取等；$x<0$ 时，$f(x)\le-12$，且 $x=-2$ 时取等。
 
-		\item[\textbf{第三步（负数最大值）：}] 当 $x<0$ 时，由结论
-			\[
-				\begin{aligned}
-					f(x) &\le -2\sqrt{AB} \\
-					&= -12,
-			\end{aligned}
-			\]
-			等号成立当且仅当 $x=-2$.
-			\par\textbf{理由：} 直接应用 $x<0$ 时 $f(x)\le -2\sqrt{AB}$ 公式.
-	\end{description}
-
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{最小值为 $12$（$x=2$）；最大值为 $-12$（$x=-2$）}.
-
-	\medskip
-	\textbf{\textcolor{CExample}{例 2（稍变形）}}
-
-	\textbf{\textcolor{CExample}{题目：}}
-	求函数 $y=\frac{2x^2+3x+3}{x+1}$（$x\neq-1$）的值域.
-
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（除法变形）：}] 将分子除以分母，得
-			\[
-				y = 2x+1+\frac{2}{x+1}.
-			\]
-			\par\textbf{理由：} 将分式化为一次式加余式的形式，便于换元.
-
-		\item[\textbf{第二步（换元转化）：}] 令 $t=x+1$，则 $x=t-1$，代入得
-			\[
-				\begin{aligned}
-					y &= 2(t-1)+1+\frac{2}{t} \\
-					&= 2t+\frac{2}{t} -1,
-			\end{aligned}
-			\]
-			其中 $t\in(-\infty,0)\cup(0,+\infty)$.
-			\par\textbf{理由：} 通过线性换元将函数化为 $2t+\frac{2}{t}-1$，即 $At+\frac{B}{t}+C$ 形式.
-
-		\item[\textbf{第三步（结论求值域）：}] 对 $g(t)=2t+\frac{2}{t}$（标准对勾，$A=2,B=2>0$），由结论知 $g(t)$ 的值域为 $(-\infty,-4]\cup[4,+\infty)$。于是 $y=g(t)-1$ 的值域为
-			\[
-				(-\infty,-5]\cup[3,+\infty).
-			\]
-			\par\textbf{理由：} 先求对勾部分的值域，再整体减 $1$（常数平移）即得原函数值域.
-	\end{description}
-
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{值域为 $(-\infty,-5]\cup[3,+\infty)$}.
-
-	\medskip
-	\textbf{\textcolor{CExample}{例 3（综合应用）}}
-
-	\textbf{\textcolor{CExample}{题目：}}
-	求函数 $y=\frac{2x^2+3x+3}{x+1}$ 在 $x>-1$ 时的最小值，并求相应的 $x$ 值.
-
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（换元并定范围）：}] 令 $t=x+1$，由 $x>-1$ 得 $t>0$。通过除法变形：$y=2x+1+\frac{2}{x+1}$，代入 $t$ 得
-			\[
-				y = 2t+\frac{2}{t} -1,
-				\qquad
-				t>0.
-			\]
-			\par\textbf{理由：} 先换元并明确新元的正负情况，这是后续应用结论的前提.
-
-		\item[\textbf{第二步（求对勾最小值）：}] 对于 $t>0$，$2t+\frac{2}{t}$ 的最小值由对勾结论给出：
-			\[
-				\begin{aligned}
-					2t+\frac{2}{t} &\ge 2\sqrt{2t\cdot\frac{2}{t}} \\
-					&= 2\sqrt{4} \\
-					&= 4,
-			\end{aligned}
-			\]
-			等号成立当且仅当 $2t=\frac{2}{t}$，即 $t=1$（$t>0$）.
-			\par\textbf{理由：} 直接应用对勾函数 $x>0$ 时的最小值公式.
-
-		\item[\textbf{第三步（回代得最小值）：}] 则
-			\[
-				y_{\min} = 3,
-			\]
-			此时 $t=1$，即 $x+1=1$，故 $x=0$.
-			\par\textbf{理由：} 由 $y= (2t+\frac{2}{t}) -1$ 的最小值是对勾最小值减 $1$，即 $4-1=3$，回代自变量即得.
-	\end{description}
-
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{最小值为 $3$，此时 $x=0$}.
-
+\textbf{答案：} 正数范围最小值 $12$，负数范围最大值 $-12$；完整值域
+\[
+\boxed{(-\infty,-12]\cup[12,+\infty)}.
+\]
+\textbf{别忘了：} 说“负数范围最大值 $-12$”，不是说整个函数最大值为 $-12$。完整定义域上，函数没有全局最大值，也没有全局最小值。
 
 \medskip
-\textbf{\textcolor{CExample}{例 4（几何应用：两支反比例曲线之间的最短距离）}}
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{例2｜二次式除以一次式，先除后换元}
+\input{assets/tikz/F011_example_shifted_range}
 
-\textbf{题目：} 在 $y=\frac1x$ 的第一、第三象限各取一点 $P,Q$，求 $PQ$ 的最小值，并写出取等时的两点坐标。
+
+\textbf{题目：} 求 $y=\frac{2x^2+3x+3}{x+1}$（$x\ne-1$）的值域，并求 $x>-1$ 时的最小值。
+
+先做除法：
+\[
+y=2x+1+\frac2{x+1}.
+\]
+令 $t=x+1$，则 $x=t-1$，所以
+\[
+y=2t+\frac2t-1,\qquad t\ne0.
+\]
+当 $t>0$，$2t+2/t\ge4$，故 $y\ge3$，且 $t=1$（即 $x=0$）取等；当 $t<0$，$2t+2/t\le-4$，故 $y\le-5$，且 $t=-1$（即 $x=-2$）取等。
+
+\textbf{答案：} $x\ne-1$ 时，值域是
+\[
+\boxed{(-\infty,-5]\cup[3,+\infty)}.
+\]
+如果限制 $x>-1$，则 $t>0$，\textbf{只保留正数这一半}，最小值 $3$（$x=0$ 时取到）。
+
+\medskip
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{例3｜它为什么会出现在实际问题中？}
+\input{assets/tikz/F011_example_rectangle}
+
+
+\textbf{题目：} 一块面积为 $36$ 的长方形菜地，长和宽怎样选，围栏用得最少？
+
+设宽为 $x>0$ 米，长为 $36/x$ 米，周长
+\[
+L=2\left(x+\frac{36}{x}\right)
+\ge2\times2\sqrt{36}=24\ \text{米}.
+\]
+等号要求 $x=36/x$，即 $x=6$。\textbf{答案：} 长宽都为 $6$ 米时，最少需要 $24$ 米围栏。
+
+\textbf{这题的启发：} “面积固定”让两个边长\textbf{相乘固定}，“周长最短”让两个边长\textbf{相加最小}；这就是基本不等式最经典的出场方式。
+
+\medskip
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{例4｜看似能套公式，为什么答案却变了？}
+\input{assets/tikz/F011_example_restricted_domains}
+
+
+\textbf{题目A：} 求 $y=x+\frac9x$ 在 $x\ge4$ 时的最小值。
+
+标准取等位置是 $x=3$，但题目不允许 $x=3$。比较 $x\ge4$ 与 $3$：
+\[
+\begin{aligned}
+\left(x+\frac9x\right)-\frac{25}{4}
+&=\frac{4x^2-25x+36}{4x}\\
+&=\frac{(x-4)(4x-9)}{4x}\ge0
+\qquad(x\ge4).
+\end{aligned}
+\]
+所以在 $x=4$ 时最小，\textbf{答案是} $\boxed{25/4}$，不能再写 $6$。
+
+\textbf{题目B：} 如果改成 $x>3$ 呢？由 $x+9/x\ge6$，等号只在 $x=3$ 成立，而 $3$ 不在范围内；故始终 $y>6$。当 $x$ 从右边不断靠近 $3$，$y$ 也能不断靠近 $6$；当 $x$ 不断增大，$y$ 又会不断增大。并且对每个 $y>6$，方程 $x+9/x=y$ 都有一个 $x>3$ 的解 $x=\frac{y+\sqrt{y^2-36}}2$，所以\textbf{没有最小值}，值域为 $\boxed{(6,+\infty)}$。这道题专门提醒：\textbf{下界存在，不等于最小值取得到。}
+
+\medskip
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{例5｜两支反比例曲线的最近距离}
 \input{assets/tikz/F011_support_lines}
 
 
-\textbf{解题步骤：}
-\begin{enumerate}[leftmargin=*,itemsep=0.4em]
-\item 设 $P(a,\frac1a)$、$Q(-b,-\frac1b)$（$a,b>0$），这是\textbf{不同分支}的两个任意点。
-\item 由两点间距离公式，
-\[
-PQ^2=(a+b)^2+\left(\frac1a+\frac1b\right)^2.
-\]
-\item 由基本不等式，
+\textbf{题目：} 在 $y=1/x$ 的第一、第三象限各取一点 $P,Q$，求 $PQ$ 的最小值。
+
+设 $P(a,1/a)$、$Q(-b,-1/b)$，$a,b>0$。由\textbf{几何证明方法二}，
 \[
 \begin{aligned}
-PQ^2&\ge2(a+b)\left(\frac1a+\frac1b\right)\\
-&=2\left(2+\frac{a}{b}+\frac{b}{a}\right)\ge8.
+PQ&\ge\frac{\left(a+\frac1a\right)+\left(b+\frac1b\right)}{\sqrt2}\\
+&\ge\frac{2+2}{\sqrt2}=2\sqrt2.
 \end{aligned}
 \]
-\item 两次等号都成立须 $a=b=1$，所以
+取等要求 $a=b=1$；这时 $P(1,1)$，$Q(-1,-1)$，长度恰好为 $2\sqrt2$。
 \[
-\boxed{PQ_{\min}=2\sqrt2},\quad
-\boxed{P(1,1),\ Q(-1,-1)}.
+\boxed{PQ_{\min}=2\sqrt2}.
 \]
-\end{enumerate}
-\textbf{考场识别：} “第一、第三象限各一点 + 两点距离最小”直接设正参数，避免第三象限漏写负号。
 
 \medskip
-\textbf{\textcolor{CExample}{例 5（参数变式：直接迁移）}}
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{例6｜把 $1/x$ 改成 $9/x$，最快怎么做？}
+\input{assets/tikz/F011_example_k9_distance}
 
-\textbf{题目：} 在 $y=\frac9x$ 的两支曲线上分别取一点，求两点的最短距离。
 
-\textbf{解：} 此处 $k=9>0$，由例 4 的推广，
+\textbf{题目：} 在 $y=9/x$ 的第一、第三象限各取一点，求最近距离。
+
+直接用已证明的几何结论，$k=9$，
 \[
-PQ_{\min}=2\sqrt{2k}=2\sqrt{18}=6\sqrt2.
+\boxed{d_{\min}=2\sqrt{2\times9}=6\sqrt2}.
 \]
-等号时 $P(3,3)$、$Q(-3,-3)$；这两点满足 $xy=9$，且 $PQ=\sqrt{6^2+6^2}=6\sqrt2$，故最小值可取到。
+最近点是 $P(3,3)$、$Q(-3,-3)$。\textbf{检查：} 两点都满足 $xy=9$，两点的横纵坐标差都是 $6$，距离 $\sqrt{6^2+6^2}=6\sqrt2$。
 
 \medskip
-\textbf{\textcolor{CExample}{例 6（高价值变式：附加限制打破原取等点）}}
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{例7｜高考综合：固定其中一个点，原公式还能用吗？}
+\input{assets/tikz/F011_example_fixed_point}
 
-\textbf{题目：} 在 $y=\frac1x$ 的第一、第三象限各取一点 $P,Q$，已知 $P$ 的横坐标为 $2$，求 $PQ$ 的最小值。
 
-\textbf{解：} 此时 $P=(2,\frac12)$ 固定，不能直接套用 $2\sqrt2$ 的取等点 $P(1,1)$。设 $Q=(-b,-\frac1b)$，$b>0$，则
+\textbf{题目：} $P$ 固定在 $y=1/x$ 的点 $(2,\frac12)$，$Q$ 可以在第三象限那支曲线上任意移动，求 $PQ$ 的最小值。
+
+\textbf{第一步：先看条件。} 原来两点可以自由选时，最近点是 $(1,1)$ 与 $(-1,-1)$。现在 $P=(2,\frac12)$ 已经固定，\textbf{原取等条件无法满足}，所以不能直接答 $2\sqrt2$。
+
+\textbf{第二步：设第三象限点。} 令 $Q=(-b,-\frac1b)$，$b>0$，则
 \[
 \begin{aligned}
-PQ^2&=(2+b)^2+\left(\frac12+\frac1b\right)^2\\
-&=\frac{(b+2)^2(4b^2+1)}{4b^2}.
+PQ^2&=(b+2)^2+\left(\frac12+\frac1b\right)^2\\
+&=(b+2)^2\left(1+\frac1{4b^2}\right).
 \end{aligned}
 \]
-求最小值可用配方或一元函数方法：
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{例7（续）：用导数找到固定点情形的最小距离}
+
+\textbf{第三步：高中导数法。} 设 $h(b)=PQ^2$，则
 \[
 \begin{aligned}
-PQ^2
-&=\left(b^2+\frac1{b^2}\right)+4b+\frac1b+\frac{17}{4}\\
-&\ge\left(b^2+\frac1{b^2}\right)+2\sqrt{4b\cdot\frac1b}+\frac{17}{4},
-\end{aligned}
-\]
-但这两个下界一般\textbf{不能同时取等}，故不能由此直接认定最小值。使用下一种更有效的整理：
-\[
-PQ^2=(2+b)^2+\frac{(b+2)^2}{4b^2}
-=(b+2)^2\left(1+\frac{1}{4b^2}\right).
-\]
-令 $h(b)=PQ^2$，由乘积求导法则（高中导数法）得
-\[
-\begin{aligned}
-h'(b)
-&=2(b+2)\left(1+\frac1{4b^2}\right)
- -(b+2)^2\frac1{2b^3}\\
+h'(b)&=2(b+2)\left(1+\frac1{4b^2}\right)
+-\frac{(b+2)^2}{2b^3}\\
 &=\frac{(b+2)(2b^3-1)}{b^3}.
 \end{aligned}
 \]
-因为 $b>0$，所以 $h'(b)$ 的正负取决于 $2b^3-1$。当 $0<b<\sqrt[3]{\frac12}$ 时 $h'(b)<0$，当 $b>\sqrt[3]{\frac12}$ 时 $h'(b)>0$，故 $h$ 先减后增，在 $b_0=\sqrt[3]{\frac12}$ 取到最小值。
+因为 $b>0$，所以当 $0<b<\sqrt[3]{\frac12}$ 时，$h'(b)<0$；当 $b>\sqrt[3]{\frac12}$ 时，$h'(b)>0$。也就是说 $h$ 先减小后增大，在 $b_0=\sqrt[3]{\frac12}$ 处最小。
 
-注意 $b_0^3=\frac12$，从而 $\frac1{4b_0^2}=\frac{b_0}{2}$。因此
+\textbf{第四步：代回。} 利用 $b_0^3=\frac12$，得到 $\frac1{4b_0^2}=\frac{b_0}{2}$，所以
 \[
-\boxed{PQ_{\min}=
-\left(2+\sqrt[3]{\frac12}\right)
+\boxed{PQ_{\min}=\left(2+\sqrt[3]{\frac12}\right)
 \sqrt{1+\frac12\sqrt[3]{\frac12}}}.
 \]
-\textbf{变式价值：} 附加限制可能排除原来的取等点，\textbf{不能直接套原最短距离公式}；必须重新优化。
+\textbf{解题收获：} 两点都能自由移动时有漂亮的固定公式；一旦某个点或某段范围被限制，必须\textbf{重新检查能否取等，再决定是否用导数}。
+\end{examplebox}
 
+
+\clearpage
+\begin{examplebox}
+\textbf{例8｜两个点都能移动：用两种方法求对勾函数两支的最近距离}
+
+\textbf{题目：} $P,Q$ 分别在 $y=x+1/x$ 的第一、第三象限两支上，求 $PQ$ 的最小值，并说明最近两点为什么关于原点对称。
+
+\textbf{解法一（不等式）：} 设 $P=(a,a+1/a)$、$Q=(-b,-b-1/b)$，$a,b>0$，记 $s=a+b$。则
+\[
+\begin{aligned}
+PQ^2&=s^2+\left(s+\frac1a+\frac1b\right)^2\\
+&\ge s^2+\left(s+\frac4s\right)^2\\
+&=2s^2+8+\frac{16}{s^2}\ge8+8\sqrt2.
+\end{aligned}
+\]
+第一次等号要求 $a=b=s/2$，第二次要求 $s^4=8$。因此 $a=b=1/\sqrt[4]2$，可同时取等。
+
+\textbf{解法二（分别求导）：} 令 $x_0>0$、$x_1<0$，以它们为两点横坐标。记
+\[
+U=x_0-x_1,\qquad V=x_0-x_1+\frac1{x_0}-\frac1{x_1}.
+\]
+分别固定另一变量、对 $D^2=U^2+V^2$ 求导并令导数为零，得到
+\[
+U+V\left(1-\frac1{x_0^2}\right)=0,
+\qquad
+U+V\left(1-\frac1{x_1^2}\right)=0.
+\]
+相减得 $x_1=-x_0$；代回解出 $x_0^4=1/2$。再检查两点跑向 $x=0$ 或远处时距离均增大，故这唯一组可能的最近点确为最小值点。
+
+\[
+\boxed{PQ_{\min}=2\sqrt{2+2\sqrt2}\approx4.395}.
+\]
+\textbf{比较：} 两种解法都没有预先假设对称。第一种\textbf{用不等式直接卡出全体两点的最小距离}；第二种\textbf{利用整体最小时单独移动任一点也不能改进}，得到两个方程后才出现对称性。
+\end{examplebox}
+
+\clearpage
+\begin{examplebox}
+\textbf{例9｜一题连两类曲线：同样是两支最近距离，答案为什么不同？}
+
+\textbf{题目：} 分别求 $y=1/x$ 与 $y=x+1/x$ 在第一、第三象限的两支之间的最短距离。
+
+\textbf{第一问：反比例函数。} $y=1/x$ 最近两点是 $(1,1)$、$(-1,-1)$，故 $d_{\min}=2\sqrt2$。
+
+\textbf{第二问：对勾函数。} 最近两点的横坐标绝对值为 $t=1/\sqrt[4]2$，纵坐标为 $t+1/t$ 及其相反数，故
+\[
+\begin{aligned}
+d_{\min}&=2\sqrt{t^2+\left(t+\frac1t\right)^2}\\
+&=2\sqrt{2+2\sqrt2}.
+\end{aligned}
+\]
+\textbf{为什么会不同？} 在相同的 $x$ 位置上，$x+1/x$ 的函数值比 $1/x$ 多了一项 $x$，曲线形状已经改变。\textbf{不能把反比例函数的 $2\sqrt2$ 直接搬过来。}
 \end{examplebox}

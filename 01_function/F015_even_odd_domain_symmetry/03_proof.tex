@@ -1,26 +1,97 @@
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{我们要说明的事}
 
-	要说明：若$f(x)$是奇函数或偶函数，则其定义域必然关于原点对称；且在定义域对称的前提下，可用$f(-x)$与$f(x)$的关系判定。
+判断奇偶性需要两个条件：\textbf{左右的输入都存在}，并且\textbf{对应的函数值符合规律}。下面给出三种由浅入深的讲法。前两种解释主结论，第三种从主结论再推出来一个实用工具。
 
-	\medskip
-	\begin{center}\input{assets/tikz/F015_parity_point_pairs}\end{center}
-图中用 $x=1$ 示范配对：偶函数把 $(x,f(x))$ 配到 $(-x,f(x))$，奇函数配到 $(-x,-f(x))$。一般判定必须对定义域内每个 $x$ 都成立，不能只验这一对点。
+\medskip
+\textbf{方法一（最容易看懂）：画点、找伙伴}
 
-\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（对称必要性）：}] 设$f(x)$是奇函数或偶函数。根据定义，对任意$x\in D$，必有$-x\in D$且满足相应的关系式。因此定义域$D$关于原点对称。
-			\par\textbf{理由：} 奇偶函数的定义本身包含定义域对称的条件。
 
-		\item[\textbf{步骤二（判定关系）：}] 在定义域对称的前提下，若$f(-x)=f(x)$恒成立，则$f(x)$为偶函数；若$f(-x)=-f(x)$恒成立，则为奇函数。
-			\par\textbf{理由：} 这是奇偶函数定义的直接应用。
+\begin{center}
+\input{assets/tikz/F015_parity_point_pairs.tex}
+\end{center}
 
-		\item[\textbf{步骤三（等价变形）：}] 将判定式移项得到另一种常用形式：偶函数：$f(x)-f(-x)=0$，奇函数：$f(x)+f(-x)=0$。这些形式在含参讨论时更为方便。
-			\par\textbf{理由：} 等式变形的基本代数操作。
-	\end{description}
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
 
-	\textbf{函数具有奇偶性的必要条件是定义域关于原点对称；在对称前提下，通过检验$f(-x)$与$f(x)$是否相等或相反，即可判定是偶函数还是奇函数。}
+
+\textbf{第1步：}在图像上随便找一点$P=(a,b)$，这表示$f(a)=b$。
+
+\textbf{第2步：}如果图像关于$y$轴对称，它在左边必须有伙伴$Q=(-a,b)$。这句话写成式子就是$f(-a)=f(a)$。
+
+\textbf{第3步：}如果图像关于原点对称，它在另一边必须有伙伴$R=(-a,-b)$，因此$f(-a)=-f(a)$。
+
+\textbf{第4步：}无论哪种配对，$-a$都必须是允许输入的数。这说明定义域必须关于原点对称。
+
+\textbf{第5步：}只有\textbf{每一个}点都找得到符合要求的伙伴，才叫整个图像对称。单独找出一对符合要求的点，还远远不够。
+
+
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法二（考试最稳妥）：从定义直接推}
+\input{assets/tikz/F015_domain_sets.tex}
+
+
+设定义域为$D$。
+
+\textbf{第1步：}如果$f$是偶函数，对每一个$x\in D$，都要求$f(-x)=f(x)$。既然左边$f(-x)$要有意义，$-x$就必须在$D$内。如果$f$是奇函数，道理完全相同。\textbf{所以定义域对称是必需的。}
+
+\textbf{第2步：}反过来，如果每个$x\in D$都能找到$-x\in D$，而且每次都有$f(-x)=f(x)$，那它满足偶函数的规定，所以就是偶函数；如果每次都有$f(-x)=-f(x)$，就是奇函数。
+
+\textbf{第3步：}把等式移项：
+\[
+\begin{aligned}
+f(-x)=f(x)&\iff f(x)-f(-x)=0,\\
+f(-x)=-f(x)&\iff f(x)+f(-x)=0.
+\end{aligned}
+\]
+这些改变只是把同一个条件换了一种写法，使用前仍须检查定义域。
+
+\medskip
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法三（进一步发现）：一个函数为什么能拆成奇、偶两部分？}
+\input{assets/tikz/F015_decomposition.tex}
+
+
+现在假设定义域已经关于原点对称，分别取
+\[
+A(x)=\frac{f(x)+f(-x)}2,\qquad B(x)=\frac{f(x)-f(-x)}2.
+\]
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{第1步：证明$A$是偶函数。}把$x$换成$-x$：
+\[
+\begin{aligned}
+A(-x)&=\frac{f(-x)+f(-(-x))}2\\
+&=\frac{f(-x)+f(x)}2=A(x).
+\end{aligned}
+\]
+所以$A$是偶函数。
+
+\textbf{第2步：证明$B$是奇函数。}同样代入：
+\[
+\begin{aligned}
+B(-x)&=\frac{f(-x)-f(-(-x))}2\\
+&=\frac{f(-x)-f(x)}2=-B(x).
+\end{aligned}
+\]
+所以$B$是奇函数。
+
+\textbf{第3步：看看它们相加会怎样。}
+\[
+\begin{aligned}
+A(x)+B(x)
+&=\frac{f(x)+f(-x)+f(x)-f(-x)}2\\
+&=f(x).
+\end{aligned}
+\]
+因此\textbf{只要定义域对称，任何函数都可以这样拆开}。例如$f(x)=x^2+3x+2$，其偶的部分是$x^2+2$，奇的部分是$3x$。
+
+\medskip
+\textbf{回扣：}理解奇偶性，不是单纯背两个等式，而是认识图像左右两边的点怎样配对；\textbf{先有对称的输入范围，才有资格进一步比较输出。}
 \end{proofbox}

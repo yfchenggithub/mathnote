@@ -1,39 +1,119 @@
 \begin{explanationbox}
+\textbf{一、先用数字看清楚：为什么有最低点？}
+
+我们先不记公式，只看 $y=x+\frac9x$（$x>0$）：
+\[
+\begin{array}{c|ccccc}
+x&1&2&3&4&9\\\hline
+x+9/x&10&\frac{13}{2}&\boxed6&\frac{25}{4}&10
+\end{array}
+\]
+从 $x=1$ 到 $3$，虽然第一项变大，第二项却减少得更快，所以\textbf{总和下降}；过了 $3$ 以后，第一项的增长又占了上风，\textbf{总和上升}。最低点出现在 $3+\frac93=3+3$。
 \input{assets/tikz/F011_balance}
 
-图中 $x$ 增大时，$x$ 增大而 $1/x$ 减小，乘积保持为 $1$；两项相等时，和最低。
-一般情形的取等条件为 $Ax=B/x$，正数解为 $x=\sqrt{B/A}$。
-负半轴利用 $f(-x)=-f(x)$，把正半轴的最低点映到负半轴的最高点。
-求值域前先检查 $A,B>0$，以及定义域是否允许取等；分式换元后也要重新检查新变量的范围。
+\textbf{二、最值得记住的不是公式，而是“找平衡”。}
+
+\[
+\underbrace{Ax}_{\text{$x$ 大时变大}}+\underbrace{\frac Bx}_{\text{$x$ 大时变小}}.
+\]
+当两项都是正数时，把一部分调大、另一部分调小，并不会让和无限变小。两项\textbf{相等}时，和最小：
+\[
+Ax=\frac Bx\ \Longleftrightarrow\ Ax^2=B
+\ \Longleftrightarrow\ x=\sqrt{\frac BA}\quad(x>0).
+\]
+它们相等时，每一项都是 $\sqrt{AB}$，所以最小和就是 $2\sqrt{AB}$。这里的“相等”是\textbf{$Ax$ 与 $B/x$ 相等}，不是说一定 $x=1$。
 
 \medskip
-\textbf{\textcolor{CExplanation}{几何迁移：由对勾最值到两支曲线的最短距离}}
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{三、为什么负数一边正好倒过来？}
 
-\textbf{题目：} $k>0$，点 $P$ 在 $y=\frac{k}{x}$ 第一象限部分，点 $Q$ 在第三象限部分，求 $PQ$ 的最小值。
-
-\input{assets/tikz/F011_distance_triangle}
-设 $P(a,\frac{k}{a})$、$Q(-b,-\frac{k}{b})$，其中 $a>0$、$b>0$。这样取 $b>0$，可避免第三象限坐标的符号混乱。
+把 $x$ 换成 $-x$，就得到
 \[
-\Delta x=a+b>0,\qquad
-\Delta y=\frac{k}{a}+\frac{k}{b}>0.
+f(-x)=-Ax-\frac Bx=-f(x).
 \]
-\textbf{关键观察：} 与其直接求最小距离，不如先看两坐标差之和：
+也就是说：正数 $x$ 对应的函数值是 $y$，那么负数 $-x$ 对应的就是 $-y$。图像绕原点旋转 $180^\circ$ 后重合。因此正数一侧的\textbf{最低点}，在负数一侧恰好对应\textbf{最高点}。
+
+\medskip
+\textbf{四、为什么中间有一大段函数值取不到？}
+
+当 $x>0$ 时，两项都正，和一定不小于 $2\sqrt{AB}$；当 $x<0$ 时，两项都负，和一定不大于 $-2\sqrt{AB}$。例如 $y=x+\frac9x$，永远不可能得到 $-6<y<6$ 里面任何一个数。\textbf{这不是画图猜出来的，是代数式本身把中间挡住了。}
+
+\medskip
+\textbf{五、原来长方形也会“长出”对勾函数。}
+
+设长方形面积固定为 $9$，宽是 $x>0$，长只能是 $9/x$。它的周长为
 \[
-\Delta x+\Delta y
-=\underbrace{\left(a+\frac{k}{a}\right)}_{\ge2\sqrt{k}}
-+\underbrace{\left(b+\frac{k}{b}\right)}_{\ge2\sqrt{k}}
-\ge4\sqrt{k}.
+L=2\left(x+\frac9x\right)\ge 2\times6=12.
 \]
-因为 $2(\Delta x^2+\Delta y^2)-(\Delta x+\Delta y)^2=(\Delta x-\Delta y)^2\ge0$，所以
+只有 $x=9/x$，也就是长和宽都是 $3$ 时，周长最短。\textbf{同样面积下，正方形的周长最短}，这就是对勾函数出现的一个自然原因。
+
+\medskip
+\textbf{六、几何题里怎样想到它？}
+
+在曲线 $y=\frac{k}{x}$ 上取 $P(a,\frac{k}{a})$，其中 $a>0$，则两坐标之和为
 \[
-PQ=\sqrt{\Delta x^2+\Delta y^2}
-\ge\frac{\Delta x+\Delta y}{\sqrt2}
-\ge2\sqrt{2k}.
+a+\frac{k}{a}\ge2\sqrt{k}.
 \]
-\textbf{几何意义：} $\frac{\Delta x+\Delta y}{\sqrt2}$ 是连接线段沿 $y=x$ 方向走过的长度；只有线段本身也平行 $y=x$，这部分长度才等于整段线段的长度。
+第三象限的点可写成 $Q(-b,-\frac{k}{b})$，$b>0$。从 $Q$ 到 $P$，横坐标增加了 $a+b$，纵坐标增加了 $\frac{k}{a}+\frac{k}{b}$。它们的和至少是 $4\sqrt{k}$。而走直线的距离，至少是这个坐标和的 $\frac1{\sqrt2}$，于是两点距离至少 $2\sqrt{2k}$。
 
-\textbf{两次等号同时成立：} $a+\frac{k}{a}=2\sqrt{k}$ 与 $b+\frac{k}{b}=2\sqrt{k}$ 要求 $a=b=\sqrt{k}$；此时 $\Delta x=\Delta y=2\sqrt{k}$，所以确实取得 $PQ=2\sqrt{2k}$.
+\textbf{眼前一亮的地方：} 有些题目要找\textbf{两点之间的最短线段}，你却可以先去求\textbf{每个点的坐标和}！不必对根号里的距离表达式直接求导。
+\end{explanationbox}
 
-\textbf{识别信号：} 两点分处第一、第三象限；函数满足 $xy=k>0$；题目求两支间的\textbf{欧氏距离}。先想到 $x+y=x+\frac{k}{x}$，再结合勾股定理；切忌把某一点到原点的最小距离直接当作两支间距离的一半，而不说明理由。
+\clearpage
+\begin{explanationbox}
+\textbf{七、用最简单的 $A=B=1$ 看清渐近关系}
 
+设 $f(x)=x+1/x$。远处看两者之差，零附近则换一个对照对象：
+\[
+ f(x)-x=\frac1x\longrightarrow0\quad(x\to\pm\infty),
+ \qquad f(x)-\frac1x=x\longrightarrow0\quad(x\to0).
+\]
+因此斜渐近线为 $y=x$，竖直渐近线为 $x=0$。$y=1/x$ 是零附近的\textbf{对照曲线}，不能把它叫作直线渐近线。
+\input{assets/tikz/F011_asymptote_comparison}
+一般 $A,B>0$ 时同理：$f(x)-Ax=B/x\to0$（$x\to\pm\infty$），而 $f(x)-B/x=Ax\to0$（$x\to0$）。
+\end{explanationbox}
+
+
+\clearpage
+\begin{explanationbox}
+\textbf{八、两个点都能动，为什么还能用我们熟悉的初中不等式？}
+
+这次研究的是\textbf{对勾函数自身} $y=x+1/x$，不是前面的反比例函数 $y=k/x$。在第一象限取
+\[
+P=\left(a,a+\frac1a\right),\qquad a>0,
+\]
+第三象限取
+\[
+Q=\left(-b,-b-\frac1b\right),\qquad b>0.
+\]
+两点横向隔了 $a+b$，纵向隔了 $a+b+1/a+1/b$。按照勾股定理，
+\[
+PQ^2=(a+b)^2+\left(a+b+\frac1a+\frac1b\right)^2.
+\]
+\textbf{难点：} $a$ 和 $b$ 都能自由变化，好像要同时控制两个数。
+
+\medskip
+\textbf{第一条路线：先固定横向距离，再优化纵向距离。}
+
+把横向距离记作 $s=a+b$。假设它已经定了，那么
+\[
+\frac1a+\frac1b=\frac{a+b}{ab}=\frac{s}{ab}.
+\]
+因为 $(a-b)^2\ge0$，所以 $ab\le s^2/4$，从而
+\[
+\boxed{\frac1a+\frac1b\ge\frac4s},\qquad
+\text{且仅当 }a=b=\frac s2\text{ 时取等。}
+\]
+用人话说：\textbf{横向间隔保持不变时，把正、负两侧的横坐标大小调成一样，纵向间隔就最短。} 这样总距离自然也不会更长。注意这不是一上来假定 $a=b$：是拿任意一对 $a,b$ 与一对新点 $a'=b'=s/2$ \textbf{比较}，证明新点不比旧点远。
+
+\medskip
+\textbf{第二条路线：两个未知数都留下，为什么能分别求导？}
+
+假设某对点已经达到\textbf{整体最短距离}。那么固定第三象限那个点，只挪动第一象限的点，距离都不可能再减小；反过来固定第一象限的点、只挪动第三象限的点，也一样。
+
+所以，\textbf{在允许左右移动、函数又能求导的内部位置}，把一个未知数视为常数、对另一个求导，都必须得到零。联立这两个方程，才是我们后面寻找最近点的方法。
+
+\textbf{措辞要准确：} “不能变小”不等于“必须变大”，还可能不变；并且\textbf{两次导数都为零只是最小值的必要线索}，最后必须判断找到的是不是真正的最小值。
 \end{explanationbox}

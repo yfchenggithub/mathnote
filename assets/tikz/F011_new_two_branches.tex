@@ -1,0 +1,21 @@
+\begin{center}
+\begin{tikzpicture}[x=0.73cm,y=0.30cm,>=stealth]
+  \begin{scope}
+    \clip (-6.0,-10.5) rectangle (6.0,10.5);
+    \draw[very thin,gray!50,dashed] (-6,4)--(6,4);
+    \draw[very thin,gray!50,dashed] (-6,-4)--(6,-4);
+    \draw[very thick,teal!75!black,domain=0.43:5.8,samples=110,smooth,variable=\t] plot ({\t},{\t+4/\t});
+    \draw[very thick,teal!75!black,domain=0.43:5.8,samples=110,smooth,variable=\t] plot ({-\t},{-\t-4/\t});
+  \end{scope}
+  \draw[->,gray!80!black](-6.0,0)--(6.2,0) node[right] {$x$};
+  \draw[->,gray!80!black](0,-10.8)--(0,11) node[above] {$y$};
+  \filldraw[red!75!black](2,4) circle (2pt) node[above right] {$(2,4)$};
+  \filldraw[red!75!black](-2,-4) circle (2pt) node[below left] {$(-2,-4)$};
+  \node[anchor=west] at (0.15,8.7) {\footnotesize $y=x+\frac4x$};
+  \node[anchor=east] at (-0.2,-8.7) {\footnotesize $y=x+\frac4x$};
+  \node[anchor=east] at (-0.08,4) {\scriptsize $4$};
+  \node[anchor=west] at (0.08,-4) {\scriptsize $-4$};
+\end{tikzpicture}
+
+{\footnotesize 图：以 $y=x+4/x$ 为例。正半轴只有最低点，负半轴只有最高点，中间 $(-4,4)$ 的函数值取不到。}
+\end{center}
