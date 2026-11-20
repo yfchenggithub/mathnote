@@ -1,6 +1,221 @@
 \clearpage
 \begin{proofbox}
-\textbf{方法一：从单位圆入手，先理解最简单的近似（门槛最低）。}
+\textbf{方法一（新增，优先理解）：二项式出发，贯通倒数、对数、指数与三角函数。}
+\textbf{这是本文的主要发现路径：先看系数怎样出现，再验证能否使用。}
+
+\textbf{第一步：从初中熟悉的二项式展开起步。}
+当 $n$ 是非负整数时，
+\[
+ (a+b)^n=a^n+na^{n-1}b+\frac{n(n-1)}{2!}a^{n-2}b^2
+ +\cdots+b^n.
+\]
+取 $a=1,b=x$，得到
+\[
+ \boxed{(1+x)^n=1+nx+\frac{n(n-1)}{2!}x^2
+ +\frac{n(n-1)(n-2)}{3!}x^3+\cdots+x^n.}
+\]
+其中 $2!=2\times1$，$3!=3\times2\times1$；
+这只是方便书写的乘法记号。
+\textbf{先不要把 $n$ 直接换成 $-1$：}
+上式是为\textbf{非负整数 $n$} 写的，
+其中“最后一项是 $x^n$”在 $n=-1$ 时已不适用。
+若直接写出一个以 $x^{-1}$ 结尾的式子，就会出错。
+
+\medskip
+\textbf{第二步：用有限乘法，准确求出 $1/(1+x)$。}
+从 $(1+x)^{-1}=1/(1+x)$ 出发。
+不必硬套上面的有限二项式公式，直接观察：
+\[
+ (1+x)(1-x)=1-x^2,\qquad
+ (1+x)(1-x+x^2)=1+x^3.
+\]
+照这个规律，对任意\textbf{正整数} $N$，逐项相乘可得
+\[
+ \boxed{(1+x)(1-x+x^2-\cdots+(-x)^{N-1})=1-(-x)^N.}
+\]
+只要 $x\ne-1$，除以 $1+x$，就得到\textbf{完全准确的等式}
+\[
+ \boxed{\frac1{1+x}=1-x+x^2-\cdots+(-x)^{N-1}
+ +\frac{(-x)^N}{1+x}.}
+\]
+比如只留前三项（$N=3$）：
+\[
+ \frac1{1+x}=1-x+x^2-\frac{x^3}{1+x}.
+\]
+如果 $|x|\le r<1$，未写部分满足
+\[
+ \left|\frac{(-x)^N}{1+x}\right|
+ \le\frac{|x|^N}{1-r}\longrightarrow0\quad(N\to\infty).
+\]
+这样才可以说：当 $|x|<1$ 时，项数不断增加，
+$1-x+x^2-x^3+\cdots$ 会越来越接近 $1/(1+x)$。
+\textbf{特别注意：}这里的 $x$ 是一个固定的、绝对值小于 $1$ 的数，
+是\textbf{项数 $N$ 越来越大}；若只想做零点附近的估算，
+写前三四项并带上最后的误差分式就足够了。
+
+\medskip
+\textbf{第三步：知道倒数，就能找到 $\ln(1+x)$。}
+因为
+\[
+ \bigl[\ln(1+x)\bigr]'=\frac1{1+x},
+\]
+而 $1/(1+x)$ 刚刚被分成了
+$1-x+x^2-x^3+\cdots$，便可以反过来寻找一个函数：
+它求导之后，依次出现这些项。
+$\,x\,$ 求导是 $1$；
+$\,-x^2/2\,$ 求导是 $-x$；
+$\,x^3/3\,$ 求导是 $x^2$。
+又因为 $\ln(1)=0$，不需要再加常数，于是得到
+\[
+ \boxed{\ln(1+x)\approx x-\frac{x^2}{2}+\frac{x^3}{3}}
+ \quad(x\text{ 接近 }0).
+\]
+这不仅是“看起来像”。设
+$L_3(x)=x-x^2/2+x^3/3$，则
+\[
+ \begin{aligned}
+ \bigl[\ln(1+x)-L_3(x)\bigr]'
+ &=\frac1{1+x}-(1-x+x^2)\\
+ &=-\frac{x^3}{1+x}.
+ \end{aligned}
+\]
+当 $|x|\le\frac12$ 时，右边的绝对值至多是 $2|x|^3$。
+又因为两式在 $x=0$ 时都等于 $0$，
+逐次用高中导数比较函数增减的办法可证
+\[
+ \boxed{\left|\ln(1+x)-L_3(x)\right|\le\frac{|x|^4}{2}.}
+\]
+所以前面省略的部分不是随便丢掉的：
+它的大小已经有明确保证。要保留更多项时，
+继续用同样的导数核对即可：
+\[
+ \ln(1+x)\approx x-\frac{x^2}{2}+\frac{x^3}{3}
+ -\frac{x^4}{4}+\frac{x^5}{5}-\cdots.
+\]
+这串式子只在 $x$ 靠近 $0$ 时用于近似；要把它看成无限项的等式，
+这里先限定 $|x|<1$。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法一（续）：从对数的变形，到指数函数的二项式极限。}
+\textbf{先解决 $\ln x$，不必重新推导一遍。}
+只要 $x>0$ 且\textbf{接近 $1$}，令 $t=x-1$，则 $x=1+t$，
+\[
+ \boxed{\ln x=\ln(1+t)
+ \approx t-\frac{t^2}{2}+\frac{t^3}{3}
+ =(x-1)-\frac{(x-1)^2}{2}+\frac{(x-1)^3}{3}.}
+\]
+所以 $\ln(1+x)$ 是\textbf{靠近 $x=0$} 的近似，
+$\ln x$ 换元后是\textbf{靠近 $x=1$} 的近似，
+不能说“$\ln x$ 在 $x=0$ 附近也能这样展开”。
+
+\medskip
+\textbf{第四步：再用正整数的二项式，找到 $e^x$ 的系数。}
+把正整数指数记作 $m$，并在二项式中把 $x$ 换成 $x/m$：
+\[
+ \begin{aligned}
+ \left(1+\frac{x}{m}\right)^m
+ &=1+m\frac{x}{m}
+ +\frac{m(m-1)}{2!}\left(\frac{x}{m}\right)^2\\
+ &\quad+\frac{m(m-1)(m-2)}{3!}\left(\frac{x}{m}\right)^3+\cdots\\
+ &=1+x+\frac{1-1/m}{2!}x^2\\
+ &\quad+\frac{(1-1/m)(1-2/m)}{3!}x^3+\cdots.
+ \end{aligned}
+\]
+对\textbf{每个固定的项}，当 $m$ 越来越大时，
+$1-1/m,1-2/m,\ldots$ 都越来越接近 $1$，
+所以相应的系数趋近
+$1,1,1/2!,1/3!,1/4!,\ldots$。
+同时，对实数 $x$，我们有熟悉的指数极限
+\[
+ \boxed{\lim_{m\to\infty}\left(1+\frac{x}{m}\right)^m=e^x.}
+\]
+由此可以发现
+\[
+ \boxed{e^x\approx1+x+\frac{x^2}{2!}
+ +\frac{x^3}{3!}+\frac{x^4}{4!}+\frac{x^5}{5!}}
+ \quad(x\text{ 接近 }0).
+\]
+\textbf{为什么这串系数的发现还需要核对？}
+上面的和式本来有 $m+1$ 项，而 $m$ 又在变大；
+“每个固定项的系数趋近多少”本身还不能保证整串的极限可以直接逐项计算。
+不过在 $|x|\le r$ 时，第 $k$ 项的绝对值至多为 $r^k/k!$，
+$k$ 足够大后，后一项与前一项的比值至多为 $r/(k+1)$，
+因此后面所有项确实可以控制得越来越小。
+再配合\textbf{方法三的导数与误差验证}，
+这些近似式可以放心使用。
+\textbf{不要混淆：}这里先固定 $x$，令 $m\to\infty$ 找到指数函数；
+再让 $x\to0$，才是使用少量项近似 $e^x$。
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法一（续）：把 $x$ 换成 $ix$ 的巧妙联想，以及它的边界。}
+\textbf{第五步：在了解额外知识时，可以一眼看出正弦和余弦。}
+这里 $i$ 是满足 $i^2=-1$ 的数，因而
+$i^3=-i$，$i^4=1$，$i^5=i$。
+若\textbf{额外已知}等式
+\[
+ e^{ix}=\cos x+i\sin x,
+\]
+就可以把指数的形式展开中的 $x$ 换成 $ix$，再按含不含 $i$ 分组：
+\[
+ \begin{aligned}
+ e^{ix}
+ &=1+ix+\frac{(ix)^2}{2!}+\frac{(ix)^3}{3!}
+ +\frac{(ix)^4}{4!}+\frac{(ix)^5}{5!}+\cdots\\
+ &=\underbrace{\left(1-\frac{x^2}{2!}+\frac{x^4}{4!}-\cdots\right)}_{
+ \text{不含 }i}
+ +i\underbrace{\left(x-\frac{x^3}{3!}+\frac{x^5}{5!}-\cdots\right)}_{
+ \text{含 }i\text{ 的系数}}.
+ \end{aligned}
+\]
+对照 $\cos x+i\sin x$，便得到熟悉的两串系数：
+\[
+ \boxed{\begin{aligned}
+ \cos x&\approx1-\frac{x^2}{2!}+\frac{x^4}{4!},\\
+ \sin x&\approx x-\frac{x^3}{3!}+\frac{x^5}{5!}.
+ \end{aligned}}
+\]
+\textbf{重要说明：}高中课内并没有把 $e^{ix}$ 的意义和
+$e^{ix}=\cos x+i\sin x$ 当作可以直接使用的基本公式。
+因此\textbf{不能只写“令 $x=ix$”就声称证明了正弦、余弦公式}：
+这里是很有启发性的\textbf{规律联想}，\textbf{不是独立的高中证明}。
+要在高中范围内验证正弦、余弦的系数和误差，
+请看下面\textbf{方法三的逐次求导}。
+
+\medskip
+\textbf{第六步：正切就不用另起炉灶。}
+由 $\tan x=\sin x/\cos x$，
+把前两式保留到三次项：
+\[
+ \frac{x-x^3/6}{1-x^2/2}
+ \approx(x-x^3/6)(1+x^2/2)
+ \approx x+\left(\frac12-\frac16\right)x^3.
+\]
+因此
+\[
+ \boxed{\tan x\approx x+\frac{x^3}{3}}.
+\]
+这里忽略的是五次及更高次的影响；
+它为什么足够小，可在下文的严格误差核对中看到。
+
+\textbf{整个方法的路线：}
+\[
+ \boxed{\begin{gathered}
+ (1+x)^n\ \longrightarrow\ \frac1{1+x}\ \longrightarrow\ \ln(1+x),\\
+ \left(1+\frac{x}{m}\right)^m\ \longrightarrow\ e^x
+ \ \overset{\text{额外知识}}{\longrightarrow}\ \sin x,\cos x
+ \ \longrightarrow\ \tan x.
+ \end{gathered}}
+\]
+\textbf{最值得记住的不是死背五行公式，而是这些系数之间可以互相解释。}
+\end{proofbox}
+
+\clearpage
+\begin{proofbox}
+\textbf{方法二：从单位圆入手，先理解最简单的近似（门槛最低）。}
 \input{assets/tikz/F004_radian_circle.tex}
 在半径为 $1$ 的圆中，取 $0<x<\pi/2$（这里的角度数值采用弧度）。
 内侧三角形、扇形、外侧三角形的面积依次增大，所以
@@ -38,7 +253,7 @@ $\ln1=0$、$\bigl(\ln(1+x)\bigr)'|_{x=0}=1$，故 $\ln(1+x)$ 先用 $x$ 来贴�
 \end{proofbox}
 \clearpage
 \begin{proofbox}
-\textbf{方法二：用高中导数逐项找系数，并核对误差（最直接）。}
+\textbf{方法三：用高中导数逐项找系数，并核对误差（最直接）。}
 \begin{center}\input{assets/tikz/F004_exp_contact.tex}\end{center}
 
 设想找一个式子 $P(x)=a_0+a_1x+a_2x^2+a_3x^3+\cdots$ 来贴近 $f(x)$。
@@ -115,7 +330,7 @@ $1\times2\times\cdots\times m$ 才能得到 $x^m$ 前的系数。
 \end{proofbox}
 \clearpage
 \begin{proofbox}
-\textbf{方法三：用分式恒等式推导对数和正切（计算最巧）。}
+\textbf{方法四：用分式恒等式推导对数和正切（计算最巧）。}
 
 \textbf{先看 $\ln(1+x)$。}
 只要 $x>-1$，都能直接核对
