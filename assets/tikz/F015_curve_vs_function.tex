@@ -1,0 +1,16 @@
+\begin{tikzpicture}[>=stealth,font=\small]
+\draw[gray!40,rounded corners] (0,0) rectangle (14,8);
+\node at (7,7.5) {$y^2=4x$：同一条竖线交于两点，整条曲线不能写成 $y=f(x)$};
+\begin{scope}[shift={(2.2,3.9)},x=1.4cm,y=1.05cm]
+\draw[->,gray] (-.4,0)--(3.2,0) node[right]{$x$};
+\draw[->,gray] (0,-2.8)--(0,2.9) node[above]{$y$};
+\draw[blue,very thick,domain=0:2.6,samples=100] plot ({\x*\x/4},\x);
+\draw[teal!80!black,very thick,domain=-2.6:0,samples=100] plot ({\x*\x/4},\x);
+\draw[orange!80!black,dashed] (1,-2.7)--(1,2.7);
+\fill (1,2) circle(2pt) node[right=5pt]{$(1,2)$};
+\fill (1,-2) circle(2pt) node[right=5pt]{$(1,-2)$};
+\node[below right] at (1,0){$x=1$};
+\end{scope}
+\node[anchor=west,align=left] at (7.6,4.3) {上支：$y=2\sqrt{x}$\\[8pt]下支：$y=-2\sqrt{x}$\\[8pt]各自的定义域都是 $[0,+\infty)$};
+\node at (7,.5) {分开看，每一支都是 $y$ 关于 $x$ 的函数；合在一起则不是};
+\end{tikzpicture}
