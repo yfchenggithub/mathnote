@@ -1,0 +1,13 @@
+\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,9.8);
+\node at (7.1,9.200000000000001) {只有一个有限交点，也可能是穿过曲线而非相切};
+\begin{scope}[shift={(1.6,1.8)},x=.83cm,y=.83cm]
+\draw[->,gray] (0,0)--(6.5,0) node[right]{$X$};\draw[->,gray] (0,0)--(0,6.7) node[above]{$Y$};
+\draw[blue,very thick,variable=\t,domain=-2.3:1.1,samples=160] plot({\t*\t+2*\t+2},{\t*\t+1});
+\draw[orange!85!black,thick] (0,0)--(5.8,5.8);
+\fill[orange!85!black] (1.25,1.25) circle(2.2pt) node[below=12pt]{$P$};
+\node[below left=4pt] at (0,0){$O$};
+\end{scope}
+\node[align=left,anchor=west] at (8.1,5.2){橙线：$Y=X$\\[12pt]$-2x-1=0$\\[8pt]只有 $x=-1/2$\\[12pt]$P=(5/4,5/4)$\\[12pt]直线穿过曲线，并非相切};
+\node[text width=13cm,align=center] at (7.1,.6) {这里关于原自变量 $x$ 的方程已是一次方程，不能用二次方程的重根判断相切。};
+\end{tikzpicture}

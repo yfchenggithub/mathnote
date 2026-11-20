@@ -9,7 +9,7 @@
       "二次比二次值域",
       "Δ法求值域"
     ],
-    "summary": "把求值域的问题反过来：给定一个y，判断能否找到实数x。通常用判别式求范围，再单独检查y=a/d。",
+    "summary": "把二次分式看成关于 x 的方程，用判别式求值域；并从分子分母是点的坐标得到抛物线斜率法，从平方差得到单位圆法。",
     "difficulty": 3,
     "category": "函数",
     "tags": [
@@ -39,14 +39,32 @@
       "判别式法端点取舍",
       "一次方程",
       "分式的拆分法",
-      "平方非负"
+      "平方非负",
+      "单位圆法",
+      "数形结合求值域",
+      "圆与直线相切",
+      "单位圆上的不可达点",
+      "抛物线斜率法",
+      "分子分母作坐标",
+      "原点连线斜率",
+      "抛物线切线",
+      "直接x单位圆法",
+      "平方差勾股关系",
+      "二次项消失三种情况",
+      "常函数单点值域",
+      "去分母假解",
+      "唯一交点不一定相切"
     ],
     "synonyms": [
       "△法",
       "delta法",
       "二次比二次",
       "二次分式值域",
-      "判别式求值域"
+      "判别式求值域",
+      "单位圆求值域",
+      "几何法求值域",
+      "抛物线求二次分式值域",
+      "斜率法求值域"
     ],
     "intents": [
       "求值域",
@@ -130,13 +148,15 @@
       "当 $a-dy\\ne0$ 时，根据一元二次方程有实根的条件 $\\Delta(y)\\ge0$ 求出候选值域。",
       "单独检查 $y=\\frac ad$ 对应的一次或常数方程，并将实际能取到的值加入。"
     ],
-    "intuition": "求值域就是反过来问：给定一个y，原函数能不能找到对应的实数x？这相当于问关于x的方程有没有实根。分母始终不为0时，去分母不会引入假解。",
+    "intuition": "求值域就是反过来问：给定一个y，原函数能不能找到对应的实数x？这相当于问关于x的方程有没有实根。分母始终不为0时，去分母不会引入假解。 数形结合也能解释：分母、分子分别作为点的两个坐标，函数值就是原点连线的斜率；分母方便用平方差凑成勾股关系时，还可以转成单位圆与直线相交。",
     "common_tricks": [
       "能够拆成 $2+\\frac1{x^2+1}$ 这样的形式时，直接用 $x^2\\ge0$ 往往更快。",
       "判别式条件仅适用于 $a-dy\\ne0$；$y=\\frac ad$ 必须单查。",
       "快速检查特殊值：$(bd-ae)x+(cd-af)=0$ 是否有实数解。",
       "当 $e^2-4df<0$ 时，$\\Delta(y)$ 关于y的二次项系数小于0，因此候选范围是中间的一段。",
-      "若分母可能为0，必须排除令原分母为0的x。"
+      "若分母可能为0，必须排除令原分母为0的x。",
+      "抛物线斜率法：令 X=dx²+ex+f，Y=ax²+bx+c，把函数值 y=Y/X 看作原点连线斜率；通过动点轨迹和直线相切理解边界。",
+      "单位圆法（适用部分便于凑平方差的例题）：以 D=x²+2x+2 为例，D²-(D-2)²=(2x+2)²，直接令 u=(D-2)/D、v=(2x+2)/D，得到 u²+v²=1，但点 (1,0) 对应不到有限 x。"
     ]
   },
   "usage": {
@@ -161,11 +181,22 @@
     "image": "",
     "video": "",
     "audio": "",
-    "tikz": "assets/tikz/F008_horizontal_range.tex",
-    "additional_tikz": [
+    "tikz": [
+      "assets/tikz/F008_circle_direct_geometry.tex",
+      "assets/tikz/F008_circle_missing_endpoint.tex",
+      "assets/tikz/F008_constant_range.tex",
+      "assets/tikz/F008_degree_drop_cases.tex",
+      "assets/tikz/F008_denominator_holes.tex",
       "assets/tikz/F008_discriminant_band.tex",
+      "assets/tikz/F008_discriminant_sign_check.tex",
+      "assets/tikz/F008_example_three_range.tex",
+      "assets/tikz/F008_horizontal_range.tex",
+      "assets/tikz/F008_locus_ray.tex",
       "assets/tikz/F008_missing_lower_endpoint.tex",
-      "assets/tikz/F008_square_boundary_residuals.tex"
+      "assets/tikz/F008_parabola_slope_geometry.tex",
+      "assets/tikz/F008_single_intersection_not_tangent.tex",
+      "assets/tikz/F008_square_boundary_residuals.tex",
+      "assets/tikz/F008_square_difference_triangle.tex"
     ]
   },
   "shareConfig": {
@@ -191,10 +222,10 @@
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-26",
-    "updated_at": "2026-11-19"
+    "updated_at": "2026-11-20"
   },
   "isPro": 1,
-  "remarks": " 2026-11-19 TikZ完善：首页水平截线图；三种证明配判别式候选范围、缺失下端点、平方差值图。",
+  "remarks": "2026-11-20：逐图复核并重排六张既有TikZ；为例2—4及两段几何复盘补图，五种证明均有直接服务方法的配图。新增降次三情况、例3闭值域、常函数、3-4-5勾股构造、单位圆缺点、分母孔点、单交点非相切、比例射线、判别式反号对照图。统一图内字号、完整边框与坐标比例，补足端点可达性；修正有符号坐标直接当边长、d≠0时轨迹可为单点的表述。保留此前正文修改及已有正式PDF/images，输出隔离预览。",
   "knowledgeNode": "函数-定义域与值域-值域-常见值域模型",
   "altNodes": [
     "代数-方程-一元二次方程",

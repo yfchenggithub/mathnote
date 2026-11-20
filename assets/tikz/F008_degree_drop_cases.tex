@@ -1,0 +1,24 @@
+\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,13.5);
+\node at (7.1,12.9) {二次项消失之后：改看剩余式子 $H(x)$ 有没有零点};
+\begin{scope}[shift={(3.6,10.3)},x=1cm,y=.8cm]
+\draw[->,gray] (-2.2,0)--(2.3,0) node[right]{$x$};
+\draw[->,gray] (0,-1.5)--(0,1.65) node[above]{$H$};
+\draw[blue,very thick,domain=-1.1:.1] plot(\x,{-2*\x-1});\fill[teal!80!black] (-.5,0) circle(2.2pt);
+\end{scope}
+\node[align=left,anchor=west] at (7.3,10.45) {$y=1$：$-2x-1=0$\\[8pt]与横轴相交，$x=-1/2$ 可用};
+\begin{scope}[shift={(3.6,6.6)},x=1cm,y=.8cm]
+\draw[->,gray] (-2.2,0)--(2.3,0) node[right]{$x$};
+\draw[->,gray] (0,-1.5)--(0,1.65) node[above]{$H$};
+\draw[blue,very thick] (-2,1)--(2,1);
+\end{scope}
+\node[align=left,anchor=west] at (7.3,6.75) {$y=2$：$1=0$\\[8pt]始终离开横轴，无解};
+\begin{scope}[shift={(3.6,2.9)},x=1cm,y=.8cm]
+\draw[->,gray] (-2.2,0)--(2.3,0) node[right]{$x$};
+\draw[->,gray] (0,-1.5)--(0,1.65) node[above]{$H$};
+\draw[blue,very thick] (-2,0)--(2,0);
+\end{scope}
+\node[align=left,anchor=west] at (7.3,3.05) {$y=2$：$0=0$\\[8pt]整条横轴都是零点，任意 $x$ 可用};
+
+\node[text width=13cm,align=center] at (7.1,.6) {从上到下对应标准题、缺端点题、常函数题；仍须确认原分母不为零。};
+\end{tikzpicture}

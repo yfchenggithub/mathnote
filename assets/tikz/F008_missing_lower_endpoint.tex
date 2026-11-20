@@ -1,11 +1,15 @@
 \begin{tikzpicture}[font=\small,>=stealth,line join=round]
-\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,9.4);
-\node at (7.1,8.8) {函数无限接近下边界，但从不落到下边界上};
-
-\begin{scope}[shift={(4.1,1.8)},x=.9cm,y=1.65cm]
-\draw[->] (-3.5,0)--(3.6,0) node[right]{$x$};\draw[->] (0,-.1)--(0,3.8) node[above]{$y$};\draw[dashed,magenta] (-3.3,2)--(3.3,2);
-\draw[teal!80!black,thick,domain=-3.2:3.2,samples=100] plot(\x,{2+1/(\x*\x+1)});\fill[blue] (0,3) circle(2pt);\node[above right] at (0,3){$(0,3)$};\node[above left] at (0,2){$2$};
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,9.6);
+\node at (7.1,9.0) {曲线始终在 $y=2$ 上方：接近不等于取到};
+\begin{scope}[shift={(4.1,2.0)},x=.85cm,y=1.45cm]
+\draw[->,gray] (-3.8,0)--(3.7,0) node[right]{$x$};
+\draw[->,gray] (0,-.2)--(0,3.8) node[above]{$y$};
+\draw[dashed,orange!85!black,thick] (-3.6,2)--(3.5,2);
+\draw[teal!80!black,very thick,domain=-3.6:3.5,samples=160] plot(\x,{2+1/(\x*\x+1)});
+\fill[blue] (0,3) circle(2pt);\node[above right=7pt] at (0,3){$(0,3)$};
+\node[left=5pt,orange!85!black] at (-3.6,2){$2$};
+\node[below left=4pt] at (0,0){$O$};
 \end{scope}
-\node[align=left,anchor=west] at (8.3,5.1){$y=2+\dfrac1{x^2+1}$\\[10pt] $0<\dfrac1{x^2+1}\le1$\\[10pt] 值域 $(2,3]$\\[12pt] $y=2$ 时变成 $1=0$};
-\node[text width=13.2cm,align=center] at (7.1,.65) {即使候选判别式在 $y=2$ 处为零，降次后也可能无解。};
+\node[align=left,anchor=west] at (8.2,5.2){$y=2+\dfrac1{x^2+1}$\\[12pt]$0<\dfrac1{x^2+1}\le1$\\[12pt]$y=3$ 在 $x=0$ 取到\\[8pt]$y=2$ 始终取不到\\[10pt]值域 $(2,3]$};
+\node[text width=13cm,align=center] at (7.1,.6) {$y=2$ 时原方程变成 $1=0$；这个候选端点必须去掉。};
 \end{tikzpicture}

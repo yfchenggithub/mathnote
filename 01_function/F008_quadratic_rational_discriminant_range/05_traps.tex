@@ -1,6 +1,8 @@
 \clearpage
 \begin{trapbox}
   \textbf{\textcolor{CTrap}{易错 1：$\Delta(y)\ge0$ 解出了闭区间，就直接把两端都写进去。}}
+\begin{center}\input{assets/tikz/F008_missing_lower_endpoint}\end{center}
+
 
   \medskip
   \textbf{错在哪里：}当 $a-dy=0$ 时，方程已经不是二次方程；这个 $y$ 即使满足写出来的 $\Delta(y)\ge0$，也不一定取到。
@@ -8,7 +10,12 @@
   \par\textbf{正确做法：}先用判别式求候选范围，再另查 $y=\dfrac ad$；正确答案是 $(2,3]$。
 
   \bigskip
-  \textbf{\textcolor{CTrap}{易错 2：分母可能等于 $0$，还认为“方程有解就一定行”。}}
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错 2：分母可能等于 $0$，还认为“方程有解就一定行”。}}
+\begin{center}\input{assets/tikz/F008_denominator_holes}\end{center}
+
 
   \medskip
   \textbf{错在哪里：}分式分母不能为 $0$，乘过去以后有时会出现原来不允许的 $x$。
@@ -20,14 +27,24 @@
   \par\textbf{正确做法：}先查分母。若分母始终不为 $0$，可以放心用本结论；否则每个找到的 $x$ 都要确认没有让原分母等于 $0$。
 
   \bigskip
-  \textbf{\textcolor{CTrap}{易错 3：看见 $x^2$ 就套判别式。}}
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错 3：看见 $x^2$ 就套判别式。}}
+\begin{center}\input{assets/tikz/F008_degree_drop_cases}\end{center}
+
 
   \medskip
   \textbf{错在哪里：}判断 $\Delta\ge0$ 只适用于二次项系数\textbf{不为 $0$}的一元二次方程。
   \par\textbf{正确做法：}先看 $(a-dy)x^2$ 前面的 $a-dy$。如果它等于 $0$，就改成解一次方程，或者检查有没有出现 $0=0$ 与 $1=0$ 这种情况。
 
   \bigskip
-  \textbf{\textcolor{CTrap}{易错 4：把“越来越接近”当成“能够等于”。}}
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错 4：把“越来越接近”当成“能够等于”。}}
+\begin{center}\input{assets/tikz/F008_missing_lower_endpoint}\end{center}
+
 
   \medskip
   对于 $d\ne0$ 的二次分式，$|x|$ 越来越大时，函数值越来越接近 $\dfrac ad$，但这个数未必能取到。
@@ -39,7 +56,12 @@
   分母始终不为 $0$ 时，只需问分子能不能等于 $0$；这正好回到方法一中的方程 (3)。
 
   \bigskip
-  \textbf{\textcolor{CTrap}{易错 5：展开 $\Delta(y)$ 时丢掉负号。}}
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错 5：展开 $\Delta(y)$ 时丢掉负号。}}
+\begin{center}\input{assets/tikz/F008_discriminant_sign_check}\end{center}
+
 
   \medskip
   建议保留中间一步：
@@ -51,4 +73,53 @@
     \end{aligned}
   \]
   最终 $y^2$ 的系数应该是 $e^2-4df$。若题目已知 $e^2-4df<0$，算出来的系数却是正数，就该重新检查符号。
+
+
+  % ==== 新增：几何方法需要的防错检查 ====
+  \bigskip
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错 6：把“只有一个交点”都当成相切。}}
+\begin{center}\input{assets/tikz/F008_single_intersection_not_tangent}\end{center}
+
+
+  \medskip
+  对 $y=\dfrac{x^2+1}{x^2+2x+2}$，令 $Y=kX$ 后得到
+  $(1-k)x^2-2kx+(1-2k)=0$。
+  当 $k=1$ 时，它只剩下 $-2x-1=0$，虽然恰好找到一个有限的 $x$，
+  却\textbf{不是}由二次方程判别式等于 $0$ 得出的切点。
+  \par\textbf{正确做法：}只有关于 $x$ 的二次项确实存在时，才用 $\Delta=0$ 表示边界相切；二次项消失要单查。
+
+  \bigskip
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错 7：把整个单位圆都当成原来的 $x$ 可以走到。}}
+\begin{center}\input{assets/tikz/F008_circle_missing_endpoint}\end{center}
+
+
+  \medskip
+  对分母 $D=x^2+2x+2$ 所构造的圆，
+  \[
+    u=\frac{D-2}{D},\qquad v=\frac{2x+2}{D},
+    \qquad 1-u=\frac2D>0.
+  \]
+  所以 $u=1$、$v=0$ 这个圆上的点\textbf{永远不可能由有限的 $x$ 得到}。
+  \par\textbf{正确做法：}直线与整个圆相交，只给出了候选范围；
+  若边界碰到不能到达的点，该值要去掉。例 1 的 $y=2$ 就是这种情况。
+
+  \bigskip
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错 8：只要看见二次式相除，就直接断言轨迹一定是抛物线或一定能凑成圆。}}
+\begin{center}\input{assets/tikz/F008_locus_ray}\end{center}
+
+
+  \medskip
+  斜率法可以从分母、分子分别作为 $X,Y$ 自然出发，但动点有时可能沿一条直线的一部分（例如射线）运动；本条 $d\ne0$，所以横坐标会变化，不会固定成一个点；
+  圆则需要额外找到真正成立的勾股恒等式。
+  \par\textbf{正确做法：}先写出 $X,Y$ 并检查图形，再决定怎样求斜率；
+  若想用圆，先从原分母用平方差\textbf{推导出}圆方程，不能倒过来生造两个分式。
 \end{trapbox}

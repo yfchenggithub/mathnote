@@ -1,0 +1,17 @@
+\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,9.8);
+\node at (7.1,9.200000000000001) {例3：特殊值 $3$ 能取到，而且在两条边界之间};
+\pgfmathsetmacro{\xxA}{-2+sqrt(3)}\pgfmathsetmacro{\xxB}{-2-sqrt(3)}
+\pgfmathsetmacro{\lo}{2-2*sqrt(3)/3}\pgfmathsetmacro{\hi}{2+2*sqrt(3)/3}
+\begin{scope}[shift={(5.25,2)},x=.64cm,y=1.4cm]
+\draw[->,gray] (-6.3,0)--(3.4,0) node[right]{$x$};\draw[->,gray] (0,-.2)--(0,4) node[above]{$y$};
+\draw[dashed,blue] (-6,\lo)--(3,\lo);\draw[dashed,blue] (-6,\hi)--(3,\hi);
+\draw[dashed,orange!85!black] (-6,3)--(3,3);
+\draw[teal!80!black,very thick,domain=-6:3,samples=200] plot(\x,{(3*\x*\x+2*\x+1)/(\x*\x+\x+1)});
+\fill[blue] (\xxA,\lo) circle(2pt);\fill[blue] (\xxB,\hi) circle(2pt);
+\fill[orange!85!black] (-2,3) circle(2.2pt);
+\node[left=5pt] at (-6,\lo){$L_3$};\node[left=5pt] at (-6,\hi){$U_3$};\node[below left=4pt] at (0,0){$O$};
+\end{scope}
+\node[align=left,anchor=west] at (8.25,5.2){$G(x)=\dfrac{3x^2+2x+1}{x^2+x+1}$\\[12pt]$L_3=2-\dfrac{2\sqrt3}{3}$\\[10pt]$U_3=2+\dfrac{2\sqrt3}{3}$\\[12pt]\textcolor{orange!85!black}{$y=3$ 穿过曲线}\\[7pt]$x=-2$ 时可取到\\[12pt]两条蓝色边界也可取};
+\node[text width=13cm,align=center] at (7.1,.6) {极值点横坐标为 $-2\pm\sqrt3$；值域为 $[L_3,U_3]$。};
+\end{tikzpicture}

@@ -1,13 +1,18 @@
 \begin{tikzpicture}[font=\small,>=stealth,line join=round]
-\draw[gray!45,rounded corners=3pt] (0,0) rectangle (14.2,9.4);
-\node at (7.1,8.8) {配平方：与上下边界的差，都不可能小于零};
-
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,9.6);
+\node at (7.1,9.0) {与两条边界的差都非负：配平方解释“越不过去”};
+\pgfmathsetmacro{\LL}{(3-sqrt(5))/2}
+\pgfmathsetmacro{\UU}{(3+sqrt(5))/2}
+\pgfmathsetmacro{\rr}{(sqrt(5)-1)/2}
+\pgfmathsetmacro{\ss}{-(sqrt(5)+1)/2}
 \begin{scope}[shift={(4.3,2.3)},x=.85cm,y=1.5cm]
-\draw[->] (-4,0)--(3.3,0) node[right]{$x$};\draw[->] (0,-.2)--(0,3) node[above]{差值};
-\draw[blue,thick,domain=-3.8:3.1,samples=120] plot(\x,{(\x*\x+1)/(\x*\x+2*\x+2)-.38196601125});
-\draw[orange!90!black,thick,domain=-3.8:3.1,samples=120] plot(\x,{2.61803398875-(\x*\x+1)/(\x*\x+2*\x+2)});
-\fill[blue] (.618034,0) circle(2pt);\fill[orange!90!black] (-1.618034,0) circle(2pt);\node[below] at (.618034,0){$r_1$};\node[below] at (-1.618034,0){$r_2$};
+\draw[->,gray] (-4,0)--(3.5,0) node[right]{$x$};
+\draw[->,gray] (0,-.35)--(0,3.1) node[above]{差值};
+\draw[blue,very thick,domain=-3.8:3.1,samples=180] plot(\x,{(\x*\x+1)/(\x*\x+2*\x+2)-\LL});
+\draw[orange!85!black,very thick,domain=-3.8:3.1,samples=180] plot(\x,{\UU-(\x*\x+1)/(\x*\x+2*\x+2)});
+\fill[blue] (\rr,0) circle(2pt);\fill[orange!85!black] (\ss,0) circle(2pt);
+\node[below=7pt] at (\rr,0){$r_1$};\node[below=7pt] at (\ss,0){$r_2$};
 \end{scope}
-\node[align=left,anchor=west] at (8.4,5.2){\textcolor{blue}{$F-L\ge0$}，$x=r_1$ 取零\\[10pt] \textcolor{orange!90!black}{$U-F\ge0$}，$x=r_2$ 取零\\[12pt] $r_1=(\sqrt5-1)/2$\\[8pt] $r_2=-(\sqrt5+1)/2$};
-\node[text width=13.2cm,align=center] at (7.1,.65) {图画的是两个差值；分子配平方、分母恒正，保证两条曲线均不穿过横轴。};
+\node[align=left,anchor=west] at (8.2,5.2){\textcolor{blue}{$F-L\ge0$}，在 $r_1$ 取零\\[12pt]\textcolor{orange!85!black}{$U-F\ge0$}，在 $r_2$ 取零\\[12pt]$r_1=(\sqrt5-1)/2$\\[8pt]$r_2=-(\sqrt5+1)/2$};
+\node[text width=13cm,align=center] at (7.1,.6) {两条曲线都不穿过横轴；取零处就是原函数取得边界值的位置。};
 \end{tikzpicture}

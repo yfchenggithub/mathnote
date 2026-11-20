@@ -1,0 +1,16 @@
+\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,9.2);
+\node at (7.1,8.6) {漏掉负号会把开口翻转，候选范围也会选反};
+\pgfmathsetmacro{\LL}{(3-sqrt(5))/2}
+\pgfmathsetmacro{\UU}{(3+sqrt(5))/2}
+\pgfmathsetmacro{\rr}{(sqrt(5)-1)/2}
+\pgfmathsetmacro{\ss}{-(sqrt(5)+1)/2}
+\begin{scope}[shift={(2.5,4.2)},x=1.65cm,y=.40cm]
+\draw[->,gray] (-.2,0)--(3.1,0) node[above=4pt]{$y$};\draw[->,gray] (0,-5.6)--(0,5.8) node[above]{$\Delta$};
+\draw[blue,very thick,domain=.15:2.85,samples=120] plot(\x,{4*(-\x*\x+3*\x-1)});
+\draw[orange!85!black,dashed,thick,domain=.15:2.85,samples=120] plot(\x,{-4*(-\x*\x+3*\x-1)});
+\draw[dotted,gray] (\LL,0)--(\LL,-5.7);\draw[dotted,gray] (\UU,0)--(\UU,-5.7);\node[below=6pt] at (\LL,-5.7){$L$};\node[below=6pt] at (\UU,-5.7){$U$};
+\end{scope}
+\node[align=left,anchor=west] at (8.4,5.2){\textcolor{blue}{正确：开口向下}\\[7pt]$4(-y^2+3y-1)$\\[12pt]\textcolor{orange!85!black}{示例错误：整个式子反号}\\[7pt]$-4(-y^2+3y-1)$\\[12pt]“中间非负”会误成“两侧非负”};
+\node[text width=13cm,align=center] at (7.1,.6) {本例分母判别式为 $-4<0$；正确 $\Delta(y)$ 的 $y^2$ 系数也应是 $-4$。};
+\end{tikzpicture}
