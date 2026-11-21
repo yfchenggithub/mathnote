@@ -45,6 +45,83 @@
 \]
 \textbf{顺带记住：}外层递减时，里面的最小值往往对应外面的最大值。
 
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例2的另一种解法：直接按单调性定义作差}}
+\input{assets/tikz/F013_definition_difference}
+
+\textbf{第1步：任取两点，把差完整展开。}
+设 $x_1<x_2$，两点必须取在待判断的\textbf{同一段区间}内。则
+\[
+\begin{aligned}
+H(x_1)-H(x_2)
+&=\left(\frac13\right)^{x_1^2-2x_1}
+ -\left(\frac13\right)^{x_2^2-2x_2}\\[5pt]
+&=\left(\frac13\right)^{x_2^2-2x_2}
+ \left[\left(\frac13\right)^{(x_1^2-2x_1)-(x_2^2-2x_2)}-1\right]\\[5pt]
+&=\left(\frac13\right)^{x_2^2-2x_2}
+ \left[\left(\frac13\right)^{x_1^2-x_2^2-2(x_1-x_2)}-1\right]\\[5pt]
+&=\underbrace{\left(\frac13\right)^{x_2^2-2x_2}}_{>0}
+ \left[\left(\frac13\right)^{(x_1-x_2)(x_1+x_2-2)}-1\right].
+\end{aligned}
+\]
+\textbf{先提取第二项的正因子，再把指数差分解因式。}
+因此，整个差的正负只由中括号决定。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例2（定义法续）：分别判断两段的差的正负}}
+
+\textbf{第2步：先记住底数小于1时，指数的正负怎样影响结果。}
+令 $\Delta=(x_1-x_2)(x_1+x_2-2)$。因为 $0<\frac13<1$，
+\[
+\begin{array}{c|c|c}
+\Delta & \left(\frac13\right)^\Delta &
+\left(\frac13\right)^\Delta-1\\ \hline
+\Delta>0 & 0<\left(\frac13\right)^\Delta<1 & <0\\[4pt]
+\Delta<0 & \left(\frac13\right)^\Delta>1 & >0
+\end{array}
+\]
+
+\textbf{第3步：在左段，任取 $x_1<x_2\le1$。}
+\[
+ x_1-x_2<0,\qquad x_1+x_2-2<0
+ \quad\Longrightarrow\quad \Delta>0.
+\]
+第二个因子严格小于0，是因为 $x_1<x_2\le1$，必有 $x_1<1$。
+于是
+\[
+ \left(\frac13\right)^\Delta-1<0
+ \quad\Longrightarrow\quad H(x_1)-H(x_2)<0
+ \quad\Longrightarrow\quad H(x_1)<H(x_2).
+\]
+由 $x_1,x_2$ 的任意性，$H$ 在 $(-\infty,1]$ 上\textbf{严格递增}。
+
+\medskip
+\textbf{第4步：在右段，任取 $1\le x_1<x_2$。}
+\[
+ x_1-x_2<0,\qquad x_1+x_2-2>0
+ \quad\Longrightarrow\quad \Delta<0.
+\]
+第二个因子严格大于0，是因为 $1\le x_1<x_2$，必有 $x_2>1$。
+于是
+\[
+ \left(\frac13\right)^\Delta-1>0
+ \quad\Longrightarrow\quad H(x_1)-H(x_2)>0
+ \quad\Longrightarrow\quad H(x_1)>H(x_2).
+\]
+由 $x_1,x_2$ 的任意性，$H$ 在 $[1,+\infty)$ 上\textbf{严格递减}。
+
+\medskip
+\textbf{第5步：回到最大值。}先增后减，故最大值在 $x=1$ 取得：
+\[
+\boxed{H_{\max}=H(1)=\left(\frac13\right)^{-1}=3.}
+\]
+\textbf{作差法的关键：}取点同段 $\to$ 提取正因子 $\to$
+指数差分解 $\to$ 判断符号 $\to$ 按定义下结论。
+
+
 \medskip
 \end{examplebox}
 \clearpage

@@ -1,0 +1,35 @@
+\begin{center}
+\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,7.5);
+\node at (7.1,6.9) {同样取 $x_1<x_2$：左段后者更高，右段后者更低};
+\node at (3.6,6.05) {$x_1<x_2\le1$：$H(x_1)<H(x_2)$};
+\node at (10.5,6.05) {$1\le x_1<x_2$：$H(x_1)>H(x_2)$};
+\begin{scope}[shift={(2.0,2.0)},x=1.2cm,y=1cm]
+\draw[->,gray] (-1.1,0)--(3.5,0) node[right]{$x$};
+\draw[->,gray] (0,-.15)--(0,3.5) node[right=3pt]{$H$};
+\draw[gray!60,domain=-1:3,samples=120] plot(\x,{pow(3,2*\x-\x*\x)});
+\draw[blue,very thick,domain=-1:1,samples=70] plot(\x,{pow(3,2*\x-\x*\x)});
+\draw[gray,dotted] (1,0)--(1,3);\node[below=5pt] at (1,0){$1$};
+\draw[blue,dashed] (-.5,0)--(-.5,{pow(3,-1.25)});
+\fill[blue] (-.5,{pow(3,-1.25)}) circle(2pt);\node[blue] at (-.65,.72) {$H(x_1)$};
+\node[below=5pt] at (-.5,0){$-\frac12$};
+\draw[orange!85!black,dashed] (.5,0)--(.5,{pow(3,.75)});
+\fill[orange!85!black] (.5,{pow(3,.75)}) circle(2pt);\draw[orange!85!black,dotted] (0,{pow(3,.75)})--(.5,{pow(3,.75)});\node[orange!85!black,left=6pt] at (-.1,{pow(3,.75)}) {$H(x_2)$};
+\node[below=5pt] at (.5,0){$\frac12$};
+\end{scope}
+\begin{scope}[shift={(8.8,2.0)},x=1.2cm,y=1cm]
+\draw[->,gray] (-1.1,0)--(3.5,0) node[right]{$x$};
+\draw[->,gray] (0,-.15)--(0,3.5) node[right=3pt]{$H$};
+\draw[gray!60,domain=-1:3,samples=120] plot(\x,{pow(3,2*\x-\x*\x)});
+\draw[orange!85!black,very thick,domain=1:3,samples=70] plot(\x,{pow(3,2*\x-\x*\x)});
+\draw[gray,dotted] (1,0)--(1,3);\node[below=5pt] at (1,0){$1$};
+\draw[blue,dashed] (1.5,0)--(1.5,{pow(3,.75)});
+\fill[blue] (1.5,{pow(3,.75)}) circle(2pt) node[right=5pt] {$H(x_1)$};
+\node[below=5pt] at (1.5,0){$\frac32$};
+\draw[orange!85!black,dashed] (2.5,0)--(2.5,{pow(3,-1.25)});
+\fill[orange!85!black] (2.5,{pow(3,-1.25)}) circle(2pt) node[above right=3pt] {$H(x_2)$};
+\node[below=5pt] at (2.5,0){$\frac52$};
+\end{scope}
+\node[text width=12.8cm,align=center] at (7.1,.75) {曲线均为 $H(x)=\left(\frac13\right)^{x^2-2x}$，两图同尺度。\\图中数值帮助观察；下面对每一段的任意 $x_1<x_2$ 作差证明。};
+\end{tikzpicture}
+\end{center}

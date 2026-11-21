@@ -2,13 +2,57 @@
 \draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,14.0);
 \node at (7.1,13.4) {四种组合：看同一对输入的先后顺序怎样变化};
 \begin{scope}[shift={(0.7,7.5)}]\node at (3.0,5.0) {里增、外增：整体增};
-\draw[->,gray] (.4,4.0)--(5.7,4.0);\node[left] at (.4,4.0) {$x$};\fill[blue] (1.35,4.0) circle(2pt);\draw[blue,dashed,->,shorten <=3pt,shorten >=3pt] (1.35,4.0)--(1.35,2.5);\fill[orange!85!black] (4.65,4.0) circle(2pt);\draw[orange!85!black,dashed,->,shorten <=3pt,shorten >=3pt] (4.65,4.0)--(4.65,2.5);\draw[->,gray] (.4,2.5)--(5.7,2.5);\node[left] at (.4,2.5) {$t$};\fill[blue] (1.35,2.5) circle(2pt);\draw[blue,dashed,->,shorten <=3pt,shorten >=3pt] (1.35,2.5)--(1.35,1.0);\fill[orange!85!black] (4.65,2.5) circle(2pt);\draw[orange!85!black,dashed,->,shorten <=3pt,shorten >=3pt] (4.65,2.5)--(4.65,1.0);\draw[->,gray] (.4,1.0)--(5.7,1.0);\node[left] at (.4,1.0) {$y$};\fill[blue] (1.35,1.0) circle(2pt);\fill[orange!85!black] (4.65,1.0) circle(2pt);\node at (3,.25) {$g(x)= x,\ f(t)= t$};\end{scope}
+\draw[->,gray] (.4,4.0)--(5.7,4.0);\node[left] at (.4,4.0) {$x$};\fill[blue] (1.35,4.0) circle(2pt);\draw[blue,dashed,->,shorten <=3pt,shorten >=3pt] (1.35,4.0)--(1.35,2.5);\fill[orange!85!black] (4.65,4.0) circle(2pt);\draw[orange!85!black,dashed,->,shorten <=3pt,shorten >=3pt] (4.65,4.0)--(4.65,2.5);\draw[->,gray] (.4,2.5)--(5.7,2.5);\node[left] at (.4,2.5) {$t$};\fill[blue] (1.35,2.5) circle(2pt);\draw[blue,dashed,->,shorten <=3pt,shorten >=3pt] (1.35,2.5)--(1.35,1.0);\fill[orange!85!black] (4.65,2.5) circle(2pt);\draw[orange!85!black,dashed,->,shorten <=3pt,shorten >=3pt] (4.65,2.5)--(4.65,1.0);\draw[->,gray] (.4,1.0)--(5.7,1.0);\node[left] at (.4,1.0) {$y$};\fill[blue] (1.35,1.0) circle(2pt);\fill[orange!85!black] (4.65,1.0) circle(2pt);\node at (3,.25) {$g(x)= x,\ f(t)= t$};
+% Each axis uses the same scale: -1 at 1.35, 0 at 3, 1 at 4.65.
+% Place endpoint labels outside the mapping arrows to keep them unobstructed.
+\foreach \axisY in {4.0,2.5,1.0}{
+  \draw[gray] (1.35,\axisY)--++(0,-.07);
+  \draw[gray] (3,\axisY)--++(0,-.07);
+  \draw[gray] (4.65,\axisY)--++(0,-.07);
+  \node[above left=6pt] at (1.35,\axisY) {$-1$};
+  \node[below=3pt] at (3,\axisY) {$0$};
+  \node[above right=6pt] at (4.65,\axisY) {$1$};
+}
+\end{scope}
 \begin{scope}[shift={(7.5,7.5)}]\node at (3.0,5.0) {里减、外减：整体增};
-\draw[->,gray] (.4,4.0)--(5.7,4.0);\node[left] at (.4,4.0) {$x$};\fill[blue] (1.35,4.0) circle(2pt);\draw[blue,dashed,->,shorten <=3pt,shorten >=3pt] (1.35,4.0)--(4.65,2.5);\fill[orange!85!black] (4.65,4.0) circle(2pt);\draw[orange!85!black,dashed,->,shorten <=3pt,shorten >=3pt] (4.65,4.0)--(1.35,2.5);\draw[->,gray] (.4,2.5)--(5.7,2.5);\node[left] at (.4,2.5) {$t$};\fill[blue] (4.65,2.5) circle(2pt);\draw[blue,dashed,->,shorten <=3pt,shorten >=3pt] (4.65,2.5)--(1.35,1.0);\fill[orange!85!black] (1.35,2.5) circle(2pt);\draw[orange!85!black,dashed,->,shorten <=3pt,shorten >=3pt] (1.35,2.5)--(4.65,1.0);\draw[->,gray] (.4,1.0)--(5.7,1.0);\node[left] at (.4,1.0) {$y$};\fill[blue] (1.35,1.0) circle(2pt);\fill[orange!85!black] (4.65,1.0) circle(2pt);\node at (3,.25) {$g(x)=-x,\ f(t)=-t$};\end{scope}
+\draw[->,gray] (.4,4.0)--(5.7,4.0);\node[left] at (.4,4.0) {$x$};\fill[blue] (1.35,4.0) circle(2pt);\draw[blue,dashed,->,shorten <=3pt,shorten >=3pt] (1.35,4.0)--(4.65,2.5);\fill[orange!85!black] (4.65,4.0) circle(2pt);\draw[orange!85!black,dashed,->,shorten <=3pt,shorten >=3pt] (4.65,4.0)--(1.35,2.5);\draw[->,gray] (.4,2.5)--(5.7,2.5);\node[left] at (.4,2.5) {$t$};\fill[blue] (4.65,2.5) circle(2pt);\draw[blue,dashed,->,shorten <=3pt,shorten >=3pt] (4.65,2.5)--(1.35,1.0);\fill[orange!85!black] (1.35,2.5) circle(2pt);\draw[orange!85!black,dashed,->,shorten <=3pt,shorten >=3pt] (1.35,2.5)--(4.65,1.0);\draw[->,gray] (.4,1.0)--(5.7,1.0);\node[left] at (.4,1.0) {$y$};\fill[blue] (1.35,1.0) circle(2pt);\fill[orange!85!black] (4.65,1.0) circle(2pt);\node at (3,.25) {$g(x)=-x,\ f(t)=-t$};
+% Each axis uses the same scale: -1 at 1.35, 0 at 3, 1 at 4.65.
+% Place endpoint labels outside the mapping arrows to keep them unobstructed.
+\foreach \axisY in {4.0,2.5,1.0}{
+  \draw[gray] (1.35,\axisY)--++(0,-.07);
+  \draw[gray] (3,\axisY)--++(0,-.07);
+  \draw[gray] (4.65,\axisY)--++(0,-.07);
+  \node[above left=6pt] at (1.35,\axisY) {$-1$};
+  \node[below=3pt] at (3,\axisY) {$0$};
+  \node[above right=6pt] at (4.65,\axisY) {$1$};
+}
+\end{scope}
 \begin{scope}[shift={(0.7,1.5)}]\node at (3.0,5.0) {里增、外减：整体减};
-\draw[->,gray] (.4,4.0)--(5.7,4.0);\node[left] at (.4,4.0) {$x$};\fill[blue] (1.35,4.0) circle(2pt);\draw[blue,dashed,->,shorten <=3pt,shorten >=3pt] (1.35,4.0)--(1.35,2.5);\fill[orange!85!black] (4.65,4.0) circle(2pt);\draw[orange!85!black,dashed,->,shorten <=3pt,shorten >=3pt] (4.65,4.0)--(4.65,2.5);\draw[->,gray] (.4,2.5)--(5.7,2.5);\node[left] at (.4,2.5) {$t$};\fill[blue] (1.35,2.5) circle(2pt);\draw[blue,dashed,->,shorten <=3pt,shorten >=3pt] (1.35,2.5)--(4.65,1.0);\fill[orange!85!black] (4.65,2.5) circle(2pt);\draw[orange!85!black,dashed,->,shorten <=3pt,shorten >=3pt] (4.65,2.5)--(1.35,1.0);\draw[->,gray] (.4,1.0)--(5.7,1.0);\node[left] at (.4,1.0) {$y$};\fill[blue] (4.65,1.0) circle(2pt);\fill[orange!85!black] (1.35,1.0) circle(2pt);\node at (3,.25) {$g(x)= x,\ f(t)=-t$};\end{scope}
+\draw[->,gray] (.4,4.0)--(5.7,4.0);\node[left] at (.4,4.0) {$x$};\fill[blue] (1.35,4.0) circle(2pt);\draw[blue,dashed,->,shorten <=3pt,shorten >=3pt] (1.35,4.0)--(1.35,2.5);\fill[orange!85!black] (4.65,4.0) circle(2pt);\draw[orange!85!black,dashed,->,shorten <=3pt,shorten >=3pt] (4.65,4.0)--(4.65,2.5);\draw[->,gray] (.4,2.5)--(5.7,2.5);\node[left] at (.4,2.5) {$t$};\fill[blue] (1.35,2.5) circle(2pt);\draw[blue,dashed,->,shorten <=3pt,shorten >=3pt] (1.35,2.5)--(4.65,1.0);\fill[orange!85!black] (4.65,2.5) circle(2pt);\draw[orange!85!black,dashed,->,shorten <=3pt,shorten >=3pt] (4.65,2.5)--(1.35,1.0);\draw[->,gray] (.4,1.0)--(5.7,1.0);\node[left] at (.4,1.0) {$y$};\fill[blue] (4.65,1.0) circle(2pt);\fill[orange!85!black] (1.35,1.0) circle(2pt);\node at (3,.25) {$g(x)= x,\ f(t)=-t$};
+% Each axis uses the same scale: -1 at 1.35, 0 at 3, 1 at 4.65.
+% Place endpoint labels outside the mapping arrows to keep them unobstructed.
+\foreach \axisY in {4.0,2.5,1.0}{
+  \draw[gray] (1.35,\axisY)--++(0,-.07);
+  \draw[gray] (3,\axisY)--++(0,-.07);
+  \draw[gray] (4.65,\axisY)--++(0,-.07);
+  \node[above left=6pt] at (1.35,\axisY) {$-1$};
+  \node[below=3pt] at (3,\axisY) {$0$};
+  \node[above right=6pt] at (4.65,\axisY) {$1$};
+}
+\end{scope}
 \begin{scope}[shift={(7.5,1.5)}]\node at (3.0,5.0) {里减、外增：整体减};
-\draw[->,gray] (.4,4.0)--(5.7,4.0);\node[left] at (.4,4.0) {$x$};\fill[blue] (1.35,4.0) circle(2pt);\draw[blue,dashed,->,shorten <=3pt,shorten >=3pt] (1.35,4.0)--(4.65,2.5);\fill[orange!85!black] (4.65,4.0) circle(2pt);\draw[orange!85!black,dashed,->,shorten <=3pt,shorten >=3pt] (4.65,4.0)--(1.35,2.5);\draw[->,gray] (.4,2.5)--(5.7,2.5);\node[left] at (.4,2.5) {$t$};\fill[blue] (4.65,2.5) circle(2pt);\draw[blue,dashed,->,shorten <=3pt,shorten >=3pt] (4.65,2.5)--(4.65,1.0);\fill[orange!85!black] (1.35,2.5) circle(2pt);\draw[orange!85!black,dashed,->,shorten <=3pt,shorten >=3pt] (1.35,2.5)--(1.35,1.0);\draw[->,gray] (.4,1.0)--(5.7,1.0);\node[left] at (.4,1.0) {$y$};\fill[blue] (4.65,1.0) circle(2pt);\fill[orange!85!black] (1.35,1.0) circle(2pt);\node at (3,.25) {$g(x)=-x,\ f(t)= t$};\end{scope}
+\draw[->,gray] (.4,4.0)--(5.7,4.0);\node[left] at (.4,4.0) {$x$};\fill[blue] (1.35,4.0) circle(2pt);\draw[blue,dashed,->,shorten <=3pt,shorten >=3pt] (1.35,4.0)--(4.65,2.5);\fill[orange!85!black] (4.65,4.0) circle(2pt);\draw[orange!85!black,dashed,->,shorten <=3pt,shorten >=3pt] (4.65,4.0)--(1.35,2.5);\draw[->,gray] (.4,2.5)--(5.7,2.5);\node[left] at (.4,2.5) {$t$};\fill[blue] (4.65,2.5) circle(2pt);\draw[blue,dashed,->,shorten <=3pt,shorten >=3pt] (4.65,2.5)--(4.65,1.0);\fill[orange!85!black] (1.35,2.5) circle(2pt);\draw[orange!85!black,dashed,->,shorten <=3pt,shorten >=3pt] (1.35,2.5)--(1.35,1.0);\draw[->,gray] (.4,1.0)--(5.7,1.0);\node[left] at (.4,1.0) {$y$};\fill[blue] (4.65,1.0) circle(2pt);\fill[orange!85!black] (1.35,1.0) circle(2pt);\node at (3,.25) {$g(x)=-x,\ f(t)= t$};
+% Each axis uses the same scale: -1 at 1.35, 0 at 3, 1 at 4.65.
+% Place endpoint labels outside the mapping arrows to keep them unobstructed.
+\foreach \axisY in {4.0,2.5,1.0}{
+  \draw[gray] (1.35,\axisY)--++(0,-.07);
+  \draw[gray] (3,\axisY)--++(0,-.07);
+  \draw[gray] (4.65,\axisY)--++(0,-.07);
+  \node[above left=6pt] at (1.35,\axisY) {$-1$};
+  \node[below=3pt] at (3,\axisY) {$0$};
+  \node[above right=6pt] at (4.65,\axisY) {$1$};
+}
+\end{scope}
 
-\node[text width=12.8cm,align=center] at (7.1,.65) {各数轴相同比例，坐标为 $-1,1$；蓝点追踪 $x_1=-1$，橙点追踪 $x_2=1$。};
+\node[text width=12.8cm,align=center] at (7.1,.65) {各数轴均标出 $-1,0,1$，且比例相同；蓝点追踪 $x_1=-1$，橙点追踪 $x_2=1$。};
 \end{tikzpicture}\end{center}
