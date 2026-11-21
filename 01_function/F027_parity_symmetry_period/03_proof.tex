@@ -1,51 +1,107 @@
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{\textcolor{CProof}{要证明什么？}}
 
-	分别利用对称性和奇偶性建立 $f(x+2a)=-f(x)$ 的中间关系，再迭代得到 $f(x+4a)=f(x)$，从而周期为 $4|a|$。
+无论是“奇函数加对称轴”，还是“偶函数加对称中心”，只要定义域是 $\mathbb{R}$，就要证明：
+\[
+\boxed{f(x+2a)=-f(x)}\quad\text{以及}\quad\boxed{f(x+4a)=f(x)}.
+\]
+下面给出三种互相补充的证明，\textbf{第一种门槛最低，第二种做题最快，第三种便于分清四类题}。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
+\medskip
+\textbf{\textcolor{CProof}{证明一：只用初中学过的坐标和对称（最容易懂）}}
+\input{assets/tikz/F027_odd_geometry}
 
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（奇函数得递推）：}] 由奇函数 $f(-x)=-f(x)$ 和关于 $x=a$ 对称 $f(a+t)=f(a-t)$，将 $t$ 换成 $x+a$ 得：
-			\[
-				\begin{aligned}
-					f(x+2a) &= f(a+(x+a)) \\
-					&= f(a-(x+a)) \\
-					&= f(-x) \\
-					&= -f(x).
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 对称性取 $t=x+a$，奇函数 $f(-x)=-f(x)$。
 
-		\item[\textbf{步骤二（偶函数得递推）：}] 由偶函数 $f(-x)=f(x)$ 和关于点 $(a,0)$ 对称 $f(a+t)+f(a-t)=0$，将 $t$ 换成 $x+a$ 得：
-			\[
-				\begin{aligned}
-					f(x+2a) &= f(a+(x+a)) \\
-					&= -f(a-(x+a)) \\
-					&= -f(-x) \\
-					&= -f(x).
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 中心对称取 $t=x+a$，偶函数 $f(-x)=f(x)$，所以 $-f(-x)=-f(x)$。
+\textbf{第一种搭配：奇函数，且关于 $x=a$ 对称。}
+\begin{enumerate}[leftmargin=*,itemsep=0.3em]
+ \item 在图上取任意一点 $P(x,y)$。这是说 $y=f(x)$。
+ \item 奇函数关于原点对称，故 $P$ 的“伙伴” $Q(-x,-y)$ 也在图上。
+ \item 把 $Q$ 关于直线 $x=a$ 翻折：翻折前后的横坐标平均数是 $a$，所以新的横坐标为 $2a-(-x)=2a+x$；纵坐标仍为 $-y$。
+ \item 因此图上还存在点 $(x+2a,-y)$。对这个点重复刚才两次翻折，又得到 $(x+4a,y)$。
+\end{enumerate}
+所以 $f(x+2a)=-f(x)$，$f(x+4a)=f(x)$。
 
-		\item[\textbf{步骤三（迭代得周期）：}] 对关系 $f(x+2a)=-f(x)$ 迭代：
-			\[
-				\begin{aligned}
-					f(x+4a) &= f((x+2a)+2a) \\
-					&= -f(x+2a) \\
-					&= -(-f(x)) \\
-					&= f(x).
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 将 $x$ 替换为 $x+2a$，再代入原式。
+\end{proofbox}\clearpage\begin{proofbox}
+\input{assets/tikz/F027_even_geometry}
+\textbf{第二种搭配：偶函数，且关于 $(a,0)$ 对称。}
+\begin{enumerate}[leftmargin=*,itemsep=0.3em]
+ \item 从任意一点 $P(x,y)$ 开始；偶函数沿 $y$ 轴翻折，图上还有 $Q(-x,y)$。
+ \item 以 $(a,0)$ 为中心，把 $Q$ 旋转半圈。横坐标变为 $2a-(-x)=2a+x$，纵坐标变为 $-y$。
+ \item 因此图上还有 $(x+2a,-y)$；把这两步再做一遍，图上还有 $(x+4a,y)$。
+\end{enumerate}
+两种搭配的最后一步完全一样：\textbf{先变号，再变回来}。$a$ 为负数时，几何动作只是方向反过来，不会影响重复的距离 $4|a|$。
 
-		\item[\textbf{步骤四（最小周期确认）：}] 若 $f$ 不为常函数，则可验证 $4|a|$ 是最小正周期。因为若存在 $0<T<4|a|$ 满足周期，与对称性矛盾。故最小正周期为 $4|a|$。
-			\par\textbf{理由：} 可由具体反例（如正弦函数）验证，或由对称性导致的 $2a$ 平移关系约束。
-	\end{description}
+\medskip
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明二：把题目中的对称关系直接写成等式（考场最快）}}
+\input{assets/tikz/F027_core_two_cases}
 
-	在两种条件下，函数的最小正周期均为 $T=4|a|$，推导的关键是得到 $f(x+2a)=-f(x)$，再迭代一次即得周期。
+
+\textbf{A. 奇函数加对称轴。}关于 $x=a$ 对称就是
+\[
+f(2a-x)=f(x).
+\]
+把这里的 $x$ 换成 $-x$，得到 $f(2a+x)=f(-x)$。又因为是奇函数，$f(-x)=-f(x)$，故
+\[
+\boxed{f(x+2a)=-f(x)}.
+\]
+再把这条式子的 $x$ 换成 $x+2a$：
+\[
+\begin{aligned}
+f(x+4a)&=-f(x+2a)\\
+&=-[-f(x)]\\
+&=f(x).
+\end{aligned}
+\]
+\textbf{B. 偶函数加对称中心。}关于 $(a,0)$ 对称就是
+\[
+f(2a-x)=-f(x).
+\]
+把 $x$ 换成 $-x$：$f(2a+x)=-f(-x)$。又因为是偶函数，$f(-x)=f(x)$，所以
+\[
+\boxed{f(x+2a)=-f(x)}.
+\]
+后面仍是上一段的两行计算，得到 $f(x+4a)=f(x)$。
+
+\textbf{为什么出现 $2a-x$？}以 $x=a$ 为中点，两边两个横坐标加起来就是 $2a$；如果左边是 $x$，右边自然就是 $2a-x$。这是初中学过的“中点等于两端平均数”。
+
+\medskip
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明三：一个小表，把四种搭配一起看明白（迁移最快）}}
+\input{assets/tikz/F027_same_class}
+
+
+先看两种“来自原点”的关系：
+\[
+\text{奇函数： }f(-x)=-f(x),\qquad
+\text{偶函数： }f(-x)=f(x).
+\]
+再看两种“来自 $a$”的关系：
+\[
+\text{轴对称： }f(2a-x)=f(x),\qquad
+\text{点对称： }f(2a-x)=-f(x).
+\]
+\textbf{关键一步：}把第二行关系中的 $x$ 换成 $-x$，左边统一变成 $f(x+2a)$，右边统一是 $f(-x)$ 或 $-f(-x)$。随后用第一行关系换回 $f(x)$：
+\begin{center}
+\begin{tabular}{c|c|c}
+第一次（原点附近）& 第二次（$a$ 附近） & 最终 $f(x+2a)$\\ \hline
+奇：反号 & 轴：不反号 & $-f(x)$\\
+偶：不反号 & 点：反号 & $-f(x)$\\
+奇：反号 & 点：反号 & $f(x)$\\
+偶：不反号 & 轴：不反号 & $f(x)$
+\end{tabular}
+\end{center}
+\textbf{反号一次}时，$2|a|$ 的移动还不是原样，移动两次才恢复；\textbf{反号零次或两次}时，移动 $2|a|$ 已经恢复。这个表也是前后相关二级结论之间最有用的联系。
+
+\medskip
+\textbf{\textcolor{CProof}{最后必须说明：这三种方法没有证明“最小”}}
+
+以上严格证明的是 $4|a|$ \textbf{为一个正周期}。例如 $f(x)=\sin\frac{3\pi x}{2}$ 是奇函数，也关于 $x=1$ 对称，但它的最小正周期是 $\frac43$，比 $4$ 小。故仅凭题设\textbf{不能写}“最小正周期一定为 $4|a|$”。
 \end{proofbox}

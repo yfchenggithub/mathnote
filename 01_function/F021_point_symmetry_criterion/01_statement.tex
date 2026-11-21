@@ -1,25 +1,38 @@
 \begin{statementbox}
+\input{assets/tikz/F021_cubic_center}
 
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件 1（定义域对称）：}}] 函数 $f(x)$ 的定义域关于 $x=a$ 对称，即对任意 $x$，若 $a+x$ 属于定义域，则 $a-x$ 也属于定义域。
-	\end{description}
+\textbf{\textcolor{CStatement}{这个结论解决什么问题？}}
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（充要等式）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			自变量关于 $a$ 对称的点，函数值之和为常数 $2b$。
-			\[
-				f(a+x) + f(a-x) = 2b.
-			\]
+不必把整条函数曲线画出来，也不必求出每个点，只用一条等式就能判断图像
+是不是\textbf{绕某个点转半圈后仍与原图重合}；反过来，已知对称中心，还能快速求函数值。
 
-		\item[\textbf{\textcolor{CStatement}{推广结论（平移奇函数）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			令 $g(x)=f(a+x)-b$，则 $g(x)$ 为奇函数。
-			\[
-				g(x) = f(a+x)-b,\quad g(-x) = -g(x).
-			\]
-	\end{description}
+\medskip
+\textbf{\textcolor{CStatement}{先看条件（两个都不能少）}}
+设 $y=f(x)$ 的定义域为 $D$，准备判断图像是否关于点 $C(a,b)$ 中心对称。
+\begin{enumerate}[leftmargin=*,itemsep=0.3em]
+  \item \textbf{横坐标要能成对出现：}对每个实数 $t$，$a+t\in D$ 当且仅当 $a-t\in D$。
+  \item \textbf{成对函数值的和固定：}当 $a+t,a-t\in D$ 时，必须总有
+  \[
+     \boxed{\ f(a+t)+f(a-t)=2b\ }.
+  \]
+\end{enumerate}
+\textbf{结论：}以上两条同时成立，\textbf{当且仅当} $y=f(x)$ 关于 $(a,b)$ 中心对称。
+“当且仅当”就是\textbf{从图形能推出公式，从公式也能保证图形}。
 
+\medskip
+\end{statementbox}\clearpage\begin{statementbox}\textbf{\textcolor{CStatement}{考试中更顺手的写法}}
+\[
+  \boxed{\ f(x)+f(2a-x)=2b\quad(x\in D)\ },
+\]
+这里仍须确保 $x\in D\Longrightarrow 2a-x\in D$。
+两个输入 $x$ 与 $2a-x$ 的平均数是 $a$，两个输出的平均数是 $b$。
+
+\medskip
+\textbf{\textcolor{CStatement}{与奇函数的联系}}
+令 $g(t)=f(a+t)-b$，则 $g(-t)=-g(t)$；也就是说，\textbf{把中心 $(a,b)$ 移到原点后，就变成奇函数}。
+
+\medskip
+\textbf{\textcolor{CStatement}{一个容易被忽略的细节}}
+若 $a\in D$，代入 $t=0$ 得 $2f(a)=2b$，所以 $f(a)=b$。
+但若 $a\notin D$，对称中心仍可能存在，\textbf{不一定在函数图像上}。
 \end{statementbox}

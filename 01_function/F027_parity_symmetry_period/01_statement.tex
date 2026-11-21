@@ -1,33 +1,41 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件 1（奇函数加线对称）：}}] 函数 $f(x)$ 是奇函数，且图像关于直线 $x=a$ 对称（$a\neq 0$）。
-		\item[\textbf{\textcolor{CStatement}{条件 2（偶函数加点对称）：}}] 函数 $f(x)$ 是偶函数，且图像关于点 $(a,0)$ 中心对称（$a\neq 0$）。
-	\end{description}
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（奇函数情形）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			奇函数关于直线 $x=a$ 对称时，周期为 $4|a|$。
-			\[
-				T = 4|a|.
-			\]
-		\item[\textbf{\textcolor{CStatement}{结论二（偶函数情形）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			偶函数关于点 $(a,0)$ 对称时，周期也为 $4|a|$。
-			\[
-				T = 4|a|.
-			\]
-		\item[\textbf{\textcolor{CStatement}{推广结论（周期统一形式）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			两种条件下函数的最小正周期相同，均为 $4|a|$。
-			\[
-				T_{\min}=4|a|.
-			\]
-	\end{description}
-	\textbf{\textcolor{CStatement}{参数限制：}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item $a\neq 0$，否则对称轴或对称中心与原点重合，无法产生周期。
-		\item $f(x)$ 的定义域必须关于原点对称，否则奇偶性无意义。
-	\end{itemize}
+\input{assets/tikz/F027_core_two_cases}
+
+\textbf{\textcolor{CStatement}{这条结论解决什么问题？}}
+
+有些题目没有告诉我们 $f(x)$ 的具体式子，只说它是奇函数、偶函数，或者图像有一条对称轴、一个对称中心。怎样在不知道函数式子的情况下，判断函数会不会重复出现？这条结论就是把\textbf{两条对称信息接起来，找出重复的距离}。
+
+\medskip
+\end{statementbox}\clearpage\begin{statementbox}\textbf{\textcolor{CStatement}{先记住两个搭配}}（以下先假设函数定义在整个实数范围 $\mathbb{R}$ 上，$a\ne0$）
+\begin{enumerate}[leftmargin=*,itemsep=0.3em]
+  \item \textbf{奇函数 $+$ 关于直线 $x=a$ 对称}：
+  \[f(-x)=-f(x),\qquad f(a+t)=f(a-t).\]
+  \item \textbf{偶函数 $+$ 关于点 $(a,0)$ 对称}：
+  \[f(-x)=f(x),\qquad f(a+t)=-f(a-t).\]
+\end{enumerate}
+
+\textbf{\textcolor{CStatement}{这两种情况，都能推出同一个结论}}
+\[
+\boxed{f(x+2a)=-f(x)}
+\qquad\Longrightarrow\qquad
+\boxed{f(x+4a)=f(x)}.
+\]
+
+\textbf{通俗地说：}沿 $x$ 轴移动 $2|a|$，函数值变成原来的相反数；再移动 $2|a|$，函数值恢复原样。因此
+\[
+\boxed{4|a|\text{ 一定是函数的一个正周期。}}
+\]
+当 $a<0$ 时，上式最初得到的是向左移动；改写为向右移动 $2|a|$ 和 $4|a|$ 仍然成立。
+
+\medskip
+\end{statementbox}\clearpage\begin{statementbox}\textbf{\textcolor{CStatement}{特别重要：不要把“一个周期”写成“最小正周期”}}
+
+仅凭上述条件，\textbf{无法确定最小正周期一定是 $4|a|$}。函数可能在更短的距离就重复；零函数甚至没有最小正周期。求函数值时，只要知道 $4|a|$ 是一个周期，就已经够用了。
+
+\medskip
+\textbf{\textcolor{CStatement}{适用边界}}
+\begin{itemize}[leftmargin=*,itemsep=0.25em]
+  \item 这里取定义域为 $\mathbb{R}$，便于把每一次代入都用于任意实数。对于其他定义域，须另外保证每次对应的点都在定义域内，而且整体平移后仍有意义。
+  \item $a=0$ 不能当成一个正的距离：在这两种搭配下会推出 $f(x)\equiv0$，不能由 $4|a|=0$ 得出正周期。
+\end{itemize}
 \end{statementbox}

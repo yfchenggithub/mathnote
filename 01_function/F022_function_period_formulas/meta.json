@@ -11,7 +11,7 @@
       "f(x+a)=f(x)型周期",
       "抽象函数周期公式（加常数、反号、倒数、差值型）"
     ],
-    "summary": "由平移、反号、倒数、差值及两类分式关系求一个周期；连续代入两次还原时，2|a|是一个正周期，但不保证最小。",
+    "summary": "往右走一格，函数值若变号、变倒数或变成特定分式，连续走两格就会还原；讲清对任意x成立、分母非零、定义域和最小正周期的区别。",
     "difficulty": 2,
     "category": "函数",
     "tags": [
@@ -121,25 +121,31 @@
       "f(x+a)=\\pm\\frac{1}{f(x)} \\; (f(x)\\neq 0) \\Rightarrow T=2|a|",
       "f(x+a)=f(x+b) \\; (a\\neq b) \\Rightarrow T=|a-b|",
       "f(x+a)=\\frac{f(x)+1}{f(x)-1}\\ (f(x)\\ne1)\\Rightarrow f(x+2a)=f(x)",
-      "f(x+a)=\\frac{1-f(x)}{1+f(x)}\\ (f(x)\\ne-1)\\Rightarrow f(x+2a)=f(x)"
+      "f(x+a)=\\frac{1-f(x)}{1+f(x)}\\ (f(x)\\ne-1)\\Rightarrow f(x+2a)=f(x)",
+      "f(x+a)=c-f(x)\\Rightarrow f(x+2a)=f(x)",
+      "f(x+a)=\\frac{c}{f(x)}\\ (c\\ne0, f(x)\\ne0)\\Rightarrow f(x+2a)=f(x)",
+      "f(2p-x)=f(x),\\ f(2q-x)=f(x)\\Rightarrow T=2|p-q|"
     ],
-    "variables": "f: 函数; x: 自变量; a, b: 非零实常数; T: 周期; k: 非零整数",
-    "conditions": "定义域对平移常数封闭（若 $x\\in D$，则 $x\\pm a, x\\pm b \\in D$）；$a,b$ 为非零实常数；倒数型要求 $f(x)\\neq 0$；差值型要求 $a\\neq b$。 新增两类分式型分别要求处处f(x)≠1或处处f(x)≠−1，a≠0，定义域非空且允许加减a；两类等式分别处处成立。",
-    "conclusions": "加常数型：$T=|a|$；反号型：$T=2|a|$；倒数型：$T=2|a|$；差值型：$T=|a-b|$。若 $T$ 是一个周期，则 $kT (k\\in\\mathbb{Z}, k\\neq 0)$ 也是周期。 两类新增分式型均推出2|a|是一个正周期。上述周期均不保证最小。"
+    "variables": "f: 函数；x: 自变量；a: 非零的固定实数；b: 固定实数（差值型a≠b）；T: 正周期；c: 固定实数（用于c/f(x)时c≠0）；p,q: 两条不同的对称轴位置。",
+    "conditions": "等式对定义域中每个允许的x成立；定义域非空，并且需要用到的x±a、x±b等平移后仍在定义域内。倒数型需处处f(x)≠0，±号在所有x处为同一固定选择；两类分式型分别需处处f(x)≠1、f(x)≠−1。差值型a≠b。两条对称轴的扩展先取定义域为整个实数范围。",
+    "conclusions": "直接重复给出正周期|a|；反号、正/负倒数、两类分式给出正周期2|a|；两位置相等给出正周期|a-b|。扩展：f(x+a)=c-f(x)及c/f(x)（c非零）也给出2|a|；两条对称轴x=p、x=q给出2|p-q|。所有结果均不自动保证最小正周期，常数函数没有最小正周期。"
   },
   "content": {
-    "statement": "一般地，若函数 $f(x)$ 满足 $f(x+T)=f(x)$（$T\\neq 0$），且定义域关于 $x$ 平移 $T$ 不变，则 $T$ 是 $f$ 的一个周期。由此可得以下常见结论（$a,b$ 为非零实常数）：\n(1) $f(x+a)=f(x)$ ⇒ $T=|a|$；\n(2) $f(x+a)=-f(x)$ ⇒ $T=2|a|$；\n(3) $f(x+a)=\\pm\\frac{1}{f(x)}$（此时 $f(x)\\neq0$）⇒ $T=2|a|$；\n(4) $f(x+a)=f(x+b)$（$a\\neq b$）⇒ $T=|a-b|$。\n以上 $T$ 均指函数的一个周期，不保证是最小正周期。 新增两类分式型：f(x+a)=(f(x)+1)/(f(x)-1)，或f(x+a)=(1-f(x))/(1+f(x))；满足对应非零分母及平移条件时，2|a|是一个正周期。",
+    "statement": "周期是所有位置在同一距离后重复，不是某个点偶然相等。已知f(x+a)=f(x)、f(x+a)=-f(x)、f(x+a)=±1/f(x)、f(x+a)=f(x+b)可分别推出|a|、2|a|、2|a|、|a-b|为正周期；分式型(f(x)+1)/(f(x)-1)及(1-f(x))/(1+f(x))同样通过两次完整代入得到2|a|。需满足定义域、分母和固定符号条件。",
     "derivation": [
-      "令u=f(x)，将x替换为x+a，再将原分式完整代回。",
-      "分别核验第二次分母为2/(u-1)或2/(1+u)，均非零。",
-      "分子分母通分后相除还原u，得到f(x+2a)=f(x)。"
+      "先让任意位置的函数值为u，看往右走一步对u做什么动作。",
+      "把同一动作再做一次：-(-u)=u，1/(1/u)=u，c-(c-u)=u，c/(c/u)=u。",
+      "两类分式分别核验第二次分母为2/(u-1)、2/(1+u)，再逐行通分还原u。",
+      "若两边是f(x+a)=f(x+b)，令t=x+b，得到f(t+a-b)=f(t)。",
+      "图像关于两条竖直直线对称，连做两次翻折可得到2|p-q|这个正周期。"
     ],
-    "intuition": "反号型：两次应用 $f(x+a)=-f(x)$ 得 $f(x+2a)= -f(x+a)= -(-f(x))=f(x)$，故周期为 $2|a|$；倒数型同理；差值型通过变量替换令 $u=x+a$ 或令 $x$ 为 $x-b$ 转化为加常数型。",
+    "intuition": "像沿横轴走等长的格子：若一步变号或倒数、两步回到原值，整个函数向右平移两格后与原来相同。具体数字2→3→2只展示一种起点，不是证明所有x。",
     "common_tricks": [
-      "识别条件类型：加常数型、反号型、倒数型、差值型，对应不同周期公式。",
-      "反号型和倒数型保证 $2|a|$ 是周期，不能直接断定 $|a|$ 是周期；差值型注意 $a,b$ 含符号，$T=|a-b|$。",
-      "使用倒数型前必须确认 $f(x)\\neq 0$；差值型需保证 $a\\neq b$。",
-      "若条件为 $f(x+a)=c-f(x)$ 等变形，可先转化为标准形式再求周期。"
+      "先问：走一步函数值做了什么，再把同样的操作做第二次。",
+      "大数求值：2026=周期×整数+较小的余数，然后带入已知值。",
+      "两个输入相等：比较x+a与x+b的差，别漏掉b的负号。",
+      "周期不是最小正周期；sin(3πx)满足f(x+1)=-f(x)，最小正周期却为2/3。",
+      "两条不同对称轴可以推出一个正周期2|p-q|。"
     ]
   },
   "usage": {
@@ -173,12 +179,36 @@
       "assets/tikz/F022_period_translation.tex",
       "assets/tikz/F022_fraction_plus_cycle.tex",
       "assets/tikz/F022_fraction_minus_cycle.tex",
-      "assets/tikz/F022_period_not_minimum.tex"
-    ]
+      "assets/tikz/F022_period_not_minimum.tex",
+      "assets/tikz/F022_added_cycle_steps.tex",
+      "assets/tikz/F022_added_fraction_steps.tex",
+      "assets/tikz/F022_added_not_minimum.tex",
+      "assets/tikz/F022_repeat_cycle.tex",
+      "assets/tikz/F022_direct_four.tex",
+      "assets/tikz/F022_reciprocal_curve.tex",
+      "assets/tikz/F022_negative_reciprocal.tex",
+      "assets/tikz/F022_fraction_plus_steps.tex",
+      "assets/tikz/F022_fraction_minus_steps.tex",
+      "assets/tikz/F022_constant_minus_steps.tex",
+      "assets/tikz/F022_height_flip.tex",
+      "assets/tikz/F022_input_difference.tex",
+      "assets/tikz/F022_not_minimum_cycle.tex",
+      "assets/tikz/F022_two_axes_period.tex",
+      "assets/tikz/F022_one_point_failure.tex",
+      "assets/tikz/F022_bounded_domain.tex",
+      "assets/tikz/F022_variable_constant_failure.tex",
+      "assets/tikz/F022_variable_sign_failure.tex",
+      "assets/tikz/F022_fraction_plus_iteration.tex",
+      "assets/tikz/F022_fraction_minus_iteration.tex",
+      "assets/tikz/F022_example_antiperiod_two.tex"
+    ],
+    "other": {
+      "gif": "images/fraction_two_steps_return.gif"
+    }
   },
   "shareConfig": {
     "title": "抽象函数周期：连续代入看何时还原",
-    "shareDesc": "函数每平移一次就变号或取倒数，怎样知道多久重复？连续使用同一条件，直到函数值还原，再读出一个周期；同时检查非零条件与平移范围，别把得到的周期直接说成最小正周期。"
+    "shareDesc": "从函数值的两步往返理解抽象周期公式：反号、倒数、两种分式、差值型都会算；严防把一个正周期当作最小正周期。"
   },
   "relations": {
     "prerequisites": [
@@ -200,10 +230,10 @@
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-26",
-    "updated_at": "2026-11-20"
+    "updated_at": "2026-11-21"
   },
   "isPro": 1,
-  "remarks": "2026-11-20：补入两类分式型周期关系、两篇完整证明及求值例题；新增首页反号平移图、两张具体阶梯函数往返图、一个周期与最小正周期反例图；修正元数据对最小正周期的无依据措辞。仅修改F022。",
+  "remarks": "2026-11-21：用高中及初中可懂的语言全面改写01–06；新增三种层次的证明、两类分式逐步通分、8道有答案的例题、差值型及负倒数辨析、定义域与最小正周期反例、两条对称轴带来周期的联系。原有7个TikZ图源保留；正文采用本轮独立新图。保留id=F022及isPro=1。；2026-11-21：新增18幅独立TikZ，原有7个图源保留不改；首页、6个证明分支、8道例题与9个易错点配图，补实际连续曲线、半开分段模型、分式迭代、定义域及最小周期反例。；新增教学GIF images/fraction_two_steps_return.gif，模型与分镜归本UID的manim；LOCAL PRODUCTION PASS，用户视觉及Android真机验收PENDING，未执行内容Publisher或Sync。",
   "knowledgeNode": "函数-性质-周期性-周期判定与对称性",
   "altNodes": "函数-图像-对称性"
 }

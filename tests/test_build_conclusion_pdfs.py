@@ -11,6 +11,72 @@ from unittest import mock
 from scripts import build_conclusion_pdfs as builder
 
 
+class BuildConclusionPdfsIdRangeTests(unittest.TestCase):
+    def test_range_includes_both_endpoints(self) -> None:
+        self.assertEqual(
+            builder.normalize_ids(["F017-F025"]),
+            [f"F{number:03d}" for number in range(17, 26)],
+        )
+
+    def test_mixed_ranges_and_ids_keep_order_without_duplicates(self) -> None:
+        self.assertEqual(
+            builder.normalize_ids(["f019,f017-f020", "C001-C002", "F020-F021"]),
+            ["F019", "F017", "F018", "F020", "C001", "C002", "F021"],
+        )
+
+    def test_equal_endpoints_and_zero_padding(self) -> None:
+        self.assertEqual(builder.normalize_ids(["F009-F010", "F010-F010"]), ["F009", "F010"])
+
+    def test_empty_and_single_ids_still_work(self) -> None:
+        self.assertEqual(builder.normalize_ids(None), [])
+        self.assertEqual(builder.normalize_ids([]), [])
+        self.assertEqual(builder.normalize_ids(["s001,I001", "S001"]), ["S001", "I001"])
+
+    def test_range_accepts_whitespace_around_separator(self) -> None:
+        self.assertEqual(builder.normalize_ids([" F017 - F018 "]), ["F017", "F018"])
+
+    def test_descending_range_is_rejected(self) -> None:
+        with self.assertRaisesRegex(ValueError, "Start must be less than or equal to end"):
+            builder.normalize_ids(["F025-F017"])
+
+    def test_cross_prefix_range_is_rejected(self) -> None:
+        with self.assertRaisesRegex(ValueError, "same prefix"):
+            builder.normalize_ids(["F017-C025"])
+
+    def test_malformed_ranges_are_rejected(self) -> None:
+        for value in ["F17-F25", "F017-025", "F017-", "F017-F025-F030", "F017_F025"]:
+            with self.subTest(value=value), self.assertRaisesRegex(ValueError, "Expected an ID"):
+                builder.normalize_ids([value])
+
+    def test_cli_range_selects_only_requested_ids_without_building_in_dry_run(self) -> None:
+        items = [
+            builder.ConclusionItem("01_function", f"F{n:03d}_test", Path(f"01_function/F{n:03d}_test"), f"F{n:03d}")
+            for n in range(16, 27)
+        ]
+        for id_args in [["F017-F025"], ["--ids", "F017-F025"]]:
+            with self.subTest(id_args=id_args):
+                output = io.StringIO()
+                with mock.patch("sys.argv", [
+                    "build_conclusion_pdfs.py", "--output-to-conclusion-pdfs",
+                    "--overwrite", "--dry-run", *id_args,
+                ]), mock.patch.object(
+                    builder, "resolve_modules", return_value=(["01_function"], "test")
+                ), mock.patch.object(
+                    builder, "discover_conclusions", return_value=items
+                ), mock.patch.object(builder, "compile_one") as compile_one, mock.patch.object(
+                    builder, "write_json"
+                ) as write_json, redirect_stdout(output):
+                    self.assertEqual(builder.main(), 0)
+                text = output.getvalue()
+                self.assertIn("Selected conclusions: 9", text)
+                self.assertIn("F017:", text)
+                self.assertIn("F025:", text)
+                self.assertNotIn("F016:", text)
+                self.assertNotIn("F026:", text)
+                compile_one.assert_not_called()
+                write_json.assert_not_called()
+
+
 class BuildConclusionPdfsOutputTests(unittest.TestCase):
     def test_default_cli_keeps_central_output(self) -> None:
         with mock.patch("sys.argv", ["build_conclusion_pdfs.py", "S001"]):

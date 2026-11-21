@@ -1,48 +1,98 @@
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{\textcolor{CProof}{方法一：最容易懂——数字接龙（理解为什么）}}
+\input{assets/tikz/F025_value_transform}
 
-	从已知条件出发，将自变量增加$a$一次得到倒数关系，再次增加$a$时倒数相消，还原为原函数值，从而周期为$2a$。对负倒数情况同理。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（列出条件）：}] 设对任意$x$，有$f(x+a)=\dfrac{1}{f(x)}$，且$f(x)\neq 0$。
-			\par\textbf{理由：} 这是题目给出的正倒数条件。
+先把$f(x)$暂时看作一个不知道的、但不是$0$的数，记作$y$。已知每向右走$a$，值就按同一个规则改变：
+\[
+\begin{array}{c|ccc}
+ \text{所在位置}&x&x+a&x+2a\\ \hline
+ k=1&y&\frac1y&\frac1{1/y}=y\\[0.4em]
+ k=-1&y&-\frac1y&-\frac1{-1/y}=y\\[0.4em]
+ \text{一般}\ k\ne0&y&\frac{k}{y}&\frac{k}{k/y}=y
+\end{array}
+\]
+两次之后，无论最开始的$y$具体是多少，都能回到$y$。所以相距$2a$的两个位置，函数值总相等。若$a<0$，改用正的长度$2|a|$描述周期即可。
 
-		\item[\textbf{步骤二（平移迭代）：}] 将$x$换成$x+a$，得
-			\[
-				f(x+2a)=\frac{1}{f(x+a)}.
-			\]
-			\par\textbf{理由：} 条件对任意自变量成立，所以替换$x$为$x+a$仍成立。
+\textbf{这一步解决的疑问：}为什么不是“一走$a$就重复”？因为走第一步通常变成另外一个值，走完第二步才回来。
 
-		\item[\textbf{步骤三（代入化简）：}] 将步骤一中的$f(x+a)=\frac{1}{f(x)}$代入步骤二，得
-			\[
-				\begin{aligned}
-					f(x+2a) &= \frac{1}{\frac{1}{f(x)}} \\
-					&= f(x).
-			\end{aligned}
-			\]
-			\par\textbf{理由：} $\frac{1}{\frac{1}{f(x)}}=f(x)$，因为$f(x)\neq 0$保证了分母非零。
+\medskip
 
-		\item[\textbf{步骤四（导出周期）：}] 由$f(x+2a)=f(x)$可知，$T=2a$是$f(x)$的一个周期。
-			\par\textbf{理由：} 周期函数的定义：存在非零常数$T$使$f(x+T)=f(x)$恒成立。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法二：最标准——换一次$x$，连代两次（考试首选）}}
+\input{assets/tikz/F025_core_reciprocal}
 
-		\item[\textbf{步骤五（负倒数验证）：}] 若条件为$f(x+a)=-\dfrac{1}{f(x)}$，同样步骤得
-			\[
-				\begin{aligned}
-					f(x+2a) &= -\frac{1}{f(x+a)} \\
-					&= -\frac{1}{-\frac{1}{f(x)}} \\
-					&= f(x).
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 两次取负倒数相互抵消，$-\frac{1}{-\frac{1}{f(x)}}=f(x)$。
 
-		\item[\textbf{步骤六（综合结论）：}] 无论条件为$f(x+a)=\frac{1}{f(x)}$还是$f(x+a)=-\frac{1}{f(x)}$，都有$T=2a$为周期。
-			\par\textbf{理由：} 证明一致。
-	\end{description}
+先证更一般的情况。设
+\[
+ f(x+a)=\frac{k}{f(x)},\qquad k\ne0,\ f(x)\ne0.
+\]
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.55em]
+\item[\textbf{第1步：把$x$换成$x+a$。}] 既然原关系对所有$x$成立，它对$x+a$当然也成立，所以
+\[
+ f((x+a)+a)=\frac{k}{f(x+a)},\quad
+ \text{即}\quad f(x+2a)=\frac{k}{f(x+a)}.
+\]
+\item[\textbf{第2步：把已知的$f(x+a)$填回去。}]
+\[
+ f(x+2a)=\frac{k}{\dfrac{k}{f(x)}}
+ =k\cdot\frac{f(x)}{k}=f(x).
+\]
+这里能约去$k$，正是因为题目要求$k\ne0$。
+\item[\textbf{第3步：把等式翻译成周期。}]
+无论$x$取什么数，都有$f(x+2a)=f(x)$，因此$2|a|$是函数的一个正周期。
+\end{description}
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
+如果题目只给\(f(x+a)=-1/f(x)\)，也能逐行写：
+\[
+\begin{aligned}
+ f(x+2a)&=-\frac1{f(x+a)}\\
+ &=-\frac1{-1/f(x)}\\
+ &=f(x).
+\end{aligned}
+\]
 
-	\textbf{综上，只要函数$f(x)$满足条件$f(x+a)=\frac{1}{f(x)}$或$f(x+a)=-\frac{1}{f(x)}$（$a\neq 0$，$f(x)\neq 0$），则$f(x)$是周期函数，$T=2a$是它的一个周期。}
+\medskip
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法三：步骤最少——两次乘积相等（速答首选）}}
+\input{assets/tikz/F025_common_factor_area}
+
+
+由$f(x+a)=k/f(x)$，两边乘以$f(x)$得到
+\[
+\underbrace{f(x)f(x+a)}_{\text{第1个乘积}}=k.
+\tag{1}
+\]
+把$x$换成$x+a$，又得到
+\[
+\underbrace{f(x+a)f(x+2a)}_{\text{第2个乘积}}=k.
+\tag{2}
+\]
+因此
+\[
+ f(x)f(x+a)=f(x+a)f(x+2a).
+\]
+因为$f(x+a)\ne0$，两边同时除以它：
+\[
+\boxed{f(x)=f(x+2a)}.
+\]
+\textbf{这一招的妙处：}两个乘积都等于$k$，还都有同一个因子$f(x+a)$，一消就结束；几乎不需要处理“分式套分式”。
+
+\medskip
+\end{proofbox}\clearpage\begin{proofbox}\textbf{\textcolor{CProof}{补充：为什么负的$a$也能写出正周期？}}
+\input{assets/tikz/F025_negative_shift}
+
+
+例如$a=-2$，上面证明的是$f(x-4)=f(x)$。让等式中的$x$换成$x+4$，得到$f(x)=f(x+4)$。所以$4=2|a|$就是正周期。写“周期$T=-4$”不符合“正周期”的通常说法。
+
+\medskip
+\textbf{\textcolor{CProof}{最后要分清证明到哪一步}}
+
+三种方法都证明了\(f(x+2a)=f(x)\)，所以证明的是\textbf{$2|a|$是一个周期}，\textbf{没有证明它一定最小}。要求最小正周期时，还必须利用其他信息排除更小的正周期。
 \end{proofbox}

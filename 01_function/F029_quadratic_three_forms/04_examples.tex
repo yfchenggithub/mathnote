@@ -1,64 +1,156 @@
+\clearpage
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例 1（基础）}}
-	\textbf{\textcolor{CExample}{题目：}}
-	已知二次函数 $f(x)=2x^2-4x+1$，求顶点坐标、对称轴方程，并判断 $\Delta$ 符号及零点情况。
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（识别系数）：}]
-			$a=2,b=-4,c=1$。
-			\par\textbf{理由：} 从一般式读出系数。
-		\item[\textbf{第二步（计算顶点）：}]
-			$h=-\frac{b}{2a}=1$，$k=\frac{4ac-b^2}{4a}=\frac{8-16}{8}=-1$。
-			\par\textbf{理由：} 代入顶点坐标公式。
-		\item[\textbf{第三步（判别与零点）：}]
-			$\Delta=b^2-4ac=16-8=8>0$，零点 $x=\frac{4\pm\sqrt{8}}{4}=1\pm\frac{\sqrt{2}}{2}$。
-			\par\textbf{理由：} 判别式为正值表明有两个不同实零点，直接代入求根公式。
-	\end{description}
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{顶点坐标 $(1,-1)$，对称轴 $x=1$，$\Delta=8>0$，零点 $x=1\pm\frac{\sqrt{2}}{2}$。}
+\textbf{\textcolor{CExample}{例1｜一般式已知：配方比背公式更不容易错}}
+\input{assets/tikz/F029_example_one}
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 2（稍变形）}}
-	\textbf{\textcolor{CExample}{题目：}}
-	已知二次函数的图象与 $x$ 轴交于 $(1,0)$、$(3,0)$，且过点 $(2,-1)$，求解析式。
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（设两根式）：}]
-			设 $f(x)=a(x-1)(x-3)$。
-			\par\textbf{理由：} 与 $x$ 轴交点已知，设两根式。
-		\item[\textbf{第二步（代入求 $a$）：}]
-			将 $(2,-1)$ 代入得 $-1=a(2-1)(2-3)=a\cdot1\cdot(-1)$，$a=1$。
-			\par\textbf{理由：} 代入解得 $a$。
-		\item[\textbf{第三步（展开得一般式）：}]
-			$f(x)=(x-1)(x-3)=x^2-4x+3$。
-			\par\textbf{理由：} 展开即得一般式，也可保留两根式。
-	\end{description}
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$f(x)=x^2-4x+3$。}
+\textbf{题目：}已知 $f(x)=2x^2-4x+1$，求顶点、对称轴、最小值及与 $x$ 轴的交点。
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 3（综合应用）}}
-	\textbf{\textcolor{CExample}{题目：}}
-	已知二次函数 $f(x)$ 满足 $f(1)=0$，$f(3)=0$，且最大值为 $2$，求解析式。
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（设两根式）：}]
-			由零点设 $f(x)=a(x-1)(x-3)$。
-			\par\textbf{理由：} 根为 $1$ 和 $3$，可设两根式。
-		\item[\textbf{第二步（对称轴与最值）：}]
-			对称轴 $x=\frac{1+3}{2}=2$，最大值 $f(2)=2$。
-			\par\textbf{理由：} 二次函数对称轴为两根中点，且 $a<0$ 才有最大值。
-		\item[\textbf{第三步（代入求 $a$）：}]
-			$f(2)=a(2-1)(2-3)=a\cdot1\cdot(-1)=-a=2$，得 $a=-2$。
-			\par\textbf{理由：} 代入顶点值，解出 $a$。
-		\item[\textbf{第四步（展开得一般式）：}]
-			\[
-				\begin{aligned}
-					f(x) &= -2(x-1)(x-3) \\ &= -2(x^2-4x+3) \\ &= -2x^2+8x-6.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 展开得一般表达式。
-	\end{description}
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$f(x)=-2x^2+8x-6$。}
+\textbf{解：}先把前两项凑成平方：
+\[
+\begin{aligned}
+f(x)&=2(x^2-2x)+1\\
+&=2\bigl[(x-1)^2-1\bigr]+1\\
+&=2(x-1)^2-1.
+\end{aligned}
+\]
+因为平方不能为负且 $2>0$，所以顶点是 $(1,-1)$，对称轴是 $x=1$，最小值是 $-1$。
+令 $f(x)=0$，得
+\[
+2(x-1)^2=1,\quad (x-1)^2=\frac12,
+\quad x=1\pm\frac{\sqrt2}{2}.
+\]
+\textbf{答案：}两个交点为 $\left(1-\frac{\sqrt2}{2},0\right)$、$\left(1+\frac{\sqrt2}{2},0\right)$。
+\textbf{反查：}$\Delta=(-4)^2-4\cdot2\cdot1=8>0$，确实是两个不同交点。
+
+\medskip
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例2｜两个交点已知：两根式只剩一个未知数}}
+\input{assets/tikz/F029_three_forms}
+
+\textbf{题目：}图象经过 $(1,0)$、$(3,0)$、$(2,-1)$，求解析式。
+
+\textbf{解：}前两个点的纵坐标都是 $0$，直接设
+\[
+y=a(x-1)(x-3).
+\]
+第三个点给出 $-1=a(2-1)(2-3)=-a$，所以 $a=1$。
+于是
+\[
+\boxed{y=(x-1)(x-3)=x^2-4x+3=(x-2)^2-1.}
+\]
+\textbf{为什么快？}若从 $ax^2+bx+c$ 出发，需要求三个系数；从交点出发只需求 $a$。
+
+\medskip
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例3｜给两个零点和最大值：先找中点}}
+\input{assets/tikz/F029_example_three}
+
+\textbf{题目：}$f(1)=f(3)=0$，最大值为 $2$，求解析式。
+
+\textbf{解：}先设 $f(x)=a(x-1)(x-3)$。两个交点的中点是 $x=2$，所以最高点出现在 $x=2$。
+\[
+f(2)=a(2-1)(2-3)=-a=2
+\quad\Longrightarrow\quad a=-2.
+\]
+故
+\[
+\boxed{f(x)=-2(x-1)(x-3)=-2(x-2)^2+2.}
+\]
+$a=-2<0$，开口确实向下，与“最大值”一致。
+
+\medskip
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例4｜顶点已知：顶点式直接用，不必列三元方程}}
+\input{assets/tikz/F029_example_four}
+
+\textbf{题目：}顶点是 $(-1,2)$，图象经过 $(1,-6)$，求解析式和两个交点。
+
+\textbf{解：}直接设
+\[
+y=a(x+1)^2+2.
+\]
+代入 $(1,-6)$：$-6=4a+2$，所以 $a=-2$。
+\[
+\begin{aligned}
+y&=-2(x+1)^2+2\\
+&=-2\bigl[(x+1)^2-1\bigr]\\
+&=-2x(x+2).
+\end{aligned}
+\]
+\textbf{答案：}$y=-2x(x+2)$，交点为 $(0,0)$ 和 $(-2,0)$；它们的中点横坐标是 $-1$，恰好与已知对称轴相符。
+
+\medskip
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例5｜没有实数交点：不要硬拆成两根式}}
+\input{assets/tikz/F029_example_five}
+
+\textbf{题目：}二次函数 $y=2x^2-4x+5$ 能否写成 $a(x-x_1)(x-x_2)$，其中 $x_1,x_2$ 都是实数？
+
+\textbf{解：}
+\[
+y=2(x-1)^2+3\ge3>0.
+\]
+不管 $x$ 取什么实数，都不可能有 $y=0$，所以图象不与 $x$ 轴相交，也就没有实数 $x_1,x_2$。
+\textbf{反查：}$\Delta=16-40=-24<0$。
+
+\medskip
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例6｜给出两个同高度的点：不用知道高度也能求对称轴}}
+\input{assets/tikz/F029_equal_height}
+
+\textbf{题目：}已知二次函数满足 $f(1)=f(5)$，求对称轴。
+
+\textbf{想法：}一条抛物线上两个不同横坐标的点，若纵坐标相等，就位于对称轴两侧，距离一样远。
+
+\textbf{解：}两点横坐标的中点是
+\[
+\boxed{x=\frac{1+5}{2}=3.}
+\]
+\textbf{再用式子核实：}写成 $f(x)=a(x-h)^2+k$，代入得到
+\[
+a(1-h)^2+k=a(5-h)^2+k.
+\]
+因为 $a\ne0$，所以 $(1-h)^2=(5-h)^2$。若两边括号相等，则会得到 $1=5$，不可能；因此只能是
+$1-h=-(5-h)$，解得 $h=3$。
+\textbf{提醒：}这只是确定对称轴，还\textbf{不能}确定完整的二次函数。
+
+\medskip
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例7｜高考常见的含参数题：把“几个交点”变成“顶点高低”}}
+\input{assets/tikz/F029_parameter_intersections}
+
+\textbf{题目：}讨论 $y=x^2-2(m+1)x+m^2-1$ 与 $x$ 轴的交点个数（$m$ 为实数）。
+
+\textbf{解法一：}先配方：
+\[
+\begin{aligned}
+y&=\bigl[x-(m+1)\bigr]^2-2(m+1).
+\end{aligned}
+\]
+开口向上，最低点的纵坐标是 $-2(m+1)$。
+因此：$m>-1$ 时最低点低于 $x$ 轴，有两个交点；$m=-1$ 时最低点就在 $x$ 轴上，只有一个交点；$m<-1$ 时最低点高于 $x$ 轴，没有交点。
+
+\textbf{解法二：}直接算
+\[
+\Delta=\bigl[-2(m+1)\bigr]^2-4(m^2-1)=8(m+1).
+\]
+两种方法得到同一判断。\textbf{体会：}$\Delta=-4ak$ 让“判别式”和“图象位置”真正连起来。
 \end{examplebox}

@@ -1,21 +1,107 @@
+\clearpage
 \begin{trapbox}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（混淆开口方向）}}] 无论二次项系数 $a$ 是正还是负，一律认为顶点是最小值。
-		\item[\textbf{\textcolor{CTrap}{正确理解（区分最值类型）}}] 当 $a>0$ 时，顶点是最小值；当 $a<0$ 时，顶点是最大值。
-		\item[\textbf{\textcolor{CTrap}{错因分析（开口决定）}}] 开口向上时抛物线有最低点，开口向下时有最高点；忽略了 $a$ 的符号对最值类型的决定作用。
-	\end{description}
+\textbf{\textcolor{CTrap}{易错一｜看到顶点值就直接当成区间最值}}
+\input{assets/tikz/F030_outside_vertex}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（对称轴位置误判）}}] 未核实对称轴是否落在区间 $[m,n]$ 内，想当然认为顶点值一定在区间内可取得。
-		\item[\textbf{\textcolor{CTrap}{正确理解（必须比较）}}] 必须计算 $x_0=-\frac{b}{2a}$ 并检查是否满足 $m\leq x_0\leq n$，只有满足时顶点才参与最值。
-		\item[\textbf{\textcolor{CTrap}{错因分析（条件遗漏）}}] 顶点是最值候选之一，但前提是顶点在区间内；不在区间内时最值完全取决于端点。
-	\end{description}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（端点值遗漏）}}] 求最值时只计算了一个端点的函数值，或忘记比较两个端点。
-		\item[\textbf{\textcolor{CTrap}{正确理解（两端点皆需比较）}}] 无论对称轴是否在区间内，两个端点值 $f(m),f(n)$ 都必须计算并比较，以确定最值。
-		\item[\textbf{\textcolor{CTrap}{错因分析（单调性认识不清）}}] 对单调性判断不准确，误以为最值只出现在某一点；实际端点值至少有一个是最值。
-	\end{description}
+\textbf{错误想法：} $f(x)=(x-2)^2+1$ 的最小值是 $1$，所以在 $[3,4]$ 上也最小为 $1$。
+
+\textbf{为什么错：} 取到 $1$ 必须让 $x=2$，但 $2\notin[3,4]$。
+
+\textbf{正确做法：} 只在允许范围内找，最小值是 $f(3)=2$。
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错二｜开口向下还套“远的更大”}}
+\input{assets/tikz/F030_example_three}
+
+
+\textbf{反例：} $f(x)=-(x-1)^2+4$，在 $[0,3]$ 上，离 $1$ 最远的端点 $3$ 取得的是\textbf{最小值 $0$}，不是最大值。
+
+\textbf{正确做法：} 先看 $a$ 的正负：$a>0$ 近小远大；$a<0$ 近大远小。
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错三｜顶点在区间内，却以为两端点同高}}
+\input{assets/tikz/F030_unequal_endpoints}
+
+
+\textbf{反例：} $f(x)=(x-1)^2$，$x\in[0,4]$，对称轴在区间内，但 $f(0)=1$、$f(4)=9$ 并不相等。
+
+\textbf{正确做法：} 只有对称轴\textbf{正好在区间中点}时，两端才同高：
+\[
+ f(m)=f(n)\Longleftrightarrow h=\frac{m+n}{2}\quad(a\ne0,\ m<n).
+\]
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错四｜以为求最值一定得算出三个候选点}}
+\input{assets/tikz/F030_midpoint_distance}
+
+
+\textbf{问题：} 许多题先算 $f(m),f(n),f(h)$，既费时间又可能把区间外的 $h$ 算进去。
+
+\textbf{更快：} 先画数轴判断最近、最远；只代入\textbf{真正决定最值的两个位置}。区间中点还可以直接判断哪个端点更远。
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错五｜忘记区间是否包含端点}}
+\input{assets/tikz/F030_open_closed}
+
+
+\textbf{对比：}
+\begin{itemize}[leftmargin=*,itemsep=0.2em]
+\item $f(x)=x^2$，$x\in[0,1]$：最小值 $0$，最大值 $1$，都能取到。
+\item $f(x)=x^2$，$x\in[0,1)$：最小值仍为 $0$；$x$ 能越来越靠近 $1$，但不能等于 $1$，因此\textbf{没有最大值}。
+\end{itemize}
+\textbf{正确做法：} 本结论针对\textbf{闭区间}。看见 $($ 或 $)$，要重新确认边界值到底能不能取到。
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错六｜把 $h=m$ 或 $h=n$ 当成“顶点在区间外”}}
+\input{assets/tikz/F030_axis_at_endpoint}
+
+
+\textbf{正确做法：} 闭区间包含端点，$m\le h\le n$ 包括等号。顶点恰好落在端点时，顶点值仍可以取到。
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错七｜含参数时没有检查区间是否合法}}
+\input{assets/tikz/F030_interval_validity}
+
+
+\textbf{例：} 写成 $[0,m]$，通常需要 $m\ge0$；如果题目明确是两个不同端点构成的区间，就要 $m>0$。不能一边说 $m<0$，一边仍把 $[0,m]$ 当成从左到右的普通区间来使用。
+
+\textbf{正确做法：} 先确定参数允许的范围，再谈顶点、区间中点和两端点。
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错八｜看错“远近”与“左右”}}
+\input{assets/tikz/F030_midpoint_distance}
+
+
+\textbf{错误想法：} 右端点一定更远，或者图像最右边一定最高。
+
+\textbf{正确做法：} 离对称轴更远，不一定更靠右。例如 $h=6$、区间 $[0,8]$，左端点距离为 $6$，右端点距离为 $2$，左端才更远。
 \end{trapbox}

@@ -1,21 +1,98 @@
+\clearpage
 \begin{trapbox}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（忽略轴距非零）}}] 忽视条件 $a\neq b$，当 $a=b$ 时错误使用公式 $T=2|a-b|$ 得到 $T=0$。
-		\item[\textbf{\textcolor{CTrap}{正确理解（轴距必须非零）：}}] 只有两个不同的对称轴或中心才产生周期；若 $a=b$，则两个对称性重合，函数不一定是周期函数（或周期为任意正数的常数）。
-		\item[\textbf{\textcolor{CTrap}{错因分析（遗忘前提）：}}] 记忆公式时只记住了 $T=2|a-b|$ 和 $T=4|a-b|$，忽略了 $a\neq b$ 的基本前提。
-	\end{description}
+\textbf{\textcolor{CTrap}{易错 1：把“一个周期”说成“最小正周期”}}
+\input{assets/tikz/F026_not_minimal}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（混淆周期倍率）}}] 把轴点对称的周期错用为 $2|a-b|$，如 $T=2|a-b|$。
-		\item[\textbf{\textcolor{CTrap}{正确理解（分型记忆）：}}] 同型对称（轴轴或点点）周期 $T=2|a-b|$，异型对称（轴点）周期 $T=4|a-b|$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（归因混淆）：}}] 没有理解两种对称复合的代数差异，只记忆了一个倍数。
-	\end{description}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（中心纵坐标不同）}}] 在中心对称条件中，两个对称中心的纵坐标 $c$ 不同仍按公式计算。
-		\item[\textbf{\textcolor{CTrap}{正确理解（纵坐标需一致）：}}] 只有当 $f(a+x)+f(a-x)=2c$ 和 $f(b+x)+f(b-x)=2c$ 中的常数 $c$ 相同时，才能推出周期。若 $c$ 不同，则不能直接使用公式。
-		\item[\textbf{\textcolor{CTrap}{错因分析（条件误读）：}}] 只看形式都是 $f(b+x)+f(b-x)$，忽略了常数 $c$ 必须相等才能建立 $f(2a-x)=f(2b-x)$。
-	\end{description}
+\textbf{错误：}“有两个对称轴且间距为 $2$，所以最小正周期一定是 $4$。”
+
+\textbf{正确：}只能确定\textbf{$4$ 是一个周期}，最小正周期可能更小。见例 6：$\cos(3\pi x/2)$ 的最小正周期为 $4/3$，但 $4$ 同样是周期。
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错 2：两处都是中心，就直接用 $2d$}}
+\input{assets/tikz/F026_unequal_centers}
+
+
+必须检查两个中心的\textbf{高度相同}。若条件分别是
+\[
+\begin{aligned}
+ f(a+t)+f(a-t)&=2c_1,\\
+ f(b+t)+f(b-t)&=2c_2,
+\end{aligned}
+\]
+则重复前面的换元可得一个更一般的关系：
+\[
+\boxed{f\bigl(x+2(b-a)\bigr)=f(x)+2(c_2-c_1).}
+\]
+
+只有 $c_1=c_2$ 才直接得到周期。\textbf{眼前一亮的理解：}两个中心若一高一低，图像每向右挪一段，可能也同时向上或向下挪，成为斜着重复，而不是原高度重复。例如 $f(x)=x$。
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错 3：轴点组合刚移动 $2d$ 就断言是周期}}
+\input{assets/tikz/F026_mixed_height_three}
+
+
+轴点组合真正得到的是
+\[
+ f\bigl(x+2(b-a)\bigr)=2c-f(x),
+\]
+不一定等于 $f(x)$。必须再进行一次同样的移动，才有
+$f(x+4(b-a))=f(x)$。
+
+\textbf{特殊提醒：}如果碰巧 $f(x)\equiv c$ 是常数函数，那么 $2d$ 也能作为周期；但\textbf{一般情况下不能保证 $2d$ 是周期}。
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错 4：忽略 $a\neq b$}}
+\input{assets/tikz/F026_coincident_constant}
+
+
+$T$ 必须\textbf{大于 $0$}，不能把 $a=b$ 代进去写出 $T=0$。
+
+\textbf{特别情形：}若轴与中心刚好同在横坐标 $a$，既有 $f(2a-x)=f(x)$，又有 $f(2a-x)=2c-f(x)$，两式相减得 $f(x)=c$，整个函数只能是常数函数；这与通常的轴点公式前提不同。
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错 5：对称中心不是“关于 $x=b$ 的轴”}}
+\input{assets/tikz/F026_axis_center_difference}
+
+
+$ f(b+t)+f(b-t)=2c $ 表示\textbf{关于点 $(b,c)$ 对称}，左右两个函数值\textbf{相加为 $2c$}，不一定彼此相等。
+只有 $f(b+t)=f(b-t)$ 才表示关于直线 $x=b$ 对称。
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错 6：只在几处取值相同就说函数周期}}
+\input{assets/tikz/F026_one_pair_failure}
+
+
+例如发现 $f(0)=f(4)$，并不能推断 $4$ 为周期。必须证明\textbf{对任意实数 $x$}，$f(x+4)=f(x)$ 都成立。
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错 7：忘记定义范围}}
+\input{assets/tikz/F026_bounded_domain}
+
+
+本结论直接采用 $f$ 在整个实数范围有定义。若题目函数只在一部分 $x$ 上有定义，应先检查平移 $T$ 后是否还在定义域内，不能机械套用。
 \end{trapbox}

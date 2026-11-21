@@ -2,14 +2,16 @@
   "id": "F023",
   "module": "function",
   "core": {
-    "title": "函数周期判定： 则",
+    "title": "函数周期判定：f(x+a)=f(x-a) 为什么得到 2|a|",
     "alias": [
       "周期判定",
       "抽象函数周期",
       "周期函数条件",
-      "f(x+a)=f(x-a)周期"
+      "f(x+a)=f(x-a)周期",
+      "左右平移相等求周期",
+      "两个输入差求周期"
     ],
-    "summary": "若函数满足自变量加减同一常数后函数值相等，则周期为两倍该常数。",
+    "summary": "定义在实数集上的函数若对所有 x 满足 f(x+a)=f(x-a)（a≠0），则 2|a| 是一个正周期；不一定是最小正周期。",
     "difficulty": 2,
     "category": "函数",
     "tags": [
@@ -34,7 +36,11 @@
       "函数对称性周期",
       "周期函数性质",
       "周期应用",
-      "周期例题"
+      "周期例题",
+      "正周期",
+      "不一定最小正周期",
+      "f(x+p)=f(x+q)",
+      "两条对称轴推出周期"
     ],
     "synonyms": [
       "周期函数f(x+a)=f(x-a)",
@@ -43,7 +49,10 @@
       "抽象函数周期公式",
       "函数周期怎么求",
       "周期函数判断",
-      "周期函数f(x+2a)=f(x)"
+      "周期函数f(x+2a)=f(x)",
+      "周期是2倍a的绝对值",
+      "两个自变量的差为周期",
+      "f(x+a)=f(x-a)最小正周期"
     ],
     "intents": [
       "求周期",
@@ -69,7 +78,10 @@
     ],
     "latex_patterns": [
       "f(x+a)=f(x-a)",
-      "f(x+2a)=f(x)"
+      "f(x+2a)=f(x)",
+      "f(x+p)=f(x+q)",
+      "T=2|a|",
+      "T=|p-q|"
     ],
     "formulaTokens": [
       "f(x+a)",
@@ -78,7 +90,11 @@
       "f(x)",
       "x+a",
       "x-a",
-      "2a"
+      "2a",
+      "2|a|",
+      "|p-q|",
+      "f(x+p)",
+      "f(x+q)"
     ],
     "pinyin": "han shu zhou qi pan ding f x a deng yu f x jian a ze zhou qi wei er a",
     "pinyinAbbr": "hszqpd"
@@ -96,31 +112,36 @@
     "success_rate": 0.0
   },
   "math": {
-    "core_formula": "f(x+2a)=f(x)",
+    "core_formula": "f(x+2a)=f(x),\\quad T=2|a|\\text{ 是一个正周期}",
     "related_formulas": [
-      "f(x+2ka)=f(x),\\quad k\\in\\mathbb{Z}"
+      "f(x+2ka)=f(x),\\quad k\\in\\mathbb{Z}",
+      "f(x+p)=f(x+q)\\Rightarrow T=|p-q|\\;(p\\ne q)",
+      "f(2p-x)=f(x),\\;f(2q-x)=f(x)\\Rightarrow T=2|p-q|"
     ],
     "variables": {
       "x": "自变量",
       "a": "非零常数",
-      "T": "周期"
+      "T": "一个正周期（不一定是最小正周期）"
     },
-    "conditions": "$f(x+a)=f(x-a)$对任意$x$成立，且$a\\neq 0$。",
-    "conclusions": "$f(x)$是周期函数，周期$T=2a$，即$f(x+2a)=f(x)$。"
+    "conditions": "$f$ 定义在 $\\mathbb R$；$a\\ne0$ 为常数；$f(x+a)=f(x-a)$ 对每一个实数 $x$ 都成立。",
+    "conclusions": "$f(x+2a)=f(x)$；$T=2|a|$ 是一个正周期，但不保证是最小正周期。"
   },
   "content": {
-    "statement": "若函数$f(x)$满足$f(x+a)=f(x-a)$对定义域内任意$x$成立，且$a\\neq 0$，则$f(x)$是周期函数，其周期$T=2a$。",
+    "statement": "若 $f$ 定义在 $\\mathbb R$ 上，$a\\ne0$，且 $f(x+a)=f(x-a)$ 对一切实数 $x$ 成立，则 $f(x+2a)=f(x)$，因此 $2|a|$ 是一个正周期（未必最小）。",
     "derivation": [
-      "将$x$替换为$x+a$，得$f(x+2a)=f((x+a)-a)=f(x)$。",
-      "因此$f(x+2a)=f(x)$对所有$x$成立。",
-      "故$f(x)$是以$2a$为周期的周期函数。"
+      "对任意实数 $x$，题设给出 $f(x+a)=f(x-a)$。",
+      "把 $x$ 替换为 $x+a$，得到 $f(x+2a)=f(x)$。",
+      "若 $a>0$，正周期取 $2a$；若 $a<0$，正周期取 $-2a$；统一为 $2|a|$。",
+      "仅凭题设不能保证 $2|a|$ 是最小正周期。"
     ],
-    "intuition": "自变量增加$2a$后，通过条件式的中介，函数值回到原值。",
+    "intuition": "先用 1、5、9 这样的数轴点观察相差 4 的相同函数值，再推广到任意位置；比较两个函数输入的距离，不是只看各自加减了多少。",
     "common_tricks": [
-      "识别条件形式直接得周期$2a$",
-      "利用周期将大自变量转化到已知区间",
-      "注意$a$非零",
-      "周期可延伸为任意整数倍"
+      "直接用两个函数输入的差得到一个正周期",
+      "变量替换得到 f(x+2a)=f(x)",
+      "周期求值：大数减去周期的整数倍",
+      "遇到负数 a 时，写正周期 2|a|",
+      "不要擅自认定最小正周期",
+      "两条不同的竖直对称轴给出两倍轴距的一个正周期"
     ]
   },
   "usage": {
@@ -138,33 +159,55 @@
     "exam_score": 6
   },
   "interactive": {
-    "has_diagram": false,
+    "has_diagram": true,
     "geogebra_id": "",
     "param_demo": {}
   },
   "assets": {
-    "svg": "F023.svg"
+    "svg": "F023.svg",
+    "tikz": [
+      "assets/tikz/F023_core_curve.tex",
+      "assets/tikz/F023_input_positions.tex",
+      "assets/tikz/F023_two_axes.tex",
+      "assets/tikz/F023_example_twelve.tex",
+      "assets/tikz/F023_example_three_values.tex",
+      "assets/tikz/F023_periodic_square.tex",
+      "assets/tikz/F023_general_gap.tex",
+      "assets/tikz/F023_negative_a.tex",
+      "assets/tikz/F023_not_minimal.tex",
+      "assets/tikz/F023_one_pair_failure.tex",
+      "assets/tikz/F023_bounded_domain.tex",
+      "assets/tikz/F023_axis_vs_period.tex"
+    ],
+    "other": {
+      "gif": "images/moving_midpoint_equal_values.gif"
+    }
   },
   "shareConfig": {
-    "title": "抽象函数周期：左右等值先算输入差",
-    "shareDesc": "已知f(x+a)与f(x-a)相等，周期为何不是a？把自变量整体平移一次，就能写成间隔2a的函数值相等；在条件对全域成立且a非零时得到一个正周期，避免少算一倍。"
+    "title": "F023｜左右等值，周期为什么是两倍？",
+    "shareDesc": "f(x+a)=f(x-a) 比较的两个输入相距 2|a|；代入 x+a 就得到 f(x+2a)=f(x)。正周期 2|a| 不一定最小；附数轴图、函数图像、三种证明和典型高考题。"
   },
   "relations": {
     "prerequisites": [
       "周期函数定义",
       "变量代换法"
     ],
-    "related_ids": ["F022", "F024", "F025", "F028"],
-    "similar": "若$f(x+a)=f(x)$则周期为$a$；若$f(x+a)=f(x+b)$则周期为$|a-b|$"
+    "related_ids": [
+      "F022",
+      "F024",
+      "F025",
+      "F028"
+    ],
+    "similar": "f(x+p)=f(x+q) 给出正周期 |p-q|（p≠q）；图像关于两条不同竖直直线 x=p、x=q 都对称，则有正周期 2|p-q|。"
   },
   "meta": {
-    "version": 1,
+    "version": 2,
     "source": "AI生成",
     "created_at": "2026-06-26",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-11-21"
   },
   "isPro": 1,
-  "remarks": "",
+  "remarks": "2026-11-21 修订：严格区分一个正周期与最小正周期、统一负 a 的正周期表达、限定全实数定义域；补充数轴及周期曲线图、三种证明与例题、两对称轴推周期。；2026-11-21：新增12幅独立TikZ并替换原内嵌图，覆盖首页、3种证明与2个补充证明、7道例题及7个易错点；逐题核对步长和初值，突出输入之差、基本区间延拓及固定/移动中点的区别。；新增教学GIF images/moving_midpoint_equal_values.gif，模型与分镜归本UID的manim；LOCAL PRODUCTION PASS，用户视觉及Android真机验收PENDING，未执行内容Publisher或Sync。",
   "knowledgeNode": "函数-性质-周期性-周期判定与对称性",
   "altNodes": [
     "函数-图像-对称性"

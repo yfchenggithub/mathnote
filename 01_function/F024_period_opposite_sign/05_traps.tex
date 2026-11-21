@@ -1,28 +1,55 @@
+\clearpage
 \begin{trapbox}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（周期误判）}}] 认为 $T=a$ 是周期，因为看到 $f(x+a)=-f(x)$ 就类比 $f(x+a)=f(x)$。
-		\item[\textbf{\textcolor{CTrap}{正确理解（周期为2a）：}}] 必须满足 $f(x+T)=f(x)$；由条件可得 $f(x+2a)=f(x)$，故 $T=2a$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（忽略负号）：}}] 忽略了负号的影响，直接套用了正号条件下的结论。
-	\end{description}
+\textbf{易错 1｜把“加 $a$ 变号”误当“加 $a$ 不变”}
+\input{assets/tikz/F024_core_opposite}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（定义域要求）}}] 认为只要有一个 $x$ 满足 $f(x+a)=-f(x)$ 就能得出周期。
-		\item[\textbf{\textcolor{CTrap}{正确理解（全局成立）：}}] 条件必须对定义域内全体 $x$ 恒成立，且 $a\neq0$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（条件不完整）：}}] 周期定义要求对任意 $x$，否则不能保证周期性重复。
-	\end{description}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（符号错误）}}] 在推导中写 $f(x+2a)=f(x+a+a)=f(x+a)-f(x+a)$ 等混乱。
-		\item[\textbf{\textcolor{CTrap}{正确理解（正确推导）：}}]
-			\[
-				\begin{aligned}
-					f(x+2a) &= f((x+a)+a) \\
-					&= -f(x+a) \\
-					&= f(x).
-			\end{aligned}
-			\] 。
-		\item[\textbf{\textcolor{CTrap}{错因分析（代入失误）：}}] 对 $f(x+a)$ 整体作为自变量不清晰，代入时产生符号错误。
-	\end{description}
+错误：$f(x+a)=-f(x)$，所以 $a$ 是周期。\\
+正确：加 $a$ 后函数值一般\textbf{不相等}，要再加一次，得到 $f(x+2a)=f(x)$。只有恒为零的特殊函数，$|a|$ 才也可能是周期。
+\input{assets/tikz/F024_zero_exception}
+
+
+\medskip
+\end{trapbox}\clearpage\begin{trapbox}\textbf{易错 2｜把“一个周期”写成“最小正周期”}
+\input{assets/tikz/F024_not_minimal}
+
+
+由题设只能保证 $2|a|$ \textbf{是一个正周期}。例如 $f(x)=\sin3x$ 与 $a=\pi$ 相配，最小正周期是 $2\pi/3$，而不是 $2\pi$。
+
+\medskip
+\end{trapbox}\clearpage\begin{trapbox}\textbf{易错 3｜从变号关系猜出一个不存在的对称中心（原稿重要修正）}
+\input{assets/tikz/F024_parity_extra}
+
+
+错误：$f(x+a)=-f(x)$，所以图像一定关于 $\bigl(\frac a2,0\bigr)$ 中心对称。\\
+\textbf{反例：}$f(x)=\sin x$、$a=\pi$，虽然 $\sin(x+\pi)=-\sin x$，但 $f(\pi/2)=1\ne0$。若图像真关于 $(\pi/2,0)$ 中心对称，取正中央横坐标时应有 $f(\pi/2)=0$，因此矛盾。\\
+\textbf{怎样才能说对称？}额外知道\textbf{偶函数}，才能推出上述对称中心；额外知道\textbf{奇函数}，则推出 $x=a/2$ 是对称轴。
+
+\medskip
+\end{trapbox}\clearpage\begin{trapbox}\textbf{易错 4｜只对某几个数字成立，就当成函数的周期}
+\input{assets/tikz/F024_one_pair_failure}
+
+
+周期要求对应的等式对\textbf{所有允许的 $x$} 都成立。只知道 $f(1+a)=-f(1)$，不能推断整个函数都是如此。若定义域不是全体实数，还必须保证 $x$ 和移动后的输入都处在定义域中；否则不能随意继续“加一次、再加一次”。
+
+\medskip
+\end{trapbox}\clearpage\begin{trapbox}\textbf{易错 5｜负数 $a$ 时写“正周期 $T=2a$”}
+\input{assets/tikz/F024_negative_shift}
+
+
+若 $a=-3$，推导出来的是 $f(x-6)=f(x)$，可以把两边的 $x$ 换成 $x+6$，得 $f(x+6)=f(x)$。\textbf{正周期应写 $6=2|a|$。}
+
+\medskip
+\end{trapbox}\clearpage\begin{trapbox}\textbf{易错 6｜例题在两个端点给出了冲突的数值}
+\input{assets/tikz/F024_half_open_extension}
+
+
+若条件为 $f(x+3)=-f(x)$，就必须有 $f(3)=-f(0)$。因此“在 $[0,3]$ 上 $f(x)=x$”不成立：前者给 $f(0)=0$、$f(3)=3$，后者却要求 $f(3)=0$。可将已知区间改成 $[0,3)$，再由关系补齐其他部分。
+
+\medskip
+\end{trapbox}\clearpage\begin{trapbox}\textbf{易错 7｜连续才有“过横轴”}
+\input{assets/tikz/F024_jump_no_zero}
+
+
+若 $a>0$ 且 $f$ 在 $[x,x+a]$ 上连续，两端数值相反，才可以说曲线至少会碰到一次 $x$ 轴。若图像可以突然跳开，即使两端一正一负，也未必在中间取到 $0$。不能偷偷漏掉“连续”。
 \end{trapbox}

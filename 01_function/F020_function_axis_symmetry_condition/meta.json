@@ -8,7 +8,7 @@
       "f(a+x)=f(a-x)对称条件",
       "轴对称判定"
     ],
-    "summary": "函数图象关于直线 x=a 对称当且仅当 f(a+x)=f(a-x) 对定义域内任意允许的 x 恒成立，且定义域关于 x=a 对称。",
+    "summary": "图象关于竖直直线 x=a 对称：定义域必须左右成对，且每一对离 a 等距离的输入，都有 f(a+t)=f(a-t)；等价地 f(x)=f(2a-x)。",
     "difficulty": 2,
     "category": "函数性质",
     "tags": [
@@ -33,7 +33,11 @@
       "对称性判断",
       "参数求解",
       "解析式求解",
-      "对称轴"
+      "对称轴",
+      "对称轴两侧等距离同高度",
+      "两横坐标和为2a",
+      "两条对称轴推出周期",
+      "平移后偶函数"
     ],
     "synonyms": [
       "对称轴公式",
@@ -55,7 +59,10 @@
       "函数f(x)=|x-2|的对称轴是什么？",
       "已知函数关于x=1对称求m",
       "利用对称性求函数在另一段的解析式",
-      "函数对称充要条件是什么"
+      "函数对称充要条件是什么",
+      "为什么f(a+t)=f(a-t)能判断对称？",
+      "两条对称轴为什么能推出周期？",
+      "f(t+1)=f(5-t)的对称轴是什么？"
     ],
     "ocrKeywords": [
       "对称",
@@ -98,22 +105,24 @@
       "f(x)=f(2a-x)"
     ],
     "variables": "a, x, f",
-    "conditions": "函数 $y=f(x)$ 的定义域 $D$ 关于直线 $x=a$ 对称，即对任意 $x$，若 $a+x\\in D$ 则 $a-x\\in D$。",
-    "conclusions": "函数 $y=f(x)$ 的图象关于直线 $x=a$ 对称。"
+    "conditions": "对任意 x∈D，都有 2a−x∈D（定义域关于 a 左右成对）；而且对应函数值相等。",
+    "conclusions": "函数 y=f(x) 的整个图象关于竖直直线 x=a 对称。"
   },
   "content": {
-    "statement": "设函数 $y=f(x)$ 的定义域 $D$ 关于直线 $x=a$ 对称，则其图象关于直线 $x=a$ 对称的充要条件是 $f(a+x)=f(a-x)$ 对定义域内任意允许的偏移量 $x$ 恒成立。",
+    "statement": "设 y=f(x)。图象关于 x=a 对称，当且仅当定义域左右成对，并且对每个允许的 t 都有 f(a+t)=f(a-t)。等价写法是 f(x)=f(2a-x)。",
     "derivation": [
-      "由对称定义：图象上任一点 $(a+x, f(a+x))$ 关于 $x=a$ 的对称点为 $(a-x, f(a+x))$；若图象对称，则该点也在图象上，故 $f(a-x)=f(a+x)$。",
-      "反之，若 $f(a+x)=f(a-x)$ 恒成立，则任取点 $(a+x, f(a+x))$，其对称点 $(a-x, f(a-x))$ 满足 $y$ 坐标相等，故在图象上。",
-      "注意：必须要求定义域关于 $x=a$ 对称，否则对称点可能不在定义域内。"
+      "初中折纸法：点 (a+t,f(a+t)) 关于直线 x=a 对折后位于 (a−t,f(a+t))；点要落在原图上，则必须 f(a−t)=f(a+t)。反过来若所有点都成对且等高，也就能完整对折重合。",
+      "中点法：左右两个位置 x 与 u 的平均数为 a，所以 u=2a−x；图象关于 x=a 对称等价于 f(x)=f(2a−x) 对所有 x∈D 成立（且配对位置在 D 中）。",
+      "平移法：令 g(t)=f(a+t)，对称式变为 g(t)=g(−t)；新图象关于 t=0 对称，即为偶函数，再把坐标移回去。",
+      "两条对称轴的拓展：若整幅图象分别关于 x=a 和 x=b 对称，则 f(x)=f(2a−x)=f(x+2(b−a))，所以 2|b−a| 是周期（未必是最小正周期）。"
     ],
-    "intuition": "关于直线对称意味着到直线的距离相等的点函数值相等，即 $f(a+d)=f(a-d)$。",
+    "intuition": "将图象沿 x=a 对折，左右离轴一样远的两个点会重合，因此横坐标配对、函数值相同。",
     "common_tricks": [
-      "常用等价形式 $f(x)=f(2a-x)$ 更方便代入求值。",
-      "使用条件时必须确认定义域关于 $x=a$ 对称，否则结论不成立。",
-      "恒成立验证需对定义域内所有 $x$ 进行，不能只取特殊值。",
-      "利用对称性求解析式时，常设 $x< a$ 转为 $2a-x> a$ 代入已知表达式。"
+      "做题先查定义域：x 在定义域中时 2a−x 也必须在定义域中。",
+      "求值优先用配对：两个横坐标之和为 2a，函数值就相等。",
+      "判断对称要验证所有允许的输入，不能只验几组数据。",
+      "只知一侧解析式时，将未知侧的 x 换成 2a−x 再代入已知侧。",
+      "两个竖直对称轴可以推出一个周期，但不能直接断定其为最小正周期。"
     ]
   },
   "usage": {
@@ -139,28 +148,51 @@
   "assets": {
     "svg": "F020.svg",
     "png": "",
-    "video": ""
+    "video": "",
+    "tikz": [
+      "assets/tikz/F020_axis_pairs.tex",
+      "assets/tikz/F020_absolute.tex",
+      "assets/tikz/F020_shift_even.tex",
+      "assets/tikz/F020_parameter.tex",
+      "assets/tikz/F020_exponential_extension.tex",
+      "assets/tikz/F020_half_domain.tex",
+      "assets/tikz/F020_one_pair_failure.tex",
+      "assets/tikz/F020_two_axes.tex",
+      "assets/tikz/F020_example_two_axes.tex",
+      "assets/tikz/F020_not_minimum.tex",
+      "assets/tikz/F020_known_value.tex",
+      "assets/tikz/F020_mirror_positions.tex",
+      "assets/tikz/F020_horizontal_line.tex"
+    ],
+    "other": {
+      "gif": "images/axis_equal_distance_height.gif"
+    }
   },
   "shareConfig": {
     "title": "函数轴对称：等距两点为何同高度",
-    "shareDesc": "判断图像是否关于一条竖直线对称，不必只靠画图猜。检查轴两侧等距输入是否都有定义、函数值是否相等；将对称图形转成恒等关系，能用于验证对称轴和整理求值式。"
+    "shareDesc": "为什么函数图象对折能变成f(a+t)=f(a-t)？从折纸、取值表和图形讲起，给出三种高中范围内的证明，并联系偶函数、二次函数、求值及两条对称轴得到周期。"
   },
   "relations": {
     "prerequisites": [
       "函数定义域",
       "轴对称的基本概念"
     ],
-    "related_ids": ["F021", "F026", "F027", "F028"],
+    "related_ids": [
+      "F021",
+      "F026",
+      "F027",
+      "F028"
+    ],
     "similar": "函数关于点对称的条件：$f(a+x)+f(a-x)=2b$"
   },
   "meta": {
-    "version": 1,
+    "version": 2,
     "source": "AI生成",
     "created_at": "2026-06-26",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-11-21"
   },
   "isPro": 1,
-  "remarks": "",
+  "remarks": "；2026-11-21：新增13幅独立TikZ并替换原picture近似图；覆盖首页、3种证明、7道例题（含两解法）及6个易错点；用精确曲线、同高配对、同尺度平移与双轴反射降低阅读负担。；新增教学GIF images/axis_equal_distance_height.gif，模型与分镜归本UID的manim；LOCAL PRODUCTION PASS，用户视觉及Android真机验收PENDING，未执行内容Publisher或Sync。",
   "knowledgeNode": "函数-图像-对称性-轴对称与中心对称",
   "altNodes": "函数-性质-奇偶性"
 }

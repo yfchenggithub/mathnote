@@ -2,13 +2,13 @@
   "id": "F017",
   "module": "function",
   "core": {
-    "title": "奇偶函数四则运算规则（同奇同偶加减保奇偶，乘除同奇得偶、奇偶得奇、同偶得偶）",
+    "title": "奇偶函数四则运算规则",
     "alias": [
       "奇偶运算规则",
       "函数奇偶性四则运算",
       "奇偶函数加减乘除规律"
     ],
-    "summary": "两奇函数加减得奇，两偶函数加减得偶；乘除时，同奇得偶，奇偶得奇，同偶得偶（除法需分母非零）。",
+    "summary": "在定义域左右对应的前提下，奇与奇加减仍奇、偶与偶加减仍偶；乘除看奇函数出现的次数。奇与偶相加减一般两者都不是，只有某一部分在共同定义域上恒为零时才可能例外。",
     "difficulty": 2,
     "category": "函数性质",
     "tags": [
@@ -16,7 +16,9 @@
       "四则运算",
       "函数性质",
       "基础结论",
-      "定义域对称"
+      "定义域对称",
+      "左右对称",
+      "奇偶拆分"
     ]
   },
   "search": {
@@ -33,26 +35,42 @@
       "奇÷偶=奇",
       "偶÷偶=偶",
       "定义域对称",
-      "分母非零"
+      "分母非零",
+      "奇加偶是奇函数的条件",
+      "奇加偶是偶函数的条件",
+      "零函数既奇又偶",
+      "奇偶分解",
+      "f(x)+f(-x)",
+      "f(x)-f(-x)",
+      "奇函数作分母",
+      "奇函数个数判断乘积奇偶"
     ],
     "synonyms": [
       "奇偶性运算",
       "奇偶函数混合运算",
       "函数奇偶判定",
-      "奇偶加减乘除"
+      "奇偶加减乘除",
+      "函数分解成奇函数和偶函数",
+      "奇偶部分提取",
+      "奇偶性速判"
     ],
     "intents": [
       "判断奇偶性",
       "计算复合函数奇偶",
       "验证奇偶性质",
-      "应用运算规则"
+      "应用运算规则",
+      "解释四则运算规则为什么成立",
+      "把函数拆成奇函数和偶函数"
     ],
     "query_templates": [
       "奇函数加减奇函数是什么函数",
       "偶函数乘偶函数是偶函数吗",
       "奇函数乘偶函数奇偶性",
       "如何判断两个函数相乘的奇偶性",
-      "奇偶函数除法规则"
+      "奇偶函数除法规则",
+      "为什么奇函数乘奇函数是偶函数",
+      "奇函数加偶函数一定非奇非偶吗",
+      "如何把任意函数拆成奇函数与偶函数"
     ],
     "ocrKeywords": [
       "奇偶函数",
@@ -65,7 +83,9 @@
       "\\mathrm{偶}\\pm\\mathrm{偶}=\\mathrm{偶}",
       "\\mathrm{奇}\\times\\mathrm{奇}=\\mathrm{偶}",
       "\\mathrm{奇}\\times\\mathrm{偶}=\\mathrm{奇}",
-      "\\mathrm{偶}\\times\\mathrm{偶}=\\mathrm{偶}"
+      "\\mathrm{偶}\\times\\mathrm{偶}=\\mathrm{偶}",
+      "\\frac{f(x)+f(-x)}{2}",
+      "\\frac{f(x)-f(-x)}{2}"
     ],
     "formulaTokens": [
       "奇±奇=奇",
@@ -75,7 +95,9 @@
       "偶×偶=偶",
       "奇÷奇=偶",
       "奇÷偶=奇",
-      "偶÷偶=偶"
+      "偶÷偶=偶",
+      "H(x)+H(-x)",
+      "H(x)-H(-x)"
     ],
     "pinyin": "qihanshusizeyunxuguize",
     "pinyinAbbr": "qhsszyxgz"
@@ -93,66 +115,101 @@
     "success_rate": 0
   },
   "math": {
-    "core_formula": "$\\mathrm{奇}\\pm\\mathrm{奇}=\\mathrm{奇}$，$\\mathrm{偶}\\pm\\mathrm{偶}=\\mathrm{偶}$；$\\mathrm{奇}\\times\\mathrm{奇}=\\mathrm{偶}$，$\\mathrm{奇}\\times\\mathrm{偶}=\\mathrm{奇}$，$\\mathrm{偶}\\times\\mathrm{偶}=\\mathrm{偶}$；除法同乘法，分母非零。",
+    "core_formula": "$\\mathrm{奇}\\pm\\mathrm{奇}=\\mathrm{奇}$，$\\mathrm{偶}\\pm\\mathrm{偶}=\\mathrm{偶}$；$\\mathrm{奇}\\times\\mathrm{奇}=\\mathrm{偶}$，$\\mathrm{奇}\\times\\mathrm{偶}=\\mathrm{奇}$，$\\mathrm{偶}\\times\\mathrm{偶}=\\mathrm{偶}$；除法同乘法且分母非零。若$f$奇、$g$偶，$f\\pm g$为奇当且仅当$g\\equiv0$，为偶当且仅当$f\\equiv0$（均指共同定义域）。",
     "related_formulas": [
       "$f,g$为奇函数 $\\Rightarrow (f\\pm g)(-x)=-(f\\pm g)(x)$",
       "$f,g$为偶函数 $\\Rightarrow (f\\pm g)(-x)=(f\\pm g)(x)$",
-      "$f$奇$g$偶 $\\Rightarrow (fg)(-x)=-(fg)(x)$"
+      "$f$奇$g$偶 $\\Rightarrow (fg)(-x)=-(fg)(x)$",
+      "$H_{\\text{偶}}(x)=\\dfrac{H(x)+H(-x)}2$",
+      "$H_{\\text{奇}}(x)=\\dfrac{H(x)-H(-x)}2$",
+      "$H(x)=H_{\\text{偶}}(x)+H_{\\text{奇}}(x)$",
+      "$f$奇、$g$偶：$(f+g)(x)+(f+g)(-x)=2g(x)$"
     ],
     "variables": [
       "f(x)",
       "g(x)",
       "x"
     ],
-    "conditions": "两函数 $f(x),g(x)$ 定义域均关于原点对称；运算在公共定义域上进行；除法时 $g(x)\\neq 0$。",
-    "conclusions": "奇函数与奇函数加减仍为奇函数；偶函数与偶函数加减仍为偶函数；奇函数乘奇函数为偶函数；奇函数与偶函数相乘为奇函数；偶函数乘偶函数为偶函数；除法规则与乘法相同，需保证分母非零。"
+    "conditions": "已知$f(x)$、$g(x)$分别是奇函数或偶函数，且非空公共定义域左右对应；四则运算在原有共同定义域上进行；除法须删去分母为零的点，余下定义域非空；“奇加偶”中的恒为零条件只要求在共同定义域成立。",
+    "conclusions": "同奇加减仍奇、同偶加减仍偶；乘除只看奇函数因子个数的奇偶；奇与偶加减若两部分都不恒为零，则既非奇也非偶；任何定义域左右对应的函数都可以拆成一部分奇函数与一部分偶函数。"
   },
   "content": {
-    "statement": "若两函数定义域均关于原点对称且运算在公共定义域上进行（除法要求分母非零），则奇偶函数的加法、减法、乘法、除法满足：奇±奇=奇，偶±偶=偶；奇×奇=偶，奇×偶=奇，偶×偶=偶；除法与乘法规则相同。",
+    "statement": "设$f$、$g$定义域左右对应并在非空公共定义域上运算：奇±奇=奇、偶±偶=偶；乘除时奇的个数为奇数结果为奇，为偶数结果为偶；除法要保留分母非零条件。若$f$奇、$g$偶，则$f\\pm g$为奇当且仅当$g$恒零，为偶当且仅当$f$恒零（指公共定义域）。",
     "derivation": [
-      "设 $f(x),g(x)$ 均为奇函数，则 $f(-x)=-f(x), g(-x)=-g(x)$，那么 $(f\\pm g)(-x)=f(-x)\\pm g(-x)=-f(x)\\mp g(x)=-(f\\pm g)(x)$，故 $f\\pm g$ 为奇函数。",
-      "设 $f(x),g(x)$ 均为偶函数，则 $f(-x)=f(x), g(-x)=g(x)$，那么 $(f\\pm g)(-x)=f(x)\\pm g(x)=(f\\pm g)(x)$，故 $f\\pm g$ 为偶函数。",
-      "乘法：$f,g$ 奇得偶，$f$ 奇 $g$ 偶得奇，$f,g$ 偶得偶；除法类比乘法，分母非零。"
+      "方法一：对完整表达式代入$-x$，逐项把奇函数的值变号、偶函数的值保留，分别证明加减乘除。",
+      "方法二：设右侧同一位置的两项高度为$a$、$b$，左侧只能是$-a$或$a$、$-b$或$b$，用初中正负数四则运算逐项配对判断。",
+      "方法三：对任意函数$H$取$[H(x)+H(-x)]/2$得到偶函数部分，取$[H(x)-H(-x)]/2$得到奇函数部分；由此严格证明“奇加偶”的例外条件。"
     ],
-    "intuition": "奇偶函数本质是对称性：奇函数关于原点对称，偶函数关于y轴对称。运算后对称性由符号决定：奇数个奇函数相乘得奇，偶数个得偶；加减保留相同对称性。",
+    "intuition": "奇函数在左右对应的两个位置高度相反，偶函数高度相同。加减能否整体保持同一种关系，要看各项一起如何改变；乘除只要数负号。反过来，任何左右对应的函数也能按两个位置的值，一加一减再取一半，找出奇部分和偶部分。",
     "common_tricks": [
-      "先用定义判断单个函数的奇偶性，再套用规则",
-      "注意定义域对称性和分母为零陷阱",
-      "复杂复合函数可逐层拆分应用规则"
+      "先确认定义域左右对应，再对各部分分别辨认奇偶性；除法删除零分母后不补点",
+      "加减：奇±奇=奇、偶±偶=偶；奇与偶混合要检查是否有一部分在共同定义域恒零",
+      "乘除：数奇函数因子个数；奇函数个数为奇数结果奇，否则结果偶",
+      "遇到$x^2$、$x^4$等偶次幂或$\\cos x$，先想到偶；遇到$x$、$x^3$、$\\sin x$，先想到奇",
+      "反向拆分：$[H(x)+H(-x)]/2$为偶部分，$[H(x)-H(-x)]/2$为奇部分"
     ]
   },
   "usage": {
     "scenarios": [
       "判断复合函数奇偶性",
       "快速化简函数表达式",
-      "理解函数对称性"
+      "理解函数对称性",
+      "将任意函数拆成奇函数和偶函数",
+      "处理奇加偶的特殊情况"
     ],
     "problem_types": [
       "选择题",
       "填空题",
-      "基础证明题"
+      "基础证明题",
+      "函数式快速判断题"
     ],
     "exam_frequency": 0.8,
     "exam_score": 5
   },
   "interactive": {
-    "has_diagram": false,
+    "has_diagram": true,
     "geogebra_id": "",
     "param_demo": {}
   },
   "assets": {
-    "svg": "F017.svg"
+    "svg": "F017.svg",
+    "tikz": [
+      "assets/tikz/F017_overview.tex",
+      "assets/tikz/F017_product.tex",
+      "assets/tikz/F017_mixed_sum.tex",
+      "assets/tikz/F017_odd_sum.tex",
+      "assets/tikz/F017_odd_product.tex",
+      "assets/tikz/F017_quotient_hole.tex",
+      "assets/tikz/F017_decomposition.tex",
+      "assets/tikz/F017_sqrt_domain.tex",
+      "assets/tikz/F017_zero_function.tex",
+      "assets/tikz/F017_reverse_sum.tex",
+      "assets/tikz/F017_example_polynomial.tex",
+      "assets/tikz/F017_example_odd_times_odd.tex",
+      "assets/tikz/F017_example_mixed_quotient.tex",
+      "assets/tikz/F017_two_odd_quotients.tex",
+      "assets/tikz/F017_example_decomposition.tex",
+      "assets/tikz/F017_sinc_hole.tex"
+    ],
+    "other": {
+      "gif": "images/parity_odd_product.gif"
+    }
   },
   "shareConfig": {
     "title": "奇偶函数四则运算：不用反复代负号",
-    "shareDesc": "两函数的奇偶性已经确定，可以在公共定义域上用运算规则判断组合式。加减要求同类，乘除看奇偶搭配，除法还须排除零分母；避免把乘法规则搬到加法上。"
+    "shareDesc": "为什么奇×奇得偶？看$x$变成$-x$时有几个负号。加减要看各项是否一起变化；奇加偶还存在“其中一部分恒为零”的特殊情况。附任意函数拆成奇、偶两部分的高中可懂方法。"
   },
   "relations": {
     "prerequisites": [
       "函数奇偶性定义",
       "定义域对称性"
     ],
-    "related_ids": ["F015", "F016", "F018", "F019"],
+    "related_ids": [
+      "F015",
+      "F016",
+      "F018",
+      "F019"
+    ],
     "similar": [
       "函数单调性运算规则",
       "函数周期性运算规则"
@@ -162,10 +219,10 @@
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-26",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-11-21"
   },
   "isPro": 1,
-  "remarks": "",
+  "remarks": "；2026-11-21：新增16幅独立TikZ，覆盖首页、3种证明、8道例题、7个易错点及理解说明；按真实函数曲线对照加乘规则、共同定义域空洞与奇偶分解。；新增教学GIF images/parity_odd_product.gif，模型与分镜归本UID的manim；LOCAL PRODUCTION PASS，用户视觉及Android真机验收PENDING，未执行内容Publisher或Sync。",
   "knowledgeNode": "函数-性质-奇偶性-判定与运算",
   "altNodes": "函数-定义域-限制条件;函数-图像-对称性;其他-未分类-待定"
 }

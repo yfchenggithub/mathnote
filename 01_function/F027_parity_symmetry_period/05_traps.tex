@@ -1,21 +1,86 @@
+\clearpage
 \begin{trapbox}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（条件对应混淆）}}] 误认为奇函数且关于点对称或偶函数且关于直线对称也能得到周期 $4|a|$。
-		\item[\textbf{\textcolor{CTrap}{正确理解（组合严格匹配）}}] 定理仅适用于两种固定组合：奇函数加直线 $x=a$ 对称，或偶函数加点 $(a,0)$ 对称。其他组合的周期需另行推导。
-		\item[\textbf{\textcolor{CTrap}{错因分析（未理解推导）}}] 推导过程依赖于特定顺序的对称变换才产生平移 $2a$；组合错乱不会得到 $f(x+2a)=-f(x)$。
-	\end{description}
+\textbf{\textcolor{CTrap}{坑一：看到 $4|a|$，就写成“最小正周期”}}
+\input{assets/tikz/F027_different_minimum}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（符号绝对值忽略）}}] 直接写 $T=4a$ 而不加绝对值，忽略 $a$ 可能为负。
-		\item[\textbf{\textcolor{CTrap}{正确理解（周期取绝对值）}}] 周期长度应为 $4|a|$，因为对称轴或对称中心的位置可正可负，周期仅取决于距离。
-		\item[\textbf{\textcolor{CTrap}{错因分析（忽视方向性）}}] $a$ 的符号表示对称轴在原点的哪一侧，不影响周期大小。
-	\end{description}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（定义域对称忽视）}}] 使用定理前未验证定义域关于原点对称，直接套公式。
-		\item[\textbf{\textcolor{CTrap}{正确理解（前提条件不可缺）}}] 奇偶性要求定义域关于原点对称；若定义域不对称，奇偶性无意义，结论不成立。
-		\item[\textbf{\textcolor{CTrap}{错因分析（奇偶性前提）}}] 奇偶性是定理的输入条件之一，前提不满足则不能应用。
-	\end{description}
+\textbf{错在哪里：}由题设只证明了 $f(x+4a)=f(x)$，即 $4|a|$ 是\textbf{一个}周期，不能排除更短的周期。比如 $\sin\frac{3\pi x}{2}$ 既是奇函数又关于 $x=1$ 对称，但最小正周期是 $4/3$，而不是 $4$。
+
+\textbf{应该怎样写：}“$4|a|$ 是一个正周期”；只有额外证明不存在更小的正周期，才写“最小”。
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{坑二：认为 $2|a|$ 就是周期}}
+\input{assets/tikz/F027_half_period_five}
+
+
+题目给的是 $f(x+2a)=-f(x)$，右边多了一个负号！如果某处 $f(x)=5$，移动后就变成 $-5$，不能说整张图没变化。只要函数不是处处为零，$2|a|$ 就不是周期；再移动一次才恢复原值。
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{坑三：把“奇配轴、偶配点”和另外两种混为一谈}}
+\input{assets/tikz/F027_same_class}
+
+
+奇函数 $+$ 对称轴、偶函数 $+$ 对称中心：移动 $2a$ 后\textbf{变号}，周期为 $4|a|$。
+
+奇函数 $+$ 对称中心、偶函数 $+$ 对称轴：移动 $2a$ 后\textbf{不变号}，因此 $2|a|$ 已是一个周期。两类都可能有更短的最小正周期，千万别把“一个周期”认作“最小周期”。
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{坑四：$a$ 是负数，就得到负周期}}
+\input{assets/tikz/F027_negative_axis}
+
+
+$a$ 可能为负，但正周期一定是正数。由 $f(x+4a)=f(x)$，可以得到 $f(x+4|a|)=f(x)$。所以应写 $4|a|$，不要直接写 $4a$ 是正周期。
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{坑五：忘记定义域}}
+\input{assets/tikz/F027_domain_boundary}
+
+
+本结论使用时最方便的条件是函数定义在 $\mathbb{R}$ 上。比如只在 $x\ge0$ 上定义的函数，不可能在这个定义域上成为通常意义的奇函数或偶函数（除特殊定义方式外）；更不能对任意 $x$ 随便代入 $-x$。其他定义域要检查被代入的点是否存在，平移之后是否仍在定义域内。
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{坑六：直接把 $a=0$ 代入公式}}
+\input{assets/tikz/F027_zero_exception}
+
+
+如果奇函数还关于 $x=0$ 对称，则 $f(-x)$ 既等于 $-f(x)$ 又等于 $f(x)$，故 $f(x)=0$；偶函数还关于 $(0,0)$ 对称也一样。零函数处处为零，每个正数都是它的周期，\textbf{不存在最小正周期}，而 $4|a|=0$ 不是正周期。
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{坑七：两种搭配的“固定零点”记反}}
+\input{assets/tikz/F027_forced_zeros}
+
+
+奇函数先告诉你 $f(0)=0$，再通过 $f(x+2a)=-f(x)$ 得到 $f(2a)=0$、$f(4a)=0$ 等；偶函数\textbf{加点 $(a,0)$ 对称}先告诉你 $f(a)=0$，随后可得 $f(3a)=0$、$f(5a)=0$ 等。不能仅因“奇函数关于 $x=a$ 对称”就说 $f(a)=0$，例如 $\sin\frac{\pi x}{2}$ 在 $a=1$ 时取值为 $1$。
+
+\medskip
+\textbf{\textcolor{CTrap}{考场检查的三个小问题}}
+\begin{enumerate}[leftmargin=*,itemsep=0.15em]
+ \item 是\textbf{奇配轴}还是\textbf{偶配点}？
+ \item 推出来的是\textbf{变号}还是\textbf{不变号}？
+ \item 题目问的是\textbf{一个周期、最小正周期，还是函数值}？
+\end{enumerate}
 \end{trapbox}

@@ -1,48 +1,85 @@
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
-	根据函数奇偶性定义，计算$F(-x)$并与$F(x)$比较。利用内函数$g$的奇偶性将$g(-x)$转化为$\pm g(x)$，进而由外函数$f$的奇偶性决定最终关系。
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（定义展开）：}] 对任意$x$（在定义域内），由复合函数定义得
-			\[
-				F(-x)=f(g(-x)).
-			\]
-			\par\textbf{理由：}依据复合函数关系$F(x)=f(g(x))$。
-		\item[\textbf{步骤二（内偶证明）：}] 若$g$为偶函数，则$g(-x)=g(x)$，代入得
-			\[
-				\begin{aligned}
-					F(-x) &= f(g(x))\\
-					&= F(x).
-			\end{aligned}
-			\]
-			\par\textbf{理由：}偶函数定义$g(-x)=g(x)$。
-		\item[\textbf{步骤三（内奇证明）：}] 若$g$为奇函数，则$g(-x)=-g(x)$，于是
-			\[
-				F(-x)=f(-g(x)).
-			\]
-			\par\textbf{理由：}奇函数定义$g(-x)=-g(x)$。
-			此时，分两种情况：
-			\begin{itemize}
-			\item 若$f$为奇函数，则$f(-u)=-f(u)$，故
-				\[
-					\begin{aligned}
-						F(-x) &= -f(g(x))\\
-						&= -F(x),
-				\end{aligned}
-				\]
-				所以$F$为奇函数。
-			\item 若$f$为偶函数，则$f(-u)=f(u)$，故
-				\[
-					\begin{aligned}
-						F(-x) &= f(g(x))\\
-						&= F(x),
-				\end{aligned}
-				\]
-				所以$F$为偶函数。
-		\end{itemize}
-	\end{description}
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-	综合步骤二和三可知：当内函数为偶时，复合函数必为偶；当内函数为奇时，复合函数的奇偶性与外函数保持一致。这正是口诀“内偶则偶，内奇同外”的证明。
+\textbf{\textcolor{CProof}{要证明的不是口诀本身，而是比较相反的两个输入}}
+奇偶性只问两件事：允许的 $x$ 和 $-x$ 是否都能代入，以及 $F(-x)$ 与 $F(x)$ 是相等还是互为相反数。下面给出三种看法，\textbf{第一种最容易理解，第二种最适合写在试卷上，第三种帮助记住图像。}
+
+\medskip
+\textbf{\textcolor{CProof}{方法一：一前一后地算（最低门槛）}}
+\input{assets/tikz/F018_paired_inputs}
+
+把 $x$ 和 $-x$ 当成两个同学，经过同样的两道计算关卡：“先算 $g$，后算 $f$”。
+\begin{enumerate}[leftmargin=2em,itemsep=0.35em]
+\item \textbf{如果里面是偶函数：} 第一关中，$g(-x)=g(x)$，两个人已经拿到完全相同的数。第二关无论执行什么相同的规则，只要都能计算，就必然得到同一结果。因此 $F(-x)=F(x)$。
+\item \textbf{如果里面是奇函数，外面也是奇函数：} 第一关两人得到 $a$ 与 $-a$，其中 $a=g(x)$。第二关满足 $f(-a)=-f(a)$，最终结果互为相反数，因此 $F(-x)=-F(x)$。
+\item \textbf{如果里面是奇函数，外面是偶函数：} 第一关仍得到 $a$ 与 $-a$，但第二关满足 $f(-a)=f(a)$，所以最终相等，$F(-x)=F(x)$。
+\end{enumerate}
+\textbf{这三种情况的原因不同：} 内偶是“第一关就变一样”；内奇外偶是“第二关才变一样”；内奇外奇是“两关之后仍保留相反数”。
+
+\medskip
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法二：按定义写等式（高考规范写法）}}
+\input{assets/tikz/F018_overview}
+
+设 $F(x)=f(g(x))$，内层 $g$ 的定义域对称，而且 $g(x)$ 的每个取值都能代入 $f$。对任意允许的 $x$，有
+\[
+F(-x)=f(g(-x)).
+\]
+\textbf{情形 A：$g$ 是偶函数。} 因为 $g(-x)=g(x)$，
+\[
+F(-x)=f(g(-x))=f(g(x))=F(x).
+\]
+于是 $F$ 是偶函数。这里\textbf{完全没有用到}外层的奇偶性。
+
+\textbf{情形 B：$g$ 是奇函数，且 $f$ 是奇函数。} 依次利用 $g(-x)=-g(x)$ 和 $f(-u)=-f(u)$：
+\[
+\begin{aligned}
+F(-x)&=f(g(-x))=f(-g(x))\\
+&=-f(g(x))=-F(x).
+\end{aligned}
+\]
+因此 $F$ 是奇函数。
+
+\textbf{情形 C：$g$ 是奇函数，且 $f$ 是偶函数。} 利用 $f(-u)=f(u)$：
+\[
+\begin{aligned}
+F(-x)&=f(g(-x))=f(-g(x))\\
+&=f(g(x))=F(x).
+\end{aligned}
+\]
+因此 $F$ 是偶函数。
+
+\textbf{条件为什么不能省略？} 如果某个 $x$ 可以代入，但 $-x$ 不行，$F(-x)$ 就不能写出来；如果 $g(x)$ 不在外层允许的范围里，$F(x)$ 也算不出来。判断奇偶性的第一步必须检查这些范围。
+
+\medskip
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法三：在图像上寻找成对的点（几何理解）}}
+\input{assets/tikz/F018_overview}
+
+设图像上有点 $P=(a,F(a))$，再看横坐标变成 $-a$ 的点 $Q=(-a,F(-a))$。
+\begin{itemize}[leftmargin=*,itemsep=0.4em]
+\item \textbf{内偶时：} 两次内层数相同，故 $F(-a)=F(a)$。点 $P$、$Q$ 高度相同、分别在 $y$ 轴两侧，关于 $y$ 轴成对。
+\item \textbf{内奇、外奇时：} $F(-a)=-F(a)$。横坐标、纵坐标都变相反数，点 $P$、$Q$ 关于原点成对。
+\item \textbf{内奇、外偶时：} $F(-a)=F(a)$。又得到左右同高的一对点，关于 $y$ 轴成对。
+\end{itemize}
+这就把数字关系与两种图像对称联系起来了。\textbf{每一对点都如此}，才说明整张图像具有这样的对称性；只看某一对点还不够。
+
+\medskip
+\end{proofbox}\clearpage\begin{proofbox}\textbf{\textcolor{CProof}{补充证明：什么时候可以反过来判断内层？}}
+\input{assets/tikz/F018_injective_outer}
+
+如果外层 $f$ 在用到的取值范围内\textbf{严格递增或严格递减}，不同的数经过 $f$ 就不可能得到同一个结果。若此时已知 $F$ 为偶函数，则
+\[
+f(g(-x))=F(-x)=F(x)=f(g(x))
+\]
+因为外层不会让两个不同输入变成同一结果，所以
+\[
+g(-x)=g(x),
+\]
+即内层也为偶函数。\textbf{但是去掉“严格递增或严格递减”这个条件，就不能这样反推。} 例如 $g(x)=x$ 不是偶函数，但外层 $f(u)=u^2$ 能把 $u$ 和 $-u$ 算成一样，得到的 $F(x)=x^2$ 却是偶函数。
 \end{proofbox}

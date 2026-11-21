@@ -1,96 +1,150 @@
+\clearpage
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例 1（基础）}}
+  \textbf{\textcolor{CExample}{例一：从奇函数直接读出常数项（基础）}}
+\input{assets/tikz/F016_polynomial_parameter}
 
-	\textbf{\textcolor{CExample}{题目：}}
-	已知函数 $f(x)=x^3+px^2+qx+r$ 是奇函数，定义域为 $\mathbb{R}$。求常数 $r$ 的值。
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（确认条件）：}] 定义域为 $\mathbb{R}$，故 $0$ 属于定义域。
-			\[
-				0\in D_f.
-			\]
-			\par\textbf{理由：} 定义域是全体实数，自然包含 $0$。
+  \textbf{题目：}已知 $f(x)=x^3+px^2+qx+r$ 是定义在全体实数上的奇函数，求 $r$，并判断 $p$ 需要满足什么条件。
 
-		\item[\textbf{第二步（应用结论）：}] 由奇函数性质，若 $0$ 在定义域内，则必有 $f(0)=0$。
-			\[
-				f(0)=0.
-			\]
-			\par\textbf{理由：} 本节课的核心结论。
+  \textbf{最快做法：}因为定义域包含 $0$，而且 $f$ 是奇函数，
+  \[
+    f(0)=r=0,\qquad\boxed{r=0}.
+  \]
+  但\textbf{做到这里还不够}：$f(0)=0$ 只能确定常数项，不能保证整个函数是奇函数。
+  把 $x$ 与 $-x$ 的函数值相加：
+  \[
+    f(x)+f(-x)=2px^2+2r.
+  \]
+  奇函数必须对所有 $x$ 满足这个和为零。已知 $r=0$，
+  取 $x=1$ 得 $2p=0$，所以
+  \[
+    \boxed{p=0},\qquad q\text{ 可以是任意实数}.
+  \]
+  代回后 $f(x)=x^3+qx$，确实满足 $f(-x)=-f(x)$。
 
-		\item[\textbf{第三步（代入求解）：}] 将 $x=0$ 代入表达式得 $f(0)=r$，结合 $f(0)=0$ 得 $r=0$。
-			\[
-				r=0.
-			\]
-			\par\textbf{理由：} 代入解析式并利用第二步结果。
-	\end{description}
+  \medskip
+  
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例二：只需看常数项，不限制奇次项（对照）}}
+\input{assets/tikz/F016_odd_polynomial}
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$r=0$}。
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+  \textbf{题目：}已知 $f(x)=ax^5+bx^3+cx+d$ 是定义在全体实数上的奇函数，求 $d$，并说明 $a,b,c$ 的取值。
 
-	\textbf{\textcolor{CExample}{题目：}}
-	已知函数 $f(x)=ax^5+bx^3+cx+d$ 是定义在 $\mathbb{R}$ 上的奇函数。求参数 $d$ 及系数 $a,b,c$ 应满足的条件。
+  \textbf{解：} $f(0)=d=0$，所以 $\boxed{d=0}$。
+  此时
+  \[
+    f(-x)=-ax^5-bx^3-cx=-f(x).
+  \]
+  可见不论 $a,b,c$ 取什么实数，都能满足奇函数的规则。
+  \textbf{答案：}$d=0$，$a,b,c$ 可为任意实数。
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（定义域确认）：}] 定义域为 $\mathbb{R}$，故 $0$ 在定义域内。
-			\[
-				0\in D_f.
-			\]
-			\par\textbf{理由：} 多项式定义域为全体实数。
+  \medskip
+  
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例三：奇函数求参，再结合给定函数值（高考常见）}}
+\input{assets/tikz/F016_given_value}
 
-		\item[\textbf{第二步（结论求参）：}] 由奇函数且 $0\in D_f$ 得 $f(0)=0$，代入得 $d=0$。
-			\[
-				d=0.
-			\]
-			\par\textbf{理由：} $f(0)=a\cdot0^5+b\cdot0^3+c\cdot0+d=d$，结合 $f(0)=0$ 得 $d=0$。
 
-		\item[\textbf{第三步（定义验证）：}] 由 $f(-x)=-f(x)$ 对任意 $x$ 成立，可得系数关系。计算得 $f(-x)=-ax^5-bx^3-cx+d$，$-f(x)=-ax^5-bx^3-cx-d$，故需 $d=-d$ 即 $d=0$（已满足），且奇次项系数自动满足，故 $a,b,c$ 可为任意实数。
-			\[
-				f(-x)=-f(x),\quad\forall x\in\mathbb{R}.
-			\]
-			\par\textbf{理由：} 奇函数定义要求对所有实数成立。
-	\end{description}
+  \textbf{题目：}已知 $f(x)=x^3+ax^2+bx+c$ 为定义在全体实数上的奇函数，且 $f(1)=2$，求 $f(0)$ 和 $b$。
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$d=0$，$a,b,c$ 为任意实数}。
+  \textbf{第一步：}奇函数且 $0$ 有定义，直接得
+  \[
+    f(0)=c=0.
+  \]
+  \textbf{第二步：}比较 $f(x)$ 与 $f(-x)$，
+  或直接把两式相加：
+  \[
+    f(x)+f(-x)=2ax^2+2c=0.
+  \]
+  已知 $c=0$，取 $x=1$ 得 $a=0$。
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+  \textbf{第三步：}代入 $f(1)=2$：
+  \[
+    1+a+b+c=2
+    \quad\Longrightarrow\quad 1+b=2
+    \quad\Longrightarrow\quad b=1.
+  \]
+  \textbf{答案：}$\boxed{f(0)=0,\ b=1}$。
 
-	\textbf{\textcolor{CExample}{题目：}}
-	已知函数 $f(x)=x^3+ax^2+bx+c$ 是定义在 $\mathbb{R}$ 上的奇函数，且 $f(1)=2$。求 $f(0)$ 及 $b$ 的值。
+  \medskip
+  
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例四：分式函数求参，先用 $f(0)=0$ 省步骤（进阶）}}
+\input{assets/tikz/F016_rational_parameter}
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（定义域确认）：}] 定义域为 $\mathbb{R}$，故 $0\in D_f$。
-			\[
-				0\in D_f.
-			\]
-			\par\textbf{理由：} 多项式定义域为全体实数。
 
-		\item[\textbf{第二步（结论求常数）：}] 由奇函数且 $0\in D_f$ 得 $f(0)=0$，代入得 $c=0$。
-			\[
-				c=0.
-			\]
-			\par\textbf{理由：} $f(0)=c$，且 $f(0)=0$，故 $c=0$。
+  \textbf{题目：}已知
+  \[
+    f(x)=\frac{(a-2)x^2+3x+b-1}{x^2+1}
+  \]
+  是奇函数，求 $a,b$。
 
-		\item[\textbf{第三步（奇函数定系数）：}] 由奇函数定义 $f(-x)=-f(x)$，对比系数知偶次项系数 $a=0$。
-			\[
-				a=0.
-			\]
-			\par\textbf{理由：} 若 $a\neq0$，则 $x^2$ 项在 $f(-x)$ 与 $-f(x)$ 中符号矛盾。
+  \textbf{第一步：}因为分母 $x^2+1>0$，定义域是全体实数，包含 $0$。
+  由 $f(0)=0$ 得
+  \[
+    \frac{b-1}{1}=0\quad\Longrightarrow\quad \boxed{b=1}.
+  \]
+  \textbf{第二步：}代入 $b=1$，
+  \[
+    f(x)=\frac{(a-2)x^2+3x}{x^2+1}.
+  \]
+  奇函数应满足 $f(x)+f(-x)=0$，而
+  \[
+    f(x)+f(-x)=\frac{2(a-2)x^2}{x^2+1}.
+  \]
+  为使每个实数 $x$ 都满足，取 $x=1$ 即得 $a-2=0$，
+  所以 $\boxed{a=2}$。
 
-		\item[\textbf{第四步（利用已知点）：}] 由 $f(1)=2$ 得 $1^3+ a\cdot1^2+b\cdot1+c=2$。代入 $a=0,c=0$ 得 $1+b=2$。
-			\[
-				b=1.
-			\]
-			\par\textbf{理由：} 解一次方程。
-	\end{description}
+  \textbf{检查：}此时 $f(x)=\dfrac{3x}{x^2+1}$，
+  直接代入可见 $f(-x)=-f(x)$，确实为奇函数。
+  \textbf{答案：}$\boxed{a=2,\ b=1}$。
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$f(0)=0$，$b=1$}。
+  \medskip
+  
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例五：奇函数却没有 $f(0)$（防止漏条件）}}
+\input{assets/tikz/F016_reciprocal_compare}
+
+
+  \textbf{题目：}函数 $f(x)=\dfrac1x$ 是不是奇函数？能否得到 $f(0)=0$？
+
+  \textbf{解：}它的定义域是 $x\ne0$，而且对每个允许的 $x$ 都有
+  \[
+    f(-x)=-\frac1x=-f(x).
+  \]
+  所以它\textbf{是奇函数}，但 $x=0$ 不能代入，
+  \textbf{$f(0)$ 没有定义，绝不能写成 $0$}。
+
+  \medskip
+  
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例六：关于其他点中心对称，也能一秒求值（拓展）}}
+\input{assets/tikz/F016_shifted_center}
+
+
+  \textbf{题目：}函数 $f$ 在 $x=2$ 处有定义，且对每个允许的 $t$ 满足
+  \[
+    f(2+t)+f(2-t)=6.
+  \]
+  求 $f(2)$。
+
+  \textbf{解：}取 $t=0$，得
+  \[
+    f(2)+f(2)=6
+    \quad\Longrightarrow\quad\boxed{f(2)=3}.
+  \]
+  \textbf{理解：}这相当于图像关于点 $(2,3)$ 中心对称，
+  对称中心所在的竖线上如果有图像点，就只能是这个中心本身。
+  与本节“奇函数若在 $0$ 处有定义，则 $f(0)=0$”是同一个道理。
 \end{examplebox}

@@ -1,42 +1,105 @@
+\clearpage
 \begin{explanationbox}
+\textbf{\textcolor{CExplanation}{一、为什么会想到这条公式？从“转半圈”倒推}}
+\input{assets/tikz/F021_point_pair}
 
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
 
-	函数图像关于点 $(a,b)$ 中心对称，即图象上任意一点关于 $(a,b)$ 的对称点也在图象上；这等价于自变量取对称位置时函数值之和为 $2b$。
+先不要记公式。把一张画有曲线的透明纸，用大头针固定在 $C(2,3)$，转动 $180^\circ$。
+如果曲线仍与原曲线重合，就是关于 $C$ 中心对称。
+例如原来曲线上有 $P(3,4)$，转半圈后应落到 $Q(1,2)$。
+\[
+\underbrace{3+1}_{\text{横坐标和}}=4=2\times2,\qquad
+\underbrace{4+2}_{\text{纵坐标和}}=6=2\times3.
+\]
+由此发现：\textbf{对称的两点，横坐标的中间数是 $a$，纵坐标的中间数是 $b$。}
+这就是初中学过的\textbf{线段中点}，并不需要先背新公式。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（对称点条件）：}] 设 $P(a+x, y_1)$ 与 $Q(a-x, y_2)$ 关于 $(a,b)$ 对称，则 $y_1+y_2=2b$。
-		\item[\textbf{要点二（充要关系）：}] 若对任意 $x$ 有 $f(a+x)+f(a-x)=2b$，则 $f(x)$ 关于 $(a,b)$ 对称；反之也成立。
-	\end{description}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（中心对称）}}
 
-	点 $(x_1,y_1)$ 与 $(x_2,y_2)$ 关于 $(a,b)$ 对称 $\iff$ $x_1+x_2=2a,\; y_1+y_2=2b$. 对于函数图象，取 $x_1=a+x$, $x_2=a-x$，则 $y_1+y_2=2b$ 即为充要条件。
+\medskip
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（广义奇函数）}}
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{二、怎样从中点“长出” $f(a+t)+f(a-t)=2b$？}}
+\input{assets/tikz/F021_cubic_center}
 
-	当 $a=0,b=0$ 时，条件退化为 $f(x)+f(-x)=0$，即 $f(x)$ 为奇函数。因此该结论是奇函数概念的中心对称推广。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（核心工具）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（判断对称性）：} 已知函数满足 $f(a+x)+f(a-x)=2b$，直接得出对称中心 $(a,b)$。
-		\item \textbf{考法二（求函数值）：} 利用对称性由一部分函数值推对称部分值。
-	\end{itemize}
+取一个数 $t$，从中心横坐标 $a$ 向右走 $t$，得到 $a+t$；向左走同样多，得到 $a-t$。
+这两个横坐标天然以 $a$ 为中间数。对应的两点是
+\[
+P\bigl(a+t,f(a+t)\bigr),\qquad Q\bigl(a-t,f(a-t)\bigr).
+\]
+若它们的中点正好是 $C(a,b)$，纵坐标的平均数必须等于 $b$：
+\[
+\frac{f(a+t)+f(a-t)}{2}=b
+\quad\Longrightarrow\quad
+\boxed{f(a+t)+f(a-t)=2b}.
+\]
+\textbf{记忆方式：}横坐标在 $a$ 两边“等距离”，纵坐标在 $b$ 两边“等高度、相反方向”。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
+\medskip
 
-	对称性本质是“自变量对称时函数值和为常数”，与奇偶性的 $f(-x)=-f(x)$ 形式统一。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{三、为什么还要检查定义域？}}
+\input{assets/tikz/F021_half_domain}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（对称性证明）：} 给出函数表达式，验证其关于某点对称。
-		\item \textbf{场景二（解析式推导）：} 已知函数在 $x>a$ 的解析式，利用对称性求 $x<a$ 的解析式。
-	\end{itemize}
+
+要转半圈后还能落在\textbf{原图像上}，原来的每个点都得有对应的另一点。
+如果只有右半边的曲线，左半边根本没画出来，即使个别点碰巧符合等式，也不能叫整幅图像中心对称。
+所以检查顺序是：\textbf{先看横坐标成不成对，再看函数值相加是不是同一个常数。}
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{四、把新知识接到已经学过的奇函数}}
+\input{assets/tikz/F021_shift_odd}
+
+
+奇函数满足 $f(-t)=-f(t)$，意味着 $(t,f(t))$ 与 $(-t,-f(t))$ 围绕\textbf{原点}成对。
+如果中心换成 $(a,b)$，就先把图像向左移 $a$、向下移 $b$：
+\[
+ g(t)=f(a+t)-b,\qquad g(-t)=-g(t).
+\]
+这不是一套陌生规则，而是\textbf{奇函数的原点对称，经过平移后的同一个道理}。
+例如 $y=x^3$ 关于 $(0,0)$ 对称，$y=(x-2)^3+3$ 则关于 $(2,3)$ 对称。
+
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{五、三个“眼前一亮”的关联}}
+\input{assets/tikz/F021_hyperbola}
+
+\begin{enumerate}[leftmargin=*,itemsep=0.5em]
+\item \textbf{中心未必在曲线上：} $f(x)=\dfrac{1}{x-2}+3$ 的图像关于 $(2,3)$ 对称，
+但 $x=2$ 处没有函数值；中心像两支曲线之间的“空心定位点”。
+
+
+\input{assets/tikz/F021_axis_vs_center}
+\item \textbf{一眼看出奇偶性的区别：}轴对称常见 $f(a+t)=f(a-t)$，两边\textbf{相等}；
+点对称常见 $f(a+t)+f(a-t)=2b$，两边\textbf{合起来平均是 $b$}。
+
+\input{assets/tikz/F021_two_centers}
+\item \textbf{从两个中心推出周期：}如果同一图像分别关于 $(a,b)$ 和 $(c,b)$ 对称（$a\ne c$），
+连续做两次“绕中心转半圈”，结果等于左右平移 $2(c-a)$，因此 $2|c-a|$ 是一个周期。
+注意两个中心必须\textbf{一样高}；若纵坐标不同，就不能这样直接说有周期。
+\end{enumerate}
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{六、考场先想什么？}}
+\input{assets/tikz/F021_known_values}
+
+给出形如 $f(x)+f(6-x)=10$：不要先求解析式，先看两个输入的中间数是 $3$，
+两个输出的中间数是 $5$，对称中心候选是 $(3,5)$；\textbf{最后别忘了定义域}。
 \end{explanationbox}

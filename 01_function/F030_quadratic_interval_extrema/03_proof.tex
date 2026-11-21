@@ -1,44 +1,109 @@
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{\textcolor{CProof}{先说目标}}
 
-	考虑顶点式 $f(x)=a(x-x_0)^2+f(x_0)$，其中对称轴 $x_0=-\frac{b}{2a}$。通过分析 $a$ 的正负以及 $|x-x_0|$ 的大小，可以直接得出最值的位置。
+我们需要讲清楚三件事：\textbf{为什么只看顶点与端点、为什么开口方向会影响最大最小、为什么区间中点可以帮助比较两端点。} 下列三种做法从直观到正式，任选一种都能完成常见题。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（配方变形）：}] 将 $f(x)=ax^2+bx+c$ 配成顶点式。
-			\[
-				\begin{aligned}
-					f(x) &= a\left(x+\frac{b}{2a}\right)^2+\frac{4ac-b^2}{4a} \\
-					&= a(x-x_0)^2+f(x_0),
-			\end{aligned}
-			\]
-			其中 $x_0=-\frac{b}{2a}$，$f(x_0)=\frac{4ac-b^2}{4a}$。
-			\par\textbf{理由：} 顶点式可以直接反映对称轴和函数值的基准，便于比较大小。
+\medskip
+\textbf{\textcolor{CProof}{证明一｜数轴上的远近（门槛最低，先理解）}}
+\input{assets/tikz/F030_nearest_numberline}
 
-		\item[\textbf{步骤二（$a>0$ 时性质）：}] 若 $a>0$，则 $f(x)\geq f(x_0)$，且函数值随 $|x-x_0|$ 增大而增大。具体地，$(x-x_0)^2\geq0$，乘正数 $a$ 仍非负；对任意 $x_1,x_2$，$f(x_1)-f(x_2)=a[(x_1-x_0)^2-(x_2-x_0)^2]$，大小关系由距离决定。
-			\par\textbf{理由：} 平方项非负且 $a>0$ 确保 $f(x)\geq f(x_0)$；差值公式说明函数在对称轴同侧单调、异侧对称。
 
-		\item[\textbf{步骤三（$a>0$ 最值）：}] 根据 $x_0$ 是否在 $[m,n]$ 内分两种情况：
-			\begin{itemize}[leftmargin=*, itemsep=0.2em]
-			\item 若 $x_0\in[m,n]$，则最小值为 $f(x_0)$；最大值为 $\max\{f(m),f(n)\}$。
-			\item 若 $x_0\notin[m,n]$，则函数在区间上单调，最小值、最大值分别为 $\min\{f(m),f(n)\}$、$\max\{f(m),f(n)\}$。
-		\end{itemize}
-			\par\textbf{理由：} 当对称轴在区间内时，顶点处取最小值，两端点中离对称轴较远者取最大值；当对称轴不在区间内时，函数完全单调，最值在端点。
+\textbf{第 1 步：} 把对称轴看成数轴上的固定位置 $h$，把 $[m,n]$ 看成只能活动的一段路。对任意可以选的 $x$，$|x-h|$ 就是 $x$ 离 $h$ 的距离。
 
-		\item[\textbf{步骤四（$a<0$ 时性质）：}] 若 $a<0$，则 $f(x)\leq f(x_0)$，且函数值随 $|x-x_0|$ 增大而减小。因为 $a<0$，$(x-x_0)^2\geq0$ 乘以负数后非正，故 $f(x)\leq f(x_0)$；距离越大，$f(x)$ 越小。
-			\par\textbf{理由：} 对称轴处取最大值，离对称轴越远值越小。
+\textbf{第 2 步：} 找最近的位置。
+\begin{itemize}[leftmargin=*,itemsep=0.2em]
+\item 若 $h<m$，整段路都在 $h$ 右边，左端点 $m$ 最近；
+\item 若 $m\le h\le n$，可以直接选 $x=h$，距离是 $0$，谁也不能更近；
+\item 若 $h>n$，整段路都在 $h$ 左边，右端点 $n$ 最近。
+\end{itemize}
+\textbf{第 3 步：} 找最远的位置。无论 $h$ 在哪里，在区间内走来走去，最远也只能到两端中离它更远的那个端点。因此最远位置只可能是 $m$ 或 $n$。
 
-		\item[\textbf{步骤五（$a<0$ 最值）：}] 同理，分对称轴在区间内与不在两种情况：
-			\begin{itemize}[leftmargin=*, itemsep=0.2em]
-			\item 若 $x_0\in[m,n]$，则最大值为 $f(x_0)$；最小值为 $\min\{f(m),f(n)\}$。
-			\item 若 $x_0\notin[m,n]$，则最大值为 $\max\{f(m),f(n)\}$，最小值为 $\min\{f(m),f(n)\}$。
-		\end{itemize}
-			\par\textbf{理由：} 与 $a>0$ 对称，最大值与最小值互换。
-	\end{description}
+\textbf{第 4 步：} 抛物线的值是 $a$ 乘距离平方，再加同一个数 $k$：
+\[
+ f(x)=a|x-h|^2+k.
+\]
+如果 $a>0$，平方越大函数值越大；如果 $a<0$，平方越大函数值越小。\textbf{所以最近处和最远处就一定给出两个最值。} 证毕。
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
+\medskip
 
-	\textbf{因此，二次函数在闭区间上的最值完全由开口方向和对称轴与区间的位置决定，即题目所给结论。}
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明二｜初中代数：配方与平方差（不求导，算得清）}}
+\input{assets/tikz/F030_square_bounds}
+
+
+\textbf{第 1 步（配方）：} 从 $f(x)=ax^2+bx+c$ 出发：
+\[
+\begin{aligned}
+f(x)&=a\left(x+\frac{b}{2a}\right)^2+c-\frac{b^2}{4a}\\
+&=a(x-h)^2+k,\\
+h&=-\frac{b}{2a},\quad k=c-\frac{b^2}{4a}=f(h).
+\end{aligned}
+\]
+这说明所有函数值的不同，都来自 $a(x-h)^2$ 的不同。
+
+\textbf{第 2 步（把距离平方圈住）：} 设 $d_{\text{近}}$ 是区间内到 $h$ 的最小距离，$d_{\text{远}}$ 是到 $h$ 的最大距离，那么对每个 $x\in[m,n]$ 都有
+\[
+ d_{\text{近}}^2\le (x-h)^2\le d_{\text{远}}^2.
+\]
+这里 $d_{\text{远}}=\max\{|m-h|,|n-h|\}$；如果 $h$ 落在区间内，$d_{\text{近}}=0$，否则 $d_{\text{近}}=\min\{|m-h|,|n-h|\}$。
+
+\textbf{第 3 步（乘上 $a$）：} 如果 $a>0$，上式从小到大不变，得到
+\[
+ a d_{\text{近}}^2+k\le f(x)\le a d_{\text{远}}^2+k.
+\]
+如果 $a<0$，乘负数后大小反过来，得到
+\[
+ a d_{\text{远}}^2+k\le f(x)\le a d_{\text{近}}^2+k.
+\]
+因为区间是闭区间，刚才找到的最近处、最远端点都允许选到，所以两边的数\textbf{确实能取到}，就是最小值和最大值。这也说明为什么题目要强调“闭区间”。
+
+\end{proofbox}\clearpage\begin{proofbox}
+\textbf{\textcolor{CProof}{证明二（续）：用区间中点比较端点}}
+\input{assets/tikz/F030_midpoint_distance}
+\textbf{第 4 步（新发现：两端点谁更大，不必代入两次）：}
+\[
+\begin{aligned}
+f(n)-f(m)
+ &=a\big[(n-h)^2-(m-h)^2\big]\\
+ &=a(n-m)(m+n-2h)\\
+ &=2a(n-m)\left(\frac{m+n}{2}-h\right).
+\end{aligned}
+\]
+其中 $n-m>0$，故比较两端点函数值时，只需看 $a$ 的正负以及 $h$ 在区间中点 $\frac{m+n}{2}$ 的左边还是右边。
+
+\textbf{特别地：} 因为 $a\ne0$、$m<n$，
+\[
+ \boxed{f(m)=f(n)\ \Longleftrightarrow\ h=\frac{m+n}{2}.}
+\]
+\textbf{这并不要求顶点在区间中点的函数值等于两个端点的函数值：相等的是两个端点的高度。}
+
+\medskip
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明三｜高中常规：用导数看上升与下降}}
+\input{assets/tikz/F030_derivative_sign}
+
+
+\textbf{第 1 步：} 对 $f(x)=a(x-h)^2+k$ 求导：
+\[
+ f'(x)=2a(x-h).
+\]
+\textbf{第 2 步：} 当 $a>0$ 时，$x<h$ 有 $f'(x)<0$（图像往右走越来越低），$x>h$ 有 $f'(x)>0$（往右走越来越高）。因此图像\textbf{先降后升}，最低点在顶点。
+
+当 $a<0$ 时，导数的正负刚好反过来，图像\textbf{先升后降}，最高点在顶点。
+
+\textbf{第 3 步：} 如果 $h\notin[m,n]$，这一整段只上升或只下降，所以最值都在两端；如果 $h\in[m,n]$，一个最值在 $h$，另一个在两个端点中较高（开口向上）或较低（开口向下）的那个。
+
+\textbf{第 4 步：} 最后比较端点时，直接使用证明二的
+$ f(n)-f(m)=a(n-m)(m+n-2h) $，不必分别展开计算两次。证毕。
+
+\medskip
+\textbf{\textcolor{CProof}{三种证明怎样选？}}
+
+初学时先选\textbf{证明一}，几乎只用小学的远近与初中的平方；需要把步骤写成严谨不等式时选\textbf{证明二}；高中的导数题或者综合题可用\textbf{证明三}。三种写法讲的是同一条抛物线，但训练的解题方法不同。
 \end{proofbox}

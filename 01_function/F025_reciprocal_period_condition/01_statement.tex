@@ -1,25 +1,53 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件1（定义域非零）：}}] 函数$f(x)$在定义域内满足$f(x)\neq 0$，且存在常数$a\neq 0$，使得对任意$x$，有$f(x+a)=\frac{1}{f(x)}$ \textbf{或} $f(x+a)=-\frac{1}{f(x)}$成立。
-	\end{description}
+\input{assets/tikz/F025_core_reciprocal}
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（倒数型周期）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			$f(x)$以$2a$为周期，图像每隔$2a$重复。
-			\[
-				f(x+2a) = f(x)
-			\]
-			对任意$x$成立。
+\textbf{\textcolor{CStatement}{先说它能解决什么问题}}
 
-		\item[\textbf{\textcolor{CStatement}{推广结论（周期链推广）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			所有$2a$的整数倍都是其周期，周期不唯一。
-			\[
-				f(x+2ka) = f(x),\quad k\in\mathbb{Z},\ k\neq 0.
-			\]
-	\end{description}
+题目没有告诉你$f(x)$究竟是什么函数，只告诉你：\textbf{向右走一段，函数值就变成原来的倒数（或负倒数）}。这时不必先猜函数表达式，只要继续走同样长的一段，就能发现函数值又回来了，从而迅速判断周期，并计算很远处的函数值。
 
+\medskip
+\textbf{\textcolor{CStatement}{结论一：变倒数，再变一次就回来了}}
+
+设$f(x)$是定义在\textbf{全体实数}上的实值函数，且$f(x)\neq0$。设$a\neq0$为固定常数。如果下列关系中的\textbf{某一种在所有$x$处始终成立}：
+\[
+\boxed{\ f(x+a)=\frac{1}{f(x)}\ }
+\qquad\text{或}\qquad
+\boxed{\ f(x+a)=-\frac{1}{f(x)}\ },
+\]
+那么
+\[
+\boxed{\ f(x+2a)=f(x)\ },\qquad
+\boxed{\ T=2|a|\ \text{是一个正周期}}.
+\]
+如果题目已经给出$a>0$，可以直接写$T=2a$。\textbf{这里说的是“一个周期”，不是必然的“最小正周期”。}
+
+\medskip
+\end{statementbox}\clearpage\begin{statementbox}\textbf{\textcolor{CStatement}{结论二：比“倒数”更一般}}
+
+只要$k$是固定的\textbf{非零实数}，且
+\[
+\boxed{\ f(x+a)=\frac{k}{f(x)}\ },\quad f(x)\neq0,\quad a\neq0,
+\]
+同样有
+\[
+\boxed{\ f(x+2a)=f(x)\ },\qquad \boxed{\ T=2|a|\text{是一个周期}}.
+\]
+因为连续两次变换是
+\[
+\underbrace{y\ \longrightarrow\ \frac{k}{y}\ \longrightarrow\
+\frac{k}{k/y}=y}_{\text{两次后回到原数}}\qquad (k\neq0,\ y\neq0).
+\]
+前面两种情况，只是这里的$k=1$和$k=-1$。
+
+\medskip
+\textbf{\textcolor{CStatement}{结论三：以后还会重复}}
+\[
+ f(x+2na)=f(x)\quad(n\in\mathbb Z).
+\]
+这句话表示：每隔$2|a|$就回到同样的函数值，向左、向右都一样。
+
+\medskip
+\textbf{\textcolor{CStatement}{条件提醒}}
+
+如果函数只在某个范围内有定义，就要先确认$x$、$x+a$、$x+2a$等需要用到的位置都在定义域内。要把$2|a|$称为整个函数的周期，还应保证定义域整体向左或向右移动$2|a|$后不变。例如，定义域为$\mathbb R$就没有这个顾虑。
 \end{statementbox}

@@ -1,41 +1,52 @@
 \begin{statementbox}
+  \textbf{\textcolor{CStatement}{这个结论解决什么问题？}}
 
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件1（函数形式）：}}] 幂函数 $y=x^\alpha$，$\alpha\in\mathbb{R}$。
-		\item[\textbf{\textcolor{CStatement}{条件2（定义域限制）：}}] 仅考虑第一象限，即 $x>0$。
-	\end{description}
+  不必逐个描点，也不必算出具体的幂值，只看指数的范围，就能判断幂函数在正半轴上的走势，并比较两个同底幂的大小；遇到含参数的幂函数，还能先利用系数为 $1$ 的规定求参数。
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（定点性质）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			无论 $\alpha$ 取何值，所有幂函数图像都经过点 $(1,1)$。
-			\[
-				1^\alpha = 1\quad(\forall\alpha\in\mathbb{R}).
-			\]
+  \medskip
+  \textbf{\textcolor{CStatement}{条件与定义}}
+  \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.35em]
+    \item[条件1：] 高中所说的幂函数是 $y=x^\alpha$，其中 $\alpha$ 为实数，$x$ 是变量，前面的系数固定为 $1$。
+    \item[条件2：] 以下图像走势和大小比较只讨论 $x>0$。此时对任意实数 $\alpha$ 都有 $x^\alpha>0$，图像位于第一象限。
+  \end{description}
+  \textbf{\textcolor{CStatement}{结论一：先看系数，再看定点}}
+  \[
+     f(x)=A x^\alpha\ \text{是幂函数}\ \Longrightarrow\ A=1.
+  \]
+  反过来，若 $A=1$，且指数是实常数、定义域按幂的意义确定，就是高中定义下的幂函数。
+  由于 $1^\alpha=1$（包括 $\alpha=0$），所有幂函数都经过 $(1,1)$。而一般的 $y=Ax^\alpha$ 经过 $(1,A)$。若已学习导数，还可得到 $f'(1)=\alpha$，即公共点处的切线斜率等于指数。
 
-		\item[\textbf{\textcolor{CStatement}{结论二（单调凸性）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			幂函数的单调性与凸性完全由 $\alpha$ 与 $0,1$ 的比较决定，分为五种类型：$\alpha>1$ 下凸递增，$\alpha=1$ 直线，$0<\alpha<1$ 上凸递增，$\alpha=0$ 常数（去原点），$\alpha<0$ 递减以坐标轴为渐近线。
+  \medskip
+  \textbf{\textcolor{CStatement}{结论二：指数决定正半轴上的五种走势}}
 
-		\item[\textbf{\textcolor{CStatement}{结论三（指数比较）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			在区间 $(1,+\infty)$ 上，指数 $\alpha$ 越大，对应的函数值越大。
-			\[
-				x^{\alpha_1} > x^{\alpha_2} \iff \alpha_1 > \alpha_2
-				\qquad
-				(x>1).
-			\]
+  \begin{center}
+  \renewcommand{\arraystretch}{1.35}
+  \begin{tabular}{c|c|l}
+  指数 & 例子 & 从左向右看图像\\ \hline
+  $\alpha>1$ & $x^2$ & 上升，越走越陡\\
+  $\alpha=1$ & $x$ & 斜率为 $1$ 的直线\\
+  $0<\alpha<1$ & $\sqrt{x}$ & 上升，越走越平\\
+  $\alpha=0$ & $1$ & 高度不变\\
+  $\alpha<0$ & $1/x$ & 下降，越走越平
+  \end{tabular}
+  \end{center}
+  正指数严格递增，负指数严格递减，零指数为常数。负指数的图像靠近两条坐标轴，但在正半轴上始终不碰到它们。
 
-		\item[\textbf{\textcolor{CStatement}{推广结论（区间互补）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			在区间 $(0,1)$ 上，指数 $\alpha$ 越大，对应的函数值反而越小。
-			\[
-				x^{\alpha_1} < x^{\alpha_2} \iff \alpha_1 > \alpha_2
-				\qquad
-				(0<x<1).
-			\]
-	\end{description}
+  \medskip
+  \textbf{\textcolor{CStatement}{结论三：底数相同，比较指数}}
 
+  若 $\alpha_1>\alpha_2$，则
+  \[
+  \begin{cases}
+  x^{\alpha_1}>x^{\alpha_2}, & x>1,\\
+  x^{\alpha_1}=x^{\alpha_2}=1, & x=1,\\
+  x^{\alpha_1}<x^{\alpha_2}, & 0<x<1.
+  \end{cases}
+  \]
+  对 $x>1$ 或 $0<x<1$，上述严格大小关系也能反推指数的大小。
+
+  \medskip
+  \textbf{\textcolor{CStatement}{推广结论：两种比较不要混用}}
+
+  指数固定时，比较底数：正指数保持大小方向，负指数颠倒大小方向（底数均为正数）。底数固定时，比较指数：以 $1$ 为分界。两个不同指数的基本幂函数在正半轴上只相交一次，即 $(1,1)$。
 \end{statementbox}

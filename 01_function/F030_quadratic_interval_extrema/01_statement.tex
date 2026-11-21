@@ -1,40 +1,76 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件 1（二次函数）：}}] 设 $f(x)=ax^2+bx+c$，其中 $a\neq0$。
-		\item[\textbf{\textcolor{CStatement}{条件 2（轴和区间）：}}] 已知对称轴 $x_0=-\frac{b}{2a}$ 与闭区间 $[m,n]$（$m<n$）均为固定值。
-	\end{description}
+\input{assets/tikz/F030_core_interval}
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（开口向上）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			当 $a>0$ 时，最小值为顶点值（对称轴在区间内）或端点较小值；最大值为端点较大值。
-			\[
-				f_{\min}=
-				\begin{cases}
-					f(x_0), & x_0\in[m,n]\\
-					\min\{f(m),f(n)\}, & x_0\notin[m,n]
-			\end{cases},
-				\qquad
-				f_{\max}=\max\{f(m),f(n)\}.
-			\]
+\textbf{\textcolor{CStatement}{F030｜二次函数区间最值（轴定区间定）}}
 
-		\item[\textbf{\textcolor{CStatement}{结论二（开口向下）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			当 $a<0$ 时，最大值为顶点值（对称轴在区间内）或端点较大值；最小值为端点较小值。
-			\[
-				f_{\max}=
-				\begin{cases}
-					f(x_0), & x_0\in[m,n]\\
-					\max\{f(m),f(n)\}, & x_0\notin[m,n]
-			\end{cases},
-				\qquad
-				f_{\min}=\min\{f(m),f(n)\}.
-			\]
+\medskip
+\textbf{\textcolor{CStatement}{这个结论解决什么问题？}}
 
-		\item[\textbf{\textcolor{CStatement}{常见变形（含参最值）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			若二次函数含参数（对称轴随参数变化），区间固定，则最值需按对称轴与区间的位置关系分类讨论，规则与上相同。
-	\end{description}
+给出一条抛物线，但只允许 $x$ 在一小段范围内变化。如何不用把每个 $x$ 都试一遍，就找到这一段图像的最高点和最低点？
+
+\medskip
+\end{statementbox}\clearpage\begin{statementbox}\textbf{\textcolor{CStatement}{使用条件}}
+\begin{itemize}[leftmargin=*,itemsep=0.25em]
+\item $f(x)=ax^2+bx+c$，$a\ne0$；本题中 $a,b,c$ 都是已知常数。
+\item $x\in[m,n]$，$m<n$，并且两个端点 $m,n$ 都允许取到（\textbf{闭区间}）。
+\item 对称轴为 $x=h$，其中 $h=-\dfrac{b}{2a}$；在本结论中，它的位置固定。
+\end{itemize}
+
+\medskip
+\textbf{\textcolor{CStatement}{最重要的一句话}}
+
+\textbf{找出区间内离对称轴最近的位置和最远的位置，就找到了最大值与最小值所在的位置。}
+
+\begin{itemize}[leftmargin=*,itemsep=0.3em]
+\item $a>0$（开口向上）：\textbf{最近处最小，最远处最大}。
+\item $a<0$（开口向下）：\textbf{最近处最大，最远处最小}。
+\end{itemize}
+
+\medskip
+\end{statementbox}\clearpage\begin{statementbox}\textbf{\textcolor{CStatement}{怎样找“最近处”？}}
+\input{assets/tikz/F030_nearest_numberline}
+
+\[
+ x_{\text{近}}=\begin{cases}
+ m,&h<m,\\
+ h,&m\le h\le n,\\
+ n,&h>n.
+ \end{cases}
+\]
+也就是说：顶点在区间内，就选顶点；顶点在左侧，就选左端点；顶点在右侧，就选右端点。
+
+\medskip
+\end{statementbox}\clearpage\begin{statementbox}\textbf{\textcolor{CStatement}{怎样找“最远处”？}}
+\input{assets/tikz/F030_midpoint_distance}
+
+
+最远的位置\textbf{一定是两个端点之一}。记区间中点 $s=\dfrac{m+n}{2}$，则
+\[
+\begin{array}{c|c}
+\text{对称轴的位置}&\text{最远的位置}\\ \hline
+h<s&n\text{（右端点）}\\
+h>s&m\text{（左端点）}\\
+h=s&m,n\text{ 一样远}
+\end{array}
+\]
+这个判断与开口向上还是向下无关；开口方向只决定“最远处”取最大值还是最小值。
+
+\medskip
+\end{statementbox}\clearpage\begin{statementbox}\textbf{\textcolor{CStatement}{常规写法（便于直接套题）}}
+\[
+\begin{array}{ll}
+ a>0:& f_{\max}=\max\{f(m),f(n)\},\\
+ &f_{\min}=\begin{cases}
+ f(h),&m\le h\le n,\\
+ \min\{f(m),f(n)\},&h<m\text{ 或 }h>n;
+ \end{cases}\\[1em]
+ a<0:& f_{\min}=\min\{f(m),f(n)\},\\
+ &f_{\max}=\begin{cases}
+ f(h),&m\le h\le n,\\
+ \max\{f(m),f(n)\},&h<m\text{ 或 }h>n.
+ \end{cases}
+\end{array}
+\]
+
+\textbf{边界也算在内：} $h=m$ 或 $h=n$ 时，顶点正好是端点，仍然能够取到顶点值。
 \end{statementbox}

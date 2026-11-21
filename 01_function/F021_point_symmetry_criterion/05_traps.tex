@@ -1,21 +1,96 @@
+\clearpage
 \begin{trapbox}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（定义域忽略）}}] 学生直接套用 $f(a+x)+f(a-x)=2b$ 判断对称性，未检查定义域是否关于 $x=a$ 对称。
-		\item[\textbf{\textcolor{CTrap}{正确理解（必须对称）：}}] 使用前必须先验证定义域对称性，否则结论不成立。
-		\item[\textbf{\textcolor{CTrap}{错因分析（条件缺失）：}}] 充要条件要求定义域对称，遗漏条件会导致错误判断。
-	\end{description}
+\textbf{\textcolor{CTrap}{易错点一｜只看等式，不看定义域}}
+\input{assets/tikz/F021_half_domain}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（公式混淆）}}] 将中心对称条件误记为 $f(a+x)=f(a-x)$（轴对称条件）。
-		\item[\textbf{\textcolor{CTrap}{正确理解（和式常数）：}}] 中心对称的条件是 $f(a+x)+f(a-x)=2b$，不是相等。
-		\item[\textbf{\textcolor{CTrap}{错因分析（对称类型混淆）：}}] 中心对称对应函数值和为常数，轴对称对应函数值相等。
-	\end{description}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（中心坐标错误）}}] 从 $f(a+x)+f(a-x)=2b$ 误认为对称中心是 $(a,b)$ 但写错符号或忘记除2。
-		\item[\textbf{\textcolor{CTrap}{正确理解（直接对应）：}}] 对称中心为 $(a,b)$，其中 $a$ 是常数项，$b$ 等于函数值和的一半。
-		\item[\textbf{\textcolor{CTrap}{错因分析（系数误解）：}}] 不明确 $2b$ 中 $b$ 的几何意义，误将 $2b$ 当作纵坐标。
-	\end{description}
+例如 $f(x)=x$ 只在 $[0,+\infty)$ 上有定义。若只对两边都存在的 $t$ 检查
+$f(t)+f(-t)=0$，实际上只能检查 $t=0$；等式没有暴露问题。
+但点 $(1,1)$ 的对应点 $(-1,-1)$ 不在图像上，所以图像\textbf{不关于原点中心对称}。
+\textbf{改法：}先验证“有右边就必须有左边”，再检查等式。
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错点二｜把轴对称与点对称混成一条式子}}
+\input{assets/tikz/F021_axis_vs_center}
+
+\[
+\begin{array}{ll}
+\text{关于直线 }x=a\text{ 对称：}& f(a+t)=f(a-t),\\[3pt]
+\text{关于点 }(a,b)\text{ 对称：}& f(a+t)+f(a-t)=2b.
+\end{array}
+\]
+\textbf{改法：}轴对称是\textbf{左右一样高}；点对称是\textbf{左右高度以 $b$ 为中间数}。
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错点三｜把 $2b$ 当成中心纵坐标}}
+\input{assets/tikz/F021_cubic_center}
+
+$f(2+t)+f(2-t)=6$ 的中心是 $(2,3)$，\textbf{不是 $(2,6)$}。
+因为 $6$ 是两点纵坐标的\textbf{和}，要除以 $2$。
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错点四｜认为任何中心必须在图像上}}
+\input{assets/tikz/F021_hyperbola}
+
+$f(x)=1/(x-2)+3$ 的中心是 $(2,3)$，但 $x=2$ 不在定义域内。
+\textbf{只有当 $a\in D$ 时，才可推出 $f(a)=b$。}
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错点五｜只验证一两对数值就下结论}}
+\input{assets/tikz/F021_one_pair_failure}
+
+$f(1)+f(3)=6$ 只说明两点的平均高度是 $3$，并不能保证所有
+$f(2+t)+f(2-t)$ 都等于 $6$。\textbf{完整判定必须对每一对都成立}。
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错点六｜误以为点对称会改变单调方向}}
+\input{assets/tikz/F021_monotonic}
+
+对于左右相互对应的两个区间，中心对称会\textbf{同时颠倒横纵顺序}，
+所以右边递增，对应的左边也递增；右边递减，左边也递减。
+注意只有在\textbf{相互对应的区间}比较时才能直接使用。
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错点七｜把“有两个中心”都当成有周期}}
+\input{assets/tikz/F021_slanted_centers}
+
+若中心是 $(a,b)$ 和 $(c,b)$，同样高，可以推出周期 $2|c-a|$。
+但 $y=x$ 上 $(0,0)$ 和 $(1,1)$ 都是对称中心，\textbf{它并不是周期函数}；
+因为两个中心不在同一水平线上。
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错点八｜混淆“一个中心”与“唯一中心”}}
+\input{assets/tikz/F021_two_centers}
+
+公式能证明 $(a,b)$ \textbf{是一个}对称中心，未必是唯一的。
+例如 $f(x)=\sin x$ 既关于 $(0,0)$ 又关于 $(\pi,0)$ 对称；
+不能未经证明就声称“只有这个中心”。
 \end{trapbox}

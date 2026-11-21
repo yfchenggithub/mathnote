@@ -1,21 +1,101 @@
+\clearpage
 \begin{trapbox}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（忽略定义域）}}] 直接使用 $f(0)=0$ 而不先确认 $0$ 是否在定义域内。
-		\item[\textbf{\textcolor{CTrap}{正确理解（先验条件）：}}] 必须已知 $0$ 属于定义域，才能推出 $f(0)=0$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（条件遗漏）：}}] 奇函数定义域不一定包含 $0$，如 $f(x)=\frac1x$，若盲目使用会得出错误结论。
-	\end{description}
+  \textbf{\textcolor{CTrap}{易错一：把“奇函数”误记成“一定经过原点”}}
+\input{assets/tikz/F016_reciprocal_compare}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（充分混淆）}}] 认为 $f(0)=0$ 是函数为奇函数的充分条件，从而仅凭 $f(0)=0$ 判定奇偶性。
-		\item[\textbf{\textcolor{CTrap}{正确理解（必要非充）：}}] $f(0)=0$ 是奇函数且 $0$ 在定义域内的必要条件，不是充分条件。函数是否为奇函数还需检验 $f(-x)=-f(x)$ 对定义域内所有 $x$ 成立。
-		\item[\textbf{\textcolor{CTrap}{错因分析（逻辑倒置）：}}] 将必要条件和充分条件混淆，忽略奇函数定义的普适性。
-	\end{description}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（求参失检）}}] 利用 $f(0)=0$ 求参数时，忽略 $0$ 必须在定义域内的前提，导致参数取值扩大。
-		\item[\textbf{\textcolor{CTrap}{正确理解（验证定义域）：}}] 列式 $f(0)=0$ 后，必须回头检查当参数取所求值时，$0$ 是否确实属于定义域，否则可能得到非奇函数。
-		\item[\textbf{\textcolor{CTrap}{错因分析（忽略前提）：}}] 对 $f(0)=0$ 的适用条件记忆不牢固，忘记验证定义域。
-	\end{description}
+  \textbf{错误说法：}奇函数一定经过原点，所以一定有 $f(0)=0$。
+
+  \textbf{问题在哪里？}奇函数的定义域可以不包含 $0$。
+  如 $f(x)=\dfrac1x$ 是奇函数，但 $f(0)$ 无意义，图像上也没有原点这个点。
+
+  \textbf{正确说法：}\textbf{奇函数只要在 $x=0$ 处有定义，就必经过原点。}
+
+  \medskip
+  
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错二：把“$f(0)=0$”当成“奇函数”的证明}}
+\input{assets/tikz/F016_origin_not_sufficient}
+
+
+  \textbf{错误想法：}已知 $f(0)=0$，图像经过原点，所以函数是奇函数。
+
+  \textbf{反例：}$f(x)=x^2$ 满足 $f(0)=0$，但
+  \[
+    f(1)=1,\qquad f(-1)=1\ne-1=-f(1).
+  \]
+  因此它不是奇函数。
+  \textbf{正确方法：}要证明奇函数，必须检查定义域关于 $0$ 成对出现，
+  并验证每对相反数都满足 $f(-x)=-f(x)$。
+
+  \medskip
+  
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错三：求出了一个参数，就以为已经检查完奇函数}}
+\input{assets/tikz/F016_polynomial_parameter}
+
+
+  例如已知 $f(x)=x^3+ax^2+bx+c$ 为奇函数，
+  由 $f(0)=0$ 只得到 $c=0$。
+  \textbf{还要}使用 $f(-x)=-f(x)$ 得到 $a=0$。
+  特别是题目让你“求使函数为奇函数的全部参数”时，
+  必须把求出的参数代回去验证，而不能只满足 $f(0)=0$ 就停笔。
+
+  \medskip
+  
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错四：忘记检查“相反数有没有一起进入定义域”}}
+\input{assets/tikz/F016_domain_restriction}
+
+
+  函数 $f(x)=x$ 如果只规定在 $[0,1]$ 上取值，
+  虽然 $f(0)=0$，但 $x=1$ 能取而 $x=-1$ 不能取，
+  因此按高中奇函数的定义，它\textbf{不是奇函数}。
+
+  \textbf{记住：}不是只看函数的表达式，还要看题目给出的定义域。
+
+  \medskip
+  
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错五：把奇函数和偶函数在 $0$ 处的性质混在一起}}
+\input{assets/tikz/F016_even_compare}
+
+
+  奇函数：若 $0$ 有定义，则 $f(0)=-f(0)$，所以 $f(0)=0$。
+
+  偶函数：若 $0$ 有定义，则只有 $f(0)=f(0)$，不能确定数值；
+  比如 $x^2+2$ 是偶函数，$f(0)=2$。
+
+  \medskip
+  
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错六：把“原点处的零点”误当成“唯一零点”}}
+\input{assets/tikz/F016_paired_zeros}
+
+
+  例如 $f(x)=x^3-x$ 是奇函数，
+  \[
+    f(x)=x(x-1)(x+1),
+  \]
+  零点有 $-1,0,1$ 三个。
+  \textbf{正确理解：}$0$ 在定义域内时必定是零点，但别的零点仍可以成对出现。
+
+  \medskip
+  \textbf{\textcolor{CTrap}{考试前最后自查}}
+
+  \begin{itemize}[leftmargin=*, itemsep=0.4em, topsep=0.3em]
+    \item $0$ 能不能代入？不能，就不要写 $f(0)$。
+    \item 题目是\textbf{已知}奇函数，还是让你\textbf{判断}奇函数？两者做法不同。
+    \item 用 $f(0)=0$ 求出参数后，是否还需检查其他位置满足奇函数定义？
+  \end{itemize}
 \end{trapbox}

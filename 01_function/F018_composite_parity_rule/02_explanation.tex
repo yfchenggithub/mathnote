@@ -1,31 +1,96 @@
+\clearpage
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
-	内层函数的奇偶性控制复合函数的对称性：内层偶则整体对称于$y$轴；内层奇时，复合函数的对称性由外层传递。
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（内层奇偶判定）：}] 内函数$g$的奇偶性是第一判据。$g$为偶函数时，无论$f$如何，复合函数$F=f\circ g$必为偶函数；$g$为奇函数时，$F$的奇偶性与$f$一致。
-		\item[\textbf{要点二（外层传承条件）：}] 当内层为奇函数时，外层$f$的奇偶性直接传递给$F$。若$f$为奇，则$F$为奇；若$f$为偶，则$F$为偶。
-	\end{description}
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（对称性复合）}}
-	复合函数对应于两个函数图像的先后变换。若内函数$g$为偶函数，其图像关于$y$轴对称，再经外函数$f$映射后依然保持对称；若内函数为奇函数，其图像关于原点对称，经$f$后，对称性由$f$的奇偶性决定是否保留。
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（定义验证）}}
-	按定义计算$F(-x)=f(g(-x))$，利用$g$的奇偶性化简：若$g$偶则$g(-x)=g(x)$直接得$F(-x)=F(x)$；若$g$奇则$g(-x)=-g(x)$，此时$F(-x)=f(-g(x))$，其奇偶性由$f$决定。
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（快速判断）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（直接判断）：} 已知复合函数结构，要求判断其奇偶性。只需看内层奇偶：内偶则偶；内奇则看外层。
-		\item \textbf{考法二（参数求解）：} 给出含参数函数的奇偶性条件，反求参数值。需分情况讨论内层奇偶。
-	\end{itemize}
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
-	记忆口诀“内偶则偶，内奇同外”。核心在于：偶函数像“过滤器”，使得复合后必为偶；奇函数则像“通透管”，保留外层的奇偶性。
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（性质判断）：} 题目直接给出$F(x)=f(g(x))$，要求判断奇偶性。
-		\item \textbf{场景二（构造设计）：} 要求构造具有特定奇偶性的函数，利用复合规则设计内层与外层。
-	\end{itemize}
+\textbf{\textcolor{CExplanation}{一、为什么要有这条结论？}}
+\input{assets/tikz/F018_overview}
+
+我们判断偶函数，本来要比较 $F(2)$ 和 $F(-2)$；判断奇函数，则要看它们是否互为相反数。可是复合函数要连续算两次，直接展开很容易乱。\textbf{不妨只问：第一次计算之后，$2$ 和 $-2$ 变成了什么？} 这正是口诀的来历。
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{二、先从一个初中生也能算的例子开始}}
+\input{assets/tikz/F018_paired_inputs}
+
+设里面的规则为 $g(x)=x^2$，外面的规则为 $f(u)=u+3$，所以
+\[
+F(x)=f(g(x))=x^2+3.
+\]
+拿 $x=2$ 和 $x=-2$ 分别走一遍：
+\[
+\begin{aligned}
+\boxed{2}&\ \xrightarrow{\text{平方}}\ \boxed{4}\ \xrightarrow{\text{加 }3}\ \boxed{7},\\[0.3em]
+\boxed{-2}&\ \xrightarrow{\text{平方}}\ \boxed{4}\ \xrightarrow{\text{加 }3}\ \boxed{7}.
+\end{aligned}
+\]
+\textbf{关键不在于“加 3”，而在于“平方”已经让 $2$ 与 $-2$ 得到同一个数 $4$。} 外面即使不是“加 3”，换成开平方、立方或其他运算，只要能算，结果仍然相同。于是整个函数是偶函数。
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{三、内层是奇函数时，为什么要继续看外层？}}
+\input{assets/tikz/F018_overview}
+
+改成里面先“乘 2”，也就是 $g(x)=2x$。这时 $x=1$ 与 $x=-1$ 会先得到 $2$ 与 $-2$，它们不相同，而是互为相反数。
+
+\begin{center}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{c|c|c|c}
+输入 $x$ & 内层 $g(x)=2x$ & 外层规则 & 最后 $F(x)$\\ \hline
+$1$ & $2$ & $f(u)=u^3$ & $8$\\
+$-1$ & $-2$ & $f(u)=u^3$ & $-8$\\ \hline
+$1$ & $2$ & $f(u)=u^2$ & $4$\\
+$-1$ & $-2$ & $f(u)=u^2$ & $4$
+\end{tabular}
+\end{center}
+\textbf{看出差别：} 同样是里面“乘 2”，外面用立方，就会保留正负号，整个函数为奇函数；外面用平方，正负号被消去，整个函数为偶函数。\textbf{所以“内奇同外”，不是“内奇一定奇”。}
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{四、用图像认识两种对称}}
+\input{assets/tikz/F018_overview}
+
+偶函数的图像左右一样高：如果 $(a,b)$ 在图像上，$(-a,b)$ 也在图像上，图像关于 $y$ 轴对称。奇函数的图像则成对经过 $(a,b)$ 和 $(-a,-b)$，图像关于原点对称。
+
+
+这三张图要连起来看：左图的正负输入同高，中图的正负输入对应相反高度；右图虽然长得像一条抛物线，但\textbf{对称轴是 $x=-1$，不是 $y$ 轴}，所以它并不是偶函数。
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{五、一个容易眼前一亮的联系：$\sqrt{x^2}=|x|$}}
+\input{assets/tikz/F018_absolute}
+
+取 $g(x)=x^2$，$f(u)=\sqrt{u}$（只能对 $u\geqslant0$ 计算）。那么
+\[
+F(x)=f(g(x))=\sqrt{x^2}=|x|.
+\]
+虽然外面的 $\sqrt{u}$ 只在非负数上有定义，不能说它是偶函数，但\textbf{里面先平方，正负数就变成同一个非负数}，所以 $|x|$ 必为偶函数。这说明：\textbf{内偶则偶，并不要求外函数本身具有奇偶性。}
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{六、还有一个出人意料的例子：两层都不对称，整体却对称}}
+\input{assets/tikz/F018_shift_cancel}
+
+取 $g(x)=x+1$，再取 $f(u)=u-1$。这两个函数都不是奇函数或偶函数，但
+\[
+F(x)=f(g(x))=(x+1)-1=x
+\]
+却是奇函数。因为\textbf{外面可以把里面造成的“偏移”再抵消掉}。所以口诀是\textbf{快速判断的可靠办法}，并不是列出了所有可能的情况。
+
+\medskip
+
+\textbf{\textcolor{CExplanation}{七、解题时按什么顺序看？}}
+先检查 $F(x)$ 的定义域能否成对取 $x$ 与 $-x$；再计算 $g(-x)$。如果等于 $g(x)$，可直接判偶；如果等于 $-g(x)$，再看外层 $f(-u)$ 与 $f(u)$ 的关系。两种都不符合，就不要硬套口诀，回到 $F(-x)$ 直接比较。
 \end{explanationbox}

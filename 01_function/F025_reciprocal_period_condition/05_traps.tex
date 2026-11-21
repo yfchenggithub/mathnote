@@ -1,21 +1,99 @@
+\clearpage
 \begin{trapbox}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（非零条件）}}] 使用结论时，疏忽$f(x)\neq0$的前提，直接套周期公式。
-		\item[\textbf{\textcolor{CTrap}{正确理解（非零要求）：}}] 必须满足$f(x)\neq0$，否则倒数无意义，周期结论不成立。
-		\item[\textbf{\textcolor{CTrap}{错因分析（分母为零）：}}] 倒数运算要求分母非零，若$f(x)=0$，条件$f(x+a)=1/f(x)$无定义，结论不适用。
-	\end{description}
+\textbf{\textcolor{CTrap}{易错1：把“一次变换”误当成“周期”}}
+\input{assets/tikz/F025_trap_first_step}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（周期误判）}}] 只看到一次变换，认为周期是$a$，错误地把$f(x+a)=1/f(x)$当作周期关系。
-		\item[\textbf{\textcolor{CTrap}{正确理解（周期二倍）：}}] 必须迭代两次：$f(x+2a)=\frac{1}{f(x+a)}$，代入条件得 $f(x+2a)=f(x)$，因此周期是$2a$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（缺少迭代）：}}] 仅观察$f(x+a)$与$f(x)$的倒数关系，没有继续推导$x+2a$处的情形。
-	\end{description}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（负号遗漏）}}] 在$f(x+a)=-\frac{1}{f(x)}$时，推导中忘记两个负号抵消，得出周期$T=4a$等错误结论。
-		\item[\textbf{\textcolor{CTrap}{正确理解（负号抵消）：}}] 类似地，$f(x+2a)=-\frac{1}{f(x+a)}$，代入 $f(x+a)=-\frac{1}{f(x)}$ 得 $f(x+2a)=f(x)$，周期仍为$2a$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（符号粗心）：}}] 对复合分式计算粗心，未正确处理负号的叠乘。
-	\end{description}
+若$f(x+2)=1/f(x)$，就说周期是$2$，\textbf{一般是错的}。例如$f(0)=3$，则$f(2)=1/3\ne3$，但$f(4)=3$。\textbf{应先走两次，再得出周期$4$。}
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错2：说$2a$“一定是最小正周期”}}
+\input{assets/tikz/F025_minimal_contrast}
+
+
+我们只得到$f(x+2a)=f(x)$，没有排除更小的正周期。常数函数$f(x)\equiv1$满足倒数条件，却不存在最小正周期。准确说法：\textbf{$2|a|$是一个正周期。}
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错3：$a$可能为负数}}
+\input{assets/tikz/F025_negative_shift}
+
+
+若$a=-2$，得到的是$f(x-4)=f(x)$，这也说明$f(x+4)=f(x)$。因此要写正周期$T=4=2|a|$，不能随手写成$T=-4$。
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错4：分母可能为$0$，或定义域走不通}}
+\input{assets/tikz/F025_zero_denominator}
+
+
+分式$k/f(x)$要求$f(x)\ne0$。此外，若函数只在$[0,1]$上定义，写$f(x+1)$就可能已经走出定义域。必须先检查需要出现的输入位置都能代入；若要声明整个函数具有周期，还要符合定义域的周期要求。
+\input{assets/tikz/F025_bounded_domain}
+
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错5：“或”到底是什么意思？}}
+\input{assets/tikz/F025_changing_sign_rule}
+
+
+本结论要求\textbf{整道题始终固定一种规则}，例如对所有$x$都是$1/f(x)$，或者对所有$x$都是$-1/f(x)$。不能理解成“每到一个$x$，都可以临时任选正号或负号”。
+
+\textbf{反例：}定义
+\[
+ f(x)=\begin{cases}1,&x\ge0,\\-1,&x<0.\end{cases}
+\]
+由于它每处的函数值都为$\pm1$，对每一个$x$，$f(x+1)$总能等于$1/f(x)$或$-1/f(x)$中的某一个；但$f(-1)=-1$而$f(1)=1$，所以$f(x+2)=f(x)$\textbf{并非处处成立}。可见两种规则不能随意交替。
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错6：把一般推广说成“不一定成立”}}
+\input{assets/tikz/F025_example_general_six}
+
+
+只要$k\ne0$固定不变，$f(x+a)=k/f(x)$\textbf{必有}$f(x+2a)=f(x)$。因为
+\[
+ \frac{k}{\,k/f(x)\,}=f(x).
+\]
+比如$k=-6$也一样，不要求$k=\pm1$。如果$k$随着$x$变化，则不能不经检查就直接套用。
+\input{assets/tikz/F025_changing_k}
+
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错7：题目给出的某一段表达式和端点条件打架}}
+\input{assets/tikz/F025_half_open_exponential}
+
+
+若$f(x+1)=1/f(x)$且$f(x)=2^x$在$[0,1]$上成立，就出现$f(1)=1$与$f(1)=2$的冲突。应当改为$[0,1)$之类不冲突的条件，而不是硬算出一个答案。
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错8：把负倒数型想成整条不断开的曲线}}
+\input{assets/tikz/F025_negative_steps}
+
+
+$f(x+a)=-1/f(x)$要求隔$a$的函数值一正一负。如果函数在全体实数上处处连续，中间必须出现零点，却与分母不能为$0$矛盾。\textbf{不是函数关系错了，而是不能同时要求“全体实数上连续”。}
 \end{trapbox}

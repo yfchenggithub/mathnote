@@ -1,0 +1,10 @@
+\begin{tikzpicture}[x=2.0cm,y=0.8cm,>=stealth,every node/.style={font=\small}]
+ \draw[->] (-0.1,0)--(2.4,0) node[right] {$x$};
+ \draw[->] (0,-1.4)--(0,1.4) node[above] {$y$};
+ \draw[thick,blue!70!black,domain=0:2.15,samples=160] plot (\x,{sin(540*\x)});
+ \foreach \x/\lab in {0/{0},0.66667/{\frac23},1/{1},1.33333/{\frac43},2/{2}}{
+   \draw (\x,0.06)--(\x,-0.06) node[below,fill=white,inner sep=1pt] {$\lab$};
+ }
+ \draw[<->,orange!85!black,very thick] (0,1.23)--node[above,font=\scriptsize] {最小重复距离 $\frac23$} (0.66667,1.23);
+ \node[anchor=west,font=\scriptsize] at (1.0,1.17) {$f(x)=\sin(3\pi x)$};
+\end{tikzpicture}

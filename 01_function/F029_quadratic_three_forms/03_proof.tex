@@ -1,47 +1,107 @@
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
-	二次函数一般式通过配方可得顶点式，再利用求根公式可分解为两根式，并由此得到根与系数的关系。
+\textbf{\textcolor{CProof}{推导一：从初中配方出发，最容易理解（适用于所有二次函数）}}
+\input{assets/tikz/F029_complete_square}
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（配方变形）：}]
-			\[
-				\begin{aligned}
-					f(x) &= a\left(x^2+\frac{b}{a}x\right)+c \\ &= a\left(x+\frac{b}{2a}\right)^2 + c - \frac{b^2}{4a}.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 这是配方法的标准步骤，在括号内加上并减去 $\frac{b^2}{4a^2}$ 再乘以 $a$，整理后得到顶点式。
-		\item[\textbf{步骤二（顶点坐标）：}]
-			\[
-				f(x)=a(x-h)^2+k,\quad h=-\frac{b}{2a},\; k=\frac{4ac-b^2}{4a}.
-			\]
-			\par\textbf{理由：} 对比上一步，$h=-\frac{b}{2a}$，$k=c-\frac{b^2}{4a}$，通分即得 $k$ 的表达式。
-		\item[\textbf{步骤三（求根公式）：}]
-			当 $\Delta=b^2-4ac\ge0$ 时，求解方程 $ax^2+bx+c=0$ 得到两根
-			\[
-				x_{1,2}=\frac{-b\pm\sqrt{\Delta}}{2a}.
-			\]
-			\par\textbf{理由：} 直接应用一元二次方程的求根公式。
-		\item[\textbf{步骤四（两根式分解）：}]
-			根据因式定理，将两根代入分解式
-			\[
-				f(x)=a(x-x_1)(x-x_2).
-			\]
-			\par\textbf{理由：} 若 $x_1,x_2$ 是 $f(x)=0$ 的根，则 $f(x)$ 可被 $(x-x_1)(x-x_2)$ 整除，且二次项系数为 $a$。
-		\item[\textbf{步骤五（和积关系）：}]
-			展开两根式并与一般式对比系数
-			\[
-				(x-x_1)(x-x_2)=x^2-(x_1+x_2)x+x_1x_2,
-			\]
-			于是得
-			\[
-				x_1+x_2=-\frac{b}{a},\quad x_1x_2=\frac{c}{a}.
-			\]
-			\par\textbf{理由：} 展开后与 $ax^2+bx+c$ 除以 $a$ 后的二次项系数、一次项系数、常数项对应相等。
-	\end{description}
+\textbf{为什么想到配方？}因为平方一定大于或等于 $0$，把式子整理成“平方＋常数”，最高点或最低点就能直接看出来。
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-	以上推导证实了二次函数的一般式、顶点式、两根式三种形式等价，并给出具体的坐标公式与根与系数关系，解题时可灵活选用。
+先用具体例子找感觉：
+\[
+2x^2-4x+1=2(x^2-2x)+1
+=2\bigl[(x-1)^2-1\bigr]+1=2(x-1)^2-1.
+\]
+因为 $(x-1)^2\ge0$，所以在 $x=1$ 时取得最小值 $-1$，顶点为 $(1,-1)$。
+
+推广到任意 $a\ne0$ 的二次函数：
+\[
+\begin{aligned}
+ax^2+bx+c
+&=a\left(x^2+\frac ba x\right)+c\\
+&=a\left[x^2+2\cdot\frac{b}{2a}x
+      +\left(\frac{b}{2a}\right)^2
+      -\left(\frac{b}{2a}\right)^2\right]+c\\
+&=a\left(x+\frac{b}{2a}\right)^2
+  +c-\frac{b^2}{4a}.
+\end{aligned}
+\]
+于是
+\[
+\boxed{h=-\frac{b}{2a},\qquad k=c-\frac{b^2}{4a}}
+\]
+这里有一个容易忽略的细节：若 $a>0$，平方前是正数，平方越小，$y$ 越小；若 $a<0$，平方前是负数，平方越小，$y$ 反而越大。\textbf{所以同一个顶点式既能表示最低点，也能表示最高点。}
+
+\medskip
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{推导二：把函数值设成 $0$，同时找到解和交点个数（高中常规法）}}
+\input{assets/tikz/F029_discriminant_up}
+
+从刚才得到的平方形式出发：
+\[
+0=a\left(x+\frac{b}{2a}\right)^2-\frac{b^2-4ac}{4a}.
+\]
+两边移项并除以 $a$（因为 $a\ne0$）：
+\[
+\left(x+\frac{b}{2a}\right)^2=\frac{b^2-4ac}{4a^2}=\frac{\Delta}{4a^2}.
+\]
+左边是平方，不能小于 $0$；右边分母 $4a^2>0$，因此交点个数由 $\Delta$ 的正、零、负决定。
+在 $\Delta\ge0$ 时，开平方得到
+\[
+\boxed{x_{1,2}=\frac{-b\pm\sqrt{\Delta}}{2a}}.
+\]
+再看两个解的和、积：
+\[
+\begin{aligned}
+x_1+x_2&=\frac{-b+\sqrt\Delta-b-\sqrt\Delta}{2a}=-\frac ba,\\
+x_1x_2&=\frac{b^2-\Delta}{4a^2}
+=\frac{b^2-(b^2-4ac)}{4a^2}=\frac ca.
+\end{aligned}
+\]
+所以
+\[
+\begin{aligned}
+a(x-x_1)(x-x_2)
+&=a\bigl[x^2-(x_1+x_2)x+x_1x_2\bigr]\\
+&=ax^2+bx+c.
+\end{aligned}
+\]
+这不但证明了两根式，也说明两根式和一般式\textbf{对所有 $x$ 的取值都相等}，并非只在交点处相等。
+
+\medskip
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{推导三：从两个交点反推顶点（最适合速算的办法）}}
+\input{assets/tikz/F029_midpoint_roots}
+
+\textbf{适用前提：}先知道实数交点横坐标 $x_1,x_2$（两个可以相同）。
+
+设两根的中点为 $m=\frac{x_1+x_2}{2}$，半个间距为 $d=\frac{x_2-x_1}{2}$。
+那么
+\[
+\begin{aligned}
+f(x)&=a(x-x_1)(x-x_2)\\
+&=a\bigl[x-(m-d)\bigr]\bigl[x-(m+d)\bigr]\\
+&=a\bigl[(x-m)+d\bigr]\bigl[(x-m)-d\bigr]\\
+&=a(x-m)^2-ad^2.
+\end{aligned}
+\]
+这一步只用了初中学过的公式 $(u+v)(u-v)=u^2-v^2$。
+所以顶点坐标立即是
+\[
+\boxed{\left(\frac{x_1+x_2}{2},
+-\frac{a(x_2-x_1)^2}{4}\right)}.
+\]
+\textbf{顺手得到一个很实用的检查式：}
+\[
+\Delta=b^2-4ac=a^2(x_2-x_1)^2\qquad(\Delta\ge0).
+\]
+也就是说，若 $a$ 已确定，两个交点相隔越远，$\Delta$ 越大；两个交点合到同一处时，$\Delta=0$。
+
+\medskip
+\textbf{\textcolor{CProof}{三种方法怎样选？}}
+要找顶点，\textbf{配方}最稳；要判断交点个数或求具体交点，\textbf{令 $y=0$ 再配方}最直接；已知两个交点，要抢时间，\textbf{先取中点，再用平方差}最快。
 \end{proofbox}

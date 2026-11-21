@@ -2,21 +2,25 @@
   "id": "F024",
   "module": "function",
   "core": {
-    "title": "抽象函数周期性",
+    "title": "反号型周期：加一次变号，加两次还原",
     "alias": [
       "周期公式",
       "半周期",
       "负号周期",
-      "f(x+a)=-f(x)周期"
+      "f(x+a)=-f(x)周期",
+      "反号型周期",
+      "两次变号",
+      "走一步变号走两步还原"
     ],
-    "summary": "若函数满足相邻两自变量函数值相反，则周期是2a。",
+    "summary": "若对所有实数x有f(x+a)=-f(x)且a≠0，则2|a|是一个正周期，不保证是最小正周期；不能单凭此式推断图像中心对称。",
     "difficulty": 2,
     "category": "函数",
     "tags": [
       "函数周期性",
       "抽象函数",
-      "周期公式",
-      "对称中心"
+      "反号关系",
+      "求值",
+      "周期与奇偶性"
     ]
   },
   "search": {
@@ -26,11 +30,14 @@
       "2a",
       "抽象函数",
       "周期性",
-      "对称中心",
       "f(x+2a)=f(x)",
-      "中心对称",
-      "点(a/2,0)",
-      "周期公式"
+      "周期公式",
+      "一个正周期",
+      "最小正周期",
+      "奇函数对称轴",
+      "偶函数对称中心",
+      "奇数次变号",
+      "偶数次还原"
     ],
     "synonyms": [
       "加a变负",
@@ -48,7 +55,9 @@
       "f(x+a)=-f(x) 周期",
       "抽象函数周期公式",
       "f(x+1)=-f(x) 周期是多少",
-      "函数满足f(x+2)=-f(x)求周期"
+      "函数满足f(x+2)=-f(x)求周期",
+      "f(x+a)=-f(x)是否关于a/2中心对称",
+      "f(x+a)=-f(x)最小正周期一定是2a吗"
     ],
     "ocrKeywords": [
       "f(x+a)=-f(x)",
@@ -57,7 +66,8 @@
     ],
     "latex_patterns": [
       "f(x+a)=-f(x)",
-      "f(x+2a)=f(x)"
+      "f(x+2a)=f(x)",
+      "f(x+na)=(-1)^n f(x)"
     ],
     "formulaTokens": [
       "f(x+a)",
@@ -65,7 +75,9 @@
       "f(x+2a)",
       "f(x)",
       "2a",
-      "a≠0"
+      "a≠0",
+      "2|a|",
+      "f(x+na)"
     ],
     "pinyin": "chouxianghanshu zhouqi",
     "pinyinAbbr": "cxhszq"
@@ -85,28 +97,33 @@
   "math": {
     "core_formula": "f(x+2a)=f(x)",
     "related_formulas": [
-      "f\\left(\\frac{a}{2}+x\\right)=-f\\left(\\frac{a}{2}-x\\right)"
+      "f(x+na)=(-1)^n f(x) \\quad(n\\in\\mathbb Z)",
+      "f(x)+f(x+a)=0",
+      "f(-x)=f(x)\\Rightarrow f(a/2+t)=-f(a/2-t)",
+      "f(-x)=-f(x)\\Rightarrow f(a/2+t)=f(a/2-t)"
     ],
     "variables": [
       "x",
       "a",
       "f"
     ],
-    "conditions": "对任意 $x\\in\\mathbb{R}$，$a\\neq0$，$f(x+a)=-f(x)$。",
-    "conclusions": "$T=2a$ 是周期，即 $f(x+2a)=f(x)$；同时函数图像关于点 $\\left(\\frac{a}{2},0\\right)$ 中心对称。"
+    "conditions": "函数在全体实数上有定义；a为非零常数；对任意实数x都有f(x+a)=-f(x)。",
+    "conclusions": "对任意实数x，有f(x+2a)=f(x)，所以2|a|是一个正周期（未必最小）；一般不能推出关于(a/2,0)中心对称。若额外为偶函数，则关于(a/2,0)中心对称；若额外为奇函数，则关于直线x=a/2对称。"
   },
   "content": {
-    "statement": "若函数 $f(x)$ 满足 $f(x+a)=-f(x)$（$a\\neq0$ 为常数），则 $2a$ 是函数的一个周期。",
+    "statement": "对任意x有f(x+a)=-f(x)（a≠0），则f(x+2a)=f(x)，因此2|a|是函数的一个正周期，不保证最小。",
     "derivation": [
       "由条件 $f(x+a)=-f(x)$，将 $x$ 替换为 $x+a$ 得 $f((x+a)+a)=-f(x+a)$。",
       "代入条件 $f(x+a)=-f(x)$，得 $f(x+2a)=-(-f(x))=f(x)$。",
-      "因此对任意 $x$，$f(x+2a)=f(x)$，故 $2a$ 是周期。"
+      "因此对任意 $x$，$f(x+2a)=f(x)$，故 $2|a|$ 是一个正周期（未必最小）。"
     ],
-    "intuition": "每加 $a$ 函数值变号，再加 $a$ 变回原值，所以两次 $a$ 回到原值。",
+    "intuition": "函数值像交替亮灭的两格灯：输入每增加a，输出由v变成-v，再增加a又变回v。",
     "common_tricks": [
-      "利用周期将大自变量转化到已知区间",
-      "结合对称中心 $\\left(\\frac{a}{2},0\\right)$ 求值",
-      "注意 $a$ 的正负不影响周期大小"
+      "大自变量减去2|a|的整数倍，化为小自变量求值",
+      "两两配对：f(x)+f(x+a)=0，直接求长串和",
+      "奇数次移动a变号，偶数次不变",
+      "只有增加奇偶性条件时，才能进一步判断a/2附近的对称轴或对称中心",
+      "a为负数时正周期写2|a|；不要误认最小正周期"
     ]
   },
   "usage": {
@@ -129,32 +146,56 @@
     "param_demo": {}
   },
   "assets": {
-    "svg": "F024.svg"
+    "svg": "F024.svg",
+    "tikz": [
+      "assets/tikz/F024_core_opposite.tex",
+      "assets/tikz/F024_values_three.tex",
+      "assets/tikz/F024_point_proof.tex",
+      "assets/tikz/F024_integer_steps.tex",
+      "assets/tikz/F024_half_open_extension.tex",
+      "assets/tikz/F024_cancel_pairs.tex",
+      "assets/tikz/F024_not_minimal.tex",
+      "assets/tikz/F024_parity_extra.tex",
+      "assets/tikz/F024_one_pair_failure.tex",
+      "assets/tikz/F024_negative_shift.tex",
+      "assets/tikz/F024_continuous_crossing.tex",
+      "assets/tikz/F024_jump_no_zero.tex",
+      "assets/tikz/F024_zero_exception.tex"
+    ],
+    "other": {
+      "gif": "images/two_sign_changes_clear_labels.gif"
+    }
   },
   "shareConfig": {
-    "title": "反号型周期：变号两次才回到原值",
-    "shareDesc": "平移a后函数值变成相反数，通常还没有回到原值。再平移一次，负号抵消，就得到间隔2a的重复关系；由此缩小大自变量求值的范围，但不能直接认定最小正周期。"
+    "title": "反号型周期：加一次变号，加两次还原",
+    "shareDesc": "f(x+a)=-f(x)表示走一步变号、走两步还原，因此2|a|是一个正周期。不能直接说是最小正周期，也不能仅凭它推出(a/2,0)是对称中心。"
   },
   "relations": {
     "prerequisites": [
       "函数的周期性定义",
       "函数方程"
     ],
-    "related_ids": ["F022", "F023", "F025", "F028", "L040"],
+    "related_ids": [
+      "F022",
+      "F023",
+      "F025",
+      "F028",
+      "L040"
+    ],
     "similar": [
-      "f(x+a)=f(x)⇒T=a",
-      "f(x+a)=1/f(x)⇒T=2a",
-      "f(x+a)=-1/f(x)⇒T=2a"
+      "f(x+a)=f(x)\\Rightarrow |a|是一个正周期（a\\ne0）",
+      "f(x+a)=1/f(x)\\Rightarrow 2|a|是一个正周期（要求函数值处处不为0）",
+      "f(x+a)=-1/f(x)\\Rightarrow 2|a|是一个正周期（要求函数值处处不为0）"
     ]
   },
   "meta": {
-    "version": 1,
+    "version": 2,
     "source": "AI生成",
     "created_at": "2026-06-26",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-11-21"
   },
   "isPro": 1,
-  "remarks": "",
+  "remarks": "2026-11-21修订：删除原稿中无依据的中心对称结论；修正例2端点冲突；明确正周期/最小正周期差别；增加三种讲法、图解及奇偶性附加结论。；2026-11-21：新增13幅独立TikZ，覆盖首页、三种证明、整数步推广、5例与7个易错点；按题设初值和步长绘图，突出两次反号、区间端点、附加奇偶性及连续条件。；新增教学GIF images/two_sign_changes_clear_labels.gif，模型与分镜归本UID的manim；LOCAL PRODUCTION PASS，用户视觉及Android真机验收PENDING，未执行内容Publisher或Sync。",
   "knowledgeNode": "函数-性质-周期性-周期判定与对称性",
   "altNodes": [
     "函数-综合-函数与方程",

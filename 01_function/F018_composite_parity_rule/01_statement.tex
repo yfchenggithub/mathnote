@@ -1,31 +1,59 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件1（定义域对称）：}}] 函数$g(x)$的定义域关于原点对称。
-		\item[\textbf{\textcolor{CStatement}{条件2（值域包含）：}}] 外函数$f(u)$的定义域包含内函数$g(x)$的值域。
-	\end{description}
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（内偶则偶）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			当内函数$g$为偶函数时，复合函数$F(x)=f(g(x))$必为偶函数。
-			\[
-				F(-x)=F(x)
-			\]
-		\item[\textbf{\textcolor{CStatement}{结论二（内奇同外）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			当内函数$g$为奇函数时，复合函数$F$的奇偶性与外函数$f$相同（$f$奇则$F$奇，$f$偶则$F$偶）。
-			\[
-				\begin{aligned}
-					f \text{ 奇 } &\Rightarrow F(-x) = -F(x),\\
-					f \text{ 偶 } &\Rightarrow F(-x) = F(x).
-			\end{aligned}
-			\]
-		\item[\textbf{\textcolor{CStatement}{推广结论（外偶总偶）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			若外函数$f$为偶函数，则无论内函数$g$是奇还是偶，复合函数$F$必为偶函数。
-			\[
-				F(-x)=F(x)
-			\]
-	\end{description}
+\input{assets/tikz/F018_overview}
+
+\textbf{\textcolor{CStatement}{这条结论解决什么问题？}}
+遇到 $F(x)=f(g(x))$ 这样的函数，如果整个式子很长，直接把 $-x$ 代入再化简可能很麻烦。我们想先看\textbf{里面那一步}，就能尽快判断整个图像是不是关于 $y$ 轴或原点对称。
+
+\medskip
+\textbf{\textcolor{CStatement}{先看懂三个字母}}
+\[
+\underbrace{x\ \xrightarrow{\ g\ }\ g(x)}_{\text{先算里面}}
+\ \xrightarrow{\ f\ }\ \underbrace{f(g(x))}_{F(x)\text{，再算外面}}.
+\]
+例如 $F(x)=(x^2+1)^3$：先算 $g(x)=x^2+1$，再把算出的数立方，也就是 $f(u)=u^3$。这里的 $u$ 只是临时用来表示“里面算出来的数”。
+
+\medskip
+\textbf{\textcolor{CStatement}{使用前提}}
+\begin{enumerate}[leftmargin=2.2em,itemsep=0.25em]
+\item $x$ 可以取的范围必须左右对称：如果允许 $x=a$，也要允许 $x=-a$。
+\item 对每个允许的 $x$，内层算出的 $g(x)$ 都必须能代入外层 $f$。\textbf{否则 $F(x)$ 根本没有定义。}
+\end{enumerate}
+
+\medskip
+\end{statementbox}\clearpage\begin{statementbox}\textbf{\textcolor{CStatement}{核心结论：内偶则偶，内奇同外}}
+\input{assets/tikz/F018_paired_inputs}
+
+\begin{description}[style=nextline,leftmargin=2.5em,labelsep=0.4em,itemsep=0.6em]
+\item[\textbf{第一种：内偶则偶。}]
+如果 $g(-x)=g(x)$，那么不论外层 $f$ 是奇函数、偶函数，还是两者都不是，都有
+\[
+F(-x)=F(x),\qquad F\text{ 为偶函数}.
+\]
+\textbf{通俗解释：} 把 $x$ 换成 $-x$，里面已经算出了同一个数；外面再怎么算，结果都一样。
+\item[\textbf{第二种：内奇、外奇，则整体奇。}]
+如果 $g(-x)=-g(x)$，而且 $f(-u)=-f(u)$，那么
+\[
+F(-x)=-F(x),\qquad F\text{ 为奇函数}.
+\]
+\textbf{通俗解释：} 里面先把结果变成相反数，外面再把最后结果变成相反数。
+\item[\textbf{第三种：内奇、外偶，则整体偶。}]
+如果 $g(-x)=-g(x)$，而且 $f(-u)=f(u)$，那么
+\[
+F(-x)=F(x),\qquad F\text{ 为偶函数}.
+\]
+\textbf{通俗解释：} 虽然里面算出相反数，但外面会把两个相反数算成相同的结果。
+\end{description}
+
+\textbf{\textcolor{CStatement}{一句特别重要的限制}}
+“内奇同外”只表示：\textbf{当外层明确是奇函数或偶函数时，可以把这个性质传给整体。} 如果外层既不是奇函数也不是偶函数，不能单凭口诀判断；也不能根据整体为偶函数，就反推里面一定是偶函数。
+
+\medskip
+\end{statementbox}\clearpage\begin{statementbox}\textbf{\textcolor{CStatement}{不能扩大使用条件：外偶未必整体偶}}
+\input{assets/tikz/F018_shifted_square}
+
+\textbf{不能说：外层是偶函数，整体就一定是偶函数。} 比如 $f(u)=u^2$ 是偶函数，但取 $g(x)=x+1$，得到
+\[
+F(x)=(x+1)^2,\quad F(1)=4,\quad F(-1)=0.
+\]
+结果不同，所以 $F$ 不是偶函数；且 $F(-1)\neq -F(1)$，也不是奇函数。
 \end{statementbox}

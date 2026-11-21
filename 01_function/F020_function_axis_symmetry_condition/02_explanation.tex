@@ -1,40 +1,114 @@
+\clearpage
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
-	函数图象沿直线 $x=a$ 折叠后左右重合，等价于对称点函数值相等。
+  \textbf{\textcolor{CExplanation}{一、为什么会有这条结论？——从折纸开始}}
+\input{assets/tikz/F020_axis_pairs}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（对称定义转化）：}]
-			将几何对称转化为代数等式 $f(a+x)=f(a-x)$，验证等式是否成立即可判断对称性。
-		\item[\textbf{要点二（充要双向验证）：}]
-			定义域对称是前提，等式成立则图象对称，图象对称则等式必成立。
-	\end{description}
+  把一张纸沿竖直线 $x=2$ 对折：横坐标为 $1$ 的位置会压在 $3$ 上，
+  $0$ 会压在 $4$ 上。\textbf{如果图象能够重合，每对位置的高度就必须相同。}
+  函数式 $f(x)$ 说的正是“横坐标为 $x$ 时有多高”。
+  所以图形上的“等距离、同高度”，翻译成式子就是 $f(2-t)=f(2+t)$。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（轴反射对称）}}
-	图象上任意点关于直线 $x=a$ 的对称点仍在图象上。
+  \medskip
+  
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{二、先算数，再看图：$f(x)=(x-2)^2+1$}}
+\input{assets/tikz/F020_axis_pairs}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（平移后偶函数）}}
-	令 $g(t)=f(a+t)$，则 $g(-t)=f(a-t)$，条件化为 $g(t)=g(-t)$，即 $g$ 为偶函数。
+  \[
+    \begin{array}{c|ccccc}
+      x &0&1&2&3&4\\ \hline
+      f(x)&5&2&1&2&5
+    \end{array}
+  \]
+  这张表说明：$0$ 和 $4$ 一样高（都是 $5$），$1$ 和 $3$ 一样高（都是 $2$）。
+  而且不仅整数如此：
+  \[
+    f(2+t)=t^2+1,\qquad f(2-t)=(-t)^2+1=t^2+1.
+  \]
+  不论 $t$ 取哪个实数，这两个数都相等，所以\textbf{整条曲线}关于 $x=2$ 对称。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（应试方向）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（判断对称轴）：} 给出解析式，检验 $f(a+x)=f(a-x)$ 是否恒成立，判断是否关于 $x=a$ 对称。
-		\item \textbf{考法二（利用对称求式）：} 已知函数在某区间解析式及对称轴，求对称区间解析式。
-	\end{itemize}
+  \medskip
+  
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{三、图上看：每一对点都在同一水平线上}}
+\input{assets/tikz/F020_axis_pairs}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
-	核心是抓住自变量之和为 $2a$ 时函数值相等，即 $f(x)=f(2a-x)$。
+  
+  \textbf{看图顺序：}先找中间竖线 $x=2$；再找左右等距的两点；
+  最后看这两个点的高度是否一样。图中实线只是帮助看明白，\textbf{不能替代对所有 $t$ 的验证}。
+  本包还附有可单独使用的矢量图 \texttt{F020.svg}。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（性质判定）：} 判断函数是否具有轴对称性，如二次函数、含绝对值函数。
-		\item \textbf{场景二（解析扩充）：} 由对称性将局部解析式延拓到整体。
-	\end{itemize}
+  \medskip
+  
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{四、公式里的 $2a-x$ 从哪儿来？}}
+\input{assets/tikz/F020_mirror_positions}
 
+  例如对称轴是 $x=3$，左边取到 $x=1$，两点相隔轴的距离都是 $2$，
+  右边自然是 $5$。$1+5=2\times3$。
+  一般地，已知一边是 $x$，另一边设为 $u$，中间位置应满足
+  \[
+     \frac{x+u}{2}=a\quad\Longrightarrow\quad u=2a-x.
+  \]
+  因而 $f(x)=f(2a-x)$ 只是把“取镜子对面的那个位置”写成式子。
+
+  \medskip
+  
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{五、和初中、高中已学知识连起来}}
+\input{assets/tikz/F020_shift_even}
+
+  \begin{itemize}[leftmargin=*,itemsep=0.45em,topsep=0.3em]
+    \item \textbf{与二次函数联系：}$(x-2)^2+1$ 的最低点在 $x=2$，左右平方后相同。
+    更一般地，$y=Ax^2+Bx+C$（$A\ne0$）可写成
+    \[
+      y=A\left(x+\frac{B}{2A}\right)^2+C-\frac{B^2}{4A},
+    \]
+    所以对称轴是 $x=-\dfrac{B}{2A}$。这与本结论是同一个道理。
+    \item \textbf{与偶函数联系：}偶函数满足 $g(t)=g(-t)$，对称轴是 $t=0$。
+    把原图象的中间位置 $a$ 搬到 $0$，令 $g(t)=f(a+t)$，就得到
+    $g(t)=g(-t)$。因此\textbf{关于 $x=a$ 对称，就是“把中间位置移到 $0$ 后变成偶函数”}。
+    \item \textbf{与求函数值联系：}若关于 $x=3$ 对称，知道 $f(8)=7$，
+    立刻知道 $f(-2)=7$，因为 $8+(-2)=6=2\times3$。
+  \end{itemize}
+
+  \medskip
+  
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{六、眼前一亮：两面不同位置的镜子，为什么会产生周期？}}
+\input{assets/tikz/F020_two_axes}
+
+  如果\textbf{同一幅完整图象}既关于 $x=a$ 对称，又关于 $x=b$ 对称（$a\ne b$），
+  那么先关于第一条线翻过去，再关于第二条线翻过去，就相当于整幅图向右或向左挪动
+  $2|b-a|$。图象仍然重合，因此
+  \[
+    \boxed{f\bigl(x+2(b-a)\bigr)=f(x)}.
+  \]
+  也就是说，\textbf{$2|b-a|$ 是一个周期}，不一定是最小正周期。
+  例如 $f(x)=\cos(\pi x)$ 的图象关于 $x=0$ 和 $x=1$ 都对称，
+  所以 $2$ 是它的周期。
+
+  \medskip
+  
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{七、为什么这里只研究竖直的对称轴？}}
+\input{assets/tikz/F020_horizontal_line}
+
+  函数 $y=f(x)$ 要求一个 $x$ 只能对应一个 $y$。
+  若整幅函数图象关于水平线 $y=b$ 对称，则点 $(x,f(x))$ 的镜像
+  $(x,2b-f(x))$ 也得在图上；同一个 $x$ 不允许有两个不同的高度，
+  因此必须 $f(x)=b$。换句话说，\textbf{普通函数若关于水平直线对称，图象只能在这条水平线上}。
+  这是它和圆、横着开的抛物线等一般曲线的重要区别。
 \end{explanationbox}

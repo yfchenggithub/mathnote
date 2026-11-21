@@ -1,42 +1,110 @@
+\clearpage
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
+\textbf{\textcolor{CExplanation}{一、为什么会出现“区间最值”问题？}}
+\input{assets/tikz/F030_outside_vertex}
 
-	二次函数在闭区间上的最值，要么在顶点（对称轴处）取到，要么在区间端点取到。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（开口方向）：}] 确定抛物线增减趋势。$a>0$ 开口向上，先减后增；$a<0$ 开口向下，先增后减。开口方向决定了顶点值是最小值还是最大值。
-		\item[\textbf{要点二（对称轴位置）：}] 判断对称轴 $x_0$ 是否落在区间 $[m,n]$ 内。若在区间内，则顶点参与最值比较；若不在，则函数在区间上单调，最值仅在端点取得。
-		\item[\textbf{要点三（端点比较）：}] 无论何种情形，两个端点值 $f(m),f(n)$ 中至少有一个成为最值。实际计算时不能遗漏。
-	\end{description}
+学过二次函数后，我们知道 $y=(x-2)^2+1$ 的最低点在 $x=2$，最低值为 $1$。但如果题目规定 $3\le x\le4$，你就\textbf{不能再选 $x=2$}。这时必须只看抛物线上 $3\le x\le4$ 的那一小段。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（抛物线对称性）}}
+这好比在学校走廊里规定了“只能在第 3 米到第 4 米之间站立”：即使离教室门口最近的位置在第 2 米，你也不能站过去。\textbf{先看允许站在哪里，再谈最近和最远。}
 
-	抛物线关于 $x=x_0$ 对称，因此区间内离对称轴越远，函数值偏离顶点值越大。最值出现在对称轴或离对称轴最远的端点。
+\medskip
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（单调性分段）}}
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{二、先用一个初中生也能算出来的例子观察}}
+\input{assets/tikz/F030_three_windows}
 
-	二次函数在对称轴两侧单调性相反，故区间被对称轴分割后，最值出现在单调性改变点（顶点）或区间端点。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（分类讨论）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（直接套用）：} 已知具体二次函数和闭区间，直接判断开口方向与对称轴位置，套规则求最值。
-		\item \textbf{考法二（参数讨论）：} 函数或区间含参数时，需分类讨论对称轴与区间的相对位置，再应用基本规则。
-	\end{itemize}
+取 $f(x)=(x-2)^2+1$。它的函数值由两件事组成：\textbf{离 $x=2$ 有多远，和这个距离的平方}。
+\[
+\begin{array}{c|ccccc}
+x&0&1&2&3&4\\ \hline
+|x-2|&2&1&0&1&2\\
+f(x)&5&2&1&2&5
+\end{array}
+\]
+\begin{itemize}[leftmargin=*,itemsep=0.3em]
+\item 允许范围是 $[0,4]$：可以到 $x=2$，最低值是 $1$；两端都离它最远，最高值是 $5$。
+\item 改成 $[3,4]$：最靠近 $2$ 的位置是 $3$，最远的位置是 $4$，所以最低值 $f(3)=2$，最高值 $f(4)=5$。
+\item 改成 $[0,1]$：最靠近 $2$ 的位置是 $1$，最远的位置是 $0$，所以最低值 $f(1)=2$，最高值 $f(0)=5$。
+\end{itemize}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
+\textbf{眼前一亮的地方：} 不同的区间，虽然是\textbf{同一条抛物线}，最高点、最低点却可能换位置；因为我们截取的是不同的一段图像。
 
-	\textbf{“一轴二端”原则：最值候选只有顶点和两个端点；根据开口方向与对称轴位置，排除一个候选即可得到最值。}
+\medskip
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（最值计算）：} 给定二次函数和固定区间，快速计算最值。
-		\item \textbf{场景二（含参推理）：} 已知最值条件反求参数，需先确定对称轴位置，再列方程或不等式。
-	\end{itemize}
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{三、图像：为什么不能想当然地选择顶点？}}
+\input{assets/tikz/F030_outside_vertex}
+
+
+
+\textbf{读图：} 灰色是完整曲线的定位参考，蓝色粗线是允许段，橙色粗线标出横坐标范围 $[3,4]$。顶点虽然低，却不在允许范围中；这道题只能在蓝色粗线对应的那一段图像上找答案。
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{四、为什么“离对称轴的距离”能决定函数值？}}
+\input{assets/tikz/F030_opening_sign}
+
+
+把一般二次函数写成
+\[
+ f(x)=a(x-h)^2+k,\qquad h=-\frac{b}{2a},\quad k=f(h).
+\]
+其中 $(x-h)^2$ 是“$x$ 离对称轴有多远”的平方。对于同一条抛物线，$a$ 和 $k$ 不变，所以比较函数值时只需比较 $|x-h|$。
+
+\begin{itemize}[leftmargin=*,itemsep=0.3em]
+\item $a>0$：距离平方越大，$a(x-h)^2$ 越大，因此函数值越大。
+\item $a<0$：距离平方越大，$a(x-h)^2$ 越小，因此函数值越小。
+\end{itemize}
+
+\textbf{注意：}“越远越大”只对开口向上的抛物线成立；开口向下时恰好相反。
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{五、为什么最远处一定是端点？}}
+\input{assets/tikz/F030_nearest_numberline}
+
+
+在一段直直的数轴上，任意 $x\in[m,n]$ 都夹在 $m,n$ 之间。固定一个位置 $h$，你从区间内任意位置出发，要走得离 $h$ 最远，不可能比左右两端中较远的那个还远。因此\textbf{最远位置只用比较 $m,n$}，根本不用检查中间所有点。
+
+但最近处不同：如果 $h$ 正好在区间里，最近处就是 $h$ 自身；如果不在，就只能退到离它近的那个端点。
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{六、特别好用的“区间中点”技巧}}
+\input{assets/tikz/F030_midpoint_distance}
+
+
+假设区间是 $[0,8]$，中点是 $4$：
+\begin{itemize}[leftmargin=*,itemsep=0.25em]
+\item 对称轴在 $x=3$：它偏向左端，右端 $8$ 一定更远（距离分别为 $3$ 和 $5$）。
+\item 对称轴在 $x=6$：它偏向右端，左端 $0$ 一定更远（距离分别为 $6$ 和 $2$）。
+\item 对称轴在 $x=4$：两端同样远，所以 $f(0)=f(8)$，无论抛物线开口向上还是向下。
+\end{itemize}
+\textbf{记法：轴偏左，右端远；轴偏右，左端远；轴在正中，两端同高。}
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{七、做题时到底先干什么？}}
+\input{assets/tikz/F030_nearest_numberline}
+
+
+先画一条数轴，标出 $m,n,h$；接着看开口向上还是向下；最后找最近处和最远处，并代入求值。先判断位置，往往比直接算三个函数值更快。
 \end{explanationbox}

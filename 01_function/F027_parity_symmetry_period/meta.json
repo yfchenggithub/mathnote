@@ -6,9 +6,11 @@
     "alias": [
       "奇函数加轴对称周期",
       "偶函数加点对称周期",
-      "周期4a"
+      "周期4a",
+      "走2a变号走4a还原",
+      "一个周期不一定最小"
     ],
-    "summary": "奇函数关于直线x=a对称，或偶函数关于点(a,0)对称，则函数周期为4|a|。",
+    "summary": "奇函数且关于x=a对称，或偶函数且关于点(a,0)对称，可推出f(x+2a)=-f(x)，故4|a|是一个正周期，但不一定最小。",
     "difficulty": 3,
     "category": "函数性质",
     "tags": [
@@ -34,7 +36,12 @@
       "二级结论",
       "高中数学",
       "抽象函数",
-      "求周期"
+      "求周期",
+      "周期不一定最小",
+      "反号周期",
+      "半程变号",
+      "两个对称导出周期",
+      "奇配轴偶配点"
     ],
     "synonyms": [
       "奇函数对称周期",
@@ -79,7 +86,10 @@
       "f(x+4)=-f(x)",
       "f(x+8)=f(x)",
       "f(x+2)=-f(x)",
-      "f(x+4)=f(x)"
+      "f(x+4)=f(x)",
+      "f(x+2a)=-f(x)",
+      "f(x+4a)=f(x)",
+      "4|a|是一个周期"
     ],
     "pinyin": "qihanshuouhanshuzhouqigongshi",
     "pinyinAbbr": "qhoszq"
@@ -97,31 +107,33 @@
     "success_rate": 0
   },
   "math": {
-    "core_formula": "T=4|a|",
+    "core_formula": "f(x+2a)=-f(x),\\quad f(x+4a)=f(x)",
     "related_formulas": [
-      "f(x+2|a|)=-f(x)",
-      "f(x+4|a|)=f(x)"
+      "f(x+2a)=-f(x)",
+      "f(x+4a)=f(x)",
+      "T=4|a|\\text{ 是一个正周期，不一定最小}"
     ],
     "variables": [
       "$f(x)$",
       "$a$",
       "$T$"
     ],
-    "conditions": "函数 $f(x)$ 的定义域关于原点对称，$a\\neq0$。若 $f(x)$ 为奇函数且图像关于直线 $x=a$ 对称，或 $f(x)$ 为偶函数且图像关于点 $(a,0)$ 对称。",
-    "conclusions": "函数 $f(x)$ 是周期函数，最小正周期 $T=4|a|$。"
+    "conditions": "函数 f(x) 定义在整个实数集 R 上，a≠0。① f 为奇函数且关于直线 x=a 对称；或② f 为偶函数且关于点 (a,0) 对称。",
+    "conclusions": "都能推出 f(x+2a)=-f(x)、f(x+4a)=f(x)，所以 4|a| 是一个正周期。仅凭这些条件不能断定它是最小正周期；若 f 不恒为0，则 2|a| 不是周期。"
   },
   "content": {
-    "statement": "若函数为奇函数且关于直线x=a对称，或为偶函数且关于点(a,0)中心对称，则周期T=4|a|。",
+    "statement": "奇配轴或偶配点，先走2a变号，再走2a还原；4|a|是一个正周期，不保证最小。",
     "derivation": [
-      "1. 根据对称性写出代数条件：奇函数+线对称得f(2+x)=f(2-x)；偶函数+点对称得f(1+x)=-f(1-x)。",
-      "2. 变量代换得到f(x+2|a|)=-f(x)。",
-      "3. 迭代得f(x+4|a|)=f(x)，故周期为4|a|。"
+      "1. 奇配轴：f(2a-x)=f(x)，代入-x并利用f(-x)=-f(x)，得f(x+2a)=-f(x)。",
+      "2. 偶配点：f(2a-x)=-f(x)，代入-x并利用f(-x)=f(x)，同样得f(x+2a)=-f(x)。",
+      "3. 再代一次：f(x+4a)=-f(x+2a)=f(x)，故4|a|是一个正周期；不能直接断言最小。"
     ],
-    "intuition": "因为两次对称（奇偶性和轴对称/中心对称）等价于一个平移变换，使得函数值每隔4|a|重复。",
+    "intuition": "图像上任意一点(x,y)经过两种对称，成为(x+2a,-y)；重复一次，成为(x+4a,y)。移动2|a|上下颠倒，移动4|a|才恢复原样。",
     "common_tricks": [
-      "快速识别：看到奇函数+直线对称或偶函数+点对称，直接写周期4|a|。",
-      "注意a非零，定义域需关于原点对称。",
-      "常与求函数值结合，利用周期将大自变量化小。"
+      "先认组合：奇函数加轴x=a，偶函数加点(a,0)，走2a变号，4|a|为一个正周期。",
+      "同类对称（奇加点、偶加轴）可以直接推出2|a|是一个正周期，与本结论区别记忆。",
+      "求大自变量函数值时先按4|a|化小，再根据走2a会变号进一步简化。",
+      "不可把一个周期写成最小正周期；a取负值时要写绝对值。"
     ]
   },
   "usage": {
@@ -139,16 +151,35 @@
     "exam_score": 6
   },
   "interactive": {
-    "has_diagram": false,
+    "has_diagram": true,
     "geogebra_id": "",
     "param_demo": {}
   },
   "assets": {
-    "svg": "F027.svg"
+    "svg": "F027.svg",
+    "tikz": [
+      "assets/tikz/F027_core_two_cases.tex",
+      "assets/tikz/F027_odd_triangle.tex",
+      "assets/tikz/F027_even_triangle.tex",
+      "assets/tikz/F027_odd_geometry.tex",
+      "assets/tikz/F027_even_geometry.tex",
+      "assets/tikz/F027_even_value_three.tex",
+      "assets/tikz/F027_odd_exponential.tex",
+      "assets/tikz/F027_different_minimum.tex",
+      "assets/tikz/F027_negative_axis.tex",
+      "assets/tikz/F027_half_period_five.tex",
+      "assets/tikz/F027_same_class.tex",
+      "assets/tikz/F027_forced_zeros.tex",
+      "assets/tikz/F027_domain_boundary.tex",
+      "assets/tikz/F027_zero_exception.tex"
+    ],
+    "other": {
+      "gif": "images/triangle_symmetry_construction.gif"
+    }
   },
   "shareConfig": {
     "title": "奇偶性配对称：不用解析式也能找周期",
-    "shareDesc": "奇函数再给一条对称轴，或偶函数再给一个对应对称中心，可把两种对称关系接起来。沿输入变化推得一个周期，再用于远处函数值计算；注意偏移非零及最小周期的区别。"
+    "shareDesc": "奇配轴、偶配点：向前走2a，函数值变相反数；再走2a，函数值恢复。4|a|一定是一个周期，但不保证最小。附初中折线图、三种证明与高考求值。"
   },
   "relations": {
     "prerequisites": [
@@ -156,17 +187,22 @@
       "函数对称性",
       "周期函数定义"
     ],
-    "related_ids": ["F020", "F021", "F026", "F028"],
+    "related_ids": [
+      "F020",
+      "F021",
+      "F026",
+      "F028"
+    ],
     "similar": ""
   },
   "meta": {
-    "version": 1,
+    "version": 2,
     "source": "AI生成",
     "created_at": "2026-06-26",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-11-21"
   },
   "isPro": 1,
-  "remarks": "",
+  "remarks": "；2026-11-21：新增14幅独立TikZ，首页、三种证明、6例与7个易错点均配图；折线/指数延拓与每题初值相符；同尺度对照奇偶搭配、最小周期和不同零点来源。；新增教学GIF images/triangle_symmetry_construction.gif，模型与分镜归本UID的manim；LOCAL PRODUCTION PASS，用户视觉及Android真机验收PENDING，未执行内容Publisher或Sync。",
   "knowledgeNode": "函数-性质-周期性-周期判定与对称性",
   "altNodes": [
     "函数-性质-奇偶性",

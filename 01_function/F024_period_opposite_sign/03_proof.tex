@@ -1,36 +1,56 @@
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{证明一｜最容易懂：从三格数表看出规律}
+\input{assets/tikz/F024_values_three}
 
-	由条件反复递推，通过两次代换消除负号，直接得到周期结论。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（变量替换）：}] 在已知条件 $f(x+a)=-f(x)$ 中，将 $x$ 换成 $x+a$，得
-			\[
-				f((x+a)+a) = -f(x+a).
-			\]
-			\par\textbf{理由：}
-			条件对任意 $x\in\mathbb{R}$ 成立，故替换后的等式也成立。
+\textbf{为什么这样想？} 只盯住某一个输入 $x$，别急着计算整个函数。设这一格的函数值是 $v$：
+\[
+\begin{array}{c|ccc}
+\text{输入}&x&x+a&x+2a\\\hline
+\text{输出}&v&-v&v
+\end{array}
+\]
+第二格是第一格的相反数，这是题目直接告诉我们的；第三格又是第二格的相反数，于是 $-(-v)=v$。
 
-		\item[\textbf{步骤二（代入条件）：}] 将原条件 $f(x+a)=-f(x)$ 代入上式右端，得
-			\[
-				\begin{aligned}
-					f(x+2a) &= -f(x+a) \\
-					&= -[-f(x)] \\
-					&= f(x).
-			\end{aligned}
-			\]
-			\par\textbf{理由：}
-			代入后负号两次相消。
+\textbf{为什么能推广到所有 $x$？} 因为题目说的是“\textbf{每一个 $x$ 都这样}”，而不是只说某个特定数字。于是任取 $x$，输入相差 $2a$ 的两格函数值都相等，故 $f(x+2a)=f(x)$。
 
-		\item[\textbf{步骤三（周期验证）：}] 由 $f(x+2a)=f(x)$ 对任意 $x\in\mathbb{R}$ 成立，根据周期定义，$2a$ 是 $f(x)$ 的一个周期。
-			\par\textbf{理由：}
-			周期定义为存在非零常数 $T$ 使 $f(x+T)=f(x)$ 恒成立。
-	\end{description}
+\medskip
+\end{proofbox}\clearpage\begin{proofbox}\textbf{证明二｜考试最快：只换一次字母（推荐答题用）}
+\input{assets/tikz/F024_core_opposite}
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
 
-	\textbf{从 $f(x+a)=-f(x)$ 出发，通过两次代换直接推出 $f(x+2a)=f(x)$，即 $2a$ 为函数周期。推导过程仅用到代数代入与条件重复使用，不依赖其他假设。}
+已知对任意 $x$，有 $f(x+a)=-f(x)$。
+
+\textbf{第 1 步：}把条件中的 $x$ 换成 $x+a$。这是合法的，因为 $x+a$ 也是一个实数：
+\[
+f((x+a)+a)=-f(x+a).
+\]
+\textbf{第 2 步：}整理左边，再把原来的 $f(x+a)=-f(x)$ 代入右边：
+\[
+\boxed{\ f(x+2a)=-f(x+a)=-[-f(x)]=f(x).\ }
+\]
+\textbf{第 3 步：}若 $a>0$，正周期取 $2a$；若 $a<0$，因 $f(x+2a)=f(x)$ 也能推出 $f(x-2a)=f(x)$，故正周期取 $-2a$。统一得到 $2|a|$ 是一个正周期。
+
+\medskip
+\end{proofbox}\clearpage\begin{proofbox}\textbf{证明三｜从图像上的三个点看：横向走两步}
+\input{assets/tikz/F024_point_proof}
+
+
+从图像上\textbf{任意找一点} $P=(x,y)$，也就是说 $y=f(x)$。
+\begin{enumerate}[leftmargin=*,itemsep=0.25em]
+\item 输入加 $a$，函数值变号，所以 $Q=(x+a,-y)$ 也在图像上。
+\item 从 $Q$ 的横坐标再加 $a$，函数值再变号，得到 $R=(x+2a,y)$，仍在图像上。
+\item 点 $P$ 与点 $R$ 的高度相同，横坐标相隔 $2a$。\textbf{每一个图像上的点都能这样找到对应的点}，因此整幅图像每隔 $2|a|$ 会重复出现。
+\end{enumerate}
+此法只用点的坐标，特别适合向初中生解释“为什么是两次，而不是一次”。
+
+\medskip
+\end{proofbox}\clearpage\begin{proofbox}
+\input{assets/tikz/F024_integer_steps}
+\textbf{再多走一步｜为什么奇数次变号、偶数次不变？}
+
+把刚才的过程不断接下去：$v,-v,v,-v,v,\dots$。每次只改变正负号，所以\textbf{经过偶数步}得到 $v$，\textbf{经过奇数步}得到 $-v$。往反方向走也一样，因为由 $f(x+a)=-f(x)$ 可推出 $f(x-a)=-f(x)$。所以对于任意整数 $n$，奇偶规律都成立。
+
+\textbf{请区分：}这三种思路都证明了 $2|a|$ \textbf{是一个正周期}；任何一种都没有证明它\textbf{最小}，不能把“一个周期”擅自写成“最小正周期”。
 \end{proofbox}

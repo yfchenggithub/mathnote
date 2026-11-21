@@ -1,47 +1,95 @@
+\clearpage
 \begin{proofbox}
+\textbf{\textcolor{CProof}{先明确要证明的两句话}}
+设定义域 $D$ 关于 $a$ 左右成对。下面证明：
+\[
+\text{图像关于 }(a,b)\text{ 中心对称}
+\quad\Longleftrightarrow\quad
+f(a+t)+f(a-t)=2b.
+\]
+每个等式只在 $a+t,a-t\in D$ 的情况下使用。
 
-	\textbf{\textcolor{CProof}{思路提示}}
-	从充要条件的两个方向入手：若 $f(a+x)+f(a-x)=2b$，验证图象上任意点及其对称点都在图象上；若图象关于 $(a,b)$ 对称，则恰好推出该等式。
+\medskip
+\textbf{\textcolor{CProof}{证明一｜初中就能听懂：线段中点法（门槛最低）}}
+\input{assets/tikz/F021_point_pair}
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（必要性条件）：}] 假设 $f(x)$ 的图象关于点 $(a,b)$ 中心对称。
-			\[
-				\begin{aligned}
-					\text{对任意 }x,\quad &(a+x,\; f(a+x)) \text{ 在图象上},\\
-					&\text{它关于 }(a,b)\text{ 的对称点为 }(a-x,\; 2b - f(a+x)).
-			\end{aligned}
-			\]
-			\par\textbf{理由：}
-			由对称性，该对称点也在图象上，故 $f(a-x) = 2b - f(a+x)$，即 $f(a+x)+f(a-x)=2b$。
 
-		\item[\textbf{步骤二（充分性条件）：}] 假设对任意 $x$ 有 $f(a+x)+f(a-x)=2b$。
-			\[
-				\begin{aligned}
-					\text{取图象上一点 }(a+x,\; f(a+x)),\\
-					\text{其关于 }(a,b)\text{ 的对称点为 }(a-x,\; 2b - f(a+x)) = (a-x,\; f(a-x)).
-			\end{aligned}
-			\]
-			\par\textbf{理由：}
-			由等式可得 $2b - f(a+x)=f(a-x)$，故该对称点也在图象上。由于定义域关于 $a$ 对称，所有点都被覆盖，因此图象关于 $(a,b)$ 中心对称。
+\textbf{第一步：从图形推等式。}
+图像关于 $C(a,b)$ 对称，则 $P(a+t,f(a+t))$ 转半圈落到图像上另一个点 $Q$，
+并且 $C$ 是线段 $PQ$ 的中点。由于 $Q$ 的横坐标为 $a-t$，它的纵坐标只能是 $f(a-t)$。
+按中点公式：
+\[
+\frac{(a+t)+(a-t)}2=a,\qquad
+\frac{f(a+t)+f(a-t)}2=b.
+\]
+第二个等式两边乘以 $2$，得到 $f(a+t)+f(a-t)=2b$。
 
-		\item[\textbf{步骤三（等价变形）：}] 令 $g(x)=f(a+x)-b$，则
-			\[
-				\begin{aligned}
-					g(-x) &= f(a-x)-b \\
-					&= (2b - f(a+x)) - b \\
-					&= - (f(a+x)-b) \\
-					&= -g(x),
-			\end{aligned}
-			\]
-			故 $g(x)$ 为奇函数。
-			\par\textbf{理由：}
-			这表明中心对称函数可通过平移化为奇函数，便于进一步处理。
-	\end{description}
+\textbf{第二步：从等式推图形。}
+现在假设定义域左右成对，且 $f(a+t)+f(a-t)=2b$ 对每一对都成立。
+对图像上任意一点 $P(a+t,f(a+t))$，都能找到 $Q(a-t,f(a-t))$；
+两点横坐标平均是 $a$、纵坐标平均是 $b$，所以 $C(a,b)$ 正是 $PQ$ 的中点。
+也就是\textbf{每个点转半圈后都找到伙伴}，整个图像便关于 $C$ 中心对称。
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
+\medskip
 
-	因此，$f(x)$ 的图象关于点 $(a,b)$ 中心对称 $\iff$ $f(a+x)+f(a-x)=2b$ 对定义域内所有 $x$ 成立。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明二｜考场最快：写出对称点，再代入（步骤最少）}}
+\input{assets/tikz/F021_cubic_center}
+
+
+在图像上任取 $P(x,f(x))$。它绕 $(a,b)$ 转半圈后的坐标是
+\[
+P'\bigl(2a-x,\;2b-f(x)\bigr).
+\]
+要让 $P'$ 也在 $y=f(x)$ 上，必须有 $2a-x\in D$，并满足
+\[
+\boxed{\ f(2a-x)=2b-f(x)\ }
+\quad\Longleftrightarrow\quad
+\boxed{\ f(x)+f(2a-x)=2b\ }.
+\]
+这直接给出“图像中心对称”与“等式成立”的双向关系。
+令 $x=a+t$ 就得到常见公式；\textbf{无需先画图，也不必先求 $f(x)$ 的解析式}。
+
+\medskip
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明三｜从奇函数出发：平移还原法（与旧知识联系最紧）}}
+\input{assets/tikz/F021_shift_odd}
+
+
+先把原图像的中心移到原点。令
+\[
+ g(t)=f(a+t)-b.
+\]
+假设公式成立，则
+\[
+\begin{aligned}
+ g(-t)&=f(a-t)-b\\
+      &=\bigl(2b-f(a+t)\bigr)-b\\
+      &=-\bigl(f(a+t)-b\bigr)=-g(t).
+\end{aligned}
+\]
+所以 $g$ 是奇函数，它的图像关于原点中心对称。把图像向右平移 $a$、向上平移 $b$，
+便是 $y=f(x)$，对称中心也从 $(0,0)$ 移到 $(a,b)$。
+
+\textbf{反过来}，若 $f$ 的图像关于 $(a,b)$ 对称，那么把中心移回原点后 $g$ 是奇函数，
+$g(-t)=-g(t)$ 即
+\[
+ f(a-t)-b=-f(a+t)+b
+\quad\Longrightarrow\quad
+ f(a+t)+f(a-t)=2b.
+\]
+这也把两个方向全部证明了。
+
+\medskip
+\textbf{\textcolor{CProof}{三个方法怎么选？}}
+\begin{itemize}[leftmargin=*,itemsep=0.25em]
+\item \textbf{要讲给初中生：}用证明一，把公式当成中点坐标公式。
+\item \textbf{选择填空或要求快速判定：}用证明二，一行写 $f(2a-x)=2b-f(x)$。
+\item \textbf{遇到奇偶性、图像平移：}用证明三，把对称中心搬到原点。
+\end{itemize}
 \end{proofbox}

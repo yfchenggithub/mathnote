@@ -1,92 +1,70 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
+\input{assets/tikz/F028_symmetry_chain}
 
-	\begin{description}[
-			style=nextline,
-			leftmargin=2.8em,
-			labelsep=0.5em,
-			itemsep=0.35em
-		]
-		\item[\textbf{\textcolor{CStatement}{周期条件：}}]
-		      函数 $f(x)$ 定义在 $\mathbb{R}$ 上，且 $T>0$ 是 $f$ 的一个周期，即
-		      \[
-			      f(x+T)=f(x),
-			      \quad \forall x\in\mathbb{R}.
-		      \]
+\textbf{\textcolor{CStatement}{这条结论解决什么问题？}}
 
-		\item[\textbf{\textcolor{CStatement}{对称轴条件：}}]
-		      若直线 $x=a$ 是函数 $y=f(x)$ 图像的一条对称轴，则
-		      \[
-			      f(a+x)=f(a-x),
-			      \quad \forall x\in\mathbb{R}.
-		      \]
+有些题只给出“函数隔一段距离又重复”“图像有一条对称轴”或“图像有一个对称中心”，却要求寻找\textbf{其他对称位置、函数周期或函数值}。这时不用先求出函数的表达式，也可以直接推理。
 
-		\item[\textbf{\textcolor{CStatement}{对称中心条件：}}]
-		      若点 $(b,c)$ 是函数 $y=f(x)$ 图像的一个对称中心，则
-		      \[
-			      f(b+x)+f(b-x)=2c,
-			      \quad \forall x\in\mathbb{R}.
-		      \]
-	\end{description}
+\medskip
+\end{statementbox}\clearpage\begin{statementbox}\textbf{\textcolor{CStatement}{先分清三句话}}（以下函数均定义在整个实数范围内）
+\begin{itemize}[leftmargin=*,itemsep=0.35em]
+\item \textbf{隔 $T$ 又重复：} $T>0$，且对任意实数 $x$ 都有 $f(x+T)=f(x)$。这叫“$T$ 是一个周期”。
+\item \textbf{沿 $x=a$ 折过去完全重合：} 对任意 $t$ 都有 $f(a+t)=f(a-t)$。这说明 $x=a$ 是对称轴。
+\item \textbf{绕 $(b,c)$ 转半圈完全重合：} 对任意 $t$ 都有 $f(b+t)+f(b-t)=2c$。这说明 $(b,c)$ 是对称中心。
+\end{itemize}
 
-	\medskip
-	\textbf{\textcolor{CStatement}{结论}}
+\medskip
+\textbf{\textcolor{CStatement}{四条常用结论}}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.55em]
+\item[\textbf{1. 一个周期 + 一条对称轴 $\Rightarrow$ 更多对称轴：}]
+若 $T$ 是一个周期，$x=a$ 是一条对称轴，那么
+\[
+\boxed{x=a+\frac{kT}{2}\quad(k=0,\pm1,\pm2,\ldots)}
+\]
+都是对称轴。\textbf{注意：这些一定有，但不一定只有这些。}
 
-	\begin{description}[
-			style=nextline,
-			leftmargin=2.8em,
-			labelsep=0.5em,
-			itemsep=0.45em
-		]
-		\item[\textbf{\textcolor{CStatement}{结论一（对称轴连锁）：}}]
-		      若 $x=a$ 是函数图像的一条对称轴，则对任意 $k\in\mathbb{Z}$，
-		      \[
-			      x=a+\frac{kT}{2}
-		      \]
-		      也都是函数图像的对称轴。
+\item[\textbf{2. 一个周期 + 一个对称中心 $\Rightarrow$ 更多对称中心：}]
+若 $T$ 是一个周期，$(b,c)$ 是一个对称中心，那么
+\[
+\boxed{\left(b+\frac{kT}{2},\,c\right)\quad(k=0,\pm1,\pm2,\ldots)}
+\]
+都是对称中心。\textbf{只移动横坐标，纵坐标仍是 $c$。}
 
-		\item[\textbf{\textcolor{CStatement}{结论二（对称中心连锁）：}}]
-		      若 $(b,c)$ 是函数图像的一个对称中心，则对任意 $k\in\mathbb{Z}$，
-		      \[
-			      \left(
-			      b+\frac{kT}{2},
-			      \,c
-			      \right)
-		      \]
-		      也都是函数图像的对称中心。
+\item[\textbf{3. 两条不同的对称轴 $\Rightarrow$ 一个周期：}]
+若 $x=a_1,x=a_2$ 都是对称轴，且 $a_1\ne a_2$，那么
+\[
+\boxed{P=2|a_2-a_1|}
+\]
+一定是函数的一个正周期。\textbf{不能直接说它最小。}
 
-		\item[\textbf{\textcolor{CStatement}{结论三（两条对称轴推出周期）：}}]
-		      若 $x=a_1$ 与 $x=a_2$ 是函数图像的两条不同对称轴，则
-		      \[
-			      P=2\left|a_1-a_2\right|
-		      \]
-		      是函数 $f$ 的一个正周期。
+\item[\textbf{4. 已知最小正周期，才能列出\emph{全部}对称轴：}]
+如果 $T_0$ 是最小正周期，且已知对称轴 $x=a$，那么\textbf{全部}对称轴恰好是
+\[
+\boxed{x=a+\frac{kT_0}{2}\quad(k\in\mathbb Z).}
+\]
+\end{description}
 
-		      但由此不能直接断定 $P$ 是函数的最小正周期。
+\medskip
+\end{statementbox}\clearpage\begin{statementbox}
+\input{assets/tikz/F028_quarter_period}
+\textbf{\textcolor{CStatement}{值得多记的一条：对称轴 + 对称中心}} 
 
-		\item[\textbf{\textcolor{CStatement}{结论四（最小正周期下的全部对称轴）：}}]
-		      若 $T_0$ 是函数 $f$ 的最小正周期，且 $x=a$ 是函数图像的一条对称轴，则函数图像的全部对称轴恰为
-		      \[
-			      x=a+\frac{kT_0}{2},
-			      \quad k\in\mathbb{Z}.
-		      \]
-	\end{description}
+若 $x=a$ 是对称轴，$(b,c)$ 是对称中心，则对任意 $x$，
+\[
+\boxed{f\bigl(x+2(b-a)\bigr)=2c-f(x).}
+\]
+意思是：向右（或向左）走 $2|b-a|$，函数值会以 $c$ 为中间高度“上下对换”。再走同样的距离，才回到原值。
 
-	\medskip
-	\textbf{\textcolor{CStatement}{重要说明}}
+如果 $a\ne b$，那么 $4|b-a|$ 是一个正周期；如果 $a=b$，函数只能处处等于 $c$。
 
-	如果题目只说明 $T$ 是函数的一个周期，而没有说明 $T$ 是最小正周期，那么
-	\[
-		x=a+\frac{kT}{2}
-	\]
-	与
-	\[
-		\left(
-		b+\frac{kT}{2},
-		\,c
-		\right)
-	\]
-	只表示由已知条件必然能够推出的一组对称轴或一组对称中心，不能直接称为函数图像的全部对称轴或全部对称中心。
+若函数\textbf{不是常数函数}，而且存在最小正周期 $T_0$，则
+\[
+\boxed{b-a=\frac{(2k+1)T_0}{4}\quad(k\in\mathbb Z).}
+\]
+即一条对称轴与一个对称中心在水平方向上的距离，是\textbf{奇数个四分之一最小正周期}。
 
-	此外，上述“全部刻画”结论只针对对称轴。对于一般抽象函数，即使已知最小正周期和一个对称中心，也不应在没有其他条件时直接断言上述点列包含全部对称中心。
+\medskip
+\textbf{\textcolor{CStatement}{使用范围务必看清}}
+
+本结论中 $T$ 只是“一个周期”时，前两条是\textbf{保证存在的一组位置}。即使已知最小正周期，对一般抽象函数的“全部对称中心”也不能像“全部对称轴”那样不加条件地照搬；不过在函数\textbf{所有函数值都被某个固定范围夹住}（例如 $\sin x$、$\cos x$）时，可以作进一步判断，详见证明部分。
 \end{statementbox}

@@ -1,41 +1,86 @@
+\clearpage
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
+\textbf{\textcolor{CExplanation}{一、为什么要有这条结论？}}
+\input{assets/tikz/F026_two_mirrors}
 
-	如果一个函数同时具有两种不同的对称性（轴或点），那么它的函数值会重复出现，即函数是周期函数，周期由对称轴/中心的距离决定。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（对称等式表示）：}] 轴对称 $f(a+x)=f(a-x)$ 等价于 $f(2a-x)=f(x)$；中心对称 $f(a+x)+f(a-x)=2c$ 等价于 $f(2a-x)=2c-f(x)$。
-		\item[\textbf{要点二（代换求周期）：}] 利用两个对称条件反复代换，得出 $f(x+T)=f(x)$ 的形式。
-	\end{description}
+遇到 $f(1+x)=f(1-x)$ 时，我们知道图像关于 $x=1$ 对称；再遇到关于 $x=3$ 对称时，仅凭两条信息，竟然就能知道：\textbf{整条图像每向右移动 $4$ 个单位就重复一次}。
+这让我们在\textbf{不知道 $f(x)$ 具体是什么函数}时，也能求周期、算遥远位置的函数值。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（复合平移）}}
+\medskip
 
-	两次轴对称（或中心对称）的复合相当于一次平移，平移距离为 $2|a-b|$；一次轴对称与一次中心对称的复合相当于一次平移，但需要两次复合才回到自身，因此周期为 $4|a-b|$。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{二、把“对称”想成照镜子：先从初中能理解的数开始}}
+\input{assets/tikz/F026_centers_height_three}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（等式推导）}}
 
-	从 $f(2a-x)=f(x)$ 和 $f(2b-x)=f(x)$ 可推出 $f(x+2|a-b|)=f(x)$；从 $f(2a-x)=2c-f(x)$ 和 $f(2b-x)=2c-f(x)$ 同样推出 $f(x+2|a-b|)=f(x)$；从 $f(2a-x)=f(x)$ 和 $f(2b-x)=2c-f(x)$ 推出 $f(x+4|a-b|)=f(x)$。
+\textbf{1. 两条镜子为什么是两倍间距？}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（高考题型）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（直接求周期）：} 直接给出对称条件，要求写出周期或利用周期求函数值。
-		\item \textbf{考法二（求参数范围）：} 根据周期性和对称性确定参数取值或不等式解集。
-	\end{itemize}
+假设镜子在 $x=1$ 和 $x=3$，两镜子相距 $2$。从位置 $x=0.5$ 出发：
+\[
+\underbrace{0.5}_{\text{原位置}}
+\xrightarrow[\text{照 }x=1]{\text{左右翻}}
+1.5
+\xrightarrow[\text{照 }x=3]{\text{左右翻}}
+4.5.
+\]
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
+两次翻折，$0.5$ 变为 $4.5$，正好向右移了 $4=2\times2$。
+对\textbf{任何}起点 $x$ 都一样：
+\[
+ x\longrightarrow 2a-x\longrightarrow 2b-(2a-x)=x+2(b-a).
+\]
+两个箭头仅改变位置，不改变函数值，所以 $f(x+2(b-a))=f(x)$。
 
-	\textbf{记住口诀：同型周期 $2d$，异型周期 $4d$（$d=|a-b|$）。}
+\textbf{2. 绕一个点转半圈，为什么还要管高度？}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（抽象函数推理）：} 题目给出 $f(x)$ 满足两个对称等式，不给出具体解析式，要求周期或函数值。
-		\item \textbf{场景二（图像分析）：} 由 $f(x)$ 图像关于直线和点对称，判断周期和对称性。
-	\end{itemize}
+若对称中心是 $(b,c)$，横坐标从 $x$ 变成 $2b-x$，同时纵坐标 $y$ 会变成 $2c-y$。
+比如中心在高度 $c=3$：$5$ 在中线上方 $2$ 格，转半圈后变为 $1$（中线下方 $2$ 格）：
+\[
+ \underbrace{5}_{\text{上方2格}}\longrightarrow \underbrace{2\times3-5=1}_{\text{下方2格}}
+ \longrightarrow \underbrace{2\times3-1=5}_{\text{回到上方2格}}.
+\]
+
+因此，如果\textbf{两个点都位于 $y=c$}，连续绕这两个点转半圈，横向共移动 $2d$，纵向也回到原来的高度：点点组合得到 $T=2d$。
+
+\end{explanationbox}\clearpage\begin{explanationbox}
+\input{assets/tikz/F026_mixed_height_three}
+\textbf{3. 一面镜子加一个转弯点，为什么要四倍？}
+
+镜子只把左、右交换，\textbf{不把高、低交换}；中心对称同时交换左右与高低。
+假设 $a=0,b=1,c=3$，则两处相距 $d=1$：
+\[
+\begin{aligned}
+  f(x+2)&=6-f(x),\\
+  f(x+4)&=6-f(x+2)=f(x).
+\end{aligned}
+\]
+例如 $f(0)=5$，就必须有 $f(2)=1$、$f(4)=5$。
+\textbf{走 $2$ 格只是“上下相反”，走 $4$ 格才“原样回来”。}
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{三、三张图：亲眼看见两倍和四倍}}
+\input{assets/tikz/F026_three_cases}
+
+
+三图同尺度直接比较：同一条余弦线选轴0与轴2，或选轴0与中心1，都会得到周期4；区别在选取的对称位置和距离。
+
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{四、和已经学过的知识连起来}}
+\input{assets/tikz/F026_subtract_height}
+
+\begin{itemize}[leftmargin=*,itemsep=0.35em]
+\item \textbf{与偶函数相连：}关于 $x=a$ 对称，就是把原点平移到 $a$ 后，左右两边函数值相同。特别地，$a=0$ 时是 $f(x)=f(-x)$。
+\item \textbf{与奇函数相连：}关于 $(b,c)$ 对称，就是先把纵向基准线移到 $y=0$，再把横向原点移到 $b$，左右函数值相反。特别地，$(b,c)=(0,0)$ 时是 $f(-x)=-f(x)$。
+\item \textbf{与周期定义相连：}只有当\textbf{所有} $x$ 都满足 $f(x+T)=f(x)$，才能称 $T>0$ 为周期；只核对图上的几个点不能当作证明。
+\end{itemize}
 \end{explanationbox}

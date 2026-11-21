@@ -1,83 +1,134 @@
+\clearpage
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
+\textbf{\textcolor{CExplanation}{一、为什么会想到“半个周期”？——先看一个能画出来的函数}}
+\input{assets/tikz/F028_symmetry_chain}
 
-	周期与对称性叠加后，同类对称位置会按已知周期的一半向左右连锁出现。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（周期定义）：}]
-		      $f(x+T)=f(x)$ 对任意 $x\in\mathbb{R}$ 成立。
+取
+\[
+f(x)=\cos(\pi x).
+\]
+它每隔 $2$ 又回到原来的样子，最小正周期是 $2$。把图像画出来：
 
-		\item[\textbf{要点二（对称轴定义）：}]
-		      $f(a+x)=f(a-x)$ 对任意 $x\in\mathbb{R}$ 成立。
 
-		\item[\textbf{要点三（对称轴连锁）：}]
-		      由周期性与对称轴定义可推出
-		      \[
-			      f\left(a+\frac{T}{2}+x\right)
-			      =
-			      f\left(a+\frac{T}{2}-x\right),
-		      \]
-		      因此 $x=a+T/2$ 也是对称轴。反复应用后可得到
-		      \[
-			      x=a+\frac{kT}{2},
-			      \quad k\in\mathbb{Z},
-		      \]
-		      这一组必然存在的对称轴。
 
-		\item[\textbf{要点四（对称中心连锁）：}]
-		      若 $(b,c)$ 是对称中心，则同理有
-		      \[
-			      f\left(b+\frac{T}{2}+x\right)
-			      +
-			      f\left(b+\frac{T}{2}-x\right)
-			      =2c,
-		      \]
-		      所以 $\left(b+T/2,c\right)$ 仍是对称中心。
-	\end{description}
+观察：
+\begin{itemize}[leftmargin=*,itemsep=0.35em]
+\item 图像从 $x=0$ 到 $x=2$，完成一整轮重复；
+\item 但不用走完整个 $2$，只走一半到 $x=1$，又看到一条对称轴；
+\item 位于 $x=\tfrac12,\tfrac32$ 的红点，则是图像绕其转半圈能重合的点；
+\item 从对称轴 $x=0$ 走到最近的对称中心 $x=\tfrac12$，恰好是四分之一个最小正周期。
+\end{itemize}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（镜像与平移）}}
+\textbf{特别注意：} $x=0$ 和 $x=1$ 虽然都是对称轴，但 $1$ \emph{不是} $\cos(\pi x)$ 的周期，因为 $f(0)=1$，$f(1)=-1$。对称轴每隔半周期出现，\textbf{不等于图像每隔半周期完全相同}。
 
-	周期表示图像水平平移 $T$ 后与原图像重合；对称轴表示关于某条竖直直线镜像后图像不变。把“平移一个周期”和“关于已知轴反射”组合起来，会得到关于相距 $T/2$ 的新直线反射，因此同类对称位置每隔 $T/2$ 再次出现。
+\medskip
 
-	两次关于平行直线的轴对称，等价于一次水平平移，且平移量等于两条直线间距的两倍。这就是“两条对称轴推出一个周期”的几何原因。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{二、用生活中的“折纸花纹”来理解}}
+\input{assets/tikz/F028_fold_and_translate}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（等式推导）}}
 
-	以对称轴为例，直接计算：
-	\[
-		\begin{aligned}
-			f\left(a+\frac{T}{2}+x\right)
-			 & =f\left(a-\frac{T}{2}+x\right)
-			 &                                             & \text{（相差一个周期 $T$）}  \\
-			 & =f\left(a+\left(x-\frac{T}{2}\right)\right)                        \\
-			 & =f\left(a-\left(x-\frac{T}{2}\right)\right)
-			 &                                             & \text{（关于 $x=a$ 对称）} \\
-			 & =f\left(a+\frac{T}{2}-x\right).
-		\end{aligned}
-	\]
-	这正是直线 $x=a+T/2$ 为对称轴的判定式。
+想象走廊墙上有一串不断重复的花纹，每段长 $T$；又知道其中一条竖直线是一条“折痕”，花纹沿着它对折可以重合。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（快速转化）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（求一组对称轴）：} 已知一个周期和一条对称轴，写出 $x=a+kT/2$。
-		\item \textbf{考法二（求全部对称轴）：} 只有进一步知道 $T_0$ 是最小正周期时，才能写成 $x=a+kT_0/2$ 的全部形式。
-		\item \textbf{考法三（求一个周期）：} 已知两条不同对称轴，计算 $P=2|a_1-a_2|$；所得 $P$ 不一定是最小正周期。
-	\end{itemize}
+在已知折痕左边取一个位置。沿着“对折”和“向右移动一个完整花纹”这两条规则，可以在折痕右边找到相同的花纹。因为“整段重复”不分从哪里开始，原折痕向右走半段 $T/2$ 的地方同样能对折重合。再重复，就得到一串折痕。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
+对称中心可以想成\textbf{把纸绕钉在某一点的图钉旋转 $180^\circ$}，原来处于中心上方的点会落到下方，中心高度始终不变。这就是为什么新中心的横坐标改变，纵坐标 $c$ 不变。
 
-	\textbf{半个已知周期控制同类对称位置的连锁，两倍轴间距产生一个周期；但“一个周期”不能自动升级为“最小正周期”。}
+\medskip
+\end{explanationbox}\clearpage\begin{explanationbox}\textbf{\textcolor{CExplanation}{再看一个初中生也能画的“折线波”}}
+\input{assets/tikz/F028_triangle_wave}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（抽象函数）：} 将周期条件与对称条件互相转化，用于求值、证明周期性或排除错误选项。
-		\item \textbf{场景二（三角函数）：} 结合最小正周期、最值点和对称轴确定相位参数或验证函数图像性质。
-	\end{itemize}
+
+不用正弦、余弦，只用直线：先从 $(0,0)$ 走到 $(1,1)$，再走到 $(2,0)$；每隔 $2$ 个单位把这段折线照样重复。用式子写就是
+\[
+f(x)=\begin{cases}
+x,&0\le x\le1,\\
+2-x,&1<x\le2,
+\end{cases}\qquad f(x+2)=f(x).
+\]
+
+
+
+这里的周期是 $2$，对称轴在 $x=0,1,2,\ldots$，相邻两轴间距就是 $1=2/2$。红点如 $(\tfrac12,\tfrac12)$ 是对称中心，离最近的轴只有 $\tfrac12=2/4$。直线折成的“山峰、山谷”，同样能出现\textbf{半周期对称轴、四分之一周期对称中心}，所以这不是三角函数独有的巧合。
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{三、最简单的数字演示：不用三角函数也能看懂}}
+\input{assets/tikz/F028_fold_and_translate}
+
+
+假设一个函数满足
+\[
+f(x+4)=f(x),\qquad f(1+t)=f(1-t).
+\]
+已知 $x=1$ 是对称轴，问 $x=3$ 是不是？从 $3$ 两边随意取距离 $0.5$ 的两个点：
+\[
+\begin{aligned}
+f(3.5)&=f(-0.5) &&\text{（向左移动 $4$）}\\
+       &=f(2.5) &&\text{（$-0.5$ 与 $2.5$ 关于 $1$ 对称）}.
+\end{aligned}
+\]
+所以 $3.5$ 和 $2.5$ 的函数值相同。换成任意距离 $t$ 也同样成立，因此 $x=3$ 确实是对称轴。
+
+\textbf{这里最关键的理解：}题目中的两个条件都是“\emph{对任意} $x$ 成立”，所以才能把 $0.5$ 换成任意距离。只核对一对点，不能证明整条直线是对称轴。
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{四、为什么“两次对折 = 向一边移动两倍距离”？}}
+\input{assets/tikz/F028_two_axes_eight}
+
+
+在数轴上设两条折痕分别在 $a_1$、$a_2$，任取一个点 $u$：
+\[
+\underbrace{u}_{\text{起点}}
+\ \xrightarrow{\text{沿 $a_1$ 对折}}\
+2a_1-u
+\ \xrightarrow{\text{再沿 $a_2$ 对折}}\
+2a_2-(2a_1-u)=u+2(a_2-a_1).
+\]
+
+例如折痕在 $x=1$ 与 $x=3$，点 $u=0$：第一次变成 $2$，第二次变成 $4$。\textbf{两次对折后位置总共向右移动了 $4$，正好是折痕间距 $2$ 的两倍。} 如果函数图像两次对折后都不变，那么向右移动 $4$ 也必定不变，所以 $4$ 是一个周期。
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{五、眼前一亮：为什么“对称轴到对称中心”常常是四分之一周期？}}
+\input{assets/tikz/F028_quarter_period}
+
+
+仍看 $\cos(\pi x)$：在 $x=0$ 处是波峰，在 $x=\tfrac12$ 处恰好经过中间高度 $y=0$，在 $x=1$ 处是波谷。
+\[
+\underbrace{0}_{\text{对称轴（峰）}}
+\ \longrightarrow\
+\underbrace{\tfrac12}_{\text{对称中心（中线）}}
+\ \longrightarrow\
+\underbrace{1}_{\text{对称轴（谷）}}
+\]
+完整一轮长 $2$，所以峰到中线长 $\tfrac12=2/4$。一般函数也是这样，但要有\textbf{一条对称轴和一个对称中心}，并且要用\textbf{最小正周期}才能描述“奇数个四分之一周期”；详细证明放在 03。
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{六、把本结论和原来学过的知识连起来}}
+\input{assets/tikz/F028_symmetry_chain}
+
+\begin{itemize}[leftmargin=*,itemsep=0.4em]
+\item \textbf{与偶函数相连：} $f(-x)=f(x)$ 就是对称轴在 $x=0$。已知一个周期 $T$，立刻知道 $x=kT/2$ 都是对称轴。
+\item \textbf{与奇函数相连：} $f(-x)=-f(x)$ 就是对称中心在 $(0,0)$。已知一个周期 $T$，立刻知道 $(kT/2,0)$ 都是对称中心。
+\item \textbf{与函数平移相连：} $f(a+t)=f(a-t)$ 其实是把对称轴移到 $x=a$；而 $f(b+t)+f(b-t)=2c$ 是把中心移到 $(b,c)$。
+\item \textbf{与抽象函数求值相连：} 不必知道 $f$ 的公式。等式 $f(x+T)=f(x)$ 负责“搬位置”，对称关系负责“换方向”。把难算的自变量搬回已知值附近，就能求解。
+\end{itemize}
 \end{explanationbox}

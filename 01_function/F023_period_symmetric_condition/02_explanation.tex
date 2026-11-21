@@ -1,42 +1,109 @@
+\clearpage
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
+\textbf{\textcolor{CExplanation}{一、为什么会想到这一结论？}}
+\input{assets/tikz/F023_core_curve}
 
-	函数在自变量相差$2a$时函数值相同，因为条件$f(x+a)=f(x-a)$意味着将$x$增加$a$和减少$a$结果一样，所以跨越$2a$回到同一点。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（条件解读）：}] 已知$f(x+a)=f(x-a)$对任意$x$成立，说明自变量相差$2a$时函数值相等。
-		\item[\textbf{要点二（代换技巧）：}] 将$x$替换为$x+a$，得到$f(x+2a)=f(x)$，直接呈现周期形式。
-		\item[\textbf{要点三（周期确认）：}] 对照周期定义$f(x+T)=f(x)$，可知$T=2a$是一个周期。
-	\end{description}
+我们熟悉“函数每隔 $T$ 就重复一次”的写法：$f(x+T)=f(x)$。可是考试不总把它写得这么整齐，有时给出的是
+\[
+f(x+a)=f(x-a).
+\]
+这就像问：\textbf{两个位置的高度总是一样，说明图像按多长的间隔在重复？}
+先不背公式，先在数轴上找出这两个位置。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（函数平移）}}
+\medskip
 
-	函数$y=f(x)$的图像沿$x$轴方向平移$2a$个单位后与自身完全重合（图像重复出现）。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{二、初中生也能看懂：用数字把距离算出来}}
+\input{assets/tikz/F023_input_positions}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（周期确认）}}
 
-	条件$f(x+a)=f(x-a)$等价于$f(x+2a)=f(x)$，即周期定义的标准形式，因此判定$2a$是周期。
+设 $a=2$，条件就成了 $f(x+2)=f(x-2)$。
+\begin{itemize}[leftmargin=*,itemsep=0.3em]
+\item 把 $x=3$ 代入：$f(5)=f(1)$。两个位置 $1$ 和 $5$ 相隔 $4$。
+\item 再把 $x=7$ 代入：$f(9)=f(5)$。两个位置 $5$ 和 $9$ 也相隔 $4$。
+\item 所以 $f(1)=f(5)=f(9)$。不是只在这三个位置巧合；\textbf{由于题目对任意 $x$ 成立，每个位置都可以这样往右平移 $4$。}
+\end{itemize}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（周期应用）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（周期求值）：} 在抽象函数中已知形如$f(x+a)=f(x-a)$的条件，直接写出周期$2a$，快速求函数值。
-		\item \textbf{考法二（综合应用）：} 与分段函数、图像对称性等结合，利用周期简化计算。
-	\end{itemize}
+\[
+\underbrace{(x+a)}_{\text{右边位置}}-\underbrace{(x-a)}_{\text{左边位置}}=2a.
+\]
+当 $a>0$ 时，从 $x-a$ 到 $x+a$ 要走 $2a$；当 $a<0$ 时两边左右互换，实际距离为 $2|a|$。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
+\medskip
 
-	\textbf{核心技巧：} 将$x$替换为$x+a$是构造$f(x+2a)$的关键一步，本质是变量代换。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{三、数轴图解：为什么不是 $a$？}}
+\input{assets/tikz/F023_input_positions}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（周期求值）：} 给出抽象函数满足$f(x+a)=f(x-a)$，快速得到周期$2a$，用于求函数值或解析式。
-		\item \textbf{场景二（区分对称）：} 注意与对称性条件$f(x+a)=f(a-x)$区分，避免混淆。
-	\end{itemize}
+
+下面的 $x=3$ 只是用来帮助看图；\textbf{使整个函数有周期的是“任意 $x$ 都成立”}，不是只知道某三个点一样高。
+
+
+\textbf{读图说明：} 当 $x=3$ 时，比较的是 $x-2=1$ 和 $x+2=5$；换成别的 $x$，仍然是比较两处相隔 $4$ 的位置。
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{四、把它画成真正的函数图像}}
+\input{assets/tikz/F023_core_curve}
+
+
+例如 $f(x)=\sin\!\left(\dfrac{\pi x}{2}\right)$。这条曲线在 $x=1,5,9$ 都取值 $1$，\textbf{相邻两段图像的形状完全相同}，不只是几个点一样高。
+
+
+\textbf{注意：} 这是为了帮助想象而选的一个具体函数；证明任意满足条件的函数有周期，不需要知道它的解析式。
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{五、真正关键的一步：把“左右两边”改成“从某点往右”}}
+\input{assets/tikz/F023_input_positions}
+
+
+把 $x-a$ 暂时叫作 $u$，那么 $x+a=u+2a$。于是原式立刻变成
+\[
+f(u+2a)=f(u).
+\]
+这才是周期的标准写法。\textbf{周期不是看 $x$ 自己走了多少，而是看两次函数值相等时，两个输入相差多少。}
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{六、眼前一亮：两条对称轴也能推出周期}}
+\input{assets/tikz/F023_two_axes}
+
+
+如果一条完整函数图像同时关于两条不同的竖直直线 $x=p$ 和 $x=q$ 对称：
+先关于 $x=p$ 翻过去，再关于 $x=q$ 翻过去，\textbf{效果相当于把整张图沿水平方向挪动 $2(q-p)$}。
+由于两次翻折后仍是原图，故
+\[
+\boxed{T=2|q-p|\text{ 是一个周期。}}
+\]
+例如，对称轴是 $x=1$ 与 $x=4$，两轴相隔 $3$，可得一个正周期 $6$。\textbf{这是连接“图像对称”与“函数周期”的桥梁。} 注意：这里要求整张图像分别关于这两条直线对称，并非随便挑两个点的函数值相等。
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{七、与已学知识的联系}}
+\input{assets/tikz/F023_axis_vs_period}
+
+\begin{itemize}[leftmargin=*,itemsep=.35em]
+\item $f(x+T)=f(x)$：直接告诉你每走 $T$ 就重复。
+\item $f(x+a)=f(x-a)$：看似一左一右，实际两位置相隔 $2|a|$。
+\item $f(x+p)=f(x+q)$：更一般的写法，两位置相隔 $|p-q|$。
+\item $f(c+t)=f(c-t)$：\textbf{固定中点 $c$} 的两边一样高，表示关于 $x=c$ 对称；与上面的“每一个中点都比较”不是一回事。
+\end{itemize}
 \end{explanationbox}

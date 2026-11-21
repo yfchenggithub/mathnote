@@ -1,0 +1,11 @@
+\begin{tikzpicture}[x=1.1cm,y=0.8cm,>=stealth, every node/.style={font=\small}]
+ \node[anchor=west,font=\bfseries] at (0,2.05) {每向右走一步，函数值都变一次号};
+ \foreach \x/\xx/\v in {0/{x}/{2},2/{x+a}/{-2},4/{x+2a}/{2}}{
+  \draw[fill=blue!8,draw=blue!55,rounded corners=3pt] (\x,0.65) rectangle +(1.55,0.85);
+  \node at (\x+0.775,1.26) {$f(\xx)$};
+  \node[font=\bfseries] at (\x+0.775,0.89) {$\v$};
+ }
+ \draw[->,thick,blue!65!black] (1.59,1.05) -- node[above,font=\scriptsize] {加 $a$} (1.95,1.05);
+ \draw[->,thick,blue!65!black] (3.59,1.05) -- node[above,font=\scriptsize] {加 $a$} (3.95,1.05);
+ \draw[<->,thick,orange!75!black] (0.78,0.36) -- node[below,font=\scriptsize] {一共 $2a$，数值还原} (4.78,0.36);
+\end{tikzpicture}

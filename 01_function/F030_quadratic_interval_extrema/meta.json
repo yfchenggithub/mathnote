@@ -9,7 +9,7 @@
       "轴定区间定",
       "二次函数顶点最值"
     ],
-    "summary": "二次函数在闭区间上的最值由开口方向和对称轴是否在区间内决定，比较顶点和端点函数值。",
+    "summary": "在闭区间内比较二次函数最值：找离对称轴最近和最远的位置；区间中点能直接判断哪个端点离对称轴更远。",
     "difficulty": 2,
     "category": "函数",
     "tags": [
@@ -36,7 +36,12 @@
       "端点值",
       "配方",
       "二次函数最值",
-      "区间最值"
+      "区间最值",
+      "距离平方",
+      "区间中点",
+      "最近端点",
+      "最远端点",
+      "端点同高"
     ],
     "synonyms": [
       "顶点坐标",
@@ -45,7 +50,10 @@
       "开口向上",
       "开口向下",
       "轴的范围",
-      "二次函数极值"
+      "二次函数极值",
+      "离对称轴最近",
+      "端点谁更大",
+      "两端点同高"
     ],
     "intents": [
       "求最值",
@@ -60,7 +68,9 @@
       "轴定区间定最值公式",
       "已知二次函数求区间最值",
       "二次函数最值问题例题",
-      "顶点在区间外怎么求最值"
+      "顶点在区间外怎么求最值",
+      "二次函数区间最值如何用距离判断",
+      "二次函数区间中点判断哪个端点更大"
     ],
     "ocrKeywords": [
       "函数 f(x)=ax^2+bx+c",
@@ -90,7 +100,10 @@
       "\\min\\{f(m),f(n)\\}",
       "\\max\\{f(m),f(n)\\}",
       "a>0",
-      "a<0"
+      "a<0",
+      "f(n)-f(m)",
+      "(m+n)/2",
+      "a(x-h)^2+k"
     ],
     "pinyin": "ercihanshuqujianzuizhizhoudingqujianding",
     "pinyinAbbr": "echs"
@@ -108,10 +121,12 @@
     "success_rate": 0
   },
   "math": {
-    "core_formula": "若$a>0$：$f_{\\min}= \\begin{cases} f(x_0), & x_0\\in[m,n] \\\\\\\\ \\min\\{f(m),f(n)\\}, & x_0\\notin[m,n] \\end{cases}$，$f_{\\max}=\\max\\{f(m),f(n)\\}$；若$a<0$：$f_{\\max}= \\begin{cases} f(x_0), & x_0\\in[m,n] \\\\\\\\ \\max\\{f(m),f(n)\\}, & x_0\\notin[m,n] \\end{cases}$，$f_{\\min}=\\min\\{f(m),f(n)\\}$。",
+    "core_formula": "设 $h=-\\frac{b}{2a}$，$s=\\frac{m+n}{2}$。若 $a>0$：$f_{\\max}=\\max\\{f(m),f(n)\\}$，$f_{\\min}=\\begin{cases}f(h),&m\\le h\\le n\\\\\\min\\{f(m),f(n)\\},&h<m\\text{ 或 }h>n\\end{cases}$；若 $a<0$：$f_{\\min}=\\min\\{f(m),f(n)\\}$，$f_{\\max}=\\begin{cases}f(h),&m\\le h\\le n\\\\\\max\\{f(m),f(n)\\},&h<m\\text{ 或 }h>n\\end{cases}$。最远端点：$h<s$ 选 $n$，$h>s$ 选 $m$，$h=s$ 两端同高。",
     "related_formulas": [
-      "$f(x)=a\\left(x+\\frac{b}{2a}\\right)^2+\\frac{4ac-b^2}{4a}$",
-      "$x_0=-\\frac{b}{2a}$"
+      "$f(x)=a(x-h)^2+k,\\quad h=-\\frac{b}{2a},\\ k=f(h)$",
+      "$f(n)-f(m)=a(n-m)(m+n-2h)$",
+      "$f(m)=f(n)\\Longleftrightarrow h=\\frac{m+n}{2}\\quad(a\\ne0,\\ m<n)$",
+      "$f_{\\max/min}$ 分别在离 $h$ 最近处、最远处取得（由 $a$ 的正负决定对应关系）"
     ],
     "variables": [
       "a",
@@ -128,22 +143,24 @@
       "f_{\\min}",
       "f_{\\max}"
     ],
-    "conditions": "二次函数 $f(x)=ax^2+bx+c$，其中 $a\\neq0$。闭区间 $[m,n]$ 固定，对称轴 $x_0=-\\frac{b}{2a}$ 固定。",
-    "conclusions": "当 $a>0$ 时：若 $x_0\\in[m,n]$，则 $f_{\\min}=f(x_0)$，$f_{\\max}=\\max\\{f(m),f(n)\\}$；若 $x_0\\notin[m,n]$，则 $f_{\\min}=\\min\\{f(m),f(n)\\}$，$f_{\\max}=\\max\\{f(m),f(n)\\}$。当 $a<0$ 时：若 $x_0\\in[m,n]$，则 $f_{\\max}=f(x_0)$，$f_{\\min}=\\min\\{f(m),f(n)\\}$；若 $x_0\\notin[m,n]$，则 $f_{\\max}=\\max\\{f(m),f(n)\\}$，$f_{\\min}=\\min\\{f(m),f(n)\\}$。"
+    "conditions": "二次函数 $f(x)=ax^2+bx+c$，$a\\ne0$。闭区间 $[m,n]$，$m<n$，对称轴 $h=-\\frac{b}{2a}$ 及区间均为已知固定值；两个端点包含在内。",
+    "conclusions": "设 $h=-\\frac{b}{2a}$。当 $a>0$，在区间内离 $h$ 最近处取最小值、最远处取最大值；当 $a<0$ 时相反。最近处为区间内的 $h$ 或距离 $h$ 最近的端点；最远处必为端点，按 $h$ 与区间中点 $(m+n)/2$ 的大小决定。"
   },
   "content": {
-    "statement": "二次函数 $f(x)=ax^2+bx+c$（$a\\neq0$）在闭区间 $[m,n]$（$m<n$）上的最值由开口方向和对称轴 $x_0=-\\frac{b}{2a}$ 是否在区间内决定。当 $a>0$ 时，最小值为 $f(x_0)$（若 $x_0\\in[m,n]$）否则为 $\\min\\{f(m),f(n)\\}$；最大值为 $\\max\\{f(m),f(n)\\}$。当 $a<0$ 时，最大值为 $f(x_0)$（若 $x_0\\in[m,n]$）否则为 $\\max\\{f(m),f(n)\\}$；最小值为 $\\min\\{f(m),f(n)\\}$。",
+    "statement": "二次函数在闭区间上的最大、最小值可由离对称轴最近/最远的位置确定；开口向上时近小远大，开口向下时近大远小。",
     "derivation": [
-      "1. 求对称轴 $x_0=-\\frac{b}{2a}$；",
-      "2. 判断开口方向：$a>0$ 开口向上，$a<0$ 开口向下；",
-      "3. 若对称轴在区间内，则最值在顶点处取得一个（最小值或最大值）；再比较两端点函数值得到另一个最值；若对称轴不在区间内，则最值均在端点取得，比较大小即可。"
+      "1. 配方成 $f(x)=a(x-h)^2+k$，把函数值和到对称轴的距离联系起来。",
+      "2. 在闭区间中，离 $h$ 最近处是区间内的 $h$ 或最近端点；最远处一定是两端点之一。",
+      "3. 用 $a>0$ 或 $a<0$ 判定近大/近小，再计算真正需要的位置。",
+      "4. 利用 $f(n)-f(m)=a(n-m)(m+n-2h)$，用区间中点比较两端点，无需重复代入。"
     ],
-    "intuition": "开口向上时，函数图像先减后增，顶点是最低点，离对称轴越远函数值越大；开口向下则相反。",
+    "intuition": "像在走廊的规定路段内，找离某个固定位置最近和最远的站点；平方把距离变成高低差，开口方向决定越远越高还是越低。",
     "common_tricks": [
-      "配方法确定对称轴和顶点坐标；",
-      "画草图辅助判断对称轴与区间位置；",
-      "注意端点值比较：不要漏掉区间端点；",
-      "含参数时需分类讨论，画数轴分析对称轴位置。"
+      "先核实顶点能否取到；不在区间内绝不能使用顶点值作区间最值。",
+      "看对称轴与区间中点：轴偏左则右端更远，轴偏右则左端更远。",
+      "开口向上近小远大，开口向下近大远小。",
+      "两个端点同高，当且仅当对称轴位于区间中点。",
+      "含参数的题先检查区间是否合法，区分本结论的固定区间与进一步的动区间/动轴。"
     ]
   },
   "usage": {
@@ -167,12 +184,34 @@
   },
   "assets": {
     "svg": "F030.svg",
-    "png": "",
-    "pdf": ""
+    "png": "F030.png",
+    "pdf": "",
+    "tikz": [
+      "assets/tikz/F030_core_interval.tex",
+      "assets/tikz/F030_outside_vertex.tex",
+      "assets/tikz/F030_three_windows.tex",
+      "assets/tikz/F030_nearest_numberline.tex",
+      "assets/tikz/F030_midpoint_distance.tex",
+      "assets/tikz/F030_opening_sign.tex",
+      "assets/tikz/F030_square_bounds.tex",
+      "assets/tikz/F030_derivative_sign.tex",
+      "assets/tikz/F030_example_two.tex",
+      "assets/tikz/F030_example_three.tex",
+      "assets/tikz/F030_example_five.tex",
+      "assets/tikz/F030_example_six.tex",
+      "assets/tikz/F030_example_seven.tex",
+      "assets/tikz/F030_unequal_endpoints.tex",
+      "assets/tikz/F030_open_closed.tex",
+      "assets/tikz/F030_axis_at_endpoint.tex",
+      "assets/tikz/F030_interval_validity.tex"
+    ],
+    "other": {
+      "gif": "images/interval_window_extrema.gif"
+    }
   },
   "shareConfig": {
     "title": "二次函数区间最值：先看顶点与端点",
-    "shareDesc": "求固定闭区间上的最值，不必把每个点都代入。先看开口方向，再判断顶点是否落在区间内，比较必要的端点值；用离对称轴的远近理解大小，避免漏掉区间外顶点的情况。"
+    "shareDesc": "一条抛物线只截取一小段，怎么确定最高最低？看离对称轴最近与最远的位置。区间中点还可以一眼判定哪个端点更远。"
   },
   "relations": {
     "prerequisites": [
@@ -180,17 +219,20 @@
       "一元二次方程",
       "区间概念"
     ],
-    "related_ids": ["F031", "F032"],
+    "related_ids": [
+      "F031",
+      "F032"
+    ],
     "similar": "轴动区间定、轴定区间动、含参二次函数最值"
   },
   "meta": {
-    "version": 1,
+    "version": 2,
     "source": "AI生成",
     "created_at": "2026-06-26",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-11-21"
   },
   "isPro": 1,
-  "remarks": "",
+  "remarks": "；2026-11-21：新增17幅独立TikZ，覆盖首页、3种证明、7道例题及8个易错点；同尺度比较允许区间、开口方向、端点可取性和数轴远近，替换旧内嵌图。；新增教学GIF images/interval_window_extrema.gif，模型与分镜归本UID的manim；LOCAL PRODUCTION PASS，用户视觉及Android真机验收PENDING，未执行内容Publisher或Sync。",
   "knowledgeNode": "函数-二次函数-区间最值-定轴与动轴",
   "altNodes": ""
 }

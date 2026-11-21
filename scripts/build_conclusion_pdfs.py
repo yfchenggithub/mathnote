@@ -8,6 +8,7 @@ Examples:
   python scripts/build_conclusion_pdfs.py --modules 00_set 07_inequality --ids S001 I001
   python scripts/build_conclusion_pdfs.py --modules 00_set --conclusions S001_Subset_Count --pdf-name-mode id
   python scripts/build_conclusion_pdfs.py S001 --output-to-conclusion-pdfs
+  python scripts/build_conclusion_pdfs.py --output-to-conclusion-pdfs --overwrite F017-F025
 """
 
 from __future__ import annotations
@@ -98,13 +99,16 @@ def parse_args() -> argparse.Namespace:
         "--ids",
         nargs="*",
         default=None,
-        help="Conclusion IDs to include (e.g. I001 S001). Supports comma and/or space separation.",
+        help=(
+            "Conclusion IDs to include (e.g. I001 S001 or F017-F025). "
+            "Supports comma/space separation and inclusive ranges with the same prefix."
+        ),
     )
     parser.add_argument(
         "positional_ids",
         nargs="*",
         help=(
-            "Shorthand IDs, equivalent to --ids (e.g. I001 S001). "
+            "Shorthand IDs, equivalent to --ids (e.g. I001 S001 or F017-F025). "
             "If --modules is omitted, modules are auto-derived from "
             "12_pipeline/config/module_prefix_map.json."
         ),
@@ -196,13 +200,29 @@ def normalize_modules(raw_modules: list[str] | None) -> list[str]:
 
 
 def normalize_ids(raw_ids: list[str] | None) -> list[str]:
-    ids = [token.upper() for token in split_csv_tokens(raw_ids)]
-    ids = dedupe_keep_order(ids)
-    invalid = [value for value in ids if not re.fullmatch(r"[A-Za-z]\d{3}", value)]
-    if invalid:
-        bad = ", ".join(invalid)
-        raise ValueError(f"Invalid --ids values: {bad}. Expected format like I001.")
-    return ids
+    ids: list[str] = []
+    for token in split_csv_tokens(raw_ids):
+        value = token.upper()
+        if re.fullmatch(r"[A-Z]\d{3}", value):
+            ids.append(value)
+            continue
+
+        match = re.fullmatch(r"([A-Z])(\d{3})\s*-\s*([A-Z])(\d{3})", value)
+        if not match:
+            raise ValueError(
+                f"Invalid --ids value: {value}. Expected an ID like I001 "
+                "or an inclusive range like F017-F025."
+            )
+
+        prefix, start_digits, end_prefix, end_digits = match.groups()
+        if prefix != end_prefix:
+            raise ValueError(f"Invalid ID range: {value}. Both endpoints must have the same prefix.")
+        start, end = int(start_digits), int(end_digits)
+        if start > end:
+            raise ValueError(f"Invalid ID range: {value}. Start must be less than or equal to end.")
+        ids.extend(f"{prefix}{number:03d}" for number in range(start, end + 1))
+
+    return dedupe_keep_order(ids)
 
 
 def normalize_conclusions(raw_conclusions: list[str] | None) -> list[str]:

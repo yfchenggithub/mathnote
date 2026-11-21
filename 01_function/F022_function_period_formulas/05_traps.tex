@@ -1,45 +1,87 @@
-\begin{trapbox}
-
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（定义域平移封闭）}}]
-			有些同学只记住了周期公式$T=|a|$或$T=2|a|$，但忽略等式成立的前提：函数定义域必须对平移常数封闭。例如，$f(x)=\sqrt{x}$在$x=0$附近不一定满足周期性。
-		\item[\textbf{\textcolor{CTrap}{正确理解（封闭性必需）：}}]
-			周期函数的定义域$D$必须满足：若$x\in D$，则$x\pm T\in D$，其中$T$为周期。否则，即使给定等式，也无法定义周期。
-		\item[\textbf{\textcolor{CTrap}{错因分析（忽视前提）：}}]
-			机械记忆公式，忽视周期性定义中的定义域要求。
-	\end{description}
-
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（周期长度误判）}}]
-			对于$f(x+a)=-f(x)$，误以为周期是$|a|$，直接写$T=|a|$。
-		\item[\textbf{\textcolor{CTrap}{正确理解（周期为2|a|）：}}]
-			通过迭代可得$f(x+2a)=-f(x+a)$，结合$f(x+a)=-f(x)$得$f(x+2a)=f(x)$，周期应为$2|a|$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（漏乘因子2）：}}]
-			只看到了$f(x+a)$与$f(x)$符号相反，认为$|a|$就能使函数值重复，忽略了符号变化后还需一次才能回到原值。
-	\end{description}
-
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（符号识别错误）}}]
-			在$f(x+a)=f(x+b)$中，对$a,b$的符号判断错误。例如由$f(x+1)=f(x-2)$，误得出$T=|1-2|$，即$T=1$。
-		\item[\textbf{\textcolor{CTrap}{正确理解（a,b符号正确）：}}]
-			公式$T=|a-b|$，需正确确定$a$和$b$。这里$a=1$，$b=-2$，得$T=|1-(-2)|$，即$T=3$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（符号误读）：}}]
-			把$x-2$看作$x+(-2)$，容易忽视$b=-2$的负号，导致相减时出错。
-	\end{description}
-
-\end{trapbox}
-
 \clearpage
 \begin{trapbox}
-\textbf{新增易错：得到 $2|a|$，就认定是最小正周期}
-\begin{center}\input{assets/tikz/F022_period_not_minimum}\end{center}
-图中 $f(x+1)=-f(x)$，所以 $2$ 是一个周期；但最小正周期是 $2/3$。
-\textbf{正确写法：}连续代入得到的 $2|a|$ 是一个正周期；只有排除了全部更小的正周期，才能称为最小正周期。
+\textbf{易错 1｜算出一个周期，就直接说是“最小正周期”}
+\input{assets/tikz/F022_not_minimum_cycle}
+
+
+\textbf{错误：}由 $f(x+1)=-f(x)$，推出“最小正周期是 $2$”。
+
+\textbf{正确：}只能确定 $2$ 是\textbf{一个正周期}。例如
+\[
+ f(x)=\sin(3\pi x),\quad f(x+1)=-f(x),
+\]
+但它的最小正周期是 $\dfrac23$，并不是 $2$。
+
+更特别的是常数函数 $f(x)\equiv0$：任何正数都是周期，\textbf{根本没有最小正周期}。
 
 \medskip
-\textbf{新增易错：分式只检查第一次分母}
+\end{trapbox}\clearpage\begin{trapbox}\textbf{易错 2｜把“变号”看成“重复”}
+\input{assets/tikz/F022_repeat_cycle}
 
-第一式需要 $f(x)-1\ne0$，第二式需要 $1+f(x)\ne0$；等式必须在全部定义域内成立，且定义域允许连续平移。不能只在某一点算出“两次还原”，就断言整个函数有周期。两篇新增证明已分别核验第二次分母仍然非零。
+
+$f(x+a)=-f(x)$ 不代表 $f(x+a)=f(x)$，除非该位置函数值为 $0$。
+而周期要对\textbf{所有}位置都成立。正确做法是再走一次：
+$-(-f(x))=f(x)$。
+
+\medskip
+\end{trapbox}\clearpage\begin{trapbox}\textbf{易错 3｜负倒数的正负号前后不一致}
+\input{assets/tikz/F022_variable_sign_failure}
+
+
+如果已知的是固定的 $f(x+a)=-1/f(x)$，下一次仍应使用负号。
+\textbf{不能把 $\pm$ 理解为每个位置都能随便换号。}
+例如只知道 $f(x+a)$ 在 $1/f(x)$ 和 $-1/f(x)$ 中任选一个，
+并不足以保证走两步回到原值。
+
+\medskip
+\end{trapbox}\clearpage\begin{trapbox}\textbf{易错 4｜忘记分母不能为零}
+\input{assets/tikz/F022_fraction_plus_iteration}
+
+
+$f(x+a)=1/f(x)$ 需保证所有相关位置 $f(x)\ne0$。
+两种分式关系分别需要 $f(x)\ne1$、$f(x)\ne-1$，并要保证下一次使用关系时分母也不为 $0$。
+严密证明中已分别算出第二次分母是 $2/(f(x)-1)$ 和 $2/(1+f(x))$，确实非零。
+
+\end{trapbox}\clearpage\begin{trapbox}\textbf{易错 5｜只验算一个点，就说整个函数有周期}
+\input{assets/tikz/F022_one_point_failure}
+
+
+例如算出 $f(0)=f(4)$，\textbf{不能}据此认定 $4$ 是周期。
+周期要求每一个允许的 $x$ 都满足 $f(x+4)=f(x)$。
+数字往返只用来帮助理解；证明必须用代表任意函数值的字母 $u$，或者从已知等式对任意 $x$ 推导。
+
+\medskip
+\end{trapbox}\clearpage\begin{trapbox}\textbf{易错 6｜定义域不能跟着走}
+\input{assets/tikz/F022_bounded_domain}
+
+
+若函数只在 $[0,1]$ 上有定义，就不能随便把 $x$ 换成 $x+2$，
+更不能因为某些位置高度相同就说它的周期是 $2$。
+\textbf{最简检查：}题目说的“所有 $x$”，到底在哪个范围？平移后还在吗？
+
+\medskip
+\end{trapbox}\clearpage\begin{trapbox}\textbf{易错 7｜差值型算错符号}
+\input{assets/tikz/F022_input_difference}
+
+
+$f(x+1)=f(x-2)$，两端输入相差
+$1-(-2)=3$，所以是 $3$，不是 $|1-2|=1$。
+
+\medskip
+\end{trapbox}\clearpage\begin{trapbox}\textbf{易错 8｜“整数倍还是周期”误用为“任意倍都是周期”}
+\input{assets/tikz/F022_not_minimum_cycle}
+
+
+若 $T$ 是周期，则 $2T,3T,\ldots$ 是周期，$-T$ 也能表示同样的重复方向；
+但\textbf{不能}仅由 $T$ 是周期就推断 $T/2$ 也是周期。
+如果题目还给出另一个正周期 $S$，则 $|T-S|\ne0$ 时也构成周期。
+例如既知道 $4$ 是周期又知道 $6$ 是周期，就能推出 $2$ 也是周期，但仍需小心它是否最小。
+
+\medskip
+\end{trapbox}\clearpage\begin{trapbox}\textbf{易错 9｜式子看似正确，却没有说明关系里的常数是固定的}
+\input{assets/tikz/F022_variable_constant_failure}
+
+
+$f(x+a)=c-f(x)$ 的 $c$ 必须是固定数；如果每个 $x$ 选不同的 $c$，
+就无法推导第二次仍能抵消。
 \end{trapbox}

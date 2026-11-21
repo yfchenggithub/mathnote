@@ -9,7 +9,7 @@
       "两根式",
       "交点式"
     ],
-    "summary": "二次函数一般式 $ax^2+bx+c$ 可通过配方化为顶点式 $a(x-h)^2+k$，当判别式非负时可化为两根式 $a(x-x_1)(x-x_2)$，三种形式可相互转化。",
+    "summary": "二次函数可以写成一般式、顶点式与（存在实数根时的）两根式。三种写法各突出系数、顶点、与x轴交点；可由配方、因式分解互相转化，并用根的中点快速求对称轴。",
     "difficulty": 2,
     "category": "函数",
     "tags": [
@@ -31,13 +31,22 @@
       "判别式",
       "配方法",
       "零点",
-      "求根公式"
+      "求根公式",
+      "交点式",
+      "两根中点",
+      "一条抛物线三种写法",
+      "平方差公式",
+      "判别式与顶点"
     ],
     "synonyms": [
       "二次函数解析式",
       "二次函数三种形式",
       "配方法求顶点",
-      "韦达定理"
+      "韦达定理",
+      "二次函数三个表达式",
+      "已知顶点求解析式",
+      "已知两根求对称轴",
+      "二次函数交点式"
     ],
     "intents": [
       "求顶点坐标",
@@ -45,13 +54,19 @@
       "求解析式",
       "判断零点个数",
       "配方法化顶点式",
-      "用交点式设函数"
+      "用交点式设函数",
+      "利用两零点求对称轴",
+      "比较一般式顶点式两根式",
+      "判断二次函数是否有实数交点"
     ],
     "query_templates": [
       "二次函数怎么化成顶点式",
       "已知二次函数与x轴交点求解析式",
       "二次函数顶点坐标公式",
-      "二次函数两根式如何推导"
+      "二次函数两根式如何推导",
+      "为什么两根的中点就是对称轴",
+      "二次函数没有实数根能写两根式吗",
+      "判别式如何从顶点式看出来"
     ],
     "ocrKeywords": [
       "二次函数",
@@ -94,24 +109,32 @@
     "related_formulas": [
       "f(x)=a(x-x_1)(x-x_2)\\;(\\Delta\\ge 0)",
       "x_1+x_2=-\\frac{b}{a},\\; x_1x_2=\\frac{c}{a}",
-      "\\Delta=b^2-4ac"
+      "\\Delta=b^2-4ac",
+      "x_1+x_2=2h",
+      "\\Delta=-4ak",
+      "x=h\\pm\\sqrt{-k/a}\\;(-k/a\\ge 0)",
+      "f(x)=a\\left[(x-m)^2-d^2\\right],\\;m=(x_1+x_2)/2,\\;d=(x_2-x_1)/2"
     ],
     "variables": "a,b,c,x,h,k,x_1,x_2,\\Delta",
-    "conditions": "二次项系数 $a\\neq 0$；两根式成立需 $\\Delta\\ge 0$。",
-    "conclusions": "顶点坐标 $(h,k)$；对称轴 $x=h$；零点 $x_1,x_2$ 满足韦达定理。"
+    "conditions": "实数范围内讨论，二次项系数 a≠0；顶点式总能写；两根式只有在 Δ≥0 时存在实数 x1、x2。",
+    "conclusions": "三种写法展示同一条抛物线不同信息；顶点(h,k)、对称轴x=h；存在实数根时x1+x2=2h，x1x2=c/a；恒有Δ=-4ak。"
   },
   "content": {
-    "statement": "对于二次函数 $f(x)=ax^2+bx+c\\ (a\\neq 0)$，它恒可化为顶点式 $f(x)=a(x-h)^2+k$，其中 $h=-\\frac{b}{2a}, k=\\frac{4ac-b^2}{4a}$；当判别式 $\\Delta=b^2-4ac\\ge 0$ 时，还可化为两根式 $f(x)=a(x-x_1)(x-x_2)$，其中 $x_1,x_2$ 为方程 $ax^2+bx+c=0$ 的两实根且满足 $x_1+x_2=-\\frac{b}{a},\\; x_1x_2=\\frac{c}{a}$。三种形式相互等价，可根据已知条件灵活选用。",
+    "statement": "二次函数f(x)=ax²+bx+c(a≠0)总能化为顶点式a(x-h)²+k，h=-b/(2a)，k=c-b²/(4a)。若Δ=b²-4ac≥0，还能在实数范围写成a(x-x1)(x-x2)，且x1+x2=-b/a，x1x2=c/a。恒有Δ=-4ak；存在两个实根时，对称轴经过它们的中点。",
     "derivation": [
-      "配方：$ax^2+bx+c = a\\left(x^2+\\frac{b}{a}x\\right)+c = a\\left[(x+\\frac{b}{2a})^2-\\frac{b^2}{4a^2}\\right]+c = a(x+\\frac{b}{2a})^2 + c-\\frac{b^2}{4a} = a(x-h)^2+k$，其中 $h=-\\frac{b}{2a}, k=\\frac{4ac-b^2}{4a}$。",
-      "当 $\\Delta\\ge 0$ 时，$ax^2+bx+c=0$ 有实根 $x_1,x_2$，则 $ax^2+bx+c = a(x-x_1)(x-x_2)$，由韦达定理得 $x_1+x_2=-\\frac{b}{a},\\; x_1x_2=\\frac{c}{a}$。"
+      "配方：ax²+bx+c=a(x+b/(2a))²+c-b²/(4a)，从平方的取值看出顶点(h,k)，h=-b/(2a)，k=c-b²/(4a)。",
+      "令f(x)=0： (x+b/(2a))²=Δ/(4a²)。所以Δ<0无实根、Δ=0一个实根、Δ>0两个不同实根；当Δ≥0时得到两根式，展开并比系数证明根的和积。",
+      "若实根为x1、x2，设m=(x1+x2)/2、d=(x2-x1)/2，则a(x-x1)(x-x2)=a[(x-m)²-d²]。因此顶点横坐标是两根的中点，顶点纵坐标为-ad²。"
     ],
-    "intuition": "通过配方将一般式写成完全平方加常数，揭示对称性和最值；因式分解当有实根时得到两根式。",
+    "intuition": "一个函数有三种写法，不是三个函数：一般式容易读出f(0)=c，顶点式把平方非负的特点变成顶点及最值，两根式利用两数相乘为零表示与x轴的交点。例：x²-4x+3=(x-2)²-1=(x-1)(x-3)。",
     "common_tricks": [
       "已知顶点坐标或对称轴，直接设顶点式求解析式。",
       "已知与 $x$ 轴交点，设两根式求解析式。",
       "配方法快速求顶点坐标，避免公式记错。",
-      "利用韦达定理直接写出两根和与积，无需解方程。"
+      "利用韦达定理直接写出两根和与积，无需解方程。",
+      "已知两个实数根时，对称轴是两根的中点。",
+      "已知顶点式，可以从(x-h)²=-k/a直接判断实数交点个数。",
+      "由Δ=-4ak，把判别式与顶点高低、开口方向连起来。"
     ]
   },
   "usage": {
@@ -129,14 +152,37 @@
     "exam_score": 5
   },
   "interactive": {
-    "has_diagram": false,
+    "has_diagram": true,
     "geogebra_id": "",
     "param_demo": {}
   },
   "assets": {
     "svg": "F029.svg",
-    "png": [],
-    "video": []
+    "png": [
+      "assets/F029_three_forms.png"
+    ],
+    "video": [],
+    "tikz": [
+      "assets/tikz/F029_three_forms.tex",
+      "assets/tikz/F029_complete_square.tex",
+      "assets/tikz/F029_discriminant_up.tex",
+      "assets/tikz/F029_discriminant_down.tex",
+      "assets/tikz/F029_midpoint_roots.tex",
+      "assets/tikz/F029_example_one.tex",
+      "assets/tikz/F029_example_three.tex",
+      "assets/tikz/F029_example_four.tex",
+      "assets/tikz/F029_example_five.tex",
+      "assets/tikz/F029_equal_height.tex",
+      "assets/tikz/F029_parameter_intersections.tex",
+      "assets/tikz/F029_repeated_root.tex",
+      "assets/tikz/F029_downward_maximum.tex",
+      "assets/tikz/F029_same_roots.tex",
+      "assets/tikz/F029_same_axis.tex",
+      "assets/tikz/F029_three_collinear.tex"
+    ],
+    "other": {
+      "gif": "images/fixed_roots_vary_coefficient.gif"
+    }
   },
   "shareConfig": {
     "title": "二次函数三种形式：按已知条件选设法",
@@ -148,20 +194,23 @@
       "因式分解",
       "配方法"
     ],
-    "related_ids": ["F033", "F034"],
+    "related_ids": [
+      "F033",
+      "F034"
+    ],
     "similar": [
       "二次函数图像性质",
       "一元二次方程根与系数关系"
     ]
   },
   "meta": {
-    "version": 1,
+    "version": 2,
     "source": "AI生成",
     "created_at": "2026-06-26",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-11-21"
   },
   "isPro": 1,
-  "remarks": "",
+  "remarks": "；2026-11-21：新增16幅独立TikZ，覆盖首页、3种推导、7道例题与10个易错点；同尺度比较判别式、开口系数和未知顶点，图中实际点与公式逐一核对。；新增教学GIF images/fixed_roots_vary_coefficient.gif，模型与分镜归本UID的manim；LOCAL PRODUCTION PASS，用户视觉及Android真机验收PENDING，未执行内容Publisher或Sync。",
   "knowledgeNode": "函数-二次函数-解析式与图像-三种解析式",
   "altNodes": "代数-方程-一元二次方程,函数-图像-图像变换"
 }

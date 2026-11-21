@@ -1,41 +1,45 @@
 \begin{statementbox}
+\input{assets/tikz/F026_three_cases}
 
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件 1（定义域前提）：}}] 函数 $f(x)$ 定义在 $\mathbb{R}$ 上，常数 $a,b,c\in\mathbb{R}$ 且 $a\neq b$。
-	\end{description}
+\textbf{\textcolor{CStatement}{先看三个条件}}
+\begin{itemize}[leftmargin=*,itemsep=0.25em]
+  \item 函数 $f(x)$ 对每个实数 $x$ 都有定义，下面的等式对\textbf{所有实数} $x$ 成立。
+  \item 两个对称位置的横坐标为 $a,b$，且 $a\neq b$，记 $d=|a-b|>0$。
+  \item 如果有\textbf{两个对称中心}，它们必须处于\textbf{同一高度} $y=c$。
+\end{itemize}
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（轴轴对称）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			同时关于两条竖直直线对称，周期为间距的两倍。
-			\[
-				f(a+x)=f(a-x),\ f(b+x)=f(b-x)\ \Longrightarrow\ T=2|a-b|.
-			\]
+\medskip
+\textbf{\textcolor{CStatement}{三种情形：算出的都是“一个周期”}}
+\end{statementbox}\clearpage\begin{statementbox}\begin{description}[style=nextline,leftmargin=2.4em,itemsep=0.7em]
+\item[\textbf{情形一：两条对称轴（轴轴）}] 图像关于 $x=a$ 和 $x=b$ 对称：
+\[
+\left\{\begin{aligned}f(a+x)&=f(a-x),\\f(b+x)&=f(b-x),\end{aligned}\right.
+\qquad \Longrightarrow\qquad \boxed{T=2d}.
+\]
+\textbf{直观理解：}左右照两次镜子，图像被完整搬到相隔 $2d$ 的位置，样子不变。
+\item[\textbf{情形二：两个同高度的对称中心（点点）}] 图像关于 $(a,c)$、$(b,c)$ 对称：
+\[
+\left\{\begin{aligned}
+ f(a+x)+f(a-x)&=2c,\\
+ f(b+x)+f(b-x)&=2c,
+\end{aligned}\right.
+\quad\Longrightarrow\quad \boxed{T=2d}.
+\]
+\textbf{直观理解：}绕第一个点转半圈，函数值上下翻一次；绕第二个点再转半圈，上下又翻回来。
+\item[\textbf{情形三：一条对称轴和一个对称中心（轴点）}] 图像关于 $x=a$ 对称，关于 $(b,c)$ 对称：
+\[
+\left\{\begin{aligned}
+ f(a+x)&=f(a-x),\\
+ f(b+x)+f(b-x)&=2c,
+\end{aligned}\right.
+\quad\Longrightarrow\quad \boxed{T=4d}.
+\]
+\textbf{直观理解：}前两次对称把图像移了 $2d$，却把函数值变成 $2c-f(x)$；再重复两次，函数值才变回 $f(x)$。
+\end{description}
 
-		\item[\textbf{\textcolor{CStatement}{结论二（点点对称）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			同时关于两个水平点对称，周期为间距的两倍。
-			\[
-				f(a+x)+f(a-x)=2c,\ f(b+x)+f(b-x)=2c\ \Longrightarrow\ T=2|a-b|.
-			\]
+\medskip
+\textbf{\textcolor{CStatement}{考试最重要的准确说法}}
 
-		\item[\textbf{\textcolor{CStatement}{结论三（轴点对称）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			关于一条直线和一个点对称，周期为间距的四倍。
-			\[
-				f(a+x)=f(a-x),\ f(b+x)+f(b-x)=2c\ \Longrightarrow\ T=4|a-b|.
-			\]
-	\end{description}
-
-	\medskip
-	\textbf{\textcolor{CStatement}{常见变形（分类记忆）}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{同型与异型：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			两个对称类型相同得 $2d$，不同得 $4d$（$d=|a-b|$）。\\
-			\qquad 同类型（轴轴或点点）：$T=2d$，\quad 不同类型（轴点）：$T=4d$。
-	\end{description}
-
+$T=2d$ 或 $T=4d$ \textbf{一定是一个正周期，但未必是最小正周期}。
+例如最小正周期可能是 $T/3$，仍然可以把 $T$ 叫作“一个周期”。如果题目明确要求\textbf{最小正周期}，必须补充检查。
 \end{statementbox}

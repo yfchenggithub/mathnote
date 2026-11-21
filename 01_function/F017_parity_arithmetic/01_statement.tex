@@ -1,49 +1,68 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
+\input{assets/tikz/F017_overview}
 
-	设 $f$、$g$ 都是奇函数或偶函数，定义域分别为 $D_f$、$D_g$。
-	令 $D=D_f\cap D_g$，并假定 $D$ 非空。两个定义域均关于原点对称，
-	因此 $D$ 也关于原点对称。
+\textbf{\textcolor{CStatement}{这个结论解决什么问题？}}
 
-	\medskip
-	\textbf{\textcolor{CStatement}{结论一：加减法}}
+一道题中常会同时出现 $x^3$、$x^2$、$\sin x$、$\cos x$ 等函数，
+还要对它们加、减、乘、除。如果每遇到一个新式子，都重新代入 $-x$
+检查一大串计算，就容易慢、容易错。本结论告诉我们：\textbf{只要先知道
+每一部分的奇偶性，通常就能直接判断组合后的奇偶性。}
 
-	在 $D$ 上，同为奇函数的和、差仍为奇函数；同为偶函数的和、差仍为偶函数：
-	\[
-		\begin{aligned}
-			\text{奇}\pm\text{奇} & =\text{奇}, \\
-			\text{偶}\pm\text{偶} & =\text{偶}.
-		\end{aligned}
-	\]
-	奇函数与偶函数相加减，通常既非奇函数也非偶函数；
-	若其中一个函数在 $D$ 上恒为零，则需按实际结果判断。
+\medskip
+\textbf{\textcolor{CStatement}{先说清使用条件}}
 
-	\medskip
-	\textbf{\textcolor{CStatement}{结论二：乘法}}
+设函数 $f(x)$、$g(x)$ 的定义域分别为 $D_f$、$D_g$，
+它们都已经确定是奇函数或偶函数。两函数都能取值的部分记为
+$D=D_f\cap D_g$，要求 $D$ 非空。
 
-	在 $D$ 上，
-	\[
-		\begin{aligned}
-			\text{奇}\times\text{奇} & =\text{偶}, \\
-			\text{奇}\times\text{偶} & =\text{奇}, \\
-			\text{偶}\times\text{偶} & =\text{偶}.
-		\end{aligned}
-	\]
-	交换两个因子的顺序，结论不变。
+奇函数、偶函数都满足：只要能取 $x$，也能取 $-x$。
+所以两函数共有的定义域 $D$ 也满足这一点。
+做除法 $f(x)/g(x)$ 时，还必须去掉 $g(x)=0$ 的位置，
+且要保证去掉之后仍有可取的 $x$。
 
-	\medskip
-	\textbf{\textcolor{CStatement}{结论三：除法}}
+\medskip
+\end{statementbox}\clearpage\begin{statementbox}\textbf{\textcolor{CStatement}{结论一：加减法}}
+\input{assets/tikz/F017_odd_sum}
+ 
+\[
+\boxed{\text{奇}\pm\text{奇}=\text{奇},\qquad
+\text{偶}\pm\text{偶}=\text{偶}.}
+\]
+一个奇函数和一个偶函数相加或相减，\textbf{通常既不是奇函数，也不是偶函数}。
+更准确地说：设 $f$ 为奇函数、$g$ 为偶函数，
+在它们共有的定义域上，$f\pm g$ 是奇函数，\textbf{当且仅当 $g$ 始终等于 $0$}；
+$f\pm g$ 是偶函数，\textbf{当且仅当 $f$ 始终等于 $0$}。
 
-	令 $D'=\{x\in D\mid g(x)\ne 0\}$，并假定 $D'$ 非空。
-	商函数 $f/g$ 的定义域是 $D'$。在 $D'$ 上，
-	\[
-		\begin{aligned}
-			\text{奇}\div\text{奇} & =\text{偶}, \\
-			\text{奇}\div\text{偶} & =\text{奇}, \\
-			\text{偶}\div\text{奇} & =\text{奇}, \\
-			\text{偶}\div\text{偶} & =\text{偶}.
-		\end{aligned}
-	\]
-	由于 $g$ 是奇函数或偶函数，若 $g(x)=0$，则 $g(-x)=0$；
-	所以删去分母为零的点后，$D'$ 仍关于原点对称。
+\medskip
+\textbf{\textcolor{CStatement}{结论二：乘法}}
+\[
+\boxed{\text{奇}\times\text{奇}=\text{偶},\quad
+\text{奇}\times\text{偶}=\text{奇},\quad
+\text{偶}\times\text{偶}=\text{偶}.}
+\]
+两函数的位置可以交换。对于多个已知奇偶性的函数相乘，
+\textbf{只数其中奇函数有几个}：奇函数个数为奇数，积是奇函数；
+个数为偶数（包括 $0$ 个），积是偶函数。
+
+\medskip
+\end{statementbox}\clearpage\begin{statementbox}\textbf{\textcolor{CStatement}{结论三：除法}}
+\input{assets/tikz/F017_quotient_hole}
+
+\[
+\boxed{\begin{aligned}
+\text{奇}\div\text{奇}&=\text{偶}, &\text{奇}\div\text{偶}&=\text{奇},\\
+\text{偶}\div\text{奇}&=\text{奇}, &\text{偶}\div\text{偶}&=\text{偶}.
+\end{aligned}}
+\]
+除法和乘法遵循相同的变号规律，\textbf{但不能忘记原分母不等于 $0$}。
+由于奇函数、偶函数在 $x$ 与 $-x$ 处的值，要么相同、要么互为相反数，
+所以分母在 $x$ 处为 $0$ 时，在 $-x$ 处也为 $0$；
+成对删去这些点后，商函数的定义域仍然左右对应。
+
+\medskip
+\textbf{\textcolor{CStatement}{读表提醒}}
+
+这里的“奇、偶”说的是\textbf{函数的奇偶性}，不是整数的奇偶性。
+还有一个特殊对象：$y=0$ \textbf{既是奇函数，也是偶函数}。
+因此“结果为奇函数”并不排除它同时也是偶函数。
 \end{statementbox}

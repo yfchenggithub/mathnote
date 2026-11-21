@@ -1,35 +1,106 @@
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{\textcolor{CProof}{证明前，先讲清要证明的是什么}}
 
-	由已知等式$f(x+a)=f(x-a)$，通过变量代换$x\mapsto x+a$，可直接构造出$f(x+2a)=f(x)$，从而判定周期$2a$。
+设 $f$ 定义在 $\mathbb R$ 上，$a\ne0$，并且对于每一个实数 $x$，有 $f(x+a)=f(x-a)$。
+我们要证明：\textbf{存在一个固定的正数，任何位置向右移动这么远，函数值都不变。}
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（条件陈列）：}] 已知对任意$x$，有
-			\[
-				f(x+a)=f(x-a).
-			\]
-			\par\textbf{理由：} 这是题设直接给出的条件。
+\medskip
+\textbf{\textcolor{CProof}{方法一：直接看两个输入的差（最快，建议首选）}}
+\input{assets/tikz/F023_input_positions}
 
-		\item[\textbf{步骤二（变量替换）：}] 将上式中的$x$替换为$x+a$（因为条件对任意$x$成立，所以对$x+a$也成立）：
-			\[
-				f((x+a)+a)=f((x+a)-a).
-			\]
-			\par\textbf{理由：} 条件中$x$的任意性允许我们代入任何实数。
 
-		\item[\textbf{步骤三（化简等式）：}] 化简括号：
-			\[
-				f(x+2a)=f(x).
-			\]
-			\par\textbf{理由：} $(x+a)+a=x+2a$，$(x+a)-a=x$。
+\textbf{第1步}：题目给出的两次输入是 $x+a$ 和 $x-a$。
 
-		\item[\textbf{步骤四（周期判定）：}] 对照周期定义$f(x+T)=f(x)$，取$T=2a$即满足。因此$2a$是$f(x)$的一个周期。
-			\par\textbf{理由：} 周期函数要求存在非零常数$T$使得$f(x+T)=f(x)$对任意$x$成立，这里$T=2a$满足且$a\neq 0$保证$T\neq 0$。
-	\end{description}
+\textbf{第2步}：它们的差是
+\[
+(x+a)-(x-a)=2a.
+\]
+若 $a>0$，右边的输入比左边大 $2a$；若 $a<0$，顺序反过来，但相隔的距离都是 $2|a|$。
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
+\textbf{第3步}：因为\textbf{不管选哪个 $x$}，这两个相隔 $2|a|$ 的位置都对应相同的函数值，所以图像每向右移动 $2|a|$ 就重复。
 
-	\textbf{综上，由$f(x+a)=f(x-a)$（$a\neq 0$）可推出$f(x+2a)=f(x)$，即周期$T=2a$。这一推导的关键步骤是用$x+a$代替$x$。}
+\[
+\boxed{T=2|a|\text{ 是一个正周期。}}
+\]
+\textbf{适用：} 选择题、填空题；看一眼输入的差即可。\textbf{不能据此断言它一定是最小正周期。}
+
+\medskip
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法二：把字母换一下（常规写法，解答题最稳）}}
+\input{assets/tikz/F023_core_curve}
+
+
+\textbf{第1步}：已知对所有实数 $x$，
+\[
+f(x+a)=f(x-a).
+\]
+\textbf{第2步}：题目中的 $x$ 可以换成任意实数，所以把所有 $x$ 同时换成 $x+a$：
+\[
+f\big((x+a)+a\big)=f\big((x+a)-a\big).
+\]
+\textbf{第3步}：把括号算清楚：
+\[
+\boxed{f(x+2a)=f(x).}
+\]
+\textbf{第4步}：若 $a>0$，取 $T=2a$；若 $a<0$，将上式中的 $x$ 换成 $x-2a$，得到 $f(x-2a)=f(x)$，此时 $-2a>0$。
+因此无论哪种情形，\textbf{$T=2|a|$ 都是正周期}。
+
+\textbf{适用：} 需要写完整证明的题目。每一步只用了同一个已知等式，没有另外假设图像形状。
+
+\medskip
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法三：从任意位置出发，一步接一步（最直观）}}
+\input{assets/tikz/F023_core_curve}
+
+
+\textbf{第1步}：随便选数轴上的一个位置，比如叫作 $b$。
+
+\textbf{第2步}：令原条件中的 $x=b+a$，就得到
+\[
+f(b+2a)=f(b).
+\]
+也就是说：\textbf{从 $b$ 出发，走 $2a$ 后，函数值不变。}
+
+\textbf{第3步}：再把 $b$ 改成 $b+2a$，得到
+\[
+f(b+4a)=f(b+2a)=f(b).
+\]
+再往前走一步，得到 $f(b+6a)=f(b)$。往反方向走也一样，因为可以把等式中的位置改成 $b-2a$。
+
+\textbf{第4步}：由于 $b$ 是随便取的，对所有整数 $k$ 都有
+\[
+\boxed{f(b+2ka)=f(b),\qquad k\in\mathbb Z.}
+\]
+走的方向不影响周期的正数长度，因此 $2|a|$ 是一个正周期。
+
+\textbf{适用：} 给初中生讲图像为什么会一段接一段重复，也适合解决 $f(2024)$ 一类大数求值题。
+
+\medskip
+\end{proofbox}\clearpage\begin{proofbox}\textbf{\textcolor{CProof}{补充证明：两个不一样的括号，照样一秒得到周期}}
+\input{assets/tikz/F023_general_gap}
+
+
+如果 $f(x+p)=f(x+q)$ 对任意 $x$ 成立，且 $p\ne q$，令 $u=x+q$，有
+\[
+f\big(u+(p-q)\big)=f(u).
+\]
+跟上面方法二完全一样，所以 $|p-q|$ 是一个正周期。特别地，取 $p=a,q=-a$，便得到 $2|a|$。
+
+\medskip
+\end{proofbox}\clearpage\begin{proofbox}\textbf{\textcolor{CProof}{补充证明：两条对称轴为什么产生周期？}}
+\input{assets/tikz/F023_two_axes}
+
+
+如果图像关于 $x=p$ 对称，就有 $f(2p-x)=f(x)$；关于 $x=q$ 对称，就有 $f(2q-x)=f(x)$。把第一个式子中的 $x$ 换成 $2q-x$：
+\[
+f\big(2p-(2q-x)\big)=f(2q-x)=f(x).
+\]
+整理得 $f(x+2(p-q))=f(x)$。因此\textbf{两条对称轴间距的两倍}，即 $2|p-q|$，是一个正周期。
 \end{proofbox}

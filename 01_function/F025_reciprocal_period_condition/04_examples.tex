@@ -1,65 +1,125 @@
+\clearpage
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例 1（基础）}}
+\textbf{\textcolor{CExample}{例1：像填表一样求值（入门）}}
+\input{assets/tikz/F025_example_one}
 
-	\textbf{\textcolor{CExample}{题目：}}
-	已知函数$f(x)$满足$f(x+2)=\frac{1}{f(x)}$（$f(x)\neq 0$），且$f(1)=2$，求$f(5)$的值。
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（识别条件）：}] 条件为$f(x+2)=\frac{1}{f(x)}$，其中$a=2$，$f(1)=2\neq0$，符合倒数型周期条件。
-			\par\textbf{理由：} 匹配结论条件$f(x+a)=1/f(x)$，$a=2$。
-		\item[\textbf{第二步（求周期）：}] 由结论得周期$T=2a=4$。
-			\par\textbf{理由：} 结论直接给出。
-		\item[\textbf{第三步（周期转化）：}] $5=1+4$，所以$f(5)=f(1)$。
-			\par\textbf{理由：} 周期为4，自变量相差4函数值相等。
-		\item[\textbf{第四步（代入即得）：}] $f(5)=f(1)=2$。
-			\par\textbf{理由：} 已知$f(1)=2$。
-	\end{description}
+\textbf{题目：}已知$f(x+2)=1/f(x)$，且$f(1)=2$，求$f(3)$、$f(5)$、$f(7)$。
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$f(5)=2$。}
+\textbf{解：}从$x=1$出发，每次向右走$2$：
+\[
+\begin{array}{c|cccc}
+ x&1&3&5&7\\ \hline
+ f(x)&2&\frac12&2&\frac12
+\end{array}
+\]
+每两步又回到原来的数，所以$f(x+4)=f(x)$。
+\[
+\boxed{f(3)=\tfrac12,\quad f(5)=2,\quad f(7)=\tfrac12}.
+\]
+\textbf{提醒：}“隔$2$变成倒数”与“隔$4$变回原数”不是同一句话，千万不要混淆。
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+\medskip
 
-	\textbf{\textcolor{CExample}{题目：}}
-	已知函数$f(x)$满足$f(x+3)=-\frac{1}{f(x)}$（$f(x)\neq 0$），且$f(0)=5$，求$f(6)$的值。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例2：负倒数，注意负号（基础）}}
+\input{assets/tikz/F025_example_negative_five}
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（识别条件）：}] 条件为$f(x+3)=-\frac{1}{f(x)}$，属于负倒数型，$a=3$。
-			\par\textbf{理由：} 匹配结论条件$f(x+a)=-1/f(x)$。
-		\item[\textbf{第二步（求周期）：}] 由结论得周期$T=2a=6$。
-			\par\textbf{理由：} 结论直接适用。
-		\item[\textbf{第三步（周期转化）：}] $6=0+6$，故$f(6)=f(0)$。
-			\par\textbf{理由：} 周期性。
-		\item[\textbf{第四步（代入即得）：}] $f(6)=f(0)=5$。
-			\par\textbf{理由：} 已知$f(0)=5$。
-	\end{description}
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$f(6)=5$。}
+\textbf{题目：}已知$f(x+3)=-1/f(x)$，且$f(0)=5$，求$f(3)$、$f(6)$、$f(9)$。
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+\textbf{解：}
+\[
+\begin{array}{c|cccc}
+ x&0&3&6&9\\ \hline
+ f(x)&5&-\frac15&5&-\frac15
+\end{array}
+\]
+因为每走$6$重复一次，所以$f(6)=f(0)=5$。
+\[
+\boxed{f(3)=-\tfrac15,\quad f(6)=5,\quad f(9)=-\tfrac15}.
+\]
+\textbf{提醒：}第二次出现$-1/(-1/5)=5$，不是$-5$。
 
-	\textbf{\textcolor{CExample}{题目：}}
-	已知函数$f(x)$满足$f(x+1)=\frac{1}{f(x)}$（$f(x)\neq 0$），且当$x\in[0,1]$时$f(x)=2^x$，求$f(2023.5)$的值。
+\medskip
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（求周期）：}] 由$f(x+1)=\frac{1}{f(x)}$，得$a=1$，周期$T=2a=2$。
-			\par\textbf{理由：} 直接套用结论。
-		\item[\textbf{第二步（周期转化）：}] $2023.5=2\times1011+1.5$，故$f(2023.5)=f(1.5)$。
-			\par\textbf{理由：} 周期函数性质：$f(x+2k)=f(x)$。
-		\item[\textbf{第三步（原关系转化）：}] 利用条件$f(x+1)=\frac{1}{f(x)}$，取$x=0.5$得$f(1.5)=\frac{1}{f(0.5)}$。
-			\par\textbf{理由：} 条件对任意$x$成立。
-		\item[\textbf{第四步（区间求值）：}] 因为$0.5\in[0,1]$，由已知$f(0.5)=2^{0.5}$，即 $\sqrt{2}$。
-			\par\textbf{理由：} 分段表达式。
-		\item[\textbf{第五步（计算结果）：}] $f(2023.5)=\frac{1}{\sqrt{2}}$，即 $\frac{\sqrt{2}}{2}$。
-			\par\textbf{理由：} 代入化简。
-	\end{description}
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例3：输入是很大的数，先减掉周期（高考常见）}}
+\input{assets/tikz/F025_half_open_exponential}
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$f(2023.5)=\dfrac{\sqrt{2}}{2}$。}
+
+\textbf{题目：}对所有实数$x$，有$f(x+1)=1/f(x)$；且\textbf{当$0\le x<1$时}，$f(x)=2^x$。求$f(2023.5)$。
+
+\textbf{解：}每隔$2$函数值重复，因此
+\[
+ 2023.5=1011\times 2+1.5
+ \quad\Longrightarrow\quad f(2023.5)=f(1.5).
+\]
+再把$1.5$拆成$0.5+1$：
+\[
+ f(1.5)=\frac1{f(0.5)}=\frac1{2^{0.5}}=
+ \boxed{\frac{\sqrt2}{2}}.
+\]
+\textbf{为什么题目只能写$0\le x<1$，而不能写$0\le x\le1$？}因为已知$f(0)=2^0=1$，所以由倒数关系必须有$f(1)=1/f(0)=1$；若又规定$f(1)=2^1=2$，同一个$f(1)$就被要求同时等于$1$和$2$，题目自身矛盾。\textbf{区间右端的一个等号，也会决定题目是否成立。}
+
+\medskip
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例4：不是$1/f$，照样能用（推广）}}
+\input{assets/tikz/F025_example_general_six}
+
+
+\textbf{题目：}已知$f(x+4)=-6/f(x)$，且$f(2)=3$，求$f(6)$、$f(10)$、$f(2026)$。
+
+\textbf{解：}因为$k=-6\ne0$，连续两次仍回到原值，周期为$8$。
+\[
+ f(6)=-\frac6{f(2)}=-2,
+ \qquad f(10)=f(2)=3.
+\]
+另外$2026=2+8\times253$，故
+\[
+ \boxed{f(6)=-2,\quad f(10)=3,\quad f(2026)=3}.
+\]
+\textbf{收获：}不要机械地只认$\pm1/f(x)$；真正起作用的是$k/f(x)$连续出现两次后会变回来。
+
+\medskip
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例5：给定关系，能否求“最小正周期”？（辨析）}}
+\input{assets/tikz/F025_minimal_contrast}
+
+
+\textbf{题目：}若$f(x+1)=1/f(x)$，能否断定最小正周期为$2$？
+
+\textbf{答：不能。}例如$f(x)\equiv1$，任何正数都是它的周期，根本没有最小正周期。反过来，前面图中的函数
+\[
+ f(x)=\begin{cases}
+ 2,&2n\le x<2n+1,\\[2pt]
+ \frac12,&2n+1\le x<2n+2,
+ \end{cases}\qquad n\in\mathbb Z,
+\]
+确实以$2$为最小正周期。\textbf{相同的已知关系，最小正周期却可能不同。}
+
+\medskip
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例6：负倒数为什么往往会“跳”？（图像理解）}}
+\input{assets/tikz/F025_negative_steps}
+
+
+\textbf{题目：}已知$f(x+1)=-1/f(x)$对所有$x\in\mathbb R$成立，且$f(x)\ne0$。函数$f(x)$能否在全体实数上连续？
+
+\textbf{解：}不能。以$x=0$为例，$f(0)$与$f(1)$互为负倒数，所以一正一负。如果图像在$[0,1]$上不中断，就得从横轴上方走到横轴下方（或反过来），中间必经过纵坐标$0$的点。这与函数值不能为$0$矛盾。
+
+\textbf{对照：}图中“负倒数型”的阶梯函数就能满足条件，因为它在整数处跳过去了，并没有连续地穿过$0$。
 \end{examplebox}

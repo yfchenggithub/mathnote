@@ -1,42 +1,89 @@
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+  \textbf{\textcolor{CProof}{要证明的结论}}
 
-	由奇函数定义，代入 $x=0$ 后得到一个关于 $f(0)$ 的方程，解方程即得结论。
+  已知 $f(x)$ 是奇函数，并且 $0$ 在定义域内，证明 $f(0)=0$。
+  下面的三种讲法，本质上都利用了奇函数的“相反数”规则；
+  第一种算得最快，第二种最直观，第三种说明为什么不可能取其他数。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（奇函数定义）：}]
-			对任意 $x$ 属于定义域 $D$，有 $f(-x)=-f(x)$。
-			\[
-				f(-x)=-f(x),\quad\forall x\in D.
-			\]
-			\par\textbf{理由：} 这是奇函数的基本定义。
+  \medskip
+  \textbf{\textcolor{CProof}{证明一：直接代入奇函数的规则（最快，推荐）}}
+\input{assets/tikz/F016_number_mirror}
 
-		\item[\textbf{步骤二（代入$x=0$）：}]
-			由于 $0\in D$，取 $x=0$ 代入上式，得
-			\[
-				f(0)=-f(0).
-			\]
-			\par\textbf{理由：} 原定义对任意 $x$ 成立，特别地 $x=0$ 也成立；$0$ 在定义域内是代入的前提。
+  \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{第一步：写出规则。}]
+      因为 $f$ 是奇函数，所以定义域内的每一个 $x$ 都满足
+      \[
+        f(-x)=-f(x).
+      \]
+    \item[\textbf{第二步：让 $x=0$。}]
+      题目已经保证 $0$ 可以代入，而且 $-0=0$，因此
+      \[
+        f(-0)=-f(0)\quad\Longrightarrow\quad f(0)=-f(0).
+      \]
+    \item[\textbf{第三步：解这个最简单的方程。}]
+      两边加上 $f(0)$：
+      \[
+        2f(0)=0\quad\Longrightarrow\quad\boxed{f(0)=0}.
+      \]
+  \end{description}
 
-		\item[\textbf{步骤三（移项合并）：}]
-			将等式右边的 $-f(0)$ 移到左边，得 $f(0)+f(0)=0$，即 $2f(0)=0$。
-			\[
-				2f(0)=0.
-			\]
-			\par\textbf{理由：} 移项后合并同类项。
+  \medskip
+  
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明二：用图像和“一个 $x$ 只能对应一个 $y$”（最直观）}}
+\input{assets/tikz/F016_axis_unique}
 
-		\item[\textbf{步骤四（系数化一）：}]
-			方程两边同除以 $2$（$2\neq0$），得 $f(0)=0$。
-			\[
-				f(0)=0.
-			\]
-			\par\textbf{理由：} 等式性质。
-	\end{description}
+  \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{第一步：设图像在 $y$ 轴上有一点。}]
+      因为 $f(0)$ 有定义，可把这个点写成 $(0,c)$，其中 $c=f(0)$。
+    \item[\textbf{第二步：找到它关于原点的对称点。}]
+      奇函数的图像关于原点对称，所以 $(0,-c)$ 也必须在图像上。
+    \item[\textbf{第三步：利用函数的基本规则。}]
+      $(0,c)$ 和 $(0,-c)$ 的横坐标都是 $0$，
+      一个横坐标不能对应两个不同的函数值。因此
+      \[
+        c=-c\quad\Longrightarrow\quad c=0.
+      \]
+      故 $\boxed{f(0)=0}$。
+  \end{description}
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
+  \medskip
+  
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明三：先假设它不等于零，再看哪里出错（反过来想）}}
+\input{assets/tikz/F016_nonzero_intercept}
 
-	由以上推导可知，在 $0$ 属于定义域的条件下，奇函数必然满足 $f(0)=0$。这表明 $f(0)=0$ 是奇函数（定义域含 $0$）的必要条件。
+  \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
+    \item[\textbf{第一步：作一个相反的假设。}]
+      假设 $f(0)=c$，并且 $c\ne0$。
+    \item[\textbf{第二步：使用奇函数条件。}]
+      因为 $0$ 在定义域内，奇函数的规则要求
+      \[
+        f(-0)=-f(0)=-c.
+      \]
+    \item[\textbf{第三步：发现矛盾。}]
+      但是 $-0=0$，因此左边实际上就是 $f(0)=c$，
+      于是 $c=-c$，得到 $c=0$，与一开始的 $c\ne0$ 矛盾。
+      所以假设不成立，只能是 $\boxed{f(0)=0}$。
+  \end{description}
+
+  \medskip
+  \textbf{\textcolor{CProof}{三种证明怎样选择？}}
+
+  考试作答优先用\textbf{证明一}，两行就够；
+  向初中生解释时优先用\textbf{证明二}；
+  需要说明“为什么非零值一定不行”时用\textbf{证明三}。
+  不论哪一种，\textbf{都要先确认 $0$ 在定义域内}。
+
+  \medskip
+  \textbf{\textcolor{CProof}{顺手得到的快速判断}}
+
+  若 $0$ 有定义，而代入得出 $f(0)\ne0$，
+  那么上面的推导在 $x=0$ 这一处已经无法满足奇函数条件，
+  因此\textbf{可以直接判定函数不是奇函数}，不必检查其他位置。
 \end{proofbox}

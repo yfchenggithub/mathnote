@@ -1,41 +1,131 @@
+\clearpage
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
+\textbf{\textcolor{CExplanation}{先看六个常见奇函数：对称相同，零处是否有定义不同}}
 
-	奇函数的图像关于原点对称；若原点在图像上，则其纵坐标必为 $0$，即 $f(0)=0$。
+\input{assets/tikz/F016_common_powers}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（定义代入）：}] 由奇函数定义 $f(-x)=-f(x)$，代入 $x=0$ 得 $f(0)=-f(0)$。
-		\item[\textbf{要点二（代数移项）：}] 移项 $f(0)+f(0)=0$，即 $2f(0)=0$，故 $f(0)=0$。
-	\end{description}
+\input{assets/tikz/F016_common_other}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（对称中心）}}
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+  \textbf{\textcolor{CExplanation}{一、这个结论为什么会出现？}}
 
-	图像关于原点中心对称：若 $(0,f(0))$ 在图像上，其对称点 $(0,-f(0))$ 也必须在图像上，这要求 $f(0)=-f(0)$，从而 $f(0)=0$。
+  我们知道，奇函数有一条规则：把横坐标 $x$ 换成 $-x$，函数值也要变成原来的相反数。
+  例如，如果 $f(2)=5$，那么 $f(-2)=-5$。
+  所以奇函数的图像，总是围绕原点成对出现。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（强制等式）}}
+  可是 $x=0$ 与别的位置不同，因为
+  \[
+    -0=0.
+  \]
+  把 $x=0$ 变成它的相反数，横坐标竟然没有变化；
+  但奇函数的规则还要求纵坐标变成相反数。
+  \textbf{同一个横坐标只能有一个函数值}，
+  于是这个函数值必须等于自己的相反数。
+  \[
+    f(0)=-f(0)\quad\Longrightarrow\quad f(0)=0.
+  \]
+  \textbf{原来并不是要死记 $f(0)=0$；而是 $0$ 恰好是“变成相反数后仍然不变”的那个横坐标。}
 
-	由定义直接推出方程 $f(0)=-f(0)$，这是代数恒等式，求解即得 $f(0)=0$。它体现了奇函数的“自相消”特性。
+  \medskip
+  \textbf{\textcolor{CExplanation}{二、用图像想象这件事}}
+\input{assets/tikz/F016_axis_unique}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（快速判定）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（求函数值）：} 已知 $f(x)$ 为奇函数且 $0$ 在定义域内，直接得 $f(0)=0$，用于求解含参函数在 $0$ 处的取值。
-		\item \textbf{考法二（验证奇偶性）：} 若 $f(0)\neq0$ 且 $0$ 在定义域内，则函数一定不是奇函数，可作为排除手段。
-	\end{itemize}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
+  看左图：若 $c\ne0$，原点对称就要求在同一条竖线上同时出现 $(0,c)$ 与 $(0,-c)$；
+  这违反一个输入只能对应一个函数值的要求。
+  看右图：只有两点重合才可行，因此
+  \[
+    c=-c,\qquad c=0.
+  \]
+  因此，奇函数的图像\textbf{只要与 $y$ 轴有交点，这个交点必然就是原点 $(0,0)$}。
 
-	\textbf{将 $x=0$ 代入定义是解决奇函数问题的一种常见技巧；当定义域包含 $0$ 时，奇函数自动输出 $f(0)=0$，不需要额外计算。}
+  \medskip
+  
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{三、它在解题时有什么用？}}
+\input{assets/tikz/F016_nonzero_intercept}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（含参奇函数）：} 已知 $f(x)$ 是奇函数且 $0$ 在定义域内，求参数值时可列 $f(0)=0$ 方程。
-		\item \textbf{场景二（判断奇偶性）：} 计算 $f(0)$ 是否为 $0$（前提 $0\in D$），若不等于 $0$ 则直接判定非奇函数。
-	\end{itemize}
+  \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{用途一：不求完整表达式，直接求值。}]
+      题目说 $f$ 是奇函数、定义域为全体实数，那么立即写出 $f(0)=0$。
+    \item[\textbf{用途二：求未知参数。}]
+      如果 $f(0)=a-3$，又知道 $f$ 是奇函数且在 $0$ 处有定义，就能立刻得到 $a=3$。
+    \item[\textbf{用途三：快速排除。}]
+      若能算出 $f(0)=4$，就可以断定这个函数不是奇函数，不必再代入一长串 $f(-x)$。
+  \end{description}
+
+  \medskip
+  
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{四、联系之前学过的知识}}
+\input{assets/tikz/F016_even_compare}
+
+
+  \textbf{（1）与偶函数对照。}
+  偶函数满足 $f(-x)=f(x)$。代入 $x=0$，只会得到 $f(0)=f(0)$；
+  这句话无论函数值是多少都成立，所以\textbf{偶函数在 $0$ 处的函数值不必为 $0$}。
+  例如 $f(x)=x^2+2$ 是偶函数，$f(0)=2$。
+
+  
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{四、联系之前学过的知识（续）：零点的配对}}
+
+\input{assets/tikz/F016_paired_zeros}
+\textbf{（2）与奇函数的零点对照。}
+  若 $a$ 和 $-a$ 在定义域内，且奇函数满足 $f(a)=0$，那么
+  \[
+    f(-a)=-f(a)=0.
+  \]
+  图中 $-1$ 与 $1$ 是一对非零零点，而 $0$ 是自己的“另一半”。
+  \textbf{三个已标出的零点说明：原点必为零点，却未必唯一。}
+
+  \medskip
+  
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{五、眼前一亮：把原点换成别的对称中心}}
+\input{assets/tikz/F016_shifted_center}
+
+
+  如果某个函数的图像不是关于原点，而是关于点 $(a,b)$ 中心对称，
+  且它在 $x=a$ 处有定义，那么它在这条竖线上的点只能是 $(a,b)$，即
+  \[
+    \boxed{f(a)=b.}
+  \]
+  为什么？点 $(a,c)$ 关于 $(a,b)$ 对称后变为 $(a,2b-c)$，
+  两个点的横坐标仍是 $a$；由于函数在同一横坐标处只能有一个值，
+  必须有 $c=2b-c$，即 $c=b$。
+
+  也可以用一个容易记的式子表示：
+  \[
+    f(a+t)+f(a-t)=2b.
+  \]
+  如果 $a$ 在定义域内，令 $t=0$，立刻得到 $2f(a)=2b$。
+  \textbf{本节的 $f(0)=0$，就是取 $a=0,b=0$ 的特殊情形。}
+
+  \medskip
+  
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{六、最后把最容易忘记的条件说清楚}}
+\input{assets/tikz/F016_reciprocal_compare}
+
+
+  奇函数\textbf{不一定有} $f(0)$。
+  例如 $f(x)=\dfrac1x$，它满足
+  \[
+    f(-x)=\frac1{-x}=-\frac1x=-f(x)\qquad(x\ne0),
+  \]
+  确实是奇函数，但 $x=0$ 时分母为零，$f(0)$ 根本不存在。
+  所以正确的说法永远是：\textbf{奇函数若在 $0$ 处有定义，才必有 $f(0)=0$。}
 \end{explanationbox}

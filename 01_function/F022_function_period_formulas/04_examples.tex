@@ -1,99 +1,120 @@
 \clearpage
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例1（基础）}}
-	\textbf{\textcolor{CExample}{题目：}}
-	已知函数$f(x)$满足$f(x+4)=f(x)$对任意实数$x$成立，求$f(x)$的一个周期。
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（识别条件类型）：}]
-			条件为$f(x+a)=f(x)$形式，其中$a=4$。
-			\par\textbf{理由：} 这是结论一“加常数型”的标准形式。
-		\item[\textbf{第二步（套用周期公式）：}]
-			根据结论一，周期$T=|a|$；代入$a=4$得$T=4$。
-			\par\textbf{理由：} 直接代入公式$T=|a|$。
-		\item[\textbf{第三步（写出结论）：}]
-			所以$f(x)$的一个周期是$4$。
-			\par\textbf{理由：} 由定义$f(x+4)=f(x)$成立，故$4$是周期。
-	\end{description}
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{周期$T=4$}
+\textbf{例 1｜最基础：函数没给表达式，能不能求周期？}
+\input{assets/tikz/F022_direct_four}
 
-	\medskip
-	\textbf{\textcolor{CExample}{例2（稍变形）}}
-	\textbf{\textcolor{CExample}{题目：}}
-	已知函数$f(x)$满足$f(x+1)=f(x-2)$（$a\neq b$），求$f(x)$的周期。
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（改写等式）：}]
-			将已知等式视为$f(x+a)=f(x+b)$形式，其中$a=1$，$b=-2$。
-			\par\textbf{理由：} 识别为差值型，需正确确定$a$和$b$。
-		\item[\textbf{第二步（应用周期公式）：}]
-			根据结论四，周期$T=|a-b|$；代入$a=1,b=-2$得$T=3$。
-			\par\textbf{理由：} 套用公式$T=|a-b|$。
-		\item[\textbf{第三步（验证周期）：}]
-			任取$x$，有
-			\[
-				\begin{aligned}
-					f(x+3) &= f((x+2)+1) \\ &= f((x+2)-2) \\ &= f(x),
-			\end{aligned}
-			\]
-			故$3$是周期。
-			\par\textbf{理由：} 通过代换验证了周期为$3$。
-	\end{description}
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{周期$T=3$}
 
-	\medskip
-	\clearpage
-\textbf{\textcolor{CExample}{例3（综合应用）}}
-	\textbf{\textcolor{CExample}{题目：}}
-	已知定义在$\mathbb{R}$上的函数$f(x)$满足$f(x+3)=-\frac{1}{f(x)}$（$f(x)\neq0$），且$f(1)=2$，求$f(2026)$的值。
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（判断周期类型）：}]
-			条件形如$f(x+a)=\pm\frac{1}{f(x)}$，属于倒数型，其中$a=3$，取负号。
-			\par\textbf{理由：} 确认属于倒数型周期条件。
-		\item[\textbf{第二步（计算周期）：}]
-			根据结论三，周期$T=2|a|$；由$a=3$得$T=6$，即$f(x+6)=f(x)$。
-			\par\textbf{理由：} 应用周期公式$T=2|a|$。
-		\item[\textbf{第三步（转化求值）：}]
-			因为$2026=6\times337+4$，所以$f(2026)=f(4)$。令$x=1$，由条件得$f(4)=-\frac{1}{f(1)}$；又$f(1)=2$，故$f(4)=-\frac{1}{2}$。因此$f(2026)=-\frac{1}{2}$。
-			\par\textbf{理由：} 利用周期将自变量化小，再用已知条件求函数值。
-	\end{description}
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$f(2026)=-\frac{1}{2}$}
-\end{examplebox}
+已知对任意实数 $x$，有 $f(x+4)=f(x)$，求一个正周期。
 
-\clearpage
-\begin{examplebox}
-\textbf{例4：第一种分式，先化小自变量再代入}
+\textbf{解：}它直接告诉我们“向右走 $4$，函数值不变”，所以 $\boxed{T=4}$ 是一个正周期。
+\textbf{补充：}不能只凭这道题写“最小正周期为 $4$”，例如 $f(x)=\sin(\pi x)$ 也满足它，
+但最小正周期其实是 $2$。
 
-函数定义在 $\mathbb R$ 上，处处 $f(x)\ne1$，且
+\medskip
+\end{examplebox}\clearpage\begin{examplebox}\textbf{例 2｜反号不是重复：}已知 $f(x+2)=-f(x)$，并且 $f(0)=3$。
+\input{assets/tikz/F022_example_antiperiod_two}
+
+求 $f(2),f(4),f(2026)$。
+
+\textbf{解：}沿着同样的步长连续代入：
+\[
+ f(0)=3\ \longrightarrow\ f(2)=-3
+ \ \longrightarrow\ f(4)=3.
+\]
+得到 $4$ 是一个周期。因为 $2026=4\times506+2$，故
+\[
+\boxed{f(2)=-3,\quad f(4)=3,\quad f(2026)=-3.}
+\]
+\textbf{常见误区：}把 $2$ 当周期会误写 $f(2)=f(0)=3$，与题目条件直接矛盾。
+
+\medskip
+\end{examplebox}\clearpage\begin{examplebox}\textbf{例 3｜两个输入相等：}已知 $f(x+1)=f(x-2)$ 对所有实数成立，求一个正周期。
+\input{assets/tikz/F022_input_difference}
+
+
+\textbf{解：}令 $t=x-2$，则 $x+1=t+3$，所以
+\[f(t+3)=f(t).\]
+得到 $\boxed{T=3}$。注意 $x-2=x+(-2)$，故两边差为 $1-(-2)=3$。
+
+\end{examplebox}\clearpage\begin{examplebox}\textbf{例 4｜负倒数型：先找周期，再算大数}
+\input{assets/tikz/F022_negative_reciprocal}
+
+
+已知 $f(x+3)=-\dfrac1{f(x)}$ 对任意实数 $x$ 成立，函数值均不为零，
+且 $f(1)=2$，求 $f(2026)$。
+
+\textbf{解：}连续用两次条件：
+\[
+ f(x+6)=-\frac1{f(x+3)}=-\frac1{-1/f(x)}=f(x).
+\]
+因此 $6$ 是一个周期。$2026=6\times337+4$，于是
+\[
+ f(2026)=f(4)=-\frac1{f(1)}=\boxed{-\frac12}.
+\]
+\textbf{一眼看懂：}$2\to-1/2\to2$，先走一步得到答案所需值，
+走两步恢复起点。
+
+\medskip
+\end{examplebox}\clearpage\begin{examplebox}\textbf{例 5｜分式型一：看它怎么往返}
+\input{assets/tikz/F022_fraction_plus_steps}
+
+
+已知函数定义在 $\mathbb R$ 上，处处 $f(x)\ne1$，且
 \[
  f(x+2)=\frac{f(x)+1}{f(x)-1},\qquad f(0)=2.
 \]
-求 $f(2026)$。
+求 $f(2),f(4),f(2026)$。
 
-连续代入两次得周期 $4$。由于 $2026=4\times506+2$，
+\textbf{解：}从 $2$ 开始连续代入：
 \[
- f(2026)=f(2)=\frac{f(0)+1}{f(0)-1}
- =\frac{2+1}{2-1}=\boxed{3}.
+ f(0)=2,\quad f(2)=\frac{2+1}{2-1}=3,\quad
+ f(4)=\frac{3+1}{3-1}=2.
 \]
-回验一次：$f(4)=(3+1)/(3-1)=2=f(0)$。
-
-\medskip
-\textbf{例5：第二种分式，负数也能正常循环}
-
-函数定义在 $\mathbb R$ 上，处处 $f(x)\ne-1$，且
+03 部分已经证明对任何允许的 $x$ 都有 $f(x+4)=f(x)$。
+$2026=4\times506+2$，故
 \[
- f(x+3)=\frac{1-f(x)}{1+f(x)},\qquad f(1)=2.
+\boxed{f(2)=3,\quad f(4)=2,\quad f(2026)=3.}
 \]
-求 $f(2026)$。
 
-周期为 $6$，$2026=6\times337+4$，因此
+
+\end{examplebox}\clearpage\begin{examplebox}\textbf{例 6｜分式型二：分子里有减号，不要写反}
+\input{assets/tikz/F022_fraction_minus_steps}
+
+
+已知 $f(x+3)=\dfrac{1-f(x)}{1+f(x)}$，函数定义在整个实数范围内，
+处处 $f(x)\ne-1$，且 $f(1)=2$。求 $f(2026)$。
+
+\textbf{解：}由 03 部分得周期为 $6$；$2026=6\times337+4$，于是
 \[
  f(2026)=f(4)=\frac{1-f(1)}{1+f(1)}
  =\frac{1-2}{1+2}=\boxed{-\frac13}.
 \]
-回验：$f(7)=(1+1/3)/(1-1/3)=2=f(1)$。
+检验下一步：$f(7)=\dfrac{1-(-1/3)}{1+(-1/3)}=2=f(1)$。
+
+\medskip
+\end{examplebox}\clearpage\begin{examplebox}\textbf{例 7｜升级题：$f(x+2)=5-f(x)$}
+\input{assets/tikz/F022_constant_minus_steps}
+
+
+已知 $f(x+2)=5-f(x)$，$f(0)=1$，求 $f(2026)$。
+
+\textbf{解：}从 $1$ 出发，$1\to4\to1$，因此 $4$ 是一个周期。
+$2026=4\times506+2$，故
+\[f(2026)=f(2)=5-f(0)=\boxed4.\]
+\textbf{为何值得记住？}不是只有“反号”才会走两步还原。
+“某个固定数减去原值”同样会回来。
+
+\medskip
+\end{examplebox}\clearpage\begin{examplebox}\textbf{例 8｜综合题：两条对称轴带出周期}
+\input{assets/tikz/F022_two_axes_period}
+
+
+函数 $f$ 定义在 $\mathbb R$ 上，图像关于 $x=1$、$x=4$ 都对称，且 $f(2)=7$。
+证明 $6$ 是一个周期，并求 $f(8)$。
+
+\textbf{解：}由两条对称轴可知，先关于 $x=1$ 翻一次，再关于 $x=4$ 翻一次，
+整幅图等于向右平移 $2(4-1)=6$。所以 $f(x+6)=f(x)$，从而
+\[\boxed{f(8)=f(2)=7}.\]
+若希望用等式证明，则
+$f(2-x)=f(x)$、$f(8-x)=f(x)$，把前式代入后式，得到 $f(x+6)=f(x)$。
 \end{examplebox}

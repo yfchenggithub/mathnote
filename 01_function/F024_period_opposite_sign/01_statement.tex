@@ -1,25 +1,42 @@
 \begin{statementbox}
+\input{assets/tikz/F024_core_opposite}
 
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件 1（函数方程）：}}] 对任意 $x\in\mathbb{R}$，满足 $f(x+a)=-f(x)$，其中 $a\neq0$ 为常数。
-	\end{description}
+\textbf{这条结论解决什么问题？}
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（周期性质）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			函数以 $2a$ 为周期，每增加 $2a$ 函数值重复。
-			\[
-				f(x+2a)=f(x) \quad (\forall x\in\mathbb{R}).
-			\]
+题目不给 $f(x)$ 的具体式子，只告诉我们“自变量增加固定的数，函数值会变成相反数”。这时仍然能判断函数值何时重新出现，还能把 $f(2026)$ 这样的大数字变成小数字计算。
 
-		\item[\textbf{\textcolor{CStatement}{推广结论（对称性质）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			函数图像关于点 $(\frac{a}{2},0)$ 中心对称。
-			\[
-				f\!\left(\frac{a}{2}+x\right) = -f\!\left(\frac{a}{2}-x\right) \quad (\forall x\in\mathbb{R}).
-			\]
-	\end{description}
+\medskip
+\textbf{已知条件}
 
+设 $f(x)$ 在全体实数上都有定义，$a$ 是一个不等于 $0$ 的固定数，并且对\textbf{每一个实数 $x$}，都有
+\[
+\boxed{\ f(x+a)=-f(x)\ }.
+\]
+
+\textbf{核心结论：加两次 $a$，函数值回到原样。}
+\[
+\boxed{\ f(x+2a)=f(x)\quad(\forall x\in\mathbb R).\ }
+\]
+当 $a>0$ 时，$2a$ 是函数的一个正周期；当 $a<0$ 时，$2|a|$ 是一个正周期。所以可统一记成：
+\[
+\boxed{\ T=2|a|\ \text{是一个正周期（不一定最小）}.\ }
+\]
+
+\end{statementbox}\clearpage\begin{statementbox}\textbf{进一步：移动奇数次变号，偶数次还原。} 对任意整数 $n$，
+\[
+\boxed{\ f(x+na)=
+\begin{cases}
+ f(x),&n\text{ 为偶数},\\
+ -f(x),&n\text{ 为奇数}.
+\end{cases} }
+\]
+例如 $f(x+3a)=-f(x)$，$f(x+4a)=f(x)$。
+
+\medskip
+\textbf{不能顺手推出的东西}
+\begin{itemize}[leftmargin=*,itemsep=0.25em]
+\item 不能直接说 $2|a|$ 是\textbf{最小}正周期。
+\item 不能只凭这个条件，就说图像关于 $\bigl(\frac a2,0\bigr)$ 中心对称。
+\item 若 $f$ 不是恒为 $0$，$|a|$ \textbf{本身不是周期}，因为移动这么远会变号。
+\end{itemize}
 \end{statementbox}

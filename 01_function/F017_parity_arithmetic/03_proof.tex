@@ -1,67 +1,151 @@
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{证明思路}}
+\textbf{\textcolor{CProof}{证明前的约定}}
 
-	设 $f$、$g$ 的公共定义域为非空集合 $D$。
-	因为两函数各自为奇函数或偶函数，$D$ 关于原点对称。
-	对任意 $x\in D$，把 $x$ 换成 $-x$，比较运算结果与原结果。
+下文都在两个函数共同有定义的地方讨论；这个范围必须非空，并且 $x$ 能取时 $-x$ 也能取。
+奇函数满足 $f(-x)=-f(x)$，偶函数满足 $g(-x)=g(x)$。
+下面给出三种相互补充的理解和证明方法。
 
-	\medskip
-	\textbf{\textcolor{CProof}{一、加减法}}
+\medskip
+\textbf{\textcolor{CProof}{方法一：最直接——把 $x$ 换成 $-x$（常规证明，覆盖四则运算）}}
+\input{assets/tikz/F017_odd_sum}
 
-	若 $f$、$g$ 都是奇函数，则
-	\[
-		\begin{aligned}
-			(f+g)(-x)
-			 & =f(-x)+g(-x) \\
-			 & =-f(x)-g(x)  \\
-			 & =-(f+g)(x),  \\[2mm]
-			(f-g)(-x)
-			 & =f(-x)-g(-x) \\
-			 & =-f(x)+g(x)  \\
-			 & =-(f-g)(x).
-		\end{aligned}
-	\]
-	因此奇函数的和、差仍为奇函数。
 
-	若 $f$、$g$ 都是偶函数，则
-	\[
-		(f\pm g)(-x)=f(x)\pm g(x)=(f\pm g)(x),
-	\]
-	因此偶函数的和、差仍为偶函数。
+\textbf{（1）奇函数加减奇函数。}
+若 $f$、$g$ 都是奇函数，则
+\[
+\begin{aligned}
+(f+g)(-x)&=f(-x)+g(-x)\\
+&=-f(x)-g(x)=-(f+g)(x),\\[1mm]
+(f-g)(-x)&=f(-x)-g(-x)\\
+&=-f(x)+g(x)=-(f-g)(x).
+\end{aligned}
+\]
+和与差都变成原来的相反数，故都是奇函数。
 
-	\medskip
-	\textbf{\textcolor{CProof}{二、乘法}}
+\textbf{（2）偶函数加减偶函数。}
+若 $f$、$g$ 都是偶函数，则
+\[
+(f\pm g)(-x)=f(-x)\pm g(-x)=f(x)\pm g(x)=(f\pm g)(x).
+\]
+所以和与差都是偶函数。
 
-	分别记 $f(-x)=\varepsilon_f f(x)$、
-	$g(-x)=\varepsilon_g g(x)$，其中奇函数对应
-	$\varepsilon=-1$，偶函数对应 $\varepsilon=1$。于是
-	\[
-		\begin{aligned}
-			(fg)(-x)
-			 & =f(-x)g(-x)                          \\
-			 & =\varepsilon_f\varepsilon_g f(x)g(x) \\
-			 & =\varepsilon_f\varepsilon_g(fg)(x).
-		\end{aligned}
-	\]
-	所以奇乘奇为偶、奇乘偶为奇、偶乘偶为偶。
+\end{proofbox}\clearpage\begin{proofbox}\textbf{方法一（续）：乘法与除法}
+\input{assets/tikz/F017_odd_product}
+\textbf{（3）乘法：分三种情况逐个看。}
+\[
+\begin{array}{ll}
+\text{奇乘奇：}&(-f(x))(-g(x))=f(x)g(x),\\[2mm]
+\text{奇乘偶：}&(-f(x))g(x)=-f(x)g(x),\\[2mm]
+\text{偶乘偶：}&f(x)g(x)=f(x)g(x).
+\end{array}
+\]
+分别得到偶函数、奇函数、偶函数。
 
-	\medskip
-	\textbf{\textcolor{CProof}{三、除法}}
+\textbf{（4）除法：先处理不能除的点。}
+设商为 $Q(x)=\dfrac{f(x)}{g(x)}$，只在 $g(x)\ne0$ 处讨论。
+如果 $g$ 是奇函数，$g(-x)=-g(x)$；如果 $g$ 是偶函数，$g(-x)=g(x)$。
+无论哪种情况，$g(x)\ne0$ 和 $g(-x)\ne0$ 总是同时成立，
+因此商的定义域仍然左右对应。
 
-	令 $D'=\{x\in D\mid g(x)\ne0\}$，假定 $D'$ 非空。
-	因为 $g(-x)=\varepsilon_g g(x)$，$g(x)$ 为零当且仅当
-	$g(-x)$ 为零，因此 $D'$ 关于原点对称。对任意 $x\in D'$，
-	\[
-		\begin{aligned}
-			\left(\frac{f}{g}\right)(-x)
-			 & =\frac{f(-x)}{g(-x)}        \\
-			 & =\frac{\varepsilon_f f(x)}
-			{\varepsilon_g g(x)}           \\
-			 & =\varepsilon_f\varepsilon_g
-			\left(\frac{f}{g}\right)(x).
-		\end{aligned}
-	\]
-	最后一步用到 $\varepsilon_g\in\{-1,1\}$，
-	所以 $1/\varepsilon_g=\varepsilon_g$。
-	除法由此得到与乘法相同的奇偶规则。
+在允许取值的位置上，
+\[
+\begin{array}{ll}
+\text{奇除奇：}&\dfrac{-f(x)}{-g(x)}=\dfrac{f(x)}{g(x)},\\[3mm]
+\text{奇除偶：}&\dfrac{-f(x)}{g(x)}=-\dfrac{f(x)}{g(x)},\\[3mm]
+\text{偶除奇：}&\dfrac{f(x)}{-g(x)}=-\dfrac{f(x)}{g(x)},\\[3mm]
+\text{偶除偶：}&\dfrac{f(x)}{g(x)}=\dfrac{f(x)}{g(x)}.
+\end{array}
+\]
+故除法和乘法有一样的奇偶规律。
+
+\medskip
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法二：最容易想象——左右两个位置的数值配对（初中代数就能看懂）}}
+\input{assets/tikz/F017_product}
+
+
+先不写复杂函数，假设在右边 $x$ 处，两个函数的高度分别为 $a$、$b$。
+到了左边 $-x$ 处：如果是奇函数，高度就反号；如果是偶函数，高度就不变。
+于是可以直接比较下面三种情况：
+\[
+\begin{array}{c|c|c|c}
+\text{两函数类型}&x\text{处}&-x\text{处}&\text{乘积的结果}\\ \hline
+\text{奇、奇}&ab&(-a)(-b)=ab&\text{左右相同}\\
+\text{奇、偶}&ab&(-a)b=-ab&\text{左右相反}\\
+\text{偶、偶}&ab&ab&\text{左右相同}
+\end{array}
+\]
+这就从“两个位置的高度”直接得出了乘法三条规则；
+把表里的乘号换成除号且 $b\ne0$，得到除法三条规则。
+
+再看加减法：若两个高度都反号，
+\[
+(-a)\pm(-b)=-(a\pm b),
+\]
+左右相反；若两个高度都不变，左右相同。
+因此加减必须分别看每一项是如何变化的。
+这个方法用到的只是\textbf{正负数四则运算与左右对应的两个点}，
+没有额外的高中以外知识。
+
+\medskip
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法三：最能揭示原因——一加一减，把任意函数中的奇、偶部分找出来}}
+\input{assets/tikz/F017_decomposition}
+
+
+取一个定义域左右对应的函数 $H(x)$，
+把它在 $x$ 和 $-x$ 两处的值分别记下来。
+\textbf{相加后取一半}，得到
+\[
+E(x)=\frac{H(x)+H(-x)}2.
+\]
+把 $x$ 换成 $-x$，
+\[
+E(-x)=\frac{H(-x)+H(x)}2=E(x),
+\]
+所以 $E$ 是偶函数。
+
+\textbf{相减后取一半}，得到
+\[
+O(x)=\frac{H(x)-H(-x)}2.
+\]
+同样计算，
+\[
+O(-x)=\frac{H(-x)-H(x)}2=-O(x),
+\]
+所以 $O$ 是奇函数。
+两部分相加，刚好回到原函数：
+\[
+E(x)+O(x)
+=\frac{H(x)+H(-x)+H(x)-H(-x)}2=H(x).
+\]
+
+\end{proofbox}\clearpage\begin{proofbox}\textbf{方法三（续）：混合加法与零函数}
+\input{assets/tikz/F017_mixed_sum}
+\textbf{顺便彻底解决“奇加偶到底是什么”。}
+设 $f$ 奇、$g$ 偶，令 $H=f+g$，则
+\[
+\begin{aligned}
+H(x)+H(-x)&=[f(x)+g(x)]+[-f(x)+g(x)]=2g(x),\\
+H(x)-H(-x)&=[f(x)+g(x)]-[-f(x)+g(x)]=2f(x).
+\end{aligned}
+\]
+若 $H$ 是奇函数，第一行左边必须为 $0$，因此 $g(x)=0$ 对所有允许的 $x$ 成立。
+反过来，只要 $g$ 恒为 $0$，$H=f$ 就是奇函数。
+若 $H$ 是偶函数，第二行左边必须为 $0$，因此 $f$ 恒为 $0$；反过来也成立。
+
+对于 $H=f-g$，把上面的 $g$ 换为 $-g$，结论仍然相同：
+\textbf{奇减偶要变成奇函数，偶函数那一部分必须全部为零；
+要变成偶函数，奇函数那一部分必须全部为零。}
+
+特别地，若 $H$ 同时是奇函数和偶函数，
+就有 $H(x)=H(-x)=-H(x)$，因此 $2H(x)=0$，只能是 $H(x)=0$。
+这说明\textbf{零函数为什么是唯一既奇又偶的函数}。
 \end{proofbox}

@@ -1,47 +1,71 @@
+\clearpage
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
-	周期函数就像“循环播放”：自变量每增加固定距离，函数值依次重复，形成循环规律。
+\textbf{一、为什么会想到这种方法？}
+\input{assets/tikz/F022_repeat_cycle}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（周期定义本质）：}]
-			若存在非零常数$T$使得$f(x+T)=f(x)$恒成立，就称$T$为周期。这是周期性最根本的条件，也是判断周期的依据。
-		\item[\textbf{要点二（等式变形技巧）：}]
-			常见的周期条件往往以$f(x+a)=\pm f(x)$或$f(x+a)=\pm\frac{1}{f(x)}$等形式给出，通过反复代入可以推出周期$T$等于$|a|$或$2|a|$。
-		\item[\textbf{要点三（整数倍周期）：}]
-			若$T$是周期，则$T$的任意非零整数倍$kT$也是周期，但通常我们只关心最小正周期。
-	\end{description}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（图像重复性）}}
-	周期函数的图像每隔一个周期$T$就会完全重复一次，因此整个图像可以由一个周期内的图像通过平移无限复制得到。例如正弦函数$y=\sin x$的图像每$2\pi$重复一次。
+从最熟悉的正弦函数说起。$\sin x$ 的图像向右移 $2\pi$ 后，凹凸位置与高度全部重合。
+这说明“周期”不是单独一个点回到了旧高度，而是\textbf{整幅图都在同样的距离后重复}。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（平移守恒式）}}
-	$f(x+T)=f(x)$是一个函数方程，它规定了函数值在平移$T$后保持不变，意味着函数在变换$x\mapsto x+T$下是守恒的。
+现在题目不告诉我们图像，只有 $f(x+1)=-f(x)$。我们可以从任意 $x$ 出发，把 $f(x)$ 暂时记作 $2$：
+\[
+\begin{array}{c|ccccc}
+ \text{位置}&x&x+1&x+2&x+3&x+4\\\hline
+ \text{函数值}&2&-2&2&-2&2
+\end{array}
+\]
+这仅是“假设起点取 $2$”时的演示。真正关键的是：\textbf{无论起点是什么数}，
+负号的负号一定会还原。这才足以说明所有位置都重复。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（周期求解要点）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（直接套用公式）：} 给定$f(x+a)=f(x)$等条件，直接套用周期公式$T=|a|$或$T=2|a|$求出周期。
-		\item \textbf{考法二（转化求值）：} 结合周期将自变量转换到已知区间，求出指定函数值。
-		\item \textbf{考法三（综合对称性）：} 与奇偶性、对称性结合，进一步缩小周期或推导出函数性质。
-	\end{itemize}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
-	周期是隐藏的节奏：不是直接给的，而是从条件等式的常数组合中算出来的。抓住重复这个核心，就能快速得到周期。
+\end{explanationbox}\clearpage\begin{explanationbox}\textbf{二、三种最容易混淆的情况}
+\input{assets/tikz/F022_reciprocal_curve}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景（常见周期情境）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（抽象函数周期）：} 题干给出$f(x+a)=-f(x)$或$f(x+a)=\frac{1}{f(x)}$等关系，要求周期。
-		\item \textbf{场景二（周期与对称结合）：} 结合奇偶性或两处对称条件，通过代换寻找一个周期，最小正周期需另外证明。
-		\item \textbf{场景三（周期与求值）：} 利用周期把自变量转化到已知函数值区间，从而计算所需函数值。
-	\end{itemize}
+\begin{itemize}[leftmargin=*,itemsep=0.45em]
+\item $f(x+2)=f(x)$：往右走 $2$，高度\textbf{已经回来}，所以 $2$ 是周期。
+\item $f(x+2)=-f(x)$：往右走 $2$，高度变成相反数；再走 $2$ 才回来，所以 $4$ 是周期。
+\item $f(x+2)=1/f(x)$：例如 $2\to1/2\to2$；换成任意非零数 $u$，也有
+$u\to1/u\to u$，所以 $4$ 是周期。
+\end{itemize}
 
-\medskip
-\textbf{\textcolor{CExplanation}{新增分式为什么也乘二？}}
-第一式把 $2$ 变成 $3$，再把 $3$ 变回 $2$；第二式把 $2$ 变成 $-1/3$，再变回 $2$。每用一次关系，自变量增加 $a$，所以两次就是增加 $2a$。要证明对所有函数值都成立，必须展开下一节的复合分式。
+\end{explanationbox}\clearpage\begin{explanationbox}\textbf{三、为什么“两个位置相等”要相减？}
+\input{assets/tikz/F022_input_difference}
+
+
+给定 $f(x+1)=f(x-2)$。看两边的输入：$x+1$ 在右，$x-2$ 在左，相距
+\[(x+1)-(x-2)=3.\]
+也就是说，\textbf{相隔 $3$ 的两个位置，高度总一样}；所以周期是 $3$，不是 $1$ 或 $2$。
+一般地，两边是 $x+a$ 与 $x+b$，就比较它们之间相隔多远：$|a-b|$。
+
+\end{explanationbox}\clearpage\begin{explanationbox}\textbf{四、分式为什么也会两步还原？}
+\input{assets/tikz/F022_fraction_plus_iteration}
+
+\input{assets/tikz/F022_fraction_minus_iteration}
+
+
+先别把它看成“函数”，把它当成一个对数做操作的小机器。
+第一台机器收到 $u$，输出 $(u+1)/(u-1)$；第二台机器收到 $u$，输出 $(1-u)/(1+u)$。
+\textbf{各自把自己的输出再放进去一次，就会得到原来的 $u$}。
+
+这就解释了为什么它们与“变号”“取倒数”属于同一思路：
+\textbf{只要走一步发生变化、走两步恢复原状，就能找到长度为两步的周期。}
+
+\end{explanationbox}\clearpage\begin{explanationbox}\textbf{五、周期和最小正周期，差在哪里？}
+\input{assets/tikz/F022_not_minimum_cycle}
+
+
+如果一张图每隔 $2$ 就重复，它每隔 $4$、$6$ 也重复。只知道周期为 $4$，不能说 $4$ 最小。
+更意外的是：$f(x)=\sin(3\pi x)$ 的最小正周期为 $\frac23$，却满足
+\[f(x+1)=-f(x).\]
+因此由“走一步变号”得到的 $2$ 的确是一个周期，但离最小的 $\frac23$ 还很远。
+
+
+\end{explanationbox}\clearpage\begin{explanationbox}\textbf{六、考场上什么时候用？}
+\input{assets/tikz/F022_two_axes_period}
+
+\begin{itemize}[leftmargin=*,itemsep=0.45em]
+\item \textbf{求大数位置的值：}先找一个周期，再把 $2026$ 减去若干个周期，化为小数值位置。
+\item \textbf{判断周期：}看函数值走一步如何变化，再计算走几步能回到原值。
+\item \textbf{结合对称性：}两条不同的对称轴，也可能让图像经过两次翻折后平移出一个周期（第 03、04 部分有例子）。
+\end{itemize}
 \end{explanationbox}

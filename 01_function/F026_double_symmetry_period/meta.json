@@ -6,9 +6,12 @@
     "alias": [
       "双对称周期公式",
       "轴轴周期2d",
-      "轴点周期4d"
+      "轴点周期4d",
+      "双对称性求周期",
+      "两个对称中心同高度",
+      "双对称周期不一定最小"
     ],
-    "summary": "若函数有两个不同的对称性（轴对称或中心对称），则一定是周期函数，周期为$2|a-b|$或$4|a-b|$，取决于对称类型是否相同。",
+    "summary": "两处对称可推出周期：两条轴或两个同高度中心得到一个周期2|a-b|；一条轴配一个中心得到一个周期4|a-b|。这些都不一定是最小正周期。",
     "difficulty": 3,
     "category": "函数",
     "tags": [
@@ -19,7 +22,10 @@
       "周期推导",
       "轴轴对称",
       "点点对称",
-      "轴点对称"
+      "轴点对称",
+      "一个周期与最小正周期",
+      "中心高度条件",
+      "两次对称追踪"
     ]
   },
   "search": {
@@ -34,7 +40,12 @@
       "抽象函数周期",
       "对称性求周期",
       "f(a+x)=f(a-x)",
-      "f(b+x)+f(b-x)=2c"
+      "f(b+x)+f(b-x)=2c",
+      "两个对称中心高度不同",
+      "f(x+2d)=2c-f(x)",
+      "最小正周期不一定2d",
+      "点点中心同高",
+      "为什么轴点是4d"
     ],
     "synonyms": [
       "两次对称求周期",
@@ -56,7 +67,10 @@
       "双对称周期公式是什么",
       "轴点对称周期公式",
       "抽象函数周期推导方法",
-      "f(1+x)=f(1-x)且f(3+x)=f(3-x)周期"
+      "f(1+x)=f(1-x)且f(3+x)=f(3-x)周期",
+      "两个对称中心纵坐标不一样会有周期吗",
+      "对称轴和对称中心相差1为什么周期4",
+      "双对称公式一定是最小正周期吗"
     ],
     "ocrKeywords": [
       "f(a+x)=f(a-x)",
@@ -99,11 +113,13 @@
     "success_rate": 0
   },
   "math": {
-    "core_formula": "T=\\begin{cases} 2|a-b|, & \\text{轴轴或点点对称} \\\\ 4|a-b|, & \\text{轴点对称} \\end{cases}",
+    "core_formula": "T=\\begin{cases}2|a-b|,&\\text{两条轴，或两个同高度的中心};\\\\4|a-b|,&\\text{一条轴和一个中心} .\\end{cases}\\quad(\\text{一个正周期，未必最小})",
     "related_formulas": [
-      "f(a+x)=f(a-x)\\text{ 且 }f(b+x)=f(b-x)\\Rightarrow T=2|a-b|",
-      "f(a+x)+f(a-x)=2c\\text{ 且 }f(b+x)+f(b-x)=2c\\Rightarrow T=2|a-b|",
-      "f(a+x)=f(a-x)\\text{ 且 }f(b+x)+f(b-x)=2c\\Rightarrow T=4|a-b|"
+      "f(a+x)=f(a-x),\\ f(b+x)=f(b-x)\\Rightarrow 2|a-b|\\text{是一个周期}",
+      "f(a+x)+f(a-x)=2c,\\ f(b+x)+f(b-x)=2c\\Rightarrow 2|a-b|\\text{是一个周期}",
+      "f(a+x)=f(a-x),\\ f(b+x)+f(b-x)=2c\\Rightarrow 4|a-b|\\text{是一个周期}",
+      "\\text{轴点：}\\ f(x+2(b-a))=2c-f(x)",
+      "\\text{两中心高度不同：}\\ f(x+2(b-a))=f(x)+2(c_2-c_1)"
     ],
     "variables": {
       "f": "函数",
@@ -111,24 +127,27 @@
       "a": "第一个对称轴或中心横坐标",
       "b": "第二个对称轴或中心横坐标",
       "c": "中心对称的纵坐标（轴点或点点情形）",
-      "T": "周期"
+      "T": "可确定的一个正周期（不保证最小正周期）",
+      "d": "两个对称位置的横向距离d=|a-b|"
     },
-    "conditions": "函数$f(x)$定义域为$\\mathbb{R}$，常数$a,b,c\\in\\mathbb{R}$且$a\\neq b$，对称等式对所有$x$成立。",
-    "conclusions": "函数$f(x)$是周期函数，周期$T=2|a-b|$（当两个对称类型相同）或$T=4|a-b|$（当两个对称类型不同）。"
+    "conditions": "函数f(x)在整个实数范围内有定义；a≠b；所给对称等式对任意实数x成立；点点情形要求两个对称中心纵坐标相同。",
+    "conclusions": "轴轴、同高度点点：2|a-b|是一个正周期；轴点：4|a-b|是一个正周期。不能无附加信息断言为最小正周期。"
   },
   "content": {
-    "statement": "设函数$f(x)$定义在$\\mathbb{R}$上，常数$a,b,c\\in\\mathbb{R}$且$a\\neq b$。\n(1) 若$f(a+x)=f(a-x)$且$f(b+x)=f(b-x)$，则$f(x)$是以$T=2|a-b|$为周期的周期函数；\n(2) 若$f(a+x)+f(a-x)=2c$且$f(b+x)+f(b-x)=2c$，则$f(x)$是以$T=2|a-b|$为周期的周期函数；\n(3) 若$f(a+x)=f(a-x)$且$f(b+x)+f(b-x)=2c$，则$f(x)$是以$T=4|a-b|$为周期的周期函数。",
+    "statement": "设f在R上有定义，a≠b，d=|a-b|。两条轴或两个同高度的对称中心推出2d是一个周期；一条轴和一个对称中心推出4d是一个周期。所求未必是最小正周期。",
     "derivation": [
-      "由$f(a+x)=f(a-x)$得$f(x)=f(2a-x)$；由$f(b+x)=f(b-x)$得$f(x)=f(2b-x)$。联立得$f(x)=f(2a-2b+x)$，故$T=2|a-b|$。",
-      "由中心对称定义$f(a+x)+f(a-x)=2c$表示$f(x)$关于$(a,c)$对称，同理关于$(b,c)$对称，可推出$f(x)=f(x+2(a-b))$，即$T=2|a-b|$。",
-      "轴点对称时，利用轴对称和中心对称的复合，得到$f(x+4(a-b))=f(x)$，故$T=4|a-b|$。"
+      "连续两次对称把横坐标从x变为x+2(b-a)；轴轴情况下函数值保持不变，故2|a-b|是一个周期。",
+      "点点情况下两个中心必须同高度c，纵坐标经过y→2c-y→y还原，故2|a-b|是一个周期。",
+      "轴点情况下f(x+2(b-a))=2c-f(x)，再重复一次得到f(x+4(b-a))=f(x)，故4|a-b|是一个周期。",
+      "如果点点的中心高度分别为c1、c2，则f(x+2(b-a))=f(x)+2(c2-c1)，一般不能推出周期。"
     ],
-    "intuition": "两个不同的对称中心或对称轴会强制函数在平移一定距离后重复，如同镜子来回反射产生周期。",
+    "intuition": "两条镜子只翻左右；绕点转半圈还会翻上下。两次同类对称可把函数值还原；轴点只翻一次上下，需要再移动一次，才真正重复。",
     "common_tricks": [
-      "先判断两个对称的类型：轴轴、点点或轴点。",
-      "同类型（轴轴或点点）周期为$2|a-b|$；不同类型（轴点）周期为$4|a-b|$。",
-      "中心对称时必须确认两个常数$c$相等，否则公式不成立。",
-      "用于抽象函数求值：先由对称得出周期，再利用周期将自变量转化到已知区间。"
+      "先看是轴还是点，再计算横向距离d=|a-b|。",
+      "轴轴或同高度点点：2d是一个正周期；轴点：4d是一个正周期。",
+      "轴点尤其要记住f(x+2(b-a))=2c-f(x)，它解释了为什么还要走一次。",
+      "点点中心的纵坐标必须相同；不同高度可能是斜着平移，不会保持原函数值。",
+      "不要将结论给出的一个周期误说成最小正周期。"
     ]
   },
   "usage": {
@@ -152,13 +171,32 @@
   },
   "assets": {
     "svg": "F026.svg",
-    "png": "",
+    "png": "F026.png",
     "jpg": "",
-    "gif": ""
+    "gif": "",
+    "tikz": [
+      "assets/tikz/F026_three_cases.tex",
+      "assets/tikz/F026_two_mirrors.tex",
+      "assets/tikz/F026_centers_height_three.tex",
+      "assets/tikz/F026_mixed_height_three.tex",
+      "assets/tikz/F026_subtract_height.tex",
+      "assets/tikz/F026_example_axis_seven.tex",
+      "assets/tikz/F026_example_centers_shifted.tex",
+      "assets/tikz/F026_example_general_height.tex",
+      "assets/tikz/F026_not_minimal.tex",
+      "assets/tikz/F026_unequal_centers.tex",
+      "assets/tikz/F026_coincident_constant.tex",
+      "assets/tikz/F026_axis_center_difference.tex",
+      "assets/tikz/F026_one_pair_failure.tex",
+      "assets/tikz/F026_bounded_domain.tex"
+    ],
+    "other": {
+      "gif": "images/two_reflections_period.gif"
+    }
   },
   "shareConfig": {
     "title": "双对称推周期：轴点搭配为何多一倍",
-    "shareDesc": "两条轴、两个中心和轴配中心，周期倍数并不一样。用两次对称追踪输入与函数值的变化，区分两倍与四倍间距；先核对对称类型，避免把所有组合套进同一个周期公式。"
+    "shareDesc": "两条轴、两个同高度中心和轴配中心，为什么一个周期分别是两倍、两倍和四倍距离？用镜子、数值和曲线图理解：轴点先上下翻，再翻回来；并区分一个周期与最小正周期。"
   },
   "relations": {
     "prerequisites": [
@@ -166,20 +204,25 @@
       "中心对称概念",
       "周期函数定义"
     ],
-    "related_ids": ["F020", "F021", "F027", "F028"],
+    "related_ids": [
+      "F020",
+      "F021",
+      "F027",
+      "F028"
+    ],
     "similar": [
       "由$f(x+a)=f(x)$直接得周期$a$",
       "奇偶性推周期：若$f(x)$为奇函数且$f(a+x)=f(a-x)$，则周期$4a$"
     ]
   },
   "meta": {
-    "version": 1,
+    "version": 2,
     "source": "AI生成",
     "created_at": "2026-06-26",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-11-21"
   },
   "isPro": 0,
-  "remarks": "",
+  "remarks": "教学完善版：强调同高度点点的必要条件；轴点半程公式；三个证明思路；插图与基础例子；所得周期不保证最小。；2026-11-21：新增14幅独立TikZ，覆盖首页、三种证明、7例、7个易错点；替换原内嵌小图，逐题核对对称轴、中心高度、步长及初值；突出两次对称的横纵坐标变化。；新增教学GIF images/two_reflections_period.gif，模型与分镜归本UID的manim；LOCAL PRODUCTION PASS，用户视觉及Android真机验收PENDING，未执行内容Publisher或Sync。",
   "knowledgeNode": "函数-性质-周期性-周期判定与对称性",
   "altNodes": "函数-图像-对称性,函数-综合-函数与方程"
 }

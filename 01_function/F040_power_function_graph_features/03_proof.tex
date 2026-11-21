@@ -1,47 +1,78 @@
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+  \textbf{证明安排：} 第一种方法以初中熟悉的乘法、倒数为出发点，借助高中指数函数的基本性质完成一般证明；第二种方法用高中一阶导数说明五种曲线为什么有不同的走势；第三种方法从对数函数出发，提供另一条统一比较的道路。不必使用二阶导数。
 
-	从表达式出发，先验证定点，再借助导数工具研究单调性与凸性，最后通过指数函数的单调性证明比较法则。整个推导只依赖代数运算和求导法则。
+  \medskip
+  \textbf{\textcolor{CProof}{方法一：乘法与倒数法（门槛最低、比较最快）}}
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（定点验证）：}] 代入 $x=1$，得 $y=1^\alpha=1$。因此对所有 $\alpha\in\mathbb{R}$，点 $(1,1)$ 都在函数图像上。
-			\par\textbf{理由：} 直接计算，利用 $1$ 的任意次幂等于 $1$。
-			\[
-				1^\alpha = 1 \quad (\forall \alpha\in\mathbb{R}).
-			\]
+  \textbf{第一步：} 说明系数与公共点。按高中定义，幂函数为 $x^\alpha$。由于 $1^\alpha=1$，所以它必过 $(1,1)$。一般式 $Ax^\alpha$ 在 $x=1$ 处的值为 $A$，因此它要成为幂函数，必须满足 $A=1$。这是由定义得到的必要条件，不是对定义本身的证明。
 
-		\item[\textbf{步骤二（单调性判定）：}] 对 $y=x^\alpha$ 求导（$x>0$）：
-			\[
-				y' = \alpha x^{\alpha-1}.
-			\]
-			因为 $x^{\alpha-1}>0$，所以 $y'$ 的符号由 $\alpha$ 决定。
-			\par\textbf{理由：} 当 $\alpha>0$ 时 $y'>0$，函数在 $(0,+\infty)$ 上严格递增；当 $\alpha=0$ 时 $y'=0$，函数退化为常数 $y\equiv1$（$x\neq0$）；当 $\alpha<0$ 时 $y'<0$，函数严格递减。
+  \textbf{第二步：} 对 $u>0$、$r>0$，根据指数函数的基本性质，
+  \[
+  \begin{cases}
+  u^r>1,&u>1,\\
+  u^r=1,&u=1,\\
+  0<u^r<1,&0<u<1.
+  \end{cases}
+  \]
+  直观地说，乘以大于 $1$ 的数会变大，乘以小于 $1$ 的正数会缩小；对于正实数指数，上面的结论由高中指数函数的单调性保证。
 
-		\item[\textbf{步骤三（凸性分类）：}] 求二阶导数：
-			\[
-				y'' = \alpha(\alpha-1) x^{\alpha-2}.
-			\]
-			$x^{\alpha-2}>0$，$y''$ 的符号由 $\alpha(\alpha-1)$ 确定。
-			\par\textbf{理由：}
-			\begin{itemize}[itemsep=0.3em, topsep=0.2em]
-			\item 若 $\alpha>1$，则 $\alpha(\alpha-1)>0$，$y''>0$，函数下凸（凹向上）。
-			\item 若 $0<\alpha<1$，则 $\alpha(\alpha-1)<0$，$y''<0$，函数上凸（凹向下）。
-			\item 若 $\alpha=1$ 或 $\alpha=0$，则 $y''=0$，此时图像退化为直线或水平线，不讨论凸性。
-		\end{itemize}
-			注：当 $\alpha<0$ 时，$\alpha(\alpha-1)>0$，故 $y''>0$，函数也为下凸；此情形下单调递减更为典型，此处从略。
+  \textbf{第三步：} 固定底数 $x>0$。设 $\alpha_1>\alpha_2$，令 $r=\alpha_1-\alpha_2>0$，则
+  \[
+    x^{\alpha_1}=x^{\alpha_2}\cdot x^r.
+  \]
+  因为 $x^{\alpha_2}>0$，所以 $x>1$ 时乘上一个大于 $1$ 的数，结果变大；$0<x<1$ 时乘上一个小于 $1$ 的正数，结果变小；$x=1$ 时两者相等。这也说明两个不同指数的幂函数在 $x>0$ 时只有 $(1,1)$ 一个交点。
 
-		\item[\textbf{步骤四（比较法则证明）：}] 固定 $x>0$，考察函数 $g(\alpha)=x^\alpha$（视 $\alpha$ 为变量）。对 $g$ 求导得 $g'(\alpha)=x^\alpha \ln x$。
-			\par\textbf{理由：}
-			\begin{itemize}[itemsep=0.3em, topsep=0.2em]
-			\item 当 $x>1$ 时 $\ln x>0$，$g'(\alpha)>0$，$g$ 严格递增，故 $\alpha_1>\alpha_2 \Rightarrow x^{\alpha_1}>x^{\alpha_2}$。
-			\item 当 $0<x<1$ 时 $\ln x<0$，$g'(\alpha)<0$，$g$ 严格递减，故 $\alpha_1>\alpha_2 \Rightarrow x^{\alpha_1}<x^{\alpha_2}$。
-		\end{itemize}
-	\end{description}
+  \textbf{第四步：} 固定指数 $\alpha$。取 $0<x_1<x_2$，则 $x_2/x_1>1$，且
+  \[
+     \frac{x_2^\alpha}{x_1^\alpha}
+     =\left(\frac{x_2}{x_1}\right)^\alpha.
+  \]
+  若 $\alpha>0$，右边大于 $1$，故 $x_2^\alpha>x_1^\alpha$；若 $\alpha<0$，右边是一个大于 $1$ 的数的倒数，故 $x_2^\alpha<x_1^\alpha$；若 $\alpha=0$，两者均为 $1$。这样不用求导就证明了正半轴上的增减规律。
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
+  \medskip
+  \textbf{\textcolor{CProof}{方法二：一阶导数法（常规、看懂曲线的形状）}}
 
-	通过以上四步，我们严格证明了幂函数在第一象限内的定点性质、单调性与凸性的分类依据，以及不同区间上的指数比较法则。这些结论可以直接用于快速判断幂函数图像和大小比较。
+  一条曲线在某点的切线斜率，表示曲线此时向上或向下的方向，以及陡峭程度。对 $f(x)=x^\alpha$（$x>0$），用高中求导公式得到
+  \[
+     f'(x)=\alpha x^{\alpha-1}.
+  \]
+  由于 $x^{\alpha-1}>0$，导数的正负只由 $\alpha$ 决定。这再次说明正指数递增，负指数递减，零指数恒等于 $1$。
+
+  进一步，不必对导数再求导，只需使用方法一已经证明的幂函数增减规律：
+  \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
+    \item[$\alpha>1$：] $\alpha-1>0$，所以 $x^{\alpha-1}$ 随 $x$ 增大而增大。乘以正数 $\alpha$ 后，$f'(x)$ 为正且越来越大，图像越走越陡。例如 $x^2$ 的导数 $2x$。
+    \item[$\alpha=1$：] $f'(x)=1$，图像是一条斜率始终为 $1$ 的直线。
+    \item[$0<\alpha<1$：] $\alpha-1<0$，所以 $x^{\alpha-1}$ 随 $x$ 增大而减小。乘以正数 $\alpha$ 后，$f'(x)$ 为正但越来越小，图像上升得越来越慢。例如 $\sqrt{x}$ 的导数 $1/(2\sqrt{x})$。
+    \item[$\alpha=0$：] $f(x)=1$，导数为 $0$，图像水平。
+    \item[$\alpha<0$：] $\alpha-1<0$，所以 $x^{\alpha-1}$ 随 $x$ 增大而减小。乘以负数 $\alpha$ 后，$f'(x)$ 为负但越来越大（越来越接近 $0$），图像下降得越来越慢。例如 $1/x$ 的导数 $-1/x^2$。
+  \end{description}
+  另一个直接收获是 $f'(1)=\alpha\cdot 1^{\alpha-1}=\alpha$，即公共点 $(1,1)$ 处的切线斜率恰好等于指数。至此，五种曲线的增减方向和陡峭程度都得到解释。注意：导数越来越大并不一定表示函数上升，还必须看导数本身是正还是负。
+
+  \medskip
+  \textbf{\textcolor{CProof}{方法三：取对数法（统一处理实数指数）}}
+
+  因为正数的自然对数严格递增，比较两个正数的大小，可以改成比较它们的自然对数。又有 $\ln(x^\alpha)=\alpha\ln x$。
+
+  固定底数，若 $\alpha_1>\alpha_2$，则
+  \[
+  \ln(x^{\alpha_1})-\ln(x^{\alpha_2})
+     =(\alpha_1-\alpha_2)\ln x.
+  \]
+  第一个因子为正，所以整个差的符号只由 $\ln x$ 决定。$x>1$ 时为正，$0<x<1$ 时为负，$x=1$ 时为零。这就得到比较指数的三种情况。
+
+  固定指数，若 $0<x_1<x_2$，则
+  \[
+     \ln(x_2^\alpha)-\ln(x_1^\alpha)
+       =\alpha(\ln x_2-\ln x_1).
+  \]
+  括号内为正，因此整个差的符号只由 $\alpha$ 决定。这便再次证明了增减规律。
+
+  \medskip
+  \textbf{\textcolor{CProof}{补充：正负指数为何彼此对应？}}
+
+  对任意实数 $\alpha$ 和 $x>0$，有
+  \[
+    x^{-\alpha}=\frac1{x^\alpha}=\left(\frac1x\right)^\alpha.
+  \]
+  所以正负指数对应的函数值互为倒数。特别地，$x>1$ 时 $x^p>1$ 而 $x^{-p}<1$（$p>0$）；$0<x<1$ 时恰好相反。解题中出现负指数时，优先考虑化为倒数。
 \end{proofbox}

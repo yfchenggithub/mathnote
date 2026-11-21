@@ -1,64 +1,194 @@
+\clearpage
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例 1（基础）}}
+\textbf{\textcolor{CExample}{例 0：先用几个数字看清规则（入门）}}
+\input{assets/tikz/F019_odd_compare}
 
-	\textbf{\textcolor{CExample}{题目：}}
-	已知定义在 $\mathbb{R}$ 上的奇函数 $f(x)$ 在 $[0,+\infty)$ 上单调递增，解不等式 $f(x-1)+f(2x)>0$。
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（识别条件）：}] 函数为奇函数且在 $[0,+\infty)$ 递增，符合奇函数和式结论使用条件。
-			\par\textbf{理由：} 已知条件直接满足定理前提。
-		\item[\textbf{第二步（转化不等式）：}] 由结论得 $(x-1)+(2x)>0$。
-			\par\textbf{理由：} 奇函数且单调递增，函数值和大于零等价于自变量和大于零。
-		\item[\textbf{第三步（解代数式）：}] 化简 $3x-1>0$，解得 $x>\frac13$。
-			\par\textbf{理由：} 一元一次不等式求解。
-	\end{description}
+\textbf{奇函数：}先取 $f(x)=x^3$。这是奇函数，且 $x$ 越大，$x^3$ 越大。
+\[
+\begin{array}{c|c|c}
+(a,b)&a+b&f(a)+f(b)\\\hline
+(2,-1)&1>0&8-1=7>0\\
+(1,-2)&-1<0&1-8=-7<0\\
+(2,-2)&0&8-8=0
+\end{array}
+\]
+\textbf{偶函数：}再取 $f(x)=x^2$，看 $a=-3,b=2$。虽然 $-3<2$，但
+\[
+|-3|=3>2=|2|,\qquad f(-3)=9>4=f(2).
+\]
+这说明\textbf{奇函数看 $a+b$ 的正负；偶函数看 $|a|$、$|b|$ 谁更大}，而不是先去算函数值。
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	原不等式的解集为 $\left(\frac13,+\infty\right)$。
+\medskip
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 1：基础题——奇函数递增，解函数值之和}}
+\input{assets/tikz/F019_example_odd}
 
-	\textbf{\textcolor{CExample}{题目：}}
-	已知定义在 $\mathbb{R}$ 上的偶函数 $f(x)$ 在 $[0,+\infty)$ 上单调递增，且 $f(1)<f(2a-1)$，求实数 $a$ 的取值范围。
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（识别条件）：}] 偶函数且在 $[0,+\infty)$ 递增，可用偶函数大小比较结论 $f(u)>f(v)\iff|u|>|v|$。
-			\par\textbf{理由：} 已知条件符合定理使用前提。
-		\item[\textbf{第二步（转化不等式）：}] $f(1)<f(2a-1)$ 等价于 $|1|<|2a-1|$，即 $|2a-1|>1$。
-			\par\textbf{理由：} 偶函数递增时，函数值大对应绝对值大；所以 $f(1)<f(2a-1)$ 意味着 $|1|<|2a-1|$。
-		\item[\textbf{第三步（解绝对值不等式）：}] 解 $|2a-1|>1$ 得 $a<0$ 或 $a>1$。
-			\par\textbf{理由：} 绝对值不等式解法：$|X|>1\iff X<-1$ 或 $X>1$。
-	\end{description}
+\textbf{题目：}已知 $f(x)$ 是定义在 $\mathbb R$ 上的奇函数，在 $[0,+\infty)$ 上严格递增，解
+\[
+ f(x-1)+f(2x)>0.
+\]
+\textbf{第一步：}奇函数，且右半边严格递增，所以整个实数范围都严格递增。
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	$a$ 的取值范围是 $(-\infty,0)\cup(1,+\infty)$。
+\textbf{第二步：}把 $a=x-1$、$b=2x$ 代入结论：
+\[
+ f(x-1)+f(2x)>0\iff (x-1)+2x>0.
+\]
+\textbf{第三步：}解 $3x-1>0$，得
+\[
+\boxed{x>\frac13}.
+\]
+\textbf{提醒：}本题完全不需要知道 $f(x)$ 的具体式子。
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+\medskip
 
-	\textbf{\textcolor{CExample}{题目：}}
-	已知定义在 $[-3,3]$ 上的奇函数 $f(x)$ 在 $[0,3]$ 上单调递减，解不等式 $f(t)+f(t+1)>0$。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 2：偶函数递增，求参数范围}}
+\input{assets/tikz/F019_absolute_two_sides}
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（识别反向条件）：}] 奇函数且在 $[0,3]$ 上递减，故使用反向结论 $f(a)+f(b)>0\iff a+b<0$。
-			\par\textbf{理由：} 由定理，单调递减时不等号反向。
-		\item[\textbf{第二步（转化不等式）：}] 由结论得 $t+(t+1)<0$，解得 $t<-\frac12$。
-			\par\textbf{理由：} 直接套用 $a+b<0$。
-		\item[\textbf{第三步（定义域检查）：}] 由
-			\[
-				\left\{\begin{array}{l}
-				-3\le t\le 3,\\
-				-3\le t+1\le 3
-		\end{array}\right.
-		\]
-		解得 $-3\le t\le2$。与 $t<-\frac12$ 取交集得 $-3\le t<-\frac12$。
-		\par\textbf{理由：} 函数定义域必须满足；转化后的自变量需在定义域内。
-\end{description}
 
-\textbf{\textcolor{CExample}{关键结论：}}
-原不等式的解集为 $[-3,-\frac12)$。
+\textbf{题目：}已知 $f(x)$ 是定义在 $\mathbb R$ 上的偶函数，在 $[0,+\infty)$ 上严格递增，且
+\[
+ f(1)<f(2a-1).
+\]
+求 $a$ 的范围。
+
+\textbf{第一步：}将两个输入变成到 $0$ 的距离：$|1|$ 与 $|2a-1|$。
+
+\textbf{第二步：}右半边严格递增，因此
+\[
+ f(1)<f(2a-1)\iff 1<|2a-1|.
+\]
+\textbf{第三步：}一个数的绝对值大于 $1$，意味着它小于 $-1$ 或大于 $1$：
+\[
+ 2a-1<-1\quad\text{或}\quad 2a-1>1.
+\]
+于是
+\[
+\boxed{a<0\quad\text{或}\quad a>1}.
+\]
+\textbf{数轴理解：}$2a-1$ 必须落在 $[-1,1]$ 的外面，两边都要保留。
+
+\medskip
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 3：奇函数递减，而且定义域有限}}
+\input{assets/tikz/F019_finite_odd}
+
+
+\textbf{题目：}已知 $f(x)$ 是定义在 $[-3,3]$ 上的奇函数，在 $[0,3]$ 上严格递减，解
+\[
+ f(t)+f(t+1)>0.
+\]
+\textbf{第一步：先看方向。}右半边严格递减的奇函数，在整个 $[-3,3]$ 上也严格递减，所以
+\[
+ f(t)+f(t+1)>0\iff t+(t+1)<0.
+\]
+得到 $2t+1<0$，即 $t<-\frac12$。
+
+\textbf{第二步：别忘记输入必须能代入函数。}
+\[
+ -3\leqslant t\leqslant3,\qquad -3\leqslant t+1\leqslant3.
+\]
+两者同时成立给出 $-3\leqslant t\leqslant2$。
+
+\textbf{第三步：}与 $t<-\frac12$ 取共同部分，得
+\[
+\boxed{t\in[-3,-\tfrac12)}.
+\]
+\textbf{检查：}若只写 $t<-\frac12$，会把例如 $t=-10$ 这种根本不能代入 $f(t)$ 的数也算进去。
+
+\medskip
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 4：偶函数递减，不能照搬递增的方向}}
+\input{assets/tikz/F019_even_decreasing_example}
+
+
+\textbf{题目：}已知 $f(x)$ 是定义在 $\mathbb R$ 上的偶函数，在 $[0,+\infty)$ 上严格递减，解
+\[
+ f(x+1)>f(2x-3).
+\]
+\textbf{第一步：}离 $0$ \emph{较近}的输入，函数值反而较大：
+\[
+ f(x+1)>f(2x-3)\iff |x+1|<|2x-3|.
+\]
+\textbf{第二步：}两边都是非负数，可同时平方：
+\[
+ (x+1)^2<(2x-3)^2.
+\]
+移项后是
+\[
+ 0<3x^2-14x+8=(3x-2)(x-4).
+\]
+\textbf{第三步：}两数相乘为正，要么同正，要么同负，得
+\[
+\boxed{x<\frac23\quad\text{或}\quad x>4}.
+\]
+\textbf{代值自检：}取 $f(x)=-x^2$（偶且右半边严格递减），$x=0$ 时题目变成 $-1>-9$，成立；答案也包含 $0$。
+
+\medskip
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 5：图像性质给出的“最小值”}}
+\input{assets/tikz/F019_minimum}
+
+
+\textbf{题目：}已知 $f$ 是定义在 $[-5,5]$ 上的偶函数，在 $[0,5]$ 上严格递增。问 $f(-4)$、$f(0)$、$f(2)$ 谁大？什么时候 $f(x)=f(2)$？
+
+\textbf{比较大小：}三者离 $0$ 的距离为 $4,0,2$，所以
+\[
+\boxed{f(-4)>f(2)>f(0)}.
+\]
+\textbf{求相等位置：}因为 $f(x)=f(2)\iff |x|=2$，所以
+\[
+\boxed{x=-2\quad\text{或}\quad x=2}.
+\]
+\textbf{亮点：}偶函数右半边严格递增时，$f(0)$ 就是整个定义域内的最小值，直接从图像对称性看出来。
+
+\medskip
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 6：综合题——绝对值还要和定义域取共同部分}}
+\input{assets/tikz/F019_finite_even}
+
+
+\textbf{题目：}偶函数 $f$ 定义在 $[-2,2]$，在 $[0,2]$ 上严格递增，解
+\[
+ f(2x-1)>f(x+1).
+\]
+\textbf{先去掉 $f$：}
+\[
+ |2x-1|>|x+1|\iff (2x-1)^2>(x+1)^2.
+\]
+整理得
+\[
+ 3x(x-2)>0\iff x<0\ \text{或}\ x>2.
+\]
+\textbf{再查两个输入：}
+\[
+ -2\leqslant2x-1\leqslant2\iff-\tfrac12\leqslant x\leqslant\tfrac32,
+\]
+\[
+ -2\leqslant x+1\leqslant2\iff-3\leqslant x\leqslant1.
+\]
+共同部分为 $[-\frac12,1]$，最后
+\[
+\boxed{x\in[-\tfrac12,0)}.
+\]
+\textbf{关键：}即使成功把函数不等式变成普通不等式，也不能忘记原来函数能不能取到那些输入。
 \end{examplebox}

@@ -1,88 +1,81 @@
 \begin{statementbox}
-	\begin{center}\input{assets/tikz/F022_period_translation}\end{center}
-\textbf{以下各式分别作为独立条件使用，所得 $T$ 是一个正周期，不保证最小。}\par
+\input{assets/tikz/F022_repeat_cycle}
+
+\textbf{F022\quad 抽象函数周期公式：往右走几步，函数值会回来？}
+
+\textbf{先看它解决什么问题。} 有些题根本不给 $f(x)$ 的表达式，只告诉你 $f(x+2)=-f(x)$，
+或者 $f(x+3)=\dfrac{1}{f(x)}$，却让你求周期、求 $f(2026)$。
+解法不是猜函数长什么样，而是\textbf{把题目给出的关系接连使用，看几次后回到原来的函数值}。
+
 \medskip
-\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件1（平移封闭性）：}}]
-			函数$f(x)$的定义域$D$满足：若$x\in D$，则$x\pm a\in D$，$x\pm b\in D$（其中$a,b$为非零实常数）。
-	\end{description}
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（加常数型）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			自变量加常数$|a|$后函数值重复出现。
-			\[
-				f(x+a)=f(x)
-			\]
-			\[
-				T=|a|.
-			\]
-		\item[\textbf{\textcolor{CStatement}{结论二（反号型）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			自变量加$|a|$后函数值变为相反数，再重复需两倍。
-			\[
-				f(x+a)=-f(x)
-			\]
-			\[
-				T=2|a|.
-			\]
-		\item[\textbf{\textcolor{CStatement}{结论三（倒数型）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			自变量加$|a|$后函数值变为倒数（或负倒数），再重复需两倍。
-			\[
-				f(x+a)=\pm\frac{1}{f(x)}\;(f(x)\neq0)
-			\]
-			\[
-				T=2|a|.
-			\]
-		\item[\textbf{\textcolor{CStatement}{结论四（差值型）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			两侧自变量差为定值$|a-b|$时函数值相等，该差即为周期。
-			\[
-				f(x+a)=f(x+b)\;(a\neq b)
-			\]
-			\[
-				T=|a-b|.
-			\]
-	\end{description}
-	\textbf{\textcolor{CStatement}{推广结论（整数倍周期）}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{推广结论（整数倍周期）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			若$T$是一个周期，则它的任意非零整数倍也是周期。
-			\[
-				f(x+kT)=f(x),
-				\qquad
-				k\in\mathbb{Z},\;k\neq0.
-			\]
-	\end{description}
+\textbf{先说清楚“周期”。} 对定义域中的每一个 $x$，只要把 $x$ 向右移动同样的正数 $T$，
+所得函数值总与原来相等，即
+\[
+ \boxed{f(x+T)=f(x),\quad T>0},
+\]
+并且这些平移前后的自变量都在定义域内，就说 $T$ 是函数的\textbf{一个正周期}。
+\textbf{注意：}这里说的是“一个”，不一定是最小的那个；有的周期函数甚至没有最小正周期。
+
+\medskip
+\end{statementbox}\clearpage\begin{statementbox}\textbf{六个常见条件速查：} 下表每一行单独使用。除差值型只要求 $a\ne b$ 外，其余步长取 $a\ne0$。两边的关系要对每一个允许的 $x$ 成立，
+并且从 $x$ 出发沿着所需的步长向前、向后走，都不能走出定义域。
+\begin{center}
+\renewcommand{\arraystretch}{1.48}
+\begin{tabular}{|p{0.11\linewidth}|p{0.53\linewidth}|p{0.21\linewidth}|}
+\hline
+类型&已知关系&可推出的一个正周期\\\hline
+直接重复 & $f(x+a)=f(x)$ & $|a|$\\\hline
+走一步变号 & $f(x+a)=-f(x)$ & $2|a|$\\\hline
+走一步变倒数 & $f(x+a)=\dfrac{1}{f(x)}$，$f(x)\ne0$ & $2|a|$\\\hline
+走一步变负倒数 & $f(x+a)=-\dfrac{1}{f(x)}$，$f(x)\ne0$ & $2|a|$\\\hline
+两个位置相等 & $f(x+a)=f(x+b)$，$a\ne b$ & $|a-b|$\\\hline
+两种分式关系 & 见下页，走两步都还原 & $2|a|$\\\hline
+\end{tabular}
+\end{center}
+\textbf{为什么倍数会是 $2$？} 如果每向右走 $a$，函数值变号一次，那么
+$2\longrightarrow-2\longrightarrow2$；两次才真正回到起点。
 
 \end{statementbox}
 
 \clearpage
 \begin{statementbox}
-\textbf{\textcolor{CStatement}{新增：两类分式型，连续作用两次还原}}
-
-设 $a\ne0$，非空定义域 $D$ 满足 $x\in D\Rightarrow x\pm a\in D$；下列等式对每个 $x\in D$ 成立。两种条件分别使用。
-
-\textbf{分式型一（要求处处 $f(x)\ne1$）：}
+\textbf{两种分式关系：看上去复杂，其实也只是“去一次，再回来”。}
+设 $a\ne0$，$x$ 和 $x\pm a$ 都在定义域中，下面两个条件\textbf{分别}讨论：
 \[
- f(x+a)=\frac{f(x)+1}{f(x)-1}
- \quad\Longrightarrow\quad
- \boxed{f(x+2a)=f(x),\quad T=2|a|.}
+\begin{array}{ll}
+\text{第一种：}&\displaystyle f(x+a)=\frac{f(x)+1}{f(x)-1},\qquad f(x)\ne1;\\[10pt]
+\text{第二种：}&\displaystyle f(x+a)=\frac{1-f(x)}{1+f(x)},\qquad f(x)\ne-1.
+\end{array}
 \]
-\begin{center}\input{assets/tikz/F022_fraction_plus_cycle}\end{center}
-\end{statementbox}
-\clearpage
-\begin{statementbox}
-\textbf{分式型二（要求处处 $f(x)\ne-1$）：}
+两种情况都能推出
 \[
- f(x+a)=\frac{1-f(x)}{1+f(x)}
- \quad\Longrightarrow\quad
- \boxed{f(x+2a)=f(x),\quad T=2|a|.}
+\boxed{f(x+2a)=f(x),\qquad 2|a|\text{ 是一个正周期}.}
 \]
-沿用上一页的 $a\ne0$、定义域可加减 $a$ 及等式处处成立的条件。
-\begin{center}\input{assets/tikz/F022_fraction_minus_cycle}\end{center}
-\textbf{两图的作用：}先看到两个数交替出现，再用完整代入证明任意允许的函数值都会在两步后恢复。图中的具体函数不是一般结论的证明。
+\textbf{先用数字试一试：}
+\[
+\begin{aligned}
+\text{第一种：}\quad &2\ \longrightarrow\ \frac{2+1}{2-1}=3
+\ \longrightarrow\ \frac{3+1}{3-1}=2;\\
+\text{第二种：}\quad &2\ \longrightarrow\ \frac{1-2}{1+2}=-\frac13
+\ \longrightarrow\ \frac{1+\frac13}{1-\frac13}=2.
+\end{aligned}
+\]
+
+这些具体数字帮助理解，\textbf{但不能代替证明}：要证明一个周期，必须保证所有允许的函数值都可以两步还原。
+完整的通分计算放在第 03 部分。
+\input{assets/tikz/F022_fraction_plus_steps}
+
+\input{assets/tikz/F022_fraction_minus_steps}
+
+
+\medskip
+\textbf{两个常用扩展：}
+\[
+\begin{aligned}
+ f(x+a)&=c-f(x) &&\Longrightarrow\quad 2|a|\text{ 是一个正周期};\\
+ f(x+a)&=\frac{c}{f(x)},\quad c\ne0,\ f(x)\ne0
+ &&\Longrightarrow\quad 2|a|\text{ 是一个正周期}.
+\end{aligned}
+\]
+这里的 $c$ 是一个固定数，不能随 $x$ 改变。与其背更多公式，不如记住“\textbf{同样的操作做两次}”。
 \end{statementbox}

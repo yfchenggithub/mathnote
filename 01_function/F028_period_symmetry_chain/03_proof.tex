@@ -1,133 +1,237 @@
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{\textcolor{CProof}{先读：三种证明方式各有什么用？}}
 
-	把周期、对称轴和对称中心都写成对任意实数成立的恒等式，再通过代换与复合对称推出新的对称性和周期性。
+下面先围绕核心规律“半周期又出现对称轴/对称中心”，用三种不同方法理解：
+\begin{itemize}[leftmargin=*,itemsep=0.25em]
+\item \textbf{方法一（门槛最低）：} 数轴上对折、平移，先明白为什么是“一半”。
+\item \textbf{方法二（考试最快）：} 把题目给的两个等式直接接起来，几行就结束。
+\item \textbf{方法三（最容易举一反三）：} 把图像以对称位置为中间重新写一次，统一处理轴和中心。
+\end{itemize}
+证明后还补上“两轴推出周期”“全部对称轴”“轴和中心的四分之一周期关系”。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{\textcolor{CProof}{步骤一（对称轴连锁）：}}]
-		      设 $T>0$ 是 $f$ 的一个周期，且 $x=a$ 是一条对称轴。下面证明 $x=a+T/2$ 也是对称轴。
-		      \[
-			      \begin{aligned}
-				      f\left(a+\frac{T}{2}+x\right)
-				       & =f\left(a-\frac{T}{2}+x\right)
-				       &                                             & \text{（两自变量相差 $T$）}  \\
-				       & =f\left(a+\left(x-\frac{T}{2}\right)\right)                        \\
-				       & =f\left(a-\left(x-\frac{T}{2}\right)\right)
-				       &                                             & \text{（关于 $x=a$ 对称）} \\
-				       & =f\left(a+\frac{T}{2}-x\right).
-			      \end{aligned}
-		      \]
-		      该等式对任意 $x\in\mathbb{R}$ 成立，因此 $x=a+T/2$ 是一条对称轴。
+\medskip
+\textbf{\textcolor{CProof}{方法一：初中生也能跟上的“折纸 + 数轴”解释}}
+\input{assets/tikz/F028_fold_and_translate}
 
-		      把同一结论反复向右或向左应用，可得
-		      \[
-			      x=a+\frac{kT}{2},
-			      \quad k\in\mathbb{Z},
-		      \]
-		      均为对称轴。
 
-		\item[\textbf{\textcolor{CProof}{步骤二（对称中心连锁）：}}]
-		      设 $(b,c)$ 是 $f$ 的一个对称中心。令
-		      \[
-			      g(x)=f(x+b)-c.
-		      \]
-		      则 $g$ 以 $T$ 为一个周期，并且
-		      \[
-			      g(-x)=-g(x),
-		      \]
-		      即 $g$ 是奇函数。下面证明点 $\left(T/2,0\right)$ 是 $g$ 图像的一个对称中心：
-		      \[
-			      \begin{aligned}
-				      g\left(\frac{T}{2}+x\right)
-				       & =g\left(-\frac{T}{2}+x\right)
-				       &                                            & \text{（两自变量相差 $T$）} \\
-				       & =g\left(-\left(\frac{T}{2}-x\right)\right)                       \\
-				       & =-g\left(\frac{T}{2}-x\right)
-				       &                                            & \text{（$g$ 为奇函数）}.
-			      \end{aligned}
-		      \]
-		      所以
-		      \[
-			      g\left(\frac{T}{2}+x\right)
-			      +
-			      g\left(\frac{T}{2}-x\right)
-			      =0.
-		      \]
-		      代回 $g(x)=f(x+b)-c$，得到
-		      \[
-			      f\left(b+\frac{T}{2}+x\right)
-			      +
-			      f\left(b+\frac{T}{2}-x\right)
-			      =2c.
-		      \]
-		      因此 $\left(b+T/2,c\right)$ 是 $f$ 图像的一个对称中心。反复应用可得
-		      \[
-			      \left(b+\frac{kT}{2},c\right),
-			      \quad k\in\mathbb{Z},
-		      \]
-		      均为对称中心。这里得到的是一组必然存在的对称中心，不能在没有其他条件时称为全部对称中心。
+设 $x=a$ 是一条对称轴，图像每走 $T$ 个单位就重复。
 
-		\item[\textbf{\textcolor{CProof}{步骤三（两条对称轴推出一个周期）：}}]
-		      设 $x=a_1$ 和 $x=a_2$ 是两条不同的对称轴。由对称轴定义，对任意 $u\in\mathbb{R}$，
-		      \[
-			      f(u)=f(2a_1-u).
-		      \]
-		      再关于直线 $x=a_2$ 对称，得到
-		      \[
-			      \begin{aligned}
-				      f(u)
-				       & =f(2a_1-u)                   \\
-				       & =f\left(2a_2-(2a_1-u)\right) \\
-				       & =f\left(u+2(a_2-a_1)\right).
-			      \end{aligned}
-		      \]
-		      因此 $2(a_2-a_1)$ 是 $f$ 的一个非零周期。周期取相反数后仍是周期，所以
-		      \[
-			      P=2|a_1-a_2|
-		      \]
-		      是 $f$ 的一个正周期，但不一定是最小正周期。
+\textbf{第一步。} 取新候选折痕 $a+T/2$。在它左右各取距离 $t$ 的点：
+\[
+L=a+\frac T2-t,\qquad R=a+\frac T2+t.
+\]
 
-		\item[\textbf{\textcolor{CProof}{步骤四（最小正周期下刻画全部对称轴）：}}]
-		      进一步设 $T_0$ 是 $f$ 的最小正周期，且 $x=a$ 是一条对称轴。
+\textbf{第二步。} 把右点向左搬一个完整周期：
+\[
+R-T=a-\frac T2+t.
+\]
 
-		      由步骤一可知，
-		      \[
-			      x=a+\frac{kT_0}{2},
-			      \quad k\in\mathbb{Z},
-		      \]
-		      均为对称轴。
+\textbf{第三步。} 看两个点 $R-T$ 与 $L$：
+\[
+\frac{(R-T)+L}{2}=a.
+\]
+所以它们关于旧折痕 $x=a$ 对称；根据题目条件，两处函数值相同：
+\[
+f(R-T)=f(L).
+\]
+又因为 $R$ 和 $R-T$ 相隔 $T$，函数值也相同，故
+\[
+f(R)=f(R-T)=f(L).
+\]
 
-		      反过来，设 $x=s$ 是任意一条对称轴。若 $s=a$，结论显然成立；若 $s\ne a$，由步骤三可知
-		      \[
-			      P=2|s-a|
-		      \]
-		      是一个正周期。
+\textbf{第四步。} $t$ 可以随便取，所以新折痕的任意左右两点函数值都相同。\textbf{这就证明 $x=a+T/2$ 也是一条对称轴。}
 
-		      对 $P$ 作带余除法：
-		      \[
-			      P=nT_0+r,
-			      \quad n\in\mathbb{Z}_{\ge 0},
-			      \quad 0\le r<T_0.
-		      \]
-		      由于两个周期之差仍是周期，$r=P-nT_0$ 也是周期。由 $T_0$ 的最小正性，只能有 $r=0$。因此
-		      \[
-			      2|s-a|=nT_0.
-		      \]
-		      于是存在 $k\in\mathbb{Z}$，使得
-		      \[
-			      s=a+\frac{kT_0}{2}.
-		      \]
-		      故函数图像的全部对称轴恰为
-		      \[
-			      x=a+\frac{kT_0}{2},
-			      \quad k\in\mathbb{Z}.
-		      \]
-	\end{description}
+\textbf{对称中心怎么理解？} 在 $(b,c)$ 左右同样远的两点，函数值\textbf{相加是 $2c$}；把右边的点搬回一个完整周期，正好落到旧中心另一侧。因此在新中心 $(b+T/2,c)$ 的左右两点，函数值之和也仍是 $2c$。与证明对称轴的步骤完全平行，只是“相等”换成了“相加等于 $2c$”。
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
+\medskip
 
-	\textbf{一个已知周期能生成一组间隔为 $T/2$ 的同类对称位置；两条不同对称轴能生成一个等于两倍轴间距的周期；使用最小正周期时，才能进一步完整刻画全部对称轴。}
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法二：考场上最快的直接代换}}
+\input{assets/tikz/F028_center_height_five}
+
+
+\textbf{（1）证明对称轴。} 已知
+\[
+f(x+T)=f(x),\qquad f(a+t)=f(a-t).
+\]
+只要证明对任意 $t$，
+\[
+f\left(a+\frac T2+t\right)=f\left(a+\frac T2-t\right).
+\]
+逐步推算：
+\[
+\begin{aligned}
+f\left(a+\frac T2+t\right)
+&=f\left(a-\frac T2+t\right) &&\text{（左移 $T$）}\\
+&=f\left(a-\left(\frac T2-t\right)\right)\\
+&=f\left(a+\left(\frac T2-t\right)\right) &&\text{（沿 $x=a$ 对称）}\\
+&=f\left(a+\frac T2-t\right).
+\end{aligned}
+\]
+证毕。向左也可同样推，反复做便得 $x=a+kT/2$。
+
+\textbf{（2）证明对称中心。} 已知
+\[
+f(b+t)+f(b-t)=2c.
+\]
+任取 $t$，有
+\[
+\begin{aligned}
+&f\left(b+\frac T2+t\right)+f\left(b+\frac T2-t\right)\\
+&\qquad=f\left(b-\frac T2+t\right)+f\left(b+\frac T2-t\right)
+&&\text{（第一项左移 $T$）}\\
+&\qquad=f\left(b-\left(\frac T2-t\right)\right)
+  +f\left(b+\left(\frac T2-t\right)\right)\\
+&\qquad=2c &&\text{（旧中心的对称关系）}.
+\end{aligned}
+\]
+故 $(b+T/2,c)$ 也是对称中心。反复向左右移半周期，就得到全部\emph{保证存在}的这一组中心。
+
+\medskip
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法三：先把对称位置移到原点，一次看懂两类对称}}
+\input{assets/tikz/F028_shift_to_origin}
+
+
+\textbf{对称轴的情况。} 设 $g(t)=f(a+t)$。旧对称轴是 $x=a$，所以
+\[
+g(-t)=g(t).
+\]
+函数有周期 $T$，所以 $g(t+T)=g(t)$。于是
+\[
+\begin{aligned}
+g\left(\frac T2+t\right)
+&=g\left(-\frac T2+t\right) &&\text{（相隔 $T$）}\\
+&=g\left(\frac T2-t\right) &&\text{（左右相反时值相同）}.
+\end{aligned}
+\]
+这说明 $g$ 在 $T/2$ 左右也对称，换回 $f$ 就得到新对称轴 $x=a+T/2$。
+
+\textbf{对称中心的情况。} 设 $h(t)=f(b+t)-c$，也就是先让中心横坐标变成 $0$，再把中心高度减到 $0$。于是
+\[
+h(-t)=-h(t),\qquad h(t+T)=h(t).
+\]
+同样算：
+\[
+\begin{aligned}
+h\left(\frac T2+t\right)
+&=h\left(-\frac T2+t\right)\\
+&=-h\left(\frac T2-t\right).
+\end{aligned}
+\]
+因此
+\[
+h\left(\frac T2+t\right)+h\left(\frac T2-t\right)=0.
+\]
+把减掉的 $c$ 加回去，立刻得到新对称中心 $(b+T/2,c)$。
+
+\medskip
+\end{proofbox}\clearpage\begin{proofbox}\textbf{\textcolor{CProof}{再证结论三：为什么两条对称轴之间有“两倍间距”的周期？}}
+\input{assets/tikz/F028_two_axes_eight}
+
+
+旧对称轴 $x=a_1$ 保证：对任意 $u$，
+\[
+f(u)=f(2a_1-u).
+\]
+另一条对称轴 $x=a_2$ 再保证：
+\[
+f(2a_1-u)=f\bigl(2a_2-(2a_1-u)\bigr).
+\]
+合在一起便是
+\[
+\boxed{f(u)=f\bigl(u+2(a_2-a_1)\bigr)}.
+\]
+如果 $a_2>a_1$，这表示向右移动 $2(a_2-a_1)$ 后函数值不变。如果 $a_2<a_1$，则向左移动 $2(a_1-a_2)$ 不变，换个方向同样可以得到一个正周期。所以 $2|a_2-a_1|$ 是一个正周期。
+
+\medskip
+\end{proofbox}\clearpage\begin{proofbox}\textbf{\textcolor{CProof}{为什么知道最小正周期以后，可以列出全部对称轴？}}
+\input{assets/tikz/F028_all_axes_minimum}
+
+
+设最小正周期是 $T_0$，已有一条对称轴 $x=a$。
+
+\textbf{先证明“这些都是”。} 由上面的方法，$x=a+kT_0/2$ 都是对称轴。
+
+\textbf{再证明“不会有别的”。} 假设 $x=s$ 是另一条对称轴，那么两轴推出
+\[
+2|s-a|\quad\text{是一个正周期}.
+\]
+\textbf{任何正周期 $P$ 都必须是 $T_0$ 的整数倍。} 道理很简单：假如 $P=nT_0+r$，其中 $n$ 是非负整数，$0\le r<T_0$，那么“先走 $n$ 个最小周期，再把剩下的 $r$ 走完”也应该重复；因此剩下的 $r$ 本身也是周期。若 $r>0$ 就会出现一个比最小正周期更小的正周期，矛盾，所以只能有 $r=0$。
+
+因此 $2|s-a|=nT_0$。换上正负方向，可以写成
+\[
+\boxed{s=a+\frac{kT_0}{2},\quad k\in\mathbb Z}.
+\]
+这就把全部对称轴找齐了。注意：\textbf{只有已知 $T_0$ 真的是最小正周期，这一步才成立。}
+
+\medskip
+\end{proofbox}\clearpage\begin{proofbox}\textbf{\textcolor{CProof}{进阶但仍属高中范围：为什么是“四分之一周期”？}}
+\input{assets/tikz/F028_quarter_period}
+
+
+设 $x=a$ 是对称轴，$(b,c)$ 是对称中心。先沿 $x=a$ 折一次：
+\[
+f(x)=f(2a-x).
+\]
+再利用绕 $(b,c)$ 转半圈：
+\[
+f(2a-x)+f\bigl(2b-(2a-x)\bigr)=2c.
+\]
+整理得到
+\[
+\boxed{f\bigl(x+2(b-a)\bigr)=2c-f(x).}\tag{$*$}
+\]
+因此移动距离 $2(b-a)$，不是一定回到原值，而是把函数值绕水平线 $y=c$ 上下交换。再移动一次：
+\[
+\begin{aligned}
+f\bigl(x+4(b-a)\bigr)
+&=2c-f\bigl(x+2(b-a)\bigr)\\
+&=2c-[2c-f(x)]\\
+&=f(x).
+\end{aligned}
+\]
+如果 $a\ne b$，那么 $4|b-a|$ 就是一个正周期。
+
+若已知 $T_0$ 是最小正周期，前面已证“任何正周期都是它的整数倍”，故
+\[
+4|b-a|=nT_0\qquad(n=1,2,3,\ldots).
+\]
+\textbf{这里的 $n$ 还必须是奇数。} 如果 $n$ 是偶数，则 $2(b-a)$ 正好是 $T_0$ 的整数倍，于是左边 $(*)$ 就等于 $f(x)$，得到 $f(x)=2c-f(x)$，也就是 $f(x)=c$ 对所有 $x$ 成立。这样函数是常数函数，与“存在最小正周期”矛盾。于是
+\[
+\boxed{b-a=\frac{(2k+1)T_0}{4}\quad(k\in\mathbb Z).}
+\]
+这里的正负号由“中心在轴的左边还是右边”决定。
+
+\textbf{特殊情况：}如果 $a=b$，直接把 $(*)$ 写成 $f(x)=2c-f(x)$，得到 $f(x)=c$。所以\textbf{非恒定函数的同一条竖直线上，不可能既有对称轴又有对称中心。}
+
+\medskip
+\end{proofbox}\clearpage\begin{proofbox}\textbf{\textcolor{CProof}{补充辨析：什么时候也能找齐全部对称中心？}}
+\input{assets/tikz/F028_bounded_and_drift}
+
+
+对最一般的抽象函数，不应仅凭最小正周期 $T_0$ 就随意说“全部对称中心”只有 $(b+kT_0/2,c)$。但若额外知道\textbf{函数值始终有一个固定的上下界}，就能证明它们确实是全部。
+
+证明也不难。假设 $(b,c)$ 与 $(d,e)$ 都是对称中心，那么连续使用两次“绕中心转半圈”的等式：
+\[
+\begin{aligned}
+f\bigl(x+2(d-b)\bigr)
+&=2e-f(2b-x)\\
+&=2e-[2c-f(x)]\\
+&=f(x)+2(e-c).
+\end{aligned}
+\]
+若 $e\ne c$，每多移动 $2(d-b)$，函数值就会不断增减同一个非零数；反复移动，函数值将越来越大或越来越小，与“始终有上下界”矛盾。所以 $e=c$，此时 $2(d-b)$ 才是一个真正的周期。
+
+若有最小正周期 $T_0$，便得 $d-b=kT_0/2$。因此\textbf{当函数值有上下界时}，若给定一个对称中心 $(b,c)$，则全部对称中心恰为
+\[
+\boxed{\left(b+\frac{kT_0}{2},\,c\right),\quad k\in\mathbb Z.}
+\]
+这条补充适用于常见的正弦、余弦函数；它\textbf{不是}原先无需附加条件就能套用的结论。
 \end{proofbox}

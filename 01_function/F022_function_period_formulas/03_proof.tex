@@ -1,85 +1,158 @@
 \clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
-	周期等式证明的核心是反复利用已知条件，通过迭代或代换，最终导出$f(x+T)=f(x)$的结构。推导中需注意定义域平移不变性（即若$x$在定义域内，则$x$与平移常数加减后的值仍在定义域内）。
+\textbf{证明前必须明确两件事。}
+第一，等式对每个允许的 $x$ 成立，不能只对一个点成立；第二，沿着需要的步长来回移动时，
+自变量仍在定义域内。为便于看懂，以下大部分先取 $a>0$，最后再说明 $a<0$ 怎么办。
 
-	\medskip
-	\begin{center}\input{assets/tikz/F022_period_translation}\end{center}
-图以反号型为例展示两次平移后高度恢复；以下逐条用代入或换元核验。
-\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（加常数直接型）：}]
-			已知$f(x+a)=f(x)$恒成立。
-			\[
-				f(x+a)=f(x).
-			\]
-			\par\textbf{理由：} 若$a>0$，则直接取$T=a$满足$f(x+T)=f(x)$；若$a<0$，由$f(x+a)=f(x)$将$x$换为$x-a$得$f(x)=f(x-a)$，即$f(x+|a|)=f(x)$，故$|a|$是一个周期。
-		\item[\textbf{步骤二（反号两倍型）：}]
-			已知$f(x+a)=-f(x)$。计算$f(x+2a)$：
-			\[
-				\begin{aligned}
-					f(x+2a) &= f((x+a)+a) \\ &= -f(x+a) \\ &= -(-f(x)) \\ &= f(x).
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 先令$x\mapsto x+a$代入条件得$f(x+2a)=-f(x+a)$，再利用原式替换$f(x+a)=-f(x)$，两次变号抵消，得到$f(x+2a)=f(x)$，故$2|a|$是周期。
-		\item[\textbf{步骤三（倒数两倍型）：}]
-			已知$f(x+a)=\pm\frac{1}{f(x)}$且$f(x)\neq0$。计算$f(x+2a)$：
-			\[
-				\begin{aligned}
-					f(x+2a) &= f((x+a)+a) \\ &= \pm\frac{1}{f(x+a)} \\ &= \pm\frac{1}{\pm\frac{1}{f(x)}} \\ &= f(x).
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 连续两次应用倒数条件，无论正负，复合后均恢复原函数值，因此$2|a|$是周期。
-		\item[\textbf{步骤四（差值平移型）：}]
-			已知$f(x+a)=f(x+b)$（$a\neq b$）。令$t=x+b$，则$x=t-b$，代入得：
-			\[
-				f(t+a-b)=f(t).
-			\]
-			\par\textbf{理由：} 变量代换将两个不同平移的等式转化为标准形式$f(t+(a-b))=f(t)$，因此$|a-b|$是$f$的一个周期。
-	\end{description}
+\medskip
+\textbf{证明方法一：初中生也能理解——同样的动作，连续做两遍（最直观）}
+\input{assets/tikz/F022_repeat_cycle}
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-	以上四个步骤分别证明了输入中给出的四种常见周期判定结论。注意最终周期均取绝对值，且定义域平移不变性是所有结论成立的前提。在实际解题中，可根据条件形式直接套用相应周期公式。
-\end{proofbox}
 
-\clearpage
-\begin{proofbox}
-\textbf{新增证明一：把第一种复合分式完整展开}
-\begin{center}\input{assets/tikz/F022_fraction_plus_cycle}\end{center}
-令 $u=f(x)$，已知 $u\ne1$。先检查下一次的分母：
+
+
+
+
+\textbf{（1）变号：} 不管开始是什么数 $u$，一次变成 $-u$，两次成为 $-(-u)=u$。
+因此从 $x$ 走到 $x+a$，再走到 $x+2a$，函数值恢复。
+\[
+ f(x+2a)=-f(x+a)=-[-f(x)]=f(x).
+\]
+\input{assets/tikz/F022_reciprocal_curve}
+\textbf{（2）取倒数：}对任何 $u\ne0$，$u\to1/u\to1/(1/u)=u$；取负倒数也一样：
+\[
+ u\longrightarrow-\frac1u\longrightarrow
+ -\frac1{-1/u}=u.
+\]
+因此 $f(x+a)=\pm1/f(x)$ 只要\textbf{正负号是同一个固定选择}，就有 $f(x+2a)=f(x)$。
+
+\textbf{（3）加起来是定数：}例如 $f(x+1)=5-f(x)$，若初值为 $2$，则
+$2\to3\to2$；一般从 $u$ 出发是 $u\to 5-u\to5-(5-u)=u$。
+所以 $f(x+a)=c-f(x)$ 也有 $f(x+2a)=f(x)$。
+
+\input{assets/tikz/F022_negative_reciprocal}
+\textbf{（4）倒数前乘定数：} 若 $c\ne0$、$u\ne0$，
+\[
+ u\longrightarrow\frac{c}{u}\longrightarrow\frac{c}{c/u}=u.
+\]
+所以 $f(x+a)=c/f(x)$ 也有 $2a$ 为周期（若 $a<0$，取其绝对值）。
+
+\end{proofbox}\clearpage\begin{proofbox}\textbf{证明方法二：常规代入与换字母——高考答题最稳妥}
+\input{assets/tikz/F022_input_difference}
+
+
+\textbf{（1）已知 $f(x+a)=f(x)$：}它已经符合周期定义，故 $|a|$ 是一个正周期。
+
+\textbf{（2）已知 $f(x+a)=-f(x)$：}把条件中的 $x$ 换成 $x+a$：
+\[
+\begin{aligned}
+ f(x+2a)&=-f(x+a)\\&=-(-f(x))=f(x).
+\end{aligned}
+\]
+
+\textbf{（3）已知 $f(x+a)=1/f(x)$：}由于函数值不等于 $0$，
+\[
+ f(x+2a)=\frac{1}{f(x+a)}=\frac{1}{1/f(x)}=f(x).
+\]
+若条件是负倒数，则两处负号也会同时消去（详见方法一）。
+
+\textbf{（4）已知 $f(x+a)=f(x+b)$：}令 $t=x+b$，也就是 $x=t-b$，于是
+\[
+ f(t+a-b)=f(t),
+\]
+因此 $|a-b|$ 是一个正周期。注意 $a\ne b$，而 $a$ 或 $b$ 本身可以等于 $0$。
+
+\textbf{（5）为何负的 $a$ 也行？} 若已证明 $f(x+2a)=f(x)$，
+当 $a<0$ 时，令 $h=-2a>0$，将式中的 $x$ 换为 $x+h$，便有
+\[
+ f(x)=f(x+h),\qquad h=2|a|.
+\]
+即一个向左走的重复距离，也能改写成向右走相同距离的重复。
+
+\medskip
+\end{proofbox}\clearpage\begin{proofbox}\textbf{证明方法三：看图像的“翻折”，再把两次翻折连起来}
+\input{assets/tikz/F022_height_flip}
+
+
+若 $f(x+a)=c-f(x)$，整理为
+\[
+ f(x+a)-\frac c2=-\left(f(x)-\frac c2\right).
+\]
+意思是：同样右移 $a$ 后，函数值与水平线 $y=c/2$ 的距离不变，只是上下换边。
+再右移一次，便回到原来的高度，故 $f(x+2a)=f(x)$。
+
+这个办法尤其适合理解 $f(x+a)=-f(x)$：此时 $c=0$，
+函数值在 $x$ 轴上下交替。\textbf{图像能帮助理解，严格证明仍是上面的两次等式代入。}
+
+
+
+
+
+\end{proofbox}\clearpage\begin{proofbox}\textbf{第一种：}$\displaystyle f(x+a)=\frac{f(x)+1}{f(x)-1}$，且对每个允许的 $x$，$f(x)\ne1$。
+\input{assets/tikz/F022_fraction_plus_iteration}
+
+令 $u=f(x)$。从条件得到 $f(x+a)=(u+1)/(u-1)$。
+再次使用之前先看新的分母：
 \[
  f(x+a)-1=\frac{u+1}{u-1}-1=\frac{2}{u-1}\ne0.
 \]
-再把条件中的 $x$ 换成 $x+a$，逐步代入：
+于是再次代入完全合法：
 \[
 \begin{aligned}
  f(x+2a)
- &=\frac{f(x+a)+1}{f(x+a)-1}\\[5pt]
- &=\frac{\dfrac{u+1}{u-1}+1}{\dfrac{u+1}{u-1}-1}\\[5pt]
- &=\frac{\dfrac{u+1+u-1}{u-1}}{\dfrac{u+1-(u-1)}{u-1}}\\[5pt]
- &=\frac{\dfrac{2u}{u-1}}{\dfrac{2}{u-1}}=u=f(x).
+ &=\frac{f(x+a)+1}{f(x+a)-1}\\[4pt]
+ &=\frac{\frac{u+1}{u-1}+1}{\frac{u+1}{u-1}-1}\\[6pt]
+ &=\frac{\frac{(u+1)+(u-1)}{u-1}}{\frac{(u+1)-(u-1)}{u-1}}\\[6pt]
+ &=\frac{\frac{2u}{u-1}}{\frac2{u-1}}
+ =u=f(x).
 \end{aligned}
 \]
-因此 $2a$ 是一个非零周期，取正值得 $\boxed{T=2|a|}$。负平移可由换元得到相反方向的正平移。
-\end{proofbox}
-\clearpage
-\begin{proofbox}
-\textbf{新增证明二：第二种分式注意括号与正负号}
-\begin{center}\input{assets/tikz/F022_fraction_minus_cycle}\end{center}
-令 $u=f(x)$，已知 $u\ne-1$。下一次的分母同样不会为零：
+所以 $2|a|$ 是一个正周期。
+
+
+\end{proofbox}\clearpage\begin{proofbox}\textbf{第二种：}$\displaystyle f(x+a)=\frac{1-f(x)}{1+f(x)}$，且 $f(x)\ne-1$。
+\input{assets/tikz/F022_fraction_minus_iteration}
+
+同样记 $u=f(x)$。再次使用之前先检查
 \[
- 1+f(x+a)=1+\frac{1-u}{1+u}=\frac{2}{1+u}\ne0.
+ 1+f(x+a)=1+\frac{1-u}{1+u}=\frac2{1+u}\ne0.
 \]
-连续使用两次条件：
+然后
 \[
 \begin{aligned}
  f(x+2a)
- &=\frac{1-f(x+a)}{1+f(x+a)}\\[5pt]
- &=\frac{1-\dfrac{1-u}{1+u}}{1+\dfrac{1-u}{1+u}}\\[5pt]
- &=\frac{\dfrac{1+u-(1-u)}{1+u}}{\dfrac{1+u+1-u}{1+u}}\\[5pt]
- &=\frac{\dfrac{2u}{1+u}}{\dfrac{2}{1+u}}=u=f(x).
+ &=\frac{1-f(x+a)}{1+f(x+a)}\\[4pt]
+ &=\frac{1-\frac{1-u}{1+u}}{1+\frac{1-u}{1+u}}\\[6pt]
+ &=\frac{\frac{(1+u)-(1-u)}{1+u}}{\frac{(1+u)+(1-u)}{1+u}}\\[6pt]
+ &=\frac{\frac{2u}{1+u}}{\frac2{1+u}}
+ =u=f(x).
 \end{aligned}
 \]
-所以 $\boxed{T=2|a|}$ 是一个正周期。
+所以 $2|a|$ 也是一个正周期。
+
+\textbf{为什么要把每一步写出来？}因为“第一次分母不为 $0$”还不够，第二次代入时的新分母也必须不为 $0$。
+
+\end{proofbox}\clearpage\begin{proofbox}\textbf{眼前一亮：两条不同的对称轴，为什么会带来周期？}
+\input{assets/tikz/F022_two_axes_period}
+
+
+设函数定义在整个实数范围内，图像既关于直线 $x=p$ 对称，也关于 $x=q$ 对称，其中 $p\ne q$。
+这相当于对所有 $x$，有
+\[
+ f(2p-x)=f(x),\qquad f(2q-x)=f(x).
+\]
+先按第一条等式把 $x$ 换到 $2p-x$，再在第二条等式里取 $2p-x$ 这个输入：
+\[
+\begin{aligned}
+ f\bigl(2q-(2p-x)\bigr)
+ &=f(2p-x)\\&=f(x).
+\end{aligned}
+\]
+而 $2q-(2p-x)=x+2(q-p)$，所以
+\[
+ \boxed{f(x+2(q-p))=f(x),\quad 2|q-p|\text{ 是一个正周期}.}
+\]
+\textbf{用直白的话说：}翻到第一条轴的另一边，再翻到第二条轴的另一边，
+最后效果就像把整幅图平移了两条轴间距的两倍。
+这是周期与图像对称性之间的重要联系，可与 F023、F024 的内容互相参照。
 \end{proofbox}

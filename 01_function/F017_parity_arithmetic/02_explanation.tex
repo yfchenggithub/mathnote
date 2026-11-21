@@ -1,37 +1,125 @@
+\clearpage
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
+\textbf{\textcolor{CExplanation}{一、这些规则是怎么想到的？}}
+\input{assets/tikz/F017_overview}
 
-	把自变量 $x$ 换成 $-x$：奇函数的函数值变号，偶函数的函数值不变。
-	看运算后的整个式子是否变号，就能判断结果的奇偶性。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{加减法：看能否整体提出符号}}
+先不背口诀，只做一件事：\textbf{把 $x$ 换成 $-x$，看看函数值发生什么变化。}
 
-	如果 $f$、$g$ 都是奇函数，那么
-	\[
-		f(-x)+g(-x)=-f(x)-g(x)=-\bigl(f(x)+g(x)\bigr).
-	\]
-	整个和变号，所以仍为奇函数。同为偶函数时，两项都不变，
-	和或差也不变。
+\begin{itemize}[leftmargin=*,itemsep=0.3em,topsep=0.3em]
+\item 奇函数：$f(-x)=-f(x)$。比如 $y=x^3$，把 $x=2$ 换成 $x=-2$，
+函数值由 $8$ 变成 $-8$；图像上对应的两个点关于原点对称。
+\item 偶函数：$g(-x)=g(x)$。比如 $y=x^2$，把 $x=2$ 换成 $x=-2$，
+函数值都等于 $4$；图像上对应的两个点关于 $y$ 轴对称。
+\end{itemize}
 
-	若一个奇、一个偶，例如 $x+x^2$，代入 $-x$ 后只有其中一项变号，
-	通常无法给整个式子提出同一个正号或负号。
+所以奇偶性并不是在研究函数值本身是奇数还是偶数，而是在研究\textbf{同样远的左、右两个位置的高度关系}。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{乘除法：数变号的次数}}
+\medskip
 
-	奇函数因子遇到 $-x$ 会变号，偶函数因子不会。
-	两个奇函数相乘，变号两次，结果不变，所以乘积为偶函数；
-	只有一个奇函数因子时，结果变号，所以乘积为奇函数。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{二、加减为什么要求“同类”？}}
+\input{assets/tikz/F017_odd_sum}
 
-	商也按同样方法判断，但先要删去分母等于零的点。
-	例如 $x/x$ 在 $x\ne 0$ 上等于 $1$，是偶函数；
-	不能因为它约去后等于 $1$，就把 $x=0$ 加回原定义域。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{记忆方法}}
+想象在同一个位置，把两条图像的高度相加。
+若两条图像从右边到左边时都变成相反数，那么相加后的高度也变成相反数：
+\[
+(-a)+(-b)=-(a+b),\qquad(-a)-(-b)=-(a-b).
+\]
+因此“奇加奇”和“奇减奇”仍是奇函数。
+若两条图像左右高度都相同，则相加、相减以后左右也相同，仍是偶函数。
 
-	乘除法可记为：\textbf{出现奇函数的次数为奇数次，结果为奇；
-		出现偶数次，结果为偶。} 加减法则要分别检查每一项，
-	不能直接套用这条口诀。
+但如果一条左右反号，另一条左右不变，那么就得到
+\[
+\underbrace{a+b}_{x\text{ 处}},\qquad
+\underbrace{-a+b}_{-x\text{ 处}}.
+\]
+它们一般既不相等，也不互为相反数。所以“奇加偶”\textbf{不能照搬乘法口诀}。
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{三、乘除为什么只需数负号？}}
+\input{assets/tikz/F017_product}
+
+
+奇函数在 $x$ 变为 $-x$ 时贡献一个负号；偶函数不贡献负号。
+\[
+\underbrace{(-a)(-b)}_{\text{两个负号}}=ab,\qquad
+\underbrace{(-a)b}_{\text{一个负号}}=-ab.
+\]
+两个负号抵消，乘积左右不变，是偶函数；一个负号留下，乘积左右相反，是奇函数。
+除法也一样，例如
+\[
+\frac{-a}{-b}=\frac ab,\qquad \frac{-a}{b}=-\frac ab
+\qquad(b\ne0).
+\]
+\textbf{记住：乘除看有几个奇函数，加减看每一项是否一起变号。}
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{四、一个容易忽略的“小洞”}}
+\input{assets/tikz/F017_quotient_hole}
+
+
+$\dfrac{x}{x}=1$ 看上去是常数，常数函数 $y=1$ 确实是偶函数。
+但原式在 $x=0$ 时不能计算，所以它是\textbf{定义在 $x\ne0$ 上的偶函数}。
+化简式子可以约掉因子，却不能顺手把原来不能取的数补回去。
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{五、眼前一亮：任何函数都能拆出一奇一偶}}
+\input{assets/tikz/F017_decomposition}
+
+
+不仅可以把奇函数、偶函数组合起来，\textbf{反过来，任何定义域左右对应的函数都能拆成一部分“左右相同”与一部分“左右相反”。}
+
+给出任意函数 $H(x)$，只要 $x$ 与 $-x$ 都能取，令
+\[
+\boxed{\begin{aligned}
+E(x)&=\frac{H(x)+H(-x)}{2},\\
+O(x)&=\frac{H(x)-H(-x)}{2}.
+\end{aligned}}
+\]
+把 $x$ 换成 $-x$：$E$ 完全不变，所以是偶函数；$O$ 变成相反数，所以是奇函数。
+而且
+\[
+E(x)+O(x)=H(x).
+\]
+也就是说，\textbf{任何这样的函数都能写成“偶函数 $+$ 奇函数”}。
+例如 $H(x)=x^2+3x+2$，就拆成
+\[
+\underbrace{x^2+2}_{\text{偶函数}}
++\underbrace{3x}_{\text{奇函数}}.
+\]
+这让“奇加偶通常既非奇也非偶”变得直观：\textbf{两个不同的部分同时存在，左右就很难保持同一种对称。}
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{六、与旧知识联系起来}}
+\input{assets/tikz/F017_odd_product}
+
+
+看到 $x^2$，马上想到 $(-x)^2=x^2$；因此只由 $x^2$ 组成的表达式（在有定义的地方）常能直接看出是偶函数；
+再乘一个 $x$，就往往得到奇函数，例如
+\[
+\frac{x^3}{x^2+1}
+=x\cdot\frac{x^2}{x^2+1}.
+\]
+右边是“奇函数 $\times$ 偶函数”，所以整个式子是奇函数。
+这是把初中学过的偶次方、负数相乘，与高中的函数图像对称性连接起来。
 \end{explanationbox}

@@ -1,85 +1,125 @@
+\clearpage
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例 1（基础）}}
+\textbf{\textcolor{CExample}{例一：从一小截直线，自己“画”出周期（初中生也能懂）}}
+\input{assets/tikz/F027_odd_triangle}
 
-	\textbf{\textcolor{CExample}{题目：}}
-	设 $f(x)$ 是定义在 $\mathbb{R}$ 上的奇函数，且图像关于直线 $x=2$ 对称。求 $f(x)$ 的最小正周期。
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（对称性代数化）：}] 由图像关于 $x=2$ 对称，得 $f(2+x)=f(2-x)$（对任意 $x$）。
-			\par\textbf{理由：} 对称轴定义：$f(a+x)=f(a-x)$ 表示关于 $x=a$ 对称。
-		\item[\textbf{第二步（奇函数条件）：}] 由 $f(x)$ 为奇函数，得 $f(-x)=-f(x)$。
-			\par\textbf{理由：} 奇函数定义。
-		\item[\textbf{第三步（核心递推推导）：}] 在 $f(2+x)=f(2-x)$ 中，将 $x$ 替换为 $x-2$ 得 $f(x)=f(4-x)$；再将 $x$ 替换为 $-x$ 得 $f(-x)=f(4+x)$。结合奇函数得 $f(4+x)=-f(x)$，即 $f(x+4)=-f(x)$。
-			\par\textbf{理由：} 变量代换及奇函数代换。
-		\item[\textbf{第四步（周期迭代）：}] 由 $f(x+4)=-f(x)$，得
-			\[
-				\begin{aligned}
-					f(x+8) &= f((x+4)+4) \\
-					&= -f(x+4) \\
-					&= -(-f(x)) \\
-					&= f(x),
-			\end{aligned}
-			\]
-			故周期 $8$。根据推导，$8$ 是最小正周期。
-			\par\textbf{理由：} 迭代代入。
-	\end{description}
+\textbf{题目：}一个函数是奇函数，图像关于 $x=1$ 对称。在 $0\le x\le1$ 上，它就是 $f(x)=x$。画出 $0\le x\le4$ 的图像，并求 $f(2026.5)$。
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{最小正周期为 $8$。}
+\textbf{一步一步来：}
+\begin{enumerate}[leftmargin=*,itemsep=0.3em]
+ \item 先画 $(0,0)$ 到 $(1,1)$，这是一条上升的直线。
+ \item 关于 $x=1$ 翻折，所以 $(1,1)$ 到 $(2,0)$ 是一条下降的直线；$1\le x\le2$ 时 $f(x)=2-x$。
+ \item 由上一结论 $f(x+2)=-f(x)$，所以把 $[0,2]$ 上图像向右移 $2$ 格，再关于 $x$ 轴翻折，便得 $[2,4]$ 上的图像。点依次为 $(2,0)$、$(3,-1)$、$(4,0)$。
+ \item 于是每隔 $4$ 重复一次：$2026.5=4\times506+2.5$，因此 $f(2026.5)=f(2.5)$。
+ \item 因为 $2.5=0.5+2$，所以 $f(2.5)=-f(0.5)=-0.5$。
+\end{enumerate}
+\[
+\boxed{f(2026.5)=-\tfrac12}.
+\]
+\textbf{图像抓手：}只需记住第一段从 $(0,0)$ 上升到 $(1,1)$，然后按对称规律翻折、翻折，整条图像便被画出来。上图已直接标出对应的分段折线。
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+\medskip
 
-	\textbf{\textcolor{CExample}{题目：}}
-	设 $f(x)$ 是定义在 $\mathbb{R}$ 上的偶函数，且图像关于点 $(1,0)$ 对称。已知 $f(0)=3$，求 $f(2024)$。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例二：偶函数加点对称，也能只画折线}}
+\input{assets/tikz/F027_even_triangle}
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（对称性代数化）：}] 由关于点 $(1,0)$ 对称，得 $f(1+x)=-f(1-x)$（对任意 $x$）。
-			\par\textbf{理由：} 中心对称定义：$f(a+x)+f(a-x)=0$。
-		\item[\textbf{第二步（偶函数条件）：}] $f(-x)=f(x)$。
-			\par\textbf{理由：} 偶函数定义。
-		\item[\textbf{第三步（核心递推）：}] 在 $f(1+x)=-f(1-x)$ 中，将 $x$ 替换为 $x-1$ 得 $f(x)=-f(2-x)$；再将 $x$ 替换为 $-x$ 得 $f(-x)=-f(2+x)$。结合偶函数 $f(-x)=f(x)$，得 $f(x)=-f(2+x)$，即 $f(x+2)=-f(x)$。
-			\par\textbf{理由：} 变量代换与偶函数代换。
-		\item[\textbf{第四步（周期迭代）：}] 由 $f(x+2)=-f(x)$，得
-			\[
-				\begin{aligned}
-					f(x+4) &= f((x+2)+2) \\
-					&= -f(x+2) \\
-					&= -(-f(x)) \\
-					&= f(x),
-			\end{aligned}
-			\]
-			故周期 $4$。
-			\par\textbf{理由：} 迭代代入。
-		\item[\textbf{第五步（求值）：}] 因为 $2024=4\times 506+0$，所以 $f(2024)=f(0)=3$。
-			\par\textbf{理由：} 周期定义。
-	\end{description}
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$f(2024)=3$。}
+\textbf{题目：}偶函数 $g(x)$ 的图像关于点 $(1,0)$ 对称，且在 $0\le x\le2$ 上有 $g(x)=1-x$。求 $g(2026)$。
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+\textbf{画图：}先画从 $(0,1)$ 经过 $(1,0)$ 到 $(2,-1)$ 的直线。由 $g(x+2)=-g(x)$，在 $[2,4]$ 上画从 $(2,-1)$ 经过 $(3,0)$ 到 $(4,1)$ 的直线。可以看到 $0$ 和 $4$ 高度相同，$1$ 和 $3$ 都在 $x$ 轴上。
 
-	\textbf{\textcolor{CExample}{题目：}}
-	已知 $f(x)$ 是定义在 $\mathbb{R}$ 上的奇函数，且满足 $f(1+x)=f(1-x)$。当 $x\in[0,1]$ 时，$f(x)=2^x-1$。求 $f(2023)$。
+\textbf{计算：}$2026=4\times506+2$，因此
+\[
+g(2026)=g(2)=1-2=\boxed{-1}.
+\]
+\textbf{为什么这里 $g(1)=0$？}因为 $(1,0)$ 是图像的对称中心，对称中心自身的高度只能是 $0$。这和上一种搭配的 $f(0)=0$ 是两个不同的零点来源。
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（对称性代数化）：}] 由 $f(1+x)=f(1-x)$，得图像关于 $x=1$ 对称。进而 $f(x)=f(2-x)$（将 $x$ 替换为 $x-1$）。
-			\par\textbf{理由：} 对称性定义。
-		\item[\textbf{第二步（奇函数条件）：}] $f(-x)=-f(x)$。
-			\par\textbf{理由：} 奇函数定义。
-		\item[\textbf{第三步（核心递推）：}] 由 $f(x)=f(2-x)$，将 $x$ 替换为 $-x$ 得 $f(-x)=f(2+x)$，结合奇函数得 $-f(x)=f(2+x)$，即 $f(x+2)=-f(x)$。
-			\par\textbf{理由：} 变量代换与奇函数代换。
-		\item[\textbf{第四步（周期迭代）：}] 由 $f(x+2)=-f(x)$ 得 $f(x+4)=f(x)$，故周期 $4$。
-			\par\textbf{理由：} 迭代代入。
-		\item[\textbf{第五步（求值）：}] $2023\div4=505\cdots 3$，所以 $f(2023)=f(3)$。由周期 $4$，$f(3)=f(3-4)=f(-1)$。由奇函数 $f(-1)=-f(1)$。而 $f(1)=2^1-1=1$，所以 $f(2023)=-1$。
-			\par\textbf{理由：} 周期转化与奇函数转化。
-	\end{description}
+\medskip
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$f(2023)=-1$。}
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例三：没有具体式子，也能算很大的函数值}}
+\input{assets/tikz/F027_even_value_three}
+
+
+\textbf{题目：}设 $f(x)$ 是定义在 $\mathbb{R}$ 上的偶函数，图像关于 $(1,0)$ 对称，$f(0)=3$，求 $f(2024)$。
+
+由偶函数、点对称两条信息，直接得 $f(x+2)=-f(x)$，继而 $f(x+4)=f(x)$。因为
+\[
+2024=4\times506+0,
+\]
+所以 $f(2024)=f(0)=\boxed{3}$。\textbf{题目没有让求最小正周期，完全不必去猜它。}
+
+\medskip
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例四：高考常见的“先化小，再用奇偶性”}}
+\input{assets/tikz/F027_odd_exponential}
+
+
+\textbf{题目：}奇函数 $f$ 满足 $f(1+t)=f(1-t)$，且 $0\le x\le1$ 时 $f(x)=2^x-1$。求 $f(2023)$。
+
+\textbf{第一步：}奇函数 $+$ $x=1$ 对称，故 $f(x+2)=-f(x)$，$f(x+4)=f(x)$。
+
+\textbf{第二步：}把大数变小：
+\[
+2023=4\times505+3\quad\Rightarrow\quad f(2023)=f(3).
+\]
+\textbf{第三步：}用 $f(x+2)=-f(x)$ 更快：
+\[
+f(3)=-f(1)=-\bigl(2^1-1\bigr)=\boxed{-1}.
+\]
+\textbf{更快的诀窍：}当余数是 $3$ 时，与其往前退 $4$，不如往前退 $2$，只需变一次负号。
+
+\medskip
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例五：专门识破“最小正周期”陷阱}}
+\input{assets/tikz/F027_different_minimum}
+
+
+\textbf{题目：}两个函数都为奇函数，也都关于直线 $x=1$ 对称：
+\[
+p(x)=\sin\frac{\pi x}{2},\qquad q(x)=\sin\frac{3\pi x}{2}.
+\]
+它们的最小正周期相同吗？
+
+\textbf{第一步：}两者都是奇函数，因为 $\sin(-u)=-\sin u$。
+
+\textbf{第二步：}设 $t$ 为任意实数：
+\[
+\begin{aligned}
+p(1+t)&=\sin(\tfrac\pi2+\tfrac{\pi t}{2})=\cos\tfrac{\pi t}{2}=p(1-t),\\
+q(1+t)&=\sin(\tfrac{3\pi}{2}+\tfrac{3\pi t}{2})=-\cos\tfrac{3\pi t}{2}=q(1-t).
+\end{aligned}
+\]
+所以二者都满足同一条轴对称条件，都以 $4$ 为一个周期。
+
+\textbf{第三步：}但 $p(x)$ 中角度变化 $2\pi$ 需要 $x$ 增加 $4$；$q(x)$ 中角度变化 $2\pi$ 只需要 $x$ 增加 $\frac43$。所以
+\[
+\boxed{T_{p,\min}=4,\qquad T_{q,\min}=\tfrac43}.
+\]
+\textbf{这就说明：}同样的奇偶性、同样的对称轴，并不等于同样的最小正周期。这是原结论中最值得特别修正的地方。
+
+\medskip
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例六：当 $a<0$，不要把周期写成负数}}
+\input{assets/tikz/F027_negative_axis}
+
+
+\textbf{题目：}奇函数 $h$ 关于直线 $x=-1$ 对称。能得到什么？
+
+代 $a=-1$，先得到 $h(x-2)=-h(x)$，把 $x$ 换成 $x+2$，便有 $h(x+2)=-h(x)$。所以 $h(x+4)=h(x)$；\textbf{$4$ 是一个正周期，并不保证最小。}如果已知 $h(0)=0$，还可得 $h(2)=0$、$h(4)=0$。
 \end{examplebox}

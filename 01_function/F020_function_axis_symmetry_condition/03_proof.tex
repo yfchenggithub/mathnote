@@ -1,46 +1,88 @@
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
-	利用对称点坐标关系，分别证明充分性和必要性。
+  \textbf{\textcolor{CProof}{先说明要证明什么}}
+  我们要证明的是：\textbf{只要定义域左右成对}，
+  “沿 $x=a$ 折叠后图象重合”和“所有成对位置函数值相同”其实是一回事。
+  下面按理解难度从低到高给出三种讲法。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（对称点坐标）：}]
-			设 $P(x,f(x))$ 是图象上任意一点，则它关于直线 $x=a$ 的对称点 $P'$ 的坐标为 $(2a-x,f(x))$。
-			\[
-				P'(2a-x,f(x))
-			\]
-			\par\textbf{理由：} 对称点横坐标满足 $(x+x')/2=a$，纵坐标相同。
-		\item[\textbf{步骤二（必要性证明）：}]
-			若图象关于 $x=a$ 对称，则 $P'$ 在图象上，故 $f(2a-x)=f(x)$。
-			\[
-				f(2a-x)=f(x)
-			\]
-			令 $t=x-a$，得 $f(a-t)=f(a+t)$，即
-			\[
-				f(a+x)=f(a-x)
-			\]
-			对任意偏移量 $x$ 成立。
-			\par\textbf{理由：} 对称定义；变量代换 $x=a+t$。
-		\item[\textbf{步骤三（充分性证明）：}]
-			若 $f(a+x)=f(a-x)$ 恒成立，则对任意 $x$，
-			\[
-				f(2a-x) = f(a-(x-a))
-			\]
-			\[
-				f(a-(x-a)) = f(a+(x-a))
-			\]
-			\[
-				f(a+(x-a)) = f(x)
-			\]
-			因此 $f(2a-x)=f(x)$，点 $(2a-x,f(x))$ 在图象上，即 $P'$ 在图象上。由 $P$ 的任意性知图象关于 $x=a$ 对称。
-			\par\textbf{理由：} 条件恒等式代入；对称点定义。
-		\item[\textbf{步骤四（结论整合）：}]
-			在定义域关于 $x=a$ 对称的前提下，$f(a+x)=f(a-x)$ 恒成立是图象关于 $x=a$ 对称的充要条件。
-			\par\textbf{理由：} 必要性、充分性均已证明。
-	\end{description}
+  \medskip
+  \textbf{\textcolor{CProof}{方法一：折纸法——只用初中轴对称（门槛最低）}}
+\input{assets/tikz/F020_axis_pairs}
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-	\textbf{函数图象关于直线 $x=a$ 对称 $\Longleftrightarrow$ $f(a+x)=f(a-x)$ 对定义域内任意允许的 $x$ 恒成立。}
+  \begin{enumerate}[leftmargin=*,itemsep=0.5em]
+    \item 取图象上一点 $P$，让它的横坐标为 $a+t$，那么
+      $P=(a+t,f(a+t))$。
+    \item 沿着竖直线 $x=a$ 对折。点 $P$ 离竖线水平距离为 $|t|$，
+      对折后在另一侧同样远的位置，横坐标变成 $a-t$，高度却不改变。
+      因此折过去的点是 $(a-t,f(a+t))$。
+    \item \textbf{如果原图确实左右重合}，折过去的点也一定在原图上。
+      而原图在横坐标 $a-t$ 处的高度叫做 $f(a-t)$，于是
+      \[
+        f(a+t)=f(a-t).
+      \]
+    \item \textbf{反过来}，如果定义域左右成对，并且每一对位置的高度都相同，
+      那么图象上任意一点折过去，都能找到原来图象上的对应点。
+      所有点都能对应，整幅图象便关于 $x=a$ 对称。
+  \end{enumerate}
+  \textbf{这一步最关键：}不能只看两三对点；这里的“任意一点”意味着整条图象。
+
+  \medskip
+  
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法二：中点法——两边横坐标的平均数是 $a$（做题最快）}}
+\input{assets/tikz/F020_mirror_positions}
+
+  \begin{enumerate}[leftmargin=*,itemsep=0.5em]
+    \item 在图象上取点 $P=(x,f(x))$。它在镜子另一侧的点的横坐标设为 $u$。
+    \item 这两个横坐标中间恰好是 $a$，所以
+      \[
+        \frac{x+u}{2}=a \quad\Longrightarrow\quad u=2a-x.
+      \]
+      对折不会改变高度，故镜像位置应为 $(2a-x,f(x))$。
+    \item 如果图象关于 $x=a$ 对称，该镜像点在图象上，
+      因此 $f(2a-x)=f(x)$。
+    \item 反过来，若\textbf{所有} $x$ 都有 $2a-x$ 也在定义域中，且
+      $f(2a-x)=f(x)$，则任取 $P$，它的镜像点恰好也在图象上。
+      所以图象可以沿 $x=a$ 折叠重合。
+  \end{enumerate}
+  \textbf{得到同一个结论：}
+  \[
+    \boxed{f(x)=f(2a-x)}.
+  \]
+  把 $x$ 换成 $a+t$，右边就变成 $a-t$，于是得到 $f(a+t)=f(a-t)$。
+  \textbf{用法：}知道一侧的值时，直接把自变量换成 $2a-x$，不用重新算。
+
+  \medskip
+  
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法三：平移法——把对称轴移到 $0$，联系偶函数}}
+\input{assets/tikz/F020_shift_even}
+
+  \begin{enumerate}[leftmargin=*,itemsep=0.5em]
+    \item 假设原图象想要以 $x=a$ 为对称轴。我们改用 $t=x-a$ 表示横坐标，
+      等于把“原来的 $a$ 位置”当成新的 $0$。
+    \item 记 $g(t)=f(a+t)$。那么新图象在 $t$ 和 $-t$ 处的高度分别是
+      \[
+        g(t)=f(a+t),\qquad g(-t)=f(a-t).
+      \]
+    \item 如果 $f(a+t)=f(a-t)$ 对所有允许的 $t$ 成立，
+      那么 $g(t)=g(-t)$。这正是高中学过的偶函数的定义：
+      新图象关于 $t=0$ 对称。
+    \item 把横坐标原点再移回去，$t=0$ 对应 $x=a$，
+      所以原图象关于 $x=a$ 对称。反过来按同样步骤倒着做，也成立。
+  \end{enumerate}
+  \textbf{注意：}平移前后都要保留完整的定义域。原定义域关于 $a$ 对称，
+  新定义域才关于 $0$ 对称。
+
+  \medskip
+  \textbf{\textcolor{CProof}{三种方法怎么选？}}
+  \begin{itemize}[leftmargin=*,itemsep=0.35em]
+    \item 想让初中生一听就懂：选\textbf{折纸法}。
+    \item 已知对称轴，要求值、求未知数或求另一半解析式：选\textbf{中点法}。
+    \item 题目同时出现偶函数、平移后的函数：选\textbf{平移法}。
+  \end{itemize}
 \end{proofbox}

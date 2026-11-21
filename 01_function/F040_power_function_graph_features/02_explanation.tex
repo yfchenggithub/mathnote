@@ -1,43 +1,104 @@
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
+  \textbf{\textcolor{CExplanation}{一、为什么要单独研究幂函数？}}
 
-	幂函数 $y=x^\alpha$ 的图像“千变万化”但万变不离其宗：所有图像都经过 $(1,1)$，并且形状完全由指数 $\alpha$ 的取值控制 —— $\alpha$ 的正负决定增减，$\alpha$ 与 $1$ 的大小决定凹凸。
+  初中已经学过正比例函数 $y=x$、二次函数 $y=x^2$、反比例函数 $y=1/x$；它们看起来很不同，却可以统一写成 $y=x^\alpha$，指数分别是 $1,2,-1$。再加入 $y=\sqrt{x}=x^{1/2}$，就能发现：只改变一个指数，便能得到很多不同的图像。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（定点性质）：}] 无论 $\alpha$ 取何非零值，一定有 $1^\alpha = 1$，因此 $(1,1)$ 是所有幂函数图像的公共点。这是推导比较法则的基准点。
-		\item[\textbf{要点二（单调凸性）：}] 当 $\alpha>0$ 时函数在 $(0,+\infty)$ 上单调递增，但 $\alpha>1$ 时下凸（增长越来越快），$0<\alpha<1$ 时上凸（增长越来越慢）；$\alpha<0$ 时单调递减，图像呈双曲线型。
-		\item[\textbf{要点三（比较法则）：}] 在同底 $x$ 的情况下，若 $x>1$ 则指数越大值越大；若 $0<x<1$ 则指数越大值越小。这一法则是借助指数函数 $f(t)=x^t$ 的单调性得到的。
-	\end{description}
+  \medskip
+  \textbf{\textcolor{CExplanation}{二、为什么幂函数前面的系数必须是 $1$？}}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（凹凸直觉）}}
+  这不是由某条定理强迫得到的，而是高中数学对幂函数的定义。这样规定的好处，是把指数对图像的影响与前面系数对图像的影响分开。
 
-	“下凸”指曲线位于其切线上方，$\alpha>1$ 时图像越来越陡；“上凸”指曲线位于其切线下方，$0<\alpha<1$ 时图像越来越平缓。$\alpha<0$ 时图像以坐标轴为渐近线，向两边无限靠近但不相交。
+  想象把同一张函数图沿竖直方向拉长或压扁：$y=x^2$ 变成 $y=2x^2$，每一点的高度变为两倍；变成 $y=\frac12x^2$，高度变为一半；变成 $y=-\frac12x^2$，还要关于 $x$ 轴翻转。横坐标始终不变。
+  \begin{center}
+  \begin{tikzpicture}[x=1.35cm,y=0.85cm,>=stealth]
+    \draw[->] (-1.65,0)--(2.15,0) node[right] {$x$};
+    \draw[->] (0,-1.65)--(0,3.45) node[above] {$y$};
+    \node[below left] at (0,0) {$O$};
+    \draw[gray,dashed] (1,-0.5)--(1,2);
+    \draw[orange!85!black,thick,domain=-1.25:1.25,samples=80] plot (\x,{2*\x*\x});
+    \draw[green!45!black,thick,domain=-1.65:1.65,samples=80] plot (\x,{\x*\x});
+    \draw[blue!75!black,thick,domain=-1.65:1.65,samples=80] plot (\x,{0.5*\x*\x});
+    \draw[purple,thick,domain=-1.65:1.65,samples=80] plot (\x,{-0.5*\x*\x});
+    \fill[orange!85!black] (1,2) circle (1.6pt) node[right] {$2$};
+    \fill[green!45!black] (1,1) circle (1.6pt) node[right] {$1$};
+    \fill[blue!75!black] (1,0.5) circle (1.6pt) node[right] {$\frac12$};
+    \fill[purple] (1,-0.5) circle (1.6pt) node[right] {$-\frac12$};
+    \node[above right] at (1.25,3.125) {\small $y=2x^2$};
+    \node[above left] at (-1.36,1.85) {\small $y=x^2$};
+    \node[above right] at (1.65,1.36) {\small $y=\frac12x^2$};
+    \node[below right] at (1.65,-1.36) {\small $y=-\frac12x^2$};
+    \node[below] at (1,0) {$1$};
+  \end{tikzpicture}
+  \end{center}
+  这四个函数的指数相同，却有不同的高度和方向。所以先选最基本的 $x^2$ 研究，再处理系数造成的变化，更容易弄清规律。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（函数方程）}}
+  为什么偏偏选 $1$？因为乘以 $1$ 什么也不改变。对一般式 $y=Ax^\alpha$，$x=1$ 时 $y=A$；固定 $A=1$ 后，所有基本幂函数都从同一个比较点 $(1,1)$ 出发。$2x^2$ 仍然是合法的函数，只是不叫高中严格定义下的幂函数。
 
-	幂函数 $y=x^\alpha$ 可以视为二元函数 $f(x,\alpha)=x^\alpha$ 固定其中一个变量的结果。比较 $x^\alpha$ 大小：固定 $x=x_0$，则 $g(\alpha)=x_0^\alpha$ 是指数函数，单调性由 $x_0$ 是否大于 $1$ 决定；固定 $\alpha=\alpha_0$，则 $h(x)=x^{\alpha_0}$ 是幂函数，单调性由 $\alpha_0$ 正负决定。
+  生活中的例子：正方形边长为 $x$ 时，一个正方形的面积是 $x^2$，两个同样正方形的总面积是 $2x^2$。两者的面积随边长变化的倍数规律相同，但总面积始终相差两倍。研究基本的面积变化规律时，先研究一个正方形即可。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（常见考法）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（图像识别）：} 给出幂函数解析式判断图像形状，或根据图像走势反推 $\alpha$ 的范围。——用结论二分类快速锁定。
-		\item \textbf{考法二（大小比较）：} 比较两个不同指数幂函数的值，需先观察底数与 $1$ 的关系，再用指数比较法则。若底数不同，常引入中间量 $1$。
-		\item \textbf{考法三（单调性应用）：} 根据幂函数单调性解不等式，如 $x^{\alpha} < y^{\alpha}$ 等价于 $x<y$ 当 $\alpha>0$，需注意 $\alpha<0$ 时不等号反向。
-	\end{itemize}
+  \medskip
+  \textbf{\textcolor{CExplanation}{三、为什么指数正负决定上升或下降？}}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
+  以正指数 $2$ 为例，$x$ 由 $1,2,4$ 依次变大，$x^2$ 变成 $1,4,16$；而 $x^{-2}=1/x^2$ 依次变成 $1,1/4,1/16$。正指数让底数变大时幂值变大；负指数相当于先取正指数的幂，再取倒数，于是大小关系反过来。零指数则始终等于 $1$。
 
-	核心只有一个：以 $(1,1)$ 为“支点”，在 $(1,+\infty)$ 上指数大的图像跑在上面，在 $(0,1)$ 上指数小的图像跑在上面。记住这个图景就记住了比较法则。
+  \medskip
+  \textbf{\textcolor{CExplanation}{四、为什么同样是上升，曲线却有不同的形状？}}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（直接比较）：} 比较 $0.5^{0.4}$ 与 $0.5^{0.6}$ 的大小。底数 $0.5<1$，指数越大值越小，故 $0.5^{0.4}>0.5^{0.6}$。
-		\item \textbf{场景二（单调性解不等式）：} 解 $x^{0.3}<x^{0.5}$，需分 $x>1$ 和 $0<x<1$ 讨论，利用结论三和推广结论分别得到解集。
-	\end{itemize}
+  每次将 $x$ 增加同样的长度，观察 $y$ 改变了多少：
+  \begin{center}
+  \renewcommand{\arraystretch}{1.25}
+  \begin{tabular}{c|cccc}
+    $x$ & $1$ & $2$ & $3$ & $4$\\ \hline
+    $x^2$ & $1$ & $4$ & $9$ & $16$\\
+    $x$ & $1$ & $2$ & $3$ & $4$\\
+    $\sqrt{x}$ & $1$ & $\sqrt2$ & $\sqrt3$ & $2$\\
+    $1/x$ & $1$ & $1/2$ & $1/3$ & $1/4$
+  \end{tabular}
+  \end{center}
+  $x^2$ 每次增加 $3,5,7$，越来越快；$x$ 每次增加 $1$；$\sqrt{x}$ 每次增加量约为 $0.414,0.318,0.268$，越来越慢；$1/x$ 每次减少量为 $1/2,1/6,1/12$，下降也越来越慢。这几组数帮助我们看懂曲线的形状，完整理由见证明部分。
+
+  \medskip
+  \textbf{\textcolor{CExplanation}{五、为什么在 $1$ 的两边，指数比较方向恰好相反？}}
+
+  把“提高指数”想成再乘上一个相同的数：
+  \[
+     2,\ 2^2=4,\ 2^3=8;\qquad
+     \tfrac12,\ (\tfrac12)^2=\tfrac14,\ (\tfrac12)^3=\tfrac18.
+  \]
+  就像每轮翻倍的积分与每轮只剩一半的钱，前者轮数越多越大，后者轮数越多越小。整数指数只是帮助建立直觉，分数、负数和其他实数指数也满足同样的比较规律（见证明）。
+
+  \begin{center}
+  \begin{tikzpicture}[x=2.15cm,y=1.35cm,>=stealth]
+    \draw[->] (0,0)--(3.02,0) node[right] {$x$};
+    \draw[->] (0,0)--(0,3.3) node[above] {$y$};
+    \draw[gray,dashed] (1,0) node[below] {$1$}--(1,3.05);
+    \draw[gray,dashed] (0,1) node[left] {$1$}--(2.85,1);
+    \draw[orange!85!black,thick,domain=0:1.76,samples=90] plot (\x,{\x*\x}) node[above] {\small $x^2$};
+    \draw[green!45!black,thick] (0,0)--(2.7,2.7) node[above] {\small $x$};
+    \draw[blue!75!black,thick,domain=0:2.7,samples=120] plot (\x,{sqrt(\x)}) node[right] {\small $\sqrt{x}$};
+    \draw[gray,thick] (0.025,1)--(2.7,1) node[right] {\small $x^0$};
+    \draw[purple,thick,domain=0.33:2.7,samples=120] plot (\x,{1/\x}) node[right] {\small $1/x$};
+    \draw[gray,fill=white] (0,1) circle (1.6pt);
+    \fill (1,1) circle (2pt) node[above right,xshift=1pt,yshift=3pt] {\small $(1,1)$};
+    \node[below] at (0.48,-0.18) {\small $0<x<1$};
+    \node[below] at (2,-0.18) {\small $x>1$};
+    \node[below left] at (0,0) {$O$};
+  \end{tikzpicture}
+  \end{center}
+  图中讨论的是 $x>0$；正指数曲线延至原点时取值为 $0$，零指数在 $x=0$ 不取值。看虚线 $x=1$：右边指数大的在上方，左边恰好反过来。不同指数的曲线在正半轴上只有这一个交点。
+
+  \medskip
+  \textbf{\textcolor{CExplanation}{六、一个特别有用的发现：在公共点处，指数就是切线斜率}}
+
+  所有基本幂函数都经过 $(1,1)$。学过导数后会发现，$f'(1)=\alpha$。例如，$x^2$ 在此处的切线斜率为 $2$，$x$ 为 $1$，$\sqrt{x}$ 为 $1/2$，$1/x$ 为 $-1$。所以不仅能从函数式判断图像走势，也能根据图像在公共点处的切线斜率反推出指数。这是系数固定为 $1$ 带来的另一个好处。
+
+  \medskip
+  \textbf{\textcolor{CExplanation}{七、一个容易忽略的联系：幂函数与指数函数}}
+
+  同一个式子 $x^\alpha$，固定指数、改变底数，就是幂函数；固定底数、改变指数，就是我们学过的指数函数（底数为 $1$ 时是常数）。所以比较同底幂时，可以借用指数函数的增减规律，而不必算出具体数值。
+
+  \medskip
+  \textbf{\textcolor{CExplanation}{八、再进一步：为什么负指数图像靠近坐标轴？}}
+
+  写成 $x^{-p}=1/x^p$（$p>0$）。当 $x$ 越来越大，分母越来越大，结果就越来越接近 $0$；当 $x$ 从右边越来越靠近 $0$，分母越来越小，结果就越来越大。例如 $1/100=0.01$，$1/0.01=100$。但只要 $x>0$，函数值始终为正，不会碰到坐标轴。
 \end{explanationbox}

@@ -1,57 +1,161 @@
+\clearpage
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例 1（基础）}}
+\textbf{\textcolor{CExample}{例 1：初中起步——先平方，再加 3}}
+\input{assets/tikz/F018_even_shift}
 
-	\textbf{\textcolor{CExample}{题目：}}
-	判断函数 $F(x)=2^{\cos x}$ 的奇偶性。
+\textbf{题目：} 判断 $F(x)=x^2+3$ 的奇偶性，并用 $x=2,-2$ 解释。\\
+\textbf{拆成两层：} $g(x)=x^2$，$f(u)=u+3$。\\
+\textbf{算一对数：} $F(2)=4+3=7$，$F(-2)=4+3=7$。\\
+\textbf{再说明任意 $x$：} $(-x)^2=x^2$，所以 $(-x)^2+3=x^2+3$；整个函数为\textbf{偶函数}。\\
+\textbf{画图记忆：} 它是 $y=x^2$ 整体向上平移 3 个单位，仍关于 $y$ 轴对称。
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（分解函数）：}] 记 $g(x)=\cos x$，$f(u)=2^{u}$，则 $F(x)=f(g(x))$。
-			\par\textbf{理由：} 复合函数结构。
-		\item[\textbf{第二步（判断内偶）：}] 因为 $\cos(-x)=\cos x$，所以 $g(x)$ 为偶函数。
-			\par\textbf{理由：} 偶函数定义。
-		\item[\textbf{第三步（应用结论）：}] 由“内偶则偶”得，$F(x)$ 为偶函数。验证：$F(-x)=2^{\cos(-x)}$，因为$\cos(-x)=\cos x$，所以$2^{\cos(-x)}=2^{\cos x}$，故$F(-x)=F(x)$。
-			\par\textbf{理由：} 复合函数奇偶性口诀。
-	\end{description}
+\medskip
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	$F(x)$ 是偶函数。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 2：内奇外奇——乘 2 后立方}}
+\input{assets/tikz/F018_odd_cubic}
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+\textbf{题目：} 判断 $F(x)=(2x)^3$。\\
+\textbf{拆成两层：} $g(x)=2x$（奇），$f(u)=u^3$（奇）。\\
+\textbf{算一对数：} $F(1)=2^3=8$，$F(-1)=(-2)^3=-8$。\\
+\textbf{写出证明：}
+\[
+F(-x)=(-2x)^3=-(2x)^3=-F(x).
+\]
+因此 $F$ 为\textbf{奇函数}。图像关于原点对称。
 
-	\textbf{\textcolor{CExample}{题目：}}
-	判断函数 $F(x)=\sin(x^{3})$ 的奇偶性。
+\medskip
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（分解函数）：}] 记 $g(x)=x^{3}$，$f(u)=\sin u$，则 $F(x)=f(g(x))$。
-			\par\textbf{理由：} 复合函数结构。
-		\item[\textbf{第二步（判断内奇）：}] 因为 $(-x)^{3}=-x^{3}$，所以 $g(x)$ 为奇函数。
-			\par\textbf{理由：} 奇函数定义。
-		\item[\textbf{第三步（判断外奇）：}] $f(u)=\sin u$ 为奇函数（$\sin(-u)=-\sin u$）。由“内奇同外”得，$F(x)$ 为奇函数。验证：$F(-x)=\sin((-x)^{3})$，因为$(-x)^{3}=-x^{3}$，故$\sin((-x)^{3})=\sin(-x^{3})$；由$f$奇得$\sin(-x^{3})=-\sin(x^{3})$；而$\sin(x^{3})=F(x)$，所以$F(-x)=-F(x)$。
-			\par\textbf{理由：} 内奇同外（外奇则奇）。
-	\end{description}
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 3：内奇外偶——乘 2 后平方}}
+\input{assets/tikz/F018_even_square}
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	$F(x)$ 是奇函数。
+\textbf{题目：} 判断 $F(x)=(2x)^2$。\\
+\textbf{拆成两层：} 仍是 $g(x)=2x$（奇），但 $f(u)=u^2$（偶）。\\
+\textbf{算一对数：} $F(1)=4$，$F(-1)=4$。\\
+\textbf{写出证明：}
+\[
+F(-x)=(-2x)^2=(2x)^2=F(x).
+\]
+因此 $F$ 为\textbf{偶函数}。\textbf{对比例 2：里面完全一样，仅仅把外面“立方”换成“平方”，奇偶性就变了。}
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+\medskip
 
-	\textbf{\textcolor{CExample}{题目：}}
-	已知 $F(x)=f(x^{2}+1)$ 是偶函数，能否唯一确定 $f(x)$ 的奇偶性？请说明理由。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 4：看起来复杂，里面是偶函数就能秒判}}
+\input{assets/tikz/F018_cos_exponent}
 
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（分解函数）：}] 内函数 $g(x)=x^{2}+1$，外函数 $f(u)$ 未知，满足 $F(x)=f(g(x))$。
-			\par\textbf{理由：} 复合函数关系。
-		\item[\textbf{第二步（判断内偶）：}] 计算 $g(-x)=(-x)^{2}+1=x^{2}+1=g(x)$，所以 $g(x)$ 为偶函数。
-			\par\textbf{理由：} 偶函数定义。
-		\item[\textbf{第三步（分析结论）：}] 由“内偶则偶”知，无论 $f$ 具有何种奇偶性（只要定义域满足），$F$ 均为偶函数。因此 $F$ 为偶函数不能反推出 $f$ 的奇偶性。例如，取 $f(u)=u$（奇函数），此时 $F(x)=x^{2}+1$ 仍是偶函数。所以 $f$ 的奇偶性无法唯一确定。
-			\par\textbf{理由：} 内偶则偶是充分条件而非必要条件。
-	\end{description}
+\textbf{题目：} 判断 $F(x)=2^{\cos x}$。\\
+\textbf{第一步：} $g(x)=\cos x$，$f(u)=2^u$。因为 $\cos(-x)=\cos x$，内层是偶函数。\\
+\textbf{第二步：} 指数函数 $2^u$ 不是偶函数，但这不影响结论：
+\[
+F(-x)=2^{\cos(-x)}=2^{\cos x}=F(x).
+\]
+\textbf{结果：} $F$ 为偶函数。以后看到“偶函数放在里面”，先不要急着计算整个大式子。
 
-	\textbf{\textcolor{CExample}{关键结论：}}
-	不能唯一确定；内偶则偶只能保证复合函数为偶，不能逆推外层的奇偶性。
+\medskip
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 5：内奇外奇——正弦套立方}}
+\input{assets/tikz/F018_sin_cubic}
+
+\textbf{题目：} 判断 $F(x)=\sin(x^3)$。\\
+\textbf{第一步：} $g(x)=x^3$ 是奇函数，$f(u)=\sin u$ 也是奇函数。\\
+\textbf{第二步：}
+\[
+F(-x)=\sin((-x)^3)=\sin(-x^3)=-\sin(x^3)=-F(x).
+\]
+\textbf{结果：} $F$ 为奇函数。这里的两次负号变换分别来自里面的立方与外面的正弦。
+
+\medskip
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 6：外层只有一半的输入范围，也能判偶}}
+\input{assets/tikz/F018_sqrt_even}
+
+\textbf{题目：} 判断 $F(x)=\sqrt{x^2+1}$。\\
+\textbf{第一步：} $g(x)=x^2+1$ 是偶函数，对一切实数 $x$，$g(x)\geqslant1$，所以能代入 $f(u)=\sqrt{u}$。\\
+\textbf{第二步：}
+\[
+F(-x)=\sqrt{(-x)^2+1}=\sqrt{x^2+1}=F(x).
+\]
+\textbf{结果：} $F$ 为偶函数。外层只接受非负数，\textbf{根本不需要讨论外层是不是偶函数}。
+
+\medskip
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 7：反例——外层为偶，整体未必为偶}}
+\input{assets/tikz/F018_shifted_square}
+
+\textbf{题目：} $f(u)=u^2$ 是偶函数，判断 $F(x)=f(x+1)$。\\
+\textbf{拆成两层：} $g(x)=x+1$，不是奇函数，也不是偶函数。\\
+\textbf{用 $1$ 和 $-1$ 检查：}
+\[
+F(1)=(1+1)^2=4,\qquad F(-1)=(-1+1)^2=0.
+\]
+$F(-1)$ 既不等于 $F(1)$，也不等于 $-F(1)$。\textbf{结果：} 既非奇，也非偶。图像其实关于 $x=-1$ 对称，并不关于 $y$ 轴对称。
+
+\medskip
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 8：不能倒推——整体为偶不能确定外层奇偶}}
+\input{assets/tikz/F018_reverse_outer}
+
+\textbf{题目：} 已知 $F(x)=f(x^2+1)$ 是偶函数，能否判断 $f$ 的奇偶性？\\
+\textbf{解释：} 因为 $x^2+1$ 已经把 $x$ 与 $-x$ 算成同一个数，外层只要能计算，最后就同高。\\
+\textbf{举两个不同的外层：}
+\[
+\begin{array}{ll}
+f(u)=u &\Longrightarrow F(x)=x^2+1,\\
+f(u)=u^2+u &\Longrightarrow F(x)=(x^2+1)^2+(x^2+1).
+\end{array}
+\]
+第一个 $f$ 是奇函数，第二个 $f$ 既非奇也非偶，但对应的 $F$ 都是偶函数。因此\textbf{不能只从整体为偶反推外层的奇偶性}。
+
+\medskip
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 9：让人眼前一亮——两层都不是奇偶函数，整体却是奇函数}}
+\input{assets/tikz/F018_shift_cancel}
+
+\textbf{题目：} $g(x)=x+1$，$f(u)=u-1$，判断 $F(x)=f(g(x))$。\\
+\textbf{先不要套口诀：} $g(-x)=-x+1$ 既非 $g(x)$，也非 $-g(x)$，所以口诀不能直接用。\\
+\textbf{直接算：}
+\[
+F(x)=f(x+1)=(x+1)-1=x.
+\]
+因此 $F$ 是奇函数。\textbf{关键认识：} 口诀不是“有且只有”这些情况，它只是帮我们最快完成常见判断。
+
+\medskip
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 10：考场训练——条件不完整，先查定义域}}
+\input{assets/tikz/F018_sqrt_gap}
+
+\textbf{题目：} 判断 $F(x)=\sqrt{x^2-1}$ 的奇偶性。\\
+\textbf{第一步：} 因为被开方数不能为负，$x^2-1\geqslant0$，所以允许 $x\leqslant-1$ 或 $x\geqslant1$，这个范围左右对称。\\
+\textbf{第二步：} 里面 $g(x)=x^2-1$ 是偶函数，且 $g(x)\geqslant0$。\\
+\textbf{第三步：}
+\[
+F(-x)=\sqrt{(-x)^2-1}=\sqrt{x^2-1}=F(x).
+\]
+\textbf{结果：} $F$ 是偶函数。\textbf{提醒：} 定义域不一定要是全体实数，只要它左右成对即可。
 \end{examplebox}

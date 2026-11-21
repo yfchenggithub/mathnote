@@ -1,57 +1,157 @@
+\clearpage
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例 1：奇函数相加}}
+\textbf{\textcolor{CExample}{例 1：只看各部分，一眼判断（加减）}}
+\input{assets/tikz/F017_example_polynomial}
 
-	设 $f(x)=x^3$，$g(x)=x$，求 $h(x)=f(x)+g(x)$ 的奇偶性。
 
-	两个函数的定义域都是 $\mathbb{R}$，且
-	\[
-		f(-x)=-f(x),\qquad g(-x)=-g(x).
-	\]
-	因此 $f$、$g$ 都是奇函数，奇加奇仍为奇。
-	直接检验也可得到
-	\[
-		h(-x)=(-x)^3+(-x)=-(x^3+x)=-h(x).
-	\]
-	故 $h(x)=x^3+x$ 是奇函数。
+判断 $H(x)=x^5+3x^3-2x$ 的奇偶性。
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 2：偶函数相乘}}
+\textbf{第一步}：$x^5$、$x^3$、$x$ 都是奇函数，因为奇数次幂在 $x$ 变成 $-x$ 时会变号。
+\textbf{第二步}：奇函数加减奇函数仍是奇函数，系数 $3$、$-2$ 不改变这个结论。
+所以 $H$ 为\textbf{奇函数}。
+验算：
+\[
+H(-x)=-x^5-3x^3+2x=-H(x).
+\]
 
-	设 $f(x)=x^2$，$g(x)=\cos x$，求
-	$\varphi(x)=f(x)g(x)$ 的奇偶性。
+\medskip
 
-	两个函数的定义域都是 $\mathbb{R}$。
-	由 $(-x)^2=x^2$ 和 $\cos(-x)=\cos x$，
-	可知 $f$、$g$ 都是偶函数。于是
-	\[
-		\varphi(-x)=(-x)^2\cos(-x)
-		=x^2\cos x
-		=\varphi(x).
-	\]
-	故 $\varphi(x)=x^2\cos x$ 是偶函数。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 2：乘法不是“奇乘奇得奇”}}
+\input{assets/tikz/F017_example_odd_times_odd}
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 3：先乘后加}}
 
-	设 $f(x)=x^3$、$g(x)=x^2$，
-	$h(x)=f(x)g(x)$，$k(x)=h(x)+f(x)$。
+判断 $F(x)=x^3\sin x$ 的奇偶性。
 
-	$f$ 为奇函数，$g$ 为偶函数，所以
-	$h=fg$ 为奇函数。再由奇加奇为奇，
-	得到 $k=h+f$ 为奇函数。也可直接写出
-	\[
-		k(x)=x^5+x^3,\qquad
-		k(-x)=-x^5-x^3=-k(x).
-	\]
+$x^3$ 是奇函数；$\sin(-x)=-\sin x$，因此 $\sin x$ 也是奇函数。
+两者相乘时，两个负号抵消：
+\[
+F(-x)=(-x)^3\sin(-x)=(-x^3)(-\sin x)=F(x).
+\]
+所以 $F$ 是\textbf{偶函数}。这是最值得和“奇数乘奇数还是奇数”区分的一道题。
 
-	\medskip
-	\textbf{\textcolor{CExample}{例 4：除法要检查定义域}}
+\medskip
 
-	设 $q(x)=x/x$。原式仅在 $x\ne0$ 时有定义。
-	在这个关于原点对称的定义域上，
-	\[
-		q(-x)=\frac{-x}{-x}=1=q(x).
-	\]
-	故 $q$ 是偶函数。约分得到 $1$ 后，
-	仍须保留原式的限制 $x\ne0$。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 3：看到 $x^2$ 就想到偶函数（乘除混合）}}
+\input{assets/tikz/F017_example_mixed_quotient}
+
+
+判断 $F(x)=\dfrac{x^3\cos x}{x^2+1}$ 的奇偶性。
+
+先看定义域：$x^2+1>0$，所以一切实数都可以取。
+再看每部分：$x^3$ 为奇函数，$\cos x$ 为偶函数，$x^2+1$ 为偶函数。
+只出现一个奇函数部分，因此
+\[
+F(-x)=\frac{(-x)^3\cos(-x)}{(-x)^2+1}
+=-\frac{x^3\cos x}{x^2+1}=-F(x).
+\]
+所以 $F$ 是\textbf{奇函数}。在选择题中无需把这个式子展开。
+
+\medskip
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 4：奇除奇得到偶，但不能把 $0$ 补回来}}
+\input{assets/tikz/F017_quotient_hole}
+
+
+判断 $Q(x)=\dfrac{x}{x}$ 的奇偶性。
+
+原分母在 $x=0$ 时为 $0$，故定义域是 $x\ne0$，左右对应。
+分子和分母都是奇函数，因此商是偶函数。
+虽可在 $x\ne0$ 时写成 $Q(x)=1$，但原式\textbf{在 $0$ 处仍没有定义}。
+因此它是定义域为 $\{x\mid x\ne0\}$ 的偶函数，而不是定义在所有实数上的常数函数。
+
+\medskip
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 5：奇除偶与偶除奇，都得到奇}}
+\input{assets/tikz/F017_two_odd_quotients}
+
+
+分别判断
+\[
+A(x)=\frac{x}{x^2+1},\qquad
+B(x)=\frac{x^2+1}{x}.
+\]
+对于 $A$，分子奇、分母偶，且分母不会为 $0$，所以在全体实数上为奇函数。
+对于 $B$，分子偶、分母奇，原式要求 $x\ne0$，所以在 $x\ne0$ 上为奇函数。
+还可把 $B(x)$ 写成 $x+\dfrac1x$，发现两项本身都是奇函数；
+这里把\textbf{除法规则}与\textbf{加法规则}连到了一起。
+
+\medskip
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 6：奇加偶到底为什么“不定”？}}
+\input{assets/tikz/F017_mixed_sum}
+
+
+判断 $H(x)=x+x^2$ 的奇偶性。
+
+$x$ 为奇函数，$x^2$ 为偶函数。代入 $x=1$ 与 $x=-1$：
+\[
+H(1)=1+1=2,\qquad H(-1)=-1+1=0.
+\]
+左、右两处的值既不相等，也不互为相反数。因此\textbf{既不是奇函数，也不是偶函数}。
+
+特殊情形：若 $f(x)=x$、$g(x)=0$，则 $f+g=x$ 仍是奇函数。
+所以严格结论并不是“奇加偶\emph{一定}既非奇也非偶”，
+而是\textbf{只有其中相应的部分始终为零时，才可能留下纯粹的奇或偶}。
+
+\medskip
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 7：把任何函数拆成奇、偶两部分（反过来用）}}
+\input{assets/tikz/F017_example_decomposition}
+
+
+给出 $H(x)=x^3+2x^2+3x+4$，找出其中的奇函数部分和偶函数部分。
+
+先把 $x$ 换为 $-x$：
+\[
+H(-x)=-x^3+2x^2-3x+4.
+\]
+\textbf{相加取一半}，留下左右相同的部分：
+\[
+E(x)=\frac{H(x)+H(-x)}2=2x^2+4.
+\]
+\textbf{相减取一半}，留下左右反号的部分：
+\[
+O(x)=\frac{H(x)-H(-x)}2=x^3+3x.
+\]
+最后核对 $E(x)+O(x)=H(x)$。
+这个方法适用于所有定义域左右对应的函数，\textbf{不要求原来的 $H$ 本身就是奇函数或偶函数}。
+
+\medskip
+
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 8：一道综合速判题}}
+\input{assets/tikz/F017_sinc_hole}
+
+
+判断
+\[
+P(x)=\frac{(x^2+1)\sin x}{x(x^2+1)}
+\]
+的奇偶性。
+
+\textbf{第一步先看范围}：$x^2+1$ 永不为零，但分母含 $x$，所以 $x\ne0$。
+\textbf{第二步看次数}：分子中只有 $\sin x$ 是奇函数，分母中只有 $x$ 是奇函数；
+“奇除奇”为偶，因此 $P$ 为偶函数。
+\textbf{第三步验算}：约去 $x^2+1$ 后得 $\sin x/x$（仍要求 $x\ne0$），
+把 $x$ 换为 $-x$，上下同时变号，比值不变。
 \end{examplebox}

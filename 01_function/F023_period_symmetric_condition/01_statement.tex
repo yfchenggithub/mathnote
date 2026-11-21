@@ -1,22 +1,41 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件1（函数方程）：}}] 函数$f(x)$在定义域$\mathbb{R}$（或足够大区间）上满足：对任意$x$均有$f(x+a)=f(x-a)$，其中$a\neq 0$。
-	\end{description}
+\input{assets/tikz/F023_core_curve}
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（周期判定）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			自变量增加$2a$函数值重复出现。
-			\[
-				f(x+2a)=f(x),\quad \forall x.
-			\]
-		\item[\textbf{\textcolor{CStatement}{推广结论（周期延伸）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			若$2a$是周期，则其任意非零整数倍也是周期。
-			\[
-				f(x+2ka)=f(x),\quad k\in\mathbb{Z}\setminus\{0\}.
-			\]
-	\end{description}
+\textbf{\textcolor{CStatement}{它解决什么问题？}}
+
+题目只告诉你两个带有 $x$ 的式子算出来相等，却没有直接告诉周期。我们想知道：\textbf{沿着数轴走多远，函数值就一定会重复？}
+
+\medskip
+\textbf{\textcolor{CStatement}{条件（先看清范围）}}
+
+函数 $f(x)$ 定义在整个实数范围内；$a$ 是一个固定的非零实数，且对\textbf{每一个实数} $x$ 都有
+\[
+\boxed{f(x+a)=f(x-a),\qquad a\ne0.}
+\]
+
+\textbf{\textcolor{CStatement}{结论一（先算两个位置相隔多少）}}
+\[
+\boxed{f(x+2a)=f(x).}
+\]
+因为 $a$ 可能为负数，所以把周期写成正数时应写作
+\[
+\boxed{T=2|a|\text{ 是函数的一个正周期。}}
+\]
+这里的\textbf{一个正周期}，不等于\textbf{最小正周期}。
+
+\medskip
+\end{statementbox}\clearpage\begin{statementbox}\textbf{\textcolor{CStatement}{结论二（不只重复一次）}}
+\[
+\boxed{f(x+2ka)=f(x),\quad k\in\mathbb Z.}
+\]
+也就是说，往左、往右移动若干个 $2|a|$，函数值都不变；$k=0$ 时只是原地不动。
+
+\medskip
+\textbf{\textcolor{CStatement}{顺手推广（高考常见变形）}}
+
+若对所有实数 $x$ 有 $f(x+p)=f(x+q)$，其中 $p\ne q$ 是常数，则
+\[
+\boxed{T=|p-q|\text{ 是一个正周期。}}
+\]
+\textbf{记忆方法：两个括号里，$x$ 后面的数相减，再取正数。}
 \end{statementbox}

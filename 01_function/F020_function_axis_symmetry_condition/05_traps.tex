@@ -1,32 +1,75 @@
+\clearpage
 \begin{trapbox}
+  \textbf{\textcolor{CTrap}{易错一：只看相等，不看定义域有没有另一半}}
+\input{assets/tikz/F020_half_domain}
 
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（忽略定义域对称）}}]
-			错误做法：只要 $f(a+x)=f(a-x)$ 成立就认为图象对称，不检查定义域。
-		\item[\textbf{\textcolor{CTrap}{正确理解（定义域前提）：}}]
-			定义域必须关于 $x=a$ 对称，否则即使等式成立也不能保证整体对称。
-		\item[\textbf{\textcolor{CTrap}{错因分析（对称点缺失）：}}]
-			对称定义要求每个点都有对称点，定义域不对称则部分点无对称点。
-	\end{description}
+  \textbf{错误想法：}“只要我检查到 $f(a+t)=f(a-t)$，图象就一定对称。”
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（混淆对称公式）}}]
-			错误做法：将 $f(a+x)=f(a-x)$ 混淆为 $f(x)=f(a-x)$ 或 $f(x)=f(x-a)$。
-		\item[\textbf{\textcolor{CTrap}{正确理解（正确等价形式）：}}]
-			正确等价形式为 $f(a+x)=f(a-x)$ 或 $f(x)=f(2a-x)$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（变量替换出错）：}}]
-			变量替换混淆，导致对称轴判断错误。
-	\end{description}
+  \textbf{最简单的反例：}设 $f(x)=(x-2)^2$，但\textbf{只允许 $x\ge2$}。
+  试着判断它是否关于 $x=2$ 对称。对于 $t>0$，右边位置 $2+t$ 有值，
+  左边 $2-t$ 却根本不在定义域里。图象只有右半边，无法对折重合。
+  若只在“两边都能代入”的位置检查，只有 $t=0$，会得到没意义的
+  $f(2)=f(2)$。\textbf{所以必须先确认定义域左右成对。}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（片面验证）}}]
-			错误做法：取一个或几个 $x$ 值验证等式成立即断言对称。
-		\item[\textbf{\textcolor{CTrap}{正确理解（整体性要求）：}}]
-			必须对定义域内所有允许的 $x$ 恒成立。
-		\item[\textbf{\textcolor{CTrap}{错因分析（整体误判）：}}]
-			对称性是整体性质，不能由个别点断定。
-	\end{description}
+  \medskip
+  
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错二：只验证几个特殊点，就宣称整幅图对称}}
+\input{assets/tikz/F020_one_pair_failure}
 
+  例如 $f(x)=x^3-x$：$f(-1)=f(1)=0$，$f(0)=0$，
+  但 $f(2)=6$，$f(-2)=-6$，并不关于 $x=0$ 对称。
+  \textbf{正确做法：}若要证明对称，必须对定义域中所有成对位置成立；
+  找到一对不相等，则足以否定对称。
+
+  \medskip
+  
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错三：把镜像位置 $2a-x$ 写错}}
+\input{assets/tikz/F020_mirror_positions}
+
+  对称轴是 $x=3$ 时，$x=1$ 的另一侧是 $x=5$，
+  因为 $1+5=2\times3$。
+  绝不是简单写成 $3-1=2$ 或 $1-3=-2$。
+  \textbf{检查口诀：}两位置的平均数必须是 $a$。
+
+  \medskip
+  
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错四：把“关于 $x=a$ 对称”误写成“关于 $y=a$ 对称”}}
+\input{assets/tikz/F020_horizontal_line}
+
+  本结论说的是\textbf{竖直直线} $x=a$。
+  对折时每一点的高度不变、横坐标改变；
+  不能把 $f(a+t)=f(a-t)$ 随便用于水平对称线。
+
+  \medskip
+  
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错五：把“两个对称轴”得到的周期说成最小周期}}
+\input{assets/tikz/F020_not_minimum}
+
+  若图象关于 $x=a$ 和 $x=b$ 对称，则 $2|b-a|$ 是一个周期。
+  但函数可能还有更短的周期；另外，使用这个推论时，
+  两条对称轴都必须是\textbf{整幅图象}的对称轴，而非局部一小段看起来像。
+
+  \medskip
+  
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错六：求另一侧解析式时忘记检查代入区间}}
+\input{assets/tikz/F020_exponential_extension}
+
+  轴为 $x=a$，已知右侧 $x\ge a$ 的公式；要算左侧 $x<a$，
+  应先确认 $2a-x>a$，才可把 $2a-x$ 代入右侧公式。
+  不是把原来的 $x$ 直接代入右侧公式。
 \end{trapbox}

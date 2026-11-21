@@ -1,41 +1,165 @@
+\clearpage
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
+\textbf{\textcolor{CExplanation}{一、为什么会想到这个结论？}}
+\input{assets/tikz/F025_example_one}
 
-	给定一个函数，如果每当自变量增加$a$，函数值变为原来的倒数（或负倒数），那么再增加$a$后函数值又变回来，从而前后相差$2a$的函数值相等。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（递推关系）：}] 条件$f(x+a)=\frac{1}{f(x)}$是一个递推公式，建立了$x$与$x+a$处函数值的倒数关系。
-		\item[\textbf{要点二（迭代两步）：}] 将$x$换成$x+a$得到$f(x+2a)=\frac{1}{f(x+a)}$，代入条件即得$f(x+2a)=f(x)$。
-	\end{description}
+普通周期题会直接告诉你$f(x+4)=f(x)$，很容易看出“隔$4$就重复”。但有些题故意不让你直接看到重复，只告诉你
+\[
+ f(x+2)=\frac{1}{f(x)}.
+\]
+这时你看到的不是“值没变”，而是“值变成了倒数”。关键问题就变成：\textbf{再变一次会发生什么？}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（倒数映射周期）}}
+\medskip
 
-	函数图像上，若点$(x,y)$在曲线上，则点$(x+a,\frac{1}{y})$也在曲线上；再平移$a$得点$(x+2a,\frac{1}{1/y}=y)$，即曲线在水平移动$2a$后重合，说明图像具有周期$2a$。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{二、先不看函数，玩一个初中生也懂的数字游戏}}
+\input{assets/tikz/F025_value_transform}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（倒数消去周期）}}
 
-	代数上，连续两次取倒数（或先取倒数再取相反数再取倒数）抵消，直接导出$f(x+2a)=f(x)$，体现了代数运算中的自逆性质。
+从$2$出发，按“取倒数”的规则，每走一步就变一次：
+\[
+\boxed{2}\ \xrightarrow{\text{取倒数}}\
+\boxed{\frac12}\ \xrightarrow{\text{再取倒数}}\
+\boxed{2}\ \xrightarrow{\text{取倒数}}\
+\boxed{\frac12}\ \cdots
+\]
+从$3$出发也一样：
+\[
+ 3\ \longrightarrow\ \frac13\ \longrightarrow\ 3\ \longrightarrow\ \frac13\ \longrightarrow\cdots
+\]
+从$2$出发，若每次变成\textbf{负倒数}：
+\[
+\boxed{2}\ \longrightarrow\
+\boxed{-\frac12}\ \longrightarrow\
+\boxed{2}\ \longrightarrow\
+\boxed{-\frac12}\ \cdots
+\]
+负号不会无限增加，因为“负倒数”做两次，前后两个负号正好消掉。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（抽象函数周期快速判定）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（直接套结论）：} 题目给出$f(x+a)=\frac{1}{f(x)}$或$f(x+a)=-\frac{1}{f(x)}$，直接写出周期$T=2a$，用于求值或判断。
-		\item \textbf{考法二（综合变形）：} 与其他条件如对称性、奇偶性结合，先确定周期再分析函数性质。
-	\end{itemize}
+\medskip
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{三、把数字游戏放回函数}}
+\input{assets/tikz/F025_positive_steps}
 
-	只要看到条件中有$\frac{1}{f(x)}$或$-\frac{1}{f(x)}$，立刻想到迭代两次，不要试图去解$f(x)$表达式。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（抽象函数求周期）：} 已知抽象函数关系，判断周期。
-		\item \textbf{场景二（函数值计算）：} 利用周期性将自变量转化到已知区间求值。
-	\end{itemize}
+设$f(0)=2$，并且$f(x+1)=1/f(x)$，那么可立即填写：
+\[
+\begin{array}{c|ccccc}
+ x &0&1&2&3&4\\ \hline
+ f(x)&2&\frac12&2&\frac12&2
+\end{array}
+\]
+每次输入$x$增加$1$，函数值就变一次；输入增加$2$，函数值就完整地走完“变过去、再变回来”。注意：\textbf{我们既不需要知道$f(0.3)$是多少，也不需要知道$f(x)$的具体公式}，就能确定$f(x+2)=f(x)$。
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{四、看图：走一步高度变了，走两步高度又一样}}
+\input{assets/tikz/F025_positive_steps}
+
+
+下图给出两个真实的函数例子。让$a=1$，在每段长度为$1$的区间内取固定值：
+\[
+\begin{array}{c|cccc}
+ \text{区间}&[0,1)&[1,2)&[2,3)&[3,4)\\ \hline
+ \text{倒数型}&2&\frac12&2&\frac12\\
+ \text{负倒数型}&2&-\frac12&2&-\frac12
+\end{array}
+\]
+
+\end{explanationbox}\clearpage\begin{explanationbox}
+\input{assets/tikz/F025_negative_steps}
+\textbf{读图时只看两件事：}蓝、橙线分别标出相邻两段高度；向右增加2后，整段重新出现。图中的“实心点”属于那一段，“空心点”不属于那一段，因此一个$x$仍然只对应一个函数值。
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{五、“平移”是输入在变，不是整条图像直接向右挪}}
+\input{assets/tikz/F025_core_reciprocal}
+
+
+$f(x+1)=1/f(x)$的意思是：图上$x$位置的点是$(x,y)$，那么$x+1$位置的点应该是$\left(x+1,\frac1y\right)$。\textbf{只移动了横坐标还不够，纵坐标也要按规则改变。}第二次再走$1$，纵坐标才回到$y$。这才是“间隔$2$图像重复”的来源。
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{六、两个容易让人眼前一亮的联系}}
+\input{assets/tikz/F025_common_factor_area}
+
+
+\textbf{联系1：乘起来总是同一个数。}
+条件$f(x+a)=k/f(x)$，换个写法就是
+\[
+\boxed{\ f(x)f(x+a)=k\ }.
+\]
+沿着数轴往右再走$a$，又有$f(x+a)f(x+2a)=k$。这两个乘积的\textbf{中间因子完全相同}，因此最左边和最右边的函数值必须相同。\textbf{有时“先把分式变成乘法”比反复套分式更快。}
+
+\end{explanationbox}\clearpage\begin{explanationbox}
+\input{assets/tikz/F025_minimal_contrast}
+\textbf{联系2：$2|a|$不一定是最小正周期。}
+如果$f(x)\equiv1$，那么$f(x+a)=1/f(x)$对任意$a$都成立，但这个常数函数向右移动任何正长度都不变，所以不存在最小正周期。考试遇到“求最小正周期”，不能只根据这个关系就直接断定答案一定是$2|a|$。
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{七、原来倒数型也可以是一条平滑的曲线！}}
+\input{assets/tikz/F025_core_reciprocal}
+
+
+别以为只有上面的“台阶图”才能满足倒数关系。把高中学过的正弦函数和指数函数连在一起，例如
+\[
+\boxed{\ f(x)=2^{\sin(\pi x)}\ },
+\]
+也有
+\[
+\begin{aligned}
+ f(x+1)&=2^{\sin(\pi x+\pi)}
+ =2^{-\sin(\pi x)}\\
+ &=\frac1{2^{\sin(\pi x)}}=\frac1{f(x)}.
+\end{aligned}
+\]
+因为$\sin(\pi x+\pi)=-\sin(\pi x)$，而\(2^{-u}=1/2^u\)。图像会像波浪一样平滑地起伏，却仍然\textbf{每走$2$就完整重复}。这说明周期来自\textbf{“走两次函数值回到原数”这个关系}，并不取决于图像是台阶还是波浪。
+
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{八、更深一层：负倒数型为什么很难画成一条不断开的曲线？}}
+\input{assets/tikz/F025_negative_steps}
+
+
+负的$a$可以先改写成正步长的同一关系，因此只需讨论$a>0$。设$f(x+a)=-1/f(x)$。如果$f(x)$是正数，那么$f(x+a)$必为负数；反过来也一样。也就是说，隔$a$的两点一正一负。若曲线在这两点之间\textbf{不断开}，它就一定要经过横轴，即存在某处$f(x)=0$；但负倒数规则又要求函数值不能等于$0$，矛盾。因此：
+
+\[
+\boxed{\text{在整个实数范围内连续的实值函数，不可能处处满足}
+\ f(x+a)=-\frac1{f(x)}.}
+\]
+这不是说负倒数型不存在，而是说\textbf{它若定义在全体实数上，就不可能处处连续}。上图中正值与负值之间的“跳变”正是一个很直观的例子。
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{九、考场最快识别法}}
+\input{assets/tikz/F025_core_reciprocal}
+
+
+看到\(f(x+a)=\frac{k}{f(x)}\)（$k\ne0$），心里只想三个动作：\textbf{把$x$换成$x+a$；再把原式代入；最后找$f(x+2a)=f(x)$。}题目没要求写出函数表达式，就不要浪费时间去猜。
 \end{explanationbox}

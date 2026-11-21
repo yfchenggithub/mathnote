@@ -1,68 +1,112 @@
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{\textcolor{CProof}{证明之前先补一块：为什么右半边严格上升就够了？}}
+\input{assets/tikz/F019_odd_global}
 
-	利用奇偶性将自变量转化到单调区间，再利用单调性比较函数值。对于奇函数，利用 $f(-x)=-f(x)$ 建立函数值之和与自变量之和的联系；对于偶函数，利用 $f(x)=f(|x|)$ 将比较转化为 $[0,+\infty)$ 上的比较。若单调递减，则不等号方向全部取反。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（奇增充分性）：}]
-			\[
-				\begin{aligned}
-					a+b>0 &\Rightarrow a>-b \\
-					&\Rightarrow f(a)>f(-b) \\
-					&\Rightarrow f(a)>-f(b) \\
-					&\Rightarrow f(a)+f(b)>0.
-			\end{aligned}
-			\]
-			\par\textbf{理由：}
-			$f$ 是奇函数且在 $[0,+\infty)$ 单调递增，可推出 $f$ 在 $\mathbb{R}$ 上单调递增（奇函数对称区间单调性一致）。于是 $a>-b$ 时 $f(a)>f(-b)$；又 $f(-b)=-f(b)$，代入得 $f(a)+f(b)>0$。
+设 $f(x)$ 为奇函数，在定义域右半边严格递增，且定义域是一个以 $0$ 为中间位置、左右对称的区间。
+任取定义域内 $u<v$，讨论三种位置。
+\begin{enumerate}[leftmargin=*,itemsep=0.3em]
+  \item \textbf{$0\leqslant u<v$：}这就是题目已经给出的条件，$f(u)<f(v)$。
+  \item \textbf{$u<v\leqslant0$：}因为 $-u>-v\geqslant0$，在右半边有 $f(-u)>f(-v)$。奇函数又告诉我们 $f(-u)=-f(u)$、$f(-v)=-f(v)$，所以 $-f(u)>-f(v)$，也就是 $f(u)<f(v)$。
+  \item \textbf{$u<0<v$：}奇函数有 $f(0)=0$，严格递增又给出 $f(u)<0<f(v)$，当然有 $f(u)<f(v)$。
+\end{enumerate}
+所以奇函数在\textbf{整个定义域}严格递增。把所有“$<$”的方向反过来，同样说明：右半边严格递减的奇函数，在整个定义域也严格递减。
 
-		\item[\textbf{步骤二（奇增必要性）：}]
-			\[
-				\begin{aligned}
-					f(a)+f(b)>0 &\Rightarrow f(a)>-f(b) \\
-					&\Rightarrow f(a)>f(-b) \\
-					&\Rightarrow a>-b \\
-					&\Rightarrow a+b>0.
-			\end{aligned}
-			\]
-			\par\textbf{理由：}
-			由 $f(a)+f(b)>0$ 移项得 $f(a)>-f(b)$，利用奇函数 $f(-b)=-f(b)$ 得 $f(a)>f(-b)$。再由 $f$ 的单调性得 $a>-b$，即 $a+b>0$。
+\medskip
+\end{proofbox}\clearpage\begin{proofbox}\textbf{\textcolor{CProof}{证明一：最快的方法——搬到同一边比较（优先记）}}
+\input{assets/tikz/F019_odd_compare}
 
-		\item[\textbf{步骤三（偶增等价）：}]
-			\[
-				\begin{aligned}
-					f(a)>f(b) &\iff f(|a|)>f(|b|) \\
-					&\iff |a|>|b|.
-			\end{aligned}
-			\]
-			\par\textbf{理由：}
-			偶函数满足 $f(x)=f(|x|)$，故 $f(a)>f(b)$ 等价于 $f(|a|)>f(|b|)$。由于 $f$ 在 $[0,+\infty)$ 上单调递增，所以 $f(|a|)>f(|b|)$ 等价于 $|a|>|b|$。因此 $f(a)>f(b)\iff|a|>|b|$。
 
-		\item[\textbf{步骤四（递减反向）：}]
-			\[
-				\begin{aligned}
-					a+b>0 &\Rightarrow a>-b \\
-					&\Rightarrow f(a)<f(-b) \\
-					&\Rightarrow f(a)<-f(b) \\
-					&\Rightarrow f(a)+f(b)<0.
-			\end{aligned}
-			\]
-			\[
-				\begin{aligned}
-					f(a)+f(b)<0 &\Rightarrow f(a)<-f(b) \\
-					&\Rightarrow f(a)<f(-b) \\
-					&\Rightarrow a<-b \\
-					&\Rightarrow a+b<0.
-			\end{aligned}
-			\]
-			\par\textbf{理由：}
-			当 $f$ 在 $[0,+\infty)$ 上单调递减时，奇函数整体单调递减，所以 $a>b$ 时 $f(a)<f(b)$。重复步骤一、二的推导但不等号方向取反，即得 $a+b>0\iff f(a)+f(b)<0$，等价于 $f(a)+f(b)>0\iff a+b<0$。偶函数情形类似可得 $f(a)>f(b)\iff|a|<|b|$。
-	\end{description}
+\textbf{（1）奇函数，右半边严格递增：}
+\[
+\begin{aligned}
+ f(a)+f(b)>0
+ &\iff f(a)>-f(b) &&\text{先移项}\\
+ &\iff f(a)>f(-b) &&\text{奇函数：$-f(b)=f(-b)$}\\
+ &\iff a>-b &&\text{整个定义域严格递增}\\
+ &\iff a+b>0. &&\text{移项}
+\end{aligned}
+\]
+注意每一步都有双向箭头，说明不仅“由左能推出右”，而且“由右也能推回左”。如果只知道函数“不下降”，\textbf{第三步不能这样写}。
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
+\textbf{（2）偶函数，右半边严格递增：}
+\[
+\begin{aligned}
+ f(a)>f(b)
+ &\iff f(|a|)>f(|b|) &&\text{偶函数：左右等高}\\
+ &\iff |a|>|b|. &&\text{正半边严格递增}
+\end{aligned}
+\]
 
-	综上，奇函数与偶函数在单调递增时分别有 $f(a)+f(b)>0\iff a+b>0$ 和 $f(a)>f(b)\iff|a|>|b|$；若单调递减，则不等号反向，成为 $f(a)+f(b)>0\iff a+b<0$ 和 $f(a)>f(b)\iff|a|<|b|$。
+\textbf{（3）右半边严格递减：}奇函数在整个定义域严格递减，因此
+\[
+ f(a)+f(b)>0\iff f(a)>f(-b)\iff a<-b\iff a+b<0.
+\]
+偶函数同理：
+\[
+ f(a)>f(b)\iff f(|a|)>f(|b|)\iff |a|<|b|.
+\]
+
+\medskip
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明二：分正负数讨论——初中生也能逐步核对}}
+\input{assets/tikz/F019_odd_global}
+
+
+先证明奇函数严格递增的情况。因为 $f(0)=0$，故正数 $t$ 有 $f(t)>0$，负数 $t$ 有 $f(t)<0$。
+\begin{enumerate}[leftmargin=*,itemsep=0.45em]
+  \item \textbf{$a,b$ 都不小于 $0$。}此时 $f(a),f(b)$ 都不小于 $0$，且只要 $a,b$ 有一个不是 $0$，两者之和就大于 $0$。这与 $a+b>0$ 完全一致；两者都为 $0$ 时，两边都等于 $0$。
+  \item \textbf{$a,b$ 都不大于 $0$。}同理 $f(a),f(b)$ 都不大于 $0$，它们的和与 $a+b$ 一样：若至少一个小于 $0$，两者都为负；若都为 $0$，两者都为 $0$。
+  \item \textbf{一个非负、一个非正。}以 $a\geqslant0,b\leqslant0$ 为例：
+  \[
+   f(a)+f(b)=f(a)-f(-b).
+  \]
+  这里 $a$、$-b$ 都不小于 $0$，所以只需在右半边比较：
+  \[
+  \begin{array}{rcl}
+    a>-b&\Longleftrightarrow&f(a)+f(b)>0,\\
+    a=-b&\Longleftrightarrow&f(a)+f(b)=0,\\
+    a<-b&\Longleftrightarrow&f(a)+f(b)<0.
+  \end{array}
+  \]
+  而比较 $a$ 与 $-b$，实际上就是看 $a+b$ 的正负。若 $a\leqslant0,b\geqslant0$，交换两个字母即可。
+\end{enumerate}
+三类情况已经包括所有实数 $a,b$，因此结论成立。偶函数不必分正负：先将 $a,b$ 改写为 $|a|,|b|$，就在右半边比较。右半边严格递减时，以上比较方向全部反过来。
+
+\medskip
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明三：先找“恰好等于零”的分界点——适合解题}}
+\input{assets/tikz/F019_zero_boundary}
+
+
+\textbf{（1）奇函数：}先固定 $b$，只让 $a$ 改变。要让 $f(a)+f(b)=0$，等价于 $f(a)=f(-b)$。
+由于函数严格递增或严格递减，同一个函数值只会对应一个自变量，所以\textbf{刚好相等的那个位置}就是
+\[
+ a=-b.
+\]
+若整个图像严格递增，$a$ 从 $-b$ 往右走，$f(a)$ 越来越大，于是 $f(a)+f(b)$ 变成正数；往左走则变成负数。若整个图像严格递减，正负恰好交换。
+
+\textbf{（2）偶函数：}先固定 $b$，将 $|b|$ 看成 $0$ 右边的一个固定距离。当 $|a|=|b|$ 时，偶函数使两边函数值恰好相等；当 $|a|$ 比它大（或小），右半边严格递增保证函数值严格变大（或变小）。严格递减时反向。
+
+\textbf{这个方法的优点：}先找等号成立的位置，再看越过这个位置后图像如何变化；即使具体的 $f(x)$ 不知道，也能判断不等号。
+
+\medskip
+\textbf{\textcolor{CProof}{额外补充：把“$>$”改成“$=$”或“$<$”}}
+
+对于严格递增的奇函数，完整关系是
+\[
+\begin{array}{rcl}
+ f(a)+f(b)>0&\iff&a+b>0,\\
+ f(a)+f(b)=0&\iff&a+b=0,\\
+ f(a)+f(b)<0&\iff&a+b<0.
+\end{array}
+\]
+对于严格递增的偶函数，$f(a)$ 与 $f(b)$ 的大小关系，分别对应 $|a|$ 与 $|b|$ 的大小关系。严格递减时，\textbf{“大于”和“小于”互换，等于不变}。
 \end{proofbox}
