@@ -1,0 +1,303 @@
+% F082｜03 三种证明：初中几何、有理化与不等式、高中导数
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明一：初中几何法（理解门槛最低）}}
+\input{assets/tikz/F082_triangle_bound}
+
+
+\textbf{第 1 步：按勾股定理画点。} 取
+\[
+ A(m,a),\quad B(n,b),\quad P(x,0),
+\]
+则
+\[
+ PA=\sqrt{(x-m)^2+a^2},\quad
+ PB=\sqrt{(x-n)^2+b^2},\quad
+ f(x)=PA-PB.
+\]
+
+\textbf{第 2 步：先把差的范围圈住。} 从 $P$ 经 $B$ 到 $A$，总路程 $PB+BA$ 不可能短于 $PA$，所以 $PA-PB\leq AB$。交换 $A,B$ 可得 $PB-PA\leq AB$。因此
+\[
+ \boxed{-AB\leq f(x)\leq AB},\qquad
+ AB=\sqrt{(m-n)^2+(a-b)^2}=D.
+\]
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{第 3 步：看等号能否真正发生。} 要使差的绝对值等于 $AB$，$P,A,B$ 必须在\textbf{同一条直线上}，且\textbf{$P$ 在 $AB$ 的外侧}。
+\input{assets/tikz/F082_height_cases}
+
+
+若 $a\ne b$，两点高度不一样，$AB$ 的延长线一定会与 $x$ 轴相交。交点 $P_0$ 满足
+\[
+ \frac{x_0-m}{n-m}=\frac{-a}{b-a}\quad(n\ne m).
+\]
+解得
+\[
+ \boxed{x_0=\frac{bm-an}{b-a}}.
+\]
+当 $m=n$ 时，直接看竖直线 $x=m$，仍得同一公式。若 $a>b$，$P_0$ 在 $B$ 的外侧，所以 $PA-PB=AB=D$；若 $a<b$，$P_0$ 在 $A$ 的外侧，所以 $PA-PB=-AB=-D$。
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明一（续）：高度相同时为什么等号不成立？}}
+
+若 $a=b$、$m\ne n$，$AB$ 是一条位于 $x$ 轴上方的水平线。无论 $P$ 在 $x$ 轴上怎么移动，都不能落到这条线上，因此
+\[
+ -|m-n|<PA-PB<|m-n|.
+\]
+\input{assets/tikz/F082_equal_height}
+
+\textbf{第 4 步：看走得特别远时会怎样。} 当 $x$ 很大时，根号 $\sqrt{(x-m)^2+a^2}$ 与 $|x-m|$ 的差会越来越小。理由只需有理化：
+\[
+ \sqrt{(x-m)^2+a^2}-|x-m|
+ =\frac{a^2}{\sqrt{(x-m)^2+a^2}+|x-m|}\longrightarrow0.
+\]
+第二个根号同理。所以
+\[
+ x\to+\infty:\quad f(x)\to n-m,\qquad
+ x\to-\infty:\quad f(x)\to m-n.
+\]
+由两端可以无限接近的值、刚才证明的取等位置，再配合函数值随 $x$ 连续变化，可确定所有中间数都能取到。
+
+不过，\textbf{还有一步不能省：}必须证明距离差不会在某处穿过“另一端”的 $\pm d$。这个严格判断在证明二中用初中平方与有理化完成。最终结果是：
+\[
+ a>b:\ (-d,D],\quad a<b:\ [-D,d),\quad
+ a=b,\ m\ne n:\ (-d,d).
+\]
+若 $a=b,m=n$，则原式一直为 $0$。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明二：有理化与平方不等式法（用图认清辅助量，再展开计算）}}
+\input{assets/tikz/F082_algebra_vectors}
+
+
+\textbf{第一部分：先证明差的绝对值不超过 $D$。} 设
+\[
+ t=x-m,\quad s=x-n,\quad
+ U=\sqrt{t^2+a^2},\quad V=\sqrt{s^2+b^2}.
+\]
+由于任何平方都不小于 $0$，直接展开可得
+\[
+ \begin{aligned}
+ (UV)^2-(ts+ab)^2
+ &=(t^2+a^2)(s^2+b^2)-(ts+ab)^2\\
+ &=b^2t^2+a^2s^2-2abts\\
+ &=(bt-as)^2\geq0.
+ \end{aligned}
+\]
+因此 $UV\geq|ts+ab|\geq ts+ab$。所以
+\[
+ \begin{aligned}
+ (U-V)^2
+ &=t^2+a^2+s^2+b^2-2UV\\
+ &\leq t^2+s^2-2ts+a^2+b^2-2ab\\
+ &=(t-s)^2+(a-b)^2\\
+ &=(n-m)^2+(a-b)^2=D^2.
+ \end{aligned}
+\]
+故 $\boxed{-D\leq f(x)\leq D}$。
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{第二部分：哪个端点能取到？} 上面用到的平方等于 $0$，需要
+\input{assets/tikz/F082_height_cases}
+
+\[
+ bt=as\quad\Longleftrightarrow\quad
+ b(x-m)=a(x-n).
+\]
+若 $a\ne b$，解得
+\[
+ \boxed{x_0=\frac{bm-an}{b-a}}.
+\]
+此时 $t/a=s/b$，设其共同数为 $r$，则
+\[
+ U=a\sqrt{1+r^2},\quad V=b\sqrt{1+r^2},\quad
+ U-V=(a-b)\sqrt{1+r^2}.
+\]
+又 $D=|a-b|\sqrt{1+r^2}$，因此 $a>b$ 时恰有 $f(x_0)=D$，$a<b$ 时恰有 $f(x_0)=-D$。
+
+若 $a=b$ 且 $m\ne n$，等号条件 $t=s$ 不可能成立；若 $a=b,m=n$，原式恒为 $0$。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明二（续）：用“有理化”判断另一端一定取不到}}
+\input{assets/tikz/F082_lower_height}
+
+
+\textbf{情形一：$a>b$。} 把第一个根号的高度暂时改成 $b$：
+\[
+ W=\sqrt{(x-m)^2+b^2}.
+\]
+由于 $a>b$，第一个根号 $U$ 严格大于 $W$，并且
+\[
+ \underbrace{U-W}_{\text{严格大于 }0}
+ =\frac{a^2-b^2}{U+W}>0.
+\]
+原式拆成
+\[
+ f(x)=\underbrace{(U-W)}_{>0}+\underbrace{(W-V)}_{\text{两个同高度点的距离差}}.
+\]
+第二项直接有理化：
+\[
+ W-V=\frac{(x-m)^2-(x-n)^2}{W+V}
+ =\frac{(n-m)(2x-m-n)}{W+V}.
+\]
+若 $m\ne n$，因为 $b>0$，有 $W>|x-m|$、$V>|x-n|$，从而
+\[
+ |W-V|
+ =|n-m|\,\frac{|(x-m)+(x-n)|}{W+V}
+ <|n-m|=d.
+\]
+若 $m=n$，直接有 $W-V=0$。所以无论 $m,n$ 是否相等，都有
+\[
+ \boxed{f(x)>-d}.
+\]
+当 $x$ 往足够远的一端移动时，$U-W$ 越来越接近 $0$，而 $W-V$ 越来越接近 $-d$，因此 $-d$ 是一个\textbf{只能靠近、不能取得}的边界。
+
+综合 $f(x_0)=D$、$f(x)>-d$、函数的连续变化，得到
+\[
+ \boxed{a>b:\qquad f(x)\in(-d,D]}.
+\]
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明二（续）：$a<b$ 和 $a=b$}}
+\input{assets/tikz/F082_lower_second_height}
+
+
+\textbf{情形二：$a<b$。} 这回把第二个根号的高度暂时\textbf{降低}到 $a$。令
+\[
+ W=\sqrt{(x-n)^2+a^2}.
+\]
+由于 $V>W$，有理化给出
+\[
+ V-W=\frac{b^2-a^2}{V+W}>0.
+\]
+于是
+\[
+ f(x)=(U-W)-(V-W).
+\]
+其中 $U,W$ 对应的两个定点高度同为 $a>0$，同样由有理化知道
+\[
+ U-W\leq d \quad\text{（$m=n$ 时可能等于 $d=0$）}.
+\]
+再减掉严格为正的 $V-W$，便得到
+\[
+ \boxed{f(x)<d}.
+\]
+前面已证明 $f(x_0)=-D$，而往远处移动时可以无限接近 $d$，故
+\[
+ \boxed{a<b:\qquad f(x)\in[-D,d)}.
+\]
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\input{assets/tikz/F082_graph_equal}
+\textbf{情形三：$a=b$。} 此时两个根号的固定高度一样：
+\[
+ f(x)=\frac{(n-m)(2x-m-n)}{
+ \sqrt{(x-m)^2+a^2}+\sqrt{(x-n)^2+a^2}}.
+\]
+若 $m\ne n$，依照上面的分母比较，严格有 $|f(x)|<d$；往左右无穷远分别靠近 $-d$ 与 $d$，所以
+\[
+ \boxed{a=b,\ m\ne n:\quad f(x)\in(-d,d)}.
+\]
+若 $m=n$，分子恒为 $0$，于是 $f(x)\equiv0$，值域为 $\{0\}$。
+
+\textbf{本证明最有用的想法：}一个高度大一点，就把它\textbf{降到另一个的高度}；多出来的那一截距离严格为正，而“同高度的距离差”永远小于水平距离。这样不用猜，便能证明哪个端点取不到。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明三：高中导数法（常规方法，可处理限制区间）}}
+\input{assets/tikz/F082_q_increasing}
+
+
+记
+\[
+ U(x)=\sqrt{(x-m)^2+a^2},\quad
+ V(x)=\sqrt{(x-n)^2+b^2},\quad f(x)=U(x)-V(x).
+\]
+直接求导：
+\[
+ f'(x)=\frac{x-m}{\sqrt{(x-m)^2+a^2}}
+       -\frac{x-n}{\sqrt{(x-n)^2+b^2}}.
+\]
+两个分式看似复杂，关键是：对任意实数 $t$，
+\[
+ q(t)=\frac{t}{\sqrt{1+t^2}},\qquad
+ q'(t)=\frac{1}{(1+t^2)^{3/2}}>0.
+\]
+所以 $q(t)$ 随 $t$ 增大而增大。原来的两个分式恰好是
+\[
+ f'(x)=q\!\left(\frac{x-m}{a}\right)
+       -q\!\left(\frac{x-n}{b}\right).
+\]
+因此比较 $f'(x)$ 的正负，只需比较括号里的两个数：
+\[
+ \begin{aligned}
+ f'(x)>0
+ &\Longleftrightarrow \frac{x-m}{a}>\frac{x-n}{b}\\
+ &\Longleftrightarrow b(x-m)>a(x-n)\\
+ &\Longleftrightarrow (b-a)x>bm-an.
+ \end{aligned}
+\]
+把“大于”换成“等于”或“小于”，也完全成立。
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{当 $a>b$ 时：} $b-a<0$，以 $x_0=(bm-an)/(b-a)$ 为界，
+\input{assets/tikz/F082_graph_unequal}
+
+\[
+ f'(x)\begin{cases}>0,&x<x_0,\\=0,&x=x_0,\\<0,&x>x_0.\end{cases}
+\]
+故函数\textbf{先增大后减小}，在 $x_0$ 处取到最大值 $D$。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明三（续）：另外两种情况与完整值域}}
+\input{assets/tikz/F082_graph_lower}
+
+
+\textbf{当 $a<b$ 时：} $b-a>0$，导数在 $x_0$ 左边为负、右边为正，函数\textbf{先减小后增大}，在 $x_0$ 处取到最小值 $-D$。
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{当 $a=b$ 时：} 比较式变成
+\input{assets/tikz/F082_graph_equal}
+
+\[
+ b(x-m)-a(x-n)=a(n-m).
+\]
+如果 $m\ne n$，这个数始终同号，函数始终\textbf{只朝一个方向变化}，没有最大值也没有最小值；如果 $m=n$，导数恒为 $0$，函数恒等于 $0$。
+
+\textbf{还需补上值域两端。} 当 $x$ 越来越大或越来越小时，
+\[
+ \lim_{x\to+\infty}f(x)=n-m,\qquad
+ \lim_{x\to-\infty}f(x)=m-n.
+\]
+证明见“证明一”的有理化式。两端极限为 $d$ 与 $-d$（$m=n$ 时都为 $0$）。
+
+导数已说明：$a>b$ 时只有一个最高点，其余两侧沿曲线向左右远处走，最低只会逼近 $-d$；$a<b$ 时只有一个最低点，最高只会逼近 $d$；$a=b$ 且 $m\ne n$ 时始终朝一个方向变化，两个端点都只能靠近。
+
+因此完整值域是
+\[
+ \boxed{\begin{array}{c|c}
+ a>b&(-d,D]\\
+ a<b&[-D,d)\\
+ a=b,\ m\ne n&(-d,d)\\
+ a=b,\ m=n&\{0\}
+ \end{array}}
+\]
+其中 $D=\sqrt{(m-n)^2+(a-b)^2}$，$d=|m-n|$。
+
+\textbf{导数法适合什么时候？} 受限区间先检查 $x_0$，再比较允许的端点值。\textbf{端点未取到时，不能把对应函数值当作最值。}
+\end{proofbox}

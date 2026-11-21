@@ -1,0 +1,171 @@
+% F082｜02 理解
+\clearpage
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{一、为什么会有“距离差”这种解法？}}
+\input{assets/tikz/F082_radical_difference}
+
+
+	先看一个根号：
+	\[
+		\sqrt{(x-m)^2+a^2}.
+	\]
+	把 $P(x,0)$ 放在水平的 $x$ 轴上，把 $A(m,a)$ 放在轴上方。水平方向相差 $|x-m|$，竖直方向相差 $a$。按勾股定理，两点间的直线距离就是这个根号。
+
+	另一个根号也是如此：取 $B(n,b)$，于是
+	\[
+		\underbrace{\sqrt{(x-m)^2+a^2}}_{PA}
+		-\underbrace{\sqrt{(x-n)^2+b^2}}_{PB}
+		=PA-PB.
+	\]
+	\textbf{加法}表示两段距离的\textbf{总长度}；\textbf{减法}表示\textbf{第一段比第二段长多少}，可能是正数、负数或零。这里不必把差理解成真实走路的总长度。
+
+	看蓝线落在横轴上方还是下方，就能看到距离差为正还是为负。\textbf{方向由相减的先后顺序决定。}
+
+	\medskip
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{二、为什么差的绝对值不能超过 $AB$？}}
+\input{assets/tikz/F082_triangle_bound}
+
+
+	看图比较从 $P$ 直接到 $A$ 与先到 $B$ 再到 $A$：直路 $PA$ 不会长于绕路 $PB+BA$，因此
+	\[
+		PA\leq AB+PB\quad\Longrightarrow\quad PA-PB\leq AB.
+	\]
+	交换 $A,B$ 的位置看，也有
+	\[
+		PB\leq AB+PA\quad\Longrightarrow\quad PB-PA\leq AB.
+	\]
+	两句话合起来，就是
+	\[
+		\boxed{-AB\leq PA-PB\leq AB}.
+	\]
+	这说的是：\textbf{站在同一个 $P$，到两处地点的路程差，不可能比两处地点本身的距离还大。}
+
+	但要记住：\textbf{“不超过”不等于“一定能等于”。} 下一步必须看图找等号。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{三、等号什么时候才能成立？}}
+
+	若 $PA-PB=AB$，则 $PA=PB+BA$。这表示从 $P$ 走到 $B$，再走到 $A$，刚好是一条不折返的直路，即\textbf{$P,B,A$ 依次排成一条直线}。
+
+	若 $PA-PB=-AB$，同理必须是\textbf{$P,A,B$ 依次排成一条直线}。
+
+	因此求\textbf{距离差}，并不是让 $P$ 处在 $A,B$ 中间；相反，\textbf{$P$ 必须在两点连线的外侧}。这和 F012 距离和型“$P$ 在线段中间时最短”正好相反。
+
+	下面的图取 $A(0,2)$、$B(2,1)$、$P(4,0)$，三点恰好在一条直线上，且 $P$ 在 $B$ 的外侧。
+	\input{assets/tikz/F082_distance_difference}
+	\[
+		PA=2\sqrt5,\quad PB=\sqrt5,\quad AB=\sqrt5,
+		\qquad PA-PB=AB.
+	\]
+	所以 $\sqrt5$ 不只是一个算出来的上界，\textbf{它真的能取到}。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{四、最值得深入：为什么“翻折一个定点”有用？}}
+
+	根号里竖直距离是平方：
+	\[
+		(0-a)^2=(0+a)^2.
+	\]
+	因此，$A(m,a)$ 与 $A'(m,-a)$ 到任意 $P(x,0)$ 的距离完全一样。\textbf{把一个固定点关于 $x$ 轴翻折，不改变根号的值。}
+
+	\input{assets/tikz/F082_reflection}
+
+	从上面可以看到：同样的两个根号，可以画成上下两侧，也可以翻折成同一侧。\textbf{对于距离差，我们选择两个固定点在 $x$ 轴同一侧}，因为要找的是$P$落在两点连线的\textbf{延长线}上时，距离差能否等于 $AB$。
+
+	注意这个容易混淆的地方：\textbf{翻折后，$PA$ 不变，但 $AB$ 可能改变。} 所以不能在点的上下位置随便改变之后，把\textbf{旧图的 $AB$} 继续当作新的边界；必须按最终选定的两个同侧点，重新计算它们之间的距离：
+	\[
+		AB=\sqrt{(m-n)^2+(a-b)^2}.
+	\]
+	两个定点放\textbf{同侧}，求差用的是高度差 $|a-b|$；F012 中两点放\textbf{异侧}、求和用的是高度和 $a+b$。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{五、高度不同，为什么能找到等号位置？}}
+\input{assets/tikz/F082_height_cases}
+
+
+	先令 $a>b$：$A(m,a)$ 比 $B(n,b)$ 高一些。连接 $A,B$ 并继续朝着较低的 $B$ 方向延长，高度从 $a$ 下降到 $b$，最后一定降到 $0$，与 $x$ 轴相交。交点就是 $P_0$。
+
+	此时顺序为 $A,B,P_0$，所以 $P_0A=P_0B+BA$，原式最大值为 $AB$。
+
+	当 $a<b$ 时，换成沿着 $A$ 的方向延长，交点落在 $A$ 一侧，得到 $P_0B=P_0A+AB$，故原式最小值为 $-AB$。
+
+	\textbf{怎么求交点？} 直线从 $A(m,a)$ 走到 $B(n,b)$ 时，横坐标改变量为 $n-m$，高度改变量为 $b-a$。继续沿同一直线走到高度 $0$，因此
+	\[
+		\frac{x_0-m}{n-m}=\frac{-a}{b-a}\qquad(n\ne m),
+	\]
+	整理得到\textbf{不必再分 $m,n$ 大小}的统一公式：
+	\[
+		\boxed{x_0=\frac{bm-an}{b-a}\quad(a\ne b)}.
+	\]
+	若 $m=n$，两点在同一条竖直线上，延长线与轴交于 $x_0=m$；这个公式同样成立。
+
+	\textbf{一个很实用的判断：} $a>b$ 看最大值 $D$；$a<b$ 看最小值 $-D$。另一个边界需要另外检查，绝不能顺手写成 $[-D,D]$。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{六、高度相同，为什么反而取不到两侧边界？}}
+
+	若 $a=b>0$，则 $A(m,a)$、$B(n,a)$ 一样高。两点连线是一条\textbf{水平直线}，与 $x$ 轴平行。
+	\input{assets/tikz/F082_equal_height}
+
+	因为 $P$ 必须在 $x$ 轴上，不论移动到哪里，都不可能与 $A,B$ 排成所需的同一直线（除非两点恰好重合，此时另算）。因此，当 $m\ne n$ 时：
+	\[
+		\boxed{-|m-n|<f(x)<|m-n|}.
+	\]
+	把 $P$ 一直往右移，两段斜边都会接近它们各自的水平长度，两者的差会越来越接近 $n-m$；一直往左移，就越来越接近 $m-n$。\textbf{靠近边界，不表示取到边界。}
+
+	例如
+	\[
+		f(x)=\sqrt{x^2+4}-\sqrt{(x-3)^2+4}
+	\]
+	的两个固定点是 $(0,2)$、$(3,2)$，所以值域是 $(-3,3)$，而\textbf{不是} $[-3,3]$。
+
+	若再有 $m=n$，两个根号从头到尾都一样，$f(x)\equiv0$；此时值域只是 $\{0\}$。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{七、另一个边界从哪里来？}}
+\input{assets/tikz/F082_graph_unequal}
+
+
+	当 $x$ 很大且为正数时，两个根号分别非常接近 $x-m$、$x-n$，所以差接近 $n-m$；当 $x$ 是绝对值很大的负数时，两个根号分别接近 $m-x$、$n-x$，所以差接近 $m-n$：
+	\[
+		\boxed{\begin{aligned}
+				x\to+\infty & :\quad f(x)\to n-m, \\
+				x\to-\infty & :\quad f(x)\to m-n.
+			\end{aligned}}
+	\]
+	这两个数中较小的是 $-d$，较大的是 $d$。因此，$a>b$ 时，函数在一侧达到真正最大值 $D$，另一端无限接近 $-d$；$a<b$ 时则反过来。
+
+	\textbf{为什么不能把 $-d$ 或 $d$ 写成闭端点？} 当 $a>b$ 时，第一个固定点更高，第一段距离总比把它压到高度 $b$ 后长，故函数值\textbf{严格大于} $-d$；$a<b$ 时同理严格小于 $d$。完整计算在“证明二”。
+
+	\textbf{对高考题最快的提醒：}先分 $a>b$、$a<b$、$a=b$；再看边界是\textbf{某个有限的 $x$ 真正取到}，还是\textbf{$x$ 无限远时才慢慢靠近}。取到写中括号；只靠近写小括号。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+	\textbf{\textcolor{CExplanation}{八、再发现一个简单却有用的关系：差为零在哪里？}}
+\input{assets/tikz/F082_zero_bisector}
+
+
+	两段距离恰好相等，即 $f(x)=0$ 时，有 $PA=PB$。两个正根号相等可以直接平方：
+	\[
+		(x-m)^2+a^2=(x-n)^2+b^2.
+	\]
+	平方项展开，$x^2$ 正好抵消，剩下一次式：
+	\[
+		2(n-m)x+(m^2-n^2)+(a^2-b^2)=0.
+	\]
+	当 $m\ne n$ 时，交点横坐标为
+	\[
+		\boxed{x=\frac{m+n}{2}+\frac{b^2-a^2}{2(n-m)}}.
+	\]
+	若 $m=n$ 且 $a\ne b$，两段距离始终不相等；若 $m=n$ 且 $a=b$，则处处相等。
+
+	\textbf{眼前一亮：}距离差看上去有两个根号，\textbf{判断正负或求零点时，根号却可以一起消掉}。这个技巧经常比求导快。
+\end{explanationbox}

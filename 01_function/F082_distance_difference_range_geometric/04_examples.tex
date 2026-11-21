@@ -1,0 +1,231 @@
+% F082｜04 例题：从初中算例到高考速答
+\clearpage
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 0：先认清“相减”可以得到负数}}
+\input{assets/tikz/F082_sign_change}
+
+
+	固定 $A(0,2)$、$B(2,1)$、$P(x,0)$，
+	\[
+		f(x)=\sqrt{x^2+4}-\sqrt{(x-2)^2+1}.
+	\]
+	当 $x=0$ 时，$PA=2$，$PB=\sqrt5$，所以
+	\[
+		f(0)=2-\sqrt5<0.
+	\]
+	当 $x=4$ 时，$PA=\sqrt{20}=2\sqrt5$，$PB=\sqrt5$，所以
+	\[
+		f(4)=\sqrt5>0.
+	\]
+	\textbf{同一对定点，因为动点的位置改变，距离差可能从负数变成正数。} 求值域时绝不能只求差的绝对值。
+	
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 1：$a>b$，有最大值但没有最小值}}
+\input{assets/tikz/F082_graph_unequal}
+
+
+	求
+	\[
+		f(x)=\sqrt{x^2+4}-\sqrt{(x-2)^2+1},\quad x\in\mathbb R
+	\]
+	的值域。
+
+	\textbf{第 1 步：} $m=0,n=2,a=2,b=1$，所以 $a>b$。
+	\[
+		d=|0-2|=2,\qquad
+		D=\sqrt{(0-2)^2+(2-1)^2}=\sqrt5.
+	\]
+	\textbf{第 2 步：} 直接用 $a>b$ 的结论：
+	\[
+		\boxed{f(x)\in(-2,\sqrt5]}.
+	\]
+	\textbf{第 3 步：检验右端真的能取到。}
+	\[
+		x_0=\frac{1\cdot0-2\cdot2}{1-2}=4,
+		\qquad f(4)=2\sqrt5-\sqrt5=\sqrt5.
+	\]
+	左端 $-2$ 只能在 $x$ 往负无穷远移动时越来越接近，\textbf{不能写成 $[-2,\sqrt5]$}。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 2：$a<b$，有最小值但没有最大值}}
+\input{assets/tikz/F082_graph_lower}
+
+
+	求
+	\[
+		g(x)=\sqrt{x^2+1}-\sqrt{(x-2)^2+4}
+	\]
+	的值域。
+
+	这里 $a=1<b=2$，$m=0,n=2$，故
+	\[
+		d=2,\qquad D=\sqrt{2^2+(1-2)^2}=\sqrt5.
+	\]
+	因此\textbf{这次恰好和例 1 的开闭方向相反}：
+	\[
+		\boxed{g(x)\in[-\sqrt5,2)}.
+	\]
+	取最小值的位置为
+	\[
+		x_0=\frac{2\cdot0-1\cdot2}{2-1}=-2.
+	\]
+	验证：$g(-2)=\sqrt5-\sqrt{20}=-\sqrt5$。最大值不存在，$2$ 只能从下方越来越接近。
+
+	\textbf{一眼速答：}高度较低的第一点 $A$ 让差达到\textbf{负的} $AB$；高度较高的第二点 $B$ 不允许正的 $AB$ 也达到。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 3：$a=b$，两个端点都取不到}}
+\input{assets/tikz/F082_graph_equal}
+
+
+	求
+	\[
+		f(x)=\sqrt{x^2+4}-\sqrt{(x-3)^2+4}
+	\]
+	的值域。
+
+	两定点 $A(0,2)$、$B(3,2)$ \textbf{高度一样}，$d=3$，所以
+	\[
+		\boxed{f(x)\in(-3,3)}.
+	\]
+	例如 $x=\tfrac32$ 时，两个根号完全相等，$f(\tfrac32)=0$。
+
+	为什么不能取到 $\pm3$？两点连线是 $y=2$，动点始终位于 $y=0$；这两条水平线永远不会相交。只有把 $x$ 移得越来越远，距离差才会越来越接近 $\pm3$。
+	
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 4：$m=n$，两个根号共用同一个中心}}
+\input{assets/tikz/F082_same_center}
+
+
+	求
+	\[
+		f(x)=\sqrt{(x-1)^2+9}-\sqrt{(x-1)^2+1}
+	\]
+	的值域。
+
+	因为 $m=n=1$，所以 $d=0$；$a=3>b=1$，故 $D=2$，直接得到
+	\[
+		\boxed{f(x)\in(0,2]}.
+	\]
+	在 $x=1$ 时，$f(1)=3-1=2$。当 $x$ 越来越远离 $1$ 时，两段距离差越来越小，却始终\textbf{严格大于 $0$}。
+
+	如果把两个根号都改成同一个式子，例如
+	\[
+		\sqrt{(x-1)^2+9}-\sqrt{(x-1)^2+9},
+	\]
+	结果始终是 $0$，值域不是一个区间，而是 $\boxed{\{0\}}$。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 5：隐藏在二次式中的距离差（配方题）}}
+\input{assets/tikz/F082_completed_square}
+
+
+	求
+	\[
+		f(x)=\sqrt{x^2-4x+8}-\sqrt{x^2+2x+2}
+	\]
+	的值域。
+
+	\textbf{第 1 步：先配方。}
+	\[
+		x^2-4x+8=(x-2)^2+2^2,\qquad
+		x^2+2x+2=(x+1)^2+1^2.
+	\]
+	所以 $m=2,n=-1,a=2,b=1$，属于 $a>b$。
+
+	\textbf{第 2 步：算横向相隔多远，以及两点本身相隔多远。}
+	\[
+		d=|2-(-1)|=3,\quad D=\sqrt{3^2+1^2}=\sqrt{10}.
+	\]
+	\textbf{第 3 步：完整值域。}
+	\[
+		\boxed{f(x)\in(-3,\sqrt{10}]}.
+	\]
+	最大值在
+	\[
+		x_0=\frac{1\cdot2-2\cdot(-1)}{1-2}=-4
+	\]
+	处取得，代入得 $f(-4)=2\sqrt{10}-\sqrt{10}=\sqrt{10}$。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 6：题目限制 $x>4$，原来的最大值也取不到}}
+\input{assets/tikz/F082_restricted_open}
+
+
+	仍取例 1 的函数：
+	\[
+		f(x)=\sqrt{x^2+4}-\sqrt{(x-2)^2+1},\qquad x>4.
+	\]
+	在整个实数范围内，它的最大值是 $\sqrt5$，且\textbf{只有 $x=4$ 时达到}。但现在题目明确说 $x>4$，因此 $x=4$ 不允许。
+
+	导数告诉我们：$x>4$ 时函数不断\textbf{减小}；当 $x\to+\infty$ 时函数越来越接近 $2$，却不能等于 $2$。
+
+	于是这道限制后的题\textbf{既没有最大值，也没有最小值}：
+	\[
+		\boxed{f(x)\in(2,\sqrt5)}.
+	\]
+	如果改成 $x\geq4$，那么 $x=4$ 就合法，右端立刻变成闭的：
+	\[
+		\boxed{f(x)\in(2,\sqrt5]}.
+	\]
+	\textbf{考试最容易丢分的位置就在这个括号上。}
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 7：闭区间上的值域，先找转折点再比较端点}}
+\input{assets/tikz/F082_restricted_closed}
+
+
+	仍考虑
+	\[
+		f(x)=\sqrt{x^2+4}-\sqrt{(x-2)^2+1},\qquad 0\leq x\leq4.
+	\]
+	因为此函数在 $x<4$ 时一直增大，$x=4$ 处最大，所以
+	\[
+		\begin{aligned}
+			f(0) & =2-\sqrt5, \\
+			f(4) & =\sqrt5.
+		\end{aligned}
+	\]
+	因此完整值域为
+	\[
+		\boxed{[2-\sqrt5,\sqrt5]}.
+	\]
+	这次虽然还是同一个函数，但不再有无限远处的边界 $-2$，因为 $x$ 被限制在一小段路上。\textbf{受限范围优先看：是否包含转折点、左右端点是否允许、端点函数值谁大谁小。}
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+	\textbf{\textcolor{CExample}{例 8：不用求导，直接求距离差为零的位置}}
+\input{assets/tikz/F082_zero_bisector}
+
+
+	仍取例 1：
+	\[
+		\sqrt{x^2+4}-\sqrt{(x-2)^2+1}=0.
+	\]
+	等价于两个根号相等，所以两边平方：
+	\[
+		x^2+4=(x-2)^2+1=x^2-4x+5.
+	\]
+	$x^2$ 抵消，只剩 $4=5-4x$，故
+	\[
+		\boxed{x=\frac14}.
+	\]
+	这里根号都不小于 $0$，所以从“两根号相等”变成“根号内相等”完全合法，不会凭空多出其他解。
+
+	\textbf{更快的形式：}因为
+	\[
+		f(x)=\frac{x^2+4-\bigl((x-2)^2+1\bigr)}{
+			\sqrt{x^2+4}+\sqrt{(x-2)^2+1}}
+		=\frac{4x-1}{\sqrt{x^2+4}+\sqrt{(x-2)^2+1}},
+	\]
+	分母恒为正，所以只看分子 $4x-1$ 的正负就知道函数值的正负。
+\end{examplebox}

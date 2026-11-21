@@ -1,0 +1,63 @@
+% F082｜01 结论
+\begin{statementbox}
+\textbf{\textcolor{CStatement}{它解决什么问题？}}
+\input{assets/tikz/F082_radical_difference}
+
+
+遇到两个根号\textbf{相减}，例如
+\[
+ f(x)=\sqrt{x^2+4}-\sqrt{(x-2)^2+1},
+\]
+要找出差得最多是多少、最少是多少，以及所有能取到的数。难点不在单个根号，而在于\textbf{两个根号必须使用同一个 $x$}。
+
+图中同一横坐标处，橙色第一项减去紫色第二项就是蓝色函数值；它可以为负。下面再把两个根号对应到两段距离。
+
+\medskip
+\end{statementbox}
+\clearpage
+\begin{statementbox}
+\textbf{\textcolor{CStatement}{使用条件}}
+\[
+ \boxed{f(x)=\sqrt{(x-m)^2+a^2}-\sqrt{(x-n)^2+b^2}},
+ \quad a,b>0,\quad m,n\in\mathbb R,\quad x\in\mathbb R.
+\]
+放置三个点：$A(m,a)$、$B(n,b)$、$P(x,0)$。这时
+\[
+ f(x)=PA-PB.
+\]
+\input{assets/tikz/F082_distance_difference}
+\end{statementbox}
+\clearpage
+\begin{statementbox}
+\textbf{\textcolor{CStatement}{核心结论：先看高度是否相同}}
+
+记
+\[
+ d=|m-n|,\qquad D=AB=\sqrt{(m-n)^2+(a-b)^2}.
+\]
+由“两点之间线段最短”，必有 $|PA-PB|\leq AB$，所以 $-D\leq f(x)\leq D$。\textbf{但这两个端点不一定都能取到。} 完整答案为
+\[
+ \boxed{\begin{array}{c|c}
+ \text{两固定点离轴的高度}&\text{完整值域}\\\hline
+ a>b&(-d,D]\\
+ a<b&[-D,d)\\
+ a=b,\ m\ne n&(-d,d)\\
+ a=b,\ m=n&\{0\}
+ \end{array}}
+\]
+
+当 $a\ne b$ 时，连接 $A$、$B$ 并延长，与 $x$ 轴交于 $P_0$：
+\[
+ \boxed{x_0=\frac{bm-an}{b-a}}.
+\]
+\begin{itemize}[leftmargin=*,itemsep=.25em]
+\item $a>b$：$PA$ 最多比 $PB$ 多 $D$，在 $x=x_0$ 时\textbf{取到最大值 $D$}；最小值不存在，下方只能无限接近 $-d$。
+\item $a<b$：$PA$ 最多比 $PB$ 少 $D$，在 $x=x_0$ 时\textbf{取到最小值 $-D$}；最大值不存在，上方只能无限接近 $d$。
+\item $a=b$ 且 $m\ne n$：两点高度一样，延长线始终碰不到 $x$ 轴，\textbf{$-d$、$d$ 都取不到}。
+\item $a=b$ 且 $m=n$：两定点完全重合，距离差恒为 $0$。
+\end{itemize}
+
+\textbf{一句话记忆：}求和靠\textbf{折线拉直}；求差靠\textbf{一段比另一段多多少}。两点同侧看延长线；高度不同，只能取到一侧的极值。
+
+\textbf{重要前提：}上表要求 $x$ 取任意实数。若 $x$ 被限制在区间里，不能直接照搬上表。
+\end{statementbox}

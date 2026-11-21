@@ -1,0 +1,86 @@
+% F082｜05 易错点
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错一：把距离和型 F012 的结论直接套到距离差型}}
+\input{assets/tikz/F082_sum_difference_positions}
+
+
+距离和要让两段路拉成一条直路，常把两个定点放在 $x$ 轴上下两侧，得到的竖直距离是 $a+b$。
+
+距离差应让两定点位于\textbf{同一侧}，比较两段路相差多少，得到的是 $|a-b|$。
+\[
+ \boxed{D=\sqrt{(m-n)^2+(a-b)^2}},
+ \quad\text{不能错写成 }\sqrt{(m-n)^2+(a+b)^2}.
+\]
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错二：从 $|f(x)|\leq D$ 就直接说值域 $[-D,D]$}}
+\input{assets/tikz/F082_graph_unequal}
+
+
+这仅仅说明函数不会跑到范围外，\textbf{不代表两个端点都能取到，也不代表里面所有数都能取到}。例如
+\[
+ \sqrt{x^2+4}-\sqrt{(x-2)^2+1}
+ \in(-2,\sqrt5],
+\]
+而不是 $[-\sqrt5,\sqrt5]$。
+
+\textbf{\textcolor{CTrap}{易错三：忘记减法有先后顺序}}
+
+$PA-PB$ 和 $PB-PA$ 互为相反数；把两个根号换顺序，最大值和最小值也会对调。不能只凭 $AB$ 的长度来断定哪个是正、哪个是负。
+
+\textbf{\textcolor{CTrap}{易错四：三点共线就一定能取到 $AB$？}}
+
+距离差等于 $\pm AB$ 时，$P$ 要在\textbf{线段 $AB$ 的外侧}，而不是在线段中间。若 $P$ 在中间，则有 $PA+PB=AB$，对应的是\textbf{距离和}，不是差的极值。
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错五：高度相同还套 $x_0$ 公式}}
+\input{assets/tikz/F082_graph_equal}
+
+
+\[
+ x_0=\frac{bm-an}{b-a}
+\]
+\textbf{只在 $a\ne b$ 时才能使用}。当 $a=b$，分母为 $0$，不是“交点在无穷远处也能代入”，而是需要重新判断：
+\begin{itemize}[leftmargin=*,itemsep=.25em]
+\item $m\ne n$，值域 $(-|m-n|,|m-n|)$；两端都取不到。
+\item $m=n$，两根号完全一样，值域 $\{0\}$。
+\end{itemize}
+
+\textbf{\textcolor{CTrap}{易错六：把“能无限靠近”误认为“能取到”}}
+
+例如 $x\to+\infty$ 时 $f(x)\to2$，只说明函数值越来越接近 $2$，\textbf{不等于存在一个真实的 $x$ 使 $f(x)=2$}。验证是否取到，必须看等号所要求的点能否找到，或者直接求解对应方程。
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错七：题目限制 $x$，却照抄全实数的值域}}
+\input{assets/tikz/F082_restricted_open}
+
+
+只有 $x\in\mathbb R$ 才可直接使用 F082 总表。若题目给 $x>c$、$x\in[L,R]$，先找 $x_0$，判断它在不在范围中；然后结合函数在左右哪边增大、哪边减小，分别检查端点开闭。
+
+\textbf{\textcolor{CTrap}{易错八：根号内常数不是正平方，也硬套距离法}}
+
+只有能写成 $(x-m)^2+a^2$ 且 $a>0$ 的形式，才能使用本条完整结论。若配方得到 $(x-m)^2-4$，不能把 $-4$ 看作固定竖直距离的平方。若 $a$ 或 $b$ 恰好是 $0$，会出现绝对值，等号位置也可能有多种情况，必须另外处理。
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{再记一个小心之处：翻折不改变某个根号，却可能改变两定点的距离}}
+\input{assets/tikz/F082_reflection}
+
+
+当 $P$ 在 $x$ 轴上，$A(m,a)$ 与 $A'(m,-a)$ 到 $P$ 的距离相同，所以原函数保持不变。
+
+但是 $AB$ 与 $A'B$ 不是同一段长度：
+\[
+ AB=\sqrt{(m-n)^2+(a-b)^2},\qquad
+ A'B=\sqrt{(m-n)^2+(a+b)^2}.
+\]
+求差时用\textbf{同侧两定点}的距离 $AB$。不能把 F012 画出的异侧两点距离 $A'B$ 当成 F082 的最大距离差。
+
+\textbf{一句防错口令：}先分高度，后定正负；检查共线，最后判开闭。
+\end{trapbox}
