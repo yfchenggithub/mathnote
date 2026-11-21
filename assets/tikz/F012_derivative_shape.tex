@@ -1,11 +1,36 @@
-\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
-\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,9.5);
-\node at (7.1,8.9) {导数变号的位置，正好是折线能够拉直的位置};
-\begin{scope}[shift={(2.0,1.65)},x=1.0cm,y=.72cm]
-\draw[->,gray] (-1,0)--(5.6,0) node[right]{$x$};\draw[->,gray] (0,0)--(0,8.4) node[above]{$y$};
-\foreach \v/\lab in {2/6,4/8,6/10}{\node[left=4pt] at (0,\v){$\lab$};}\node[below left=5pt] at (0,0){$4$};
-\draw[blue,very thick,domain=-1:5.3,samples=160] plot(\x,{sqrt((\x-1)^2+4)+sqrt((\x-3)^2+9)-4});
-\fill[orange!85!black] (1.8,{sqrt(29)-4}) circle(2.3pt);\draw[gray,dotted] (1.8,0)--(1.8,{sqrt(29)-4});\node[below=5pt] at (1.8,0){$x_0$};\end{scope}
-\node[align=left,anchor=west] at (8.3,4.9){$f(x)=AP+PB$\\[12pt]$x_0=9/5$\\[12pt]$x<x_0$：$f\prime(x)<0$\\[10pt]$x>x_0$：$f\prime(x)>0$\\[12pt]最小值 $\sqrt{29}$};
-\node[text width=12.8cm,align=center] at (7.1,.65) {纵轴从 $4$ 起显示，刻度为原函数值；图取 $m=1,n=3,a=2,b=3$。};
-\end{tikzpicture}\end{center}
+\begin{center}
+\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,12.6);
+\node at (7.1,12.0) {两个根号在同一个 $x$ 处相加，得到蓝色和函数};
+\node[blue] at (7.1,11.1) {$\displaystyle f(x)=\sqrt{(x-1)^2+4}+\sqrt{(x-3)^2+9}$};
+\node[orange!85!black] at (3.8,10.15) {$u(x)=\sqrt{(x-1)^2+4}$};
+\node[violet] at (10.4,10.15) {$v(x)=\sqrt{(x-3)^2+9}$};
+\begin{scope}[shift={(2.3,1.7)},x=1.6cm,y=.65cm]
+\draw[->,gray] (-1.1,0)--(6.0,0) node[right]{$x$};
+\draw[->,gray] (0,0)--(0,10.5) node[above]{$y$};
+\foreach \v in {2,4,6,8,10}{\draw[gray] (-.045,\v)--(.045,\v) node[left=3pt]{$\v$};}
+\node[below left=3pt] at (0,0){$0$};
+\foreach \v in {1,3,4}{\draw[gray] (\v,-.06)--(\v,.06) node[below=4pt]{$\v$};}
+\draw[orange!85!black,thick,dashed,domain=-1:5.2,samples=160] plot(\x,{sqrt((\x-1)^2+4)});
+\draw[violet,thick,densely dotted,domain=-1:5.2,samples=160] plot(\x,{sqrt((\x-3)^2+9)});
+\draw[blue,very thick,domain=-1:5.2,samples=180] plot(\x,{sqrt((\x-1)^2+4)+sqrt((\x-3)^2+9)});
+\draw[blue,very thick,->,domain=-.6:.1,samples=40] plot(\x,{sqrt((\x-1)^2+4)+sqrt((\x-3)^2+9)});
+\draw[blue,very thick,->,domain=2.8:3.5,samples=40] plot(\x,{sqrt((\x-1)^2+4)+sqrt((\x-3)^2+9)});
+\node[blue] at (.65,7.65){先减小};
+\node[blue] at (2.9,8.1){后增大};
+\draw[gray,dotted] (1.8,0)--(1.8,4.15) (1.8,5.1)--(1.8,{sqrt(29)});
+\fill[blue] (1.8,{sqrt(29)}) circle(2.6pt);
+\node[blue,below=8pt] at (1.8,{sqrt(29)}) {最低点 $(9/5,\sqrt{29})$};
+\node[below=4pt] at (1.8,0){$9/5$};
+% x=4: add the actual two function heights, never add minima at different x.
+\draw[gray,dashed] (4,0)--(4,{sqrt(13)+sqrt(10)});
+\fill[orange!85!black] (4,{sqrt(13)}) circle(2pt);
+\fill[violet] (4,{sqrt(10)}) circle(2pt);
+\fill[blue] (4,{sqrt(13)+sqrt(10)}) circle(2pt);
+\draw[gray,dotted] (4,{sqrt(13)})--(5.8,{sqrt(13)}) (4,{sqrt(13)+sqrt(10)})--(5.8,{sqrt(13)+sqrt(10)});
+\draw[orange!85!black,<->] (5.8,0)--(5.8,{sqrt(13)}) node[midway,right=5pt]{$u(4)$};
+\draw[violet,<->] (5.8,{sqrt(13)})--(5.8,{sqrt(13)+sqrt(10)}) node[midway,right=5pt]{$v(4)$};
+\end{scope}
+\node[align=center] at (7.1,.65) {$x<9/5:\ f'(x)<0\quad\longrightarrow\quad x=9/5:\ f'(x)=0\quad\longrightarrow\quad x>9/5:\ f'(x)>0$};
+\end{tikzpicture}
+\end{center}

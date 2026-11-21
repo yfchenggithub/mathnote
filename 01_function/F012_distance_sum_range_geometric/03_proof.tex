@@ -98,7 +98,24 @@
 \clearpage
 \begin{proofbox}
 \textbf{\textcolor{CProof}{证明三：用导数判断先减小、后增大（高中常规方法）}}
+这里直接研究两个根号相加后的\textbf{函数值怎样变化}，先不把它们改叫路程。记
+\[
+\begin{aligned}
+ u(x)&=\sqrt{(x-m)^2+a^2},\qquad
+ v(x)=\sqrt{(x-n)^2+b^2},\\
+ f(x)&=u(x)+v(x),\qquad a,b>0.
+\end{aligned}
+\]
+下图取 $m=1,n=3,a=2,b=3$。橙虚线、紫点线是两个根号项，蓝实线才是我们要求最小值的\textbf{和函数}。
 \input{assets/tikz/F012_derivative_shape}
+
+在同一个 $x=4$ 处，把橙色高度 $u(4)$ 与紫色高度 $v(4)$ 接起来，恰好达到蓝线的高度 $f(4)$。沿蓝线从左向右看：\textbf{先减小，在 $9/5$ 处最低，再增大。}
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{证明三（续）：为什么两个根号的和一定先减后增？}
+
+
 
 
 直接求导得
@@ -110,25 +127,22 @@
 
 \textbf{第 1 步：判断两侧。} 当 $x\leq m$ 时，两个分子的符号分别为非正和负，所以 $f'(x)<0$；当 $x\geq n$ 时，两个分子的符号分别为正和非负，所以 $f'(x)>0$。
 
-\end{proofbox}
-\clearpage
-\begin{proofbox}
-\textbf{第 2 步：判断 $m<x<n$。} 在这个区间设 $u=x-m>0$、$v=n-x>0$，那么
+\textbf{第 2 步：判断 $m<x<n$。} 在这个区间设 $r=x-m>0$、$s=n-x>0$，那么
 \[
- f'(x)=\frac{u}{\sqrt{u^2+a^2}}-\frac{v}{\sqrt{v^2+b^2}}.
+ f'(x)=\frac{r}{\sqrt{r^2+a^2}}-\frac{s}{\sqrt{s^2+b^2}}.
 \]
 两项都是正数，比较它们的大小时可以平方。先看导数什么时候不小于 $0$：
 \[
  \begin{aligned}
  f'(x)\geq0
  &\Longleftrightarrow
- \frac{u}{\sqrt{u^2+a^2}}\geq\frac{v}{\sqrt{v^2+b^2}}\\
- &\Longleftrightarrow u^2(v^2+b^2)\geq v^2(u^2+a^2)\\
- &\Longleftrightarrow b^2u^2\geq a^2v^2\\
- &\Longleftrightarrow bu\geq av.
+ \frac{r}{\sqrt{r^2+a^2}}\geq\frac{s}{\sqrt{s^2+b^2}}\\
+ &\Longleftrightarrow r^2(s^2+b^2)\geq s^2(r^2+a^2)\\
+ &\Longleftrightarrow b^2r^2\geq a^2s^2\\
+ &\Longleftrightarrow br\geq as.
  \end{aligned}
 \]
-由于 $a,b,u,v$ 都是正数，把上述“不小于”改成“等于”或“小于”，对应关系也完全一样。于是
+由于 $a,b,r,s$ 都是正数，把上述“不小于”改成“等于”或“小于”，对应关系也完全一样。于是
 \[
  \begin{cases}
  f'(x)<0,& b(x-m)<a(n-x),\\
@@ -138,6 +152,9 @@
 \]
 也就是以 $x_0=(bm+an)/(a+b)$ 为界，$x<x_0$ 时函数减小，$x>x_0$ 时函数增大。
 
+\end{proofbox}
+\clearpage
+\begin{proofbox}
 \textbf{第 3 步：计算最低点的值。} 代入 $x_0$，
 \[
  x_0-m=\frac{a(n-m)}{a+b},\qquad
