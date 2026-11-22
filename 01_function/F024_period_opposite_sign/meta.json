@@ -10,9 +10,11 @@
       "f(x+a)=-f(x)周期",
       "反号型周期",
       "两次变号",
-      "走一步变号走两步还原"
+      "走一步变号走两步还原",
+      "错位反号型周期",
+      "f(x+a)=-f(x+b)周期"
     ],
-    "summary": "若对所有实数x有f(x+a)=-f(x)且a≠0，则2|a|是一个正周期，不保证是最小正周期；不能单凭此式推断图像中心对称。",
+    "summary": "若对所有实数x有f(x+a)=-f(x)且a≠0，则2|a|是一个正周期，不保证是最小正周期；不能单凭此式推断图像中心对称。错位反号f(x+a)=-f(x+b)在a≠b、等式全域成立且定义域允许所需来回平移时，给出一个正周期2|a-b|，未必最小。",
     "difficulty": 2,
     "category": "函数",
     "tags": [
@@ -37,7 +39,10 @@
       "奇函数对称轴",
       "偶函数对称中心",
       "奇数次变号",
-      "偶数次还原"
+      "偶数次还原",
+      "错位反号",
+      "2|a-b|",
+      "f(x+a)=-f(x+b)"
     ],
     "synonyms": [
       "加a变负",
@@ -67,7 +72,9 @@
     "latex_patterns": [
       "f(x+a)=-f(x)",
       "f(x+2a)=f(x)",
-      "f(x+na)=(-1)^n f(x)"
+      "f(x+na)=(-1)^n f(x)",
+      "f(x+a)=-f(x+b)",
+      "T=2|a-b|"
     ],
     "formulaTokens": [
       "f(x+a)",
@@ -100,22 +107,27 @@
       "f(x+na)=(-1)^n f(x) \\quad(n\\in\\mathbb Z)",
       "f(x)+f(x+a)=0",
       "f(-x)=f(x)\\Rightarrow f(a/2+t)=-f(a/2-t)",
-      "f(-x)=-f(x)\\Rightarrow f(a/2+t)=f(a/2-t)"
+      "f(-x)=-f(x)\\Rightarrow f(a/2+t)=f(a/2-t)",
+      "f(x+a)=-f(x+b), a\\ne b \\Rightarrow f(t+2(a-b))=f(t)"
     ],
     "variables": [
       "x",
       "a",
-      "f"
+      "f",
+      "b",
+      "t",
+      "d"
     ],
-    "conditions": "函数在全体实数上有定义；a为非零常数；对任意实数x都有f(x+a)=-f(x)。",
-    "conclusions": "对任意实数x，有f(x+2a)=f(x)，所以2|a|是一个正周期（未必最小）；一般不能推出关于(a/2,0)中心对称。若额外为偶函数，则关于(a/2,0)中心对称；若额外为奇函数，则关于直线x=a/2对称。"
+    "conditions": "函数在全体实数上有定义；a为非零常数；对任意实数x都有f(x+a)=-f(x)。错位型：a、b为固定实数且a≠b；全实数情形等式对每个x成立。其他非空域D要求对每个t∈D可在题设中取x=t-b，所得f(t+d)=-f(t)全域成立，且D+d=D（d=a-b）。",
+    "conclusions": "对任意实数x，有f(x+2a)=f(x)，所以2|a|是一个正周期（未必最小）；一般不能推出关于(a/2,0)中心对称。若额外为偶函数，则关于(a/2,0)中心对称；若额外为奇函数，则关于直线x=a/2对称。错位反号型给出一个正周期2|a-b|，未必最小。"
   },
   "content": {
-    "statement": "对任意x有f(x+a)=-f(x)（a≠0），则f(x+2a)=f(x)，因此2|a|是函数的一个正周期，不保证最小。",
+    "statement": "对任意x有f(x+a)=-f(x)（a≠0），则f(x+2a)=f(x)，因此2|a|是函数的一个正周期，不保证最小。错位反号型在相应全域与平移条件下给出一个正周期2|a-b|（a≠b）。",
     "derivation": [
       "由条件 $f(x+a)=-f(x)$，将 $x$ 替换为 $x+a$ 得 $f((x+a)+a)=-f(x+a)$。",
       "代入条件 $f(x+a)=-f(x)$，得 $f(x+2a)=-(-f(x))=f(x)$。",
-      "因此对任意 $x$，$f(x+2a)=f(x)$，故 $2|a|$ 是一个正周期（未必最小）。"
+      "因此对任意 $x$，$f(x+2a)=f(x)$，故 $2|a|$ 是一个正周期（未必最小）。",
+      "错位型令t=x+b、d=a-b，则f(t+d)=-f(t)，再次平移得f(t+2d)=f(t)，正周期取2|d|。"
     ],
     "intuition": "函数值像交替亮灭的两格灯：输入每增加a，输出由v变成-v，再增加a又变回v。",
     "common_tricks": [
@@ -123,7 +135,8 @@
       "两两配对：f(x)+f(x+a)=0，直接求长串和",
       "奇数次移动a变号，偶数次不变",
       "只有增加奇偶性条件时，才能进一步判断a/2附近的对称轴或对称中心",
-      "a为负数时正周期写2|a|；不要误认最小正周期"
+      "a为负数时正周期写2|a|；不要误认最小正周期",
+      "两个输入先相减，取绝对值再乘二，不能相加。"
     ]
   },
   "usage": {
@@ -160,7 +173,11 @@
       "assets/tikz/F024_negative_shift.tex",
       "assets/tikz/F024_continuous_crossing.tex",
       "assets/tikz/F024_jump_no_zero.tex",
-      "assets/tikz/F024_zero_exception.tex"
+      "assets/tikz/F024_zero_exception.tex",
+      "assets/tikz/F024_offset_walk.tex",
+      "assets/tikz/F024_offset_distance.tex",
+      "assets/tikz/F024_offset_negative.tex",
+      "assets/tikz/F024_offset_not_minimum.tex"
     ],
     "other": {
       "gif": "images/two_sign_changes_clear_labels.gif"
@@ -192,10 +209,10 @@
     "version": 2,
     "source": "AI生成",
     "created_at": "2026-06-26",
-    "updated_at": "2026-11-21"
+    "updated_at": "2026-11-22"
   },
   "isPro": 1,
-  "remarks": "2026-11-21修订：删除原稿中无依据的中心对称结论；修正例2端点冲突；明确正周期/最小正周期差别；增加三种讲法、图解及奇偶性附加结论。；2026-11-21：新增13幅独立TikZ，覆盖首页、三种证明、整数步推广、5例与7个易错点；按题设初值和步长绘图，突出两次反号、区间端点、附加奇偶性及连续条件。；新增教学GIF images/two_sign_changes_clear_labels.gif，模型与分镜归本UID的manim；LOCAL PRODUCTION PASS，用户视觉及Android真机验收PENDING，未执行内容Publisher或Sync。",
+  "remarks": "2026-11-21修订：删除原稿中无依据的中心对称结论；修正例2端点冲突；明确正周期/最小正周期差别；增加三种讲法、图解及奇偶性附加结论。；2026-11-21：新增13幅独立TikZ，覆盖首页、三种证明、整数步推广、5例与7个易错点；按题设初值和步长绘图，突出两次反号、区间端点、附加奇偶性及连续条件。；新增教学GIF images/two_sign_changes_clear_labels.gif，模型与分镜归本UID的manim；LOCAL PRODUCTION PASS，用户视觉及Android真机验收PENDING，未执行内容Publisher或Sync。；2026-11-22定向补充：错位反号换元、例题与三项易错点；新增图源：assets/tikz/F024_offset_walk.tex, assets/tikz/F024_offset_distance.tex, assets/tikz/F024_offset_negative.tex, assets/tikz/F024_offset_not_minimum.tex。以输入间距、真实曲线上的对应点和边界反例代替脑补距离与符号变化；原TikZ、证明及正式PDF/PNG/GIF保留，构建隔离预览。",
   "knowledgeNode": "函数-性质-周期性-周期判定与对称性",
   "altNodes": [
     "函数-综合-函数与方程",

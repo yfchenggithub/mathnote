@@ -53,3 +53,34 @@
 
 若 $a>0$ 且 $f$ 在 $[x,x+a]$ 上连续，两端数值相反，才可以说曲线至少会碰到一次 $x$ 轴。若图像可以突然跳开，即使两端一正一负，也未必在中间取到 $0$。不能偷偷漏掉“连续”。
 \end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{易错 8｜错位反号把距离误算成 $a+b$}
+\input{assets/tikz/F024_offset_distance}
+
+\textbf{错误：}由 $f(x+5)=-f(x+2)$ 写出 $T=2(5+2)=14$。
+\textbf{为什么错：}两个输入相距 $5-2=3$，不是 $7$。
+例如 $f(u)=\cos(\pi(u-2)/3)$ 满足题设，但 $f(2)=1$，$f(16)=-\tfrac12$，所以 $14$ 甚至不是它的周期。
+\textbf{正确替代：}两输入先相减，再取绝对值、乘二，得一个正周期 $6$。
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{易错 9｜错位反号的差可能为负}
+\input{assets/tikz/F024_offset_negative}
+
+\textbf{错误：}由 $f(x+2)=-f(x+5)$ 写“正周期是 $-6$”。
+\textbf{原因：}令 $t=x+5$ 后是 $f(t-3)=-f(t)$，两次移动得到 $f(t-6)=f(t)$。将 $t$ 换为 $t+6$，便有 $f(t+6)=f(t)$。
+\textbf{正确替代：}写 $2|2-5|=6$ 是一个正周期。
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{易错 10｜错位反号并不保证算出的周期最小}
+\input{assets/tikz/F024_offset_not_minimum}
+
+\textbf{错误：}看到 $f(x+5)=-f(x+2)$，就断言最小正周期为 $6$。
+\textbf{反例：}$f(u)=\cos(\pi u)$ 满足该条件，因为两个输入相差 $3$，角度相差 $3\pi$，函数值变号。但其最小正周期为 $2$。
+\textbf{正确替代：}只能写 $6$ 是一个正周期；求最小还需另作证明。
+
+\end{trapbox}
