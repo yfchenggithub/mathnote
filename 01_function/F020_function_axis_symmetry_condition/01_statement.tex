@@ -1,6 +1,9 @@
 \begin{statementbox}
 \input{assets/tikz/F020_axis_pairs}
 
+  \textbf{一句话记住：轴对称，横坐标取平均，纵坐标相等。}
+  这里说的是关于\textbf{竖直直线}的对称：两点横坐标的平均数给出轴的位置；两点高度相同。
+
   \textbf{\textcolor{CStatement}{先想一想：这条结论解决什么问题？}}
   有时函数的图象不好画，却要判断它是否能沿某条竖直线对折重合；
   有时只知道图象右半边，却要算左半边的函数值。
@@ -42,4 +45,25 @@
     f(1)=f(3),\qquad f(0)=f(4),\qquad f(-1)=f(5).
   \]
   反过来，\textbf{仅验证这三对还不够}；必须能保证定义域内\textbf{所有}配对都成立。
+\end{statementbox}
+\clearpage
+\begin{statementbox}
+\textbf{同一个判定的常见等价写法：先看实际输入，再找中间位置}
+\input{assets/tikz/F020_mirror_positions}
+
+以下先取定义域为 $\mathbb R$，$a,p,q$ 为固定实数，每行等式均对所有实数自变量成立：
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{p{.56\linewidth}|p{.28\linewidth}}
+等式的写法 & 能读出的一条对称轴\\\hline
+$f(a+t)=f(a-t)$ & $x=a$\\
+$f(x)=f(2a-x)$ & $x=a$\\
+$f(p+t)=f(q-t)$ & $x=\dfrac{p+q}{2}$\\
+$f(p-t)=f(q+t)$ & $x=\dfrac{p+q}{2}$
+\end{tabular}
+\end{center}
+\textbf{只需一个读式规则：}例如 $(p+t)+(q-t)=p+q$，两个输入的平均数恒为 $(p+q)/2$；对应函数值又相等，因此可读出这条竖直对称轴。令 $u=p+t$，等式就是 $f(u)=f(p+q-u)$，仍是原来的判定。最后一行只需将 $t$ 换为 $-t$。
+
+图中 $p=1,q=5$，两输入是 $1+t,5-t$，所以中间位置为 $3$；图仅展示 $t=0$ 时的一对等高点。
+\textbf{其他定义域：}须保证每个 $u\in D$ 都有 $p+q-u\in D$，且等式覆盖全部这些配对。只检查少数 $t$，不能判定整幅图象对称。
 \end{statementbox}
