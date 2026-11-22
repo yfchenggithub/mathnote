@@ -1,6 +1,12 @@
 \begin{statementbox}
+\input{assets/tikz/F039_core}
+\textbf{核心速记：}$a>0,a\ne1,x>0$；过$(1,0)$；大底升、小底降；真数正，函数值可正可负。
 
-	\textbf{\textcolor{CStatement}{条件}}
+
+	\end{statementbox}
+\clearpage
+\begin{statementbox}
+\textbf{\textcolor{CStatement}{条件}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
 		\item[\textbf{\textcolor{CStatement}{条件1（底数要求）：}}] $a>0$, $a\neq 1$.
 		\item[\textbf{\textcolor{CStatement}{条件2（定义域）：}}] $x>0$.
@@ -26,7 +32,43 @@
 			\]
 	\end{description}
 
-	\textbf{\textcolor{CStatement}{常见变形(底数互倒对称):}}
+	
+\end{statementbox}
+\clearpage
+\begin{statementbox}
+\textbf{\textcolor{CStatement}{结论三（找图像的三个关键点）：}}
+\[
+  \log_a1=0,\qquad \log_a a=1,\qquad
+  \log_a\frac1a=-1.
+\]
+因此，对数函数必经$(1,0)$、$(a,1)$和$(1/a,-1)$。想快速画草图，先标这三个点，再判断曲线是向右上升还是下降。
+
+\medskip
+\textbf{\textcolor{CStatement}{结论四（注意是哪两条图像对称）：}}
+\begin{itemize}[leftmargin=*,itemsep=0.35em,topsep=0.3em]
+  \item $y=\log_a x$与$y=\log_{1/a}x$关于\textbf{$x$轴}对称：同一个$x$，两个函数值互为相反数。
+  \item $y=a^x$与$y=\log_a x$关于直线\textbf{$y=x$}对称：把点$(u,v)$的两个坐标交换成$(v,u)$。
+\end{itemize}
+
+\begin{center}
+\begin{tikzpicture}[x=1.12cm,y=0.72cm,>=stealth]
+  \draw[->,gray!75] (-0.22,0)--(4.65,0) node[right] {$x$};
+  \draw[->,gray!75] (0,-2.7)--(0,2.7) node[above] {$y$};
+  \foreach \xx in {1,2,4}{\draw (\xx,0.09)--(\xx,-0.09) node[below] {\small $\xx$};}
+  \draw[blue!75!black,thick,domain=0.18:4.35,samples=90,smooth] plot (\x,{ln(\x)/ln(2)});
+  \draw[orange!85!black,thick,domain=0.18:4.35,samples=90,smooth] plot (\x,{-ln(\x)/ln(2)});
+  \fill (1,0) circle (1.6pt) ;\draw[gray] (1,0)--(2.55,.3);\node[anchor=west] at (2.7,.3){\small $(1,0)$};
+  \fill[blue!75!black] (2,1) circle (1.5pt);
+  \fill[orange!85!black] (2,-1) circle (1.5pt);
+  \draw[densely dashed,gray!70] (2,-1)--(2,-.85) (2,.09)--(2,1);
+  \node[blue!75!black,anchor=west] at (2.3,2.65) {\small $y=\log_2 x$};
+  \node[orange!85!black,anchor=west] at (2.3,-2.65) {\small $y=\log_{1/2}x$};
+\end{tikzpicture}
+\par\small 图中两条曲线都经过$(1,0)$，并且关于$x$轴上下翻折对应。
+\end{center}
+
+\medskip
+\textbf{\textcolor{CStatement}{常见变形(底数互倒对称):}}
 	\[
 		\log_{1/a}x = -\log_a x,
 		\qquad

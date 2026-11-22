@@ -9,7 +9,7 @@
       "对数函数图像与性质",
       "loga x性质"
     ],
-    "summary": "对数函数图像恒过定点(1,0)，底数决定单调性和符号。",
+    "summary": "对数由指数运算倒推：真数必须大于0，函数值可正可负，恒过(1,0)；底数决定增减，两种对称不可混淆。",
     "difficulty": 2,
     "category": "函数",
     "tags": [
@@ -18,7 +18,12 @@
       "单调性",
       "定点",
       "值域",
-      "图像"
+      "图像",
+      "底数互倒图像关于x轴对称",
+      "指数对数图像关于y=x对称",
+      "对数函数值可为负数",
+      "恒过定点与图像平移",
+      "对数不等式定义域交集"
     ]
   },
   "search": {
@@ -36,7 +41,12 @@
       "真数大于0",
       "底数分类讨论",
       "log函数",
-      "对数图像"
+      "对数图像",
+      "指数和对数关于y=x对称",
+      "底数倒数对称",
+      "对数函数是不是恒正",
+      "log_a1为什么等于0",
+      "对数函数函数值正负"
     ],
     "synonyms": [
       "log函数",
@@ -46,7 +56,9 @@
       "logax图像",
       "对数函数公式",
       "对数底数大小",
-      "log函数性质"
+      "log函数性质",
+      "对数图像对称",
+      "对数函数图像平移"
     ],
     "intents": [
       "求定义域",
@@ -54,14 +66,21 @@
       "判断单调性",
       "求参数范围",
       "求定点",
-      "判断符号"
+      "判断符号",
+      "判断对称轴",
+      "判断对数函数值正负",
+      "求对数不等式解集"
     ],
     "query_templates": [
       "对数函数的定义域怎么求",
       "对数函数比较大小的方法",
       "log_a x的图像性质",
       "对数函数单调性判断",
-      "对数函数定点问题"
+      "对数函数定点问题",
+      "对数图像为什么关于x轴对称",
+      "指数对数函数为什么关于y等于x对称",
+      "log_a x为什么可以为负",
+      "对数不等式真数大于0怎么处理"
     ],
     "ocrKeywords": [
       "log",
@@ -108,7 +127,11 @@
     "core_formula": "y=\\log_a x\\;(a>0,\\;a\\neq 1,\\;x>0)",
     "related_formulas": [
       "\\log_a 1=0",
-      "\\log_{1/a}x = -\\log_a x"
+      "\\log_{1/a}x = -\\log_a x",
+      "\\log_a a=1",
+      "\\log_a(1/a)=-1",
+      "a^{\\log_a x}=x",
+      "\\log_a x=0\\iff x=1"
     ],
     "variables": [
       "a",
@@ -116,19 +139,23 @@
       "y"
     ],
     "conditions": "函数 $y=\\log_a x$ 中，底数 $a>0$ 且 $a\\neq 1$，真数 $x>0$。",
-    "conclusions": "当 $a>1$ 时，函数在 $(0,+\\infty)$ 上单调递增，且 $x>1\\Rightarrow y>0$，$0<x<1\\Rightarrow y<0$；当 $0<a<1$ 时，函数单调递减，且 $x>1\\Rightarrow y<0$，$0<x<1\\Rightarrow y>0$。"
+    "conclusions": "定义域x>0、值域为全体实数，且恒过(1,0)、(a,1)、(1/a,-1)；当a>1时递增，x>1时y>0、0<x<1时y<0；当0<a<1时递减，x>1时y<0、0<x<1时y>0。互为倒数的底数对应的对数图像关于x轴对称；指数函数y=a^x与对数函数y=log_a x关于y=x对称。"
   },
   "content": {
-    "statement": "对于对数函数 $y=\\log_a x$（$a>0,a\\neq 1$）：定义域 $(0,+\\infty)$，值域 $\\mathbb{R}$，图像恒过定点 $(1,0)$；当 $a>1$ 时，函数在 $(0,+\\infty)$ 上单调递增，且 $x>1\\Rightarrow y>0$，$0<x<1\\Rightarrow y<0$；当 $0<a<1$ 时，函数在 $(0,+\\infty)$ 上单调递减，且 $x>1\\Rightarrow y<0$，$0<x<1\\Rightarrow y>0$。",
+    "statement": "对数函数y=\\log_a x（a>0，a≠1）定义域为x>0，值域为全体实数；恒过(1,0)、(a,1)、(1/a,-1)。a>1时单调递增，0<a<1时单调递减；函数值正负还要比较x与1。y=log_a x和y=log_{1/a}x关于x轴对称；y=a^x和y=log_a x关于y=x对称。",
     "derivation": [
-      "由 $a^y=x$ 的定义得 $y=\\log_a x$；指数函数 $a^y$ 的单调性决定对数函数单调性。"
+      "先从a^y=x反问“需要几次方才得到x”：因为a^y>0，真数必须大于0；任意实数y都对应正数x，故值域为全体实数。",
+      "由a^0=1知log_a1=0；用指数函数的单调性比较x1<x2，得a>1时log_a x1<log_a x2，0<a<1时不等号反向。",
+      "若t=log_a x，则(1/a)^(-t)=x，故log_{1/a}x=-log_a x，对应点(x,t)和(x,-t)关于x轴对称。",
+      "由v=a^u可得u=log_a v，点(u,v)与(v,u)互换坐标，指数和对数图像关于y=x对称。"
     ],
-    "intuition": "因为对数是指数的逆运算，所以指数函数的单调性直接传递到对数函数。",
+    "intuition": "对数是指数运算反过来问；底数2与1/2的五个真数值表能看出增减相反。真数大于0来自指数恒正；函数值可负，例如log_2(1/2)=-1。两种对称要检查坐标对应关系。",
     "common_tricks": [
-      "对数问题先考虑定义域（真数>0）",
-      "比较对数大小，底数相同用单调性，底数不同可借助图像或中间值",
-      "含参对数不等式需分底数a>1和0<a<1讨论",
-      "对数型函数定点问题，令真数为1即可"
+      "先检查真数>0且底数>0、≠1，再使用单调性；最后把不等式解集与定义域取交集。",
+      "同底比较真数：a>1保留不等号，0<a<1反向；不同底数先试0或1等中间值。",
+      "含参数底数必须分a>1和0<a<1两类；不能默认递增。",
+      "求log_a(g(x))的固定过点，令g(x)=1，此时函数值为0；平移后(1,0)通常不再是不变点。",
+      "对称性以点坐标核验：底数互倒(x,y)变(x,-y)是x轴；指数与对数(u,v)变(v,u)是y=x。"
     ]
   },
   "usage": {
@@ -136,14 +163,20 @@
       "选择题比较大小",
       "填空题求定义域",
       "解答题参数范围讨论",
-      "图像识别与判断"
+      "图像识别与判断",
+      "判断底数互倒对称",
+      "判断指数对数对称",
+      "不同底数用中间值比较"
     ],
     "problem_types": [
       "比较大小",
       "求定义域",
       "求参数范围",
       "判断单调性",
-      "求定点坐标"
+      "求定点坐标",
+      "对数不等式分类讨论",
+      "图像对称轴识别",
+      "图像平移定点"
     ],
     "exam_frequency": 1.0,
     "exam_score": 6
@@ -154,11 +187,34 @@
     "param_demo": {}
   },
   "assets": {
-    "svg": "F039.svg"
+    "svg": "F039.svg",
+    "tikz": [
+      "assets/tikz/F039_core.tex",
+      "assets/tikz/F039_numeric_swap.tex",
+      "assets/tikz/F039_inverse_reflection.tex",
+      "assets/tikz/F039_exponential_order.tex",
+      "assets/tikz/F039_reciprocal_reflection.tex",
+      "assets/tikz/F039_example_domain.tex",
+      "assets/tikz/F039_example_parameter.tex",
+      "assets/tikz/F039_example_bridge.tex",
+      "assets/tikz/F039_example_identify.tex",
+      "assets/tikz/F039_trap_reverse.tex",
+      "assets/tikz/F039_trap_negative_output.tex",
+      "assets/tikz/F039_trap_wrong_axis.tex",
+      "assets/tikz/F039_base_legality.tex",
+      "assets/tikz/F039_fixed_point_error.tex",
+      "assets/tikz/F039_parameter_inputs.tex",
+      "assets/tikz/F039_no_y_intercept.tex",
+      "assets/tikz/F039_domain_range.tex",
+      "assets/tikz/F039_five_values.tex",
+      "assets/tikz/F039_sign_memory.tex",
+      "assets/tikz/F039_base_horizontal.tex",
+      "assets/tikz/F039_summary_snapshot.tex"
+    ]
   },
   "shareConfig": {
     "title": "对数图像：比大小先查底数和真数",
-    "shareDesc": "对数不等式直接比较真数，何时需要反向？先检查真数为正，再看底数大于一还是介于零与一；借助单调性转成真数比较，避免解出范围后忘记与定义域取交集。"
+    "shareDesc": "对数到底是求什么？从a^y=x倒着理解，先看真数>0，再看底数确定单调方向；图像经过(1,0)，底数互倒关于x轴对称，指数与对数关于y=x对称。比较大小、解不等式时还要与定义域取交集。"
   },
   "relations": {
     "prerequisites": [
@@ -166,17 +222,21 @@
       "对数定义",
       "函数的单调性"
     ],
-    "related_ids": ["F036", "F037", "F042"],
+    "related_ids": [
+      "F036",
+      "F037",
+      "F042"
+    ],
     "similar": "指数函数图像性质、幂函数图像性质"
   },
   "meta": {
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-26",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-11-22"
   },
   "isPro": 1,
-  "remarks": "",
+  "remarks": "2026-11-22：增量强化F039图解，保留全部原有证明、例题、误区、16幅内嵌TikZ；新增图源覆盖首页、三种证明、六个例题单元、十个易错单元及理解/总结。新增y=±1水平交点识别底数图。仅更新图资源、内容备注与日期，不改变ID、授权、分类或知识节点。",
   "knowledgeNode": "函数-基本初等函数-指数对数与幂函数-图像与性质",
   "altNodes": "函数-特殊函数-指数函数,函数-性质-单调性"
 }

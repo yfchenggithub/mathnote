@@ -1,3 +1,4 @@
+\clearpage
 \begin{trapbox}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
 		\item[\textbf{\textcolor{CTrap}{易错点一（忽略定义域）}}] 求对数型函数的定义域或解对数不等式时，忘记检查真数大于$0$。
@@ -5,17 +6,148 @@
 		\item[\textbf{\textcolor{CTrap}{错因分析（习惯性疏忽）}}] 习惯将所有函数定义域默认为$\mathbb{R}$，遗忘对数函数的限制条件。
 	\end{description}
 
+\begin{center}
+\begin{tikzpicture}[x=0.9cm,y=0.63cm,>=stealth]
+ \draw[->,gray] (-0.25,0)--(3.45,0) node[right] {$x$};
+ \draw[->,gray] (0,-1.55)--(0,1.3) node[above] {$y$};
+ \draw[thick,blue!75!black,domain=0.34:3,samples=65] plot (\x,{ln(\x)/ln(2)});
+ \fill[red!75!black] (0.5,-1) circle (2pt) node[right] {\small $x=\tfrac12>0,\ y=-1<0$};
+\end{tikzpicture}
+\end{center}
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+
+
 	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+	
+\input{assets/tikz/F039_trap_reverse}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
 		\item[\textbf{\textcolor{CTrap}{易错点二（底数分类遗漏）}}] 处理含有参数$a$的对数函数单调性或不等式时，直接假设底数$>1$，未分$0<a<1$讨论。
 		\item[\textbf{\textcolor{CTrap}{正确理解（分类讨论）}}] 当底数含参数$a$时，必须分$a>1$和$0<a<1$两类分别处理。
 		\item[\textbf{\textcolor{CTrap}{错因分析（默认递增）}}] 默认对数函数都是增函数，忽略底数在$(0,1)$时的递减情形。
 	\end{description}
+
+\begin{center}
+\begin{tikzpicture}[>=stealth]
+ \node[draw=blue!40,rounded corners,inner sep=4pt] (A) at (0,0) {$2<3$};
+ \node[draw=orange!60,rounded corners,inner sep=4pt] (B) at (6.5,0) {$\log_{1/2}2>\log_{1/2}3$};
+ \draw[->,thick,orange!85!black] (A)--node[above] {\small 底数在$(0,1)$} (B);
+\end{tikzpicture}
+\end{center}
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+
 
 	\medskip
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
 		\item[\textbf{\textcolor{CTrap}{易错点三（符号记忆混淆）}}] 记错函数值符号，比如误以为$a>1$时$x>1$对应$y<0$。
 		\item[\textbf{\textcolor{CTrap}{正确理解（符号法则）}}] $a>1$时，$x>1\Rightarrow y>0$，$0<x<1\Rightarrow y<0$；$0<a<1$时反之。
 		\item[\textbf{\textcolor{CTrap}{错因分析（机械记忆）}}] 不结合单调性与定点推导符号，死记硬背导致混淆。
-	\end{description}
+\end{description}
+
+\begin{center}
+\begin{tikzpicture}[x=0.92cm,y=0.68cm,>=stealth]
+ \draw[->,gray] (0,0)--(3.7,0) node[right] {$x$};
+ \draw[->,gray] (0,-1.75)--(0,1.75) node[above] {$y$};
+ \draw[thick,orange!85!black,domain=0.32:3.45,samples=75] plot (\x,{-ln(\x)/ln(2)});
+ \fill[orange!85!black] (0.5,1) circle(1.7pt) node[right] {\small $(\tfrac12,1)$};
+ \fill[orange!85!black] (2,-1) circle(1.7pt) node[below left] {\small $(2,-1)$};
+ \fill (1,0) circle(1.4pt);
+\end{tikzpicture}
+\end{center}
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+
+
+\medskip
+
+\input{assets/tikz/F039_trap_negative_output}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.35em]
+ \item[\textbf{\textcolor{CTrap}{易错点四（把真数为正误当函数值为正）}}] 错说“对数函数永远大于$0$”，甚至认为$\log_2\tfrac12$不能算。
+ \item[\textbf{\textcolor{CTrap}{正确理解（两种正号分清）}}] \textbf{必须为正的是真数}：$x>0$；函数值可以小于零，例如$\log_2\tfrac12=-1$。底数同样要求$a>0$且$a\ne1$。
+ \item[\textbf{\textcolor{CTrap}{错因分析}}] 把指数函数的“输出大于$0$”错搬到对数函数的“输出”上。两者交换横纵坐标后，限制应放在\textbf{对数的输入}上。
+\end{description}
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+
+
+\medskip
+
+\input{assets/tikz/F039_trap_wrong_axis}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.35em]
+ \item[\textbf{\textcolor{CTrap}{易错点五（对称轴和定点混淆）}}] 错说$\log_2x$与$\log_{1/2}x$关于$y$轴对称，或说指数图像与对数图像都经过$(0,1)$。
+ \item[\textbf{\textcolor{CTrap}{正确理解（用点检查）}}] 两个底数互倒：$(2,1)$对应$(2,-1)$，是\textbf{关于$x$轴}；指数$y=2^x$中的$(1,2)$对应对数$y=\log_2x$中的$(2,1)$，是\textbf{关于$y=x$}。对数图像不能有横坐标$0$。
+ \item[\textbf{\textcolor{CTrap}{错因分析}}] 没有核查对称前后的点坐标，只凭曲线外观猜对称轴。
+\end{description}
+
+\begin{center}
+\begin{tikzpicture}[x=0.98cm,y=0.62cm,>=stealth]
+ \draw[->,gray] (0,0)--(3.45,0) node[right] {$x$};
+ \draw[->,gray] (0,-1.75)--(0,1.85) node[above] {$y$};
+ \fill[blue!75!black] (2,1) circle(2pt) node[above right] {\small $(2,1)$};
+ \fill[orange!85!black] (2,-1) circle(2pt) node[below right] {\small $(2,-1)$};
+ \draw[densely dashed] (2,1)--(2,-1);
+ \node at (1,-2.1) {\small 相同$x$，相反$y$};
+\end{tikzpicture}
+\end{center}
+
+\medskip
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{同一对称误区的另一种情况：指数与对数交换坐标}
+\input{assets/tikz/F039_inverse_reflection}
+\textbf{对照检查：}指数点$(1,2)$对应对数点$(2,1)$，交换坐标对应直线$y=x$。
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{额外警惕（图像平移后定点也会移动）：}}
+$y=\log_a(x-1)$经过$(2,0)$而不是$(1,0)$，因为$\log_a 1=0$要令$x-1=1$；其定义域也随之变成$x>1$。
+
+\begin{center}
+\begin{tikzpicture}[x=0.82cm,y=0.68cm,>=stealth]
+ \draw[->,gray] (0,0)--(5.4,0) node[right] {$x$};
+ \draw[->,gray] (0,-1.55)--(0,2.15) node[above] {$y$};
+ \draw[blue!60,thick,domain=0.31:4.3,samples=70] plot (\x,{ln(\x)/ln(2)});
+ \draw[orange!85!black,thick,domain=1.31:5.15,samples=70] plot (\x,{ln(\x-1)/ln(2)});
+ \fill[blue!70!black] (1,0) circle (1.6pt) node[below right=4pt] {\small $1$};
+ \fill[orange!85!black] (2,0) circle (1.6pt) node[below right=4pt] {\small $2$};
+ \node[blue!75!black] at (3.5,2.8) {\small $\log_2 x$};
+ \node[orange!85!black] at (4.25,-.8) {\small $\log_2(x-1)$};
+\end{tikzpicture}
+\end{center}
+
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{补充易错（底数是否合法）}}
+\input{assets/tikz/F039_base_legality}
+不能把$\log_1x$或负底数直接当作本结论中的函数。$1^t=1$无法反求唯一指数；负底数的实数次幂也不覆盖全体实数。先核对$a>0,a\ne1$。
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{补充易错（别把定点写反）}}
+\input{assets/tikz/F039_fixed_point_error}
+$(0,1)$属于指数函数的共同点；对数函数应令真数为$1$，得到$(1,0)$。横坐标为$0$时对数没有意义。
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{补充易错（参数也是底数或真数时）}}
+\input{assets/tikz/F039_parameter_inputs}
+以$\log_{a-1}(a+1)$为例：必须同时有$a-1>0$、$a-1\ne1$、$a+1>0$，得到$a>1$且$a\ne2$，不能只检查真数。
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{补充易错（无限靠近不等于与轴相交）}}
+\input{assets/tikz/F039_no_y_intercept}
+即使图像越来越靠近$y$轴，每个允许的横坐标仍严格大于$0$。$x=0$不在定义域内，不能凭绘图尾部猜出一个$y$轴交点。
 \end{trapbox}

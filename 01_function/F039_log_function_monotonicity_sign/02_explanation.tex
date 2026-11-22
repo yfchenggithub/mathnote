@@ -1,11 +1,33 @@
+\clearpage
 \begin{explanationbox}
 
 	\textbf{\textcolor{CExplanation}{一句话直觉}}
 
-	对数函数的图像趋势和函数值符号完全由底数$a$决定，图像恒过定点$(1,0)$，且定义域为正实数。
+	对数回答的是“把底数乘方多少次，才得到真数”？图像的上升或下降由底数决定；函数值正负还要看真数位于$1$的哪一边。
 
 	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
+	
+
+\textbf{\textcolor{CExplanation}{为什么会想到对数函数？}}
+\input{assets/tikz/F039_numeric_swap}
+
+
+学过$2^3=8$后，如果反过来问“$2$要乘方多少次才得到$8$”，答案是$3$，写作$\log_2 8=3$。
+对数不是突然出现的新运算，而是\textbf{把指数的结果和次数倒过来求}：
+\[
+  a^y=x\quad\Longleftrightarrow\quad y=\log_a x
+  \qquad(a>0,\ a\ne1,\ x>0).
+\]
+比如$2^{-1}=\tfrac12$，所以$\log_2\tfrac12=-1$；这说明\textbf{对数的真数一定大于$0$，函数值却可以为负数}。
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{核心拆解}}
+\input{assets/tikz/F039_domain_range}
+
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
 		\item[\textbf{要点一（定义域限制）：}] 自变量$x$必须大于$0$，所以图像只出现在$y$轴右侧。
 		\item[\textbf{要点二（单调性条件）：}] 底数$a>1$时递增，$0<a<1$时递减，是比较大小的基础。
@@ -13,17 +35,94 @@
 	\end{description}
 
 	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（图像渐近线）}}
+	
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{用五个数字看懂“增、减、过定点”：}}
+\input{assets/tikz/F039_five_values}
+
+\[
+\begin{array}{c|ccccc}
+  x & \tfrac14 & \tfrac12 & 1 & 2 & 4\\ \hline
+  \log_2 x & -2 & -1 & 0 & 1 & 2\\
+  \log_{1/2}x & 2 & 1 & 0 & -1 & -2
+\end{array}
+\]
+从左往右，真数从$\tfrac14$变到$4$；底数为$2$时，需要的指数从$-2$增到$2$；底数为$\tfrac12$时，指数却从$2$减到$-2$。这就解释了两种底数下图像方向相反。\textbf{不论底数是哪一种，$a^0=1$，所以$\log_a1=0$，都经过$(1,0)$。}
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{为什么真数必须大于$0$，函数值却能取一切实数？}}
+\input{assets/tikz/F039_domain_range}
+
+
+把$y=\log_a x$改写为$x=a^y$。底数合规时，不论$y$是正、负还是$0$，$a^y$总大于$0$；因此$x$只能是正数。反过来，任意实数$y$都能算出一个$x=a^y>0$，所以对数的函数值可以取任意实数。
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{两种“对称”不能混为一谈：}}
+\input{assets/tikz/F039_reciprocal_reflection}
+
+
+当底数由$2$换成$\tfrac12$，同一个真数$x=2$对应$1$和$-1$，所以两条对数曲线\textbf{关于$x$轴对称}。
+但$y=2^x$与$y=\log_2 x$是把“指数”和“结果”倒过来写，例如前者的$(1,2)$对应后者的$(2,1)$，因此\textbf{关于$y=x$对称}。
+
+\begin{center}
+\begin{tikzpicture}[x=0.85cm,y=0.85cm,>=stealth]
+  \draw[->,gray!75] (-1.5,0)--(4.1,0) node[right] {$x$};
+  \draw[->,gray!75] (0,-1.65)--(0,4.15) node[above] {$y$};
+  \draw[densely dashed,gray] (-1.25,-1.25)--(3.75,3.75) node[above left] {\small $y=x$};
+  \draw[violet,thick,domain=-1.25:1.9,samples=80,smooth] plot (\x,{exp(ln(2)*\x)});
+  \draw[blue!75!black,thick,domain=0.3:3.8,samples=80,smooth] plot (\x,{ln(\x)/ln(2)});
+  \fill[violet] (0,1) circle (1.7pt) node[above left] {\small $(0,1)$};
+  \fill[blue!75!black] (1,0) circle (1.7pt) node[below right=4pt] {\small $(1,0)$};
+  \fill[violet] (1,2) circle (1.7pt);\draw[gray] (1,2)--(-.6,2.4);\node[violet,anchor=east] at (-.75,2.4) {\small $(1,2)$};
+  \fill[blue!75!black] (2,1) circle (1.7pt) node[below right] {\small $(2,1)$};
+  \node[violet,anchor=east] at (-.3,3.4) {\small $y=2^x$};
+  \draw[gray] (3,1.58496)--(4.35,2);\node[blue!75!black,anchor=west] at (4.5,2) {\small $y=\log_2 x$};
+\end{tikzpicture}
+\par\small 指数与对数把同一对数的顺序交换，例如$(1,2)\leftrightarrow(2,1)$。
+\end{center}
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{几何本质（图像接近$y$轴但不碰到）}}
+\input{assets/tikz/F039_no_y_intercept}
+
 
 	当$x$趋近于$0^+$时，$y$趋近于$-\infty$（$a>1$）或$+\infty$（$0<a<1$），即图像无限接近$y$轴但不相交，$y$轴是垂直渐近线。
 
 	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（符号映射）}}
+	
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{代数意义（符号映射）}}
+\input{assets/tikz/F039_sign_memory}
 
-	对数运算将正实数一一映射到全体实数，符号变化规律为：同底时，真数与$1$比较结合底数决定符号。
+
+	从$y=\log_a x$看：$a>1$时，真数在$1$右边，函数值为正；在$1$左边，函数值为负。$0<a<1$时恰好相反。记住$(1,0)$这条分界线，不必死记四个符号。
 
 	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（高频考点）}}
+	
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{沿水平线识别底数（补充图解）}}
+\input{assets/tikz/F039_base_horizontal}
+\textbf{读图与使用：}$y=1$时$x=a$；$y=-1$时$x=1/a$。上方交点右移表示底数增大；下方右移表示底数减小。
+
+\textbf{\textcolor{CExplanation}{考点价值（高频考点）}}
 	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
 		\item \textbf{考法一（比较大小）：} 利用单调性比较同底对数式，或借助中间量$0$、$1$比较不同底对数。
 		\item \textbf{考法二（定义域求解）：} 求对数型函数的定义域，必须保证真数大于$0$。
@@ -32,12 +131,17 @@
 	\medskip
 	\textbf{\textcolor{CExplanation}{顿悟点}}
 
-	对数函数的一切性质（定义域、单调性、符号）均由底数$a$唯一刻画；遇到对数问题，先确定底数范围，再考虑定义域。
+\textbf{真数的正负限制来自指数恒为正；上升还是下降来自底数；函数值的正负来自底数与真数相对$1$的位置。}所以做题先查真数是否为正，再看底数，最后比较大小。
 
 	\medskip
 	\textbf{\textcolor{CExplanation}{使用场景}}
 	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
 		\item \textbf{场景一（比较大小）：} 同底时直接比较真数；不同底时化为同底或使用中间值。
 		\item \textbf{场景二（解对数不等式）：} 利用单调性转化为真数的不等式，同时注意定义域。
-	\end{itemize}
+\end{itemize}
+
+\medskip
+\textbf{\textcolor{CExplanation}{什么时候最快？}}
+
+题目出现“两个同底对数比大小”“含参数底数的不等式”“函数图像经过哪一点”“图像关于哪条直线对称”时，不要先计算小数；用真数范围、底数分类、$(1,0)$和坐标交换，往往一步就能判断。
 \end{explanationbox}
