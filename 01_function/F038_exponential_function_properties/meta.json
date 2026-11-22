@@ -8,7 +8,7 @@
       "指数函数单调性",
       "a^x性质"
     ],
-    "summary": "指数函数 $y=a^x$ 的值域、定点、渐近线、单调性完全由底数 $a$ 是否大于1决定，且 $a^x$ 与 $(1/a)^x$ 的图像关于 $y$ 轴对称。",
+    "summary": "指数函数 y=a^x（a>0 且 a≠1）始终为正并过 (0,1)；x 每增加 1，函数值乘 a，因此 a>1 时递增、0<a<1 时递减。底数互为倒数的两条图像关于 y 轴对称。",
     "difficulty": 2,
     "category": "函数",
     "tags": [
@@ -33,7 +33,10 @@
       "指数函数比较大小",
       "指数不等式",
       "底数范围",
-      "指数函数定义域"
+      "指数函数定义域",
+      "指数每加一乘底数",
+      "指数函数正值",
+      "倒数底数关于y轴对称"
     ],
     "synonyms": [
       "指数函数图像",
@@ -46,14 +49,20 @@
       "判断指数函数单调性",
       "解指数不等式",
       "求指数函数值域",
-      "确定指数函数图像"
+      "确定指数函数图像",
+      "解释指数函数为什么递增递减",
+      "指数函数参数分类讨论",
+      "指数函数平移后值域"
     ],
     "query_templates": [
       "指数函数有什么性质",
       "a^x的图像过哪个点",
       "指数函数什么时候递增",
       "指数函数比较大小的方法",
-      "a^x和(1/a)^x图像关系"
+      "a^x和(1/a)^x图像关系",
+      "为什么指数函数恒过(0,1)",
+      "为什么指数函数永远大于0",
+      "a^x与(1/a)^x为什么关于y轴对称"
     ],
     "ocrKeywords": [
       "a^x",
@@ -96,7 +105,9 @@
   "math": {
     "core_formula": "f(x)=a^x\\ (a>0,\\ a\\neq1)",
     "related_formulas": [
-      "g(x)=\\left(\\frac{1}{a}\\right)^x=f(-x)"
+      "g(x)=\\left(\\frac{1}{a}\\right)^x=f(-x)",
+      "f(x+1)=a f(x)",
+      "y=a^{x-h}+k"
     ],
     "variables": "a>0且a≠1，x∈R",
     "conditions": "底数 $a>0$ 且 $a\\neq 1$，定义域 $x\\in\\mathbb{R}$。",
@@ -108,18 +119,20 @@
     ]
   },
   "content": {
-    "statement": "设 $a>0$ 且 $a\\neq1$，函数 $f(x)=a^x$（$x\\in\\mathbb{R}$）满足：值域为 $(0,+\\infty)$，图像恒过定点 $(0,1)$，以 $y=0$ 为水平渐近线。当 $a>1$ 时，$f(x)$ 在 $\\mathbb{R}$ 上严格单调递增，且 $x<0\\Rightarrow 0<f(x)<1$，$x>0\\Rightarrow f(x)>1$；当 $0<a<1$ 时，$f(x)$ 在 $\\mathbb{R}$ 上严格单调递减，且 $x<0\\Rightarrow f(x)>1$，$x>0\\Rightarrow 0<f(x)<1$。另外，$f(x)=a^x$ 与 $g(x)=(1/a)^x$ 的图像关于 $y$ 轴对称。",
+    "statement": "设 $a>0$ 且 $a\\neq1$，$f(x)=a^x$（$x\\in\\mathbb R$）。始终有 $a^x>0$、$f(0)=1$，值域 $(0,+\\infty)$，以 $y=0$ 为水平渐近线。当 $a>1$ 时递增，$0<a<1$ 时递减；底数互为倒数的 $a^x$ 与 $(1/a)^x$ 关于 $y$ 轴对称。",
     "derivation": [
-      "根据指数定义，$a^0=1$，所以恒过 $(0,1)$。",
-      "当 $a>1$ 时，对于任意 $x_1<x_2$，有 $a^{x_2-x_1}>1$，故 $a^{x_2}=a^{x_1}\\cdot a^{x_2-x_1}>a^{x_1}$，单调递增；$0<a<1$ 时类似可证单调递减。",
-      "由 $g(x)=(1/a)^x=a^{-x}=f(-x)$ 知图像关于 $y$ 轴对称。"
+      "由 $a^{x+1}=a\\,a^x$ 直观理解增减；又由 $a^0=1$ 与 $a^x>0$ 确定定点与正值。",
+      "任取 $x_1<x_2$，设 $d=x_2-x_1>0$，则 $a^{x_2}=a^{x_1}a^d$。当 $a>1$ 时 $a^d>1$，故递增；当 $0<a<1$ 时 $0<a^d<1$，故递减。",
+      "当 $a>1$ 时，$x\\to-\\infty$ 有 $a^x\\to0$，向另一侧可无限增大；$0<a<1$ 时方向相反。由正值与连续性得值域 $(0,+\\infty)$，且 $y=0$ 为水平渐近线。",
+      "设 $g(x)=(1/a)^x=a^{-x}=f(-x)$。$f$ 上任意点 $(t,f(t))$ 的对称点 $(-t,f(t))$ 在 $g$ 上，故两图关于 $y$ 轴对称。"
     ],
-    "intuition": "底数大于1时指数增长，小于1时指数衰减；任何非1正数的0次方均为1，且指数函数永远取正值，无限逼近0但达不到。",
+    "intuition": "从具体数字观察：x 每增加 1，a^x 就乘 a。2^x 随 x 变大而变大，(1/2)^x 则变小；a^0=1 所以全过 (0,1)，a^x>0 所以永远不触及 x 轴。将 a 换成 1/a 相当于把指数 x 换成 -x，两图左右对称。",
     "common_tricks": [
-      "比较指数大小时先看底数与1的关系，确定单调性。",
-      "解指数不等式时化为同底，利用单调性去掉底数。",
-      "利用 $a^x$ 与 $(1/a)^x$ 关于 $y$ 轴对称，可快速画出 $0<a<1$ 时的图像。",
-      "注意 $x=0$ 时 $y=1$，可用于检验函数解析式是否正确。"
+      "同底比较：先判断底数与 1 的关系，再比较指数；底数在 (0,1) 时方向相反。",
+      "指数不等式：能化同底先化同底，再按单调性比较指数。",
+      "图像：先用 $a^0=1$ 找点 $(0,1)$，再借增减性和靠近的水平线识别图像。",
+      "底数互为倒数时使用 $g(x)=f(-x)$，点 $(t,f(t))$ 对应 $(-t,f(t))$，而非 $(-t,f(-t))$。",
+      "平移变式 $y=a^{x-h}+k$ 经过 $(h,k+1)$，水平渐近线是 $y=k$。"
     ]
   },
   "usage": {
@@ -144,7 +157,29 @@
     "param_demo": {}
   },
   "assets": {
-    "svg": "F038.svg"
+    "svg": "F038.svg",
+    "tikz": [
+      "assets/tikz/F038_overview.tex",
+      "assets/tikz/F038_multiply_steps.tex",
+      "assets/tikz/F038_positive_near_zero.tex",
+      "assets/tikz/F038_mirror_points.tex",
+      "assets/tikz/F038_base_clockwise.tex",
+      "assets/tikz/F038_tangent_clockwise.tex",
+      "assets/tikz/F038_proof_ratio.tex",
+      "assets/tikz/F038_example_increasing.tex",
+      "assets/tikz/F038_example_decreasing.tex",
+      "assets/tikz/F038_example_same_base.tex",
+      "assets/tikz/F038_example_classify.tex",
+      "assets/tikz/F038_shift_up_right.tex",
+      "assets/tikz/F038_selfcheck_reverse.tex",
+      "assets/tikz/F038_selfcheck_shift.tex",
+      "assets/tikz/F038_different_bases.tex",
+      "assets/tikz/F038_base_domain.tex",
+      "assets/tikz/F038_exp_vs_power.tex"
+    ],
+    "other": {
+      "gif": "images/exponential_base_clockwise.gif"
+    }
   },
   "shareConfig": {
     "title": "指数比较：先看底数在一的哪一侧",
@@ -156,17 +191,21 @@
       "函数单调性定义",
       "图像对称性"
     ],
-    "related_ids": ["F035", "F040", "F041"],
+    "related_ids": [
+      "F035",
+      "F040",
+      "F041"
+    ],
     "similar": "对数函数的基本性质（定点、单调性、对称性）"
   },
   "meta": {
-    "version": 1,
+    "version": 2,
     "source": "AI生成",
     "created_at": "2026-06-26",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-11-22"
   },
   "isPro": 1,
-  "remarks": "",
+  "remarks": "2026-11-22：保留本轮基线全部六段正文、原有内嵌TikZ和main/source；补充17幅教学图，覆盖首页、三种证明、六例、自检及七个误区。底数变化同时解释左右侧次序与共同点处切线顺时针变化，明确曲线不是刚性旋转。各图用途见build/F038-tikz-review-20261122/F038/figures.json。 原图仅移动标签并补指示线，曲线与正文均保留。新增教学GIF images/exponential_base_clockwise.gif；LOCAL PRODUCTION PASS，USER VISUAL与ANDROID DEVICE及FINAL FREEZE为PENDING。",
   "knowledgeNode": "函数-基本初等函数-指数对数与幂函数-图像与性质",
   "altNodes": "函数-性质-单调性;函数-图像-对称性;函数-性质-有界性"
 }

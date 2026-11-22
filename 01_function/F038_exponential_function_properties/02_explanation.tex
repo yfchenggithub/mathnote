@@ -1,43 +1,122 @@
+\clearpage
 \begin{explanationbox}
 
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
+\textbf{\textcolor{CExplanation}{为什么会想到研究这些性质？}}
 
-	指数函数的值永远为正，且底数大于1时随$x$增大而快速增大；底数在0到1之间时随$x$增大而快速趋近于0，但始终不取负值。
+遇到 $2^x$、$(1/2)^x$，如果每次比较大小都先算出小数，既慢又容易出错。我们更想知道：\textbf{只看底数，能否判断图像往哪边走、经过哪里、什么时候大于 $1$？} 这就是整理指数函数性质的目的。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（增减性）：}] 当 $a>1$ 时，$a^x$ 在 $\mathbb{R}$ 上严格单调递增；当 $a\in(0,1)$ 时，$a^x$ 在 $\mathbb{R}$ 上严格单调递减。增减性完全由底数是否大于1决定。
-		\item[\textbf{要点二（分界点值）：}] $x=0$ 时 $a^0=1$，因此图像恒过 $(0,1)$；$x>0$ 时 $y$ 与1的大小关系取决于底数：$a>1$ 时 $y>1$，$a\in(0,1)$ 时 $y<1$；$x<0$ 时结论相反。
-	\end{description}
+\medskip
+\textbf{\textcolor{CExplanation}{快懂一：把指数看成“连续乘多少次”}}
+\input{assets/tikz/F038_multiply_steps}
+\textbf{观察：}横坐标每次增加1，点的高度按倍数变化。\quad\textbf{原因：}a的x+1次方等于a乘a的x次方。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（图像特性）}}
+\textbf{考试使用：}先画三个关键点，再连光滑曲线；整数表不代替实数证明。
 
-	指数函数的图像是一条经过点 $(0,1)$、以 $x$ 轴为水平渐近线的平滑曲线。$a>1$ 时曲线从左到右上升；$a\in(0,1)$ 时曲线从左到右下降。图像整体在 $x$ 轴上方（$y>0$），永不接触 $x$ 轴。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（单调性与保序性）}}
 
-	指数运算保持单调性：当 $a>1$ 时，$a^x$ 是 $\mathbb{R}$ 上的严格增函数，因此不等号方向不变；当 $a\in(0,1)$ 时是严格减函数，不等号方向逆转。这一性质常用于比较指数式的大小或解指数不等式。
+例如，一份学习资料的数量每天变成前一天的 $2$ 倍。从开始那天记作第 $0$ 天，数量按 $2^x$ 变化；如果每天只剩前一天的一半，则按 $(1/2)^x$ 变化。$x=-1,-2$ 可以理解为往前倒推一两步。
+\[
+\begin{array}{c|ccccc}
+    x & -2&-1&0&1&2\\\hline
+    2^x & \frac14&\frac12&1&2&4\\
+    (\frac12)^x &4&2&1&\frac12&\frac14
+\end{array}
+\]
+\textbf{从表里看出三件事：}两行在 $x=0$ 都是 $1$；一行从左到右越来越大，另一行越来越小；两行的数值以 $x=0$ 为中心左右对换。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（高考常见题）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（比较大小）：} 利用单调性只需比较指数（底数相同）；若底数不同，常借助中间量（如0、1）或图像法。
-		\item \textbf{考法二（解不等式）：} 化为同底后利用单调性去掉底数，注意不等号方向是否反转。
-	\end{itemize}
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\begin{center}
+\begin{tikzpicture}[x=1.2cm,y=0.65cm,>=stealth]
+  \draw[->,gray] (-2.45,0) -- (2.55,0) node[right] {$x$};
+  \draw[->,gray] (0,-0.23) -- (0,4.65) node[above] {$y$};
+  \draw[densely dotted,gray] (-2.2,1) -- (2.2,1);
+  \draw[blue!75!black,thick,smooth] plot[domain=-2.15:2.15,samples=70] (\x,{pow(2,\x)});
+  \draw[orange!80!black,thick,smooth] plot[domain=-2.15:2.15,samples=70] (\x,{pow(2,-\x)});
+  \fill (0,1) circle (2pt);
+  \draw[gray] (0,1)--(.9,1.3);\node[anchor=west] at (1.1,1.3) {$(0,1)$};
+  \node[blue!75!black,anchor=west] at (.6,4.5) {$y=2^x$};
+  \node[orange!80!black,anchor=east] at (-.4,4.5) {$y=(\frac12)^x$};
+  \node[gray,anchor=north east] at (0,0) {$O$};
+\end{tikzpicture}
+\end{center}
+\textbf{画图方法：}分别标出 $(-1,\frac12),(0,1),(1,2)$ 与 $(-1,2),(0,1),(1,\frac12)$，再顺着增减方向连成光滑曲线。图是为了看懂方向，不能代替严谨证明。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
+\medskip
 
-	\textbf{抓住底数 $a$ 与1的关系：$a>1$ 时递增、$a\in(0,1)$ 时递减。任何问题都优先明确底数范围。}
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{快懂二：为什么恰好在 $(0,1)$ 相遇？}}
+\input{assets/tikz/F038_base_clockwise}
+\textbf{观察：}固定左右各一个横坐标，分别看高度。\quad\textbf{原因：}x>0时正幂保序；x<0时先取倒数，大小反向。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（识别图像）：} 给定指数函数解析式或图像，判断底数范围、单调性、定点等。
-		\item \textbf{场景二（大小比较）：} 比较 $a^m$ 与 $a^n$ 的大小或解 $a^x>b$ 型不等式。
-	\end{itemize}
+\textbf{考试使用：}同一侧比较曲线高低，判断底数大小；不能跨左右照搬。
+
+
+
+因为任何正底数都有 $a^0=1$，所以不管选 $2$、$3$ 还是 $\frac12$，把 $x=0$ 代进去都得到 $y=1$。反过来，$x=1$ 时得到 $y=a$，随底数而变，故 $(1,a)$ 不是所有指数函数共同经过的\textbf{定点}。
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{快懂三：为什么始终大于 $0$，却又能无限接近 $0$？}}
+\input{assets/tikz/F038_positive_near_zero}
+\textbf{观察：}小高度仍在横轴上方。\quad\textbf{原因：}每次除以2，正数仍是正数。
+
+\textbf{考试使用：}值域端点0用圆括号，不写最小值为0。
+
+
+
+先想 $2^{-1}=\frac12,\ 2^{-2}=\frac14,\ 2^{-3}=\frac18$。往左走，分母不断变大，值越来越靠近 $0$，但每一项仍是正数。对于任何 $a>0$，$a^x$ 都是正数；把底数换成 $\frac12$，靠近 $0$ 的方向改成向右。因此 $y=0$ 是图像靠近但永远碰不到的水平直线；另一侧的函数值能不断增大，所以\textbf{全部可能的函数值恰好是正数}。
+
+\medskip
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{快懂四：底数互为倒数，为什么图像左右翻转？}}
+\input{assets/tikz/F038_mirror_points}
+\textbf{观察：}同一水平线的两点左右等距。\quad\textbf{原因：}倒数底数等于指数变号。
+
+\textbf{考试使用：}对应点只改横坐标符号，交点为(0,1)。
+
+
+
+\[
+\left(\frac1a\right)^x=a^{-x}=f(-x).
+\]
+计算 $g(x)$ 等同于先把 $x$ 换成 $-x$，再交给 $f$。例如 $f(-2)=\frac14$，而 $g(2)=\frac14$；于是 $(-2,\frac14)$ 和 $(2,\frac14)$ 分居 $y$ 轴两侧、离它同样远。这就是\textbf{关于 $y$ 轴对称}，不是关于 $x$ 轴对称。
+
+\medskip
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+
+\input{assets/tikz/F038_tangent_clockwise}
+\textbf{观察：}只比较共同点处的短切线方向。\quad\textbf{原因：}高中可由导数验证切线斜率为ln a，随a减小而减小。
+
+\textbf{考试使用：}顺时针是记忆方向，不能把整条曲线当直线旋转。
+
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+
+\input{assets/tikz/F038_exp_vs_power}
+\textbf{观察：}同样的2和x，图像过点与负半轴走势不同。\quad\textbf{原因：}一个固定底数，一个固定指数。
+
+\textbf{考试使用：}先看字母在哪个位置，再使用相应性质。
+
+\textbf{\textcolor{CExplanation}{连接旧知识与考试使用}}
+\begin{itemize}[leftmargin=*,itemsep=0.4em,topsep=0.3em]
+  \item \textbf{连接负指数：}$a^{-n}=1/a^n$，这同时解释了左侧数值和图像的左右翻转。
+  \item \textbf{连接单调性：}同底比较先看底数，$a>1$ 时指数大者值大；$0<a<1$ 时恰好相反。
+  \item \textbf{连接幂函数：}$a^x$ 是\textbf{底数固定、指数变化}；$x^a$ 是\textbf{底数变化、指数固定}，名字容易混淆，规律不能照搬。
+\end{itemize}
+
+\textbf{\textcolor{CExplanation}{顿悟点：}}\textbf{“$x$ 每加 $1$，值乘 $a$”是增减性的起点；“$a^0=1$”是定点的起点；“倒数等于指数变号”是对称性的起点。}
 
 \end{explanationbox}

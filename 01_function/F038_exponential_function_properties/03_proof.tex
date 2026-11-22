@@ -1,55 +1,115 @@
+\clearpage
 \begin{proofbox}
 
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{\textcolor{CProof}{方法一：最低门槛——用整数表看懂规律}}
+\input{assets/tikz/F038_multiply_steps}
+\textbf{观察：}横坐标每次增加1，点的高度按倍数变化。\quad\textbf{原因：}a的x+1次方等于a乘a的x次方。
 
-	利用指数运算性质，从定义出发证明定点、正性和单调性；通过极限说明渐近线；最后代数变形得到对称性。
+\textbf{考试使用：}先画三个关键点，再连光滑曲线；整数表不代替实数证明。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（定点与正性）：}]
-			\[
-				\begin{aligned}
-					&f(0)=1\\
-					&a^x>0.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 由指数定义直接得到 $a^0=1$，且 $a>0$ 时正数的任何实数次幂恒正。因此图像恒过 $(0,1)$，且值域 $\subseteq(0,+\infty)$。利用单调性及极限可进一步得到值域为 $(0,+\infty)$。
 
-		\item[\textbf{步骤二（递增性证明）：}]
-			\[
-				\begin{aligned}
-					&x_1<x_2\\
-					&a^{x_2}=a^{x_1}a^{x_2-x_1}\\     &a^{x_2-x_1}>1\ (a>1)\\     &a^{x_2}>a^{x_1}.    \end{aligned}
-				\]
-				\par\textbf{理由：} 当 $a>1$ 时，正指数幂大于1，故 $a^{x_2}>a^{x_1}$，函数严格递增。
 
-			\item[\textbf{步骤三（递减性证明）：}]
-				\[
-					\begin{aligned}
-						&x_1<x_2\\
-						&a^{x_2}=a^{x_1}a^{x_2-x_1}\\     &a^{x_2-x_1}<1\ (a\in(0,1))\\     &a^{x_2}<a^{x_1}.    \end{aligned}
-					\]
-					\par\textbf{理由：} 当 $a\in(0,1)$ 时，正指数幂小于1，故 $a^{x_2}<a^{x_1}$，函数严格递减。
+先选 $a=2$：$2^{-2}=\frac14,\ 2^{-1}=\frac12,\ 2^0=1,\ 2^1=2,\ 2^2=4$。每往右一步就乘 $2$，所以变大。再选 $a=\frac12$：每往右一步就乘 $\frac12$，所以变小。倒数规律还告诉我们 $2^{-x}=(\frac12)^x$，两个表左右倒过来。
 
-				\item[\textbf{步骤四（渐近线分析）：}]
-					\[
-						\begin{aligned}
-							&\lim_{x\to -\infty}a^x=0\ (a>1)\\     &\lim_{x\to +\infty}a^x=0\ (a\in(0,1)).    \end{aligned}
-						\]
-						\par\textbf{理由：} 当 $a>1$ 时，$x$ 趋向负无穷时 $a^x$ 趋向0；当 $a\in(0,1)$ 时，$x$ 趋向正无穷时 $a^x$ 趋向0。因此 $y=0$ 是水平渐近线。
+\textbf{说明：}这个方法适合\textbf{理解与作图}；只列几个整数，还不足以证明任意实数 $x$ 的结论，下面给出高中数学的规范说明。
 
-					\item[\textbf{步骤五（对称性验证）：}]
-						\[
-							\begin{aligned}
-								&\left(\frac{1}{a}\right)^x = a^{-x}\\     &f(x)=a^x\\     &g(x)=\left(\frac{1}{a}\right)^x\\     &g(x)=f(-x).    \end{aligned}
-							\]
-							\par\textbf{理由：} 由于 $g(x)=f(-x)$，图像上任意点 $(x,f(x))$ 关于 $y$ 轴的对称点 $(-x,f(-x))$ 恰在 $g$ 上，故两函数图像关于 $y$ 轴对称。
-					\end{description}
+\medskip
 
-					\medskip
-					\textbf{\textcolor{CProof}{结论回扣}}
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法二：最快规范证明——比较两个函数值的倍数}}
+\input{assets/tikz/F038_proof_ratio}
+\textbf{观察：}同一横向间隔d，对应高度的倍数。\quad\textbf{原因：}同底数幂相除，指数相减。
 
-					\textbf{综上，我们证明了：指数函数 $y=a^x$（其中 $a>0$ 且 $a\neq 1$）恒过定点 $(0,1)$，值域为 $(0,+\infty)$，以 $y=0$ 为水平渐近线；当 $a>1$ 时递增，当 $a\in(0,1)$ 时递减；且 $y=a^x$ 与 $y=(1/a)^x$ 的图像关于 $y$ 轴对称。}
+\textbf{考试使用：}任取两个实数再比较倍数，完成规范单调性证明。
 
-				\end{proofbox}
+
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.55em]
+  \item[\textbf{第一步（正值与定点）：}]
+  对 $a>0$，正数的实数次幂仍为正，且
+  \[
+    a^x>0,\qquad f(0)=a^0=1.
+  \]
+  所以图像在 $x$ 轴上方，并恒过 $(0,1)$。
+
+  \item[\textbf{第二步（先证明 $a>1$ 时递增）：}]
+  任取 $x_1<x_2$，则 $d=x_2-x_1>0$。由同底数幂相乘可得
+  \[
+    \frac{f(x_2)}{f(x_1)}=\frac{a^{x_2}}{a^{x_1}}=a^{x_2-x_1}=a^d.
+  \]
+  因为 $a>1,\ d>0$，所以 $a^d>1$，又因为 $f(x_1)>0$，得到
+  \[
+    f(x_2)=f(x_1)a^d>f(x_1).
+  \]
+  \textbf{为什么 $a^d>1$？}先看 $d=\frac mn>0$：$a^{m/n}=\bigl(\sqrt[n]{a}\bigr)^m>1$。实数指数的运算延续这一大小规律，所以对所有 $d>0$ 都成立。核心是\textbf{从 $x_1$ 到 $x_2$，函数值乘了一个大于 $1$ 的正数}。
+
+  \item[\textbf{第三步（$0<a<1$ 时递减）：}]
+  令 $b=\frac1a>1$。当 $d>0$ 时 $b^d>1$，故
+  \[
+    0<a^d=\frac1{b^d}<1.
+  \]
+  因而 $f(x_2)=f(x_1)a^d<f(x_1)$。这就说明指数变大，函数值反而变小。
+
+  \item[\textbf{第四步（$x$ 的正负与 $1$ 的关系）：}]
+  无论哪种底数，$f(0)=1$。把任意 $x$ 与 $0$ 比较，再利用刚证出的增减性，便得到：
+  \[
+    \begin{array}{c|cc}
+      &x<0&x>0\\\hline
+      a>1&0<a^x<1&a^x>1\\
+      0<a<1&a^x>1&0<a^x<1
+    \end{array}
+  \]
+
+\end{description}
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+
+\input{assets/tikz/F038_positive_near_zero}
+\textbf{观察：}小高度仍在横轴上方。\quad\textbf{原因：}每次除以2，正数仍是正数。
+
+\textbf{考试使用：}值域端点0用圆括号，不写最小值为0。
+
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.55em]
+  \item[\textbf{第五步（为什么值域是所有正数）：}]
+  当 $a>1$ 时，$a^n$ 随正整数 $n$ 增大而无限增大，而 $a^{-n}=1/a^n$ 无限接近 $0$；$0<a<1$ 时两侧方向相反。指数函数在全体实数上连续，所以会取到 $0$ 与无穷大之间的每个\textbf{正数}，但永远不会等于 $0$。
+  \[
+  \begin{array}{ll}
+    a>1: &\displaystyle\lim_{x\to-\infty}a^x=0,\quad \lim_{x\to+\infty}a^x=+\infty,\\[0.4em]
+    0<a<1: &\displaystyle\lim_{x\to+\infty}a^x=0,\quad \lim_{x\to-\infty}a^x=+\infty.
+  \end{array}
+  \]
+  因此值域为 $(0,+\infty)$，$y=0$ 为水平渐近线。
+\end{description}
+
+\medskip
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法三：用对称点证明图像关于 $y$ 轴对称}}
+\input{assets/tikz/F038_mirror_points}
+\textbf{观察：}同一水平线的两点左右等距。\quad\textbf{原因：}倒数底数等于指数变号。
+
+\textbf{考试使用：}对应点只改横坐标符号，交点为(0,1)。
+
+
+
+令 $f(x)=a^x$，$g(x)=(1/a)^x=a^{-x}=f(-x)$。取\textbf{任意}实数 $t$：
+\[
+  \underbrace{(t,f(t))}_{\text{在 }f\text{ 的图像上}}
+  \quad\longleftrightarrow\quad
+  \underbrace{(-t,g(-t))}_{\text{在 }g\text{ 的图像上}},
+  \qquad g(-t)=f(t).
+\]
+所以对应的两个点是 $(t,f(t))$ 与 $(-t,f(t))$：\textbf{横坐标互为相反数，纵坐标完全相同}。这正是关于 $y$ 轴对称的条件。
+
+\textbf{易错提醒：}$(t,f(t))$ 关于 $y$ 轴的对称点应写成 $(-t,f(t))$，\textbf{不能}写成 $(-t,f(-t))$；后者的纵坐标一般已经变了。
+
+\medskip
+\textbf{\textcolor{CProof}{结论回扣}}
+
+\textbf{三个原因串起整个结论：}正底数的幂始终为正；比较 $a^{x_2}$ 与 $a^{x_1}$ 只需看倍数 $a^{x_2-x_1}$；底数取倒数等同于指数变号。于是定点、增减、值域、渐近线和图像对称性都不必死记。
+
+\end{proofbox}

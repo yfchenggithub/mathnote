@@ -9,7 +9,7 @@
       "幂函数单调性",
       "幂函数凸性"
     ],
-    "summary": "幂函数 $y=x^\\alpha$ 在第一象限恒过定点 $(1,1)$；单调性由 $\\alpha$ 正负决定，凸性由 $\\alpha$ 与 $1$ 的关系决定；底数大于 $1$ 时指数大值大，底数在 $(0,1)$ 时指数大值小。",
+    "summary": "高中幂函数为$y=x^\\alpha$，系数固定为1，恒过(1,1)。在$x>0$上，正指数递增、负指数递减、零指数水平；指数0与1区分五种走势。同底幂比较以底数1为界，公共点处切线斜率为指数。",
     "difficulty": 2,
     "category": "函数",
     "tags": [
@@ -111,21 +111,22 @@
       "\\alpha",
       "y"
     ],
-    "conditions": "幂函数 $y=x^\\alpha$（$\\alpha\\in\\mathbb{R}$），仅考虑第一象限 $x>0$。",
-    "conclusions": "所有图像过定点 $(1,1)$。单调性与凸性按 $\\alpha$ 分类：$\\alpha>1$ 下凸递增过原点；$\\alpha=1$ 直线；$0<\\alpha<1$ 上凸递增过原点；$\\alpha=0$ 常数（去原点）；$\\alpha<0$ 递减以坐标轴为渐近线。在 $(1,+\\infty)$ 上指数 $\\alpha$ 越大函数值越大，在 $(0,1)$ 上指数 $\\alpha$ 越大函数值越小。"
+    "conditions": "高中定义下$y=x^\\alpha$，系数为1、指数为实常数。统一走势及同底实数幂比较限定$x>0$；零与负数底数须另查具体指数定义域。",
+    "conclusions": "恒过(1,1)，且$f^{\\prime}(1)=\\alpha$。在$x>0$上：$\\alpha>1$上升越来越陡，$\\alpha=1$为直线，$0<\\alpha<1$上升越来越平，$\\alpha=0$为常数1，$\\alpha<0$下降越来越平并以两坐标轴为渐近线。同底幂的比较方向以底数1为界。正指数完整图像经过原点；零指数在(0,1)处有空缺，负指数不能取零底数。"
   },
   "content": {
     "statement": "对于幂函数 $y=x^\\alpha$（$\\alpha\\in\\mathbb{R}$），在第一象限内：所有图像均过定点 $(1,1)$；单调性与凸性由 $\\alpha$ 与 $0,1$ 的关系决定，分为五种类型；在 $(1,+\\infty)$ 上指数越大函数值越大，在 $(0,1)$ 上指数越大函数值越小。",
     "derivation": [
-      "代入 $x=1$ 得 $1^\\alpha=1$，故恒过 $(1,1)$。",
-      "根据 $\\alpha$ 的正负判断单调性：$\\alpha>0$ 递增，$\\alpha<0$ 递减；根据 $\\alpha$ 与 $1$ 的大小判断凸性：$\\alpha>1$ 下凸，$0<\\alpha<1$ 上凸。",
-      "在 $(1,+\\infty)$ 上底数大于 $1$，指数函数 $y=a^x$（$a>1$）递增，因此幂函数值随指数增大而增大；在 $(0,1)$ 上底数小于 $1$，指数函数递减，因此幂函数值随指数增大而减小。"
+      "按定义固定系数1，代入x=1得到公共点。",
+      "乘法与倒数证明同底幂比较及正半轴的单调性。",
+      "利用一阶导数$\\alpha x^{\\alpha-1}$的符号与大小变化，解释五类走势及$f^{\\prime}(1)=\\alpha$。",
+      "取对数，用$(\\alpha_1-\\alpha_2)\\ln x$的符号统一比较实数指数。"
     ],
     "intuition": "幂函数形式简单，指数决定增长速度，代入 $x=1$ 得固定交点，底数大小影响指数比较的方向。",
     "common_tricks": [
       "比较 $x^{\\alpha_1}$ 与 $x^{\\alpha_2}$ 大小：先看底数 $x$ 与 $1$ 的关系，$x>1$ 时指数大值大，$0<x<1$ 时指数大值小。",
       "利用幂函数单调性比较自变量大小：若函数递增，自变量大则函数值大；递减则相反。",
-      "注意 $\\alpha\\leq0$ 时图像不过原点（$\\alpha=0$ 时原点为空心，$\\alpha<0$ 时不在定义域内）。"
+      "$\\alpha\\le0$时不能取零底数；$x^0=1$的空缺点是$(0,1)$，不是原点。"
     ]
   },
   "usage": {
@@ -151,7 +152,39 @@
     "svg": "F040.svg",
     "thumbnail": "",
     "audio": "",
-    "video": ""
+    "video": "",
+    "tikz": [
+      "assets/tikz/F040_common_point_order.tex",
+      "assets/tikz/F040_positive_types.tex",
+      "assets/tikz/F040_zero_negative.tex",
+      "assets/tikz/F040_coefficient_scale.tex",
+      "assets/tikz/F040_coefficient_flip.tex",
+      "assets/tikz/F040_exponent_effect.tex",
+      "assets/tikz/F040_base_effect.tex",
+      "assets/tikz/F040_log_sign.tex",
+      "assets/tikz/F040_reciprocal_pair.tex",
+      "assets/tikz/F040_asymptotes.tex",
+      "assets/tikz/F040_sqrt_example.tex",
+      "assets/tikz/F040_example_two.tex",
+      "assets/tikz/F040_decreasing_example.tex",
+      "assets/tikz/F040_parameter_candidates.tex",
+      "assets/tikz/F040_fractional_even.tex",
+      "assets/tikz/F040_excluded_inputs.tex",
+      "assets/tikz/F040_compare_fractional.tex",
+      "assets/tikz/F040_scaled_inverse.tex",
+      "assets/tikz/F040_bridge_one.tex",
+      "assets/tikz/F040_tangent_inverse_square.tex",
+      "assets/tikz/F040_point_not_definition.tex",
+      "assets/tikz/F040_origin_and_hole.tex",
+      "assets/tikz/F040_comparison_modes.tex",
+      "assets/tikz/F040_flattening_pair.tex",
+      "assets/tikz/F040_full_domain.tex",
+      "assets/tikz/F040_power_vs_exponential.tex",
+      "assets/tikz/F040_common_tangents.tex"
+    ],
+    "other": {
+      "gif": "images/power_exponent_five_cases.gif"
+    }
   },
   "shareConfig": {
     "title": "幂函数比较：底数跨过一会怎样",
@@ -162,17 +195,21 @@
       "函数单调性",
       "指数运算"
     ],
-    "related_ids": ["F035", "F038", "F041"],
+    "related_ids": [
+      "F035",
+      "F038",
+      "F041"
+    ],
     "similar": "指数函数图像性质"
   },
   "meta": {
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-26",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-11-22"
   },
   "isPro": 1,
-  "remarks": "",
+  "remarks": "；2026-11-22：新增27幅独立TikZ，覆盖首页、3种证明与补充、8道例题及9个易错点；逐题标明指数/底数角色、参数、分数幂定义域与空缺点；替换旧内嵌图，并用图压缩重复解释。；新增教学GIF images/power_exponent_five_cases.gif，模型与分镜归本UID的manim；LOCAL PRODUCTION PASS，用户视觉及Android真机验收PENDING，未执行内容Publisher或Sync。",
   "knowledgeNode": "函数-基本初等函数-指数对数与幂函数-图像与性质",
   "altNodes": "函数-性质-单调性"
 }

@@ -1,61 +1,57 @@
 \begin{statementbox}
+\input{assets/tikz/F038_overview}
+\textbf{观察：}看共同点、横轴上方和两条曲线的方向。\quad\textbf{原因：}零次方为1，正底数的幂为正。
 
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件一（底数范围）：}}] 设指数函数 $f(x)=a^x$，其中 $a>0$ 且 $a\neq 1$。
-	\end{description}
+\textbf{考试使用：}认图先找(0,1)，再按底数判断增减。
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{结论一（值域与定点）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			图像恒过点 $(0,1)$，值域为全体正实数，以 $x$ 轴为渐近线。
-			\[
-				\begin{aligned}
-					&f(x)=a^x\\
-					&a^x\in(0,+\infty)\\
-					&f(0)=1\\
-					&y=0.
-			\end{aligned}
-			\]
 
-		\item[\textbf{\textcolor{CStatement}{结论二（单调与分界）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			当 $a>1$ 时递增且 $x$ 正负决定 $y$ 与 $1$ 的大小，当 $a\in(0,1)$ 时递减。
-			\[
-				\begin{aligned}
-					&a>1:\\
-					&\qquad x_1<x_2\\
-					&\qquad \Rightarrow a^{x_1}<a^{x_2}\\
-					&\qquad x<0\\
-					&\qquad \Rightarrow 0<a^x\\
-					&\qquad \Rightarrow a^x<1\\
-					&\qquad x>0\\
-					&\qquad \Rightarrow a^x>1\\
-					&a\in(0,1):\\
-					&\qquad x_1<x_2\\
-					&\qquad \Rightarrow a^{x_1}>a^{x_2}\\
-					&\qquad x<0\\
-					&\qquad \Rightarrow a^x>1\\
-					&\qquad x>0\\
-					&\qquad \Rightarrow 0<a^x\\
-					&\qquad \Rightarrow a^x<1.
-			\end{aligned}
-			\]
-	\end{description}
 
-	\textbf{\textcolor{CStatement}{推广结论（图像对称性）}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{推广结论（图像对称性）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			$y=a^x$ 与 $y=(\frac1a)^x$ 的图像关于 $y$ 轴对称。
-			\[
-				\begin{aligned}
-					&f(x)=a^x\\
-					&g(x)=\left(\frac{1}{a}\right)^x\\
-					&g(x)=f(-x).
-			\end{aligned}
-			\]
-	\end{description}
+\textbf{\textcolor{CStatement}{条件}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+    \item[\textbf{\textcolor{CStatement}{底数与定义域：}}]
+    设 $f(x)=a^x$，其中 $a>0$、$a\neq1$，$x\in\mathbb R$。这里是\textbf{底数 $a$ 固定，指数 $x$ 变化}；不要与幂函数 $y=x^a$ 混淆。
+\end{description}
+
+\textbf{\textcolor{CStatement}{结论}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{\textcolor{CStatement}{结论一（正值、定点、值域与渐近线）：}}]
+    对任何允许的底数，$a^0=1$ 且 $a^x>0$；图像总经过 $(0,1)$，始终在 $x$ 轴上方，能无限接近 $x$ 轴但不会碰到它。
+    \[
+        \boxed{\ f(0)=1,\qquad a^x>0,\qquad \text{值域 }(0,+\infty),\qquad y=0\text{ 为水平渐近线}\ }
+    \]
+    当 $a>1$ 时，向左走得越远，函数值越接近 $0$；当 $0<a<1$ 时，向右走得越远，函数值越接近 $0$。
+
+\end{description}
+\end{statementbox}
+\clearpage
+\begin{statementbox}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{\textcolor{CStatement}{结论二（增减由底数决定）：}}]
+    \[
+        \begin{array}{c|c|c|c}
+        \text{底数} & x\text{ 从小到大} & x<0 & x>0\\ \hline
+        a>1 & a^x\text{ 递增} & 0<a^x<1 & a^x>1\\
+        0<a<1 & a^x\text{ 递减} & a^x>1 & 0<a^x<1
+        \end{array}
+    \]
+    也就是说，若 $x_1<x_2$，则
+    \[
+        \begin{cases}
+        a^{x_1}<a^{x_2},& a>1,\\
+        a^{x_1}>a^{x_2},& 0<a<1.
+        \end{cases}
+    \]
+    \textbf{理解抓手：}指数 $x$ 每增加 $1$，函数值就\textbf{乘一次 $a$}：$a^{x+1}=a\cdot a^x$。乘大于 $1$ 的数会变大；乘 $0$ 到 $1$ 之间的数会变小。
+\end{description}
+
+\textbf{\textcolor{CStatement}{推广结论（两条图像关于 $y$ 轴对称）}}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
+    \item[\textbf{\textcolor{CStatement}{底数互为倒数：}}]
+    令 $g(x)=\left(\frac1a\right)^x$，有
+    \[
+        \boxed{\ g(x)=a^{-x}=f(-x)\ }.
+    \]
+    因而 $y=a^x$ 与 $y=(1/a)^x$ 关于 $y$ 轴对称：前者图像上的点 $(t,a^t)$ 对应后者图像上的点 $(-t,a^t)$。\textbf{横坐标变号，纵坐标不变。}
+\end{description}
 
 \end{statementbox}

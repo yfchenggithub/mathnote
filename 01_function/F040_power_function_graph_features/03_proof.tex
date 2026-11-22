@@ -1,8 +1,11 @@
+\clearpage
 \begin{proofbox}
   \textbf{证明安排：} 第一种方法以初中熟悉的乘法、倒数为出发点，借助高中指数函数的基本性质完成一般证明；第二种方法用高中一阶导数说明五种曲线为什么有不同的走势；第三种方法从对数函数出发，提供另一条统一比较的道路。不必使用二阶导数。
 
   \medskip
   \textbf{\textcolor{CProof}{方法一：乘法与倒数法（门槛最低、比较最快）}}
+\input{assets/tikz/F040_exponent_effect}
+
 
   \textbf{第一步：} 说明系数与公共点。按高中定义，幂函数为 $x^\alpha$。由于 $1^\alpha=1$，所以它必过 $(1,1)$。一般式 $Ax^\alpha$ 在 $x=1$ 处的值为 $A$，因此它要成为幂函数，必须满足 $A=1$。这是由定义得到的必要条件，不是对定义本身的证明。
 
@@ -22,7 +25,9 @@
   \]
   因为 $x^{\alpha_2}>0$，所以 $x>1$ 时乘上一个大于 $1$ 的数，结果变大；$0<x<1$ 时乘上一个小于 $1$ 的正数，结果变小；$x=1$ 时两者相等。这也说明两个不同指数的幂函数在 $x>0$ 时只有 $(1,1)$ 一个交点。
 
-  \textbf{第四步：} 固定指数 $\alpha$。取 $0<x_1<x_2$，则 $x_2/x_1>1$，且
+  \end{proofbox}\clearpage\begin{proofbox}\textbf{\textcolor{CProof}{方法一（续）：固定指数，比较底数}}
+\input{assets/tikz/F040_base_effect}
+\textbf{第四步：} 固定指数 $\alpha$。取 $0<x_1<x_2$，则 $x_2/x_1>1$，且
   \[
      \frac{x_2^\alpha}{x_1^\alpha}
      =\left(\frac{x_2}{x_1}\right)^\alpha.
@@ -30,7 +35,13 @@
   若 $\alpha>0$，右边大于 $1$，故 $x_2^\alpha>x_1^\alpha$；若 $\alpha<0$，右边是一个大于 $1$ 的数的倒数，故 $x_2^\alpha<x_1^\alpha$；若 $\alpha=0$，两者均为 $1$。这样不用求导就证明了正半轴上的增减规律。
 
   \medskip
-  \textbf{\textcolor{CProof}{方法二：一阶导数法（常规、看懂曲线的形状）}}
+  
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法二：一阶导数法（常规、看懂曲线的形状）}}
+\input{assets/tikz/F040_positive_types}
+
 
   一条曲线在某点的切线斜率，表示曲线此时向上或向下的方向，以及陡峭程度。对 $f(x)=x^\alpha$（$x>0$），用高中求导公式得到
   \[
@@ -43,13 +54,24 @@
     \item[$\alpha>1$：] $\alpha-1>0$，所以 $x^{\alpha-1}$ 随 $x$ 增大而增大。乘以正数 $\alpha$ 后，$f'(x)$ 为正且越来越大，图像越走越陡。例如 $x^2$ 的导数 $2x$。
     \item[$\alpha=1$：] $f'(x)=1$，图像是一条斜率始终为 $1$ 的直线。
     \item[$0<\alpha<1$：] $\alpha-1<0$，所以 $x^{\alpha-1}$ 随 $x$ 增大而减小。乘以正数 $\alpha$ 后，$f'(x)$ 为正但越来越小，图像上升得越来越慢。例如 $\sqrt{x}$ 的导数 $1/(2\sqrt{x})$。
-    \item[$\alpha=0$：] $f(x)=1$，导数为 $0$，图像水平。
+    \end{description}\end{proofbox}\clearpage\begin{proofbox}\textbf{\textcolor{CProof}{方法二（续）：零指数与负指数}}
+\input{assets/tikz/F040_zero_negative}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]\item[$\alpha=0$：] $f(x)=1$，导数为 $0$，图像水平。
     \item[$\alpha<0$：] $\alpha-1<0$，所以 $x^{\alpha-1}$ 随 $x$ 增大而减小。乘以负数 $\alpha$ 后，$f'(x)$ 为负但越来越大（越来越接近 $0$），图像下降得越来越慢。例如 $1/x$ 的导数 $-1/x^2$。
   \end{description}
+
+\end{proofbox}\clearpage\begin{proofbox}\textbf{\textcolor{CProof}{方法二（续）：公共点处的切线}}
+\input{assets/tikz/F040_common_tangents}
   另一个直接收获是 $f'(1)=\alpha\cdot 1^{\alpha-1}=\alpha$，即公共点 $(1,1)$ 处的切线斜率恰好等于指数。至此，五种曲线的增减方向和陡峭程度都得到解释。注意：导数越来越大并不一定表示函数上升，还必须看导数本身是正还是负。
 
   \medskip
-  \textbf{\textcolor{CProof}{方法三：取对数法（统一处理实数指数）}}
+  
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法三：取对数法（统一处理实数指数）}}
+\input{assets/tikz/F040_log_sign}
+
 
   因为正数的自然对数严格递增，比较两个正数的大小，可以改成比较它们的自然对数。又有 $\ln(x^\alpha)=\alpha\ln x$。
 
@@ -68,7 +90,9 @@
   括号内为正，因此整个差的符号只由 $\alpha$ 决定。这便再次证明了增减规律。
 
   \medskip
-  \textbf{\textcolor{CProof}{补充：正负指数为何彼此对应？}}
+  \end{proofbox}\clearpage\begin{proofbox}
+\input{assets/tikz/F040_reciprocal_pair}
+\textbf{\textcolor{CProof}{补充：正负指数为何彼此对应？}}
 
   对任意实数 $\alpha$ 和 $x>0$，有
   \[
