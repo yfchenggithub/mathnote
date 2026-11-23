@@ -52,3 +52,30 @@
 \textbf{正确替代：}先区分是哪两幅图。仅当反射后的整个图像与原图重合时，才是自身对称；关于竖直轴或点的自身判定分别见 F020、F021。
 
 \end{trapbox}
+
+
+% F048 新增：两个典型逻辑误判以及正确的检查顺序
+\clearpage
+\begin{trapbox}
+\textbf{易错六｜看到 $f$ 和 $g$ 镜像，就误以为 $f$ 本身也对称}
+\begin{center}
+\begin{tikzpicture}[x=.85cm,y=.60cm]
+  \draw[->] (-2.45,0)--(2.5,0) node[right] {$x$};
+  \draw[->] (0,-1.3)--(0,3.25) node[above] {$y$};
+  \draw[blue,very thick] (-2,-1)--(2,3);
+  \draw[orange,dashed,very thick] (-2,3)--(2,-1);
+  \fill[blue] (1,2) circle (2pt);
+  \fill[orange] (-1,2) circle (2pt);
+  \node[blue,anchor=west,font=\scriptsize] at (1.35,2.6) {$f$};
+  \node[orange,anchor=east,font=\scriptsize] at (-1.4,2.6) {$g$};
+  \node[font=\small] at (1.3,-1.1) {$f\ne g$};
+\end{tikzpicture}
+\end{center}
+\textbf{常见错法：}由于 $f(x)=x+1$ 与 $g(x)=1-x$ 关于 $y$ 轴相互对称，就说 $f$ 是偶函数。
+
+\textbf{为什么错：} $g(x)=f(-x)$ 只说明\textbf{一张图如何翻成另一张}；要说 $f$ 是偶函数，必须另外满足 $f(-x)=f(x)$，且定义域关于原点对称。本例 $f(-1)=0\ne2=f(1)$。
+
+\textbf{另一个方向也不能说反：}如果 $f(x)=x^2$，虽然 $y=f(x)$ 与 $y=f(-x)$ 是对称关系，但两幅图会\textbf{完全重合}。所以“相互对称”并不强迫两函数不同，\textbf{自身对称正是相互对称后恰好重合}。
+
+\textbf{考场检查顺序：}先问“要找的是镜像图，还是判断原图自己不变？”；再写 $g$ 的式子；最后才看 $g$ 与 $f$ 是否在\textbf{完整定义域}上相等。
+\end{trapbox}

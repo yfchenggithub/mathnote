@@ -88,3 +88,43 @@
 恰好是第二图的定义域。因而此结论对任意原定义域 $D$ 成立，不要求 $f$ 是奇函数、偶函数或周期函数。
 
 \end{proofbox}
+
+
+% F048 新增：由已有“求镜像”证明一步得到 F020 / F021
+\clearpage
+\begin{proofbox}
+\textbf{统一证明一｜为什么从“两图相互对称”就能推出 F020？（门槛最低）}
+\input{assets/tikz/F048_pair_vertical_axis}
+
+\textbf{第一步：}在旧图上任取一点 $P(u,f(u))$。关于直线 $x=a$ 翻折后，横坐标改成 $2a-u$，高度不变，因此得到
+\[Q\bigl(2a-u,\,f(u)\bigr).\]
+
+\textbf{第二步：}把镜像点的横坐标记为 $x=2a-u$，即 $u=2a-x$，镜像函数为
+\[\boxed{g(x)=f(2a-x)}.\]
+它的定义域是 $E=\{2a-u:u\in D\}$，无需先假设原图自身对称。
+
+\textbf{第三步：}只有当 $E=D$ 且 $g(x)=f(x)$ 对所有 $x\in D$ 成立，镜像点才全部落回原图。于是
+\[\boxed{f(x)=f(2a-x)}\quad\Longleftrightarrow\quad
+\boxed{f(a+t)=f(a-t)}.\]
+这就得到 F020 的判定。\textbf{先有两图的变换式，再加“新图=旧图”才是自身对称。}
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{统一证明二｜为什么中心对称也只差一步？（高中做题最快）}
+\input{assets/tikz/F048_pair_general_center}
+
+原图上一点 $P(u,f(u))$ 绕 $(a,b)$ 转半圈，得到
+\[Q\bigl(2a-u,\,2b-f(u)\bigr).\]
+因此新图总可以写成
+\[\boxed{g(x)=2b-f(2a-x)}.\]
+如果新图恰好与旧图重合，就应当满足
+\[
+\begin{aligned}
+  f(x)&=g(x)=2b-f(2a-x),\\
+  \boxed{f(x)+f(2a-x)}&\boxed{=2b}.
+\end{aligned}
+\]
+连同定义域关于 $x=a$ 对应的条件，这恰好是 F021 的自身中心对称判定。
+
+\textbf{顺手记两个特例：}取 $(a,b)=(0,0)$，就有 $f(-x)=-f(x)$（奇函数）；取 $a=0$ 做竖直轴翻折，就有 $f(-x)=f(x)$（偶函数）。两种奇偶性本来也是\textbf{“对称变换后没有变”}。
+\end{proofbox}

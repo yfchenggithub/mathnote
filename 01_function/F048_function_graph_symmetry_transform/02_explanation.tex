@@ -62,3 +62,50 @@
 如果改为关于竖直轴 $x=2$ 反射，改变的是横坐标：旧位置 $u$ 对应新位置 $4-u$，高度保持不变。两坐标都按中心的平均位置反射，就得到一般点对称公式。
 
 \end{explanationbox}
+
+
+% F048 新增：教学动机 + 对照图，统一两种“对称”
+\clearpage
+\begin{explanationbox}
+\textbf{为什么会有“自身对称”和“两图相互对称”两个说法？}
+
+想象把一张函数图像沿镜子翻过去：第一步只负责\textbf{找出镜子另一侧的新图}，第二步才判断\textbf{新图是不是原来的那张}。因此两个名称不是互相排斥的两套规律，而是\textbf{同一次对称变换的两个观察角度}。
+\medskip
+\textbf{先看一组最简单的图：}
+\begin{center}
+\begin{tikzpicture}[x=.78cm,y=.60cm]
+  % 左：原函数 x^2 与其 y 轴镜像重合
+  \begin{scope}
+    \draw[->,thin] (-2.15,0)--(2.15,0) node[right] {$x$};
+    \draw[->,thin] (0,-.45)--(0,3.2) node[above] {$y$};
+    \draw[blue,very thick,domain=-1.7:1.7,samples=50] plot (\x,{\x*\x});
+    \draw[orange,dashed,thick,domain=-1.7:1.7,samples=50] plot (\x,{\x*\x});
+    \node[align=center,font=\small] at (0,-1.05) {自身对称：$f(x)=x^2$};
+    \node[font=\scriptsize,blue] at (1.6,2.2) {$f=g$};
+  \end{scope}
+  % 右：线性函数与镜像不同
+  \begin{scope}[xshift=5.8cm]
+    \draw[->,thin] (-2.15,0)--(2.15,0) node[right] {$x$};
+    \draw[->,thin] (0,-1.25)--(0,3.2) node[above] {$y$};
+    \draw[blue,very thick] (-2,-1)--(2,3);
+    \draw[orange,dashed,very thick] (-2,3)--(2,-1);
+    \node[align=center,font=\small] at (0,-2.0) {相互对称：$f(x)=x+1$};
+    \node[font=\scriptsize,blue,anchor=west] at (.45,2.65) {$f$};
+    \node[font=\scriptsize,orange,anchor=east] at (-.45,2.65) {$g$};
+  \end{scope}
+\end{tikzpicture}
+\end{center}
+\textbf{左图：} $g(x)=f(-x)=(-x)^2=x^2=f(x)$，翻折后仍然是一张图，因此 $f$ 自身关于 $y$ 轴对称。
+
+\textbf{右图：} $g(x)=f(-x)=-x+1$，它不同于 $f(x)=x+1$，所以是\textbf{两张不同的图关于 $y$ 轴相互对称}；原直线并不关于 $y$ 轴自身对称。
+\medskip
+\textbf{为什么两类公式看起来几乎一样？}
+\[
+\underbrace{f(a+t)=g(a-t)}_{\text{两张图相互对称}}
+\qquad\xrightarrow{\;g=f\;}\qquad
+\underbrace{f(a+t)=f(a-t)}_{\text{同一张图自身对称}}
+\]
+这里自变量 $a+t$ 和 $a-t$ 到直线 $x=a$ 的距离相等；上式需对对应的所有点成立，并检查整张图的定义域。\textbf{自变量的关系没有变，变的只是镜像图是否恰好等于原图。}
+
+\textbf{十秒速记：} \fbox{相互对称看变换，自身对称看不变。}
+\end{explanationbox}

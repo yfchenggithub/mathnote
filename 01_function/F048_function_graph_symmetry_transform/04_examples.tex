@@ -147,3 +147,52 @@
 两函数定义域均为 $\mathbb R$。回验最低点 $(1,1)$ 对应最高点 $(3,5)$，中点正是 $(2,3)$；完整代数关系已经对所有 $x$ 验证。
 
 \end{examplebox}
+
+
+% F048 新增：相同变换，结果“重合/不重合”的对比例题与独立 TikZ 图
+\clearpage
+\begin{examplebox}
+\textbf{例 6｜同一道题，镜像后仍是自己（自身对称）}
+\begin{center}
+\begin{tikzpicture}[x=.85cm,y=.64cm]
+  \draw[->] (-2.5,0)--(2.5,0) node[right] {$x$};
+  \draw[->] (0,-.55)--(0,3.35) node[above] {$y$};
+  \draw[blue,very thick,domain=-1.75:1.75,samples=60] plot (\x,{\x*\x});
+  \draw[orange,dashed,thick,domain=-1.75:1.75,samples=60] plot (\x,{\x*\x});
+  \node[blue,font=\small] at (2.05,2.9) {$f=g$};
+  \node[font=\small] at (-1.0,-.4) {$x=0$};
+\end{tikzpicture}
+\end{center}
+\textbf{题目：}已知 $f(x)=x^2$。求关于 $y$ 轴翻折后的新函数 $g$，并判断原图自身是否关于 $y$ 轴对称。
+
+\textbf{解：}先用两图相互对称的规则，
+\[g(x)=f(-x)=(-x)^2=x^2.\]
+再比较：$g(x)=f(x)$，而两函数定义域都为 $\mathbb R$。所以\textbf{两图镜像完全重合，$f$ 自身关于 $y$ 轴对称}。
+
+\textbf{解题提醒：}不要把“$y=f(x)$ 与 $y=f(-x)$ 关于 $y$ 轴对称”当成最终答案；题目还问原图是否\textbf{自身}对称，必须再比较 $g$ 与 $f$。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{例 7｜同样是关于 $y$ 轴翻折，却变成另一张图（相互对称）}
+\begin{center}
+\begin{tikzpicture}[x=.86cm,y=.63cm]
+  \draw[->] (-2.55,0)--(2.65,0) node[right] {$x$};
+  \draw[->] (0,-1.35)--(0,3.35) node[above] {$y$};
+  \draw[blue,very thick] (-2,-1)--(2,3);
+  \draw[orange,dashed,very thick] (-2,3)--(2,-1);
+  \fill[blue] (1,2) circle (2pt);
+  \fill[orange] (-1,2) circle (2pt);
+  \draw[gray,densely dotted] (-1,2)--(1,2);
+  \node[blue,anchor=west,font=\small] at (1.2,2.75) {$f(x)=x+1$};
+  \node[orange,anchor=east,font=\small] at (-1.2,2.8) {$g(x)=1-x$};
+\end{tikzpicture}
+\end{center}
+\textbf{题目：}已知 $f(x)=x+1$。求关于 $y$ 轴翻折后的 $g$；判断“两图相互对称”和“$f$ 自身对称”哪个说法成立。
+
+\textbf{解：}先求镜像：
+\[g(x)=f(-x)=1-x.\]
+原图的点 $(1,2)$ 对应新图的点 $(-1,2)$，故\textbf{$f$、$g$ 的两幅完整图像关于 $y$ 轴相互对称}。
+但 $f(1)=2$，$f(-1)=0$，原函数左右两侧的高度不相等，所以\textbf{$f$ 自身不关于 $y$ 轴对称}。
+
+\textbf{最快判断：}同样套 $g(x)=f(-x)$，只有检查 $g=f$ 通过时，才能再说\textbf{自身对称}。
+\end{examplebox}
