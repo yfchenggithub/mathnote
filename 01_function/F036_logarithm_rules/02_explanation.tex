@@ -1,41 +1,30 @@
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
+	\textbf{\textcolor{CExplanation}{为什么会想到这些公式？}}
 
-	对数把乘法变加法，把除法变减法，把幂次变倍数，像一把“降维利器”简化运算。
+	求 $\log_2(8\times4)$，可以先算 $8\times4=32$，再找 $2$ 的几次方等于 $32$。有没有更快的办法？\textbf{先看 $8$ 和 $4$ 分别是 $2$ 的几次方。}
+	\[
+		8=2^3,\quad 4=2^2,\quad 8\times4=2^{3+2}=2^5.
+	\]
+	于是 $\log_2(8\times4)=3+2=5$。\textbf{对数就是在问：“底数的几次方，等于这个数？”}
 
 	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
+	\textbf{\textcolor{CExplanation}{把四条规律与旧知识连起来}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（积化加原理）：}] 两个正数相乘时，同底对数可以拆成两个对数相加，反之可合并。
-		\item[\textbf{要点二（幂次提取）：}] 真数的指数可直接移到对数前面作系数，源于定义 $a^{\log_a M}=M$ 及指数幂运算。
+		\item[\textbf{乘法为什么变加法？}] 同底幂相乘，指数相加：$2^3\times2^2=2^{3+2}$。所以 $\log_2(8\times4)=\log_2 8+\log_2 4$。
+		\item[\textbf{除法为什么变减法？}] 同底幂相除，指数相减：$2^3\div2^2=2^{3-2}$。所以 $\log_2(8\div4)=3-2$。
+		\item[\textbf{指数为什么能提前？}] 幂再乘方，指数相乘：$(2^3)^2=2^{3\times2}$。所以 $\log_2(8^2)=2\log_2 8$。
+		\item[\textbf{为什么能换底？}] 求 $\log_4 8$，就是求 $4^x=8$ 中的 $x$。因为 $4=2^2$、$8=2^3$，所以 $2^{2x}=2^3$，得到 $x=\frac32$。换底公式就是把两边都改写成同一个底数的做法。
 	\end{description}
 
 	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（指数逆映射）}}
-
-	对数运算性质源自指数法则：$a^x a^y = a^{x+y}$ 取对数得 $\log_a(MN)=x+y$；$(a^x)^m = a^{mx}$ 取对数得 $\log_a M^m = m\log_a M$。对数的加减倍对应指数的乘除幂，性质是指数规则的“对数映像”。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（结构简化）}}
-
-	将乘除幂运算转化为线性加减倍，降低运算复杂度，为解指数方程、求函数导数、处理数列通项等提供工具。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（中频必考）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（化简求值）：} 利用性质合并或展开对数式，简化数值计算。
-		\item \textbf{考法二（方程求解）：} 在指数方程两边取对数，转化为线性方程。
+	\textbf{\textcolor{CExplanation}{考试中什么时候用最快？}}
+	\begin{itemize}[leftmargin=*, itemsep=0.45em, topsep=0.35em]
+		\item \textbf{同底对数有加减：} 优先合并成一个对数，再计算，如 $\log_3 9+\log_3 3=\log_3 27=3$。
+		\item \textbf{真数有乘方或根号：} 先把指数提出，如 $\log_2\sqrt8=\frac12\log_2 8$。
+		\item \textbf{不同底数相乘：} 先换底，找能约去的部分，如 $\log_2 3\cdot\log_3 4=\log_2 4=2$。
 	\end{itemize}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
+	\textbf{\textcolor{CExplanation}{一句话记住}}
 
-	\textbf{指数运算法则与对数运算法则完全镜像：$a^xa^y=a^{x+y}$ 对应 $\log_a(MN)=\log_a M+\log_a N$；$(a^x)^m=a^{mx}$ 对应 $\log_a M^m=m\log_a M$。}
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（对数式化简）：} 面对复杂乘除幂表达式，先取对数展开。
-		\item \textbf{场景二（指数求解）：} 方程 $a^x=N$ 两边取对数得 $x=\log_a N$。
-	\end{itemize}
+	\textbf{对数没有发明一套新规律，它只是把熟悉的指数运算法则换了一种写法。}
 \end{explanationbox}

@@ -8,7 +8,7 @@
       "对数运算法则",
       "换底公式"
     ],
-    "summary": "对数将乘除转化为加减，幂的指数提前，不同底数可统一为同底进行运算。",
+    "summary": "对数就是求指数：同底对数的积变加、商变减、幂的指数提前；不同底数可换成同一底数计算。",
     "difficulty": 2,
     "category": "函数",
     "tags": [
@@ -114,13 +114,14 @@
     "conclusions": "1. $\\log_a(MN)=\\log_a M+\\log_a N$；2. $\\log_a\\frac{M}{N}=\\log_a M-\\log_a N$；3. $\\log_a M^m=m\\log_a M$；4. $\\log_a b=\\frac{\\log_c b}{\\log_c a}$。"
   },
   "content": {
-    "statement": "设$a,b,c>0$且$a,b,c\\neq1$，$M,N>0$，$m\\in\\mathbb{R}$，则对数运算满足：$\\log_a(MN)=\\log_a M+\\log_a N$，$\\log_a\\frac{M}{N}=\\log_a M-\\log_a N$，$\\log_a M^m=m\\log_a M$，$\\log_a b=\\frac{\\log_c b}{\\log_c a}$。",
+    "statement": "设$a,c>0$且$a,c\\neq1$，$b,M,N>0$，$m\\in\\mathbb{R}$，则$\\log_a(MN)=\\log_a M+\\log_a N$，$\\log_a(M/N)=\\log_a M-\\log_a N$，$\\log_a M^m=m\\log_a M$，$\\log_a b=\\frac{\\log_c b}{\\log_c a}$。",
     "derivation": [],
-    "intuition": "对数 $\\log_a M$ 是指数运算 $a^?=M$ 的指数，指数运算中 $a^p\\cdot a^q=a^{p+q}$，对应 $\\log_a(MN)=\\log_a M+\\log_a N$；其他类似。",
+    "intuition": "对数就是在问“底数的几次方等于这个数”。例如 $8=2^3$、$4=2^2$，所以 $8\\times4=2^{3+2}$，从而 $\\log_2(8\\times4)=3+2$。积、商、幂三条公式都来自指数运算法则；换底就是把同一个指数改用另一底数求出。",
     "common_tricks": [
-      "合并：$\\log_a M+\\log_a N=\\log_a(MN)$；展开：$\\log_a(MN)=\\log_a M+\\log_a N$。",
-      "换底公式常用于将不同底数乘积化为同一底数，例如 $\\log_2 3\\cdot\\log_3 4=2$。",
-      "注意真数必须为正，合并时要检查定义域。"
+      "同底对数连加减，先合并：$\\log_3 9+\\log_3 3=\\log_3 27=3$。",
+      "真数有平方或根号，先提指数：$\\log_2\\sqrt8=\\frac12\\log_2 8=\\frac32$。",
+      "不同底数相乘，先换底约分：$\\log_2 3\\cdot\\log_3 4=\\log_2 4=2$。",
+      "使用前检查底数大于0且不等于1、真数大于0；$\\log_a(M+N)$ 不能拆成两个对数相加。"
     ]
   },
   "usage": {
@@ -146,22 +147,26 @@
     "svg": ""
   },
   "shareConfig": {
-    "title": "对数化简：积商幂怎样变成加减乘",
-    "shareDesc": "对数里有乘积、商或幂，可在底数合法、真数为正时拆成加减与系数。不同底数先换底再合并，避免把“和的对数”错误拆开，也避免化简时丢掉原来的取值限制。"
+    "title": "对数运算法则：为什么乘变加、除变减？",
+    "shareDesc": "对数就是求指数。指数相乘、相除、再乘方的规律，分别解释对数的积变加、商变减、指数提前；底数不同时可换底。用数字例子和易错提醒，快速学会考试中的对数化简。"
   },
   "relations": {
     "prerequisites": [
       "指数运算",
       "对数定义"
     ],
-    "related_ids": ["F037", "F039", "F042"],
+    "related_ids": [
+      "F037",
+      "F039",
+      "F042"
+    ],
     "similar": "对数恒等式"
   },
   "meta": {
     "version": 1,
     "source": "AI生成",
     "created_at": "2026-06-26",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-11-23"
   },
   "isPro": 0,
   "remarks": "基础教材结论，非二级结论",
