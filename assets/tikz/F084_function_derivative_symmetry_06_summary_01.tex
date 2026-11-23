@@ -1,0 +1,35 @@
+\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[draw=teal!45!black,fill=green!3,rounded corners=3pt] (0,0) rectangle (13.6,8.2);
+\node at (6.8,7.6499999999999995) {在 $a=0$ 的具体模型中记住：原轴导中，原中导轴};
+\begin{scope}[shift={(2.8,5.8)},x=1.3cm,y=0.42cm]
+\draw[gray,->] (-1.7,0)--(1.8,0) node[right] {$x$};
+\draw[gray,->] (0,0)--(0,2);
+\draw[teal!75!black,very thick,domain=-1.05:1.05,samples=100] plot(\x,{(\x)^2});
+\fill[teal!75!black] (0,0) circle(2.5pt);
+\end{scope}
+\node at (2.8,4.5) {$x^2$：原函数轴对称};
+\begin{scope}[shift={(9.6,5.8)},x=1.3cm,y=0.42cm]
+\draw[gray,->] (-1.7,0)--(1.8,0) node[right] {$x$};
+\draw[gray,->] (0,-2.1)--(0,2.1);
+\draw[blue!70!black,very thick,domain=-1.05:1.05,samples=100] plot(\x,{2*\x});
+\fill[blue!70!black] (0,0) circle(2.5pt);
+\end{scope}
+\node at (9.6,4.5) {$2x$：导函数中心对称};
+\begin{scope}[shift={(2.8,2.3)},x=1.3cm,y=0.42cm]
+\draw[gray,->] (-1.7,0)--(1.8,0) node[right] {$x$};
+\draw[gray,->] (0,-1.2)--(0,1.2);
+\draw[teal!75!black,very thick,domain=-1.05:1.05,samples=100] plot(\x,{(\x)^3});
+\fill[teal!75!black] (0,0) circle(2.5pt);
+\end{scope}
+\node at (2.8,0.9999999999999998) {$x^3$：原函数中心对称};
+\begin{scope}[shift={(9.6,2.3)},x=1.3cm,y=0.42cm]
+\draw[gray,->] (-1.7,0)--(1.8,0) node[right] {$x$};
+\draw[gray,->] (0,-0.3)--(0,3.4);
+\draw[blue!70!black,very thick,domain=-1.05:1.05,samples=100] plot(\x,{3*(\x)^2});
+\fill[blue!70!black] (0,0) circle(2.5pt);
+\end{scope}
+\node at (9.6,0.9999999999999998) {$3x^2$：导函数轴对称};
+\draw[->,teal!65!black,thick] (5.5,6.1)--(6.9,6.1) node[midway,above] {求导};
+\draw[->,teal!65!black,thick] (5.5,2.65)--(6.9,2.65) node[midway,above] {求导};
+\node at (6.8,.35) {一般位置先找 $a$；中心纵坐标分别看 $0$ 或 $f(a)$。};
+\end{tikzpicture}

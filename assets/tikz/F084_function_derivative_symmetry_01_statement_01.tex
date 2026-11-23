@@ -1,0 +1,34 @@
+\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[draw=teal!45!black,fill=green!3,rounded corners=3pt] (0,0) rectangle (13.6,6.5);
+\node at (6.8,5.95) {同一对横坐标：原函数同高，导函数的值互为相反数};
+\node at (3.5,5.15) {$f(x)=(x-2)^2+1$};
+\node at (10.3,5.15) {$f^{\prime}(x)=2(x-2)$};
+\begin{scope}[shift={(1.2,1.4)},x=0.95cm,y=0.55cm]
+\draw[gray,->] (-0.2,0)--(4.4,0) node[right] {$x$};
+\draw[gray,->] (0,-0.3)--(0,5.5);
+\draw[teal!75!black,very thick,domain=0.3:3.7,samples=100] plot(\x,{(\x-2)^2+1});
+\draw[dashed,teal!65!black] (2,0)--(2,5);
+\node[above] at (2,5.1) {$x=2$};
+\draw[dotted,gray] (1,2)--(3,2);
+\fill[teal!75!black] (1,2) circle(2.5pt);
+\fill[teal!75!black] (3,2) circle(2.5pt);
+\node[above] at (1,2.8) {$2$};\node[above] at (3,2.8) {$2$};
+\draw[gray] (1,0+.08)--(1,0-.08);\node[below] at (1,0-.15) {$1$};
+\draw[gray] (2,0+.08)--(2,0-.08);\node[below] at (2,0-.15) {$2$};
+\draw[gray] (3,0+.08)--(3,0-.08);\node[below] at (3,0-.15) {$3$};
+\end{scope}
+\begin{scope}[shift={(8.2,2.8)},x=0.95cm,y=0.46cm]
+\draw[gray,->] (-0.2,0)--(4.4,0) node[right] {$x$};
+\draw[gray,->] (0,-3.8)--(0,3.8);
+\draw[blue!70!black,very thick,domain=0.3:3.7,samples=100] plot(\x,{2*(\x-2)});
+\draw[dotted,gray] (0,-2)--(1,-2) (0,2)--(3,2);
+\fill[blue!70!black] (1,-2) circle(2.5pt);
+\fill[blue!70!black] (3,2) circle(2.5pt);
+\fill[blue!70!black] (2,0) circle(2.5pt);
+\node[left] at (0,-2) {$-2$};\node[left] at (0,2) {$2$};
+\node[above left] at (1.9,.45) {$(2,0)$};
+\draw[gray] (1,0+.08)--(1,0-.08);\node[below] at (1,0-.15) {$1$};
+\draw[gray] (3,0+.08)--(3,0-.08);\node[below] at (3,0-.15) {$3$};
+\end{scope}
+\node at (6.8,.45) {$1,3$ 的中点是 $2$：左图看轴，右图看中心 $(2,0)$。};
+\end{tikzpicture}

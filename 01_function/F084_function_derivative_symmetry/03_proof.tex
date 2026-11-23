@@ -1,0 +1,64 @@
+\begin{proofbox}
+  \textbf{\textcolor{CProof}{证明前先记一句话}}\par\nopagebreak[4]
+
+  对任何可导函数，\textbf{两边相等的式子可以同时求导}；反过来，若某个函数的导数恒为 $0$，它就是一个常数。下面三种证明都在高中导数知识内。
+
+  \medskip
+  \textbf{\textcolor{CProof}{方法一（最直接）：原函数轴对称 $\Longrightarrow$ 导函数中心对称}}\par\nopagebreak[4]
+
+  \textbf{思路：}把左右对称的横坐标写成 $a+t$ 和 $a-t$，两边对 $t$ 求导。
+  \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.35em]
+    \item[\textbf{第一步（写出“同高”）：}] 原函数关于 $x=a$ 对称，所以 $f(a+t)=f(a-t)$。
+    \item[\textbf{第二步（分别求导）：}] 左边对 $t$ 求导是 $f'(a+t)$；右边因为里面是 $a-t$，还要乘 $-1$，得到 $-f'(a-t)$。
+    \item[\textbf{第三步（读出对称）：}] $f'(a+t)=-f'(a-t)$，左右导数正负相反，导函数关于 $(a,0)$ 中心对称。
+  \end{description}
+  \[
+    \boxed{f(a+t)=f(a-t)\ \Longrightarrow\ f'(a+t)=-f'(a-t).}
+  \]
+  \begin{center}
+  \input{assets/tikz/F084_function_derivative_symmetry_03_proof_01.tex}
+  \end{center}
+
+  \medskip
+  \textbf{\textcolor{CProof}{方法二（反向也成立）：利用“导数为零”的常数规律}}\par\nopagebreak[4]
+
+  \textbf{A．导函数中心对称，反推原函数轴对称。}已知 $f'(a+t)=-f'(a-t)$。令
+  \[
+    H(t)=f(a+t)-f(a-t).
+  \]
+  则 $H'(t)=f'(a+t)+f'(a-t)=0$，所以 $H(t)$ 是常数。由于 $H(0)=f(a)-f(a)=0$，因此 $H(t)=0$，即 $f(a+t)=f(a-t)$。
+
+  \textbf{B．导函数轴对称，反推原函数中心对称。}已知 $f'(a+t)=f'(a-t)$。令
+  \[
+    K(t)=f(a+t)+f(a-t).
+  \]
+  则 $K'(t)=f'(a+t)-f'(a-t)=0$，所以 $K(t)$ 是常数。代入 $t=0$，$K(0)=2f(a)$，得到
+  \[
+    \boxed{f(a+t)+f(a-t)=2f(a).}
+  \]
+  同样，从这个等式两边对 $t$ 求导又可推出 $f'(a+t)=f'(a-t)$，因此第二组也是\textbf{双向成立}。
+  \begin{center}
+  \input{assets/tikz/F084_function_derivative_symmetry_03_proof_02.tex}
+  \end{center}
+
+  \medskip
+  \textbf{\textcolor{CProof}{方法三（完整推广）：导函数中心 $(a,b)$ 的一般情形}}\par\nopagebreak[4]
+
+  \textbf{第一步：}导函数关于 $(a,b)$ 中心对称，按中心对称的定义，
+  \[
+    f'(a+t)+f'(a-t)=2b.
+  \]
+  \textbf{第二步：}令 $P(t)=f(a+t)-f(a-t)-2bt$，求导得
+  \[
+    P'(t)=f'(a+t)+f'(a-t)-2b=0.
+  \]
+  \textbf{第三步：}既然 $P(t)$ 是常数，再代入 $t=0$，$P(0)=0$，就得到
+  \[
+    \boxed{f(a+t)-f(a-t)=2bt.}
+  \]
+  反过来，对上式求导，又能得到原来的导函数中心对称关系。特别是 $b=0$，立刻回到第一组规律。
+  \begin{center}
+  \input{assets/tikz/F084_function_derivative_symmetry_03_proof_03.tex}
+  \end{center}
+  \textbf{结论回扣：}两种对称关系能互推，靠的就是“\textbf{求导时左右差一个负号}”和“\textbf{导数恒为零则原式为常数}”。
+\end{proofbox}

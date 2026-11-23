@@ -1,0 +1,19 @@
+\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[draw=teal!45!black,fill=green!3,rounded corners=3pt] (0,0) rectangle (13.6,5.9);
+\node at (6.8,5.3500000000000005) {不是关于 $x=0$ 对称，仍然可能有另一条对称轴};
+\begin{scope}[shift={(4.6,2.1)},x=1.1cm,y=0.75cm]
+\draw[gray,->] (-3.2,0)--(1.7,0) node[right] {$x$};
+\draw[gray,->] (0,-1.5)--(0,3.1);
+\draw[teal!75!black,very thick,domain=-2.8:0.8,samples=100] plot(\x,{(\x)^2+2*\x});
+\draw[teal!65!black,dashed] (-1,-1.25)--(-1,2.8);
+\draw[red!65!black,dotted] (0,-1.25)--(0,2.8);
+\fill[teal!75!black] (-1,-1) circle(2.5pt);
+\fill[teal!75!black] (-2,0) circle(2.5pt);
+\fill[teal!75!black] (0,0) circle(2.5pt);
+\draw[gray] (-2,0+.08)--(-2,0-.08);\node[below] at (-2,0-.15) {$-2$};
+\draw[gray] (-1,0+.08)--(-1,0-.08);\node[below] at (-1,0-.15) {$-1$};
+\draw[gray] (0,0+.08)--(0,0-.08);\node[below] at (0,0-.15) {$0$};
+\end{scope}
+\node[anchor=west,align=left,text width=4.7cm] at (8,3.1) {$f(x)=(x+1)^2-1$。\\[10pt]绿虚线 $x=-1$：真正的轴。\\[10pt]红点线 $x=0$：不是轴。\\[10pt]$b\ne0$ 只排除指定的 $x=a$。};
+\node at (6.8,.4) {$f^{\prime}(x)=2x+2$ 关于 $(0,2)$ 中心对称，但 $f$ 的轴在 $x=-1$。};
+\end{tikzpicture}

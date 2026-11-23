@@ -1,0 +1,53 @@
+\begin{explanationbox}
+  \textbf{\textcolor{CExplanation}{为什么会想到它？}}\par\nopagebreak[4]
+
+  遇到 $f(a+t)=f(a-t)$，我们很容易看出两边的\textbf{函数值（高度）相等}。但题目往往追问的是 $f'$，也就是\textbf{图像在这些位置的斜率}。高度与斜率不是一回事，不过对称图像上的斜率有很整齐的规律。
+
+  \medskip
+  \textbf{\textcolor{CExplanation}{第一组：左右同高，左右斜率相反}}\par\nopagebreak[4]
+
+  看 $f(x)=(x-2)^2+1$：$f(1)=f(3)=2$，但 $f'(1)=-2$，$f'(3)=2$。左边往右走是\textbf{下坡}，右边往右走是\textbf{上坡}，斜率大小一样、符号相反。
+  \[
+    \underbrace{f(a+t)=f(a-t)}_{\text{高度相同}}
+    \quad\Longrightarrow\quad
+    \underbrace{f'(a+t)=-f'(a-t)}_{\text{斜率反号}}.
+  \]
+
+  \medskip
+  \textbf{\textcolor{CExplanation}{第二组：绕一个点对称，左右斜率相同}}\par\nopagebreak[4]
+
+  看 $f(x)=(x-1)^3+7$：$f(0)=6$，$f(2)=8$，两个值以 $7$ 为中点；$f'(0)=f'(2)=3$。图中两条橙色切线平行，直接看出左右斜率相同。
+  \[
+    \underbrace{f(a+t)+f(a-t)=2f(a)}_{\text{左右函数值的平均数固定}}
+    \quad\Longrightarrow\quad
+    \underbrace{f'(a+t)=f'(a-t)}_{\text{斜率相同}}.
+  \]
+
+  \medskip
+  \textbf{\textcolor{CExplanation}{图像对照：先看高度，再看斜率}}
+  \begin{center}
+  \input{assets/tikz/F084_function_derivative_symmetry_02_explanation_01.tex}
+  \end{center}
+
+  \medskip
+  \textbf{\textcolor{CExplanation}{为什么可以反推？}}\par\nopagebreak[4]
+
+  若两边斜率一直反号，则 $f(a+t)-f(a-t)$ 随 $t$ 变化时导数为零，所以差是常数；代入 $t=0$ 可知常数是 $0$，于是两边同高。若两边斜率一直相同，则 $f(a+t)+f(a-t)$ 是常数；代入 $t=0$，这个常数就是 $2f(a)$。
+
+  \medskip
+  \textbf{\textcolor{CExplanation}{容易忽略的推广：中间不一定是 0}}\par\nopagebreak[4]
+
+  导函数关于 $(a,b)$ 中心对称，表示左右斜率的\textbf{平均数是 $b$}：
+  \[
+    \frac{f'(a+t)+f'(a-t)}{2}=b.
+  \]
+  因此原函数左右函数值的差是 $2bt$。$b=0$ 才能保证关于 $x=a$ 轴对称；$b\ne0$ 只能排除\textbf{这条轴}，不能排除所有轴。
+
+  \medskip
+  \textbf{\textcolor{CExplanation}{考试中什么时候最快？}}
+  \begin{itemize}[leftmargin=*,itemsep=0.35em,topsep=0.3em]
+    \item \textbf{只给对称条件：} 直接写 $a\pm t$ 的等式，转为导函数条件，不必求 $f(x)$ 的解析式。
+    \item \textbf{只给导函数的对称轴：} 立刻知道原函数的中心横坐标是 $a$，纵坐标要写 $f(a)$。
+    \item \textbf{同时给两类对称：} 把对称式连续代入，可能得到 $f(x+T)=f(x)$ 等周期关系。
+  \end{itemize}
+\end{explanationbox}
