@@ -124,8 +124,18 @@
 \usepackage{tikz}
 \usepackage{eso-pic}
 
-% 你只需要改这2行
-\newcommand{\WMHiddenID}{ID: 2026E03-001}
+% 自动记录本次编译时间（编译机器本地时间），格式：20261123 15:52:00。
+% LaTeX 内核的时间戳精确到秒；在加载设置时固定，整份 PDF 保持一致。
+\ExplSyntaxOn
+\cs_new:Npx \WMHiddenID
+  {
+    \str_range:Nnn \c_sys_timestamp_str { 3 } { 10 }
+    \c_space_tl
+    \str_range:Nnn \c_sys_timestamp_str { 11 } { 12 } :
+    \str_range:Nnn \c_sys_timestamp_str { 13 } { 14 } :
+    \str_range:Nnn \c_sys_timestamp_str { 15 } { 16 }
+  }
+\ExplSyntaxOff
 
 
 %--- 隐藏ID（右上角极淡）
