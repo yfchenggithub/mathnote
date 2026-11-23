@@ -1,0 +1,14 @@
+\begin{tikzpicture}[x=0.80cm,y=0.77cm,>=stealth,font=\small]
+		\draw[->,gray!80!black] (0.7,0) -- (6.6,0) node[right] {$x$};
+		\draw[->,gray!80!black] (0.7,0) -- (0.7,4.8) node[above] {函数值};
+		\foreach \x in {2,3,4,5,6} {\draw (\x,0.08)--(\x,-0.08) node[below] {\x};}
+		\draw[blue!75!black,very thick] plot[domain=1:6,samples=80] (\x,{0.065*pow(2,\x)});
+		\draw[red!75!black,very thick,dashed] plot[domain=1:6,samples=80] (\x,{0.065*\x*\x});
+		\draw[green!45!black,very thick,dotted] plot[domain=1:6,samples=80] (\x,{0.065*ln(\x)/ln(2)});
+		\fill[blue!75!black] (5,2.08) circle (1.6pt);
+		\fill[red!75!black] (3,0.585) circle (1.6pt);
+		\node[anchor=west,blue!75!black] at (4.8,4.25) {$2^x$};
+		\node[anchor=west,red!75!black] at (5.4,2.65) {$x^2$};
+		\node[anchor=west,green!45!black] at (4.0,0.46) {$\log_2x$};
+		\node[anchor=west,red!75!black,font=\scriptsize] at (1.15,1.6) {$x=3$：平方较大};
+	\end{tikzpicture}

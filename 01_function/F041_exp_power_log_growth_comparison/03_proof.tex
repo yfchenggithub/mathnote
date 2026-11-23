@@ -1,53 +1,75 @@
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
-	采用取对数的方法，将无穷大比值转化为无穷大差值，再利用$\displaystyle\lim_{x\to+\infty}\frac{\ln x}{x}=0$和$\displaystyle\lim_{x\to+\infty}\frac{\ln(\ln x)}{\ln x}=0$完成证明。
+	\textbf{\textcolor{CProof}{证明前先问：怎样说明“后者追不上前者”？}}
+	看比值最直接：如果$\frac{\text{较慢的}}{\text{较快的}}\to0$，就说明后者与前者相比越来越小。下面只用\textbf{对数运算和高中导数}来说明。
 
 	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（取对数转化第一极限）：}]
-			设$A=\frac{a^x}{x^\alpha}$，其中$a>1,\alpha>0$，则
-			\[
-				\ln A = \ln\left(\frac{a^x}{x^\alpha}\right)=x\ln a-\alpha\ln x.
-			\]
-			\par\textbf{理由：} 由对数运算法则：$\ln(M/N)=\ln M-\ln N$，$\ln(a^x)=x\ln a$，$\ln(x^\alpha)=\alpha\ln x$。
-		\item[\textbf{步骤二（证明$\ln A\to+\infty$）：}]
-			因为$\displaystyle\lim_{x\to+\infty}\frac{\ln x}{x}=0$，所以
-			\[
-				\ln A = x\Bigl(\ln a-\alpha\frac{\ln x}{x}\Bigr)\to +\infty \quad (x\to+\infty).
-			\]
-			\par\textbf{理由：} $\ln a>0$，且$\alpha\frac{\ln x}{x}\to0$，因此括号内趋于正数$\ln a$，乘$x$后趋于$+\infty$。
-		\item[\textbf{步骤三（回代得第一极限）：}]
-			由指数函数$y=e^u$的连续性，
-			\[
-				A = e^{\ln A}\to e^{+\infty}=+\infty,
-			\]
-			即$\displaystyle\lim_{x\to+\infty}\frac{a^x}{x^\alpha}=+\infty$。
-			\par\textbf{理由：} 若$\ln A\to+\infty$，则$A\to+\infty$。
-		\item[\textbf{步骤四（取对数转化第二极限）：}]
-			设$B=\frac{x^\alpha}{\log_a x}$。利用$\log_a x=\frac{\ln x}{\ln a}$，得
-			\[
-				\ln B = \alpha\ln x-\ln\left(\frac{\ln x}{\ln a}\right)=\alpha\ln x-\ln(\ln x)+\ln(\ln a).
-			\]
-			\par\textbf{理由：} $\ln(\log_a x)=\ln(\ln x)-\ln(\ln a)$。
-		\item[\textbf{步骤五（证明$\ln B\to+\infty$）：}]
-			因为$\displaystyle\lim_{x\to+\infty}\frac{\ln(\ln x)}{\ln x}=0$，所以
-			\[
-				\ln B = \ln x\Bigl(\alpha-\frac{\ln(\ln x)}{\ln x}\Bigr)+\ln(\ln a)\to +\infty \quad (x\to+\infty).
-			\]
-			\par\textbf{理由：} $\alpha>0$，且$\frac{\ln(\ln x)}{\ln x}\to0$，括号内趋于正数，$\ln x\to+\infty$，故整体趋于$+\infty$。
-		\item[\textbf{步骤六（回代得第二极限）：}]
-			类似地，$B=e^{\ln B}\to+\infty$，即$\displaystyle\lim_{x\to+\infty}\frac{x^\alpha}{\log_a x}=+\infty$。
-			\par\textbf{理由：} 指数函数的连续性。
-	\end{description}
-
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-	由以上两步得到
+	\textbf{\textcolor{CProof}{第一步：证明对数增长得比正幂慢}}
+	对任意$t>0$和$x\ge1$，有一个好用的不等式：
 	\[
-		\lim_{x\to+\infty}\frac{a^x}{x^\alpha}=+\infty,
-		\qquad
-		\lim_{x\to+\infty}\frac{x^\alpha}{\log_a x}=+\infty,
+		\boxed{\ln x\le\frac{x^t-1}{t}}.
 	\]
-	记作$a^x\gg x^\alpha\gg\log_a x\ (x\to+\infty)$。
+	\textbf{为什么？}令$h(x)=\frac{x^t-1}{t}-\ln x$，则
+	\[
+		h'(x)=x^{t-1}-\frac1x=\frac{x^t-1}{x}\ge0,
+		\qquad h(1)=0.
+	\]
+	所以$h(x)\ge0$，不等式成立。这一步只用到“\textbf{导数非负，函数不减}”。
+
+	\begin{center}
+	\input{assets/tikz/F041_exp_power_log_growth_comparison_03_proof_01.tex}
+	\end{center}
+	图上蓝线不低于红线，正是$t=\frac12$时的$\ln x\le2(\sqrt{x}-1)$。图像帮助理解，真正的依据是上面的导数证明。
+
+	\medskip
+	现在令$t=\frac\alpha2$。当$x>1$时，因$\ln a>0$，
+	\[
+		0<\frac{\log_ax}{x^\alpha}
+		=\frac{\ln x}{(\ln a)x^\alpha}
+		\le\frac{2}{\alpha\ln a}\cdot\frac{1}{x^{\alpha/2}}
+		\longrightarrow0.
+	\]
+	这说明：与$x^\alpha$相比，$\log_ax$占的比例越来越小。因此
+	\[
+		\boxed{\lim_{x\to+\infty}\frac{x^\alpha}{\log_ax}=+\infty}.
+	\]
+
+	\medskip
+	\textbf{\textcolor{CProof}{第二步：证明指数最终超过任何正幂}}
+	还是用刚才的不等式，不过这次取$t=\frac12$，得到$\ln x\le2(\sqrt x-1)$。
+	对$x>1$，把“幂除以指数”取自然对数：
+	\[
+		\ln\frac{x^\alpha}{a^x}
+		=\alpha\ln x-x\ln a
+		\le 2\alpha\sqrt x-x\ln a.
+	\]
+	当$x$足够大（例如$\sqrt x\ge\frac{4\alpha}{\ln a}$）时，
+	\[
+		2\alpha\sqrt x-x\ln a
+		\le-\frac{\ln a}{2}x\longrightarrow-\infty.
+	\]
+	所以$\ln\frac{x^\alpha}{a^x}\to-\infty$，比值$\frac{x^\alpha}{a^x}\to0$，倒过来便得到
+	\[
+		\boxed{\lim_{x\to+\infty}\frac{a^x}{x^\alpha}=+\infty}.
+	\]
+	\textbf{这一步为什么有用？}即使$\alpha=100$、$a=1.01$，只要两个数固定不变，结论仍然成立；可能要等$x$非常大，才看得出指数反超。
+\begin{center}
+\input{assets/tikz/F041_exp_power_log_growth_comparison_ratio_exp_power.tex}
+\end{center}
+
+	\medskip
+	\textbf{\textcolor{CProof}{第三步：为什么对数的正数次幂也追不上？}}
+	若$\beta>0$，在第一步中改取$t=\frac{\alpha}{2\beta}>0$。当$x>1$时，
+	\[
+		0<\frac{(\log_ax)^\beta}{x^\alpha}
+		\le\left(\frac{1}{t\ln a}\right)^\beta
+		\frac{1}{x^{\alpha/2}}\longrightarrow0.
+	\]
+	因此$x^\alpha/(\log_ax)^\beta\to+\infty$。
+\begin{center}
+\input{assets/tikz/F041_exp_power_log_growth_comparison_ratio_log_power.tex}
+\end{center}
+
+	\medskip
+	\textbf{\textcolor{CProof}{把证明翻译成大白话}}
+	对数相对幂会越来越小；幂相对指数也会越来越小。\textbf{“相差的倍数不断扩大”}才是本结论真正要表达的意思。
 \end{proofbox}

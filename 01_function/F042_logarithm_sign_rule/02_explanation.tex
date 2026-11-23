@@ -1,42 +1,38 @@
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
+  \textbf{\textcolor{CExplanation}{为什么会想到这个办法？}}
 
-	对数 $\log_a b$ 的正负，由底数 $a$ 和真数 $b$ 是否同时位于 $1$ 的同侧决定。
+  题目经常只问“这个对数大于 $0$ 吗”，并不要求算出它的具体值。例如 $\log_2 7$ 不好口算，但我们知道 $2^0=1$，想从 $1$ 变成 $7$，指数一定要取正数，所以 $\log_2 7>0$。\textbf{判断正负，通常不必计算对数。}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
-		\item[\textbf{要点一（乘积判号）：}] 将 $\log_a b$ 的符号转化为 $(a-1)(b-1)$ 的符号：同号为正，异号为负。
-		\item[\textbf{要点二（区间判号）：}] 等价叙述：若 $a>1,\ b>1$ 或 $0<a<1,\ 0<b<1$，则 $\log_a b>0$；若 $a>1,\ 0<b<1$ 或 $0<a<1,\ b>1$，则 $\log_a b<0$。
-	\end{description}
+  \medskip
+  \textbf{\textcolor{CExplanation}{先弄懂：对数其实在问什么？}}
+  \[
+    \log_a b=x\quad\Longleftrightarrow\quad a^x=b.
+  \]
+  它问的是：“把 $a$ 乘方多少次，才得到 $b$？”现在把 $x$ 的正负分成两类看：
+  \begin{itemize}[leftmargin=*,itemsep=0.25em,topsep=0.25em]
+    \item 底数 $a>1$（例如 $2$）：正指数把结果变到 $1$ 的\textbf{右边}，负指数把结果变到 $1$ 的\textbf{左边}。
+    \item 底数 $0<a<1$（例如 $\frac12$）：方向\textbf{正好相反}。正指数得到小于 $1$ 的数，负指数得到大于 $1$ 的数。
+  \end{itemize}
+  \begin{center}
+  \input{assets/tikz/F042_logarithm_sign_rule_02_explanation_01.tex}
+  \end{center}
+  \textbf{看出规律：}底数和结果 $b$ 都在 $1$ 的同一侧，指数 $x$ 就为正；分别在两侧，指数 $x$ 就为负。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（函数图像）}}
+  \medskip
+  \textbf{\textcolor{CExplanation}{再看图：为什么一定要和 $1$ 比？}}
 
-	当 $a>1$ 时，$y=\log_a x$ 在 $(0,+\infty)$ 上单调递增，图像过点 $(1,0)$。此时 $x>1$ 对应 $y>0$，$0<x<1$ 对应 $y<0$。当 $0<a<1$ 时，函数单调递减，$x>1$ 对应 $y<0$，$0<x<1$ 对应 $y>0$。因此，$y$ 的符号由 $a$ 与 $1$ 的关系以及 $x$ 与 $1$ 的关系共同决定。
+  因为任何合法底数都满足 $a^0=1$，所以 $\log_a1=0$。两种对数函数都经过 $(1,0)$；这是正数、负数的分界点。
+  \begin{center}
+  \input{assets/tikz/F042_logarithm_sign_rule_02_explanation_02.tex}
+  \end{center}
+  \textbf{为什么图像方向相反？}当底数大于 $1$，输入的数越大，对数值越大；当底数在 $0$ 与 $1$ 之间，输入越大，对数值反而越小。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（换底公式）}}
-
-	由 $\log_a b = \dfrac{\ln b}{\ln a}$，而 $\ln x$ 与 $x-1$ 同号（因为 $\ln 1 = 0$，且 $\ln x$ 单调递增）。所以 $\log_a b$ 的符号等于 $\dfrac{b-1}{a-1}$ 的符号（不计比例），即 $(a-1)(b-1)$ 的符号。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（快速判号）}}
-	\begin{itemize}[leftmargin=*,itemsep=0.5em,topsep=0.4em]
-		\item \textbf{考法一（比零判号）：} 直接判断单个对数值的正负，避免使用单调性。
-		\item \textbf{考法二（解不等式）：} 将 $\log_a f(x) >0$ 或 $<0$ 转化为 $(a-1)(f(x)-1)>0$ 或 $<0$，简化运算。
-	\end{itemize}
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
-
-	对数符号判断可转化为二次乘积符号，无需死记单调性，只需关注 $a$、$b$ 与 $1$ 的大小关系。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*,itemsep=0.5em,topsep=0.4em]
-		\item \textbf{场景一（单式判号）：} 快速判断 $\log_a b$ 的正负，用于估算或检验。
-		\item \textbf{场景二（解对数不等式）：} 将 $\log_a f(x) > 0$ 等价于 $(a-1)(f(x)-1)>0$ 且 $f(x)>0$，避免分类讨论。
-		\item \textbf{场景三（参数问题）：} 已知 $\log_a b$ 的符号反推 $a,b$ 的取值范围，或用于求参数范围。
-	\end{itemize}
+  \medskip
+  \textbf{\textcolor{CExplanation}{考试中什么时候用得最快？}}
+  \begin{itemize}[leftmargin=*,itemsep=0.25em,topsep=0.25em]
+    \item \textbf{判正负：}例如 $\log_{0.3}5<0$，一眼就能确定，无须换底。
+    \item \textbf{解不等式：}例如 $\log_2(x-1)>0$，只需 $x-1>1$，得到 $x>2$。
+    \item \textbf{带参数：}例如 $\log_a(a^2+1)$，因为真数总大于 $1$，所以底数大于 $1$ 时为正，底数小于 $1$ 时为负。
+  \end{itemize}
+  \textbf{\textcolor{CExplanation}{快懂口诀：}}先看能不能取对数，再看底和真在 $1$ 的哪边；\textbf{同侧正，异侧负，真数等于 $1$ 是零。}
 \end{explanationbox}

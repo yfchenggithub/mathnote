@@ -1,25 +1,32 @@
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
-	利用函数图像的点集定义，通过分析图像上点的坐标变换来导出解析式的关系。
+  \textbf{\textcolor{CProof}{证法一：抓住任意一个点（最直接、最通用）}}
+  \begin{enumerate}[leftmargin=*,itemsep=0.3em,topsep=0.2em]
+    \item 原图像任取一点$P(x_0,y_0)$。因为它在$y=f(x)$上，所以$y_0=f(x_0)$。
+    \item 上移$b$个单位，$P$变成$P'(x_0,y_0+b)$。横坐标没变，纵坐标加$b$。
+    \item 把$y_0=f(x_0)$代入，就有$P'(x_0,f(x_0)+b)$。\textbf{任意一点都如此}，故平移后的解析式是$y=f(x)+b$。
+    \item 同理，下移$b$后每一点都变成$(x_0,f(x_0)-b)$，所以$y=f(x)-b$。
+  \end{enumerate}
+  \begin{center}
+  \input{assets/tikz/F044_function_vertical_translation_03_proof_01.tex}
+  \end{center}
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（取点列式）：}]
-			在原函数$y=f(x)$的图像上任取一点$P(x_0,y_0)$，则$y_0=f(x_0)$。
-			\par\textbf{理由：} 函数图像上的点一定满足函数解析式。
-		\item[\textbf{步骤二（向上平移）：}]
-			将点$P$向上平移$b$个单位，得到点$P'(x_0,y_0+b)$。
-			\par\textbf{理由：} 向上移动$b$个单位使纵坐标增加$b$，横坐标保持不变。
-		\item[\textbf{步骤三（建立关系）：}]
-			点$P'$在平移后的函数图像上，因此对任意$x_0$，平移后函数$g$满足$g(x_0)=y_0+b=f(x_0)+b$，从而$g(x)=f(x)+b$。
-			\par\textbf{理由：} 平移后的图像由所有这样的点构成，纵坐标即为新函数在对应$x$处的值。
-		\item[\textbf{步骤四（向下同理）：}]
-			类似地，将点$P$向下平移$b$个单位，可得新函数为$g(x)=f(x)-b$。
-			\par\textbf{理由：} 向下平移使纵坐标减少$b$，其余推导完全相同。
-	\end{description}
+  \medskip
+  \textbf{\textcolor{CProof}{证法二：同一个$x$，直接比较两条图像的高度（最快）}}
+  记新函数为$g(x)$。上移$b$后，无论选哪个允许的$x$，新图像的高度都比原图像\textbf{高$b$}，即
+  \[
+    g(x)-f(x)=b\quad\Longrightarrow\quad g(x)=f(x)+b.
+  \]
+  下移时，新高度比原高度\textbf{低$b$}，所以$g(x)-f(x)=-b$，得到$g(x)=f(x)-b$。
+  \begin{center}
+  \input{assets/tikz/F044_function_vertical_translation_03_proof_02.tex}
+  \end{center}
+  图中只是取$b=2$来画图，推理对任意$b>0$都成立。
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-	因此，函数$y=f(x)$的图像沿$y$轴向上平移$b$个单位后的解析式为$y=f(x)+b$；向下平移$b$个单位后的解析式为$y=f(x)-b$。这就是“上加下减”的数学本质。
+  \medskip
+  \textbf{\textcolor{CProof}{证法三：反过来检查（最容易验证）}}
+  假设已写出新函数$y=f(x)+b$。它上面的任意一点是$(x,f(x)+b)$；若将这点\textbf{向下}移$b$，正好回到$(x,f(x))$。这说明整条新图像向下移$b$就与原图像完全重合，因此新图像正是原图像\textbf{向上}移$b$得到的。减$b$的情况同理。
+  \begin{center}
+  \input{assets/tikz/F044_function_vertical_translation_03_proof_03.tex}
+  \end{center}
+  \textbf{共同关键：}始终是\textbf{横坐标不变、纵坐标一起增加或减少同一个数}；无需把$x$换成别的式子。
 \end{proofbox}

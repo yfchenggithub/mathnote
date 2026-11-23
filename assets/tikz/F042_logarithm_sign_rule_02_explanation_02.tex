@@ -1,0 +1,20 @@
+\begin{tikzpicture}[x=0.82cm,y=0.82cm,>=stealth]
+    \begin{scope}[shift={(0,0)}]
+      \draw[->] (0,-2.05)--(0,2.05) node[above] {$y$};
+      \draw[->] (0,0)--(4.55,0) node[right] {$x$};
+      \draw[thick,teal!75!black,samples=90,domain=0.27:4.2,smooth] plot (\x,{ln(\x)/ln(2)});
+      \fill (1,0) circle (2pt) node[below right] {$(1,0)$};
+      \node[font=\small] at (2.45,1.88) {$y=\log_2 x$};
+      \node[teal!80!black,font=\small] at (3.0,.65) {右侧为正};
+      \node[orange!80!black,font=\small] at (1.8,-2.6) {左侧为负};
+    \end{scope}
+    \begin{scope}[shift={(6.5,0)}]
+      \draw[->] (0,-2.05)--(0,2.05) node[above] {$y$};
+      \draw[->] (0,0)--(4.55,0) node[right] {$x$};
+      \draw[thick,orange!80!black,samples=90,domain=0.27:4.2,smooth] plot (\x,{-ln(\x)/ln(2)});
+      \fill (1,0) circle (2pt) node[above right] {$(1,0)$};
+      \node[font=\small] at (2.55,1.88) {$y=\log_{\frac12}x$};
+      \node[teal!75!black,font=\small] at (1.8,1.4) {左侧为正};
+      \node[orange!80!black,font=\small] at (3.4,-2.6) {右侧为负};
+    \end{scope}
+  \end{tikzpicture}

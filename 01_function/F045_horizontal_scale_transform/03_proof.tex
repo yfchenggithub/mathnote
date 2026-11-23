@@ -1,39 +1,41 @@
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
-	从函数图象上的任意点出发，利用坐标变换关系，将新点坐标代入原函数表达式中，消去中间变量即可得到新函数解析式。
+  \textbf{\textcolor{CProof}{方法一：对应点法（最直观、最通用）}}
+  \textbf{想法：} 不管函数长什么样，只要把原图像上每一个点按要求移动，就能找到新解析式。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（设定任意点）：}]
-			在原函数 $y=f(x)$ 的图象上任取一点 $P(x_0, y_0)$，则有 $y_0 = f(x_0)$。
-			\[
-				y_0 = f(x_0)
-			\]
-			\par\textbf{理由：} 点在原函数图象上，满足函数关系。
-		\item[\textbf{步骤二（坐标变换）：}]
-			经过横坐标伸缩变换后，点 $P$ 对应到新图象上的点 $P'(X, Y)$，满足
-			\[
-				X = \frac{x_0}{\omega},
-				\qquad
-				Y = y_0.
-			\]
-			\par\textbf{理由：} 横坐标变为原来的 $\dfrac{1}{\omega}$，纵坐标不变。
-		\item[\textbf{步骤三（代入消元）：}]
-			由 $Y = y_0$ 和 $y_0 = f(x_0)$ 得 $Y = f(x_0)$；再将 $x_0 = \omega X$ 代入，得
-			\[
-				Y = f(\omega X).
-			\]
-			\par\textbf{理由：} 利用坐标关系 $x_0 = \omega X$ 替换原自变量。
-		\item[\textbf{步骤四（解析式总结）：}]
-			由于 $P'(X, Y)$ 是新图象上任意一点，故新图象上所有点的坐标都满足 $Y = f(\omega X)$。将变量名改写为 $(x, y)$，即得新函数解析式
-			\[
-				y = f(\omega x).
-			\]
-			\par\textbf{理由：} 点的任意性保证函数关系对整个图象成立。
-	\end{description}
+  \begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.4em]
+    \item[\textbf{第1步：选一个原来的点。}]
+      原图像 $y=f(x)$ 上任取 $P(a,b)$，则 $b=f(a)$。
+    \item[\textbf{第2步：看这个点移到哪里。}]
+      横坐标变为原来的 $k$ 倍、纵坐标不变后，得到 $P'(ka,b)$。
+    \item[\textbf{第3步：用新的横坐标表示原来的。}]
+      设新坐标为 $(x,y)$，则 $x=ka$，所以 $a=x/k$；同时 $y=b=f(a)$。
+    \item[\textbf{第4步：写出新解析式。}]
+      \[
+        \boxed{\ y=f\!\left(\frac{x}{k}\right)\ }.
+      \]
+      由于原来的点可以任意选，所以每一个点都按这个规则移动；反过来，这个式子上的每个点也都能由原图像的点移来。
+  \end{description}
+  \begin{center}
+  \input{assets/tikz/F045_horizontal_scale_transform_03_proof_01.tex}
+  \end{center}
+  \noindent\textbf{图解：} 两个点在同一条水平线上，表示\textbf{函数值没有变}；变化的只是横坐标。
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-	由此可知，横坐标变为原来的 $\dfrac{1}{\omega}$ 后，函数解析式变为 $y = f(\omega x)$。当 $\omega > 1$ 时，$\dfrac{1}{\omega} < 1$，横坐标缩短，图象横向压缩；当 $0 < \omega < 1$ 时，$\dfrac{1}{\omega} > 1$，横坐标伸长，图象横向拉伸。
+  \medskip
+  \textbf{\textcolor{CProof}{方法二：从新坐标倒推（写题最快）}}
+  假设横坐标要\textbf{压成原来的一半}。新图像上某个点的横坐标是 $x$，它在原图像上的横坐标必定是 $2x$；由于高度不变，新点的高度就是原函数在 $2x$ 处的高度：
+  \[
+     y=f(2x).
+  \]
+  同理，若图像\textbf{拉宽 $3$ 倍}，新横坐标为 $x$ 的点来自原来的 $x/3$，所以
+  \[
+     y=f\!\left(\frac{x}{3}\right).
+  \]
+  \begin{center}
+  \input{assets/tikz/F045_horizontal_scale_transform_03_proof_02.tex}
+  \end{center}
+  \noindent\textbf{为什么对？} 原来输入 $2x$ 和新的输入 $x$ 指向的是\textbf{同一个移动前后的点}，所以它们的函数值相等。
+
+  \medskip
+  \textbf{\textcolor{CProof}{结论回扣}}
+  \textbf{横坐标乘 $k$，括号里的 $x$ 除以 $k$。} 其中 $k>0$；若 $k=1$，所有点都在原处。该规律不要求函数关于 $y$ 轴对称，也不要求函数只增不减。
 \end{proofbox}

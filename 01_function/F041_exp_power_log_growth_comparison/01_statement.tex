@@ -1,33 +1,43 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件1（底数与指数）：}}]
-			实数$a>1$，实数$\alpha>0$。
-		\item[\textbf{\textcolor{CStatement}{条件2（自变量趋势）：}}]
-			$x\to +\infty$。
-	\end{description}
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（指数与幂函数）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			指数函数$a^x$的增长速度远快于任意幂函数$x^\alpha$。
-			\[
-				\lim_{x\to+\infty}\frac{a^x}{x^\alpha}=+\infty.
-			\]
-		\item[\textbf{\textcolor{CStatement}{结论二（幂函数与对数函数）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			幂函数$x^\alpha$的增长速度远快于对数函数$\log_a x$。
-			\[
-				\lim_{x\to+\infty}\frac{x^\alpha}{\log_a x}=+\infty.
-			\]
-		\item[\textbf{\textcolor{CStatement}{推广结论（对数正幂次）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			对数函数的任意正数次幂仍然慢于幂函数。
-			\[
-				\lim_{x\to+\infty}\frac{x^\alpha}{(\log_a x)^\beta}=+\infty,
-				\qquad
-				\forall\beta>0.
-			\]
-	\end{description}
+	\textbf{\textcolor{CStatement}{先想一个问题}}
+	当$x$越来越大时，$2^x$、$x^2$、$\log_2x$都会变大。究竟谁能\textbf{一直领先到最后}？
 
+	\medskip
+	\textbf{\textcolor{CStatement}{使用条件}}
+	$a>1$，$\alpha>0$，并且讨论的是$x\to+\infty$（$x$越来越大）。
+
+	\medskip
+	\textbf{\textcolor{CStatement}{核心结论}}
+	\[
+		\boxed{a^x\ \gg\ x^\alpha\ \gg\ \log_a x}\qquad(x\to+\infty).
+	\]
+	意思是：\textbf{指数最终超过任何固定的正幂，正幂最终超过对数}；而且相差的倍数会越来越大。
+	\[
+		\lim_{x\to+\infty}\frac{a^x}{x^\alpha}=+\infty,
+		\qquad
+		\lim_{x\to+\infty}\frac{x^\alpha}{\log_a x}=+\infty.
+	\]
+	进一步，任意$\beta>0$时，
+	\[
+		\lim_{x\to+\infty}\frac{x^\alpha}{(\log_a x)^\beta}=+\infty.
+	\]
+
+	\medskip
+	\textbf{\textcolor{CStatement}{先看一组数}}
+	\begin{center}
+	\begin{tabular}{c|rrrr}
+		$x$ & $2$ & $4$ & $8$ & $16$\\ \hline
+		$2^x$ & $4$ & $16$ & $256$ & $65536$\\
+		$x^2$ & $4$ & $16$ & $64$ & $256$\\
+		$\log_2x$ & $1$ & $2$ & $3$ & $4$
+	\end{tabular}
+	\end{center}
+	这张表只展示一个例子，不代替证明。特别注意：$x=3$时$3^2=9>8=2^3$，可见\textbf{“最终更快”不等于“从头到尾都更大”}。
+
+	\medskip
+	\textbf{\textcolor{CStatement}{看图：先落后，也能反超}}
+	\begin{center}
+	\input{assets/tikz/F041_exp_power_log_growth_comparison_01_statement_01.tex}
+	\end{center}
+	\textbf{图示提醒：}这幅图只画了$x$从$1$到$6$的一段；一般结论说的是$x$\textbf{足够大以后}的趋势。
 \end{statementbox}

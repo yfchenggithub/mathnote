@@ -1,69 +1,48 @@
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例1（基础）}}
-	\textbf{\textcolor{CExample}{题目：}}
-	求极限 $\displaystyle\lim_{x\to+\infty}\frac{x^3}{\log_2 x}$。
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（判断条件）：}]
-			分子为幂函数$x^3$，指数$3>0$；分母为对数函数$\log_2 x$，底数$2>1$。符合结论二的使用条件。
-			\par\textbf{理由：} 结论二要求$a>1$, $\alpha>0$，这里$a=2$, $\alpha=3$，满足。
-		\item[\textbf{第二步（应用结论）：}]
-			由结论二，当$x\to+\infty$时，$x^3$远大于$\log_2 x$，所以比值趋于$+\infty$。
-			\[
-				\lim_{x\to+\infty}\frac{x^3}{\log_2 x}=+\infty.
-			\]
-			\par\textbf{理由：} 直接使用结论 $\displaystyle\lim_{x\to+\infty}\frac{x^\alpha}{\log_a x}=+\infty$。
-		\item[\textbf{第三步（得结果）：}]
-			极限值为$+\infty$。
-			\par\textbf{理由：} 无更多计算。
-	\end{description}
-	\textbf{\textcolor{CExample}{关键结论：}}
-	$\displaystyle\lim_{x\to+\infty}\frac{x^3}{\log_2 x}=+\infty$。
+	\textbf{\textcolor{CExample}{例1｜基础：幂除以对数}}
+	\textbf{题目：}$\displaystyle\lim_{x\to+\infty}\frac{x^3}{\log_2x}$。
+
+	\textbf{最快思路：}分子是$x^3$，分母是$\log_2x$；底数$2>1$，幂指数$3>0$。\textbf{幂最终比对数增长快}，所以
+	\[
+		\boxed{\lim_{x\to+\infty}\frac{x^3}{\log_2x}=+\infty}.
+	\]
+	\textbf{用数字感受：}当$x=2,4,8$时，比值分别是$8,32,\frac{512}{3}$，不断变大。数字只帮助理解，结论来自上面的证明。
+	\begin{center}
+	\input{assets/tikz/F041_exp_power_log_growth_comparison_04_examples_01.tex}
+	\end{center}
+	\textbf{记住：}较快的在分子，结果趋向$+\infty$。
 
 	\medskip
-	\textbf{\textcolor{CExample}{例2（稍变形）}}
-	\textbf{\textcolor{CExample}{题目：}}
-	求极限 $\displaystyle\lim_{x\to+\infty}\frac{x^{100}}{2^x}$。
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（识别类型）：}]
-			分子是幂函数$x^{100}$（指数$100>0$），分母是指数函数$2^x$（底数$2>1$）。但分子是幂函数、分母是指数函数，与结论一的形式相反。
-			\par\textbf{理由：} 结论一给出的是指数除以幂函数的极限为$+\infty$，即$\frac{2^x}{x^{100}}\to+\infty$。
-		\item[\textbf{第二步（转化应用）：}]
-			由结论一得$\displaystyle\lim_{x\to+\infty}\frac{2^x}{x^{100}}=+\infty$，所以其倒数$\frac{x^{100}}{2^x}\to 0$。
-			\[
-				\lim_{x\to+\infty}\frac{x^{100}}{2^x}=0.
-			\]
-			\par\textbf{理由：} 若$\frac{u}{v}\to+\infty$，则$\frac{v}{u}\to0$（$\infty$的倒数为$0$）。
-		\item[\textbf{第三步（得结果）：}]
-			极限值为$0$。
-			\par\textbf{理由：} 无更多计算。
-	\end{description}
-	\textbf{\textcolor{CExample}{关键结论：}}
-	$\displaystyle\lim_{x\to+\infty}\frac{x^{100}}{2^x}=0$。
+	\textbf{\textcolor{CExample}{例2｜变形：幂除以指数}}
+	\textbf{题目：}$\displaystyle\lim_{x\to+\infty}\frac{x^{100}}{2^x}$。
+
+	\textbf{最快思路：}虽然$100$很大，但它是\textbf{固定的指数}；$2^x$才是增长更快的那一个。
+	\[
+		\frac{2^x}{x^{100}}\to+\infty
+		\quad\Longrightarrow\quad
+		\boxed{\lim_{x\to+\infty}\frac{x^{100}}{2^x}=0}.
+	\]
+	\begin{center}
+	\input{assets/tikz/F041_exp_power_log_growth_comparison_04_examples_02.tex}
+	\end{center}
+	\textbf{易忽略：}$x$不太大时，$x^{100}$可能更大；题目问的是$x\to+\infty$。
 
 	\medskip
-	\textbf{\textcolor{CExample}{例3（综合应用）}}
-	\textbf{\textcolor{CExample}{题目：}}
-	求极限 $\displaystyle\lim_{x\to+\infty}\frac{x^{10}+\log_3 x}{4^x}$。
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（分子主部提取）：}]
-			分子由两项组成：$x^{10}$（幂函数）和$\log_3 x$（对数函数）。由结论二，$x^{10}\gg\log_3 x$，因此当$x\to+\infty$时，$\log_3 x$可忽略，分子等价于$x^{10}$。
-			\[
-				x^{10}+\log_3 x \sim x^{10}\ (x\to+\infty).
-			\]
-			\par\textbf{理由：} $\displaystyle\lim_{x\to+\infty}\frac{\log_3 x}{x^{10}}=0$，所以$\log_3 x=o(x^{10})$，加法中高阶项占主导。
-		\item[\textbf{第二步（整体比较）：}]
-			于是原极限化为$\displaystyle\lim_{x\to+\infty}\frac{x^{10}}{4^x}$。这是幂函数除以指数函数的形式，与结论一相反。由结论一，$\frac{4^x}{x^{10}}\to+\infty$，所以$\frac{x^{10}}{4^x}\to0$。
-			\[
-				\lim_{x\to+\infty}\frac{x^{10}}{4^x}=0.
-			\]
-			\par\textbf{理由：} 使用与例2相同的倒数关系。
-		\item[\textbf{第三步（综合得结果）：}]
-			因此原极限为$0$。
-			\par\textbf{理由：} 忽略低阶项后等价极限为$0$。
-	\end{description}
-	\textbf{\textcolor{CExample}{关键结论：}}
-	$\displaystyle\lim_{x\to+\infty}\frac{x^{10}+\log_3 x}{4^x}=0$。
+	\textbf{\textcolor{CExample}{例3｜综合：分子有两种函数}}
+	\textbf{题目：}$\displaystyle\lim_{x\to+\infty}\frac{x^{10}+\log_3x}{4^x}$。
+
+	\textbf{第一步：}分子中$\log_3x$比$x^{10}$增长慢，先把$x^{10}$提出来：
+	\[
+		\frac{x^{10}+\log_3x}{4^x}
+		=\underbrace{\frac{x^{10}}{4^x}}_{\to0}
+		\left(1+\underbrace{\frac{\log_3x}{x^{10}}}_{\to0}\right).
+	\]
+	\textbf{第二步：}括号趋于$1$，前面的分式趋于$0$，所以
+	\[
+		\boxed{\lim_{x\to+\infty}\frac{x^{10}+\log_3x}{4^x}=0}.
+	\]
+	\begin{center}
+	\input{assets/tikz/F041_exp_power_log_growth_comparison_04_examples_03.tex}
+	\end{center}
+	\textbf{记住：}先找分子中增长最快的项，再和分母比较。这里用乘法写出全过程，避免“凭感觉直接删项”。
 \end{examplebox}

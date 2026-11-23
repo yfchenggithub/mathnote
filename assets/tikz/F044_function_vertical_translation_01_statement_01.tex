@@ -1,0 +1,16 @@
+\begin{tikzpicture}[x=1.00cm,y=0.63cm,>=stealth]
+    \draw[->,gray] (-2.20,0)--(2.40,0) node[right]{$x$};
+    \draw[->,gray] (0,-1.55)--(0,5.45) node[above]{$y$};
+    \draw[gray!75,thick,domain=-1.50:1.50,samples=60] plot (\x,{\x*\x});
+    \draw[CStatement,very thick,domain=-1.50:1.50,samples=60] plot (\x,{\x*\x+2});
+    \draw[blue!70!black,very thick,domain=-1.50:1.50,samples=60] plot (\x,{\x*\x-1});
+    \draw[->,CStatement,thick] (0.20,0.25)--(0.20,2.25);
+    \draw[->,blue!70!black,thick] (-0.25,-0.1)--(-0.25,-1.1);
+    \fill (0,0) circle (1.4pt);
+    \node[right,gray!80!black] at (1.9,1.65) {$y=x^2$};
+    \node[right,CStatement] at (1.9,4.00) {$y=x^2+2$};
+    \node[right,blue!70!black] at (1.9,-.5) {$y=x^2-1$};
+    \node[left,CStatement] at (-2.3,2) {上移$2$};
+    \node[left,blue!70!black] at (-2.3,-1) {下移$1$};
+    \node[left] at (-.4,.2) {$O$};
+  \end{tikzpicture}

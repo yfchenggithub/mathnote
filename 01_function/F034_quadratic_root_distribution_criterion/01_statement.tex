@@ -1,30 +1,35 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件1（二次函数预设）：}}]
-			$f(x)=ax^2+bx+c$（$a\neq0$），记 $\Delta=b^2-4ac$，对称轴 $x_0=-\frac{b}{2a}$，开区间 $(m,n)$。
-	\end{description}
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（两不等实根）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			抛物线在开区间内与$x$轴有两个不同交点。
-			\[
-				\Delta>0,\quad m<x_0<n,\quad af(m)>0,\quad af(n)>0.
-			\]
-		\item[\textbf{\textcolor{CStatement}{结论二（唯一实根）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			区间两端函数值异号，曲线穿过$x$轴一次。
-			\[
-				f(m)f(n)<0.
-			\]
-		\item[\textbf{\textcolor{CStatement}{推广结论（两实根含重根）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			允许对称轴为切点，即两实根可相等。
-			\[
-				\Delta\ge0,\quad m<x_0<n,\quad af(m)>0,\quad af(n)>0.
-			\]
-	\end{description}
-	\textbf{\textcolor{CStatement}{使用提醒：}}
-	推广结论包含重根情形（$\Delta=0$），适用于题目不要求“不等根”的情况。原结论一要求$\Delta>0$，仅适用不等根。
+\textbf{\textcolor{CStatement}{先解决什么问题？}}\par
+方程有两个实根，不等于这两个根都落在题目要求的区间里。例如$x^2-1=0$有两个根$-1,1$，但在$(2,3)$里一个也没有。\textbf{判断根的位置，要把“有几个根”和“根在哪儿”分开。}
+
+\medskip
+\textbf{\textcolor{CStatement}{使用条件}}\par
+$f(x)=ax^2+bx+c$，$a\ne0$，$m<n$，讨论\textbf{开区间}$(m,n)$（不含$m,n$）内的零点。记
+\[\Delta=b^2-4ac,\qquad x_0=-\frac b{2a}.\]
+
+\textbf{\textcolor{CStatement}{结论一：区间内有两个\underline{不同}的零点}}\par
+\[
+\boxed{\Delta>0,\quad m<x_0<n,\quad af(m)>0,\quad af(n)>0.}
+\]
+\textbf{读图记条件：}先有两个交点（$\Delta>0$）；中间的对称轴落在区间内；两端点都在两个交点的外侧（函数值与开口系数$a$同号）。以上四个不等式\textbf{必须同时满足}。
+\begin{center}
+\input{assets/tikz/F034_quadratic_root_distribution_criterion_01_statement_01.tex}
+\end{center}
+
+\end{statementbox}
+\begin{statementbox}
+\textbf{\textcolor{CStatement}{结论二：区间内恰好一个零点}}\par
+最常用的\textbf{快速判断}：若$f(m)f(n)<0$，则开区间内\textbf{恰有一个}零点；这是\textbf{充分条件}，不是不加限制的完整条件。
+\begin{itemize}[leftmargin=*,itemsep=.3em]
+ \item \textbf{端点都不是零点时：}恰好一个零点，当且仅当$f(m)f(n)<0$，\textbf{或} $\Delta=0$且$m<x_0<n$（图像在区间内部刚好碰到$x$轴）。
+ \item \textbf{端点也可能是零点时：}还需检查另一根是否在区间里。例如$(x-1)(x-2)=0$在$(1,3)$内只有根$2$，虽然$f(1)f(3)=0$。
+\end{itemize}
+\textbf{完整的逐根判定：}若$\Delta>0$，设$x_1<x_2$，则区间内恰一个零点当且仅当
+\[
+ x_1\le m<x_2<n\quad\text{或}\quad m<x_1<n\le x_2.
+\]
+若$\Delta=0$，恰一个零点当且仅当$m<x_0<n$；$\Delta<0$则没有零点。
+
+\textbf{\textcolor{CStatement}{补充：两个实根允许相等（按重数计两个根）}}\par
+若题目说“两个实根（可重合）都在$(m,n)$内”，则把结论一的$\Delta>0$改成$\Delta\ge0$，其余条件不变。\textbf{但重根只算一个不同的零点。}
 \end{statementbox}

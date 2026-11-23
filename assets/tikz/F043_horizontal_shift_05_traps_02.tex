@@ -1,0 +1,13 @@
+\begin{tikzpicture}[x=1.05cm,y=0.48cm,>=stealth,font=\small]
+    \draw[->,gray] (-2.1,0)--(2.2,0) node[right] {$x$};
+    \draw[->,gray] (0,-2.9)--(0,3.2) node[above] {$y$};
+    \draw[thick,blue!75!black,domain=-1.4:1.45,samples=2] plot (\x,{2*\x});
+    \draw[very thick,teal!75!black,domain=-2:0.5,samples=2] plot (\x,{2*\x+2});
+    \draw[densely dashed,orange!85!black,thick,domain=-1.8:0.9,samples=2] plot (\x,{2*\x+1});
+    \fill[blue!75!black] (0,0) circle (2.2pt);
+    \fill[teal!75!black] (-1,0) circle (2.2pt);
+    \node[below] at (-1,0) {$-1$};
+    \node[teal!75!black,above] at (-1.25,1.6) {$2x+2$（正确）};
+    \node[orange!85!black,right] at (2.2,4.0) {$2x+1$（错）};
+    \node[blue!75!black,right] at (2.2,2.4) {$2x$};
+  \end{tikzpicture}

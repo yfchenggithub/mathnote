@@ -1,0 +1,13 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[draw=teal!50!black,fill=green!3,rounded corners=3pt] (0,0) rectangle (13,6.5);
+\node at (6.5,5.9) {对数平方也会相对变小：取 $a=2,\ \alpha=1,\ \beta=2$};
+\begin{scope}[shift={(1.3,1.5)},x=.045cm,y=2.8cm]
+\draw[gray,->] (0,0)--(137,0) node[right] {$x$};\draw[gray,->] (0,0)--(0,1.3) node[above] {$s$};
+\draw[gray,dashed] (0,1)--(128,1);\node[left] at (0,1) {$1$};
+\draw[teal!70!black,very thick,domain=1:128,samples=200] plot(\x,{(ln(\x)/ln(2))^2/\x});
+\foreach \x in {32,64,96,128}\node[below] at (\x,-.03) {$\x$};
+\fill[orange!85!black] (8,1.125) circle(2.5pt) (128,.3828125) circle(2.5pt);
+\end{scope}
+\node[anchor=west,align=left,text width=4.5cm] at (8.1,3.3) {$s=(\log_2x)^2/x$\\[10pt]$x=8$：$s=9/8>1$。\\[10pt]$x=128$：$s=49/128<1$。\\[10pt]开始较大，不妨碍后来占比变小。};
+\node at (6.5,.45) {“增长慢”看最终的相对大小，不要求比值从一开始就下降。};
+\end{tikzpicture}

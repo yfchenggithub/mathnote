@@ -1,0 +1,27 @@
+\begin{tikzpicture}[x=0.95cm,y=0.79cm,>=stealth]
+    \begin{scope}[shift={(0,0)}]
+      \draw[->,gray] (-1.65,0)--(1.75,0) node[right] {$x$};
+      \draw[->,gray] (0,-0.7)--(0,2.9) node[above] {$y$};
+      \draw[very thick,green!55!black,domain=-1.38:1.38,samples=50] plot (\x,{\x*\x+0.55});
+      \fill[green!55!black] (0,0.55) circle (1.8pt);
+      \node[above] at (0,3.3) {\small\textbf{恒正}};
+      \node[below,align=center] at (0,-0.83) {\scriptsize 开口向上，不相交\\[-1pt]\scriptsize $a>0,\ \Delta<0$};
+    \end{scope}
+    \begin{scope}[shift={(4.35,0)}]
+      \draw[->,gray] (-1.65,0)--(1.75,0) node[right] {$x$};
+      \draw[->,gray] (0,-0.7)--(0,2.9) node[above] {$y$};
+      \draw[very thick,orange!85!black,domain=-1.58:1.58,samples=50] plot (\x,{\x*\x});
+      \fill[orange!85!black] (0,0) circle (2pt);
+      \node[above] at (0,3.3) {\small\textbf{仅非负}};
+      \node[below,align=center] at (0,-0.83) {\scriptsize 只碰到一次 $x$ 轴\\[-1pt]\scriptsize $a>0,\ \Delta=0$};
+    \end{scope}
+    \begin{scope}[shift={(8.7,0)}]
+      \draw[->,gray] (-1.65,0)--(1.75,0) node[right] {$x$};
+      \draw[->,gray] (0,-0.7)--(0,2.9) node[above] {$y$};
+      \draw[very thick,red!75!black,domain=-1.58:1.58,samples=50] plot (\x,{\x*\x-0.55});
+      \fill[red!75!black] (-0.742,0) circle (1.6pt);
+      \fill[red!75!black] (0.742,0) circle (1.6pt);
+      \node[above] at (0,3.3) {\small\textbf{不恒正}};
+      \node[below,align=center] at (0,-0.83) {\scriptsize 穿过 $x$ 轴\\[-1pt]\scriptsize $a>0,\ \Delta>0$};
+    \end{scope}
+  \end{tikzpicture}

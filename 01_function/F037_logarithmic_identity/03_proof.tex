@@ -1,37 +1,37 @@
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
-	从对数定义出发，将对数形式还原为指数形式，然后代入恒等式的指数位置即可得证。
-
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（变量代换）：}]
-			令 $t = \log_a N$，则 $t$ 是一个实数。
+	\textbf{\textcolor{CProof}{证明一：从对数的定义出发（最简单、最重要）}}
+	已知 $a>0$、$a\neq 1$、$N>0$。
+\begin{center}
+\input{assets/tikz/F037_logarithmic_identity_read_exponent_height.tex}
+\end{center}
+\textbf{读图：}从高度 $N$ 水平找到曲线，再向下读取指数 $t$；从这个 $t$ 又能读回同一高度 $N$。
+	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.4em]
+		\item[\textbf{第一步：给未知的指数起个名字。}]
+			设 $t=\log_a N$。这句话的意思是：“$a$ 的 $t$ 次方等于 $N$”。
+		\item[\textbf{第二步：按定义写成乘方。}]
+			因此 $a^t=N$。
+		\item[\textbf{第三步：把 $t$ 换回原样。}]
+			因为 $t=\log_a N$，于是
 			\[
-				t = \log_a N
+			\boxed{a^{\log_a N}=a^t=N}.
 			\]
-			\par\textbf{理由：}引入中间量 $t$，将原式中的对数部分变量化，便于运用定义。
-		\item[\textbf{步骤二（定义转化）：}]
-			根据对数的定义，$t = \log_a N$ 等价于 $a^t = N$。
-			\[
-				a^t = N
-			\]
-			\par\textbf{理由：}对数的定义：若 $a>0$，$a\neq 1$ 且 $N>0$，则 $\log_a N$ 是唯一实数 $t$ 使得 $a^t = N$。
-		\item[\textbf{步骤三（代入回代）：}]
-			将 $t = \log_a N$ 代入 $a^{\log_a N}$，得 $a^{\log_a N} = a^t$。
-			\[
-				a^{\log_a N} = a^t
-			\]
-			\par\textbf{理由：}指数表达式中的指数部分直接用 $t$ 替换。
-		\item[\textbf{步骤四（得出结论）：}]
-			由 $a^t = N$，故 $a^{\log_a N} = N$。
-			\[
-				a^{\log_a N} = N
-			\]
-			\par\textbf{理由：}等量代换，将 $a^t$ 替换为 $N$，即得恒等式。
 	\end{description}
+	\textbf{为什么这就够了？}因为 $\log_a N$ 本来就是“使 $a$ 的乘方等于 $N$ 的那个指数”。这个等式不是新规定，而是对数定义的直接结果。
 
 	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-	以上证明只依赖对数的定义，步骤清晰，一步一换，最终验证恒等式 $a^{\log_a N}=N$ 成立，说明指数与对数互为逆运算。
+	\textbf{\textcolor{CProof}{证明二：把顺序反过来}}
+\begin{center}
+\input{assets/tikz/F037_logarithmic_identity_inverse_coordinates.tex}
+\end{center}
+	设 $N=a^x$。因 $a>0$，所以 $a^x>0$，这个对数一定有意义。
+	\[
+	\log_a(a^x)=\log_a N=x.
+	\]
+	\textbf{理由：}既然 $a^x=N$，那么“$a$ 的几次方等于 $N$”的答案就是 $x$。这说明第二个恒等式对\textbf{任意实数 $x$} 都成立。
+
+	\medskip
+	\textbf{\textcolor{CProof}{再用具体数字看一遍（帮助理解，不代替证明）}}
+	\begin{center}
+	\input{assets/tikz/F037_logarithmic_identity_03_proof_01.tex}
+	\end{center}
 \end{proofbox}

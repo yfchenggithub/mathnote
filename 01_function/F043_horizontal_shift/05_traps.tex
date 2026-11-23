@@ -1,21 +1,38 @@
 \begin{trapbox}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（方向混淆）}}] 错误地认为向左平移 $a$ 个单位对应 $y=f(x-a)$，向右平移对应 $y=f(x+a)$。
-		\item[\textbf{\textcolor{CTrap}{正确理解（左加右减）：}}] 向左平移 $a$ 个单位对应 $y=f(x+a)$，向右平移 $a$ 个单位对应 $y=f(x-a)$。记忆口诀为“左加右减”。
-		\item[\textbf{\textcolor{CTrap}{错因分析（记忆错误）：}}] 可能受到“点坐标平移法则”的影响：点向左移，横坐标减 $a$，但函数解析式的变化恰相反。
-	\end{description}
+  \textbf{\textcolor{CTrap}{易错 1｜把“点左减”和“函数左加”记反}}
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（加减对象错误）}}] 平移时直接在函数表达式末加减常数，而不是对自变量整体操作。例如 $f(x)=2x$ 左移 $1$，错误写成 $2x+1$，正确应为 $2(x+1)=2x+2$。
-		\item[\textbf{\textcolor{CTrap}{正确理解（整体代换）：}}] 平移变换要求将原函数自变量 $x$ 替换为 $x+a$ 或 $x-a$，再展开化简。
-		\item[\textbf{\textcolor{CTrap}{错因分析（局部思维）：}}] 误以为平移是针对函数值进行，而没有理解平移操作是对自变量进行的。
-	\end{description}
+  \textbf{错误：}$y=x^2$ 向左移 $2$ 格，写成 $y=(x-2)^2$。
 
-	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（定义域忽略）}}] 平移后忽略了定义域的变化，仍使用原定义域。例如 $y=\sqrt{x-1}$ 向右移 $1$ 个单位后解析式为 $y=\sqrt{x-2}$，定义域应为 $[2,+\infty)$，若仍当作 $[1,+\infty)$ 则出错。
-		\item[\textbf{\textcolor{CTrap}{正确理解（定义域同步）：}}] 平移后图像向左或向右移动，定义域也相应地左右平移相同的距离，需重新确定。
-		\item[\textbf{\textcolor{CTrap}{错因分析（惯性思维）：}}] 习惯性认为定义域只由初始解析式决定，未注意自变量代换对定义域的影响。
-	\end{description}
+  \textbf{正确：}左移后顶点是 $(-2,0)$，所以 $y=(x+2)^2$。\textbf{点的横坐标减少 $2$，新解析式中的 $x$ 却要加 $2$。}
+  \begin{center}
+  \input{assets/tikz/F043_horizontal_shift_05_traps_01.tex}
+  \end{center}
+
+  \medskip
+  \textbf{\textcolor{CTrap}{易错 2｜只在式子末尾加减，没换掉整个 $x$}}
+
+  \textbf{错误：}$f(x)=2x$ 左移 $1$，写成 $g(x)=2x+1$。
+
+  \textbf{正确：}把\textbf{原式中的 $x$} 换成 $x+1$：
+  \[
+    g(x)=f(x+1)=2(x+1)=\boxed{2x+2}.
+  \]
+  \textbf{怎么检查：}原图过 $(0,0)$，左移后必须过 $(-1,0)$。$2x+2$ 在 $x=-1$ 时为 $0$，$2x+1$ 却不是。
+  \begin{center}
+  \input{assets/tikz/F043_horizontal_shift_05_traps_02.tex}
+  \end{center}
+  \textbf{再提醒：}若 $f(x)=\sin(2x)$ 向右移 $1$，应写 $\sin\!\bigl(2(x-1)\bigr)$，不是 $\sin(2x-1)$；\textbf{先替换 $x$，再化简}。
+
+  \medskip
+  \textbf{\textcolor{CTrap}{易错 3｜只改了式子，忘了定义域也要移动}}
+
+  \textbf{题目：}$y=\sqrt{x-1}$ 向右移 $1$ 格。
+
+  新式为 $y=\sqrt{x-2}$，原来 $x\geqslant1$，现在\textbf{$x\geqslant2$}。
+  不能沿用原来的 $x\geqslant1$，也不用担心图像“超出了原定义域”：它就是\textbf{整体搬到了新位置}。
+  \begin{center}
+  \input{assets/tikz/F043_horizontal_shift_05_traps_03.tex}
+  \end{center}
+
+  \textbf{\textcolor{CTrap}{一招自检：}}找一个好认的点，检查它是否按题目方向移动了指定距离，\textbf{纵坐标是否不变}。
 \end{trapbox}

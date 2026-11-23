@@ -1,41 +1,32 @@
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
-	二次函数在某个开区间内与$x$轴交点的个数，完全由判别式、对称轴和端点函数值的符号决定。
+\textbf{\textcolor{CExplanation}{为什么会想到这个结论？}}\par
+一道题说“两个根都在$(m,n)$内”。直接解根式常常很麻烦，尤其系数含参数。换个角度：\textbf{根就是抛物线与$x$轴的交点}，只看图就能把要求变成几个简单不等式。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（数形结合）：}]
-			画出抛物线草图，确定开口方向、对称轴、区间位置；根据交点个数调整条件。
-		\item[\textbf{要点二（充要条件逻辑）：}]
-			两实根条件同时控制判别式、对称轴和端点符号；一个实根只需端点符号异号。
-	\end{description}
+\medskip
+\textbf{\textcolor{CExplanation}{第一眼：$\Delta$只告诉你有没有交点}}\par
+例如$f(x)=x^2-1$有两个交点$-1,1$，但是$(2,3)$内一个也没有。\textbf{$\Delta>0$只保证“有两个”，不保证“都在指定区间”。}
+\begin{center}
+\input{assets/tikz/F034_quadratic_root_distribution_criterion_02_explanation_01.tex}
+\end{center}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（抛物线穿轴次数）}}
-	二次函数在开区间内与$x$轴的交点个数，等价于抛物线穿过$x$轴的次数。两根对应穿过两次，一根对应穿过一次。
+\textbf{\textcolor{CExplanation}{第二眼：对称轴为什么要在区间中间？}}\par
+两个不同根$x_1<x_2$左右对称，对称轴$x_0=\frac{x_1+x_2}{2}$恰好在两根中间。若两个根都在$(m,n)$，一定有$m<x_0<n$。\textbf{但只有对称轴在区间内仍不够：两根可能离得太远！}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（判别式符号约束）}}
-	$\Delta>0$保证两个不同实根；$m<x_0<n$保证对称轴在区间内，从而两根分布在区间内部；$af(m)>0,af(n)>0$保证区间端点位于两根外侧（与$a$同号）。对于单根，$f(m)f(n)<0$由介值性保证存在一根。
+\medskip
+\textbf{\textcolor{CExplanation}{第三眼：为什么看$af(m)$、$af(n)$？}}\par
+开口向上的抛物线在两根\textbf{外侧为正}；开口向下时在两根\textbf{外侧为负}。所以两端点若都在根的外侧，端点函数值总与$a$同号：$af(m)>0,af(n)>0$。
+\begin{center}
+\input{assets/tikz/F034_quadratic_root_distribution_criterion_02_explanation_02.tex}
+\end{center}
+\textbf{一个眼前一亮的简化：}$a$不论正负，$a^2>0$。又因$f(m)=a(m-x_1)(m-x_2)$，所以$af(m)=a^2(m-x_1)(m-x_2)$。\textbf{这样一来，判断端点在两根外侧就不必单独分开口方向了。}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（高考高频考点）}}
-	常出现在含参数二次方程根的分布问题中，是导数、解析几何的基础。
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（已知根分布求参）：} 根据区间内根的个数，转化为不等式组求参数范围。
-		\item \textbf{考法二（参数不等式组）：} 将根分布条件转化为关于参数的不等式组，解出参数。
-	\end{itemize}
+\medskip
+\textbf{\textcolor{CExplanation}{一个根时为什么不能只背“异号”？}}\par
+端点异号说明从一端走到另一端，图像穿过$x$轴\textbf{奇数次}；二次函数最多有两个不同根，因此只能穿过一次。但图像在区间内部\textbf{刚好碰到}轴后又回去（重根）时，两端可能同号；若某个根就在被排除的端点上，乘积又会等于$0$。
+\begin{center}
+\input{assets/tikz/F034_quadratic_root_distribution_criterion_02_explanation_03.tex}
+\end{center}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
-	图像是根本！画出草图，所有条件可直观读出：两要“同号且对称轴在内”，一要“异号”。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（区间内两根问题）：} 求证或求解两根都在给定区间内。
-		\item \textbf{场景二（区间内单根问题）：} 证明或求解恰有一根在区间内。
-	\end{itemize}
-
+\textbf{\textcolor{CExplanation}{考试什么时候用最快？}}\par
+遇到“含参数二次方程的根在某个区间内”，先画很小的草图，再列$\Delta$、对称轴、两端符号；若只问一个根，先查两端异号，\textbf{不异号时再排查重根和端点根}，避免漏掉边界。
 \end{explanationbox}

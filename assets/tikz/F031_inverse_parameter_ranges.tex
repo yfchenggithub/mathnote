@@ -1,0 +1,31 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[draw=teal!45!black,fill=green!3,rounded corners=3pt] (0,0) rectangle (13.8,7.2);
+\node at (6.9,6.55) {例3：候选参数必须落在求解时使用的那一段里};
+\node[anchor=west] at (.5,5.4) {$a<0$};
+\begin{scope}[shift={(5.5,5.4)},x=.85cm]
+\draw[gray,->] (-3.2,0)--(4.3,0) node[right] {$a$};
+\draw[F031Curve,very thick] (-3,0)--(0,0);
+\foreach \a in {0,2} \node[below] at (\a,-.12) {$\a$};
+\draw[F031Curve,fill=green!3,thick] (0,0) circle(2.5pt);
+\end{scope}
+\node[anchor=west,align=left,text width=3.65cm] at (9.5,5.4) {$g=1\ne-3$，无解};
+\node[anchor=west] at (.5,3.6) {$0\le a\le2$};
+\begin{scope}[shift={(5.5,3.6)},x=.85cm]
+\draw[gray,->] (-3.2,0)--(4.3,0) node[right] {$a$};
+\draw[F031Curve,very thick] (0,0)--(2,0);
+\foreach \a in {0,2} \node[below] at (\a,-.12) {$\a$};
+\fill[F031Curve] (0,0) circle(2.6pt);
+\fill[F031Min] (2,0) circle(2.6pt);
+\draw[F031Wrong,thick] (-2,0) circle(3.1pt);\node[F031Wrong,above] at (-2,.14) {候选 $-2$};
+\end{scope}
+\node[anchor=west,align=left,text width=3.65cm] at (9.5,3.6) {$-2$ 在区间外，舍去；\\$2$ 在闭区间内，保留};
+\node[anchor=west] at (.5,1.8) {$a>2$};
+\begin{scope}[shift={(5.5,1.8)},x=.85cm]
+\draw[gray,->] (-3.2,0)--(4.3,0) node[right] {$a$};
+\draw[F031Curve,very thick] (2,0)--(4,0);
+\foreach \a in {0,2} \node[below] at (\a,-.12) {$\a$};
+\draw[F031Wrong,fill=green!3,thick] (2,0) circle(3.1pt);
+\end{scope}
+\node[anchor=west,align=left,text width=3.65cm] at (9.5,1.8) {候选 $2$ 在开边界上，\\不满足 $a>2$，舍去};
+\node[F031Min] at (6.9,.6) {同一个候选 $2$：在 $[0,2]$ 这一段保留，在 $a>2$ 这一段舍去；最终 $a=2$。};
+\end{tikzpicture}\end{center}

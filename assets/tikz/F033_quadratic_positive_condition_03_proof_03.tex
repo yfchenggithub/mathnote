@@ -1,0 +1,13 @@
+\begin{tikzpicture}[x=1.1cm,y=0.63cm,>=stealth]
+    \draw[->,gray] (-1.8,0)--(1.85,0) node[right] {$x$};
+    \draw[->,gray] (0,-1.45)--(0,3) node[above] {$y$};
+    \draw[green!55!black,very thick,domain=-1.35:1.35,samples=45] plot (\x,{\x*\x+0.75});
+    \draw[orange!85!black,thick,domain=-1.62:1.62,samples=45] plot (\x,{\x*\x});
+    \draw[red!75!black,thick,domain=-1.65:1.65,samples=45] plot (\x,{\x*\x-0.75});
+    \fill[green!55!black] (0,.75) circle (1.7pt);
+    \fill[orange!85!black] (0,0) circle (1.7pt);
+    \fill[red!75!black] (0,-.75) circle (1.7pt);
+    \node[anchor=west,green!45!black] at (2.05,1.5) {最低值 $>0$：恒正};
+    \node[anchor=west,orange!80!black] at (2.05,.7) {最低值 $=0$：仅非负};
+    \node[anchor=west,red!70!black] at (2.05,-.1) {最低值 $<0$：不恒正};
+  \end{tikzpicture}

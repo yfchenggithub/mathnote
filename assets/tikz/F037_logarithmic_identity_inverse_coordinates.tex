@@ -1,0 +1,15 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[draw=teal!50!black,fill=green!3,rounded corners=3pt] (0,0) rectangle (13,7.2);
+\node at (6.5,6.65) {交换一个点的横、纵坐标：指数与对数把输入、输出互换};
+\begin{scope}[shift={(1.2,1.2)},x=.55cm,y=.55cm]
+\draw[gray,->] (-.4,0)--(9.5,0) node[right] {$x$};\draw[gray,->] (0,-.4)--(0,9.5) node[above] {$y$};
+\draw[gray,dashed] (0,0)--(9,9);\node[below right] at (7.9,8.2) {$y=x$};
+\draw[teal!70!black,very thick,domain=0:3.17,samples=70] plot(\x,{2^\x});
+\draw[orange!85!black,very thick,domain=1:9,samples=80] plot(\x,{ln(\x)/ln(2)});
+\draw[blue!60!black,dotted] (3,8)--(8,3);
+\fill[teal!70!black] (3,8) circle(2.6pt);\fill[orange!85!black] (8,3) circle(2.6pt);
+\node[above left] at (3,8.2) {$(3,8)$};\node[below] at (8,2.8) {$(8,3)$};
+\end{scope}
+\node[anchor=west,align=left,text width=5.1cm] at (7.3,3.8) {绿线 $y=2^x$：输入 $3$，输出 $8$。\\[12pt]橙线 $y=\log_2x$：输入 $8$，输出 $3$。\\[12pt]因此 $\log_2(2^3)=3$。\\[12pt]一般底数 $a>0,\ a\ne1$ 同理。};
+\node at (6.5,.45) {指数函数的值总是正数，正好能作为对数的输入。};
+\end{tikzpicture}

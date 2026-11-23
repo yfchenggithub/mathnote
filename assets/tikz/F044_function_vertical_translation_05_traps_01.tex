@@ -1,0 +1,15 @@
+\begin{tikzpicture}[x=0.96cm,y=0.69cm,>=stealth]
+    \draw[->,gray] (-2.35,0)--(2.15,0) node[right] {$x$};
+    \draw[->,gray] (0,-0.45)--(0,3.50) node[above] {$y$};
+    \draw[gray!80,thick,domain=-1.65:1.65,samples=55] plot (\x,{\x*\x});
+    \draw[CTrap,very thick,domain=-1.45:1.45,samples=55] plot (\x,{\x*\x+1});
+    \draw[blue!70!black,thick,dashed,domain=-2.60:0.60,samples=55] plot (\x,{(\x+1)*(\x+1)});
+    \fill (0,0) circle (1.7pt);
+    \fill[CTrap] (0,1) circle (1.7pt);
+    \fill[blue!70!black] (-1,0) circle (1.7pt);
+    \draw[->,CTrap,thick] (0.20,0.15)--(0.20,0.85);
+    \draw[->,blue!70!black,thick] (-0.16,-0.24)--(-0.90,-0.24);
+    \node[right,CTrap] at (2.0,3.4) {$x^2+1$};
+    \node[left,blue!70!black] at (-2.9,1.6) {$(x+1)^2$};
+    \node[right,gray!80!black] at (2.0,1.65) {$x^2$};
+  \end{tikzpicture}

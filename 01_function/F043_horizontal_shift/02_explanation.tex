@@ -1,41 +1,46 @@
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
+  \textbf{\textcolor{CExplanation}{为什么会有“左加右减”？}}
 
-	左加右减：当自变量加上正数 $a$ 时，图像向左移动 $a$ 个单位；当自变量减 $a$ 时，图像向右移动 $a$ 个单位。
+  最容易想错的地方是：\textbf{点向左移，横坐标明明要减，为什么函数里反而要加？}
+  因为“移动一个点”和“写出新函数”问的不是同一件事。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（自变量替换）：}] 平移后的解析式通过在自变量 $x$ 上加或减 $a$ 得到。例如，将 $y=f(x)$ 左移 $a$ 个单位，所有原图像上的点 $(x,y)$ 变为 $(x-a,y)$，即新图像上的横坐标为 $x-a$，对应的原横坐标为 $x$，则新函数解析式为 $y=f(x+a)$。这可以理解为“新函数要‘提前’输入一个值才能得到与原函数相同的输出”。
-		\item[\textbf{要点二（记忆口诀）：}] “左加右减”是指：向左平移在自变量上做加法，向右平移做减法。注意操作对象是 $x$，直接对 $x$ 进行加减，而不是对 $y$ 操作。
-	\end{description}
+  \medskip
+  \textbf{\textcolor{CExplanation}{第一步：先看得见的变化}}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（平移变换）}}
+  以 $y=x^2$ 为例，顶点 $(0,0)$ 向左移 $2$ 格，到了 $(-2,0)$。
+  新函数必须在 $x=-2$ 时得到 $y=0$；要让平方等于 $0$，括号里就得是 $0$：
+  \[
+    x=-2\quad\Longrightarrow\quad x+2=0,
+    \qquad \boxed{y=(x+2)^2}.
+  \]
+  所以\textbf{不是“往左走就加”，而是“新位置要找回原来的输入”。}
 
-	平移前后坐标对应关系：左移 $a$ 个单位后，新图像上任意点 $(X,Y)$ 在原图像上的对应点为 $(X+a,Y)$，因此满足 $Y = f(X+a)$。同理，右移 $a$ 个单位后，对应点 $(X-a,Y)$，满足 $Y = f(X-a)$。这解释了为什么左加右减。
+  \medskip
+  \textbf{\textcolor{CExplanation}{第二步：追踪同一个点，彻底弄懂}}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（变量代换）}}
+  原图像上有一点 $P(1,1)$。左移 $2$ 格后，变成 $Q(-1,1)$：横坐标从 $1$ 变为 $-1$，\textbf{高度始终是 $1$}。
+  当新图像走到 $x=-1$ 时，要取得原来 $x=1$ 的函数值；而 $-1+2=1$。
+  \[
+    \underbrace{g(-1)}_{\text{新图像的高度}}
+    =\underbrace{f(-1+2)}_{\text{找回原来的横坐标}}
+    =f(1)=1.
+  \]
+  \begin{center}
+  \input{assets/tikz/F043_horizontal_shift_02_explanation_01.tex}
+  \end{center}
 
-	得到平移后的函数时，只需要在原函数表达式中的 $x$ 处替换为 $x+a$ 或 $x-a$（左加右减）。这种代换体现了自变量变换对函数整体表达的影响。
+  \textbf{\textcolor{CExplanation}{第三步：用一句话推广}}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（常考题型）}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{考法一（解析式求变）：} 给出平移方向和距离，要求写出平移后的函数解析式。直接套用口诀：左加右减。
-		\item \textbf{考法二（逆向求距）：} 给出平移前后的函数解析式，求平移方向与距离。比较 $x$ 替换项，确定 $a$ 的正负。
-	\end{itemize}
+  左移 $a$ 格：新位置是 $x$，原位置就是 $x+a$，所以 $g(x)=f(x+a)$；
+  右移 $a$ 格：新位置是 $x$，原位置就是 $x-a$，所以 $g(x)=f(x-a)$。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
+  \medskip
+  \textbf{\textcolor{CExplanation}{什么时候用最快？}}
+  \begin{itemize}[leftmargin=*,itemsep=0.35em]
+    \item \textbf{给方向、给距离：} 直接把原式中所有 $x$ 整体替换，再按需化简。
+    \item \textbf{求平移了多少：} 优先找顶点、对称轴或同一高度的对应点，比展开式子快。
+    \item \textbf{有定义域限制：} 图像移到哪，能取的横坐标就跟到哪。
+  \end{itemize}
 
-	关键是把图像移动与自变量增减对应：图像向左移，意味着需要提前得到函数值，所以要在自变量上“加”一个数，使 $f$ 的输入更大，从而更早地出现相同输出。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（直接平移）：} 已知原函数和具体平移参数，求新函数解析式。
-		\item \textbf{场景二（平移识别）：} 给出两种函数关系，判断平移方向与距离。
-	\end{itemize}
+  \textbf{\textcolor{CExplanation}{顿悟一句话：}}点向左走，横坐标减；\textbf{写新函数要找回旧位置，所以 $x$ 加。}
 \end{explanationbox}

@@ -1,46 +1,45 @@
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+  \textbf{\textcolor{CProof}{证明一｜指数反推法（门槛最低）}}
 
-	直接利用换底公式将对数符号转化为分子分母的符号判定，结合$\ln x$的符号性质。
+  \textbf{从哪里想起？}对数本来就是指数的另一种写法。设 $x=\log_a b$，即 $a^x=b$；只要判断“为了得到 $b$，指数 $x$ 应取正还是负”。
+  \begin{description}[style=nextline,leftmargin=2.4em,labelsep=0.45em,itemsep=0.35em]
+    \item[第一步：$a>1$。]由于 $a^0=1$，当 $x>0$ 时 $a^x>1$，当 $x<0$ 时 $0<a^x<1$。因此 $b>1$ 对应 $x>0$；$0<b<1$ 对应 $x<0$。
+    \item[第二步：$0<a<1$。]当 $x>0$ 时 $0<a^x<1$，当 $x<0$ 时 $a^x>1$。因此 $0<b<1$ 对应 $x>0$；$b>1$ 对应 $x<0$。
+    \item[第三步：合并。]正好是底数、真数位于 $1$ 同侧时 $x>0$，异侧时 $x<0$。又 $a^0=1$，所以 $b=1$ 时 $x=0$。
+  \end{description}
+  \begin{center}
+  \input{assets/tikz/F042_logarithm_sign_rule_03_proof_01.tex}
+  \end{center}
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.55em]
-		\item[\textbf{步骤一（换底化简）：}] 由换底公式，有
-			\[
-				\log_a b = \frac{\ln b}{\ln a}.
-			\]
-			\par\textbf{理由：} 换底公式 $\log_a b = \frac{\log_c b}{\log_c a}$，取 $c = \mathrm{e}$ 得 $\ln b / \ln a$。
+  \medskip
+  \textbf{\textcolor{CProof}{证明二｜函数图像法（最直观）}}
 
-		\item[\textbf{步骤二（判号引理）：}] 对任意 $x>0$ 且 $x\neq 1$，$\ln x$ 与 $x-1$ 同号。
-			\[
-				\begin{aligned}
-					x>1 &\Rightarrow \ln x > 0,\; x-1 > 0;\\
-					0<x<1 &\Rightarrow \ln x < 0,\; x-1 < 0.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 函数 $y=\ln x$ 在 $(0,+\infty)$ 上严格单调递增，且 $\ln 1 = 0$。故 $x>1$ 时 $\ln x>0$，$0<x<1$ 时 $\ln x<0$。
+  \textbf{从哪里想起？}对数的正负，就是图像位于 $x$ 轴上方还是下方。
+  \begin{description}[style=nextline,leftmargin=2.4em,labelsep=0.45em,itemsep=0.35em]
+    \item[第一步：找分界点。]两个函数 $y=\log_a x$ 都经过 $(1,0)$，因为 $\log_a1=0$。
+    \item[第二步：看增减。]当 $a>1$ 时图像从左向右上升；因此 $x>1$ 时函数值为正，$0<x<1$ 时为负。当 $0<a<1$ 时图像下降，正负刚好倒过来。
+    \item[第三步：把 $x$ 换成 $b$。]得到四种情况，与证明一相同。
+  \end{description}
+  \begin{center}
+  \input{assets/tikz/F042_logarithm_sign_rule_03_proof_02.tex}
+  \end{center}
 
-		\item[\textbf{步骤三（乘积判号）：}] 由步骤一、二，
-			\[
-				\begin{aligned}
-					\log_a b > 0 &\iff \frac{\ln b}{\ln a} > 0 \\
-					&\iff (\ln b)\cdot(\ln a) > 0 \\
-					&\iff (b-1)(a-1) > 0,
-			\end{aligned}
-			\]
-			\[
-				\begin{aligned}
-					\log_a b < 0 &\iff \frac{\ln b}{\ln a} < 0 \\
-					&\iff (\ln b)\cdot(\ln a) < 0 \\
-					&\iff (b-1)(a-1) < 0.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 同号相乘为正，异号相乘为负。而 $\ln a$ 与 $a-1$ 同号，$\ln b$ 与 $b-1$ 同号，故 $\ln a\ln b$ 的符号等于 $(a-1)(b-1)$ 的符号。
-	\end{description}
+  \medskip
+  \textbf{\textcolor{CProof}{证明三｜换底公式法（计算题好用）}}
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-
-	综上，$\log_a b$ 的正负完全由 $(a-1)(b-1)$ 的符号决定，正好对应了底数与真数是否在 $1$ 的同侧。当 $b=1$ 时对数值为零，结论不适用。
+  \textbf{从哪里想起？}把不同底数的对数统一改写成以 $2$ 为底，就不用分别讨论原底数了。
+  \begin{description}[style=nextline,leftmargin=2.4em,labelsep=0.45em,itemsep=0.35em]
+    \item[第一步：换底。]由换底公式
+      \[\log_a b=\frac{\log_2 b}{\log_2 a}.\]
+      因为 $a\neq1$，所以分母 $\log_2 a\neq0$。
+    \item[第二步：分别判号。]由于底数 $2>1$，$\log_2 t$ 与 $t-1$ 正负相同（$t>0$）；因此分子和 $b-1$ 同号，分母和 $a-1$ 同号。
+    \item[第三步：看分式正负。]分子与分母同号时分式为正，异号时为负。故
+      \[\boxed{\ \log_a b>0\iff(a-1)(b-1)>0\ },\qquad
+        \boxed{\ \log_a b<0\iff(a-1)(b-1)<0\ }.\]
+      $b=1$ 时分子是 $0$，所以对数为 $0$。
+  \end{description}
+  \begin{center}
+  \input{assets/tikz/F042_logarithm_sign_rule_03_proof_03.tex}
+  \end{center}
+  \textbf{\textcolor{CProof}{三种证明的共同关键：}}$1$ 是分界点；无论哪种办法，都是在比较底数和真数分别处于 $1$ 的哪一侧。
 \end{proofbox}

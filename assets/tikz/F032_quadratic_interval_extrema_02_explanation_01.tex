@@ -1,0 +1,13 @@
+\begin{tikzpicture}[x=0.78cm,y=0.26cm,>=stealth]
+  \draw[->,gray] (-1.5,0)--(6.3,0) node[right] {$x$};
+  \draw[gray!60,dashed] (2,-1.35)--(2,17) node[above] {$x=2$};
+  \draw[thick,teal!70!black,domain=-1.3:5.8,samples=85,smooth] plot (\x,{(\x-2)^2});
+  \draw[line width=2.5pt,orange!90!black] (-1,-1.15)--(1,-1.15);
+  \draw[line width=2.5pt,blue!70!black] (1,-2.1)--(3,-2.1);
+  \draw[line width=2.5pt,red!75!black] (3,-3.05)--(5,-3.05);
+  \foreach \x in {-1,1,2,3,5} {\fill[gray!70] (\x,0) circle (1.3pt);}
+  \node[left,orange!85!black] at (-1,-1.15) {左边};
+  \node[right,blue!70!black] at (3,-2.1) {跨轴};
+  \node[right,red!75!black] at (5,-3.05) {右边};
+  \node[below] at (2,-0.05) {$2$};
+\end{tikzpicture}

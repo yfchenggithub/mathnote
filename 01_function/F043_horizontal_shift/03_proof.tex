@@ -1,37 +1,47 @@
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+  \textbf{\textcolor{CProof}{方法一：先用一个例子看懂（直观验证）}}
 
-	通过点坐标变换：原图像点平移后得到新图像点，将原函数关系代入新坐标，得到新解析式。
+  把 $y=x^2$ 左移 $2$ 格。原顶点 $(0,0)$ 变成 $(-2,0)$，原点 $P(1,1)$ 变成 $Q(-1,1)$。
+  看新式 $y=(x+2)^2$：
+  \[
+     x=-2\Rightarrow y=0,\qquad x=-1\Rightarrow y=1.
+  \]
+  两个点都对上了，图像的形状也没变。这能帮助理解\textbf{为什么是 $x+2$}；要证明所有函数都成立，还要看方法二。
+  \begin{center}
+  \input{assets/tikz/F043_horizontal_shift_03_proof_01.tex}
+  \end{center}
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（左移坐标关系）：}] 设原图像上任意点 $P_0=(x_0,y_0)$ 满足 $y_0=f(x_0)$。左移 $a$ 后对应新点 $P=(X,Y)$，有
-			\[
-				X=x_0-a,\ Y=y_0.
-			\]
-			\par \textbf{理由：} 左移时横坐标减少 $a$，纵坐标不变。
-		\item[\textbf{步骤二（左移解析式推导）：}] 由 $X=x_0-a$ 解出 $x_0=X+a$，代入 $y_0=f(x_0)$ 得
-			\[
-				Y=f(X+a).
-			\]
-			故新函数解析式为 $y=f(x+a)$。
-			\par \textbf{理由：} 反代原坐标关系，利用函数定义得到新关系。
-		\item[\textbf{步骤三（右移坐标关系）：}] 右移 $a$ 后，新点 $(X,Y)$ 与原图像点 $(x_0,y_0)$ 满足
-			\[
-				X=x_0+a,\ Y=y_0.
-			\]
-			\par \textbf{理由：} 右移横坐标增加 $a$，纵坐标不变。
-		\item[\textbf{步骤四（右移解析式推导）：}] 由 $X=x_0+a$ 得 $x_0=X-a$，代入 $y_0=f(x_0)$ 得
-			\[
-				Y=f(X-a).
-			\]
-			故新函数解析式为 $y=f(x-a)$。
-			\par \textbf{理由：} 反代坐标关系得到。
-	\end{description}
+  \medskip
+  \textbf{\textcolor{CProof}{方法二：追踪任意一点（严格推导）}}
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
+  设 $a>0$，原图像上任取一点 $P(u,f(u))$。
+  \begin{description}[style=nextline,leftmargin=2.6em,labelsep=0.5em,itemsep=0.4em]
+    \item[\textbf{左移：}] $P$ 左移 $a$ 后变成 $Q(u-a,f(u))$。若把新点的横坐标记为 $x=u-a$，则 $u=x+a$。
+      所以新点的高度 $y=f(u)=f(x+a)$，即
+      \[\boxed{g(x)=f(x+a)}.\]
+    \item[\textbf{右移：}] $P$ 右移 $a$ 后变成 $R(u+a,f(u))$。若新点横坐标为 $x=u+a$，则 $u=x-a$。
+      所以 $y=f(u)=f(x-a)$，即
+      \[\boxed{g(x)=f(x-a)}.\]
+  \end{description}
+  因为 $P$ 是\textbf{任意一点}，这个规律不只对抛物线成立，对任意函数图像都成立。
+  \begin{center}
+  \input{assets/tikz/F043_horizontal_shift_03_proof_02.tex}
+  \end{center}
 
-	以上推导表明：向左平移 $a$ 个单位对应 “$x$ 变为 $x+a$”，向右平移对应 “$x$ 变为 $x-a$”，即“左加右减”。
+  \medskip
+  \textbf{\textcolor{CProof}{方法三：反过来验证公式确实表示平移}}
+
+  先不看图，直接设 $g(x)=f(x+a)$。若原函数在 $u$ 处的高度为 $f(u)$，
+  新函数在 $x=u-a$ 处的高度就是
+  \[
+     g(u-a)=f((u-a)+a)=f(u).
+  \]
+  也就是说，\textbf{每个点都向左走了 $a$ 格，高度完全不变}，这正是图像左移。
+  同样，若 $g(x)=f(x-a)$，则 $g(u+a)=f(u)$，说明它是右移。
+  \begin{center}
+  \input{assets/tikz/F043_horizontal_shift_03_proof_02.tex}
+  \end{center}
+  \textbf{反向读图：}从 $Q$ 向右走 $a$ 回到 $P$，从 $R$ 向左走 $a$ 也回到 $P$；每一步高度都不变。
+
+  \textbf{\textcolor{CProof}{结论回扣：}}点的横坐标向左减 $a$，而写新函数必须找回原横坐标，所以\textbf{括号中的 $x$ 要加 $a$}。
 \end{proofbox}

@@ -1,25 +1,42 @@
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
-	从图像入手，结合判别式、对称轴、端点符号逐步导出充要条件。
+\textbf{\textcolor{CProof}{证明目标}}\par
+证明“$(m,n)$内恰有两个\textbf{不同}零点”与
+$\Delta>0,\ m<x_0<n,\ af(m)>0,\ af(n)>0$\textbf{互相推出}。三种方法从图像到代数，由浅入深。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（两不等根：必要性）：}]
-			设$f(x)=0$在$(m,n)$内有两个不等实根$x_1,x_2$，则$\Delta>0$；两根关于$x_0$对称，故$m<x_0<n$；因为两根在$(m,n)$内，故端点$m,n$在两根之外，且$a>0$时$f(m)>0,f(n)>0$，$a<0$时$f(m)<0,f(n)<0$，统一写为$af(m)>0,af(n)>0$。
-			\par\textbf{理由：} 根在区间内$\Rightarrow$区间端点必在两根之外，故函数值与$a$同号。
-		\item[\textbf{步骤二（两不等根：充分性）：}]
-			若$\Delta>0$，设两根$x_1<x_2$。由$m<x_0<n$，得$x_1<x_0<x_2$。由$af(m)>0$，得$f(m)$与$a$同号。对于$a>0$，$f(m)>0$说明$m$不在区间$(x_1,x_2)$内（否则$f(m)<0$）。结合$m<x_0$，可得$m<x_1$。同理$f(n)>0$且$x_0<n$得$x_2<n$。故$x_1,x_2\in(m,n)$。$a<0$时类似。
-			\par\textbf{理由：} 利用二次函数在两根之间与两侧的符号规律。
-		\item[\textbf{步骤三（唯一根：必要性）：}]
-			设$(m,n)$内恰有一个实根$c$（非端点）。若$f(m)f(n)>0$，则区间两端同号，此时二次函数在区间内要么无实根，要么有两个实根（可能相等），不可能恰有一个单根。因此必有$f(m)f(n)<0$。
-			\par\textbf{理由：} 二次函数在两端同号时，实根个数为偶数（0个或2个，重根视为两个）；单根个数为奇数，故两端必异号。
-		\item[\textbf{步骤四（唯一根：充分性）：}]
-			若$f(m)f(n)<0$，由零点存在定理（图像连续）可知存在$c\in(m,n)$使得$f(c)=0$。若还有另一根$d\neq c$，则$d$或$c$必有一根在$(m,n)$外（否则两根均在内，故$f(m),f(n)$同号），因而$(m,n)$内恰有一根。
-			\par\textbf{理由：} 二次函数最多两实根，端点异号限制另一根不能在区间内。
-	\end{description}
+\medskip
+\textbf{\textcolor{CProof}{方法一｜画图法（最容易理解）}}\par
+\textbf{从根推条件：}两次穿过$x$轴，故$\Delta>0$；对称轴在两交点中间，必须在$(m,n)$内；两端在交点的外侧，所以端点函数值与$a$同号。
+\par\textbf{从条件推根：}$\Delta>0$先保证有两个不同交点；对称轴在区间内说明交点分居其左右；$af(m)>0$确保左端点在左交点左侧（不可能在两交点之间）；右端同理。于是两根都在区间内。
+\begin{center}
+\input{assets/tikz/F034_quadratic_root_distribution_criterion_03_proof_01.tex}
+\end{center}
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-	上述推导完整论证了二次方程在开区间内根分布的两个充要条件，体现了数形结合的数学思想。
+\medskip
+\textbf{\textcolor{CProof}{方法二｜两根的中点法（步骤最少）}}\par
+设两根$x_1<x_2$，它们的中点是$x_0=(x_1+x_2)/2$。当$\Delta>0$时已知$x_1<x_0<x_2$。
+\par\textbf{左边：}因为$m<x_0$且$af(m)>0$，$m$不能位于$(x_1,x_2)$内，也不能在两根上，只可能$m<x_1$。\textbf{右边：}因为$x_0<n$且$af(n)>0$，同理$x_2<n$。合起来就是$m<x_1<x_2<n$。
+\par 反过来若$m<x_1<x_2<n$，其中点当然在区间内，两个端点也都在两根外侧，四个条件自然成立。
+\begin{center}
+\input{assets/tikz/F034_quadratic_root_distribution_criterion_03_proof_02.tex}
+\end{center}
+
+\medskip
+\textbf{\textcolor{CProof}{方法三｜因式分解法（常规严格证明）}}\par
+$\Delta>0$时，可写成$f(x)=a(x-x_1)(x-x_2)$，其中$x_1<x_2$。于是
+\[af(t)=a^2(t-x_1)(t-x_2),\qquad a^2>0.\]
+因此$af(t)>0$恰好说明$t<x_1$或$t>x_2$。
+\par 又$m<x_0<x_2$，所以$af(m)>0$不可能对应$m>x_2$，只能$m<x_1$；同理$x_1<x_0<n$，$af(n)>0$只能对应$n>x_2$。得$m<x_1<x_2<n$。反向代入因式分解式即可证得全部条件。
+\begin{center}
+\input{assets/tikz/F034_quadratic_root_distribution_criterion_03_proof_03.tex}
+\end{center}
+
+\medskip
+\textbf{\textcolor{CProof}{补证｜“恰一个零点”为什么要分情况？}}\par
+\textbf{两端异号时：}若$\Delta<0$没有根、$\Delta=0$只在顶点碰到轴，均不会让两端异号；所以有两个不同实根。将两根从左到右排好后，函数符号每经过一个不同根改变一次。端点符号相反，说明两端之间恰跨过\textbf{一个}不同的根（不可能跨过两个）。
+\par\textbf{重根时：}$\Delta=0$且$m<x_0<n$，$f(x)=a(x-x_0)^2$，仅在$x_0$取零，尽管$f(m)f(n)>0$。
+\par\textbf{端点为根时：}$\Delta>0$，设$x_1<x_2$，要么左根不在区间而右根在内（$x_1\le m<x_2<n$），要么左根在内而右根不在内（$m<x_1<n\le x_2$）。这也是结论一给出的完整逐根判定。图中右根就在$n$上，\textbf{不算区间内的根}。
+\begin{center}
+\input{assets/tikz/F034_quadratic_root_distribution_criterion_03_proof_04.tex}
+\end{center}
+\textbf{\textcolor{CProof}{结论：}}两根的条件是完整的充要条件；\textbf{两端异号只是单根问题的一种情形}，重根和端点根不能漏。
 \end{proofbox}

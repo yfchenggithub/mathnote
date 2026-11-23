@@ -1,57 +1,60 @@
+% F035 指数幂的运算法则｜04 例题：从会算到会选最快方法
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例1（基础）}}
-
-	\textbf{\textcolor{CExample}{题目：}}
-	计算 $a^3 \cdot a^5$（$a>0$）。
-
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（识别底数）：}] 观察到两个幂的底数都是 $a$，满足同底数条件。
-			\par\textbf{理由：} 只有底数相同时才能直接合并指数。
-		\item[\textbf{第二步（套用法则）：}] $a^3 \cdot a^5 = a^{3+5}$。
-			\par\textbf{理由：} 同底数幂相乘，指数相加。
-		\item[\textbf{第三步（计算指数）：}] $a^{3+5} = a^8$。
-			\par\textbf{理由：} 指数加法运算。
-	\end{description}
-
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$a^3\cdot a^5 = a^8$。}
+    \textbf{\textcolor{CExample}{例1｜基础：先看底数有没有变}}\par
+    \textbf{题目：} 计算 $2^3\cdot2^4$。\par
+    \textbf{最快思路：} 底数都是 $2$，连乘时指数相加。
+    \[2^3\cdot2^4=2^{3+4}=\boxed{2^7=128}.\]
+    \begin{center}
+    \input{assets/tikz/F035_exponent_rules_04_examples_01.tex}
+    \end{center}
+    \textbf{记住：} 这里相加的是\textbf{指数}，不是把两个幂的值相加。
 \end{examplebox}
+
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例2（稍变形）}}
-
-	\textbf{\textcolor{CExample}{题目：}}
-	计算 $(2x^3)^2 \cdot x^4$（$x>0$）。
-
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（积的乘方）：}] $(2x^3)^2 = 2^2 \cdot (x^3)^2 = 4x^6$。
-			\par\textbf{理由：} 积的乘方法则 $(ab)^m = a^m b^m$ 和幂的乘方法则 $(a^m)^n = a^{mn}$。
-		\item[\textbf{第二步（同底合并）：}] $4x^6 \cdot x^4 = 4x^{6+4}$。
-			\par\textbf{理由：} 同底数幂乘法法则 $a^m a^n = a^{m+n}$。
-		\item[\textbf{第三步（化简结果）：}] $4x^{10}$。
-			\par\textbf{理由：} 指数相加。
-	\end{description}
-
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{$(2x^3)^2 \cdot x^4 = 4x^{10}$。}
+    \textbf{\textcolor{CExample}{例2｜连用三条法则：先括号，后合并}}\par
+    \textbf{题目：} 化简 $(3x^2)^3\cdot x^4$（$x>0$）。\par
+    \textbf{步骤1：} 积的乘方，$3$ 和 $x^2$ 都要乘方。\par
+    \textbf{步骤2：} 幂的乘方，指数相乘；最后同底相乘，指数相加。
+    \[
+      \begin{aligned}
+        (3x^2)^3\cdot x^4
+        &=3^3(x^2)^3\cdot x^4\\
+        &=27x^{2\times3}\cdot x^4\\
+        &=\boxed{27x^{6+4}=27x^{10}}.
+      \end{aligned}
+    \]
+    \begin{center}
+    \input{assets/tikz/F035_exponent_rules_04_examples_02.tex}
+    \end{center}
+    \textbf{记住：} 括号里的 $3$ 也有三次方，不能漏成 $3x^6$。
 \end{examplebox}
+
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例3（综合应用）}}
+    \textbf{\textcolor{CExample}{例3｜指数方程：先化成相同底数}}\par
+    \textbf{题目：} 解 $4^x\cdot2^{x+1}=32$。\par
+    \textbf{为什么这么想：} $4=2^2$，$32=2^5$，统一写成底数 $2$ 最快。
+    \[
+      \begin{aligned}
+        (2^2)^x\cdot2^{x+1}&=2^5,\\
+        2^{2x+x+1}&=2^5,\\
+        3x+1&=5,\\
+        x&=\boxed{\frac43}.
+      \end{aligned}
+    \]
+    因为底数 $2>0$ 且 $2\ne1$，相同底数的两个幂相等时，指数相等。
+    \begin{center}
+    \input{assets/tikz/F035_exponent_rules_04_examples_03.tex}
+    \end{center}
+    \textbf{记住：} 底数若为 $1$，不能靠“指数相等”解方程。
+\end{examplebox}
 
-	\textbf{\textcolor{CExample}{题目：}}
-	解方程 $2^{x+1} = 8$。
-
-	\textbf{\textcolor{CExample}{解题步骤：}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{第一步（化同底）：}] $8 = 2^3$。
-			\par\textbf{理由：} $2^3 = 8$。
-		\item[\textbf{第二步（方程变形）：}] $2^{x+1} = 2^3$。
-			\par\textbf{理由：} 将右边化为底数为2的幂。
-		\item[\textbf{第三步（指数相等）：}] 由 $2^{x+1}=2^3$ 且 $2>0$，得 $x+1=3$，解得 $x=2$。
-			\par\textbf{理由：} 若 $a>0$ 且 $a\neq1$，则 $a^p = a^q \Rightarrow p=q$。
-	\end{description}
-
-	\textbf{\textcolor{CExample}{关键结论：}}
-	\textbf{方程的解为 $x=2$。}
+\begin{examplebox}
+    \textbf{\textcolor{CExample}{例4｜零、负数和分数指数：先认清含义}}\par
+    \textbf{题目：} 计算 $16^{1/2}\cdot2^{-1}+5^0$。\par
+    \textbf{最快思路：} $16^{1/2}$ 是 $\sqrt{16}$，$2^{-1}$ 是 $1/2$，$5^0=1$。
+    \[16^{1/2}\cdot2^{-1}+5^0=4\cdot\frac12+1=\boxed{3}.\]
+    \begin{center}
+    \input{assets/tikz/F035_exponent_rules_04_examples_04.tex}
+    \end{center}
+    \textbf{记住：} 负指数不是算出负数，分数指数也不是简单的除法。
 \end{examplebox}

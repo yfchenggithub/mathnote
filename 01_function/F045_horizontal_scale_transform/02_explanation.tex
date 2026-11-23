@@ -1,37 +1,38 @@
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
-	横坐标缩放改变的是图像在水平方向的宽度，纵坐标不变，因此函数表达式中的自变量$x$需要乘以因子$\omega$来匹配新坐标。
+  \textbf{\textcolor{CExplanation}{先想一个问题}}
+  原来 $y=x^2$，把图像上每个点的横坐标\textbf{缩小一半}，点 $(2,4)$ 就移到 $(1,4)$。那么新图像经过 $(1,4)$，新式子该怎样写？
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（坐标缩放）：}]
-			原图像上任意点$(x_0, f(x_0))$经变换后变为$\bigl(\frac{x_0}{\omega}, f(x_0)\bigr)$，纵坐标保持不变。
-		\item[\textbf{要点二（解析推导）：}]
-			设新图像上点$(X, Y)$，则$X = \frac{x_0}{\omega}$，$x_0 = \omega X$，因此$Y = f(x_0)$，即 $Y = f(\omega X)$，故新函数为$y = f(\omega x)$。
-	\end{description}
+  \medskip
+  \textbf{\textcolor{CExplanation}{用同一个高度倒着找横坐标}}
+  在原函数中，要得到高度 $4$，可取 $x=2$；在新函数中，同样的高度 $4$ 出现在 $x=1$。\textbf{新横坐标只有原来的一半，代入原函数时就需要把它乘 $2$：}
+  \[
+    \underbrace{f(2\times 1)}_{\text{新图像在 }x=1\text{ 的高度}}
+    =\underbrace{f(2)}_{\text{原图像在 }x=2\text{ 的高度}}=4.
+  \]
+  因此 $y=f(x)$ 压窄一半后变成 $y=f(2x)$，对于 $f(x)=x^2$ 就是 $y=4x^2$。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（水平缩放）}}
-	图像在水平方向按比例$\frac{1}{\omega}$缩放，缩放中心为$y$轴（纵轴），图像整体在$x$轴方向被压缩或拉长。
+  \begin{center}
+  \input{assets/tikz/F045_horizontal_scale_transform_02_explanation_01.tex}
+  \end{center}
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（参数倒置）}}
-	横坐标伸缩因子$\omega$与函数自变量$x$的系数$\omega$相同，表明$\omega$越大，自变量被放大越多，图像反而在水平方向收缩（因为$\frac{1}{\omega}$变小）。
+  \textbf{\textcolor{CExplanation}{推广：不用死记，用一个点来检查}}
+  若原图像上有点 $(a,f(a))$，横坐标变为原来的 $k$ 倍后，对应点是 $(ka,f(a))$。要让新函数在 $x=ka$ 时仍算出 $f(a)$，就应使用
+  \[
+     g(x)=f\!\left(\frac{x}{k}\right),\qquad
+     g(ka)=f(a).
+  \]
+  这就是\textbf{“横坐标乘 $k$，括号里除以 $k$”}的原因；写作 $f(\omega x)$ 时，实际横向倍数就是 $1/\omega$。
 
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（图像变换）}}
-	横坐标伸缩是函数图像变换的基础操作，常与平移、对称、纵坐标伸缩结合出现，解题时需注意变换顺序对解析式的影响。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
-	记住“反直觉”：横坐标缩放因子与自变量系数互为倒数——横坐标放大（$0<\omega<1$）对应系数变小，图像拉伸；横坐标缩小（$\omega>1$）对应系数变大，图像压缩。
-
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（正向求解析式）：} 已知原函数$y=f(x)$和横坐标伸缩因子$\omega$，直接代入公式$y=f(\omega x)$得到新函数。
-		\item \textbf{场景二（逆向求因子）：} 已知变换前后的解析式，比较自变量系数，确定横坐标伸缩因子$\omega$。
-	\end{itemize}
-
+  \medskip
+  \textbf{\textcolor{CExplanation}{考试什么时候最快用？}}
+  \begin{itemize}[leftmargin=*,itemsep=0.3em,topsep=0.3em]
+    \item \textbf{求新解析式：} 题目说“横坐标变成 $3$ 倍”，直接把原函数中的 $x$ 换成 $x/3$。
+    \item \textbf{判断图像宽窄：} 看括号里的 $x$：乘 $3$ 就横向压成 $1/3$，乘 $1/2$ 就拉成 $2$ 倍。
+    \item \textbf{检查答案：} 任选原图像上的一个点，看新坐标的\textbf{高度有没有变化}。
+  \end{itemize}
+  \textbf{补充提醒：} 这种变换只改变横坐标。若原函数的定义域为 $D$，新函数 $f(x/k)$ 的定义域为所有满足 $x/k\in D$ 的 $x$；\textbf{不是所有函数都能随意取负数或零作输入}。
+\begin{center}
+\input{assets/tikz/F045_horizontal_scale_transform_negative_positive_points.tex}
+\end{center}
+\textbf{两侧一起看：}压缩时左右两侧都靠近 $y$ 轴；这与所有点向同一方向平移不同。
 \end{explanationbox}

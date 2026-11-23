@@ -1,0 +1,17 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[draw=teal!50!black,fill=green!3,rounded corners=3pt] (0,0) rectangle (13,7.2);
+\node at (6.5,6.6) {压缩不是整体左移：负横坐标点向右，正横坐标点向左};
+\begin{scope}[shift={(3.3,1.6)},x=.85cm,y=.55cm]
+\draw[gray,->] (-3.3,0)--(3.5,0) node[right] {$x$};\draw[gray,->] (0,-.3)--(0,7.3) node[above] {$y$};
+\draw[teal!70!black,thick,domain=-3:3.2] plot(\x,{\x+3});
+\draw[orange!85!black,thick,domain=-1.5:1.6] plot(\x,{2*\x+3});
+\foreach \old/\new/\height in {-2/-1/1,2/1/5}{
+ \draw[->,blue!65!black,very thick] (\old,\height)--(\new,\height);
+ \fill[teal!70!black] (\old,\height) circle(2.5pt);\fill[orange!85!black] (\new,\height) circle(2.5pt);
+}
+\node[below] at (-2,.85) {$A$};\node[below right] at (-1,.85) {$A'$};
+\node[below right] at (2,5) {$B$};\node[above left] at (1,5) {$B'$};
+\end{scope}
+\node[anchor=west,align=left,text width=4.5cm] at (8.1,3.6) {绿线 $f(x)=x+3$。\\[8pt]橙线 $f(2x)=2x+3$。\\[8pt]$A(-2,1)\to A'(-1,1)$\\[8pt]$B(2,5)\to B'(1,5)$\\[8pt]横坐标减半，高度不变。};
+\node at (6.5,.45) {看左右两侧的对应点，才能分清“压窄”和“平移”。};
+\end{tikzpicture}

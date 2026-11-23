@@ -1,0 +1,19 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[draw=teal!45!black,fill=green!3,rounded corners=3pt] (0,0) rectangle (13.8,7.5);
+\node at (6.9,6.85) {配方把横向距离变成高度差：$f(x)=(x-1)^2+2$};
+\begin{scope}[shift={(1.6,1.7)},x=1.32cm,y=.46cm]
+\draw[gray,->] (-.2,0)--(4.4,0) node[right] {$x$};
+\draw[gray,->] (0,0)--(0,10) node[above] {$y$};
+\draw[F031Curve,thick,domain=0:3.6,samples=65] plot(\x,{(\x-1)^2+2});
+\draw[F031Axis,densely dashed] (1,0)--(1,9.5);
+\draw[gray,dotted] (0,2)--(3,2);
+\draw[<->,F031Min,thick] (1,2)--(3,2);
+\draw[<->,F031Max,thick] (3,2)--(3,6);
+\fill[F031Min] (1,2) circle(2.6pt);
+\fill[F031Max] (3,6) circle(2.6pt);
+\node[below] at (1,-.1) {$x_0=1$};\node[below] at (3,-.1) {$x=3$};
+\node[anchor=north] at (2,1.75) {$d=2$};
+\end{scope}
+\node[anchor=west,align=left,text width=4.6cm] at (8.5,4.1) {蓝点：顶点 $(1,2)$\\[10pt]横向距离 $d=|3-1|=2$\\[10pt]橙点：$(3,6)$\\[10pt]高度差 $6-2=2^2=4$};
+\node at (6.9,.6) {$x_0$ 是横坐标；$k=f(x_0)=2$ 是顶点的函数值，两者不能混淆。};
+\end{tikzpicture}\end{center}

@@ -1,20 +1,67 @@
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{\textcolor{CProof}{我们要证明什么？}}
 
-	证明的关键是利用二次函数的单调性和对称性：若区间包含对称轴，则极值点在内；否则函数在区间上单调，最值在端点。分类讨论 $a>0$ 和 $a<0$ 分别处理。
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（对称轴与开口）：}] 计算对称轴 $x_0=-\frac{b}{2a}$，记 $f(x)=ax^2+bx+c$。当 $a>0$ 时，抛物线开口向上；当 $a<0$ 时，开口向下。
-			\par\textbf{理由：}二次项系数 $a$ 的正负决定抛物线开口方向，从而决定 $f(x_0)$ 是极小值还是极大值。
-		\item[\textbf{步骤二（$a>0$ 且 $x_0\in[m,n]$）：}] 若 $m\le x_0\le n$，对任意 $x\in[m,n]$，有 $f(x)\ge f(x_0)$（因为 $x_0$ 是全局最小值点）。故 $f_{\min}=f(x_0)$。又由于 $f_{\max}=\max\{f(m),f(n)\}$，因为开口向上时，端点中离对称轴越远函数值越大，所以最大值在离 $x_0$ 较远的那个端点处取到，等价于 $\max\{f(m),f(n)\}$。
-			\par\textbf{理由：}二次函数在 $x_0$ 处取得最小值，于是区间上所有函数值不小于 $f(x_0)$，所以最小值就是 $f(x_0)$。端点值的大小比较与对称轴有关，但最大值必为两函数值中较大的。
-		\item[\textbf{步骤三（$a>0$ 且 $x_0\notin[m,n]$）：}] 此时 $x_0<m$ 或 $x_0>n$。函数 $f(x)$ 在区间 $[m,n]$ 上单调：若 $x_0<m$，则 $f'(x)=2ax+b>0$（$a>0$，$x>x_0$），函数递增，最小值在 $m$ 取 $f(m)$，最大值在 $n$ 取 $f(n)$；若 $x_0>n$，则 $f'(x)<0$，函数递减，最小值在 $n$ 取 $f(n)$，最大值在 $m$ 取 $f(m)$。统一表示为 $f_{\min}=\min\{f(m),f(n)\}$，$f_{\max}=\max\{f(m),f(n)\}$。
-			\par\textbf{理由：}导数符号决定单调性，比较端点函数值得出最值。
-		\item[\textbf{步骤四（$a<0$ 的情况）：}] 对称轴 $x_0$ 是全局最大值点。当 $x_0\in[m,n]$ 时，$f_{\max}=f(x_0)$，$f_{\min}=\min\{f(m),f(n)\}$；当 $x_0\notin[m,n]$ 时，函数单调，$f_{\max}=\max\{f(m),f(n)\}$，$f_{\min}=\min\{f(m),f(n)\}$。论证过程与 $a>0$ 完全类似，只需将“最小值”与“最大值”互换。
-			\par\textbf{理由：}开口向下时 $f(x_0)$ 为极大值，其余推理相同。
-	\end{description}
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-	综上所述，当 $a>0$ 时，$f_{\min}=f(x_0)$（若 $x_0\in[m,n]$）或 $\min\{f(m),f(n)\}$（若 $x_0\notin[m,n]$），$f_{\max}=\max\{f(m),f(n)\}$；当 $a<0$ 时情况互换，得原定理。
+给定区间 $[m,n]$，二次函数的最值只可能由\textbf{两端点}和\textbf{区间内的顶点}给出；并且比较两端点时，只用看谁离对称轴更远。以下三种方法只用高中学过的内容，不用导数。
+
+\medskip
+\textbf{\textcolor{CProof}{证明一｜看图像（理解门槛最低）}}
+
+先看开口向上。对称轴左边，沿着 $x$ 增大的方向，图像一直下降；越过对称轴，图像又一直上升。因此，\textbf{中间不会凭空冒出比两个端点还高的点}：最高点只能在端点。若轴在区间内，最低点就在轴上；若轴在区间外，整段图像只升或只降，最低点在靠轴更近的一端。开口向下时，把“高”和“低”对调即可。
+\begin{center}
+\input{assets/tikz/F032_quadratic_interval_extrema_03_proof_01.tex}
+\end{center}
+
+\medskip
+\textbf{\textcolor{CProof}{证明二｜配方法（最干净、最通用）}}
+\par\nopagebreak[4]
+
+把二次函数改写成
+\[
+ f(x)=a(x-h)^2+k,\qquad h=-\frac{b}{2a},\quad k=f(h).
+\]
+设 $d=|x-h|$，就是点 $x$ 到轴 $h$ 的横向距离，则 $f(x)=ad^2+k$。
+\begin{itemize}[leftmargin=*,itemsep=0.3em]
+ \item 若 $a>0$，$d$ 越大，$f(x)$ 越大；最远点必是区间两端之一。最近距离若为 $0$，说明轴在区间内；否则最近点是一个端点。
+ \item 若 $a<0$，$d$ 越大，$f(x)$ 越小；最远点给最小值，最近点给最大值。
+\end{itemize}
+这就同时证明了\textbf{开口方向、轴是否落入区间、两端距离}这三条规律。
+\begin{center}
+\input{assets/tikz/F032_quadratic_interval_extrema_03_proof_02.tex}
+\end{center}
+\textit{图中 $f(0)=4$ 大于 $f(3)=1$，是因为 $0$ 离轴 $2$ 格，$3$ 只离轴 $1$ 格。}
+
+\medskip
+\textbf{\textcolor{CProof}{证明三｜单调性（常规考试写法）}}
+
+当 $a>0$ 时，函数在 $(-\infty,h]$ 上递减，在 $[h,+\infty)$ 上递增。
+\begin{itemize}[leftmargin=*,itemsep=0.3em]
+ \item $n<h$：区间全在轴左边，一路递减，$f_{\min}=f(n)$，$f_{\max}=f(m)$。
+ \item $m>h$：区间全在轴右边，一路递增，$f_{\min}=f(m)$，$f_{\max}=f(n)$。
+ \item $m\le h\le n$：先减后增，$f_{\min}=f(h)$；最高点比较 $f(m)$、$f(n)$。
+\end{itemize}
+边界 $n=h$ 或 $m=h$ 仍属于第三种，结果与相邻情况一致。$a<0$ 时，单调方向反过来，同理得到开口向下的公式。
+\begin{center}
+\input{assets/tikz/F032_quadratic_interval_extrema_03_proof_03.tex}
+\end{center}
+
+\medskip
+\textbf{\textcolor{CProof}{再证明一个特别好用的分界点}}
+
+\begin{center}
+\input{assets/tikz/F032_quadratic_interval_extrema_midpoint_distance_switch.tex}
+\end{center}
+
+直接做差（$m<n$）：
+\[
+\begin{aligned}
+ f(n)-f(m)
+ &=a\big[(n-h)^2-(m-h)^2\big]\\
+ &=\boxed{a(n-m)(m+n-2h)}.
+\end{aligned}
+\]
+因为 $a\ne0$ 且 $n-m>0$，所以
+\[
+ f(m)=f(n)\iff m+n=2h\iff\boxed{\frac{m+n}{2}=h}.
+\]
+于是\textbf{区间中点碰到对称轴}就是“两端点谁更高”发生切换的时刻。\textbf{提醒：}这与“区间端点碰到轴”不是同一个分界点，求含参最大、最小值时两种都要看。
 \end{proofbox}

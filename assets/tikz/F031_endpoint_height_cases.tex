@@ -1,0 +1,46 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[draw=teal!45!black,fill=green!3,rounded corners=3pt] (0,0) rectangle (13.8,7.7);
+\node at (6.9,7.05) {端点作差看的是两端高度：$f(x)=(x-x_0)^2$，$[m,n]=[0,4]$};
+\node at (2.3,6.35) {$x_0=1$$<h$};
+\begin{scope}[shift={(1.0,2.1)},x=.68cm,y=.35cm]
+\draw[gray,->] (-.25,0)--(4.5,0) node[right] {$x$};
+\draw[F031Curve,thick,domain=0:4,samples=65] plot(\x,{(\x-1)^2});
+\draw[F031Axis,densely dashed] (1,0)--(1,10);
+\node[below] at (0,-.1) {$m=0$};\node[below] at (4,-.1) {$n=4$};
+\fill[F031Min] (1,0) circle(2.6pt);
+\fill[teal!70!black] (0,1) circle(2.6pt);
+\node[above] at (0,1+.3) {$1$};
+\fill[F031Max] (4,9) circle(2.6pt);
+\node[above] at (4,9+.3) {$9$};
+\end{scope}
+\node at (2.3,1.2) {$f(4)-f(0)=8$};
+\node at (2.3,.65) {右端更高};
+\node at (6.85,6.35) {$x_0=2$$=h$};
+\begin{scope}[shift={(5.55,2.1)},x=.68cm,y=.35cm]
+\draw[gray,->] (-.25,0)--(4.5,0) node[right] {$x$};
+\draw[F031Curve,thick,domain=0:4,samples=65] plot(\x,{(\x-2)^2});
+\draw[F031Axis,densely dashed] (2,0)--(2,10);
+\node[below] at (0,-.1) {$m=0$};\node[below] at (4,-.1) {$n=4$};
+\fill[F031Min] (2,0) circle(2.6pt);
+\fill[F031Max] (0,4) circle(2.6pt);
+\node[above] at (0,4+.3) {$4$};
+\fill[F031Max] (4,4) circle(2.6pt);
+\node[above] at (4,4+.3) {$4$};
+\end{scope}
+\node at (6.85,1.2) {$f(4)-f(0)=0$};
+\node at (6.85,.65) {两端等高};
+\node at (11.399999999999999,6.35) {$x_0=3$$>h$};
+\begin{scope}[shift={(10.1,2.1)},x=.68cm,y=.35cm]
+\draw[gray,->] (-.25,0)--(4.5,0) node[right] {$x$};
+\draw[F031Curve,thick,domain=0:4,samples=65] plot(\x,{(\x-3)^2});
+\draw[F031Axis,densely dashed] (3,0)--(3,10);
+\node[below] at (0,-.1) {$m=0$};\node[below] at (4,-.1) {$n=4$};
+\fill[F031Min] (3,0) circle(2.6pt);
+\fill[F031Max] (0,9) circle(2.6pt);
+\node[above] at (0,9+.3) {$9$};
+\fill[teal!70!black] (4,1) circle(2.6pt);
+\node[above] at (4,1+.3) {$1$};
+\end{scope}
+\node at (11.399999999999999,1.2) {$f(4)-f(0)=-8$};
+\node at (11.399999999999999,.65) {左端更高};
+\end{tikzpicture}\end{center}

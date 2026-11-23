@@ -1,0 +1,22 @@
+\begin{center}
+\begin{tikzpicture}[f031panel,x=0.80cm,y=0.7cm,>=stealth]
+  \foreach \s/\t/\p/\name in {0/-1/0/{轴在左},5/2/2/{轴在中},10/5/4/{轴在右}}{
+    \begin{scope}[shift={(\s,0)}]
+      \draw[very thick,teal!70!black] (0,0)--(4,0);
+      \foreach \z in {0,4} \draw (\z,-0.12)--(\z,0.12);
+      \draw[densely dashed,F031Axis] (\t,-0.5)--(\t,0.75);
+      \fill[F031Axis] (\p,0) circle (2.6pt);
+      \node[font=\small,above] at (2,0.75) {\name};
+      \node[font=\small,below] at (0,-0.15) {$0$};
+      \node[font=\small,below] at (4,-0.15) {$4$};
+      \node[font=\small,above] at (\p,0.10) {最近};
+    \end{scope}
+  }
+
+\foreach \s/\q in {0/4,10/0}{\begin{scope}[shift={(\s,0)}]\fill[F031Max] (\q,0) circle(2.5pt);\end{scope}}
+\begin{scope}[shift={(5,0)}]\fill[F031Max] (0,0) circle(2.5pt);\fill[F031Max] (4,0) circle(2.5pt);\end{scope}
+\foreach \s/\p in {0/0,5/2,10/4}{\begin{scope}[shift={(\s,0)}]\fill[F031Min] (\p,0) circle(2.5pt);\end{scope}}
+\node at (7,-1.45) {蓝点最近；橙点最远。轴在端点上时，最近点仍是该端点。};
+
+\end{tikzpicture}
+\end{center}

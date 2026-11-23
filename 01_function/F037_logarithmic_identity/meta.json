@@ -8,7 +8,7 @@
       "a的log_a N等于N",
       "指数与对数抵消公式"
     ],
-    "summary": "指数底数与对数底数相同时，指数与对数相互抵消，结果等于真数。",
+    "summary": "同底时，指数与对数先后运算能还原原数；异底须先变形，并检查对数条件。",
     "difficulty": 2,
     "category": "函数",
     "tags": [
@@ -33,7 +33,11 @@
       "解方程",
       "log在指数上",
       "指数抵消",
-      "对数恒等式怎么用"
+      "对数恒等式怎么用",
+      "指数套对数",
+      "对数套指数",
+      "对数指数互相还原",
+      "不同底数对数恒等式"
     ],
     "synonyms": [
       "指数对数抵消",
@@ -100,21 +104,21 @@
       "N": "真数，满足 N>0",
       "x": "任意实数"
     },
-    "conditions": "底数 $a>0$ 且 $a\\neq 1$；真数 $N>0$。",
-    "conclusions": "由恒等式可得指对互化形式：$\\log_a (a^x)=x$。"
+    "conditions": "两式均要求 $a>0$、$a\\neq1$；$a^{\\log_a N}=N$ 还要求 $N>0$；$\\log_a(a^x)=x$ 中 $x$ 为任意实数。",
+    "conclusions": "同底还原：$a^{\\log_a N}=N$（$N>0$）；反向还原：$\\log_a(a^x)=x$（$x\\in\\mathbb{R}$）。"
   },
   "content": {
-    "statement": "若 $a>0$，$a\\neq 1$，$N>0$，则恒等式 $a^{\\log_a N}=N$ 成立。",
+    "statement": "当 $a>0$、$a\\neq 1$、$N>0$ 时，$a^{\\log_a N}=N$；当 $a>0$、$a\\neq 1$ 时，对任意实数 $x$，$\\log_a(a^x)=x$。",
     "derivation": [
-      "设 $\\log_a N = t$，则根据对数定义得 $a^t = N$。",
-      "将 $t = \\log_a N$ 代入 $a^t = N$，得 $a^{\\log_a N}=N$。",
-      "证毕。"
+      "令 $t=\\log_a N$，根据对数定义得到 $a^t=N$。",
+      "把 $t$ 换回 $\\log_a N$，即 $a^{\\log_a N}=N$。",
+      "反过来，设 $N=a^x>0$，按对数定义有 $\\log_a(a^x)=x$。"
     ],
-    "intuition": "对数是指数的逆运算，因此指数运算与对数运算先后作用于同一数时相互抵消。",
+    "intuition": "例如 $2^3=8$，所以 $\\log_2 8=3$；先用对数找指数，再用这个指数乘方，就回到了 8。",
     "common_tricks": [
-      "底数不一致时先利用指数幂运算法则化为同底。",
-      "结合对数运算法则（如 $n\\log_a M = \\log_a M^n$）进行变形。",
-      "使用前必须验证真数大于0，防止定义域错误。"
+      "遇到 $a^{\\log_a N}$ 或 $\\log_a(a^x)$，先核对底数和取值条件，同底即可还原。",
+      "异底先改写：$4^{\\log_2 3}=(2^{\\log_2 3})^2=9$，不能直接写成 3。",
+      "解方程时先检查真数大于 0，求出结果后再检验。"
     ]
   },
   "usage": {
@@ -132,7 +136,7 @@
     "exam_score": 5
   },
   "interactive": {
-    "has_diagram": false,
+    "has_diagram": true,
     "geogebra_id": "",
     "param_demo": {}
   },
@@ -144,7 +148,7 @@
   },
   "shareConfig": {
     "title": "指数对数互逆：嵌套式怎样抵消",
-    "shareDesc": "指数里套对数，或对数里套同底数幂，先认出互逆运算，常能直接还原。核对底数大于零且不为一、对数真数为正，再消去嵌套，避免把形式相似的异底数也直接抵消。"
+    "shareDesc": "先问“a 的几次方等于 N”，再乘方就回到 N。同底可直接还原，异底先变形；底数须正且不为 1，真数必须为正。"
   },
   "relations": {
     "prerequisites": [
@@ -152,20 +156,24 @@
       "指数运算",
       "代数基本概念"
     ],
-    "related_ids": ["F036", "F039", "F042"],
+    "related_ids": [
+      "F036",
+      "F039",
+      "F042"
+    ],
     "similar": [
       "对数换底公式",
       "指对互化"
     ]
   },
   "meta": {
-    "version": 1,
+    "version": 2,
     "source": "AI生成",
     "created_at": "2026-06-26",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-11-23"
   },
   "isPro": 0,
-  "remarks": "",
+  "remarks": "2026-11-23：原有 4 段 TikZ 无损抽取到 assets/tikz/F037_logarithmic_identity_<section>_<ordinal>.tex，以 input 引入；逐图检查后修正标签遮挡，保持原有正文。新增教学图：assets/tikz/F037_logarithmic_identity_inverse_coordinates.tex, assets/tikz/F037_logarithmic_identity_read_exponent_height.tex。",
   "knowledgeNode": "函数-基本初等函数-指数与对数-运算法则",
   "altNodes": "代数-式的变形-恒等变形"
 }

@@ -1,36 +1,43 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件 1（函数二次）：}}]
-			二次函数 $f(x)=ax^2+bx+c$，$a\neq0$，对称轴 $x_0=-\frac{b}{2a}$ 固定。
-		\item[\textbf{\textcolor{CStatement}{条件 2（区间动）：}}]
-			区间 $[m,n]$ 端点可变，满足 $m<n$。
-	\end{description}
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（开口向上）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			当 $a>0$ 时，最小值取决于对称轴是否在区间内，最大值始终是两端点较大者。
-			\[
-				f_{\min}=
-				\begin{cases}
-					f(x_0), & \text{若 } x_0\in[m,n],\\ \min\{f(m),f(n)\}, & \text{若 } x_0\notin[m,n],
-			\end{cases}
-				\qquad f_{\max}= \max\{f(m),f(n)\}.
-			\]
-		\item[\textbf{\textcolor{CStatement}{结论二（开口向下）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			当 $a<0$ 时，最大值取决于对称轴是否在区间内，最小值始终是两端点较小者。
-			\[
-				f_{\max}=
-				\begin{cases}
-					f(x_0), & \text{若 } x_0\in[m,n],\\ \max\{f(m),f(n)\}, & \text{若 } x_0\notin[m,n],
-			\end{cases}
-				\qquad f_{\min}= \min\{f(m),f(n)\}.
-			\]
-		\item[\textbf{\textcolor{CStatement}{常见变形（对称性应用）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			利用二次函数对称性，若区间关于 $x_0$ 对称，则 $f(x_0)$ 必为最值（开口向上时最小，开口向下时最大），且两端点函数值相等。
-	\end{description}
+\textbf{\textcolor{CStatement}{先回答：这个结论解决什么问题？}}
 
+\textbf{抛物线不动，题目给的区间却在移动。}为什么同一条抛物线，换个区间，最大值和最小值就变了？因为区间截取了图像的不同一段。\textbf{关键不是死算，而是看“轴在不在”和“端点离轴多远”。}
+
+\medskip
+\textbf{\textcolor{CStatement}{使用条件}}
+\begin{itemize}[leftmargin=*,itemsep=0.2em]
+  \item $f(x)=ax^2+bx+c\ (a\ne0)$ 固定不变，对称轴 $x=h=-\dfrac{b}{2a}$ 固定。
+  \item 只在\textbf{闭区间} $[m,n]$ 上找最值（$m<n$）；区间端点可以含参数。
+\end{itemize}
+
+\textbf{\textcolor{CStatement}{一眼看懂的规律}}
+\begin{itemize}[leftmargin=*,itemsep=0.2em]
+  \item \textbf{开口向上（$a>0$）：}最低处优先看\textbf{轴}，若轴不在区间内，就看\textbf{靠轴较近的端点}；最高处一定在\textbf{离轴较远的端点}。
+  \item \textbf{开口向下（$a<0$）：}最高处优先看\textbf{轴}，若轴不在区间内，就看\textbf{靠轴较近的端点}；最低处一定在\textbf{离轴较远的端点}。
+\end{itemize}
+
+\begin{center}
+\input{assets/tikz/F032_quadratic_interval_extrema_01_statement_01.tex}
+\end{center}
+\noindent\textit{看图：区间包含轴，最低点在轴上；最高点属于更远的端点。图中仅为示意，具体哪端更远应算距离。}
+
+\medskip
+\textbf{\textcolor{CStatement}{准确写法（考试可直接用）}}
+\[
+\begin{aligned}
+ a>0:\quad
+ f_{\min}&=
+ \begin{cases} f(h),&m\le h\le n,\\ \min\{f(m),f(n)\},&h\notin[m,n],\end{cases}
+ &f_{\max}&=\max\{f(m),f(n)\};\\[3pt]
+ a<0:\quad
+ f_{\max}&=
+ \begin{cases} f(h),&m\le h\le n,\\ \max\{f(m),f(n)\},&h\notin[m,n],\end{cases}
+ &f_{\min}&=\min\{f(m),f(n)\}.
+\end{aligned}
+\]
+\textbf{两个切换点（动区间题最有用）：}区间\textbf{刚好碰到轴}时，有 $m=h$ 或 $n=h$；两个端点\textbf{离轴一样远}时，有
+\[
+ |m-h|=|n-h|\ \Longleftrightarrow\ \boxed{\frac{m+n}{2}=h}\quad(m<n).
+\]
+\textbf{注意：}轴在区间内才能取到顶点值。轴刚好落在端点也算“在区间内”。
 \end{statementbox}

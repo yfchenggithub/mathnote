@@ -1,69 +1,59 @@
+% F035 指数幂的运算法则｜03 用三种最容易懂的方法说明为什么成立
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+    \textbf{\textcolor{CProof}{证明从哪里开始？}}\par
+    先只考虑\textbf{正整数指数}：因为 $a^3=a\cdot a\cdot a$，可以真正数清楚有几个 $a$。下面分别说明三条规律；这是初中知识就能理解的部分。
 
-	指数运算法则来源于乘法的交换与结合律，并通过指数定义逐步推广到实数集。
+    \medskip
+    \textbf{\textcolor{CProof}{方法一｜把两串接起来：同底相乘指数相加}}\par
+    对正整数 $m,n$：
+    \[
+      \begin{aligned}
+        a^ma^n
+        &=\bigl(\underbrace{a\cdots a}_{m\text{ 个}}\bigr)
+          \bigl(\underbrace{a\cdots a}_{n\text{ 个}}\bigr)\\
+        &=\underbrace{a\cdots a}_{m+n\text{ 个}}=a^{m+n}.
+      \end{aligned}
+    \]
+    \textbf{为什么对？} 乘法结合律允许我们去掉中间的分组；两串同样的 $a$ 接在一起，总数相加。
+    \begin{center}
+    \input{assets/tikz/F035_exponent_rules_03_proof_01.tex}
+    \end{center}
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（正整数定义）：}] 对于正整数 $m,n$，$a^m$ 表示 $m$ 个 $a$ 相乘。
-			\[
-				a^m = \underbrace{a\times a\times\cdots\times a}_{m}.
-			\]
-			\par\textbf{理由：} 这是幂的原始定义。
+    \medskip
+    \textbf{\textcolor{CProof}{方法二｜数“每组几个”：幂的乘方指数相乘}}\par
+    对正整数 $m,n$，$(a^m)^n$ 就是\textbf{$n$ 组 $a^m$ 相乘}，每组又有 $m$ 个 $a$：
+    \[
+      (a^m)^n=\underbrace{a^m\cdot a^m\cdots a^m}_{n\text{ 组}}
+      =a^{\underbrace{m+\cdots+m}_{n\text{ 个 }m}}=a^{mn}.
+    \]
+    \textbf{为什么对？} 组数 $\times$ 每组数量，就是相同因子的总数。
+    \begin{center}
+    \input{assets/tikz/F035_exponent_rules_03_proof_02.tex}
+    \end{center}
 
-		\item[\textbf{步骤二（同底乘法）：}] 计算 $a^m a^n$：
-			\[
-				\begin{aligned}
-					a^m a^n &= (\underbrace{a\cdots a}_{m})(\underbrace{a\cdots a}_{n}) \\
-					&= \underbrace{a\cdots a}_{m+n} \\
-					&= a^{m+n}.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 乘法结合律，合并相同因子的个数。
+    \medskip
+    \textbf{\textcolor{CProof}{方法三｜把相同因子放一起：积的乘方}}\par
+    对正整数 $m$，$(ab)^m$ 是 $m$ 组 $ab$ 相乘。运用乘法交换律、结合律：
+    \[
+      (ab)^m=\underbrace{(ab)(ab)\cdots(ab)}_{m\text{ 组}}
+        =\underbrace{a\cdots a}_{m\text{ 个}}\,
+         \underbrace{b\cdots b}_{m\text{ 个}}=a^mb^m.
+    \]
+    \textbf{为什么对？} 只是交换乘法因子的顺序，没有改变任何因子的个数。
+    \begin{center}
+    \input{assets/tikz/F035_exponent_rules_03_proof_03.tex}
+    \end{center}
 
-		\item[\textbf{步骤三（幂的乘方）：}] 计算 $(a^m)^n$：
-			\[
-				\begin{aligned}
-					(a^m)^n &= \underbrace{a^m \times a^m \times \cdots \times a^m}_{n} \\
-					&= \underbrace{(a\cdots a)}_{m}\cdots\underbrace{(a\cdots a)}_{m} \\
-					&= a^{mn}.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 幂的定义与乘法结合律。
+    \medskip
+    \textbf{\textcolor{CProof}{负整数、分数、实数指数怎么办？}}\par
+    \begin{itemize}[leftmargin=*,itemsep=0.35em,topsep=0.3em]
+        \item \textbf{零次与负整数次：} 对 $a\ne0$ 规定 $a^0=1$、$a^{-k}=1/a^k$（$k$ 为正整数），例如 $a^3a^{-2}=a$，与 $a^{3+(-2)}=a$ 一致。
+        \item \textbf{分数指数：} 对 $a>0$，$a^{p/q}=\sqrt[q]{a^p}$（$p$ 为整数，$q$ 为正整数）。例如 $(a^{1/2})^2=(\sqrt a)^2=a=a^{(1/2)\times2}$。
+        \item \textbf{任意实数指数：} 高中教材把正底数的指数幂定义扩展到实数指数，三条运算法则继续成立。上面\textbf{数因子}的证明只针对正整数指数，不能直接当作所有实数指数的证明。
+    \end{itemize}
+    \begin{center}
+    \input{assets/tikz/F035_exponent_rules_03_proof_04.tex}
+    \end{center}
 
-		\item[\textbf{步骤四（积的乘方）：}] 计算 $(ab)^m$：
-			\[
-				\begin{aligned}
-					(ab)^m &= \underbrace{(ab)(ab)\cdots(ab)}_{m} \\
-					&= \underbrace{(a\cdots a)}_{m}\underbrace{(b\cdots b)}_{m} \\
-					&= a^m b^m.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 乘法交换与结合律。
-
-		\item[\textbf{步骤五（整数指数）：}] 定义 $a^0=1$，$a^{-n}=1/a^n$（$n>0$）。容易验证三条法则对任意整数仍然成立。例如：
-			\[
-				\begin{aligned}
-					a^m a^{-n} &= a^{m-n} \\
-					&= a^{m+(-n)}.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 新的定义使指数运算封闭。
-
-		\item[\textbf{步骤六（实数指数）：}] 对底数 $a>0$，可通过指数函数 $a^x=e^{x\ln a}$ 将指数扩展到实数，并证明三个法则均成立。例如：
-			\[
-				\begin{aligned}
-					a^m a^n &= e^{m\ln a} e^{n\ln a} \\
-					&= e^{(m+n)\ln a} \\
-					&= a^{m+n}.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 指数函数定义与对数性质。
-	\end{description}
-
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
-
-	\textbf{综上，对于任意实数 $m,n$ 和 $a,b>0$，指数幂运算法则 $a^m a^n=a^{m+n}$，$(a^m)^n=a^{mn}$，$(ab)^m=a^m b^m$ 成立。当 $m,n$ 为整数时，条件可放宽至 $a,b\neq0$。}
+    \textbf{\textcolor{CProof}{最后记住：}}\textbf{加法}来自“把两组接起来”，\textbf{乘法}来自“每组数量乘组数”，\textbf{分别乘方}来自“重新排列相同因子”。
 \end{proofbox}

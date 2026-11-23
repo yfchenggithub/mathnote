@@ -1,29 +1,37 @@
 \begin{explanationbox}
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
+\textbf{\textcolor{CExplanation}{先想一个生活画面}}
 
-	当二次函数开口向上（$a>0$）时，图形像碗，对称轴是碗底所在；区间在碗底附近则最小值在碗底，否则在较近碗边。最大值总是取较高的碗边。开口向下时反过来。
-	\medskip
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（对称轴作用）：}] 对称轴是函数取得极值（抛物线顶点）的位置，也是区分函数在区间上是否单调的分界点。
-		\item[\textbf{要点二（分类策略）：}] 判断对称轴 $x_0$ 是否属于区间 $[m,n]$：若属于，则最值出现在 $x_0$ 和离 $x_0$ 较远的端点（开口向上最大在远端点，开口向下最小在远端点）；若不属于，则函数在区间上单调，最值在两端点中取。因此，求最值时只需比较 $f(m),f(n)$以及（若 $x_0\in[m,n]$）$f(x_0)$ 的大小，无需考虑单调方向。
-	\end{description}
-	\medskip
-	\textbf{\textcolor{CExplanation}{几何本质（抛物线特性）}}
-	二次函数的图象是抛物线，对称轴 $x_0$ 是它的对称线。开口向上时，抛物线向下凸（碗形），顶点是最低点；开口向下时，抛物线向上凸（倒碗），顶点是最高点。区间截取一段抛物线弧，顶点在弧内则最值出现在顶点；顶点在弧外，则弧为单调段，最值在端点。
-	\medskip
-	\textbf{\textcolor{CExplanation}{代数意义（导数判别）}}
-	$f'(x)=2ax+b$，零点 $x_0=-\frac{b}{2a}$ 是极值点。当 $a>0$ 时 $f'(x)$ 在 $x_0$ 左为负、右为正，故 $f(x_0)$ 为极小值；当 $a<0$ 时相反，$f(x_0)$ 为极大值。若 $x_0$ 不在区间 $[m,n]$ 内，则 $f'(x)$ 在区间上不变号，函数单调，最值在端点。
-	\medskip
-	\textbf{\textcolor{CExplanation}{考点价值（分类讨论）}}
-	此结论是含参二次函数在闭区间上最值问题的核心，高考中常以含参函数值域、不等式中参数的取值范围等形式出现。关键在于正确分类对称轴与区间的位置关系，并比较端点函数值。
-	\medskip
-	\textbf{\textcolor{CExplanation}{顿悟点}}
-	最值的取法不是死记硬背，而是由对称轴与区间的位置关系自然决定。开口方向仅影响极值本身的属性（最大/小），但不影响比较方法：若 $x_0\in[m,n]$，只需比较 $f(x_0)$、$f(m)$、$f(n)$ 三者大小；若 $x_0\notin[m,n]$，只需比较 $f(m)$、$f(n)$ 的大小。
-	\medskip
-	\textbf{\textcolor{CExplanation}{使用场景}}
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（定轴动区间）：} 已知二次函数，区间一端含参数，求最值或取值范围。
-		\item \textbf{场景二（定区间动轴）：} 对称轴含参数（如 $f(x)=x^2-2ax+3$），区间固定，需根据 $a$ 分类讨论最值。
-	\end{itemize}
+把开口向上的抛物线想成一个\textbf{U 形滑梯}，最低处是谷底。现在只允许你在滑梯上的\textbf{一段}活动（这段就是区间）：谷底在活动范围内，最低点自然是谷底；谷底在外面，你根本走不到，只能走到\textbf{靠它最近的一端}。找最高点则要去\textbf{离谷底最远的一端}。如果倒过来就是开口向下。
+
+\medskip
+\textbf{\textcolor{CExplanation}{用具体数字看懂“区间动”}}
+
+固定 $f(x)=(x-2)^2$，轴一直是 $x=2$，让长度为 $2$ 的区间 $[t,t+2]$ 从左往右移动：
+\begin{center}
+\input{assets/tikz/F032_quadratic_interval_extrema_02_explanation_01.tex}
+\end{center}
+\begin{itemize}[leftmargin=*,itemsep=0.35em]
+  \item 区间 $[-1,1]$：不包含 $2$，离轴近的是 $1$，最小值 $f(1)=1$；远的是 $-1$，最大值 $f(-1)=9$。
+  \item 区间 $[1,3]$：包含 $2$，最小值 $f(2)=0$；两端到轴距离同为 $1$，\textbf{最大值两端都能取得}，等于 $1$。
+  \item 区间 $[3,5]$：不包含 $2$，最小值 $f(3)=1$，最大值 $f(5)=9$。
+\end{itemize}
+
+\textbf{\textcolor{CExplanation}{为什么比较“横坐标距离”就够？}}
+
+先配方：$f(x)=a(x-h)^2+k$。纵坐标只由\textbf{$x$ 到 $h$ 的距离的平方}决定。比如 $f(x)=(x-2)^2$，$x=0$ 与 $x=4$ 到轴的距离都为 $2$，所以函数值都为 $4$。开口向上时，离轴越远越高；开口向下时，离轴越远越低。
+
+\medskip
+\textbf{\textcolor{CExplanation}{眼前一亮：为什么“中点”会让端点换班？}}
+
+只比较左右端点谁更远：\textbf{若区间中点在轴左侧，左端点更远；若中点在轴右侧，右端点更远；中点恰在轴上时两端一样高。}
+\[
+\boxed{\text{换班位置：}\ \frac{m+n}{2}=h}
+\]
+\begin{center}
+\input{assets/tikz/F032_quadratic_interval_extrema_02_explanation_02.tex}
+\end{center}
+
+\textbf{\textcolor{CExplanation}{最快做题顺序}}
+
+\textbf{第一眼}看开口和固定的轴；\textbf{第二眼}看区间能否碰到轴；\textbf{第三眼}比较端点到轴的距离。遇到参数，重点解\textbf{端点碰轴}和\textbf{区间中点碰轴}这两类等式。\textit{本结论是“轴固定、区间动”；F031 处理的是“区间固定、轴动”，不要混淆。}
 \end{explanationbox}

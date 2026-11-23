@@ -1,0 +1,16 @@
+\begin{tikzpicture}[x=0.9cm,y=0.6cm,>=stealth,font=\small]
+    \draw[->,gray] (-0.55,0)--(5.4,0) node[right] {$x$};
+    \draw[->,gray] (0,-1.55)--(0,2.55) node[above] {$y$};
+    \draw[thick,blue!75!black,domain=-0.55:2.75,samples=55] plot (\x,{(\x-1)*(\x-1)-1});
+    \draw[thick,teal!75!black,domain=1.25:4.75,samples=55] plot (\x,{(\x-3)*(\x-3)-1});
+    \draw[densely dashed,blue!75!black] (1,-1.35)--(1,2.25);
+    \draw[densely dashed,teal!75!black] (3,-1.35)--(3,2.25);
+    \fill[blue!75!black] (1,-1) circle (2pt);
+    \fill[teal!75!black] (3,-1) circle (2pt);
+    \node[below left,blue!75!black] at (1,-1) {$(1,-1)$};
+    \node[below right,teal!75!black] at (3,-1) {$(3,-1)$};
+    \node[above,blue!75!black] at (1,2.25) {$x=1$};
+    \node[above,teal!75!black] at (3,2.25) {$x=3$};
+    \draw[->,teal!75!black,very thick] (1.4,-1.65)--(2.6,-1.65)
+      node[midway,below] {右移 $2$};
+  \end{tikzpicture}

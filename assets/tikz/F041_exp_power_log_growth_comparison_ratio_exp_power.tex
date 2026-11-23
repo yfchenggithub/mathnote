@@ -1,0 +1,13 @@
+\begin{tikzpicture}[font=\small,>=stealth]
+\draw[draw=teal!50!black,fill=green!3,rounded corners=3pt] (0,0) rectangle (13,6.7);
+\node at (6.5,6.1) {用比值看领先多少：取 $a=2,\ \alpha=2$};
+\begin{scope}[shift={(1.1,1.25)},x=.65cm,y=.34cm]
+\draw[gray,->] (1.5,0)--(10.7,0) node[right] {$x$};\draw[gray,->] (2,0)--(2,11.6) node[above] {$r$};
+\draw[gray,dashed] (2,1)--(10,1);\node[left] at (2,1) {$1$};
+\draw[teal!70!black,very thick,domain=2:10,samples=100] plot(\x,{2^\x/(\x*\x)});
+\foreach \x in {2,4,6,8,10}\node[below] at (\x,-.1) {$\x$};
+\fill[orange!85!black] (4,1) circle(2.5pt) (8,4) circle(2.5pt) (10,10.24) circle(2.5pt);
+\end{scope}
+\node[anchor=west,align=left,text width=4.3cm] at (8.3,3.65) {$r=2^x/x^2$\\[10pt]$x=4$：一样大，$r=1$。\\[10pt]$x=8$：指数是幂的 $4$ 倍。\\[10pt]$x=10$：已是 $10.24$ 倍。};
+\node at (6.5,.45) {图只展示代表数值；上面的证明说明任意固定 $a>1,\alpha>0$ 的最终趋势。};
+\end{tikzpicture}

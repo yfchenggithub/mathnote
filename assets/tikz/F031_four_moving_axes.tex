@@ -1,0 +1,67 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[draw=teal!45!black,fill=green!3,rounded corners=3pt] (0,0) rectangle (13.8,12.4);
+\node at (6.9,11.75) {$f(x)=(x-t)^2$，固定 $[0,4]$；四图坐标尺度相同};
+\node at (3.65,10.95) {$t=-1$：轴在左侧};
+\begin{scope}[shift={(1.45,7.2)},x=.65cm,y=.12cm]
+\draw[gray,->] (-1.35,0)--(5.4,0) node[right] {$x$};
+\draw[gray,->] (0,0)--(0,26);
+\draw[F031Axis,densely dashed] (-1,0)--(-1,26);
+\draw[teal!60!black,very thick] (0,0)--(4,0);
+\node[below] at (0,-.5) {$0$};\node[below] at (4,-.5) {$4$};
+\begin{scope}\clip (-1.4,-.2) rectangle (5.5,26);
+\draw[gray!60,densely dotted,domain=-1.35:5.35,samples=81] plot(\x,{(\x-(-1))^2});
+\draw[F031Curve,very thick,domain=0:4,samples=81] plot(\x,{(\x-(-1))^2});
+\end{scope}
+\fill[F031Min] (0,1) circle(2.6pt);
+\fill[F031Max] (4,25) circle(2.6pt);
+\draw[gray,fill=green!3] (-1,0) circle(2.6pt);
+\end{scope}
+\node at (3.65,6.2) {{\color{F031Min}最小 $1$（$x=0$）}\quad{\color{F031Max}最大 $25$（$x=4$）}};
+\node at (10.55,10.95) {$t=1$：轴在内部};
+\begin{scope}[shift={(8.35,7.2)},x=.65cm,y=.12cm]
+\draw[gray,->] (-1.35,0)--(5.4,0) node[right] {$x$};
+\draw[gray,->] (0,0)--(0,26);
+\draw[F031Axis,densely dashed] (1,0)--(1,26);
+\draw[teal!60!black,very thick] (0,0)--(4,0);
+\node[below] at (0,-.5) {$0$};\node[below] at (4,-.5) {$4$};
+\begin{scope}\clip (-1.4,-.2) rectangle (5.5,26);
+\draw[gray!60,densely dotted,domain=-1.35:5.35,samples=81] plot(\x,{(\x-(1))^2});
+\draw[F031Curve,very thick,domain=0:4,samples=81] plot(\x,{(\x-(1))^2});
+\end{scope}
+\fill[F031Min] (1,0) circle(2.6pt);
+\fill[F031Max] (4,9) circle(2.6pt);
+\end{scope}
+\node at (10.55,6.2) {{\color{F031Min}最小 $0$（$x=1$）}\quad{\color{F031Max}最大 $9$（$x=4$）}};
+\node at (3.65,5.35) {$t=2$：轴在中点};
+\begin{scope}[shift={(1.45,1.6)},x=.65cm,y=.12cm]
+\draw[gray,->] (-1.35,0)--(5.4,0) node[right] {$x$};
+\draw[gray,->] (0,0)--(0,26);
+\draw[F031Axis,densely dashed] (2,0)--(2,26);
+\draw[teal!60!black,very thick] (0,0)--(4,0);
+\node[below] at (0,-.5) {$0$};\node[below] at (4,-.5) {$4$};
+\begin{scope}\clip (-1.4,-.2) rectangle (5.5,26);
+\draw[gray!60,densely dotted,domain=-1.35:5.35,samples=81] plot(\x,{(\x-(2))^2});
+\draw[F031Curve,very thick,domain=0:4,samples=81] plot(\x,{(\x-(2))^2});
+\end{scope}
+\fill[F031Min] (2,0) circle(2.6pt);
+\fill[F031Max] (0,4) circle(2.6pt);
+\fill[F031Max] (4,4) circle(2.6pt);
+\end{scope}
+\node at (3.65,0.6) {{\color{F031Min}最小 $0$（$x=2$）}\quad{\color{F031Max}最大 $4$（$x=0,4$）}};
+\node at (10.55,5.35) {$t=5$：轴在右侧};
+\begin{scope}[shift={(8.35,1.6)},x=.65cm,y=.12cm]
+\draw[gray,->] (-1.35,0)--(5.4,0) node[right] {$x$};
+\draw[gray,->] (0,0)--(0,26);
+\draw[F031Axis,densely dashed] (5,0)--(5,26);
+\draw[teal!60!black,very thick] (0,0)--(4,0);
+\node[below] at (0,-.5) {$0$};\node[below] at (4,-.5) {$4$};
+\begin{scope}\clip (-1.4,-.2) rectangle (5.5,26);
+\draw[gray!60,densely dotted,domain=-1.35:5.35,samples=81] plot(\x,{(\x-(5))^2});
+\draw[F031Curve,very thick,domain=0:4,samples=81] plot(\x,{(\x-(5))^2});
+\end{scope}
+\fill[F031Min] (4,1) circle(2.6pt);
+\fill[F031Max] (0,25) circle(2.6pt);
+\draw[gray,fill=green!3] (5,0) circle(2.6pt);
+\end{scope}
+\node at (10.55,0.6) {{\color{F031Min}最小 $1$（$x=4$）}\quad{\color{F031Max}最大 $25$（$x=0$）}};
+\end{tikzpicture}\end{center}

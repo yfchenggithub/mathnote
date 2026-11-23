@@ -1,21 +1,40 @@
 \begin{trapbox}
-	\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点一（忽略定义域）}}] 未检查真数 $b>0$ 就应用符号法则。
-		\item[\textbf{\textcolor{CTrap}{正确理解（定义域优先）：}}] 使用 $\log_a b$ 的符号法则前，必须先确保 $b>0$，且 $a>0,\ a\neq1$。
-		\item[\textbf{\textcolor{CTrap}{错因分析（跳过验真）：}}] 对数运算要求真数严格正，跳过此步骤直接计算 $(a-1)(b-1)$ 可能得到错误符号（如真数为负时无意义）。
-	\end{description}
+  \textbf{\textcolor{CTrap}{易错 1｜只看乘积，忘记对数存在的条件}}
 
-	\medskip
-	\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（片面记忆）}}] 错误认为底数 $a>1$ 时 $\log_a b$ 一定为正，或底数 $0<a<1$ 时一定为负。
-		\item[\textbf{\textcolor{CTrap}{正确理解（乘积判号）：}}] $\log_a b$ 的符号取决于 $(a-1)(b-1)$ 的符号，即底数与真数相对于 $1$ 的大小关系共同决定。
-		\item[\textbf{\textcolor{CTrap}{错因分析（忽略真数）：}}] 只考虑底数，忽略了真数 $b$ 的位置。例如 $\log_2 0.5 = -1 < 0$，底数虽大于 $1$，但真数小于 $1$，结果反而为负。
-	\end{description}
+  \textbf{错误想法：}因为 $(\frac12-1)(-2-1)>0$，所以 $\log_{\frac12}(-2)>0$。
 
-	\medskip
-	\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点三（忽视零界）}}] 将 $b=1$ 或 $a=1$ 的情况代入符号法则，认为 $\log_a 1 >0$ 或 $<0$。
-		\item[\textbf{\textcolor{CTrap}{正确理解（等号排除）：}}] 当 $b=1$ 时，$\log_a b = 0$，不满足 $>0$ 或 $<0$；当 $a=1$ 时对数无定义，也应排除。
-		\item[\textbf{\textcolor{CTrap}{错因分析（机械套用）：}}] 直接套用 $(a-1)(b-1)>0$ 的条件，得到 $b=1$ 时 $(a-1)(0)=0$，不属于正或负，导致误判符号。
-	\end{description}
+  \textbf{为什么错？}真数 $-2<0$，这个对数\textbf{根本不存在}！判号公式必须在 $a>0,\ a\neq1,\ b>0$ 的前提下使用。
+  \begin{center}
+  \input{assets/tikz/F042_logarithm_sign_rule_05_traps_01.tex}
+  \end{center}
+
+  \medskip
+  \textbf{\textcolor{CTrap}{易错 2｜只看底数，不看真数}}
+
+  \textbf{错误想法：}“底数 $2>1$，所以 $\log_2\frac12>0$。”
+
+  \textbf{改正：}$2^{-1}=\frac12$，所以 $\log_2\frac12=-1<0$。底数大于 $1$ 时，真数小于 $1$，对数仍是负数。
+  \begin{center}
+  \input{assets/tikz/F042_logarithm_sign_rule_05_traps_02.tex}
+  \end{center}
+
+  \medskip
+  \textbf{\textcolor{CTrap}{易错 3｜把“零”和“无定义”混为一谈}}
+
+  $\log_3 1=0$，因为 $3^0=1$；但 $\log_1 3$ \textbf{不存在}，因为 $1$ 的任何次方都是 $1$，不可能得到 $3$。
+  \begin{center}
+  \input{assets/tikz/F042_logarithm_sign_rule_05_traps_03.tex}
+  \end{center}
+
+  \medskip
+  \textbf{\textcolor{CTrap}{易错 4｜解不等式时忘记真数必须大于零}}
+
+  例如 $\log_{\frac12}(x-1)>0$，因为底数小于 $1$，必须有 $x-1<1$，\textbf{但还要有 $x-1>0$}。
+  \[
+    0<x-1<1\quad\Longleftrightarrow\quad\boxed{1<x<2}.
+  \]
+  \begin{center}
+  \input{assets/tikz/F042_logarithm_sign_rule_05_traps_04.tex}
+  \end{center}
+  \textbf{检查清单：}底数正且不等于 $1$；真数严格大于 $0$；真数等于 $1$ 时结果为 $0$。
 \end{trapbox}

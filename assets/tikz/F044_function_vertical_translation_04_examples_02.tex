@@ -1,0 +1,13 @@
+\begin{tikzpicture}[x=0.97cm,y=0.67cm,>=stealth]
+    \draw[->,gray] (-2.15,0)--(2.30,0) node[right] {$x$};
+    \draw[->,gray] (0,-2.55)--(0,3.15) node[above] {$y$};
+    \draw[gray!75,thick,domain=-1.70:1.70,samples=55] plot (\x,{\x*\x});
+    \draw[CExample,very thick,domain=-1.70:1.70,samples=55] plot (\x,{\x*\x-2});
+    \fill (0,0) circle (1.8pt);
+    \fill[CExample] (0,-2) circle (1.8pt);
+    \draw[->,CExample,thick] (0.32,-0.22)--(0.32,-1.80);
+    \node[anchor=west,CExample] at (2,-3.1) {下移$2$};
+    \node[right] at (2.0,2.55) {$y=x^2$};
+    \node[right,CExample] at (2.0,-1.2) {$y=x^2-2$};
+    \node[left] at (0,-2) {$-2$};
+  \end{tikzpicture}

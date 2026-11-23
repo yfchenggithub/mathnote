@@ -1,0 +1,20 @@
+\begin{tikzpicture}[x=0.94cm,y=0.77cm,>=stealth,font=\small]
+    \draw[->,gray!75] (-3.9,0)--(3.95,0) node[right] {$x$};
+    \draw[->,gray!75] (0,-0.3)--(0,2.7) node[above left,xshift=-20pt] {$y$};
+    \draw[very thick,blue!80!black,domain=-1.49:1.49,samples=55] plot (\x,{\x*\x});
+    \draw[very thick,teal!75!black,domain=-3.49:-0.51,samples=55] plot (\x,{(\x+2)*(\x+2)});
+    \draw[very thick,orange!85!black,domain=0.51:3.49,samples=55] plot (\x,{(\x-2)*(\x-2)});
+    \fill[teal!75!black] (-2,0) circle (1.9pt);
+    \fill[blue!80!black] (0,0) circle (1.9pt);
+    \fill[orange!85!black] (2,0) circle (1.9pt);
+    \node[below,teal!75!black] at (-2,-0.04) {$-2$};
+    \node[below,blue!80!black] at (0,-0.04) {$0$};
+    \node[below,orange!85!black] at (2,-0.04) {$2$};
+    \node[teal!75!black,above] at (-2.55,2.3) {$y=(x+2)^2$};
+    \node[blue!80!black,above] at (0,2.36) {$y=x^2$};
+    \node[orange!85!black,above] at (2.5,2.3) {$y=(x-2)^2$};
+    \draw[->,teal!75!black,thick] (-0.24,-0.72)--(-1.76,-0.72)
+      node[midway,below] {左移 $2$};
+    \draw[->,orange!85!black,thick] (0.24,-0.72)--(1.76,-0.72)
+      node[midway,below] {右移 $2$};
+  \end{tikzpicture}

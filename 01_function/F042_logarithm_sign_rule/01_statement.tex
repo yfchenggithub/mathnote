@@ -1,31 +1,30 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件1（定义域范围）：}}] $a>0$, $a\neq 1$, $b>0$.
-	\end{description}
+  \textbf{\textcolor{CStatement}{先回答一个问题}}\quad
+  不知道 $\log_2 7$ 的准确值，也能判断它是正数还是负数吗？\textbf{能！只要把底数、真数分别和 $1$ 比一比。}
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（正负判号）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			对数的正负由底数与真数是否同时位于1的同侧决定。
-			\[
-				\log_a b > 0 \iff (a-1)(b-1) > 0,
-				\qquad
-				\log_a b < 0 \iff (a-1)(b-1) < 0.
-			\]
+  \medskip
+  \textbf{\textcolor{CStatement}{使用条件}}\quad $a>0,\ a\neq1,\ b>0$（底数是正数但不能等于 $1$；真数必须为正）。
 
-		\item[\textbf{\textcolor{CStatement}{推广结论（区间判号）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			底真同区间（都大于1或都小于1）对数为正，底真跨区间对数为负。
-			\[
-				\begin{aligned}
-					&\log_a b>0 \iff (a>1\land b>1)\lor(0<a<1\land 0<b<1);\\
-					&\log_a b<0 \iff (a>1\land 0<b<1)\lor(0<a<1\land b>1).
-			\end{aligned}
-			\]
-	\end{description}
+  \medskip
+  \textbf{\textcolor{CStatement}{核心结论：底真同侧为正，异侧为负}}
+  \[
+    \boxed{\ \log_a b>0\iff(a-1)(b-1)>0\ },\qquad
+    \boxed{\ \log_a b<0\iff(a-1)(b-1)<0\ }.
+  \]
+  \begin{center}
+  \input{assets/tikz/F042_logarithm_sign_rule_01_statement_01.tex}
+  \end{center}
 
-	\textbf{\textcolor{CStatement}{使用提醒：}}
-	注意检验真数 $b>0$；当 $b=1$ 时 $\log_a b = 0$，不适用该法则。
+  \textbf{\textcolor{CStatement}{四种情况，一眼看懂}}
+  \[
+    \begin{array}{c|cc}
+      &b>1&0<b<1\\ \hline
+      a>1 & + & -\\
+      0<a<1 & - & +
+    \end{array}
+  \]
+  \textbf{例：}\,$\log_2 4=2>0$，$\log_2\frac14=-2<0$，
+  $\log_{\frac12}\frac14=2>0$，$\log_{\frac12}4=-2<0$。
+
+  \textbf{\textcolor{CStatement}{边界提醒}}\quad $\log_a1=0$；$a=1$ 或 $b\leq0$ 时，对数不存在。先检查条件，再判正负。
 \end{statementbox}

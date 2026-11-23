@@ -1,42 +1,31 @@
+% F035 指数幂的运算法则｜01 核心结论
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件1（底数为正）：}}] 底数 $a,b>0$，指数 $m,n\in\mathbb{R}$。
-	\end{description}
+    \textbf{\textcolor{CStatement}{先看一个问题}}\par
+    $2^3\times2^4$ 要不要把 $7$ 个 $2$ 全部乘出来？不用。把两组相同的因子接起来，就有 $2^{3+4}=2^7$。
 
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（同底相乘）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			同底数幂相乘，指数相加。
-			\[
-				a^m \cdot a^n = a^{m+n}.
-			\]
+    \medskip
+    \begin{center}
+    \input{assets/tikz/F035_exponent_rules_01_statement_01.tex}
+    \end{center}
 
-		\item[\textbf{\textcolor{CStatement}{结论二（幂的乘方）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			幂的乘方，指数相乘。
-			\[
-				(a^m)^n = a^{mn}.
-			\]
+    \textbf{\textcolor{CStatement}{三条一定要会的规律}}\par
+    当 $a,b>0$，$m,n$ 为任意实数时：
+    \begin{description}[style=nextline,leftmargin=2.5em,itemsep=0.45em]
+        \item[\textbf{一、 同底数幂相乘：指数相加。}]
+        \[a^m\cdot a^n=a^{m+n}.\]
+        \textbf{看结构：} $a^m$ 和 $a^n$ 并排相乘，合并成一组。
+        \item[\textbf{二、 幂的乘方：指数相乘。}]
+        \[(a^m)^n=a^{mn}.\]
+        \textbf{看结构：} 括号外还有一次乘方，相当于每组 $m$ 个，共有 $n$ 组。
+        \item[\textbf{三、 积的乘方：每个因子都要乘方。}]
+        \[(ab)^m=a^mb^m.\]
+        \textbf{看结构：} $ab$ 整体乘方，$a$ 和 $b$ 都不能漏。
+    \end{description}
 
-		\item[\textbf{\textcolor{CStatement}{结论三（积的乘方）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			积的乘方等于乘方的积。
-			\[
-				(ab)^m = a^m b^m.
-			\]
-
-		\item[\textbf{\textcolor{CStatement}{推广结论（整数放宽）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			当指数为整数时，底数可以取非零实数。
-			\[
-				\begin{aligned}
-					a^m a^n &= a^{m+n},\\
-					(a^m)^n &= a^{mn},\\
-					(ab)^m &= a^m b^m,
-			\end{aligned}
-				\qquad (a,b\neq0,\; m,n\in\mathbb{Z}).
-			\]
-	\end{description}
+    \textbf{\textcolor{CStatement}{使用前先看条件}}\par
+    \begin{itemize}[leftmargin=*,itemsep=0.25em,topsep=0.3em]
+        \item \textbf{任意实数指数：} 用 $a,b>0$ 这一组安全条件。
+        \item \textbf{整数指数：} 若底数非零，正数和负数都可以套用；正整数次幂的底数还可以是 $0$。
+        \item \textbf{出现零次幂或负整数次幂：} 底数不能是 $0$，因为不能除以 $0$。
+    \end{itemize}
 \end{statementbox}
