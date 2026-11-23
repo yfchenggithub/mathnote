@@ -1,0 +1,156 @@
+% F083｜04 例题：由直接识别走向参数与高考应用
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 0：先看左右是否对应（最简单）}}
+
+判断 $f(x)=3^x+3^{-x}$、$g(x)=3^x-3^{-x}$ 的奇偶性。
+
+以 $x=1$ 和 $x=-1$ 试算：
+\[
+ f(1)=f(-1)=3+\tfrac13,\quad
+ g(1)=\tfrac83,\ g(-1)=-\tfrac83.
+\]
+数字已经提示：一个不变、一个变相反数。一般证明只需交换 $3^x$ 与 $3^{-x}$，所以
+\[
+ \boxed{f\text{ 为偶函数，}g\text{ 为奇函数}}.
+\]
+\textbf{提醒：}试两个数只是帮助发现规律，正式判断要对所有允许的 $x$ 成立。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 1：同样的指数分式，为什么一个不能取 $0$？}}
+
+判断
+\[
+ f(x)=\frac{3^x-1}{3^x+1},\qquad
+ g(x)=\frac{3^x+1}{3^x-1}.
+\]
+因为 $3^x>0$，$f$ 的分母恒正，定义域为 $\mathbb R$；$g$ 的分母在 $x=0$ 时为 $0$，定义域为 $\mathbb R\setminus\{0\}$。两者定义域都关于 $0$ 对称。
+
+再把 $3^{-x}=1/3^x$ 代入，两式均变成原式的相反数，故\textbf{两者都是奇函数}。
+
+\textbf{特别区分：}$f(0)=0$；$g(0)$ \textbf{不存在}，不能拿“奇函数经过原点”去否定 $g$。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 2：先解对数真数的范围，再判奇偶}}
+
+判断
+\[
+ f(x)=\ln\frac{2x-3}{2x+3}.
+\]
+对数要求
+\[
+ \frac{2x-3}{2x+3}>0
+ \quad\Longleftrightarrow\quad x< -\tfrac32\ \text{或}\ x>\tfrac32.
+\]
+可见 $x$ 与 $-x$ 都能取。变号后
+\[
+\begin{aligned}
+ f(-x)&=\ln\frac{-2x-3}{-2x+3}
+ =\ln\frac{2x+3}{2x-3}\\
+ &=\ln\frac1{(2x-3)/(2x+3)}=-f(x).
+\end{aligned}
+\]
+故 $\boxed{f\text{ 是奇函数}}$。
+
+\textbf{最快的地方：}不必求导，也不用考虑对数在左右各自增减；只需发现\textbf{真数变倒数}。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 3：一个平方差，解释两个根式对数}}
+
+设
+\[
+ p(x)=\log_2\!\bigl(x+\sqrt{x^2+1}\bigr),\quad
+ q(x)=\log_2\!\bigl(\sqrt{x^2+1}-x\bigr).
+\]
+因为两个括号乘积为 $1$，可得
+\[
+ q(x)=-p(x),\qquad p(-x)=q(x)=-p(x).
+\]
+因此 $p$ 与 $q$ 都是奇函数，并且\textbf{它们相加恒为 $0$}。
+
+比如
+\[
+ p(1)=\log_2(1+\sqrt2),\quad
+ p(-1)=\log_2(\sqrt2-1)=-p(1).
+\]
+\textbf{考试速用：}出现 $\sqrt{x^2+1}\pm x$，先尝试把“加”和“减”相乘，不必展开对数计算。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 4：最后一个偶函数到底藏在哪里？}}
+
+判断
+\[
+ F(x)=x\left(\frac12+\frac1{2^x-1}\right).
+\]
+首先 $2^x-1\ne0\Rightarrow x\ne0$。括号通分：
+\[
+ \frac12+\frac1{2^x-1}
+ =\frac{2^x+1}{2(2^x-1)}.
+\]
+右边是奇函数（指数分式的第二类）的 $\tfrac12$ 倍，所以也是奇函数。再乘上奇函数 $x$，得到偶函数：
+\[
+ \boxed{F(-x)=F(x),\quad x\ne0}.
+\]
+数字验证：$F(1)=\tfrac32$，$F(-1)=\tfrac32$。
+
+\textbf{容易错的地方：}$F(0)$ 不存在；即使从数值上看左右好像能接上，也\textbf{不能擅自把 $0$ 算进定义域}。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 5：不展开计算，直接用 $|x|$、$x^2$ 判断}}
+
+判断
+\[
+ f(x)=5^{|x|},\quad
+ g(x)=5^{-x^2},\quad
+ h(x)=\log_5|x|.
+\]
+将 $x$ 换为 $-x$：$|-x|=|x|$、$(-x)^2=x^2$，因此三个式子\textbf{值都保持不变}：
+\[
+ \boxed{f,g,h\text{ 都是偶函数}}.
+\]
+但定义域不同：$f,g$ 在所有实数上有定义；$h$ 必须 $x\ne0$。
+
+\textbf{考试技巧：}如果题目只是让判断奇偶性，认出 $|x|$ 与平方，通常比作复杂代数运算更快。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 6：用“奇函数在 $0$ 处为 $0$”秒找参数}}
+
+已知 $a>0,a\ne1$，$c>0$，要求
+\[
+ f(x)=\frac{a^x-c}{a^x+c}
+\]
+为奇函数，求 $c$。
+
+由于分母始终正，$x=0$ 在定义域内。奇函数如果在 $0$ 有定义，就必须满足 $f(0)=0$：
+\[
+ \frac{1-c}{1+c}=0\quad\Longrightarrow\quad\boxed{c=1}.
+\]
+\textbf{还要验证：}当 $c=1$，它就是已证明的 $\dfrac{a^x-1}{a^x+1}$，确实是奇函数。
+
+\textbf{关键：}代入 $0$ 给的是\textbf{必要条件}；还要代回验证，才能下结论。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 7：借助奇偶性，少算一个函数值}}
+
+设
+\[
+ f(x)=\log_3\!\bigl(x+\sqrt{x^2+1}\bigr).
+\]
+已知 $f(2)=m$，求 $f(-2)$ 与 $f(2)+f(-2)$。
+
+根式中的两个括号互为倒数，所以 $f$ 是奇函数。直接得
+\[
+ \boxed{f(-2)=-m},\qquad
+ \boxed{f(2)+f(-2)=0}.
+\]
+不需要计算 $\sqrt5$ 的对数，也不需要进行近似计算。
+
+\textbf{高考中何时最快？}当题目给出 $f(t)$，要求 $f(-t)$，或出现 $f(t)+f(-t)$ 时，应先判断奇偶性。
+\end{examplebox}

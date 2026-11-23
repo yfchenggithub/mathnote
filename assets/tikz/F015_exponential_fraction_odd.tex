@@ -1,0 +1,13 @@
+\begin{center}
+\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,7.8);
+\node at (7.1,7.2) {$a=2$：指数分式的点关于原点成对};
+\begin{scope}[shift={(4.0,3.9000000000000004)},x=1.0 cm,y=1.8333333333333335 cm]
+\draw[->,gray] (-3,0)--(3,0) node[right] {$x$};
+\draw[->,gray] (0,-1.2)--(0,1.2) node[above] {$y$};
+\draw[blue,thick,domain=-3:3,samples=201] plot (\x,{(pow(2,\x)-1)/(pow(2,\x)+1)});
+\draw[orange!80!black,dashed] (-1,-.333333)--(1,.333333);\fill[orange!80!black] (-1,-.333333) circle(2pt);\fill[orange!80!black] (1,.333333) circle(2pt);
+\end{scope}
+\node[anchor=west,align=left,text width=5.1cm] at (8.1,4.0) {$f(x)=\dfrac{2^x-1}{2^x+1}$\\[12pt]$f(1)=\dfrac13$\\[10pt]$f(-1)=-\dfrac13$\\[12pt]一对点帮助观察；\\一般结论仍须代数证明。};
+\end{tikzpicture}
+\end{center}

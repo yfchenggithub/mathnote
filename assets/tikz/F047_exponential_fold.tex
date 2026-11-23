@@ -1,0 +1,29 @@
+\begin{center}
+\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,8.4);
+\node at (7.1,7.8) {先保留右半图，再关于 $y$ 轴翻到左侧};
+\node at (3.6,6.9) {$a=2>1$};
+\begin{scope}[shift={(3.6,2.0)},x=1.35cm,y=.95cm]
+\draw[->,gray] (-2.1,0)--(2.1,0) node[right] {$x$};
+\draw[->,gray] (0,-.3)--(0,4.5) node[above] {$y$};
+\draw[gray,dotted,domain=-1.9:0,samples=100] plot(\x,{pow(2,\x)});
+\draw[blue,very thick,domain=0:1.9,samples=100] plot(\x,{pow(2,\x)});
+\draw[orange!85!black,thick,dashed,domain=-1.9:0,samples=100] plot(\x,{pow(2,-\x)});
+\fill[blue] (0,1) circle(2pt);
+\draw[gray] (.06,.96)--(.4,.90)--(1.1,.90);
+\node[anchor=north] at (1.1,.85) {$(0,1)$};
+\end{scope}
+\node at (10.6,6.9) {$a=\frac12<1$};
+\begin{scope}[shift={(10.6,2.0)},x=1.35cm,y=.95cm]
+\draw[->,gray] (-2.1,0)--(2.1,0) node[right] {$x$};
+\draw[->,gray] (0,-.3)--(0,4.5) node[above] {$y$};
+\draw[gray,dotted,domain=-1.9:0,samples=100] plot(\x,{pow(.5,\x)});
+\draw[blue,very thick,domain=0:1.9,samples=100] plot(\x,{pow(.5,\x)});
+\draw[orange!85!black,thick,dashed,domain=-1.9:0,samples=100] plot(\x,{pow(.5,-\x)});
+\fill[blue] (0,1) circle(2pt);
+\draw[gray] (.06,1.04)--(.4,1.55)--(1.1,1.55);
+\node[anchor=south] at (1.1,1.60) {$(0,1)$};
+\end{scope}
+\node[align=center] at (7.1,.85) {蓝色实线：保留右侧\quad 橙色虚线：右侧翻到左侧\\[5pt]灰色点线：原来左侧，不保留；两图坐标尺度相同。};
+\end{tikzpicture}
+\end{center}

@@ -1,0 +1,14 @@
+\begin{center}
+\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,7.8);
+\node at (7.1,7.2) {$a=2$：取绝对值后，两侧得到相同真数};
+\begin{scope}[shift={(4.0,4.633333333333334)},x=1.0 cm,y=0.7333333333333334 cm]
+\draw[->,gray] (-3,0)--(3,0) node[right] {$x$};
+\draw[->,gray] (0,-4)--(0,2) node[above] {$y$};
+\draw[blue,thick,domain=-3:-0.0625,samples=201] plot (\x,{ln(abs(\x))/ln(2)});
+\draw[blue,thick,domain=0.0625:3,samples=201] plot (\x,{ln(abs(\x))/ln(2)});
+\fill[orange!80!black] (-2,1) circle(2pt);\fill[orange!80!black] (2,1) circle(2pt);
+\end{scope}
+\node[anchor=west,align=left,text width=5.1cm] at (8.1,4.0) {$G(x)=\log_2|x|$\\[12pt]$G(-2)=G(2)=1$\\[12pt]$x\ne0$，定义域成对。\\[10pt]外层对数只接收正数，\\不必具有奇偶性。};
+\end{tikzpicture}
+\end{center}

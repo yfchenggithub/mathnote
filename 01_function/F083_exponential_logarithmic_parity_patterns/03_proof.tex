@@ -1,0 +1,85 @@
+% F083｜三种证明方法，按具体结构配图。
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明一：直接代入 $-x$，看指数如何互换}}
+\input{assets/tikz/F083_odd_01_exp_difference.tex}
+
+先检查定义域，再对任意允许的 $x$ 计算。图中的点对提示“差反号”；一般证明为
+\[
+\begin{aligned}
+a^{-x}-a^x&=-(a^x-a^{-x}),\\
+a^{-x}+a^x&=a^x+a^{-x}.
+\end{aligned}
+\]
+所以奇1为奇函数、偶1为偶函数，均在 $\mathbb R$ 上有定义。
+同样，$|-x|=|x|$、$-(-x)^2=-x^2$，得到
+\[
+a^{|-x|}=a^{|x|},\quad a^{-(-x)^2}=a^{-x^2},\quad
+\log_a|-x|=\log_a|x|\ (x\ne0).
+\]
+故偶2、偶3、偶4均为偶函数。对数那一式先排除零，不能省略。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明二：倒数代换——先处理指数分式}}
+\input{assets/tikz/F083_odd_03_exp_reciprocal_fraction.tex}
+
+令 $t=a^x>0$，把 $x$ 换成 $-x$ 后 $t$ 变为 $1/t$。于是
+\[
+\begin{aligned}
+\frac{a^{-x}-1}{a^{-x}+1}&=\frac{1-t}{1+t}=-\frac{t-1}{t+1},\\[3pt]
+\frac{a^{-x}+1}{a^{-x}-1}&=\frac{1+t}{1-t}=-\frac{t+1}{t-1}.
+\end{aligned}
+\]
+奇2的定义域为 $\mathbb R$；奇3须排除 $t=1$，即 $x=0$。两式定义域都对称，且都反号，所以均为奇函数。
+图中奇3的左右分支配对，直接说明“奇函数不一定经过原点”。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明二（续）：真数变倒数——两种对数分式}}
+\input{assets/tikz/F083_odd_04_log_ratio_minus.tex}
+
+设 $k,b\ne0$。真数为正当且仅当 $(kx-b)(kx+b)>0$，即
+$k^2x^2>b^2$，故定义域为 $|x|>|b/k|$，关于原点对称。
+令 $R(x)=\dfrac{kx-b}{kx+b}>0$，则
+\[
+R(-x)=\frac{kx+b}{kx-b}=\frac1{R(x)},\qquad
+\ln R(-x)=-\ln R(x).
+\]
+所以奇4为奇函数。奇5等于 $-\ln R(x)$，也为奇函数。
+图中阴影区间对应真数不为正的位置；仅排除分母为零远远不够。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明二（续）：先证明根式真数互为正倒数}}
+\input{assets/tikz/F083_root_positive_reciprocals.tex}
+
+令 $U(x)=\sqrt{x^2+1}+x$、$V(x)=\sqrt{x^2+1}-x$。因为 $\sqrt{x^2+1}>|x|$，两者均为正，且
+\[
+U(x)V(x)=(x^2+1)-x^2=1,\quad U(-x)=V(x).
+\]
+由对数运算法则，
+\[
+\begin{aligned}
+\log_a U(-x)&=\log_a V(x)=\log_a\frac1{U(x)}=-\log_a U(x),\\
+\log_a V(-x)&=\log_a U(x)=-\log_a V(x).
+\end{aligned}
+\]
+因此奇6、奇7在 $\mathbb R$ 上均为奇函数。图中两个真数始终在横轴上方；它们取对数后才互为相反数。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明三：先拆因子，再用奇乘奇为偶}}
+\input{assets/tikz/F083_even_05_hidden_product.tex}
+
+原式要求 $x\ne0$。令
+\[
+H(x)=\frac12+\frac1{2^x-1}=\frac{2^x+1}{2(2^x-1)}.
+\]
+由奇3的结论，$H(-x)=-H(x)$。因为 $x$ 也是奇函数，所以
+\[
+f(-x)=(-x)H(-x)=(-x)(-H(x))=xH(x)=f(x).
+\]
+故偶5是定义在 $\mathbb R\setminus\{0\}$ 上的偶函数，图中空点不能补入。
+这一步使用的是 F017 的奇偶函数乘法规则；前三类证明已覆盖全部12式。
+\end{proofbox}

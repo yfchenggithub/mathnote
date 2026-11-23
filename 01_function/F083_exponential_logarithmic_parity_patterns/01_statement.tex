@@ -1,0 +1,64 @@
+% F083｜首页以实际指数分式曲线呈现原点对称。
+\begin{statementbox}
+\input{assets/tikz/F083_odd_02_exp_fraction.tex}
+
+\textbf{\textcolor{CStatement}{它解决什么问题？}}
+
+遇到 $a^x$、分式、对数、根号混在一起的函数，题目问“奇还是偶”，如果每次都从头计算 $f(-x)$，容易慢，也容易忘记定义域。\textbf{其实许多式子都来自同一件事：把 $x$ 换成 $-x$，有些量变成倒数，有些量保持不变。}
+
+图中 $a=2$ 与 $a=\frac12$ 的曲线都关于原点对称。另一个同类函数是
+\[
+ f(x)=\frac{2^x-1}{2^x+1},\qquad
+ g(x)=\log_2\!\bigl(x+\sqrt{x^2+1}\bigr).
+\]
+看起来完全不同，却都是奇函数。我们要学会\textbf{认结构、验条件、再速判}。
+\medskip
+\end{statementbox}
+\clearpage
+\begin{statementbox}
+\textbf{\textcolor{CStatement}{先记共同条件}}
+
+令 $a>0$ 且 $a\ne1$。先检查：\textbf{若 $x$ 能代入，$-x$ 也必须能代入。}然后比较
+\[
+ \boxed{f(-x)=-f(x)\ (\text{奇})},\qquad
+ \boxed{f(-x)=f(x)\ (\text{偶})}.
+\]
+
+\textbf{7 个常见奇函数（序号与后文一致）：}
+\[
+\begin{array}{rl}
+\text{奇1}&a^x-a^{-x},\\[3pt]
+\text{奇2}&\dfrac{a^x-1}{a^x+1},\\[6pt]
+\text{奇3}&\dfrac{a^x+1}{a^x-1}\quad(x\ne0),\\[6pt]
+\text{奇4}&\ln\dfrac{kx-b}{kx+b},\\[6pt]
+\text{奇5}&\ln\dfrac{kx+b}{kx-b},\\[6pt]
+\text{奇6}&\log_a\!\bigl(x+\sqrt{x^2+1}\bigr),\\[3pt]
+\text{奇7}&\log_a\!\bigl(\sqrt{x^2+1}-x\bigr).
+\end{array}
+\]
+奇4、奇5 此处取 $k\ne0,b\ne0$，两式均要求 $|x|>|b/k|$；奇6、奇7 在所有实数上有定义。
+\end{statementbox}
+\clearpage
+\begin{statementbox}
+\textbf{\textcolor{CStatement}{5 个常见偶函数}}
+\[
+\begin{array}{rl}
+\text{偶1}&a^x+a^{-x},\\[3pt]
+\text{偶2}&a^{|x|},\\[3pt]
+\text{偶3}&a^{-x^2},\\[3pt]
+\text{偶4}&\log_a|x|\quad(x\ne0),\\[3pt]
+\text{偶5}&x\left(\dfrac12+\dfrac1{2^x-1}\right)\quad(x\ne0).
+\end{array}
+\]
+
+\textbf{最快记忆：}
+\begin{itemize}[leftmargin=*,itemsep=.25em]
+ \item 指数成对：$a^x\pm a^{-x}$，\textbf{加偶、减奇}。
+ \item 指数分式：$a^x$ 换成 $a^{-x}=1/a^x$，\textbf{奇2、奇3 都变号}。
+ \item 对数比值：换成 $-x$ 时分子分母互换，\textbf{对数变相反数}。
+ \item 根式对数：$\sqrt{x^2+1}+x$ 与 $\sqrt{x^2+1}-x$ \textbf{互为倒数}。
+ \item 出现 $|x|$ 或 $x^2$，先看是否\textbf{替换后不变}；最后一个偶函数是\textbf{奇函数乘奇函数}。
+\end{itemize}
+
+\textbf{边界提醒：}奇函数\textbf{只有在 $0$ 属于定义域时}，才必须满足 $f(0)=0$。奇3、奇4、奇5、偶4、偶5 均不能直接把 $0$ 代入。
+\end{statementbox}

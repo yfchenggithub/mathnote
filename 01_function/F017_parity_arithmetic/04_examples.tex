@@ -155,3 +155,26 @@ P(x)=\frac{(x^2+1)\sin x}{x(x^2+1)}
 \textbf{第三步验算}：约去 $x^2+1$ 后得 $\sin x/x$（仍要求 $x\ne0$），
 把 $x$ 换为 $-x$，上下同时变号，比值不变。
 \end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 9：隐藏偶函数——先识别括号内的奇函数}}
+\input{assets/tikz/F017_hidden_even_product.tex}
+判断 $H(x)=\left(\dfrac12+\dfrac1{2^x-1}\right)x$ 的奇偶性。
+
+\textbf{第一步：保留原定义域。} $2^x-1\ne0$，即 $x\ne0$，此范围关于原点对称。
+令 $g(x)=\dfrac12+\dfrac1{2^x-1}$。对任意 $x\ne0$，
+\[
+\begin{aligned}
+g(-x)&=\frac12+\frac{2^x}{1-2^x}\\
+&=\frac12-1-\frac1{2^x-1}=-g(x).
+\end{aligned}
+\]
+所以 $g$ 是奇函数，$x$ 也是奇函数；由\textbf{奇函数乘奇函数得偶函数}，
+\[
+H(-x)=(-x)g(-x)=(-x)(-g(x))=H(x).
+\]
+故 $H$ 是定义在 $\mathbb R\setminus\{0\}$ 上的\textbf{偶函数}。
+回验：$H(1)=H(-1)=\frac32$。尽管图像靠近原点两侧时高度趋向同一个数，原式在 $0$ 仍无定义，不能补点。
+
+\textbf{关联阅读：} F083《常见指数、对数型函数的奇偶性速判》。
+\end{examplebox}

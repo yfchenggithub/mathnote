@@ -1,0 +1,14 @@
+\begin{center}
+\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,7.8);
+\node at (7.1,7.2) {隐藏偶函数：两个因子变号，乘积左右同高};
+\begin{scope}[shift={(4.0,1.7)},x=1.0 cm,y=1.8333333333333335 cm]
+\draw[->,gray] (-3,0)--(3,0) node[right] {$x$};
+\draw[->,gray] (0,0)--(0,2.4) node[above] {$y$};
+\draw[blue,thick,domain=-3:-0.012,samples=201] plot (\x,{\x*(pow(2,\x)+1)/(2*(pow(2,\x)-1))});
+\draw[blue,thick,domain=0.012:3,samples=201] plot (\x,{\x*(pow(2,\x)+1)/(2*(pow(2,\x)-1))});
+\fill[orange!80!black] (-1,1.5) circle(2pt);\fill[orange!80!black] (1,1.5) circle(2pt);\draw[blue,fill=white,thick] (0,1.44269504) circle(2.6pt);
+\end{scope}
+\node[anchor=west,align=left,text width=5.1cm] at (8.1,4.0) {$H(x)=x\!\left(\dfrac12+\dfrac1{2^x-1}\right)$\\[12pt]$H(-1)=H(1)=\dfrac32$\\[12pt]$x\ne0$；空点不能补入。\\[10pt]空点高度为 $1/\ln2$。};
+\end{tikzpicture}
+\end{center}
