@@ -79,3 +79,57 @@
 
 \textbf{考场检查顺序：}先问“要找的是镜像图，还是判断原图自己不变？”；再写 $g$ 的式子；最后才看 $g$ 与 $f$ 是否在\textbf{完整定义域}上相等。
 \end{trapbox}
+
+
+% F048 二次补充：一个等高点对不能推出整张图轴对称
+\clearpage
+\begin{trapbox}
+\textbf{易错七｜只找到一对等高点，就断言整张图对称}
+\begin{center}
+\begin{tikzpicture}[x=1.02cm,y=.35cm,>=stealth]
+  \draw[->,gray] (-2.35,0)--(2.3,0) node[right] {$x$};
+  \draw[->,gray] (0,-7.2)--(0,7.2) node[above] {$y$};
+  \draw[blue,very thick,domain=-2.02:2.02,samples=70] plot (\x,{\x*\x*\x-\x});
+  \fill[blue] (-1,0) circle (2.6pt);
+  \fill[blue] (1,0) circle (2.6pt);
+  \fill[blue] (-2,-6) circle (2.6pt);
+  \fill[blue] (2,6) circle (2.6pt);
+  \draw[orange,densely dashed] (0,-7)--(0,7);
+  \node[font=\scriptsize] at (-1,.65) {$-1$};
+  \node[font=\scriptsize] at (1,.65) {$1$};
+  \node[blue,font=\scriptsize,anchor=west] at (1.03,5.6) {$f(x)=x^3-x$};
+\end{tikzpicture}
+\end{center}
+\textbf{错误：}因为 $f(-1)=f(1)=0$，就认定整张图像关于 $y$ 轴对称。
+
+\textbf{反例：} $f(x)=x^3-x$ 确实有 $f(-1)=f(1)=0$，但 $f(-2)=-6$、$f(2)=6$，不等高。因此 $x=0$ 只是第一对点的横坐标中点，\textbf{不是整张图的对称轴}。
+
+\textbf{正确做法：}必须对定义域内\textbf{每一个点}都能找到镜像点，并且每对点的横坐标中点固定；还要检查完整定义域是否左右对应。
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{易错八｜混用两张新图的 $x$，或把“括号相等”当作唯一办法}
+\begin{center}
+\begin{tikzpicture}[x=.8cm,y=.9cm,>=stealth]
+  \draw[->,gray] (.2,0)--(7.5,0);
+  \draw[orange,densely dashed] (3.85,-.3)--(3.85,1.7);
+  \fill[blue] (2.4,.85) circle (2.7pt);
+  \fill[teal] (5.3,.85) circle (2.7pt);
+  \draw[teal,densely dotted] (2.4,.85)--(5.3,.85);
+  \node[below,font=\small] at (2.4,0) {$x_1=1$};
+  \node[below,font=\small] at (3.85,0) {$c=2$};
+  \node[below,font=\small] at (5.3,0) {$x_2=3$};
+  \node[above,blue,font=\scriptsize] at (2.4,.85) {$F(1)=16$};
+  \node[above,teal,font=\scriptsize] at (5.3,.85) {$G(3)=16$};
+\end{tikzpicture}
+\end{center}
+\textbf{错误一：}对 $F(x)=f(3+x)$、$G(x)=f(7-x)$，把\textbf{同一个} $x$ 代入两个函数，指望它们处处同高。
+
+\textbf{先检查题目给了什么等号：}$F(x)=f(3+x)$ 与 $G(x)=f(7-x)$ 只是两张图的定义，\textbf{没有给出 $f(3+x)=f(7-x)$}。若另有这个等式并对所有对应输入成立，它说明的是\textbf{原函数}在 $3+x$ 与 $7-x$ 两处等高，原图的轴为 $x=5$；这与两张新图关于 $x=2$ 相互对称可以同时成立，并不矛盾。
+
+\textbf{纠正：}应使用两张图\textbf{各自}的横坐标 $x_1,x_2$。例如 $f(u)=u^2$ 时，$F(1)=16$、$G(1)=36$，并不相等；但 $G(3)=16$，可与 $F(1)$ 配成等高点。令 $3+x_1=7-x_2$，得到 $x_1+x_2=4$。
+
+\textbf{错误二：}认为只有 $f$ 括号里的输入完全相同，函数值才可能相等。
+
+\textbf{纠正：}如果 $f(u)=u^2$，$f(1)=f(-1)$ 也成立。\textbf{让括号相同不是等高的必要条件，而是对任意函数都有效的构造方法。}这条构造已经覆盖两张新图的全部点，因此足够证明对称。
+\end{trapbox}

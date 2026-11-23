@@ -93,7 +93,8 @@
 % F048 新增：由已有“求镜像”证明一步得到 F020 / F021
 \clearpage
 \begin{proofbox}
-\textbf{统一证明一｜为什么从“两图相互对称”就能推出 F020？（门槛最低）}
+\textbf{统一证明一｜为什么从“两图相互对称”}\par
+\textbf{就能推出 F020？（门槛最低）}
 \input{assets/tikz/F048_pair_vertical_axis}
 
 \textbf{第一步：}在旧图上任取一点 $P(u,f(u))$。关于直线 $x=a$ 翻折后，横坐标改成 $2a-u$，高度不变，因此得到
@@ -127,4 +128,56 @@
 连同定义域关于 $x=a$ 对应的条件，这恰好是 F021 的自身中心对称判定。
 
 \textbf{顺手记两个特例：}取 $(a,b)=(0,0)$，就有 $f(-x)=-f(x)$（奇函数）；取 $a=0$ 做竖直轴翻折，就有 $f(-x)=f(x)$（偶函数）。两种奇偶性本来也是\textbf{“对称变换后没有变”}。
+\end{proofbox}
+
+
+% F048 二次补充：同一几何逻辑的两段严格推导
+\clearpage
+\begin{proofbox}
+\textbf{证明补充一｜原函数自身对称：先等高，再取原图横坐标中点}
+\input{assets/tikz/F048_equal_height_self}
+
+设原函数的定义域为 $D$，且对所有 $a+t\in D$，都有 $b-t\in D$ 和
+\[f(a+t)=f(b-t).\]
+记 $c=(a+b)/2$。任取原图上的点 $P=(u,f(u))$，令 $t=u-a$，于是
+\[a+t=u,\qquad b-t=a+b-u=2c-u.\]
+由已知等式，$Q=(2c-u,f(u))$ 也在原图上，并且
+\[\frac{u+(2c-u)}2=c,\qquad f(u)=f(2c-u).\]
+所以 $P,Q$ 高度相同，横坐标中点固定为 $c$。因为 $u$ 可以取遍整个 $D$，每个点都配得到镜像点，故原图关于 $x=(a+b)/2$ 自身对称。
+
+\textbf{重点：}给定的等式直接证明了\textbf{同一张原图上的两点等高}；$a+t,b-t$ 才是需要平均的横坐标。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{证明补充二｜两张新图相互对称：先构造等高，再取两图横坐标中点}
+\input{assets/tikz/F048_pair_offset_inputs}
+
+设 $F(x)=f(a+x)$，$G(x)=f(b-x)$。任取原函数定义域中的\textbf{一个输入} $u\in D$，在两张新图上分别找能产生 $f(u)$ 的位置：
+\[
+\begin{aligned}
+a+x_1=u &\ \Longrightarrow\ x_1=u-a,\\
+b-x_2=u &\ \Longrightarrow\ x_2=b-u.
+\end{aligned}
+\]
+这时两点 $P=(x_1,F(x_1)),Q=(x_2,G(x_2))$ 满足
+\[
+F(x_1)=G(x_2)=f(u),\qquad
+\frac{x_1+x_2}{2}=\frac{(u-a)+(b-u)}2=\frac{b-a}{2}.
+\]
+\textbf{定义域为何刚好完整对应？}因为 $u$ 取遍 $D$ 时，$u-a$ 取遍 $F$ 的整个定义域，$b-u$ 取遍 $G$ 的整个定义域；由 $x_2=(b-a)-x_1$ 可见每个点都有且只有一个按这条轴反射得到的对应位置。因此两张完整图像关于 $x=(b-a)/2$ 相互对称。
+
+\textbf{注意：}这里使用“括号内输入相同”是为了\textbf{构造}等高点，足以证明对称；并没有假设 $f$ 必须是一一对应的函数。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{证明补充三｜一句话把轴对称与中心对称一起放进来}
+\input{assets/tikz/F048_pair_general_center}
+
+设旧点 $P=(x_1,y_1)$，镜像点 $Q=(x_2,y_2)$。对\textbf{竖直轴 $x=c$}，要求
+\[\boxed{y_1=y_2,\qquad x_1+x_2=2c;}\]
+对\textbf{中心 $(c,d)$}，要求
+\[\boxed{x_1+x_2=2c,\qquad y_1+y_2=2d.}\]
+所以中心对称\textbf{不是寻找等高点}，而是寻找\textbf{中点相同}的点对：横、纵坐标都要取平均。用在两张函数图像之间也一样，只是点 $P,Q$ 分别来自哪张图，需要先分清楚。
+
+\textbf{从 F048 回到 F020/F021：}若镜像函数 $g$ 与 $f$ 在完整定义域上重合，则上述对应点都来自\textbf{同一张图}，变成自身对称判定；若两张图不同，则是相互对称。
 \end{proofbox}

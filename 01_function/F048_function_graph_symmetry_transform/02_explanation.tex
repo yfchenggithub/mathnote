@@ -109,3 +109,108 @@
 
 \textbf{十秒速记：} \fbox{相互对称看变换，自身对称看不变。}
 \end{explanationbox}
+
+
+% F048 2026-11-23：按上传图片逐步展开，强调已给等号与主动构造
+\clearpage
+\begin{explanationbox}
+\textbf{一、共同步骤：先配等高点，再求横坐标中点}
+
+以下只讨论\textbf{关于竖直线的轴对称}。
+\[
+\underbrace{y_1=y_2}_{\text{第一步：找到等高点}}
+\qquad\longrightarrow\qquad
+\underbrace{c=\frac{x_1+x_2}{2}}_{\text{第二步：求横坐标中点}}.
+\]
+当\textbf{所有点}都能配到对应点，且中点始终是固定的 $c$ 时，对称轴就是 $x=c$；完整定义域也必须左右对应。
+
+\textbf{二、函数自身对称：等号已经告诉我们“高度相等”}
+\input{assets/tikz/F048_equal_height_self}
+
+\textbf{已知：}对每个使 $a+t$ 属于定义域 $D$ 的 $t$，都有 $b-t\in D$，并且
+\[\boxed{f(a+t)=f(b-t)}.\]
+\textbf{先读等号：}它连接\textbf{同一个原函数的两次函数值}，已给出原图上两点等高，\textbf{不用再解等高条件}。
+
+\textbf{直接取原图上的横坐标：}
+\[x_1=a+t,\qquad x_2=b-t.\]
+\textbf{再求中点，$t$ 正好消掉：}
+\[c=\frac{x_1+x_2}{2}=\frac{(a+t)+(b-t)}2=\boxed{\frac{a+b}{2}}.\]
+因此原图关于 $x=(a+b)/2$ 自身对称。图中取 $a=1,b=5$ 演示；结论来自\textbf{对所有对应输入成立的等式}，不是只凭图上的一对点。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{三、两个函数图像相互对称：先主动构造等高点}
+\input{assets/tikz/F048_equal_height_mutual}
+
+\textbf{已知的是两张图的定义：}
+\[y_1=F(x)=f(a+x),\qquad y_2=G(x)=f(b-x).\]
+这里的两个等号分别在\textbf{定义各自的高度}，\textbf{没有给出 $y_1=y_2$}，更没有给出 $f(a+x)=f(b-x)$。不能把两个写成 $x$ 的横坐标强行当成同一个配对位置。
+
+\textbf{第一步：第一张图取 $x_1$，第二张图取 $x_2$。}
+\[P=(x_1,f(a+x_1)),\qquad Q=(x_2,f(b-x_2)).\]
+\textbf{第二步：让括号内的旧输入相同，保证高度相同。}
+\[a+x_1=b-x_2=u\in D
+\quad\Longrightarrow\quad
+\boxed{f(a+x_1)=f(b-x_2)}.\]
+\textbf{第三步：现在才取两张新图横坐标的中点。}
+\[x_1+x_2=b-a,\qquad c=\frac{x_1+x_2}{2}=\boxed{\frac{b-a}{2}}.\]
+所以两张图关于 $x=(b-a)/2$ 相互对称。
+
+\textbf{为什么覆盖整张图？}每个旧输入 $u\in D$ 对应 $x_1=u-a$、$x_2=b-u$；当 $u$ 取遍 $D$，这两个横坐标分别取遍两张图的整个定义域。\textbf{让输入相同是保证等高的构造方法，不是说只有输入相同才可能等高。}
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{四、先读等号：已给等高，还是需要构造等高？}
+
+\textbf{自身对称的已知条件：}
+\[\boxed{f(a+t)=f(b-t)}.\]
+这一个等号把\textbf{同一张图}上的两次函数值连起来。横坐标就是括号里的原输入，所以平均 $a+t$ 与 $b-t$。
+
+\textbf{两图相互对称的已知条件：}
+\[\boxed{F(x)=f(a+x),\qquad G(x)=f(b-x)}.\]
+这里分别定义 $F,G$，\textbf{不是说 $F(x)=G(x)$}。先用各自的横坐标 $x_1,x_2$，令 $a+x_1=b-x_2$，再平均 $x_1,x_2$。
+
+\textbf{一个实数值检验：}$f(u)=u^2$、$a=1,b=5$ 时，
+\[F(0)=f(1)=1,\qquad G(0)=f(5)=25.\]
+两图虽然相互对称，\textbf{同一个横坐标处不必等高}；但 $G(4)=f(1)=1$，因此应将第一图的 $(0,1)$ 与第二图的 $(4,1)$ 配对。看上一页图中的虚线即可找到这对等高点。
+
+\textbf{边界也要说清楚：}题目未给 $F(x)=G(x)$，不表示它们一定不相等；某些 $f$ 会使两图重合。\textbf{本质区别是配对点来自同一张图还是两张图}；“有没有给出函数值恒等”是这里最先要读出的条件。
+
+\textbf{五、统一一句话：}
+\[\boxed{\text{等高找成对，横坐标取中点，中点固定成对称轴。}}\]
+它要求\textbf{所有点都有对应点、完整定义域对应}；不能把一个等式只在个别 $t$ 成立当成整图对称。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{数值回验｜另取 $a=3,b=7$，两种中点各算一次}
+
+\textbf{两行数轴对照（取 $a=3,\ b=7$）：}
+\begin{center}
+\begin{tikzpicture}[x=.78cm,y=.78cm,>=stealth]
+  \draw[->,gray] (0,2)--(7,2);
+  \draw[->,gray] (0,0)--(7,0);
+  \draw[orange,densely dashed] (3.5,-.4)--(3.5,2.95);
+  \fill[blue] (2.25,2.45) circle (2.6pt);
+  \fill[blue] (4.75,2.45) circle (2.6pt);
+  \draw[blue,densely dotted] (2.25,2.45)--(4.75,2.45);
+  \fill[teal] (2.25,.45) circle (2.6pt);
+  \fill[teal] (4.75,.45) circle (2.6pt);
+  \draw[teal,densely dotted] (2.25,.45)--(4.75,.45);
+  \node[anchor=east,font=\small] at (-.05,2.4) {原函数};
+  \node[anchor=east,font=\small] at (-.05,.4) {两张新图};
+  \node[font=\small] at (2.25,1.72) {$4$};
+  \node[font=\small] at (3.5,1.72) {$5$};
+  \node[font=\small] at (4.75,1.72) {$6$};
+  \node[font=\small] at (2.25,-.28) {$1$};
+  \node[font=\small] at (3.5,-.28) {$2$};
+  \node[font=\small] at (4.75,-.28) {$3$};
+  \node[orange,font=\scriptsize,anchor=west] at (3.65,2.85) {两行各自的中点};
+\end{tikzpicture}
+\end{center}
+
+上行是原函数自身对称的情形，\textbf{已知} $f(3+t)=f(7-t)$，取 $t=1$，原图横坐标为 $4,6$，中点是 $5$。
+
+下行另讨论两张新图 $F(x)=f(3+x)$、$G(x)=f(7-x)$。令 $3+x_1=7-x_2$，取 $x_1=1$ 得 $x_2=3$，两张新图的横坐标中点是 $2$。
+
+\textbf{这两行各自示意对应位置，不按统一坐标比例绘制；横坐标数值由标签给出。}图只显示一对点帮助计算；整个图像对称的理由仍是前面覆盖所有点的推导。
+\end{explanationbox}

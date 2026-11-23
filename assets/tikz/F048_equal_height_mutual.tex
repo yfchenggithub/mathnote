@@ -1,0 +1,21 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,7);
+\node[text width=12.6cm,align=center] at (7.1,6.45) {两图相互对称：等高要构造，两张图分别取横坐标};
+\begin{scope}[shift={(2.65,1.58)},x=.75cm,y=.4cm]
+\draw[->,gray] (-2,0)--(6,0) node[right]{$x$};
+\draw[->,gray] (0,-1)--(0,8) node[above]{$y$};
+\draw[violet,dashed] (2,-.7)--(2,7.7);
+\node[violet] at (2,8.9) {$x=2$};
+\begin{scope}\clip (-2,-1) rectangle (6,8);
+\draw[blue,thick,domain=-2:6,samples=180] plot(\x,{(1+\x)*(1+\x)});
+\draw[orange!85!black,thick,domain=-2:6,samples=180] plot(\x,{(5-\x)*(5-\x)});
+\end{scope}
+\draw[gray,dashed] (0,1)--(4,1);
+\fill[blue] (0,1) circle(2.2pt);\fill[orange!85!black] (4,1) circle(2.2pt);
+\node[above left=6pt,blue] at (0,1){$P$};
+\node[above right=6pt,orange!85!black] at (4,1){$Q$};
+\node[below=5pt] at (0,0){$0$};\node[below=5pt] at (4,0){$4$};
+\end{scope}
+\node[anchor=west,text width=4.7cm,align=left] at (8.7,3.35) {另取 $f(u)=u^2$\\蓝：$F(x)=f(1+x)$\\橙：$G(x)=f(5-x)$\\[7pt]选 $x_1=0$，令\\$1+0=5-x_2$\\得 $x_2=4$。\\[7pt]$F(0)=G(4)=1$。};
+\node[text width=12.6cm,align=center] at (7.1,.5) {两新横坐标为 $u-1,5-u$；中点恒为 $(5-1)/2=2$。};
+\end{tikzpicture}\end{center}

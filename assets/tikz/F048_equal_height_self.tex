@@ -1,0 +1,21 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,7);
+\node[text width=12.6cm,align=center] at (7.1,6.45) {自身对称：等号已给出，同一张图上直接配成等高点};
+\begin{scope}[shift={(2.65,1.58)},x=.75cm,y=.4cm]
+\draw[->,gray] (-2,0)--(6,0) node[right]{$x$};
+\draw[->,gray] (0,-1)--(0,8) node[above]{$y$};
+\draw[violet,dashed] (3,-.7)--(3,7.7);
+\node[violet] at (3,8.9) {$x=3$};
+\begin{scope}\clip (-2,-1) rectangle (6,8);
+\draw[blue,thick,domain=-2:6,samples=180] plot(\x,{(\x-3)*(\x-3)+1});
+\end{scope}
+\draw[gray,dashed] (2,2)--(4,2);
+\draw[gray,dotted] (2,0)--(2,2) (4,0)--(4,2);
+\fill[blue] (2,2) circle(2.2pt);\fill[blue] (4,2) circle(2.2pt);
+\node[blue] at (1.4,1.1){$P$};
+\node[blue] at (4.6,1.1){$Q$};
+\node[below=5pt] at (2,0){$2$};\node[below=5pt] at (4,0){$4$};
+\end{scope}
+\node[anchor=west,text width=4.7cm,align=left] at (8.7,3.35) {取 $a=1,b=5$\\$f(x)=(x-3)^2+1$\\[7pt]已知 $f(1+t)=f(5-t)$\\[7pt]$t=1$ 时：\\$P(2,2),\ Q(4,2)$\\[7pt]两点都在原图 $y=f(x)$ 上。};
+\node[text width=12.6cm,align=center] at (7.1,.5) {两原输入为 $1+t,5-t$；横坐标中点恒为 $(1+5)/2=3$。};
+\end{tikzpicture}\end{center}
