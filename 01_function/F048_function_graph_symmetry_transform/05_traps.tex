@@ -1,21 +1,54 @@
+\clearpage
 \begin{trapbox}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+	\textbf{易错一｜横轴、纵轴不要认反}
+\input{assets/tikz/F048_pair_x_axis}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
 		\item[\textbf{\textcolor{CTrap}{易错点一（对称轴混淆）}}] 求关于 $y$ 轴对称时错误写为 $y=-f(x)$。
 		\item[\textbf{\textcolor{CTrap}{正确理解（区分轴对称）}}] 关于 $x$ 轴对称：$y=-f(x)$；关于 $y$ 轴对称：$y=f(-x)$；两者符号作用位置不同。
 		\item[\textbf{\textcolor{CTrap}{错因分析（变量混淆）}}] 未分清对称变换是对自变量还是因变量取反，导致公式用错。
 	\end{description}
 
 	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CTrap}{易错点二（反函数未显化）}}] 求关于 $y=x$ 对称时，写出 $x=f(y)$ 后直接当作新函数，未解出 $y$。
-		\item[\textbf{\textcolor{CTrap}{正确理解（显化反函数）}}] 必须将 $x=f(y)$ 转化为 $y=f^{-1}(x)$，即解出 $y$ 关于 $x$ 的表达式。
-		\item[\textbf{\textcolor{CTrap}{错因分析（函数与方程）}}] 混淆了函数与方程，认为 $x=f(y)$ 已是函数形式，忽略了函数要求因变量单独表示。
+	\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{易错二｜先检查反函数是否存在}
+\input{assets/tikz/F048_inverse_failure}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+		\item[\textbf{\textcolor{CTrap}{易错点二（反函数未显化）}}] 写出 $x=f(y)$ 后，不检查同一个 $x$ 是否会对应多个 $y$，就断言存在反函数。
+		\item[\textbf{\textcolor{CTrap}{正确理解（显化反函数）}}] 交换坐标所得关系 $x=f(y)$ 本身是正确的；能否表示为反函数，关键在于 $f$ 是否一一对应。题目要求显式解析式时，再解出 $y$。
+		\item[\textbf{\textcolor{CTrap}{错因分析（函数与方程）}}] 函数要求一个输入恰好对应一个输出；不是单凭纵坐标有没有单独写在等号左边来判断。
 	\end{description}
 
 	\medskip
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+	\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{易错三｜完整定义域也要反射}
+\input{assets/tikz/F048_pair_domain}
+\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
 		\item[\textbf{\textcolor{CTrap}{易错点三（定义域忽视）}}] 对称变换后直接使用原函数定义域，未考虑新函数定义域变化。
 		\item[\textbf{\textcolor{CTrap}{正确理解（重新确定定义域）}}] 新函数的定义域应为对称后图像上点的横坐标取值范围，需根据原函数值域或对称情况重新确定。例如 $f(x)=\sqrt{x}$ 关于 $y$ 轴对称后定义域变为 $x\le 0$。
 		\item[\textbf{\textcolor{CTrap}{错因分析（条件忽视）}}] 只关注解析式变换，忽略了函数定义域是函数的重要组成部分，对称后横坐标范围改变。
 	\end{description}
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{易错四｜把两图相互对称的轴写成 $(a+b)/2$}
+\input{assets/tikz/F048_offset_wrong_axis}
+
+\textbf{错误：}$y=f(a+x)$ 与 $y=f(b-x)$ 的轴是 $x=(a+b)/2$。
+\textbf{反例：}图中 $a=1,b=5$，错误候选 $x=3$ 会把蓝图最低点 $(-1,0)$ 送到 $(7,0)$，但橙图在 $x=7$ 的高度为 $4$，不是 $0$。
+\textbf{正确替代：}用 $F(2c-x)=G(x)$ 检查，得到 $a+2c=b$，所以 $c=(b-a)/2$。
+
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{易错五｜混淆相互对称与自身对称}
+\input{assets/tikz/F048_pair_x_axis}
+
+\textbf{错误：}两图 $y=f(x)$ 与 $y=-f(x)$ 关于 $x$ 轴相互对称，就说 $f$ 的图像本身关于 $x$ 轴对称。
+\textbf{为什么错：}图中蓝线 $3x+2$ 与橙线 $-3x-2$ 是两条不同的线。蓝点 $(0,2)$ 的镜像 $(0,-2)$ 在橙线上，不在蓝线上。
+\textbf{正确替代：}先区分是哪两幅图。仅当反射后的整个图像与原图重合时，才是自身对称；关于竖直轴或点的自身判定分别见 F020、F021。
+
 \end{trapbox}

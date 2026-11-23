@@ -1,46 +1,90 @@
+\clearpage
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{证明前先分清坐标：旧点叫 $(u,v)$，新点叫 $(X,Y)$。}
+旧图上有 $v=f(u)$。先按几何对称找到 $X,Y$，再消去 $u,v$，最后把新坐标 $X,Y$ 改写为习惯的 $x,y$。不能把变换前后的横、纵坐标同时叫 $x,y$，却又当成没有改变的数。
+\medskip
+\textbf{步骤一（横轴对称）}
+\input{assets/tikz/F048_pair_x_axis}
 
-	函数图像对称变换的证明基于点的对称关系。设原曲线上一点 $(x,y)$，根据对称类型求对称点坐标，代入原方程即得新方程。
+旧点 $(u,v)$ 满足 $v=f(u)$。关于 $x$ 轴反射后，$X=u,Y=-v$，故
+\[Y=-v=-f(u)=-f(X).\]
+于是新函数为 $g(x)=-f(x)$，定义域仍为 $D$。反过来，新图上 $(X,-f(X))$ 反射后回到 $(X,f(X))$，所以对应覆盖两幅完整图像。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（横轴对称）：}]
-			设原曲线上一点 $(x, y)$ 满足 $y=f(x)$。其关于 $x$ 轴的对称点为 $(x, -y)$。该点在新曲线上，因此满足：
-			\[
-				-y = f(x).
-			\]
-			整理得 $y = -f(x)$，即新函数解析式。
-			\par\textbf{理由：} 对称点横坐标不变，纵坐标取相反数，代入原函数即得。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{步骤二（纵轴对称）}
+\input{assets/tikz/F048_pair_y_axis}
 
-		\item[\textbf{步骤二（纵轴对称）：}]
-			设原曲线上一点 $(x, y)$ 满足 $y=f(x)$。其关于 $y$ 轴的对称点为 $(-x, y)$。该点在新曲线上，因此满足：
-			\[
-				y = f(-x).
-			\]
-			即新函数解析式为 $y = f(-x)$。
-			\par\textbf{理由：} 对称点纵坐标不变，横坐标取相反数，代入原函数。
+旧点 $(u,v)$ 反射后，$X=-u,Y=v$。因此 $u=-X$，代入 $v=f(u)$：
+\[Y=f(-X).\]
+新函数为 $g(x)=f(-x)$，定义域是 $\{-u:u\in D\}$。反射两次又回到原来的点，故新图中的每一点也都来自旧图。
 
-		\item[\textbf{步骤三（中心对称）：}]
-			设原曲线上一点 $(x, y)$ 满足 $y=f(x)$。其关于原点的对称点为 $(-x, -y)$。该点在新曲线上，因此满足：
-			\[
-				-y = f(-x).
-			\]
-			整理得 $y = -f(-x)$，即新函数解析式。
-			\par\textbf{理由：} 对称点横、纵坐标均取相反数，代入原函数。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{步骤三（原点中心对称）}
+\input{assets/tikz/F048_pair_origin}
 
-		\item[\textbf{步骤四（反函数对称）：}]
-			设原曲线上一点 $(x, y)$ 满足 $y=f(x)$。其关于直线 $y=x$ 的对称点为 $(y, x)$。该点在新曲线上，因此满足：
-			\[
-				x = f(y).
-			\]
-			若 $f$ 存在反函数 $f^{-1}$，则可由 $x = f(y)$ 解出 $y = f^{-1}(x)$，即新函数解析式。
-			\par\textbf{理由：} 对称点横纵坐标互换，代入原函数得到关于 $x,y$ 的关系，再借助反函数求解。
-	\end{description}
+旧点 $(u,v)$ 关于原点的对称点为 $(X,Y)=(-u,-v)$。从 $u=-X,v=-Y$ 和 $v=f(u)$ 得
+\[-Y=f(-X),\qquad Y=-f(-X).\]
+所以 $g(x)=-f(-x)$，定义域为 $\{-u:u\in D\}$；反向做同一对称也回到旧图。
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{步骤四（反函数对称）}
+\input{assets/tikz/F048_pair_inverse}
 
-	以上四种对称变换分别得到对应的函数解析式：关于 $x$ 轴对称得 $y=-f(x)$；关于 $y$ 轴对称得 $y=f(-x)$；关于原点对称得 $y=-f(-x)$；关于直线 $y=x$ 对称（若 $f$ 可逆）得 $y=f^{-1}(x)$。
+旧点 $(u,v)$ 反射为 $(X,Y)=(v,u)$，所以
+\[X=f(Y).\]
+若 $f$ 在 $D$ 上不同输入有不同输出，那么每个 $X\in f(D)$ 恰好对应一个 $Y\in D$，可记作 $Y=f^{-1}(X)$。故新图为 $y=f^{-1}(x)$，定义域是 $f(D)$。反射两次复原，覆盖双方全部点。
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{推广证明一｜竖直轴 $x=a$}
+\input{assets/tikz/F048_pair_vertical_axis}
+
+关于竖直轴反射，横坐标平均为 $a$，纵坐标相等：
+\[X=2a-u,\quad Y=v.\]
+由 $u=2a-X$ 和 $v=f(u)$ 得 $Y=f(2a-X)$，所以 $g(x)=f(2a-x)$。
+所有旧横坐标 $u\in D$ 反射后组成 $E=\{2a-u:u\in D\}$；再反射一次回到 $u$，故充分性与必要性均成立。
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{推广证明二｜水平轴 $y=b$}
+\input{assets/tikz/F048_pair_horizontal_axis}
+
+关于水平轴反射，横坐标相同，纵坐标平均为 $b$：
+\[X=u,\quad Y=2b-v.\]
+代入 $v=f(u)$ 得 $Y=2b-f(X)$，所以 $g(x)=2b-f(x)$；横坐标不变，定义域仍为 $D$。再做一次反射回到原图，故是完整的双向对应。
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{推广证明三｜中心 $(a,b)$}
+\input{assets/tikz/F048_pair_general_center}
+
+中心是旧点与新点连线的中点，所以
+\[X=2a-u,\quad Y=2b-v.\]
+先从第一式得到 $u=2a-X$，再将 $v=f(u)$ 代入第二式：
+\[Y=2b-f(2a-X).\]
+故 $g(x)=2b-f(2a-x)$，定义域为 $E=\{2a-u:u\in D\}$；再转半圈复原，因此两个方向均成立。
+
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{图片最后一行的证明｜为什么是差的一半？}
+\input{assets/tikz/F048_pair_offset_inputs}
+
+令 $F(x)=f(a+x)$，$G(x)=f(b-x)$，并设 $c=(b-a)/2$。将第一幅图关于 $x=c$ 反射，得到的函数为
+\[F(2c-x)=f(a+2c-x)=f(b-x)=G(x).\]
+这里用到 $a+2c=b$。所以两图关于 $x=(b-a)/2$ 相互对称。
+
+还要核对范围：第一图的横坐标集合为 $D_1=\{u-a:u\in D\}$，反射后变成
+\[\{2c-(u-a):u\in D\}=\{b-u:u\in D\}=D_2,\]
+恰好是第二图的定义域。因而此结论对任意原定义域 $D$ 成立，不要求 $f$ 是奇函数、偶函数或周期函数。
+
 \end{proofbox}

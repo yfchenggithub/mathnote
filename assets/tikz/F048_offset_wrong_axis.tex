@@ -1,0 +1,16 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,8.3);
+\node[text width=12.6cm,align=center] at (7.1,7.65) {把轴误写成 $x=3$：最低点的对应点落不到另一图上};
+\begin{scope}[shift={(2.32,2.3375)},x=0.6599999999999999cm,y=0.5875cm]
+\draw[->,gray] (-2,0)--(8,0) node[right]{$x$};\draw[->,gray] (0,-1)--(0,7) node[above]{$y$};
+\draw[red!70!black,dashed] (3,-.7)--(3,6.5);\node[red!70!black,font=\footnotesize] at (3.4,7.8){$x=3$};\draw[red!70!black,dashed] (-1,0)--(7,0);\draw[red!70!black] (7,0) circle(2.7pt);\node[below=7pt,red!70!black] at (7,0){$(7,0)$};
+\begin{scope}\clip (-2,-1) rectangle (8,7);
+\draw[blue,thick,domain=-2:8,samples=180] plot(\x,{(1+\x)^2});
+\draw[orange!85!black,thick,domain=-2:8,samples=180] plot(\x,{(5-\x)^2});
+\end{scope}
+\fill[blue] (-1,0) circle(2.2pt);\node[above=10pt,blue] at (-1,0) {$P$};
+\fill[orange!85!black] (7,4) circle(2.2pt);\node[above left=5pt,orange!85!black] at (7,4) {$(7,4)$};
+\end{scope}
+\node[anchor=west,align=left,text width=4.8cm] at (8.65,4.5) {仍取 $F(x)=(x+1)^2$\\$G(x)=(5-x)^2$\\[8pt]若错用轴 $x=3$：\\$(-1,0)\to(7,0)$\\[8pt]但 $G(7)=4\ne0$。\\正确轴仍为 $x=2$。};
+\node[text width=12.6cm,align=center] at (7.1,.65) {红色空心点是错误候选的镜像点，不是橙色函数图像上的点。};
+\end{tikzpicture}\end{center}

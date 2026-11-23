@@ -1,0 +1,16 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,8.3);
+\node[text width=12.6cm,align=center] at (7.1,7.65) {关于 $x$ 轴：同一横坐标，上下高度相反};
+\begin{scope}[shift={(4.3,4.1)},x=1.65cm,y=0.47000000000000003cm]
+\draw[->,gray] (-2,0)--(2,0) node[right]{$x$};\draw[->,gray] (0,-5)--(0,5) node[above]{$y$};
+
+\begin{scope}\clip (-2,-5) rectangle (2,5);
+\draw[blue,thick,domain=-2:2,samples=180] plot(\x,{3*\x+2});
+\draw[orange!85!black,thick,domain=-2:2,samples=180] plot(\x,{-3*\x-2});
+\end{scope}
+\fill[blue] (0,2) circle(2.2pt);\node[above left=6pt,blue] at (0,2) {$P$};
+\fill[orange!85!black] (0,-2) circle(2.2pt);\node[below left=6pt,orange!85!black] at (0,-2) {$Q$};
+\end{scope}
+\node[anchor=west,align=left,text width=4.8cm] at (8.65,4.5) {蓝：$f(x)=3x+2$\\[8pt]橙：$g(x)=-3x-2$\\[8pt]$P(0,2)\to Q(0,-2)$\\[8pt]$g(x)=-f(x)$};
+\node[text width=12.6cm,align=center] at (7.1,.65) {两幅图关于横轴相互对称；原函数本身不必关于横轴对称。};
+\end{tikzpicture}\end{center}

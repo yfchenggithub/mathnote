@@ -1,0 +1,16 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,8.3);
+\node[text width=12.6cm,align=center] at (7.1,7.65) {原函数不是一一对应：交换坐标后未必还是函数};
+\begin{scope}[shift={(2.5666666666666664,3.3166666666666664)},x=0.7833333333333333cm,y=0.7833333333333333cm]
+\draw[->,gray] (-2,0)--(4,0) node[right]{$x$};\draw[->,gray] (0,-2)--(0,4) node[above]{$y$};
+\draw[violet,dashed] (-1.5,-1.5)--(3.6,3.6) node[above]{$y=x$};\draw[orange!85!black,thick,domain=-1.8:1.8,samples=150] plot({\x*\x},\x);\draw[gray,dashed] (1,-1.2)--(1,1.7);
+\begin{scope}\clip (-2,-2) rectangle (4,4);
+\draw[blue,thick,domain=-1.8:1.8,samples=180] plot(\x,{\x*\x});
+\end{scope}
+\fill[blue] (-1,1) circle(2.2pt);\node[above left=5pt,blue] at (-1,1) {$P$};
+\fill[orange!85!black] (1,-1) circle(2.2pt);\node[below right=5pt,orange!85!black] at (1,-1) {$Q$};
+\fill[orange!85!black] (1,1) circle(2.2pt);\node[above right=5pt,orange!85!black] at (1,1) {$(1,1)$};
+\end{scope}
+\node[anchor=west,align=left,text width=4.8cm] at (8.65,4.5) {蓝：$y=x^2$\\对称后是 $x=y^2$\\[8pt]当 $x=1$：\\同时有 $y=1,-1$\\[8pt]同一输入有两个输出，\\不能直接写成反函数。};
+\node[text width=12.6cm,align=center] at (7.1,.65) {两轴同单位；原函数限于 $x\ge0$ 后，反函数为 $y=\sqrt{x}$。};
+\end{tikzpicture}\end{center}

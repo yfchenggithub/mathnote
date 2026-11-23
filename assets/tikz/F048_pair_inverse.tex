@@ -1,0 +1,16 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,8.3);
+\node[text width=12.6cm,align=center] at (7.1,7.65) {关于 $y=x$：交换两坐标，得到反函数图像};
+\begin{scope}[shift={(1.94,2.69)},x=0.9400000000000001cm,y=0.9400000000000001cm]
+\draw[->,gray] (-1,0)--(4,0) node[right]{$x$};\draw[->,gray] (0,-1)--(0,4) node[above]{$y$};
+\draw[violet,dashed] (-.8,-.8)--(3.8,3.8) node[above]{$y=x$};\draw[gray,dashed] (2,3)--(3,2);
+\begin{scope}\clip (-1,-1) rectangle (4,4);
+\draw[blue,thick,domain=-1:4,samples=180] plot(\x,{2*\x-1});
+\draw[orange!85!black,thick,domain=-1:4,samples=180] plot(\x,{(\x+1)/2});
+\end{scope}
+\fill[blue] (2,3) circle(2.2pt);\node[above left=5pt,blue] at (2,3) {$P$};
+\fill[orange!85!black] (3,2) circle(2.2pt);\node[below right=5pt,orange!85!black] at (3,2) {$Q$};
+\end{scope}
+\node[anchor=west,align=left,text width=4.8cm] at (8.65,4.5) {蓝：$f(x)=2x-1$\\[8pt]橙：$f^{-1}(x)=\frac{x+1}{2}$\\[8pt]$P(2,3)\to Q(3,2)$\\[8pt]反函数的定义域\\是原函数的值域。};
+\node[text width=12.6cm,align=center] at (7.1,.65) {横纵单位长度相同；任意一对交换坐标的点关于 $y=x$ 对称。};
+\end{tikzpicture}\end{center}

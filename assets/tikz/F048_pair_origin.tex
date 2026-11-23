@@ -1,0 +1,16 @@
+\begin{center}\begin{tikzpicture}[font=\small,>=stealth,line join=round]
+\draw[gray!40,rounded corners=3pt] (0,0) rectangle (14.2,8.3);
+\node[text width=12.6cm,align=center] at (7.1,7.65) {关于原点：横、纵坐标同时取相反数};
+\begin{scope}[shift={(4.3,4.1)},x=1.65cm,y=0.5875cm]
+\draw[->,gray] (-2,0)--(2,0) node[right]{$x$};\draw[->,gray] (0,-4)--(0,4) node[above]{$y$};
+\draw[violet,dashed] (-1,-1)--(1,1);
+\begin{scope}\clip (-2,-4) rectangle (2,4);
+\draw[blue,thick,domain=-2:2,samples=180] plot(\x,{2*\x-1});
+\draw[orange!85!black,thick,domain=-2:2,samples=180] plot(\x,{2*\x+1});
+\end{scope}
+\fill[blue] (1,1) circle(2.2pt);\node[above left=6pt,blue] at (1,1) {$P$};
+\fill[orange!85!black] (-1,-1) circle(2.2pt);\node[below right=6pt,orange!85!black] at (-1,-1) {$Q$};
+\end{scope}
+\node[anchor=west,align=left,text width=4.8cm] at (8.65,4.5) {蓝：$f(x)=2x-1$\\[8pt]橙：$g(x)=2x+1$\\[8pt]$P(1,1)\to Q(-1,-1)$\\[8pt]$g(x)=-f(-x)$};
+\node[text width=12.6cm,align=center] at (7.1,.65) {连线的中点是原点；两条直线相互对称，并不要求它们重合。};
+\end{tikzpicture}\end{center}
