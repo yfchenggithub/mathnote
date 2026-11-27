@@ -135,3 +135,76 @@ $\theta=\pi/4$。在这个区间 $t+1>0$，故 $(t+1)^2/2$
 \emph{平方和固定为 $1$}。共同思路是先识别重复出现的整体，再检查新变量范围。
 \end{proofbox}
 \clearpage
+
+\begin{proofbox}
+\textbf{\textcolor{CProof}{补充推导：指数整体换元的范围与降次公式}}
+
+\textbf{第一步：确定下界和等号。} 设 $t=e^x+e^{-x}$，由于 $e^x>0$，有
+\[
+\begin{aligned}
+t-2&=e^x+\frac1{e^x}-2\\
+&=\frac{(e^x-1)^2}{e^x}\ge0.
+\end{aligned}
+\]
+故 $t\ge2$；等号当且仅当 $e^x=1$，即 $x=0$。每个 $t\ge2$ 都能取得的严格证明见下一页回代过程。
+\input{assets/tikz/F080_exp_sum_range.tex}
+\textbf{第二步：展开平方，降二次。}
+\[
+\begin{aligned}
+t^2&=(e^x+e^{-x})^2\\
+&=e^{2x}+2e^xe^{-x}+e^{-2x}\\
+&=e^{2x}+2+e^{-2x}.
+\end{aligned}
+\]
+移项得到 $\boxed{e^{2x}+e^{-2x}=t^2-2}$。
+
+\textbf{第三步：用乘法降三次，再用平方降四次。}
+\[
+\begin{aligned}
+t(e^{2x}+e^{-2x})&=e^{3x}+e^{-x}+e^x+e^{-3x}\\
+&=e^{3x}+e^{-3x}+t,\\
+e^{3x}+e^{-3x}&=t(t^2-2)-t=t^3-3t,\\
+e^{4x}+e^{-4x}&=(e^{2x}+e^{-2x})^2-2\\
+&=(t^2-2)^2-2=t^4-4t^2+2.
+\end{aligned}
+\]
+同理 $(e^x-e^{-x})^2=e^{2x}+e^{-2x}-2=t^2-4$。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{补充推导：如何从整体变量 $t$ 回到原变量 $x$}}
+
+\textbf{第一步：} 设已求得 $t=c$，其中 $c\ge2$。由定义得
+\[
+e^x+\frac1{e^x}=c.
+\]
+因为 $e^x>0$，等式两边同乘 $e^x$ 不会丢解：
+\[
+e^{2x}+1=ce^x\quad\Longleftrightarrow\quad
+(e^x)^2-ce^x+1=0.
+\]
+\textbf{第二步：} 临时令 $y=e^x>0$，用一元二次方程求根公式：
+\[
+y^2-cy+1=0,\qquad y_{1,2}=\frac{c\pm\sqrt{c^2-4}}2.
+\]
+因 $c\ge2$，判别式非负；且 $c>\sqrt{c^2-4}$，两个根都为正数。因此对任意 $c\ge2$，均存在实数 $x=\ln y$，这也证明了整体变量的值域确为 $[2,+\infty)$。
+
+\textbf{第三步：} 对两个正根分别取自然对数：
+\[
+x_1=\ln\frac{c+\sqrt{c^2-4}}2,\qquad
+x_2=\ln\frac{c-\sqrt{c^2-4}}2.
+\]
+根据根与系数的关系，$y_1y_2=1$，故
+$x_1+x_2=\ln(y_1y_2)=0$。当 $c>2$ 时两根不同，故 $x_2=-x_1$；$c=2$ 时两根均为 $1$，只有 $x=0$。
+\input{assets/tikz/F080_exp_sum_range.tex}
+\textbf{第四步（推广到高次）：} 记 $A_n=e^{nx}+e^{-nx}$，则
+\[
+\begin{aligned}
+tA_n&=e^{(n+1)x}+e^{(n-1)x}\\
+&\quad+e^{-(n-1)x}+e^{-(n+1)x}\\
+&=A_{n+1}+A_{n-1}.
+\end{aligned}
+\]
+所以 $A_{n+1}=tA_n-A_{n-1}$（$n\ge1$），从 $A_0=2$、$A_1=t$ 可逐次得到所有高次倒数和。
+\end{proofbox}
+\clearpage

@@ -55,3 +55,27 @@ $\boxed{1\le t\le\sqrt2}$。
 
 \end{explanationbox}
 \clearpage
+
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{看到 $e^x+e^{-x}$，为什么可以直接换元？}}
+
+\textbf{第一步：认出隐藏的倒数关系。}
+\[
+e^{-x}=\frac1{e^x},\qquad e^x\cdot e^{-x}=e^{x-x}=1.
+\]
+所以它与前面 $u=y+1/y$ 的模型完全相同，只不过原变量 $y=e^x$ 永远为正数。可以跳过中间记号，直接设 $t=e^x+e^{-x}$。
+
+\textbf{第二步：识别高次项。} 若看到 $e^{2x}+e^{-2x}$，不要把两项分别求导；先观察它正好是 $t^2$ 去掉两个交叉项：
+\[
+(e^x+e^{-x})^2=e^{2x}+2+e^{-2x}.
+\]
+因此二次指数和可以变成 $t^2-2$，三次、四次同理。若只出现单独的 $e^x$ 或系数不配对，则未必能仅用 $t$ 表达。
+
+\textbf{第三步：理解图像与范围。}
+\input{assets/tikz/F080_exp_sum_range.tex}
+例如 $x=\ln2$ 时，$e^x=2$、$e^{-x}=1/2$，故 $t=5/2$；$x=-\ln2$ 时，两项恰好互换，仍有 $t=5/2$。
+图像关于纵轴对称，在 $x=0$ 处取最小值 $2$，左右两侧向上延伸。
+
+\textbf{第四步：确定原题目标。} 求最值时把指数式变成关于 $t$ 的代数式，在允许范围内求解；解方程或不等式时还要把 $t$ 的结果还原成 $x$。
+\end{explanationbox}
+\clearpage

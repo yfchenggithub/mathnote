@@ -242,3 +242,74 @@ $S=(y_1y_2+4)^2/16$，继续用平方和限制乘积通常更省时；
 这里的三角整体换元用于理解\textbf{为什么最优位置对应两个 $45^\circ$}。
 \end{examplebox}
 \clearpage
+
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例七（指数方程：直接整体换元）}}
+
+\textbf{题目：} 解方程 $e^{2x}+e^{-2x}=3(e^x+e^{-x})+2$。
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
+\item[\textbf{第一步（识别正负指数成对）：}]
+直接令 $t=e^x+e^{-x}$，由 $e^xe^{-x}=1$ 得 $t\ge2$。
+\item[\textbf{第二步（降次）：}]
+由平方公式得到 $e^{2x}+e^{-2x}=t^2-2$。代入原方程：
+\[
+\begin{aligned}
+t^2-2&=3t+2,\\
+t^2-3t-4&=0,\\
+(t-4)(t+1)&=0.
+\end{aligned}
+\]
+故 $t=4$ 或 $t=-1$。由于 $t\ge2$，舍去 $-1$。
+\item[\textbf{第三步（回代）：}]
+\[
+\begin{aligned}
+e^x+e^{-x}&=4,\\
+e^{2x}-4e^x+1&=0,\\
+e^x&=2\pm\sqrt3.
+\end{aligned}
+\]
+两根均为正数，所以
+\[
+\boxed{x=\ln(2+\sqrt3)\quad\text{或}\quad x=\ln(2-\sqrt3)}.
+\]
+又因为 $(2+\sqrt3)(2-\sqrt3)=1$，也可写成 $x=\pm\ln(2+\sqrt3)$。
+\end{description}
+\input{assets/tikz/F080_exp_equation.tex}
+\textbf{考场要点：} 一次整体换元即可降成二次方程；先验 $t$ 的范围，再回代 $x$。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例八（指数最值：最小值未必在 $x=0$ 取得）}}
+
+\textbf{题目：} 设 $x\in\mathbb R$，求
+\[
+P=e^{2x}+e^{-2x}-6(e^x+e^{-x})+9
+\]
+的最小值。
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
+\item[\textbf{第一步（整体换元，带上范围）：}]
+令 $t=e^x+e^{-x}\ge2$，则 $e^{2x}+e^{-2x}=t^2-2$。
+\item[\textbf{第二步（化为二次函数）：}]
+\[
+\begin{aligned}
+P&=t^2-2-6t+9\\
+&=t^2-6t+7\\
+&=(t-3)^2-2.
+\end{aligned}
+\]
+\item[\textbf{第三步（检查顶点是否可取）：}]
+由于 $3\in[2,+\infty)$，故 $P\ge-2$，当 $t=3$ 时取等号。
+\input{assets/tikz/F080_exp_minimum.tex}
+\item[\textbf{第四步（找出取等的原变量）：}]
+由 $e^x+e^{-x}=3$，得 $e^{2x}-3e^x+1=0$，所以
+\[
+e^x=\frac{3\pm\sqrt5}2>0.
+\]
+从而 $x=\ln\frac{3\pm\sqrt5}2$，即
+\[
+\boxed{P_{\min}=-2,\quad x=\pm\ln\frac{3+\sqrt5}2}.
+\]
+\end{description}
+\textbf{考场要点：} $t$ 的最小值是 $2$，不代表关于 $t$ 的所有函数都在 $t=2$ 处取最小值。必须判断二次函数在 $t\ge2$ 上的顶点位置。
+\end{examplebox}
+\clearpage
