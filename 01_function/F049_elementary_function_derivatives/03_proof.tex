@@ -530,6 +530,260 @@ G'(x)=\lim_{h\to0}\frac{k}{h}
 \]
 
 \medskip
+\textbf{补充方法：直接利用导数定义证明三个反三角函数的导数}
+
+以下三个证明彼此独立，不使用反函数求导公式，也不使用待证的反三角函数导数。仅使用反三角函数的定义与连续性、三角恒等式、极限运算法则及预备二的三角基本极限。所有角均用弧度制。
+
+\textbf{共同准备：} 固定自变量 $x$，记增量为 $h=\Delta x$，取 $h\ne0$ 且使 $x+h$ 落在原函数定义域内。对于下面每个反三角函数 $f$，统一令 $m=f(x+h)$、$n=f(x)$。由于 $f$ 连续，$h\to0$ 时 $m\to n$，而 $n$ 始终不变。于是
+\[
+\begin{aligned}
+\frac{m-n}{2}&\longrightarrow\frac{n-n}{2}=0,\\
+\frac{m+n}{2}&\longrightarrow\frac{n+n}{2}=n.
+\end{aligned}
+\]
+前者是两角之差的一半，后者是两角的平均值。比如固定 $n=0.5$，若 $m=0.52$，则两者分别为 $0.01$ 与 $0.51$；若 $m=0.502$，则分别为 $0.001$ 与 $0.501$。当 $m$ 越来越接近 $n$ 时，半差趋于零，平均值趋于 $n$，而不是趋于零。
+
+由于这些反三角函数在各自定义域内严格单调，$h\ne0$ 时 $m\ne n$。由三角基本极限及其倒数形式可得
+\[
+\lim_{t\to0}\frac{\sin t}{t}=1,
+\qquad
+\lim_{t\to0}\frac{t}{\sin t}=1.
+\]
+后面出现的 $t$ 可以是 $(m-n)/2$，也可以是 $m-n$。注意：在取极限之前，不能把 $\sin t$ 与 $t$ 当成相同的量直接约掉。
+
+\medskip
+\textbf{定义法证明 1：反正弦函数 $(\arcsin x)'=1/\sqrt{1-x^2}$}
+
+条件：$-1<x<1$。取充分小的非零 $h$，使 $-1<x+h<1$。
+
+\textbf{第一步：写出导数定义。}
+\[
+f'(x)=\lim_{h\to0}\frac{\arcsin(x+h)-\arcsin x}{h}.
+\]
+\textbf{第二步：换元，把反三角函数转成普通三角函数。} 令
+\[
+\begin{aligned}
+m&=\arcsin(x+h),&\sin m&=x+h,\\
+n&=\arcsin x,&\sin n&=x.
+\end{aligned}
+\]
+这里 $m,n\in(-\pi/2,\pi/2)$。将后两式相减，得到
+\[
+\begin{aligned}
+\sin m-\sin n&=(x+h)-x=h,\\
+\frac{\arcsin(x+h)-\arcsin x}{h}
+&=\frac{m-n}{\sin m-\sin n}.
+\end{aligned}
+\]
+\textbf{第三步：推导并应用正弦和差化积。} 令 $A=(m+n)/2$、$B=(m-n)/2$，则 $A+B=m$、$A-B=n$。根据两角和差的正弦公式，
+\[
+\begin{aligned}
+\sin m-\sin n
+&=\sin(A+B)-\sin(A-B)\\
+&=(\sin A\cos B+\cos A\sin B)\\
+&\quad-(\sin A\cos B-\cos A\sin B)\\
+&=2\cos A\sin B\\
+&=2\cos\frac{m+n}{2}\sin\frac{m-n}{2}.
+\end{aligned}
+\]
+代回差商，将分子与分母同时除以 $2$，再拆成两项的乘积：
+\[
+\begin{aligned}
+\frac{m-n}{\sin m-\sin n}
+&=\frac{m-n}{2\cos\frac{m+n}{2}\sin\frac{m-n}{2}}\\[4pt]
+&=\frac{\frac{m-n}{2}}{\cos\frac{m+n}{2}\sin\frac{m-n}{2}}\\[4pt]
+&=\frac{\frac{m-n}{2}}{\sin\frac{m-n}{2}}
+\cdot\frac{1}{\cos\frac{m+n}{2}}.
+\end{aligned}
+\]
+此时第一项具有三角基本极限的倒数形式，第二项可以利用余弦函数的连续性取极限。
+
+\textbf{第四步：分别求两个因子的极限。} 由于 $h\to0$ 时 $m\to n$，令 $t=(m-n)/2$，则 $t\to0$，所以
+\[
+\lim_{h\to0}\frac{\frac{m-n}{2}}{\sin\frac{m-n}{2}}
+=\lim_{t\to0}\frac{t}{\sin t}=1.
+\]
+另一项中，$\frac{m+n}{2}\to n$，且 $n\in(-\pi/2,\pi/2)$，故 $\cos n>0$。由余弦函数的连续性及分母极限不为零，
+\[
+\begin{aligned}
+\lim_{h\to0}\cos\frac{m+n}{2}&=\cos n,\\
+\lim_{h\to0}\frac{1}{\cos\frac{m+n}{2}}&=\frac1{\cos n}.
+\end{aligned}
+\]
+结合两项的极限，得到 $f'(x)=1\cdot1/\cos n=1/\cos n$。
+
+\textbf{第五步：利用同角三角关系，将 $n$ 换回 $x$。} 由 $\sin n=x$，
+\[
+\begin{aligned}
+\sin^2n+\cos^2n&=1,\\
+\cos^2n&=1-\sin^2n=1-x^2.
+\end{aligned}
+\]
+因为 $n$ 在反正弦的主值范围内且不取端点，$\cos n>0$，所以 $\cos n=\sqrt{1-x^2}$（取正根而非负根）。代入上一步：
+\[
+\boxed{(\arcsin x)'=\frac{1}{\sqrt{1-x^2}},\quad -1<x<1}.
+\]
+\textbf{顿悟点：} 半差趋于零，用基本极限；平均值趋于原角 $n$，用连续性；最后由 $\sin n=x$ 换回 $x$。
+
+\medskip
+\textbf{定义法证明 2：反余弦函数 $(\arccos x)'=-1/\sqrt{1-x^2}$}
+
+条件：$-1<x<1$。取充分小的非零 $h$，使 $-1<x+h<1$。
+
+\textbf{第一步：写出导数定义。}
+\[
+f'(x)=\lim_{h\to0}\frac{\arccos(x+h)-\arccos x}{h}.
+\]
+\textbf{第二步：换元。} 令
+\[
+\begin{aligned}
+m&=\arccos(x+h),&\cos m&=x+h,\\
+n&=\arccos x,&\cos n&=x.
+\end{aligned}
+\]
+这里 $m,n\in(0,\pi)$。两式相减可得
+\[
+\begin{aligned}
+\cos m-\cos n&=(x+h)-x=h,\\
+\frac{\arccos(x+h)-\arccos x}{h}
+&=\frac{m-n}{\cos m-\cos n}.
+\end{aligned}
+\]
+\textbf{第三步：推导并应用余弦和差化积。} 同样令 $A=(m+n)/2$、$B=(m-n)/2$，则 $m=A+B$、$n=A-B$。利用两角和差的余弦公式，
+\[
+\begin{aligned}
+\cos m-\cos n
+&=\cos(A+B)-\cos(A-B)\\
+&=(\cos A\cos B-\sin A\sin B)\\
+&\quad-(\cos A\cos B+\sin A\sin B)\\
+&=-2\sin A\sin B\\
+&=-2\sin\frac{m+n}{2}\sin\frac{m-n}{2}.
+\end{aligned}
+\]
+这里的负号来自余弦和差公式，必须一直保留。代回差商，
+\[
+\begin{aligned}
+\frac{m-n}{\cos m-\cos n}
+&=\frac{m-n}{-2\sin\frac{m+n}{2}\sin\frac{m-n}{2}}\\[4pt]
+&=-\frac{\frac{m-n}{2}}{\sin\frac{m+n}{2}\sin\frac{m-n}{2}}\\[4pt]
+&=-\frac{\frac{m-n}{2}}{\sin\frac{m-n}{2}}
+\cdot\frac{1}{\sin\frac{m+n}{2}}.
+\end{aligned}
+\]
+\textbf{第四步：分别取极限。} 当 $h\to0$ 时，$m\to n$，所以 $t=(m-n)/2\to0$，而 $(m+n)/2\to n$。
+\[
+\begin{aligned}
+\lim_{h\to0}\frac{\frac{m-n}{2}}{\sin\frac{m-n}{2}}
+&=\lim_{t\to0}\frac{t}{\sin t}=1,\\
+\lim_{h\to0}\sin\frac{m+n}{2}&=\sin n.
+\end{aligned}
+\]
+由于 $n\in(0,\pi)$，$\sin n>0$，因此
+\[
+\lim_{h\to0}\frac1{\sin\frac{m+n}{2}}=\frac1{\sin n}.
+\]
+将两个极限相乘并保留负号，得到 $f'(x)=-1\cdot1/\sin n=-1/\sin n$。
+
+\textbf{第五步：将 $n$ 换回 $x$。} 由于 $\cos n=x$，
+\[
+\begin{aligned}
+\sin^2n+\cos^2n&=1,\\
+\sin^2n&=1-\cos^2n=1-x^2.
+\end{aligned}
+\]
+在 $0<n<\pi$ 内，$\sin n>0$，故 $\sin n=\sqrt{1-x^2}$，从而
+\[
+\boxed{(\arccos x)'=-\frac{1}{\sqrt{1-x^2}},\quad -1<x<1}.
+\]
+\textbf{顿悟点：} 反余弦和反正弦的证明结构相同，但余弦差的和差化积带负号。反余弦是严格递减函数，结果为负，与单调性一致。
+
+\medskip
+\textbf{定义法证明 3：反正切函数 $(\arctan x)'=1/(1+x^2)$}
+
+条件：$x\in\mathbb R$。由于原函数定义域为全体实数，对任意充分小的非零 $h$ 均可使用差商。
+
+\textbf{第一步：写出导数定义。}
+\[
+f'(x)=\lim_{h\to0}\frac{\arctan(x+h)-\arctan x}{h}.
+\]
+\textbf{第二步：换元。} 令
+\[
+\begin{aligned}
+m&=\arctan(x+h),&\tan m&=x+h,\\
+n&=\arctan x,&\tan n&=x.
+\end{aligned}
+\]
+这里 $m,n\in(-\pi/2,\pi/2)$，故 $\cos m>0$、$\cos n>0$。两式相减，
+\[
+\begin{aligned}
+\tan m-\tan n&=(x+h)-x=h,\\
+\frac{\arctan(x+h)-\arctan x}{h}
+&=\frac{m-n}{\tan m-\tan n}.
+\end{aligned}
+\]
+\textbf{第三步：将正切之差转化为正弦。} 利用正切定义与正弦差角公式，先通分，再化简分子：
+\[
+\begin{aligned}
+\tan m-\tan n
+&=\frac{\sin m}{\cos m}-\frac{\sin n}{\cos n}\\
+&=\frac{\sin m\cos n-\cos m\sin n}{\cos m\cos n}\\
+&=\frac{\sin(m-n)}{\cos m\cos n}.
+\end{aligned}
+\]
+代回差商，除以分式等于乘以其倒数：
+\[
+\begin{aligned}
+\frac{m-n}{\tan m-\tan n}
+&=\frac{m-n}{\frac{\sin(m-n)}{\cos m\cos n}}\\[4pt]
+&=(m-n)\frac{\cos m\cos n}{\sin(m-n)}\\[4pt]
+&=\frac{m-n}{\sin(m-n)}\cdot\cos m\cos n.
+\end{aligned}
+\]
+此处不必再使用半角形式，因为已经直接出现 $m-n$ 与 $\sin(m-n)$ 的比值。
+
+\textbf{第四步：分别取极限。} 当 $h\to0$ 时，$m\to n$，令 $t=m-n$，则 $t\to0$。因此
+\[
+\begin{aligned}
+\lim_{h\to0}\frac{m-n}{\sin(m-n)}
+&=\lim_{t\to0}\frac{t}{\sin t}=1,\\
+\lim_{h\to0}\cos m&=\cos n,\\
+\lim_{h\to0}\cos m\cos n&=\cos n\cdot\cos n=\cos^2n.
+\end{aligned}
+\]
+所以 $f'(x)=1\cdot\cos^2n=\cos^2n$。
+
+\textbf{第五步：将 $n$ 换回 $x$。} 此处已知的是 $\tan n=x$，因此选用包含正切平方的同角三角恒等式。将 $\sin^2n+\cos^2n=1$ 两边同时除以 $\cos^2n$，得到
+\[
+\begin{aligned}
+\frac{\sin^2n}{\cos^2n}+1&=\frac1{\cos^2n},\\
+1+\tan^2n&=\frac1{\cos^2n},\\
+\cos^2n&=\frac1{1+\tan^2n}=\frac1{1+x^2}.
+\end{aligned}
+\]
+代入导数表达式，最终得到
+\[
+\boxed{(\arctan x)'=\frac1{1+x^2},\quad x\in\mathbb R}.
+\]
+\textbf{顿悟点：} 正切先拆成正弦与余弦之商，通分后产生 $\sin(m-n)$，再使用基本极限。最后用 $1+\tan^2n=1/\cos^2n$ 换回 $x$。
+
+\medskip
+\textbf{三种定义法的统一思路（从差商到公式）：}
+\[
+\begin{aligned}
+\frac{m-n}{\sin m-\sin n}&\longrightarrow\frac1{\cos n}
+=\frac1{\sqrt{1-x^2}},\\[3pt]
+\frac{m-n}{\cos m-\cos n}&\longrightarrow-\frac1{\sin n}
+=-\frac1{\sqrt{1-x^2}},\\[3pt]
+\frac{m-n}{\tan m-\tan n}&\longrightarrow\cos^2n
+=\frac1{1+x^2}.
+\end{aligned}
+\]
+三个箭头均表示在 $h\to0$、$m\to n$ 时取极限，不表示普通恒等变形。反正弦和反余弦的证明仅适用于 $-1<x<1$；$x=\pm1$ 的有限单侧导数不存在，见上面的端点说明。反正切在全体实数上可导。
+
+\textbf{迁移口诀：} 写定义、换元去反函数、三角差式化积或通分、拆出基本极限、利用主值范围换回自变量。换元时不仅要换表达式，还要跟踪极限条件。
+
+
+\medskip
 \begin{minipage}{\linewidth}
 \textbf{\textcolor{CProof}{证明十一：线性组合}}
 \input{assets/tikz/F049_proof_linear_sum_secant.tex}
