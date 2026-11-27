@@ -1,0 +1,32 @@
+% F086｜平方根的快速估算与精度控制｜03_proof.tex
+% 继承上传模板的 LaTeX 环境；当前条目的内容独立编写。
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明一（门槛最低）：完全平方展开}}
+\par\medskip
+\begin{center}
+\input{assets/tikz/F086_square.tex}
+\end{center}
+\medskip
+令 $r=\sqrt A=t+h$。由 $r^2=A$：\[A=(t+h)^2=t^2+2th+h^2.\]移项后得到 $2th=A-t^2-h^2$；当 $h^2$ 很小，先略去它得 $h\approx(A-t^2)/(2t)$。说明了公式来源，也说明它并非精确等号。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明二（最直观）：夹逼到想要的数位}}
+\par\medskip
+\begin{center}
+\input{assets/tikz/F086_round.tex}
+\end{center}
+\medskip
+若 $p^2<A<q^2$ 且 $0<p<q$，平方函数在正数范围内递增，所以 $p<\sqrt A<q$。将 $[p,q]$ 不断细分，直到两个端点对舍入结果给出相同判断。此法计算可能较多，但精度完全可验证。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明三（误差最清楚）：近似总偏大}}
+\par\medskip
+\begin{center}
+\input{assets/tikz/F086_compare.tex}
+\end{center}
+\medskip
+把 $r=\sqrt A$ 代入 $u=t+(A-t^2)/(2t)$，直接通分：\[u-r=\frac{2t^2+r^2-t^2-2tr}{2t}=\frac{(t-r)^2}{2t}\ge0.\]因此 $t>0$ 时线性估计 $u$ 总在真实平方根上方，且 $t$ 越接近 $r$，平方误差越小。
+\end{proofbox}

@@ -1,31 +1,236 @@
 \begin{statementbox}
-	\textbf{\textcolor{CStatement}{条件}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-		\item[\textbf{\textcolor{CStatement}{条件一（可导及弧度）：}}] 每个函数在其定义域内可导；自变量$x$以弧度为单位.
-		\item[\textbf{\textcolor{CStatement}{条件二（底数范围）：}}] 指数函数底数$a>0$且$a\neq 1$；对数函数底数$a>0$且$a\neq 1$.
-	\end{description}
-
-	\textbf{\textcolor{CStatement}{结论}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{\textcolor{CStatement}{结论一（基本导数公式）：}}]
-			\textbf{\textcolor{CStatement}{直观描述：}}
-			八个求导公式是计算导数的基础.
-			\[
-				\begin{aligned}
-					(x^\alpha)' &= \alpha x^{\alpha-1},\\[2pt]
-					(a^x)' &= a^x\ln a,\quad (e^x)' = e^x,\\[2pt]
-					(\log_a x)' &= \frac{1}{x\ln a},\quad (\ln x)' = \frac{1}{x},\\[2pt]
-					(\sin x)' &= \cos x,\\[2pt]
-					(\cos x)' &= -\sin x.
-			\end{aligned}
-			\]
-
-		\item[\textbf{\textcolor{CStatement}{推广结论(线性组合求导):}}]
-			\textbf{\textcolor{CStatement}{直观描述:}}
-			对基本初等函数的线性组合求导时,可逐项求导再组合.
-			\[
-				(c_1 f_1 + c_2 f_2)' = c_1 f_1' + c_2 f_2'.
-			\]
-			例如,$f(x)=x^3+2e^x-3\ln x+\sin x$ 的导数为 $f'(x)=3x^2+2e^x-\frac{3}{x}+\cos x$.
-	\end{description}
+\begin{minipage}{\linewidth}
+\textbf{结论1：常数函数}
+\[
+(c)'=0
+\]
+三角函数均使用弧度制；$c,\alpha,c_1,c_2$ 为常数。以下每幅图直接展示本条公式的斜率含义。
+\input{assets/tikz/F049_formula_constant.tex}
+\end{minipage}
 \end{statementbox}
+
+\begin{statementbox}
+\begin{minipage}{\linewidth}
+\textbf{结论2：一次函数}
+\[
+(x)'=1
+\]
+\input{assets/tikz/F049_formula_identity.tex}
+\end{minipage}
+\end{statementbox}
+
+\begin{statementbox}
+\begin{minipage}{\linewidth}
+\textbf{结论3：任意实数幂}
+\[
+(x^\alpha)'=\alpha x^{\alpha-1}
+\]
+\input{assets/tikz/F049_formula_power.tex}
+\end{minipage}
+正整数幂可推广至全体实数，负整数幂要求 $x\ne0$。分数幂能否取负底数须按实数根式定义判断；零点可导性须单独检查。
+\end{statementbox}
+
+\begin{statementbox}
+\begin{minipage}{\linewidth}
+\textbf{结论4：倒数函数}
+\[
+(1/x)'=-1/x^2
+\]
+\input{assets/tikz/F049_formula_reciprocal.tex}
+\end{minipage}
+\end{statementbox}
+
+\begin{statementbox}
+\begin{minipage}{\linewidth}
+\textbf{结论5：平方根}
+\[
+(\sqrt x)'=1/(2\sqrt x)
+\]
+\input{assets/tikz/F049_formula_sqrt.tex}
+\end{minipage}
+\end{statementbox}
+
+\begin{statementbox}
+\begin{minipage}{\linewidth}
+\textbf{结论6：立方根}
+\[
+(\sqrt[3]x)'=1/(3\sqrt[3]{x^2})
+\]
+\input{assets/tikz/F049_formula_cbrt.tex}
+\end{minipage}
+\end{statementbox}
+
+\begin{statementbox}
+\begin{minipage}{\linewidth}
+\textbf{结论7：一般指数}
+\[
+(a^x)'=a^x\ln a
+\]
+\input{assets/tikz/F049_formula_exp.tex}
+\end{minipage}
+$a=1$ 时 $1^x$ 为常数，导数为零，公式仍成立；但 $\log_1x$ 不存在。
+\end{statementbox}
+
+\begin{statementbox}
+\begin{minipage}{\linewidth}
+\textbf{结论8：自然指数}
+\[
+(e^x)'=e^x
+\]
+\input{assets/tikz/F049_formula_exp_e.tex}
+\end{minipage}
+\end{statementbox}
+
+\begin{statementbox}
+\begin{minipage}{\linewidth}
+\textbf{结论9：一般对数}
+\[
+(\log_a x)'=1/(x\ln a)
+\]
+\input{assets/tikz/F049_formula_log.tex}
+\end{minipage}
+\end{statementbox}
+
+\begin{statementbox}
+\begin{minipage}{\linewidth}
+\textbf{结论10：自然对数}
+\[
+(\ln x)'=1/x
+\]
+\input{assets/tikz/F049_formula_ln.tex}
+\end{minipage}
+\end{statementbox}
+
+\begin{statementbox}
+\begin{minipage}{\linewidth}
+\textbf{结论11：绝对值对数}
+\[
+(\ln|x|)'=1/x
+\]
+\input{assets/tikz/F049_formula_ln_abs.tex}
+\end{minipage}
+\end{statementbox}
+
+\begin{statementbox}
+\begin{minipage}{\linewidth}
+\textbf{结论12：正弦}
+\[
+(\sin x)'=\cos x
+\]
+\input{assets/tikz/F049_formula_sin.tex}
+\end{minipage}
+\end{statementbox}
+
+\begin{statementbox}
+\begin{minipage}{\linewidth}
+\textbf{结论13：余弦}
+\[
+(\cos x)'=-\sin x
+\]
+\input{assets/tikz/F049_formula_cos.tex}
+\end{minipage}
+\end{statementbox}
+
+\begin{statementbox}
+\begin{minipage}{\linewidth}
+\textbf{结论14：正切}
+\[
+(\tan x)'=1/\cos^2x
+\]
+\input{assets/tikz/F049_formula_tan.tex}
+\end{minipage}
+\end{statementbox}
+
+\begin{statementbox}
+\begin{minipage}{\linewidth}
+\textbf{结论15：余切}
+\[
+(\cot x)'=-1/\sin^2x
+\]
+\input{assets/tikz/F049_formula_cot.tex}
+\end{minipage}
+\end{statementbox}
+
+\begin{statementbox}
+\begin{minipage}{\linewidth}
+\textbf{结论16：正割}
+\[
+(\sec x)'=\sec x\tan x
+\]
+\input{assets/tikz/F049_formula_sec.tex}
+\end{minipage}
+记号：$\sec x=1/\cos x$，$\csc x=1/\sin x$，$\cot x=\cos x/\sin x$。
+\end{statementbox}
+
+\begin{statementbox}
+\begin{minipage}{\linewidth}
+\textbf{结论17：余割}
+\[
+(\csc x)'=-\csc x\cot x
+\]
+\input{assets/tikz/F049_formula_csc.tex}
+\end{minipage}
+\end{statementbox}
+
+\begin{statementbox}
+\begin{minipage}{\linewidth}
+\textbf{结论18：绝对值}
+\[
+(|x|)'=\begin{cases}1,&x>0,\\-1,&x<0.\end{cases}
+\]
+\input{assets/tikz/F049_formula_abs.tex}
+\end{minipage}
+\end{statementbox}
+
+\begin{statementbox}
+\begin{minipage}{\linewidth}
+\textbf{结论19：变指数}
+\[
+(x^x)'=x^x(\ln x+1)
+\]
+\input{assets/tikz/F049_formula_self_power.tex}
+\end{minipage}
+\end{statementbox}
+
+\begin{statementbox}
+\begin{minipage}{\linewidth}
+\textbf{结论20：反正弦（拓展）}
+\[
+(\arcsin x)'=1/\sqrt{1-x^2}
+\]
+\input{assets/tikz/F049_formula_asin.tex}
+\end{minipage}
+\end{statementbox}
+
+\begin{statementbox}
+\begin{minipage}{\linewidth}
+\textbf{结论21：反余弦（拓展）}
+\[
+(\arccos x)'=-1/\sqrt{1-x^2}
+\]
+\input{assets/tikz/F049_formula_acos.tex}
+\end{minipage}
+\end{statementbox}
+
+\begin{statementbox}
+\begin{minipage}{\linewidth}
+\textbf{结论22：反正切（拓展）}
+\[
+(\arctan x)'=1/(1+x^2)
+\]
+\input{assets/tikz/F049_formula_atan.tex}
+\end{minipage}
+\end{statementbox}
+
+\begin{statementbox}
+\begin{minipage}{\linewidth}
+\textbf{结论23：线性组合}
+\[
+(c_1f_1+c_2f_2)'=c_1f_1'+c_2f_2'
+\]
+\input{assets/tikz/F049_formula_linear_sum.tex}
+\end{minipage}
+例如 $f=x^3+2e^x-3\ln x+\sin x$（$x>0$），则 $f\prime=3x^2+2e^x-3/x+\cos x$。
+七条核心公式的导数定义证明见证明第一部分；其余公式及范围说明见第二部分。
+\end{statementbox}
+

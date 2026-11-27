@@ -1,0 +1,32 @@
+% F086｜平方根的快速估算与精度控制｜04_examples.tex
+% 继承上传模板的 LaTeX 环境；当前条目的内容独立编写。
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 1：三步估算根号 10}}
+\par\medskip
+\begin{center}
+\input{assets/tikz/F086_scale.tex}
+\end{center}
+\medskip
+$3^2=9<10<16=4^2$。取 $t=3$：$u=3+1/6\approx3.166667$。用 $u^2\approx10.0278$ 检查，说明估值略大。若需三位小数，继续缩小区间，得到 $\sqrt{10}\approx3.162$。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 2：为何根号 2 用 200 更好}}
+\par\medskip
+\begin{center}
+\input{assets/tikz/F086_compare.tex}
+\end{center}
+\medskip
+用 $t=14$ 算 $\sqrt{200}$：$14+4/28=14.142857$，除以 $10$ 得 $1.4142857$；取三位小数为 $1.414$。核对 $1.414^2=1.999396$、$1.415^2=2.002225$，还可继续检查舍入分界点。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例 3：比较根号 10 与 3.16}}
+\par\medskip
+\begin{center}
+\input{assets/tikz/F086_round.tex}
+\end{center}
+\medskip
+不必展开复杂近似：只要比较正数平方。$3.16^2=9.9856<10$，所以 $\sqrt{10}>3.16$。\textbf{最快思路：}只比较大小时，直接平方往往优于计算小数。
+\end{examplebox}

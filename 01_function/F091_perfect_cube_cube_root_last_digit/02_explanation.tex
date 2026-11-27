@@ -1,0 +1,32 @@
+% F091｜完全立方数的立方根尾数速判｜02_explanation.tex
+% 继承上传模板的 LaTeX 环境；当前条目的内容独立编写。
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{为什么个位不会受十位影响}}
+\par\medskip
+\begin{center}
+\input{assets/tikz/F091_last.tex}
+\end{center}
+\medskip
+把两位整数写成 $10m+u$。由立方公式，$(10m+u)^3=1000m^3+300m^2u+30mu^2+u^3$；前面三项都有因数 $10$，因此个位只取决于 $u^3$ 的个位。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{为什么左侧的103能定十位}}
+\par\medskip
+\begin{center}
+\input{assets/tikz/F091_split.tex}
+\end{center}
+\medskip
+若根是 $10m+u$ 且 $0\le u\le9$，就有 $(10m)^3\le N<[10(m+1)]^3$。两边除以1000，得 $m^3\le N/1000<(m+1)^3$。因此左侧整数 $H=\lfloor N/1000\rfloor$ 满足 $m^3\le H<(m+1)^3$。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{为什么必须是完全立方}}
+\par\medskip
+\begin{center}
+\input{assets/tikz/F091_verify.tex}
+\end{center}
+\medskip
+$103823$ 可由数位规则得到候选 $47$，再验 $47^3=103823$。如果 $N$ 不是完全立方，左侧和个位规则仍可能给出一个“候选整数”，但不能当作精确的立方根。
+\end{explanationbox}

@@ -9,7 +9,7 @@
       "圆外一点到圆的距离极值结论",
       "解析几何常用结论"
     ],
-    "summary": "圆外一点到圆距离极值记忆口诀：\" 外点看圆心，加减半径就行",
+    "summary": "外点看圆心，最近减半径，最远加半径；圆周距离统一最值为 |d-R| 与 d+R。",
     "difficulty": 3,
     "category": "解析几何",
     "tags": [
@@ -96,34 +96,35 @@
     "success_rate": 0
   },
   "math": {
-    "core_formula": "PA=d-R",
+    "core_formula": "d-R\\leqslant PA\\leqslant d+R",
     "related_formulas": [
-      "OP=d\\,(d>R)",
-      "d-R",
-      "d+R"
+      "PA_{\\min}=|d-R|",
+      "PA_{\\max}=d+R",
+      "PA^2=d^2+R^2-2dR\\cos\\theta"
     ],
     "variables": {
-      "d": "题设变量",
-      "R": "题设变量"
+      "d": "定点到圆心距离",
+      "R": "圆半径",
+      "A": "圆周动点"
     },
-    "conditions": "P01 圆外一点到圆的距离极值结论 设圆 O 的半径为 R，点 P 在圆外，且 OP=d, (d>R)",
+    "conditions": "R>0，OP=d>R，A 遍历圆周",
     "conclusions": [
-      "圆外一点到圆距离极值记忆口诀：\" 外点看圆心，加减半径就行"
+      "最小值 d-R，最大值 d+R，分别在圆心连线的近端与远端取得。"
     ]
   },
   "content": {
-    "statement": "P01 圆外一点到圆的距离极值结论 设圆 O 的半径为 R，点 P 在圆外，且 OP=d, (d>R)",
+    "statement": "设 R>0，OP=d>R，A 遍历圆周，则 d-R≤PA≤d+R。",
     "derivation": [
-      "设圆上任意一点为 A, 连接 PA 、 OA",
-      "在 OPA 中，由三角形两边之和大于第三边，有：|OP-OA| PA OP+OA 又因为 OA=R, OP=d，故 d-R PA d+R 当 A 在直线 OP 上，且位于",
-      "O 与 P 之间时，PA=d-R"
+      "三角形两边关系：PA≤d+R，d≤PA+R，合并并验证共线取等。",
+      "三角不等式直接夹逼并验证取等。",
+      "三角换元 A=(R cosθ,R sinθ)，平方后利用余弦值域并验证取等。"
     ],
     "intuition": "从点 P 出发，到圆上不同点连线，长度是不断变化的",
     "common_tricks": [
-      "该结论 只适用于点在圆外 的情形",
-      "若点在圆内，最小距离为 R-d，最大距离仍为 R+d",
-      "极值点 不在任意位置，而只在 OP 方向上",
-      "不要误以为\"垂线最短\"可以直接使用"
+      "圆周距离最小值为 |d-R|，最大值为 d+R",
+      "圆心情形所有点等距",
+      "圆弧限制必须检查取等点",
+      "圆盘与圆周不同"
     ]
   },
   "usage": {
@@ -159,16 +160,22 @@
       "圆的标准方程",
       "点到圆的距离定义"
     ],
-    "related_ids": ["P002", "P003", "P004", "P005", "P006"],
+    "related_ids": [
+      "P002",
+      "P003",
+      "P004",
+      "P005",
+      "P006"
+    ],
     "similar": [
       "解析几何中的相近变形结论"
     ]
   },
   "meta": {
-    "version": 1,
+    "version": 2,
     "source": "AI生成",
     "created_at": "2026-05-04",
-    "updated_at": "2026-09-27"
+    "updated_at": "2026-11-25"
   },
   "isPro": 1,
   "remarks": "",

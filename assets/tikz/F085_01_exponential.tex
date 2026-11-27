@@ -1,0 +1,26 @@
+% F085｜真实数学图；代表函数不构成抽象解的唯一性证明。
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[width=12.4cm,height=5.1cm,axis lines=middle,
+ xmin=-1.4,xmax=3.5,ymin=-0.5,ymax=9.5,
+ xtick={-1,0,1,2,3},xticklabels=\empty,ytick={0,2,4,8},xlabel={$t$},ylabel={$f(t)$},
+ title={指数曲线 $f(t)=2^t$},title style={font=\small,yshift=3pt},
+ tick label style={font=\small},label style={font=\small},
+ ylabel style={at={(axis description cs:0,1)},anchor=south east,xshift=-18pt},
+ clip=false,grid=major,grid style={black!8},enlargelimits=false,
+ every axis plot/.append style={thick},samples=161]
+\addplot[CExplanation,very thick,domain=-1.2:3.15] {2^x};
+\draw[dashed,black!35] (axis cs:1,0) |- (axis cs:0,2);
+\draw[dashed,black!35] (axis cs:2,0) |- (axis cs:0,4);
+\draw[dashed,black!35] (axis cs:3,0) |- (axis cs:0,8);
+\addplot[only marks,mark=*,mark size=2pt,orange!80!black] coordinates {(1,2) (2,4) (3,8)};
+
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:-1,-0.5) {$-1$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:1,-0.5) {$1$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:2,-0.5) {$2$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:3,-0.5) {$3$};
+
+\end{axis}
+\end{tikzpicture}
+\par\small 横坐标 $1+2=3$，对应高度从 $2,4$ 相乘得到 $8$；曲线经过 $(0,1)$。
+\end{center}

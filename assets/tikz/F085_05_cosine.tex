@@ -1,0 +1,25 @@
+% F085｜真实数学图；代表函数不构成抽象解的唯一性证明。
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[width=12.4cm,height=5.1cm,axis lines=middle,
+ xmin=-0.3,xmax=6.8,ymin=-1.5,ymax=1.5,
+ xtick={0,1.570796,3.141593,4.712389,6.283185},xticklabels=\empty,ytick={-1,0,1},xlabel={$t$},ylabel={$f(t)$},
+ title={余弦曲线 $f(t)=\cos t$},title style={font=\small,yshift=3pt},
+ tick label style={font=\small},label style={font=\small},
+ ylabel style={at={(axis description cs:0,1)},anchor=south east,xshift=-18pt},
+ clip=false,grid=major,grid style={black!8},enlargelimits=false,
+ every axis plot/.append style={thick},samples=161]
+\addplot[CExplanation,very thick,domain=0:6.28] {cos(deg(x))};
+\draw[dashed,black!35] (axis cs:0.5235987755982988,0) |- (axis cs:0,0.8660254037844386);
+\draw[dashed,black!35] (axis cs:1.5707963267948966,0) |- (axis cs:0,0);
+\addplot[only marks,mark=*,mark size=2pt,orange!80!black] coordinates {(0.523598776,0.866025404) (1.57079633,0)};
+
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:1.570796,-1.5) {$\pi/2$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:3.141593,-1.5) {$\pi$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:4.712389,-1.5) {$3\pi/2$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:6.283185,-1.5) {$2\pi$};
+
+\end{axis}
+\end{tikzpicture}
+\par\small 取 $x\pm y=\pi/2,\pi/6$：两个高度之和 $0+\sqrt3/2=2\cos x\cos y$。横轴单位为弧度。
+\end{center}

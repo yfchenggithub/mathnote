@@ -1,0 +1,92 @@
+% F085｜逐类防错；明确“模型”不是唯一解析式。
+\FReserve{3.5cm}
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错 1｜把识别线索当成唯一解析式}}
+
+$f(x+y)=f(x)f(y)$ \textbf{不自动等于} $f(x)=a^x$：它还允许 $f\equiv0$。$f(x+y)=f(x)+f(y)$ \textbf{不自动等于} $kx$；若要唯一写出常见表达式，还需连续性等附加条件。
+
+\textbf{\textcolor{CTrap}{易错 2｜忘了模型有自己的定义域}}
+
+对数型、幂函数型先在 $x,y>0$ 讨论；正切、余切不能在自身无定义的位置使用加法公式。不能把某个式子当作对全体实数恒成立。
+\end{trapbox}
+
+\FReserve{3.5cm}
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错 3｜指数型漏掉零函数}}
+
+由 $f(x)=f(x)f(0)$，只有\textbf{存在某个 $x$ 使 $f(x)\ne0$} 时，才能推出 $f(0)=1$。若 $f\equiv0$，则 $f(0)=0$。
+\input{assets/tikz/F085_trap_zero.tex}
+
+\textbf{\textcolor{CTrap}{易错 4｜对数型和幂函数型混淆}}
+\[
+\text{对数： }f(x^n)=nf(x),\qquad
+\text{幂： }f(x^n)=[f(x)]^n.
+\]
+如果题目只有 $f(2)$，求 $f(8)$ 时要区分 $3f(2)$ 与 $f(2)^3$。
+\input{assets/tikz/F085_example_log_power.tex}
+\end{trapbox}
+
+\FReserve{3.5cm}
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错 5｜余弦型不一定就是 $\cos x$}}
+
+$f(x)\equiv1$ 同样满足余弦型方程；
+\[
+ f(x)=\frac{2^x+2^{-x}}2
+\]
+也满足它。因此不能没有条件就说函数“必有周期 $2\pi$”或“函数值总在 $[-1,1]$”。
+
+\textbf{\textcolor{CTrap}{易错 6｜正弦型不等于只有正弦函数}}
+
+$f(x)=x$ 也满足正弦型平方差关系；更一般地 $f(x)=cx$（$c$ 为常数）也满足。\textbf{不要把正弦函数的周期直接推广给所有正弦型解。}
+\input{assets/tikz/F085_trap_nonunique.tex}
+\end{trapbox}
+
+\FReserve{3.5cm}
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错 7｜正切型分母为零还照套}}
+
+只有 $1-f(x)f(y)\ne0$，才能使用
+\[
+f(x+y)=\frac{f(x)+f(y)}{1-f(x)f(y)}.
+\]
+对具体 $\tan$，若 $\cos x=0$、$\cos y=0$ 或 $\cos(x+y)=0$，相关函数值可能无定义；\textbf{仅写代数式，不检查输入是否合法，会出错。}
+
+\textbf{\textcolor{CTrap}{易错 8｜余切型随便代入 $0$}}
+
+具体余切函数 $\cot0$ 不存在；且加法型关系的分母 $f(x)+f(y)$ 还不能为零。\textbf{余切型不能照搬指数型“令 $y=0$”的套路。}
+\end{trapbox}
+
+\FReserve{3.5cm}
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错 9｜正切和余切分式记反}}
+\[
+\begin{aligned}
+\text{正切：}&\quad\frac{f(x)+f(y)}{1-f(x)f(y)},\\[4pt]
+\text{余切：}&\quad\frac{f(x)f(y)-1}{f(x)+f(y)}.
+\end{aligned}
+\]
+\textbf{正切“和在上”，余切“积减一在上”。}
+
+\textbf{\textcolor{CTrap}{易错 10｜正弦型左右两个输入不会反凑}}
+
+$f(m)f(n)$ 要凑 $f(x+y)f(x-y)$，应令
+\[
+ x=\frac{m+n}2,\quad y=\frac{m-n}2.
+\]
+不要把“中点”误写成 $m+n$，也不要把“半差”误写成 $m-n$。
+\end{trapbox}
+
+\FReserve{3.5cm}
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错 11｜以为所有模型都可推出奇偶或周期}}
+
+正比例型在全体实数上满足加法关系时可以推出奇函数；余弦型不恒为零的解可推出偶函数；正弦型在全体实数上可推出奇函数。\textbf{这些都不能无条件变成某一个固定周期。}
+
+\textbf{\textcolor{CTrap}{易错 12｜只用一个数字验证就断言函数恒等式}}
+
+取 $x=y=1$ 只能帮助发现关系；正式证明某函数满足模型，要按公式对所有允许的输入推导。
+
+\textbf{统一防错顺序：}\textbf{看输入是否允许 $\longrightarrow$ 看分母是否为零 $\longrightarrow$ 认准运算结构 $\longrightarrow$ 再代入特殊值。}
+\end{trapbox}
+

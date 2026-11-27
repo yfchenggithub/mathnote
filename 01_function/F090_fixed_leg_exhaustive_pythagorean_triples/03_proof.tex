@@ -1,0 +1,32 @@
+% F090｜给定直角边穷举勾股整数数组｜03_proof.tex
+% 继承上传模板的 LaTeX 环境；当前条目的内容独立编写。
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明一（最低门槛）：勾股定理与平方差}}
+\par\medskip
+\begin{center}
+\input{assets/tikz/F090_factor.tex}
+\end{center}
+\medskip
+从 $a^2+b^2=c^2$ 出发，移项得 $a^2=c^2-b^2=(c-b)(c+b)$。等式右边是两个正整数因数，所以它们必是 $a^2$ 的一组因数对。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明二（最快）：从因数对重新构造三边}}
+\par\medskip
+\begin{center}
+\input{assets/tikz/F090_convert.tex}
+\end{center}
+\medskip
+取 $0<d<e$，$de=a^2$，且 $d,e$ 同奇同偶。令 $b=(e-d)/2$、$c=(e+d)/2$，可得 $b,c$ 为正整数且\[c^2-b^2=\frac{(e+d)^2-(e-d)^2}{4}=de=a^2.\]所以每个合格因数对都能形成一组。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明三（最完整）：为什么不重不漏}}
+\par\medskip
+\begin{center}
+\input{assets/tikz/F090_pairs.tex}
+\end{center}
+\medskip
+给定一组正整数解 $(a,b,c)$，因数对必为 $(c-b,c+b)$，无法有第二组不同因数对对应同一个 $(b,c)$。反之，符合条件的因数对又唯一给出 $(b,c)$。于是\textbf{一组解对应一组因数对}，枚举完就找全了。
+\end{proofbox}

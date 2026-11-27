@@ -1,0 +1,32 @@
+% F086｜平方根的快速估算与精度控制｜05_traps.tex
+% 继承上传模板的 LaTeX 环境；当前条目的内容独立编写。
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错一：近似公式不是精确公式}}
+\par\medskip
+\begin{center}
+\input{assets/tikz/F086_square.tex}
+\end{center}
+\medskip
+$\sqrt{10}$ 不是 $19/6$。因为 $(19/6)^2=361/36>10$。遗漏的 $h^2$ 会造成偏差，必须使用 $\approx$。
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错二：误以为小数位数相同就能保证精度}}
+\par\medskip
+\begin{center}
+\input{assets/tikz/F086_round.tex}
+\end{center}
+\medskip
+算出 $3.162$ 并不自动等于“正确到千分位”。$3.1625$ 才是保留到三位小数的舍入分界，需确认真值在哪一侧。
+\end{trapbox}
+\clearpage
+\begin{trapbox}
+\textbf{\textcolor{CTrap}{易错三：根号内放大后忘记还原}}
+\par\medskip
+\begin{center}
+\input{assets/tikz/F086_compare.tex}
+\end{center}
+\medskip
+$\sqrt{200}=10\sqrt2$，而不是 $100\sqrt2$。\textbf{被开方数乘 $100$，平方根只乘 $10$。}
+\end{trapbox}

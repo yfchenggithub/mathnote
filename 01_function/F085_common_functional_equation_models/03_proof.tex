@@ -1,0 +1,148 @@
+% F085｜每种证明就地配图；曲线示例与一般代数论证分工明确。
+\FReserve{7.5cm}
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明一｜运算法则：指数与对数互为反向观察}}
+\input{assets/tikz/F085_overview.tex}
+左图把输入相加变成高度相乘，右图反向读取相同的数。这一观察对应下列对所有合法输入成立的运算法则：
+\[
+\begin{aligned}
+f(x)=a^x&:\quad f(x+y)=a^{x+y}=a^xa^y=f(x)f(y),\\
+f(x)=\log_a x&:\quad f(xy)=\log_a x+\log_a y=f(x)+f(y).
+\end{aligned}
+\]
+指数取 $a>0$；对数取 $x,y>0,a>0,a\ne1$。图用 $a=2$ 展示，证明使用任意合法底数。
+\end{proofbox}
+
+\FReserve{7.5cm}
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明一（续）｜幂与正比例分别保留乘法、加法}}
+\input{assets/tikz/F085_proof_power_linear.tex}
+\[
+\begin{aligned}
+f(x)=x^a&:\quad f(xy)=(xy)^a=x^ay^a=f(x)f(y)\quad(x,y>0),\\
+f(x)=kx&:\quad f(x+y)=k(x+y)=kx+ky=f(x)+f(y).
+\end{aligned}
+\]
+这些证明只说明典型函数满足模型；反过来确定唯一解析式，还须题目提供充分条件。
+\end{proofbox}
+
+\FReserve{7.5cm}
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明二｜余弦和差相加：弦中点的横坐标}}
+\input{assets/tikz/F085_proof_cosine_projection.tex}
+图中 $P_+,P_-$ 的横坐标平均值是弦中点 $Q$ 的横坐标；射线 $OQ$ 的方向角为 $x$，$OQ=\cos y$。于是看见两侧投影的平均值 $\cos x\cos y$。
+
+\textbf{任意角的代数证明：}分别展开
+\[
+\begin{aligned}
+\cos(x+y)&=\cos x\cos y-\sin x\sin y,\\
+\cos(x-y)&=\cos x\cos y+\sin x\sin y.
+\end{aligned}
+\]
+相加，异号的 $\sin x\sin y$ 抵消，得到
+\[\boxed{\cos(x+y)+\cos(x-y)=2\cos x\cos y}.\]
+\end{proofbox}
+
+\FReserve{7.5cm}
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明二（续）｜正弦和差相乘：平方差的面积拆拼}}
+\input{assets/tikz/F085_proof_sine_area.tex}
+设 $A=\sin x\cos y,B=\cos x\sin y$。由和差公式，两个正弦值就是 $A+B$ 与 $A-B$。图中两块剩余面积拼成长方形，对应
+\[
+\begin{aligned}
+\sin(x+y)\sin(x-y)&=(A+B)(A-B)=A^2-B^2\\
+&=\sin^2x(1-\sin^2y)-(1-\sin^2x)\sin^2y\\
+&=\boxed{\sin^2x-\sin^2y}.
+\end{aligned}
+\]
+面积图展示 $A>B>0$ 的情形；上面的代数恒等式不受 $A,B$ 正负限制。
+\end{proofbox}
+
+\FReserve{7.5cm}
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明三｜正切与余切：同一射线的两种比值}}
+\input{assets/tikz/F085_proof_tangent_ratios.tex}
+对 $\theta=x+y$，先分别写成纵横比与横纵比，再代入和角公式：
+\[
+\begin{aligned}
+\tan(x+y)&=\frac{\sin x\cos y+\cos x\sin y}{\cos x\cos y-\sin x\sin y}
+=\frac{\tan x+\tan y}{1-\tan x\tan y},\\[5pt]
+\cot(x+y)&=\frac{\cos x\cos y-\sin x\sin y}{\sin x\cos y+\cos x\sin y}
+=\frac{\cot x\cot y-1}{\cot x+\cot y}.
+\end{aligned}
+\]
+正切一式同除以 $\cos x\cos y$；余切一式同除以 $\sin x\sin y$。相应的 $x,y,x+y$ 处函数值均须有定义，所有除数均须非零。
+\end{proofbox}
+
+\FReserve{7.5cm}
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明四｜特殊值代入：从模型直接推出对称性}}
+\input{assets/tikz/F085_proof_special_values.tex}
+\textbf{指数型（实数域、不恒为零）：}令 $y=0$，从 $f(x)=f(x)f(0)$ 选取一个非零函数值得 $f(0)=1$。令 $y=-x$，得 $f(x)f(-x)=1$。又 $f(x)=f(x/2)^2>0$。
+
+\textbf{对数型（正数域）：}令 $y=1$ 得 $f(1)=0$；令 $y=1/x$ 得 $f(1/x)=-f(x)$。
+
+\textbf{幂型（正数域、不恒为零）：}令 $y=1$ 得 $f(1)=1$；令 $y=1/x$ 得 $f(x)f(1/x)=1$，且 $f(x)=f(\sqrt x)^2>0$。
+
+\textbf{正比例型（实数域）：}令 $y=0$ 得 $f(0)=0$；令 $y=-x$ 得 $f(-x)=-f(x)$。
+
+\textbf{余弦型（实数域、不恒为零）：}令 $y=0$ 得 $f(0)=1$；令 $x=0$ 得 $f(-y)=f(y)$，对应左图的轴对称。
+
+\textbf{正弦型（实数域）：}令 $y=0$ 得 $f(0)^2=0$。令 $x=0,y=\pm t$，分别得
+\[f(t)f(-t)=-f(t)^2=-f(-t)^2.\]
+所以 $[f(t)+f(-t)]^2=0$，即 $f(-t)=-f(t)$，对应右图的中心对称。
+
+以上结论由方程推出，\textbf{不需要预先假设连续或猜出解析式}；图中曲线只帮助看见关系。
+\end{proofbox}
+
+\FReserve{7.5cm}
+\begin{proofbox}
+\textbf{\textcolor{CProof}{重要推论 1｜相加输入：倍数与相反数}}
+\input{assets/tikz/F085_corollary_addition.tex}
+反复使用加法型关系，再用相反数关系扩展到负整数，得到
+\[
+\begin{array}{lll}
+\text{指数型：}&f(nx)=[f(x)]^n,&f(-x)=1/f(x);\\[4pt]
+\text{正比例型：}&f(nx)=nf(x),&f(-x)=-f(x).
+\end{array}
+\]
+这里 $n\in\mathbb Z$，关系在全体实数上成立；指数型须不恒为零，因此 $f(x)>0$，$n=0$ 和负整数幂均有意义。
+\end{proofbox}
+
+\FReserve{7.5cm}
+\begin{proofbox}
+\textbf{\textcolor{CProof}{重要推论 2｜相乘输入：乘方与倒数}}
+\input{assets/tikz/F085_corollary_multiplication.tex}
+把 $x^n$ 拆成相同因子的乘积，$n=0$ 用 $f(1)$，负整数再用倒数关系：
+\[
+\begin{array}{lll}
+\text{对数型：}&f(x^n)=nf(x),&f(1/x)=-f(x);\\[4pt]
+\text{幂函数型：}&f(x^n)=[f(x)]^n,&f(1/x)=1/f(x).
+\end{array}
+\]
+这里 $x>0,n\in\mathbb Z$；幂型须不恒为零。左图是高度乘 $n$，右图是高度的 $n$ 次幂，不能混用。
+\end{proofbox}
+
+\FReserve{7.5cm}
+\begin{proofbox}
+\textbf{\textcolor{CProof}{重要推论 3｜余弦的二倍输入，正弦的中点半差}}
+\input{assets/tikz/F085_corollary_cosine_sine.tex}
+\textbf{余弦型：}不恒为零时 $f(0)=1$。令 $y=x$ 得 $f(2x)+1=2f(x)^2$，即
+\[\boxed{f(2x)=2[f(x)]^2-1}.\]
+\textbf{正弦型：}若要计算 $f(m)f(n)$，在数轴上取中点 $x=(m+n)/2$、半差 $y=(m-n)/2$，便有 $x+y=m,x-y=n$，所以
+\[\boxed{f(m)f(n)=f^2\!\left(\frac{m+n}{2}\right)-f^2\!\left(\frac{m-n}{2}\right)}.\]
+两者均按实数域上的模型讨论；抽象函数的推论并不要求其图像就是图中的三角曲线。
+\end{proofbox}
+
+\FReserve{7.5cm}
+\begin{proofbox}
+\textbf{\textcolor{CProof}{重要推论 4｜正切、余切的二倍输入与无定义边界}}
+\input{assets/tikz/F085_corollary_tangent_cotangent.tex}
+在原关系中取 $y=x$，直接得到
+\[
+\text{正切型： }\boxed{f(2x)=\frac{2f(x)}{1-[f(x)]^2}},\qquad
+\text{余切型： }\boxed{f(2x)=\frac{[f(x)]^2-1}{2f(x)}}.
+\]
+前者要求 $f(x)^2\ne1$；后者要求 $f(x)\ne0$，并且两者均须在 $x,2x$ 处有定义。比如 $\tan(\pi/4)=1$，但 $\tan(\pi/2)$ 不存在，不能给它算出一个“函数值”。
+\end{proofbox}
+

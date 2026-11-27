@@ -1,58 +1,549 @@
 \begin{proofbox}
-	\textbf{\textcolor{CProof}{思路提示}}
+\textbf{\textcolor{CProof}{第一部分：七条核心公式逐条完整证明}}
 
-	所有基本初等函数的导数均通过导数定义$f'(x)=\lim_{h\to0}\frac{f(x+h)-f(x)}{h}$及已知极限推得。下面以四个典型代表展示推导过程.
+本部分是必学内容。每条均从导数定义出发，写明条件、差商变形、所用极限和最终结论。先证明自然指数和自然对数，再证明一般底数和任意实数幂；最后证明正弦和余弦。这样不需要借助待证的求导公式，也不需要复合求导法则。
 
-	\medskip
-	\textbf{\textcolor{CProof}{正式推导}}
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-		\item[\textbf{步骤一（幂函数导数）：}] 取$f(x)=x^n$（$n\in\mathbb{N}$）.
-			\[
-				\begin{aligned}
-					f'(x) &= \lim_{h\to0}\frac{(x+h)^n-x^n}{h} \\
-					&= \lim_{h\to0}\frac{x^n+nx^{n-1}h+\frac{n(n-1)}{2}x^{n-2}h^2+\cdots+h^n-x^n}{h} \\
-					&= \lim_{h\to0}\bigl(nx^{n-1}+\frac{n(n-1)}{2}x^{n-2}h+\cdots+h^{n-1}\bigr) \\
-					&= nx^{n-1}.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 展开二项式，除$h$后除了第一项$n x^{n-1}$外其余各项均含$h$，取极限后为$0$.
+\medskip
+\textbf{\textcolor{CProof}{预备知识：导数定义与两个基本极限}}
+\[
+f'(x)=\lim_{h\to0}\frac{f(x+h)-f(x)}h.
+\]
+在差商化简时 $h\ne0$；当 $x$ 在定义域内部时，取充分小的 $|h|$，保证 $x+h$ 仍在定义域中。
 
-		\item[\textbf{步骤二（指数函数导数）：}] 取$f(x)=a^x$（$a>0,a\neq1$）.
-			\[
-				\begin{aligned}
-					f'(x) &= \lim_{h\to0}\frac{a^{x+h}-a^x}{h} \\
-					&= a^x\lim_{h\to0}\frac{a^{h}-1}{h} \\
-					&= a^x\ln a.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 极限$\displaystyle\lim_{h\to0}\frac{a^h-1}{h}=\ln a$是重要极限（可由$e$的定义或等价无穷小得到）.
+\textbf{预备一：自然常数与指对基本极限。} 取自然常数的标准极限刻画 $e=\lim_{t\to0}(1+t)^{1/t}$（$1+t>0$）作为已知基础。由自然对数的连续性，
+\input{assets/tikz/F049_proof_exp_e_secant.tex}
 
-		\item[\textbf{步骤三（对数函数导数）：}] 取$f(x)=\ln x$（$x>0$）.
-			\[
-				\begin{aligned}
-					f'(x) &= \lim_{h\to0}\frac{\ln(x+h)-\ln x}{h} \\
-					&= \lim_{h\to0}\frac{1}{h}\ln\frac{x+h}{x} \\
-					&= \lim_{h\to0}\frac{\ln(1+h/x)}{h} \\
-					&= \lim_{h\to0}\frac{1}{x}\cdot\frac{\ln(1+h/x)}{h/x} \\
-					&= \frac{1}{x}.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 利用$\displaystyle\lim_{u\to0}\frac{\ln(1+u)}{u}=1$（等价无穷小）.
+\input{assets/tikz/F049_proof_ln_secant.tex}
 
-		\item[\textbf{步骤四（正弦导数）：}] 取$f(x)=\sin x$（$x$弧度）.
-			\[
-				\begin{aligned}
-					f'(x) &= \lim_{h\to0}\frac{\sin(x+h)-\sin x}{h} \\
-					&= \lim_{h\to0}\frac{2\cos(x+\frac{h}{2})\sin\frac{h}{2}}{h} \\
-					&= \lim_{h\to0}\cos(x+\frac{h}{2})\cdot\frac{\sin\frac{h}{2}}{\frac{h}{2}} \\
-					&= \cos x.
-			\end{aligned}
-			\]
-			\par\textbf{理由：} 和差化积公式与重要极限$\displaystyle\lim_{t\to0}\frac{\sin t}{t}=1$.
-	\end{description}
+\[
+\begin{aligned}
+\lim_{t\to0}\frac{\ln(1+t)}t
+&=\lim_{t\to0}\ln\big((1+t)^{1/t}\big)\\
+&=\ln\left(\lim_{t\to0}(1+t)^{1/t}\right)\\
+&=\ln e=1.
+\end{aligned}
+\]
+再令 $t=e^h-1$。由指数函数连续，$h\to0$ 时 $t\to0$；由 $1+t=e^h$ 得 $h=\ln(1+t)$。当 $h\ne0$ 时 $t\ne0$，所以
+\[
+\begin{aligned}
+\lim_{h\to0}\frac{e^h-1}{h}
+&=\lim_{t\to0}\frac{t}{\ln(1+t)}\\
+&=\frac{1}{\lim_{t\to0}\frac{\ln(1+t)}t}=1.
+\end{aligned}
+\]
+此处只使用自然常数的极限刻画、指数与对数的连续性和互逆关系，不使用任何指对函数求导公式。自然常数极限的存在性及连续性作为基础知识，不从实数理论重建。
 
-	\medskip
-	\textbf{\textcolor{CProof}{结论回扣}}
+\textbf{预备二：三角基本极限。} 在单位圆中，弧度角 $0<t<\pi/2$ 对应的内接三角形、扇形、外切三角形的面积依次为 $\frac12\sin t,\frac12t,\frac12\tan t$，故
+\input{assets/tikz/F049_proof_unit_circle.tex}
 
-	以上推导表明，只要满足可导条件与弧度制，各导数公式成立. 对于幂函数$x^\alpha$（$\alpha$为任意实数），可通过取对数求导法证明（需先掌握$\ln x$的导数），此处从略；其余初等函数（如$\cos x$, $\log_a x$, $e^x$）的导数可类似推导或由上述结果派生.
+\[
+\sin t<t<\tan t=\frac{\sin t}{\cos t}.
+\]
+因 $\sin t>0,\cos t>0$，可得
+\[
+\cos t<\frac{\sin t}{t}<1.
+\]
+当 $t\to0^+$ 时两端均趋于 $1$；又 $\sin(-t)/(-t)=\sin t/t$，左右极限一致，由夹逼定理得到
+\[
+\boxed{\lim_{t\to0}\frac{\sin t}{t}=1}.
+\]
+这里的角必须使用弧度制，因为扇形面积为 $t/2$。
+
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{核心证明 1：自然指数函数 $(e^x)'=e^x$}}
+\input{assets/tikz/F049_proof_exp_e_secant.tex}
+
+\end{minipage}
+
+条件：$x\in\mathbb R$。设 $f(x)=e^x$。
+
+第一步：写出增量 $f(x+h)-f(x)=e^{x+h}-e^x$。
+
+第二步：利用 $e^{x+h}=e^xe^h$，提取不随 $h$ 改变的因子 $e^x$：
+\[
+\frac{f(x+h)-f(x)}h=\frac{e^xe^h-e^x}{h}=e^x\frac{e^h-1}{h}.
+\]
+第三步：令 $h\to0$，使用预备一的极限：
+\[
+\begin{aligned}
+f'(x)&=\lim_{h\to0}e^x\frac{e^h-1}{h}\\
+&=e^x\lim_{h\to0}\frac{e^h-1}{h}=e^x\cdot1.
+\end{aligned}
+\]
+故 $\boxed{(e^x)'=e^x}$。其特殊性就在于底数 $e$ 对应的基本差商极限恰好为 $1$。
+
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{核心证明 2：一般指数函数 $(a^x)'=a^x\ln a$}}
+\input{assets/tikz/F049_proof_exp_secant.tex}
+
+\end{minipage}
+
+条件：$a>0,a\ne1$，$x\in\mathbb R$。设 $f(x)=a^x$。
+
+第一步：利用指数运算法则提取 $a^x$：
+\[
+\frac{f(x+h)-f(x)}h=\frac{a^{x+h}-a^x}{h}=a^x\frac{a^h-1}{h}.
+\]
+第二步：由 $a^h=e^{h\ln a}$，令 $t=h\ln a$。因 $a\ne1$，$\ln a\ne0$，所以 $h=t/\ln a$，且 $h\to0$ 时 $t\to0$。于是
+\[
+\frac{a^h-1}{h}=\frac{e^t-1}{t/\ln a}=\ln a\frac{e^t-1}{t}.
+\]
+第三步：将上式代回导数定义：
+\[
+\begin{aligned}
+f'(x)&=a^x\ln a\lim_{t\to0}\frac{e^t-1}{t}\\
+&=a^x\ln a.
+\end{aligned}
+\]
+故 $\boxed{(a^x)'=a^x\ln a}$。当 $a=e$ 时 $\ln e=1$；当 $a=1$ 时函数恒为 $1$，直接由定义得导数为 $0$，公式亦成立。底数在 $(0,1)$ 内时 $\ln a<0$，换元仍然有效，因为采用双侧极限。
+
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{核心证明 3：自然对数函数 $(\ln x)'=1/x$}}
+\input{assets/tikz/F049_proof_ln_secant.tex}
+
+\end{minipage}
+
+条件：$x>0$，取 $|h|<x$。设 $f(x)=\ln x$。
+
+第一步：利用对数差等于商的对数：
+\[
+\begin{aligned}
+f(x+h)-f(x)&=\ln(x+h)-\ln x\\
+&=\ln\frac{x+h}{x}=\ln(1+h/x).
+\end{aligned}
+\]
+第二步：令 $t=h/x$，则 $h=xt$，且 $h\to0$ 时 $t\to0$。差商变成
+\[
+\frac{f(x+h)-f(x)}h=\frac{\ln(1+t)}{xt}=\frac1x\frac{\ln(1+t)}t.
+\]
+第三步：使用预备一的对数极限：
+\[
+\begin{aligned}
+f'(x)&=\frac1x\lim_{t\to0}\frac{\ln(1+t)}t\\
+&=\frac1x\cdot1=\frac1x.
+\end{aligned}
+\]
+故 $\boxed{(\ln x)'=1/x}$。注意 $x=0$ 不在定义域内。
+
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{核心证明 4：一般对数函数 $(\log_a x)'=1/(x\ln a)$}}
+\input{assets/tikz/F049_proof_log_secant.tex}
+
+\end{minipage}
+
+条件：$x>0$，$a>0,a\ne1$。设 $f(x)=\log_a x$，取 $|h|<x$。
+
+第一步：由对数差公式和换底公式，
+\[
+\begin{aligned}
+f(x+h)-f(x)&=\log_a\frac{x+h}{x}\\
+&=\log_a(1+h/x)\\
+&=\frac{\ln(1+h/x)}{\ln a}.
+\end{aligned}
+\]
+第二步：令 $t=h/x$，故 $h=xt$，$t\to0$，差商为
+\[
+\frac{f(x+h)-f(x)}h=\frac1{x\ln a}\frac{\ln(1+t)}t.
+\]
+第三步：取极限，得到
+\[
+\begin{aligned}
+f'(x)&=\frac1{x\ln a}\lim_{t\to0}\frac{\ln(1+t)}t\\
+&=\frac1{x\ln a}.
+\end{aligned}
+\]
+故 $\boxed{(\log_a x)'=\frac1{x\ln a}}$。底数是常量，$\ln a$ 不能漏掉。当 $a=e$ 时该公式恰好退化为自然对数求导公式。
+
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{核心证明 5：任意实数幂 $(x^\alpha)'=\alpha x^{\alpha-1}$}}
+\input{assets/tikz/F049_proof_power_secant.tex}
+
+\end{minipage}
+
+条件：$x>0$，$\alpha\in\mathbb R$ 为常数。设 $f(x)=x^\alpha$，取 $|h|<x$。
+
+若 $\alpha=0$，$f(x)=1$，差商恒为零，公式成立。下面设 $\alpha\ne0$。
+
+第一步：利用幂的运算法则提取 $x^\alpha$：
+\[
+\begin{aligned}
+f(x+h)-f(x)&=(x+h)^\alpha-x^\alpha\\
+&=x^\alpha\left[\left(1+\frac h x\right)^\alpha-1\right].
+\end{aligned}
+\]
+第二步：令 $t=h/x$，故 $h=xt$，于是
+\[
+\frac{f(x+h)-f(x)}h=x^{\alpha-1}\frac{(1+t)^\alpha-1}{t}.
+\]
+第三步：把任意实数幂写成指数函数，令 $s=\alpha\ln(1+t)$，则 $(1+t)^\alpha=e^s$。当 $t\to0$ 时 $s\to0$；$t\ne0$ 且 $\alpha\ne0$ 时 $s\ne0$。对差商中未知的部分作如下分解：
+\[
+\begin{aligned}
+\frac{(1+t)^\alpha-1}{t}
+&=\frac{e^s-1}{t}\\
+&=\frac{e^s-1}{s}\cdot\frac{s}{t}\\
+&=\frac{e^s-1}{s}\cdot\alpha\frac{\ln(1+t)}{t}.
+\end{aligned}
+\]
+第四步：分别利用两个指对基本极限，
+\[
+\begin{aligned}
+\lim_{t\to0}\frac{(1+t)^\alpha-1}{t}
+&=1\cdot\alpha\cdot1=\alpha.
+\end{aligned}
+\]
+第五步：代回原差商，
+\[
+\begin{aligned}
+f'(x)&=x^{\alpha-1}\lim_{t\to0}\frac{(1+t)^\alpha-1}{t}\\
+&=\alpha x^{\alpha-1}.
+\end{aligned}
+\]
+故 $\boxed{(x^\alpha)'=\alpha x^{\alpha-1}}$（$x>0$）。这一证明不局限于整数指数，也不需要链式法则。
+
+\textbf{考试速推法（已掌握链式法则时）：} $x^\alpha=e^{\alpha\ln x}$，令 $u=\alpha\ln x$，则 $u'=\alpha/x$，所以
+\input{assets/tikz/F049_proof_chain.tex}
+
+\[
+(x^\alpha)'=e^u u'=e^{\alpha\ln x}\frac\alpha x=\alpha x^{\alpha-1}.
+\]
+负底数和零点的适用条件见后面的补充证明，不能直接把任意实数幂公式套到所有实数上。
+
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{核心证明 6：正弦函数 $(\sin x)'=\cos x$}}
+\input{assets/tikz/F049_proof_sin_secant.tex}
+
+\end{minipage}
+
+条件：$x\in\mathbb R$，弧度制。设 $f(x)=\sin x$。
+
+第一步：写出差商 $[\sin(x+h)-\sin x]/h$。利用和差化积公式
+\[
+\sin A-\sin B=2\cos\frac{A+B}{2}\sin\frac{A-B}{2}.
+\]
+第二步：取 $A=x+h,B=x$，得到
+\[
+\begin{aligned}
+\sin(x+h)-\sin x&=2\cos(x+h/2)\sin(h/2),\\
+\frac{f(x+h)-f(x)}h&=\cos(x+h/2)\frac{\sin(h/2)}{h/2}.
+\end{aligned}
+\]
+第三步：当 $h\to0$，由余弦函数连续性，$\cos(x+h/2)\to\cos x$；由预备二，$\sin(h/2)/(h/2)\to1$。因此
+\[
+\begin{aligned}
+f'(x)&=\lim_{h\to0}\cos(x+h/2)\frac{\sin(h/2)}{h/2}\\
+&=\cos x\cdot1=\cos x.
+\end{aligned}
+\]
+故 $\boxed{(\sin x)'=\cos x}$。
+
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{核心证明 7：余弦函数 $(\cos x)'=-\sin x$}}
+\input{assets/tikz/F049_proof_cos_secant.tex}
+
+\end{minipage}
+
+条件：$x\in\mathbb R$，弧度制。设 $f(x)=\cos x$。
+
+第一步：写出差商 $[\cos(x+h)-\cos x]/h$。利用和差化积公式
+\[
+\cos A-\cos B=-2\sin\frac{A+B}{2}\sin\frac{A-B}{2}.
+\]
+第二步：取 $A=x+h,B=x$，得到
+\[
+\begin{aligned}
+\cos(x+h)-\cos x&=-2\sin(x+h/2)\sin(h/2),\\
+\frac{f(x+h)-f(x)}h&=-\sin(x+h/2)\frac{\sin(h/2)}{h/2}.
+\end{aligned}
+\]
+第三步：当 $h\to0$，由正弦函数连续性，$\sin(x+h/2)\to\sin x$；由预备二，$\sin(h/2)/(h/2)\to1$。因此
+\[
+\begin{aligned}
+f'(x)&=-\lim_{h\to0}\sin(x+h/2)\frac{\sin(h/2)}{h/2}\\
+&=-\sin x\cdot1=-\sin x.
+\end{aligned}
+\]
+故 $\boxed{(\cos x)'=-\sin x}$。负号源自余弦差的和差化积公式，而不是人为添加的记忆规则。
+
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{第二部分：其他常见函数与适用范围的补充证明}}
+
+下列证明保留上一版的常数、整数幂、根式、三角函数、绝对值、变指数等内容。此部分可使用已经证明的七条核心公式，以及乘积、商、复合求导法则（相关结论 F050--F052）。
+\end{minipage}
+
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{证明一：常数、一次函数与正整数幂}}
+\input{assets/tikz/F049_proof_affine.tex}
+
+\end{minipage}
+\[
+\begin{aligned}
+(c)'&=\lim_{h\to0}\frac{c-c}{h}=0,\\
+(x)'&=\lim_{h\to0}\frac{x+h-x}{h}=1.
+\end{aligned}
+\]
+\input{assets/tikz/F049_proof_power_secant.tex}
+
+对正整数 $n$，利用因式分解（含 $n$ 项）：
+\[
+\begin{aligned}
+\frac{(x+h)^n-x^n}{h}
+&=\sum_{j=0}^{n-1}(x+h)^{n-1-j}x^j.
+\end{aligned}
+\]
+当 $h\to0$，每项趋于 $x^{n-1}$（$n=1$ 时该项恒为 $1$），因此
+\[
+(x^n)'=nx^{n-1}\quad(n\ge1).
+\]
+也可用二项式展开：常数项 $x^n$ 抵消，除以 $h$ 后，只有一次项的系数 $nx^{n-1}$ 在极限中保留。
+\input{assets/tikz/F049_proof_square_increment.tex}
+
+
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{证明二：倒数与负整数幂}}
+\input{assets/tikz/F049_proof_reciprocal_secant.tex}
+
+\end{minipage}
+
+当 $x\ne0$，取足够小的 $h$ 使 $x+h\ne0$：
+\[
+\begin{aligned}
+\left(\frac1x\right)'&=\lim_{h\to0}\frac{1/(x+h)-1/x}{h}\\
+&=\lim_{h\to0}\frac{-h}{hx(x+h)}\\
+&=-\frac1{x^2}.
+\end{aligned}
+\]
+设 $m$ 为正整数，$x^{-m}=1/x^m$，由复合求导和正整数幂公式，
+\[
+\begin{aligned}
+(x^{-m})'&=-\frac{(x^m)'}{(x^m)^2}\\
+&=-\frac{mx^{m-1}}{x^{2m}}\\
+&=-mx^{-m-1}\quad(x\ne0).
+\end{aligned}
+\]
+
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{证明三：平方根与立方根（有理化）}}
+\input{assets/tikz/F049_proof_sqrt_secant.tex}
+
+\end{minipage}
+\input{assets/tikz/F049_proof_cbrt_secant.tex}
+
+
+当 $x>0$，平方根差乘以共轭式：
+\[
+\begin{aligned}
+(\sqrt{x})'&=\lim_{h\to0}\frac{\sqrt{x+h}-\sqrt{x}}h\\
+&=\lim_{h\to0}\frac{(x+h)-x}{h(\sqrt{x+h}+\sqrt{x})}\\
+&=\lim_{h\to0}\frac1{\sqrt{x+h}+\sqrt{x}}\\
+&=\frac1{2\sqrt{x}}.
+\end{aligned}
+\]
+当 $x=0$，右侧差商为 $1/\sqrt h$（$h>0$），趋于正无穷，不存在有限右导数。
+
+对于立方根，记 $u=\sqrt[3]{x+h}$，$v=\sqrt[3]x$。利用立方差公式：
+\[
+\begin{aligned}
+h&=u^3-v^3=(u-v)(u^2+uv+v^2),\\
+\frac{u-v}{h}&=\frac1{u^2+uv+v^2}.
+\end{aligned}
+\]
+当 $h\to0$，$u\to v$，若 $x\ne0$，则
+\[
+(\sqrt[3]x)'=\frac1{3v^2}=\frac1{3\sqrt[3]{x^2}}.
+\]
+$x=0$ 时差商 $\sqrt[3]h/h=1/(\sqrt[3]h)^2$ 趋于正无穷，不存在有限导数。
+
+\medskip
+
+
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{证明四：绝对值对数}}
+\input{assets/tikz/F049_proof_ln_abs_secant.tex}
+
+\end{minipage}
+
+当 $x>0$，$\ln|x|=\ln x$；当 $x<0$，$\ln|x|=\ln(-x)$，复合求导给出
+\[
+(\ln(-x))'=\frac1{-x}\cdot(-1)=\frac1x.
+\]
+所以 $(\ln|x|)'=1/x$（$x\ne0$）。$x=0$ 不在定义域。
+
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{证明五：负底数的有理数幂与零点检查}}
+\input{assets/tikz/F049_proof_negative_powers.tex}
+
+\end{minipage}
+
+如果 $\alpha=p/q$ 是最简分数，$q$ 为奇数，则负数处也可用实数根式定义。令 $r=-x>0$，有 $x^{p/q}=(-1)^p r^{p/q}$，故
+\[
+\begin{aligned}
+(x^{p/q})'&=(-1)^p\frac pq r^{p/q-1}(-1)\\
+&=\frac pq(-1)^{p+1}r^{(p-q)/q}\\
+&=\frac pq x^{p/q-1}\quad(x<0).
+\end{aligned}
+\]
+最后一步使用 $q$ 为奇数，因此 $p-q$ 与 $p+1$ 同奇偶。零点能否求导，应直接检查差商，不能直接代入含负指数的表达式。
+
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{证明六：正切、余切（商法则）}}
+\input{assets/tikz/F049_proof_tan_cot.tex}
+
+\end{minipage}
+
+在 $\cos x\ne0$ 时，
+\[
+\begin{aligned}
+(\tan x)'&=\left(\frac{\sin x}{\cos x}\right)'\\
+&=\frac{\cos x\cos x-\sin x(-\sin x)}{\cos^2x}\\
+&=\frac{\cos^2x+\sin^2x}{\cos^2x}\\
+&=\frac1{\cos^2x}=1+\tan^2x.
+\end{aligned}
+\]
+在 $\sin x\ne0$ 时，
+\[
+\begin{aligned}
+(\cot x)'&=\left(\frac{\cos x}{\sin x}\right)'\\
+&=\frac{(-\sin x)\sin x-\cos x\cos x}{\sin^2x}\\
+&=-\frac{\sin^2x+\cos^2x}{\sin^2x}\\
+&=-\frac1{\sin^2x}=-(1+\cot^2x).
+\end{aligned}
+\]
+因此正切函数在各连续区间递增，余切函数在各连续区间递减，不能跨越间断点直接谈全域单调。
+
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{证明七：正割与余割（倒数复合求导）}}
+\input{assets/tikz/F049_proof_sec_csc.tex}
+
+\end{minipage}
+\[
+\begin{aligned}
+(\sec x)'&=\left(\frac1{\cos x}\right)'\\
+&=-\frac{-\sin x}{\cos^2x}\\
+&=\frac1{\cos x}\frac{\sin x}{\cos x}\\
+&=\sec x\tan x\quad(\cos x\ne0).\\[3pt]
+(\csc x)'&=\left(\frac1{\sin x}\right)'\\
+&=-\frac{\cos x}{\sin^2x}\\
+&=-\frac1{\sin x}\frac{\cos x}{\sin x}\\
+&=-\csc x\cot x\quad(\sin x\ne0).
+\end{aligned}
+\]
+
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{证明八：绝对值函数（左右导数）}}
+\input{assets/tikz/F049_proof_absolute.tex}
+
+\end{minipage}
+\[
+|x|=\begin{cases}x,&x\ge0,\\-x,&x<0.\end{cases}
+\]
+$x>0$ 时导数为 $1$，$x<0$ 时导数为 $-1$。在原点分别计算：
+\[
+\begin{aligned}
+\lim_{h\to0^+}\frac{|h|-|0|}h&=\lim_{h\to0^+}\frac hh=1,\\
+\lim_{h\to0^-}\frac{|h|-|0|}h&=\lim_{h\to0^-}\frac{-h}h=-1.
+\end{aligned}
+\]
+左右导数不相等，所以 $|x|$ 在原点不可导。若 $u(x)\ne0$，复合求导得 $(|u|)'=(u/|u|)u'$；若 $u(x_0)=0$ 且 $u$ 在该点可导，则 $|u|$ 在该点可导当且仅当 $u'(x_0)=0$，此时导数为零。理由是 $|u(x_0+h)|/h$ 的右极限为 $|u'(x_0)|$，左极限为 $-|u'(x_0)|$。
+
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{证明九：变底变指数（以 $x^x$ 为例）}}
+\input{assets/tikz/F049_formula_self_power.tex}
+
+\end{minipage}
+
+当 $x>0$，$x^x=e^{x\ln x}$。设 $u=x\ln x$，先求内层导数：
+\[
+\begin{aligned}
+u'&=(x)'\ln x+x(\ln x)'\\
+&=\ln x+x\frac1x=\ln x+1,\\
+(x^x)'&=e^u u'=x^x(\ln x+1).
+\end{aligned}
+\]
+推广：若 $u,v$ 可导且 $u>0$，则 $u^v=e^{v\ln u}$，
+\input{assets/tikz/F049_proof_general_variable.tex}
+
+\[
+\begin{aligned}
+(v\ln u)'&=v'\ln u+v\frac{u'}u,\\
+(u^v)'&=u^v\left(v'\ln u+v\frac{u'}u\right).
+\end{aligned}
+\]
+这不是固定指数幂函数的直接套用。
+
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{证明十：反三角函数（拓展）}}
+\input{assets/tikz/F049_proof_inverse.tex}
+
+\end{minipage}
+
+先说明反函数求导的依据。设 $x=F(y)$，$y=G(x)$，$F$ 在对应点附近有连续反函数且 $F'(y)\ne0$。令自变量改变 $h$，对应反函数值改变 $k=G(x+h)-G(x)$，则 $h=F(y+k)-F(y)$。当 $h\to0$，由连续性 $k\to0$，且 $h\ne0$ 时 $k\ne0$，故
+\[
+G'(x)=\lim_{h\to0}\frac{k}{h}
+=\lim_{k\to0}\frac1{[F(y+k)-F(y)]/k}
+=\frac1{F'(y)}.
+\]
+\input{assets/tikz/F049_formula_asin.tex}
+
+\textbf{反正弦：} $y=\arcsin x$ 是 $\sin y=x$ 在 $[-\pi/2,\pi/2]$ 上的反函数。当 $|x|<1$，$\cos y>0$，所以
+\[
+\begin{aligned}
+(\arcsin x)'&=1/\cos y\\
+&=1/\sqrt{1-\sin^2y}=1/\sqrt{1-x^2}.
+\end{aligned}
+\]
+\input{assets/tikz/F049_formula_acos.tex}
+
+\textbf{反余弦：} $y=\arccos x$ 是 $\cos y=x$ 在 $[0,\pi]$ 上的反函数。当 $|x|<1$，$\sin y>0$，所以
+\[
+\begin{aligned}
+(\arccos x)'&=1/(-\sin y)\\
+&=-1/\sqrt{1-\cos^2y}=-1/\sqrt{1-x^2}.
+\end{aligned}
+\]
+两个函数在 $x=\pm1$ 均无有限单侧导数：取相应端点 $y_0$，$F'(y_0)=0$，反函数差商是原函数差商的倒数，其绝对值趋于无穷。
+
+\input{assets/tikz/F049_formula_atan.tex}
+
+\textbf{反正切：} $y=\arctan x$ 是 $\tan y=x$ 在 $(-\pi/2,\pi/2)$ 上的反函数，对任意实数 $x$，
+\[
+\begin{aligned}
+(\arctan x)'&=\frac1{1/\cos^2y}\\
+&=\frac1{1+\tan^2y}=\frac1{1+x^2}.
+\end{aligned}
+\]
+
+\medskip
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CProof}{证明十一：线性组合}}
+\input{assets/tikz/F049_proof_linear_sum_secant.tex}
+
+\end{minipage}
+
+若 $f,g$ 在 $x$ 处可导，$c_1,c_2$ 为常数，由极限的线性性质，
+\[
+\begin{aligned}
+(c_1 f+c_2 g)'(x)
+&=\lim_{h\to0}\left[c_1\frac{f(x+h)-f(x)}h\right.\\
+&\qquad\left.+c_2\frac{g(x+h)-g(x)}h\right]\\
+&=c_1f'(x)+c_2g'(x).
+\end{aligned}
+\]
+\textbf{\textcolor{CProof}{结论回扣：}} 先掌握导数定义与基本极限，再将复杂函数改写为幂、指、对、三角函数的组合。根式端点、绝对值折点和分母零点须单独检查。
 \end{proofbox}

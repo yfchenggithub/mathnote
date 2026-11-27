@@ -1,0 +1,12 @@
+% F087｜tangent 原创简明教学示意图
+\begin{tikzpicture}[>=stealth,scale=.82]
+\draw[->] (0,0)--(7.6,0) node[right]{$x$};\draw[->] (.8,-1.4)--(.8,3.2) node[above]{$y$};
+% 横向比例尺 x_point=8(x-2.65)，纵向比例尺 y_point=0.75(x^2-10)。
+\draw[teal,thick,domain=2.76:3.48,samples=45] plot ({8*(\x-2.65)},{.75*(\x*\x-10)});
+% 在真实点 x_0=3 的切线；交轴位置 x_1=19/6。
+\draw[orange,thick] (2,-1.2)--(6,1.05);
+\fill[orange] (2.8,-.75) circle (2pt) node[below left=5pt]{$x_0=3$};
+\fill[orange] (4.1333,0) circle(2pt) node[below=7pt]{$x_1\approx3.1667$};
+\node at (5.5,2.7){\small 用切线寻找新的交点};
+\node[teal] at (5.7,1.9){\small $y=x^2-10$};
+\end{tikzpicture}

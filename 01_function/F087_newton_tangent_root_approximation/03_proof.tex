@@ -1,0 +1,32 @@
+% F087｜牛顿切线法快速求近似根｜03_proof.tex
+% 继承上传模板的 LaTeX 环境；当前条目的内容独立编写。
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明一（门槛最低）：从切线方程推导}}
+\par\medskip
+\begin{center}
+\input{assets/tikz/F087_tangent.tex}
+\end{center}
+\medskip
+切线方程为 $y-f(x_n)=f'(x_n)(x-x_n)$。令 $y=0$，则 $-f(x_n)=f'(x_n)(x_{n+1}-x_n)$，所以\[\boxed{x_{n+1}=x_n-\frac{f(x_n)}{f'(x_n)}}.\]这里必须要求 $f'(x_n)\ne0$。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明二（最快）：平方根的代数推导}}
+\par\medskip
+\begin{center}
+\input{assets/tikz/F087_square.tex}
+\end{center}
+\medskip
+设 $A>0,x_n>0$，将 $f(x)=x^2-A$、$f'(x)=2x$ 代入切线式，整理即得\[x_{n+1}=\frac{x_n^2+A}{2x_n}=\frac12\left(x_n+\frac A{x_n}\right).\]若 $r=\sqrt A$，还可验证 $x_{n+1}-r=\dfrac{(x_n-r)^2}{2x_n}\ge0$。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{证明三（迁移到立方根）：直接换函数}}
+\par\medskip
+\begin{center}
+\input{assets/tikz/F087_cube.tex}
+\end{center}
+\medskip
+设 $A>0,x_n>0$。令 $f(x)=x^3-A$，则 $f'(x)=3x^2$，因此\[x_{n+1}=x_n-\frac{x_n^3-A}{3x_n^2}=\frac{2x_n+A/x_n^2}{3}.\]方法并未变化：\textbf{先写方程，再求切线，最后求横轴交点。}
+\end{proofbox}

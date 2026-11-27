@@ -1,0 +1,17 @@
+\begin{center}
+\begin{tikzpicture}[scale=0.9]
+\draw[->] (-4.2,0)--(4.2,0) node[right] {$x$};
+\draw[->] (0,-3.8)--(0,3.8) node[above] {$y$};
+\begin{scope}
+\clip (-4,-3.6) rectangle (4,3.6);
+\draw[dashed,gray] (-4,-4)--(4,4);
+\draw[teal,very thick,domain=-4:-0.25,samples=150] plot (\x,{\x-1/\x});
+\draw[teal,very thick,domain=0.25:4,samples=150] plot (\x,{\x-1/\x});
+\end{scope}
+\fill[teal] (-1,0) circle (2pt) node[below left] {$-1$};
+\fill[teal] (1,0) circle (2pt) node[below right] {$1$};
+\node[teal] at (2.8,3.5) {$y=x-1/x$};
+\node[gray] at (-3.2,-2.5) {$y=x$};
+\node[below left] at (0,0) {$O$};
+\end{tikzpicture}
+\end{center}

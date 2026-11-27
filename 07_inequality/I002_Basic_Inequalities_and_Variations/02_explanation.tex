@@ -12,7 +12,7 @@
 
 \medskip
 \textbf{\textcolor{CExplanation}{几何本质（矩形与正方形）}}
-以 $a+b \ge 2\sqrt{ab}$ 为例：周长固定的矩形中，正方形的面积最大。更一般地，平方和与积的关系反映了图形边长固定时，形状越“正”，其度量（如面积、平方和）越优。
+以 $a+b \ge 2\sqrt{ab}$ 为例：周长固定的矩形中，正方形的面积最大。固定两边之和时，矩形面积最大与平方和最小均在两边相等时达到。
 
 \medskip
 \textbf{\textcolor{CExplanation}{代数意义（配方法）}}
@@ -27,7 +27,7 @@
 
 \medskip
 \textbf{\textcolor{CExplanation}{顿悟点}}
-\textbf{“一正二定三相等”}是使用基本不等式求最值的口诀，分别对应“正数条件”、“和或积为定值”、“等号成立条件”，缺一不可。
+\textbf{“一正二定三相等”}是使用基本不等式求最值的口诀，分别对应“正数条件”、“和或积为定值”、“等号成立条件”，这是确认常见定和、定积最值能否达到的检查方法；证明或放缩时不要求和或积为定值。
 
 \medskip
 \textbf{\textcolor{CExplanation}{使用场景}}
@@ -35,4 +35,36 @@
     \item \textbf{场景一（直接套用）：} 题目中表达式明显符合 $x+y$ 与 $\sqrt{xy}$ 或 $x^2+y^2$ 与 $xy$ 的关系。
     \item \textbf{场景二（变形后使用）：} 通过常数代换、分母有理化、拆项、凑项等手段，将表达式化为可使用基本不等式的形式。
 \end{itemize}
+
+\medskip\textbf{统一的差值结构}
+\[\frac{(a+b)^2}{4}-ab=\frac{(a-b)^2}{4},\qquad
+ a^2+b^2-\frac{(a+b)^2}{2}=\frac{(a-b)^2}{2}.\]
+当和固定时，差的绝对值越小，积越大、平方和越小；当正数积固定时，$(a+b)^2=4ab+(a-b)^2$，差的绝对值越小，和越小。
+\begin{center}
+\begin{tabular}{c|ccccc}
+$a$&1&2&3&4&5\\ $b$&9&8&7&6&5\\ \hline
+$ab$&9&16&21&24&25\\ $a^2+b^2$&82&68&58&52&50
+\end{tabular}
+\end{center}
+积固定为16时，$(1,16),(2,8),(4,4)$ 的和依次为17、10、8。
+\begin{center}
+\begin{tikzpicture}[scale=.43]
+\foreach \a/\b/\x in {1/9/0,3/7/10,5/5/18}{
+\draw[fill=green!15] (\x,0) rectangle ++(\b,\a);
+\node[below] at ({\x+\b/2},0) {$\a\times\b$};
+\node[above] at ({\x+\b/2},\a) {$S=\pgfmathparse{int(\a*\b)}\pgfmathresult$};}
+\end{tikzpicture}
+\par 周长均为20，正方形面积最大。
+\end{center}
+\begin{center}
+\begin{tikzpicture}[x=.65cm,y=.28cm]
+\draw[->] (0,0)--(10,0) node[right]{$x$};
+\draw[->] (0,0)--(0,19) node[above]{$y$};
+\draw[green!50!black,thick,domain=.55:9.5,samples=100] plot (\x,{\x+9/\x});
+\draw[dashed] (0,6) node[left]{$6$} -- (9.5,6);\draw[dashed] (3,0) node[below]{$3$}--(3,6);
+\fill (3,6) circle (2pt) node[above right]{$(3,6)$};
+\node at (7,16) {$y=x+9/x$};
+\end{tikzpicture}
+\end{center}
+
 \end{explanationbox}

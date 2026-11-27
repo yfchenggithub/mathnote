@@ -10,7 +10,7 @@
       "椭圆距离最值",
       "distance extrema from an external point to an ellipse"
     ],
-    "summary": "外点到椭圆：设 P=(a cosθ,b sinθ)，求距离平方 F(θ) 的驻点并比较，得到最近与最远距离；一般不能套用圆的加减半径公式。",
+    "summary": "外点到椭圆距离极值处连线沿法线；最近点由唯一正参数确定，最远点比较候选点，也可用三角参数法。",
     "difficulty": 4,
     "category": "解析几何",
     "tags": [
@@ -21,7 +21,10 @@
       "距离极值",
       "三角参数方程",
       "导数",
-      "万能代换"
+      "万能代换",
+      "法向量",
+      "法线",
+      "最近点唯一性"
     ]
   },
   "search": {
@@ -37,7 +40,10 @@
       "四次方程",
       "驻点",
       "a cos theta",
-      "b sin theta"
+      "b sin theta",
+      "椭圆法向量法",
+      "椭圆法线距离最值",
+      "唯一正根"
     ],
     "synonyms": [
       "点到椭圆的距离极值",
@@ -106,7 +112,9 @@
       "d_{\\min}=\\sqrt{\\min F(\\theta)}",
       "d_{\\max}=\\sqrt{\\max F(\\theta)}",
       "(a^2-b^2)\\sin\\theta\\cos\\theta-ax_0\\sin\\theta+by_0\\cos\\theta=0",
-      "t=\\tan\\frac{\\theta}{2}"
+      "t=\\tan\\frac{\\theta}{2}",
+      "\\vec n=(x/a^2,y/b^2)",
+      "\\frac{a^2x_0^2}{(a^2+\\lambda)^2}+\\frac{b^2y_0^2}{(b^2+\\lambda)^2}=1"
     ],
     "variables": {
       "a": "椭圆半长轴长度，a>b>0",
@@ -115,14 +123,16 @@
       "y_0": "椭圆外固定点 M 的纵坐标",
       "theta": "椭圆动点的参数，取 0≤θ<2π",
       "t": "正切半角代换变量，t=tan(θ/2)",
-      "F": "固定点到椭圆动点的距离平方"
+      "F": "固定点到椭圆动点的距离平方",
+      "lambda": "法向量比例系数，不是距离"
     },
     "conditions": "E:x^2/a^2+y^2/b^2=1\\ (a>b>0),\\ M(x_0,y_0),\\ x_0^2/a^2+y_0^2/b^2>1",
     "conclusions": [
       "令 P(θ)=(a cosθ,b sinθ)，则最小/最大距离为 F(θ) 全局最小/最大值的算术平方根。",
       "极值候选参数满足 (a²-b²)sinθ cosθ-ax₀sinθ+by₀cosθ=0。",
       "一般位置外点可用 t=tan(θ/2) 化成四次以内的代数方程；检查遗漏的 θ=π 并比较全部候选点。",
-      "不同于圆，椭圆没有普遍适用的“中心距±半径”距离最值公式。"
+      "不同于圆，椭圆没有普遍适用的“中心距±半径”距离最值公式。",
+      "距离极值处连线沿法线；外点最近点由唯一正根确定。"
     ]
   },
   "content": {
@@ -131,9 +141,10 @@
       "F(θ)=(a cosθ-x₀)²+(b sinθ-y₀)²。",
       "令 F′(θ)=0 得 (a²-b²)sinθcosθ-ax₀sinθ+by₀cosθ=0。",
       "设 t=tan(θ/2)，得 by₀t⁴+2(a²-b²+ax₀)t³+2(ax₀-a²+b²)t-by₀=0。",
-      "求出所有实根对应的椭圆点，并单独检查 θ=π 对应点 (-a,0)，比较 MP² 后开方。"
+      "求出所有实根对应的椭圆点，并单独检查 θ=π 对应点 (-a,0)，比较 MP² 后开方。",
+      "法向量法：令 PM 向量=lambda n，代入椭圆方程求唯一正根，再还原点；最远点比较全部有效候选点。"
     ],
-    "intuition": "沿椭圆移动的点 P 对应一个角参数 θ；固定点 M 到 P 的距离有最小和最大值，求距离平方比直接求距离方便。",
+    "intuition": "以外点为圆心扩大圆，首次接触与刚好包含椭圆时均有公共切线；距离极值处连线沿法线。",
     "common_tricks": [
       "椭圆不能直接用圆的“点到中心距离加减半径”结论。",
       "必须检查 M 是否在椭圆外：x₀²/a²+y₀²/b²>1。",
@@ -158,7 +169,7 @@
     "exam_score": 0
   },
   "interactive": {
-    "has_diagram": false,
+    "has_diagram": true,
     "geogebra_id": "",
     "param_demo": {}
   },
@@ -167,11 +178,16 @@
     "png": "",
     "webp": "",
     "video": "",
-    "audio": ""
+    "audio": "",
+    "tikz": [
+      "assets/tikz/C083_nearest_farthest_normals.tex",
+      "assets/tikz/C083_normal_not_radius.tex",
+      "assets/tikz/C083_tangent_normal_vectors.tex"
+    ]
   },
   "shareConfig": {
-    "title": "椭圆外点距离：先平方再用一个角研究",
-    "shareDesc": "求外点到椭圆的最近、最远距离，直接对根式求导较乱。用椭圆参数把动点写成一个角，再研究距离平方，最后开方；保留全周期内候选位置，避免凭中心连线猜最近点。"
+    "title": "椭圆外点距离：距离取极值，连线找法线",
+    "shareDesc": "最近点沿外法线，由唯一正根确定；最远点比较法线候选点。"
   },
   "relations": {
     "prerequisites": [
@@ -181,17 +197,29 @@
       "导数与函数最值",
       "二倍角与正切半角公式"
     ],
-    "related_ids": ["C078", "C001", "C002", "C018"],
-    "similar": ["点到圆的距离极值", "椭圆上的距离最值问题"]
+    "related_ids": [
+      "C078",
+      "C001",
+      "C002",
+      "C018",
+      "P001"
+    ],
+    "similar": [
+      "点到圆的距离极值",
+      "椭圆上的距离最值问题"
+    ]
   },
   "meta": {
-    "version": 1,
+    "version": 3,
     "source": "AI生成（数学内容重新编写）",
     "created_at": "2026-10-08",
-    "updated_at": "2026-10-08"
+    "updated_at": "2026-11-26"
   },
   "isPro": 1,
-  "remarks": "新节点 UID 尚未分配：发布前需把 id=C_TBD 改为项目内唯一的正式 UID，并核对 module/knowledgeNode 与现有目录及分类树保持一致；图像资源尚未制作。",
+  "remarks": "2026-11-26: extracted 6 inline TikZ occurrences into 3 reusable C083 assets; moved the tangent-point label and separated vector labels in C083_tangent_normal_vectors.tex; preserved mathematical coordinates and directions. Existing PNG/GIF/video resources are unchanged.",
   "knowledgeNode": "解析几何-圆锥曲线-椭圆-距离问题-距离最值",
-  "altNodes": ["解析几何-圆锥曲线-椭圆", "解析几何-综合-最值问题"]
+  "altNodes": [
+    "解析几何-圆锥曲线-椭圆",
+    "解析几何-综合-最值问题"
+  ]
 }

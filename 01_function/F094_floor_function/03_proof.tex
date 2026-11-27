@@ -1,0 +1,61 @@
+\clearpage
+\begin{proofbox}
+\textbf{方法一｜入门最简单：从定义逐步推出区间。}
+
+\textbf{第一步：} 设 $k=\lfloor x\rfloor$。由最大整数的定义，$k\in\mathbb Z$ 且 $k\le x$。
+
+\textbf{第二步：} 若 $x\ge k+1$，则整数 $k+1$ 也不超过 $x$，且 $k+1>k$，与 $k$ 最大矛盾。因此 $x<k+1$。
+
+\textbf{第三步：} 反过来，若整数 $n$ 满足 $n\le x<n+1$，则任意大于 $n$ 的整数至少为 $n+1$，因而都大于 $x$。所以 $n$ 就是不超过 $x$ 的最大整数。
+\[\boxed{\lfloor x\rfloor=n\iff n\le x<n+1.}\]
+由 $x<k+1$ 两边减去 $1$ 得 $x-1<k$；与 $k\le x$ 合并，得到 $x-1<k\le x$。
+
+\textbf{第四步：} 若 $x\le y$，则整数 $\lfloor x\rfloor\le x\le y$。由于 $\lfloor y\rfloor$ 是不超过 $y$ 的最大整数，故 $\lfloor x\rfloor\le\lfloor y\rfloor$。每个整数 $n$ 满足 $\lfloor n\rfloor=n$，故值域恰为 $\mathbb Z$。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法二｜步骤最少：整数平移与小数部分。}
+
+\textbf{第一步：} 设 $k=\lfloor x\rfloor$，则 $k\le x<k+1$。
+
+\textbf{第二步：} 三边同时加整数 $m$，得 $k+m\le x+m<k+m+1$。
+
+\textbf{第三步：} 因 $k+m\in\mathbb Z$，由方法一的等价关系，$\lfloor x+m\rfloor=k+m=\lfloor x\rfloor+m$。
+
+\textbf{第四步：} 原不等式三边减去 $k$，得到 $0\le x-k<1$。由定义 $\{x\}=x-k$，得到 $0\le\{x\}<1$。反过来，任取 $t\in[0,1)$，令 $x=t$，则 $\lfloor t\rfloor=0$，所以 $\{t\}=t$，值域恰为 $[0,1)$。再由整数平移公式，
+\[\{x+1\}=x+1-\lfloor x+1\rfloor=x+1-(\lfloor x\rfloor+1)=\{x\}.\]
+所以 $1$ 是小数部分函数的周期。若 $T>0$ 也是周期，则 $\{T\}=\{0\}=0$，故 $T=\lfloor T\rfloor$ 为正整数。因此最小正周期为 $1$，而取整函数本身没有正周期。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法三｜考场最快：利用整数边界转换不等式。}
+
+设 $k=\lfloor x\rfloor$，则 $k\le x<k+1$，且 $k,n$ 都是整数。
+
+\textbf{第一步：} 若 $k\ge n$，由 $x\ge k$ 得 $x\ge n$。
+
+\textbf{第二步：} 若 $x\ge n$，则整数 $n$ 不超过 $x$，由最大整数定义得 $k\ge n$。所以 $k\ge n\iff x\ge n$。
+
+\textbf{第三步：} 对两边取否定，得 $k<n\iff x<n$。
+
+\textbf{第四步：} 因为 $k,n$ 都是整数，$k\le n\iff k<n+1$；把第三步中的 $n$ 换成 $n+1$，得 $k\le n\iff x<n+1$。
+
+\textbf{第五步：} 同理 $k>n\iff k\ge n+1\iff x\ge n+1$。
+
+\textbf{关键：} 必须先确认比较边界是整数；非整数边界应先转成等价的整数条件。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{方法四｜常规方法：整数部分与剩余部分分解。}
+
+\textbf{第一步：} 写成 $x=k+u$，$y=l+v$，其中 $k=\lfloor x\rfloor$、$l=\lfloor y\rfloor$，且 $u=\{x\}$、$v=\{y\}$，$0\le u,v<1$。
+
+\textbf{第二步：} 证明相反数关系。若 $u=0$，则 $x=k$，$-x=-k$ 为整数，故两次取整的和为 $0$。若 $0<u<1$，则 $-1<-u<0$，加上 $-k$ 得 $-k-1<-x<-k$。由定义得 $\lfloor-x\rfloor=-k-1$，故两次取整的和为 $-1$。
+
+\textbf{第三步：} 两个分解式相加，得 $x+y=k+l+(u+v)$。因 $k+l$ 是整数，由方法二得 $\lfloor x+y\rfloor=k+l+\lfloor u+v\rfloor$。
+
+\textbf{第四步：} 由 $0\le u,v<1$ 得 $0\le u+v<2$。若 $u+v<1$，则 $\lfloor u+v\rfloor=0$；若 $1\le u+v<2$，则 $\lfloor u+v\rfloor=1$。
+
+\textbf{第五步：} 代回第三步，得到加法不等式与精确取等条件。
+\[\lfloor x+y\rfloor=\begin{cases}k+l,&u+v<1,\\k+l+1,&u+v\ge1.\end{cases}\]
+\end{proofbox}

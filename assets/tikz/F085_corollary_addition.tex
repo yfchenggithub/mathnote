@@ -1,0 +1,52 @@
+% F085｜真实数学图；代表函数不构成抽象解的唯一性证明。
+\begin{center}
+\begin{minipage}{.49\linewidth}\centering
+\begin{tikzpicture}
+\begin{axis}[width=6.1cm,height=4.8cm,axis lines=middle,
+ xmin=-2.5,xmax=2.6,ymin=-0.3,ymax=4.8,
+ xtick={-2,-1,0,1,2},xticklabels=\empty,ytick={0,1,2,4},xlabel={$t$},ylabel={$f(t)$},
+ title={指数：倍数变乘方},title style={font=\small,yshift=3pt},
+ tick label style={font=\small},label style={font=\small},
+ ylabel style={at={(axis description cs:0,1)},anchor=south east,xshift=-18pt},
+ clip=false,grid=major,grid style={black!8},enlargelimits=false,
+ every axis plot/.append style={thick},samples=161]
+\addplot[CExplanation,very thick,domain=-2:2.1] {2^x};
+\draw[dashed,black!35] (axis cs:-1,0) |- (axis cs:0,0.5);
+\draw[dashed,black!35] (axis cs:1,0) |- (axis cs:0,2);
+\draw[dashed,black!35] (axis cs:2,0) |- (axis cs:0,4);
+\addplot[only marks,mark=*,mark size=2pt,orange!80!black] coordinates {(-1,0.5) (1,2) (2,4)};
+
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:-2,-0.3) {$-2$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:-1,-0.3) {$-1$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:1,-0.3) {$1$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:2,-0.3) {$2$};
+
+\end{axis}
+\end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}{.49\linewidth}\centering
+\begin{tikzpicture}
+\begin{axis}[width=6.1cm,height=4.8cm,axis lines=middle,
+ xmin=-2.5,xmax=2.6,ymin=-4.8,ymax=4.8,
+ xtick={-2,-1,0,1,2},xticklabels=\empty,ytick={-4,-2,0,2,4},xlabel={$t$},ylabel={$f(t)$},
+ title={正比例：倍数仍是倍数},title style={font=\small,yshift=3pt},
+ tick label style={font=\small},label style={font=\small},
+ ylabel style={at={(axis description cs:0,1)},anchor=south east,xshift=-18pt},
+ clip=false,grid=major,grid style={black!8},enlargelimits=false,
+ every axis plot/.append style={thick},samples=161]
+\addplot[CExplanation,very thick,domain=-2:2.1] {2*x};
+\draw[dashed,black!35] (axis cs:-1,0) |- (axis cs:0,-2);
+\draw[dashed,black!35] (axis cs:1,0) |- (axis cs:0,2);
+\draw[dashed,black!35] (axis cs:2,0) |- (axis cs:0,4);
+\addplot[only marks,mark=*,mark size=2pt,orange!80!black] coordinates {(-1,-2) (1,2) (2,4)};
+
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:-2,-4.8) {$-2$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:-1,-4.8) {$-1$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:1,-4.8) {$1$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:2,-4.8) {$2$};
+
+\end{axis}
+\end{tikzpicture}
+\end{minipage}
+\par\small 同取 $f(1)=2$：指数代表有 $f(-1)=1/2$；正比例代表有 $f(-1)=-2$。相反输入的高度关系不同。
+\end{center}

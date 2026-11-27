@@ -1,0 +1,32 @@
+% F087｜牛顿切线法快速求近似根｜02_explanation.tex
+% 继承上传模板的 LaTeX 环境；当前条目的内容独立编写。
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{看图理解：为什么出现减法}}
+\par\medskip
+\begin{center}
+\input{assets/tikz/F087_tangent.tex}
+\end{center}
+\medskip
+在 $(x_n,f(x_n))$ 点作切线。若切线斜率为 $k$，向横轴移动时纵坐标要从 $f(x_n)$ 变为 $0$，横向需要移动 $-f(x_n)/k$，因此新横坐标是 $x_n-f(x_n)/k$。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{平方根为什么是“取平均”}}
+\par\medskip
+\begin{center}
+\input{assets/tikz/F087_square.tex}
+\end{center}
+\medskip
+用 $f(x)=x^2-A$，切线斜率 $f'(x)=2x$。\[x_{n+1}=x_n-\frac{x_n^2-A}{2x_n}=\frac12\left(x_n+\frac A{x_n}\right).\]如果猜得偏大，$A/x_n$ 会偏小；取两者平均就能调整。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{什么时候不该盲用}}
+\par\medskip
+\begin{center}
+\input{assets/tikz/F087_steps.tex}
+\end{center}
+\medskip
+切线可能几乎水平，也可能把新点推向很远处。只有在函数足够平滑、初值选得合适时，连续更新才会有效。对一个具体问题，算完应将结果代回原方程检验。
+\end{explanationbox}

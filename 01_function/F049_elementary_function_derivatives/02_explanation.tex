@@ -6,13 +6,15 @@
 	\medskip
 	\textbf{\textcolor{CExplanation}{核心拆解}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-		\item[\textbf{要点一（幂函数导数）：}] 无论指数是整数还是分数，导数总是“指数乘以变量指数减1”. 核心是系数转移.
+		\item[\textbf{要点一（幂函数导数）：}] 在适用范围内，幂函数求导是“指数前移、指数减一”。根式与倒数可先改写为幂，但不能扩大定义域。
 		\item[\textbf{要点二（指对函数导数）：}] 指数函数保留原函数乘以$\ln a$，对数函数导数是$1/(x\ln a)$. $e^x$和$\ln x$是最简洁的特例.
 		\item[\textbf{要点三（三角导数）：}] $\sin$ 变 $\cos$，$\cos$ 变 $-\sin$；正负号不可混淆.
 	\end{description}
 
 	\medskip
 	\textbf{\textcolor{CExplanation}{几何本质（切线斜率）}}
+\input{assets/tikz/F049_proof_sqrt_secant.tex}
+
 
 	导数$f'(x_0)$就是曲线$y=f(x)$在点$(x_0,f(x_0))$处切线的斜率. 因此公式直接给出各函数图像的切线斜率.
 
@@ -39,4 +41,19 @@
 		\item \textbf{场景一（基础求导）：} 由基本初等函数及其线性组合构成的函数，直接逐项求导.
 		\item \textbf{场景二（切线斜率计算）：} 给定切点横坐标，代入导函数得斜率，再写切线方程.
 	\end{itemize}
+
+\medskip
+\textbf{\textcolor{CExplanation}{新增公式如何从基本公式长出来？}}
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.45em]
+\item[\textbf{根式和倒数：}] $\sqrt{x}=x^{1/2}$（$x>0$），$1/x=x^{-1}$（$x\ne0$）。先认出幂函数，再求导。
+\item[\textbf{正切与余切：}] $\tan x=\sin x/\cos x$，$\cot x=\cos x/\sin x$。商法则的分子由 $\sin^2x+\cos^2x=1$ 化简；正切导数为正，余切导数为负。
+\item[\textbf{绝对值：}] $y=|x|$ 在原点左右分别是斜率 $-1$ 和 $1$ 的直线，两个斜率不相等，所以原点不可导。
+\item[\textbf{变量既在底数又在指数：}] $x^x=e^{x\ln x}$，先把变量指数移到指数函数的内层，再用乘积及复合求导。
+\item[\textbf{反三角函数（拓展）：}] 反函数交换横纵坐标，相应切线斜率互为倒数（原斜率须非零）。
+\end{description}
+\medskip
+\textbf{\textcolor{CExplanation}{速记关联：}} $\tan$ 的导数为 $1+\tan^2x$；$\cot$ 的导数为 $-(1+\cot^2x)$。$\ln|x|$ 左右两支导数均是 $1/x$。
+
+\medskip
+\textbf{\textcolor{CExplanation}{核心证明学习顺序：}} 先理解两个基本极限（指对基本极限与三角基本极限），再学习七条公式的差商变形。指数提公因式、对数化商、实数幂转指数、三角和差化积，是四类不同的化简思路。
 \end{explanationbox}

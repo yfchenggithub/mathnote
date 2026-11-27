@@ -1,108 +1,55 @@
 \begin{explanationbox}
+\begin{minipage}{\linewidth}
+\textbf{位置一：小圆在椭圆内，仍然是 $r<d_{\min}$。}
+取 $E:x^2/9+y^2/4=1$，圆心 $M=O$，半径 $r=1$。
+圆心到椭圆的距离范围是 $[2,3]$。图中上下方向有最近间隙，
+左右方向可取得最远距离。
+\input{assets/tikz/C001_small_circle_inside.tex}
+\end{minipage}
+与首页的外离图比较：同样是 $r<d_{\min}$，圆周却在椭圆内部。
+因此公式判断的是\textbf{两条边界间的距离}，不能单凭这个不等式判断圆在椭圆内还是外。
+\end{explanationbox}
 
-	\textbf{\textcolor{CExplanation}{一句话直觉}}
-	椭圆到圆周的距离，可以转化为椭圆上的点到圆心距离与半径 $r$ 的接近程度。
+\begin{explanationbox}
+\begin{minipage}{\linewidth}
+\textbf{位置二：相交时，选同一个公共点，最近距离就是零。}
+取 $E:x^2/4+y^2=1$，$\Gamma:(x-1)^2+y^2=4$。
+此时 $d_{\min}=\sqrt{2/3}<r=2<d_{\max}=3$。
+\input{assets/tikz/C001_intersection_distance.tex}
+\end{minipage}
+图中 $A,B$ 均属于两条曲线；取 $P=Q=A$ 即得 $PQ=0$。
+最远点仍需分别选取：$P_2(-2,0)$、$Q_2(3,0)$ 给出 $D_{\max}=5$。
+\end{explanationbox}
 
-	\medskip
+\begin{explanationbox}
+\begin{minipage}{\linewidth}
+\textbf{位置三：等号边界也有公共点，不能遗漏相切。}
+下图固定同一椭圆 $E:x^2/4+y^2=1$ 和圆心 $M=O$，只改变半径；
+两幅图使用相同比例。左图半径取距离范围的下端点，右图取上端点。
+\input{assets/tikz/C001_tangent_boundaries.tex}
+\end{minipage}
+两种边界情形都有 $D_{\min}=0$。中间一段必须写成 $d_{\min}\le r\le d_{\max}$。
+\end{explanationbox}
 
-	\textbf{\textcolor{CExplanation}{关键前提}}
-	本文中的“圆”指圆周
-	\[
-		\Gamma:(x-x_0)^2+(y-y_0)^2=r^2,
-	\]
-	不是圆面
-	\[
-		(x-x_0)^2+(y-y_0)^2\le r^2.
-	\]
-	如果把“圆”理解成圆面，最小距离公式会发生变化。
+\begin{explanationbox}
+\begin{minipage}{\linewidth}
+\textbf{外切也是 $r=d_{\min}$ 的边界。}取同一椭圆，圆心移到 $M(4,0)$，半径取2。
+\input{assets/tikz/C001_external_tangency.tex}
+\end{minipage}
+切点 $A$ 同时属于两条曲线，最近距离为零；最远点 $P_2(-2,0)$、$Q_2(6,0)$ 的距离为8。
+\end{explanationbox}
 
-	\medskip
+\begin{explanationbox}
+\begin{minipage}{\linewidth}
+\textbf{位置四：圆包住椭圆时，最近距离反而要用最远圆心距离。}
+下图取 $E:x^2/4+y^2=1$、$\Gamma:x^2+y^2=9$。每个椭圆点都在圆盘内，
+离圆周最近的椭圆点，是离圆心最远的点，故 $D_{\min}=r-d_{\max}$。
+\input{assets/tikz/C001_concentric_enclosing.tex}
+\end{minipage}
 
-	\textbf{\textcolor{CExplanation}{核心拆解}}
-
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
-
-		\item[\textbf{要点一（距离转化）：}]
-		      对固定的椭圆上点 $P$，圆周上离 $P$ 最近的点到 $P$ 的距离为
-		      \[
-			      |PM-r|.
-		      \]
-		      因此
-		      \[
-			      D_{\min}=\min_{P\in E}|PM-r|.
-		      \]
-
-		\item[\textbf{要点二（取值范围）：}]
-		      椭圆是一条连通闭曲线，函数 $P\mapsto PM$ 连续，所以 $PM$ 的取值范围不是零散的点，而是整个区间
-		      \[
-			      [d_{\min},d_{\max}].
-		      \]
-
-		\item[\textbf{要点三（分段原理）：}]
-		      于是问题变成求
-		      \[
-			      \min_{t\in[d_{\min},d_{\max}]}|t-r|.
-		      \]
-		      也就是在区间 $[d_{\min},d_{\max}]$ 中找一个最接近 $r$ 的数。
-
-	\end{description}
-
-	\medskip
-
-	\textbf{\textcolor{CExplanation}{几何本质（圆心距离决定）}}
-	圆周上任意点到圆心 $M$ 的距离恒为 $r$；椭圆上点到圆心 $M$ 的距离范围为
-	\[
-		[d_{\min},d_{\max}].
-	\]
-	因此椭圆到圆周的最小距离由 $r$ 到区间 $[d_{\min},d_{\max}]$ 的距离决定。
-
-	\medskip
-
-	\textbf{\textcolor{CExplanation}{最大距离为什么是相加}}
-	对固定的 $P\in E$，圆周上离 $P$ 最远的点位于圆心 $M$ 的另一侧，此时
-	\[
-		PQ=PM+r.
-	\]
-	所以整体最大距离为
-	\[
-		D_{\max}=d_{\max}+r.
-	\]
-
-	\medskip
-
-	\textbf{\textcolor{CExplanation}{代数意义（条件极值）}}
-	在椭圆约束下求 $PM$ 的最值，通常用参数方程
-	\[
-		P(a\cos\theta,b\sin\theta)
-	\]
-	把 $PM^2$ 转化为关于 $\theta$ 的函数，再通过二次函数、三角函数或导数求最值。
-
-	\medskip
-
-	\textbf{\textcolor{CExplanation}{考点价值（高考常见）}}
-	常见于圆锥曲线与圆结合的距离最值问题，核心能力是：
-	先求 $d_{\min},d_{\max}$，再根据 $r$ 与二者的大小关系分类讨论。
-
-	\medskip
-
-	\textbf{\textcolor{CExplanation}{顿悟点}}
-	当
-	\[
-		r\in[d_{\min},d_{\max}]
-	\]
-	时，椭圆上存在点 $P$ 使得 $PM=r$，也就是说这个点同时在圆周上，所以椭圆与圆周有公共点，此时
-	\[
-		D_{\min}=0.
-	\]
-
-	\medskip
-
-	\textbf{\textcolor{CExplanation}{使用场景}}
-
-	\begin{itemize}[leftmargin=*, itemsep=0.5em, topsep=0.4em]
-		\item \textbf{场景一（判断是否相交）：} 比较 $r$ 与 $d_{\min},d_{\max}$ 的大小，判断椭圆与圆周是否有公共点。
-		\item \textbf{场景二（计算最小距离）：} 若 $r<d_{\min}$，则 $D_{\min}=d_{\min}-r$；若 $d_{\min}\le r\le d_{\max}$，则 $D_{\min}=0$；若 $r>d_{\max}$，则 $D_{\min}=r-d_{\max}$。
-		\item \textbf{场景三（计算最大距离）：} 不论位置关系如何，始终有 $D_{\max}=d_{\max}+r$。
-	\end{itemize}
-
+\textbf{把图形判断压缩成数轴：}蓝段表示 $PM$ 的整个取值范围，
+红点表示半径 $r$；最近距离就是红点到蓝段的距离。
+\input{assets/tikz/C001_radius_interval.tex}
+红点落在蓝段上（含端点）时，存在 $PM=r$，即两条曲线有公共点。
+红点在左侧取 $d_{\min}-r$，在右侧取 $r-d_{\max}$。
 \end{explanationbox}

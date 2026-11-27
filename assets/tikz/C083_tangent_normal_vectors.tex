@@ -1,0 +1,35 @@
+% C083｜椭圆 X^2/25+Y^2/9=1 在 P=(3,12/5) 处的切线与法向量。
+% 等比例坐标；箭头分别取 (9,20)/10 与 (20,-9)/10，标签单独排布。
+\begin{center}
+\begin{tikzpicture}[x=.82cm,y=.82cm,>=stealth,font=\small]
+  \coordinate (O) at (0,0);
+  \coordinate (P) at (3,2.4);
+  \draw[->,gray] (-5.7,0)--(6.5,0) node[right] {$X$};
+  \draw[->,gray] (0,-3.5)--(0,6) node[above] {$Y$};
+  \draw[teal!75!black,thick] (O) ellipse (5 and 3);
+  \draw[dashed,gray] (O)--(P);
+
+  % 切线 9X+20Y=75；切向量沿此直线。
+  \draw[gray,thick] (-.6,4.02)--(6,1.05);
+  \node[gray,anchor=west] at (6.15,.8) {$\ell$};
+  \draw[->,orange!85!black,thick] (P)--(3.9,4.4);
+  \node[orange!85!black,anchor=south] at (4.05,4.95)
+    {$\vec n\parallel(9,20)$};
+  \draw[->,teal!75!black,thick] (P)--(5,1.5);
+  \node[teal!75!black,anchor=west] at (5.4,2.15)
+    {$\vec v\parallel(20,-9)$};
+
+  % 单位切向量与单位法向量构成的精确直角标记。
+  \coordinate (T) at ($(P)+({.38*20/sqrt(481)},{-.38*9/sqrt(481)})$);
+  \coordinate (N) at ($(P)+({.38*9/sqrt(481)},{.38*20/sqrt(481)})$);
+  \coordinate (Q) at ($(T)+(N)-(P)$);
+  \draw[gray] (T)--(Q)--(N);
+
+  % 坐标标签置于椭圆外侧，避开纵轴、切线及两个向量。
+  \draw[gray!70] (-1.1,4.45)--(2.65,2.65);
+  \node[anchor=south east] at (-1.15,4.55)
+    {$P\bigl(3,\frac{12}{5}\bigr)$};
+  \fill (P) circle (2pt);
+  \node[below left] at (O) {$O$};
+\end{tikzpicture}
+\end{center}

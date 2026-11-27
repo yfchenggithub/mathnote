@@ -6,7 +6,7 @@
 \textbf{\textcolor{CExample}{解题步骤：}}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
     \item[\textbf{第一步（判断正数）：}] 由于 $x > 0$，则 $\dfrac{9}{x} > 0$，满足“一正”。
-    \par\textbf{理由：} 基本不等式 $a + b \ge 2\sqrt{ab}$ 要求 $a, b$ 均为正数。
+    \par\textbf{理由：} 基本不等式 $a + b \ge 2\sqrt{ab}$ 要求 $a,b$ 均非负；本题两项均为正。
 
     \item[\textbf{第二步（套用公式）：}] 直接应用算术-几何平均不等式：
     \[
@@ -14,7 +14,7 @@
     \]
     \par\textbf{理由：} 这里 $a = x$， $b = \frac{9}{x}$，且 $ab = x \cdot \frac{9}{x} = 9$ 为定值，满足“二定”。
 
-    \item[\textbf{第三步（验证取等）：}] 等号成立当 $x = \dfrac{9}{x}$，即 $x^2 = 9$，解得 $x = 3$（舍去负值）。
+    \item[\textbf{第三步（验证取等）：}] 等号成立当 $x = \dfrac{9}{x}$，即 $x^2 = 9$，解得 $x=3$ 或 $x=-3$；因定义域为 $x>0$，舍去负值。代入 $x=3$ 得 $y=3+9/3=6$。
     \par\textbf{理由：} 检查“三相等”，确保最小值可以取到。
 \end{description}
 
@@ -36,12 +36,31 @@
     \item[\textbf{第二步（利用条件放缩）：}] 由 $a+b=1$ 和 $a,b>0$，根据 $ab \le \left(\frac{a+b}{2}\right)^2 = \frac{1}{4}$，得 $\frac{1}{ab} \ge 4$。又由 $\frac{a}{b} + \frac{b}{a} \ge 2\sqrt{\frac{a}{b} \cdot \frac{b}{a}} = 2$（应用 $a^2+b^2 \ge 2ab$ 的变形）。
     \par\textbf{理由：} 分别对乘积项 $ab$ 和倒数项 $\frac{a}{b}+\frac{b}{a}$ 应用基本不等式或其变形。
 
-    \item[\textbf{第三步（代入求下界）：}] 将 $ab \le \frac{1}{4}$ 代入 $ab + \frac{1}{ab}$，但注意 $ab + \frac{1}{ab}$ 在 $(0, \frac{1}{4}]$ 上单调递减，故当 $ab=\frac{1}{4}$ 时取得最小值。同时 $\frac{a}{b}+\frac{b}{a} \ge 2$。因此
+    \item[\textbf{第三步（代入求下界）：}] 将 $ab \le \frac{1}{4}$ 代入 $ab + \frac{1}{ab}$，但注意 $ab + \frac{1}{ab}$ 在 $(0, \frac{1}{4}]$ 上单调递减，具体证明：令 $t=ab$，则 $0<t\le1/4$。任取 $0<t_1<t_2\le1/4$，
+\begin{align*}(t_1+1/t_1)-(t_2+1/t_2)&=(t_1-t_2)+\frac{t_2-t_1}{t_1t_2}\\&=(t_2-t_1)\left(\frac1{t_1t_2}-1\right)>0.\end{align*}
+因为 $t_1t_2<1$，故函数严格递减；当 $ab=1/4$ 时取得最小值。同时 $\frac{a}{b}+\frac{b}{a} \ge 2$。因此
     \[
     \text{原式} \ge \left(\frac{1}{4} + 4\right) + 2 = \frac{1}{4} + 4 + 2 = \frac{25}{4}.
     \]
-    \par\textbf{理由：} 将各部分的极小值组合，得到整体的下界。
+    \par\textbf{理由：} 将各部分下界相加。两个取等条件分别为 $ab=1/4$ 与 $a/b=b/a$，在正数且和为1时均等价于 $a=b=1/2$，可以同时满足。
 \end{description}
 
 \textbf{\textcolor{CExample}{关键结论：}} \textbf{不等式得证，且等号当 $a=b=\frac{1}{2}$ 时成立。}
+
+\medskip\textbf{例2补充：恒等变形法}
+令 $t=ab$。由 $(a+b)^2=1$ 得 $a^2+b^2=1-2t$，所以
+\begin{align*}(a+1/a)(b+1/b)&=t+\frac{a^2+b^2+1}{t}\\&=t+\frac2t-2.\end{align*}
+\begin{align*}t+\frac2t-2-\frac{25}{4}&=t+\frac2t-\frac{33}{4}\\&=\frac{(1-4t)(8-t)}{4t}\ge0.\end{align*}
+因 $0<t\le1/4$，各因子符号明确。等号仅在 $t=1/4$，即 $a=b=1/2$ 时成立。
+\medskip\textbf{例3（定和求平方和）} 已知实数 $a+b=6$，求 $a^2+b^2$ 的最小值。
+识别：和固定、目标为平方和。由第三式，$a^2+b^2\ge6^2/2=18$。等号要求 $a=b$，联立得 $a=b=3$，代入验证为18。
+\medskip\textbf{例4（拆项构造定积）} 已知 $x>1$，求 $y=(x^2+3)/(x-1)$ 的最小值。
+\begin{align*}x^2+3&=(x-1)^2+2(x-1)+4,\\y&=(x-1)+\frac4{x-1}+2\\&\ge2\sqrt{(x-1)\frac4{x-1}}+2=6.\end{align*}
+两项均正且积为4。取等要求 $(x-1)^2=4$，由 $x>1$ 得 $x=3$，代入得6。
+\medskip\textbf{例5（等号不可达）} 已知 $x\ge4$，求 $x+9/x$ 的最小值。
+基本不等式给出下界6，但取等要求 $x=3$，不在定义域。
+对于 $x\ge4$，
+\begin{align*}x+9/x-(4+9/4)&=(x-4)+\frac{9(4-x)}{4x}\\&=(x-4)\left(1-\frac9{4x}\right)\ge0.\end{align*}
+第二因子严格为正，故在 $x=4$ 时取得实际最小值 $25/4$。
+
 \end{examplebox}

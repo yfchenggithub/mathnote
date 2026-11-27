@@ -1,8 +1,8 @@
 \begin{trapbox}
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
     \item[\textbf{\textcolor{CTrap}{易错点一（忽略条件）：}}] 使用倒数形式 $\frac{1}{f(x)-N} > \frac{1}{M-N}$ 时，未检查 $f(x)-N > 0$ 是否成立。
-    \item[\textbf{\textcolor{CTrap}{正确理解（条件先行）：}}] 倒数形式仅在 $f(x)-N > 0$ 的条件下与原始不等式等价；否则需另行讨论。
-    \item[\textbf{\textcolor{CTrap}{错因分析（单调性误用）：}}] 函数 $\frac{1}{t}$ 在 $t>0$ 时递减，但在 $t<0$ 时性质不同，直接应用可能导致不等号方向错误。
+    \item[\textbf{\textcolor{CTrap}{正确理解（条件先行）：}}] 在 $M>N$ 下，倒数不等式本身推出 $f(x)-N>0$；取倒数前应明确写出这一点。
+    \item[\textbf{\textcolor{CTrap}{错因分析（单调性误用）：}}] 函数 $\frac{1}{t}$ 在 $t>0$ 时递减，在 $t<0$ 时也递减，但不能跨越零直接应用单调性。
 \end{description}
 
 \medskip
@@ -14,8 +14,18 @@
 
 \medskip
 \begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-    \item[\textbf{\textcolor{CTrap}{易错点三（半长计算）：}}] 在绝对值形式中，将半长误写为 $\frac{M+N}{2}$ 或 $\left| \frac{M-N}{2} \right|$ 而未简化。
+    \item[\textbf{\textcolor{CTrap}{易错点三（半长计算）：}}] 在绝对值形式中，将半长误写为 $\frac{M+N}{2}$ ；写成 $\left| \frac{M-N}{2} \right|$ 则正确，只是可以简化。
     \item[\textbf{\textcolor{CTrap}{正确理解（正半长）：}}] 由于 $M > N$，半长 $\frac{M-N}{2} > 0$，无需加绝对值；中点 $\frac{M+N}{2}$ 为实数。
     \item[\textbf{\textcolor{CTrap}{错因分析（符号混淆）：}}] 对绝对值概念和区间几何意义理解不透，导致公式记忆错误。
 \end{description}
+\medskip
+\textbf{其他易错点：} 分式为正只说明分子分母同号，不能直接假设分母为正；应利用两者之和为 $M-N>0$。求得函数值范围后还须与原函数定义域取交集。
+
+\textbf{端点与推广：} 若 $M=N$，严格区间为空，乘积是平方不可能为负，倒数右端无意义；若 $M<N$，应先交换端点再应用结论。
+当 $M>N$ 时，非严格形式满足
+\begin{align*}
+N\le t\le M&\iff(t-M)(t-N)\le0\\
+&\iff |t-C|\le R.
+\end{align*}
+分式 $\frac{t-N}{M-t}\ge0$ 对应 $N\le t<M$，无法包含 $M$；倒数 $\frac1{t-N}\ge\frac1{M-N}$ 对应 $N<t\le M$，无法包含 $N$。如需闭区间，必须分别补上缺失端点，不能机械替换不等号。
 \end{trapbox}

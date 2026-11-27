@@ -1,0 +1,131 @@
+% F085｜八类模型从哪里来、能解决什么问题。
+\FReserve{7.5cm}
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{1 指数型：为什么“加法变乘法”？}}
+\input{assets/tikz/F085_01_exponential.tex}
+
+图上 $f(1)=2,f(2)=4,f(3)=8$：横坐标相加 $1+2=3$，高度相乘 $2\times4=8$。一般地，$2^{x+y}=2^x2^y$。
+\[
+\boxed{f(x+y)=f(x)f(y)}.
+\]
+\textbf{考试中用它：}看到 $f(2x)$、$f(3x)$ 或 $f(m+n)$，直接拆输入；已知 $f(1)$ 就能求很多整数点的值。
+
+\textbf{边界：}该式也允许 $f\equiv0$；不能看到等式就把 $f(0)=1$ 当作无条件结论。在全体实数上连续且不恒为零时，才可进一步确定为 $a^x$（$a>0$）。
+\end{explanationbox}
+
+\FReserve{7.5cm}
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{2 对数型：为什么“乘法变加法”？}}
+\input{assets/tikz/F085_02_logarithmic.tex}
+
+图上横坐标相乘 $2\cdot4=8$，高度相加 $1+2=3$，即
+\[
+\log_2(2\cdot4)=\log_2 2+\log_2 4=1+2.
+\]
+因而熟悉的对数函数满足
+\[\boxed{f(xy)=f(x)+f(y)}\qquad(x,y>0).\]
+\textbf{考试中用它：}把 $8=2^3$ 看成三个 $2$ 相乘，便有 $f(8)=3f(2)$。
+
+\textbf{注意：}这里的输入是正数；$f(1)=0$，因为 $f(1)=f(1\cdot1)=2f(1)$。
+\end{explanationbox}
+
+\FReserve{7.5cm}
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{3 幂函数型：“乘法还是乘法”}}
+\input{assets/tikz/F085_03_power.tex}
+
+取 $f(x)=x^2$，则
+\[
+ f(2\cdot3)=6^2=36=4\times9=f(2)f(3).
+\]
+因此 $\boxed{f(xy)=f(x)f(y)}$ 是幂型模型的显著特征。
+
+\textbf{与对数的对比：}在相同的正数输入上，若 $f(2)=3$，则
+\[
+\begin{array}{ll}
+\text{对数型：}&f(8)=3f(2)=9;\\
+\text{幂函数型：}&f(8)=[f(2)]^3=27.
+\end{array}
+\]
+\textbf{注意：}不恒为零的解在正数范围内有 $f(1)=1$、$f(x)>0$；常见的 $x^a$ 是连续情况下的代表。
+\end{explanationbox}
+
+\FReserve{7.5cm}
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{4 正比例型：“加法还是加法”}}
+\input{assets/tikz/F085_04_linear.tex}
+
+图上直线 $f(x)=3x$ 满足 $f(1+2)=9=3+6=f(1)+f(2)$。
+\[\boxed{f(x+y)=f(x)+f(y)}.\]
+
+\textbf{为什么重要？}这一式马上给出 $f(0)=0$、$f(-x)=-f(x)$，以及 $f(nx)=nf(x)$（整数 $n$）。
+
+\textbf{但不要急着说 $f(x)=kx$：}在有连续性（或单调性等）条件时，才能按正比例函数确定解析式。单凭关系式，先做代入计算更稳妥。
+\end{explanationbox}
+
+\FReserve{7.5cm}
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{5 余弦型：为什么左右两项相加？}}
+\input{assets/tikz/F085_05_cosine.tex}
+
+两角和差公式里，$\sin x\sin y$ 在一个式子中为负、另一个式子中为正；相加后恰好抵消：
+\[
+\begin{aligned}
+\cos(x+y)&=\cos x\cos y-\sin x\sin y,\\
+\cos(x-y)&=\cos x\cos y+\sin x\sin y.
+\end{aligned}
+\]
+所以
+\[\boxed{\cos(x+y)+\cos(x-y)=2\cos x\cos y}.\]
+
+\textbf{考试中用它：}令 $y=x$，就能把 $f(2x)$ 变成 $f(x)$ 的平方关系（非零解需先推出 $f(0)=1$）。
+\end{explanationbox}
+
+\FReserve{7.5cm}
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{6 正切型：加法变成一个分式}}
+\input{assets/tikz/F085_06_tangent.tex}
+
+由 $\tan(x+y)=\dfrac{\sin(x+y)}{\cos(x+y)}$，把两角和的正弦、余弦公式代入，并同除以 $\cos x\cos y$，得到
+\[
+\boxed{\tan(x+y)=\frac{\tan x+\tan y}{1-\tan x\tan y}}.
+\]
+\textbf{快记：}上面\textbf{相加}，下面\textbf{1 减积}。如抽象函数满足这一式，只要代入 $x=y$ 就可求 $f(2x)$。
+
+\textbf{条件：}三个正切值必须有定义，而且分母不为 $0$；所以绝不能把公式当作任意实数都能代入的关系。
+\end{explanationbox}
+
+\FReserve{7.5cm}
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{7 正弦型：和差相乘，平方相减}}
+\input{assets/tikz/F085_07_sine.tex}
+
+来自熟悉的三角恒等式
+\[
+\boxed{\sin(x+y)\sin(x-y)=\sin^2x-\sin^2y}.
+\]
+还可以从两角和差正弦公式相乘得到：
+\[
+(\sin x\cos y+\cos x\sin y)
+(\sin x\cos y-\cos x\sin y)
+=\sin^2x-\sin^2y.
+\]
+\textbf{最快的观察：}遇到 $f(m)f(n)$，先试
+\[x=\frac{m+n}{2},\quad y=\frac{m-n}{2}.\]
+\textbf{不能只认正弦：}因为 $(x+y)(x-y)=x^2-y^2$，函数 $f(x)=x$ 也满足这个模型。
+\end{explanationbox}
+
+\FReserve{7.5cm}
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{8 余切型：上面乘积减 1}}
+\input{assets/tikz/F085_08_cotangent.tex}
+
+把 $\cot(x+y)=\dfrac{\cos(x+y)}{\sin(x+y)}$ 中的两角和公式代入，再同除以 $\sin x\sin y$，得到
+\[
+\boxed{\cot(x+y)=\frac{\cot x\cot y-1}{\cot x+\cot y}}.
+\]
+\textbf{快记：}上面\textbf{乘积减 1}，下面\textbf{相加}。它与正切模型的分子、分母恰好相互调换了重点。
+
+\textbf{特别注意：}$\cot0$ 没有定义！因此不能像指数或正比例型一样直接令输入为 $0$。
+\end{explanationbox}
+

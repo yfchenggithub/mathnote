@@ -1,0 +1,23 @@
+% F049: native TikZ/PGFPlots, computed from the stated mathematical model.
+\begin{center}
+\begin{tikzpicture}[font=\small,>=stealth]
+
+\begin{scope}[x=3.2cm,y=3.2cm]
+\coordinate (O) at (0,0);\coordinate (A) at (1,0);
+\coordinate (B) at ({cos(35)},{sin(35)});\coordinate (T) at (1,{tan(35)});
+\fill[orange!12] (O)--(A) arc(0:35:1)--cycle;
+\fill[blue!15] (O)--(A)--(B)--cycle;
+\draw[gray] (O)--(T)--(A)--cycle;
+\draw[blue!70!black,thick] (O)--(B)--(A)--cycle;
+\draw[orange!90!black,thick] (A) arc(0:80:1);
+\draw[->] (.28,0) arc(0:35:.28);
+\node at (.36,.11) {$t$};
+\node[below left] at (O) {$O$};\node[below] at (A) {$A$};
+\node[above left] at (B) {$B$};\node[above right] at (T) {$T$};
+\end{scope}
+\node[anchor=west,align=left] at (5,1.6)
+ {$0<t<\pi/2$，单位圆\\[6pt]$S_{OAB}=\tfrac12\sin t$\\[6pt]$S_{\text{扇形}}=\tfrac12t$\\[6pt]$S_{OAT}=\tfrac12\tan t$};
+
+\end{tikzpicture}
+\par\smallskip{\small 蓝色三角形包含于扇形，扇形包含于外切三角形，所以 $\sin t<t<\tan t$。}
+\end{center}

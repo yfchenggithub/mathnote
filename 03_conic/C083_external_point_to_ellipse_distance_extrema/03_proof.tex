@@ -1,71 +1,223 @@
 \begin{proofbox}
-\textbf{推导（只用三角参数法）。}
+\textbf{方法一：法向量法（优先理解，最近点唯一）。}
 
-椭圆动点设为
-\[
-P(\theta)=(a\cos\theta,b\sin\theta).
-\]
-由两点距离公式，
-\[
-F(\theta)=(a\cos\theta-x_0)^2
-          +(b\sin\theta-y_0)^2.
-\]
-由于 $F$ 连续且以 $2\pi$ 为周期，
-它在一整周上能取到最大值和最小值。
+\textbf{第一步：详细推导椭圆在任意点处的法向量。}
 
-\textbf{第一步：求导。}
+设椭圆 $E:\frac{X^2}{a^2}+\frac{Y^2}{b^2}=1$，固定切点为 $P=(x,y)$。这里 $(X,Y)$ 是直线上的变量，$(x,y)$ 是切点坐标。
+法向量是与切线垂直的非零向量，并不一定是 $\overrightarrow{OP}$，也不要求长度为 1。
+
+\textbf{途径 A：切线方程法（最快）。}
+
+椭圆在 $P$ 点的切线方程为
+\[
+\frac{xX}{a^2}+\frac{yY}{b^2}=1.
+\]
+将它写成一般式 $AX+BY+C=0$，逐项对照得
+\[
+ A=\frac{x}{a^2},\quad B=\frac{y}{b^2},\quad C=-1.
+\]
+为什么 $(A,B)$ 是法向量？任取直线上两个不同点 $U(X_1,Y_1),V(X_2,Y_2)$，分别代入直线方程并相减：
+\[
+ A(X_2-X_1)+B(Y_2-Y_1)=0.
+\]
+即 $(A,B)\cdot\overrightarrow{UV}=0$。因此 $(A,B)$ 垂直于直线，且 $A,B$ 不同时为零，故
+\[
+\boxed{\vec n=\left(\frac{x}{a^2},\frac{y}{b^2}\right).}
+\]
+切线公式本身也可由下面的参数法独立推导，避免循环论证。
+
+\textbf{途径 B：求导与斜率法（逐步理解）。}
+
+在非顶点处，把纵坐标 $Y$ 看成 $X$ 的函数。对椭圆方程两边求导：
+\[
+\frac{2X}{a^2}+\frac{2Y}{b^2}\frac{\mathrm dY}{\mathrm dX}=0.
+\]
+第二项用复合函数求导：$(Y^2)'=2YY'$，而常数 1 的导数为 0。
+当 $Y\ne0$ 时，移项并除以 $2Y/b^2$，得到
+\[
+Y'=-\frac{2X/a^2}{2Y/b^2}=-\frac{b^2X}{a^2Y}.
+\]
+在 $P=(x,y)$ 处，若 $xy\ne0$，则
+\[
+ k_{\text{切}}=-\frac{b^2x}{a^2y},\qquad
+ k_{\text{法}}=-\frac{1}{k_{\text{切}}}=\frac{a^2y}{b^2x}.
+\]
+向量 $(u,v)$ 的方向斜率为 $v/u$（$u\ne0$）。将法线斜率改写为
+\[
+ k_{\text{法}}=\frac{y/b^2}{x/a^2},
+\]
+便可取 $u=x/a^2,\ v=y/b^2$，得到同一个法向量。
+四个顶点须单独理解：$(\pm a,0)$ 处切线竖直、法线水平，法向量 $(\pm1/a,0)$；$(0,\pm b)$ 处切线水平、法线竖直，法向量 $(0,\pm1/b)$。因此统一公式仍成立。
+
+\textbf{途径 C：参数法（不需要斜率，覆盖全部点）。}
+
+设 $P(\theta)=(a\cos\theta,b\sin\theta)=(x,y)$，对参数求导得到切向量
+\[
+\vec v=(-a\sin\theta,b\cos\theta).
+\]
+它不为零，因为正弦和余弦不能同时为零。将 $x=a\cos\theta,y=b\sin\theta$ 代入待验证的法向量：
+\[
+\vec n=\left(\frac{x}{a^2},\frac{y}{b^2}\right)
+=\left(\frac{\cos\theta}{a},\frac{\sin\theta}{b}\right).
+\]
+逐项计算数量积：
 \[
 \begin{aligned}
-F'(\theta)
-={}&-2a(a\cos\theta-x_0)\sin\theta\\
-   &+2b(b\sin\theta-y_0)\cos\theta.
+\vec v\cdot\vec n
+&=(-a\sin\theta)\frac{\cos\theta}{a}
+ +(b\cos\theta)\frac{\sin\theta}{b}\\
+&=-\sin\theta\cos\theta+\cos\theta\sin\theta=0.
 \end{aligned}
 \]
-令 $F'(\theta)=0$，整理得
+故二者垂直，$\vec n$ 确为法向量。过 $P$ 的切线上任意点 $(X,Y)$ 满足
 \[
-(a^2-b^2)\sin\theta\cos\theta
--ax_0\sin\theta+by_0\cos\theta=0.\tag{1}
+\frac{x}{a^2}(X-x)+\frac{y}{b^2}(Y-y)=0.
 \]
+展开并利用 $x^2/a^2+y^2/b^2=1$，即得途径 A 的切线公式。
 
-\textbf{第二步：统一消去三角函数。}
-令 $t=\tan\frac{\theta}{2}$（暂不取 $\theta=\pi$），
-则
+\textbf{具体例子：}椭圆 $X^2/25+Y^2/9=1$，点 $P=(3,12/5)$。
+验证 $9/25+(144/25)/9=1$，故 $P$ 在椭圆上。切线为
 \[
-\sin\theta=\frac{2t}{1+t^2},\qquad
-\cos\theta=\frac{1-t^2}{1+t^2}.
+\frac{3}{25}X+\frac{4}{15}Y=1\quad\Longleftrightarrow\quad 9X+20Y=75.
 \]
-把它们代入 (1)，并乘以 $(1+t^2)^2$：
+因此可取 $\vec n=(9,20)$，切向量可取 $(20,-9)$，数量积 $180-180=0$。
+而 $\overrightarrow{OP}=(3,12/5)$ 与法向量一般不平行。
+\input{assets/tikz/C083_tangent_normal_vectors.tex}
+\textbf{记忆：写切线，取系数，得法向量。}任意非零倍数也是法向量。
+
+\textbf{第二步：证明距离极值点满足法线条件。}
+令 $F(\theta)=MP^2=(x-x_0)^2+(y-y_0)^2$。
+由连续性和周期性，最大、最小值均能取得。求导得
+\[
+F'(\theta)=2(x-x_0)x'+2(y-y_0)y'
+=2\overrightarrow{MP}\cdot\vec v.
+\]
+极值点处 $F'=0$，故 $\overrightarrow{MP}\perp\vec v$。于是存在实数 $\lambda$ 使
+\[
+\boxed{\overrightarrow{PM}=\lambda\vec n.}
+\]
+\input{assets/tikz/C083_nearest_farthest_normals.tex}
+
+\textbf{第三步：从向量平行得到坐标。}
+\[
+\begin{cases}x_0-x=\lambda x/a^2,\\y_0-y=\lambda y/b^2.\end{cases}
+\]
+分别乘以 $a^2,b^2$ 并移项：
+\[
+(a^2+\lambda)x=a^2x_0,\quad (b^2+\lambda)y=b^2y_0.
+\]
+当两个系数均非零时，
+\[
+x=\frac{a^2x_0}{a^2+\lambda},\quad y=\frac{b^2y_0}{b^2+\lambda}.
+\]
+代回椭圆方程得到
+\[
+G(\lambda)=\frac{a^2x_0^2}{(a^2+\lambda)^2}+\frac{b^2y_0^2}{(b^2+\lambda)^2}=1.
+\]
+\textbf{第四步：证明唯一正根存在。}
+外点条件给出 $G(0)=x_0^2/a^2+y_0^2/b^2>1$，且 $G(\lambda)\to0$（$\lambda\to+\infty$）。
+对于 $\lambda\ge0$，
+\[
+G'(\lambda)=-\frac{2a^2x_0^2}{(a^2+\lambda)^3}-\frac{2b^2y_0^2}{(b^2+\lambda)^3}<0.
+\]
+因为 $x_0,y_0$ 不同时为零，故 $G$ 严格递减；连续性保证恰有一个正根。
+
+\textbf{第五步：证明该正根对应全局唯一最近点，而非仅仅驻点。}
+设正根对应点为 $P=(x,y)$，任取椭圆上另一点 $R=(u,v)$。
+由两点均在椭圆上，展开得
+\[
+0=\frac{u^2-x^2}{a^2}+\frac{v^2-y^2}{b^2}
+=2\vec n\cdot\overrightarrow{PR}+\frac{(u-x)^2}{a^2}+\frac{(v-y)^2}{b^2}.
+\]
+又 $\overrightarrow{MR}=\overrightarrow{PR}-\lambda\vec n$，故
 \[
 \begin{aligned}
-0={}&2(a^2-b^2)t(1-t^2)\\
-   &-2ax_0t(1+t^2)\\
-   &+by_0(1-t^2)(1+t^2).
+MR^2-MP^2&=PR^2-2\lambda\vec n\cdot\overrightarrow{PR}\\
+&=\left(1+\frac{\lambda}{a^2}\right)(u-x)^2
++\left(1+\frac{\lambda}{b^2}\right)(v-y)^2.
 \end{aligned}
 \]
-展开、整理后得到关于 $t$ 的四次以内方程：
-\[
-\boxed{\begin{aligned}
-0={}&by_0t^4+2(a^2-b^2+ax_0)t^3\\
-   &+2(ax_0-a^2+b^2)t-by_0.
-\end{aligned}}
-\tag{2}
-\]
+由于 $\lambda>0$，右边非负，且仅当 $R=P$ 时为零。因此 $P$ 是全局唯一最近点。最后代入两点距离公式求 $d_{\min}$。
 
-\textbf{第三步：还原点并比较。}
-对 (2) 的每个\textbf{实根} $t$，
-还原椭圆上的候选点
+\textbf{第六步：最远点如何处理？}
+最远点同样满足法线条件，但不能只取正根。求全部实数 $\lambda$ 对应的有效点并比较距离。清分母后的方程为
 \[
-P_t=\left(a\frac{1-t^2}{1+t^2},
-            b\frac{2t}{1+t^2}\right).
+a^2x_0^2(b^2+\lambda)^2+b^2y_0^2(a^2+\lambda)^2
+=(a^2+\lambda)^2(b^2+\lambda)^2.
 \]
-再\textbf{单独检查}万能代换未覆盖的
-$\theta=\pi$，即 $P_\pi=(-a,0)$。
-比较所有候选点的
-\[
-MP^2=(x-x_0)^2+(y-y_0)^2
-\]
-的最小值和最大值，最后分别开方。
+若 $\lambda=-a^2$，必须 $x_0=0$，由 $(b^2-a^2)y=b^2y_0$ 求 $y$，再由椭圆方程求所有实数 $x$；若 $\lambda=-b^2$，必须 $y_0=0$，同理先求 $x$ 再求 $y$。不满足条件则舍去。
+若某候选点满足 $\lambda<-a^2$，第五步差值恒为负（除 $R=P$），所以它就是唯一最远点；其他情况按候选点比较即可。
+\end{proofbox}
 
-由一元可导周期函数的极值必要条件，
-全局距离最值必在这些候选点中取得，故方法成立。
+\begin{proofbox}
+	\textbf{方法二：三角参数与万能代换。}
+
+	椭圆动点设为
+	\[
+		P(\theta)=(a\cos\theta,b\sin\theta).
+	\]
+	由两点距离公式，
+	\[
+		F(\theta)=(a\cos\theta-x_0)^2
+		+(b\sin\theta-y_0)^2.
+	\]
+	由于 $F$ 连续且以 $2\pi$ 为周期，
+	它在一整周上能取到最大值和最小值。
+
+	\textbf{第一步：求导。}
+	\[
+		\begin{aligned}
+			F'(\theta)
+			={} & -2a(a\cos\theta-x_0)\sin\theta  \\
+			    & +2b(b\sin\theta-y_0)\cos\theta.
+		\end{aligned}
+	\]
+	令 $F'(\theta)=0$，整理得
+	\[
+		(a^2-b^2)\sin\theta\cos\theta
+		-ax_0\sin\theta+by_0\cos\theta=0.\tag{1}
+	\]
+
+	\textbf{第二步：统一消去三角函数。}
+	令 $t=\tan\frac{\theta}{2}$（暂不取 $\theta=\pi$），
+	则
+	\[
+		\sin\theta=\frac{2t}{1+t^2},\qquad
+		\cos\theta=\frac{1-t^2}{1+t^2}.
+	\]
+	把它们代入 (1)，并乘以 $(1+t^2)^2$：
+	\[
+		\begin{aligned}
+			0={} & 2(a^2-b^2)t(1-t^2)   \\
+			     & -2ax_0t(1+t^2)       \\
+			     & +by_0(1-t^2)(1+t^2).
+		\end{aligned}
+	\]
+	展开、整理后得到关于 $t$ 的四次以内方程：
+	\[
+		\boxed{\begin{aligned}
+				0={} & by_0t^4+2(a^2-b^2+ax_0)t^3 \\
+				     & +2(ax_0-a^2+b^2)t-by_0.
+			\end{aligned}}
+		\tag{2}
+	\]
+
+	\textbf{第三步：还原点并比较。}
+	对 (2) 的每个\textbf{实根} $t$，
+	还原椭圆上的候选点
+	\[
+		P_t=(a\cos\theta,b\sin\theta)=\left(a\frac{1-t^2}{1+t^2},
+		b\frac{2t}{1+t^2}\right).
+	\]
+	这里直接把 $\cos\theta=(1-t^2)/(1+t^2)$ 和 $\sin\theta=2t/(1+t^2)$ 代入 $x=a\cos\theta$、$y=b\sin\theta$，无需先求出角 $\theta$。
+	再\textbf{单独检查}万能代换未覆盖的
+	$\theta=\pi$，即 $P_\pi=(-a,0)$。
+	比较所有候选点的
+	\[
+		MP^2=(x-x_0)^2+(y-y_0)^2
+	\]
+	的最小值和最大值，最后分别开方。
+
+	由一元可导周期函数的极值必要条件，
+	全局距离最值必在这些候选点中取得，故方法成立。
 \end{proofbox}

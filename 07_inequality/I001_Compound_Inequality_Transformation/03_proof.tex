@@ -1,62 +1,101 @@
 \begin{proofbox}
-\textbf{\textcolor{CProof}{思路提示}}
+\textbf{\textcolor{CProof}{思路提示}} 令 $t=f(x)$，始终假设 $M>N$ 且 $x\in D$。保留原文四步转换路线，每步分别验证正向和反向。
+\begin{description}[style=nextline,leftmargin=2.8em,labelsep=0.5em,itemsep=0.55em]
+\item[\textbf{步骤一（乘积形式）：}]
+\textbf{正向：} 从 $N<t<M$ 出发，将其拆成 $t>N$ 与 $t<M$。
+分别减去 $N$ 和 $M$，得到
+\[t-N>0,\qquad t-M<0.\]
+一正一负相乘为负，因此
+\[(t-M)(t-N)<0.\]
+\textbf{反向：} 若 $(t-M)(t-N)<0$，两因式异号，只有两种情况：
+\[
+\begin{cases}t-M<0,\\t-N>0\end{cases}
+\quad\text{或}\quad
+\begin{cases}t-M>0,\\t-N<0.\end{cases}
+\]
+第一种分别移项得 $t<M$、$t>N$，即 $N<t<M$。
+第二种分别移项得 $t>M$、$t<N$，于是 $M<t<N$，推出 $M<N$，与已知 $M>N$ 矛盾。
+故只能是第一种，得到
+\[N<t<M\iff(t-M)(t-N)<0.\]
+\item[\textbf{步骤二（绝对值形式）：}]
+\textbf{正向：} 从乘积形式配方。先展开：
+\begin{align*}
+(t-M)(t-N)&=t^2-Nt-Mt+MN\\
+&=t^2-(M+N)t+MN.
+\end{align*}
+一次项系数的一半为 $-(M+N)/2$，其平方为 $(M+N)^2/4$。同时加上并减去这个数，不改变原式：
+\begin{align*}
+(t-M)(t-N)&=t^2-(M+N)t\\
+&\quad+\frac{(M+N)^2}{4}-\frac{(M+N)^2}{4}+MN\\
+&=\left(t-\frac{M+N}{2}\right)^2
+-\frac{M^2+2MN+N^2-4MN}{4}\\
+&=\left(t-\frac{M+N}{2}\right)^2
+-\frac{M^2-2MN+N^2}{4}\\
+&=\left(t-\frac{M+N}{2}\right)^2
+-\left(\frac{M-N}{2}\right)^2.
+\end{align*}
+令 $C=(M+N)/2$，$R=(M-N)/2$。因为 $M>N$，所以 $R>0$。
+若乘积为负，将上述恒等式代入：
+\[(t-C)^2-R^2<0.\]
+两边加上 $R^2$，得 $(t-C)^2<R^2$。
+因为 $|t-C|\ge0$ 且 $R>0$，平方在非负数范围内保持大小关系，所以开平方得到 $|t-C|<R$。
 
-从几何意义入手：$f(x)$ 在数轴上介于 $N$ 和 $M$ 之间。代数上，通过移项、乘除、配方等基本操作，可导出各种等价形式。注意每一步的可逆性。
+\textbf{反向：} 若 $|t-C|<R$，两边均非负，平方得
+\[|t-C|^2<R^2.\]
+利用 $|t-C|^2=(t-C)^2$，再两边减去 $R^2$，得到
+\[(t-C)^2-R^2<0.\]
+代入刚才的配方恒等式，得到 $(t-M)(t-N)<0$。故两形式等价。
+\item[\textbf{步骤三（分式形式）：}]
+\textbf{正向：} 由 $N<t<M$ 分别移项，得 $t-N>0$ 和 $M-t>0$。
+分母严格为正，故不为零；正数除以正数仍为正：
+\[\frac{t-N}{M-t}>0.\]
+\textbf{反向：} 若上式成立，则 $M-t\ne0$，且分子分母同号。设 $A=t-N$，$B=M-t$，则
+\[A+B=t-N+M-t=M-N>0.\]
+若 $A<0,B<0$，则 $A+B<0$，与上式矛盾。因此两者只能同时为正，即
+\[t-N>0,\qquad M-t>0.\]
+分别移项得 $t>N$、$t<M$，合并即 $N<t<M$。故两形式等价。
+\item[\textbf{步骤四（倒数形式）：}]
+\textbf{正向（保留分式过渡）：} 由分式形式及步骤三，知 $t-N>0$、$M-t>0$。
+将正分式取倒数，仍为正：
+\[\frac{M-t}{t-N}>0.\]
+分子写成 $(M-N)-(t-N)$，于是
+\begin{align*}
+\frac{(M-N)-(t-N)}{t-N}&>0\\
+\frac{M-N}{t-N}-1&>0\\
+\frac{M-N}{t-N}&>1\\
+\frac1{t-N}&>\frac1{M-N}.
+\end{align*}
+最后一步除以正数 $M-N$，不等号方向不变。
 
-\medskip
-\textbf{\textcolor{CProof}{正式推导}}
-\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.55em]
-    \item[\textbf{步骤一（乘积形式）：}] 由 $N < f(x) < M$ 出发。
-    \[
-    N < f(x) < M \quad \Rightarrow \quad f(x)-N > 0 \ \text{且} \ f(x)-M < 0
-    \]
-    \par\textbf{理由：}
-    将不等式拆分为两个部分，分别移项。由于 $f(x)-N > 0$ 和 $f(x)-M < 0$，两者异号，乘积为负。
-    \[
-    (f(x)-M)(f(x)-N) < 0
-    \]
-    反之，若 $(f(x)-M)(f(x)-N) < 0$，则 $f(x)-M$ 与 $f(x)-N$ 异号。结合 $M > N$，可推出 $f(x)-M < 0$ 且 $f(x)-N > 0$，即 $N < f(x) < M$。故等价。
+\textbf{正向（原文直接方法）：} 由 $N<t<M$，三部分同时减去 $N$：
+\[0<t-N<M-N.\]
+两个量 $t-N$ 与 $M-N$ 都为正数。函数 $y=1/u$ 在 $u>0$ 时递减，故取倒数后大小关系反转：
+\[\frac1{t-N}>\frac1{M-N}.\]
+\textbf{反向：} 若倒数不等式成立，由 $M-N>0$ 知右边为正，故左边也为正。这说明 $t-N>0$（且倒数存在）。两个正数取倒数后大小关系反转，所以
+\[t-N<M-N.\]
+合并得 $0<t-N<M-N$，三部分同时加上 $N$，得到 $N<t<M$。
+因此原文的正值条件可以保留作为操作提醒，但它并非额外假设。
 
-    \item[\textbf{步骤二（绝对值形式）：}] 从乘积形式配方。
-    \[
-    (f(x)-M)(f(x)-N) = \left( f(x) - \frac{M+N}{2} \right)^2 - \left( \frac{M-N}{2} \right)^2
-    \]
-    \par\textbf{理由：}
-    直接展开并配方。由于 $(f(x)-M)(f(x)-N) < 0$，代入得
-    \[
-    \left( f(x) - \frac{M+N}{2} \right)^2 - \left( \frac{M-N}{2} \right)^2 < 0
-    \]
-    移项后即
-    \[
-    \left| f(x) - \frac{M+N}{2} \right| < \frac{M-N}{2}
-    \]
-    反之，从绝对值形式可反向推导至乘积形式，故等价。
-
-    \item[\textbf{步骤三（分式形式）：}] 由 $N < f(x) < M$ 直接构造。
-    \[
-    N < f(x) < M \quad \Rightarrow \quad f(x)-N > 0 \ \text{且} \ M-f(x) > 0
-    \]
-    \par\textbf{理由：}
-    由于 $f(x)-N > 0$ 和 $M-f(x) > 0$，两者均为正，比值大于零。
-    \[
-    \frac{f(x)-N}{M-f(x)} > 0
-    \]
-    反之，若 $\frac{f(x)-N}{M-f(x)} > 0$，则分子分母同号。但 $M-f(x) > 0$ 必成立（否则分母非正时不等式可能不成立），故 $f(x)-N > 0$，结合 $M-f(x) > 0$ 得 $N < f(x) < M$。故等价。
-
-    \item[\textbf{步骤四（倒数形式）：}] 在 $f(x)-N > 0$ 条件下，从分式形式变形。
-    \[
-    \frac{f(x)-N}{M-f(x)} > 0 \quad \text{且} \quad f(x)-N > 0
-    \]
-    \par\textbf{理由：}
-    由分式形式，分子分母同正，故 $M-f(x) > 0$。取倒数，注意正数倒数保持不等号方向。但更直接地，从 $N < f(x) < M$ 有 $0 < f(x)-N < M-N$。由于函数 $\frac{1}{t}$ 在 $t>0$ 时递减，所以
-    \[
-    \frac{1}{f(x)-N} > \frac{1}{M-N}
-    \]
-    反之，若 $\frac{1}{f(x)-N} > \frac{1}{M-N}$ 且 $f(x)-N > 0$，则由于 $\frac{1}{t}$ 递减，有 $f(x)-N < M-N$，即 $f(x) < M$。结合 $f(x)-N > 0$ 得 $N < f(x) < M$。故在条件下等价。
+\textbf{补充证明（作差通分）：} 由 $N<t<M$ 知 $t-N>0$、$M-t>0$，且 $M-N>0$。
+\begin{align*}
+\frac1{t-N}-\frac1{M-N}
+&=\frac{(M-N)-(t-N)}{(t-N)(M-N)}\\
+&=\frac{M-t}{(t-N)(M-N)}>0.
+\end{align*}
+分子、分母均为正，故差为正，即所证。
+反之，倒数不等式说明 $1/(t-N)>1/(M-N)>0$，所以 $t-N>0$。通分后上式的分母为正；由于差为正，分子 $M-t>0$。于是 $N<t<M$。
 \end{description}
-
 \medskip
 \textbf{\textcolor{CProof}{结论回扣}}
-
-\textbf{综上所述，在条件 $M > N$ 下，五个命题彼此等价。在实际应用中，可根据问题特点选择最方便的形式进行推导或求解。}
+\begin{center}
+\begin{tikzpicture}[every node/.style={draw,rounded corners,align=center,font=\small}]
+\node (a) at (0,0){原始形式};
+\node (b) at (-2.3,-1.3){乘积形式};
+\node (c) at (-2.3,-2.6){绝对值形式};
+\node (d) at (2.3,-1.3){分式形式};
+\node (e) at (2.3,-2.6){倒数形式};
+\draw[<->] (a)--(b);\draw[<->] (b)--(c);\draw[<->] (a)--(d);\draw[<->] (d)--(e);
+\end{tikzpicture}
+\end{center}
+在 $M>N$ 且函数值为实数的条件下，五种形式彼此等价；每条转换均可逆。
 \end{proofbox}

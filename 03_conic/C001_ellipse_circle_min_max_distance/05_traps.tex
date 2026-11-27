@@ -1,144 +1,75 @@
 \begin{trapbox}
+\begin{minipage}{\linewidth}
+\textbf{易错一：把圆周当成圆盘，误把包含情形的距离算成零。}
+下图固定 $E:x^2/4+y^2=1$、$\Gamma:x^2+y^2=9$，两图比例相同。
+左边的目标只有橙色边界；右边的目标还包括浅橙色内部。
+\input{assets/tikz/C001_circle_vs_disk.tex}
+\end{minipage}
+\textbf{错因：}目标集合不同。到圆周的最近距离是 $3-2=1$；
+到圆盘则可取 $P=Q$，最近距离为0。一般地，
+\[
+ D_{\min}^{\text{圆周}}=\min_{t\in[d_{\min},d_{\max}]}|t-r|,
+ \qquad D_{\min}^{\text{圆盘}}=\max\{d_{\min}-r,0\}.
+\]
+\end{trapbox}
 
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
+\begin{trapbox}
+\begin{minipage}{\linewidth}
+\textbf{易错二：直接写 $D_{\min}=|d_{\min}-r|$。}
+下图使用例2的两条曲线：$E:x^2/4+y^2=1$，$\Gamma:(x-1)^2+y^2=4$。
+\input{assets/tikz/C001_intersection_distance.tex}
+\end{minipage}
+\textbf{错因：}只看距离范围的下端点，漏掉了中间可以取到的距离。
+图中 $A$ 是公共点，取 $P=Q=A$ 即得 $D_{\min}=0$；
+错误公式却给出 $|\sqrt{2/3}-2|=2-\sqrt{2/3}>0$。
+\textbf{正确做法：}先求\textbf{整个区间}，当 $r$ 落在其中时，最小距离为零。
+\end{trapbox}
 
-		\item[\textbf{\textcolor{CTrap}{易错点一（把圆周误解成圆面）}}]
-		      看到“圆”就默认理解成圆面或圆盘。
+\begin{trapbox}
+\begin{minipage}{\linewidth}
+\textbf{易错三：把最远距离也写成差。}
+下图使用例1的两条曲线。对离圆心最远的椭圆点 $P_2$，
+应选圆心另一侧的 $Q_2$，而不是与 $P_2$ 同侧的 $Q_1$。
+\input{assets/tikz/C001_external_distance.tex}
+\end{minipage}
+\textbf{错因：}把“离圆心最远”误当成“再减去半径”。
+$P_2Q_1=5-2=3$ 只是这一配对的距离；图中还有更远的配对
+$P_2Q_2=5+2=7$。
+\textbf{正确做法：}选取 $P_2,M,Q_2$ 依次共线，得到 $D_{\max}=d_{\max}+r$。
+\end{trapbox}
 
-		\item[\textbf{\textcolor{CTrap}{正确理解（本文研究圆周）：}}]
-		      本文中的圆 $\Gamma$ 指圆周
-		      \[
-			      (x-x_0)^2+(y-y_0)^2=r^2,
-		      \]
-		      不是圆面
-		      \[
-			      (x-x_0)^2+(y-y_0)^2\le r^2.
-		      \]
+\begin{trapbox}
+\begin{minipage}{\linewidth}
+\textbf{易错四：把 $r<d_{\min}$ 一律当成外离。}
+下面固定同一椭圆 $E:x^2/4+y^2=1$ 和同一半径 $r=1/2$，
+只把圆心从 $M(0,0)$ 移到 $M(4,0)$；两幅图比例相同。
+\input{assets/tikz/C001_trap_inside_vs_outside.tex}
+\end{minipage}
+\textbf{错因：}把“无公共点”误当成“圆一定在椭圆外”。
+左图小圆完全在椭圆内，右图两曲线外离，但两图都满足 $r<d_{\min}$。
+\textbf{正确做法：}先由不等式判断两条边界无公共点，再看圆心及圆周的具体位置。
+\end{trapbox}
 
-		\item[\textbf{\textcolor{CTrap}{错因分析（对象不同）：}}]
-		      若研究的是圆周，则
-		      \[
-			      D_{\min}=
-			      \begin{cases}
-				      d_{\min}-r, & r<d_{\min},                \\[1mm]
-				      0,          & d_{\min}\le r\le d_{\max}, \\[1mm]
-				      r-d_{\max}, & r>d_{\max}.
-			      \end{cases}
-		      \]
-		      若研究的是圆面，则最小距离应为
-		      \[
-			      D_{\min}^{\text{圆面}}=
-			      \begin{cases}
-				      d_{\min}-r, & r<d_{\min},    \\[1mm]
-				      0,          & r\ge d_{\min}.
-			      \end{cases}
-		      \]
-		      两者不能混用。
+\begin{trapbox}
+\begin{minipage}{\linewidth}
+\textbf{易错五：只检查 $F'(\theta)=0$ 就求圆周距离。}
+下图使用例2的 $F(\theta)=3\cos^2\theta-4\cos\theta+2$ 和 $r=2$。
+\input{assets/tikz/C001_stationary_vs_intersection.tex}
+\end{minipage}
+\textbf{错因：}圆心距离平方的极值点，不等同于两条曲线之间最近距离的全部候选点。
+红点处 $F=r^2=4$，距离 $|\sqrt F-r|=0$，但曲线在这里仍在上升或下降，
+并非 $F$ 的驻点。
+\textbf{正确做法：}先求 $F$ 的完整值域，再对 $|\sqrt F-r|$ 求最小值；
+半径落在距离范围内时不能漏掉零距离。
+\end{trapbox}
 
-	\end{description}
-
-	\medskip
-
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-
-		\item[\textbf{\textcolor{CTrap}{易错点二（混淆距离定义）}}]
-		      误认为
-		      \[
-			      D_{\min}=|d_{\min}-r|
-		      \]
-		      可以直接计算。
-
-		\item[\textbf{\textcolor{CTrap}{正确理解（分段处理）：}}]
-		      必须分三种情况：
-		      \[
-			      r<d_{\min},\qquad d_{\min}\le r\le d_{\max},\qquad r>d_{\max}.
-		      \]
-		      对应地，
-		      \[
-			      D_{\min}=
-			      \begin{cases}
-				      d_{\min}-r, & r<d_{\min},                \\[1mm]
-				      0,          & d_{\min}\le r\le d_{\max}, \\[1mm]
-				      r-d_{\max}, & r>d_{\max}.
-			      \end{cases}
-		      \]
-
-		\item[\textbf{\textcolor{CTrap}{错因分析（忽略区间）：}}]
-		      $PM$ 的取值范围是整个区间 $[d_{\min},d_{\max}]$。
-		      当 $r$ 落在这个区间内时，可以取到 $PM=r$，此时椭圆与圆周有公共点，最小距离为 $0$。
-
-	\end{description}
-
-	\medskip
-
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-
-		\item[\textbf{\textcolor{CTrap}{易错点三（最大距离公式错用）}}]
-		      误以为最大距离为
-		      \[
-			      |d_{\max}-r|
-		      \]
-		      或
-		      \[
-			      d_{\max}-r.
-		      \]
-
-		\item[\textbf{\textcolor{CTrap}{正确理解（最远距离恒为相加）：}}]
-		      最大距离恒为
-		      \[
-			      D_{\max}=d_{\max}+r,
-		      \]
-		      与相交、外离、内含等位置关系无关。
-
-		\item[\textbf{\textcolor{CTrap}{错因分析（方向取反）：}}]
-		      对固定的椭圆点 $P$，圆周上离 $P$ 最远的点在圆心 $M$ 的另一侧。
-		      此时 $P,M,Q$ 三点共线，且 $M$ 位于 $P,Q$ 之间，所以
-		      \[
-			      PQ=PM+r.
-		      \]
-
-	\end{description}
-
-	\medskip
-
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-
-		\item[\textbf{\textcolor{CTrap}{易错点四（误判位置关系）}}]
-		      认为
-		      \[
-			      r<d_{\min}
-		      \]
-		      就一定表示“圆在椭圆外且外离”。
-
-		\item[\textbf{\textcolor{CTrap}{正确理解（不能只凭一个不等式判断外内）：}}]
-		      $r<d_{\min}$ 只能说明圆周与椭圆没有公共点，并且
-		      \[
-			      D_{\min}=d_{\min}-r.
-		      \]
-		      但此时圆周可能在椭圆外部，也可能在椭圆内部。
-
-		\item[\textbf{\textcolor{CTrap}{反例提醒：}}]
-		      若圆心 $M$ 是椭圆中心，且半径 $r$ 很小，则可能有
-		      \[
-			      r<d_{\min},
-		      \]
-		      但小圆周显然位于椭圆内部，而不是椭圆外部。
-
-	\end{description}
-
-	\medskip
-
-	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.35em]
-
-		\item[\textbf{\textcolor{CTrap}{易错点五（分类遗漏）}}]
-		      只考虑 $r<d_{\min}$ 一种情况，忽略 $d_{\min}\le r\le d_{\max}$ 或 $r>d_{\max}$。
-
-		\item[\textbf{\textcolor{CTrap}{正确理解（完整分类）：}}]
-		      必须根据 $r$ 与 $d_{\min},d_{\max}$ 的大小关系完整分类，不可遗漏。
-
-		\item[\textbf{\textcolor{CTrap}{错因分析（思维定势）：}}]
-		      受直线与圆位置关系“相离、相切、相交”的影响，容易忽略圆周把椭圆包在内部的情形。
-
-	\end{description}
-
+\begin{trapbox}
+\begin{minipage}{\linewidth}
+\textbf{边界补充：圆心在椭圆上，也不能把固定点到圆周的距离当成零。}
+取 $E:x^2/4+y^2=1$、$M(2,0)$，圆周半径为1。
+\input{assets/tikz/C001_trap_center_on_ellipse.tex}
+\end{minipage}
+$M\in E$ 只说明 $d_{\min}=0$。若固定 $P=M$，圆周上任意点 $Q$ 都满足
+$PQ=r$，故 $|PM-r|=PM+r=r$，不是零。
+\textbf{注意：}这说的是固定 $P=M$ 后的距离；整条椭圆与圆周的距离仍须按完整公式求解。
 \end{trapbox}

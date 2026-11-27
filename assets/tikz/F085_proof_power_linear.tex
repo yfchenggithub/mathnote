@@ -1,0 +1,50 @@
+% F085｜真实数学图；代表函数不构成抽象解的唯一性证明。
+\begin{center}
+\begin{minipage}{.49\linewidth}\centering
+\begin{tikzpicture}
+\begin{axis}[width=6.1cm,height=4.8cm,axis lines=middle,
+ xmin=-0.2,xmax=3.5,ymin=-0.5,ymax=10.8,
+ xtick={0,1,2,3},xticklabels=\empty,ytick={0,1,4,9},xlabel={$t$},ylabel={$f(t)$},
+ title={幂：乘法作用于横坐标与高度},title style={font=\small,yshift=3pt},
+ tick label style={font=\small},label style={font=\small},
+ ylabel style={at={(axis description cs:0,1)},anchor=south east,xshift=-18pt},
+ clip=false,grid=major,grid style={black!8},enlargelimits=false,
+ every axis plot/.append style={thick},samples=161]
+\addplot[CExplanation,very thick,domain=0:3.1] {x^2};
+\draw[dashed,black!35] (axis cs:1,0) |- (axis cs:0,1);
+\draw[dashed,black!35] (axis cs:2,0) |- (axis cs:0,4);
+\draw[dashed,black!35] (axis cs:3,0) |- (axis cs:0,9);
+\addplot[only marks,mark=*,mark size=2pt,orange!80!black] coordinates {(1,1) (2,4) (3,9)};
+
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:1,-0.5) {$1$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:2,-0.5) {$2$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:3,-0.5) {$3$};
+
+\end{axis}
+\end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}{.49\linewidth}\centering
+\begin{tikzpicture}
+\begin{axis}[width=6.1cm,height=4.8cm,axis lines=middle,
+ xmin=-0.2,xmax=3.5,ymin=-0.4,ymax=7.5,
+ xtick={0,1,2,3},xticklabels=\empty,ytick={0,2,4,6},xlabel={$t$},ylabel={$f(t)$},
+ title={正比例：加法作用于横坐标与高度},title style={font=\small,yshift=3pt},
+ tick label style={font=\small},label style={font=\small},
+ ylabel style={at={(axis description cs:0,1)},anchor=south east,xshift=-18pt},
+ clip=false,grid=major,grid style={black!8},enlargelimits=false,
+ every axis plot/.append style={thick},samples=161]
+\addplot[CExplanation,very thick,domain=0:3.1] {2*x};
+\draw[dashed,black!35] (axis cs:1,0) |- (axis cs:0,2);
+\draw[dashed,black!35] (axis cs:2,0) |- (axis cs:0,4);
+\draw[dashed,black!35] (axis cs:3,0) |- (axis cs:0,6);
+\addplot[only marks,mark=*,mark size=2pt,orange!80!black] coordinates {(1,2) (2,4) (3,6)};
+
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:1,-0.4) {$1$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:2,-0.4) {$2$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:3,-0.4) {$3$};
+
+\end{axis}
+\end{tikzpicture}
+\end{minipage}
+\par\small 左图 $f(\sqrt2\cdot\sqrt2)=f(\sqrt2)^2=4$；右图 $f(1+2)=f(1)+f(2)=6$。
+\end{center}

@@ -1,0 +1,26 @@
+% F085｜真实数学图；代表函数不构成抽象解的唯一性证明。
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[width=12.4cm,height=5.1cm,axis lines=middle,
+ xmin=-0.3,xmax=8.9,ymin=-2.7,ymax=3.8,
+ xtick={1,2,4,8},xticklabels=\empty,ytick={-2,-1,0,1,2,3},xlabel={$t$},ylabel={$f(t)$},
+ title={对数曲线 $f(t)=\log_2t$},title style={font=\small,yshift=3pt},
+ tick label style={font=\small},label style={font=\small},
+ ylabel style={at={(axis description cs:0,1)},anchor=south east,xshift=-18pt},
+ clip=false,grid=major,grid style={black!8},enlargelimits=false,
+ every axis plot/.append style={thick},samples=161]
+\addplot[CExplanation,very thick,domain=0.2:8.3] {ln(x)/ln(2)};
+\draw[dashed,black!35] (axis cs:2,0) |- (axis cs:0,1);
+\draw[dashed,black!35] (axis cs:4,0) |- (axis cs:0,2);
+\draw[dashed,black!35] (axis cs:8,0) |- (axis cs:0,3);
+\addplot[only marks,mark=*,mark size=2pt,orange!80!black] coordinates {(2,1) (4,2) (8,3)};
+
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:1,-2.7) {$1$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:2,-2.7) {$2$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:4,-2.7) {$4$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:8,-2.7) {$8$};
+
+\end{axis}
+\end{tikzpicture}
+\par\small 输入从 $2$ 到 $4$ 再到 $8$，每次乘 $2$；高度从 $1$ 到 $2$ 再到 $3$，每次加 $1$。
+\end{center}

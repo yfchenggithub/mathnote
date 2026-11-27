@@ -1,8 +1,12 @@
 \begin{examplebox}
-	\textbf{\textcolor{CExample}{例 1（基础）}}
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExample}{例 1（基础）}}
 
 	\textbf{\textcolor{CExample}{题目：}}
-	求函数 $f(x) = x^5 + 2^x + \log_3 x + \sin x$ 的导数.
+	求函数 $f(x) = x^5 + 2^x + \log_3 x + \sin x$（$x>0$）的导数.
+\input{assets/tikz/F049_exercise_1.tex}
+
+\end{minipage}
 
 	\textbf{\textcolor{CExample}{解题步骤：}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
@@ -31,10 +35,17 @@
 	对于基本初等函数的线性组合，只需分别求导后相加即可.
 
 	\medskip
-	\textbf{\textcolor{CExample}{例 2（稍变形）}}
+\end{examplebox}
+
+\begin{examplebox}
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExample}{例 2（稍变形）}}
 
 	\textbf{\textcolor{CExample}{题目：}}
-	求函数 $g(x) = 5e^x - 4\ln x + 3\cos x$ 的导数.
+	求函数 $g(x) = 5e^x - 4\ln x + 3\cos x$（$x>0$）的导数.
+\input{assets/tikz/F049_exercise_2.tex}
+
+\end{minipage}
 
 	\textbf{\textcolor{CExample}{解题步骤：}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
@@ -61,13 +72,20 @@
 	\end{description}
 
 	\textbf{\textcolor{CExample}{关键结论：}}
-	常数因子直接保留，对数项系数转移到分母.
+	常数因子直接保留；自然对数的导数为 $1/x$，所以 $-4\ln x$ 的导数为 $-4/x$.
 
 	\medskip
-	\textbf{\textcolor{CExample}{例 3（综合应用）}}
+\end{examplebox}
+
+\begin{examplebox}
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExample}{例 3（综合应用）}}
 
 	\textbf{\textcolor{CExample}{题目：}}
 	求曲线 $y = x^3 + \ln x$ 在点 $(1,1)$ 处的切线方程.
+\input{assets/tikz/F049_exercise_3.tex}
+
+\end{minipage}
 
 	\textbf{\textcolor{CExample}{解题步骤：}}
 	\begin{description}[style=nextline, leftmargin=2.8em, labelsep=0.5em, itemsep=0.45em]
@@ -99,4 +117,119 @@
 
 	\textbf{\textcolor{CExample}{关键结论：}}
 	切线斜率的计算直接依赖基本导数公式; 点斜式写出切线方程.
+
+\medskip
 \end{examplebox}
+
+\begin{examplebox}
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExample}{例 4（倒数、根式与定义域）}}
+
+求 $f(x)=\sqrt{x}+2/x-3\sqrt[3]x$ 的导数。
+\input{assets/tikz/F049_exercise_4.tex}
+
+\end{minipage}
+
+第一步：根式要求 $x\ge0$，分母要求 $x\ne0$，故 $x>0$。
+
+第二步：逐项应用公式，
+\[
+\begin{aligned}
+f'(x)&=(\sqrt x)'+2(1/x)'-3(\sqrt[3]x)'\\
+&=\frac1{2\sqrt x}-\frac2{x^2}-\frac1{\sqrt[3]{x^2}}.
+\end{aligned}
+\]
+\textbf{关键结论：} 先确定原函数定义域，再改写为幂函数。
+
+\medskip
+\end{examplebox}
+
+\begin{examplebox}
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExample}{例 5（正切与余切）}}
+
+求 $f(x)=\tan x+\cot x$ 的导数并求 $f'(\pi/4)$。
+\input{assets/tikz/F049_exercise_5.tex}
+
+\end{minipage}
+
+第一步：$\sin x\cos x\ne0$。第二步：
+\[
+f'(x)=\frac1{\cos^2x}-\frac1{\sin^2x}.
+\]
+第三步：$\sin(\pi/4)=\cos(\pi/4)=\sqrt2/2$，故 $f'(\pi/4)=2-2=0$。
+
+\textbf{关键结论：} 正切、余切导数符号相反。
+
+\medskip
+\end{examplebox}
+
+\begin{examplebox}
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExample}{例 6（绝对值的折点）}}
+
+判断 $f(x)=|x-2|$ 在 $x=2$ 处是否可导，并写出其他点的导数。
+\input{assets/tikz/F049_exercise_6.tex}
+
+\end{minipage}
+\[
+f(x)=\begin{cases}2-x,&x<2,\\x-2,&x\ge2.\end{cases}
+\]
+当 $x<2$，$f'(x)=-1$；当 $x>2$，$f'(x)=1$。在 $x=2$ 处，差商是 $|h|/h$，左极限为 $-1$，右极限为 $1$，故不可导。
+
+\textbf{关键结论：} 连续不等于可导，折点要比较左右差商。
+
+\medskip
+\end{examplebox}
+
+\begin{examplebox}
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExample}{例 7（变指数与单调性）}}
+
+求 $y=x^x$（$x>0$）的最小值。
+\input{assets/tikz/F049_exercise_7.tex}
+
+\end{minipage}
+\[
+\begin{aligned}
+y&=e^{x\ln x},\\
+y'&=e^{x\ln x}(\ln x+1)=x^x(\ln x+1).
+\end{aligned}
+\]
+因 $x^x>0$，导数符号由 $\ln x+1$ 决定。令 $\ln x+1=0$ 得 $x=1/e$。在 $(0,1/e)$ 上导数为负，在 $(1/e,+\infty)$ 上导数为正，故最小值为 $(1/e)^{1/e}=e^{-1/e}$。
+
+\medskip
+\end{examplebox}
+
+\begin{examplebox}
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExample}{例 8（复合对数）}}
+
+求 $f(x)=\ln|x^2-4|$ 的导数。
+\input{assets/tikz/F049_exercise_8.tex}
+
+\end{minipage}
+首先 $x\ne\pm2$，设 $u=x^2-4$，则 $u'=2x$，
+\[
+f'(x)=\frac{u'}u=\frac{2x}{x^2-4}\quad(x\ne\pm2).
+\]
+\textbf{关键结论：} 对数中的绝对值允许负的内层函数值，但不能为零。
+
+\medskip
+\end{examplebox}
+
+\begin{examplebox}
+\begin{minipage}{\linewidth}
+\textbf{\textcolor{CExample}{例 9（反三角拓展）}}
+
+求 $y=\arctan(2x)$ 在原点处的切线。
+\input{assets/tikz/F049_exercise_9.tex}
+
+\end{minipage}
+令 $u=2x$，$u'=2$，得
+\[
+y'=\frac{2}{1+4x^2},\qquad y'(0)=2,\quad y(0)=0.
+\]
+切线方程为 $y=2x$。这是复合求导的拓展示例，不要求高考直接记忆反三角公式。
+\end{examplebox}
+

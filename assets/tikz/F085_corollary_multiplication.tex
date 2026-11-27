@@ -1,0 +1,52 @@
+% F085｜真实数学图；代表函数不构成抽象解的唯一性证明。
+\begin{center}
+\begin{minipage}{.49\linewidth}\centering
+\begin{tikzpicture}
+\begin{axis}[width=6.1cm,height=4.8cm,axis lines=middle,
+ xmin=-0.2,xmax=4.6,ymin=-2,ymax=3.1,
+ xtick={1,2,4},xticklabels=\empty,ytick={-1,0,1,2},xlabel={$t$},ylabel={$f(t)$},
+ title={对数：$f(t)=\log_2t$},title style={font=\small,yshift=3pt},
+ tick label style={font=\small},label style={font=\small},
+ ylabel style={at={(axis description cs:0,1)},anchor=south east,xshift=-18pt},
+ clip=false,grid=major,grid style={black!8},enlargelimits=false,
+ every axis plot/.append style={thick},samples=161]
+\addplot[CExplanation,very thick,domain=.3:4.1] {ln(x)/ln(2)};
+\draw[dashed,black!35] (axis cs:0.5,0) |- (axis cs:0,-1);
+\draw[dashed,black!35] (axis cs:1,0) |- (axis cs:0,0);
+\draw[dashed,black!35] (axis cs:2,0) |- (axis cs:0,1);
+\draw[dashed,black!35] (axis cs:4,0) |- (axis cs:0,2);
+\addplot[only marks,mark=*,mark size=2pt,orange!80!black] coordinates {(0.5,-1) (1,0) (2,1) (4,2)};
+
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:1,-2) {$1$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:2,-2) {$2$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:4,-2) {$4$};
+
+\end{axis}
+\end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}{.49\linewidth}\centering
+\begin{tikzpicture}
+\begin{axis}[width=6.1cm,height=4.8cm,axis lines=middle,
+ xmin=-0.2,xmax=4.6,ymin=-1,ymax=18,
+ xtick={1,2,4},xticklabels=\empty,ytick={0,4,8,16},xlabel={$t$},ylabel={$f(t)$},
+ title={幂型：$f(t)=t^2$},title style={font=\small,yshift=3pt},
+ tick label style={font=\small},label style={font=\small},
+ ylabel style={at={(axis description cs:0,1)},anchor=south east,xshift=-18pt},
+ clip=false,grid=major,grid style={black!8},enlargelimits=false,
+ every axis plot/.append style={thick},samples=161]
+\addplot[CExplanation,very thick,domain=.2:4.1] {x^2};
+\draw[dashed,black!35] (axis cs:0.5,0) |- (axis cs:0,0.25);
+\draw[dashed,black!35] (axis cs:1,0) |- (axis cs:0,1);
+\draw[dashed,black!35] (axis cs:2,0) |- (axis cs:0,4);
+\draw[dashed,black!35] (axis cs:4,0) |- (axis cs:0,16);
+\addplot[only marks,mark=*,mark size=2pt,orange!80!black] coordinates {(0.5,0.25) (1,1) (2,4) (4,16)};
+
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:1,-1) {$1$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:2,-1) {$2$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:4,-1) {$4$};
+
+\end{axis}
+\end{tikzpicture}
+\end{minipage}
+\par\small 看 $t=2\to4=2^2$：左图高度加倍 $1\to2$，右图高度平方 $4\to16$；倒数输入 $1/2$ 分别对应负值与倒数值。
+\end{center}

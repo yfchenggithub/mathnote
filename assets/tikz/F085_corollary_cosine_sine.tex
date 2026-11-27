@@ -1,0 +1,47 @@
+% F085｜真实数学图；代表函数不构成抽象解的唯一性证明。
+\begin{center}
+\begin{minipage}{.49\linewidth}\centering
+\begin{tikzpicture}
+\begin{axis}[width=6.1cm,height=4.8cm,axis lines=middle,
+ xmin=-0.2,xmax=3.6,ymin=-1.4,ymax=1.5,
+ xtick={0,1.047198,2.094395,3.141593},xticklabels=\empty,ytick={-1,0,1},xlabel={$t$},ylabel={$f(t)$},
+ title={余弦：输入加倍，高度平方后变换},title style={font=\small,yshift=3pt},
+ tick label style={font=\small},label style={font=\small},
+ ylabel style={at={(axis description cs:0,1)},anchor=south east,xshift=-18pt},
+ clip=false,grid=major,grid style={black!8},enlargelimits=false,
+ every axis plot/.append style={thick},samples=161]
+\addplot[CExplanation,very thick,domain=0:3.2] {cos(deg(x))};
+\draw[dashed,black!35] (axis cs:1.0471975511965976,0) |- (axis cs:0,0.5);
+\draw[dashed,black!35] (axis cs:2.0943951023931953,0) |- (axis cs:0,-0.5);
+\addplot[only marks,mark=*,mark size=2pt,orange!80!black] coordinates {(1.04719755,0.5) (2.0943951,-0.5)};
+
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:1.047198,-1.4) {$\pi/3$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:2.094395,-1.4) {$2\pi/3$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:3.141593,-1.4) {$\pi$};
+
+\end{axis}
+\end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}{.49\linewidth}\centering
+\begin{tikzpicture}
+\begin{axis}[width=6.1cm,height=4.8cm,axis lines=middle,
+ xmin=-0.2,xmax=2.9,ymin=-0.3,ymax=1.5,
+ xtick={0,0.523599,1.570796},xticklabels=\empty,ytick={0,0.5,1},xlabel={$t$},ylabel={$f(t)$},
+ title={正弦：用中点和半差配对},title style={font=\small,yshift=3pt},
+ tick label style={font=\small},label style={font=\small},
+ ylabel style={at={(axis description cs:0,1)},anchor=south east,xshift=-18pt},
+ clip=false,grid=major,grid style={black!8},enlargelimits=false,
+ every axis plot/.append style={thick},samples=161]
+\addplot[CExplanation,very thick,domain=0:2.5] {sin(deg(x))};
+\draw[dashed,black!35] (axis cs:0.5235987755982988,0) |- (axis cs:0,0.5);
+\draw[dashed,black!35] (axis cs:1.5707963267948966,0) |- (axis cs:0,1);
+\addplot[only marks,mark=*,mark size=2pt,orange!80!black] coordinates {(0.523598776,0.5) (1.57079633,1)};
+
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:0.523599,-0.3) {$\pi/6$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:1.570796,-0.3) {$\pi/2$};
+
+\end{axis}
+\end{tikzpicture}
+\end{minipage}
+\par\small 左图 $t=\pi/3\to2\pi/3$；右图 $m=\pi/2,n=\pi/6$，中点 $x=\pi/3$，半差 $y=\pi/6$，故乘积 $1/2=3/4-1/4$。
+\end{center}

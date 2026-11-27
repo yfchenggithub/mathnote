@@ -1,0 +1,46 @@
+% F085｜真实数学图；代表函数不构成抽象解的唯一性证明。
+\begin{center}
+\begin{minipage}{.49\linewidth}\centering
+\begin{tikzpicture}
+\begin{axis}[width=6.1cm,height=4.8cm,axis lines=middle,
+ xmin=-0.1,xmax=1.5,ymin=-0.2,ymax=3.8,
+ xtick={0,0.523599,1.047198},xticklabels=\empty,ytick={0,1,2,3},xlabel={$t$},ylabel={$f(t)$},
+ title={正切二倍角：$\tan t$},title style={font=\small,yshift=3pt},
+ tick label style={font=\small},label style={font=\small},
+ ylabel style={at={(axis description cs:0,1)},anchor=south east,xshift=-18pt},
+ clip=false,grid=major,grid style={black!8},enlargelimits=false,
+ every axis plot/.append style={thick},samples=161]
+\addplot[CExplanation,very thick,domain=0:1.27] {tan(deg(x))};
+\draw[dashed,black!35] (axis cs:0.5235987755982988,0) |- (axis cs:0,0.5773502691896258);
+\draw[dashed,black!35] (axis cs:1.0471975511965976,0) |- (axis cs:0,1.7320508075688772);
+\addplot[only marks,mark=*,mark size=2pt,orange!80!black] coordinates {(0.523598776,0.577350269) (1.04719755,1.73205081)};
+
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:0.523599,-0.2) {$\pi/6$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:1.047198,-0.2) {$\pi/3$};
+
+\end{axis}
+\end{tikzpicture}
+\end{minipage}\hfill
+\begin{minipage}{.49\linewidth}\centering
+\begin{tikzpicture}
+\begin{axis}[width=6.1cm,height=4.8cm,axis lines=middle,
+ xmin=-0.1,xmax=1.5,ymin=-0.2,ymax=3.8,
+ xtick={0,0.523599,1.047198},xticklabels=\empty,ytick={0,1,2,3},xlabel={$t$},ylabel={$f(t)$},
+ title={余切二倍角：$\cot t$},title style={font=\small,yshift=3pt},
+ tick label style={font=\small},label style={font=\small},
+ ylabel style={at={(axis description cs:0,1)},anchor=south east,xshift=-18pt},
+ clip=false,grid=major,grid style={black!8},enlargelimits=false,
+ every axis plot/.append style={thick},samples=161]
+\addplot[CExplanation,very thick,domain=.27:1.45] {cos(deg(x))/sin(deg(x))};
+\draw[dashed,black!35] (axis cs:0.5235987755982988,0) |- (axis cs:0,1.7320508075688772);
+\draw[dashed,black!35] (axis cs:1.0471975511965976,0) |- (axis cs:0,0.5773502691896258);
+\addplot[only marks,mark=*,mark size=2pt,orange!80!black] coordinates {(0.523598776,1.73205081) (1.04719755,0.577350269)};
+
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:0.523599,-0.2) {$\pi/6$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:1.047198,-0.2) {$\pi/3$};
+
+\end{axis}
+\end{tikzpicture}
+\end{minipage}
+\par\small 同一输入 $\pi/6\to\pi/3$：正切高度 $1/\sqrt3\to\sqrt3$，余切高度 $\sqrt3\to1/\sqrt3$；二倍输入处必须有定义。
+\end{center}

@@ -1,0 +1,32 @@
+% F086｜平方根的快速估算与精度控制｜02_explanation.tex
+% 继承上传模板的 LaTeX 环境；当前条目的内容独立编写。
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{为什么忽略一小块}}
+\par\medskip
+\begin{center}
+\input{assets/tikz/F086_square.tex}
+\end{center}
+\medskip
+边长为 $t+h$ 的正方形拆成 $t^2$、两个 $th$ 长条和角上 $h^2$ 小方块。若 $h$ 很小，则 $h^2$ 比 $2th$ 更小，所以先算 $h\approx(A-t^2)/(2t)$。若 $h$ 不小，不能任意省略。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{放大被开方数为什么可能更准}}
+\par\medskip
+\begin{center}
+\input{assets/tikz/F086_compare.tex}
+\end{center}
+\medskip
+直接取 $t=1$ 估 $\sqrt2$，得到 $1.5$，明显偏大。改用 $\sqrt2=\sqrt{200}/10$，在 $14^2=196$ 附近计算：\[\sqrt{200}\approx14+\frac4{28}=14.142857,\qquad\sqrt2\approx1.414286.\]这里修正量相对于基础数更小，误差因此大幅缩小；但放大倍数不是越大越适合手算。
+\end{explanationbox}
+\clearpage
+\begin{explanationbox}
+\textbf{\textcolor{CExplanation}{到底能保证几位小数}}
+\par\medskip
+\begin{center}
+\input{assets/tikz/F086_round.tex}
+\end{center}
+\medskip
+先构造能确认的上下界，例如 $3.162^2=9.998244<10<10.004569=3.163^2$，所以 $3.162<\sqrt{10}<3.163$。若要四舍五入到 $0.001$，还必须比对 $3.1625^2$；因为 $3.1625^2=10.00140625>10$，故 $\sqrt{10}$ 在 $3.1625$ 左边，取三位小数为 $3.162$。
+\end{explanationbox}

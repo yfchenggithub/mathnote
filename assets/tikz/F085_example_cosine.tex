@@ -1,0 +1,27 @@
+% F085｜真实数学图；代表函数不构成抽象解的唯一性证明。
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[width=12.4cm,height=5.1cm,axis lines=middle,
+ xmin=-0.2,xmax=6.5,ymin=-1.5,ymax=1.5,
+ xtick={0,1,2,3,4,5,6},xticklabels=\empty,ytick={-1,-0.5,0,0.5,1},xlabel={$t$},ylabel={$f(t)$},
+ title={例 5 的代表曲线 $\cos(\pi t/3)$},title style={font=\small,yshift=3pt},
+ tick label style={font=\small},label style={font=\small},
+ ylabel style={at={(axis description cs:0,1)},anchor=south east,xshift=-18pt},
+ clip=false,grid=major,grid style={black!8},enlargelimits=false,
+ every axis plot/.append style={thick},samples=161]
+\addplot[CExplanation,very thick,domain=0:6.1] {cos(60*x)};
+\draw[dashed,black!35] (axis cs:1,0) |- (axis cs:0,0.5);
+\draw[dashed,black!35] (axis cs:2,0) |- (axis cs:0,-0.5);
+\addplot[only marks,mark=*,mark size=2pt,orange!80!black] coordinates {(1,0.5) (2,-0.5)};
+
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:1,-1.5) {$1$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:2,-1.5) {$2$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:3,-1.5) {$3$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:4,-1.5) {$4$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:5,-1.5) {$5$};
+\node[font=\small,anchor=north,yshift=-3pt] at (axis cs:6,-1.5) {$6$};
+
+\end{axis}
+\end{tikzpicture}
+\par\small 二倍输入的高度由 $f(2)=2f(1)^2-1$ 确定；图中横轴是 $t$，不是弧度角 $\pi t/3$。
+\end{center}
