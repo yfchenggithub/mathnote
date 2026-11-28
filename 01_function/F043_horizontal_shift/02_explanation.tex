@@ -14,6 +14,7 @@
     \qquad \boxed{y=(x+2)^2}.
   \]
   所以\textbf{不是“往左走就加”，而是“新位置要找回原来的输入”。}
+  右移 $2$ 格时，顶点变成 $(2,0)$；令括号里的输入仍为 $0$，即 $2-2=0$，得到 $y=(x-2)^2$。
 
   \medskip
   \textbf{\textcolor{CExplanation}{第二步：追踪同一个点，彻底弄懂}}
@@ -38,9 +39,47 @@
   \textbf{\textcolor{CExplanation}{什么时候用最快？}}
   \begin{itemize}[leftmargin=*,itemsep=0.35em]
     \item \textbf{给方向、给距离：} 直接把原式中所有 $x$ 整体替换，再按需化简。
-    \item \textbf{求平移了多少：} 优先找顶点、对称轴或同一高度的对应点，比展开式子快。
+    \item \textbf{求平移了多少：} 优先找顶点、对称轴或已经确认对应的点，比展开式子快；仅仅等高不一定就是对应点。
     \item \textbf{有定义域限制：} 图像移到哪，能取的横坐标就跟到哪。
   \end{itemize}
 
   \textbf{\textcolor{CExplanation}{顿悟一句话：}}点向左走，横坐标减；\textbf{写新函数要找回旧位置，所以 $x$ 加。}
+
+  \medskip
+  \textbf{\textcolor{CExplanation}{拓展｜同一图像，两种变换：$\ln(ex)$ 与 $\ln x$}}
+
+  设 $f(x)=\ln x$，$g(x)=\ln(ex)$，定义域均为 $x>0$。
+  由于 $e>0$，由对数的运算性质，
+  \[
+    g(x)=\ln(ex)=\ln e+\ln x=1+\ln x.
+  \]
+  \textbf{看法一：纵向上移 $1$ 个单位。}
+  保持横坐标不变，纵坐标增加 $1$：
+  \[
+    (u,\ln u)\longmapsto (u,\ln u+1),\qquad u>0.
+  \]
+  例如，$f(1)=0$，$g(1)=1$，所以 $(1,0)\longmapsto(1,1)$。
+
+  \textbf{看法二：横向压缩为原来的 $\dfrac1e$。}
+  因为 $g(x)=f(ex)$，要保持原来 $u$ 处的高度不变，只需令
+  \[
+    ex=u\quad\Longrightarrow\quad x=\frac{u}{e},
+    \qquad g\left(\frac{u}{e}\right)=f(u).
+  \]
+  因此 $(u,\ln u)\longmapsto (u/e,\ln u)$。例如，原图像上
+  $\ln e=1$，新图像上 $\ln(e\cdot1)=1$，所以 $(e,1)\longmapsto(1,1)$。
+  同理，原零点 $(1,0)$ 横向压缩后为 $(1/e,0)$。
+  \begin{center}
+    \input{assets/tikz/F043_horizontal_shift_02_explanation_02.tex}
+  \end{center}
+  \textbf{对照记忆：}上移时固定横坐标；横向压缩时固定纵坐标。
+  两种变换得到同一条图像，但原图像与新图像之间的点的对应方式不同。
+  横向压缩不是向左平移固定距离：原横坐标 $u$ 变成 $u/e$，减少量为 $u(1-1/e)$，随 $u$ 改变。
+  两种变换都保持定义域 $(0,+\infty)$，竖直渐近线仍为 $x=0$。
+
+  \textbf{一般推广：}若 $a>0$，则 $\ln(ax)=\ln x+\ln a$（$x>0$）。
+  当 $a>1$ 时，可看成上移 $\ln a$ 或横向压缩为原来的 $1/a$；
+  当 $0<a<1$ 时，可看成下移 $-\ln a$ 或横向拉伸为原来的 $1/a$；$a=1$ 时不变。
+  这是对数函数的特殊性质，不能对任意 $f(x)$ 直接套用。
+
 \end{explanationbox}
