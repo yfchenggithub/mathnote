@@ -1,0 +1,19 @@
+\begin{center}
+\begin{minipage}{\linewidth}\centering
+\begin{tikzpicture}[x=1.65cm,y=1.65cm,>=stealth,font=\small,line cap=round,line join=round]
+\draw[->,gray!75] (-0.35,0)--(4.96,0) node[right=3pt]{$x$};
+\draw[->,gray!75] (0,-0.35)--(0,4.96) node[above=3pt]{$y$};
+\node at (-.3,.4) {$O$};
+\draw[gray,dashed] (-0.15,-0.15)--(4.8,4.8) node[above left=3pt]{$y=x$};
+
+\draw[teal,very thick,domain=0:1.5,samples=100] plot({1+\x},{2+\x*\x});
+\draw[blue,very thick,domain=0:1.5,samples=100] plot({2+\x*\x},{1+\x});
+\draw[orange!80!black,densely dotted] (1,2)--(2,1);
+\fill[teal] (1,2) circle(2pt) node[left=6pt]{$(1,2)$};
+\fill[blue] (2,1) circle(2pt) node[below=6pt]{$(2,1)$};
+
+\end{tikzpicture}\par\smallskip
+{\small \textcolor{teal}{\rule[.5ex]{1em}{.8pt}\ $y=(x-1)^2+2,\ x\ge1$}\qquad\textcolor{blue}{\rule[.5ex]{1em}{.8pt}\ $y=1+\sqrt{x-2},\ x\ge2$}}\par
+{\small 原端点 $(1,2)$ 变为 $(2,1)$，范围限制随坐标一起交换。}\par\smallskip
+\end{minipage}
+\end{center}

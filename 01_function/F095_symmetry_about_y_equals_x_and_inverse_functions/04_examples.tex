@@ -1,0 +1,101 @@
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例1：求点与直线的镜像（入门）}}
+\input{assets/tikz/F095_line}
+
+求点 $P(1,3)$ 与直线 $y=2x+1$ 关于 $y=x$ 的镜像。
+
+\textbf{解：}点交换坐标得 $P'(3,1)$。直线交换变量得 $x=2y+1$，移项得 $2y=x-1$，所以 $\boxed{y=(x-1)/2}$。原斜率为 $2$，镜像为 $1/2$，不是 $-1/2$。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例2：求指数函数的反函数（基础）}}
+\input{assets/tikz/F095_exp_log}
+
+求 $f(x)=2^x$ 的反函数及定义域。
+
+\textbf{解：}原定义域为 $\mathbb R$，值域为 $(0,+\infty)$，且严格递增。交换得 $x=2^y$，根据对数定义 $y=\log_2 x$，故 $\boxed{f^{-1}(x)=\log_2 x,\ x>0}$。验证：$\log_2(2^x)=x$，$2^{\log_2 x}=x$（$x>0$）。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例3：求二次函数的反函数（定义域）}}
+\input{assets/tikz/F095_shift_square}
+
+设 $f(x)=(x-1)^2+2,\ x\ge1$，求反函数。
+
+\textbf{第一步：}在 $[1,+\infty)$ 上严格递增，值域 $[2,+\infty)$。
+
+\textbf{第二步：}交换坐标得到 $x=(y-1)^2+2,\ y\ge1$。
+
+\textbf{第三步：}移项，$(y-1)^2=x-2$。因为 $y-1\ge0$，所以 $y-1=\sqrt{x-2}$。
+\[
+\boxed{f^{-1}(x)=1+\sqrt{x-2},\quad x\ge2}.
+\]
+原端点 $(1,2)$ 对应反函数端点 $(2,1)$。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例4：利用自身对称求抽象函数值}}
+\input{assets/tikz/F095_abstract_pair}
+
+已知 $f:\mathbb R\to\mathbb R$ 图象关于 $y=x$ 对称，且 $f(2)=5$，求 $f(5)$。
+
+\textbf{解：}点 $(2,5)$ 在图上，镜像 $(5,2)$ 也在图上，因此 $\boxed{f(5)=2}$。也可直接用 $f(f(2))=2$ 得到同一结论，不必求出解析式。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例5：求分式函数自身对称的参数}}
+\input{assets/tikz/F095_mobius}
+
+设 $f(x)=a+\dfrac{3}{x-2}$（$x\ne2$），求使原图自身关于 $y=x$ 对称的 $a$。
+
+\textbf{解：}定义域为 $\mathbb R\setminus\{2\}$，值域为 $\mathbb R\setminus\{a\}$。自身对称必有定义域等于值域，所以 $a=2$。
+
+验证：此时 $f(x)=2+3/(x-2)$，$f(x)\ne2$，且
+\[
+ f(f(x))=2+\frac{3}{3/(x-2)}=x.
+\]
+故 $\boxed{a=2}$。先看定义域和值域，往往比直接复合计算更快。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例6：求递增函数与反函数的交点}}
+\input{assets/tikz/F095_intersection}
+
+设 $f(x)=2x-1$，求 $y=f(x)$ 与 $y=f^{-1}(x)$ 的交点。
+
+\textbf{解法一（最快）：}原函数严格递增，交点在 $y=x$ 上。解 $2x-1=x$ 得 $x=1$，所以交点 $\boxed{(1,1)}$。
+
+\textbf{解法二：}反函数为 $y=(x+1)/2$，令 $2x-1=(x+1)/2$，得到 $4x-2=x+1$，即 $x=1,y=1$。第一种方法避免另求反函数。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例7：递减函数的交点不一定在轴上}}
+\input{assets/tikz/F095_self}
+
+求 $f(x)=1/x$（$x\ne0$）与其反函数的公共点，并判断是否都在 $y=x$ 上。
+
+\textbf{解：}由 $xy=1$ 交换不变，故 $f^{-1}=f$，整个双曲线都是公共点。比如 $(2,1/2)$ 不在 $y=x$ 上。若只解 $1/x=x$，只会得到 $(1,1),(-1,-1)$，漏掉其余所有点。它在每个正、负分支上严格递减，但在整个定义域上并非严格递减；若需要全域严格递减反例，取 $f(x)=3-x$，其图象同样与反函数完全重合。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例8：抛物线与切线变换（综合）}}
+\input{assets/tikz/F095_parabola}
+
+已知 $y^2=4x$ 及其上一点 $(1,2)$，求镜像曲线和对应点，并求两处切线斜率。
+
+\textbf{解：}交换变量得 $x^2=4y$，对应点 $(2,1)$。原曲线在该点附近为 $y=2\sqrt{x}$，故 $y'=1/\sqrt{x}$，在 $x=1$ 时斜率为 $1$。镜像曲线为 $y=x^2/4$，$y'=x/2$，在 $x=2$ 时斜率为 $1$，符合斜率互为倒数的规律。若取原点之外的 $(4,4)$，原斜率为 $1/2$，镜像斜率为 $2$。
+\end{examplebox}
+\clearpage
+\begin{examplebox}
+\textbf{\textcolor{CExample}{例9：反函数导数的对应点（拓展）}}
+\input{assets/tikz/F095_cube_derivative}
+
+设 $f(x)=x^3$，求其反函数在 $x=8$ 处的导数。
+
+\textbf{解：}先找原函数对应输入：$a^3=8$，所以 $a=2$。原函数导数 $f'(x)=3x^2$，$f'(2)=12\ne0$。原函数连续严格递增，反函数连续，故
+\[
+\boxed{(f^{-1})'(8)=1/f'(2)=1/12}.
+\]
+不要把 $8$ 直接代入原函数导数。
+\end{examplebox}

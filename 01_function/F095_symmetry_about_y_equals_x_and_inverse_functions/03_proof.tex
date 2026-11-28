@@ -1,0 +1,82 @@
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法一：中点与垂直法（门槛最低）}}
+\input{assets/tikz/F095_point}
+
+\begin{enumerate}[leftmargin=*,itemsep=.45em]
+\item 任取 $P(a,b)$，猜想镜像为 $Q(b,a)$。
+\item 中点 $M=\bigl((a+b)/2,(a+b)/2\bigr)$，两坐标相等，所以 $M\in y=x$。
+\item 若 $a\ne b$，$k_{PQ}=(a-b)/(b-a)=-1$，而对称轴斜率为 $1$，故 $PQ\perp y=x$。
+\item 对称轴垂直平分 $PQ$，所以两点关于 $y=x$ 对称。若 $a=b$，点在轴上，与自身重合。
+\end{enumerate}
+这证明交换坐标恰好就是轴对称，而不是只对某些特殊点成立。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法二：交换方程法（做题最快）}}
+\input{assets/tikz/F095_parabola}
+
+\begin{enumerate}[leftmargin=*,itemsep=.45em]
+\item 原曲线上任一点记为 $(u,v)$，满足 $F(u,v)=0$。
+\item 镜像点记为 $(x,y)=(v,u)$，故 $u=y,v=x$。
+\item 代回原式，得到 $F(y,x)=0$。
+\item 反过来，若 $(x,y)$ 满足 $F(y,x)=0$，则 $(y,x)$ 满足原式。再交换一次回到 $(x,y)$，因此所得方程不多不少恰为完整镜像。
+\end{enumerate}
+若原方程是 $v=f(u)$，代入得 $x=f(y)$。如果每个 $x\in E$ 仅对应一个 $y\in D$，即可写为 $y=f^{-1}(x)$。否则只能保留关系式或分支。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{方法三：输入与输出互换（标准法）}}
+\input{assets/tikz/F095_exp_log}
+
+设 $f:D\to E$ 一一对应，$E=f(D)$。
+\begin{enumerate}[leftmargin=*,itemsep=.45em]
+\item 任取 $a\in D$，令 $b=f(a)$，于是 $(a,b)$ 在原图上。
+\item 按反函数定义，输入 $b$ 后返回唯一的 $a$，即 $f^{-1}(b)=a$。
+\item 因而 $(b,a)$ 在反函数图上；反函数每一点也可这样还原到原图。
+\item 所以二者关于 $y=x$ 对称；并有 $f^{-1}(f(a))=a$，以及 $f(f^{-1}(b))=b$。
+\end{enumerate}
+\textbf{单调性：}设 $u<v$ 都在 $E$，令 $s=f^{-1}(u),t=f^{-1}(v)$。若 $f$ 严格递增，则 $s\ge t$ 会推出 $u\ge v$，矛盾，所以 $s<t$；若 $f$ 严格递减，$s\le t$ 会推出 $u\ge v$，故 $s>t$。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{推论一：自身对称的充要条件}}
+\input{assets/tikz/F095_self}
+
+\textbf{必要性：}若原图自身关于 $y=x$ 对称，任取 $x\in D$，点 $(x,f(x))$ 的镜像 $(f(x),x)$ 仍在原图。于是 $f(x)\in D$ 且 $f(f(x))=x$。
+
+\textbf{充分性：}若 $f(D)\subseteq D$ 且任意 $x\in D$ 均满足 $f(f(x))=x$，则 $(f(x),x)$ 正是原图上一点。任一点镜像仍在原图；反射两次为原点，所以整图重合。
+
+此外任取 $x\in D$，$x=f(f(x))\in f(D)$，所以 $D\subseteq f(D)$；结合原条件得 $f(D)=D$。若 $f(u)=f(v)$，两边再作用一次 $f$ 得 $u=v$，所以反函数存在且等于自身。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{推论二：严格递增函数的交点判定}}
+\input{assets/tikz/F095_intersection}
+
+若 $(a,b)$ 是原函数与反函数的交点，则 $b=f(a)$，且 $b=f^{-1}(a)$，后一式等价于 $a=f(b)$。因此 $a,b\in D$，并有
+\[
+ f(a)=b,\qquad f(b)=a.
+\]
+若 $a<b$，由严格递增得 $f(a)<f(b)$，代入即 $b<a$，矛盾；若 $a>b$ 同理矛盾。故 $a=b$。
+
+反过来，若 $a\in D$ 且 $f(a)=a$，则 $a\in E$，$f^{-1}(a)=a$，所以 $(a,a)$ 为公共点。因此严格递增时求交点与解 $f(x)=x$ 完全等价。
+
+若 $f$ 严格递增又自身对称，所有图上点都是交点，故 $f(x)=x$ 对所有 $x\in D$ 成立。
+\end{proofbox}
+\clearpage
+\begin{proofbox}
+\textbf{\textcolor{CProof}{推论三：切线斜率与反函数导数}}
+\input{assets/tikz/F095_slope}
+
+取 $b=f(a)$，另一点 $(a+h,f(a+h))$，设 $k=f(a+h)-f(a)$（这里 $k$ 表示增量，不是斜率）。因 $f$ 一一对应，$h\ne0$ 时 $k\ne0$。
+\[
+\frac{f^{-1}(b+k)-f^{-1}(b)}{k}
+=\frac{h}{k}=\frac{1}{[f(a+h)-f(a)]/h}.
+\]
+当 $k\to0$，由反函数在 $b$ 连续，$h\to0$。若 $f'(a)\ne0$，取极限得到
+\[
+\boxed{(f^{-1})'(b)=\frac1{f'(a)}}.
+\]
+适用条件：在 $a$ 附近的区间上可逆、原函数在 $a$ 可导且导数非零、反函数在 $b$ 连续。例如连续严格单调的函数满足所需的反函数连续性。若原导数为零，不能直接代公式。
+\end{proofbox}

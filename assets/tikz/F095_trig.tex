@@ -1,0 +1,20 @@
+\begin{center}
+\begin{minipage}{\linewidth}\centering
+\begin{tikzpicture}[x=1.7cm,y=1.7cm,>=stealth,font=\small,line cap=round,line join=round]
+\draw[->,gray!75] (-2.3,0)--(2.46,0) node[right=3pt]{$x$};
+\draw[->,gray!75] (0,-2.3)--(0,2.46) node[above=3pt]{$y$};
+\node at (-.3,.4) {$O$};
+\draw[gray,dashed] (-2.3,-2.3)--(2.3,2.3) node[above left=3pt]{$y=x$};
+
+\draw[teal,very thick,domain=-pi/2:pi/2,samples=121] plot(\x,{sin(\x r)});
+\draw[blue,very thick,domain=-pi/2:pi/2,samples=121] plot({sin(\x r)},\x);
+\fill[teal] ({pi/2},1) circle(2pt) node[right=5pt]{$(\pi/2,1)$};
+\fill[blue] (1,{pi/2}) circle(2pt) node[above=5pt]{$(1,\pi/2)$};
+\fill[teal] ({-pi/2},-1) circle(2pt) node[left=5pt]{$(-\pi/2,-1)$};
+\fill[blue] (-1,{-pi/2}) circle(2pt) node[below=5pt]{$(-1,-\pi/2)$};
+
+\end{tikzpicture}\par\smallskip
+{\small \textcolor{teal}{\rule[.5ex]{1em}{.8pt}\ $y=\sin x,\ |x|\le\pi/2$}\qquad\textcolor{blue}{\rule[.5ex]{1em}{.8pt}\ $y=\arcsin x,\ |x|\le1$}}\par
+{\small 实心端点互为镜像，两个闭区间的角色交换。}\par\smallskip
+\end{minipage}
+\end{center}
